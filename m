@@ -1,65 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792649354;
-	b=CKRH1mtyRh1kFsKjHgkoc3ZFh2VhJJ/BVcqI8Dg1ESerEHUnri9zD3CVGFu+Dd8pMVtg
-	 /CrdBmhVOiXQXN8pL7qfdWkeTtR+H4V5qPQQkofgckKUMKVVdD9abJm8r4yHOXUcrj9nf
-	 gGYw9P6q/i+n7xTw5M25wVg+tpprBBdp2a7J7NFus/1PvRLYgc2ZIeoAgD8bnu6Sebdut
-	 cA8ZeolgFoqRFFVoQHRV+JzXOp8nAOmWpGSgsE2iGKQcJhz+jpDA15SP0fpqPhTG2xybR
-	 YPv/eFK/v4RsD1lyfIgzSah0rCXXahSl6ymiPut5S1k4sxGFQCHMaAuje5RyBpLAqSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792649354;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=XQEbex78dJiZ6flYdEKHWa7WKCcFJQn3S3ebxGv69bQ=;
-	b=ysSxe7IaNEIZbjmlkPw+LhhOGEl/ji7uhjIDupfp3LOCT3uFuX7wsHtqsQrlIqMnXPyr
-	 hNJ4v7xMLr5MvW3SZ4daYUjd68epynGlPnId3ayWEH/p00iw+P5Tr87koIZhCbaFr0bsz
-	 hbzivNdjnPJImGeKCL8Xz8/Isczk9g0pZcTjk1OXjbIdmTjsphjqL69xPmZwsaudXWJNI
-	 Ol/wxajZb7XPktNGuq8jffvuSN0dmebHjWOidIILWbygGJQTvhyds5FLmXU0FFp1xwUjh
-	 o2qR8G2IWYfkG1fTkbHSJxJf8/z394yckfOTKVACciDXbCHnPAqqhUckwh0SIXpiQJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=dke68V5f;
-	arc=none smtp.remote-ip=43.163.128.54
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792649722;
+	b=nF0heh3Y+mz/VmN8dTFsvP74yhzqn2Ur9wES6pWyGJXEuIdDHcZ6k3HHsCxqaKn8ezEc
+	 GDVNbax+Okk7Xeymrw2N4Q9AcMc5Ex+zTUZtoGUm4+kNERI19b1vvr5hCiVQK+NTB9NzJ
+	 7LVqGoaQRvdU8v9mjfaIMWlUtOtnDlmxraZ1z6uxc4wg2JnHt/HpoSV0iuyUoKVr3u0R2
+	 +NBenGDZ5jcvob9SDFS9FQeaZ/gUi5BVG2+PJycjTUoI5O6fYMHFEvi3e3xnb00lKVDE9
+	 zZZRp/EVrQOKxKAmci3IOz4JsPKhSbYbYq9rG8Q1n+bt0GdP9PH+Toi7ayRkvGSeQPQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792649722;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
+	b=Tz2br9+bDE0dUUhulu2Gc3CAJIlJkwMNk9//GYKAmeHCKZW1D9LYmAdQ2SrAqknTnr2i
+	 URECnzORb9l7h+/C8d9kQmPLXUKr9G6qOnnMTAKpvoJRd9Pgl6uhHTJV6G7SWgS/217UP
+	 +VoqedklopZmEyoRXYMOkEtNfR1UwAsv4ucERU61KUH874eb0Uvfd/csFZhIjV4pbNpDs
+	 L1DH5S6kiuCX9UqXSq/4789MIztE6AJf0SRGmx9ElRpXKYhbnp65NK5ykIy9H+2s1EG5z
+	 ayRdbm24nA6LV9BhrLN1u3Ril96FL2G8xsbpmMOiuZdO5fE827YsIkYVrBGhBi8ALLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cKTdbRlH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C49606A326;
-	Thu, 22 Oct 2026 06:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C49606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5526E606A320
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 06:15:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5526E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=dke68V5f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792649345; bh=XQEbex78dJiZ6flYdEKHWa7WKCcFJQn3S3ebxGv69bQ=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=dke68V5fdaWoVr56UMQspozjY/X3+ezmVl9ttznTmfn1AOAaIZtld/5UOUeXPwKGP
-	 rJt/Nf5ihUDjUO7ePMWGVYS1Sse1xwkoHQZ2dSfbm5bY0+CYj9kDLcdz2sPZJ+Gmto
-	 coC7tKnQ3YX4cjCo5PjrmVoHWXIP/PaX0dWMTs0A=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-XMAILINFO: NsCqLbOOOuIqLRqC+FSlwScu91X/dvsM21w86Qepldmed9erOtty5JZbfypXor
-	 Z+W8O+qRKguP1gOe5jgtjB1OBSp3Z0CUpphBH8b1J3YTd1v2QGH/3+iQiID2HdSTyWc6Hqht2BGKE
-	 uotxFC3g6/P3V8I4Xjj708z2fqSIOzUFwSwzhTEHLSoCOhlApTu+7M943+yxFb7CTRz1FxldR6Wi9
-	 yiw/mmS6mw/xzXtrfQc24ZhI/enBE36ygOVydHWsjH9LyfbhDh9ByrFNJ/fsR04ZFRTRNM8w5I3g2
-	 WqJszElvpwOYJFzxLGvJ2ReXzajNsYHRNhSfUbXRX8bfAglK8yJmYWjcuhBBEavz7lPOKqqVBENXZ
-	 FW52p9cZ3pQVGaFF3UcMdDGFOBviVeBZCkLRINLo5IlUAZW1Wg1eW/urrzEjYt8xmjHk7rvHZGasP
-	 p9v0cgyp3Ir4WP+FEfQy+lUEGHXJigjMkD992wxlnskkUIFvMld7nHb0iCRaj9OBOfXD7pJ/gIpLQ
-	 scxS3EUml5N4kEXvuu3LXxufgq8JVlEJiUMu5ijnuLWHHi/cBD35fASiOHNDlHih9+HG3Imm6GBrU
-	 FbkwGjeB5qmvC6HEfc5EgNbByn7s3Xik+hVBijPxygwxu98unyy4JD5XXdYm9tRN+rHZndULE/nlt
-	 t5IuP3Sf8B/zENLz9PzmLTyXZhvEO/bACsik15vyKkGRl8YljJ3rR8vR0+4bGiZfOtrQ5jW4Vh8t7
-	 jlJl5bjOkANIQd/mnjopt4onu8RKx+dlAlTldKvvxEmSwW0ifKb8+3kp7xdCGhBi0GM7Umo52jzrq
-	 XKs7NtCCiBxXNFr1v6ZRJTu+tmnCVuwotxcoWE00rimlqOT/LEcaHHhxnGMkwPyBDt2eqMrmPKExV
-	 O6p4EPDtLdnh721MWleAnB2y117F+YwzjHHI95nkvcLVMxx38ce7WP2M+EyP76+iIoMOhWik1Yb62
-	 Cq1woms1pd0MEObSkwVrtYCqjjDBMF3RTB/+F0et9qm78nflM+aey5IpuGWz7KRw56l1j/EaukSqq
-	 sJ4u37ZbLyRuwChBhAw7pVxjoh5NQ8JmorbawI6TgldryQ4M=
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>
-Cc: "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, "=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 07/27] clk: rockchip: Add RK3572 clock and reset support
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cKTdbRlH
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8ac4806e210so14082947b3.1
+        for <devicetree@vger.kernel.org>; Wed, 21 Oct 2026 23:15:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792649721; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LQ/+t8u+mBzafW+MsDbAqZ0jY83ssZC1PbWfz2X6GZSMOthFyTM+3qEBeQxbZuBJob
+         RhSHWz4wCXiXu82knEDSjOh7Zabt3oO9ktdFyuXIdWwr4AtUe8II2fddJiOaYiyVbvyu
+         8+W0/27YLgwqIOles9QRJNlnVAWL6q08zwnW7BegaNnmSo0+wmza/zdshWbxNj7I/TDJ
+         8/Y8hr+xu9iWzj1T3hhUqG6yFoKQZwafWFSyy5t49rNRM1mVN2aLWh/N1TeZg/qL5RF3
+         4XV438V1jt53OzLWp/YQADjvEybHPyncaSnhck7YZ1MM1uBvKq/hu6oU6f34ebInjqXc
+         5hNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
+        fh=F5FSPRWYcQzJ7hzC4G0NxsDuZ2rolKsoUr4pZJ76+8Q=;
+        b=YNWsWRONjHRlAri5OklSXvsQPqdFgKGe/+ghT/z8qGI/SnJoKjxL23+iCEy2sFwUpO
+         H+roARG5vaLU1imwkqm/GzsEskWj7h6TtByGlr8nwxojQJl0CstHhMXTEWYbcEfIN3ac
+         gT1tXV+a4ztRBPKSyidcXU3691+gq2TQotPRq4E5lb7Sn0WH7AEGdU3j69kxdSUwsgdr
+         pkbbVYa9pQLSctKdtXu2DrtQKzh3iKFrVAN7Hr4JJL9sgEDdPjKJzflDEn4AMB8FYG2T
+         H8jhkTx1EnP2UU7HwB/X7bhPqI+PwOuK9LFjTayJi4m+IGEUyFL2t0D3zQzOI2W0g8Fj
+         hT9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792649721; x=1793254521; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
+        b=cKTdbRlH93tw3PHlpA+KIqygaBRjO0n5TBKcvu5IkjSlTY7T8koruWcRN9DthktJ3+
+         l3d7ex8Dt3ArSl3mOX+SL1D9ICQdP9zY9W5kdqc1YW7e3/fZWFt0QgnDzNNysDsrD6i0
+         8oCyZbNM+StCCCXlaJ6tYb6DfJ57pi/FEphV0G/XG73LIqojiujgd4bG2UT15GdWbPvG
+         Or4hdqQCCVAe7pxQ+xYwhylXBjJtRKZTU3KtqwG8zNPOGBMqkYA41bHh69Xh5aTA4TsM
+         1NRemldPZKt78zGFT50bVGLW/JPFgG8LGy2Wb3Sqxl18l8UcSjrw+VeZDPOaf6eZE2Vm
+         v2DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792649721; x=1793254521;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tNAW4moukw1CSqvHk1qqjH8bwOSbgrDYX8YbwR8FDio=;
+        b=IZ0bIFlj3eNr/PVTF89txyWDGNuOqx5JpAEOFokVJOW4aGtdJqe/BP0h1ZUxisjGt8
+         5cdeS9cPbgItkQZOHE++pAvTKZqTr+ICERYeQqy7Bfe128DTrqr7MnGpLefm26HMrR3B
+         O2zEonswqvXGix9iaH2slYJueAP8wNwMRro2drHUkd3d8MnYPPeZLflL1raINzdhzUHO
+         WEHD4weZD9RKkLbyffyneB2BUVWN3Lhfi1cR9vQYPbhJ9dVIZBqZQ/fbCTPSWTWySN2j
+         QaK4QTtogFiiHuL6kFth54VM03Rr0tC/RQ+vU7A50vTrfbGz9/80g9SH4UqXp4VQv5Iu
+         bZ0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByImSZaZ2qq4cj+R5M1t/1U5k1xGuTfJbNV3xS0AV2HjOMcLrF+doQfK/UbDSMPDA6Dm4OOs6yTeIB0@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRH1U/75pqxhsm7kOK99VTomlUxE7qxSF0/LifAnkufvyr3Ow4
+	F9K4LzK16D+Z+n1QuRrt+8a5oyI0aHoMrMZ+DHFNJstv9KLnY5E0VKvyNRoZnGFUJ8V6lYUHTCm
+	A5fIOuCDFvHig6lO2gB64vvLNO+V9FBw=
+X-Gm-Gg: AYBFou09QM8uBAy8ooxZFZQFnYEkHSA8EUgqgkWQwjvOlLZ/4r05b4X8yMu6SKUb0qr
+	LMbwV9ipmHOZWtrUnMyhIhQbFRvETvyNE4tFABkN+b6Nyuhv8Oa1f9uUOK23jubbjSTXAC+OVe1
+	b7VKKXcKxQhDhovKXcis70qMCcJaXPKRi7fBp8LTleLM5zYwZamARgcjXhrVbq2CtpC1zzvGusU
+	/a0ZpmNHvjgQTgw7I1d3Frt0DOzfBgvFuaE5ChpKFOPzBS5AZvpHgW1VczdSn7Jh5WZ/cHaTIn5
+	tqcf4gwkQ0JrWp2YVUP9W1HjvVJCqheWzQlCismhJKGrdO5b5jjUU2B42UKAb/Jgn+K9mZbPxfq
+	/wi0YXwGTvhFWNsGugvcZdbFS2mVwjVyl
+X-Received: by 2002:a05:690c:ec7:b0:8ac:cbaa:1704 with SMTP id
+ 00721157ae682-8b133fdcf05mr30804577b3.25.1792649721338; Wed, 21 Oct 2026
+ 23:15:21 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,39 +103,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 22 Oct 2026 14:09:02 +0800
-X-Priority: 3
-Message-ID: <tencent_791C8CE4050020CEF9E536C9D3B4CA9C250A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-7-0b0fd85a31ee@qq.com>
-	<2339330.72vocr9iq0@diego>
-In-Reply-To: <2339330.72vocr9iq0@diego>
-X-QQ-mid: xmsezb41-0t1792649342t4uw2xziw
+MIME-Version: 1.0
+References: <13181dfa-b92c-43b5-ae12-912abaf79c41@gmail.com>
+ <20261013015728.43307-1-liujianfeng1994@gmail.com> <74d7c3dc-0880-40a4-b056-f9a089a0ddc4@oss.qualcomm.com>
+In-Reply-To: <74d7c3dc-0880-40a4-b056-f9a089a0ddc4@oss.qualcomm.com>
+From: Kaipeng Zeng <kaipeng94@gmail.com>
+Date: Thu, 22 Oct 2026 14:15:09 +0800
+X-Gm-Features: AclHuK_IAy1t3yMlza72vaYDqeOJBevwsP67Waq6VJ7l78GWxOLa1DEch8zh9BE
+Message-ID: <CAHk8ZdvrVt8TkZrSd7qyzi5AirL+FtwUpHT0QLcUd5qBJmhy+w@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] Add device tree for Acer Swift Go Pro AI
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>, jactry92@gmail.com, andersson@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, konradybcio@kernel.org, 
+	krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org, robh@kernel.org, 
+	krzysztof.kozlowski@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSGVpa28sCgo+IEFzIHlvdSBkaWRuJ3Qgd3JpdGUgdGhpcyBkcml2ZXIgb24geW91ciBv
-d24gYW5kIGV2ZW4ga2VwdCB0aGUgb3JpZ2luYWwKPiBhdXRob3IsIHBsZWFzZSBhbHNvIGNy
-ZWRpdCB0aGUgb3JpZ2luYWwgYXV0aG9yIGluIHRoZSBjb21taXQgaXRzZWxmLgo+Cj4gVGhp
-cyBjYW4gYmUgZG9uZSBmb3IgZXhhbXBsZSB3aXRoIHNvbWV0aGluZyBsaWtlCj4gZ2l0IGNv
-bW1pdCAtLWFtZW5kIC0tYXV0aG9yPSJFbGFpbmUgWmhhbmcgPHpoYW5ncWluZ0Byb2NrLWNo
-aXBzLmNvbT4iCj4gYW5kIGluIHRoZSBjb21taXQgYWxzbyBoYXZlIGJvdGggc2lnbmVkLW9m
-ZnMtYnksIGFrYSBFbGFpbmUgZmlyc3QKPiB0aGVuIHlvdXJzIGJlbG93IGFzIHRoZSBzdWJt
-aXR0ZXIsIGkuZS4gbGlrZQo+Cj4gKysrKysrKysrKysKPiBTaWduZWQtb2ZmLWJ5OiBFbGFp
-bmUgWmhhbmcgPHpoYW5ncWluZ0Byb2NrLWNoaXBzLmNvbT4KPiBbZG9jdW1lbnQgd2hhdCBj
-aGFuZ2VzIHlvdSBkaWQgaW5zaWRlIHRoZSBicmFja2V0c10KPiBTaWduZWQtb2ZmLWJ5OiBD
-dW5oYW8gTHUgPDE1Nzk1Njc1NDBAcXEuY29tPgo+ICsrKysrKysrKysrCj4KPiBUaGUgc2Ft
-ZSBhcHBsaWVzIHRvIGFsbCBjb21taXRzIGNvbWluZyBmcm9tIHRoZSBSb2NrY2hpcCB2ZW5k
-b3Iga2VybmVsLgoKVGhhbmtzIGZvciBwb2ludGluZyB0aGlzIG91dCwgYW5kIHNvcnJ5IGZv
-ciBtaXNzaW5nIHRoZSBjb21taXQgYXV0aG9yc2hpcC4KCkknbGwgcmV2aWV3IGFsbCBwYXRj
-aGVzIGFuZCBhZGQgdGhlIG9yaWdpbmFsIGF1dGhvcnMnIG5hbWVzIHdoZXJlIG5lY2Vzc2Fy
-eS4KSG93ZXZlciwgYmVjYXVzZSB0aGUgQlNQIEkgcmVjZWl2ZWQgZG9lcyBub3QgaW5jbHVk
-ZSBHaXQgY29tbWl0IGhpc3RvcnksIEkgY2FuCm9ubHkgaWRlbnRpZnkgdGhlbSBmcm9tIHRo
-ZSBuYW1lcyBub3RlZCBpbiB0aGUgZmlsZSBoZWFkZXJzLgoKQmVzdCByZWdhcmRzLApDdW5o
-YW8=
+Hi Konrad,
 
+Thanks for your reply.
+
+On Wed, Oct 21, 2026 at 8:48=E2=80=AFPM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> This makes it sound like the retailer made up / confused some names,
+> let's just go with what the manufacturer says
+>
+
+Just want to make sure I don't misunderstand anything, if this is what
+you preferred:
+```
+model =3D "Acer Swift Go Pro AI (SFA14-11)";
+compatible =3D "acer,swift-sfa14-11", "qcom,x1e78100", "qcom,x1e80100";
+```
+Thanks.
