@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.31.198.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706605;
-	b=Teu4xUqo6tvPAHeUxYlBPM3efqNT9p3U4jnFCnzRlj0cjUMyRhtRr6zyfDS97CkD88PB
-	 TWk+uTBXAe3j5KF8IBPsJ4QR7/Zyhh+QmVCKbHsR6G0n0QKhb7OR2EouuvA2f+w4P7E2I
-	 cnO7gyTYWKaDLQ/C2ra/CI4KvH8bCNHg0ugsXkp1O9jCsqBlUuOz3Ae/4qQB/4kLJCx41
-	 y1tk0bSpE1rwRgIjPqXDaragERZlmb+5wYZjQixwgZll8UBcPxKWtKkRNqNPJwCCc5RPU
-	 XjHcYHgYlgSgS/WSxN8TSUpLRbyhx7uMSCc17nHA03jP6Y8LVspw27ZsjQlQFKphSRA==
+	t=1792709216;
+	b=fG5jJuNRKasQeFNQ5lfdOO+FbGfij8ll4sP6E+LRNDMCCwkPOfGxNiFteNFhJ+5cDJcA
+	 9U0H7qPzRIS0DxtbQ8+uMPwxwIB5W50vPK1b89j5Yg+3SNytN/EE3k+Xa79SLRFgLOMh0
+	 OnQMTsN/zgoxKDgzy5kWfGRYp2RqWThNQOyCEFLbvpl7pPaqYsNDv+EpjWZShNsGcJ8ef
+	 E7xBJC/C7q2PhJ/O0GOSa0LFSEDpIdy9YwSVNJZOaKPsL+m40vXax3WapBw5G9Jm3RIfk
+	 YDdIVD9eRLwG4iFfhLyhkcHYWwOgwbh/C5hQjTxmfVE60+XKSs36BO5C6R6pn2+/vGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706605;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709216;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:X-JNJ;
-	bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=;
-	b=lMkgLx3o8cMTeuXCVYqu8JTnb7Ahv7WP+XZeRBVu2FbvKVIBWtMzagsA0GL1mjFeK2+C
-	 rQzhfir+2dW2hUxbNvDvdqujoVgpCFNYIhfZu1B/m2DZa5TOxqui1F47Mk7Z2FqyzDfuH
-	 0dDxaUyBekSYZ9BhPmoJe4dsJM6QsOng67ECNKkT8WjtgezvErkSdCpjioYtTAnA8pFUP
-	 PrhtvKc8EVmflcfkRaElXq3tBacsphDgN9Ed9W+IOD17axxgpRDqPy2asoB8wJJMJLN3j
-	 w4WbUTc06whwEPh9eKzVJ9SYmMwFYMdYzEMA6jsS5UX2meWKHGJ9Yg1u9GXNX2gOOFw==
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=;
+	b=isSC3VZeSVX3UGCCFUMUnufuLFC3CNzx/48JzZ/jntmHVaHyWwRZvqzQ6/HTRrFcHvak
+	 ibD/pT5R84jcrFaTAvx4V7y0CTdSzVIyD5xlBIF6nbkXiboTX1ZChHSqYdAczi6MpDazY
+	 0gOQWOBuToU4FkRELG5vyATtd9ynQYbBedE9khmc6qJikns0mPnTA+Cu5OLHNU+3Gdwz4
+	 /20G41OkSSv+gHWIZOgCcUhWluPibtT7fjiCPsvYhhcUEdgghywJnaVvdq14cwV33mW00
+	 VStRK/Nb/HbW3DVthpCw3EgbE7NvG5ZNUtl2Nj+uKXuLJVr8C0nekBVE8QXD5IATLCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dxdmail.cc;
-	spf=pass smtp.mailfrom=dxdmail.cc;
-	dkim=pass header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN;
-	arc=none smtp.remote-ip=57.103.74.33
-Received: from outbound.ms.icloud.com (ms-2002g-snip4-11.eps.apple.com [57.103.74.33])
+	dmarc=none header.from=minlexx.ru;
+	spf=none smtp.mailfrom=minlexx.ru;
+	dkim=pass header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd;
+	arc=none smtp.remote-ip=31.31.198.150
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C6A606A327
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 22:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C6A606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dxdmail.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dxdmail.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A22606A325;
+	Thu, 22 Oct 2026 22:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A22606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id 2A28618001B8;
-	Thu, 22 Oct 2026 22:03:16 +0000 (UTC)
-X-ICL-RepId: 01a165a3-d0c6-7cb0-8e38-8e699bfd075f
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFBHV8DXhxCDFYCXwNLVxQEFlIOXx9yFEEcXgxeBxwTWlhVCQoPShRUGVoBGQhRUEsbDlwHS1oVVRcOAkIfUB9MFldDWhgcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKD0oUVBlaARkIUVBUEVdQC1xUEQFPV1QORlBJAUseWQUIAV1bHFBUGl5QQF9JAQgFDwRJCDhXFVMGUxlVVlAOCUtGCUkdDg5CGEYfVCdXAloKWx4=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxdmail.cc; s=sig1; t=1792706599; x=1824242599; bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=kKjRMICN4G2BkS76OjWUaJsn6tWU8WJfG7lUt/ssz5v/nP+t3P+Gx62hQLwVAKlxYnkBUldEldvfsZujEqxOE3cqG/I9rOBznmPcFIaZSiGu7JnB15JqeeadFvyOsNyTxN4ZrP9HfqVxnsexUh1ntlJ6TvTlcZdFV+fp7GHwUQRhgVK7yRqkZ+RHPDKK83E2BDxM0e3C/oEZOSPY39poH+OvjCtST9nxxsmgRvL0tKvDBuuxANOOHSf7ChOp35TfyJ3r6KJdsB9o/TX1U/Vq89b/AM0t8hJLy75bewYlg2F5FqqJStln5IOfEC9D7MjvnxkfOtp58C/RbGddqU19xg==
-mail-alias-created-date: 1790174225171
-Received: from [192.168.178.181] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id A4F8B18000BC;
-	Thu, 22 Oct 2026 22:03:14 +0000 (UTC)
-Message-ID: <7fa87d99-b983-42c3-bdc9-5b0f12e2d691@dxdmail.cc>
-Date: Fri, 23 Oct 2026 00:03:12 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=; b=pHseHkydBg+Ddj7cbPBtrmwDUC
+	wiwDDkr+9kmxC0UP9dguzqQjY8PcyMlPYunuV6YQd10sIL9V+XygJy6RqLfEMQVu5fCTFM7WIOhf8
+	cUMKYQenwJzxLNgu1nor/LJDIdg/UA9sbe+2BX5EDDrJvYQeaeU21UhLucOxChIkb7kM=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1xK1Yg-00000002Ukl-3uPN;
+	Fri, 23 Oct 2026 01:46:51 +0300
+Message-ID: <2424c934-c928-42f5-9159-01381d81bc86@minlexx.ru>
+Date: Fri, 23 Oct 2026 01:46:50 +0300
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,49 +59,87 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
- Galaxy Tab S9 Wi-Fi
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
- <20261020-gts9wifi-dts-v3-2-afd06fb2d9f9@dxdmail.cc>
- <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
+Subject: Re: [PATCH 2/4] power: supply: qcom_smbx: report charger state
+ changes
+To: fabricioakio@gmail.com, Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
+ <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
 Content-Language: en-US
-From: Nizat Mikayilli <nacht@dxdmail.cc>
-In-Reply-To: <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4NyBTYWx0ZWRfXze1FQmJVf5g8
- ee/F8J7J9u4RaJHHN7tbEjERSeNG3GKdJCm0WIuElHMUENOxauNh5YCHRqgnrnRrETMnN/p6AlN
- i447amj0LWVNw7vV7Ejwkoe/ZuQOeGwBBy9UsxyWjDS5Jzs719xM7IigVhfmWc3njCZUNswiR0C
- NsB1rqoJUcr5cSEj5YYRd+PScJIBC8yrkcjJ+4PS96QJRRdUlqRxkFL3H0YgOVpTRHcG/dGCBDl
- h5fOk1K+9rslDuAj5gUYdA9s27SU04WhbyvQWY3NHyQi9SRCBoKqwD14H37D+TkH8wxEwCWI8sp
- oSH1lDe8HFhCXhJ7DVctGjRLBlz/rSwjbUct1Pp0XJZiVUNmkVKlBSgEMJCaWc=
-X-Proofpoint-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
-X-Proofpoint-ORIG-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
-X-Authority-Info-Out: v=2.4 cv=c6SmgB9l c=1 sm=1 tr=0 ts=6ada8826
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10
- a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Yll68VBpUeuroiOh840A:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAABSM3wAAT10zkvsNXerVJATqfulcBuXVSiysHoDF+IozHXwKMeGvJhxGAREfOznDNjNIIwJ9f3Tt9GWmAbsypgCo/P3XzzMoUtmPIwHU1QoNC9tijIx37ZyUowDCv49e15+0CK/xYvCKJ4czNLKsAqV+KP53JAnCBwiMy84hnDbm6bXqPYo6UG6qcRvZMWCClujvxdqBfIypea4TqF7onNGqQa8hiSrn3alg6sQyWFOu+mdzWJot1LlwHpNv0l0wavIgdphV1GICrdR7qTE2xxKvl1w4tnFGV6AM3OAw91/8eT1jiSVCCVnr4wo0KYkG2YcSXu7S4ktFYxTukDiO+LacuBvw7MdzQxXIZ2QOxJqJ1QjbSvsKhtHULmT+ZQ/XPl1Ai1eKUs1N3m4/jYf8Em65HcaMPjUo8aanMXgES6RfPjDeNlbW1m7Z1iuumLVGwvm+2MVudb4z9OlHpHk6ORuiJdoRabP91t0mITY3/8Cu4gBhgWOaDIH1u/McSxstJV7eB4kJCWZdmPju8T5c7cZ+pX3ggg/B3ZxFgt6URTS9Z8gWd2nrkOXYhHX2HNbbBUNcoVIRwGr2KskFaGrdXpuMdBTvYa1dUtooZ/3lqAFxBD1FwvfCmgu/9XxmRgrH582phZIrguSWelByG76LF/3Mx3sUfZIhSi++v5GtoO+d7jWsV6dIvDjbxBxQHRTtL9bUg4xegmCvja9cMvNl/157fBO0akJarmbxacAnN2GjrNn5QmoZttnNfYsqoN3Fj4J9Onz2XpMzfHdq6RGps10jKH8dX2MFYDKcEStWHlepTx7+BdCEYRWYVK/9opNvm/e3fy+ZlZ3yn/5Y3XOGxR69nR0BCwagdzRYaUo7i/zHAel5XDOyOZimw2WMzEFm69a8yLp0EroYu3DAYQXDw8VPJ3Zc20DZ1osQPTs45kcT5EjaBrshtI58HDjs9NcCBnw3AQ54KlME+0oZ4yZostNuJ
- m5luxLi+smtYNA+a91xvy/RgSNRTYCuErC9ZpJ/HAIdxMJXHCyKgUbe/bvN2EvHFFkpH0ALTmIRlIaIXVpV2Iqu82nklXhqrPai5JS2zPLWTXB4r0ORnpVx3DfQQP9wmuIRUa0Ql6/Z1X9RWD8hbkvEZvbuDzFEN6xkPmvJoAq+ACXplB/Z2IAob6xoAQAGDiDNnhMxn1zxHXQiRwfr6mAjUSQsUrvTT0IqilVAtGcRUpIhHKWM/14ZE+evLSeMRduNQ8RisYwyQdPTL/rZsuTtQIO48RcbIbUZ3bo1y2D8VHku2nWMQ3AwDm3HJV51VTmkV/JOM+nXs/M9mO78bM1ARfv6kbnebfP2WW3WLVC4/oo0xj31C0W+OeMec=
 
-On 10/22/26 11:24 AM, Konrad Dybcio wrote:
-> On 10/20/26 12:42 AM, Nizat Mikayilli via B4 Relay wrote:
->> +/* This is the Wi-Fi SKU: no modem firmware is shipped. */
->
-> FWIW at least on older chips, the modem would still be booted to
-> provide e.g. GPS, check if that's not the case for you. You should
-> also boot with memtest=1 and CONFIG_MEMTEST=y
+On 03.10.2026 22:45, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
+> 
+> Nothing notifies consumers when the charging state changes on its own,
+> as when a charge completes, so they can keep a stale status.
+> 
+> Request the chg-state-change interrupt when the device tree provides
+> it, and notify consumers when it fires.
+> 
+> Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> ---
+>   drivers/power/supply/qcom_smbx.c | 24 ++++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+> index f5557b8cc92a..3738eb8638bc 100644
+> --- a/drivers/power/supply/qcom_smbx.c
+> +++ b/drivers/power/supply/qcom_smbx.c
+> @@ -762,6 +762,15 @@ static irqreturn_t smb_handle_usb_icl_change(int irq, void *data)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static irqreturn_t smb_handle_chg_state_change(int irq, void *data)
+> +{
+> +	struct smb_chip *chip = data;
+> +
+> +	power_supply_changed(chip->chg_psy);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+>   static irqreturn_t smb_handle_wdog_bark(int irq, void *data)
+>   {
+>   	struct smb_chip *chip = data;
+> @@ -1078,6 +1087,21 @@ static int smb_probe(struct platform_device *pdev)
+>   	if (rc < 0)
+>   		return rc;
+>   
+> +	/* Optional: not every device tree lists it */
+> +	irq = platform_get_irq_byname_optional(pdev, "chg-state-change");
+> +	if (irq > 0) {
+> +		rc = devm_request_threaded_irq(chip->dev, irq, NULL,
+> +					       smb_handle_chg_state_change,
+> +					       IRQF_ONESHOT, "chg-state-change",
+> +					       chip);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "Couldn't request irq chg-state-change\n");
+> +	} else if (irq != -ENXIO) {
+> +		return dev_err_probe(chip->dev, irq,
+> +				     "Couldn't get irq chg-state-change\n");
+> +	}
+> +
+>   	devm_device_init_wakeup(chip->dev);
+>   
+>   	rc = devm_pm_set_wake_irq(chip->dev, chip->cable_irq);
+> 
 
-You're right, the tablet ships the modem firmware, including a GPS
-service. I kept the modem carveouts in v4. I also booted with
-memtest=1 and it found no errors.
+Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 
-Thanks,
-Nizat
+--
+Regards,
+Alexey Minnekhanov
