@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684135;
-	b=Ini8ymueBJ5QvetfLmhjanJnZdtUFNP1h0BDMJXYcCK1bYGCFPUR8bfK/NiMJnNNcgHI
-	 K+i2P/Um7NRTNUnweu5Ph3HmO4Fm/R69TP0ZPHTB3JN1CQvTAB72T9iwQzpa1B/XvYwxU
-	 DsLxEyKRmd3VTa8XxHuZkzgojoHM6761msZPTHuzsd3RZVhNuy1gKjOdc6im37gpZKEQp
-	 y6VJ/URLC/112qDCqgJEjDPnAFZJcKyegweyPA5E9pBwJLDIsI1gKasSqN96ZY7hgVewd
-	 xvj/VzWwDTp72kYhrW4NC04zia0LOhxgNFHVMf0Uc8iAqN3VjbDM2jfsymsqUh5y19g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684135;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oBAPyZAEtqnfOm3LYriDzIRHeshvdHMWXppGWKtaKxs=;
-	b=zBiEf3pBpJ/BJOYpo+esClDU8Kxt9xf9K9RlfR1Vq7ZBNXYOQ8jQGKTKqkgZM/Rnj1M3
-	 /xkpXcB4T478BatSWm1g8sOw8ChBHiRU6477Wzf+3T/d1JcflHd7uuaF7vUVBa8JzuV2l
-	 +q/gr3A4dmyXs6tkuiGu2KN4JKwFmbS65am9DASroo40lzvkZNmylav050o6z/xWCe5Tw
-	 3lMjn5R85Tm/nqIj8mx3qHkzvdO6UnODADaTxsXO13DXdgpQmGn4LgGYgEn66+sfFlN7X
-	 Y9lrQMYqODl52MLYu7WOO0MWX6Lj7FWa4fyouGXb1htxI4aJUPhsr3+++qKZ/4t+Zjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inYsgLtA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792684376;
+	b=5ZzB3Ikfs+IQck2ehXEtLiw2F4N+S0hQWK+qEyczZeBZAcidk5wX/h/7ENw/B9y5mMDZ
+	 RmGZcZ5g3adm4SPA+oFcNAgKs9MzGdQ0cR20Yk4hxqrINGVZIokK66bwFles/myZxloz3
+	 cPFf+z+jjgElWiBKrx4H+sXCYIzeHURrBUkCKQlEi5HAmE9GfLWejCCPEWZvVoiLYtO7T
+	 T8U2XIN/xIPkMHW7zpbMdDAk9ZYfABhv3pRUHBOOWzb9++gtx8l6h62zDn/F8x8gCiWgv
+	 n1L3+MlU1UqAoRAq83hNZ7T7X9IFyDF0YhqhfssIjPjgNqUJ/buTx4NW7YjPLIN+hjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684376;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Qr1vP+OgnJHy8jPEybda2XB3G+VunFh1U/WUL872/4o=;
+	b=ZYZKpj+GA8JY+OfH2wuVPbmNssX+5iSIM2OH3qmKP3SXfXwc+psluTQCOI2fEOfxvOCT
+	 +LBjLd3t80nyhDkJ67fyZ0c354JxSF6Q+mVO/VjcM96h+JmRRR+NtkQLcFb99XpXRPEfp
+	 fD/0mmMEu1yfOam22nSpXZMbhJolJCbX82GonZCTd8F4Gg27R4HRD7dVhq89xiLKzJckp
+	 Hye0hx6ZTM7zwLC2HzHjqXul59SJCr4gnGyUvc6ntaGgzBPDqFSMG1W4knUlA2pQFWyVK
+	 b5RHOmsuUZLYfhwtDbZilg1ULiOgJHopwbB2aFxrTSx8GrQso/rB6vdmtXPHOiI7PeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PCVghYfp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.19
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010019.outbound.protection.outlook.com [52.101.84.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E19606A31A
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 15:48:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F56606A319;
+	Thu, 22 Oct 2026 15:52:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F56606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inYsgLtA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FDB31F01828;
-	Thu, 22 Oct 2026 15:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792684135;
-	bh=oBAPyZAEtqnfOm3LYriDzIRHeshvdHMWXppGWKtaKxs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=inYsgLtAHzwtluDonVAyGx95UwUt0a07/9V04zddBN3QZnelXmbnq2GRxKETqQ0is
-	 oAu23JtVwOX4ICY8TsEBnjFT3yW4VeaLOoccRxdFITRfUZppHSNtq1NUoyHpqSf/3Z
-	 5wfKa6+YbTBSBvziec1EMPsAorGcr4eZ+XHxFR5jO9Yq1OEnGDTPeeyaOGEIxrljR8
-	 +PdoL4g4hRnIgmeegoM20dfP73vOy0iCm0BBv3wikNae6pRE51MpqZx7hD1itl2iim
-	 HDuSOEgEoUuwbBQPdsACRrIFtu3g2QdmIzhX7WazwSkHBx9HZ/KrdEQ09S/O1T4x5p
-	 x+yWevSWWzylw==
-Message-ID: <sashiko-outbox-181726@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: display: sitronix,st75156: add example
- for SPI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lars Rask" <lars.rask@axis.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022-add_st75156_support-v1-2-582525a39a39@axis.com>
-References: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
- <20261022-add_st75156_support-v1-2-582525a39a39@axis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=PCVghYfp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rgXc4O2HfdENmna5ANGZO/CSolotueChf5L0giaCJ10LrOE9g2gcKoJ/P2uFHrIQVrCEOET1kN2lXXFlxq42f1/7NNcFrpzLRci/fzufJnydkrHBZQsUj0GpQIGApcfZg5Qwq6cPUY8Xigjfg2CIxlXjJArj65Lhi6pfZwS0Gzm7sEwNH0zZs+oRcV/d6mFbXRVpulnxRyEympV8rAXjoVV0LYN4YiXKbToH2AGPtJ7RfWKBbgRSk9qNYhkM5+cblF4gZUQ3SE8cq8J0LbR78TS/5dFjb3fwlbmUW5KNVRIu5XHamp3YSYt1NRvzDDQXN6iJpa21ViP/885SmbJr3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qr1vP+OgnJHy8jPEybda2XB3G+VunFh1U/WUL872/4o=;
+ b=EyNOSzFXVFWRquY/cQI2vrTVy1eTA2X/v6t7jGnti4wD1xEADZSc9aZzuFoRHtyAQq4Re1NLY+kYY7gOZjMKVk4eu9tl4GdNoDFCah7si0AoZBHTOSNum2iVQYOruy0Ze9FvgcPXu2sRDWKxEeqEUiPUjzPAs8l5C2wdkFS7sg9635fTtamyDlBlc4QQgXZutc3IgpxYE/uzyBI59rJe9SBMDow5YFA0BLs18butkgOQ9WIqeSIUgNn1cxOypHqaox95DkWd5OAsgqtgA+JfHfBVx3ryNW4GAGciR24Jh6C3dKrZMAzJ2YRfhhOniIoePtV6dmF0CLNfs89Z4AIuMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qr1vP+OgnJHy8jPEybda2XB3G+VunFh1U/WUL872/4o=;
+ b=PCVghYfpQvzUHZtHO0zZEhe6LZSbpCb04tlNgoMg64pcma3MuXd36A8DwmbhUXutypea+18APUxv3kaeGRljEB8BtaybJuQew92X/d/b15Zs7nd3mFaKrr3qELiGmQ95K9drk8kq9r/+Db+27OPTVTbDomIq/XqY5frM3V1153qzoDWonQQxeRRtSnrm/GXSJDduq3aLqHtMcEEXtUzO6ZbFF9WJZEHcphYkhLkDVq/r3PDfSg2fD3ghCuQmgboNwguy7AWh/ZQGHuda7ATBWMPlcthWztwgItUst8KDWPnxS6aE+R+QgpsCK5BHmMPDhnUyhwroMNvjdxKtfoQHcQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB11032.eurprd04.prod.outlook.com (2603:10a6:10:58a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 15:52:48 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 15:52:47 +0000
+Date: Thu, 22 Oct 2026 10:52:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Golla, Nagendra" <Nagendra.Golla@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Harini Katakam <harini.katakam@amd.com>,
+	Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v4 1/6] dmaengine: zynqmp_dma: Use PM guard for
+ probe-time runtime PM reference
+Message-ID: <atoxRAVvHx1Ng2GB@SMW015318>
+References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
+ <20261009-adma-pm-fix-and-per-channel-reset-v4-1-55f5fe409c55@amd.com>
+ <asmsVD1RP6FoMN9l@SMW015318>
+ <212a4fc4-437a-409a-821e-86b9b8c7f85c@amd.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 15:48:54 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <212a4fc4-437a-409a-821e-86b9b8c7f85c@amd.com>
+X-ClientProxiedBy: PH0P220CA0022.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:d3::21) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,454 +110,289 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB11032:EE_
+X-MS-Office365-Filtering-Correlation-Id: f710abf8-23b9-4290-e601-08df305484f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|7416014|376014|366016|18002099003|22082099003|3023799007|4143699003|11063799006|261009221227099003|261009220027099003|261009223027099003|261009221727099003|261021123027099003|261021121427099003|10067099003|261009223327099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	NdiDm/pLPyDJL02L7Wp8uD9g+R47n0ZhP9fYDiC920J0Y1xRb2Ea74Qb6ltHNF64C1BiYlZDjAPO0h6I2nBxcYmz3U2Sn2XGASVXmbf4N4hh/eLCOMNU4RpJEPS29TwaySIEMP3X+fWaIP7yVgtgwqwkBD3/wn7Jr4disA1i915ggfJSO4xIECKUfeebg1qxvs5qilN5DcINKWqb6OnmeF0pEBi0b+rz28E4XODz8Dq75rF0gOOYaJAOELs+BJa85/R11D5hsOQe6DY9o9ciPE52ImdFlXu8GsqlXRiV1irDZQd/SCLLI0cJ5n5Gu1YznEbYU99fos0uAgf7RNfZmf166eO5iG+MXCqM9GL9QArfghW/4wTy3adRxcd+MYcY6h8HJH2yJd4IUmNv1PGj0V4ByWhaBdqyrlpJjlhyxBs28FA8Sg1DzGm9VR2bvk7S+CHbvPO1SwYo7Q3BTCUdVJSj/4mokTUdk1qSxM8cigGY1/5+1mzgY6TcF0DQhkIoHtXyiEmgallPSkr9h3QLqqDQyYe3BCtTKDwfwaXVQ4MpYYHCfnQnlpjtJTE3KiHSyboWvxrrxbZmX0dwBSsIFctTO/gjezRqvksX/dy4U3laj9emboAkdzaqN1C0dBwg
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(7416014)(376014)(366016)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(261009221227099003)(261009220027099003)(261009223027099003)(261009221727099003)(261021123027099003)(261021121427099003)(10067099003)(261009223327099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bTU2QUpRTFJXWkZLZjhwOVlISlZTUnc1QkZPbUlBdTBzMjdyRVNrQzFJemhK?=
+ =?utf-8?B?b1NhMEFBWjFUOFo4MnZKbXVwR3h3K3BGd2hBNkRzL3dxdlNaOWdVZytQSEtB?=
+ =?utf-8?B?aVBjeGU5bzRQWGRjWkVzVElSdWxhdUdNSWhjbDBjOHFPdUJ4V0xDWmVPWWxh?=
+ =?utf-8?B?STdPSEpvTzV2UHF1QWxJcnVQcm9PRnZvQmFaV09OZmdYK0RLWHZlY0dJeDc4?=
+ =?utf-8?B?YllKQTkzQWsyN3pnVnJ6UFBNQzluWG00ZlBUMERiYnE3YWk0QmMrdjFWUW8r?=
+ =?utf-8?B?VjlGMzNhTklJWFJiY3RlMnF2Z0NkRWh6YnpkOVc3dEhCRnltdzFaNlN1V1M5?=
+ =?utf-8?B?QnBtQnpGUjVWdlNKSmM1S3BSU0piYUpQdkRJeVViWWVSVmsxdnh1dDl1Vzlk?=
+ =?utf-8?B?cEJnelpxenRiNXRZMmk0dGdWQnV5Q2lRdEpyeGZXaTdYMVRQbFk0dGk3elFT?=
+ =?utf-8?B?QWlMdm1Cdm4vTWEyOHYxaFNRd3BzVFo4aEdqQnhQcGpHTEhGaGE5YzMvTUdX?=
+ =?utf-8?B?RXJEc2hrWG9QL2k1RHJRUjF1NGJGc3p3SVVUV3hrQm0walJhYUhzNkVXd2lN?=
+ =?utf-8?B?bHYvN0IrVC83Y3MwOG45MXgxREdHL245amRwS1NyZWlUSVR6WC8xSWtzaDZL?=
+ =?utf-8?B?d3NxcW5Tb2dUTjJXMDlhUzZVbXRpeEY2RysvcHNvajhycENpeFNyWnJWMnJE?=
+ =?utf-8?B?OUJjOTR0cUliUVlUdVhXT0lDNW00ZG5Gb3pkelZVRXRHcEIzMlNqYzdjN2Ja?=
+ =?utf-8?B?cTYwODVjL3pCYUJJb2FPcTV0Y1B6ZXNGZHdJc3FuOG9ZajV6VlAzMUl6WDE2?=
+ =?utf-8?B?OHd0dVRzMG1nVndRZ2w2aE0zTWhQRFR2VGU5SW1KRGdRWWxNbVZZTnRFOGt0?=
+ =?utf-8?B?ZUFyT04weXA1R21XNUxocHN3bFdmWmVjSnpDZ2c3K3EzYjBydmtkSHpOUjhv?=
+ =?utf-8?B?b3F0NGY4YUNvNWxnQ3pQTlBFTlVjd1hJMjZyYi9RRGFOR2xnU1NUdmRic3dz?=
+ =?utf-8?B?enZXdHBYdExUK2Y0RGJDajZBaXdtSENkREVPem9GNUQvR1dsb2RQQVVkUjlp?=
+ =?utf-8?B?d0lTYW9uYUVCclF4TzF6ZFlIU2NCUGVjVzhQS1lqdkIwd1ZYSmdzZS8wdkI2?=
+ =?utf-8?B?T25WQTFqcGpRTXc4Q2R1UEJHQ2tDNTB2VUhvMVp0aWd5NWUxY0dXc3IxRmxM?=
+ =?utf-8?B?MUFhN2h0aHRiRjRrdDM2R3UxWEw1RXY0UkRaOXU3T2RwaDA3RUhFdGtETmd5?=
+ =?utf-8?B?T3k2eS9TM0VkbVpJTlVtNnRpaS9UMnFhNkFnZmxHcTFYNnkybTRaaEZoYm9B?=
+ =?utf-8?B?ek5vYTN0UDNaNU41Y3VQVkl1M2xoeFUxOXZMSVhEUjdRbGk4cSs0OWVINTh1?=
+ =?utf-8?B?MGVNQkZvQzlEWE8vRXdFS3kvMUowdkdNeE05QXE5NFNXdEFrVStIU0hJTnNa?=
+ =?utf-8?B?S3BydndRb1JtbTRoZy9GWkpIbkh5K2oxUm5UcHZKamZoN3ZSeGhscGpTU0kw?=
+ =?utf-8?B?UVZmbDA3aWlTbFcxSU9mRzYvYUQ2ZHNFd2tqU3pReUdwU29FWGFVVWttbzJp?=
+ =?utf-8?B?dkd3U2hVa1BzQlJUVExxQmVBYk5PcFBNeksyWDMxY3ZVaUxDWFgrSW5IQ1VY?=
+ =?utf-8?B?OFBnMktmZ1l1QzVNcXQzY05mVjBRaU9iK0FhUWVDeXdBZXVMc0FTN1BMaUI1?=
+ =?utf-8?B?K1ZGSXNkcCtPV2k0bUxYWnQrZGtLdThuZ01SRWRyRDBCU3ljNGtBckgzV2ht?=
+ =?utf-8?B?UkR1aXhxKzZvTS9uWlJHbSs5Q1U2UXpuTVVMRFpNMlMrN2swRVZidWVtWXdB?=
+ =?utf-8?B?anQ2NkVkblFTYndrWmdYUzVDYlBlRDZNQUdmOUEzMlZFS05CUmY0SHRBM1Bx?=
+ =?utf-8?B?c2xXRzRrZzBJMm1LYlZFL3BlOW5nVFJtY0x6MklSNmJyNEU5NXFZTTRDcjB0?=
+ =?utf-8?B?dFovcDF6U0hLU2d0U2plNmVtK1A4ekN3bXk1dUxwazZXWGNBMVkybnBkUmtq?=
+ =?utf-8?B?dnFISlZNRm85NWxGKytRNGgyUUxkcElVMHo3dXQ0eTB3NTdFcGlYU0lrYi9M?=
+ =?utf-8?B?ZWxrcjY1VzRBVWlhRTR4MkVJaGtXb3JoNWtOWW9MV2ZzSmVlMXgwQmlyNnVa?=
+ =?utf-8?B?WHVFU3FtYk1LaG43YXJJYi96K1FBWnNJZmE0VzZEQ2N1Rm94NDNhWndndlJt?=
+ =?utf-8?B?VWg1aS9xUnRwb3hzSk1yNDFvc2o2NHJYVWtRazVncVhjL1gwTVBRNFdrOHlv?=
+ =?utf-8?B?eTJOWHRhQW5kVVFjdUhEQnNUa2lrSjUvcC80VTdudEFXRWtwWVgreUVhMzE0?=
+ =?utf-8?B?SEdRckRzQmJqQ3hrcXI3Q3MxYWVwR1BkUGtGelQyYmFWVVlnM25HZUszanRW?=
+ =?utf-8?Q?UxfRLZrUQoJBzW5fzO8HfShLFBieLdO82NOU/?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f710abf8-23b9-4290-e601-08df305484f4
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:52:47.7954
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4FhcYJAYFf33YYS/iJS6FIt/U1TaVrkxltnPeRXthc/hCMdJTUJCfsW2KNdlsxcz1U8Qbc49VnYEvMLND9e7lFvXoNiYxU3u4N6Ic7pfbHKPp4LnCE5MNRGQcN6xbsli
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11032
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] drm/sitronix: st7571-spi: missing kmemdup() NULL checks in regmap_=
-spi_write()
-- [High] drm/sitronix: inverted reset GPIO polarity in st75156_reset()
-- [Medium] dt-bindings: display: sitronix,st75156: missing SPI and panel pr=
-operties
-- [Medium] dt-bindings: display: sitronix,st75156: example timings fail st7=
-571_probe()
-- [Medium] drm/sitronix: st75156_lcd_init() ignores DT inverted and startli=
-ne
-- [Medium] drm/sitronix: st7571: missing display power and backlight contro=
-l for st75156
-- [Low] drm/sitronix: missing BACKLIGHT_CLASS_DEVICE select for DRM_ST7571
---
+On Thu, Oct 22, 2026 at 10:40:53AM +0530, Golla, Nagendra wrote:
+> Hi Frank,
+>
+> On 10/10/2026 8:39 AM, Frank Li wrote:
+> > On Fri, Oct 09, 2026 at 09:30:10AM +0530, Golla Nagendra wrote:
+> > > Replace pm_runtime_resume_and_get() with the PM_RUNTIME_ACQUIRE_AUTOSUSPEND
+> > > guard to manage the probe-time runtime PM reference lifecycle. If the guard
+> > > acquire fails, fail probe immediately so a broken device is never
+> > > registered.
+> > >
+> > > When runtime PM is not enabled for the device, call
+> > > zynqmp_dma_runtime_resume() directly after pm_runtime_enable() to bring the
+> > > clocks up for probe.
+> > >
+> > > On probe failure after a successful guard acquire, drop the reference with
+> > > zynqmp_dma_probe_pm_put(), inhibit the guard destructor with
+> > > retain_and_null_ptr(), and gate the clocks through
+> > > zynqmp_dma_probe_fail(). When runtime PM is enabled,
+> > > zynqmp_dma_probe_pm_put() uses pm_runtime_put_sync_suspend(). When runtime
+> > > PM is not enabled for the device, balance the guard usage counter with
+> > > pm_runtime_put_noidle() and gate the clocks with
+> > > zynqmp_dma_runtime_suspend(). Runtime PM does not suspend a device that
+> > > is already disabled, so pair every direct zynqmp_dma_runtime_suspend()
+> > > call with pm_runtime_set_suspended() to keep the runtime PM status in
+> > > sync with the clocks.
+> > >
+> > > On probe success, release the probe-time reference with
+> > > pm_runtime_put_sync_autosuspend() when runtime PM is enabled for the
+> > > device. When runtime PM is not enabled for the device, balance the guard
+> > > usage counter with pm_runtime_put_noidle() only and leave the clocks
+> > > enabled so that later channel allocation can use the hardware. Inhibit the
+> > > guard destructor with retain_and_null_ptr(pm).
+> > >
+> > > Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+> > > ---
+> > >   drivers/dma/xilinx/zynqmp_dma.c | 68 ++++++++++++++++++++++++++++++-----------
+> > >   1 file changed, 50 insertions(+), 18 deletions(-)
+> > >
+> > > diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+> > > index 3b7dfa53f972..a48106e404e7 100644
+> > > --- a/drivers/dma/xilinx/zynqmp_dma.c
+> > > +++ b/drivers/dma/xilinx/zynqmp_dma.c
+> > > @@ -18,6 +18,7 @@
+> > >   #include <linux/slab.h>
+> > >   #include <linux/clk.h>
+> > >   #include <linux/io-64-nonatomic-lo-hi.h>
+> > > +#include <linux/cleanup.h>
+> > >   #include <linux/pm_runtime.h>
+> > >
+> > >   #include "../dmaengine.h"
+> > > @@ -1077,6 +1078,29 @@ static const struct dev_pm_ops zynqmp_dma_dev_pm_ops = {
+> > >   			   zynqmp_dma_runtime_resume, NULL)
+> > >   };
+> > >
+> > > +static void zynqmp_dma_probe_pm_put(struct device *dev)
+> > > +{
+> > > +	if (pm_runtime_enabled(dev))
+> > > +		pm_runtime_put_sync_suspend(dev);
+> > > +	else
+> > > +		pm_runtime_put_noidle(dev);
+> > > +}
+> > > +
+> > > +static int zynqmp_dma_probe_fail(struct zynqmp_dma_device *zdev, int ret)
+> > > +{
+> > > +	bool rpm_disabled = !pm_runtime_enabled(zdev->dev);
+> > > +
+> > > +	zynqmp_dma_chan_remove(zdev->chan);
+> > > +	zynqmp_dma_probe_pm_put(zdev->dev);
+> > > +	pm_runtime_disable(zdev->dev);
+> > > +	if (rpm_disabled || !pm_runtime_status_suspended(zdev->dev)) {
+> > > +		zynqmp_dma_runtime_suspend(zdev->dev);
+> > > +		pm_runtime_set_suspended(zdev->dev);
+> > > +	}
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > >   /**
+> > >    * zynqmp_dma_probe - Driver probe function
+> > >    * @pdev: Pointer to the platform_device structure
+> > > @@ -1087,7 +1111,7 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+> > >   {
+> > >   	struct zynqmp_dma_device *zdev;
+> > >   	struct dma_device *p;
+> > > -	int ret;
+> > > +	int ret, pm_err;
+> > >
+> > >   	zdev = devm_kzalloc(&pdev->dev, sizeof(*zdev), GFP_KERNEL);
+> > >   	if (!zdev)
+> > > @@ -1128,21 +1152,30 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+> > >   	pm_runtime_set_autosuspend_delay(zdev->dev, ZDMA_PM_TIMEOUT);
+> > >   	pm_runtime_use_autosuspend(zdev->dev);
+> > >   	pm_runtime_enable(zdev->dev);
+> > > -	ret = pm_runtime_resume_and_get(zdev->dev);
+> > > -	if (ret < 0) {
+> > > -		dev_err(&pdev->dev, "device wakeup failed.\n");
+> > > -		pm_runtime_disable(zdev->dev);
+> > > -	}
+> > >   	if (!pm_runtime_enabled(zdev->dev)) {
+> > >   		ret = zynqmp_dma_runtime_resume(zdev->dev);
+> > > -		if (ret)
+> > > +		if (ret) {
+> > > +			pm_runtime_disable(zdev->dev);
+> > >   			return ret;
+> > > +		}
+> > > +	}
+> > > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(zdev->dev, pm);
+> > > +	pm_err = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> > > +	if (pm_err) {
+> > > +		retain_and_null_ptr(pm);
+> >
+> > Not sure why need call retain_and_null_ptr() here, generally only need
+> > call retain_and_null_ptr() at success pass if you use want to keep
+> > runtime_pm active. at fail case, needn't do that.
+> >
+> > > +		pm_runtime_disable(zdev->dev);
+> >
+> Thanks for the Review> If use devm_pm_runtime_enable(), needn't this one.
+>
+> We intentionally keep the nondevmpm_runtime_enable()pm_runtime_disable()
+> pair here and do not switch to devm_pm_runtime_enable().
+> devm_pm_runtime_enable() registers a devm action that calls
+> pm_runtime_disable() automatically after .remove returns. Since remove()
+> already calls pm_runtime_disable() explicitly itself, switching to the devm
+> variant would mean pm_runtime_disable() gets called a second time for the
+> same device
+> — driving disable_depth into underflow, along with any other
+> invalid state that comes from disabling an already-disabled runtime PM.
+>
+> If we remove the explicit pm_runtime_disable() from remove() to avoid that
+> double-disable call, it would affect the fix introduced in commit
+> 9c58a42c1612 ("dmaengine: zynqmp_dma: fix race between runtime PM and device
+> removal"),
+> https://lore.kernel.org/all/20260630064844.705173-2-nagendra.golla@amd.com/
+> which added that explicit disable specifically to close a race between
+> runtime PM and device removal.
 
-commit 3557b66cb1cae50421d6b3c371688ed607f5a7dc
-Author: Lars Rask <lars.rask@axis.com>
+"[Severity: High]
+This isn't a bug introduced by this patch, but does zynqmp_dma_remove() need
+to halt the DMA hardware before disabling clocks?
 
-dt-bindings: display: sitronix,st75156: add example for SPI
+The function disables device clocks via zynqmp_dma_runtime_suspend() but never
+writes to the hardware to halt active transfers or waits for idle.
 
-This series adds support for the Sitronix st75156 display controller to the
-st7571 driver and introduces the corresponding device tree binding schema
-and spi example.
+Could stopping clocks while an AXI master is mid-transaction violate the bus
+protocol and cause an interconnect hang?"
 
-> diff --git a/Documentation/devicetree/bindings/display/sitronix,st75156.y=
-aml b/Documentation/devicetree/bindings/display/sitronix,st75156.yaml
-> new file mode 100644
-> index 0000000000000..a3897ddc5e386
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/sitronix,st75156.yaml
-> @@ -0,0 +1,67 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/sitronix,st75156.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sitronix ST75156 Display Controller
-> +
-> +maintainers:
-> +  - Marcus Folkesson <marcus.folkesson@gmail.com>
-> +
-> +description:
-> +  Sitronix ST75156 is a monochrome dot matrix LCD panel used in SPI 4-wi=
-re mode.
-> +
-> +allOf:
-> +  - $ref: panel/panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sitronix,st75156
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reset-gpios: true
-> +  width-mm: true
-> +  height-mm: true
-> +  panel-timing: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reset-gpios
-> +  - width-mm
-> +  - height-mm
-> +  - panel-timing
-> +
-> +additionalProperties: false
+Is this one?
 
-[Severity: Medium]
-In Documentation/devicetree/bindings/display/sitronix,st75156.yaml, the
-schema sets additionalProperties: false and only references
-panel/panel-common.yaml#, without referencing
-/schemas/spi/spi-peripheral-props.yaml# (with unevaluatedProperties: false)
-or listing dc-gpios, backlight, and sitronix,inverted under properties.
+Frank
 
-In drivers/gpu/drm/sitronix/st7571-spi.c, st7571_spi_probe() requests the
-data/command gpio to enable 4-wire spi mode:
-
-	spi_data->dc_gpio =3D devm_gpiod_get(&spi->dev, "dc", GPIOD_OUT_LOW);
-
-And in drivers/gpu/drm/sitronix/st7571.c, st75156_parse_dt() parses
-sitronix,inverted and backlight from the device tree node:
-
-	st75156->inverted =3D of_property_read_bool(np, "sitronix,inverted");
-	...
-	st75156->backlight =3D devm_of_find_backlight(dev);
-
-Won't dtbs_check fail validation on any st75156 spi node that specifies
-dc-gpios, spi-max-frequency, backlight, or sitronix,inverted, and won't a
-device tree based on the example below (without dc-gpios) fall back to
-3-wire spi mode in st7571_spi_probe() instead of 4-wire spi mode?
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      display@0 {
-> +        compatible =3D "sitronix,st75156";
-> +        reg =3D <0>;
-> +        reset-gpios =3D <&gpio0 3 GPIO_ACTIVE_LOW>;
-> +        width-mm =3D <37>;
-> +        height-mm =3D <27>;
-> +
-> +        panel-timing {
-> +          hactive =3D <128>;
-> +          vactive =3D <96>;
-
-[Severity: Medium]
-When a device tree node uses the panel-timing values from the examples block
-in Documentation/devicetree/bindings/display/sitronix,st75156.yaml,
-st7571_probe() -> st75156_parse_dt() sets st75156->ncols to 128 and
-st75156->nlines to 96.
-
-Then st7571_probe() -> st7571_validate_parameters() checks those dimensions
-against st75156_config in drivers/gpu/drm/sitronix/st7571.c:
-
-	const struct st7571_panel_data st75156_config =3D {
-		.init =3D st75156_lcd_init,
-		.parse_dt =3D st75156_parse_dt,
-		.fb_clear_screen =3D st75156_fb_clear_screen,
-		.constraints =3D {
-			.min_nlines =3D 1,
-			.max_nlines =3D 64,
-			.min_ncols =3D 240,
-			.max_ncols =3D 240,
-			.support_grayscale =3D false,
-		},
-	};
-
-Since hactive =3D <128> and vactive =3D <96> are outside the allowed 240 co=
-lumns
-and 1..64 lines, won't st7571_probe() reject the example timings with
--EINVAL?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/sitronix/st7571-spi.c b/drivers/gpu/drm/sitr=
-onix/st7571-spi.c
-> index 0206e9162f1cd..724c0eb5e7dab 100644
-> --- a/drivers/gpu/drm/sitronix/st7571-spi.c
-> +++ b/drivers/gpu/drm/sitronix/st7571-spi.c
-> @@ -17,23 +17,133 @@ static const struct regmap_config st7571_spi_regmap_=
-config =3D {
-
-[ ... ]
-
-> +	if (mode =3D=3D ST7571_COMMAND_MODE) {
-> +		gpiod_set_value_cansleep(spi_data->dc_gpio, 0);
-> +
-> +		cmdbuf =3D kmemdup(&buf[1], 1, GFP_KERNEL);
-> +		if (!cmdbuf)
-> +			return -ENOMEM;
-> +
-> +		write_result =3D spi_write(spi_data->spi, cmdbuf, 1);
-> +		kfree(cmdbuf);
-> +
-> +		if (write_result !=3D 0)
-> +			return write_result;
-> +
-> +		num_data_bytes =3D count - 2;
-> +
-> +		if (num_data_bytes > 0) {
-> +			gpiod_set_value_cansleep(spi_data->dc_gpio, 1);
-> +			data_bytes =3D &buf[2];
-> +			databuf =3D kmemdup(data_bytes, num_data_bytes, GFP_KERNEL);
-> +
-> +			write_result =3D spi_write(spi_data->spi, databuf, num_data_bytes);
-> +			kfree(databuf);
-> +
-> +			if (write_result !=3D 0)
-> +				return write_result;
-> +		}
-> +	} else if (mode =3D=3D ST7571_DATA_MODE) {
-> +		num_data_bytes =3D count - 1;
-> +
-> +		if (num_data_bytes > 0) {
-> +			gpiod_set_value_cansleep(spi_data->dc_gpio, 1);
-> +			data_bytes =3D &buf[1];
-> +			databuf =3D kmemdup(data_bytes, num_data_bytes, GFP_KERNEL);
-> +			write_result =3D spi_write(spi_data->spi, databuf, num_data_bytes);
-> +			kfree(databuf);
-
-[Severity: High]
-In drivers/gpu/drm/sitronix/st7571-spi.c, when regmap_spi_write() is called
-from st75156_lcd_init() -> st75156_send_command_list() -> regmap_bulk_write=
-()
-or from st75156_fb_update_rect_monochrome() / st75156_fb_clear_screen() ->
-regmap_bulk_write(), databuf is allocated with kmemdup() in both the
-command-parameter branch and the data-mode branch when num_data_bytes > 0.
-
-Unlike cmdbuf above, neither databuf allocation is checked for null before
-passing databuf to spi_write(spi_data->spi, databuf, num_data_bytes).
-
-If kmemdup() fails under memory pressure, spi_write() submits an
-spi_transfer with tx_buf =3D NULL, rx_buf =3D NULL, and len =3D num_data_by=
-tes > 0.
-Can this silently drop command parameters or display data (when
-spi_transfer_one_message() rejects the bufferless transfer and returns 0),
-or cause a null pointer dereference in spi controller drivers whose
-transfer_one_message() callback dereferences tx_buf when len > 0?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix=
-/st7571.c
-> index 20954c33eca93..2dd52f2214d28 100644
-> --- a/drivers/gpu/drm/sitronix/st7571.c
-> +++ b/drivers/gpu/drm/sitronix/st7571.c
-
-[ ... ]
-
-> @@ -444,6 +670,13 @@ static void st7571_encoder_atomic_enable(struct drm_=
-encoder *encoder,
->  	u8 command =3D ST7571_DISPLAY_ON;
->  	int ret;
-> =20
-> +	/* ST75156 needs init function to be run earlier than ST7571
-> +	 * so we need to call it in the probe function instead of
-> +	 * the encoder_atomic_enable function.
-> +	 */
-> +	if (st7571->device_type =3D=3D DEVICE_TYPE_ST75156)
-> +		return;
-> +
->  	ret =3D st7571->pdata->init(st7571);
->  	if (ret)
->  		return;
-> @@ -458,6 +691,9 @@ static void st7571_encoder_atomic_disable(struct drm_=
-encoder *encoder,
->  	struct st7571_device *st7571 =3D drm_to_st7571(drm);
->  	u8 command =3D ST7571_DISPLAY_OFF;
-> =20
-> +	if (st7571->device_type =3D=3D DEVICE_TYPE_ST75156)
-> +		return;
-> +
->  	st7571_send_command_list(st7571, &command, 1);
->  }
-
-[Severity: Medium]
-In drivers/gpu/drm/sitronix/st7571.c, st7571_probe() calls
-st75156_lcd_init(), which turns on the display and enables the backlight via
-backlight_enable(st75156->backlight).
-
-However, both st7571_encoder_atomic_enable() and
-st7571_encoder_atomic_disable() return early when st7571->device_type is
-DEVICE_TYPE_ST75156, without sending ST75156_DISPLAY_ON or
-ST75156_DISPLAY_OFF or toggling st7571->backlight. Likewise, st7571_remove()
-only calls drm_dev_unplug(&st7571->drm) without disabling st7571->backlight:
-
-	void st7571_remove(struct st7571_device *st7571)
-	{
-		drm_dev_unplug(&st7571->drm);
-	}
-
-How are display power and backlight state managed for st75156 during atomic
-disable/enable cycles or when the driver is removed?
-
-[ ... ]
-
-> @@ -710,6 +948,52 @@ static int st7571_parse_dt(struct st7571_device *st7=
-571)
->  		return dev_err_probe(dev, PTR_ERR(st7571->reset),
->  				     "Failed to get reset gpio\n");
-> =20
-> +	st7571->device_type =3D DEVICE_TYPE_ST7571;
-> +
-> +	return 0;
-> +}
-> +
-> +static int st75156_parse_dt(struct st7571_device *st75156)
-> +{
-> +	struct device *dev =3D st75156->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +	struct display_timing dt;
-> +	int ret;
-> +
-> +	ret =3D of_get_display_timing(np, "panel-timing", &dt);
-> +
-> +	if (ret) {
-> +		dev_err(dev, "Failed to get display timing from DT\n");
-> +		return ret;
-> +	}
-> +
-> +	of_property_read_u32(np, "width-mm", &st75156->width_mm);
-> +	of_property_read_u32(np, "height-mm", &st75156->height_mm);
-> +	st75156->inverted =3D of_property_read_bool(np, "sitronix,inverted");
-> +
-> +	st75156->pformat =3D &st75156_monochrome;
-> +	st75156->bpp =3D 1;
-> +
-> +	st75156->startline =3D dt.vback_porch.typ;
-> +	st75156->startcol =3D dt.hback_porch.typ;
-> +
-> +	st75156->nlines =3D dt.vactive.typ;
-> +	st75156->ncols =3D dt.hactive.typ;
-> +
-> +	st75156->reset =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +
-> +	if (IS_ERR(st75156->reset)) {
-> +		return dev_err_probe(dev, PTR_ERR(st75156->reset),
-> +				     "Failed to get reset gpio from DT\n");
-> +	}
-> +
-> +	st75156->device_type =3D DEVICE_TYPE_ST75156;
-> +
-> +	st75156->backlight =3D devm_of_find_backlight(dev);
-> +	if (IS_ERR(st75156->backlight))
-> +		return dev_err_probe(dev, PTR_ERR(st75156->backlight),
-> +			"Failed to get backlight from DT\n");
-> +
->  	return 0;
->  }
-
-[Severity: Low]
-In drivers/gpu/drm/sitronix/st7571.c, st75156_parse_dt() calls
-devm_of_find_backlight(dev). In include/linux/backlight.h,
-devm_of_find_backlight() is declared as an external function under
-#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE):
-
-	#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-	struct backlight_device *devm_of_find_backlight(struct device *dev);
-	#else
-	static inline struct backlight_device *
-	devm_of_find_backlight(struct device *dev)
-	{
-		return NULL;
-	}
-	#endif
-
-Because config DRM_ST7571 in drivers/gpu/drm/sitronix/Kconfig does not
-select BACKLIGHT_CLASS_DEVICE:
-
-	config DRM_ST7571
-		tristate "DRM support for Sitronix ST7567/ST7571 display panels"
-		depends on DRM && MMU
-		select DRM_CLIENT_SELECTION
-		select DRM_GEM_SHMEM_HELPER
-		select DRM_KMS_HELPER
-		select VIDEOMODE_HELPERS
-
-won't building with CONFIG_DRM_ST7571=3Dy and CONFIG_BACKLIGHT_CLASS_DEVICE=
-=3Dm
-fail to link vmlinux with an undefined reference to
-devm_of_find_backlight()?
-
-> @@ -720,6 +1004,14 @@ static void st7571_reset(struct st7571_device *st75=
-71)
->  	gpiod_set_value_cansleep(st7571->reset, 0);
->  }
-> =20
-> +static void st75156_reset(struct st7571_device *st7571)
-> +{
-> +	gpiod_set_value_cansleep(st7571->reset, 0);
-> +	usleep_range(20, 10000);
-> +	gpiod_set_value_cansleep(st7571->reset, 1);
-> +	msleep(120);
-> +}
-
-[Severity: High]
-When reset-gpios is configured as active-low in the device tree (as shown in
-Documentation/devicetree/bindings/display/sitronix,st75156.yaml with
-reset-gpios =3D <&gpio0 3 GPIO_ACTIVE_LOW>;), gpiod_set_value_cansleep() us=
-es
-logical values where 1 asserts reset (physical low) and 0 deasserts reset
-(physical high).
-
-During st7571_spi_probe() -> st7571_probe() -> st75156_lcd_init() ->
-st75156_reset() in drivers/gpu/drm/sitronix/st7571.c, st75156_reset() sets
-st7571->reset to 0 and then leaves it at 1, which is the inverse of
-st7571_reset() above it.
-
-Won't this leave the st75156 controller held in reset after
-st75156_reset() completes?
-
-> @@ -799,8 +1091,86 @@ static int st7571_lcd_init(struct st7571_device *st=
-7571)
->  	return st7571_send_command_list(st7571, commands, ARRAY_SIZE(commands));
->  }
-> =20
-> -struct st7571_device *st7571_probe(struct device *dev,
-> -				   struct regmap *regmap)
-> +static int st75156_lcd_init(struct st7571_device *st75156)
-> +{
-> +	int ret;
-
-[ ... ]
-
-> +	u8 commands[] =3D {
-> +		ST75156_EXTENSION_COMMAND_2, 0x00,
-> +		ST75156_SET_AUTO_READ_INSTRUCTION, 0x01, ST75156_DISABLE_AUTO_READ,
-> +		ST75156_OTP_WR_RD_CONTROL, 0x01, 0x10,
-> +		ST75156_SLEEP_MS, 0x01, 0x0a,
-> +		ST75156_OTP_UPLOAD, 0x00,
-> +		ST75156_SLEEP_MS, 0x01, 0x14,
-> +		ST75156_OTP_CONTROL_OUT, 0x00,
-> +		ST75156_EXTENSION_COMMAND_1, 0x00,
-> +		ST75156_SLEEP_OUT, 0x00,
-> +		ST75156_DISPLAY_OFF, 0x00,
-> +		ST75156_SLEEP_MS, 0x01, 0x32,
-> +		ST75156_POWER_CONTROL, 0x01, 0x0b,
-> +		ST75156_SLEEP_MS, 0x01, 0x64,
-> +		ST75156_SET_VOP, 0x02, 0x06, 0x03,
-> +		ST75156_EXTENSION_COMMAND_2, 0x00,
-> +		ST75156_ANALOG_CIRCUIT_SET, 0x03, 0x00, 0x01, 0x05,
-> +		ST75156_BOOSTER_LEVEL_X10, 0x01, 0xfb,
-> +		ST75156_EXTENSION_COMMAND_1, 0x00,
-> +		ST75156_DISPLAY_MODE, 0x01, 0x10,
-> +		ST75156_DISPLAY_CONTROL, 0x03, 0x00, 0x3f, 0x00,
-> +		ST75156_DATA_SCAN_DIRECTION, 0x01, 0x02,
-> +		ST75156_NORMAL_DISPLAY, 0x00,
-> +		ST75156_EXTENSION_COMMAND_2, 0x00,
-> +		ST75156_INTERAL_POWER_SUPPLY, 0x00,
-> +		ST75156_EXTENSION_COMMAND_1, 0x00,
-> +		ST75156_COLUMN_ADDRESS_SETTING, 0x02, 0x00, 0xef,
-> +		ST75156_PAGE_ADDRESS_SETTING, 0x02, 0x00, 0x07,
-> +		ST75156_DISPLAY_ON, 0x00,
-> +	};
-
-[Severity: Medium]
-In drivers/gpu/drm/sitronix/st7571.c, st75156_parse_dt() parses
-st75156->inverted from the sitronix,inverted property and st75156->startline
-from dt.vback_porch.typ.
-
-However, unlike st7567_lcd_init() and st7571_lcd_init(), st75156_lcd_init()
-hardcodes ST75156_DISPLAY_CONTROL and ST75156_NORMAL_DISPLAY in commands[],
-and st75156_set_position() only applies st75156->startcol without using
-st75156->startline:
-
-	u8 xs_param =3D st75156->startcol + x;
-	u8 xe_param =3D st75156->startcol + st75156->ncols - 1;
-	u8 ys_param =3D y / ST7571_PAGE_HEIGHT;
-	u8 ye_param =3D ys_param;
-
-Should st75156_lcd_init() (or st75156_set_position()) apply
-st75156->inverted and st75156->startline so that device tree nodes setting
-sitronix,inverted or a non-zero vback-porch take effect?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-add_st7515=
-6_support-v1-0-582525a39a39@axis.com?part=3D2
+> Dropping it would reopen that same race.
+>
+> Thanks,
+> Nagendra
+>
+> >
+> > > +		if (!pm_runtime_status_suspended(zdev->dev)) {
+> > > +			zynqmp_dma_runtime_suspend(zdev->dev);
+> > > +			pm_runtime_set_suspended(zdev->dev);
+> > > +		}
+> > > +		return dev_err_probe(&pdev->dev, pm_err, "device wakeup failed\n");
+> > >   	}
+> > >
+> > >   	ret = zynqmp_dma_chan_probe(zdev, pdev);
+> > >   	if (ret) {
+> > >   		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
+> > > -		goto free_chan_resources;
+> > > +		retain_and_null_ptr(pm);
+> > > +		return zynqmp_dma_probe_fail(zdev, ret);
+> > >   	}
+> > >
+> > >   	p->dst_addr_widths = BIT(zdev->chan->bus_width / 8);
+> > > @@ -1151,7 +1184,8 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+> > >   	ret = dma_async_device_register(&zdev->common);
+> > >   	if (ret) {
+> > >   		dev_err(zdev->dev, "failed to register the dma device\n");
+> > > -		goto free_chan_resources;
+> > > +		retain_and_null_ptr(pm);
+> > > +		return zynqmp_dma_probe_fail(zdev, ret);
+> > >   	}
+> > >
+> > >   	ret = of_dma_controller_register(pdev->dev.of_node,
+> > > @@ -1159,19 +1193,17 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+> > >   	if (ret) {
+> > >   		dev_err_probe(&pdev->dev, ret, "Unable to register DMA to DT\n");
+> > >   		dma_async_device_unregister(&zdev->common);
+> > > -		goto free_chan_resources;
+> > > +		retain_and_null_ptr(pm);
+> > > +		return zynqmp_dma_probe_fail(zdev, ret);
+> > >   	}
+> > >
+> > > -	pm_runtime_put_sync_autosuspend(zdev->dev);
+> > > +	if (pm_runtime_enabled(zdev->dev))
+> > > +		pm_runtime_put_sync_autosuspend(zdev->dev);
+> > > +	else
+> > > +		pm_runtime_put_noidle(zdev->dev);
+> > > +	retain_and_null_ptr(pm);
+> >
+> > You mix use auto cleanup and pm_runtime_put_sync_autosuspen() and
+> > pm_runtime_put_noidle() to make code mess up.
+> >
+> > Frank
+> > >
+> > >   	return 0;
+> > > -
+> > > -free_chan_resources:
+> > > -	zynqmp_dma_chan_remove(zdev->chan);
+> > > -	if (!pm_runtime_enabled(zdev->dev))
+> > > -		zynqmp_dma_runtime_suspend(zdev->dev);
+> > > -	pm_runtime_disable(zdev->dev);
+> > > -	return ret;
+> > >   }
+> > >
+> > >   /**
+> > >
+> > > --
+> > > 2.43.7
+> > >
+>
