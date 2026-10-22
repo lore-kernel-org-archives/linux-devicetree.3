@@ -1,57 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658000;
-	b=SCALeIX258uy0L2ZsJO1kuOGn7nnm5EYLGE0qebOSKcXR5SQ1by9Yj8B5c/wIJeN4opl
-	 C+T6s8wSHm127Xf6u4Mc5alKLDi9nswpIoYmbhV7YXUYU8HmXyVYtoxMdCDUeJC/y2TaM
-	 FwNTntzjJPr8iSNIksrf+uxsDtlayd220ncxgfyLvls7HswtZZCwDIJljqDY10ZIag0tw
-	 +z+97/CRd3R/jfWaLhpp/Pz2Rg11wyxT6r+QjXVoBaZhqzYGvlxs64wwFQL/oj9kXRvhJ
-	 TM7tBZGS4ZGAsQeN9xLT4RtzHn7xu0cR+g0XS1w4zvJLrywM5eRiAsh2JeKfZuoU1Ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658000;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=flFPZllbaKoBIHFswczsH7CR5as1Rw0sc8rUxUyOmGI=;
-	b=u4L1VVwhk6f8TmlOk/g+GZ6FmRZ+enBwH94DNGk33lUp08VvERfWM7Fj5D04xdh9LTX6
-	 2DS2DRpO3a2vw2q7375NGHC1f/H0OWo036N0Y3kggP3xiFp97VVwAo2vYyFQmIbnt5Xms
-	 7wjym+4id9r+WJsaUMyU/9pnPfTyl/qC8nz3Tfbjs529oC8Fvu6I1cmNsf62yGzSCdCsD
-	 CTH4csHnzXbSL+ghxtGDbWD+XfJm0zjQi9/24OE6KP3YrnkXMDw2BVoz9VquSHQYtBHag
-	 3thCKdzYkR3pY8nfvZpjMGYgotfv8PADpNxSwm5/7d0CSbbdAzB8Py1iClIVYaSOOhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNN9pxJF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792658450;
+	b=fp2Giv/PPgfK6MwjWphL0TN0AXo26cj2QQRkeyzv7v6pfF0Gi/aEA0K7Anqo6DYDwhMW
+	 JKiFNGHRAWwHwHcirtywN70jJpVlA7Fd/RrNu0lTKooYgdJQ6Ev0nWsJM3CJde3bWwTaB
+	 +SYIU6d8LlDEqgyzPeY1dHKCDhkgrAWUEWrrFPcF/VmmIJRcM0BktZ1CSxB4NQ1Fbu2sp
+	 gHRj+C8UTj8HeJYhfcbOY9vSJZYFSUpo7mFWvXN5m9ciuzd00GGn0llcrV6NzZzIMgAIV
+	 SzT3cs8yFQtZp1ZFaeHKNE4a9fsR7ae38cHyngcM5nONvZEX4xApbAC8A1DmApoMbJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658450;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NotSetDelaration:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pdm1QdsVbJO3gQaLvQwd57ITuCOqKvaLIN2DJRn93Ss=;
+	b=cOzWphQnj9Zcloex35jx987ZnbywvZmKoDYxy6DVBG1lziDzDGLs5MusSbdjMRuFQy8Z
+	 orogSFJfHbJWVW7sT3wEbFsaeRFgFrNSfR7srk8c/V6k3eUl6d5qOBlSofHBajWSQrtlI
+	 57ONkhDD21I7nJNf340oVzj8OFBi/BIgO8xhbOsxiO2ALOF20rFjUSBpHIl/UlBXsI+82
+	 2c8CMOepG6U7f8NkVGUEeXN2buaiSbHdOAd672QmfSwacz/ASwUpRBQs9M40qL3nCuGs8
+	 auILFKJ74IjzzywxRHElIIi8/GKEX8MUrI0iEDsocT+Qe9zALR8CY602SKOKJLW1zVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nuvoton.com;
+	spf=pass smtp.mailfrom=nuvoton.com;
+	dkim=pass header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256 header.s=selector1 header.b=oF88Okql;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.49
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11012049.outbound.protection.outlook.com [40.107.75.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF470606A31A
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD374606A31A;
+	Thu, 22 Oct 2026 08:40:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD374606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iNN9pxJF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E4B1F000C2;
-	Thu, 22 Oct 2026 08:33:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792657999;
-	bh=flFPZllbaKoBIHFswczsH7CR5as1Rw0sc8rUxUyOmGI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iNN9pxJF/9PFRFCBOoaXQOn8ujjifNb20yGhbn2HabesYdauaidzpm/MkGmUUFCyy
-	 bE80P2WRFeGrj5ltvDXJVQQTy/i0/9MlWgJHD7XtemlXn0qec6E8ETp6L6Ieds9N30
-	 1O8kDzFxKbu713xi5/fU0j2Tg1chVMArbx7aOpw+Cwmlb+hr6kRPKnE36QGLhspWoT
-	 B7BpQvDA57hXsFMsy1NqMIkqcOsp9NuM+IYIckpuzqKuK7VAZEUZ3DiNl21ZzFLVHO
-	 lPEl7wm2qZYg7m0XifQ38ufLdsKeh+BQdnfINwPZjZXB57PkNf9XIYopp1SrVowRjL
-	 1xiGL7CycOLRA==
-Message-ID: <sashiko-outbox-181183@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 7/8] of: reserved_mem: mark /reserved-memory entries
- with MEMBLOCK_NODUMP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>, robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org, m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, saravanak@kernel.org, akpm@linux-foundation.org, pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev, robin.murphy@arm.com, devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org, conor+dt@kernel.org
-In-Reply-To: <20261021083011.2170525-8-chenwandun1@gmail.com>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-8-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 08:33:17 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256 header.s=selector1 header.b=oF88Okql
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YPVGOOuSkY89Q7dOIO9UNPZ6plPYrXiWfsDMXPYatZmEKsb2NaGmSYUdiZ1fz8sEkO7svaAS6troFdLnQ5X7wtcAdTQq2e3QcTdxhdqbqDmpyjkli25evhuxGLYOHxfcHCoMCVbSEf1rTa9PZjtNPqjF8qn2whBMlCboqdwPHUYcU4xi1zFLYCVn4C1eYTfrn59IKzITgMYf5M5H83mpFVugGp43yKel3O6cBoErLsYkQYPtn3TwUfT4ESSXBHXVwVs0apio0aEd8Yqn1fOKPVgFVADFO5ZOTWJkVhRxkSoUneVYycFQtZloVAYE3eaq2AxYO8ThQ1V8M7KVHyaMYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pdm1QdsVbJO3gQaLvQwd57ITuCOqKvaLIN2DJRn93Ss=;
+ b=mzdAuPVpF9/Ry4KFAIM21HP9L+iin5thYjeWENIBSUb4N7NbhAjspWnmbD9lnGwUATyMKMDI9iMY2OvxeMlXYKgsmCcXjFuF/dKG1+/DUSj8c1b05wHBVvNxIBR4woe3dtQzaY/2E64B+oWvZU7RxOBrQtfkdag2b2Qq3aLhFyS08WhhkVL1hGRhILV4IVlEvP2FXflyXFh46G6Y5WECWeAbrcVd9gauFL9d5YZTSX7E392oJj5mkYQ7NuTM0RTgDM+F4RutqRjDRgE4JFmi6o5yzHLZrBamllrsD/CTBjFhpRMwOW8NIvRCXm7/a+gOCx5ws6dE5rCgZgfNWf4PDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pdm1QdsVbJO3gQaLvQwd57ITuCOqKvaLIN2DJRn93Ss=;
+ b=oF88Okql/1lyG4JWjiOaXT40TztHYJ8aNYgFBPpqUGRSih/v2LRmcLKFKEzuq+Lk8+voEdCnAq+FLI0nOUxjZPjM5yRRlNappLUA6Di7xDPgzss7Yi8ef49m8lTEGeavAG1ak8tVA01EMfgixBZL4mK1qnMpiZ/TKxnJIjIpyMktFTfJsEVQ8FBwaq/q6qEvcrpnFzcHugE1Eo1dj0K0a7cVOgl1s5awk99dytyChvAknrpC9SJAYWk9DBniTwoKY5wagpKCqU6KegCHki1Mdly4E/SvkSpdYzJA3bjyF9m7yzfUPFex8cRRg4L5r40LcOugqv761pvMzGUmudheVw==
+Received: from SI1PR02CA0029.apcprd02.prod.outlook.com (2603:1096:4:1f4::20)
+ by KUZPR03MB10265.apcprd03.prod.outlook.com (2603:1096:d10:85::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 08:40:42 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:4:1f4:cafe::99) by SI1PR02CA0029.outlook.office365.com
+ (2603:1096:4:1f4::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+ 22 Oct 2026 08:40:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 175.98.123.7) smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 08:40:42 +0000
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Thu, 22 Oct
+ 2026 16:40:39 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Thu, 22 Oct
+ 2026 16:40:39 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Thu, 22 Oct 2026 16:40:39 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH v1 1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+Date: Thu, 22 Oct 2026 16:40:36 +0800
+Message-ID: <20261022084037.259983-2-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261022084037.259983-1-YLCHANG2@nuvoton.com>
+References: <20261022084037.259983-1-YLCHANG2@nuvoton.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,164 +116,252 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|KUZPR03MB10265:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd914ac1-f379-44df-f151-08df3018282e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|6133799003|18002099003|10067099003|261021121427099003|13003099007|3023799007|22082099003|261021123027099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	NSEWRkKo7OpPFIrA+reWyt/RkdIf+fet3jXI3Za2PUEq1fvs3R1+Qe5MIna430qSzmxPS1wb4i1ZB+80xn2r9949jBiKRiFVPPz6iuwdxJBvKN+wdIp3UzIOFW5MXFUJSjY2TNyLf3n65ygnpX9uklV3dJEzRMCEhBqlREe3rFfW6ZjEfqrI11wBsQ7X2PWYsEIH35Qm66RwHQz+acEZ7Ohz7RLX93hbRwJ6oYM5FTshnGOb0RN17nCjznZt5mZWQj4Ob0wVss9tAPiSlPH+wjENBQB3HPA747BK5iyul7YcmxgfwzxnAlaBfzv8W/WdTCV5pE7MfLnNauFp49s6xX9zI1J6OekwiKCNfzqBMU1VEOaA/XP0MF9ksFL7qBBzZPD/kIdcSqiAs6VIzWp4Pre35IBLAi8XBUcXAWgI4aYIth8lxUa27+B9sixPixTSSFqJkCltrlfNWLvpl9Tps+jzjSYZmofAGqsyJx4I8rofkz+3xbfnb/zyu26tY1o4U8CH56OYLy5b9Ie3cjUceZCtoOgTqufrutdqpnpLMdEYSmnT2QonOF4LZ15rNhYYkDOJObc9NNuxa32wv8fji6BOwaEMiAj8XRU8/+Hmebp5Y+OpwA9MIrWOjN90vhksdQ/JNv9XM5kJtkoC53BsVA==
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(10067099003)(261021121427099003)(13003099007)(3023799007)(22082099003)(261021123027099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qBsy8lqQnC8CHfkRbFwRCkUCWzwhzLfh+hHpxi3rs3Ni1Uajq8MpJZUPBOLemgdCFaw6zX0s25tDlBMIBntYRTaV6SF7pLMCjjSHnZbs44vrBBz6wNW3VHQ5CdL2yB/NDe0ZJZOyS7x2h6Mwc8sd/NZS1MXvzubLFmsV+RkDZVJ1Z7N67Q+bC3xL30RBoAMeCiln+QekNUDyRb8JqL5nlaDFcCPlMzvwd9V9HcSvmizPS/rwj+SzcC2sPZTwm7+hN0zalnI8inKkef4FygWQojiDt/YEAd2WKnCH5ORh7gHPapinN11e7Q2lnkm97i0wIGEqiQ1KFdub+Mby8+PI564WJmguzVDf0L0XBC+Ze5G2axH8ezSECHZ+m3x7/2gK1gYcgXyOfxa5LqC/y47f68mLp0HDVOGXel0XhkRnBamjcYNMbQOqiHhtA37Ga9Ne
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:40:42.0228
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd914ac1-f379-44df-f151-08df3018282e
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR03MB10265
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] of: reserved_mem: unaligned memblock split in fdt_mark_reserve_mem=
-_nodump()
-- [Medium] of: reserved_mem: fdt_mark_reserve_mem_nodump() marks failed res=
-ervations
---
+Add device tree bindings documentation for the Nuvoton NAU83G10
+audio amplifier.
 
-commit a452b9d1fad838de511c25fe48e4541c58357355
-Author: Wandun Chen <chenwandun@lixiang.com>
+Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
+---
+ .../bindings/sound/nuvoton,nau8310.yaml       | 200 ++++++++++++++++++
+ 1 file changed, 200 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
 
-of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+new file mode 100644
+index 000000000000..5a5142a583ed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+@@ -0,0 +1,200 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nuvoton,nau8310.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NAU83G10/20 Mono Class-D Amplifier with DSP
++
++description:
++  Mono Class-D Amplifier with DSP and I/V-sense.
++  This device supports I2C.
++
++maintainers:
++  - Neo Chang <YLCHANG2@nuvoton.com>
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,nau8310
++      - nuvoton,nau8320
++
++  reg:
++    description: The I2C address is determined by the hardware pins.
++    enum: [0x10, 0x11, 0x40, 0x41]
++
++  "#sound-dai-cells":
++    const: 0
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: mclk
++
++  firmware-name:
++    items:
++      - description:
++          DSP core firmware.
++
++  nuvoton,vref-impedance:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      VREF Impedance Selection.
++    enum:
++      - 0 # Open
++      - 1 # 25 kOhm
++      - 2 # 125 kOhm
++      - 3 # 2.5 kOhm
++    default: 0
++
++  nuvoton,dac-vref:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      DAC Reference Voltage Setting.
++    enum:
++      - 0 # Voltage source directly from VDDA pin
++      - 1 # VDDA * 1.5/1.8V
++      - 2 # VDDA * 1.6/1.8V
++      - 3 # VDDA * 1.7/1.8V
++    default: 1
++
++  nuvoton,sar-voltage:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      SAR Gain Tracking Selection.
++    enum:
++      - 0 # VDDA
++      - 1 # VDDA * 1.0
++      - 2 # VDDA * 1.1
++      - 3 # VDDA * 1.2
++      - 4 # VDDA * 1.3
++      - 5 # VDDA * 1.4
++      - 6 # VDDA * 1.54
++      - 7 # VDDA * 3.12
++    default: 0
++
++  nuvoton,sar-compare-time:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      SAR compare time.
++    enum:
++      - 0 # 500 ns
++      - 1 # 1 us
++      - 2 # 2 us
++      - 3 # 4 us
++    default: 1
++
++  nuvoton,sar-sampling-time:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      SAR sampling time.
++    enum:
++      - 0 # 2 us
++      - 1 # 4 us
++      - 2 # 8 us
++      - 3 # 16 us
++    default: 1
++
++  nuvoton,clock-det-disable:
++    type: boolean
++    description:
++      Enable Clock Detection Module.
++
++  nuvoton,clock-det-data:
++    type: boolean
++    description:
++      Clock detection non-zero samples configuration for power up signal.
++
++  nuvoton,boost-delay:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Boost Control Hold Timer in decrement (msec).
++    enum:
++      - 0 # 0 msec
++      - 1 # 1 msec
++      - 2 # 2 msec
++      - 3 # 4 msec
++      - 4 # 8 msec
++      - 5 # 16 msec
++      - 6 # 32 msec
++      - 7 # 64 msec
++      - 8 # 128 msec
++    default: 0
++
++  nuvoton,boost-convert-enable:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Boost Convert Enable.
++    enum:
++      - 0 # BOOST CONVERTER disabled
++      - 1 # BOOST CONVERTER enable gated by POWERUP signal
++      - 2 # BOOST CONVERTER disabled
++      - 3 # BOOST CONVERTER enabled
++    default: 0
++
++  nuvoton,boost-target-limit:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Boost Control Target Value Limit.
++      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V step.
++    minimum: 0
++    maximum: 63
++    default: 63
++
++  nuvoton,boost-target-margin:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Boost Margin Value between Boost Target Voltage and peak output level.
++      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V step.
++    minimum: 0
++    maximum: 63
++    default: 0
++
++  nuvoton,temp-compensation:
++    type: boolean
++    description:
++      Enable Temperature Compensation.
++
++  nuvoton,normal-iis-data:
++    type: boolean
++    description:
++      Enable Normal I2S Audio Data mode. The I2S interface
++      transmits only audio data without SAR ADC data.
++
++required:
++  - compatible
++  - reg
++  - firmware-name
++
++allOf:
++  - $ref: dai-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@10 {
++            compatible = "nuvoton,nau8310";
++            reg = <0x10>;
++            #sound-dai-cells = <0>;
++            firmware-name = "NAU83G10.kcs.bin";
++            nuvoton,vref-impedance = <2>;
++            nuvoton,dac-vref = <1>;
++            nuvoton,sar-voltage = <0>;
++            nuvoton,sar-compare-time = <1>;
++            nuvoton,sar-sampling-time = <1>;
++            nuvoton,clock-det-disable;
++            nuvoton,clock-det-data;
++            nuvoton,boost-delay = <0x8>;
++            nuvoton,boost-convert-enable = <1>;
++            nuvoton,boost-target-limit = <0x32>;
++            nuvoton,boost-target-margin = <0x2>;
++            nuvoton,temp-compensation;
++            nuvoton,normal-iis-data;
++        };
++    };
+-- 
+2.25.1
 
-This commit adds fdt_mark_reserve_mem_nodump() to mark non-dumpable
-reserved-memory regions in memblock.memory so kdump omits them from the
-vmcore when crash dump support is enabled.
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 8c9d6395d6a39..db2bf76000d23 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -677,6 +677,24 @@ static void __init fdt_init_reserved_mem_node(unsign=
-ed long node, const char *un
->  	reserved_mem_count++;
->  }
-> =20
-> +void __init fdt_mark_reserve_mem_nodump(void)
-> +{
-> +	struct reserved_mem *rmem;
-> +	int i;
-> +
-> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-> +		return;
-> +
-> +	if (!IS_ENABLED(CONFIG_KEXEC_FILE) && !IS_ENABLED(CONFIG_CRASH_HOTPLUG))
-> +		return;
-> +
-> +	for (i =3D 0; i < reserved_mem_count; i++) {
-> +		rmem =3D &reserved_mem[i];
-> +		if (rmem->size && !rmem->dumpable)
-> +			memblock_mark_nodump(rmem->base, rmem->size);
-> +	}
-
-[Severity: High]
-What happens here when rmem->base or rmem->size is not page-aligned, or
-when rmem->size is smaller than a page?
-
-Previously, mapped reserved-memory regions were only recorded in
-memblock.reserved and did not split memblock.memory. Calling
-memblock_mark_nodump() splits memblock.memory at rmem->base and
-rmem->base + rmem->size, but reserved-memory regions are not guaranteed to
-be page-aligned:
-
-drivers/of/of_reserved_mem.c:early_init_dt_alloc_reserved_memory_arch() {
-	end =3D !end ? MEMBLOCK_ALLOC_ANYWHERE : end;
-	align =3D !align ? SMP_CACHE_BYTES : align;
-	base =3D memblock_phys_alloc_range(size, align, start, end);
-}
-
-Static device tree regions without no-map can also be smaller than a page
-or unaligned to the page size (for example, cfe-stub@0 in
-arch/arm64/boot/dts/broadcom/bcmbca/bcm4908.dtsi with a 0x1000 size under
-16k or 64k page configurations).
-
-When memblock.memory is split at an unaligned or sub-page boundary,
-__next_mem_pfn_range() rounds each region inward to page boundaries and
-skips sub-page regions:
-
-mm/memblock.c:__next_mem_pfn_range() {
-	while (++*idx < type->cnt) {
-		r =3D &type->regions[*idx];
-		r_nid =3D memblock_get_region_node(r);
-
-		if (PFN_UP(r->base) >=3D PFN_DOWN(r->base + r->size))
-			continue;
-}
-
-This drops any page frame straddling an unaligned split boundary from
-for_each_mem_pfn_range() and the page allocator.
-
-In addition, request_standard_resources() in arch/arm64/kernel/setup.c and
-init_resources() in arch/riscv/kernel/setup.c register each mapped
-memblock.memory region using memblock_region_memory_base_pfn() and
-memblock_region_memory_end_pfn():
-
-arch/riscv/kernel/setup.c:init_resources() {
-		res->start =3D __pfn_to_phys(memblock_region_memory_base_pfn(region));
-		res->end =3D __pfn_to_phys(memblock_region_memory_end_pfn(region)) - 1;
-
-		ret =3D add_resource(&iomem_resource, res);
-		if (ret < 0)
-			goto error;
-}
-
-For a sub-page region where PFN_UP(base) >=3D PFN_DOWN(base + size), res->e=
-nd
-becomes smaller than res->start (or underflows when end_pfn is 0), causing
-add_resource() on riscv to fail and tear down iomem_resource, and producing
-an inverted or underflowed resource on arm64.
-
-Splitting memblock.memory also splits hyp_memory[] on arm64 pkvm, where
-check_range_allowed_memory() in arch/arm64/kvm/hyp/nvhe/mem_protect.c
-requires checked ranges to fall within a single region:
-
-arch/arm64/kvm/hyp/nvhe/mem_protect.c:check_range_allowed_memory() {
-	reg =3D find_mem_range(start, &range);
-	if (!is_in_mem_range(end - 1, &range))
-		return -EINVAL;
-}
-
-Could memblock_mark_nodump() corrupt resource registration, drop straddling
-pages, or break pkvm range checks when regions are not page-aligned?
-
-[Severity: Medium]
-Can fdt_mark_reserve_mem_nodump() also end up marking active kernel memory
-as non-dumpable if an early static reservation failed?
-
-During early boot in fdt_scan_reserved_mem(), __reserved_mem_reserve_reg()
-logs an error if early_init_dt_reserve_memory() fails (for example, if a
-static region overlaps the kernel image or initrd), but still returns 0:
-
-drivers/of/of_reserved_mem.c:__reserved_mem_reserve_reg() {
-	if (size && early_init_dt_reserve_memory(base, size, nomap) =3D=3D 0) {
-		fdt_fixup_reserved_mem_node(node, base, size);
-		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size =
-%lu MiB\n",
-			 uname, &base, (unsigned long)(size / SZ_1M));
-	} else {
-		pr_err("Reserved memory: failed to reserve memory for node '%s': base %pa=
-, size %lu MiB\n",
-		       uname, &base, (unsigned long)(size / SZ_1M));
-	}
-	return 0;
-}
-
-Later, fdt_scan_reserved_mem_late() scans all available static nodes in
-/reserved-memory and passes them to fdt_init_reserved_mem_node(), recording
-them in reserved_mem[] regardless of whether the early reservation
-succeeded:
-
-drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem_late() {
-		if (size) {
-			uname =3D fdt_get_name(fdt, child, NULL);
-			fdt_init_reserved_mem_node(child, uname, base, size);
-		}
-}
-
-Wouldn't fdt_mark_reserve_mem_nodump() then mark that unreserved range in
-memblock.memory, causing kdump to omit memory that is actually in use by
-the kernel?
-
-> +}
-> +
->  struct rmem_assigned_device {
->  	struct device *dev;
->  	struct reserved_mem *rmem;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021083011.2170=
-525-1-chenwandun1@gmail.com?part=3D7
