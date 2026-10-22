@@ -1,63 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792704048;
-	b=o6JuBM3HppVvyJPnvgXnJJEXHXDzq4Tr4H37bTdUaSDLg1TvpEmbpgXB2CpOWYf4Rujn
-	 SO4p5REmexUxFMVKp6wpGuQRNlC1RHMf0eiw5l57ktSilN1KGSJyPqX1LgSeP8ktrITY3
-	 jBkUWemPINNainGPW2hc5oesSl0/SklWQBDosM1blZxhdXc63vDm6KpQdKLw3huUuBG0a
-	 E3sQCv0D3bxH/UDQU+hs2r9sS6rdnVFwxx+yVvFkmVROWRBG4lCl4QgW1ai2mhcAArPKw
-	 xtvV4agiUCNQ5cMsDvwGbD/Cas/DyGGHnsvi7WzrCR4FMylK7O3kny0M2mD1NAzGTqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792704048;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
-	 Subject:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=950KdLW0jnAJ0wqJwszXohKCZ8YD/JsTFwKjc2h3nTg=;
-	b=DIA/CVQWINqfx06HeqleDm8AQAKKmEWdsJcDVQ8UwSvCbx+q8Y1iznlVgYO+1eKcKIQo
-	 WUyJ29YQWPeBacW2JdX1vxuxMsOkjA80Hi74uOF4KS1Qqa4xo1GDC95BeTGAWJqkqm+dI
-	 5/SbtUSq4pGY1LvPTwpV1+knjG2qOohX+kfM6zj9febvFgMlVDPpDFQq/9n/K2+UiQdT5
-	 JG1KEezNTO5buLga5OocTRh4itLTJItJKjSnm5I5SqMVb+BE7ryBiyuqka+nxzLJ1rR+F
-	 pdtFoj3CL0Kx1lipW0wWnxYhxD4MNjnPN226uOXtoWWFd0quh5BeRCEFiHWE06BLceA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Eq95cS4K;
-	arc=none smtp.remote-ip=109.224.244.106
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792704061;
+	b=OGfKSqotT7YpoqN/GhfYaXH22lhtezhU4YQ++JnyM+RFgoed+IL8wzChXbQVrim89TrN
+	 4dJBBSAQ67nBdDJmOY/kiAv6hrcIaz5ATJZKxU0JepX9NWXEzNgpc6ZsVhy0TmtOI/b6/
+	 ZL2KOgo+SqXEXhAWL1fm51of8ccNdNpwtPi3fox6vI+zJkYPDk8KKQjCg1+d/nQSjjtwT
+	 cNnywLlSd+kHIJPfpslPsw48XPNclW64chNGDIywUofZf62pRkllWup/rzLTrw/T+CPo+
+	 uwYEX1OJ00rJeyyS4OlVqquKVPmVxDUVc2XuJPKyGgbTQyHPPZ0GOEC63AsbV691CfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792704061;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pbb4u5LzAFqJfQ9WJCkTwClJejRmQMtZ8ldA61QjRyE=;
+	b=l4/F+5BnZaWeGz7k8V80hg1ZwDr2OYh8hqywNWg6aSfHxRJ7X1eQ//8m4Etx+owxXfcc
+	 /3efXbvyojUb9O5o08qtO5h7ev9IC4XTFTFmxfrtwu0gnwhvquY5hnHoWcUsF30dHNCV7
+	 HCHvjZBtCsJ/QKLzvdvluU/mtd0vDP7SpJdPT4PVy3s6nfRCas34O41d5F6R6xWeZclAp
+	 f+cmBIWSBSafwplwazj4UQkFY0eup9lQuZuzOJkKlighDSPN7sfXe5lpu03J05TjKNVKJ
+	 /JCmxUEIkdTYLTKsnRqpLRXm8RODyU0O40Hi1yUrKGWLaSQStg8jh0JG8kidf12KZeA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UxlOZglv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.56
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013056.outbound.protection.outlook.com [52.101.83.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D398F606A330
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 21:20:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D398F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71A0606A325;
+	Thu, 22 Oct 2026 21:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D71A0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Eq95cS4K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1792704045; x=1792963245;
-	bh=950KdLW0jnAJ0wqJwszXohKCZ8YD/JsTFwKjc2h3nTg=;
-	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Eq95cS4KS/2bjs6zmfBcXhbmO/Zs7UAmCpjGnzgiwQ/h7wdy6DhyXshgVFIN0EZ7n
-	 aDvRBO/04bvowaFjfvMZw/MtQok5+0PcUx4YH1HAS2VavlHlThP4UkDcB1U/2u/wOZ
-	 Lm3kB7VjjPqmXVYaSC6Vdd70BIKzesxxFn+yIXhVJXYrC5to83SHfdAIB2YyXRdnLs
-	 cP71iloVnOVA3w1x4mGXUgjmmcsHWW1jc8GeOI3LwdscXo6o1fGc2oZ0zQmLaVHOqi
-	 D6mQvo1vvhJaX8bYyGltEvvrzHyc9s0oZ2fhPuPzH0mOKLRyHgC4uQBMxHIdxMnF5n
-	 ACkRTDzsWnMTg==
-X-Pm-Submission-Id: 4j9fFl2wwdz1DFG0
-From: Michael McAllister <me@michaelmcallister.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=UxlOZglv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BaOcqcFbUjLlbuhXdYU1gRN92rlQWucEBRIJte0BfzDvimDR7hXnIJjaOj2C5PlYQBr02KXZ0qvkIgfbyeW7bBCqzPgJYrBsiPI8T0cJO2wbMeGiJCfCO9gZ+Z/S58fJf0VVk5CDr4lFDd9qxYKdVJsNhnKTCPZecWwwPIaY5+9SiMHlMeKxroGzfegQokbosq4haxV5U1K7BSfMFBprLrB6WiDdSEFEz4ZS2sedSNicINBI/gueJ45gmqT75EVTw27G0BxVfYBmyFa8uSdqYbttSF9MbE9548oPAdVO19k13EdSKn1W8CfR2Q247Z86r9KnYp6yJohonzuRMkOzUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pbb4u5LzAFqJfQ9WJCkTwClJejRmQMtZ8ldA61QjRyE=;
+ b=M1Jp/ayZ0Dmpad9LfZH5dZEfuLvaxqhclh2bNyifoQ6O9iQEw22q1zsTAIvUnmeO0YooKrI9qhSWlvEuwHxZ0VnbV5yW0AYHq4TgLkC7uTqtAy9nj3Olbj9lFc/z6q4gKsZ++tEV9Ba4Dij0v5jAZRLjhBJ/3EknGYK8I6Dj+zga0t68/wkGK/cfZoyIVtqbXmEhf6wV2plSjUnIPWyePv+ttdFZ9t4v/QX7q47XU98aH/gvIWXjyCO9gN7LdhooCT+zAK4X4Ao5nghnQ7Z5fwrchHytCb/NRRCMv3t0Re4Qn3vPI3/Q7jS9/fh9vhbd72g7n3Q1RkilWO9zKSbxwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pbb4u5LzAFqJfQ9WJCkTwClJejRmQMtZ8ldA61QjRyE=;
+ b=UxlOZglvDtZRHWwEp+TBw2gO91g4DbU7RlCHILoxqoKTyfRACjTi9g2Gfg5MPGUKWCEkL1BEzTOF7MjNrX8ngfqP2ziDM9c8tC0H5tjiiopPPAIoeK8sseWuuXSZ5+Z5TfPFLOIcQYnIP85sZ+Pgp2Np5RDIoHdumBe84/oThuoaRO3jLp+G7+cG2mhIU7jjfTH8VwYDfmHlbQsq7XW88ioFFrZkXyXZiRd7dheKFzZ/m166oxCIWQ/YC77Ac9aCNvKnbYUcE1T95xLwcJ7B/MOfd/ivCik+NJ/zy01rjW6ja7qaDXU+tTauw5juywq6pdDUnhZ2ftuRI4MHMZ+aYw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA4PR04MB7709.eurprd04.prod.outlook.com (2603:10a6:102:e3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 21:20:56 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 21:20:56 +0000
+Date: Thu, 22 Oct 2026 17:20:48 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 22 Oct 2026 21:40:27 +0100
-Subject: [PATCH 2/2] arm64: dts: qcom: Add Motorola Moto G10
-Message-ID: <9d30c98a7eb0e57b09f239e8276f6d84422d9fd4.1792703903.git.me@michaelmcallister.org>
-In-Reply-To: <cover.1792703903.git.me@michaelmcallister.org>
-References: <cover.1792703903.git.me@michaelmcallister.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: freescale: imx8mp-verdin: Add
+ mezzanine OV5640 overlays
+Message-ID: <atp-MEqHMT7F75qn@lizhi-Precision-Tower-5810>
+References: <20261022-verdin-imx8mp-hmp-camera-ready-v3-0-90a30b0b0d55@toradex.com>
+ <20261022-verdin-imx8mp-hmp-camera-ready-v3-4-90a30b0b0d55@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-verdin-imx8mp-hmp-camera-ready-v3-4-90a30b0b0d55@toradex.com>
+X-ClientProxiedBy: PH7P220CA0075.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32c::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,493 +106,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA4PR04MB7709:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2b0edba-90e7-4001-5756-08df30825c3b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|7416014|376014|1800799024|6133799003|18002099003|22082099003|11063799006|4143699003|261009223027099003|261021121427099003|10067099003|261022105027099003|56012099006|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	QsZZ6NKa8O3v6FSO/BDb78Qp+JS1fqMReAV/EdlM9w1XyrPOsadlirLRwpYtmEoR4PkZaUSRhFnzFHzPqI0IEnyfrokGLDGhZ2YdCytyVHqa+gq9imMwKuTktSsTKZ9dFCc2heZxbaDNipJzsHP1YroANcY7Xjim79aneCK22lBEcA2fCAq2dr8Gzijjv8p51NIGoLxhZocEQaEZsHFrry61eP8/MsHw+8eXTNfXzN5XDw52l3PlWO8Pa9jf+n29V//g3mnluqDaq2jP3q58EdscSJCMXDf/7+fzCND5izwIDDNhr8AUERkagZkZ/9iHLN3qCAZXHGP2vK1ksN1tfIdVq40JZEOD96+LFSFIeHD8q8OvnI29N3XRAVI2v3KloV6JPD4vO/9ViyzsFCXBIv2hCXRj+CSDuxdyhBD08Ovx3fUM1I4YqhEB6H/MeDoYCGsfxPUp2XfX5ybKMFGm9B42Pjyt/mJbQprAVUAVp5TDDDre4OfJ7bgWemFRGw4wDBg8H6S1Qmvl7tRLKPpUIySOI5jXfr+juUrowgV3wflncWgdrNcYc9eZZ1dwTRbA32KNIP4y5tkGb4sB3mu1WodrnuguJfX5pT6YnNtrNXbyjU/Yohul2+S4lrHfoQWy
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(261009223027099003)(261021121427099003)(10067099003)(261022105027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8cmHRLo0mnMWApLHdI7FOl8MCkSUDXbWx/TksbhSkA5wjnOUHrbJvO9y7ZVC?=
+ =?us-ascii?Q?TNzMbRoXnLdsDeCTEzl3hM45TpS2IdXoJPkSerO2sVft5+2ipzETa97eqEGn?=
+ =?us-ascii?Q?+uA7BiE+ELDkYswWzyszxrFZB+xuHYC1wBChLFUdqGENNkMeWADIfyEL7wZc?=
+ =?us-ascii?Q?lAEfof3ctkeKmbBoD7K/WCTiPhmDhUwbWyeEMlQdQCJuTN5pr3n7USRfUZh0?=
+ =?us-ascii?Q?A9mKxIr8DE9CntB3VHYn7L0dLMf0+jMUz8Ce2f7iimmFR5St4IQQCtkOuUn7?=
+ =?us-ascii?Q?cbylJJEW6lNM3byQETiw4GwyHxFGJf5jTDsUo7LdsD5+p4HqIC2D66D5hiqy?=
+ =?us-ascii?Q?j0ErAoZ93sgCWLd7JhB2MX5V+otXbhA4wHLpV8oo+dhVRQvqK1aG13E9rGex?=
+ =?us-ascii?Q?rH23Qs+BbJNTQkYnHKyG34DPG8ebITAA3r4Pxyj5C06VkvIIGlTZeCNnDWjn?=
+ =?us-ascii?Q?XRHUBUNgOtjrhHA/TZHyJf5eyX2l4RQaG0XNk7MWHWlk2zhr3ZWRNPnDwXOn?=
+ =?us-ascii?Q?gbjwAw7i7fcjfiI6zTPf8BfhvLdw+OqIV+jP93llaZAMue+e+7XT9q2NknBJ?=
+ =?us-ascii?Q?aCGDPiZ2jXqnOPcNgxFlyTarSRGkhChVcwUGoqyaIqnycRTNFWBmdyneUTOB?=
+ =?us-ascii?Q?VsrwR8ApzMJLqDOmkEeuw3scaSJXnI549WK4EsU2YF+F4IUSbb6klQtCUtjA?=
+ =?us-ascii?Q?HuyD+hBdTkLOZzCEm+uK0+FHzHGBnX3UJPSdVvIndbgyEHXIDCQm1qmqwKVs?=
+ =?us-ascii?Q?6UeeIwkZ8kNvlphoaepnh++A59Z3VllTHPBq4furRQRvYhGgo5CM2HZYpQUO?=
+ =?us-ascii?Q?dkh97QF6HjR4kkHxfx1bDo0EfAc3nsaBrolLOSDM3wS0OzrZIL+k7dKvrPwO?=
+ =?us-ascii?Q?MkBjJc84+Pmto4OfRgZfrvOt7w+dajMvhR4a67517dAI2ZqDZzJ5GFbQcFiy?=
+ =?us-ascii?Q?ns7//HhJQlVr2T5eUr/2li6BXlN8HRrpvAl55yQe4lHuLl7wEe4eOiSuThHO?=
+ =?us-ascii?Q?XgThpZ2yLufK7CkkVH2vqZifNOEvorfVHnXX9YrM1m3QTufHRSipS+BGXRSz?=
+ =?us-ascii?Q?Yd+gcZ/Yk8qiOeWpdQwTBuZdlz3bo9CmJjG7WwPlRg8T+c6vmWhgWh5aFA8W?=
+ =?us-ascii?Q?IhC+HUwERXj6SmtWLG4F5IR5L3cMKXxhK28EhtCbymdtQLxaHq0W2c/9N/L+?=
+ =?us-ascii?Q?BpLrVIixBXJs9vPa6v3b1V0sNFD6+jO99Sb7UZvnWFaCBjVLhCitucZVi6wC?=
+ =?us-ascii?Q?QdQ26VXkpwLlkFchESF4zPgt9xuNDI48LdTZu8LT60SuwAiBO1DTZmRZwvye?=
+ =?us-ascii?Q?ijFi2LTEmDyk4PhfH6r2QDmQvumvfc0N98OFvm4eKP+6k47g79iQP5RrVJjs?=
+ =?us-ascii?Q?o6D31Qq4Zfyy8ME1deL1WQ0wViPG+MqDLFftLQIxJli9N/Nbs/cxxYmPoKRm?=
+ =?us-ascii?Q?n8dKABKbAG+G5dfxc/Itgm7OaPQuWHrUr2fUYj5rbwk4DmH9W8TchIRVyI8I?=
+ =?us-ascii?Q?CJUO621iIcVHbR8Rx9rSPVSlqapPyVTY5IPv/87wfuqzzMN1tFREyGF7utpc?=
+ =?us-ascii?Q?/rqzqSHgiwSXm10/Yq0VKQAaOrXm5WMZ28X6XhbpN2UnkdTWKDSYdRnGdHDf?=
+ =?us-ascii?Q?X47ATp9H1G9EWUAg2hWOSptW72on2XyR57Zly+7ktj7wv70zr6RGUmCv1IKR?=
+ =?us-ascii?Q?BR31g2nEzLrySBsGnZTXT8LmdnopzuRbhQigV5hqSYz9PRoZy1ggHdT4viaC?=
+ =?us-ascii?Q?o4BnRd5rACivw5M3XjDWfCkKL2yX+f36FIvh6DFMivCNYVzLbkGd?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2b0edba-90e7-4001-5756-08df30825c3b
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 21:20:56.1948
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HgRsotWqjnxjq+7IKuIRoEXibBZfdiOOR6efRmr/+aj8Cg9pGC7MNl+aAZwJF8CfR10j7p+IAvCUZaluAbddZ2XrlO05/o86eTHVn90hCyQGIdlxkvAgMTeNi2465Ufm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7709
 
-Add an initial board description for the SM4250-based Motorola Moto G10
-(codenamed capri), including eMMC, USB-C, buttons, GPU, Wi-Fi and
-Bluetooth. Use the firmware framebuffer until native panel support is
-available.
+On Thu, Oct 22, 2026 at 04:31:28PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> The Verdin iMX8M Plus exposes its second MIPI CSI-2 interface through the
+> Verdin iMX8M Plus Mezzanine. Add overlays for using a Toradex OV5640 camera
+> on this interface.
+>
+> The mezzanine can route the camera control signals through two jumper
+> configurations. Describe each configuration as a GPIO nexus mapping so the
+> camera description remains independent of the physical routing.
+>
+> The default positions share the native CSI_1 GPIOs and are intended for a
+> single camera. The alternate positions permit simultaneous native and
+> mezzanine cameras, but conflict with the Atmel MXT touchscreen GPIO.
+>
+> The current camera set uses a 27 MHz on-board oscillator. The legacy camera
+> module uses 24 MHz, so provide variants for both.
+>
+> Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
+> Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
+> Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+>  arch/arm64/boot/dts/freescale/Makefile             | 19 ++++++
+>  ...-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso | 19 ++++++
+>  ...din-mezzanine-ov5640-24mhz-default-jumpers.dtso | 18 +++++
+>  ...imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso | 38 +++++++++++
+>  ...mp-verdin-mezzanine-ov5640-default-jumpers.dtso | 42 ++++++++++++
+>  .../freescale/imx8mp-verdin-mezzanine-ov5640.dtsi  | 78 ++++++++++++++++++++++
 
-Describe the board-specific firmware carveouts and PSCI state IDs, and
-use the shared PM6125 and PMI632 definitions. Put the modem, ADSP and
-GPU firmware paths under qcom/motorola/capri/.
+why not share with imx8m-verdin-ov5640.dtsi, which is almost the same.
 
-Panel, touchscreen, amplifier, sound-card and battery-monitor support
-still depend on local drivers and are left for separate submissions.
-
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/sm4250-motorola-capri.dts   | 452 ++++++++++++++++++
- 2 files changed, 453 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
-
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e00..6f2dd88a14 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -383,6 +383,7 @@ shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-ca
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-motorola-capri.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts b/arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
-new file mode 100644
-index 0000000000..b079f0cdc8
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
-@@ -0,0 +1,452 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) 2026 Michael McAllister <me@michaelmcallister.org>
-+ *
-+ * PM6125 regulator definitions derived from sm4250-oneplus-billie2.dts:
-+ * Copyright (c) 2021 Iskren Chernev <iskren.chernev@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include "sm4250.dtsi"
-+#include "pm6125.dtsi"
-+#include "pmi632.dtsi"
-+
-+/ {
-+	model = "Motorola Moto G10";
-+	compatible = "motorola,capri", "qcom,sm4250";
-+
-+	/* Used by the bootloader to select the board. */
-+	qcom,msm-id = <0x1a1 0x10000>;
-+	qcom,board-id = <0 0xb200>;
-+
-+	aliases {
-+		display0 = &framebuffer0;
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart3;
-+	};
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		stdout-path = "display0";
-+
-+		framebuffer0: framebuffer@5c000000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0 0x5c000000 0 (720 * 1600 * 4)>;
-+			display = <&mdss>;
-+			format = "a8r8g8b8";
-+			height = <1600>;
-+			stride = <(720 * 4)>;
-+			vddio-supply = <&vreg_l9a>;
-+			width = <720>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-0 = <&volume_up_default>;
-+		pinctrl-names = "default";
-+
-+		key-volume-up {
-+			debounce-interval = <15>;
-+			gpios = <&pm6125_gpios 5 GPIO_ACTIVE_LOW>;
-+			label = "Volume Up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			wakeup-source;
-+		};
-+	};
-+};
-+
-+/* The stock firmware uses CPU mode 3 and affinity level 1 for these states. */
-+&cluster_0_sleep_0 {
-+	arm,psci-suspend-param = <0x41000023>;
-+};
-+
-+&cluster_0_sleep_1 {
-+	arm,psci-suspend-param = <0x41000043>;
-+};
-+
-+&cluster_1_sleep_0 {
-+	arm,psci-suspend-param = <0x41000023>;
-+};
-+
-+&cluster_1_sleep_1 {
-+	arm,psci-suspend-param = <0x41000043>;
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/motorola/capri/a610_zap.mdt";
-+};
-+
-+&pil_cdsp_mem {
-+	reg = <0 0x51a00000 0 0x800000>;
-+};
-+
-+&pm6125_gpios {
-+	volume_up_default: volume-up-state {
-+		pins = "gpio5";
-+		function = "normal";
-+		bias-pull-up;
-+		input-enable;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pmi632_typec {
-+	status = "okay";
-+
-+	connector {
-+		compatible = "usb-c-connector";
-+		data-role = "dual";
-+		pd-disable;
-+		power-role = "dual";
-+		self-powered;
-+		typec-power-opmode = "default";
-+		vbus-supply = <&pmi632_vbus>;
-+
-+		port {
-+			pmi632_hs_in: endpoint {
-+				remote-endpoint = <&usb_dwc3_hs>;
-+			};
-+		};
-+	};
-+};
-+
-+&pmi632_vbus {
-+	regulator-min-microamp = <500000>;
-+	regulator-max-microamp = <500000>;
-+
-+	status = "okay";
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/motorola/capri/adsp2.mdt";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_mpss {
-+	firmware-name = "qcom/motorola/capri/modem.mdt";
-+
-+	status = "okay";
-+};
-+
-+&reserved_memory {
-+	/delete-node/ memory@53800000;
-+	/delete-node/ memory@56100000;
-+	/delete-node/ memory@56110000;
-+	/delete-node/ memory@56115000;
-+
-+	/* The ADSP and following carveouts differ from the SM6115 defaults. */
-+	pil_adsp_mem: memory@52200000 {
-+		reg = <0 0x52200000 0 0x1c00000>;
-+		no-map;
-+	};
-+
-+	pil_ipa_fw_mem: memory@53e00000 {
-+		reg = <0 0x53e00000 0 0x10000>;
-+		no-map;
-+	};
-+
-+	pil_ipa_gsi_mem: memory@53e10000 {
-+		reg = <0 0x53e10000 0 0x5000>;
-+		no-map;
-+	};
-+
-+	pil_gpu_mem: memory@53e15000 {
-+		reg = <0 0x53e15000 0 0x2000>;
-+		no-map;
-+	};
-+
-+	/* Bootloader debug data. */
-+	memory@aef9d800 {
-+		reg = <0 0xaef9d800 0 0x62800>;
-+		no-map;
-+	};
-+
-+	ramoops@af000000 {
-+		compatible = "ramoops";
-+		reg = <0 0xaf000000 0 0xbf800>;
-+		console-size = <0x40000>;
-+		pmsg-size = <0x40000>;
-+		record-size = <0x20000>;
-+	};
-+};
-+
-+&rpm_requests {
-+	regulators-0 {
-+		compatible = "qcom,rpm-pm6125-regulators";
-+
-+		vreg_s6a: s6 {
-+			regulator-min-microvolt = <320000>;
-+			regulator-max-microvolt = <1456000>;
-+		};
-+
-+		vreg_s7a: s7 {
-+			regulator-min-microvolt = <1280000>;
-+			regulator-max-microvolt = <2040000>;
-+		};
-+
-+		vreg_s8a: s8 {
-+			regulator-min-microvolt = <1064000>;
-+			regulator-max-microvolt = <1304000>;
-+		};
-+
-+		vreg_l1a: l1 {
-+			regulator-min-microvolt = <952000>;
-+			regulator-max-microvolt = <1152000>;
-+		};
-+
-+		vreg_l4a: l4 {
-+			regulator-min-microvolt = <488000>;
-+			regulator-max-microvolt = <1000000>;
-+		};
-+
-+		vreg_l5a: l5 {
-+			regulator-min-microvolt = <1648000>;
-+			regulator-max-microvolt = <3056000>;
-+		};
-+
-+		vreg_l6a: l6 {
-+			regulator-min-microvolt = <576000>;
-+			regulator-max-microvolt = <656000>;
-+		};
-+
-+		vreg_l7a: l7 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1304000>;
-+		};
-+
-+		vreg_l8a: l8 {
-+			/* Handset ICNSS DT overrides CX/MX to 640 mV. */
-+			regulator-min-microvolt = <640000>;
-+			regulator-max-microvolt = <640000>;
-+		};
-+
-+		vreg_l9a: l9 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			/* Display and touch share this rail with Bluetooth. */
-+			regulator-boot-on;
-+		};
-+
-+		vreg_l10a: l10 {
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1904000>;
-+		};
-+
-+		vreg_l11a: l11 {
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1952000>;
-+		};
-+
-+		vreg_l12a: l12 {
-+			regulator-min-microvolt = <1624000>;
-+			regulator-max-microvolt = <1984000>;
-+		};
-+
-+		vreg_l13a: l13 {
-+			regulator-min-microvolt = <1504000>;
-+			regulator-max-microvolt = <1952000>;
-+		};
-+
-+		vreg_l14a: l14 {
-+			regulator-min-microvolt = <1704000>;
-+			regulator-max-microvolt = <1904000>;
-+		};
-+
-+		vreg_l15a: l15 {
-+			regulator-min-microvolt = <2920000>;
-+			regulator-max-microvolt = <3232000>;
-+		};
-+
-+		vreg_l16a: l16 {
-+			/* ICNSS WCN3990 XO supply setting. */
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		vreg_l17a: l17 {
-+			regulator-min-microvolt = <1304000>;
-+			regulator-max-microvolt = <1304000>;
-+		};
-+
-+		vreg_l18a: l18 {
-+			regulator-min-microvolt = <1104000>;
-+			regulator-max-microvolt = <1304000>;
-+		};
-+
-+		vreg_l19a: l19 {
-+			regulator-min-microvolt = <1624000>;
-+			regulator-max-microvolt = <3304000>;
-+		};
-+
-+		vreg_l20a: l20 {
-+			regulator-min-microvolt = <1624000>;
-+			regulator-max-microvolt = <3304000>;
-+		};
-+
-+		vreg_l21a: l21 {
-+			regulator-min-microvolt = <2400000>;
-+			regulator-max-microvolt = <3544000>;
-+		};
-+
-+		vreg_l22a: l22 {
-+			regulator-min-microvolt = <2952000>;
-+			regulator-max-microvolt = <3304000>;
-+		};
-+
-+		vreg_l23a: l23 {
-+			regulator-min-microvolt = <3296000>;
-+			regulator-max-microvolt = <3304000>;
-+		};
-+
-+		vreg_l24a: l24 {
-+			regulator-min-microvolt = <2704000>;
-+			regulator-max-microvolt = <3544000>;
-+		};
-+	};
-+};
-+
-+&sdhc_1 {
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+	vmmc-supply = <&vreg_l24a>;
-+	vqmmc-supply = <&vreg_l11a>;
-+	max-frequency = <50000000>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&sleep_clk {
-+	clock-frequency = <32764>;
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <14 4>;
-+
-+	bt_uart_default: bt-uart-default-state {
-+		cts-pins {
-+			pins = "gpio8";
-+			function = "qup3";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		rts-pins {
-+			pins = "gpio9";
-+			function = "qup3";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+
-+		tx-rx-pins {
-+			pins = "gpio10", "gpio11";
-+			function = "qup3";
-+			/* Keep RX idle high while the controller TX is tristated. */
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	bt_uart_sleep: bt-uart-sleep-state {
-+		cts-rts-pins {
-+			pins = "gpio8", "gpio9";
-+			function = "gpio";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+
-+		tx-rx-pins {
-+			pins = "gpio10", "gpio11";
-+			function = "gpio";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+	};
-+};
-+
-+&uart3 {
-+	interrupts-extended = <&intc GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
-+			      <&tlmm 11 IRQ_TYPE_EDGE_FALLING>;
-+	pinctrl-0 = <&bt_uart_default>;
-+	pinctrl-1 = <&bt_uart_sleep>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn3950-bt";
-+		max-speed = <3000000>;
-+		vddch0-supply = <&vreg_l23a>;
-+		vddio-supply = <&vreg_l9a>;
-+		vddrf-supply = <&vreg_l17a>;
-+		vddxo-supply = <&vreg_l16a>;
-+	};
-+};
-+
-+&usb {
-+	/* The connector exposes only the USB 2.0 data pair. */
-+	qcom,select-utmi-as-pipe-clk;
-+
-+	status = "okay";
-+};
-+
-+&usb_dwc3 {
-+	dr_mode = "otg";
-+	maximum-speed = "high-speed";
-+	phy-names = "usb2-phy";
-+	phys = <&usb_hsphy>;
-+	role-switch-default-mode = "peripheral";
-+};
-+
-+&usb_dwc3_hs {
-+	remote-endpoint = <&pmi632_hs_in>;
-+};
-+
-+&usb_hsphy {
-+	vdd-supply = <&vreg_l4a>;
-+	vdda-phy-dpdm-supply = <&vreg_l15a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-+
-+&wifi {
-+	vdd-0.8-cx-mx-supply = <&vreg_l8a>;
-+	vdd-1.3-rfa-supply = <&vreg_l17a>;
-+	vdd-1.8-xo-supply = <&vreg_l16a>;
-+	vdd-3.3-ch0-supply = <&vreg_l23a>;
-+	qcom,calibration-variant = "Motorola_Capri";
-+
-+	status = "okay";
-+};
-+
-+&xo_board {
-+	clock-frequency = <19200000>;
-+};
+Frank
