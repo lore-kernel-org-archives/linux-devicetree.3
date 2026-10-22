@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705603;
-	b=GmNjrTkVNWH9BLnBLF8NLgw//tAKh5GWwY2be5FPYpiSAkFbJI99KymqKSFrd1se7Sj6
-	 1EFe2rOlc32ANTRRpIE0PEmXn/8rArbvDJiNWg6y1Zm30WD0eyVZC4btL5RrKWteKhO8z
-	 PwylDT6lR2yyn1gzaZSk1nlA/dGMGMZWTCaC+dhfLj9+5p1vkdMInd8Vpsz2DhQgz+y1c
-	 azuL+RtmETEdjkTDDQZzFVcZPVoQcZ7nK4h7t8qvNGTW7YVyTgmKVsNmF7VnmTtt/sAcQ
-	 MqwevropGOnS5lr24PWvdeky2PPWy9z/FgqLopdqj1k8qtlL6mwv4pmcrXI1/AjHRqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705603;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6QE+P56C2nYaSieRX/rS/N9gClwTb0YY8JP9mDQoasU=;
-	b=uRLBb49h4FCXWbUyoOKv3+kBhJXYnA9CUIzFI/JcH+Z4lZHg9aSO+EpiU6jwkB8DR3Ya
-	 XaxipQdiF2gVWWmQ+IL1DVv/PB7nqFIXAq7MHh2oGop6B3sJLU/pZiblO1warMyMMSaL/
-	 iL29yu4F8JKtBjkpMxXsRS/b0U2Cbj+8Z4FuPIIHQrNdXPDeXtY54KzRH43aant3UrDeS
-	 1EzwDiMdr6Q0y2QS4AlUOFViatjdxrh2SaNtcromnnBd//EKRzAk19t2LHJeQkS0u+Vcl
-	 JEHf3vqDQNfdSL3FbLYFNwP8WvWs0JnoEj+6mpWf+OY8kUMGq4qU1iD37OnhmXsqyHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UNq+hvA9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H8PMkA7Q;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792706344;
+	b=kQvNq23DoW5bL2/jjkzW87btvW5BJbP23dHH2HlRjOxA8EKDqVfx4MZyRDcGETW65LcB
+	 HyUdoGg2CRGmQUxbkKzoJz8gk8kYLAsaEkxnZR+8raKQqzN8Mza0ei4HNiYTeg6GCoOdS
+	 l/rRehy8/Pe9sTxfNM8jHqCtNg47g3zAA8+r9f05caz5srVwRfY/N5CXB5nwDxbyFk3Na
+	 +x0UNu/ywhQOCT/kgeJ/BW94R1Efh+lM9/eqdzzP8NUQMmHxTKs0hzhTOV07qWVD+jzTv
+	 9VfV+foMx2JtX2tVbrehItraETMEiiY7wGwvsGRLCDk0nFMt+qL040vOs8GTF3zboAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706344;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=wklkTOMXuVakJbOgzwBR7GxuQgJmGKHdH2hQjj7SUo0=;
+	b=c5tp/AGHfQQVc1qnZ6ku5m/vIv3nIjhB1797mTPfHyKuK21Q3NBZDL6VSPFsBUJYGY3w
+	 oFR2nFqJz2CuLImbp5nKLmF2vg4a8WdNN0MCbjtz7UXAzn7gkCpz0cvcvd4d2cFof2jD7
+	 kQwuPBPMOJdF5yYnek5+UtLw0QD9oa/lQBKEZNr3MXK038Hv6CyFgJ/ZPAr+u8GZaNLVm
+	 AsOclS8P+6qGTZIGZ+QDFB0o5p1YApSYYVEXHKBSgnEHxBDnBABvmZVZkfRetCSFMWLcA
+	 Uvf5Q0C3g+B6AVsgOblH6xsL3wUsvcDcX+qVgbH725GQrpIxyntlavVr4Ks8YIE0RxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYuE7ZvY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45515606A32A;
+	Thu, 22 Oct 2026 21:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYuE7ZvY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792706343;
+	b=ElPKqaoidC0hLOMQAUalUBCDVNYfNVbhJkifD341hQSeh5gxpV2D3WOs9615uyu+nWPe
+	 5y8Z6kPlBg4EENxbKDRbw5Si13iYR2H+MG8Y/3MeerEQHBNH3MkaEEyxMhDIX1kO/v5Xd
+	 XxLUO/Ps8b/wahpImE94ohOe85uBDY1TfAsWb7F+A3KsmH78Vc8hjTiAsMQo7ZEzrdULD
+	 VZ2ENPxzjYAE7xX3r3nw5AeeAoPygnFyhOL7jSs0bG8PrCEEEKuDWCNPbz58EUSJx3EVU
+	 5QFey/FSzdkAI85t0veFz4ZKVX1/pmsJoszYlKfgTRvk6dr7a3sMHLMSmvnsaeWTpkw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792706343;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=wklkTOMXuVakJbOgzwBR7GxuQgJmGKHdH2hQjj7SUo0=;
+	b=2fjeYvoYQQHPD6c7lC3/g2sSg3P1clUNCBfZ5Pxu03IA4kJW6zKH05UgDUluOIilZQJQ
+	 9d18vKLow/bqtXorvLvN6/qZE1ZVtRdnZ/xreOenQSVTq65mvD1jgjZYYRuSghZdplk+q
+	 ZJ4VSZUo4LIGbAAMN7FLpJGHfiqOG3GgYs5ge8qE33vWroaZYEJdNEOeKl46pAmZZUyon
+	 d1bPevWlqJxwVTn2ah2QVrjEZXYE+tpLXpR4E6scKgTycgd0bhBflpb0sMc9cJ579YZUt
+	 HhsNy5HLLyWbo1/qKaAVmOTyeI1jAlWKeax9XosjQgrg7Sydhj0cic3EU1fzkrgOPLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF79606A324
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 21:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BF79606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UNq+hvA9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H8PMkA7Q
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MKp52r733737
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 21:46:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6QE+P56C2nYaSieRX/rS/N9gClwTb0YY8JP9mDQoasU=; b=UNq+hvA9A8DEwJLN
-	NSYfFSTtglUNNRNcKnXpBoF+eJxXXmuGdMTgqw7kmS6wZSsb8jP0zZbtAYPZSzvI
-	sKxCKw85TSNNzD8r8KAvtkuj309mg2YOI9eQdAS7L1XUYlYegnK3AIzwdnpPabzR
-	ts1NDX3Mhqs5NgWyklR+me2lpJcGfo2BgTM6lffe6lljiqxNlxwjjqWlaMcYRcZn
-	7/v6+pT603Hh7qLgcO3a3t8hIvCiz5xj+hQQuoDccw+7GKskfaEsyKy2wsD1D5s8
-	e5B3IBFArInFKq54Cfemsc0cdvi8cf0svwEMsRslmd1Xlg78ZZ+q/UsIiFXWZdty
-	4wjHaQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfnyw1725-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 21:46:42 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so570355eec.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792705601; x=1793310401; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6QE+P56C2nYaSieRX/rS/N9gClwTb0YY8JP9mDQoasU=;
-        b=H8PMkA7QnKJODksT8HWhR9DL8Oi+3sSyDo5LJ8cK0IsopzSncJTQM0zjca1xVYcxFH
-         F9TaV4f0wBCPTG7deiWywqqiG41i0QMbniGdXjnz5kcQRSsNSL7g1ETfv/MLlJwmNwE/
-         vJP+CdqUc6rHx85MJSKqM6sa5SvECFOskntEMP4rXsXvYkioiwDBPW3ceKCZgFjdZsEL
-         ll4asanv3dNjgBX9aUQZ/TgE185yTaokATH03+C8s+0nleedra6FRNpFOtoptC7oOa2I
-         EtpQ9IV4A+ghPS92SC69Qs6SPJAMWDkcVRa/76Ha9zRuXMo65RV/PGHyRh1Vu4VYa7p9
-         WC1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792705601; x=1793310401;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6QE+P56C2nYaSieRX/rS/N9gClwTb0YY8JP9mDQoasU=;
-        b=z3/gh01L6tTWNJEGByLTEtQilH+AlG25QYTrl03Jz7dJJY6va/oI3oeEt4VxMmDccw
-         RzB1eQ3mPwnP5EDtvQH080BDdqJ+XbfiiIGBBmCTideibvuik0Pfpd+JWoKLoT91HZgj
-         hcAxyxX60ebEbCtmdxamwCqPnogT1st5m8Z3UbYW7nXpKMKzPE5CTzdoRy0nqSI3+jas
-         q3xwI8J5lQHC2BYxxcMWxRyeLRKdDcPeKzVXdflTLYy9bn8b/gVORhraWN/mN1koh+m5
-         cv75LNZ3fDVt3L7qBb4du2P9AoU0UGmSNhLXjCxbD12m3ykI6EsMK+kdKS3BxTnAtHk0
-         Sncg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWsf0+vkal8RscDgqFtiIwfQcWU3KILcG2MugRjniEysG2Xqr2JEcQPZxPfiUANEP2uJCyqaftLjn1@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLLHBie7a1qQ5ijv8/kbYMw59IQoDjSEL5GAb22yvc6+8TfedN
-	EW8E6DX+WwfSIMiVqCUbTdUgD2vPEVnJJ+E8WXl70hY13CkLhWswNtvDlOOWrQx2sHQ3c1alDVk
-	JwoS2kUxo3s/pDx2KlriMvr6WL7MKljCZq3BvL5iuUsfs1sTwXHApQ1KRQsev1cYk
-X-Gm-Gg: AYBFou1gnoF0l/hqGE+XBHMylRtoqC/qEhbVsB8TUIqqcsWWKBjUAPuXogpdi88aX8V
-	27/2GmJJ9DvcSLkdLrdJJPuxWDLrcPBj9hhtUC9EQb+evXf9WnNlYp/fojS8NkrEVHBZp5rUN2+
-	wUQkGMsnrUa++O5zjtCcd9Zdn9COtXCwiG7sRVrzFSROUgdGFbounar18NZSc+9OOKNQjVn6qEQ
-	T+BE20PW4Bxflmn7M8el5mnCQKfGgxGVyIw5rIKk6rI+oXelxTJhNTtcY1vBO1AdHqT4WAPD3Rn
-	SkfPmRDiwPHADyCcqRViJlnXqEJYQ3QsH+vDIvlSYCRzxldMtFBUtnPIfGI+YsP6RwIDM9s6CZR
-	OQtaa4Lt4y2XXlrRlIughlBYe
-X-Received: by 2002:a05:7022:1e13:b0:18b:48c3:287c with SMTP id a92af1059eb24-195c693fa23mr494694c88.41.1792705600360;
-        Thu, 22 Oct 2026 14:46:40 -0700 (PDT)
-X-Received: by 2002:a05:7022:1e13:b0:18b:48c3:287c with SMTP id a92af1059eb24-195c693fa23mr494632c88.41.1792705599029;
-        Thu, 22 Oct 2026 14:46:39 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.228.226])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e9e9c4c7sm954775c88.4.2026.10.22.14.46.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 14:46:37 -0700 (PDT)
-Message-ID: <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 03:16:27 +0530
+	by smtp.kernel.org (Postfix) with ESMTPS id 69ACF1F01829;
+	Thu, 22 Oct 2026 21:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792706343;
+	bh=wklkTOMXuVakJbOgzwBR7GxuQgJmGKHdH2hQjj7SUo0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=VYuE7ZvYE5rCWcWUvGvUg+vEg55wHkM15YDYYuk6O6ojRvPyVsu1sXjbhWT6h3yyX
+	 169TNKO7pC62d5GtqDA0k4aG99qwlfaTZc5DXxLNEk/6r3BQ9MYCJAiI+uFjE/BBSR
+	 poyMBCdbL8rbyKgyAyH8FOMzzX2r/Dax07/TeRS5kYpJ0bp9L+nqM8HSiT0u/sRxkH
+	 nQD0+peE0zLqHkHcqlZR+D5WyCwHMw5tvbC9UwR5VrgnFeTndaURQoMndZOZfoPLxb
+	 UO7SwxwAZXM9JNnL35J+pLm/tz95q95FeePRWg1yijGPuOHsTlXmiOrzk4jhT+x25z
+	 DjZAiKyJXwkHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CC48A41FAA;
+	Thu, 22 Oct 2026 21:59:00 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Date: Thu, 22 Oct 2026 23:58:20 +0200
+Subject: [PATCH v4 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,129 +83,960 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
- <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
- <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
- <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
- <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 2HRx6Ngdd72nFC7r4wzSLJAZv7hM0MMk
-X-Proofpoint-ORIG-GUID: 2HRx6Ngdd72nFC7r4wzSLJAZv7hM0MMk
-X-Authority-Analysis: v=2.4 cv=dphOmFg4 c=1 sm=1 tr=0 ts=6ada8442 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ipsIN8yD8anPosRfiFfp5w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=9jRdOu3wAAAA:8 a=InArmlTPJEDsLdIP4zgA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4NiBTYWx0ZWRfXxaZUP04Qwom9
- nJJ3dVE/Z1jUFfMOqeTCtS+LSULBGZ5ogpf4VoHI7+DPijVy5oESHNaKQq4diqoySek64bOOXxv
- ttot+5kqGxnrMMwZb87YBWiUBL/V+xo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4NiBTYWx0ZWRfX3FnnphgXjD8+
- mE57URO3zo1Y2tohgm6Lq9JZrvb3PFSe/Qru7dzzOdodD/g/uRqUxNwl9PRrimTl/tTmm1bphns
- 5X/OmwDvafftNbk5NcdrLGoZg7YlEga60ji3baedLP2mAdcdcG8+uRqCBTBS8QLd3Z38evmMbcF
- Zmv9j/dWsci5XmiheLlvrAmlnYRgjaO34H6rk02PMms0Q/sZbz7lnIf4eDwx9MWeXGXJSOCfSGl
- gtpv4Y53pXleILnADhV0J8Zpc+F3KpSuyGmjEQVww8Qqq0mSkjCBh/i5zucUnalaE04MDxMINil
- DtBBVt7Hjsk6p/NG1xYHKVSEBscTyohYXpZ8UFJ1kmdTbT8L79WFEHFHeOipoWSYOjxX4fBi6Dw
- 2pCf8T6tPu6fdHQ7fwc6JVknyOGO/IuFOIn0ER2gOQ/BiM8gRU9AkXPjR1s9C9FCBJRWJt4dXtt
- EtYCw/Coj/CBNbjLPKg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220086
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-gts9wifi-dts-v4-2-a361428fe59c@dxdmail.cc>
+References: <20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc>
+In-Reply-To: <20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Nizat Mikayilli <nacht@dxdmail.cc>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792706340; l=23082;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=V5zpkink/+g77dAi1NeFTL6PEkIRfpga3DDnXzMskjo=;
+ b=pOWSFamlCozk9bTriYcxre4k4xpJdfAmTzBu2Pk6e//Sj0dbumdy30WQrh3PxrgUNiJ5Ypv66
+ O0N8Kln4W75CIKfTml1r2KeGlnkHfqCifVHt01ZX/U6CXreP96PSwze
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
+Content-Transfer-Encoding: 7bit
 
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
+Add support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710, codename
+gts9wifi) tablet, based on the SM8550 SoC. This is the Wi-Fi SKU, but
+it still ships modem firmware, so the modem carveouts are kept. The
+modem itself is left disabled for now, so rmtfs_mem is dropped.
 
-On 10/22/2026 6:24 PM, Anna Maniscalco wrote:
-> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
->> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
->>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
->>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
->>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
->>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
->>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
->>>>>>>> In order to associate the SID used by LPAC to it's own domain and
->>>>>>>> context bank we need a separate node on the DTS.
->>>>>>> Can we use iommu-map instead of adding a new device using the same
->>>>>>> addresses? You provide zero explanations, but it seems like you are
->>>>>>> trying to separate a part of the GPU into a separate device, but it's
->>>>>>> unnecessary.
->>>>>> What I was trying to say is that we need to map sid0 and sid1 to different
->>>>>> context banks.
->>>>>>
->>>>>>  From what I recall, so long as we use the same dt node, the iommu drivert
->>>>>> provides no way of doing this.
->>>>>>
->>>>>> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
->>>>>> and secure.
->>>>>>
->>>>>> The address on the lpac device doesn't really matter. I have very limted
->>>>>> knowledge of DTSs but I think we could just leave it out altogether?
->>>>> I think, you were poined to the Glymur Iris patches. Another option is
->>>>> the QDA driver being submitted too. Both ot them use iommu-map to
->>>>> describe the same usecase - a set of SIDs which are used by the device
->>>>> but which should not be a part of the defaut set. With it in place you
->>>>> don't need to have separate qcom,lpac devices, no additional properties,
->>>>> etc.
->>>>>
->>>>> I'd recommend following the same approach.
->>>> iiuc, the conclusion in this recent thread is to use child nodes for a
->>>> similar case:
->>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
->>> Let me check internally.
->> After a brief discussion: it can be either, depending on what suites
->> better (and if you can persuade DMA / IOMMU maintainers to let one extra
->> bus or not).
->>
-> One thing sashiko is pointing out is that new dt should work with hold kernel so, in general moving sid1 from there would break it since old kernels don't know how to handle them separately.
-> 
+Described hardware: UFS storage, the microSD slot, USB 2.0 peripheral
+mode over the eUSB2 PHY with an NXP PTN3222 repeater, the
+bootloader-provided framebuffer console, power and volume keys, the
+book-cover switch, GPU, video decoder, ADSP with the internal audio path
+(four CS35L45 speaker amplifiers and the VA-macro digital microphones),
+and the WCN6855 with Wi-Fi on PCIe and Bluetooth on UART.
 
-+ Bjorn/Konrad
+Tested on hardware: booted via U-Boot on top of linux-next
+next-20261002, with the default kernel command line (no
+clk_ignore_unused, pd_ignore_unused or regulator_ignore_unused).
+Verified: UFS storage enumeration, USB 2.0 gadget, framebuffer console,
+power and volume keys, the book-cover switch, CPU frequency scaling, GPU
+(firmware loads, render node present), video decoder (device opens),
+microSD (UHS-I SDR104, read/write and card detect), speaker playback and
+DMIC capture, Wi-Fi (ath11k probes and scans) and Bluetooth (firmware
+loads).
 
-Not sure how strict is the requirement for compatibility with older kernel version. An
-option in your case could be just do an override in the board dts file of the
-Steam Frame.
+The display panel, touch, pen digitizer, cameras and battery/charging
+are not described here.
 
--Akhil.
+Assisted-by: LLM
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 873 +++++++++++++++++++++
+ 2 files changed, 874 insertions(+)
 
-> Not sure how to address this.
-> 
-> Best regards,
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..9372ec7b57b6 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -438,6 +438,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-gts9wifi.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-q5q.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-sony-xperia-yodo-pdx234.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-ayaneo-pocket-s2.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
+new file mode 100644
+index 000000000000..1e8bfafcc8b1
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
+@@ -0,0 +1,873 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2024, Alexandru Marc Serdeliuc <serdeliuk@yahoo.com>
++ * Copyright (c) 2024, David Wronek <david@mainlining.org>
++ * Copyright (c) 2022, Linaro Limited
++ * Copyright (c) 2026, Nizat Mikayilli <nacht@dxdmail.cc>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "sm8550.dtsi"
++#include "pm8550.dtsi"
++#include "pm8550vs.dtsi"
++#include "pmk8550.dtsi"
++
++/delete-node/ &rmtfs_mem;
++
++/ {
++	model = "Samsung Galaxy Tab S9 Wi-Fi";
++	compatible = "samsung,gts9wifi", "qcom,sm8550";
++	chassis-type = "tablet";
++
++	aliases {
++		serial0 = &uart7;
++		serial1 = &uart14;
++	};
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer@b8000000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0xb8000000 0x0 0xfa0000>;
++			width = <2560>;
++			height = <1600>;
++			stride = <(2560 * 4)>;
++			format = "a8r8g8b8";
++			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-0 = <&volume_up_n>, <&hall_cover_n>;
++		pinctrl-names = "default";
++
++		key-volume-up {
++			label = "Volume Up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++
++		switch-lid {
++			label = "Book Cover";
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
++			debounce-interval = <50>;
++			wakeup-source;
++		};
++	};
++
++	speaker_vdd: regulator-speaker-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "speaker_vdd";
++		gpio = <&tlmm 19 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++	};
++
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
++	reserved-memory {
++		chipinfo_mem: chipinfo@81cf4000 {
++			reg = <0x0 0x81cf4000 0x0 0x1000>;
++			no-map;
++		};
++
++		kaslr_mem: kaslr@b01ff000 {
++			reg = <0x0 0xb01ff000 0x0 0x1000>;
++			no-map;
++		};
++
++		uh_heap_mem: uh-heap@b0200000 {
++			reg = <0x0 0xb0200000 0x0 0x40000>;
++			no-map;
++		};
++
++		uh_guest_mem: uh-guest@b1000000 {
++			reg = <0x0 0xb1000000 0x0 0x3000000>;
++			no-map;
++		};
++
++		splash-region@b8000000 {
++			reg = <0x0 0xb8000000 0x0 0x2b00000>;
++			no-map;
++		};
++
++		llcc_lpi_mem: llcc-lpi@ff800000 {
++			reg = <0x0 0xff800000 0x0 0x600000>;
++			no-map;
++		};
++	};
++
++	sound {
++		compatible = "qcom,sm8550-sndcard", "qcom,sm8450-sndcard";
++		model = "Samsung-Galaxy-Tab-S9";
++
++		pinctrl-0 = <&tdm0_clk_active>, <&tdm0_ws_active>,
++			    <&tdm0_din_active>, <&tdm0_dout_active>;
++		pinctrl-names = "default";
++
++		speaker-playback-dai-link {
++			link-name = "CS35L45 Speaker Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
++			};
++
++			codec {
++				sound-dai = <&cs35l45_fl 0>, <&cs35l45_fr 0>,
++					    <&cs35l45_rl 0>, <&cs35l45_rr 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		va-capture-dai-link {
++			link-name = "Internal DMIC Capture";
++
++			cpu {
++				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
++			};
++
++			codec {
++				sound-dai = <&lpass_vamacro 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++	};
++
++	wcn6855-pmu {
++		compatible = "qcom,wcn6855-pmu";
++
++		pinctrl-0 = <&wlan_en>, <&bt_default>, <&pmk8550_sleep_clk>;
++		pinctrl-names = "default";
++
++		wlan-enable-gpios = <&tlmm 80 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 81 GPIO_ACTIVE_HIGH>;
++		swctrl-gpios = <&tlmm 82 GPIO_ACTIVE_HIGH>;
++		xo-clk-gpios = <&tlmm 204 GPIO_ACTIVE_HIGH>;
++
++		vddio-supply = <&vreg_l15b_1p8>;
++		vddaon-supply = <&vreg_s2g_1p016>;
++		vddpmu-supply = <&vreg_s5g_0p968>;
++		vddpmumx-supply = <&vreg_s5g_0p968>;
++		vddpmucx-supply = <&vreg_s5g_0p968>;
++		vddrfa0p95-supply = <&vreg_s4e_0p952>;
++		vddrfa1p3-supply = <&vreg_s4g_1p352>;
++		vddrfa1p9-supply = <&vreg_s6g_1p904>;
++		vddpcie1p3-supply = <&vreg_s4g_1p352>;
++		vddpcie1p9-supply = <&vreg_s6g_1p904>;
++
++		regulators {
++			vreg_pmu_rfa_cmn_0p8: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn_0p8";
++			};
++
++			vreg_pmu_aon_0p8: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p8";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p8: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p8";
++			};
++
++			vreg_pmu_btcmx_0p8: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p8";
++			};
++
++			vreg_pmu_pcie_1p8: ldo5 {
++				regulator-name = "vreg_pmu_pcie_1p8";
++			};
++
++			vreg_pmu_pcie_0p9: ldo6 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_rfa_0p8: ldo7 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo8 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p7: ldo9 {
++				regulator-name = "vreg_pmu_rfa_1p7";
++			};
++		};
++	};
++};
++
++/* Samsung's ADSP/SLPI firmware needs a larger carveout than the reference. */
++&adspslpi_mem {
++	reg = <0x0 0x9ea00000 0x0 0x59b4000>;
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8550-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		/* Sensor VDD; the ADSP firmware expects it to be on. */
++		vreg_l1b_1p8: ldo1 {
++			regulator-name = "vreg_l1b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l5b_3p104: ldo5 {
++			regulator-name = "vreg_l5b_3p104";
++			regulator-min-microvolt = <3104000>;
++			regulator-max-microvolt = <3104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8b_1p8: ldo8 {
++			regulator-name = "vreg_l8b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9b_2p9: ldo9 {
++			regulator-name = "vreg_l9b_2p9";
++			regulator-min-microvolt = <2960000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* DMIC bias, not switched by the VA macro driver. */
++		vreg_l10b_1p8: ldo10 {
++			regulator-name = "vreg_l10b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l15b_1p8: ldo15 {
++			regulator-name = "vreg_l15b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Sensor VDDIO; the ADSP firmware expects it to be on. */
++		vreg_l16b_3p0: ldo16 {
++			regulator-name = "vreg_l16b_3p0";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l17b_2p5: ldo17 {
++			regulator-name = "vreg_l17b_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "e";
++
++		vdd-s4-supply = <&vph_pwr>;
++
++		vreg_s4e_0p952: smps4 {
++			regulator-name = "vreg_s4e_0p952";
++			regulator-min-microvolt = <952000>;
++			regulator-max-microvolt = <952000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1e_0p88: ldo1 {
++			regulator-name = "vreg_l1e_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3e_1p2: ldo3 {
++			regulator-name = "vreg_l3e_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++		qcom,pmic-id = "f";
++
++		vreg_l3f_0p88: ldo3 {
++			regulator-name = "vreg_l3f_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-3 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "g";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s6-supply = <&vph_pwr>;
++
++		vreg_s2g_1p016: smps2 {
++			regulator-name = "vreg_s2g_1p016";
++			regulator-min-microvolt = <1016000>;
++			regulator-max-microvolt = <1016000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s4g_1p352: smps4 {
++			regulator-name = "vreg_s4g_1p352";
++			regulator-min-microvolt = <1352000>;
++			regulator-max-microvolt = <1352000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s5g_0p968: smps5 {
++			regulator-name = "vreg_s5g_0p968";
++			regulator-min-microvolt = <968000>;
++			regulator-max-microvolt = <968000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s6g_1p904: smps6 {
++			regulator-name = "vreg_s6g_1p904";
++			regulator-min-microvolt = <1904000>;
++			regulator-max-microvolt = <1904000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l1g_1p2: ldo1 {
++			regulator-name = "vreg_l1g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3g_1p2: ldo3 {
++			regulator-name = "vreg_l3g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++/* Keep the bootloader-initialised display clocks for simple-framebuffer. */
++&dispcc {
++	status = "disabled";
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		firmware-name = "qcom/sm8550/Samsung/gts9wifi/a740_zap.mbn";
++	};
++};
++
++&hub_i2c6_data_clk {
++	drive-strength = <8>;
++};
++
++/* The SM-X710 firmware reserves a slightly larger HW-fence window than MTP. */
++&hwfence_shbuf {
++	reg = <0x0 0xe6440000 0x0 0x2dd000>;
++};
++
++&i2c6 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	eusb2_repeater: redriver@4f {
++		compatible = "nxp,ptn3222";
++		reg = <0x4f>;
++		#phy-cells = <0>;
++
++		vdd3v3-supply = <&vreg_l5b_3p104>;
++		vdd1v8-supply = <&vreg_l15b_1p8>;
++		reset-gpios = <&pm8550vs_d_gpios 4 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&eusb2_reset_default>;
++		pinctrl-names = "default";
++	};
++};
++
++&i2c_hub_6 {
++	clock-frequency = <400000>;
++
++	status = "okay";
++
++	cs35l45_rl: amplifier@30 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x30>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Rear Left";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_fl: amplifier@31 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x31>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Front Left";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_rr: amplifier@32 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x32>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Rear Right";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_fr: amplifier@33 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x33>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Front Right";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++};
++
++&i2c_master_hub_0 {
++	status = "okay";
++};
++
++&iris {
++	firmware-name = "qcom/sm8550/Samsung/gts9wifi/vpu30_4v.mbn";
++
++	status = "okay";
++};
++
++&lpass_tlmm {
++	dmic45_default: dmic45-default-state {
++		clk-pins {
++			pins = "gpio12";
++			function = "dmic3_clk";
++			drive-strength = <8>;
++			output-high;
++		};
++
++		data-pins {
++			pins = "gpio13";
++			function = "dmic3_data";
++			drive-strength = <8>;
++			input-enable;
++		};
++	};
++
++	dmic67_default: dmic67-default-state {
++		clk-pins {
++			pins = "gpio17";
++			function = "dmic4_clk";
++			drive-strength = <8>;
++			output-high;
++		};
++
++		data-pins {
++			pins = "gpio18";
++			function = "dmic4_data";
++			drive-strength = <8>;
++			input-enable;
++		};
++	};
++};
++
++&lpass_vamacro {
++	pinctrl-0 = <&dmic01_default>, <&dmic23_default>,
++		    <&dmic45_default>, <&dmic67_default>;
++	pinctrl-names = "default";
++	qcom,dmic-sample-rate = <4800000>;
++	vdd-micb-supply = <&vreg_l10b_1p8>;
++
++	status = "okay";
++};
++
++&pcie0 {
++	pinctrl-0 = <&pcie0_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie0_phy {
++	vdda-phy-supply = <&vreg_l1e_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++&pcie0_port0 {
++	reset-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
++
++	wifi@0 {
++		compatible = "pci17cb,1103";
++		reg = <0x10000 0x0 0x0 0x0 0x0>;
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
++		vddaon-supply = <&vreg_pmu_aon_0p8>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
++		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
++		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
++	};
++};
++
++&pm8550_gpios {
++	sdc2_card_det_n: sdc2-card-det-state {
++		pins = "gpio12";
++		function = "normal";
++		input-enable;
++		output-disable;
++		bias-pull-up;
++		power-source = <1>;
++	};
++
++	volume_up_n: volume-up-n-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		bias-pull-up;
++		input-enable;
++	};
++};
++
++&pm8550vs_d {
++	status = "okay";
++};
++
++&pm8550vs_d_gpios {
++	eusb2_reset_default: eusb2-reset-state {
++		pins = "gpio4";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		output-enable;
++		drive-push-pull;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_MED>;
++		bias-disable;
++	};
++};
++
++&pm8550vs_e {
++	status = "okay";
++};
++
++&pm8550vs_g {
++	status = "okay";
++};
++
++&pmk8550_gpios {
++	pmk8550_sleep_clk: sleep-clk-state {
++		pins = "gpio3";
++		function = "func1";
++		input-disable;
++		output-enable;
++		bias-disable;
++		power-source = <0>;
++	};
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm8550/Samsung/gts9wifi/adsp.mbn",
++			"qcom/sm8550/Samsung/gts9wifi/adsp_dtb.mbn";
++
++	status = "okay";
++};
++
++&sdhc_2 {
++	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
++	pinctrl-0 = <&sdc2_default>, <&sdc2_card_det_n>;
++	pinctrl-1 = <&sdc2_sleep>, <&sdc2_card_det_n>;
++	pinctrl-names = "default", "sleep";
++	vmmc-supply = <&vreg_l9b_2p9>;
++	vqmmc-supply = <&vreg_l8b_1p8>;
++	bus-width = <4>;
++	no-sdio;
++	no-mmc;
++
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32764>;
++};
++
++&tlmm {
++	/* GPIO36..39 (QUP1 SE2) are owned by TrustZone, likely for the fingerprint sensor. */
++	gpio-reserved-ranges = <36 4>;
++
++	bt_default: bt-default-state {
++		bt-en-pins {
++			pins = "gpio81";
++			function = "gpio";
++			drive-strength = <16>;
++			bias-disable;
++		};
++
++		sw-ctrl-pins {
++			pins = "gpio82";
++			function = "gpio";
++			bias-pull-down;
++		};
++	};
++
++	cs35l45_gpio_default: cs35l45-gpio-default-state {
++		pins = "gpio14", "gpio42";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	hall_cover_n: hall-cover-n-state {
++		pins = "gpio107";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_clk_active: tdm0-clk-active-state {
++		pins = "gpio126";
++		function = "i2s0_sck";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_din_active: tdm0-din-active-state {
++		pins = "gpio127";
++		function = "i2s0_data0";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_dout_active: tdm0-dout-active-state {
++		pins = "gpio128";
++		function = "i2s0_data1";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_ws_active: tdm0-ws-active-state {
++		pins = "gpio129";
++		function = "i2s0_ws";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	wlan_en: wlan-en-state {
++		pins = "gpio80";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-pull-down;
++	};
++};
++
++&uart7 {
++	status = "okay";
++};
++
++&uart14 {
++	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,wcn6855-bt";
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
++		vddaon-supply = <&vreg_pmu_aon_0p8>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;
++		vddbtcmx-supply = <&vreg_pmu_btcmx_0p8>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
++
++		max-speed = <3200000>;
++	};
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
++	vcc-supply = <&vreg_l17b_2p5>;
++	vcc-max-microamp = <1300000>;
++	vccq-supply = <&vreg_l1g_1p2>;
++	vccq-max-microamp = <1200000>;
++	vdd-hba-supply = <&vreg_l3g_1p2>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1e_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++/*
++ * Type-C is handled by an SM5714 over I2C, which has no upstream driver
++ * yet, so keep the DWC3 in peripheral mode.
++ */
++&usb_1 {
++	dr_mode = "peripheral";
++
++	status = "okay";
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l1e_0p88>;
++	vdda12-supply = <&vreg_l3e_1p2>;
++	phys = <&eusb2_repeater>;
++
++	status = "okay";
++};
++
++/* Referenced by usb_1 as its USB3 PHY. */
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l3f_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++
++	status = "okay";
++};
++
++&xo_board {
++	clock-frequency = <76800000>;
++};
+
+-- 
+2.56.0
+
 
