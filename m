@@ -1,71 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690122;
-	b=jT4ctBMr5+U/r3Ezp6wW5PNKmc5c66kAG4ArF8OJ3TRrsCNOU1QG103eWgg5jE1mtWR4
-	 SeeweSRCr7UNzAsFGHtPDP5MoL2Su7rV7z/SYLCZi0n+ivHbS83IESbeZgns8ZH/SWRln
-	 TTccD7tlvcmrAQTeOShEZqcK6o3TLlq3QCFfV4GPy8GYxXOfac9wZwxcT0p46jrDr+2Hn
-	 PCOenAEn+eOgWGRMUHZjU0fKFdVyUE0CB2qRbgQUxWINuezU304HmYNjkLKc98oslHJTb
-	 kNWA1tJkUfO/0ExosftgD8Es+dnOFXd/YCOBI2j5TAU5Y4ibETL61bCraMyFK3Xkdjw==
+	t=1792690446;
+	b=xirk50kK9W9IfB5sf0rM0hOvMlR4k3ti744Z0Ra6UP++Vto25ELiAuiAMRjZZ/U4/s/S
+	 bbLWWGtfbSx/UlUuyVJbv4wj0yXhl/uTV8siPsVt7fJnfZm2iAsW8TtJcDvuVnOM3rNj1
+	 xSLgK3u5yirEgme3f+TJXnHvA30BtG5r/UB6Tt8BNzJJe5RzVYXbESK6y+jglORZHTpH0
+	 48GTNEGQH52Cq5AsI0H+2Y1EPUuOFiHO3AO+Zz3eaT+Dza+B6jPleNpk4gZD6746HeEdE
+	 Zb4FE+z6iPJFIdAEM0EoA3q8KVipygxKMCMyMQe0FS7A3TVAyvSNzqcApGO7uvfnNFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690122;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=aIigL8Htvs1Eri4VcHQ6P7by4WWQ9ht1cFwpEUONgJM=;
-	b=FVu2RT/7VNUzO4E3jmE70/tzVgfyfo+OWfQrtP7rohuySyX92iieTWl2wdDi8AgWI6Ml
-	 ks9FZ2x4xwTQXy5gCUTPnHLi1LCNMoEca6ysWLE1OU8zqfltYgv9PMOdSjsD41RV93fFh
-	 jwZk390z2BtUrbqLXRbTDZAqci8zXmSQpLdftDq1Q/mTlWbadfTh3r8c5E5e7zR/zjp4x
-	 5hBRXDvX3EuHMDC8CGb9PaMZUF8KkPpcVMZ3lX8wnnMvyrzkhnNZbR0E/AnPnki3l852v
-	 yJKp0OTqyzi2FIl2Bj5I2yAeUdqfLJZ19fXeEWHpoqdquNFlGVfPUAbBpTMEKanl/5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690446;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=0XvFlqUXbgjXd8QoeyXHGf/RZE4LuYZTEQdwsJH8YTw=;
+	b=f163MFEoFxxRLw7XrWc1v/+R0xSHsLFSXCKTAckG8DfnF5PsNikS/xO4Fg7FHwAPyyEQ
+	 mGwmg6DsgcHDkm4Jhd0z7L8fQHMbw4PztOOx28UO6quklaxYPGm7yoGU2Fy+1UjT59aFG
+	 VpaP4I3cU140fJASBaKqMSg9Ej7wS55R2eA322XB5EXkRkpkkZUgUDPVO3nXJzz5q4Mfy
+	 WCCjGg4hfafKM7vu/o3tafztV3CADGfYs/0C/aODJnMhEfeiDZGbV4RIlLCa89ntIzlXD
+	 au8LHFZbm2T4DV1JhrGfu4tYkSY3SX/pMjVVoS+xWADmYZn3nM2TMOJ8M/q+TMyNslQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+Jx1h8t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2505E606A31B
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2505E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2001dd4e7so448605e9.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:28:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690120; x=1793294920;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aIigL8Htvs1Eri4VcHQ6P7by4WWQ9ht1cFwpEUONgJM=;
-        b=zkTKRKlxUgWYiW41KSvLj6GE0T4CJEpzzA3s0FzC2fWDSlxyzV5kuHs26szcJ5KS/G
-         2JjdUgskV/EyeSi19i9MS/rzfqwOBxbVrdIJ++4hW8qkfi72xKQ4jPxA4jd5Vn30De8V
-         y/kKZ+TIVOEbQj7IBwhsJLyX87LCJLa8H5srNnqaxMSK6lpHPYVdo8Ca3cXYhj1Y9rAk
-         44+joIILtBICTAtd8GqRP36TW+564BtzfrUvXmLnsbY8ZIeN6SongQ2hdHah2CLPnJBc
-         RNbHPU+sYUQ084tMlag1tlkvVSVM4HlxNCR+cRYBSHzEzkmLLUREGYUmWBMOzwbUOCmU
-         1ARA==
-X-Forwarded-Encrypted: i=1; AKwUvByDi4k6brvVec5jdTPID6povPzY6ypVCNS0yuzEWiKWFQ9qi6ixykV4S1FAlEl9LE22weu10WZP7Lu0@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5jFrFvmqNUiE+sAakWjJ//MntVDCkL6W7FQz+YRSL8WR7M8aj
-	5GGxZDkq8w0wm7qdVqM0jgC2TaTwneWEfNMSw79HW1DcHYFAcdPl3Wqr
-X-Gm-Gg: AYBFou1qcqaxBzEBfj/o2QRZDq2Ie122u9TyVcJtXrW4kflksnWt+g4mdY3NXAj65od
-	E2PP42T8YTEnl7s52XQW01dxZhKnclolOy+XjY4XifKXWXlRFLaz3yzM9VR6gYMWnxpjMfyqKK7
-	nXOZUgQmKmtJeoKW27cOqE2PI2ZJvYvLwOoOGPjcYHppKQEKw0o9W9omjwvDKqca8QnuX8/216I
-	zUNK/W7R4xcuzsxbfOf/MMADejU+7zDZf6EUIBK84OOtM30/BxPuWz/muqQgbpZGpOMCDSUdUo9
-	BxCiIA26hBoJZJHVSlI20nKKG7TJFMKjLKroJ7S72n9F2pX2I5qSR5O7UcB3Kq4rieS8foItBx8
-	2aRFHznjiqzNJsRWU8Gb9kEAMsGetSLIp8PgC7NwUC1bf5dJNOayV6yMVjzrm0P3Xsfc1VqibDc
-	r+aBt6fBnH7dyztbd2JwG/RHlKxhi6TtvpTLZJMeBalzivZtpE2RG3IAFAyiPlTkHEnCfTl15Pp
-	rV/m+mXWbWWCAfe8huD+TGq18m21UxOzXHnmeEhXtIXpKX4eXdKfzbz1e9LQnNSlGw6eeaWaC5Y
-	Sw3NMi9AkQ==
-X-Received: by 2002:a05:600c:8b4c:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4a20729f92bmr52278535e9.8.1792690120279;
-        Thu, 22 Oct 2026 10:28:40 -0700 (PDT)
-Received: from [192.168.1.135] ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210361ad6sm11491635e9.7.2026.10.22.10.28.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:28:39 -0700 (PDT)
-Message-ID: <1ca9d46b-02aa-41bf-b184-2a62f8a284bb@linux.com>
-Date: Thu, 22 Oct 2026 18:28:39 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86C2606A319;
+	Thu, 22 Oct 2026 17:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+Jx1h8t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3E01F01825;
+	Thu, 22 Oct 2026 17:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792690445;
+	bh=0XvFlqUXbgjXd8QoeyXHGf/RZE4LuYZTEQdwsJH8YTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L+Jx1h8tXHgW1BkDEl55zloUFF9fhuc6VcuHIga8kJ9at5/dQZKZiMCpt0war6LaL
+	 lORDyXqcJkn0hYeQfuAN3MDYlp+EUXNjZrLPerGZh9ZvMASCHjf8QY/1Zs4q3iPUiu
+	 cXKWgTq0xsdSih3J7YE8A+xiSk31c91IFfemp75Erhcf2C6te+FTBuaNBUgIvYKfWf
+	 5SMSOPqzZy2s5G8B5tB3rptLbiJaLiC2bJPWi0MO+754IQNkvCSFTQrg34lfePByed
+	 RkyRKZc0aylJQVSe4PJPxU+MoMc16BTmSJMULmGrZ/OH5oIp7SymU3ld5yaGExgT6Q
+	 dDg+AgRmTAUmg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 2BD6D1D52C5E; Thu, 22 Oct 2026 18:34:03 +0100 (BST)
+Date: Thu, 22 Oct 2026 18:34:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 5/5] regulator: Add TI LM51772 support
+Message-ID: <atpJCnOMOlLSNvqL@sirena.org.uk>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,88 +65,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] net: stmmac: dwmac-meson8b: apply the RGMII delays
- the T7 way
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-5-tanure@linux.com>
- <CAFBinCCpo28jZkQnup2=iofwh02GOMzxJ82hGHWctiWzcKTxUw@mail.gmail.com>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <CAFBinCCpo28jZkQnup2=iofwh02GOMzxJ82hGHWctiWzcKTxUw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QcESR9xqzCtLrcVG"
+Content-Disposition: inline
+In-Reply-To: <20261021-paul-lm51772-v1-5-25f0ffbffa8d@bootlin.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-On 10/10/2026 22:49, Martin Blumenstingl wrote:
-> Hi Lucas,
-> 
-> $subject caught my eye because I didn't understand why there's a "T7
-> way" for adding RGMII delays since we should be following a standard.
-> Patch 8/8 in this series documents the standard. Can you please find a
-> more suitable $subject for this patch?
 
-Ok.
-> 
-> On Sat, Oct 10, 2026 at 12:59 PM Lucas Tanure <tanure@linux.com> wrote:
-> [...]
->>   static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
->>   {
->>          u32 tx_dly_config, rx_adj_config, cfg_rxclk_dly, delay_config;
->> @@ -411,32 +455,34 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->>          dwmac->dev = &pdev->dev;
->>          dwmac->phy_mode = plat_dat->phy_interface;
->>
->> -       /* use 2ns as fallback since this value was previously hardcoded */
->> -       if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
->> -                                &dwmac->tx_delay_ns))
->> -               dwmac->tx_delay_ns = 2;
-> The 2ns default value in case "amlogic,tx-delay-ns" is absent hasn't
-> been necessary since commit 093d23db4fff ("ARM64: dts: amlogic: add
-> the ethernet TX delay configuration").
-> That commit is part of v4.12. So boards using RGMII and a .dtb without
-> that property haven't been updated in more than 9 years.
-Ok, so for v4 the code is moved probe into the function only the older 
-SoCs use, so it is isolated there and the T7 path never sees it. We can 
-drop it future patch.
+--QcESR9xqzCtLrcVG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> [...]
->> -       ret = meson8b_init_rgmii_delays(dwmac);
->> +       if (dwmac->data->mac_applies_dt_delays)
->> +               ret = meson_dwmac_init_dt_delays(dwmac, plat_dat);
->> +       else
->> +               ret = meson8b_init_rgmii_delays(dwmac);
->  From the discussion in v2 I couldn't understand the overall way forward.
-> I get that new compatible strings should not rely on old, incorrect
-> behavior. But what's the path forward for the other SoCs?
-> 
-> [...]
->>   static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
->>          .set_phy_mode = meson_axg_set_phy_mode,
->> -       .has_prg_eth1_rgmii_rx_delay = true,
->>          .has_pipeline_clk = true,
->> +       .mac_applies_dt_delays = true,
-> This should be a callback function pointer (apply_delays or similar,
-> to match set_phy_mode) unless there's a way to make older SoCs also
-> follow the "correct" RGMII delay specification.
+On Wed, Oct 21, 2026 at 12:27:46PM +0200, Paul Louvel wrote:
 
-Agreed. V4 will do it.>
-> 
-> Best regards,
-> Martin
-Thanks
-Lucas
+> +static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev, unsigned int selector)
+> +{
+> +	const struct lm51772_priv *priv = rdev_get_drvdata(rdev);
+> +	int ret;
 
+> +	/*
+> +	 * The LM51772 uses hardcoded OVP thresholds. Update the OVP threshold
+> +	 * to match the new voltage.
+> +	 */
+> +	if (priv->ovp_thres) {
+> +		ret = regulator_list_voltage_pickable_linear_range(rdev, selector);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret = lm51772_set_ov(rdev, ret + priv->ovp_thres);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regulator_set_voltage_sel_pickable_regmap(rdev, selector);
+
+If the voltage is being lowered this will lower the threashold prior to
+lowering the voltage which could cause the protection to flag.  I guess
+we need to look to see if the voltage is being raised or lowered and do
+the change before or after as appropriate.
+
+> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rdev, int min_uA, int max_uA)
+> +{
+> +	struct lm51772_priv *priv = rdev_get_drvdata(rdev);
+> +	u64 voltage_uV = ((u64)priv->sense_res_milliohms * max_uA) / 1000;
+
+Does this build on arm32 or similar things that need a libgcc division
+implmentation?  div_u64().
+
+> +	if (status_reg & LM51772_STAT_INPUT)
+> +		errors |= REGULATOR_ERROR_UNDER_VOLTAGE;
+
+That sounds like an error with the input so I'm not sure under voltage
+is the right error to report.
+
+> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *rid,
+> +			     unsigned long *dev_mask)
+> +{
+> +	struct regmap *regmap = rid->data;
+> +	unsigned int reg, errors;
+> +	int ret;
+> +
+> +	ret = regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+> +	if (ret)
+> +		return REGULATOR_FAILED_RETRY;
+> +
+> +	errors = lm51772_status2err(reg);
+
+Does this do the right thing if multiple errors are flagged?
+
+> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
+> +{
+> +	struct regmap *regmap = rid->data;
+> +	unsigned int reg;
+> +	int ret;
+> +
+> +	ret = regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
+> +	if (ret)
+> +		return REGULATOR_FAILED_RETRY;
+> +
+> +	if (rid->opaque && rid->opaque == reg) {
+> +		ret = regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
+> +		if (ret)
+> +			return REGULATOR_FAILED_RETRY;
+
+Shoud _CLEAR_FAULTS be volatile?
+
+> +static const struct reg_default lm51772_reg_defaults[] = {
+> +	{ LM51772_REG_CLEAR_FAULTS, 0x00 },	{ LM51772_REG_ILIM_THRESHOLD, 0x64 },
+> +	{ LM51772_REG_VOUT_TARGET1_LSB, 0x58 }, { LM51772_REG_VOUT_TARGET1_MSB, 0x02 },
+> +	{ LM51772_REG_STATUS_BYTE, 0x00 },	{ LM51772_REG_USB_PD_CONTROL_0, 0x01 },
+
+STATUS_BYTE is volatile so a default isn't terribly sensible (but
+harmless).
+
+--QcESR9xqzCtLrcVG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatpJCgAKCRAv73Ows9A4
+iYfbAP4qFe1CIB3GbB1uv46hvpg0gJXXou2qslV8ZrYY9upP9gEAwvrkBVZHkprn
+EjULYUIfnYfVliSNdmH8w8wW9Ae8Sgw=
+=B2k2
+-----END PGP SIGNATURE-----
+
+--QcESR9xqzCtLrcVG--
