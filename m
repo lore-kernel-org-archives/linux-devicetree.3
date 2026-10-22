@@ -1,87 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792680415;
-	b=dd2RHeeNgaHEs6nh8OluHtcAroDg3nyb7/YqxJ3kcWlARnI+vV0LsVKtmBZRuWvQD1Hh
-	 gs2kBgBdkq2pbfHtE7iSKpgnH4phTtQpQAEvNAJABDLunmVGBXp/dhWzs/RwWzXgTYKAq
-	 LyxQoMLbKi68F32NkkvkTTsXO4X1HFuH+d6Imr0hrv/6X0QWZ3VexPX0hQBzuUKTlTR3h
-	 iBBmI89SbCXJa9agI1WteseRK177+43VJpb1P7m0uLY2dLjFOcv8sOoCFNaEPzhTKNNTF
-	 WQLkemXCD9+xPdQGT+wYPqN83IJevPtECK2GCyBvodkpv35elNou2ufsNkXGimnu4RA==
+	t=1792681375;
+	b=HJKC0fhgN1bAa3nvjsjPfoAw3wMZi3ryLQqbv/3i7/XIOtRrfie/KWVVRq8VnyrhqfrW
+	 6BuRyxYUYyAqcTj53gASxayGUAyXlDm2Q7SEqHFUAJlQGE17hsAtJIn+5g3daHD5KlMX3
+	 5Wg+KH/jXOBHBJX8OJE4Mp5EwQizXCHYBQU0yPaVFzopaxaCGPSIFxn0tTRXmYda86yTD
+	 ORnWYlmSR9Ib9EQE0hZDKAmBxBpPUWOtClbp6XFXhBhuxhajI92aSejQPSHfOTEOQQtQa
+	 JJDXKSNMTi6QT50ZpUTQyWlTUnQTJMOkUWAddqhma7nK+YIXqQMnesJFQZBtRyMQMug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792680415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=+ulViqmN/gERqSfWWEq4zOnz42D6WlhHjq94c4ttf9o=;
-	b=ASvjyk1yxaGG3qa/jChv3AF1WJfzj1bqJGV6br82G4iiMgMEZQK9uq75x6ecwrAW6xJY
-	 T+ZzNRv2SpJ2dGeNl0ZGTovSIspYTTViu3RhRiMmdGhI/3qH5B4N41KvDbVZpiSC3/Hjc
-	 43GOWb17O2xet8w+izv+oJnrgQ2E7rW3nBXhhFCZmIzTJm8U3V4Y7yrk/TnyZZzHam+BG
-	 efMi+TcdbnM3ji+K8xI2Hm7YiA3uK0hZs1L8IzqOVy22ndcb6V/yP90zKxu+ET72D4U+X
-	 329Mcl1xbAmIsl5IUMhPKud235v0VmKcdJ8pCuSSPAC2l8GMnWM+IXMaqng9WF4+ltw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681375;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=JTjoGO24pW2rGChMVPDLJyZmsSGTEsDRxsZhB1wrbkc=;
+	b=vQMpZJUsdJpmDBvqvMAf0Fb5dVNF+hsfCELK/e6vf8PsahF7eOSP7unqlNSkcppAYk46
+	 oE7Ycwp0aozzhaUB8Q3N3hIbcRJqW/bQY9QjdNszfbh9NM7mIH2QC7lCpsWIq89gEVJQK
+	 bLqVfYmA8Vv8JIWs0vcDE4bxOmIGHsrxtSeP1jNG3JDQNw3OWZ7rYcJOajroSc/IJWAru
+	 Ob6xm/sQY2btZdI4Yj6tJ6U8mVY5ghS2SsxQ0iu1n2iMI9BBSd6EHANLkW/PoumTKv102
+	 m8fGKl4UUy02G6prcK06y1aUl+RZuEUmxsGe9UXnofxZYH2SbJu4R+YkfVUCJACX2vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IZoB3mwL;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ic+zs8tl;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221F5606A334
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:46:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221F5606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A8606A31D;
+	Thu, 22 Oct 2026 15:02:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF2A8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IZoB3mwL
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e0d1da913so897048f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 07:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792680413; x=1793285213; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ulViqmN/gERqSfWWEq4zOnz42D6WlhHjq94c4ttf9o=;
-        b=IZoB3mwLDaD7QWgD/NJJ46EPSPygNZJK5vVtOvFrfHS+peTVuwwSF3lc30dt6jCPY6
-         NhXnNe+lkee5GOI1L/CCIOc+T9kXAUW7lxEPHUrnOWRNHDmL1MSlRAKxNqhOjkEUYH3L
-         zZVcZvpe+dGeaWmSzeFfk4Jd/Y/2I43t03avwIQsEHqL019HqwHqdCBjRzPArAvV1MPh
-         ksWfL4IXPB7yV8RpURqP75im//n1x2NcF165K/ZFBRlmGCB0KMnubNirtpQCeRoOz+3a
-         qvEbLOScdusLKWH6z/RCTiYvlIWi8YDaG7gmj7nMaQpxVLi3pdGhghBnK8bXCIt/wc0t
-         +CwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792680413; x=1793285213;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ulViqmN/gERqSfWWEq4zOnz42D6WlhHjq94c4ttf9o=;
-        b=m21dkxC7RMhHeEkcIAvHsPg5UrcrVRsbn5bu/Qvdx2KH9VwxJTjCmWfkx7iyqlgL0p
-         D5PKYIMkFQyPiMYm6OWJOXVyhHc6d37uzlJj7t62utBhT/8GIaoBgnFBlZqae7xD1jvp
-         vfPY1appzKxWAx+k/ccsA7RtDsS6IhFnlyLuYtxMZ6zrMnPdbqVr9c5ZvwLq0pVoohP2
-         p2qBNmqvQ4jyPv0oV+ZeKfj9ZbAL0eHxipP1FJYtFH91kHPmSLMMFOtDYSP7d55ULn0l
-         iJv1ppCP5TmrI9tbUHpGGdV6tN2716MWFl9fJSWVwvuKGBOnymUqVE84LSguY/a17fut
-         uJ3w==
-X-Gm-Message-State: AFq9FYLxi9xV8MCgdVQ4em2mbHq749tLvF36GAqRswo+7pJ2YvjvEHXh
-	9F0ruLP49wBFGvLi6o68UmW8lJb1goQ6ks+QAh1JFkNavQXrkoOeHsb5
-X-Gm-Gg: AYBFou0tIcjTddYdsv+X7aivh60DPZwApRDFC2/76T8UJTCgRQLJk2RVXLbxc1J4W5b
-	E3fAaVO83MT5WZYvDsy72mebxyrsuzAPqy2mw7y8xpoi4O0RokcPV79W6HZMCR4xesFkQshPiWS
-	BCmZKe5Yg+ZzheQ/K7hPzzmSLUfaiCDnZQbg1mLSLpqGFfhz+0qbodf3XX6v/W6XNY+5rwkjaLP
-	oT6VyGpJ2DzqMK0ikie/yCIJNDLUxtvrwq0tQpEuBB5K2/SY4kq++69MSXPTMq7oiYgqgaEHbsE
-	zcl2NOL8Njun8Tb1UjMm9fX/8tSQWo5y1nWk0fVt9Ifzcc1XID6ZiyTzkZAx6s9smUQdD3OKrrX
-	ho+GmOV4tI4drzLV0RCj7g8FgNnSu7BiKrht9FDkSdTQzkSXgVNPhi6eM5v7mjydbVK5JBX4XIQ
-	eZqKbb7yjzlGdN2Xx0AS/1omFmUnExz2R6QjuQh01hcVYtg0Hhfki4/+5tQ/5+cDdYXd0MG/Mgx
-	eXRvDpBlKkiS+8GMpCi8A+tPYj6xMALeG0QXtamFBewVxvGpTr9KZ7yIv1P7R6G3fqnrsVjxNWC
-	L4DKO8SMpQo9ZmUKTLEGwCc9vR+4+gPDpUSd2SjaBYoXr2YCz8WxaIA=
-X-Received: by 2002:a05:6000:298e:10b0:48e:eb:56c5 with SMTP id ffacd0b85a97d-48e2d102e96mr4094255f8f.8.1792680413276;
-        Thu, 22 Oct 2026 07:46:53 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c6dsm13672146f8f.24.2026.10.22.07.46.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:46:52 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 22 Oct 2026 16:46:46 +0200
-Subject: [PATCH v2 3/3] arm64: dts: freescale: imx8mp-toradex-smarc: Add
- OV5640 overlays
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ic+zs8tl
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFVBf4098326;
+	Thu, 22 Oct 2026 15:02:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=JTjoGO24pW2rGChMVPDLJyZmsSGTEsDRxsZ
+	hB1wrbkc=; b=ic+zs8tlss1Il1wHWRnw3O5ohNiGjmIe4DSv4v1ftRoSqOU9M0u
+	hVORR4mmWXfT7sKkIAYAP6VJfHKfxcUAbBGlEOiDbMe4xbcw8Fsxv461IsfpwA3O
+	jiqxN0rauP9TnvDQe+WV2T2ORqN1XdYkIRKsfPfoD5Ry2p5VV/0Is7s2RmdF2hlV
+	e7whoesbgJ7CBC+gxyKinnuNhKc6PDQBpnLi9EXm2fjF/8ggbpOWXQymAZqHpKYW
+	Ah/xPNsMNwvEFD4CK8jzaihBVFAUIWtEC/zBqyQlxm/JMHqKKSaSc0L6TBwpu6lN
+	havJKK3i5IWFw/2soBRc/fDOHBlO/uQLi2g==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq363f-6
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 15:02:52 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MCt9qo2331078;
+	Thu, 22 Oct 2026 12:55:09 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69MCt9Pf2331070
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 12:55:09 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id 1533F675; Thu, 22 Oct 2026 18:25:08 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v3] arm64: dts: qcom: qcs6490-rb3gen2: Add WCD headset playback and record for qcs6490-rb3gen2 industrial mezzanine
+Date: Thu, 22 Oct 2026 18:25:03 +0530
+Message-Id: <20261022125503.1231758-1-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,282 +82,228 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-v1-smarc-imx8mp-cameras-v2-3-cfe3d25e7aed@toradex.com>
-References: <20261022-v1-smarc-imx8mp-cameras-v2-0-cfe3d25e7aed@toradex.com>
-In-Reply-To: <20261022-v1-smarc-imx8mp-cameras-v2-0-cfe3d25e7aed@toradex.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: a0zTaGxDWet6G_wF0GVxkk_haokAokVd
+X-Proofpoint-ORIG-GUID: a0zTaGxDWet6G_wF0GVxkk_haokAokVd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX1aGe1+/IF+in
+ uajkG4x9AWNM8MWM7CWIF3vBi8VozVSeCYZv0tkW5ce3+DGGc1sm7FVMkIlGuGtMcYjSqvD+PEV
+ +3bSbb8N8lbm8jPMBMHe/+KxNedtVC4=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada259c cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=R-2MCYZGcSsRN6MK2dAA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX6M1bwYpRZX7y
+ kodrPxEM4JJU2VjDsegCmmpHhYKBYjPx78MsVmZ2WlGKcxHI5cYultZGs5iZ0LbG+A4eGdlU92a
+ K8uLugJNo4bKldAjMq2DlGHFxqEJ0md+DR0BvRzkX3fIoC37dVQ5SsbAGUmyEboKpeTAHbtytgh
+ vOrqIxnHWv91NgUpbn7rfp2tD7MHUOCqlW1MshZCfO+aIzYuvFlmAyyDTrdat/8Vca1i9RNbsCO
+ bVtEO64htu219kDNGAwA5Ioe1Z+SKH4zmEEOtwbJOPHPs5C66Xa66Dlnx5XvbZ19IElwDRSgfqE
+ MqiE5rzZb0RsPz0q5vWJaefSnldA6KCRj3TlRtHdkxSksoM+1syhiSI3RHVL9U9PGSM7K0TGcWv
+ sRCAZx4o0mSd+dO9rxoDH1WBPuroJWFLe/KP6ytCmQICq+wOawZ2yIJaaPbqHkf4JjRuga7DzOk
+ 5hnk2TAO3NqGp8LcLLg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Add WCD playback and capture DAI link to sound node. Add WCD
+codec node and corresponding soundwire nodes to perform
+headset playback and record.
 
-Add device tree overlays for the current 27 MHz and legacy 24 MHz
-Toradex OV5640 camera modules connected to CSI0 and CSI1 on the SMARC
-Development Board.
-
-CAM_n_CON_PWRCTRL (pin 24) is an active-high power-up input of the
-camera module, so it is described as an active-low powerdown GPIO.
-
-The overlays are also combined with the SMARC Development Board device
-tree to provide ready-to-use DTBs.
-
-Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile             | 17 +++++
- .../imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso    | 15 +++++
- .../imx8mp-toradex-smarc-csi0-ov5640.dtso          | 75 ++++++++++++++++++++++
- .../imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso    | 15 +++++
- .../imx8mp-toradex-smarc-csi1-ov5640.dtso          | 75 ++++++++++++++++++++++
- 5 files changed, 197 insertions(+)
+Changes since v2:
+    - Updated sound card model name to "QCS6490-RB3Gen2-Industrial-Mezz".
+    - Fixed changelog placement (moved to below ---).
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb5..2defe77ee7df 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -709,11 +709,28 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-csi0-ov5640.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-csi1-ov5640.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-csi0-ov5640-24mhz.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-csi0-ov5640.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-csi1-ov5640-24mhz.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-csi1-ov5640.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2.dtb
+Changes since v1:
+    - "audio-codec" node moved before "regulator".
+    - renaming node from "audio-codec-0" to "audio-codec".
+    - dt-nodes sorted alphabetically.
+    - patchwise run on the patch and indentation errors fixed.
+
+Link: https://lore.kernel.org/all/eab2d0b8-a949-47d8-b953-fe34bd2fd869@kernel.org/ [v2]
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ .../qcs6490-rb3gen2-industrial-mezzanine.dtso | 133 ++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+index 46bb52c667a4..e9713ec71dbf 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+@@ -6,11 +6,35 @@
+ /dts-v1/;
+ /plugin/;
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
+ #include <dt-bindings/clock/qcom,gcc-sc7280.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
  
-+imx8mp-toradex-smarc-dev-csi0-ov5640-24mhz-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtbo
-+imx8mp-toradex-smarc-dev-csi0-ov5640-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-csi0-ov5640.dtbo
-+imx8mp-toradex-smarc-dev-csi1-ov5640-24mhz-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtbo
-+imx8mp-toradex-smarc-dev-csi1-ov5640-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-csi1-ov5640.dtbo
+ &{/} {
+ 
++	wcd9370: audio-codec {
++		compatible = "qcom,wcd9370-codec";
 +
- imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10-dtbs += imx8mp-tx8p-ml81-moduline-display-106.dtb \
- 	imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtbo
- imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17-dtbs += imx8mp-tx8p-ml81-moduline-display-106.dtb \
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso
-new file mode 100644
-index 000000000000..7e6991b95dec
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Module 5MP OV5640 with 24 MHz oscillator connected
-+ * via Toradex SMARC Development Board CSI0 connector J45.
-+ *
-+ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-+ */
++		pinctrl-0 = <&wcd_default>;
++		pinctrl-names = "default";
 +
-+#include "imx8mp-toradex-smarc-csi0-ov5640.dtso"
++		reset-gpios = <&tlmm 83 GPIO_ACTIVE_LOW>;
++		vdd-buck-supply = <&vph_pwr>;
++		vdd-rxtx-supply = <&vph_pwr>;
++		vdd-px-supply = <&vph_pwr>;
++		vdd-mic-bias-supply = <&vph_pwr>;
++		qcom,micbias1-microvolt = <1800000>;
++		qcom,micbias2-microvolt = <1800000>;
++		qcom,micbias3-microvolt = <1800000>;
++		qcom,micbias4-microvolt = <1800000>;
++		qcom,hphl-jack-type-normally-closed = <1>;
++		qcom,ground-jack-type-normally-closed = <1>;
++		qcom,rx-device = <&wcd937x_rx>;
++		qcom,tx-device = <&wcd937x_tx>;
 +
-+&clk_csi0_ov5640_osc {
-+	clock-frequency = <24000000>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640.dtso
-new file mode 100644
-index 000000000000..23b155beec2a
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi0-ov5640.dtso
-@@ -0,0 +1,75 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Set 5MP OV5640 connected via Toradex SMARC
-+ * Development Board CSI0 connector J45.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-+ * https://www.toradex.com/accessories/csi-camera-ov5640
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	clk_csi0_ov5640_osc: ov5640-csi0-xclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <27000000>;
++		#sound-dai-cells = <1>;
 +	};
-+};
 +
-+&isi_0 {
+ 	vreg_0p9: regulator-0v9 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VREG_0P9";
+@@ -48,6 +72,14 @@ st33htpm0: tpm@0 {
+ 	};
+ };
+ 
++&lpass_rx_macro {
 +	status = "okay";
 +};
 +
-+/* SMARC I2C_CAM0 */
-+&smarc_csi0_i2c {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
++&lpass_tx_macro {
 +	status = "okay";
++};
 +
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		clocks = <&clk_csi0_ov5640_osc>;
-+		clock-names = "xclk";
-+		AVDD-supply = <&reg_carrier_3p3v>;
-+		DOVDD-supply = <&reg_carrier_3p3v>;
-+		DVDD-supply = <&reg_carrier_3p3v>;
-+		/* CAM_0_CON_PWRCTRL, pin 24 */
-+		powerdown-gpios = <&smarc_csi0 3 GPIO_ACTIVE_LOW>;
-+		/* CAM_0_CON_RST, pin 11 */
-+		reset-gpios = <&smarc_csi0 0 GPIO_ACTIVE_LOW>;
+ &pcie0 {
+ 	perst-gpios = <&tlmm 87 GPIO_ACTIVE_LOW>;
+ 
+@@ -244,6 +276,101 @@ pcie@0,1 {
+ 	};
+ };
+ 
++&sound {
++	model = "QCS6490-RB3Gen2-Industrial-Mezz";
++	audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
++		"SpkrRight IN", "WSA_SPK2 OUT",
++		"IN1_HPHL", "HPHL_OUT",
++		"IN2_HPHR", "HPHR_OUT",
++		"AMIC2", "MIC BIAS2",
++		"TX SWR_ADC1", "ADC2_OUTPUT",
++		"VA DMIC0", "vdd-micb",
++		"VA DMIC1", "vdd-micb",
++		"VA DMIC2", "vdd-micb",
++		"VA DMIC3", "vdd-micb";
 +
-+		port {
-+			ov5640_csi0_to_smarc_csi_rx: endpoint {
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&smarc_csi0_rx_in>;
-+			};
++	wcd-capture-dai-link {
++		link-name = "WCD Capture";
++
++		codec {
++			sound-dai = <&wcd9370 1>, <&swr1 0>, <&lpass_tx_macro 0>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
++
++	wcd-playback-dai-link {
++		link-name = "WCD Playback";
++
++		codec {
++			sound-dai = <&wcd9370 0>, <&swr0 0>, <&lpass_rx_macro 0>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
 +		};
 +	};
 +};
 +
-+&smarc_csi0_rx {
++&swr0 {
 +	status = "okay";
 +
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
++	wcd937x_rx: codec@0,4 {
++		compatible = "sdw20217010a00";
++		reg = <0 4>;
 +
-+		port@0 {
-+			reg = <0>;
++		/*
++		 * WCD9370 RX Port 1 (HPH_L/R)       <==>    SWR1 Port 1 (HPH_L/R)
++		 * WCD9370 RX Port 2 (CLSH)          <==>    SWR1 Port 2 (CLSH)
++		 * WCD9370 RX Port 3 (COMP_L/R)      <==>    SWR1 Port 3 (COMP_L/R)
++		 * WCD9370 RX Port 4 (LO)            <==>    SWR1 Port 4 (LO)
++		 * WCD9370 RX Port 5 (DSD_L/R)       <==>    SWR1 Port 5 (DSD)
++		 */
++		qcom,rx-port-mapping = <1 2 3 4 5>;
 +
-+			smarc_csi0_rx_in: endpoint {
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&ov5640_csi0_to_smarc_csi_rx>;
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso
-new file mode 100644
-index 000000000000..f6bfc3d49f5e
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Module 5MP OV5640 with 24 MHz oscillator connected
-+ * via Toradex SMARC Development Board CSI1 connector J46.
-+ *
-+ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-+ */
-+
-+#include "imx8mp-toradex-smarc-csi1-ov5640.dtso"
-+
-+&clk_csi1_ov5640_osc {
-+	clock-frequency = <24000000>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640.dtso
-new file mode 100644
-index 000000000000..d78f46a764f8
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-csi1-ov5640.dtso
-@@ -0,0 +1,75 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Set 5MP OV5640 connected via Toradex SMARC
-+ * Development Board CSI1 connector J46.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-+ * https://www.toradex.com/accessories/csi-camera-ov5640
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	clk_csi1_ov5640_osc: ov5640-csi1-xclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <27000000>;
++		/*
++		 * Static channels mapping between slave and master rx port channels.
++		 * In the order of slave port channels, which is
++		 * hph_l, hph_r, clsh, comp_l, comp_r, lo, dsd_r, dsd_l.
++		 */
++		qcom,rx-channel-mapping = /bits/ 8 <1 2 1 1 2 1 1 2>;
 +	};
 +};
 +
-+&isi_0 {
-+	status = "okay";
-+};
-+
-+/* SMARC I2C_CAM1 */
-+&smarc_csi1_i2c {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
++&swr1 {
 +	status = "okay";
 +
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		clocks = <&clk_csi1_ov5640_osc>;
-+		clock-names = "xclk";
-+		AVDD-supply = <&reg_carrier_3p3v>;
-+		DOVDD-supply = <&reg_carrier_3p3v>;
-+		DVDD-supply = <&reg_carrier_3p3v>;
-+		/* CAM_1_CON_PWRCTRL, pin 24 */
-+		powerdown-gpios = <&smarc_csi1 3 GPIO_ACTIVE_LOW>;
-+		/* CAM_1_CON_RST, pin 11 */
-+		reset-gpios = <&smarc_csi1 0 GPIO_ACTIVE_LOW>;
++	wcd937x_tx: codec@0,3 {
++		compatible = "sdw20217010a00";
++		reg = <0 3>;
 +
-+		port {
-+			ov5640_csi1_to_smarc_csi_rx: endpoint {
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&smarc_csi1_rx_in>;
-+			};
-+		};
++		/*
++		 * WCD9370 TX Port 1 (ADC1)               <=> SWR2 Port 2
++		 * WCD9370 TX Port 2 (ADC2, 3)            <=> SWR2 Port 2
++		 * WCD9370 TX Port 3 (DMIC0,1,2,3 & MBHC) <=> SWR2 Port 3
++		 * WCD9370 TX Port 4 (DMIC4,5,6,7)        <=> SWR2 Port 4
++		 */
++		qcom,tx-port-mapping = <1 1 2 3>;
++
++		/*
++		 * Static channel mapping between slave and master tx port channels.
++		 * In the order of slave port channels which is adc1, adc2, adc3,
++		 * mic0, dmic1, mbhc, dmic2, dmic3, dmci4, dmic5, dmic6, dmic7.
++		 */
++		qcom,tx-channel-mapping = /bits/ 8 <1 2 1 1 2 3 3 4 1 2 3 4>;
 +	};
 +};
 +
-+&smarc_csi1_rx {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			smarc_csi1_rx_in: endpoint {
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&ov5640_csi1_to_smarc_csi_rx>;
-+			};
-+		};
+ &tlmm {
+ 	pcie0_tc9563_resx_n: pcie0-tc9563-resx-state {
+ 		pins = "gpio78";
+@@ -283,6 +410,12 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
+ 		output-enable;
+ 	};
+ 
++	wcd_default: wcd-reset-n-active-state {
++		pins = "gpio83";
++		function = "gpio";
++		drive-strength = <16>;
++		bias-disable;
 +	};
-+};
-
+ };
+ 
+ &wifi {
 -- 
-2.43.0
+2.34.1
 
