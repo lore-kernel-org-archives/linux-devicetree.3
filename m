@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662394;
-	b=oSOR7X/zZEn/L5gDN6I1oZKvICUGWosUE3BuA5aUvDtlzFXs65ou2gl4EzWctCNfdP7f
-	 T4/z1NaA045jrimelfPpkWc3ZQ3svg9u8WeXkoCctsMr3i/9N8YXAFy2JvK9YFVqqAxrm
-	 p8L88Bm9j+IC2VKAVZ5n9E9yO6iQ2Emsr1KuOM/LwM9wmQnOo9wOVz9b8zY1Dix0j+BWF
-	 Jjcj0g96VaYVzDzAnij+5+kVHIovOKXJ8m0z6HeBYuYxK1sJyPE/jk1NMtc6hjafIbad9
-	 PHaZD48KFoMGCRXmhRqmXOOOobS6BZ+A2WxHMSEsIR/tBDr/ahpf2hjdIOhPP//6rTA==
+	t=1792662473;
+	b=vGkF9ZdvULfXjAZYeyQX49oK5w9qZgAnEYmSedsiLFJvisZSpXJ4mT2vWdkctyhmt7nO
+	 +N7cV/iTCYvDk4/1uThNoRucXgppnxcdVUt3R1XSMIosyP6k+9Jbr1SKGz6efAhxlIEj4
+	 3D97nPHzddNN4Ib3hPNhDiB8HhVrG/nYdIQlyQYNn2kJJLVUONljJo/Rgoj51fToA4nlZ
+	 v1PjPgcMvgfDDaleUOz1dtQcrYPJkLxmipvarDhDciXoSq2i7FiqMwIuuY8zldX7Af4k0
+	 sGpHO8ZF962W1KKH6zmeoPpJ5wqMXx7BeEMyxkfYHwuHFMoawNA6rwU3WaBi/aU8V9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662394;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JBtY2REbjZJlCm+wUUQG7qb/B+U8mdvcqm/HFY1lIp0=;
-	b=vdxQ9WyOvbmTPqP2zznEMbzR+7CjU6I4dSd+yUES8AY5+kKqrk5rv0REUoxVHBxsnLRP
-	 6w0PqXnmyUXizSm1PKne1BOSskr3eUQWURKQ+Jq/CDt99h+9pBsWSRfn0lJ4X1RFlshzm
-	 sE8dZAtPjeXTGAdvbi0kzTihtwPyQL/qpIr+uG5T1ZzLvJlPn2GiosC3mE6Qd8Mmn1ROa
-	 OQMqny0c8TB6kr6Dc5ils+GXwIYHJ6FCgpGWLVIdGW00CxLfUbXNUPKAOsOf4eL7PgT+X
-	 YKovJR0sImv6XxD4D+h8C4IMIoFFUoExtZgZ27hVkuxbwMXkHu4wIxj6zxvBO+uHOug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662473;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=fLZrkDHTW99lYmYtpYbwH9NJHcUfkylrMGIDD7IU7Zw=;
+	b=k32CN2c/aG3QvwNV1Nz9axiTyNe17gVTo4/rAuwYv1A0D298X+We84ER0KyyZTKWyItF
+	 JgaQ58fDAv6Kow/KOSmYZO+5zZuUPOBTCLnlz7VhOB6CBedoC/dV63tvmhIDfXF6FIXoO
+	 7ruzHtogpO2iMNIvsXePysTBlMRYtpJNAmctAIQKW+IHVPMGXOVU8elHh1x9pBpS0XjYP
+	 R1h4VpmtsDtIOOdduiy3Jq2Mlg9y0l5mXmFYIMBGU772G2xF24Nf+jlNWFPyfKnMlyf80
+	 ChZ9vQz16GNMB83+3mqhQcblDE6ORDBZerrihpdPWM+iR/anMtm862X/U1xSp4cqT8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hm9AyA4Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=l4LphxNG;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8992D606A31A
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:46:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6397606A326;
+	Thu, 22 Oct 2026 09:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6397606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hm9AyA4Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49711F000C1;
-	Thu, 22 Oct 2026 09:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792662394;
-	bh=JBtY2REbjZJlCm+wUUQG7qb/B+U8mdvcqm/HFY1lIp0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hm9AyA4ZnFy7ox6UertvxgxIUwLEq8gR3CSfsDxj7Qtnvgd51evvSIHli2wqcRcWb
-	 xskt54rS/4WkOsIJxf8UTqusmUGsCyUFbx4L9pvZ+MKLnvRfynS/Kfkzvcis0aOPoh
-	 lA/4v2S1NpYvgLxwLHzoHpJ+3p2HVa8rVMTTBfKOKIj/lYZjr6nKbxe0gfPqym/WAf
-	 H5NXiO9AMu6fFkHOfVw9pTFvNYTR3nwH8PcliGQfW5DmTQkEG2/LaYip14uE0js70G
-	 3yUk58FfETZFDI6UiSOOoQSFYJfQyKJasfQtJ0wTIkyxXhXe8p+twVeUA7WlJls+x4
-	 K2TgR3lyiPkBw==
-Message-ID: <sashiko-outbox-181284@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-a9-i2c-v2-2-45e3cef175bf@amlogic.com>
-References: <20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com>
- <20261022-a9-i2c-v2-2-45e3cef175bf@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 09:46:33 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=l4LphxNG
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EE3654E412AE;
+	Thu, 22 Oct 2026 09:47:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C0F2D60360;
+	Thu, 22 Oct 2026 09:47:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B4F6310328E09;
+	Thu, 22 Oct 2026 11:47:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792662467; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fLZrkDHTW99lYmYtpYbwH9NJHcUfkylrMGIDD7IU7Zw=;
+	b=l4LphxNGF82GbFqghSpseeNljHH/VoqprVHmfuIKAMbMuFoe4HIPu0jrU1MWdWi7i2y5WK
+	bTlqidB+N8uD4Oo7RiOx7vfFMenUX62b6MkeEP+JD0HSCbKPSq5/49cFM64oad5Uo3bVxb
+	peDS9zcwrd44Hr1W8bl1nisro6zcNwlceooo8tv8/LSkCcBNyIYrlmds0Gr1Q/Q4PZtZJw
+	o6QuWce/5kAWdO6R5mJ45BUl6TXsiTV+eERM8DHYy0uXBBtRtVLCFLwcOej785HSCVi18c
+	C3SyTReyYv59kMLIqFfHYC6BdQkrPH/8aGbrBzEqrtp7+weV+Y63+mGX5xQrLQ==
+Date: Thu, 22 Oct 2026 11:47:41 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 07/74] Add support for FDT_PROPDATA_PHANDLE dtb
+ tag
+Message-ID: <20261022114741.31171b04@bootlin.com>
+In-Reply-To: <atl8nkrGFvhWRqDr@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-8-herve.codina@bootlin.com>
+	<atgtw8QubzVfWMYP@gractus.seuss>
+	<20261021192615.1f5b91ff@bootlin.com>
+	<atl8nkrGFvhWRqDr@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,330 +82,313 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] i2c: amlogic-a9: unlocked state init and late IRQ setup in aml_i2c=
-_do_start()
-- [High] i2c: amlogic-a9: threshold IRQs left enabled on timeout in aml_i2c=
-_xfer_msg()
-- [High] i2c: amlogic-a9: unhandled IRQ and spurious complete() in aml_i2c_=
-irq()
-- [High] i2c: amlogic: missing RX drain in aml_i2c_irq() when A9_PHY_DONE i=
-s set
-- [Medium] i2c: amlogic-a9: unmasked msg->addr in aml_i2c_do_start() corrup=
-ts START_LEN
---
+Hi David,
 
-commit 10e276126f680fbcf2e402bbde459a690540ef33
-Author: Junyi Zhao <junyi.zhao@amlogic.com>
+On Thu, 22 Oct 2026 14:02:05 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-i2c: amlogic: Add Amlogic A9 I2C controller driver
+...
 
-This commit adds a driver for the I2C controller found on Amlogic A9 SoCs,
-along with the corresponding Kconfig, Makefile, and MAINTAINERS entries.
+> > What do you think is clunky ?
+> > Is it the PROPDATA term itself ?  
+> 
+> Pretty much yes.
+> 
+> After the explanation above, I think I'm ok with FDT_PROPDATA_PHANDLE.
 
-> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
--amlogic-a9.c
-> new file mode 100644
-> index 0000000000000..d4954a4fd88ef
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-> @@ -0,0 +1,469 @@
+Ok, I will keep it (and FDT_PROPDATA_PHANDLE_REF).
 
-[ ... ]
+...
 
-> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-> +{
-> +	struct aml_i2c *i2c =3D dev_id;
-> +	u8 *buf =3D NULL;
-> +	int ret;
-> +	u32 rd_len, i;
-> +	u32 rd_val;
-> +
-> +	spin_lock(&i2c->lock);
-> +	ret =3D controller_is_error(i2c);
-> +	if (ret) {
-> +		i2c->error =3D ret;
-> +		goto complete_irq_out;
-> +	}
-> +
-> +	switch (i2c->state) {
-> +	case A9_STATE_READ:
-> +		buf =3D i2c->msg->buf;
-> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-> +		for (i =3D 0; i < rd_len; i++) {
-> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
-> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
-> +		}
-> +		/* Rx must clear thresh after read fifo */
-> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
-> +		break;
-> +	case A9_STATE_WRITE:
-> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
-> +		if ((i2c->pos + A9_I2C_HALF_FIFO) >=3D i2c->msg->len)
-> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
-> +		i2c->pos +=3D i2c->count;
-> +		/* Tx must clear thresh after write fifo */
-> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
-> +		break;
-> +	case A9_STATE_IDLE:
-> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
-n:0x%x\n",
-> +			 readl(i2c->regs + REG_CFG_IRQ_STATE),
-> +			 readl(i2c->regs + REG_CFG_IRQ_ENABLE));
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (!controller_is_done(i2c)) {
-> +		goto irq_trans_out;
-> +	} else {
-> +		if (i2c->state =3D=3D A9_STATE_READ && (i2c->msg->len - i2c->pos))
-> +			goto irq_trans_out;
-> +	}
+> > > > -static struct data data_append_markers(struct data d, struct marker *m)
+> > > > +struct data data_append_markers(struct data d, struct marker *m)
+> > > >  {
+> > > >  	struct marker **mp = &d.markers;
+> > > >  
+> > > > @@ -288,6 +288,7 @@ struct marker *alloc_marker(unsigned int offset, enum markertype type,
+> > > >  	m->type = type;
+> > > >  	m->ref = ref;
+> > > >  	m->next = NULL;
+> > > > +	m->is_local = 0;    
+> > > 
+> > > Storing is_local in the marker doesn't make sense to me.  I think the
+> > > locality should be calculated only when we actually go to emit the dtb
+> > > - I believe we should be able to deduce it from m->ref.  
+> > 
+> > When we parse a dtb, we do not have any reference for local phandle, we have
+> > only the phandle value.  
+> 
+> Heh, right, I remarked on that further down.
+> 
+> > Later in build_dt_info(), complete_references() is called. This new function
+> > is introduced in patch 9 ("dtc: Complete REF_PHANDLE markers with ref strings
+> > and is_local flags"). It completes the reference either filling the ref field
+> > based on the phandle value for all local reference (parsing from a dtb) or
+> > setting is_local based on the reference (parsing from a dts).  
+> 
+> Ah, right having that logic in a different patch makes it harder to
+> follow.
+> 
+> What concerns me here is that currently we have an invariant that a
+> REF_PHANDLE marker always has a meaningful m->ref field - from as soon
+> as it's added to the property data.
+> 
+> This patch breaks that assumption, which means when looking at some
+> random part of the code it's hard to know whether we're in a state
+> where m->ref is valid or it might not me.
+> 
+> One approach is to minimise the gap where m->ref is invalid.  That's
+> both in terms of code path - at minimum the m->ref fields should be
+> valid by return from dt_from_*().  It's also in terms of not leaving
+> intermediate patches where this is not fixed up.
+> 
+> The other approach would be to create new marker types indicating
+> these intermediate states.  The markers are for dtc internal use, they
+> don't need to have 1 to 1 correspondance with things in either dtb or
+> source format.
 
-[Severity: High]
-Can a multi-chunk read (msg->len > A9_I2C_FIFO_DEPTH) hang in
-drivers/i2c/busses/i2c-amlogic-a9.c:aml_i2c_irq() if the remaining bytes
-finish arriving before A9_RX_THRESH_READ is cleared?
+I don't want to introduce new markers for handling intermediate states.
 
-In aml_i2c_xfer() -> aml_i2c_xfer_msg() -> aml_i2c_do_start(), a read with
-msg->len > 32 enables A9_RX_THRESH_READ alongside A9_PHY_DONE, with
-I2C_RX_THR configured to 32. When the first 32 bytes arrive, A9_RX_THRESH_R=
-EAD
-asserts. If interrupt handling is slightly delayed or the remaining tail by=
-tes
-finish arriving while the A9_STATE_READ loop is reading the first 32 bytes
-from REG_CFG_RX, A9_PHY_DONE will already be set in REG_CFG_IRQ_STATE before
-clear_irq_status(i2c, A9_RX_THRESH_READ) runs.
+I really prefer avoiding those kind of "fake" marker which will have
+a short lifetime and should not be seen by code (other than the code
+moving this intermediate state to the final state).
 
-Because A9_STATE_READ only drains up to A9_I2C_FIFO_DEPTH bytes per call,
-i2c->msg->len - i2c->pos remains non-zero, and the controller_is_done(i2c)
-branch takes goto irq_trans_out without draining the remaining tail bytes or
-completing i2c->done. Since A9_PHY_DONE is already asserted and fewer than =
-32
-bytes remain to re-trigger A9_RX_THRESH_READ, no new rising edge will occur=
- on
-the interrupt line, leaving wait_for_completion_timeout() in
-aml_i2c_xfer_msg() to time out with -ETIMEDOUT.
+My strategy was to ensure that once build_dt_info() is called, all
+markers are fully correct with all field (is_local and ref) correctly
+set.
 
-Should aml_i2c_irq() drain the remaining bytes in the RX FIFO when
-controller_is_done(i2c) is true during A9_STATE_READ before completing the
-transfer?
+build_dt_info() is called by all parser at the end of the parsing
+operation to return a struct dt_info which is the dtc internal
+internal representation used by the rest of code.
 
-> +
-> +complete_irq_out:
-> +	reset_fifo_pos(i2c);
-> +	complete(&i2c->done);
-> +	i2c->state =3D A9_STATE_IDLE;
-> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
-ESH_WRITE, 0);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +irq_trans_out:
-> +	spin_unlock(&i2c->lock);
-> +
-> +	return IRQ_HANDLED;
-> +}
+Are you ok with this strategy?
 
-[Severity: High]
-What happens in drivers/i2c/busses/i2c-amlogic-a9.c:aml_i2c_irq() when an
-interrupt arrives while i2c->state is A9_STATE_IDLE?
+If yes, patches order in this series will be changed.
 
-First, controller_is_error(i2c) is checked before inspecting i2c->state. If=
- a
-late A9_NCK_ERROR interrupt fires after a transfer has already timed out and
-transitioned to A9_STATE_IDLE, aml_i2c_irq() sets i2c->error =3D -ENXIO, ju=
-mps
-to complete_irq_out, and calls complete(&i2c->done).
+The current order is
+ - Patch 7: Add support for FDT_PROPDATA_PHANDLE dtb tag
+ - Patch 8: livetree: Improve get_node_by_phandle()
+ - Patch 9: dtc: Complete REF_PHANDLE markers with ref strings and is_local flags
 
-Second, in the switch statement, the A9_STATE_IDLE case logs a warning and
-breaks into the completion checks:
+With that order we have the incomplete marker state present after patch 7 and
+before patch 9.
 
-	if (!controller_is_done(i2c)) {
-		goto irq_trans_out;
-	}
+Moving 'Add support for FDT_PROPDATA_PHANDLE dtb tag' after introducing the marker
+state completion will avoid the problem.
+ - Patch 7: livetree: Improve get_node_by_phandle()
+ - Patch 8: dtc: Complete REF_PHANDLE markers with ref strings and is_local flags
+ - Patch 9: Add support for FDT_PROPDATA_PHANDLE dtb tag
 
-If a threshold interrupt fires while in A9_STATE_IDLE and controller_is_don=
-e()
-is false, aml_i2c_irq() jumps to irq_trans_out and returns IRQ_HANDLED with=
-out
-clearing REG_CFG_IRQ_STATE or masking the threshold interrupt in
-REG_CFG_IRQ_ENABLE, leaving the interrupt asserted. Conversely, if
-controller_is_done() is true (such as a late A9_PHY_DONE), execution falls
-through to complete_irq_out and spuriously signals i2c->done while idle.
+Patch 8 and 9 could be squashed if you prefer to have the completion added
+in the 'Add support for FDT_PROPDATA_PHANDLE dtb tag' patch.
 
-Should aml_i2c_irq() check for A9_STATE_IDLE up front, disable threshold
-interrupts, clear REG_CFG_IRQ_STATE, and return without calling
-complete(&i2c->done)?
+> 
+> It seems to me there's an important difference between the -Idts and
+> -Idtb cases: in the dts case, we have a valid reference, but the
+> phandle needs to be filled in later; in the dtb case, we have a valid
+> phandle, but the reference needs to be filled in later.  Using
+> different marker types for those cases doesn't seem unreasonable for
+> me.  In fact, for clarity it might even make sense to have a third
+> variant for "both phandle and m->ref are valid" - the fixup code
+> between input and output would convert either of the first two
+> variants into the third, which is what the final output code would
+> require.
+> 
+> That's not necessarily the best way to do it, but I really prefer
+> where what's valid in a structure can be determined from the type and
+> contents alone - rather than having to know where you are in a complex
+> code path to know what's valid.
 
-> +
-> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
-> +{
-> +	unsigned int reg_val;
-> +	unsigned int trans_len;
-> +
-> +	trans_len =3D msg->len;
-> +	reg_val =3D (unsigned int)((msg->addr << START_SADDR_SHIFT) |
-> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
-> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
-> +	aml_i2c_set_mask(i2c, REG_CFG_START,
-> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
+Performing marker completion in build_dt_info() avoid additional markers
+and avoid also incomplete markers in the code path.
 
-[Severity: Medium]
-In drivers/i2c/busses/i2c-amlogic-a9.c:aml_i2c_do_start(), could upper bits=
- in
-msg->addr corrupt the START_LEN field of REG_CFG_START?
+Before build_dt_info() call, the internal devicetree representation doesn't
+exits for dtc. We are in the process of parsing and so we are building this
+internal representation. After this call, the internal representation exists
+and all markers are fully set without the need to introduce (and handle)
+additional markers.
 
-When userspace submits an I2C_RDWR ioctl on /dev/i2c-*, msg->addr is a u16
-passed through i2cdev_ioctl_rdwr() -> i2c_transfer() -> aml_i2c_xfer() ->
-aml_i2c_xfer_msg() -> aml_i2c_do_start() without masking. Because
-msg->addr << START_SADDR_SHIFT is not masked to 7 bits (or START_SLAVE_ADDR)
-before being ORed with (trans_len & 0xfff) << START_LEN_SHIFT and written v=
-ia
-aml_i2c_set_mask() under the combined mask START_START | START_SLAVE_ADDR |
-START_READ | START_LEN, any bits set in msg->addr[15:11] shift into
-START_LEN (GENMASK(23, 12)) and alter the hardware transfer length.
+In other word, dti returned by all dt_from_*() functions returns a fully
+complete dt_info.
+--- 8< ---
+	if (streq(inform, "dts"))
+		dti = dt_from_source(arg);
+	else if (streq(inform, "fs"))
+		dti = dt_from_fs(arg);
+	else if(streq(inform, "dtb"))
+		dti = dt_from_blob(arg);
+	else
+		die("Unknown input format \"%s\"\n", inform);
+--- 8< ---
 
-Should msg->addr be masked (for example with 0x7f, since 10-bit addressing =
-is
-not advertised in aml_i2c_func()) before shifting by START_SADDR_SHIFT?
+User of this dti will never see an incomplete marker.
 
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +	/* enable thresh mode */
-> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
-> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
-_WRITE;
-> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-> +	}
-> +}
-> +
-> +static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bo=
-ol last)
-> +{
-> +	unsigned long time_left, flags;
-> +	int ret =3D 0;
-> +
-> +	i2c->msg =3D msg;
-> +	i2c->pos =3D 0;
-> +	i2c->count =3D 0;
-> +	i2c->error =3D 0;
-> +
-> +	i2c->state =3D (msg->flags & I2C_M_RD) ? A9_STATE_READ : A9_STATE_WRITE;
-> +	spin_lock_irqsave(&i2c->lock, flags);
-> +	aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_FULL);
-> +	i2c->pos +=3D i2c->count;
-> +	spin_unlock_irqrestore(&i2c->lock, flags);
-> +	reinit_completion(&i2c->done);
-> +
-> +	if (last)
-> +		aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, 0);
-> +	else
-> +		aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, BUS_NO_STOP);
-> +	/* Start the transfer */
-> +	aml_i2c_do_start(i2c, msg);
+...
 
-[Severity: High]
-Can starting the hardware transfer before clearing IRQ status and enabling
-threshold interrupts in drivers/i2c/busses/i2c-amlogic-a9.c:aml_i2c_do_star=
-t(),
-without holding i2c->lock across transfer setup in aml_i2c_xfer_msg(), race
-with aml_i2c_irq()?
+...
+> > > > +		case FDT_PROPDATA_PHANDLE:
+> > > > +			if (!(flags & FTF_PROPDATA_PHANDLE))
+> > > > +				die("PROPDATA_PHANDLE tag found in flat tree"
+> > > > +				    " version <20\n");
+> > > > +
+> > > > +			if (!prop)
+> > > > +				die("PROPDATA_PHANDLE tag found without a previous PROP tag");
+> > > > +
+> > > > +			offset = flat_read_word(dtbuf);
+> > > > +
+> > > > +			/*
+> > > > +			 * A reference to a phandle is present in the property
+> > > > +			 * Mark the whole property as TYPE_UINT32.
+> > > > +			 */
+> > > > +			property_add_marker(prop, TYPE_UINT32, 0, NULL);
+> > > > +
+> > > > +			/* Mark the offset as a local phandle reference */
+> > > > +			m = alloc_marker(offset, REF_PHANDLE, NULL);
+> > > > +			m->is_local = true;
+> > > > +			prop->val = data_append_markers(prop->val, m);    
+> > > 
+> > > This doesn't properly populate m->ref which is an essential field in a
+> > > REF_PHANDLE marker.  Of course, doing so is kind of tricky - it
+> > > requires searching for the node with the referenced phandle, which
+> > > might not have been parsed yet.  So, alas, it will require a second
+> > > pass to fix up the REF_PHANDLE markers.  
+> > 
+> > We cannot do it here. The whole dtb needs to be parsed to set correctly
+> > m->ref.  
+> 
+> Right, that's what I mean by a second pass.
+> 
+> > This is done by complete_references() introduced in patch 9.  
+> 
+> Yeah, as above I don't like leaving this structure in a potentially
+> incomplete state for several patches.
 
-In aml_i2c_do_start(), setting START_START in REG_CFG_START kicks off the
-hardware transaction before clear_irq_status(i2c, IRQ_ALL_MASK) and before
-enabling A9_RX_THRESH_READ or A9_TX_THRESH_WRITE in REG_CFG_IRQ_ENABLE:
+Patch re-ordering proposed above will fix this problem.
 
-	aml_i2c_set_mask(i2c, REG_CFG_START,
-			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
-	clear_irq_status(i2c, IRQ_ALL_MASK);
-	/* enable thresh mode */
-	if (trans_len > A9_I2C_FIFO_DEPTH) {
-		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH_WR=
-ITE;
-		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-	}
 
-If the task is preempted or interrupted after writing REG_CFG_START, or if =
-the
-controller quickly asserts A9_NCK_ERROR (such as on an address NACK) or
-A9_PHY_DONE before clear_irq_status() runs, clear_irq_status(i2c, IRQ_ALL_M=
-ASK)
-can wipe out the newly asserted IRQ status bits and cause
-wait_for_completion_timeout() to time out. Similarly, if aml_i2c_irq() runs
-and completes on an early NACK before aml_i2c_do_start() updates
-REG_CFG_IRQ_ENABLE, the unlocked read-modify-write in aml_i2c_do_start() can
-re-enable A9_RX_THRESH_READ or A9_TX_THRESH_WRITE after complete_irq_out
-already cleared them.
 
-In addition, in aml_i2c_xfer_msg(), i2c->msg, i2c->pos, i2c->count,
-i2c->error, and i2c->state are initialized outside i2c->lock, and i2c->lock=
- is
-released before reinit_completion(&i2c->done), REG_CFG_BUS configuration, a=
-nd
-aml_i2c_do_start(). If a late interrupt from a previous timed-out transfer
-arrives while i2c->state is already set to A9_STATE_READ or A9_STATE_WRITE,
-aml_i2c_irq() can modify i2c->pos and access the new i2c->msg->buf before t=
-he
-new transfer begins (and if i2c->pos exceeds the new msg->len in
-A9_STATE_READ, the signed subtraction i2c->msg->len - i2c->pos in
-min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH) will wrap to a large u32 in
-rd_len and overflow buf[i2c->pos++]).
+...
+> > > Need to check for overflows here.  
+> > 
+> > What do you think about
+> > 	if ((tmp + sizeof(fdt32_t) < tmp) ||
+> > 	    (uint32_t)proplen < tmp + sizeof(fdt32_t))
+> > 		return -FDT_ERR_???
+> > Probably using an uint32_t for tmp here.  
+> 
+> That'd work, but it might be more natural to use:
+> 	if (proplen < sizeof(fdt32_t) ||
+> 	    tmp < 0 ||
+> 	    tmp > proplen - sizeof(fdt32_t))
+> 		return <error>;
+> 
+> That lets tmp remain an 'int'.  Using 'int' for offsets is sometimes
+> problematic, but it's a convention that's now pretty baked into the
+> libfdt interface.  Note that offsets encoded into the dtb are required
+> to be < 2^31, not just < 2^32.
 
-Could the state initialization, reinit_completion(), bus configuration, IRQ
-status clearing, threshold IRQ setup, and START_START trigger all be perfor=
-med
-under a single spin_lock_irqsave(&i2c->lock, flags) critical section, with
-clear_irq_status() and REG_CFG_IRQ_ENABLE configured before asserting
-START_START?
+Fine, will do what you've suggested.
 
-> +
-> +	time_left =3D msecs_to_jiffies(I2C_TIMEOUT_MS);
-> +	time_left =3D wait_for_completion_timeout(&i2c->done, time_left);
-> +
-> +	/*
-> +	 * Protect access to i2c struct and registers from interrupt
-> +	 * handlers triggered by a transfer terminated after the
-> +	 * timeout period
-> +	 */
-> +
-> +	spin_lock_irqsave(&i2c->lock, flags);
-> +	if (!time_left) {
-> +		i2c->state =3D A9_STATE_IDLE;
-> +		clear_irq_status(i2c, IRQ_ALL_MASK);
-> +		reset_fifo_pos(i2c);
-> +		ret =3D -ETIMEDOUT;
-> +	}
+> 
+> >   
+> > >   
+> > > > +				return -FDT_ERR_BADSTRUCTURE;    
+> > > 
+> > > I'm not sure BADSTRUCTURE makes sense for this.  I think it's probably
+> > > worth adding a new error code for bad metadata tags.  
+> > 
+> > #define FDT_ERR_BADMETADATA	20
+> > 	/* FDT_ERR_BADMETADATA: The device tree has corrupt metadata. */
+> > 
+> > Is it ok on your side ?  
+> 
+> Works for me.
 
-[Severity: High]
-When a transfer with msg->len > A9_I2C_FIFO_DEPTH times out in
-drivers/i2c/busses/i2c-amlogic-a9.c:aml_i2c_xfer_msg(), aren't the threshold
-interrupts in REG_CFG_IRQ_ENABLE and the active transfer in REG_CFG_START l=
-eft
-enabled?
+Perfect.
 
-In aml_i2c_do_start(), transfers with trans_len > A9_I2C_FIFO_DEPTH enable
-A9_RX_THRESH_READ or A9_TX_THRESH_WRITE in REG_CFG_IRQ_ENABLE, and only
-update REG_CFG_IRQ_ENABLE when trans_len > A9_I2C_FIFO_DEPTH. On normal
-completion in aml_i2c_irq(), complete_irq_out clears A9_RX_THRESH_READ |
-A9_TX_THRESH_WRITE in REG_CFG_IRQ_ENABLE, but the !time_left timeout path in
-aml_i2c_xfer_msg() does not disable those threshold IRQ bits or stop the
-transfer in REG_CFG_START.
+> 
+> > > > +
+> > > > +			/* Retrieve the phandle value from the property */
+> > > > +			pfdt32 = prop;
+> > > > +			pfdt32 += tmp / sizeof(fdt32_t);    
+> > > 
+> > > Again, this will need updating for non-aligned phandles.  
+> > 
+> > Will handle unaligned offset.
+> >   
+> > >   
+> > > > +			val = fdt32_ld(pfdt32);    
+> > > 
+> > > ... which reminds me the entire fdt32_ld() interface is kind of
+> > > broken.  They're specifically intended to handle misaligned accesses,
+> > > strictly speaking it's already UB to generate a misaligned pointer, so
+> > > there's a problem before we even call it.  Fixing this within API/ABI
+> > > constraints is a nasty problem :(.  
+> > 
+> > I can introduce and use the following:
+> > ---- 8< ----
+> > static inline uint32_t fdt32_ld_unaligned(const uint8_t *pfdt32)
+> > {
+> > 	return ((uint32_t)b[0] << 24)
+> > 		| ((uint32_t)b[1] << 16)
+> > 		| ((uint32_t)b[2] << 8)
+> > 		| b[3];
+> > }
+> > ---- 8< ----  
+> 
+> Uh.. I'd rather not handle the fdt32_ld() mess at the same time as
+> dealing with the addon stuff.  For now I think use fdt32_ld(), and
+> continue to rely on the fact that in practice creating (but not
+> dereferencing) misaligned fdt32_t * pointers is generally fine.
 
-If a >32-byte write times out and the next transfer is a short read with
-msg->len <=3D 32, wouldn't A9_TX_THRESH_WRITE remain enabled and fire during
-A9_STATE_READ, causing aml_i2c_irq() to read from an empty REG_CFG_RX FIFO
-into msg->buf?
+Ok, will keep fdt32_ld().
 
-[ ... ]
+...
+> > > >   * be set to the offset immediately following the tag.
+> > > >   *
+> > > >   * returns:
+> > > > - *	the tag type (FDT_BEGIN_NODE, FDT_END_NODE, FDT_PROP, FDT_NOP, FDT_END),
+> > > > + *	the tag type (FDT_BEGIN_NODE, FDT_END_NODE, FDT_PROP, FDT_NOP, FDT_END
+> > > > + *	or any other known tags),    
+> > > 
+> > > This hunk looks like it belongs in an earlier patch.  
+> > 
+> > Well we add FDT_PROPDATA_PHANDLE and this is the first known tag added other
+> > the existing ones already listed. Do you prefer an exhaustive list of known tags?
+> > 
+> > Also worth noting that fdt_next_tag() can return all unknown strutured tags that
+> > can be skipped this has to be mentioned in the series adding support for structured
+> > tag.  
+> 
+> Ah, yes.  Probably easiest to revise this to remove the complete
+> listing of tags at the point we introduce structured tags.
 
-> +MODULE_DESCRIPTION("Amlogic I2C Bus driver");
-> +MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
-> +MODULE_LICENSE("GPL");
+Will update in the next iteration of the structured tag series and so no
+modification will be present here in this support for addon series.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-a9-i2c-v2-=
-0-45e3cef175bf@amlogic.com?part=3D2
+What do you thing about:
+--- 8< ---
+	/**
+	 * fdt_next_tag - get next tag in the device tree
+	...
+	* returns:
+ 	*	The tag type, either a known tag or an unknown structured tag
+	*       if this unknown tag can be skipped (SAFE_SKIP bit set in this
+	*       tag).
+	*	In case of error, FDT_END is returned with @nextoffset set to
+	*	a negative error code.
+ 	*/
+--- 8< ---
+
+I suppose here, that you're ok to re-introduce SAFE_SKIP bit in structured tags
+format. Asked in [1] and you don't reply yet.
+
+[1]: https://lore.kernel.org/devicetree-compiler/20261021155923.55e48904@bootlin.com/
+
+Best regards,
+Hervé
