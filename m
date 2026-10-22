@@ -1,57 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701895;
-	b=BAG3224MoJVhyloSOLQoIAUxTFy5IIrbkq6bX8K/gckHYfgLOZ+Gscr1lzmBP+xUp3Af
-	 516CwhEyMCR1h8rO+NTceG5brPfKlbOjnAL6TbY2Z6X0Eo05183+TWg9BW2KWrRcCRIe4
-	 Z+Seh46PEfFWRxqiVDi5SYHFsCLcMw4TBhpbVqy8MVwWcLVutdsoF0hgs2gy8SSpfZLcR
-	 totvj0RgFW/DlLI+fxdvnzE4ZkBqmvUL82mWqCNJY+6jn7WDnExJcTEkcufneVUyGmNpi
-	 dHr8eIqr/PeKA5L+kBLVj0+P9wweiEwg9M1cLvAmJ/EYm3P+H4iw4j8+7jde7sVd+Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701895;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+ukyVStRq6aCLwTUj2EOn6H9yXqMS7cgPE9KOnM6X60=;
-	b=bOWuIRBu/EVdpcXInoepp40ZByA75yIaUTXgsyvnJIlanudw15iEZhH7450XuDydrgM+
-	 c2uss4M3/JFcr0T0Hkr6YlL8bR/DC4Wrk8PtMgnE06iZeiBTmUF1VKoh3fePbi3iFjPxZ
-	 IsjjLp9bdraFuhUp6aWQwPncJUyKbt/ge7arRW1OYt00z/2IpOCFeTtKcVXu9NNgiuE1p
-	 5JAPtqU6isdndJhrbX5i6TC1BG9cc+WiNVR+33g/RYY3wDwSUDXc+307No5XbYz/FiM2m
-	 4LqWP/VjQxjC7LZrFtYfLbmXQoovfAkVxmFaIjIvJ8N1TyfRqzAeG8XoWMCXGFiFM/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGWpJd+K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792702085;
+	b=FFMVrNFWbW/8VvQbc1dIJ2qSekRiQ2gHRW9X5WVn0A33mF9bkpYf7OGLOcMvlUuUTdUw
+	 ZUTgI43ruIy85kGTIQyi7aVOhu75dpoqULDNa1cUGLaDYQte2AgLU1mW5Zzab/V656PZC
+	 Hl+9Z87D03NCcx3HcBxN1cHY/VmcNFxWkg/fyIPoaW1DbJNKLBiPWuqOLGUB5RnKW7qGZ
+	 MD0BudPAI7Q1xqCVmPidHBld4N1rEm8m87tMc3l+w/cRRbHubWU+oKwgsOnyE5RftFTnj
+	 8cbfP/ibSa7j/scA6kO5FykAOLzjv5aQGAxj6JoXTXqQwzuy1rbLPbSNSxc/LLpHKGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702085;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EbSpynavqoDFnl1RpVUtokCrDV5Frcra9IAngscRbm8=;
+	b=cVNP/Ny34FnpZ4rAKFPxMKWiVvjxErEQbglo9s2f0jIwFm+nqyozsybAGEZLCMms/YtV
+	 f4VAkd/GttrnDlPUllocmndVEyRWrXK/YcBW/DfgmTRXNavFLy1Y1OEKeNghSD5dZcJup
+	 zjBu0rtjjS4UuAJzAW/wEaZ8ew95DUjxLSd7XFMcm7s/RkhMAswmpOrm7qPrtR9RECCYd
+	 V/J5AG/B8rvfi1VzwT8OVcGdVm+K/EPrfEtpH8pdN0yOQTMivdpc0j9zZ3oFalD0y6cCu
+	 69kzHXMqPgKZO6ed/NXEa0WnHQ2l5pla/4e7dfFR9FgL9N0rj+Ev7tydUvBdhoa3PzA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="AK/qbtBP";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.66
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010066.outbound.protection.outlook.com [52.101.84.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02190606A31A;
-	Thu, 22 Oct 2026 20:44:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2197F606A31B;
+	Thu, 22 Oct 2026 20:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2197F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGWpJd+K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784761F01828;
-	Thu, 22 Oct 2026 20:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792701894;
-	bh=+ukyVStRq6aCLwTUj2EOn6H9yXqMS7cgPE9KOnM6X60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gGWpJd+KXy0s92mhP5xb4+TALCuObmz3D/xa69iM8om3ypid91YQ1VpqhQQKp1nv+
-	 53QPyYFCjZ3wrin56UcKh0krDK5ALapcDOANUOC4ChfBkA3xDCjUXb2zcRh24FvpJ3
-	 bU2G60+8z6MO1Z/oyUC0tEcPkjiddaDzghPrf9P9PPRmEvDe8mrCH5C2oS3Srfrfpn
-	 g/d9AX/dnfMZHHa9/PS5K6QrQHzV7OywQh0rvT5cAhi1eX4DJvhSxbeJ2rrDUZ8ud2
-	 FbyyrsA3qgGWosEq8gMBEJv6cUNkNb1Q+BnCB6y2ne4s43vSyG8cpfAY8PlyLey/nC
-	 Xm0F1g2jkQgIw==
-Message-ID: <sashiko-outbox-182022@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: mfd: twl4030-audio: document preferred
- name for external mute
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
-References: <20261022-twl4030-extmute-v1-0-3d2dbe260df9@gmail.com>
- <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 20:44:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AK/qbtBP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fdl3WGcMsY1S1pqTPsMRQdqo/t3Hc48C26p2JI6glVlmsbMVg/4bpzt521m9ZsiVpaR4uPNyLUtgz2wpB2RTkAL3vnaLLnpmZTvAkxRU80gSX5Z5JUoLxf8w/DxwCYrwjei/P4BzJiMLmgbQFmO0lXobghYrpt6yVH3b4GNtgqMWzyFTsDrYjCfNEmg6+ADtr25szToIETNrsVYCqDrUJc9quhVYQYcULn5RR+IRALpG47z3DxCPRBUZJmXFt5TfpcmDMg0aLjyoSBC4tGG9tZxschzrYa0YACe2x2kjJHVYuafd3tIn2wSIZxrKHGzjFWKrvOmz5Grn5cHNcrD7ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EbSpynavqoDFnl1RpVUtokCrDV5Frcra9IAngscRbm8=;
+ b=mOnwMisSYExo7GFwW1GIAEuT2xa74gPF5SSh5aEzHJBpCa17ed3/b+mIk1qokV8t1hMwekikgJYC5VQg77pqU6OzmJ+Mq8QFbcbpBSrEtUP2hthLRWSZFKLnxdBmc9FUj9u6KUtsuTH+fU3Hy3uUs/4oy9VOHmODtSxFerz+h2eoXmXShZWcuHy92ZvXR68UiwL3s+2QUiCLWHolkmWNciYQH4XAG03ZH935HVcwK+UYQWuMEIDRKIfkyc2/Jv0aTbdFf4PT/Lhp1FlygkflffH7btYeUk0ilJJbFP9UpAqkR/bTzTFKGlvmZvXvlpj/EX3xHGwJ6mi10LijxYx2eA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EbSpynavqoDFnl1RpVUtokCrDV5Frcra9IAngscRbm8=;
+ b=AK/qbtBP9LJPzxkxOx7HXoXtIQxtbJXi1fx+8akj4R6jjl1rswCPZ8JK8zTUGHvZnrV9LnLdUanomYmWIt4N6VIrdYVxF3Qa4+326l8MLmzsjBOVtF4Kl3qQgIEpnRr2QLZfmOnu/U/TofihYxMAt4iqI7aRMuTkV6RaVgIFl77+jvPL87bAgGUENfjF9ZrGuEV1v1fPCjFzeFVLuf7zZtG1VdTFvnnEDT3HUDpEby6tYbTQt/tiJb7QCsiJWJ+CB8i7K8kQD9/asBeMoy0/0wvdKFzpqZMZb0dPCcWf/XfAIcxg7Nc1RsI+NLGLE2W6s5ulnOTMUh+Qe66yD2cN3A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by BR0PR04MB431110.eurprd04.prod.outlook.com (2603:10a6:2c8:33::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 20:48:02 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 20:48:01 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 0/2] arm64: dts: imx8mm: Enable DMIC input on Variscite boards
+Date: Thu, 22 Oct 2026 16:47:54 -0400
+Message-ID: <179270203436.1330608.6264909391367606820.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792139809.git.stefano.r@variscite.com>
+References: <cover.1792139809.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS1PR02CA0022.namprd02.prod.outlook.com
+ (2603:10b6:8:44a::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,143 +107,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB431110:EE_
+X-MS-Office365-Filtering-Correlation-Id: 668f2672-b49f-4df9-de37-08df307dc370
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|7416014|366016|56012099006|11063799006|261009223027099003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ oya8ab5vkhCV+ZsFwe4SBEUbuAkXszMqKZlsiZK8az/nYyt+pSiuTOUSWvEknbYmpcPzPqcbNrspKj25ZbRR4uoh/YMo7jMrArAsyVyaYbSREZRWpRDd1dhIwLqHa+SqaTvo+VBWqgT/sCY8Ng0OYGMolvO/zrGMIukomjhEGKdSRr3gbMSzcTNJpAYvXzl43x3CN7svIBOJY/IxxzlX+Wcgxy0UxTI5kBH8qFoJb7iC+8Yc6zUq1uOfYwVipAy1csJo3fy45IBP3JuE4sm9ZiWrHDZ3eIx1/zLTD0a3QKGMko1cLeLCxZnPmKrumoC9tGZJ/dnF7IsKYsq9JCCjgRILT3wn+oCH3JFGBvUuIoI4oc5EOJmO+kxRJggpWWYtmMkiYOO+v9Ba5DZYAHwAB/+x1EBAu3uwtcU/PfbMI3SuL0cudpUQn3URPii7tSeaJEGHqq+W0yglMwKyQQlt4n1+iF4Cd3eWiLbrZVj9AipMyrhrcnJEIdur7q23QOTzoJp2UoJwLEiQyQC3tApo40sUUK6xdK8BIwB6Yc+F++17whFzwztXSDIXUX6Z5jH9RZT53zEl7Q+KrNgYPg/Lmaj15vZ47gDTBQkbC7iE/ebBgIb8nut4s3D3pzjW0ypvgtX++4voxgHCIb3LeD3+XX03YNpV23X7VXiGdXYB+o4=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(7416014)(366016)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?RTZJczJ5Z01ic1FOSTVhV2UwT1pkcUZ6MEV2a29xQzl4TTNRSW5mc3RnWXUx?=
+ =?utf-8?B?LzcyeDd2Qk40SjRiYTRVNXBYcnQ4Tktad2hOc3dsMUl1aGtQbm1rdXMzYUxz?=
+ =?utf-8?B?QW9KdjRnTVdYNmgvNFBuZ3MxbmxlNEJHdk12SWVicFVraU9iUEdaWUdCWDV5?=
+ =?utf-8?B?clRWOTR4UGJCR1F1bzZMVzhJV0lBdUlJVG1mYzNLakkwbzNnU3hrK1d5bGRZ?=
+ =?utf-8?B?dWE1QzVNVVJwR0NTNUtuckozUTRwRFk0SFI1SnhXNk1hV2FOQ1g4R1BwaVpl?=
+ =?utf-8?B?RUIxYXRPQzhYVGwwWWQzcTlCSlpoOFNlMjhaOFRNQytpL01WQnMvRGtOeUJh?=
+ =?utf-8?B?M3I1dGtrck5RZ2hSREdiYWc2dEdSKzRMVFBMUlRZSm5TNWsvaDF2UUxvaTJs?=
+ =?utf-8?B?NnNQc1lVRTA1UE9hRTlUQ1VmOXdwc1poajdWeEFLSElIbTMrVWphaGpUeHV3?=
+ =?utf-8?B?VDhiWHQvVUtjQjJwZzhJNWcwbStkeVlVb3FGdUJMc0dVOGFXQUtrOWlCMUpK?=
+ =?utf-8?B?TlJ6OElMbENmR3ExeWtaNmR6eDJlTTJHUCtVTmxnZ3FtTVdPbXNJUlo5WTNj?=
+ =?utf-8?B?ZlBJZTdyTTNqMzBlV1ZCSFdyY1ROR1JKQ2JSdHBuZk5hcVpRNEVteHNqQlJV?=
+ =?utf-8?B?R1dWT1B2UXpPVjR6MXFmQ1ozNVVyR2lxVER0US9LWDFWUmE0WGVZZ05aUS9w?=
+ =?utf-8?B?d2lYdElGK2xFbGs1TkVkMGRQZTN1RTNlTHBvSDhkT0ZCZ1ZjSmxsczd1S0F1?=
+ =?utf-8?B?U0Q0Ni9IVCtKQ0JxQSs2RTdSVGFqYzdwL3d0a3lTMHFkQ2N3QlhCcmNHWGZ5?=
+ =?utf-8?B?WURIcVNQZVN4Y3p4TzV1bEM5ZSt0azN0cGV4RE9BVVdyOUJES0VGeDNXM2pi?=
+ =?utf-8?B?bGRJWGF3UEU4K2ZUMUpMeDNkRnVCTXVwR2pTOXhyWWlPUFI5THNUcy93VzdR?=
+ =?utf-8?B?OCtPbDU5WmVUeHByaDFncXF1QVVEZklvMHlTVXlBRnM1ejRxTXlJVzJGVHVq?=
+ =?utf-8?B?OWQ0VkNFKzIrQStDS1pzcUpXQ0xpUTZoa01aOEhrWFYweTdRL3lLY2svdlc1?=
+ =?utf-8?B?YWo0QUM2UGgwOG9sOVU5aVg4TThhYUhlVFRjNjZhVFg1L1hlOTNMdmpPRWRN?=
+ =?utf-8?B?bzJkMDBsekR1VzhLK1BFOXp0d2pzWjM5NnBJY0tRS2tOTWxEMFU1WlZrR20r?=
+ =?utf-8?B?UXNPdEkzMVVGWGJsSHVHbHRFaUorUUJxRHN6bHVVQXNqZTVHTXFTTVlQeWxU?=
+ =?utf-8?B?Zy9Zb0MvWU9ncmVKNzZnVUdhU2tTYk02Z3JQNUN5TFFRb05SMkhXdlVDa1R1?=
+ =?utf-8?B?SUE0OFpwTHY4V1hKcFVjS2xXNnZsZXNwUXpveUgxTVVBV1JEcUh0d0xOdGhE?=
+ =?utf-8?B?QnlYdVo4RFFvL05WWWZ6WUFGNG5pVm1iUHZqYVZpV1hhTWxIN1p3RWorQnNY?=
+ =?utf-8?B?d1Q5a2Q2NFd3cFd6OWY5YTZhSk83aXRqMjdvbGZoc3FNMnpza2FjdEY3NVVD?=
+ =?utf-8?B?ZGxVTE1GQXo5RllJb1pzSHR2Y3grU2hXZzAxWkZBU3BJWm9Wb0NIcU14elN0?=
+ =?utf-8?B?dEdTZGt2dXVYWExsN2ZvVkxuMElTczVwQ2IwbmorYmc1L0dmUmJRblFGbkt2?=
+ =?utf-8?B?b1MwcDFXMXY5WnA0OGFuMnVhVEtwTytuS1JrbGFIeFFLOHhweE5OMERkZ3hS?=
+ =?utf-8?B?ZEFvMnFVZGwzcExxNWI2aXZFRnFKZExoMVJLZVN3ZGg2V0R5bEZQNlVqYVZE?=
+ =?utf-8?B?amtWaHRvV2dZcFhlN2ZtZUkrL0pkNnBpZzlHZWxWdlZiSE1kZUFuclRLaGkv?=
+ =?utf-8?B?YlVKZkpocnhPdzYrYU9sZlA3T01CUmgxUWN2WW5xN2gzZzJYWEpHSjFDZmRF?=
+ =?utf-8?B?dVlTU0FycDh2VjU4ZVpRbDBUS3Z2Q3c0djZSUjc0Qy9qTzUxT2t5dEpOVXdE?=
+ =?utf-8?B?WWQ2T3pzdFlBSTJSMngyRDUySUwrNG1PYUo5WWNvbEhWSWVOVmE4WHRvakV1?=
+ =?utf-8?B?em5ralo3b214VnkzSHcyNWRQZE8rUFcwbG1uZzkrc0U4eUZIaUo5WW5PKy9t?=
+ =?utf-8?B?K2RXbnhyNDNRQVh0bUJMdHF6VEFjdWE1a2JZL1dhNmlLazExd3RpdFVvUDYv?=
+ =?utf-8?B?U0pmb1YrRXFOekY1M3R3T3pobTJsSjBtNnFBOS84WStreHF2Y3JlRFBoRlBn?=
+ =?utf-8?B?OTBmQTBKd2dKOVFYWXo1U1VMNlBWV05yakR6TVN1dXJNYSt1QWpIbGhpUnRy?=
+ =?utf-8?B?OU1NcndTZUZrTmtLZWlXYWlUQVdNOUs5MURXMWZUMDE5akF6MENCUUpJMmg4?=
+ =?utf-8?B?MFdZUlJpQkNIWjlFc0FYdHFzcnR2YzZXM2NvN0xDV1FrdzJlazZndDYvRWRs?=
+ =?utf-8?Q?RouXd+KSLU9WDbGNBrB6Id/4/+LZ8OPzP/abi?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 668f2672-b49f-4df9-de37-08df307dc370
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:48:01.8688
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xfo+cdOLbckJZTxU4I8tny6kyxunYNoNHeLcfXYgyHEVBEFwNhFJ0RIWclXfBIrnY/DD/SL0p5oL2a21/9cd1QbVGW3zmVS9vDh4GOOL0LyIHUubjvWlX1gLw+mq65E0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB431110
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: sound: ti,twl4030-audio: invalid $ref and missing d=
-eprecated tag
-- [Medium] ASoC: twl4030: legacy ti,hs_extmute_gpio property not matched by=
- gpiolib
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Fri, 16 Oct 2026 10:40:09 +0200, Stefano Radaelli wrote:
+> This series describes the digital microphone connection to the WM8904
+> codec on the Variscite DART-MX8M-MINI and VAR-SOM-MX8M-MINI platforms.
+>
+> Configure IN1L as DMICDAT1 on both platforms to enable the digital
+> microphone capture path.
+>
+> Stefano Radaelli (2):
+>   arm64: dts: imx8mm-var-dart: Enable WM8904 DMIC input
+>   arm64: dts: imx8mm-var-som: Enable WM8904 DMIC input
+>
+> [...]
+
+Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
+thanks!
+
+[1/2] arm64: dts: imx8mm-var-dart: Enable WM8904 DMIC input
+      commit: 98bb62f6426fe83d1d9ad1b0a8a689d2babfbcee
+[2/2] arm64: dts: imx8mm-var-som: Enable WM8904 DMIC input
+      commit: 5391f84729fb68a5b0e3180e4fbf9d64282fd036
+
+Best regards,
 --
-
-commit 43d9eacfe52fdbf41c021df1d5b980ba9e4220b9
-Author: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-
-dt-bindings: mfd: twl4030-audio: document preferred name for external mute
-
-This commit updates the ti,twl4030-audio binding schema to document
-ti,hs_extmute-gpios as the preferred external mute gpio property name and
-retain ti,hs_extmute_gpio as a deprecated legacy property.
-
-> diff --git a/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yam=
-l b/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
-> index c9c3f7513ad42..1d41f582261db 100644
-> --- a/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
-> +++ b/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
-> @@ -39,12 +39,18 @@ properties:
->          description:
->            Enable the use of an external mute for headset pop reduction.
-> =20
-> -      ti,hs_extmute_gpio:
-> +      ti,hs_extmute-gpios:
->          $ref: /schemas/types.yaml#/definitions/phandle-array
->          description:
->            The GPIO specifier for the external mute control.
->          maxItems: 1
-
-[Severity: Medium]
-Will keeping $ref: /schemas/types.yaml#/definitions/phandle-array under
-properties.codec.properties.ti,hs_extmute-gpios in
-Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml cause a schema
-validation error when running dt_binding_check?
-
-The explicit phandle-array $ref was previously required on ti,hs_extmute_gp=
-io
-because its underscore _gpio suffix did not match standard gpio suffix
-patterns. Because ti,hs_extmute-gpios uses the standard -gpios suffix, the
-core dtschema meta-schema (meta-schemas/gpios.yaml and
-schemas/gpio/gpio-consumer.yaml) automatically assigns its type and sets
-additionalProperties: false, which disallows an explicit $ref to
-phandle-array.
-
-Also, for properties.codec.properties.ti,hs_extmute_gpio below, should
-deprecated: true be added to the property definition in addition to the
-description text so that dtschema validation tools recognize
-ti,hs_extmute_gpio as deprecated?
-
-> =20
-> +      ti,hs_extmute_gpio:
-> +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        description:
-> +          Deprecated legacy name for ti,hs_extmute-gpios.
-> +        maxItems: 1
-
-[Severity: Medium]
-Can gpiolib actually resolve the deprecated ti,hs_extmute_gpio property
-documented here at properties.codec.properties.ti,hs_extmute_gpio when a
-device tree uses the legacy underscore name (for example, under twl_audio in
-arch/arm/boot/dts/ti/omap/logicpd-som-lv.dtsi)?
-
-During driver probe, twl4030_get_hw_params() calls
-twl4030_get_board_params() in sound/soc/codecs/twl4030.c (updated in commit
-"ASoC: codecs: twl4030: fix external mute GPIO lookup"):
-
-	/*
-	 * This will attempt to parse "ti,hs_extmute-gpios" or
-	 * "ti,hs_extmute_gpio".
-	 */
-	params->hs_extmute_gpio =3D devm_fwnode_gpiod_get_optional(dev, codec_node,
-								 "ti,hs_extmute",
-								 GPIOD_OUT_LOW,
-								 "hs_extmute");
-
-This calls into gpiod_find_and_request() -> of_find_gpio() in
-drivers/gpio/gpiolib-of.c:
-
-	/* Try GPIO property "foo-gpios" and "foo-gpio" */
-	for_each_gpio_property_name(propname, con_id) {
-		desc =3D of_get_named_gpiod_flags(np, propname, idx, &of_flags);
-		if (!gpiod_not_found(desc))
-			break;
-	}
-
-	/* Properly named GPIO was not found, try workarounds */
-	for (q =3D of_find_gpio_quirks; gpiod_not_found(desc) && *q; q++)
-		desc =3D (*q)(np, con_id, idx, &of_flags);
-
-However, for_each_gpio_property_name() in drivers/gpio/gpiolib.h formats
-candidate names using a hyphen:
-
-#define for_each_gpio_property_name(propname, con_id)					\
-	for (const char * const *__suffixes =3D gpio_suffixes;				\
-	     *__suffixes && ({								\
-		const char *__gs =3D *__suffixes;						\
-											\
-		if (con_id)								\
-			snprintf(propname, sizeof(propname), "%s-%s", con_id, __gs);	\
-
-Because this only checks ti,hs_extmute-gpios and ti,hs_extmute-gpio, and
-of_find_gpio_rename() in drivers/gpio/gpiolib-of.c has no entry mapping
-ti,hs_extmute to ti,hs_extmute_gpio, devm_fwnode_gpiod_get_optional() retur=
-ns
-NULL for boards specifying ti,hs_extmute_gpio.
-
-When ti,hs_extmute is absent, external mute is silently skipped in
-headset_ramp(). When ti,hs_extmute is set alongside ti,hs_extmute_gpio,
-twl4030_get_hw_params() in sound/soc/codecs/twl4030.c sees a null
-hs_extmute_gpio and reprograms TWL4030_PMBR1_REG to mux the internal
-gpio6/pwm0 pin as extmute instead of using the external gpio:
-
-	if (board_params && board_params->hs_extmute &&
-	    !board_params->hs_extmute_gpio) {
-		u8 pin_mux;
-
-		dev_info(dev, "use TWL4030 GPIO6\n");
-
-		/* Set TWL4030 GPIO6 as EXTMUTE signal */
-		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &pin_mux,
-				TWL4030_PMBR1_REG);
-		pin_mux &=3D ~TWL4030_GPIO6_PWM0_MUTE(0x03);
-		pin_mux |=3D TWL4030_GPIO6_PWM0_MUTE(0x02);
-		twl_i2c_write_u8(TWL4030_MODULE_INTBR, pin_mux,
-				 TWL4030_PMBR1_REG);
-	}
-
-Does of_find_gpio_rename() in drivers/gpio/gpiolib-of.c (or a fallback look=
-up
-in twl4030_get_board_params()) need to handle ti,hs_extmute_gpio so legacy
-device trees continue to work as documented by this binding?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-twl4030-ex=
-tmute-v1-0-3d2dbe260df9@gmail.com?part=3D2
+Frank Li <Frank.Li@nxp.com>
