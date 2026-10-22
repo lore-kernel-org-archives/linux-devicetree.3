@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792703665;
-	b=4VSYdqHEWlgVzvaKcD6M6AP+5glUukf6SdnSOgZDfmgbRVbLtU/iyLw3nV62/I4WWGIT
-	 5la9b6ev4mOWH6i1jJf93xXIpnQEM8uyR2b5USvvZff1/Y2rfTJE+IO4OQGaz75vQP9C4
-	 5h0qfFrvP+1zLParMAsfmY119CeIph/kEDsX7cRbRt7A0vskXCRwMSWD2N3TpD5JDkeQM
-	 uFnxZ7n/l3hgzoGOWQS3JFdWuJ6lOU1e7QN6+jOKo/Q4dOB04JmWQgmbTIwENPZmGwkbE
-	 1P0y8Wpwqjg2MZaSpDioFZ5wVObhysxVmlV21ksNhO5m8DopXa1/KRL/hcRwbHNN4xg==
+	t=1792704050;
+	b=MY+qr8OtYj4vunFvnIO/HcjgkOKajCMabVDBN6AYxlqbKZlwWBZ95oRUWNHXjLqs0JRL
+	 FTfwK/6hEKbzh5VJz/Aczhe4THkne43CjfAHzTCXlh6HJEJePTXY51Pjtuu5kOiwgSR2U
+	 P5zzx6kFkUfUaYomo26hfBcV3evuVt+fNdlYKa+OOfLYIGDhmkxI2UECS/F/fAzgh4LU+
+	 XT1/Yfyg/3g96OcOTNASuKElNz6yTVKi+gxuGVOpCZOqJHoVrP/cqX8TCoTk7kvw4JAOa
+	 M7wpvalZDQrUqlF3BJtxkcosUih2bpWL/GF179B38YT0K9rqcSaD3cydzoYvfHE7WGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703665;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=hqObWgt0leo4YDHJt/OkplZj2mP7Ql9bMiSgfoWBau4=;
-	b=BhzvdTUYCxZYO0IOkZ1e4zmUM3bnhqhnXxaY0s/a2NT1s1PB8LNOz6sJwIyBeTvCRMUv
-	 mgFUxrySx4zHFf6zomxNqlxnsRC0og0wFnya7L4qq35Ua7RVggcyClIJz8Xp2st9zrJjN
-	 9AUbjQ0/Dpf2OoJStA6Oi58ecfFr8JgVOhZxIGO/rUZmJzfOBlBMTzupE2TwS7YxvFODQ
-	 TaZ6TEHfuzYnEc3+/Ce6fG2jrfMEFSwekI/nkS9SsNk1/uco3Hg6xeeXRTJzVU+v0vogo
-	 g51jXIbIR8Qmfo4X4s/lR51QPdT5ZLcBKG5lh6bWVHJHwTH2SZame4g1cJIMK9N/seg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792704050;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
+	 Subject:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=kl33B2f2rp7Tzl8du7UR+tDLcQcMWlQpWD02vzFm6xc=;
+	b=Ksr1WV5MyoWl9IZKVvdIKROhERfQOefVhjMd8P9x8C3hCYmNxyRFZT24oJSMYNa1Sq/o
+	 g/sGrKSGzmjkJhpWN5ARX5ltxC6BvLTuP0+A6TrVi4eqnfTdCAJnv4g+L/jjAqMfoXfFh
+	 rSakrixZbH4jrV5o2GbeHA9njt3+/F/L5IyAELRJTmw6iJngh1zOCzHESctI4aYqKjcrX
+	 xSw5YFE1QNWHkaEg2rPvbiwSxlfd/Rdz+O1URIlEp97HpJTUjby75PN2xbxl+YXPuvZag
+	 gKPmca7vG8Naysz4f4ksTonxy1bJm/H4gHiGBcdrvs6aAB4HL5ku9lSNIt+SuLaBObQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=eNAKRJoL;
-	arc=none smtp.remote-ip=209.85.160.228
-Received: from mail-qt1-f228.google.com (mail-qt1-f228.google.com [209.85.160.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=michaelmcallister.org;
+	spf=pass smtp.mailfrom=michaelmcallister.org;
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=ASeIvtUd;
+	arc=none smtp.remote-ip=79.135.106.113
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F79606A31B
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 21:14:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F79606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBDC606A319;
+	Thu, 22 Oct 2026 21:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEBDC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=eNAKRJoL
-Received: by mail-qt1-f228.google.com with SMTP id d75a77b69052e-53644ab1f7bso1369691cf.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:14:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703664; x=1793308464;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hqObWgt0leo4YDHJt/OkplZj2mP7Ql9bMiSgfoWBau4=;
-        b=znIpIVq+U7BXENXzAjQDqqOlJJIG5P3xv2qfkVR9Stn7G4I92mUfX1ASfwv72odRJx
-         SDJNZGmglEANwRj49hSCd3dV26p1HPPMDJET6lug8jfJkFKjIDd7bXKLqKxmlEYWaX1R
-         pXKe4eWtHVKhH62E/qATWBxF4TRq6t4LT0LhqHa1pzeVe1d5kZdctYZwjUxmf2VE3J1F
-         VN9AAOLx5Ri5xdDvUeFDP+Y8wsJ1miWOS0zAy2vrZmrpCU3q3qjmC/MUiO2W3acyN6bg
-         iYOu6Vl9S/UlYR/Gi7tdVCWLc7nhIP16frOqR7/PoaQa+/EpTOD4olDm8s5WrNdj3GyI
-         ub9g==
-X-Forwarded-Encrypted: i=1; AKwUvBzfT3NFfgiN5P3Wy/I+oh082GHwKamYDQZ6Szz0+yN0VNAE0PiGvkqcb3bPs7+XMiud4KIfi09qcwCH@vger.kernel.org
-X-Gm-Message-State: AFq9FYKT60ML3OxbI8hFv1cDpESEtxgl8KTm4fiUNr463FbqFXVOnBdg
-	l2XdMXcO/Go/AJyq8S5rLc75vuV/ih1YhwQbbAy6KizwZj/cLG0B9tB5uCK7o9bdHBiI/ck9E7k
-	cBxfBaeNOAPZAemtGxnGoyyl6mSB/GPZeddeg2aBRz02Rw4gJ+Q2zNSt+osq1c7B+GHHmKh1yqN
-	Iby0xGlrnOjkON6Bcc20mqgVcTuG2gMPUxXTxqG6xVjAWbabe9RsIA3sitiNyXPXtNyhSQ1DKle
-	HwOhHxsyyr62g==
-X-Gm-Gg: AYBFou0PBSQ7G5puE/IymzXyt9I2JGT/gM2hLswhaSAia2d9gDZWUx9Vh+HBzPE3bDw
-	9RRXr4cNBG0pQ2VkEM1Ajc3dRy+KxNaLbpATblkr2+PGCFg4GYFEVPgi8YK9h0waEI3M/ztruOm
-	eSBIb5mxrv7Zj9T6I1m5SFX86QZa+qB0ZrWfZ5wkRoOWPC02howBdsxeyvn+rgDF+6fdtYRoTgp
-	nsH3GYzsM2OxsMzP4DYzSWE1wahMis8TfnTRkVE+fODvOX3emJcm20JbKQZypm9HHg08vnSinDx
-	JkOYqHAEe6tmZ3nOXGSbkodMl3CjelKVBGon5/EaWWd8dSj1kizai7ALSphk0B9Hts1/QuCQTzO
-	GlbClFtR4SJfy/cV4bx+MMPecTjY2BmGXDiibyE7PTxGrgV2AAbArPza8O6+W1X26hlG+FCMnLP
-	953S8yPcOhzDqlkumYxZtIwpwT6etggzxKGPA=
-X-Received: by 2002:a05:622a:418c:b0:536:48df:345a with SMTP id d75a77b69052e-536c286acc3mr1498221cf.32.1792703663329;
-        Thu, 22 Oct 2026 14:14:23 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91c396e399dsm20846d6.27.2026.10.22.14.14.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 22 Oct 2026 14:14:23 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-351788121cfso843726eec.0
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:14:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=ASeIvtUd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792703662; x=1793308462; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hqObWgt0leo4YDHJt/OkplZj2mP7Ql9bMiSgfoWBau4=;
-        b=eNAKRJoL0xrOSofwOSvNVKxRG1IHLsBkxXVI1y9ucs+BohP1glBFXMQfJAo/7oQl+p
-         J9A1d0lznZHfnYiFa/cVmpZXlkBB/i8/1Q00/XkAKz+VMrx7FyVBcVvY7hs4nYctquNO
-         mxfDj7lcmQ1qaxbNEYvd6Gzj823z6Jflab1oM=
-X-Forwarded-Encrypted: i=1; AKwUvBw6tm+7p9Tut1ixi+My03eGE/sQjWHweIh4jS4JYv3Q8m/Nh5/WIutoKiC00POQjwdnPtE4rzXzPlXO@vger.kernel.org
-X-Received: by 2002:a05:701b:2701:b0:151:2068:e81f with SMTP id a92af1059eb24-195c26fe967mr547338c88.27.1792703660938;
-        Thu, 22 Oct 2026 14:14:20 -0700 (PDT)
-X-Received: by 2002:a05:701b:2701:b0:151:2068:e81f with SMTP id
- a92af1059eb24-195c26fe967mr547282c88.27.1792703660067; Thu, 22 Oct 2026
- 14:14:20 -0700 (PDT)
+	d=michaelmcallister.org; s=protonmail2; t=1792704041; x=1792963241;
+	bh=kl33B2f2rp7Tzl8du7UR+tDLcQcMWlQpWD02vzFm6xc=;
+	h=From:To:Cc:Date:Subject:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ASeIvtUd3xRbafUVythv9TzuMap+jlyDt2X+8cKoEp+pJrwIyLp5fxKTJnOw3t66U
+	 oKd+/EXOOPYiE6hBsyrcYnxYysS6th2vNGC8t9v/UWLxBzUyajQW/JJYODmutYr9r5
+	 M0io2S2RUcSCEx5GRV1uPpbWkLjEvJ1oM77eZV/j4S1YZ+cxrX0CtOxgCXprcGskmM
+	 2c0Ibn5Z+0H/zEFW9Y7Zk0S+WNovGaTIBtSJrAbf5rfguDrtKtrMCaLCj4EFTG9Uqn
+	 1x3Ey0dWbApkjxRvGrfHRYH2dlOF76iMHMS78geiaPqgvp/7Tf6QgA3CB74fb5k6AV
+	 0u+CWcALnUooA==
+X-Pm-Submission-Id: 4j9fFf59zjz1DFG7
+From: Michael McAllister <me@michaelmcallister.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 22 Oct 2026 22:18:23 +0100
+Subject: [PATCH 0/2] arm64: dts: qcom: Add initial Motorola Moto G10 support
+Message-ID: <cover.1792703903.git.me@michaelmcallister.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,535 +65,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260811163810.1599747-1-kamal.dasu@broadcom.com>
- <20260811163810.1599747-4-kamal.dasu@broadcom.com> <CAPx+jO9Gpjb5b8ZpYypCshxKaaK80b5t2TJQTb-pCzas7z8q_A@mail.gmail.com>
-In-Reply-To: <CAPx+jO9Gpjb5b8ZpYypCshxKaaK80b5t2TJQTb-pCzas7z8q_A@mail.gmail.com>
-From: Kamal Dasu <kamal.dasu@broadcom.com>
-Date: Thu, 22 Oct 2026 17:13:42 -0400
-X-Gm-Features: AclHuK8pel21VWAjxLEAPv4rRGS_0EiubXLNQPFqJqaEFDySVWgfKAlMgeLi8oQ
-Message-ID: <CAKekbetFSCXtOAgKYH=sPsv1ykB1CorhhGueYsUvBFowN+CWkQ@mail.gmail.com>
-Subject: Re: [PATCH v9 3/3] mmc: core: Honor keep-power-in-suspend and
- reset-card-at-resume for (e)MMC
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Avri Altman <avri.altman@sandisk.com>, Pedro Demarchi Gomes <pedrodemargomes@gmail.com>, 
-	Erick Shepherd <erick.shepherd@ni.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000fcc9fa065e74589f"
 
---000000000000fcc9fa065e74589f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series adds an initial device tree for the Motorola Moto G10
+(capri), based on the Qualcomm Snapdragon 460 (SM4250). It adds the board
+compatible and describes eMMC, USB-C, power and volume keys, the firmware
+framebuffer, regulators, GPU, Wi-Fi, Bluetooth and remote processors.
 
-On Mon, Sep 7, 2026 at 9:59=E2=80=AFAM Ulf Hansson <ulf.hansson@oss.qualcom=
-m.com> wrote:
->
-> On Tue, Aug 11, 2026 at 6:40=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.c=
-om> wrote:
-> >
-> > On some platforms, firmware accesses the (e)MMC card directly during
-> > resume from Suspend-to-DRAM, before the kernel's own resume path has
-> > run, in order to load boot code. This requires the card to remain
-> > powered and responsive throughout suspend: putting it to sleep,
-> > sending it a power-off notification, or removing its supply is not
-> > safe, since firmware needs to talk to a live card. Since the card is
-> > never power-cycled, nothing else resets it back to a known state
-> > before the kernel reuses it after resume.
-> >
-> > keep-power-in-suspend / MMC_PM_KEEP_POWER already exist for the first
-> > part, but are only consumed in the SDIO suspend/resume path
-> > (mmc_sdio_suspend()/mmc_sdio_resume()), gated on a per-function
-> > runtime request via sdio_set_host_pm_flags(). (e)MMC has no
-> > equivalent function-driver layer to make that request, and the
-> > requirement here is a fixed platform characteristic rather than a
-> > per-cycle one, so _mmc_suspend() checks host->pm_caps directly
-> > instead of pm_flags.
-> >
-> > reset-card-at-resume covers the second part: when set, _mmc_resume()
-> > resets the host to its initial bus state the same way _mmc_hw_reset()
-> > does for a non-power-cycle reset, before mmc_power_up() and
-> > mmc_init_card() re-identify the card.
-> >
-> > _mmc_suspend()'s fast path requires both MMC_PM_KEEP_POWER and
-> > MMC_CAP2_RESET_AT_RESUME to be set. Keeping the card powered without
-> > also resetting it at resume is not safe for this driver: skipping
-> > mmc_power_off() leaves power_mode at MMC_POWER_ON, so mmc_power_up()
-> > no-ops in _mmc_resume(), and without an explicit reset first,
-> > mmc_init_card() runs against whatever bus speed/width was active
-> > before suspend instead of the initial state it expects. Conversely,
-> > _mmc_resume()'s reset checks pm_flags rather than the
-> > MMC_CAP2_RESET_AT_RESUME capability directly, since pm_flags is only
-> > set when the fast path actually ran -- the only time power_mode is
-> > guaranteed to still be MMC_POWER_ON, and so the only time resetting
-> > the bus before mmc_power_up() is both necessary and safe. Without
-> > that check, MMC_CAP2_RESET_AT_RESUME set on its own would drive the
-> > clock and bus lines while the card's supply is still off following a
-> > normal mmc_power_off().
-> >
-> > The fast path also leaves the card marked suspended without powering
-> > it off, so _mmc_suspend()'s pre-existing early exit for an
-> > already-suspended card can no longer assume there is nothing left to
-> > do: a shutdown, unbind or undervoltage event can still arrive before
-> > the card's next real access lazily triggers _mmc_resume() via runtime
-> > PM, and those events need the normal power-off sequence regardless.
-> > Reselect the card and continue into that sequence in that case,
-> > instead of returning early and silently skipping mmc_poweroff_notify()
-> > and mmc_power_off(). Reset the host to its initial bus state first,
-> > the same way _mmc_resume() does, since firmware may have left the
-> > card in a state that doesn't decode reliably at whatever clock/timing
-> > was negotiated before suspend -- otherwise mmc_select_card() itself
-> > can fail and abort into that same early exit, before ever reaching
-> > the sequence it was supposed to fall through to. If mmc_select_card()
-> > still fails after that reset -- the card may genuinely be gone -- fall
-> > through to mmc_power_off() directly rather than aborting again:
-> > unlike the other steps here, powering off doesn't need a responsive
-> > card, and shutdown/undervoltage need the supply actually removed
-> > regardless.
-> >
-> > host->pm_flags is set alongside marking the card suspended, and
-> > cleared in _mmc_resume(), so host controller resume handlers can tell
-> > power was preserved if they need to.
->
-> While I certainly appreciate a descriptive commit message, this is a
-> bit overwhelming. Please consider making commit messages a bit less
-> wordy and more to the point.
->
-> By reading the above, it becomes clear to me that we should really
-> split this patch. Both for reviewing purposes, but also to use the
-> step-by-step approach.
->
-> I believe the first the patch should take care of the updated
-> interpretation of MMC_PM_KEEP_POWER for eMMC and a second patch on top
-> should deal with the "reset-card-at-resume" thing.
->
-> Anyway, I understand the code in the mmc core for power management is
-> somewhat tricky to follow. Rather than continue to provide you with
-> in-depth guidance and review comments, allow me to spend a couple of
-> days trying to make the implementation for the above and send out a
-> few patches that you can test.
->
+The board uses the shared PM6125 and PMI632 definitions, with its own
+reserved-memory layout and firmware PSCI state IDs. Modem, ADSP and GPU
+firmware paths are namespaced under qcom/motorola/capri/.
 
-Please let me know if you want me to fix the above issues and send a v10.
+Native panel, touchscreen, speaker and battery support need separate
+driver and binding submissions and are outside this series.
 
-Kamal
+Based on Qualcomm arm64-for-7.4 (Linux 7.3-rc1). Binding and full DT schema
+checks pass. The W=1 DTB build reports an inherited unused DSI address/size-
+cells warning in sm6115.dtsi, also reproduced with OnePlus Billie2.
 
-> Kind regards
-> Uffe
->
-> >
-> > Reported-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> > Closes: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fain=
-elli@broadcom.com/
-> > Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> > ---
-> > Changes in v9:
-> >   - Sashiko's AI review found two more High severity issues in the
-> >     same shutdown/undervoltage fallback added in v8:
-> >       * Calling mmc_select_card() straight after finding the card
-> >         still marked suspended assumed the card would respond to
-> >         CMD7 as-is, but that's exactly the assumption
-> >         reset-card-at-resume exists to distrust -- firmware may have
-> >         left the card unable to decode commands at whatever
-> >         clock/timing was negotiated before suspend. A CMD7 timeout
-> >         there hit "goto out" and skipped the power-off sequence
-> >         entirely, the same failure mode this fallback was added to
-> >         close in v8. Fixed by resetting the host to its initial bus
-> >         state before mmc_select_card(), the same way _mmc_resume()
-> >         already does before touching the card.
-> >       * Even with that reset, mmc_select_card() can still legitimately
-> >         fail (card genuinely gone). The code still unconditionally
-> >         "goto out" in that case, skipping mmc_power_off() entirely --
-> >         but mmc_power_off() is host/regulator-side only and doesn't
-> >         need a responsive card, so there's no reason a select failure
-> >         should leave the supply on indefinitely for a shutdown or
-> >         undervoltage event, or leave pm_flags/suspended state stuck
-> >         retrying the same failing select on every later call. Fixed
-> >         by falling through to mmc_power_off() directly on select
-> >         failure instead of aborting.
-> >   - Patches 1/3 and 2/3 are unchanged from v8.
-> >
-> > Changes in v8:
-> >   - Sashiko's AI review of v7 found a High severity issue: the
-> >     keep-power fast path marks the card suspended without powering
-> >     it off, but the pre-existing early exit at the top of
-> >     _mmc_suspend() (for an already-suspended card) doesn't know that
-> >     -- it just returns immediately regardless of pm_type. Since the
-> >     system-resume path only re-enables runtime PM rather than calling
-> >     _mmc_resume() directly (that happens lazily, via runtime PM, on
-> >     the card's next real access), a shutdown, unbind or undervoltage
-> >     event landing before that next access would hit the early exit
-> >     and silently skip mmc_poweroff_notify()/mmc_power_off() entirely.
-> >     Fixed by reselecting the card and continuing into the normal
-> >     power-off sequence whenever the card is suspended via our fast
-> >     path but pm_type isn't a plain suspend, instead of a bare early
-> >     exit. Calling _mmc_resume() itself from here isn't an option, since
-> >     _mmc_suspend() already holds the host claim.
-> >
-> > Changes in v7:
-> >   - Sashiko's AI review of v6 found two real, complementary bugs in
-> >     treating MMC_PM_KEEP_POWER and MMC_CAP2_RESET_AT_RESUME as fully
-> >     independent in this driver:
-> >       * keep-power-in-suspend without reset-card-at-resume: confirmed
-> >         on hardware to hang -- _mmc_resume()'s mmc_power_up() no-ops
-> >         since power_mode never left MMC_POWER_ON, so mmc_init_card()
-> >         runs at the pre-suspend bus speed and CMD1 times out.
-> >       * reset-card-at-resume without keep-power-in-suspend: the reset
-> >         block ran mmc_set_clock()/mmc_set_initial_state() ahead of
-> >         mmc_power_up(), while power_mode was still MMC_POWER_OFF from
-> >         a normal suspend-time mmc_power_off() -- driving the clock
-> >         and bus lines before the card's supply is enabled.
-> >     Fixed by requiring both capabilities together for the suspend
-> >     fast path, and checking pm_flags (not the raw capability) for the
-> >     resume-side reset, so it only ever runs when power was actually
-> >     kept this cycle. Verified on hardware: the keep-power-in-suspend-
-> >     without-reset-card-at-resume case now correctly falls through to
-> >     a normal power-off/power-on cycle instead of hanging, and the
-> >     paired-capability case is unaffected (still hardware-verified,
-> >     now with an extra confirmation run after this fix).
-> >
-> > Changes in v6:
-> >   - Reworked around Ulf's two-property split: dropped the
-> >     unconditional mmc_set_clock()/mmc_set_initial_state() reset from
-> >     the suspend-side fast path, and instead perform it in
-> >     _mmc_resume(), gated on the new MMC_CAP2_RESET_AT_RESUME (from
-> >     reset-card-at-resume), matching the property's name and
-> >     description ("before the card can be used, it must be reset").
-> >   - No longer touches MMC_CAP2_NO_POWEROFF_SUSPEND/no-mmc-poweroff-
-> >     suspend at all -- that capability and property are gone, per the
-> >     v4 rework; this patch only adds MMC_CAP2_RESET_AT_RESUME.
-> >
-> > Changes in v5:
-> >   - Only set host->pm_flags |=3D MMC_PM_KEEP_POWER after
-> >     mmc_deselect_cards() succeeds, instead of unconditionally before
-> >     it. Otherwise, if the deselect fails, the card is never marked
-> >     suspended, _mmc_resume() takes its early exit, and the flag never
-> >     gets cleared -- leaking it for the rest of uptime.
-> >
-> > Changes in v4:
-> >   - Gated the fast path on pm_type =3D=3D MMC_POWEROFF_SUSPEND; it was
-> >     previously unconditional, so it wrongly skipped the required
-> >     power-off/notify handling during shutdown, unbind and
-> >     undervoltage as well.
-> >   - Set/clear host->pm_flags |=3D MMC_PM_KEEP_POWER around the suspend/
-> >     resume, mirroring the SDIO convention, so host controller resume
-> >     handlers can tell power was preserved and perform a soft resume
-> >     sequence instead of assuming power was lost.
-> >   - Dropped MMC_CAP2_NO_POWEROFF_SUSPEND and the no-mmc-poweroff-
-> >     suspend DT property entirely. Reuse keep-power-in-suspend /
-> >     MMC_PM_KEEP_POWER instead, per Krzysztof's point that the new
-> >     property described the same contract as the existing one.
-> >     _mmc_suspend() now checks host->pm_caps directly rather than
-> >     pm_flags, since (e)MMC has no per-function driver to make the
-> >     dynamic sdio_set_host_pm_flags()-style request SDIO uses.
-> >
-> > Changes in v3:
-> >   - Reworked _mmc_suspend() to skip poweroff-notify/sleep/power-off
-> >     entirely, not just SLEEP, per Ulf.
-> >   - Renamed to MMC_CAP2_NO_POWEROFF_SUSPEND/no-mmc-poweroff-suspend.
-> >
-> > Changes in v2:
-> >   - Replaced the card-level MMC_QUIRK_BROKEN_SLEEP quirk with a host
-> >     capability, per Ulf.
-> >   - Added Reported-by/Closes crediting Florian.
-> >
-> >  drivers/mmc/core/host.c  |  2 +
-> >  drivers/mmc/core/mmc.c   | 98 +++++++++++++++++++++++++++++++++++++++-
-> >  include/linux/mmc/host.h |  1 +
-> >  3 files changed, 99 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-> > index b7ce3137d452..1622f7846441 100644
-> > --- a/drivers/mmc/core/host.c
-> > +++ b/drivers/mmc/core/host.c
-> > @@ -400,6 +400,8 @@ int mmc_of_parse(struct mmc_host *host)
-> >         if (device_property_read_bool(dev, "no-mmc-hs400"))
-> >                 host->caps2 &=3D ~(MMC_CAP2_HS400_1_8V | MMC_CAP2_HS400=
-_1_2V |
-> >                                  MMC_CAP2_HS400_ES);
-> > +       if (device_property_read_bool(dev, "reset-card-at-resume"))
-> > +               host->caps2 |=3D MMC_CAP2_RESET_AT_RESUME;
-> >
-> >         /* Must be after "non-removable" check */
-> >         if (device_property_read_u32(dev, "fixed-emmc-driver-type", &dr=
-v_type) =3D=3D 0) {
-> > diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> > index 05444ecf3909..3a0855a4ca44 100644
-> > --- a/drivers/mmc/core/mmc.c
-> > +++ b/drivers/mmc/core/mmc.c
-> > @@ -2144,8 +2144,55 @@ static int _mmc_suspend(struct mmc_host *host, e=
-num mmc_poweroff_type pm_type)
-> >
-> >         mmc_claim_host(host);
-> >
-> > -       if (mmc_card_suspended(host->card))
-> > -               goto out;
-> > +       if (mmc_card_suspended(host->card)) {
-> > +               /*
-> > +                * Nothing to do for a redundant suspend call. Otherwis=
-e, the
-> > +                * card can only still be marked suspended here because=
- the
-> > +                * keep-power fast path below left it powered and merel=
-y
-> > +                * deselected -- reselect it and continue into the norm=
-al
-> > +                * power-off sequence below, since shutdown, unbind and
-> > +                * undervoltage need mmc_power_off() regardless of how =
-the
-> > +                * card got here.
-> > +                */
-> > +               if (pm_type =3D=3D MMC_POWEROFF_SUSPEND ||
-> > +                   !(host->pm_flags & MMC_PM_KEEP_POWER))
-> > +                       goto out;
-> > +
-> > +               /*
-> > +                * Firmware may have accessed the card while it stayed
-> > +                * powered through suspend, leaving it in a state the k=
-ernel
-> > +                * can no longer assume it knows. Reset the host to its
-> > +                * initial bus state first, same as _mmc_resume() does =
-before
-> > +                * touching the card, so mmc_select_card() below is tal=
-king
-> > +                * at a clock/timing every card is guaranteed to decode
-> > +                * rather than whatever mode was negotiated before susp=
-end.
-> > +                */
-> > +               mmc_set_clock(host, host->f_init);
-> > +               mmc_set_initial_state(host);
-> > +
-> > +               if (!mmc_host_is_spi(host))
-> > +                       err =3D mmc_select_card(host->card);
-> > +
-> > +               if (err) {
-> > +                       /*
-> > +                        * The card still isn't responding even after t=
-he
-> > +                        * reset above -- it may genuinely be gone. Not=
-hing
-> > +                        * else below needs a responsive card except
-> > +                        * mmc_power_off() itself, which is host/regula=
-tor
-> > +                        * side only, so cut power directly instead of
-> > +                        * leaving the card's supply on indefinitely (a=
-nd
-> > +                        * pm_flags/suspended state stuck retrying this=
- same
-> > +                        * failing select on every later call).
-> > +                        */
-> > +                       mmc_power_off(host);
-> > +                       host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
-> > +                       mmc_card_set_suspended(host->card);
-> > +                       goto out;
-> > +               }
-> > +
-> > +               mmc_card_clr_suspended(host->card);
-> > +               host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
-> > +       }
-> >
-> >         /*
-> >          * For the undervoltage case, we care more about device integri=
-ty.
-> > @@ -2157,6 +2204,33 @@ static int _mmc_suspend(struct mmc_host *host, e=
-num mmc_poweroff_type pm_type)
-> >                         goto out;
-> >         }
-> >
-> > +       /*
-> > +        * Keep the card powered across an actual suspend; shutdown, un=
-bind
-> > +        * and undervoltage still need the normal power-off path below,
-> > +        * since they aren't guaranteed a subsequent _mmc_resume().
-> > +        *
-> > +        * Check pm_caps, not pm_flags: unlike SDIO, (e)MMC has no
-> > +        * per-function driver to request this via
-> > +        * sdio_set_host_pm_flags(), so it's a fixed platform trait her=
-e.
-> > +        *
-> > +        * Require MMC_CAP2_RESET_AT_RESUME too: without it, _mmc_resum=
-e()
-> > +        * has no way to bring the host back to a state mmc_init_card()=
- can
-> > +        * use, since mmc_power_up() no-ops when power_mode is already
-> > +        * MMC_POWER_ON. Keeping power without also resetting at resume=
- is
-> > +        * not a safe combination for this driver.
-> > +        */
-> > +       if (pm_type =3D=3D MMC_POWEROFF_SUSPEND &&
-> > +           (host->pm_caps & MMC_PM_KEEP_POWER) &&
-> > +           (host->caps2 & MMC_CAP2_RESET_AT_RESUME)) {
-> > +               if (!mmc_host_is_spi(host))
-> > +                       err =3D mmc_deselect_cards(host);
-> > +               if (!err) {
-> > +                       host->pm_flags |=3D MMC_PM_KEEP_POWER;
-> > +                       mmc_card_set_suspended(host->card);
-> > +               }
-> > +               goto out;
-> > +       }
-> > +
-> >         if (mmc_card_can_poweroff_notify(host->card) &&
-> >             mmc_host_can_poweroff_notify(host, pm_type))
-> >                 err =3D mmc_poweroff_notify(host->card, notify_type);
-> > @@ -2217,9 +2291,29 @@ static int _mmc_resume(struct mmc_host *host)
-> >         if (!mmc_card_suspended(host->card))
-> >                 goto out;
-> >
-> > +       /*
-> > +        * Firmware or other hardware may have accessed the card while =
-it
-> > +        * stayed powered through suspend, leaving it in a state the ke=
-rnel
-> > +        * can no longer assume it knows. Reset the host to its initial=
- bus
-> > +        * state like _mmc_hw_reset() does for a non-power-cycle reset,
-> > +        * before mmc_init_card() re-identifies the card.
-> > +        *
-> > +        * Check pm_flags, not the MMC_CAP2_RESET_AT_RESUME capability
-> > +        * directly: pm_flags only ends up set here when _mmc_suspend()
-> > +        * actually took the keep-power fast path this cycle, which is =
-the
-> > +        * only time power_mode is guaranteed to still be MMC_POWER_ON =
-(and
-> > +        * so the only time this reset is both necessary and safe to do
-> > +        * before mmc_power_up() touches the bus).
-> > +        */
-> > +       if (host->pm_flags & MMC_PM_KEEP_POWER) {
-> > +               mmc_set_clock(host, host->f_init);
-> > +               mmc_set_initial_state(host);
-> > +       }
-> > +
-> >         mmc_power_up(host, host->card->ocr);
-> >         err =3D mmc_init_card(host, host->card->ocr, host->card);
-> >         mmc_card_clr_suspended(host->card);
-> > +       host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
-> >
-> >  out:
-> >         mmc_release_host(host);
-> > diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-> > index ba84f02c2a10..14a407a9f9b7 100644
-> > --- a/include/linux/mmc/host.h
-> > +++ b/include/linux/mmc/host.h
-> > @@ -463,6 +463,7 @@ struct mmc_host {
-> >  #define MMC_CAP2_CRYPTO                0
-> >  #endif
-> >  #define MMC_CAP2_ALT_GPT_TEGRA (1 << 28)       /* Host with eMMC that =
-has GPT entry at a non-standard location */
-> > +#define MMC_CAP2_RESET_AT_RESUME (1 << 29)     /* Card must be reset b=
-efore use at resume */
-> >
-> >         bool                    uhs2_sd_tran;   /* UHS-II flag for SD_T=
-RAN state */
-> >         bool                    uhs2_app_cmd;   /* UHS-II flag for APP =
-command */
-> > --
-> > 2.34.1
-> >
+Runtime checks covered booting with all eight CPUs, read-only eMMC access
+and USB ECM transfers. simpledrm and the power/volume input devices
+registered. Thermal readings and an active watchdog were observed.
+Physical button events and visible framebuffer output remain unconfirmed.
+GPU, Wi-Fi, Bluetooth, remote processors and suspend were not exercised;
+the minimal RAM image contained no wireless/DSP firmware or modules.
 
---000000000000fcc9fa065e74589f
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+The test ran without a panic or warning backtrace. A PSCI PC-mode firmware
+warning also occurs with the phone's installed kernel; suspend and deeper
+idle states remain untested.
 
-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
-H0K0rs+X8O45xZIUJlxzf5UZex3BLi1f/H+08rSQULWEtO/ECwkFod2DIzSX7fZdz5RQ1PpziEOp
-goo/JZPYIeCmgt3rIyvMuupj8Ymb0J/velhpXfQuYUM52viw2nmqVcxCwBqyM3Iq7eI4xtEOFRmR
-wxSizd3MSQMf6GCHA4/B/6ttnxhGAr3utaOU+x/RnzG0gPLTW1XRAQ0+GVc/tGFdI864OG1cyrRl
-GvBnHJQSAFOIKwYrUk2oFpgMbafQ6osCAwEAAaOCAdswggHXMA4GA1UdDwEB/wQEAwIFoDAMBgNV
-HRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5n
-bG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYt
-aHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFww
-CQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRw
-czovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRw
-Oi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIgYDVR0RBBswGYEX
-a2FtYWwuZGFzdUBicm9hZGNvbS5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwQwHwYDVR0jBBgwFoAU
-ACk2nlx6ug+vLVAt26AjhRiwoJIwHQYDVR0OBBYEFOV9h+N/T9ZsJ40qRxh7NYYD+N6MMA0GCSqG
-SIb3DQEBCwUAA4ICAQAKtKh30wv1/30230mCimgUjMWQE/LImRmyfDgrp2IhBVS6mDun+wH8thEB
-WhBHQMz3gsGixU4ZBJG72eWi39IzQ7CGnisJwA0+hsGaGg03AVtFtqo1rXYRZ81MEDOb6BPYLigJ
-RsHbNmrUGR+LsGeUwOWUeRXqBrYaYFrkgHKvVK1NEewv+vUY08n4tsezO3jq0HKhVDY46bMbf8vL
-oQqqhtcQvu2+5FK2jpUayeubpzPwobjEG61RIhBvM0KivY4CB2s9A7qgjL1XBycAybIvG03BbFoT
-t282FqXwk9JU6YihLlt+hpzO9UF7E8GZYlQlVIZOLOvytqilhua+2h77Yy8Jz/FJyIXKuaLPtvb2
-SC2shL7jF28kQbP3QUKwAig+cxwbpngnUkd9D9cXSHVq9PPwYm0A4eAO0YQ/80Uq20+gXF++g0sy
-NKrrV3i0T1dbCd86miGDKvarGzjh7pdsdwNY15liGP6Orib1tnWkJcbtP1rJty4r/mbbxcK8ILO4
-IvTGFG6BfjJ+La0aRt69i1fQmjUWHLwzkLNpw9cJH8/MONZcEJeDkq9WELSyy29bagStk5KHu7NO
-TH65sZg+i/4qmj3DEeEGTr/Shzp4YWSNn4W7NEelr0VgDlwa7xqlwZjXxG4MIJqy0SsQlAwEXtqd
-nH2FpJfzgAetkuyU6DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2Jh
-bFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1FIENBIDIwMjMCDEca
-ZUGCu6d0oT1M+zANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQg4X3ZptQtbXp5KcCA
-yBTyI+LseyKTV01LHXMHfUJ43ncwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMjYxMDIyMjExNDIyWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFlAwQBKjALBglghkgB
-ZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzALBglghkgBZQMEAgEw
-DQYJKoZIhvcNAQEBBQAEggEAczoRVgwwlI7GYF3F9D4HL+aOf10csfcBkj9hglonxLQL2eZIJ7PU
-FBxCaPREUAU0D/K2Kh65MIHSgCBuKSYcFWOkihoJe3qeHcJRF4S3/k7y6PqHSZo2SaqVGZ2i70yi
-cmW0vO/hjHyBjE7iWiYp1eUmhSbYprKSW6EyPcdBmnvz0B91c7dD4fLw9aLlWbuH1Nzi0gRfkTU6
-IX9ldAkWXFXhf59pLAvLulMp39b3g18yEEzNghGK4SK9kZY3ZVHNfb+jgaVus+SiHSDYyVBEx9d2
-RAWbVBggSdzvpMiERsEdVlII+/FW9pSWrSuA2bCr9GehdT89ijE5MWKqfivY0A==
---000000000000fcc9fa065e74589f--
+For the stock Android bootloader, testing used out-of-tree handoff code
+to select this DTB while retaining the firmware RAM map, initramfs and
+factory Wi-Fi address, plus an arm64 Image alignment wrapper. That code
+is not included here. No other device-specific driver patches were used.
+
+Michael McAllister (2):
+  dt-bindings: arm: qcom: Add Motorola Moto G10
+  arm64: dts: qcom: Add Motorola Moto G10
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm4250-motorola-capri.dts   | 452 ++++++++++++++++++
+ 3 files changed, 454 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
+
+
+base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
