@@ -1,52 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673848;
-	b=iLAyF/Eir0UCn+LO3A7T3UCaOB9dVoF+EMAuRXE7b3FS6vSUVkoii1AGp9pBsGj63/su
-	 xdfJzkuMtKWgl0dQ1kdCeAxLey/+vX1wsP5lGcWMHM3mbAVgu2Vl2FWWn/pbuFjPEfGnP
-	 5TmD0yPJ5K/5PIrpPo8HTzPBBFWbX6oxeskaFs+3YQLY7hQL2MoETIGk9JWtDvxDx5Ij2
-	 3kR3t/SGfvAKSx0zGvKAc3v+j9+n3Nef6schqCgJ8u4nwWumlCKDCAtYLQaTwKj6kHZ5m
-	 i8390eDit0UOOaubgvqjwf1CuVB0RbSO69/3Ax8etDKM08gy9XFma61hIhwRbZ8IuBw==
+	t=1792673885;
+	b=0wmBp3KdpEtcSJV+AIn3krU7ILrMFLV/Fxs8daN6Y2kHu+X4/d2fEju5FiDVkbM2/JWS
+	 L4WIoRiz8m/6hALXx+2nCz9DuuwpNTmgIscOezscIv8IPBQ27RugM1/Fezp+yJLrgs5IP
+	 MBKMha7T9Rw/5SU+cEEoRrgHI3bUkz3a8N7DblMoVsdakCx0AxOMhpHN0vfOjhjpVzCRf
+	 OOEuq8mmtCLFb+Jrj96RtC3OgVIGrU+YvgQC5waY3R7zq+grDoP3B3U2sFrmLM7TFvNeu
+	 4Bahb3e99lAw73m4CP82iVuc4GVC/mk2oWRJDZ1IRSnRj4whBZ9B3QVz8XIb9PvUgPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673848;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=FRwt2WcZeWxHKJ9m7NiyRoa0EfXEk/BEIxFglE8bS0M=;
-	b=pfwRnxmCsuw2yKK/a2czCfsaMBM9DT/2jy86IsyJbL47yQ1j2/+kqLFfHmSxajWkd9VA
-	 BeuQ3SQSJePnaEL5s8vDN086IGjAcN+sl/9NKIRpCmAqUKZEoBg/QYfniyjQJlDH/8JeT
-	 tz5tJJQwbOHKOszYsQz+7ZrohRveUjtkIVqRtcw+OSDIqOa8Z0KUWx9oQJnWU5LImBcPN
-	 ld+S16bl1vgXU7yvxKXhxHH52h1z1nWllQEfimM9Aqr2KOMZv5Y1wUdasQOp+VxiWLtVA
-	 Pao7E90TD9JWKJU9AFfiWLz04jzqwEqQAEzeLgE00zF3VOPnSSa2Yxw018UJ0bUjlDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673885;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=5Vlv9NX7/q60nT2M57UH6J+SRq53m5fxwmq9gc9UNtY=;
+	b=udH8LcMowpAvBfAUp4NpOVrhIddQS5AI+aC/p6U+LJcp2TUJ+CAgdPt1lJn/YuXjINug
+	 ghpE3vwpfrAHftya3P/oHbSRJUcJpRW8m/SdhCgCQ15PxN9lrAQpEW/skcDZtrVOGye+z
+	 FKvSGcpMU1q1L2FuVvs2BLZkEJX2Ze5qF8LbhVRvdvpfIblIL0T9LUYFOIuTymVVQDXxB
+	 p9NjbtbHevRRdA/y7yNTGRt9YAxQkEsnbJAvqcGFXr6R52ltDrJbqF8kPPcj2ewDjMAX5
+	 3Nl5J4xxNEhZQ7xSxkiotJ6aP5GGd1UzCGRPoKaWEiXvx1DIyy6JpkA46t/Fhls461Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Snk5EOio;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOp83War;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823BC606A319;
-	Thu, 22 Oct 2026 12:57:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 823BC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4320F606A31A
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 12:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Snk5EOio
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9123110A9DC;
-	Thu, 22 Oct 2026 14:57:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792673841;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=FRwt2WcZeWxHKJ9m7NiyRoa0EfXEk/BEIxFglE8bS0M=;
-	b=Snk5EOioAY/Qi7BuC7hNBky54JtiDqOgfCYOXbVGP4DZQJLIddBItXZl74BVWr7N9Bmx22
-	8cWY2LwOzEcQmGs8RzGf1kObRUJVFlNzRGi/5jtaC5oI681+N6ALxeHOlSfBinAK1AKc1h
-	yGPb6RxUkhCF3bcHuGJPnKPZHgsWGQeUIPf1gVyF31HBC660eyHsyzPhq+MwNMpgtZfx2/
-	XdvVXbOXkjL26AJNjKqgzPFvf45+4EDHjgbJA/gn0q01xVSjqiFLGYYQVZeEWeVupel8cg
-	SaXIjFqat3m5/2usJ7tUSscrqUf06paW9YJoo9Ov2Zfzvu9RfFWYtd7XckQufQ==
-Message-ID: <3e8b2a76-3372-4bec-abd5-df2b5b03d40b@nabladev.com>
-Date: Thu, 22 Oct 2026 14:57:20 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOp83War
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A051F000C8
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 12:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792673885;
+	bh=5Vlv9NX7/q60nT2M57UH6J+SRq53m5fxwmq9gc9UNtY=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=XOp83WardrYyK1LYlsdXitab8YbDuYqhmMsnqTfjFqP/yQHf47CZVO3CKpiHX5xdF
+	 0i78UxnbhUbvryEXZGHm9K552Wjo2sJCs/DpRKBcTBOJEg/Vu5RX/U2R49fhYz+8wZ
+	 ax2/yaewWLkKYxAJH5iQN5rgcKk8SNTeiHL2zC7wqN5tsDDZPiwBPYQUqq6OgveVDF
+	 eki+fvqSsCLeN1fKsgjEXJG0lM7/XtUBLaJU/UmnutVtSegpQEHxLc3sWFSaA91aq+
+	 PNMz876yOI1igHUrbE+/9rwy+R1RgRrDmRuA54CeSD1Zr1uAE94AzpYbk9BsWDDDsl
+	 gb0YCa/yc21ng==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a98fc80925so21238381fa.0
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 05:58:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxZBJRws1R8H9yvGwKAyLGrrZSESd7y+Kgc8SWT5KoYVjT+6vKBqd87xIwvi7xJ40Amv/az8wRhWovS@vger.kernel.org
+X-Gm-Message-State: AFq9FYJECdi2nQQ59HQDQ9pD29QvrzpSC2HvFAh4XG5yT1uX/d0C6uJE
+	NBCHfd81RSicmwYTjEOQJNcl+eIQAncDQwpHnnHW4bFUTZ4pmsQgM3SzZ3CcvBTR+R0fBM53Y/c
+	CVSey4O6H3eVu7F4PaTsitrE/nUoZXUSb7QDiNFLVAA==
+X-Received: by 2002:a05:6512:33d2:b0:5be:50ef:ef02 with SMTP id
+ 2adb3069b0e04-5bfa1ccea29mr2142055e87.13.1792673883580; Thu, 22 Oct 2026
+ 05:58:03 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 05:58:00 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 05:58:00 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,106 +65,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>
-References: <20260916204509.166633-1-marex@nabladev.com>
- <20260916204509.166633-2-marex@nabladev.com>
- <ad7fdd3a-489a-4573-8dec-961a16e6539b@amd.com>
- <20261013132625.GA159927@killaraus.ideasonboard.com>
- <acdfefce-a7cd-4918-bcca-52357bcf182d@amd.com>
- <20261013175438.GL4214@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261013175438.GL4214@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 05:58:00 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeWQggWX_A+CkAE-Ci420RqLV383HGngAXx7aFnGO4krw@mail.gmail.com>
+X-Gm-Features: AclHuK-5CQtiKb0je_S_IE6JRBYFGKIeNGx2LoOrOHFsNUMvJhjAXZmu6HDSJac
+Message-ID: <CAMRc=MeWQggWX_A+CkAE-Ci420RqLV383HGngAXx7aFnGO4krw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/7] arm64: dts: qcom: Introduce SA8255P as Lemans
+ family SoC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/13/26 7:54 PM, Laurent Pinchart wrote:
-> CC'ing missing ARM64 SoC maintainers.
+On Thu, 15 Oct 2026 04:37:04 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> While the patchset [1] supports SA8255P as a standalone SoC, this series
+> offers an alternative by introducing SA8255P as a Lemans family SoC.
+>
+> Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
+> platform resources like clocks, regulators, interconnects etc. are
+> managed by HLOS, and GearVM variant (SA8255P) where they are managed by
+> a VM acting as SCMI server.  All Lemans family SoCs actually share the
+> same hardware configurations like memory maps, interrupts, DMAs, etc.
+>
+> This patchset moves those platform resources out of lemans.dtsi and gets
+> them accommodated in lemans-embedded.dtsi, so that lemans.dtsi can cover
+> GearVM variant as well, i.e. lemans-gearvm.dtsi includes lemans.dtsi and
+> overrides/adds properties as needed.
+>
 
-Has there been any input from the maintainers ?
-
-Thank you for your help !
-
-> On Tue, Oct 13, 2026 at 03:47:12PM +0200, Michal Simek wrote:
->> On 10/13/26 15:26, Laurent Pinchart wrote:
->>> On Tue, Oct 13, 2026 at 10:21:26AM +0200, Michal Simek wrote:
->>>> On 9/16/26 22:44, Marek Vasut wrote:
->>>>> Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
->>>>> The board is populated with four ethernet ports, QSPI NOR,
->>>>> eMMC, UART and USB host interfaces.
->>>>>
->>>>> Signed-off-by: Marek Vasut <marex@nabladev.com>
->>>>> ---
->>>>> Cc: Conor Dooley <conor+dt@kernel.org>
->>>>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>>>> Cc: Michal Simek <michal.simek@amd.com>
->>>>> Cc: Rob Herring <robh@kernel.org>
->>>>> Cc: devicetree@vger.kernel.org
->>>>> Cc: linux-arm-kernel@lists.infradead.org
->>>>> Cc: linux-kernel@vger.kernel.org
->>>>> ---
->>>>> NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
->>>>>          undocumented, but the TI DP83822I is generic C45 PHY that
->>>>>          is valided by Documentation/devicetree/bindings/net/ethernet-phy.yaml
->>>>> ---
->>>>> V2: - Rename lm75 node to sensor@
->>>>>        - Use GPIO_ACTIVE_LOW macro
->>>>> V3: - Drop bogus clk_ignore_unused bootargs
->>>>>        - Drop gpio line names
->>>>> ---
->>>>>     arch/arm64/boot/dts/xilinx/Makefile           |   1 +
->>>>>     .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 300 ++++++++++++++++++
->>>>>     2 files changed, 301 insertions(+)
->>>>>     create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
->>>>
->>>> I am not able to review or take this board support further without publicly
->>>> available hardware documentation for the platform (board-level and relevant
->>>> interface details). Please share public documentation links once available, and
->>>> I’ll be happy to revisit the patches.
->>>
->>> There are plenty of boards that have no public documentation. Pretty
->>> much all phones and laptops are like that. We even have a whole
->>> architecture that only runs on a few machines in a single person's
->>> basement [*] :-) The kernel has never required public schematics for
->>> boards, SoCs or IP cores.
->>>
->>> [*] A slight exageration possibly, but that's how I heard arch/alpha/
->>>       being described at the maintainers summit.
->>
->> Pretty much every SOC with programmable logic or FPGA boards have unlimited
->> amount of configurations and make no sense to describe all of them.
-> 
-> As far as I understand, the dts describes the board only, there's no PL
-> devices in there. The fact that the SoC has programmable logic doesn't
-> seem relevant, unless I'm missing something. The situation is the same
-> as with any other SoC. We have lots of device tree sources in upstream
-> for all kind of boards, with or without schematics available, for
-> development boards or for boards integrated in products, for easily
-> available mass-market products or for specialized devices more costly to
-> source.
-> 
-> Maybe I'm wrong about all this, so I've CC'ed all ARM64 SoC maintainers
-> on this e-mail to get feedback on the overall mainline policy for
-> upstreaming device tree sources.
-> 
->> It means what make sense to describe are boards which people can look, check and
->> compare that configuration against their custom design.
->> But if there is no public documentation what you want to use to compare against?
->>
->> Can anybody even buy this board? (I expect you can buy that phones and laptops).
-> 
-
-
--- 
-Best regards,
-Marek Vasut
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+# sa8255p-ride
