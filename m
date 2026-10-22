@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663139;
-	b=qhWABSNnDtHEvEbBc1jS16VFsT6kkQ8RgH1OXgqW/USvobjSgMyXB20QRFJDKO726o1i
-	 o6U1KYSs2sPBh++5qdPaqkGe4DaSFSyrd8o2bjH0PkP5gyKbsNRWzByFdnzJgfp+By5us
-	 TwHBJHtUr+GLm7nLbuVNf1C2zZRTVR282ZsxINiVsgXNfOz6SDWFnxmP2poE1MgnX4cvG
-	 znIUQh/Xwgw4dLC5Qprh6ipWwyVpZQN0xhqQM/SGkcDHvjWkh/loMwWaE2H0WpD1VctW9
-	 u3x0GzO0idAOOzyO2ENgfvWCObpL/IKFvqOOKX88bye8QPP0zW2MrPLRiZ3ChsDoWQA==
+	t=1792663179;
+	b=1mq1h7utVRpJdS9krjiOgLHuoNUPtSV7nYlLJVLLHS29qhDH8Qqx3lLb24dyLEew4gA+
+	 Mcw5bRfKTWDg/dHdjzPY3Akn/eeE3tQ+CkvLIA+YZynXFA1hacDMZpx6OsoJgUTgEhy8D
+	 LarzhfmlXeex1YZOYd8FhiSWHj+u5+k0pxKRVb0N8Ti7AC6vTY7B1SDLkAJir8CSKj+tH
+	 AsIdH+T05QDNVThYBqaW0IRq343g57oeX6rNs6r7uWtcz8YLVcEIPnxtCq0LKoCTcHCq2
+	 bv/wd5cV0ZQfcOpP0PhOGbsdBoKSZM+zEvhmDPXL5Ew+xA22Ln8siYEoCgkjav4g2NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663179;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
-	b=pPMolcbVjFfrTyBP2Oayotxc3RluSgyu1QXns7mIq/TvJVtPQMogX8Mw1NeddVaAWqGt
-	 IfAZ41BZ0sZZhMdcprbvGT1+UaEessq18pYHQfiIr0NWedKVXTwior4svU1V9DRTgOTdT
-	 4CGy/r594MY8ztlSb8BWLX17c0igeT5JDTm/40dcfDr0haGxFkYTLr7ovn7SLoDbpyh2v
-	 72ngPoXPFXvNJV0RcvhzNGFYNLzaTQ990hUyceXPV6ZokkWyQKW/aFFKHIxUP5EHpM+yQ
-	 a6D68K9FdF1K+K9aDredpxBShLmfA9dVpnMR8eDQJ5gKx9p3U7oUgdwgEgcha8EgBEA==
+	bh=IoH7ekxN//XilbjyHr/WJ7HKfImuR7n5++a/wt+yFvc=;
+	b=dR4jk2bZJqy4pdODJwDlHU9OynIx5jpaS2lQ/h5kUGq6Ij2ZA9DLtmSx91rUp5odk793
+	 lXEImK16XuEPmD0WH9IWCPQod7SpkkTzhcrMCImy3al/Q1h4g/C9/cd7Bc8kP8Z7tpoLl
+	 PAELHod1HZbYon7wdbAVp0pCIJf5WA4VRdiWOcLfp5appQBG2ghN/1oQpd1P4swrbsDY9
+	 bsqC6axBsdlJTBDXLCUPHccR0IzmBan95Lg3r7fOd6SyT6pONCPSW8vORXLKaQLLtmRZz
+	 fLL1cJrc4advrAI2vUnEMPY47rwQuJRyNeTi5Kc3qmA67eps9e/umcyjgRcdpNZv8rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtbhcMcf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE50606A31B;
-	Thu, 22 Oct 2026 09:58:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854DE606A31A;
+	Thu, 22 Oct 2026 09:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GnpgJrAq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF321F000C1;
-	Thu, 22 Oct 2026 09:58:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtbhcMcf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69681F000C8;
+	Thu, 22 Oct 2026 09:59:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792663139;
-	bh=4SnLNd5w0z2j+M0DUYOzSs1MGDbeGkfvlokW6ZHl9ak=;
+	s=k20260515; t=1792663178;
+	bh=IoH7ekxN//XilbjyHr/WJ7HKfImuR7n5++a/wt+yFvc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GnpgJrAqse237anlo1ylTV1VGXMmeCDfb0l4eXb82966faybLMzbc57npZ24D/U20
-	 cIJp55OZ+7DBHCwexWAlIUQPs+MmIFEYA7b6qpjo7pgAVLtZz7DDHAuAuYSpKeSwsi
-	 9VBKuoH0a7LANeivMjNTnleLVkWm+YLafubsHwt2tgE0hnLYANrrmGSkf7PxQ9ejiU
-	 JEX1L/saOROiz/YPVZn4tX8JCeSxEzkcLeu9M4ScH4uWZuPF0EN1qiobU3EyrLGpj7
-	 H0lZFtICBrF2Ixa3sUfYXHYh8Ay75ZUbpZwtB54F9FY0DDiq5lhSGD9qI1o5+AAagl
-	 5knMtM/qh006w==
-Date: Thu, 22 Oct 2026 11:58:56 +0200
+	b=BtbhcMcf1IpwvLJwfCFCO2HbnnTWGh+2wjxLooRbBwVXv6jZq1Dq9RrWOXuZlIcIM
+	 0LjgiRYGO6PyvlsRCAtx6KbdXCx3zJHLHbZWsna5F5Qlu7BHz5EYT/HnkoiHwhXckG
+	 ppXGvymm1kR7ds29QEyI4saH1fOOf8oGEYY44SEqiyH7iTJtVtouLT0dHKI3WPG4//
+	 eT1jDI3z9J77BNGfxUMRnm2t9IaEu7yvoaWoauZ24H1JbhgfTLTPq989SFFb0ZIxjZ
+	 k1dbIsP0spq+nfDB1TNkmEUIFTbwJk1PKPjfX62FlFRVAQagxtSglL6ZuNVbMcA4qg
+	 ltQ+F82tjDzBw==
+Date: Thu, 22 Oct 2026 11:59:35 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: clock: stm32mp13: add SPI1 to SPI5 bus
- clocks
-Message-ID: <20261022-scrupulous-toucan-of-judgment-00c8cf@quoll>
-References: <20261020-ups_mp13_clk_spi-v1-0-6c00730945c7@foss.st.com>
- <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
+To: Jonathan McDowell <noodles@earth.li>
+Cc: Roberto Sassu <roberto.sassu@huaweicloud.com>, catalin.marinas@arm.com, 
+	will@kernel.org, mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name, 
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, 
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, 
+	hpa@zytor.com, robh@kernel.org, saravanak@kernel.org, x86@kernel.org, 
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, zohar@linux.ibm.com, noodles@fb.com, 
+	linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	Roberto Sassu <roberto.sassu@huawei.com>
+Subject: Re: [PATCH v2] kexec: Select ima_get/free_kexec_buffer() with
+ CONFIG_HAVE_IMA_KEXEC(_OF)
+Message-ID: <20261022-whispering-cerise-malamute-94d7db@quoll>
+References: <20261020083727.1906495-1-roberto.sassu@huaweicloud.com>
+ <ath534EEbFntir8j@earth.li>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,26 +68,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020-ups_mp13_clk_spi-v1-2-6c00730945c7@foss.st.com>
+In-Reply-To: <ath534EEbFntir8j@earth.li>
 
-On Tue, Oct 20, 2026 at 10:31:08AM +0200, Gabriel Fernandez wrote:
-> The STM32MP13 RCC binding only provides the kernel clocks of the SPI
-> and I2S instances (SPIx_K). Their bus interface clocks are missing,
-> whereas the I2S binding requires one as its "pclk" clock.
+On Wed, Oct 21, 2026 at 09:37:51AM +0100, Jonathan McDowell wrote:
+> On Tue, Oct 20, 2026 at 10:37:27AM +0200, Roberto Sassu wrote:
+> > From: Roberto Sassu <roberto.sassu@huawei.com>
+> > 
+> > On x86, if CONFIG_OF_FLATTREE is enabled, the kernel uses the device tree
+> > implementation of ima_get/free_kexec_buffer(). However, x86 passes the IMA
+> > buffer location through setup_data, not through the device tree, so the
+> > buffer is never found and the IMA measurement list is not carried over
+> > across kexec.
+> > 
+> > Introduce CONFIG_HAVE_IMA_KEXEC_OF (which selects CONFIG_HAVE_IMA_KEXEC)
+> > and select it for the architectures that pass the IMA buffer location
+> > through the device tree, via of_kexec_alloc_and_setup_fdt() (arm64,
+> > powerpc and riscv). Build the device tree implementation of
+> > ima_get/free_kexec_buffer() only if the new option is enabled.
+> > 
+> > Select the new option also on LoongArch, to preserve the current behavior
+> > and avoid a link failure. LoongArch does not pass the buffer location to
+> > the next kernel yet; this will be addressed separately.
+> > 
+> > Finally, don't select it for x86, and use x86's own setup_data-based
+> > implementation regardless of CONFIG_OF_FLATTREE.
+> > 
+> > Fixes: b69a2afd5afc ("x86/kexec: Carry forward IMA measurement log on kexec")
+> > Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
 > 
-> Add the IDs of the SPI1 to SPI5 bus clocks, as already done for the
-> SPI instances of the STM32MP15.
-> 
-> Drop STM32MP1_LAST_CLK: it is not part of the binding ABI, it would have
-> to change each time an ID is added, and the driver no longer uses it as
-> it defines the number of clocks by itself.
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  include/dt-bindings/clock/stm32mp13-clks.h | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Reviewed-By: Jonathan McDowell <noodles@meta.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please use kernel style tags, so Reviewed-by.
 
 Best regards,
 Krzysztof
