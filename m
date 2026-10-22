@@ -1,123 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663634;
-	b=s2iiujDhDxcgpNn9LvYO+5MrMBZ8t7khALtcF4stLX9abZlWaaWdwdvU1c3UsTayC7FN
-	 VU6bNYBFqrOTr3d0P8g5gi/TpuZnB6yk/CBwPbU2T/HHmqp6+1nByO5CH2NPqGR1UjwFH
-	 bjwgfmz1jgZg7D5A8dvx74HkhuxJwPFL1OwCZk4rdAevmvm81L329t4aXnMXMFZTUFeOc
-	 PtzrLBcAMiDhcQLrke9YmOF6CKSTJ+05EyycEBLKeG6TeTN892DR1cHG/Xb46Saq8URqN
-	 3QecV50+XhPuNNwmJipFU59dOB3PuL3w1Iq+UKiAR6HjUkvYYfAK/rUvm1z1x5UfYkw==
+	t=1792663751;
+	b=1BLqNoi1I5awUuWuYRpFAXVbXjLqy+HJ+C+eu8Z9MqnwrnzhZ2N7vtEmRTzMoITuMYON
+	 +oPweGLqtbmBRTuE5xgmLpVerxgnsfg9X1SVLJwLmOufmyDJHwDCZbracPqjXHiQkwIG0
+	 BGuqq1qneOShFfy8YiS8Z6tbhezo/vFSk8pZU5poH2X4feUKlFRwlC18q7UBOVgJlrcGc
+	 jWr/v8ACeK8x0BVqjtiUivRa7Tk7bIvDEGjcQ1+fiLtC2qt22lO4/huP/SW7uGKkK56yd
+	 apExyiAYyEsCdCfDyIL3TBrdtPonYHyCGNVzjW1uNJXUr+8Tej+JT2l1ERByVPQrhNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663634;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=c9UWoPLA5mGfp/Rl3fZwFMEKWrk/1mJkMgqK5rleBeU=;
-	b=RZNZs5DN0Kks7kAajrek0hne++PXMKKYEkhjBbBSf+vWzeDFt2V8bMFrB172/YnJh0r/
-	 mPDeDKsJAtfs93zSm/66B39f3HWgRvxRswt3ivmAi5aUo4PwgakfXZfhElfbNA/VxGY17
-	 JCfPYAtDPI4y4KkN7qiluWf8QYjSyYD2Gj/FG4VyX0g3A7Nm5qIXl+tuyKomUwagvnIZK
-	 SsBWTEIXlcgSGljKBd243QOqOT2Dph2TcsZI/gNFmIqMtWPnLPVTtCa7Bt4mR+tFUn7If
-	 GAugb9RpGsWPxkfpkFn5A+1+lqCmPwGECSIDZkoJfy6gHhxvNCJ19Fo3jgf8RtbsA4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663751;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=nirqn2OzW8Vx4a57+rRof6o3dSAxLjWaBsv5CIhajIs=;
+	b=WKX+PXXWHqtdelbqIz7TKt71CCdconfmq37ciNxc8bvHgP9m06FAuzRs8p0Ab5j9Bz6D
+	 xe97oF9QVU8kMhhWEJ26kzuuYGsWwU7v05e+NMHUDZ914lg8GFPXX2on6B6CbHUZl9rPk
+	 PPcajRYqKcJXNa4AKZy3K6rVzRn/mX2XKQwdSvMbhY6/se3zUR148rZBteSDweDArOFFz
+	 azJhpJSvyd03mpCtoLSCxFo1AczijCQJk22nlpX8/SMSnxIIDPQ98oemHfPl6hCUjhrxx
+	 FZCIUMSgzx5oy9NCPl0O4S6wjynvP9a295YJY1LM6rLD9Z8Le112/jzTq7YPLuiac/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fMaZbsYm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IicHWNzh;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nKCCcnAH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB750606A32E
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB750606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDD9606A31E;
+	Thu, 22 Oct 2026 10:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fMaZbsYm;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IicHWNzh
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA5rwD3440426
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:07:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=c9UWoPLA5mGfp/Rl3fZwFMEK
-	Wrk/1mJkMgqK5rleBeU=; b=fMaZbsYmB+jAra5oiVRf5476/s3pZ5gkrQrPXvEK
-	JsNs2PlDMWXkWsZswF6sVfWLuxv8Il3NgeFo9KcJT1+WfVxxAKsYwPW8atwvj2Vn
-	6vA6tR+lX3ncEIMw+002QoZcGT8nTRbhT1o7o2WzmIetjf4TG39I4sFO3WjDK31Y
-	5lsk35DpBIFwqPNWm2UsMjmtLNrWCdQLI4JPzN0yIV4/GmMY8CZirMtNCqPE/3QL
-	2dNKfBNpaocBVxGC7L5eUCNxXjxQQoYergtMoF4KvBpz3eRrJOpOWeV5GDlWp3gr
-	y45sSx/sAFFEx+7nxNpHrmM10cptyDyAUzFTDNRe7t5Sow==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ast5b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:07:11 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844e383so270408785a.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 03:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792663631; x=1793268431; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c9UWoPLA5mGfp/Rl3fZwFMEKWrk/1mJkMgqK5rleBeU=;
-        b=IicHWNzhOBI/7g1X1EIeT3TFtoo8fDOgyVmmLe6obsBH7r/fOlIDu5ZFlCgrFeNBA6
-         a5j+GvJUmYnWyWkHes0C6xqH3on4AZiscXclCAjddxduXReF1knYG/aX62UJu2VWwIC0
-         PiHd4LqwId2FJEgs9nDECwbmjsRjoruDpw/ivysH31SOVk+ZwsYJ5keD5JCLq9pzWSWO
-         4FDbGC5CHmjvwTMsXyWuX3Fp4ROaMlRA83DfNyIkoHdNkDx0AuO0kM21xHAz1co0YF41
-         n5pnoVl0Pcxr+7TE92bISg514TbpCWKOM7dV9iPTZN3fXyTWXzLPXsGJr1RWg+nJnjM8
-         p9aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792663631; x=1793268431;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c9UWoPLA5mGfp/Rl3fZwFMEKWrk/1mJkMgqK5rleBeU=;
-        b=1iRNmhFy5PFRPqQtIpv+A/cqZFlePgveqQw9GkDX2AVyP6TLdVRTZvLV+pTO5EAUBy
-         c6iZ1Z4AqQzHJhhWITngsoc7ri/gfewFocTUhDRSMOPRry/SBGT92AR1OXZ5Aym12pfL
-         bHY/0rCRFBx1evwKrW7uA7h/34brDRsXnYs3NqJDzPcPTTWjMgfuQWo7vT9g47PAKZtv
-         Sq/IB+lfx5vHUkCDdifrZ8OseFkUOf/FHt6Y2X7MjmcN31dOxXlw7/qEHrNlNg+585Ih
-         YjQrkYA08JsFSxdSEsyA3NwiiU+s76xY9gqHE5em/JC+xqElyk+9/ER4zgvUWy8F7gue
-         0y1A==
-X-Forwarded-Encrypted: i=1; AKwUvBwz1eX2gzMyq1XHiw8VKHrLgPzJYWENMyDsHW8y/sbF8ZZejWhHXhjGFGw2qDrv+08bb+8NXTvXyyVV@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHduSPSQtpeuWUiLXN/Ye4NhYk8JBW/UX4R0IIHaut9WSHwE1R
-	A6LVkeBh9qo2ZiPypjx/v2fJWoC6Ypf58F8Qk6VydR13llzXSLLzKVboJWgzUiYiP8nuEeQKEJx
-	BPS1yCGzGN3Iy6e68rARPFsT35VZij+Na9Pork/mPStS18cymF8BiutYTd/p9HRTHr7KOwLCv
-X-Gm-Gg: AYBFou14ERFCP04roj/1U4tYpvvt5jBo0XADqGKD0TSqkPtHVz7KWsfxUOvfBQJ9eay
-	iMA9dZwuVyZUVL5gPuPZ4/bDIKA7qA1NsLoSsBfeicytqBYE9tHBlYpKKs7HArjw1GRZh9GYlWG
-	SfH0hRJBUgsrhtFdabuVkDpPWErFTXMf3LvuHq2fPkOjlwLlJeSK+aXh6y7gRC+WPPSSJhrgK0t
-	4jayaQvDpghyCPVweOkgI+FK6KtWXRYN3gJGeG2SKU0HgGFKJEuSV5IvWp4gC5osTzBPwAFkqZE
-	LQp6gJkuFEBZG63kesv8gCUg1XXfpCKpL2QdaZuduEydZaFyaBexy/PstKZQtrCMUOlOUwEPEvC
-	ZnJ8zCaUQlmDjIRvkctLBrviBgkLF3ZYYOKuNTKJ/vzlhrmWl/unbGwwB96UoE6fLTV1o6uS+9E
-	BEGiEnd8wHYTIU
-X-Received: by 2002:a05:620a:3915:b0:93b:d79b:9a57 with SMTP id af79cd13be357-93f57f3d815mr775208585a.56.1792663631237;
-        Thu, 22 Oct 2026 03:07:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:3915:b0:93b:d79b:9a57 with SMTP id af79cd13be357-93f57f3d815mr775206085a.56.1792663630729;
-        Thu, 22 Oct 2026 03:07:10 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa12042c3sm983666e87.37.2026.10.22.03.07.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 03:07:09 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:07:07 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>, media-ci@linuxtv.org,
-        conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges"
- on a device node
-Message-ID: <hwzpthdqen2uvwnw6fnrutxjovf4lah4jr3vfjyrojwfhkfv4l@f6hlhnu7a72f>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
- <20260926064755.4AC931F00893@smtp.kernel.org>
- <326a4e58-7f7e-ebcf-adcc-8c191359fb92@oss.qualcomm.com>
- <nsx2uqk34i6kqpnjpigkutynjth3y2jtpsjtldbtsd6di45owc@vm6u5bv6mzqe>
- <00f80a9b-7d99-3479-c69c-a22abf89cd27@oss.qualcomm.com>
- <CAO9ioeX4gEA2OGokP0sDqHJZ-WpNyhpLqw_ziyrzHu3wn5Ps+Q@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nKCCcnAH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACF01F000C2;
+	Thu, 22 Oct 2026 10:09:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792663750;
+	bh=nirqn2OzW8Vx4a57+rRof6o3dSAxLjWaBsv5CIhajIs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nKCCcnAHHpz+5OHb0ggougGxi7wGWB1WqvJ6vEPr8xbxza8mfaQfXVYzB9ytlNpJy
+	 3lvB+RbhkLa59i6fjwonr5R0qWCbEk7cDNPP4EbxQNI3orzYQvPu92GwLgX7kjrPt8
+	 yV5M8tyO9H8jKyUKWLxozJPyA+7zOZV5VhcLnGe9ytPmHgw2lmuNPRmb1JbTJR62qq
+	 VPd0grxQICjoM1HFAqtcLw/840o2B0lyHe+4WjUWQBaaYb75yfNMSuCbNCE5M2JYGo
+	 jTHUp/KXtNIGDrBEM8/VpF0l/uxqZiF4q6BHIkckamytk1AJEQXHy2YAVVrOgg/M4L
+	 ubwYH80AEpUZg==
+Message-ID: <sashiko-outbox-181315@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
+ amplifier
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neo Chang" <YLCHANG2@nuvoton.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022084037.259983-3-YLCHANG2@nuvoton.com>
+References: <20261022084037.259983-1-YLCHANG2@nuvoton.com>
+ <20261022084037.259983-3-YLCHANG2@nuvoton.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 10:09:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,140 +60,728 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAO9ioeX4gEA2OGokP0sDqHJZ-WpNyhpLqw_ziyrzHu3wn5Ps+Q@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MCBTYWx0ZWRfX1aD0ESKQjMlp
- FPV7GuHVJoZG1xFjf3VE5eI+iJgemgPKhub7ioifFLRiQi2Rr7VGfKj9yVxuLlcQG1LH5/CB6ML
- ePYdIDtzBmTcP3OSPFD8UJELFxPzUZLHOkyYxbdlFwvWL+YQyq9c+A5ZUWQfhG0CECUJkOogKgz
- mE/j59FJoACqMmPMo6y9DD8qNEz2S7TCpeHwb8NxZZdryfWZ70VfxOMJhxuT/gfo3ybc9A/ZW5C
- PntE5mAilPBK9ktjj/KeI5i6wMQtig1vH1k+pwyiYMGfFXanB1jKzY0hKM25fUfPw+FDX0AIt0P
- Xh0EdkudG3BTqlbZy9m/xfyv3x9nBUZU50bbb6rwMOFfm/wxmn22xO5OsiySCawNKctGueSdYyG
- F3rKRDe/hnPrl2m4HGk9f842k6EAmWC9BnHCrk/ZutnKgPJAFj+Bg9QDtPJpSSlRGMrusi1XbFz
- +OL7KdWptHZp1yg2XbQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MCBTYWx0ZWRfX/M3prBCrYKh0
- ZgvYQGFHlg9QuyGXGALP137fDsZBg4FiQWsfiwJRI4pvdf1uwateUsS+bdJ/269RZdPuYElEdVI
- rG00XIUUMVy1tFIVMGwLQq+APBySksY=
-X-Authority-Analysis: v=2.4 cv=QPn91QLL c=1 sm=1 tr=0 ts=6ad9e04f cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=pdqsUJ9ZRbmRKYiob1EA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: JF-ezp7vXk2-iXRdZnMDQCsq2XLVI9du
-X-Proofpoint-ORIG-GUID: JF-ezp7vXk2-iXRdZnMDQCsq2XLVI9du
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220040
 
-On Fri, Oct 09, 2026 at 09:40:31PM +0200, Dmitry Baryshkov wrote:
-> On Fri, 9 Oct 2026 at 12:41, Vishnu Reddy
-> <busanna.reddy@oss.qualcomm.com> wrote:
-> >
-> >
-> > On 10/8/2026 3:30 PM, Dmitry Baryshkov wrote:
-> > > On Sat, Sep 26, 2026 at 01:23:06PM +0530, Vishnu Reddy wrote:
-> > >>
-> > >> On 9/26/2026 12:17 PM, sashiko-bot@kernel.org wrote:
-> > >>> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> > >>> - [High] iommu: size_t truncation of derived reserved region length on 32-bit systems
-> > >>> - [Medium] iommu: DT ABI breakage by rejecting iommu-addresses without reg
-> > >>> - [Medium] iommu: OOB read in of_iommu_derive_resv_regions when parsing malformed iommu-ranges
-> > >>> --
-> > >>>
-> > >>> commit 08a09989ffefcbf5d38171159dcc911ca993ff18
-> > >>> Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> > >>>
-> > >>> iommu: of_iommu: Add support for "iommu-ranges" on a device node
-> > >>>
-> > >>> Add support for "iommu-ranges" on device nodes to specify usable IOVA
-> > >>> ranges directly when there is no backing "reg". Introduce logic to derive
-> > >>> reserved regions outside of "iommu-ranges" and restrict "iommu-addresses"
-> > >>> to be paired with a "reg" property.
-> > >>>
-> > >>> Link: https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> > >>>
-> > >>>> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> > >>>> index a18bb60f6f3df..9766a6944d0e1 100644
-> > >>>> --- a/drivers/iommu/of_iommu.c
-> > >>>> +++ b/drivers/iommu/of_iommu.c
-> > >>> [ ... ]
-> > >>>> +static void of_iommu_derive_resv_regions(struct device *dev, struct list_head *list)
-> > >>>> +{
-> > >>> [ ... ]
-> > >>>> +  maps = of_get_property(dev->of_node, "iommu-ranges", &size);
-> > >>>> +  if (!maps)
-> > >>>> +          return;
-> > >>>> +
-> > >>>> +  end = maps + size / sizeof(__be32);
-> > >>>> +
-> > >>>> +  while (maps < end) {
-> > >>>> +          phys_addr_t iova, iova_end;
-> > >>>> +          size_t length;
-> > >>>> +
-> > >>>> +          maps = of_translate_dma_region(dev->of_node, maps, &iova, &length);
-> > >>> [Severity: Medium]
-> > >>> Could this result in an out-of-bounds read if the "iommu-ranges" property is
-> > >>> malformed?
-> > >>>
-> > >>> The loop condition checks `maps < end`, but of_translate_dma_region()
-> > >>> implicitly reads `na + ns` cells from the maps array.
-> > >>>
-> > >>> Does this loop need to ensure there are at least `na + ns` cells remaining
-> > >>> before calling the translation function to prevent reading past the buffer?
-> > >>>
-> > >> This function intention is not to validate the address and size cells here and
-> > >> it's not valid to read those properties here. If the out of bound ranges are
-> > >> there, then it's part of dtc checks that dt node contains invalid ranges.
-> > >>
-> > >>> [ ... ]
-> > >>>> +  list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> > >>>> +          if (pos->start > next) {
-> > >>>> +                  region = iommu_alloc_resv_region(next, pos->start - next, prot,
-> > >>>> +                                                   IOMMU_RESV_RESERVED, GFP_KERNEL);
-> > >>> [Severity: High]
-> > >>> Can the length argument overflow on 32-bit systems?
-> > >>>
-> > >>> On 32-bit systems with 64-bit physical addresses (like ARM LPAE), address
-> > >>> differences can easily exceed 4GB. Because iommu_alloc_resv_region() takes
-> > >>> a 32-bit size_t length, passing a 64-bit gap size causes it to truncate.
-> > >>>
-> > >>> Will this truncation result in a reservation of at most 4GB, leaving the
-> > >>> IOVA address space above that unprotected?
-> > >>>
-> > >>> [ ... ]
-> > >>>> +  region = iommu_alloc_resv_region(next, PHYS_ADDR_MAX - next + 1,
-> > >>>> +                                   prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
-> > >>> [Severity: High]
-> > >>> Similarly, can passing `PHYS_ADDR_MAX - next + 1` here truncate the length
-> > >>> to its lower 32 bits on 32-bit systems?
-> > >>>
-> > >>> If the remaining address space exceeds 4GB, this truncation could leave high
-> > >>> IOVA addresses unprotected, allowing the IOMMU allocator to hand out reserved
-> > >>> IOVAs.
-> > >>>
-> > >> size_t can hold up to 32 bit range in LPAE platforms. The relevant driver has to
-> > >> set the dma_limit max range in that case.
-> > > As this is generic code, could you please adapt the code to work
-> > > correctly on LPAE systems?
-> >
-> > This is no different than the existing logic where client tries to reserve
-> > greater than 32bit length on the 32bit LPAE platforms.
-> >
-> > I'm not convinced why sashiko claims this is introduced in this patch.
-> 
-> Because you are adding the line.
+Thank you for your contribution! Sashiko AI review found 15 potential issue=
+(s) to consider:
+- [High] ASoC: nau8310: type confusion and crash in component kcontrol call=
+backs
+- [High] ASoC: nau8310: nau8310_dsp_init() desynchronizes DAPM switch state
+- [High] ASoC: nau8310: missing cancel_work_sync() on probe error and compo=
+nent remove
+- [High] ASoC: nau8310: lock inversion and bias_level TOCTOU in nau8310_dsp=
+_snd_soc_dapm_put()
+- [Medium] ASoC: nau8310: nau8310_dsp_set_kcs_setup() ignores nau8310->dsp_=
+firmware
+- [Medium] ASoC: nau8310: broken clock config for 64kHz/96kHz and 1x/2x mul=
+tipliers
+- [Medium] ASoC: nau8310: uninitialized *n1_sel read in nau8310_clksrc_choo=
+se()
+- [Medium] ASoC: nau8310: nau8310_shutdown() clobbers active stream and mcl=
+k state
+- [Medium] ASoC: nau8310: nau8310_dac_oversampl_enum exposes reserved regis=
+ter value
+- [Medium] ASoC: nau8310: volatile registers in nau8310_reg_defaults synced=
+ on resume
+- [Medium] ASoC: nau8310: nau8310_set_tdm_slot() bitwise-ORs encoded TX slo=
+t values
+- [Medium] ASoC: nau8310: nau8310_reply_from_dsp() leaves reply buffer unin=
+itialized
+- [Medium] ASoC: nau8310: race between load_fw_work and DAPM clock events
+- [Low] ASoC: nau8310: broken snd_soc_dapm_del_routes() error cleanup
+- [Low] ASoC: nau8310: uninitialized kcs_setup_comp fields in nau8310_dsp_s=
+et_kcs_setup()
+--
 
-So, is there anything to be addressed? If there is an issue in the
-current code, please fix it too instead of just pointing to it.
+commit 781c4e28ad8239f56461795282d48ebf131f9a1b
+Author: Neo Chang <YLCHANG2@nuvoton.com>
 
--- 
-With best wishes
-Dmitry
+ASoC: codecs: nau8310: Add support for NAU83G10 amplifier
+
+This patch adds an ASoC codec driver for the Nuvoton NAU83G10 mono boost
+Class-D audio amplifier with integrated dsp and I/V-sense support.
+
+> diff --git a/sound/soc/codecs/nau8310-dsp.c b/sound/soc/codecs/nau8310-ds=
+p.c
+> new file mode 100644
+> index 0000000000000..7e8606beb2084
+> --- /dev/null
+> +++ b/sound/soc/codecs/nau8310-dsp.c
+
+[ ... ]
+
+> +static int nau8310_reply_from_dsp(struct snd_soc_component *cp,
+> +	const struct nau8310_cmd_info *cmd_info, int data_size,
+> +	void *data)
+> +{
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(cp);
+> +	struct device *dev =3D cp->dev;
+> +	int ret, frag_len, pad_len_exp, data_count =3D 0;
+> +
+> +	ret =3D nau8310_dsp_replied(nau8310, &frag_len);
+> +	if (ret)
+> +		return ret;
+> +	if (!frag_len || !cmd_info->reply_data)
+> +		return 0;
+> +	if (!data || frag_len =3D=3D 1)
+> +		return -EINVAL;
+
+[Severity: Medium]
+In sound/soc/codecs/nau8310-dsp.c, if nau8310_dsp_replied() returns a
+reply preamble with frag_len =3D=3D 0 for a command where cmd_info->reply_d=
+ata
+is true, nau8310_reply_from_dsp() returns 0 without writing anything to
+the data buffer.
+
+In nau8310_dsp_kcs_setup(), kcs_rst is declared uninitialized on the stack
+and passed to nau8310_dsp_exec_command() for NAU8310_DSP_CMD_GET_KCS_RSLTS:
+
+	unsigned int kcs_rst;
+	...
+		ret =3D nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_GET_KCS_RSLTS,
+			0, NAU8310_DSP_DATA_BYTE, NULL, NAU8310_DSP_DATA_BYTE, &kcs_rst);
+		if (ret)
+			return ret;
+		if (kcs_rst !=3D NAU8310_DSP_KCS_RSLTS_SUCCESS)
+			return -EINVAL;
+
+Could a zero-length reply cause nau8310_dsp_kcs_setup() to evaluate an
+uninitialized kcs_rst value? Should nau8310_reply_from_dsp() return an
+error when cmd_info->reply_data is set but frag_len =3D=3D 0?
+
+[ ... ]
+
+> +static int nau8310_dsp_snd_soc_dapm_put(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
+ntrol);
+> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+> +	struct soc_mixer_control *mc =3D
+> +		(struct soc_mixer_control *)kcontrol->private_value;
+> +	unsigned int mask =3D (1 << fls(mc->max)) - 1;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
+> +		dev_warn_ratelimited(nau8310->dev, "changing path is not allowed durin=
+g playback");
+> +		return -EBUSY;
+> +	}
+> +
+> +	val =3D (ucontrol->value.integer.value[0] & mask);
+> +
+> +	mutex_lock(&nau8310->lock);
+> +	if (val =3D=3D NAU8310_DAC_SRC_DSP && !nau8310->load_fw_done) {
+> +		dev_warn_ratelimited(nau8310->dev, "Cannot enable DSP: Firmware not re=
+ady or disabled");
+> +		mutex_unlock(&nau8310->lock);
+> +		return -EBUSY;
+> +	}
+> +
+> +	ret =3D snd_soc_dapm_put_volsw(kcontrol, ucontrol);
+> +
+> +	if (val =3D=3D NAU8310_DAC_SRC_BYPASS) {
+> +		/* Switch the clock source of DSP to MCLK. */
+> +		regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
+> +			NAU8310_DSP_SEL_OSC, 0);
+> +	}
+> +	mutex_unlock(&nau8310->lock);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Can nau8310_dsp_snd_soc_dapm_put() in sound/soc/codecs/nau8310-dsp.c cause
+a lock inversion with nau8310_startup() and nau8310_load_fw_work()?
+
+Here, nau8310_dsp_snd_soc_dapm_put() acquires nau8310->lock and then calls
+snd_soc_dapm_put_volsw(), which acquires card->dapm_mutex and
+card->pcm_mutex (via snd_soc_dpcm_runtime_update()).
+
+However, when opening a pcm stream, soc_pcm_open() holds card->pcm_mutex
+and calls nau8310_startup(), which calls flush_work(&nau8310->load_fw_work)
+while nau8310_load_fw_work() acquires nau8310->lock:
+
+Thread 1 (control write):
+  nau8310_dsp_snd_soc_dapm_put()
+    mutex_lock(&nau8310->lock)
+    snd_soc_dapm_put_volsw()
+      snd_soc_dpcm_runtime_update()
+        snd_soc_dpcm_mutex_lock(card) -> locks card->pcm_mutex
+
+Thread 2 (pcm open):
+  soc_pcm_open() -> locks card->pcm_mutex
+    __soc_pcm_open()
+      snd_soc_dai_startup()
+        nau8310_startup()
+          flush_work(&nau8310->load_fw_work)
+            waits for nau8310_load_fw_work() -> mutex_lock(&nau8310->lock)
+
+Also, snd_soc_dapm_get_bias_level(dapm) is checked before acquiring
+nau8310->lock or card->dapm_mutex, so a stream can start while waiting for
+nau8310->lock and bypass the playback check. And when val =3D=3D
+NAU8310_DAC_SRC_BYPASS, clearing NAU8310_DSP_SEL_OSC does not check if
+load_fw_work is still pending, which can switch the clock away from the
+internal oscillator before nau8310_load_fw_work() runs.
+
+> +
+> +#define NAU8310_DSP_SOC_DAPM_SINGLE(xname, reg, shift, mask, invert) \
+> +	SOC_SINGLE_EXT(xname, reg, shift, mask, invert, \
+> +		snd_soc_dapm_get_volsw, nau8310_dsp_snd_soc_dapm_put)
+> +
+> +static const struct snd_kcontrol_new nau8310_dacdat_select_dsp =3D
+> +	NAU8310_DSP_SOC_DAPM_SINGLE("Switch", NAU8310_R1A_DSP_CORE_CTRL2,
+> +		NAU8310_DAC_SEL_DSP_SFT, 1, 0);
+> +
+> +static int nau8310_dsp_clock_event(struct snd_soc_dapm_widget *w,
+> +	struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *cp =3D snd_soc_dapm_to_component(w->dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(cp);
+> +	int ret =3D 0;
+> +
+> +	if (SND_SOC_DAPM_EVENT_ON(event)) {
+> +		ret =3D nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_CLK_RESTART,
+> +			0, 0, NULL, 0, NULL);
+> +		if (ret)
+> +			dev_err(cp->dev, "Send DSP command %s fail (%d)",
+> +				dsp_cmd_table[NAU8310_DSP_CMD_CLK_RESTART], ret);
+> +
+> +		/* Switch the clock source of DSP to MCLK. */
+> +		regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
+> +			NAU8310_DSP_SEL_OSC, 0);
+> +	} else if (SND_SOC_DAPM_EVENT_OFF(event)) {
+> +		ret =3D nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_CLK_STOP,
+> +			0, 0, NULL, 0, NULL);
+> +		if (ret)
+> +			dev_err(cp->dev, "Send DSP command %s fail (%d)",
+> +				dsp_cmd_table[NAU8310_DSP_CMD_CLK_STOP], ret);
+> +	}
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Can nau8310_dsp_clock_event() in sound/soc/codecs/nau8310-dsp.c race with
+nau8310_load_fw_work() during system resume?
+
+In nau8310_resume(), nau8310_dsp_fw_load() switches the clock source to
+the internal oscillator (NAU8310_DSP_SEL_OSC) and schedules
+nau8310->load_fw_work asynchronously. Immediately afterwards,
+soc_resume_deferred() powers up dapm widgets and invokes
+nau8310_dsp_clock_event() while nau8310_load_fw_work() is still in
+nau8310_dsp_init() (which sleeps in msleep(120) and then transfers
+firmware over NAU8310_RF000_DSP_COMM under nau8310->lock).
+
+Because nau8310_dsp_clock_event() and nau8310_clock_event() do not
+synchronize with load_fw_work or acquire nau8310->lock, won't they
+interleave commands on NAU8310_RF000_DSP_COMM and clear
+NAU8310_DSP_SEL_OSC while firmware download is still in progress?
+
+[ ... ]
+
+> +static int nau8310_dsp_set_kcs_setup(struct snd_soc_component *cp)
+> +{
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(cp);
+> +	struct regmap *regmap =3D nau8310->regmap;
+> +	struct nau8310_kcs_setup kcs_setup_comp, *kcs_setup =3D &kcs_setup_comp;
+> +	struct device *dev =3D cp->dev;
+> +	const struct firmware *fw;
+> +	int ret, status =3D 0, buf_off, buf_len;
+> +
+> +	dev_dbg(dev, "Send DSP command %s",
+> +		dsp_cmd_table[NAU8310_DSP_CMD_GET_FRAME_STATUS]);
+> +
+> +	kcs_setup->get_len =3D kcs_setup->set_len =3D sizeof(status);
+> +	kcs_setup->get_data =3D (void *)&status;
+> +
+> +	ret =3D nau8310_send_dsp_command(cp, NAU8310_DSP_CMD_GET_FRAME_STATUS, =
+kcs_setup);
+
+[Severity: Low]
+In nau8310_dsp_set_kcs_setup() in sound/soc/codecs/nau8310-dsp.c,
+kcs_setup_comp is declared on the stack without zero-initializing
+set_kcs_offset and set_kcs_data, which are then read in
+nau8310_send_dsp_command() and passed to nau8310_message_to_dsp(). Should
+kcs_setup_comp be zero-initialized (or should this call
+nau8310_dsp_exec_command())?
+
+> +	if (ret) {
+> +		dev_err(dev, "Send DSP command %s fail (%d)",
+> +			dsp_cmd_table[NAU8310_DSP_CMD_GET_FRAME_STATUS], ret);
+> +		goto err;
+> +	}
+> +
+> +	if (!(status & NAU8310_DSP_ALGO_OK)) {
+> +		dev_err(dev, "Algorithm of DSP is not ready, status %x", status);
+> +		ret =3D -EIO;
+> +		goto err;
+> +	}
+> +
+> +	dev_info(dev, "Algorithm of DSP is ready, status %x", status);
+> +
+> +	dev_dbg(dev, "Request firmware and wait until finish.");
+> +	ret =3D request_firmware(&fw, NAU8310_DSP_FIRMWARE, dev);
+
+[Severity: Medium]
+In nau8310_read_device_properties() in sound/soc/codecs/nau8310.c, the
+driver reads the "firmware-name" device property and allocates
+nau8310->dsp_firmware. However, nau8310_dsp_set_kcs_setup() passes the
+hardcoded NAU8310_DSP_FIRMWARE macro to request_firmware() here. Should
+this pass nau8310->dsp_firmware instead?
+
+> +	if (ret) {
+> +		dev_err(dev, "Failed to load firmware (%d)", ret);
+> +		goto err;
+> +	}
+
+[ ... ]
+
+> +int nau8310_dsp_init(struct snd_soc_component *cp)
+> +{
+> +	struct regmap *regmap =3D cp->regmap;
+> +
+> +	nau8310_sw_reset_chip(regmap);
+> +
+> +	/* wait for the power ready */
+> +	msleep(120);
+> +
+> +	regmap_update_bits(regmap, NAU8310_R1A_DSP_CORE_CTRL2,
+> +		NAU8310_DSP_RUNSTALL | NAU8310_DAC_SEL_DSP_OUT, NAU8310_DAC_SEL_DSP_OU=
+T);
+> +
+> +	return nau8310_dsp_set_kcs_setup(cp);
+> +}
+
+[Severity: High]
+Does setting NAU8310_DAC_SEL_DSP_OUT directly via regmap_update_bits() in
+nau8310_dsp_init() desynchronize the "DAC data from DSP" dapm switch
+state?
+
+In nau8310_codec_probe(), nau8310_dsp_fw_load() schedules load_fw_work and
+nau8310_dsp_setup_controls() immediately registers the "DAC data from DSP"
+switch widget (which is backed by NAU8310_R1A_DSP_CORE_CTRL2 bit
+NAU8310_DAC_SEL_DSP_SFT) while load_fw_work is sleeping in msleep(120).
+
+When snd_soc_dapm_add_routes() runs, NAU8310_DAC_SEL_DSP_OUT is still 0,
+so dapm initializes the switch path as disconnected. When
+nau8310_dsp_init() subsequently sets NAU8310_DAC_SEL_DSP_OUT in the
+register without going through dapm, nau8310_dsp_active() becomes true and
+the hardware mux selects the dsp output, but dapm still treats "DAC data
+from DSP" as disconnected and leaves the "DSP", "DSP Clock", and "Capture
+Sense" widgets unpowered during playback.
+
+> +
+> +int nau8310_dsp_setup_controls(struct snd_soc_component *cp)
+> +{
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(cp);
+> +	struct snd_soc_dapm_context *dapm =3D nau8310->dapm;
+> +	int ret;
+> +
+> +	ret =3D snd_soc_dapm_new_controls(dapm, nau8310_dsp_dapm_widgets,
+> +		ARRAY_SIZE(nau8310_dsp_dapm_widgets));
+> +	if (ret) {
+> +		dev_err(cp->dev, "Add DSP widget fail (%d)", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret =3D snd_soc_dapm_add_routes(dapm, nau8310_dsp_dapm_routes,
+> +		ARRAY_SIZE(nau8310_dsp_dapm_routes));
+> +	if (ret) {
+> +		dev_err(cp->dev, "Add DSP route fail (%d)", ret);
+> +		goto err;
+> +	}
+> +
+> +	return 0;
+> +err:
+> +	snd_soc_dapm_del_routes(dapm, nau8310_dsp_dapm_routes,
+> +		ARRAY_SIZE(nau8310_dsp_dapm_routes));
+> +	return ret;
+> +}
+
+[Severity: Low]
+In nau8310_dsp_setup_controls() in sound/soc/codecs/nau8310-dsp.c, if
+snd_soc_dapm_new_controls() fails, jumping to err calls
+snd_soc_dapm_del_routes() on routes that were never added. In addition,
+nau8310_dsp_dapm_routes contains a route with a control ("Switch"), which
+snd_soc_dapm_del_route() does not support removing. Since component probe
+failure already frees dapm widgets and routes via snd_soc_dapm_free(), can
+the snd_soc_dapm_del_routes() call in the error path be dropped?
+
+> diff --git a/sound/soc/codecs/nau8310.c b/sound/soc/codecs/nau8310.c
+> new file mode 100644
+> index 0000000000000..b4de2de337683
+> --- /dev/null
+> +++ b/sound/soc/codecs/nau8310.c
+
+[ ... ]
+
+> +static const struct reg_default nau8310_reg_defaults[] =3D {
+> +	{ NAU8310_R02_I2C_ADDR, 0x0000 },
+> +	{ NAU8310_R03_CLK_CTRL, 0x0000 },
+> +	{ NAU8310_R04_ENA_CTRL, 0x0000 },
+> +	{ NAU8310_R05_INTERRUPT_CTRL, 0x007f },
+> +	{ NAU8310_R06_INT_CLR_STATUS, 0x0000 },
+
+[ ... ]
+
+> +	{ NAU8310_R9C_BIQ2_COE_9, 0x0000 },
+> +	{ NAU8310_R9D_BIQ2_COE_10, 0x0000 },
+> +	{ NAU8310_RF000_DSP_COMM, 0x0000 },
+> +};
+
+[Severity: Medium]
+NAU8310_R06_INT_CLR_STATUS and NAU8310_RF000_DSP_COMM are marked as both
+volatile and writeable, and are also included in nau8310_reg_defaults[] in
+sound/soc/codecs/nau8310.c.
+
+Because regcache_maple_populate() seeds the maple cache from
+reg_defaults[], when nau8310_suspend() calls regcache_mark_dirty() and
+nau8310_resume() calls regcache_sync(), regcache will write 0x0000 to
+NAU8310_R06_INT_CLR_STATUS and 0x00000000 to the 32-bit mailbox register
+NAU8310_RF000_DSP_COMM. Should volatile registers be omitted from
+nau8310_reg_defaults[]?
+
+[ ... ]
+
+> +static int nau8310_clkdet_put(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct soc_mixer_control *mc =3D
+> +		(struct soc_mixer_control *)kcontrol->private_value;
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
+ntrol);
+> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+
+[ ... ]
+
+> +static int nau8310_clkdet_get(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
+ntrol);
+> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+> +
+> +	ucontrol->value.integer.value[0] =3D nau8310->clock_detection;
+> +
+> +	return 0;
+> +}
+> +
+> +static int nau8310_biq_coeff_get(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
+ntrol);
+> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+> +	struct soc_bytes_ext *params =3D (void *)kcontrol->private_value;
+> +	int i, reg, reg_val;
+> +	u16 *val;
+> +
+> +	val =3D (u16 *)ucontrol->value.bytes.data;
+> +	reg =3D NAU8310_R80_BIQ0_COE_1;
+> +	for (i =3D 0; i < params->max / sizeof(u16); i++) {
+> +		regmap_read(nau8310->regmap, reg + i, &reg_val);
+> +		/* conversion of 16-bit integers between native CPU format
+> +		 * and big endian format
+> +		 */
+> +		reg_val =3D cpu_to_be16(reg_val);
+> +		*(val + i) =3D reg_val;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int nau8310_biq_coeff_put(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
+ntrol);
+> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+
+[Severity: High]
+Won't calling snd_soc_dapm_kcontrol_to_dapm(kcontrol) in
+nau8310_clkdet_put(), nau8310_clkdet_get(), nau8310_biq_coeff_get(), and
+nau8310_biq_coeff_put() crash when userspace accesses the "Clock Detection
+Switch" or "BIQ Coefficients" controls?
+
+Both controls are registered in nau8310_snd_controls[] via
+soc_comp_dev_nau8310.controls, so kcontrol->private_data points to struct
+snd_soc_component, not struct dapm_kcontrol_data. Calling
+snd_soc_dapm_kcontrol_to_dapm() reinterprets the component pointer as
+struct dapm_kcontrol_data and dereferences data->wlist->widgets[0]->dapm.
+Should these four functions use snd_soc_kcontrol_component(kcontrol)
+instead?
+
+Also, in nau8310_biq_coeff_get(), if regmap_read() fails, reg_val is
+uninitialized on the stack and gets copied into
+ucontrol->value.bytes.data. Should the return value of regmap_read() be
+checked?
+
+[ ... ]
+
+> +static const char * const nau8310_dac_oversampl[] =3D {
+> +	"64", "256", "128", "", "32" };
+> +
+> +static const struct soc_enum nau8310_dac_oversampl_enum =3D
+> +	SOC_ENUM_SINGLE(NAU8310_R29_DAC_CTRL1, NAU8310_DAC_OVERSAMPLE_SFT,
+> +		ARRAY_SIZE(nau8310_dac_oversampl), nau8310_dac_oversampl);
+
+[Severity: Medium]
+In sound/soc/codecs/nau8310.c, nau8310_dac_oversampl[] includes an empty
+string "" at index 3 with SOC_ENUM_SINGLE, exposing reserved register
+value 3 to userspace. If userspace selects index 3, osr_dac_sel[3] has osr
+=3D=3D 0 and nau8310_osr_apply() fails with -EINVAL during hw_params. Should
+this use SOC_VALUE_ENUM_SINGLE to skip the reserved value?
+
+[ ... ]
+
+> +static int nau8310_srate_clk_apply(struct nau8310 *nau8310,
+> +	const struct nau8310_srate_attr *srate_table,
+> +	int n1_sel, int mclk_mult_sel, int n2_sel, int dsp_mult_sel)
+> +{
+> +	struct regmap *regmap =3D nau8310->regmap;
+> +	int dsp_clk, mult_sel;
+> +	unsigned int ctrl_val =3D 0;
+> +
+> +	static const unsigned int mclkx_val[] =3D {
+> +		/* multiplier 4x, i.e. 2^2 */
+> +		[2] =3D NAU8310_MCLK4XEN,
+> +		/* multiplier 8x, i.e. 2^3 */
+> +		[3] =3D NAU8310_MCLK8XEN | NAU8310_MCLK4XEN,
+> +		/* multiplier 16x, i.e. 2^4 */
+> +		[4] =3D NAU8310_MCLK16XEN | NAU8310_MCLK8XEN | NAU8310_MCLK4XEN,
+> +	};
+> +
+> +	if (!srate_table || srate_table->adc_div < 0 ||
+> +		dsp_mult_sel < 0 || dsp_mult_sel >=3D ARRAY_SIZE(dsp_src_mult) ||
+> +		n2_sel < 0 || n2_sel >=3D ARRAY_SIZE(mclk_n2_div) ||
+> +		n1_sel < 0 || n1_sel >=3D ARRAY_SIZE(mclk_n1_div)) {
+> +		dev_err(nau8310->dev, "The fs %d isn't support in DSP.",
+> +			nau8310->fs);
+> +		return -EINVAL;
+> +	}
+
+[ ... ]
+
+> +	regmap_update_bits(regmap, NAU8310_R04_ENA_CTRL,
+> +		NAU8310_CLK_DSP_SRC_MASK | NAU8310_CLK_MUL_SRC_MASK |
+> +		NAU8310_MCLK_SEL_MASK, ctrl_val);
+> +
+> +	if (mult_sel < 2 || mult_sel > 4)
+> +		return -EINVAL;
+> +
+> +	regmap_update_bits(regmap, NAU8310_R68_ANALOG_CONTROL_7,
+> +		NAU8310_MCLKX_MASK, mclkx_val[mult_sel]);
+> +
+> +	return 0;
+> +}
+> +
+> +static int nau8310_calc_dsp_clk(int mclk, int fs, int mult_param, int n1=
+_param)
+> +{
+> +	int dsp_clk =3D (mclk << mult_param) / n1_param;
+> +
+> +	if (dsp_clk >=3D (fs * DSP_CLK_MIN_MULTI_VALUE) && dsp_clk <=3D DSP_CLK=
+_MAX)
+> +		return dsp_clk;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can 64 kHz or 96 kHz ever succeed in nau8310_clock_config() when the dsp
+is bypassed, or can 1x/2x clock multipliers ever be applied?
+
+In nau8310_calc_dsp_clk(), dsp_clk must be between fs * 2000 and
+102400000. For fs =3D 64000 (64000 * 2000 =3D 128000000) and fs =3D 96000
+(96000 * 2000 =3D 192000000), fs * DSP_CLK_MIN_MULTI_VALUE exceeds
+DSP_CLK_MAX, so nau8310_clkdsp_choose() always fails even when the dsp is
+bypassed. In addition, target_srate_table[] sets adc_div =3D -1 for 96000,
+which nau8310_srate_clk_apply() rejects unconditionally, and
+NAU8310_RATES advertises SNDRV_PCM_RATE_8000_192000 including rates
+(11025, 22050, 88200, 176400, 192000) not present in
+target_srate_table[].
+
+Furthermore, in nau8310_srate_clk_apply(), mult_sel is an index into
+mclk_src_mult[] / dsp_src_mult[] where 0 and 1 represent 1x and 2x
+multipliers, but the check:
+
+	if (mult_sel < 2 || mult_sel > 4)
+		return -EINVAL;
+
+rejects mult_sel =3D=3D 0 and mult_sel =3D=3D 1 with -EINVAL after already
+updating NAU8310_R03_CLK_CTRL, NAU8310_R40_CLK_DET_CTRL, and
+NAU8310_R04_ENA_CTRL. Should mclkx_val[] allow 0 for 1x and 2x multipliers
+instead of returning -EINVAL?
+
+[ ... ]
+
+> +static int nau8310_clksrc_choose(struct nau8310 *nau8310,
+> +	const struct nau8310_srate_attr **srate_table,
+> +	int *n1_sel, int *mult_sel, int *n2_sel, int *dsp_mult_sel)
+> +{
+> +	int i, j, mclk, mclk_max, ratio, ratio_sel, n2_max, ret;
+
+[ ... ]
+
+> +	/* Get MCLK_SRC through 1/N, Multiplier, and then 1/N2. */
+> +	mclk_max =3D 0;
+> +	for (i =3D 0; i < ARRAY_SIZE(mclk_n1_div); i++) {
+> +		for (j =3D 0; j < ARRAY_SIZE(mclk_src_mult); j++) {
+> +			mclk =3D nau8310->mclk << mclk_src_mult[j].param;
+> +			mclk =3D mclk / mclk_n1_div[i].param;
+> +			ratio =3D nau8310_clksrc_n2(nau8310, *srate_table, mclk, n2_sel);
+> +			if (ratio !=3D NAU8310_MCLK_FS_RATIO_NUM &&
+> +				(mclk_max < mclk || i > *n1_sel)) {
+
+[Severity: Medium]
+In nau8310_clock_config() in sound/soc/codecs/nau8310.c, n1_sel is
+declared uninitialized on the stack and passed to nau8310_clksrc_choose().
+When the initial direct mclk check does not match, *n1_sel is never
+initialized before entering this loop, so evaluating i > *n1_sel when
+mclk_max >=3D mclk reads an uninitialized stack value. Should *n1_sel be
+initialized (e.g. to -1) before the loop?
+
+[ ... ]
+
+> +static int nau8310_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx=
+_mask,
+> +	unsigned int rx_mask, int slots, int slot_width)
+> +{
+
+[ ... ]
+
+> +	for (i =3D 0; i < NAU8310_TDM_MAX_SLOTS; i++)
+> +		if (tx_mask & BIT(i)) {
+> +			ctrl_val |=3D nau8310_tx_slot_map[i];
+> +			dev_dbg(dev, "NAU8310_ADC_%c_SEL_SLOT%d",
+> +				(i % 2 =3D=3D 0) ? 'V' : 'I', i);
+> +		}
+
+[Severity: Medium]
+In nau8310_set_tdm_slot() in sound/soc/codecs/nau8310.c,
+nau8310_tx_slot_map[] contains binary-encoded slot values (0x4, 0x5, 0x6,
+0x7 for even V slots and 0x4<<3, 0x5<<3, 0x6<<3, 0x7<<3 for odd I slots),
+not one-hot bitmasks. If tx_mask has more than one even bit or more than
+one odd bit set (for example, BIT(2) | BIT(4)), bitwise-ORing them
+(0x5 | 0x6 =3D 0x7) corrupts the slot selection to slot 6. Should this
+validate or select at most one even slot and one odd slot?
+
+[ ... ]
+
+> +static int nau8310_switch_internal_osc(struct snd_soc_component *cp)
+> +{
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(cp);
+> +	int ret;
+> +
+> +	/* For internal Ring OSC, the default fs apply to 48kHz */
+> +	nau8310->fs =3D NAU8310_DEFAULT_SAMPLE_RATE;
+> +	ret =3D nau8310_set_sysclk(cp, 0, 0,
+> +		nau8310->fs * NAU8310_SYSCLK_MULT, SND_SOC_CLOCK_IN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D nau8310_clock_config(nau8310);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Switch clock source to OSC before MCLK off if DSP is enabled. */
+> +	regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
+> +		NAU8310_DSP_OSC_EN | NAU8310_DSP_SEL_OSC,
+> +		NAU8310_DSP_OSC_EN | NAU8310_DSP_SEL_OSC);
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static void nau8310_shutdown(struct snd_pcm_substream *substream,
+> +	struct snd_soc_dai *dai)
+> +{
+> +	struct snd_soc_component *cp =3D dai->component;
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_component_to_dapm(cp);
+> +	int ret;
+> +
+> +	if (!nau8310_dsp_active(cp))
+> +		return;
+> +
+> +	snd_soc_dapm_disable_pin(dapm, "Sense");
+> +
+> +	ret =3D nau8310_switch_internal_osc(cp);
+> +	if (ret)
+> +		return;
+> +}
+
+[Severity: Medium]
+In sound/soc/codecs/nau8310.c, what happens in nau8310_shutdown() when
+both playback and capture substreams are active and one of them closes?
+
+Because nau8310_shutdown() does not check snd_soc_component_active(cp) (or
+dai->active), closing one substream while the other is still running will
+disable the "Sense" pin and call nau8310_switch_internal_osc(cp),
+switching the clocking to the internal oscillator mid-stream.
+
+Also, nau8310_switch_internal_osc() calls nau8310_set_sysclk() with
+48000 * 256 (12.288 MHz), overwriting nau8310->mclk during probe, resume,
+and shutdown. If a machine driver sets the sysclk frequency once at
+initialization rather than on every hw_params, won't nau8310->mclk be
+clobbered?
+
+[ ... ]
+
+> +static int nau8310_codec_probe(struct snd_soc_component *component)
+> +{
+> +	struct nau8310 *nau8310 =3D snd_soc_component_get_drvdata(component);
+> +	struct snd_soc_dapm_context *dapm =3D snd_soc_component_to_dapm(compone=
+nt);
+> +	int ret =3D 0;
+> +
+> +	nau8310->dapm =3D dapm;
+> +
+> +	/* Loading DSP firmware */
+> +	ret =3D nau8310_dsp_fw_load(nau8310);
+> +	if (ret) {
+> +		dev_err(nau8310->dev, "Loading DSP firmware failed(%d)", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret =3D nau8310_dsp_setup_controls(component);
+> +	if (ret) {
+> +		dev_err(nau8310->dev, "DSP setup controls failed(%d)", ret);
+> +		goto err;
+> +	}
+> +
+> +err:
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static const struct snd_soc_component_driver soc_comp_dev_nau8310 =3D {
+> +	.probe			=3D nau8310_codec_probe,
+> +	.set_sysclk		=3D nau8310_set_sysclk,
+> +	.suspend		=3D nau8310_suspend,
+> +	.resume			=3D nau8310_resume,
+
+[Severity: High]
+In nau8310_codec_probe() in sound/soc/codecs/nau8310.c,
+nau8310_dsp_fw_load() schedules nau8310->load_fw_work. If
+nau8310_dsp_setup_controls() fails (or if card binding later fails or the
+component is unbound from the card), load_fw_work is not cancelled because
+the error path in nau8310_codec_probe() does not call
+cancel_work_sync(&nau8310->load_fw_work) and soc_comp_dev_nau8310 has no
+.remove callback.
+
+Could nau8310_load_fw_work() continue running after component teardown or
+race with a subsequent component re-probe?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022084037.2599=
+83-1-YLCHANG2@nuvoton.com?part=3D2
