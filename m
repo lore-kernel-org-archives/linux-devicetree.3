@@ -1,58 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792634468;
-	b=b+4aqelNfKBxPce2oSwOdJTXcS4L857RfAT8+OxVxQU72R8fiOyO6EslO6VikI+2h5ga
-	 1G/egWXrUza/oeuX6WMHauOUnVnUj8+smqOf1uOP5D3o5oyaFHptr9wEmBxGek6B7CAPY
-	 wGlVTGZpCJla9yNZi4NJZ97sZQ17MTytGcDUbYbxPRRPUhkyfldLhEpH/R56ARE3gP3TO
-	 ppnD61XPUgqjPOIxmyyFjJYQUs0XYl2kcQceV7Z8yMLz5aWEU2qMDrWxRRZFfucEPyTOt
-	 KkJVpPXu26pYL7APeN8jEOKFl8EMM0v4p5/F/880JoLlDdDzc0aRBrKSR1IJZJ/slKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634468;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
-	b=TsW8l/UCyh5OCp5iA7oqWRwA/AO4TZbKsSBOLLMWEDfNQzxhd0b8B14UgtMBMkbqLtlu
-	 Cm7R4nq8lWZOpIIWoWD026uWUXTYRbUZez4a7G5Db7dMl6BcIoIYQI2eNcs/jxGUKe1x/
-	 w4AXVadi06pxer6TndPgFkFzm0cpA4Yjs+gib2RwGchAAN9NCx0avMtOfEea9BqwANtDv
-	 3MneyhycFPubfMk2A2wgjbJyEIjhqjaXzGzmp/P+unCZoZnp+8I4hisEK7hlQOsNqXRn1
-	 zqkUchWnOSaubRYQ5+KSkcF8q+vNMfuDr5/h3GveeJzU3nX4L6tkyelW4q8ifDCpsew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.96
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792635867;
+	b=KH5ssETsrqhuDq44Qgwuh3HkKbxYaHIroQyYL4B5zucK+WDAjtvV4H+IvNQnWRs9wGOY
+	 yOMolA7OvNF8A0MmdYJrW7gpsYKSsixRhKIJySzEh/b5wxr2CB4ONDK+abcBjxKsPH+O9
+	 Q3p+/Tmzer14WFfq7hjDZfYkL5DEi/RQPi7NXKPFaIAuzd+kKPwMbJNq9N6bSDY/V+cvQ
+	 D1+sF8TK6UA3Ezpl5AiHbiTKDsIieOHK7k7a4Rh2AP+Yvo7LBINVjltXGWZbTJLTN/NfH
+	 Y45/dUqiHsXaR+1FD/EpMkKlshhjWqjCzLj6oXbhggjDL++z8wHYHtYDbB1YHlOFNXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635867;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QQ6TEXmRqjyEaZIEQysYmLI0+LE0QNEPyL7RQNv99xs=;
+	b=Xsr4+a296xHVRT75j+gy7VLNkNyshKSAXG6BvT+GY1PvQkaUjJPPl09SmIgwi2oyQW3N
+	 boZ2r626npcTqADUvMzDne/zUYMfi0klGCtoe38WuN+WTZBOB7tO5P7yZuy4PJg4cBKy3
+	 Mg8eQQyvk62YDmz4d7xN1d1EoimPkqTH6tRlzkqezw8gddWNqACLyYH47v7BvJ+WQ4Gmx
+	 ThlNlZThUoucPyMj/hNKkOrTmP15JU9+SqQNriiv7NxAUZJNcrUkAT0/wmKIlVnfoNQvo
+	 l2YoSBStkl8099KA3cjLj1SN6yT2SX/dBMWftVtf7bmn9P10qtb6QHBnL9AFvOtIjQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=jlX5ToI5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.96
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023096.outbound.protection.outlook.com [40.107.44.96])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB8606A31A;
-	Thu, 22 Oct 2026 02:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDB8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53F7606A31B;
+	Thu, 22 Oct 2026 02:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E53F7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
-	b=Q+4ivRANcgbbFZT+RuqnOmzfQRgx/LVfmZmJnBznw3aijzTfLqiAXmQFPpHZ4wQr5N/a+UnSk
-	9QkwZygXGFsy6k2d0kw287r6cGCOPL2MK5xfPM3ACXVTWwq6O1+K0stbkZqxhIDb9q0MkhN+DRw
-	UTGHL86gM/CDOpMtrrbG38U=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j98WL5Vhfz1K972;
-	Thu, 22 Oct 2026 10:00:46 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2FEAB40563;
-	Thu, 22 Oct 2026 10:00:51 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
- 2026 10:00:49 +0800
-Message-ID: <31d63208-3ef2-420f-a0c2-d9d6d49c5e21@huawei.com>
-Date: Thu, 22 Oct 2026 10:00:49 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=jlX5ToI5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rt+XuSC9aUO+Z+b7UTo03/wjVGIZktrnXVvAlgtxVBUTOzHTWfzYXmF1Zz8Wm/GV35CUno68R3/henZotlmdd4vrH+RTLEoQzKEJf3AvzrtXHjA8TQvAOJVW7iq14XPHn/0/0nJyngb09WP0YPozb+I2ib8GoqH8EZcC0PgZIkrX+eC8ym9QqgbvVQdN4BA30x4IfEKFSlWCcigxIhdyglm/OSEYqNXS7wC9cjTsZSH39Zj/nUGZ9SG08Y9l0z0hLgkU4cFQIB0tRs4Kmv6o6Sp72YRg288iWYQXjtZJrNaF17DZB8FDqESiiTgEobvlDIIgmez5HT+hyFs081jDrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QQ6TEXmRqjyEaZIEQysYmLI0+LE0QNEPyL7RQNv99xs=;
+ b=wRD8k5wLcUrx3S487ZbQzJsHHLuiQ8FDmC0HZhlhfvnESzAVlD0TSLyqYxEDvUzz+x70nQAnUhlEjtM/T9PO6PdjgjM4njmn5besd0+qlf2JVRXjTQppPAlSA9SfjOvjMFbMxz+nL08SIo1EgWm5jzuqeS4gRxyOq8BHwbBkBVxVmAItj5kh8XZZUT6KqpoBJI2nfpEsf3S9XIzubgz/7GDACV3nnONryXxQEuJHZKNhofvWaucgNksqzl3xBowH4V5M+g6xM2cQnnErnHANbJiHBzBGFl7yJJafgJ+PCZbUSHp1pJbabjd0k1YLkAFXmfAdbVx+gMvPF3E2bvm1Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QQ6TEXmRqjyEaZIEQysYmLI0+LE0QNEPyL7RQNv99xs=;
+ b=jlX5ToI5tY+zET6XDrCfhgEY0qQ9JzISvo03YqVHKExYSZz2h2zcjCrV//j/3vOT4a04JOX4WB1ieTp+3blELra46fDWp8v/XPw1YrdELa3KXh23bLF44+K4fechuzt6HorexZB07w/94PvaFqTyGbH3zI8PeifFN7KfWW3PKCAAV3LNZC28nXnkEomq4F4h+ZHdrWk5aUKdmwnZGncTYEoxE0Ph2mnPl4wpO246uk2JxM5ikWsGrcTahAD8B1Kg0wZr6FfZjhgNWuQjCssOb3xmKH1IKttziCHi8Aj71/qMFYb/dqv2Dynphoi4lZn79/VxuLEOCwVqYax2heWEdg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYNPR03MB10226.apcprd03.prod.outlook.com
+ (2603:1096:405:3c1::21) by TYSPR03MB7572.apcprd03.prod.outlook.com
+ (2603:1096:400:432::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 02:24:23 +0000
+Received: from TYNPR03MB10226.apcprd03.prod.outlook.com
+ ([fe80::ff5:e524:cf10:5d7]) by TYNPR03MB10226.apcprd03.prod.outlook.com
+ ([fe80::ff5:e524:cf10:5d7%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
+ 02:24:23 +0000
+Message-ID: <83bb17dc-49e2-437f-a55f-3f8a5e77c5f4@amlogic.com>
+Date: Thu, 22 Oct 2026 10:24:19 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/5] ASoC: meson: g12a-toacodec: Add S4 tocodec driver
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ jian.xu@amlogic.com, shuai.li@amlogic.com, zhe.wang@amlogic.com
+References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
+ <20261021-audio_drvier-v7-3-2b9aeae9cb8a@amlogic.com>
+ <179259528986.4070168.179126639869298765.b4-review@b4>
+From: Jiebing Chen <jiebing.chen@amlogic.com>
+In-Reply-To: <179259528986.4070168.179126639869298765.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TYCP286CA0249.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:456::7) To TYNPR03MB10226.apcprd03.prod.outlook.com
+ (2603:1096:405:3c1::21)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,193 +107,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
- against hotplug
-To: Wandun <chenwandun1@gmail.com>, <robh@kernel.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <m.szyprowski@samsung.com>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
- <20261021083011.2170525-4-chenwandun1@gmail.com>
- <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
- <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYNPR03MB10226:EE_|TYSPR03MB7572:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a5ce28e-0c75-4b11-559f-08df2fe39644
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|10067099003|22082099003|261021121427099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	miX2Jabfg5ba0UN/IHc/zDhqzbW8GTcR0yJ2XvAmkj1WcnbJiyp3kdFS07lc07Oi0FeF0HhLnbiplbL7Y7vEwzjXalEZiyNTUrPtwMe7oTtRljo18AKl5noAVK+zsvWRPr2MHbcfcD1KIrFHxYGGFBdxv6wb/d80c2f3kicyyKLLkRESc+WNckECi57ue6qoHbaJJ9uDlEo+z/UB86NVz6VN0+G8miY2PH46UxG4KvRI8tvqx7ZjmM2bSuf1OLjpeGxqom7ZIWAnpdzaNyV2yWhtCAwKvn9TXqPFIY6wBXE4zTvqN7WmKzHXU6msDt4uE03R7nN8G6eYTzy4vY6Sj1yMj5LysIv7ghTtTy1lHU+KKKH6euW2DwiqTuNEfFPMTfWPnA9A4LVVQVfD+jorTYMmLE1ZULfnXJv6uJ8BntfmjXCbDjJDNsqd1QODMxn8bOgwiefoxVkD6H5gCD4nqq06oGjqtdyKExUvQgjvCq2eeRdpOHncmQ8EjQeWD5ftWvp+4FMtkvyw3MuRqJG150E1oRt3VD+O7Xz61B21M0Reurex+EdtzbNy/ogzrjpuiVRBVvFgHDM1pmuQyGp9KCRMivBtgztVXJcxORQTMYbaF0iDsgZrTas7B4kutjRd+kUcSsXpP4iB+lRrYiLEaNXtKY35OQWdwZdWxUHLbkg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYNPR03MB10226.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(10067099003)(22082099003)(261021121427099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFBhRDJBZHdpS2lXUFprU0NzbHdEbzJzNytDWmxXWitVQ25tdXR4REVqamRi?=
+ =?utf-8?B?Qzd5ZlZyVUdJWVZBRXR3bmd1ampPb21yOHphckVLcGlJOE0zS040UXlpeVhq?=
+ =?utf-8?B?bisyaHQzZkRDb2J5a25WbzJrTkp3UTZvWHdqOUdFQWxlME1CNTZzT1dPZklU?=
+ =?utf-8?B?bzEraXpnNGs5STNXTm53UTRtWEpSRE51bGxESTdnODlxZWRwTWRrMzZSQkdl?=
+ =?utf-8?B?Yk1OSGJ6Q01NUzBtdCtjeHNPaFE0a2hwSHorK0VlbCtkVkJzVExyZllROURj?=
+ =?utf-8?B?UXNpWmVNaStlK1BSMGNQQ0pXdzNmcmpDRnJzeWlCVml0S2NVQVhXUmY5U21u?=
+ =?utf-8?B?RWZBK3JQSitYYkJ1SkxoakM4cWR0S01EZjJEdGFwYW4zcVI2Q29sMXRONGZp?=
+ =?utf-8?B?dW9DQi82Z3NzMVdJYnNwNnZNZUtiS0ZaZ3E3RHBCcVkzMHRmZVBRelg1eUZS?=
+ =?utf-8?B?WU1rMUl1UzFrak1BZVhwcTRMTVF1RGxDOEcxVzdxQzVINzF2Q25IdDNFQlNN?=
+ =?utf-8?B?blpWUzNtUGsyZHlNQW05dVZWS1kwUVRhWmpaT01qL0lQMi9zWTI1RFNuWFNV?=
+ =?utf-8?B?dnhELzNRdmNsVkN2bVdSV2dMS3dnMllITEljekF2SzE0VHp6R011My93RVFP?=
+ =?utf-8?B?YzExMGQyWVg5OGdpTE8wYmJoOWhTNk9DWk1acFJuTHpFT1RQOS9ZRXpadnBZ?=
+ =?utf-8?B?QTAyclJicEJIU0E0d0Z5dFJKc2p5NDlRZVFaOHU1RHd6cUZjQ2VnS0doTW12?=
+ =?utf-8?B?bStUbnRoS0tyeG1vc1kvV2lrb1VwemVTMElIdUZibXBSVjFBRWdmWmtXOWo2?=
+ =?utf-8?B?NzNxeWNicllGOUpJU1FZbE4xYnVaRGs1MWcvK1dkTFlPMTAxVy9HejdGQ3A0?=
+ =?utf-8?B?QUFDVGY3SW5wcW9PeGUzUS90SDJqcEVZa01FUXovdExic1BaRGdkeUgwT3Nm?=
+ =?utf-8?B?SjVBelhCbnRlbjRjRWtUNUszNVo3WlhMWTN2NC9SN3llbU1pUU5WQm4vYmEv?=
+ =?utf-8?B?aDYyZFlYWmtVNUF5M2pkOFZUZzY0SHRKMDhOeVhyODNlVVBreXliK0daeXhp?=
+ =?utf-8?B?ZHMvelBaYklPMXZHNFlnbm5wUVE3Vm1YUzF1VVF4UDExYXAwa1V4WVFIQW05?=
+ =?utf-8?B?OFhrYUp3Z3JGRTl3M3Y5VXZaTllDZlc5c0d3S1RIaGNnOGRjYXB2cENSelB0?=
+ =?utf-8?B?MS9UeVpSSzU1RS9HQWtFcXBKWDQ1dFVRelBrNmtNVEkrYmdBUm5SUklXK2tG?=
+ =?utf-8?B?N2JucUkvWEE1VkxOVzJ2SEhVRGU4VmpmcXBrQnYzOWdGWlo3YkVZTEVWN1Jq?=
+ =?utf-8?B?bzNKNThGZ05LbFBtVUxaeUtmbUY1elNxRk5CRE4vSnR1bDZ4VG9ZazdCcmNu?=
+ =?utf-8?B?eDBkRW9RTzFVN1NSU0RCVzg4dFlpNXhWMktwb0xMN3JjN0d4dGdYcmF0VFY2?=
+ =?utf-8?B?OHg1dGFxOHZleUxxUktua0FjQlBNOTVZRGtXekl6WEdUa1dHZzhjaWlGSWcv?=
+ =?utf-8?B?T2FYVEh4aStlRlY4dE5KQldObFNOc3lHa01TdWlKajZsYnNSRTdNTEVIUndJ?=
+ =?utf-8?B?OHh4MVEwdlU3bzdqWVpqdzNkNFJ5WUYydkJMeThDNFpmK3hTakN4R3UyVjZk?=
+ =?utf-8?B?MDN0MjNXZUpvK0haWnNJdDc4VmZsMmh5MWVPU3NGWHpHTzZ4NllwSmgzUU81?=
+ =?utf-8?B?RUlpbnBOYlNpb241ZC9SQUluZGZUWWFHQVRmNTR0RWU1WUMxVzVJQ0p3THBH?=
+ =?utf-8?B?SC9TN2puRkhVTzdFRFZZMitKeEZWeTY2SlVlOFNaWDdWSFhYMUdxVlllTTgr?=
+ =?utf-8?B?Z0JWUWFNT3FibmtWRG9WWGJjbHB0S25uN1VFTllrR0hEQzFlV2NFY2JSdTRp?=
+ =?utf-8?B?b1NtVGwxWDdWM0l6OUw3L2RCQ2l5TEdVeHBqcFZTTEsxc250UFRvT3hKVzJR?=
+ =?utf-8?B?VnExQzZDd0hseXkyNWhHVEY1enR0NGpHNFlNR1FSbVVmU00rOFRUVkhFVEp5?=
+ =?utf-8?B?M0hEbGo5b0p0RTFBbDBqaVhFM2doNytZZ1dST3hxVWZlZDQwa1pka0lGVFdo?=
+ =?utf-8?B?bzdRdFZUOEVnZGoydnR0ZVFJdS84SjBUdUNnUTdjZjJ0bzFZc2Iya3pGVFFI?=
+ =?utf-8?B?OTAreHZsVlY5WGU5MW8zNmNybG9GSFhIK1JIYnB4Qlh2TmlYSUFJN3c5Y1pj?=
+ =?utf-8?B?OW5oRlFQVzNWMXNYUEdlNVgxRFlqa1VuRnhoRFV3c1VIcVBuajdBaVpSR1cy?=
+ =?utf-8?B?cWdWcVdwNDRrNFpnVURlZWdxRnZRallCR2g4UmtHYk5QMStKT3h4S0dWczZU?=
+ =?utf-8?B?Zk0xZ3FjZDZybmhISjBCYUNGdUg0dCs5d0ptVk9XS3U2cENGT3pWUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a5ce28e-0c75-4b11-559f-08df2fe39644
+X-MS-Exchange-CrossTenant-AuthSource: TYNPR03MB10226.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 02:24:23.5983
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1YK5k/NNcyvC0tEguZcpeMoN3wywSk/jaVUnewq1XrZi4wxgiHJslAW4b5j91FESFNsapALXPAiWB5Ufh8rG4tIAN+wC/lyJF6KFxoNJ1B0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7572
 
 
-
-在 2026/10/21 17:48, Wandun 写道:
-> 
-> 
-> On 10/21/26 17:13, Jinjie Ruan wrote:
+在 2026/10/21 23:08, Jerome Brunet 写道:
+> [ EXTERNAL EMAIL ]
+>
+>> The S4 requires additional clock control bits to be turn on while enabled.
+>> The S4 has 8 TDM lanes, instead of 4 on previous SoC.
+>> Update the widget accordingly.
 >>
+>> Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
+>> ---
+>>   sound/soc/meson/g12a-toacodec.c | 49 +++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 49 insertions(+)
 >>
->> 在 2026/10/21 16:30, Wandun Chen 写道:
->>> From: Wandun Chen <chenwandun@lixiang.com>
->>>
->>> crash_prepare_headers() counts memory ranges before populating the
->>> allocated crash_mem array. The weak implementation used by ARM64,
->>> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
->>> two-pass operation over system RAM resources. Concurrent memory hotplug
->>> can change range source between the two walks and make the populate
->>> pass overflow cmem->ranges.
->>>
->>> Take device_hotplug_lock when preparing crash headers during
->>> kexec_file_load(). The x86/riscv memory hotplug path already takes
->>> device_hotplug_lock, so call __crash_prepare_headers() directly
->>> to avoid recursive locking.
->>>
->>> Sashiko reported this issue in [1].
->>>
->>> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
->>> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
->>> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
->>> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
->>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->>> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
->>> Acked-by: Baoquan He <baoquan.he@linux.dev>
->>> ---
->>>  arch/riscv/kernel/crash.c  |  2 +-
->>>  arch/x86/kernel/crash.c    |  2 +-
->>>  include/linux/crash_core.h |  2 ++
->>>  kernel/crash_core.c        | 17 +++++++++++++++--
->>>  4 files changed, 19 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
->>> index fe5a4b306aae..ac8df2edf2a7 100644
->>> --- a/arch/riscv/kernel/crash.c
->>> +++ b/arch/riscv/kernel/crash.c
->>> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>>  	 * memory resources.
->>>  	 */
->>> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->>> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
->>>  		pr_err("unable to create new elfcorehdr");
->>>  		goto out;
->>>  	}
->>> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
->>> index e6f23933a6df..bef008a0cb22 100644
->>> --- a/arch/x86/kernel/crash.c
->>> +++ b/arch/x86/kernel/crash.c
->>> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->>>  	 * memory resources.
->>>  	 */
->>> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->>> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->>>  		pr_err("unable to create new elfcorehdr");
->>>  		goto out;
->>>  	}
->>> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
->>> index bc087124cd78..28e7a81cf263 100644
->>> --- a/include/linux/crash_core.h
->>> +++ b/include/linux/crash_core.h
->>> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->>>  				       void **addr, unsigned long *sz);
->>>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->>>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
->>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			    unsigned long *nr_mem_ranges);
->>>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
->>>  
->>>  struct kimage;
->>> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
->>> index faa0f22dbb41..8a861a946e26 100644
->>> --- a/kernel/crash_core.c
->>> +++ b/kernel/crash_core.c
->>> @@ -16,6 +16,7 @@
->>>  #include <linux/mm.h>
->>>  #include <linux/cpuhotplug.h>
->>>  #include <linux/memblock.h>
->>> +#include <linux/device.h>
->>>  #include <linux/kmemleak.h>
->>>  #include <linux/crash_core.h>
->>>  #include <linux/reboot.h>
->>> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->>>  	return 0;
->>>  }
->>>  
->>> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> -			  unsigned long *nr_mem_ranges)
->>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			    unsigned long *nr_mem_ranges)
->>>  {
->>>  	unsigned int max_nr_ranges;
->>>  	struct crash_mem *cmem;
->>> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>>  	return ret;
->>>  }
->>>  
->>> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->>> +			  unsigned long *nr_mem_ranges)
->>> +{
->>> +	int ret;
->>> +
->>> +	lock_device_hotplug();
->>> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
->>> +	unlock_device_hotplug();
+>> diff --git a/sound/soc/meson/g12a-toacodec.c b/sound/soc/meson/g12a-toacodec.c
+>> index 21941ee552c5..9cfed3702354 100644
+>> --- a/sound/soc/meson/g12a-toacodec.c
+>> +++ b/sound/soc/meson/g12a-toacodec.c
+>> @@ -41,6 +41,9 @@
+>>   #define  CTRL0_BCLK_SEL_LSB          4
+>>   #define  CTRL0_MCLK_SEL                      GENMASK(2, 0)
 >>
->> I think this patch conflicts with my changes and would also conflict
->> with the implementation of arm64 crash hotplug.
+>> +#define CTRL0_BCLK_ENABLE_SHIFT              30
+>> +#define CTRL0_MCLK_ENABLE_SHIFT              29
+> Please follow the indentation convention in place (2 spaces)
+Noted with thanks
+>
+>> +
+>>   #define TOACODEC_OUT_CHMAX           2
 >>
->> https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
+>>   struct g12a_toacodec {
+>> @@ -141,6 +144,16 @@ static const struct snd_soc_dapm_widget sm1_toacodec_widgets[] = {
+>>                            &g12a_toacodec_out_enable),
+>>   };
 >>
-> Have these patches already been merged? My current work is based on the latest
-> linux-next. If they have already been merged into the maintainer's branch,
-> please let me know, I will update my tree and rebase/re-adapt my changes accordingly.
-> 
-> 
-> Also, regarding the changes in kernel/crash_core.c: it looks like we modified
-> the same spot, the change is not wrong, is that right?
-
-Hi Wandun,
-
-However, I think someone should have informed me in advance; otherwise,
-doing duplicate fix work is pointless.
-
-I see that part of your patch series modifies code I previously changed,
-but I was not CC'd.
-
-> 
->> arm64 crash hotplug:
->> https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
-> 
-> In addition, if arm64 gains crash hotplug support, the code there would indeed
-> need to be modified (to avoid a deadlock). As of now, arm64 crash hotplug
-> support has not been merged yet either, has it? I just want to make sure I
-> haven't missed anything.
-
-Yes, you are right. If your patch series will be merged soon, I will
-develop based on it.
-
-> 
+>> +static const struct snd_soc_dapm_widget s4_toacodec_widgets[] = {
+>> +     SND_SOC_DAPM_MUX("SRC", SND_SOC_NOPM, 0, 0,
+>> +                      &sm1_toacodec_mux),
+>> +     SND_SOC_DAPM_SWITCH("OUT EN", SND_SOC_NOPM, 0, 0,
+>> +                         &g12a_toacodec_out_enable),
+>> +     SND_SOC_DAPM_SUPPLY("I2S BCLK Gate", TOACODEC_CTRL0, CTRL0_BCLK_ENABLE_SHIFT, 0, NULL, 0),
+>> +     SND_SOC_DAPM_SUPPLY("I2S MCLK Gate", TOACODEC_CTRL0, CTRL0_MCLK_ENABLE_SHIFT, 0, NULL, 0),
+> BCLK Gate => BCLK EN, same for MCLK
+Thanks for pointing this out. I’ll fix it.
+>
+>> +
+>> +};
+>> +
+>>   static int g12a_toacodec_input_hw_params(struct snd_pcm_substream *substream,
+>>                                         struct snd_pcm_hw_params *params,
+>>                                         struct snd_soc_dai *dai)
+>> @@ -226,6 +239,16 @@ static const struct snd_soc_dapm_route g12a_toacodec_routes[] = {
+>>        { "OUT Capture", NULL, "OUT EN" },
+>>   };
 >>
->>> +
->>> +	return ret;
->>> +}
->>> +
->>>  /**
->>>   * crash_exclude_mem_range - exclude a mem range for existing ranges
->>>   * @mem: mem->range contains an array of ranges sorted in ascending order
->>
-> 
+>> +static const struct snd_soc_dapm_route s4_toacodec_routes[] = {
+>> +     { "SRC", "I2S A", "IN A Playback" },
+>> +     { "SRC", "I2S B", "IN B Playback" },
+>> +     { "SRC", "I2S C", "IN C Playback" },
+>> +     { "OUT EN", "Switch", "SRC" },
+>> +     { "OUT Capture", NULL, "OUT EN" },
+>> +     { "OUT EN", NULL, "I2S BCLK Gate" },
+>> +     { "I2S BCLK Gate", NULL, "I2S MCLK Gate" },
+> Audio signal does not go through those Gate elements
+> They should be supply path connected to OUT EN.
+Thanks for your guidance. Is it correct to use the method below?
 
--- 
-Best regards,
-Jinjie
+  {"OUT EN", NULL, "I2S BCLK EN" },
+  {"OUT EN", NULL, "I2S MCLK EN" },
 
+>
+> --
+> Jerome
+>
