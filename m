@@ -1,88 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792693884;
-	b=O+4hT5tBhK4v40Ct9XRciTbVV60jtK4idiwROPghJwy9b+ie6l3DFIKziwQw8chnq8AG
-	 LlIpB9UFA7qFJeuS8o5XifWj4umcV4xd+3NZasv2GBPLILimKR23l3+A1baN2HzNsEyRA
-	 JySc2kqUkCL0Y5H2PGGJG2NqKeNIO1v/+q1Y/GTVhsIU/xoffBgNHTcfVV6KqcH1JLp02
-	 IfdMiOMUNmeKRccCBQS9+zOYOpu+2Zl76IBl5SNi5NDaho94jkfvQNnWlNoH89c5r5A9v
-	 TZFfVlghfP6KDagnDTTVbiRBvMwqExul26CRuiunsWpJVE1GGx2rerPREwFfYxqB7QQ==
+	t=1792693945;
+	b=ALlIU5PXJR6Ckdkyo2GoKG/cM5rmIaw0UneqdXJTn/P9ON7+BksIHdBrQebJ9VhQyKIu
+	 mHDszcx6qt12QNDb6ke+IWe7+Z5cp9hLZ2YX2PN6JJaKEmdjERq09tetNn0MC8ARW7f0D
+	 JiITCaO4o0rc0L3Vc4NHLUf2EDV+fZ8ke5jxbX/88/nUwDXaa13Df8wYXA5WhBRFPcHPx
+	 dQQtMlFGak7eHa8MN7tYqy+Vi8Inl0kwovzNNDHbQAg5JFKk21L30Apy69stDlmliz1JC
+	 oZpjn3YTwAjqU6dsLBrgnmkWegDBBl6qWCtB64ENz3c49V+1hPceptUr69cOYwCk2DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792693884;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=NKtpVjHIm1REdWtopBuEh9y7AbksNfVL8iL7r2iisCc=;
-	b=TNlyM2c7IjwJxD7pFGftaQI3Egrr32hOMMobTLvtQkU/C6YmfO3tMLnyXj0atEnrv0X0
-	 lAP7TUfjY74jMb2CSwhWkxVwf46OLX4qPBaP5H/0eCoQPOq3x1wpBUhuY9wC2DNcnufva
-	 n8vKhTOVQmWTE4qEM4oPtwHa6UgsKtNUkfoVk2ozcOnaKybIlOpjijnyk8QSNkxPvpRWo
-	 itJRf73KsUEqfVSz+2D6BknrUkQVXRQRdd4HbfLgodWu3QK2RwraRee2uzTehMlF6dsxV
-	 +HTuzbkTOIQ84hOJRG9ddxdLVbtBaYbyWs8AgNfvMh0utcPadxIgB6Piynq0uly+TGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792693945;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=DQi+ERJyD3sfh40jg8gA/Z3Y+m7AgqIVEp/8MzWx99M=;
+	b=JBDBIcQTABr3aQBAvFLK49cDS+2E7uA2XODyGUcp9AHpfCoXizH5gaXILiCGnYoCQYoG
+	 WWpcRN2uCrBQO1ba53pAWhv2E8MEwShMCjxwwPKR6VSjCTeG5rixndagvWEqoVXOAxOHm
+	 /rYa8Sna1E7YHGp8FL+SZI9JIF+DbpvzuFrqTBzs9hK42jKKvkfn1YgGDtNVtGWfHKZW6
+	 W2QVw2OBja8yu0uXmTBBSC1wAsAzvXPRAaSHqtW4C2FtK1bLRBkl8T9GEW1HcBqZ85U/n
+	 HpZmeWWNonX9BRjkLJv03Yj5drmfQPL/bHpuNwE2J2cMtQ61XQoXbazeDYLOpk5SzMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Wt5f+TP0;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0pqLAYXn;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3078360A3810
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 18:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3078360A3810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37227606B7CF;
+	Thu, 22 Oct 2026 18:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37227606B7CF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Wt5f+TP0
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso1010145e9.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 11:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792693882; x=1793298682; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NKtpVjHIm1REdWtopBuEh9y7AbksNfVL8iL7r2iisCc=;
-        b=Wt5f+TP0seN07sHS0NArVA175mcjKLFfy33ZTLF97QbrlKxzuHd1raHcSTAbYeI7q0
-         CJ+qd87vQ+EF/c8hJN3rN6aJ750ODZn0ra8VlqBa/3BOzO+SSv82OM0tB9oG+9Br3kXq
-         RWi/qLcX2Pd4IHrLqEV4BFm8XVX+7Za+h4GaDc8+Ufs7dd74J6R0wkm5WW5F/MtWHR9D
-         Rb0UBQz/ZPufn7et5xX4mcDHyXSnHStltbUZ8uULahTFZ36Y6XvDNiueFS24UKlGWvTP
-         eX/92/hVKsiDYdbkkyjHMPrrBMU65ETpZAghNTP6gBrDX/zaccq1Fj9pN8SdHJkkGLPB
-         /PHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792693882; x=1793298682;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NKtpVjHIm1REdWtopBuEh9y7AbksNfVL8iL7r2iisCc=;
-        b=H6priIrcapvv50tvAr+jkK+vtuQpVVvskl6eLN/tZsu+pQcq0uKzIDTPG3s2akY2po
-         SusYQPZscT4BT8W7BEWUrPq8R/fSN8ia/FrcIKU7AXN4+tE1ee7xYttLTq4acl4AM+2h
-         z+90V99I3rc/Cc439lULHu7wW50/coiNUZ16iF/mwDSfM7suUIReFxav+L9azbNPY3e2
-         RR4kfewW4Q/lAcMJlofs42HvEBbWhY8Ib95xfO0asBDaRHYUBllHmbdq/l6vwaQA/JrR
-         A+SZgrSL5sprYrbFvzCaIoxKNdObEqpfj001uliZfOjj938QeCm1O4B7sR6Z12UOFhVt
-         V9EQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhJFNOW/+sc9gbj7OB4qbA7VioGXtKaOPT8C3dK0q7tLTtC91O+TVlp1OroXKBz16AORhovc5l+BSt@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvfUoXyRS2NTVxPgqswe3/pLpWylSEjH8/gexpYkISs2I0Vg8Z
-	I1qvgB03skkNgcN/vcIgKfRX9mxc9Vvb/On48FYDeCSfsngVojqt9kGW6euBdazQhJM=
-X-Gm-Gg: AYBFou3rcWIJRhV/rpVmqNfsRPJfxiC9PReBhsXbUw7l+9iWVduruG7oCwZCMBnU0II
-	U/HnPoWfAzfUCjeo4uP05S1HBKUhKmI+3xYAuG9FXLDYsTSUNwHdmaz8PCcwuS5aH9hf83+WGqH
-	4PMeRhNTVCgFa5T2UIMy1qpXt+vgurwYzxvT82ZKvUT12P0A43+ONWqElxWNbI93XaGbLeEXMtD
-	Zxh+vcfwLho5fGl0fCw4qDxAS4d0G/YQGKCdP56Y/4rCBM8EnThvkJnEBYUaBKSufFfdtzqnuda
-	7GJCOTdxGaxAC8jMBi/DYSABEkZgyqVo0x5sDfNyGmiycZ+MfSXkWf52ap1k+0+EfVX3KNagIX8
-	WofKW2n9/cdkdKX54c0tmJPZryDKtrJfXS1cVWDJsNHQZPeGzwnst/A70XoTzj5eY7IwMIcr0Yj
-	CRZ2hs88tcK52IiANYch4PaXcL+/DQNfGkwDnJZSx//G2mpn8rWYryr12gy+S5Vpke9OUtY9g5c
-	SoiBmF+W4zBcZjCTY/98GOy11YTz+ce0a56BFRQv53Vos2wV9eNML3pwQVLBCsIOJTdEWutWqmJ
-	VQxD3QwnVZf3ah+k9I4v/FOvA0hS8w4BUpiU/NqXxQ==
-X-Received: by 2002:a05:600c:540f:b0:4a1:dfaf:f465 with SMTP id 5b1f17b1804b1-4a1fd8cde00mr114350305e9.4.1792693881668;
-        Thu, 22 Oct 2026 11:31:21 -0700 (PDT)
-Received: from [127.0.0.1] (host-79-21-165-229.retail.telecomitalia.it. [79.21.165.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21143094fsm4556975e9.1.2026.10.22.11.31.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 11:31:21 -0700 (PDT)
-From: Carlo Caione <ccaione@baylibre.com>
-Date: Thu, 22 Oct 2026 20:30:30 +0200
-Subject: [PATCH 4/4] arm64: dts: amlogic: s7d: describe the GIC
- virtualization regions
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0pqLAYXn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=DQi+ERJyD3sfh40jg8gA/Z3Y+m7AgqIVEp/8MzWx99M=; b=0pqLAYXnkRPf5E9yN6b/T630PE
+	IsTiYko2hx2nYIdLW4S4dY00KtvqwrvYtgQeidcq/xpbIkoLn357EMe5adW/J7N2QACE1XubeY1sm
+	wNWP4pfgM6661puT2UTBcPqBOw5Hzo3YeBTpPjCKQQF2DnBKX8pl7s5C3kG1N8uW5AGc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xJxaI-00CJMm-GV; Thu, 22 Oct 2026 20:32:14 +0200
+Date: Thu, 22 Oct 2026 20:32:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Heidelberg <david@ixit.cz>
+Cc: Coia Prant <coiaprant@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 3/3] arm64: dts: rockchip: rk3568-photonicat: enable
+ SGMII LAN port
+Message-ID: <5db14c14-2386-41cf-8b66-ba248d49fd20@lunn.ch>
+References: <20261022025844.150320-1-coiaprant@gmail.com>
+ <20261022025844.150320-4-coiaprant@gmail.com>
+ <e7f68299-1c0d-4b0f-948b-4835086c0df8@lunn.ch>
+ <fbd174d9-261d-4fed-b26e-2990de7af2d0@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,50 +70,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-upstream-s7-s7d-gicc-size-v1-4-8285053cf4ee@baylibre.com>
-References: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
-In-Reply-To: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fbd174d9-261d-4fed-b26e-2990de7af2d0@ixit.cz>
 
-The S7D device tree describes the distributor and the CPU interface of
-the GIC-400, but not its virtual interface control (GICH) and virtual
-CPU interface (GICV) regions. Without them the GIC driver does not hand
-the GIC over to KVM, which then runs without the in-kernel vGIC.
+On Thu, Oct 22, 2026 at 07:13:06PM +0200, David Heidelberg wrote:
+> On 22/10/2026 18:58, Andrew Lunn wrote:
+> > > +	sgmii_phy: ethernet-phy@3 {
+> > > +		compatible = "ethernet-phy-ieee802.3-c22";
+> > > +		reg = <0x3>;
+> > > +		max-speed = <1000>;
+> > 
+> > Pointless. SGMII cannot do faster, so there is no need to limit it.
+> 
+> device-tree is a description. whatever the device can do should be there,
+> 
+> "Maximum PHY supported speed in Mbits / seconds." thus 1000 is correct value.
+> 
+> thus max-speed <1000>; LGTM
 
-Describe both regions at their GIC-400 offsets, as S4 does for its
-GIC-400 at the same address.
+I did not say it was wrong. I said it was pointless. The PHY will
+report what it can support, which will be speeds up to 1G for an SGMII
+PHY. The max-speed property will then be applied, and does nothing,
+making it pointless.
 
-Signed-off-by: Carlo Caione <ccaione@baylibre.com>
----
- arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+max-speed is interesting when you have an odd design, like only 2 of
+the 4 pairs are actually connect to the RJ-45 socket, limiting the
+media to 100Mbps. Using max-speed in this situation will remove the 1G
+speeds from the supported list, and so it will not try to negotiate
+such a link, which will probably be successful, but then data transfer
+will fail. If the PHY supports downshift, it will then drop to
+100Mbps, but it can be confusing because everything says it should be
+doing 1G, but in practice it does 100MBs, or nothing.
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-index 059a1bf37584..b77ac8898d16 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-@@ -85,7 +85,9 @@ gic: interrupt-controller@fff01000 {
- 			#address-cells = <0>;
- 			interrupt-controller;
- 			reg = <0x0 0xfff01000 0 0x1000>,
--			      <0x0 0xfff02000 0 0x2000>;
-+			      <0x0 0xfff02000 0 0x2000>,
-+			      <0x0 0xfff04000 0 0x2000>,
-+			      <0x0 0xfff06000 0 0x2000>;
- 			interrupts = <GIC_PPI 9 0xf04>;
- 		};
- 
-
--- 
-2.56.0
-
+      Andrew
