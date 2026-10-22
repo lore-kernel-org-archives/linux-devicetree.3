@@ -1,85 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657485;
-	b=cUyAlJV1XDYkQzcbXVbbtaORcQF5Vg5isnVcdSSrqOk5PIvJBUuydUfja7dD0/w1HKyO
-	 OyODJJTy3S7g8M7+7KaV5hLHzzVsq19jIJxcwAxyRZSwIrpFUBaSwFX/tObCqsGnNz88I
-	 /qgRnMG6seNdOrh5YRrdO7027LfkCt+dOL02Hr9P2IXIDflp9+UcVLKb1LJKIJWId0OJ9
-	 8mi1fdC0yw+Ch5waeQuYgYVghnW8MmR+ZPrjfR+EcRpCpKUXwCINjBKlQzMYqAF8/ok+w
-	 lpBignjPTxqfU3m9DCyMeQUIyTX0eaLcnn8fCXzabkTz17+u4qql4xENIn5Sr5qMmBQ==
+	t=1792657768;
+	b=0O+EBLE/xVgvAuRD21LhvSHGArpUppuGWfVSTGY0dMYIMlJf9c5SrDz/yo1+TF024FfG
+	 wIZD0fO/+5jIaBN672W3tqVp7JpP3gcIOEqgRygpNxImBRXBe7L90bDH6BxB0/q5aDF08
+	 OzwuWvU7cN1cLCc5c/Rsg58FDE+lPFIjNWc/KB+HViq1aTbUjeOZiRA0LRPPhvtSNkjWO
+	 z6PB/iYSJzm5Kl5VTFqEH0BJT0xYnH23aDYf5rNqE6Ez8JPXV499+Eqd6ip+bn+OFUq4f
+	 8NDugCCWrhKc/8kgGSWeGtMD4qgKPiv7ljAWiZZhrraVhqZl7awC550o6qPgXR8JWQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657485;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=prQr/G7jAmWg2TrFoI2eyPO/q5JOANgC6w4svDt10+Q=;
-	b=5DHiXsBcTKTJ1gQOHQvRVOADXNbTbnYrMLsL0qhuHqojF7QULze9bIEftX/mu7yKReah
-	 yFxEMv+BxtAf5NMfHNXFbOsPGRMjx7vTLUuSKDxQ2wSgIfZn4MEYoN7148hngtIcRdEP6
-	 hKrJHUSwOkXrHGwTyKA3P2os7gD8cERbHJra99bzrHXkWyUzO9etZAfZaOiD+Pqy3iAMC
-	 wBjlUmMRHWxX1QVCd+FXcoBF7fhWbWxRenA6TL+md1wpvGNetdHU/wMmxTgrTqnXJqZG6
-	 F/JWqUu6nrRGfQvHrPOfoLGMnV+NbUs5ivmPeB8FhTSea6e4nk0FVVMaJNxRltYmm8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657768;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=XRy6xJ0NdD2JWEsRVlTK9uif1XbyICzf3XzOhhtbR8s=;
+	b=IQYuSmG+L8VUiNI11wJU4utJBjnMl/3NwjhF+SUDBO5OAndvHAPR96xFcW9osuB7Ah+W
+	 2jVCl9IyuSkuBGl+IfrsEWYXnEsJINv87FgQB70JTF6HRaFbtC42Bxa9+OAmiJYkbzsab
+	 WIirjZ8tl+LNHMzyfyMKAro+e7leL7fIeJ3/LREz7DTL8xEgVGhiH3qOgD/3WN02ePwsG
+	 7jYzrotE1Se32DIVALPX/OIoKBTHgcgKoIYpS8ZRXuqM9k9vRYgdcvmrmtdfkI48RmS1y
+	 jvgGvYzVzWgwPlpzvSUDa+IySL2the4F4Q1MyNIhDLQ1CIrMtHeG7DnZzY2vjWlOcZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GbG0Pj+Y;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ZDbV4aZV;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA00606A31A;
-	Thu, 22 Oct 2026 08:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA00606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FA2606A31B;
+	Thu, 22 Oct 2026 08:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49FA2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GbG0Pj+Y
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8Lnps3194744;
-	Thu, 22 Oct 2026 08:24:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=prQr/G7jAmW
-	g2TrFoI2eyPO/q5JOANgC6w4svDt10+Q=; b=GbG0Pj+YoCvmrl/k9UOzrw8f0e4
-	zp7KtIyR+55TtGu1FVEbqsSDZLEAGD4JuqtbhHSSjzM4JXkr8LlufsTFIQgD2zVc
-	aF0Cx+5aGm7ql8ITC5EX8KvClUEp7fR4F2H0va8Pwz6BAtG9j9WUdLqHbLOAKim6
-	WbxvIiOacdDdjcEfj3j1cLJ1zi3GiuItFWkWCm3oSyJ6IZlLOIT2apTNkxZSrx6D
-	+yHwbTwvYSfzy45KdMPMt1y0WrmVC5z+WStYAhfY88hLDh31cD02/QSPZxwPCTEc
-	BigZ6JW9VwQDN5NPyngr9oU2ZCSF0y4ZwJR3Iif5Oxm664w51w78EVwByPg==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq00c5-82
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 08:24:37 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7gPZM1894752;
-	Thu, 22 Oct 2026 07:42:26 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M7gQK51894757
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 07:42:26 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 3BCCF678; Thu, 22 Oct 2026 13:12:25 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 2/5] arm64: dts: qcom: shikra-iqs: Add LT9611UXD HDMI audio overlay
-Date: Thu, 22 Oct 2026 13:12:17 +0530
-Message-Id: <20261022074220.989787-3-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
-References: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ZDbV4aZV
+Received: from [192.168.1.182] (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C7BE4802;
+	Thu, 22 Oct 2026 10:27:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792657635;
+	bh=mtcrneZGr1j13dZP412s4dcb/2T1YvG7UCDcvMhhrmM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=ZDbV4aZVrUuFHIW7t4hBGA2lGsjftHDmtR4Ue18XLCagT2ZG2NP9/zpvdWyDbGxtY
+	 cnQsgEw1Lix74/WEKGrWdHSXAne4rAH524JCd1W4Y514auSg0QCuwJjGhggnC2IBpD
+	 qE5ZoAolzXBXeaJyWj6/z/Z1CaPmkKYP9lPpYwXA=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v8 0/2] media: i2c: Add driver for Mira016
+Date: Thu, 22 Oct 2026 10:29:07 +0200
+Message-Id: <20261022-mira016-v8-0-a7adc039e938@ideasonboard.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,126 +56,225 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: RAflZPNrrUTKZGxpW8nHs2a5nbQVyRkh
-X-Proofpoint-ORIG-GUID: RAflZPNrrUTKZGxpW8nHs2a5nbQVyRkh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX/V4FiBAY3Hyc
- qcSe+sNGe0lOUmx7v6beAzhrlB8pcAt8pBbsdtCbryCBmg87guxkjNGrUMoqHHuLN40qDTlWlT9
- 6TIuX8Ys4nRp9eQgvHmoubq+fxbSfFs=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9c846 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=ttgH6qQV0czHaN5LAcgA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfXxbtJt2BUKmNK
- RS0Vl11Tx8qaFnaYG2ZmIp6E4bqsPqvRx+BYBCS0SAWSJFU4ZRrempW7BDFZpmjs4Vx6itdTSaR
- Quwf/wN0FL0/8+gdBaOyBEeGG6t/XjRAEgh+WbtDVr27baUIIH9VrOaB4yWpEuH25LhygJd4Nd8
- OSoh3U6VWc9WC9fn83QKKrQcaDd/WoUezfBqzCifXQ/2Z4Mmn7CQkW/JzSqHL534Aqb6nB5kr7H
- 19t/osg6rYYG9D8STIWfA03DeIueB6mq5Nk7/jECCGcFydLg8a42yOwyC48QD62N7nYxXMLuGAb
- PcEgL1epJP4JMQ8XFrpnxYiNlsjyyl/Wdch87yF3hwJAhJckAz9vsxGaGAc9RMqTcudZBV/9NEm
- Muakj+GekOQrUYZHN2TJ2kv50Bz8FEmn8WFKUDAYW8pKrdjoZHxWmGCbqQ1ARFUbTyYKsB5h6Gn
- f4lHLWfFhwK23xxEj7A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220033
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XRy07DMBAF0F+pvCZo/BybFf9RsfAr1EhNkF2io
+ ir/jl1EkwVejnTPvZZ8IyXmFAt5OdxIjksqaZ7qoZ8OxJ/s9B6HFOpNGDAFBthwTtkCVQNidMo
+ pJnkQpKY/cxzT9d50fPu9y5f7iP7SeEucUrnM+fs+tdCW+2vlj9aFDjDYEYDyOAJCeE0h2jJPb
+ rY5PPv5TFr5wvZcbJxVToMf0XGrAWOH8z3HjfPKHaC2Cg0PSna42HO9cdHWjQQJwlNOfYfLHee
+ wcVm5MMZyYZ1mIDpcPTgFKjeu2nr9Fj8GFbjEDscOx8o1097Uh0sp4R++rusP8kEHeTECAAA=
+X-Change-ID: 20260902-mira016-77eb6b6253d4
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Tarang Raval <tarang.raval@siliconsignals.io>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6990;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=mtcrneZGr1j13dZP412s4dcb/2T1YvG7UCDcvMhhrmM=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq2clgv0d8fuxq7uYvmkQDwsrcdiUZW+wX/mZbu
+ utAMTvIxmSJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatnJYAAKCRByNAaPFqFW
+ PLksD/9KLitvqoGKk68zlltFZi4KjNX6WJWoQCgGF8diVZGmI/aIAOrQoFp22pxjsgzVpCbdPe8
+ 92yf0aH/FO8yznx5kC4/Uu2ynvCTxJwCmbRETbShowvd+SAwbFd2yT9+ePOp/pw+QO6x0yJQT+1
+ LBVRcDd2IPCZ4M8vvdT4YjrWYTY79iCBns4Wr2HA83usErKbvDRVSSHtPL3xZwi2HTY4tNIyxYO
+ IB0Wht0aFei7HXsMggUXSifz+6MAdoALtUBmICXAHtIu/xYQ1AfdhcNA8/zg3NQdV4BAEe7Y+Pv
+ slyiGV1Fl76soDePeBqY5A7O31ZxifmlshOgJ/Y3vjLRt0/eJnMn5ji97czXjdVUfXmT4AoqRRu
+ 5tD4zQCXXPbCm29/5+bjwdLqulgrlcbZ1WmYED9SuwYuD7KyH9rXHW2gef+WcKXTUniP/yxS0mi
+ /b5Tebs73Ly6eQQrSA3okn7zPFp98eA3KlUjUT01ePjyPA8n6Sa3aePRVPvG5aEXQkmp+SLDgmQ
+ BwxVmCqVxf4S1JY0c/Ru+GqTK1izYj8yA0E3jkBJrleRCETVNug40DjPMlCi5QiBiJvZFOMpwb7
+ A54XvmB/LfiancID122kiTZArmzkIboC7dhYA6fKu0pA7yiXqbrbxontkHTrtRxLEWhB1qfSiL8
+ 6i4TMgrT0cZXHcQ==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-Add a device tree overlay for Shikra IQS EVK boards that use the
-LT9611UXD HDMI bridge as an I2S audio codec instead of the MAX98091.
+ams OSRAM Mira016 is a 0.16MP NIR enhanced global shutter image sensor.
+It supports 8, 10 and 12 bits luma-only image formats with configurable
+gains (only in 8 and 10 bit modes, with the 12 bit gains fixed at 1x).
 
-The overlay reconfigures the sound card compatible to
-qcom,shikra-iqs-lt9611uxd-sndcard, overrides the primary I2S playback
-codec to LT9611UXD, disables the capture DAI link, and disables the
-MAX98091 codec node.
+Add a Video4Linux2 subdevice driver for it.
 
-Add a node label to the sound node in shikra-iqs-evk.dts to allow the
-overlay to reference it, and wire up the new composite DTB in the
-Makefile.
+The Mira016 supports binning, skipping and embedded data. It would be
+an ideal candidate for the new common RAW sensor model.
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
+
+These features will be implemented on top of the new RAW sensor model
+once available.
+
+CI pipeline:
+https://gitlab.freedesktop.org/linux-media/users/jmondi/-/pipelines/1773224
+
+$ ./v4l2-compliance -d /dev/v4l-subdev2
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev2:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev2 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 11 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile             |  4 +++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts   |  2 +-
- .../dts/qcom/shikra-iqs-lt9611uxd-evk.dtso    | 36 +++++++++++++++++++
- 3 files changed, 41 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
+Changes in v8:
+- Adjust min exposure on format change
+- Collect Tarang's tag
+- Link to v7: https://patch.msgid.link/20261015-mira016-v7-0-828c931c5550@ideasonboard.com
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55..127c5c345eff 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -339,6 +339,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
-+
-+shikra-iqs-lt9611uxd-evk-dtbs		:= shikra-iqs-evk.dtb shikra-iqs-lt9611uxd-evk.dtbo
-+
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-lt9611uxd-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 69b0c34ec9c4..b920c96aba14 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -22,7 +22,7 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	sound {
-+	sound: sound {
- 		compatible = "qcom,shikra-iqs-sndcard";
- 		model = "shikra-iqs-evk";
- 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
-new file mode 100644
-index 000000000000..e308552e9206
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+/* Board subtype 0: LT9611UXD as I2S audio codec, no MAX98091 */
-+
-+&lt9611uxd {
-+	#sound-dai-cells = <1>;
-+};
-+
-+&sound {
-+	compatible = "qcom,shikra-iqs-lt9611uxd-sndcard";
-+	model = "shikra-iqs-lt9611uxd-evk";
-+	audio-routing = "VA DMIC0", "vdd-micb",
-+			"VA DMIC1", "vdd-micb",
-+			"VA DMIC2", "vdd-micb",
-+			"VA DMIC3", "vdd-micb";
-+
-+	pri-i2s-playback-dai-link {
-+		codec {
-+			sound-dai = <&lt9611uxd 0>;
-+		};
-+	};
-+
-+	pri-i2s-capture-dai-link {
-+		status = "disabled";
-+	};
-+};
-+
-+&max98091 {
-+	status = "disabled";
-+};
--- 
-2.34.1
+Changes in v7:
+- Fix power on error path as reported by Sashiko
+- Link to v6: https://patch.msgid.link/20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com
+
+Changes in v6:
+- Address Tarang's review comments:
+  - Remove unused macros
+  - Check for FORMAT_ACTIVE && is_streaming() at the beginning of
+    set_pad_fmt()
+  - Use mira016->dev where possible
+  - Fix pll_m_lut[] and row_length initialization
+  - Remove repeated writes to register 0xe000 from sequences
+- Use the raw regulator APIs: bulk api do not guarantee ordering, which
+  is instead specified by Mira016 manual
+- Implement soft reset handling according to the sensor manual operation
+  data flow
+- Link to v5: https://patch.msgid.link/20260930-mira016-v5-0-499a34ab8204@ideasonboard.com
+
+Changes in v5:
+- Rebase and add support for struct v4l2_subdev_client_info
+- Call pm_runtime_set_suspended() conditioanlly
+- Remove start streaming from register sequences
+- Break-out ROW_LENGTH configuration to a dedicated function
+- Remove start streaming from register sequences
+- Link to v4: https://patch.msgid.link/20260908-mira016-v4-0-1950504c131c@ideasonboard.com
+
+Changes in v4:
+- Address Sashiko comments:
+  - Correct XWIN and XRIGHT registers sizes
+  - Correct pll esc_period calculation
+  - Do not mix gotos and cleanup in endpoint parsing
+- Link to v3: https://patch.msgid.link/20260907-mira016-v3-0-b078a6793d65@ideasonboard.com
+
+Changes in v3:
+- dts: remove labels from example
+- Address Sakari's comments
+  - Parse endpoint early
+  - Do not overwrite firmware parsing errors
+  - use div_u64()
+- Link to v2: https://patch.msgid.link/20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com
+
+Changes in v2:
+- Address Sashiko comments:
+    - Do not overwrite cci_write() return error codes
+    - Don't call mira016_calc_row_length() in init_state()
+      - This would re-calculate row length at each open() call and modify
+        the sensor configuration even for TRY states.
+      - The call is also unecessary as:
+        - row_length is initialized in probe()
+        - mira016_calc_row_length() is called by set_pad_format() for ACTIVE
+          states already
+    - Offset the gain codes by 1. The gain LUT tables are 0-indexed while
+      V4L2 controls are indexed by 1. Adjust the gain index before accessing
+      the LUT to avoid and out-of-bounds error
+    - Free the control handler before the subdev state during remove, as the
+      s_ctrl handler uses the subdev active state
+- Link to v1: https://patch.msgid.link/20260903-mira016-v1-0-af0013ef070d@ideasonboard.com
+
+---
+Jacopo Mondi (2):
+      dt-bindings: media: i2c: Add Mira016 image sensor
+      media: i2c: mira016: Add driver for Mira016
+
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml |   97 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira016.c                        | 2361 ++++++++++++++++++++
+ 5 files changed, 2479 insertions(+)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20260902-mira016-77eb6b6253d4
+
+Best regards,
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
