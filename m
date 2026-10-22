@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792633950;
-	b=ZVWuphSv6DAx2IbVvQQt9a4/QQWIhuh/01u/7CuN5COTnUc4bKR2IFQbqYH4R4OoAFOK
-	 9NzxeFFnIbGRZgkL5oDTRefBqK3k9z4X6uiDCd7vfdxCf7/77c7VG5LiHJ8j1EpVm6kzp
-	 KUeBqu1YBZthPFf7mQaKuVJjRpkr+AyygPaJZS6sNjBpr1oVfmetdF7v6PM6PX1AD1EuD
-	 /pq8i4UhWvBXAV0c6RAP2wICk/CRlP56X8jq+bVS43G0bOcIljFwkXXH0/w2zPc3hXMZh
-	 TCI7Fu4j8Y85CxBSrGtlmlX70vX2Ioa18t14kX1AbDpMyMWXj9xpVT1uX4QzX+X7KGQ==
+	t=1792634468;
+	b=b+4aqelNfKBxPce2oSwOdJTXcS4L857RfAT8+OxVxQU72R8fiOyO6EslO6VikI+2h5ga
+	 1G/egWXrUza/oeuX6WMHauOUnVnUj8+smqOf1uOP5D3o5oyaFHptr9wEmBxGek6B7CAPY
+	 wGlVTGZpCJla9yNZi4NJZ97sZQ17MTytGcDUbYbxPRRPUhkyfldLhEpH/R56ARE3gP3TO
+	 ppnD61XPUgqjPOIxmyyFjJYQUs0XYl2kcQceV7Z8yMLz5aWEU2qMDrWxRRZFfucEPyTOt
+	 KkJVpPXu26pYL7APeN8jEOKFl8EMM0v4p5/F/880JoLlDdDzc0aRBrKSR1IJZJ/slKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792633950;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oEcX+xyBg4GgjpTEgn1K1AuPa9iDoTD61o0p3gixXks=;
-	b=ov42wDamPu71JNDoWznk+fbunvsGFemmrKDo3Vk73V57CZDDxBJ94ijZ5T7nUKoirqF9
-	 ijU0t4lk42tDFGI8+KQcidgR5NQg7yRvBRB3vwASbleemrUfWuuFdRSXU8aDZJmkMwI/1
-	 KfjVRVpnqENmNJmVhX9Lh6wuC1dws08XYct1csBL28A7vM9mpqEzlUX9RDbXQTfdCFuIv
-	 phhPRFGF5zE4NqbcBAeKHjReKw3tV7E7KaNkq0ptCHbM/XyGjMEOmviXpXF21bAzQp6RR
-	 kI0rvsv+Bh0ZqtzjszcqHx+ul5LfegNkppNjiR56xnAC0q2QNEIC19XmyFwmVzfpBsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634468;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
+	b=TsW8l/UCyh5OCp5iA7oqWRwA/AO4TZbKsSBOLLMWEDfNQzxhd0b8B14UgtMBMkbqLtlu
+	 Cm7R4nq8lWZOpIIWoWD026uWUXTYRbUZez4a7G5Db7dMl6BcIoIYQI2eNcs/jxGUKe1x/
+	 w4AXVadi06pxer6TndPgFkFzm0cpA4Yjs+gib2RwGchAAN9NCx0avMtOfEea9BqwANtDv
+	 3MneyhycFPubfMk2A2wgjbJyEIjhqjaXzGzmp/P+unCZoZnp+8I4hisEK7hlQOsNqXRn1
+	 zqkUchWnOSaubRYQ5+KSkcF8q+vNMfuDr5/h3GveeJzU3nX4L6tkyelW4q8ifDCpsew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMjWC6BW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC2D606A319;
-	Thu, 22 Oct 2026 01:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB8606A31A;
+	Thu, 22 Oct 2026 02:01:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDB8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMjWC6BW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4A21F000C1;
-	Thu, 22 Oct 2026 01:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792633949;
-	bh=oEcX+xyBg4GgjpTEgn1K1AuPa9iDoTD61o0p3gixXks=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BMjWC6BWuSytCeicB/WU3s9f01UzKTKuS66IjwVEsAMCVOg/F9JSp7DVS5jlyGOTx
-	 ffojMVW6BOqaJISDCKy/oQd8e11BNYjQoDbAzEhYbWCxH5V2mbkBVFgnqiD/PkyVL3
-	 xndSl3aUadJ2I6uzEHFfn6KguAvXRrtQPSAAnTfkgn5105kGpW5zP/CsS3Lm58Yp78
-	 Fl35AicX6/iH3ZjBy0Ziue7iXbYO7r9KG8hMC97ssLOkJuOoI4muKNGmMZHJKD9Zeo
-	 SYuYXp/fa1ekVrOyVkbPLv1Y2SZdxJTCn2W8EbAG+dH0SX1ICmdCwzHh0RCxWnA63l
-	 sCEqV3heoL+tg==
-Message-ID: <sashiko-outbox-180849@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: imx8qm-tqma8qm: Re-enable A72 cluster
- after ERR050104 workaround
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261022-8qm-v1-2-2a597cb3debd@nxp.com>
-References: <20261022-8qm-v1-0-2a597cb3debd@nxp.com>
- <20261022-8qm-v1-2-2a597cb3debd@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 01:52:28 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
+	b=Q+4ivRANcgbbFZT+RuqnOmzfQRgx/LVfmZmJnBznw3aijzTfLqiAXmQFPpHZ4wQr5N/a+UnSk
+	9QkwZygXGFsy6k2d0kw287r6cGCOPL2MK5xfPM3ACXVTWwq6O1+K0stbkZqxhIDb9q0MkhN+DRw
+	UTGHL86gM/CDOpMtrrbG38U=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j98WL5Vhfz1K972;
+	Thu, 22 Oct 2026 10:00:46 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2FEAB40563;
+	Thu, 22 Oct 2026 10:00:51 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
+ 2026 10:00:49 +0800
+Message-ID: <31d63208-3ef2-420f-a0c2-d9d6d49c5e21@huawei.com>
+Date: Thu, 22 Oct 2026 10:00:49 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,100 +61,194 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
+ against hotplug
+To: Wandun <chenwandun1@gmail.com>, <robh@kernel.org>, <baoquan.he@linux.dev>,
+	<rppt@kernel.org>, <m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+ <20261021083011.2170525-4-chenwandun1@gmail.com>
+ <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+ <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: imx8qm-tqma8qm: missing cpu1-thermal restore for A72 c=
-luster
---
 
-commit 187cd9d157965a8b6ed40b9b4b40d998a0f0385a
-Author: Peng Fan <peng.fan@nxp.com>
 
-arm64: dts: imx8qm-tqma8qm: Re-enable A72 cluster after ERR050104 workaround
+在 2026/10/21 17:48, Wandun 写道:
+> 
+> 
+> On 10/21/26 17:13, Jinjie Ruan wrote:
+>>
+>>
+>> 在 2026/10/21 16:30, Wandun Chen 写道:
+>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>
+>>> crash_prepare_headers() counts memory ranges before populating the
+>>> allocated crash_mem array. The weak implementation used by ARM64,
+>>> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
+>>> two-pass operation over system RAM resources. Concurrent memory hotplug
+>>> can change range source between the two walks and make the populate
+>>> pass overflow cmem->ranges.
+>>>
+>>> Take device_hotplug_lock when preparing crash headers during
+>>> kexec_file_load(). The x86/riscv memory hotplug path already takes
+>>> device_hotplug_lock, so call __crash_prepare_headers() directly
+>>> to avoid recursive locking.
+>>>
+>>> Sashiko reported this issue in [1].
+>>>
+>>> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+>>> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
+>>> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
+>>> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
+>>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+>>> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
+>>> Acked-by: Baoquan He <baoquan.he@linux.dev>
+>>> ---
+>>>  arch/riscv/kernel/crash.c  |  2 +-
+>>>  arch/x86/kernel/crash.c    |  2 +-
+>>>  include/linux/crash_core.h |  2 ++
+>>>  kernel/crash_core.c        | 17 +++++++++++++++--
+>>>  4 files changed, 19 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
+>>> index fe5a4b306aae..ac8df2edf2a7 100644
+>>> --- a/arch/riscv/kernel/crash.c
+>>> +++ b/arch/riscv/kernel/crash.c
+>>> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>>>  	 * memory resources.
+>>>  	 */
+>>> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>>> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>>>  		pr_err("unable to create new elfcorehdr");
+>>>  		goto out;
+>>>  	}
+>>> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+>>> index e6f23933a6df..bef008a0cb22 100644
+>>> --- a/arch/x86/kernel/crash.c
+>>> +++ b/arch/x86/kernel/crash.c
+>>> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>>>  	 * memory resources.
+>>>  	 */
+>>> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>>> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>>>  		pr_err("unable to create new elfcorehdr");
+>>>  		goto out;
+>>>  	}
+>>> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+>>> index bc087124cd78..28e7a81cf263 100644
+>>> --- a/include/linux/crash_core.h
+>>> +++ b/include/linux/crash_core.h
+>>> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
+>>>  				       void **addr, unsigned long *sz);
+>>>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
+>>>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
+>>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			    unsigned long *nr_mem_ranges);
+>>>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
+>>>  
+>>>  struct kimage;
+>>> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+>>> index faa0f22dbb41..8a861a946e26 100644
+>>> --- a/kernel/crash_core.c
+>>> +++ b/kernel/crash_core.c
+>>> @@ -16,6 +16,7 @@
+>>>  #include <linux/mm.h>
+>>>  #include <linux/cpuhotplug.h>
+>>>  #include <linux/memblock.h>
+>>> +#include <linux/device.h>
+>>>  #include <linux/kmemleak.h>
+>>>  #include <linux/crash_core.h>
+>>>  #include <linux/reboot.h>
+>>> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
+>>>  	return 0;
+>>>  }
+>>>  
+>>> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> -			  unsigned long *nr_mem_ranges)
+>>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			    unsigned long *nr_mem_ranges)
+>>>  {
+>>>  	unsigned int max_nr_ranges;
+>>>  	struct crash_mem *cmem;
+>>> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>>  	return ret;
+>>>  }
+>>>  
+>>> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			  unsigned long *nr_mem_ranges)
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	lock_device_hotplug();
+>>> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
+>>> +	unlock_device_hotplug();
+>>
+>> I think this patch conflicts with my changes and would also conflict
+>> with the implementation of arm64 crash hotplug.
+>>
+>> https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
+>>
+> Have these patches already been merged? My current work is based on the latest
+> linux-next. If they have already been merged into the maintainer's branch,
+> please let me know, I will update my tree and rebase/re-adapt my changes accordingly.
+> 
+> 
+> Also, regarding the changes in kernel/crash_core.c: it looks like we modified
+> the same spot, the change is not wrong, is that right?
 
-This commit removes the /delete-node/ directives for cpu-map, cpu@100, and
-cpu@101 in imx8qm-tqma8qm.dtsi to re-enable the Cortex-A72 cluster now that
-the ERR050104 workaround has been merged.
+Hi Wandun,
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> index f0e398eb2aad7..8cd6e75eb87a9 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> @@ -15,13 +15,6 @@ / {
->  	model =3D "TQ-Systems i.MX8QM TQMa8QM";
->  	compatible =3D "tq,imx8qm-tqma8qm", "fsl,imx8qm";
-> =20
-> -	/* Due to missing workaround for ERR050104 */
-> -	cpus {
-> -		/delete-node/ cpu-map;
-> -		/delete-node/ cpu@100;
-> -		/delete-node/ cpu@101;
-> -	};
-> -
+However, I think someone should have informed me in advance; otherwise,
+doing duplicate fix work is pointless.
 
-[Severity: High]
-When commit 5d20f1ccb3393a ("arm64: dts: imx8qm-tqma8qm-mba8x: Disable
-Cortex-A72 cluster") disabled cpu@100 and cpu@101 due to the missing
-ERR050104 workaround, it also removed the thermal management configuration
-for the Cortex-A72 cluster.
+I see that part of your patch series modifies code I previously changed,
+but I was not CC'd.
 
-In arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi, thermal_zones still
-deletes cpu1-thermal and omits A72_0 and A72_1 from the pmic0-thermal
-cooling-maps:
+> 
+>> arm64 crash hotplug:
+>> https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
+> 
+> In addition, if arm64 gains crash hotplug support, the code there would indeed
+> need to be modified (to avoid a deadlock). As of now, arm64 crash hotplug
+> support has not been merged yet either, has it? I just want to make sure I
+> haven't missed anything.
 
-&thermal_zones {
-	/delete-node/ cpu1-thermal;
+Yes, you are right. If your patch series will be merged soon, I will
+develop based on it.
 
-	pmic0-thermal {
-		...
-		cooling-maps {
-			map0 {
-				trip =3D <&pmic_alert0>;
-				cooling-device =3D
-					<&A53_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&A53_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&A53_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-					<&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-			};
-		};
-	};
-};
+> 
+>>
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>>  /**
+>>>   * crash_exclude_mem_range - exclude a mem range for existing ranges
+>>>   * @mem: mem->range contains an array of ranges sorted in ascending order
+>>
+> 
 
-Deleting cpu1-thermal also leaves the cpu_alert1 and cpu_crit1 trip point
-overrides in arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi unused:
+-- 
+Best regards,
+Jinjie
 
-&cpu_alert1 {
-	temperature =3D <95000>;
-};
-
-&cpu_crit1 {
-	temperature =3D <100000>;
-};
-
-In addition, commit 5d20f1ccb3393a removed the cpu1-thermal active trip
-points and fan0 cooling-maps from thermal-zones in
-arch/arm64/boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts.
-
-Unlike companion commit 72b6162dd6e2 ("arm64: dts: imx8qm-mek: Re-enable A72
-cluster after ERR050104 workaround"), which removed /delete-node/
-cpu1-thermal alongside the /cpus deletions, booting a board using
-imx8qm-tqma8qm.dtsi (such as imx8qm-tqma8qm-mba8x.dts) with this change
-brings cpu@100 and cpu@101 online without cpu1-thermal (monitoring
-IMX_SC_R_A72), leaving the A72 cluster without passive cpufreq throttling at
-95 C, thermal shutdown at 100 C, pmic0-thermal alert throttling, or active
-fan cooling under sustained load.
-
-Should commit 5d20f1ccb3393a be reverted completely so that cpu1-thermal and
-the A72 cooling maps are restored together with the Cortex-A72 CPU nodes?
-
->  	memory@80000000 {
->  		device_type =3D "memory";
->  		/*
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-8qm-v1-0-2=
-a597cb3debd@nxp.com?part=3D2
