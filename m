@@ -1,98 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792667821;
-	b=3gkeJISE9yvAYGfTgFwd4UMMcGk3+AhMheUhWjN3x0qPn95vqJxFG5LwWbt55lmg6i39
-	 5ie2M0rm6U82hI3+AWjEfJB/uOCjCFPjpe3oVCTaI1YIKXMfdQw63XhFENW57T5EHEEaJ
-	 qNzS3k3pSGh6KdyaI123Q7CpdS8UEPL1BYZMhd4m2ok8fhaSeRjIeDlKfRwbCjOTiZQI/
-	 orKJFw3CJ632P+79FY5RGD5ILF+BBo9bLmkv/4VI7bJyAEusvbAW3HiNDjXyLySw0Ibux
-	 ndZnhAB+9BQoa9+dEqNYpopyvt66lfpUAgvdFwB1ht9i4fH+Awnd4PMWYm8MKYiyq+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667821;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
-	b=jgM1xq8xOf+85O+rqXheZwQQmXoHZAEmwDzmutz7cr8RMdmRNCa5mhtbSkh5dyntcRHR
-	 G46t/Ns1cxYJo7wgPEcdDh06WUd/7gtVpFNpYHBJHx8K/pNQYdZ7RsuNcx2cRiYlTaUcB
-	 mMMq9qx/YPgXl9WHD9G49WiQ96Qgjak3a9v+URqDP3mX5jhcByFQq/5jqhOpVWD2zJAQ3
-	 LESzU4ofvpq/oWRkfq4b9hkiqupw4mN58i4pGaIxd0GnV13sPE+CpWtCNQol6wcm6XhyR
-	 ZldsjPrJbpzWNU5gZ26WKd0RNIurjERxpH5S2BIX+Tbcbn4PDR3pmuQhl+XqfRsqMbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=axis.com;
-	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=E0AwbR91;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.39
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792667927;
+	b=v/ppstupZ/kMlrZQ7cR08QcGgDOxEvgVFWknXEzx8Nfm3htC3+QJ0sGxW5vdZdE4YLbw
+	 jregiY+omSd92xEKhHaKnHg/wxr6SPyqAmY1kvLpTvC7UNtPoHPCxrVkJMipnvRE0ObhF
+	 7595bHYAXpkFxzH+9CFK5/2dsdvwNZ9jM7umo6qehcp52SBVP7M/Ss8rl7rengVzVQEWj
+	 GRMcj90RcndiDQoyRoR+eeVTLl25bosEQosJ4rj4ZegZA1CbfptCCptqJ2TJ/XSM9w3W8
+	 Ouz9DFR6AIor5pUsd0tmRpuBHq1QvXto20xz2KEmDIpOr7mX850Ju2YZzkCtxfMnduQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667927;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=AdEU80TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=;
+	b=xwRGrweDV4VbDWaX0H2OxP04skPTND2jZVQ5GVofhS5wGsCYhIWLW5g8eDd1F7KZbcez
+	 cARmEiGsM4m1GXuBn3PHD5P2jkbHAQ+KTa/kyIRJ2RqwziiaR4DFm1XuYZAPGfa+HZ7Mv
+	 +TDV/PDu2mYpSMcAaGpnfrGzNdpp0nl4Yrta3WnPc/BIAjGHKg0m4047mdWP0pDXfDBIo
+	 4ra+ybo7ZSpYVieoJA9IJKFnZ/XQ2Yk0iErA8Yf2KiqzokEXiyq88P+qzEIXq0icx0lts
+	 JIb3J3OQdBkDQrba6EzhURPgJ4KlGzpPZtccUJe9deR38Uy+LdEyWhbQv0NIfqwa8lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rZhXJnnj;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=v7lJ22zn;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634E606A319;
-	Thu, 22 Oct 2026 11:17:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C634E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DD6606A320;
+	Thu, 22 Oct 2026 11:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3DD6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=E0AwbR91
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EIaJ0Uf41wGhR8naNEsAQ+MXN6VntZ7Mr1JO6au7kkNUudrf2LJMOtaV/sOgQ6hI+3k1a9DacQz8gU9TNct7dJJ2E+uB12y4FT2JcH4AJl6UpXZtXaSfarlZ/hmT0XciPvY2iq5ON6MCKXopBqo3F5IAinEtLV7inYlc0OFf42i0K3HMIl1XrKgTxN25TtpSq9VhmjLMXhIvoUjv9pROqwBWHoP/wK5D6RL2KjhXQFYdJr+aNuAiUtX3VjSBOfCCfsiZ2i3Uc5WZoVQopa//693B1lgaSoJ2wUMcSDBT7Dl9w9gTFfOApSWCV+DQZLxCmsZA2gL/pAMQ5yD0FI5Ydw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
- b=fm5/vnOLJWWbSZyD6v8gHuEiU5Dpu6RXC9kr86duDrJ4hDUbdn6qhJ18bHcz5Vrga5xZQTXhXII1CN32lpyZRKXRaF/AaUhm5QByGK931b64WzPKmLXchi2uQljUxd4atcWor/+kauAdz9FQK20Q+yN93oGePQIJsqyj+JQCn2iQus+eDOm3GqZbS19XBgh0JSf43xM0wM47ka3PdHclVALUWASHc61Tq3z0lo0T3S3R4exrOIHggY5d7d36PbK1Z+rLZf8ksSZx5CnEavBfdbKPzicf4XBVigfM+tcBVBvADoMKkmR4HP+my2Lw4a2ITyBD0zQL82KezNYd/9kkuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrSdJXI0fyDD6hWUVp89xFxcypiOfz1nsHq36opR//E=;
- b=E0AwbR91uszpPg0ZhXWvFfLd7h5xcFMZKzeihmGFug9o72EgA7tzMKiiuHnNLzo6MHVvMUbQG1DesgjFWhQYZUheSsnFkQMWrIJnp0fmFMVJeNdJYf/Mb9/XDURLxrraD0jGc9Z7IlJJ3lDGkpEwO5NgPoD5kUPVmpRimyq5lIY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com (2603:10a6:102:1c7::8)
- by AS8PR02MB6952.eurprd02.prod.outlook.com (2603:10a6:20b:2b7::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 11:16:55 +0000
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d]) by PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 11:16:55 +0000
-Message-ID: <6a54d7f7-ae22-4ce7-b417-ac9efc7464cb@axis.com>
-Date: Thu, 22 Oct 2026 13:16:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@axis.com
-References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
- <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
- <202610192034497aeb0da5@mail.local>
-Content-Language: en-US
-From: Fredrik M Olsson <fredriol@axis.com>
-In-Reply-To: <202610192034497aeb0da5@mail.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MM0P280CA0079.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:8::12) To PAXPR02MB7344.eurprd02.prod.outlook.com
- (2603:10a6:102:1c7::8)
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rZhXJnnj;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=v7lJ22zn
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA1sWW1591238;
+	Thu, 22 Oct 2026 07:18:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=AdEU8
+	0TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=; b=rZhXJnnjZW4S5Pcj45UFw
+	zMxo+WaRt1nhVCbww0DS1oude3LLpayhMFvLtBYtmyNu2Bm6ZZe9oACtUDF+dt3z
+	mFDmR++9BZGBSQSJVIqTJGXTLfk+2h50qQ84vx0jVe8FkWMQhTMaZ+KRujbgdeXJ
+	ShQ323QnQXkaoOke2HEYh4pLsuSpdCwHEyHn41Am8YkBzgJgVMSAMIDAadtQf+vY
+	gbbksipEQuYIC89Y9d4LP7vzHz2PKU0OAwBTIobAE23J7E9jVTMSHQ4NsAQ1ude7
+	A3z0Q/Hh3zTGm+RLdksr06/GqSxPrpv47QPu4daHf6ck6wye/z1Qq207gbloSy4X
+	w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=AdEU8
+	0TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=; b=v7lJ22znuldzLobf2ssZL
+	zpeeKkts6ZaraUUt/D3hSHtpvw0Ug7Cqy9N6TT8eTIrzItihRgrOCe2mwBYk1hnB
+	lFyYYhvR78YN8NmBWepKSCXiqHzAWH03KWbntU6J9XwIeDXbATcHv+mZGexv71Z6
+	2Qp8S8CzeFOSSeOmB5sO5OLgnsznBy83f1bcRYITOjSnobzgW+c1y5gw1IXIGYx5
+	8dh8MaYRYeCtvjuGatKrRplWz/zVzfqSqrJorFOW5AHv/oZ9YPdkD7NmG+DOGtlT
+	V7HP4GetDj2a7S47kYQPlzvv5C1XyhY43kWHafEvWlqCwNTAg2uJjZA0JPPl2Wxz
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hf927tpx8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 07:18:31 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69MBITnx055327
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 22 Oct 2026 07:18:29 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 22 Oct
+ 2026 07:18:29 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 22 Oct 2026 07:18:29 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com ([10.32.223.86])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69MBI6LF005667;
+	Thu, 22 Oct 2026 07:18:23 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah
+ Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Joshua Crofts <joshua.crofts1@gmail.com>,
+        Marcelo Schmitt
+	<marcelo.schmitt@analog.com>,
+        Radu Sabau <radu.sabau@analog.com>,
+        Janani
+ Sunil <janani.sunil@analog.com>,
+        Salih Erim <salih.erim@amd.com>,
+        Jishnu
+ Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Jakub Szczudlo
+	<jakubszczudlo40@gmail.com>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+Subject: [PATCH v2 1/4] iio: adc: ade9000: parameterise the reactive power channel
+Date: Thu, 22 Oct 2026 14:17:54 +0300
+Message-ID: <20261022111759.6019-2-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022111759.6019-1-antoniu.miclaus@analog.com>
+References: <20261022111759.6019-1-antoniu.miclaus@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,128 +120,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR02MB7344:EE_|AS8PR02MB6952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7adccf70-8c70-4dae-9e20-08df302dfb23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|10067099003|261021121427099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	toxKbmEa8zbRe5Aj0PlSuXKpI+df2U4S3W0T38OyQRi4jy/MfWfwrX2GBYztaKDm/JZGQfcuMBVyL0PqT0ERnQ0LFt5vNp3N88AdXmy7DMI9j0hl2FcqgJ4lOkF2xIS6nhXvTfwyMPdWFexk7DTsWI8tpMQxF4abWifHnmjLrnlIJqLKvjLq9tFloOdMbHqh9ejwOLvDjQ4tpSCnBLLgNpy3JWf0XsYKLdWCY/p5+XnHoLxaq5xpv8g782Sb2xOQLKLtek5Sk2OpguKQhObeeune2yNtjkCSpjbymj60WU2ir4p/NyicztPguBrXMq4VN4WvdC+dZAFGzlVTiBc0lAfQ311xjDBeK3G/E4eiQUX12MuKoouwX8P24J32ardT4rr3c4X9Bk0gc+cPNIHk1mbVtRbJjy0vwooVrKHK74vmQrgskppPtcLygkF+/xrFsYmk1rt9YKk9facQReNvFiXpQF+6WPLxcFUj25aseO6b714zMqYOMof/Sge6reM8PQkpGOudmOgRZG5Cqrt90kxxuh/Fn2QT+CagbuqzDmt6ZOqKXRdGtXfXXbUjmBHgVXR3Dk4RAyZNxnV2NjoitIC8CEW0UcRS6rixPa8JyimjDTPamIFEwGTmXH4qkI7g
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR02MB7344.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261021121427099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TVhNcDVMemxaT2tKVGVqa3dtMUxWK1FvU0RhVFRBN0p0SHhTNGhya1k2TFJQ?=
- =?utf-8?B?YitOTllGOGRqbU00L2pGYkVEeFJMMGdsdy9VMUlzSGN5WlVLOVlBTkVhbVp6?=
- =?utf-8?B?WkJxS0N0U0xURFh4bkZPVkZCNDQ3cW1qeHcvUGhtaGFmUUpIandhRzBTL2Rm?=
- =?utf-8?B?Ym0zYVg1VmthTVo3Z3M4L3c2djd2SnNQUGNna2doOWo3ZTVicDdMeUxLWkNG?=
- =?utf-8?B?NEsrVmdxVDRhMWVFcmswbjVOWGdsSjV6ODUrdWZyY1hjV1VOUDJlRFhXeklK?=
- =?utf-8?B?NkZCU2t3U3JEZmJRL0tDWnhRZ2pmYldSWkZYTjY4SGcyM2owdnBzMTk2MVJu?=
- =?utf-8?B?cnlSL1IvV213YTFncFpBNGI1bExnWTN5QTd4aUhGK2greEw0NWJpZkpFaFBk?=
- =?utf-8?B?L3o4cWwrTCt6a2RYUkJHNTkxTXdhUGFrb241d25pVG9RcjJGd25DRWNLT2dm?=
- =?utf-8?B?cUw4VVZLQS8zN2c4Snh1ekpkQmNnbHkwZXlwWEhsdnNUbloxZWtYVVN2Q21I?=
- =?utf-8?B?dUZyRnNWa2VNVzZhcWRydXlDTDZEM3dlOWFsdFZocjk4dlFtVFYzZmlIS2Z4?=
- =?utf-8?B?dVZKUkJlamxDcjhJS2tQWHRSancxcE11U2lJVmJiL2x3c0pqZ3ZJYldtbWha?=
- =?utf-8?B?UmRzTWRMT3ZzOUlTYitWb3QxZklFRW9vSTRIeGpGNktDMHVpWlp3U1AvTWNN?=
- =?utf-8?B?VWV0MmVxQThCU1VheWFEeTBBNFBTRklsYXRaSTZGNzFPS0pnMlNEMy8zYnRN?=
- =?utf-8?B?dkpLd3NwcVFWVElMSGJuQ3ZleGIzeDYyaVFEcDNnK0h3OTljcmcwb2psbUMv?=
- =?utf-8?B?b2hHakhwVlNyeUFoSHprUnErTnNBMU83dTF2S0FOWW1JWGtwZTlKbTBSbnFI?=
- =?utf-8?B?ZjQxWEpLR25hQ2E1Qy96VWpiZXcvUHh3WFpqNm1WTU5kNHdabXFqdWtmeERG?=
- =?utf-8?B?N2lwUHM3U203L1dieU91ZkJweE1YUmpGMG1JQnZjRU9FNWRnSU5SS3N2Mi9V?=
- =?utf-8?B?VXFQQlRXN01kZ096cTViNFJzL2FoTGVKYjhaVlZuazFpQjFKVmRkRlFnSFZx?=
- =?utf-8?B?ZytmaksrdUdpbm1iOU9sRGtYQTlVVWUyZXl5MjNMb3B6bUhudkJ6SjMrWkRu?=
- =?utf-8?B?cWVPanN5NGgyUklBdU1nNk9FN3B4czNMUVNJNGlibFFwa1FBeE56bm85dVRa?=
- =?utf-8?B?VEhCaTlhTDltZ0dCcTJWdzF5Y1ViQXhORUs5d1V2ZnBjOG9JYU5jelFLQ2JX?=
- =?utf-8?B?N3MrclpmOS9NbmkzMWNzZjc2YnNpdURCS0d6azZVRHpiZkJUNk15SjRGVVg5?=
- =?utf-8?B?VEYzS0ZVR0tJQXlhbUF6YnZzYUNwVGtGY3dQck1CWFFtaGFBNzYzSWxSU0t1?=
- =?utf-8?B?K2o2NzB4azhFMlVqRjhvMkV0L1l5RUFWNXArdGtBZjJCYU80YVcreHBCa3dG?=
- =?utf-8?B?d1VrRkUxRzJWOTZLVm1rTDNZZlZNNlpkWTltd3pIVFJLR0RvQ05pSjY1eE05?=
- =?utf-8?B?L0F0eVE2NzJDSTRWd05IT0xyVCtoS2o4MzVVdStWSjIvQTdKajhneEF0L1dv?=
- =?utf-8?B?R1BGL05aWGNoQ2c0NkU1LzNWN2E4cXgzNTRERHRaM2tvbzBxcjdFb2xCakkx?=
- =?utf-8?B?Vkc2VktHQ0p5V2ZET3F4YlZvaGpKVTdJWE13aXkrMklKQ21IeFdpNXFOZUZP?=
- =?utf-8?B?V3ZJMytaUzYvODJDWUhaREhXZlArVkx0SWU2ZzVVSDM4RHFyNDFOWmJEa3FF?=
- =?utf-8?B?SGFBQkVoUnowQW91TmJiQmRSLzRjc0VmREI5S2dJd3FHbDFJeXVIRk03Nnda?=
- =?utf-8?B?K3hkcGFWZkRublQrS0NmOFdMa2JOeHJwVnh2Y0JYQmZ0N2d0M3FUcmYrdlVN?=
- =?utf-8?B?MmhveWFnTDdmUm1RbzYrRHdJQ2Y1czNyTUFzSWhaS3l6RWtjOGNLekN2cVo2?=
- =?utf-8?B?TlRmN1A3Zkw3SDI0Q1VYMG1FT1hKNk9IRHZVRnVvU3Zya3NkTkdCMUZ4ckF0?=
- =?utf-8?B?T1h3Q1M4ZGtXODZGUmZnOXVuUTRpdGZ0Z21vZ3FHcWRrRlBHVDZMUGtqdC9K?=
- =?utf-8?B?cVh2NTBoU3BDVDc3RkN2bkhzeGM2aVNGTXU0R2hOd2NmM1pZNjl6NzIxRjVZ?=
- =?utf-8?B?dVNZbklRMkY0WG1tbzY5RmJhKzd3YUpIVDBrdWtNaHhJTml4L2ZkNlEvN0NU?=
- =?utf-8?B?SkNPenlBV1d2cEw5bVJINVdSWWlTSnhTVXpVT3dnYmpXbXp4YjdzSUZHMXpj?=
- =?utf-8?B?UEloS0lCakUwZkcyZ0lIa012WjlRcVNWdjZOWU1RcURzdGJERVI2RnR3d1gr?=
- =?utf-8?Q?SjNmvZhLoeKnxyIRdy?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7adccf70-8c70-4dae-9e20-08df302dfb23
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR02MB7344.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 11:16:55.8389
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: quUnzeSE6xAMCWR6j6T3HGHlK7RS06IUqPA6xJiPJhMezpvMCqrjuFREZnvXHIVltBOsk0+8G0KAZgmBuw3PTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB6952
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0NCBTYWx0ZWRfXx8NLpLAdDXci
+ v0AMgbE5BiUCPqSfw3f475AU2DymhWvUhR0Ny6wip7bu+Y2Nn+9PfUxZnGeS8rZYoIjKp7M0ezg
+ dlZfhmaoappTqHc4bcK3IQl/14AI61KdtTHkVBnK9FtPYILdbEnH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0NCBTYWx0ZWRfXwUVf2f6Og9t+
+ eXk3t2EwFzZRN6BpUkmg1hNlY69rXsd9P5b3GrLhm172jGVtp4VelDFn7/aXGHQccDPIYyxJFXW
+ P4JIvEVtP/C7vm34Sflg8kLHXNIQg66c8Yj92wsu4AQiOW7yLHjcftRkopnk/WrBKoC94CC5vWI
+ Bf1HIleO+goztURDg5j460DEg6/l04q+FCBD0oqhOF9FOzIARaCJYt6f54KfyLULJbj60MMWbXX
+ W+Te71nQ0kkKxEqT3aZJwUnpq+rcx3UxBy0EC2LNUuP2hHsiiYPXNsZBmMrx02Jjln4s04gkVMP
+ PKXywwbfzwHvu00BjX9MJzTdxj/JyxOD9GwPiG8vVWHBL3Mo/D6kY3hg7DnxBalGEv0j7s/BzZv
+ tqtA2FuHIQOLTW8D/cU1T69LDF8Z8kjK/t6HfuNMQsUeRQ+t1gWruAtD5L6s8rO/BYN6IoN0IfC
+ qmfHIE6/TjXWQKTEX3A==
+X-Proofpoint-GUID: 9sd_jtKu269EPNQJkIZj54G6XJJMiUsT
+X-Authority-Analysis: v=2.4 cv=U/cHnuru c=1 sm=1 tr=0 ts=6ad9f107 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=pGLkceISAAAA:8
+ a=y2iMgJnqLeesTMF4eTAA:9
+X-Proofpoint-ORIG-GUID: 9sd_jtKu269EPNQJkIZj54G6XJJMiUsT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220044
 
-On 10/19/26 22:34, Alexandre Belloni wrote:
-> Hello,
-> 
-> On 16/10/2026 09:41:14+0200, Fredrik M Olsson wrote:
->> On 6/29/26 17:13, Fredrik M Olsson wrote:
->>> Adds support for:
->>> - Reading and writing time to/from the RTC.
->>> - Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
->>>     RTC_PARAM_SET ioctl.
->>> - Optionally enabling battery charging.
->>> - Reading the battery voltage low status using the RTC_VL_READ ioctl
->>>     (only supported in LEVEL BSM), which also reports invalid time
->>>     information if the VLF flag is set.
->>>
->>> Signed-off-by: Fredrik M Olsson<fredrik.m.olsson@axis.com>
->>> ---
->>> Add basic support for the Epson RX8901CE RTC.
->>> Datasheet:https://download.epsondevice.com/td/pdf/app/RX8901CE_en.pdf
->>>
->>> Also includes a bug fix for an issue with reading the weekday from the
->>> RTC which affects both the existing rx8130 and this rx8901 driver.
->>> ---
->>> Changes in v3:
->>> - Clear CHGEN when trickle battery charging is disabled.
->>> - Link to v2:https://lore.kernel.org/r/20260520-ds1307-rx8901-add-v2-0-
->>> e069ea32e1db@axis.com
->>>
->>> Changes in v2:
->>> - Squashed the Voltage Low status patch into the driver patch
->>> - Switch from dev_err to dev_dbg
->>> - Implement Backup Switch Mode (BSM) ioctl instead of hard coding
->>>     switching mode.
->>> - Change the prototype for the do_trickle_setup function pointer in
->>>     order to make it possible to propagate error codes from the added
->>>     PWSW_CFG register read operation. This read operation is added so not
->>>     to override previously set register fields.
->>> - Link to v1:https://lore.kernel.org/r/20251219-ds1307-rx8901-add-v1-0-
->>> b13f346ebe93@axis.com
->>
->> [...]
->>
->> Friendly ping.
-> 
-> This was dropped from the queue because kbuild reported warnings and
-> smatch issues on the patch.
-> 
-> Also, I feel like this should actually be a separate driver instead of
-> growing ds1307 larger than it already is.
-> 
-> 
-Thanks for the feedback.
+The channel array is declared once by ADE9000_DECLARE_CHANNELS() and
+specialised per part through the altvoltage_rms argument, which lets parts
+without dip/swell hardware drop those events. Some parts in the family do
+not compute total reactive power at all and have no AVAR register, so they
+need to drop the reactive power channel as well.
 
-I will look into the kbuild warnings and smatch issues.
+Add a second argument that selects the reactive power entry and introduce
+the ADE9000_POWER_REACTIVE_ENTRY()/ADE9000_NO_POWER_REACTIVE_ENTRY() pair
+for it. The entry macros include their own trailing comma so that the
+variant for parts lacking the register can expand to nothing.
 
-Could you clarify what you have in mind for a separate RX8901 driver, 
-and what the main concern you have with adding RX8901 support to ds1307? 
-Is the concern mainly with the changes made to support BSM handling?
+No functional change: the preprocessed ade9000_channels and
+ade9078_channels tables are unchanged.
 
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Changes in v2:
+ - None.
 
+ drivers/iio/adc/ade9000.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index c10b8c3f679c..fb69cbbb38fc 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -561,6 +561,15 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 	.scan_index = -1						\
+ }
+ 
++/*
++ * The entry macros below carry their own trailing comma so that parts without
++ * a total reactive power register can expand to nothing.
++ */
++#define ADE9000_POWER_REACTIVE_ENTRY(num)				\
++	ADE9000_POWER_REACTIVE_CHANNEL(num),
++
++#define ADE9000_NO_POWER_REACTIVE_ENTRY(num)
++
+ #define ADE9000_POWER_APPARENT_CHANNEL(num) {				\
+ 	.type = IIO_POWER,						\
+ 	.channel = num,							\
+@@ -618,8 +627,10 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ /*
+  * Declare a full channel array. @altvoltage_rms picks the RMS voltage channel
+  * variant so parts without dip/swell hardware (e.g. ADE9078) omit those events.
++ * @power_reactive picks the total reactive power entry so parts that only
++ * compute fundamental reactive power omit that channel.
+  */
+-#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms)			      \
++#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms, power_reactive)	      \
+ 	static const struct iio_chan_spec _name[] = {			      \
+ 		/* Phase A channels */					      \
+ 		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_A_NR),		      \
+@@ -627,7 +638,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_A_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_A_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_A_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_A_NR),	      \
++		power_reactive(ADE9000_PHASE_A_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_A_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_A_NR,	      \
+ 					      ADE9000_REG_AWATTHR_LO),	      \
+@@ -642,7 +653,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_B_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_B_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_B_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_B_NR),	      \
++		power_reactive(ADE9000_PHASE_B_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_B_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_B_NR,	      \
+ 					      ADE9000_REG_BWATTHR_LO),	      \
+@@ -657,7 +668,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_C_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_C_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_C_NR),	      \
++		power_reactive(ADE9000_PHASE_C_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_C_NR,	      \
+ 					      ADE9000_REG_CWATTHR_LO),	      \
+@@ -668,8 +679,10 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_POWER_FACTOR_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 	}
+ 
+-ADE9000_DECLARE_CHANNELS(ade9000_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL);
+-ADE9000_DECLARE_CHANNELS(ade9078_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL_NO_EVENTS);
++ADE9000_DECLARE_CHANNELS(ade9000_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL,
++			 ADE9000_POWER_REACTIVE_ENTRY);
++ADE9000_DECLARE_CHANNELS(ade9078_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL_NO_EVENTS,
++			 ADE9000_POWER_REACTIVE_ENTRY);
+ 
+ /*
+  * Full-scale codes referred from the respective datasheets. These are the
 -- 
-/Fredrik
+2.43.0
+
