@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661534;
-	b=yISdManKauLU0/vzosgy2IZzx9Vytm4QioIRAI+hcrxib1Dj680DwCL2kvKq2SIYVtAO
-	 rQ6DgN3+n8J5T39bkg92kQHz0B4Aqsn4agVrvuH3V+L2Ej4jqQNAqakTAGQj6OeKW/AlX
-	 RAH7BT3Qp0icpImjE0L8Rf3Aqk8cbLbnVnaOnQB2xtbvFcdJhAOirK9w/Jkurk0Dnm6FR
-	 haOu/ACsXZcW9y1V62ZWPEi+Sf1Hki9VywbSCs4niYBPXlw7y2y5q0HQQNp2Pz+gPgifs
-	 gglLYs4rLQ7xiXUDc3rIaoz4FVYBupJqKu8i4HiUIxKU108VZd1g9cN1LDJImQlAAOA==
+	t=1792661590;
+	b=XJgmzN1Yhi/Ec3nvgz8meUAeQfciaJGSAOFoOoFCUr8DgOr0usZUvj2CYbY2vHMnDSyM
+	 IBfGbE6AgwkcMJos1dXJAL7KtWOQbd1hIdaQ3YQK5xhWnAhtfcVRBP9Zt67iLE4+agCDj
+	 jkLj1hLJ4nL9AgmUufAa+nOd2/7AXnryT39ADMnboE29XQXa88KHjA7rll6FGtwRMHsWh
+	 dHGQv6UTQeFYjn4RfssdOrr9Mu431YXXNdmyv4n+9tV2RUfi44dXa2DzujTzKbzqiiYLJ
+	 gUIRhECzdEwtL8GjbnmT25kjRHe3IOsIqOjAqb36TQlFX03cuMSw+TmzNGDXWK91sbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661590;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EKu4ocfRU2fuMVC9PMJ7fjW+znvME5alGI9jKLiaUlA=;
-	b=k+rIRZGc4INSXlWcRJWGNDT1kyQ00VkZm9gAjZ07z1lXg35bcCVI4NdsQW5/zSF/YxxZ
-	 nE1geP6605j2ZlExIan/kx+egPSuOLNJH56BmQcmOGYBu6jBNJJHaSbALzF5adNQyqVkp
-	 CIsQziyGyJIGrjJgQycP+h5/t7Rc/9aRNmQ12T9mmqFWRX04bC9gpQNBlFcRyktew5IBm
-	 tpgkwqhoCNGsxozVXGStGtI3cNIfJLpQi8HlaQhLua6dqm8y9qhrhym6v77boOX3JSKq6
-	 GQ6n9Zncf0bGrOMGizAcj0BMZyy3GvgayHpc0S//AN7S/th2jIn7h+CdJ2Z+NgEBmaQ==
+	bh=3iljEpLpT3zxEltEKD5hygKgFK4DuNubXO4oBwrbx1M=;
+	b=RJZsI8ONsC6+vnnEFulF6+RMuwUDshcWmJDPUwKpXolE4d4qG+j7XYHL6FGmZWxLOgnG
+	 2UebdSURjgP5M2/+ivA061QJG9rNDSRwVsOQ9/htNJ234MZMqpxErxILjAu1PHppzXWm7
+	 DaOON1qCkPh7AH9lte3xAOgijOyi6KiMeWgZGX5/ijs83yKpV61J0qGMSb9gDj2yeFRBK
+	 dVlqavX2JSc3fAXdjIgTYqWu8VFwh8OzAKmKWt7aptNwcOwf8POC9kJgwEKDrR5jlpbQy
+	 212P4EjdnRoupYYpChx8iOrCfyAp6Tu+VGMxjZ4lWzNO/p9rcy+cIkf6mMXjjJgBOPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iS/v90zt";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aamZIrYF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAF4606A31B
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:32:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614B1606A328
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iS/v90zt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833041F000C1;
-	Thu, 22 Oct 2026 09:32:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aamZIrYF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98AD1F000C5;
+	Thu, 22 Oct 2026 09:33:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792661533;
-	bh=EKu4ocfRU2fuMVC9PMJ7fjW+znvME5alGI9jKLiaUlA=;
+	s=k20260515; t=1792661590;
+	bh=3iljEpLpT3zxEltEKD5hygKgFK4DuNubXO4oBwrbx1M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iS/v90zttKmmGdUYZXunTOEFECbSJPb+4eb/EuOkmudymu5mt1d8LVsgYfTgovsmo
-	 shxVJAv62Q5lpQjG47zL+m+9iYvWebql2Bs6eClE78ImCUwcZbhVXVEefVmtfNQHKa
-	 f2Uub3N49rbStPobMOCK2J4aOjbnugxo9VA58DRVZZF6bOBEnHqBYxbUCi4eO8hRjl
-	 HMoAudKnzAnhbfdFZqpOaYjXOW87M5UHysEhrAiVvhKlBGUwTeYOokIJSjlTwjFpAZ
-	 hSIrt55Lh0ARTgA51K6ReJxqcAFEpqslsGcTJpTehUhM9DJ54hkhQ9oCygrDJFXEhw
-	 6gF6iPLYaN8cQ==
-Message-ID: <sashiko-outbox-181264@kernel.org>
+	b=aamZIrYFyhrXMUTgX8qeCyadI461I1qJadMMrSWea29a/IMNzr+Mf3GtU9fiADxZB
+	 i6wtUmRnp3oPcLAJVOlNK5x0Ex7G0mIHdsmBUo55a8twcaWWlluibXiEFYMBhIWz2N
+	 Li13rkLqThD/blCOh7pXInM0MVcWAr7GzL/aHsexE6kWF6n/shNA/OP8LI+vHqfB58
+	 AgPt8FMW7FU4AuufhYmZiuL+sppi4MuM/9DsxB2HfWWV+5dZZrarwl7Y19GbVlFBbe
+	 JV4w+fheTSTs6Ge0ixbdgcYT9bEVIyzvafrqkK+WCXTSeU8eE5qc99M0iA2I9GsudN
+	 ZysmBXhznDCFg==
+Message-ID: <sashiko-outbox-181265@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: sm8550-hdk: Enable I2S for
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: sm8650-hdk: Enable I2S for
  HDMI
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Neil Armstrong" <neil.armstrong@linaro.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022-topic-sm8x50-next-hdk-i2s-v5-2-aa1030a75e46@linaro.org>
+In-Reply-To: <20261022-topic-sm8x50-next-hdk-i2s-v5-3-aa1030a75e46@linaro.org>
 References: <20261022-topic-sm8x50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org>
- <20261022-topic-sm8x50-next-hdk-i2s-v5-2-aa1030a75e46@linaro.org>
+ <20261022-topic-sm8x50-next-hdk-i2s-v5-3-aa1030a75e46@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 09:32:13 +0000
+Date: Thu, 22 Oct 2026 09:33:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,30 +63,30 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: sm8550-hdk: active HDMI DAI link breaks displa=
-y-card audio
+- [High] arm64: dts: qcom: HDMI DAI link breaks sound probe with display-ca=
+rd overlay
 --
 
-commit c6bfa3ecf122e125408eec9949d0c3f7b965b70b
+commit 1d7b2eb9f1841da26b5c6030ed7671341483661b
 Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
+arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
 
-This commit adds I2S and audio MCLK pinctrl states to sm8550.dtsi and
-configures the PRIMARY_MI2S_RX backend DAI and HDMI playback DAI link on
-sm8550-hdk.dts to output audio via the LT9611UXC DSI-to-HDMI bridge.
+This commit adds the primary MI2S DAI link, Q6APM backend DAI clocks, and
+TLMM pin configuration needed to route HDMI audio through the LT9611UXC DSI
+bridge on the SM8650 HDK.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sm8550-hdk.dts
-> index e75e3b878e89e..6c09816983a23 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-> @@ -278,6 +278,22 @@ platform {
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sm8650-hdk.dts
+> index 6cb0dc089b17a..eba989e6766bf 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+> @@ -218,6 +218,22 @@ platform {
 >  				sound-dai =3D <&q6apm>;
 >  			};
 >  		};
 > +
-> +		prim-mi2s-dai-link {
+> +		pri-mi2s-dai-link {
 > +			link-name =3D "HDMI Playback";
 > +
 > +			cpu {
@@ -103,53 +103,53 @@ s/qcom/sm8550-hdk.dts
 > +		};
 >  	};
 
-[Severity: Medium]
-Will leaving prim-mi2s-dai-link enabled when the display card overlay is
-applied prevent the sound card from probing on sm8550-hdk-display-card.dtb
-and sm8550-hdk-display-card-rear-camera-card.dtb?
+[Severity: High]
+Does adding pri-mi2s-dai-link unconditionally here cause a sound card probe
+regression when booting with the display-card overlay
+(sm8650-hdk-display-card.dtb or
+sm8650-hdk-display-card-rear-camera-card.dtb)?
 
-In arch/arm64/boot/dts/qcom/sm8550-hdk-display-card.dtso, the LT9611UXC
-bridge is disabled because DSI0 is routed to the display card panel instead:
+In arch/arm64/boot/dts/qcom/sm8650-hdk-display-card.dtso, both &i2c6 and
+&lt9611_codec are disabled because the DSI lanes are routed to the display
+daughterboard instead of the HDMI bridge:
 
     &lt9611_codec {
             status =3D "disabled";
     };
 
-When the sound card probes via sc8280xp_platform_probe() ->
-qcom_snd_parse_of() in sound/soc/qcom/common.c, it iterates over all
-available child nodes of /sound and resolves each codec phandle:
+When that overlay is applied, lt9611_codec never probes or registers its AS=
+oC
+component, but pri-mi2s-dai-link remains enabled under /sound.
 
-    qcom_snd_parse_of()
-      for_each_available_child_of_node_scoped(dev->of_node, np)
-        snd_soc_of_get_dai_link_codecs()
-          snd_soc_of_get_dlc()
-            snd_soc_get_dlc()
+During sound card probe in sc8280xp_platform_probe() -> qcom_snd_parse_of()
+(sound/soc/qcom/common.c), for_each_available_child_of_node_scoped() iterat=
+es
+over every available child node of /sound and resolves the codec DAI via
+snd_soc_of_get_dai_link_codecs() -> snd_soc_of_get_dlc() ->
+snd_soc_get_dlc() (sound/soc/soc-core.c):
 
-In sound/soc/soc-core.c:snd_soc_get_dlc(), the lookup checks registered
-components without checking whether args->np is disabled in DT:
+    if (codec) {
+            ret =3D snd_soc_of_get_dai_link_codecs(dev, codec, link);
+            if (ret < 0) {
+                    dev_err_probe(dev, ret,
+                                  "%s: codec dai not found\n", link->name);
+                    return ret;
+            }
 
-    int snd_soc_get_dlc(const struct of_phandle_args *args,
-                        struct snd_soc_dai_link_component *dlc)
-    {
-            struct snd_soc_component *pos;
-            int ret =3D -EPROBE_DEFER;
-            guard(mutex)(&client_mutex);
+Because neither of_parse_phandle_with_args() nor snd_soc_get_dlc() checks
+of_device_is_available() on the target codec node, snd_soc_get_dlc() returns
+-EPROBE_DEFER indefinitely when looking up &lt9611_codec, causing the entire
+sound card probe to defer forever and breaking all audio on the board. (The
+same issue also appears to affect prim-mi2s-dai-link in
+arch/arm64/boot/dts/qcom/sm8550-hdk.dts with
+arch/arm64/boot/dts/qcom/sm8550-hdk-display-card.dtso.)
 
-            for_each_component(pos) {
-                    struct device_node *component_of_node =3D
-                            snd_soc_component_to_node(pos);
+Should pri-mi2s-dai-link be given a label so that
+arch/arm64/boot/dts/qcom/sm8650-hdk-display-card.dtso can set its status to
+"disabled" alongside &lt9611_codec?
 
-                    if (component_of_node !=3D args->np || !pos->num_dai)
-                            continue;
-
-Because lt9611_codec is disabled by the overlay, its component is never
-registered, causing snd_soc_get_dlc() and qcom_snd_parse_of() to return
--EPROBE_DEFER indefinitely and breaking all board audio when the display
-card overlay is used.
-
-Should prim-mi2s-dai-link be given a label in sm8550-hdk.dts and disabled
-in sm8550-hdk-display-card.dtso alongside lt9611_codec?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-topic-sm8x=
-50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org?part=3D2
+50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org?part=3D3
