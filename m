@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665912;
-	b=uCwMLSD71gMKvjUzq1MXVbouxOA5MVES8mBeBfTXiiKKbFFJOf1+9iBYrmopQUkpbcie
-	 hlZLY+soZ1U0K+80oBmnRu7L1VxckLC5pA0QwC+JcAzlNeL2wgvccii8EvXQkZ+Y2OWf4
-	 GPDHsPPBr6cOidG9ex8F6bndUh6vbmt9HdJp875Cf9ugDbD6aKfHnYqldDX8gqU2pIwVR
-	 toHJeKFmRyjKv8Yg6DJmN6//h/sl/R6kA4ZW5gD8uzDcrCJfu6oqHDLehAFqVm5M1HXMU
-	 KB/x/nZbBzzfWHGHcZVptoeallW0AhDYuHGBevhpBSmfNXOFlVzkXUlKNyU14V47O6Q==
+	t=1792665957;
+	b=ekPEZ+vp8tZCJzG8Z3t3orSvJvMxZ5OusIbm9P3o03AsjknAhZX1kCcij/w6qUGpkg0X
+	 WrNAFrJFqa64jFxYVoRcsvuNuLk918NVFKt9yp+RK7jf+QvuhrqmRLU631cBcpiQLpPIj
+	 1PreRLSbVA5zqg+ifnuOw/QDauGJl6JWPh7aWlptpN7RQrojOEnTE2oVeS/W+1tiL6EZx
+	 oKpKNZdXwHCLAPFulvh1Z5rWkbTcXPvW60Ba7yi13pdVZuLKySQyErWTxq1FwWB85V6KJ
+	 ubiNJRa3WpNlgkWcaFdvrwTTHKm5UOY+2iA8c1Fd1Yx/nOrEWLDTWIVc9GxbQMVlFfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665957;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PYg3yiJHalTD8fE+Bpi4apmP45eLcOActt/83p80vDA=;
-	b=v2qZXbkHmpmajJgcy84e72GN8QHVqGzSiVr5DJpvfqiYXXPAcv7EXTLVE0IplGFjN5cz
-	 W0tUV+HZ3Fsaib/GBuhemImsl5CcbiVyyQeqoDki6Vq2xBm6zKd39pDJ1n2sXyMYw0PIx
-	 iPBzN7WEScCWszVVXJ8NcXo2xAuhrvq1psHsG0i6aD7789EQ1yaEVXL8aCb4c08YCxz+O
-	 Mk8hw2IQylLDUQf3FNRTK3hm/oFRNzjfsz9aC3r1KNA7+xfIXtpS4JyGaE6wETYLWjgny
-	 EQ0qQUbm5WiSisRyDqEW3/pkXlwdGxhFrKUd1E9623XVT/f+y9pTaRN2LZTVC1Q3h9w==
+	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
+	b=PE6A4loVi2W9QlZAJkZg+wkakiN5Rtza9tS5qH7OCScfaNOw152iqbWraItAvDxjh68g
+	 MoyIxg7RwO7qM0I/qhEsp8dmn5TslJyyiZlaOYvEticna0SYSAeNMbri4IW3JlW87s8yE
+	 obClvMhH7uufnmZKv2jIp1FuLeksckZTAUa3YBPxD+4gn3Np2Fb5svUETQl6KQDqdLqqR
+	 o+5HhRiU1etaG/AWX8aEZmkeMJO+V8vmSwNc8wVYgpg4kSFGvQkiPu72QUawmWDcFR05r
+	 oyyxuI766pJ4t4pYjnglQs+Dd3wTzqWLKjUZUVFuJhMYac3EtlHv0qs5/e8VT0OW14g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsDG1NJQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848B8606A31F;
-	Thu, 22 Oct 2026 10:45:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EE7606A319;
+	Thu, 22 Oct 2026 10:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsDG1NJQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E471F000C1;
-	Thu, 22 Oct 2026 10:45:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C7A1F000C1;
+	Thu, 22 Oct 2026 10:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792665911;
-	bh=PYg3yiJHalTD8fE+Bpi4apmP45eLcOActt/83p80vDA=;
+	s=k20260515; t=1792665956;
+	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FsDG1NJQ+6BYgRqC4YKWq/UIKwyx535/a2aflIDGa1+V5hBAJ3hi4jnEPvMgNYOSw
-	 C7w5+rk7eTie2Hsp+WTKmFjoaWJAH2Jn9yoxdUd0hU5mvoNPUPieSNLlE77kv5xlJR
-	 qVXf2DABMmEdf7YauCZdx9Uf0P2yajGiYgbOnKsVA67vrHzCgUDx6fIx9+0ztMqE2z
-	 J02/2SNVDlye088xpSpBzjOT3Ce6ygUndTlKOHMNchShjNB6H6u1d+k7Mf1HvPKRNM
-	 02J2Qp+l7trl6927tS4Z77bLMbP4c26B4/293ghMRlhUQGvdVIJKGfp9gty7r6ifVd
-	 a9nPXXBFGmbmg==
-Message-ID: <0d4d6a18-ad86-479d-a030-5eed8f5460fc@kernel.org>
-Date: Thu, 22 Oct 2026 12:45:04 +0200
+	b=SHQZhDsetPxBZBByiYjZBJ+4gLVGaaWNL9UQtERiAE96Lz/7MAaIGxbylA6E47Mwe
+	 2wIj8sIBBCmjUwmXCfD8JHH5kAkngQH/YLdMpshMWIuOLl2d1aL3ft3vnpC1Xnnjsw
+	 I3xfXOBO+Z7AVBS/MciLaSXjElTa8hirHxAwMQwHH7lWklt8KRQ5tCHP5CgqNpPGQT
+	 HYiFo7TToFCxC7twfnjmRbQW183+qxZykaiy3/PsRuB489FRgUuXUa3F7UQx2ZYf8S
+	 X2beLjCSHBiYbUWFeQR3ruM0YzJ1TG597V0qded7RiXsehzECXW5AaoP4Rk+FOuz+5
+	 MsT7cVVwlQfAQ==
+Message-ID: <4b05475b-443e-49d0-9bfd-d78388246706@kernel.org>
+Date: Thu, 22 Oct 2026 12:45:50 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] arm64: defconfig: Enable Waveshare DSI panel and
- touch GPIO drivers
+Subject: Re: [PATCH 4/7] arm64: defconfig: Enable RPi touchscreen V2 regulator
+ and ILI9881C panel
 To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
@@ -66,7 +66,7 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
  Jessica Zhang <jesszhan0024@gmail.com>
 References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
- <20261021-shikra_display_overlays-v1-6-adaea735999f@oss.qualcomm.com>
+ <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -112,19 +112,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261021-shikra_display_overlays-v1-6-adaea735999f@oss.qualcomm.com>
+In-Reply-To: <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21/10/2026 16:21, Vishnu Saini wrote:
-> Enable the Waveshare DSI touch GPIO/backlight controller driver and the
-> Jadard JD9365DA-H3 DSI panel driver, as modules, for the Waveshare 8
-> inch DSI panel on the 22-pin JDISP1 DSI0 connector on the Qualcomm Shikra
-> EVK, Talos Lyra EVK boards.
-> 
-> Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> Enable the regulator driver for the Raspberry Pi touchscreen V2 power
+> and backlight controller, and the Ilitek ILI9881C DSI panel driver, as
+> modules, for the Raspberry Pi 7 inch DSI panel on the 22-pin JDISP1 DSI0
+> connector on Qualcomm Shikra EVK, Talos Lyra EVK boards.
 
-That's not a separate commit from other defconfig change.
+I don't understand - next commit is saying that it is enabling this for
+"Qualcomm Shikra EVK, Talos Lyra EVK boards."
+
+so why same work is visible twice?
 
 Best regards,
 Krzysztof
