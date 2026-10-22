@@ -1,80 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792659016;
-	b=gadvasP4YygMXqM/kKMFsUJFMVn/hhzQFo6yptoQgbomvZD19EEPhtNvzcQFaRfYI/0K
-	 FrZovs+MEagz8Vygv3Jg5zvg9uTqZne8tp92QUK7+y3A/QxsbZHO9e2PUY4jIXueHnlwx
-	 0w7lYkunBzfds46heIM6r2xVbZJ1R62PDOqBZc9d/Sp6Y46uD2oQwn/K6gfR1uDxyOBRU
-	 s83I4YUHDcVIzmj2WH4z8zwl4GveJSPwN2xXN3m0e80rHeeJkx/r0A50DSTOdjuzpIKdx
-	 5VM63mNfqnTy3XJeHCjFUhE9pWtjQ9/rVPNIqBGewRMoa/sFMCbYnXJhLoBYnFiX+Dg==
+	t=1792659105;
+	b=L2exHlWmPuHzYdkikKiK2DIyXDnAAhwJKeqizPLj9W/0DsyXgHUR7jtEUeq3Pxo+herk
+	 hBQ+dnRqJ+I1wJDQOvj8rqV46MIQMwHbfWK1DFQU3XNHll0hjsnZvpuHD3SGInitpsZzY
+	 I8FGrIgdHAR1Qjwexly1krD6lD94uXWx5JWcn4U+VQtmyGe3gopVPfFyZ0kncAUriH0I5
+	 iTEHnG0pzCwUh1TeZYDdky+2tqZDuo+Gui1MN+8zzFGFnIAK+sdVqvQUtAvROXgxlpOIr
+	 xdR0fkXPNSx1KnMH2X3I5VotAhpmBJYrM3ES3LG7KZaLlyD+6CwA6gDijh8/cZWbnSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792659016;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:Organization:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Virus-Scanned;
-	bh=YAcKsa+N22qMYtLETYzF0/wBbwZ/VrpjV+7wi9PY8jc=;
-	b=cld++G6zh70M1JSJ9J63TpuawOQC0jA+Y1jssRY8sZgSl1D1N/LQw+d/OQFwb/Gw8/nx
-	 6s873r0ZVFZ1mNVWFY/TdWb02FlSsDCapk6X2tuVer3ExFClkG0WSAOqAHiwqggcU2HFu
-	 HnzsF4/M8njpSl24NRuAj7fjrt325abg7lXe4W3QQtgfquoe85dBjIYB4m6ufP/Wrzaq8
-	 HG05z9IMiqmol0BsT1W1wMYavapGbehjROT0p1D2Y53UZ+5Smq8tdlC4NMTH226ub4BMX
-	 NqRXnyVJEH4Y7Ed9UimQW2X5jXuByWpg4AaPOyCwkmW6DXpmUim1vaZ/ZUN/NwLscDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792659105;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ksFrELXIiwrK5kKPEgz2g60q+qfEzwI4wfenf9ZhiO4=;
+	b=thRRpxHXB4XX/BSo/zO1cMR9Wc86N+3CsluIEY8b45sGkJ7Rlwp+caEIGLMHcMImLbrG
+	 OHXSC5A/BReHwYWoxd5HURiQC9Ww9SJcyQyo3HRcjo30VZNs5ld1b/9HKvcOn9Jv7eKxV
+	 9PGeME3dRRwyvCu9lIclxXVvT+WvKxGMfuPu1GZcSVMmJMVcp/ozBHiflXyTTynXGKd6d
+	 cElrjZRC6TmgJLmi6zcrXJ0O9KRy7UyoJBwIwtJQWpAEcgzuCGysf0IXaAlgcdsOfm3iq
+	 07fhzwIBKeldjezzAbbOliuSHeTOiWgGo8mElZt0LI6IW10Fs0OKL6WZXhLcEwXWhnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=Fjvp4tRY;
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/r1WbMr";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98951606A31A;
-	Thu, 22 Oct 2026 08:50:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98951606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA18606A319;
+	Thu, 22 Oct 2026 08:51:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=Fjvp4tRY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=YAcKsa+N22qMYtLETYzF0/wBbwZ/VrpjV+7wi9PY8jc=; b=Fjvp4tRYs+w2onr2DddcI/RLjM
-	RM9Vkh66VbyHCLExBUIFMhI74h9LVKaDhmCmzUO3tuZL/wAVmNBSL89ficrYac6ppFtsgfRj0l+hU
-	/mRwNe6vHvo1bzs/fdzI+ZxWZvu4S8yJyv0C2atQjvxYU9n8KX2VKTW7iMCrDAGwYapvIK4RspQEX
-	7mE9YejleLQttF6qj7q1gcDByK11TgyihDPrbc518mGkLVJIVM4m0+wT6zp3vm65OtAAr8+yf/SRJ
-	WBn8R63OjO9wRsdtm/hjReE0zFgmajM4n8dW+fVvIv5g1vl0sk+96FwPBm3emEMikgtWKu7CciAob
-	hNS7aK1g==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xJoUx-000EsD-2E;
-	Thu, 22 Oct 2026 10:50:07 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xJoUx-000Pxn-0U;
-	Thu, 22 Oct 2026 10:50:07 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@ew.tq-group.com, Peng Fan <peng.fan@nxp.com>
-Subject:
- Re: [PATCH 2/2] arm64: dts: imx8qm-tqma8qm: Re-enable A72 cluster after
- ERR050104 workaround
-Date: Thu, 22 Oct 2026 10:50:05 +0200
-Message-ID: <16849484.O9o76ZdvQC@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261022-8qm-v1-2-2a597cb3debd@nxp.com>
-References:
- <20261022-8qm-v1-0-2a597cb3debd@nxp.com>
- <20261022-8qm-v1-2-2a597cb3debd@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/r1WbMr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADE41F000C1;
+	Thu, 22 Oct 2026 08:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792659104;
+	bh=ksFrELXIiwrK5kKPEgz2g60q+qfEzwI4wfenf9ZhiO4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A/r1WbMrQMOzw2UAsI+AZy3mJQXpBxJ7RvdhwoBbX+lm4baduEpWzb25ef2+nQ5Mp
+	 W7YMdliLTA0NJeeB9UJOr/fVOAy1RLOomdEGM6KlgUh6jiO26ppCFnFMgnsHvXKW/Z
+	 HN7Qqttfe0TwaBM1PwqjmXjRuzdVTBvaOa1rCZgBm1ec/mU8AdQrz0/l/Z0CopXe4r
+	 kGvXSiSLI3yccQHfnVHorHgnCZklaG1r4z/ZJFokkozYkZhM/pHjCHK55Xmv4rx5Re
+	 C7r2JrXeKAza6ga4sXm0INjp29X8zCpr1rtGKgXZYOP6BhZotQY7jEYYtkqhRjfRAC
+	 eZt/WYVLq2hjw==
+Message-ID: <sashiko-outbox-181207@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/2] ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neo Chang" <YLCHANG2@nuvoton.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022084037.259983-2-YLCHANG2@nuvoton.com>
+References: <20261022084037.259983-1-YLCHANG2@nuvoton.com>
+ <20261022084037.259983-2-YLCHANG2@nuvoton.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 08:51:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,75 +59,241 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28161/Thu Oct 22 08:24:11 2026)
 
-Hi Peng,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] ASoC: dt-bindings: nuvoton,nau8310: inverted clock-det-disable d=
+escription
+- [Medium] ASoC: dt-bindings: nuvoton,nau8310: raw register values instead =
+of units
+- [Medium] ASoC: dt-bindings: nuvoton,nau8310: unconstrained nau8320 varian=
+t properties
+--
 
-thanks for the patch.
+commit 01b8fdb80988a85278fec4d71b7b4a47411ed6ee
+Author: Neo Chang <YLCHANG2@nuvoton.com>
 
-Am Donnerstag, 22. Oktober 2026, 03:50:02 Mitteleurop=C3=A4ische Sommerzeit=
- schrieb Peng Fan (OSS):
-> From: Peng Fan <peng.fan@nxp.com>
->=20
-> The ERR050104 cache coherency workaround for i.MX8QM/8QP has been
-> merged upstream (d44e08dab27d). The workaround addresses the incorrect
-> wiring of upper address bits in the A53 subsystem that corrupts TLBI and
-> IC maintenance operations between A53 and A72 clusters.
->=20
-> Previously the A72 CPUs (cpu@100, cpu@101) and cpu-map were removed
-> from the TQMa8QM DTSI with an explicit comment "Due to missing
-> workaround for ERR050104". With the software workaround is in place,
-> remove the workaround-comment block and restore the full SMP topology.
->=20
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi | 7 -------
->  1 file changed, 7 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> index f0e398eb2aad7..8cd6e75eb87a9 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-> @@ -15,13 +15,6 @@ / {
->  	model =3D "TQ-Systems i.MX8QM TQMa8QM";
->  	compatible =3D "tq,imx8qm-tqma8qm", "fsl,imx8qm";
-> =20
-> -	/* Due to missing workaround for ERR050104 */
-> -	cpus {
-> -		/delete-node/ cpu-map;
-> -		/delete-node/ cpu@100;
-> -		/delete-node/ cpu@101;
-> -	};
-> -
+ASoC: dt-bindings: nuvoton,nau8310: Add NAU83G10
 
-While the patch itself is correct, it is not sufficient. Instead please
-revert commit 5d20f1ccb3393 ("arm64: dts: imx8qm-tqma8qm-mba8x: Disable
-Cortex-A72 cluster"). This will restore the thermal zone for cpu1-cluster.
-This commit was created with the intention to be reverted, once the
-errata has been dealt with.
-With the revert:
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+This commit adds the device tree binding schema in
+Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml for the
+Nuvoton mono class-d audio amplifier family.
 
-Thanks and best regards,
-Alexander
+> diff --git a/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml=
+ b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+> new file mode 100644
+> index 0000000000000..5a5142a583ed1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml
+> @@ -0,0 +1,200 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nuvoton,nau8310.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton NAU83G10/20 Mono Class-D Amplifier with DSP
+> +
+> +description:
+> +  Mono Class-D Amplifier with DSP and I/V-sense.
+> +  This device supports I2C.
+> +
+> +maintainers:
+> +  - Neo Chang <YLCHANG2@nuvoton.com>
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nuvoton,nau8310
+> +      - nuvoton,nau8320
 
->  	memory@80000000 {
->  		device_type =3D "memory";
->  		/*
->=20
->=20
+[Severity: Medium]
+Should Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml restrict
+the boost converter properties when compatible is set to nuvoton,nau8320?
 
+In sound/soc/codecs/nau8310.c, nau8310_read_device_properties() only reads
+nuvoton,boost-delay, nuvoton,boost-convert-enable,
+nuvoton,boost-target-limit, and nuvoton,boost-target-margin for
+nuvoton,nau8310 and ignores them on nuvoton,nau8320:
 
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
+    if (nau8310->silicon_id =3D=3D NAU8310_REG_SI_REV_G10) {
+        ret =3D device_property_read_u32(dev, "nuvoton,boost-delay",
+            &nau8310->boost_delay);
+        ...
+    }
 
+Without an allOf if/then block setting those four properties to false for
+nuvoton,nau8320, devicetree nodes for nuvoton,nau8320 with boost converter
+properties will pass schema validation even though the driver ignores them.
+Should the commit message also mention nuvoton,nau8320 alongside
+nuvoton,nau8310?
 
+[ ... ]
+
+> +  nuvoton,vref-impedance:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      VREF Impedance Selection.
+> +    enum:
+> +      - 0 # Open
+> +      - 1 # 25 kOhm
+> +      - 2 # 125 kOhm
+> +      - 3 # 2.5 kOhm
+> +    default: 0
+> +
+> +  nuvoton,dac-vref:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      DAC Reference Voltage Setting.
+> +    enum:
+> +      - 0 # Voltage source directly from VDDA pin
+> +      - 1 # VDDA * 1.5/1.8V
+> +      - 2 # VDDA * 1.6/1.8V
+> +      - 3 # VDDA * 1.7/1.8V
+> +    default: 1
+> +
+> +  nuvoton,sar-voltage:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      SAR Gain Tracking Selection.
+> +    enum:
+> +      - 0 # VDDA
+> +      - 1 # VDDA * 1.0
+> +      - 2 # VDDA * 1.1
+> +      - 3 # VDDA * 1.2
+> +      - 4 # VDDA * 1.3
+> +      - 5 # VDDA * 1.4
+> +      - 6 # VDDA * 1.54
+> +      - 7 # VDDA * 3.12
+> +    default: 0
+> +
+> +  nuvoton,sar-compare-time:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      SAR compare time.
+> +    enum:
+> +      - 0 # 500 ns
+> +      - 1 # 1 us
+> +      - 2 # 2 us
+> +      - 3 # 4 us
+> +    default: 1
+> +
+> +  nuvoton,sar-sampling-time:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      SAR sampling time.
+> +    enum:
+> +      - 0 # 2 us
+> +      - 1 # 4 us
+> +      - 2 # 8 us
+> +      - 3 # 16 us
+> +    default: 1
+> +
+> +  nuvoton,clock-det-disable:
+> +    type: boolean
+> +    description:
+> +      Enable Clock Detection Module.
+
+[Severity: Medium]
+Is the description for nuvoton,clock-det-disable in
+Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml inverted
+relative to the property name and driver behavior?
+
+In sound/soc/codecs/nau8310.c, nau8310_read_device_properties() and
+nau8310_init_regs() disable clock detection when nuvoton,clock-det-disable
+is present in the devicetree node:
+
+    nau8310->clock_detection =3D
+        !device_property_read_bool(dev, "nuvoton,clock-det-disable");
+
+    if (!nau8310->clock_detection)
+        regmap_update_bits(nau8310->regmap, NAU8310_REG_CLK_DET,
+            NAU8310_CLKPWRUP_DIS, NAU8310_CLKPWRUP_DIS);
+
+Also, Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml already
+defines nuvoton,clock-detection-disable for this feature. Could this binding
+reuse nuvoton,clock-detection-disable and state that it disables the clock
+detection module?
+
+> +
+> +  nuvoton,clock-det-data:
+> +    type: boolean
+> +    description:
+> +      Clock detection non-zero samples configuration for power up signal.
+> +
+> +  nuvoton,boost-delay:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Boost Control Hold Timer in decrement (msec).
+> +    enum:
+> +      - 0 # 0 msec
+> +      - 1 # 1 msec
+> +      - 2 # 2 msec
+> +      - 3 # 4 msec
+> +      - 4 # 8 msec
+> +      - 5 # 16 msec
+> +      - 6 # 32 msec
+> +      - 7 # 64 msec
+> +      - 8 # 128 msec
+> +    default: 0
+> +
+> +  nuvoton,boost-convert-enable:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Boost Convert Enable.
+> +    enum:
+> +      - 0 # BOOST CONVERTER disabled
+> +      - 1 # BOOST CONVERTER enable gated by POWERUP signal
+> +      - 2 # BOOST CONVERTER disabled
+> +      - 3 # BOOST CONVERTER enabled
+> +    default: 0
+> +
+> +  nuvoton,boost-target-limit:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Boost Control Target Value Limit.
+> +      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V=
+ step.
+> +    minimum: 0
+> +    maximum: 63
+> +    default: 63
+> +
+> +  nuvoton,boost-target-margin:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Boost Margin Value between Boost Target Voltage and peak output le=
+vel.
+> +      The value ranges from 0 to 63, representing 0V to 12V with a 0.19V=
+ step.
+> +    minimum: 0
+> +    maximum: 63
+> +    default: 0
+
+[Severity: Medium]
+Could these vendor properties in
+Documentation/devicetree/bindings/sound/nuvoton,nau8310.yaml use standard
+unit suffixes and physical values instead of raw register encodings?
+
+Specifically:
+- nuvoton,vref-impedance and nuvoton,dac-vref use raw register indices 0..3,
+  whereas Documentation/devicetree/bindings/sound/nuvoton,nau8325.yaml
+  already defines nuvoton,vref-impedance-ohms and nuvoton,dac-vref-microvol=
+t.
+- nuvoton,sar-compare-time, nuvoton,sar-sampling-time, nuvoton,boost-delay,
+  nuvoton,boost-target-limit, and nuvoton,boost-target-margin expose raw
+  register indices or step counts (0..3, 0..8, 0..63) rather than physical
+  values with -ns, -us, -ms, and -microvolt suffixes.
+- The schema default values for nuvoton,vref-impedance (0),
+  nuvoton,boost-delay (0), nuvoton,boost-target-limit (63), and
+  nuvoton,boost-target-margin (0) do not match the defaults applied in
+  nau8310_read_device_properties() (2, 0x8, 0x32, and 0x2).
+- nuvoton,boost-convert-enable has a boolean-style -enable suffix for a
+  uint32 register field where both 0 and 2 mean disabled, and
+  nuvoton,sar-voltage exposes duplicate register values 0 and 1 for the same
+  1.0 gain setting.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022084037.2599=
+83-1-YLCHANG2@nuvoton.com?part=3D1
