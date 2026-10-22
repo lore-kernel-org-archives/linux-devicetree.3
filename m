@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792675018;
-	b=xEoUGWjeZAR1WeFczcu36HLkkrB7MUFMHkniYb5E/eFyA6YLbjy2iNo7vBPW254OdUWu
-	 79cZXx3PBfiz6x+EJlXZM6UuDdQTjd5Y786p6e7XtumuzEALx9cuAr1iOVoj7jlQnhAqC
-	 GmJHXGAMi+yEwjcWBN6WcOPK1MrzBaylTum5p9mBnIxpKW28r48EM9GJMpCK9xtcYvKGr
-	 TkLtkZdqnRQdgq6jWN8+BqIAo1mWNPkTlmrxYsA0924AZBAgTCy4SK3pueoW3tI+POU9T
-	 c1gzyPPPNdGPNRdc2/aSb8La6WxNwZCBeF4wAAl5wkO3eGoMJVsbu3WPxHEgfF0CoPQ==
+	t=1792675214;
+	b=2rKt8ugn8rD4YfPp2vq7p1tGJkUIO+gYLlzl9tWeHG6Txb70oLISKuWtj+1gKV2jx7kA
+	 YaDjahV8RLkPkq2fGaNQBFF+qquTIl8s17DE63QYqN+ZButnw9BHaEDn0fWflrNIa3u5b
+	 srL0uA0WITgBoil8eP8ojMueFUiMDT/Ps0OhRPYdJn7gqDdIiFml19aOyJ7eO67ToLJs+
+	 1qO4FaGgq2TfZzQVO7A5r7ni/QRbubYlY5FtQw5KqshCa0Fy2vESbLbxCWl62XbuR60tl
+	 w/9EodmB/DYL7ygPrSWQdKioUNSfih5e52YT/VCDdAuiVVi0VkZJ6yYdysiWAHVXGuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792675018;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XHogjjLeWyeXgDWwoK6G0mFCe502abfVqfNNBKQPSw4=;
-	b=e3XXBHi1Qf6hZatCKXfuzwn+Xm8T++8rfbtWT5kI9u/jIcqmtU4FN6Mo28RBXLLSqtrL
-	 XQ2lsdlUw5lQOlIPhN3eNgWdzFM7QpxmHFcNS2af/tiy2AcKBe/YJQycFzkFbDb3ZHOZI
-	 N0OsFswefLzreGq0U/BiycOAOw15DGY9oEUm8g6Tc/ZY23NZeLYWRa00J/mqxYqHUCNvz
-	 CScnwN5hs919kGZpFJPde058XoLL09sBRLD2AxPZxT7m843naukOEPBXhB+Ta51Xx59s9
-	 CQXtQpPD9NnLCknkdftMyUorBxTmSoGe1aKmn9zhUYdymEq9LE4tfzkTdyIpjHsQXwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792675214;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=K1qdVfJphCubBW9oKIwX5JyjJO0YamCv+67tJWpU6V0=;
+	b=PE4rryZ8kbVO8Tid731vW+5G0LEcrzI5gJ4zgKgwkgHuYm8lwDsR5HGekqc7yo8cfEXx
+	 h8k9YeGs6ZJ1RGj/YALKUIUe3TEOkg6JQ2P5mAyXcp/lKkN05GlsaBv11JWee58cwWyM+
+	 NywwrDVfcAHpnVUiADAwz4rpW8dm+rJvwLN6F/zeMOBzypagV4dvI/QbLNJloX9AquMM2
+	 LdKvxgSzMpvKRDPGVeZgTU3K5lTRHFMdqHNyWxzOrH3pVjrT1bTMNnsIDy/ry7blJY6MF
+	 zz01jgDz5daUvjb+tHpm7fXqeAMC31fwXZvxtfPP1z4j4lfRCtbopWP/8ab6hFgvnMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Htisf5nt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bsRdZ23T;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=Ky0gQC7y;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DyL4xeHw;
+	arc=none smtp.remote-ip=103.168.172.150
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6A5606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC6A5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9538606A319
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:20:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9538606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Htisf5nt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bsRdZ23T
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA0AtG2918725
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:16:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XHogjjLeWyeXgDWwoK6G0mFCe502abfVqfNNBKQPSw4=; b=Htisf5nttZX6+P9C
-	q/ThzSJassydYAZaByeoerQywISTTBPBODEVQu7cwEWbvOIn2MmfD6h7h2/sUcaq
-	wkVJFtpbkP+8DZoJRKQ4JI7ME9UfqdKIVBuywb5qn03QjHPNSTJSSRYxnYDMfFH6
-	JnFaQEecUO7/LcF49suyOv0gOiDb1apnoVrZnmsR947Ksfhv/7N+KxqtdyNz3bpD
-	0i7ImNdSO/nj2t3yt6q/vHYfJwAqHZ1A8a/4d6Z9SCHv5HFeLK7c9ijIFYRaJXQZ
-	viEqHh6rXaCcmF5TLq6/jcrIQYKBmlODSZPyyN4X0Ouix9ikKB6XjqoMOflAGSN3
-	Ugzt/w==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93abm9c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:16:57 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eacd73e83bso101217e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 06:16:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792675016; x=1793279816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XHogjjLeWyeXgDWwoK6G0mFCe502abfVqfNNBKQPSw4=;
-        b=bsRdZ23TMX1PgEXN/usj3Ify/MN9xyrL07PSSz4Sw4i6DKY5IuT6gU9upDqg58fkZr
-         MJooRTmamSwhzvsIL794ZltjNdpYHWR4yBzgnwpgBQUOgdmZJjONjfV6QZZuLvQBZaTN
-         ett88t7BTkUSk5h/UzXCZDqaFugxSz482oszUiad9q75nyBrer5EzASlCTNLWt9USPfJ
-         reAuJLSZvctTSIa/qcWZPTq0aIcBl6gIlkuXTNyL/N24oejSrs5vxaoCbilqrs985Nu5
-         n4yg4IgncTQHYCrV/sfq26ZPWZ8KkqvZMj6GoP9aZxNntGFS/0+uPzKYJga46i588xXW
-         uNVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792675016; x=1793279816;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XHogjjLeWyeXgDWwoK6G0mFCe502abfVqfNNBKQPSw4=;
-        b=NPse21tUUWqgcrUk+1+dAVe9ME4XbOZuisWxpwBXvsFyFrmcLbGckNZA6QWf6rQDtl
-         GlPjsCONAN9DZibCu7HseDpVi7LN+QZtY7kIjcwFuMAut5w4U37QbXYpxIQTyH/KyfLE
-         PgXejw+g28vq0eVSY5z3ar0hnkXwnnukzP323JhrROFTPfneK/jc1yEUZ7LxuAh+Vupa
-         zwNcBr+k9uB0zZh564u9Ry9xB4ZLdhbR2C1xZyczZrlXhz1EIkFZU5A+f6XNVBwVtcGJ
-         T3gx6s9JcWRtK33QUcmOb3Uz8Jx10EvoiweWxSxd/Thw0jQ22bTKPyNYagvZiphpG8p0
-         cglw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNyYu06Y5T6ZesU4pEfdPKaPcYZ0JIbej1vunQ0RqYUIC5LZxeVV2X31WlDLML/vjd9nGXEde65EXY@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJZ7YuIcMKTAKbGA6zGhz56RV9bq8vUz0LvuBNtLfcmq0MLCkJ
-	J8ptqbiniK6mN/FtQvpwH/1SKTlAOVBG91Cno5SYupUN1ctrPpOBaA2kzCvV1YYJ9yQpADsnSOp
-	RYSvuUJkoHWyc22kgZtAU/35qdx+M1O6gkEMGci7pso4j7irf7V+fiEFzBpGPu8GR
-X-Gm-Gg: AYBFou26j/KPTes1MtNhwOy2InU3Q5NIG3HB4OCufyJ6ZBJZqOVOXnZHizZBANdaH+9
-	7Jktr952Si1fzfpMFac14MQ5pDwyTsYTK4ucXTuaAs+HFqFoOREniKsO3MZ9M528LtSbQLDIbF7
-	edioWtkLlA2nxpWF1GLM2szWpDv6SepMveo+mMFiH4TK0br8uxykbgaOzp3CGl//onDksHQx1Xq
-	6X0I4Cc5yGdXt+KqpsFvcXe5HdZ6PI3mHkiCtZQ9RZnegltv4E9MSf+VchaXK5Rm4W1HPzsMkLu
-	zIjvy9Lwr7M+X1Hdo8DFxD+3wYnYOYq9mBNe5LvIkTC4wcgCy9XF0qHcSFXItAn1qR0Uc6vhslU
-	bfYmhRhmcesZYu3rauXfipQ==
-X-Received: by 2002:a05:6102:1626:b0:7cb:fef7:3763 with SMTP id ada2fe7eead31-7cc92623e94mr1737862137.3.1792675016045;
-        Thu, 22 Oct 2026 06:16:56 -0700 (PDT)
-X-Received: by 2002:a05:6102:1626:b0:7cb:fef7:3763 with SMTP id ada2fe7eead31-7cc92623e94mr1737835137.3.1792675015533;
-        Thu, 22 Oct 2026 06:16:55 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a1eecbcsm105632466b.7.2026.10.22.06.16.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 06:16:54 -0700 (PDT)
-Message-ID: <b18e5577-9d16-40d9-891c-35af4c653108@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 15:16:46 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=Ky0gQC7y;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DyL4xeHw
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id EF139EC0249
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:20:12 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 22 Oct 2026 09:20:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792675207;
+	 x=1792761607; bh=K1qdVfJphCubBW9oKIwX5JyjJO0YamCv+67tJWpU6V0=; b=
+	Ky0gQC7yxxBKNk1HeuMwHRdFyg+LlUiK5Nv8mpcU00oo+HTg0f+QDscY9ddjYGaL
+	h6ZOR2AAfXPyZ/+cIVRdahtcBGYMKWNdZIeIKouz06OWgOmG/1y3RvU4uguuuDZD
+	FwjTkNtI50hs75en4vKkzoJvYYWwyHNCjqHSbnlmUSQpw2C5kzB6jlnVjcy/wpFw
+	ukNanMX4oTXWUkxZ1NUmkGhkWXOGLQJR0XxDB0+8phy4YeQFJQFqyn3z1tT/isbJ
+	h+D5W08x8XLb1UgCWSi8XEEVSpDr4HOvTpBiJYtBpcS2aKJo6Gr1uintxLycTp9s
+	0Ffl23FLeOU0wqOwCmyQCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792675207; x=
+	1792761607; bh=K1qdVfJphCubBW9oKIwX5JyjJO0YamCv+67tJWpU6V0=; b=D
+	yL4xeHwF4xBMxEh+FizP7SWVmbhqn0i9Nmafl5ckBCGLzij73tEjQGENWAnJGIXs
+	v6mw2mebJJ2u/QHUU5ppe7h7OqWgkLHsjt3A/MLE17rbCGjIIFuOlXXqU2PYNSD+
+	uq0ALdxWQcZT9/WbyoTL/OkHzbjreWdFEIRPV8+GKo9u4KHdETUiaSCSHGY1CRmc
+	93IoUq4HGxYtrphBeSVC6hrAMG6He1gCYrIH+I7DAvzSLVNCfRwFc5CD69s/KgYm
+	JlKXAnvmEOWExlBop8MioO50Oe0OQE3Fuw4dtzg4dMKAMEFem4hECfD3r0VXc3PW
+	cn4yj38CVaipXd+KAPfnw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792675207; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:ZMNHIWjKvGnz1PJP9o/muWj90DbOn+a9XsGjH6GoycbYWwB
+	ZNuSEH/EVY3q4pewQHvUKj46/4LEYhgoPQyBcH4NXXi0WKPA4+heIEGohhxNyEri
+	zebQ6DhCdBu1IIcvGDKjLyk6NQqWVSBZLRi889hbmkpm/hdcsV/aU0biwReSJrze
+	OTLhDHgd2fR5xv7GSX/IgvB+JXZHPvjHZI30KkRFEw2oq6ku4oqttAMFHEVrl0Be
+	4VIAW5Xjp9CYWN+99DjLtypzN9UBzYXC+JKBSjV/vPZ76magQx+ZDrND7nduCyKn
+	FNsld6r2fQLh4aWQjz2aLIpZyXnCyizzso5Mtnw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:T58q4gmxkYAzDQ7xDOnkjT9YaPqBL/D7pcbkeh39DYk=:wjaqjhTkWm9N4hOxplxv8ahzZg/gjDtU9PVQDI6bbbI=;
+X-ME-Sender: <xms:gw3aaiWFW3URf8Vjwqm1r3NJ0JgZno_1jg6HRniW7KQ8XLpNmiE7HA>
+    <xme:gw3aapbCQeFjXwZxM7nWU3SymPJaTD4NrbGsp-ZdkPlSnDVbiwTknv4ftJH4ugfDk
+    8WeBqdrxHcM6jHXj3tU73tVf9fs26pmAMTuPB78qcDHjJc6Gqaj6PKU>
+X-ME-Proxy-Cause: dmFkZTEAqbfvSwq4oH7CAvbMPyW5qgA0ZeLCQA0JIkr16vkbyfHOkB0peGRyNpxyaWQh1K
+    kRnydB35LTJOpzlgjVsO4hISndOA2nI2O955ELG/XBdWd4dQJSEvcsMlK/WSzUF0aqPeP/
+    sc2UE2K29S3hkUnlVq8VbANxppW0GYmnca/xD35vUJfbXzTeD05Fl8JAfeQnOzDZCBfUnN
+    lpQTkX6iQrHNkR95AZlLSC3VLYdZWwj6JrV+5p0u3DHus88GHgbqP8i/jyeZvfTSQV/LZK
+    ipZUlwIyszb0eTK3xK4jcjulCezV+HpfwgROPdnsUxu88BcME2T5q2mCKOVaxfcs6PdHD3
+    qJZwzr0sxm529pmQXyj7tLPjCx7JUfh/+KLxdzFudbye5fj93l8KMI++DP5GWQP8soa7Kr
+    EaVF2yyO4r/zQ1aUBflyjDFP7ajo6tFdK0wG3tAdGlc9+eOJxV8goBbPpGvS3LU5Zoc36X
+    51Y7FeIVlIqykpcEGMxpui++gaoA2pjYcrTHE7e8NqBfeGRxqFsM3F4IkMgoJI2+wEsjMF
+    MQC8K0PDoJesq53o59zqHk/noXhrovfK/4UZR55W+EwQpQrg4ezl+8wzcgzLvrsU/Awrpo
+    GuZ4l1XTuE0xrHLuLF38cAXAws/4p8LOGd1VXKPpMrF0XIG6NjhwHJwGVriQ
+X-ME-Proxy: <xmx:hQ3aatdVZPOcjTZ88-i_mEotvBZLbsOP8UYvPKNbVXUMnjD4MdHpgg>
+    <xmx:hQ3aanAhPRg6lMQv5BLh-K2bDFQfDufSUY8GVUzvyPFK-2CiE8UjTg>
+    <xmx:hQ3aah4Wo_nlhwW7AD6ppcoOXVjdzlgdN5OaIHgf9RME2J73vVsdqQ>
+    <xmx:hQ3aagecpWpkE-aGHLuiDUGC7jUTJ-NLaeuXQrpGU6wspbPK00xtxQ>
+    <xmx:hw3aapH0DTwNvQ9zcFTqMh0gFTGXphlXK6dRSUsF7EAX2qM55RfFUuQN>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3AC4E32A0093; Thu, 22 Oct 2026 09:20:03 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,109 +115,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: monaco-evk: Describe the PCIe M.2
- Key E connector
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-        Wei Deng <wei.deng@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, quic_chezhou@quicinc.com,
-        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
-        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com
-References: <0303224f-4c2c-46ec-9866-5ea1fd0fb4a3@oss.qualcomm.com>
- <20260825092715.5794-1-wei.deng@oss.qualcomm.com>
- <isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24>
- <83b67ab2-ab68-427a-94aa-881454f457ba@oss.qualcomm.com>
- <CAFEp6-2KDxDrfTZLN7KPRg=aavj8nqQr7ftna23n9C1Cpbwwbg@mail.gmail.com>
- <e26f0360-aaed-4e40-b1b2-956c92d34db5@oss.qualcomm.com>
- <CAFEp6-0b15kV6ehMN4Pv24UmMo7xFYr=H396dvdD1Teh7h+K+w@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAFEp6-0b15kV6ehMN4Pv24UmMo7xFYr=H396dvdD1Teh7h+K+w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JudkP84C c=1 sm=1 tr=0 ts=6ada0cc9 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=5fzcQa2O_f0PTkyQNbAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-ORIG-GUID: eYb699gEzV2DKRaP_3AGdjZdBBW-hX4f
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MiBTYWx0ZWRfXwaFkSZKXn56Z
- oYSehD6SDKgLkVktcimyE6J1beHy7HxV55PKDVAbXx0rivi8GvHuQ53PSCZN/tXQxm7SEaw6+29
- 5Rd8vPfqUYJOsUtu+B2KezKDnlQ82wc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MiBTYWx0ZWRfX4Z4OeNaXnUpl
- ut17sM53yJyFX3Gul5dOXdBOpBiFu8ZO06eYa6e8Da1bejQpartWnD5v+waTBHpof7jkjD8AAZU
- RUo260QjFlwF0tT+EdFZ7uozILyqC2UTJYnRt6TOlq7Jk1g/aoej2P/Y2w80pNMlhdDM3Pz9yIv
- ggf+mXGY0LHKZ9bZ/y2N/ZwM+ENbJXxiGfhzAktZ6V+DEJ2B2SJ6PU+KMKpEdd9gVzhH02OG9Za
- SBHlXla3vBDJOk70sYrnS0CA2spBNVPmvExelyP5FFXsI+yEjh9+SKXl59U8/uXaQrzCzrwtd6m
- 72VpufkrXJr7yVZSu449V9GqEivV59q7/6c/rgOTdGywgStAUp/fwhl5o59sjTZxu1OFO8yoDvw
- ZvsXULh1PY26W+4icKxujyPmgWq4tzO1nd3K2M9KNlI3SiYJ6uAJKBCdVOSTif2vyWu3LvQb8tw
- KEy/rX+7N0f6S3oRK/Q==
-X-Proofpoint-GUID: eYb699gEzV2DKRaP_3AGdjZdBBW-hX4f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220052
+X-ThreadId: AXOqHGGzWmqw
+Date: Thu, 22 Oct 2026 15:19:42 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
+ "Michal Simek" <michal.simek@amd.com>
+Cc: "Marek Vasut" <marex@nabladev.com>, linux-arm-kernel@lists.infradead.org,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Linus Walleij" <linusw@kernel.org>
+Message-Id: <99b0511a-96d2-420b-bfbe-6e22fdaffbf9@app.fastmail.com>
+In-Reply-To: <20261013175438.GL4214@killaraus.ideasonboard.com>
+References: <20260916204509.166633-1-marex@nabladev.com>
+ <20260916204509.166633-2-marex@nabladev.com>
+ <ad7fdd3a-489a-4573-8dec-961a16e6539b@amd.com>
+ <20261013132625.GA159927@killaraus.ideasonboard.com>
+ <acdfefce-a7cd-4918-bcca-52357bcf182d@amd.com>
+ <20261013175438.GL4214@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v3 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/22/26 3:08 PM, Loic Poulain wrote:
-> On Thu, Oct 22, 2026 at 11:34 AM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> On 10/13/26 10:13 AM, Loic Poulain wrote:
->>> Hi Folks,
->>>
->>> On Mon, Sep 21, 2026 at 2:38 PM Konrad Dybcio
->>> <konrad.dybcio@oss.qualcomm.com> wrote:
->>
->> [...]
->>
->>>>>> We are adding M.2 Key E connector support for monaco-evk [2]. Konrad
->>>>>> suggested moving the port/endpoint anchor nodes to the SoC DTSI
->>>>>> (monaco.dtsi) for clean DTS layering, so that board files only need to
->>>>>> fill in remote-endpoint for boards that actually have an M.2 connector.
->>>>>>
->>>>>
->>>>> This means, the dummy port/endpoint node will always be present even when the
->>>>> M.2 connector is not used. I don't see a compelling reason to do so.
->>>>
->>>> I don't really see a compelling reason to defer re-defining them to each
->>>> device DT either..
->>>
->>> Adding an empty port/endpoint at the SoC level is problematic for
->>> uart, port is not always expected, this depends if the uart is exposed
->>> through a connector or to an onboard device. So we may end with an
->>> unconnected endpoint but still have a bluetooth subnode, which can be
->>> a bit confusing... Also why adding a port/endpoint only for a specific
->>> uart in the dts, and not for the others? This is a board/SoC level
->>> choice to use a specific uart for M2 or not.
->>
->> From my perspective it's removing boilerplate. Currently all USB and
->> PCIe hosts already define their ports and endpoints in the SoC DTSI
->> and if they're unconnected, then simply nothing happens.
->>
->> Both 'ports' and 'endpoints' are an abstract property that signify
->> 'X can be related to Y' and I don't see how that's a problem here given
->> UART is very much expected to be connected "somewhere" (with the
->> "somewhere" perhaps being external/a pin header)
-> 
-> Yes, but in the UART case, where the connection can be represented in
-> different ways, we can end up with devices being described as both
-> unconnected (no remote endpoint) and connected (via a child device).
-> We can probably live with that, but if we go in this direction, we
-> should consider adding a port/endpoint definition for every UART
-> instance in the DTSI for consistency. The same would apply to I2C once
-> endpoint support is available there as well.
+On Tue, Oct 13, 2026, at 19:54, Laurent Pinchart wrote:
+> On Tue, Oct 13, 2026 at 03:47:12PM +0200, Michal Simek wrote:
+>> On 10/13/26 15:26, Laurent Pinchart wrote:
+>> > On Tue, Oct 13, 2026 at 10:21:26AM +0200, Michal Simek wrote:
+>> >> On 9/16/26 22:44, Marek Vasut wrote:
+>> >>> Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
+>> >>> The board is populated with four ethernet ports, QSPI NOR,
+>> >>> eMMC, UART and USB host interfaces.
+>> >>>
+>> >>> Signed-off-by: Marek Vasut <marex@nabladev.com>
+>> >>> ---
+>> >>> Cc: Conor Dooley <conor+dt@kernel.org>
+>> >>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> >>> Cc: Michal Simek <michal.simek@amd.com>
+>> >>> Cc: Rob Herring <robh@kernel.org>
+>> >>> Cc: devicetree@vger.kernel.org
+>> >>> Cc: linux-arm-kernel@lists.infradead.org
+>> >>> Cc: linux-kernel@vger.kernel.org
+>> >>> ---
+>> >>> NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
+>> >>>         undocumented, but the TI DP83822I is generic C45 PHY that
+>> >>>         is valided by Documentation/devicetree/bindings/net/ether=
+net-phy.yaml
+>> >>> ---
+>> >>> V2: - Rename lm75 node to sensor@
+>> >>>       - Use GPIO_ACTIVE_LOW macro
+>> >>> V3: - Drop bogus clk_ignore_unused bootargs
+>> >>>       - Drop gpio line names
+>> >>> ---
+>> >>>    arch/arm64/boot/dts/xilinx/Makefile           |   1 +
+>> >>>    .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 300 ++++++++++=
+++++++++
+>> >>>    2 files changed, 301 insertions(+)
+>> >>>    create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-eva=
+lboard.dts
+>> >>
+>> >> I am not able to review or take this board support further without=
+ publicly
+>> >> available hardware documentation for the platform (board-level and=
+ relevant
+>> >> interface details). Please share public documentation links once a=
+vailable, and
+>> >> I=E2=80=99ll be happy to revisit the patches.
+>> >=20
+>> > There are plenty of boards that have no public documentation. Pretty
+>> > much all phones and laptops are like that. We even have a whole
+>> > architecture that only runs on a few machines in a single person's
+>> > basement [*] :-) The kernel has never required public schematics for
+>> > boards, SoCs or IP cores.
+>> >=20
+>> > [*] A slight exageration possibly, but that's how I heard arch/alph=
+a/
+>> >      being described at the maintainers summit.
+>>=20
+>> Pretty much every SOC with programmable logic or FPGA boards have unl=
+imited=20
+>> amount of configurations and make no sense to describe all of them.
+>
+> As far as I understand, the dts describes the board only, there's no PL
+> devices in there. The fact that the SoC has programmable logic doesn't
+> seem relevant, unless I'm missing something. The situation is the same
+> as with any other SoC. We have lots of device tree sources in upstream
+> for all kind of boards, with or without schematics available, for
+> development boards or for boards integrated in products, for easily
+> available mass-market products or for specialized devices more costly =
+to
+> source.
+>
+> Maybe I'm wrong about all this, so I've CC'ed all ARM64 SoC maintainers
+> on this e-mail to get feedback on the overall mainline policy for
+> upstreaming device tree sources.
 
-Guess so!
+In general, we definitely want this type of board to have an upstream dts
+files, and there is no requirement for public documentation as in
+many cases the dts source is the only documentation that is
+available.
 
-Konrad
+As platform maintainer, Michal should review the dts file to see if it
+follows the general coding style and maintainability standards. If any
+of the data in the dts turns out to be wrong in a way that one cannot
+tell without access to hardware or documentation, that is Marek's problem
+and he gets to fix it.
+
+       Arnd
