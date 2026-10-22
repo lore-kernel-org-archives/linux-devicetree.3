@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670020;
-	b=Xm47Gbx4U2RJWM1SRAOjKK63kHj6hdQgkXGwFpDCy15fMhixFOH4I1ZpfZS15VopvQQP
-	 5ruxdEffvBhztrLis+dnZOgwy1LHCdJCuRp6KZEQSEagXX6/Vvyd6jC91/2I0R4hXxCPt
-	 zkI1kEzDJ+WZJh8JxpmzIgKHkwSVdcad+4c+9mSdA0MWpqCMw/BEXoaavCwMk1RAtrheM
-	 btWjWb5JAf1ZFWdjxJonOXOEP7kKp9An8JDl10JZ9yeRfv17gGXPVRuq1m0DkZFclNpVY
-	 /u3+/XuDBhMRZZouKK6DEtgAeIv2LkLYvV8qgjtTUn41QOs8xzx7pBxkmzAhiMOyGxA==
+	t=1792670022;
+	b=HBoa31Pgu7FIH+WxOfWmR5aUU4aTyOEbGq/lVH+5D1YGhn10POP7D1XgmxUsFU9LqT8e
+	 FZdamjLv+CwneLEGYDgUVUqLVrBdOlRK1vS2wJUwW+RlfVbQT/lU2OSjqNDqmr+Kmy4By
+	 +v0eLSyK1uPE4YAH4C4NwBojj+4gckIV/2GOuCZkLvwCdOVL4azpS0e+cCpb4R5LrTOGD
+	 1SVrzbOz6o47tkSYvVpvT3yKMcfvcAEqCNGod9IQj/BM6vLlwTEeZGnB919E9XckZpuTD
+	 O/Rn4nSlfjE5I/Yqzgb85AQRzh07UivFa4djTdcjzprRSH2j6skmEOAlPrrmuHd2GVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670020;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jpj1q9f0g2oFl2APmtyBtG5ANolPGcbCYidyFJJBOS8=;
-	b=daehcRU7RGiqgoy49nAEmoZ4EuuXgaAofQl8rH+DA6MsdZEdHJafs5hkopHyrewX0E1M
-	 SCdrLq9UjBNz8+iP1j24eQshzcFJgBtzXgwKLGzKQAdRAfRUwD4EiYS/U62pU28j1Prmc
-	 ennXqFbiSFyOFGvWQoPcPdgWjUyAHfnOT/GM2+14Gg8H4F85C0fiXS6fnh8qSuMl06/BV
-	 PS5S+JLJZmrLH7vCbavYE0RH2a0tgxNmbyg+yZQtH9BL6ZmAEqv2MzOb3B2b27jIlaVnk
-	 5a8BnlsiMAdznf3Toua38ES2YhhiRMl25xOvUpwsbEESTO5UKon/DItsISVoQOngQRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670022;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Message-ID:
+	 Subject:From:To:CC:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=upfwtUV8EbGVUbWxxpiKAfBnHEyn8vCFzWrktWT3e7Q=;
+	b=FhsZVpHX3HDVacKSH4K/sJgfY8xLVC8WYB/wUCOaBRsUXGdhRZYpbTxBpcVs90guNuEi
+	 kwwX59ZDNpq77RH7Vm2C8C/n2bc6PaGYlgcKzZqCMw4C5KzFFpJKRuIEQdVt+HB07fhCt
+	 1/ldNsyakiXC4AmILMJDuLqIC4Acw/eIHcw95q8dvZ+J5ZjikdU78+x/UIgJViF1zMAv2
+	 E+VeoWOkpoOQnKLpCYB1a/P3dAiZ2CPHShbbKUx0FnUWlaQz3z1Mi21SBHpLJqR9OoopI
+	 icHvDZgfE+HuHMRbFe+nysJVU/FgNEHKBC3g94NFncWrmYffqm2UhP8vRucwMMQtbBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RBp/b82F";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=WpM4Orvt;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8E7606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 11:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B60606A319;
+	Thu, 22 Oct 2026 11:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B60606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBp/b82F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBB41F000C1;
-	Thu, 22 Oct 2026 11:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792670019;
-	bh=jpj1q9f0g2oFl2APmtyBtG5ANolPGcbCYidyFJJBOS8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RBp/b82FhD4QY3f/ZzacmW3iaIVV6eo06gpFt2ROCKHoakMox+vITnaf3jxOZf7BT
-	 GJzeXzdTZfvlI04nFPM/YrrsrxME+YcQxdWM8LXiO17+dGdNSbTlp3XSyf9Y95p7Bp
-	 Z5Qd//0yPBNPCRouPApJ3TUQ8pOrsULOEBKF56/WZZrRvHqpVgie5SWU8rqgjOFXL+
-	 bdk0HaTb/KH4MtJD6oqzoRvlIVcDiL5omb7X8gXIKtCU3IPaQXrsRgCSrbK9VhQNOF
-	 fYHduNKG30cvgqNJBSFIKCXkM2u15kY3DoHc2h/A+6lB/W2XwrIzH+YcFUBYRNFLr8
-	 u2wBb5I0QrwTQ==
-Message-ID: <sashiko-outbox-181401@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI
- bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "ShiTou Hong" <redstone.dcity@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022113601.2320940-2-dc_redstone@outlook.com>
-References: <20261022113601.2320940-1-dc_redstone@outlook.com>
- <20261022113601.2320940-2-dc_redstone@outlook.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=WpM4Orvt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792670022; x=1824206022;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=GmV0QCXgHw916achcJk5p19Gm0if1pq+xAF7kR4jJCc=;
+  b=WpM4OrvtaAv4aiRB22ys+K1nUswmf0ZshStasZx4aeaboAIVhdHIgpEN
+   JJJPlRGeHzirBRRYsE8AlY+MlPqSFNzqOiaaadSC0NJtb2+aMrA2+/24/
+   Jm3FqEwOxpTo8FisuBmgIehTLbNtF9D992Rp9YKR50lQDzptxLdRLWRkn
+   kqCRReLU4YN/0rDzPFfCXKu2W7K4GeCFPh10IHC6GMhiHPEJOg7/C96Yz
+   onCCmzHadZSueT3RvMAnIaZSyrgP6hBFciOR03JnuXvNyJltKM6Jl1Tsv
+   zUsQLkrpAfvY3ngH9B6qfF7qG8gltA8xO1oz10zRqUtjfdxfLVh0cjv6z
+   Q==;
+X-CSE-ConnectionGUID: dxq2WxxfQpiG7F6Qp0kFlg==
+X-CSE-MsgGUID: Ym6nutdVTqakjpbYD/eCpg==
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="65412134"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 04:53:41 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Thu, 22 Oct 2026 04:53:40 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 22 Oct 2026 04:53:36 -0700
+Message-ID: <abd2fba0ee9e1cb736eb9443d0af11fbbc7068d4.camel@microchip.com>
+Subject: Re: [PATCH net-next v15 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<geert+renesas@glider.be>, <magnus.damm@gmail.com>, <edumazet@kernel.org>,
+	<richardcochran@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Thu, 22 Oct 2026 13:53:35 +0200
+In-Reply-To: <179240452564.3135.4025477777348146503@kernel.org>
+References: <20261015-dsa_lan9645x_switch_driver_base-v15-4-562f316f78b9@microchip.com>
+	 <179240452564.3135.4025477777348146503@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 11:53:38 +0000
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,158 +90,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: sm8250-hdk: pinctrl node lt9611-pins violates =
--state schema
-- [Medium] arm64: dts: qcom: sm8250-hdk: unlinked mdss_dp and unrelated ads=
-p/cdsp nodes
---
+On Mon, 2026-10-19 at 10:08 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] Nothing in the tree can bind or exercise this driver.
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add basic dsa driver for LAN9645X
+>=20
+> This adds a basic DSA driver for the Microchip LAN9645x switch. It covers
+> switch initialization, NPI, CPU and front port setup, and phylink MAC
+> configuration for the internal CuPHYs and the RGMII ports. All register
+> access goes through named regmaps requested from a parent device, which
+> is meant to be an MFD driver submitted in a later series.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > new file mode 100644
+> > index 0000000000000..c7de3836e6967
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > @@ -0,0 +1,456 @@
+>=20
+> [ ... ]
+>=20
+> > +static int lan9645x_reset_switch(struct lan9645x *lan9645x)
+> > +{
+> > +     u32 val =3D 0;
+> > +     int err;
+> > +
+> > +     /* The parent must reset the whole chip before instantiating its
+> > +      * children, so the switch core is disabled when we get here. The
+> > +      * sequence below must not run more than once: initializing the
+> > +      * memories on a running core corrupts pointers inside the queue
+> > +      * system, which eventually fills up and stops passing traffic. I=
+f the
+> > +      * core is already enabled the chip was not reset, so skip it.
+> > +      */
+> > +     if (SYS_RESET_CFG_CORE_ENA_GET(lan_rd(lan9645x, SYS_RESET_CFG)))
+> > +             return 0;
+>=20
+> [ ... ]
+>=20
+> > +static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
+> > +{
+> > +     const char *resource_name;
+> > +     struct regmap *tgt_map;
+> > +
+> > +     for (int i =3D 0; i < NUM_TARGETS; i++) {
+> > +             resource_name =3D lan9645x_resource_names[i];
+> > +             if (!resource_name)
+> > +                     continue;
+> > +
+> > +             tgt_map =3D dev_get_regmap(lan9645x->dev->parent, resourc=
+e_name);
+> > +             if (IS_ERR_OR_NULL(tgt_map)) {
+> > +                     dev_err(lan9645x->dev, "Failed to get regmap=3D%s=
+\n",
+> > +                             resource_name);
+> > +                     return -ENODEV;
+> > +             }
+>=20
+> [Severity: Medium]
+> Does anything in the tree provide these regmaps?
+>=20
+> lan9645x_probe()->lan9645x_request_target_regmaps() asks the parent for 1=
+7
+> named regmaps: gcb, qs, chip_top, rew, sys, hsio, dev0..dev8, qsys and an=
+a.
+>=20
+> A search of drivers/mfd/ for lan9645x or lan96455s finds nothing. That is
+> still true at the end of the series, through "net: dsa: lan9645x: add por=
+t
+> statistics".
+>=20
+> The new microchip,lan96455s-switch binding requires reg and reg-names, bu=
+t
+> the driver never reads them. A DT node that follows the binding would
+> therefore always fail probe with "Failed to get regmap=3Dgcb".
+>=20
+> dev_get_regmap() returns NULL, not -EPROBE_DEFER, so the probe is not
+> retried if a parent appears later.
+>=20
+> lan9645x_reset_switch() above relies on the same missing parent. When
+> CORE_ENA is already set, it skips the RAM init without logging anything.
+> That precondition also can't be checked without the parent driver.
+>=20
+> The commit message says:
+>=20
+>     The MFD driver will come in a later series, because there are
+>     requirements on the number of child devices before a driver qualifies=
+ as
+>     a MFD device.
+>=20
+> Until that series lands, the driver can't be bound or tested on any in-tr=
+ee
+> configuration. Could this be merged together with the parent driver, or i=
+s
+> there another way to bind it in the meantime?
 
-commit b1dadd1c8b42a901f8e62f9b3d2367c950faf2f4
-Author: redstonee <1516235445@qq.com>
+Dismissed, intended.
 
-arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI bridge
+the driver is meant to be instantiated by a parent MFD that owns the
+register IO and registers the named regmaps before it adds its
+children, similar to ocelot_ext. The parent is kept out of this series
+on purpose, to avoid a series across the net and mfd trees.The MFD
+support is planned as a follow-up.
 
-This commit enables the LT9611UXC MIPI DSI-to-HDMI bridge on the SM8250 HDK
-along with its regulator, HDMI connector, I2C bus, pinctrl state, and MDSS/=
-DSI
-nodes, as well as the ADSP, CDSP, and DisplayPort controller nodes.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sm8250-hdk.dts
-> index 5975878ea0fd2..d92e569d87410 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9%40microchip=
+.com
 
-[ ... ]
-
-> @@ -404,6 +431,20 @@ sd_ufs_cd_pins: sd-ufs-cd-pins {
->  		function =3D "gpio";
->  		bias-pull-up;
->  	};
-> +
-> +	lt9611_pins: lt9611-pins {
-> +		irq-pins {
-> +			pins =3D "gpio1";
-> +			function =3D "gpio";
-> +			bias-disable;
-> +		};
-> +
-> +		rst-pins {
-> +			pins =3D "gpio2";
-> +			function =3D "gpio";
-> +			output-high;
-> +		};
-> +	};
->  };
-> =20
->  &uart12 {
-
-[Severity: Medium]
-Should the lt9611-pins node under &tlmm (as well as sd-ufs-cd-pins from the
-preceding commit) be named with a -state suffix, such as lt9611-default-sta=
-te
-or lt9611-state?
-
-In arch/arm64/boot/dts/qcom/sm8250.dtsi, tlmm uses the qcom,sm8250-pinctrl
-compatible string. The binding in
-Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml sets
-unevaluatedProperties: false and restricts top-level pin configuration child
-nodes to names ending in -state, while -pins is only matched for subnodes
-nested inside a -state parent node:
-
-patternProperties:
-  "-state$":
-    oneOf:
-      - $ref: "#/$defs/qcom-sm8250-tlmm-state"
-      - patternProperties:
-          "-pins$":
-            $ref: "#/$defs/qcom-sm8250-tlmm-state"
-        additionalProperties: false
-
-Naming the top-level child node lt9611-pins causes dtbs_check to fail on
-&tlmm and skips validation of the nested irq-pins and rst-pins subnodes.
-
-> @@ -486,3 +527,85 @@ &sdhc_2 {
->  	pinctrl-0 =3D <&sdc2_default_state>, <&sd_ufs_cd_pins>;
->  	pinctrl-1 =3D <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
->  };
-> +
-> +&adsp {
-> +	status =3D "okay";
-> +	firmware-name =3D "qcom/sm8250/adsp.mbn";
-> +};
-> +
-> +&cdsp {
-> +	status =3D "okay";
-> +	firmware-name =3D "qcom/sm8250/cdsp.mbn";
-> +};
-
-[ ... ]
-
-> +&mdss {
-> +	status =3D "okay";
-> +};
-> +
-> +&mdss_dp {
-> +	status =3D "okay";
-> +};
-> +
-> +&mdss_dp_out {
-> +	data-lanes =3D <0 1>;
-> +};
-
-[Severity: Medium]
-Were &adsp, &cdsp, &mdss_dp, and &mdss_dp_out intended to be included in th=
-is
-LT9611UXC HDMI bridge patch?
-
-The &adsp and &cdsp remoteproc nodes are unrelated to the MIPI DSI-to-HDMI
-bridge and are not mentioned in the commit description.
-
-Additionally, enabling &mdss_dp here before connecting &mdss_dp_out to
-usb_1_qmpphy_dp_in (which happens in the follow-up USB-C patch "arm64: dts:
-qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip") leaves port@1 of mdss_dp
-without a remote-endpoint:
-
-arch/arm64/boot/dts/qcom/sm8250.dtsi:
-    port@1 {
-        reg =3D <1>;
-
-        mdss_dp_out: endpoint {
-        };
-    };
-
-Because add_mdp_components() in drivers/gpu/drm/msm/msm_drv.c skips disabled
-interfaces via of_device_is_available(intf), &mdss and &mdss_dsi0 do not
-require &mdss_dp to be enabled for the HDMI bridge. When &mdss_dp probes
-without a remote-endpoint on port@1, msm_dp_display_probe_tail() in
-drivers/gpu/drm/msm/dp/dp_display.c sets dp->next_bridge =3D NULL instead of
-attaching the QMP PHY AUX and Type-C HPD bridges:
-
-    dp->next_bridge =3D devm_drm_of_get_bridge(&dp->pdev->dev, dp->pdev->de=
-v.of_node, 1, 0);
-    if (IS_ERR(dp->next_bridge)) {
-        ret =3D PTR_ERR(dp->next_bridge);
-        dp->next_bridge =3D NULL;
-        if (dp->is_edp || ret !=3D -ENODEV)
-            return ret;
-    }
-
-drm_bridge_connector_init() then falls back to msm_dp_bridge as the HPD
-provider and calls msm_dp_bridge_hpd_enable(), which calls
-pm_runtime_resume_and_get() and enables internal HPD via
-msm_dp_aux_hpd_enable(), keeping the DP controller and RPMHPD_MMCX power
-domain permanently resumed.
-
-Should &mdss_dp and &mdss_dp_out be moved to the follow-up USB-C patch where
-the DisplayPort graph is connected, and &adsp and &cdsp be split into a
-separate commit?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022113601.2320=
-940-1-dc_redstone@outlook.com?part=3D2
