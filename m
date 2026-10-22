@@ -1,63 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678542;
-	b=1D+12s4PAjzg5/5dicdQUyOru8GoWAU9+bKEqe5ScpKJ7xor9seydpKy4N6k5v6JcY1a
-	 /j7mE0qG1jQnD/H3P3YAO1mBim6L/Qy4bu4CVkxn5ve3QMcyHDY9JC/QOu5osFd0RDw02
-	 LRWpd71wKrYuCCxAk4nyEQ4OFwV7uIJ6dQ0kMxbUEHaANURV5c26X5OgMXWA3GHefSOGp
-	 P+HFXeOMnCenmxqaM3PlvhJqGgHMc4PCZ+f1AnhI9I4m1JbViiZT2eAAQB5WRzf3TDGUZ
-	 uS2i1D+V5KNL6TsgpSGwbu/YiOrVPz3JmaL1Bb5BGJjq0x7SuvliEXJS4tg3V7qcCGg==
+	t=1792678552;
+	b=Xz3vHj3jFCn+sT9d0q8zHQptV5JydmF9mkouaBFZ/6C5l0aCuBriS1zoH0wmcF3x3GFy
+	 ZnDe9nteN+SYmoaWab1q2PNYvv53pamNvSGWuSr3DKGGbWWpH0/xMTBoQuvWW0QefrILS
+	 wX5EA8D8xvsX7vIQdeRTPZhGVjpVLfDupqAM/gHta/M918VQEXRaLkp1hXQScQi+q9GqL
+	 IHlXrXqptJ6c4FGuAagr+roAh6kgh5dl9dAcdSRvdo2Q1NWR7KMcdppZSqg4yAly0xDL3
+	 jpO0z+bbQ69Zx6hMN2tWTa3BSq/W03Je2+bR3ms+82YNuxzBLPv3uispBnMrZiiD41w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678542;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pObZkhlDQ4PcaI1MN+28pmTr0CCJt+oalaIvvB0M4LQ=;
-	b=UlJZUWZRV9FUtWtVnefRWsfYWzBFzazEKVQXOs3Q37V736CvLMpfkRRbVz4mSdomnYk3
-	 bxvcVIclvhAVgRklgzvO+tnXaW+u32BCaW356Ptr4RazJFU0MlGNe4C8VuHvB3QYCDB8X
-	 +xAOh+5TTXQBPDTTUNe/Vwp0RRZWaEgoi4Kqr1V+kESCbxGssRsSqObrBC3L1+0HmnjuS
-	 4RLCZiO9qYn/gUhBx1t/5fR1yTYRHrkaC/Vv7QJMNpHYICCEQVTfK+ZLFKICigYA/eAk1
-	 P6NWVM9SO3ljDvGc7ObfcDqir5OJBOcpfg/WnAhKMOgPimbQf3f126yDkV+iih/s+sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678552;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DYTy/UTl+vBn4EAGrIttzpHzPB3aaGAMqMkXs9OYaPM=;
+	b=CWLXUif7vVBkeinDh5yJpIY/Vw0CK8LM6q66BClgdR07AQUV5vsyJO/ObZXrX1+DeLff
+	 N3PziNHs85Wyvl80tQaNtT00bTWDu6PJYbP1Ot9+UYNPPuNeW4OAMYPxVZD+61fRhIIM6
+	 rBbhgRL3lpzqmU8I+tlIW7+1Ja+qi5B7/CoRYohVW8yzMlwKZt5LBks/KiP2tNLZHb5zE
+	 PMHxuxT4bhtyGljAKTLfphCO69CO+0jRVN4A+DVs4oXNIPYVO/hYo3rT+4VOeYQmO/qZq
+	 yCAw6lB/R1i9gCt/PvD5wV308wNbC3xEb7aAPbtrMHSQHU6D7e4BzY1Ilhpe7ErXqfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5su5LFq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+KeYW5z;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADAA606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C4E606A31B
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19C4E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5su5LFq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36E31F000C1;
-	Thu, 22 Oct 2026 14:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678542;
-	bh=pObZkhlDQ4PcaI1MN+28pmTr0CCJt+oalaIvvB0M4LQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H5su5LFqyqqXsY0bNPL6LsGNm91WzIY4qXgmQbmvtgg8Z37AybGQK0+k796GQ7hlL
-	 WC0h7tdPJ+cI6aQS1aFbOtJAi0z043q0ZnCjAemYF4LRNCZeq0bEvQy/WQRzCqkSRe
-	 +Ol8SgrU38y0/rz/R/YgFZSxZHgm2v6qIJHlP3dmGYvRWTCSzCms7YyaDGDON+QnOC
-	 d5dlvyLTMB1Ke5ZmIvKeZribYRJlr86VbuqQGMe1Lfb0mNAW3vEXJkv/I/GG0qBvdv
-	 9L+Niv4P8jiEK8hL6O7KPvX7cMNs/K2Idzw5PCZKGnsBzokKTdbs7AAuHU6HMnGrdq
-	 5X5E549YwCAPw==
-Date: Thu, 22 Oct 2026 09:15:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Russell King <linux@armlinux.org.uk>,
-	William Zhang <william.zhang@broadcom.com>,
-	Anand Gore <anand.gore@broadcom.com>,
-	Kursad Oney <kursad.oney@broadcom.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable
- method
-Message-ID: <20261022141541.GA1009304-robh@kernel.org>
-References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
- <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J+KeYW5z
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso16602715e9.3
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 07:15:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792678550; x=1793283350; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DYTy/UTl+vBn4EAGrIttzpHzPB3aaGAMqMkXs9OYaPM=;
+        b=J+KeYW5zKbAaR2ohXAf+0Uj0fjYUeB8W33bmWTi/ZMTBJPpuodDtKue6spwAGY4QY6
+         3Nr+SYdmRDiB1bzgGMkre61w+w2gKROkWgxKCmW7sL7j1IqOx3IMtBla9F4YToY1DPcd
+         wsnyErhtyEiOkEmkJ3i0boFeYHoSj8wpK2/FpOclE4sO2y7KBTGunZexmKdf+zlmBCPf
+         JeCC8OmqKLyw294nxq456xv0GH6ceiOwKd/6o9UP/3tZ/EYvj2jUNaCqExXT4dFhXLLO
+         7qqVWQv2GC9Ptl7OoRBMO2CUoujqfTLPOua4+Ge07c6MMnbdKElWI1MW0LU6hgRo7ErO
+         l1WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792678550; x=1793283350;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DYTy/UTl+vBn4EAGrIttzpHzPB3aaGAMqMkXs9OYaPM=;
+        b=2vG1vOMfg4oRZvP3XPCvlTP3+nT1n1f58NLp23lu1Kh3lgJ5fnLKHoYHXNV7N3nWAQ
+         I2PY3s3nJDzdHuE3/WcnvD+uUiovOqozfAvJehgBEmItmxbQFWiEkyMYt1Lm/icHS1tK
+         KW6L5h+xKSB+fHPCrwooCZTlVv4lLBYNqTpeIOQVOZM+wTCXdqz66kJmLoMBCcdp9gwt
+         78JFuJs6mYMyVCdUm6QcHt19e5xjWslswnrMy/rzvubyjmv4m53JqapvFpn6zxx1eplP
+         0fYjXTh/r7G82iKIeFKXa9FEyurajVzPhY1lpXNjrSS9g3MA+9Udtg3aMfOt84VkhSVI
+         6vcA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9Co5QitluO9s8W5pMT3u5ArWa1PhokWvVdgBj+NKlab+RvIrhJr5knaYmU/8Rq5ssKs9YyY///FwG@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTRsyZJof5LRJZ7Y/jkF1mFezBPOuUO/WtaEdl0i6cJ37n9mvB
+	CCSon8UGCwPmQvnEuV6Ilj++jJ8rqv5ARe9cSINez6AZFVFN52jdSCUp
+X-Gm-Gg: AYBFou2N1cC2erjN6Vv3LXVJu4CdW6MvXXsMKEANKwaIZDWCAnu7ikfOzJOybzlUhmA
+	waBB7OFGEIyrVcwlc1laN4cu7rP44GY3dFOumocyvRYVt313fMadAJM37G8GkMf75Mf9KXeJubI
+	tnaUNssWXHSYB05O1YbS+PNGwb2sAZuMqQjFx0xQOOYi6cyj4k8yPPmFeepXY4OrKlXLzvywDxv
+	RXjsZLkJHWdP7Qm68NYvzWfF0+0UwYTYbnlwyXq5Hu2nCMCAs3ah4WFImQqT4tMX+fgT3o9mFqv
+	uLPmr3CiCcOUsDP7iIcFqGrLlRik5P/zdBasAptOntdw4p0tLO2JsIlV44G0gOmxa5zzsVTGr7o
+	WHOUg806nOn3058Yw0tDK9YCqFoOK7kSwReLCD5HHcpl73DpoNpjcAvXJyubMjoD6j8W7B5DhF7
+	D0DyXc7TWEr2jTn37lyxobUSRDmrBhau02rMZ5cybHehZnhwXGhD7M2z3dAxSJqBaitquPfGVFE
+	NYrn9UxK/q+PVLgAhki7Vh+MkvXrKXfv+bwlI5vl2cD1E7YwQEW/vj8P+Do8jE3ZjzGMCjt+gZv
+	wbS09ay76DNt8fgG/czi3mF7tDd6lhA0bV4Nk3472Z66DrVxzJA+FDg=
+X-Received: by 2002:a05:600c:34ca:b0:4a0:eae0:769a with SMTP id 5b1f17b1804b1-4a1fdd39e68mr111050565e9.28.1792678550121;
+        Thu, 22 Oct 2026 07:15:50 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203add62dsm82627145e9.2.2026.10.22.07.15.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:15:49 -0700 (PDT)
+Date: Thu, 22 Oct 2026 16:15:48 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 0/4] arm64: dts: freescale: Add Toradex iMX95 overlays
+Message-ID: <ew6jybymalb3d3q7hen4qubefipnofcfzsrzyjdajuagw5fnov@b2oe5mjyz63w>
+References: <20260922-v1-imx95-overlays-v1-0-694100afb4bc@toradex.com>
+ <arKn0LhC5fty7dHN@SMW015318>
+ <20260922165846.GA290956@francesco-nb>
+ <arLJl3jyyytfS_Qw@SMW015318>
+ <20260923084111.GA460930@francesco-nb>
+ <arPrD4TDYhjYxFGJ@SMW015318>
+ <20260924101308.GA45659@francesco-nb>
+ <arU0sLhGG__lh98n@SMW015318>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,95 +109,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org>
+In-Reply-To: <arU0sLhGG__lh98n@SMW015318>
 
-On Wed, Oct 21, 2026 at 05:09:52PM +0200, Linus Walleij wrote:
-> BCMBCA systems booted through CFE can release a secondary CPU by
-> writing its ARM-state entry address to a 32-bit MMIO mailbox and
-> sending a wakeup interrupt.
+On Thu, Sep 24, 2026 at 09:33:20AM -0500, Frank Li wrote:
+> [...]
+> imx-uart<n>-mcu.dtso. similar case imx9-mqs.dtso.  Uart<n> is cross while
+> imx famililer.
 > 
-> Document brcm,bca-smp and its single-cell cpu-release-addr property.
-> The boot CPU does not need a mailbox; secondary CPUs do. Add a
-> Cortex-A7 example showing both CPU nodes.
+> Frank
 > 
-> Suggested-by: William Zhang <william.zhang@broadcom.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  Documentation/devicetree/bindings/arm/cpus.yaml | 36 +++++++++++++++++++++++++
->  1 file changed, 36 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-> index 5be89c584026..6771b85f757b 100644
-> --- a/Documentation/devicetree/bindings/arm/cpus.yaml
-> +++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-> @@ -255,6 +255,7 @@ properties:
->            - amlogic,meson8b-smp
->            - arm,realview-smp
->            - aspeed,ast2600-smp
-> +          - brcm,bca-smp
->            - brcm,bcm11351-cpu-method
->            - brcm,bcm23550
->            - brcm,bcm2836-smp
-> @@ -471,6 +472,20 @@ allOf:
->      then:
->        required:
->          - secondary-boot-reg
-> +  - if:
-> +      properties:
-> +        enable-method:
-> +          const: brcm,bca-smp
-> +      required:
-> +        - enable-method
-> +    then:
-> +      properties:
-> +        cpu-release-addr:
-> +          $ref: /schemas/types.yaml#/definitions/uint32
-> +          description:
-> +            Physical address of the 32-bit MMIO mailbox read by CFE after
-> +            a wakeup interrupt. Required on secondary CPUs. The kernel
-> +            writes the ARM-state entry address before sending the interrupt.
 
-required:
-  - cpu-release-addr
+Hi Frank,
 
-??? But cpu0 doesn't have an address. Is there really no address or you 
-just omitted because you don't really need it. Should still be there in 
-the latter case IMO.
+v2 follows this. The UART overlays are now a single shared overlay,
+imx-tdx-uart-mcu.dtso. Each module device tree labels the UART it
+assigns to the Cortex-M core uart_mcu, so the same overlay also covers
+the Verdin iMX8M Mini and Plus, where it is UART4 instead of LPUART2:
+https://lore.kernel.org/r/20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com
 
-Alternatively, add the enable-method value to the existing section that 
-does this. Also, there might be other cases that are a 32-bit address 
-and need this same constraint.
+The Verdin iMX95 NAU8822 BTL patch (1/4) moved to the shared NAU8822 BTL
+overlay series:
+https://lore.kernel.org/r/20261022-imx-nau8822-btl-v2-0-b4221ed43650@toradex.com
 
->    - if:
->        properties:
->          enable-method:
-> @@ -712,4 +727,25 @@ examples:
->          cpu-release-addr = <0 0x20000000>;
->        };
->      };
-> +  - |
-> +    // Example 5 (Broadcom BCMBCA with CFE):
-> +    cpus {
-> +      #size-cells = <0>;
-> +      #address-cells = <1>;
-> +
-> +      cpu@0 {
-> +        device_type = "cpu";
-> +        compatible = "arm,cortex-a7";
-> +        reg = <0>;
-> +        enable-method = "brcm,bca-smp";
-> +      };
-> +
-> +      cpu@1 {
-> +        device_type = "cpu";
-> +        compatible = "arm,cortex-a7";
-> +        reg = <1>;
-> +        enable-method = "brcm,bca-smp";
-> +        cpu-release-addr = <0xff800568>;
-> +      };
-> +    };
->  ...
-> 
-> -- 
-> 2.56.0
-> 
+Best regards,
+Ernest
