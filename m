@@ -1,93 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792701635;
-	b=mYf6J6AdxBswuttNjBsHGKVpQV+lKqVQRqWzhxIG+2xhwOAG5ytxTz30EhELQc+5SYGk
-	 illz/WA+XtXrmjSQXMNWCzN55OpTiO/8of4a1z7PRi32a7NtT46bsQ1Vf2UhicnmUlw0y
-	 fhy4luM05sfTxEQdTFlWIXg/adpJhKy8NLny1tw5xwCBGadpLIMoIqheEsx1cJQP4DWWF
-	 qbi/f+dPxl8N/y4jRTV1h37jUIaY+t4XiLn23DGHI1tiOyuoFN7BFowYHfpDinPE62d60
-	 QxJimGRgGNdwsFkPmp/lUrNIxlnk8e8tXLkajhMoRnOlToZWVUMz4cJdg//SiXIQzSw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701635;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=29uYZ3MI3ajddo/lkMf4kDoPDZSo+wMUk8ZudWJScSw=;
-	b=GdxD117Zp6UzevzQDvEjL20cwINhUHuYK6OHwIT5CPYo5pTBtuK41bpTd8AxRLEd4BJJ
-	 JW4RRH+QW/tPWQj0cesFnKmGDi7Ol/8vL+AxzNaU7UftGOSVuXtkmgJVPqn5Y4jZQtLST
-	 CXW0QyC0LKQJ9iQyUi8nMXT0gG97J20+l3nhpqhtZTgINuxUhb1p3JmWmjt1BYtPLfK+k
-	 wAn2rkwTqJ38nCm2NdbM7YDCVKrf6vKbJlnBYN9ymjyeYY9Kry0QKpJQnSrdWoLL075Ms
-	 dql0McxBjkba0wqMPJY7pFowwicQsDrOt25GXbTlJi9InkRkfYb7/iHQQvgm2Lmlxcw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BZgNig9C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.49
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013049.outbound.protection.outlook.com [40.107.159.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792701895;
+	b=BAG3224MoJVhyloSOLQoIAUxTFy5IIrbkq6bX8K/gckHYfgLOZ+Gscr1lzmBP+xUp3Af
+	 516CwhEyMCR1h8rO+NTceG5brPfKlbOjnAL6TbY2Z6X0Eo05183+TWg9BW2KWrRcCRIe4
+	 Z+Seh46PEfFWRxqiVDi5SYHFsCLcMw4TBhpbVqy8MVwWcLVutdsoF0hgs2gy8SSpfZLcR
+	 totvj0RgFW/DlLI+fxdvnzE4ZkBqmvUL82mWqCNJY+6jn7WDnExJcTEkcufneVUyGmNpi
+	 dHr8eIqr/PeKA5L+kBLVj0+P9wweiEwg9M1cLvAmJ/EYm3P+H4iw4j8+7jde7sVd+Ag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701895;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+ukyVStRq6aCLwTUj2EOn6H9yXqMS7cgPE9KOnM6X60=;
+	b=bOWuIRBu/EVdpcXInoepp40ZByA75yIaUTXgsyvnJIlanudw15iEZhH7450XuDydrgM+
+	 c2uss4M3/JFcr0T0Hkr6YlL8bR/DC4Wrk8PtMgnE06iZeiBTmUF1VKoh3fePbi3iFjPxZ
+	 IsjjLp9bdraFuhUp6aWQwPncJUyKbt/ge7arRW1OYt00z/2IpOCFeTtKcVXu9NNgiuE1p
+	 5JAPtqU6isdndJhrbX5i6TC1BG9cc+WiNVR+33g/RYY3wDwSUDXc+307No5XbYz/FiM2m
+	 4LqWP/VjQxjC7LZrFtYfLbmXQoovfAkVxmFaIjIvJ8N1TyfRqzAeG8XoWMCXGFiFM/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGWpJd+K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9C606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 20:40:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F9C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02190606A31A;
+	Thu, 22 Oct 2026 20:44:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BZgNig9C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UTCSDRFRjwcgujxBG5KjtMtXToP4IrlSS32+79sueAEkikqh+WrFTRezFpDEBD9vweGvnJR8+n8LRrXDllFHchkvTdGr7a72dgOdCreg9WMoLNOejjhPDRsAXtH9U8CZjxS7Bmw557ySkBrUxSflTeEhebGayMF3DvoUe0s6zwid+95Oa89IRsF6Yck8CG1T+pYoEib53Tc7rRmp+GPbDsHs7PAYn0hV7N4N3YsjrhdXEQbL7xr+TTRGZrreBf5Wg0yRt1m9gaENAdb+3dDC7c0R0+hdZ9d5jL+vfidHcfNFDclRh+sH1acVSnFcbFmYb4yU1uei1cud2/tNnSfzjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=29uYZ3MI3ajddo/lkMf4kDoPDZSo+wMUk8ZudWJScSw=;
- b=L8kUs4kMBkcoKD3sTG7Azxj8K/prhOr0kegQ4TC8bPXd3G4iyrfQ5cwGt7XKt72qhYF0qWPe4LNs2GEU0ajNVmnFgduVAmUB/E6a7cba13PUVMeYkyA2+gO3x9AVkmnLtyFExJ9VEmN4bn5pHfuzHyCS3lE0nrH8+gXonQcobcQIiyAF3r4G4eXVW3+yJSYiNCPOr6gHH/y7cJlHlj3bS1T+DvALZa/GUmBN9phlZyLg+GkEEeCDS3Id6Cs2glThwT89UixzyrJz/mJxew3jht5eythimPOpExHrB1Q7bgl32yWZ+Qn/Z4pJlysOlJ/cVdXn2o7/sJaNmcb5DSY8wQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=29uYZ3MI3ajddo/lkMf4kDoPDZSo+wMUk8ZudWJScSw=;
- b=BZgNig9CEfwYz+9yDkpsTg27sf5Dar5Z5wD+B/3JPiI2r/lVnpCvMjPlCgkpiY8zo6Wr0l0lHE8gUEutrfPGyw7Gvf3JxNJvgVnGYV/JXE3jvxUAxk7wEGbe/r6n1bTLefuhkmqa4o2ZM6hWdOXULgC3PeO0EMvBSp6rZZU7OIlb/Be+LBolt40kj3JiAq5xka7TGJNkIg7ry7MBq0T0Zrd9HF19LTXaFboJLl9f1jv23IcRshbRFg9YUp+rCo+HSSn4zX20S7T+6AcMggFBVGvLqGL4WB85kxBLe8nJ3w8qVk71qCkyFQOru9GosCzO5ZBleD3Ki9RY/IkkIr+y1A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB10868.eurprd04.prod.outlook.com (2603:10a6:102:482::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 20:40:32 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 20:40:32 +0000
-Date: Thu, 22 Oct 2026 16:40:25 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: "Joseph Guo (OSS)" <qijian.guo@oss.nxp.com>, imx@lists.linux.dev,
-	conor+dt@kernel.org, Frank.Li@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH] arm64: dts: imx95-19x19-frdm-pro: add boot phase
- properties
-Message-ID: <atp0uQDD8EuhYyb1@lizhi-Precision-Tower-5810>
-References: <20261012-bootph-frdm-imx95-pro-v1-1-6757c5f04a17@nxp.com>
- <sashiko-outbox-167770@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-167770@kernel.org>
-X-ClientProxiedBy: DS7P222CA0017.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::26)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gGWpJd+K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784761F01828;
+	Thu, 22 Oct 2026 20:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792701894;
+	bh=+ukyVStRq6aCLwTUj2EOn6H9yXqMS7cgPE9KOnM6X60=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gGWpJd+KXy0s92mhP5xb4+TALCuObmz3D/xa69iM8om3ypid91YQ1VpqhQQKp1nv+
+	 53QPyYFCjZ3wrin56UcKh0krDK5ALapcDOANUOC4ChfBkA3xDCjUXb2zcRh24FvpJ3
+	 bU2G60+8z6MO1Z/oyUC0tEcPkjiddaDzghPrf9P9PPRmEvDe8mrCH5C2oS3Srfrfpn
+	 g/d9AX/dnfMZHHa9/PS5K6QrQHzV7OywQh0rvT5cAhi1eX4DJvhSxbeJ2rrDUZ8ud2
+	 FbyyrsA3qgGWosEq8gMBEJv6cUNkNb1Q+BnCB6y2ne4s43vSyG8cpfAY8PlyLey/nC
+	 Xm0F1g2jkQgIw==
+Message-ID: <sashiko-outbox-182022@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: mfd: twl4030-audio: document preferred
+ name for external mute
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
+References: <20261022-twl4030-extmute-v1-0-3d2dbe260df9@gmail.com>
+ <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 20:44:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,98 +60,143 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB10868:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea3626da-00a0-47fd-b259-08df307cb737
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|23010399003|376014|1800799024|18002099003|22082099003|11063799006|4143699003|261009223027099003|261021121427099003|10067099003|261022105027099003|56012099006|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	SFX4bAjY+41WpnXUeXiuEf3t+2MExGngPnbv6ThejuKiFmXoa3s+agvsm04Yrps7pm6Qme2tEGLUTI1cAkoP1lqGpXtsHgGgFEYL7AzDHaScDj8WJxwwRnI3mLAN/pzCG3ngyJkUVgb4JbPol/UMdDiyg9B8Bnz5AxEq6TZKkE28sxTcUBPtzkalzbU6L7xEe0cvPehh4+8NSXTwnD1AbjS0/+Pkuhp6OIdtCM3vwwMTid6Gz/1LJ+jrazI8DdN9lB53F8Rd+u7NU27MCR+Dcrb7Y8pZgtcL//ciEAe7qBo6aYrwX9yQ6u2RGDpTn3gTw7cZCyMuHs7kXOotIK7USeZggzDrY0WN08CRj+07aryAiabtPSmT4snYeo1gfpqDm18xeQifJL+ugfn3IcMbT6BIKDii8ni+kjFTRt47y/SpE2jsGtx9+tA6ioMF5Weg4dIuFukTmxaRMTWkPpYfvTBPkHCR+3lz4j9N8Pg45AbDXoYsm0Id8a3ksOcG1YSCr5o7D/O0oi6ki/MstLerIMvbhaCG1S8Z93vlu+DuDX2NVuredV0KBcmiAG6rlV466eUgMS/YDtCRvsDJDHVv5a7awq6Oalij0vIZGDMUne4/eyzbeNOCProVnptKEeUhJBmRKkboEeCSXcZ09O92wQf9FAb1si0VOlQ96JNj+QY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(261009223027099003)(261021121427099003)(10067099003)(261022105027099003)(56012099006)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5acRA46tsOAfuSnXq0JHciqVR559pfBt6vpBHiak7kOd5qna5Ts9whWriTkk?=
- =?us-ascii?Q?yUImUzGlcsVRPwZZvqjfcIzNKkt4uQOOPAXxjHFuyN54x2BPYtBM5eyLoIlm?=
- =?us-ascii?Q?Pbh9CGh5cw3+sZK8IOZJ3x0GR2ouzIi1YIhdKMcZerSXdqQuuuUFM3ct+dB4?=
- =?us-ascii?Q?cNIgw6T1ry4HlUUq3e7aXF346hXyRicFQzMbS35RNr280iPKqaFc5BDZUXLg?=
- =?us-ascii?Q?EkD1QFmJtprwnomvZmFhVOX3oQYyB3iJUel2LD1xkCHpqJqc9T/vy2pacwyM?=
- =?us-ascii?Q?n1YLnGlLhdCJ3AivcXpzzOjCE6tkzcdSfsMwA564HONhn1rH98djtfSPM4TO?=
- =?us-ascii?Q?FBu1aUj+4Zz5c+M92YhNVBPB/56fGwUUfVnNGh4d8HiE6yDNGuU8+xpeyb6Y?=
- =?us-ascii?Q?Ai0nmJ0INNlBi7TxNKByZPchnrAn1YjoruWt1PuQcjCdMUTj+vLZHQTCpQbq?=
- =?us-ascii?Q?BQ462Ynv05yLsbt12JCqHjby7XG/K5KaPCEwTTkoqSOuOW1K0xGgEH6ukGBw?=
- =?us-ascii?Q?il2f8uhZtmVHSA4ZHC/ZoNhy/TC/kerHkB/eBBroa11Qnyx0Y4xcRCcWjFsP?=
- =?us-ascii?Q?oGoggPws2OKl3598l8IXDSpVNfFe96ZwMFoM5SjhrSWnEeLRC4XP7nDXZZzC?=
- =?us-ascii?Q?rj7XSuuRO8jz2wbU4hmAVdzOYiNAFSejvddH8hPmwOBfp0Z0fL9wPNnVaeYB?=
- =?us-ascii?Q?2mGT5tVZ1+3+/PPMUYXMsEG5dKJEIAlerN86bWmYX0nKou01NjV1VAVqPCrY?=
- =?us-ascii?Q?6+8sCSxq23JXA+hRNBOOw1BaX6uYTWOIfio39rPhKjDT1rPppPGW0V8J4sYE?=
- =?us-ascii?Q?wvNyh8AYqY9aULeCvCAWlaFY7kTlf4FeuIFwN5ey8xlpGX+6tU2Uzm2K7BSR?=
- =?us-ascii?Q?uawDHlWlm/UqLZnzPrvgsxBbWbIFFog6fVdkml2x2LTKc9VAsmShXxT2oKhG?=
- =?us-ascii?Q?kZf1OKr8losb39PHGEHN/JAH7oTl/42FoWJPHpv6MKL3CFzNDjNhqxY31xRd?=
- =?us-ascii?Q?rBZdfDKZ/hX3ZG6PryeS1FCEPqLLAgBjqGudkSgzdb+uqz3Hwm+JUcRKRiHO?=
- =?us-ascii?Q?Ne5d3MSMMCy/4CK94tQN499JkL7knmWWtolzg6VIUg/HyJwSrS3ZQE5aJnr0?=
- =?us-ascii?Q?OGJaj5/13XojuqmDqEtjwyIxYLX4i8TACI8Skr3r/MrrMQJFuSqKbZ+JdhvG?=
- =?us-ascii?Q?rZQUNKfa+4XLZyCIJBFWRKxoj3dYItvQNSTlVVmVsZN6nJBWx4NdYyHbv41m?=
- =?us-ascii?Q?C4KXBxqHx4tHrmSJLDNUKsDd2yxyAPwFy6FwzPuCF9Q0giWq/eDHMBKUnYTC?=
- =?us-ascii?Q?6LA9BWD0XQRyErsFzM25w5ubt/Y0iinrXga0HxmraH+NOXsTjkGtwW/c9Sa/?=
- =?us-ascii?Q?4MHrEwLR9XEo92SiK8fJkkOOhmA8ySZh/+t6pAWzPUH3l+5z4rgg/neBfzqH?=
- =?us-ascii?Q?LcGnb2ZeyGrnyyz+35BlLHBIftb3oRl6cfFtdFUZivlgnG78g8xd4FkesdEa?=
- =?us-ascii?Q?YtHg/zgOXWuYGk06cMN1fbWG+ziuxgIovY7cTDuyfeiJUMLZqbR9uylarjjq?=
- =?us-ascii?Q?KgmP1pFqdlz41UgGblN1EwWMQ7UobkocuuXFEJkQ6D1diHZ4Fr03iQCpjS5/?=
- =?us-ascii?Q?bKhup9GdZ+BGxZZRltbiFlD+sC7B4WSCVoZP2u5v1EsLb9jiwkloH3zQ8UcD?=
- =?us-ascii?Q?6ZpxWQqSXN6tLAMqiMIlb/WBosY2fOjXm+lSakSnmSVG5L+XaYvtZzwtY+f1?=
- =?us-ascii?Q?U5CRpgB/k5PeKsTsdKGmvBlVJ5/jIJwOhcKmYGErp9u2jg1ZCQpg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea3626da-00a0-47fd-b259-08df307cb737
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:40:32.0366
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FDxxYH5rUrhmjgz1/eYp0onFXxzWWumJkVVhpzvYB1HAHo89gk9VRZo4um2csiYQyvCCZlymknQkDLM9Y3Ad02ouZmTAodSqb70TN6+ZahEObkLyi0JTAth80qd0IGaV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10868
 
-On Mon, Oct 12, 2026 at 07:01:30AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dts: Missing bootph-pre-ram for gpio3 breaks early SD card access
-> --
->
-> commit dc22078eb20524e315ef0d520678ff9336ed179e
-> Author: Joseph Guo <qijian.guo@nxp.com>
->
->     arm64: dts: imx95-19x19-frdm-pro: add boot phase properties
->
->     Add boot phase properties to essential resources during boot phase.
->
->     FRDM-IMX95-PRO need UART, SD-Card, eMMC access during boot process.
->
-> > diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-> > index 1f62d729a5e77..8dc1134f8d24d 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-> > +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-> > @@ -180,6 +180,7 @@ reg_usdhc2_vmmc: regulator-usdhc2 {
-> >  		regulator-min-microvolt = <3300000>;
-> >  		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
-> >  		enable-active-high;
-> > +		bootph-pre-ram;
-> >  	};
->
-> [Severity: Medium]
-> Will this regulator be available in the SPL phase without adding bootph-pre-ram
-> to the gpio3 node?
->
-> Since the fdtgrep tool extracts nodes tagged with bootph-pre-ram but does not
-> automatically trace and retain phandles for nodes lacking the tag, the
-> gpio3 controller node will be entirely stripped from the SPL device tree.
->
-> Could the gpio3 node also be marked with bootph-pre-ram so that
-> reg_usdhc2_vmmc can resolve its GPIO dependency?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: sound: ti,twl4030-audio: invalid $ref and missing d=
+eprecated tag
+- [Medium] ASoC: twl4030: legacy ti,hs_extmute_gpio property not matched by=
+ gpiolib
+--
 
-Is it true?
+commit 43d9eacfe52fdbf41c021df1d5b980ba9e4220b9
+Author: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-Frank
+dt-bindings: mfd: twl4030-audio: document preferred name for external mute
+
+This commit updates the ti,twl4030-audio binding schema to document
+ti,hs_extmute-gpios as the preferred external mute gpio property name and
+retain ti,hs_extmute_gpio as a deprecated legacy property.
+
+> diff --git a/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yam=
+l b/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
+> index c9c3f7513ad42..1d41f582261db 100644
+> --- a/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
+> +++ b/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml
+> @@ -39,12 +39,18 @@ properties:
+>          description:
+>            Enable the use of an external mute for headset pop reduction.
+> =20
+> -      ti,hs_extmute_gpio:
+> +      ti,hs_extmute-gpios:
+>          $ref: /schemas/types.yaml#/definitions/phandle-array
+>          description:
+>            The GPIO specifier for the external mute control.
+>          maxItems: 1
+
+[Severity: Medium]
+Will keeping $ref: /schemas/types.yaml#/definitions/phandle-array under
+properties.codec.properties.ti,hs_extmute-gpios in
+Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml cause a schema
+validation error when running dt_binding_check?
+
+The explicit phandle-array $ref was previously required on ti,hs_extmute_gp=
+io
+because its underscore _gpio suffix did not match standard gpio suffix
+patterns. Because ti,hs_extmute-gpios uses the standard -gpios suffix, the
+core dtschema meta-schema (meta-schemas/gpios.yaml and
+schemas/gpio/gpio-consumer.yaml) automatically assigns its type and sets
+additionalProperties: false, which disallows an explicit $ref to
+phandle-array.
+
+Also, for properties.codec.properties.ti,hs_extmute_gpio below, should
+deprecated: true be added to the property definition in addition to the
+description text so that dtschema validation tools recognize
+ti,hs_extmute_gpio as deprecated?
+
+> =20
+> +      ti,hs_extmute_gpio:
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
+> +        description:
+> +          Deprecated legacy name for ti,hs_extmute-gpios.
+> +        maxItems: 1
+
+[Severity: Medium]
+Can gpiolib actually resolve the deprecated ti,hs_extmute_gpio property
+documented here at properties.codec.properties.ti,hs_extmute_gpio when a
+device tree uses the legacy underscore name (for example, under twl_audio in
+arch/arm/boot/dts/ti/omap/logicpd-som-lv.dtsi)?
+
+During driver probe, twl4030_get_hw_params() calls
+twl4030_get_board_params() in sound/soc/codecs/twl4030.c (updated in commit
+"ASoC: codecs: twl4030: fix external mute GPIO lookup"):
+
+	/*
+	 * This will attempt to parse "ti,hs_extmute-gpios" or
+	 * "ti,hs_extmute_gpio".
+	 */
+	params->hs_extmute_gpio =3D devm_fwnode_gpiod_get_optional(dev, codec_node,
+								 "ti,hs_extmute",
+								 GPIOD_OUT_LOW,
+								 "hs_extmute");
+
+This calls into gpiod_find_and_request() -> of_find_gpio() in
+drivers/gpio/gpiolib-of.c:
+
+	/* Try GPIO property "foo-gpios" and "foo-gpio" */
+	for_each_gpio_property_name(propname, con_id) {
+		desc =3D of_get_named_gpiod_flags(np, propname, idx, &of_flags);
+		if (!gpiod_not_found(desc))
+			break;
+	}
+
+	/* Properly named GPIO was not found, try workarounds */
+	for (q =3D of_find_gpio_quirks; gpiod_not_found(desc) && *q; q++)
+		desc =3D (*q)(np, con_id, idx, &of_flags);
+
+However, for_each_gpio_property_name() in drivers/gpio/gpiolib.h formats
+candidate names using a hyphen:
+
+#define for_each_gpio_property_name(propname, con_id)					\
+	for (const char * const *__suffixes =3D gpio_suffixes;				\
+	     *__suffixes && ({								\
+		const char *__gs =3D *__suffixes;						\
+											\
+		if (con_id)								\
+			snprintf(propname, sizeof(propname), "%s-%s", con_id, __gs);	\
+
+Because this only checks ti,hs_extmute-gpios and ti,hs_extmute-gpio, and
+of_find_gpio_rename() in drivers/gpio/gpiolib-of.c has no entry mapping
+ti,hs_extmute to ti,hs_extmute_gpio, devm_fwnode_gpiod_get_optional() retur=
+ns
+NULL for boards specifying ti,hs_extmute_gpio.
+
+When ti,hs_extmute is absent, external mute is silently skipped in
+headset_ramp(). When ti,hs_extmute is set alongside ti,hs_extmute_gpio,
+twl4030_get_hw_params() in sound/soc/codecs/twl4030.c sees a null
+hs_extmute_gpio and reprograms TWL4030_PMBR1_REG to mux the internal
+gpio6/pwm0 pin as extmute instead of using the external gpio:
+
+	if (board_params && board_params->hs_extmute &&
+	    !board_params->hs_extmute_gpio) {
+		u8 pin_mux;
+
+		dev_info(dev, "use TWL4030 GPIO6\n");
+
+		/* Set TWL4030 GPIO6 as EXTMUTE signal */
+		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &pin_mux,
+				TWL4030_PMBR1_REG);
+		pin_mux &=3D ~TWL4030_GPIO6_PWM0_MUTE(0x03);
+		pin_mux |=3D TWL4030_GPIO6_PWM0_MUTE(0x02);
+		twl_i2c_write_u8(TWL4030_MODULE_INTBR, pin_mux,
+				 TWL4030_PMBR1_REG);
+	}
+
+Does of_find_gpio_rename() in drivers/gpio/gpiolib-of.c (or a fallback look=
+up
+in twl4030_get_board_params()) need to handle ti,hs_extmute_gpio so legacy
+device trees continue to work as documented by this binding?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-twl4030-ex=
+tmute-v1-0-3d2dbe260df9@gmail.com?part=3D2
