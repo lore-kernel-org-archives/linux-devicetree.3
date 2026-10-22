@@ -1,47 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666092;
-	b=ingl3wjhfTKqzeN/7BSaW6r2KWAzxKJAA2vxDWVI5eljSDHaBbYTwUFZCvcH526+Dj+t
-	 RYRE3b98TI88nprLmSHAPxnfxKmrNy2NAN19+dqr94y/PTyW8rj16J4bFFCIXJq+dYOkg
-	 LngVSCbNR3H0FIRawLGuFq8NT6w3ygNyCabi0kIC48UZ+KV6DhhKJE3pY9u08I5FFFOIv
-	 gUvmzOBSFc+1drTnsJ24vdBMZcszD3vGJU/SeaX86zOJd0qxX3SxAoc0wNaIpqLlj5FDf
-	 9U6Kd+WxS4Gx8FR+e0Z17EwVjeP9SsbCox8DLgy90gj/FURc/+R4BOZbrsdpOdUR/wg==
+	t=1792666376;
+	b=OKlvniGEv9aqNHn24FFjylurYehcf+RBtDNjpF43IAIBP0lqV3KMNybB6Xp0WQggJaUL
+	 Vtk8+G6Jkr0ZcxhSU1YCG+NbI8Mqi57Q1oqdyp1+HDDE7hm2GuPWukIeOwxTMiaeEmPsq
+	 AxBVx7VV9G7BrtjVSvSoPbbbdipHF61ugzDc819WbeBwVVf7wUSqwnQBHJhjOpIOBsmCI
+	 tJnoriog14YuxhiyGMPWfSgE12U5L8JIL5426SRigt9fARp8jR5YcVqWpzyqNuny+yILH
+	 fvz3U+XFALAn751lB4r6Yx6IEscwSxLXiCuy1FYY5utho2EvgNsI1ukGPzu93byAJDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666092;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VMFYo8TGf9T7pW22h9oeX3BwhYw9aJUZp60dfxtT1R4=;
-	b=jYvv7YTdoqqQdekiwQSSRnxMB7cjQOFa4FHuzRrmZHoSqrbn+FTcX67uEyIavL5kAke9
-	 nPOqNIVFPwpr6GGC9PLyY301Q6PRi1SQ8xubKuTd+OGkaVHlZURckLcbEi1Z11D27gzvy
-	 3yUGYOnTMYmgkUCCAM/Je2gsX5pO911/URfLcbZ5mWItxIHHqKwRfI2PT7DY+rJRzv0vs
-	 110BtAXDUTrCk1/CcNKvhTc8WM7gUMSeIYu1QdeTTwLvdv7ArXRgf2i9F19IRsnOuIF0h
-	 Be+BuQt8eWvLskADyxymmMoJzTa73DpeJ1KCbKppKBmqNwxqKIy+9r3Ouv4bisTnKTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666376;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vwrggvuqHJQ/Cl+eQIsicnlth4Pru1SY3OAx2uBPjdM=;
+	b=WYW5wEm3GZCnElZxyNAWmDVVVhAth3xEMJbg3Jf8Y/e5j8DjhpX6IG2E2pE6ZZc+E2Wl
+	 BdL5K0kmFVBxFl9aDP5simXYzRQ+dFL0UUCY1bBr/n79NVq9DNXGhsbddE8kW5BMsV/5W
+	 FJKaEaAUeZXUvpSjxpZxtZfwkkCnmHzRZxqH4oRLbQNirnOHZymCFwAIFQeVGf6JmYp3a
+	 eStV5irJqPmoc4Hw0KmaCOSs6XcpRyDXZP8L6ROit33CLl9Y2szb6OhFh3eaJvXtFHa/b
+	 JiIv9sza8avFzvU3ckva2pG6Jg5londFZQ1TeHvUFPIaQGVlJprUntcmGBZOpBr4RvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvlUYCw0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8UxxglD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF73606A319;
-	Thu, 22 Oct 2026 10:48:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C30606A31B;
+	Thu, 22 Oct 2026 10:52:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvlUYCw0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C031F000C1;
-	Thu, 22 Oct 2026 10:48:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8UxxglD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917541F000C3;
+	Thu, 22 Oct 2026 10:52:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792666091;
-	bh=VMFYo8TGf9T7pW22h9oeX3BwhYw9aJUZp60dfxtT1R4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RvlUYCw0CtlY60DoP88XkLQ6JHIs7ZxwPtxTG+Y4yFYLmMGdm35H1l5u3XoiC3A83
-	 ignsYiKwBrVlI0jzk9Yk8c8sT5teVlloKMtWGFQEkfX7OEfZib79K08yqjeEPNvlYB
-	 6YgnVzcWcgQYR+FGzCuBhaILnrxVBA85WF7OPx2b1zwdT6inZSqOepqaVUBkVW2TZG
-	 k1gEc6PgLXZbbuG7KeetfKTRrgdChT925Fs2faM38AXQzFrRmVgxOj4MZ3dAC9mhEg
-	 myirXaYF6U83jT5zO2zephD+oXAQOhH3bpImQa+m2bPr3QCCuJ92WEeVhki1waTYs4
-	 Ci6yxcBmZkF5g==
-Message-ID: <fa143c9a-722a-402e-84fa-a127494b3f5c@kernel.org>
-Date: Thu, 22 Oct 2026 12:48:05 +0200
+	s=k20260515; t=1792666376;
+	bh=vwrggvuqHJQ/Cl+eQIsicnlth4Pru1SY3OAx2uBPjdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m8UxxglDlElIQAXquf2pBWby7YOUVUv5RJAn+4ICUmScuaCAo7oKuwnIq50K7WMM3
+	 AnfNXcXBBNECPltXFvYsdtiNY6TOEYMZRD/9JYXynN4ZXV6mSJlE6rToWuCAK8I7tz
+	 hB91qJajKnaS5VBVCY8Tj4vI+hORSPk1W46SPS9HqNhjpTyZuiXpzosB3SbfNYM07p
+	 +vWMuPJcR7iw4YLLWw0pFddOBMP7Y/dm8hoaMFsT9ZUwHVZczA8mhwHeojJpVS6xH+
+	 Vo7AaspF7lyFKPettVS3Yp+k9eRo5aVTSWX+vBZxesEicfjoIt9Tu5SRmC+f4P93Au
+	 4tNo4AJckEfMg==
+Date: Thu, 22 Oct 2026 12:52:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, Stefan Wahren <wahrenst@gmx.net>, 
+	Phil Elwell <phil@raspberrypi.com>, netdev@vger.kernel.org, James Clark <jjc@jclark.com>
+Subject: Re: [PATCH 1/3] dt-bindings: clock: bcm2835: add the BCM2711 GISB
+ clock
+Message-ID: <20261022-prehistoric-wealthy-leech-0ec8ff@quoll>
+References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de>
+ <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,75 +65,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
- support
-To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com
-References: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
- <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020-devel-bcm2711-gisb-clk-v1-1-a1728724d0f8@tipi-net.de>
 
-On 21/10/2026 17:17, Anand Tiwari wrote:
-> Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
-> available, used by the Talos Lyra EVK LVDS panel overlay backlight.
+On Tue, Oct 20, 2026 at 04:58:09PM +0200, Nicolai Buchwitz wrote:
+> BCM2711 has a clock generator for the GISB bus that the firmware sets
+> up at 200 MHz. The GENET MDIO controller runs its MDC off it, so add an
+> id for it.
+> 
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+> ---
+>  include/dt-bindings/clock/bcm2835.h | 1 +
+>  1 file changed, 1 insertion(+)
 
-We do not have Talos vendor, you sure you did not miss dependencies?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
+
