@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792655188;
-	b=TwJ5hZDUXUbpGeUGOC8NBEQQjNgO0GWsz8gn8mjnmLJ4rnyG3t1pzt+QU+oD45U0rLiE
-	 SVjwWCpcUku4TE9CB9rYl42PE45e9IJSzCRKXy+sbHE4YOjU8xKRdnhSZzk2ChzwrGBQ3
-	 6XL4D/B/QG9JCxpyEMAPuMCY/jH8b6AZj4/XkiKTByhm7hJGN4Ra/nj1gGKKdImEXKDVa
-	 OPyVEUBrma26/BUjfs0i0edGKHNvpkDGPswWISyIgzt4UjWxXug9aNRR8BzdAqrsoAbY5
-	 WVD+7X4/VA4JbzL+xk5BqCVb3pmbZoJdKLVvDMvCpd4bWKgDAL9JP5DgGAXIrkdu5uQ==
+	t=1792655584;
+	b=bUoYz6crIc4ZEnpV42DY2u50EObwlUdJFWS826IufxvjYeJ7V+bp0VoC+npUCBg5CI3f
+	 00/2rmvr4GWfmdEjjwvdo1lHRDqmEXjReUn1XUnZve0FW58BILnDSI4MdBf/n1URBRm18
+	 EF67VThZgBku5braKGtks2PYzEH6h63IndxZJzHvT5w9lS/Gr9sFYBHsCqXl4TeC3YiMj
+	 RG9IvF52ez2kckaJv9cdzzd9XlAYom57FZCbNvEUfOjiupBPqFyg6PCDiHqlT6a5NBQZn
+	 q2wfBygjibwKbgXKl1zg9VDwuK6OdIGZpSEK/LV5RmD6p30ie4uDXAs+ZzcAdjKf6yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792655188;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
-	 X-Originating-IP:X-ZEDAT-Hint;
-	bh=gvZ8R3iNYCC2o78cer5OoILJ7qYtxYvoXIYa4LpkwDI=;
-	b=NW7DmQSFskRdhf/AdRTcJDid7AFhJvAv0KUaFhGfBxHjk6iIzaYVKxEh+NPGM12LC4Ys
-	 sP+yo9XkwI99E68hFWGPSXrZmrqDpi/vNVH/HQbFs5Sq3zQroQYvk3FjV8YZtsgjDWUQr
-	 epKQp9sstQ5MIY4WywEkLytyHwVdaSwcFyTqHRBjSiJOAdqQCDeF3HmHbpaHPbDZJE3HS
-	 s1YjlXAQuosnVa/y6P2XizRDu47rQLkclKEKBWL6dnY8pKXOfy1YsLGS57tOPqdbosvIR
-	 AND4sGTuO/kJ/4/PuYrqkZm9vh8Qwrh6myksP5/hqzncZHnliBxsZkealwBDQgg28CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792655584;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=peIS3XmmxGgb2VftyqIcwa5RMLKvJgxv8+DHxwLnM+E=;
+	b=Pp6Lus3iCk7AS8LaVoEFQ/14gwbiBsVtd5zvS18tKIBAHtVxROn8WWKBEtIPKyL2X1H+
+	 k0MDl07iubNCh/lp6O+O7fBgS/CSJcyTTh6bDrIirH3jXeTZ8pqA2I3T/0tq+IodBFD07
+	 Uic8b0uBXbV7Gl1SKSOfhyOcjAZN/lr/UoGAjUCTIDDovFlF+42d+LhAm7/ZmSfoA9fAS
+	 jq63N8t//sLtQQgKIUO7CkOui7xXFTLMidUU8ufkiORabgEtq3lYMCRzoCqFBmEOWdKAQ
+	 POTgcuSOSCTNif8kJknyCNcfptVQwl2LOF+P3mBl85P7Lm38jpLMf4A46YmN7F5idLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=physik.fu-berlin.de;
-	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
-	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=OJFX61ve;
-	arc=none smtp.remote-ip=130.133.4.66
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljDDfNRO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B518A606A319;
-	Thu, 22 Oct 2026 07:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B518A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AD343606A32E;
+	Thu, 22 Oct 2026 07:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=OJFX61ve
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=gvZ8R3iNYCC2o78cer5OoILJ7qYtxYvoXIYa4LpkwDI=; t=1792655186;
-	x=1793259986; b=OJFX61vepWU/KFcLhFseB052OCMon37GFFjjiDmHUXHlTNXWtk1lHImFkN+xd
-	ueMSYS5uXaCTUU873Ujn8toKrxVI4Y6+6FbtUBGTlCDMUEde8/u95k7hnbpxJxcL8R3Fkxdh5jbTG
-	tjwtDxZwr5SOM6YiIrWeOeYPqCuajxqFhT8wtgWeOoeDclbRn/m2PuSLkBRGQz8K5wvn7S8gI6Gw7
-	//xdYLMI5/9iYQJkPOoP/X4zubH20JrXXPf6BHhTtwmebsxTtcB/CfIvzNagJQezvDD3eylalVrfz
-	zzlgXZpSdlqx6FZm16JzLKs+YWqJZ5f9pDObvy1WEIr4mG1HTg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xJnVI-00000003uZR-18NE; Thu, 22 Oct 2026 09:46:24 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xJnVI-00000004Agl-0Dq6; Thu, 22 Oct 2026 09:46:24 +0200
-Message-ID: <4f37ee0df5c5b0b29c69b3770c06a885f0562c74.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] dt-bindings: soc: document Casio fx-9750GIII
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Artem Novak
- <artem122novak@gmail.com>, 	robh@kernel.org
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	linux-sh@vger.kernel.org
-Date: Thu, 22 Oct 2026 09:46:23 +0200
-In-Reply-To: <b8c7db3a-ad4d-4378-9e50-4c8591b93de8@kernel.org>
-References: <20261022063902.471383-1-artem122novak@gmail.com>
-	 <d6562416-05aa-452d-8fe5-a68cb8f50f01@kernel.org>
-	 <87fe0b0339e6f8763b9b385dbe8b8b5e587deebb.camel@physik.fu-berlin.de>
-	 <b8c7db3a-ad4d-4378-9e50-4c8591b93de8@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljDDfNRO
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 07A0C1F000C4;
+	Thu, 22 Oct 2026 07:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792655583;
+	bh=peIS3XmmxGgb2VftyqIcwa5RMLKvJgxv8+DHxwLnM+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ljDDfNROZhbo8MD4r5QKIKpoDQu07l5UUDD7Teoc61YlMTG3yyg6l98wCcRgxFHi8
+	 BoqaLZZoQHOkxk4NQfJMyZZINn3rDg5AE7MAvUCD9Ob8JbRaHFNOwhYICns4T3m8jO
+	 g35oy8cRQqvl13gQMfkPhRI4Y54PY1cdaGtHa2BlkMqMvnXcsAy1xR/G4DS2XFDvPC
+	 i4531NG6awNMdwKRY5b3pxtupgoMfnipGNA8AKry1eE5tQAyhnQwjRVf+DeQ46V7Qk
+	 Am9akY3B70WOTrzNGJ8GwaqrXX4qFlQCmvKGlFOl5+t9YgcoykHf3JZ66TdTNp9xAB
+	 yfZLvJsXFvDxQ==
+Date: Thu, 22 Oct 2026 09:53:01 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Jeremy Dean Clifton <deaner92@yahoo.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+Message-ID: <atnAaDo0fy7Az_eg@monoceros>
+References: <20261022000029.125691-1-deaner92.ref@yahoo.com>
+ <20261022000029.125691-1-deaner92@yahoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,26 +59,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g43lc2iaky2qbag4"
+Content-Disposition: inline
+In-Reply-To: <20261022000029.125691-1-deaner92@yahoo.com>
 
-On Thu, 2026-10-22 at 09:33 +0200, Krzysztof Kozlowski wrote:
-> > There is a Casio calculator community out there that are users
-> > for this.
+
+--g43lc2iaky2qbag4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+MIME-Version: 1.0
+
+Hello Jeremy,
+
+On Thu, Oct 22, 2026 at 12:00:28AM +0000, Jeremy Dean Clifton wrote:
+> Convert the NXP PCA9685 PWM controller binding to DT schema format.
 >=20
-> Upstream user, so any known upstream open source project using Linux
-> kernel DT bindings. We do not need bindings for non-upstream users.
+> Changes from the text binding:
+>=20
+> Document the 'reg' property and make it required. It was missing
+> from the text binding, although the example used it and the device
+> cannot work without the I2C address.
+>=20
+> Rename the example node to the generic 'pwm', as required by
+> pwm.yaml.
+>=20
+> Describe both cells of the PWM specifier, and state that 'invert'
+> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+> and OUTDRV bits in MODE2).
+>=20
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
 
-Yes, I realized that hadn't had any coffee yet and I misunderstood
-that comment.
+Applied to
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+nexxt
+as 7.5 material.
 
-I think that Artem is sending the users for these bindings in a different
-patch set. I have not been able to review the changes for arch/sh yet.
+> +  "#pwm-cells":
+> +    const: 2
+> +    description:
+> +      The first cell is the PWM channel index, from 0 to 15, or 16 for t=
+he
+> +      ALLCALL channel, which sets all PWM channels at the same time. The
+> +      second cell is the PWM period in nanoseconds.
 
-Adrian
+If you want to work on that binding, you can deprecate #pwm-cells =3D <2>
+and make <3> the right value.=20
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Best regards
+Uwe
+
+--g43lc2iaky2qbag4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrZwNoACgkQj4D7WH0S
+/k6GCwgAl+ddqWnOwDugPpLaeoaVsF2mwRuGmkXN0oG/RyMPtyHwg31ghV/5PW2z
+xfVfQRxckDF57wW6MThzOtnXMdTapjNy+Mco8IAgxC7e/7bnk3WUXjQ6EKwGqz5j
+7FiwU/TB513tDXzVrHb7VuqA0GfBnBvhsFj1ddE6XMumsV+L1Y9hG1FtnmKsBQ9v
+c7JmQUvOKdMhI7XmSjyqnaUGXXGvqZDKgsKb77Kulvv756LPpteQYYG+NwPvBc+8
+WWqoWeewvOLwon17yT7KZup0NC2sb6ECeC+vuKMa76iARAPzRlWubdrSeVR2qYh/
+9zQjAiK540d9fx6qtKDHhFZA1FomZA==
+=C2fv
+-----END PGP SIGNATURE-----
+
+--g43lc2iaky2qbag4--
