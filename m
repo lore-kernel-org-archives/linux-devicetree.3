@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792656815;
-	b=4B7zjBjdTqblafGH1bXVvx7aAEEP421z9HFNb3VnnXLZSnmHL339lQKD8fCsfaK73xgB
-	 APxJMwjh2uOUdYUrkUj/QX9ZVxDrpXvssTvBMEOYGlHU57UH1/bxTk4mnLS/EWvgRXDf0
-	 8iHVBfwj++N4YZxY4PY8h5uWlnwF1QzRtAohfgmI5Gj0Kke0Q9vppXIoVoc1thM0SZ3B6
-	 iwFnsptZfZ0Srz1nn2zhrv0sfJPcUxIiMxreyAR8hjhtT5Gepcu4ZfqvMzpYjN24gKuwZ
-	 UWaNnaiON0stggLXakvIT8eQGsVVic7KWp5wpnch+6mDLyAAb47Gc0rrSb0Vn2cDNoA==
+	t=1792656817;
+	b=QOxlbDSFWF5yfm/+jw3Xnd16BcIRSyXW52R49XR2XcVoyR3mWiV0cNcaf8vXM8I3hZM8
+	 6RoFNYw9rxTEXGxo9cipQUPqPDfpe4zIVfV1gGDy1u5M6egBzybEHDAgD/6BOEzbyJhxQ
+	 EKxRh4PABCdx9zou1LPcuCIVyhOmAjvZLsrl0PQnVJ14h21k73L3aCBTqlmy4Vz2rtcUg
+	 TVqVeAWLLLw4S7EoiaDBBfFJwXrGVGtpkBkYh8XQEM0UZ+hBiRl9m5T+Air2C7Ld14VYF
+	 BvVulvL3f2182z/K58D62ONrL0XQtChNNhVSjJKIEHJ7KDZ3NMSi2dVZY9CtvQ7nvfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792656815;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=iNkHRZ5hfFDedWFqZKCKcGvHGWw/t1OJip/gAUhQAUM=;
-	b=j93a5WZzbWuSjdezV6sUQu4HJhA0OBrc/pil8XLEOpN/CZVPS5zQa7whdedLFBvTquGN
-	 KL8wrzmnFB9z6BGRPgaUHdgC4at5D6B7UEeLyIBJRsy2/u2tPR9lIFn1HkeNi0oLqlDnI
-	 Hd0ZP6VD/Cf5rnZoSEQ3BPhFIW6YvkzV7gQgeVa7sZaWMYzNmiDsVt9kk3KfGdWzhxhMF
-	 8TpVB/WcFRig2xo5ET3lvdjTGcKDe50s3GHIVYFiAe+/r6enLdpdj4yRJ8BwNdk9R0rsx
-	 rfwveVQjNdXrrlCCkIQEidWkaaeBQdNL1Whjvu+0Vb4IEcMX+6wlczUqjgRWPS+Nj4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792656817;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Hn94stfKvj8i1droBHm2wo/E94pjMfGrEhOxZCqr07Q=;
+	b=tKmxjZC24kDmTXnDmRiwL7AWfA/RmB2l51WKu6Jp8yYGLlWWHmpebHG9orDOq6nVgS1B
+	 sHdY5dRZ1NSNrmsTHQAlknEYe2DFg1DR3Vrltb4j5JbZVhLK+/laHoitB09QX9t+7Rpxn
+	 mMjEdjwyocgT09IF+iTLqCD6GG9iIBv0h3+dsdztV79SFHCFUCpelmTelA6Gt0aYy585M
+	 8Wd4hagUjko8sp0DivqLvTEwhePluuLmj/y59SoWVSuwt22+7bYkuLMXLfkZxzQ9R+vMC
+	 Pp2TplnfDy0ZKoXG+F7v6VaemiPQmanW8HsM5p6DK8gUAUcqrTT4PDdm9+gj4zEwVOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Os5qUXmI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EE+TvT8Z;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e6bexpq/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B467B606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B467B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6F450606A31A;
+	Thu, 22 Oct 2026 08:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Os5qUXmI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EE+TvT8Z
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M705Hg1995922
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:13:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iNkHRZ5hfFDedWFqZKCKcGvHGWw/t1OJip/gAUhQAUM=; b=Os5qUXmIQbX3CzGJ
-	FX1mxLp/kv1/u7jRnXp0HWIH6Ut24Traikrrr1Wvf5N/dydrT9MBF05BxfA6eQ0h
-	fXRC6bC1bLHwGkT/z0Q6D/zCarbOttK/qmEEMmwz86q3YFE08QMvFQwbFCRrux5j
-	izmxjzZntCi/J02ZPgKucRJ8mXPLESo+3gFuuHc85zZe6GhWxvxjJEZsjr34tXId
-	/x6HpxgfaVbP7sEjE8Iswl42t7LEs1GLlD9CDrJQH1C827cvEZL5ce1vQ4fU5HEt
-	+XSIf9q+uD4OhoTjnFMLzsiZuud2xEoZWBALdZFl24JCsgWzPBWgr/IlNzcQvYhb
-	JImm3Q==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bsc61-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:13:33 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5350173dc7aso3726091cf.0
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 01:13:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792656813; x=1793261613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iNkHRZ5hfFDedWFqZKCKcGvHGWw/t1OJip/gAUhQAUM=;
-        b=EE+TvT8ZP6EKprN1mWdt0LJpE1dYUwjTDnVfLveq3pDGrKEDyC0XxmF2d7csWEtPxr
-         XgPSKlYrnvFqzODXJsh4JhwMFjkjf2bskamh6hTPfo21eU0pU2lNGJ0hvm9BAFxoyIHV
-         srOv7ACxwrvac69E2//+1yBLU+WyNDHo4MQUDEzgQayJVui0p3M/Uu5CBpsjHiDM3i0k
-         lpIY/WAlhuFcSVx0APmr1tG6oKr54tyVZsuIApbvXrekv1DGZWho7vGKIU4DLyaUG/Jq
-         Wh7kp4UhhqpRXO66luDx3WVKF+qI80CE/YiBFv2qd8cQY4H+tlL9octQyOpR8Txvcw1B
-         RRGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792656813; x=1793261613;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iNkHRZ5hfFDedWFqZKCKcGvHGWw/t1OJip/gAUhQAUM=;
-        b=bYlSSiXlI/SjFY0RtMMrgpEdqrhvB1ELeTIHnZGHw1PLhKbISYFP6OCMbD8N9tT8qq
-         dr2T6Yy6T1fXH7PDk8hmNqPXbc1JI7N6vabCCNaYA5FYchZ16vKYsUzIIvcjj6klk/Wl
-         f91/Z0OD4hBzTQrwuWYRi7kNKeUno7VCP8U/f8LhHMMnZdsOblKcYLj7KTPT7qzPHHXj
-         Ookp1/InFJujxtLgOfx1bosUIXVBIqrjCZ9l6kTZ9gvECRf4asqKVP6q3g/o+Z0IhCHF
-         r70ddmZco2W3L7cq3d5OzaCiW6GRvQChi4fdaFr0/qM6tUr3ida8ZFuBbx0VCFw1pDLz
-         iilg==
-X-Forwarded-Encrypted: i=1; AKwUvByBd7hSxPYzSm8sU8pB7Orkfh2AiDC9wXqOJpDqZIdesIcvxrbT9Kso8FKgle6iIqeI+59olAARZVZM@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt+vpTFA1mMs158xWKFudIvW7xYfIqO0uMJ1stNrEGEeEx3pBZ
-	9P1obtLC57uUnTwlvTYXZLzJ/AHqBFVT0Hx2SM/aj90PqGODt/mAdaLuLLUVA/OHK9Osb8pDbH0
-	W6gMJiaOw1AoekK8MIy5Rk7xGhZANrNygV5IIY8b0BCjyqVEfIfIeypUJzDWy2YgV
-X-Gm-Gg: AYBFou3pfmZFVHHu4SH3iHQmpM5CMocGTJSkve++7id9f6A10/UPI2mdz6TqGHw1zqm
-	/InF4Wo7oteXHn5o4EkH7jT2tf8MyOaobrMg5rjiMifrBtaAddTU5L8LAMwjpnEqEJDNDyMaJT8
-	irwF34EZHbRnnPCnV4Omk+y8OWF9YWAQQPFkvO3fVyriod3O/m2DdBCEoFFWrn3qXVaxzTRVa4F
-	dMpcLj39gofZbzuvFslngOfI4lKYISdWE1shxmdnZFdeEhMJWWtVv9FdtHV+riuVWUmz6klxEmz
-	gy5sGMP6/Xm5Jc9xKUfaiYx28uTkhsYBJta38TW8rUTxd7FIjpA5pBLd1cu7TkuzaKO3Fplevln
-	+yLvgtK21g+yiR+aH/u55+g==
-X-Received: by 2002:ac8:59cc:0:b0:535:1a83:1251 with SMTP id d75a77b69052e-5369b7bec04mr85255521cf.4.1792656813186;
-        Thu, 22 Oct 2026 01:13:33 -0700 (PDT)
-X-Received: by 2002:ac8:59cc:0:b0:535:1a83:1251 with SMTP id d75a77b69052e-5369b7bec04mr85255271cf.4.1792656812768;
-        Thu, 22 Oct 2026 01:13:32 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a5e6e33sm77669266b.75.2026.10.22.01.13.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 01:13:31 -0700 (PDT)
-Message-ID: <f74579a1-11ca-4201-9bc2-369d5c2dc58b@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 10:13:29 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6bexpq/
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7D5251F000C1;
+	Thu, 22 Oct 2026 08:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792656817;
+	bh=Hn94stfKvj8i1droBHm2wo/E94pjMfGrEhOxZCqr07Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e6bexpq/OSf3BBoP7uOF2ezUjDjBfCFCCf+BXPvdMlg8K31ht7ddkAYHlX17CtxsW
+	 YyUgfuoGa7cOE0J8McUX/pvAuzOcDiFpXnGNABSkkuOVzrEY06ipiRoWVfZqwG0T9M
+	 bD08UF1z5+pAFsit4iF3DLzO3IXqZFnEOzrGyuN6tGqXGArpgGMVF4cF7m4/MyiZwQ
+	 drki+9JXWoLPTnx59YWeFfsihkHuKQ/J0GucjFpgyoEZXBjquaIg3TIwORKi+diRZG
+	 JwfzwnnrDo3Gzse5mghzFcm1cN3h6Xhaw3TollKVnMLXj9Fz7QyW9S/EtAuFaPLb2l
+	 r/K1Bv9XKECLQ==
+Date: Thu, 22 Oct 2026 10:13:34 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/8] of: property: Make fw_devlink follow GPIO, PWM
+ and clock nexus maps
+Message-ID: <atnE_Brn9gxwO3q7@monoceros>
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,73 +66,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] arm64: dts: qcom: shikra-cqm-evk, shikra-cqs-evk: Add
- HDMI overlay
-To: vishnu.saini@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
- <20261021-shikra_display_overlays-v1-1-adaea735999f@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261021-shikra_display_overlays-v1-1-adaea735999f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 0olmDjG2BGxQaqdyw-1d0CMAZmMIIZ0I
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMiBTYWx0ZWRfX05PGkoI6WTUy
- xt34zfTsQZPNM5aQufDeWpCNEHS1fLIFPdj95mTgqokVgNq7cpC/wKh1vmefcF/fIRv9Yr/hS3I
- ZOEAj9UgYsCJrN42splkkf0ThP1I1GU=
-X-Authority-Analysis: v=2.4 cv=F4fC5ahN c=1 sm=1 tr=0 ts=6ad9c5ad cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=SyOgNX5fRjsOj9ann1gA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: 0olmDjG2BGxQaqdyw-1d0CMAZmMIIZ0I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMiBTYWx0ZWRfX6kb/fO+1ey+m
- yu0zXGnStuqJu2uh8/hYQ5r6priUXRYk8Qn5obDDgdZVHJKDHfJzn4ka1K5itkydY1qBkyoWO4C
- sx1f8PlmzeKBx1p7j3IuGk79ZQynsb1lYX+H9x6w9wdC7PaJ4su7c4vEGyRw/jTy/d4AUK8TmPi
- 87dJv6JwJeVaUJLP2cAZNUmiZ43waRv1Co1hwg4qwnJFMZYQBuT38erwX8imMixWAmFY8h9Qegf
- fer+/vQ/F11WxE2L1R9BwM+JiAUTlx+jnV+DXycHXSsgCEImpdG1oLuJqrlqh03hx2qL20hChlu
- W7ErnbdzMkvHnbdIH84u+Zg2oZc2d56Y1LNHxNi7CU1a5hGQdbJYMQiZMnCLG+3yQIJJcSn68IL
- t0mU21fg/f42rKtYDvgv6K2fp1gxBFzg0cHJXy/Xcj0eVw6MwF4wBmcdpJpMQYoO8+s5D1M/HPc
- lp2ckLxFMupONRoJblg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220032
-
-On 10/21/26 4:21 PM, vishnu.saini@oss.qualcomm.com wrote:
-> From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> 
-> Add a DT overlay for CQM and CQS, to enable HDMI output when LT9611UXD
-> DSI-to-HDMI daughter card connected to PDISP1 DSI0 on carrier card.
-> LT9611UXD is connected through I2C4, with reset and interrupt connected
-> to tlmm GPIO76 and GPIO85.
-
-[...]
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ofdufvh7sevdvg3p"
+Content-Disposition: inline
+In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
 
 
-> +&mdss_dsi0 {
-> +	panel@0 {
-> +		status = "disabled";
-> +	};
-> +};
+--ofdufvh7sevdvg3p
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 0/8] of: property: Make fw_devlink follow GPIO, PWM
+ and clock nexus maps
+MIME-Version: 1.0
 
-Please refer to the panel by its label directly
+On Tue, Oct 20, 2026 at 03:00:11PM +0200, Ernest Van Hoecke wrote:
+> This series fixes an fw_devlink supplier-resolution problem reported by
+> Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+> resources routed through an LVDS connector. Consumers referencing the
+> nexus could remain deferred because fw_devlink linked them to the nexus
+> rather than to the providers selected by gpio-map and pwm-map. [1]
+>=20
+> GPIO, PWM and clock consumer APIs use of_parse_phandle_with_args_map()
+> to resolve specifiers through gpio-map, pwm-map and clock-map
+> properties. The corresponding fw_devlink parsers use direct phandle
+> parsing instead. Given a consumer which references a nexus, the consumer
+> API and fw_devlink therefore resolve the reference to different nodes:
+>=20
+>   consumer API:  consumer -> nexus -> mapped provider
+>   fw_devlink:    consumer -> nexus
+>=20
+> A nexus is a translation node rather than the resource provider and need
+> not have a driver. The link to it can consequently remain unresolved and
+> defer the consumer even though the mapped provider is available.
+>=20
+> Make the fw_devlink GPIO, PWM and clock parsers use the same map-aware
+> resolver as their consumer APIs. The resolver also handles valid direct
+> references by returning the original provider when no map is present.
+> Use dedicated exact-name and suffix declaration macros to opt these
+> bindings into map-aware parsing without changing unrelated property
+> parsers. Retain GPIO's existing exclusions and compatibility handling.
+>=20
+> Since fw_devlink runs the resolver for every consumer when its device is
+> created, patch 1 first fixes a stack buffer overflow in the resolver
+> when the provider referenced by the consumer has more than
+> MAX_PHANDLE_ARGS cells.
+>=20
+> The regression tests call the OF add_links operation and verify that a
+> mapped reference creates exactly one link to the provider selected by
+> the referenced map entry, not to the nexus. They also cover valid direct
+> references. The GPIO tests exercise all property spellings recognized by
+> fw_devlink, including the deprecated singular and unprefixed forms.
+>=20
+> The clock patch fixes aacc54c67869 ("clk: Add support for clock nexus dt
+> bindings"), which has been in clk-next and linux-next with the same hash
+> since next-20260907. There is no build-time dependency on it, but the
+> clock patch should not reach mainline before it. The series applies to
+> next-20261014.
 
-Konrad
+Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
+
+I guess this will be merged via a dt tree and so doesn't need further
+action from my side.
+
+Best regards and thanks for caring about this issue,
+Uwe
+
+--ofdufvh7sevdvg3p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrZxasACgkQj4D7WH0S
+/k7skgf/RTyRTIhl9ulgELoJGvcHQK0j20ck1KxPZOtdE/7JrK//4vSgIVtc6FCJ
+PsUbu+0pHi2uumsVa1WEtpuopPIk9sMCn3yAIvgklhYXllmwvG0pZkKt38XXX9Lt
+ShhE7/oKXv226oZOb7QWgcrpk9flhB2z+ljA/gNricSibhdP08U3Gice3AFahNKq
+EzAtKrWVd1SQcVlahBgpcWdDqc/nY2ysM7SN01dDPr8UU6KX4cH6/OjjxaVrc25d
+2eIdyCpbJ2PzBQhbiMnmd8pQtrsAeWmph6uevsyYeCQLf85SYCsuKgRmvGjh7JdU
+QS7OBnpPYdXuPVj/fbJQ3257d4cOzQ==
+=v5/K
+-----END PGP SIGNATURE-----
+
+--ofdufvh7sevdvg3p--
