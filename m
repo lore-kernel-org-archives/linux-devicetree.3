@@ -1,102 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690583;
-	b=JblPb3ShjZOCj6BPZ5VfjYuXdGe86QXAlWKnbkrx1ixWZLv6Uk7WU36hdhgcD2pMz9PV
-	 9RgX542eSWu5qVPCTubjv8PGukEH0GZQS0DVwxjXRcnwJJ7kh5rAhUc59hc3FCyuY/QpL
-	 6vCBci/wepaa4CpxWdtWuNfBae15x7QOn10IeQQDXIP07ED4pU8oeBB4ZpkfZprX+hxWK
-	 /CUOn5pGq5xpKkIk7+ghKr4p00cgc75+rxT+L1aEggwgFkqo+RtQZ+w9bQKEz13w6aoCS
-	 CFEL0zjzGURntOx8+ZE/404ltbBHYGymK2JFmk9JEiwb8ScwaKxdUm79+xiqkH4ZEGQ==
+	t=1792690643;
+	b=s/wQPZ8vmHbDcg16hmiJXMjgjd6EgnPbQns6GC/+jzCODTo2gV1KvDbmcV0OVflQBel8
+	 eTy+xYNA+wGbrDn6zZEOvOTR4BDL2vhYGviebKH1H64VnBlGqQ7nkmA6h0HuQDIlryYdR
+	 QKvEfM8U627gtMP2vEu4GHq0HwpCLXaLwk+np5BQdWf1GSolcHn56nzmuSvm18gqx10s+
+	 7PfQBxYw40Ubt1K8HJfqBBRbkUAiC21XDi+sIRFnVbTYbpXT2fdf0H2ZDSTSYriwJV8f/
+	 d2eT8hm9g9G4Bdwhz5cr08vix2Qm+Ycwic/vJTWGDb2FVJtDCmjGKVM5+gF6OSk5opw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690643;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-	b=dXFQtZuN8DAEMO7YOAHeMfSkiaxam1HidBvtp3gfagM0EbiTZiAk0eZfqWIuwhkYsIW2
-	 IJwt6mID8zrFZT8qGtNBpFJkNqWjI3WrIGSM2qXO7puCk3KhIy3nTKYoA/rzC493QHKp2
-	 nc8E3I8s/bXDUn6ODTMI3GJ0SMQljEvL88Tr6iVhUkzsFn+i7g1d8zYTiX9huOUh37m2n
-	 nYfrOlZ6u1Fkgi3phf3udssOWGbbTVENZj7pvUbmr11jO54bIrekG3pZjGnBXp5yLc3U5
-	 pSt36EWGzCAeoAAJhgg5YJl8z0yJPH5E4szDS7Rk8XOqJX2/lxrH5oPYAb8N0lx9ilA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=90PpyRvqw50zWmq9+jh1atWjcGYKGRTrDoZ7I20u5a0=;
+	b=hKcR8z+XjZey33nu+xBffswPXkMKKDxukrFOKSiB0bJby1DhR7RUjneHJooPam+jU0s/
+	 QOVelPRBjXjHhRfT7rSmsbY8WI+E4amttMB5SWMvPNf65MQdTjwGOJ9v46MMFobvQU52j
+	 dnkS3hQZSPS52pk+/pHvcJolDjXJyS+duBUVWPIbBXdUawlu9NWmkJ0I9hlPAdPrguEtW
+	 P+JIiQqynbKjwzp0TPVJBcZB2m6kCmWW3QwRj5qVQwXYyXY/yut9hi4qXPvyKb0qDO8DV
+	 D7A3Gkii6Yi1vq81iDWaF7JXcmNZkPHmpCGBCJCzOtvAmSyyLgMmOtSgp6xayRwLuRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KkyuDElZ;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C04606A32D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:36:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C04606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=KkyuDElZ
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso55491a91.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:36:23 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA5B606A32E
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:37:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAA5B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48df54150dfso31323f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:37:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690582; x=1793295382;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=1e100.net; s=20260707; t=1792690641; x=1793295441;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-        b=oTmxQiP+tGsNYNQ4Ndd60Qzq9LJz2FuaFr6/SaUCFxIuxcdJV+IBE9+lOB0yq7Akk1
-         OAu0NRZe0BEux4AVpon+2lqPF8OnSm29wJskrpocafcAQtfO+bo09cpyTBF6lV+Dy9Rq
-         8LPh7Sltcz2+VIONUwz/WCikQmWIdAzN2lEMs9GEtEwLIc1vM2pGcXXvMzFRWG3Mt1UG
-         1+ysANiXR0/kA8kyPL8FUr9Hq0M8O+yCtjMCQUWVvQzblQK2Yn4e+LHLChxBeNTOI9q9
-         53tEu40cPo6uq5T7TJ8+ICq5C0E/OuXP6rv6qqai8IMA2lRQT3PmR+b8pQT2vVtIJc/H
-         u+ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzO1buVOhoE1X1qE/t+rCvbKhLwiJ3U+63WhRV/aHVjX8Y9cI7CFsMomZBnSp1VOGCCgxhuyMrhJWMK@vger.kernel.org
-X-Gm-Message-State: AFq9FYIv6iXlfW6/O/zzrQVV54snZ2/J09l4wJdqAgULblGU7PkzGOBv
-	UFr1O+tkmu8yxnpDqwVG7hvoVrTSV2v1CH2TSjgHbxntqYWvrfvGQLUBqv9X8KVXJcVfJC54Z88
-	oykoaQID6aZD0uapMN/s4bCui19SyZrvtTotPyvK3V3iIJHdohF9UCcUiPGPu6wuMvd5nmBnu/h
-	aWdCeh8z69qkR1Qo32hf9UmYSYXh3TsN/8QVzBGirlUfh2SroNt6QWwHKV1Yy3IOei6VVLS+Jbs
-	cpzyjnEzYDVnYLSqXP48A==
-X-Gm-Gg: AYBFou2t4PFJLKILZV0i2itog5nQPWdUJPLO1uDS2fU8bYHkhBsrt1gvXwANIq3GR0W
-	vn0dHX9Bu6z0IGiyFE0YlLdsCTz2QNzsxRZUsDmQvLcwc3cx8+MBrI7yLm0/04GDkJatFEYw0HD
-	EKcIQKymWiozGFDU/6JL+clvWiPMoTHCt0xrkoYa4SMowhQiidkAyqkyGeHtMB89IxcLW+PenzH
-	kH7pZdPpolyFLYiztDEuxYc4o+4mXDvf55ht0Hi0BToLakhXLpk7BtVXa3J3lfgGeZ65rVfObxP
-	nWjyZysA+8Q9oK2r3mwAxlfSIPhlA1vsgJhKL50iMyN39nImcPGHXGi/tWLCzVmeSlxpbpuFp1+
-	H/quwRTnmG+4x02V1AT1+prTw2h7HVJZIAGycySDI5GKE9CXL3u4/CyO/oJSMYOJ/m8N3/4o+Bf
-	dW2yQSjea+7i9hU/3oL1o9USYW2GmjtfqgPvwnsXGq
-X-Received: by 2002:a17:90b:44:b0:3a7:e11c:4e6e with SMTP id 98e67ed59e1d1-3ad86f26e60mr5097431a91.59.1792690582433;
-        Thu, 22 Oct 2026 10:36:22 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cd8ba7d516bsm637a12.4.2026.10.22.10.36.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:36:22 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-88c768886a6so83400b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792690580; x=1793295380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aQ9LiTLbh2uxFCSppkL9rHsktv+7lwK3tJuZ2euHX10=;
-        b=KkyuDElZruiEKTF+WYjfqgvZyRoqKAU3KXLhrjI4RhGx7qMYnlqLln2+jOzDreR8aA
-         KrVhJtHPL7uKHI5QWkq4K4xwfmJneyc1ZjcEaxmzIRx133Ulmgr11PV3AZO2tdDvDg5t
-         zL5/7Axi+acwjHAz8zhsyXRtcVsyKSxNRUM58=
-X-Forwarded-Encrypted: i=1; AKwUvBxnK2bNdTMgPfEAzvhoOX8U4+l3nPmfr9AKkgzp28HYgoTC4+SZ9dwod9TQRQXl8/RQVdi+NeqhzACO@vger.kernel.org
-X-Received: by 2002:a05:6a00:2d16:b0:89f:7ac5:9d54 with SMTP id d2e1a72fcca58-8a089d0736amr5427161b3a.17.1792690580577;
-        Thu, 22 Oct 2026 10:36:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2d16:b0:89f:7ac5:9d54 with SMTP id d2e1a72fcca58-8a089d0736amr5427131b3a.17.1792690580106;
-        Thu, 22 Oct 2026 10:36:20 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b4292sm2389220b3a.20.2026.10.22.10.36.18
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=90PpyRvqw50zWmq9+jh1atWjcGYKGRTrDoZ7I20u5a0=;
+        b=HwSjqKKnrWAmvR8BRoAIFvrRfuTwkZlvBxb5C638qINnU0YxLYsAFGgaZFrIgTn/8w
+         Dc3JgxYqOyeyY7zVSddibk05RweJi2esKKE0DdCmGYRU0GB44CTNNNkA+w1HVyJSxRVu
+         hiq5gxMDDiN1DmSAlGoVdsOV4I8xM7NBfZmGR0VCaA1QmarDBM7KmTeOI7eOQnXI6zop
+         TkHPF+zle8BmyDL64C9KI79/l36unX1eNrfSAP+MqJX4SEQDmfJvhjt2egyhjpjJcCaS
+         FvhKk1nejfAe4utsuMd7qtXU4Zf690TGMoq/A1DnLwgaEQ8ZETQ0xxYYz0XfTgWsiGoO
+         mwvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTCGBvWd4x+LnnAk0Ok2yjb+wMeohLBBxw0ajzQYlGDPGqttPRkt1i2sXLmmeE7TTjv7/vz7kGwl/t@vger.kernel.org
+X-Gm-Message-State: AFq9FYIw2S2CA57xsyNC31xk3QBIhsl+5g908uz9IdOMQfUFIb4MRdBz
+	zZUg5Lxhw4dWbw0z6E4Y9IrNnCVttNTNMg9LS6p6bzvksg042arwOXyw
+X-Gm-Gg: AYBFou0p1c+o8gYAgh8Po5c+6GETgPtfSTlJDpbfvSuKY5IBqDZj8Y1ahjMuiyZzeS9
+	KJv8eqbiXyMahOIKgjNOLhNIjVa+1qlHCEsMCBYB9yC3UNX3gQctl1pI/RiWQyp4J9t1VvvRTgq
+	K9VAzElTChUuKDqav2BwXKcejaQhAGaEblEbsDg1oArZdqxy1vD4ueI5mBmpiJx+FcU3cSmDonh
+	xDHKPJzOWqLv178JXJ1j+T7ldWcsXYpbkXf380v0r4bIrw6xpPBGsLb+CHcSjl5c2utA9yMCx31
+	++NXza1/g/p1atO8U04Esmtk7vdxUj5aDnt1szZIIQ+Z7xK7wgxd/sWYaOnhwCpD8QU+pq2xPAp
+	4/IIOp205+1GZm2tVu9dV/Kr5kQmFmrZsTAIkt3Ik6cP3/fyiloubb8x31VltB+iXuiBwwhPcHG
+	Z8xdiGB2siWxqW5QS7i0fUM+k3pPX4WvoWn7eM3mFeMOo6TTw7NVljasD1ghNqd0ZYKr0UcXAtl
+	CB77QMA7GJPnB5MxQZnBUQfqfandbjt+FWHsZOGFwvyUvtpqnDhKujQ/m1LwtUDqgJWT/8087qm
+	ZIatbqCEoo51141kQYPzHi5zwWP4VLyE
+X-Received: by 2002:a05:6000:4e:b0:48d:f3a4:a6aa with SMTP id ffacd0b85a97d-48e264f2be7mr9021652f8f.35.1792690640831;
+        Thu, 22 Oct 2026 10:37:20 -0700 (PDT)
+Received: from [192.168.1.135] ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f0bc2sm13391825f8f.1.2026.10.22.10.37.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:36:19 -0700 (PDT)
-Message-ID: <84bf86db-618b-4387-bef7-5cc02078c99e@broadcom.com>
-Date: Thu, 22 Oct 2026 10:36:17 -0700
+        Thu, 22 Oct 2026 10:37:20 -0700 (PDT)
+Message-ID: <00b94eed-fe1b-4cf3-a4ed-12813faacb86@linux.com>
+Date: Thu, 22 Oct 2026 18:37:19 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,173 +76,155 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] ata: ahci_brcm: Initialize the NSP interface clock
- and reset
-To: Damien Le Moal <dlemoal@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: Niklas Cassel <cassel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vinod Koul <vkoul@kernel.org>,
+Subject: Re: [PATCH v3 4/8] net: stmmac: dwmac-meson8b: apply the RGMII delays
+ the T7 way
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Tejun Heo <tj@kernel.org>,
- Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
- "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
- <linux-ide@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
-References: <20261021165555.652102-1-florian.fainelli@broadcom.com>
- <20261021165555.652102-4-florian.fainelli@broadcom.com>
- <79a81f1d-2964-4b2a-80d1-64e01c202468@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <79a81f1d-2964-4b2a-80d1-64e01c202468@kernel.org>
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-5-tanure@linux.com>
+ <a1c0b76b-7b67-43e9-af15-3139f17d7fe7@lunn.ch>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <a1c0b76b-7b67-43e9-af15-3139f17d7fe7@lunn.ch>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 10/21/26 23:50, Damien Le Moal wrote:
-> On 2026/10/21 18:55, Florian Fainelli wrote:
->> The NSP probe path assumes firmware has enabled the SATA IDM interface
->> clock and released the core reset. The downstream iProc config_AHCI()
->> sequence explicitly performs both operations before accessing AHCI.
->> Without that setup, a cold boot can access an inactive controller.
->>
->> Map the optional NSP IDM register region and enable the interface clock
->> before releasing reset, retaining the downstream settling intervals.
->> Perform the sequence at probe and resume before reconfiguring SATA.
->>
->> Keep the resource optional so older device trees continue to rely on
->> firmware initialization.
->>
->> Fixes: 3ee2e6dcaa35 ("ata: ahci_brcm: Add support for Broadcom NSP SoC")
->> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
->> ---
->>   drivers/ata/ahci_brcm.c | 34 ++++++++++++++++++++++++++++++++++
->>   1 file changed, 34 insertions(+)
->>
->> diff --git a/drivers/ata/ahci_brcm.c b/drivers/ata/ahci_brcm.c
->> index 29be74fedcf0..2ed60806b671 100644
->> --- a/drivers/ata/ahci_brcm.c
->> +++ b/drivers/ata/ahci_brcm.c
->> @@ -6,7 +6,9 @@
->>    */
->>   
->>   #include <linux/ahci_platform.h>
->> +#include <linux/bcma/bcma_regs.h>
->>   #include <linux/compiler.h>
->> +#include <linux/delay.h>
->>   #include <linux/device.h>
->>   #include <linux/init.h>
->>   #include <linux/interrupt.h>
->> @@ -83,6 +85,7 @@ enum brcm_ahci_quirks {
->>   struct brcm_ahci_priv {
->>   	struct device *dev;
->>   	void __iomem *top_ctrl;
->> +	void __iomem *idm;
->>   	u32 port_mask;
->>   	u32 quirks;
->>   	enum brcm_ahci_version version;
->> @@ -230,6 +233,25 @@ static u32 brcm_ahci_get_portmask(struct ahci_host_priv *hpriv,
->>   	return impl;
->>   }
->>   
->> +static void brcm_sata_init_idm(struct brcm_ahci_priv *priv)
+On 12/10/2026 13:30, Andrew Lunn wrote:
+>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+>> @@ -82,6 +82,7 @@ struct meson8b_dwmac_data {
+>>   	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
+>>   	bool has_prg_eth1_rgmii_rx_delay;
+>>   	bool has_pipeline_clk;
+>> +	bool mac_applies_dt_delays;
+> 
+> Please can you invert this and call it broken delays.
+> 
+> We should make it clear that new devices should not set this, because
+> it wrong, broken.
+
+Moved to a function for T7. And the previous SoCs have their own 
+function which gets a comment that new SoCs must not use it.
+
+> 
+>> +static int meson_dwmac_init_dt_delays(struct meson8b_dwmac *dwmac,
+>> +				      struct plat_stmmacenet_data *plat_dat)
 >> +{
->> +	u32 data;
+>> +	struct device_node *np = dwmac->dev->of_node;
+>> +	u32 tx_delay_ps = 0, rx_delay_ps = 0;
+>> +	phy_interface_t phy_mode;
+>> +	bool mac_tx, mac_rx;
 >> +
->> +	if (!priv->idm)
->> +		return;
+>> +	mac_tx = !of_property_read_u32(np, "tx-internal-delay-ps", &tx_delay_ps);
+>> +	mac_rx = !of_property_read_u32(np, "rx-internal-delay-ps", &rx_delay_ps);
 >> +
->> +	/* Enable the interface clock before taking the SATA core out of reset. */
+>> +	/* one step is a quarter of the RGMII clock period, 2ns at 1Gbit/s */
+>> +	if (tx_delay_ps > 6000 || tx_delay_ps % 2000)
+>> +		return dev_err_probe(dwmac->dev, -EINVAL,
+>> +				     "The RGMII TX delay must be 0, 2000, 4000 or 6000ps\n");
 > 
-> Long line. Please split before 80 chars.
+> tx-internal-delay is not listed in amlogic,meson-dwmac.yaml. Please
+> could you add it, and list the valid values.
+Patch 2 of this series adds it to the T7 block with the valid values.
+That changes in v4, see below.
 > 
->> +	data = readl(priv->idm + BCMA_IOCTL);
->> +	writel(data | BCMA_IOCTL_CLK, priv->idm + BCMA_IOCTL);
->> +	readl(priv->idm + BCMA_IOCTL);
->> +	usleep_range(1000, 2000);
->> +
->> +	data = readl(priv->idm + BCMA_RESET_CTL);
->> +	writel(data & ~BCMA_RESET_CTL_RESET, priv->idm + BCMA_RESET_CTL);
->> +	readl(priv->idm + BCMA_RESET_CTL);
->> +	usleep_range(1000, 2000);
->> +}
->> +
->>   static void brcm_sata_init(struct brcm_ahci_priv *priv)
->>   {
->>   	void __iomem *ctrl = priv->top_ctrl + SATA_TOP_CTRL_BUS_CTRL;
->> @@ -369,6 +391,8 @@ static int __maybe_unused brcm_ahci_resume(struct device *dev)
->>   	struct brcm_ahci_priv *priv = hpriv->plat_data;
->>   	int ret = 0;
->>   
->> +	brcm_sata_init_idm(priv);
->> +
->>   	ret = reset_control_deassert(priv->rcdev_ahci);
->>   	if (ret)
->>   		return ret;
->> @@ -453,6 +477,14 @@ static int brcm_ahci_probe(struct platform_device *pdev)
->>   	priv->version = (unsigned long)of_id->data;
->>   	priv->dev = dev;
->>   
->> +	/* Older NSP device trees rely on firmware to initialize the IDM. */
->> +	if (priv->version == BRCM_SATA_NSP &&
->> +	    platform_get_resource_byname(pdev, IORESOURCE_MEM, "idm")) {
->> +		priv->idm = devm_platform_ioremap_resource_byname(pdev, "idm");
->> +		if (IS_ERR(priv->idm))
->> +			return PTR_ERR(priv->idm);
->> +	}
->> +
->>   	priv->top_ctrl = devm_platform_ioremap_resource_byname(pdev, "top-ctrl");
->>   	if (IS_ERR(priv->top_ctrl))
->>   		return PTR_ERR(priv->top_ctrl);
->> @@ -493,6 +525,8 @@ static int brcm_ahci_probe(struct platform_device *pdev)
->>   	if (ret)
->>   		return ret;
->>   
->> +	brcm_sata_init_idm(priv);
-> 
-> Here, this is called *before* the clocks are enabled, but in brcm_ahci_resume(),
-> brcm_sata_init() -> brcm_sata_init_idm(() is called *after* the clocks are
-> enabled. Does this matter?
+> Do you have access to the datasheet? Could you check these numbers are
+> correct, because they are larger than typical. 4ns, and 6ns makes no
+> sense, the RGMII standard only calls for 2ns.
 
-The NSP platform does not support suspend/resume but the consistency 
-should be preserved, logically this should be just like during 
-initialization, thanks!
--- 
-Florian
+Yes. The field is not a delay line. It selects the phase of the TX
+clock sent to the PHY: 0, 1/4, 1/2 or 3/4 of the clock period. At
+1Gbit/s that is 0, 2, 4 or 6ns, which is where the numbers come from
+(the existing amlogic,tx-delay-ns property lists the same four). Only
+1/4 is a usable RGMII delay; 1/2 is an inverted clock and 3/4 is a 2ns
+lead. And since it is a fraction of the period, the 2ns is only true at
+1Gbit/s, at 100Mbit/s the same setting is 10ns. I agree 4000 and 6000
+make no sense.
+
+> 
+>> +
+>> +	/* the RX delay line moves in 200ps steps and reaches 3000ps */
+>> +	if (rx_delay_ps > 3000 || rx_delay_ps % 200)
+>> +		return dev_err_probe(dwmac->dev, -EINVAL,
+>> +				     "The RGMII RX delay range is 0..3000ps in 200ps steps\n");
+> 
+> Please could you listing these values in the binding.
+> 
+> Also, mark that amlogic,tx-delay-ns & amlogic,rx-delay-ns are not
+> valid for this compatible.
+The RX values are in patch 2 as well, the T7 shares the G12A list
+(0..3000ps in 200ps steps); v4 drops the 0. The two vendor properties
+are already rejected for the T7: they are only defined for the older
+compatibles and the schema has unevaluatedProperties: false. v4 adds an
+explicit "false" for both in the T7 block so that it is visible.
+> 
+>> +
+>> +	phy_mode = phy_fix_phy_mode_for_mac_delays(dwmac->phy_mode, mac_tx,
+>> +						   mac_rx);
+> 
+> This is not correct. This function assumes mac_tx and mac_rx are
+> Boolean values, the MAC is applying the full 2ns delay. However, if
+> rx-internal-delay-ps is only providing 200ps, that is not true.
+> 
+> I would prefer you keep to the usual way of doing things. Allow the
+> MAC to apply small tuning delays, but have the PHY do the 2ns. So
+> don't make any modification to phy-mode.
+> 
+
+OK. v4 does not touch phy-mode. rx-internal-delay-ps becomes the tuning
+the MAC adds on top, 200..3000ps. On the TX side the T7 has nothing
+small to offer, the only step is the 2ns phase, so v4 does not accept
+tx-internal-delay-ps on the T7 at all, in the binding and in the
+driver. The VIM4 then uses plain rgmii-id with the PHY adding both
+delays. That also removes the wrong claim in patch 7 that the RTL8211F
+TX delay does not work; the real cause was a bootloader value left in
+the glue register, details in my reply to Martin on patch 7.
+>>   static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>>   {
+>>   	u32 tx_dly_config, rx_adj_config, cfg_rxclk_dly, delay_config;
+>> @@ -411,32 +455,34 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>>   	dwmac->dev = &pdev->dev;
+>>   	dwmac->phy_mode = plat_dat->phy_interface;
+>>   
+>> -	/* use 2ns as fallback since this value was previously hardcoded */
+>> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+>> -				 &dwmac->tx_delay_ns))
+>> -		dwmac->tx_delay_ns = 2;
+>> -
+>> -	/* RX delay defaults to 0ps since this is what many boards use */
+>> -	if (of_property_read_u32(pdev->dev.of_node, "rx-internal-delay-ps",
+>> -				 &dwmac->rx_delay_ps)) {
+>> -		if (!of_property_read_u32(pdev->dev.of_node,
+>> -					  "amlogic,rx-delay-ns",
+>> -					  &dwmac->rx_delay_ps))
+>> -			/* convert ns to ps */
+>> -			dwmac->rx_delay_ps *= 1000;
+>> -	}
+>> -
+>> -	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
+>> -		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
+>> -			dev_err(dwmac->dev,
+>> -				"The RGMII RX delay range is 0..3000ps in 200ps steps");
+>> -			return -EINVAL;
+>> +	if (!dwmac->data->mac_applies_dt_delays) {
+> 
+> I suggest you do this at a higher level. Either call this function if
+> _broken_delay is set, or the other one.
+
+Done through the callback. Probe makes one call, and the parsing of the
+vendor properties moves into the older function.
+> 
+> 	Andrew
+
