@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664234;
-	b=FMk37QlNJWPsLdSV4tCoLiT0Ae5irIxRFeYvH1+vCN/YI88TER7BxyUevE6jxYGOKfyy
-	 N9nzZ961CjaiOVLMz/byqk46rZDTVBdvXX8RFzAvaGZVNXt0TXW4xzHfe5GRLL/ste5AQ
-	 pq6V/RSAqL3vQDaVGyrlIiGxVPFm//Z3duQiCBCY/iVhte9lglUOvi+9i73R63zbzdZkZ
-	 3pm30ETC0rehanKGoH7+PlkOg0oYGecBB/Uf9MbYeYTewuNGb0m+6MAi0fgTBzSw8gbae
-	 upHYpA1ivoo6x9Ii+VteDTG+tk86/3per/x0aXr+S+6QJDBFzpdcl/YPIISxGgtOxAw==
+	t=1792664333;
+	b=nbYeEupnFBz8pzHhONgb/iGDA3tdMjGRoYDg17xhCNsQqpgWhTQj3aDd4TbIqDBeo30I
+	 W5UCCDM3S5FgUU3/iGUIh4GdL6Be4clRaaef/sC5iB3pSLce/X52Jno2pQ+DOFrtYrc+Y
+	 H+b3n/5Gq4TiJz5KwvtYo0vJxN5scYSH+fmQVxfhtOqKKUfMdNQbxs0bdNfLBgqICJawN
+	 WyWuetdQky55EbMCPrCV0mhy+s944hf4qeQx3bZbm6zl48La15l2I3Bc5ZtxIgqMHM5HE
+	 HVEyjIZKLlkHNTtNdGJEMX+lYwdqNmLQo1lCEvycDXE29+TXFDqj2VVV+1PcEfJ4K4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664333;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ou2d6JrHWje3qmQuucjDNW9hnVMBNvCFOnYdEcVU8uM=;
-	b=aM+4t1e2suwoyHb6y3eUNzNfs+fvcF/RXDF9PuHKJ6y7QUsaUAnMmZ4csAr8a/hm0Vbe
-	 N0SiIWQRvFZdXU6q/TXhqd+Df//u0WrqY0eoarMq5j7tIDXUblrcUrPHuAVrUV6VsyVgV
-	 AG9tQCfQP3ASoeTrimRVgvHHuSXtq8gVpKsDTLd9RVNzBZ1rcB1UPWU0rNBpff9xHnwGz
-	 I4MH5V7FFPt4A0W/cpJVFmtD9fj1uUAdz2mcEzqt1kV9YeMjhW8TVlfp8iBiNQoAXFYC9
-	 QXyJd+WwQmvNi05wYPoNixCVsm9kVC0lFSIpQKW0LwOpxNhNF8wlB6gQ3qWfwfjT7vA==
+	bh=pcaE8fNddoIS2qZliM8AEsozG9LhCyjYTML2R7kals4=;
+	b=4N7fjbdhGxUvx26+HRRNFIdLLhQFdcxWLNpHuHuSA5zKLw1rI4j7ndwV3cgc9WOopBlJ
+	 LQ1Em/dlEWfN1ZRDu3qz6IwrH8kZ/lgv5KLJYCbO3xQQAjpkzAcXzeH2xu22MdQ9jNURN
+	 rCEXc84ovpmJi/6Bx+NzmwejhiiwnL1bNTIqzd5W69Uy8gTuO3Ge9pqylfv/vUGx45ows
+	 9GFczU2ifxuKX5MJjnmWXC072I/+X9ZHjBHp9TI8tebZKlBSudDbzXWaP7J6375qgilLN
+	 +pwsPe63PgCkR8fgy2VfWJ6PighOkA3heVVFIqEOH3h9V3Q/LjGLfF78NlEJOm7woEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZ7O7g+x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lco0Bftd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473D1606A31F;
-	Thu, 22 Oct 2026 10:17:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15321606A31B;
+	Thu, 22 Oct 2026 10:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZ7O7g+x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F48E1F000C2;
-	Thu, 22 Oct 2026 10:17:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lco0Bftd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E5F1F000C1;
+	Thu, 22 Oct 2026 10:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792664234;
-	bh=Ou2d6JrHWje3qmQuucjDNW9hnVMBNvCFOnYdEcVU8uM=;
+	s=k20260515; t=1792664331;
+	bh=pcaE8fNddoIS2qZliM8AEsozG9LhCyjYTML2R7kals4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HZ7O7g+x9EgxZqnoP86fD5Zqurnf0JaLvWRZVC8gWcpiJMGhiLbCSpgicwvKDwxax
-	 Rm1pORO1egBQHZio7fTZWOwbCKcxwiSAxL6GrXawDqV/MXwgT2eYtsNat6HmnL5S5X
-	 IZzuuy+AIio/veF6G1fKQEfuaVGRRr27VT746zfvfSyDYvzKtV5C2xvBix/VDEOB5e
-	 aRwXvsGgU3DwSw6TRPxBkF5zGwxjDVmulaQicjoABG4sY/Vsv5Os3FJirw1lc3WOJL
-	 a69PJCVY0uzyHldj063o8WUxjFLQNURzjrc66BDY2Nst67U+2dEFrQrXsKVdqzL94L
-	 Lt7dUD+vkH9LQ==
-Date: Thu, 22 Oct 2026 12:17:11 +0200
+	b=lco0BftdGK0P/AUjFPQlbawm5c3lJlHrjktqYsfyKMYkDXwdmN/QHp0zplvP9l0eN
+	 JulBj/OIObEIS00+wvjb4xQGdAZ84bqoc5KGMiqWrX91SgipHbVGfeEst2kz2QTlre
+	 GiicAiXGCd785CigAo40BjDrz+LRbsMDZKIBI7gEqLg43gdokSyg+Ng+nR/oRv1L+5
+	 2BOVXhaTlZj8gl8bZk/7CjvHana5ZTZeVPDXdP8hgtyRoxf/yNGTtVsz3NXTY/tefO
+	 pLoZVst+TpGadDZorgejwbqu/JvcUT15m9v9t53lA0EC/NqxiPls1pz7aQeeAqJplj
+	 yX4GY15vZHBWA==
+Date: Thu, 22 Oct 2026 12:18:48 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
-Cc: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-amarula@amarulasolutions.com, michael@amarulasolutions.com, 
-	dario.binacchi@amarulasolutions.com
-Subject: Re: [PATCH v2 2/3] dt-bindings: arm: rockchip: Add Axelera Embedded
- 111c
-Message-ID: <20261022-accurate-beige-spaniel-c9b461@quoll>
-References: <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
- <20261020113717.189082-3-patrick.barsanti@amarulasolutions.com>
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: iio: light: gp2ap002: add leda power
+ supply
+Message-ID: <20261022-favorite-bloodhound-of-faith-e3dbbd@quoll>
+References: <20261020-iio-light-gp2ap002-v3-0-b7e0946c9e79@rudorff.com>
+ <20261020-iio-light-gp2ap002-v3-1-b7e0946c9e79@rudorff.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,28 +65,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020113717.189082-3-patrick.barsanti@amarulasolutions.com>
+In-Reply-To: <20261020-iio-light-gp2ap002-v3-1-b7e0946c9e79@rudorff.com>
 
-On Tue, Oct 20, 2026 at 01:37:16PM +0200, Patrick Barsanti wrote:
-> The Axelera Embedded 111c is an SBC based on the Rockchip RK3588
-> SoC.
+On Tue, Oct 20, 2026 at 01:35:38PM +0200, Christoph Rudorff wrote:
+> According to datasheet page 8 "Recommended external circuit",
+> it has tree pins that need power: vio, vdd and leda ("vled" !)
 > 
-> Specification:
-> - Rockchip RK3588
-> - 16GB LPDDR4
-> - Axelera AI Metis AIPU, 4GB/16GB LPDDR4X
-> - 64GB eMMC
-> - uSD slot
-> - 2x SATA ports
-> - 2x Gigabit LAN
-> - 1x M.2 E key
-> - 1x M.2 B key
-> - 1x HDMI2.0
-> - 1x USB-C with DP
-> - 4x USB3.1
-> 
-> Link: https://axelera.ai/axelera-products/embedded/111c
-> Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
+> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+> ---
+>  Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
