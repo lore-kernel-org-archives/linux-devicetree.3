@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672773;
-	b=QOTQSqpAfQ9zSnNkiDZ0wPn3vDYAb1h0M1uzSlcCmWOUtk4p8huI/DU21bh23sknwYA1
-	 dUOvOuZ/duWTxUeCCbVotTx91oVkEGn95vzXei5DEotb59QVKeUG7EVweQukfjA42AvHI
-	 Xb5D44BUOZJyFpXTwJoLD7JO8Um/ZbcU1uEEVoLaKmvuLmVPLpxPSOnivR4EDJsYF7g4t
-	 4I/oZ1wGWKtWT27uINqnj4wgAHE6eWwNpFWgrFvRpZZptl4mfrDNEioluWhuehR1QUv2L
-	 Lr+nt19M53SSTSSc270BVnICCQi/byEiY3NAC7K8IrV3ZXP6Obt2oSHroN5HYkR+/9Q==
+	t=1792672909;
+	b=5ME0kH5YNv0QnYOnkGp7FsqcshGm0DaSAIp1WiVXX+0YH/Zwcsn6zHwxI8wL6LoiPse+
+	 g/06vBd1aWkiZSfSmlpjJMnj6BW1B1i1mf6rFAR/cyWH5zvmi2xsMtIX2Ki2cWIhh+5+y
+	 FVDvdP8ozZLppwaqNlWmZQ+lQFFqmK7k4rWUaynJYIT5dDoYiDpcQby3cd4xmbS+RM/Az
+	 dYQO2BKB/ns6Qqkgy5mw5H26eGDUf+UEmlr4AeesAnk/B0L++k7mduNvQvztmKH4mceit
+	 EXRncl++LUbkGf3weMPaI6S9iGwPRL6Z/dI84V6n0E5pYepK1XnUyWryh1eAfPhFNFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672773;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=vr2qfukLrxjT0h6sozS6wYrlPR0+n8rkfwJQ3XNYr0Y=;
-	b=xaniEdjWbLDyBYsVZLrylzJYE6seJSA9w12q1kjD+iBup+5Vv+YAQ41+21aqs7935S1s
-	 xC/ErPkcKNGYN161fuTHO+qumg1Eid5boykgAjbcInGVgJZthKAGLriiBiz9wYHK4im34
-	 MVnGgxuUW2w8WY5p/lb5X+zSPlmZeBj67Fu2HnJTMW2xr/XRGVjXVFJ6h4Kyryr7Lz7/C
-	 ubfqUTrLwePUsbmpbeFacNimkLwSpIlOOV1ezKY0m9zHM3gi45b8oXehslJ2QU3qzqrIO
-	 CTO1xksp0enAs3Qe85x7gccqBkBwgMT04EW8Qp2mgArMxMuoj/yYXVXCox9L9/NpBZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672909;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
+	b=bZy2sRJozOS3fKx17ongCNge3F5w2NgzD6w9eI3GZxEGTNJN+ipxSPXUzhOcju7sbH2K
+	 Ac8a4UoFJSCa7keWhyIWmi5q1dKjgqalxqgCNhKkxBtdwDASB5lNIMRlWzreEUy8vcTgU
+	 Ib6tTT2FBOFK23NdZiRmbIuwyzNjkz30PlNeSc6izOgh2kx0V6yq7F+lpEzfz+72pOoo8
+	 Y3T9S4gn34Jluip2kmDaf/N3Atir2Sr3YoV5GCOdtpSiTsQ4JMG5S9evqO6xdCRJVEWzL
+	 bKIU+PiSEmlAvaz2GHWGuXgxzVyZ0iw2sYoiEuUgobHyJI1s8LORl+v+tH+OHRioYvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rzJ+QTGM;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECC4606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 12:39:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ECC4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B02606A319;
+	Thu, 22 Oct 2026 12:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B02606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rzJ+QTGM
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B3B0E1A1298;
-	Thu, 22 Oct 2026 12:39:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 80BC560360;
-	Thu, 22 Oct 2026 12:39:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62B6410328F2E;
-	Thu, 22 Oct 2026 14:39:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792672764; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vr2qfukLrxjT0h6sozS6wYrlPR0+n8rkfwJQ3XNYr0Y=;
-	b=rzJ+QTGM2KsPnMHhk5iYDr09q/fzMAFMWI04kaL+VbDQ6Cmk5MD82CebDoXwTenJEilayL
-	+J3H+3TDuIwi9jPKjrtOw0MrK6Rr7Z5oNkClrW0gHEXJ2jKeZ+PDH5w28h3EmvEUseFHi6
-	yS9LvGKTyXUbN5BZsRsH7ZOviG1GNWgWWlqGto4if9HPu/7UWA4E69Tqe2kx70Bry4OCgW
-	7JlUChGu8PF04b9pqLdj9ButmrPdsnmDoT/T7QTTrZQRZHPE+pcbqDuIgqE+C0nEW6RLt5
-	f+IMwuJ2F/A5j7aszvEH99Amm+JBpE6yA5zWC+dknaee8MOpLHBi7E/IXJ8nzQ==
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BFF671063F2;
+	Thu, 22 Oct 2026 14:41:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792672903; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
+	b=C9F9sNuCPPI19GLbN7IIa7VhIXPfYcTzqKUpOCajwBULhDJoKjQCTPfkzFOfPH/bEaTzis
+	+Pz6PCWAIjCUpSzQa/JabukUESupasHMhFkW6hEJmNeWF/DGSvfiga86ck7dL1J1mn+0hA
+	Q+JqUurkH820nmS9fbwtCXf6bbSwT/nGAn4dC9FaM5j3EkAiDf9St6gNtfXwDP8hsA0nR2
+	Rv1T5INdwMkJr5VynUdit9lAC/OmWKWuPuKZgTTwZ0jKUqROMbiVZDNj53QzgSu/PrRQxe
+	lOT+N/BImuxfceka91T+wV1YS63gpW0jlPtwQtwO4IhFry/mboi45MyA9/WLDQ==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] ARM: dts: stm32: Convert GPIO hog to USB connector Vbus supply on STM32MP15xx DHCOM PicoITX
+Date: Thu, 22 Oct 2026 14:40:55 +0200
+Message-ID: <20261022124138.185850-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,87 +68,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 22 Oct 2026 14:39:20 +0200
-Message-Id: <DMBDGGZBYN60.37URQHQR2TS4C@bootlin.com>
-Cc: "Conor Dooley" <conor@kernel.org>, "Liam Girdwood"
- <lgirdwood@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add
- regulator-boot-force-off property
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Mark Brown" <broonie@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
- <20261021-wind-reopen-490475bc470d@spud>
- <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com> <atn_-NKv45AsROu3@sirena.co.uk>
-In-Reply-To: <atn_-NKv45AsROu3@sirena.co.uk>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Mark,
+Replace current GPIO hog with USB-A connector vbus-supply.
+This moves the Vbus GPIO into port control, where it can
+be enabled and disabled by the controller as needed.
 
-On Thu Oct 22, 2026 at 2:22 PM CEST, Mark Brown wrote:
-> On Wed, Oct 21, 2026 at 07:11:51PM +0200, Paul Louvel wrote:
->> On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
->> > On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
->
->> >> +  regulator-boot-force-off:
->> >> +    description: a regulator may be enabled by default when the syst=
-em powers up.
->> >> +      A consumer may query the regulator's state during boot and dis=
-able it if
->> >> +      it is already enabled, potentially resulting in an unbalanced =
-disable
->> >> +      operation. This property ensures that the regulator is disable=
-d at boot,
->> >> +      regardless of its previous state.
->
->> > To be honest, I'm not sure how the commentary about querying the state
->> > or being unbalanced is relevant to the description - that sounds like
->> > something specific to the linux regulator framework?
->
-> I'm fairly sure this is about masking some driver bug, a driver should
-> never be disabling something it didn't enable.
->
->> Yes it is. Maybe I miss something, does this binding is used outside lin=
-ux ?
->
-> Pretty sure u-boot uses it.
->
->> > In fact, I'm not sure why this is needed at all? Can't you just change
->> > the software so that it is okay to disable a regulator that has an
->> > explicit enable count of zero?
->
->> Do you mean by calling regulator_force_disable() instead ? I thinked abo=
-ut that
->> but I don't think this is ideal.
->
-> No, you should only be using that API for recovering from catastrophic
-> hardware errors where you're cutting power to do something like
-> preventing physical damange to the system and serious disruption to
-> other users is an acceptable cost.
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ .../dts/st/stm32mp15xx-dhcom-picoitx.dtsi     | 27 +++++++++----------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-Then I think a straightforward solution without any core change would be to=
- call
-regulator_enable() and immediately follow it with regulator_disable() in th=
-e
-consumer driver's probe function to ensure that the regulator is in a known
-disabled state.
-
-I have considered this solution, but it doesn't feel quite right either, bu=
-t
-neither does this patch.
-
-Thanks,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
+index 01c693cc03446..7f444bd4c58d3 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
+@@ -16,6 +16,14 @@ led-0 {
+ 			default-state = "off";
+ 		};
+ 	};
++
++	usb_vbus: vbus-regulator {
++		compatible = "regulator-fixed";
++		gpio = <&gpioa 13 GPIO_ACTIVE_LOW>;
++		regulator-name = "Vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
+ };
+ 
+ &adc {
+@@ -30,21 +38,6 @@ &fmc {
+ 	status = "disabled";
+ };
+ 
+-&gpioa {
+-	/*
+-	 * NOTE: The USB Port on the PicoITX needs a PWR_EN signal to enable
+-	 * port power. This signal should be handled by USB power sequencing
+-	 * in order to turn on port power when USB bus is powered up, but so
+-	 * far there is no such functionality.
+-	 */
+-	usb-port-power-hog {
+-		gpio-hog;
+-		gpios = <13 0>;
+-		output-low;
+-		line-name = "usb-port-power";
+-	};
+-};
+-
+ &gpioc {
+ 	gpio-line-names = "", "", "", "",
+ 			  "", "", "PicoITX-In1", "",
+@@ -132,6 +125,10 @@ &usbphyc {
+ 
+ &usbphyc_port0 {
+ 	phy-supply = <&vdd_usb>;
++	connector {
++		compatible = "usb-a-connector";
++		vbus-supply = <&usb_vbus>;
++	};
+ };
+ 
+ &usbphyc_port1 {
+-- 
+2.53.0
 
