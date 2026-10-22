@@ -1,98 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700289;
-	b=vahGZWXSwRsHVzf0Xla1Z9HkN06W8dsvOMrh/LTwdflcmjEqHQ8iOEurYBUz/AHpqLLW
-	 QD3XozJf9KNscVNaawS9fxln7+GT8MSqSq6nh7C9B1BVSuHNPGNsiVNpyKiLxG79SR+qR
-	 lNFc8f/IJeiz8cRm8vPQ7a5gIC2YOGkLgIB2IPlEdOSfBAsD6aMtRom+3gFZprDK+wvpw
-	 42TKGUGsrkk1V+6pEvnyzgZyoEof5zm8Z83ut4jukj1m/BlJePN+p+2swKLzm1lZugmXk
-	 LIIEjmXWzDhfIGShgtU4fFGc9/B5jKOVnbKRXnFKAq2XfgKUeW+hisEy/dEwAOulqnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700289;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-	b=pnahQ1S+PxcK77NDO70CYnRVNBRx6A2I6j0Hy+0VBb1o34h9fyRl/6fT1Bm8YIFtewKO
-	 6sCRjXRdMWB16tGCvd469oEoLmaUCFsIkefvt2a1Drt4gDxnDRfV6MBtIA1O9T//uOMoA
-	 oIZJGnfMZyJ1diHS4YtayctS6Lu1fzpg00uhWmp3fJECQNHdVB0ERsrYwg3chIG9siNSL
-	 2rByHHJsdoH7SkOdD6SBrpePNtRVoOi9fWZ1ZVBw1dr4XL5Z1nR2g8d4onRvJlerJPlv1
-	 1Z/hn8cwDmQX9fjrlrrDctkC/+KKs/prnLaQ438HtqJCiS6q1f6uTzLdjP/Zz5uC0mw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=thinkoid.org;
-	spf=none smtp.mailfrom=thinkoid.org;
-	dkim=pass header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pO7LUnRQ;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792700440;
+	b=J0eRAwzMOlVOBRYgFCeFlHcxs4jYjYIUVdIiamp0f9g/26vx5dsE5OztyceBRFM6gIgR
+	 aU+poExizpY0yN/wO0At4eIdAd/9hM9yt2yy3eyedOdtjV6YW6yg4aKEFlrC67mWHJqY1
+	 RIES2kdNdC8IzThKA7mKvCuHvlUfkDJR1L3rUkPGAfD45ErSBuT5UN6E1fVAopUfW1DjQ
+	 H6GoT6G8rqn+2QSb8WXKRF+VSYRuGdu/iO04p9mxrpyqZCRvh72X8jozpz1mgdjSzivy5
+	 EekXEh6Pi/UttA+DewYfdAOk3/t2jiVeR6zpKUyf9MCZ94NENDsO0Wcp7I7AkglYqnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700440;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
+	b=drooQU90b18iVVIXXO8hoIseRjCeOaMfzlXISgvucgolHc+yv8LxVq8YmZ2f8tqE8PYK
+	 dKZKQNnCLxvAw3tXC9gVHKebc6ARCghiXgsF2wZaua61iLXU7QUiNj4iIWVstqEnIb4V0
+	 8p88ISFLzlXhALBTfMWcYxBcBCJpyQfoDwRcTWGLhUry6oKGnJQnX2mBaeUsnfErsq0yz
+	 InKAYKiW2Nic/CFwlvoU5oQsTqlxiN3AlztNBUPhBwviruNUiEKt9/jzCe6vEZRKnWpg4
+	 bZsGu5xiKLVsLZgGqeWs7y1BaZ3mqPFwKxBh41OoLRwg9v4H4oFdgu13j6IEP/T0RhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bzA2K2nC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.33
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013033.outbound.protection.outlook.com [40.107.159.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D150E606A320
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 20:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D150E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581BC606A31D;
+	Thu, 22 Oct 2026 20:20:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581BC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pO7LUnRQ
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91c1f548f87so3842026d6.2
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1792700288; x=1793305088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-        b=pO7LUnRQ4y0gsifPlHbVeHgo0B2aVNrLqimoypSRAc02oswTWnhI/rV4zy2VmiDoth
-         SqTk3b4Yk4rLKWk3abA/o+rNOFwulUIUZDNgWx17LwKGillB2OXUXsmRqbE6hsDZs7cU
-         r5eg6rijI+acq80iSsBj82bHRToLvuPr/KI1llQyUZNV03MTjxgxnm6gVzLm4fwoTNXw
-         OVSf39/B4FpbstOtrSDH1BemBYs49B0y7TlXXp+oOWNTwUmgcLNStgNBDGh3ehp9yb9I
-         nwWZcimMAT7QdKn5e4P9uiSa/+rGX31to8dCgIOor+DbVIdzMZb4MK4KWMn1sUkvwpfM
-         70+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792700288; x=1793305088;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JiA4JitzQw/4MC5Swl9tbuEHHH6EIhc5VkOsXaDCmnU=;
-        b=VbPWYbPy4vivXOYoa9BJRJG1nMKUU01lDq9jyNbk7BpUwFcxXD/ZVLU6a+m2NgTYsy
-         Hi8XLQ7UmZMIgfpPoEZAqxCBcXIOvUNrUGmgU+YdX26jn3M/1BWLQkzC2nZmeJRkuYXP
-         aJ7Dbz1YB0fy5AfX4LKLmBx5PZxoR7o5yKc9VsmDqgBB1fOs98WxPSHCgxAPciWkImVy
-         KT1N1F8xR6lPYU43CMIdv5Fw/8Z7HfpJHHmvo9kFFePkFDMhwaZEeEJaHjKgcQgoQvET
-         HtoZjdbh+EMdf2AypRCAfWI9rxb64HXiCpkeeF4QoogA3RlOKHCGIH6Dv57ZnQBWDCFe
-         ILvw==
-X-Forwarded-Encrypted: i=1; AKwUvBzArSomauFAEVFP/8csF48+NxZ+xgz9v9wN+m1DXSyaq/v5nAo1v82ACO+9XEbUoX9xB1GNyGHvWfG1@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdF1k3jD6v3VJKrGOfqJcG5J8Uiz/OiOjRLJWGPdisNHJMFaNr
-	1S364/DYwXZl7pBdMBLg8KbQsZ+Mb1nTE48BBOuGcg/oF7PVm9yjjsNNjD7ZEySXiy8=
-X-Gm-Gg: AYBFou1Fy+11FztpF9x9YJGcBi7tQX0iWdPB4tQkUZDipAQ6FEOUIu16n1K9kXx0/jk
-	uV/YQwNspr0vNUeS1XbfaInWZk3aiITZeC05eHi5ObmbkMYGyHTYS4Jbzi1voIIzlf2+MKByZ0P
-	vfPaNk2y/mV+JfJw6S3fyO78sl1CmcVmk3XPnEkcCx0ibutihxWRfCXDB991rYjIoY82PZPP4T1
-	v8VYz2N/6TToVNJ93pxlGCtq5vZ4y9dg82KOZlQ+ZK6Se3Sld/38+3M6s0fLgLfH6ArxHwkRxzB
-	RTK4Pm5hQPHtKWNaB86VswFOIzZGhjuc1XASchIZJls51sLTAGlnh4MnEwu9qznLE9385kHAnk+
-	HUT6BwYkluHi4LUUy7ODIcvZ8dQqIPgTjQZfQ2ZdNr5xnEh0Cju56Ng31QU2iEqJ6ogqWOOU06v
-	xKSQ9L0v5LTLs4WhOgnq8YsLYb+KEdRGS3sWkbqZdRaRCbPGd/W0RtRp1WqDFZQg57Il3gAO0Gd
-	bF1nJUdcvaIKgCJdOSFIYFZ8c98M84Of8rz2Tr9DSVFl4VkZGlfKw==
-X-Received: by 2002:a05:6214:468b:b0:91b:5d39:e127 with SMTP id 6a1803df08f44-91c12f1f445mr103449156d6.48.1792700287610;
-        Thu, 22 Oct 2026 13:18:07 -0700 (PDT)
-Received: from armok ([2605:a601:9b7d:cc00::8])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c39507ff0sm1638386d6.4.2026.10.22.13.18.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:18:07 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bzA2K2nC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rEWyaV4bMXIfxYt8vhddu9H0Ls+OVtUDt6MFVJkNTd3QC0G/wexAmhsxAdrT3NgQfGnaEDjbvOqUZs7nxH10BilKjvcKDU9ibG8mIEPKqbgw+8PvYliz0HqCs/U98Ix4KAin3qvdxOMCeuOxyaOsqL9JRB34nwzPcYuj/KvaEkhXiPhXr1wdSQKH044GuwShdWZVISCYnRtrf+hFgPAJsUeUkDllhSY7E8mNNgx2dVb8Jhef78bzTZ5jDmPyw81kwvQ05UuiELLCXp33Dtqb+1xezXMJ1huXlGPcc6K+qm4ubagJcgMaNNBg6qy9NE80MBj5RHz/1ToNKzxuKjGsxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
+ b=WYZCb2zp1P5T9nlyzgIQRwa2NuUDgirjRqoA9QMO6gnZnJ9SI8J6+lKzuHyB5R1CDJEUalrV4mXe53qUhSv1vlZIy9cmwHEqnjvzlqN1DYyZEoyYPcyiCF+WyGafnlGGjYXn3alZYXSYwml/JRCwZpzMNjxX34+4LKsxYmuS+39xB269SSV6vnli+xrFZ/OEnNsmWvadOy4isFePhrlvRae4y1qM2omLuAoAJ3kucNMlkcQaxx8EyS5YB97OJx7hOdQ/MuLsqYyOXX8ZcpmNz51GZOV8eKTVejoDF8H87BCYf/TBHpZbcfBekF4/z7XP0DMw89t0Kznl6ID578rWfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
+ b=bzA2K2nC+QJ8yrcuSd43O6ZagFWfN5F7G7Jku6vuZcjTziXUXXrN3et3f4T7mJRtF1XXw2j6Q/ry/4CYwTX3nNJ/jkuEws4yZj2t2FFJiB1xNcG3Uw95KSErm9tFziFlxk6k2cyNKEdRpHk9bi5kWzZQAKrCoXQjNQS2s6QUnYVQatzqarX/cfckO6q5ZoZGeqhTSvI+eKg3EpoXswvw8z7eETNjVcxoD09Qrn0iG7r673dUcJ+18CHxX0YXnKbmLV8FoB/82SlTZuKzAfIChxo++DMs2n3n8gnf7p7BHE/BV2IRLg0KQdqKs7Sv2yeA7p6PK/SLSl1pvhvZLn4kgA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB12151.eurprd04.prod.outlook.com (2603:10a6:10:640::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 20:20:37 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 20:20:37 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Aleksandrs Vinarskis <alex@vinarskis.com>,
-	linux-arm-msm@vger.kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
 	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: Add thermal zones
-Date: Thu, 22 Oct 2026 16:18:03 -0400
-Message-ID: <20261022201803.22530-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH v1 0/2] arm64: dts: freescale: imx9[135]-toradex-osm-dev: Fix USB_A source PDO to 900 mA
+Date: Thu, 22 Oct 2026 16:20:30 -0400
+Message-ID: <179270041362.1301511.16483651144538374557.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009132550.20793-1-francesco@dolcini.it>
+References: <20261009132550.20793-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7PR05CA0042.namprd05.prod.outlook.com
+ (2603:10b6:8:2f::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,248 +107,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB12151:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a17e0f9-2abc-4296-2b4b-08df3079ef50
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|19092799006|1800799024|366016|56012099006|11063799006|261009221227099003|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sJLkFcjY0R25tWHNzXr/J+k77AkZjUMeLphGl7qKhBsPoxVF6O2JyirXFqlYEV+KG1dR+hXd7WfcS1FtIZ52XKUPKbQ7qetp41gQMHf/oGTkhQc7zQedX2abXcdQ+ZPYQRouwgD6KEHp7qOCKZZ0tWsmSTP9y2lrGsrbH6lTOfeMUPdicoD52eLZn9zmDqGmXpC4+RDcMFBf1E/etr8js684RxANLtRk6kjpXHEtH6m4tGvOmFMv0rnxgKE8INTD3pAYDrEYHVI7RV5fqd8PKLXEjlfCvJXj2QLpECckOrhczDuk9qgzHSkJuMvVCSamZevkSSXhe/JtLcfrC5KA17LOPdMV/QtdJj/zND4IpTTLhuY7FTyR4k4XROUCpPsHieoye8UdTFMF/+YirEz/0uECBfaq/NQsIL52fULd4OsmwxnvWetYRZ9hKkyhMOfxlrypPoubTm+/Yo9+4zx2TGYlPSTDecH8t9gWXr2I25Q07z2tqpgd/GqjxfVlxnF/DvSD6HIwaqX3Z8R+FpaWDpznRQUa6Z/1Sl/b3GVZqknEf7OadTkTh7E126pPa4FK+JTzhMD5jWmbWK81YviueYPGKZsUtYOPMXT8jL3B2cusPZ0zmIm6OTn9tMVK6PjVYzkmgoQ//vu7DKBKE/u/V+vlIqjtvsnnlrnfe0BeU1Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(19092799006)(1800799024)(366016)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M2xBZTNsWkcxRUc3VmZxeS9iTnc2eUNNMnlnRitWQzZ5R0l3QmxvNVM5dEZv?=
+ =?utf-8?B?dlFtVjliWCsyQldEMkRBZUI0a2drcUNNSzQ1dDdlODFQM1BIOEFFMnNGQkxZ?=
+ =?utf-8?B?eW0ydmFtRjlvd0J1eUNwdWFhTmw5UTZYQWtHcU0vUlhKNDhPWFF4d2swU3R5?=
+ =?utf-8?B?aWxGbTU3UXp0TjJkcDhtOWVKaDJvKzkvcVQrT2pnakdBZjBSaHB1YWphS3Uz?=
+ =?utf-8?B?bkgzVzB5M3FPVUE0MWZPSXBOZ2gvOW1ydlYyYlFnQklyVDlEZWtBS2taRVAr?=
+ =?utf-8?B?S1hvUkVqTzROVmYvZG1WTTdlMDNLbGRmSGZGUWZ4dEd0SmNxcnJUZmxackVn?=
+ =?utf-8?B?N1FBSFd0R21JRnVYODJWQXpYZEVndnRsWGVZQ2tkNGFkRVg4ZGpPYk5hd0VY?=
+ =?utf-8?B?Mi9Pa0xtTSs2M3Nzc0NOLyt1aGpTaWFQWHBPcFdWK0E3VDlEczc4VWJabjly?=
+ =?utf-8?B?NkVLTjc4aXhWanQyNGNvVlFsVndYVy9NMkk2TnhZdUI4Y1FzcEZMK2llWjNm?=
+ =?utf-8?B?Z0NXeCsxMmhnQWxiRE5rUTNSb3VtaUpScDhFeWFTU0JYYlN2RkNCR0ZQQ2RF?=
+ =?utf-8?B?ZzU0cExoVHlybG5ZVmErWjl5cGRlTnZaSzBlZlZpaFhiVnZySlBSc094YXhs?=
+ =?utf-8?B?WThSYXRqLzJpMU5yLzlEdDNsb1ZlUkxTRTRMdHhqb2RwWUNCdTBEcmhuVzJ5?=
+ =?utf-8?B?MFQra3Z5Yzg0Vm82allHdW1qb1FnanBGblplM1F0Rm1zWGlsT01Rc2tlZC9t?=
+ =?utf-8?B?UHl0dlVwZjYwUlpoMzZnRjUremMxOHdJNExLbWt6M2hrRG1ETFVTeDV4WGEy?=
+ =?utf-8?B?NWR5S21tTERnbVE1WXlKaU90WFVxZ05YVDNkenpIcHhYWUhDc1NrdGhxTGVI?=
+ =?utf-8?B?OG1hRlZKQ1UyMTJzd09DcEhvRXFueXMrY0Zuak9NR3AvaklTMFRnSmljQTFR?=
+ =?utf-8?B?aFREWGtzWXNqMysyWkc5MHB6aG42VGgwVVhkYUd5a3JLd0VLQ0daQ1hBdHRr?=
+ =?utf-8?B?a0M0N2pmSlN3R0hGOVgzbUdkOEZkNERsZTVxZ1hVNGVqV2hTUk1XV3hvUmU1?=
+ =?utf-8?B?MjBqVXhXRFAxNUNGbDZjUlhUTUxiTW11OWd5TlF3R1ZSc25yU3o4T0d2eTBU?=
+ =?utf-8?B?cU5WUERRNC83VjZydEhMaGVIazVtaTNyWElHSFpMZURsNE9wZ2V5eWhSVnR1?=
+ =?utf-8?B?SGgxbXRyaWF3dE5CSGt3ak90K3FBUHNGdnVrRUIvSkMyZTNPTFltSW1zcGNr?=
+ =?utf-8?B?VGpyK2V4bFMya0NaSzBna1JFY3dCZ0ZZZER5V0pxcUhHVlNTNjFDaHY0Ni9a?=
+ =?utf-8?B?dS9kaW82OTNWckRaelV0eUNpSmJCTUJCUWNTb1NRMmZJVm9oMytEbzlHRDZC?=
+ =?utf-8?B?WXhLWVZQNUk3ZzJ5aHRtR0lGM1oyTXo4WVN0Z3JHMDJJaXRlNFcvNDh0Uk92?=
+ =?utf-8?B?TXBNTnVhNG9HT1FhL3h2RTc1cGtGcmpwQjJhY1FycWczWVNqQ2ZPbnVDblFt?=
+ =?utf-8?B?SXVSUWQycWtpbmw1WXBzZVYwa284VnYxWncxb0IvSE1oYVN6S2xSdGZlVUFL?=
+ =?utf-8?B?SExtVjVNTHp4N1RkV0Z5YW1JR3AwWnhEaUp4YzNGdmJndWtzd2RLUmo1UGlL?=
+ =?utf-8?B?N2xGbHhQZzF4Zzl3MFJBeXNrZE5UK0kzYnppM2VraWFVMWREZmN5MmVkOExL?=
+ =?utf-8?B?aTdKekQwTTUxZyt1ZFl0aG9mWUN2akZnNGwvTTE2eUU4QXBwT2tRNDc2dW5W?=
+ =?utf-8?B?Rkw4cXo0Mm1velp1aFZkRUEvZXJ0N0czWElLWFh2K3NTMmVxdHAyRVRYZXVQ?=
+ =?utf-8?B?b0M5Y0IzVGpLaWFYdHBJRnA4ektjQUFjUWtJaSt3Smora2ZwazZreVVNVWhm?=
+ =?utf-8?B?dmEyeFVGMHpycXpNTEZqaGQwYkVTR21yNTRUVGZtY1FJcU1SNnQ0UHp0bU01?=
+ =?utf-8?B?ZXR6M3BWYUcxUktPd0J4dVR6NlgyYkJIWGQveG5MZFZEQkpIZ1Npc3QzMnYr?=
+ =?utf-8?B?em9wL2FPQTM4d202VElwVENlQWluQXgwSzJxVzUxbjM3bWMzWEs3REgvT3lW?=
+ =?utf-8?B?eG5ZZld3T0o0d3JxK2FPWGhTMEJ3ZGNEV1V5djdlaUxnMm80amZUSWxVRkhx?=
+ =?utf-8?B?akpvK2ErZnhmc0FReTZtOXRKWnJpK2VXWUhPS3k1eXZvYndHNXlObnY4SnZm?=
+ =?utf-8?B?S3R4Z0F5QnJsT2VZci9ZeWxEdHpTQnFkTUJOSmJQSXlwek5iMGwxeVhoMW9J?=
+ =?utf-8?B?UERSb3pveno4MityWUZuZ0VWSjhXM0NBdkd3azMvRWdLS3ArdzFaSnpJVzd5?=
+ =?utf-8?B?RW8rOTlFWnMrbGNQTVlleWxyRzljV2l4aDlmdE9IWHQwcWxNK1cwYVlFSThN?=
+ =?utf-8?Q?uUfW5Mky6Hzz8fAt0Fubbfh/bhYIohzK//PQP?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a17e0f9-2abc-4296-2b4b-08df3079ef50
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:20:37.4938
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4Vi8Mb6T/VhqMGnDx9JNmTBclJW0xHCGoLf76GACheOoG8gymfLnxW5pTCP+E2EEEy2mPD6HW/sSgRe9iNUzVer3Jyw9v9OiCR2ojUr2aCVHoKe166c61d4MHAlFQ0WI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12151
 
-The XPS 13 9345 has seven board thermistors on the PMK8550 VADC: AMUX1
-to AMUX5 THM and AMUX1 and AMUX2 GPIO, each with a 100k pull-up. The
-ADC configuration in Dell's Windows driver package lists the same seven
-channels as SYS_THERM1 to SYS_THERM7, the two GPIO channels first and
-the five THM channels after them. Name the zones after that list: where
-each thermistor sits on the board is not established, and a name that
-guesses a location misleads whoever reads it next.
+From: Frank Li <Frank.Li@nxp.com>
 
-The ACPI tables define seven ADC thermal zones, TZ31 to TZ37. Three of
-them, TZ32 to TZ34, carry passive trips that throttle all CPUs and the
-GPU; the other four sit at 100 C. The tables do not name a zone's
-channel. Taken in SYS_THERM order, TZ32 to TZ34 are SYS_THERM2 to
-SYS_THERM4. Heating the board supports that order at one point: a
-charger on the right USB-C port warms SYS_THERM4 well ahead of every
-other channel.
 
-The passive trips follow the thermal mode chosen in the BIOS setup
-(Thermal Management: Optimized, Cool, Quiet or Ultra Performance),
-which the EC reports and which cannot be read without an EC driver.
-Use the values of Optimized, the default: 53.8 C on SYS_THERM2, 62.8 C
-on SYS_THERM3, 61.8 C on SYS_THERM4. The critical trips are the tables'
-114.8 C. The other four channels get report-only zones, as on the CRD,
-and all seven are put in thermal-monitor mode.
+On Fri, 09 Oct 2026 15:25:46 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> Correct USB_A source PDO from 3A to 900mA.
+>
+> The USB_A Type-C port on the Toradex OSM development board can source
+> only 900 mA on VBUS, but the connector advertises a 5V / 3A fixed PDO.
+>
+> [...]
 
-Assisted-by: LLM
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Tested-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
+Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
+thanks!
 
-Notes:
-    v2: name the zones SYS_THERM1 to SYS_THERM7 after the ADC configuration
-    instead of guessed board locations, and order them the same way. The
-    "left charger" placement of AMUX2 GPIO did not hold up against a second
-    owner's ten-second measurements, and the SSD one is uncertain:
-    https://lore.kernel.org/all/NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com/
-    Channels, trips and cooling maps are unchanged; the v1 tags are kept
-    for what is a rename.
-    
-    Tested on v7.2.6 with the ADC_TM driver (7.3-rc1) and aac6b2ca472e
-    backported: the seven zones read within 0.01 C of their IIO channels.
-    With SYS_THERM2's passive trip moved just above the zone and a
-    single-core load, the crossing throttled all three CPU clusters and the
-    GPU through the ADC_TM threshold interrupt, and the throttle released
-    at the trip less its hysteresis. The v2 rename was built and checked
-    with W=1 dtbs_check on qcom arm64-for-7.4; no warnings.
+[1/2] arm64: dts: freescale: imx95-toradex-osm-dev: Fix USB_A source PDO to 900 mA
+      commit: 43a88b1dd043f686e6b384088d31545e21f32cba
+[2/2] arm64: dts: freescale: imx93-imx91-toradex-osm-dev: Fix USB_A source PDO to 900 mA
+      commit: 478c8c418615ea9d3fbd80d0a8d3e3889644ddea
 
- .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 169 ++++++++++++++++++
- 1 file changed, 169 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index f48e6bc35006..bb7d91ed08ba 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -326,6 +326,145 @@ vreg_wcn_3p3: regulator-wcn-3p3 {
- 		regulator-boot-on;
- 	};
- 
-+	thermal-zones {
-+		sys-therm1-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-+		};
-+
-+		sys-therm2-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm2_alert0: trip-point0 {
-+					temperature = <53800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm2-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm2_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		sys-therm3-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm3_alert0: trip-point0 {
-+					temperature = <62800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm3-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm3_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		/* Warms with a charger on the right USB-C port */
-+		sys-therm4-thermal {
-+			critical-action = "shutdown";
-+			polling-delay-passive = <1000>;
-+
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+
-+			trips {
-+				sys_therm4_alert0: trip-point0 {
-+					temperature = <61800>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				sys-therm4-critical {
-+					temperature = <114800>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&sys_therm4_alert0>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		sys-therm5-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+		};
-+
-+		sys-therm6-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+		};
-+
-+		sys-therm7-thermal {
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		};
-+	};
-+
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-@@ -1025,6 +1164,36 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
- 	};
- };
- 
-+&pmk8550_vadc {
-+	channel@144 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@145 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@146 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@147 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@148 {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14a {
-+		qcom,adc-tm;
-+	};
-+
-+	channel@14b {
-+		qcom,adc-tm;
-+	};
-+};
-+
- &qupv3_0 {
- 	status = "okay";
- };
-
-base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
--- 
-2.56.0
-
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
