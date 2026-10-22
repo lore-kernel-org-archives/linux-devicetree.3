@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662279;
-	b=I4tBne2DwyZKaHpKfLs3GoNPBUf1LYw0hRd1wSYUGbJIBE06FxmQxs+rTACe1PvF1Djy
-	 TgZDcbbIVTm2E+KJJ4V67XT9QTAjt2PF1VyrqFjt64BxP0sA6Tv2LW2DkXLTJK+Z8Grp/
-	 5u/25Q/y4aEVUIBon7z0IU5F4uoGkh9uShiOzzHJ4Uz0zldvE6WdYlqFKpgghVWe28VXk
-	 6Czq0SshtHiSSNLCeax48rKOY756qEGVfPOm702HsbsL6K4rRhfyovFOZ6g6u/N6/g5lZ
-	 qDAWG7UURlwp+Q6AbMv82+7DXjhKcFBtfe1cCNM8NqLXhmEKuSIraCEEAsQi4kb7AjA==
+	t=1792662291;
+	b=jldCDzo6/U753FCIcZAfmPtQMtIz6FCec54evZy+8ZZqwY3njFURKgZj7pMoRZ9XFdst
+	 TfvsG1JXvnH99gff4hvTfdzIsWIO1j4gBiCKCH3/nr1qg7RxSrkFeOYXtN/Wzl2ivAKT/
+	 VNwzoCUw1a+RBFgDY+xPdhrdRNAJcZbwexfOfTV9kV1xmHhDYdx9vKl9n6W5jGf4vyHO8
+	 4zR1C7ISZDu7bIgPkef+nIlpX+UYyCp74J3bGXhl/TTQe8HvvzY6WAIHzWqo4yMmDG1CP
+	 yGMCEQAw0DFdZlbCdff5QP9dBlhezvBfvG9/ma/uMGRAYeRZ+q/l4NQq/7Fs2c8tl6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662291;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
 	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
 	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=D2K7zZ8vA27g3Bom8qpakpX6z92oPkrZ5BShXGJhQXI=;
-	b=iVyabn+OaVpoiZNMAxs8fIKenFaVH8QQ20wcUmvPbWkAtrS47SntvtGmeWaZgKf6gEWP
-	 Npv8rJYG8jXF+33XhTOgjpdhAamq8Cpl8CYQzNcBohvT/5jowdVwRJXfN+f5g8BEFsYnX
-	 83ZDm9E7LZugrg1vWZBMFSoVdrJKzrawKfKS3HNNS8t4Es6fwFmNzLjGqm2q+fotja7T3
-	 YIH80+8kH3bnlK1s1VH15L6c/lFU7CfZdhAYjPxkr9hvTJQQfEovV0Vm/frCVjwMbHWRq
-	 4X66JhVhaaFMqjQzCdFjESxPWTtsnX7m2zwx1AK2X80B0ZBhqlGykduC7ryt8iX233w==
+	bh=f6CiKd9vploQ3thnAtvKilPGMztbzzs5Gxheqi3WCGQ=;
+	b=Q6rgzaNF/zuySMFybJ97mMNzm3+g6vFcSTeIUnd8XX76+0o0by0kbmGq7xRbizyISQ/g
+	 Ds2HEF17n4P8bXr8AjZZulKVRgvQAURUVJUqBPOV+5elDIDLsipa6Zo48dOpSPtJFxVJA
+	 atlTTY8bGI5bSjWwDPJuGL0E9iCtQvEGfmQojremN1js4vMUGgOwlhOwbhoJ0rR6m58Mg
+	 k4ZkYffdpgOCyVZ2QpvGi2yhuhrvnPOZ7cBATVeokh0/tKv6INwKDtTWQFjon6IfQHyU1
+	 koH754hMseFNG9Fm8L/X1tSk+u8Cs1NpzpC4zf0YvdH7XFlJz8yMxICh4tLI+LQZvYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eEY3fE+e;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ruWoS7Ab;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12C7606A31A
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:44:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D12C7606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24152606A319
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24152606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eEY3fE+e
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b001cd92bso923156f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 02:44:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ruWoS7Ab
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so11361255e9.0
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 02:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792662277; x=1793267077; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792662289; x=1793267089; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D2K7zZ8vA27g3Bom8qpakpX6z92oPkrZ5BShXGJhQXI=;
-        b=eEY3fE+eLFCPOIZekJJz7dwvc77KWzXT1pNqVvk1QFhvPqbNk1p/E84KK9c5pwMgua
-         W3z+OurMgVEU/Lic660LLiCh5pejbI/tYNOSRTrupkcE4xrRP0RgmroK4e8PwvXrl840
-         gmyNp2oaiji64HxxmfTHwvprffCpUJQNgczEK+MVxH9PpfA0fzRSCsM+v0DxPQ+X1zxT
-         UBK/SbIE04/9jSss6ozwgKuXKoicX1D/DeymI7FYtXYgv2tqc9J4CJSYS1cbUNO8apHF
-         UVhacJMjL8IsCmtmxxcTlZdh7qiwioFlO/j3FWi4sCrEGybK5MkgBrUZBpmcOyAm1XAF
-         nxvg==
+        bh=f6CiKd9vploQ3thnAtvKilPGMztbzzs5Gxheqi3WCGQ=;
+        b=ruWoS7AbU6QENTSohz+TOYxmlTBOvqWXVNlawgpE7a9AOvNvrFztnlrisL1dmF3OZN
+         RP1Tpz66teOrvCGzJz0Z/hL1wPr7KsBCuh/xzlgpwQWUhq0ZFmxuF8r+ESnL1e3Um8Q9
+         hzsmBVuND2/B36IX3odfJVMOcQmvsfFV0QJFYHkfyA/tHcE5Y+nCZBsUXZaDYFnNi5WM
+         kP6dOnngNQ5CknleDJ65c3qFV2Q1VCZ7GNHcBUDjFY08JQj0UwouQXJzMl0vLPJYbjRT
+         gOPjBsI/gdO+2gXh3AnUGI3cTseIHxUHSl8TOEuq6ph+e2ZGyHcCvFkt5wmzrWV8UYlv
+         Cm6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792662277; x=1793267077;
+        d=1e100.net; s=20260707; t=1792662289; x=1793267089;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D2K7zZ8vA27g3Bom8qpakpX6z92oPkrZ5BShXGJhQXI=;
-        b=adc7QRDN6XA04ptrFnRinxI2YmMqF5XmaiNOt/dcF+o5HktX35vI2efvQLH+aP3kJn
-         jbFA2qvg4laBgv1N5TfJE8ta4nTpFq75lUrFD6vklVAp1evCnuWqQ5YnttQHlldyzS9Z
-         XxnFqAlebTt2vSpRlQm7d8kWKg3n23Z/sAB7WeGWSA1GcklmYOK5A4q0gPZfbk+1O8AG
-         N3ymwYUeZ/y7v5N5NG36lXtrY6yUQDP687jlrAAtpqrgWAiCc/Gd1X0J0/WZtSnqNiyW
-         s75w6yWVEs+OoHQd+8WK0Yg2nsaN+F0oY3aIpep2AVLzhF4E+krdGqwI9CIF+Y/6tK2s
-         43QA==
-X-Gm-Message-State: AFq9FYLfib7n0CxU9JBwdYJp3nH1Qy3PF6vFnOgXGNwPeJ1YNhp5Fc16
-	kBY6j3TxROodjbeX6/sgsEi7cfrDJIPgXg6r1lcAzDEEiOfMrLeLt7l+oYa0fzZeW16Z6mUTuj+
-	ublvx
-X-Gm-Gg: AYBFou22Tsqmi+lypgPSHpWrzMXQXWbyMvKHWiVnyXzz+F+XBhLI/8PuK5N5Y6r/O1e
-	VshGB1qRUOt9+BTNuebapFw6CMLuP0QjJROEj85RrGqoavXDgOtU9Gyt4Qg+nStRyKBElgdX3Ik
-	9s88ahV+r3dLLNt78/ubzbJkjI882tSfnTEuM46KDp2v/egNz0TZ3OxsxCmXTB+xAvCq+3kEX3C
-	d97nSQ8cHKlyPuy67eiGsZC7Mv955GRwOxA8o6G1YDpgSKowK8dzYzcyIFIbSFgPcJHMf0Wanpp
-	PfrRU6C5DlNzi2d/zhifjPrLpqJ9vg9/SRF6ZuFi8gb37R20tkPyPBwHCRGCKXN4PPwyWMZeIYx
-	yFZ9muPSms7f4V3o4TxnGwljd0qV5gmkn6ADV6k9XiXQ1QEQNqixl6aDpC2wJevAXxHX0vPoofP
-	KL7PUsWYQQcGUxMdJshvHxRkj+vxp6/iSx3mKbOKq3r2dL6gZtbTBrr0yTZrMbvGEpKnZQ8hX2q
-	yIbpvHbxl93Tsfj0WrqAxmLZOFL/GzTPELQUvLgt5WkZ6KbjcnzfvEmvhPNqhESMvjx/36FBuC1
-	HvnbnlIa3tgLWPDiy1TzP8vBxtENpjQjUTg=
-X-Received: by 2002:a05:6000:1184:b0:488:8384:c382 with SMTP id ffacd0b85a97d-48e264de064mr7320656f8f.49.1792662277127;
-        Thu, 22 Oct 2026 02:44:37 -0700 (PDT)
+        bh=f6CiKd9vploQ3thnAtvKilPGMztbzzs5Gxheqi3WCGQ=;
+        b=lf4R1AEFA7vB2FKpMc+GpDdoDQsJ8RqvXJkIQtsAZpW5a/1RmZsn1PlYDsxLOKXAT4
+         hOnOMgxy6JuliOT41e6HamKrRWKNnPQ0/Lji0xUAFwZANjVnEq3VomrUUjMIlLnEYKYS
+         PlJyq54/dZ7AgsG88zI4n1EYyNTIdZ/rjFd7TSSS0t2ekjqlSnOkiNbhhzNVxISCWzVn
+         Yt83W5ROd+MS3V3Ab8kHMYQzWVkLs9z2oq4kytbo2684Uq0BtVsFFNCv5PCet+QTSCzK
+         wtwxUf4y37Fd1u02+K9gOVwkX/ZP7oSglnJcPTeHky4EXfRnuNGkRW36as17jVyHsfHa
+         o/ng==
+X-Gm-Message-State: AFq9FYLQGTLwJ49h4de9JuJebm0iMwrEEEdTgKb7FVJWOlORs685qeOr
+	3mL+EE3tsApTozwGyulCsavN/rojHLXSX2zvTX/j7QT02XInOcXvM9iZ/Ta+zgMtqKL6hvoKx0o
+	UkAlO
+X-Gm-Gg: AYBFou3ODLKwEs0XkFwPPA+kBCST6mp9aMxvNWEn4ybE4i0wQok8LYSC17cIRrDgxp6
+	jwJ6TkXgvUEDrTrmhki5p8hthPHU3I2Qbpl3GcZpU/5klvsQv5d3F7OXh36ObrNmeCoeifj+d/1
+	9bGCErTxDfHLaAMLzJXa8fhJE1Of4qspKd9bx1TUKTvgitsukd/TnGw100oRqcwYSecD31Ysc9O
+	U9Kn7jhzygIvP61UiTFydLx75HFGTx0h5GpRKLXNQMSH/bwEv8HOmPjPbD/A67ReeBB33/RbgFo
+	gvhK0wuW+d0fxzat3F1Qt28+ouS1TrR8DUxUrXXJwJDyOvyadaYBH9jitkTbKI7xVunQgmYOfmP
+	GhumNcYO1CYAqlhL7RvGLoNR/uZb7I4HvJfRQ6ZNRSMbEUJtqxuP+Bj4z/1Tyr6QVdEhU5jfFnp
+	JoFJOR3fAqu8PxJQKpJ3b5Z+uAz/fvCcb9620jnQw7sesaLrYqntWsAKH8+vUYyVdHv8c/fgOZd
+	QxpPMUNZuzvRZC5BTgQaVVOBTuOwsIcXZlC3MxQdlwA4q7jWo3y+9FUc00Fd9nHdbk36cxYdXDC
+	g4vnrv6SNiiSOrxEQ/i5BesD3k69Lqfyc7k=
+X-Received: by 2002:a05:600d:b:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a1fdd1f18dmr78709625e9.32.1792662289474;
+        Thu, 22 Oct 2026 02:44:49 -0700 (PDT)
 Received: from ?IPV6:2a01:cb1c:fcf:4600:211e:45da:8a88:2665? ([2a01:cb1c:fcf:4600:211e:45da:8a88:2665])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2583f25asm11006187f8f.45.2026.10.22.02.44.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b29907sm54557935e9.3.2026.10.22.02.44.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 02:44:36 -0700 (PDT)
-Message-ID: <5bf81f06-6a19-4ce7-bda8-937d3159a2ad@linaro.org>
-Date: Thu, 22 Oct 2026 11:44:36 +0200
+        Thu, 22 Oct 2026 02:44:49 -0700 (PDT)
+Message-ID: <a07fddc5-20a8-4171-bfd6-f74e472fff47@linaro.org>
+Date: Thu, 22 Oct 2026 11:44:47 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,12 +95,12 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
 To: sashiko-reviews@lists.linux.dev
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
 References: <20261022-topic-sm8x50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org>
- <20261022-topic-sm8x50-next-hdk-i2s-v5-2-aa1030a75e46@linaro.org>
- <sashiko-outbox-181264@kernel.org>
+ <20261022-topic-sm8x50-next-hdk-i2s-v5-3-aa1030a75e46@linaro.org>
+ <sashiko-outbox-181265@kernel.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -127,34 +127,34 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <sashiko-outbox-181264@kernel.org>
+In-Reply-To: <sashiko-outbox-181265@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/22/26 11:32, sashiko-bot@kernel.org wrote:
+On 10/22/26 11:33, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] arm64: dts: qcom: sm8550-hdk: active HDMI DAI link breaks display-card audio
+> - [High] arm64: dts: qcom: HDMI DAI link breaks sound probe with display-card overlay
 > --
 > 
-> commit c6bfa3ecf122e125408eec9949d0c3f7b965b70b
+> commit 1d7b2eb9f1841da26b5c6030ed7671341483661b
 > Author: Neil Armstrong <neil.armstrong@linaro.org>
 > 
-> arm64: dts: qcom: sm8550-hdk: Enable I2S for HDMI
+> arm64: dts: qcom: sm8650-hdk: Enable I2S for HDMI
 > 
-> This commit adds I2S and audio MCLK pinctrl states to sm8550.dtsi and
-> configures the PRIMARY_MI2S_RX backend DAI and HDMI playback DAI link on
-> sm8550-hdk.dts to output audio via the LT9611UXC DSI-to-HDMI bridge.
+> This commit adds the primary MI2S DAI link, Q6APM backend DAI clocks, and
+> TLMM pin configuration needed to route HDMI audio through the LT9611UXC DSI
+> bridge on the SM8650 HDK.
 > 
->> diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
->> index e75e3b878e89e..6c09816983a23 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
->> @@ -278,6 +278,22 @@ platform {
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+>> index 6cb0dc089b17a..eba989e6766bf 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+>> +++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+>> @@ -218,6 +218,22 @@ platform {
 >>   				sound-dai = <&q6apm>;
 >>   			};
 >>   		};
 >> +
->> +		prim-mi2s-dai-link {
+>> +		pri-mi2s-dai-link {
 >> +			link-name = "HDMI Playback";
 >> +
 >> +			cpu {
@@ -171,52 +171,50 @@ On 10/22/26 11:32, sashiko-bot@kernel.org wrote:
 >> +		};
 >>   	};
 > 
-> [Severity: Medium]
-> Will leaving prim-mi2s-dai-link enabled when the display card overlay is
-> applied prevent the sound card from probing on sm8550-hdk-display-card.dtb
-> and sm8550-hdk-display-card-rear-camera-card.dtb?
+> [Severity: High]
+> Does adding pri-mi2s-dai-link unconditionally here cause a sound card probe
+> regression when booting with the display-card overlay
+> (sm8650-hdk-display-card.dtb or
+> sm8650-hdk-display-card-rear-camera-card.dtb)?
 > 
-> In arch/arm64/boot/dts/qcom/sm8550-hdk-display-card.dtso, the LT9611UXC
-> bridge is disabled because DSI0 is routed to the display card panel instead:
+> In arch/arm64/boot/dts/qcom/sm8650-hdk-display-card.dtso, both &i2c6 and
+> &lt9611_codec are disabled because the DSI lanes are routed to the display
+> daughterboard instead of the HDMI bridge:
 > 
 >      &lt9611_codec {
 >              status = "disabled";
 >      };
 > 
-> When the sound card probes via sc8280xp_platform_probe() ->
-> qcom_snd_parse_of() in sound/soc/qcom/common.c, it iterates over all
-> available child nodes of /sound and resolves each codec phandle:
+> When that overlay is applied, lt9611_codec never probes or registers its ASoC
+> component, but pri-mi2s-dai-link remains enabled under /sound.
 > 
->      qcom_snd_parse_of()
->        for_each_available_child_of_node_scoped(dev->of_node, np)
->          snd_soc_of_get_dai_link_codecs()
->            snd_soc_of_get_dlc()
->              snd_soc_get_dlc()
+> During sound card probe in sc8280xp_platform_probe() -> qcom_snd_parse_of()
+> (sound/soc/qcom/common.c), for_each_available_child_of_node_scoped() iterates
+> over every available child node of /sound and resolves the codec DAI via
+> snd_soc_of_get_dai_link_codecs() -> snd_soc_of_get_dlc() ->
+> snd_soc_get_dlc() (sound/soc/soc-core.c):
 > 
-> In sound/soc/soc-core.c:snd_soc_get_dlc(), the lookup checks registered
-> components without checking whether args->np is disabled in DT:
+>      if (codec) {
+>              ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
+>              if (ret < 0) {
+>                      dev_err_probe(dev, ret,
+>                                    "%s: codec dai not found\n", link->name);
+>                      return ret;
+>              }
 > 
->      int snd_soc_get_dlc(const struct of_phandle_args *args,
->                          struct snd_soc_dai_link_component *dlc)
->      {
->              struct snd_soc_component *pos;
->              int ret = -EPROBE_DEFER;
->              guard(mutex)(&client_mutex);
+> Because neither of_parse_phandle_with_args() nor snd_soc_get_dlc() checks
+> of_device_is_available() on the target codec node, snd_soc_get_dlc() returns
+> -EPROBE_DEFER indefinitely when looking up &lt9611_codec, causing the entire
+> sound card probe to defer forever and breaking all audio on the board. (The
+> same issue also appears to affect prim-mi2s-dai-link in
+> arch/arm64/boot/dts/qcom/sm8550-hdk.dts with
+> arch/arm64/boot/dts/qcom/sm8550-hdk-display-card.dtso.)
 > 
->              for_each_component(pos) {
->                      struct device_node *component_of_node =
->                              snd_soc_component_to_node(pos);
+> Should pri-mi2s-dai-link be given a label so that
+> arch/arm64/boot/dts/qcom/sm8650-hdk-display-card.dtso can set its status to
+> "disabled" alongside &lt9611_codec?
 > 
->                      if (component_of_node != args->np || !pos->num_dai)
->                              continue;
-> 
-> Because lt9611_codec is disabled by the overlay, its component is never
-> registered, causing snd_soc_get_dlc() and qcom_snd_parse_of() to return
-> -EPROBE_DEFER indefinitely and breaking all board audio when the display
-> card overlay is used.
-> 
-> Should prim-mi2s-dai-link be given a label in sm8550-hdk.dts and disabled
-> in sm8550-hdk-display-card.dtso alongside lt9611_codec?
+> [ ... ]
 > 
 
 Good catch, will fix
