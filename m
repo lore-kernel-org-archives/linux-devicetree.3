@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676867;
-	b=wgUdxP8ZbaIRs9Oqzz4XeZ2q7E29TCfhgzzTULVQU+56FG6wG0jRBv4JYpGAaIgTCQ0+
-	 u78J/mIF725NwmkQGuYiOIKLR9GgLSZGIRY0xTaPZOkpp6zS/V//GqukDcGu80GPuCVVj
-	 szW3FpfhvZ7nW0hKS1Op+PBaKk08ARspZfnnz9R6Or9pizSglPE5a4w2IFlwLSUgzaxR/
-	 37DSbm7FSi+QKTvJW1/a1a9lw3gXI5fp/bm5FS9Sc8WVF2Zzfje82TvIZt8brfT5Zv6d6
-	 NWKlvCE3VBWSrgq8OSKDGFfzpEkoqxP0+wo1YwRhwuiBnrzbs+vKGYcaNKzGY0NNhLw==
+	t=1792676900;
+	b=mWcrBrGHS8iLigad8Ia3g8a0cHMoSVhCYzgHMLMjA4i4jeDXomLJsPgKnJe08RQ9I/AC
+	 SfXd80c9R8Px4fX8hOo2undQbnxZZcKUkWKP1/vCCwBtPXupSsHfGJhIBve//GEdQ8Kuf
+	 qxZhS+foZ7k21dpXFuxlWkjUrAq4gvtdE8fDj93jKJ5OC+9oheQDdKAdC+2syhROhfGm+
+	 yPGoD/BZOWDHLDJvh4Xfrb6J+E/eBrQnsDr1mw8v8CyoDmRHglh29QG27PcYiZlUSQCFa
+	 qir3FzWo+QKyhhwdLCZs8hExgacfuQHr5hBL4NR/+tBbXPjJa9SAK57iVIh72DxsIWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676867;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=OxxKOH7t6FGURuJlztIT2JeBLZQD+0wcCCE6Y7WLeZw=;
-	b=c1WdLReM29QwRp6jKoS4gmjOdK0o0qzY2DVWQiUyO5EwUuWmzMWXGPjDd80gUNh8Natc
-	 zCiD1dCfan47+GH2f9sx+7FQ30EJYnt/XQu2gEmHOfLj51m31QiS9I/FxJn+sQH/ur4td
-	 gns6aVztOa5XsqJWwnTsa09TVc7uYIfryoaSUnPvFfStribfiVmxWsRgds2hOaWmgYDBc
-	 OhgpO45/zQqGf3laq1NjVBDojy9w99dKb1UWSqKI0TYJg/aAgWKoM0kUv/CHAhP6ZEXRQ
-	 qUH/A9MFEJRX3ecXJ7WdAjOTxwCxC9DVx7bgUS+fbTIqMZs1+j8kKsGYK/TL2R6NLcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676900;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=QhXcjp6lTFUhCzSDXzvZVT+YXJSxyuxpT6ZlL9To4Mg=;
+	b=TX6iWBCwJte2XD8yXFTU6yLKvKp0vdl+nHbqNVj3G1RJvvQjNZ9ZbH0N7scjZAtdZpfX
+	 LYhzfZnVSIOlyn1Xo9/OFu02BnvK0rjjG9fyr/YIC2FlnLvcAC3KovQEuWDBTM4/rtKas
+	 SXSKbui8Q5K4bKOljiV+h8fx/Di012BLRJlUT4v9qnhPvYidLKYZwfrljLg7NTq09Tq7d
+	 zn0S6fpw5ys/6DAQPezF72HtxZWV2LTLPwFshQ+QAY+I0nP9QY1CJmXl2v8DPSrJGR12z
+	 MUoAsYK01nOA3JFTv79ItBUWoJnutjAiF2LZmcWUDg1Yz7mzDvNhqD7oqP1sahAI3Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGlQNmbO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNG7oGz9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1550560A6F6C
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 13:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C960A5BE3;
+	Thu, 22 Oct 2026 13:48:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGlQNmbO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FEA1F000C1;
-	Thu, 22 Oct 2026 13:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HNG7oGz9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EC21F000C1;
+	Thu, 22 Oct 2026 13:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792676866;
-	bh=OxxKOH7t6FGURuJlztIT2JeBLZQD+0wcCCE6Y7WLeZw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UGlQNmbO1kSZCqA3+rn17josT3C3IhTMDY1pDLco957Sh+CXl2Q+ENuCrEHkRLSb9
-	 aKGMkqCrNEo7AIKWq+/K1yFQpGdZzkw0McDwmsoI6l1zDHniLStY4DTqALu9tgNi8Y
-	 g7iSJf4dTwOii7tOZ6+uNz0l0s8wvZsGBXRWwIggDpV7IFdiTFviehpIs5GKXwdpmM
-	 84E4PQjI6bvs5oTTZEGjQUve9eT5Du8Nl1tzKgSdo5OdkDWXMaOtWDCdbx7XIaPFdw
-	 xJrYUau5m0R0BO5vHluXtL4bu8DG2MgxoD9RWM2BAvYJLLqgu2SdXfuHkMGMdjUfuj
-	 +4oe0EDDiDP0w==
-Message-ID: <sashiko-outbox-181583@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/7] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022132259.240717-7-clamor95@gmail.com>
-References: <20261022132259.240717-1-clamor95@gmail.com>
- <20261022132259.240717-7-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:47:46 +0000
+	s=k20260515; t=1792676899;
+	bh=QhXcjp6lTFUhCzSDXzvZVT+YXJSxyuxpT6ZlL9To4Mg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HNG7oGz9ilZABZqE38A/snbutzpYkVdnN/UTbCHaV+Y/JJseekKyPBBiYjLNoFPVO
+	 MTcgxyEjE8eHKUmzlYvsRErt6PbpVSbc0WWeWlj0R31tqzG0dgXcH3z5wLS57lUE86
+	 YiJ4Tv+ObmR5qX96W1gAPH891etI09znYK9UQntilk7v1zusnEojUogq0b2iLeyyD0
+	 2djd2by3LMH2Ur8JdAZ7085D9wg4+29Zq2YPsPe+etxCylOcawaxwoap7Ex/TtZu62
+	 vI+yD91YzQStBMnS3O27PvbhjFOQjjDis9GMwNHIblHgLad/EYni2E+3n7V/DfyGpc
+	 LMFRrXz5y5LGg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 59FC91D25E86; Thu, 22 Oct 2026 14:48:17 +0100 (BST)
+Date: Thu, 22 Oct 2026 14:48:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH 3/5] regulator: core: Add mechanism to force disable a
+ regulator at boot
+Message-ID: <atoUIb5y26996HIr@sirena.org.uk>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+ <20261021-paul-lm51772-v1-3-25f0ffbffa8d@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,99 +65,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XBaz1mmPtGVZpRyy"
+Content-Disposition: inline
+In-Reply-To: <20261021-paul-lm51772-v1-3-25f0ffbffa8d@bootlin.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/tegra: unlocked drm_bridge_get_current_state() call in tegra_r=
-gb_encoder_enable()
---
 
-commit 743a0ce150c28976e990ee80b4eaf7239b83fcc3
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--XBaz1mmPtGVZpRyy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-drm/tegra: rgb: Parameterize configuration based on bus flags
+On Wed, Oct 21, 2026 at 12:27:44PM +0200, Paul Louvel wrote:
+> Regulation activity may be enabled by default when the device powers up.
+> A consumer may query the regulator's state during probe and may disable
+> it if it is already enabled, potentially resulting in an unbalanced
+> disable operation:
+>=20
+> ret =3D regulator_is_enabled();
+> if (ret < 0)
+>   return ret;
+>=20
+> if (ret)
+>   ret =3D regulator_disable();
+>         ^^^^^^^^^^^^^^^^^^^^
 
-This commit updates tegra_rgb_encoder_enable() to read bus flags from the
-bridge state and configure pixel clock polarity, display enable polarity,
-and data alignment accordingly.
+As covered elsewhere this driver code is buggy.  I can't see how to use
+this feature sensibly, if a driver can safely disable the regulator on
+startup it should just do that and if the regulator could be shared then
+it has no idea why the regulator was enabled.
 
-> diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-> index b6d09a8d8e5ea..da9e37fe36689 100644
-> --- a/drivers/gpu/drm/tegra/rgb.c
-> +++ b/drivers/gpu/drm/tegra/rgb.c
+--XBaz1mmPtGVZpRyy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -104,14 +105,24 @@ static void tegra_rgb_encoder_enable(struct drm_enc=
-oder *encoder)
->  	struct drm_display_mode *mode =3D &encoder->crtc->state->adjusted_mode;
->  	struct tegra_output *output =3D encoder_to_output(encoder);
->  	struct tegra_rgb *rgb =3D to_rgb(output);
-> -	u32 value;
-> +	struct drm_bridge_state *bridge_state;
-> +	u32 bus_flags, value;
-> +
-> +	/* Get but flags from the bridge state. */
-> +	bridge_state =3D drm_bridge_get_current_state(output->bridge);
-> +	if (bridge_state)
-> +		bus_flags =3D bridge_state->input_bus_cfg.flags;
-> +	else
-> +		bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-> +			    DRM_BUS_FLAG_DE_HIGH |
-> +			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatoUIQAKCRAv73Ows9A4
+iR33AQCyyjm4Q6eudT94N/F3kSMdByIHonkh7CYDjY5PhNBdhwEA3YZO69fPvUy9
+l9kJa/YMGf3wY+cHEKVAofATJtwj3Qc=
+=RXZL
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Is it safe to call drm_bridge_get_current_state() from
-tegra_rgb_encoder_enable() during a non-blocking atomic commit?
-
-In include/drm/drm_bridge.h, drm_bridge_get_current_state() asserts that
-bridge->base.lock is held before reading bridge->base.state:
-
-static inline struct drm_bridge_state *
-drm_bridge_get_current_state(struct drm_bridge *bridge)
-{
-	if (!bridge)
-		return NULL;
-
-	drm_modeset_lock_assert_held(&bridge->base.lock);
-
-	if (!bridge->base.state)
-		return NULL;
-
-	return drm_priv_to_bridge_state(bridge->base.state);
-}
-
-During a non-blocking atomic modeset commit in
-drivers/gpu/drm/drm_atomic_helper.c, drm_atomic_helper_commit() queues
-state->commit_work to run commit_tail() asynchronously on system_dfl_wq,
-and drm_mode_atomic_ioctl() drops all modeset locks before the worker runs:
-
-drm_mode_atomic_ioctl() ->
-  drm_atomic_nonblocking_commit() ->
-    drm_atomic_helper_commit()
-      queue_work(system_dfl_wq, &state->commit_work);
-  drm_modeset_drop_locks()
-
-When the worker executes commit_tail() -> tegra_atomic_commit_tail() ->
-drm_atomic_helper_commit_tail_rpm() ->
-drm_atomic_helper_commit_modeset_enables() ->
-drm_atomic_helper_commit_encoder_bridge_enable() ->
-tegra_rgb_encoder_enable(), no drm_modeset_lock is held. Calling
-drm_bridge_get_current_state(output->bridge) here will trigger the
-drm_modeset_lock_assert_held(&bridge->base.lock) lockdep warning and perform
-an unlocked read of bridge->base.state that can race with concurrent atomic
-commits swapping or freeing the state.
-
-In addition, if an attached bridge does not implement
-.atomic_duplicate_state, drm_atomic_add_encoder_bridges() skips acquiring
-bridge->base.lock even during blocking modeset commits, while
-drm_bridge_attach() unconditionally initializes bridge->base.lock via
-drm_atomic_private_obj_init().
-
-Would it be better to switch tegra_rgb_encoder_helper_funcs to use the
-.atomic_enable callback and look up the state from the drm_atomic_state via
-drm_atomic_get_new_bridge_state(state, output->bridge)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022132259.2407=
-17-1-clamor95@gmail.com?part=3D6
+--XBaz1mmPtGVZpRyy--
