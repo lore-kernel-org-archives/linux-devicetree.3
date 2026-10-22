@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669974;
-	b=BH2z8t+RhYzOiTyt5u11lVts2Pag+13nToo7BoqH4SDQy9k5Dh7MfF5zggIIg/kJ02Fg
-	 645Qtmg6G7zKDfUB1jfRPE16QkYguVsG68zuv8rU+DEaX6SH5O4Z0x/elX957/x4Twtrz
-	 MJcHED5Iu2r4EGHGrcwD1hk4OTh6xKy/zOgYi7Cshx5rFhNakmnm0H+wAeoblPjH2iL5A
-	 ECUlCcXyav5T4KrzsehCEMj08oHlELejRLPRgld2qDcY22lqzGCLYWEyiPYUqmBPgiZsw
-	 Ovg4v38quMIjfNDhplSbfgXab4NLEWH5LJOC3szq0FrA+GALsCV8fZnP3ZlFefVs7iQ==
+	t=1792670020;
+	b=Xm47Gbx4U2RJWM1SRAOjKK63kHj6hdQgkXGwFpDCy15fMhixFOH4I1ZpfZS15VopvQQP
+	 5ruxdEffvBhztrLis+dnZOgwy1LHCdJCuRp6KZEQSEagXX6/Vvyd6jC91/2I0R4hXxCPt
+	 zkI1kEzDJ+WZJh8JxpmzIgKHkwSVdcad+4c+9mSdA0MWpqCMw/BEXoaavCwMk1RAtrheM
+	 btWjWb5JAf1ZFWdjxJonOXOEP7kKp9An8JDl10JZ9yeRfv17gGXPVRuq1m0DkZFclNpVY
+	 /u3+/XuDBhMRZZouKK6DEtgAeIv2LkLYvV8qgjtTUn41QOs8xzx7pBxkmzAhiMOyGxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670020;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=IFvnuyMkF7FAUPmUQ7itrBFT/y602o/DWZ7AYGSYV60=;
-	b=Mdfm6YIdbhTv6Kp9urxzjQCa9ithK0yBQqffIJCW2Le+E9pzVCfYy5vFPEcg13q9wh34
-	 93oWDMug2/M7y1SwCY907TbGM4R8FQrCYfDjffmHO0LBIzFe9E8i7j5qv5kfe/6ZhL3aP
-	 aVSZseABljEMLO/dM9Y53hap52kXEULgre3xZOAlrjL0grGonB+a18RueQABxroCjHnt2
-	 yigLqWLsWg5CQmtOv021x2Av3zWjo717U4fL8ivpPn+el3wlAjsn7IzJLL1WZhO0DMga/
-	 BL+2JCi9iIxQS/FVjn0v6rwKaSLuiO2N+NcMyQ0iVIQm8L8e/Is2ZteKJO7ximM9gzA==
+	bh=jpj1q9f0g2oFl2APmtyBtG5ANolPGcbCYidyFJJBOS8=;
+	b=daehcRU7RGiqgoy49nAEmoZ4EuuXgaAofQl8rH+DA6MsdZEdHJafs5hkopHyrewX0E1M
+	 SCdrLq9UjBNz8+iP1j24eQshzcFJgBtzXgwKLGzKQAdRAfRUwD4EiYS/U62pU28j1Prmc
+	 ennXqFbiSFyOFGvWQoPcPdgWjUyAHfnOT/GM2+14Gg8H4F85C0fiXS6fnh8qSuMl06/BV
+	 PS5S+JLJZmrLH7vCbavYE0RH2a0tgxNmbyg+yZQtH9BL6ZmAEqv2MzOb3B2b27jIlaVnk
+	 5a8BnlsiMAdznf3Toua38ES2YhhiRMl25xOvUpwsbEESTO5UKon/DItsISVoQOngQRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiIMszJg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RBp/b82F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0036A606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 11:52:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8E7606A319
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 11:53:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PiIMszJg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469981F000C1;
-	Thu, 22 Oct 2026 11:52:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBp/b82F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBB41F000C1;
+	Thu, 22 Oct 2026 11:53:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792669973;
-	bh=IFvnuyMkF7FAUPmUQ7itrBFT/y602o/DWZ7AYGSYV60=;
+	s=k20260515; t=1792670019;
+	bh=jpj1q9f0g2oFl2APmtyBtG5ANolPGcbCYidyFJJBOS8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PiIMszJgz6Lh5Jy3XjQ4xCeKrgb0P4j/3f9mfMpcx7tifUGY8N4eVfGxeEUENo/d0
-	 DgH22o5h3CXNnVZOsuSSshH4hWI1XdUdxPoC2N6Zlw6Z+7AvoARj4pZIAZPAMnVYr9
-	 ZvCC8IfqZc1BigmEs8ZS6uKjhXpE7EHdjgIl5MUTzC75t77inNKeJZyo3ums0Z+QRN
-	 YRKr4A0ZPbaYc61K/8xe/khSR0Moy2+gR9HhDTuMM8JeaCoMnS1T13mVaH8LIibRcP
-	 hEcX6i7pfIMzT3YLu9eXaY8Z1YqBMEK1mGjxR9gfGTiHKiIa1ndqHXdkRjviZvv6jK
-	 RJPnaSEqhw4UA==
-Message-ID: <sashiko-outbox-181398@kernel.org>
+	b=RBp/b82FhD4QY3f/ZzacmW3iaIVV6eo06gpFt2ROCKHoakMox+vITnaf3jxOZf7BT
+	 GJzeXzdTZfvlI04nFPM/YrrsrxME+YcQxdWM8LXiO17+dGdNSbTlp3XSyf9Y95p7Bp
+	 Z5Qd//0yPBNPCRouPApJ3TUQ8pOrsULOEBKF56/WZZrRvHqpVgie5SWU8rqgjOFXL+
+	 bdk0HaTb/KH4MtJD6oqzoRvlIVcDiL5omb7X8gXIKtCU3IPaQXrsRgCSrbK9VhQNOF
+	 fYHduNKG30cvgqNJBSFIKCXkM2u15kY3DoHc2h/A+6lB/W2XwrIzH+YcFUBYRNFLr8
+	 u2wBb5I0QrwTQ==
+Message-ID: <sashiko-outbox-181401@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/6] arm64: dts: qcom: sm8250-hdk: Add the QCA6390 NIC
+Subject: Re: [PATCH 2/6] arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI
+ bridge
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "ShiTou Hong" <redstone.dcity@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022113601.2320940-5-dc_redstone@outlook.com>
+In-Reply-To: <20261022113601.2320940-2-dc_redstone@outlook.com>
 References: <20261022113601.2320940-1-dc_redstone@outlook.com>
- <20261022113601.2320940-5-dc_redstone@outlook.com>
+ <20261022113601.2320940-2-dc_redstone@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 11:52:52 +0000
+Date: Thu, 22 Oct 2026 11:53:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,109 +63,155 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: sm8250-hdk: vreg_3p3 added after pcie2 referen=
-ces it
-- [Low] arm64: dts: qcom: sm8250-hdk: tlmm pin state node names violate sch=
-ema
+- [Medium] arm64: dts: qcom: sm8250-hdk: pinctrl node lt9611-pins violates =
+-state schema
+- [Medium] arm64: dts: qcom: sm8250-hdk: unlinked mdss_dp and unrelated ads=
+p/cdsp nodes
 --
 
-commit b98ad1ad783f0dda0bddcfceb9a3d14617f06e2d
+commit b1dadd1c8b42a901f8e62f9b3d2367c950faf2f4
 Author: redstonee <1516235445@qq.com>
 
-arm64: dts: qcom: sm8250-hdk: Add the QCA6390 NIC
+arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI bridge
 
-This patch adds device tree nodes for the qca6390 wireless and bluetooth
-module on the sm8250-hdk board, including its pmu node, regulators, pinctrl
-configuration, uart6 bluetooth node, and pcieport0 wifi node.
+This commit enables the LT9611UXC MIPI DSI-to-HDMI bridge on the SM8250 HDK
+along with its regulator, HDMI connector, I2C bus, pinctrl state, and MDSS/=
+DSI
+nodes, as well as the ADSP, CDSP, and DisplayPort controller nodes.
 
 > diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dt=
 s/qcom/sm8250-hdk.dts
-> index 77273b6c2216a..eb899c92fcfb7 100644
+> index 5975878ea0fd2..d92e569d87410 100644
 > --- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
 > +++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-> @@ -32,6 +32,13 @@ vph_pwr: vph-pwr-regulator {
->  		regulator-max-microvolt =3D <3700000>;
->  	};
-> =20
-> +	vreg_3p3: vreg-3p3-regulator {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vreg_3p3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +	};
-
-[Severity: Medium]
-Should vreg_3p3 be defined in the preceding commit be0d22fcb00f ("arm64: dt=
-s:
-qcom: sm8250-hdk: Enable the PCIe ports") instead of this patch?
-
-In commit be0d22fcb00f, &pcie2 in arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-references <&vreg_3p3>:
-
-	&pcie2 {
-		status =3D "okay";
-		vddpe-3v3-supply =3D <&vreg_3p3>;
-	};
-
-Because vreg_3p3 is not defined until this commit (and is not consumed by a=
-ny
-of the qca6390 nodes on pcie0 or uart6), building sm8250-hdk.dtb at commit
-be0d22fcb00f fails with a reference to a non-existent node or label
-"vreg_3p3", breaking git bisect across the series.
 
 [ ... ]
 
-> @@ -450,6 +525,39 @@ rst-pins {
->  			output-high;
->  		};
+> @@ -404,6 +431,20 @@ sd_ufs_cd_pins: sd-ufs-cd-pins {
+>  		function =3D "gpio";
+>  		bias-pull-up;
 >  	};
 > +
-> +	qca6390_pins: qca6390-pins {
-> +		wlan-enable-pins {
-> +			pins =3D "gpio20";
+> +	lt9611_pins: lt9611-pins {
+> +		irq-pins {
+> +			pins =3D "gpio1";
 > +			function =3D "gpio";
-> +			drive-strength =3D <16>;
-> +			output-low;
-> +			bias-pull-up;
+> +			bias-disable;
 > +		};
 > +
-> +		bt-enable-pins {
-> +			pins =3D "gpio21";
+> +		rst-pins {
+> +			pins =3D "gpio2";
 > +			function =3D "gpio";
-> +			drive-strength =3D <16>;
-> +			output-low;
-> +			bias-pull-up;
+> +			output-high;
 > +		};
 > +	};
+>  };
+> =20
+>  &uart12 {
+
+[Severity: Medium]
+Should the lt9611-pins node under &tlmm (as well as sd-ufs-cd-pins from the
+preceding commit) be named with a -state suffix, such as lt9611-default-sta=
+te
+or lt9611-state?
+
+In arch/arm64/boot/dts/qcom/sm8250.dtsi, tlmm uses the qcom,sm8250-pinctrl
+compatible string. The binding in
+Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml sets
+unevaluatedProperties: false and restricts top-level pin configuration child
+nodes to names ending in -state, while -pins is only matched for subnodes
+nested inside a -state parent node:
+
+patternProperties:
+  "-state$":
+    oneOf:
+      - $ref: "#/$defs/qcom-sm8250-tlmm-state"
+      - patternProperties:
+          "-pins$":
+            $ref: "#/$defs/qcom-sm8250-tlmm-state"
+        additionalProperties: false
+
+Naming the top-level child node lt9611-pins causes dtbs_check to fail on
+&tlmm and skips validation of the nested irq-pins and rst-pins subnodes.
+
+> @@ -486,3 +527,85 @@ &sdhc_2 {
+>  	pinctrl-0 =3D <&sdc2_default_state>, <&sd_ufs_cd_pins>;
+>  	pinctrl-1 =3D <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
+>  };
+> +
+> +&adsp {
+> +	status =3D "okay";
+> +	firmware-name =3D "qcom/sm8250/adsp.mbn";
+> +};
+> +
+> +&cdsp {
+> +	status =3D "okay";
+> +	firmware-name =3D "qcom/sm8250/cdsp.mbn";
 > +};
 
-[Severity: Low]
-Does the qca6390-pins node name under &tlmm conform to the binding schema in
-Documentation/devicetree/bindings/pinctrl/qcom,sm8250-pinctrl.yaml?
+[ ... ]
 
-The binding specifies unevaluatedProperties: false and requires direct child
-pin configuration nodes under &tlmm (which matches "qcom,sm8250-pinctrl") to
-end with "-state", while "-pins" is only permitted for nested subnodes insi=
-de
-a "-state" node:
+> +&mdss {
+> +	status =3D "okay";
+> +};
+> +
+> +&mdss_dp {
+> +	status =3D "okay";
+> +};
+> +
+> +&mdss_dp_out {
+> +	data-lanes =3D <0 1>;
+> +};
 
-  patternProperties:
-    "-state$":
-      oneOf:
-        - $ref: "#/$defs/qcom-sm8250-tlmm-state"
-        - patternProperties:
-            "-pins$":
-              $ref: "#/$defs/qcom-sm8250-tlmm-state"
-          additionalProperties: false
+[Severity: Medium]
+Were &adsp, &cdsp, &mdss_dp, and &mdss_dp_out intended to be included in th=
+is
+LT9611UXC HDMI bridge patch?
 
-Because qca6390-pins (as well as sd-ufs-cd-pins and lt9611-pins added under
-&tlmm earlier in the series) uses the "-pins" suffix directly under &tlmm,
-running dtbs_check on sm8250-hdk.dtb fails schema validation. Should these
-top-level pin state nodes under &tlmm use a "-state" suffix instead (for
-example, qca6390-default-state)?
+The &adsp and &cdsp remoteproc nodes are unrelated to the MIPI DSI-to-HDMI
+bridge and are not mentioned in the commit description.
+
+Additionally, enabling &mdss_dp here before connecting &mdss_dp_out to
+usb_1_qmpphy_dp_in (which happens in the follow-up USB-C patch "arm64: dts:
+qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip") leaves port@1 of mdss_dp
+without a remote-endpoint:
+
+arch/arm64/boot/dts/qcom/sm8250.dtsi:
+    port@1 {
+        reg =3D <1>;
+
+        mdss_dp_out: endpoint {
+        };
+    };
+
+Because add_mdp_components() in drivers/gpu/drm/msm/msm_drv.c skips disabled
+interfaces via of_device_is_available(intf), &mdss and &mdss_dsi0 do not
+require &mdss_dp to be enabled for the HDMI bridge. When &mdss_dp probes
+without a remote-endpoint on port@1, msm_dp_display_probe_tail() in
+drivers/gpu/drm/msm/dp/dp_display.c sets dp->next_bridge =3D NULL instead of
+attaching the QMP PHY AUX and Type-C HPD bridges:
+
+    dp->next_bridge =3D devm_drm_of_get_bridge(&dp->pdev->dev, dp->pdev->de=
+v.of_node, 1, 0);
+    if (IS_ERR(dp->next_bridge)) {
+        ret =3D PTR_ERR(dp->next_bridge);
+        dp->next_bridge =3D NULL;
+        if (dp->is_edp || ret !=3D -ENODEV)
+            return ret;
+    }
+
+drm_bridge_connector_init() then falls back to msm_dp_bridge as the HPD
+provider and calls msm_dp_bridge_hpd_enable(), which calls
+pm_runtime_resume_and_get() and enables internal HPD via
+msm_dp_aux_hpd_enable(), keeping the DP controller and RPMHPD_MMCX power
+domain permanently resumed.
+
+Should &mdss_dp and &mdss_dp_out be moved to the follow-up USB-C patch where
+the DisplayPort graph is connected, and &adsp and &cdsp be split into a
+separate commit?
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022113601.2320=
-940-1-dc_redstone@outlook.com?part=3D5
+940-1-dc_redstone@outlook.com?part=3D2
