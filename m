@@ -1,79 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792706343;
-	b=Oz5oYTtbcpG8u8i1ZQA5z3v9pXZ2ORAyFa1I9XqrGRwcDEbkRWNSaYmXXdq1pC5teLXS
-	 T0JHZJL12NNt3Bjd5U18zkQ4N3ysYb0pfMniwkn3RNckLFpM6i+74thbw5rdWaPH1fBuD
-	 uhnpVp4FijRaP+aklHtI5fjN3DNGE9k2Xb5ITr8xHQ003PW/+J/nLoxV/0FW6z1125Si+
-	 UskVeRenwXEqBjf5gVDFvUTYXtfm4S26xuGKj71Te6m8EDdSx+dO5sylKGKw4yOhONKmA
-	 rhP/SNj/Wy63NjZzLeC6XNWdbiQMgtmslF6b5Yc64xINJtaY6CX1lHHL+4Gncm2XLhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706343;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
-	b=GKZaPu8Th7XCIrpNrzfCK1fn0t7sK+M/W6Umdnw9r2Aq2Ia5BUfdjjAh1ymR99Gxj9N5
-	 dIFNg3M3sjCxIO9TUUUKPvbdKYE5mXtkmx8fKWgiXGM3cWmm7gL6Y1Qa/Pyen3ZgQd6iK
-	 OeEiI9HCGuRJDzAFCHxzkLnAtcGhz4trAJV7EEIOFN2Ryl99zvQ7zw0po5wEE5tFFWeCQ
-	 ohYx9ftTz1cEQ9ObWJxoNrVvXZ/nh2ieUE7RU7I4frHcoQj9X3evsGXXjFLS7iFVUpz6N
-	 XSddALGaABLX/+cWnwxUdA0N/oGxGh4hwN9pO440+m3lDhHZSn/CuqWmj2FVGsShHdw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EFtu/Zu6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E69606A320;
-	Thu, 22 Oct 2026 21:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFtu/Zu6
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792706343;
-	b=Z/Y3QxctSAHQ3lnsvsO+so97Lgoh2FsKEJPWH7i5Nu5u/n/kh6mHnMuKIhyEtDDdraaC
-	 m2zW/Pm56RKlbJjJr6cvkC3iLGUv0kl+5jD+apsSWUpIdtfynLz60+tk2ovNKr6enT4QN
-	 PXp8OtsdVbNrzrQ2kxb0ZZ+kmpYfqWD360LDvl8uZ7QLgXnAY5UD0v3uJo/VIz+GHRIlB
-	 IyG7Y29QEdrpkIgRVrESn9y+9RWUhZK6VPauU/1F5gSQfJE6c3PqWDH42gGMrsdmWM/DB
-	 dX50E/f7HA5cj+9FEg3JL0+Mi9NOLY/JuvNtrB9YTAWMWWBIer5Ge1/++D5dQLSe++A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792706343;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
-	b=arJ9SvAxDFuXXtI3/YnfSt6wDhPlxC8B9pcrLyG9MmisJmt5Vwr1v8ER3d9ma2dK/muw
-	 yLJ9KwldIROonR4aEZg8I1n/tjZspPOxYMEjpd0ulhZpuIU3V9ZC2L5ufZM3eZ4+j6uit
-	 2OkFuvBgjfIEAQgeTKteyV/ygTBaeWcGIx5xeTsXrhHhquNPOwQLMwmbcxL/ulr4O46nD
-	 M+bhrqT6N1U96/t0XPlY/lFuaZIFVcKROx8pWDG2A+hejIFjutQTF7nAnJNx3Rmgo1562
-	 5eqoKJVqai6b7+NDze7mqcs4fT484wMw3ot/ZWhqqro+qJfev3BHBq+0v4aHeQF89hg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792706605;
+	b=Teu4xUqo6tvPAHeUxYlBPM3efqNT9p3U4jnFCnzRlj0cjUMyRhtRr6zyfDS97CkD88PB
+	 TWk+uTBXAe3j5KF8IBPsJ4QR7/Zyhh+QmVCKbHsR6G0n0QKhb7OR2EouuvA2f+w4P7E2I
+	 cnO7gyTYWKaDLQ/C2ra/CI4KvH8bCNHg0ugsXkp1O9jCsqBlUuOz3Ae/4qQB/4kLJCx41
+	 y1tk0bSpE1rwRgIjPqXDaragERZlmb+5wYZjQixwgZll8UBcPxKWtKkRNqNPJwCCc5RPU
+	 XjHcYHgYlgSgS/WSxN8TSUpLRbyhx7uMSCc17nHA03jP6Y8LVspw27ZsjQlQFKphSRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706605;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:X-JNJ;
+	bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=;
+	b=lMkgLx3o8cMTeuXCVYqu8JTnb7Ahv7WP+XZeRBVu2FbvKVIBWtMzagsA0GL1mjFeK2+C
+	 rQzhfir+2dW2hUxbNvDvdqujoVgpCFNYIhfZu1B/m2DZa5TOxqui1F47Mk7Z2FqyzDfuH
+	 0dDxaUyBekSYZ9BhPmoJe4dsJM6QsOng67ECNKkT8WjtgezvErkSdCpjioYtTAnA8pFUP
+	 PrhtvKc8EVmflcfkRaElXq3tBacsphDgN9Ed9W+IOD17axxgpRDqPy2asoB8wJJMJLN3j
+	 w4WbUTc06whwEPh9eKzVJ9SYmMwFYMdYzEMA6jsS5UX2meWKHGJ9Yg1u9GXNX2gOOFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=dxdmail.cc;
+	spf=pass smtp.mailfrom=dxdmail.cc;
+	dkim=pass header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN;
+	arc=none smtp.remote-ip=57.103.74.33
+Received: from outbound.ms.icloud.com (ms-2002g-snip4-11.eps.apple.com [57.103.74.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 699BF1F01825;
-	Thu, 22 Oct 2026 21:59:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706343;
-	bh=J4dWhXL+arE5vZ9bVeyPtt6G9OZ41B67BZQznT1XJtM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=EFtu/Zu6KCxxNNvI7AEpvEeIo2IHe5ewm69R30m/LBeZ2fYdqSUkEqbkuxhxIV2Wa
-	 CO89SQz6XIlNIph3de93W5jR3I/RDn7E451ZFh5w1uckAaYgkXriarp6YYKQ1KnfNS
-	 VTkh9f3eHIjGdzTMWVnzZvStYnSrM+Ee3tSoP3RxwlZ+K9lfAZS5z6FEURq51tJms8
-	 WwchVKxuzY5QVTGhjql8yTWnFJlLrig8WiutTZgJn9370wRPxgGV6KBQe6mYX2FrrP
-	 rpbHP7Uwt1TjoaEIj3Jg/2WoxAfaV6dATjPSGvW5Rrb0ZDjK8d1NWu4ofBbE2dlF08
-	 rw2SnCSZT0Yow==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B896241FA6;
-	Thu, 22 Oct 2026 21:59:00 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Subject: [PATCH v4 0/2] Add Samsung Galaxy Tab S9 Wi-Fi (SM-X710) support
-Date: Thu, 22 Oct 2026 23:58:18 +0200
-Message-Id: <20261022-gts9wifi-dts-v4-0-a361428fe59c@dxdmail.cc>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C6A606A327
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 22:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C6A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dxdmail.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dxdmail.cc
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dxdmail.cc header.i=@dxdmail.cc header.a=rsa-sha256 header.s=sig1 header.b=kKjRMICN
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPS id 2A28618001B8;
+	Thu, 22 Oct 2026 22:03:16 +0000 (UTC)
+X-ICL-RepId: 01a165a3-d0c6-7cb0-8e38-8e699bfd075f
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFBHV8DXhxCDFYCXwNLVxQEFlIOXx9yFEEcXgxeBxwTWlhVCQoPShRUGVoBGQhRUEsbDlwHS1oVVRcOAkIfUB9MFldDWhgcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKD0oUVBlaARkIUVBUEVdQC1xUEQFPV1QORlBJAUseWQUIAV1bHFBUGl5QQF9JAQgFDwRJCDhXFVMGUxlVVlAOCUtGCUkdDg5CGEYfVCdXAloKWx4=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxdmail.cc; s=sig1; t=1792706599; x=1824242599; bh=bEJNobkf5Bk1Y1QijMpLcalz1sa0H8ECn2Kx1OBOkHs=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=kKjRMICN4G2BkS76OjWUaJsn6tWU8WJfG7lUt/ssz5v/nP+t3P+Gx62hQLwVAKlxYnkBUldEldvfsZujEqxOE3cqG/I9rOBznmPcFIaZSiGu7JnB15JqeeadFvyOsNyTxN4ZrP9HfqVxnsexUh1ntlJ6TvTlcZdFV+fp7GHwUQRhgVK7yRqkZ+RHPDKK83E2BDxM0e3C/oEZOSPY39poH+OvjCtST9nxxsmgRvL0tKvDBuuxANOOHSf7ChOp35TfyJ3r6KJdsB9o/TX1U/Vq89b/AM0t8hJLy75bewYlg2F5FqqJStln5IOfEC9D7MjvnxkfOtp58C/RbGddqU19xg==
+mail-alias-created-date: 1790174225171
+Received: from [192.168.178.181] (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-4 (Postfix) with ESMTPSA id A4F8B18000BC;
+	Thu, 22 Oct 2026 22:03:14 +0000 (UTC)
+Message-ID: <7fa87d99-b983-42c3-bdc9-5b0f12e2d691@dxdmail.cc>
+Date: Fri, 23 Oct 2026 00:03:12 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,81 +56,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
+ <20261020-gts9wifi-dts-v3-2-afd06fb2d9f9@dxdmail.cc>
+ <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
+Content-Language: en-US
+From: Nizat Mikayilli <nacht@dxdmail.cc>
+In-Reply-To: <0b829c36-ea7a-472f-85b2-c32ca8121047@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQ6CMBCF4auQrq0pQwHrynsYF6XTwiQKpiWII
- dzdwgoxLt9Lvn9iwXqygZ2TiXk7UKCujUMeEmYa3daWE8bNQECRCiF53Qf1Ikcc+8ARZAn2pHL
- IJIvk6a2jcc1db3E3FPrOv9f6kC7vn9CQcsFTJ7BElKWV+oIjPjTdj8awpTTAVuc7DVGbTBtVC
- aeMrX50ttEgdjqLWjsUhasAlVNfep7nDzlaXDElAQAA
-X-Change-ID: 20261004-gts9wifi-dts-d2472e895234
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Nizat Mikayilli <nacht@dxdmail.cc>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792706340; l=2005;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=PfTYWAs2CSTbVke9UM6xjpocxVnW5Km5StAU7TfdOwM=;
- b=OHn7JOVgbCXm8HZejwM3Kz0D4MBzAQ1UZW2LAbeJcW/oRK59BCpXfyfmFKRckuWxa8fpAGLjo
- 32lpAB7UDZFAoMGooWKVW9XtcAWMUQULYxG8DQKTZvhueR91dCssu3W
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4NyBTYWx0ZWRfXze1FQmJVf5g8
+ ee/F8J7J9u4RaJHHN7tbEjERSeNG3GKdJCm0WIuElHMUENOxauNh5YCHRqgnrnRrETMnN/p6AlN
+ i447amj0LWVNw7vV7Ejwkoe/ZuQOeGwBBy9UsxyWjDS5Jzs719xM7IigVhfmWc3njCZUNswiR0C
+ NsB1rqoJUcr5cSEj5YYRd+PScJIBC8yrkcjJ+4PS96QJRRdUlqRxkFL3H0YgOVpTRHcG/dGCBDl
+ h5fOk1K+9rslDuAj5gUYdA9s27SU04WhbyvQWY3NHyQi9SRCBoKqwD14H37D+TkH8wxEwCWI8sp
+ oSH1lDe8HFhCXhJ7DVctGjRLBlz/rSwjbUct1Pp0XJZiVUNmkVKlBSgEMJCaWc=
+X-Proofpoint-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
+X-Proofpoint-ORIG-GUID: zpZeXfd9GchTtDONKEF566G8d0ltyVzR
+X-Authority-Info-Out: v=2.4 cv=c6SmgB9l c=1 sm=1 tr=0 ts=6ada8826
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10
+ a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Yll68VBpUeuroiOh840A:9 a=QEXdDO2ut3YA:10
+X-JNJ: AAAAAAABSM3wAAT10zkvsNXerVJATqfulcBuXVSiysHoDF+IozHXwKMeGvJhxGAREfOznDNjNIIwJ9f3Tt9GWmAbsypgCo/P3XzzMoUtmPIwHU1QoNC9tijIx37ZyUowDCv49e15+0CK/xYvCKJ4czNLKsAqV+KP53JAnCBwiMy84hnDbm6bXqPYo6UG6qcRvZMWCClujvxdqBfIypea4TqF7onNGqQa8hiSrn3alg6sQyWFOu+mdzWJot1LlwHpNv0l0wavIgdphV1GICrdR7qTE2xxKvl1w4tnFGV6AM3OAw91/8eT1jiSVCCVnr4wo0KYkG2YcSXu7S4ktFYxTukDiO+LacuBvw7MdzQxXIZ2QOxJqJ1QjbSvsKhtHULmT+ZQ/XPl1Ai1eKUs1N3m4/jYf8Em65HcaMPjUo8aanMXgES6RfPjDeNlbW1m7Z1iuumLVGwvm+2MVudb4z9OlHpHk6ORuiJdoRabP91t0mITY3/8Cu4gBhgWOaDIH1u/McSxstJV7eB4kJCWZdmPju8T5c7cZ+pX3ggg/B3ZxFgt6URTS9Z8gWd2nrkOXYhHX2HNbbBUNcoVIRwGr2KskFaGrdXpuMdBTvYa1dUtooZ/3lqAFxBD1FwvfCmgu/9XxmRgrH582phZIrguSWelByG76LF/3Mx3sUfZIhSi++v5GtoO+d7jWsV6dIvDjbxBxQHRTtL9bUg4xegmCvja9cMvNl/157fBO0akJarmbxacAnN2GjrNn5QmoZttnNfYsqoN3Fj4J9Onz2XpMzfHdq6RGps10jKH8dX2MFYDKcEStWHlepTx7+BdCEYRWYVK/9opNvm/e3fy+ZlZ3yn/5Y3XOGxR69nR0BCwagdzRYaUo7i/zHAel5XDOyOZimw2WMzEFm69a8yLp0EroYu3DAYQXDw8VPJ3Zc20DZ1osQPTs45kcT5EjaBrshtI58HDjs9NcCBnw3AQ54KlME+0oZ4yZostNuJ
+ m5luxLi+smtYNA+a91xvy/RgSNRTYCuErC9ZpJ/HAIdxMJXHCyKgUbe/bvN2EvHFFkpH0ALTmIRlIaIXVpV2Iqu82nklXhqrPai5JS2zPLWTXB4r0ORnpVx3DfQQP9wmuIRUa0Ql6/Z1X9RWD8hbkvEZvbuDzFEN6xkPmvJoAq+ACXplB/Z2IAob6xoAQAGDiDNnhMxn1zxHXQiRwfr6mAjUSQsUrvTT0IqilVAtGcRUpIhHKWM/14ZE+evLSeMRduNQ8RisYwyQdPTL/rZsuTtQIO48RcbIbUZ3bo1y2D8VHku2nWMQ3AwDm3HJV51VTmkV/JOM+nXs/M9mO78bM1ARfv6kbnebfP2WW3WLVC4/oo0xj31C0W+OeMec=
 
-Add devicetree support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710),
-an SM8550 tablet. Two patches: the qcom.yaml board entry and the board
-DTS describing UFS, microSD, USB 2.0 peripheral via eUSB2 with an NXP
-PTN3222 repeater, keys, GPU, video decoder, ADSP, the CS35L45/VA-macro
-audio path and WCN6855 Wi-Fi/Bluetooth.
+On 10/22/26 11:24 AM, Konrad Dybcio wrote:
+> On 10/20/26 12:42 AM, Nizat Mikayilli via B4 Relay wrote:
+>> +/* This is the Wi-Fi SKU: no modem firmware is shipped. */
+>
+> FWIW at least on older chips, the modem would still be booted to
+> provide e.g. GPS, check if that's not the case for you. You should
+> also boot with memtest=1 and CONFIG_MEMTEST=y
 
-Tested on hardware on top of linux-next next-20261002 (boots to a shell
-through U-Boot): storage, microSD, USB gadget, framebuffer console, keys
-including the book-cover switch, CPU frequency scaling, GPU firmware and
-render node, video decoder node, speaker playback, DMIC capture, Wi-Fi
-scanning and Bluetooth firmware loading.
+You're right, the tablet ships the modem firmware, including a GPS
+service. I kept the modem carveouts in v4. I also booted with
+memtest=1 and it found no errors.
 
----
-Changes in v4:
-- Keep the modem carveouts except rmtfs_mem, the MPSS firmware is
-  shipped on this SKU; memtest=1 is clean (Konrad)
-- Add Konrad's Reviewed-by
-- Link to v3: https://lore.kernel.org/r/20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc
-
-Changes in v3:
-- Add Wi-Fi and Bluetooth (Konrad)
-- Test microSD and audio, update the commit message (Konrad)
-- Add a blank line before status properties (Konrad)
-- Expand the GPIO36..39 and USB comments (Konrad)
-- Add Krzysztof's Acked-by
-- Link to v2: https://lore.kernel.org/r/20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc
-
-Changes in v2:
-- Use my name for author and Signed-off-by (Conor)
-- Link to v1: https://lore.kernel.org/r/20261004-gts9wifi-dts-v1-0-1f0d7dd47e4a@dxdmail.cc
-
----
-Nizat Mikayilli (2):
-      dt-bindings: arm: qcom: Add Samsung Galaxy Tab S9 Wi-Fi
-      arm64: dts: qcom: sm8550: Add support for Samsung Galaxy Tab S9 Wi-Fi
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 873 +++++++++++++++++++++
- 3 files changed, 875 insertions(+)
----
-base-commit: f0406245cb9855e6318335a8a223551354291a46
-change-id: 20261004-gts9wifi-dts-d2472e895234
-
-Best regards,
--- 
-Nizat Mikayilli <nacht@dxdmail.cc>
-
-
+Thanks,
+Nizat
