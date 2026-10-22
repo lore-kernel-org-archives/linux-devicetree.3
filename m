@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690472;
-	b=K0b3TCfjeutdbQfYEPYF4LUwh2L8dwsa2PQF3AQJmPtWf2LCBnLtPrtobGBnhH42HdC2
-	 aGcfcB2BMwDcOFqxOhPsNHznm30yY/A/GVp3dyL0kiLNoF8MQE4qEoxN7+jUUr4+7n6Cy
-	 PAA1GCq9USceaTWXLlNwH2xXq7kEfA6ODgjNxI33/b8vtXSRfPCj530v2zFbTeWfmeyQZ
-	 wgJZsSsfwCMzggYEEqf/djXF1Cw/ZY8kLpxcJZ0z6EV83SPbrdwJiRyvarsz1rPOhX/pz
-	 dDKlapi/k7L/vMvNJwzLTUS6aB8uR4POI4K1td785tNKAH4LHnBa5CCBSHFIXh24+xA==
+	t=1792690477;
+	b=QYci99Kdgxd2sC4PioIgWHZs9Mj221HdKIjptpo7j/90lHMx5XS8EezVvgXeK1Vmaiqu
+	 5jciG/7iotSU5RD4l33jQNKYZwDHaabO5mi8WxkAyw+2Hymwsb3SA5CbY9O3qhiONKyM1
+	 3z7RMSzufjyqwcswmxjk0sEnl3qYb51fjzUlENugmdImOMOP/IR4RI9tHftw6E0bqfIRK
+	 PGuBxbjeyIaZ6ciHfdQO4UDoS4O1GaGO51B4YvQkSwj+vR/GeaXve1bn3m6qRlNo0J9iN
+	 TC06Xw3nB57aBhEZFo9WXBJhLFBoQn1cmhxsEbg1kYrHbIkyzAZlUabSzXyFrgf04TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690472;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690477;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-	b=dT7QNoZ/0O+kTmyr4Ir1txu9Bb7dS9sp3dh9ZQW7pxesNYRIzekSrzk5Q7aU4tA2yuSu
-	 we4g9U/dXaqp/a8ihdjNFVZwChG98lqrzTWmDWk9/JgfOyIJoS7uZWvon36Ey7Klya2Zs
-	 SSovDZb/rbC6YVzeWFskhSxRe+AZ50m5OI2pT6HjXPHFts59YbfE/Asi5x4eMP5ViKKns
-	 2yj8laSR8G/r+lPOZSlhu+nsHActV9kjoa6tGv6SNVE1gnE5kVIeuG6lWIWmTk+Hgu7f1
-	 k8/2wTXrv8R6x8fbo3/Zs7l1RE+5Y27F42BLw56Q1SUgVoouImaVVNO4Yt0STqbA9Bg==
+	bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+	b=uP2L3tVe4fEuynGMxnPgtNOSK2gN6TLpOskNKxihdIzEl/1mYwukjIBdwd/nXxLNUFAl
+	 sgEYtBPcjAuUQS3uuzoiJ3mgLLP2QNIWHu93VoN6I/Y3FecPNcrHrQZwhCF21aLUC/bXF
+	 3/dukw/fmmxCwZyC0SjQr70JVjloiMniy6Z9BVIuk1t/wuLZalfM/jpCq+a/pfIHFWjKp
+	 ixGwICAW7qVjoGBvk21pC7X5lJdW6DF2qV72EQL0XvOU3psNDFEGqMPEaLx9amRh5lYUK
+	 0pIlYcwUFPWGZeOt5cNtGJuNvvjfnaUs3ayrU6vjuqRInrwK+wuSooIb85CgLHiGHWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=raspberrypi.com;
 	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=bgas6k85;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Hz8jK3d+;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A637606A325
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:34:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A637606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB12D606A319
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB12D606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=bgas6k85
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e10a70540so38517f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:34:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Hz8jK3d+
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d05d51553so515735e9.2
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:34:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792690469; x=1793295269; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1792690475; x=1793295275; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-        b=bgas6k85plq4qK7o8D+nY+Q1OOUJLT2FZsMDezlnz8GaTMY9Eg3NesEQ8SYQ0/1HmA
-         BJPsgtKjU3nFeqc1sZlOiinJI/gMiF+9/JbxChw2ENC17eLFXb4VbBdCSst9+Bens5S2
-         S8XpoTXqLee+MDHs6RNM6h1hWSpE68Rwk/5+R6sg2gOfab7t0PWr0+cIgVcYfC+IY4pA
-         KeCqH9nuQUbxGWDVeBp+xXiz7lgbkQVQoFX+tIOkci4OSp9u9fU2Mq2flMACj/72nyMa
-         Yb63uggzRSgJ0fvla8CP4OMy+P3S/upPLJsCwTXspu8eDfLJ4GBDotIzhRitJLdRSS5h
-         7qTQ==
+        bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+        b=Hz8jK3d+/7oEwRtXqRZMtdhfq7MFY8o/ekyuqOcEE7muK94sJhmnUcxBQ9dqOPU+kw
+         lPKv5D53LnTlvPmLXFiFsew4Hl0ljGdeGGbMx/TNOpkDTVmG6646/pNjjfcR5grueRKR
+         fZRfj71/1PdrbVJyKenanHLh2JbKLWIOIOQQs0ADAdXsgkUGG1hQ+KW5J++cFTAWziVr
+         5DXgKELTQY7RKM5EX7Wrw/bj6Y47fkcFTd1TWYBM15JIkYoEoCQS6PaPwvFIgq4FnysS
+         y2GErTSI37mqIeqF2j2TS2Vq4k6aA+SxBdZtKLrxde/ujHMkkMoIsaoNwZedrraMGDHq
+         9rgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690469; x=1793295269;
+        d=1e100.net; s=20260707; t=1792690475; x=1793295275;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g2Q9s7RMNeWpcW6ZkkIYUa+Y/Qr4kaBiQvLPfc53Zu8=;
-        b=I094O57nZE6EMhn+8x8lCwAtmi1SuQciDHiwDHM421RWsH/tfpu+op7Ma3RPjGf2e+
-         e5ZF/EQF7i1n1D6JRI3JByRWZ9nWEh22e2yeQ0C3lgM9G6uAoADkaCpVb2DIVhKGWS/l
-         zlSijke+t7M6rsGxHFERwNzTBc5PsBob1wvJvEtO74FozntwipcWYWhNUHJcJmuDVD6f
-         GleVzimKQKcX2nqqS6JRzJMlFOelj4JKiP3ilaoH9iV05Iti7/0tE9TM84Rz3BGjQDhF
-         wszLNAah8dxFZNAZlVTHSbS7yQF4c68/1vYZPSbEiR94gnrDxQ1eKbhAEe4CVXi45/yC
-         RFsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwE2NJXEp876vbKwpxLwCIL0LXJmf87ei2ea+31QJW59t4ZMi8aczI/EjyVVROx8ppSiDUn3j8/YFj6@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJ/ATzmD1CBR74gDeQUYuvl565O/PaWeFHAWUnfpMjoM9Vxcsc
-	Gf6GqnPlAHSKuAHI8MKSYfO0SlA21wsk8lsIH3SMK3Dw1blYt/o0Do0d89MEEZ5WqaaXAHN6lWq
-	agB3la6g=
-X-Gm-Gg: AYBFou3xCjeMat8kXC2SBOa/zBtm8ZjvUCof5cVmZ3XrF9/u/Bm/bChV0MFQQMVGZSc
-	sIG9wI1XTOqetxFKIqNZdXdbiL4KG2eHlUIpqyc71hXtOQejd1PsCkyTIweLlGHjJwHwvsyxtbV
-	GeskZf9VHlR6rRZTqHgyhkoOvvYYeoRknSKJzBk8ljCgsorm/UQK6LDh4U0jeMeDueetHk92WY+
-	uM0klX/rqHhcbyceIT1oWEh/ESO4CmvmATOABAT2KQLAT3rjHE0ku3yqnt23aEAS71rqK/w8Ba/
-	Nss2mcOjgzBjLd9LO426N7SpCwYm2dEUwxFKBPbhONXwP5F9+sjW5zX15vW7vuodMi+h+uvYDH7
-	U3NEpjlo1dGYxGf/7VJRqrtSlSO5QQOTMDEmp126lTPfOBYtsQN0hNDqCw164X+C+ZfJmR0sblc
-	4XFif8FXBKAL64KYu5C5CC2bVio2NAUZqQYt8s611ufDTuMLJkGK+kqGVXC6nF3re4gFOqp1fKv
-	JCIQMBYA2HaIdjVlWRtYLCGk2qE1/TVnclg+ovRPJaUSaAVZrBgH6W6vJVpgTbX3EFfuk/4suQ7
-	C+asP/TljYdumhnbVTI2riTHFwnwMmE=
-X-Received: by 2002:a5d:40cb:0:b0:48c:7037:aee9 with SMTP id ffacd0b85a97d-48e264e01dbmr9492451f8f.50.1792690469507;
-        Thu, 22 Oct 2026 10:34:29 -0700 (PDT)
+        bh=tHlWMfT2Vn1jhxwuk47U/QSe3Sx/Rh/6scTTXAvnAJ4=;
+        b=l4sF7ow6wiqC0jxgZHgiyQe6JY9RpfmFgE91AjXlaYuVcEV0KSH4gqGFF0E1ct1aaF
+         KT3XaWAMWcBUH6c00Jlkv+Er2xXlQ1DJs40TwN3BMdd8sgylzbHYFDmiMfJ5dkGfo6Or
+         khrimCwfrsul+5fh9YohdOtJ4LoQG3mvAMtQPeSop5O9fX47PN9XXSDnZoc4aCGYW1CE
+         xvahjNtKZ6RLNFxQJIF/hcIIyiPvMAR1zxWef6DyfRUtAYAAhcIVy2kIua7Ti3ppTa5p
+         VXKnNVitnao/9gQEo0kMPhqxAFiMDOW9/6dtXM1PxPyBrRrzCZJuMBQVOzZKpDLFxGTl
+         B1gw==
+X-Forwarded-Encrypted: i=1; AKwUvBzthagxBlisHgUfPEhXyKGL9zQn5avX3IU4AjlmSdNRBPM6zYCiwcMZvqgi+eFFHwpoCL07XMIOiM53@vger.kernel.org
+X-Gm-Message-State: AFq9FYJANEa4IJ3hdd6wsiutIoavA5xf3/WyiMqzd30gOBXx8tVC7sFK
+	mDY0cV7qLojV5tSf4hVks7eZybVZeMNDbtpzk002gvyDoRdA6kuSo4ALVABEJUabNw3q1pqRMFY
+	LHXclImQ=
+X-Gm-Gg: AYBFou0pE7Ii04IZAszGgwwvvdBPV7Vl/anVpoItLKOmAE2rmZs56AiDj7v02fwym0t
+	Xi0nI0LrlrlNxI7jdpo+k00k+jssouQdnmLzPsEcCoUtnZGhHaXKCFghbZdcZUSxWOR2rcKss4R
+	LTiwZX0nh10J2eswWMP0dNgKvkGdMmTm0hD91zyb1cNyyuFhSEkHHg7+F/T/3762Mrn3XT6fpYx
+	3+GZUmRBg9TNdlRzRI0gqvPRYrRFa1+HukikCklNDeNoMhKEywA/CR6EYpWBcsj3oWFrNJXM0tP
+	bfUCY4sfIaewc95OWDaELYeAYDW9L74DnGGXKoySTVacIXI2Nq5GNrdLai9LXUvybTyWRamUakM
+	aNo4hMCtV2G+/3MURQL8rer9iiKKta5g3WjH5hovEGPfQukT5evf9YQPmML/g0uLsvwL5S+Qa+4
+	YiTrB9pXcLV3al2ew/2RNxiRNwBvkdkkb+BIUXQgArVPfOOWB39FBPT0h3RpTFIn7uB5bWb/fwQ
+	5H+y4vlnk7q6aSc0eiu7S4SRZHbVBDHW34hAFL9Fp9TJRGc8vs1kLvES6SoRAXgzuusE/gNWijb
+	QI92S5EtbyWNZ5hwbHNajvzYCyKSHtg=
+X-Received: by 2002:a05:600c:c094:b0:4a1:faa1:3813 with SMTP id 5b1f17b1804b1-4a1fdd26e79mr104625315e9.27.1792690475189;
+        Thu, 22 Oct 2026 10:34:35 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm13572410f8f.22.2026.10.22.10.34.27
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm13572410f8f.22.2026.10.22.10.34.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:34:28 -0700 (PDT)
+        Thu, 22 Oct 2026 10:34:34 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 22 Oct 2026 18:33:55 +0100
-Subject: [PATCH v6 02/18] media: sony-starvis2: Reorder link frequencies to
- remove lookup
+Date: Thu, 22 Oct 2026 18:34:00 +0100
+Subject: [PATCH v6 07/18] media: sony-starvis2: Correct the exposure range
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-media-starvis2-v6-2-374343f55fd3@raspberrypi.com>
+Message-Id: <20261022-media-starvis2-v6-7-374343f55fd3@raspberrypi.com>
 References: <20261022-media-starvis2-v6-0-374343f55fd3@raspberrypi.com>
 In-Reply-To: <20261022-media-starvis2-v6-0-374343f55fd3@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -109,73 +108,42 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-link_freqs_reg_value is table that just reverses the order of the
-link frequency enum.
+The software reference for imx678 lists register SHR0 setting
+the shutter sweep time with a valid range of 4 to (Number of
+lines per frame - 1), and then gives the example of all-pixel
+scan mode with VMAX=2250 and SHR0=2249 giving an integration
+time of "1H + Toffset" (further defining Toffset as 0).
 
-Reverse the order of the link frequencies so that the table is
-redundant, and remove it.
+The driver defining STARVIS2_EXPOSURE_MIN as 2 would therefore
+be contradictory, and doubles the minimum exposure achievable.
+The maximum exposure is derived from STARVIS2_SHR_MIN which
+is defined as 8, when the actual minimum for that register is
+4.
+
+Correct STARVIS2_EXPOSURE_MIN and STARVIS2_SHR_MIN.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/sony-starvis2.c | 31 ++++++++++---------------------
- 1 file changed, 10 insertions(+), 21 deletions(-)
+ drivers/media/i2c/sony-starvis2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index e62cde583324..134fececac5c 100644
+index 340f2ff0ef87..84f3978e1eda 100644
 --- a/drivers/media/i2c/sony-starvis2.c
 +++ b/drivers/media/i2c/sony-starvis2.c
-@@ -187,25 +187,14 @@ enum starvis2_lanemode {
+@@ -62,10 +62,10 @@
  
- /* Link frequency setup (DDR: lane rate = 2 x link freq) */
- enum {
--	STARVIS2_LINK_FREQ_297MHZ,
--	STARVIS2_LINK_FREQ_360MHZ,
--	STARVIS2_LINK_FREQ_445MHZ,
--	STARVIS2_LINK_FREQ_594MHZ,
--	STARVIS2_LINK_FREQ_720MHZ,
--	STARVIS2_LINK_FREQ_891MHZ,
--	STARVIS2_LINK_FREQ_1039MHZ,
--	STARVIS2_LINK_FREQ_1188MHZ,
--};
--
--static const u8 link_freqs_reg_value[] = {
--	[STARVIS2_LINK_FREQ_297MHZ]  = 0x07,
--	[STARVIS2_LINK_FREQ_360MHZ]  = 0x06,
--	[STARVIS2_LINK_FREQ_445MHZ]  = 0x05,
--	[STARVIS2_LINK_FREQ_594MHZ]  = 0x04,
--	[STARVIS2_LINK_FREQ_720MHZ]  = 0x03,
--	[STARVIS2_LINK_FREQ_891MHZ]  = 0x02,
--	[STARVIS2_LINK_FREQ_1039MHZ] = 0x01,
--	[STARVIS2_LINK_FREQ_1188MHZ] = 0x00,
-+	STARVIS2_LINK_FREQ_1188MHZ = 0x00,
-+	STARVIS2_LINK_FREQ_1039MHZ = 0x01,
-+	STARVIS2_LINK_FREQ_891MHZ = 0x02,
-+	STARVIS2_LINK_FREQ_720MHZ = 0x03,
-+	STARVIS2_LINK_FREQ_594MHZ = 0x04,
-+	STARVIS2_LINK_FREQ_445MHZ = 0x05,
-+	STARVIS2_LINK_FREQ_360MHZ = 0x06,
-+	STARVIS2_LINK_FREQ_297MHZ = 0x07,
- };
+ /* SHR internal */
+ #define STARVIS2_REG_SHR		CCI_REG24_LE(0x3050)
+-#define STARVIS2_SHR_MIN		8
++#define STARVIS2_SHR_MIN		4
  
- static const u64 link_freqs[] = {
-@@ -914,7 +903,7 @@ static int starvis2_write_common(struct starvis2 *starvis2)
- 	cci_write(starvis2->cci, STARVIS2_REG_INCK_SEL, starvis2->inck_sel_val,
- 		  &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL,
--		  link_freqs_reg_value[__ffs(starvis2->link_freq_bitmap)],
-+		  __fls(starvis2->link_freq_bitmap),
- 		  &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_LANEMODE, starvis2->lane_mode,
- 		  &ret);
-@@ -1177,7 +1166,7 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
- 	const u32 hmax_4lane =
--			min_hmax_4lane[__ffs(starvis2->link_freq_bitmap)];
-+			min_hmax_4lane[__fls(starvis2->link_freq_bitmap)];
- 	const u32 lane_scale =
- 			starvis2->lane_mode == STARVIS2_LANEMODE_2L ? 2 : 1;
- 	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
+ /* Exposure control */
+-#define STARVIS2_EXPOSURE_MIN		2
++#define STARVIS2_EXPOSURE_MIN		1
+ #define STARVIS2_EXPOSURE_STEP		1
+ #define STARVIS2_EXPOSURE_DEFAULT	1000
+ 
 
 -- 
 2.34.1
