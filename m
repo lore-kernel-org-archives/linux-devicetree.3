@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661990;
-	b=l8CH+DntCG0ciahQKLMWxyKaeK4aRWTNRnft8Z03YPaimoE6Rnsw3ZwJ6Z4Gx1CDSiFl
-	 kd6TDFVm2T2Olny3/1WtEd4KNa+axojdKa+uNLICf5oWKhp6vnC1qNRh/Z2DpUVka4lIe
-	 kZ9AA3/G8DWZVQCH/gAc7XWuy4o5bJIsTBVg84qnu9P1Nxqarj0MpN7W7veVGT2RqSEst
-	 DPMf/TW7apmBz3A9N7jjWTq2s7otI/KQthAMVgxaDFmxdhwVFJPTkHoy2amG9y6TN7aQM
-	 uNyVGcID4fKLpr1sEgYDNUsC1389jWaJGiM1z3cXUEH2EOx7MRkFht3YpLk1OPrc8Yw==
+	t=1792662096;
+	b=c8XQ1xvFgcpEK6Qfy+0aUg3//ngWxgxE/8oYBJsSLbrkEMQHFtmW4gTZkQ55jnGwJp5z
+	 EY/8j1sAu3MVMTq9J0hipqVJqcSRTJ7cbVYIDNFj69g3PmHjfxU9vpYfQa+a6wOE1NzS4
+	 VjFQBF5HCHX5MdfSBIL01rZxKJ2sRUP8H9TnPTr2wtlcT2OszWrQ9yNqZ1DCFAQGcFOPR
+	 g6OrZ55UvFsLyPOleIPuOVi9PqxQhXhNo6P4yvLL5Pa94o095eZENkuRZM2BCVWeGd0ZN
+	 pf4a7LD+Nnav7/oaxluf51jmrKR7YndKYJgMeT4/6j0AtgKTNv715SIzQo1xTq4lGHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661990;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8QPpTh6YuRjV3Ms8l0e6TcQM+oeEhpt6kvwSV24G2IU=;
-	b=qOBA/nYAxaKmKCuNidUMo/wG/XJEBekp2guXxhplnSJa7hhtUtiRFAbrMw0E9hkCJojf
-	 BKlaGeP79g5qAMtX6W+IhMfCYfdmfas8r4i7EKddzgISUu6i0Dop/YlJb3imFcSET2Zti
-	 NGfz0tF6GA0CftAtl/SVpib8KkbXARI7YOsSg5bFwcnYM4jaZZIT5PVaJ94n9anQF4fzV
-	 8wYIdJJHcY9pcio7fdYkp9eIJsrve8skQgteolOtazYjOZaCK3fGl93t5eDovM/RoWN4J
-	 OujjLJMfhGIndvc3HYsf6plkpIfgjfmzHARVMEt7Ny0WfFlSH75cKY24mWXCxN0uwSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662096;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=ZO3QijMDlQGB6qI6turwFa39VuovzlWi+zzZq/Y2Sow=;
+	b=QMv/vwgOg+YueaajzJQjQvesP3REn/ymgNE/h8X0wD4x8uxESfmTp/C1+Fqh7UBBoZq3
+	 N4hxBGzFxb2UYsr7v+i4XmbowGIeA42r7hbszRM9cim0JydiRRBqNp/mO2JuxWCUIm67R
+	 RDByKYfUuDUGNJ5vCS2PqOwjYhXdkAcsaCevmN3pnaqD5gsJVYX4JtA1OwTgi25/HfRdh
+	 t2KdiPrnyPvk8xlzgXJOqgdktfYd9t3akTVoXk2qsnvvl32O0jbJlpI/h3x31vZG0f8/p
+	 YN4YY91e7Rv3ImkMf3PhNWwhp4RTHYmNlWFRtGTr28YxUNgtruHrnWhK9uAEu3aqFWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/XHCNPh";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="qIjlwC/5";
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE949606A31D;
-	Thu, 22 Oct 2026 09:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A6D606A31E
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 09:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74A6D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/XHCNPh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C79C1F000C1;
-	Thu, 22 Oct 2026 09:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792661989;
-	bh=8QPpTh6YuRjV3Ms8l0e6TcQM+oeEhpt6kvwSV24G2IU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P/XHCNPhyHJIRXO6RDtz/kP+Qcx9mh8MHCgvr31OpBMjsgTezm9AcVZ1KDoUtSsWW
-	 l39vWe2a2Mxq4NZcj88M2h5Ev7jLCPDtJTS3+1YgkEkTwzhR6DfXSFEXc90WmB8RkI
-	 KbcsbAd9VDksr5uD9x6MpVCIkh1RjKhX4Crv4+Y6lcw4VodmlpQq8yHUTNp1oqkpqw
-	 JpitdiY//8B3xbpnuj25c5hm6CUkpMeQNle0WfnXEd3/kVKMU5NgBXeqiRvjVxGYWQ
-	 6wy4iGH0bv+M+QaeKdqx11y+mCZiU0BivNULQ5OCAhHpPEnZFoHvZ7eDLid9b36e6w
-	 LfEXfvrk4Q0og==
-Message-ID: <sashiko-outbox-181271@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sm7225-fairphone-fp4: Add
- AW8695 haptics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261022-aw8695_haptic_fp4_driver-v3-3-ac8c14377e82@fairphone.com>
-References: <20261022-aw8695_haptic_fp4_driver-v3-0-ac8c14377e82@fairphone.com>
- <20261022-aw8695_haptic_fp4_driver-v3-3-ac8c14377e82@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 09:39:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qIjlwC/5
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9995ce866so12787245ad.0
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 02:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792662095; x=1793266895; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZO3QijMDlQGB6qI6turwFa39VuovzlWi+zzZq/Y2Sow=;
+        b=qIjlwC/53Ob/h9wveqCCxyG9bSf/7jYt0zFC+PfBzfr7JccVi1Ia9lUEeT0vP+48cg
+         kyg3I3XtG9jdkw093xYuc6ENRd4wRprh8Iz91QwAqcLfS0rt0QchpQy5Vp1ry5C+W6fi
+         daSJR1L0aJJpG5xYLIu43uvLNNkvR3ujJNEfW64BJRPTpaXxu/7aztMBkE8y9/cSZFRO
+         M88B+RmUx+/hQ27zQjiPzLbT9pK9o9vSjVaJR9CI3CqiOQ2p47jmxl/ccMTbJwK3QrgS
+         6Vi6xSMsL1qLBnuP+pAzXjQaWQV93OzyOziSJh9tBBt2t4faan4YnvXy8xZ9ZwmaPw0P
+         MZfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792662095; x=1793266895;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZO3QijMDlQGB6qI6turwFa39VuovzlWi+zzZq/Y2Sow=;
+        b=eVvJQC5qXgqwu4eaT8a874lmVd/6Z0PZ3+G3YrKIWVzvb5AoT1idtP1ehyvyPN7H5q
+         P9I8dwiumprvetmhxXj9hIrrQmMgJDXVON1KpBTGnQRqyBYLQiI2ksuvRIddczr+e2Ev
+         Gmab+kzbkevfBCCSNLYRn7ir653W4tL6zZX83xdjToFNLNX4UZLmS2qrotbzsfRsUXQw
+         9p/gKVs3s262HcyFUdEP2t5BJMD83ufLmTBE7al9kmUf6eyJeY9MU1QuMfxXU0jJOAiK
+         lfJcOC1ZugP18y7qj4ybPygr+j09W0tB4qtIXTZaY/QfrWiWaUAWr2QdmvYlArD0+W/g
+         LWeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBweJkpPfdyoSEVJjKm7iGuEc+2miXXKqRnYrF2DAgEy42rrVU0Lwmu1WAt+DjPR73HiJNKH25WQbeVk@vger.kernel.org
+X-Gm-Message-State: AFq9FYLygC3S97ENm0XXbLo8o73psNXopJpNiw9kG5OhHDDRqgtxLnGL
+	dVpZJDD0jenyZlpsKy8rQcDXEDXBqIzde49Q0QMV95fgG94pGmeDETjl
+X-Gm-Gg: AYBFou3vDF1A/mCqeKj98vtcF2u1k9o9R53RaHccjz7ajKDFkMA8xXAm8SK6GeSqjH/
+	OUbYVhwJQ5stQW9+kwnO1k/mr7K/QD13sG0S8JO6ECT9DccKI9t0+9+cpozago972rUycgWr/cJ
+	6Q8zfVcfL1XDD57DPwuhwXOMDRk/2G6YUn1ns0+nmfRtEmyitY/JsiWxNZKKcuTRuzA+ixuY/yV
+	g+UL+WoOIutgR/Jdn8aiY0V1hh6lCKCPA27iwL4jc/zAtnwgShj8Rd4GAX+ESzqgqT9HWn72YZ8
+	enR5Wz2I9p6QoR5y+OgMUwUS5EnFC09lWTL0lJasEAx2ZZb6zOETjyvXuV6A67JdjCyBN9Wz6i+
+	gFhHaPlmQyzpyCAqFsNI8mZTD8hbUNL4yGgXOCwCqWqqSVIx9qKtZ8i1zNHy59zUmDSa5u88s7a
+	dexIfAvUNOr+9fCNKxw311vsg4BBbBe7XKN4DhRYFTjgQCLgFesqKuN/tGQoyFp2n8a09ZRZKZf
+	231HA3qnK7uzRzdXtCCAX6fYgejEQMeLkus75+GHlHgDdXP9g==
+X-Received: by 2002:a17:902:ce10:b0:2e8:5202:aa8c with SMTP id d9443c01a7336-2ea43fbc008mr40821225ad.48.1792662094813;
+        Thu, 22 Oct 2026 02:41:34 -0700 (PDT)
+Received: from [127.0.0.2] ([2404:c0:701f:d27a:ab05:82e0:7670:1951])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b4356c1sm21483075ad.38.2026.10.22.02.41.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:41:34 -0700 (PDT)
+From: Reza Kurniawan <imkyufie@gmail.com>
+Subject: [PATCH v3 0/4] Fix PSCI on MSM8917 and MSM8937
+Date: Thu, 22 Oct 2026 09:41:09 +0000
+Message-Id: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,171 +89,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02Nyw6CMBBFf4V0bU0fUsCV/2FclHaAMfJIi42G8
+ O+2GCPLOznnzEI8OARPztlCHAT0OA5xyENGTKeHFijauIlgQnHGJZ28Qdrgi5ZaGGaVUKrRJOK
+ Tg3jeUtfbd/tnfQczJz8RHfp5dO/tV+CJ+2WLfzZwyqgFq0EUcNKSX9pe4+Noxp6kbBB7sdyJI
+ ooyb1Re5xXUld6L67p+ADr8iXrrAAAA
+X-Change-ID: 20261013-psci-fix-8a2c0d6266fa
+To: Mark Rutland <mark.rutland@arm.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Christian Loehle <christian.loehle@arm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Val Packett <val@packett.cool>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, Alejandro Tafalla <atafalla@dnyon.com>, 
+ Reza Kurniawan <imkyufie@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Input: aw8695: broken mode and work handling in aw8695_resume()
-- [Medium] Input: aw8695: unnecessary motor stop/restart on magnitude change
---
+PSCI on Qualcomm MSM8917 and MSM8937 advertises support for OS-initiated
+mode through PSCI_FEATURES, but rejects every PSCI_SET_SUSPEND_MODE call
+with NOT_SUPPORTED. The cpuidle-psci-domain driver treats this as a
+fatal error, so probe fails and the CPU PM domain topology is never
+registered:
 
-commit c2d347c55cb0bb284bc1c38784be67d2387872b0
-Author: Luca Weiss <luca.weiss@fairphone.com>
+  psci-cpuidle-domain psci: probe with driver psci-cpuidle-domain failed
+  with error -95
 
-arm64: dts: qcom: sm7225-fairphone-fp4: Add AW8695 haptics
+This series adds a "skip-suspend-mode-switch" property to the PSCI node.
+When present, cpuidle-psci-domain does not call psci_set_osi_mode() and
+continues with the topology it has already built.
 
-This commit adds the device tree node and pinctrl configuration for the
-Awinic AW8695 haptics controller on the Fairphone 4.
+Skipping the switch is expected to be safe on these platforms since it
+matches the behavior of the downstream kernel, which manages the
+cluster power level in addition to the CPU power level, just as Linux
+does when OSI is supported.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm=
-64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> index 5d20ad93b0c54..19ffd652b0eb8 100644
-> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> @@ -707,7 +707,17 @@ vreg_l7p: ldo7 {
-> =20
->  	/* PX8618 @ 26 */
->  	/* SMB1395 PMIC @ 34 */
-> -	/* awinic,aw8695 @ 5a */
-> +
-> +	haptics@5a {
-> +		compatible =3D "awinic,aw8695";
-> +		reg =3D <0x5a>;
-> +
-> +		interrupts-extended =3D <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios =3D <&tlmm 90 GPIO_ACTIVE_LOW>;
-> +
-> +		pinctrl-0 =3D <&aw8695_int_default>, <&aw8695_reset_default>;
-> +		pinctrl-names =3D "default";
-> +	};
+Additionally, it also adds the property to the PSCI node for both
+platforms. For MSM8917, additional change is added to fix the system
+being unresponsive at idle.
 
-[Severity: Medium]
-Enabling the haptics@5a node in
-arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts binds the driver in
-drivers/input/misc/aw8695.c. Could system suspend and resume cycles cause
-unnecessary idle power drain and dropped haptic playback in
-aw8695_suspend() and aw8695_resume()?
+---
+Changes in v3:
+- Swap ordering (patch #3 <-> patch #4)
+- Link to v2: https://patch.msgid.link/20261018-psci-fix-v2-0-35f65b59eb9a@gmail.com
 
-drivers/input/misc/aw8695.c:
-static int aw8695_suspend(struct device *dev)
-{
-	struct aw8695_data *haptics =3D dev_get_drvdata(dev);
+Changes in v2:
+- Small phrase change in the property description
+- Added property check in psci_1_0_init()
+- Link to v1: https://patch.msgid.link/20261017-psci-fix-v1-0-dedae27e4a31@gmail.com
 
-	if (haptics->suspend)
-		return 0;
+---
+Alejandro Tafalla (2):
+      dt-bindings: arm: psci: Add skip-suspend-mode-switch property
+      cpuidle: psci: Allow skipping the suspend mode switch
 
-	disable_work_sync(&haptics->play_work);
-	aw8695_stop(haptics);
-	haptics->suspend =3D true;
-	return 0;
-}
+Reza Kurniawan (2):
+      arm64: dts: qcom: msm8917: Use a shallower cluster state to fix unresponsive idle
+      arm64: dts: qcom: Skip suspend mode switch on MSM8917 and MSM8937
 
-static int aw8695_resume(struct device *dev)
-{
-	struct aw8695_data *haptics =3D dev_get_drvdata(dev);
+ Documentation/devicetree/bindings/arm/psci.yaml | 13 +++++++++++++
+ arch/arm64/boot/dts/qcom/msm8917.dtsi           |  9 +++++----
+ arch/arm64/boot/dts/qcom/msm8937.dtsi           |  1 +
+ drivers/cpuidle/cpuidle-psci-domain.c           | 16 ++++++++++------
+ drivers/firmware/psci/psci.c                    |  6 ++++--
+ 5 files changed, 33 insertions(+), 12 deletions(-)
+---
+base-commit: 9a482184d910775cf648863148944945b74e2815
+change-id: 20261013-psci-fix-8a2c0d6266fa
 
-	if (!haptics->suspend)
-		return 0;
+Best regards,
+--  
+Reza Kurniawan <imkyufie@gmail.com>
 
-	enable_work(&haptics->play_work);
-	aw8695_haptic_set_active(haptics);
-	haptics->suspend =3D false;
-	return 0;
-}
-
-During normal initialization in aw8695_init() and whenever playback stops
-in aw8695_stop(), aw8695_play_mode() places the hardware into standby mode
-and masks under-voltage lockout interrupts. aw8695_haptic_set_active() is
-otherwise only called when entering ram mode right before starting
-playback in aw8695_play_sine(). However, aw8695_resume() unconditionally
-calls aw8695_haptic_set_active(haptics), which switches the device out of
-standby into active mode and unmasks under-voltage lockout interrupts even
-when no effect is playing.
-
-In addition, if the system suspends while an effect is playing or queued
-(haptics->level !=3D 0), aw8695_suspend() disables play_work and calls
-aw8695_stop(haptics) without resetting haptics->level, and
-aw8695_haptics_play() can also update haptics->level while play_work is
-disabled. Because aw8695_resume() neither restarts playback nor resets
-haptics->level to 0, a subsequent aw8695_haptics_play() call with the same
-magnitude will hit:
-
-	if (haptics->level =3D=3D level)
-		return 0;
-
-and fail to start the motor.
-
-Furthermore, aw8695_resume() calls enable_work(&haptics->play_work) before
-the sleeping regmap transfers in aw8695_haptic_set_active(haptics) and
-before clearing haptics->suspend. If play_work runs during that window,
-aw8695_haptics_play_work() sees haptics->suspend still set:
-
-	if (haptics->suspend)
-		return;
-
-and drops the playback request. Both aw8695_suspend() and aw8695_resume()
-also ignore the error return values from aw8695_stop() and
-aw8695_haptic_set_active(). Should aw8695_suspend() and aw8695_resume()
-keep the device in standby when idle, order haptics->suspend updates
-around play_work properly, and handle haptics->level and error returns?
-
-[Severity: Medium]
-When userspace updates the magnitude of a playing rumble effect on
-haptics@5a (for example via periodic envelope updates in
-ml_effect_timer() -> ml_play_effects() -> aw8695_haptics_play()), why does
-aw8695_play_sine() in drivers/input/misc/aw8695.c stop and restart the
-motor without applying the new magnitude?
-
-drivers/input/misc/aw8695.c:
-static int aw8695_haptics_play(struct input_dev *dev, void *data,
-			       struct ff_effect *effect)
-{
-	struct aw8695_data *haptics =3D input_get_drvdata(dev);
-	int level;
-
-	level =3D effect->u.rumble.strong_magnitude;
-	if (!level)
-		level =3D effect->u.rumble.weak_magnitude;
-
-	if (haptics->level =3D=3D level)
-		return 0;
-
-	haptics->level =3D level;
-	schedule_work(&haptics->play_work);
-
-	return 0;
-}
-
-aw8695_haptics_play() compares the full 16-bit magnitude against
-haptics->level and schedules haptics->play_work on any change between two
-non-zero levels. However, aw8695_haptics_play_work() only checks
-haptics->level as a boolean:
-
-	if (haptics->level)
-		err =3D aw8695_play_sine(haptics);
-	else
-		err =3D aw8695_stop(haptics);
-
-And aw8695_play_sine() never writes haptics->level to a hardware gain
-register, while always beginning with aw8695_stop(haptics):
-
-static int aw8695_play_sine(struct aw8695_data *haptics)
-{
-	int err;
-
-	err =3D aw8695_stop(haptics);
-	if (err)
-		return err;
-
-As a result, every change between two non-zero magnitudes halts the motor,
-polls up to 200 ms for standby in aw8695_stop(), and restarts the waveform
-at the same fixed amplitude. Should aw8695_play_sine() program the hardware
-gain from haptics->level, or should aw8695_haptics_play() avoid restarting
-the motor when haptics->level is only used as an on/off state?
-
->  };
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-aw8695_hap=
-tic_fp4_driver-v3-0-ac8c14377e82@fairphone.com?part=3D3
