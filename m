@@ -1,49 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.129.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792627216;
-	b=Ac68TZ8fGLKNj5LoXqgBA6VkaNtDcFiOdGd1wetfrMexCzAtRYNZsYt7gLCIBUghzEvi
-	 jccQ0Zke+3T9Vl/qw8rxTYsbC5wImKpW0x4HDlTv8Q2VrpHxjqhoovgRHEdqxFQNd0lGj
-	 9ATGV68NzTh1wMcifP7CwLqfChvIyhEwDR05tjnvpbvcyAHPJ8Ogkw2cLRz0x1mRsB9SC
-	 pQ3qL647i+yRGXkZx2AnIQFwAND8ezTFyazQBHU1Kas0e8a3MzuYudeBO/wE5pdOweHtl
-	 JBpKa9pw1eUVtyYyN67krDS3AowswYQ1WDKXHQ8fqCxJ7MZvbq90fPmS0x79fi6BFbA==
+	t=1792627245;
+	b=QKH6q2fsA6yIEbc5SipVLCnvleXETQUgJCIiW+GjpydpkLMzTCFb0EGJigCTvRRDdehj
+	 w8n79nXzNgRT9LlDtkr9aj/jd3P175y3Lkv+dv5FXCRtKveKzZ7uVBX4w81AWInuLbDfz
+	 jHwpha3uEAp53I9gty2sD0cn1QTJF2qPrf5zRJ73OLxwpqAtYewU8Ti4TuRVQL8xOlslZ
+	 qG+9Cr5lSPedMUn9XCoJvxv1YJpw6cUrz8kfUNAYa/PXbjB93G98ZUayoEdQ+dnePJ59L
+	 XJM7FQlOt+Vpg/HF3Cao6ui3rr2x95SF8QxNddw/0cCEzgHhfoVym+mfDB6qHEoJ5Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627216;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=oeaPBug6/xWLhwouYwYkca8RXEKCAo3ofPz2I6rBfnw=;
-	b=3W6fHE1gUpjtKBom+udbqOjmVgnhxRDYjgogfGH8l1AUDjyA70m4SZx3TcdPNOHTy2Lu
-	 MFe3kwAMPBspc3F9a2xHQP9ppFEQ5JAAMKRxPedGdr4SFZmlgCbyx3X/DlEaFWCnaOYqK
-	 iXbhLxAH7OzFKekDbN07vSWTvXvriliWvI1yxBqumBarWGbd0qlrNs5/xHA7ml+3UHyLm
-	 HidzD/XwjMiCYE/aZmfyAXdO6krnFYC2khP1mRp94gXmzwO9qZFmu/M8ez6CdMVDSx3MP
-	 H9eWa18HQ++NixRGhGxnhpqU1dTWeElFjf5zMg1aVJmdHN2XaMvSQdhnqqksGdp6M2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627245;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 References;
+	bh=druPvQMWSEwX5b8Wb6p1csxuRLy9IK+eHcT2X1I1yfM=;
+	b=AjTAcHyQCZzXEpCVX4R9Tb6i7/3OPIhKChA12aYui1l5pBo6Mk12tn1uplHlTB2WMsiX
+	 wWqKEbI+6IXcmM4QJaPG1FMiwpt9S/DNFxkOPQxJLLlOVSehscUre19zHFp6LWphqy4bf
+	 1I/6kGE4jEkLpKGnv0npJps8Umq/ieJirpgKPXB5xoCrEaAeq8uuY1JV8T9qpOQTXByPr
+	 jR7S6ooUIZntva/C0IGEeW3ll33hDRkzlZw9/5lRgQBX5QAH3cfE9ID+ct2eKmMNd8Y5M
+	 L1r8CEj4y2rmK0ZriyeIxHupDQnoucBiCHMYHSaerTm/2kmzQfrbRiYZjcrbg6wxy+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SH7ETnz1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=VMebvADs;
+	arc=none smtp.remote-ip=74.6.129.40
+Received: from sonic301-1.consmr.mail.bf2.yahoo.com (sonic301-1.consmr.mail.bf2.yahoo.com [74.6.129.40])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E7606A322;
-	Thu, 22 Oct 2026 00:00:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D3D606A31D
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 00:00:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D3D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SH7ETnz1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434A81F000C4;
-	Thu, 22 Oct 2026 00:00:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792627215;
-	bh=oeaPBug6/xWLhwouYwYkca8RXEKCAo3ofPz2I6rBfnw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SH7ETnz1YetRCDkzeITBRMBeku3mwFPAxNZWkqy6KmisasaXRbX4c4kCLRfifqzyJ
-	 NpaaYD+up0TXFSX0C/3gyj07Iro0J/ymad22CpJrvUwagcJojPs14Ey+vmMwe6mYxk
-	 EWx1PcDCAtrOXGDFl62y63LcSoW+QSEXhyvCkbd1OoNY9JCutqPvG+S3Pj7TieuXoQ
-	 iIBLm92zZUYGE1UAVCT9hYRfJB1m4G4oyg1SHREO9Qr1M+0iAhSoiPlr8DqTDsoPiH
-	 uLeAhH9kCVb8TKLBJavXbW5IGSsuuIwSh752UIp7/S73NTf3PJc3I2szPD7k26zcUA
-	 py9Sq9NWLuulw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A374380A963;
-	Thu, 22 Oct 2026 00:00:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=VMebvADs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792627244; bh=druPvQMWSEwX5b8Wb6p1csxuRLy9IK+eHcT2X1I1yfM=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=VMebvADsY+fxA2EEGqi+t33HjuUafNeDG07G2ephR07Yw9IL+svnB6EYUzObRY4mFQHXEtoIlEGkyAdhkaHLzS6o9rN2OUp/Syxf0NRB1YrfLSzK7Ke4wWP5NeGq7uLupgt62Us+XErVU1ODArct9baiNrOwGL6OuFhV0wwu3bupu3yVQ2FN5rm3PwZGWg+1Fd++Cqxiu1LOgYlRYxA+D4Z6j9gqUcqfRvjsoMoF9YRW3b7iQOab9IUDsGksUiMNc7AhdCd9vAXiIILoJTs8bN3kh3cxjehHgRIOc4Y9zw5rBeO//JIfChm169nFS1oTnwUxslWeJwcNqyFdM+VQZw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792627244; bh=gCVDNBxNxiyObti9oZoeitmApgHtlHkTPJ/LClGgnaI=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=OzKgTaWm1CDgiz7sAozzOxmmhEzEzE4Uq2dFYFYeyUk8WMVsax6Dt4GmZw5PNUvytO7xGWcHg1IzwrrfhNgbYlBOWnNzOm4JS62LxENwlwsZYG+PpyLZ+C8YJlUIU1aNoQAAJSu6kDCG3fO2fLkE9IPi+bfmcJ+iuoSNkoCJXtKlzqVTXrLFN8DLZPCFCFx0qwGjTmQfF883Mk2DlIMuoV6ukZKGoOHWOrUiXm+C7oEcicPmymyZYQHhts9YJA48/P6H/1m4IB9ZRv/UiMQm8cZOGoTrEkK88KcsNQdW60Um/WvRJ3yAR7ZTC6Z9W3YjcCm/s4hITMfBcWPAE0xhLQ==
+X-YMail-OSG: 3s8FuNcVM1kSD0x5ae.6miMlXMElNDiQ3se_ISwJKbIQw7dM0h.Z3RbtTukAho_
+ L2RRLppyZtkvq5xwjLZHXL.291ETaDtOYTjsteldRY2vwyVQoK3zhY8SAzk16EbrmwBd0E4o.OAt
+ 4Zgyv1EyPIhnK3BzIU5uSr6CAom_Sc5oxXxGyjQ5wvW6OtjCj6I8_qz2BvqtOVXkwsfsgbsH4Aq_
+ Uv.jSM4w3Vtt3TXQvq6Xoc3nXcDZY6N6dGyCRRcwYRDFb_mPeSgEiWEmya4ZdEEKMZHT8A9qW3_W
+ .TcqMKgYMdBUIhPhza3n5z5rmrUK2khdDJcYiV5k6xchkxRbi98AdORgHcwCTXn2h1lcREX5EfE8
+ xOkfdsQw8tVhLzU3TuVeLvf6PsxR5CKmxqw1xm3uJoJbX_IYGXt7p84NbMpwy6kK2oGsoCu03yxP
+ e7GhxVgtDYbFD7X0DiUx0hIP1dqHzIETOGOsUUsOIww1kWbgORRUh4p0tC.oS1T61ckuBPQ.9XIp
+ UofoZfhldQlRW0RI68C8XcGxPwH7JIeCgLikxte.B8wb_x3dUj5Z3U3SXNkmDK.zgFo_p3taS4DB
+ XBU5POxRoeCE7BvqXWlXbxzsH0YIEq4GrXKzp9bi0mLV.gH7Jyjyn4I58UK6wjsCji4FGmHeloIh
+ FkbLVNZs0dsP5.tYQLwc9K_BbaA40H4IV6sMlEGijIfE11_lNvxL.vIj0DTOxi7sFxpNU6T.iXCi
+ ak9W.65jH4Hyc0EaxFkd7kMDMlzMsBifspAVyalht_IRFeeJf5VeTxOKAzS.eeYohIiOb9tQDf2v
+ 73pd0c8in5VwRyX9exiWthfCDuaCHe5O5nyBJgjsj.zRxrYbihCGe0WjciQ95HLmz3vYbsUBdnw8
+ EkEZHRmRXD43sqIzLHfKWtasJQ5B_TCFLOusANxRvNnEnzNbVkPTMj3ivmdwad8vaeND_IQOw9CB
+ b9.e80bkxpFLnbeY7HmwjksEqX8SSauZLTqXT5aoWbYjNYyFD7iEPQ_jOaUTpuNWaJnd.GSeqh5r
+ 1HS6ndJChZx8muUYLlgQ8f3.b5S3LwZy_Ju3dugsGrMey.Ua6_Ho02u4mtGnydDC7Oowil9ahTKs
+ Ew8HzN4nY0noAANYdK4SoyoXxgrrqR0H.3dcnuAzA3unkJF.KKyTrrx3gQvzdJ8IRyxrJMAa_nzP
+ ApuxXPPNluGmDOwWYvoExnZtrqFt9SBP2LkGJ6.HiE1O6eiLWXjhIWM3J_dy4xGX4QIO.qDWQgoO
+ LvNnAnF4306S7d0QNTeSN5lkfg.OFgZSpAe2dElByVykdOxI3smhItkAM9hQm.HLpDgDxqBayiND
+ AmO75eexyN7mdoMJUVqWfAUrUbHC_izqGx_WntUTufm2Rc8FdxV_GPp7xUzyTtwOX9txeH0bk_hg
+ 1GDs_O7DZMYT0_zDpjZFOSGVm_lGrSTRAbgirU3E9.7l8u6iCjwm3dg_JrxAopDlqEJczqM.Eg2S
+ 6EK0l4lVxoFiQHUXItS38OIBbJ7_5SicK9V9zoEbGCAJEjCRqR9JVUCAHPx_zzXX0CYbzK2ODIUE
+ OSWSn2Je6GRIF7T9P285DOjlotKUScKrIHT0tAzyvhSuF904ZO5t.pP98wR3zAqDfLVwSvlneTC6
+ ApqVmURiqnJYLtcWS9SzHRPpN6LLMhk3iT3xhu6fJfg.qy7lR0PYdkvnJOsQmcHPgHMiG2Foyqq8
+ gzKIe4aLkLAC5.VoelqU28FCwrxl9qwn3ee3_YwuJKP1HKUrzmT2VtPjy217ba0ARJ2H_g_DsdVs
+ TIIBWDI4H0CZ9.H4bfPmTkPFMDXWApps9SzdxkICQCglgELD8w8nZEk6G35Im5F_jv_QGpkLGlQG
+ nho2nKT75ugqVficfz1XEfXcscJ4qpSTUnj.ENO7LIECz3aP6U1iqhdAAP0MGD_PkwEwyNg9YUsX
+ xo.mm0aRl8MGCQHYKDuAJefv0ReQflyLwJ71eaM4zfg8fac5MWhAyecckR5OdEcNh1c_BFRHzjl5
+ H_hnmXavp_dkR88mj2kvYJ2T0pTpb1Xl_KudLeY_6IMt6Pq_7QYREpABJIWBlg2nacJYdCK9D8as
+ _o9NFZGaVMINqGkBujl6ftDKg2M.G.I_ZWgaZUFExRQDqxq8KfLw9xKe4NfNePqgDxvW.j2Zt5s5
+ 38Qsitgv8e.VjGxD7y.ojgvOPBoFx3elZbP6v9fF7ftt6IJi_6ZU.ujdQ_Om6jIyyixlI3SMuBCE
+ _4WVukgbQ.7QqZBvNLlFKIf8xdjQ_0j1i.j.ivZAeirhOe0D.ELAdBf4UWkFNjgKdg3Vic0_P
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 7a71e304-921a-4213-bafc-1a598fb0340a
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.bf2.yahoo.com with HTTP; Thu, 22 Oct 2026 00:00:44 +0000
+Received: by hermes--production-bf1-6d6877594b-7nfrx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID aade7a6eefc81e54893ba8797da94197;
+          Thu, 22 Oct 2026 00:00:39 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeremy Dean Clifton <deaner92@yahoo.com>
+Subject: [PATCH v4] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
+Date: Thu, 22 Oct 2026 00:00:28 +0000
+Message-ID: <20261022000029.125691-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,63 +94,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v12 0/6] net: pcs: add basic support for RK3568
- XPCS
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179262721377.1368559.4824000922345412806.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Oct 2026 00:00:13 +0000
-References: <20261017054406.1828061-1-coiaprant@gmail.com>
-In-Reply-To: <20261017054406.1828061-1-coiaprant@gmail.com>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: kuba@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
- david.wu@rock-chips.com, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+References: <20261022000029.125691-1-deaner92.ref@yahoo.com>
 
-Hello:
+Convert the NXP PCA9685 PWM controller binding to DT schema format.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Changes from the text binding:
 
-On Sat, 17 Oct 2026 13:43:58 +0800 you wrote:
-> This series adds proper SGMII support for the Rockchip RK3568 SoC
-> using the integrated Synopsys DesignWare XPCS, along with necessary
-> fixes and refactoring in the stmmac core and XPCS driver.
-> 
-> Motivation
-> ==========
-> The RK3568 integrates a DW XPCS accessed via APB3 and connected to
-> a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
-> Photonicat) use this interface for Gigabit Ethernet.  However, the
-> current upstream stmmac driver does not support this configuration,
-> and the XPCS driver has issues in SGMII poll mode that cause the
-> link to be reported incorrectly.
-> 
-> [...]
+Document the 'reg' property and make it required. It was missing
+from the text binding, although the example used it and the device
+cannot work without the I2C address.
 
-Here is the summary with links:
-  - [net-next,v12,1/6] net: pcs: xpcs: add ANRESTART support for SGMII link recovery
-    https://git.kernel.org/netdev/net-next/c/e42329945d16
-  - [net-next,v12,2/6] dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
-    https://git.kernel.org/netdev/net-next/c/20bd39c3c267
-  - [net-next,v12,3/6] net: pcs: xpcs: add Rockchip RK3568 platform glue driver
-    https://git.kernel.org/netdev/net-next/c/b9e7cb89aac8
-  - [net-next,v12,4/6] dt-bindings: net: rockchip-dwmac: document pcs-handle
-    https://git.kernel.org/netdev/net-next/c/dffa8241fca5
-  - [net-next,v12,5/6] net: stmmac: dwmac-rk: add SGMII support for RK3568
-    https://git.kernel.org/netdev/net-next/c/5cd3229579ef
-  - [net-next,v12,6/6] MAINTAINERS: add entry for Rockchip XPCS driver
-    https://git.kernel.org/netdev/net-next/c/5e91edfb0e45
+Rename the example node to the generic 'pwm', as required by
+pwm.yaml.
 
-You are awesome, thank you!
+Describe both cells of the PWM specifier, and state that 'invert'
+and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+and OUTDRV bits in MODE2).
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+---
+Changes in v4:
+- List Uwe Kleine-König as maintainer instead of me, as he requested:
+  https://lore.kernel.org/all/athTVpsanlK9_mVJ@monoceros/
+- Add Rob's Reviewed-by.
+- Rebase onto next-20261021.
+- Drop the Assisted-by tag, which checkpatch no longer accepts in this
+  form; the AI assistance is disclosed below.
+
+v3: https://lore.kernel.org/all/20261012140346.3065-1-deaner92@yahoo.com/
+v2: https://lore.kernel.org/all/20261009211523.56122-1-deaner92@yahoo.com/
+v1: https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+
+The schema and commit message were drafted with an AI assistant.
+I verified each property against the driver source and the
+PCA9685 datasheet, and the binding passes make dt_binding_check.
+
+ .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+ .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 27 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+deleted file mode 100644
+index f21b55c95738..000000000000
+--- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-NXP PCA9685 16-channel 12-bit PWM LED controller
+-================================================
+-
+-Required properties:
+-  - compatible: "nxp,pca9685-pwm"
+-  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
+-    the cells format.
+-    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
+-    time.
+-
+-Optional properties:
+-  - invert (bool): boolean to enable inverted logic
+-  - open-drain (bool): boolean to configure outputs with open-drain structure;
+-		       if omitted use totem-pole structure
+-
+-Example:
+-
+-For LEDs that are directly connected to the PCA, the following setting is
+-applicable:
+-
+-pca: pca@41 {
+-	compatible = "nxp,pca9685-pwm";
+-	#pwm-cells = <2>;
+-	reg = <0x41>;
+-	invert;
+-	open-drain;
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+new file mode 100644
+index 000000000000..4c60f4260922
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCA9685 16-channel 12-bit PWM LED controller
++
++maintainers:
++  - Uwe Kleine-König <ukleinek@kernel.org>
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: nxp,pca9685-pwm
++
++  reg:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 2
++    description:
++      The first cell is the PWM channel index, from 0 to 15, or 16 for the
++      ALLCALL channel, which sets all PWM channels at the same time. The
++      second cell is the PWM period in nanoseconds.
++
++  invert:
++    type: boolean
++    description:
++      Invert the logic state of all outputs (INVRT bit in the MODE2
++      register). The setting applies to the whole chip, not to individual
++      channels, and is typically used when the outputs drive an external
++      driver stage.
++
++  open-drain:
++    type: boolean
++    description:
++      Configure all outputs with an open-drain structure (OUTDRV bit in the
++      MODE2 register). If omitted, the outputs use a totem-pole structure.
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pwm@41 {
++            compatible = "nxp,pca9685-pwm";
++            reg = <0x41>;
++            #pwm-cells = <2>;
++            invert;
++            open-drain;
++        };
++    };
+
+base-commit: 9a482184d910775cf648863148944945b74e2815
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.43.0
 
