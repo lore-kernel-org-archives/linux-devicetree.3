@@ -1,57 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792638585;
-	b=Fw+JqUxwEjG/zDq1fDghWXPy06c65AaFCkhIs4ing6vjH1325t2qGImN5oFTdh83YlFM
-	 VjV1khaVxewQcUhcmeM9AeYxpx/tqpC3J2OyFzwIivHDYCpVK4CjXtgIjTjq5Sj+u2osx
-	 si2Dx9k4Q0SJHX7YAZkG5wHhboqnjuFLwa5mPchCVs+wLo0llhI4le3+Ath2FyLULQK70
-	 FFCNeay+O4ZzIUS7AECDcQz/btp9PDzu2rKDZGBDMwIIbq6A5lB0/fvLHs0m5KErW2ktY
-	 1IBp9e5vghHLHXKSZhEv4Dzsqn63PJqvhsVpxL/QazVkIXvVLe4meMDwN8SBFrkCIjw==
+	t=1792639070;
+	b=yePwKaGnY3uXfls5C3IKzcA1MLp6X7Ms6/uYZOBc4ZP/4dJFadxyL7RAUuXbG1w9If9S
+	 sp15/8eCXAP+qgBPwwj5oY3oH/hdJW0L9gFxebwUKeHsGEKJQNaZuNQs9H3ihcO5pM6mJ
+	 ukCtR0p67oU2PfJSQu6BK3ch9lLs4R5yswC3rWwzISfxBQVQJ1g8vdzMtaQ9t1XWqU7i4
+	 N/L0VIPisaTb1vORj+TaSL6Fqn4PBJx9ekNv/5GXWpYXfPCg13YM67Ajm6voPanvhbf8v
+	 /DxDrwkPoS6WNm+yzmed+MzUPCariUfouSN+I7UePK52NaZX1qblMDZDacZlV0Kq7Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792638585;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jgf34uKfxpoRe0lvQPrJdjYJzLbCXEyXvafWFETELLs=;
-	b=mRVesxw1HFntP6reAPhyfT3+yJo8pyJbWZUsXtHBpBA5U5TBDkXLed/CVBkgrLHrHAXW
-	 yAQFTGYnMZl/D+AvWAN3RGGh9P7YRx6fDNL/FoDsPIWXKRw4iBI9ZoUEAYugz+goKmxzP
-	 rlGFJYhFF71QnM2v+2LEVO06/bApKza6FCnaAZhu/YOTuXm4P2xzXhoui3zjGvNRzytHx
-	 cGQn+vcv91Fjcn1n9vTog/IyqDPeVai8mllMTt4rXxDqiNc4BKQooy4KTaTtgsOHWeBSv
-	 D3g182CyI43OY8azKWJKq+iNHhKxYBJ32Wti9S3il+hmkJhhu2guYc+Ae/sLpZUtjvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792639070;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=2Vv9fUmCqweE9qS+76IlqIkZkrjZz9MP1KBOs5pGlCI=;
+	b=eB9905/GBn8xHH5AN8Yntna2my7NcaB6jSmmjVzlatWASgpcpDo+oIQLZkAJqpb7DiUG
+	 U3hqsHXkTi+IXzgTe6ddhaVbAMhykZNf3HqFEMObTCNODysPru6PA72p4SyqbJvRgf8OF
+	 +AL4fNVDUD58446Kn3h3JSaWLrlqt45DKGulurhkTMdZ/D/HX87ak8F1xvQxr6fhWLbNY
+	 IQBY0vrIWWLcgc/PjqbjXNjWvn8pCGwWKWH07iKrVQ2jJyAfsgNMGegIU3Z8F3HZCrnbL
+	 6d/siiHgWXub/KcJE1XWRWaqYWjtumdTn0ITFH2LoerNE4CyzNPPXSJvJTJaicYF1Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhBMP3vK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54305606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 03:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhBMP3vK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AE81F000C5;
-	Thu, 22 Oct 2026 03:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792638585;
-	bh=jgf34uKfxpoRe0lvQPrJdjYJzLbCXEyXvafWFETELLs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jhBMP3vKyzct+mg8rla6x2XUygkVaY5e2ODZNx9TMRC7PdykZb9fRgSp3fJkKUg9Q
-	 FgVYozUdGgqM1W2rAlUIUe4umuLnFtgMr88eB4gjX2bgYcLQYuAR1mZ1GLQ7IYrXHs
-	 7Oj3iDTiAUScy0hbQp8eGAKq8bQIn2knQGH3h2BBtCDtRgPOfXiSB+Pr7ZW+Mw5Yk2
-	 VYDaxJ1TnnGoRgyc5zGqOCgopznHi69/5MfSfPF9aylGsjWeJJHs847JAnYzL/TTq4
-	 tp+c2O/sBkygirc4PqY2w8G14Fg+xEQTStrgkAxaEMDjQJ8hFSsjtdZEx5TISjtJI4
-	 hh+7ZXczcE9CQ==
-Message-ID: <sashiko-outbox-180898@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/3] arm64: dts: rockchip: rk3568-photonicat: enable
- SGMII LAN port
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Coia Prant" <coiaprant@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261022025844.150320-4-coiaprant@gmail.com>
-References: <20261022025844.150320-1-coiaprant@gmail.com>
- <20261022025844.150320-4-coiaprant@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 03:09:44 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BE060A3815;
+	Thu, 22 Oct 2026 03:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81BE060A3815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792639066;
+	bh=2Vv9fUmCqweE9qS+76IlqIkZkrjZz9MP1KBOs5pGlCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R43SLHeRRzRAn9ShAZ01lyFMhKv/GkFAJRZOpVmENzfdEis9TigVt6RKRB19or/CK
+	 Eo6aAGrmZF7i7pBEkDzRIsA7o2i6lM51HbaLv5JSNXuY2ig65WuPdkIgrlOFl8g2SG
+	 zplDHShyvDn8Ox2EPzk2FShHBgeIupgFpZzgttt/FEuKa3OvfOKzJW57FIioG2VR4E
+	 53jaWN4xjVByOVyZTpG4Z2eVPEZ0MqRj9bjMz2qRqCxHsiSg8bhxPEfIYt+nE5Lsw7
+	 HwY7fNT5uUbe4+vGyQw7fCaRjXQ/IhSnCA2i3yfUqcPZxgL5iyLTNqXebaxrxZsj7B
+	 luwvndKjlfIQQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j9BDB4dNLz4wCW; Thu, 22 Oct 2026 14:17:46 +1100 (AEDT)
+Date: Thu, 22 Oct 2026 14:17:38 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <atmASGg1OZt9jfXI@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-16-herve.codina@bootlin.com>
+ <arDMhoNNXcPi81sR@gractus.seuss>
+ <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+ <20261013190347.4f1d9b9d@bootlin.com>
+ <atGzdxETQZ9ovJFh@gractus.seuss>
+ <20261019151121.26d99f30@bootlin.com>
+ <atgi4rMsw5W6kKkS@gractus.seuss>
+ <20261021172043.4bbd2bc5@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,142 +78,222 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mL+9gLkvUMZ5U3yt"
+Content-Disposition: inline
+In-Reply-To: <20261021172043.4bbd2bc5@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: rockchip: gmac0 SGMII probe failure in rk_gmac_powerup=
-()
-- [High] arm64: dts: rockchip: missing driver and DT binding for rk3568-xpcs
---
+--mL+9gLkvUMZ5U3yt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit aa6d6fc31ff0de23e03fbaf6018d2105111972d7
-Author: Coia Prant <coiaprant@gmail.com>
+On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Wed, 21 Oct 2026 13:26:49 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > >=20
+> > > Ok, my proposal seems to be a no-go and so I will follow your proposa=
+l given
+> > > above. =20
+> >=20
+> > To be clear, I'm rejecting the original proposal because I think it's
+> > internally inconsistent (if you follow the consequences of decisions
+> > far enough).  I'm not necessarily opposed to something other than the
+> > above, as long as the rules for when unknown tags must be invalidated
+> > (and what that does to the version) are made very clear in the
+> > structured tag spec.  e.g. see an alternative proposal below.
+>=20
+> No problem, I understand your point.
+>=20
+> ...
+>=20
+> >=20
+> > Essentially the theory of the proposal above is to be maximally
+> > conservative: any write (adding, removing, changing, in-place,
+> > whatever) will invalidate all unknown tags and downgrade the version.
+> >=20
+> >=20
+> > But, here's an alternative proposal for invalidation/version semantics
+> > that I think is consistent, while being a bit closer to your original
+> > proposal.
+> >=20
+> > 1. version and last_comp_version retain their meanings.  No new header
+> >    version.
+>=20
+> Ok
+>=20
+> > 2. If version >=3D 18 the tree may include any structured tags, even if
+> >    they weren't defined as of v18.
+>=20
+> Ok
+>=20
+> > 3. Some future version might _require_ certain structured tags to be
+> >    present.  But a client must only rely on those tags if the version
+> >    indicates it can.
+> >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+> >        reading a v19 tree _might_ see some FDT_FOO tags (because of
+> >        (2)), but cannot rely on them being present in all the places
+> >        they should be.
+>=20
+> Ok, kind of degraded mode. Whether or not a v20 compatible client can con=
+tinue
+> or not will depend of each tags known by this v20 client. For some tags, =
+having
+> them removed will not be a problem whereas it will be a problem for some =
+other.
 
-arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+Exactly.
 
-This commit enables the gmac0 and xpcs nodes on the Ariaboard Photonicat
-board to support its Motorcomm YT8521SC Ethernet PHY over SGMII via
-combphy2, and adds the PHY and LED definitions under mdio0.
+> Makes sense.
+>=20
+> > 4. Any write to a property (including in place) invalidates all
+> >    unknown tags on that property (they must be stripped)
+>=20
+> Ok
+>=20
+> > 5. Any write to a property invalidates all unknown tags on that
+> >    property's node
+>=20
+> Will see in the implementation. The offset of the written property will be
+> incorrect after the write. Indeed, some tags (tags related to the node)
+> available before the property can be removed. With splices instead of
+> FDT_NOP, offsets change.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/ar=
-m64/boot/dts/rockchip/rk3568-photonicat.dts
-> index 12ae9159bea87..d9015dbfb9f5c 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> @@ -261,9 +261,18 @@ &cpu3 {
->  	cpu-supply =3D <&vdd_cpu>;
->  };
-> =20
-> -/* Motorcomm YT8521SC LAN port (require SGMII) */
-> +/* Motorcomm YT8521SC LAN port */
->  &gmac0 {
-> -	status =3D "disabled";
-> +	assigned-clocks =3D <&cru SCLK_GMAC0_RX_TX>;
-> +	assigned-clock-parents =3D <&clk_gmac0_xpcs_mii>;
-> +	managed =3D "in-band-status";
-> +	pcs-handle =3D <&xpcs>;
-> +	phy-handle =3D <&sgmii_phy>;
-> +	phy-mode =3D "sgmii";
-> +	phy-supply =3D <&vcc_3v3>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&gmac0_miim>;
-> +	status =3D "okay";
->  };
+Oh, good point, this rule doesn't work.  I think we still have a
+consistent set of rules if property writes don't invalidate parent
+node tags (subnode add/delete still would).  Of coutse, that does
+further restrict what sorts of information you could safely put in
+node tags under this scheme.
 
-[Severity: High]
-When gmac0 probes with phy-mode =3D "sgmii", the call chain
-rk_gmac_probe() -> devm_stmmac_pltfr_probe() -> stmmac_dvr_probe() ->
-rk_gmac_init() -> rk_gmac_powerup() in
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c validates the PHY interface
-through rk_gmac_check_ops() and rk_get_phy_intf_sel():
+> This also brings a question. Are API functions such as fdt_get_property_b=
+y_offset_w()
+> need to be deprecated?
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_gmac_check_ops() {
-	switch (bsp_priv->phy_iface) {
-	case PHY_INTERFACE_MODE_RGMII:
-	case PHY_INTERFACE_MODE_RGMII_ID:
-	case PHY_INTERFACE_MODE_RGMII_RXID:
-	case PHY_INTERFACE_MODE_RGMII_TXID:
-		if (!bsp_priv->supports_rgmii)
-			return -EINVAL;
-		break;
-	case PHY_INTERFACE_MODE_RMII:
-		if (!bsp_priv->supports_rmii)
-			return -EINVAL;
-		break;
-	default:
-		dev_err(bsp_priv->dev,
-			"unsupported interface %d", bsp_priv->phy_iface);
-	}
-	return 0;
-}
+I think we can keep it - kind of like fdt_next_tag() this is a
+low-level function.  If you use it, you're opting in to having to deal
+with tag invalidation.
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:rk_get_phy_intf_sel() {
-	int ret =3D stmmac_get_phy_intf_sel(interface);
+> Those kind of functions return a pointer to the data of a property for mo=
+dification
+> by the caller. We don't know if the caller will modify or not the propert=
+y.
+>=20
+> Without deprecated it we can change the function to
+> ---- 8< ----
+> struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+> 						  int offset,
+> 						  int *lenp)
+> {
+> 	int new_offset;
+>=20
+>         /*
+>          * The modification is goind to be done out of libfdt.
+>          * Unknown tags are removed (rules for modification when unknown =
+tags
+>          * are involved) but also known tags. Indeed, we cannot know if t=
+he
+>          * modification will have impacts on known tags
+>          */
+> 	new_offset =3D fdt_remove_all_tags_due_to_property_modification(fdt, off=
+set);
+>=20
+> 	return (struct fdt_property *)(uintptr_t)
+> 		fdt_get_property_by_offset(fdt, new_offset, lenp);
+> }
+> ---- 8< ----
+>=20
+> The idea is to be conservative here also and consider that property data =
+retrieved
+> for writing will be modified by the caller.
+>=20
+> Also, the offset used as parameter of fdt_get_property_by_offset_w() is n=
+o more
+> valid after the call.
+>=20
+> Last point to have in mind, getting the node offset from the property off=
+set will
+> need to walk the tree from the beginning. It can be costly.
 
-	/* Only RGMII and RMII are supported */
-	if (ret !=3D PHY_INTF_SEL_RGMII && ret !=3D PHY_INTF_SEL_RMII)
-		ret =3D -EINVAL;
+Right, that's what I was thinking of when I said this might not be
+practical to implement.  It's doable in the common case where we alter
+properties by node offset + property name, but not when we use a
+property offset.  But the fact that this would change the offset of
+the property in queestion is a much bigger showstopper.
 
-	return ret;
-}
+> > 6. Adding or deleting a property on a node invalidates all unknown tags
+> >    on the node
+>=20
+> Ok.
+>=20
+> > 7. Adding or deleting a subnode invalidates all unknown tags on the
+> >    node
+>=20
+> Ok.
+>=20
+> > 8. Whenever a tag is invalidated and stripped, the overall version
+> >    must be downgraded (to let clients know they can't count on tags
+> >    being present)
+>=20
+> Ok.
+>=20
+> >=20
+> > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> > sure how feasible (6) is to implement.
+>=20
+> Well, this new proposal is more complex to implement than your first
+> proposal but it has a finer grain to handle unknown tags on modification.
 
-In addition, rk_get_interfaces() only sets RGMII and RMII in phylink's
-supported_interfaces, and dwmac-rk.c does not parse pcs-handle or populate
-plat_dat->pcs_init / plat_dat->select_pcs to attach an XPCS instance.
+Certainly - that's why I proposed the other one first :).
 
-Will enabling gmac0 with phy-mode =3D "sgmii" and pcs-handle =3D <&xpcs> ca=
-use
-rk_gmac_powerup() to fail probe with -EINVAL before mdio0 or the network
-interface can be registered?
+> I can try to implement something based on this new proposal.
 
-[ ... ]
+To be clear, I kind of prefer my first proposal still.  The question
+is whether what the updated scheme buys (preserving more tags when a
+bootloader makes minor writes) worth the added complexity of
+implementation.  You're better placed to answer that question than I
+am.
 
-> @@ -606,3 +645,8 @@ &xin32k {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&clk32k_out1>;
->  };
-> +
-> +&xpcs {
-> +	phys =3D <&combphy2 PHY_TYPE_SGMII>;
-> +	status =3D "okay";
-> +};
+> > Note that because writes don't invalidate tags on ancestor nodes
+> > beyond one level, this proposal doesn't permit tags to contain summary
+> > information about an entire subtree that could be invalidated by
+> > writes further down in that tree.
+> >=20
+>=20
+> Well this doesn't look like an issue on my side. At some point if such ta=
+gs
+> are added, we can avoid any modification using the last_comp_version
+> field.
 
-[Severity: High]
-In arch/arm64/boot/dts/rockchip/rk3568.dtsi, the xpcs node is defined as:
-
-	xpcs: ethernet-pcs@fda00000 {
-		compatible =3D "rockchip,rk3568-xpcs";
-		reg =3D <0x0 0xfda00000 0x0 0x200000>;
-		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-		clock-names =3D "csr", "eee";
-		power-domains =3D <&power RK3568_PD_PIPE>;
-		status =3D "disabled";
-	};
-
-Looking at xpcs_of_ids[] in drivers/net/pcs/pcs-xpcs-plat.c, only
-"snps,dw-xpcs*" compatibles are matched, and no driver in the tree matches
-"rockchip,rk3568-xpcs" or handles its "eee" clock and phys properties.
-
-When rockchip_combphy_probe() in
-drivers/phy/rockchip/phy-rockchip-naneng-combphy.c probes combphy2, it
-asserts the PHY reset line:
-
-	ret =3D reset_control_assert(priv->phy_rst);
-	if (ret) {
-		dev_err(dev, "failed to reset phy\n");
-		return ret;
-	}
-
-That reset is only deasserted when a consumer driver calls phy_init() ->
-rockchip_combphy_init(). Furthermore, Documentation/devicetree/bindings/
-(including Documentation/devicetree/bindings/net/pcs/snps,dw-xpcs.yaml)
-does not document "rockchip,rk3568-xpcs" or the phys, power-domains, and
-"eee" clock properties on this node.
-
-Could enabling &xpcs before the driver and binding schema for
-"rockchip,rk3568-xpcs" are present leave combphy2 held in hardware reset and
-introduce dtbs_check regressions?
+Yes.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022025844.1503=
-20-1-coiaprant@gmail.com?part=3D3
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--mL+9gLkvUMZ5U3yt
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrZgEgACgkQzQJF27ox
+2GdsKw/+MOf+b1HVFIR37G0EXRAd8oIA3uvbH/rMYt5e7dYeWy0FBPn4rz4neLJx
+quLI3gXiC+4fdJL6eYa30JLKYiipFK+/kyKKMF7cz2LLh7u+J9giRta52seYkcZl
+nlBrU/oDyNbCPFZk0vQsIY0PYrrrSBQ5tdk7PZoQmPmmZAhNZZ8Xu/y6zKqTIKF8
+qu6Yp0iWRR7Yf5rCsFV6B6U29a28ZyJuMJBoHPMG8kUztgs70gNEdxU8rp7gMPJQ
+i/Rw9iPHviwMs5wpmDzhrxp2+U7q1S54V5zb0rM2eDxo2aJzmeX3A9W8d2GNvcZU
+lb8rOnhKw6byugr0O4CxCL5uq7lAOiDGXfxWQzY7W9DcWGreAaYohqDlSUwQYFor
+Z99zxcSeFMGBAOACatp9QQG2bskKbvsyiL26hFPj4ln7YYYC1OOM8n6TtDZAztiZ
+erqOJ0fdD8+E/v0tyMUuZno82mzzyM2bYT07yIJkvWdDyhkkM6naUJY8MOQ0ln0Z
+lq1Hp3VA/59aDODnTMD5Wa1GFc8EdK/ppF7Ub9k1Xl4JbR6QeR5kbOY9whMtBvHS
+XMPNAQ91WUe18FQ/Hi13I9OTD55BL0urm4D4SlfKnjo3IxbwXZ1Jeo2sGG0+chkk
++Sxzn3LZF6oB56HgN/YGbp9Zr3pzdTwTlgjarYTcG1kRNgtE8hs=
+=I6j+
+-----END PGP SIGNATURE-----
+
+--mL+9gLkvUMZ5U3yt--
