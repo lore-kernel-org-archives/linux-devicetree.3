@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652895;
-	b=xAyWS84IzuIAgyFkuLTekHGYY79txfsH0usQgJ2MccYKqPb6qq4FP6xAjEIkeYU7PZC1
-	 prn5dzO81ZgIDTljxIhS7dIzyERQVIQ20bOuWuYJu5wlrL32h/7TnAzAsGVU9AigKufw9
-	 ssXkmHNuoktN6h66idK4t+ZWyMd98WJmCBjvNSxnUUW6SCFABUgkZ7zlYsK1OiR80anL0
-	 N3KrduRzJnzTLWTBxnIPmG2pDCggvsIBolrRt3cfJyfKvEmBWGJxQTEd4XIOjjvJ/+VPA
-	 otpLoEkgUfOD7lmzrF6hKKZka9LsLRw64phpqKVboEiNPoEqsYerghxaVKeRsFRfDNg==
+	t=1792653224;
+	b=Pxb4rSXRKrJfPQH8h3KGN6zomP9/3DBstIZac97m+Wj+9dDh/D6q2cfux1dndVqMDHtx
+	 lMgxSCW0GpGTC24kp7bTxtCVISWMdHUxkJU/pLLcHrD2UJM/SkslQLiMB9YMjBfSL91KS
+	 ir1yHBZ5HBNivFvRC5/Tx/4RlDn61jDPQKEOlImra9WLHU7dkdYcZRAZfgDbzrE5EOVSz
+	 cDZxqVD91IJ/HV/1Bsv4YVu9pTA3A5B7ZFqLFvTwYK26Q1kdOUTfl8rVoj+B4t5v6pr8Z
+	 iU3M7uvMuPQyMKjKZYCS+1wHgqCOPWijCV/bfn04mvuVS/OY1dd0WkPfDjQRVU6IZKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652895;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fgWzHiJ6sd4DhFEtsNGAAch+iFtzd00wLbBfGrtrfJY=;
-	b=2sRopPFoufIjzsCK6AH4C7gKhl3LNQKpridkejgig4fwY8geavo0vraolpF3KzDfePPT
-	 fei9+n0G6YQdacNFL2tW/FgCLnGX7+rDpz7zkUSU3Jtc2P+ds0l0hHyw1wPD1mQQ4REom
-	 3AMcOat/ac08F7nq1sqtfNcGCJvp8IWCXes1rw0qha86Rz+y3QpPHSFE5tZbUrOpoa14W
-	 87SQPFhfjZ78yyI2I7wIJqr9KdEKcj0qyeUKdr3IzaaU/k2dac2dyINpZtQo6XONNliZF
-	 q+hEyG4mcpgbehtm0k/kllEbmP8/lQfMcSN9+PST3SgU9gaYsAgsPaHEdzEmOeK84FQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653224;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:From:To:Cc:
+	 References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IhTnwyrV+10d78ygQYXl308AUWomjFkKSrLiwOtEx64=;
+	b=UsarLOkX3G5/DgrmIwrzhQ59fRV5ASWNsuJ9ol5g6wUW/zt4phg/mgS1QPnJKswszVAY
+	 8tEhTfqEMfUg1MBUAVsXJhUZkTn10ZbpXneEEvJ5bTeBpAUxXujXrrc6tytF3lNpPEwKq
+	 0QKdOtcMMSCfEykZokvHQXthAhHbfss+UQ8SkYngH1EquCbFH/mh+YUTJxPuF2O6ydaAU
+	 pYSxI4hBRKOWm3lFazSy57LQSgIrEJ4/KdUjCm2xX1ApA4+j7E+ZwcrV5dYWaQu+A5f+l
+	 hrshMt1S2VAyMdgzZ8Ngq8MLyQT3KNk4JNzYm4pg8dIHuJTND3JCnvtMCjhQxfDEw5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em10dXw7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fsK530WL;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE108606A321;
-	Thu, 22 Oct 2026 07:08:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101B9606A31A
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 07:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 101B9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em10dXw7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6ECE1F000C2;
-	Thu, 22 Oct 2026 07:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792652894;
-	bh=fgWzHiJ6sd4DhFEtsNGAAch+iFtzd00wLbBfGrtrfJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=em10dXw7HIvwH+ncXfHetDTSh1J957nxK22EuuVEHvJVF72N+wfD2iXpztgua/UWI
-	 lnwGvex4a/chAazdCcBSgLAZY2AFv56K2fMUzOhIRBI8le96v4ZIMjo1G4bQDuAcDV
-	 PCSQihp4QVeMNS7/J+2YibKB1NRRSKsKpF7BrwHnBRy5vHJOIMY4LbkQw90MpydWv+
-	 xb+CBbGf7YijTTAwsxyvJ8UGwbYv3hCuUf7goT8kpefdSIb6U5ecJDfuLbTqfA2dVN
-	 H3SUqB+jJAqkuJXvmZm1bbmWofO0Rk5w6Akn/3nPOo7sY804TfDI/WFlAqy+OCxNsN
-	 u6lb1haY19Vqg==
-Message-ID: <b138013c-c2b6-4af9-b5b1-274781d94b89@kernel.org>
-Date: Thu, 22 Oct 2026 09:08:09 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fsK530WL
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e09aa5264so995310f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 00:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792653221; x=1793258021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IhTnwyrV+10d78ygQYXl308AUWomjFkKSrLiwOtEx64=;
+        b=fsK530WLrmr5Yauw4KAqIavsrNeclMnNxYXvFOc0427cv1GS7gO75gA/7L0kTL7aUm
+         fAfUZIsf0fpXmc8nXATbGyJ+AnWj/25+jQ8Dd5hZ9OnEGIIQWlkUV1r6J2/d7tYoiLYf
+         WqA0B/nUHePOpZdsSvRJcYxCSB0XYk1lpTV6Uej9m4hoYHJohZpTkZWE7ZsBYeUt8zcO
+         n2NFJbdqr9a6BBSlM+bQS9NsJWL8TC/3/hoD0nIY3F6fQbYoz64STGEj2ln2CqwvFjZ1
+         uYYgBfOfyunDjCuiBl4PeTvhvNR6H12ZEwfh5M9+EQKZpxQOLLxpZJWMwSSbz3z67KqT
+         piRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792653221; x=1793258021;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IhTnwyrV+10d78ygQYXl308AUWomjFkKSrLiwOtEx64=;
+        b=lJKkQWGlV6Vqb1uWMILrkXa5/KpKnL5BBa+BDo7U0qIy2tlpr1ws2Ww10UZ+EP19T9
+         R3+RWM0+IpWdSnzDw8ZNQ9v9gK/F20vkEqX4I6TJ5kvjgO59HVYuRCNSh7uPObN4xOGF
+         RfC48lBnx/gIhtAmN73SMrzQahjHEC0IWE0mZ1R18vHdozJhirVpwbl4eMVPBXGGJnNe
+         OouZr/cJkBfEbKrY7DQWgLcDDoVsXPGY4A+xZuVajz3UydyWNLgk3uTmLip8yFphIZvY
+         fnFcSuBuN6mFPb1WG8UBgbKf718gWobcmCS8ZB2PFwWfzleDAVGx5WebzaAcctJX0p5J
+         KgVg==
+X-Gm-Message-State: AFq9FYKlViyXq7B6FjOOjOM+HRGQr/StAlmIjUznKsXV6KYSF943MHAP
+	rkrhjSuqUA5KkFQ4ikp5ItzxYGVfRqigJt6ZUii/z9IUSbNXPmVRChuTsKgLunCtLM8=
+X-Gm-Gg: AYBFou2FBCiad1sYjl8oW9cXrhclTF9bT2GLEzjgx1OsGyeLR42qjqJbrN+4tL/5dF8
+	tVQnOL9/HkdFbllyje62XlcKdaWu5WXad34jNge6QGhxovYHEud2frVdV3MEcx48X/RCJ/mP5NW
+	r/fksKSq5xnLPv8d2icbaZAwEo6QYqcVGRdNDTBox7UmFm0choDGuRzYox9587bAvmkN1lUzoH2
+	R7VwcH2B4eI/R9E5UbGV5uemfN8fqFWLEKgMDdpCEPr1/B7TsQDocAjbY+s1tkQa4MCZdFnTHyy
+	9po2r88xZT8/klauvWiLxSMQhCSGvyPgD6WjtdbCzbk5VJrBbknRnbGhWErtYxkmOhNMCsHC68Y
+	8i2uYdcyhBxy9k+MCNpkEEl2rCLCIZCaBnId24v9KSHfPlI5ngv6LpixOdEMrMRNms2gf0f3J2l
+	2Al2U6dHIBGmmlqEKJV1LvefzpqYMKxK7cA6XG6Q1q4+3xgTnoe4A4OU2bzdtszEV7rcAPzWrjK
+	Jb+lHXCXT4pfyyvsIf6QVFGcNJ8c6AteUgaGv4jUa2vaicmOF0HgMfGbCnX
+X-Received: by 2002:adf:efd2:0:b0:48a:efed:ac97 with SMTP id ffacd0b85a97d-48e264f06c6mr6394983f8f.33.1792653221001;
+        Thu, 22 Oct 2026 00:13:41 -0700 (PDT)
+Received: from [192.168.3.100] ([37.103.126.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f093asm10940668f8f.4.2026.10.22.00.13.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 00:13:40 -0700 (PDT)
+Message-ID: <45986fce-98dd-4df2-bcf5-6a0de7e41ca0@baylibre.com>
+Date: Thu, 22 Oct 2026 09:13:39 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,100 +89,41 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
- property
-To: Paul Louvel <paul.louvel@bootlin.com>, Conor Dooley <conor@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Herve Codina <herve.codina@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
- <20261021-wind-reopen-490475bc470d@spud>
- <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v5 4/7] ASoC: meson: add AUDIN driver
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
+From: Valerio Setti <vsetti@baylibre.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
+ <20261018-audin-v5-4-4b8cc13a1b22@baylibre.com>
+ <sashiko-outbox-176054@kernel.org>
+ <257ab6d8-4990-4e58-9eaf-9cac3cb29b01@baylibre.com>
+In-Reply-To: <257ab6d8-4990-4e58-9eaf-9cac3cb29b01@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 21/10/2026 19:11, Paul Louvel wrote:
-> On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
->>> +  regulator-boot-force-off:
->>> +    description: a regulator may be enabled by default when the system powers up.
->>> +      A consumer may query the regulator's state during boot and disable it if
->>> +      it is already enabled, potentially resulting in an unbalanced disable
->>> +      operation. This property ensures that the regulator is disabled at boot,
->>> +      regardless of its previous state.
->>
->> To be honest, I'm not sure how the commentary about querying the state
->> or being unbalanced is relevant to the description - that sounds like
->> something specific to the linux regulator framework?
-> 
-> Yes it is. Maybe I miss something, does this binding is used outside linux ?
-> 
->>
->> In fact, I'm not sure why this is needed at all? Can't you just change
->> the software so that it is okay to disable a regulator that has an
->> explicit enable count of zero?
->>
-> 
-> Do you mean by calling regulator_force_disable() instead ? I thinked about that
-> but I don't think this is ideal.
-> Or just patch the core to allow unbalanced disable downstream ?
-> My intent was to provide an upstream solution to the problem I described in the
-> cover letter.
+On 10/20/26 3:02 PM, Valerio Setti wrote:
 
-Cover letter does not end up in Git history often, so this patch needs
-rationale. Honestly this looks like duplicating regulator-boot-on
-property in a reversed way, while also focusing on Linux implementation.
-And even when considering Linux implementation, the unused regulators
-ARE turned off, thus there is no need to force them off.
+> Finally the question. As I said, since the issue described by Sashiko
+> seems a bit hard to hit, I think the fix can be postponed to a quick
+> follow-up series. However if reviewers deem that it's absolutely mandatory
+> to fix the issue before this series lands, I will either prepare a small
+> pre-requisite series or add a new commit to this one (I would like to
+> know what's the reviewers preference on this case).
+> 
 
-Best regards,
-Krzysztof
+Never mind, I decided to follow the correct way and sent a separate 
+patch fix for this yesterday night [1] :)
+[1] becomes a pre-requisite for this series and, once merged, all 
+Sashiko concerns about this series should be resolved.
+
+Sorry for the noise.
+
+[1] 
+https://lore.kernel.org/linux-sound/20261021-gx-formatter-use-spinlock-v1-1-71ebc9224c03@baylibre.com/
+
+-- 
+Valerio
+
