@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792661175;
-	b=L0Piez4d346n65q1dlTkX7ennIHf5jtxBQftwpmGM5qE1HUQmupIHEqsBNYznsFAgS13
-	 LU6WUf45G59ufEot7e2XZEg5V69iSOoXE2+rwhzWSFVPNVb8GSa7fJHIUKJxHXWMhGvFQ
-	 RJ8otrKcfdKMwxxijrI9FY5/J2vWMZbyPKbMWhGKuUUT0Yy2OigaE6n+6U/RSkJxOMGSq
-	 i1QXcBGApFelwSTEg60b7VuMtfHlnOgu7B+SLifKDrr1HJfGTqHCLRgoy57WQuAkoBFqE
-	 NOaxKYclGVEvpEibZgSGjWtfliVHxJtQVPUnbwLyPsVT9/b0cAt8i4aGEBDHUXKWf6g==
+	t=1792661176;
+	b=K09tGzYZr7Vu+KSblLN2yBqSB4Xf0tmf+E40r7OYiZx3sJ5oT4C2hLWf/iFAJ+pGUPTd
+	 9yW35AlUHs1E0Kj5BUNV8zvOpmMEEM21Qs4eFXaDYtpnaYE2tQ4XNpxktjM/sqEeAcAbY
+	 6yrlTSRC8OzqwlwHxlVmX8QPqntUheuZd9EfHBKlbKGMC37yeaHkEl+tzAXc1Cz6N5U0L
+	 W2JJ0pU2UOn9iKlsW9KP9XRH8dwtT7esoS4gt0k43FDYgbXX+oYHgWuUirdQImD7twZbA
+	 9yod9LJBJb0gwzRfjZ9xQDqiCdk1vuw8oIRBzHV1qm3hJSLRw5M6ILTQwf1Pmh3O/2A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661175;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661176;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=aft0sw5cJyBwNmHMPgGVjZdw+TPdBNlCzonpVyWC7EA=;
-	b=EaJJiG4H6c1TyVGPGpZ9QKQ8Ze+BMgKay+aO8AT4bRo6Rl7oYs5sdw26NFCE+CYKb2+i
-	 7xzO2srx4bi90fCKOBEq2Pwv8ksaw4v7L5zKkuMZXZPFBsVQUIqzAS9gemzGwepvSoULC
-	 ALm77rv4LZywkTClvff6nyD/rIHPIDrwYyqZKeMA4PqRLcuQlubnkScdg3MV6Sres359p
-	 62FJvE9Omv/2bwfXg4YefUuptuX6oRK/vRJcA7tFtE5p+CdbBx/+kSPlYaXcHvFBxyRym
-	 9qLl+0EfCBq8t0Xt2wUdfQD97agjhL26G+cVb+ItshsKr54F97d5NdpP6qs7f9NoKTw==
+	bh=QUlDWXmotNZOEzV8DLLcT9H5fB8yJQSH8AZkO/8/+T8=;
+	b=zve4on7cnzus2mv6MMvwGQSjBQ5xODwgWcc9jTjkUkx2ub1EBwUPLF7etJ3KlOEp7X73
+	 1WjDXz+21qvTv/7/7HZCFqGjvkkOWhLTXU2qYVI0LY1lQaFGazOLITM7zX0lU0DgC0hOh
+	 XESMk870RwBgW4TbnY5EpiymWoOybgNNHDosGRfnpXtB8Rh4yk7pXmC8zW0O9NQeDmoer
+	 ZMYUa5GqsdTArl2oPfYsyBvIMyvzsDpOm7CR+RNiZZ1YqM7sXmNHNFKjxRR2waFLYsZJZ
+	 VhjLqmJo3YKjoUYAInubNlpCM3Lzk/YzHaNWAK5FZ+gRLIe6tqCxOZGp1R13fYc8C2w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jP7TEwqP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5Kh1sKR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FAD606A319;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F001E606A327;
 	Thu, 22 Oct 2026 09:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jP7TEwqP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5Kh1sKR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792661174;
-	b=xDlhy6+JLSgYFxnmlZiV64OeY5TyWeRUwvp5mYfnNdYQtjStad/mu9XSavFS+CaXW8QK
-	 RuOTw+tj5sGXbQB/mdvRmoXHnyeIVkhCuswbOa4RGaKO5YQeJb9Kxi3Z/cPIWxJ2GbfA2
-	 p31x2T6l2o6zv6LJrXqxf8aEPcu7spog6Ueht2Pk0f6W8bazVwTKrJ/Dzwj3LRfmgTd3r
-	 RfKt4xggmvelLv1FFMRSwLP4y1JRcp8ZzGGhX/Nvy05hoBQ25VV+pNSHz22HsZPRpgzcm
-	 GCyYAr1ad132vesSv+QFMsUAzx8eh5QaFzTxzoux8zMd6nFO2JAbrUdb9PIfxMXuNQA==
+	t=1792661175;
+	b=cYmtM9w0Wd9M1XA4fW2O5CtFrvcc2LXJnqNea9uiOwLYzrzVxiN2Yhj8GaOOy9DlBzMw
+	 QUIYjVfWfST8d4Y63fQk7QAervwOZsPQmGERxXKsnWrckIwOHWkA29SpDgH/S07o/K1Z8
+	 xi8vqu8Hg/L6awkYxczQ0XDN4p6BhzWErVjsoeJnfVzZtjpQQpzI6Fsm8z3r1O3p6ughg
+	 Rp5AU3c3DIOmM+JY678MY+DFkqgCR/+HpJNdG6MZ7I5sI2wNc+p4t5fIeXjB3v2EXoyQR
+	 xACjugboqLesu8Uzi4Pphk1xKTJNBiCW5hqqHQ0L70UkGPhoSKP2iV7i0bd3y8d4JIQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792661174;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	c=relaxed/relaxed; t=1792661175;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=aft0sw5cJyBwNmHMPgGVjZdw+TPdBNlCzonpVyWC7EA=;
-	b=jcMBkSLYmCTgBjcLhuM63tPnfOq+Uwto6tJzqHm9eClX59m+U5uFb0JSkP6okIDnHicR
-	 jyEjEBGoDaFZIZ5QJ26HPGrrnp+7dGANRaOxChjf8TiV3WiArg3syXDOLrVbi7nUpG7UH
-	 ZTJWbw202mKngUnRoeyv/FVzbrXoW2ttg57wn55W5D2pApX5dFvXMpymZf4tjjd4RFLV7
-	 +virNHqbNhq155rutOsIBeCJmduwoUfX2N6ejUWWpOMTkKnJnaT1zlhNv/Mmrrvti5A6B
-	 xPcMlzvKrk0OOK0NF/ei790doW4AVbjFUhwFSG88X8RmCs745V9MvOcAwYkwAu0RfOw==
+	bh=QUlDWXmotNZOEzV8DLLcT9H5fB8yJQSH8AZkO/8/+T8=;
+	b=GCfsI+DpV//EYe3orSkrlB/gLUY9oPDiw9MvVtLdB6pGrhy9HA61IRjA6DYmSDXIHDGA
+	 vM7bycSVewgPkF69KUnAvnZW3mrNc7XhFnqxp+olArlnzWELUzXpWHTVbm0EQvdS5nhxX
+	 pAhg39D71wVbomnj1ytxZZ3H59nl+iqmtLtQau0iksjlDyEsILqdxpZD3XHclaKtT7+YU
+	 bUp/g7xBaZixYpJBPWJnJ2rWwCjhizH8DNlzz0sGn8Mlg5oy+vvRuk/9SQGZOsCgm9UZQ
+	 YMF1x362OfsTX/UBC5i1sZEKFR2dX23FCS27Armk4buxoVSmy3/8B/275e20dXYocug==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A64A1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5A6DE1F000C5;
 	Thu, 22 Oct 2026 09:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792661174;
-	bh=aft0sw5cJyBwNmHMPgGVjZdw+TPdBNlCzonpVyWC7EA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=jP7TEwqPO7q2J738B7WA6ly4029C3YYlr2SG2OrpsMh6jT/x1ZfflWryIv48AlMXg
-	 iszx8CSbCDZS2asr0E3qpt/bywZd1talZLfPFZT1b3JyZXm7ZEcDmiXPEsyHOSKRtd
-	 aR4Hg7j49nxElCTEZ3OwbM7CibrtASjlmzjxHLr6KWNOeINVUUkQTkeqpfzVHILd8z
-	 ibOliIf2KZAIZd2Zjqdtd+IKegAGQbxvCIlKyIN8nlTya8BqQ2YB+vDSiDPSsmHyqL
-	 ppMGaKgf3mM0wveUWhUBSkkMgKirfFCDE9JWxnB+OTZzi3WIvenpUyqxQ7rfa64zWN
-	 QMys1FJrhQBjQ==
+	s=k20260515; t=1792661175;
+	bh=QUlDWXmotNZOEzV8DLLcT9H5fB8yJQSH8AZkO/8/+T8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Q5Kh1sKRxBCgkOv3MOOGYa43nVmldL9029FXquZMZ36s/TA/4RUP3jK2bsnl7AtCM
+	 Zj3bmXg36mict0s87ekHBU76UYur8d0oEs9LComXbGFaFlQ5rPVwfNCr0slN9GjKj3
+	 b7J4ySkXjw1wg2J5Tbd/EgVda/NpzXrkfrJIFpr195EyIaOJeP/ewVU82gSiksyjG1
+	 gkPX6vWpiywNFlRB/zVrZ+8Jsomkh8NviYbESE3xutsG1i8kMJJyp1G+QX6LDucHdS
+	 b2h7eVEbuYiUpx1SxFUAHPxhlSJpA8vSXnVr1bJAc6wUkqAKs3zDik/KHqmn5yKnId
+	 yTlWE6SLfyqAg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AD41743546;
+	by lkml.kernel.org (Postfix) with ESMTP id BFDDB4354A;
 	Thu, 22 Oct 2026 09:26:13 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v2 0/2] i2c: Add driver support Amlogic A9 I2C
-Date: Thu, 22 Oct 2026 09:26:08 +0000
-Message-Id: <20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com>
+Date: Thu, 22 Oct 2026 09:26:10 +0000
+Subject: [PATCH v2 2/2] i2c: amlogic: Add Amlogic A9 I2C controller driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,11 +84,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALHW2WoC/zWNwQ6DIBAFf8VwLq1sicWe+h+NB8BVN6nQgCE2x
- n8vmPY4700yG4sYCCO7VxsLmCiSdxngVDE7aTcipz4zgxqauhWC65YTWA5S3hQCYKOuLMtGR+Q
- maGenomflUjSH61Lud8CB1qPz7DJPFBcfPkc2ibL+CiD/hSR4zY3SfWtkM0itHnp++ZHs2fqZd
- fu+fwFJiKgLvQAAAA==
-X-Change-ID: 20260911-a9-i2c-24478e22e683
+Message-Id: <20261022-a9-i2c-v2-2-45e3cef175bf@amlogic.com>
+References: <20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com>
+In-Reply-To: <20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com>
 To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -98,11 +95,11 @@ Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org,
  linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661171; l=1291;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792661171; l=15636;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=lgCx6iIhgtG4pBSTGFRd3faIm5dYhSgEQN1+ngpmI9g=;
- b=GSVpFUVXSp4fB7ZRpJvmq8UQN8H4ZLd0NQMr4Gtr53ZbLXBuWhrmygvL7Wg5j3PTif2T8TnXC
- XMdXiZuDbBsDW5X+EoBOK0xq7EDf/VP1p+y4VOYWi6xipQ9vqUAXWX4
+ bh=HCbf8i4EvDwf3KC+XAjiNgOXrI0QcRottF2/ZqXdJTQ=;
+ b=slvavCF56UxbL1AdGnnOOBhYm5Yybaf5RBt0mdG7igtyr3UMIEYDkqKR3ygevQ3KVQpNANPQG
+ 4rzCM6wW3JQDNjXaN3sjF9XfjxjjMoQ4805uzqqEXLZdm5xdMWn5OhP
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -110,37 +107,551 @@ X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
 X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 Reply-To: xianwei.zhao@amlogic.com
 
-Add a Device Tree binding and driver for the I2C controller found on the
-Amlogic A9 SoC.
+From: Junyi Zhao <junyi.zhao@amlogic.com>
 
+Add support for the new I2C controller used by Amlogic A9 SoCs.
+
+Add a dedicated Kconfig option and Makefile entry for the A9 I2C
+controller driver. And add Amlogic I2C controller entry to MAINTAINERS
+to clarify the maintainers.
+
+Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v2:
-- dtbinding: make some minor modifications, suggestted by Conor and robot.
-- driver: Make some adjustments, including macro definitions, format adjustments,
-          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
-- Give up MAINTAINERS file the separate submission, make it together with the driver.
-- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
+ MAINTAINERS                         |   9 +
+ drivers/i2c/busses/Kconfig          |   8 +
+ drivers/i2c/busses/Makefile         |   1 +
+ drivers/i2c/busses/i2c-amlogic-a9.c | 469 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 487 insertions(+)
 
----
-Junyi Zhao (1):
-      i2c: amlogic: Add Amlogic A9 I2C controller driver
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a2d702919ef3..a56bdfefabad 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1371,6 +1371,15 @@ F:	Documentation/devicetree/bindings/perf/amlogic,g12-ddr-pmu.yaml
+ F:	drivers/perf/amlogic/
+ F:	include/soc/amlogic/
+ 
++AMLOGIC I2C DRIVER
++M:	Junyi Zhao <junyi.zhao@amlogic.com>
++M:	Xianwei Zhao <xianwei.zhao@amlogic.com>
++L:	linux-i2c@vger.kernel.org
++L:	linux-amlogic@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
++F:	drivers/i2c/busses/i2c-amlogic-a9.c
++
+ AMLOGIC ISP DRIVER
+ M:	Keke Li <keke.li@amlogic.com>
+ L:	linux-media@vger.kernel.org
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index 275aaa7f3583..50e031d97ed3 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -885,6 +885,14 @@ config I2C_MESON
+ 	  If you say yes to this option, support will be included for the
+ 	  I2C interface on the Amlogic Meson family of SoCs.
+ 
++config I2C_AMLOGIC_A9
++	tristate "Amlogic new I2C controller"
++	depends on ARCH_MESON || COMPILE_TEST
++	depends on COMMON_CLK
++	help
++	  If you say yes to this option, support will be included for the
++	  I2C interface on the new Amlogic family of SoCs.
++
+ config I2C_MICROCHIP_CORE
+ 	tristate "Microchip FPGA I2C controller"
+ 	depends on ARCH_MICROCHIP_POLARFIRE || COMPILE_TEST
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index e5440de0fe14..343eec4b0889 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -82,6 +82,7 @@ obj-$(CONFIG_I2C_LPC2K)		+= i2c-lpc2k.o
+ obj-$(CONFIG_I2C_LS2X)		+= i2c-ls2x.o
+ obj-$(CONFIG_I2C_LS2X_V2)	+= i2c-ls2x-v2.o
+ obj-$(CONFIG_I2C_MESON)		+= i2c-meson.o
++obj-$(CONFIG_I2C_AMLOGIC_A9)	+= i2c-amlogic-a9.o
+ obj-$(CONFIG_I2C_MICROCHIP_CORE)	+= i2c-microchip-corei2c.o
+ obj-$(CONFIG_I2C_MPC)		+= i2c-mpc.o
+ obj-$(CONFIG_I2C_MT65XX)	+= i2c-mt65xx.o
+diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c-amlogic-a9.c
+new file mode 100644
+index 000000000000..d4954a4fd88e
+--- /dev/null
++++ b/drivers/i2c/busses/i2c-amlogic-a9.c
+@@ -0,0 +1,469 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++/*
++ * Copyright (C) 2026 Amlogic, Inc. All rights reserved
++ */
++
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++
++/* Amlogic I2C register map */
++#define REG_CFG_RDY		0x00
++#define REG_CFG_I2C		0x04
++#define REG_CFG_START		0x08
++#define REG_CFG_BUS		0x0c
++#define REG_TX_RD_ADDR		0x10
++#define REG_TX_WR_ADDR		0x14
++#define REG_RX_RD_ADDR		0x18
++#define REG_RX_WR_ADDR		0x1c
++#define REG_CFG_TX		0x20
++#define REG_CFG_RX		0x24
++#define REG_CFG_IRQ_STATE	0x30
++#define REG_CFG_IRQ_ENABLE	0x34
++#define REG_SHAKE_BLK_CNT	0x38
++
++/* CFG RDY fields */
++#define RDY_TEE_ONLY		BIT(1)
++#define RDY_IF			BIT(0)
++
++/* CFG I2C fields */
++#define I2C_RX_THR		GENMASK(23, 16)
++#define I2C_TX_THR		GENMASK(15, 8)
++
++/* CFG BUS fields */
++#define BUS_NO_STOP		BIT(18)
++
++/* SCL = clk/b_ratio	if b_ratio<=8, SCL = clk/8 */
++#define BUS_RATIO_MASK		GENMASK(11, 0)
++
++/* CFG START fields */
++#define START_START		BIT(31)
++#define START_LEN		GENMASK(23, 12)
++#define START_LEN_SHIFT		12
++#define START_SLAVE_ADDR	GENMASK(10, 1)
++#define START_SADDR_SHIFT	1
++#define START_READ		BIT(0)
++
++/* CFG TX_RX fields */
++#define TX_RX_DATA		GENMASK(7, 0)
++
++/* CFG IRQ fields */
++#define IRQ_ALL_MASK		GENMASK(15, 0)
++#define A9_NCK_ERROR		BIT(0)
++#define A9_RX_THRESH_READ	BIT(5)
++#define A9_TX_THRESH_WRITE	BIT(6)
++#define A9_PHY_DONE		BIT(7)
++#define A9_TASK_DONE		BIT(8)
++#define A9_ALL_DONE		BIT(9)
++
++#define A9_TRANS_DONE		(A9_PHY_DONE | A9_NCK_ERROR)
++#define A9_TRANS_ERROR		(A9_NCK_ERROR)
++#define A9_ENABLE_IRQ_BIT	(A9_NCK_ERROR | A9_PHY_DONE)
++#define THRESH_MODE		(A9_RX_THRESH_READ | A9_TX_THRESH_WRITE)
++
++#define A9_I2C_FIFO_DEPTH	32
++#define A9_I2C_HALF_FIFO	(A9_I2C_FIFO_DEPTH >> 1)
++
++#define A9_I2C_MAX_XFER_SIZE	0xfff
++
++#define I2C_TIMEOUT_MS		500
++
++enum {
++	A9_STATE_IDLE,
++	A9_STATE_READ,
++	A9_STATE_WRITE,
++};
++
++enum fifo_fill_mode {
++	A9_FIFO_FILL_FULL,
++	A9_FIFO_FILL_HALF,
++};
++
++/**
++ * struct aml_i2c - Amlogic I2C device private data
++ *
++ * @adap:	I2C adapter instance
++ * @dev:	Pointer to device structure
++ * @regs:	Base address of the device memory mapped registers
++ * @clk:	Pointer to clock structure
++ * @msg:	Pointer to the current I2C message
++ * @state:	Current state in the driver state machine
++ * @count:	Number of bytes to be sent/received in current transfer
++ * @pos:	Current position in the send/receive buffer
++ * @error:	Flag set when an error is received
++ * @lock:	To avoid race conditions between irq handler and xfer code
++ * @done:	Completion used to wait for transfer termination
++ * @clk_rate:	Clock source rate of I2C module
++ * @frequency:	Operating frequency of I2C bus clock
++ */
++struct aml_i2c {
++	struct i2c_adapter	adap;
++	struct device		*dev;
++	void __iomem		*regs;
++	struct clk		*clk;
++
++	struct i2c_msg		*msg;
++	int			state;
++	int			count;
++	int			pos;
++	int			error;
++	/* protect reg access */
++	spinlock_t		lock;
++	struct completion	done;
++	unsigned long		clk_rate;
++	unsigned int		frequency;
++};
++
++static void aml_i2c_set_mask(struct aml_i2c *i2c, int reg, u32 mask, u32 val)
++{
++	u32 data;
++
++	data = readl(i2c->regs + reg);
++	data &= ~mask;
++	data |= val & mask;
++	writel(data, i2c->regs + reg);
++}
++
++/*
++ * SCL = clk/b_ratio. if b_ratio<=8, SCL = clk/8
++ */
++static int aml_i2c_set_clk_div(struct aml_i2c *i2c)
++{
++	unsigned long clk_rate = i2c->clk_rate;
++	unsigned int div;
++
++	div = DIV_ROUND_UP(clk_rate, i2c->frequency);
++
++	/* clock divider has 12 bits */
++	if (div >= (1 << 12)) {
++		dev_err(i2c->dev, "requested bus frequency too low\n");
++		return -EINVAL;
++	} else if (div <= 8) {
++		dev_err(i2c->dev, "requested bus frequency too high\n");
++		return -EINVAL;
++	}
++	/* CFG_BUS reg:11 - 0 bits */
++	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_RATIO_MASK, div);
++
++	return 0;
++}
++
++static void reset_fifo_pos(struct aml_i2c *i2c)
++{
++	writel(0x00, i2c->regs + REG_TX_RD_ADDR);
++	writel(0x00, i2c->regs + REG_TX_WR_ADDR);
++	writel(0x00, i2c->regs + REG_RX_WR_ADDR);
++	writel(0x00, i2c->regs + REG_RX_RD_ADDR);
++}
++
++static int controller_is_error(struct aml_i2c *i2c)
++{
++	int ret = 0;
++
++	if (readl(i2c->regs + REG_CFG_IRQ_STATE) & A9_TRANS_ERROR)
++		ret = -ENXIO;
++
++	return ret;
++}
++
++static int controller_is_done(struct aml_i2c *i2c)
++{
++	return readl(i2c->regs + REG_CFG_IRQ_STATE) & A9_TRANS_DONE;
++}
++
++static void clear_irq_status(struct aml_i2c *i2c, u32 irq_bits)
++{
++	writel(irq_bits, i2c->regs + REG_CFG_IRQ_STATE);
++}
++
++static int aml_i2c_init(struct aml_i2c *i2c)
++{
++	int ret;
++
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, BUS_NO_STOP);
++	aml_i2c_set_mask(i2c, REG_CFG_I2C, I2C_RX_THR | I2C_TX_THR,
++			 (A9_I2C_FIFO_DEPTH << 16) | (A9_I2C_HALF_FIFO << 8));
++	reset_fifo_pos(i2c);
++	ret = aml_i2c_set_clk_div(i2c);
++
++	return ret;
++}
++
++static void aml_i2c_put_data(struct aml_i2c *i2c, u8 *buf, int len)
++{
++	int i;
++
++	/* When this I2C module transfers 0 bytes, it must still send at least 1 byte. */
++	if (!i2c->msg->len) {
++		writel(0x00, i2c->regs + REG_CFG_TX);
++		return;
++	}
++
++	for (i = 0; i < len; i++, buf++)
++		writel(*buf, i2c->regs + REG_CFG_TX);
++}
++
++static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mode mode)
++{
++	bool write = !(i2c->msg->flags & I2C_M_RD);
++
++	if (!write)
++		return;
++
++	if (mode == A9_FIFO_FILL_FULL)
++		i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
++	else
++		i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_HALF_FIFO);
++	aml_i2c_put_data(i2c, i2c->msg->buf + i2c->pos, i2c->count);
++}
++
++static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
++{
++	struct aml_i2c *i2c = dev_id;
++	u8 *buf = NULL;
++	int ret;
++	u32 rd_len, i;
++	u32 rd_val;
++
++	spin_lock(&i2c->lock);
++	ret = controller_is_error(i2c);
++	if (ret) {
++		i2c->error = ret;
++		goto complete_irq_out;
++	}
++
++	switch (i2c->state) {
++	case A9_STATE_READ:
++		buf = i2c->msg->buf;
++		rd_len = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
++		for (i = 0; i < rd_len; i++) {
++			rd_val = readl(i2c->regs + REG_CFG_RX);
++			buf[i2c->pos++] = rd_val & TX_RX_DATA;
++		}
++		/* Rx must clear thresh after read fifo */
++		clear_irq_status(i2c, A9_RX_THRESH_READ);
++		break;
++	case A9_STATE_WRITE:
++		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
++		if ((i2c->pos + A9_I2C_HALF_FIFO) >= i2c->msg->len)
++			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
++		i2c->pos += i2c->count;
++		/* Tx must clear thresh after write fifo */
++		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
++		break;
++	case A9_STATE_IDLE:
++		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_en:0x%x\n",
++			 readl(i2c->regs + REG_CFG_IRQ_STATE),
++			 readl(i2c->regs + REG_CFG_IRQ_ENABLE));
++		break;
++	default:
++		break;
++	}
++
++	if (!controller_is_done(i2c)) {
++		goto irq_trans_out;
++	} else {
++		if (i2c->state == A9_STATE_READ && (i2c->msg->len - i2c->pos))
++			goto irq_trans_out;
++	}
++
++complete_irq_out:
++	reset_fifo_pos(i2c);
++	complete(&i2c->done);
++	i2c->state = A9_STATE_IDLE;
++	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, 0);
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++irq_trans_out:
++	spin_unlock(&i2c->lock);
++
++	return IRQ_HANDLED;
++}
++
++static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
++{
++	unsigned int reg_val;
++	unsigned int trans_len;
++
++	trans_len = msg->len;
++	reg_val = (unsigned int)((msg->addr << START_SADDR_SHIFT) |
++				((msg->flags & I2C_M_RD) ? START_READ : 0) |
++				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
++	aml_i2c_set_mask(i2c, REG_CFG_START,
++			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
++	clear_irq_status(i2c, IRQ_ALL_MASK);
++	/* enable thresh mode */
++	if (trans_len > A9_I2C_FIFO_DEPTH) {
++		reg_val = (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH_WRITE;
++		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
++				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
++	}
++}
++
++static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bool last)
++{
++	unsigned long time_left, flags;
++	int ret = 0;
++
++	i2c->msg = msg;
++	i2c->pos = 0;
++	i2c->count = 0;
++	i2c->error = 0;
++
++	i2c->state = (msg->flags & I2C_M_RD) ? A9_STATE_READ : A9_STATE_WRITE;
++	spin_lock_irqsave(&i2c->lock, flags);
++	aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_FULL);
++	i2c->pos += i2c->count;
++	spin_unlock_irqrestore(&i2c->lock, flags);
++	reinit_completion(&i2c->done);
++
++	if (last)
++		aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, 0);
++	else
++		aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, BUS_NO_STOP);
++	/* Start the transfer */
++	aml_i2c_do_start(i2c, msg);
++
++	time_left = msecs_to_jiffies(I2C_TIMEOUT_MS);
++	time_left = wait_for_completion_timeout(&i2c->done, time_left);
++
++	/*
++	 * Protect access to i2c struct and registers from interrupt
++	 * handlers triggered by a transfer terminated after the
++	 * timeout period
++	 */
++
++	spin_lock_irqsave(&i2c->lock, flags);
++	if (!time_left) {
++		i2c->state = A9_STATE_IDLE;
++		clear_irq_status(i2c, IRQ_ALL_MASK);
++		reset_fifo_pos(i2c);
++		ret = -ETIMEDOUT;
++	}
++
++	if (i2c->error)
++		ret = i2c->error;
++	spin_unlock_irqrestore(&i2c->lock, flags);
++
++	return ret;
++}
++
++static int aml_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++{
++	struct aml_i2c *i2c = adap->algo_data;
++	int i, ret = 0;
++
++	for (i = 0; i < num; i++) {
++		ret = aml_i2c_xfer_msg(i2c, msgs + i, i == num - 1);
++		if (ret)
++			return ret;
++	}
++
++	return i;
++}
++
++static u32 aml_i2c_func(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
++}
++
++static const struct i2c_adapter_quirks aml_i2c_quirks = {
++	.max_read_len = A9_I2C_MAX_XFER_SIZE,
++	.max_write_len = A9_I2C_MAX_XFER_SIZE,
++};
++
++static const struct i2c_algorithm aml_i2c_algorithm = {
++	.master_xfer	= aml_i2c_xfer,
++	.functionality	= aml_i2c_func,
++};
++
++static int aml_i2c_probe(struct platform_device *pdev)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct aml_i2c *i2c;
++	struct i2c_timings timings;
++	int irq, ret;
++
++	i2c = devm_kzalloc(&pdev->dev, sizeof(struct aml_i2c), GFP_KERNEL);
++	if (!i2c)
++		return -ENOMEM;
++
++	i2c_parse_fw_timings(&pdev->dev, &timings, true);
++	i2c->frequency = timings.bus_freq_hz;
++
++	i2c->dev = &pdev->dev;
++	platform_set_drvdata(pdev, i2c);
++
++	spin_lock_init(&i2c->lock);
++	init_completion(&i2c->done);
++
++	i2c->regs  = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(i2c->regs))
++		return PTR_ERR(i2c->regs);
++
++	i2c->clk = devm_clk_get_enabled(&pdev->dev, NULL);
++	if (IS_ERR(i2c->clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->clk), "can't get enable clock\n");
++
++	i2c->clk_rate = clk_get_rate(i2c->clk);
++	if (i2c->clk_rate == 0)
++		return dev_err_probe(&pdev->dev, -EINVAL, "failed to get clk rate\n");
++
++	ret = aml_i2c_init(i2c);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret, "fail init i2c\n");
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return dev_err_probe(&pdev->dev, irq, "can't find IRQ\n");
++
++	ret = devm_request_irq(&pdev->dev, irq, aml_i2c_irq, 0, dev_name(&pdev->dev), i2c);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret, "can't request IRQ\n");
++	/* Enable error & done irq */
++	writel(A9_ENABLE_IRQ_BIT, i2c->regs + REG_CFG_IRQ_ENABLE);
++	strscpy(i2c->adap.name, "Amlogic I2C adapter",
++		sizeof(i2c->adap.name));
++	i2c->adap.owner = THIS_MODULE;
++	i2c->adap.algo = &aml_i2c_algorithm;
++	i2c->adap.quirks = &aml_i2c_quirks;
++	i2c->adap.dev.parent = &pdev->dev;
++	i2c->adap.dev.of_node = np;
++	i2c->adap.algo_data = i2c;
++
++	return i2c_add_adapter(&i2c->adap);
++}
++
++static void aml_i2c_remove(struct platform_device *pdev)
++{
++	struct aml_i2c *i2c = platform_get_drvdata(pdev);
++
++	i2c_del_adapter(&i2c->adap);
++}
++
++static const struct of_device_id aml_i2c_match[] = {
++	{	.compatible = "amlogic,a9-i2c",},
++	{ }
++};
++
++MODULE_DEVICE_TABLE(of, aml_i2c_match);
++
++static struct platform_driver aml_i2c_driver = {
++	.probe   = aml_i2c_probe,
++	.remove  = aml_i2c_remove,
++	.driver  = {
++		.name  = "amlogic-i2c",
++		.of_match_table = aml_i2c_match,
++	},
++};
++
++module_platform_driver(aml_i2c_driver);
++
++MODULE_DESCRIPTION("Amlogic I2C Bus driver");
++MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
++MODULE_LICENSE("GPL");
 
-Xianwei Zhao (1):
-      dt-bindings: i2c: add Amlogic A9 I2C controller
-
- .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
- MAINTAINERS                                        |   9 +
- drivers/i2c/busses/Kconfig                         |   8 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-amlogic-a9.c                | 469 +++++++++++++++++++++
- 5 files changed, 543 insertions(+)
----
-base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
-change-id: 20260911-a9-i2c-24478e22e683
-
-Best regards,
 -- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+2.52.0
 
 
