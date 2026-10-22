@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678237;
-	b=U+QR1hEZgSMfFWICUvJ3YcIEwk7YVG8MPiLuTDw2fdZy/nXnBywNaP/1K/o90I4V/yws
-	 EFVFet/YpBSnmBBCBZd+wzm01JmbFWGMktIMyBlQThgMgNFkMfCrdy36TDzlHj0EhAxj1
-	 S5vc2WLBV+zIWmYm+aeKM6oUp7aI7H3lXsdzWG043Lz8WJLaxvTcgwHwhUPhPSnLkUXoy
-	 C5tX0v6i8pCGCHa9VQnrkarLD1lbkyhrLftvUXjalODoGdXQrxDCGqJE/vqODa0BdmTAT
-	 5M23ubX9TK3aDPXZdEBA0XV+znvf9VTjgUGhNfXhT/jDoiDlkqx+XYLwzBJn0jlAGpg==
+	t=1792678542;
+	b=1D+12s4PAjzg5/5dicdQUyOru8GoWAU9+bKEqe5ScpKJ7xor9seydpKy4N6k5v6JcY1a
+	 /j7mE0qG1jQnD/H3P3YAO1mBim6L/Qy4bu4CVkxn5ve3QMcyHDY9JC/QOu5osFd0RDw02
+	 LRWpd71wKrYuCCxAk4nyEQ4OFwV7uIJ6dQ0kMxbUEHaANURV5c26X5OgMXWA3GHefSOGp
+	 P+HFXeOMnCenmxqaM3PlvhJqGgHMc4PCZ+f1AnhI9I4m1JbViiZT2eAAQB5WRzf3TDGUZ
+	 uS2i1D+V5KNL6TsgpSGwbu/YiOrVPz3JmaL1Bb5BGJjq0x7SuvliEXJS4tg3V7qcCGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678237;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=weVRdQtifwkxw5sFIAJqPF/iG+27RAB5rTL5mR7KELY=;
-	b=Wq3pNVWq0IhzFPr/ZjsRQJuyeoJUNCjE1e96ego5aR/zCaLUid4TqA65GjdgMeMyXiMe
-	 sHppMx3B9oBmzQgHHNCjRSSWQnPuyMTGJzP8dWjmlUdjvOd4fuNLjD9VwAsouMjPQM4sv
-	 RtEqVSoMn66BxoKshnyfZ8sFrDKuA8rlaHJjIgpK3ca082CBYF9H8xjfJXdXd8CZ6a6Wm
-	 9bnRLWSMhG+IDQyte4ZKgJWlSFW0crIo2V35zznzKbtIv6/u5P1eoHcUSgwxgn0gU4/zn
-	 N0R7TgKfbU9PO4wAcXhs99VWTyWw7bfCrWhslaALba7QlmgzspGhCxMl3nUgFOfGdSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678542;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pObZkhlDQ4PcaI1MN+28pmTr0CCJt+oalaIvvB0M4LQ=;
+	b=UlJZUWZRV9FUtWtVnefRWsfYWzBFzazEKVQXOs3Q37V736CvLMpfkRRbVz4mSdomnYk3
+	 bxvcVIclvhAVgRklgzvO+tnXaW+u32BCaW356Ptr4RazJFU0MlGNe4C8VuHvB3QYCDB8X
+	 +xAOh+5TTXQBPDTTUNe/Vwp0RRZWaEgoi4Kqr1V+kESCbxGssRsSqObrBC3L1+0HmnjuS
+	 4RLCZiO9qYn/gUhBx1t/5fR1yTYRHrkaC/Vv7QJMNpHYICCEQVTfK+ZLFKICigYA/eAk1
+	 P6NWVM9SO3ljDvGc7ObfcDqir5OJBOcpfg/WnAhKMOgPimbQf3f126yDkV+iih/s+sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ7Ww7JO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5su5LFq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C0F60A260A;
-	Thu, 22 Oct 2026 14:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADAA606A31D
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 14:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ7Ww7JO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A4B1F000C3;
-	Thu, 22 Oct 2026 14:10:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5su5LFq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36E31F000C1;
+	Thu, 22 Oct 2026 14:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792678237;
-	bh=weVRdQtifwkxw5sFIAJqPF/iG+27RAB5rTL5mR7KELY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJ7Ww7JOTSBg+vBYOaSZFAq+VsYPt0Z+Jr+MNxpyRwl1yeo8ZymvWqW1KJEpw3xD6
-	 0hseAlqMtCZiCSrzp6C39ZQEEtno/gwXmFQMqbWbAhRq37lUkiVFcNPvEUcj/PvJ/D
-	 vcUCzKxUghZCoAxKyhMFBgcB4pz7dIhis7QIafOV7/wrso/vjAB+xk3zpuoymsdLgo
-	 KiRdMyNfousXfFJIum9ZlYS7N0cluBir6G01goapltHYh/ZwhCOlejGmsD5MRKZI+G
-	 mouBbtxw0d2QxNdudN/j+ZXvAD57+qgdmeKKdKySIMjQABIvO3071SuMeSeH03UWyJ
-	 Wbf3r/MMaTN3w==
-Message-ID: <sashiko-outbox-181612@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261022140244.3476844-2-petko.manolov@konsulko.com>
-References: <20261022140244.3476844-1-petko.manolov@konsulko.com>
- <20261022140244.3476844-2-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 14:10:36 +0000
+	s=k20260515; t=1792678542;
+	bh=pObZkhlDQ4PcaI1MN+28pmTr0CCJt+oalaIvvB0M4LQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H5su5LFqyqqXsY0bNPL6LsGNm91WzIY4qXgmQbmvtgg8Z37AybGQK0+k796GQ7hlL
+	 WC0h7tdPJ+cI6aQS1aFbOtJAi0z043q0ZnCjAemYF4LRNCZeq0bEvQy/WQRzCqkSRe
+	 +Ol8SgrU38y0/rz/R/YgFZSxZHgm2v6qIJHlP3dmGYvRWTCSzCms7YyaDGDON+QnOC
+	 d5dlvyLTMB1Ke5ZmIvKeZribYRJlr86VbuqQGMe1Lfb0mNAW3vEXJkv/I/GG0qBvdv
+	 9L+Niv4P8jiEK8hL6O7KPvX7cMNs/K2Idzw5PCZKGnsBzokKTdbs7AAuHU6HMnGrdq
+	 5X5E549YwCAPw==
+Date: Thu, 22 Oct 2026 09:15:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	William Zhang <william.zhang@broadcom.com>,
+	Anand Gore <anand.gore@broadcom.com>,
+	Kursad Oney <kursad.oney@broadcom.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable
+ method
+Message-ID: <20261022141541.GA1009304-robh@kernel.org>
+References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
+ <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,68 +66,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: arm: fsl: undocumented draeger vendor prefix in fsl.ya=
-ml
---
+On Wed, Oct 21, 2026 at 05:09:52PM +0200, Linus Walleij wrote:
+> BCMBCA systems booted through CFE can release a secondary CPU by
+> writing its ARM-state entry address to a 32-bit MMIO mailbox and
+> sending a wakeup interrupt.
+> 
+> Document brcm,bca-smp and its single-cell cpu-release-addr property.
+> The boot CPU does not need a mailbox; secondary CPUs do. Add a
+> Cortex-A7 example showing both CPU nodes.
+> 
+> Suggested-by: William Zhang <william.zhang@broadcom.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/arm/cpus.yaml | 36 +++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
+> index 5be89c584026..6771b85f757b 100644
+> --- a/Documentation/devicetree/bindings/arm/cpus.yaml
+> +++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+> @@ -255,6 +255,7 @@ properties:
+>            - amlogic,meson8b-smp
+>            - arm,realview-smp
+>            - aspeed,ast2600-smp
+> +          - brcm,bca-smp
+>            - brcm,bcm11351-cpu-method
+>            - brcm,bcm23550
+>            - brcm,bcm2836-smp
+> @@ -471,6 +472,20 @@ allOf:
+>      then:
+>        required:
+>          - secondary-boot-reg
+> +  - if:
+> +      properties:
+> +        enable-method:
+> +          const: brcm,bca-smp
+> +      required:
+> +        - enable-method
+> +    then:
+> +      properties:
+> +        cpu-release-addr:
+> +          $ref: /schemas/types.yaml#/definitions/uint32
+> +          description:
+> +            Physical address of the 32-bit MMIO mailbox read by CFE after
+> +            a wakeup interrupt. Required on secondary CPUs. The kernel
+> +            writes the ARM-state entry address before sending the interrupt.
 
-commit 3465979b7c116a128c865587fd61bc41cff5927b
-Author: Petko Manolov <petko.manolov@konsulko.com>
+required:
+  - cpu-release-addr
 
-dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+??? But cpu0 doesn't have an address. Is there really no address or you 
+just omitted because you don't really need it. Should still be there in 
+the latter case IMO.
 
-This commit adds the draeger,imx6q-m48 and draeger,imx6dl-m48 board
-compatible strings to Documentation/devicetree/bindings/arm/fsl.yaml.
+Alternatively, add the enable-method value to the existing section that 
+does this. Also, there might be other cases that are a 32-bit address 
+and need this same constraint.
 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentati=
-on/devicetree/bindings/arm/fsl.yaml
-> index 656f2596e1d53..8f3a04228780a 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -260,6 +260,7 @@ properties:
->                - boundary,imx6q-nitrogen6x
->                - compulab,cm-fx6           # CompuLab CM-FX6
->                - dmo,imx6q-edmqmx6         # Data Modul eDM-QMX6 Board
-> +              - draeger,imx6q-m48         # Draeger imx6q variant of M48
->                - ds,imx6q-sbc              # Da Sheng COM-9XX Modules
->                - embest,imx6q-marsboard    # Embest MarS Board i.MX6Dual
->                - emtrion,emcon-mx6         # emCON-MX6D or emCON-MX6Q SoM
-> @@ -458,6 +459,7 @@ properties:
->                - boundary,imx6dl-nit6xlite     # Boundary Devices Nitroge=
-n6 Lite
->                - boundary,imx6dl-nitrogen6x    # Boundary Devices Nitroge=
-n6x
->                - bticino,imx6dl-mamoj      # BTicino i.MX6DL Mamoj
-> +              - draeger,imx6dl-m48        # Draeger imx6dl variant of M48
->                - eckelmann,imx6dl-ci4x10
->                - emtrion,emcon-mx6         # emCON-MX6S or emCON-MX6DL SoM
->                - emtrion,emcon-mx6-avari   # emCON-MX6S or emCON-MX6DL So=
-M on Avari Base
-
-[Severity: Low]
-Both hunks in properties:compatible of
-Documentation/devicetree/bindings/arm/fsl.yaml introduce compatible strings
-with the draeger vendor prefix (draeger,imx6q-m48 and draeger,imx6dl-m48),
-and the follow-up commit 6e00402d882f ("arm: dts: nxp: imx: Add devicetree
-files for M48") uses them as well.
-
-However, patternProperties in
-Documentation/devicetree/bindings/vendor-prefixes.yaml does not appear to
-have a matching "^draeger,.*" entry:
-
-  "^dptel,.*":
-    description: Guangdong Dapu Telecom Co., Ltd.
-  "^dragino,.*":
-    description: Dragino Technology Co., Limited
-
-Should the "^draeger,.*" vendor prefix be added to
-Documentation/devicetree/bindings/vendor-prefixes.yaml so that
-scripts/checkpatch.pl (in process()) and devicetree schema validation
-(dt_binding_check and dtbs_check) do not report draeger as an undocumented
-vendor prefix?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022140244.3476=
-844-1-petko.manolov@konsulko.com?part=3D1
+>    - if:
+>        properties:
+>          enable-method:
+> @@ -712,4 +727,25 @@ examples:
+>          cpu-release-addr = <0 0x20000000>;
+>        };
+>      };
+> +  - |
+> +    // Example 5 (Broadcom BCMBCA with CFE):
+> +    cpus {
+> +      #size-cells = <0>;
+> +      #address-cells = <1>;
+> +
+> +      cpu@0 {
+> +        device_type = "cpu";
+> +        compatible = "arm,cortex-a7";
+> +        reg = <0>;
+> +        enable-method = "brcm,bca-smp";
+> +      };
+> +
+> +      cpu@1 {
+> +        device_type = "cpu";
+> +        compatible = "arm,cortex-a7";
+> +        reg = <1>;
+> +        enable-method = "brcm,bca-smp";
+> +        cpu-release-addr = <0xff800568>;
+> +      };
+> +    };
+>  ...
+> 
+> -- 
+> 2.56.0
+> 
