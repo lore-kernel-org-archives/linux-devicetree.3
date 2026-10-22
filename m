@@ -1,84 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792683811;
-	b=VTlKyjbr598Z2MoPkkWgj4YmBicoLAw7qla2P/SjrxtOR+OxuAbmji0fhihFwc3IS39z
-	 7RUI7mzn364/D5Y8g6M8GlnSlZ+RG6PHiWzB+veuddVjiqUke+mzp2iHctALZfipBT8M/
-	 pG0FwfHVJU7qmY5CkVeSuU7JiKCDLZwVMrI1HDC0p4GaIkDVgFLfdL8rRN+9NJefFaJfJ
-	 8LKuf5gParJZyTmIHNlWOvvP/Koi/Y7tvYNmjErFQbPm30bEAkT/tFiwpWzbWk78EWMqY
-	 38JyfOZQebPAHd+4ai433lfZ5uYk53KANN9AM3csrmFWwew+GFgHrozoxWiXPlw1/dw==
+	t=1792684084;
+	b=VRvhdbQAYIp+O77SAFDA/6zf20DdOXOdRLz4O/GlRAMV+safFPNMQXvwnxPdvNO5AdaV
+	 e/N0jNa9Z3QomVtIy+HG//sEB/KWM4LdNjAjRPnXAOwlWcB8OnP5Z358LMhMDXj7cJMnO
+	 lzuYj+VKZnB8jTDPygbJtDbLcyIIASdpW297razQ+eIuyf5RmbPiZLsa6btdgMSJx2Rpl
+	 gPSFXkzD8l6w7uUcuGKrCYqFS2PJRH/9E3f73CuQk2ZXKg/iFV9P03Uu+HTPM4/LexTtT
+	 99Wuld9nVlJ2qPxAhdU75L13CqN0Gg+oG/bITxBTPy8goOYuwK4ve8v8PYLJBOBwfsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792683811;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=H/ZQDZbJUUwaDWq/U/yZ4cIarmdBAnG5+fgMRyphtSo=;
-	b=HwIKfp6hhWKxqRjizQRKXRY+LfmJy5OxZJoidpYkRWcWLC1lPfxPZTeQxH+kdb9sOnVA
-	 +8/zztcVYwih6Zhod3yxYbhXlfqIqz6DAfAteI2LCMIl4HsC7fXH8kRZ5moixhrSr/jUb
-	 wJ6RUrFzfYsEicukauAHfglpqOnTkU6OXOsJRiyNkPqRXSVkFKi1Bv+9ePOuvfF7Q9Jgz
-	 e5OKE+QjK/U+yJHxWYjDEpTKiwOUFkfKpyKWyIZhv6uLR5tpmKWHiGB/W5l+iVtbStlji
-	 wTVzy3APKKgeSg85dFzGNr5eH9V9v17p8fM8yAxHxcfcsaAdycHo/9A8try6BbD5gdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684084;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=kAlMXW/iDu0WcnR6MO51sVVJWdRsAdHL92bT/kLuTEg=;
+	b=iolLRcC5/FyM0pSbI9Duai1KP35zeVpGfblpGEXfYOWsoijkVBq6imBSyZ4E+G42YaI6
+	 GMswvfAlk1dynOPvf/AGCuiDJjEWoJOg3pvoHjisg6scpefgAfZddMHrucx9H/3kANz58
+	 tTbnN3Eo4jUDkuDrkwDpuiq+EmkEefF3Q7Ar3O/xhAdXuwb7nxXvdyPNFnGDWyhaByCiD
+	 C2j7FrpfpJlTlBOnrFUJDH/drlSUZ8taCmeEFcxIoONTYpdR58QoHlxw1jYm7eHGcpmrd
+	 ZDG15Mxpr7QhQVDJAy5AhBpIivTTZQDYFeJNvFsnowIT1jA4X1TuTjrkIxYhi0qGZkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkIm1xBS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UNtKhtWC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67CE606A319;
-	Thu, 22 Oct 2026 15:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E608606A31A
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 15:48:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HkIm1xBS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFAC1F01825;
-	Thu, 22 Oct 2026 15:43:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UNtKhtWC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3C61F01825;
+	Thu, 22 Oct 2026 15:48:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792683810;
-	bh=H/ZQDZbJUUwaDWq/U/yZ4cIarmdBAnG5+fgMRyphtSo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HkIm1xBS2oaBequM1IPluWU8b+N//ZtGRp17ZRz9uHD5bKy2xYcEdA4HU0rNyrgDg
-	 YBJuHEJRMeL+tUCGYtbZjpENSBmdmPC0uQqPh2SUb6uSsREXyD0lUSYkOkV1P70koK
-	 OpBxQh+BqzrF3MFP5RXmvSeTtHZO3/bxhr4B2iDcNcLx6Gpmah9lHKIk8JbDsl0h+w
-	 16pnLvPlrRDp3BcIAmQGfyE+57bIfZzWGhQES485JDv6J/MtvdsOxkexEJGoFqAI9n
-	 lbeEZcJoLlj4jO4oACEpTZEstHuP263QEUjvW+OTTqmS/WKngm8TZDxFNEC0gQ78/P
-	 +b4+D2p5AvpGA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xJuwx-000000067Lk-3k9q;
-	Thu, 22 Oct 2026 15:43:27 +0000
-Date: Thu, 22 Oct 2026 16:43:27 +0100
-Message-ID: <86h5idzqow.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
-In-Reply-To: <20261015142552.4128028-12-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-	<20261015142552.4128028-12-ryan.roberts@arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1792684084;
+	bh=kAlMXW/iDu0WcnR6MO51sVVJWdRsAdHL92bT/kLuTEg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UNtKhtWCTF/k23Ob28HruvH/BkJHTrU+bKz4hRPymiETYOuZPo69yp7pohDkizww5
+	 ICOZTDOvpCi93s4NFyjd01M1vj4JGJIRfGC5Z/cOOxeOAXywvkmdbNQdlCJx7i7Ua1
+	 lZaRFznuzCnUBvjgJOhCEMCGTvfZs51eGWsGkB4o2F5g2NOT28WuwnmLQjvFbYQ2bA
+	 sG42gmdlXVXNHNDFoNS/v7eyt3liVAu8qPpeAgzLBPgPesqckbjYjlTfD2EwxjPkxO
+	 SFYRUMDaEymyVqBFTkPSzkaHq85hUkrHCttT5qJNTmOH5/6bOs/Hc9ur9MKw++rLwA
+	 EkCiODi9I42OA==
+Message-ID: <sashiko-outbox-181725@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/sitronix/st7571-spi: Add support for ST75156
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lars Rask" <lars.rask@axis.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+References: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
+ <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 15:48:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,205 +60,530 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: ryan.roberts@arm.com, gregkh@linuxfoundation.org, arnd@arndb.de, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, oupton@kernel.org, alex@shazbot.org, jgg@nvidia.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, jpb@kernel.org, ogabbay@kernel.org, corbet@lwn.net, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, 15 Oct 2026 15:25:45 +0100,
-Ryan Roberts <ryan.roberts@arm.com> wrote:
-> 
-> From: Jean-Philippe Brucker <jpb@kernel.org>
-> 
-> Provide an API to drivers that want to share the stage 2 configuration
-> of a VM with their device. At the moment it is rather limited:
-> 
-> * No invalidation notifiers. The TLBs on the device side, if any,
->   receive CPU TLB invalidations.
-> 
-> * No remote page fault support. All paging still takes the normal data
->   abort route on the CPU. Options are pinning all guest memory or
->   device-specific mechanism for reporting pending faults to the guest.
-> 
-> * No nested VMs. Although we could perhaps support assigning devices to
->   the hyp context of a nested VM, it seems performative.
-> 
-> So for the moment this API works for devices that share the CPU MMU, but
-> the SMMU driver could use it with DVM.
-> 
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-> ---
->  arch/arm64/include/asm/kvm_host.h |  11 ++++
->  arch/arm64/include/asm/kvm_mmu.h  |   1 +
->  arch/arm64/kvm/mmu.c              | 102 ++++++++++++++++++++++++++++++
->  arch/arm64/kvm/sys_regs.c         |  14 +---
->  4 files changed, 117 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 30d0082b15ec..c0932b43f959 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -235,6 +235,14 @@ struct kvm_s2_mmu {
->  	atomic_t refcnt;
->  };
->  
-> +/* stage 2 MMU configuration, for drivers that speak VMSA */
-> +struct kvm_arch_guest_mmu {
-> +	u64 hcr;
-> +	u64 hcrx;
-> +	u64 vtcr;
-> +	u64 vttbr;
-> +};
-> +
->  struct kvm_arch_memory_slot {
->  };
->  
-> @@ -1720,4 +1728,7 @@ static __always_inline enum fgt_group_id __fgt_reg_to_group_id(enum vcpu_sysreg
->  
->  long kvm_get_cap_for_kvm_ioctl(unsigned int ioctl, long *ext);
->  
-> +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm);
-> +void kvm_arch_put_guest_mmu(struct kvm *kvm, struct kvm_arch_guest_mmu *mmu);
-> +
->  #endif /* __ARM64_KVM_HOST_H__ */
-> diff --git a/arch/arm64/include/asm/kvm_mmu.h b/arch/arm64/include/asm/kvm_mmu.h
-> index 6eae7e7e2a68..8a9d385fe14d 100644
-> --- a/arch/arm64/include/asm/kvm_mmu.h
-> +++ b/arch/arm64/include/asm/kvm_mmu.h
-> @@ -185,6 +185,7 @@ int kvm_handle_guest_sea(struct kvm_vcpu *vcpu);
->  int kvm_handle_guest_abort(struct kvm_vcpu *vcpu);
->  
->  phys_addr_t kvm_mmu_get_httbr(void);
-> +u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr);
->  phys_addr_t kvm_get_idmap_vector(void);
->  int __init kvm_mmu_init(u32 hyp_va_bits);
->  
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 2d44cd6a5aed..0bf1dff2a41f 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -2805,3 +2805,105 @@ void kvm_toggle_cache(struct kvm_vcpu *vcpu, bool was_enabled)
->  
->  	trace_kvm_toggle_cache(*vcpu_pc(vcpu), was_enabled, now_enabled);
->  }
-> +
-> +#define HCR_MMU_BITS (HCR_VM | HCR_PTW | HCR_DC | HCR_TGE | HCR_RW |	\
-> +		      HCR_CD | HCR_ID | HCR_E2H | HCR_NV | HCR_NV1 |	\
-> +		      HCR_FWB | HCR_ATA | HCR_DCT)
-> +
-> +/* Update MMU-specific host bits of HCR_EL2 */
-> +u64 kvm_mmu_get_hcr(struct kvm *kvm, u64 hcr)
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [Critical] drm/sitronix: hwbuf OOB read and broken damage in st75156_tran=
+sform_xy()
+- [High] drm/sitronix: NULL deref and uninit regmap in st7571_spi_probe()
+- [High] drm/sitronix: unchecked kmemdup() for databuf in regmap_spi_write()
+- [High] drm/sitronix: devm_gpiod_get() swallows errors in st7571_spi_probe=
+()
+- [High] drm/sitronix: inverted reset GPIO polarity in st75156_reset()
+- [Medium] drm/sitronix: missing BACKLIGHT_CLASS_DEVICE dependency for st75=
+71
+- [Medium] drm/sitronix: broken display and backlight PM for ST75156
+- [Medium] drm/sitronix: st75156 ignores parsed DT settings and skips start=
+col check
+--
+
+commit c09138c5fe8d0e3240997fcbdd65bfabecbad95f
+Author: Lars Rask <lars.rask@axis.com>
+
+drm/sitronix/st7571-spi: Add support for ST75156 controller
+
+This commit adds support for the Sitronix ST75156 monochrome display
+controller to the st7571 DRM driver, including 4-line SPI D/C GPIO handling=
+ in
+st7571-spi.c and ST75156 initialization and framebuffer update routines in
+st7571.c.
+
+> diff --git a/drivers/gpu/drm/sitronix/st7571-spi.c b/drivers/gpu/drm/sitr=
+onix/st7571-spi.c
+> index 0206e9162f1cd..724c0eb5e7dab 100644
+> --- a/drivers/gpu/drm/sitronix/st7571-spi.c
+> +++ b/drivers/gpu/drm/sitronix/st7571-spi.c
+> @@ -17,23 +17,133 @@ static const struct regmap_config st7571_spi_regmap_=
+config =3D {
+
+[ ... ]
+
+> +static int regmap_spi_write(void *context, const void *data, size_t coun=
+t)
 > +{
-> +	lockdep_assert_held(&kvm->arch.config_lock);
+> +	struct spi_device_data *spi_data =3D context;
+> +	const u8 *buf =3D data;
+> +	u8 mode;
+> +	size_t num_data_bytes;
+> +	const u8 *data_bytes;
+> +	int write_result;
+> +	const u8 *cmdbuf;
+> +	const u8 *databuf;
+
+[ ... ]
+
+> +	if (mode =3D=3D ST7571_COMMAND_MODE) {
+> +		gpiod_set_value_cansleep(spi_data->dc_gpio, 0);
 > +
-> +	WARN_ON(!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED,
-> +			  &kvm->arch.flags));
+> +		cmdbuf =3D kmemdup(&buf[1], 1, GFP_KERNEL);
+> +		if (!cmdbuf)
+> +			return -ENOMEM;
 > +
-> +	hcr &= ~HCR_MMU_BITS;
-> +	hcr |= HCR_VM | HCR_PTW;
+> +		write_result =3D spi_write(spi_data->spi, cmdbuf, 1);
+> +		kfree(cmdbuf);
 > +
-> +	if (has_vhe() || has_hvhe())
-> +		hcr |= HCR_E2H;
+> +		if (write_result !=3D 0)
+> +			return write_result;
 > +
-> +	if (cpus_have_final_cap(ARM64_HAS_STAGE2_FWB))
-> +		hcr |= HCR_FWB;
+> +		num_data_bytes =3D count - 2;
 > +
-> +	if (kvm_has_mte(kvm))
-> +		hcr |= HCR_ATA;
+> +		if (num_data_bytes > 0) {
+> +			gpiod_set_value_cansleep(spi_data->dc_gpio, 1);
+> +			data_bytes =3D &buf[2];
+> +			databuf =3D kmemdup(data_bytes, num_data_bytes, GFP_KERNEL);
 > +
-> +	if (!test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features))
-> +		hcr |= HCR_RW;
+> +			write_result =3D spi_write(spi_data->spi, databuf, num_data_bytes);
+> +			kfree(databuf);
 > +
-> +	return hcr;
+> +			if (write_result !=3D 0)
+> +				return write_result;
+> +		}
+> +	} else if (mode =3D=3D ST7571_DATA_MODE) {
+> +		num_data_bytes =3D count - 1;
+> +
+> +		if (num_data_bytes > 0) {
+> +			gpiod_set_value_cansleep(spi_data->dc_gpio, 1);
+> +			data_bytes =3D &buf[1];
+> +			databuf =3D kmemdup(data_bytes, num_data_bytes, GFP_KERNEL);
+> +			write_result =3D spi_write(spi_data->spi, databuf, num_data_bytes);
+> +			kfree(databuf);
+> +
+> +			if (write_result !=3D 0)
+> +				return write_result;
+> +		}
+
+[Severity: High]
+What happens in regmap_spi_write() in drivers/gpu/drm/sitronix/st7571-spi.c=
+ if
+kmemdup() returns NULL when allocating databuf?
+
+In both the ST7571_COMMAND_MODE branch (when num_data_bytes > 0) and the
+ST7571_DATA_MODE branch (when num_data_bytes > 0), databuf is passed direct=
+ly
+to spi_write(spi_data->spi, databuf, num_data_bytes) without a NULL check,
+unlike cmdbuf above. If kmemdup() fails under memory pressure during a
+multi-byte command write or framebuffer update over 4-line SPI, spi_write()
+receives a NULL tx_buf with a non-zero length, which can cause a NULL point=
+er
+dereference in the SPI controller driver or transmit dummy bytes instead of
+returning -ENOMEM.
+
+Should both databuf allocations check for !databuf and return -ENOMEM before
+calling spi_write()?
+
+> +
+> +	} else {
+> +		/* Unsupported mode */
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+>  static int st7571_spi_probe(struct spi_device *spi)
+>  {
+>  	struct st7571_device *st7571;
+>  	struct regmap *regmap;
+> +	struct spi_device_data *spi_data;
+> +
+> +	spi_data =3D devm_kzalloc(&spi->dev, sizeof(*spi_data), GFP_KERNEL);
+> +	if (IS_ERR(spi_data))
+> +		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
+> +				     "Failed to initialize spi data\n");
+> =20
+> -	regmap =3D devm_regmap_init_spi(spi, &st7571_spi_regmap_config);
+> -	if (IS_ERR(regmap)) {
+> +	spi_data->spi =3D spi;
+
+[Severity: High]
+In st7571_spi_probe() in drivers/gpu/drm/sitronix/st7571-spi.c, devm_kzallo=
+c()
+returns NULL on allocation failure rather than an error pointer, and regmap=
+ is
+uninitialized at this point.
+
+When devm_kzalloc() fails, IS_ERR(spi_data) evaluates to false and execution
+continues to spi_data->spi =3D spi, causing a NULL pointer dereference. In
+addition, passing PTR_ERR(regmap) to dev_err_probe() reads the uninitialized
+regmap variable.
+
+Should this check for !spi_data and return -ENOMEM instead?
+
+> +	spi_data->dc_gpio =3D devm_gpiod_get(&spi->dev, "dc", GPIOD_OUT_LOW);
+> +
+> +	if (IS_ERR(spi_data->dc_gpio))
+> +		/* init regmap for 3 line SPI */
+> +		regmap =3D devm_regmap_init_spi(spi, &st7571_spi_regmap_config);
+> +	else
+> +		/* init regmap for 4 line SPI */
+> +		regmap =3D devm_regmap_init(&spi->dev, &regmap_spi_dc_bus,
+> +					  spi_data, &st7571_spi_regmap_config);
+
+[Severity: High]
+Could checking IS_ERR(spi_data->dc_gpio) after devm_gpiod_get() in
+st7571_spi_probe() in drivers/gpu/drm/sitronix/st7571-spi.c break probe
+deferral for 4-line SPI panels?
+
+If a 4-line SPI panel specifies dc-gpios in Device Tree and the GPIO provid=
+er
+is not ready yet, devm_gpiod_get() returns ERR_PTR(-EPROBE_DEFER). Because =
+any
+IS_ERR(spi_data->dc_gpio) result falls back to devm_regmap_init_spi(), the
+driver silently ignores -EPROBE_DEFER (and any other GPIO error) and
+configures the 4-line SPI panel as a 3-line SPI device without driving its =
+D/C
+pin.
+
+Would it be better to use devm_gpiod_get_optional(&spi->dev, "dc",
+GPIOD_OUT_LOW), propagate IS_ERR(spi_data->dc_gpio) via dev_err_probe(), and
+select 3-line vs 4-line SPI based on whether spi_data->dc_gpio is NULL?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix=
+/st7571.c
+> index 20954c33eca93..2dd52f2214d28 100644
+> --- a/drivers/gpu/drm/sitronix/st7571.c
+> +++ b/drivers/gpu/drm/sitronix/st7571.c
+
+[ ... ]
+
+> +static inline u8 st75156_transform_xy(struct st7571_device *st75156, int=
+ x, int y)
+> +{
+> +	int xrest =3D x % 8;
+> +	u8 result =3D 0;
+> +	u8 row_len =3D (st75156->ncols / 8) * st75156->bpp;
+> +	int i;
+> +	const char *p =3D st75156->hwbuf;
+> +
+> +	/*
+> +	 * Transforms an (x, y) pixel coordinate into a vertical 8-bit
+> +	 * column from the framebuffer. It calculates the corresponding byte in=
+ the
+> +	 * framebuffer, extracts the bit at the given x position across 8 conse=
+cutive
+> +	 * rows, and packs those bits into a single byte.
+> +	 *
+> +	 * Return an 8-bit value representing a vertical column of pixels.
+> +	 */
+> +	x =3D x / 8;
+> +	y =3D (y / 8) * 8;
+> +
+> +	for (i =3D 0; i < 8; i++) {
+> +		int row_idx =3D y + i;
+> +		u8 byte =3D p[row_idx * row_len + x];
+> +		/* LSB in input is left most pixel */
+> +		u8 bit =3D (byte >> xrest) & 1;
+> +		/* LSB in output is 7th row */
+> +		result |=3D (bit << (7 - i));
+> +	}
+> +
+> +	return result;
 > +}
 > +
-> +/**
-> + * kvm_arch_get_guest_mmu - Get a reference to the guest MMU config
-> + * @kvm: KVM instance. Caller must hold a reference.
-> + *
-> + * Get the stage 2 MMU config of an EL1 VM. The returned object contains
-> + * settings that do not change until the object is released with
-> + * kvm_arch_put_guest_mmu(). This function does not support nested VMs.
-> + *
-> + * HCR has lots of settings, some of which differ between vCPUs, but most of
-> + * them control traps. For EL1 VMs, the bits relevant to MMU translation are
-> + * common to all vCPUs:
-> + * - VM, PTW, DC, TGE, CD, ID, NV, NV1, DCT have fixed values.
-> + * - E2H, FWB, ATA depend on host CPU features (respectively VHE, FWB and MTE2).
-> + * - RW depends on vCPU features. This function does not support 32-bit VMs.
-> + *
-> + * HCRX: EnSDERR, EnSNERR set to 0. TODO: is GCSEn relevant?
-> + *
-> + * VTCR is set once for the VM, depends on the VM's IPA size.
-> + *
-> + * VTTBR:
-> + * - VMID is pinned, until kvm_arch_put_guest_mmu() is called.
-> + * - PGD is allocated and freed with the vm (the caller must hold their
-> + *   reference to @kvm). KVM may create and remove page table mappings at any
-> + *   moment, and uses normal TLB maintenance operations to synchronize with
-> + *   page table walkers. KVM does not notify the caller about mapping changes.
-> + * - CNP is a property of the host system.
-> + *
-> + * Return: a new kvm_arch_guest_mmu instance, or an error pointer on failure.
-> + */
-> +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
+>  static int st7571_set_position(struct st7571_device *st7571, int x, int =
+y)
+>  {
+>  	u8 cmd_list[] =3D {
+> @@ -138,6 +290,23 @@ static int st7571_set_position(struct st7571_device =
+*st7571, int x, int y)
+>  	return st7571_send_command_list(st7571, cmd_list, ARRAY_SIZE(cmd_list));
+>  }
+> =20
+> +static int st75156_set_position(struct st7571_device *st75156, int x, in=
+t y)
+> +{
+> +	u8 xs_param =3D st75156->startcol + x;
+> +	u8 xe_param =3D st75156->startcol + st75156->ncols - 1;
+> +	u8 ys_param =3D y / ST7571_PAGE_HEIGHT;
+> +	u8 ye_param =3D ys_param;
+> +
+> +	u8 cmd_list[] =3D {
+> +		ST75156_EXTENSION_COMMAND_1, 0x00,
+> +		ST75156_COLUMN_ADDRESS_SETTING, 0x02, xs_param, xe_param,
+> +		ST75156_PAGE_ADDRESS_SETTING, 0x02, ys_param, ye_param,
+> +		ST75156_ENTER_WRITE_DDRAM_MODE, 0x00,
+> +	};
+> +
+> +	return st75156_send_command_list(st75156, cmd_list, ARRAY_SIZE(cmd_list=
+));
+> +}
+
+[ ... ]
+
+> @@ -284,6 +468,37 @@ static int st7571_fb_update_rect_grayscale(struct dr=
+m_framebuffer *fb, struct dr
+>  	return 0;
+>  }
+> =20
+> +static int st75156_fb_update_rect_monochrome(struct drm_framebuffer *fb,=
+ struct drm_rect *rect)
+> +{
+> +	struct st7571_device *st75156 =3D drm_to_st7571(fb->dev);
+> +	struct device *dev =3D st75156->dev;
+> +
+> +	char *row =3D st75156->row;
+> +	int x;
+> +	int y;
+> +	int num_bytes;
+> +	int ret;
+> +
+> +	/* Align y to display page boundaries */
+> +	rect->y1 =3D round_down(rect->y1, ST7571_PAGE_HEIGHT);
+> +	rect->y2 =3D min_t(unsigned int, round_up(rect->y2, ST7571_PAGE_HEIGHT)=
+, st75156->nlines);
+> +
+> +	for (y =3D rect->y1; y < rect->y2; y +=3D ST7571_PAGE_HEIGHT) {
+> +		for (x =3D rect->x1; x < rect->x2; x++)
+> +			row[x] =3D st75156_transform_xy(st75156, x, y);
+> +
+> +		st75156_set_position(st75156, rect->x1, y);
+> +
+> +		num_bytes =3D (rect->x2) - (rect->x1);
+> +		ret =3D regmap_bulk_write(st75156->regmap, ST7571_DATA_MODE,
+> +					row + rect->x1, num_bytes);
+> +		if (ret < 0)
+> +			dev_err(dev, "Failed to write data to display (error code: %i", ret);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Critical]
+Can st75156_transform_xy() in drivers/gpu/drm/sitronix/st7571.c read past t=
+he
+end of st75156->hwbuf and read from the wrong offsets on partial damage
+updates?
+
+First, st75156_config allows nlines between 1 and 64, and st7571_probe()
+allocates hwbuf for exactly nlines rows:
+
+	st7571->hwbuf =3D devm_kzalloc(st7571->dev,
+				     (st7571->nlines * st7571->ncols * st7571->bpp) / 8,
+				     GFP_KERNEL);
+
+In st75156_fb_update_rect_monochrome(), y advances by ST7571_PAGE_HEIGHT (8)
+up to rect->y2 (clamped to st75156->nlines), and st75156_transform_xy()
+unconditionally reads 8 rows at p[row_idx * row_len + x] for i =3D 0..7. Wh=
+en
+st75156->nlines is not a multiple of 8, the final page iteration reads rows
+st75156->nlines through round_up(st75156->nlines, 8) - 1, which is an
+out-of-bounds heap read past st75156->hwbuf.
+
+Second, in st7571_primary_plane_helper_atomic_update():
+
+	drm_atomic_for_each_plane_damage(&iter, &damage) {
+		st7571->pformat->prepare_buffer(st7571,
+						&shadow_plane_state->data[0],
+						fb, &damage,
+						&shadow_plane_state->fmtcnv_state);
+
+		st7571->pformat->update_rect(fb, &damage);
+	}
+
+st7571_prepare_buffer_monochrome() writes only the unaligned damage clip to
+the beginning of st7571->hwbuf using dst_pitch =3D
+DIV_ROUND_UP(drm_rect_width(rect), 8) before st75156_fb_update_rect_monochr=
+ome()
+rounds rect->y1 and rect->y2 to multiples of 8. Then st75156_transform_xy()
+indexes st75156->hwbuf using the full-screen stride row_len =3D
+(st75156->ncols / 8) * st75156->bpp and absolute coordinates (x, y), reading
+stale or uninitialized bytes from hwbuf whenever the damage clip is smaller
+than the full screen or not aligned to page boundaries.
+
+[ ... ]
+
+> @@ -444,6 +670,13 @@ static void st7571_encoder_atomic_enable(struct drm_=
+encoder *encoder,
+>  	u8 command =3D ST7571_DISPLAY_ON;
+>  	int ret;
+> =20
+> +	/* ST75156 needs init function to be run earlier than ST7571
+> +	 * so we need to call it in the probe function instead of
+> +	 * the encoder_atomic_enable function.
+> +	 */
+> +	if (st7571->device_type =3D=3D DEVICE_TYPE_ST75156)
+> +		return;
+> +
+>  	ret =3D st7571->pdata->init(st7571);
+>  	if (ret)
+>  		return;
+> @@ -458,6 +691,9 @@ static void st7571_encoder_atomic_disable(struct drm_=
+encoder *encoder,
+>  	struct st7571_device *st7571 =3D drm_to_st7571(drm);
+>  	u8 command =3D ST7571_DISPLAY_OFF;
+> =20
+> +	if (st7571->device_type =3D=3D DEVICE_TYPE_ST75156)
+> +		return;
+> +
+>  	st7571_send_command_list(st7571, &command, 1);
+>  }
+
+[Severity: Medium]
+Why do st7571_encoder_atomic_enable() and st7571_encoder_atomic_disable() in
+drivers/gpu/drm/sitronix/st7571.c return early for DEVICE_TYPE_ST75156 while
+st7571_probe() runs st7571->pdata->init(st7571) before drm_dev_register()?
+
+In st75156_lcd_init(), the driver sends ST75156_DISPLAY_ON and calls
+backlight_enable(st75156->backlight) during st7571_probe(). Because both
+atomic encoder callbacks bail out for DEVICE_TYPE_ST75156 and
+backlight_disable() is never called anywhere in the driver:
+
+1. The panel and backlight are turned on before drm_dev_register() and rema=
+in
+   enabled if drm_dev_register() fails or when the driver is unbound.
+2. Blanking, DPMS off, or disabling the CRTC/encoder never sends
+   ST75156_DISPLAY_OFF or disables the backlight, and subsequent atomic
+   enables cannot turn the display and backlight back on.
+
+Could the panel power and backlight state be managed in the atomic enable a=
+nd
+disable callbacks instead?
+
+[ ... ]
+
+> @@ -710,6 +948,52 @@ static int st7571_parse_dt(struct st7571_device *st7=
+571)
+>  		return dev_err_probe(dev, PTR_ERR(st7571->reset),
+>  				     "Failed to get reset gpio\n");
+> =20
+> +	st7571->device_type =3D DEVICE_TYPE_ST7571;
+> +
+> +	return 0;
+> +}
+> +
+> +static int st75156_parse_dt(struct st7571_device *st75156)
+> +{
+
+[ ... ]
+
+> +	st75156->device_type =3D DEVICE_TYPE_ST75156;
+> +
+> +	st75156->backlight =3D devm_of_find_backlight(dev);
+> +	if (IS_ERR(st75156->backlight))
+> +		return dev_err_probe(dev, PTR_ERR(st75156->backlight),
+> +			"Failed to get backlight from DT\n");
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Does DRM_ST7571 in drivers/gpu/drm/sitronix/Kconfig need to select
+BACKLIGHT_CLASS_DEVICE now that st75156_parse_dt() and st75156_lcd_init() in
+drivers/gpu/drm/sitronix/st7571.c call devm_of_find_backlight() and
+backlight_enable()?
+
+In include/linux/backlight.h, devm_of_find_backlight() is declared when
+IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE) is true. If CONFIG_DRM_ST7571=3Dy=
+ and
+CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm, linking the built-in st7571 driver will =
+fail
+with an undefined reference to devm_of_find_backlight.
+
+> =20
+> @@ -720,6 +1004,14 @@ static void st7571_reset(struct st7571_device *st75=
+71)
+>  	gpiod_set_value_cansleep(st7571->reset, 0);
+>  }
+> =20
+> +static void st75156_reset(struct st7571_device *st7571)
+> +{
+> +	gpiod_set_value_cansleep(st7571->reset, 0);
+> +	usleep_range(20, 10000);
+> +	gpiod_set_value_cansleep(st7571->reset, 1);
+> +	msleep(120);
+> +}
+
+[Severity: High]
+Is the reset GPIO polarity inverted in st75156_reset() in
+drivers/gpu/drm/sitronix/st7571.c?
+
+st75156_parse_dt() requests the reset line with devm_gpiod_get(dev, "reset",
+GPIOD_OUT_HIGH), and gpiod_set_value_cansleep() operates on logical line st=
+ate
+(1 =3D asserted/active, 0 =3D deasserted/inactive). Unlike st7571_reset() r=
+ight
+above, which sets 1 and then 0, st75156_reset() sets 0 and then leaves the
+reset GPIO at logical 1. When reset-gpios is configured as GPIO_ACTIVE_LOW =
+in
+Device Tree, ending with gpiod_set_value_cansleep(st7571->reset, 1) drives =
+the
+physical pin low and leaves the ST75156 controller held in hardware reset.
+
+Should st75156_reset() assert reset with 1 and deassert it with 0?
+
+[ ... ]
+
+> +static int st75156_lcd_init(struct st7571_device *st75156)
 > +{
 > +	int ret;
-> +	struct kvm_arch_guest_mmu *mmu;
-> +
-> +	guard(mutex)(&kvm->arch.config_lock);
-> +
-> +	if (is_protected_kvm_enabled())
-> +		return ERR_PTR(-EOPNOTSUPP);
 
-How does this compose with CCA? Can it be restricted to exclusively
-running VHE rather than also dealing with the lesser configurations?
+[ ... ]
 
-> +
-> +	if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags) ||
-> +	    test_bit(KVM_ARM_VCPU_EL1_32BIT, kvm->arch.vcpu_features) ||
-> +	    test_bit(KVM_ARM_VCPU_HAS_EL2, kvm->arch.vcpu_features))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	ret = kvm_arm_pinned_vmid_get(kvm);
-> +	if (ret < 0)
-> +		return ERR_PTR(ret);
-> +
-> +	ret = -ENOMEM;
-> +	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
-> +	if (!mmu)
-> +		goto err_unpin_vmid;
-> +
-> +	mmu->vtcr = kvm->arch.mmu.vtcr;
-> +	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
-> +	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
+> +	u8 commands[] =3D {
+> +		ST75156_EXTENSION_COMMAND_2, 0x00,
+> +		ST75156_SET_AUTO_READ_INSTRUCTION, 0x01, ST75156_DISABLE_AUTO_READ,
+> +		ST75156_OTP_WR_RD_CONTROL, 0x01, 0x10,
+> +		ST75156_SLEEP_MS, 0x01, 0x0a,
+> +		ST75156_OTP_UPLOAD, 0x00,
+> +		ST75156_SLEEP_MS, 0x01, 0x14,
+> +		ST75156_OTP_CONTROL_OUT, 0x00,
+> +		ST75156_EXTENSION_COMMAND_1, 0x00,
+> +		ST75156_SLEEP_OUT, 0x00,
+> +		ST75156_DISPLAY_OFF, 0x00,
+> +		ST75156_SLEEP_MS, 0x01, 0x32,
+> +		ST75156_POWER_CONTROL, 0x01, 0x0b,
+> +		ST75156_SLEEP_MS, 0x01, 0x64,
+> +		ST75156_SET_VOP, 0x02, 0x06, 0x03,
+> +		ST75156_EXTENSION_COMMAND_2, 0x00,
+> +		ST75156_ANALOG_CIRCUIT_SET, 0x03, 0x00, 0x01, 0x05,
+> +		ST75156_BOOSTER_LEVEL_X10, 0x01, 0xfb,
+> +		ST75156_EXTENSION_COMMAND_1, 0x00,
+> +		ST75156_DISPLAY_MODE, 0x01, 0x10,
+> +		ST75156_DISPLAY_CONTROL, 0x03, 0x00, 0x3f, 0x00,
+> +		ST75156_DATA_SCAN_DIRECTION, 0x01, 0x02,
+> +		ST75156_NORMAL_DISPLAY, 0x00,
+> +		ST75156_EXTENSION_COMMAND_2, 0x00,
+> +		ST75156_INTERAL_POWER_SUPPLY, 0x00,
+> +		ST75156_EXTENSION_COMMAND_1, 0x00,
+> +		ST75156_COLUMN_ADDRESS_SETTING, 0x02, 0x00, 0xef,
+> +		ST75156_PAGE_ADDRESS_SETTING, 0x02, 0x00, 0x07,
+> +		ST75156_DISPLAY_ON, 0x00,
+> +	};
 
-How about the hcrx field in the structure?
+[Severity: Medium]
+In drivers/gpu/drm/sitronix/st7571.c, st75156_parse_dt() parses
+st75156->inverted, st75156->startline (from dt.vback_porch.typ),
+st75156->startcol (from dt.hback_porch.typ), and st75156->nlines (from
+dt.vactive.typ), but are these parameters wired up and validated for ST7515=
+6?
 
-> +
-> +	return mmu;
-> +
-> +err_unpin_vmid:
-> +	kvm_arm_pinned_vmid_put(kvm);
-> +	return ERR_PTR(ret);
-> +}
-> +EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
+1. st75156_lcd_init() hardcodes ST75156_NORMAL_DISPLAY (0xa6),
+   ST75156_DISPLAY_CONTROL (0x00, 0x3f, 0x00), ST75156_COLUMN_ADDRESS_SETTI=
+NG
+   (0x00, 0xef), and ST75156_PAGE_ADDRESS_SETTING (0x00, 0x07), ignoring
+   st75156->inverted, st75156->startline, and st75156->nlines, and
+   st75156->startline is never used in st75156_set_position() either.
+2. st75156_set_position() computes:
 
-It really feels like this is a bit upside down. Since you are actively
-pinning the S2 MMU context, it should only be a matter of taking a
-reference on the kvm struct (just like KVM devices do), and handing
-off the kvm_s2_mmu structure, rather than copying things. When you're
-done with it, drop the reference.
+	u8 xs_param =3D st75156->startcol + x;
+	u8 xe_param =3D st75156->startcol + st75156->ncols - 1;
 
-If there is a need to deal with a different value for HCR_EL2 (or
-anything else), it can be done in the code that makes use of it,
-rather than being in the KVM code.
+   However, st7571_validate_parameters() only checks startline + nlines >
+   constraints->max_nlines and never checks startcol + ncols >
+   constraints->max_ncols. Since st75156_config sets both min_ncols and
+   max_ncols to 240, any non-zero startcol will exceed the 240-column
+   controller limit (0xef) and overflow u8 when startcol >=3D 17.
 
-Thanks,
+Should st75156_lcd_init() and st75156_set_position() honor the parsed
+Device Tree settings, and should st7571_validate_parameters() validate
+startcol + ncols against constraints->max_ncols?
 
-	M.
+[ ... ]
 
--- 
-Without deviation from the norm, progress is not possible.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-add_st7515=
+6_support-v1-0-582525a39a39@axis.com?part=3D1
