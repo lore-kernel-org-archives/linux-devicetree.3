@@ -1,71 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.39.254
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792659538;
-	b=cX7o3X/Rx91AWyjOcyUXjR9NifrW97S6YIzzMlPHuzcbKaIHd1hFGmVhzqlL1HNn9qgl
-	 Pf3mUNLs3b6z49sAdZggjcHZAFLtelIdJRVAl8u6b/WjPkxQLQpcLymH1rt//nAEv5uYs
-	 xbL/UYsl14Is479i1hcGIsWfLO3Wrg9c1gOyu9go24cPFZJN6wOvX2oyIcDMVtXzfdtvh
-	 cJzDytOrKk5/BtHpu9Mc60YKbQCTcXNpTYWn2Zyc+SPGI3+gzlstlRBhJWI5CFAVtoodz
-	 GX1dzg8k2E5i0AIhMJiVVyklperwl8eqV2b/oDdiF4/rpK7jcP6oc+p2JkGTXXwzk2w==
+	t=1792659619;
+	b=BxC+L+w75DBNlo/zN2oEFBWfK6UqBo+JW9mqV7JDCkD0JvnhkMuQsmRxZNF+TfRDO3LP
+	 p1H3CU1aBI4CgRXqQmJXi5NRsjT+yJgsA9lWQYBgC6WTdlS9Uh0FTJFrA1T4zexsoAKiU
+	 zjlNJjDHZu+G5W8L0+sVDC3+SUhXuOYqfvhsSymWu6nkwiMnWD3W4xw8yCSGR2uHXAVbc
+	 RIF/+w8cBrkFTsJ1RxWl8LpWEHv9DvlleChtuTbeZWZ5H2jef88nIkviKN0aqFYIhjBN7
+	 oE+4IWdnlHAOBWnP3BZB+XmnhYlKnqQ4LSd0LzGBz4s4der1s8sOHSe473F/he68ptA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792659538;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
-	bh=ytAPM9y1CIH6yDKXPJOIKHUT5JjG90HVhV6QaIOwpZA=;
-	b=5jbyHoeGUzI5ct7a4QjCKp6MrHxpnEHWRg/ZNOSiNLxvLsafj5VRGhHCTyyxvbVfAMDg
-	 CiY77otsA1Fqepnv8Uz6vCrXoRhKBC6uAT1dDZthAJNKNcsdYiCd2TcGU5yrofh6x+ysU
-	 3AStqQJ12oMdzdCF323uCvW262d/8084wqWs3wei1BwVXnzDPzSEe7Gn5QAhxsHTp5f0x
-	 3NCRT5hPT5qoj+QEJTr+NQgqExzUctwjYVZK0FDCwpB0yi6mD6kC3bnVwq9kAZ8Xjyt01
-	 bUhzUPsSCZi+p5QloFXzew267WGXMLnkMOyhxf4ro6oyZ10lOV/S/4XGzhNyJYVwaJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792659619;
+	h=DMARC-Filter:DKIM-Signature:X-secureTransport-forwarded:From:
+	 Complaints-To:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=qBqp13DPdEHUHCSXRn7+Q5vq7grlNus6E/juuLjtF0A=;
+	b=kK6/H8QE+lh6ZPeUcWWlqwAXaOnWOrpNDgZFMhXaxCXS0sYz+KdOaA8evhZgS1JbG8ol
+	 xqfbkxoNV6t48h1JwlQnGJ7k7ur3mvm5dSp5qCpmvpPXisehkEwfJ0lybxYkzPvxeVy9V
+	 v2+3AQyW5tETefCxhKOI8JGQ8rYRp2H5p5FBAs6WhV4/lllvhOIwHdtV3p2jsnJUbAkvK
+	 PoEW89jKnIF2mPbGd2uve2Uco5zvVV4lCVIOnex6aRD6rfj/gdH/xLWCKctcQgFg4ElWv
+	 ovGcXMECtoa+bR41quYRAE35KAT0DWrFmMrNbxAzJCC6ngu7n9y1Snm9rSxCOLeMirQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DYm+47g9;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=dh-electronics.com;
+	spf=pass smtp.mailfrom=dh-electronics.com;
+	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=sDvq7toM;
+	arc=none smtp.remote-ip=188.68.39.254
+Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2971606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2971606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C6E606A319;
+	Thu, 22 Oct 2026 09:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0C6E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DYm+47g9
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261022085854euoutp02122cedafc62d40b13fbaf22fb294f0da~gzlkwsOw22829528295euoutp02Z
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:58:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261022085854euoutp02122cedafc62d40b13fbaf22fb294f0da~gzlkwsOw22829528295euoutp02Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792659534;
-	bh=ytAPM9y1CIH6yDKXPJOIKHUT5JjG90HVhV6QaIOwpZA=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=DYm+47g9DsDETL+FhGLFw3NW7kAlwz8apTEl9+bGvJvMZBFbmrqC5vrNOKgPIP/El
-	 7szmisKTI0M1A0itVtWye9bINCHl5Z7sZCCS3z6Ef7Sk4MY6EDXmJfUKM2X9+zb4gm
-	 f7+AiV2RejC+vCTCgZLh5zNhy41C9DvmLmhwMLOs=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97~gzlkeZ2-41811318113eucas1p1U;
-	Thu, 22 Oct 2026 08:58:53 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261022085853eusmtip22f10b685962fdaf49e7f0a2128385306~gzljwo2IO0965409654eusmtip2O;
-	Thu, 22 Oct 2026 08:58:53 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Bjorn Andersson
-	<andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa
-	<abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Roger Shimizu
-	<rosh@debian.org>, Hongyang Zhao <hongyang.zhao@thundersoft.com>,
-	Christopher Obbard <chris.obbard@oss.qualcomm.com>, Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Keep WLAN firmware
- memory reserved
-Date: Thu, 22 Oct 2026 10:58:43 +0200
-Message-ID: <20261022085844.768508-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=sDvq7toM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+	s=dhelectronicscom; t=1792659557;
+	bh=qBqp13DPdEHUHCSXRn7+Q5vq7grlNus6E/juuLjtF0A=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=sDvq7toMbyTAGofLV0Sc6uI88o6FgCdC81AuJbSvywP6GgJDjSHTtimrcV0IGcQ0i
+	 n8+UjcAss5UOn0y/5pE2yp3bCM92vaBq19uFFhlfoVJWHljOzwm0HTJCV2h8hRToHV
+	 1udQWEKnvxePVk9jDVjqi5bpxl0+vmCD16L+zKOwv3fZ6kVmPRXhC5Q0UFomX8jIk8
+	 NyykdOq9ObUOTh/lmEde9zWBUOV1P9YQsaweyYX8EYtOXscAXlbIAONmsb9px83Bna
+	 ygrhoNhVS3VxnyVWCMDmDaXRBmhXKPbGJS4+GHA3zmgiipI95UjDS6i+3MpjFOA6hu
+	 NijZ6yPZ6vpwg==
+X-secureTransport-forwarded: yes
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Complaints-To: abuse@cubewerk.de
+To: Marek Vasut <marex@nabladev.com>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	kernel <kernel@dh-electronics.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB number
+Thread-Topic: [PATCH 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB
+ number
+Thread-Index: AQHdYWJeSY9vaX+wRk+57BDo1ZAIarcIHKaAgAEaxXA=
+Date: Thu, 22 Oct 2026 08:59:15 +0000
+Message-ID: <75107c033de14aa19a21f3b2fc66ece1@dh-electronics.com>
+References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
+ <20261021134435.17350-2-cniedermaier@dh-electronics.com>
+ <3ca82faf-dc5a-4ef7-ad8a-f6273b3e0388@nabladev.com>
+In-Reply-To: <3ca82faf-dc5a-4ef7-ad8a-f6273b3e0388@nabladev.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,70 +82,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97
-X-EPHeader: CA
-X-CMS-RootMailID: 20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97
-References: <CGME20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97@eucas1p1.samsung.com>
 
-The board dts deletes the wlan_fw_mem reserved-memory node inherited from
-kodiak.dtsi, because RUBIK Pi 3 has no WPSS and uses an external WLAN
-chip. However the firmware still keeps the 0x80c00000-0x817fffff carve-out
-protected. Linux treats that range as ordinary System RAM and the first
-access to any page from it triggers a synchronous external abort.
-
-This has been observed when the dynamically placed adsp-rpc-remote-heap
-CMA pool ended up at 0x80c00000 and the remaining 4 MiB of the carve-out
-was given to the page allocator. The first allocation from that part
-(a qcom_tzmem pool page at 0x81400000, allocated during fastrpc probe)
-faulted on the initial memset:
-
-  Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
-  pc : __pi_memset_generic+0x16c/0x188
-  lr : dma_direct_alloc+0x190/0x434
-  Call trace:
-   __pi_memset_generic+0x16c/0x188 (P)
-   dma_alloc_attrs+0xac/0x1ec
-   qcom_tzmem_pool_add_memory+0x90/0x1b4
-   qcom_tzmem_alloc+0xd4/0x1a0
-   qcom_scm_assign_mem+0x74/0x18c
-   fastrpc_init_reserved_mem+0xd8/0xe0 [fastrpc]
-   fastrpc_rpmsg_probe+0x17c/0x3d4 [fastrpc]
-
-Keep the wlan_fw_mem reserved region, so it is never used by Linux.
-With this change the adsp-rpc-remote-heap pool is placed at 0x83800000
-and the board boots without the abort.
-
-Fixes: f055a39f6874 ("arm64: dts: qcom: Add qcs6490-rubikpi3 board dts")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
-The issue was analyzed and the patch has been prepared with LLM
-assistance. The change was then tested on the real RUBIK Pi 3 board. LLM
-suggests that Radxa Dragon Q6A, Vicharak Axon Mini and Thundercomm
-minipc-g1iot might be also affected by this bug.
-
-Best regards
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
----
- arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-index c98e910ee398..843c90ddb4bb 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
-@@ -31,7 +31,6 @@
- /delete-node/ &video_mem;
- /delete-node/ &wifi;
- /delete-node/ &wlan_ce_mem;
--/delete-node/ &wlan_fw_mem;
- /delete-node/ &wpss_mem;
- /delete-node/ &xbl_mem;
- 
--- 
-2.43.0
-
+RnJvbTogTWFyZWsgVmFzdXQgPG1hcmV4QG5hYmxhZGV2LmNvbT4NClNlbnQ6IFdlZG5lc2RheSwg
+T2N0b2JlciAyMSwgMjAyNiA3OjIxIFBNDQo+IE9uIDEwLzIxLzI2IDM6NDQgUE0sIENocmlzdG9w
+aCBOaWVkZXJtYWllciB3cm90ZToNCj4+IFRoZSBQQ0IgbnVtYmVyIG9mIHRoZSBtYXZlbyBib3gg
+aXNuJ3QgNTI1LiBDaGFuZ2UgdGhlDQo+PiBudW1iZXIgdG8gdGhlIGNvcnJlY3QgbnVtYmVyLCA2
+MjUuDQo+Pg0KPj4gRml4ZXM6IDE0NWUyNzMyYTVlOSAoIkFSTTogZHRzOiBpbXg2dWxsLWRoY29y
+OiBBZGQgTWFyYW50ZWMgbWF2ZW8gYm94IikNCj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBO
+aWVkZXJtYWllciA8Y25pZWRlcm1haWVyQGRoLWVsZWN0cm9uaWNzLmNvbT4NCj4+IC0tLQ0KPj4g
+Q2M6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+DQo+PiBDYzogS3J6eXN6dG9mIEtvemxv
+d3NraSA8a3J6aytkdEBrZXJuZWwub3JnPg0KPj4gQ2M6IENvbm9yIERvb2xleSA8Y29ub3IrZHRA
+a2VybmVsLm9yZz4NCj4+IENjOiBGcmFuayBMaSA8RnJhbmsuTGlAbnhwLmNvbT4NCj4+IENjOiBT
+YXNjaGEgSGF1ZXIgPHMuaGF1ZXJAcGVuZ3V0cm9uaXguZGU+DQo+PiBDYzogUGVuZ3V0cm9uaXgg
+S2VybmVsIFRlYW0gPGtlcm5lbEBwZW5ndXRyb25peC5kZT4NCj4+IENjOiBGYWJpbyBFc3RldmFt
+IDxmZXN0ZXZhbUBnbWFpbC5jb20+DQo+PiBDYzogTWFyZWsgVmFzdXQgPG1hcmV4QG5hYmxhZGV2
+LmNvbT4NCj4+IENjOiBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZw0KPj4gQ2M6IGlteEBsaXN0
+cy5saW51eC5kZXYNCj4+IENjOiBrZXJuZWxAZGgtZWxlY3Ryb25pY3MuY29tDQo+PiBDYzogbGlu
+dXgta2VybmVsQHZnZXIua2VybmVsLm9yZw0KPj4gLS0tDQo+PiAgIGFyY2gvYXJtL2Jvb3QvZHRz
+L254cC9pbXgvaW14NnVsbC1kaGNvci1tYXZlby1ib3guZHRzIHwgMiArLQ0KPj4gICAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0
+IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2dWxsLWRoY29yLW1hdmVvLWJveC5kdHMg
+Yi9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZ1bGwtZGhjb3ItbWF2ZW8tYm94LmR0cw0K
+Pj4gaW5kZXggZWIwYjkxMDQwMTEwLi5iYjgyZDk3ZjlkODQgMTAwNjQ0DQo+PiAtLS0gYS9hcmNo
+L2FybS9ib290L2R0cy9ueHAvaW14L2lteDZ1bGwtZGhjb3ItbWF2ZW8tYm94LmR0cw0KPj4gKysr
+IGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2dWxsLWRoY29yLW1hdmVvLWJveC5kdHMN
+Cj4+IEBAIC02LDcgKzYsNyBAQA0KPj4gICAgKiBESENPTSBpTVg2VUxMIHZhcmlhbnQ6DQo+PiAg
+ICAqIERIQ1ItaU1YNlVMTC1DMDgwLVIwNTEtU1BJLVdCVC1JLTAxTEcNCj4+ICAgICogREhDT1Ig
+UENCIG51bWJlcjogNTc4LTIwMCBvciBuZXdlcg0KPj4gLSAqIG1hdmVvIGJveCBQQ0IgbnVtYmVy
+OiA1MjUtMjAwIG9yIG5ld2VyDQo+PiArICogbWF2ZW8gYm94IFBDQiBudW1iZXI6IDYyNS0yMDAg
+b3IgbmV3ZXINCj4gSXMgdGhlIHJldi4yMDAgY29ycmVjdCAsIG9yIGlzIHRoZSBiYXNlIGJvYXJk
+IHN0aWxsIHJldi4xMDAgPw0KDQpIYXJkd2FyZSByZXYuMTAwIHdhcyBhIHByb3RvdHlwZSB0aGF0
+IHdhcyBuZXZlciBzaGlwcGVkIGFuZA0KaXMgbm90IGNvbXBhdGlibGUgd2l0aCByZXYuMjAwIG9y
+IGxhdGVyLg0KDQpSZWdhcmRzDQpDaHJpc3RvcGgNCg==
