@@ -1,84 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792682972;
-	b=M8yTLbQXzTFWYOsC/fEOSHz3Rg6Y3sGoE0z9sB6ySx+SQ7TuI1onGTi2fD4Qn6x7MXyw
-	 LCJvWpedMKwyhvvgc6gtu1uQBCUBEkMwRDPRwXV3keeX2HnSgvML4drEACDtr/tYnTTh/
-	 g6Lokthn1qz8UDYYXC+Tpv1UYQAKdTWkC56aoc4diE5LQzKZB2n27e4eVgliC3PG9fpeJ
-	 Lk7GqxNtqXA3RnnrOntwVP+Kqa1E+UvDowOBsvqeVUVCcLDF7PKQQrA7cMxq2WJjpBs7x
-	 Z0FUL1TDvGeJezIoSqAyGpkf8m7X5PO71I6hutENs0GGhMdxgsOIIcNtoBLz/WmqZMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=HDlAEt4y4tSaN1HUhuY/PGYkg3Qd4cTO/TkXeJAfzWw=;
-	b=EtWIgilPf7Bkvefuum8KhMAlvU/k0mfRFTV5JmIsIhyVTHsdmCpUS53WMK3L+Mt4uid5
-	 GPPM/PvEMLWHWl+2ls1YNWU9xS/Byv43JE7dYFe4V52kWJOfuyfGCpiE6q0+2EH3pz6F6
-	 6QkJfe+QTdq0COIfvH1AU7deDCnLq74NS1vGmoUQcbgX4Gc07sjZxpVkvufPYQ4SS6xvY
-	 QYQCqztEaKh1hs3V8VPVWswfiNdT1ExSBhAy6WXOoDP0TxyOhdvIyt0nAan0hiHAIkRwM
-	 AVD73+CT9S+qjNzU/L9jyiuqtpZXeqfdLUWNr0q2FTO9KhbOD8qvs5nGI6iEXSQ/RPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QpJis2sL;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792683089;
+	b=YhXbdOTc0Nuhqtp5OmaJ0oMDZLkov8NcWuyJat9TCjq/BJCw5n4C5nOpcJAVxwPT28ZZ
+	 g3cDiqVrEjV6AKU6fXTVtcwxLm9W0z59Tp2k8QUgI9j+68woFq0wteagEJH1BQ3LaCxqR
+	 YyBChd452ki6miczZgptcBzZT2otelGganX/DpmitPlEl+8yQWdnYrS55/ohmfNInVKUf
+	 s3J7Narq8R7jwjP9yO7y34YHvreH6yBC2cPu0/VKG6qN6BUc/bhGwOVIWGZMRpAJbekJE
+	 +T29bWQXuGm4yI9xB8cO/hVikVHNQJVaDerwbzOhRHlNmVTxqy+l0ZVpifaIJZ5oAkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792683089;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Received:From:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 CC:X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ezO/54UVd0xBO1JHlch5FfXYqGy1qHhzF7sJ2hKa36E=;
+	b=5bzsn2+XL1mf4m1zQ7mwOCRE9aQ7k+Zf98fdx8ncuZvSit+CMCxdm7zxrnavJlzTmF6M
+	 Zl1J19V1wwZuJuE2dPX/cH5am8Kgebo4EKk/J6koCF7tq+YTF2Z/l7gUZ0xcvmb7mPfA1
+	 lE9JU4ZwKnDFA3R8VqZvKi0/12EgypWzRnpxshNCoDMX2ivIGOHuC038z3TfWz1JNDEug
+	 BA+N2ht5In4NdhuXnSj3vuqZwR00fFvFcNmdZUmwG3vcHP7XeY5hxEsVuBXVhq+TiYXab
+	 XKjmuwAvkZVxF/oac2o95SSlvdX3pWRr1H67C0wdETliZZ5t5WQs5Q5Wd9cBBD1L8xw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=UXu7PoZ1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.6
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011006.outbound.protection.outlook.com [40.107.130.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295E4606A31D
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 15:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295E4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813AA606A31A;
+	Thu, 22 Oct 2026 15:31:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 813AA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QpJis2sL
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20b122af8so6003405e9.0
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 08:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792682970; x=1793287770; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HDlAEt4y4tSaN1HUhuY/PGYkg3Qd4cTO/TkXeJAfzWw=;
-        b=QpJis2sLxK5hhv2ZYmKxn0Z9+ZS5AS6kmVGUr9nC5CC1eoXNJouRCPyReQA0DRNM5o
-         POTICEpdU36CEbd9PNahL2LQbmDQsD9jCOHEQwYyJvq5532A22K/WFaUkqVeBCUk7tSH
-         sl9tVjNA9B8F/8UhHYYFXE1d8i/yP5uGWRZuihO4B1JGZ4pPnflpvFB0yFkhFw87IPzm
-         qmqvnMZsEd8UCKYGVEN7K6RVEHA8wUkGILf/Gv6S6zaXsAsAd0kIUNdEtFM+XKqvD7jf
-         qJ9KY73vEkgLeP1V9SjhnQuwoZNvv1rySfnr/PnBPNrm4rWMEyxwgflEW3u/Z1zWjhJO
-         RzlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792682970; x=1793287770;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HDlAEt4y4tSaN1HUhuY/PGYkg3Qd4cTO/TkXeJAfzWw=;
-        b=cnZCJtC2J34Gmova8Uxl0FiIFtQg38vdhHVTbrMYc8WFd2Wby9fG8WKcdbHAJgNxkv
-         l8QslGvTg984gktV0UninztpIR1uqXfNJ6Ju2jn23p9hpgkrZ6Sm4xLmuczm/H80Ci5/
-         U3zkjF7pWco4OvM3tvMhhBe76CBHN1BuugMJMcooAKvQrazA7IOC0+B4IdG+nJjZvGPg
-         guyu81UWzR8ir4SfI7xf3cA0YAf3jfdrNutlk8HAF/a8h1eghISawijYNeJyIkWR0NAh
-         YXERblc5LEjHEGCf8VP2TcdfQInYJlyqLpi6Mu/vpi3ItfBloiB2CUj25qvOEkHsPNWh
-         mTWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ7e1UHnkUKMpDk0AaWlvQZCo4bK3tvRv7NA0lTpKO4erB9IZhu8ap/A6TLlZpjqgugIy+/oO4Hnga@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmkRhRdV2AbuXJpLaitBxPjVfwC/QY96Y2R28+V2pPfuGzdn6D
-	ZMRzSttSJZEUKZBNsptXUxTM+HGXXSqK9+ebpKuFIu7u/cbKD7vjEkEKN2FGlBi+AbI=
-X-Gm-Gg: AYBFou3xlx//9WP8mfo/rTK9CFtr//33vAZM0qrEdX4Jhf7N+7bm3D126GoXE8froG1
-	CFTAa/MAACryQ0XLOfZJZqR9NPAtL5lbRkLwAvyI5Ce5lU2dcyggMTEIjSw5pcT+XIISWqDS8NG
-	rQWXsFCNO3eQi3Xa0/y+L+2oL8g5Jk6qYijBVix1r8wI+lo5DmxLpQqyYm+Y3q0w15kECGan7aB
-	I7kcI6k6RRjbb8J6phI92LUXhRknbfvNFKqFbJSHBYOxzunygzJvGMkQemzB4DeNycAXinivsBM
-	XX63SzEBPA9z01eJQhvh9JIlt/Q36h0Qrn8ffLcMZm/0k/La4rSbvk2fnON+1fiV47vUWqbEk48
-	xv8kUCiG8fmmGtWDhtmZWJeIwcEF+xa/KHP8odicfwRg6XsVUM+oqonpFlwGobhC/Wzr5oNgDtK
-	AVLTpvVobObRxpx9/Ucbl0t1GS7hSxbv2Ry+qIV/otHfz6Ut0y9ILzh+UwiUXWRbz7ZRRQlQOE7
-	RKKoFziqNnEkgs6Dsy4oopJokihaV7SwA/vjciq/muck3klval4Pn7ZlnQG/RDeqr0vmllAFAeg
-	l5n9/ddODCO4W8G2EE9R2E5UnM8v8tStu/9otCnHznyDZA==
-X-Received: by 2002:a05:600c:1d0e:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4a1fdd44ff6mr114656205e9.24.1792682970343;
-        Thu, 22 Oct 2026 08:29:30 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:41d2:e95a:b320:711e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210361ad6sm3270335e9.7.2026.10.22.08.29.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 08:29:28 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=UXu7PoZ1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pSzoj9nGaH/8mX+3QVDGX4x6iarfX6XYPpWU97+fkSbyl8DFLEsSYXG9ddkVnDkUHWyfvsCqytJkOuzP1y1HW52l9BVU+phW9BFJ4U80c8W9rtq3FY2xiPVmvE/oQhX6P3K0iiut1Xib5QOsjbj9PgKS+jgZEvvKiSQTnAGKed+MVF0FyLx2PNYQdBFkbABnzebEy0TBc1ZuldKL8ARBZX295hkKH4lYeSH2EliOidnrwPKZ4KU/tvfoHXWuTBqcUijw6gZTKOhMax3gyTUzbUBw5oovD4watL1rpNvU/AhJTIcHYLPSd9nXQ8L83pR0KdyNCVGd5AE+9Itr3nMDJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ezO/54UVd0xBO1JHlch5FfXYqGy1qHhzF7sJ2hKa36E=;
+ b=m4AvepkZlgxc1UZx8X3u1Y+gTX0pceTsRMKtb1iEF6PSzEvFW59nQAM+RdMJeJFLf8dugz/HEgbrLgRg5e2eFzL6TwASLVcHE6i0fJCj2Q5KxK+atpIqYuZZQdaPiFmr46MuCwyhAV1dumNpM3rGXOFT84MrlJdKUzhRxDyZZEGSmbXjLZ38eHMMmVx7THQYJSBgAxeVoDKDVwmQFv0fKg85RARkf/yH5P/XfJjDB0FMwtUN7S6JNVjlivPki1g4eLUw/jhL0o39kJ/9KZMmvRsRTrXuoAs6eIEg39oitJKM3bkd/07YUNnLwBJSQjuVt+eEtTLq0BpEMOU9rC8QSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=axis.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=axis.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ezO/54UVd0xBO1JHlch5FfXYqGy1qHhzF7sJ2hKa36E=;
+ b=UXu7PoZ1PdB24TfUrgDnb7gj4tiwDAkOqgA9cWNDR/J4tczOd43RXvv91MS2V5bXJdHrefjGZgyaf+xwQlPsusGBRvU0QR29pFBkQwcXnK8NRZRnmhh5IrSgJpvRbaeslHlFeXKt/5M3z/nol8WAl7I3iejPgh0FxxlVQd72gh0=
+Received: from MM0P280CA0118.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:9::8) by
+ GV2PR02MB9568.eurprd02.prod.outlook.com (2603:10a6:150:df::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15; Thu, 22 Oct 2026 15:31:22 +0000
+Received: from CPH1EPF00000530.eurprd05.prod.outlook.com
+ (2603:10a6:190:9:cafe::40) by MM0P280CA0118.outlook.office365.com
+ (2603:10a6:190:9::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
+ 22 Oct 2026 15:31:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ CPH1EPF00000530.mail.protection.outlook.com (10.167.241.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 15:31:21 +0000
+Received: from se-mail10w.axis.com (10.20.40.10) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 22 Oct
+ 2026 17:31:21 +0200
+Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Thu, 22 Oct 2026 17:31:20 +0200
+Received: from pc51726-2243.se.axis.com (pc51726-2243.se.axis.com [10.88.125.62])
+	by se-intmail01x.se.axis.com (Postfix) with ESMTP id EB9B03586;
+	Thu, 22 Oct 2026 17:31:20 +0200 (CEST)
+Received: by pc51726-2243.se.axis.com (Postfix, from userid 15273)
+	id E3D786026026; Thu, 22 Oct 2026 17:31:20 +0200 (CEST)
+From: Lars Rask <lars.rask@axis.com>
+Subject: [PATCH 0/2] Add support for st75156 in st7571 display driver
+Date: Thu, 22 Oct 2026 17:31:04 +0200
+Message-ID: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,46 +106,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 22 Oct 2026 16:29:27 +0100
-Message-Id: <DMBH2Q4ZU6KI.18MV6V6TMVBNN@linaro.org>
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Peter Griffin"
- <peter.griffin@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: exynos: Drop deprecated regmap from reboot
- node
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Sam Protsenko" <semen.protsenko@linaro.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Rob Herring" <robh@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20261015040601.30049-1-semen.protsenko@linaro.org>
-In-Reply-To: <20261015040601.30049-1-semen.protsenko@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADgs2moC/x3MQQqAIBBA0avErBPUUKGrRIToVLMxcSoC6e5Jy
+ 7f4vwJjIWQYuwoFb2I6UoPqOwi7TxsKis2gpbZKKiN8jAufzihjF75yPsoppMSgg1vt4C20Mhd
+ c6fmv0/y+H5+cJ0tlAAAA
+X-Change-ID: 20261015-add_st75156_support-00ec2c7f63a6
+To: Marcus Folkesson <marcus.folkesson@gmail.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <kernel@axis.com>, Lars Rask
+	<lars.rask@axis.com>
+X-Mailer: b4 0.14.3
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF00000530:EE_|GV2PR02MB9568:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96853b2a-64f6-4185-a350-08df305186a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|36860700016|82310400026|56012099006|11063799006|261021121427099003|261009223027099003|261021123027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	J/VmzA2IrwU/kQfzIdcuRLGWbkvuxP7a/G1fBqcDYtdPk516l+z5qBSa9weKZCZgCOZRzuIp77zzhy2nRIa0zVGNT1+PYSUbkbUSS1tfAJipkh51dOlDxaXCitKy3JdrZ6g2mgkaYN8eAXcfMLKYLwNPib6uSdfGAeEdI3+Z+GO9kZ3XXx0LA+RUzxj6IwELXnmfHC+BDlTEL2dNCn/QpFc7tsx2l2aSFAZiVuui4dhGCE8FbW7XtUrbIaVo5MHb+EzbJsdXgXL13h0LLf3g9bofBmjQPBQEgU+qGKRSHih+Zi/QLyM556HU0HOBq1IQU9fatbXTcOgouM9FboliQQM968WGDavueH/pAoIlQm3OMSf57vfiFJvWh5GmumPJtG/RLgBGQFW9a/gCvqJ+gS44qlV3Y9fMvdzOSxoglljP+6rSuzEdorinvUbsMBHAJaWk97gPhgZAEd3TWKMiNwMHc6Uh2pQmnmvHXJOkKw4q77/v8H3ISwYo1q1mewhmMKmuQUpDCMaAnp66cTl9v8hoepVoxtIDFVdptil0gIlFMcJd12Sr/ymJXMjOiFFxpV7Lbty8dnxWRKwCoSmSD1rzfVVAEv3mBr7ZlPD7IqgTeTR/KO1cqhqWhc3GVB+/RYZisWAlwa4FGMZb0t/b05UWcnxxQpCu4KggDsOEidetY4CDAdj50vlheoIV17x2oYwkDJBatl3dCan0rw3Q4g==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261021123027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	81psQLW/9rC0OIxU1QFVchcwev1o5V+Fl9eg22wyFtUGffd0Ay+Mi4l1gqhaRzJKM1wvuC4ifQ2MDlW9b5hnvavGoBjVNqbUKulJi7xdqM9sOWYFVkwxlgcKaSgj2MHyHOPWO4s+LWhzp09g/QwdUMVaF4J2Wp0rl6sn2+H5D9R/fUIN+56Ce1Iwh4Pgm2pZco7kVLhKoFyvZaxCzCJCU/468jav1gN/dB0IGwduW81R0qX7yrPfiVFyX2N+l+ga480C5k5tc6Mx/rgY/Q+KTYFWNzq4WNPFHm0UBnJ4/HYUEhtWK2LLxt6NdwUFKajXDd+gAJYcc1EdeKtEOoIR8PXG8ed84GZai6/EKdR/+Gih/Q9eRF3h53QSmxi/qDHVsjI0gu/Y9mZIzsO44a1gRvDnkk3JbkXHv9YdOIbAyo6dRpY8ZrSijpTfAvR7jA9R
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:31:21.9380
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96853b2a-64f6-4185-a350-08df305186a8
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF00000530.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB9568
 
-On Thu Oct 15, 2026 at 5:06 AM BST, Sam Protsenko wrote:
-> The 'regmap' property was deprecated in "syscon-reboot" compatible and
-> not needed. Remove it to keep the device tree clean.
->
-> Signed-off-by: Sam Protsenko <semen.protsenko@linaro.org>
-> ---
->  arch/arm64/boot/dts/exynos/exynos850.dtsi | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/=
-dts/exynos/exynos850.dtsi
-> index 911643008b9f..30ae952083cc 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> @@ -236,7 +236,6 @@ poweroff: syscon-poweroff {
-> =20
->  			reboot: syscon-reboot {
->  				compatible =3D "syscon-reboot";
-> -				regmap =3D <&pmu_system_controller>;
+To: Marcus Folkesson <marcus.folkesson@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: kernel@axis.com
 
-Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
+The Sitronix st7571 driver previously supported the st7567 and st7571
+chips. This commit adds support for the st75156 chip used in SPI 4 wire mode.
+In order to use the st75156 chip, you need to specify
+CONFIG_DRM_ST7571=m and CONFIG_DRM_ST7571_SPI=m in the .config file, and
+also use the compatible string "sitronix,st75156" in the device tree.
 
-BR,
-Alexey
+Signed-off-by: Lars Rask <lars.rask@axis.com>
+---
+Lars Rask (2):
+      drm/sitronix/st7571-spi: Add support for ST75156 controller
+      dt-bindings: display: sitronix,st75156: add example for SPI
+
+ .../bindings/display/sitronix,st75156.yaml         |  67 ++++
+ MAINTAINERS                                        |   1 +
+ drivers/gpu/drm/sitronix/st7571-spi.c              | 118 +++++-
+ drivers/gpu/drm/sitronix/st7571.c                  | 420 ++++++++++++++++++++-
+ drivers/gpu/drm/sitronix/st7571.h                  |  20 +
+ 5 files changed, 617 insertions(+), 9 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20261015-add_st75156_support-00ec2c7f63a6
+
+Best regards,
+-- 
+Lars Rask <lars.rask@axis.com>
+
