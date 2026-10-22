@@ -1,71 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691430;
-	b=mZI4OYsjV4Y8KHc8y9OOH41JUbRg0xxsOrlJfHSR+AEcKQB9kDzAWKoCKgblFS+3a6bm
-	 2wyaNvaM/5hHXx7IBdleCs/URUlCc4QRgCc915aERQ6g/TRa2jSjpcXLar+6LskvG2Ia1
-	 N5dUk2RRLujTAzoTnMHkWbFmfJrQnjN1DZ1S7QMoj85G+1HHPUybwF0BxfYhoKNFIF9oZ
-	 9m4q0E2Fi+GBuwEgKHJxfXZOCmcjhc8UuLj50yH8okUfZcwweJqIbBNbX+qnFgaxPbYFn
-	 P++1frF8vWnxBrO47MqWEq63B2Rw+z1y63YluDvloqle6ggZX2VUavT1kiP9YXmIQTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691430;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Wd3oLS+dcFTXkdvGEDZ+0YYIQNbTTyKN39PEruh5N40=;
-	b=VLQoypgB5TNEblm+SQFSYhVyJOjB5xNvdYCW0nY9nc44XxUJaGCc4WdHLVSAhqmA1HeI
-	 QaPJkY/23W/i+vygxnJOjg1m2fwRD+HIVnmPeOcvU7iKajQnQAjLwrg2JInrAAlSfhE4z
-	 nkeDJ2c5R6TPFhLH9pdpzAAq9g6jbC5WMRIxzTRbPwdzNokYqzRs8jfXqjdPSeEMoZEZi
-	 c7l6g8emHVodXsWWkPp3zNu7MvG27ikWifry2zZEzVNj+UISQyiAQgHUPoTH4Fagycczb
-	 a+rfDQuGHQGkMH94OskAXyAehA017ekBWe+eFxKLKv0Wg7RD+3V5QXkL5b1TMLKd81A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792691585;
+	b=MPzxXNxZSnZrM1NEZDZuY3FWSWCXJIX5wHG4+CLO3qCR0SWJn8E6t8U3zkClernnUBq0
+	 06bSR8Wk5uXbrKPTTHh4HEgDQ1ZOWpopaQb9zp5jg1QWBlN5XPAUX0MCBRra2C3sPN8UN
+	 sDlGyZONzJcAAjoH6vL8EAh/ItKopJRokmUzjLrAzY55jwJBGCQjXzwr+xbrPssLTAiTC
+	 ODn40YlHZGvaEeLZ5WrL1ux0yX8UiAEUvWH0ETUFl3nG9KVoaTQ0QdfilIpKcB50SQWaL
+	 Gib6Gm+rmylMrTYlZPIYcJPhTG+Z6JRoD3Xv9cPpMCXO7YnL1gim7Abgt21SEK2DWCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691585;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+	b=yYIq/WmWpuRGToLy2HyQ5SEUn0PjFRFVIsjjyA2bKapM02vaCsStV+Nje17VRTVrNs9T
+	 R47aEyuaiQqlwZW1S4fz1x35h1quSRokviFNenO40dqu79cX94C7w5XkpKnYMAiEvBYx1
+	 5XhCxjqD1WUwmMeLGVD10vPIqAWxMb2AfScgPREWJJaADRAlCIRM6b/8xueebf6c3oj8x
+	 BnV0bCEf2d+z6jbXtTAAjvTD2tB57TcPsp2YA95yVhQ1JmoE25/VNCAdiUi1eUzDaFjBQ
+	 GBzauttOGZLp9KI4/+Pn4Nqkye8wdhcDbB11kQkAMbn2o/vEW+erLapyGAQv1bsIwhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CdWRFVVR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CC6606A319
-	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:50:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27CC6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7532C606A320
+	for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 17:53:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7532C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so34207f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:50:29 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CdWRFVVR
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35829219da8so1345455eec.0
+        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 10:53:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792691584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l1ZGW5IJ0W/Spki3y5EJS7D2pT5P820zTexph0LP8MmGhGut2yri9aa0Hovg+l03Zr
+         5AyZ+EWGUdRe0blcVorfqHt8PeESvIvVpsBAComXG/TBvhXbb/VosauLEEFx6JcvnP0+
+         SbE14kr1XVRNC1A5blQ02hKPmdStr4KdMTNlTRtL9wU3ECNfFaI5dihchCrWddfUjCH0
+         vwf+96Zty0l5QrxLEWIes9hNyEjXHiwZEUQd4zMetOKxz4TS4g5xh9K/U7Qx8pTXRax0
+         R3c0ZeB3hjDlPt1RyvMKMQzD32yIsfQHBXXvA8VXU++7Klxett4G9fWYBeTN1ktnQuLT
+         TeBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        fh=/3RNgEF8pghWfF6Xho5rwTcduu4tNbTj4Gfhw3PjKY8=;
+        b=XUFCh56x25Ry7tbsjUw3WAyJNEydvzOT7FB12kgDFlZofrErbfQifFDjLXXidf0Q+k
+         j9ak6XoRkrTGiQ97vSWnEVaUZb2WXLzOrNMwxASavT0Gi753qdRUZolohJb0fegUkeqR
+         K6qQfH8ZDRwEsMgyHcP8C7wiQGYCUD8u+UK1HupWr70YEBkCdh3Wnjtb0qDWh4UW9zdk
+         0m9ahI6HGhvyaTaHcowycDwUiC+OP3uDCZpDJkXXTy91BkZKWzMJS0KIZGalfKrwd1Qq
+         7JmiinKFOQDct9yAQx5sU0MNExdrV+n2wrZezX681BewlYIup7YCxk1UFlK4u74FAfDF
+         +Fzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792691584; x=1793296384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        b=CdWRFVVRQFA7nUIEbW9/tuJ4GmATopKWcFmos2aLIz3VeptOn8kVZBD1BAB0fOT5ti
+         iH2TdABNtqgWFySel6gPxtwrMOUDidEbyaIWboNu3OWXv2xFwD2l65i1ZRPbb81GTRNk
+         7cwzieID3NXpEioeJiX2lh15lDBWOycH3jFXVZuBdOZB3BWFLdfINCnxJgob/hpFPx+v
+         N8AJMVFlDMH6aMCcHJXW2au0INS95a1s8MAiYvFXIAqnwbNiNQpFd+gzIEONWen23FBv
+         NEbhhdP68Wz/JBqcjICoTozj1zQKg8BF3eyJym3D99zB3Wwg6gK7lK2ZZpZsCIDkYJYG
+         wliQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691428; x=1793296228;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wd3oLS+dcFTXkdvGEDZ+0YYIQNbTTyKN39PEruh5N40=;
-        b=FHuiIlHovBpZyq2Fb7fAqMo3DJ4fmvyhSok9lJNI4K24PHrb7nEbSLc69QalUHGDyc
-         5Kf9pJx4RVDl5enVxLlSCoD5SxuJ1cHGhKRWaCS4ftTvCQgg4BPW9JgiPs+O9n8m0w6M
-         8A0LJdSyF/njtSwIoGrR4Y8v/uGUZks0KE296Ry4nStktT4uX1w0RSojECNE103RXKwv
-         XxM1nLMF9e554GgK7AXLVgngX5q1y3vGh2HwL6FscvtQCQ9ZFENaBe6I4otMeZErXtBI
-         EXVAsiase+Zk7ryaBPyY9wjq69rJPbFtgVywq2bUD9gb1LmWCxsekINYEwtHqIGVf2Kv
-         YlKg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZuiDYJFkngQCej7sT7VSDW3RORXH5jQ8Hjrfh2q7XU+tcYS8HLGMKfyrgkzi32FlZ9FPb9sDblAKI@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsDxutBxwTHG3DQ4FgHtGH7tcmIRo9A5dUCVVRU26Zn1cfkrTd
-	e8AvBnRkZLldzbBY7V+H4Glp9oc8bwTOKc0H5CHRnHM3nuQ6tcokhu5L
-X-Gm-Gg: AYBFou2cc/kdizQdaogLpKV+qztxKDneD51dSKcCj0FlksbJ5wWrOnZP8m2D+8Zg5Nn
-	vspjLb9eJuH7CTMLrWz5wMdPvdq9tQ6qrq6Pxk/Gi703KHIB8Pw6dVsDDwSw956KIBnNS8b0Woa
-	N69Lu3sodf0NKN1UzifncAr50a7RbAsruwqyWQItydpAdin+thQY5PpM282BPG2fZ+jyPYawwg9
-	WtmCl84HlteV0GIjNQioZs7OeNCIjKFbWEvJtRVXKSF6SahJbWy6fbTfGmHz2p0jwjLPn0jzYG5
-	Y11r/fOAf54xd7nQrtz/rNd4soH4r/NFbFBOGpN5JSfJom+/Gd1fdeKIEbYZ5n1tTYnXHBL37+6
-	efhU2QHSXsRY5HoRecF4sh+myDp1X6lfOKnSf8UhwCTQODnB9RziAa9rxbxHXkFWk2T94YcKpXa
-	25tL4K92Ar7hU/VWLVlrgWr7PZPLprexwSBLgX2kYVWvbT8d/92tRjYUlrv2nIllQKqAAUFcazA
-	mQATZloKBYTK+erna5tSu01HoqZsQ/LXie/v6NPMw2UFKGysfg5cNfQ7kJeDhWJ60GAQ5jjaB8Z
-	ikfWxuD6Gg==
-X-Received: by 2002:a05:6000:1866:b0:48e:412:37f4 with SMTP id ffacd0b85a97d-48e2641de1amr14015136f8f.1.1792691428424;
-        Thu, 22 Oct 2026 10:50:28 -0700 (PDT)
-Received: from [192.168.1.135] ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835247sm13834966f8f.41.2026.10.22.10.50.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:50:27 -0700 (PDT)
-Message-ID: <c9d2b1dd-c733-454a-9281-80787f5c432e@linux.com>
-Date: Thu, 22 Oct 2026 18:50:26 +0100
+        d=1e100.net; s=20260707; t=1792691584; x=1793296384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3caCbj25DMKEJr+iPP66wR6DUJgaEfAKCjBL8Q8RuKs=;
+        b=VsRT4diNcQgmTFXPmjEWQFReuxedALF0ObaRm+ITRnRVLigSNzSl4cSMx/xyhhpYah
+         HfecBlzyaNxUuE/TCTtJY52Ua2OZcx4jyfegVANe+LGnkJJ484kKU6KrmI9fLPZF/EOz
+         gwf8Mg/SeTzBPxHcrOXvP51IR7U4MpvYtlE0hv8M1eA+Z/+M2sNq6DnGDxlZ6MeGDYwq
+         cb872zwoyXAgY0tlPhaWs7xHfNCgh8XFz595n2YkhQO1u+QuLgknxTqNe7pGBVwHAFJO
+         48Yk6VGVbl2XhMB/qyqMReoimfaFhevdt1qLlnNEqVQ2KhNvbssxlfNDKkJnI7/k7xwl
+         taiA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6LU/y387ftTxgOFKPWhs2VzNtySB3eNDjJDyL+i/SpP0NzIq037Qj3on8lSOVfdGWI8OzkGA6SwjI@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSPT5BSILq5o1qqu1rPNLocYj85Ap86f+A0NrT/kR6/w5e9g+G
+	nagljsfXij1JQwdDHHTDYT19Lo2/n0TMSuog28T0kXlXeeMUVu/Ayt1FJ+GwUhPS5xoh5tdxp7s
+	mar8XqIFYKRr5ZD80/wOoetNKZFQez/w=
+X-Gm-Gg: AYBFou0yQ6KPUMvlXM6ddyfK2AC9xMBg0OsXqSLXx3jpeUeOM39I4JSaZZdqRIkv3pA
+	X3sRNCMVBJb/bLqH4aGjwwhUVwlFpCN0aMirdLSH2SiEzh6xRTCmAKfXxo2JFuPBFRc9c1BQNF7
+	o6MsgDgvq7/hRcW36ZVy1eAkfxOT+6J0rJhuS08ajUL5C2llRjjxRipdBMGFh1iii8LR8H9l5s+
+	TS5n/XlVidyAXZhpBGWah3zjAU+ADpqMsXjq+i3LGrdcWZiaYJywtDKojGOG8wCCqFN4PK9rVYN
+	AXT7fU4OGS+mkdXSGk40KEZJhk+qUEgXHGSVHTTDmtP1GZO6Rn/tFTdFJOgVmTl/zE8YH1Ta0AR
+	jSp9jPv8ttgn4xMnEGajjGLZKSgamArDzJwYAYxxP/opEr0av+QWkuPkXWMe3FsbexpvfrDk=
+X-Received: by 2002:a05:7023:d08:b0:190:716:4822 with SMTP id
+ a92af1059eb24-19599bd3be6mr253220c88.8.1792691584483; Thu, 22 Oct 2026
+ 10:53:04 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,97 +104,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
- who adds the RGMII delays
-To: Jerome Brunet <jbrunet@baylibre.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-9-tanure@linux.com>
- <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261015130628.184279-1-clamor95@gmail.com> <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+In-Reply-To: <d3648f08-17b2-4a90-8c23-3036cf71f1e1@sirena.org.uk>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 22 Oct 2026 20:52:52 +0300
+X-Gm-Features: AclHuK804zMlj-QH-mnS-Z0lN9YQ0e8iLQ84s-klji9qX-wEVgx75tAGWTn5j64
+Message-ID: <CAPVz0n3goYTds2oVExJUwNcOr4kHAHUntCt0yHMueOnJ3GxCGQ@mail.gmail.com>
+Subject: Re: [PATCH v1 0/1] ASoC: dt-bindings: nvidia,tegra-audio: Consolidate
+ all codec support into a single schema
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/10/2026 08:14, Jerome Brunet wrote:
-> On sam. 10 oct. 2026 at 11:59, Lucas Tanure <tanure@linux.com> wrote:
-> 
->> The informative section explains in prose how phy-mode, the delay
->> properties in the MAC node and the mode handed to the PHY fit together,
->> and says itself that developers often get this wrong. A reader has to
->> work through several paragraphs before answering the one question they
->> usually have: for this phy-mode and these properties, which part adds
->> which delay.
->>
->> Add a table that answers it at a glance, with one row for every
->> combination the properties allow.
->>
->> Assisted-by: LLM
->> Signed-off-by: Lucas Tanure <tanure@linux.com>
->> ---
->>   .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> index 1bafd687dcb1..bba27a9feb61 100644
->> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
->> @@ -339,6 +339,24 @@ additionalProperties: true
->>   # has added. Failure to remove the delay will result in a
->>   # non-functioning link.
->>   #
->> +# Put together, with the two properties in the MAC node, this is who
->> +# adds each delay:
->> +#
->> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
->> +#   rgmii       -                     -                     PCB trace   PCB trace
->> +#   rgmii-id    -                     -                     PHY         PHY
->> +#   rgmii-id    present               -                     MAC         PHY
->> +#   rgmii-id    -                     present               PHY         MAC
->> +#   rgmii-id    present               present               MAC         MAC
->> +#   rgmii-txid  -                     -                     PHY         PCB trace
->> +#   rgmii-txid  present               -                     MAC         PCB trace
->> +#   rgmii-rxid  -                     -                     PCB trace   PHY
->> +#   rgmii-rxid  -                     present               PCB trace   MAC
->> +#
-> 
-> That would match how the HW is working on the A733 Allwinner too but I'm
-> not entirely sure this is what Andrew had in mind from our previous
-> discussion [1]. Adding him to the thread
-> 
-> [1]: https://lore.kernel.org/linux-sunxi/491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch/
-> 
->> +# A property for a clock the PCB already delays is not in this table.
->> +# It is either the fine tuning described next, or a mistake the MAC
->> +# should report as a fatal error.
->> +#
->>   # Sometimes there is a need to fine tune the delays. Often the MAC or
->>   # PHY can perform this fine tuning. In the MAC node, the Device Tree
->>   # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
-> 
-> Acked-by: Jerome Brunet <jbrunet@baylibre.com>
-> 
+=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:0=
+9 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Oct 15, 2026 at 04:06:27PM +0300, Svyatoslav Ryhel wrote:
+> > The number of codecs supported by the NVIDIA Tegra audio complex is
+> > increasing, which leads to an increasing number of bindings with minima=
+l
+> > changes. The main differences between codecs are the compatible strings
+> > and possible pin configurations. With the introduction of auxiliary
+> > devices, a definitive description of possible pin configurations become=
+s
+> > nearly impossible.
+>
+> Please don't send cover letters for single patches, if there is anything
+> that needs saying put it in the changelog of the patch or after the ---
+> if it's administrative stuff.  This reduces mail volume and ensures that
+> any important information is recorded in the changelog rather than being
+> lost.
 
-Thanks, But I will drop this as it is wrong.
-Lucas
+Hello Mark!
 
->> -- 
->> 2.56.0
->>
-> 
+Just FYI, this commit should be applicable to the current next since
+it was made on top of the recently merged Tegra ASoC schema for
+wm8994.
 
+Best regards,
+Svyatoslav R.
