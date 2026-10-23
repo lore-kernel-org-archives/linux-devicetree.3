@@ -1,105 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792775878;
-	b=WQ4tKFDSTLi9RkojSQeCefhr2fLX1dVnKT06L4axh8Rt8Aym9QJGwtiUWF7zDFhR/GS0
-	 8POOmIbHLPlngQaphNUyCyCmRwbFeVBCSPC2kHtB8E/NDna72ZNxhF5RQNbuOpvvEwE/b
-	 rCG5jyH4z1ERNTkKcVJFs8mi1PiYoT1NN5bvBbzU78IWS1co7mwhPUYzntTvY0JaopnRN
-	 uUOMS/CUsL9ebtghTwbN2iXyPInzDErkpOWIVap8ApSofHmS6Lmu7vjK+e87BTjrpPLCn
-	 fK6epZGDN/fL7QTK/fFCBhd7Mk7qFqYvOHVHJR7CjPjvIW7S2zf2sGhl4gzU7pTYcKg==
+	t=1792775874;
+	b=tHzbIJCG9kX4vyWkiScHBL0MBtl44+Nr33htyr+A6WA3iWqZgQH2ifTNNtXMb52ubo+V
+	 /Sh/xR+XsQwF0RNFm7xguWBbn4a7aoxJi2FOZT7Ib/Z51pbaRGBbEPLMqrbl58BmbMGqO
+	 5ySTWyNDF3LVoJqdmjHm6hRpT0wm8psLxojMIkyOfvqMtS0ycXLebR09icHUACc7t21R1
+	 RP7Hhp8mt0chSBLGDTrczs/q57dAJDe+w49/GpfI5jMIMXAF2/MjE+6KyXMrCzI6kc3vr
+	 V6B0w0YAIDKU9KNgn5bAbfjMDp1bbZNiEpg1sIOV1ZGVyjh9ImaE5pC9tQkw/PiUmpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792775878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792775874;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=Mc65MQMw4xrGXO5XzDfRluJTZ+SQtyxul39YVr3Kh6o=;
-	b=JkcoHtODXEi/glXte5z87XIPSDOgREU6bp8U34sdFd9jorM9KvLnIh9PJU9VP6HcZFNo
-	 im4gp++vj0M54ewpgrxjoSTt3EL6vx55lJRIdw8n7FuASBM3CHOJy0uocmkVLDyig1GVU
-	 vnxZGIeG1bWYFZh4p0aLIybcTLB+vHVKMeAvYgTaSOp8RJVSUdBIpyOCxKthDPQ7aOwGl
-	 1pA8OtvAdeKdWHCdCwrQz1VeDLEtq9nNcoVwGOolVnFn+EdDxYeb3+XF3ZUlOKVQsZaZc
-	 3MX0U5X1kYX9SIyv250gFFXbaZVfUB7cqv19rxH9VPU3VvVPeprLE1H0GGEw68mdXCw==
+	bh=BL8jiXMh/9teOm1qeQCPk/In5cg60p1T0uUifmtHDQk=;
+	b=YsHzDzuLz9VKwBeJF+QeFonnCWJdqoVTc+ePflNb6p2qx2Z02qgdblK7D6QwlBiKWkP8
+	 f+TSNxrfCQGk7/YeA/bU/CDqjIuJZv6YWlBtcVLgs7Y9POkLT0Tj0IL2TxZOL7przYB//
+	 uyBgNrShxlvZnO8Nzd7Veuq4zc22R+9HJjBskWDLtNrYGho0zD07PaOzC9VcY8rSXzooV
+	 sW3JljxSpfVxRHS/QotR0mi9dcQeFNp7YVuEy0t0GUOD1rVMcJfkIvBfJ+foShhguryg9
+	 OsW1Ia1QQ/8wDUcAvhfzHSNFDKCOO1SrZoRlMK7MSBxbfaScdBfa/YLRx9rEssP5z1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GjcSC9pM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hb1w0+UQ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FjEt0mZi;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a3r1DioI;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615CE60A3809
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 615CE60A3809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AD6606A329
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87AD6606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GjcSC9pM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hb1w0+UQ
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE6BPn2999842
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:57 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FjEt0mZi;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a3r1DioI
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE5s3B4072735
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Mc65MQMw4xr
-	GXO5XzDfRluJTZ+SQtyxul39YVr3Kh6o=; b=GjcSC9pMDmucMIlDQm4CwLvI/Im
-	9Ruv90rqtgyPeAFpwO2CYepNJ05iPqgj6FPPbX8BukZ54UV7brYQV2nn6ggQqJc7
-	eDjOefjfrzlRTPSzKjQrAr8YtzZlatWLQ3dYgfpf3YOVHWwDt4tdg5XnrhOD9WuW
-	PluH4WCzm3CAkvjC65gzl2O2l4bXYIJ48oBuxgWvUISAA111x9HZaZmAwq09rOBj
-	jA/Rud5DgDnw5W7cifRug9ziN7+ef3/ygYwBDaI1+XikwHIFI6tVAKO09d2xJBc5
-	PNP8kWJbUJVribEgxYctNQRqyZatdwSrgm82cnNz85H4w9SC/esuvzmLRPA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hg7cn14f5-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=BL8jiXMh/9t
+	eOm1qeQCPk/In5cg60p1T0uUifmtHDQk=; b=FjEt0mZix0hU7QhA/wiC0In6yVP
+	eX4bWqatAX7+hxB32oRby+2cduc3dWuy0li51mt47h8ey7y73YNpzHe4H9hCGWkd
+	p3senYwDhSPp2CyEArmQjpPFGaCGpbjTCMw7RILjuOQBCL/aV9hPpeSvTfi+sOsV
+	a6OBFKsJnlqcj9sg3Xr4DDOpihDhQqemD9vDruGwF6gaEWDc3kim963zXBDhwXh+
+	bPj5RUsDkPWM+BifhUCpGAwcX21x8+geXsJ8cYx8UCqyXS7tNMJpSMBDNjPJomt7
+	VbxlAFPE9jllVgW6WYKVP7z+rAVgKj0K8uTjx3yFfdnpqQLhxPshArUMkug==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hg7bw15dt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:57 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f568dee56so228742985a.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:17:57 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:17:52 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844e383so201768285a.1
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792775877; x=1793380677; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792775872; x=1793380672; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Mc65MQMw4xrGXO5XzDfRluJTZ+SQtyxul39YVr3Kh6o=;
-        b=hb1w0+UQ4dW0dCltJwkBtRTRmZZO/+EALSzK0FF7kIoRxeKv5mrbVDkQr2bJ9OKwou
-         IRNB4M5LJ9k4Th/jscBldPVivobZZJf2ZMXzuonBz1BXqJhhign1QIHhrNhXjvg4PDqF
-         zL8nd480dMSshJSic2fX5SzQy8ftg+e0ILo4v2ys4CMVLR8Cayo7GHMDkOGCoW17eCgh
-         dBXdbLsYQ+YyHwc3430PZl+BxKO53SZ+eZR5I9X4EYuvdBTImp3lFqN8VCf4NRAqAksU
-         umlesJisvhh3zZ4IXFylOHN2E3VH2APemZrY24pDx/3/v3QUSDQsknDOLzqE900E82WF
-         UbRw==
+        bh=BL8jiXMh/9teOm1qeQCPk/In5cg60p1T0uUifmtHDQk=;
+        b=a3r1DioIdWyURy33hTajAunsdssGhDkp0obiZLtWmzJCTOdbVBHH4Z3spSPSqnuvci
+         DlajYzcH84fiCuKnJvSmaKiunsZ8Qg1WMzOP6aEozmIawR5elL/HjBj/B6irEEeiCTHn
+         zuMgxbNiqOQoJoSvZRj27GJwvqmhO/S1y8/sMsUVssfiZNWy59FRy30NcFPa1yZ8IBWT
+         AjLI0CsDow3U09spwNopfYDAfGk+nBrljeCWcoNEQzeBaiUrCLqQZ45OAYGgvLkXRlZd
+         opm47cIPQjQgrzFjDOt5YJOm2w3Ubp01yY6FhXH6lifXpA/jWsVieK3X2duwm42jPkaA
+         6Rig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792775877; x=1793380677;
+        d=1e100.net; s=20260707; t=1792775872; x=1793380672;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mc65MQMw4xrGXO5XzDfRluJTZ+SQtyxul39YVr3Kh6o=;
-        b=fLFBqmXlZbBMUUsY+xqReYx0+YRwlqJD/1y5S3vhLD69B0NvsKyvyZSLsjpANWQ+bi
-         ENn2tJ+ei4YcImRPRS8DoPCUUKnhNHvXAcvDX3cGLaYo8YlbQfX/SJ0WqJzSjPgVXwB3
-         AzY5ViipMa3SHlz49dhFetvnNple7mr5Xlb4762Kmmtx0GMq0snhLaQ+ag//NI6Qoys3
-         hd8pBCUnzZwoIKesXnBkc4cqSexIbOmr2EZUBk3s2Y1YwWcBSQ0d3ldpZ4Yt9To+Uk/w
-         IJ266mox7PDYa2jLXKbuDur9/oja2hmtjZqnxt5n2Zv0zQhk9hd2A/NPhIvi0rD1Emhf
-         rDzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxtpFYeRcjJfDKXPbuCWa/oGYRB8q9Vi36rlrILxD3gKkO9OQclbZUjQ0rSakQ1MAyoF1ls4bg5rZ20@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWJ/jnfTx43TwhRW4qNHKyHFxunSMB4tMi8SZArnnFwHyhR4w1
-	Pm6PrQzVi7MOmvfKHjUqBtH+FRtsjEjAAGQdZyrRgnBJpoO3AmztQQr1Z9DGFuT+e41bEIMaTrs
-	4AtIM6p8ejwOimUmyHAMGJTPS4JU0roTCDMXlCdke09kvMy0DDW1+o4An6EntURnz
-X-Gm-Gg: AYBFou0GjK+/WSbUtOjA4jQiQoPHZ7z1/ULUtfHhWnL/F72UapjS2otm/IBsOPa3/o5
-	SiwcqAQ70Ixk52r+j+SsuIO298QKxpR5nUWz1q32Panc1VA28/1paPiYDTu80Q7QVs9UUk/0BYD
-	I5c5aja5vazMvPaa5VGaiqKuSUbzjAfisUnkPCWHiUj6YhMVMO8kzLUL3SnzjkLe33lFhnCdR7i
-	5VLMV38dbaVkSrh1rFiF/m6TcUamBOMvDkXuZaDhY0ucXN0XX3z9CDu6r/XS8TQzB6//AqwFdbN
-	zYPLMexE44AHPVmiloCiT4k75FomgmP77xv0DL0Jp5tKoeV14etmFzms3NAfZCPfcvK3LpYlEeY
-	aOhDLBXjLYljB
-X-Received: by 2002:a05:620a:4542:b0:93d:e031:5ad with SMTP id af79cd13be357-93f6f91e7cfmr459108885a.17.1792775876645;
-        Fri, 23 Oct 2026 10:17:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:4542:b0:93d:e031:5ad with SMTP id af79cd13be357-93f6f91e7cfmr459105885a.17.1792775876111;
-        Fri, 23 Oct 2026 10:17:56 -0700 (PDT)
+        bh=BL8jiXMh/9teOm1qeQCPk/In5cg60p1T0uUifmtHDQk=;
+        b=Mau4yM7MObWZSUXhF5yyV+9rMguE0vSBIswbAA621PE6mqZBbwSoTAlpEg7wVx57Xr
+         /ybueFN57VDVYaBum+bgfHhLAGeIG5QWQsSNnaa/G0EKrM3sXB9ETeTmAbUZi1jCm0SS
+         wnJC0BPBv4MOvejy1dSM01gm/p6frQNQThpN70DCrieAqZpL9LyYHo/9rRNfdWvZBIPm
+         wSAThE4BpRXlB85x94QTbZyOiipQJpP8OAf+kOjCuUgIuLt5NIGXiy4VqICoOI3GY0mf
+         oOkgGGZXoU09WFBmAuvtuv42HyvBcrQxd8s0AahC1TnW/odsTPkxINlb0vmeRTYz5OFT
+         +miA==
+X-Forwarded-Encrypted: i=1; AKwUvBwF/8F2ruI8rN896ecR2hWVe3qF2nyhWAwJokifT0O0WqJsXJ7np7g6Yz6CF2dLU6vVb5Lor9ktPJCp@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6j8Fxk7OfskX0PRdHnd6RSfLjr/tGK9a6PygqUGJ5K+yHTyCx
+	looNp6lIkISTlz/mL8i58dP7fXNGaLiPXSkt8ZHDnuy7DnBJP9w29zNy8m4rInZCRkxeJPvhCB0
+	ll2Op74zIGlRtuTUR1NCjNtWfzTxL0FxvXEYbGtYnnXjLERzbl6YWAFQ+O0bUhgiK
+X-Gm-Gg: AYBFou1Nupd90day1dQC0o+JHQPuTXnggf71dWEa48ADDFl2iL9IbJpvjClsu97ZJCA
+	erkDo41G0o5wBHE+1ljCiBxhFADJ07XxTZ3MKHJVg6bGnTYtbJegxAK/EjSv1UQ2ZLg0jytYMXz
+	w1vz19vM7N8+7Or5E8fizJP8Zxuiy38mH7oPi2jiwqrbWhQse8ieBgtVeDQK2MkljdWwBZ9hbH+
+	9kzIu2b1lIePgKLr+52+EtkRN70oqw5XUYLceWCil1b+4lfHCw9LEkMxSU9j7+OOFqdAfDkoWm9
+	6xoMdohG20Y3NvnWmA4Bu/VQYL2ztUalrEtN8Z2RS7iXUYMIEwDkKqbPMDUUGrKK0i9ZPROH1Pl
+	J0rmnXs5Nn9wu
+X-Received: by 2002:a05:620a:2a09:b0:93e:63fd:40a4 with SMTP id af79cd13be357-93f6f9b4312mr527418185a.55.1792775871468;
+        Fri, 23 Oct 2026 10:17:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a09:b0:93e:63fd:40a4 with SMTP id af79cd13be357-93f6f9b4312mr527411885a.55.1792775870821;
+        Fri, 23 Oct 2026 10:17:50 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d41e0fesm937475f8f.46.2026.10.23.10.17.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d41e0fesm937475f8f.46.2026.10.23.10.17.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:17:55 -0700 (PDT)
+        Fri, 23 Oct 2026 10:17:49 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
 Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -114,9 +114,9 @@ Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [RFC PATCH 05/23] ASoC: codecs: wsa884x: add VI sense capture DAI
-Date: Fri, 23 Oct 2026 18:14:15 +0100
-Message-ID: <20261023171433.820092-6-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [RFC PATCH 02/23] ASoC: soc-pcm: add multi_direction_codecs link flag
+Date: Fri, 23 Oct 2026 18:14:12 +0100
+Message-ID: <20261023171433.820092-3-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
 References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
@@ -130,252 +130,414 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfXzCAHmGQETQo7
- cNLpmketxdyrTgb8l3mpS1DXDJuMVi1P8KX8Hv0cGJskvAMLE8OMX9MvsuyG6u7A6YCnqokuD+I
- tQCnGESx4Zrt1cnFLxkvu5epnVcHKzHYM4TSRvRFpKFK/N/GPLGaWznMURrF5WBABmyjKWGhVhs
- RgqmT14mV2LdmdRkiSfXsSO1IaGie6VjZrtoagtkN/jx9QNly+EOEg4AdH4T/VVg/MLSEnwMOIy
- 27YscvYrcrFhI2Eza+bcidlrADa6Zr2PTXmAaZ1wa9qoBf06SrcIc3bUWZcK2wX3m9Q6cUgb6nv
- Qje6yA1lQT26svLn1uv2eVzd1e9bkl08ghOdN5aWfy89qoDjG9ganfRSvoiwkQNe+V/RHFOXXkL
- pf7pp9gsHY/NgZzsuDxLKEthzducI/KgtdEnZzH+spN1CkwJfLluaQWwb+g9g84ONXegzVJdWeG
- XpMcC1PM6hEfoXvhY9Q==
-X-Proofpoint-GUID: XHXdquTRU-1ttsuWVMWVLC_h_J7PKw9W
-X-Authority-Analysis: v=2.4 cv=a9mlZkSF c=1 sm=1 tr=0 ts=6adb96c5 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Proofpoint-ORIG-GUID: zB3_YuQf07tZjLdFthyi71KAZLM6gAti
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfX6HIEekDCGWZN
+ zFW2jjGKxSy5UsKaUNHoD+u6hOAu39DHUW5HaA3N52FPz/fxONPVZ347vAPeEWAHa/MDWl4B3c5
+ uCJNv1SmYOmuCi4fhgCmRp+brFYksFU=
+X-Authority-Analysis: v=2.4 cv=QdTzLcbv c=1 sm=1 tr=0 ts=6adb96c0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=mD6ITISG3cOiDhduhQgA:9 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: XHXdquTRU-1ttsuWVMWVLC_h_J7PKw9W
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfX+uH/gBeovUJo
- i9DxtarG4gwbHEW1FzarGPY7gexXAKfh/kPzfIPuxmHvkxuePSaONAmvX8TW8l9xONOYoKWR9U+
- H6OVQ5AbdbBLf766Ne6duvFKLGFhJFA=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=bAVPqq42SAvEUUXqVuEA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: zB3_YuQf07tZjLdFthyi71KAZLM6gAti
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2NyBTYWx0ZWRfX3DwZeZ+mbV0d
+ f6JzVja6C5d3M8Xl1W+gfgegxjCLwgIBSxzwoN55TtgvXP8r7ZJ+Fcl1ZixFJtXVFwGY/JCYR1X
+ K3/Y0hGcDPUyJNad793Yhq2Msk4OSJz46is8olO2cOxMWmEYblPg+aMDbp4JSDUUTGvxu9pSLg1
+ SEOCMHWZcrqmiZolcffge7x2EWVbBwECeG0Fq+WiZt3KRwy/noHlkJL513kb7p7PhZTpK7LB2KO
+ J/f+M4nWKqTpCeuy6QHktDyhUfic9AvZCNtTSy5MRJJW+GOAAKT8ATPfYWZCkPZaSsiMynkj1ID
+ QnxvWZT9HENJxU39H9LrdUZap+4ONUARQEILXtcM//KKTiqcvZ1sgELJ16egRNvG1cPqe+DITas
+ fDXr/j2ZX1uT4kcFwlcnV4G5WcVSJYisK2ePe/gSoDA//Yu0czEEceZygEndAzxEL91/K+YdqgD
+ d+mVx2UOMm1j0ulCB1g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230067
+ suspectscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230067
 
-From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Speaker protection needs the amplifiers' V/I sense capture running
+whenever the speakers play. Putting the capture codec DAIs on the
+playback BE link ties the two together, but the core skips codec DAIs
+whose direction does not match the substream.
 
-The VI sense port carries the voltage and current sense data that DSP
-speaker protection needs, but it is described as a sink port next to
-the playback ports and has no DAI, so nothing can capture from it.
+Add a multi_direction_codecs link flag. When set, the core also calls
+.hw_params and .hw_free on codec DAIs of the other direction, with the
+substream direction switched to theirs for the call under pcm_mutex,
+and sends the matching stream events so their widgets power up and
+down. An optional multi_direction_params_fixup callback lets the
+machine driver set the parameters for those DAIs. Links without the
+flag are unchanged.
 
-Make it a source port with its own capture DAI, ops and stream runtime,
-and leave it out of the playback port list. sdw_get_slave_dpn_prop()
-searches the sink port properties by count, so pack that array densely
-now that VI sense is no longer in it.
+Document the flag in Documentation/sound/soc/multi-direction-codecs.rst.
 
-Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 ---
- sound/soc/codecs/wsa884x.c | 90 +++++++++++++++++++++++++++++++-------
- 1 file changed, 74 insertions(+), 16 deletions(-)
+ Documentation/sound/soc/index.rst             |   1 +
+ .../sound/soc/multi-direction-codecs.rst      | 135 ++++++++++++++++++
+ include/sound/soc.h                           |   7 +
+ sound/soc/soc-pcm.c                           | 122 +++++++++++++---
+ 4 files changed, 244 insertions(+), 21 deletions(-)
+ create mode 100644 Documentation/sound/soc/multi-direction-codecs.rst
 
-diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
-index acf32af5aae3..fbb9c5773aa5 100644
---- a/sound/soc/codecs/wsa884x.c
-+++ b/sound/soc/codecs/wsa884x.c
-@@ -732,8 +732,11 @@ struct wsa884x_priv {
- 	struct regulator_bulk_data supplies[WSA884X_SUPPLIES_NUM];
- 	struct sdw_slave *slave;
- 	struct sdw_stream_config sconfig;
-+	struct sdw_stream_config vi_sconfig;
- 	struct sdw_stream_runtime *sruntime;
-+	struct sdw_stream_runtime *vi_sruntime;
- 	struct sdw_port_config port_config[WSA884X_MAX_SWR_PORTS];
-+	struct sdw_port_config vi_port_config;
- 	struct gpio_desc *sd_n;
- 	struct reset_control *sd_reset;
- 	bool port_prepared[WSA884X_MAX_SWR_PORTS];
-@@ -822,8 +825,8 @@ enum wsa884x_mode {
- static const struct soc_enum wsa884x_dev_mode_enum =
- 	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(wsa884x_dev_mode_text), wsa884x_dev_mode_text);
- 
--static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS] = {
--	[WSA884X_PORT_DAC] = {
-+static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS - 1] = {
-+	{
- 		.num = WSA884X_PORT_DAC + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
-@@ -831,7 +834,7 @@ static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS] = {
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
- 	},
--	[WSA884X_PORT_COMP] = {
-+	{
- 		.num = WSA884X_PORT_COMP + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
-@@ -839,7 +842,7 @@ static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS] = {
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
- 	},
--	[WSA884X_PORT_BOOST] = {
-+	{
- 		.num = WSA884X_PORT_BOOST + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
-@@ -847,7 +850,7 @@ static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS] = {
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
- 	},
--	[WSA884X_PORT_PBR] = {
-+	{
- 		.num = WSA884X_PORT_PBR + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
-@@ -855,22 +858,25 @@ static struct sdw_dpn_prop wsa884x_sink_dpn_prop[WSA884X_MAX_SWR_PORTS] = {
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
- 	},
--	[WSA884X_PORT_VISENSE] = {
--		.num = WSA884X_PORT_VISENSE + 1,
-+	{
-+		.num = WSA884X_PORT_CPS + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
--		.max_ch = 2,
-+		.max_ch = 1,
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
--	},
--	[WSA884X_PORT_CPS] = {
--		.num = WSA884X_PORT_CPS + 1,
-+	}
-+};
+diff --git a/Documentation/sound/soc/index.rst b/Documentation/sound/soc/index.rst
+index 22878d73f7a5..62d01a0a6e52 100644
+--- a/Documentation/sound/soc/index.rst
++++ b/Documentation/sound/soc/index.rst
+@@ -18,4 +18,5 @@ The documentation is split into the following sections:-
+    jack
+    dpcm
+    codec-to-codec
++   multi-direction-codecs
+    usb
+diff --git a/Documentation/sound/soc/multi-direction-codecs.rst b/Documentation/sound/soc/multi-direction-codecs.rst
+new file mode 100644
+index 000000000000..75befb7501b6
+--- /dev/null
++++ b/Documentation/sound/soc/multi-direction-codecs.rst
+@@ -0,0 +1,135 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+static struct sdw_dpn_prop wsa884x_src_dpn_prop[] = {
-+	{
-+		.num = WSA884X_PORT_VISENSE + 1,
- 		.type = SDW_DPN_SIMPLE,
- 		.min_ch = 1,
--		.max_ch = 1,
-+		.max_ch = 2,
- 		.simple_ch_prep_sm = true,
- 		.read_only_wordlength = true,
--	}
-+	},
- };
++===========================
++Multi-direction codec DAIs
++===========================
++
++Overview
++========
++
++An ASoC backend (BE) link that bundles **codec DAIs of both directions**
++on a **single-direction CPU DAI** can set
++``snd_soc_dai_link.multi_direction_codecs`` to tell the ASoC core to
++call ``.hw_params`` / ``.hw_free`` on opposite-direction codec DAIs with
++their own direction, instead of skipping them.
++
++Typical use case: a smart-amp speaker protection link where the CPU
++side is a playback-only DMA (e.g. ``WSA_CODEC_DMA_RX_0`` on Qualcomm
++AudioReach), but the codec side exposes both a playback SPKR DAI and a
++companion capture V/I-sense DAI on the same SoundWire bus.  Opening the
++playback FE should bring up both the amplifier output chain *and* its
++V/I feedback capture chain atomically, without userspace having to open
++a secondary PCM.
++
++Without the flag, the second codec DAI's ``.hw_params`` is skipped
++because its native direction does not match ``substream->stream``;
++``snd_soc_dai_stream_valid()`` filters it out.  With the flag set, the
++ASoC core:
++
++1. Still iterates every codec DAI on the link.
++2. For a codec DAI whose native direction is **opposite** the
++   substream's, calls its ``.hw_params`` / ``.hw_free`` with its own
++   direction (by briefly flipping the substream direction under
++   ``pcm_mutex``, encapsulated in ``soc_pcm_dai_hw_params_at_stream``).
++3. Optionally calls ``.multi_direction_params_fixup`` so the machine
++   driver can rewrite rate/format/channels on a per-codec copy of the
++   params (an 8 kHz / S32_LE V/I-sense codec DAI will not accept a
++   48 kHz / S16_LE playback stream's params verbatim).
++4. Sends start and stop stream events for the opposite direction in
++   prepare and hw_free, so the stream widgets of those codec DAIs power
++   up and down with the link.
++
++Links that do not set the flag retain the pre-existing behaviour
++exactly.
++
++When to use this
++================
++
++Prefer ``multi_direction_codecs`` when:
++
++* the two directions are physically **inseparable** on the codec side
++  (same chip, same wire); and
++* a single open semantically covers both (speaker protection, playback
++  with feedback for echo-reference, haptic/boost feedback); and
++* you do not want userspace to see or manage two PCMs.
++
++Prefer **DPCM FE/BE pairs** when:
++
++* the two directions can be exercised independently; or
++* userspace legitimately needs to control each direction (classic
++  playback + microphone capture).
++
++Prefer a **DAPM supply widget** when:
++
++* only the DAPM power graph (clock, LDO, bias) needs linking, and
++* no ``.hw_params`` plumbing is required on the secondary direction.
++
++Interaction with DAPM
++=====================
++
++DAPM edges are directional and the flag does not change the graph.  The
++opposite-direction codec DAIs' stream widgets are powered by the extra
++start and stop stream events the core sends for that direction in
++prepare and hw_free.
++
++Only ``.hw_params`` and ``.hw_free`` are called on the opposite-direction
++codec DAIs.  Their ``.startup``, ``.prepare``, ``.trigger``,
++``.shutdown`` and mute callbacks are not, so a codec DAI used this way
++must not depend on them.
++
++Machine-driver example
++======================
++
++A machine driver that bundles V/I-sense capture codec DAIs onto a
++speaker-playback BE link::
++
++    static int wsa_vi_params_fixup(struct snd_soc_pcm_runtime *rtd,
++                                   struct snd_pcm_hw_params *params,
++                                   int stream)
++    {
++        if (stream != SNDRV_PCM_STREAM_CAPTURE)
++            return 0;
++        /* VI capture chain runs at 8kHz / S32_LE / 4ch */
++        hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE)->min      = 8000;
++        hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE)->max      = 8000;
++        hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS)->min  = 4;
++        hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS)->max  = 4;
++        snd_mask_none(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT));
++        snd_mask_set(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT),
++                     SNDRV_PCM_FORMAT_S32_LE);
++        return 0;
++    }
++
++    SND_SOC_DAILINK_DEFS(wsa_sp, ...);
++    SND_SOC_DAILINK_REG(wsa_sp);
++
++    static struct snd_soc_dai_link board_dai_links[] = {
++        {
++            .name                           = "WSA Playback",
++            .multi_direction_codecs         = 1,
++            .multi_direction_params_fixup   = wsa_vi_params_fixup,
++            SND_SOC_DAILINK_REG(wsa_sp),
++            /*
++             * codec DAIs include both the playback SPKR DAIs and
++             * their companion capture V/I-sense DAIs on the same
++             * SoundWire bus.
++             */
++        },
++    };
++
++Notes
++=====
++
++* ``multi_direction_params_fixup`` is called with the **flipped**
++  direction so the fixup logic can key off ``stream`` to decide
++  whether the params need rewriting.
++* ``snd_soc_dai_symmetric_set_params()`` runs after the flipped
++  ``.hw_params``.  The symmetric-params tracking is per-DAI, so each
++  codec DAI records the format it was called with in its own
++  direction; nothing cross-contaminates.
++* The transient ``substream->stream`` flip is bounded to a single
++  codec DAI's ``.hw_params`` / ``.hw_free`` call and its DAPM update,
++  under ``pcm_mutex``.  The codec DAI callbacks see the flipped value,
++  which is the purpose of the flip.  ALSA core paths that do not take
++  ``pcm_mutex``, such as ``snd_pcm_info()``, can observe it during that
++  window.
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index f6b98324f346..f12fadb64268 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -749,6 +749,10 @@ struct snd_soc_dai_link {
+ 	int (*be_hw_params_fixup)(struct snd_soc_pcm_runtime *rtd,
+ 			struct snd_pcm_hw_params *params);
  
- static const struct sdw_port_config wsa884x_pconfig[WSA884X_MAX_SWR_PORTS] = {
-@@ -892,6 +898,7 @@ static const struct sdw_port_config wsa884x_pconfig[WSA884X_MAX_SWR_PORTS] = {
- 	},
- 	[WSA884X_PORT_VISENSE] = {
- 		.num = WSA884X_PORT_VISENSE + 1,
-+		/* V and I sense pair */
- 		.ch_mask = 0x3,
- 	},
- 	[WSA884X_PORT_CPS] = {
-@@ -1767,6 +1774,27 @@ static const struct snd_soc_component_driver wsa884x_component_drv = {
- 	.num_dapm_routes = ARRAY_SIZE(wsa884x_audio_map),
- };
++	/* Adjust params for codec DAIs of the other direction */
++	int (*multi_direction_params_fixup)(struct snd_soc_pcm_runtime *rtd,
++			struct snd_pcm_hw_params *params, int stream);
++
+ 	/* machine stream operations */
+ 	const struct snd_soc_ops *ops;
+ 	const struct snd_soc_compr_ops *compr_ops;
+@@ -783,6 +787,9 @@ struct snd_soc_dai_link {
+ 	/* This DAI link can route to other DAI links at runtime (Frontend)*/
+ 	unsigned int dynamic:1;
  
-+static int wsa884x_vi_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
++	/* Also run codec DAIs of the other direction on this BE link */
++	unsigned int multi_direction_codecs:1;
++
+ 	/* DPCM used FE & BE merged format */
+ 	unsigned int dpcm_merged_format:1;
+ 	/* DPCM used FE & BE merged channel */
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index ef8ccf52798e..5dbd0a78933a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -986,6 +986,9 @@ static int __soc_pcm_prepare(struct snd_soc_pcm_runtime *rtd,
+ 
+ 	snd_soc_dapm_stream_event(rtd, substream->stream,
+ 			SND_SOC_DAPM_STREAM_START);
++	if (rtd->dai_link->multi_direction_codecs)
++		snd_soc_dapm_stream_event(rtd, substream->stream ^ 1,
++				SND_SOC_DAPM_STREAM_START);
+ 
+ 	for_each_rtd_dais(rtd, i, dai) {
+ 		if (!snd_soc_dai_mute_is_ctrled_at_trigger(dai))
+@@ -1032,6 +1035,56 @@ static void soc_pcm_codec_params_fixup(struct snd_pcm_hw_params *params,
+ 	interval->max = channels;
+ }
+ 
++/*
++ * Call .hw_params on a codec DAI of the other direction, with the substream
++ * direction switched to the DAI's under pcm_mutex.
++ */
++static int soc_pcm_dai_hw_params_at_stream(struct snd_soc_dai *dai,
++					   struct snd_pcm_substream *substream,
++					   struct snd_pcm_hw_params *params,
++					   int stream)
 +{
-+	struct wsa884x_priv *wsa884x = dev_get_drvdata(dai->dev);
++	int saved_stream = substream->stream;
++	int ret;
 +
-+	if (!wsa884x->port_enable[WSA884X_PORT_VISENSE])
-+		return 0;
++	if (stream == saved_stream)
++		return snd_soc_dai_hw_params(dai, substream, params);
 +
-+	wsa884x->vi_port_config = wsa884x_pconfig[WSA884X_PORT_VISENSE];
-+	wsa884x->vi_sconfig.frame_rate = params_rate(params);
-+	wsa884x->vi_sconfig.ch_count = 2;
-+	wsa884x->vi_sconfig.bps = 1;
-+	wsa884x->vi_sconfig.type = SDW_STREAM_PDM;
-+	wsa884x->vi_sconfig.direction = SDW_DATA_DIR_TX;
-+
-+	return sdw_stream_add_slave(wsa884x->slave, &wsa884x->vi_sconfig,
-+				    &wsa884x->vi_port_config, 1,
-+				    wsa884x->vi_sruntime);
++	substream->stream = stream;
++	ret = snd_soc_dai_hw_params(dai, substream, params);
++	substream->stream = saved_stream;
++	return ret;
 +}
 +
- static int wsa884x_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params,
- 			     struct snd_soc_dai *dai)
-@@ -1776,6 +1804,9 @@ static int wsa884x_hw_params(struct snd_pcm_substream *substream,
- 
- 	wsa884x->active_ports = 0;
- 	for (i = 0; i < WSA884X_MAX_SWR_PORTS; i++) {
-+		/* VISENSE is driven by the separate VI capture DAI */
-+		if (i == WSA884X_PORT_VISENSE)
-+			continue;
- 		if (!wsa884x->port_enable[i])
- 			continue;
- 
-@@ -1795,7 +1826,10 @@ static int wsa884x_hw_free(struct snd_pcm_substream *substream,
- {
- 	struct wsa884x_priv *wsa884x = dev_get_drvdata(dai->dev);
- 
--	sdw_stream_remove_slave(wsa884x->slave, wsa884x->sruntime);
-+	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-+		sdw_stream_remove_slave(wsa884x->slave, wsa884x->vi_sruntime);
-+	else
-+		sdw_stream_remove_slave(wsa884x->slave, wsa884x->sruntime);
- 
- 	return 0;
- }
-@@ -1829,11 +1863,20 @@ static int wsa884x_set_stream(struct snd_soc_dai *dai,
- {
- 	struct wsa884x_priv *wsa884x = dev_get_drvdata(dai->dev);
- 
--	wsa884x->sruntime = stream;
-+	if (direction == SNDRV_PCM_STREAM_CAPTURE)
-+		wsa884x->vi_sruntime = stream;
-+	else
-+		wsa884x->sruntime = stream;
- 
- 	return 0;
- }
- 
-+static const struct snd_soc_dai_ops wsa884x_vi_dai_ops = {
-+	.hw_params = wsa884x_vi_hw_params,
-+	.hw_free = wsa884x_hw_free,
-+	.set_stream = wsa884x_set_stream,
-+};
++/* hw_free counterpart to soc_pcm_dai_hw_params_at_stream(). */
++static void soc_pcm_dai_hw_free_at_stream(struct snd_soc_dai *dai,
++					  struct snd_pcm_substream *substream,
++					  int rollback, int stream)
++{
++	int saved_stream = substream->stream;
 +
- static const struct snd_soc_dai_ops wsa884x_dai_ops = {
- 	.hw_params = wsa884x_hw_params,
- 	.hw_free = wsa884x_hw_free,
-@@ -1856,6 +1899,19 @@ static struct snd_soc_dai_driver wsa884x_dais[] = {
- 		},
- 		.ops = &wsa884x_dai_ops,
- 	},
-+	{
-+		.name = "VI",
-+		.capture = {
-+			.stream_name = "VI Capture",
-+			.rates = WSA884X_RATES | WSA884X_FRAC_RATES,
-+			.formats = WSA884X_FORMATS,
-+			.rate_min = 8000,
-+			.rate_max = 384000,
-+			.channels_min = 1,
-+			.channels_max = 2,
-+		},
-+		.ops = &wsa884x_vi_dai_ops,
-+	},
- };
++	if (stream == saved_stream) {
++		snd_soc_dai_hw_free(dai, substream, rollback);
++		return;
++	}
++
++	substream->stream = stream;
++	snd_soc_dai_hw_free(dai, substream, rollback);
++	substream->stream = saved_stream;
++}
++
++/* DAPM counterpart, so the DAI's own direction widget gets updated */
++static void soc_pcm_dapm_update_dai_at_stream(struct snd_pcm_substream *substream,
++					      struct snd_pcm_hw_params *params,
++					      struct snd_soc_dai *dai, int stream)
++{
++	int saved_stream = substream->stream;
++
++	substream->stream = stream;
++	snd_soc_dapm_update_dai(substream, params, dai);
++	substream->stream = saved_stream;
++}
++
+ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_pcm_substream *substream, int rollback)
+ {
+@@ -1053,6 +1106,9 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
  
- static int wsa884x_get_temp(struct wsa884x_priv *wsa884x, long *temp)
-@@ -2091,9 +2147,11 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- 					WSA884X_MAX_SWR_PORTS))
- 		dev_dbg(dev, "Static Port mapping not specified\n");
+ 	/* run the stream event */
+ 	snd_soc_dapm_stream_stop(rtd, substream->stream);
++	if (rtd->dai_link->multi_direction_codecs)
++		snd_soc_dapm_stream_event(rtd, substream->stream ^ 1,
++				SND_SOC_DAPM_STREAM_STOP);
  
--	pdev->prop.sink_ports = GENMASK(WSA884X_MAX_SWR_PORTS - 1, 0);
-+	pdev->prop.sink_ports = GENMASK(WSA884X_MAX_SWR_PORTS - 1, 0) & ~BIT(WSA884X_PORT_VISENSE);
-+	pdev->prop.source_ports = BIT(WSA884X_PORT_VISENSE);
- 	pdev->prop.simple_clk_stop_capable = true;
- 	pdev->prop.sink_dpn_prop = wsa884x_sink_dpn_prop;
-+	pdev->prop.src_dpn_prop = wsa884x_src_dpn_prop;
- 	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+ 	/* free any machine hw params */
+ 	snd_soc_link_hw_free(substream, rollback);
+@@ -1061,9 +1117,20 @@ static int soc_pcm_hw_clean(struct snd_soc_pcm_runtime *rtd,
+ 	snd_soc_pcm_component_hw_free(substream, rollback);
  
- 	wsa884x_reset_deassert(wsa884x);
+ 	/* now free hw params for the DAIs  */
+-	for_each_rtd_dais(rtd, i, dai)
+-		if (snd_soc_dai_stream_valid(dai, substream->stream))
+-			snd_soc_dai_hw_free(dai, substream, rollback);
++	for_each_rtd_dais(rtd, i, dai) {
++		int dai_stream = substream->stream;
++
++		if (!snd_soc_dai_stream_valid(dai, dai_stream)) {
++			if (!rtd->dai_link->multi_direction_codecs)
++				continue;
++			dai_stream ^= 1;
++			if (!snd_soc_dai_stream_valid(dai, dai_stream))
++				continue;
++		}
++
++		soc_pcm_dai_hw_free_at_stream(dai, substream, rollback,
++					      dai_stream);
++	}
+ 
+ 	return 0;
+ }
+@@ -1114,30 +1181,41 @@ static int __soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		goto out;
+ 
+ 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-		unsigned int ch_mask = snd_soc_dai_tdm_mask_get(codec_dai, substream->stream);
++		int codec_stream = substream->stream;
++		unsigned int ch_mask;
+ 		struct snd_soc_dai_link_ch_map *ch_maps;
+ 		int j;
+ 
+ 		/*
+ 		 * Skip CODECs which don't support the current stream type,
+-		 * the idea being that if a CODEC is not used for the currently
+-		 * set up transfer direction, it should not need to be
+-		 * configured, especially since the configuration used might
+-		 * not even be supported by that CODEC. There may be cases
+-		 * however where a CODEC needs to be set up although it is
+-		 * actually not being used for the transfer, e.g. if a
+-		 * capture-only CODEC is acting as an LRCLK and/or BCLK master
+-		 * for the DAI link including a playback-only CODEC.
+-		 * If this becomes necessary, we will have to augment the
+-		 * machine driver setup with information on how to act, so
+-		 * we can do the right thing here.
++		 * unless the link runs them in their own direction.
+ 		 */
+-		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
+-			continue;
++		bool direction_flipped = false;
++
++		if (!snd_soc_dai_stream_valid(codec_dai, codec_stream)) {
++			if (!rtd->dai_link->multi_direction_codecs)
++				continue;
++			codec_stream ^= 1;
++			if (!snd_soc_dai_stream_valid(codec_dai, codec_stream))
++				continue;
++			direction_flipped = true;
++		}
++
++		ch_mask = snd_soc_dai_tdm_mask_get(codec_dai, codec_stream);
+ 
+ 		/* copy params for each codec */
+ 		tmp_params = *params;
+ 
++		/* The substream params describe the other direction */
++		if (direction_flipped && rtd->dai_link->multi_direction_params_fixup) {
++			int fret = rtd->dai_link->multi_direction_params_fixup(
++					rtd, &tmp_params, codec_stream);
++			if (fret < 0) {
++				ret = fret;
++				goto out;
++			}
++		}
++
+ 		/* fixup params based on TDM or ch_map masks */
+ 		if (!ch_mask) {
+ 			for_each_rtd_ch_maps(rtd, j, ch_maps)
+@@ -1148,13 +1226,15 @@ static int __soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		if (ch_mask)
+ 			soc_pcm_codec_params_fixup(&tmp_params, ch_mask);
+ 
+-		ret = snd_soc_dai_hw_params(codec_dai, substream,
+-					    &tmp_params);
+-		if(ret < 0)
++		ret = soc_pcm_dai_hw_params_at_stream(codec_dai, substream,
++						      &tmp_params,
++						      codec_stream);
++		if (ret < 0)
+ 			goto out;
+ 
+ 		snd_soc_dai_symmetric_set_params(codec_dai, &tmp_params);
+-		snd_soc_dapm_update_dai(substream, &tmp_params, codec_dai);
++		soc_pcm_dapm_update_dai_at_stream(substream, &tmp_params,
++						  codec_dai, codec_stream);
+ 	}
+ 
+ 	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
 -- 
 2.47.3
 
