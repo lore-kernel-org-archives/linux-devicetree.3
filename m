@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792780413;
-	b=0hFuqj2Zq+59q3EYaLPYNzEcWnvt1d+IQIgS7eKQtMm7awZ7sIpelgXUUiq/NWZx5N8a
-	 hUc4U/VCV4tQJc+dAsZL0H1liiMg8hkaVpPD8ZM9i8ktO1fO8mkxCyaulP/Nk/jBMrYC+
-	 IXe8r6SsM9+L2pJLbafrNJ5SSMYJUVZc4YGC3Fmq4brkV0twS4PlaClG/LsflNisDjpSP
-	 YNt+5yMisvh0KE/Ud+C1W6uDeelwvjXpvdugA7Xi4AP2CPeiag/K0qGD7//R6PB/CRx/7
-	 izNeGE5YWBbIU8z9GZ1XjKyPPFpQI2qz+lfMkULz2LQ+XE11E9UV31/szuoe+/R4V/A==
+	t=1792782931;
+	b=GPJZoEPf7CX+fJm9ZAZlTjbBN7OYglcoZIw5U6EsU6wDXzQG8vWc1c8j9VbGiP8gKjHr
+	 8vvTEbSTJJfMXO8pFzD98PWFGePHL2LkHoW28ALRfA1jH738qAHb0rq/N1eW3YN0YV0kC
+	 NXN30wxn8NcvB43BtJ1qGVDz8Wc8VrJ3Tk3F0VBKlRUm2DBvE8sFnV6FL31s9wyoxo9/y
+	 LxeDOZ3g9xJBtC+6oCrXOWcW3gq4NJSgyVxDZN4Ai4p0ob85cwSOYTUXYxIxvlYCiQcHO
+	 RVaOP5tCmKls955YsOysnD/v0nVauls7pHHUy6FyanXO0d2qMoCbVclEVqyr2unS/mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792780413;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=awrU6kmNZ7/EfFFNlcK5Nsg3dVPD0GVQbxEuv/mLd+M=;
-	b=vp9/PREZZqNqVFHQYmtI9LEf6VKRhYgY8kXbd9iMD+qs5dk8s0OEK20bhz+SyZrXKEtq
-	 rB/8eqlg87hhPcQ3Zw3RRxHVJg2+nMLV+X87X1ZUbkip38GYsVs1wJTjbzQdoYOOWO2W4
-	 scAajX7GxTstZuyIbeZwIMrRvU3c5UzEi3wXhA1+oFYNan/h17YTLpxeT2r3kfSBPOFj3
-	 RiU37UZcBspHj0vmbSKlaPeYCR55bQu+tpaT8d8hGcWa7t/F4YGp3s1+MShLfUTGZAD6p
-	 pIo6maPF0BtRGMMpdskh8Mh7zvl+886dZjdHOHBwS6kyXMxpr9/t5qdGwW8fodHpCIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792782931;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=jAf/ZZGUQiG0sLvlhoisLQBnx7eBtPaDBFZqlZYAcn4=;
+	b=4dnk/4IAqOObmWKupJloVfbH3adlGQXy2bYPc+YaScDwoGGPkMhAij3ucONhUB1jP+UN
+	 FQYrT3cSpfw7QVP+dhtygvpVPi2sqjj1D5vuXXe7NxYuiALmOuLXSwZ1qjvIWx+KGqpm+
+	 RtfAlxfgsC26/06GKE9wu5OZkAsKvoV2QoqUlObdaqKrGW6Oc7BIUMdwF0MKBlC4c4qSX
+	 dcaptezVAgTnV3pc1I75n+luCOYKIjPnWOhADKCt9+5w9LQDr+NrqvB0twM3CrKdVZTcx
+	 ro9Hpbg5YLPyIq+ETTnwdYZEUewZm7rhaIb0XBAEtaAjARXHRKNiuzmXtK722zDUsQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PGN/una3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcR3oasB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7905606A31A
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 18:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EFB606A320;
+	Fri, 23 Oct 2026 19:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGN/una3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09701F01825;
-	Fri, 23 Oct 2026 18:33:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcR3oasB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D571F01825;
+	Fri, 23 Oct 2026 19:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792780412;
-	bh=awrU6kmNZ7/EfFFNlcK5Nsg3dVPD0GVQbxEuv/mLd+M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PGN/una3f1bNDZa562LtRwOOSIeLoKqrBV6krsI9AuO0A0wIoCbhgrf3AlXN2o6RO
-	 ZxDL51UYHPmgyN/sGZkfG3PVghSJ7RFZ2e/R4dNj5aUz1+6Zh+WBrwJDSPpYUO2Tp+
-	 goVaaY/fcq6bNwbG+z+G3eHHHXTCUsLYC/9gBUFT9T0uZ3/I9KvYIhyjgi8uVHn64r
-	 j/3YjCqZ6ZRPGoOhqfQgRc9g1npQgtBRQyeKcSZ9o3Ouzht1wAtCCJqIj368zX8imz
-	 wRZ2Di+9Ot2KVf/G7OOwsryPi7NhZHVzZSzQCpSVXE8SvnUe85UMLoOaCowW2jgNtw
-	 McUvYX1BYRPEQ==
-Message-ID: <sashiko-outbox-183067@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] arm64: dts: qcom: Add support for Acer Swift Go
- Pro AI (SFA14-11)
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kaipeng Zeng" <kaipeng94@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261023180513.36417-3-kaipeng94@gmail.com>
-References: <20261023180513.36417-1-kaipeng94@gmail.com>
- <20261023180513.36417-3-kaipeng94@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 18:33:31 +0000
+	s=k20260515; t=1792782930;
+	bh=jAf/ZZGUQiG0sLvlhoisLQBnx7eBtPaDBFZqlZYAcn4=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=IcR3oasBpK7zRcENihfBkoMc8cPK+9KGfkCqsvY6e7buRncm4eB7tHwTlSiqfnNLw
+	 svAhqEsqiICnRr2h0dFr8v/pcpE6sNg+ZnlCUHiLMAMLUxmXT/yzmApZy5/hhcOvt4
+	 mcEEMlutJ7i7+azfDuejOsUr/5yLSAATa0lYHYdrz9g7Oi6v4ZrlRQHjL3uoI1PCor
+	 wdPjZtxKTLEttW6gwU69w+rtDFZdf2bXvAWdIjFtsnu4sA7hAXiYUtBd+m2z+Nx+yz
+	 h5QDmkyfieOBl3kIJuQ1qnk/+RHt09z7KKzJVLtU+YVLS9/xnOSoB0/+Nm5JJrpiO/
+	 WXylhFlRs1vYQ==
+Date: Fri, 23 Oct 2026 14:15:26 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,113 +50,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Peng Fan <peng.fan@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In-Reply-To: <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
+References: <20261022-twl4030-extmute-v1-0-3d2dbe260df9@gmail.com>
+ <20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com>
+Message-Id: <179278264934.3497392.12554729400771682054.robh@kernel.org>
+Subject: Re: [PATCH 2/2] dt-bindings: mfd: twl4030-audio: document
+ preferred name for external mute
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: x1e78100-acer-sfa14-11: inverted backlight tur=
-ns full on at 0
---
 
-commit 66fa11a1de0967d5bc8b8fce1f271477c9fa4b31
-Author: Kaipeng Zeng <kaipeng94@gmail.com>
+On Thu, 22 Oct 2026 13:29:47 -0700, Dmitry Torokhov wrote:
+> Proper names for GPIOs should use "-gpios" suffix. Now that the
+> twl4030 codec driver has been converted to use GPIO descriptors in
+> commit 178c169a30b0 ("ASoC: codec: twl4030: Convert to GPIO
+> descriptors"), update the binding documentation to list
+> "ti,hs_extmute-gpios" as the preferred property name and mark
+> "ti,hs_extmute_gpio" as deprecated.
+> 
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
 
-arm64: dts: qcom: Add support for Acer Swift Go Pro AI (SFA14-11)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds the device tree for the Acer Swift Go Pro AI (SFA14-11)
-laptop based on the Qualcomm Snapdragon X Elite (X1E78100) SoC.
+yamllint warnings/errors:
 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts b/arch/a=
-rm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
-> new file mode 100644
-> index 0000000000000..5814cf3d000ce
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
-> @@ -0,0 +1,1541 @@
-[ ... ]
-> +	backlight: backlight {
-> +		compatible =3D "pwm-backlight";
-> +
-> +		pwms =3D <&pm8550_pwm 3 5000000>;
-> +
-> +		brightness-levels =3D <254 225 200 175 150 125 100 75 65 60 55>;
-> +		default-brightness-level =3D <8>;
-> +
-> +		power-supply =3D <&vreg_edp_bl>;
-> +	};
-[ ... ]
-> +	vreg_edp_bl: regulator-edp-bl {
-> +		compatible =3D "regulator-fixed";
-> +
-> +		regulator-name =3D "VBL9";
-> +		regulator-min-microvolt =3D <3600000>;
-> +		regulator-max-microvolt =3D <3600000>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/ti,twl4030-audio.yaml: properties:codec:properties:ti,hs_extmute-gpios: 'anyOf' conditional failed, one must be fixed:
+	'$ref' is not one of ['maxItems', 'description', 'deprecated']
+		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
+	Additional properties are not allowed ('$ref' was unexpected)
+		hint: Arrays must be described with a combination of minItems/maxItems/items
+	'maxItems' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
+	1 is less than the minimum of 2
+		hint: Arrays must be described with a combination of minItems/maxItems/items
+	hint: cell array properties must define how many entries and what the entries are when there is more than one entry.
+	from schema $id: http://devicetree.org/meta-schemas/cell.yaml
 
-[Severity: Medium]
-Does setting the backlight brightness to 0, blanking the display, or
-suspending the system cause this active-low backlight to jump to full
-brightness instead of turning off?
+doc reference errors (make refcheckdocs):
 
-The backlight node uses descending brightness-levels from 254 (off) down to
-55 (maximum brightness) without PWM_POLARITY_INVERTED, has no enable-gpios,
-and points power-supply at vreg_edp_bl, which has no GPIO and is marked
-regulator-always-on.
+See https://patchwork.kernel.org/project/devicetree/patch/20261022-twl4030-extmute-v1-2-3d2dbe260df9@gmail.com
 
-In drivers/video/backlight/pwm_bl.c, pwm_backlight_update_status() only
-consults pb->levels[brightness] via compute_duty_cycle() when brightness > =
-0.
-When brightness is 0, it ignores pb->levels[0] and instead disables the
-regulator and sets duty_cycle =3D 0:
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-drivers/video/backlight/pwm_bl.c:pwm_backlight_update_status() {
-	if (brightness > 0) {
-		pwm_get_state(pb->pwm, &state);
-		state.duty_cycle =3D compute_duty_cycle(pb, brightness, &state);
-		state.enabled =3D true;
-		pwm_apply_might_sleep(pb->pwm, &state);
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-		pwm_backlight_power_on(pb);
-	} else {
-		pwm_backlight_power_off(pb);
+pip3 install dtschema --upgrade
 
-		pwm_get_state(pb->pwm, &state);
-		state.duty_cycle =3D 0;
-		state.enabled =3D !pb->power_supply && !pb->enable_gpio;
-		pwm_apply_might_sleep(pb->pwm, &state);
-	}
-}
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-Because vreg_edp_bl is a GPIO-less fixed regulator with regulator-always-on,
-regulator_disable() in pwm_backlight_power_off() does not cut power to the
-backlight, while lpg_pwm_apply() in drivers/leds/rgb/leds-qcom-lpg.c disabl=
-es
-the PWM output channel and drives it to a constant logical 0 (0% duty cycle=
-),
-which corresponds to full brightness on an active-low backlight.
-
-In addition, having descending values in brightness-levels causes unsigned
-integer wraparound in pwm_backlight_is_linear():
-
-drivers/video/backlight/pwm_bl.c:pwm_backlight_is_linear() {
-	unsigned int nlevels =3D data->max_brightness + 1;
-	unsigned int min_val =3D data->levels[0];
-	unsigned int max_val =3D data->levels[nlevels - 1];
-	unsigned int slope =3D (128 * (max_val - min_val)) / nlevels;
-	unsigned int margin =3D (max_val - min_val) / 20; /* 5% */
-	...
-}
-
-With min_val =3D 254 and max_val =3D 55, max_val - min_val wraps around in
-unsigned arithmetic, inflating margin and misreporting the non-linear table
-as BACKLIGHT_SCALE_LINEAR.
-
-Note that pm8550_pwm in hamoa-pmics.dtsi uses #pwm-cells =3D <2>, which does
-not accept a third PWM_POLARITY_INVERTED flag cell unless #pwm-cells is
-overridden to <3> or the driver/DT handling is adjusted.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023180513.3641=
-7-1-kaipeng94@gmail.com?part=3D2
