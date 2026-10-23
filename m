@@ -1,96 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740592;
-	b=YvlGiCkbAuUSKBbgkZcNjG0Gu0vaBt4wYmlo2i3ABUNVEpO0scoj7i9Eouv1ImFx1NG6
-	 4rEAmMEw5vjrdLuEU7n2sFvWXej3zDGDgWSYP46QcFegLMWbaMmJ3oMfAAiJaG/G4HFyT
-	 b4UlvkbgYmZ+moVRi7HWNwgrsj+wdVB35IvIRXPLOjppdYn/IeRxnIAXSK7ESTJFCcjvC
-	 Cq10YSa6g2KQuqDKmlk4M7C/1DRaBA7qliVBw46mLwpmlbAqiESyU30gvxyWkaHGEmAEl
-	 pob9EvjnYZGUyHa894BhZ1K/3o2TyFj3vj7NUBjujXNZPPSoDagukmXk3wiyG9o/0zg==
+	t=1792740835;
+	b=oIHjkvmqITTfImqOGgx2KnmIALer0Z0nJQE5wjQGvSX9QX5lc3VlbYk4R0b1ZHx5o2Dy
+	 TvqLDwRohV0geVpEsp3P/tXxdDBW3rq8UmiucGxxbYqgIoIFGiAeNUMa1niUfJXLM3vUn
+	 HtYyWmM1pvPmUwyUELTIauIk8d2FVwFw9h2pFiBrGIeVwHSdpNK0r8X2rKuTVp2KZ0lwV
+	 0LyMzhBDpN0d0/xGAPVHMfCPPP3pIPnh7X6Rstc5Xh86yN9Z7thL2zPTqUIqmFhAr7dBc
+	 UOwgKtNWLgpO8yNRWPI/Ge3vcd37i0W5EObgVjqz9xJjNy+YGv2iXsrtxN2VSNWpiIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740835;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cgibLyVqQMBa2cmfJ2c6ThKSZBzwvxbUEp3TwyA7rEI=;
-	b=irgN5j8Y5OoTnj9dMMtwnG/8xPMn76nupjZ/MDJi8Y9EijYzKiAUW1cRVz5PGRvk3WdA
-	 dR8TADaLxljNaE/zEgeO+vZZGUbiNcBe0htfQu5+y34QIYDXSZeMXPhWjnfFkSaPHQPc7
-	 2YwWuZX31urvwikwBCIai/DMitgxhDeNyGAIu+fcEfxCZjYXs4W60Sj2vIz9tLhQY3k0u
-	 9L1FYiK1lTanIrz7YpgDznrZuON/ckPbdwoICT2nRhiOIV21J4SEmMvqt018eUGZoxjpa
-	 JPJ6W/nA4plyuGnd3SYjpgd+h4gCoVRe+g+gKKEpH10vj8mCPBdVNYEzNmNghk4CFuA==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+	b=ZXRAdQ6QdG1wpaGeljKnEjNhzVXkw1ZwAONMc0kS/F2QJKg/CZ8ICrpugvnVSsX7l/Fm
+	 v1R1BpKL+hUnNB4bHPtB4G2B48yt7q2jqvi9raY3kQW0RVrx+Gre+FXKSCMtG3tsnqJeB
+	 2sNVLaG+bLpA+0vyC1BvalqIKn40UN2fQzrMZaVU/WFPlHdu43BPFhR8RhUV/m9ywvJ2+
+	 Iy+/MlsUahC/vYLGFFHgILNmGvXWR+ESeIWMRuLV6E7JMFZ6A21ak6wdc0m8sAaGSXAAc
+	 y7baAcnur3+1PYLHujhU6DYegOpc62255Pse4D6vISu6JqNrWCFHOINzjbZ33sXw+wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WaG1oIVe;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE;
+	arc=none smtp.remote-ip=209.85.167.169
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4FF606A323
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD4FF606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C7B606A31E
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:33:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C7B606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WaG1oIVe
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e5378b281aso2717765ad.2
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dyqpZWIE
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4e4a4d77e5bso1013181b6e.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740591; x=1793345391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cgibLyVqQMBa2cmfJ2c6ThKSZBzwvxbUEp3TwyA7rEI=;
-        b=WaG1oIVeloaj2WDlvkNWpkCyIGKDF59I/GqRPFBXuT1rzcRMPLEoeRFyJe60diZT+5
-         mTBM9CQGD665ZpG1IfhPNZ15/m0NtcAGcQnCBMOuIHPF8zeik4G2zq0/WsQiVjTAgYax
-         jFyyIYmPViDkAn5Eh038XfuVUsNlX3Vhw47EA1auP0y4W0+yz2fMhoanCow4l63YztFp
-         rP2Dhpk+5c0AifMDuSeWKJ+cRPsMT48MW7eOYhsUFP0U00AQVJkM4c8dIA99995k3IvE
-         Tlpzr4RI1vEwy7dEzARdbkR0Y28rVos+M5OkBjzUtB56lNVvCxMczyoX4GNj9/qDS//0
-         5BDQ==
+        d=gmail.com; s=20251104; t=1792740833; x=1793345633; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+        b=dyqpZWIELTK+QcpV07HE242SRzF85f2oO51gb8podc5WECcr/7BZ178up+12bEBo4Y
+         xohK4fPpdON5O+wqd8wi3UoNQ5dalpgpxjHbZZin5mUTOLZbgzg0jovJpN4ICukRhfJu
+         mwskBgX6s6uZTFoT7QGOsYdxyK2pQp/AdtwYI/2b9rUUeXwPtRj3BfuJDWr9QugYSIDu
+         pUdAxUxcbU+8wwg4vipnVLJOFUrryX4M2HQ/RsyexRiUwMejsd1DwPDukEJjPsiRx2gx
+         t1a9o5HJsBnyiplh7sWeC/L+ZKzah8Li84wQ+q3ewBNIWOv4F518JA5WUMciYLFVocre
+         2Ahg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740591; x=1793345391;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cgibLyVqQMBa2cmfJ2c6ThKSZBzwvxbUEp3TwyA7rEI=;
-        b=cTV0u6k/DlOu/O0W/DRjdNC76TD451Z730fXFVktz6Td5ds9CjGtMSmdn9Cuowf6DT
-         k9YMi5TjsDCsnyxfyp5+gPgDHuqJHKhsZ7kOTuXyHBgj5Rm7qjn/RbctQt+Pm6wRai12
-         O5uV1EfD8XETEyrnaTnFNankFq+fpJr3SgamAZj3sudijQBpQoU73NrJncuatTwcarUG
-         BzZJ7eCB2juztL9E/UbNSeXfMMw08V2BQImYkxrXV3H9oaAQWkMr8GQsSuTtxnb99hL1
-         pnl5cxrbjykyPlXIlMnPHatJMtHglXSdOys/R6Vj1ZeO2SssCbDNRtRD7bTDRweVXHF2
-         P+jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRHVmr2qIsj2N5ECemOMqs1GM3ZDP9f85hG4yoc0QtHV2ZWByLgbaaDQyUdfENUX4cmLxl6RGxuktT@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBairiSHLO1KL8VcaAfyDoA8KNorU2S7zmjAkVnP+XE+45hawK
-	Q2pQNm/Md8iFQ7L8G/IhP8DEKncszOExWJSmO8kotfkU4hUl2LAe3JcJ3TRoXg==
-X-Gm-Gg: AYBFou2o90IE+9nQO+uBmFQRHwwvSQKE+l9MRfWR6uRrDVpOZxkYOMfa7385vP8OsGT
-	JEOE5d+Etn4FaYESUHIHimbw884qlddH5a1iTK39LCW8DUvUOmhlW8EDHoOK/1V5javZlZLPHy4
-	+N5F0sApacQydlEFkEE9NBK6J/eu7rGqnqW76/+CIO392tZFNWc5vzgAKf5gP0S07v9Ks1WXBaU
-	Tv/LgPQToAYFQTj9TjKmDKF5VF8v9mjQRXKypD5zZJjSxwddHp2rNxYKwS9K3ltaHnRyUaPPEAS
-	v21iF3JzzUdpBXX9XG+kWOP23tEB2Zw4erCTvQAINJieIZHJjC8p/4bv1IUF0uOF3m4w3D2Vl30
-	fYq744ulOO0wR5+B9KwXt0+Qo7qAt1nB5y5Stfqpq1g8e5syzv17cAS7FyX2YhqJFg1lXYyJpad
-	7Q5I46DdFgsYlr5PmZy5WHCzr5EVSR6HZuE6ERy2gTOtsh/4W6gSDCB2if7AZM893DobjwNvviY
-	Bq0jNTykEsWM2kLRMBL7T5hqnfiX70iW/DGESjBk5cNP4+CdLs+PFuiegoAHaiG0csyK7ebTQ==
-X-Received: by 2002:a17:902:ffcf:b0:2ea:7180:3ab9 with SMTP id d9443c01a7336-2ea7c18a456mr14410265ad.43.1792740591010;
-        Fri, 23 Oct 2026 00:29:51 -0700 (PDT)
-Received: from localhost.localdomain ([218.194.41.155])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.48
+        d=1e100.net; s=20260707; t=1792740833; x=1793345633;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=45to1KyNca3iZWz1ynFCrLebqSO0Gkuz8FnFEnoX6Vo=;
+        b=UM3xac1g6GRVbuTtK/tO4UAP+tnRiD81dIO2UCr2lEK70ZDfP8ilS4c3yFFaskhVbs
+         N/AVDvfQU6iqWTJ7tnrFFPXPHp2a6Yloejk3m0v3zDY94DUfF/3FqYVnMMNA6exLz2Lv
+         cAbJ9RkbjYJ6kPWnKEE5H2g2smdQou+2Rv2PAe92rfQ18bbl7D1NjrKjy84fLXEeI3Dd
+         eDP2JVCX4DTf7DmSRQ6nV9HjGxlGYIykw51gZjjZcge46VyOy1IMXSJxzAJZbvixb861
+         Lum2/sUN1y7Fb86u6emhGK76CMebCS1KQL3R2b16La4EDl2N5AVfduPoz0NPCj0AnTUV
+         XEAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjShw2sG9xDRz263ei9pyqQrPRGSQug9MylqcumPkm9n5Mwp9eWPtsOeLedktL//8wtRWdu2b/vhNh@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7XmANTbl5+/0bBOCnyEsY6B25H8gVb6l4jFd6PfLzP0CV0n3s
+	JNS856doOp7jxHPnqSKln07oKBlbJJOiBbzVtY+XfdiBxRO34jthVp/M
+X-Gm-Gg: AYBFou2DaLegUks/0i+Yvpb+FrgmulEe/KbvVKRmsnvKMr+PNkCfFa8c4gmgjVTmmCV
+	qIqNJPWDM7zCxBMOQCWo9h5pZQINx5UCcgTjq3ztx5EhsP/hPX/8cYdeNL72nPzBBJfCUnq3Gjj
+	sMt23/QxEG79wvZH9dQb2gKFlQsmug3lV5r2QZpbWv7JscRiM1ZKNLajBKzBQB11K/V65YFwePA
+	HsXvLsS2w1nkKQhaVyPjJvGqTO5R5D7ACb77/JGQCefRuBoasbrKgn5UXN5OuHdUIldsJJrpnY2
+	yPRlZLX0uA9g58quUuQloH2JtDmEQh2UzUv3SB8KpFClY+FyoFtwsUAlk0MhQqzV42vQOqU19qW
+	X1BZbMH6YH4KguILcEz/kG0i34ICTqXA35r2NxNRz9rgZFkTOP1MBIZrI6Tl9TO/31Zwzw5q47c
+	ujg+Ef8cuvTVtnQEtgB0AcVkOf2PmqNg9wZ8cct6keHjpI9Uj5fPva2ofIKIqx9ChMhxAhFF+Dz
+	w5Os0IGmqrtOuRXiCzMfn/IrXfSVNdEmwbTzNw7ODHeyV6gjUntzucVuTpIF1VW1qq+VWqNHw1V
+	uOjnk7Z46ZG8KABONdv5YBe5aLbG2A39yujfM+HwnKRCD6ZRU9tNsOCCFD8OBWAeb0fgH+wuV5c
+	8tsj9vEbPUFci0EPGaAEnV3wMW22x4eTFfFaQ4nEBCxDX+cR21pjEwsG6tp2sdgfmPLJxN4bTU7
+	K+WlQ=
+X-Received: by 2002:a05:6808:c1b6:b0:4f5:1b84:8cd3 with SMTP id 5614622812f47-557eb4799f4mr2769761b6e.24.1792740833602;
+        Fri, 23 Oct 2026 00:33:53 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.33.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:29:50 -0700 (PDT)
-From: ShiTou Hong <redstone.dcity@gmail.com>
-X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	ShiTou Hong <dc_redstone@outlook.com>
-Subject: [PATCH 6/6] arm64: dts: qcom: sm8250-hdk: Add PM8150b LEDs
-Date: Fri, 23 Oct 2026 15:28:32 +0800
-Message-ID: <20261023072832.2642647-6-dc_redstone@outlook.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261023072832.2642647-1-dc_redstone@outlook.com>
-References: <20261023072832.2642647-1-dc_redstone@outlook.com>
+        Fri, 23 Oct 2026 00:33:51 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH 0/3] serial: 8250_dw: describe the Allwinner H616 UART
+ configuration
+Date: Fri, 23 Oct 2026 01:33:48 -0600
+Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,58 +94,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gbagl14FXFRY6IZGJW2iiDe3
+ TqzfIv/L0gclRO01QWRD026LgW2roDmsEyMOhaDM85b4xymffhqxtlbj3uIGUVlxcMiNUFoFG5
+ oMFDyLbLo+Vt3/d+l/TDl9wf3/QBuxM/gfAAAAA==
+X-Change-ID: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-There are 2 LEDs controlled by PM8150b on sm8250-hdk
-which are not added in the dts file.
-The LED1 is for heartbeat indicator,
-the LED2 is for wifi activity.
+H616 has 256-byte UART FIFOs, but lacks the DesignWare component parameter
+register used to discover their capacity. Its debug-divisor and RS485
+registers also overlap offsets used to probe optional DesignWare features.
 
-Enable the LED controller of PM8150b,
-add the LED nodes with proper triggers into it.
+Add an H616 compatible and select a fixed port configuration with the
+documented FIFO capacity and receive trigger levels. Preserve the
+BUSY-safe integer divisor path and keep the UART gate enabled during
+termios changes. Attach the existing 8250 DMA path using single-byte
+peripheral bursts, with channel acquisition and PIO fallback handled
+by the normal startup path.
 
-Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+The patches add the binding, driver configuration and SoC DTS compatible
+in that order. Based on tty-next at 1184f87e2790.
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+James Hilliard (3):
+      dt-bindings: serial: snps-dw-apb-uart: add Allwinner H616
+      serial: 8250_dw: configure the Allwinner H616 UART
+      arm64: dts: allwinner: h616: identify the UART integration
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-index 57c282bdb..e321fe9c1 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/usb/pd.h>
-+#include <dt-bindings/leds/common.h>
- #include "sm8250.dtsi"
- #include "pm8150.dtsi"
- #include "pm8150b.dtsi"
-@@ -157,6 +158,24 @@ vreg_pmu_pcie_1p8: ldo9 {
- 	};
- };
- 
-+&pm8150b_lpg {
-+	status = "okay";
-+
-+	led@1 {
-+		reg = <1>;
-+		function = LED_FUNCTION_HEARTBEAT;
-+		linux,default-trigger = "heartbeat";
-+		color = <LED_COLOR_ID_GREEN>;
-+	};
-+
-+	led@2 {
-+		reg = <2>;
-+		function = LED_FUNCTION_WLAN;
-+		linux,default-trigger = "phy0tx";
-+		color = <LED_COLOR_ID_RED>;
-+	};
-+};
-+
- &apps_rsc {
- 	regulators-0 {
- 		compatible = "qcom,pm8150-rpmh-regulators";
--- 
-2.47.3
+ .../bindings/serial/snps-dw-apb-uart.yaml          |  1 +
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 12 +++---
+ drivers/tty/serial/8250/8250.h                     |  1 +
+ drivers/tty/serial/8250/8250_dw.c                  | 45 ++++++++++++++++++----
+ drivers/tty/serial/8250/8250_port.c                |  8 ++++
+ 5 files changed, 54 insertions(+), 13 deletions(-)
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261022-submit-h616-uart-fifo-v1-c5afcdfe5cb0
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
