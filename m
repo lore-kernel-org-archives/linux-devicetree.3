@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743804;
-	b=WuoHhpfVK/X9e/FvW0f9PrZ54RFPDjBCKt5Emgguq4W3W64mftf4siGXXtKS8a83m0DR
-	 +BjHz5OSurld9fqsQ3T/4LOPlx9njcwMFl/kdcycyHvys5gxWiLRHIma0qU1gPMW5tOR/
-	 97I7M+PqtY33GiGeDSyKPwNLNbthb6DPqYWKrbsAVk4b226Ry7YPCWvz6TvNRXBIdr4Lq
-	 63W5jmgNxwjIqPyv/GNC5DUsslyfpFNbqJSgDzJFhJFysqNcFSCYzQaqxkE4shbsI6bCy
-	 kuKKpeMR+AS49xW+WZFMDTJXjvXAdzPLNWXDuO4uHrrIn0a/gVL+spzsRm7dZQe+EsA==
+	t=1792743859;
+	b=Aj6Ivcp6W8soyg9IxGX2upAe7eZYlyaCnzjqygJbBHZKv+av3P+mtBIgHTeDz2nQC3VC
+	 6UpqaBlba55zHwQNQ0vIoP85cpu3Mxhfl3G6zXNjPrt0A8lTuUQrWy8B0jl5VlVNOlNL1
+	 ehdi4lYafzc6WRrzNTGA4/oShQ7cRk/Ly3XxWznI5dX2YauUgpN7spMG3K6i/22gdOPBN
+	 DZWIXntggyolhJ4voTjgdU0bQ8FKJntgN8lLmrt4zu02etztJxSQjPZ3egrJn/45xldHE
+	 fYugmcYGNEACQfLEdrXbsSmciSqZ5AYETfO0oSqhpbX6N0aUvsktRZh2Q8Y07gjlIPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743804;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0GfKVk/RJOC9pOzChhirBkeqLeJZ9TV7pnSiNJChoHo=;
-	b=cnkxASVeFgY/eeFtg1AeBzmbISr0Jgcx417nPOK3wge/ylaAinWymYLPcTBt/AJE/ej8
-	 1UcsWFnhSNjP2b+8c9xdAz+gWNvzvE0nwvKbOlhWiZ/rJfCBsXSUzwCkkpoOYbuiTHKJS
-	 Otk5S9t8mJDVAhpG/QLKNEUO0QMn+IEi3GvTJAe6EBDYkUWStyVZkNvibavCDhe2BnGWW
-	 uHD5hq6PRsmPdbvLoemioQ0Q+1wyEjcmu0fOIZypCTwrrtx5OmmXg3JZLoMiO0vNTEOID
-	 FoSaNb45NV5IAjemAbeErKPtk098QuqONyqgJYOyKo69/U2ZczyPTX8Bqt5s8uOGFaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743859;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
+	b=lbDdUDS+01r4VzBmTmsjAvCPnJ/2tGEoTHO8Li7f48AIKSILmP2fgl9UjfOhyRYMBQJ+
+	 axY4MFMAj3fipH0pojeZjwZyavbDB7xNzvGVTYe3P15dsTCvnu4GqpR4xCNaUomYzfFgw
+	 F6ZnB+r9Yod3Goq2gIs2lSf4ULgzJPcLjVqgBFYSUk7CloCivyCWhGXKdF3qzs0eqD6Bc
+	 T4aeF9oNo4+bCSJ1oP/tVHje0J6oZ/JSQ8e8Wu7Y6v6BP+Wq7WhajGT4+3tAiEK1ew+so
+	 opcBJtYj2ECqGemNS4gu+CbnEghU8985okzYEYnbzetiU1WCl3MSjG+TlbJV1wt5PhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnlpa3rM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AF4606A31D;
-	Fri, 23 Oct 2026 08:23:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBA5606A31A;
+	Fri, 23 Oct 2026 08:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnlpa3rM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DEF1F01825;
-	Fri, 23 Oct 2026 08:23:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D141F01825;
+	Fri, 23 Oct 2026 08:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792743804;
-	bh=0GfKVk/RJOC9pOzChhirBkeqLeJZ9TV7pnSiNJChoHo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gnlpa3rMnlRXcaZ+hpAGQAgQAk3/GQV/xPsDRvSL3AZzTrwsTMjaYvjV3CHuLq/YF
-	 8a4lFhW87yBYAIeQK+kU9XFC4WCUlDJFqeYywOetKDT3UBz4RbZAtf6TSSZZDOJQJd
-	 8yV1lukXk/oOGim6nEkM1WKGoFRCLLx+siS2A4HIuUJk/sUonD97R6YV4eaDmHoocJ
-	 uBownCZEtd5h9JybrMxYBgscEzNRWKGQIBA1taxLeU1XlSIMsDewqYRJYcq+b3sTjx
-	 6yb6VhNu0WNQsOEdb/XEyWmjHi/UqLw8yxlwFHmqF7BIQQZ8LuCN58fv4OzeJ7/2ld
-	 RoyaPK1Qaw+Fw==
-Message-ID: <sashiko-outbox-182506@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: linux-serial@vger.kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
- <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 08:23:23 +0000
+	s=k20260515; t=1792743858;
+	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QA2FRdq59Z5YayCTXaUlGu5kPgHp87ZyGlXnL/zfkJcWuh41crw1juhEOMcDSCXOG
+	 YpQB/xalslR9JwmoPk/w4j7TYfz4p6jaOZQyYuI4Lvmmx0NVo0+JpytW4A9iLnQQjT
+	 M9+iigJvN6arBhU8a1vixcLonUkeCODClew7iEnE8cDNRXVaaLeDYXYrRqz7ziYnr3
+	 cdt6APUX7g0lGY1VUnWfusEFf8j17iA4ZQGCfCgfJHevA0ls7SnEN2UmhCsTQ4yEb3
+	 ITDhPPJ88GGfGewJ5irLsGrqtAOkwhFqSXg9ICTf7IEM5QGjTGuvBLzI4T59ssTVZQ
+	 3cpOV9u+NqT4Q==
+Message-ID: <a8be1a0b-591b-47d2-be21-137e1cb93dc9@kernel.org>
+Date: Fri, 23 Oct 2026 10:24:08 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,191 +50,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP
+ bindings
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-heavy-clam-of-sunshine-8fe831@quoll>
+ <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] serial: 8250_dw: broken H616 RX DMA due to deferred sun6i_dma_issu=
-e_pending()
-- [High] serial: 8250_dw: missing UART_CAP_AFE in UART_PORT_DW_APB_256 brea=
-ks CRTSCTS
---
+On 23/10/2026 10:10, Jayant Shekhar wrote:
+>>> +properties:
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +    description: Index of this DSI host among its siblings.
+>>> +
+>>> +  status: true
+>> I see slop, I finished here. Mind this maintainers summit words - if you
+>> use AI, you must use good one, not the shloppy slop.
+> 
+> 
+> Will remove this in v2.
 
-commit 7b1955806965488d36d1ed6fbef81df345079c9d
-Author: James Hilliard <james.hilliard1@gmail.com>
+And please also remove other sloppy-code produced by your AI as well.
 
-serial: 8250_dw: configure the Allwinner H616 UART
-
-This patch adds a fixed 256-byte FIFO port configuration for the Allwinner
-H616 UART, skips optional register probing, sets the SKIP_SET_RATE quirk, a=
-nd
-attaches 8250 DMA with single-byte burst sizes during probe.
-
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
-8250_dw.c
-> index eca02e8bd6d13..f03051740be0a 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-
-[ ... ]
-
-> @@ -765,14 +780,21 @@ static int dw8250_probe(struct platform_device *pde=
-v)
-> =20
->  	dw8250_setup_dma_filter(p, data);
-> =20
-> -	if (!data->skip_autocfg)
-> -		dw8250_setup_port(p);
-> -
-> -	/* If we have a valid fifosize, try hooking up DMA */
-> -	if (p->fifosize) {
-> -		data->data.dma.rxconf.src_maxburst =3D p->fifosize / 4;
-> -		data->data.dma.txconf.dst_maxburst =3D p->fifosize / 4;
-> +	if (data->pdata && data->pdata->type) {
-> +		dw8250_setup_port_fixed(up, data->pdata->type);
-> +		data->data.dma.rxconf.src_maxburst =3D data->pdata->dma_maxburst;
-> +		data->data.dma.txconf.dst_maxburst =3D data->pdata->dma_maxburst;
->  		up->dma =3D &data->data.dma;
-
-[Severity: High]
-Will attaching the standard 8250 RX DMA path here work with the Allwinner
-sun6i-dma controller, or does it cause RX DMA transfers to be immediately
-aborted and leave RX DMA wedged?
-
-When UART_IIR_RDI fires, serial8250_interrupt() loops in hardirq context:
-
-drivers/tty/serial/8250/8250_core.c:serial8250_interrupt() {
-	l =3D i->head;
-	do {
-		struct uart_8250_port *up =3D list_entry(l, struct uart_8250_port, list);
-		struct uart_port *port =3D &up->port;
-
-		if (port->handle_irq(port)) {
-			handled =3D 1;
-			end =3D NULL;
-		} else if (end =3D=3D NULL)
-			end =3D l;
-		...
-	} while (l !=3D end);
-}
-
-On the first pass, dw8250_handle_irq() -> serial8250_handle_irq_locked() ->
-handle_rx_dma() sees !up->dma->rx_running and breaks out to call
-serial8250_rx_dma(), which sets dma->rx_running =3D 1 and calls
-dma_async_issue_pending(dma->rxchan) without masking UART_IER_RDI or draini=
-ng
-the RX FIFO:
-
-drivers/tty/serial/8250/8250_port.c:handle_rx_dma() {
-	switch (iir & 0x3f) {
-	case UART_IIR_RDI:
-		if (!up->dma->rx_running)
-			break;
-		fallthrough;
-	case UART_IIR_RLSI:
-	case UART_IIR_RX_TIMEOUT:
-		serial8250_rx_dma_flush(up);
-		return true;
-	}
-	return up->dma->rx_dma(up);
-}
-
-Unlike DMA controllers that start transfers synchronously in
-device_issue_pending, sun6i_dma_issue_pending() defers physical channel
-allocation and hardware transfer start to a softirq tasklet:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_issue_pending() {
-	if (vchan_issue_pending(&vchan->vc)) {
-		spin_lock(&sdev->lock);
-
-		if (!vchan->phy && list_empty(&vchan->node)) {
-			list_add_tail(&vchan->node, &sdev->pending);
-			tasklet_schedule(&sdev->task);
-			...
-		}
-
-		spin_unlock(&sdev->lock);
-	}
-}
-
-Because serial8250_interrupt() is running in hardirq context, the tasklet
-cannot run before serial8250_interrupt() immediately executes a second pass
-on the port. Since no bytes have been read from the RX FIFO and UART_IER_RDI
-is still enabled, UART_IIR still reports UART_IIR_RDI. On this second pass,
-handle_rx_dma() sees up->dma->rx_running =3D=3D 1 and calls
-serial8250_rx_dma_flush(up), which pauses and terminates the DMA transfer t=
-hat
-was just queued.
-
-Furthermore, inside serial8250_rx_dma_flush() -> __dma_rx_complete(),
-sun6i_dma_tx_status() returns DMA_IN_PROGRESS even after dmaengine_pause(),
-causing __dma_rx_complete() to return early without clearing dma->rx_running
-or copying any received bytes before dmaengine_terminate_async() discards t=
-he
-descriptor:
-
-drivers/tty/serial/8250/8250_dma.c:__dma_rx_complete() {
-	dma_status =3D dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state);
-	if (dma_status =3D=3D DMA_IN_PROGRESS)
-		return;
-}
-
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
-0/8250_port.c
-> index db066a42f61d2..e99d35880a689 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -335,6 +335,14 @@ static const struct serial8250_config uart_config[] =
-=3D {
->  		.rxtrig_bytes	=3D {1, 4},
->  		.flags		=3D UART_CAP_FIFO,
->  	},
-> +	[UART_PORT_DW_APB_256] =3D {
-> +		.name		=3D "DW APB UART 256",
-> +		.fifo_size	=3D 256,
-> +		.tx_loadsz	=3D 256,
-> +		.fcr		=3D UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_01,
-> +		.rxtrig_bytes	=3D {1, 64, 128, 254},
-> +		.flags		=3D UART_CAP_FIFO | UART_CAP_NOTEMT,
-> +	},
-
-[Severity: High]
-Should uart_config[UART_PORT_DW_APB_256].flags also include UART_CAP_AFE?
-
-In dw8250_probe(), dw8250_quirks() sets p->set_termios =3D dw8250_do_set_te=
-rmios.
-When CRTSCTS is enabled, dw8250_do_set_termios() unconditionally sets
-UPSTAT_AUTOCTS, which tells serial_core to disable software CTS flow contro=
-l:
-
-drivers/tty/serial/8250/8250_dwlib.c:dw8250_do_set_termios() {
-	p->status &=3D ~UPSTAT_AUTOCTS;
-	if (termios->c_cflag & CRTSCTS)
-		p->status |=3D UPSTAT_AUTOCTS;
-
-	serial8250_do_set_termios(p, termios, old);
-}
-
-However, serial8250_do_set_termios() -> serial8250_set_afe() only enables
-hardware auto flow control (UART_MCR_AFE) if UART_CAP_AFE is set in
-up->capabilities:
-
-drivers/tty/serial/8250/8250_port.c:serial8250_set_afe() {
-	if (!(up->capabilities & UART_CAP_AFE))
-		return;
-
-	up->mcr &=3D ~UART_MCR_AFE;
-	if (termios->c_cflag & CRTSCTS)
-		up->mcr |=3D UART_MCR_AFE;
-}
-
-Because dw8250_setup_port_fixed() bypasses dw8250_setup_port(),
-up->capabilities is populated solely from
-uart_config[UART_PORT_DW_APB_256].flags. Without UART_CAP_AFE, enabling
-CRTSCTS on H616 UARTs (such as Bluetooth HCI UARTs using uart-has-rtscts)
-disables software CTS flow control without enabling hardware auto flow cont=
-rol
-in UART_MCR.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-submit-h61=
-6-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com?part=3D2
+Best regards,
+Krzysztof
