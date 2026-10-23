@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.139
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747827;
-	b=Qizi9uGbFd8ivnpbKbTU1NMsdtUnfbje50mX9d2VHAMtcQkVtoX+rG+6AV2rObeBJWz4
-	 3W+6v1/epecZb9LhZw7/pc6qsESv5FEWZDrM9q/tFmU0AyE/Yx4xBWQgs4VcvJkitN8vf
-	 orVCUrUb+ueqrSPICSFvrfoREtuI6dfejG1ntX6l9tiX4TK/9TME3hubNZnLVjMowbYw5
-	 70L7H7AkIHEe7qxz5pGIzkAXk4QDjGzgWglL2hlqIcgahgIk9SfK3k6aiCVyJPQ0R03+f
-	 5TOSqw1Ph8e3yVIWqNuBbGJpuGLymtYP4xV8KoE4ssvuMOLG0YA9oN+R3q19ofyYscA==
+	t=1792747823;
+	b=UwnYl3gHwQFVuZ/mtK8gEeveQmTZhqnKsiMkNtwBBPHR0EoKFn1KOPsiQyIf/RaXmEmV
+	 9WqV09b6ALa9exwdvfn5n+BW+2VoCUO1R3OWnjcFl5n6xDCq3szQ/1qtBihtzWWuOIFQ5
+	 3c1HV+gShtBgYPFXCH09njXXz4ea22iltCAvG09waZQ5AFYudmXBqJwGkw7ccYft5gMg9
+	 pcRxeM47k0+UR+6gzNW8u9weYNfwlFFhHhBDUTbx4dthN9JvYFI14s4SxVKJgIHcRrjPe
+	 ihzV4SaiNdmdc40zXcDkn29z1V4Fm4mExaYqbVZdEc7+nNsDuDzXOywFw7a7eEvkd/w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747827;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
-	b=FAXiz/kbD1aTagwbYy2TByh4vRrHEoWb6Py2JcD9qH94Su3JgSd7tnfEsRpITe80yegE
-	 zaqlNYaUgjSVctH0+40rgVsNbZeg+c0xBRCzS6uHmF1qnxFxOOahQSWD6dwuoCWdmtphM
-	 dR5t2NQ9khzDgOkPTtWKu7YnpvMYV30YrFU++Gq9Y3rYRVi5JYt7UUmjjzm9jkLTKLEEU
-	 9veZTc9jGODthnvmHYeo6p1d1PzG01ssqmLaPVx7QjdmHlJNvX/iD2S4M9uVob76gS/2j
-	 COyc6dUpppDpFFL2jCl83DaKzu9/RAblFauGui9+5sWfv1WVkmGKJewIbKlV9RgO2Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747823;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
+	b=lIpfeQX9guKFII7WRgUSd6q9560eabIpgQfP2nFFicsPhX0zYKGBEhIm6SKavLzaQ8sk
+	 4YPM2KPDxAUzLMfmLBKp9Yt1/rQRDfyyR01K+xSPPTReAgpPkiB4cAIDWggp7irkTj69y
+	 7eO59Wa7Z7LmC7trgYhFw/GbWRSMS+w+Q7CWb5IHzaZXHpx5Ady9/nOWlhftzYnSuEF0v
+	 XoD+xkIZuK0+6lglkg/5v2CCNjSLG2KsXuumT6h6D3tAlov9QiCw6fBEKwfhHGqFMsQj8
+	 JW1GDcsG3fDj3B0HRd5GhcN2Frw0mxcN9fYvimAdQ8jzGg1X9MC9SZkdM4/WuCeXa/Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.139
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023139.outbound.protection.outlook.com [40.107.44.139])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=injYxqcM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A28E606A32E;
-	Fri, 23 Oct 2026 09:30:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A28E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nplaYi5oPT3IQxAPX8Sknm9eGwFo37EyvA6sdmbTxoZsiDtgiUdK7Sakb7oXuLWe4VoVU1mA+hAnRTS8h8jzD0QcfwAA6mDQd9JVGH6J0D1n+KCCEdnd5An0Bxxs6xFLfAqjJwtnuKh07i2+ZX8UfFwqTE/9Llh+aVtR8AOikvXY9Az0AFxswEQMz+1bX0zpOumTCBjVjkYgp7KarJnvcv4567RGix4zEYOvZXraU35zt3PDUDPSv+8J5KwBo7bsKav8Fpidtx1ft3j0uDOaBDF5xHXEQBCnIAFcRMGqPri0fN+ebr3X9jT4BSRoSESWSp88YbkSpkwM5MYISx3S6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
- b=cqejeOgnz/j8ZH5FOkebrJEI9jqdmmz0nih5khWw6/DeLPmd/nXihpvSRxdr1dn/wVLW9MBvCo0HuBEw9dySgRI2TQcM81eyauLqggBpvzYIdI+ekiRcenbS1u5dqFRzQLKQXzzFuK6yC7M4WtRZDM57DhuJXuNbC/jv4QaC8Zuv/jVSA2AWLdvLRgNInsVPpoCBs7vKCfmh3Gl1bf0LgrFEof8Dc2+VbhB7rShDj4jP4xoRUkazIrYaIG9xO91rB+hXCB9U3LqxZm2/g7Q4BfQdftq4UM17uO48dt55//cBcw3jsB/H9y1G+xfW95M4CoWkWHLVpK97TTcKaApB6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from OS3PR01CA0080.jpnprd01.prod.outlook.com (2603:1096:604:da::13)
- by TYUPR06MB6078.apcprd06.prod.outlook.com (2603:1096:400:355::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 09:30:20 +0000
-Received: from SG1PEPF000082E1.apcprd02.prod.outlook.com
- (2603:1096:604:da:cafe::82) by OS3PR01CA0080.outlook.office365.com
- (2603:1096:604:da::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
- 23 Oct 2026 09:30:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E1.mail.protection.outlook.com (10.167.240.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CD5D440920E2;
-	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: vkoul@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.murphy@arm.com
-Cc: devicetree@vger.kernel.org,
-	Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com
-Subject: [PATCH v4 3/5] dt-bindings: dma: arm,dma-350: Document optional clocks and resets
-Date: Fri, 23 Oct 2026 17:30:15 +0800
-Message-ID: <20261023093017.3248454-4-Jelly.Jia@cixtech.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
-References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCAF606A331;
+	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=injYxqcM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792747823;
+	b=fkIpXUF2SYzRnclRTWcTJHHMXPXnx77kyMLaG5zPI+LqDJ5tIKaE4xBydeFS0DdgFO4R
+	 mj2zVg6aC4WSLb2wdkybPRo/NI7UTedubR5PEIv2/zBEG2YeK78sklSvwoBUND0/NN0Z1
+	 zDwwVLfpOS6PQuWFU4YIRShtPhjv3DB/qjQ/uCKFTu4QXs4kEKwNd+3d/1uMcLPGhVcsm
+	 xumsEcDYHqRd4+wCTHCPpaYYuUc6sD2xfMFfOCgWAzXY8HgG0quKFiCcUjxLnp4LPu4kv
+	 FWsmfXsCFqolzjR0AFzhbyAz9q+2Otq35gd1OicMoeWwbvMlDx5uY+KvRIUXg9xkb6A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792747823;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
+	b=fdPxS7HlXHQwrHx0WvzXPX1S8XDuwLpQKrmW7h5Yi8QorrtdU8XsYf3poVXeVprmG8A1
+	 lTaneVv/mCx2jLpFeDSpSuUGTjP0pVsgtZxk0OAVga1xzFxKwqdhTTKSq+n8TqmQJ7Ok9
+	 oj1O5EHgzv950CaktzJ7a4/jG3mKa6Gv8bWKbfnTivdRFQWHAr5O9MeLL39YZ7aMA4Ewp
+	 tjXC7z0srVAXoYCajuvd3BWpK4Srq1Dqi5gQ4m7M4av8FVWc9nXnsQCXT8FDxB+irG1+u
+	 ANK/ssZGMRcK84/NNo2mdIcexYA6hx/fUEBxRUqEU+UdvWR6E3prZcH8SfGHWojETHg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D96BA1F031E2;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792747823;
+	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=injYxqcM5Mqh69ZM9bDkaeD2mIYreaFxuCu6mF+u5mLBhk8EzyS/683HK3ZlZkluB
+	 m8XAH4bAi9UflnRJPrPhhuJwA7x0rcsuj9CvL8nOzrqiKJ5XstLz96cZ6KZSFLIDsl
+	 kqNOJpc9BTXVRPSzTpIZKEAeoD6k+W2RhWTfDlmam6JPvDffOXWkMY+NpksnwZuh2e
+	 HrmE7E1i7DYFpSsdVWMAB28llL+nnjn5RikSjrLb3gr4HhvFKy56kpdzsNOSm3WZXb
+	 v5h7NegdRlhAZcPiCVbwZ2Ue0DyZVBYkrQ5HzzqPkH+GRY36HqjYm216gnSTzrutL8
+	 EeseC+gbArpqw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6144E44464;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:30:21 +0300
+Subject: [PATCH v4 4/8] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,84 +83,178 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adis16607-v4-4-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, 
+ Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux@analog.com, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=4494;
+ i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
+ bh=eNbuHMKunrd8JuH6y864PXmgiiZ07gAmsjBjr3dOpoE=;
+ b=qaPRfXUxqaD6HMx/QOp0CpvlT6JCjQOnM2KvxCbaY64NHop2cA8g/1wDWoDWpaZcI11+SaQE9
+ rqwAjcIyCWZBVWNEDEePRb2KB/b2lOmylGL+XHaboTLtbes7EiMuRm0
+X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
+ pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
+X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
+ auth_id=1094
+X-Original-From: Radu Sabau <radu.sabau@analog.com>
+Reply-To: radu.sabau@analog.com
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E1:EE_|TYUPR06MB6078:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: dddd38c7-a459-47a5-1c23-08df30e84169
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|23010399003|376014|1800799024|6133799003|22082099003|10067099003|261021123027099003|261022105027099003|18002099003|56012099006|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	NCFCSX4X90kbO2S/C9vbB5YQaGUJvPMf/eZLyaQJvq9mhouWj92T2auGaXx5qK81m0MI/BmPluw9Xpfq/2hk9ev7SRXxunb4ilS+HvAkNn0KS+5SHY9tgDW66a2Mjkmv8oh4bFE9+aYRItOTK6YsN+RrnlAJM36a+g3F18h5x1L9j32fDAGqKHGisPIZf45MwT5IZsMORH6QioD0y9qjdE5dXLiYkb3MLDfP0uMMZGvBL2+hs/u8eYIh6kVxAJKwFjx6ARmlZxPDajhWHIHHwpGEpd2z0BOb7zfelvZurJ25Qin+/5oVtq85vlezlyqFgESIk0zA0lrs6ctSd9eHZoX4C5ESBxoNJ3Jbc7gbtoRXo3VsuKEsuucnZn7k77+58q/s1FId4A3YtKO39e4zLVMUwf1QNt83KZRFTxCyvzJFhwhzFrATqAxoIBu1TMXPYGsJByTtJYu4p1MM86oHjHPXT49lfA9rqLCSyXPsAdQmY7p4OEjxDDpXULMhJRBIyxbrCooHXrqWT53k02073uB1IdnVU82ZnlIi9F7VCeLNorbtiWY1VivKbDX80SbghygRIlFG2maUsmvwGLT9f+13lRRWcuDUlsKvo1ayq4VY58p0OsLbf5K9OZJJ3mF6vbAMFX3mg6FeN+iEu+5tXO293B2rOxv2jBuvt1I2jF+yisNv7yG4MVocA+dy5okH5fk6BH41w18Q1Aqn7HVCuQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(10067099003)(261021123027099003)(261022105027099003)(18002099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+JKhoMr6FzWAgLRjfWlJUx1kcWlIyNehVgisebA5YbXMNC3zkAahGPGLjthovROqnaFzcETiQ9ZYRaEie5HHp6QB/WQY2cff2whqcRCdmPlIKxFATaFRnAUmE1Iq2YuQ1rmFzjY3bC8ZWB9MXeltJRhd2BKeovOXJ7KSAl97BMFha8g6nxNFZ+DnG21j4Ho6KuQCD4caFtj2eBCfmPJalkk1u8r8PTLfHtm5/MhcqGij5RsNYlgif+JqItXmNjyNOYrnDzogopXpekY38UMei0T30f74WZ3RgpkbeiDKrVKUZaH9AXte8TDLXcLpvSDfNLrjUK/6LDCf82T5KeoZcJtwpnHnv2zs9ghb+sD75tyY1CeAg5I7kZC+2rR24+nxSVPA5axY6+qy0YtFHK453w15noa4/l70OEwccmGB/dirEtB0NLvWOKASfnBLzgKY
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.6134
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dddd38c7-a459-47a5-1c23-08df30e84169
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E1.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR06MB6078
 
-Some integrations gate the DMA-350 controller with a bus clock or hold it
-in reset. Sky1 provides a clock for both its FCH and AUDSS instances, and
-a reset for the AUDSS instance. Document these standard resources on the
-DMA controller node.
+From: Radu Sabau <radu.sabau@analog.com>
 
-Neither property is required, so existing device trees are unchanged.
+Add device tree bindings for the Analog Devices ADIS16607 Precision
+MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
+gyroscope, triaxial accelerometer, and temperature sensor, and
+communicates over SPI Half-Duplex.
 
-Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+Two variants are supported, adis16607-2 and adis16607-3, differing
+only in gyroscope full-scale range (±450°/s and ±2000°/s
+respectively).
+
+The binding exposes optional properties for:
+  - An external clock for sync mode (falling back to the internal 8 kHz
+    clock when absent)
+  - A hardware reset GPIO (active low)
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- .../devicetree/bindings/dma/arm,dma-350.yaml     | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 94 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++
+ 2 files changed, 101 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-index 429f682f15d8..43279878207c 100644
---- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-+++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
-@@ -9,9 +9,6 @@ title: Arm CoreLink DMA-350 Controller
- maintainers:
-   - Robin Murphy <robin.murphy@arm.com>
- 
--allOf:
--  - $ref: dma-controller.yaml#
--
- properties:
-   compatible:
-     const: arm,dma-350
-@@ -36,9 +33,22 @@ properties:
-     const: 1
-     description: The cell is the trigger input number
- 
+diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+new file mode 100644
+index 000000000000..4545f942365c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
+@@ -0,0 +1,94 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices ADIS16607 IMU
++
++maintainers:
++  - Radu Sabau <radu.sabau@analog.com>
++
++description: |
++  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
++  with a triaxial gyroscope, triaxial accelerometer, and temperature sensor.
++  Uses SPI Half-Duplex communication protocol.
++
++  The device has five GPIO pins (GPIO0-GPIO4 in the datasheet), each
++  independently selectable for a single fixed function. This binding
++  exposes GPIO0's reset function as reset-gpios; GPIO2's sync function
++  is modeled via the clocks property, and GPIO4's DEV_NOK interrupt via
++  the interrupts property. GPIO3 (data-ready) is required internally
++  regardless of board wiring and isn't exposed. GPIO1 (wake) gates
++  whether the bootloader auto-loads its NVM contents after reset; it
++  defaults to enabled with a weak pull-up, which already gives normal
++  operation with no configuration needed, so it isn't exposed either.
++
++properties:
++  compatible:
++    enum:
++      - adi,adis16607-2
++      - adi,adis16607-3
++
++  reg:
++    maxItems: 1
++
++  spi-cpha: true
++
++  spi-cpol: true
++
++  spi-max-frequency:
++    maximum: 10000000
++
++  vdd-supply: true
++
++  interrupts:
++    maxItems: 1
++
 +  clocks:
-+    maxItems: 1
 +    description:
-+      Optional bus clock, where the integration gates the controller clock.
-+
-+  resets:
++      Optional external clock for sync mode. If not provided, the internal
++      8 kHz clock is used.
 +    maxItems: 1
-+    description:
-+      Optional reset line, where the integration exposes one.
 +
- required:
-   - compatible
-   - reg
-   - interrupts
- 
++  reset-gpios:
++    description:
++      Optional GPIO for hardware reset, active low. Routes to the
++      device's GPIO0 pin, which can be independently set to the reset
++      function or left idle via an on-chip register.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - spi-cpha
++  - spi-cpol
++  - vdd-supply
++
 +allOf:
-+  - $ref: dma-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 +
- unevaluatedProperties: false
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        imu@0 {
++            compatible = "adi,adis16607-2";
++            reg = <0>;
++            spi-cpha;
++            spi-cpol;
++            spi-max-frequency = <10000000>;
++            vdd-supply = <&vdd>;
++            interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
++            interrupt-parent = <&gpio>;
++            clocks = <&sync_clk>;
++            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8d3c..d5679e8d0ffd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1792,6 +1792,13 @@ S:	Supported
+ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+ 
++ANALOG DEVICES INC ADIS16607 DRIVER
++M:	Radu Sabau <radu.sabau@analog.com>
++L:	linux-iio@vger.kernel.org
++S:	Supported
++W:	https://ez.analog.com/linux-software-drivers
++F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
++
+ ANALOG DEVICES INC ADL8113 DRIVER
+ M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
+ L:	linux-iio@vger.kernel.org
+
 -- 
-2.54.0
+2.43.0
+
 
