@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792720616;
-	b=2W7zhRreofXzZL9fCNBo3EZkvGgxBRZsRuhppTUxf591dAP1wgrkaGc1Z8MI29QGQdg8
-	 cq7pGi5fTTZ1tNocqXP6VSpKL0yxlmBzWUsBovx9LYFtIyFEoqbslp2jQdY7eRXm7FVTy
-	 D+2jGEy5LI4nq8pusMcWZAvz0SAxSi3gO4gSNrAmEmRgl27/C5q+mIuPNk1NpcgvE4iVK
-	 JJ9hwzIs6w/8koHnCHxwUepl6amTSw+IPOBXiZU15d9ZDK54akPYj1T9jp05XsTTszytx
-	 tCnZT/5UvdytfA/BesdfQD3NJnuDgtjaBa8Cd6MSOxZag9nhMGY4doXdZcAS9VzeHbQ==
+	t=1792720617;
+	b=LMz/dfBeKvtYWKe4rMAQjqAspmh+TtqLs7MV2KfJMghOdIs6T7E6M7G8UruzRbrL617T
+	 TR7riupmrUcP9iXgpXdG37Z5c55vqgOla1Y8MPFci/3fHFWK0K/LH2UMfwZrBGCFz3Meq
+	 tmgtK7BUe8efDrVMtnXHecN93lZWBccAcggpGuMUAfIhobdOOz5ksmvS4KsTtfHCuQsUl
+	 St69s2XUCrX8xtYlgtK7SkdX9sduYa4eZJQqg2kS2SBPf2rXvJeSrri9Xy/idmH95+AwR
+	 8oeENCc2caktY4yb8r0PrCvVR63XnAchKK/sAUTTt6g9pSJL6CAZlI3MB/cSo9czd+Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792720616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792720617;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
-	b=AHjpJ5eudYC6/NcIoJt8dfuuI9puqPmAvTd1WbR6kB1r9lBPCCQE85CArOmKYGeMGzaq
-	 jVRUw4HjDXk1RsdwRziG03IpWSAJkYako64uKcLrdaDOCRZjKHmu0jE4mrVT1xYMt0kvb
-	 0SIhc58Uj1+kFOm5pKhmgTAUOjCK0pWmOM8+3qdxFBoPRDfgyWQg+MeNtp2a2EHIqp/Rj
-	 Q53IN5fxI4a9FHgsOGIZvM8oBhDiNPhXI0O4N0+KOVcl6pc4p0ZDGtNP6P9haHkbHwZJ/
-	 619vbUDmweEdp/l9HATZ37A1SYGwuQpKE1RQnyIPV23JMnmLowzR6VFzU+nhEo7S/Ng==
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=xlyqHrDCxTlie+NahKDKxpnXShJrnljUx+gRSICJUF0jvieYutzIv9yCEQ7WHDcx5699
+	 ew5JkPQu/5CNTWu7VZoPLFlj0d+QOSWdwVUapiah+IQYHrThDvfsa/uferHc1um2pfQHE
+	 H8ciKy95Q6BDQcj+A0PEn4uyBQaynIKRYByQQLLhcCu6Ev6z681AauQfCbzfs6+7D6fV0
+	 YUMrVU5J2koStypcTTfQvLf+8XMkCTlnVX9Ld7ugTiRF9sX53cO7dRbAB9l+0+jTMAH8Z
+	 IHvCBX8z9Lwu8XSwy/0735VKZ0eNHC8k6Y5cRNHjdGZIzq+ngstrlvaHQWwjtHYnAgg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAb+6DEt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7mIabHd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E034606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39DD606A31D;
 	Fri, 23 Oct 2026 01:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAb+6DEt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7mIabHd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792720616;
-	b=2FvUkGl4MaWBmUc6MN44xYtF7OAzCIvoxo8aoAq0p+4fQmOnPxNG0b+dV3903jg0xEsN
-	 hecrI6z4yH4TUcQ1fFU1/mffbMuvwc+YsfXQkhq48e2lhLcq4pQtth8nQpPtCjw8q/dJd
-	 upKIXDIMDrl3U5iDJjuwx8Qw8vUCWOKxa5k8icCi5hDxxXruknbKfaCZmNVym58ccVZpW
-	 M8PgzGwMu0x7ftS9boHwOqbQktIXXS0RpfDEl7M5O1+nsOVttrp8rf6/aNM32x9PgPLYR
-	 y2UKiHuTvRpcGpwQ3VVcFXDBfJLwitm/Xz7ez/RzguEXaW/px3NQpKbfGXsAua86WWg==
+	b=qZebYwdNEKwhm7OI+uB15yb/T0SCpzLSz10iFX6UK10tiwvk+Vsv2hTMWkqyOswbhHFy
+	 Gr45/adKyf+vi9yE3Ru0rX97umNdj4ZShQ4JEjtKdK30NyCzfOGmhYtGh7W6EweUuh5ub
+	 TT72qKCTLqw31sD/xXRIU0akQRRP/kEA77apKhLx2NRWzZC+P5GpJpXrQ3l8z79hCPTQ1
+	 SvwgB14a6ux5x8jaYrLR1xqy8sPVBj9rSK18qsVDGSCuzyUURtaXQnhnUCq6HH8QuuJhg
+	 mfuJgqV+onegVLYb0OJLp85CqtL7gYeirHY878bWvlFOUryv1gpGn5owaSC5IKAzqzw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792720616;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
-	b=pL1sy+iGV4jM7aY8uileD0ZLivCJKUDrR/YEYntZX5Sqq0nevN/rM2OjXszoIJEHEmSM
-	 /Zhkq3nAUPM0sbo3qDXfmVxcApz1ilSvC8Jk1BB0tKBHpL5P2QhVOR4FFsBIs3J1uftaF
-	 WteaSdpm5K2zrL48wY/gP4LkhwDL7w4jQAJedF++S3rIUXym/V6O5RlicRpJitWVr4GpU
-	 WHIewwt1QmlxU+pFQEj8bO2KmMzmYBasrASJrAM/uI8/VbXhPhl8VpKN8z+/pmUxaRXAg
-	 nAkYmxh8PlfTvLVzvHlAahb+VzMbUTYKV/s6giEXKmE7GuwaT9g6srCuwqA0s5HSITg==
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=Y8U8luhV/GKxHlAcJmFaim2tIJ8L8Ns0luaHN/fXOTyp5nUbKrxZCLjPfDsBR267smEQ
+	 0OuA1LbyPt/xxvFBW+Xq3O8z0EWZZTdpJk8eixw/SB9VYx4TqF5RHzWrnmTcwiIAjX66P
+	 5OP1eAuNMjdfeLlP157aV9p391hwldpFF0461yQdn81tRrZAFYt+nIuv4X/clWdyjeaoG
+	 LoM3LAQCp+VKl2wH4sYwJDJ6ddXUp+hR+plsOy4k5liiUisaBauMheNWwXlqexIxBk0Rl
+	 wTQWcyYHnbPTIj3FEdVhfmPvCiBC2zXRx42noEXxk14jkb9CCljAKMSgBHQZ7ZHBmNQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6C0361F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C47C1F031E0;
 	Fri, 23 Oct 2026 01:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792720616;
-	bh=ED5DRsIqnMgHvn/xcDYBb4fi+k93STwRusfKqXDCoZs=;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LAb+6DEtj2jAXZDiXYPRv6a0q8hqssQpxxN/Arlhg0R/zGs2Ft42UuIvd1H7CDafy
-	 h+W9cDaYaOJ0xFlG2LUGZDoDUBKDtgj3VD52KVq71jqb786awNh9owgFpIu5OHN5Ug
-	 36bY/6kHCOlNmJOfScgAeiu7gdpSGYPbFVytzO467HBmJ73a8i6BUAphRHuXLakfKB
-	 koDdNR+dMhLt6pnNCPe6ADUNZwLqhAxnEYin10VDcxXYA9Pap3jwsxIsqqQYZAV9CG
-	 n9LPON4FvStziUyCHdk7Wsj2NHI4d6xg89iDpjHfquHGkPPuazTwNnI5hYrgveCSiG
-	 1VTBDZyG+TFDg==
+	b=Y7mIabHdzV6z2KGIPnxp705MHHUnxmT0GP2Jfovbdcy7qTAQ40N4miwU1KHgbWo2C
+	 G4YB9IvzJo1IafNpAlQ3HkaRoAIvfJsUKTmPUzC5/4/3rCvsps8mI6Ke/x5hA+1WKo
+	 Tm4+m8YLOMPVRN7zciWg43sl2GT6/UE69VR+Wnq4mZIGWK9kJQ9OjTBJpMzHbIMeT5
+	 09wR25kFxJtqLMPzhJ/LGmlo7kTqHRsupIRNBK33hJU/7VmuvUuy+gQwUUpsgSxsRx
+	 4GNiNlQBZT19vhjSX5GbsCl8YetmjCZO772R4AhxcIT4EyUYbh9r7mmJeZTbPhrIPM
+	 7U1JAoYse1rzQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E152E42176;
+	by lkml.kernel.org (Postfix) with ESMTP id E96D94217E;
 	Fri, 23 Oct 2026 01:56:54 +0000 (UTC)
 From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Fri, 23 Oct 2026 09:56:43 +0800
-Subject: [PATCH v5 3/7] dt-bindings: riscv: Add UltraRISC DP1000 board
- compatibles
+Date: Fri, 23 Oct 2026 09:56:44 +0800
+Subject: [PATCH v5 4/7] dt-bindings: timer: Add UltraRISC DP1000 CLINT
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,7 +84,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-ultrarisc-dts-v5-3-af79dbd6ccec@ultrarisc.com>
+Message-Id: <20261023-ultrarisc-dts-v5-4-af79dbd6ccec@ultrarisc.com>
 References: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
 In-Reply-To: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -102,11 +101,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
  linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792720613; l=1942;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792720613; l=964;
  i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=F931PJB7CYQDP8Qv71XY2lbmZu4qGdN+Fjh5HxV88EU=;
- b=h/6RWoBjw0sjolkqIzjJpMDqbaw8pueMa9vGtbP70tf5uuz26C4ls10lJi15V6swv9Kk5oVvl
- 8ETEApXYpC4DJraNpM7E4t6wBWVZ7zWSah0YyrYPyZzWNZTDXHz07ll
+ bh=H5nCeqGhgsZIHGD5OQKUEdhmWR2MLVPLwQY1q4JBFrk=;
+ b=n5uhlSypA4p4aXoYVjzvbz9AEnBnRmoj57GAOM21f/j4kSd+WxfYzE5Ju0OXSKYsrAwq4MxGo
+ zxGIJLN1aEtBgDI++i/Vika4R3P2eVluElpoXF8iE+neIcBXS9vdPI1
 X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
  pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
 X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
@@ -116,67 +115,26 @@ Reply-To: jixincheng@ultrarisc.com
 
 From: Jia Wang <wangjia@ultrarisc.com>
 
-Document the compatibles for the Shenzhen Rongda M0 and Milk-V Titan
-boards, both based on the UltraRISC DP1000 SoC.
+Add compatible string for UltraRISC DP1000 CLINT.
 
 Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/riscv/ultrarisc.yaml       | 27 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++++++
- 2 files changed, 34 insertions(+)
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/riscv/ultrarisc.yaml b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-new file mode 100644
-index 000000000000..a51e63dbeca3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-@@ -0,0 +1,27 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/riscv/ultrarisc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UltraRISC SoC-based boards
-+
-+maintainers:
-+  - Jia Wang <wangjia@ultrarisc.com>
-+
-+description:
-+  UltraRISC DP1000 SoC-based boards
-+
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - shenrongda,m0
-+              - milkv,titan
-+          - const: ultrarisc,dp1000
-+
-+additionalProperties: true
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ff1c1aea9a98..7eb1b2971bea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23639,6 +23639,13 @@ F:	include/dt-bindings/power/thead,th1520-power.h
- F:	include/dt-bindings/reset/thead,th1520-reset.h
- F:	include/linux/firmware/thead/thead,th1520-aon.h
- 
-+RISC-V ULTRARISC SoC SUPPORT
-+M:	Jia Wang <wangjia@ultrarisc.com>
-+L:	linux-riscv@lists.infradead.org
-+S:	Supported
-+T:	git https://github.com/ultrarisc/linux.git
-+F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
-+
- RNBD BLOCK DRIVERS
- M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
- M:	Jack Wang <jinpu.wang@ionos.com>
+diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+index 3673836e14de..878f267d089b 100644
+--- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
++++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+@@ -40,6 +40,7 @@ properties:
+               - starfive,jh8100-clint   # StarFive JH8100
+               - starfive,jhb100-clint   # StarFive JHB100
+               - tenstorrent,blackhole-clint # Tenstorrent Blackhole
++              - ultrarisc,dp1000-clint  # UltraRISC DP1000
+           - const: sifive,clint0        # SiFive CLINT v0 IP block
+       - items:
+           - {}
 
 -- 
 2.34.1
