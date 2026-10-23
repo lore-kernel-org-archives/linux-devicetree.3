@@ -1,78 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.132
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747830;
-	b=aYMSvbnm3MzjfJk94HLr/cQ9eQHMoMLPyIIFOfghTX6pwLzH/I9Y1GhbxmH2v0RTEdw8
-	 PgFlLPAM3N5B5/g+ja1F1Iu716QIugtjE6rX9TgFC7FtgBV9XbenC3YNYIGX+6FACfXfF
-	 xaPvT3bLeyonCajaip/ockJ52U/axPA5WUMHqv2h0kliKL9vznpUNn2u3AotPrfdY7rgg
-	 3BXES+Twa7WYQE6lm/ngjIK74/Z87EGuQte+KtGc3nkLIGf92iXwiIgwtrboqSWpnZang
-	 Sn8rpvocarpSoEKB3uhJFuxYEKFi99B9covVpEfNcxi7tNotlQK0YWpFSHPaHGfwKNQ==
+	t=1792747852;
+	b=fthV0bJAqlBf5A7enZbHxQULHkajbMiDI6yT0KIwUF1ikvFlCF2D6j1cbvrTPX8UjNp/
+	 4NzNbtv2j/7Ub3z/7o8zQwKu9IpiEnjHrJ5WejdpHN/A+TkQd8m2kzFiTvBuZQ6sFQgos
+	 P3Vco/N8KCGyjmmpDVPAGS0nbC0Wncc16DWz9QJUpeYPSNnZewWz0hn8BPp/a1KS3gv6s
+	 YhUrArWS8jbdh1tYVrOUV8jNYm9kZ7X9jXF7X9tLEGENj7OqKh61xuvW9kv1IBslRwexF
+	 qNXvVJekDGHE8z5n5pQLVnqGezifXAglKWZFOoWy19ntk87trRr+ErP1EDQhWP0BUnQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747830;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sAq5b9+5/yK9JbXI1VTDb74BWDSeJIWYxyg0e6SiFh4=;
-	b=3jn+Cksm8wE4cJAc2qdI46/7Ux3ElJj5duxUKfnf2/49uN1PDdnYHPEq4Jn2/pPeTtco
-	 ginaCFq9dhQal5mf4XKF1HAJw4/LO43454rt1tj51t8Nm6/6xOApSSR4PXpEhzWEbB3hx
-	 VmCJr+nup+MILzkgZUq+Z8IOeiVu+cYOi8dGxr940RreM2dAfE0lummuhrO9Z0HLAc6jB
-	 UODcO/09Ijy+yzsxSg3JN2i/hajry+a8147HuXYOyqAxAAZk4ZGGIHowI7NGj3G26+tut
-	 zyV/4vcKqub/+A9OiUqO+42gzvCxwZwueddjt3ynv7sDRZ9GliQPYUFXCk9/Oi7VBkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747852;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vVcNYcU/AT2kNVO+mwby0yuY6ThYwX6Op4c85Ipd3hs=;
+	b=BW50fpyUyH7vLLd1nMWrCZOl+ZzBXfRXduUBIbqAmGl2mDrlUUeIO8NEHSfy9K/LbpOP
+	 eL1dVJ6gK48RTnt6zZGVr/g15uJJemzaey4zp4iqbMS30Ofs1aG+SvKsgyJEMvVvWvDvE
+	 2fy0/EnSyZTRr9XRjmOPFLggvV+PqfujWmHSb89BL7kQVZHwt1dPzSPxP6FeCyNEnNzyI
+	 X2DEhdk+VTUUl7MRALMZljxlp/fDtKp4roW5dNXt5NtgiOusgZng6AVs7VaGe8rVJJ0NU
+	 MNqWMcbPsvwTQGy+uGioH5FM9QmZngwTisrJUIG2YRVbV5OTHMSzcK9Bu3lhSXpEJ9g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAOx91K0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.132
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022132.outbound.protection.outlook.com [40.107.75.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392BA606A31B;
-	Fri, 23 Oct 2026 09:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAOx91K0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792747826;
-	b=3hUpzBTIi8Rkpu/H0+baGqU/E2npoebBDur2pgh3JxXG3fG8VPugiFzVIQuVeq6fXtHu
-	 QxQxvHc66iBT/Wz8d5vBiABiraXdriFHepLLCiTRxod1dnxfHTO7U+1DvnFUPzfVo+nDa
-	 3YNZmiFmc+MQ1pleyu7kxqeCUlvso6f2pFTk5NekRPdcDau63oI6zTxIDKZT2ikIKOA/H
-	 NFQYzmjKl7LY843snWmBT4TQ4T71cmF3LEKf25pl052lpZ5ZVoxEZvRHHyftqSneKhtoP
-	 WbaEQqtEnSlv/3BrtB/MFLM+YYLtdsYuwIkGhcCo/Zdvph/ejRALWoTnFL/H4vk1Z6A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792747826;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sAq5b9+5/yK9JbXI1VTDb74BWDSeJIWYxyg0e6SiFh4=;
-	b=bhxBSRWuPIyuw8i7gO2SOmEMV5Qnt30ULVXne8iLisnZZpZHsH0RP1YhB0COXXQrly8f
-	 d7KoTJ8y9QGja5QfVoJ3Bwc2w1KeUbCQt6LoX6YJFaKriES6zsGXf1C4Uu8eGksQvThYF
-	 qdXLYD2OCjjiC758DVULqfQP14Wt2sg6Q22M8TQsRU1E4zTLSMqln3sP7sE99zELJt/fA
-	 fO9DniBU8mtiJRj1CcpZOmKOkEaF5rxblcYtA9bovjCqQ/J0Kp4nfdypZv8h+qIJHEWrT
-	 i1F/hJP6tzczwnNgqTczplPaOcWYjooX3/DloNa7zUZwkcXRnPDovzEykXPXKKbtTag==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 052C31F031E3;
-	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792747826;
-	bh=sAq5b9+5/yK9JbXI1VTDb74BWDSeJIWYxyg0e6SiFh4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JAOx91K02ctV/wA1yn1iHUQR+cJCCCc+iL5kS67VjOcwEHF7p0+apv09d2J5+jmjv
-	 gVLfs9PEFZPA4BU5A+zW5vfh+RDfHryVcck5RAkjK+Fo28h4+sB7ZEEYn2VZChQEDg
-	 ZyRPnR9POMK2LF1uklGMaBJAfuE8+FWeV95Ynyz19zky7x1voRoyVyaJZ2dZbcIKsW
-	 eiouqv6jfEWgWx0d6QbAE0isHw7P7j7YYQsER6a1OUYXGPcM7qHGCO2A4jAp5/5D93
-	 Z3CPSzFcLZ9ow4hRrpqEzqDJPZl0gCL2ZLX5QWS84bOVf8K+CipDVIVpMV1AGXmO2t
-	 smw4B/OpQDrBg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69F5744468;
-	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 23 Oct 2026 12:30:22 +0300
-Subject: [PATCH v4 5/8] iio: imu: Add driver for the ADI ADIS16607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F4B60A3815;
+	Fri, 23 Oct 2026 09:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3F4B60A3815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XK4wvSYgAPgAevDX4hCkVMyc8dor24Fk1HBkOCE5BmcuEvEVfQj5yhLTCVXs/4RI1D9xhbzp2LTZCfzdRTBBvI269dwyMORYY2ucSItN45gprrc/4H1FPWQTEVKlFg0o09inL+DriDAC+DwDZGPMlaKBY4m1efloF6k+rsoYXx7J5BAR1sgzsHuaWhcN958/bWKlovXeg0KTFZC8Quup8PVZe40fXis3QGzxHeqM1eCjXgjYRwK6k9ZHv9V1mrHDP/bI08X+eu0L0sgRrBsIiVJCk/Q0s18lbNqyn+OSa7QqKhjmb6f7CtrrJRa12dvIA80uJYJtSupYx2GAG2MS6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vVcNYcU/AT2kNVO+mwby0yuY6ThYwX6Op4c85Ipd3hs=;
+ b=ds0SIhF7eRfsG0FWRRyGzZbjMk6Uh52+QJ9yGfboCWB0+4Z1lAGDcO78/bKDvOn+XbeP59z3VlYoyXbTd6sWOHskSRkXDojgmIulxqenJO63LlUg3PyhFQX6BDP5/XpXK174jQwc9I0rGtBJ+KqY5lVxwhKWVf7BUCoVhetfua2+U2PW29oiOoB9vURQ5VfvRr4Wgo84/huDWRWQg7EbA2G/f4oF7zczDL8r5rbrQsX9++zIkjhSk8efN5xKHx3iJzk4n7b+oh+d81TgZ21i1I14Rg696jrznkS45tRfFDHd33yhO1VehSw2ZSSsi+NA5XpGTIm/Ms2eYwgCKjl/Sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SGAP274CA0009.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b6::21) by
+ TY8PR06MB9176.apcprd06.prod.outlook.com (2603:1096:405:3aa::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.2; Fri, 23 Oct
+ 2026 09:30:49 +0000
+Received: from SG1PEPF000082E6.apcprd02.prod.outlook.com
+ (2603:1096:4:b6:cafe::9a) by SGAP274CA0009.outlook.office365.com
+ (2603:1096:4:b6::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
+ 23 Oct 2026 09:30:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E6.mail.protection.outlook.com (10.167.240.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:48 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B37C04102B4C;
+	Fri, 23 Oct 2026 17:30:47 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com,
+	linux-clk@vger.kernel.org,
+	joakim.zhang@cixtech.com
+Subject: [PATCH v1 5/5] arm64: dts: cix: Add the Sky1 AUDSS DMA-350 integration
+Date: Fri, 23 Oct 2026 17:30:45 +0800
+Message-ID: <20261023093045.3248630-6-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023093045.3248630-1-Jelly.Jia@cixtech.com>
+References: <20261023093045.3248630-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,960 +111,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adis16607-v4-5-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=26867;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=uSnvV4bBvNJy2c6JIiBqPfOOh+v8vEG+ruU7ouYfLv0=;
- b=r9DkHFEISN80TidVMqUpxyct9NHQ82qjoyjutjJpdiXw25MbX5wXhBZNWunnTX79wqz2lW1nW
- 2Q+xByXDA7FB2z1cIy9Ylnt9kNn5EquH6xSCiUhtS/Gy8Q/kkOn6WXr
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E6:EE_|TY8PR06MB9176:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: f66db195-85df-4c0c-5f1b-08df30e852ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|7416014|376014|82310400026|261021123027099003|261022105027099003|56012099006|261009223027099003|18002099003|10067099003|22082099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	ZyU3UA7ZUBsD/7rfIT+NNNhlbVCGiH0QFo9n6AunEQAQAaiUZ9jlBZilpSEm9DHDO93pV6RYHVNXx1JCJGEDQAEsm4Y6bbTbeIhGH7UaRO6w6ddQVyk7yDi4l95NHAF7/eZJww/BhONU36nPajgWwlhPGHMU7UUcidXkgr9iaHFv1Vn3RHB/z2DRoF/GJbR0+B+0zSI4TerReTYYTyh3QAF2yDwJtedMD9y/108ZZoQMFns7TF0djLk2OepxAEB4X145KqIqm44FfH8kVV7aPTEHhNBzghKAq8OFE9U9RxbfC7xWsHMNHwt+djNcHYrF9J/+QLRmc62koDfUnRff10vq1a5IeejX9Y+Z3jgs//sOL6zjrWU8vB1x4acpEgjkv2rR9tjTuxf4VQUCZ/AaK3HtaEHiJb77GZyyFLEL7QYWRqHOjNW0i/KlCT3lfkoogskHADzFwcC8KCqvovPpDYG+5lEulZkUzgHhNl2YupPFl4qSu67f8zk9kuw0bc5Qd0e0PA8WGSp7JnZvFv0CgjF72Tr6y6tDGBGWXv3Y4kGx+HMf2HrJwrcv1AmsCMJ2g5YqwZs/res3IFlkPoCFElP7yk0F8PbK9u6AVAlzVw0JfH8Mc7xPyngjMRoYSd+n3oEsOgthIyzRj+TtIrju185oT4oglr0H8iHgtKNQqWjsImAdyapY7QSvoxfLrq7tlEURpuewvOe4AW+USL9lNQ==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(7416014)(376014)(82310400026)(261021123027099003)(261022105027099003)(56012099006)(261009223027099003)(18002099003)(10067099003)(22082099003)(261021121427099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6PMMj07rjp+jwHSBemNNzV0rsD++gNCe6Paqv7a1brk5FsHLQTUPgn6brEH/8zHnQlRE1CQ7++11hD+wVg8ruNK1NLsK6Mm+ZzsDdZb6OQUzBA5hl08F3xZFYSPAmaq1jkq73NGj55ROpnb9+zp9Lyicc8hKxAEXGAV17EYvAoxbuuYTWv/vlPg5qRs2iQMcEV5DW5KTjjZFunI794hf0bu3+bvGdTX49KX++UF1tl+5qK/18jWVAmGN617089y4tiw3EEyYK2WjtTjvP2JBLZoOqpsr3vWCfU2K04PC523wRk99AcPzjnr1P1lFkZI7LAp3owXY4kmtLX2knFyTdzuRBFy3A+g3SfXXRvfCac1P/tKAj57VCKXSZ+TvfqS6c7LHDAjJtfke8q6RuNtghaj4M3LuGY+tZ2AfrWGXXNvUbj7h3A/l5bmcjbJ5K7no
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:48.6750
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f66db195-85df-4c0c-5f1b-08df30e852ba
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E6.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY8PR06MB9176
 
-From: Radu Sabau <radu.sabau@analog.com>
+The AUDSS DMA-350 master sees the CPU physical peripheral window at
+0x07010000 through DMA address 0x20000000, and DRAM at CPU physical
+0xc0000000 through DMA address 0x30000000. Describe the 1 MiB peripheral
+window and 512 MiB DRAM window with dma-ranges on the parent bus, and add
+the controller's clock and reset.
 
-The ADIS16607 is a Precision MEMS IMU from Analog Devices with
-triaxial gyroscope and accelerometer, delta angle/velocity, and
-temperature channels, communicating over a custom SPI Half-Duplex
-protocol. ADIS16607-2 has a ±450°/s gyroscope range, ADIS16607-3
-±2000°/s; both share a ±40g accelerometer range and an 8 kHz internal
-clock.
+Route the eight channel interrupts through the AUDSS CRU, whose AP gates
+combine them onto GIC SPI 230. List child interrupts in hardware channel
+order and set dma-channel-mask to 0xff to make all eight channels
+available to Linux.
 
-This is the base driver: probe, raw channel reads, sampling-frequency
-control, startup/self-test via adislib, and debugfs identity entries.
-No buffered capture, external clock sync, or calibration bias yet -
-those follow in later patches.
-
-Self-test leaves the device's SELF_TEST register cleared on every exit
-path, not just on success, so a read failure or a failed delta check
-doesn't leave the sensor stuck in its self-test/force state until the
-next reset.
-
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
 ---
- MAINTAINERS                 |   1 +
- drivers/iio/imu/Kconfig     |  13 +
- drivers/iio/imu/Makefile    |   1 +
- drivers/iio/imu/adis16607.c | 842 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 857 insertions(+)
+ arch/arm64/boot/dts/cix/sky1.dtsi | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d5679e8d0ffd..268a82adeb1d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1798,6 +1798,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-+F:	drivers/iio/imu/adis16607.c
+diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+index cd498ee7e9a7..6ca94f606463 100644
+--- a/arch/arm64/boot/dts/cix/sky1.dtsi
++++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+@@ -588,17 +588,41 @@ mbox_pm2ap: mailbox@65a0080 {
+ 			cix,mbox-dir = "rx";
+ 		};
  
- ANALOG DEVICES INC ADL8113 DRIVER
- M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
-diff --git a/drivers/iio/imu/Kconfig b/drivers/iio/imu/Kconfig
-index 8bab4616be20..0b39057d0a7c 100644
---- a/drivers/iio/imu/Kconfig
-+++ b/drivers/iio/imu/Kconfig
-@@ -65,6 +65,19 @@ config ADIS16550
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called adis16550.
++		audss-dma-bus {
++			compatible = "simple-bus";
++			ranges;
++			#address-cells = <2>;
++			dma-ranges = <0x0 0x20000000 0x0 0x07010000 0x0 0x00100000>,
++				     <0x0 0x30000000 0x0 0xc0000000 0x0 0x20000000>;
++			#size-cells = <2>;
++
++			audss_dmac: dma-controller@7010000 {
++				compatible = "arm,dma-350";
++				reg = <0x0 0x07010000 0x0 0x10000>;
++				clocks = <&audss_cru CLK_DMAC_AXI>;
++				#dma-cells = <1>;
++				dma-channel-mask = <0xff>;
++				interrupt-parent = <&audss_cru>;
++				interrupts = <0>, <1>, <2>, <3>,
++					     <4>, <5>, <6>, <7>;
++				resets = <&audss_cru AUDSS_DMAC_SW_RST>;
++			};
++		};
++
+ 		audss_cru: clock-controller@7110000 {
+ 			compatible = "cix,sky1-audss-cru";
+ 			reg = <0x0 0x07110000 0x0 0x10000>;
+ 			#clock-cells = <1>;
+-			#reset-cells = <1>;
+ 			clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>,
+ 				 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
+ 				 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
+ 				 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
+ 			clock-names = "x8k", "x11k", "sys", "48m";
++			#interrupt-cells = <1>;
++			interrupt-controller;
++			interrupts = <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			power-domains = <&smc_devpd SKY1_PD_AUDIO>;
++			#reset-cells = <1>;
+ 			resets = <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
+ 		};
  
-+config ADIS16607
-+	tristate "Analog Devices ADIS16607 and similar IMU driver"
-+	depends on SPI
-+	select IIO_ADIS_LIB
-+	select IIO_ADIS_LIB_BUFFER if IIO_BUFFER
-+	help
-+	  Say yes here to build support for Analog Devices ADIS16607-2
-+	  and ADIS16607-3 inertial sensors containing triaxis
-+	  gyroscope and triaxis accelerometer.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called adis16607.
-+
- source "drivers/iio/imu/bmi160/Kconfig"
- source "drivers/iio/imu/bmi270/Kconfig"
- source "drivers/iio/imu/bmi323/Kconfig"
-diff --git a/drivers/iio/imu/Makefile b/drivers/iio/imu/Makefile
-index 3268dc2371ae..6eeec1ee387f 100644
---- a/drivers/iio/imu/Makefile
-+++ b/drivers/iio/imu/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_ADIS16460) += adis16460.o
- obj-$(CONFIG_ADIS16475) += adis16475.o
- obj-$(CONFIG_ADIS16480) += adis16480.o
- obj-$(CONFIG_ADIS16550) += adis16550.o
-+obj-$(CONFIG_ADIS16607) += adis16607.o
- 
- adis_lib-y += adis.o
- adis_lib-$(CONFIG_IIO_ADIS_LIB_BUFFER) += adis_trigger.o
-diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
-new file mode 100644
-index 000000000000..2dda306d7b54
---- /dev/null
-+++ b/drivers/iio/imu/adis16607.c
-@@ -0,0 +1,842 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ADIS16607 IMU driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/debugfs.h>
-+#include <linux/delay.h>
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iio/imu/adis.h>
-+#include <linux/math.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/seq_file.h>
-+#include <linux/spi/spi.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
-+
-+/* Register addresses */
-+#define ADIS16607_REG_DEV_ID		0x00
-+#define ADIS16607_REG_REV_ID		0x01
-+#define ADIS16607_REG_SERIAL_NUM0	0x02
-+#define ADIS16607_REG_SERIAL_NUM1	0x03
-+#define ADIS16607_REG_SERIAL_NUM2	0x04
-+#define ADIS16607_REG_DIAG_STAT		0x05
-+#define ADIS16607_REG_X_ACCEL		0x06
-+#define ADIS16607_REG_Y_ACCEL		0x08
-+#define ADIS16607_REG_Z_ACCEL		0x0A
-+#define ADIS16607_REG_X_GYRO		0x0C
-+#define ADIS16607_REG_Y_GYRO		0x0E
-+#define ADIS16607_REG_Z_GYRO		0x10
-+#define ADIS16607_REG_X_DELTVEL		0x12
-+#define ADIS16607_REG_Y_DELTVEL		0x14
-+#define ADIS16607_REG_Z_DELTVEL		0x16
-+#define ADIS16607_REG_X_DELTANG		0x18
-+#define ADIS16607_REG_Y_DELTANG		0x1A
-+#define ADIS16607_REG_Z_DELTANG		0x1C
-+#define ADIS16607_REG_TEMP		0x20
-+#define ADIS16607_REG_USER_GPIO_CFG	0x2F
-+#define ADIS16607_REG_SPI_HALFDUPLEX	0x32
-+#define ADIS16607_REG_SOFT_RESET	0x36
-+#define ADIS16607_REG_SELF_TEST		0x39
-+#define ADIS16607_REG_DEC_RATE		0x3A
-+#define ADIS16607_REG_DIGITAL_STATUS	0x4E
-+
-+/* SPI Half-Duplex lock value */
-+#define ADIS16607_LOCK_SPI_HALFDUPLEX	0xB4B4
-+
-+/* Masks */
-+#define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
-+#define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
-+
-+/* Self-test registers and masks */
-+#define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
-+#define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
-+#define ADIS16607_ST_FORCE_MASK		BIT(7)
-+
-+/* Self-test delta check limits */
-+#define ADIS16607_ACCEL_XY_DELTA_MAX	260
-+#define ADIS16607_ACCEL_Z_DELTA_MAX	4000
-+#define ADIS16607_GYRO_DELTA_MAX	2600
-+
-+struct adis16607_chip_info {
-+	const struct iio_chan_spec *channels;
-+	const char *name;
-+	u32 num_channels;
-+	u32 gyro_max_val;
-+	u32 gyro_max_scale;
-+	u32 accel_max_val;
-+	u32 accel_max_scale;
-+	u32 temp_scale;
-+	u32 deltang_max_val;
-+	u32 deltvel_max_val;
-+	u32 int_clk_hz;
-+	u16 max_dec;
-+};
-+
-+struct adis16607 {
-+	struct adis adis;
-+	const struct adis16607_chip_info *info;
-+	unsigned long clk_freq_mhz;
-+	u64 sample_period_ns;
-+};
-+
-+enum {
-+	ADIS16607_SCAN_ACCEL_X,
-+	ADIS16607_SCAN_ACCEL_Y,
-+	ADIS16607_SCAN_ACCEL_Z,
-+	ADIS16607_SCAN_GYRO_X,
-+	ADIS16607_SCAN_GYRO_Y,
-+	ADIS16607_SCAN_GYRO_Z,
-+	ADIS16607_SCAN_DELTVEL_X,
-+	ADIS16607_SCAN_DELTVEL_Y,
-+	ADIS16607_SCAN_DELTVEL_Z,
-+	ADIS16607_SCAN_DELTANG_X,
-+	ADIS16607_SCAN_DELTANG_Y,
-+	ADIS16607_SCAN_DELTANG_Z,
-+	ADIS16607_SCAN_TEMP,
-+};
-+
-+/*
-+ * SPI Half-Duplex read operation for ADIS16607.
-+ * Protocol:
-+ *   - First transfer: Send [reg | 0x80, 0, 0, 0] - device latches command
-+ *   - Second transfer: Send same command, device responds in bytes 2-3
-+ *   - CS toggles between transfers (cs_change = 1 on first xfer)
-+ * For 4-byte reads (24-bit sensor data):
-+ *   - Read MSW from reg, read LSW from reg+1
-+ *   - Combine as: ((val_msw << 8) & 0xFFFF00) | val_lsw
-+ */
-+static int adis16607_spi_read(struct adis *adis, unsigned int reg,
-+			      unsigned int *val, unsigned int size)
-+{
-+	struct spi_message msg;
-+	struct spi_transfer xfers[2] = {
-+		{
-+			.tx_buf = adis->tx,
-+			.len = 4,
-+			.bits_per_word = 8,
-+			.cs_change = 1,
-+		},
-+		{
-+			.tx_buf = adis->tx,
-+			.rx_buf = adis->rx,
-+			.len = 4,
-+			.bits_per_word = 8,
-+		},
-+	};
-+	unsigned int val_msw, val_lsw;
-+	int ret;
-+
-+	switch (size) {
-+	case 2:
-+		adis->tx[0] = reg | BIT(7);
-+		adis->tx[1] = 0;
-+		adis->tx[2] = 0;
-+		adis->tx[3] = 0;
-+
-+		spi_message_init_with_transfers(&msg, xfers, ARRAY_SIZE(xfers));
-+
-+		ret = spi_sync(adis->spi, &msg);
-+		if (ret)
-+			return ret;
-+
-+		*val = get_unaligned_be16(&adis->rx[2]);
-+		return 0;
-+
-+	case 4:
-+		/* Read MSW from reg */
-+		adis->tx[0] = reg | BIT(7);
-+		adis->tx[1] = 0;
-+		adis->tx[2] = 0;
-+		adis->tx[3] = 0;
-+
-+		spi_message_init_with_transfers(&msg, xfers, ARRAY_SIZE(xfers));
-+
-+		ret = spi_sync(adis->spi, &msg);
-+		if (ret)
-+			return ret;
-+
-+		val_msw = get_unaligned_be16(&adis->rx[2]);
-+
-+		/* Read LSW from reg+1 */
-+		adis->tx[0] = (reg + 1) | BIT(7);
-+
-+		spi_message_init_with_transfers(&msg, xfers, ARRAY_SIZE(xfers));
-+
-+		ret = spi_sync(adis->spi, &msg);
-+		if (ret)
-+			return ret;
-+
-+		val_lsw = adis->rx[2];
-+
-+		/* Combine: 24-bit value with MSW in upper 16 bits, LSW in lower 8 bits */
-+		*val = ((val_msw << 8) & 0xFFFF00) | val_lsw;
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+/*
-+ * SPI Half-Duplex write operation for ADIS16607.
-+ * Protocol:
-+ *   - Send 3 bytes: [reg, val_high, val_low]
-+ *   - Only 16-bit writes are supported
-+ */
-+static int adis16607_spi_write(struct adis *adis, unsigned int reg,
-+			       unsigned int val, unsigned int size)
-+{
-+	if (size != 2)
-+		return -EINVAL;
-+
-+	adis->tx[0] = reg;
-+	put_unaligned_be16(val, &adis->tx[1]);
-+
-+	return spi_write(adis->spi, adis->tx, 3);
-+}
-+
-+static int adis16607_reset(struct adis *adis)
-+{
-+	return adis16607_spi_write(adis, ADIS16607_REG_SOFT_RESET, BIT(0), 2);
-+}
-+
-+static const struct adis_ops adis16607_ops = {
-+	.read = adis16607_spi_read,
-+	.write = adis16607_spi_write,
-+	.reset = adis16607_reset,
-+};
-+
-+/*
-+ * Check if the delta between two values is within specified range.
-+ */
-+static bool adis16607_delta_check(s16 val1, s16 val2, s16 delta_max)
-+{
-+	return abs(val1 - val2) <= delta_max;
-+}
-+
-+/*
-+ * Perform sensor self-test for ADIS16607.
-+ * Reads self-test data before and after forcing self-test,
-+ * then verifies delta values are within acceptable ranges.
-+ */
-+static int adis16607_sensor_self_test(struct adis16607 *st)
-+{
-+	struct adis *adis = &st->adis;
-+	u16 st1_val[6], st2_val[6];
-+	s16 delta_max[6] = {
-+		ADIS16607_ACCEL_XY_DELTA_MAX,
-+		ADIS16607_ACCEL_XY_DELTA_MAX,
-+		ADIS16607_ACCEL_Z_DELTA_MAX,
-+		ADIS16607_GYRO_DELTA_MAX,
-+		ADIS16607_GYRO_DELTA_MAX,
-+		ADIS16607_GYRO_DELTA_MAX,
-+	};
-+	int ret, i;
-+
-+	/* Enable sensor self-test */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
-+				  ADIS16607_SNSR_SELF_TEST_MASK);
-+	if (ret)
-+		return ret;
-+
-+	/* Wait for self-test to settle before reading results */
-+	msleep(adis->data->timeouts->self_test_ms);
-+
-+	/* Read first set of self-test data */
-+	for (i = 0; i < ARRAY_SIZE(st1_val); i++) {
-+		ret = __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
-+					 &st1_val[i]);
-+		if (ret)
-+			goto clear_self_test;
-+	}
-+
-+	/* Force self-test */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST,
-+				  ADIS16607_SNSR_SELF_TEST_MASK | ADIS16607_ST_FORCE_MASK);
-+	if (ret)
-+		goto clear_self_test;
-+
-+	/* Wait for forced self-test to settle before reading results */
-+	msleep(adis->data->timeouts->self_test_ms);
-+
-+	/* Read second set of self-test data */
-+	for (i = 0; i < ARRAY_SIZE(st2_val); i++) {
-+		ret = __adis_read_reg_16(adis, ADIS16607_REG_SELF_TEST_DATA(i),
-+					 &st2_val[i]);
-+		if (ret)
-+			goto clear_self_test;
-+
-+		if (!adis16607_delta_check((s16)st1_val[i], (s16)st2_val[i],
-+					   delta_max[i])) {
-+			dev_err(&adis->spi->dev,
-+				"Self-test failed for axis %d: delta out of range\n", i);
-+			ret = -EINVAL;
-+			goto clear_self_test;
-+		}
-+	}
-+
-+	/* Clear self-test register */
-+	return __adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST, 0);
-+
-+clear_self_test:
-+	/*
-+	 * Best-effort cleanup after a failure above - leave the device out
-+	 * of its self-test/force state rather than stuck in it until the
-+	 * next reset. Warn rather than returning this write's own result,
-+	 * so a cleanup failure doesn't mask the real error that got us here.
-+	 */
-+	if (__adis_write_reg_16(adis, ADIS16607_REG_SELF_TEST, 0))
-+		dev_warn(&adis->spi->dev, "failed to clear self-test register\n");
-+
-+	return ret;
-+}
-+
-+/*
-+ * Post-reset bring-up callback for struct adis_data (see adis16607_data
-+ * below). __adis_initial_startup() calls this, unlocked, right after it
-+ * has handled reset (hardware GPIO or SW reset, adislib's own job) and
-+ * before self-test - no mutex is taken here either, matching that
-+ * convention. Does the device-specific startup steps adislib has no
-+ * concept of: SPI Half-Duplex locking, dev_id verification, and the
-+ * bootloader-busy check.
-+ */
-+static int adis16607_post_reset_setup(struct adis *adis)
-+{
-+	struct device *dev = &adis->spi->dev;
-+	u16 diag_stat, digital_status, dev_id;
-+	int ret;
-+
-+	/* Lock the device into SPI Half-Duplex mode */
-+	ret = __adis_write_reg_16(adis, ADIS16607_REG_SPI_HALFDUPLEX,
-+				  ADIS16607_LOCK_SPI_HALFDUPLEX);
-+	if (ret) {
-+		dev_err(dev, "failed to lock SPI Half-Duplex mode: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Verify the correct device is attached */
-+	ret = __adis_read_reg_16(adis, ADIS16607_REG_DEV_ID, &dev_id);
-+	if (ret)
-+		return ret;
-+
-+	if (dev_id != adis->data->prod_id) {
-+		dev_err(dev, "device ID mismatch: expected 0x%04x, got 0x%04x\n",
-+			adis->data->prod_id, dev_id);
-+		return -ENODEV;
-+	}
-+
-+	/* Read diag_stat to clear any latched faults */
-+	ret = __adis_read_reg_16(adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
-+	if (ret)
-+		return ret;
-+
-+	ret = __adis_check_status(adis);
-+	if (ret) {
-+		dev_err(dev, "status check failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* Check that bootloader is not busy */
-+	ret = __adis_read_reg_16(adis, ADIS16607_REG_DIGITAL_STATUS, &digital_status);
-+	if (ret)
-+		return ret;
-+
-+	if (digital_status & ADIS16607_BOOTLOADER_BUSY_MASK) {
-+		dev_err(dev, "bootloader is busy\n");
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Self-test callback for struct adis_data (see adis16607_data below).
-+ * Called by __adis_initial_startup() right after
-+ * adis16607_post_reset_setup().
-+ */
-+static int adis16607_self_test(struct adis *adis)
-+{
-+	struct adis16607 *st = container_of(adis, struct adis16607, adis);
-+	struct device *dev = &adis->spi->dev;
-+	u16 diag_stat;
-+	int ret;
-+
-+	/* Inertial Settling Time (Table 1), needed before self-test reads sensor data */
-+	msleep(40);
-+
-+	ret = adis16607_sensor_self_test(st);
-+	if (ret)
-+		return ret;
-+
-+	/* Read diag_stat again to clear any faults latched during self-test */
-+	ret = __adis_read_reg_16(adis, ADIS16607_REG_DIAG_STAT, &diag_stat);
-+	if (ret)
-+		return ret;
-+
-+	ret = __adis_check_status(adis);
-+	if (ret)
-+		dev_err(dev, "status check after self-test failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int adis16607_firmware_revision_show(struct seq_file *s, void *arg)
-+{
-+	struct adis16607 *st = s->private;
-+	u16 rev;
-+	int ret;
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_REV_ID, &rev);
-+	if (ret)
-+		return ret;
-+
-+	seq_printf(s, "%u.%u\n", (rev >> 8) & 0xff, rev & 0xff);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(adis16607_firmware_revision);
-+
-+static int adis16607_show_serial_number(void *arg, u64 *val)
-+{
-+	struct adis16607 *st = arg;
-+	u64 serial;
-+	u16 tmp;
-+	int ret;
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM0, &tmp);
-+	if (ret)
-+		return ret;
-+
-+	serial = (u64)tmp;
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM1, &tmp);
-+	if (ret)
-+		return ret;
-+
-+	serial |= ((u64)tmp << 16);
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_SERIAL_NUM2, &tmp);
-+	if (ret)
-+		return ret;
-+
-+	serial |= ((u64)tmp << 32);
-+
-+	*val = serial;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(adis16607_serial_number_fops,
-+			 adis16607_show_serial_number, NULL, "0x%.8llx\n");
-+
-+static int adis16607_show_dev_id(void *arg, u64 *val)
-+{
-+	struct adis16607 *st = arg;
-+	u16 dev_id;
-+	int ret;
-+
-+	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_DEV_ID, &dev_id);
-+	if (ret)
-+		return ret;
-+
-+	*val = dev_id;
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(adis16607_dev_id_fops,
-+			 adis16607_show_dev_id, NULL, "%llu\n");
-+
-+static void adis16607_debugfs_init(struct iio_dev *indio_dev)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
-+
-+	debugfs_create_file_unsafe("serial_number", 0400, d, st,
-+				   &adis16607_serial_number_fops);
-+	debugfs_create_file_unsafe("dev_id", 0400, d, st,
-+				   &adis16607_dev_id_fops);
-+	debugfs_create_file("firmware_revision", 0400, d, st,
-+			    &adis16607_firmware_revision_fops);
-+}
-+
-+static int adis16607_get_freq(struct adis16607 *st, u32 *freq)
-+{
-+	u16 dec = 0;
-+	int ret;
-+
-+	adis_dev_auto_lock(&st->adis);
-+
-+	ret = __adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
-+	if (ret)
-+		return ret;
-+
-+	*freq = DIV_ROUND_CLOSEST(st->clk_freq_mhz, dec + 1);
-+
-+	return 0;
-+}
-+
-+static int adis16607_set_freq(struct adis16607 *st, u32 freq)
-+{
-+	u32 dec;
-+	int ret;
-+
-+	if (!freq)
-+		return -EINVAL;
-+
-+	adis_dev_auto_lock(&st->adis);
-+
-+	dec = DIV_ROUND_CLOSEST(st->clk_freq_mhz, freq);
-+	if (dec)
-+		dec--;
-+
-+	dec = min_t(u32, dec, st->info->max_dec);
-+
-+	ret = __adis_write_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, dec);
-+	if (ret)
-+		return ret;
-+
-+	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL * (dec + 1),
-+						     st->clk_freq_mhz);
-+
-+	return 0;
-+}
-+
-+static int adis16607_read_raw(struct iio_dev *indio_dev,
-+			      const struct iio_chan_spec *chan,
-+			      int *val, int *val2, long info)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	int ret;
-+	u32 tmp;
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_RAW:
-+		return adis_single_conversion(indio_dev, chan, 0, val);
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		switch (chan->type) {
-+		case IIO_ANGL_VEL:
-+			*val = st->info->gyro_max_val;
-+			*val2 = st->info->gyro_max_scale;
-+			return IIO_VAL_FRACTIONAL;
-+		case IIO_ACCEL:
-+			*val = st->info->accel_max_val;
-+			*val2 = st->info->accel_max_scale;
-+			return IIO_VAL_FRACTIONAL;
-+		case IIO_TEMP:
-+			*val = st->info->temp_scale;
-+			return IIO_VAL_INT;
-+		case IIO_DELTA_ANGL:
-+			*val = st->info->deltang_max_val;
-+			*val2 = 23;
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		case IIO_DELTA_VELOCITY:
-+			*val = st->info->deltvel_max_val;
-+			*val2 = 23;
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+	case IIO_CHAN_INFO_OFFSET:
-+		/* Temperature: 0 raw counts = 25°C; offset = 25000 mdeg / 5 mdeg per LSB = 5000 */
-+		*val = 5000;
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		ret = adis16607_get_freq(st, &tmp);
-+		if (ret)
-+			return ret;
-+		*val = tmp / 1000;
-+		*val2 = (tmp % 1000) * 1000;
-+		return IIO_VAL_INT_PLUS_MICRO;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int adis16607_write_raw(struct iio_dev *indio_dev,
-+			       const struct iio_chan_spec *chan,
-+			       int val, int val2, long info)
-+{
-+	struct adis16607 *st = iio_priv(indio_dev);
-+	u32 tmp;
-+
-+	switch (info) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		tmp = val * 1000 + val2 / 1000;
-+		return adis16607_set_freq(st, tmp);
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+#define ADIS16607_MOD_CHAN(_type, _mod, _address, _si) { \
-+	.type = (_type), \
-+	.modified = 1, \
-+	.channel2 = (_mod), \
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
-+	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
-+	.address = (_address), \
-+	.scan_index = (_si), \
-+	.scan_type = { \
-+		.sign = 's', \
-+		.realbits = 24, \
-+		.storagebits = 32, \
-+		.endianness = IIO_BE, \
-+	}, \
-+}
-+
-+#define ADIS16607_ACCEL_CHANNEL(_mod) \
-+	ADIS16607_MOD_CHAN(IIO_ACCEL, IIO_MOD_ ## _mod, \
-+			   ADIS16607_REG_ ## _mod ## _ACCEL, \
-+			   ADIS16607_SCAN_ACCEL_ ## _mod)
-+
-+#define ADIS16607_GYRO_CHANNEL(_mod) \
-+	ADIS16607_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_ ## _mod, \
-+			   ADIS16607_REG_ ## _mod ## _GYRO, \
-+			   ADIS16607_SCAN_GYRO_ ## _mod)
-+
-+#define ADIS16607_MOD_CHAN_DELTA(_type, _mod, _address, _si) { \
-+	.type = (_type), \
-+	.modified = 1, \
-+	.channel2 = (_mod), \
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
-+	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
-+	.address = (_address), \
-+	.scan_index = (_si), \
-+	.scan_type = { \
-+		.sign = 's', \
-+		.realbits = 24, \
-+		.storagebits = 32, \
-+		.endianness = IIO_BE, \
-+	}, \
-+}
-+
-+#define ADIS16607_DELTANG_CHAN(_mod) \
-+	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_ANGL, IIO_MOD_ ## _mod, \
-+				 ADIS16607_REG_ ## _mod ## _DELTANG, \
-+				 ADIS16607_SCAN_DELTANG_ ## _mod)
-+
-+#define ADIS16607_DELTVEL_CHAN(_mod) \
-+	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_VELOCITY, IIO_MOD_ ## _mod, \
-+				 ADIS16607_REG_ ## _mod ## _DELTVEL, \
-+				 ADIS16607_SCAN_DELTVEL_ ## _mod)
-+
-+static const struct iio_chan_spec adis16607_channels[] = {
-+	ADIS16607_ACCEL_CHANNEL(X),
-+	ADIS16607_ACCEL_CHANNEL(Y),
-+	ADIS16607_ACCEL_CHANNEL(Z),
-+	ADIS16607_GYRO_CHANNEL(X),
-+	ADIS16607_GYRO_CHANNEL(Y),
-+	ADIS16607_GYRO_CHANNEL(Z),
-+	ADIS16607_DELTVEL_CHAN(X),
-+	ADIS16607_DELTVEL_CHAN(Y),
-+	ADIS16607_DELTVEL_CHAN(Z),
-+	ADIS16607_DELTANG_CHAN(X),
-+	ADIS16607_DELTANG_CHAN(Y),
-+	ADIS16607_DELTANG_CHAN(Z),
-+	{
-+		.type = IIO_TEMP,
-+		.indexed = 1,
-+		.channel = 0,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_SCALE) |
-+				      BIT(IIO_CHAN_INFO_OFFSET),
-+		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),
-+		.address = ADIS16607_REG_TEMP,
-+		.scan_index = ADIS16607_SCAN_TEMP,
-+		.scan_type = {
-+			.sign = 's',
-+			.realbits = 16,
-+			.storagebits = 16,
-+			.endianness = IIO_BE,
-+		},
-+	},
-+	IIO_CHAN_SOFT_TIMESTAMP(13),
-+};
-+
-+static const struct iio_info adis16607_info = {
-+	.read_raw = adis16607_read_raw,
-+	.write_raw = adis16607_write_raw,
-+	.debugfs_reg_access = adis_debugfs_reg_access,
-+};
-+
-+static const char * const adis16607_status_error_msgs[] = {
-+	[9] = "Boot Memory Failure",
-+	[11] = "Power Supply Failure",
-+	[12] = "Accelerometer Failure",
-+	[13] = "Gyroscope Failure",
-+};
-+
-+static const struct adis_timeout adis16607_timeouts = {
-+	.reset_ms = 130,
-+	.sw_reset_ms = 50,
-+	.self_test_ms = 15,
-+};
-+
-+static const struct adis_data adis16607_data = {
-+	.diag_stat_reg = ADIS16607_REG_DIAG_STAT,
-+	.diag_stat_size = 2,
-+	.prod_id_reg = ADIS16607_REG_DEV_ID,
-+	.prod_id = 0x6000,
-+	.unmasked_drdy = true,
-+	.post_reset_setup = adis16607_post_reset_setup,
-+	.self_test = adis16607_self_test,
-+	.status_error_msgs = adis16607_status_error_msgs,
-+	.status_error_mask = BIT(9) | BIT(11) | BIT(12) | BIT(13),
-+	.timeouts = &adis16607_timeouts,
-+};
-+
-+/*
-+ * ADIS16607-2: 450 deg/s gyro, 40g accel
-+ * ADIS16607-3: 2000 deg/s gyro, 40g accel
-+ */
-+static const struct adis16607_chip_info adis16607_2_chip_info = {
-+	.channels	= adis16607_channels,
-+	.num_channels	= ARRAY_SIZE(adis16607_channels),
-+	.name		= "adis16607-2",
-+	.gyro_max_val	= IIO_DEGREE_TO_RAD(450),
-+	.gyro_max_scale	= 30000 << 8,
-+	.accel_max_val	= IIO_G_TO_M_S_2(40),
-+	.accel_max_scale = 31250 << 8,
-+	.temp_scale	= 5,
-+	.deltang_max_val = IIO_DEGREE_TO_RAD(450),
-+	.deltvel_max_val = IIO_G_TO_M_S_2(40),
-+	.int_clk_hz	= 8000,
-+	.max_dec	= 65535,
-+};
-+
-+static const struct adis16607_chip_info adis16607_3_chip_info = {
-+	.channels	= adis16607_channels,
-+	.num_channels	= ARRAY_SIZE(adis16607_channels),
-+	.name		= "adis16607-3",
-+	.gyro_max_val	= IIO_DEGREE_TO_RAD(2000),
-+	.gyro_max_scale	= 31250 << 8,
-+	.accel_max_val	= IIO_G_TO_M_S_2(40),
-+	.accel_max_scale = 31250 << 8,
-+	.temp_scale	= 5,
-+	.deltang_max_val = IIO_DEGREE_TO_RAD(2000),
-+	.deltvel_max_val = IIO_G_TO_M_S_2(40),
-+	.int_clk_hz	= 8000,
-+	.max_dec	= 65535,
-+};
-+
-+/*
-+ * No external clock sync support yet: always run on the internal clock.
-+ * Default dec=0 after reset, so period = 1 / clk_freq_mhz.
-+ */
-+static int adis16607_config_clk(struct adis16607 *st)
-+{
-+	st->clk_freq_mhz = st->info->int_clk_hz * MILLI;
-+	st->sample_period_ns =
-+		DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * MILLI, st->clk_freq_mhz);
-+	return 0;
-+}
-+
-+static int adis16607_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct iio_dev *indio_dev;
-+	struct adis16607 *st;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	st = iio_priv(indio_dev);
-+	st->info = spi_get_device_match_data(spi);
-+	if (!st->info)
-+		return -ENODATA;
-+
-+	indio_dev->name = st->info->name;
-+	indio_dev->channels = st->info->channels;
-+	indio_dev->num_channels = st->info->num_channels;
-+	indio_dev->info = &adis16607_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	st->adis.ops = &adis16607_ops;
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get vdd regulator\n");
-+
-+	ret = adis_init(&st->adis, indio_dev, spi, &adis16607_data);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Force GPIO0 back to its RESET function before relying on toggling
-+	 * it below - RESET_GPIO_MASK is runtime-writable on this part, so a
-+	 * prior write (buggy driver, direct reg access, etc.) could have
-+	 * left it de-routed, which would make the GPIO toggle in
-+	 * __adis_initial_startup() silently do nothing. This write goes out
-+	 * over SPI, which stays live regardless of this mask's state, so it
-+	 * can re-arm the mux as long as the device is merely
-+	 * reset-pin-defeated and not fully unresponsive. Only warn on
-+	 * failure instead of erroring out - bailing here would throw away
-+	 * whatever chance the GPIO toggle below still has of working.
-+	 */
-+	if (device_property_present(dev, "reset-gpios")) {
-+		ret = __adis_update_bits_base(&st->adis, ADIS16607_REG_USER_GPIO_CFG,
-+					      ADIS16607_RESET_GPIO_MASK,
-+					      FIELD_PREP(ADIS16607_RESET_GPIO_MASK, 1), 2);
-+		if (ret)
-+			dev_warn(dev, "failed to force reset-pin routing: %d\n", ret);
-+	}
-+
-+	ret = __adis_initial_startup(&st->adis);
-+	if (ret)
-+		return ret;
-+
-+	ret = adis16607_config_clk(st);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_iio_device_register(dev, indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	adis16607_debugfs_init(indio_dev);
-+
-+	return 0;
-+}
-+
-+static const struct spi_device_id adis16607_id[] = {
-+	{ .name = "adis16607-2", .driver_data = (kernel_ulong_t)&adis16607_2_chip_info },
-+	{ .name = "adis16607-3", .driver_data = (kernel_ulong_t)&adis16607_3_chip_info },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, adis16607_id);
-+
-+static const struct of_device_id adis16607_of_match[] = {
-+	{ .compatible = "adi,adis16607-2", .data = &adis16607_2_chip_info },
-+	{ .compatible = "adi,adis16607-3", .data = &adis16607_3_chip_info },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, adis16607_of_match);
-+
-+static struct spi_driver adis16607_driver = {
-+	.driver = {
-+		.name = "adis16607",
-+		.of_match_table = adis16607_of_match,
-+	},
-+	.probe = adis16607_probe,
-+	.id_table = adis16607_id,
-+};
-+module_spi_driver(adis16607_driver);
-+
-+MODULE_AUTHOR("Radu Sabau <radu.sabau@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices ADIS16607 IMU driver");
-+MODULE_IMPORT_NS("IIO_ADISLIB");
-+MODULE_LICENSE("GPL");
-
 -- 
-2.43.0
-
+2.54.0
 
