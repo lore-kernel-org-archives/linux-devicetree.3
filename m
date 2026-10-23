@@ -1,79 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792745344;
-	b=wdl1x7RQuuMdN9HKUP0cnlsXQozD8YGwjQdxDyC79VO3i5hSohT/oqT6zlMGgTG5KhsY
-	 nRgRLvhSYCiTA8rICOVAA31VxT4Z3J+O5dHi5cG8EUi7cI5Yve8Vxx4kR2pRODO06tR6T
-	 mb6J9QIwudshayMVsV1sRByCqi981jjXmqmI2pQQ/qyNGnURO6LskYkO+BgWq8x5LooBs
-	 h0794USKWOralns7zJuSaFM4BoSaA3mTnqG1MO/sMZBOjziDzjHwSxYxE+e0punMYQoOV
-	 c/5uX9MI24/3Stxb7hcse02mo7pbBBq2UyzoITRaFE71DpKBU/kEaEZJDUfJ+1UFu6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792745344;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Hqsj8laTNJRGhLD3PRbXSk/+NGmj8/7mSk/guKoQ1qE=;
-	b=ftu1aUybsyI17FIBZ2HVQCCdWMoI9FPpguMvcgSsSX7gsKOrGZ4IALjVzPdXnfBLghmy
-	 OpXk80Mcdc6veyZWjyHYLtQnBIxfwy/64h6R71xlHElqQtA9cMyPqiuM5XM+Vcw8SuJd4
-	 vvjYrIUDNt3PWwTRt8kP6/P56bSaQoLjgaVPmfIetauiNLq9RM9uz72cyFz3tJbVBg3w7
-	 lT7Qf+IhX9OKTEJfallKhnloG1dFPWeU9sG8spqE23mTTVuSwjj8CZECFQ91Zy85iB9OU
-	 WpPqBMRFHstzrCtR86eLVB3gj0npBP5AZ6fdR3va2wi/o1Kc7jG4UMCHfHL8oVMbhjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaqWxeIF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967DA606A323;
-	Fri, 23 Oct 2026 08:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaqWxeIF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792745344;
-	b=Dzd+oARVAGmhebe817RLSJymBjw/+w6BtFo9K4QRC9luBd5W68n6nSC7N+/qdtl5beSI
-	 IbE0ctn16Mh6HiVvs+5elb+AwbIZNNwfbxaep82AFKTLagZSsN0bAPmzpqmCed6fYuzST
-	 91AMzfvHYML8niPVQvtOh+zr1fz1j9Q2jmoMtZSVWat2wFbFzJLTooFL1lzZl/uQwJ1ww
-	 Gy5zfDWaXdbw3Cs0LAQsC+LAUo2A2G8kIt83DzFbxxYVH8WJUhbXibOveSsp+/0atAXbA
-	 5GIr6HTlcImgFZRayefyaGNg2ZRaIZbs9RpepA2LCcRAJuDADUiEteobQ30mDTGZcBg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792745344;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Hqsj8laTNJRGhLD3PRbXSk/+NGmj8/7mSk/guKoQ1qE=;
-	b=ung2KrsFKbpJjztzPX+NV4zXTu8D8dSPpdmmxOq6ZpdPGvpS3ee0/7dIpFhSRRUtMabZ
-	 1YZYQM9PBtmNxJV93KEhgemmKDZGjv+gBrlQtMGQFYh6cZqM8MH6phg3whFi65Lde7i18
-	 lNN9vbOgnVbmffZehYiX6VUxVy83RC8s2sQQN/0pULO18vafc74RvUkDfVudMGLvrM8kY
-	 BExfYwGv1AxgjPFf42iQA0JVbwJInxG2NvKzzZ8Q5p5u2CrCXyECp1BWMvVSOG1T3dZe/
-	 Ir0UNtt6IPJBGqqkVWVxC8NST3gRvM2yfAt8UNEGesB7UgOyobf8CBwFJpZbPQFi9Sg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792745731;
+	b=ShFMV3bSFapAwhYy2a3oOwXkbcn367tBLPnMQWRJjcOCfyX+UC4ydqLT7LLNnrxbL4s6
+	 2QSxoBFfg3LuA6DEUo1XFj23y5a4hB9hfoo2mhGXdKkmzTgYsSe9QVSncqx8gZmx1Hktt
+	 EP42Mef9iS5yIs4W+fdzJgODitl44XttaOjlsmPpDz/y4gZYHmq40/AsyrNDcMiPX3SXw
+	 CvBfs7J+4RVMTpHKQU3WiWVWVMnoJPYovCQy9ObdJr2CqL+ZFrE/cmV369j3RaGGkxPWw
+	 HOmiGPj+TTkL7Ln7F2YfNShZm0qTp49ANEUyhlQnPofFA3feEt8d2zFuM8NoZDJZWCQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792745731;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=+WCINTB6TLCgwCce/fd+np5HxL3yDR/S10SxyMqKDG4=;
+	b=w5eHPzXFVdkAoxiJCY8i5e7Wy12oFGMOYC/0XbPSV6CRJizUSacuL/yu7LajUm1ufbRz
+	 dRKGJUlDn3q5d5peYohVCh/KiDldblk5MzuidJQpFmNnxhsGHcKzRdAsKgq6o34v3xjkg
+	 5MYtS7ts242l7mUiiZ/HLuqigfWLn0cGil9N1JYlZTbH9bLyRO/n7NXmTtWMwomBTgPAP
+	 xWKKRkbKJaSKZ4FzYmA4bNoPOKkn7gG1unJLP5kqHGqF52FjhO+GENuoUdunJQKNIXId9
+	 v5BzoDDnJ3futV3dohfRL0uQh3dS4H8KUxuwIhXzgddqPkDTPmf1cpToVSZfjKF7VRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DemXPZxc;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E9DC51F031E0;
-	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792745344;
-	bh=Hqsj8laTNJRGhLD3PRbXSk/+NGmj8/7mSk/guKoQ1qE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WaqWxeIFG+DGG/gqkvsVWgZYGIqjiMhExiNQD55PHp8a2D8bYV6wQidFGLSJGpkEr
-	 9wowExXUZ4Ca1nQhvbOX24+syLSWH+aoxBKKU2EqPPqQLB+xvnFzAslGdRvd6pE+4B
-	 jJJtwfTxSmUrOmhA999+QcSxNyzcEs5NkAeaMB+RauNwSIK2ftd0rRituRHYMDTWNr
-	 hDvvQTVmeTc3O9n/DmDAmheomXBQ1ny8TZ++UAoyaQ9/jQ7hn69rZ+KryVHjAqU1S6
-	 jfvIeQ9op5e5TIqmyx/XqH6uUzmqzbCD18DSErLPJnwshIpDZKzIb8UGhc6Idpdc7X
-	 rdQKXMPpH0zDA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7ADDB44441;
-	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 14:19:01 +0530
-Subject: [PATCH v2 3/4] drm/msm/a6xx: Program the PDC sequencer on Adreno
- 620
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A175F606A31B;
+	Fri, 23 Oct 2026 08:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A175F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DemXPZxc
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id EEAF21A12EA;
+	Fri, 23 Oct 2026 08:55:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AE63C60398;
+	Fri, 23 Oct 2026 08:55:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E98DB10328501;
+	Fri, 23 Oct 2026 10:55:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792745721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+WCINTB6TLCgwCce/fd+np5HxL3yDR/S10SxyMqKDG4=;
+	b=DemXPZxcyt14tCA9zKkLRrmYBJhCS2E9MNBqWxkFhL9eLq0qJVuW6EjmsHpLCuzP5YaUDl
+	YcbI0u0IYnxtOF1JbmdQRmOrnvMHJlm8NfHK9oiC2YW3q4SnthaqLbRFIlL99KT5qIdPvZ
+	MdQft2skJEgqecFXPyN1Kmw8yGxFVUqLm2XqXg3tmxsORB7OuAJMka7Mqx1wMgtkkYHcHc
+	qTLRuTLmc+GoMRN0aYI1+gBq6rR5KxZezk8x2inBFtKbX7CsKG/0Bp5CgOfCM0u8wbEUsg
+	a7DrG7Xif+oDGbVu+sMJyfRFEreXniLNVOmfHchwzW5W1RMcoveCbZP5K5onTA==
+Date: Fri, 23 Oct 2026 10:55:11 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20261023105511.3ad2bc4d@bootlin.com>
+In-Reply-To: <atrNI_hqwxvfsRj7@gractus.seuss>
+References: <arDMhoNNXcPi81sR@gractus.seuss>
+	<20260925152157.511dc65c@bootlin.com>
+	<as3ZWBr3wRonkxXF@gractus.seuss>
+	<20261013190347.4f1d9b9d@bootlin.com>
+	<atGzdxETQZ9ovJFh@gractus.seuss>
+	<20261019151121.26d99f30@bootlin.com>
+	<atgi4rMsw5W6kKkS@gractus.seuss>
+	<20261021172043.4bbd2bc5@bootlin.com>
+	<atmASGg1OZt9jfXI@gractus.seuss>
+	<20261022151454.67125e41@bootlin.com>
+	<atrNI_hqwxvfsRj7@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,138 +89,278 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adreno-a620-v2-3-1d654c3f52d5@brar.si>
-References: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
-In-Reply-To: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792745340; l=4541;
- i=patches@brar.si; h=from:subject:message-id;
- bh=x4HOsHyXPYSkJ2t+WDA/wMUzqtU9tuPNuXBzb9lwnYE=;
- b=YTHcpeO9DF/KCWZAIWs3FqVznniqYVeIc1vrEw3Svor8mVrLAYlMah3ZMp88GOFGnMHdVaMlZ
- ca6nApgpXpJA9sH5iqmF7bqPfbO6C8rjF4QMjhI0wuNkayzYo8N/fkR
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Ishu Brar <patches@brar.si>
+Hi David,
 
-Unlike the rest of the A650 family, the A620 does not get its PDC set up
-by AOP (the downstream devicetree has no pdc_in_aop for it). Without the
-sequence, the RSC never acks the second power-up ("Unable to power on
-the GPU RSC") and the device hangs.
+On Fri, 23 Oct 2026 13:57:54 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Program the sequence from the driver, taking the xo, mx and cx resource
-addresses from cmd-db instead of the hardcoded ones.
+> On Thu, Oct 22, 2026 at 03:14:54PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Thu, 22 Oct 2026 14:17:38 +1100
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:  
+> > > > Hi David,
+> > > > 
+> > > > On Wed, 21 Oct 2026 13:26:49 +1100
+> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > >     
+> > > > > > 
+> > > > > > Ok, my proposal seems to be a no-go and so I will follow your proposal given
+> > > > > > above.      
+> > > > > 
+> > > > > To be clear, I'm rejecting the original proposal because I think it's
+> > > > > internally inconsistent (if you follow the consequences of decisions
+> > > > > far enough).  I'm not necessarily opposed to something other than the
+> > > > > above, as long as the rules for when unknown tags must be invalidated
+> > > > > (and what that does to the version) are made very clear in the
+> > > > > structured tag spec.  e.g. see an alternative proposal below.    
+> > > > 
+> > > > No problem, I understand your point.
+> > > > 
+> > > > ...
+> > > >     
+> > > > > 
+> > > > > Essentially the theory of the proposal above is to be maximally
+> > > > > conservative: any write (adding, removing, changing, in-place,
+> > > > > whatever) will invalidate all unknown tags and downgrade the version.
+> > > > > 
+> > > > > 
+> > > > > But, here's an alternative proposal for invalidation/version semantics
+> > > > > that I think is consistent, while being a bit closer to your original
+> > > > > proposal.
+> > > > > 
+> > > > > 1. version and last_comp_version retain their meanings.  No new header
+> > > > >    version.    
+> > > > 
+> > > > Ok
+> > > >     
+> > > > > 2. If version >= 18 the tree may include any structured tags, even if
+> > > > >    they weren't defined as of v18.    
+> > > > 
+> > > > Ok
+> > > >     
+> > > > > 3. Some future version might _require_ certain structured tags to be
+> > > > >    present.  But a client must only rely on those tags if the version
+> > > > >    indicates it can.
+> > > > >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+> > > > >        reading a v19 tree _might_ see some FDT_FOO tags (because of
+> > > > >        (2)), but cannot rely on them being present in all the places
+> > > > >        they should be.    
+> > > > 
+> > > > Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
+> > > > or not will depend of each tags known by this v20 client. For some tags, having
+> > > > them removed will not be a problem whereas it will be a problem for some other.    
+> > > 
+> > > Exactly.
+> > >   
+> > > > Makes sense.
+> > > >     
+> > > > > 4. Any write to a property (including in place) invalidates all
+> > > > >    unknown tags on that property (they must be stripped)    
+> > > > 
+> > > > Ok
+> > > >     
+> > > > > 5. Any write to a property invalidates all unknown tags on that
+> > > > >    property's node    
+> > > > 
+> > > > Will see in the implementation. The offset of the written property will be
+> > > > incorrect after the write. Indeed, some tags (tags related to the node)
+> > > > available before the property can be removed. With splices instead of
+> > > > FDT_NOP, offsets change.    
+> > > 
+> > > Oh, good point, this rule doesn't work.  I think we still have a
+> > > consistent set of rules if property writes don't invalidate parent
+> > > node tags (subnode add/delete still would).  Of coutse, that does
+> > > further restrict what sorts of information you could safely put in
+> > > node tags under this scheme.
+> > >   
+> > > > This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
+> > > > need to be deprecated?    
+> > > 
+> > > I think we can keep it - kind of like fdt_next_tag() this is a
+> > > low-level function.  If you use it, you're opting in to having to deal
+> > > with tag invalidation.
+> > >   
+> > > > Those kind of functions return a pointer to the data of a property for modification
+> > > > by the caller. We don't know if the caller will modify or not the property.
+> > > > 
+> > > > Without deprecated it we can change the function to
+> > > > ---- 8< ----
+> > > > struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+> > > > 						  int offset,
+> > > > 						  int *lenp)
+> > > > {
+> > > > 	int new_offset;
+> > > > 
+> > > >         /*
+> > > >          * The modification is goind to be done out of libfdt.
+> > > >          * Unknown tags are removed (rules for modification when unknown tags
+> > > >          * are involved) but also known tags. Indeed, we cannot know if the
+> > > >          * modification will have impacts on known tags
+> > > >          */
+> > > > 	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
+> > > > 
+> > > > 	return (struct fdt_property *)(uintptr_t)
+> > > > 		fdt_get_property_by_offset(fdt, new_offset, lenp);
+> > > > }
+> > > > ---- 8< ----
+> > > > 
+> > > > The idea is to be conservative here also and consider that property data retrieved
+> > > > for writing will be modified by the caller.
+> > > > 
+> > > > Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
+> > > > valid after the call.
+> > > > 
+> > > > Last point to have in mind, getting the node offset from the property offset will
+> > > > need to walk the tree from the beginning. It can be costly.    
+> > > 
+> > > Right, that's what I was thinking of when I said this might not be
+> > > practical to implement.  It's doable in the common case where we alter
+> > > properties by node offset + property name, but not when we use a
+> > > property offset.  But the fact that this would change the offset of
+> > > the property in queestion is a much bigger showstopper.
+> > >   
+> > > > > 6. Adding or deleting a property on a node invalidates all unknown tags
+> > > > >    on the node    
+> > > > 
+> > > > Ok.
+> > > >     
+> > > > > 7. Adding or deleting a subnode invalidates all unknown tags on the
+> > > > >    node    
+> > > > 
+> > > > Ok.
+> > > >     
+> > > > > 8. Whenever a tag is invalidated and stripped, the overall version
+> > > > >    must be downgraded (to let clients know they can't count on tags
+> > > > >    being present)    
+> > > > 
+> > > > Ok.
+> > > >     
+> > > > > 
+> > > > > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> > > > > sure how feasible (6) is to implement.    
+> > > > 
+> > > > Well, this new proposal is more complex to implement than your first
+> > > > proposal but it has a finer grain to handle unknown tags on modification.    
+> > > 
+> > > Certainly - that's why I proposed the other one first :).
+> > >   
+> > > > I can try to implement something based on this new proposal.    
+> > > 
+> > > To be clear, I kind of prefer my first proposal still.  The question
+> > > is whether what the updated scheme buys (preserving more tags when a
+> > > bootloader makes minor writes) worth the added complexity of
+> > > implementation.  You're better placed to answer that question than I
+> > > am.  
+> > 
+> > I would like to avoid bootloaders being blocking points and so:
+> >  a) They should not failed if they encounter an unknown skippable tag.
+> >     We are in sync on this point.
+> > 
+> >  b) They should preserve tags as much as possible.
+> >     The goal is to allow following software components (probably the Kernel)
+> >     to handle new tags.
+> >     This is the point where the right balance has be found.  
+> 
+> Right.  I understand why these are both desirable.  However (b) is
+> pretty tricky, because of the question of invalidation.  It
+> necessarily involves a tradeoff between how much can be preserved
+> versus what sorts of information future tags can carry.
+> 
+> > Your first proposal is maybe too much aggressive on b). That's why, even it
+> > is more complex to implement I would prefer your last proposal (taking into
+> > account the property offset issue) which can be summarize with the following
+> > table:
+> > 
+> >                       | existing prop | existing node (1)   | Downgrade
+> >                       | unknown tag   | unknown tag         | version (2)
+> > ----------------------+---------------+---------------------+-----------
+> > Modify a property (5) |    Remove     | Keep (3) 	    | Yes
+> > Add a property        |    NA         | Remove              | Yes
+> > Delete a property     |    Remove     | Remove              | Yes (4)
+> > Add a sub-node        |    NA         | Remove              | Yes
+> > Delete a sub-node     |    NA         | Remove              | Yes
+> > ----------------------+---------------+---------------------+-----------  
+> 
+> Great summary, thanks.
+> 
+> > (1) The existing node is the node were the property or sub-node involved
+> >     are present. Not all nodes, not the parent node but the node directly
+> >     impacted by the modification.
+> > 
+> > (2) We downgrade the version only if tag are removed. If no unknown tags are
+> >     involved (and so not removed), the version will not be be downgraded.  
+> 
+> Sadly, that doesn't work.  We have to downgrade on property
+> modification for the same reason we must downgrade on adding a
+> property: it might be adding data that requires certain tags in the
+> later version.
 
-Assisted-by: Claude
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 35 +++++++++++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 6 deletions(-)
+Oh yes, I missed that point.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 662f09bec..8d426f1f1 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -686,6 +686,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	u32 seqmem0_drv0_reg = REG_A6XX_RSCC_SEQ_MEM_0_DRV0;
- 	void __iomem *seqptr = NULL;
- 	uint32_t pdc_address_offset;
-+	u32 mx_addr = 0x30010, cx_addr = 0x30000, vrm_addr = 0;
- 	void __iomem *pdcptr;
- 	bool pdc_in_aop = false;
- 
-@@ -697,8 +698,18 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	if (IS_ERR(pdcptr))
- 		return;
- 
--	if (adreno_is_a650_family(adreno_gpu) ||
--	    adreno_is_a7xx(adreno_gpu))
-+	/* Unlike the rest of the A650 family, A620 has no PDC setup from AOP */
-+	if (adreno_is_a620(adreno_gpu)) {
-+		pdc_address_offset = cmd_db_read_addr("xo.lvl");
-+		mx_addr = cmd_db_read_addr("mx.lvl");
-+		cx_addr = cmd_db_read_addr("cx.lvl");
-+		vrm_addr = cmd_db_read_addr("vrm.soc");
-+		if (!pdc_address_offset || !mx_addr || !cx_addr) {
-+			DRM_DEV_ERROR(gmu->dev, "No PDC resource addresses in cmd-db\n");
-+			return;
-+		}
-+	} else if (adreno_is_a650_family(adreno_gpu) ||
-+		 adreno_is_a7xx(adreno_gpu))
- 		pdc_in_aop = true;
- 	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
- 		pdc_address_offset = 0x30090;
-@@ -766,25 +777,31 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD_WAIT_FOR_CMPL_BANK, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CONTROL, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, 0x30010);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, mx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA, 1);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 4, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, 0x30000);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, cx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 4, 0x0);
- 
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 8, 0x10108);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 8, pdc_address_offset);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 8, 0x0);
- 
-+	if (vrm_addr) {
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 12, 0x10108);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 12, vrm_addr + 0x4);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 12, 0x0);
-+	}
-+
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_ENABLE_BANK, 7);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_WAIT_FOR_CMPL_BANK, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CONTROL, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, 0x30010);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, mx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA, 2);
- 
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, cx_addr);
- 	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
- 			adreno_is_a650_family(adreno_gpu))
- 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x2);
-@@ -794,6 +811,12 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 8, pdc_address_offset);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 8, 0x3);
- 
-+	if (vrm_addr) {
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 12, 0x10108);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 12, vrm_addr + 0x4);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 12, 0x1);
-+	}
-+
- 	/* Setup GPU PDC */
- setup_pdc:
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_SEQ_START_ADDR, 0);
+(2) The version is always downgrade on any changes (modification, addition,
+    deletion of a property or a sub-node) even if no tags are removed.
+    Indeed the modification done (even a property or sub-node deletion) can
+    requires certain tags in the later version.
+    Downgrading the version on all changes is the way to state that the
+    resulting dtb may be no more compliant with the later version.
 
--- 
-2.56.0
+> 
+> > (3) Removing unknown tags in the node when a property is modified will lead
+> >     to the property offset change. Prefer avoid the property offset change
+> >     and so keep node related unknown tags in that case.  
+> 
+> Right, if we did that it would basically mean totally (and
+> incompatibly) redesigning the libfdt interface.
+> 
+> > (4) The version is downgrade only if we remove some tags related to the
+> >     node. If we remove only tags related to the property we delete, there
+> >     is no reason to downgrade the version.  
+> 
+> Unlike (2), I'm not certain if this one is unsafe.  But I suspect it
+> might be, and having it behave differently from case (2) seems
+> confusing to me.
+
+Hum ok, let be conservative and remove the note (4).
+
+The updated note (2) handles all modification. On any changes with and without
+tag removal, the version is downgraded.
+
+> 
+> > (5) All property modifications done outside libfdt using directly the
+> >     property data pointer will not lead to any unknown tag removal.
+> >     
+> >     This point is for the usage of fdt_get_property_by_offset_w(),
+> >     fdt_get_property_namelen_w(), fdt_get_property_w(),
+> >     fdt_getprop_by_offset_w(), fdt_getprop_namelen_w(), fdt_getprop_w() and
+> >     maybe other similar functions where the property is returned writable
+> >     for possible modification. 'modify a property' mentioned in the table
+> >     is related to modification done using fdt_setprop_*() and fdt_appendprop_*()
+> >     function families.  
+> 
+> Right.  "I know what I'm doing" is part of the implicit contract when
+> using those functions.
+
+Also this note (5) will be updated
+
+(5) All property modifications done outside libfdt using directly the
+    property data pointer will not lead to any unknown tag removal nor
+    a version downgrade.
 
 
+> 
+> > On your side, is all of that conservative enough to be used when modification
+> > involved unknown tags?  
+> 
+> Not quite, as noted, but we might be able to get it there.
+
+Is it better? 
+
+Best regards,
+Hervé
