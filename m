@@ -1,144 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792798614;
-	b=FJR8Ax0+ycMXoD5ADedgK5v5Vb6APDRZVluZXQfiw1D91LVnIj8zmSiL6iq1NUcx/fTk
-	 cNSl5zmD2mBWVg8a7Whfz68Xr0F+JOXhhWhCvltLQbWf3ghAxukXSA0wLtm387zgsDOnr
-	 uzMaEH5JMjtzpFiD40oko+sWZUseMv1/xfvI+fqUZ88mVMZNVgDP0BZsbJG5Xc/0tNFzR
-	 gnxcuP6AVfPv8t2rikGjjLqBZ8C57xP5woiePYny5BeR7oCA+QtKvsF+GudWWXWY22t/U
-	 QSAbflX749Vk6rLFXzVPo8G2bWnrZ96tiHp6SwXIFFOdiz9E2BHeUHnD6FUz0ntdRUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792798614;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Mgo2dnohmbku8+6gd0EG9FENz+puwwm3rQ80la31iuE=;
-	b=KnhjCzozGB2S9vFaQXN6e+lUIzsj6OQANi3sKbPb67XXmqa3IgmAK3RRdSAMTw9pu1qK
-	 DPr6xgORv/e38DvpzZwI4MKH26+KOouJypddrLLzijf5+hocKwthruMFOofIBa7fqvGv/
-	 0ioFzX1btuImXPqZqbL/8oqn2DILvNaX7IxHi7ySD62wbJn9gUlugkPvuvVuFK/rMBQE2
-	 BanKP8mn4MmVCfsTe30hpsLkcfNdXRO9P057BuWLocBMMjubif58TaVGizy+2+Khooq/M
-	 SiMHWGpXFhTG6kf3Cn0En/5bEYksx8XiLCXBBHSlKcN+2HJrKtr8AnmGzOz0M1JBPJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=moYOHMFI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c4I47cja;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792798747;
+	b=G7DcfhWpdYYxqVQyNuxrkYgKsSPWJZIec7nnxWiHEZ6uXVKwQInHJY2PEU9Z7CGmf6Tw
+	 XLfcoF07MpB5YCJdKRhYWsZjekTuRRmVuYRjTD5sDUdIcI5bynNMmBnQALjZfHhNDCcUJ
+	 JNRysJqg01tKl7rAGTT763I0A3YjMuojQatElmyiP+2WxOMNYxF0NtY7VvTAs8Bk0qxy6
+	 EBtrnYGfETr+4sPgT3VpgXhGaX/TwnEfnnUhkwzQVeYwwnhikWuErZvhrwf3tjC3XXoIZ
+	 NwrLlQ4CdkPWMazDn1ixng9R10bgOkLu6yfW0I9FTZKazU0EVRtv90ccDv46LgfLJaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792798747;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aimS7WOX4+iFi8PQPFSUhpjDeNXHySq/D50+MFe/QW0=;
+	b=Osmd/5CahbdUvZRRVq6KLWdCUDkw8d9yhKZSHgweobtL/aqYIGgC5P40srgMlqC1GsuD
+	 PLPHA8olF8RPAxQ9HdEPp0AGn2XGBn5B25okHdYvEmtWUf0fSLbBkzACx+mk4w1SKPHWk
+	 R3PqCPrYyjK6+RfWYPorWpC3VLnprpFWHO61+NQt73ZbGs2R0kuo5cllKiM0C4OmPoXKP
+	 SHohvle/quRucMOHXfYB4iQ2Ak+svhtxM4FGc2yCqHAgFX/QRCiCN2hiuptNxjGWS35US
+	 wUt4WDtuhsS1DRPjHI1MbXC9MM6LYYsruS59q1fKV/jzP9Qjg97FMTV/aVpt+YpCTDA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bL5XLpD0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F558606A31E
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 23:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F558606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F4C606A31B
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 23:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99F4C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=moYOHMFI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c4I47cja
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NLunOV3115210
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 23:36:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Mgo2dnohmbku8+6gd0EG9FENz+puwwm3rQ80la31iuE=; b=moYOHMFI/3MRcJDz
-	ZA8WnN7yEfSkWsyYp8v9+QFucDkTCQC8SKcTMqg6RzdAtSjs3QzyZzQWJj0B/Ck0
-	RUVQ95Vua/zwF3kcxhebMt86PgFMZy42QbaGG1wXhzJI9u5QVSOEYPxzcdwRGL5g
-	v8e/Cwpg5r/HTWQirguGNfljG9bsB9eUsY068Ty7mtfFWZ0WCbFD0USBCprfm2Cv
-	tP4D5MY2tkdIdOtYAMZUXZa5Di76LOUTGCgvyc8GSjD9Fx7Ln0TieTpXRURC96qg
-	+UKV4UvxmqsF+PWNhqI2HT9ElC6Wn/6oWhECs9FABEYmXr70LNHco9j/K0M4FKGi
-	fs/lwA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgcrt8w4k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 23:36:53 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caa0ce0cdso175560885a.2
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:36:52 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bL5XLpD0
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b05bf699easo14030137b3.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:39:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792798745; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Kn837sjVios4l97cAmX2VGzQ8Civi8yKCLEHeeJmbSdcQpXc9BP5+aUNVAt+B9fEex
+         ycaaRpLc9/7AIA16frXeu3+VqSO28V+4yRrfUi1H6qxfMbAF9Dq3S3/bHSk8VwHP6fFf
+         FEZp7fEsQmL22Xw1rKd1zLOYiAJHynwNg1WrImDzQQE8B2H1w/0yJBJrtBK3r0WU17uw
+         JTBt7pji5GtveYHy7Sx+XNPiukPvVRPjZv2WZma1OxTsW/aGD0AhFy+LaCOH4VHsCx4H
+         xryVk0ObfIATtEF3sEU3nZHVjy9YyI76gBYHv1tOJ1y2rLL3JaXZriAfmOpNwtRW9Kv8
+         TBYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aimS7WOX4+iFi8PQPFSUhpjDeNXHySq/D50+MFe/QW0=;
+        fh=cUJwHRm9Gn0yh5qJe2ozfN6nLLKkDRZOhbgaAiV8jQE=;
+        b=N+ZjN/4/If1FVPcpW3fC2KdMYr3M8VRRioRQX5gCW/mQv4P8wvsExYS+fq2bi+lQ0A
+         39mJB9InRGWNTAmdX4cWLTwftfJfp8SiGsEpX8wWeGVCCKcjgoXoPsHBE3paLieiA9rg
+         51V8cTCmyjZfld4JD1INA8p0iz2q2eW0sT2Lcuzn1KYu7wS8yGZghbRXv/kKuhvT269v
+         LlpY4krbCB+Es/tUPbPVgyPpkXvPpF1TJPm1wWRFS+tkhSvQmNs1xEqvlTlQce+nwzym
+         XSueo6m7q4fEiOYswNP8g3QcLO3pkQqRXO0GD1nVUTOShHOyu/5+tFORw1r7AfF09V2z
+         8wMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792798612; x=1793403412; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mgo2dnohmbku8+6gd0EG9FENz+puwwm3rQ80la31iuE=;
-        b=c4I47cjap9cm8QKDpMAe44buBkGC0RmgyOJxfnqJy/P6NQTR/NvdfBXC/UZbiCcVcZ
-         cswdAQ23gXOMs4spvSMdjP8zz9BOh2+lfHs9l+5XwjzP5i5RHXwWmTPrjO/KUMsSfrLK
-         dzPzXNDcNheRRG9P+kcdjK6ymP2xmlyoYvEzIwRU3pxT4gadeAobSGFRsSS0sMX/N1ph
-         ojyKlvK1f7jiWEPkfzAx+yDCyWjBvotgmoZihZVmDNSndiCZypAw4OapBMiRa9ksjGNi
-         5N7w70Og+N+PSEUcUWRbUtmyvWHD0vj/sAJexDvWT+oX3aQTt47yPwl6wbx1Z0x+cBc4
-         yPFA==
+        d=chromium.org; s=google; t=1792798745; x=1793403545; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aimS7WOX4+iFi8PQPFSUhpjDeNXHySq/D50+MFe/QW0=;
+        b=bL5XLpD07fdBCpJkImNx5aN5kWR3bi9nyZMzVT6w5jTaU6HUEDEV8QZANEU8kdlbgN
+         jkH+SEcNyMzlD+wpzCycC53DHoXBkFA0t9gQWE3QAvITHL5KLmwdL6LY8J9DUFmhJwDt
+         ocPsXjfV4eaoMfRqqQ4yMSf6ifzqjjaqfwwYE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792798612; x=1793403412;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Mgo2dnohmbku8+6gd0EG9FENz+puwwm3rQ80la31iuE=;
-        b=A7m6GLBYTOzVykE+qxnttGuYkjdI8887AN+hYG3MJnzA98w0i+lHuVfCuFtQwF12ud
-         c7n9WS0hdY+zWKH344fne3wlIx4rIOF4G653kO2ml2xlQ0tFJaCxDk/r734f2SDBdwYB
-         Bmzaf0cwti0ZlO6bXeyWfBD/tAh2luQhXo0M+rbQ5hBqMxOYspDqb3yyQQG0NGq2IHJM
-         RfftpSpvl6JMl5UQkZZv55Rv2WSDmHuzB1GYTjYly0QL663IPuPA1cWrdlvxAoIrUUZq
-         angoixsYk8JEI+CTdXmXw7UbgqBVuqKD5dKV6NZm/zues+p86Z8ff8Ff+Ui8bi1iQh2v
-         Tqrw==
-X-Forwarded-Encrypted: i=1; AKwUvBwX+aWWi/IAMicsf1TOaQzMI3l+o9t2Jf6GP9Yb9HX255J+StJmrPqsSMgNYOsUAcyejQm9n34yPmG7@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2mHxjZlnlK5ZA08APdqxjFvs9Yl9ile/0UBH0XV6tVFj7nNYV
-	ftOvlv1uEyDIVYLanUOfuptob2Nsq4hKCKdI2vkozMVd+AsWt9CAr+75+ELDuzWCOFKhx9vUoJe
-	q/e6izXhurINqlDwQ/hlqEOsTsJjP8C0ql/ECyymWgv+vhR79GzyqHah3x+Kt0JlF
-X-Gm-Gg: AYBFou2zSqyaCituPxIa6K2P1fN2nRBKcnLsp5J+wP1fW5NSmslFar/P7W+EueWMq0M
-	6nr4/r6PPY7Aq5a3H6ucEOGlyCYUr1MQi5R9ROlzDf2e8IYFPY6QzuWK7qJmpeCbjcWoQmxuIN8
-	VtktQaYMuSYwGPZxw6E+rr0O6A9Ll517RWvNKjscyAzKLxrdLws4DFhqR89T89zTHs+UdIg9GwE
-	9fMUOFXdVqyG6fLQDsd1Tt+hNsUU2l716wYPNkq4Izy6xerVCoXgzlcrKw4d8LMHVCCrttvB40e
-	/SX+dTzM90ZPgcxB8WJgcXlL+z0bZP5Syh3y58mp0KlXlIQwz7r7ziMXgzXH946TJ/XQK6UyIXN
-	LOqFkniDc52dXj8KFoiOUSVId/qWA+lNdo1fCUkNWx1Z7+ww+T+LoIts420t2hqGsAcztFdYwPY
-	LAa9VVyPnPuTgD
-X-Received: by 2002:a05:620a:370b:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-940ef938f5fmr84045485a.31.1792798611969;
-        Fri, 23 Oct 2026 16:36:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:370b:b0:93b:eb9a:ca47 with SMTP id af79cd13be357-940ef938f5fmr84041285a.31.1792798611386;
-        Fri, 23 Oct 2026 16:36:51 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6b051sm67463e87.14.2026.10.23.16.36.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 16:36:49 -0700 (PDT)
-Date: Sat, 24 Oct 2026 02:36:47 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-Message-ID: <o2zmplbtmoueumw3iqejfsdmucp5f66woa5hmw3vodbe66reab@syn2ashugzyg>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
- <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
- <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
- <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
- <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
- <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1792798745; x=1793403545;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aimS7WOX4+iFi8PQPFSUhpjDeNXHySq/D50+MFe/QW0=;
+        b=SQD29N8Yb3JHd/kMS+GSeDK5xTXX/SmTrkzs+1dIFmiUuYGicqAjN8T1zUyzqCbySC
+         E1aIn3XVSm4RBX2TcAXlsusjWM15Xd3CtMHV/UocGrTa3Pf53DTj2mLLY9HlG8e60+a9
+         YcSjcWLs0yziETxCfhd/rsbI8TmtGgr3ff3IiWNPD35GtY3eC7qi57wBt87xlbcljKvK
+         uazkeLbMuB6TxQTojZKP7Qnrby1ajC5vXugO9fmbqcF7KGAcHzkI5NCnSGfmFOMwyhq3
+         /OuGWXlo3DQ0t+3AQnoMzrdUEEDxKW6B+dF5tEZ0xz50u19VMCte7u8TyEIFDw7xtpQC
+         tz0g==
+X-Forwarded-Encrypted: i=1; AKwUvBy4vby81HOkEam08A1X9Ovu3rTLVCjhmlhHgGYPPv4lSwOPllqOLz2yawvgsmJS60944tVfU1NP7Cgk@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTgK4lt+PAKPX8V4atycF9JGQ7C0aykUJho4q7NxQjsckcN2J5
+	pKNpDu3jRHYYwZ5lhF/n+A+tzrlTwOHpqNtrEolSFnl4Igk+RdTIcomIk41oP5+4hUvdi8Nc8TN
+	9ppXdL4iE2UOFqaUEyKwC5kC7KnJp/Uycqn/yPaWDZTPiBTuAYZhB2w==
+X-Gm-Gg: AYBFou2FN7YvEvyRaFqlvTq0D0LhMBNFaceu644yqVcFDe7JKPFS4TKLqyMZiyi3Wg3
+	EnLct09W2mt45Gjy9vSRqn0VBBOfUFmggUotjZJaDSxZCcatyVqKVTMtB1Jr5KDwaC2VOcN/4IU
+	pb0WUr2U6OS1aAC1La+s7dVZXx2g8+0PVjibF1G1TCGoqBB5cgQxKtEJjvqydiregoyqRpZd+/r
+	OWAuaixw3E1ISRpvPmrHpQ3gnK0sgQOkeEruIdbpWZCyfPErChT1xhFG22QxiMbmq1PRtsDsl8e
+	m4/1WY1pg0Hf0r0kuLCz5zBgSIGRmex2V2bnFDAeb+MOhW90BYPsz5RWqjbyD7JwiYMfRXLzKbm
+	USpKjfXesoU2RQhPeaztlaeYzeRR+HTP+tQwWdqjWop2AjykhI9EWdIAyjAuwy7vn4g==
+X-Received: by 2002:a05:690c:c9e:b0:8b0:c921:92e with SMTP id
+ 00721157ae682-8b166c4ababmr5255127b3.54.1792798745513; Fri, 23 Oct 2026
+ 16:39:05 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -148,109 +101,430 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA5MyBTYWx0ZWRfX4sm8ghMoUmb0
- q7TzfjWg/Jp3HT1WTqYrzRfR5Z+AzP11fIwqnq4RmPR8BdokQeI56+13kucK9jpoxl6tLZ8Lw68
- JBFZZcfSPIpJ5K/H/Brsz03SA6kauLk=
-X-Proofpoint-ORIG-GUID: KLkfgbTHs842_Y-PGbcR6-x_n9Ul187h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA5MyBTYWx0ZWRfXwVz4mkbGrQkL
- V+yOq1WmzkILy6siaML47f0buwgB+wZjl5x3LGfSXIllWQcIEuqjTvU5K1hTckgbgCoOz+LhIRL
- z/CY3Baq3ZGeRv06bPlO/QMunFr1asZ6hLEwYaxO8UWsZX05XLXNuppgFcrYKeCSc3GXs7/cKhN
- HRX6sYCIiOQGJXaNJADSMajqB0SE/ZLRxii0MpR3yB/wWHPZhm/jNDIz6fUSVE2ROsTIBG6l3U3
- 4CLE31w3d0/ltYFsjJPJfjC6RBhomK5D27jfs6cc9/faQaVQAt0qfy1Wo33s4pYrM+GTsQassO2
- /82LvJ32exjAMfmim2rso1daDbfqLIeKbYBXvz2v5nU8+gSESKa5Ek6gHllT7eTINRdx5UViIPg
- /1HiZHmtqsy1lqdMLM6ymzEWpsUCuSXiGo2JCf07yfFg9xJpB4gP9e8Y0vzfVfuZbE4lOrnHKe9
- isN2wf1XO1uO4x/ZvZA==
-X-Authority-Analysis: v=2.4 cv=E7lYNqdl c=1 sm=1 tr=0 ts=6adbef95 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=9jRdOu3wAAAA:8 a=s7fkfekX88plzggl2-cA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-GUID: KLkfgbTHs842_Y-PGbcR6-x_n9Ul187h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230093
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-10-cb9ba4b3d6fa@chromium.org> <sashiko-outbox-178144@kernel.org>
+In-Reply-To: <sashiko-outbox-178144@kernel.org>
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Fri, 23 Oct 2026 16:38:54 -0700
+X-Gm-Features: AclHuK8uEa43z9JyE9axDo9YiPWsBeLihmL2U6YIIVjA17r70unKjmeacRPtRjo
+Message-ID: <CAEe3GZFz7D0F94gnqAG-aWfTDQc3jFw775jNdLNKiN1SsRukQg@mail.gmail.com>
+Subject: Re: [PATCH v6 10/11] HID: spi-hid: add power management implementation
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	dmitry.torokhov@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 23, 2026 at 03:16:27AM +0530, Akhil P Oommen wrote:
-> 
-> 
-> On 10/22/2026 6:24 PM, Anna Maniscalco wrote:
-> > On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
-> >> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
-> >>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
-> >>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
-> >>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
-> >>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
-> >>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
-> >>>>>>>> In order to associate the SID used by LPAC to it's own domain and
-> >>>>>>>> context bank we need a separate node on the DTS.
-> >>>>>>> Can we use iommu-map instead of adding a new device using the same
-> >>>>>>> addresses? You provide zero explanations, but it seems like you are
-> >>>>>>> trying to separate a part of the GPU into a separate device, but it's
-> >>>>>>> unnecessary.
-> >>>>>> What I was trying to say is that we need to map sid0 and sid1 to different
-> >>>>>> context banks.
-> >>>>>>
-> >>>>>>  From what I recall, so long as we use the same dt node, the iommu drivert
-> >>>>>> provides no way of doing this.
-> >>>>>>
-> >>>>>> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
-> >>>>>> and secure.
-> >>>>>>
-> >>>>>> The address on the lpac device doesn't really matter. I have very limted
-> >>>>>> knowledge of DTSs but I think we could just leave it out altogether?
-> >>>>> I think, you were poined to the Glymur Iris patches. Another option is
-> >>>>> the QDA driver being submitted too. Both ot them use iommu-map to
-> >>>>> describe the same usecase - a set of SIDs which are used by the device
-> >>>>> but which should not be a part of the defaut set. With it in place you
-> >>>>> don't need to have separate qcom,lpac devices, no additional properties,
-> >>>>> etc.
-> >>>>>
-> >>>>> I'd recommend following the same approach.
-> >>>> iiuc, the conclusion in this recent thread is to use child nodes for a
-> >>>> similar case:
-> >>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
-> >>> Let me check internally.
-> >> After a brief discussion: it can be either, depending on what suites
-> >> better (and if you can persuade DMA / IOMMU maintainers to let one extra
-> >> bus or not).
-> >>
-> > One thing sashiko is pointing out is that new dt should work with hold kernel so, in general moving sid1 from there would break it since old kernels don't know how to handle them separately.
+On Mon, Oct 19, 2026 at 12:36=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 5 potential issu=
+e(s) to consider:
+> - [High] hid: spi-hid: disable_irq() before cancel_work_sync() in spi_hid=
+_suspend()
+> - [High] hid: spi-hid: unchecked deassert_reset() and reset timeout in re=
+sume/suspend
+> - [High] hid: spi-hid: holding power_lock in spi_hid_wait_for_reset() blo=
+cks recovery
+> - [Medium] hid: spi-hid: spi_hid_resume() runs reset_resume before pendin=
+g reset_work
+> - [Medium] HID: spi-hid: skipped power-up in spi_hid_resume() when wakeup=
+ is enabled
+> --
+>
+> commit 943f2d7ec87adee993c65a27b7655a39b4d0ef5c
+> Author: Jingyuan Liang <jingyliang@chromium.org>
+>
+> HID: spi-hid: add power management implementation
+>
+> This commit implements system sleep power management callbacks for the
+> HID over SPI transport driver, handling device suspend, resume, reset
+> synchronization, and wake IRQ setup.
+>
+> > diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/s=
+pi-hid-core.c
+> > index 96805c10bfe36..c2232d5959b88 100644
+> > --- a/drivers/hid/spi-hid/spi-hid-core.c
+> > +++ b/drivers/hid/spi-hid/spi-hid-core.c
+>
+> [ ... ]
+>
+> > @@ -242,6 +250,148 @@ static const char *spi_hid_power_mode_string(enum=
+ hidspi_power_state power_state
+> >       }
+> >  }
+> >
+> > +/*
+> > + * Wait for the device descriptor response after reset; the device the=
+n takes
+> > + * requests. Set READY here: the report descriptor check that normally=
+ sets it
+> > + * needs power_lock, which callers hold.
+> > + */
+> > +static void spi_hid_wait_for_reset(struct spi_hid *shid)
+> > +{
+> > +     unsigned long timeout =3D msecs_to_jiffies(SPI_HID_RESET_TIMEOUT =
++
+> > +                                              SPI_HID_RESP_TIMEOUT);
+> > +
+> > +     if (!wait_for_completion_timeout(&shid->reset_done, timeout)) {
+> > +             dev_warn(&shid->spi->dev,
+> > +                      "Device descriptor not received after reset\n");
+> > +             return;
+> > +     }
+> > +
+> > +     set_bit(SPI_HID_READY, &shid->flags);
+> > +}
+>
+> [Severity: High]
+> What happens if an error occurs during the post-reset handshake while a
+> caller is waiting in spi_hid_wait_for_reset()?
+>
+> Both spi_hid_resume() and the power_down() rollback path in
+> spi_hid_suspend() hold shid->power_lock across spi_hid_wait_for_reset()
+> and hid_driver_reset_resume().
+>
+> If a transient bus error, header validation error, or descriptor error
+> occurs in spi_hid_dev_irq(), spi_hid_reset_response(), or
+> spi_hid_dev_desc_response(), the driver sets SPI_HID_ERROR and schedules
+> shid->reset_work to run spi_hid_error_handler():
+>
+>   spi_hid_reset_work()
+>     spi_hid_error_handler()
+>       guard(mutex)(&shid->power_lock);
+>
+> Because spi_hid_wait_for_reset() is sleeping with shid->power_lock held,
+> spi_hid_error_handler() blocks on shid->power_lock and cannot perform any
+> of its SPI_HID_MAX_RESET_ATTEMPTS recovery resets until
+> spi_hid_wait_for_reset() times out after 2000 ms and spi_hid_resume() or
+> spi_hid_suspend() returns. That leaves SPI_HID_READY cleared when
+> hid_driver_reset_resume() runs, and delays the error reset until after
+> resume finishes.
 
-The rule is the opposite: new kernels must continue to work with the old
-DTs. If the new DT breaks with the older kernel, just specify it in the
-cover letter so that Bjorn doesn't merge DT changes before the driver
-changes find the way into his tree.
+Will fix in v7: resume no longer calls hid_driver_reset_resume() when the
+device is not ready. Delaying the error reset until resume returns is
+intentional.
 
-> > 
-> 
-> + Bjorn/Konrad
-> 
-> Not sure how strict is the requirement for compatibility with older kernel version. An
-> option in your case could be just do an override in the board dts file of the
-> Steam Frame.
+>
+> > +
+> > +static int spi_hid_suspend(struct spi_hid *shid)
+> > +{
+> > +     int error;
+> > +     struct device *dev =3D &shid->spi->dev;
+> > +
+> > +     /* HID driver suspend may talk to the device; responses need the =
+IRQ. */
+> > +     scoped_guard(mutex, &shid->power_lock) {
+> > +             if (shid->power_state !=3D HIDSPI_OFF && shid->hid) {
+> > +                     error =3D hid_driver_suspend(shid->hid, PMSG_SUSP=
+END);
+> > +                     if (error) {
+> > +                             dev_err(dev, "%s failed to suspend hid dr=
+iver: %d\n",
+> > +                                     __func__, error);
+> > +                             return error;
+> > +                     }
+> > +             }
+> > +     }
+> > +
+> > +     /*
+> > +      * disable_irq() waits for a running IRQ thread, so no new reset_=
+work
+> > +      * can be queued after it returns. Then wait for any queued or ru=
+nning
+> > +      * instance. Must not hold power_lock here: reset_work takes it.
+> > +      */
+> > +     disable_irq(shid->spi->irq);
+> > +     cancel_work_sync(&shid->reset_work);
+>
+> [Severity: High]
+> Can calling disable_irq(shid->spi->irq) before
+> cancel_work_sync(&shid->reset_work) starve an in-flight synchronous
+> request in spi_hid_reset_work()?
+>
+> If shid->reset_work is already running when spi_hid_suspend() disables th=
+e
+> IRQ, it may be executing a synchronous request in:
+>
+>   spi_hid_reset_work()
+>     spi_hid_reset_response() / spi_hid_create_device() / spi_hid_refresh_=
+device()
+>       spi_hid_sync_request()
+>         __spi_hid_sync_request()
+>           wait_for_completion_timeout(&shid->output_done, ...)
+>
+> Since shid->output_done is completed by spi_hid_response_handler() from
+> the threaded IRQ handler spi_hid_dev_irq(), disabling the IRQ first
+> prevents the response interrupt from being serviced while
+> cancel_work_sync() waits for reset_work.
+>
+> This stalls cancel_work_sync() for the full SPI_HID_RESP_TIMEOUT, fails
+> the request with -ETIMEDOUT, clears SPI_HID_READY, sets SPI_HID_ERROR,
+> and triggers dev_WARN_ONCE() in spi_hid_reset_response():
+>
+>         error =3D spi_hid_sync_request(shid, &report);
+>         if (error) {
+>                 dev_WARN_ONCE(dev, true,
+>                               "Failed to send device descriptor request: =
+%d\n", error);
+>                 set_bit(SPI_HID_ERROR, &shid->flags);
+>                 schedule_work(&shid->reset_work);
+>         }
+>
+> For wakeup-enabled devices, this also leaves the device suspended with
+> SPI_HID_READY cleared (causing spi_hid_input_report_handler() to drop
+> wakeup input reports) and SPI_HID_ERROR pending. In addition, because
+> shid->power_lock is released after hid_driver_suspend() and before
+> disable_irq(), spi_hid_create_device() or spi_hid_refresh_device() in
+> spi_hid_reset_work() can register a new shid->hid in that window that
+> never has hid_driver_suspend() called on it.
 
-Anyway, would it be a problem? Does GPU normally use SID 1? Or is it
-only used by the LPAC?
+Will fix this in v7.
 
-> 
-> -Akhil.
-> 
-> > Not sure how to address this.
-> > 
-> > Best regards,
-> 
+>
+> > +
+> > +     guard(mutex)(&shid->power_lock);
+> > +     if (!device_may_wakeup(dev)) {
+> > +             if (shid->power_state !=3D HIDSPI_OFF) {
+> > +                     /* Device is fully reset on resume; drop stale st=
+ate. */
+> > +                     clear_bit(SPI_HID_READY, &shid->flags);
+> > +                     clear_bit(SPI_HID_RESET_RESPONSE, &shid->flags);
+> > +                     clear_bit(SPI_HID_CREATE_DEVICE, &shid->flags);
+> > +                     clear_bit(SPI_HID_ERROR, &shid->flags);
+> > +                     set_bit(SPI_HID_RESET_PENDING, &shid->flags);
+> > +
+> > +                     shid->ops->assert_reset(shid->ops);
+> > +
+> > +                     error =3D shid->ops->power_down(shid->ops);
+> > +                     if (error) {
+> > +                             dev_err(dev, "%s: could not power down\n"=
+, __func__);
+> > +                             shid->regulator_error_count++;
+> > +                             shid->regulator_last_error =3D error;
+> > +                             /*
+> > +                              * Undo partial suspend before returning =
+error.
+> > +                              * Complete the reset; RESET_PENDING stay=
+s set
+> > +                              * until the device sends its reset respo=
+nse.
+> > +                              */
+> > +                             shid->ops->sleep_minimal_reset_delay(shid=
+->ops);
+> > +                             reinit_completion(&shid->reset_done);
+> > +                             shid->ops->deassert_reset(shid->ops);
+> > +                             enable_irq(shid->spi->irq);
+> > +                             if (shid->hid) {
+> > +                                     spi_hid_wait_for_reset(shid);
+> > +                                     hid_driver_reset_resume(shid->hid=
+);
+> > +                             }
+> > +                             return error;
+> > +                     }
+> > +
+> > +                     shid->power_state =3D HIDSPI_OFF;
+> > +             }
+> > +     }
+> > +     return 0;
+> > +}
+> > +
+> > +static int spi_hid_resume(struct spi_hid *shid)
+> > +{
+> > +     int error;
+> > +     struct device *dev =3D &shid->spi->dev;
+> > +     bool was_reset =3D false;
+> > +
+> > +     guard(mutex)(&shid->power_lock);
+> > +     if (test_bit(SPI_HID_DEAD, &shid->flags)) {
+> > +             /* Stay off; only balance disable_irq() in suspend. */
+> > +             enable_irq(shid->spi->irq);
+> > +             return 0;
+> > +     }
+> > +
+> > +     if (!device_may_wakeup(dev)) {
+> > +             if (shid->power_state =3D=3D HIDSPI_OFF) {
+>
+> [Severity: Medium]
+> Can gating the power-up path on !device_may_wakeup(dev) and
+> shid->power_state =3D=3D HIDSPI_OFF leave the device unpowered across res=
+ume
+> or hibernation restore?
 
--- 
-With best wishes
-Dmitry
+This is addressed in 11/11.
+
+>
+> In this commit, if shid->power_state is HIDSPI_OFF while
+> device_may_wakeup(dev) is true (for example, if power/wakeup is enabled
+> while suspended or after a failed power_up()), spi_hid_resume() skips
+> powering up and resetting the device. A later commit in the series ("HID:
+> spi-hid: add panel follower support") removes the outer
+> !device_may_wakeup(dev) check in spi_hid_resume(), but hibernation still
+> has a related problem when wakeup is enabled.
+>
+> Because spi_hid_core_pm uses SYSTEM_SLEEP_PM_OPS(spi_hid_core_pm_suspend,
+> spi_hid_core_pm_resume), .freeze, .thaw, .poweroff, and .restore all call
+> spi_hid_suspend() and spi_hid_resume(). When device_may_wakeup(dev) is
+> true during hibernation:
+>
+> 1. During .freeze, spi_hid_suspend() sees device_may_wakeup(dev) and skip=
+s
+>    clearing SPI_HID_READY, asserting reset, calling ops->power_down(), an=
+d
+>    setting shid->power_state =3D HIDSPI_OFF. The hibernation image theref=
+ore
+>    saves shid->power_state as HIDSPI_ON (and conf->supply_enabled as true
+>    in spi-hid-of).
+>
+> 2. During .poweroff, spi_hid_suspend() again skips powering down the
+>    device, and platform power is then removed by S4 or by the boot
+>    kernel's .freeze before image restoration.
+>
+> 3. During .restore, spi_hid_resume() sees shid->power_state =3D=3D HIDSPI=
+_ON
+>    from the restored image, skips assert_reset(), power_up(),
+>    deassert_reset(), and spi_hid_wait_for_reset(), and calls
+>    hid_driver_reset_resume(shid->hid) while the hardware is unpowered or
+>    held in reset.
+
+Will address this in a follow-up patch.
+
+>
+> > +                     shid->ops->assert_reset(shid->ops);
+> > +
+> > +                     shid->ops->sleep_minimal_reset_delay(shid->ops);
+> > +
+> > +                     error =3D shid->ops->power_up(shid->ops);
+> > +                     if (error) {
+> > +                             dev_err(dev, "%s: could not power up\n", =
+__func__);
+> > +                             shid->regulator_error_count++;
+> > +                             shid->regulator_last_error =3D error;
+> > +                             /* Suspend runs next even if resume fails=
+. */
+> > +                             enable_irq(shid->spi->irq);
+> > +                             return error;
+> > +                     }
+> > +                     shid->power_state =3D HIDSPI_ON;
+> > +                     reinit_completion(&shid->reset_done);
+> > +                     shid->ops->deassert_reset(shid->ops);
+> > +                     was_reset =3D true;
+> > +             }
+> > +     }
+> > +
+> > +     enable_irq(shid->spi->irq);
+> > +
+> > +     /*
+> > +      * For devices that may wake up, process work that was pending wh=
+en
+> > +      * suspend cancelled reset_work. Otherwise suspend already droppe=
+d it.
+> > +      */
+> > +     if (test_bit(SPI_HID_RESET_RESPONSE, &shid->flags) ||
+> > +         test_bit(SPI_HID_CREATE_DEVICE, &shid->flags) ||
+> > +         test_bit(SPI_HID_ERROR, &shid->flags))
+> > +             schedule_work(&shid->reset_work);
+> > +
+> > +     if (shid->hid) {
+> > +             if (was_reset)
+> > +                     spi_hid_wait_for_reset(shid);
+> > +             error =3D hid_driver_reset_resume(shid->hid);
+>
+> [Severity: High]
+> Should spi_hid_resume() and the power_down() error rollback in
+> spi_hid_suspend() check the return value of shid->ops->deassert_reset()
+> and handle timeouts from spi_hid_wait_for_reset()?
+>
+> Unlike spi_hid_core_probe() and spi_hid_error_handler(), both sites ignor=
+e
+> the return value of shid->ops->deassert_reset(shid->ops) (which evaluates
+> the ACPI _RST method in spi_hid_acpi_deassert_reset() or drives the reset
+> GPIO in spi_hid_of_deassert_reset()).
+>
+> If deassert_reset() fails, or if the device fails to respond before
+> spi_hid_wait_for_reset() times out, spi_hid_wait_for_reset() only logs a
+> warning and returns without setting SPI_HID_READY, setting SPI_HID_ERROR,
+> or scheduling shid->reset_work (and if shid->hid is NULL,
+> spi_hid_wait_for_reset() is not called at all).
+>
+> Both functions then unconditionally call hid_driver_reset_resume(shid->hi=
+d)
+> while SPI_HID_READY is still 0, causing any synchronous HID requests
+> during reset_resume to fail with -ENODEV in __spi_hid_send_output_report(=
+),
+> and leaving the device stuck in SPI_HID_RESET_PENDING with no recovery
+> scheduled.
+
+Will fix this in v7.
+
+>
+> [Severity: Medium]
+> Also in spi_hid_resume(), what happens when a wakeup-enabled device
+> (was_reset =3D=3D false) resumes while reset or recovery work is pending?
+>
+> When SPI_HID_RESET_RESPONSE, SPI_HID_CREATE_DEVICE, or SPI_HID_ERROR was
+> pending when spi_hid_suspend() cancelled shid->reset_work, SPI_HID_READY
+> is 0.
+>
+> In spi_hid_resume(), schedule_work(&shid->reset_work) queues the worker
+> asynchronously while shid->power_lock is still held, spi_hid_wait_for_res=
+et()
+> is skipped because was_reset is false, and hid_driver_reset_resume(shid->=
+hid)
+> is called immediately before shid->reset_work can complete the reset and
+> set SPI_HID_READY.
+>
+> As a result, __spi_hid_send_output_report() rejects any feature or output
+> reports sent by hid_driver_reset_resume() with -ENODEV:
+>
+>         /* While not READY, only (re)init descriptor requests may be sent=
+. */
+>         if (report->report_type !=3D DEVICE_DESCRIPTOR &&
+>             report->report_type !=3D REPORT_DESCRIPTOR &&
+>             !test_bit(SPI_HID_READY, &shid->flags))
+>                 return -ENODEV;
+>
+
+Will fix this in v7.
+
+> > +             if (error) {
+> > +                     dev_err(dev, "%s: failed to reset resume hid driv=
+er: %d\n",
+> > +                             __func__, error);
+> > +                     return error;
+> > +             }
+> > +     }
+> > +     return 0;
+> > +}
+>
+> [ ... ]
+>
+> > @@ -1454,6 +1620,25 @@ void spi_hid_core_remove(struct spi_device *spi)
+> >  }
+> >  EXPORT_SYMBOL_GPL(spi_hid_core_remove);
+> >
+> > +static int spi_hid_core_pm_suspend(struct device *dev)
+> > +{
+> > +     struct spi_hid *shid =3D dev_get_drvdata(dev);
+> > +
+> > +     return spi_hid_suspend(shid);
+> > +}
+> > +
+> > +static int spi_hid_core_pm_resume(struct device *dev)
+> > +{
+> > +     struct spi_hid *shid =3D dev_get_drvdata(dev);
+> > +
+> > +     return spi_hid_resume(shid);
+> > +}
+> > +
+> > +const struct dev_pm_ops spi_hid_core_pm =3D {
+> > +     SYSTEM_SLEEP_PM_OPS(spi_hid_core_pm_suspend, spi_hid_core_pm_resu=
+me)
+> > +};
+> > +EXPORT_SYMBOL_GPL(spi_hid_core_pm);
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261019-send-ups=
+tream-v6-0-cb9ba4b3d6fa@chromium.org?part=3D10
