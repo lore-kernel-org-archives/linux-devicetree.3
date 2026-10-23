@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773103;
-	b=0h06fgpIAaFqfpaGfu2JY1BmwYeMLA7aejMZy+u63fHoW72psgkA9Ka15uLUbUyhiqp2
-	 dXwB6NzBkeYCn1Hya1pJEphaZn1AHJLQOqY/Ft1VGbZQV7ayl5/xwpQ6VR4OnSH3ewOxv
-	 7vPx5nr8KJtIZ5hVZL6JPjMr7PHz5EEUZ8cXE5m1jYEAA6IKgdLwMCfveiMqmgEnecbCC
-	 gfdqkWvVLxiElX/7nqgRgNyFPSvzUvJlSpTYys1h4iMNkXrqBBybKH59yTrY8ubHEcOJd
-	 9XxxOFxufhCoS9SINGFwp44xGpDJV0C+58SVsWrnhur6dIAlgJytWCFB8QsepffE4Ig==
+	t=1792773091;
+	b=uBz0geHdwwhwLjhOhWk8SgzDGY8lrM+KWomg0CIwAlvrkb/5pyuSb+tD4H2m7U/axLBZ
+	 FK1M7q5Tx6EiXL1d6ZgbN1qCF2PNXwyTvNUI8Zkpt6HNztvS1QTAQjKEzX3Bla7SfKtoC
+	 YIDnxb1W+sbIGtyfcETCI6T+psQdV6gKIYEnZ6+/Ub3Tsz3Q1e0GCJgFKvSkkkiPMM82Y
+	 BnBAg7IvF/D8SmWaIdhsr/DD7ln6JyxSL58hhGlHMUsiRxNjzaGeMsDgRKEB0irRpgWtP
+	 zzSC0y5vy99j9DO+JwR8z1erdafMMlyk1TT2CKtUI3FnaWDKqDH3M2LpOdtXDTOAuqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773091;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=swxZPfAE+XKiBGgPkPSSVz6+hoNK2qNoB11MCd8pTdY=;
-	b=5lcibs3qxInLvz+DsTqy/A5i8GZnTFUTcAjxGIaEieahfSYiI9CYEQaLDQfs9tizcL9E
-	 1B+hUZdXjxy7EwwKmftGWbfCpjGa94J76v2/D+h6C0mkYIBH+l2fWOGjxSu1KQZT9NWLQ
-	 MOF4RlnZF1kEdO/UwHMf/ReOA6u57a5IMrUsu5ZPwpjgod3TGGxiY2X8n+3TYgZEf9F7i
-	 X4p2IagpdhyrJL/+vOn7dtwFwv41yJh+Y1IuHVochG6HmBM/3kMn7EtS6P7K4wZjYmu4u
-	 p5pkgNzW0MOkPlxuHxfMOhQUmfwe8F9P2xkGFLN9ePg9T7/Iyp1NqMKKixKu0SDfkaw==
+	bh=9OBLysERVKI0mTP1gmUyg2K+fopZDSSLSHMaqGKKL5A=;
+	b=QofFY3nxr0QoAwxrzyhRrlIktJjZ5B7kbvdWcGhCuSGO8CtDY1ToDnVpQu5Wyc2gzx7e
+	 +lYS9AVnh3Di/MJqSk4l6DmmVFyoUIKeEL+z7KUCphw3/UMdzZYvWFt5s+TJw/8BagXSn
+	 L75rgTBVTDtIK4jmuKmlu0wp6C4Iff68hZDPmi9iczxtiUZN0dg+vNzTRAf5fk9+uHAcT
+	 mNo1bY9lfRPYzW2kfqXCO/6babSBubggbkaKSh4hY8mlXkrmt89/RhEQb9CXAqhTRkzcS
+	 RziG59oDbWJt+GK7KxV78IsKQKa9VJy6hCt5Trlczj+h8TYF7Cr0P+6Gg1yPgaNJAtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDJlbwMV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=enVU13qq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E32606A328;
-	Fri, 23 Oct 2026 16:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D660A606A31F;
+	Fri, 23 Oct 2026 16:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDJlbwMV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234C01F031E0;
-	Fri, 23 Oct 2026 16:31:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=enVU13qq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1DE1F01825;
+	Fri, 23 Oct 2026 16:31:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792773102;
-	bh=swxZPfAE+XKiBGgPkPSSVz6+hoNK2qNoB11MCd8pTdY=;
+	s=k20260515; t=1792773090;
+	bh=9OBLysERVKI0mTP1gmUyg2K+fopZDSSLSHMaqGKKL5A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MDJlbwMVM3bS8PDsx6IUGuqN8Rsr4Dlp1CJLy5FnjyEsP4AFyYIFQMs5XAyhimVRX
-	 YAeFKQff5uBw5VYoQXG7+Db3s8XY7WeIH7iw1pUUJlPvjDWAWuYjkLdIql2hwJiMiX
-	 2Mj1ZwhXPtefCGk699n/VErivyiqIpJf0BSe5rcOJNa01sRmheVOVZxtOHvGfbC7gf
-	 EEDnfK6Q3rH2yGfXWyWB6K5aXEEYG25mSPxLUwC9/HBrlFEQBopNydyKJZVnAD72mt
-	 8hfWTJbreYdO63OmpXPs7tPyJFQ9xm0yzrwuGmx4KvfApUl99FxA4RmZgjqhe+mA2s
-	 XawH6klOfATyg==
+	b=enVU13qqaj0s3F5XthfcwP1po2ykbmNy6OWMzuXZP0Dc5WgBcG4pNCKz9V4GS3HNL
+	 ckWBApoPq+vLwPhnkgrZgm5vqAG8ftdkFpDj6DW/UHF6zmz7JFVkIuN7smd9ek8/2T
+	 Gw9BbcpuYeUDxt7zYIz7cJMsoWPz5xwD2vjWaW9Hjx0Lvg3HnQlwrkNybKDBAn1A2C
+	 s+RTazNjdDsrTLJB70tSvqmDWWl+DsIZUJmQEFy3J6pAKl3LZlYnU3l4lhgk0IQ7yc
+	 rtSHKYTUSyD6WNBX2OBQSfRtQtx0vg+jysE3M6ckqEy72TPoomQkGCOGYPv+/uC5U1
+	 K0SZlTOZyaTOw==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -57,9 +57,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH 5/7] arm64: dts: qcom: sm8450: Add description of pins with MCLK function
-Date: Fri, 23 Oct 2026 19:30:55 +0300
-Message-ID: <20261023163057.775917-6-vz@kernel.org>
+Subject: [PATCH 2/7] arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
+Date: Fri, 23 Oct 2026 19:30:52 +0300
+Message-ID: <20261023163057.775917-3-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261023163057.775917-1-vz@kernel.org>
 References: <20261023163057.775917-1-vz@kernel.org>
@@ -74,137 +74,312 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Qualcomm Waipio SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
-add the correspondent default and sleep pin configurations.
+Add device tree nodes of six CAMSS CSIPHYs found on Qualcomm Waipio SoC,
+and a shared CSIPHY OPP table for them.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 112 +++++++++++++++++++++++++++
- 1 file changed, 112 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 280 +++++++++++++++++++++++++++
+ 1 file changed, 280 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 7f5b0501a23e..ae9e23f78cfd 100644
+index 05417cb5c4e5..babf1a4196a1 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -4286,6 +4286,118 @@ data-pins {
- 				};
- 			};
+@@ -564,6 +564,22 @@ cluster_pd: power-domain-cpu-cluster0 {
+ 		};
+ 	};
  
-+			cam0_default: cam0-default-state {
-+				pins = "gpio100";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++	csiphy_opp_table: opp-table-csiphy {
++		compatible = "operating-points-v2";
 +
-+			cam0_sleep: cam0-sleep-state {
-+				pins = "gpio100";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
++		};
 +
-+			cam1_default: cam1-default-state {
-+				pins = "gpio101";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++		opp-480000000 {
++			opp-hz = /bits/ 64 <480000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
++		};
++	};
 +
-+			cam1_sleep: cam1-sleep-state {
-+				pins = "gpio101";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
+ 	qup_opp_table_100mhz: opp-table-qup {
+ 		compatible = "operating-points-v2";
+ 
+@@ -3294,6 +3310,270 @@ cci1_i2c1: i2c-bus@1 {
+ 			};
+ 		};
+ 
++		csiphy0: phy@ace4000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace4000 0 0x2000>;
 +
-+			cam2_default: cam2-default-state {
-+				pins = "gpio102";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
 +
-+			cam2_sleep: cam2-sleep-state {
-+				pins = "gpio102";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
++			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
 +
-+			cam3_default: cam3-default-state {
-+				pins = "gpio103";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
 +
-+			cam3_sleep: cam3-sleep-state {
-+				pins = "gpio103";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
++			operating-points-v2 = <&csiphy_opp_table>;
 +
-+			cam4_default: cam4-default-state {
-+				pins = "gpio104";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++			status = "disabled";
 +
-+			cam4_sleep: cam4-sleep-state {
-+				pins = "gpio104";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
 +
-+			cam5_default: cam5-default-state {
-+				pins = "gpio105";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++				port@0 {
++					reg = <0>;
 +
-+			cam5_sleep: cam5-sleep-state {
-+				pins = "gpio105";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
++					csiphy0_in_ep: endpoint {
++					};
++				};
 +
-+			cam6_default: cam6-default-state {
-+				pins = "gpio106";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
++				port@1 {
++					reg = <1>;
 +
-+			cam6_sleep: cam6-sleep-state {
-+				pins = "gpio106";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
++					csiphy0_out_ep: endpoint {
++					};
++				};
 +			};
++		};
 +
-+			cam7_default: cam7-default-state {
-+				pins = "gpio107";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
++		csiphy1: phy@ace6000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace6000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					csiphy1_in_ep: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					csiphy1_out_ep: endpoint {
++					};
++				};
 +			};
++		};
 +
-+			cam7_sleep: cam7-sleep-state {
-+				pins = "gpio107";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
++		csiphy2: phy@ace8000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace8000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					csiphy2_in_ep: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					csiphy2_out_ep: endpoint {
++					};
++				};
 +			};
++		};
 +
- 			cci0_default: cci0-default-state {
- 				/* SDA, SCL */
- 				pins = "gpio110", "gpio111";
++		csiphy3: phy@acea000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0acea000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
++				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					csiphy3_in_ep: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					csiphy3_out_ep: endpoint {
++					};
++				};
++			};
++		};
++
++		csiphy4: phy@acec000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0acec000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY4_CLK>,
++				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			interrupts = <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					csiphy4_in_ep: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					csiphy4_out_ep: endpoint {
++					};
++				};
++			};
++		};
++
++		csiphy5: phy@acee000 {
++			compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0acee000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY5_CLK>,
++				 <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			interrupts = <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					csiphy5_in_ep: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					csiphy5_out_ep: endpoint {
++					};
++				};
++			};
++		};
++
+ 		camcc: clock-controller@ade0000 {
+ 			compatible = "qcom,sm8450-camcc";
+ 			reg = <0 0x0ade0000 0 0x20000>;
 -- 
 2.53.0
 
