@@ -1,67 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770976;
-	b=QEPZyfOUg6/I34faheQ1uQ3kj5WpMp0l5V22Ztd9Ve/qQkDzDP6TS1jewbfIZ7HznyI9
-	 cujt8Idk26fUf9ZLSMaOQTf+45rK5xvPARHuXtOtRvBqX3HxP9p0xbtZa5ilI295Nm0De
-	 CbYf2ANpcctRxEtbo9ZjKryjOP2WBVA3HXVP9dq1yrCobXmkA3RdYN1Bhfy8n981gi2nO
-	 JvDsj7oKGwh/kI8FKyAQKo/eE67AYJk2sM4I2PmAoI1K/fxWtcTLIOnhi0ItZyz6RblTl
-	 yug7OdqvvZJkIFkHj2ZvSKKAqbLQ44Y/ZmMaD8FR3NIaFHvT6q/xSTqXCTQt5whM0QA==
+	t=1792772151;
+	b=RbAogk3fPDrqaIRGzMLMyIIV04lq1fMrpkfRSsIOQ+ShXUmsvWi7OZvY6Zz47RJQMjzg
+	 dx3Pvx2qLNZ3ifCVogV6A47MCeF3G/5X0lZTTd3321wiOvIQalEw5+XExPKiM5UrN0/rK
+	 /7arZmuwrtncp5RPbBZWqBszTta8Pi2iQMBIkj3LFS2UtvmgWvFbU/jb9NJL4JOwSUbiF
+	 47uJFgO0EB69JNzxK2Abk1KW56cA5918heJusbgNfWUu0Btn4HyEE3FI0p99UCX3magbk
+	 rkgM7RhtTpbFrPV+twWkzQnSH0ZPVeNB3XPRcY/hG3OuAnPtOXZW/ARy6YYVDLQD/Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770976;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
-	b=MBy1HxSDtkODCPMOvwRleC4w2Y2GIwHoff4EKDx5V2SfvYSAKfT+BHVLxkW+F2YGRrMk
-	 VZKB+x1XPvz4/DM4wgdJ7SmypZgjB6SpRNodpi3bBeoYeUokFThn8y/g3FK+aiSeGfuB3
-	 P/KcbCIfsDoHha1H1SkRVxC+7OVJG+raNiw4fjAWSOOg2uduakmL120tfBvNduaoSWzdK
-	 k4KY8zDUJ0HT9PyLGsHinSEkC6Hu5h9/IujfnRp54Y81y5gUSs9OqU/EnBljN3bixf8Gn
-	 jfVJ0mYAGJitOzL3v2rmLnEnZ2qZCcay/STQ6R2T8KXt1arjoS7McuS6MV3sHzYVYrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772151;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=206TRBL9eH7CzQSwmeMOSHt4wSQsqIurTtCbXibhaPQ=;
+	b=G6bb2jZqpmHwbFtDke1KzuRctfLpgbK1wLv4+6ykyANh47a438iZ4RKA8m8wgqYqCazt
+	 rSvEnWPk3FOLUKnw40mDP1lvyWgq0oTrldyGcDH1eUHT2ynmK1UL7ETk33OPJ0SHWRMHS
+	 GkR+D0znqc57qI6dwN6MZ7UPpOGcVTC4gplz/myOmaGXsUpDSQ+xsdVZij36F00jQIjqi
+	 1mJOitYZyicoD/F61Z9SKuQ8X4N5AOLt3RkNAZv+hgSf+5Oz/3PLsiM+LQo5KcjTu9H2n
+	 bQ/SgeNVx186NpjLc4/s9YGHdfcm9UMDxfzjHtkK3uc28tmFoex+4uq/YlmgWVw45lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=chPlhnte;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B965606A31B;
-	Fri, 23 Oct 2026 15:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C53606A31E;
+	Fri, 23 Oct 2026 16:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C53606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0351C1F01825;
-	Fri, 23 Oct 2026 15:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792770975;
-	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TWB7iaoU0mqHu7XMC6qJKeP6ShXGY/fvZ0moZp8oYAhvj+Erh31gPg6uk5N+YkGUv
-	 fjw5vIBRdELK/grhuh/8ykk2bF6Seq3+J8EWPILmphRz6hDQrGbQbX3MKbXys7xHpY
-	 6GnGgVrvMOwypfqqPOjVkoduLfcBH3Xmi7WNa5Uu7nsJQK+VeHK3vQvuQsDcfNQyIu
-	 Rv7D7qvQflAOj/K1U6rmyTTwNMrweW6RjE4yNMpWwP6SdPpD3vD/glpmuhlHaMQBV1
-	 /UQv8RJgj6+nvx1zFN+uhYPfGBLVL1u7t8Abgejl7E6cXlzdBIhlcUeIGwCtbSpY4r
-	 JVHRY2AsStYZg==
-Date: Fri, 23 Oct 2026 16:56:46 +0100
-From: Jean-Philippe Brucker <jpb@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
-Message-ID: <20261023155646.GA52056@myrica>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-12-ryan.roberts@arm.com>
- <86h5idzqow.wl-maz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=chPlhnte
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 25C261A12F8;
+	Fri, 23 Oct 2026 16:15:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E31B660398;
+	Fri, 23 Oct 2026 16:15:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 947C110328BF4;
+	Fri, 23 Oct 2026 18:15:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792772141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=206TRBL9eH7CzQSwmeMOSHt4wSQsqIurTtCbXibhaPQ=;
+	b=chPlhntexBlGk+bKnPv/3cD5pxqu5Jj9HqkXjijAG6wD8eo07eJArVLJSYfI8JtWB/LEMi
+	xJpVDgMefgj5KltbMEqLcew9rV3+nekdH124ktlTPlZTzR6WLo615iP/ZKdHKKAspcqAuN
+	P/+6+VgoG71dEpho0QXxx3kOrueVPpM+D+KUOG/0wv5fi+LNAjwLv3kAoZ2ic2bQPhDt6n
+	maK39KHZ+7gj1NJX2DKPvGyV77+hxu2ZkUInGUMxwyvH4a3Wfn+5pLti8etTiiCVx/oBbs
+	SAUtJdLQfS2vdf0mQS5G9F6jp8Zs/gT0PIrIrssEEyVZkWyhjcdyX4alDPCrUg==
+Date: Fri, 23 Oct 2026 18:15:33 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
+Message-ID: <20261023181533.0c44a57f@bootlin.com>
+In-Reply-To: <atrTn_I_8O6q9QUW@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-9-herve.codina@bootlin.com>
+	<atrTn_I_8O6q9QUW@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,78 +80,239 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86h5idzqow.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 22, 2026 at 04:43:27PM +0100, Marc Zyngier wrote:
-> > +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
+Hi David,
+
+On Fri, 23 Oct 2026 14:25:29 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
+> > get_node_by_phandle() allows to get a node based on its phandle value.
+> > It checks the phandle value against value available in internal node
+> > structure.
+> > 
+> > This internal phandle value is updated during process_check() and so,
+> > get_node_by_phandle() cannot give correct results before the
+> > process_check() call.
+> > 
+> > Improve get_node_by_phandle() to look at node phandle properties when
+> > the internal phandle value is not valid.
+> > 
+> > This allows to return a correct matching node even if process_check()
+> > was not called yet.  
+> 
+> The idea is sound - it's always been kind of clunky that we need the
+> process_checks() pass to fill the phandles before we can use them.
+> But, there's at least one significant catch:
+> 
+> [Aside: you might notice the way it's done violates the principle I
+>  stated elsewhere of avoiding structures where you must know where you
+>  are in the flow to know which parts are populated.  My type
+>  discipline has improved since I first wrote this code :)]
+> 
+> We need to gracefully handle the case of malformed phandle /
+> linux,phandle properties; that's actually the reason for the weird
+> placement of this in checks.c.  By treating it as a "check" we handle
+> this case by failing the check.  Other checks that rely on phandles
+> then have the 'explicit_phandles' check as a prereq so they don't need
+> to verify this again.  We can still report errors for other checks
+> that don't rely on that (which is the whole point of the checks
+> mechanism).
+> 
+> That's not the only way to do it, of course, but we need something to
+> check for that error case.  Further notes on the code.
+> 
+> > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
+> > needed to update internal phandle references before the call to
+> > process_check(). Indeed, this tag allows to identify phandles and
+> > internal references need to be updated based on the phandle value before
+> > the process_check() call.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > ---
+> >  livetree.c | 21 ++++++++++++++++++++-
+> >  1 file changed, 20 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/livetree.c b/livetree.c
+> > index abe73de1..a9f8c5d2 100644
+> > --- a/livetree.c
+> > +++ b/livetree.c
+> > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, const char *label)
+> >  	return NULL;
+> >  }
+> >  
+> > +static cell_t get_node_phandle_existing(struct node *node)
 > > +{
-> > +	int ret;
-> > +	struct kvm_arch_guest_mmu *mmu;
+> > +	struct property *prop;
 > > +
-> > +	guard(mutex)(&kvm->arch.config_lock);
+> > +	if (phandle_is_valid(node->phandle))
+> > +		return node->phandle;
 > > +
-> > +	if (is_protected_kvm_enabled())
-> > +		return ERR_PTR(-EOPNOTSUPP);
+> > +	prop = get_property(node, "phandle");
+> > +	if (!prop) {
+> > +		prop = get_property(node, "linux,phandle");
+> > +		if (!prop)
+> > +			return 0;
+> > +	}
+> > +
+> > +	return propval_cell(prop);  
 > 
-> How does this compose with CCA?
+> In the case of a malformed property, this could SEGV.
 
-This function would reject realm VMs once they're supported. If we
-wanted to assign a CLA device to a realm VM, I think it would be managed
-entirely outside the host:
+Ok, will update to
+--- 8< ---
+	if (prop->val.len != sizeof(cell_t))
+		return 0;
 
-* EL3 driver reconfigures the device's accesses to
-  physical memory (security state, memory encryption etc),
-* RMM driver owns the PL2 registers to program the stage 2 MTC,
-* the VM owns the rest of the device.
+	return propval_cell(prop)
+--- 8< ---
 
-Lack of interrupts should make this assignment relatively simple.
-
-> Can it be restricted to exclusively running VHE rather than also
-> dealing with the lesser configurations?
-
-Yes, I don't think we want to support any nVHE config at this point.
-
-
-> > +	mmu->vtcr = kvm->arch.mmu.vtcr;
-> > +	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
-> > +	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
 > 
-> How about the hcrx field in the structure?
-
-It's 0 because HCRX doesn't seem to have bits relevant to MMU
-translation, except maybe EnSDERR and EnSNERR that KVM doesn't set.
-But it's not entirely clear which bits are relevant to this function,
-because other possible users may access memory differently (eg. no
-instruction fetch or CMO from a CLA device). Your suggestion below
-should simplify this.
-
-> > +
-> > +	return mmu;
-> > +
-> > +err_unpin_vmid:
-> > +	kvm_arm_pinned_vmid_put(kvm);
-> > +	return ERR_PTR(ret);
 > > +}
-> > +EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
+> > +
+> >  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+> >  {
+> >  	struct node *child, *node;
+> > +	cell_t tree_phandle;
+> >  
+> >  	if (!phandle_is_valid(phandle)) {
+> >  		assert(generate_fixups);
+> >  		return NULL;
+> >  	}
+> >  
+> > -	if (tree->phandle == phandle) {
+> > +	tree_phandle = get_node_phandle_existing(tree);  
 > 
-> It really feels like this is a bit upside down. Since you are actively
-> pinning the S2 MMU context, it should only be a matter of taking a
-> reference on the kvm struct (just like KVM devices do), and handing
-> off the kvm_s2_mmu structure, rather than copying things. When you're
-> done with it, drop the reference.
+> This means that every time we search for a phandle, for every node
+> scanned before the destination with no phandle, we do a full property
+> scan to check that no, it still doesn't have a phandle.
+> 
+> I don't care that much about dtc performance, but that's still a bit
+> much to swallow.  I think we need to cache negative lookups to avoid
+> that.  Happily, since there are two invalid phandle values this
+> shouldn't be too hard.  We could, say, use tree->phandle == 0 to mean
+> we don't know if there's a phandle, and tree->phandle == -1 to mean
+> we've scanned the properties and we know there isn't one.
+> 
+> In fact, caching property lookups might be the better way to do this.
+> Rather than having an explicit pass where tree->phandle is populated,
+> we could have get_node_by_phandle() cache its property scan (success
+> or failure) in tree->phandle.
+> 
+> I think that's a more elegant approach than the current one, but we do
+> still need to handle the malformed property case.
 
-OK, I'll update this. The reason for this copy was to keep a clear
-separation between KVM and the CLA driver, so the driver wouldn't have
-to use KVM internals like kvm_get_vttbr() and kvm_has_mte(). I think
-those are the only ones at the moment.
+Well, get_node_phandle_existing() can be improved:
+---- 8< ----
+static cell_t get_node_phandle_existing(struct node *node)
+{
+	cell_t phandle1, phandle2;
+	struct property *prop1, *prop2;
 
-> If there is a need to deal with a different value for HCR_EL2 (or
-> anything else), it can be done in the code that makes use of it,
-> rather than being in the KVM code.
+	if (phandle_is_valid(node->phandle))
+		return node->phandle;
+	if (node->phandle == ~0UL) {
+		/*
+		 * We've already looked at existing properties and no valid
+		 * phandle value were present. Avoid looking at them again
+		 * and just return the invalid phandle value.
+		 */
+		return 0;
+	}
 
-Makes sense
+	/* Try to get it from the 'phandle' property */
+	phandle1 = 0; /* Assume invalid */
+	prop1 = get_property(node, "phandle");
+	if (prop1) {
+		if (prop1->val.len == sizeof(cell_t))
+			phandle1 = propval_cell(prop1); /* Well formed -> Get it */
+	}
 
-Thanks,
-Jean
+	/* Try to get it from the 'linux,phandle' property */
+	phandle2 = 0; /* Assume invalid */
+	prop2 = get_property(node, "linux,phandle");
+	if (prop2) {
+		if (prop2->val.len == sizeof(cell_t))
+			phandle2 = propval_cell(prop2); /* Well formed -> Get it */
+	}
+
+	if (prop1 && prop2) {
+		/*
+		 * Both property are present. They values must be the same
+		 * and valid.
+		 */
+		if (phandle1 == phandle2) && phandle_is_valid(phandle1)) {
+			/* Ok, Cache this correct phandle value and return it */
+			node->phandle = phandle1;
+			return phandle1;
+		}
+	} else if (prop1) {
+		/*
+		 * Only the 'phandle' property is present.
+		 * Check its value validity
+		 */
+		if (phandle_is_valid(phandle1)) {
+			/* Ok, Cache this correct phandle value and return it */
+			node->phandle = phandle1;
+			return phandle1;
+		}
+	} else if (prop2) {
+		/*
+		 * Only the 'linux,phandle' property is present.
+		 * Check its value validity
+		 */
+		if (phandle_is_valid(phandle2)) {
+			/* Ok, Cache this correct phandle value and return it */
+			node->phandle = phandle2;
+			return phandle2;
+		}
+	}
+
+	/*
+	 * No valid phandle value were found. Cache this information and return
+	 * the invalid phandle value.
+	 */
+	node->phandle == ~0UL;
+	return 0;
+}
+--- 8< ---
+
+In get_node_by_phandle(), no change compared to my proposition and so the
+full function is:
+--- 8< ---
+struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
+{
+        struct node *child, *node;
+        cell_t tree_phandle;
+
+        if (!phandle_is_valid(phandle)) {
+                assert(generate_fixups);
+                return NULL;
+        }
+
+        tree_phandle = get_node_phandle_existing(tree);
+        if (phandle_is_valid(tree_phandle) && tree_phandle == phandle) {
+                if (tree->deleted)
+                        return NULL;
+                return tree;
+        }
+
+        for_each_child(tree, child) {
+                node = get_node_by_phandle(child, phandle);
+                if (node)
+                        return node;
+        }
+
+        return NULL;
+}
+--- 8< ---
+
+Caching should work correctly without any other modification.
+
+I let you double-check on your side. Let me know about your opinion.
+
+Best regards,
+Hervé
