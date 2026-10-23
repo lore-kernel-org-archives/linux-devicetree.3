@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740584;
-	b=0zTRNKkHbnMY3c2BNbaschVD734Q21cftd84yiPSsrd+i22t/D6Zr8F8aSBilYR7SvAF
-	 NOiFmltsIo19z1Ou77WG6mvUJx2cVMS09Bpg/kTg/mr/j63WAj3hFNzUz5uyJN9entLkK
-	 VgTH8JeSKr0+Fj4dFyMAphSDpXgxJ5yNPdp0UffAnGgTGiqhtMVkcT/5nUJK3sRnUEblW
-	 Hp+iiRfmgYlzotYAHFodjIhUa+YLftmlc5/1dUt5F6q/Xic+bnp/9U6G81Gm1Cv/eRM+B
-	 CZEu+yc+EjGBzdp+6wmSEoa71elonTzs1o1qovCHy1TwCjypt7xdsRhRufAvPIUfeTA==
+	t=1792740588;
+	b=jxc0Gi3NbsdNJWtuqfrtjcPLIb0MHD5G37BZsc/J3unZGF9Elnpz4ElVGYFVWb3pawYT
+	 EOLBey6TAEMuJ7GOfayZhGJZXipDHkAVpb9i13MjR1Qzdo+nATZFs6wnpPdD/pecL9fC4
+	 THYV33zOhpwTxXhl9uAbhv7P6VX7y8W1W/oNorVrnM+Nm9YjEqR13zefBJoC7ue4zoFW5
+	 cop9KRC1Rt3xxa+SixjN0PAfJpGcc3r78fRow9iLf4oMal9c00UhVz8MPmA1etLtDQnRT
+	 Pp6qlzkVTHj1P7QhPrSMk2Z08zVdZFk+5gB5AnOobdOAD5f7QysbtIhKaspwg53X6Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740584;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740588;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eLVHH3gc9lK1BMaQAW0mg0NLpVegVjKZ8M484qroJKI=;
-	b=FehXIlHpLlTjJguhgdNXqxRZsKWUZtI0ApNIPDsss0AnlO7UAeEy3NPDW9aO5LgGphcL
-	 kg/68DGaHhAxBBIajif5u9tAfeMgdc3HUBNEtZlSkCEYsepY0KF3at16tN0vIXW30VldG
-	 bwdFPn/yBYsfic4lxjHrv+y/GOreAgoNRnQ+VrddCAnQziGWax4EGhmeTPeSLRLgChAZG
-	 Mt0RhxUtXn3pQK3KFKfxDuftZpXcFHcGEUpNY6efLGm3xoW2PiuVBPtQQVDJ48f/wiQGv
-	 hHFjk+WDu+ld5mRvsFZPFJ5G/8xXFBkeJxGSsoArr56SObbMtl0H/M4LiB+5qPumRhw==
+	bh=gEzaWPPQ8wqOT/C3JqAeCqjEAvzlqHG/ukaTDDJL/x0=;
+	b=3eCVLuRYDw6r/H7v8GtAEqZhjNgSjbQNmgn20pqXrpoNQwXLgqInrjC72IubPcAudAI8
+	 JVVMhInFwM6iw+40bhJ49i9PTfcTS+hdiB5z4Yyf4m8S/FhnA9INYa2hz/nzucC7S0qkC
+	 K9A4m07HazF9KIdo78h97kEPnpUKZBGy7Bsr3Y2uR1BxbvrTz5L4TTw83Bm1VpjOSBLx4
+	 qtODavtr8O4+Tc8Pm7IVuOEDTzPwiPl6tulskramn2X1HaWgo2Niw9YaU3GVpiQodBXGR
+	 OodeabxNfTVAPb8zb6dC+qdtXScqmKCO708HEFodId3WkZJ3HbvTOv3eueCSs6YLoow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mpJqVp1Z;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iXHiqmx3;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B2F606A31B
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B2F606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD0606A31A
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DDD0606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mpJqVp1Z
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e977109392so2974745ad.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iXHiqmx3
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9d7791b00so2193315ad.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740584; x=1793345384; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792740588; x=1793345388; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eLVHH3gc9lK1BMaQAW0mg0NLpVegVjKZ8M484qroJKI=;
-        b=mpJqVp1ZBE+Kr+pD0Uhs3ZTNIxFIIsiBshAGAGzVbiwoIQQLziZNRV3J6ziyOSVCX7
-         ed/BmgZI9xfHbZc4F4lKJJnlmJMDOy+eqrrc7kOAwRWMf0hlvfvoOqhGjlVOqXF5Q0iK
-         5YfwcRmBqj7sbD+U6PA2zk3xyt9lULgqYwpstBsZqZ7H9pghMZeCkLIBpVvivOaxOwg0
-         XHChKjo4xpSpsGb08zo8VJoXqLu573AzzA1J0qiHlFW89q4PFSfTtW94arGHZs62QFOc
-         P76ZQjPAsy77L/JIguXeRNPmQsx22hQ1g5caL03mRRgB9Dx6BOGYUfZR+RfSoIPxOUsr
-         grmw==
+        bh=gEzaWPPQ8wqOT/C3JqAeCqjEAvzlqHG/ukaTDDJL/x0=;
+        b=iXHiqmx339HIa0YvDb8JqpVIoR66Uteib2J+vS0hGernHOrUzigh6bq6Rq1pEH81sN
+         JywJvuyXJRLQ5Jiz27hbO4UGOlh30HNdIcClXacR2KyGqCUxhzamus1jqNGYfnIFk4cb
+         zs1qr8GR9N7iKRqtNDrZOqKYBA9f2PD8G9vZpgV+dPOSbR98UTuNa8+hdm+Th8QozDEJ
+         jYucM6tv8brV0Q5O7o44rbPoJcY3VILCR/qFu39WPlOBPRiCyty8IBVWAMo/eIxtsYHM
+         1KTFOTILXNkYToyX6/a/9Ek5pOt0rrL2J2ENNJhZzYW811dfZHeBJzrOkA9o2cZDmT9e
+         0djQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740584; x=1793345384;
+        d=1e100.net; s=20260707; t=1792740588; x=1793345388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eLVHH3gc9lK1BMaQAW0mg0NLpVegVjKZ8M484qroJKI=;
-        b=O1TQlHD0DObTS/y4xzNKZ9ZNXYdAUtDV88I+KPoKVwkKI63Q9WnNxgva4ToZq/wkQp
-         OnolV9ki2ULcaUpVEOcg54j4HCaRs6y3zlk8uxRJhl75Vvli5/20zKbGwpY4VOcqDfib
-         TZ6P4eWDovE1NZ3JOEMSTkD+3NqazmiqcNetIti2Qlhi+6/hpSxmwdwtcCK4F+Gk4FoV
-         hnWlkTbj9yMdngGX623+9A1WhpKOBqi8o3xtwb4bzCfQPiL2g/UFnpwKeO8sTrwniRak
-         cyK+9j8GyRTuFt0OSo/Gzn8T7SMwTctGyCrRlY3VDJ/yMepT0yHiUvFmr89RaxbiALxt
-         bk+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwZGc0o9zXnE5ufMeZaLhb5JOW77uOLt4ODGFYFIE06US+qQUOlEWpj/DQW41UkcP5nYbV49yDzuAPR@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYnELgdAC0cAn6KlwTarbtxAqbfNm/b3OoXvSmAmbObYG05qMi
-	kLHvIqtyXC0cgNNGbQllR15XA3UOaTDEgtJiONBQs1yfznE+6dq5T2nW
-X-Gm-Gg: AYBFou0Y5zQmotQ4lcQ+fxKjUIQgWwyeQ8S6C1ByYFZhuct7JDA5uJOvEr7OAa08M/a
-	nfAgvfDHT3xnWJkEWSZBELjU6mwcW4VOQYoFLolSfYE76L7k19/6Wc8MFbEko16RWYd8eA791QC
-	ToYR2mI6RvDXD27jyaA52lwusMv0OZ9B4BCj2Slcsy8O6wA7/20VMtVLawFK6YqrKVRRT+QUeVH
-	u14WM56DZxGAXzLmDFIMvrJggpvKiRjJjfnwYDB1+yI9Rw+wMrF+HWfsGWVsQATiWJSknsy5G8x
-	vSfhj23vjoPGrDOqyg/iVxh89UHsVxNDvVX8sSAu+HWpEWLV+rn34RNccMmhLioHDXy60tmlk45
-	q43frZfGGZ8gkaDhlPlWQyt5zECtOalPXag3IUnCB/qFsBCwnc7804AQk+TJ2hRu2UpJfxeuWna
-	nX3Cq/alup4orx6ZPsidbkuI3GPKcbNJ5QX2ncJNUOGiZMxwefhdN7/kM5NOr8Ith7wARXn2QKr
-	R+pRp8Xt7LsnaP2qZkQTsjicT9DulkllKtGjJcnKpo2XR+7gWBKL9P+Pf4g/aEWEH0BFN+uFA==
-X-Received: by 2002:a17:902:ef43:b0:2e5:38bf:cb43 with SMTP id d9443c01a7336-2ea7ca06645mr15833995ad.2.1792740583614;
-        Fri, 23 Oct 2026 00:29:43 -0700 (PDT)
+        bh=gEzaWPPQ8wqOT/C3JqAeCqjEAvzlqHG/ukaTDDJL/x0=;
+        b=tLSvPqwTtSBHMvWBcXTT4gYcek9UM6FnBejG9yvDv4NICVB28+YhCih2iqanGHBuu2
+         wfW9MhRkl2EwIZVWpe0rovtieermchffB2EGbUp5ALw6qI8XjN9C8DMxwrvGS1B+ddCS
+         nfADfAYckNXTlETOZjpU1MHlUmfMAmNxb8x6HW8m50Atp/MHtGEcZQysrDTfR+EQj7eA
+         PaM9xXsh8cqx51jC5ZEDyCDswUZVLfenQ5gEHI56YltjnTOHf4fM0EllW0fzqUNWN1i4
+         /T2DK7GF+1wB0gtMzCq12TwqSnwjT650Ub/50XFSclUKmyvxXVQabi4Wz6EK0X3RL6Uh
+         PyTA==
+X-Forwarded-Encrypted: i=1; AKwUvByhwW5blfWecWV1QXgJLPz+JRM5lpcctkJxUDiUCS2HuieaVaoHx3AQ/5atzRT61S6wdu5DmiWojj5/@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEAd0y1mdTvC7BTo+HQDQwyiqeXIV67U72pLcEjQQgGxFoRLkZ
+	VPoglnUlK8g8IEeiyHeWu+J1hxGB8ACBB1UL/8KzM15x6iyveKFzqgLu
+X-Gm-Gg: AYBFou3YMG0NtXJSk3AJFJ0hP7alYUbHLjUUmt4uGBPDDVyG3HmVmgWCUwz83RXvPhZ
+	ayi041rl9vatoWgg5N5aiPkWvNp6FhdIayZv3qPgrQBxNWrrWXpJxsvB5cKfL82v428ReE7ptxl
+	RSl/x3Cf4Vazhrgivmj4f848b30syv2yGsdHWAe6DHxSUOJi8ga1V9fE+8SkEjT/AfKftBiL0Yr
+	IME3wYacWNqkovUYmgcKYGWBsF3koPqijs+Zu9U/TfHpw8xsRugey1LWWF5idpJVyG2S3ZHQVUX
+	tbPRPfDBjwpu+uveW2bDF+KjBci6vj/2CIvE15ypuPRfyzmMIdC56ZYPHE7IbMF27B7Wi5Agp7G
+	vzLdzG8H69tdIgFZqzPzyGE4QLNbteVd2sgq/eoyJwgTrWacq0NZYqPdVE5amn07/b7VLQFc3Zu
+	y1YWnvfdz/VcRwtHQtXhTVpC4iu8uB6R++LXbBpnx7Jm+9/Jg6vp39lOUpHqftdPveqMNDUW5Rp
+	pHEiaXUqqi3Qf4snBsmyhsaR66N3KA34WfcOZ3sybA0YzEQKgTnPZyXKVtS/5gUXwg+NrWQbQ==
+X-Received: by 2002:a17:903:1aab:b0:2e8:773a:e902 with SMTP id d9443c01a7336-2ea7d07a520mr14356605ad.58.1792740587853;
+        Fri, 23 Oct 2026 00:29:47 -0700 (PDT)
 Received: from localhost.localdomain ([218.194.41.155])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.40
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:29:43 -0700 (PDT)
+        Fri, 23 Oct 2026 00:29:47 -0700 (PDT)
 From: ShiTou Hong <redstone.dcity@gmail.com>
 X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
 To: andersson@kernel.org,
@@ -86,9 +86,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	ShiTou Hong <dc_redstone@outlook.com>,
 	KancyJoe <kancy2333@outlook.com>
-Subject: [PATCH 4/6] arm64: dts: qcom: sm8250-hdk: Enable the PCIe ports
-Date: Fri, 23 Oct 2026 15:28:30 +0800
-Message-ID: <20261023072832.2642647-4-dc_redstone@outlook.com>
+Subject: [PATCH 5/6] arm64: dts: qcom: sm8250-hdk: Add support of QCA6390
+Date: Fri, 23 Oct 2026 15:28:31 +0800
+Message-ID: <20261023072832.2642647-5-dc_redstone@outlook.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261023072832.2642647-1-dc_redstone@outlook.com>
 References: <20261023072832.2642647-1-dc_redstone@outlook.com>
@@ -103,62 +103,171 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sm8250-hdk has 2 PCIe ports which are not enabled in the dts.
-The pcie0 is for the on-board ath11k WiFi/BT module;
-while the pcie2 is for the M.2 connector.
+The sm8250-hdk has a QCA6390 WiFi/BT module which hasn't
+been added in the dts file.
 
-Add the 3V3 regulator node for pcie2.
-Enable the 2 pcie controllers and phys.
+Enable the UART port of BT, add the bluetooth node.
+Add the QCA6390 PMU node.
+Add the wifi node of pcieport0.
+Add the missing regulator node of PM8009 which is used by QCA6390.
+Add the pinctrl of QCA6390 enable pins.
 
 Co-developed-by: KancyJoe <kancy2333@outlook.com>
 Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
 ---
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 28 +++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 118 ++++++++++++++++++++++++
+ 1 file changed, 118 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-index 7a2903941..bd9b90fbc 100644
+index bd9b90fbc..57c282bdb 100644
 --- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-@@ -57,6 +57,13 @@ lt9611_1v2: lt9611-vdd12-regulator {
- 		regulator-max-microvolt = <1200000>;
+@@ -94,6 +94,67 @@ hdmi_con: endpoint {
+ 			};
+ 		};
  	};
- 
-+	vreg_3p3: vreg-3p3-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_3p3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
++
++	qca6390-pmu {
++		compatible = "qcom,qca6390-pmu";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&qca6390_pins>;
++
++		vddaon-supply = <&vreg_s6a_0p95>;
++		vddpmu-supply = <&vreg_s2f_0p95>;
++		vddrfa0p95-supply = <&vreg_s2f_0p95>;
++		vddrfa1p3-supply = <&vreg_s8c_1p3>;
++		vddrfa1p9-supply = <&vreg_s5a_1p9>;
++		vddpcie1p3-supply = <&vreg_s8c_1p3>;
++		vddpcie1p9-supply = <&vreg_s5a_1p9>;
++		vddio-supply = <&vreg_s4a_1p8>;
++
++		wlan-enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
++		bt-enable-gpios = <&tlmm 21 GPIO_ACTIVE_HIGH>;
++
++		regulators {
++			vreg_pmu_rfa_cmn: ldo0 {
++				regulator-name = "vreg_pmu_rfa_cmn";
++			};
++
++			vreg_pmu_aon_0p59: ldo1 {
++				regulator-name = "vreg_pmu_aon_0p59";
++			};
++
++			vreg_pmu_wlcx_0p8: ldo2 {
++				regulator-name = "vreg_pmu_wlcx_0p8";
++			};
++
++			vreg_pmu_wlmx_0p85: ldo3 {
++				regulator-name = "vreg_pmu_wlmx_0p85";
++			};
++
++			vreg_pmu_btcmx_0p85: ldo4 {
++				regulator-name = "vreg_pmu_btcmx_0p85";
++			};
++
++			vreg_pmu_rfa_0p8: ldo5 {
++				regulator-name = "vreg_pmu_rfa_0p8";
++			};
++
++			vreg_pmu_rfa_1p2: ldo6 {
++				regulator-name = "vreg_pmu_rfa_1p2";
++			};
++
++			vreg_pmu_rfa_1p7: ldo7 {
++				regulator-name = "vreg_pmu_rfa_1p7";
++			};
++
++			vreg_pmu_pcie_0p9: ldo8 {
++				regulator-name = "vreg_pmu_pcie_0p9";
++			};
++
++			vreg_pmu_pcie_1p8: ldo9 {
++				regulator-name = "vreg_pmu_pcie_1p8";
++			};
++		};
 +	};
-+
- 	vreg_s6c_0p88: smpc6-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vreg_s6c_0p88";
-@@ -722,3 +729,24 @@ pm8150b_typec_sbu_out: endpoint {
- &usb_1_qmpphy_dp_in {
- 	remote-endpoint = <&mdss_dp_out>;
  };
+ 
+ &apps_rsc {
+@@ -352,6 +413,13 @@ regulators-2 {
+ 		vdd-l5-l6-supply = <&vreg_bob>;
+ 		vdd-l7-supply = <&vreg_s4a_1p8>;
+ 
++		vreg_s2f_0p95: smps2 {
++			regulator-name = "vreg_s2f_0p95";
++			regulator-min-microvolt = <900000>;
++			regulator-max-microvolt = <952000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
++		};
 +
-+&pcie0 {
-+	status = "okay";
+ 		vreg_l1f_cam_dvdd1_1p1: ldo1 {
+ 			regulator-name = "vreg_l1f_cam_dvdd1_1p1";
+ 			regulator-min-microvolt = <1104000>;
+@@ -477,6 +545,39 @@ rst-pins {
+ 			output-high;
+ 		};
+ 	};
++
++	qca6390_pins: qca6390-default-state {
++		wlan-enable-pins {
++			pins = "gpio20";
++			function = "gpio";
++			drive-strength = <16>;
++			output-low;
++			bias-pull-up;
++		};
++
++		bt-enable-pins {
++			pins = "gpio21";
++			function = "gpio";
++			drive-strength = <16>;
++			output-low;
++			bias-pull-up;
++		};
++	};
 +};
 +
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
++&uart6 {
 +	status = "okay";
++
++	bluetooth {
++		compatible = "qcom,qca6390-bt";
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddbtcmx-supply = <&vreg_pmu_btcmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
++	};
+ };
+ 
+ &uart12 {
+@@ -740,6 +841,23 @@ &pcie0_phy {
+ 	status = "okay";
+ };
+ 
++&pcieport0 {
++	wifi@0 {
++		compatible = "pci17cb,1101";
++		reg = <0x10000 0x0 0x0 0x0 0x0>;
++
++		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
++		vddaon-supply = <&vreg_pmu_aon_0p59>;
++		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
++		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
++		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
++		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
++		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
++		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
++	};
 +};
 +
-+&pcie2 {
-+	status = "okay";
-+	vddpe-3v3-supply = <&vreg_3p3>;
-+};
-+
-+&pcie2_phy {
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+	status = "okay";
-+};
+ &pcie2 {
+ 	status = "okay";
+ 	vddpe-3v3-supply = <&vreg_3p3>;
 -- 
 2.47.3
 
