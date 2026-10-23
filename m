@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792752563;
-	b=jlLytiBTVl9B+ra8fhGccBLXJCOwhs+72g/WmhkK7ZArAF/+Qn5w+Jg+2rBYzO1jbY/U
-	 UUY3UustUnaefZPozphExbpDu5nezd6TNVdvwjDozd8oiGds13/q1Q67X+eeSvtLTrdd9
-	 YR+WZxc4dl7EHDuNwTjbneWfiACBlGZe9Qc3lanSbBVY8mWMBcsa7j9XmT8xSW38n3P8H
-	 qlX9FLEGFfPJdvE+oL8G0lP87YnZi0QNIGStn16AlAEcFDTdTcFFAvuFW/wc4vTbKL2tm
-	 6W7MyKY8lRHWYCAgeSc9E7dCtSEOE3C0dDm6RNtoiHEwDto+XjcZAh5fSQlfmjdd5fw==
+	t=1792752905;
+	b=WOM6xYgBoKBLFoRFnFyVVrJuIvBsnYzqktxOgMZLYbuhIaDj4Y7hepD/ye55ejtDUBt7
+	 WdrtQV8TlWUhaValBr5LwAUp33A8+ZT+iiye2bg+fSsMBe+aAZeYNP+90zY9xRq08RsaG
+	 cr5+5gruQqnSFPBZN0aiiXQdOgxP0Dl8/W8wswvH/aFNjI4cg/W4b+lmvpeMHpPfv1Xk9
+	 R4fUAXYLXIgZYzxB0wwLwuf8LD/Sk1ykhJokPYNklYFfeSvC3SPTrJCd0fbAmiMRvZDGc
+	 ZvjwquFzFOc2pR1wOD9SWq7Nf0/iRrUGAJNQTCwBg9U/VTbLxjk7mgwwD3mWZ2BJ59g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792752563;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-	b=T5sZ0G1Sh5Jgf2DkjaPH/LDtqGNSmSDbX538kqFUHhlyFBNBfVZp3tDMyquWMdUHyeoy
-	 goRG69q/06Au/w/YyGya0ZVl/Wjy75gQnRZUibYA0Qvv8mr6EBiGB14pPpw+Da0wNFvwt
-	 Grk1FmPNSgG9fUrAfqRBgiqxci9A5LdDrr7MQu9cs/u6elpPi7XoDemPwdm3wwxtsZGkB
-	 i981AWMGgTbI2sum3S4ywhdThjV6gVlHBz429myGpAoCOqQcGt7VoiQ0lNNuS4zs53+jB
-	 /pOZy0cl8ujShr3sIQ4isiPnsxavvXM/G9+KaHJKbIQlmgPhI2cym9eEF5VUWWZahfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792752905;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yLB7/J73OFY67YINZQLNWtUjjssmf4FJGVDOW316A+w=;
+	b=hvBkq4HxIwKQbQC4YTmBKBdRMuM1TnSyZbrge7/bTAgk6ia3M2jL+WOIBvmaCrhWTL2f
+	 J0CFjf4UQ2VMnyE7MxKog9M0+BZnpgrJdIXRaV35WEyU0vrK69PLZj91+SonYpUcyr7iW
+	 KDtRVAbB5yEh870X8M1wmkXRZpKivCqq9KQS2AANCefy+AhQOjwiraBs2bJ5xO34BRaSv
+	 xm7nJBmIrWRpJPLW5awyJg8UD90DKhzXSFmWEwZ5Tx2UCsJUqZdYXcNIbQQALUxnFJFVH
+	 MLSLnnJc16WotVFzwBsTWyqSkm78VS2WjjtbVosjLpfs12EZDjioliPlMO+oor8siJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NBpHfLcZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bc10VNay;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wlXwBD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52D9606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E52D9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804C5606A31D;
+	Fri, 23 Oct 2026 10:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NBpHfLcZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Bc10VNay
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NAAvwO2463880
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:49:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=; b=NBpHfLcZLEzJTtxF
-	l3MprFIzMvt6CSzQX73ZK7PUCrx6178LHmXAYHBQ67grkua+/C2kPaaQ2vHaPg/v
-	QpUuMmdj9zOFu2AOK0z2Pw26PrXuJgOx8o53lmLgVQKSyVIZRE6h53fpmkEaukPd
-	1fPyVWOzvomnoFewq2JF5z11lniSknx9DnD++5RQbhlKCIlrCQq5pLUiVS71dkOJ
-	aO28pX6nPbxwsAjWm2UgCijj9xtc4VX8aK0eEOZ1sUFQUezkWN6wlQXTI+Oa4EMb
-	wJEDV+SG9tbwJOwEKiiE6xN80K8ov1GB35EO9p+2Ma/owRwyiEmP7r5L2EDBQCO4
-	eRvArg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfnyw3tck-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:49:20 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f6f4fe531so138955185a.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 03:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792752560; x=1793357360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-        b=Bc10VNayHO3vSP/nvk1Vg/3giS21EEKxaNiiz4h98NjVTjNPFcSnIn6rrl7piXPHDW
-         VCDV9ITzg5zF8Lae6VXmwGePaxSYG3Pzs3sYHGRs4eHMdAl+fLhMKLONuIV9RzzBSfU0
-         Uegrxv09Cz0cJvGKL0N35S4L5//VUPzH8j2StBD28Me7N1aNgA0xDYFp16UgPrDD8oug
-         2jC3HInYzzHE5/k+vuP2NIQEIVyNomVR/5andRHZ70kSUuAXu8lMR6rQ3TKoPSzhX2vk
-         UniMg+OiIxHbn8L+hH0MQXPIq/t0h9/ITAtUIOk39GWhWUwa6c1f6WOwbka1gDqRux2Y
-         o4ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792752560; x=1793357360;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OJZ5+JvXRLfRJQ1rZwOfbvS5thaOJQ0x39UJIXgliOA=;
-        b=zvSkopHEpvnvExYH7VE/zN20ypHR6QckxL0Z0PwCFLd9IuvlRS7ry/2PKeIyKNZbKy
-         sTFtAmRb6MI7LmXgKp6HJD9Wu5mCU8rl3YprixKGtTpvou06bkcAJ/8beHAep0qyWxzA
-         VpFJetak4lc7Mm0xTC5oOxe+q7rHlFVITFL/CXaAEtdgyH8UuEqSMjS+0SDAjZc7QKkE
-         oUd5KoXLzyzJF/bnufcbUYtQZJBv6jPraH6RlwB323vPkHzhKlRfhcKsFdKWBqzY5dtR
-         YaU7xtkz2HoF0CBzXTsRUZjPalQURACvTy/Jb5O4Z27tyWZn5ofC3RHGo71lWvg3MD9i
-         zs3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzwQsN6CvVeXEOgoRYHwbkXEBLZmHZo6zawIHZA/dIpttVWf7QMVUUzWLpxTMFhL3tDSAglebrQmtvo@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEg3hBeSSvBRwl+jAcjeOdywcaqxj2L+QFkucLxhNwkEq8cs+z
-	qfF6uFOrjMu/8Z5TCKGe5Du91aTaJso8XLA6Re4tKMddCR4Uw9hDmHl/4YVSo+cbZkid/ih5tHp
-	XFaLhTLJ7uMfKlnRoE7HStqm/Lruf6N6Zupd7dpxz1HE1r7S8buOBSuXP0kRSrLAxjOHu5vNk
-X-Gm-Gg: AYBFou05OB0cPxuCOburVXvlTRF91ED6JUJ8O2l53w8a6YFoLpp8jeZ9RzSLU7/fTUs
-	2fqumU4y//tHyF2TsnHPDjLq3/MjlX+yP7RKdTpbneJe0Kr9Tcw86RIPQWOkt9atHAEpu9vECSA
-	Q67F3vWNshF0RV9KWCGy7rrJx7sjiEDJS3ay5Kb3tT1TZzYw8MN5jHYU/h4GqXn75NOaMEtpw9U
-	wiMHWvIUeM/VyYKIEhsazpS6HybW/iWyUEKwRnWqLsfRszcR8DcLGDYd5UtueUPDyohfLI1PRs6
-	OzzHMm8n6QsEcGdx20t3YUZzBeIGW8if4fLserY1JwgEdWlRH2Qy1lkOwEIj1ncY4SdcvEJOvol
-	vevRTZWuFa2WCDeG0Zz4r5azk5iau0NN/bCNFaUZDloghIDXp8rAwaKdRweGOQw==
-X-Received: by 2002:a05:620a:2b4d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93f6f85dfc2mr320615985a.47.1792752560171;
-        Fri, 23 Oct 2026 03:49:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b4d:b0:939:de6c:cb45 with SMTP id af79cd13be357-93f6f85dfc2mr320612785a.47.1792752559716;
-        Fri, 23 Oct 2026 03:49:19 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3802610fsm4407066f8f.14.2026.10.23.03.49.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 03:49:18 -0700 (PDT)
-Message-ID: <36ea62e7-2dd4-424d-9326-1b5f270da00f@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 12:49:18 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wlXwBD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8891F01825;
+	Fri, 23 Oct 2026 10:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792752904;
+	bh=yLB7/J73OFY67YINZQLNWtUjjssmf4FJGVDOW316A+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a0wlXwBDOPD6ZhJQr0nxYCEtgbf7Po/qTOSeSmAhc1EBL6pe5pTg5T0AiCAfs8Yrw
+	 KkCp5dH0MnD3kzl9ydo1ZT8iFHm0pBeopwM3oJOq79r9we/zYcmDlyi/15WhU4uW9d
+	 o6kp9+xyBwwP4fq8zz3cDzV4VodicfO8XQ8zjbNwakmIE9QYKPNM6JEUvqtsRPtFYj
+	 H5MgQd3GigaLqfDwIr5amvzpufr8FtMeDdpB2+Dk7VqZu/3TwYezurptHqPw/ZAumI
+	 Llx47dqUPvZOfLNZJM0SSiEFM3wJNB58P21MtJlyrTS6uwtEYNMW2/dc5evx8atWgE
+	 rylfhT0yiVD6A==
+Message-ID: <sashiko-outbox-182711@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] clk: qcom: Add SM7250 display clock controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ishu Brar" <patches@brar.si>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023-dispcc-sm7250-v1-2-07bdefb99801@brar.si>
+References: <20261023-dispcc-sm7250-v1-0-07bdefb99801@brar.si>
+ <20261023-dispcc-sm7250-v1-2-07bdefb99801@brar.si>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 10:55:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,81 +60,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
-        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mark Pearson <mpearson-lenovo@squebb.ca>
-References: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
- <atsmQqSOuqp1LKw8@linaro.org>
- <6ebd380c-1f32-4ec6-86be-99631db4958b@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <6ebd380c-1f32-4ec6-86be-99631db4958b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: EG9-EoJ8-zXXIDy-MQFuNFois_ZrSSvG
-X-Proofpoint-ORIG-GUID: EG9-EoJ8-zXXIDy-MQFuNFois_ZrSSvG
-X-Authority-Analysis: v=2.4 cv=dphOmFg4 c=1 sm=1 tr=0 ts=6adb3bb0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=agzqCfvS8LjcRQY4D-sA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfXy4waOxNH868o
- 5B7DlwEnBM4fMZzkqGJLHrd7lGCSHOqnGSJKyA2vL1Ps0vkvN7p/etQDKkTDYD5n4FEFFq5Szyx
- 4WkvaGUV76Cl+4s+9ZHoj6WjvJQi/0I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MSBTYWx0ZWRfX5JtbizfslVfD
- IAcmSDJ6hV49+CIigC0cq91rPfcdgCjRaiIFm8A8RaJIRZu4lGTJnndsdjt684F33zsSwR3Xy3w
- C6R82khNzWy5Swd9zvuAxwmyn3dU5SCBxekBRanL5NwyFvlrb8o2JBdFOiqoGR2HeM9SvGEf1JK
- s8yrHuc40dwZvktYn1zTjRc8dLM9swAAFamDEwaiHZfnwwD9JT07RgufBI/Z1zS9wmoxn0kLTll
- vQv+oLoT2oUv2pfm2Ii/kZnS6uOC5vm6MUH6rJdlXBYv8aFjlIvCMLTwG50Jm/IPvOIP1ulqCOs
- oOdmwvQlSfVGTT3+HUzEr4IupAcdqdeC7hmJXckZoCJBm26M+S4VUuNhguZ85sIt3QkRPn3rOv7
- 7wfwAY4ehABdRtsNRQHLLbanUyR1xXToRXL95R6xtlvFScKo0NkK9EkLJ9cecx2hzhTUDkqfEry
- 0WJ6H+VuLUei2JYngeg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230041
 
-On 10/23/26 12:47, Konrad Dybcio wrote:
-> On 10/23/26 11:17 AM, Stephan Gerhold wrote:
->> On Fri, Oct 23, 2026 at 10:38:27AM +0200, Daniel Lezcano wrote:
->>> The ThinkPad T14s needs thermal mitigation under sustained workloads to
->>> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
->>> monitoring is not yet supported, so use the board temperature sensors
->>> exposed through the PMK8550 VADC to provide mitigation now.
-> 
-> [...]
-> 
->>> +		/* Sensor near the CPU PMICs. */
->>> +		cpu-pmic-thermal {
->>
->> I'm a bit confused by the node order here. It's not ordered by the
->> thermal sensor (SYS_THERMx) like in x1e80100-crd.dts, but it's not
->> ordered alphabetically either. Or is it still the old order from the
->> previous revision?
->>
->> I think I'd personally prefer ordering by SYS_THERMx, but alphabetical
->> order would be our typical rule.
-> 
-> Thermistor index is what I'd prefer to go by, I think it makes the
-> mostsense
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] clk: qcom: dispcc-sm7250: missing CLK_SET_RATE_PARENT on byte0_i=
+ntf_clk
+--
 
-why ?
+commit ab220a77d171c816d3d394b53d2f36fed1ff7979
+Author: Ishu Brar <patches@brar.si>
 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> thanks!
-> 
-> Konrad
+clk: qcom: Add SM7250 display clock controller driver
 
+This commit adds the display clock controller driver for the Qualcomm SM7250
+SoC, providing MDSS clocks, the MDSS GDSC, and the core reset.
+
+> diff --git a/drivers/clk/qcom/dispcc-sm7250.c b/drivers/clk/qcom/dispcc-s=
+m7250.c
+> new file mode 100644
+> index 0000000000000..f114a9f5407ef
+> --- /dev/null
+> +++ b/drivers/clk/qcom/dispcc-sm7250.c
+
+[ ... ]
+
+> +static struct clk_regmap_div dispcc_mdss_byte0_div_clk_src =3D {
+> +	.reg =3D 0x2128,
+> +	.shift =3D 0,
+> +	.width =3D 2,
+> +	.clkr =3D {
+> +		.hw.init =3D &(const struct clk_init_data) {
+> +			.name =3D "dispcc_mdss_byte0_div_clk_src",
+> +			.parent_hws =3D (const struct clk_hw*[]) {
+> +				&dispcc_mdss_byte0_clk_src.clkr.hw,
+> +			},
+> +			.num_parents =3D 1,
+> +			.ops =3D &clk_regmap_div_ops,
+> +		},
+> +	},
+> +};
+> +
+> +static struct clk_branch dispcc_mdss_byte0_intf_clk =3D {
+> +	.halt_reg =3D 0x202c,
+> +	.halt_check =3D BRANCH_HALT,
+> +	.clkr =3D {
+> +		.enable_reg =3D 0x202c,
+> +		.enable_mask =3D BIT(0),
+> +		.hw.init =3D &(const struct clk_init_data) {
+> +			.name =3D "dispcc_mdss_byte0_intf_clk",
+> +			.parent_hws =3D (const struct clk_hw*[]) {
+> +				&dispcc_mdss_byte0_div_clk_src.clkr.hw,
+> +			},
+> +			.num_parents =3D 1,
+> +			.ops =3D &clk_branch2_ops,
+> +		},
+> +	},
+> +};
+
+[Severity: Medium]
+Should dispcc_mdss_byte0_intf_clk in drivers/clk/qcom/dispcc-sm7250.c set
+.flags =3D CLK_SET_RATE_PARENT, matching dispcc_mdss_byte1_intf_clk right b=
+elow
+it?
+
+During DSI0 power-on, msm_dsi_host_power_on() -> dsi_link_clk_set_rate_6g()
+in drivers/gpu/drm/msm/dsi/dsi_host.c configures the byte interface clock:
+
+	if (msm_host->byte_intf_clk) {
+		ret =3D clk_set_rate(msm_host->byte_intf_clk, msm_host->byte_intf_clk_rat=
+e);
+		if (ret) {
+			pr_err("%s: Failed to set rate byte intf clk, %d\n",
+			       __func__, ret);
+			return ret;
+		}
+	}
+
+Because dispcc_mdss_byte0_intf_clk uses clk_branch2_ops and omits
+CLK_SET_RATE_PARENT, clk_core_round_rate_nolock() and clk_calc_new_rates() =
+in
+drivers/clk/clk.c treat it as a pass-through clock without an adjustable
+parent and return 0 without forwarding the rate change to
+dispcc_mdss_byte0_div_clk_src (register 0x2128), leaving the DSI0 byte
+interface divider unconfigured when a non-default divider is needed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-dispcc-sm7=
+250-v1-0-07bdefb99801@brar.si?part=3D2
