@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792765986;
-	b=3b/jG7suobs0v0L/VnHMNnAudsVhQX5a6jL0GSLuLi2sYHZpo3k6ECdEfiuNk+5Cp+bm
-	 uLu4FvVKqoB0PXzzx54X0vbNYFLNDwA6sr2iprunmEgkwVXATi8inY0pf3alTDSTY7HFp
-	 c5Le5b+W1WKsjsJEpgKYDbIc2U3P4ziv9FFZQ5rkrbIcQvKJg5npC6YEgwbJkSkyG4PVs
-	 0sy3xHOfkcIHylhtE+q5Huh5gVSZevBXLwyxrWW6aRToMirdSI8hUhDNJ3u5+q8p15y8k
-	 OuU5gaGXkAl/Cf6kJ3ICQYooW8soNF0ewaJLwl/XKqeICG3m1sZSWsk9II9bDyEOZMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792765986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-	b=UUHJgPuY/Mro06iZts/jM4MitDSMZg4UeCc6ky6mRxUN/Q4RyzqDnO48E0C/osjPKZXQ
-	 +BZTJJhrpre+3rWQb3N5XnWJcRdcItlqbtY9fZIf2Ssz/M/WKx8uzT4hEJtYtNvaRnLAh
-	 UH7qLXKNWiwZP3z1rbjmdpZXF+LLk0IXp7Cp9r/0xVbMhVD/Jr2Fw/rVR7Io3VJxCctOl
-	 eyOzDZyj5Z1rkLC7d31h6YRt2TSJjABuI3Myqm5Gb7JrEYO3IMTnMB4X8cKx9ovtSovxX
-	 au2KdZHg4utkiEZcg/0hnRgzomSYP9Wel/tz71yohM220TJ2UbNRpxKpU3N0bBnwIqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=fsdGyEoA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792766382;
+	b=OjBQgd1Gnt989lNczrouPmT3YiQmV2FJDt+NY2Z3NgG5pc5cJ7QKCmKms4YIQ3V2RSG7
+	 21PZ9/BbREByRlluqgT3PPcTkZwNkcsZcfo1UdqiIK9ZQeBsZX7S+si56bJ/adp7j+eng
+	 PshuLDDHvGtVMik9g01OAoyLxDDZs5HGjVm2ob+U5h0IsFQoyaTZvig/fxRtDim9OYMpO
+	 L6kst626wD3K3zMMbDJVMiVr0QeGO6iZ9RJSGGctaz9u+VXeDGELQumxvg6ePiFDYqwOX
+	 yickn8okpYMPsNRlmvUuF4Wk3pGNlU2FgBJPH40yeGKKEPqMUxH2bU9VevMW4A7yhTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792766382;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SpcGIFTjnCDcCsVWiFHds9HiQZI7ydGk3IxBcxoF22w=;
+	b=WBBH2/OjjWc5WiciBQwVID9PJUYr3t2U/PuLQ+0FSznRutwXxtY0F8/46XnNbBOJl95U
+	 Ld8U9gY+Yq/fuay86iCkEcHKypivjGOr3sxBhZe95xcA14PTUoMbTyETAof4VP+RjuKYw
+	 CfW9b7Rp/qHGGDUeR2yYlpvY520nq4ZrXxfOuALgqYAjtu/XUVwpBnBp3EF+Ci4xyQPGO
+	 Hy36Ut2r40X4YKw0lG7fjV6CQQBmaAwTouX7XKPg8ZsOQwTiou3vSB6nOIW+J1zWyfkTb
+	 0yZpPAYGdH95iEfSFEus+fpura2S9jA7U7nK9kaF4pqCNdrPqcJfJyIadzMThuQqIsw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lS9BMVmI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560B8606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 14:33:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 560B8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AED606A31B
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 14:39:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=fsdGyEoA
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso8914555e9.1
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:33:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792765985; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WuMTjkWPQAQqlr7sJuYJYosY+vWPDydA7HxyFfp8BKiTe6yEtmTgzFEo7QpsgY6CQ5
-         UxILlax1YHOeCIG+1YCWSCJizpZzwwaGEz4r19CyNJ4QOVkuJITelOAXBE85ZIlCJo6d
-         b1p56z83mi49tNWGh0VWDgPW/oSkB9j3fwu7F0Y8c9eS+pRs1it3/5zMB1661u+UlXX0
-         VN5/x2UqYf6P3jGazpMdncelYfPKFL6xob0qMABtFlldcRBcYDLKI8U1BdpPQfFuFI3p
-         agWoQwGBRb/lrz3mhEhk83Ss6DL44Z1CxF0l161VhdecPvD7YW0VI5zjA/Xxh4Q5W9Ir
-         lwCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        fh=Or60dCkIRZDyHias8mQeqIEVCuIFee9NVv/DvcHyA6Y=;
-        b=Hamco9tHtvk7NT2QTMiUz8PE7NeC7vtbeUIfscvIs2KDF2Xg7hUX+4anB86qO3Yc5R
-         jMGJBrfDLBGfyWM61EPAGrBKxNa9jTmm8jPZxVVXQKvI2rb3odF0QpW9Y9EC8oOJ3E6r
-         keT/w7L70GTC+RaLXKpO8Ab7CENzaqSr8+WTAg9AEd54DcRFlt0Bx4yYDWgcdVstUSJK
-         a3trbqce1gVsWuSadN55L7fWkpUBu4AsWUSISJiaNj3nJPfMCpufaM2MYTUO4LaDhHi9
-         nytVaGhPwFMkCZYDl58cJYKpm2RhVQaHSxlzPGPjTCyvIpSbk+xwAGbfkLxfuUzweik5
-         QIYg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1792765985; x=1793370785; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        b=fsdGyEoAoNi9GphXvUJSQQBOizAj9ksNPCJJQuwHlnd5RHHQYkLbpKAoY+uv1IRLzt
-         TWuzRRQcxFpgyKv8WFbBHEMHLpHDP2AnNMWQGVIOtekq5t95HCYUjreXwL3LiUjc1y+F
-         7yHfwFi+WKk2nBx65TJ57AXzxvo/lHFdrKxzdZiBUbCk/YlcxhV7XeshEFqoug08Z8cj
-         ZGzf04fBpN/PcNy3wzdqdgS/Cc7pfg5S2sYcs2naMHWnBYLR+o98FckX8aQ5fwumOaCg
-         cAuR+uPp94mAvN56rwKYB9IEgiS7f4Qg6wGQ1UMNbO/v1iBP2GG9Qk3JX3U9OL750701
-         xqVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792765985; x=1793370785;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z9n1+s+asPmDaBeXYRe4kG+xpLIMptFUgjTnOa8GCY4=;
-        b=JVzqF5ZzWTv+SK7qw8xglKBkFL4Mi/9UFZtWAp3gQL39jOiKA17dwufNzWeCZffQ34
-         j5yX9q7zH1AsstYCBhVnzt9gg4uZgPvEPLsiH5LPPvG3ArO0tIR+pIJT9xJZMtSCZ6eG
-         MpSvP9YY0eN2pP1ZN+ufM3AObc00JZTpWUn8jRB7ZXWsSrLsPDkb7R+1p31S80B/8OSI
-         HEPfFFRVc08nfQrwqOOg2V0+R3zL5Vme/lOqz39oYuITzIZFWSWg2HBzeaBfebor4fOL
-         FK3RwhhcJ3tzVUdfx/bvYeP4z1v35kg07SnXCaahw+nx5Yd4SsuT8sZXlVMvsWnJSyNX
-         nqFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHAKguawBolfup/uKaZXoalD1MAFULu2wTVXnM7VymV9S531wc1Zb4FlXd+ldziSwGPYVa2xdsyyQa@vger.kernel.org
-X-Gm-Message-State: AFq9FYJS00mmCrUogYmiQNxFafMlXWyqCK/Q2DqFYKUK0wb1mJgzzHBU
-	FNvxmE7kTT+q5lbTbW4oMRsSp2RQ/eWxwY6PHPanDf/vsj2qcuz+NLkKnXi4C9H7NHLgK8QQS69
-	li5jEf/L3Ny9WXQgt/PCGItDCo1ceznVXmawB0dNAXg==
-X-Gm-Gg: AYBFou2ZOWEkcElCc5TNAEwOtyJx4ZYUfH1YtoOUVpQF6CjgtVrEsKhS4z+Z3JlIEHD
-	iOdDYVz47f+1hYMs/svNbT03GxPZ8aMQVgCCF24K7klXv9jhoPK6MWpGgucYo7/VBCDbQFeE1tH
-	eIdLa2T02wVACHA9OxkvuExHwCi9DdphGp65e/bdjP4Rivjg4vM1jgDDrJx2tHakLhSJk0rHrZv
-	UY2qWzclOimOJ9m/+RTHDp6HHQcna0nGsvCwix2CfM7N1V/1PKI0FQbQQOKH1xgu0JjgDVnxJ3R
-	oOm+sk8U31bqu2n7wnP6L3MpNi61SkL3WuQIjQ0GTawP7JFuYN9rSIo2VNyu98t+3en8uGW1My8
-	Gta5Jkd52MuJgoV++tJi9vhifYaUll86o8WWQfBUvSSQzF6PNnJ6ZVzHVfnxDh6yJm3kxdHO79n
-	38/pD1Nedc0RUMoHH+/tZZI7ZqIKoR8/Yi2mOkvWvlwr/JEekmFzac8yZM
-X-Received: by 2002:a05:600c:1392:b0:4a1:742e:3 with SMTP id
- 5b1f17b1804b1-4a211ecf2d6mr37791005e9.27.1792765984553; Fri, 23 Oct 2026
- 07:33:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lS9BMVmI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043711F01825;
+	Fri, 23 Oct 2026 14:39:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792766382;
+	bh=SpcGIFTjnCDcCsVWiFHds9HiQZI7ydGk3IxBcxoF22w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lS9BMVmIqodCR8/oJHpds5jQzHY7Q7atTKiv+gdbmVjD3FHLOqYjPRcqxVOkkZYgw
+	 1WjX2MsIQYnuiZ53z4jP3vkBXuEWTmSwrBHntNStWo98N19p88dIVSkxibx4/JO9sO
+	 TyPPiXXOF1nV4ZUsKVoBiycuCNrQLVtCBvU1nqyV5NTFiyOeF+tYXL5D4EKQ1znUDQ
+	 2fBR56xZpp95gEX/B9/wc42Umi4phXAPJL0d3h8XBtmf5QRafvjhwTZrTt5+p/GYGr
+	 G5iuY/84kPX5z2sA0GOJwLUFPrZVREey6UqQnOYUeGiU3Fg7A/3plvfGg0/skUOw/I
+	 7LQHgMLnLt9Fw==
+Message-ID: <sashiko-outbox-182875@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] pmdomain: rockchip: Add RK3572 boot peripheral
+ domains
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cunhao Lu" <1579567540@qq.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023-add-board-ok3572-c-pmdomain-v2-2-79ddd42e92c1@qq.com>
+References: <20261023-add-board-ok3572-c-pmdomain-v2-0-79ddd42e92c1@qq.com>
+ <20261023-add-board-ok3572-c-pmdomain-v2-2-79ddd42e92c1@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 14:39:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,174 +60,228 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com> <20260807-counter_delegation-v9-15-58658104e487@meta.com>
-In-Reply-To: <20260807-counter_delegation-v9-15-58658104e487@meta.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 23 Oct 2026 20:02:52 +0530
-X-Gm-Features: AclHuK9X4t2_Wp-iA3viS1hPfBa-r77osa46AUeHd9u6gOQJy4rh2geNlywyhlQ
-Message-ID: <CAAhSdy1zHzqf0Ozgoz_nT81_tjg6ojsNgGQMUpeXNaJ6AN4yug@mail.gmail.com>
-Subject: Re: [PATCH v9 15/20] RISC-V: perf: Skip PMU SBI extension when not implemented
-To: Atish Patra <atish.patra@linux.dev>
-Cc: Will Deacon <will@kernel.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 7, 2026 at 1:40=E2=80=AFPM Atish Patra <atish.patra@linux.dev> =
-wrote:
->
-> From: Charlie Jenkins <charlie@rivosinc.com>
->
-> When the PMU SBI extension is not implemented, sbi_v2_available should
-> not be set to true. The SBI implementation for counter config matching
-> and firmware counter read  should also be skipped when the SBI extension
-> is not implemented.
->
-> Signed-off-by: Atish Patra <atishp@meta.com>
-> Signed-off-by: Charlie Jenkins <charlie@rivosinc.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] pmdomain: rockchip: missing state update on shutdown in rockchip_p=
+d_power()
+- [High] pmdomain: rockchip: broken state rollback in rockchip_pd_power()
+--
 
-LGTM.
+commit 5eed5597863e9ca30f1c34684fba00455e4388c3
+Author: Finley Xiao <finley.xiao@rock-chips.com>
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+pmdomain: rockchip: Add RK3572 boot peripheral domains
 
-Regards,
-Anup
+This commit adds support for the RK3572 NVM0, NVM1, PHP, and VOP power
+domains, along with firewall status polling, inverted chain status handling,
+and state tracking across power-on and shutdown retries.
 
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index e193f978d5f35..00d2dcf07d58b 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
-> ---
->  drivers/perf/riscv_pmu_sbi.c | 55 ++++++++++++++++++++++++++------------=
-------
->  1 file changed, 32 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index fd4bf8804c9a..f0b8b6eff2ea 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-> @@ -493,27 +493,32 @@ static void rvpmu_sbi_check_event(struct sbi_pmu_ev=
-ent_data *edata)
->         }
+[ ... ]
+
+> @@ -644,14 +661,29 @@ static int rockchip_do_pmu_set_power_domain(struct =
+rockchip_pm_domain *pd,
+>  	return 0;
 >  }
->
-> -static void rvpmu_sbi_check_std_events(struct work_struct *work)
-> +static void rvpmu_check_std_events(struct work_struct *work)
->  {
->         int ret;
->
-> -       if (sbi_v3_available) {
-> -               ret =3D pmu_sbi_check_event_info();
-> -               if (ret)
-> -                       pr_err("pmu_sbi_check_event_info failed with erro=
-r %d\n", ret);
-> -               return;
-> -       }
-> +       if (riscv_pmu_sbi_available()) {
-> +               if (sbi_v3_available) {
-> +                       ret =3D pmu_sbi_check_event_info();
-> +                       if (ret)
-> +                               pr_err("pmu_sbi_check_event_info failed w=
-ith error %d\n", ret);
-> +                       return;
-> +               }
->
-> -       for (int i =3D 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i++)
-> -               rvpmu_sbi_check_event(&pmu_hw_event_sbi_map[i]);
-> +               for (int i =3D 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i=
-++)
-> +                       rvpmu_sbi_check_event(&pmu_hw_event_sbi_map[i]);
->
-> -       for (int i =3D 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map); i++)
-> -               for (int j =3D 0; j < ARRAY_SIZE(pmu_cache_event_sbi_map[=
-i]); j++)
-> -                       for (int k =3D 0; k < ARRAY_SIZE(pmu_cache_event_=
-sbi_map[i][j]); k++)
-> -                               rvpmu_sbi_check_event(&pmu_cache_event_sb=
-i_map[i][j][k]);
-> +               for (int i =3D 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map)=
-; i++)
-> +                       for (int j =3D 0; j < ARRAY_SIZE(pmu_cache_event_=
-sbi_map[i]); j++)
-> +                               for (int k =3D 0; k < ARRAY_SIZE(pmu_cach=
-e_event_sbi_map[i][j]); k++)
-> +                                       rvpmu_sbi_check_event(&pmu_cache_=
-event_sbi_map[i][j][k]);
-> +       } else {
-> +               DO_ONCE_LITE_IF(1, pr_info,
-> +                               "Boot time config matching not required f=
-or smcdeleg\n");
-> +       }
->  }
->
-> -static DECLARE_WORK(check_std_events_work, rvpmu_sbi_check_std_events);
-> +static DECLARE_WORK(check_std_events_work, rvpmu_check_std_events);
->
->  static ssize_t rvpmu_format_show(struct device *dev,
->                                  struct device_attribute *attr, char *buf=
-)
-> @@ -712,6 +717,9 @@ static int rvpmu_sbi_ctr_get_idx(struct perf_event *e=
-vent)
->
->         cflags =3D rvpmu_sbi_get_filter_flags(event);
->
-> +       if (!riscv_pmu_sbi_available())
-> +               return -ENOENT;
+> =20
+> +static int rockchip_pmu_wait_firewall(struct rockchip_pm_domain *pd)
+> +{
+> +	struct rockchip_pmu *pmu =3D pd->pmu;
+> +	u32 mask =3D pd->info->firewall_mask;
+> +	u32 val;
 > +
->         /*
->          * In legacy mode, we have to force the fixed counters for those =
-events
->          * but not in the user access mode as we want to use the other co=
-unters
-> @@ -999,7 +1007,7 @@ static u64 rvpmu_ctr_read(struct perf_event *event)
->                 return val;
->         }
->
-> -       if (pmu_sbi_is_fw_event(event)) {
-> +       if (pmu_sbi_is_fw_event(event) && riscv_pmu_sbi_available()) {
->                 ret =3D sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_FW_REA=
-D,
->                                 hwc->idx, 0, 0, 0, 0, 0);
->                 if (ret.error)
-> @@ -2132,12 +2140,16 @@ static int __init rvpmu_devinit(void)
->         int ret;
->         struct platform_device *pdev;
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(0, 3) &&
-> -           sbi_probe_extension(SBI_EXT_PMU))
-> -               static_branch_enable(&riscv_pmu_sbi_available);
-> +       if (sbi_probe_extension(SBI_EXT_PMU)) {
-> +               if (sbi_spec_version >=3D sbi_mk_version(0, 3)) {
-> +                       static_branch_enable(&riscv_pmu_sbi_available);
-> +                       if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> +                               sbi_v2_available =3D true;
-> +                       if (sbi_spec_version >=3D sbi_mk_version(3, 0))
-> +                               sbi_v3_available =3D true;
-> +               }
-> +       }
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(2, 0))
-> -               sbi_v2_available =3D true;
->         /*
->          * We need all three extensions to be present to access the count=
+> +	if (!mask)
+> +		return 0;
+> +
+> +	return regmap_read_poll_timeout(pmu->grf, pmu->info->firewall_status_of=
+fset,
+> +				       val, (val & mask) =3D=3D mask, 0, 10000);
+> +}
+> +
+>  static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_o=
+n)
+>  {
+>  	struct rockchip_pmu *pmu =3D pd->pmu;
+> +	bool is_on;
+>  	int ret;
+> =20
+>  	guard(mutex)(&pmu->mutex);
+> =20
+> -	if (rockchip_pmu_domain_is_on(pd) =3D=3D power_on)
+> +	is_on =3D rockchip_pmu_domain_is_on(pd);
+> +	if (is_on =3D=3D power_on && pd->power_on_state =3D=3D ROCKCHIP_PD_ON_I=
+DLE)
+>  		return 0;
+> =20
+>  	ret =3D clk_bulk_enable(pd->num_clks, pd->clks);
+> @@ -662,18 +694,37 @@ static int rockchip_pd_power(struct rockchip_pm_dom=
+ain *pd, bool power_on)
+> =20
+>  	rockchip_pmu_ungate_clk(pd, true);
+> =20
+> -	if (!power_on) {
+> -		rockchip_pmu_save_qos(pd);
+> +	if (power_on) {
+> +		if (pd->power_on_state =3D=3D ROCKCHIP_PD_ON_IDLE ||
+> +		    (pd->power_on_state =3D=3D ROCKCHIP_PD_ON_RESTORE && !is_on)) {
+> +			/* Record the reset before a failed attempt can turn memory off. */
+> +			pd->mem_reset_pending =3D pd->info->mem_status_mask &&
+> +				rockchip_pmu_domain_is_mem_on(pd);
+> +			pd->power_on_state =3D ROCKCHIP_PD_ON_HW;
+> +		}
+> +
+> +		/* A status bit alone does not prove the low-level sequence finished. =
+*/
+> +		if (pd->power_on_state =3D=3D ROCKCHIP_PD_ON_HW) {
+> +			ret =3D rockchip_do_pmu_set_power_domain(pd, true);
+> +			if (ret < 0)
+> +				goto out;
+> +			pd->power_on_state =3D ROCKCHIP_PD_ON_RESTORE;
+> +		}
+> +	} else {
+> +		if (pd->power_on_state =3D=3D ROCKCHIP_PD_ON_IDLE)
+> +			rockchip_pmu_save_qos(pd);
+> =20
+>  		/* if powering down, idle request to NIU first */
+>  		ret =3D rockchip_pmu_set_idle_request(pd, true);
+>  		if (ret < 0)
+>  			goto out;
+> -	}
+> =20
+> -	ret =3D rockchip_do_pmu_set_power_domain(pd, power_on);
+> -	if (ret < 0)
+> -		goto out;
+> +		if (is_on) {
+> +			ret =3D rockchip_do_pmu_set_power_domain(pd, false);
+> +			if (ret < 0)
+> +				goto out;
+> +		}
+> +	}
+
+[Severity: High]
+When rockchip_pd_power(pd, false) is called on an active domain with
+pd->power_on_state =3D=3D ROCKCHIP_PD_ON_IDLE, it saves QoS via
+rockchip_pmu_save_qos(pd), requests NIU bus idle via
+rockchip_pmu_set_idle_request(pd, true), and powers down the domain via
+rockchip_do_pmu_set_power_domain(pd, false).
+
+However, the !power_on branch never transitions pd->power_on_state away from
+ROCKCHIP_PD_ON_IDLE before performing these operations. If either
+rockchip_pmu_set_idle_request(pd, true) or
+rockchip_do_pmu_set_power_domain(pd, false) fails and jumps to out,
+pd->power_on_state remains ROCKCHIP_PD_ON_IDLE.
+
+Could this leave the domain and its saved QoS in a broken state on subseque=
+nt
+calls?
+
+1. If rockchip_pd_power(pd, false) is retried while is_on is still true,
+   pd->power_on_state =3D=3D ROCKCHIP_PD_ON_IDLE is still true, so
+   rockchip_pmu_save_qos(pd) runs a second time while the NIU bus is already
+   idled and power-down has been requested, overwriting pd->qos_save_regs.
+
+2. If rockchip_pd_power(pd, true) is called while is_on is still true after
+   rockchip_pmu_set_idle_request(pd, true) idled the NIU bus, the early exi=
+t:
+
+       if (is_on =3D=3D power_on && pd->power_on_state =3D=3D ROCKCHIP_PD_O=
+N_IDLE)
+           return 0;
+
+   returns 0 immediately without calling rockchip_pmu_set_idle_request(pd,
+   false) or rockchip_pmu_restore_qos(pd), leaving the NIU bus stuck in idl=
+e.
+
+3. If hardware finishes powering down (so is_on becomes false) shortly after
+   rockchip_do_pmu_set_power_domain(pd, false) timed out before reaching the
+   ROCKCHIP_SLEEP_PD_CONFIG SMC call, a retried rockchip_pd_power(pd, false)
+   hits the same early return and skips notifying firmware.
+
+> =20
+>  	if (power_on) {
+>  		/* if powering up, leave idle mode */
+> @@ -681,8 +732,14 @@ static int rockchip_pd_power(struct rockchip_pm_doma=
+in *pd, bool power_on)
+>  		if (ret < 0)
+>  			goto out;
+> =20
+> +		ret =3D rockchip_pmu_wait_firewall(pd);
+> +		if (ret)
+> +			goto out;
+> +
+>  		rockchip_pmu_restore_qos(pd);
+>  	}
+> +	pd->power_on_state =3D ROCKCHIP_PD_ON_IDLE;
+> +	pd->mem_reset_pending =3D false;
+
+[Severity: High]
+What happens if rockchip_pd_power(pd, true) fails during
+rockchip_do_pmu_set_power_domain(pd, true) while in ROCKCHIP_PD_ON_HW, and =
+is
+then followed by either a shutdown via rockchip_pd_power(pd, false) or a
+retry of rockchip_pd_power(pd, true)?
+
+In rockchip_do_pmu_set_power_domain(pd, true)->rockchip_pmu_domain_mem_rese=
+t(pd):
+
+	regmap_write(pmu->regmap, pmu->info->mem_pwr_offset + pd->info->pwr_offset,
+		     (pd->info->pwr_mask | pd->info->pwr_w_mask));
+	wmb();
+
+	ret =3D readx_poll_timeout_atomic(rockchip_pmu_domain_is_mem_on, pd, is_on,
+					is_on =3D=3D false, 0, 10000);
+	if (ret) {
+		...
+		goto error;
+	}
+
+1. If rockchip_pmu_domain_mem_reset(pd) fails after writing mem_pwr_offset =
+to
+   gate memory off, mem_pwr_offset continues to force memory off. If
+   rockchip_pd_power(pd, false) is then called, it does not clear
+   mem_pwr_offset, yet unconditionally resets pd->power_on_state to
+   ROCKCHIP_PD_ON_IDLE and pd->mem_reset_pending to false. On the next
+   rockchip_pd_power(pd, true), rockchip_pmu_domain_is_mem_on(pd) reads fal=
+se,
+   so pd->mem_reset_pending is computed as false, rockchip_pmu_domain_mem_r=
+eset(pd)
+   is skipped, and mem_pwr_offset is never cleared, leaving the domain memo=
+ry
+   permanently gated off.
+
+2. If rockchip_do_pmu_set_power_domain(pd, true) wrote pwr_offset to power =
+on
+   the domain and timed out while rockchip_pmu_domain_is_on(pd) was still
+   false, a subsequent rockchip_pd_power(pd, false) sees is_on =3D=3D false=
+ and
+   skips rockchip_do_pmu_set_power_domain(pd, false), leaving the power-on
+   write active in pwr_offset while resetting pd->power_on_state to
+   ROCKCHIP_PD_ON_IDLE. When the hardware transition finishes and is_on
+   becomes true, the next rockchip_pd_power(pd, true) returns 0 early witho=
+ut
+   un-idling the NIU bus, waiting for the firewall, or restoring QoS.
+
+3. Conversely, if the domain and its memory were initially off (is_mem_on =
+=3D=3D
+   false) when rockchip_pd_power(pd, true) first ran, pd->mem_reset_pending=
+ is
+   set to false and pd->power_on_state is set to ROCKCHIP_PD_ON_HW. After
+   rockchip_do_pmu_set_power_domain(pd, true) writes pwr_offset, memory pow=
 ers
->          * in S-mode via Supervisor Counter delegation.
-> @@ -2152,9 +2164,6 @@ static int __init rvpmu_devinit(void)
->         if (!(riscv_pmu_sbi_available_boot() || riscv_pmu_cdeleg_availabl=
-e_boot()))
->                 return 0;
->
-> -       if (sbi_spec_version >=3D sbi_mk_version(3, 0))
-> -               sbi_v3_available =3D true;
-> -
->         ret =3D cpuhp_setup_state_multi(CPUHP_AP_PERF_RISCV_STARTING,
->                                       "perf/riscv/pmu:starting",
->                                       rvpmu_starting_cpu, rvpmu_dying_cpu=
-);
->
-> --
-> 2.53.0-Meta
->
+   on (so is_mem_on becomes true), and if polling rockchip_pmu_domain_is_on=
+(pd)
+   times out, a direct retry of rockchip_pd_power(pd, true) enters with
+   pd->power_on_state =3D=3D ROCKCHIP_PD_ON_HW, skips re-evaluating
+   rockchip_pmu_domain_is_mem_on(pd), and calls
+   rockchip_do_pmu_set_power_domain(pd, true) while memory is on without
+   performing the memory reset.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-add-board-=
+ok3572-c-pmdomain-v2-0-79ddd42e92c1@qq.com?part=3D2
