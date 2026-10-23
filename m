@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792767362;
-	b=SSnToEaNSCyo0eBBudjbPd3dPeTgdp8zGAQEayIWWi+Wv090nHwgBzpjmb13wjrQPFyl
-	 KEI8HPzuuF7t8PwpF520gKp3J11KgWIm0S6bvABnhpVsrsINK2U+uiWFiPHccBrxEYMWt
-	 3ohEKmRR9hGWzGE4J5Xz0b7RDZMZotz2Nzq2uXC33yV2T6h2vXTMza2eLQdLlEO6yP7ns
-	 ysdk01YRvaX1vZhSPr/FnFLVOyVenJtjfE9koLpWzWqTgetqiB9kPljAMF5/h4ithZOBT
-	 yGFn+zniAU65AOGZki0M9hM9iXl8iQwZT5lP9mtY4AUzhAMlwOYRUt4NCPElkkcmGDA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792767362;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9bdn7JZKlrSe802I/W49m30XlcFM4hLN7khRfrE0PxM=;
-	b=W8OujKxJ2UMgjGiTDJToLoGsUgl0x8cDjjnS/CvF2OXb5IvjidyFNli0Q/5ZgedyNNWk
-	 Q1zpsYkcpFC2F+RiqMMNZ4NmPgDcY0Bf9HAfoNEFbL0XktM37SKDWF1k7ta9gXlhsNEis
-	 87Yap8YE9Hb/U9I5Bl3kYYwt0qzDbvyCfF3T5HMFJVjhZsh9lqEWlxQIglLvp95X7YuPv
-	 0Vpmt69xMK2YkSW0LJqtrcNJBqLlMaqtHFS4kRahjBC+3U17ZiqphUrSONaafLEJPjxya
-	 qimzavm6KY/cU5AgSJtpDbWguQZVh44uVEoilXEarwQdlX8pUzjpt+yvEuPuQvU+FmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=JS4slTlj;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792767913;
+	b=31LUB1HfR4FKvFE3nXRweKWytQQGeTq5kb/iSf0gEKU1u79EURt44HUxqwYyivil7aGN
+	 PgHeeKOJ3ZEIAF7AoIiR99ppmbUHtWlkj61zR/Cygrd82ViSC4edOaK4ZfdnyvHuw5k8n
+	 04kYmfn0s2e9z+WvTxqeWMz/ynXX7Dnr23Y4eXo4cHatrENdMbWc4RtnNp/77EzoRbD9E
+	 46NSvnln/BTQxPj6Nozc13jWx+dMef/+eyimTwhw9AXRmrEJMjXt8dUQGyEkyLAE85Xky
+	 wtA+wc5njfwOshdz4JKZ+4mGj7qlhSbNhNtamW8XLIuzpL2JCnAnafIyfA9jEZDmFww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792767913;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+646b+o57UiNkDE3OZjlr5Spf6MqFBTc3TUadSFYObo=;
+	b=Z7+E5BlfoDdLiaJA3Hqypalgpplppni/P9m0Kc96LRUFuuhZCr8yhIuHkvjCmFDs6xtu
+	 2UvUMO8irgcP0Ad2ffWEcR4nEF5TKPFndYFEPfsEel4b9wE7dujUPTWsvZOcywf/xkTJx
+	 YjQveYi65JXiFBHzs880xFlQt7nP/0vDclbuWBr81XZmVemipb1h2BoscZeQvMJGgiOgg
+	 RWWvHZ1vASFpkO5wcbDiz2a82imO3ZxpcPYnxBslqCuttUchl3zbA2j4hb9Ldl4xMRcAS
+	 BfVL5sd4FX3hpEH2iaK63LatiTBhT/Bk0tvBh2u48B01EGE4enyKl1f3OPoGwFp8FJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=g3Mv1+Vf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.2
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011002.outbound.protection.outlook.com [40.107.74.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F44606A331
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 14:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F44606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFC7606A329;
+	Fri, 23 Oct 2026 15:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAFC7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=JS4slTlj
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e3b22e971so354052f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1792767360; x=1793372160; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9bdn7JZKlrSe802I/W49m30XlcFM4hLN7khRfrE0PxM=;
-        b=JS4slTljmmDFN9zzqecOutQb4/qkaxdkf61XRiBOYkMWrNjBIwFAq8E/4eSrH6FkI7
-         bLlG8vmt8xQ6eSlB1oyroh/DhTdXl4Nog3M8n2SFkCbOWnnYYf1dc9X8ThNjRMSwLX9V
-         JTSYWtL6xt+KjCJ/OJQ+GxTh7uV+2j/OQlCb8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792767360; x=1793372160;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9bdn7JZKlrSe802I/W49m30XlcFM4hLN7khRfrE0PxM=;
-        b=M5P0R/qg39KhLaIeohG7HqOFR3y7p78NUEgHenQFZjE8oQsyIJlxAoo4dsz7ObuTao
-         dRjC7WbUgadsKATvEZ01DnjUwBKqKhUfnWqlHp1rXCQN5DjO4zHwBa31xD+07awwgfRs
-         En6XP+91NA1U/EwfQ+ArPx+VhRt89WjsXkbJ3W9OXKbTgyLdvBymz7snab7VYLoG+bNz
-         idnMeNW770qKIEty3u17wNpnrdgHewe5NJcqMylpSkxgjadVU9yqVs0RtvvQZkhItjWH
-         YvhN18EFp5ZVvgpk03fiB5u/205egXmmcgAW4Hjp31H7qyInq2EVPiBkX5eY4fM7P4hH
-         MTSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHxTg37RzEn8/UO9SrssoB4/cN57Pnm+2WfHnNVtxQcuEfUp1r60IK4Js2QLV4JyyZ1jbdxHOF1tNg@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ12PxIkAqopcrCmYKPEDuethSXDLwaC77zKkxe29gufKGzs4OY
-	neb732JAv3ETH/MtbPB5L3TIW/U/7bLQhkVlNH0hWxuFmHVnf66Nze+eHgmyM4lsIsI=
-X-Gm-Gg: AYBFou0qbXvSCFSOxEP9MUIMp/kXianp1CzTOytcXMuw9TcdsVqZ+5gzTINjd+W5SsF
-	IE/DW9Knx4cVDZ7VwoYcfUMVjV/m1JKNTrR1GGBFh4FBN/QO5oqeAnpyjykRyTkBbjkrAJeviPO
-	T3DTxRo3Zfhkridn1OPqXqGYiqswI52ED5qlJXsIzQISaE43qa16BK0YgJ/KFBqGNDXP58Xca8h
-	Jd5JYEfUIwHU7IzGAMKVUt+/SGdDlDa4moA8tn6ZvWCPoD1PJdA3SWnvgBJSaGMnJ6bIIIO6TTe
-	riA01eMsbXBRJV8OPy81cmokNdvdlqtT9iJcDEaIzVyrD7oGDigou4YG5NeivLlmNQDVeivWNFb
-	U+U9frfM6dnHKp6R7UXjGG+AEFRtQ9ZY4LKGLGtaMwfqeubRQUp3ASaCFDsAkJQwumkr4cSlXob
-	961F2ZPojcWuarS847kZDWtUFcvJibisTM7vhiF4FSI70VJx+2GHnkYruodMThdbgoJA0QdYu2A
-	/Nv+bzMIt49kwTrTCBnbcUAJGidpfu5ZVDFLw6zY8a70u64W4KWwbDluNV83TwmsvR05i1ic7wJ
-	w2hYlTVFd/7Lq7KH65M6dxhvRSD5q4i+cgP9Z16OWrAnJT721qpOtAyMCe17r4Z49S/XVnFRCCh
-	iFmmVdb1h/yNPGNsg0QTT+nux31DWnEWjp8hy7gAxSeUO1OzFLWU9
-X-Received: by 2002:a05:6000:29c8:b0:48e:3cf5:71fc with SMTP id ffacd0b85a97d-48e3cf57222mr508697f8f.47.1792767360463;
-        Fri, 23 Oct 2026 07:56:00 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d42f884sm226760f8f.57.2026.10.23.07.55.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 07:56:00 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: linux-amarula@amarulasolutions.com,
-	michael@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH 1/3] dt-bindings: clock: ti: dpll: drop the ti,ssc-* properties
-Date: Fri, 23 Oct 2026 16:55:30 +0200
-Message-ID: <20261023145555.3578469-2-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261023145555.3578469-1-dario.binacchi@amarulasolutions.com>
-References: <20261023145555.3578469-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=g3Mv1+Vf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eLEll3FC9X2lTbHyLvvCCUg52KL8J3AEGqph+rNROONJ+0ghrCTVVdzCnTSa2CQ6FFim8dRd2BHMC3xDL+6IpMHvCBNih9Dn6ckEQDKlU4uHGvIpg55qGYRsh/nr7QTq+DthJXnyEt092kP0Il7muoJGUqM/VEI/HVjK2I7/2PMDBsxHHsUASBLP/4s6EIsVBCVhXJYJW79MvpXXcK1Tn7fOf/+XeS3qQqCK7ewiPvWGZa2pE5fbjSX9QnSmDuPSonut4WpD2y+jdqT2zqe+AkyverkZCQ4utMDylBIh8b5jpcmu1k/sGj0t57+Tn3qBRQJgiEU5oXB8g+pbeQQGrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+646b+o57UiNkDE3OZjlr5Spf6MqFBTc3TUadSFYObo=;
+ b=VaM4yqHbYlXnplUXtKzQi6+Jew4cXp90KIUOG483YnsjdmVljrSGMWJpJnHue8ZINeuPOth+tF3Dpat+M9LOUjF+mkT6Q4pqqyJXzlO8OeVQSGPkqVcIVn8AbT23R0vcMYGz320V6pb934fWrd4n1Nroe8xTDHCYwVrHLoS1nOlJH6H5/inocAfEMM0TVFdBStPMkAJoklYWO0Ev0pK3xLBYmH7/ZfXonsWylXvJrFZ9XbfZceMDzSh5CypzPvz0+gbULQ0zL3JT2PWNO+E9Ziq+lKMU2d9xyxgu+QEVzug+D7D4aWlBU1H0FqbbC4x9SVWgwScHVdnAI1A7M/AuGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+646b+o57UiNkDE3OZjlr5Spf6MqFBTc3TUadSFYObo=;
+ b=g3Mv1+VfDymMgDflILMA5uLKXFXzuE9q1JHG2YBzQhL36OoWuiGsTl1gqJ9VzWjwYDKFU1PNbvXUUJXDk2sKNSO3nNOreRY0B35/QFqWr+fjYzmtXzBBUsoqgUBYJ3X7UEfQAJx1YysHFT4GJSj+zjAfxrwusI2YOyiYmm8ucyo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11) by OSCPR01MB15652.jpnprd01.prod.outlook.com
+ (2603:1096:604:3c9::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 15:05:10 +0000
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
+ 15:05:09 +0000
+Message-ID: <1ac3f002-5d88-42a0-b6e6-47cb6839e0f2@renesas.com>
+Date: Fri, 23 Oct 2026 16:04:57 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] i3c: renesas: Fix zero I2C SCL rate on pure I3C buses
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>,
+ linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, stable@vger.kernel.org
+References: <20261020-divo-ssgrlpcsrc-2966-i3c-v1-0-30a47f25e515@renesas.com>
+ <20261020-divo-ssgrlpcsrc-2966-i3c-v1-1-30a47f25e515@renesas.com>
+ <ats2nSA-kV10hlje@shikoro>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo.sx@renesas.com>
+In-Reply-To: <ats2nSA-kV10hlje@shikoro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MR1P264CA0050.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:3e::22) To TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,45 +109,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|OSCPR01MB15652:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a16dd63-e9d5-4a58-cc8d-08df311707ae
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|4143699003|56012099006|11063799006|22082099003|18002099003|10067099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	s97JMwqop3iI5K4xfXHjrv8dRHsFp8/QsF6CaXRm4NCE3GHlx8ZKLWVDMOehttrIK1ISGe/V2CcAXyhXmRsLnhVT4EI6MR8DPyCq6LGUTkezYdXw7aQMZR1S/52pikOu0baHier4vbUPmKULim9ru9tJLHK/CWuAP3bDMrIje5JC0BuyI4og01660B9Gv2c5spyLOSyKJJzLUSlhx705OZwPvNbFr2ljpSSzO2myS/54n2JUD3OiozrYYe0ibW5LkUveGk1UeyEexKKhzPefJD8n5R+KWX5W1ZAwxprDaFYLA60ZhBTwn7NMUEsVG0deQXi0NMWAiCZ0m3z7wSYjGfC/t2Ivd+KlTimWisWVj4OfWsxRmcCvE5K19oaZCufA8su1EDbKZucJIasT/3ZBO5jTLNWg5Lm1bSrOpij31Ubn1falhO2vqxm4pSHJB5BWC8XweiwZBdkaNqeDVDscHcG+Sktyi+vvp2Xs/PlHOeCLxLF/vtm/bqAODuuCvxa29lZ/2cZXznS0dEDAi9i7YnutHcOXGP5oje7Nh4chFp3sm/8xXHHEYRisHoY7yL4AGvKGIEtqifTBurU+kQncT57ITp9QffhQ5klL/+cZrI/QQYdqTo/Vs0JEqSaecfbeWHQJX4Xd9vJ2LhRSXThXupRFu8ybvVTfNOueKgKCJNE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RFVGV1VJcGFaYlFHTjJaVENJaiszKytEZXcxUWIzSWV6UUg2blg1WW9kRkRI?=
+ =?utf-8?B?Um9EdDVzdnk2bExJRkZORHhGT3RFcjlwVk5wMWZXR2dmN01pd0FvRWpMd1hh?=
+ =?utf-8?B?YmhTT1dLLzllS0UveW9ZcFB2bEJRdTRkWStmakg3bnd5cXRzSWJBRG5aYzZn?=
+ =?utf-8?B?NFBnd01JQSt5SC9PelJEYXR5em9GS1RaUXNzY04vYzBDL2tYZlREdXFOQncx?=
+ =?utf-8?B?UVFYNGdxVHp3NVY0TEJWZEc1U2VBM1VESTl4eThCRjZsem1ENWtVRmlPNitr?=
+ =?utf-8?B?SHdWcS9HaUF5a2dIY2xmc0xEaS9qK3pXY0lWaGIzM252SlBvbllTTThRczAw?=
+ =?utf-8?B?YkZsaUdBTlMxSlQrREdhU0d2aFFYNEZUdDhzVVViSktkZEd5L1c2eThob1pP?=
+ =?utf-8?B?WjQ4WW1wRENEemFkQmlTRnlPNlkyaUc0LzYzV3VUc3kvSUROaEEvRzRvNWxu?=
+ =?utf-8?B?cmdCWDV5Ymt0L092eTB5THJnVnZOaWwxczFZcnEyVkJyUzZSLzJ1THE3U1Zp?=
+ =?utf-8?B?bVlGblh0Z0RERTB5TVc1elFObFdLTWV5VWJ2TnoyWDRqZGtwaUs2RjBjUFFh?=
+ =?utf-8?B?cytBT3Npby90aDZwTG1nbnBDQm5SdjFKTk1zVDF3VHVwY1hYQWtha2ZpSkRQ?=
+ =?utf-8?B?bHo1bTB5UDRwRkpUSVZndGJJYVM1b3BjYmFrS2lkTnZLZVJDTHFBL1g1SThj?=
+ =?utf-8?B?YTRHYU5SUDRGa0JiT0c0TGJKbnJZYk5BZ1I5RUJGeUZzenRUbHRza21oZGJH?=
+ =?utf-8?B?anFydFNnSVMyRUtvdy93R1FDR3IzakJ0V2M0bFJwUFgzNXNsTWVhc1FuU2hV?=
+ =?utf-8?B?amdjajhGMjFuRk5tVk9OZTcwa1U2M2pDWWNubmhiSXlhcHd4UE42ZmEvMXZI?=
+ =?utf-8?B?ejMwb1RiV1FOdHB4b1U5WEpPWkk3cHRwZSt2TUNzVHZhZXRVdFdSd2plQjEr?=
+ =?utf-8?B?MXFHaUdpUklEYWVFVWZDRmtyMldHUVFiNlZPUUlNS01zUjE1TldPUTFqV0x0?=
+ =?utf-8?B?SmJQUzEzUHE0UlRuZHQ3VjBUNk9jNlBTbHQ2dlpYUktINExWcy9md3FoK09D?=
+ =?utf-8?B?RkIzbjhYNmI0eC9FaW9zQmxjOFVYK3dNVzh0S2VoSldZeFgyVW9POWw1bThJ?=
+ =?utf-8?B?RDNEQzVyYXNEcEE0REZEaHlXVFZQMFlva3ZuQlBiWFM0bUw0MW9RUUhFYTZV?=
+ =?utf-8?B?MjBwS2JpOXYvTUJ0b0IxNXQ5SHlmWXltUkNMVzVWOUFyS0RUS1lDSUJTYlFJ?=
+ =?utf-8?B?WHgwVlByVnlhNTByNFBHZjBPN2RQSWFlNml5YndBT0R1aDhZb2ZEMmxremlh?=
+ =?utf-8?B?Zys4eXRBUkF5djJvQlcwWVk1NFBEaHlpSURVVEQ0cWh4Y29vcUlNR2ZSb0tn?=
+ =?utf-8?B?UGdrRHFYaHE0a3VCZ3pqdUJnTDhkYmZhTkxsVld0dVF4c0c0OXhJTkd0aUt0?=
+ =?utf-8?B?NDJtUGFaQllvblQxbFhIRldpS0piK3FDM0pXcFJwaGNpVFUrTnVVc2hlNDV1?=
+ =?utf-8?B?U0crUXBSeWY1NXQvOUR6ZmpKaG01TTNqZDA4Wm9jaXgvakp0cmV3Snp0RFlP?=
+ =?utf-8?B?UVlYRTNUL0k3bDNEcHpJZmRRdUdDb0pFWmI5TVZ2VHRRdXZmMGxqL2liQ2hp?=
+ =?utf-8?B?eVhkUkRLbk5XNFZ4WEdhL2piNk93c0VoaGY0bGVVeU5pSkp2eWMzcFpldGx1?=
+ =?utf-8?B?TGJwb3ZpV0xxellWRnJtL2hVbE5KR1ZoakNKN1ZkQTZaRUc0NzVyUWE5SS9t?=
+ =?utf-8?B?aDh1azVxYzNOR2hIUHZjNE9Pang3N3oxQld5WThVbm54WlNqZmg2alBzTjAx?=
+ =?utf-8?B?eE42SVpMUWFUL3ZnQWpoMjRHRThoR0pGSW5zWUl0SUNDVVVzb3lVVnJyMkI4?=
+ =?utf-8?B?WHo2VHBFWkxMVGp0MGJzbEFSdGxmQndraE1OeHdPNVlvWEQxYmxXcjBNUVNv?=
+ =?utf-8?B?YXcxQVF5eDBSUFJKNEI5WGROWCs3SXYxeU5HQXk1NFdJVU4wVk5FVkx2bVlw?=
+ =?utf-8?B?YzZGWklRc0dkQm9DRTM1dXNLeVgrcnowYWNyR1VwZEh0REt1WmpoZDlEWGZF?=
+ =?utf-8?B?WG4vWWUxV1ZLRjdkOGJLcEF4aUw1OFU0aGNhUjJCbU1WTExLMzdZZUlpZGY1?=
+ =?utf-8?B?US9XKy9nbGVrV3B4M25YZVFsU0ZHSWFja3BKR0p0eUYrWXhkdVBseVVGNmxX?=
+ =?utf-8?B?a1lHUmhqVE91TVBTdkdoaGxOOTVWNUpWVlN4b2N5bGtPdTRiWmR4U2MyNjFr?=
+ =?utf-8?B?KzhaaXZUSmkvUHVGMERlVVFRRVR6dk5zRW9ZYy9yK05yYVY2ZGpGdllVa29N?=
+ =?utf-8?B?cXk1Vlk2bHZJOEFVMEFYRUpwYisrdlhIdFY1dlJEYStIN0V0Z29SQT09?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a16dd63-e9d5-4a58-cc8d-08df311707ae
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:05:09.7018
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ac7UVYfaWWHGKmeDIECq35lu81ZsezDhsb9/5ixNjvBEYKhdC2SJlGrI+897mbHvxx9TB9JJq+UzfSlbztu3N8V61woZaYtLLdQKaX2iRAY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB15652
 
-The common clock binding provides assigned-clock-sscs to configure
-spread spectrum clocking (SSC), supported by the clock core since commit
-a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Keeping the
-vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
-properties would leave two ways to describe the same thing.
+On 10/23/2026 11:27 AM, Wolfram Sang wrote:
+> On Tue, Oct 20, 2026 at 10:14:55AM +0100, Diogo Ivo wrote:
+>> On a pure I3C bus there are no I2C devices, so the I3C core leaves
+>> bus->scl_rate.i2c at zero if i2c-scl-hz is not specified in DT.
+>> Deriving i2c_total_ticks from that zero rate programs a zero-width
+>> open-drain SCL into the STDBR open-drain fields, which are still used
+>> in pure I3C mode for example in DAA.
+>>
+>> Fall back to the 1 MHz FM+ limit instead, the fastest rate an I2C
+>> device could have, so that a sane open-drain timing is programmed.
+>>
+>> Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+> 
+> Great catch! Kudos for adding a good comment. I agree with Geert about
+> using the ternary operator, though. After that, you can add my:
+> 
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-The properties have no in-tree users, so they can be dropped.
+Ok, will do.
 
-Existing DTS files using them continue to work, with SSC disabled,
-until they switch to assigned-clock-sscs.
-
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
----
-If keeping the properties as deprecated is preferred, I can add a
-fallback to the driver in v2.
-
- Documentation/devicetree/bindings/clock/ti/dpll.txt | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/dpll.txt b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-index 14a1b72c2e71..ffbe50f46e68 100644
---- a/Documentation/devicetree/bindings/clock/ti/dpll.txt
-+++ b/Documentation/devicetree/bindings/clock/ti/dpll.txt
-@@ -56,12 +56,6 @@ Optional properties:
- 	- ti,lock : DPLL locks in programmed rate
- 	- ti,min-div : the minimum divisor to start from to round the DPLL
- 		       target rate
--	- ti,ssc-deltam : DPLL supports spread spectrum clocking, frequency
--			  spreading in permille (10th of a percent)
--	- ti,ssc-modfreq-hz : DPLL supports spread spectrum clocking, spread
--			      spectrum modulation frequency
--	- ti,ssc-downspread : DPLL supports spread spectrum clocking, boolean
--			      to enable the downspread feature
- 
- Examples:
- 	dpll_core_ck: dpll_core_ck@44e00490 {
--- 
-2.43.0
-
+Thanks,
+Diogo
