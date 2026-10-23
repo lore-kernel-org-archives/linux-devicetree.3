@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740575;
-	b=NlgXtl0C2V0xKKI01op8xZJ1e6I82DKffiVhQy7dhoqk68meycHGJ2qYjXT6t0infsiY
-	 8d0dzLrNCpL6+eGLh9SeAjQzhWQB5bPM36qMYrSHPx6zB7Hi70O5TygvPMKfj+IhmTbfd
-	 nbQilNxdVwPQwN2DoCduK+prKBQ4p7EZHMogjOPC3NugMDdqF9C3I8w5riu+BT+V8jzPX
-	 YozYkIsEH4l/uqGo7D3aj8cM9MB7AV6meGCOuKFaDAciX4/9DWihvMuAz5UjV4pxbb5eq
-	 8JtemPwLZwU5L2+jcBKI+c82JL3raA9iOl8IXJ07txBeXs2ryHkmNF8NfQah1MpLvFA==
+	t=1792740582;
+	b=oWUMMiyJ750E7L5Yh2X3tKlEwRvGCqyFiN3tdK2onUnvKgnCwpCCt3dNyT8CAhH+YNcm
+	 HXpjHm8fpc+cIS06ylyWJEHW98Ng924oMeAWLPzkeLYqgC0S0KOsHGgX0I21E84TqZFdA
+	 pwyNnGXjDdyEA1EX1z2lfMztk8Uy5fnZcERktO5ewH4BJKVFBapCEgskTSiHYw303qMbA
+	 gQdScWpEofwhNAWZMwoI3LFUtOPu0m4jeic2rC6l1+Kch/ftjkjim+0vqsN+5rTvS9kbx
+	 lzaw1EGfNYDEJXkK/DKlXkkuE4RYfwjZEzcEFO0wjVFLxVfOOkPPjx+qWOBMV7+qDpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VAVaTyG6FUxtbGFiAmHlRicfPEk2g2jbtLra8HC2bXc=;
-	b=rgFyInJLnFhNrtESF4Ca5T7xpdlDIOjoRy4s6CyFw8I1gVyjRrki4vOnb4A1fJMjciie
-	 fv5qxbmcgYFkfkB5tDH/ybR1JmEnQ/Ij03yzG47hhnGWSdFnVPf9oEgc6hLtP6teUTfwq
-	 8Q6i/CWj9sk9VbTmFYdFAVZ/9tst/he5RbXepNqS8dUyA6NHB1E6F3DLPZATHBvXkMy7o
-	 M+2GK46PSNOPtxXxvDUHKNp6sFuDWjfq5xOju/kA82S/+yR8J4OJKvwA6Js7THR9pzfGj
-	 Q0JnRexA5LoaZgz9z401QbXvzEmoq4zYqUX7bHAxKMdrcVo5Cb+H0MK7tej/Fm25sBA==
+	bh=6y6nqDt6mAJiogSVBxweWlKH7MGDfWlUgG68zfDz828=;
+	b=bFp0466bKZ+s10OyN0WgsMlX9P7PB16U6yPVL5LR6o5OFzjcFlp79KrfCdHoDrWSO/pa
+	 En+diGyFCfFrAX6IQzIoEbZmIWtj8CG3rYhJ712WbjYzO45MZew9bffGbiNKHGzy8RIxz
+	 W6iBjH0n1CGMdTeT8GhF9IIE3Y3Jl3Pe8RMkmeEIhPEbRlY4Dm+/pIcBoUyZUEGD5E7Hs
+	 2hDSgeAnyN8EZ8e0WoAQKWMENsL2IKIXfViJ8GHiS3qQ3afJwd5jdojs5leMZbqbQ0bHR
+	 /kw4EIPj+JFUkFwx3s1wRWNdsGtJXiAfytA7+ewlM/FKRksvfLi4EBz41FYhZyQVTXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bdq3CeN8;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qMCppTvp;
+	arc=none smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA0D606A31F
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CA0D606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37463606A31B
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37463606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bdq3CeN8
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9ae391a05so3360095ad.1
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qMCppTvp
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e96502e447so4230235ad.1
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740575; x=1793345375; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792740580; x=1793345380; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VAVaTyG6FUxtbGFiAmHlRicfPEk2g2jbtLra8HC2bXc=;
-        b=Bdq3CeN8nmxGTGNEujtXFVH2TPke7F6tCQtSP4fJkoqIK8dFkUJCCMGJ5+D20vCYcR
-         5tbSrCkFkZN0RdkjNKwqaXfr0SS+yIc8dcUMXGxq7nK0i1Q7bfasZ4Li72GSkFQjxNRF
-         NbAZdhkYm8pLhcUQjYtE7scCD4/58Etd1nmBUlHJUqVmit233CxXwCQM0Cit3ucwoPo+
-         4DYqurVz3R765oB8Gt4dFMxn+6EduxxyTQYl/wfGNIP9bXOdh4V3Q1z/ntGh8u3nsZ/w
-         1SWOuJtl4sytcxG6RKZw2u2msoDL3Hi4DkcK1FJE+67SNMB8SemFHobpSqshltuguV/p
-         1DpA==
+        bh=6y6nqDt6mAJiogSVBxweWlKH7MGDfWlUgG68zfDz828=;
+        b=qMCppTvpDQHlhRWvcke/hUNaLrBjBHXgBtSbc2L0Idow6+auynJ1X4uiZKVPfnf/ng
+         jYluPsBZU7TpiFvCN58Aft+i5ITpuqGa1zVlCOyAbz2eojxNHkbMXALXGmOPJ3sFAB/F
+         4cxm9jNDNpbqvV3Iq5v4VnFeBbdOJ7xkJH2S9bi1Ie3LiVMCaunHH7yhrDwb5RU8VbOA
+         EAkMaHkG110c0fbNhiiDhn4wXfhPzzDuHpdSOD9EeA9mdYE5K4Gg3a9YMm5yIJYiOIgx
+         ohQC84rjXK6x8Nuaemj/KfMS3IqOQ3WgcI6Mh/WUEneSKosVjWasANfnt7DBYOlyczfz
+         YrMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740575; x=1793345375;
+        d=1e100.net; s=20260707; t=1792740580; x=1793345380;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VAVaTyG6FUxtbGFiAmHlRicfPEk2g2jbtLra8HC2bXc=;
-        b=I/8szy0RZrcZSVfWo+BjoP5JITAgkAcSXm/8XSsnQ6HK32W/9U1nX/9uhvoJDCRVa3
-         EMyBVyag5CfE0eGmsqEFWtxqX7I2Bi8Ct3LMAo18vRB7aGZsL3gDxvahlTpXpJCua6TU
-         tDq0wBHyWYIbrfutCX2QloWyYMJnUNBXDSGkJzgQkoYzQ5520d79jcX4DtPBdU85PAGn
-         8n/ugSkZv33OQBm1LhOxq9XTsdAbk8Tt2PDfXxjYAfw93kVMmok0/98JvROibpXwDtdO
-         Y/5yjyJWfKHBJb0EA47JN5IRXW/5U9uF5IPl4nYC2gM/e0LGcD8N4WRnTpfdjRnXbr7B
-         5Ejw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqHdTbvQhBRDepCa/f7mPCr0o1RcOD4EuzryYECp9jK5MaohDshwG4xyXe1r8LD7WjdxCS5lM4YKYM@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3NHGhNVBif2TLAPQ+RySJ3xtklpC0aa3b1dYV3ajLSknMPDa1
-	vTaFSpMKiGkX2Jz05mAaegf9XZH13SV0vERd6/BpzOL8jv4MpzwOfLWdnDddKw==
-X-Gm-Gg: AYBFou0PeXponixHsIjjQv8M+Fd70QK8Di1PyR2v/5s9lxWziGBIDoytVFwQMs1QvrH
-	jBoq5EbTna+9a6SnEhwbEzySETpU7DZoKPKmK5eT8qio3rJm7SMLdLkR142/VfNB9TuX0AwOcYV
-	2V4X/ShHoMxtTFTwEfQmUkE3y/vj19HcI02Wd8kc+rwwJt4+bD3P0lQe6YMYIEulq5LG0LoDWa/
-	FP16oNjGERPxi0ri9/0bYKIZzAnR7gs3ET0Bu6OUpVDdjFxLejpt5YJKQHpv4Fgdk0IZA8FQpLm
-	WS689mFe7zwfsxqOI1GE2jGaW/+nZHiFF90sUGGNJ3wexYb9klnC9mMUTDAQnbA38lCBO2MyreE
-	G3At3m2ZCuF4nV3eJgZxRyOI0dEe/Q6N5v9/7AUC1LAqbVFXxWKcKibuULreHfbcECwQAzR6tQg
-	PTlOLjlAU5bll/jlZV1mN48Z4naB2cnZiqDJxOy7rZ2uwoMxFF4r4XhNbJGkVOcRQeiaRrPRtz1
-	g/emJ+KgvBQU68nA43Tj7rb2Mx1u6nJpLhYjeYv1o8kob+Z6S0ms2EaD57rwVDLt7plTe8Umw==
-X-Received: by 2002:a17:902:f38c:b0:2e8:4ef1:6fd3 with SMTP id d9443c01a7336-2ea627e3b09mr20695605ad.13.1792740574627;
-        Fri, 23 Oct 2026 00:29:34 -0700 (PDT)
+        bh=6y6nqDt6mAJiogSVBxweWlKH7MGDfWlUgG68zfDz828=;
+        b=sxyiriFR0gV/en03jmlrpV0WeHWEaVZhqZuAztNjC2sbFHbGuN93GW9hqDuVhCYk6v
+         U8T9PCDAQ+UZdiSE8Sssb7Ju4uaN6zDR+C8RO1tNxayEAfLi0nTt5tE8ABGTsDFtvm7j
+         8JSwoJ7X4Zwu+r56iLTbe84sWiR3nR3mkZRmycF9+Pb2O8C3oJ/2tsvxi6JmmZ0UT7KR
+         twij5egxPHqpxFdtT4Tg9OG4MpXAIbM+GJx5ZTEjz3pr9XviM12bCaDooFaHG0eeUTdM
+         MUDtluO0IF7S04UkBrRjtCTvBC6EgS7aLX98yAR1N6BRRhdsJATe2BEALov/ISKvwtEO
+         le9g==
+X-Forwarded-Encrypted: i=1; AKwUvBz6AVj/Gfhtkm0Ytf/0/fe2Una/mLB4S+D65GUadYP3gLWQvFsVwS4OOThmBogMxS9/0FOFqIYGs0Ak@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOqL189Kp6rl9/Hatl9XXPolOf2LFeE7VFN3KMrLxxJhsSUaV6
+	KucjBAEm9y3+FslGjpTH9mtmBIL4prDRF09k/KyHGQW1Hfr61gZI/SiE
+X-Gm-Gg: AYBFou0imhKVk34PbWSsjYbuhNFucZ4v5I7T+jPmoRbOTvpQTI0h3nxidZcDirX1H30
+	maabSLQYBinBNoIG9rwArYxXRca50w+7VSssQq9E2mho5m4jLPoKPkftdAQAgwR3gXNjQIBdy3S
+	2HgnTNyTIY+BrcSz+AZZDk7RMrxjZd//wW5VMRY8a+gO9bNrzSjYo6qz1I+pEy7CTJfggY04PYR
+	FEzwwI1LydWkrRLkUc2UgVJ30QOKcngLJZy3bxeMBI2/3dIzVLOt0YCzwGzEIS4V/zCR/4ANPdi
+	Y9LtctCBvUN4oR5BKV0gqlkw0whsCV339uvyVzuKn5Hdz246fsDWIuTeUj+Eh2dbgGXkLaSxbe4
+	vYn69wejDEIwelZmpDkr3q3vgyt38qkBK7Ur5Qm3CArSiapaWgL4V41HuD/8zdToTjMJ979jPaN
+	/nMKHkmq8Hbf+BxuDxHOyz9aCH4KwwxmwunQtxm4xeNKLfXxQ0govC2XiQjqBAlGmuFuOmE8YT8
+	DLgV+V5X09Eb08gdEixMmRog2/uBgI5i/d/mBbRarxw4lWhyFrKawXSNtAV8UJ21mnrxcQQIg==
+X-Received: by 2002:a17:903:4b50:b0:2ea:e24:3eaa with SMTP id d9443c01a7336-2ea7cf5d74cmr15224975ad.2.1792740580515;
+        Fri, 23 Oct 2026 00:29:40 -0700 (PDT)
 Received: from localhost.localdomain ([218.194.41.155])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.30
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:29:34 -0700 (PDT)
+        Fri, 23 Oct 2026 00:29:40 -0700 (PDT)
 From: ShiTou Hong <redstone.dcity@gmail.com>
 X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
 To: andersson@kernel.org,
@@ -86,9 +86,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	ShiTou Hong <dc_redstone@outlook.com>,
 	KancyJoe <kancy2333@outlook.com>
-Subject: [PATCH 2/6] arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI bridge
-Date: Fri, 23 Oct 2026 15:28:28 +0800
-Message-ID: <20261023072832.2642647-2-dc_redstone@outlook.com>
+Subject: [PATCH 3/6] arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip
+Date: Fri, 23 Oct 2026 15:28:29 +0800
+Message-ID: <20261023072832.2642647-3-dc_redstone@outlook.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261023072832.2642647-1-dc_redstone@outlook.com>
 References: <20261023072832.2642647-1-dc_redstone@outlook.com>
@@ -103,115 +103,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sm8250-hdk has a video bridge chip LT9611UXC
-converting MIPI DSI to HDMI, which hasn't been added
-in the dts, so we have no HDMI signal.
+The sm8250-hdk has a USB-C port supporting OTG and DP altmode.
+This is implemented with the FSA4480 chip,
+which hasn't been added in the dts file.
 
-Add the 1V2 supply node for the chip and the HDMI connector node.
-Enable the i2c port of the chip, the display controller and DSI port.
-Add the pinctrl of LT9611UXC's RST and IRQ pins.
+Change the USB controller mode to OTG.
+Enable the i2c controller for the chip and the dp controller.
+Configure the PM8150b type-c module and vbus regulator.
 
 Co-developed-by: KancyJoe <kancy2333@outlook.com>
 Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
 ---
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 105 ++++++++++++++++++++++++
- 1 file changed, 105 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 113 +++++++++++++++++++++++-
+ 1 file changed, 112 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-index a049d78f5..0bc946682 100644
+index 0bc946682..7a2903941 100644
 --- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
 +++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-@@ -44,6 +44,18 @@ vreg_s4a_1p8: pm8150-s4 {
- 		vin-supply = <&vph_pwr>;
- 	};
+@@ -6,6 +6,7 @@
+ /dts-v1/;
  
-+	lt9611_1v2: lt9611-vdd12-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "LT9611_1V2";
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+
-+		vin-supply = <&vph_pwr>;
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+	};
-+
- 	vreg_s6c_0p88: smpc6-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vreg_s6c_0p88";
-@@ -63,6 +75,17 @@ key-vol-up {
- 			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
- 		};
- 	};
-+
-+	hdmi-connector {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&lt9611_out>;
-+			};
-+		};
-+	};
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/usb/pd.h>
+ #include "sm8250.dtsi"
+ #include "pm8150.dtsi"
+ #include "pm8150b.dtsi"
+@@ -415,6 +416,10 @@ &pon_resin {
+ 	linux,code = <KEY_VOLUMEDOWN>;
  };
  
- &apps_rsc {
-@@ -396,6 +419,10 @@ &qupv3_id_1 {
- 	status = "okay";
- };
- 
-+&qupv3_id_0 {
++&qupv3_id_2 {
 +	status = "okay";
 +};
 +
- &tlmm {
- 	gpio-reserved-ranges = <28 4>, <40 4>;
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
+@@ -509,6 +514,10 @@ &usb_1_qmpphy {
+ 	vdda-pll-supply = <&vreg_l9a_1p2>;
+ };
  
-@@ -424,6 +451,20 @@ clk-pins {
- 			drive-strength = <16>;
- 		};
++&usb_1_qmpphy_out {
++	remote-endpoint = <&pm8150b_typec_mux_in>;
++};
++
+ &usb_2_qmpphy {
+ 	status = "okay";
+ 	vdda-phy-supply = <&vreg_l18a_0p92>;
+@@ -524,13 +533,18 @@ &usb_2 {
+ };
+ 
+ &usb_1_dwc3 {
+-	dr_mode = "peripheral";
++	dr_mode = "otg";
++	usb-role-switch;
+ };
+ 
+ &usb_2_dwc3 {
+ 	dr_mode = "host";
+ };
+ 
++&usb_1_dwc3_hs_out {
++	remote-endpoint = <&pm8150b_hs_in>;
++};
++
+ &venus {
+ 	status = "okay";
+ };
+@@ -589,6 +603,28 @@ lt9611_out: endpoint {
  	};
-+
-+	lt9611_pins: lt9611-default-state {
-+		irq-pins {
-+			pins = "gpio1";
-+			function = "gpio";
-+			bias-disable;
-+		};
-+
-+		rst-pins {
-+			pins = "gpio2";
-+			function = "gpio";
-+			output-high;
-+		};
-+	};
  };
  
- &uart12 {
-@@ -506,3 +547,67 @@ &sdhc_2 {
- 	pinctrl-0 = <&sdc2_default>, <&sd_ufs_cd_pins>;
- 	pinctrl-1 = <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
- };
-+
-+&i2c1 {
++&i2c15 {
 +	status = "okay";
 +	clock-frequency = <400000>;
 +
-+	lt9611_codec: hdmi-bridge@2b {
-+		compatible = "lontium,lt9611uxc";
-+		reg = <0x2b>;
-+		#sound-dai-cells = <1>;
++	fsa4480@43 {
++		compatible = "fcs,fsa4480";
++		reg = <0x43>;
 +
-+		interrupts-extended = <&tlmm 1 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&tlmm 2 GPIO_ACTIVE_HIGH>;
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_LEVEL_LOW>;
 +
-+		vdd-supply = <&lt9611_1v2>;
 +		vcc-supply = <&vreg_bob>;
++		mode-switch;
++		orientation-switch;
 +
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&lt9611_pins>;
++		port {
++			fsa4480_sbu_mux: endpoint {
++				remote-endpoint = <&pm8150b_typec_sbu_out>;
++			};
++		};
++	};
++};
++
+ &gpi_dma0 {
+ 	status = "okay";
+ };
+@@ -597,6 +633,15 @@ &mdss {
+ 	status = "okay";
+ };
+ 
++&mdss_dp {
++	status = "okay";
++};
++
++&mdss_dp_out {
++	data-lanes = <0 1>;
++	remote-endpoint = <&usb_1_qmpphy_dp_in>;
++};
++
+ &mdss_dsi0 {
+ 	status = "okay";
+ 	vdda-supply = <&vreg_l9a_1p2>;
+@@ -611,3 +656,69 @@ &mdss_dsi0_phy {
+ 	status = "okay";
+ 	vdds-supply = <&vreg_l5a_0p88>;
+ };
++
++&pm8150b_vbus {
++	regulator-min-microamp = <500000>;
++	regulator-max-microamp = <3000000>;
++	status = "okay";
++};
++
++&pm8150b_typec {
++	status = "okay";
++
++	vdd-pdphy-supply = <&vreg_l2a_3p1>;
++
++	connector {
++		compatible = "usb-c-connector";
++
++		power-role = "source";
++		data-role = "dual";
++		self-powered;
++
++		vbus-supply = <&pm8150b_vbus>;
++
++		source-pdos = <PDO_FIXED(5000, 3000,PDO_FIXED_DUAL_ROLE |
++					 PDO_FIXED_USB_COMM |
++					 PDO_FIXED_DATA_SWAP)>;
++
++		altmodes {
++			displayport {
++				svid = /bits/ 16 <0xff01>;
++				vdo = <0x00001c46>;
++			};
++		};
 +
 +		ports {
 +			#address-cells = <1>;
@@ -220,43 +259,32 @@ index a049d78f5..0bc946682 100644
 +			port@0 {
 +				reg = <0>;
 +
-+				lt9611_a: endpoint {
-+					remote-endpoint = <&mdss_dsi0_out>;
++				pm8150b_hs_in: endpoint {
++					remote-endpoint = <&usb_1_dwc3_hs_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				pm8150b_typec_mux_in: endpoint {
++					remote-endpoint = <&usb_1_qmpphy_out>;
 +				};
 +			};
 +
 +			port@2 {
 +				reg = <2>;
 +
-+				lt9611_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
++				pm8150b_typec_sbu_out: endpoint {
++					remote-endpoint = <&fsa4480_sbu_mux>;
 +				};
 +			};
 +		};
 +	};
 +};
 +
-+&gpi_dma0 {
-+	status = "okay";
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dsi0 {
-+	status = "okay";
-+	vdda-supply = <&vreg_l9a_1p2>;
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&lt9611_a>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&mdss_dsi0_phy {
-+	status = "okay";
-+	vdds-supply = <&vreg_l5a_0p88>;
++&usb_1_qmpphy_dp_in {
++	remote-endpoint = <&mdss_dp_out>;
 +};
 -- 
 2.47.3
