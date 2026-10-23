@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.57
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792768376;
-	b=qOW/YS4BNwVBmiAjIJn0SZkqCr8vIFAloWXIKSDvwEp3AjKhEDuuezQ4eBkyfpQVbx55
-	 s997Mrzjd8XtaDkVlyePCZ9QoBHn0gmKtou2yQ1wkhCTPc4NLcPZqjyDWh2jroUXgHVxN
-	 GJrWNETVVE3vFBY14ybquYk8dfRGxy3obvXvTDECcRsK2IgZ1z8ddyv9p1Xy8MK+a9jYK
-	 MAlK2mK0LCpzimKni+hH/p8a1dr/lnkDua2KsJ4TOZJO/FfkZ0J0cfzymaEFxNxvVj4vW
-	 MW8ul/q+X78cYyaGQHjpMg5pAPBdlQtwpXgK12yIflhzLJ+G0capZaK+pMCMh7z6VEw==
+	t=1792768557;
+	b=x620dYb4mzd3XLrAUAx4tg5mSqB0RUeRgsCdnvItlwUXxYAdTEqj8pLmqUg6JjUTlvGL
+	 VE6jjj+wfXZAgJRG/BtMK+VZau6ABa8NjHqGeCA8W/WeWtZ/KqQ0zbt2nSL45aMLHi2PW
+	 gaxwDuwnl/lW50A0aD57UQZP03mSDsMSFotXTOqaKX0xXePpHUfX2mAlpMekoW1GX/fi4
+	 15MxedCcI8uFbl61vzVPLgcJbwvT9jmpxcnaPM/+25Dc8jAWWklq0sRuAhFlMe/mlphIJ
+	 ivoRvXf0sBQ6mAjkMe/Pbb7rV5iZIus01IUFpF/DtOhlfvDx26cnnvYegYqGulv6XJQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768376;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
-	b=aW679mvZC5txGMNcUFyCjBHdQM0sN8vKLCzys1itlcz2eSoVVNBIVX50puuA1R0FHc7Q
-	 GG/t+rvcwfshjkbCgQiSWJ2dgVVBx8furmqsGqqU7LR8dZRbXHvJZldIL+TH0+LOsEN66
-	 3RYpAqy/V4rdJUh/L7YOd7yPRlMu+tU5ZdIVniIjbXZZyUGWOG+tTqfd+kol2ezzhK7QX
-	 DPS8HMb+eqkbGYTYq5OLmfHE1OjYK8V2Yl27+BWQJpRAsTzjFpkHr/NFWjLGykTnUNgpO
-	 5h12MOeJ/sCmK2hlDCXQqwWUc7p5qQV8Afpjfd/FnAYZk2/OjiSGPSP+OcElq8g/yIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768557;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5oJpRDVpwsYL5wMq42O/LjLxP7ykplzeP8H6xERXWeg=;
+	b=H1GLbhpK+eM8baIzDGLFB54UrIjwIv6OQv7Sj5REgMpFSysH5PgFx25HH1dULJoc+X3j
+	 EFcgMe0u15Aab4jIF4tdAx1hyol5CjQ3GLR/w2NWAzaFkLtCiWA6ug6SNDo9N4y+NxaCZ
+	 ijS9w2vZiyXoi4RMzVHQ4KqyqBnylYL3pivouc7X0F2nAR8I+V02XdZe8f/iyJWDE93GH
+	 jwaZTyW++gY4pZJPxQ+2WFZfmLuHAlGQ79Rrrp0HUYRhmtQBv7X6lNKX1tMJs6OoI27Pg
+	 ea/ap6XOeLKdbsN7/K7VWNp8j58VrD/pnB77zXGIxXP2ygGJP6L+9JKLZgPed+2Uvfg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=RLLVD7dZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.57
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010057.outbound.protection.outlook.com [52.101.69.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E37606A321
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E37606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5069B606A31A
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5069B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4322d310e7so152629766b.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 08:12:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792768374; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pv1OjSzkbtbAwaAbYNdNlawzr5fZRhhfzDf0VGkcu1MXvUBy+npgNCKg76ZlxAB4b5
-         sk38srZMLr46j8AgLwf0XpsLLvcc5JFqbe4PzxzynIArQJXIjGzvyaVHwfnTAI9UZPeb
-         L9RQfLSXGWQWpP+6VyVNe+xD05/BxSFLz2Qnfx3hTy45L2ke+Ajo1ST3az+j4UBL68hK
-         g2HU888yP97Ycrp5Ox/NiCbA30NvYQtMnnojNoC4jExgKQcXpQ07sn2cqtkc/TWe/wbV
-         kTs7h25uGr7yjAdcnPCoKZ6UEdsg+GqcIMgQnzEzIO8AnZWiG0EVUU7YDLaQkpYD/S+b
-         n5Zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
-        fh=corcrP1H4gKk9N/bONEpP4qitDEDE8aoRQ9rvBh8/EU=;
-        b=nVgjimysGQrfhmZ4zgG+g81UrMHzMOVBCtQAChYkj/nCMMLxok0BRe3i4xf4iYiSfa
-         6JDqeoIuDPVW90fifty5TlGBDZnSPVrRdO5r3SaI0tMNB/QWR373te4OeEDAEozDC8CE
-         OpUDx923DV1bWJe+ZUW4YH6/tP984Y9GryJB1jaVYAMSAzn3PEbltXlq+p+VfpgOX/9D
-         NXl4Pwm2FJHu10WBxmD4RZHdGq1Ebqny7z9KeDNnKN9h1cdArVVhPXoo+OkHoyBAOnRo
-         fC0nLh9I7wN6XMNL2/ylgBu4xyl7exqPf4IY+rJXakMhDwrg7F/Smf4/DsPriOcRhZCP
-         spfw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792768374; x=1793373174; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
-        b=EWGG0AQy2mGqncgCdvHiz4YaQrECiIJLSYoSBJ5NHSMunVaPrfVvlknF0DuKclSyUu
-         qCI+SC31yn2BoepSszw36L8zEOeJf3mj1C+D4RWWBxJtXYB2LTHf6W93JTSrrS2tbVzs
-         /SQReJc0ZT5f5ckNvF9/2aGpl92C17PlbkNdMVJA5oXvMmF+vXB88XDBSUj9y7ltGHUP
-         BTYzibNxNnm+toKAgpaXdQcTZofbUnRLAei86WuXqw/qCERy4xLDn/4N2yb15w5YuWpR
-         tTItHoUSIzfZpdy67qzB/9sXgsSl6pFGsuiTQZ/aoJmzMu5gZzNPmNFlS4+8RELQzJB4
-         YcEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792768374; x=1793373174;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
-        b=Gy/9r3grqpPTKwt+NY+ilBcQunGIVXwJB+CRehAnHjobQ4F3xWQ97lut54Af6QshXa
-         DF9DnZkcKYqbhfyNQfTEXteINmSmzRp9M0fzOggPpDyaM2zOIeDTd3TKEL0D3goEPQmt
-         lf/s6NOm/muW/y+kBn9MA5j8RmJdBNrX8uaLuo/tcsQ7yaCmCesEhzxWcON6Sf/wB+IZ
-         oDmZ6WAX27Vco6Sghhu21gmbjygKzmnQPP2TRiPOJAfqQ+vefjPMJ8gvtT4TFZB0p1Yx
-         ofL0XGwGhtA8wf77JLTHtXIwwDqiBM4UAZz/wtHqO8JeGRdY2Na8TWJUfp2ARxIXdjY6
-         Wm7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBywiECv2KuHY/g/oPJ0x4ZMF+rxSQgEXb2Ak80//oQN9sIas5EM6j8WKFy7CnW4EFQDtN+2+x79ePTm@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRiNx//9Bmu681rgDDhtSunK1CTqPlWACUjpD2+Mp2KAajgVZr
-	1LrEcKGVwgu7jCgWRHZs96/eTqJ/LHA+rt5eS64Zmi7S5tpiamHx7hGI3TMJ9xWwHH9KNM5mJry
-	vW21KV9ZIEeLD+IVnakhGcsFeR9xAX7E=
-X-Gm-Gg: AYBFou3o7bd7ZWWzHbPTeIHyCTcwpWcf2Y0y70u0+QSrFwOmme2j3MRqstbTLFlG7QZ
-	cBXioHwx30URsvrzVr4bL2uMM76SJqrUgdSJ3YGWkPMHLgIxU3v5kcKcib9HbRTSxtE1JifBLRB
-	szqSLypK3E3IeOTntZTDT0vGcQipW98TbS/xhV6rbGCXIZY67n35igGsoTERlt4yBYFLSAqkzIU
-	eJQd1/YeCr2P0kesZ6/u0OmnJAzxM3UlHK/lBWtcj8FEUlvX4gbInDWTkSnUm+mPYI/MKBiLlas
-	PH42Ddk8S1Tnws6ayski06B5kioCBN4hgc+t6D/wwHasNNTuctf1Hm6sZ3JeLzGBpx4bOTSclIJ
-	gvqOSU5nzrGoZ313iCc6JNU4luYazW1sbzs5HV6TeHTSA1WBK+Mw9sBzlX57reuxNnFP8Xma7Qu
-	n4/sqvJ6pTkoHVgKsmwb58H9llBm05Dq+zl1CG60tc3d9cOfa3bWGnlEIwo34u0+GsAGfk9ai3q
-	G+5Luwji6NYEC/7mU8D4sbIsCiz9Q==
-X-Received: by 2002:a17:907:3e12:b0:c29:22cf:b0f5 with SMTP id
- a640c23a62f3a-c46a922dee5mr411130066b.33.1792768373956; Fri, 23 Oct 2026
- 08:12:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=RLLVD7dZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yw6FOWl4vSjsWh0rvQSQfJmO7rEqTM+QyjAvQbfjYu83H8RyQR7MKERuYfHsf4aDuHxDJI9y87OYt+lOZ8Ac6np2LDzgvN/mIOCUjeFgiE8eWv29qy8kz98HAflqC0mo8eI4Zi1XfLfolNUAPIy5PMlc8MO88KpAhygbENnGLXakQmfR/bS+VKNbLdeybsONxW4NIjNUM7ynhvV3h0AJIyB9EqFT0XA7RKyLtjsHTxWcaYq1gBJI+50EVAzF0kv7YnXEdL51SlrOWQutSczjqAJ4JqgIlkkSML3+sQMCYSj2tx4Y6YOX5CXQ5S7Eu+w2fqI8kryZrdC/4+u8yEA8Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5oJpRDVpwsYL5wMq42O/LjLxP7ykplzeP8H6xERXWeg=;
+ b=oBtzsgnMQUBNylmiTQGjTSqzsSsnoIFmBt4j1puUybQaki02BIQhg2ZMW38GVlaHM5UVIA9JS4ZaCW+R+lQKkjl6+V0zLiSI3TjgjoiS0Jc7CrQPDhem0bLU9AvD21W1ZE5+Md1OaUxtM2w0TUebkK0fZYGf9nI8VqWu0qmLzErh8eg+audCBWqpJrQcG7Ogky+7GJF4QCk8J3YZVdxN0A1clqWTMAoWkf5FyYuI1UsQSHHnphs6UEwoKOUatee1HBrzyZ3+LMXyaP48OSamLOKgJCDGoJnSW2kxAFKeV5a2vTHWY3wJDei2yMDtXJ7beXF22Ou1ZrzKa3LGMiybOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5oJpRDVpwsYL5wMq42O/LjLxP7ykplzeP8H6xERXWeg=;
+ b=RLLVD7dZAXsr6hCPMjXa19ntVtc/iJDJqTUWe/7NpuoB+QkxxNndovb/FgaMKP6rAVdWJZwepGTQRiig0CpgYMsEmJTCGjl7hfP+Xc34JTiCitXq5QL3rE9MJusk3IVWDqC3ri5TYgKNUBmSA4duMFX6Tszy/GDNfnZNqPsgwnaVd/wrrUeTTIoXQob73JCZPMlIS9t8zJRyO7bsWZ86Gb/3idBkgVxX48GCO5nveZ7KB5ypGSj/0pjg5hGQiH1Ya8D03NMfgwJvzWaamiyG8831s0KRwxHro27EYS4fTGhqHq9Dj1nfvdUyg4hltca9pVtQG83pIEZPPFHXfNgXBw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MA9PR04MB215426.eurprd04.prod.outlook.com (2603:10a6:250:106::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 15:15:53 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
+ 15:15:47 +0000
+Date: Fri, 23 Oct 2026 10:15:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	linux-arm-kernel@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	pierluigi.p@variscite.com, Nate.D@variscite.com,
+	Peng Fan <peng.fan@nxp.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [RFC] arm64: dts: freescale: Supporting Variscite SoM and
+ carrier revisions
+Message-ID: <att6GNZAVv64Rlnv@SMW015318>
+References: <20261023115242.11197-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023115242.11197-1-stefano.r@variscite.com>
+X-ClientProxiedBy: PH0P220CA0030.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:d3::30) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,112 +105,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
- <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com> <atseYvQUYvpMFEIM@ashevche-desk.local>
-In-Reply-To: <atseYvQUYvpMFEIM@ashevche-desk.local>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 09:12:40 -0600
-X-Gm-Features: AclHuK8N0aoS8N5_iVP1byTsJlqPWe2cGv2Z_GYIPJWKyo5TvqjUOKI8du6YHIo
-Message-ID: <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MA9PR04MB215426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 031a1091-420d-4b00-7411-08df311883fb
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|19092799006|23010399003|261022105027099003|261022075727099003|10067099003|56012099006|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ uN948liOzVwNH3SHQQYOg3hA2o8DxiQ2VqLsOpKePl6X/76phwUcrFnlZV1mlcNDBZj6yFyjcJ65M5iqWAAEnXs1tWDffzu6GG7dkimsFdptX1kDXmkBaFUHGszVJE0IqnkxDvTC84H1CdEBgfK+eC/LbjVMs6b4thAViJa9SAc4/AvmjYw7cvbvzX3hPPg6clqSha+Kx0Jayhy9M09Wcqk7e8sfJ9vuBwlPFNZrusSCy6zElGDeu/o8JPtl2ThGqsbuBuDo7NMtDNALWq+/W30XmqHrXTyITOTALG73gOYsFQqAFJlGH5EW2yX6J9xs4zyAihHZpwY+cmXOF1qJpI3/wS+K5CtYau8wLIB423GrVupv4MyXN2kBpKGXBpRLxk2ZLo5Kg0G/bwTP8Hwds34hXm/x1EmCqOKJYdflKFCtq/zO/D5KoqcsD9IcoqP3CGM7og/iK+kmwclj4G19c43XukhzgWsgVXgJO7nytv7/XPMcYYeQPFW8YB4OflTnDl++q0BmS35MK+2fZvyGlXnSmAlATLLVE2KlG/nFGxGrdD2J4dzYW0AN8xkzoCfRy8KDYP6fvieMNFlbDfM7/o05sZ9pu/4Mqlt5NnJxaYxhfPR0K1R9gF0tBpavv4vK0aB6ZLBrgnC9aNwk2F8jMeTlBcVUdfntiynHK6RChpE=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(19092799006)(23010399003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?yJkmBM6TlVeRh3yanJH7R4ylslpvf72g7Ya+E6ykOiITSEn61GjEySVlKJ0P?=
+ =?us-ascii?Q?tRm8Z8OdVUFk5uTXPRmBB3q3/6NLOoXdjmTaBQ/FxUJGk+DTyH6WOSnQNpet?=
+ =?us-ascii?Q?gE8F38motOyAiMgwgCvzOjBfKUSDqGmatjMXHsAeXJEz8No7B6XFMGEt9eFF?=
+ =?us-ascii?Q?asXWzcb0xIhPRspq3IEAnrauD7b3KbfzZkaMibh1deWGcHN8d9WzOLolaLPH?=
+ =?us-ascii?Q?Cu6sz9AfarPbzI0SA+NM3xV8jNyURNFBxkq0XnjCokGgmCrQnPwTV6roAACM?=
+ =?us-ascii?Q?mHn6TMhPLMCBqgbGRY0wuv9SRFmxFvDDXtG6Q/ptKqBajGyzN3g89Toa0+/V?=
+ =?us-ascii?Q?1ygPs6PGqJl3Dt1RF2Dho1Z3HW+p2gbhHs6mXdDFDvZ1+DC/PNEnJ5REbSXt?=
+ =?us-ascii?Q?hELUFZ/srlesmzJ6EFwa95O1486H7lSeSSeJZXCEGTcufixoFDKmANrySyRK?=
+ =?us-ascii?Q?FXRGS4HFvbkxYg2NupLDGykzLTFTCO1kpu59Bzdzgry/UZwIwmpru6N2+hDg?=
+ =?us-ascii?Q?6lptC/H5nQKyGirFf7z19NsmRBpgPnZ9kFctkca9eXKlrgz0SYAOkekjYEUp?=
+ =?us-ascii?Q?aEsA3CD0zORvkvYy02Sqj4O5g4ijbJiGsojYxrKQOdA0h5Iy56QCk5NLvB+n?=
+ =?us-ascii?Q?3uB57wy6XeUaSNaKIENKTdRZ4PGruP2Fv+gWGpdrbugk5X1L7cZmO9Nm2iTr?=
+ =?us-ascii?Q?JwxAHS/IddVRQaNQR1aUGQrthu/1QiJh/7WWmo1ov3P/m2uRVYKxmXyslD8g?=
+ =?us-ascii?Q?lMTPRagH99JDiMsSyhnN7/FqNuhDGkK8BZGTEEf/HGKvNleB1ok8AYkon4gj?=
+ =?us-ascii?Q?ulPf3wiRhEeDNuPl8PNSH132meV6LIUKK+Ah3iH3/ScTUwTZsxJI6WFG7DY8?=
+ =?us-ascii?Q?GQf8D4Q0xpaXS2ISY+PM0YAP2Ukv9E2sToTzTjKpMOYq6cAs1WlNSEwJJgPo?=
+ =?us-ascii?Q?B+BG1IlsUpLiyWBO2zM4cWUP5+D5BBPeW4nBcF3sfLOISYjIyg3cHOwmlKWW?=
+ =?us-ascii?Q?Dgi2z0c196gg5tQLdWlsdbhLxgpOihx52I7bsO31hcQEh7Z8fMe+FsW5stbt?=
+ =?us-ascii?Q?Y4PTNeQLEn/Fc9N2kKyZg5aVkuZssbkqnXy6U8ZhtE0/iDtSDASKqOPwckyO?=
+ =?us-ascii?Q?OpMKe6145OO/+qoN0X3sfw8Ilu2aLXe26rdGtFuve+I+diEMpyAFsJ17b7DY?=
+ =?us-ascii?Q?oOscNny9OvayAb2I/UNqeZhSfJglizQJnNWgcZXOG7q523/JurfNqxMMTv7G?=
+ =?us-ascii?Q?IAeGXqwwDjoLmMb2mzQ8dAmcW8yzOKLZyoOBzNptZLVWJKSJYIW85PfBYNCi?=
+ =?us-ascii?Q?TDJGRaSYkFUqH4CtYO4GumASRcxvl6FCP0nIEUFfTi9cYKjMpp5RpM/ZubmD?=
+ =?us-ascii?Q?l1ukniBMIMJ7+Fo9dcfmtc1x0NvRfPTIbc4S0CDBZQdQIoSDQ1iq7K0KZLX4?=
+ =?us-ascii?Q?0Jk+WSevc1p30YKI7CU8dBclBw69g7AYj5fdefrf7F2HO99+uL3fCmdS/755?=
+ =?us-ascii?Q?dA0+kuaNONuHGW6ks9PnOGaxJX+PlPejKLveP6WG7HGAHrIErTQG0IlTjkwz?=
+ =?us-ascii?Q?6HQkooGV154fA54unSaprj0acxlNXxc3yTon8CR7JJS1l0RhfRd38MY1Godj?=
+ =?us-ascii?Q?bpAW86Tya7UMv4FQG4TGkBNV8apjRNnglnmgsVddzFdESmOyVSwM1WY6k9Ct?=
+ =?us-ascii?Q?cYaBA/VKxk+so3KrBc2A6YanLj5xzuBs48Vva2WCderqeD5wY9B6Q+waWu7T?=
+ =?us-ascii?Q?lu7L7UQSrXF8DfAVilt3kxvuUXh8K0QJFE9e+hJUSuDCWYz5VZTR?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 031a1091-420d-4b00-7411-08df311883fb
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:15:47.5483
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TsntFsBw1CXhi2/Ksgb5wugGO0KlicxSofL0v+eC5jXpk0Ei5GxVSM05gGHQmM+Fc8y5WzSEf4BVCpc2FVEmudDyfoV/uuIq8hGKuTzylnLrVYRl3csveXQBaDq+vL91
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB215426
 
-On Fri, Oct 23, 2026 at 2:44=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
+On Fri, Oct 23, 2026 at 01:52:41PM +0200, Stefano Radaelli wrote:
+> Hi all,
 >
-> On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrote:
-> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWa=
-re
-> > component parameter register reads as zero. Generic 16550 probing leave=
-s
-> > the port using the 16-byte FIFO configuration and its trigger-level tab=
-le.
-> > DMA attachment also depends on a FIFO size being available during probe=
-,
-> > so these ports do not reach the existing 8250 DMA path.
-> >
-> > Use a fixed port configuration for the H616 compatible, with a 256-byte
-> > transmit load and the documented receive thresholds of 1, 64, 128 and 2=
-54
-> > bytes. Select the quarter-full receive trigger by default.
-> >
-> > Skip optional-register probing for this fixed configuration. H616 has
-> > debug-divisor and RS485 control registers at the offsets used to detect
-> > DesignWare hardware RS485 and fractional-divisor support. Probing these
-> > offsets writes unrelated registers and can select incompatible callback=
-s.
-> > Keep the BUSY-safe integer divisor hook and software RS485 handling.
-> >
-> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled dur=
-ing
-> > termios changes. Its clock is a gate on the shared APB2 source, rather =
-than
-> > an independent baud-rate generator.
-> >
-> > Attach DMA from the fixed configuration before registering the port. Th=
-e
-> > 8250 core installs its FIFO defaults during registration, after the pro=
-be's
-> > FIFO-size test. Configure single-byte RX and TX bursts because the
-> > peripheral request can correspond to just one character. The existing
-> > startup path requests the firmware-described channels and falls back to
-> > PIO when they are unavailable or the port is a kernel console.
+> At Variscite, we are starting to look at how best to maintain upstream
+> Linux support for multiple hardware revisions of our SoMs and carrier
+> boards. We would appreciate guidance before settling on an approach.
+> Our goal is to support new revisions while allowing customers to keep
+> using current kernels on older hardware.
 >
-> ...
+> Our platforms are typically described by a SoM .dtsi and a carrier-board
+> .dts, for example imx8mm-var-som.dtsi and imx8mm-var-som-symphony.dts.
+> Both the SoM and the carrier can evolve independently. Some revisions
+> require changes to the hardware description, while others may work with
+> the same DT. Over time, this leaves us with several combinations to
+> support,> without wanting to duplicate complete device trees for each.
 >
-> >       /* Internal 8250 only */
-> >       UART_PORT_AIROHA                =3D 124,
-> >       UART_PORT_AIROHA_HS             =3D 125,
-> > +     UART_PORT_DW_APB_256    =3D 126,
+> What would be the recommended upstream approach to organizing and
+> maintaining these revisions and their supported combinations?
 >
-> Why? Besides the poorly chosen name, what prevents us from modifying the
-> corresponding parameters at probe time by leaving the one of the existing
-> types?
+> One possibility we have considered is keeping the common SoM and carrier
+> descriptions in .dtsi files, with revision-specific .dtsi files extending
+> or overriding them, and small top-level .dts files selecting the required
+> combination. Would this be a suitable structure? Are there established
+> patterns or existing platforms we should follow, particularly to keep
+> changes for newer revisions from affecting older ones?
 
-The new type was primarily a way to reuse the core's FIFO configuration
-table, including the RX trigger mapping. H616 uses thresholds of 1, 64,
-128 and 254 bytes, whereas PORT_16550A maps the same FCR bits to 1, 4, 8
-and 14 bytes. Overriding only fifosize and tx_loadsz would leave
-rx_trig_bytes reporting and selecting the wrong thresholds.
-
-The core already has get_rxtrig/set_rxtrig callbacks, though. I'll rework
-this to retain PORT_16550A, supply the H616 FIFO parameters during setup,
-and use those callbacks for the correct trigger mapping.
-
->
-> ...
->
-> >  struct dw8250_platform_data {
-> >       u8 usr_reg;
-> >       u32 cpr_value;
-> > +     /* Use a fixed configuration instead of probing optional register=
-s. */
-> > +     unsigned int type;
-> > +     unsigned int dma_maxburst;
->
-> This sounds like a hack.  Why do we need type here? The address of platfo=
-rm
-> data is enough, no?
-
-The type member selected the new table entry and also identified the
-fixed-configuration path. The matched platform-data pointer can select
-the H616 setup directly, including bypassing the incompatible optional
-register probes. I'll remove the type member and use that instead.
+It is quite depend on how much difference. maybe choose overlay to update.
+but some change is quite big. Have to rename to .dtsi and use difference
+dts to include dtsi.
 
 >
-> >       unsigned int quirks;
+> We are also wondering how to handle revisions that can share the same
+> description. As a concrete example, we have discussed the following
+> possible grouping for DART-MX8M Mini and Sonata:
 >
-> --
-> With Best Regards,
-> Andy Shevchenko
+>   imx8mm-var-dart-2.0-sonata-1.0.dtb
+>     DART-MX8M Mini v2.0-v2.1 on Sonata v1.0-v1.3
+
+How about use boards compatible string? You add new compatible for new
+boards, so user know this dts cover which boards.
+
 >
+>   imx8mm-var-dart-2.2-sonata-1.4.dtb
+>     DART-MX8M Mini v2.2 on Sonata v1.4
+>
+> These are proposed names, assuming that the same DT correctly describes
+> all the hardware combinations covered by each entry.
+
+If new boards 2.3 appear, do you plan change to
+imx8mm-var-dart-2.2-sonata-1.4-2.3.dtb?
+
+Rename affect addtional problem or efforts when back port.
+
+>
+> Would it be acceptable to keep updating the first DTS to support a
+> compatible revision such as v2.1, retaining the v2.0 filename, as long as
+> it remains correct for all previously supported hardware?
+
+I think it is fine.
+
+Frank
+
+> In this scheme,
+> we would add a separate DTS/DTB for v2.2 only if a different description
+> were needed.
+>
+> This is an initial idea rather than a settled design, so suggestions for
+> a different approach would be very welcome.
+>
+> Thanks,
+> Best Regards,
+> Stefano
 >
