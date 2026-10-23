@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747823;
-	b=UwnYl3gHwQFVuZ/mtK8gEeveQmTZhqnKsiMkNtwBBPHR0EoKFn1KOPsiQyIf/RaXmEmV
-	 9WqV09b6ALa9exwdvfn5n+BW+2VoCUO1R3OWnjcFl5n6xDCq3szQ/1qtBihtzWWuOIFQ5
-	 3c1HV+gShtBgYPFXCH09njXXz4ea22iltCAvG09waZQ5AFYudmXBqJwGkw7ccYft5gMg9
-	 pcRxeM47k0+UR+6gzNW8u9weYNfwlFFhHhBDUTbx4dthN9JvYFI14s4SxVKJgIHcRrjPe
-	 ihzV4SaiNdmdc40zXcDkn29z1V4Fm4mExaYqbVZdEc7+nNsDuDzXOywFw7a7eEvkd/w==
+	t=1792747825;
+	b=EGFpNl0Arm9lSmnRChV7xRIjbhIQWSvFkXFqE9uhzZLqUtg5l7JKM63LVfzYT3xY5Bxp
+	 l9sHbYlh8vQY2sr8cn/CM16hbRxA1kLWxaEQw+Htk1J3pGCaXHBMyva57jlkFMKZfPrRv
+	 hy7ZydTfWsx8Phh/14slUuZTQSz/73xq8Oy/nZqjw9mDxfKfd3IpFjFKs5Mteg2qvrJDj
+	 Qcuu0l5+qMwjAqpTlt6RyulhIwfvTV6CJmhnaxN+O5zHC5ROYMpQceIh0F04uZjLGQTOD
+	 xaW+SPy+RFgWkr/7NLSrtuYybH1q2dd/1vgjE8Tcj09EZkFrh2PNqMawjlWYzx5TZig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747823;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
-	b=lIpfeQX9guKFII7WRgUSd6q9560eabIpgQfP2nFFicsPhX0zYKGBEhIm6SKavLzaQ8sk
-	 4YPM2KPDxAUzLMfmLBKp9Yt1/rQRDfyyR01K+xSPPTReAgpPkiB4cAIDWggp7irkTj69y
-	 7eO59Wa7Z7LmC7trgYhFw/GbWRSMS+w+Q7CWb5IHzaZXHpx5Ady9/nOWlhftzYnSuEF0v
-	 XoD+xkIZuK0+6lglkg/5v2CCNjSLG2KsXuumT6h6D3tAlov9QiCw6fBEKwfhHGqFMsQj8
-	 JW1GDcsG3fDj3B0HRd5GhcN2Frw0mxcN9fYvimAdQ8jzGg1X9MC9SZkdM4/WuCeXa/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747825;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
+	b=OwnvRmzzZLEme/PASTSEKtjmyOHMA0aguD/qYoZEBARImf4t84meq8luIQmXliWKOxml
+	 9Vr8zH9AJ0viqSWqWpL3QRw+UFVoivLPd++1i5FHJuCCaFfDjf9RQwijLiIvsUzEWTSkv
+	 Fb4vN0BNsw1Etq2EO93Dp5nm+8JwtmBe6wYPugi7JV+G36LQfpDgTpbxViZxLLGIEc/ne
+	 gimNVAsfI3XIQFnbR2p046Kt1RRbNn8sBjZgafkAwyZpxDYC/gO3aqjgiJ3NMTDeRXgY2
+	 CbUeMPKwgslL2cmizq46DXEu++JCPtq6kQCy8ooAXPqES0oCazLcBsWAPdGPUemPXFQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=injYxqcM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023087.outbound.protection.outlook.com [40.107.44.87])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCAF606A331;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F43606A321;
 	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=injYxqcM
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792747823;
-	b=fkIpXUF2SYzRnclRTWcTJHHMXPXnx77kyMLaG5zPI+LqDJ5tIKaE4xBydeFS0DdgFO4R
-	 mj2zVg6aC4WSLb2wdkybPRo/NI7UTedubR5PEIv2/zBEG2YeK78sklSvwoBUND0/NN0Z1
-	 zDwwVLfpOS6PQuWFU4YIRShtPhjv3DB/qjQ/uCKFTu4QXs4kEKwNd+3d/1uMcLPGhVcsm
-	 xumsEcDYHqRd4+wCTHCPpaYYuUc6sD2xfMFfOCgWAzXY8HgG0quKFiCcUjxLnp4LPu4kv
-	 FWsmfXsCFqolzjR0AFzhbyAz9q+2Otq35gd1OicMoeWwbvMlDx5uY+KvRIUXg9xkb6A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792747823;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
-	b=fdPxS7HlXHQwrHx0WvzXPX1S8XDuwLpQKrmW7h5Yi8QorrtdU8XsYf3poVXeVprmG8A1
-	 lTaneVv/mCx2jLpFeDSpSuUGTjP0pVsgtZxk0OAVga1xzFxKwqdhTTKSq+n8TqmQJ7Ok9
-	 oj1O5EHgzv950CaktzJ7a4/jG3mKa6Gv8bWKbfnTivdRFQWHAr5O9MeLL39YZ7aMA4Ewp
-	 tjXC7z0srVAXoYCajuvd3BWpK4Srq1Dqi5gQ4m7M4av8FVWc9nXnsQCXT8FDxB+irG1+u
-	 ANK/ssZGMRcK84/NNo2mdIcexYA6hx/fUEBxRUqEU+UdvWR6E3prZcH8SfGHWojETHg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D96BA1F031E2;
-	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792747823;
-	bh=zoE5MU6/Q2Y799SulvDdtXvIf+blCTDBCGWCArCbVZg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=injYxqcM5Mqh69ZM9bDkaeD2mIYreaFxuCu6mF+u5mLBhk8EzyS/683HK3ZlZkluB
-	 m8XAH4bAi9UflnRJPrPhhuJwA7x0rcsuj9CvL8nOzrqiKJ5XstLz96cZ6KZSFLIDsl
-	 kqNOJpc9BTXVRPSzTpIZKEAeoD6k+W2RhWTfDlmam6JPvDffOXWkMY+NpksnwZuh2e
-	 HrmE7E1i7DYFpSsdVWMAB28llL+nnjn5RikSjrLb3gr4HhvFKy56kpdzsNOSm3WZXb
-	 v5h7NegdRlhAZcPiCVbwZ2Ue0DyZVBYkrQ5HzzqPkH+GRY36HqjYm216gnSTzrutL8
-	 EeseC+gbArpqw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6144E44464;
-	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 23 Oct 2026 12:30:21 +0300
-Subject: [PATCH v4 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F43606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DMPAbWcZC8Og/WW+RSzljN4EjRKyo72jVwz9HlPoTeyjsTVmWXF+ulsYD3RTz1k/7UYC188BBtM9l+zSCif4ByJ9IdWZZxMIRIaIhe71hlghHvNXXwwq3/QRsXrNC8Zib7ZDDJOHEx8l1+ocbPDqcVH/OrzQUfvbM+9KsrKogdM7FVmbNpXJh253qmqMSmZc0zYBQ9aQ42TfnQOjIVXGxFyS/ntfbTqnLjfzKPFrnDNOyhIBtagu7Y8cgEgEDLNvucmKk7y4QEtODnmuSdBn5ns/R1ve2X0jf2+YxoT8P5ZQdX5Oo/Imh58YehJU/HyElaK2kSeo8/VbQTbguT1XNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
+ b=UIOqSCnYhqUH9yQ+/QPpTCwTVmah4b9BorI8nlAh2x4wVUCAgHZS5iEcjqrS82GFv8vnbO2Gui+y4Y4o4cV4VRLgmkGVOuZ8tcrcfAPHypygsEJvsjW4oKITgn3VCkxv/ADR+ppf+p+N0AIaK/Hy60duijRBQgtDY0jwVE+kOc96xEDIp1CGgDTKd0DUA9L3s40ywuv/nooKetcMWCuWS5z7OclQR+7b2fXvNFaRXARDRMok9863A4gu+ssaMGX+uxD6BYi6Mzz7IzHx7ZTMMGC9CscSRV4iwx/4A/ava70K1igKxI0+4yHxWVgtZ67jezQE61BN2q36J4pILSiU4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR02CA0024.apcprd02.prod.outlook.com (2603:1096:4:195::18)
+ by SEZPR06MB6038.apcprd06.prod.outlook.com (2603:1096:101:e7::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.4; Fri, 23 Oct
+ 2026 09:30:20 +0000
+Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
+ (2603:1096:4:195:cafe::a2) by SI2PR02CA0024.outlook.office365.com
+ (2603:1096:4:195::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.18 via Frontend Transport; Fri,
+ 23 Oct 2026 09:30:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2C3484102B47;
+	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH v4 1/5] dmaengine: arm-dma350: Fix source trigger bit
+Date: Fri, 23 Oct 2026 17:30:13 +0800
+Message-ID: <20261023093017.3248454-2-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,178 +107,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adis16607-v4-4-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=4494;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=eNbuHMKunrd8JuH6y864PXmgiiZ07gAmsjBjr3dOpoE=;
- b=qaPRfXUxqaD6HMx/QOp0CpvlT6JCjQOnM2KvxCbaY64NHop2cA8g/1wDWoDWpaZcI11+SaQE9
- rqwAjcIyCWZBVWNEDEePRb2KB/b2lOmylGL+XHaboTLtbes7EiMuRm0
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|SEZPR06MB6038:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 2808309e-4376-4109-4e20-08df30e8411f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|261022105027099003|261021123027099003|261021121427099003|261009223027099003|10067099003|56012099006|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ZUxa/g82gKhyLuJmNhq5owBZ4FsGZBRwtc/3LuraagvcCY77ZZML3lXy0LXGv5IsVndFiqm6pwBZMEwEr5BeZn43VmYLvEDveez/49SmwZTYC5ne9YnW1Vkw/Jmz/iWHijE9II8bwdYy7AnyTr3+xtI2XUcv+M8S8YctSKX0Yj+TVbxbZb98dyiVakjHjSO3Hj8BFA/Vmh5MNNnhFIYUpXyFkIqOr1SJnOOiItv6xrwLeCaXHsy//tZENG8kV2Odx9xxuknAR91j55MptZHFG6RI492CUWTSCD3b233YSTuivDoNgSZLc/MZTudjs5cUpTYqzWxiBEc5RZYJqYvUAXdqdyHn4DR4pdCNAflzT7WUHBYGH/p2dt+DYvf/VPImROvwlIDDu7dYm7aatbK1DcVXTZAfm6djVzWiSP3XQ7QUcLRzuWFeftO5i/oK/X/lrWv/53KNrsLMXmELLC8W9b3Hn/uceLckslaIgLjPzL26UEZpHeJBwkuWdTNLulu2+MoGOA8gjHCd0B7bUBRxmImUa99rAg+KYK0UOJ05N7yJ8cDVUyle8CHmVMVrSajHp4qHrF/GNS+l89Wj+93ootVIdOyokuKLD0pxvrStAb/FBFDE0FwElLAT4GjVqB+exqjx86CIg61MCQMzIlv7fqt8m8tK43sltuk+29io2uNUy+P8i3BWm/cECR4cVP1tWv00Rqo/qDfQUy7WiZv3vw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lY/oeFefdH863qLReB0grDi8aDVvV+1vHshPiQ8dFXmf7t2sxh0X/hIOfMoPBvU7KpV074vZWkI9BBRwKkjCCy7XdfY/GKLLG252mdl8I3VUnn3su8V2SjkVDnLqJMBhpocgUXAjV/sGWh7Nhu/q7Jzl/DhvZZOOeGtLatxYIbBl40THu81p0f/CecNOMdDNDx/1tKPRgGdgi9jFu5QmGX3uOR8GsHSk77vDfxDtpSj2TokNLtsznAp0UmB6D9HWMUnoyxptkRiihGIPlAhyy9ipFRE+66N9F/Xzp8lhXtgWrv5kuVrYUQUG+4di3CdbtE9wI2gjotITsd5qDlrMUmCLWsaurYBhCylosHgBlpeIuwxTKBqiZb/wA5QZOBnnBxlWARnlUXT7WNOIQX2G2Ukr35R4dohFJW3TAEo5qE3ZNoTL1PI3GD2izzTbAwsD
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.1100
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2808309e-4376-4109-4e20-08df30e8411f
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E7.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6038
 
-From: Radu Sabau <radu.sabau@analog.com>
+CH_CTRL_USESRCTRIGIN is the source trigger enable bit in CH_CTRL and must
+use bit 25, not bit 26 which is the destination trigger enable bit
+(CH_CTRL_USEDESTRIGIN).
 
-Add device tree bindings for the Analog Devices ADIS16607 Precision
-MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-gyroscope, triaxial accelerometer, and temperature sensor, and
-communicates over SPI Half-Duplex.
+The constant has no users yet, but enabling the source trigger input
+would silently enable the destination trigger input instead, breaking
+any transfer that waits for a peripheral request. Fix it before the
+first user arrives.
 
-Two variants are supported, adis16607-2 and adis16607-3, differing
-only in gyroscope full-scale range (±450°/s and ±2000°/s
-respectively).
-
-The binding exposes optional properties for:
-  - An external clock for sync mode (falling back to the internal 8 kHz
-    clock when absent)
-  - A hardware reset GPIO (active low)
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+Fixes: 5d099706449d ("dmaengine: Add Arm DMA-350 driver")
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 94 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 101 insertions(+)
+ drivers/dma/arm-dma350.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-new file mode 100644
-index 000000000000..4545f942365c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-@@ -0,0 +1,94 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices ADIS16607 IMU
-+
-+maintainers:
-+  - Radu Sabau <radu.sabau@analog.com>
-+
-+description: |
-+  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
-+  with a triaxial gyroscope, triaxial accelerometer, and temperature sensor.
-+  Uses SPI Half-Duplex communication protocol.
-+
-+  The device has five GPIO pins (GPIO0-GPIO4 in the datasheet), each
-+  independently selectable for a single fixed function. This binding
-+  exposes GPIO0's reset function as reset-gpios; GPIO2's sync function
-+  is modeled via the clocks property, and GPIO4's DEV_NOK interrupt via
-+  the interrupts property. GPIO3 (data-ready) is required internally
-+  regardless of board wiring and isn't exposed. GPIO1 (wake) gates
-+  whether the bootloader auto-loads its NVM contents after reset; it
-+  defaults to enabled with a weak pull-up, which already gives normal
-+  operation with no configuration needed, so it isn't exposed either.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,adis16607-2
-+      - adi,adis16607-3
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-cpha: true
-+
-+  spi-cpol: true
-+
-+  spi-max-frequency:
-+    maximum: 10000000
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description:
-+      Optional external clock for sync mode. If not provided, the internal
-+      8 kHz clock is used.
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      Optional GPIO for hardware reset, active low. Routes to the
-+      device's GPIO0 pin, which can be independently set to the reset
-+      function or left idle via an on-chip register.
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - spi-cpha
-+  - spi-cpol
-+  - vdd-supply
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        imu@0 {
-+            compatible = "adi,adis16607-2";
-+            reg = <0>;
-+            spi-cpha;
-+            spi-cpol;
-+            spi-max-frequency = <10000000>;
-+            vdd-supply = <&vdd>;
-+            interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+            interrupt-parent = <&gpio>;
-+            clocks = <&sync_clk>;
-+            reset-gpios = <&gpio 10 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..d5679e8d0ffd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1792,6 +1792,13 @@ S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
+diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+index 09403aca8bb0..4e17130de6c8 100644
+--- a/drivers/dma/arm-dma350.c
++++ b/drivers/dma/arm-dma350.c
+@@ -63,7 +63,7 @@
  
-+ANALOG DEVICES INC ADIS16607 DRIVER
-+M:	Radu Sabau <radu.sabau@analog.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+W:	https://ez.analog.com/linux-software-drivers
-+F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-+
- ANALOG DEVICES INC ADL8113 DRIVER
- M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
- L:	linux-iio@vger.kernel.org
-
+ #define CH_CTRL			0x0c
+ #define CH_CTRL_USEDESTRIGIN	BIT(26)
+-#define CH_CTRL_USESRCTRIGIN	BIT(26)
++#define CH_CTRL_USESRCTRIGIN	BIT(25)
+ #define CH_CTRL_DONETYPE	GENMASK(23, 21)
+ #define CH_CTRL_REGRELOADTYPE	GENMASK(20, 18)
+ #define CH_CTRL_XTYPE		GENMASK(11, 9)
 -- 
-2.43.0
-
+2.54.0
 
