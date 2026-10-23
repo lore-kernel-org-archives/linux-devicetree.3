@@ -1,76 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772151;
-	b=RbAogk3fPDrqaIRGzMLMyIIV04lq1fMrpkfRSsIOQ+ShXUmsvWi7OZvY6Zz47RJQMjzg
-	 dx3Pvx2qLNZ3ifCVogV6A47MCeF3G/5X0lZTTd3321wiOvIQalEw5+XExPKiM5UrN0/rK
-	 /7arZmuwrtncp5RPbBZWqBszTta8Pi2iQMBIkj3LFS2UtvmgWvFbU/jb9NJL4JOwSUbiF
-	 47uJFgO0EB69JNzxK2Abk1KW56cA5918heJusbgNfWUu0Btn4HyEE3FI0p99UCX3magbk
-	 rkgM7RhtTpbFrPV+twWkzQnSH0ZPVeNB3XPRcY/hG3OuAnPtOXZW/ARy6YYVDLQD/Zw==
+	t=1792772884;
+	b=JwUJygXBlzLc8hDrV41kb2cmXNOCC7BYkMwmu4Rz+qFgGYMnjuILgq5XkZTw4QWQrhoI
+	 q8UBiSip7fBC397ATwuPLldLHsfT3kkgYUJ/QWj2zUnFCQ0VEH8dkDwcCi8Agyg5thBMh
+	 KmZByD8IKBjjMULPa6peCBr7NljIFyA563CkP6sZZyIhORIKlb7IoxIu7lCp7iCh85bR5
+	 XjT2dc3/MFK9mvfaImYmuvMZfkoNHOCnsSctmaLCfT3HVUxOlOVw7DXpYc0y3NrmBVrac
+	 7f6qfYZmaKOK4o3aQQuMaz2yc4Ov0xTZleX0HWvg+2Cys7JUh4SLsTfuuSnO7R9Gf1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772151;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=206TRBL9eH7CzQSwmeMOSHt4wSQsqIurTtCbXibhaPQ=;
-	b=G6bb2jZqpmHwbFtDke1KzuRctfLpgbK1wLv4+6ykyANh47a438iZ4RKA8m8wgqYqCazt
-	 rSvEnWPk3FOLUKnw40mDP1lvyWgq0oTrldyGcDH1eUHT2ynmK1UL7ETk33OPJ0SHWRMHS
-	 GkR+D0znqc57qI6dwN6MZ7UPpOGcVTC4gplz/myOmaGXsUpDSQ+xsdVZij36F00jQIjqi
-	 1mJOitYZyicoD/F61Z9SKuQ8X4N5AOLt3RkNAZv+hgSf+5Oz/3PLsiM+LQo5KcjTu9H2n
-	 bQ/SgeNVx186NpjLc4/s9YGHdfcm9UMDxfzjHtkK3uc28tmFoex+4uq/YlmgWVw45lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792772884;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=AOMQhYGznP8ZPbiSDUkXtajttWxKGXnZv3BF5N3G1jE=;
+	b=gnlPHraVuJ1uvN3pVrFpGZudPaLKvYgSvIGCO75PHtnEWrqBeS4rkq0oMVKYffRnkHii
+	 WlWwCVGsDtQIo3AFIC1uRzjGgJ796hqf162FfWaEMe79JLazFwRpGwLJS3Ud8yrl7IHQm
+	 DFQFEpc5ke8TGT0emq4i+hxsJpBrtcMJCCreQ67dGs3xXt9xgh8/vcOPvJutKuUepkK/E
+	 /O+dnbujZGfRZMBh9ypAD2SKlLNWZ3AybV1OINa3DLqJSIBBZXJuvKur7PeISwO/gH9tu
+	 4vneXu+CXv+mlAOl9jEjbF3m2ov2cQ2RWeyoFHgEtvr8RZ7RNy2vxHUQ+zumqvPRLww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=chPlhnte;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PTNkDsG9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hx6DAByH;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C53606A31E;
-	Fri, 23 Oct 2026 16:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C53606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5105606A31B
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5105606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=chPlhnte
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 25C261A12F8;
-	Fri, 23 Oct 2026 16:15:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E31B660398;
-	Fri, 23 Oct 2026 16:15:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 947C110328BF4;
-	Fri, 23 Oct 2026 18:15:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792772141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=206TRBL9eH7CzQSwmeMOSHt4wSQsqIurTtCbXibhaPQ=;
-	b=chPlhntexBlGk+bKnPv/3cD5pxqu5Jj9HqkXjijAG6wD8eo07eJArVLJSYfI8JtWB/LEMi
-	xJpVDgMefgj5KltbMEqLcew9rV3+nekdH124ktlTPlZTzR6WLo615iP/ZKdHKKAspcqAuN
-	P/+6+VgoG71dEpho0QXxx3kOrueVPpM+D+KUOG/0wv5fi+LNAjwLv3kAoZ2ic2bQPhDt6n
-	maK39KHZ+7gj1NJX2DKPvGyV77+hxu2ZkUInGUMxwyvH4a3Wfn+5pLti8etTiiCVx/oBbs
-	SAUtJdLQfS2vdf0mQS5G9F6jp8Zs/gT0PIrIrssEEyVZkWyhjcdyX4alDPCrUg==
-Date: Fri, 23 Oct 2026 18:15:33 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <20261023181533.0c44a57f@bootlin.com>
-In-Reply-To: <atrTn_I_8O6q9QUW@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-9-herve.codina@bootlin.com>
-	<atrTn_I_8O6q9QUW@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PTNkDsG9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hx6DAByH
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NG3r653812282
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:27:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AOMQhYGznP8ZPbiSDUkXtajttWxKGXnZv3BF5N3G1jE=; b=PTNkDsG9A5emxBdq
+	Pdnx8L7FgDxoNVqkFA2NtbEIyf6WUMTnmbcDT8G23HbLjPiLCMt5MSAvJ/mD2ci9
+	FICN5MdG5/wyNgBiGbRxgDDropOPEfi5FKebw9B2bsteteFRD2F1ncmHoSiIcZNQ
+	4pNvD2pcEXQxNrIBSbFqNWbRlfAmVyaYlX5A5Iqs34WA1KZIrYzkfoSvpdQsI97b
+	ISmo6r46Cj6qktZPtm43ptgJW8W2dMiXF/SmmygTq7HbDsX/u5SRc1+ByKcGUVki
+	HMtxxSCkCa/xE5tihNs65C8BDUmF6IITGqIWqMtufiiBLaMQef0bTRWiRaUB20Zz
+	tTXGsA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgas8832n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:27:56 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c97957d83bso74882e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792772876; x=1793377676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AOMQhYGznP8ZPbiSDUkXtajttWxKGXnZv3BF5N3G1jE=;
+        b=hx6DAByHxqHHpsqa+EIKQJzX/ToMEE9U5Cbjaj2FZaaKJbovJSAUxvQbgFxBgjb+Mv
+         +Kqsoq9CVfpi9GllC6Kd0C1M1IRDfMAIV6ydzbI6+Cc2qz0TTNgRBTS0n/cRWexerO5w
+         VoJ+uGac4uyIo5sJS4bNfoFPmeaVRfrySFeZGF6CYVUpMUWABEC100aoNigV49LdkQN8
+         phv05OvVCaMwHlkechVSZzPYS/RYvgboY8w7MEKXH2sidG5dqMAE5SeV5MsdnmynwdXh
+         1ZNnzmAna1lc7KBqlELMBfi/0c0HytzRJGLm22V45NyjXx4IkRRqDXjvBOw21eoxMM3p
+         uLRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792772876; x=1793377676;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AOMQhYGznP8ZPbiSDUkXtajttWxKGXnZv3BF5N3G1jE=;
+        b=z5/Hv3v0xIfiShP5CthV87oeRwpiXdNt1H4CSkNB6ikElJuALvQHDtLrXrwfGRUkHg
+         lQ18HbnIrNQIoiBXLGEBEnPqtntQdic3bLEa/AJIQJCIcI05/8uvPTxtaGDsz1QXcvkt
+         941INi+6/qAKvLs+80VPqtbO/O22jGq739vOdXSspafcoHmzbhfeof/jp4s++JjRtgGG
+         1w98UuvmuD73oYg/Lr/OkTOHIszyXHOWevbWvyHMWMRaS4loxPFDsTgTG6Batizdc4Tu
+         h8AanCEIBxXORbqXUHeFRLFJkstOVvDJszMJS3ZZYfO5NXeA5UfLEyofZv6HKjHtsfaH
+         eYww==
+X-Forwarded-Encrypted: i=1; AKwUvBz+Vx3YiKby03RA7GgtzwgKxK9O7vZBJfu4SXdzH70S088GTmqzo+uqyPx2S24zD/47YfHAU4MoCXLv@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsv1PtaZSbtazuTQEdIJKU/ILg2rBqe22wLUzRUNmeqX1XFlkx
+	u4Yo2FRK8FZz5g+JVH2mrGZfrxQTLwHqfVRCoP3d5GeONaMXVZAiC6iQsaHQpQnF26ZnAFcIqN/
+	RIJEJ0uhMeJUgllAbvUIWW3XhbcD4DIo4MOeXVL5BtUFNlpAKCWjAtP2KPW42mhxT
+X-Gm-Gg: AYBFou3nYpQ9k1hYVJ9bORYXG3t8u5e0400RgAYWGY1L+o0UvfQCBNtRngb2Nv5X7nd
+	nkCzs797cB/t8anbIYoR+uBYmuROOZyFUJnJr5gpwB7khaTAh+0KTXpAHsFfGLOseVzLue+LAaK
+	G0692thb8QYoTqy0/PT2zDI5mzWhITYM5ze1p34Xdu5PdMVNyZzQzwpg5n6UywUNoH9CUz4mlNm
+	hE45ASlQ+NPHeO0dPlwpS7xlNKOZbQVgRSKLqGp/Ixkt8RQYL4Ukh1wjG1Ez5lK+K0uPYGUYGGR
+	PwVoe7JAWJo2UMZj+zrp5i45YxOQLgb8PTf/QRj4lF+VFoQlY8wLX2m///IQ09DuXhqCFpLzIeF
+	VqXx4V0genleXjO7Zdz/n7A==
+X-Received: by 2002:a05:6102:a187:10b0:7cc:32ce:4c41 with SMTP id ada2fe7eead31-7ccc32a88e5mr1227645137.2.1792772875884;
+        Fri, 23 Oct 2026 09:27:55 -0700 (PDT)
+X-Received: by 2002:a05:6102:a187:10b0:7cc:32ce:4c41 with SMTP id ada2fe7eead31-7ccc32a88e5mr1227624137.2.1792772875358;
+        Fri, 23 Oct 2026 09:27:55 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4420e7268sm40969a12.9.2026.10.23.09.27.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 09:27:53 -0700 (PDT)
+Message-ID: <15c97297-379b-45f4-af63-c9c71733ee52@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 18:27:49 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,239 +115,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: sdm630: Drop the cluster idle
+ states
+To: Fabricio Akio <fabricioakio@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Alexey Minnekhanov <alexeymin@postmarketos.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Martin Botka <martin.botka@somainline.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+ <20261011-sdm630-idle-states-v1-1-3181d488dc0f@gmail.com>
+ <2e5bfe2f-f639-4c55-bb4e-e8893e9f098d@oss.qualcomm.com>
+ <CANxzQdH3eC97bb+eef=wizrxoB4XfvROzg8iHFxCrN_a+TZiSg@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CANxzQdH3eC97bb+eef=wizrxoB4XfvROzg8iHFxCrN_a+TZiSg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2NCBTYWx0ZWRfX/N5bNKpveLEL
+ FiIN18wxLB0RBHmr6G/6ZkFnvkZjvK0Id9YIdKd4QfE2R69GhXxJzTlmArWunXm7rTYGA9C3Q9f
+ 7yh81P0/InIXNiJ3J9txZx4GYRfKrNs=
+X-Authority-Analysis: v=2.4 cv=OPqyTiaB c=1 sm=1 tr=0 ts=6adb8b0c cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=2CUSOdstmcgysknA9-EA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2NCBTYWx0ZWRfXy1qjbEwHlWgj
+ L6ei7D9SD130ORUeDvdbiFHHuCkv7YfRlJ4yRhWwF5a3x2cgkWMxPoQZhF12ljDGZZSFHZ9uTHb
+ Tb3UotohR7/5FqohHLgivxP6DL3z/rHtrJNXrkJT5FXqB0fBMpuc2D4ok8E+i5XyxZ60P1R8Xk2
+ nIT2+3gzh6Wr53x3I5rA+adFe63MjoJyS25yL9aL1H2+GaC0Jl7iZ6wtOAWp87WxA2J3OSkkME0
+ fx14+FSjhNOeUWgcy4ARTEuhFafQRh0IulD7zZzJ/IE9z5wHp60MqBfyxSRcrAfGBn8AXY02ahL
+ 55UvhcohGUlXmWxGgH3kMg0OkiisYM8IyIjRcQbe0P31biXArWPrJG9VC4kjVD+fX+dS4FrD/z0
+ yJWXDmKJZVFW2xSvAysXaxD8zVcUlS9iqmHhTeeHySsl5szPWpucStxkDOa3qQwiN1r9sNd2oPt
+ pd2S5GwZD4p9jxS/hrg==
+X-Proofpoint-GUID: bhAfLruw-LV6PqtwdOy18Wt9dwObdnb6
+X-Proofpoint-ORIG-GUID: bhAfLruw-LV6PqtwdOy18Wt9dwObdnb6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 adultscore=0
+ phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230064
 
-Hi David,
-
-On Fri, 23 Oct 2026 14:25:29 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
-> > get_node_by_phandle() allows to get a node based on its phandle value.
-> > It checks the phandle value against value available in internal node
-> > structure.
-> > 
-> > This internal phandle value is updated during process_check() and so,
-> > get_node_by_phandle() cannot give correct results before the
-> > process_check() call.
-> > 
-> > Improve get_node_by_phandle() to look at node phandle properties when
-> > the internal phandle value is not valid.
-> > 
-> > This allows to return a correct matching node even if process_check()
-> > was not called yet.  
+On 10/20/26 6:15 PM, Fabricio Akio wrote:
+> On 10/15/26 3:51 PM, Konrad Dybcio wrote:
+>> I threw an LLM at the downstream tree and it decoded the states to:
+>>
+>> C2D, no cluster state    2        0x00000002
+>> C3, no cluster state    3        0x40000003
+>> pwr/perf L2 D2D + C2D    L2 2        0x01000022
+>> pwr/perf L2 D2D + C3    L2 2        0x41000023
+>> pwr/perf L2 D2E + C3    L2 3        0x41000033
+>> pwr/perf L2 D4 + C3    L2 4        0x41000043
+>> System PC + L2 D4 + C3    sys3, L2 4    0x42000343
+>>
+>> sorry for getting it wrong years ago!
 > 
-> The idea is sound - it's always been kind of clunky that we need the
-> process_checks() pass to fill the phandles before we can use them.
-> But, there's at least one significant catch:
+> Thanks! I had decoded the same values, but I didn't just put them in
+> place of the old ones. This firmware supports OS-initiated mode and
+> refuses platform-coordinated mode ("psci: [Firmware Bug]: failed to
+> set PC mode: -3", PSCI DENIED). In OS-initiated mode a cluster state
+> may only be requested by the last running CPU of the cluster, which a
+> flat cpu-idle-states list cannot express. I tried it: with 0x41000043
+> in the flat list the firmware returns DENIED to nearly every request,
+> accepting only the few that come from a cluster's last running CPU,
+> and the idle CPUs spin on it again, at about twice the battery current.
+> Linux runs OSI only with the CPUs described as PSCI power domains,
+> with 0x41000043 as each cluster's domain-idle-state and 0x42000343 for
+> system power collapse above them. I'm working on that, but I'm not
+> sure yet when it will be ready, so this is not a placeholder for a
+> replacement coming right behind it.
+
+See:
+
+https://lore.kernel.org/linux-arm-msm/20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com/
+
+https://lore.kernel.org/lkml/20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com/
+
+> Dropping the states is not the complete fix, but it helps now, because
+> as they are they do harm: cpuidle records no successful entry into any
+> of them, and since the deepest of them is what an idle CPU picks, each
+> failed request is retried instead of sleeping. On the Moto X4
+> that is about 133,000 failed entries per second with the screen off,
+> and the battery current goes from 277 mA to about 115 mA without them.
 > 
-> [Aside: you might notice the way it's done violates the principle I
->  stated elsewhere of avoiding structures where you must know where you
->  are in the flow to know which parts are populated.  My type
->  discipline has improved since I first wrote this code :)]
-> 
-> We need to gracefully handle the case of malformed phandle /
-> linux,phandle properties; that's actually the reason for the weird
-> placement of this in checks.c.  By treating it as a "check" we handle
-> this case by failing the check.  Other checks that rely on phandles
-> then have the 'explicit_phandles' check as a prereq so they don't need
-> to verify this again.  We can still report errors for other checks
-> that don't rely on that (which is the whole point of the checks
-> mechanism).
-> 
-> That's not the only way to do it, of course, but we need something to
-> check for that error case.  Further notes on the code.
-> 
-> > With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-> > needed to update internal phandle references before the call to
-> > process_check(). Indeed, this tag allows to identify phandles and
-> > internal references need to be updated based on the phandle value before
-> > the process_check() call.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  livetree.c | 21 ++++++++++++++++++++-
-> >  1 file changed, 20 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/livetree.c b/livetree.c
-> > index abe73de1..a9f8c5d2 100644
-> > --- a/livetree.c
-> > +++ b/livetree.c
-> > @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, const char *label)
-> >  	return NULL;
-> >  }
-> >  
-> > +static cell_t get_node_phandle_existing(struct node *node)
-> > +{
-> > +	struct property *prop;
-> > +
-> > +	if (phandle_is_valid(node->phandle))
-> > +		return node->phandle;
-> > +
-> > +	prop = get_property(node, "phandle");
-> > +	if (!prop) {
-> > +		prop = get_property(node, "linux,phandle");
-> > +		if (!prop)
-> > +			return 0;
-> > +	}
-> > +
-> > +	return propval_cell(prop);  
-> 
-> In the case of a malformed property, this could SEGV.
+> Is dropping them first OK with you?
 
-Ok, will update to
---- 8< ---
-	if (prop->val.len != sizeof(cell_t))
-		return 0;
+Temporarily, yes
 
-	return propval_cell(prop)
---- 8< ---
+Konrad
 
-> 
-> > +}
-> > +
-> >  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-> >  {
-> >  	struct node *child, *node;
-> > +	cell_t tree_phandle;
-> >  
-> >  	if (!phandle_is_valid(phandle)) {
-> >  		assert(generate_fixups);
-> >  		return NULL;
-> >  	}
-> >  
-> > -	if (tree->phandle == phandle) {
-> > +	tree_phandle = get_node_phandle_existing(tree);  
-> 
-> This means that every time we search for a phandle, for every node
-> scanned before the destination with no phandle, we do a full property
-> scan to check that no, it still doesn't have a phandle.
-> 
-> I don't care that much about dtc performance, but that's still a bit
-> much to swallow.  I think we need to cache negative lookups to avoid
-> that.  Happily, since there are two invalid phandle values this
-> shouldn't be too hard.  We could, say, use tree->phandle == 0 to mean
-> we don't know if there's a phandle, and tree->phandle == -1 to mean
-> we've scanned the properties and we know there isn't one.
-> 
-> In fact, caching property lookups might be the better way to do this.
-> Rather than having an explicit pass where tree->phandle is populated,
-> we could have get_node_by_phandle() cache its property scan (success
-> or failure) in tree->phandle.
-> 
-> I think that's a more elegant approach than the current one, but we do
-> still need to handle the malformed property case.
-
-Well, get_node_phandle_existing() can be improved:
----- 8< ----
-static cell_t get_node_phandle_existing(struct node *node)
-{
-	cell_t phandle1, phandle2;
-	struct property *prop1, *prop2;
-
-	if (phandle_is_valid(node->phandle))
-		return node->phandle;
-	if (node->phandle == ~0UL) {
-		/*
-		 * We've already looked at existing properties and no valid
-		 * phandle value were present. Avoid looking at them again
-		 * and just return the invalid phandle value.
-		 */
-		return 0;
-	}
-
-	/* Try to get it from the 'phandle' property */
-	phandle1 = 0; /* Assume invalid */
-	prop1 = get_property(node, "phandle");
-	if (prop1) {
-		if (prop1->val.len == sizeof(cell_t))
-			phandle1 = propval_cell(prop1); /* Well formed -> Get it */
-	}
-
-	/* Try to get it from the 'linux,phandle' property */
-	phandle2 = 0; /* Assume invalid */
-	prop2 = get_property(node, "linux,phandle");
-	if (prop2) {
-		if (prop2->val.len == sizeof(cell_t))
-			phandle2 = propval_cell(prop2); /* Well formed -> Get it */
-	}
-
-	if (prop1 && prop2) {
-		/*
-		 * Both property are present. They values must be the same
-		 * and valid.
-		 */
-		if (phandle1 == phandle2) && phandle_is_valid(phandle1)) {
-			/* Ok, Cache this correct phandle value and return it */
-			node->phandle = phandle1;
-			return phandle1;
-		}
-	} else if (prop1) {
-		/*
-		 * Only the 'phandle' property is present.
-		 * Check its value validity
-		 */
-		if (phandle_is_valid(phandle1)) {
-			/* Ok, Cache this correct phandle value and return it */
-			node->phandle = phandle1;
-			return phandle1;
-		}
-	} else if (prop2) {
-		/*
-		 * Only the 'linux,phandle' property is present.
-		 * Check its value validity
-		 */
-		if (phandle_is_valid(phandle2)) {
-			/* Ok, Cache this correct phandle value and return it */
-			node->phandle = phandle2;
-			return phandle2;
-		}
-	}
-
-	/*
-	 * No valid phandle value were found. Cache this information and return
-	 * the invalid phandle value.
-	 */
-	node->phandle == ~0UL;
-	return 0;
-}
---- 8< ---
-
-In get_node_by_phandle(), no change compared to my proposition and so the
-full function is:
---- 8< ---
-struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
-{
-        struct node *child, *node;
-        cell_t tree_phandle;
-
-        if (!phandle_is_valid(phandle)) {
-                assert(generate_fixups);
-                return NULL;
-        }
-
-        tree_phandle = get_node_phandle_existing(tree);
-        if (phandle_is_valid(tree_phandle) && tree_phandle == phandle) {
-                if (tree->deleted)
-                        return NULL;
-                return tree;
-        }
-
-        for_each_child(tree, child) {
-                node = get_node_by_phandle(child, phandle);
-                if (node)
-                        return node;
-        }
-
-        return NULL;
-}
---- 8< ---
-
-Caching should work correctly without any other modification.
-
-I let you double-check on your side. Let me know about your opinion.
-
-Best regards,
-Hervé
