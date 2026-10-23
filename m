@@ -1,57 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749504;
-	b=a/yLcG9v6OTGQTqoaJ0/mI2/v2xhe0JsPwXRR+EJOYQjPLvyWe3KrCe8QJiU/z7AgGw/
-	 bflXyXbTZSK5KoRweozWxap054B8a7aJRKdbaFV6bbMV1Xeo6ammVaK72YBJ26r7YHVte
-	 3yCUG3sMFA3OIWu8WjidlAV0Ef/0e06nFuN3BqhwB+gDzQ29pdGzty5UqsXp0hNYEsgmn
-	 NRTx/K4psNV2seWyPqK/tuCoPXcyJsKUzX8onT49wrR1vgptocfAlWLjOjHTd+pHtBmuG
-	 +K9OQjOEsV3OJNH/7UAhrMy3z0Xc+GFRkNwEtkrA83shy6rA2uT0bvjAdQgeJF7lWUA==
+	t=1792749680;
+	b=zMVrW3zZjRwRwAxGOb1SEUMfuy54cb4YuHeCZ5G8qRZNwUlJD5zRTdwpJBSvx1IwI8Nh
+	 6fLwhWrzUTAdEziCaoB2FvQ6Z7mrHAJwKxaETQ6OVD/WnNJKHmxicPsB39NIdC/Yf+iHa
+	 PsWGG8iSkF9vmGMVsQTXskD6NxMGNW5mz7deK+00aePC9M7eqeU65DhuvoEorih4YIra9
+	 MiTD8RsqreCAAje5JfEwruGjXA+hrvAJpop7E8uDD6HvQc+eKz+QMkgB+AZsIGeBhyiXL
+	 xekVtvDzsR4eOJoPwIfqKz6LJBjPw0BZf6x6Z5jR5Y3QRltgL0FG2u5uqkSvqbEOBjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749504;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=F7z54Mm7JzDI3a3Zv0NiLmWi5pxlTQCT46xlX2O/ufE=;
-	b=lnsmvg5CLNlwg4CeqDuGlUbp5SKt3AtNXyy7FIU0ECBC2KWuzqjXRkKe/gWdTl2ij2E3
-	 7de+erGpwGVNUHo4jkhhzB8Mo3PPz1Pmoc8VEXK+Z3nKk/Wb7p4oGfSve499MsyczefeJ
-	 7sLQchhnv3SFJPP5mXVFo20rltqt6livVukYF8dcE5vvPOdCubsyz6fq5tjsiUHgbGcbs
-	 I4zoXhTThYPswKK9NqlPwJWKOuwVKFOl8weB9kqvVp61WfSuZsgMJT5nnsbuQkfHnOhX1
-	 8T3hgeX3lsnK02IFptltvPmLbS/oTJ2b0JpAboR/Xg4+8ScDTaI56Z1vlUSuJ68ts8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749680;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M0s3SFlMeOGNR0VjX2ZhF+zTIKdV5x/45iKV7UcMLG0=;
+	b=ghQrRIIiERJEWs7lOUaoS+NT4glnTJzwhk/pPk3CW6WXWpQ6ZYVIntTcSbrVCcu+oNRF
+	 4cDTILlsaV6GnbP8UDBRVVREGU2fUAim7IoP2x/4elU/KvNCNE+UxXSMV6hLSHtGdtD/L
+	 REKuJCIgWW/UzLSuIcVMEFKsS5lG61fasfZT1Q1Fg0hzcDWlHJWOUGQGC+3uJ9O0SOnDz
+	 NpupwRY0kTo7KffYOES9LGux7HBtIBPYZe45H29LqsCupZYp9wq3wD8t9l5tZpqa7mDmx
+	 Gi4JrqLcj8mpWxzo2PK274kOUR/4L3V2WXYmfNpj9QE8pKVdRJ07geyTy+nhpbi07dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwZXFNhU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=grimler.se;
+	spf=pass smtp.mailfrom=grimler.se;
+	dkim=pass header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo;
+	arc=none smtp.remote-ip=91.218.175.171
+Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2836A606A31A;
-	Fri, 23 Oct 2026 09:58:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E464606A31D
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E464606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwZXFNhU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97691F01825;
-	Fri, 23 Oct 2026 09:58:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792749504;
-	bh=F7z54Mm7JzDI3a3Zv0NiLmWi5pxlTQCT46xlX2O/ufE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NwZXFNhUtUeSIApRJ/8z9X1BGhZJHS4zCDD/O8/46OxNULFn7gMikcaU/hVFC5yH1
-	 1GeFkw4wsFbwWCRLI20G9VnkYTm20fAEYEDHCUTi9LklmewQG+0dEA0oxkYPTgnd6X
-	 M95YpKdBOq1d52RJgZtK/Uk/ayFETBxu8hiLwb0Ca1oGb/UWKaIO/lumzA49BZbTVx
-	 Dx0qYr8QntKLjhmHQYxlE3rAt3snMnHiHCDGziAw5Pv9d0vTDArwh0Qgc8qLng2q1T
-	 zEakOm0sQQBP8PBjiyCoQx6T2bIsv/u4+iurd200mj1w0M5SdsRfOp/RXloJwMdJla
-	 nDeYZJhJBMccA==
-Message-ID: <sashiko-outbox-182650@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] dmaengine: arm-dma350: Add slave and cyclic
- transfer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jelly Jia" <Jelly.Jia@cixtech.com>
-Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261023093017.3248454-3-Jelly.Jia@cixtech.com>
-References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
- <20261023093017.3248454-3-Jelly.Jia@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 09:58:23 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Sl832lwWv9q0+uztm4xFM++41k7qXCoKfbSb4C6WYFM=;
+ c=simple/simple; d=grimler.se;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792749675; v=1; x=1793354475;
+ b=l1z0FiUo0EzYZ5/WiXjcU/n8db2gMYv3Qs5CzXmz7x4paclekKYJAoHmd7N4F4YdsfRr8B1d
+ C+8jrLNs7HRHRWIIuKmawALtuA8BNR7m2CP731aCH6I5o1ILx0mUWcuzPLOLgA7Xw/sm7uL5RlO
+ frNihZP4Fv0p8gCGuz2/Vhhg=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 6fe652901f52c9d0;
+	Fri, 23 Oct 2026 10:01:15 +0000
+X-Mizu-Trace-ID: 6fe652901f52c9d0
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 23 Oct 2026 12:01:10 +0200
+From: Henrik Grimler <henrik@grimler.se>
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: samsung: Add Hardkernel ODROID-U2
+Message-ID: <20261023100110.GA24541@localhost>
+References: <20261022055208.17746-1-pepe.schlehofer@gmail.com>
+ <20261022055208.17746-3-pepe.schlehofer@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,426 +67,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022055208.17746-3-pepe.schlehofer@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] dmaengine: arm-dma350: unlocked sconfig read and -EBUSY in d350_co=
-nfig()
-- [High] dmaengine: arm-dma350: cyclic residue desync in d350_get_cyclic_re=
-sidue()
-- [High] dmaengine: arm-dma350: unchecked has_trig/tsz and BIT(0) in addr_w=
-idths
-- [High] dmaengine: arm-dma350: missing stop wait in d350_start_next() and =
-stop race
-- [Medium] dmaengine: arm-dma350: race in d350_irq() and d350_terminate_all=
-() on CH_STATUS
---
+Hi Josef,
 
-commit 7ea8f6c5155871b057296b78b296628ea4bd9bcc
-Author: Jelly Jia <Jelly.Jia@cixtech.com>
-
-dmaengine: arm-dma350: Add slave and cyclic transfer support
-
-This commit adds peripheral scatter-gather and cyclic DMA transfer support =
-to
-the Arm DMA-350 driver, including trigger configuration, coherent command p=
-ool
-allocation, period callbacks, and residue calculation. It also adds slave
-configuration validation, OF DMA controller registration, and bounded chann=
-el
-stop polling during teardown.
-
-> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-> index 4e17130de6c87..f62ff6a9f4909 100644
-> --- a/drivers/dma/arm-dma350.c
-> +++ b/drivers/dma/arm-dma350.c
-
-[ ... ]
-
-> @@ -207,14 +254,452 @@ static inline struct d350_chan *to_d350_chan(struc=
-t dma_chan *chan)
-
-[ ... ]
-
-> +static int d350_config(struct dma_chan *chan, struct dma_slave_config *c=
-onfig)
-> +{
-> +	struct d350_chan *dch =3D to_d350_chan(chan);
-> +	struct dma_device *dma =3D chan->device;
-> +	unsigned long flags;
-> +	int ret;
+On Thu, Oct 22, 2026 at 07:52:08AM +0200, Josef Schlehofer wrote:
+> ODROID-U2 is a single board computer from Hardkernel based on the
+> Samsung Exynos4412 Prime SoC with 2 GB of LPDDR2 RAM. It is the
+> predecessor of the ODROID-U3 and shares most of its design:
+> - microSD card slot and eMMC module socket
+> - SMSC LAN9730 10/100 Ethernet on HSIC0
+> - SMSC USB3503A hub on HSIC1 with two USB 2.0 host ports
+> - micro-HDMI port with CEC
+> - MAX98090 audio codec with a 3.5 mm headphone jack and an on-board
+>   digital microphone
+> - MAX77686 PMIC
+> - 2-pin header for an optional PWM controlled cooling fan
+> - blue heartbeat LED
+> 
+> Unlike the ODROID-U3, the micro-USB port has no VBUS supply switch, so
+> it can only work in peripheral mode, and there is no expansion header
+> with SPI. The 3.5 mm jack is headphone only and the speaker outputs of
+> the codec are not connected.
+> 
+> Add a device tree for the board that includes the ODROID-U3 one and
+> describes only these differences, as the ODROID-X2 does with the
+> ODROID-X, and update the comments in the common dtsi, as the LDO22 and
+> BUCK8 constraints are now also used by the ODROID-U2.
+> 
+> Also route "HiFi Capture" to "Mixer DAI RX", as on the ODROID-XU3. The
+> odroid sound card driver adds only the playback routes for boards with
+> a single CPU DAI, so without it the DPCM capture path to the I2S
+> back-end is incomplete and recording from the digital microphone fails
+> with "no backend DAIs enabled for Primary".
+> 
+> Link: https://www.hardkernel.com/shop/odroid-u2/
+> Link: https://www.hardkernel.com/blog-2/odroid-u2-u-schematics/
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> ---
+>  arch/arm/boot/dts/samsung/Makefile            |  1 +
+>  .../dts/samsung/exynos4412-odroid-common.dtsi |  6 +--
+>  .../boot/dts/samsung/exynos4412-odroidu2.dts  | 42 +++++++++++++++++++
+>  3 files changed, 46 insertions(+), 3 deletions(-)
+>  create mode 100644 arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
+> 
+> diff --git a/arch/arm/boot/dts/samsung/Makefile b/arch/arm/boot/dts/samsung/Makefile
+> index e0143ee8c82d..2a173e4b3e1a 100644
+> --- a/arch/arm/boot/dts/samsung/Makefile
+> +++ b/arch/arm/boot/dts/samsung/Makefile
+> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_EXYNOS4) += \
+>  	exynos4412-i9305.dtb \
+>  	exynos4412-itop-elite.dtb \
+>  	exynos4412-n710x.dtb \
+> +	exynos4412-odroidu2.dtb \
+>  	exynos4412-odroidu3.dtb \
+>  	exynos4412-odroidx.dtb \
+>  	exynos4412-odroidx2.dtb \
+> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
+> index 93ddbd4b0a18..b56b92c78c1d 100644
+> --- a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
+> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
+> @@ -414,8 +414,8 @@ ldo21_reg: LDO21 {
+>  
+>  			ldo22_reg: LDO22 {
+>  				/*
+> -				 * Only U3 uses it, so let it define the
+> -				 * constraints
+> +				 * Only U2 and U3 use it, so let them define
+> +				 * the constraints
+>  				 */
+>  				regulator-name = "LDO22";
+>  				regulator-boot-on;
+> @@ -486,7 +486,7 @@ buck7_reg: BUCK7 {
+>  			buck8_reg: BUCK8 {
+>  				/*
+>  				 * Constraints set by specific board: X,
+> -				 * X2 and U3.
+> +				 * X2, U2 and U3.
+>  				 */
+>  				regulator-name = "BUCK8_2.8V";
+>  			};
+> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
+> new file mode 100644
+> index 000000000000..bc14df9be9f7
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Hardkernel's Exynos4412 based ODROID-U2 board device tree source
+> + *
+> + * Copyright (c) 2026 Josef Schlehofer <pepe.schlehofer@gmail.com>
+> + *
+> + * Device tree source file for Hardkernel's ODROID-U2 board which is based
+> + * on Samsung's Exynos4412 SoC. The board is the predecessor of the
+> + * ODROID-U3, so only the differences from it are described here.
+> + */
 > +
-> +	ret =3D d350_check_slave_config(dma, config);
-> +	if (ret) {
-> +		dev_err(dma->dev, "invalid slave configuration\n");
-> +		return ret;
-> +	}
+> +#include "exynos4412-odroidu3.dts"
 > +
-> +	spin_lock_irqsave(&dch->vc.lock, flags);
-> +	if (dch->desc || !list_empty(&dch->vc.desc_allocated) ||
-> +	    !list_empty(&dch->vc.desc_submitted) ||
-> +	    !list_empty(&dch->vc.desc_issued)) {
-> +		spin_unlock_irqrestore(&dch->vc.lock, flags);
-> +		return -EBUSY;
-> +	}
-> +	memcpy(&dch->sconfig, config, sizeof(dch->sconfig));
-> +	spin_unlock_irqrestore(&dch->vc.lock, flags);
+> +/ {
+> +	model = "Hardkernel ODROID-U2 board based on Exynos4412";
+> +	compatible = "hardkernel,odroid-u2", "samsung,exynos4412", "samsung,exynos4";
+> +};
 > +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int d350_slave_params(struct d350_chan *dch,
-> +			     enum dma_transfer_direction direction,
-> +			     phys_addr_t *dev_cpu_addr,
-> +			     enum dma_data_direction *dev_dir,
-> +			     enum dma_slave_buswidth *width, u32 *maxburst)
-> +{
-> +	struct dma_slave_config *config =3D &dch->sconfig;
+> +/* No VBUS supply switch on the micro-USB port */
+> +/delete-node/ &vbus_otg_reg;
 > +
-> +	if (direction =3D=3D DMA_MEM_TO_DEV) {
-> +		*dev_cpu_addr =3D config->dst_addr;
-> +		*dev_dir =3D DMA_FROM_DEVICE;
-> +		*width =3D config->dst_addr_width;
-> +		*maxburst =3D config->dst_maxburst;
-> +	} else if (direction =3D=3D DMA_DEV_TO_MEM) {
-> +		*dev_cpu_addr =3D config->src_addr;
-> +		*dev_dir =3D DMA_TO_DEVICE;
-> +		*width =3D config->src_addr_width;
-> +		*maxburst =3D config->src_maxburst;
-> +	} else {
-> +		return -EINVAL;
-> +	}
+> +&hsotg {
+> +	dr_mode = "peripheral";
+> +	/delete-property/ vbus-supply;
+> +};
 > +
-> +	return *width && *maxburst ? 0 : -EINVAL;
-> +}
+> +&sound {
+> +	model = "Odroid-U2";
+> +	audio-routing = "Headphone Jack", "HPL",
+> +			"Headphone Jack", "HPR",
+> +			"DMICL", "DMIC",
+> +			"DMICR", "DMIC",
+> +			"Mixer DAI RX", "HiFi Capture";
+> +	samsung,audio-widgets =
+> +		"Headphone", "Headphone Jack",
+> +		"Microphone", "DMIC";
 
-[Severity: High]
-Does rejecting d350_config() with -EBUSY when descriptors are present break
-pipelined slave transfers and descriptor reuse, while still leaving
-d350_slave_params() unlocked against concurrent d350_config() calls?
+Should be no need for newline after = for
+samsung,audio-widgets. Writing it as:
 
-In d350_prep_slave_sg() and d350_prep_dma_cyclic(), all slave configuration
-fields are snapshotted via d350_slave_params() into the newly allocated
-struct d350_desc when preparing a descriptor, so updating dch->sconfig does
-not affect already-prepared descriptors.
+	samsung,audio-widgets = "Headphone", "Headphone Jack",
+				"Microphone", "DMIC";
 
-However, d350_config() returns -EBUSY whenever dch->desc is set or any of
-desc_allocated, desc_submitted, or desc_issued is non-empty. That prevents
-clients from reconfiguring the channel for a subsequent transfer while an
-earlier one is allocated or in flight. In addition, because
-dmac->dma.descriptor_reuse is true, vchan_vdesc_fini() places completed
-DMA_CTRL_REUSE descriptors back onto dch->vc.desc_allocated, causing all
-subsequent dmaengine_slave_config() calls to fail with -EBUSY until the
-reusable descriptor is freed or terminated.
+gives max width of 62 wide chars. With that fixed:
 
-At the same time, d350_prep_slave_sg() and d350_prep_dma_cyclic() call
-d350_slave_params() before vchan_tx_prep() acquires dch->vc.lock and inserts
-the descriptor onto dch->vc.desc_allocated:
+Reviewed-by: Henrik Grimler <henrik@grimler.se>
 
-  d350_prep_slave_sg() / d350_prep_dma_cyclic()
-    d350_slave_params()   <-- reads dch->sconfig without dch->vc.lock
-    ...
-    vchan_tx_prep()       <-- acquires dch->vc.lock and adds to desc_alloca=
-ted
+Best regards,
+Henrik Grimler
 
-If dmaengine_slave_config() -> d350_config() runs concurrently with
-d350_prep_slave_sg() or d350_prep_dma_cyclic(), d350_slave_params() can rea=
-d a
-partially updated dch->sconfig while memcpy() is executing under
-dch->vc.lock. Should d350_config() allow updating dch->sconfig while
-descriptors exist, and should d350_slave_params() read dch->sconfig under
-dch->vc.lock?
-
-[ ... ]
-
-> @@ -347,6 +897,7 @@ static int d350_terminate_all(struct dma_chan *chan)
-> =20
->  	spin_lock_irqsave(&dch->vc.lock, flags);
->  	writel_relaxed(CH_CMD_STOP, dch->base + CH_CMD);
-> +	dch->stopping =3D true;
->  	if (dch->desc) {
->  		if (dch->status !=3D DMA_ERROR)
->  			vchan_terminate_vdesc(&dch->desc->vd);
-> @@ -360,16 +911,105 @@ static int d350_terminate_all(struct dma_chan *cha=
-n)
->  	return 0;
->  }
-> =20
-> +static int d350_wait_for_stop(struct d350_chan *dch)
-> +{
-> +	u32 cmd;
-> +	int ret;
+> +};
 > +
-> +	if (!READ_ONCE(dch->stopping))
-> +		return 0;
-> +
-> +	/* STOPCMD clears only after the channel has stopped using commands. */
-> +	ret =3D readl_poll_timeout(dch->base + CH_CMD, cmd,
-> +				 !(cmd & CH_CMD_STOP), 10,
-> +				 D350_STOP_TIMEOUT_US);
-> +	if (ret)
-> +		dev_warn(dch->vc.chan.device->dev,
-> +			 "channel %d failed to stop\n", dch->vc.chan.chan_id);
-> +	else
-> +		WRITE_ONCE(dch->stopping, false);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-What happens if a client calls dmaengine_terminate_async() ->
-d350_terminate_all() and then issues a new transfer via
-dma_async_issue_pending() -> d350_issue_pending() -> d350_start_next() befo=
-re
-calling dmaengine_synchronize()?
-
-In d350_terminate_all(), CH_CMD_STOP is written to CH_CMD, dch->stopping is
-set to true, and dch->desc is cleared to NULL under dch->vc.lock without
-waiting for CH_CMD_STOP to clear. If d350_issue_pending() is called next,
-d350_start_next() sees dch->desc =3D=3D NULL and immediately writes the new
-descriptor's registers and CH_CMD_ENABLE while CH_CMD_STOP may still be act=
-ive
-in hardware, and without clearing dch->stopping.
-
-Additionally, in d350_wait_for_stop(), WRITE_ONCE(dch->stopping, false) runs
-outside dch->vc.lock. If d350_terminate_all() runs on another CPU after
-readl_poll_timeout() finishes polling CH_CMD but before
-WRITE_ONCE(dch->stopping, false) executes, dch->stopping is overwritten with
-false. A subsequent d350_synchronize() for that second termination will then
-see dch->stopping =3D=3D false and skip waiting for CH_CMD_STOP before
-vchan_synchronize() frees the descriptor's command pool buffers and unmaps
-peripheral resources.
-
-> +
->  static void d350_synchronize(struct dma_chan *chan)
->  {
->  	struct d350_chan *dch =3D to_d350_chan(chan);
-> =20
-> +	/* A stop timeout must not skip callback synchronization. */
-> +	d350_wait_for_stop(dch);
->  	vchan_synchronize(&dch->vc);
->  }
-> =20
->  static u32 d350_desc_bytes(struct d350_desc *desc)
->  {
-> -	return ((u32)desc->xsizehi << 16 | desc->xsize) << desc->tsz;
-> +	return desc->bytes;
-> +}
-> +
-> +static u32 d350_get_cyclic_residue(struct d350_chan *dch)
-> +{
-> +	struct d350_desc *desc =3D dch->desc;
-> +	u32 period_residue =3D desc->bytes - desc->period * desc->period_len;
-> +	u32 linkaddr;
-> +	u32 linkaddrhi;
-> +	u32 hi_new;
-> +	u32 lo_new;
-> +	u64 next_cmd;
-> +	int retries =3D 3;
-> +
-> +	/*
-> +	 * desc->period counts the completed periods, so period_residue is the
-> +	 * residue at the last period boundary. Subtract the progress made in
-> +	 * the running period, read from CH_XSIZE: CH_LINKADDR points at the
-> +	 * command after the one executing, so while the channel is still on the
-> +	 * command of the running period it names the first command of the next
-> +	 * period.
-> +	 */
-> +	hi_new =3D readl_relaxed(dch->base + CH_LINKADDRHI);
-> +	do {
-> +		linkaddrhi =3D hi_new;
-> +		linkaddr =3D readl_relaxed(dch->base + CH_LINKADDR);
-> +		hi_new =3D readl_relaxed(dch->base + CH_LINKADDRHI);
-> +	} while (linkaddrhi !=3D hi_new && --retries);
-> +
-> +	next_cmd =3D (linkaddr & ~CH_LINKADDR_EN) | ((u64)linkaddrhi << 32);
-> +	if (next_cmd !=3D desc->cmds[(desc->period + 1) % desc->periods].dma)
-> +		return dch->residue;
-> +
-> +	period_residue -=3D desc->period_len - d350_get_residue(dch);
-> +
-> +	/*
-> +	 * If the channel stepped to the next period while CH_XSIZE was read,
-> +	 * the size belongs to a command of the next period and mixing it with
-> +	 * the current one would overstate the residue: keep the last reported
-> +	 * value instead.
-> +	 */
-> +	hi_new =3D readl_relaxed(dch->base + CH_LINKADDRHI);
-> +	lo_new =3D readl_relaxed(dch->base + CH_LINKADDR);
-> +	if (hi_new !=3D linkaddrhi || lo_new !=3D linkaddr)
-> +		return dch->residue;
-> +
-> +	return period_residue;
-> +}
-
-[Severity: High]
-Can d350_get_cyclic_residue() permanently freeze dch->residue or return sta=
-le
-residue from a previous period when comparing next_cmd against the
-software-tracked desc->period?
-
-Unlike d350_get_sg_residue(), which locates the active command by matching
-next_cmd against desc->cmds[i].dma, d350_get_cyclic_residue() requires
-next_cmd to equal desc->cmds[(desc->period + 1) % desc->periods].dma, where
-desc->period is incremented once per interrupt in d350_irq():
-
-  if (desc->cyclic) {
-          desc->period =3D (desc->period + 1) % desc->periods;
-          dch->residue =3D d350_get_cyclic_residue(dch);
-          vchan_cyclic_callback(vd);
-  }
-
-This can fail in several ways:
-
-1. If interrupt latency causes two periods to complete before d350_irq() re=
-ads
-and clears CH_STATUS (when desc->periods > 1), the hardware link pointer
-advances by two commands while desc->period only increments by one. Because
-subsequent interrupts advance both hardware and desc->period by one,
-next_cmd !=3D desc->cmds[(desc->period + 1) % desc->periods].dma remains tr=
-ue on
-every subsequent call, freezing dch->residue for the rest of the cyclic
-transfer.
-
-2. In d350_irq(), desc->period is incremented before calling
-d350_get_cyclic_residue(dch), without first updating dch->residue to the new
-period boundary (desc->bytes - desc->period * desc->period_len). If
-d350_get_cyclic_residue() takes either early return to dch->residue (or if
-d350_tx_status() runs after hardware steps to the next period but before
-d350_irq() takes dch->vc.lock), it returns the stale dch->residue from an
-earlier period.
-
-3. If buf_len =3D=3D period_len (desc->periods =3D=3D 1), desc->cmds[0] lin=
-ks to
-itself, so CH_LINKADDR never changes when the period wraps around while
-CH_XSIZE is being read. Also, if a cyclic descriptor is reused,
-d350_start_next() does not reset desc->period to 0.
-
-Could d350_get_cyclic_residue() match next_cmd against desc->cmds[i].dma to
-determine the active period directly from hardware, similar to
-d350_get_sg_residue()?
-
-[ ... ]
-
-> @@ -469,17 +1112,32 @@ static void d350_issue_pending(struct dma_chan *ch=
-an)
->  static irqreturn_t d350_irq(int irq, void *data)
->  {
->  	struct d350_chan *dch =3D data;
-> -	struct device *dev =3D dch->vc.chan.device->dev;
-> -	struct virt_dma_desc *vd =3D &dch->desc->vd;
-> +	struct virt_dma_desc *vd;
-> +	struct d350_desc *desc;
-> +	u32 residue =3D 0;
->  	u32 ch_status;
-> +	u32 irq_status;
-> +	u32 errinfo =3D 0;
-> =20
->  	ch_status =3D readl(dch->base + CH_STATUS);
-> -	if (!ch_status)
-> +	irq_status =3D ch_status & (CH_STAT_INTR_DONE | CH_STAT_INTR_ERR);
-> +	if (!irq_status)
->  		return IRQ_NONE;
-> =20
-> -	if (ch_status & CH_STAT_INTR_ERR) {
-> -		u32 errinfo =3D readl_relaxed(dch->base + CH_ERRINFO);
-> +	if (irq_status & CH_STAT_INTR_ERR)
-> +		errinfo =3D readl_relaxed(dch->base + CH_ERRINFO);
-> +
-> +	writel_relaxed(ch_status, dch->base + CH_STATUS);
-> +
-> +	spin_lock(&dch->vc.lock);
-> +	desc =3D dch->desc;
-> +	if (!desc) {
-> +		spin_unlock(&dch->vc.lock);
-> +		return IRQ_HANDLED;
-> +	}
-
-[Severity: Medium]
-Can an interrupt from a terminated transfer be misattributed to a newly
-started descriptor in d350_irq()?
-
-In d350_irq(), CH_STATUS and CH_ERRINFO are read and cleared before acquiri=
-ng
-dch->vc.lock. Meanwhile, d350_terminate_all() stops the channel and sets
-dch->desc =3D NULL under dch->vc.lock without clearing CH_STATUS, and
-d350_start_next() also does not clear stale status bits in CH_STATUS before
-enabling the next descriptor.
-
-If d350_terminate_all() and a subsequent d350_issue_pending() ->
-d350_start_next() run on another CPU after d350_irq() reads CH_STATUS but
-before d350_irq() acquires dch->vc.lock (or if CH_STAT_INTR_DONE /
-CH_STAT_INTR_ERR was latched just before d350_terminate_all() +
-d350_issue_pending() ran with local IRQs disabled), d350_irq() will see the
-newly started dch->desc under dch->vc.lock and complete or advance the wrong
-descriptor.
-
-Should CH_STATUS be read and cleared under dch->vc.lock, and also cleared in
-d350_terminate_all() / d350_start_next()?
-
-[ ... ]
-
-> @@ -568,23 +1243,32 @@ static int d350_probe(struct platform_device *pdev)
->  	dev_dbg(dev, "DMA-350 r%dp%d with %d channels, %d requests\n", r, p, dm=
-ac->nchan, dmac->nreq);
-> =20
->  	dmac->dma.dev =3D dev;
-> +	dmac->dma.src_addr_widths =3D BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED);
-> +	dmac->dma.dst_addr_widths =3D BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED);
->  	for (int i =3D min(dw, 16); i > 0; i /=3D 2) {
->  		dmac->dma.src_addr_widths |=3D BIT(i);
->  		dmac->dma.dst_addr_widths |=3D BIT(i);
->  	}
-> -	dmac->dma.directions =3D BIT(DMA_MEM_TO_MEM);
-> +	dmac->dma.directions =3D BIT(DMA_MEM_TO_MEM) |
-> +			BIT(DMA_MEM_TO_DEV) |
-> +			BIT(DMA_DEV_TO_MEM);
->  	dmac->dma.descriptor_reuse =3D true;
->  	dmac->dma.residue_granularity =3D DMA_RESIDUE_GRANULARITY_BURST;
->  	dmac->dma.device_alloc_chan_resources =3D d350_alloc_chan_resources;
->  	dmac->dma.device_free_chan_resources =3D d350_free_chan_resources;
->  	dma_cap_set(DMA_MEMCPY, dmac->dma.cap_mask);
-> +	dma_cap_set(DMA_SLAVE, dmac->dma.cap_mask);
-> +	dma_cap_set(DMA_CYCLIC, dmac->dma.cap_mask);
-
-[Severity: High]
-Does setting BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED) in src_addr_widths and
-dst_addr_widths break dma_get_slave_caps() callers, and should slave/cyclic
-transfers also check per-channel dch->has_trig and dch->tsz capabilities?
-
-There are a few related capability issues here:
-
-1. DMA_SLAVE_BUSWIDTH_UNDEFINED is 0, so setting
-BIT(DMA_SLAVE_BUSWIDTH_UNDEFINED) sets bit 0 in dmac->dma.src_addr_widths a=
-nd
-dmac->dma.dst_addr_widths. Because dma_get_slave_caps() exports these bitma=
-sks
-directly to clients, callers that compute minimum address alignment via
-__ffs(caps.src_addr_widths) (such as iio_dmaengine_buffer_alloc()) will get
-align =3D 0 instead of 1 and fail transfers with -EINVAL. Could
-d350_buswidth_supported() handle DMA_SLAVE_BUSWIDTH_UNDEFINED explicitly
-instead of advertising BIT(0) in dma.src_addr_widths and dma.dst_addr_width=
-s?
-
-2. Unlike d350_of_xlate(), neither d350_config(), d350_prep_slave_sg(), nor
-d350_prep_dma_cyclic() checks dch->has_trig (and d350_probe() advertises
-DMA_SLAVE and DMA_CYCLIC unconditionally even if no channels support trigge=
-rs
-or dmac->nreq =3D=3D 0). If a channel without trigger support is obtained v=
-ia a
-non-OF path, d350_fill_slave_cmd() will program CH_SRCTRIGINCFG /
-CH_DESTRIGINCFG on hardware that lacks trigger support.
-
-3. Each channel reads its own data width into dch->tsz from CH_BUILDCFG0
-(which d350_prep_memcpy() and d350_prep_memset() respect), whereas
-d350_check_slave_config() only checks the controller-wide widths from
-DMA_BUILDCFG0. If a channel has a narrower data width than the controller
-maximum, d350_fill_slave_cmd() can program desc->tsz =3D __ffs(width) excee=
-ding
-dch->tsz.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023093017.3248=
-454-1-Jelly.Jia@cixtech.com?part=3D2
+> +/* No expansion header with SPI */
+> +&spi_1 {
+> +	status = "disabled";
+> +};
+> -- 
+> 2.54.0 (Apple Git-157)
+> 
