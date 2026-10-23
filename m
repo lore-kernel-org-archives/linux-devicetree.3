@@ -1,82 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747055;
-	b=LTTwr6/+SXsafiAO9OhA4ZTg22dYnzEU2CzbGcoKJw5hqPNPp381qbVfx7m7nXSs8qkk
-	 cIe0Lrg8npZD9hkRP92KMthZCPaFvoBbiX4KFjN9Ta7KsnXMCVnmpD/vtLsscNVQl1dM5
-	 EMMq/ba8EwmDsFHNq7NJMnwHbkUKu7/woSlVpPyjRXlgH18cHfBf5KUFC/SzJE7UuAUcv
-	 gOVhmzDgo5ZfOnOYdG8Vi0Nhr14ZwsOcts89pzzXu7O9m9u2u6awTsX+GI/OjLVyx/+UJ
-	 nJsEjIfQ38WiQMBhTeRKOwtmlVvPHgUC86GOnyr3tcEqsaJZxUA16HX3Otjte4VIEvQ==
+	t=1792747083;
+	b=uO+STub5vvBpsn7Ttl+48k7NnYk94/YTDOOU2ANiTgZooQQmYyyaQ5nqFrRb6x/KfxnO
+	 Szq9G9rb22KEl4983bvWPbwfLrBKgpJIW6wkadu9oIBsRxLWQzsP7GqJJMWoFY7v8YBXQ
+	 mxkFnnkP+EWs1QNHwseLMp2OJ1JoSXRPCm23AZm9esKkafsolDShNLb8CPRShKQ+euWEp
+	 j7tmHXd+HULlw+yxLSeL9MPAtmr9pbqV/T4U94OXqBZ8dQy9uJz9EOt0lk3ubAxmU224E
+	 rDvyUQ1vgnqfjX1jFlTQRfcUmSxUjX6Mzr3lTkIfsMVoJu0jGV+nc39uZEsSlZ6avlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747055;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=W6Dqe40TF9G9HwbVvZOqNjcj55Y+RW+4s3fXUCy/gPk=;
-	b=MvkOHM1IGI1jWTP/3QWUyvJhbkcuaAKdqZUnSTk2v8Qw0UYd1Gc0wSisylFZw9X+Y0Kh
-	 REd1WQJ+urXxqkvHwE7bF2iJYatIRah2j19SPfxyRYnuEVCVAlsbRBWM2J4G3I7kVW7pN
-	 8p1ne2BQN44wLxFt+YaAKxeSKFiLSnSmFHLK9bBtoAflhnxSUbvl6JjhgZ/FpG2p/wX/C
-	 r4DhSxn4ZzDmOgSecgW77a+v4OMvntXHH4eU9GEtD2j413pRIcul5O83erzyj+yRt0+4j
-	 i6u+7WUwq+BSovGRAHTUTGAAv0UsTPwXq46S9EZxjYxTyYZttU4icbq6cp1YN5/H8RA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747083;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
+	b=fqAVz6kUT2rLErub7+BW84swgmmYVkHoypI9Of1p8TGHhmiaswVmVh1WUMoypNMyc0Gi
+	 rzOowHc4obHf3XKgP+mysLF3253pJnUs6ms3/VAYinIDp8Ytu8VOQhd4AS9BDGtpuYshp
+	 jrK6yHZMdqge8pUX1DhTo/ANYSNf1iVS4Mdaspo4lBbg87//wL5IQoyvyK28bkJBGdvqG
+	 Eyzx8gDSfadSEeerSlw8sR8T5hu9wfJZ7FvMVHXi3BxyHIdh09pQJoXc0JrZB83iezAjS
+	 85bllr99AxVrqw8dn2umABGBRADMWl3Ay1EIut7S/aT1+lB5Lh6edi9kCRxiu313p3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XnOKE7IF;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gS3DtNMp;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D76606A31A;
-	Fri, 23 Oct 2026 09:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA95606A334
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CA95606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XnOKE7IF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792747054; x=1824283054;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ogSESg8d+AQ/8m1inPCVKjuc5x0JyAFn0zrW4tVebuk=;
-  b=XnOKE7IFsL5OgkeqpEY3EEjCpCURc+w8ebDujhDEc3fgTZjNaLcCE4WQ
-   /qMSKhw8/mQyHdUrnwC8T5zRo4VfSGgzhNLM5vi2y4LM6KfU/Wz2SrUQh
-   KV8fWSY4jz+vFPJ5LuGMI2LCW1oYClUQ12v5HIVtZacNtBBGDu2zh/bVV
-   2piQf78c0MzWhkWBqnkoG+B+IoPtCBZBBjmJQzdtd/2N8U0huN65Vcj6g
-   Gp8OGn99LANteJIHEgoOxBXzR1DObVm1enTc7efENmcTWJSdcQtpT7GLt
-   auaWM+s2ncYVNJODSxzSvvP8NWSr62VzqeY6EonKgV3qY3T8Ykfhm5HLY
-   A==;
-X-CSE-ConnectionGUID: BV72pTdfQ3KG5LpvPqL9+g==
-X-CSE-MsgGUID: qm58k5PfS4KP7I510ChL/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1495200"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1495200"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:17:34 -0700
-X-CSE-ConnectionGUID: DRL5n1gAR/OzIF3PX3dWqw==
-X-CSE-MsgGUID: E1nxLauySKi8bqqTfeRBeA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3937545"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:17:31 -0700
-Date: Fri, 23 Oct 2026 12:17:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH 0/3] This series adds support for Texas Instruments
- OPT4041 Ambient light sensor
-Message-ID: <atsmKZjpr-NQLKBD@ashevche-desk.local>
-References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gS3DtNMp
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso6684695e9.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 02:18:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792747081; x=1793351881; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
+        b=gS3DtNMpVSAhRKLz/tO31/qW1Tzg+CpzolIJbnfPCQqQhCPskhnR67AHmvHStKqN/R
+         J8x0Wa+nSdPYcJ9V/6oKnZ2LB6Ccc52tI10KRfK/VZ8/CEuDy4VYK4KnnK/pJYt699C1
+         Rx0GwdA8qfU/5PAy0ef+tOhp06JEsfDPt4NL4QQqJpDunFr/oYu6V5VxUZiGfaDygrQN
+         PqzJSJK/IF5owlKtIVT1tWdvhO0uz6pzCk5wgQCn25M9s2v0AdnRrK3MskJmF2bccnXK
+         +MJD7m3z+bUHECxczgtCxes5DQOElAt1OsoqfjXiptxebUrBZytcmUC5rzfcl/TBSQJU
+         GTZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792747081; x=1793351881;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
+        b=uct3vlQJdYFkNKs+ELRweLdRanVllWyYuDml4OF7N/MyiCgeyEJAJ7f6pDzG3T9KqJ
+         iK7FtBzXIQ+vcv90GCcInfks711TsjEV1AtoAGvjlCpJoFQPpKtC8WzMs8QLjOyz0Rgf
+         EjcBmAMpxDZCATNDcM69cQZvqAXFSBrju+1z+kWMMsN6/2zT0q6SHTrnKhbFMlJ8VBv1
+         wiRlg5CC+/ovDWvCuqkB+A60aUltbZ417FrdbUSRrsEewI/WnlVr6oNJlilez3iFim2s
+         Rp7xiL3dp/HpiJ3hRAV5/seNtVxWyclMceMMaCBuEgMVdXNv8XAA8COe30e9m1gk+k63
+         KsSg==
+X-Forwarded-Encrypted: i=1; AKwUvByawZ05WU7434KK4CiY7Hb5DXKS29NMoU14qkJteTYm8UqlEs5QBUuYwPo1188qWemtixsysXPITYsf@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh97Rnf11sZBGbB0RSykxw7z+aoDtcpPtHjH5UdaUwDjVaWHwI
+	Yc85Edvkc7Vg5973SSNzM7As9Q21lthPgYiqwOVjECa9Fd/XqsYAB9r0CtBIZ2WuWjQ=
+X-Gm-Gg: AYBFou1uPOAFYT5U0ca4RNPO7N3eVyHH1fAaEPN13hVOyezvJ2ZRljOfa8Xq7YwIOwN
+	INdMpizCjAP3/FzhH9ouPYjZKaUAKPDGGeCsH+T3j3LqhP+BY+zj5XX1uK/qSSbowzuVuLyjEVh
+	6yvzCoMDWbtnRsiL9MbJDBMKcFvq/IzIA163TG5MnmW9jR1F3bvAPKCidnNrnWAF1jTHIV6euOb
+	N0qQts9pFuf5WxjIG4qbpcPmNuHM7TYAPKMlz6y0tWc54tWpY36ZNzMpUImkXYO7+EkoWkT3sYW
+	0sTMqHp3lD5rGlw1UIMNYM4766+Ls4KYQ5rzWd1ZCaVq9/vMrbq2WvPb7Dt6O3qPA48n0tK9Kh4
+	A5fIpCOJXzFHVzU7hQJbU+sLlWOd4Nfubqqur+U13mj+xpxho0krHfDDH4sGpkYtZ50yph6g8MH
+	caT3hecQVmsNG0hkRhXYjVsODaCxkRaQgpfgS0REJ3DJFbwux1FVKE590d9rZkYa+7sIbBlmxsL
+	75TxopLA42gymqY2BBovkawncHcXUoDt52zoCkJIOIyFAxb8XL6ZaKuXCNTOGJjlMY=
+X-Received: by 2002:a05:600d:84ca:10b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4a2150f1826mr12043165e9.23.1792747080587;
+        Fri, 23 Oct 2026 02:18:00 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff25:4f10:a88e:f1a2:fd42:7693])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2104627e0sm60827045e9.9.2026.10.23.02.17.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 02:18:00 -0700 (PDT)
+Date: Fri, 23 Oct 2026 11:17:54 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mark Pearson <mpearson-lenovo@squebb.ca>
+Subject: Re: [PATCH v4] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+Message-ID: <atsmQqSOuqp1LKw8@linaro.org>
+References: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,41 +101,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
 
-On Fri, Oct 23, 2026 at 09:48:12AM +0200, Jesper X Nilsson wrote:
-> Extend the opt4001 driver to support OPT4041, since it is so similar to
-> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
-> from 380nm to 1000nm. The register map is almost the same for both
-> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
-> fifos of size two, one for each channel.
+On Fri, Oct 23, 2026 at 10:38:27AM +0200, Daniel Lezcano wrote:
+> The ThinkPad T14s needs thermal mitigation under sustained workloads to
+> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
+> monitoring is not yet supported, so use the board temperature sensors
+> exposed through the PMK8550 VADC to provide mitigation now.
 > 
-> Since OPT4041 has two channels it has one bit in register 0Bh to select
-> which channel is compared to the threshold register. The driver does not
-> support setting the threshold registers, so no new support has been
-> added for this.
+> Describe the sensors near DRAM, the fan/heatpipe, the GPU and CPU PMICs,
+> the charger, the WWAN area and the USB-C ports. The DRAM-area sensor faces
+> the keyboard, while the fan/heatpipe-area sensor faces the back cover.
+> These are internal board measurements rather than direct measurements of
+> the user-contact surfaces.
 > 
-> The OPT4041 is pin compatible and has the same package as
-> opt4001-sot-5x3. Although the device id is different, I added a new
-> compatible string since the driver already had different compatible
-> strings to differentiate between the two OPT4001.
-
-Overall very good small series, I have a few comments, but they like 15 minutes
-to address, id est mostly style related. I'll give my tag if you send a v2 with
-the changes as suggested.
-
-> Datasheet: https://www.ti.com/lit/gpn/opt4041
-
+> Use the heatpipe-area sensor for passive mitigation at 57.85 degrees
+> Celsius, derived from observed platform behaviour with the Windows
+> balanced power profile. Map the passive trip to all CPUs and the GPU,
+> with 1 degree Celsius hysteresis and a 500 ms passive polling interval.
+> Name the trip "backcover-ec-alert" so that the planned EC support can
+> locate and adjust it.
 > 
+> An earlier approach using staged CPU-cluster throttling did not show a
+> significant improvement and introduced a latency imbalance between CPU
+> clusters. Keep a single passive trip to provide timely mitigation.
+> 
+> Add 73 degree Celsius critical shutdown trips for the DRAM-area and
+> heatpipe-area sensors. Retain these baseline thresholds pending
+> sensor-specific hardware validation. The reported Windows DRAM threshold
+> of 115 degrees Celsius has not been established to apply to these VADC
+> measurements and does not justify changing the shutdown thresholds.
+> 
+> Thermal camera measurements indicate that the readings primarily reflect
+> internal temperatures rather than chassis surface temperatures. No unsafe
+> external surface temperature was observed during those tests, but they do
+> not establish qualified critical limits for the internal sensors.
+> 
+> Expose the remaining sensors as monitoring-only zones and enable ADC
+> threshold monitoring on the corresponding PMK8550 VADC channels.
+> 
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Link: https://patch.msgid.link/20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> ---
+>  .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 112 ++++++++++++++++++
+>  1 file changed, 112 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> index 75ad74bcb042..21f4569068e1 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+> @@ -502,6 +502,88 @@ platform {
+>  			};
+>  		};
+>  	};
+> +
+> +	thermal-zones {
+> +		/* Sensor near DRAM, facing the keyboard. */
+> +		dram-thermal {
+> +			critical-action = "shutdown";
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> +
+> +			trips {
+> +				dram-critical {
+> +					temperature = <73000>;
+> +					hysteresis = <1000>;
+> +					type = "critical";
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Sensor near the GPU PMICs. */
+> +		gpu-pmic-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
+> +		};
+> +
+> +		/* Sensor near the fan/heatpipe, facing the back cover. */
+> +		heatpipe-thermal {
+> +			critical-action = "shutdown";
+> +			polling-delay-passive = <500>;
+> +
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> +
+> +			trips {
+> +				backcover_ec_alert: backcover-ec-alert {
+> +					temperature = <57850>;
+> +					hysteresis = <1000>;
+> +					type = "passive";
+> +				};
+> +
+> +				heatpipe-critical {
+> +					temperature = <73000>;
+> +					hysteresis = <1000>;
+> +					type = "critical";
+> +				};
+> +			};
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip = <&backcover_ec_alert>;
+> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Sensor in the WWAN area. */
+> +		wwan-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
+> +		};
+> +
+> +		/* Sensor in the charger area. */
+> +		charger-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
+> +		};
+> +
+> +		/* Sensor near the CPU PMICs. */
+> +		cpu-pmic-thermal {
 
-No blank lines in the tag block :-)
+I'm a bit confused by the node order here. It's not ordered by the
+thermal sensor (SYS_THERMx) like in x1e80100-crd.dts, but it's not
+ordered alphabetically either. Or is it still the old order from the
+previous revision?
 
-> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+I think I'd personally prefer ordering by SYS_THERMx, but alphabetical
+order would be our typical rule.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+> +		};
+> +
+> +		/* Sensor near the USB-C ports. */
+> +		typec-thermal {
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
+> +		};
+> +	};
+>  };
 
+Anyway, for the changes itself:
 
+Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+
+Thanks for fixing the names!
+Stephan
