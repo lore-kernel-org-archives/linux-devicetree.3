@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792786019;
-	b=z5Lprox7H3dIWX0uq8sOVGue8S18X3nrzjvIV1Jtld28p8Wca+563wLqOH5bUUmG5F4G
-	 0sBv8xXAjVmcvnEhKQdOwD0+Ow9mR7qzLshAFEbyQTCzQDPhxHocySFF1LNV2GjkoPutg
-	 gpyggFpWhxBXFqqPmLYSXa5N3pNY0FypiIGWCpRqwyLLysNvYfqM9l/ykCYOgR49IA3FH
-	 P8/VM98WRZRYBmbcWCceGhQfCmEIePEHstwi46/WdAvBac5pB/+/zgyvVWOG/448lW7Jr
-	 XUk/WjAUxxMy6l8JUjWcvxlY9QxkYPtVg4y1S3KDytasO9FS1koe1G4KFQwfFIV+mbw==
+	t=1792786025;
+	b=s0VP9ayf2O6dd8HCgnoubA2Jjf+9siGOlGvqwYUyczP9YikyBtrPuNSQXDT+MbtTZXdE
+	 NtkA+KMk+IuFi0GiA0QaiEOBLjyc2OtC2Aj/smY+LvxY/+rPD8YjX+88NFfcYkMeEGio9
+	 T3AiLrLxvu6cQ6G7K9/frBgjdigLu71t+aWH9t4EGSvT9wW1jBDUhPupdN7kQXWfRTc5k
+	 R/aeVlbNGVL4EXgBvOdKp5MCuULGHykKUnVzmqty2A6tcdjNM3IDKWXOMlaBXNaGTfm54
+	 GbVIBizgkNVK837ly4HnR2HhIsiDUeD4bQ5WMBmQ2X5OGFzTOQt3qGINLhkkZ1f3ppg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792786019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792786025;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=1xbW0gED+/2J2YzZoOddp/9wnZ2oY4IZ+JT4oKEW64k=;
-	b=KfGjO07NHxsK1PI5V7+RpRbMKaomywe4Ihcq8R9735qjS1+0Y4YJPAu+HOAcsslK541o
-	 md5avK2RMkGZ3B1PMWBYy/V7d9xtl4Mh6Dl7xHKPcy6M6lZpdHlDUZjpKAz4AmMgM+UrW
-	 FiPpGb3Id7G65y9O0vyoL+cKga+ZbkOjsv5O/iHGUfPZSk9bu8k0QY4oo3pefjgggrllJ
-	 tmt8ZcdfAhl1wKCx2UnXiVzE4EqX4jfHSBgBg6gaaxt0OJ2aJwACalEeLVIu3Tv66IwEp
-	 ktnrG+X1o5sjKZGpxOHMcj6LANiATdXUl5v8LzxBuKLa9Rzwb3V6A79M0k3l/+BUGEA==
+	bh=rwkE1XbChLJLaa3WTB3mh24jVj/qSIsomJRKnW/5jOk=;
+	b=1HY60gGpWYJjlIm1IaFrMHDPjfNyHVxZE69HCZ4Vkblwd3XVdZo2J6l2lF0ozoszoS88
+	 zhZiD5NhmPf+2Rs/05ZdqyhKSC62OUcbIRfHXNGzTqaQnTS+iOs5NPC6+DkMkJDWHpemV
+	 4s9cxntOA5PO34S86qMLzkLxQh6AUP5cbHwgmjYrfpFU8abLjAD6G7u5B8uk608v63mer
+	 0uEOqIhs+/xrxtw7pZiHAuDwg5M0o71llfhOshoD0LcOLunSC4IFegwVyz1OYdYZNx4D5
+	 qLZU+dipRVXTmYaWbo9YLj986Wkz8YfnBLV5bXmgokQpRy32pehT86jBLQySyOuHJWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJoC3vVC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVClSG71;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BBF606A31D;
-	Fri, 23 Oct 2026 20:06:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62DB606A31A
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 20:07:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJoC3vVC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACB81F01825;
-	Fri, 23 Oct 2026 20:06:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVClSG71
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFC91F01825;
+	Fri, 23 Oct 2026 20:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792786018;
-	bh=1xbW0gED+/2J2YzZoOddp/9wnZ2oY4IZ+JT4oKEW64k=;
+	s=k20260515; t=1792786024;
+	bh=rwkE1XbChLJLaa3WTB3mh24jVj/qSIsomJRKnW/5jOk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RJoC3vVCeOAvr6Y0LTDZs0R5EARa4oY8zuQ93BY/41wC8RF521CTdXoLb5l/ZivWH
-	 O2Hd8tKZcaEip1pqMwuGuxwU0hVW/aC8CysQ32qxGfxGiG/9dAIs9glGfugMXY9TDX
-	 Srsuwqu8yzC6u/D2GQqNnzQkIzHpOMeA/DmAv3Vbvi9h8Oa+g63PWc2LkKOqkTxp4R
-	 VU9D9oOf6DyIOSFBpp3bUxfn5q8lpExes8SmGJZclqbWdDghoK1rgitCcgLiAiGW6g
-	 P3SLFetjYq5S7ZDyGsv1sn6cPBHwMI0SIyCp9ZxmZ1vge1TN725x+IrcKpMmIxjVkB
-	 wr7Twzrg2WLhg==
-Message-ID: <sashiko-outbox-183160@kernel.org>
+	b=LVClSG71hCcqOv5/eqtNo2R93zJuycAigxfqw86fZUBbomVlfaGpfeBbZdQ/vsFz5
+	 N7TmXuWw5qwYYMBDgMfiUd+cLNmMwEM4Ir63RyPHcRYbZuyQF1I8490n8TvXIYne45
+	 tHWnJ3SYbW53gkbijy1p9RZKHDC6xx6uQ5T/NVocFW6R5l8YonKDfbAJd70MK+TnEs
+	 UeP7jhTPZkaLsJRyKXhi/HEGO10TZtpTJwF/RMOl/AG4RzqdEuPZ/lhPtTZPkN85xc
+	 F91FTr4hGqwtVZIhYy+cREuNm4oYhdQxMuU/SckVO41R0tb3Tfvuo2ICIjLtTjzxeF
+	 80fX3G0AsiUzw==
+Message-ID: <sashiko-outbox-183166@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
+Subject: Re: [PATCH v4 6/7] arm64: dts: amlogic: t7: add the ethernet
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261023-dxl_lcdif-v4-7-4ae8395a4b23@nxp.com>
-References: <20261023-dxl_lcdif-v4-0-4ae8395a4b23@nxp.com>
- <20261023-dxl_lcdif-v4-7-4ae8395a4b23@nxp.com>
+To: "Lucas Tanure" <tanure@linux.com>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261022200640.3101932-7-tanure@linux.com>
+References: <20261022200640.3101932-1-tanure@linux.com>
+ <20261022200640.3101932-7-tanure@linux.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 20:06:57 +0000
+Date: Fri, 23 Oct 2026 20:07:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,135 +61,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: imx8dxl-evk: invalid and ignored bus-width in adma_l=
-cdif endpoint
-- [Medium] arm64: dts: imx8dxl-evk: lcdif overlay leaves broken audio consu=
-mers enabled
+- [Medium] arm64: dts: amlogic: t7: missing status disabled on untested int=
+ernal_ephy
 --
 
-commit 19a4bb9fef78514466afe51bb1b962f7fabf9e20
-Author: Frank Li <Frank.Li@nxp.com>
+commit 8b67e94cfb48fb74bfbb5053e5ce7da85b48466a
+Author: Lucas Tanure <tanure@linux.com>
 
-arm64: dts: imx8dxl-evk: add lcdif overlay
+arm64: dts: amlogic: t7: add the ethernet controller
 
-This commit adds a device tree overlay to support the waiken,101wx001-wct L=
-CD
-panel on imx8dxl-evk boards, enabling adma_lcdif and disabling conflicting
-peripherals that share pins with the 18-bit LCDIF interface.
+This patch adds the Synopsys DWMAC ethernet controller, the MDIO multiplexe=
+r,
+and the internal 100M PHY nodes to the Amlogic T7 SoC device tree.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct=
-.dtso b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
-> new file mode 100644
-> index 0000000000000..39abf9b3884ea
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
-[ ... ]
-> +&acm {
-> +	status =3D "disabled";
-> +};
-> +
-> +&adma_lcdif {
-> +	pinctrl-0 =3D <&pinctrl_lcdif>, <&lcd_0_fun>, <&lcd_1_fun>, <&lcd_2_fun=
->, <&lcd_3_fun>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +
-> +	port {
-> +		lcdif_out: endpoint {
-> +			bus-width =3D <18>;
-> +			remote-endpoint =3D <&panel_in>;
-> +		};
-> +	};
-> +};
-
-[Severity: Medium]
-Is bus-width valid or handled in the adma_lcdif endpoint node here?
-
-In Documentation/devicetree/bindings/display/fsl,lcdif.yaml, the port node =
-is
-defined purely via /schemas/graph.yaml#/properties/port:
-
-  port:
-    $ref: /schemas/graph.yaml#/properties/port
-    description: The LCDIF output port
-
-Because /schemas/graph.yaml#/properties/port enforces unevaluatedProperties:
-false on endpoint and does not reference video-interfaces.yaml, adding
-bus-width =3D <18> causes dtbs_check validation to fail on
-imx8dxl-evk-lcdif-101wx001-wct.dtb.
-
-Furthermore, at runtime, adma_lcdif (fsl,imx8dxl-lcdif / fsl,imx6sx-lcdif) =
-is
-driven by mxsfb, and neither mxsfb, drm_panel_bridge, nor panel-simple pars=
-es
-bus-width from the endpoint node. Instead, the call chain:
-
-  mxsfb_crtc_atomic_enable()
-    -> mxsfb_crtc_mode_set_nofb()
-      -> mxsfb_set_formats()
-
-selects CTRL_BUS_WIDTH_* solely from the panel's media bus format. Since
-waiken_101wx001_wct_panel in drivers/gpu/drm/panel/panel-simple.c specifies:
-
-  .bus_format =3D MEDIA_BUS_FMT_RGB888_1X24,
-
-mxsfb_set_formats() programs LCDC_CTRL with CTRL_BUS_WIDTH_24 instead of
-CTRL_BUS_WIDTH_18, causing the controller to output 24-bit RGB888 when only=
- 18
-data lines (ADMA_LCDIF_D00 through ADMA_LCDIF_D17) are routed on the board.
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
+t/dts/amlogic/amlogic-t7.dtsi
+> index 7bd53ec166071..94ea225145015 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
 
 [ ... ]
-> +&sai0 {
-> +	status =3D "disabled";
-> +};
+
+> @@ -645,6 +672,37 @@ gpio_intc: interrupt-controller@4080 {
+>  					<10 11 12 13 14 15 16 17 18 19 20 21>;
+>  			};
+> =20
+> +			eth_phy: mdio-multiplexer@28000 {
+> +				compatible =3D "amlogic,g12a-mdio-mux";
+> +				reg =3D <0x0 0x28000 0x0 0xa4>;
+> +				clocks =3D <&clkc_periphs CLKID_SYS_ETHPHY>,
+> +					 <&xtal>,
+> +					 <&scmi_clk CLKID_FCLK_50M>;
+> +				clock-names =3D "pclk", "clkin0", "clkin1";
+> +				mdio-parent-bus =3D <&mdio0>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
 > +
-> +&sai1 {
-> +	status =3D "disabled";
-> +};
+> +				ext_mdio: mdio@0 {
+> +					reg =3D <0>;
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +				};
 > +
-> +&wm8960_1 {
-> +	status =3D "disabled";
-> +};
+> +				int_mdio: mdio@1 {
+> +					reg =3D <1>;
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
 > +
-> +&wm8960_2 {
-> +	status =3D "disabled";
-> +};
-> +
-> +&wm8960_3 {
-> +	status =3D "disabled";
-> +};
+> +					internal_ephy: ethernet-phy@8 {
+> +						compatible =3D "ethernet-phy-id0180.3301",
+> +							     "ethernet-phy-ieee802.3-c22";
+> +						interrupts =3D <GIC_SPI 340 IRQ_TYPE_LEVEL_HIGH>;
+> +						reg =3D <8>;
+> +					};
+> +				};
+> +			};
 
 [Severity: Medium]
-Should this overlay also disable asrc0, sai2, sai3, and the root sound card
-nodes from arch/arm64/boot/dts/freescale/imx8dxl-evk.dts?
+The commit message states:
 
-Disabling acm, sai0, sai1, and wm8960_1..3 while leaving their consumers
-enabled in the base DTB causes several probe failures and permanently defer=
-red
-devices at boot:
+  The on-chip PHY follows the G12A; no board in tree uses it, so it is
+  untested. It stays disabled for boards to enable.
 
-1. asrc0 remains enabled in imx8dxl-evk.dts and references <&acm
-IMX_ADMA_ACM_AUD_CLK0_SEL> and <&acm IMX_ADMA_ACM_AUD_CLK1_SEL>. With acm
-disabled, of_clk_get_hw_from_clkspec() returns ERR_PTR(-ENOENT), causing
-fsl_asrc_probe() in sound/soc/fsl/fsl_asrc.c to fail with -ENOENT.
+However, in arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi, only ethmac has
+status =3D "disabled"; while eth_phy, int_mdio, and internal_ephy are all l=
+eft
+enabled by default.
 
-2. sai2 and sai3 remain enabled in imx8dxl-evk.dts even though their codecs
-(wm8960_2 and wm8960_3) are disabled here. Their clock controllers (sai2_lp=
-cg
-and sai3_lpcg in imx8-ss-audio.dtsi) take parent clocks from acm; with acm
-disabled, of_clk_parent_fill() in imx_lpcg_parse_clks_from_dt() fails to
-resolve the parent clock, causing LPCG probe to fail with -ENODEV and leavi=
-ng
-sai2 and sai3 stuck in -EPROBE_DEFER.
+When a board enables ethmac (even to use an external RGMII PHY on ext_mdio),
+g12a_mdio_mux_probe() calls mdio_mux_init() in drivers/net/mdio/mdio-mux.c,
+which registers every available child bus:
 
-3. The root sound card nodes in imx8dxl-evk.dts (sound-bt-sco, sound-wm8960=
--1,
-sound-wm8960-2, and sound-wm8960-3) remain enabled while referencing the
-disabled CPU, codec, and ASRC nodes, leaving all four sound card devices
-permanently in -EPROBE_DEFER.
+    for_each_available_child_of_node(mux_node, child_bus_node) {
+        ...
+        r =3D of_mdiobus_register(cb->mii_bus, child_bus_node);
+
+Because internal_ephy under int_mdio is available and specifies a hardcoded
+PHY ID compatible string ("ethernet-phy-id0180.3301"),
+__of_mdiobus_parse_phys() in drivers/net/mdio/of_mdio.c creates and registe=
+rs
+the PHY device without reading hardware ID registers:
+
+    of_mdiobus_register()
+      -> __of_mdiobus_parse_phys()
+        -> fwnode_mdiobus_register_phy()
+          -> phy_device_register()
+            -> device_add()
+              -> phy_probe()
+
+During phy_probe() in drivers/net/phy/phy_device.c, MDIO reads issued by
+phy_disable_interrupts() and genphy_read_abilities() switch the mux to child
+bus 1 via g12a_mdio_switch_fn() -> g12a_enable_internal_mdio() in
+drivers/net/mdio/mdio-mux-meson-g12a.c:
+
+    if (!__clk_is_enabled(priv->pll)) {
+        ret =3D clk_prepare_enable(priv->pll);
+        if (ret)
+            return ret;
+    }
+    ...
+    writel(PHY_CNTL2_USE_INTERNAL |
+           PHY_CNTL2_SMI_SRC_MAC |
+           PHY_CNTL2_RX_CLK_EPHY,
+           priv->regs + ETH_PHY_CNTL2);
+
+    value |=3D PHY_CNTL1_PHY_ENB;
+    writel(value, priv->regs + ETH_PHY_CNTL1);
+
+This powers on the untested internal EPHY PLL and enables the internal PHY =
+in
+ETH_PHY_CNTL1 and ETH_PHY_CNTL2 even on boards using an external PHY.
+
+Additionally, on T7 boards that leave ethmac disabled, leaving eth_phy
+enabled causes g12a_mdio_mux_probe() to enable pclk, program the PLL
+registers in g12a_ephy_pll_init(), and then fail in mdio_mux_init() with
+-EPROBE_DEFER because mdio0 is never registered.
+
+Should internal_ephy (or int_mdio) and eth_phy have status =3D "disabled"; =
+so
+that the untested internal PHY stays disabled until a board explicitly
+enables it?
+
+> =20
+>  			uart_a: serial@78000 {
+>  				compatible =3D "amlogic,t7-uart", "amlogic,meson-s4-uart";
+>  				reg =3D <0x0 0x78000 0x0 0x18>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-dxl_lcdif-=
-v4-0-4ae8395a4b23@nxp.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022200640.3101=
+932-1-tanure@linux.com?part=3D6
