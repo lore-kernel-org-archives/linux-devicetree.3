@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792750216;
-	b=4+K6YtOazhfhmfUgkbLl/gZKev5mMsh6p4+SkXjSnKzcd8jsnLj/Vo3S6mYaUUPnHf8A
-	 xB+xRDiKOW2qmz3bbWUDc6Kwy04llYpiGV4H1GniHAJ3Zj+fcGVNu1StSA/W5Z3cowuwQ
-	 HQy5e0uYPvTXr4LLCeErw9Z2FbKFZ2wUB2NVVlIXkP2McTY4Ls3zrkGKqwIc+waukzplN
-	 R/T4GXJ5JXe1r6r7+SfT6bf2CeurIL+NS6dglqHuNfAdA8e4ShXCXMYTRoCBzxtnhFe0U
-	 xf/PlW7ZVjIVKZqS5WTq0C1YhW1+7kYNBlYFi7wMPl9/e6qaEOk3bf79O0eVNeSQTBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792750216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	b=c7EqLKFhgjRTsIaIZ21fbVvFuAgopriUbz0U1r3EugPAsoP7kjiUkz0VS/E97AacKel8
-	 lVkg1RfJZODfEvTEDKLC0yG9im3xuIvl//5+UmQlvk3WZowdc85o7IB5zqYJ1ul5Xm9OM
-	 qNEZNWQodHTyPnKDw1ixDFOfrmoEZDKTWBqwjmI2O0MHmL8xyI3Ei7VITEyAlmiE7HNqb
-	 Xu6XRW0MUAd60rznf+Tzudp/qeECqec+M6+dtncRd87EqCFn0Oizr/AjlbeWPrwa6VtuO
-	 8UGtj52GFxc12HqQ3xR5am7NNHDiff07UQL6JAbPM+IumE6COBrZVl/PvPv7o7D0hRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+XuSZCR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792750293;
+	b=EfUHbaYRE/spROttxsNTH6WYAeAovFnSTkIAQtORm2+Yj9ec+3+LXlGFpf0gqEUM1IEi
+	 nCSZ5Ij67MIPFj/4N0tQdontl3mLwPlvb0RsgxLA7FHDphCrD59C/B8vOtULvPmNRRi4l
+	 8iznPcbsOUgwZWLkecG48NqNQS6C71Ja1T1mSRcht0f7DqZsF/zz15DZeOpgWfDQ7yRbX
+	 B5/aSqJ+aPVndaXNL2CcSAgemGxQGKLWN5rt1A09XMLttK+cUirOYs6QM8sD+AS1Ztw5W
+	 ksOItAvlDg5SZMO7MyqlCRQpa7ddyYPE3yY77R5ULybnnvD9QyVNGnC11uYmIFjfN0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792750293;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Vf0/tSIwGWWNJ9bb8An5z6jIcow8km+TWWZfgfqGZxA=;
+	b=r17kvtKb/Zyyd14emKLmnYEqYT7NjPigARLv5/Sk1BEgH7LvDHWppLgBVRWk1W44W8/I
+	 h4se+cojBAOHz4LXiF62JPI/84yCLYBQp/jnoDZKv39/4SJMi/bxKrlcmSNoEMMoXHV5p
+	 USf1EIld8cFPSx8yiin9YaoiHsdfjljTuqSOtFSsSWPSgajEUw9spg5grgD8uj/qaz7fx
+	 2m+/+B5rrWpD7orWcKFPQ7YJ86e4aP8eg/D+2Q+y5moP2Pq1GxtCmkKVSDeMFDW391jNJ
+	 Vj1aOYHWx7ghmzz3JN+zzVADbRrGV66cGq8Kpf5xnk7hySrTaL7bx/30tqY5BxM/lzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA9TF4wT;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6D6606A31B;
-	Fri, 23 Oct 2026 10:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA23606A31D
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:11:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+XuSZCR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792750214;
-	b=rs6E0FVVg4vJpBpZszAnD+G2auV+90G1UYeis7G3tQRFjWQmS5ZMriCIn8KJMWPQeNoG
-	 rvw4mWq+8u9Dh2+RZNbbhtG/h9XP3ea94C0hmmpl0/EnPzS7qlubNxrxDaMka9o3fPFL4
-	 jiAJFkEPbAi08zsF6sScb2q5cXwJgjmoKRQ11YWsEnuMLYOzg75cAqTea57oAeZoEr0In
-	 SHB7HJi2dtgoYrto5ZJEoEsUwJCHEVN6ZpJAtFXsC9LhfEkpnjRdgz9wtn0wE1/zPxqOx
-	 lQrMnUvgzQhrhHYaTQTgWBKAJLQYFeyRaBT4D6tZULZgAErkSXmo3edoEDwq6XvoMfQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792750214;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	b=cpzHJFMkUyWT7t7hAkYI1DsOTxpVLW5q4ZCcAa0j3x/VcjoEdK/m82PxPnHwqNim3th+
-	 t5tMguOkwUjSz4f5N60c9xQgJjgU1GqJojrJr6x1GSyafWDSd+oookfgvqsZovhDQ7A+P
-	 xkUEOXCHxr+HLdV59bkj5ZuozZPgIJ+OCm9MyW+a3wvmuNEbyuq9AQAs9vMjMscuW1phL
-	 hTpRGi4Qstby/HK5ApggmOtMsXQ2y7lMjCr9nBvJ0gM5jHP1e012eDGV9REKtnRemhxLy
-	 IKMrBqe474YhcELKNXBsUzfOwAGYsjlVHCSRSGbbJf2PZVAbaqytMHNs2oYjNN4w6dw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 63E4D1F031E0;
-	Fri, 23 Oct 2026 10:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA9TF4wT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABCB1F01825;
+	Fri, 23 Oct 2026 10:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792750214;
-	bh=GIjcJbhiZCM8A/Ohjw3DKcZtoKida5YLpCeOLFvQ9aQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=a+XuSZCRMFTUp8TfGOC6tmlkKgnvlS+wa36rCGL7MsMybpcCqOOY+5zPfXrl8vZW0
-	 SWlJixPfYZ0sAeomnQMBkPQ+xlCGW08nzAmDdZnkeNJzbj2IFlFMAxufkCs4izsUst
-	 tToHVZptpd7AotXNUXkcQWFGDj5xhD8oND+Cw0PIEYkj83vk2Ixt4ZQJwDnDpzm3Cj
-	 EgghMbuC06ilYB60qZuznjRb5aiqI4YF8DGvdtPd6mhdEI2u/G+ySp2fz91qKmiY6z
-	 YzEJxye5QL+rRtuqCczVwFLy0pk+UKVf987QOX+39xKh940/6YqEgJeMTcKVkAmV4w
-	 5GYnCufyCP0xQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D815544499;
-	Fri, 23 Oct 2026 10:10:13 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 15:40:08 +0530
-Subject: [PATCH 1/2] dt-bindings: clock: qcom: Add SM7250 graphics clock
- controller
+	s=k20260515; t=1792750293;
+	bh=Vf0/tSIwGWWNJ9bb8An5z6jIcow8km+TWWZfgfqGZxA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HA9TF4wTdgTzWsI6FfD0twBZGhXuayNhhiWdvhoyASHd3jLc9O/OAA+DZC0DTCwBe
+	 S1oEngfnS0Urc9m4gZUnycUPhMzI3DCCNl8hhnDezau/IdsvAqU9s74EBueeG1L0i7
+	 9tVnJGJ1uXvmisZjlfiyVps8nPClS4ik4OhoGE1HDI/X36lXJxFFRRANxMQqoazT6s
+	 Loqf2egc7DtRNgeQYCD3Y167/WDia3vvwOJwJD/cP8Dem89o2NKBxa5qUYMlKiyAdu
+	 6iqMkE7xYaUWVT9NZd3AsBc06YikV5T70c+aHxSGQQzs+385dwokqlx/OczPSZD6oK
+	 My3v2T34bDIaw==
+Message-ID: <sashiko-outbox-182660@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/7] dt-bindings: power: supply: axp20x-usb-power: Add
+ the AXP2101
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Olivier Louvignes" <olivier@mgcrea.io>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023100401.67592-5-olivier@mgcrea.io>
+References: <20261023100401.67592-1-olivier@mgcrea.io>
+ <20261023100401.67592-5-olivier@mgcrea.io>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 10:11:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,113 +60,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-gpucc-sm7250-v1-1-d9149cece8be@brar.si>
-References: <20261023-gpucc-sm7250-v1-0-d9149cece8be@brar.si>
-In-Reply-To: <20261023-gpucc-sm7250-v1-0-d9149cece8be@brar.si>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, 
- Imran Shaik <quic_imrashai@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792750212; l=2751;
- i=patches@brar.si; h=from:subject:message-id;
- bh=zNYJpd8CGDe4+jLuKQsFoERznSdYKLOwrl2HcMSC/Jw=;
- b=IWiL+WuU0aMzyFIDvNG6CyKEglNpi6iwZrVN+QBjuih/cd0siKsRB0IauF0wv2nTvBZ4f9iN9
- FUvwMdYxp40D8C9cnVj9LxlOpNMB4mDU3rltRFDrZZd617bQKUXMtjb
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
 
-From: Ishu Brar <patches@brar.si>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: power: supply: missing allOf constraint for axp2101
+--
 
-Add the compatible for the graphics clock controller (GPU_CC) of the
-Qualcomm SM7250 SoC (Snapdragon 765/765G/768G), and the header with its
-clock, reset and GDSC indices. The clock inputs are the same as on
-SM8250, so the existing clock and clock-names constraints apply unchanged.
+commit 2c463350d4ace5833f7eb6572cc583175ea48340
+Author: Olivier Louvignes <olivier@mgcrea.io>
 
-Assisted-by: Claude
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- .../devicetree/bindings/clock/qcom,gpucc.yaml      |  2 ++
- include/dt-bindings/clock/qcom,gpucc-sm7250.h      | 36 ++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
+dt-bindings: power: supply: axp20x-usb-power: Add the AXP2101
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-index 3ac441900..d262455f3 100644
---- a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
-@@ -21,6 +21,7 @@ description: |
-     include/dt-bindings/clock/qcom,gpucc-sc7280.h
-     include/dt-bindings/clock/qcom,gpucc-sc8280xp.h
-     include/dt-bindings/clock/qcom,gpucc-sm6350.h
-+    include/dt-bindings/clock/qcom,gpucc-sm7250.h
-     include/dt-bindings/clock/qcom,gpucc-sm8150.h
-     include/dt-bindings/clock/qcom,gpucc-sm8250.h
-     include/dt-bindings/clock/qcom,gpucc-sm8350.h
-@@ -37,6 +38,7 @@ properties:
-       - qcom,sc8180x-gpucc
-       - qcom,sc8280xp-gpucc
-       - qcom,sm6350-gpucc
-+      - qcom,sm7250-gpucc
-       - qcom,sm8150-gpucc
-       - qcom,sm8250-gpucc
-       - qcom,sm8350-gpucc
-diff --git a/include/dt-bindings/clock/qcom,gpucc-sm7250.h b/include/dt-bindings/clock/qcom,gpucc-sm7250.h
-new file mode 100644
-index 000000000..f4536808d
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,gpucc-sm7250.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-3-Clause */
-+/*
-+ * Copyright (c) 2019, The Linux Foundation. All rights reserved.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
-+#define _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
-+
-+/* GPU_CC clock registers */
-+#define GPU_CC_AHB_CLK				0
-+#define GPU_CC_CRC_AHB_CLK			1
-+#define GPU_CC_CX_APB_CLK			2
-+#define GPU_CC_CX_GMU_CLK			3
-+#define GPU_CC_CX_SNOC_DVM_CLK			4
-+#define GPU_CC_CXO_AON_CLK			5
-+#define GPU_CC_CXO_CLK				6
-+#define GPU_CC_GMU_CLK_SRC			7
-+#define GPU_CC_GX_GMU_CLK			8
-+#define GPU_CC_GX_VSENSE_CLK			9
-+#define GPU_CC_PLL1				10
-+#define GPU_CC_SLEEP_CLK			11
-+#define GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK		12
-+
-+/* GPU_CC Resets */
-+#define GPUCC_GPU_CC_ACD_BCR			0
-+#define GPUCC_GPU_CC_CX_BCR			1
-+#define GPUCC_GPU_CC_GFX3D_AON_BCR		2
-+#define GPUCC_GPU_CC_GMU_BCR			3
-+#define GPUCC_GPU_CC_GX_BCR			4
-+#define GPUCC_GPU_CC_XO_BCR			5
-+
-+/* GPU_CC GDSCRs */
-+#define GPU_CX_GDSC				0
-+#define GPU_GX_GDSC				1
-+
-+#endif
+This commit adds the x-powers,axp2101-usb-power-supply compatible string to
+the AXP20x USB power supply binding schema for the AXP2101 PMIC.
 
--- 
-2.56.0
+> diff --git a/Documentation/devicetree/bindings/power/supply/x-powers,axp2=
+0x-usb-power-supply.yaml b/Documentation/devicetree/bindings/power/supply/x=
+-powers,axp20x-usb-power-supply.yaml
+> index 2ec036405ae47..1c582aa5e1d0b 100644
+> --- a/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-usb-=
+power-supply.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/x-powers,axp20x-usb-=
+power-supply.yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - x-powers,axp223-usb-power-supply
+>            - x-powers,axp717-usb-power-supply
+>            - x-powers,axp813-usb-power-supply
+> +          - x-powers,axp2101-usb-power-supply
 
+[Severity: Medium]
+Should x-powers,axp2101-usb-power-supply also have a corresponding if-then
+block under allOf to constrain input-current-limit-microamp?
 
+In Documentation/devicetree/bindings/power/supply/x-powers,axp20x-usb-power=
+-supply.yaml,
+the top-level input-current-limit-microamp property only defines broad gene=
+ric
+bounds (minimum: 100000, maximum: 4000000), while allOf restricts the prope=
+rty
+for each existing compatible variant:
+
+  allOf:
+    - $ref: power-supply.yaml#
+    ...
+    - if:
+        properties:
+          compatible:
+            contains:
+              enum:
+                - x-powers,axp717-usb-power-supply
+      then:
+        properties:
+          input-current-limit-microamp:
+            description: Maximum input current in increments of 50000 uA.
+            minimum: 100000
+            maximum: 3250000
+
+Without a conditional block in allOf for x-powers,axp2101-usb-power-supply,
+device tree nodes using this compatible string will pass schema validation
+with any input-current-limit-microamp value between 100000 and 4000000 uA,
+even though the AXP2101 hardware only supports discrete limits of 100000,
+500000, 900000, 1000000, 1500000, and 2000000 uA.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023100401.6759=
+2-1-olivier@mgcrea.io?part=3D4
