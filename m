@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792739862;
-	b=nx6xJbXtRpTWtNdvjF+9vc97dnWXgLOLno1VbfMTMfKJzddOibDZHWwCcFMZ1tK80dGQ
-	 t6HL6RJ82HiUBGqKpXkMH8vyyPztC6ObBnzZZpAIR7XOy8DnTrI11yC1GCbo3TrD3e2H2
-	 9f2nMiUhETRYJRAlWqQYd1ouS6gSxy8fM/OaRTJ8ZRaV8AcqWJYrwTSjxtIUiFvzUZo1C
-	 mjCwZ06Rjw/UXrVqFl+lEGekGuzQ/vfeffIMHtH9UOu78zBkOw6TOB4sjaow12Vi+/zXO
-	 Du6hSm+xEDJPXWXq3MMOY6Tx3QXMML0aqptniZ15RBgacggb7rFhAjezAiDffiqXH+A==
+	t=1792740212;
+	b=qHKciuOJGddxHAVw+aSKZdyiVVzPytu5ltuXSIywmpEV41oomqQ1VQN1sSut64hmEpzf
+	 LoIGi8Qe0rLpabz56s1WosrbIvm+HwqGYnEiWODFRqf1FgDs3pKDx8wR9BmPI0lczfdVo
+	 8THjnB9x4K4tc31khm0vMwjBvu9zfgYhIaZVKUkQRGPxjFR+MwFxTITIgHV9XUKcTxwvx
+	 8Xaaw7WYFicue5acmuAKKGma1jTxabu6BVgbvxYeMX4Mj0WFnbEc/EX3zpZl550fbdj97
+	 4QDmDkDTdiDiNc/q+2XQ0Ix+b+3YGhiyhvMNm1n0JCcoV0CWr7LhtGhHuQJD3vF3nfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792739862;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oDo1sirqUHWZkPceJf1cPDGxOi9QVrjmK0DBW2JH0KQ=;
-	b=IcDu8FnwgGT/uSWz2kK7B3uDIXdAq45Or/i14hUNtgTrqNwHpwi+04Si0DYnAmqjUl1F
-	 Ehqf5U+ejPEWuVTjZkI1jZLNA9qxBPwjBme/0FYFD2yqFXWAtO0Q+SPVr2YBNX3rqZSpK
-	 EbSh1sCLkFVUepgkQ52B3rLGZrSOdPCR7Hf1W3IMFGnObbcKaHty5ulMByhhjGYTF2eGl
-	 I17HQnequlf/UTvrgHDPZ2afFWFhkltgEXEOElwASwJss/ugJZEL4xzpRmLISxaz8uwnW
-	 VWs0DQP/w4sE3dG8c0cdcR70/mKqzOAgN1NTub95LE9aHhTuzj7MY9uf6ZdfvxHQqhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
+	b=BMEwVfe0Nc9vel+xq8SA/87dWWP5nBytgWxlqLuLLF429XnMKs93tWS6oU0s2KqKhP2S
+	 vufA+fyI/G7rY5eraNOWrh43iYhKiCphRc960etwA5T98VKNQR9wss/mIzM28RPBMlFV6
+	 UpLkW3iR/xIPRXyfW9lY6abOzSUVHoNlELFoxOrokd+OYLhT9ylhFgkOoG6PvIuz2mggp
+	 1O7z6oxwoh8e/kzXnH07maMIvrMTrBSnTd51p4HCsAQmyliUUbNSCLAAlP6qybTFVxFa8
+	 9aUgz31U6R5CWglFAqxpetZ//MqIVymjU8QmsCYeLqf/BG78wBo+V9RiiUflRRTlnHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UncHcpjc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ETT0rPWl;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30524606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCBA606A31E
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:23:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCBA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UncHcpjc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE651F031E4;
-	Fri, 23 Oct 2026 07:17:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792739861;
-	bh=oDo1sirqUHWZkPceJf1cPDGxOi9QVrjmK0DBW2JH0KQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UncHcpjcWcDVBVzqMa1qkhxyq8XbTxgESUO0/LqW7Y9TlW4zbrH20GzL4bqKhUbDb
-	 xy79yUj7S102S0y1bicx/k82ELJMxqXn/8RU6MXl31FGtfSTMhW/GKGzSAv9diG3x/
-	 sfqHT8wG7PAYXYW00wVTgb8Hs485CKC8Z7DVIYsCvE2PpuFMzqAPnKJQ6jUO0hQhEb
-	 M6SVLmT5e2zHYByQO+hGOZwJiCvP62Hx4ea2934rJSwOCP4xgIZTUCwQaGRDmCmn1I
-	 Di/t/dED68Ft3J2z/5SSZuKBCuDuVBZdqlCZrsJQOnsB/H+tufDyiTXIz8MjYrghyA
-	 RiPf+SxwaPGQw==
-Message-ID: <sashiko-outbox-182398@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 16/16] arm64: dts: ti: k3-j722s: Reference the power
- domains of the C7x timers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 07:17:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ETT0rPWl
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df4f540ebso285082f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:23:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792740210; x=1793345010; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
+        b=ETT0rPWlyJHUiGfPOgj/71FpiLTcE3uORng3ml1Bl3MB1ZqY6YLvytXfgRE3exKnDZ
+         dHKFoMCw+zsFz7IHzYh7iTgwVaFWZjYDH8YnkMBgJQNsFLTfGoaAYruXBgyGso4zznAc
+         CJ3nfhCtdFI2iBsDUAZAYgcnAE/2z7Xo7aL6nQqOhIffGdtEJnag26cprTSZFfeQzfAI
+         myPzmVaH9YaqCmOQfwrzzaTJa9t5AqTREua7lJ0h86PPtsdqRboVWIt1PclY7wvA8XrX
+         hd6gVZFMIwBmJic6JMLncKOSe552Oj1dfjkVUAxblyhDWRV1O/SB+xgVvA7IchL/PWpR
+         AZ3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792740210; x=1793345010;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zEG/GVHCLQPnI88SpC5VPZ3TgR9urVz0hXrc0LNloI0=;
+        b=xTV+vgrBb2NEm9fiVwb+CE7tMh5P43u5YhTN/F5faJdK3Q3YCxO8fliafMafNeMsMW
+         6yYET38ocHL8RfCMjQmoIlHHnVP/mLu6Wd4MCdqmXsrmvNBNDBSNzz0oPSOMuNByuiGn
+         ZRoMlX9IvaHiMPiEQ2ELlhH35cL6DNb0qIVg9BVnOkkE/yjcQr81Nf7FD0VPmbdfhoyg
+         fzlsSBVAZXYB+TdIjfF98Nx8cT3GRncArccAuV/vAmqOfRRX5cL3h8CyRrk4icU4FwOQ
+         rJSV4pTQnJY9Lc8amDpSUGz8iDo2VG+VvTroBQTQsdMotI6VsP7UJLxUescgsy8o+Ytz
+         a0Mg==
+X-Forwarded-Encrypted: i=1; AKwUvBzajxd6NeTbS8n1Kd11fr6i+GbCEKYt5ovc4AVyRxrlVbVrcToU5kDGuVJzNIjudPdC5wJLmuHNCCJQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYI92PZbvz8MsV3/EU4LFSuHVmlT1KvSywjLmYDvDd6nzMh8MpFk
+	N1APhw4HS/Kje/jIkH3qo6MuQC7WOVk+PxwDSkoDRzgmRpUrBwCiTqELa+SW3FFtdZE=
+X-Gm-Gg: AYBFou1wGc3vNppsjF9xtvX7KqMYKxjqWd0d0s4KLqQgKHmwx6Iza7jb952PeT+c65C
+	OkgdhGvuIX7khhnHFkIkrYZZX8zy3bWZZM+pMlzmB8aYhOvchbd1ckq9I6MvlmQUgeuG/TbO/JG
+	h59TE1OIBbRvwD9tJpYqCuwwtnh19l6ix4GdWph6uDPNabi5Eq2lbj9u0Cd/XaPsHuef1XVZRfL
+	o98kC0jqSqAOpQIiZm2ZaIC9tQ+6TJyEToivQEXXywzGN7Kr+vgsSBUOie7jTNo+6/8TMnR+t4G
+	wtZx1fSvGfls7UkmoxEhw8FzEOkUEaMSsjCuhXfvSIi5A66QDsCgROVE9msHUgBnkQDpcoH66RR
+	olhB520378ep/PmT2ciYdJBGTKhoexIkBl9QsI/0dfhTUi0n4Sz6FBXNBpupNb2kbyQ3sREOvxz
+	zX2WmkeXmE1zDgduto8RVVm6h64XLlLTGOcqOL4xHV1YPnXIWp+3TTo0dNQ2/jyxKwAwj473Nja
+	PT8D7TZx4gHWtil5dMw7ZxtvdOnCUyPxGNRvZd+N0a2S1xABGGznox5FhK6iPCkZpXEkDYmPbTI
+	tpdERhBdsScu81jDJekMi272F/auspeXQNM=
+X-Received: by 2002:a05:6000:40d9:b0:48d:f470:6b3e with SMTP id ffacd0b85a97d-48e3858b5f3mr1960195f8f.13.1792740210407;
+        Fri, 23 Oct 2026 00:23:30 -0700 (PDT)
+Received: from ?IPV6:2a01:cb1c:fcf:4600:1c53:498d:36f3:7085? ([2a01:cb1c:fcf:4600:1c53:498d:36f3:7085])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e37edce4fsm3456370f8f.6.2026.10.23.00.23.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 00:23:29 -0700 (PDT)
+Message-ID: <3bf32179-dd0d-411c-af37-54d50eb7986e@linaro.org>
+Date: Fri, 23 Oct 2026 09:23:28 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,128 +91,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/4] Fix and complete the GIC description of Amlogic S7
+ and S7D
+To: Carlo Caione <ccaione@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261022-upstream-s7-s7d-gicc-size-v1-0-8285053cf4ee@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: ti: k3-j722s: C7x timer power-domains hack leaves time=
-rs unpowered
---
+On 10/22/26 20:30, Carlo Caione wrote:
+> The S7 and S7D device trees describe only the first 256 bytes of the
+> GIC-400 CPU interface, which spans 8 KiB, and leave out its virtual
+> interface control (GICH) and virtual CPU interface (GICV) regions.
+> 
+> With the short CPU interface, the GIC driver disables the split priority
+> drop and deactivation mode and warns at boot (patches 1 and 2). Without
+> GICH and GICV, it cannot hand the GIC over to KVM (patches 3 and 4). It
+> needs the split mode for that too, so KVM gets its in-kernel vGIC only
+> with the whole series.
+> 
+> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+> ---
+> Carlo Caione (4):
+>        arm64: dts: amlogic: s7: fix the GIC CPU interface region size
+>        arm64: dts: amlogic: s7d: fix the GIC CPU interface region size
+>        arm64: dts: amlogic: s7: describe the GIC virtualization regions
+>        arm64: dts: amlogic: s7d: describe the GIC virtualization regions
+> 
+>   arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi  | 4 +++-
+>   arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi | 4 +++-
+>   2 files changed, 6 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 8610d31587e139380db9cb8708f4263833b482d0
+> change-id: 20261022-upstream-s7-s7d-gicc-size-db94cb656d36
+> 
+> Best regards,
+> --
+> Carlo Caione <ccaione@baylibre.com>
 
-commit 245f841e18148c5c992f99bb10260a30c9c5baf8
-Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-arm64: dts: ti: k3-j722s: Reference the power domains of the C7x timers
-
-This commit adds power-domains and power-domain-names properties referencing
-the timer1 and timer2 power domains to the c7x_0 and c7x_1 DSP nodes in
-k3-j722s-ti-ipc-firmware.dtsi so the firmware can use the timers.
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/=
-arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> index 611220ff26555..7639081dc9133 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> @@ -166,6 +166,14 @@ &c7x_0 {
->  		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
->  	memory-region =3D <&c7x_0_dma_memory_region>,
->  			<&c7x_0_memory_region>;
-> +	/*
-> +	 * Both timers on each core: core 0's firmware drives TIMER1 and core
-> +	 * 1's TIMER2; two entries also keep the platform bus from attaching the
-> +	 * domain to the K3 driver's device.
-> +	 */
-> +	power-domains =3D <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-> +			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-> +	power-domain-names =3D "timer1", "timer2";
->  	status =3D "okay";
->  };
-> =20
-> @@ -174,5 +182,8 @@ &c7x_1 {
->  		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
->  	memory-region =3D <&c7x_1_dma_memory_region>,
->  			<&c7x_1_memory_region>;
-> +	power-domains =3D <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-> +			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-> +	power-domain-names =3D "timer1", "timer2";
-
-[Severity: High]
-Can specifying both timer power domains on c7x_0 and c7x_1 leave the timers
-unpowered while the C7x DSP firmware is booting or running?
-
-Because two entries are listed in power-domains, genpd_dev_pm_attach() skips
-attaching the domains when k3_dsp_rproc_probe() probes the platform device:
-
-drivers/pmdomain/core.c:genpd_dev_pm_attach() {
-	if (of_count_phandle_with_args(dev->of_node, "power-domains",
-				       "#power-domain-cells") !=3D 1)
-		return 0;
-
-	return __genpd_dev_pm_attach(dev, dev, 0, 1, true);
-}
-
-Meanwhile, k3_dsp_rproc_probe() leaves rproc->auto_boot set to true, and
-thames_core_init() defers probe until remoteproc has already booted the DSP
-before calling thames_core_get_timers():
-
-drivers/accel/thames/thames_core.c:thames_core_init() {
-	if (rproc->state =3D=3D RPROC_OFFLINE && rproc->auto_boot) {
-		rproc_put(rproc);
-		return dev_err_probe(core->tdev->ddev.dev, -EPROBE_DEFER,
-				     "%pOF: remoteproc has not booted it yet (auto-boot pending)\n",
-				     core->of_node);
-	}
-	...
-	err =3D thames_core_get_timers(core);
-}
-
-As a result, there appear to be several paths where the C7x firmware runs
-without its timer power domains powered:
-
-1. rproc_auto_boot_callback() -> rproc_boot() -> k3_dsp_rproc_start() boots
-the C7x firmware before thames_core_init() -> thames_core_get_timers() ever
-calls dev_pm_domain_attach_list() to attach and power on power domains 37 a=
-nd
-38.
-
-2. In thames_platform_probe(), if c7x_0 has finished auto-boot
-(RPROC_RUNNING) while c7x_1 still has auto-boot pending (RPROC_OFFLINE),
-thames_core_init() on core 0 attaches power domains 37 and 38, and then
-thames_core_init() on core 1 returns -EPROBE_DEFER. The err_fini_cores unwi=
-nd
-path calls thames_core_fini() -> thames_core_put_timers() on core 0, which
-detaches power domains 37 and 38 via dev_pm_domain_detach_list() and powers
-off power domain 37 while c7x_0 firmware is actively running.
-
-3. When thames is unloaded or when a core runs non-Thames IPC firmware (such
-as the TI SDK IPC firmware for which k3-j722s-ti-ipc-firmware.dtsi is
-included by k3-j722s-evm.dts and k3-am67a-beagley-ai.dts) and fails
-thames_core_wait_handshake(), thames_core_fini() drops the rproc reference
-without shutting down the DSP while detaching the timer power domains:
-
-drivers/accel/thames/thames_core.c:thames_core_fini() {
-	rproc_put(core->rproc);
-	core->rproc =3D NULL;
-	thames_core_unmap_ipc(core);
-	thames_core_put_timers(core);
-}
-
-Likewise, when CONFIG_DRM_ACCEL_THAMES is disabled, nothing attaches to pow=
-er
-domains 37 and 38, so of_genpd_sync_state() will power them off once k3_pds
-consumers finish probing.
-
-4. Since c7x_0 only uses main_timer1 (power domain 37) and c7x_1 only uses
-main_timer2 (power domain 38), listing both domains with TI_SCI_PD_EXCLUSIVE
-on both DSP nodes also misdescribes the hardware in the device tree and cau=
-ses
-c7x_0 to claim main_timer2's power domain even if c7x_1 is disabled.
-
-Should the timer relationship and power domain lifecycle be managed by the
-remoteproc lifecycle (or via a dedicated timer phandle property) so that ea=
-ch
-DSP core only claims its own timer and keeps it powered for as long as the
-firmware is running?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D16
+Thanks,
+Neil
