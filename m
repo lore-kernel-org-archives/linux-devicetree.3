@@ -1,127 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738645;
-	b=I/d0LX1IMQH88xn5Tc5bi0055msIaAolnJ75WBEeKCux6Pf+mEMGspvBFwlA5C31uiPk
-	 jZlrRKeFn4WbvlG8MwkRVauo7C0ZCNqBCmxb6ft2yJThaG1QafcXl9Zg374Izg8Qks7+4
-	 CGwcp25EOrmBGKqvHanI7OoyrGHddRJtLyoqpb7nYX6EF0dMmpaUNWSEpX8T3BwQFloIs
-	 AIpj+cqGdI9fJd3V8/ws8ht8sHByHABMunnIJZn8gOpikgEoPX4p3/fkh5M1jV9bstgpU
-	 mcK3dgRz2CLhRCXQWpm92k4kWIMcF21laeZcshLy7OQIYTv8nVRdsPcZwtmgu9YgG5Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738645;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=DcoXlWRKjuA3ss6Tbgxr6QeVj4UArC2GCkRmhAMcuic=;
-	b=EGXKlUSX6ln9K4nhL/QScHbcczhV15xz2D5Gw1MnyRozL/iDvTXYjYWqY2rvRYLxoFlT
-	 8B+LAgURAEqs3bJoWojrqFg71qstKKGG06xpWjmPyIQI1h+Jwh+GI/Q2fQLWTqJqUT9Dl
-	 7AK2aRShRdmqVXToCXKfX90erTWDBlFaZl1tmWFokZGA3GwtJwS1ARUw+YF5bXq4Pfk1A
-	 dYekdRFJxn/qw0gb/zIX6oP/Gk0FP0m0TudH/0wK4GCN1+FPdxjVhOnjnjBc+cnteTWoZ
-	 oQ4jr7vKXE7fR6HySgz2J/U151pUqx0lKIDABoNgH2FBEqphd90nwKS8ABFZ75ga8nA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cFfEZkKz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QgkzFYYh;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792738774;
+	b=xrI3quMgbc2tIIhjKxhah11gnuziFa5yMpphYRchZiqtTRTq9G0tVi6EZ+cFkvYPV99x
+	 Buww7qd2QuCcVHIII0uFcvcJ07ctlUspYFVZ4PBzAfTdIH94f2RZIb8qMRESbhKCPdUFv
+	 +0+5YzqxA9G/xx1g01d0REs32oMD1VSTl0lJs+dk/3nYV2CHxeyJRXm1GOgaAkgfztzO5
+	 nlTGvf3ZD8+8BBDBOZTNNdLmQ1yM4cMkCd8c+14LS6C1/IGhJq1GfTDKXzAoQrWs25gud
+	 zCReuy1q5HPgUG8Md69OZaMxxB5GFOHQ962cjPGJ2LC2VegEVQrlz/8dvsPIy9cBj4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738774;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
+	b=i1UbSk95H9GhvsWBuHzhL0OCM5ENpEE7ypbM8pKNQ5nFsnMIyCh2TadS7ZE8r1CpDiM7
+	 u/p7RXls3WKaooMSiSURwpaLZmWptvWhnJsBPOycGyhHX7JsOzoptqo5eFblZXNMza8c8
+	 1eQo+9umqVNAgzxXotsbNxPCginNvlmYPwIfUxABKzXMs9PRoYR1/CRvkGxYFkU0G/vAi
+	 A7pvakioabQl8IKzVwLCnccBIBPamDtzxB2sKdAK/g25qrdZPFLjQsyHIj7euwmlKwV/i
+	 iHeO1Pe4IVYxETRb11P+4xL4x21Ay2NG/hwTUw+RrWan1S7ohGt/IN45xeQ87QJpFzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="COP0c/ae";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB165606A31B
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 06:57:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB165606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC9A606A31B;
+	Fri, 23 Oct 2026 06:59:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC9A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cFfEZkKz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QgkzFYYh
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1F2pl773217
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 06:57:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=DcoXlWRKjuA3ss6Tbgxr6QeV
-	j4UArC2GCkRmhAMcuic=; b=cFfEZkKzP1uu2iyYQz7OI9qk4OXKzTsnaPoHyKaD
-	JP1XeIGyQlTOtvR+y9SP+eL1MRCnTFUcTi9/gFVo0/mnlIhCuRHmC0aNod/Tk3LF
-	YpvsVF3lD5MZUKL7pNMmlyAv0j5Dle3n1PyKGSsJ7BjcjcWoaII/dQuFJC9sO0tD
-	GbAyeJdvrpHVMK/slqbhA5ng0ope0skxgIHXH9hpogKheQLEw1C8QWi5N4sofmV+
-	BC5CahCfZs304bu9gFujPQ9176ooSoC7dC2CzycMLoYe4GYbnA9/t+ppfg2zkf60
-	FNqSzJockmnr7VyZkdy8gAby+MBs/pwyGkI9RYL+6Z0fQg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmttb42-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 06:57:23 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aa8f8c2638so188521a91.3
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 23:57:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792738643; x=1793343443; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DcoXlWRKjuA3ss6Tbgxr6QeVj4UArC2GCkRmhAMcuic=;
-        b=QgkzFYYhwUKV9b3HK59LHPnqqSaqEOzQ+Za2Ptea5nVHdp24b1JThnSv8PgxAh36en
-         Kwa+rdlQNsRCYRl9oMPaQmJ1KFnQFYaSXCO13ZZbRTTCJ0vP6E0flWsNj4HLpAe5NRW3
-         1OX7SrlhQChuHXPfvWj0UksZun7dleP4D+LEAF9PE8N6gOqo6acuTUEUKpNBiMawNVQ/
-         MGqVVs/8mk2WAr233b10JQSBvAHYiouZVmFbnbzcGeRI33YaynK+zuK7T4NNpCyKI0lG
-         YLd4R9UX1JeNnMaTX4xu4bGr2UiSpx/51aWFGjWcWGSJj9ps9zgnOjGty5kjn4ZDNVJ6
-         m4fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792738643; x=1793343443;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DcoXlWRKjuA3ss6Tbgxr6QeVj4UArC2GCkRmhAMcuic=;
-        b=ZM4pJP24bJdbNyCtKsjGH9Z5IE2TMtnMJjo2IZ4O7t0n1WrG7viGNIXmf0DycZB0vO
-         7Wp99lQ0/3Zwp2vH1G1jONvn5O7a4qq9wQBb7amKHN2hjAVnqnNwJNbkV3PmqPKawfQ9
-         grrhUQNUTtTRI0I8OWR+gOYjQxb9lPlCn1qr7LeBYcMNqZBbgVpKueT8g0vIxfps5A7/
-         OHXnm7ef8mivxStqI5eKm4N6xAmflnFPO101/X6xoDcELxB5g1XNSFG4S1wVjVOheOnc
-         KmeDQb9xm85/v8ELveidwqbd7w+VfoswUjXT8L8itvoK+7jwwNQTmWYxLMIN61ELznX0
-         iWUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxlnhiKs/oqADDywIDRtv4ZzdJeTC2BPAkEHr/1bfg2ngMR+Zfu38x1a+F2PoxgSdlpJcra3Ua91128@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhkKgk2Jl7mvNtbSJNwuOFV4hSXCPzAb2VGgtvvFt/Oo7qH1dO
-	13YaGPEOwxdRuDJh/oacJGuhYPQAF+XM/9o6786jFKSWfKPH6TmMMJSCX8z0JHbec/Uvu4KfeDQ
-	VxTQ5+fN0ZnpINar1M/AtnPpZS6g2FSG6Q0SVog3cnWz+KTaJj967puY19YDH4ZkO
-X-Gm-Gg: AYBFou0tS3DdBhOZpC4/MJfoZ2AQ1fPeGmuwjFIx4xv/56ZxWElseeFEfKnJ2e6a6YV
-	byHnUMZNxQGHddAKoWVRbBTVrVkFDh8F6psu21HKUaScnrHXGELhhg/kyiqglQywjkXV2Xy2fSn
-	G1SVh7yLKqQyDwH0W/uvIVq7O0fmy7h/vVIP84G/s8uGrN/V/Pj3S42s6cnf4PLrHCKc4Eq0uKU
-	D9nKrSHPR5014zObrosvm4Fi8oTzpQpLav5pne6wFR2uTk9QOp+Ps6WpZI149aI2T8wjzG1AyLX
-	YOs/6p+LbioI8O6a8T8N/d36nEkPo5aFddQza1Wz4vB3441QflUpA7mNz5tuBEdegjgGWo9r/v9
-	+2xeg7aBXvKIUPy1gXntHTqgsUVSGz8DYmXPDy3Q+CE6NONdYuY/zabcppE2EDM9IuaglnYNAWg
-	KPcCjmWR4kP03VSDCr/ERZE5NHoBEWTQd4Y7ki19mM8DlbAiQAER8=
-X-Received: by 2002:a17:90b:3912:b0:3a6:f1d2:57fa with SMTP id 98e67ed59e1d1-3adce7250b1mr1847193a91.4.1792738643195;
-        Thu, 22 Oct 2026 23:57:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:3912:b0:3a6:f1d2:57fa with SMTP id 98e67ed59e1d1-3adce7250b1mr1847153a91.4.1792738642568;
-        Thu, 22 Oct 2026 23:57:22 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3add2994cd2sm650567a91.3.2026.10.22.23.57.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 23:57:22 -0700 (PDT)
-Date: Fri, 23 Oct 2026 12:27:15 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH 6/7] arm64: defconfig: Enable Waveshare DSI panel and
- touch GPIO drivers
-Message-ID: <atsFS4y9cnfKL2uk@hu-vishsain-blr.qualcomm.com>
-References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
- <20261021-shikra_display_overlays-v1-6-adaea735999f@oss.qualcomm.com>
- <0d4d6a18-ad86-479d-a030-5eed8f5460fc@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=COP0c/ae
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 25D28200208;
+	Fri, 23 Oct 2026 08:59:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792738770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
+	b=COP0c/ae33eU2nr8ufHwDNo8/1U1SpPul/FROCBH0dr6mR3LUU5mdq6RUQiOkgHWaIykAN
+	vOusL9unHBrQzHksnuHHTdGqTrRPhGSgJH+Br9SUKdjZkL5XHznx7gCMP6SrowrfCZgNbs
+	Bk9mM/5wkdeQuzdp3rmWnZN8CX+bk1DTlsdaMITCoO+S0FbqKstKHzFgiPUd8nqqrG5+yG
+	hc83VLJBwFqKLAHjB8VP1RR4fOR8RlpCF5FhBYS7YtJoXzw25lRS62yublqh8pUWD8GP9s
+	5PRuOxVc+z4Lnlegg6PXMu16SV4rpULCbdQYQkF2eGMTidfAAIbQ1/LF4xWWOg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792738770; a=rsa-sha256;
+	cv=none;
+	b=dFXCkMHNNoQihSuiD0QcaPCvK22UBLxXS0kmxLEyQu3wPO3zREhDResdyQeNJVn0mkmxjB
+	j+aU118/54rjN3SRj8eUmWzo6vs03yBigI/RnP9/BTGlX2EDijO5kre3LrNGscYKw6zVyD
+	h1i2SmxlAFPEJ2UIxZR0pNtA/1Ub4OD+KZ2nrgKf1wj9Nrr6nKv4MlpFyL2DggViEuVz3j
+	wZbRXOWisvqclPsTvKwHmCELOQEyveMvGnjOLWJGzzpAxFgEBf0spQT0EqJJ9lPffHRBVs
+	ZAXwjFtPuv+gtUWWRsCWGdjD9nnXrOqJ9BrNXjhIUvg9IxMEoWRgsCK/gTEiAA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792738770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
+	b=VBQWGtzqBPmkhreSKXjEzQRfkhq2OiPXFcksB5OThxlFeCMnC6EfEQOHu9kAfQkwIdnDwb
+	CYN5DFcM/Pz2kWfwimOZWpXjbRMTGJp5W1CgRasJ55AQR5U1YF42V0U0rXLgkf+2O8AZUa
+	4HmLsy5RaWHSZoWXklsMimTuu/2ZnnEEr0PbdRKmW+LTfsQhJu1K9usTS7HFfsIeqeSHBx
+	SseYUOrRdtigpuWMilPLB8SwWBNzC56yrkjrjDoqkIRnjnwoFAyKmbwDN7R24yyXd7zBrY
+	KJINmtSho+qE6nzsAJ7PKUtB4wX6HVPeWFSreCqHq0CW62OQmKsSQGzQH57l4g==
+Message-ID: <132e7b48-8233-4977-ade1-2ee94b2b19e7@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+To: "Torsten Duwe" <duwe@lst.de>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Philipp Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022190026.6cb0a534@rocky.lan>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+ <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+ <20261022190026.6cb0a534@rocky.lan>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 06:59:29 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,50 +93,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0d4d6a18-ad86-479d-a030-5eed8f5460fc@kernel.org>
-X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb0554 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=phjb7eYm-OhZhg8tdxIA:9 a=CjuIK1q_8ugA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: 8DW-jRCMBPyMm9hZvVAiE13Z1O0sj4SF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX+zrthZZ9Yzdk
- EEC9Qfd6d6zRYqWPmSXMpsO+6ik5QhP6e8vAwPBk+9J1ugIF+W571r599dZed9RulmKvr6LTPW1
- Hj+RohWl0hBWZicA2iwT/IwOXloSLY7E8phRAbH0Sg3e8a9I2EVqghmEx+goJcOSdm86YM7wYWc
- 9UAI3VBCMvCZ1XUPKrNoIvu1QYhWXfukSaQEz8MFXrdx3ln9LGiN19gUexZIHvgbp2F+p7z42gT
- slYm39ivJ4+/c4QrwPuinIs0K8qoDVNR2KOydIK+/BzsHYveWaWI41h1qX9W24l9jQfW5DhLluq
- g9oVfYcO2V4JuU8DLZ1S3jnqfJhXwgXoS4xiygP93AZrlqcA2juSofQvZGjq+DnKmLM8vWaQvxr
- m+Wbk+FxFlhzaJ/Aqeb5+U764BZbp871bFJLsmh0szgjUf0OEdbXKW+g9Uea7ESx5fxJ42m0cSW
- jHrtNvI5mfYamH3EIQQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX7nKKZ7r+NEnb
- 2AKl6tVCQDDt+deqvfuYew67SQTX1Jc9YUtnBz9geywRE9ZfDIr9fo3WOrGXwOW7zZnoa0nH04h
- bv9Jr/U3aJGyfe3RFIM8UBnOlpcXf6Q=
-X-Proofpoint-ORIG-GUID: 8DW-jRCMBPyMm9hZvVAiE13Z1O0sj4SF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230027
 
-On Thu, Oct 22, 2026 at 12:45:04PM +0200, Krzysztof Kozlowski wrote:
-> On 21/10/2026 16:21, Vishnu Saini wrote:
-> > Enable the Waveshare DSI touch GPIO/backlight controller driver and the
-> > Jadard JD9365DA-H3 DSI panel driver, as modules, for the Waveshare 8
-> > inch DSI panel on the 22-pin JDISP1 DSI0 connector on the Qualcomm Shikra
-> > EVK, Talos Lyra EVK boards.
-> > 
-> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> 
-> That's not a separate commit from other defconfig change.
-These defconfigs are required for Waveshare panel, defconfigs in other commit are for RPI panel.
- 
-> Best regards,
-> Krzysztof
+Hi Torsten,
+
+On 2026-10-22 19:00, Torsten Duwe wrote:
+> Hi Sascha,
+>=20
+> first: thank you for driving this :)
+>=20
+> On Thu, 22 Oct 2026 13:06:40 +0200
+> Sascha Hauer <s.hauer@pengutronix.de> wrote:
+>=20
+> > Add a driver for the JPEG hardware decoder Rockchip integrates into a
+> > number of its SoCs.=20
+>=20
+> [...]
+>=20
+> > +static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
+> > +				    struct v4l2_fmtdesc *f)
+> > +{
+> > +	if (f->index)
+> > +		return -EINVAL;
+> > +
+> > +	f->pixelformat =3D V4L2_PIX_FMT_JPEG;
+> > +	f->flags |=3D V4L2_FMT_FLAG_DYN_RESOLUTION;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
+> > +				   struct v4l2_frmsizeenum *fsize)
+> > +{
+> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
+> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
+> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
+> > +		return -ENOTTY;
+> > +
+> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
+> > +		return -EINVAL;
+> > +
+> > +	if (fsize->index)
+> > +		return -EINVAL;
+> > +
+> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
+> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
+> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
+> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
+> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
+> > +
+> > +	return 0;
+> > +}
+>=20
+> Can it do JPEG, MJPEG or maybe both? AFAICT the difference is minimal,
+> so maybe try to be more permissive?
+
+It can do both. Gstreamer uses image/jpeg und thus V4L2_PIX_FMT_JPEG for
+both, so it just works. It seems most jpeg decoders in Linux do not have
+need to support V4L2_PIX_FMT_MJPEG.
+
+>=20
+> [...]
+>=20
+> > +static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops =3D {
+> > +	.vidioc_querycap =3D rkjpegd_querycap,
+> > +	.vidioc_enum_framesizes =3D rkjpegd_enum_framesizes,
+> > +
+> > +	.vidioc_enum_fmt_vid_cap =3D rkjpegd_enum_fmt_vid_cap,
+> > +	.vidioc_g_fmt_vid_cap_mplane =3D rkjpegd_g_fmt_vid_cap,
+> > +	.vidioc_try_fmt_vid_cap_mplane =3D rkjpegd_try_fmt_vid_cap,
+> > +	.vidioc_s_fmt_vid_cap_mplane =3D rkjpegd_s_fmt_vid_cap,
+> > +
+> > +	.vidioc_enum_fmt_vid_out =3D rkjpegd_enum_fmt_vid_out,
+> > +	.vidioc_g_fmt_vid_out_mplane =3D rkjpegd_g_fmt_vid_out,
+> > +	.vidioc_try_fmt_vid_out_mplane =3D rkjpegd_try_fmt_vid_out,
+> > +	.vidioc_s_fmt_vid_out_mplane =3D rkjpegd_s_fmt_vid_out,
+> >=20
+>=20
+> You are populating only the *_out_mplane members and not the single
+> plane ones? So a greyscale JPEG needs to go _mplane with 1 plane?
+
+Yes.
+
+>=20
+> And for color, the colorspace on the decoded side should be
+> V4L2_COLORSPACE_JPEG, not sRGB, I think.
+
+from colorspace-details.rst:
+
+   The JPEG standard does not actually store colorspace
+   information. So if something other than sRGB is used, then the driver
+   will have to set that information explicitly. Effectively
+   ``V4L2_COLORSPACE_JPEG`` can be considered to be an abbreviation for
+   ``V4L2_COLORSPACE_SRGB``, ``V4L2_XFER_FUNC_SRGB``, ``V4L2_YCBCR_ENC_601``
+   and ``V4L2_QUANTIZATION_FULL_RANGE``.
+
+These are the values the driver sets on the capture side. mxc-jpeg for
+example does the same.
+
+>=20
+> Would you mind to give a hint about your test setup?
+
+I tested with Gstreamer, like different variants of:
+
+for format in I420 Y42B Y444 Y41B GRAY8; do x=3D1920; y=3D1088; GST_DEBUG=
+=3D2 \
+        gst-launch-1.0 videotestsrc num-buffers=3D100 ! \
+        video/x-raw,format=3D$format,width=3D$x,height=3D$y ! \
+        jpegenc ! jpegparse ! v4l2jpegdec ! waylandsink sync=3Dfalse; done
+
+I also tested several single frame jpegs with various defects/oddities
+in them, also all with gstreamer.
+
+Sascha
+
+--
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+
