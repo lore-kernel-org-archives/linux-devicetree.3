@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792777988;
-	b=IzGMtNkHQIaNlP/dOebCkPYfZI6RNnRXBk4z/QW64uKp14GG7/Xy1c9pQp8ZL6a1R6K1
-	 8Ms157Km141GJerHpkASmjPjwX8vuhq/BwZXz0t9/OcOjhO5bfqL3XGDFPFKHjPHcrqr/
-	 WinzV6zZ0Wuitb6OX660abz90hm67EoykJMh3C45xWN2Dt8GwgKZMAzt3ogfi9VnsMvvd
-	 6lYc9uxj3XxwsIPcYe+f/V4qKdPh+Hzi3L9F01Qggk6L8m/kf43hZ3B+YTXecNLGrrjl/
-	 9pZfTnlwWhWRMiDkvpCXyqMUF5WoETzQK8Zxm4m9z1s2z2LTSFpLMl8+XAZBkndEMVQ==
+	t=1792777985;
+	b=XuM464YNeOmiWr9BWSMEC/DkB9VsYHklLtpTnROyOMEBHswJKS0r3MR1HTvn52h+ycTj
+	 +s+LCz5rBg+qzeDbosWP2+h4aLdXRzZ9qmhpEqUNF8K7m9YDFL+DY2KiD++P4dPw2AZl3
+	 iQ5MrnBBUVmxA4q+HR5Dru4PPomiHnIXEv6omOBgciub5qircCYKZwWFfz5tNiuPBvbL8
+	 cmqKNQnbRumjnAiYNBaa8DzhUmYfkSQJ32JRhZcr8bZkxDjMdq7+B46xBJCVI7US8N5JY
+	 Vq2qc+cjBDX4qr8ambD4X4CVi2/iPRhE2wyhiL0r6LLTkC1rWLxP8ZTjGJ2Wqn9KsLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792777988;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
-	b=jIzEjkpYwgVJkbpM39Z2RVj2f9Somm8rx6fGSeH+fus9XoqA3WlEeEjUus/97QJEBEeH
-	 4DtJxTmeIzHzxyjMFRd5ad8RRmCR96bicDpuIXcLHcc1HSJYSsicfKxiIYrwhdQK1ZvbE
-	 M8otsU85Gjg24lN/QTIV1e3/q+Tqwrz10vWIe1LfTz2HUTWOP928Lkt8OylvEYninZQ/b
-	 A2P7blko/2BnivYeKBCdwB2SkXwFukHEZcBwi2DL3SyOZCoQUrZk38jkQm+yffJGt9PUP
-	 LEEc0PeZR1jfZEkw3phS/+trEhbV5mXBHbEvgxDjUqlmvGOIw5JnP+juuBe5gW/si6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792777985;
+	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=cmw0kJvPlogc0Dq5lVT/xEgR88keU7nR4P6aPNL3aqg=;
+	b=MBy+w/ccLCWx/RveHjgsuXUz7V3h/D50J7sThPBiIaKxiARRg8w0j9Nrq0jXDJyk0Hd1
+	 jn1gJkX2MhFR3dkDWEplmRegTEnyq4UwaQwliY3q61gcmegM28miLFi5NodaiA3LhWfhE
+	 j4z73Bl7bz80EOpNutYJ+f73SePqFhSATmWsfqXZDR21QlUv9BVDfoTwzDvWGlMtZLcz/
+	 zxm0/dhN/o0VuOIW3/+PscSs6P/Hj7+vDelNxA7BIMVOSXiRkrxqEY73CMUSYFcoMYOSj
+	 ZxNYKxLEGwcY1n9o8OqHGPN9vTG5fzgzDQbpY1zDgDdc+9aBgj9K9yKMtnVg5KQreNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C2Up8foU;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E97D606A32E
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 17:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E97D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C2Up8foU
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso721699f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:53:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792777985; x=1793382785; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
-        b=C2Up8foUIFI3L+OewOv3xFtrcYwpDGTVenQDRJSx1OhEgx2xC7KUtYzRqaqyPu0o79
-         xvKiL2Em4ScCMnyESqmKuV+r3yyFmhcUY9D/E782tV+HhM78lubUWkOUeEqD1xunwT27
-         rvfppYP4LbmWl0ptc3Uvi2Nw6bbsThSwMaPwqzgUhvMc+HkIPmCahDl9MTc3+cyNIN9I
-         21nqOYFYHk/wgzDCqiUw/opev0aXcFjp8Fq+w9EAtT2LperNHiNREwlVQIKfT6YvqrkT
-         yjlAuuqHwLr0YyukOGOQ5p9DpCyZWCkX2mRgQN8uYzxGekeI5c47JkFNgZtWUPTzmrHE
-         rTQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792777985; x=1793382785;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YQS+tCL9sVo9f7fH8XlWP/aawkwSF9CY9qYv7xaHfik=;
-        b=pL4/z0yc8Kx0gbbFA7NNS/olV2/b+Q9mmzMspxsGSDU0WXyCmNSnXbGkM4JAtMBJhM
-         rypgz9KN5ERTLNZize0NxTMXP65eGd0wtqmXLGkQPLg4xJwW/pAhU7uHXAPqZ+Mzv2fG
-         c0tNb1+1+ZzTMKNdxBif7PyD09O0tY6uNSZfs1elAUJyYXoXiKO42WZrx7xxn1iQnZEv
-         L15l4qzaZyom7Zzn+2VpT+MDxTYKNUk/HsOkjULF02cBlb5gvb6tTbG+Mpl/FNDV03K/
-         lPFLdBEU2bxUGcBfOsyifEM1cVi8hceE2CUdnMX2B/vuzJ7YJzrTittVGHFXOxi8gIy9
-         tKSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpHr7tF0HQq7+ht/bS1eJ9R7HMR8eNX0PtovaxSqP69osYC05NvUyOudt1Y2XDxy1A+Jzxtm3ml80l@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeThZdO9NazlZU+ixxzmiqT0QpKG8R+L5IFt6d/ICctBW0AlLp
-	6sVXmOuTOaSbuPAcl53A5ukG+wphHDQCFFWWoFZlZTiIA0lgN6XsYfRT
-X-Gm-Gg: AYBFou0JRpaXccW0yGNClibP5/iWV5cYo9QbQvss0CkVaFaKBfixxw13sqYm3P+J/Eh
-	WjyRjOu3BZ6yKR6KyM1AftijTShgwnhrxIyvocptWeT725o7zOCuWyOzfrk3X5IgXm+08YMFHvS
-	weGcyHqSuDVYth6QdAH1x//KuV2+IuscFTkKS13PziTtCVmfEBq86dbtnCKvqvyTR8RAC/0V6ZQ
-	2YjtnNwm0ocK9Oadn20GNwRwqo27VBPaec42/ivieZ28QgNc7nyznDzvz3jo88QNa4fZR5H8vLL
-	tQ+h9TRChU3fmfeBmr1n2oHAJQ/wv3I3Zeyn3hktU58nGwhtAYZCG0FQc2JVC/FAHzmzBVfo/N4
-	EJ/JY7978+eCbboPK4ZPfhVMHwlmzTzkZZr9V7CWuhptx3WLNhRIHlJN4y565C91nicPK4LwFbp
-	qz95kDaGIpTqGXRFKLVaN1yTYWBKNoiYuQslBx+T6/e1IXj9UP4zqOWF8vwDzcyNrjCvHeqWQqH
-	39NGNEv8SczjW0CBGI6ZCFqmBANjlrTO9PGtEjGLdpy1M7Z8kTt3vu+6MG6Vsv676s+
-X-Received: by 2002:a05:6000:184e:b0:48d:f855:d1e0 with SMTP id ffacd0b85a97d-48e385bf552mr4544912f8f.57.1792777984621;
-        Fri, 23 Oct 2026 10:53:04 -0700 (PDT)
-Received: from mikytux.basilicata.nnxx ([195.32.70.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d3ee6bdsm1135313f8f.15.2026.10.23.10.53.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 10:53:04 -0700 (PDT)
-From: Michele Salerno <mikysal78@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612DA606A31F;
+	Fri, 23 Oct 2026 17:53:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A3D1F01825;
+	Fri, 23 Oct 2026 17:52:50 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michele Salerno <mikysal78@gmail.com>
-Subject: [PATCH] ARM: dts: marvell: armada-385-linksys-rango: fix wifi card resets described as LEDs
-Date: Fri, 23 Oct 2026 19:53:02 +0200
-Message-ID: <20261023175302.2102555-1-mikysal78@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	linux-arm-kernel@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH 2/7] dt-bindings: clock: renesas,r8a78000-cpg: Add GPIO clocks
+Date: Fri, 23 Oct 2026 19:50:40 +0200
+Message-ID: <624a9fb09e4ec74b1995797e5121b86e7206f5f2.1792776697.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792776697.git.geert+renesas@glider.be>
+References: <cover.1792776697.git.geert+renesas@glider.be>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,71 +61,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the WRT3200ACM, mpp45 (gpio1 13) and mpp46 (gpio1 14) are described as
-the "wlan_2g" and "wlan_5g" LEDs, but they are the PERST# lines of the
-2.4GHz and 5GHz 88W8964 cards: driving them low holds the card in reset.
-With a LED trigger on them (e.g. netdev on the wifi interface, or
-phyXradio) the card disappears from the bus, its config space reads
-0xffffffff, and mwlwifi logs "adapter does not exist", "buffer is NULL for
-tx done ring" and "can't get hw specs" until the next reboot.
+Add definitions for the clocks used by the GPIO modules on R-Car X5H:
+  - R8A78000_CPG_SCPBUSD16_SCP_MAIN,
+  - R8A78000_CPG_S0D24_PERE_MAIN,
+  - R8A78000_CPG_SGD32_PERW_BUS,
+  - R8A78000_CPG_S0D24_HSCN_OTHER.
+Include a few more clocks from the same groups for ordering consistency.
 
-Drop the two LEDs and describe the lines as the reset GPIOs of the PCIe
-ports they belong to (pcie1: 5GHz card, pcie2: 2.4GHz card).
-
-Link: https://github.com/openwrt/openwrt/issues/9517
-Fixes: 41c865209626 ("ARM: dts: mvebu: add support for Linksys WRT3200ACM (Rango)")
-Signed-off-by: Michele Salerno <mikysal78@gmail.com>
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
- .../dts/marvell/armada-385-linksys-rango.dts  | 31 +++++++++++++------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-index 4ab45f2..5209e06 100644
---- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-+++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-@@ -63,20 +63,33 @@
- 		gpios = <&gpio0 21 GPIO_ACTIVE_LOW>;
- 		label = "rango:white:sata";
- 	};
-+};
+diff --git a/include/dt-bindings/clock/renesas,r8a78000-cpg.h b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+index 14b3885f2d9933a3..cd7192ccecd4e22c 100644
+--- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
++++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+@@ -12,5 +12,21 @@
+ #define R8A78000_CPG_SGASYNCD16_PERW_BUS	2
+ #define R8A78000_CPG_MSO_SCP_MAIN		3
+ #define R8A78000_CPG_MSOCK_PERW_BUS		4
++#define R8A78000_CPG_SCPBUSD1_SCP_MAIN		5
++#define R8A78000_CPG_SCPBUSD2_SCP_MAIN		6
++#define R8A78000_CPG_SCPBUSD4_SCP_MAIN		7
++#define R8A78000_CPG_SCPBUSD6_SCP_MAIN		8
++#define R8A78000_CPG_SCPBUSD8_SCP_MAIN		9
++#define R8A78000_CPG_SCPBUSD16_SCP_MAIN		10
++#define R8A78000_CPG_SCPBUSD32_SCP_MAIN		11
++#define R8A78000_CPG_S0D1_PERE_MAIN		12
++#define R8A78000_CPG_S0D2_PERE_MAIN		13
++#define R8A78000_CPG_S0D3_PERE_MAIN		14
++#define R8A78000_CPG_S0D4_PERE_MAIN		15
++#define R8A78000_CPG_S0D8_PERE_MAIN		16
++#define R8A78000_CPG_S0D24_PERE_MAIN		17
++#define R8A78000_CPG_SGD8_PERW_BUS		18
++#define R8A78000_CPG_SGD32_PERW_BUS		19
++#define R8A78000_CPG_S0D24_HSCN_OTHER		20
  
--	led-wlan_2g {
--		gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
--		label = "rango:white:wlan_2g";
--	};
-+&gpio_leds_pins {
-+	marvell,pins = "mpp21", "mpp56";
-+};
- 
--	led-wlan_5g {
--		gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
--		label = "rango:white:wlan_5g";
-+&pinctrl {
-+	pcie_reset_pins: pcie-reset-pins {
-+		/* mpp45: 2.4GHz card reset, mpp46: 5GHz card reset */
-+		marvell,pins = "mpp45", "mpp46";
-+		marvell,function = "gpio";
- 	};
- };
- 
--&gpio_leds_pins {
--	marvell,pins = "mpp21", "mpp45", "mpp46", "mpp56";
-+&pciec {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie_reset_pins>;
-+};
-+
-+&pcie1 {
-+	/* 5GHz card */
-+	reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
-+};
-+
-+&pcie2 {
-+	/* 2.4GHz card */
-+	reset-gpios = <&gpio1 13 GPIO_ACTIVE_LOW>;
- };
- 
- &nand {
+ #endif /* __DT_BINDINGS_CLOCK_RENESAS_R8A78000_CPG_H__ */
 -- 
-2.47.3
+2.43.0
 
