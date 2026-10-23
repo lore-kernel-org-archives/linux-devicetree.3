@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792749215;
-	b=K+8C1S6Wv8dgbVO/95cNNYJUxKJQi75hPZOAcu/+RCXbnkdTSF2wscu1jJ0AeyowEkg7
-	 3cavWJVS49r4zyTqP+6lTcMbGsbVJVfvjO0JvxDmdqBXmbUIKwHjoV9vWY/lQaARHSXlu
-	 zIT/BnvODMJTI8bxf5h7MUiT2fGNvqB0/IfSSfl2O8ACVEo5iq3UNR/6FQjBa7GN9d5A3
-	 5l+EWWtg3SJVAQARO6IRBF1/8K5DBoNZDECMrJ0r6pROUg+h2BWit03j7brEiqPOzyHo4
-	 oZy85p6qo9EnItBvifzuFvpZROJohVyJRLfvsu8SzzJan8O+7LvGmi+xnn8kHiDryJQ==
+	b=CA6azY19rQGrYQNVksJuz6wO65yzs/xhDbTSJwGLvJNSIXq/tuiY6XcymtC8swNm6pG2
+	 EcbqlfLSq4+g7IWL005SLGs0LQzYa9hxQ5u9NoXcy8nYkaGTUufVaOf1+3bwn0AVVJeNd
+	 1aylkzsc0REFbsIXBshxzExYddvFw84NpVQ6Vh8gv1nA2LfEh1u9EPnwOsGM0/xjRhBBN
+	 8pyno6QJkcuYl3vm+7gXEjlAC9m3VAxuyl+NhLfOsVSnwpwT30rMV3hLRx6GAMbgEZeKj
+	 ftSb1gFvd6Ol0TZ9tqI3e2ZdhsMdCDPAl/jmNqaJn+CrfAxmMFZeofBmW6JJPhlyhoA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792749215;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=WpJLXi37K/3CLTTtMIyRhtpXtwa/kl7B3kX/L2M2EZE=;
-	b=tOnjMaGK485Tp6ph78c0WKk/SPH9AxaLPsQ908euXI/h46Yo/cmO/vv/fEOMQu5Sq4YW
-	 DjPq5pBX4YsMPf8KowliXSGGEaLtPn+JMG1fRG0/CYJzZs3C6VO1l3hFmyP0KSmRvdMSk
-	 IF6s2sYEVloWsk7x/ZVAY1Xr2dxXcpNhBX3L5BkG23Gp4OpHsYlVaabBdNpYk2Hw4QTgZ
-	 o3phsHHKjiNN5MqRlApTdWeAF31R1Kyuvl4WraQLYGtVnTN5SeAlKY1t7JoXyxLe21y91
-	 9zTt7XqscjfGL778PDzZnmnaR4OWo/Omko4rlPg6eb1qLiJJzebAcng105oRvlgUg3w==
+	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
+	b=nilhs6Rw0rB1RJsYQY7Wi80st/l6iuBDVGWB9/0h8NnML7QJoK4EquLlKtAhTKNwlLq2
+	 MjGwzE4PkNLkuX4M9HKAMU8RAZMx2u3oqt8f0i0ptkpWYYu8SgVADVLLv62LEhDEf9DCT
+	 5noP37fXRVWBVPz/Sgglh8aVEI41eMQCrxenG2zzEtrlM54JTkZmE9nbmgGdmZwFUDuBc
+	 OgU053zELhgJKCh0DSQjFZB1hteu5Wh+fMQM7IE+YSD7oZRo8XBXih0YCcN3unTn+Mt/T
+	 GkCAw4n96qFHu3bHfEWvNfd7A/pIsACogzI4fIcKMc5Ej5N3nMuzOQiNFnR/xAfrcNg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsTsANED;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9JlhZVL;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7471D606A31D;
-	Fri, 23 Oct 2026 09:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA95606A31B;
+	Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsTsANED
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9JlhZVL
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792749215;
-	b=2kVinHIn/nIeSX9r84qQNxnXb3QejQEceHCa7wSRSsRjVHOIBxxn3G/Xsj3A0jyuqO/L
-	 eHSgSuj/KzRSsaDqJrQXO3dd49TQ3bByt0ruZ+u209MVMGTtGh8t9LIidrXq2LnoxXgc9
-	 KvD4E4wgnZNr1NcJe6H/jYYkBoeUWvrdvm3VhKddIj25gHcaesuTACgj/LxcZSQJDrjAu
-	 3Tg5QYFsElqdWBree2bG9b0oF2uoJteWYQYqCFPKVyHjTKlPB7Y6maR+mLBvva5c7T6M1
-	 oRQatFCEMfDNzwGOefXSi1hKwvoRTwDVNV1bJoMci61O3xjBASVUo0R2xX0QgHgwY9Q==
+	t=1792749214;
+	b=WPxNbaGYt6HooQ/D+V5Vj0GtEKDWAcmduev7KYfpL+Vd7inAlSBBTi4IoDt7iZ6aPBK1
+	 5Xsfg4T++Y4EO9ybeU1TYKaBl5KNVUayOvfm02E2JUfqzHPvCsK8punOGsct6lXBqi0+p
+	 QvcjdHKHVqyyDOar3qX1jfbUQZ8V4IfLBTszuX+3lwrAIgjawd1dvh8TlcbIMaxHvqv2P
+	 jh8jnW/ixatKDG7jky1/lNpNbLP8sFq9z6EhVX9IckydJw1LjkuXzKiXMSoGc+oE+AUVw
+	 Q/oBSOt0gljE308ocWzHLW38i2HSYcMoax4bzlSIS3rSfV4gcfIU6m9yVE5nxB6Op1A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792749215;
+	c=relaxed/relaxed; t=1792749214;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=WpJLXi37K/3CLTTtMIyRhtpXtwa/kl7B3kX/L2M2EZE=;
-	b=cSkwLxK2HQ4X3K5GShQ5cMHFHEWuiLmZkzMbRTF1RihfsqfQh1vRppmIIGn6vGYhn2e8
-	 WCwgNyy7m7a3/xWj3DKhNJNA8Msy71uBanfCNVskla1lW38xWo98q8JvxGUNnUMAgQCg3
-	 +NMgthz5lKypSGuR0GQQFwWPs8iK1kZ1WwrXot7EZ3FypIcLauH0Rc67/KaIe606nzzZT
-	 kKgQ6dYWfKom29B21EOW4O558q2KyA0iR0wkNqjMJwzcYR53HJsJ8qcjpX3Lm80j24tvN
-	 YbV87mAEhOVw8uElT/uMvUhyYxJKwlN5zXFExrjNoXkKqUwOUNaKFowQXwAkmxmVXYw==
+	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
+	b=ctH7XPZ21UWDFagN9Hz+rZoqgYJQBwvruShEXOiYj4jGux1MnZTFY/dngbDKkK8TB+by
+	 IG/2n5QZPpKXQ6+Ml5p4VqCWgu4xFk4+QrwX2/+IGf8IU5bw8gt7wIcl+QoxJWG/+O7gJ
+	 Mf4z6oW0UFfqztyXouwUNSfQO/mC9myMhdvXWvz0qYvFgYWrlOzQWLlZIgbIVRpLtZNRT
+	 PQCBt6YNnSJp4BW6I7cT3y4ThGE/oyIoDhaDASXR/XXcQeKIOHSAfyoKbzkiAQiNumX8G
+	 B3NsG21fMP88X9zRjobkyr1kczW9oIJoZtAxfhzVaIM4f9hZDhzjEdIv016zSsnnKuA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4B4291F031E2;
+	by smtp.kernel.org (Postfix) with ESMTPS id 470151F031E0;
 	Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792749215;
-	bh=WpJLXi37K/3CLTTtMIyRhtpXtwa/kl7B3kX/L2M2EZE=;
+	s=k20260515; t=1792749214;
+	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KsTsANEDu3JfqXt45YdvFZHbtAsPoAuAbK0SFOjFE+w/x9172dEFrby4OOnKXlkYZ
-	 LbVGDuajr09dU35B7R6P6wXv7qskpPDjYN2qd3blw8x3tTPuiP/wXVrwZ4CqhBi0yD
-	 U1KTfPMzQMF1Oz/X+opz6/ZYxQ53XhZGMAPAtOGwN79nIEBhI9HOc0in+qW4IbxOu0
-	 uQgYrK23N5TWJis1f/PTzIudR86Lmek23ebmcXxpM/1cvuxpu9tcnILCjGTM5YA2Wk
-	 eoAB7+ti0oFRlxJPyeT+1nSqEdVJLG35F5LLhbcGQtSob0nuvrWdL0otSKG68KTtU/
-	 9gV8OFPBbvrOA==
+	b=I9JlhZVLDq7qpAL/qo8GmwwuwyJeSCYJV/E+ZHSf1hem/vzVKH8hyt1buvY3DtY+F
+	 cJlLJPuh46Mrb8FC6XuZZ5ZgHV0pQsjFNEioH9026RiVY2CTqU0K1kCoYPQg624Qpg
+	 QxPcQiQeXgxEvnZ06KCBmday1Xctnb6Qp0qqSGMmtc5oTzS5jZ4vNoi82wELnyxXb7
+	 dsf6BdkM/KL85kXgQVQSHzzd5PLuAebYwz7r7AbirmF/WqVb9Ooo2JAu1zy29fYkhq
+	 Xe6d3I0k2Zo4UUsBN1kwZD3tcorY536LwG7oZoRQilirf82AhZta2AFIMyeZ4x0pJl
+	 FYg9yUR4yFVPA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CBC6E4448D;
+	by lkml.kernel.org (Postfix) with ESMTP id B742B44487;
 	Fri, 23 Oct 2026 09:53:33 +0000 (UTC)
 From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 15:23:33 +0530
-Subject: [PATCH v3 3/4] drm/msm/a6xx: Factor out the common BCM list
+Date: Fri, 23 Oct 2026 15:23:31 +0530
+Subject: [PATCH v3 1/4] dt-bindings: display: msm: Document Adreno 620 and
+ its GMU
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adreno-a620-v3-3-2d1d566e5e13@brar.si>
+Message-Id: <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
 References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
 In-Reply-To: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -101,11 +102,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=1600;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=1758;
  i=patches@brar.si; h=from:subject:message-id;
- bh=PgAl8IML/PCa/TfeKJEqfHfIq1dZ4rfP3H29CAhUIYs=;
- b=BIKFsLm6SmjwX6ubg8zYMthCRS7mwRzqPyyl88fsfMOZQ4eiA/ewUK45kg0Il0/WfpXAh8Qhb
- Wn6ELuiw5F2Az3S7sfNgLJyQ0iY4Zly7t7dfzIvbAA8EBrDeGqQreit
+ bh=8eTnNvhKpEjMR4UE06ag4D//fKmp89dOdFVVH07JhJ0=;
+ b=kYPvnrZqpMRIFJfmX1pY4KuM6AZmzRANev439fURmGYqzUxzVfRBCqpHY0WUM/CkVGGDHmcCM
+ kkK4J8YWgLFBFLrif5oqKwEhQHb2TGHR8d8Ulo/tkyDlt7SLtk12o+K
 X-Developer-Key: i=patches@brar.si; a=ed25519;
  pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
 X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
@@ -116,59 +117,49 @@ Content-Transfer-Encoding: 7bit
 
 From: Ishu Brar <patches@brar.si>
 
-The A690 entry carries a list of the Bus Clock Managers it votes for
-(SH0, MC0 and ACV) which is the same for other A6xx GPUs. Move it to a
-shared array so that more entries can refer to it instead of repeating
-it.
+Add the Adreno 620 found in the Qualcomm SM7250 and its GMU. The GMU
+has the same registers, clocks, interrupts and power domains as the
+650.2 one. As on the other A6xx parts, the GPU clocks are defined in
+the GMU node, so the GPU node has none.
 
-No functional change.
-
-Assisted-by: Claude
 Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ Documentation/devicetree/bindings/display/msm/gmu.yaml | 2 ++
+ Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 4ef2bd6e7..c4d332f48 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -736,6 +736,17 @@ static const struct adreno_reglist a702_hwcg[] = {
- 	{}
- };
- 
-+static const struct a6xx_bcm a6xx_bcms[] = {
-+	{ .name = "SH0", .buswidth = 16 },
-+	{ .name = "MC0", .buswidth = 4 },
-+	{
-+		.name = "ACV",
-+		.fixed = true,
-+		.perfmode = BIT(3),
-+	},
-+	{ /* sentinel */ },
-+};
-+
- static const struct adreno_info a6xx_gpus[] = {
- 	{
- 		.chip_ids = ADRENO_CHIP_IDS(0x06010000),
-@@ -985,16 +996,7 @@ static const struct adreno_info a6xx_gpus[] = {
- 			.gbif_cx = a640_gbif,
- 			.gmu_cgc_mode = 0x00020200,
- 			.prim_fifo_threshold = 0x00010000,
--			.bcms = (const struct a6xx_bcm[]) {
--				{ .name = "SH0", .buswidth = 16 },
--				{ .name = "MC0", .buswidth = 4 },
--				{
--					.name = "ACV",
--					.fixed = true,
--					.perfmode = BIT(3),
--				},
--				{ /* sentinel */ },
--			},
-+			.bcms = a6xx_bcms,
- 		},
- 		.speedbins = ADRENO_SPEEDBINS(
- 			{ 0,   0 },
+diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+index 07f0e547b..3478adebd 100644
+--- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
+@@ -217,6 +217,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,adreno-gmu-620.0
+               - qcom,adreno-gmu-650.2
+     then:
+       properties:
+@@ -238,6 +239,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,adreno-gmu-620.0
+               - qcom,adreno-gmu-640.1
+               - qcom,adreno-gmu-650.2
+     then:
+diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+index c30de7feb..cf015fdee 100644
+--- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
+@@ -435,6 +435,7 @@ allOf:
+               - qcom,adreno-615.0
+               - qcom,adreno-618.0
+               - qcom,adreno-619.0
++              - qcom,adreno-620.0
+               - qcom,adreno-621.0
+               - qcom,adreno-623.0
+               - qcom,adreno-630.2
 
 -- 
 2.56.0
