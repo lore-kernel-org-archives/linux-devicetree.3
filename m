@@ -1,111 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792717599;
-	b=ixcYYvyq5qYwkD8lkl04kXTX9uhrM1VqtdYT0xeQ9Eah7C2eEtzwzA154pvOQ6QO7YN1
-	 nWs8GM6ESyR6Lags3thsBx2SdOpdnif7qJX5uiicKFQ+Hee9LPgUhEXg8Qbxl02EeIaVG
-	 8sDil1e3rPGckOMxnwOj9jUoiOkJtuKnz71p2N4FKq+khDIBNcawAOv5zzSFTy37Z3eIE
-	 AHRJoUPCALn57syBsYlbr/0PJ1YlBeZ49F3WGEc5rIIRJ2HrRI20icnLP88p50ksV0+bQ
-	 ftY5510dlak60ZafVHv19V+RxKZUmdYddnnKWK4OwUTus1tKc8CA0+PFmIiEpf4w1Bg==
+	t=1792717902;
+	b=TUWY2d6LL6h/V7X3vSxRO9sJFtoAD/WxJv1U9OKKIzIwsfAO946HySZTq3j0ddOSVmOb
+	 vpg3z1UrK1I1QfZnMFhjciK976HiN5Qwygj9s1R8VwmxpZnh7AggcRqHKjxJbdpK8TxoC
+	 kHR8EtTUpz0vG5ThfWHIx4yZO+tMky8d1jwmlXE6Sq77dhUdVT40BS860ZNzKM4NxQpLi
+	 3a3EAHvYd8oIV4EFaTZnbpl2Z9mHn+V2ipnzlBDKduTmNmyEwaPikKlxtx1M7iGBOt89X
+	 loaZyByTVZWsoSheqJzLaexXZQCzOKrGFPKAWakjaEeSI3tK37uOCzKRvV5VKmsdCiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792717599;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dfuW0wNWB+8VJLorrjVBoDy4Ob+iKOb6dWhlcZAnFYQ=;
-	b=Vq2wYmMz8ZcSuhPPrQKaQ+jJBnk1uC9p0FVhpEnB3jP3IxSRJwaBjZ3figK+hoJ+XLUm
-	 ATI8FlfJi1j7vU8OsmRq1J33zQzxbtB2tDA+pSPDLtmJTmgvMezEivcT7hRwyB/a3cOng
-	 6D17Ir2Bv4Wwtr4DgJbwyuAt5u2IkrCvwxstunFIdvzlJKhrqrXPPNWZ2ONJRy/GsWjmo
-	 MS27tSEAAjphsKM5h+zAxyVx+XOFLr/lKrhRyWugi4RANmRsru+D9tNwGg0a9Dt90Zqd5
-	 BNUqTQInCN4v8aZZujoMdE7I0vAalo3f1YjQykdCghzHGgq7OACFeEENbegjPd3W09Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792717902;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=oyC1FY3rGOqgPSuXYaWNWk9KieqvUn0dqJ+tbaWtoic=;
+	b=47n0/muKQJD6bEDHKOYVJz4L53IMTe+4DdwrPw85zMwJX9i+HdHS/cnA0QcSnAqL4zH5
+	 QUCdPpMvF5mUBuafpi1GARxzdEqumldn5tbGNyV+Hsvf3cPLjepOwVPQ3Fa5zCE8vyk1Q
+	 ZD0TedVrfzQ7BS8jBYgU8xZccnnbnxqg3g1gk536aWum9gnu/9YpayeF65L6WCPcutt4g
+	 dOofQOxG3uAXMphJJOQBlK7PyKo8RnTjUTi98tqr1lOcw76ycuhdJG0/JN1yz0HV8V8UD
+	 uoXVEUeFrKHgXIZVH7wMFhP1rx+qoiz4tJTxvdz2cA2OSbRc+n/NilOpekXDd9XowOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bnIxPimD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="bLe2Me/2";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8988606A320
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 01:06:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8988606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=ultrarisc.com;
+	spf=pass smtp.mailfrom=ultrarisc.com;
+	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=OUnG7TEn;
+	arc=none smtp.remote-ip=218.76.62.146
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67CCF606A31D
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 01:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67CCF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bnIxPimD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bLe2Me/2
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MMF63X937918
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 01:06:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dfuW0wNWB+8VJLorrjVBoDy4Ob+iKOb6dWhlcZAnFYQ=; b=bnIxPimDxayqnUXh
-	GL1+VNL7lausi4gGZLDFEgRk7OH66jnQllF24jrKXDHFdt7eCoXO/rVsl+kJO/Ya
-	plgnq1OPZR7X7XjK2fHrOGhdqM/q2Ic3PdnmcRsWRW7v9fj1rpQi/A/P9oNgt8WS
-	UAdeOLy1239U69RmscIvZx/0LEQYDONepK0OTNmVGE3fA1ZbejHM3FOmOZxbmycd
-	zs3l7SNqrrVf7wyWVsuT6Wb2CrT63tUupeEEZkyhzvAVjwE5hbIU7BWdzjUybgnO
-	77wB9wLBFkW3xYOUs2CBgWjorzITB4cD1uynoUVMNX+u7muNYerXM/pcM4eFbXA4
-	Li74sg==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hftyg8fbc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 01:06:37 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1665200f4c2so436811c88.0
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 18:06:37 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=OUnG7TEn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792717596; x=1793322396; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dfuW0wNWB+8VJLorrjVBoDy4Ob+iKOb6dWhlcZAnFYQ=;
-        b=bLe2Me/2XXySwZTWlxxsl436z7yaqk3CxpoNAvVkSOb20UVatStchaD6y1Bg0k5jDD
-         bAwvoMb84UO7vgquD9q9TVnqesHNilI1P3PaIZzRoxVDDHHM1DkiFvABEIYbRTbOYd70
-         eV9QhRsOCRb/jHYx0efJ7HfGYvH3hf1vFsyL70CRl7AK3LQQ8HcpWXuBtQIMmytKGsMx
-         jtGOgueyUOOqpW/GaVUWORkDHMbjoykY6acheQp+XTstIJMn9kOBSi6hjovuJyuPB3/7
-         K2GO0+CsDXV/kgquJh37ORBuVaCGbCg5gbbQt02F9Lun8WYvL6Nu/Iyb+rMzF6drQudK
-         nsCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792717596; x=1793322396;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dfuW0wNWB+8VJLorrjVBoDy4Ob+iKOb6dWhlcZAnFYQ=;
-        b=q8O4fLExOwM9QKYhrQjCwdkxFWvY9AX6OTabbNq3KzZGt9DVOR5ZvXeIKFkU7kwD1M
-         zCKAKFno8lwvsv24NJbV09HzgLtZHqeB8xI/oWOFBhCFzLcrUdBS1EvWbz1jruuM/Tro
-         kzlnPJnO257UNvjspTTPf41WWpUwfTzhFHkr7+lDp3LNWurmxhPvGr+bpM6R2jKmFaQR
-         NYOG5XaY2GUsPrNuISnwVbsSP/8NZ6oJODOJ4wVFUQpv8EhdfRQeQv2zEoTRGqcI2aSm
-         D6OT+MARGAiV/FYEw1FunAAjZbVMnB2qHR+RLeCSr6eJe/xBJ7uPOVCxXc8gMAYomSvn
-         ETcg==
-X-Forwarded-Encrypted: i=1; AKwUvByzcthX89tzm/yCg/eG/SUKIsBcmB7xjBMIOWOvbLkEEtzdDi/0B+rCO0j2u7Calh9VFruvLVg/e1SS@vger.kernel.org
-X-Gm-Message-State: AFq9FYKes7b0sDuql2cB1yxk5ks6cBYN4ogcm57NVVMfcELDtQr9iJrj
-	4j9WJb6KNeflQSpFJ0KlEb71yALGstZkToiVaKD+qUfjmexDthca1d3iH1nJcqF1n8EyGmpSmb1
-	eTkv85vnymqGsTuC5BvL4whIRFHslPcyoF0EkkvBT/MX9CmrA+k3Bg27U7jSl0dbS
-X-Gm-Gg: AYBFou05OrapAyB7KIm/NSmPxLHJ0iVqizl3N5T+3fhSd9rDUmr7feV6c3Tuy4ayYpC
-	fn6fHBghBBpyYzJlayzPhaqULM9lr4UDI8Xz4Ao6krnkXF4VrTbcEyTHyiKNqg/K5UF2c43y5Iu
-	6U+qC0NS/d7ubdamshyWj+YmiCv9SdPGtKz04vyVE16M8jZZCyQntxloh7a5UOlbQJGw5S8POTK
-	VRZy6tKlI0zMLp3YrXE3MQ4SXDlk4XDiOHXbwTnOvNGlkgp2hJWWUvlJyEP/curuIScNp0I7T3q
-	kvIszFyOQsNx2czi92bBsNxp/k7Fhf9ug5OqY5KJ/R/Cu3a2D3eMfXYy1YJmBUteTpjE0oeKaD0
-	RyNZAV4JyW3CX6hgPfiONxXV01WkeJZ/CQXADr/wAkW0rmSpBo7yEFg/i
-X-Received: by 2002:a05:701b:465a:b0:195:76af:b810 with SMTP id a92af1059eb24-195c5cbc3e0mr1043931c88.25.1792717596442;
-        Thu, 22 Oct 2026 18:06:36 -0700 (PDT)
-X-Received: by 2002:a05:701b:465a:b0:195:76af:b810 with SMTP id a92af1059eb24-195c5cbc3e0mr1043913c88.25.1792717595831;
-        Thu, 22 Oct 2026 18:06:35 -0700 (PDT)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195eb9afd61sm1877551c88.14.2026.10.22.18.06.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 18:06:35 -0700 (PDT)
-Message-ID: <7a593e23-3f35-443d-9ae7-2ebc031d41c7@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 18:06:34 -0700
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=oyC1FY3rGOqgPSuXYaWNWk9KieqvUn0dq
+	J+tbaWtoic=; b=OUnG7TEniGZfsM7eIBqInyMvIa7TOnlBNGTOtsZLBepVrNqGH
+	g5ItkFGpbAi49axt9jZbpscr7wnPFI/6isBpfmEbWG4NGxOZLiNyDjhgU7yRdISh
+	lFt+T9Wz0JqvXv1KhlPJZjVuRpawVeg4kcGaaNGA/9lDXmss0J5w7RGR4Y=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwZItNpq9aMCAA--.1100S2;
+	Fri, 23 Oct 2026 09:11:36 +0800 (CST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,156 +50,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
-        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        jigarkumar.zala@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
-        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
-        christopher.obbard@linaro.org, alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <xGBkVr2J5eTHzEO_i4LTjdWGRO1MXGiIijMf1PGUbQ2gEYqffgMDMtx4uiNyBldbbiW13zmcxMWZYYjJ1s--Vw==@protonmail.internalid>
- <c6d963f5-a57e-4086-972a-4f04af2c5b42@linaro.org>
- <324dcc61-6085-446c-8bf7-564486f319bd@kernel.org>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <324dcc61-6085-446c-8bf7-564486f319bd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=cZpHPXDM c=1 sm=1 tr=0 ts=6adab31d cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VgxvMbUO6sPQWDWUjzgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAwNCBTYWx0ZWRfXxl+/sEW0f+03
- ok5awnTQ2/KiyS2uFEAeYEj2YDL9QtwyqQXtChBfLTLZXVqErwgbYFNnqtacvRozsIyoUrshAwx
- zjuh1DnMhlD682hlaW/Fju2+KPDwVVM=
-X-Proofpoint-GUID: FfeYsFbiNwDIkHBT3Yu98o5gAhtw963U
-X-Proofpoint-ORIG-GUID: FfeYsFbiNwDIkHBT3Yu98o5gAhtw963U
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAwNCBTYWx0ZWRfX4qkAvW0fOxg1
- 6SOapB0bu0LQ0yWTF1uuItZjKrlGah+6tg0Cbb3Zzz8aCuEvOV4VH/0ueIdXjp0XAUEFwCUWOeq
- YXpIU7momdVF/dXchlCf6QyAvPgjpJ5b5MCEHE0uyKopFLJfxFVULPAXNNFTMKTXv2dywaDRLdN
- +W68FrGfAVyDoy3qadty8xZOtgna/NAHyC0FdQxoMmlIMOUoGvUBjYFQY/GSH3nQ1wau+rs0YD9
- maMhks7WL8aDeWguxQJL1Ns9Lac1dD1FqA83bOu/ViHv0q3tl/AqkL5P90AJsMm+svVp+3RuciD
- GjCbZkTVppkkM8x393m7G0HQGw/JQGXYO4A/fh1Iuw8NuTtNJ0rgKArSvO7Vq4uwORQD3tzdI9v
- fxn7Ip6qzPWMmaG5zPE/fkplrWCU4C5cwVtbfTOqWAQnayF5yByMl2exkVT07Lyju0+dG23iFqv
- 54SywaUupEYr5ma0MNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_07,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230004
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
+ device tree
+From: Xincheng Ji <jixincheng@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Xincheng Ji <jixincheng@ultrarisc.com>, sashiko-reviews@lists.linux.dev, 
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022-viewer-calzone-06a380c1c377@spud>
+References: <20261019-ultrarisc-dts-v4-0-3979747cda2e@ultrarisc.com>
+ <20261019-ultrarisc-dts-v4-7-3979747cda2e@ultrarisc.com>
+ <sashiko-outbox-176776@kernel.org>
+ <179246063943.3442927.10941907832509473109.b4-reply@b4>
+ <20261021-badly-issuing-847ac366c9b9@spud>
+ <179263206397.701068.17555028009758516675.b4-reply@b4>
+ <20261022-viewer-calzone-06a380c1c377@spud>
+Date: Fri, 23 Oct 2026 09:11:36 +0800
+Message-Id: <179271789693.1356992.3556092251329071074.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792717897; l=314;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=gOvq4U4Y8u1l3YlKmBWKmTM2iHPkTHPwQc1KRqoiDK0=;
+ b=Qbf28f4rYX03Ecs+AAJwv4fkNw6tKcR3HnOct1CcVGpYffn2rdp0Y+5ahq2xRpRlvnFX21tL6
+ XM+gBdVP5KUD1a33OU5BbnMuMNLDBqXxKQKZO084GxNW6HNWIuPFuvQ
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-CM-TRANSID:AQAAfwDnrwZItNpq9aMCAA--.1100S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY-7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
+	CY1x0267AKxVWUJVW8JwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
+	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
+	CaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY
+	02Avz4vE-syl42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxVAaw2AFwI0_JF0_Jw1l4I8I3I
+	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
+	GVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
+	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r
+	4UYxBIdaVFxhVjvjDU0xZFpf9x0JUywZ7UUUUU=
+X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAHDmrYYSwADQAEs+
 
-Thanks Bryan,
+Hi,Conor
 
-I align with your thought process. We don't need
-- lane_positions
-- lane_polarities
+On 2026-10-22 19:17 +0100, Conor Dooley wrote:
+> Cool. You're too late for 7.4, so I figure what you've got here will be
+> 7.5 material?
 
-I will add symbol_rate and fill in the data appropriately.
+I was hoping to get this into 7.4, but some delays meant I couldn't
+get it ready in time.
 
-Best Regards,
-Anusha
+Thanks,
+Xincheng
 
-On 10/19/2026 4:24 AM, Bryan O'Donoghue wrote:
-> On 19/10/2026 11:24, Bryan O'Donoghue wrote:
->> On 18/10/2026 00:00, Bryan O'Donoghue wrote:
->>>> +    unsigned int        lanes;
->>>
->>> This statement and how you go about using the data aren't consistent.
->>
->> Re-reading this.
->>
->> unsigned int trios; would be fine too => data_lanes and lane_polarities
->> is a multiple of trios - always three - does it imply that the first
->> three entries in data-lanes == the first trio ?
->>
->> Presumably.
->>
->> That would work too.
->>
->> data-lanes = <4 5 6 1 2 3>;
->>
->> =>
->>
->> trios = 2
->>
->> =>
->>
->> data_lanes[4, 5, 6, 1, 2, 3];
->>
->> trio[0]:lanes == [4, 5, 6];
->> trio[1]:lanes == [1, 2, 3];
->>
->> Probably "trios" instead of "lanes" makes more sense here and the driver
->> just always validates that count(data_lanes) % 3 is always false.
->>
->> ---
->> bod
-> 
-> I'm going to argue with myself.
-> 
-> data-lanes = <1>
-> 
-> =>
-> 
-> lanes = 1; // not trios no need to introduce a new term
-> 
-> =>
-> 
-> three pads on the Soc
-> 
-> =>
-> 
-> The question is - is data_lanes required for the CPHY opts struct ? For
-> the qcom CAMSS case the answer ~ always no - we will be attaching a
-> sensor and will read-back the positions from that endpoint.
-> 
-> It is conceivable that other systems may want to pass data-lanes down to
-> the driver because they won't have a media-graph but, I'd say we should
-> arbitrate that then - leave it up to someone who needs the fields to add
-> them.
-> 
-> =>
-> 
-> lanes // the CSID and PHY should agree
-> symbol_rate // so both the CSID and phy agree on symbols per second
-> 
-> Remove:
-> 
-> - lane_positions
-> - lane_polarities
-> 
-> Since at least for this series, they won't be needed.
-> 
-> The CSID still needs to know the number of lanes and how many symbols so
-> that it can calculate bandwidth so .... lets just include the data we
-> know we need.
-> 
-> struct cphy_opts {lanes; rate/symbols}; dropping lane_positions and
-> lane_polarities.
-> 
-> I've no objection to the low-level timing variables myself but OTOH we
-> don't require them at this point in time.
-> 
-> Perhaps drop unless/until someone can show a need for them.
-> 
-> Excellent bod, agree with you now.
-> 
-> ---
-> bod
-
+-- 
+Xincheng Ji <jixincheng@ultrarisc.com>
 
