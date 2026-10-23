@@ -1,61 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792789143;
-	b=JFjRHghU0aSrulPtGDk5w1xx5WigaWUOK+i/kl07Fz+XJSoauSw0jZ/slvuT0OvHPNoJ
-	 nNX25RkFFtL8OjcfaLadzF50rfaxm8Ep/gf71LMdi/C43RpRQvDpGjyMN8HgtEU3RGcg4
-	 K8tfPw06VjIdZmUYuqKr6e3btBUYjpr6El7SDpMAONGcFny7sm4zQgnf9Ej3CwNnDp4gR
-	 AREIkruO4x640CZg274vjjKKGtkOgUr4CueqxuhLc1UwUAXk9V8XmPUXicXdy8aW+CZsC
-	 WZThNUxsrgYOu/6h5wK6B5h79M1q3lX3zGdgAYbua5C6lsS8qJa7s+IRKiGj35nOphA==
+	t=1792789771;
+	b=s79f6wPBtoP2ZTjU+I/b080nQTLo2rxMpepISnI3wjmX7wJX2ckbPCFI53YV0nok9mF9
+	 BdfKoj+K43KQ03JhGdMx3u11ljWW7WRDG125HsNcacrH2AqdqyQlEQWJSViwjhto16ZJu
+	 DgcF1Y8km7oUUvI7/nG2Lb3gyACdx7NoG1j3Ya873kA9dMnhbIMmPcsR1VfJDm2iMzvU4
+	 hOPxx08sWU9p+VdviVaZhcBF/IUjlZHOhPsMyKLq8uvYgu3tNTZbTvvxM1Vz4QoCYKLLQ
+	 Qyu773sKVT0/BkdmNBEi3dHx+KX8kLpu9+fCKB4iguIK3TlPf3edVgLkD9ZfHS7kJ2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792789143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792789771;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
-	b=iF3BUkcCyfZ9hBogTyOWrexEqB9JMTIAe0pWsIGMKP364w+6QH3Bd1cv0vKWUsdK+3GI
-	 T5/bq6mcZ+4K30uS4K0CcGUEVH8Sl2SuNMMabrCeW0A/4jwajYAj2ALWwFl/pJoHC68ZR
-	 ZZgCx1DVV24iEEq7CAeHI1+PzXxTXCUqUZ7lKcl7MaMmcRJ3RrIywsAMz/s8hYZq6KC5W
-	 wG7ia0dAcb4UJCIaHzLQCgfp+T9yh15qeahW3b5fE5tFbJKFV2OxobHBiF+ZA/PeuEIG/
-	 bIS7MecS7hjomaoOyMqNkpM0wKmcu+R+M2UTitA+mhiNmP+zs20Ke7LeBVGhKle7fCg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fS/pPTQHJuueEinFzIzT1Dd4kSXtnBmxPEmCZ9VXz+U=;
+	b=R5c0hm35xCJ8TsLFUuJS3b3C7cG+Dg09GHQU24fQnj3uow69QPNu8tCYBfl8O0i/bH+w
+	 FJPMkrkGN2G1RIQDXCPgf4iAQ00oGBfVb70UriHK6R4G8//5jNkJxEUSVeAZueUPZbx4B
+	 FeT9+wXRgLgyofes9LlnWKrDLBca08tVzDPOj8G6ZbaOhnqthxH+SyWQ7SUSVR6lO0THn
+	 YiiRbMSdsCxxdmc0+ZSXojt56zk3EtfDr30RlFQzOnfCwBvxI+77das6jg0kQ3rIZ7hh4
+	 5xn6SFnrL7dnaEQzpI2PwFLQ9nJDOUAIB3F67ulVlsb3EpGBTYj3ACn18Kdw7dS4a6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="io/0S5TW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A212606A31B;
-	Fri, 23 Oct 2026 20:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9969E606A31A;
+	Fri, 23 Oct 2026 21:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mitaLlNr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01CC81F01825;
-	Fri, 23 Oct 2026 20:59:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=io/0S5TW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE00C1F01825;
+	Fri, 23 Oct 2026 21:09:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792789143;
-	bh=NqkLuJBowrg5uO/LzxwlbNqWRXOx6BWUFV29tyybZko=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mitaLlNrKV/nfViGZGWPL8DopsgmEkL7ebk3WYav7/TSUHeFAq5AGZmnDc4tXWn7k
-	 783/fAuBYjd7AWZWs2B4Vxu68y4f4h3OaGZ3RKjITdTVpsDxBR+Ac3MbEn5Tenjuod
-	 MGhhuw88vCZ3OC2zuyibiLUOnZs7caWpkklT/0mIoge5Xs1Rgj4wRWeOP8GDbbYzln
-	 Xd+crNHPF8jSjXa4uBJq8kkViuDDadMFCx0uky7s7N8rJZekG9+qxk7W+R4Udim95y
-	 S/Ks1/mfiVe+axlXozUa33T03uy7ndZZLzMpiqStqGnJg8wkRjQ8spjH7dNyFYeinN
-	 l/IOrFBtLrKdg==
-Date: Fri, 23 Oct 2026 21:58:58 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
- <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel@axis.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] This series adds support for Texas Instruments
- OPT4041 Ambient light sensor
-Message-ID: <20261023215858.623ef46b@jic23-hlaptop>
-In-Reply-To: <20261023-opt4041-v2-0-ee320812804c@axis.com>
-References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792789770;
+	bh=fS/pPTQHJuueEinFzIzT1Dd4kSXtnBmxPEmCZ9VXz+U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=io/0S5TWf9ihwG2cDTXygBCxMICgD6333oWFamc8RD/aL5EUH4etZEiIEm6Awspfr
+	 +pIlwdPM91Sbges4mT16sJGL+ve8h8vbfIRoUxC2+ZUp2mx1z69AIk4GNC+C9jmP1X
+	 1OkaOmNqzDRacwKMo48ChuE12bGXq8ECO/YsK2B98JWupwnKPeJh44PSEO1SAb1xIm
+	 l44W4O5QVbRQgootmmUzBnOJ8ETjvj2U9kfUsFPeuM3Y9wZgG4HzbAMSc33ZL8vOKu
+	 AzIrtlWYROLNPp0pJhqMEoZu358reRB3IhVpvQtdXrM97Ft49dMUdSGgEL1MUL5eiZ
+	 owZNgUqWoiMZA==
+Date: Fri, 23 Oct 2026 16:09:26 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: display: msm: Document Adreno 620
+ and its GMU
+Message-ID: <20261023210926.GA6026-robh@kernel.org>
+References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
+ <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,41 +72,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
 
-On Fri, 23 Oct 2026 14:30:27 +0200
-Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
-
-> Extend the opt4001 driver to support OPT4041, since it is so similar to
-> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
-> from 380nm to 1000nm. The register map is almost the same for both
-> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
-> fifos of size two, one for each channel.
+On Fri, Oct 23, 2026 at 03:23:31PM +0530, Ishu Brar wrote:
+> Add the Adreno 620 found in the Qualcomm SM7250 and its GMU. The GMU
+> has the same registers, clocks, interrupts and power domains as the
+> 650.2 one. As on the other A6xx parts, the GPU clocks are defined in
+> the GMU node, so the GPU node has none.
 > 
-> Since OPT4041 has two channels it has one bit in register 0Bh to select
-> which channel is compared to the threshold register. The driver does not
-> support setting the threshold registers, so no new support has been
-> added for this.
-> 
-> The OPT4041 is pin compatible and has the same package as
-> opt4001-sot-5x3. Although the device id is different, I added a new
-> compatible string since the driver already had different compatible
-> strings to differentiate between the two OPT4001.
-> 
-> Datasheet: https://www.ti.com/lit/gpn/opt4041
-> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+> Signed-off-by: Ishu Brar <patches@brar.si>
 
+Missing Krzysztof's Reviewed-by.
 
-Normally I'd say slow down to give more time for review, but seems
-you got good reviews anyway and the code looks clean to me.
-
-Ah well, sometimes you win - but generally wait a few days at lesat
-between versions.
-
-Applied to the testing branch of iio.git. I'll be rebasing that
-on rc1 once available.
-
-thanks,
-
-Jonathan
+Rob
