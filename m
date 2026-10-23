@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746673;
-	b=3GZPtf2/MwAa/ePBeOezyvzzrqSYpK1vz+ntBdplDUm4o4v1/yDDXlbvSo0KuW04qw/I
-	 D57t9tGn9kmfBbYOz31ZYwUXQUMsBJSD+5YqNL6EyjYxVsfsOalk9AHcANuHvV+z+FGVO
-	 htPyWa0ZvXF5dDZ8LgiExLNB1zOtGU/LiFWfQeL1319QP0R3ds3vxe8WbpfK8aUHF1C1D
-	 GMiSTbA2f8UaHCLuSp/GQC/k8S7ucTeEFxGQcfBtaNM3KYM3fyakQWxZ8YqQaM3lvgZvB
-	 jIk1mLYcCH+F6I2seZtKY9MLl8fE3ZdPBDqtRpjQMDtjyvcK1VRnTi6RQV5WkTAY9zA==
+	t=1792746873;
+	b=IWEnG69dq4Bx7VrHRY8m5Sl7l/Q7UupY966KzrUdQRM7yHY9SO8BoeWTrURgIaVG0QMv
+	 3Z3wKBsCbKTIKTHLkJsOa25lsFSbDIvr4NXz78mCjOWQ/klVB8jbzXhnmcm7w6Uw/U6qb
+	 zYyw46geY/YcOR5u6rendBYJy/DSN2Mwq1k/KD4tT/7tjwvRxSFgFgVyWo3Bwpdk3jcDt
+	 Zjbgc6+YXzi51kwHxIOIvvW/UsUygz0GRUjHoTiOq41vjQOSvGds9thW1UfBKKxEbfMni
+	 WxPIwdQcG6aDm6Ww31ZgC9EqDBQ5bxfMsF9ehcfAPwhmi/V2VqDwUzTodl0EbKkfqyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746673;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=y1DpBpNP2E9EKulx/a7BEJDWub7VXoF4Z5h5Ip5x/Xc=;
-	b=vLXXjK31jdPSGE9S43BhNCVmEWoBqrjcBHSTLFKIWRxrMyzLtuQw+ST9nAcC8WvVdPX2
-	 IfSTpNTuM+d6riqExigU1cR9xGBQXdaVu1QzwZJKPVe8xajIp/KmdWWg3P5pQ/GGc/Php
-	 8s4az8UkpoKnwUWRezjDqhLohaw05tCiADjKY+cI4DX8IXFNPMPFa2y5nlVhLwpu84nYH
-	 mj1PpgxRCZFSuOKXk9Pidhn5lB7HsUzinQNqQjU2eI2hgSigobLmkPbFGIxIVNn29Y49S
-	 +VFIlfV2scHEId1P92Af0f3j+AiMcXMIr5+09BiurHvUC6BdM944/6muIqhbYX9KTcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746873;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=VtvWRjl8MAnddMfovWj2q6w872RtxbrfTWw2pjGsNnM=;
+	b=KE3OYEsX98jXBR1bmC19ExF2D0rxhtvLNnHOLaXaJOSk4rY8IP/EAHHitUzghZSCtYnL
+	 zbI+HAsDLCQonYfTtIkrjn6JLSqB68vGcgLEzIWTzySGSn5IK9lj4sBQBEy5UC6RKKkEu
+	 3bE+pSyK0vjnCjPYyC04l6T4yrLFwIv6KNffxnGNJFTeP48vSWLkgnqZTuLJh6oj8Y1j1
+	 zWGyF6MXN149nfabLzaCNPhAq0b/xwIKZRb+O9/AKmGa0Y6aTDhvIPPbtKP8459zSnpyW
+	 Sf6GQ8nICKdN3VSOjE+PfWzUlQWelrS3MCVCPa5/A7oCW0fSlpJ5m1Rn/DFUcr+3MmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ipBrf09a;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7F4606A31B
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D7F4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC25E606A31B;
+	Fri, 23 Oct 2026 09:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC25E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=ipBrf09a
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261023091110euoutp02d835c66cd6a2b4674719de70f5cc2822~hHZkw0zvT2644626446euoutp02-
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:11:10 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261023091110euoutp02d835c66cd6a2b4674719de70f5cc2822~hHZkw0zvT2644626446euoutp02-
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792746670;
-	bh=y1DpBpNP2E9EKulx/a7BEJDWub7VXoF4Z5h5Ip5x/Xc=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=ipBrf09aFyhJXVYW9/hXr50G/QMuph7wXeTclCzjyiym+lrcwuGqE74D7Z6YMQ1cO
-	 i4KYy9Hoyuc3IlhVwSBIJ5Bng56zvHgQWyZFWVhAIBj9YjAX767wfBvJkxSMvy+fKQ
-	 s7nPLkioC+YMc8REU/Q/lExUCIJ+fE1MTDjR4lMo=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261023091110eucas1p2952cb3709bad99676c7272cb494892c0~hHZkXHS_R1676516765eucas1p2M;
-	Fri, 23 Oct 2026 09:11:10 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261023091109eusmtip16c2cf8eef913a9cbe157bb7d427b5010~hHZjnnLda1391313913eusmtip1m;
-	Fri, 23 Oct 2026 09:11:09 +0000 (GMT)
-Message-ID: <0e452521-582c-447c-ae75-ceb9f66f9ff5@samsung.com>
-Date: Fri, 23 Oct 2026 11:11:08 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792746873; x=1824282873;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2W39ih95/AzH17zBqn6rXJXjjgFZun+fD1/GtsbiOl8=;
+  b=O2vUllAPIFDhc83mLr/g9VLBoisngjk+bb6qh3pObjQ2wbvUH7XsgikX
+   YNl9ZRoa+6ZHwR1QiArJCI/ThYnBoFlt5g6AkmAQnershqHBPmfqykhdr
+   uBUw6fODlZndtwwwj6EOImzFyB5XLLLVUc7tDSqgetFdJiClyg+/EnUzw
+   /D2F5tVmhZ0nnaaMXqZAEBAb6KjXD0myQLQh/aZPZ/2KjS4CElP9NquIV
+   86T6sKc+YN8u8z2HeI5eUWQIO+JB9elJWepaGSc+/ahIHr0XBWZWXAJJl
+   LTJ3tBm1yyKbijLuMAgxclvwem5rlqVXVQLq59DL2zn2FVxtRBaqdelKF
+   A==;
+X-CSE-ConnectionGUID: 6kJuGdiwQ1C43VeleGWR4A==
+X-CSE-MsgGUID: BQSd+Gs8S1StyUPGuY4aQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1399923"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1399923"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:32 -0700
+X-CSE-ConnectionGUID: Jbq1sZTuSHmmN4/ImqFQnQ==
+X-CSE-MsgGUID: KZS3rtAYTC6W5vNMIGoNRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3685630"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:28 -0700
+Date: Fri, 23 Oct 2026 12:14:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@axis.com
+Subject: Re: [PATCH 3/3] iio: light: opt4001: add support for opt4041
+Message-ID: <atslcgx03BMp-juY@ashevche-desk.local>
+References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+ <20261023-opt4041-v1-3-45227f82d05c@axis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,100 +86,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 0/2] of: reserved_mem: use dynamically allocated
- reserved_mem array
-To: Wandun <chenwandun1@gmail.com>, Rob Herring <robh@kernel.org>
-Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, Saravana
-	Kannan <saravanak@kernel.org>, Oreoluwa Babatunde
-	<oreoluwa.babatunde@oss.qualcomm.com>, Andrew Morton
-	<akpm@linux-foundation.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <809fddf5-c4aa-4a78-acbe-c9c39da2d363@gmail.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261023091110eucas1p2952cb3709bad99676c7272cb494892c0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261015082333eucas1p28bad74cde14ee0afac2eea11bbe6696c
-X-EPHeader: CA
-X-CMS-RootMailID: 20261015082333eucas1p28bad74cde14ee0afac2eea11bbe6696c
-References: <CGME20261015082333eucas1p28bad74cde14ee0afac2eea11bbe6696c@eucas1p2.samsung.com>
-	<20261015082315.56876-1-m.szyprowski@samsung.com>
-	<20261021134138.GC3667411-robh@kernel.org>
-	<e42637d0-c800-48fe-b943-4ec6ac540d82@samsung.com>
-	<809fddf5-c4aa-4a78-acbe-c9c39da2d363@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-opt4041-v1-3-45227f82d05c@axis.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 23.10.2026 03:46, Wandun wrote:
-> On 10/22/26 17:59, Marek Szyprowski wrote:
->> On 21.10.2026 15:41, Rob Herring wrote:
->>> On Thu, Oct 15, 2026 at 10:23:10AM +0200, Marek Szyprowski wrote:
->>>> Mike Rapoport suggested [1] how to properly use dynamically allocated
->>>> arrays during early boot.
->>>>
->>>> Use this approach for reserved_mem array during early scan of the
->>>> reserved regions. Having all the reserved regions in a single array
->>>> removes the need of the two pass initialization introduced by commit
->>>> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
->>>> regions are processed"), so implement it to make the code simpler,
->>>> easier to understand and ready for adding proper error checking.
->>>>
->>>> Tested on ARM32, ARM64 and RiscV64 based boards. Arch specific issues
->>>> with early mappings were discovered by LLM.
->>>>
->>>> [1] https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
->>>>
->>>>
->>>> Best regards
->>>> Marek Szyprowski, PhD
->>>> Samsung R&D Institute Poland
->>>>
->>>>
->>>> Changelog:
->>>>
->>>> v3:
->>>> - allocate the reserved_mem array only after all static regions are
->>>>   reserved or marked as no-map, so it cannot be placed inside any of
->>>>   them
->>>> - record failures of the early static reservations and print a single
->>>>   message asking to fix the device-tree
->>>> - restore conditional compilation of the early mapping code, because
->>>>   some architectures lack support for it (C-SKY & Sparc64 as reported
->>>>   by kbuild robot)
->>>> - allocate the array bottom-up, to avoid allocating from highmem, what
->>>>   might be an issue on Xtensa, C-SKY and MIPS32
->>>> - don't use the early mapping on PPC64, where the scan is done before
->>>>   early_ioremap_setup()
->>>>
->>>> v2: https://lore.kernel.org/all/20261008152403.766439-1-m.szyprowski@samsung.com/
->>>> - removed superfluous ifdefs
->>>>
->>>> v1: https://lore.kernel.org/all/20261008094125.3197971-1-m.szyprowski@samsung.com/
->>>> - initial version
->>>>
->>>>
->>>> Patch summary:
->>>>
->>>> Marek Szyprowski (2):
->>>>   of: reserved_mem: group allocation helpers together
->>>>   of: reserved_mem: allocate and map the reserved_mem array early
->>> Can you confirm the sashiko issues are not issues?
->>
->> I've replied sashiko review. That are again the preexisting issues initially
->> targeted by Wandun's patchset:
->>
->> https://lore.kernel.org/all/20260920092852.614973-1-chenwandun1@gmail.com/
-> Hi Marek, Rob,
->
-> Since this restructuring and my series touch the same code paths, my
-> plan is to rebase my series on top of this series once it lands, and
-> send a v4 then. Is that OK?
+On Fri, Oct 23, 2026 at 09:48:15AM +0200, Jesper X Nilsson wrote:
+> Extend the opt4001 driver to also support OPT4041. The devices are very
+> similar, with the difference being OPT4041 having two channels, one
+> visible and one wide band channel ranging from 380nm to 1000nm.
+> 
+> The register map is almost the same. OPT4001 has registers to read out
+> the last four values sampled. OPT4041 maps to the same registers, but
+> has two channels, saving the last two samples for each channel.
 
-I think that this will be the best plan.
+...
 
-Best regards
+> Assisted-by: LLM
+
+Drop this.
+
+...
+
+>  	help
+>  	  If you say Y or M here, you get support for Texas Instruments
+> -	  OPT4001 Ambient Light Sensor.
+> +	  OPT4001 and OPT4041 Ambient Light Sensors.
+
+We in IIO established kinda a style for this to be scalable, id est list them
+one-per-line:
+
+	  If you say Y or M here, you get support for Texas Instruments
+	  Ambient Light Sensors:
+	  - OPT4001 (...can add some short useful detail here...)
+	  - OPT4041 (...can add some short useful detail here...)
+
+>  	  If built as a dynamically linked module, it will be called
+>  	  opt4001.
+
+Perhaps also consider changing summary text at tristate to make it like
+"...OPT4001 and compatible".
+
+...
+
+> - * Device driver for the Texas Instruments OPT4001.
+> + * Device driver for the Texas Instruments OPT4001 and OPT4041.
+
+Make this and MODULE_DESCRIPTION() to be the same as summary in the Kconfig,
+see above.
+
+>   */
+
+...
+
+> +static const struct iio_chan_spec opt4041_channels[] = {
+> +	{
+> +		.type = IIO_LIGHT,
+> +		.address = OPT4001_LIGHT1_MSB,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
+> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
+
+Trailing comma.
+
+> +	},
+> +	{
+> +		.type = IIO_INTENSITY,
+> +		.modified = 1,
+> +		.channel2 = IIO_MOD_LIGHT_BOTH,
+> +		.address = OPT4041_LIGHT2_MSB,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
+
+Ditto.
+
+> +	},
+> +};
+
+...
+
+> +static const struct opt4001_chip_info opt4041_sot_5x3_info = {
+> +	.mul = 5850,
+> +	.div = 10000000,
+
+Just sent a patch to move this to use struct s32_fract, I believe you may
+incorporate it into your series as a precursor).
+
+> +	.name = "opt4041-sot-5x3",
+> +	.channels = opt4041_channels,
+> +	.num_channels = ARRAY_SIZE(opt4041_channels),
+> +	.device_id = OPT4041_DEVICE_ID_VAL,
+> +};
+
+...
+
+> +MODULE_DESCRIPTION("Texas Instruments opt4001 and opt4041 ambient light sensor driver");
+
+See above.
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+With Best Regards,
+Andy Shevchenko
+
 
