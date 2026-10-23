@@ -1,104 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792754800;
-	b=OycLN1G0qhiaG3QIabdmZWgP+eLNq+t3BCf54RRGEYk2hwxpdipqLo4wcvDV8zv5sYqs
-	 8G+ssqt2/xZ5nVc+mzqqQr4/8hmkk3j2q5HJB7nGEYX6VlJ6J+ZU4IZ/Om4TkREwCEKEz
-	 GabFCPXXhZwSaLDRfTpUIRGFtpN+4/gis5TZYoPUPhRkyKcW2zzPjCv/JyI+FFMAn6zuJ
-	 KwJF76Udf+n5Xcsrgx+4D+GQcM9aSVAwGJS75mTBTYJEA+iyPlesarJ+o+d7FwpoYxx9w
-	 x3Ed16NmslAkb8Zz9PYgjbd9CjqoGC8YvQfX+GtKjsyPhWrVQjm8X56RepHKDJ58o4A==
+	t=1792755012;
+	b=C3DJgJQjmozHPQvEwT6VMlTQzfRIcYiXibU90Io2/+/j4uVz9D/S5Quvqjv/n+iA6Svi
+	 mm9n0X81jtQL0F5h8/OwfLlWB3hruBmdXD9/w7svtv3H6BvlVVizWnplEXbjifS8wMjpn
+	 JUu9wc2X2NsV8i3bXa7RtWob5cHCmLidwMh6YFyY+4OM8w1xNa5chImGlvUddu4Fqb0eE
+	 BjF5FZlAOxjl1olRYq1O20l44786CxRNc+19fIOfq20cAryrsZK4HDHZU+nmUCaoBHGI9
+	 RjNrc/i19TsvhIt7u6q9aGttIlyFqQisMSkqYpwt1gjhIqyVmd0YrTc6Oxy6mS+l2BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792754800;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
-	b=QZlYYq4oDp2lhXX0BRKEb55AOJ+CaLHtYeuJFaOXV7NhpdvqzEpchF0Cr0isR6FIxWlW
-	 nCb6LrFTGW/wGcniUI04aSG6+x7A25kuMO3f6wRk0hQX4qx8SLEC8vzYtsO9yqnLU/bpQ
-	 pRrPXcSGYZ5Yzp2afn8znsK1UYV255D8V6m6WrcZTiNRSN4EnUliIq9wADyaOFVny520N
-	 UXXx9UORac2mFS4z0lFAw2j/2o5BsQE7J9j+4fssAZ8R5UufEKKZzGlBcYST0yIRYYW7P
-	 v2WAnlD+dYHY1BMxMfetxWAT7vS+lHs4yZEpk8FoLVXDMA0m4B0wM2whqmbRNlyljnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792755012;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=gsV34wZjjPHH5fmjILCV1sdq4uiuzxSrBS+pzlxLSrA=;
+	b=HBUngVDC271VyDn+azLfTOrwQlXrKQU5QpbSotNZUmjpaQD9CSyreZWn3Ics5FGW4hEq
+	 41odZ9DfNjQkbRaau80YKB90fcCv/SZLxhe2Gcnb7QaLt/AmQpg89PCUded8PjPi/GZp9
+	 SEOpReoI7HQXxNWVpJH9TgQBOxSGbWAZK5M3yRLvW7lBp72tb9RmEDzog32g+/7g0ScZv
+	 RIJTAk1ZlU4qjEmwVizMpasL4Cb4xgcElhGwMgt4QXM73WJ3Xfn5QO1vJ5jX5DRZ3S27I
+	 5mO7AMUPYxLQccv59pDv1WZ5mDS4lW1F80XuqQUngg9xF3pu9Z+OzEsugB7+Buqm8pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mK+AvKTT;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E442E606A31A;
-	Fri, 23 Oct 2026 11:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E442E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11735606A31E;
+	Fri, 23 Oct 2026 11:30:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11735606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9EB9A1F785;
-	Fri, 23 Oct 2026 11:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792754797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
-	b=g09d70JUhHy1R/ylgiL3xD+c9XkLyM5XAWeqxDoj1gStW+S5GjCU8Q5KFfjYlrfxNKPEgk
-	uFs1oDSwW1WGkxDxQ8GboLF6dbApD8iC6gcM5PEME2N3dV2o2Jnww/orlLuYxb961M/okl
-	FLeIz44ht8n6Vxw103z7dyG66eZSNt0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792754797;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
-	b=vEPP7UqYltxaqK7Xukyvllo+6SuslGec4MxGptvGWpg6yC0jhGmCBCf0yEKiFBpEpYCHiS
-	O7X0CFUDlZ3kPKAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=g09d70JU;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vEPP7UqY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792754797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
-	b=g09d70JUhHy1R/ylgiL3xD+c9XkLyM5XAWeqxDoj1gStW+S5GjCU8Q5KFfjYlrfxNKPEgk
-	uFs1oDSwW1WGkxDxQ8GboLF6dbApD8iC6gcM5PEME2N3dV2o2Jnww/orlLuYxb961M/okl
-	FLeIz44ht8n6Vxw103z7dyG66eZSNt0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792754797;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
-	b=vEPP7UqYltxaqK7Xukyvllo+6SuslGec4MxGptvGWpg6yC0jhGmCBCf0yEKiFBpEpYCHiS
-	O7X0CFUDlZ3kPKAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D68AF133F6;
-	Fri, 23 Oct 2026 11:26:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2mW1KmxE22r7RQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 23 Oct 2026 11:26:36 +0000
-Message-ID: <645c1c2b-9aa8-44b4-8a67-dcd7bfbe8fbd@suse.de>
-Date: Fri, 23 Oct 2026 13:26:36 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mK+AvKTT
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 559171A12F4;
+	Fri, 23 Oct 2026 11:30:07 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2117060398;
+	Fri, 23 Oct 2026 11:30:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 01F2810329015;
+	Fri, 23 Oct 2026 13:29:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792755001; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gsV34wZjjPHH5fmjILCV1sdq4uiuzxSrBS+pzlxLSrA=;
+	b=mK+AvKTTCcjfbF3y4U8ovV7fEnf5ttI761VM6A+bbggOpVZ+tuzcvRG/SteWwg0lhTex5F
+	zPhjOcqT8c9X+Sa3Pc6XugQO/FwID9wIADniFOJZHUuq0WY5akXyOIj8tYH2APN+PvuQu6
+	X36H5Goh67/CWHlC6QXXObrF15ksTvyvZKCU1AVDLSyEbu2NJhkdeM29W5YWgPUrYmYFU/
+	QooYL8y3Ci3b6bOqIOsF29ieBjCzV4fUTVh3Cv2qVHQ8d1FFq0ye0n1dN0UOh+UFQ9ONvF
+	FiSy4iuE0+4bnMaP1xfqSY+y8loefBm7oIZJqdrk6L4HLmGVrf9rDXAyZPvKfA==
+Date: Fri, 23 Oct 2026 13:29:49 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 07/74] Add support for FDT_PROPDATA_PHANDLE dtb
+ tag
+Message-ID: <20261023132949.4fc3072b@bootlin.com>
+In-Reply-To: <atq3H0Ts4wTBTVCV@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-8-herve.codina@bootlin.com>
+	<atgtw8QubzVfWMYP@gractus.seuss>
+	<20261021192615.1f5b91ff@bootlin.com>
+	<atl8nkrGFvhWRqDr@gractus.seuss>
+	<20261022114741.31171b04@bootlin.com>
+	<atq3H0Ts4wTBTVCV@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,337 +85,210 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/13] drm: client: add splash client
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-4-maximpedraza@gmail.com>
- <fafa7327-e624-49f2-98b2-83fd602a0ad7@suse.de>
- <20261021005006.2341200-2-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261021005006.2341200-2-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lwn.net,valla.it,amd.com,redhat.com,ravnborg.org,linaro.org,linuxfoundation.org,infradead.org,lists.freedesktop.org,vger.kernel.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 9EB9A1F785
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi
+Hi David,
 
-Am 21.10.26 um 02:50 schrieb Màxim Pedraza Padilla:
-> Hi Thomas,
->
-> Thanks a lot for the thorough review. I was preparing v6 when it came
-> in; I will hold it back and work all of this in first. Answers below.
->
-> Am 20.10.26 um 12:28 schrieb Thomas Zimmermann:
->> This lengthy comment should be a list of per-revision changes, like this:
->>
->> v5:
->> - exit when firmware BMP is missing
->> - foo
->> - bla
->>
->> and so on. We keep these in the commit message right before the tags.
-> Will do.
->
->>> +	select DRM_CLIENT_LIB if DRM_CLIENT_SPLASH
->>>    	select DRM_CLIENT_LIB if DRM_CLIENT_LOG
->> Alphabetic order please
-> OK.
->
->>> +	  The color can be overridden through the drm_client_lib.splash_color
->>> +	  kernel command line parameter.
->> No extra module parameters please.
-> [...]
->
->> As I said, no module parameter for colors.  The color is something that
->> the SoC firmware vendor would know at build-time. There is no reason for
->> the user to modify this at runtime.
-> Sorry, I should have answered this the first time rather than keep
-> the parameter without a word. Let me explain why I would like to keep
-> the command line, for the colour and also for the parameters patch 12
-> adds, and you tell me whether it holds.
->
-> The build-time defaults cover what a product normally shows. The
-> parameters are for what is only known at boot: the bootloader finds an
-> update pending, a failed boot count or a recovery request, or reads the
-> product variant from an EEPROM, and wants the splash to say so, with
-> another logo or a red or amber background. Any bootloader can do that
-> by adding to the command line: a setenv in a U-Boot script, a recovery
-> entry in GRUB or systemd-boot. Changing the device tree instead needs
-> fdt support in the bootloader and knowledge of the node, and is not
-> possible at all when the device tree is signed along with the kernel
-> in a FIT image. On x86 with the BGRT there is no device tree, and the
-> command line is the only way.
+On Fri, 23 Oct 2026 12:23:58 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-I'd just like to say that these are not good uses of the splash screen.  
-They also move the goal from having a boot-up logo to 
-reporting/debugging boot-up problems.
+...
 
->
-> There is precedent for this kind of setting: video=...,rotate=,
-> fbcon=rotate: and fbcon=logo-pos: are all about how the boot screen
-> looks, and console= wins over stdout-path the way these win over the
-> device tree.
+> > > > > > -static struct data data_append_markers(struct data d, struct marker *m)
+> > > > > > +struct data data_append_markers(struct data d, struct marker *m)
+> > > > > >  {
+> > > > > >  	struct marker **mp = &d.markers;
+> > > > > >  
+> > > > > > @@ -288,6 +288,7 @@ struct marker *alloc_marker(unsigned int offset, enum markertype type,
+> > > > > >  	m->type = type;
+> > > > > >  	m->ref = ref;
+> > > > > >  	m->next = NULL;
+> > > > > > +	m->is_local = 0;      
+> > > > > 
+> > > > > Storing is_local in the marker doesn't make sense to me.  I think the
+> > > > > locality should be calculated only when we actually go to emit the dtb
+> > > > > - I believe we should be able to deduce it from m->ref.    
+> > > > 
+> > > > When we parse a dtb, we do not have any reference for local phandle, we have
+> > > > only the phandle value.    
+> > > 
+> > > Heh, right, I remarked on that further down.
+> > >   
+> > > > Later in build_dt_info(), complete_references() is called. This new function
+> > > > is introduced in patch 9 ("dtc: Complete REF_PHANDLE markers with ref strings
+> > > > and is_local flags"). It completes the reference either filling the ref field
+> > > > based on the phandle value for all local reference (parsing from a dtb) or
+> > > > setting is_local based on the reference (parsing from a dts).    
+> > > 
+> > > Ah, right having that logic in a different patch makes it harder to
+> > > follow.
+> > > 
+> > > What concerns me here is that currently we have an invariant that a
+> > > REF_PHANDLE marker always has a meaningful m->ref field - from as soon
+> > > as it's added to the property data.
+> > > 
+> > > This patch breaks that assumption, which means when looking at some
+> > > random part of the code it's hard to know whether we're in a state
+> > > where m->ref is valid or it might not me.
+> > > 
+> > > One approach is to minimise the gap where m->ref is invalid.  That's
+> > > both in terms of code path - at minimum the m->ref fields should be
+> > > valid by return from dt_from_*().  It's also in terms of not leaving
+> > > intermediate patches where this is not fixed up.
+> > > 
+> > > The other approach would be to create new marker types indicating
+> > > these intermediate states.  The markers are for dtc internal use, they
+> > > don't need to have 1 to 1 correspondance with things in either dtb or
+> > > source format.  
+> > 
+> > I don't want to introduce new markers for handling intermediate states.
+> > 
+> > I really prefer avoiding those kind of "fake" marker which will have
+> > a short lifetime and should not be seen by code (other than the code
+> > moving this intermediate state to the final state).
+> > 
+> > My strategy was to ensure that once build_dt_info() is called, all
+> > markers are fully correct with all field (is_local and ref) correctly
+> > set.
+> > 
+> > build_dt_info() is called by all parser at the end of the parsing
+> > operation to return a struct dt_info which is the dtc internal
+> > internal representation used by the rest of code.
+> > 
+> > Are you ok with this strategy?  
+> 
+> Having transitional states that don't last beyond build_dt_info() is
+> acceptable in principle, however:
+> 
+>   1) That leaves m->is_local and m->ref redudant after that point,
+>      which I don't like very much
 
-video= has its uses, but the others seem misguided. Rotation should be 
-auto-configured in some way; logo-pos shouldn't even be a thing IMHO.
+Ok I've looked deeper to remove the is_local field. It should be doable.
 
+complete_references(), probably renamed to fixup_references(), will still be
+needed and called from build_dt_info(). Indeed, all refs need to point to a
+valid string (path or label).
 
->
-> So my proposal for v6: the defaults are set at build time, as you ask
-> (the colour already is, and the BMP's file name becomes a Kconfig
-> string), and the parameters stay, only to override them for one boot.
-> If that is still a no, I will drop them all, patch 12 included.
+The idea removing is_local is to have the transitional state where ref can be NULL.
+(REF_PHANDLE created from FDT_PROPDATA_PHANDLE where no ref are available but just
+the phandle value).
 
-Please drop the parameters for now. If we want to give status messages 
-from boot loader to kernel, we should first evaluate how to do that 
-correctly. This involves people from the various supported 
-architectures. Once we have support for such a channel, we can try to 
-use it on any DRM client and build a shared solution.
+Those NULL ref, identifying a local phandle, will be updated by fixup_references()
+called from build_dt_info().
 
-I'm not against reporting boot-loader messages, but it seems to require 
-a lot more thought that what can be done here in this series.
+I plan also to remove the is_local field from export symbols structure. Indeed, the
+exact same problematic exist with export symbol and related to this 'is_local' topic
+REF_PHANDLE markers and export symbols have no reason to be handled in a different
+way.
+
+I plan to introduce an new function:
+    bool ref_is_local(struct dt_info *dti, const char *ref)
+in order to determine if a given reference is local or not.
+
+As you already stated, this will be needed to emit the correct tag in the output dtb.
+
+This function will walk the tree, no way to avoid that with a 'is_local' flag.
 
 
->
->> How could we find out about the bmp's file name? I assume it is just a
->> file in the initfs, which we have to know about?
-> It is requested with request_firmware_nowait(), so it is looked up like
-> any other firmware: built into the kernel with EXTRA_FIRMWARE, in the
-> initramfs, or under /lib/firmware once the root file system is there.
-> The name is fixed by whoever builds the image, so
->
->> In any case, this should again not be module parameter. Please make it
->> build-time configurable via Kconfig.
-> a Kconfig string fits it well for the default name; v6 will have it.
-> splash_bmp= would then only pick another file for one boot, such as
-> one of several images built in with EXTRA_FIRMWARE, as above.
->
->>> +} __packed;
->> These types are already in efifb.c can we move them into a header file.
->> include/video/bmp.h should work.
-> Yes, I'll add a patch that moves them there and makes efifb use the
-> header. The header keeps the __le types, as BMP is little endian
-> whatever the CPU, so efifb will read the fields through
-> get_unaligned_le*() like the splash does; no change on the little
-> endian systems EFI runs on. That patch touches fbdev, so it will go to
-> Helge and Peter as well.
+>   2) As of this patch specifically, that's not the case.  I don't want
+>      to have intermediate commits where this invariant is not
+>      preserved (it's bad for bisects).
+> 
+> > If yes, patches order in this series will be changed.
+> > 
+> > The current order is
+> >  - Patch 7: Add support for FDT_PROPDATA_PHANDLE dtb tag
+> >  - Patch 8: livetree: Improve get_node_by_phandle()
+> >  - Patch 9: dtc: Complete REF_PHANDLE markers with ref strings and is_local flags
+> > 
+> > With that order we have the incomplete marker state present after patch 7 and
+> > before patch 9.
+> > 
+> > Moving 'Add support for FDT_PROPDATA_PHANDLE dtb tag' after introducing the marker
+> > state completion will avoid the problem.
+> >  - Patch 7: livetree: Improve get_node_by_phandle()
+> >  - Patch 8: dtc: Complete REF_PHANDLE markers with ref strings and is_local flags
+> >  - Patch 9: Add support for FDT_PROPDATA_PHANDLE dtb tag
+> > 
+> > Patch 8 and 9 could be squashed if you prefer to have the completion added
+> > in the 'Add support for FDT_PROPDATA_PHANDLE dtb tag' patch.  
+> 
+> That sounds ok, though I think I'll have to look at the final result
+> to be sure.  I would prefer 8 & 9 be merged together for
+> reviewability.  That said, the libfdt parts of the changes could be
+> split out into an earlier patch than the dtc parts to keep the sizes
+> smaller.
 
-Makes sense.
+Ok, I will merge and extract libfdt related parts to a specific patch.
 
->
->>> +	*data = fw->data;
->>> +	*size = fw->size;
->> Why does this work?
->>
->> We no longer hold a lock on fw. If a concurrent thread calls
->> release_firmware() on splash->fw, data and size might become invalid.
-> The only release_firmware() on splash->fw is in
-> drm_splash_image_cleanup(), which runs in the render thread itself
-> once it has drawn, and at unregister after the thread has been
-> stopped. The firmware callback stores the firmware under fw_lock, or
-> releases it itself if the thread is already done, and never touches it
-> again. So nobody can release it while the thread reads from it; the
-> lock is only there for the hand-over from the callback. I'll put that
-> in a comment, since it is not obvious from the code.
+> 
+> > > It seems to me there's an important difference between the -Idts and
+> > > -Idtb cases: in the dts case, we have a valid reference, but the
+> > > phandle needs to be filled in later; in the dtb case, we have a valid
+> > > phandle, but the reference needs to be filled in later.  Using
+> > > different marker types for those cases doesn't seem unreasonable for
+> > > me.  In fact, for clarity it might even make sense to have a third
+> > > variant for "both phandle and m->ref are valid" - the fixup code
+> > > between input and output would convert either of the first two
+> > > variants into the third, which is what the final output code would
+> > > require.
+> > > 
+> > > That's not necessarily the best way to do it, but I really prefer
+> > > where what's valid in a structure can be determined from the type and
+> > > contents alone - rather than having to know where you are in a complex
+> > > code path to know what's valid.  
+> > 
+> > Performing marker completion in build_dt_info() avoid additional markers
+> > and avoid also incomplete markers in the code path.
+> > 
+> > Before build_dt_info() call, the internal devicetree representation doesn't
+> > exits for dtc. We are in the process of parsing and so we are building this
+> > internal representation. After this call, the internal representation exists
+> > and all markers are fully set without the need to introduce (and handle)
+> > additional markers.
+> > 
+> > In other word, dti returned by all dt_from_*() functions returns a fully
+> > complete dt_info.
+> > --- 8< ---
+> > 	if (streq(inform, "dts"))
+> > 		dti = dt_from_source(arg);
+> > 	else if (streq(inform, "fs"))
+> > 		dti = dt_from_fs(arg);
+> > 	else if(streq(inform, "dtb"))
+> > 		dti = dt_from_blob(arg);
+> > 	else
+> > 		die("Unknown input format \"%s\"\n", inform);
+> > --- 8< ---
+> > 
+> > User of this dti will never see an incomplete marker.  
+> 
+> Ok, that works.
 
-Thanks.
+Fine.
 
->
->>> +	drm_info(client->dev, "splash: request %s as firmware", splash_bmp);
->> drm_dbg() here. drm_info() is log spam.
-> OK, here and in the other places you pointed out.
->
->>> +	int i;
->> format_count is an unsigned int. i should lik
-> OK.
+...
 
+> > 
+> > What do you thing about:
+> > --- 8< ---
+> > 	/**
+> > 	 * fdt_next_tag - get next tag in the device tree
+> > 	...
+> > 	* returns:
+> >  	*	The tag type, either a known tag or an unknown structured tag
+> > 	*       if this unknown tag can be skipped (SAFE_SKIP bit set in this
+> > 	*       tag).
+> > 	*	In case of error, FDT_END is returned with @nextoffset set to
+> > 	*	a negative error code.
+> >  	*/
+> > --- 8< ---  
+> 
+> I don't think the extra detail really helps much - just "The tag
+> type." would be fine, I think.
 
-Oh, I just noticed that my comment got truncated. I meant to that "i 
-should likely by unsigned int as well".
+Ok on my side, I will remove the detail.
 
-
->
->> Values like px_width are deprecated because they don't work in the
->> general case.  Rather pass the format as drm_format_into and do the
->> px_width lookup within the drm_splash_fill().
-> OK.
-
-At some point I'd like to have a nice, shared drawing interface that all 
-the clients can use easily.
-
-
->
->>> +			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
->> Please build scolor from the individual entries in the color table. This
->> type casting is fragile. It also only works on little endian with
->> unaligned loads AFAIU.
-> Agreed. It also read one byte past the end of the image on the last
-> pixel. v6 already reads each pixel with get_unaligned_le24(), which
-> builds it from the three bytes, in this patch rather than in a later
-> one as in v5.
->
->>> +	bmp_width = (s32)get_unaligned_le32(&dib_header->width);
->>> +	bmp_height = (s32)get_unaligned_le32(&dib_header->height);
->> Why not make these variables unsigned?
-> [...]
->
->>> +	bmp_invert_y = (bmp_height > 0);
->>> +	bmp_height = abs(bmp_height);
->> That's the answer to my question above, i guess?   But what about bmp_width?
-> Yes. Both are signed in the BMP header, as in efifb's struct
-> bmp_dib_header. A negative width has no meaning, and keeping it signed
-> lets the format check reject it as such (bmp_width <= 0) rather than
-> see a huge width that only the size checks further down would stop.
-> I can read the width as unsigned and check it against S32_MAX instead
-> if you prefer.
-
-It's ok.
-
->
->>> +		 * On x86 some firmwares use a low non native resolution for
->> 'Some firmware on x86 uses a non-native resolution for'
->>
->>> +		 * the display when they have shown some text messages. While
->> 'the display if it has shown some text messages.'
-> OK, thanks.
->
->> The entire if-else block below should be a function drm_splash_blit().
->> Please also see my comment on using px_width.
-> OK. Together with your comment on patch 9, the blit will become a
-> function from this patch on.
->
->> The client receives a hotplug whenever the attached display changes.
->> Returning here would likely break anything after the initial one.
->>
->> Best is to kill the rendering thread, rebuild the list of modesets and
->> reinit.
-> Right, today an output plugged in later stays dark, and a restore puts
-> back the modesets of the first hotplug. v6 will rebuild on every
-> hotplug, keeping the image around so that an output plugged in later
-> gets it too.
-
-It's probably ok to address things in small steps. DRM's common client 
-interfaces could be easier to use and getting it all right is fairly 
-complicated, I think.
-
-Best regards
-Thomas
-
-
->
->> Why does it use a rendering threat?  Wouldn't it be much easier to
->> schedule a worker?  You can also try to put it on the power-efficient
->> work queue.
-> The thread mostly waits: for the BMP firmware and for the next
-> redraw. A work item queued from the hotplug and from the firmware
-> callback covers both, and makes the start and stop paths simpler,
-> which is where v3 had its use-after-frees. I'll move it to
-> system_power_efficient_wq.
->
->> I don't think this is right. (?) If there's no fb, the restore should
->> disable the display. Just run the commit below.
-> Fair enough. The early return was there because committing modesets
-> that still had a mode but no framebuffer failed with -EINVAL and a
-> WARN. v6 already clears the mode of an output that gets no buffer;
-> I'll do the same when the buffers are freed, drop the early return,
-> and let the commit turn the outputs off.
->
->>> +	mutex_destroy(&splash->hotplug_lock);
->> This line belongs into drm_splash_client_unregister(). The free callback
->> is only for free-ing the client instance.
-> OK.
->
->>> +	drm_dbg(dev, "Unregistered with drm splash");
->> 'free', not 'unregister'
-> OK.
->
-> Best regards,
-> Màxim
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Best regards,
+Hervé
