@@ -1,99 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792723956;
-	b=j+Y42I7L57CyEGIZWjp4k1hJkClSY9V1Ks9eajrce4oSt6+uJ/7rFTmR5GyQ57DBDYqT
-	 DxxUj5omC5mSh5dVqyWRTxD4sH1Nbe1CpDPajbIOJ1Wjt6xvdYLb/O+tuBO7oYJCFummX
-	 Iv9nB+4aq9ABpQHPfl3G1ViBtLJEg7Iuxe7T6N4XZ04GdTezrW/BuKb87IrtifwUPG/SU
-	 LzaGVT/K+GNLywXx7PvYsP39M0ohu50LxZvk3L87WLDOjEatbNYupabI9FugHqL6SO4zr
-	 6/+OkKnq7AYenkspkMny9aSXwrjm47ug96wHYJaOqbZtmjZcSGjSGnwrLrAqoKKiD7g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792723956;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=k4M9SaJ6va8907S76gCqsEg9iV2BTKmady+b36zuCLc=;
-	b=fDNVIdwaXvsOgdf1hcC5eN+nKtNC8wkzQvD6mt7uIRR9P0C1JYtmKep9stR/apJo2O69
-	 Tdaqq/GXkOmai+3csqtmOKhAqj8+NmCmUdHoVJrA3tknjnwgd5YM3o+8WEr3qqJDuyPRW
-	 QlewZhS99RClARHO0LBFA3sWJ8TqtqnzvlIAY276j+qIguV+devxRx3lRgOY8HXVMm4fs
-	 HSUOoKcyvTrNB1M+JLE6pekpFdB2fQu1BUE0IBsCtHbimFvt9VzqzBd/enQV5whENbQIA
-	 JcsmESwHXemN98c/fxapOYqz9vHpaS0dTufq3Xte9MVfpv5mwA/tLdLXqmK1njxHtGA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=s+HuyudV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.51
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012051.outbound.protection.outlook.com [52.101.66.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792724293;
+	b=pfWaP0vXx+M0dvUaQMhXS/UYC4qey8PldE5+7VKgFTVabBF9045QKa5nKs0niwwPU7lo
+	 ZO97Np/Z4f97JA5Uo09aXkjZxMrzduG10EBCeiNGsMrG3IfwoLosr5slRZm468Md7iNUF
+	 eSlkc6kT6XYs+7OEnsVce94jGGkWq7YJgP4+iyJnf9yYSinFp4O0IdVGR3Ct67PkSudZB
+	 06g6iVZSeO8Tjm72bhBrjJh15jbbGiQDwIrcNOXxXQbFDdlQphGr5Q9hnjgZBmmcVJF7T
+	 vj5VfFFx2EGR4ux0CySi6/Ljg7wWULuCwyLg/AV1HrtA0mIinFUPJrIhL3U5UXFk5Mg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792724293;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=+4ilAPqKfmGCY4wgVLUJIUqUzyw4JAXXVfBhLy0lRDw=;
+	b=h43mK0/OdzaqbjPztFuJvv9jrBFCET/gjXRahMO0aL920o4Ns2j+2V90/ck6kg54bFMi
+	 9cECTMZ3agSGjWxq5eUQSxU+UkoFohyFqpXRYdUWxWKX7BsCsF/Ok99f4a7GH5d2qVHwz
+	 UtTu2HJiOIpQMBWhQMLsVaat6HHH7m8vlIqd9ftrkC5kk80FY6C1xLSi/A6W8g7NDzmgl
+	 l3ueHHUyWbfXTOQm/ixTzQbyggDKBhPJN8VF4Pa+D4lWNsob5nGgYtr69hZU9TuG7E8VF
+	 jYYayVdTnUh8EfxA73tS9sMKogdy1+C2f6f9WTeAnvGfOaKhPnc4oCrGdFEYjdeoW6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=coJYAhd5;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3D1606A319;
-	Fri, 23 Oct 2026 02:52:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E3D1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1928E606A319;
+	Fri, 23 Oct 2026 02:58:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1928E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=s+HuyudV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cxr5nnZx4QNZDR5htIUza26oqTMHh3qyt8MCCkZMCQJLp5Ehp+kX4zlkXLoew/e5KgtxdjLz+UO0v3f74++Onx5YSeNpb53/ty/PMmXdhRf8twHR682VRg33exRJvnPqVp8w8clghkc4feA8AxdI7NkL0vHApaMCGzjkxU2W9uV3utu/46ckb0sPcuvQ33aWLkEZKDkPlaxeyar80S1iPrXuhEwNGCCMRrhOdK7APA3AB9Vzqm6M8Knk5LJX/YGdHUMJnp7ejFOFOWqMcQDwNI7uXKoldnNMQjcPlJxBvpH8L6U07ywUtfHJP5+DD7srsK5snHavKCcczHF8pjkcbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k4M9SaJ6va8907S76gCqsEg9iV2BTKmady+b36zuCLc=;
- b=xTLbgPsnie7foBBzg88JyLVdUd6uAgp2I9K/bpMCic7GCpxqB/18HkuvbJEvBPDTC4P/LWsuwXiX7KIFdmRn61vU6gwattGbLsRy9yo8q/Iwf/fOfkT+HAGl/PM4DoXcMLMD65EFrhIzofoeQV9OCq5KpmI15osZxwtvinRf7rDiPC3SsoGaurQRAh3I1wtPmAszR5m2fmbORHDvd1ud4HByJedD9LW9Qn0MHdE3aIblaY2SEdEx9+sT4PGRFa+ESUQUVUFAQBHJPULRddMLfUj625ckbVQgdnHVzGeh6qTMgr9CDXbcpUF1wW20mYEEI1ByjFjUrkPkxg8t7IqIGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k4M9SaJ6va8907S76gCqsEg9iV2BTKmady+b36zuCLc=;
- b=s+HuyudVlcFztsqp1Zb9Zy9DX7rmO4Ux0SwkW5hdjlG68wDc0DpfqtFBzDfjr9vGvoyijYmAZKuSllvCTdrX3W6PDLGQ830gnLvIt33OIEzLybvYLOMfW3G8khlt/jvoIAdbAm6Vgee3XHaO8NLr+BjX03cGy/0Byvneh/u491rHG7FhaBRKzI21JH4WyJZOWJl3D8j5ryjmeRrCNs8A6NRkOS2aa9Y1FAqX6oruyMh7QSHSYB7UWAxRuiW3ma14sga9qhbjRqLkXJRFp4nUEjlYAnejKdJ/otlkqw8SeTWWbZo5IJi7HWKbxFBTnPThiURh4G5XoMVrgRL2AxHsnQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by MI9PR04MB185402.eurprd04.prod.outlook.com (2603:10a6:290:bc::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Fri, 23 Oct
- 2026 02:52:33 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0546.016; Fri, 23 Oct 2026
- 02:52:33 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Fri, 23 Oct 2026 10:57:00 +0800
-Subject: [PATCH v2 2/2] Revert "arm64: dts: imx8qm-tqma8qm-mba8x: Disable
- Cortex-A72 cluster"
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-8qm-v2-2-a8812a888e3c@nxp.com>
-References: <20261023-8qm-v2-0-a8812a888e3c@nxp.com>
-In-Reply-To: <20261023-8qm-v2-0-a8812a888e3c@nxp.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux@ew.tq-group.com, Peng Fan <peng.fan@nxp.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: MA0PR01CA0007.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:80::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=coJYAhd5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792724288;
+	bh=+4ilAPqKfmGCY4wgVLUJIUqUzyw4JAXXVfBhLy0lRDw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=coJYAhd5b1zSuHF+g7cDj/wkIglV+wLB/Tiv2C4KV3bqSXIvYecoBcgi4wPceh+8s
+	 Rh9v14t3L3icErR0D6yXB/vqpMqEuhVYfMCpTBZoBdZ34M+lvIXgCT7sCcnRXxqTOF
+	 Dko72iQQSb6OHSQ33QEWWURwre1vsmT/6G/XbrW+EDWLsRSoNMGZKcEXWYcFCgXD1X
+	 hxmEUFBgqdvKnN1pFyYLyprD2GSDQWcOUwgBaD2i9WIZDezwPB88mTBzNMVN9I0Wvo
+	 kuIXTzxgRZ2pYTVPZX7vem1wnxEW0DVOxCfAczUzqzUl/KTK8v054+jh1BK3sA41lF
+	 zcMfbqqM4cedw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j9nl40Mfzz4wC8; Fri, 23 Oct 2026 13:58:08 +1100 (AEDT)
+Date: Fri, 23 Oct 2026 13:57:54 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <atrNI_hqwxvfsRj7@gractus.seuss>
+References: <arDMhoNNXcPi81sR@gractus.seuss>
+ <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+ <20261013190347.4f1d9b9d@bootlin.com>
+ <atGzdxETQZ9ovJFh@gractus.seuss>
+ <20261019151121.26d99f30@bootlin.com>
+ <atgi4rMsw5W6kKkS@gractus.seuss>
+ <20261021172043.4bbd2bc5@bootlin.com>
+ <atmASGg1OZt9jfXI@gractus.seuss>
+ <20261022151454.67125e41@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,180 +82,313 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|MI9PR04MB185402:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41d90afa-47bc-4170-d492-08df30b0af99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|376014|23010399003|1800799024|7416014|22082099003|18002099003|261022105027099003|261022075727099003|11063799006|261009223027099003|261021123027099003|10067099003|261021121427099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	9uEoWj7wR4C9o7FMGHsBUEEVsrbc+fEbmpB2ihQwwBItzwbW/jDELpcJL0M6VOspqRs9P6ne9dOzrAGeqrWyf8ENa0y5l7fktgMiYoTj8Bpa6jOy1EcdqoZryFOyCwIjbEaA3/uxjIICAbJhi6V0xJqSWmuYtNtBN6KJlJx9reJA5dmwAgCxNsKiO/Or95N2hqpfwuvJoPWb0SiLZmUdbo3f7XOVN/Qi/5EZFmrIFSVQpYPByMoY46EVxXG63jTrkasEyipHLpiFDm67AXL41S5AcKEgWa7ZOlSzScq5iUoTc655sNHTV2uRF54l4P5pgtaSH2ysX4uSEnXwmRx2WyFjB8+VJ5aRSY03aX9Iq9EvcZLB+Mr73uPszTA40gf4AJlxzqWYsS8TIUeLERAgzAPjFEaiPbfZaDeKxnMRWNGgzUVr6b3s+MpGt+NbwDxdDZdWCuOiDmfEW0Bh43I9tDEIH2eEW3qSIs4gK3c5sFdIP2M5HYlOgG+ASMo90I0X9foEZNKJWOkSC2FysIZegpLB7TXUFyd2CoRvY+2nRVZbHz/Bc8QtgnDot9xdLyWNLbX0nSKxXg7RfVyB+6zOEDeB5P9XhFCD9T3CXUIQhKheD3MsdKbbR0fbO6yvXcEolYqxcQyBNRMEbSZhjyvAVuwEWN7OQGEptlxu3q5hvTQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(23010399003)(1800799024)(7416014)(22082099003)(18002099003)(261022105027099003)(261022075727099003)(11063799006)(261009223027099003)(261021123027099003)(10067099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?azl1UVo3c2gxK0tpakJPR2VQMmVGaFNPYWpVaXpxVFM3UHB4NmRPYkZYWU5l?=
- =?utf-8?B?NXdUVFFxM25uOVRYVndWSEpCQ0hlQmxucXhOQWwxdnlDemMvcVU0SUN4Nk1D?=
- =?utf-8?B?ZllkMjkyMXlxR0NTcm1zdURxa1V5UWR1b1V3QzUxTGJock95RkFXYkZ3SndJ?=
- =?utf-8?B?VmhSUVhyZmlwTHZmVitMZlB6am9iL0k1c1JLUUorTDdaM3pvay9iUitvRHZO?=
- =?utf-8?B?MjlWOHRVVExzbUxSQzZpcGtzbjVncXdRZXF5T1ZLVVI4TGpxR21mTjJ3aEt2?=
- =?utf-8?B?RmtqWE5vMXhzSlFNalhWaTJIR1dTUHU0TmxiMmF4SSttK1hhNDlUYlh0SjIw?=
- =?utf-8?B?SktMaVNmcWErcWErYVJBY20rQjdsWTA2blNLMms0TkM2MjRiZkJVV1pOSTJP?=
- =?utf-8?B?S3pNRFpHYVpubDRQMlh4YjVRY2lJTjNNU21jdUFlU0JmdTRhQWJZRWJ4Y3Fh?=
- =?utf-8?B?M09USFBNQisweGR4NUJOdi8xZk4ydzd4MkFzY2ZHTkQ2VzVvbklvSjNxK2I4?=
- =?utf-8?B?WWFyWHhURUlkdkpLc0w5djg5QXJwbDNBZkZhWSsrTjB5akJrNk5qajZQbjda?=
- =?utf-8?B?QlEzWDR3aUYzVTNXZml3Q0RKcWVVOE9pZWp2YWFEWXdJcWwyWkM0Vnc0RFI5?=
- =?utf-8?B?M0hpWk0yazExU1QrK0RtbkgwRGN2cGFZYlIrTTE4eUltalEyYlAzc0VBaGpN?=
- =?utf-8?B?UGR0WVcxbnYxRHNrS0xqTTFlaXQ4Q1NOcjVTNzJscG9WWmZRNW9TenpJdms0?=
- =?utf-8?B?aU5vNERkYldhRTZhVkFhZ3pCZC9kN2xsay9HdzVVclM3aXVPQnVOeE5CU0lO?=
- =?utf-8?B?UU5oMzI4b3VLc2V6MFhUUGt3aCszYXRwSzlMZEFaSkRVK0ZTRTZhdlhFNVZw?=
- =?utf-8?B?dFVPV3VUUnpOMG5Ra0xIc1ZvQVg2dzZLY2ZmNFZzZzFuY3hBRnJBanpPQjQr?=
- =?utf-8?B?S0ZJOFI0aU5ucXdjdDhycnFSRitEZlU5bUllNEhpMmxQSjhZcC9BYWhZT0FR?=
- =?utf-8?B?a2I0UlJWL1IxNER5eHRNYkV5bXVKVDRjci9Jb3FhRjN0b3RUaW9nMmpyQzlW?=
- =?utf-8?B?cncyS0x6TkVwcHRGaEZURDF1SzV3ZWM2YUhUWDhuS21PdkxXV1ppZmRaQkdZ?=
- =?utf-8?B?STc5TGlKQ2FJdm9MZTVLQ09Ea1lYV1NkZDBQSVR2Yi9VcmpzOXFHSE5FaXda?=
- =?utf-8?B?bTBXZzZuQUVHeDNpNGlHSEU3SndCS1dmRkNaeGVhN2F5THBvMkl0U2wwcXl6?=
- =?utf-8?B?Ym9DWVY0WDZmQWNQTlRlQ0FqYUYreE1NZXF1VndHakZiWU1VeGlqeUdrZUMv?=
- =?utf-8?B?LzdJcHlPNVcweU82azZPZUQxUVJRc0FtS0l4RlFRdG5NTlY1UmI5dVQ3L3Fa?=
- =?utf-8?B?RENXSUZUQVlwR29LZWYxaFVhZC9nd0loSWRUaVhCM0dKL3ZPWlFPTlFnN1gw?=
- =?utf-8?B?OVZWVitnMm9NeTdQTWYrek9DZGJia3liK1RIWUNxMUxaWEQ4NXY5T2F5L3pB?=
- =?utf-8?B?aUd5dFBsY3lBWXhIaXdnTWxwVWR4MS9ZOEZtb0lMZndlS1B0dXlnc1J4ZW1p?=
- =?utf-8?B?S2R6MnZ4MnBZMUsyR0U2V3RMejl1MGhIemxTQ01neXVKMUUyU0lUREovSUt4?=
- =?utf-8?B?RjdrYldmb2NsQnF6SDNqdzUwZnFTSmFzbllCWHNkdGM4MHNNbjgvQ1dhZW5B?=
- =?utf-8?B?NzZHTWticUliKzZHL1ROOWpJYzdjYjJQRDRQOVVYNm00cWVWaWg2dVRXa1RH?=
- =?utf-8?B?b2VVMEdpcCtIRDlJVGh6NjU2K2Jhejd3Qzc0OVpsVGpiUEFlMUJzVVA1T1V5?=
- =?utf-8?B?dU40RVpiRXhRbWNtZ2hzb3RJSVJNNmtsVUNwelBGMDRzUmFWaEFZRVVyamxV?=
- =?utf-8?B?YlF1aUlTaEZwQ3o1QXRrWGIzT2VHSkVsQWJqTlEzaVFXdDhtUFhUamwyUTN4?=
- =?utf-8?B?WXN0UHB5b1VlZXcxVW5XR1NWS3NnUXdEUWUwdm1nWUFlZm5GT2MvQ1hpdDlM?=
- =?utf-8?B?R3N5YnJwQml5d2x5OUFrT2syTnBIRmhyNnBLSXR2akY5Q1NOT0o1M1M1c0tw?=
- =?utf-8?B?bnJTY2l5WlFoQVl5VUFuZTFJQTNscGRLT0w3VFF1WVVzUWV3S3JxMStnQWg1?=
- =?utf-8?B?TVJxTVNLL3daL01rYUhsOEZFTm5vUnk2VXpqTk9NTDFCUWx0TnZjN3FzTVBE?=
- =?utf-8?B?OE9pa1p4c1VPZXZRTHNieis0c0FuUDI1RHIvb0crTnZsT2N0U05KczdycmZk?=
- =?utf-8?B?WmtXbmE0WTNkWmM1SjFYQ29qTWNWdFIydjVXZTlPOCtLQjhMR09rcUlvaVg4?=
- =?utf-8?B?dWtXOUlxWUVLYmZzNnVaN08wKzBxUy9Ta29KaUhPNFdSWm91dFo0NC9oSldu?=
- =?utf-8?Q?vlPCMyQ1CHWtAheNAxLb5ehhDCNcR+5JUkeJy?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41d90afa-47bc-4170-d492-08df30b0af99
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 02:52:32.9784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7CW3U9s/fEsTC6K2R8dt55gFkHTj/AqVsnlRmx/pKyDkiG27rP1MDxHCZMgK61qnz6GGL9Idsue94crGObifqfmiMAlDPuGrhZRyUOnbtjShkIyMNxe2O+woNvd4PqNd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB185402
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yNci9GeEh9+GPubB"
+Content-Disposition: inline
+In-Reply-To: <20261022151454.67125e41@bootlin.com>
 
-From: Peng Fan <peng.fan@nxp.com>
+--yNci9GeEh9+GPubB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The ERR050104 cache coherency workaround for i.MX8QM/8QP has been
-merged upstream (d44e08dab27d). The workaround addresses the incorrect
-wiring of upper address bits in the A53 subsystem that corrupts TLBI
-and IC maintenance operations between A53 and A72 clusters.
+On Thu, Oct 22, 2026 at 03:14:54PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Thu, 22 Oct 2026 14:17:38 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:
+> > > Hi David,
+> > >=20
+> > > On Wed, 21 Oct 2026 13:26:49 +1100
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > >=20
+> > > > > Ok, my proposal seems to be a no-go and so I will follow your pro=
+posal given
+> > > > > above.   =20
+> > > >=20
+> > > > To be clear, I'm rejecting the original proposal because I think it=
+'s
+> > > > internally inconsistent (if you follow the consequences of decisions
+> > > > far enough).  I'm not necessarily opposed to something other than t=
+he
+> > > > above, as long as the rules for when unknown tags must be invalidat=
+ed
+> > > > (and what that does to the version) are made very clear in the
+> > > > structured tag spec.  e.g. see an alternative proposal below. =20
+> > >=20
+> > > No problem, I understand your point.
+> > >=20
+> > > ...
+> > >  =20
+> > > >=20
+> > > > Essentially the theory of the proposal above is to be maximally
+> > > > conservative: any write (adding, removing, changing, in-place,
+> > > > whatever) will invalidate all unknown tags and downgrade the versio=
+n.
+> > > >=20
+> > > >=20
+> > > > But, here's an alternative proposal for invalidation/version semant=
+ics
+> > > > that I think is consistent, while being a bit closer to your origin=
+al
+> > > > proposal.
+> > > >=20
+> > > > 1. version and last_comp_version retain their meanings.  No new hea=
+der
+> > > >    version. =20
+> > >=20
+> > > Ok
+> > >  =20
+> > > > 2. If version >=3D 18 the tree may include any structured tags, eve=
+n if
+> > > >    they weren't defined as of v18. =20
+> > >=20
+> > > Ok
+> > >  =20
+> > > > 3. Some future version might _require_ certain structured tags to be
+> > > >    present.  But a client must only rely on those tags if the versi=
+on
+> > > >    indicates it can.
+> > > >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+> > > >        reading a v19 tree _might_ see some FDT_FOO tags (because of
+> > > >        (2)), but cannot rely on them being present in all the places
+> > > >        they should be. =20
+> > >=20
+> > > Ok, kind of degraded mode. Whether or not a v20 compatible client can=
+ continue
+> > > or not will depend of each tags known by this v20 client. For some ta=
+gs, having
+> > > them removed will not be a problem whereas it will be a problem for s=
+ome other. =20
+> >=20
+> > Exactly.
+> >=20
+> > > Makes sense.
+> > >  =20
+> > > > 4. Any write to a property (including in place) invalidates all
+> > > >    unknown tags on that property (they must be stripped) =20
+> > >=20
+> > > Ok
+> > >  =20
+> > > > 5. Any write to a property invalidates all unknown tags on that
+> > > >    property's node =20
+> > >=20
+> > > Will see in the implementation. The offset of the written property wi=
+ll be
+> > > incorrect after the write. Indeed, some tags (tags related to the nod=
+e)
+> > > available before the property can be removed. With splices instead of
+> > > FDT_NOP, offsets change. =20
+> >=20
+> > Oh, good point, this rule doesn't work.  I think we still have a
+> > consistent set of rules if property writes don't invalidate parent
+> > node tags (subnode add/delete still would).  Of coutse, that does
+> > further restrict what sorts of information you could safely put in
+> > node tags under this scheme.
+> >=20
+> > > This also brings a question. Are API functions such as fdt_get_proper=
+ty_by_offset_w()
+> > > need to be deprecated? =20
+> >=20
+> > I think we can keep it - kind of like fdt_next_tag() this is a
+> > low-level function.  If you use it, you're opting in to having to deal
+> > with tag invalidation.
+> >=20
+> > > Those kind of functions return a pointer to the data of a property fo=
+r modification
+> > > by the caller. We don't know if the caller will modify or not the pro=
+perty.
+> > >=20
+> > > Without deprecated it we can change the function to
+> > > ---- 8< ----
+> > > struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+> > > 						  int offset,
+> > > 						  int *lenp)
+> > > {
+> > > 	int new_offset;
+> > >=20
+> > >         /*
+> > >          * The modification is goind to be done out of libfdt.
+> > >          * Unknown tags are removed (rules for modification when unkn=
+own tags
+> > >          * are involved) but also known tags. Indeed, we cannot know =
+if the
+> > >          * modification will have impacts on known tags
+> > >          */
+> > > 	new_offset =3D fdt_remove_all_tags_due_to_property_modification(fdt,=
+ offset);
+> > >=20
+> > > 	return (struct fdt_property *)(uintptr_t)
+> > > 		fdt_get_property_by_offset(fdt, new_offset, lenp);
+> > > }
+> > > ---- 8< ----
+> > >=20
+> > > The idea is to be conservative here also and consider that property d=
+ata retrieved
+> > > for writing will be modified by the caller.
+> > >=20
+> > > Also, the offset used as parameter of fdt_get_property_by_offset_w() =
+is no more
+> > > valid after the call.
+> > >=20
+> > > Last point to have in mind, getting the node offset from the property=
+ offset will
+> > > need to walk the tree from the beginning. It can be costly. =20
+> >=20
+> > Right, that's what I was thinking of when I said this might not be
+> > practical to implement.  It's doable in the common case where we alter
+> > properties by node offset + property name, but not when we use a
+> > property offset.  But the fact that this would change the offset of
+> > the property in queestion is a much bigger showstopper.
+> >=20
+> > > > 6. Adding or deleting a property on a node invalidates all unknown =
+tags
+> > > >    on the node =20
+> > >=20
+> > > Ok.
+> > >  =20
+> > > > 7. Adding or deleting a subnode invalidates all unknown tags on the
+> > > >    node =20
+> > >=20
+> > > Ok.
+> > >  =20
+> > > > 8. Whenever a tag is invalidated and stripped, the overall version
+> > > >    must be downgraded (to let clients know they can't count on tags
+> > > >    being present) =20
+> > >=20
+> > > Ok.
+> > >  =20
+> > > >=20
+> > > > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> > > > sure how feasible (6) is to implement. =20
+> > >=20
+> > > Well, this new proposal is more complex to implement than your first
+> > > proposal but it has a finer grain to handle unknown tags on modificat=
+ion. =20
+> >=20
+> > Certainly - that's why I proposed the other one first :).
+> >=20
+> > > I can try to implement something based on this new proposal. =20
+> >=20
+> > To be clear, I kind of prefer my first proposal still.  The question
+> > is whether what the updated scheme buys (preserving more tags when a
+> > bootloader makes minor writes) worth the added complexity of
+> > implementation.  You're better placed to answer that question than I
+> > am.
+>=20
+> I would like to avoid bootloaders being blocking points and so:
+>  a) They should not failed if they encounter an unknown skippable tag.
+>     We are in sync on this point.
+>=20
+>  b) They should preserve tags as much as possible.
+>     The goal is to allow following software components (probably the Kern=
+el)
+>     to handle new tags.
+>     This is the point where the right balance has be found.
 
-With the software workaround in place, the DT-level workaround applied
-by commit 5d20f1ccb339 ("arm64: dts: imx8qm-tqma8qm-mba8x: Disable
-Cortex-A72 cluster") is no longer needed.
+Right.  I understand why these are both desirable.  However (b) is
+pretty tricky, because of the question of invalidation.  It
+necessarily involves a tradeoff between how much can be preserved
+versus what sorts of information future tags can carry.
 
-This reverts commit 5d20f1ccb339.
+> Your first proposal is maybe too much aggressive on b). That's why, even =
+it
+> is more complex to implement I would prefer your last proposal (taking in=
+to
+> account the property offset issue) which can be summarize with the follow=
+ing
+> table:
+>=20
+>                       | existing prop | existing node (1)   | Downgrade
+>                       | unknown tag   | unknown tag         | version (2)
+> ----------------------+---------------+---------------------+-----------
+> Modify a property (5) |    Remove     | Keep (3) 	    | Yes
+> Add a property        |    NA         | Remove              | Yes
+> Delete a property     |    Remove     | Remove              | Yes (4)
+> Add a sub-node        |    NA         | Remove              | Yes
+> Delete a sub-node     |    NA         | Remove              | Yes
+> ----------------------+---------------+---------------------+-----------
 
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- .../boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts    | 39 ++++++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi  | 13 ++------
- 2 files changed, 42 insertions(+), 10 deletions(-)
+Great summary, thanks.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts
-index ab3b244b684fd..bf972010a88e7 100644
---- a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm-mba8x.dts
-@@ -298,6 +298,45 @@ map3 {
- 				};
- 			};
- 		};
-+
-+		cpu1-thermal {
-+			trips {
-+				soc_active1_0: trip-active0 {
-+					temperature = <40000>;
-+					hysteresis = <5000>;
-+					type = "active";
-+				};
-+
-+				soc_active1_1: trip-active1 {
-+					temperature = <48000>;
-+					hysteresis = <3000>;
-+					type = "active";
-+				};
-+
-+				soc_active1_2: trip-active2 {
-+					temperature = <60000>;
-+					hysteresis = <10000>;
-+					type = "active";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map1 {
-+					trip = <&soc_active1_0>;
-+					cooling-device = <&fan0 1 1>;
-+				};
-+
-+				map2 {
-+					trip = <&soc_active1_1>;
-+					cooling-device = <&fan0 2 2>;
-+				};
-+
-+				map3 {
-+					trip = <&soc_active1_2>;
-+					cooling-device = <&fan0 3 3>;
-+				};
-+			};
-+		};
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-index f0e398eb2aad7..d94605c999915 100644
---- a/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8qm-tqma8qm.dtsi
-@@ -15,13 +15,6 @@ / {
- 	model = "TQ-Systems i.MX8QM TQMa8QM";
- 	compatible = "tq,imx8qm-tqma8qm", "fsl,imx8qm";
- 
--	/* Due to missing workaround for ERR050104 */
--	cpus {
--		/delete-node/ cpu-map;
--		/delete-node/ cpu@100;
--		/delete-node/ cpu@101;
--	};
--
- 	memory@80000000 {
- 		device_type = "memory";
- 		/*
-@@ -181,8 +174,6 @@ &mu2_m0 {
- };
- 
- &thermal_zones {
--	/delete-node/ cpu1-thermal;
--
- 	pmic0-thermal {
- 		polling-delay-passive = <250>;
- 		polling-delay = <2000>;
-@@ -208,7 +199,9 @@ map0 {
- 					<&A53_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
- 					<&A53_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
- 					<&A53_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
--					<&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+					<&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A72_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A72_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
- 			};
- 		};
- 	};
+> (1) The existing node is the node were the property or sub-node involved
+>     are present. Not all nodes, not the parent node but the node directly
+>     impacted by the modification.
+>=20
+> (2) We downgrade the version only if tag are removed. If no unknown tags =
+are
+>     involved (and so not removed), the version will not be be downgraded.
 
--- 
-2.34.1
+Sadly, that doesn't work.  We have to downgrade on property
+modification for the same reason we must downgrade on adding a
+property: it might be adding data that requires certain tags in the
+later version.
 
+> (3) Removing unknown tags in the node when a property is modified will le=
+ad
+>     to the property offset change. Prefer avoid the property offset change
+>     and so keep node related unknown tags in that case.
+
+Right, if we did that it would basically mean totally (and
+incompatibly) redesigning the libfdt interface.
+
+> (4) The version is downgrade only if we remove some tags related to the
+>     node. If we remove only tags related to the property we delete, there
+>     is no reason to downgrade the version.
+
+Unlike (2), I'm not certain if this one is unsafe.  But I suspect it
+might be, and having it behave differently from case (2) seems
+confusing to me.
+
+> (5) All property modifications done outside libfdt using directly the
+>     property data pointer will not lead to any unknown tag removal.
+>    =20
+>     This point is for the usage of fdt_get_property_by_offset_w(),
+>     fdt_get_property_namelen_w(), fdt_get_property_w(),
+>     fdt_getprop_by_offset_w(), fdt_getprop_namelen_w(), fdt_getprop_w() a=
+nd
+>     maybe other similar functions where the property is returned writable
+>     for possible modification. 'modify a property' mentioned in the table
+>     is related to modification done using fdt_setprop_*() and fdt_appendp=
+rop_*()
+>     function families.
+
+Right.  "I know what I'm doing" is part of the implicit contract when
+using those functions.
+
+> On your side, is all of that conservative enough to be used when modifica=
+tion
+> involved unknown tags?
+
+Not quite, as noted, but we might be able to get it there.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--yNci9GeEh9+GPubB
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrazSMACgkQzQJF27ox
+2GcAQQ//aNM6LkeghEdsNQ8HNyWNjrPxBWEX6gjN8+rL66opIJrmSr/CWSYOalf0
+lIvwIBBMxWwRspSbyhZ8aDzjDeKVcAHJ6pYjkmnWcmbDAkqdrkZp78LM882rfnIB
+vFyXo3sTDdfgBFRA0Y/0Jix6iabQo7x8VXjrvwqZjz8OHWZOgPbqLKjfsP0XOXX4
+DtfxD++MC2h5qsW6J9ZRlF5+DZGD/GHGVmRF2AohYRws+Puv4YYFLCRqO8mtez+q
+f5axBT66UErIYwJTe54YPlvbfPGywhmlH9gYPolprYmNxEawFHogMi5f3/3CbE4V
+yWRAFsSJQyd1Gebw9UsZbOWoXoruHgBJjekcvmyDUDprrYIREyC1RoC4fGKu1ziW
+tYGmhVRcmkXuOWnWga4PccRmxQ+2/YSFV38Q/glyvgoU5DKj6t2JuB0cW6my75ES
+Fh2Vz2CczyDz0yu7r5xBnIkXEoo6fSGy9oczw9Fo+m0shrpZy3NAHVJnYEjFKRNF
+KejlYIhFOMBTNmv1gHYwA0k5ov4CEs6SOW1MeQENrKBHFzMKMIo4oT898yIMB+Dv
+nrvKGtEG1Kz6RWEAT2k50SmrXJapv9vC5HiDGLOTv1HZ/19ksWksCwxOZlC3Id9O
+oSYfuuOvY+xpC5qWVmUzFvXjZhx2uNfOR2jmQo6Ua1q+PdlcF3s=
+=lT8n
+-----END PGP SIGNATURE-----
+
+--yNci9GeEh9+GPubB--
