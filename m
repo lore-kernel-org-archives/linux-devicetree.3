@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743299;
-	b=mGi9DSD1P1y9Zv4xKNjUGW0xV/IY6HM7dV+UFcjTItRzIkLTfLYaZqbCE4PeAk2BKSOP
-	 d9a4g7M2wQWYxezZHVQLenvPgQrteeYQnhqITsO/38RlGFgq4HrZ9+Dk8frAbhD+SOjZz
-	 RxXvS53A+dsmbS8V+NO7El+943QF+E54hZBLYEY7FgPDymQJOIwPVAfXackvPfbLhWGZ+
-	 3FsyURjqxz4aF95ZsXH7BAA257NRl1iUoI8buqquPed2oRqHnVm+w/gJsiBJ+eVErvA92
-	 DLtBYcZOfeVgfbCCbZUgMAQC4eNhlkdIN0VsOulYZ/uyTX+FsVSu0phRpttn6ICy0Ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743299;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l1+EOpJTkMZjnurWRH+JMB8ND5CTfD6dguAYJAO8wsE=;
-	b=RsPYq/uepx5DHQiO2Pfdss6JCDrRxLvrXhGqUy49d+vDmT3S2z4wymEhg6/NAknGDdPD
-	 ZlfPidQ08x6g9GMt1eHoh2Pucb2ibUVZLv6F1Xhzmnlc9us/XgWQqO9yapW94TUd6hc7+
-	 MKVPc9mh+RM1dFdAOI4XSi/5NHkkrmFx1ozo6LfZDQGOCFwpAwGY0r2oWqGv86u/sV2LM
-	 PoXaqTbcXQv2y+/C7FLU6ZndWVi1X5txb+p08tNVlkDYT7MtIjmPxKgt88y1XH1ZwTEie
-	 UY7nrvG1SVBq9RgnxKZFIdYSChMGMIu8qRLOChvSxqeTDkSCQFKlOKu0o8E5dCvjSkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Sa7EGb1p;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792743682;
+	b=YsgV+6KjFV8xmrlhW1C1isQqKhjk4/Lf1V1D+c8YSX9MS00l3W6NSm2lZBH10D71gh67
+	 TNAkOKkh3gx5a5Qicb1PJP/45J1cn88DSt9IxDn1MszJfyCrM0S+CVZ1WN9o3/JLVJDQp
+	 t5lUv08VRim5UAaUQru5GPTw1PV+eUwNxqZvNXrjotkUK3mroccl8Z5Z753ehlwALtmHk
+	 bomU5yUzhJOC1w2CtxhiSORqSmNoLjSk+vs4LVPDAngCQmy0F+HvP8T3udllDbJYljZ3y
+	 1WzAfQSJzi3vDwChZ5Ql2UQITvkyt3AcryTvPR1qoaa0P5P9ZqqQv4PQkSa7kxse2mg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792743682;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	b=w16zx82pgudVUTzTXBqVxg6xJSnmksy3kGu0Hvg39+qMrgHtNK16d8cCoKySSFL/r12D
+	 MVogGAcuZF1VcpEdgCvCX9vXUCj6H+cW1JENusP/FAcGIRqhYUWflstcTp13c0V0J/VFM
+	 2DlvyT/8fYCBqQ4g81aUZnNLj6ys4YnqoJrdCZDwOliL1WXdc6nu5T63Zo/xpPnoL+G5S
+	 eN8oIsQm+oC2wJHCgM4He+7FMPe6tIqRHmaTAX9mYStY52RFxbsIXPbYGkbaE8RkYqfMZ
+	 bBrfxcJlHcDrHdncUsht/rEU32B7+3/1c1pHkFiIhcGcleY0QRJ2ykhlFOF61f7+WXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D8B606A321;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+6aFS12
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792743681;
+	b=ThYx9QsVXVA2VKk7D0EHSt7nAjUr0vkiF3s20A+KHMNfGsyL5hOkRUfNiJcC50JuQ+Xd
+	 fOCmdkU1sIWji1SL002LEPcLk+Vtu8rcg9KqeEwx5qPb/ujMHclACGUO8GziihqduZ+RV
+	 cww9PtQAxftNBvqJuCLYcCASO2BqI/5uh8rN4/MpneEhIG+CcfOMCc/jRYZxsIlIWIw8e
+	 v6VaGJU1X4AXgQWMv/xcUVq2Kl5H4bUzu6TNdktQWB1LiQ7WPQ5jjeHQEDDHO3BoAqjWH
+	 BFqO4pvu8pbTw+PpoypOdWzuU+DyD8ru9I4wLTxcMhQVX/yhXgt5DNgaaLRvLGVwQoQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792743681;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	b=m6sxvxUqCeLeFla+kwjCZ3HRXe50LLCh21M7B8rbar0FfETql6bgHxsbjDB9W3GikYsU
+	 tI5gw+XuZr9ylmyes1H6+Jn4C5F8ncCMtngDML0d0Mihecraq5ITCxuTNrVc6eBo8XfEP
+	 u4JW2Y/BtX0OK4DNmAIE98gfQOYkO5Vcaga7MuVUdjvIHkMriQCVjZQLvZMSMsLKrENl/
+	 6DcnnPHAU2PiqA//7mz6zc3EYF8SnHsFguN7BExCYG5UdRFfkP01uIuyi6Ypt5c9jA1YU
+	 Q+RhDrv0TmKLRqGSMum1SE7cK5LbsWpE90LUr4U3khHxlvQjPaZ9SpvCVFnsAW3fpxQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1DA606A33D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 08:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E1DA606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Sa7EGb1p
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so339405e9.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 01:14:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792743297; x=1793348097; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l1+EOpJTkMZjnurWRH+JMB8ND5CTfD6dguAYJAO8wsE=;
-        b=Sa7EGb1pNiHfHqcUKuJTdymG1efUzKow1AO3R8ySQ2fj+Q6s3C6Ibu4dV6ltyikpBW
-         Cf3tHJJHzRNGA6t1sf0hLQYuBwBZF61gp4LDm4rwS0hM4zGxfvugShDYtAXMtctnOJjB
-         /gYV6YNB7dgYWLz0g63mBhQPONRcm/cXyMROd3DSSM4zzODbJ/I/KZGxRJCy9MTzVeqB
-         lZnpLwSIU1yU/YZxzcuJ6NGjAg/zUQW4W6ECEpFj3X49Vf6829QDLB+1K7OaO9f46U2q
-         yTyUZa9vlmxj73Eii55mWNO3u/qH4MV7Be0N2qRrbb7YHCP5/kKjJcFOJKVV9/LNjJuj
-         HIBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792743297; x=1793348097;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l1+EOpJTkMZjnurWRH+JMB8ND5CTfD6dguAYJAO8wsE=;
-        b=htwQ+2vK1SHtJt206ElNZGtEYgAhAiiKuNxPNnGaWHw/8XUQQYOOO/w2JT+hMvvVAq
-         6uk33V90AaU6izGBo74ZQzWS0UrPTVLVFb975s1QEpLN+RXNh7Zkkv01jOOkCRYd5m54
-         XjN+j2et0kiiHQZGL3BTfp/nPD8qCJJoji6C9kZB1wFz3cjXtdR7R7Zy8a6E/ipxZ/F0
-         DXoSBiC2/uqni9Z0r14pnpjTvGMOjnvWfiy8e8C2LKb4IA52jDrYYo/C/PbHJ5fAKirx
-         UNwfLiEuMDyPswnLIHs/GGG6APVOzt9OTmlfD8qNt7L6XyRGhAuJ235J6N1NlFKN9nfj
-         wKzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEksFn7bquaK+U/Kp/i8GYBU8c9bSeEkk5h3RXzVpGepdxQ54TOjzuuCLidzOKO3bg+eH9WBShm8x8@vger.kernel.org
-X-Gm-Message-State: AFq9FYJw+lY9kc4pRTOmRGP9Vrql9LyE2cwQaA3qw7+wWf/D39Xps8oq
-	fOUEEI1c82NGlIN/N824FPX9ruAGfjjpwksJf5Zw4iTUioN390Bq9psezZCnD8X8liU=
-X-Gm-Gg: AYBFou0tS9+SKM91E4adrMKAScQrDv475JPth3LrMLoi5sFSjUxyzPAch9YXhYtZcbJ
-	yOVM+pbEn003g5aTw1wkbrwEWUXseKQuug0BtrQC6htnxOIC6HroCWPXyO69TAAtjCXL59FRRQz
-	KimdAKlCb0V7p90Bgd3d8YxY92Zsobl79ZgGQlWwyhRqtvKiqkiKVcFvtQBBT07QDgLD6zaDSED
-	demH+7TsmOY2UanWobB4uNnSYV9exEioa8vPCNMM5lmleum2kEk6u9z/5miqCWS6v3cNeSYlP+K
-	6O2pCiuSGtnaDr6ME9SJeoxd/QuISzXhM+kEMFVC+8coEWv0YzCadYS37lcowKvuhP7HPFCn4ta
-	njPwSwSnLTr1T8qgE2e+iNdt4Il82RNiKON0WsCanP1WkEpI1X7aeKxBQaxor5rqwAFVS33Zsc3
-	GiqHIi3G+gU7Jgec/mkEgtbzoud6ywyKh6OGZoh2UWd8RDw0SGEQEgYjz4NprEbEM0xhPVCp8P9
-	cHgq3TyZr4V3zy0pLAJwXAyphvBDBYEE49IV3yoNUlMO2rAVA0oznAGFV3TLCpMpr8vX6RoqMOm
-	dLz4J1tJYaKD
-X-Received: by 2002:a05:600c:81c8:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a211f0a72emr20850425e9.16.1792743296932;
-        Fri, 23 Oct 2026 01:14:56 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9c3:9990:6877:44a0:5297:9502])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21047b2absm55750745e9.13.2026.10.23.01.14.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 23 Oct 2026 01:14:56 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 2/2] ASoC: jz4740-i2s: Add support for the X1600
-Date: Fri, 23 Oct 2026 10:14:54 +0200
-Message-ID: <20261023081454.44350-2-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261023081454.44350-1-olivier@mgcrea.io>
-References: <20261023081454.44350-1-olivier@mgcrea.io>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2D7DF1F01828;
+	Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792743681;
+	bh=M3JE++dbaV8C5sXy1QFm4dJO2E5jczTPA8T3a7KBBrk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=N+6aFS12MLbAGWDmZpfF+/7NCFW8TKljJ3V1gd0/RAe3OsfQs+QsbaJNZe39dlltf
+	 ccXnCxI3cS7Lub6Zz03u+4u56C11agUXHr06/IzsVd56/JZ2PFCrfpVfmVZJqs/71l
+	 CHPgJNkpOT3MqyU5U1Vu6BHfBSfWjP+svlKanUY6MrbfGsYIj5JBf4J1WXfFalZXFi
+	 SCjnVV3K5BJw5MLkFlwjAVDLoZZ15FE77vV/WKg6ofA1Gvl3/f5e5SShqeJU63P3pw
+	 1sQDzekvp+g3WEWc8JPDPZKnzc8ukn2c6jVVHtupbO0XFHw+70F6wYBul70OEDZO40
+	 UBLviGcv+T4Gg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B80FA4441C;
+	Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH 0/2] drm/panel: Add Samsung AMS644VK04 panel
+Date: Fri, 23 Oct 2026 13:51:15 +0530
+Message-Id: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,114 +83,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs7ZJOzbE+CrGRYt/cbxU0kFiQ
+ nh3iiy/xTkzKYpA6dzMVDCJyidXuEND3T3kHkZu1cSWW2f5aIaQ8TLhra3309N6g3SKHNmDmal
+ mQ0GS3395ue7Wb3ygG7cPLcsKOeVzJXQAAAA=
+X-Change-ID: 20261023-panel-ams644vk04-ef8b2b24e222
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743679; l=1791;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=CmyaiwJWwoIMm1mdMGXzb84Z0m35G/pLGpSpkLPfqbk=;
+ b=tWJfdchfzzcMsz0ZZmLr/J/rhEsP7HlXepsJOewkxdR9nqjFRuWQScnNSu8dZNObkScA23PTQ
+ AjiVFN0U98sDzyZtaohbhJu7AvzvLqfvnWHRoTIyhZHbwRiHwjauXsP
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 
-The X1600's AIC is the X1000's, but its I2SDIV register holds the bit
-clock divider itself, not the divider minus one, and drops the lowest
-bit of what is written. The driver writes div - 1 and, from a 22.5792
-MHz clock, asks for 44.1 kHz with 7: the register keeps 6, and the
-stream plays at 58.8 kHz (measured on a HiBy R1 from the PCM hardware
-pointer: 44,100 expected, 58,700 observed).
+Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
+1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
+OnePlus Nord (SM7250).
 
-Add an X1600 entry that picks even dividers and writes them as they are.
+The driver describes only the 90 Hz mode for now; the panel also does
+60 Hz, which needs a way to pick the mode from the display pipeline that
+I did not want to invent here.
 
-Tested on a HiBy R1 (Ingenic X1600) with a CS43131 DAC, on v7.3: 44.1
-and 48 kHz now run at the right rate.
+One question for the reviewers: the DSC picture parameter set is the one
+the downstream driver sends (DCS 0x9e, 88 bytes). It differs from what
+drm_dsc_pps_payload_pack() computes for the same geometry, mainly
+first_line_bpg_offset (15 downstream, 12 from the helper) and the last
+rate control ranges. The msm DSI host fills the shared drm_dsc_config
+with the helper values, so the encoder and the panel decoder use
+different rate control parameters; the picture looks correct. If you
+prefer, I can switch to the helper PPS once I have tested that the panel
+accepts it.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Tested on a OnePlus Nord with the msm DSI host (a 7.3-rc7 based tree),
+including suspend and resume. The SoC devicetree nodes are not part of
+this series.
+
+Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- sound/soc/jz4740/jz4740-i2s.c | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
+Ishu Brar (2):
+      dt-bindings: display: panel: Add Samsung AMS644VK04
+      drm/panel: Add Samsung AMS644VK04 panel driver
 
-diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
-index d36bbc820618..097b5be1e22f 100644
---- a/sound/soc/jz4740/jz4740-i2s.c
-+++ b/sound/soc/jz4740/jz4740-i2s.c
-@@ -71,6 +71,11 @@ struct i2s_soc_info {
- 	struct reg_field field_i2sdiv_playback;
- 
- 	bool shared_fifo_flush;
-+	/*
-+	 * I2SDIV holds the bit clock divider itself rather than the divider
-+	 * minus one, and only keeps even values (X1600).
-+	 */
-+	bool i2sdiv_even;
- };
- 
- struct jz4740_i2s {
-@@ -218,16 +223,17 @@ static int jz4740_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- }
- 
- static int jz4740_i2s_get_i2sdiv(unsigned long mclk, unsigned long rate,
--				 unsigned long i2sdiv_max)
-+				 unsigned long i2sdiv_max, unsigned int step)
- {
- 	unsigned long div, rate1, rate2, err1, err2;
- 
- 	div = mclk / (64 * rate);
-+	div -= div % step;
- 	if (div == 0)
--		div = 1;
-+		div = step;
- 
- 	rate1 = mclk / (64 * div);
--	rate2 = mclk / (64 * (div + 1));
-+	rate2 = mclk / (64 * (div + step));
- 
- 	err1 = abs(rate1 - rate);
- 	err2 = abs(rate2 - rate);
-@@ -241,8 +247,8 @@ static int jz4740_i2s_get_i2sdiv(unsigned long mclk, unsigned long rate,
- 	 */
- 	if (div <= i2sdiv_max && err1 <= err2 && err1 < rate/20)
- 		return div;
--	if (div < i2sdiv_max && err2 < rate/20)
--		return div + 1;
-+	if (div + step <= i2sdiv_max && err2 < rate / 20)
-+		return div + step;
- 
- 	return -EINVAL;
- }
-@@ -305,13 +311,14 @@ static int jz4740_i2s_hw_params(struct snd_pcm_substream *substream,
- 	 */
- 	if (conf & (JZ_AIC_CONF_BIT_CLK_MASTER | JZ_AIC_CONF_SYNC_CLK_MASTER)) {
- 		div = jz4740_i2s_get_i2sdiv(clk_get_rate(i2s->clk_i2s),
--					    params_rate(params), i2sdiv_max);
-+					    params_rate(params), i2sdiv_max,
-+					    i2s->soc_info->i2sdiv_even ? 2 : 1);
- 		if (div < 0)
- 			return div;
- 	}
- 
- 	regmap_write(i2s->regmap, JZ_REG_AIC_CTRL, ctrl);
--	regmap_field_write(div_field, div - 1);
-+	regmap_field_write(div_field, i2s->soc_info->i2sdiv_even ? div : div - 1);
- 
- 	return 0;
- }
-@@ -382,6 +389,15 @@ static const struct i2s_soc_info x1000_i2s_soc_info = {
- 	.field_i2sdiv_playback	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
- };
- 
-+static const struct i2s_soc_info x1600_i2s_soc_info = {
-+	.dai = &jz4740_i2s_dai,
-+	.field_rx_fifo_thresh	= REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
-+	.field_tx_fifo_thresh	= REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
-+	.field_i2sdiv_capture	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
-+	.field_i2sdiv_playback	= REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
-+	.i2sdiv_even = true,
-+};
-+
- static struct snd_soc_dai_driver jz4770_i2s_dai = {
- 	.playback = {
- 		.channels_min = 1,
-@@ -493,6 +509,7 @@ static const struct of_device_id jz4740_of_matches[] = {
- 	{ .compatible = "ingenic,jz4770-i2s", .data = &jz4770_i2s_soc_info },
- 	{ .compatible = "ingenic,jz4780-i2s", .data = &jz4780_i2s_soc_info },
- 	{ .compatible = "ingenic,x1000-i2s", .data = &x1000_i2s_soc_info },
-+	{ .compatible = "ingenic,x1600-i2s", .data = &x1600_i2s_soc_info },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, jz4740_of_matches);
--- 
-2.39.5
+ .../bindings/display/panel/samsung,ams644vk04.yaml |  76 +++++
+ MAINTAINERS                                        |   7 +
+ drivers/gpu/drm/panel/Kconfig                      |  15 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-samsung-ams644vk04.c   | 373 +++++++++++++++++++++
+ 5 files changed, 472 insertions(+)
+---
+base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+change-id: 20261023-panel-ams644vk04-ef8b2b24e222
+
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
+
 
