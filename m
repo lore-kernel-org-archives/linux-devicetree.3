@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792749680;
-	b=zMVrW3zZjRwRwAxGOb1SEUMfuy54cb4YuHeCZ5G8qRZNwUlJD5zRTdwpJBSvx1IwI8Nh
-	 6fLwhWrzUTAdEziCaoB2FvQ6Z7mrHAJwKxaETQ6OVD/WnNJKHmxicPsB39NIdC/Yf+iHa
-	 PsWGG8iSkF9vmGMVsQTXskD6NxMGNW5mz7deK+00aePC9M7eqeU65DhuvoEorih4YIra9
-	 MiTD8RsqreCAAje5JfEwruGjXA+hrvAJpop7E8uDD6HvQc+eKz+QMkgB+AZsIGeBhyiXL
-	 xekVtvDzsR4eOJoPwIfqKz6LJBjPw0BZf6x6Z5jR5Y3QRltgL0FG2u5uqkSvqbEOBjg==
+	t=1792749717;
+	b=GnbxrLoBaJtxDmDKKlquBj3V+4iEzoIAzXUCnJj08MUVdbewbex6oS6qIh7p/A4ncAEX
+	 dHQqi2weq0AMULf4GKaT0tpjv3IUsu6317JMy3TxhF2BhrMiXl2tIxZpFSd4wcAbHUols
+	 29yrKuAjtbPhZarpAHDEzw/EfU2eFqlwYalH4UDrViCzHGF5il8qbJU0XW0pGgVV/0fGk
+	 GRPjAQRuEPn5XLCmbI05pdgEplLVF/yOmhI1Roz3cZ+2DgO8y2fQdU/O5CrUQbKhluOMy
+	 sfhtMSOmiaCd2om7lqZDzS/6+YjyyI7r79DSFtni5WaPBW8F3ZgidoVL/eHxwXxDbYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749680;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M0s3SFlMeOGNR0VjX2ZhF+zTIKdV5x/45iKV7UcMLG0=;
-	b=ghQrRIIiERJEWs7lOUaoS+NT4glnTJzwhk/pPk3CW6WXWpQ6ZYVIntTcSbrVCcu+oNRF
-	 4cDTILlsaV6GnbP8UDBRVVREGU2fUAim7IoP2x/4elU/KvNCNE+UxXSMV6hLSHtGdtD/L
-	 REKuJCIgWW/UzLSuIcVMEFKsS5lG61fasfZT1Q1Fg0hzcDWlHJWOUGQGC+3uJ9O0SOnDz
-	 NpupwRY0kTo7KffYOES9LGux7HBtIBPYZe45H29LqsCupZYp9wq3wD8t9l5tZpqa7mDmx
-	 Gi4JrqLcj8mpWxzo2PK274kOUR/4L3V2WXYmfNpj9QE8pKVdRJ07geyTy+nhpbi07dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749717;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=P3vkGi9yXh1Hfl4jyyTeq/iWmAsjHdgA8DwWS7cx5pw=;
+	b=Nb2ACQRnvf5xoO1uJ7IlnOSXLNgZuBXsz06CN5uvhG2I34jqfI43l7fSr4pfJbQNPkTF
+	 pSvdN7GTwNcOehmPA+rVV1wPPwLUYIHgzUCHYhd1VvP42hMITwvHWcUVDvQxPDVVRCYkz
+	 bBWeZQhNel8A7eISZ7g7Cff2yMz1S9SF5EZHnrgd64ruRAygZb4QArVJTryS8nRebUALs
+	 HqiSEugY33qKvw7pXybBA+h6ggJ9CVFijuwCdScPMx96cuA7jVThdkPjFUbouIMkRl7/7
+	 saz7R+TJglsvVHeTf1LRqJGdoz1I/9cwZYY9PlRRkIUVTNskvmav72FHfercIKLyzeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grimler.se;
-	spf=pass smtp.mailfrom=grimler.se;
-	dkim=pass header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo;
-	arc=none smtp.remote-ip=91.218.175.171
-Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Igw7C6kq;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NNHqmiiV;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E464606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E464606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=grimler.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grimler.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A59B606A325
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:01:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A59B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=grimler.se header.i=@grimler.se header.a=rsa-sha256 header.s=key1 header.b=l1z0FiUo
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Sl832lwWv9q0+uztm4xFM++41k7qXCoKfbSb4C6WYFM=;
- c=simple/simple; d=grimler.se;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792749675; v=1; x=1793354475;
- b=l1z0FiUo0EzYZ5/WiXjcU/n8db2gMYv3Qs5CzXmz7x4paclekKYJAoHmd7N4F4YdsfRr8B1d
- C+8jrLNs7HRHRWIIuKmawALtuA8BNR7m2CP731aCH6I5o1ILx0mUWcuzPLOLgA7Xw/sm7uL5RlO
- frNihZP4Fv0p8gCGuz2/Vhhg=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6fe652901f52c9d0;
-	Fri, 23 Oct 2026 10:01:15 +0000
-X-Mizu-Trace-ID: 6fe652901f52c9d0
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 23 Oct 2026 12:01:10 +0200
-From: Henrik Grimler <henrik@grimler.se>
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] ARM: dts: samsung: Add Hardkernel ODROID-U2
-Message-ID: <20261023100110.GA24541@localhost>
-References: <20261022055208.17746-1-pepe.schlehofer@gmail.com>
- <20261022055208.17746-3-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Igw7C6kq;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NNHqmiiV
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FMSJ1048165
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:01:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	P3vkGi9yXh1Hfl4jyyTeq/iWmAsjHdgA8DwWS7cx5pw=; b=Igw7C6kqP0xyItZm
+	Etw1IZcD9bspaQAgs5mNzvbWksWxoUXirU5ckGiAbJyL06M3wUp3nWO0H2nGNmdK
+	MqoTiMW9o//JWohy34gDd3RKG0pe1DVED+SObNrJqfJEHb2P4FyvJRnICftRIy1B
+	zLobDQOUljfcbiP26emQF55ZLkhR80LxqRnUHHriCMZ8Eo2QHduyttXKst4Ol4u+
+	wIxig2g3a1AoobXnuaAnC02Rz2bsV1ynYWZ3bNLj/wzeySdCPESnYNu+TcDOHr+k
+	MiX5BJ7pcExnDBASmo8wZ12tR5nAUkUGCcNSz0wvHtbgz7DcXRtUiRX2cxn/o8Vm
+	IN255Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmbk5ub-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 10:01:54 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso674359a91.1
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 03:01:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792749713; x=1793354513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P3vkGi9yXh1Hfl4jyyTeq/iWmAsjHdgA8DwWS7cx5pw=;
+        b=NNHqmiiVmf3wgjtSHKKeXeuFHJpTx6rhiFVmxYaxf9tj/Qi5sRC9J7SQBflAuh0T0k
+         yrRmAQy7PnIxmNZszfaCAECMGedSTbXo4aeZ5jWdrsInODWHPCd0YR6oqVP7iK7P6hhR
+         ArylA2jqnCSOcGFIWuoCYAf+M7QlWKJAbftRHRXUweIvzEzq4ItO5732bULCE4bLr9Er
+         9NWKJaX8p0AdPlsbzxuFaJVr9bDs22Ls8zld+syeA1gFbtDNIK5IKpmyXkua8e1Aoidv
+         dFzKYSBhk125sxn1DubJjcSiEFhZEnZ4fLiWi6wvtRNTQjGfDqSwBkBSvR7eW2rvnd8M
+         IBMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792749713; x=1793354513;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P3vkGi9yXh1Hfl4jyyTeq/iWmAsjHdgA8DwWS7cx5pw=;
+        b=ie0QSVXzza0j5rWrMAZYTVnqrNUSF0b5nw8PlPjFOChzF4y8+zX4lZK/DmDd6MwvBV
+         opqifrdPVQw/6sw/EIJZNahG6G7jl2x1AKhgDoKYf+r0tlMp/AcArVf1QmQezUq4UpAy
+         ighD70qZpIEb4s2ZI8LEtQz6o/Ktj21L00fUlw28/TY2JzzGynFx85VORPATI+DBecqa
+         bbkbSTYBqj1aXuzPBShLRS0zTJYZMTsn0S+SgEIi9Z/K1Uq1XXWBmwP7mdsXaE91vjLv
+         SZVNaydMoppq+QxTBcNkQJNMsDt0eqGH6hoASK3ggqJR/fssK0VWo29DzvHNdgQfmId9
+         rp9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzVMsQ5Wtklugoxef8dbUbTT8zjvKQlhJehBG8crtCAm04IBXmlt0dho6ggCadEMIECx7c2nBchEZg6@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJxQH7siofQsLJ+h3tjRjE2ZdKoKhJuOYayNZojt9BK+E4hY0N
+	1QG4Glsiie9Y32J7eLGPp9m2AzBOgmQFn4hffrP1Mnula0ogafooZ0JpNkfycSUp+TNWtYlrlMe
+	o+rzJ1cpyaLYpO5xAybQVJqBi7OlLN2RGn5Hhajn//XYf8hazLDBljzbGBR6UJIGw
+X-Gm-Gg: AYBFou1/GqTyybFmfdtB4y9d4h+tQsUm428wUHJRVaolYjbb1h9mQ9k10Fe+NiOKals
+	Ykl3IgZvviw2/IeASxSb6rPbIoX6VmJIYRXACwcgwqterRSW1+UuqAIRz1rJlnZfwQK8TvSGLmo
+	K4P1HCoFwyVqVsu6u5vZtNFygX4cfhaT3YsNk9PfJnQY/Yg4ERK3tNv8tLtSy4VIGsLYgUmuc9a
+	fjbeqz+pejTSpTEATQv6NAeIVDWYNRK42Bt4hLsdYr7vDHL6e5xTjyHQR/H9JLTwkKHH+miHcmu
+	3crOxgSu9E0qpTYHMxBYNCzCiHJrOmnOKbg4viTgMl2JGEPLEhOS7ZKJ5gHE+2ZHJDFOoDusoqf
+	rCI+eEezphj2Lx4aigm6dA/pKIC2iZA==
+X-Received: by 2002:a17:90b:5906:b0:3ab:3437:554f with SMTP id 98e67ed59e1d1-3adce0073a2mr1437334a91.29.1792749712960;
+        Fri, 23 Oct 2026 03:01:52 -0700 (PDT)
+X-Received: by 2002:a17:90b:5906:b0:3ab:3437:554f with SMTP id 98e67ed59e1d1-3adce0073a2mr1437283a91.29.1792749712338;
+        Fri, 23 Oct 2026 03:01:52 -0700 (PDT)
+Received: from [192.168.1.9] ([106.222.235.141])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48ed70dsm8098149a91.4.2026.10.23.03.01.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 03:01:51 -0700 (PDT)
+Message-ID: <e832301a-6129-4697-a5e4-94671072622b@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 15:31:42 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,150 +115,372 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022055208.17746-3-pepe.schlehofer@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] thermal: qcom: tsens: add hardware-bin trip-point
+ filtering
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+References: <20261002-thermal_bin-v1-0-5a29be7e8ec5@oss.qualcomm.com>
+ <20261002-thermal_bin-v1-4-5a29be7e8ec5@oss.qualcomm.com>
+ <7cd708de-a58e-47fd-acd4-0e37be77de92@oss.qualcomm.com>
+Content-Language: en-US
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <7cd708de-a58e-47fd-acd4-0e37be77de92@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfXysUwWid2BGR3
+ W1mxcCFklDthECjEUd0WIpE8h1ybVESVSx/Lm3QHak+MkKkAe2/I8vxN1IhrzS0ARJKNqO8XI8V
+ vdXIfAZheuPgfop8y2LCP6G3Yc0c2Qk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzOSBTYWx0ZWRfX3MIuR4yLNQlA
+ /5F5g0Y7xOEQ0B/QGRWqRXDec3aw7FQXo4PY4ooWEYhUqhBwVXAH9XBW4cuLapxOti2A1sBnq/e
+ h7LKZj6VVDrtWVPlg9MG+HSCFDlMl7TntbMEmtIUMj0MJasM+9R6SfxpCMB38VTJUhRynQ0yHsS
+ 0OWj5z9sSk4aFHqcSsDIn9llmY+vqlhqFNVPg1/5H9nQFJ0Af+yTm8HuumPc/Uq6ddTbyxVpf9g
+ k5a0Ws5P8FPVbUqFapJ0M2IxeWgxKjrqbkPfwecZ5U70VApLUlFjZpsymsDuy0Kuu2ZS1eekuQ5
+ cM0EiTAANFR5g392tAT/DUuPkPYkGKrPg7sIFHmXfJ/DIira6PuhI4jv61DVrTAhrUVqFUuf+tx
+ PHzSRT+Af0T4mPoCnwhF2nKIgJvoQYTSzW85TFP1dDF4zJm8/iCHg3+z9hJU5RYL23iC4nkZSRh
+ DzVIlHaoTSlkh5jszYA==
+X-Proofpoint-ORIG-GUID: m5ndctoqfci_N-LAGs4upc4aFma3kEyE
+X-Authority-Analysis: v=2.4 cv=Nt1E4MdJ c=1 sm=1 tr=0 ts=6adb3092 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=8wa5AUNoahJ04lRaSfAPWg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=gzkphQoz22865OLWFksA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: m5ndctoqfci_N-LAGs4upc4aFma3kEyE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230039
 
-Hi Josef,
 
-On Thu, Oct 22, 2026 at 07:52:08AM +0200, Josef Schlehofer wrote:
-> ODROID-U2 is a single board computer from Hardkernel based on the
-> Samsung Exynos4412 Prime SoC with 2 GB of LPDDR2 RAM. It is the
-> predecessor of the ODROID-U3 and shares most of its design:
-> - microSD card slot and eMMC module socket
-> - SMSC LAN9730 10/100 Ethernet on HSIC0
-> - SMSC USB3503A hub on HSIC1 with two USB 2.0 host ports
-> - micro-HDMI port with CEC
-> - MAX98090 audio codec with a 3.5 mm headphone jack and an on-board
->   digital microphone
-> - MAX77686 PMIC
-> - 2-pin header for an optional PWM controlled cooling fan
-> - blue heartbeat LED
+
+On 10/22/2026 2:39 PM, Konrad Dybcio wrote:
+> On 10/2/26 12:46 PM, Gaurav Kohli wrote:
+>> From: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+>>
+>> Some Qualcomm SoCs are binned at manufacturing time and expose the bin
+>> in qfprom fuses.  The thermal core's supported_hw_bin mechanism filters
+>> trip points by hardware version; wire tsens up to feed it.
 > 
-> Unlike the ODROID-U3, the micro-USB port has no VBUS supply switch, so
-> it can only work in peripheral mode, and there is no expansion header
-> with SPI. The 3.5 mm jack is headphone only and the speaker outputs of
-> the codec are not connected.
+> [...]
 > 
-> Add a device tree for the board that includes the ODROID-U3 one and
-> describes only these differences, as the ODROID-X2 does with the
-> ODROID-X, and update the comments in the common dtsi, as the LDO22 and
-> BUCK8 constraints are now also used by the ODROID-U2.
+>> +	/* Hardware-bin values for thermal-hw-bin matching in DT. */
+>> +	const u32 hw_bin_std = 0x1;
+>> +	const u32 hw_bin_elevated = 0x2;
+>> +
+>> +	/* Higher thermal profile identification for qcm6490/sc7280 bins. */
+>> +	const u32 tsens_chip_id0 = 0x197;
+>> +	const u32 tsens_chip_id1 = 0x198;
+>> +	const u32 tsens_chip_id2 = 0x20e;
+>> +	const u32 tsens_chip_id3 = 0x20f;
+>> +	const u8 tsens_feat_id2 = 0x2;
+>> +	const u8 tsens_feat_id3 = 0x3;
+>> +	const u8 tsens_feat_id4 = 0x4;
 > 
-> Also route "HiFi Capture" to "Mixer DAI RX", as on the ODROID-XU3. The
-> odroid sound card driver adds only the playback routes for boards with
-> a single CPU DAI, so without it the DPCM capture path to the I2S
-> back-end is incomplete and recording from the digital microphone fails
-> with "no backend DAIs enabled for Primary".
+> Isn't that (also) exposed over SMEM?
+
+Thanks Konrad, for review.
+
+SMEM has related socinfo data, but there is no exported helper for the
+exact fields needed here, such as feat-id, which is also used as the bin
+value.
+
+This jtag-id/feat-id decoding is Kodiak/QCM6490-specific, and the
+thermal-bin mapping needs both values. Other/future targets are expected
+to use only the generic i-temp fuse bit, like Hamoa.
+
 > 
-> Link: https://www.hardkernel.com/shop/odroid-u2/
-> Link: https://www.hardkernel.com/blog-2/odroid-u2-u-schematics/
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> ---
->  arch/arm/boot/dts/samsung/Makefile            |  1 +
->  .../dts/samsung/exynos4412-odroid-common.dtsi |  6 +--
->  .../boot/dts/samsung/exynos4412-odroidu2.dts  | 42 +++++++++++++++++++
->  3 files changed, 46 insertions(+), 3 deletions(-)
->  create mode 100644 arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
+> Konrad
 > 
-> diff --git a/arch/arm/boot/dts/samsung/Makefile b/arch/arm/boot/dts/samsung/Makefile
-> index e0143ee8c82d..2a173e4b3e1a 100644
-> --- a/arch/arm/boot/dts/samsung/Makefile
-> +++ b/arch/arm/boot/dts/samsung/Makefile
-> @@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_EXYNOS4) += \
->  	exynos4412-i9305.dtb \
->  	exynos4412-itop-elite.dtb \
->  	exynos4412-n710x.dtb \
-> +	exynos4412-odroidu2.dtb \
->  	exynos4412-odroidu3.dtb \
->  	exynos4412-odroidx.dtb \
->  	exynos4412-odroidx2.dtb \
-> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> index 93ddbd4b0a18..b56b92c78c1d 100644
-> --- a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-> @@ -414,8 +414,8 @@ ldo21_reg: LDO21 {
->  
->  			ldo22_reg: LDO22 {
->  				/*
-> -				 * Only U3 uses it, so let it define the
-> -				 * constraints
-> +				 * Only U2 and U3 use it, so let them define
-> +				 * the constraints
->  				 */
->  				regulator-name = "LDO22";
->  				regulator-boot-on;
-> @@ -486,7 +486,7 @@ buck7_reg: BUCK7 {
->  			buck8_reg: BUCK8 {
->  				/*
->  				 * Constraints set by specific board: X,
-> -				 * X2 and U3.
-> +				 * X2, U2 and U3.
->  				 */
->  				regulator-name = "BUCK8_2.8V";
->  			};
-> diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-> new file mode 100644
-> index 000000000000..bc14df9be9f7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-> @@ -0,0 +1,42 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Hardkernel's Exynos4412 based ODROID-U2 board device tree source
-> + *
-> + * Copyright (c) 2026 Josef Schlehofer <pepe.schlehofer@gmail.com>
-> + *
-> + * Device tree source file for Hardkernel's ODROID-U2 board which is based
-> + * on Samsung's Exynos4412 SoC. The board is the predecessor of the
-> + * ODROID-U3, so only the differences from it are described here.
-> + */
-> +
-> +#include "exynos4412-odroidu3.dts"
-> +
-> +/ {
-> +	model = "Hardkernel ODROID-U2 board based on Exynos4412";
-> +	compatible = "hardkernel,odroid-u2", "samsung,exynos4412", "samsung,exynos4";
-> +};
-> +
-> +/* No VBUS supply switch on the micro-USB port */
-> +/delete-node/ &vbus_otg_reg;
-> +
-> +&hsotg {
-> +	dr_mode = "peripheral";
-> +	/delete-property/ vbus-supply;
-> +};
-> +
-> +&sound {
-> +	model = "Odroid-U2";
-> +	audio-routing = "Headphone Jack", "HPL",
-> +			"Headphone Jack", "HPR",
-> +			"DMICL", "DMIC",
-> +			"DMICR", "DMIC",
-> +			"Mixer DAI RX", "HiFi Capture";
-> +	samsung,audio-widgets =
-> +		"Headphone", "Headphone Jack",
-> +		"Microphone", "DMIC";
+>> +
+>> +	if (nfuse < 2)
+>> +		return -EINVAL;
+>> +
+>> +	tsens_jtag = fuse[0] & GENMASK(19, 0);
+>> +	tsens_feat_id = fuse[1] & GENMASK(7, 0);
+>> +
+>> +	elevate_trip =
+>> +		(tsens_jtag == tsens_chip_id0 && tsens_feat_id == tsens_feat_id3) ||
+>> +		(tsens_jtag == tsens_chip_id1 && tsens_feat_id == tsens_feat_id4) ||
+>> +		(tsens_jtag == tsens_chip_id2 && tsens_feat_id == tsens_feat_id3) ||
+>> +		(tsens_jtag == tsens_chip_id3 && tsens_feat_id == tsens_feat_id2);
+>> +
+>> +	hw[0] = elevate_trip ? hw_bin_elevated : hw_bin_std;
+>> +	*count = 1;
+>> +
+>> +	dev_dbg(dev,
+>> +		"qcm6490 hw-bin from jtag-id=0x%x feat-id=0x%x => 0x%x\n",
+>> +		tsens_jtag, tsens_feat_id, hw[0]);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int tsens_compute_hw_version_i_temp(struct device *dev,
+>> +					   const u32 *fuse, unsigned int nfuse,
+>> +					   u32 *hw, unsigned int *count)
+>> +{
+>> +	if (nfuse < 1)
+>> +		return -EINVAL;
+>> +
+>> +	/* Single bit: set bit 1 for high-temp bin, bit 0 for standard bin */
+>> +	hw[0]  = (fuse[0] & BIT(0)) ? 0x2u : 0x1u;
+>> +	*count = 1;
+>> +
+>> +	dev_dbg(dev, "i-temp hw-bin from i-temp=0x%x => 0x%x\n",
+>> +		fuse[0], hw[0]);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static const char * const tsens_cells_qcm6490[] = { "jtag-id", "feat-id" };
+>> +static const char * const tsens_cells_i_temp[]  = { "i-temp" };
+>> +
+>> +const struct tsens_hw_bin_desc tsens_hw_bin_desc_qcm6490 = {
+>> +	.cell_names         = tsens_cells_qcm6490,
+>> +	.ncells             = ARRAY_SIZE(tsens_cells_qcm6490),
+>> +	.compute_hw_version = tsens_compute_hw_version_qcm6490,
+>> +};
+>> +
+>> +const struct tsens_hw_bin_desc tsens_hw_bin_desc_i_temp = {
+>> +	.cell_names         = tsens_cells_i_temp,
+>> +	.ncells             = ARRAY_SIZE(tsens_cells_i_temp),
+>> +	.compute_hw_version = tsens_compute_hw_version_i_temp,
+>> +};
+>> +
+>> +/**
+>> + * tsens_populate_hw_bin_info - read fuse cells and populate priv->hw_bin_info
+>> + * @priv: tsens private data
+>> + * @data: platform data containing the optional hw_bin_desc pointer
+>> + *
+>> + * If data->hw_bin_desc is NULL, this is a no-op and returns 0.  Otherwise,
+>> + * reads the nvmem cells named in hw_bin_desc->cell_names, calls the
+>> + * compute_hw_version() callback, and stores the result in priv->hw_bin_info
+>> + * for later use by tsens_register().
+>> + *
+>> + * Return: 0 on success, negative errno on failure.
+>> + */
+>> +static int tsens_populate_hw_bin_info(struct tsens_priv *priv,
+>> +				      const struct tsens_plat_data *data)
+>> +{
+>> +	const struct tsens_hw_bin_desc *desc;
+>> +	u32 fuse_vals[TSENS_HW_BIN_MAX_CELLS];
+>> +	u32 hw_versions[THERMAL_HW_BIN_MAX_LEVELS] = { 0 };
+>> +	unsigned int hw_count = 0;
+>> +	int i, ret;
+>> +
+>> +	if (!data->hw_bin_desc)
+>> +		return 0;
+>> +
+>> +	desc = data->hw_bin_desc;
+>> +
+>> +	if (!desc->ncells || desc->ncells > TSENS_HW_BIN_MAX_CELLS) {
+>> +		dev_err(priv->dev, "hw_bin_desc ncells %u out of range\n",
+>> +			desc->ncells);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	for (i = 0; i < (int)desc->ncells; i++) {
+>> +		ret = nvmem_cell_read_variable_le_u32(priv->dev,
+>> +						      desc->cell_names[i],
+>> +						      &fuse_vals[i]);
+>> +		if (ret < 0) {
+>> +			dev_err(priv->dev,
+>> +				"failed to read nvmem cell '%s': %d\n",
+>> +				desc->cell_names[i], ret);
+>> +			return ret;
+>> +		}
+>> +	}
+>> +
+>> +	ret = desc->compute_hw_version(priv->dev, fuse_vals, desc->ncells,
+>> +				       hw_versions, &hw_count);
+>> +	if (ret) {
+>> +		dev_err(priv->dev, "compute_hw_version failed: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (!hw_count || hw_count > THERMAL_HW_BIN_MAX_LEVELS) {
+>> +		dev_err(priv->dev,
+>> +			"compute_hw_version returned invalid hw_count %u\n",
+>> +			hw_count);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Store a copy of the hw-version array in priv->hw_bin_info.  We can't
+>> +	 * call thermal_zone_set_supported_hw_bin() here because the thermal zones
+>> +	 * haven't been registered yet; tsens_register() will pass &priv->hw_bin_info
+>> +	 * directly to devm_thermal_of_zone_register_with_bin() instead.
+>> +	 *
+>> +	 * Use devm_kmemdup so the copy is freed when the device is unbound.
+>> +	 */
+>> +	priv->hw_bin_info.supported_hw_bin = devm_kmemdup(priv->dev, hw_versions,
+>> +							  hw_count * sizeof(u32),
+>> +							  GFP_KERNEL);
+>> +	if (!priv->hw_bin_info.supported_hw_bin)
+>> +		return -ENOMEM;
+>> +
+>> +	priv->hw_bin_info.supported_hw_bin_count = hw_count;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   int tsens_read_calibration(struct tsens_priv *priv, int shift, u32 *p1, u32 *p2, bool backup)
+>>   {
+>>   	u32 mode;
+>> @@ -1206,6 +1368,12 @@ static const struct of_device_id tsens_table[] = {
+>>   	}, {
+>>   		.compatible = "qcom,msm8996-tsens",
+>>   		.data = &data_8996,
+>> +	}, {
+>> +		.compatible = "qcom,qcm6490-tsens",
+>> +		.data = &data_sc7280,
+>> +	}, {
+>> +		.compatible = "qcom,sc7280-tsens",
+>> +		.data = &data_sc7280,
+>>   	}, {
+>>   		.compatible = "qcom,tsens-v1",
+>>   		.data = &data_tsens_v1,
+>> @@ -1218,6 +1386,9 @@ static const struct of_device_id tsens_table[] = {
+>>   	}, {
+>>   		.compatible = "qcom,sa8255p-tsens",
+>>   		.data = &data_automotive_v2,
+>> +	}, {
+>> +		.compatible = "qcom,x1e80100-tsens",
+>> +		.data = &data_x1e80100,
+>>   	},
+>>   	{}
+>>   };
+>> @@ -1327,12 +1498,18 @@ static int tsens_register(struct tsens_priv *priv)
+>>   {
+>>   	int i, ret;
+>>   	struct thermal_zone_device *tzd;
+>> +	const struct thermal_hw_bin_info *bin_info;
+>> +
+>> +	bin_info = priv->hw_bin_info.supported_hw_bin_count ?
+>> +		   &priv->hw_bin_info : NULL;
+>>   
+>>   	for (i = 0;  i < priv->num_sensors; i++) {
+>>   		priv->sensor[i].priv = priv;
+>> -		tzd = devm_thermal_of_zone_register(priv->dev, priv->sensor[i].hw_id,
+>> -						    &priv->sensor[i],
+>> -						    &tsens_of_ops);
+>> +		tzd = devm_thermal_of_zone_register_with_bin(priv->dev,
+>> +							     priv->sensor[i].hw_id,
+>> +							     &priv->sensor[i],
+>> +							     &tsens_of_ops,
+>> +							     bin_info);
+>>   		if (IS_ERR(tzd))
+>>   			continue;
+>>   		priv->sensor[i].tzd = tzd;
+>> @@ -1425,6 +1602,12 @@ static int tsens_probe(struct platform_device *pdev)
+>>   	priv->feat = data->feat;
+>>   	priv->fields = data->fields;
+>>   
+>> +	ret = tsens_populate_hw_bin_info(priv, data);
+>> +	if (ret)
+>> +		dev_warn(&pdev->dev,
+>> +			 "thermal-bin failed to read FUSE data (%d): trips with temperature-bin will use first entry\n",
+>> +			 ret);
+>> +
+>>   	platform_set_drvdata(pdev, priv);
+>>   
+>>   	device_init_wakeup(dev, !data->no_irq_wake);
+>> diff --git a/drivers/thermal/qcom/tsens.h b/drivers/thermal/qcom/tsens.h
+>> index e8376accdff3..496ae6572bb8 100644
+>> --- a/drivers/thermal/qcom/tsens.h
+>> +++ b/drivers/thermal/qcom/tsens.h
+>> @@ -40,6 +40,29 @@ enum tsens_ver {
+>>   	VER_2_X_NO_RPM,
+>>   };
+>>   
+>> +/**
+>> + * struct tsens_hw_bin_desc - per-SoC descriptor for hardware-bin fuse reading
+>> + * @cell_names: NULL-terminated array of nvmem cell names to read
+>> + * @ncells:     number of entries in @cell_names
+>> + * @compute_hw_version: callback that converts raw fuse values to hw-version
+>> + *                      bitfields suitable for thermal_zone_set_supported_hw_bin()
+>> + *
+>> + * Embed a pointer to this struct in tsens_plat_data.hw_bin_desc to enable
+>> + * hardware-bin trip filtering for a given SoC.  Set to NULL to disable.
+>> + */
+>> +struct tsens_hw_bin_desc {
+>> +	const char * const	*cell_names;
+>> +	unsigned int		 ncells;
+>> +	int (*compute_hw_version)(struct device *dev,
+>> +				  const u32 *fuse, unsigned int nfuse,
+>> +				  u32 *hw, unsigned int *count);
+>> +};
+>> +
+>> +#define TSENS_HW_BIN_MAX_CELLS	8
+>> +
+>> +extern const struct tsens_hw_bin_desc tsens_hw_bin_desc_qcm6490;
+>> +extern const struct tsens_hw_bin_desc tsens_hw_bin_desc_i_temp;
+>> +
+>>   enum tsens_irq_type {
+>>   	LOWER,
+>>   	UPPER,
+>> @@ -533,6 +556,7 @@ struct tsens_features {
+>>    * @feat: features of the IP
+>>    * @fields: bitfield locations
+>>    * @no_irq_wake: if set, TSENS interrupts will not be configured as wakeup sources
+>> + * @hw_bin_desc: optional hardware-bin fuse descriptor for trip filtering
+>>    */
+>>   struct tsens_plat_data {
+>>   	const u32		num_sensors;
+>> @@ -541,6 +565,7 @@ struct tsens_plat_data {
+>>   	struct tsens_features	*feat;
+>>   	const struct reg_field		*fields;
+>>   	bool		no_irq_wake;
+>> +	const struct tsens_hw_bin_desc	*hw_bin_desc;
+>>   };
+>>   
+>>   /**
+>> @@ -568,6 +593,7 @@ struct tsens_context {
+>>    * @feat: features of the IP
+>>    * @fields: bitfield locations
+>>    * @ops: pointer to list of callbacks supported by this device
+>> + * @hw_bin_info: hardware binning info read from SoC fuse (populated at probe)
+>>    * @debug_root: pointer to debugfs dentry for all tsens
+>>    * @debug: pointer to debugfs dentry for tsens controller
+>>    * @uplow_irq: IRQ number for uplow (upper/lower) threshold interrupts
+>> @@ -591,6 +617,8 @@ struct tsens_priv {
+>>   	const struct reg_field		*fields;
+>>   	const struct tsens_ops		*ops;
+>>   
+>> +	struct thermal_hw_bin_info		 hw_bin_info;
+>> +
+>>   	struct dentry			*debug_root;
+>>   	struct dentry			*debug;
+>>   
+>> @@ -677,6 +705,7 @@ extern const struct tsens_plat_data data_ipq5018;
+>>   /* TSENS v2 targets */
+>>   extern struct tsens_plat_data data_8996, data_ipq8074, data_tsens_v2;
+>>   extern const struct tsens_plat_data data_ipq5332, data_ipq5424;
+>> +extern const struct tsens_plat_data data_x1e80100, data_sc7280;
+>>   
+>>   /* TSENS automotive targets */
+>>   extern struct tsens_plat_data data_automotive_v2;
+>>
 
-Should be no need for newline after = for
-samsung,audio-widgets. Writing it as:
-
-	samsung,audio-widgets = "Headphone", "Headphone Jack",
-				"Microphone", "DMIC";
-
-gives max width of 62 wide chars. With that fixed:
-
-Reviewed-by: Henrik Grimler <henrik@grimler.se>
-
-Best regards,
-Henrik Grimler
-
-> +};
-> +
-> +/* No expansion header with SPI */
-> +&spi_1 {
-> +	status = "disabled";
-> +};
-> -- 
-> 2.54.0 (Apple Git-157)
-> 
