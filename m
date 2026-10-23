@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792773087;
-	b=3ldS+2V+7waBZbIvFY+O8kdduy9omjuMKRG/8k2yVqqFzL4QEulBDirnMf3XjIsEan6x
-	 YqG+TnLqL9PQ3jhYXiTQoUiibgEL8tRL0bdGHknOSUzw7RgEhOBDIN1suQh5V8eRp06mv
-	 8NYKUCr1m1fOgInevNeh1pJGBgA9DU/xgd37uFT3KPVuBB1Yn9UfncZxs4SiKvBBwxgUy
-	 x7ENoI7gwhgWknearPsq2a/7E8c7hOyyPXX9fFgTKuvryCyW0jS+f0vardADZTS6Eq6My
-	 PBaYRdR/wXmbFrvYL+I/k5tS1RmVpA/7/+DQ0XXAMIxcKUjAMhKAygqxVHBosbMwCdA==
+	t=1792773103;
+	b=0h06fgpIAaFqfpaGfu2JY1BmwYeMLA7aejMZy+u63fHoW72psgkA9Ka15uLUbUyhiqp2
+	 dXwB6NzBkeYCn1Hya1pJEphaZn1AHJLQOqY/Ft1VGbZQV7ayl5/xwpQ6VR4OnSH3ewOxv
+	 7vPx5nr8KJtIZ5hVZL6JPjMr7PHz5EEUZ8cXE5m1jYEAA6IKgdLwMCfveiMqmgEnecbCC
+	 gfdqkWvVLxiElX/7nqgRgNyFPSvzUvJlSpTYys1h4iMNkXrqBBybKH59yTrY8ubHEcOJd
+	 9XxxOFxufhCoS9SINGFwp44xGpDJV0C+58SVsWrnhur6dIAlgJytWCFB8QsepffE4Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792773087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773103;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bhmNBL//ohDUQBiVwCH8dmQtob2Z0T5Nr5g00Vds0tw=;
-	b=f3POksohnC/jFPbgIyBxxkkj9UHUZbVob/ttfmnaY4SFQOdeRp6MmfY0n1l8AosD3S+T
-	 Rk76nik9tm74h1zjj7aiQ/vFWf2GZhkd+ZEH/BJOvraBbhxhREJoboOWa8xS9wcMROGRN
-	 R30AcwbW4uA1CoMK+LMtPHPVLoFks+ECHM81QoSSwMlIeW4zSctUTlFlbVomh9Bs3z/X0
-	 WfUjbRU42YfZYJsbcgN8yVuzLKXloWl+B5IaOc6Wf/wUJrthTmx3v2Gkhfam9JCKAU/hG
-	 cMGyUS7ZPOPVDuX6gFGxfQmwntF8pVGv3bLxf4AZnd0LjNs257/pApFmIyMsLHwkVUg==
+	bh=swxZPfAE+XKiBGgPkPSSVz6+hoNK2qNoB11MCd8pTdY=;
+	b=5lcibs3qxInLvz+DsTqy/A5i8GZnTFUTcAjxGIaEieahfSYiI9CYEQaLDQfs9tizcL9E
+	 1B+hUZdXjxy7EwwKmftGWbfCpjGa94J76v2/D+h6C0mkYIBH+l2fWOGjxSu1KQZT9NWLQ
+	 MOF4RlnZF1kEdO/UwHMf/ReOA6u57a5IMrUsu5ZPwpjgod3TGGxiY2X8n+3TYgZEf9F7i
+	 X4p2IagpdhyrJL/+vOn7dtwFwv41yJh+Y1IuHVochG6HmBM/3kMn7EtS6P7K4wZjYmu4u
+	 p5pkgNzW0MOkPlxuHxfMOhQUmfwe8F9P2xkGFLN9ePg9T7/Iyp1NqMKKixKu0SDfkaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJ1Kbwac;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDJlbwMV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7795606A32A;
-	Fri, 23 Oct 2026 16:31:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E32606A328;
+	Fri, 23 Oct 2026 16:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJ1Kbwac
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6BB1F01828;
-	Fri, 23 Oct 2026 16:31:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDJlbwMV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234C01F031E0;
+	Fri, 23 Oct 2026 16:31:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792773086;
-	bh=bhmNBL//ohDUQBiVwCH8dmQtob2Z0T5Nr5g00Vds0tw=;
+	s=k20260515; t=1792773102;
+	bh=swxZPfAE+XKiBGgPkPSSVz6+hoNK2qNoB11MCd8pTdY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lJ1Kbwacpb4HGQQwXOhT+rGg1iXmG8VEcZPcbAeDy+w1898qcnreF53dCOOU7n8a+
-	 S0tLZpLTXvlwjn9vsyrdsy+DORZHT85f21HxOaDsLXOuQ2Q+n2WO5W9JDwSIiHT3uU
-	 jhxPrZvMqmgZDTosjRLRftjM2dkzrQohToK+ODoLdpCCoCx3gehvHYIVqntBgr6cN0
-	 IX9/OZrMBxzry6E7muh4T07aw578CFC2xPDJU7zppytlPo19VPqD9XrP8tU0m+a4R0
-	 yaCqFrQykQThzEi6HjGqgBiNcd4k4min7fsnFjo1q/8sx8l/wrSRNR2aeK4qt/7KHm
-	 uQseWexrsVV6w==
+	b=MDJlbwMVM3bS8PDsx6IUGuqN8Rsr4Dlp1CJLy5FnjyEsP4AFyYIFQMs5XAyhimVRX
+	 YAeFKQff5uBw5VYoQXG7+Db3s8XY7WeIH7iw1pUUJlPvjDWAWuYjkLdIql2hwJiMiX
+	 2Mj1ZwhXPtefCGk699n/VErivyiqIpJf0BSe5rcOJNa01sRmheVOVZxtOHvGfbC7gf
+	 EEDnfK6Q3rH2yGfXWyWB6K5aXEEYG25mSPxLUwC9/HBrlFEQBopNydyKJZVnAD72mt
+	 8hfWTJbreYdO63OmpXPs7tPyJFQ9xm0yzrwuGmx4KvfApUl99FxA4RmZgjqhe+mA2s
+	 XawH6klOfATyg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -57,9 +57,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Waipio compatible
-Date: Fri, 23 Oct 2026 19:30:51 +0300
-Message-ID: <20261023163057.775917-2-vz@kernel.org>
+Subject: [PATCH 5/7] arm64: dts: qcom: sm8450: Add description of pins with MCLK function
+Date: Fri, 23 Oct 2026 19:30:55 +0300
+Message-ID: <20261023163057.775917-6-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261023163057.775917-1-vz@kernel.org>
 References: <20261023163057.775917-1-vz@kernel.org>
@@ -74,35 +74,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Qualcomm Waipio SoC has six CSIPHY IPs, which are compatible with Hamoa
-ones:
-
-    qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
-
-Hardware supports up to three different 0.9v level power supplies for
-CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
-power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
+Qualcomm Waipio SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
+add the correspondent default and sleep pin configurations.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 112 +++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-index 1f1e2a4993b2..2a11ca7c7d11 100644
---- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-@@ -19,7 +19,9 @@ properties:
-     oneOf:
-       - const: qcom,x1e80100-csi2-phy
-       - items:
--          - const: qcom,glymur-csi2-phy
-+          - enum:
-+              - qcom,glymur-csi2-phy
-+              - qcom,waipio-csi2-phy
-           - const: qcom,x1e80100-csi2-phy
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 7f5b0501a23e..ae9e23f78cfd 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -4286,6 +4286,118 @@ data-pins {
+ 				};
+ 			};
  
-   reg:
++			cam0_default: cam0-default-state {
++				pins = "gpio100";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam0_sleep: cam0-sleep-state {
++				pins = "gpio100";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam1_default: cam1-default-state {
++				pins = "gpio101";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam1_sleep: cam1-sleep-state {
++				pins = "gpio101";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam2_default: cam2-default-state {
++				pins = "gpio102";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam2_sleep: cam2-sleep-state {
++				pins = "gpio102";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam3_default: cam3-default-state {
++				pins = "gpio103";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam3_sleep: cam3-sleep-state {
++				pins = "gpio103";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam4_default: cam4-default-state {
++				pins = "gpio104";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam4_sleep: cam4-sleep-state {
++				pins = "gpio104";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam5_default: cam5-default-state {
++				pins = "gpio105";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam5_sleep: cam5-sleep-state {
++				pins = "gpio105";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam6_default: cam6-default-state {
++				pins = "gpio106";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam6_sleep: cam6-sleep-state {
++				pins = "gpio106";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam7_default: cam7-default-state {
++				pins = "gpio107";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam7_sleep: cam7-sleep-state {
++				pins = "gpio107";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
+ 			cci0_default: cci0-default-state {
+ 				/* SDA, SCL */
+ 				pins = "gpio110", "gpio111";
 -- 
 2.53.0
 
