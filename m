@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792747825;
-	b=EGFpNl0Arm9lSmnRChV7xRIjbhIQWSvFkXFqE9uhzZLqUtg5l7JKM63LVfzYT3xY5Bxp
-	 l9sHbYlh8vQY2sr8cn/CM16hbRxA1kLWxaEQw+Htk1J3pGCaXHBMyva57jlkFMKZfPrRv
-	 hy7ZydTfWsx8Phh/14slUuZTQSz/73xq8Oy/nZqjw9mDxfKfd3IpFjFKs5Mteg2qvrJDj
-	 Qcuu0l5+qMwjAqpTlt6RyulhIwfvTV6CJmhnaxN+O5zHC5ROYMpQceIh0F04uZjLGQTOD
-	 xaW+SPy+RFgWkr/7NLSrtuYybH1q2dd/1vgjE8Tcj09EZkFrh2PNqMawjlWYzx5TZig==
+	t=1792747827;
+	b=GfzfmStPg1a6YpP0AnTjpR/f8J89Eck11Yah5POid4Xqq/oj9qoqmWlsCfATjvHjtGAT
+	 8sb0BqA6Q6YPefS0x+fTKH9e0LbWjmr3doNEzd57oCHkBwLGN/4x7miaCRoeeOkj1Dpos
+	 dYwx4oaLPGSrmoiiKXMQgeEBqRQV0g4ATM5DLXYgG9d8JCGj5JwDZV+J80e6WkWH9RLXT
+	 +Hrw85188dJw/ClCR2h7SHFU1fU+lRiYrsoG+1jwY7iTF468QYOBeBOJ6Sbbz9kktskII
+	 2OB79pBohabMx8eTWem3h5/kRygk1x0hPIIauPI+6KGEueoXkOGE6Ki5pSMFgawX/SQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747825;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
-	b=OwnvRmzzZLEme/PASTSEKtjmyOHMA0aguD/qYoZEBARImf4t84meq8luIQmXliWKOxml
-	 9Vr8zH9AJ0viqSWqWpL3QRw+UFVoivLPd++1i5FHJuCCaFfDjf9RQwijLiIvsUzEWTSkv
-	 Fb4vN0BNsw1Etq2EO93Dp5nm+8JwtmBe6wYPugi7JV+G36LQfpDgTpbxViZxLLGIEc/ne
-	 gimNVAsfI3XIQFnbR2p046Kt1RRbNn8sBjZgafkAwyZpxDYC/gO3aqjgiJ3NMTDeRXgY2
-	 CbUeMPKwgslL2cmizq46DXEu++JCPtq6kQCy8ooAXPqES0oCazLcBsWAPdGPUemPXFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747827;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=lXILviIrYgJkCKo76gxjk3Mg3hBigzZdxDlMCETxfQc=;
+	b=y2ViuhBm6kje9hn5WromDaoT8TFHwNHwrFnXlngU98SMghRj3U7n58kwl/NTutMZ5IQl
+	 unIPe+CdUlfFIOj6mZfGO5asV5knDhWqfqXoOAH9N0rtUqKSvIC0Fjcf+FVxTynttOZ41
+	 PfoRxfyUqDArdNyJVyjQhbc5bashJAc7GbOu4OXs5WXVsXbzXGo2Ek9uBB3gsuHyGsg0F
+	 pmB0Eiuqk40hb0JOH8R1ML20j87C7RFMuZIGbZ8/2jU6hZ0WB7ZMOFe13AUUDyaS35B3T
+	 XdNTwCZE0Th9azHBEepojdANgf8MGmL4CPA2MSSG2aCVwH9NMstgGyYTL3uGmjj0a5A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.87
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023087.outbound.protection.outlook.com [40.107.44.87])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2utR2wX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F43606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2450606A32C;
+	Fri, 23 Oct 2026 09:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2utR2wX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792747826;
+	b=oaMKlfSarNUsIyWafhdaP80CErtnuYKvMwo8P3Ry5tJ7vbwyJTkcD1GTQ4abHhAZefLp
+	 t4vZv/Ha2yBaDrLIBzfvJ9HDxLBA/EwtjoMUvOK6Jx+OdtjD0bb9sfv39NZZ6zMRzklsc
+	 /rz/a68A1n5ymZ5mF9lwQdSfPP01neeELE4Xv2YV4MjRMSiJg0+tESmdVHzOWXkIth1nG
+	 ogUSCzC9gy9AS+gV3JDJJDWUVyPC8z5PRc5B9Ts/EIF9Jw++SGX4IZEvM/eMRmPhx3E2E
+	 5ibmjTLrbjL6/BWLQ5HXnidLqZO1kSNEGoVAIje6gFCKO4D2cnAh7rmlbXT/OIYYomA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792747826;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=lXILviIrYgJkCKo76gxjk3Mg3hBigzZdxDlMCETxfQc=;
+	b=HOn1eg7P0qrHDdMJ0qKa38ff39Vt//EydxGC8HjKmpH08V8wRwWrMK2SRpyLgGYVG1bg
+	 1cA8Qnva3CSueCmCfxQy03VNFTnfkclGnLgvtr4kEMw1ACE8HjjiKxv/5WetLlNaUthwo
+	 vDteXIGhGirkyny0BfZKqsW5+TeyaiQatu6tJA+2nhXXh2Q3h5C4F/lMimNuDADww6fX2
+	 OC/62fZqc18GNB3uy1Q+ItZX07HiZzm/+d3gI1l4TLa3GZQimNmE5euMHdSGP+4ESrazF
+	 JzRCG7DYxcFmMuJn2IyiafSD0A/K9dUt5aogdCsDXeeFWta7Z0NyNb4dQcLHtzHFKVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7F8F11F031EE;
 	Fri, 23 Oct 2026 09:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F43606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DMPAbWcZC8Og/WW+RSzljN4EjRKyo72jVwz9HlPoTeyjsTVmWXF+ulsYD3RTz1k/7UYC188BBtM9l+zSCif4ByJ9IdWZZxMIRIaIhe71hlghHvNXXwwq3/QRsXrNC8Zib7ZDDJOHEx8l1+ocbPDqcVH/OrzQUfvbM+9KsrKogdM7FVmbNpXJh253qmqMSmZc0zYBQ9aQ42TfnQOjIVXGxFyS/ntfbTqnLjfzKPFrnDNOyhIBtagu7Y8cgEgEDLNvucmKk7y4QEtODnmuSdBn5ns/R1ve2X0jf2+YxoT8P5ZQdX5Oo/Imh58YehJU/HyElaK2kSeo8/VbQTbguT1XNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ExE8VHlcy5atEQBKRME3h9gGQ3lOlGxZcjmk5Gv0WAs=;
- b=UIOqSCnYhqUH9yQ+/QPpTCwTVmah4b9BorI8nlAh2x4wVUCAgHZS5iEcjqrS82GFv8vnbO2Gui+y4Y4o4cV4VRLgmkGVOuZ8tcrcfAPHypygsEJvsjW4oKITgn3VCkxv/ADR+ppf+p+N0AIaK/Hy60duijRBQgtDY0jwVE+kOc96xEDIp1CGgDTKd0DUA9L3s40ywuv/nooKetcMWCuWS5z7OclQR+7b2fXvNFaRXARDRMok9863A4gu+ssaMGX+uxD6BYi6Mzz7IzHx7ZTMMGC9CscSRV4iwx/4A/ava70K1igKxI0+4yHxWVgtZ67jezQE61BN2q36J4pILSiU4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0024.apcprd02.prod.outlook.com (2603:1096:4:195::18)
- by SEZPR06MB6038.apcprd06.prod.outlook.com (2603:1096:101:e7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.4; Fri, 23 Oct
- 2026 09:30:20 +0000
-Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
- (2603:1096:4:195:cafe::a2) by SI2PR02CA0024.outlook.office365.com
- (2603:1096:4:195::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.18 via Frontend Transport; Fri,
- 23 Oct 2026 09:30:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 09:30:19 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 2C3484102B47;
-	Fri, 23 Oct 2026 17:30:18 +0800 (CST)
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: vkoul@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robin.murphy@arm.com
-Cc: devicetree@vger.kernel.org,
-	Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jelly.Jia@cixtech.com,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v4 1/5] dmaengine: arm-dma350: Fix source trigger bit
-Date: Fri, 23 Oct 2026 17:30:13 +0800
-Message-ID: <20261023093017.3248454-2-Jelly.Jia@cixtech.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
-References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792747826;
+	bh=lXILviIrYgJkCKo76gxjk3Mg3hBigzZdxDlMCETxfQc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=L2utR2wXP9HtDUBUFWNLe8D/00c+H8yWRpb5F+to2KnMHZgdlVGAuhQLyiTVOkGAO
+	 dYqIzbCZD/4+gZEX9n4Ux8uuWJvBh+blhYG7m/sUZ7UwBfjaj8AZGcCxyQk4KHDRvQ
+	 9mdD8hcdZihQSf/OR7cHp43raJYG2qSXpB2nthjSeHZhHT31pNN6qiN6MkKjauaJJC
+	 b2N6Yt0LoMVUFalTL+mm4Dwp1O66phdjVomy6VTMUskgTVBISmq4Kfz5uM4xH8zR/m
+	 p8FARocVnpEgLVnFREaNAnpuBx3ozcRUVedf15VE5ivBN/DRDrG0AKaTwTP8ob2KTq
+	 0q6DiUMz6c6mQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7CA0D44470;
+	Fri, 23 Oct 2026 09:30:21 +0000 (UTC)
+From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Date: Fri, 23 Oct 2026 12:30:24 +0300
+Subject: [PATCH v4 7/8] iio: imu: adis16607: Add external clock sync
+ support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,64 +83,247 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|SEZPR06MB6038:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 2808309e-4376-4109-4e20-08df30e8411f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|261022105027099003|261021123027099003|261021121427099003|261009223027099003|10067099003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZUxa/g82gKhyLuJmNhq5owBZ4FsGZBRwtc/3LuraagvcCY77ZZML3lXy0LXGv5IsVndFiqm6pwBZMEwEr5BeZn43VmYLvEDveez/49SmwZTYC5ne9YnW1Vkw/Jmz/iWHijE9II8bwdYy7AnyTr3+xtI2XUcv+M8S8YctSKX0Yj+TVbxbZb98dyiVakjHjSO3Hj8BFA/Vmh5MNNnhFIYUpXyFkIqOr1SJnOOiItv6xrwLeCaXHsy//tZENG8kV2Odx9xxuknAR91j55MptZHFG6RI492CUWTSCD3b233YSTuivDoNgSZLc/MZTudjs5cUpTYqzWxiBEc5RZYJqYvUAXdqdyHn4DR4pdCNAflzT7WUHBYGH/p2dt+DYvf/VPImROvwlIDDu7dYm7aatbK1DcVXTZAfm6djVzWiSP3XQ7QUcLRzuWFeftO5i/oK/X/lrWv/53KNrsLMXmELLC8W9b3Hn/uceLckslaIgLjPzL26UEZpHeJBwkuWdTNLulu2+MoGOA8gjHCd0B7bUBRxmImUa99rAg+KYK0UOJ05N7yJ8cDVUyle8CHmVMVrSajHp4qHrF/GNS+l89Wj+93ootVIdOyokuKLD0pxvrStAb/FBFDE0FwElLAT4GjVqB+exqjx86CIg61MCQMzIlv7fqt8m8tK43sltuk+29io2uNUy+P8i3BWm/cECR4cVP1tWv00Rqo/qDfQUy7WiZv3vw==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lY/oeFefdH863qLReB0grDi8aDVvV+1vHshPiQ8dFXmf7t2sxh0X/hIOfMoPBvU7KpV074vZWkI9BBRwKkjCCy7XdfY/GKLLG252mdl8I3VUnn3su8V2SjkVDnLqJMBhpocgUXAjV/sGWh7Nhu/q7Jzl/DhvZZOOeGtLatxYIbBl40THu81p0f/CecNOMdDNDx/1tKPRgGdgi9jFu5QmGX3uOR8GsHSk77vDfxDtpSj2TokNLtsznAp0UmB6D9HWMUnoyxptkRiihGIPlAhyy9ipFRE+66N9F/Xzp8lhXtgWrv5kuVrYUQUG+4di3CdbtE9wI2gjotITsd5qDlrMUmCLWsaurYBhCylosHgBlpeIuwxTKBqiZb/wA5QZOBnnBxlWARnlUXT7WNOIQX2G2Ukr35R4dohFJW3TAEo5qE3ZNoTL1PI3GD2izzTbAwsD
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:30:19.1100
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2808309e-4376-4109-4e20-08df30e8411f
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E7.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6038
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-adis16607-v4-7-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+In-Reply-To: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, 
+ Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux@analog.com, 
+ Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792747820; l=6804;
+ i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
+ bh=OAI6l92vs2pkDqK/vffIE04FoJW3RtdB52JjDSkc/xg=;
+ b=bZfUhOmQushmnbE8/mSaMxW13O4gapiM4c+NE4JAMCKXFma6SRtMRMXdLdWcPdkJ+v8gSisMx
+ 2+08q9L9Bv8DaJSNdk347V4UyZ7g1v0ze7/4GfvqtW4JK4bSudM+Yf3
+X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
+ pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
+X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
+ auth_id=1094
+X-Original-From: Radu Sabau <radu.sabau@analog.com>
+Reply-To: radu.sabau@analog.com
+Content-Transfer-Encoding: 7bit
 
-CH_CTRL_USESRCTRIGIN is the source trigger enable bit in CH_CTRL and must
-use bit 25, not bit 26 which is the destination trigger enable bit
-(CH_CTRL_USEDESTRIGIN).
+From: Radu Sabau <radu.sabau@analog.com>
 
-The constant has no users yet, but enabling the source trigger input
-would silently enable the destination trigger input instead, breaking
-any transfer that waits for a peripheral request. Fix it before the
-first user arrives.
+Add support for an optional external clock (clocks property),
+selecting between SYNC_DIRECT and SYNC_SCALED modes depending on the
+supplied frequency, with the internal 8 kHz clock used as the default
+when no clock is provided.
 
-Fixes: 5d099706449d ("dmaengine: Add Arm DMA-350 driver")
-Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- drivers/dma/arm-dma350.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/imu/adis16607.c | 121 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 114 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-index 09403aca8bb0..4e17130de6c8 100644
---- a/drivers/dma/arm-dma350.c
-+++ b/drivers/dma/arm-dma350.c
-@@ -63,7 +63,7 @@
+diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+index b1f3667d8ce3..3c5b59820be1 100644
+--- a/drivers/iio/imu/adis16607.c
++++ b/drivers/iio/imu/adis16607.c
+@@ -7,6 +7,7 @@
+ #include <linux/array_size.h>
+ #include <linux/bitfield.h>
+ #include <linux/bitops.h>
++#include <linux/clk.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/iio/buffer.h>
+@@ -48,6 +49,7 @@
+ #define ADIS16607_REG_FIFO_WORD_CNT	0x2B
+ #define ADIS16607_REG_USER_GPIO_CFG	0x2F
+ #define ADIS16607_REG_SPI_HALFDUPLEX	0x32
++#define ADIS16607_REG_USER_SYNC		0x33
+ #define ADIS16607_REG_USER_DATA_CFG	0x34
+ #define ADIS16607_REG_USER_FIFO_CFG	0x35
+ #define ADIS16607_REG_SOFT_RESET	0x36
+@@ -60,10 +62,12 @@
  
- #define CH_CTRL			0x0c
- #define CH_CTRL_USEDESTRIGIN	BIT(26)
--#define CH_CTRL_USESRCTRIGIN	BIT(26)
-+#define CH_CTRL_USESRCTRIGIN	BIT(25)
- #define CH_CTRL_DONETYPE	GENMASK(23, 21)
- #define CH_CTRL_REGRELOADTYPE	GENMASK(20, 18)
- #define CH_CTRL_XTYPE		GENMASK(11, 9)
+ /* Masks */
+ #define ADIS16607_RESET_GPIO_MASK	GENMASK(2, 0)
++#define ADIS16607_SYNC_GPIO_MASK	GENMASK(8, 6)
+ #define ADIS16607_DR_GPIO_MASK		GENMASK(11, 9)
+ #define ADIS16607_DEV_NOK_MASK		GENMASK(14, 12)
+ #define ADIS16607_DATA_CNTR_EN_MASK	BIT(14)
+ #define ADIS16607_BURST32_MASK		BIT(15)
++#define ADIS16607_SYNC_MODE_MASK	BIT(15)
+ #define ADIS16607_BOOTLOADER_BUSY_MASK	BIT(0)
+ 
+ /* FIFO masks */
+@@ -90,8 +94,22 @@
+ #define ADIS16607_ACCEL_Z_DELTA_MAX	4000
+ #define ADIS16607_GYRO_DELTA_MAX	2600
+ 
++/* Sync modes */
++enum adis16607_sync_mode {
++	ADIS16607_SYNC_DEFAULT,
++	ADIS16607_SYNC_DIRECT,
++	ADIS16607_SYNC_SCALED,
++};
++
++struct adis16607_sync {
++	u16 sync_mode;
++	u16 min_rate;
++	u16 max_rate;
++};
++
+ struct adis16607_chip_info {
+ 	const struct iio_chan_spec *channels;
++	const struct adis16607_sync *sync_mode;
+ 	const char *name;
+ 	u32 num_channels;
+ 	u32 gyro_max_val;
+@@ -103,6 +121,7 @@ struct adis16607_chip_info {
+ 	u32 deltvel_max_val;
+ 	u32 int_clk_hz;
+ 	u16 max_dec;
++	u8 num_sync;
+ };
+ 
+ struct adis16607 {
+@@ -110,6 +129,7 @@ struct adis16607 {
+ 	const struct adis16607_chip_info *info;
+ 	unsigned long clk_freq_mhz;
+ 	u64 sample_period_ns;
++	u32 sync_mode;
+ 	u16 fifo_watermark;
+ 	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
+ 	u8 fifo_buf[ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN] __aligned(IIO_DMA_MINALIGN);
+@@ -1004,6 +1024,12 @@ static const struct iio_info adis16607_info = {
+ 	.hwfifo_set_watermark = adis16607_set_watermark,
+ };
+ 
++static const struct adis16607_sync adis16607_sync_modes[] = {
++	{ ADIS16607_SYNC_DEFAULT, 0, 0 },
++	{ ADIS16607_SYNC_DIRECT, 401, 8000 },
++	{ ADIS16607_SYNC_SCALED, 1, 400 },
++};
++
+ static const char * const adis16607_status_error_msgs[] = {
+ 	[9] = "Boot Memory Failure",
+ 	[11] = "Power Supply Failure",
+@@ -1048,6 +1074,8 @@ static const struct adis16607_chip_info adis16607_2_chip_info = {
+ 	.deltvel_max_val = IIO_G_TO_M_S_2(40),
+ 	.int_clk_hz	= 8000,
+ 	.max_dec	= 65535,
++	.sync_mode	= adis16607_sync_modes,
++	.num_sync	= ARRAY_SIZE(adis16607_sync_modes),
+ };
+ 
+ static const struct adis16607_chip_info adis16607_3_chip_info = {
+@@ -1063,17 +1091,96 @@ static const struct adis16607_chip_info adis16607_3_chip_info = {
+ 	.deltvel_max_val = IIO_G_TO_M_S_2(40),
+ 	.int_clk_hz	= 8000,
+ 	.max_dec	= 65535,
++	.sync_mode	= adis16607_sync_modes,
++	.num_sync	= ARRAY_SIZE(adis16607_sync_modes),
+ };
+ 
+-/*
+- * No external clock sync support yet: always run on the internal clock.
+- * Default dec=0 after reset, so period = 1 / clk_freq_mhz.
+- */
+ static int adis16607_config_clk(struct adis16607 *st)
+ {
+-	st->clk_freq_mhz = st->info->int_clk_hz * MILLI;
+-	st->sample_period_ns =
+-		DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * MILLI, st->clk_freq_mhz);
++	struct device *dev = &st->adis.spi->dev;
++	const struct adis16607_sync *sync_mode_data = NULL;
++	unsigned long ext_clk_hz = 0;
++	u16 sync_scale = 0;
++	u16 dec;
++	struct clk *clk;
++	int ret, i;
++
++	clk = devm_clk_get_optional_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return PTR_ERR(clk);
++
++	if (clk) {
++		ext_clk_hz = clk_get_rate(clk);
++
++		for (i = 1; i < st->info->num_sync; i++) {
++			if (ext_clk_hz >= st->info->sync_mode[i].min_rate &&
++			    ext_clk_hz <= st->info->sync_mode[i].max_rate) {
++				sync_mode_data = &st->info->sync_mode[i];
++				break;
++			}
++		}
++
++		if (!sync_mode_data)
++			return dev_err_probe(dev, -EINVAL,
++					     "Clk rate: %lu not in a valid range\n",
++					     ext_clk_hz);
++
++		st->sync_mode = sync_mode_data->sync_mode;
++	} else {
++		st->sync_mode = ADIS16607_SYNC_DEFAULT;
++	}
++
++	/*
++	 * Write the full desired sync state explicitly for every mode,
++	 * rather than only when enabling non-default sync: USER_SYNC's
++	 * documented reset default (0x0000, direct mode / scale 0) means
++	 * this isn't fixing a known reset-state issue, but each mode
++	 * establishing its own complete state here, instead of only
++	 * touching bits conditionally, is simpler to reason about and
++	 * doesn't depend on that default holding true.
++	 */
++	ret = adis_update_bits_base(&st->adis, ADIS16607_REG_USER_GPIO_CFG,
++				    ADIS16607_SYNC_GPIO_MASK,
++				    FIELD_PREP(ADIS16607_SYNC_GPIO_MASK,
++					       st->sync_mode != ADIS16607_SYNC_DEFAULT), 2);
++	if (ret)
++		return ret;
++
++	if (st->sync_mode == ADIS16607_SYNC_SCALED)
++		sync_scale = DIV_ROUND_CLOSEST(st->info->int_clk_hz, ext_clk_hz);
++
++	ret = adis_write_reg_16(&st->adis, ADIS16607_REG_USER_SYNC,
++				(st->sync_mode == ADIS16607_SYNC_SCALED) ?
++				ADIS16607_SYNC_MODE_MASK | sync_scale : 0);
++	if (ret)
++		return ret;
++
++	switch (st->sync_mode) {
++	case ADIS16607_SYNC_SCALED:
++		/*
++		 * sync_scale is a rounded integer, so the hardware's actual
++		 * effective rate is ext_clk_hz * sync_scale, not necessarily
++		 * int_clk_hz - use the real value here so sample_period_ns (and
++		 * therefore FIFO sample timestamps) don't drift from it.
++		 */
++		st->clk_freq_mhz = (unsigned long)ext_clk_hz * sync_scale * 1000;
++		break;
++	case ADIS16607_SYNC_DIRECT:
++		/* DIRECT: external clock is the effective internal rate */
++		st->clk_freq_mhz = ext_clk_hz * 1000;
++		break;
++	default:
++		st->clk_freq_mhz = (unsigned long)st->info->int_clk_hz * 1000;
++		break;
++	}
++
++	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
++	if (ret)
++		return ret;
++
++	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL * (dec + 1),
++						     st->clk_freq_mhz);
++
+ 	return 0;
+ }
+ 
+
 -- 
-2.54.0
+2.43.0
+
 
