@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792749215;
-	b=CA6azY19rQGrYQNVksJuz6wO65yzs/xhDbTSJwGLvJNSIXq/tuiY6XcymtC8swNm6pG2
-	 EcbqlfLSq4+g7IWL005SLGs0LQzYa9hxQ5u9NoXcy8nYkaGTUufVaOf1+3bwn0AVVJeNd
-	 1aylkzsc0REFbsIXBshxzExYddvFw84NpVQ6Vh8gv1nA2LfEh1u9EPnwOsGM0/xjRhBBN
-	 8pyno6QJkcuYl3vm+7gXEjlAC9m3VAxuyl+NhLfOsVSnwpwT30rMV3hLRx6GAMbgEZeKj
-	 ftSb1gFvd6Ol0TZ9tqI3e2ZdhsMdCDPAl/jmNqaJn+CrfAxmMFZeofBmW6JJPhlyhoA==
+	t=1792749216;
+	b=G86/2dA+JmbQq+WkCNPh+F8ZiudMbcNu6uuwWMjyjPxxiV/ND1SbCaCG2fBbX9CZbain
+	 RGnLrkvVmUJVBvKld12Gp6VOXsA+mNOLJYFG/A52uZ4euc/MG/7nB0Tp1sQ6WkSQoNbr3
+	 W74IIPMdoylVErYFHWYENsKeSyRV5fVAVvVVbTvnEm5a/3lTae08C4IYHfRsytWZUzVwH
+	 kdr5mr/6T8k9dgUolJMeLUPiERvmYKF+l8LbcHEEAezIS9r2z+4TIPy7+U3Y67cvv8a7B
+	 HTONbOVzIcefkPr4fRlhLAVFVX6ozXp84GzZuqMZSJ6xwW5mYMo1zo7P7dc89aOSwVw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792749215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792749216;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
-	b=nilhs6Rw0rB1RJsYQY7Wi80st/l6iuBDVGWB9/0h8NnML7QJoK4EquLlKtAhTKNwlLq2
-	 MjGwzE4PkNLkuX4M9HKAMU8RAZMx2u3oqt8f0i0ptkpWYYu8SgVADVLLv62LEhDEf9DCT
-	 5noP37fXRVWBVPz/Sgglh8aVEI41eMQCrxenG2zzEtrlM54JTkZmE9nbmgGdmZwFUDuBc
-	 OgU053zELhgJKCh0DSQjFZB1hteu5Wh+fMQM7IE+YSD7oZRo8XBXih0YCcN3unTn+Mt/T
-	 GkCAw4n96qFHu3bHfEWvNfd7A/pIsACogzI4fIcKMc5Ej5N3nMuzOQiNFnR/xAfrcNg==
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
+	b=JHikT7QDFkE7TFFvyxzHzQaSYL9T3N61IH7XZrY8pQAiaVTFLg6kulGh8wunrS2SYPT/
+	 WCYYtmn9eCh1jJrgT5JIYyKhW2l0d9AfZUizvXh+440y4s45PWfO+ZAQjY5Uwrd4gHDQ9
+	 jQsID7++iKE8PvoocTLhxPGN92bfS9IzP+akR9LcpPpjdADt8ba0uflZaxU8uiHkfVPVr
+	 bcSt2SCfjlNj+X358JFsuINQeSp43t4oOPMsFJAaohjEjIbXirnWU66VWGf1YuaA4vZmG
+	 WB5m7IdPqqUXqjuqFVgHkm3yVwDl6jd5ivcyBsWeAwuK0f8YoqDFH1pj0ifSpxgf5eQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9JlhZVL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnR8pc3y;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA95606A31B;
-	Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FA6606A325;
+	Fri, 23 Oct 2026 09:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9JlhZVL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XnR8pc3y
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792749214;
-	b=WPxNbaGYt6HooQ/D+V5Vj0GtEKDWAcmduev7KYfpL+Vd7inAlSBBTi4IoDt7iZ6aPBK1
-	 5Xsfg4T++Y4EO9ybeU1TYKaBl5KNVUayOvfm02E2JUfqzHPvCsK8punOGsct6lXBqi0+p
-	 QvcjdHKHVqyyDOar3qX1jfbUQZ8V4IfLBTszuX+3lwrAIgjawd1dvh8TlcbIMaxHvqv2P
-	 jh8jnW/ixatKDG7jky1/lNpNbLP8sFq9z6EhVX9IckydJw1LjkuXzKiXMSoGc+oE+AUVw
-	 Q/oBSOt0gljE308ocWzHLW38i2HSYcMoax4bzlSIS3rSfV4gcfIU6m9yVE5nxB6Op1A==
+	t=1792749215;
+	b=Tx3uvSzest1qIBFf6vY/9GFxkAjCuTLhbPnim0vIHYu3NlHrg2XaB+hOPuKixy1pIANX
+	 p7ExvLQOCvk46uEIyzkYLJ3RIV5ZQpWeVBXm2wnDnY4dbfd8jcpX3JUWr7TPOvD93JP/e
+	 lTORJX1rQMInbddHC+nwfmJNtmV8ad3Be5gCobSLIu1wsaOE0NKBgjdCFZ1v0Y36Zaa/n
+	 jH0S9MKJ84hSZ59CUAcXkMTzc4GRtUcrrSILP0tdBXRCyu31thRzT1ZtoUMgJEVXVbFCX
+	 1G4Km9K7Z1luWmTh7u+DhVa/MRC38bAsq9XTH2qI9DHav3q/cH771xUzih1VXS+Pw6w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792749214;
+	c=relaxed/relaxed; t=1792749215;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
-	b=ctH7XPZ21UWDFagN9Hz+rZoqgYJQBwvruShEXOiYj4jGux1MnZTFY/dngbDKkK8TB+by
-	 IG/2n5QZPpKXQ6+Ml5p4VqCWgu4xFk4+QrwX2/+IGf8IU5bw8gt7wIcl+QoxJWG/+O7gJ
-	 Mf4z6oW0UFfqztyXouwUNSfQO/mC9myMhdvXWvz0qYvFgYWrlOzQWLlZIgbIVRpLtZNRT
-	 PQCBt6YNnSJp4BW6I7cT3y4ThGE/oyIoDhaDASXR/XXcQeKIOHSAfyoKbzkiAQiNumX8G
-	 B3NsG21fMP88X9zRjobkyr1kczW9oIJoZtAxfhzVaIM4f9hZDhzjEdIv016zSsnnKuA==
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
+	b=DTiTZt/g1CwmetdluZ5mF7Lc+SxSuN4JoGgJhfqX0w52nUiHBSWcFd1KeAVy/5PLAnBj
+	 IgUl+ZDPgboe6jkYJlZVg34ZUstjCzE7dREL/Ug5NtehpeztmRhL4OhIp14JDnv53aQLn
+	 b9WeaxkavDO3QErz0v38hFxiPGWkOSpHDQwCxR9t1wJo6mgQm9MRCeP9gpJnT6Asn1SeC
+	 2hvxGe6/BMrIUwlJy8kXu9a+hw6Y9Mzl+40ueZW7TyjvpdlC0GlerRvVXV0uevnjcZJbX
+	 zKtXq3Z8c/epVtdfHhwkC6lq0uNSSpj5FzO1Smu0d1q0B1qBgBAWxBqR2bhVZySykNQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 470151F031E0;
+	by smtp.kernel.org (Postfix) with ESMTPS id 470261F031E1;
 	Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792749214;
-	bh=dUrTRiB6a6KjKPKdRXzNwQlX1C6Hobxw+2BixQH+gvY=;
+	s=k20260515; t=1792749215;
+	bh=k76C28WvueFM3AIT14tJaOsYhV8LFBqv5UIAtJ5c2mw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=I9JlhZVLDq7qpAL/qo8GmwwuwyJeSCYJV/E+ZHSf1hem/vzVKH8hyt1buvY3DtY+F
-	 cJlLJPuh46Mrb8FC6XuZZ5ZgHV0pQsjFNEioH9026RiVY2CTqU0K1kCoYPQg624Qpg
-	 QxPcQiQeXgxEvnZ06KCBmday1Xctnb6Qp0qqSGMmtc5oTzS5jZ4vNoi82wELnyxXb7
-	 dsf6BdkM/KL85kXgQVQSHzzd5PLuAebYwz7r7AbirmF/WqVb9Ooo2JAu1zy29fYkhq
-	 Xe6d3I0k2Zo4UUsBN1kwZD3tcorY536LwG7oZoRQilirf82AhZta2AFIMyeZ4x0pJl
-	 FYg9yUR4yFVPA==
+	b=XnR8pc3y9GJkkSkf5/6soXcqZMwCrmVODwL58jX0IxCFd4760M4K2e+1NEGDtZbBD
+	 qqNzqwsa6OI3e59OUJFDuLOfcw/xbGaGFU5DcDvtr1hk+NXNVJ3BsdYeW6VjrofZLO
+	 CFmc7GR5Jjv/pXok+x5VnDpXehChaWOkB3vi58yukJHV+gSWu39F9XsdSvUSW4Vij8
+	 5Hch0HulOP4ds44WyEq0UCXg/e1q6RHjLBtkzn9k6upKYctl6NN/EtX2pHCQH4+dTf
+	 hAn5PpkDJsKasMIvO2AoBdGgKEEKIC95XRpZdND2YiH5OAizk7ykQ+fK9R54Tzt7Xc
+	 f1P06LqlQuVJw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B742B44487;
+	by lkml.kernel.org (Postfix) with ESMTP id C1E9A44489;
 	Fri, 23 Oct 2026 09:53:33 +0000 (UTC)
 From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 15:23:31 +0530
-Subject: [PATCH v3 1/4] dt-bindings: display: msm: Document Adreno 620 and
- its GMU
+Date: Fri, 23 Oct 2026 15:23:32 +0530
+Subject: [PATCH v3 2/4] drm/msm/a6xx: Program the PDC sequencer on Adreno
+ 620
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adreno-a620-v3-1-2d1d566e5e13@brar.si>
+Message-Id: <20261023-adreno-a620-v3-2-2d1d566e5e13@brar.si>
 References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
 In-Reply-To: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -102,11 +102,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=1758;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=5355;
  i=patches@brar.si; h=from:subject:message-id;
- bh=8eTnNvhKpEjMR4UE06ag4D//fKmp89dOdFVVH07JhJ0=;
- b=kYPvnrZqpMRIFJfmX1pY4KuM6AZmzRANev439fURmGYqzUxzVfRBCqpHY0WUM/CkVGGDHmcCM
- kkK4J8YWgLFBFLrif5oqKwEhQHb2TGHR8d8Ulo/tkyDlt7SLtk12o+K
+ bh=Obs8CON0X6HWKVk8YPJT/kXnMrbnAoIHP9bqVC978ec=;
+ b=jyX1ZvF9oDj+esowCc1UUn9to4UyZo7aYH8B7Ut0tLXoAz5FLwMW/xx0JGLyDxJmySDapmjij
+ r5fnK+yXTDxAFwnq58wNnjeJGBGUgahrZxeOV8qJyYABOTKinZyhuok
 X-Developer-Key: i=patches@brar.si; a=ed25519;
  pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
 X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
@@ -117,49 +117,121 @@ Content-Transfer-Encoding: 7bit
 
 From: Ishu Brar <patches@brar.si>
 
-Add the Adreno 620 found in the Qualcomm SM7250 and its GMU. The GMU
-has the same registers, clocks, interrupts and power domains as the
-650.2 one. As on the other A6xx parts, the GPU clocks are defined in
-the GMU node, so the GPU node has none.
+Unlike the rest of the A650 family, the A620 does not get its PDC set up
+by AOP (the downstream devicetree has no pdc_in_aop for it). Without the
+sequence, the RSC never acks the second power-up ("Unable to power on
+the GPU RSC") and the device hangs.
 
+Program the sequence from the driver, taking the xo, mx and cx resource
+addresses from cmd-db instead of the hardcoded ones. Like the downstream
+driver, also program the VRM command when cmd-db has a vrm.soc resource.
+Add adreno_is_a620() for the selection.
+
+Assisted-by: Claude
 Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- Documentation/devicetree/bindings/display/msm/gmu.yaml | 2 ++
- Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 35 +++++++++++++++++++++++++++------
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
+ 2 files changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index 07f0e547b..3478adebd 100644
---- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-@@ -217,6 +217,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - qcom,adreno-gmu-620.0
-               - qcom,adreno-gmu-650.2
-     then:
-       properties:
-@@ -238,6 +239,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - qcom,adreno-gmu-620.0
-               - qcom,adreno-gmu-640.1
-               - qcom,adreno-gmu-650.2
-     then:
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index c30de7feb..cf015fdee 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -435,6 +435,7 @@ allOf:
-               - qcom,adreno-615.0
-               - qcom,adreno-618.0
-               - qcom,adreno-619.0
-+              - qcom,adreno-620.0
-               - qcom,adreno-621.0
-               - qcom,adreno-623.0
-               - qcom,adreno-630.2
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec..8d426f1f1 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -686,6 +686,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	u32 seqmem0_drv0_reg = REG_A6XX_RSCC_SEQ_MEM_0_DRV0;
+ 	void __iomem *seqptr = NULL;
+ 	uint32_t pdc_address_offset;
++	u32 mx_addr = 0x30010, cx_addr = 0x30000, vrm_addr = 0;
+ 	void __iomem *pdcptr;
+ 	bool pdc_in_aop = false;
+ 
+@@ -697,8 +698,18 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	if (IS_ERR(pdcptr))
+ 		return;
+ 
+-	if (adreno_is_a650_family(adreno_gpu) ||
+-	    adreno_is_a7xx(adreno_gpu))
++	/* Unlike the rest of the A650 family, A620 has no PDC setup from AOP */
++	if (adreno_is_a620(adreno_gpu)) {
++		pdc_address_offset = cmd_db_read_addr("xo.lvl");
++		mx_addr = cmd_db_read_addr("mx.lvl");
++		cx_addr = cmd_db_read_addr("cx.lvl");
++		vrm_addr = cmd_db_read_addr("vrm.soc");
++		if (!pdc_address_offset || !mx_addr || !cx_addr) {
++			DRM_DEV_ERROR(gmu->dev, "No PDC resource addresses in cmd-db\n");
++			return;
++		}
++	} else if (adreno_is_a650_family(adreno_gpu) ||
++		 adreno_is_a7xx(adreno_gpu))
+ 		pdc_in_aop = true;
+ 	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
+ 		pdc_address_offset = 0x30090;
+@@ -766,25 +777,31 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD_WAIT_FOR_CMPL_BANK, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CONTROL, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, 0x30010);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, mx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA, 1);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 4, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, 0x30000);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, cx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 4, 0x0);
+ 
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 8, 0x10108);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 8, pdc_address_offset);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 8, 0x0);
+ 
++	if (vrm_addr) {
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 12, 0x10108);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 12, vrm_addr + 0x4);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 12, 0x0);
++	}
++
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_ENABLE_BANK, 7);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_WAIT_FOR_CMPL_BANK, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CONTROL, 0);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, 0x30010);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, mx_addr);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA, 2);
+ 
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
+-	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
++	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, cx_addr);
+ 	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
+ 			adreno_is_a650_family(adreno_gpu))
+ 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x2);
+@@ -794,6 +811,12 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 8, pdc_address_offset);
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 8, 0x3);
+ 
++	if (vrm_addr) {
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 12, 0x10108);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 12, vrm_addr + 0x4);
++		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 12, 0x1);
++	}
++
+ 	/* Setup GPU PDC */
+ setup_pdc:
+ 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_SEQ_START_ADDR, 0);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+index 4b2156825..b77502446 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -443,6 +443,11 @@ static inline int adreno_is_a619_holi(const struct adreno_gpu *gpu)
+ 	return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
+ }
+ 
++static inline int adreno_is_a620(const struct adreno_gpu *gpu)
++{
++	return gpu->info->chip_ids[0] == 0x06020000;
++}
++
+ static inline int adreno_is_a621(const struct adreno_gpu *gpu)
+ {
+ 	return gpu->info->chip_ids[0] == 0x06020100;
 
 -- 
 2.56.0
