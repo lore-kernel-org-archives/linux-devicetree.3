@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792744364;
-	b=FSVf/s6cV/3sQ3fgC8DXmxr3AYBIPvObFpgwo1uaxFtdv9kMI59xsOLZKHA3+62vK812
-	 Ku7IGtlcGYN1w3ZJSZk1Nv/7FRAFF/ts8fMLYImYsVf9voFMmLcTQlqy909O3ElkZDRQG
-	 tz5jqaVQZynFVkwuQ1wyGuvGZ/8zUc5yT/h4jM1xfV4ArzggEAknMfg4dWyOl/F/PGP5d
-	 BQb6qS6YFu1dfAQC2nFjgKB/KfCaSviCBuM6Zp8VElHabYux8ls351PUUdrrv4kwMzRRC
-	 laSavalVy7rjcE05Cs/GCP/hvbHsJfduhVG3eaxjymwh0pzmAO7k96j49+5akYWnFLQ==
+	t=1792744425;
+	b=0cfNTkKpsT6YTAusLmd8JdvHihe0DI/b2c0ZENZL2suKn4lmwDRoMmfzF3zOOD7hMMif
+	 lQN1HoauoQPsp1WwAN9z40Ql5P4fg92mdyUkf35dlgR1xjYnjaYXdfO5WOHyUg/ZF9KZP
+	 xPRplpoD5ckU2qZqtPkkrmDGL8elXctL2FJjCp9ORWvAI5fj+L/CaOzoQ8tioH3rATlhK
+	 2uGPCXYcvxBB/dhU+vLyVyjrBvf/SAPievPhBVX81QJyeuFuFrkDzfOK8mpR55ZPl9HUz
+	 ggv1IqIPy584Xg7eM8awiy/HE6GeIr/pV+R8/tK4GN1W9gC+uD2XrInkdWmMzLtgPNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792744364;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5urQ3KExm5E/94pME9nAFkLY0Lo7S5FkMJrAZSkEYVo=;
-	b=yc4iTMRmRUjwR0QIsqPeXhssPYe36PLr+0bD/4/haxiv0wCSYsCiBnZ2hfFZ5tmspFy2
-	 Is4QkIg0TsV1BoNABQFujAcctq1FX7JNakH6Y0XqQ9wZexHvs5T9F4lgbn2Xfq6tFxFDA
-	 aKdhvrAiJrmuJmpFvFcoNLiYmIgcrhoy9zsMmlgVctI/WlvOO1mJ/cZsnbNapZg7s29nl
-	 gxbNHa7CmM2j9WT00+noVj/smDvWT9OZCfpHGG+cdSNJV17rlHNYqDjYE5my8KKph8qcb
-	 kP9YKsFjGrc5sQsv7AptNFXCuvunw9iRh/+t16/VY6PUZYJMivl0B+C8uoSG1Yg9gLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792744425;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=njVjUl4hfH0EVJDDjNIsGJyGAEQpeev5QhDFleOIfKg=;
+	b=R0iblLRYtq6O/pBWGy+uMgCLCpu3PpZc1xz93mZ7v6suyBpQg5lOyaSTuo/lJjESxXhm
+	 9V41vAyM8GdMT2fLHvKu0soMO0fPL2J6UAXN7+mlZjGPaz9SZNYIe7psAYJys9ttrl0mR
+	 qGgKWGLgzA5nWAwdxF4znjScOpPhYnq5j9RFbKbI8qDQ+H1AFAQtaHU/2CsLahQBBPQVa
+	 uN69go/afmDLb95YgkpfiWAcyWyO0I6Wus7jMFfVr5uQSdCUoyrIgQ/TdC6Gr1BjO6aRR
+	 Hwo9GQX6iVW1bBpe0ZsC5qga0kW2kf+uNWqlFjDTBFj3OxGzMmEA83ckaLej8pNh9bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVzPeORZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F834606A31B;
-	Fri, 23 Oct 2026 08:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVzPeORZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0721F01825;
-	Fri, 23 Oct 2026 08:32:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792744363;
-	bh=5urQ3KExm5E/94pME9nAFkLY0Lo7S5FkMJrAZSkEYVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nVzPeORZ00tviU8Uh5SfYG36gHStp+6AMxNFQRgDIRAJs2jWmdXhMejhzay0A6EjE
-	 8OC7nrdaY5DbrQRlfauU+Pl5zgJLUqEXc/3HSl0VzDOKnfD9gvYF7SCio4fA6TFTpz
-	 XTZbKTh9Z32+rAPcNagywm37arYdsEv6NTzTXck4arqf0/eYCHKOqTZvacbxJXE4N+
-	 ceQtCPrqehvW/R+i6YzFxD3U2CBZjmrmmeBiN/7hAvsPn+GYRmkEOzOvQlrLhRxB5i
-	 suSz9xLZnwXPYGHA0+vVTYZfgrGOZSHbvcuUCKQRd/0UDJ5KJzJCrWJplhNXng5SyM
-	 7tNsv8w1YrnLQ==
-Message-ID: <sashiko-outbox-182520@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: allwinner: h616: identify the UART
- integration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: linux-serial@vger.kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v1-3-e4a3bae2eba8@gmail.com>
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
- <20261023-submit-h616-uart-fifo-v1-v1-3-e4a3bae2eba8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 08:32:42 +0000
+	dmarc=none header.from=alpha.franken.de;
+	spf=pass smtp.mailfrom=alpha.franken.de;
+	arc=none smtp.remote-ip=193.175.24.41
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EFF6606A31A;
+	Fri, 23 Oct 2026 08:33:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EFF6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1xKAiV-00019Y-00; Fri, 23 Oct 2026 10:33:35 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id F24C3C0423; Fri, 23 Oct 2026 10:26:53 +0200 (CEST)
+Date: Fri, 23 Oct 2026 10:26:53 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 4/5] MIPS: Alchemy: Use the GPIO watchdog driver on MTX-1
+Message-ID: <atsaTfcvlrV_EEcK@alpha.franken.de>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-5-f.fainelli@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,141 +60,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-5-f.fainelli@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: allwinner: h616: enabling UART RX DMA on sun6i-dma los=
-es RX data
---
+On Fri, Oct 16, 2026 at 03:16:16PM -0700, Florian Fainelli wrote:
+> The MTX-1 watchdog is serviced by toggling GPIO 215. Describe its toggle
+> algorithm and 1.6-second minimum interval through the existing software
+> node properties, and register gpio-wdt instead of mtx1-wdt.
+> 
+> The nominal 100-second circuit reset the test board about 82 seconds after
+> starting an unclean-close test over the serial console. Allow for circuit
+> tolerance and console transmission time with a conservative 70-second
+> hardware service margin. Keep a 100-second initial userspace timeout and
+> let the core schedule keepalives for the longer userspace timeout.
+> 
+> Mark the watchdog always-running so the core services it before userspace
+> opens the device and after a clean stop, without trying to disable the
+> hardware by tristating the GPIO. Enable GPIO_WATCHDOG in the MTX-1
+> defconfig.
+> 
+> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+> ---
+>  arch/mips/alchemy/board-mtx1.c   | 8 +++++++-
+>  arch/mips/configs/mtx1_defconfig | 2 +-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/mips/alchemy/board-mtx1.c b/arch/mips/alchemy/board-mtx1.c
+> index 88c20c0ca96d..8543ae42af92 100644
+> --- a/arch/mips/alchemy/board-mtx1.c
+> +++ b/arch/mips/alchemy/board-mtx1.c
+> @@ -125,13 +125,19 @@ static void __init mtx1_keys_init(void)
+>  }
+>  
+>  static const struct property_entry mtx1_wdt_props[] = {
+> +	PROPERTY_ENTRY_STRING("hw_algo", "toggle"),
+> +	/* Allow for tolerance in the nominal 100-second timeout. */
+> +	PROPERTY_ENTRY_U32("hw_margin_ms", 70000),
+> +	PROPERTY_ENTRY_U32("hw-min-interval-ms", 1600),
+> +	PROPERTY_ENTRY_U32("timeout-sec", 100),
+> +	PROPERTY_ENTRY_BOOL("always-running"),
+>  	/* Global number 215 is offset 15 on Alchemy GPIO 2 */
+>  	PROPERTY_ENTRY_GPIO("gpios", &alchemy_gpio2_node, 15, GPIO_ACTIVE_HIGH),
+>  	{ }
+>  };
+>  
+>  static const struct platform_device_info mtx1_wdt_info __initconst = {
+> -	.name = "mtx1-wdt",
+> +	.name = "gpio-wdt",
+>  	.id = 0,
+>  	.properties = mtx1_wdt_props,
+>  };
+> diff --git a/arch/mips/configs/mtx1_defconfig b/arch/mips/configs/mtx1_defconfig
+> index e28a0b1e6d52..5e060daded9d 100644
+> --- a/arch/mips/configs/mtx1_defconfig
+> +++ b/arch/mips/configs/mtx1_defconfig
+> @@ -377,7 +377,7 @@ CONFIG_SENSORS_W83627HF=m
+>  CONFIG_SENSORS_W83627EHF=m
+>  CONFIG_WATCHDOG=y
+>  CONFIG_WATCHDOG_NOWAYOUT=y
+> -CONFIG_WDT_MTX1=y
+> +CONFIG_GPIO_WATCHDOG=y
+>  # CONFIG_VGA_ARB is not set
+>  # CONFIG_LCD_CLASS_DEVICE is not set
+>  CONFIG_BACKLIGHT_CLASS_DEVICE=y
+> -- 
+> 2.53.0
+> 
 
-commit 3bfb41f1bb740f4fc20f5b9cb7ef6f35cf6c4504
-Author: James Hilliard <james.hilliard1@gmail.com>
+Acked-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-arm64: dts: allwinner: h616: identify the UART integration
-
-This commit updates the UART0 through UART5 nodes in sun50i-h616.dtsi to
-use the "allwinner,sun50i-h616-uart" compatible string with
-"snps,dw-apb-uart" as a fallback so the driver selects the H616 256-byte
-FIFO configuration and register layout.
-
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun50i-h616.dtsi
-> index 1598e86259ab5..6905c9eaa2493 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> @@ -538,7 +538,7 @@ mmc2: mmc@4022000 {
->  		};
-> =20
->  		uart0: serial@5000000 {
-> -			compatible =3D "snps,dw-apb-uart";
-> +			compatible =3D "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
-
-[Severity: High]
-Could switching uart0 through uart5 to "allwinner,sun50i-h616-uart" cause RX
-data loss and wedge RX DMA on non-console H616 UART ports when paired with
-their existing dmas properties referencing sun6i-dma?
-
-Previously, matching "snps,dw-apb-uart" caused dw8250_setup_port() to read
-DW_UART_CPR as 0, leaving p->fifosize =3D=3D 0 and up->dma =3D=3D NULL. Mat=
-ching
-"allwinner,sun50i-h616-uart" selects dw8250_h616_data in dw8250_probe(),
-which attaches 8250 DMA to the port:
-
-drivers/tty/serial/8250/8250_dw.c:dw8250_probe() {
-	...
-	if (data->pdata && data->pdata->type) {
-		dw8250_setup_port_fixed(up, data->pdata->type);
-		data->data.dma.rxconf.src_maxburst =3D data->pdata->dma_maxburst;
-		data->data.dma.txconf.dst_maxburst =3D data->pdata->dma_maxburst;
-		up->dma =3D &data->data.dma;
-	}
-	...
-}
-
-Because uart0 through uart5 in arch/arm64/boot/dts/allwinner/sun50i-h616.dt=
-si
-already specify dmas =3D <&dma ...> and dma-names =3D "tx", "rx" pointing to
-"allwinner,sun50i-h616-dma" (handled by drivers/dma/sun6i-dma.c), opening a=
-ny
-non-console UART calls serial8250_request_dma() and enables 8250 RX DMA.
-
-First, when serial8250_rx_dma_flush() runs (for example on
-UART_IIR_RX_TIMEOUT, UART_IIR_RDI, UART_IIR_RLSI, or dw8250_idle_enter()), =
-it
-pauses the channel, calls __dma_rx_complete(), and then terminates the
-channel:
-
-drivers/tty/serial/8250/8250_dma.c:serial8250_rx_dma_flush() {
-	...
-	dmaengine_pause(dma->rxchan);
-	__dma_rx_complete(p);
-	dmaengine_terminate_async(dma->rxchan);
-}
-
-In __dma_rx_complete(), dmaengine_tx_status() is checked and returns early =
-if
-the status is DMA_IN_PROGRESS:
-
-drivers/tty/serial/8250/8250_dma.c:__dma_rx_complete() {
-	...
-	dma_status =3D dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state);
-	if (dma_status =3D=3D DMA_IN_PROGRESS)
-		return;
-
-	count =3D dma->rx_size - state.residue;
-
-	tty_insert_flip_string(tty_port, dma->rx_buf, count);
-	p->port.icount.rx +=3D count;
-	dma->rx_running =3D 0;
-}
-
-However, in drivers/dma/sun6i-dma.c, sun6i_dma_tx_status() returns the value
-of dma_cookie_status() (DMA_IN_PROGRESS) directly and never returns
-DMA_PAUSED even after sun6i_dma_pause() has paused the channel:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_tx_status() {
-	...
-	ret =3D dma_cookie_status(chan, cookie, state);
-	if (ret =3D=3D DMA_COMPLETE || !state)
-		return ret;
-	...
-	dma_set_residue(state, bytes);
-
-	return ret;
-}
-
-As a result, __dma_rx_complete() returns early without pushing the
-transferred bytes (dma->rx_size - state.residue) to the TTY flip buffer and
-without clearing dma->rx_running =3D 0. Then dmaengine_terminate_async() fr=
-ees
-the descriptor via sun6i_dma_terminate_all() so the completion callback
-dma_rx_complete() never runs, discarding the received bytes and leaving
-dma->rx_running stuck at 1.
-
-Second, when UART_IIR_RDI triggers handle_rx_dma() -> serial8250_rx_dma() in
-hardirq context, sun6i_dma_issue_pending() does not start a physical DMA
-channel immediately; it only queues the virtual channel on sdev->pending and
-schedules sdev->task:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_issue_pending() {
-	...
-	if (vchan_issue_pending(&vchan->vc)) {
-		spin_lock(&sdev->lock);
-
-		if (!vchan->phy && list_empty(&vchan->node)) {
-			list_add_tail(&vchan->node, &sdev->pending);
-			tasklet_schedule(&sdev->task);
-	...
-}
-
-Since serial8250_rx_dma() neither masks UART_IER_RDI nor drains UART_RX, wo=
-n't
-the level-high UART interrupt (IRQ_TYPE_LEVEL_HIGH) remain asserted and
-immediately re-enter handle_rx_dma() with UART_IIR_RDI and
-up->dma->rx_running =3D=3D 1 before sun6i_dma_tasklet() can run, flushing a=
-nd
-terminating the newly queued RX DMA transfer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-submit-h61=
-6-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com?part=3D3
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
