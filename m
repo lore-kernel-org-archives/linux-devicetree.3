@@ -1,109 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792774184;
-	b=0rReNQMlDW97KSMc0h2utG1HLlzSwSnK0TWBSeeRy5RpHe4JVUqYkXbBWdF0B/vt6h78
-	 7+ie1RBYBRqMPOnma5MEEHm0hz0XX9qDK2kRthKfPaWWLH2Rq9kQdwcGkzbq2Sq+QTgqM
-	 ctdiFVY39kfHypwNzEapfQy6/HSeJWiK42ZnhvmHcIMvVt8amUDm2GXv57DXcpz86PA5D
-	 xh+8nEQBCHnDaDSiegNVWYdwcVLc4UoY3oBCiIzJEgbV2OukSUL3LmRy3NgdrocOFH0LX
-	 JFXiGFpnmL9qi4YW+pOiV+WAXOXxVDttqUjZd0xGFzxpu9+HJjG6hxuekRRWTZLde+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792774184;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1lL2e9yB2Wv1CSKTWANwOy9hCtXGG7GsIMOA3c3krRs=;
-	b=jAD4AWxXXR1zycXrlAfK2gfjl7mzYKjlIqVUdMitt3KnuwPxMXLALY0F3c/F6T2++caj
-	 X1FcyIKrUKai66uEx3g7XeRTtoI3jnB9gEsGzgiLVlpJNk9HEw+MS9e1H4Fp9DolscWBY
-	 v4ss781NeH7QVvysrUjs5H/A6XRkJdEV6XI4KwC1Ri05WU/zCWRjq0EjrKTnIdjAOxIvM
-	 V8p+I7qKwhqpHmNHfdRMuienzxmClb6GFNtujZ8QCgCIQsTdloTTHnEE0qcKtA6Zgq+wl
-	 iPBm9xb+m58B7sXSGYb5LLugKWg9jK/S8MbKVjY1/wR8e5xtS7amif0kTSf+7kTVPwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Z9btVpLB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.20
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010020.outbound.protection.outlook.com [52.101.229.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792774654;
+	b=2hZQklOG3jtUxFmmF+fXndktX+yL8hBb8xnXkosDfDiQvVvL+0HIxlFubZlYq5QwxBt4
+	 uGUeUki7DoG6z2DGisSRGGysnRe42FNiWP9H+nyzPbz77XeTb6Cz9h6WwQNUuIItrRGyM
+	 JFqFvaY9pna6a3STwj9cQpfUUm66BNzb9GOQpkCQGvOv3wgGW1YoxBq2B4w36m+5D+mNK
+	 uRoAhp/q353ir/LTf67OyWWU6ODjsqjQ6zGKXSlJS15f8cy6Fi477d7eSTm9SVJM2EJCZ
+	 6KhQhELDyZngA159w4/l+6Z5QQ+co/wyQJGXHIPSQLV8G/rfiMx+7BfkapMP5O+fBqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792774654;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XMTCkRB6/oZCpA/BF1LpraKM3Sr+19d1vEnhPR1DA+8=;
+	b=htbWcYQnoofWpsBZl4D2nXiY8M5WudodmJj1N2cOE37D4Dg8EwlAvtJY0Bcj0VJIq6tG
+	 HgAcWKziFLoh7CwV+Z9Xw+RLjMPKK8aMFbnjd7jkPYmrCDrWaaLeWE9WoH8WmpjWa4vrP
+	 wrUFWnBYq0kmHcqNHDd5Ri8yiml4jRLI0fxSDXQbWt2kZ0HljEVDVFyVOETP5Y5Qhyjce
+	 sSFWdn45lezrjqhyDzRSc8/I9H5b55+EG0yRyaWYmtc/IbBOIqp+BFDl4G4l2Wx4Uo3e6
+	 8c9VmLemO9/pIXbmz0e9Rrx2mX8zkwE8a3JU2zUSPKvVR6UgviFF7ZL9bEpTIzu2WYA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdHFQmJf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3C5606A33F;
-	Fri, 23 Oct 2026 16:49:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA3C5606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92283606A31B
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 16:57:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=Z9btVpLB
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sx6MSHimkgs5Mm3TzX8eLJ0Vk5PcjNSPCyibX9uYPzbPBu5Klg5lYlfvbEiJkqyTOmwYBKyRKBHvhNskxEiRX11Ws/Dyc0IOiOWlO7JtRyhcCEfkiuQcX4NuQ8fAhZ+9TJfry5NTk9e1KGTh7M0wCHShJOlpEV26WAZYodBVLsxj8TF+fkVfJfZpmVaAdIVnj79yw7nrEAFojz8keD95jtm/bV+1iZ3xLQzqu+R+xPOxnSPgAfX2l7a3wluMOVR/0qgzC0tn6XHYteZmo2QweH3gQFApUDCImXudU+Eti97TB5wdB4iQqYfxWyHvm0SIcRp2PnshI+DnhVnpvAohgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1lL2e9yB2Wv1CSKTWANwOy9hCtXGG7GsIMOA3c3krRs=;
- b=g+LZIKK8K5IcAJHtimv4OhqR/D+A17oYo04PgyKXNBPIc7trKwfhyj11ID29z7UDXiu9BTk8CnVtFGRfxW/WoChi7UFV/dBkwX6IAML/WfN6aXmRn1W65tdm14pRJ8OCuejoxngQOijkHRONrBDG9gWY7ONTEhBQ142vtVWXEqfmu6fyE+g+gfofTpCVteXVywqkW+Qvd52X7N0MknKqbcmx/pxyYg1SEmX2I6lN2ksvfDpxSvkAv8KFEs2NXNe6qXFP7sKjNpvCxaGAWLiT8XEfBeMTpTooeTS4jCX7GwmFQ6geDBnKgYrZP7CnI0H75S9m88YJ8KdNuZ/0NqXEeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1lL2e9yB2Wv1CSKTWANwOy9hCtXGG7GsIMOA3c3krRs=;
- b=Z9btVpLBsjCSPxOvIUNMRmmLAAjzJq1ZseZKR+uc7Yn94H4kXTj918caETZ08ex9yflJx8Fw1pyvyQj2j8ru/en2jN7hIehMsslTev4ypAwNdLBa5X5Rme2t/ItpyU+aAXpn9kXYW21/k54h3FlH56Dk7Yf8W0Clnx7K2fkjOtw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS3PR01MB9415.jpnprd01.prod.outlook.com (2603:1096:604:1c6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 16:49:40 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0546.012; Fri, 23 Oct 2026
- 16:49:40 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 10/10] arm64: dts: renesas: r9a09g047: Add DU{0,1} and display subsystem nodes
-Date: Fri, 23 Oct 2026 18:47:43 +0200
-Message-ID: <4bc427630fb9c4a359016ef7609111e804c8356d.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1792770965.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0031.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::15) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdHFQmJf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D981F01828;
+	Fri, 23 Oct 2026 16:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792774654;
+	bh=XMTCkRB6/oZCpA/BF1LpraKM3Sr+19d1vEnhPR1DA+8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PdHFQmJfF5RNKaWU/QqGgCX5mbCoa6OiGUERHFyzp5q/jZ7UXFahzet/C690DJwap
+	 JnQof5G3MCgFKN3YU3zmw95nw5Balrm+qecO5oecxE3KMB/ue1Z1miV21OdBj2xmiK
+	 fwF4VnYtKSLdkcnlv3sdMqZPTVokCHxM9mm38crrVpaGrwUMgnQ6fKOujtjS9kWliu
+	 ygIF3Egmksb2VdSL8p1Y5Hj6qAzENP1zgS7FIIDTkiD++/f8NIoE1mpzIO7KXenxwp
+	 25OaJjWON2S5q//QODHoDoeIgKn8VJWGJ7nEsbksEUZvB2Ify5fC/vlCdLezGvOpH0
+	 yUGRCMYsNM94A==
+Message-ID: <sashiko-outbox-182975@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/7] arm64: dts: qcom: sm8450: Add CSI2 PHY device tree
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Zapolskiy" <vz@kernel.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261023163057.775917-3-vz@kernel.org>
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-3-vz@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 16:57:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,174 +60,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS3PR01MB9415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d41fc2a-e82b-4255-d400-08df3125a075
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|7416014|366016|23010399003|1800799024|261009223027099003|261021121427099003|261022105027099003|261022075727099003|10067099003|56012099006|18002099003|22082099003|11063799006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	XneFqHeSCgv4BqeWR3sMWjgQjYjZYwD1zOsDQ3Okpn93Bc6KD9+43BPWR3VT5CNOOZSx2WpIy7dam4Fbl8ImpxGVCkS38bKqhahFoCk+e5XeNlMt5yrsYRVoOU8Ay5BNanJpwRT8ing2PxTdzi9BNt0WES2YuXRP8U+tNytwjuH4VyYcgnhpW+AEXrLhFJ1Q3cjD3AAjxtwz60n00WiBlf+a6bJkCaLm3On7vmiEWUuMV/G5TWzkmzY9VXRsxMJ+oznr/xGgK36GTCHugideQjLQ0My4HTz075sVIWz5nYz1w8kAS7c0AI+e7bVWO5zHWGNp5wULj9pKKL2mNax76YH0TSlEI/8ET+ALmLmg/yS66r86CU7tkA4vt/vzSv8SvfW1cZJdMcgnovPFjNh4XIKapiKRhRT3RsnRwBoIyBBUS/xaxx9Siq+8a7fYA2X0BETJTFvPBHsx9I4J4vb2HA9UXqxCRonXmfha2BYjwhnkhaV0fjOu0PioywGMkaLW68qHRXHq3gie21xskk9rfPv2zO4H6ju5DUihRs82Zbax84Zvu1BaOepSACmVF9/BF4Ep2eqxolaXHIdUqOvh5IF/9f5PweWz+f92Kt3e//t1Dti9P/lUbBq3wy9uXkkHk6dc7i5RGZ7PixSF2+PF1n7elBRXVH2IrFMxD3xm2EseYpu9bK3TKR1pOORscVFwGS129/mCVmPw6N5DFTF/YqIfCkrVMDoTRIk1FdJci/A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(7416014)(366016)(23010399003)(1800799024)(261009223027099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ej9oOQfLRpPG5A3LrgiTTJg53yq5yyQuZ9mQRLcqcEbFJYO/ljsCWtGhGTcx?=
- =?us-ascii?Q?U4CRujoeWaTogima6qhgOHKzS3xWOr3QYQDhP4Q9frG+N0MM52WxhNYCgTUt?=
- =?us-ascii?Q?BycWCKoXFlSY8HebmxGlzQsySfifr7qwtdM8TKKRvHD0xVrp8PCYGgOCmAZg?=
- =?us-ascii?Q?V8Vq7LTnDDQ8BklPWQtiXbfd8gpYYFenKfk0+ArGPWQoNrBR5VwaE3FtI0Lh?=
- =?us-ascii?Q?70o8pj0rj65fylDq746xjQlOjd2D1jduS0CokAHU2RVODEDkH3/SoPiAR8vf?=
- =?us-ascii?Q?H8/BsDIxQUvnqu9OT1axSPRUZ3YJS4jTKE+NKZFay8roPRzhh5hx3mFqPYkb?=
- =?us-ascii?Q?WCkVtdxWwy6JZkUwA81u+C12DOjdRPTA0coFWrBNku9d4Gulp+Wka9YbTGMH?=
- =?us-ascii?Q?4iDYOulT+Vi5OVcXFqtkNRd9PRGJuYbPvn35luiGqvo0+54UWu3TkAC0s+4l?=
- =?us-ascii?Q?arhX5lBp0fzltNZ1W0Xmg2OOnMVupAaY1hXZgLAcmT7d8IwXm9uydK6lLjqM?=
- =?us-ascii?Q?c5GArF1+GTfHb8sGxViv12SvPEMADaVMHr+xXJks33GugppFpG8rQxM9hFAm?=
- =?us-ascii?Q?NWT2ENWE3z4Ypdzf4cCJ4MdTz9lLWwA0R5NdGX9VzSUqleAgxoaf20mZ6Pn4?=
- =?us-ascii?Q?pTdh7p0XG1BjrwNxArjLykiwVFyccYA+pHca5mzi0mXAtCS+7sStj+9Qz6G2?=
- =?us-ascii?Q?8ucAdqbjg47UItHbYhuFEZqRyKs/NGmUXSC1u3pfNg0b0M0FSf8iTu1oZtLc?=
- =?us-ascii?Q?ldKBJA86i3Hh25cjgfj/A3xeWrZowNkC5uNSkqdq8E8tTToRDFyyKzu6Pt4D?=
- =?us-ascii?Q?5JDvJBzkKbQw3Gp2u/2ZdSVw6bUGWZWXDts/swMHgUpj0xmbd8tWBFvItCsR?=
- =?us-ascii?Q?aBnJ2T+Frw+7x8ZBe3F3eFS2Q/SrIgcUgUHRBb6Wn7PDElTuJXapHwSobMjr?=
- =?us-ascii?Q?K3Rs/IsCfLtEt+h4lK3obyuyA6Ww8KiREFXAqOVVtnwImDSQTz+szJ/YfrBD?=
- =?us-ascii?Q?C1r72pv4fvkEZVb4n3xnVZ12A+HshJWoDvlRSbbdneQfkhZCII+GlOpCZxYE?=
- =?us-ascii?Q?zvpYUTGO/svFtou0UVLQgR7ZXB3zD336EU4u3wTnSkzCfGegAKQrcXOpqt3Y?=
- =?us-ascii?Q?zXqSWr8c+e9QnfLGTwyWo6pyq5VLw/gJJ4Ll0TD+aMWODBVwNj2MWM6gnSo3?=
- =?us-ascii?Q?DGUlBR3fzl6lZxRdXMOs2cuWI5xqYWh3+pZsEEgPQYUXJEnjW+KMNMUbXgYK?=
- =?us-ascii?Q?0Mtj0S7QZYFKGlt5EClJ5fWYqngsYBTVw3urzxJh1e/W9Fy2EIMsil8MoJeR?=
- =?us-ascii?Q?lNxPyq5LEXoen3+yJOXd0gC6nKmOyr89x75/hz/M+bhrEM6IjSn53tMEiTvL?=
- =?us-ascii?Q?1ehM+arxSsdxXLSuKsYkcEam9aCCSaIWZBs+nRtO/wSY8CpMTfsAFj2ffJ+B?=
- =?us-ascii?Q?6Tjllv6kGxRygtQZZ72bC1hEnWn0gPBCqrGIC0ktpdnoHt6VOBesAeKPqY/e?=
- =?us-ascii?Q?4igOSUyQ8k+1ISPKsmO0PbPufjfLPHjrWqnm/iMrtvBWKZ5yMj3Npi6YZtkq?=
- =?us-ascii?Q?rCjSlL6+kwr18d0RfAeXDol407BS2G3qszAcw99UyJqhj5kblSyKS7T/eci+?=
- =?us-ascii?Q?+5gVyzInikXg316Ox698n+CcR0DKHpS4Tdxiktc+qeayc5crkkUupodr4Hx7?=
- =?us-ascii?Q?YN/tvQfP0winCvlLGizt+GPvGePIMf1LSc4fqF+InWaeeVMCHh0LmTipL7Mv?=
- =?us-ascii?Q?L+VG0OzOU8o1tUxHPzf/l6kMreVFtyFCaXz/fAJTUQnSP4DSIKqg?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d41fc2a-e82b-4255-d400-08df3125a075
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 16:49:38.8568
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dre0wDBg4Typ8xP1nK+SAypgbDbFoH4P1Lpm+W9esbTNfeCR+syx+XhaskDh0cSRk52lNhGkcRy9Ob4h3oDcbnr54pGs1RvU7mNCzIsYSbz1+rDBKoryr9hwm+0tEcin
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9415
 
-Add DU{0,1} and the display subsystem nodes to RZ/G3E SoC DTSI.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] arm64: dts: qcom: sm8450: codename compatible used for csiphy nodes
+--
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
-v8->v9:
- - Split du into du0 and du1 node and added newly display_subsystem node.
+commit 0c7c977d6500322c8d06815e06e46862092f3fc5
+Author: Vladimir Zapolskiy <vz@kernel.org>
 
-v7->v8
- - New patch
+arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
 
- arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 80 ++++++++++++++++++++++
- 1 file changed, 80 insertions(+)
+This commit adds six CAMSS CSIPHY device tree nodes and a shared CSIPHY OPP
+table for the Qualcomm SM8450 (Waipio) SoC.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-index 737bf1c60451..0d03121a37e1 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-@@ -153,6 +153,12 @@ opp-19687500 {
- 		};
- 	};
- 
-+	display_subsystem: display-subsystem {
-+		compatible = "renesas,r9a09g047-display-subsystem";
-+		ports = <&du0_ports>, <&du1_ports>;
-+		status = "disabled";
-+	};
-+
- 	psci {
- 		compatible = "arm,psci-1.0", "arm,psci-0.2";
- 		method = "smc";
-@@ -2239,6 +2245,80 @@ csi2cru: endpoint@0 {
- 			};
- 		};
- 
-+		du0: display@16460000 {
-+			compatible = "renesas,r9a09g047-du";
-+			reg = <0 0x16460000 0 0x10000>;
-+			interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD 0xed>,
-+				 <&cpg CPG_MOD 0xee>,
-+				 <&cpg CPG_MOD 0xef>;
-+			clock-names = "aclk", "pclk", "vclk";
-+			power-domains = <&cpg>;
-+			resets = <&cpg 0xdc>;
-+			renesas,vsps = <&vspd0 0>;
-+			status = "disabled";
-+
-+			du0_ports: ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du0_out_dsi: endpoint {
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					du0_out_lvds0: endpoint {
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+					du0_out_lvds1: endpoint {
-+					};
-+				};
-+			};
-+		};
-+
-+		du1: display@16490000 {
-+			compatible = "renesas,r9a09g047-du";
-+			reg = <0 0x16490000 0 0x10000>;
-+			interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD 0x1a8>,
-+				 <&cpg CPG_MOD 0x1a9>,
-+				 <&cpg CPG_MOD 0x1aa>;
-+			clock-names = "aclk", "pclk", "vclk";
-+			power-domains = <&cpg>;
-+			resets = <&cpg 0x11e>;
-+			renesas,vsps = <&vspd1 0>;
-+			status = "disabled";
-+
-+			du1_ports: ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du1_out_dsi: endpoint {
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					du1_out_rgb: endpoint {
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+					du1_out_lvds1: endpoint {
-+					};
-+				};
-+			};
-+		};
-+
- 		fcpvd0: fcp@16470000 {
- 			compatible = "renesas,r9a09g047-fcpvd",
- 				     "renesas,fcpv";
--- 
-2.54.0
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/q=
+com/sm8450.dtsi
+> index b8793482b1815..b70a8635c6be8 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 
+[ ... ]
+
+> @@ -3298,6 +3314,270 @@ cci1_i2c1: i2c-bus@1 {
+>  			};
+>  		};
+> =20
+> +		csiphy0: phy@ace4000 {
+> +			compatible =3D "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
+
+[Severity: Low]
+Should csiphy0 through csiphy5 in arch/arm64/boot/dts/qcom/sm8450.dtsi (and
+the corresponding binding in
+Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml) use the
+SoC model-number compatible "qcom,sm8450-csi2-phy" instead of the internal
+codename "qcom,waipio-csi2-phy"?
+
+In Documentation/devicetree/bindings/arm/qcom.yaml, the canonical SoC
+compatible for Waipio is "qcom,sm8450", and
+Documentation/devicetree/bindings/arm/qcom-soc.yaml specifies that SoCs
+numbered with sm[0-9]+ use "qcom,sm<number>-*" for component compatibles,
+while codename-based compatibles are reserved for the newer codename-only
+SoCs:
+
+        # Preferred naming style for compatibles of SoC components:
+        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm|=
+x1[ep])[0-9]+(pro)?-.*$"
+        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
+        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
+        - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|no=
+rd|shikra)-.+$"
+
+All other SoC-specific blocks in arch/arm64/boot/dts/qcom/sm8450.dtsi,
+including the camera subsystem nodes camcc ("qcom,sm8450-camcc") and
+cci0/cci1 ("qcom,sm8450-cci") as well as all other PHY nodes, follow the
+"qcom,sm8450-*" naming convention.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023163057.7759=
+17-1-vz@kernel.org?part=3D2
