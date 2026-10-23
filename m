@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792721384;
-	b=MUW5zNKjgmWDv/ilS1zL710PsA++bttdpv4OgvVlqZqxo215fYhhKOvOwS+5t6qXR9Ft
-	 qlphHaN/Q9t9I2Blpoxm6gtXH5608T9K2FtHIE6189KaK91Pp/W/T54yjI7pwABesyFfm
-	 m0WFS59LE2EDd/kUuYooXyMletMamTLJrSbWUUk5DNWr50qI9/m05uoDmHWfCLeB0aLsZ
-	 Y/DT6a1GrW9dCo7yreDY/es+7EmEq32LGeuxZXVSHts9rYSJqYgJbrG+1V99PpAPJi22O
-	 DHSoqgQqLU0gbJVYGo67i8suc1J////TwVPycMPdlRMrLhdBPvLbexCvB8LMRc9B3vg==
+	t=1792721417;
+	b=Ow1ZSl3kisPVCUm8c+yYeRtuk9dsKLDivoUynLif3ahXrPKLDzQRyRKG03Hjkv+tD00M
+	 hlGlEV66mtxhMETseQQKzq9w3oEwgc9VNwx+QUbdtWbncesCpnVoQOze8SPoPdVFT+paw
+	 Wh9r4yAppJ2KtAAWMNv+DcAxlPln12iV/X7tWNE8v54SfTcaCBrW874Gs6sqQWPJP8GzO
+	 1sDfY3MuV4/RmOXl3QYUQxKSJFBusVM5OCxVid9cPKvWeSakS2t2Y86U6hxgm3WQDs4v1
+	 oVHMdXE65HLwqU4GVOYE9nvbunPT4gUNqjRkr5MzI1riSAPA2RbgahND+gvy2FVglFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792721384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nCEgrGMpts002PKaGu2tXyuX04mpb/j8xqv0L7WHiNg=;
-	b=XcqxbCqv+a7yxertYgTmJOVmKtlu4GDB/0lwK6ciFqyiouPQgQm91FAUIImazeEdzywH
-	 nCyruOlCjvwwKfVcdEP2RXkgftnKO6u0Vh0hTxfT2aCx2QN3sCj/aokwHPa7ZfNdEGwvx
-	 NJSDjvbwFUXftmjC8bs9RP/VwCa323y7yMOFo3YOifdaOByncD3vSnkDPpyFw8gdGoxJk
-	 APqGYr22LRPJRdroZ3aMX1FoHJDZbQhEqcGiPo+OCj6pQm3Vxhh7h8jlpaeIprmzpX6df
-	 Xa16/Al01PO/kFh0l/X1r/4e3WdSkRnz2f4eWKPBKZBdzCnTF5PhOHNrLQfARZAWHPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721417;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qi2ihPYoUvPtJBuERgX+xBdHcUtYGaxGLU5D/XX4aaA=;
+	b=HyxYDE5MBicGlwwXtlyZov2CD3rWSF/xgM1OpTpZcWJTG5lhFb2JGGoNcqmV27S2BUdd
+	 YjIcq4+AtuQrtibQwkCRgrHFu8lbZffEhiGWz0VznSyPXmUQlVxi66tkAEzDcPjgk+MSU
+	 xbQpI1q6j6xqslwVNlWtxwI9EsO3dLuHvDmpL+ltOt/5jx6Y3a9yZlTNqkBJyPgHYSp7N
+	 iomaQo1lA7y68vl1SuDQLAG3Jh79uu65S0rOyoVMxSn7fsvRC65mCawuEK37gvLtHexCX
+	 BXwhTJIXqo+/9jgHdIHlEpGK/KdOGmlgYSk0QN1LEXICA1A7AzawcPKL+xsJ5jyOLOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ajy5gVdz;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbKYUx72;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41971606A31B
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 02:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41971606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF179606A319
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 02:10:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ajy5gVdz
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so324526a91.2
-        for <devicetree@vger.kernel.org>; Thu, 22 Oct 2026 19:09:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792721383; x=1793326183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nCEgrGMpts002PKaGu2tXyuX04mpb/j8xqv0L7WHiNg=;
-        b=ajy5gVdzBO5meo7SWQMrbQWJtJdCzL1//MFKia84+VmiCEwkpVsrYbtg3P3ECvPbIv
-         ZU7C15JYfKcqk5CFUI3GPJiGsXYXRccf4+a7pAX14b/C3mpAgIgdqeEHthMNxFdB6dPJ
-         OsBB58VAqhpbjaBteX9r+qP88upV3+dOU2CRVfiXwrMZJn+KKZphwXPh7ZisDwAIGgeo
-         MJDl8k2WHSuVfn0rpI9WMdHaLw6ocTAWG9PK2sHrmRcCsvC5qW6PjAKnl4O0r8lMhtPv
-         eSm1yFdyui8bL25xIMF/X6/Y8fGbSWUkoIK/YVcQE6KRldKPgUEw9wt7V/CDVHlmV2ou
-         iKCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792721383; x=1793326183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nCEgrGMpts002PKaGu2tXyuX04mpb/j8xqv0L7WHiNg=;
-        b=Joc4X7wEArpimzMqawPVwF0erq9rsW8DwRZqImz34SOL2vWKWDoy04QSfF0E7Vh7x9
-         +nOTATKAInL5faucV8+w4Clk7YFIAMkMiw6uo/ZkkW0HfpHFmdXIHPQVTuBJljzhE/RH
-         8BWSylGVPvKrVA+aeE2OzQC1R6QaaXIaBito4jqEag3dPsgByc2iMfc4rTwHcwrpNi9l
-         rLas++kJinQLjqoys2GJF4dcrl0tNKa6nmAtxReytvcuhWukZJWge6Aq8z7b3vMTbOFv
-         VRsJzomRS1nR02h9WpqJsoTjjCTaaPy2AhnOxdsc1HDoxbUsh2YcHBFQD8SIj/5hs0vD
-         cwPw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1vg/FNlJeyZDIus8RnDwcRA2lwU/s2naW3zXg3gt0X0qAZIBXM33uvZxNoF/KQGxjXe7tV60H5p7C@vger.kernel.org
-X-Gm-Message-State: AFq9FYKesV3RYyV8Kp/cZVaB4c6XZHEGaCcwYhpDuHdNjMi5iH6qEVxZ
-	HDIhuNCmvrFVPoVApt11AYc6Z/YNNYB5qW6oX9kTBGccD80VZDAno+wE
-X-Gm-Gg: AYBFou170JdRfWdCVQxg8qRcpNyFhZ9OTTNbDbYIpdxeUp1T/TpMqUheEdOV+zr6tkB
-	4WjfMoyMoosLqpkAOhFbhPZFSWogmm/83szYvyeCRPy34skOG79pWhJkyqaqmxNuEPjsT4n5Av4
-	vlofNpkQFj5P8HlOtCaRMhVkYMWEe+cI+y+1YJsV/VhhAHKwkg1kBvKTXnsA4HXZobdMSvk2g5a
-	KwI22aJNHH9pxkIL7GrvoD3/ZCXLKEcwL6mi14R/abnwKPiqhcJHW8YwzsgdDTWU1YiratlEXE+
-	KZ/nLvBEg2sAD0x5gRm5lN6tCCfSksmnbSEWUMhpbf88VKwpXChiuc8DcpvvecQe5veSK1XhFev
-	lwXLW9y36f5DHhJOCbvjHsveN8SYfKkWfIiVcuJglCVaxaJ7O6J1XMPMFWimFMGW0Qzt8pyNLex
-	k+n63ObAnqMDoBqWAGFCmy9fDldP+YFjjk9q+ffYrNLEqisSZsq9r8kusYZ83z0enqLY/6DjZ4H
-	v738nI8oKyFhAP9wIwusdY4twOtS/uNoZSNqkABbexr/bC044C4PvgdqTuXb6nQ6VjT9MXfQtZV
-	HcLsUqjZq1zc9d43rSazULfx3Mre0GMwTFU=
-X-Received: by 2002:a17:90b:580f:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3adce7db6d6mr477154a91.25.1792721383412;
-        Thu, 22 Oct 2026 19:09:43 -0700 (PDT)
-Received: from archlinux (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1b256csm1199747a91.10.2026.10.22.19.09.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 19:09:42 -0700 (PDT)
-From: Artem Novak <artem122novak@gmail.com>
-To: daniel.lezcano@linaro.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	geert+renesas@glider.be,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Artem Novak <artem122novak@gmail.com>
-Subject: [PATCH v3] dt-bindings: timer: renesas,tmu: Add SH7305 support
-Date: Thu, 22 Oct 2026 20:09:32 -0600
-Message-ID: <20261023020932.23836-1-artem122novak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbKYUx72
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22B621F01825;
+	Fri, 23 Oct 2026 02:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792721416;
+	bh=qi2ihPYoUvPtJBuERgX+xBdHcUtYGaxGLU5D/XX4aaA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RbKYUx72YOdT/EhGTitbhui0yfZ850nu6EcA05lg915qXku+vtauLDVvHQhpNEF+P
+	 FUtpY125tml5ZUhgXakBNqFAs422yRYGcCAeNAwS6lFQPSxCmYoGEwlZv5NtQLC2fa
+	 b6Jdpsi9gXoJZNgst1P/QZQ0z/Sl6j1lVJOc3E6mNi3XcdjXn6Yh9KJF4fdTg2kln4
+	 md4Iz9dujkWWMBFkC04UiJY2cX4pRzIgqZLJJVMAowU4M13SdA8fI7VWzZAUGc+RoE
+	 Rb1fYAEe9knp/JhhWKEdYi0mBEvZmahq6y5bwTAGYtQE/05LLekDYqJO5uj3TV5jar
+	 kbIBR8bkhtmIw==
+Message-ID: <sashiko-outbox-182213@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/7] riscv: dts: ultrarisc: Add initial device tree
+ for UltraRISC DP1000
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xincheng Ji" <jixincheng@ultrarisc.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023-ultrarisc-dts-v5-5-af79dbd6ccec@ultrarisc.com>
+References: <20261023-ultrarisc-dts-v5-0-af79dbd6ccec@ultrarisc.com>
+ <20261023-ultrarisc-dts-v5-5-af79dbd6ccec@ultrarisc.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 02:10:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,45 +60,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add the SH7305 compatible string to the Renesas TMU Device Tree
-binding.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] riscv: dts: ultrarisc: use interrupt-controller node name for plic
+--
 
-Exclude SH7305 from the mandatory resets property, following
-the convention used for older SuperH TMU implementations.
+commit 1a3ff8774c13bffe4745b26609b00045901e6bc4
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-Signed-off-by: Artem Novak <artem122novak@gmail.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
---- 
-Changes in v3:
-- Align SH7305 YAML comment with adjacent entries
+riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
 
- Documentation/devicetree/bindings/timer/renesas,tmu.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+This commit adds the base device tree for the UltraRISC DP1000 SoC,
+describing its eight CP100 CPU cores, cache topology, and core peripherals.
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,tmu.yaml b/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
-index b1229595acfb..263f60b950df 100644
---- a/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
-+++ b/Documentation/devicetree/bindings/timer/renesas,tmu.yaml
-@@ -51,6 +51,7 @@ properties:
-           - renesas,tmu-r8a779f0 # R-Car S4-8
-           - renesas,tmu-r8a779g0 # R-Car V4H
-           - renesas,tmu-r8a779h0 # R-Car V4M
-+          - renesas,tmu-sh7305   # SH7305
-       - const: renesas,tmu
- 
-   reg:
-@@ -110,6 +111,7 @@ if:
-             - renesas,tmu-r8a7740
-             - renesas,tmu-r8a7778
-             - renesas,tmu-r8a7779
-+            - renesas,tmu-sh7305
- then:
-   required:
-     - resets
--- 
-2.56.0
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi b/arch/riscv/boot/=
+dts/ultrarisc/dp1000.dtsi
+> new file mode 100644
+> index 0000000000000..220e000a16989
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi
+> @@ -0,0 +1,865 @@
 
+[ ... ]
+
+> +	soc {
+> +		compatible =3D "simple-bus";
+> +		ranges;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +
+> +		clint: clint@8000000 {
+> +			compatible =3D "ultrarisc,dp1000-clint", "sifive,clint0";
+> +			reg =3D <0x0 0x8000000 0x0 0x100000>;
+> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>,
+> +					      <&cpu1_intc 3>, <&cpu1_intc 7>,
+> +					      <&cpu2_intc 3>, <&cpu2_intc 7>,
+> +					      <&cpu3_intc 3>, <&cpu3_intc 7>,
+> +					      <&cpu4_intc 3>, <&cpu4_intc 7>,
+> +					      <&cpu5_intc 3>, <&cpu5_intc 7>,
+> +					      <&cpu6_intc 3>, <&cpu6_intc 7>,
+> +					      <&cpu7_intc 3>, <&cpu7_intc 7>;
+> +		};
+> +
+> +		plic: plic@9000000 {
+> +			compatible =3D "ultrarisc,dp1000-plic", "ultrarisc,cp100-plic";
+> +			reg =3D <0x0 0x9000000 0x0 0x4000000>;
+> +			#interrupt-cells =3D <1>;
+> +			#address-cells =3D <0>;
+> +			interrupt-controller;
+
+[Severity: Low]
+Should the plic node in arch/riscv/boot/dts/ultrarisc/dp1000.dtsi be named
+interrupt-controller@9000000 instead of plic@9000000?
+
+Because this node has the interrupt-controller property, dtschema's
+interrupt-controller.yaml and
+Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.ya=
+ml
+require the node name to match interrupt-controller@<addr>, otherwise runni=
+ng
+dtbs_check on boards including dp1000.dtsi will report a nodename validation
+warning.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-ultrarisc-=
+dts-v5-0-af79dbd6ccec@ultrarisc.com?part=3D5
