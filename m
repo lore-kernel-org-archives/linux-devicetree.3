@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738119;
-	b=ZdzI6F/mmlcH0QDkVrwa1WDrPHAB+k+ApwSHoDs3OAI5Bm7zOzupXy6NDfaUJ0oTJlx+
-	 YuHialoz+PzMP48Gcdj8GC6OhZDhilaCGJjkVkvN4eZVOMF9o3MhtlzLAPJDtcLrcSVfE
-	 zxybU/A1qLkey8on0l8yHGVrUxzl7NQ/F/56Ls1lutypDiwuFNhbFGs5EbRdhRseexWA3
-	 Paf2CeRTwWqrqdCWTgYd7FrndXdT0rxgLzBMj3muV0+il+O67cPqIc1B6P9cMhMmDG0Iq
-	 bL879sp5vBGDYxPlplPebNLh6lt7bD3gv/Ma8bJKRAoPSA3ul45IK9qnQApfiJM58mw==
+	t=1792738181;
+	b=CDWwlfHXw59SIp4GpfbECxtg2lN/eM3JftbnMYw4RCZHCVRPZmTUa0jcAMot+bD0pnQL
+	 HY8qel9Ow9KKiap5zHSRUmwSgDKMYkNAXmGqRNFahb2golTexU1sKF+VJe2vKv44/wCVU
+	 UzT9PIR1/tCiIi0USC5hqHXnNH9dgrCfE3h/hkqcQ/EDOmG6hEOn2wqPipU7p8Z5+2vEx
+	 MlwRS8EcPfdrpDJQPQc5Opjay5OZk4pSYV1qb8GA0cqZO6TGW7WTr89Zg6n72P7IRbu8f
+	 84Lzm3oPREa9bSoAwa9lXbbEGY7HP5+aHzQ3lq8JhfN3T0ovF70dAiu0uSL3L9XvWVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738119;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GpLptWW92IMOqnJfqsUQVTAGi7mCp/+VkMLIYZrEKkw=;
-	b=ZwQtRJAA1Y4PG8QZg3zeHvOur4ossz08m/LaQqZiD17aARIcybCy6pnSOiRuq06gVd4G
-	 LWNUzYJtIdnlu/EaRyaTtc81EE0HfmVarH6DS2C7CrIjHJntdViTzLBFBElQv8cmOKHXf
-	 eMU+ph4dh9u4fzg7vt+/ek+wO/sBc6iJo8Fgka4ONu2UdvusaLUxcJlQvFGbjZYQrzlBY
-	 ZMUAtGo/Nuu7OW1gwFWtTNb5QByboLpydsa9qZAJIQf79bDOdJSyEQy0N7a+2FiG9hU8c
-	 L3NeGPsX3IQ3OYOQOUAoGTkJ7tM9Xe6+JVs0TgaofZgCu3Rk6bN03TXfxKhtf+Nu8cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738181;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
+	b=QB9dMl1mckXaa8NYfoJ38s5knUVJSEbdrWUy+bjn98Q9k4x0AVmy9d4Xp8dajMBq2+as
+	 UV5+JoteN8PalzAxMcnqpdlZwDWdWz9wgOjG7xwYsg2ewUZD5nVFxA5UmTnkAvZeung5D
+	 Ayd99fhkFF95qahez1uH2SJiXayRJEIpeAUd9EmkpQjS2ztbjORaE8FMZjv6BpPYOBaTk
+	 irkWAOfSQJwr16ex6oajkfVX4h1DfGdrDYeSuaQS8+I2Wv72I0ihSMKcfij8Ms7XZQFvr
+	 rWiSfWGIyH4vz9Hlt0pBz3FLD1Ftwb3ybu37+ZKkTfoiBNmEtm/Sr0ckc6p8ZM3JYUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhhcVGK6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D2E606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 06:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1894F606A320
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 06:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1894F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhhcVGK6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE771F01825;
-	Fri, 23 Oct 2026 06:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792738119;
-	bh=GpLptWW92IMOqnJfqsUQVTAGi7mCp/+VkMLIYZrEKkw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BhhcVGK62HR6OrFrm16NlRTWKLsRftudx9e3iW/afbX2RqEkyLbCQZoT9e+OvRIht
-	 tRpNyk/80RmJJ3T7jdqA5m7snYSq1txxQOTgEuPh0NRZTuS4Z4pqf+mJwq9sg+Pow7
-	 2vUhnSP72NZICBC/FCsZuhD87ephtEB5kYRoqOOICg5Z24eTWJgOynDD9G/hqL3dxL
-	 /q+XYAYv/+9P4kklYfALh+sLCS2D0ISe31ouw/yyVfVqV34UmZ0zpcx4r+un5NdcvA
-	 Fss40uX9nPfxd2OPzRN2G6qucWcOJYhQ4OEmi/LCdIEwLtj6RcGoHprwxSa3FKtP4q
-	 5PA3MOyLjABGw==
-Message-ID: <sashiko-outbox-182363@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/16] dt-bindings: remoteproc: k3-dsp: Allow
- referencing the timers' power domains
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 06:48:38 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BTmF3BTk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792738180;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NTq5B2Hm0FOnw+vWb0Xc3ff/4P/VqEFyOk2WyaUnR5I=;
+	b=BTmF3BTkhksy9U6Cr1orQlHq1FPEEpixNV5qNwDq4Tn4eaIXxEY8apcKEcFxvQYBC8U3h+
+	35DhyTw6e13z6ONV4u/Xb8tqq34zU6It9W6YH+JIpxbxyO5SVWME7t23ndtvJrEufVfeN1
+	JoKuBV4pfItIkwrCPcDVJENEYPw7eZc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-462-Tk87mULwMgur0MjOnfTSaw-1; Fri,
+ 23 Oct 2026 02:49:33 -0400
+X-MC-Unique: Tk87mULwMgur0MjOnfTSaw-1
+X-Mimecast-MFC-AGG-ID: Tk87mULwMgur0MjOnfTSaw_1792738160
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1A65F1955F05;
+	Fri, 23 Oct 2026 06:49:20 +0000 (UTC)
+Received: from thuth-p1g4.redhat.com (unknown [10.44.48.42])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B2AD19540C2;
+	Fri, 23 Oct 2026 06:49:15 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: soc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	devicetree@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v5 01/13] of: fdt: Replace __ASSEMBLY__ with __ASSEMBLER__ in of_fdt.h header file
+Date: Fri, 23 Oct 2026 08:48:38 +0200
+Message-ID: <20261023064908.66707-2-thuth@redhat.com>
+In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
+References: <20261023064908.66707-1-thuth@redhat.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,79 +88,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: remoteproc: k3-dsp: misuse of power-domains for ext=
-ernal timers
---
+While the GCC and Clang compilers already define __ASSEMBLER__
+automatically when compiling assembly code, __ASSEMBLY__ is a
+macro that only gets defined by the Makefiles in the kernel.
+This can be very confusing when switching between userspace
+and kernelspace coding, or when dealing with uapi headers that
+rather should use __ASSEMBLER__ instead. So let's standardize now
+on the __ASSEMBLER__ macro that is provided by the compilers.
 
-commit aa9adcac4a1bc9840a117c81a03e4ac0dade71bd
-Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ include/linux/of_fdt.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-dt-bindings: remoteproc: k3-dsp: Allow referencing the timers' power domains
+diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+index 51dadbaa3d63a..72b452e388eeb 100644
+--- a/include/linux/of_fdt.h
++++ b/include/linux/of_fdt.h
+@@ -16,7 +16,7 @@
+ /* Definitions used by the flattened device tree */
+ #define OF_DT_HEADER		0xd00dfeed	/* marker */
+ 
+-#ifndef __ASSEMBLY__
++#ifndef __ASSEMBLER__
+ 
+ #if defined(CONFIG_OF_FLATTREE)
+ 
+@@ -103,5 +103,5 @@ static inline void unflatten_device_tree(void) {}
+ static inline void unflatten_and_copy_device_tree(void) {}
+ #endif /* CONFIG_OF_EARLY_FLATTREE */
+ 
+-#endif /* __ASSEMBLY__ */
++#endif /* __ASSEMBLER__ */
+ #endif /* _LINUX_OF_FDT_H */
+-- 
+2.56.0
 
-This commit adds optional power-domains and power-domain-names properties
-to the TI K3 DSP remoteproc binding so a client driver can hold the power
-domains of two SoC timers used by the running firmware.
-
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc=
-.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> index d6319c8e96f8c..80eaef0a19b8d 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> @@ -76,6 +76,23 @@ properties:
->  # Optional properties:
->  # --------------------
-> =20
-> +  power-domains:
-> +    description: |
-> +      Power domains of the SoC timers the running firmware ticks on and
-> +      times its work out with. The firmware programs these timers itself
-> +      and makes no power request for them, and the timers' own nodes are
-> +      reserved for it, so nothing else requests their power; a client
-> +      driver of the firmware holds them on while it drives the processor.
-> +      The processor's own power is managed through ti,sci-dev-id, not he=
-re.
-> +    items:
-> +      - description: power domain of the first timer
-> +      - description: power domain of the second timer
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: timer1
-> +      - const: timer2
-
-[Severity: Medium]
-Should the standard power-domains property on the DSP node be used to
-describe the power domains of external SoC timer peripherals rather than
-the DSP device's own power domain?
-
-In device tree bindings, power-domains on a device node specifies the power
-domain(s) to which that device itself belongs. On TI K3 SoCs, the timer
-peripherals already have their own device tree nodes (such as main_timer1
-and main_timer2 in arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi)
-which declare their own power-domains, clocks, and assigned-clocks.
-Duplicating the timers' power-domains phandles onto the DSP node prevents
-the binding from using power-domains for the processor's own power domain
-(as done in ti,k3-r5f-rproc.yaml) and encodes a firmware-specific
-workaround instead of referencing the timer nodes via phandles (similar to
-ti,timers in ti,omap-remoteproc.yaml).
-
-Additionally, requiring two fixed entries (timer1 and timer2) per DSP node
-even when a single core only drives one timer appears to be shaped around
-Linux's genpd_dev_pm_attach() behavior: as noted in the device tree patch
-(arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi), specifying two
-entries keeps the platform bus from automatically attaching a single domain
-to the K3 remoteproc device during platform_probe(), which would otherwise
-set core->dev->pm_domain and cause dev_pm_domain_attach_list() in
-thames_core_get_timers() (drivers/accel/thames/thames_core.c) to fail with
--EEXIST.
-
-Could the binding reference the timer nodes via a phandle property instead
-of repurposing power-domains on the DSP node around Linux genpd attachment
-semantics?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D3
