@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792769163;
-	b=Fc1Ng+Fx1O/Q0StwFzc/N8XFpf7HPdY30jkucxi51WZqmKmok8nLueSSt15LeYyuTv5t
-	 MCdkbtyZzpUYm3aloDZT1WLJ3XWKCf97Rdc9fvSzICLWV7k6ECFpoGF49zmtnvVA307wt
-	 1aoeVXdCj4iDlwyMRsFNO93IAhsJQEBrg/0UPgVmt2X0emq6ed41fSlrDNNZ0ETz8jcBE
-	 DC7WgDIuYzUE4nlvhnHb/DIyyKX+PVGXxe60cUZ9wbHPtjH8OuLU/qaq0FhB+l6TdpoMX
-	 0GnLWF2GOg6Ca34uQ4r370j8p1I7lr+kTfmJ81I+u7kYsvKRHTCwOxHHDQ3rfgh+BhA==
+	t=1792769211;
+	b=uNoY5oX5Ard2Q3rm7jb4hD26QSDniuKX8qKilsMxErJwVgiS9QOxeqoGFz9iMYGtcRUE
+	 PHOqHkBX0NBtBQF7PxFOyuLZ9unKA1yQSRzv/aNri0XB7Cfj+9ClJ9hlTLPO0rDHBxwAC
+	 hMHc19UxiM0go01zM15mYSTxzFaq0Q8K+xI4J9nPKqrMeVIc10cHXO1HfbOWyNrWYp4GY
+	 jfMWCHNG+Cvmj7sJsHmYj+x0q5EWTnAyXpSlLfexNJfsAfmEfurJ1e2LGnlVcZpmYx+Co
+	 kp2zqOdP3LUNCOFT7PfP56xBGc9hwTXY1fdW9e6Q/ATAxa8Zz4ERFbGOn65HTKUp9jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792769163;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4a2HGeqSU90/oPjDCBfIOMhTpn84AQ4hBfmcEVcMu7Y=;
-	b=ObWYHqhRoUdt82G+LOfqyJQPg1fkwFa4y5H5gzBjUAxU4QcIpNTztFAs/vzFn2ZQpFAF
-	 5JbWI7eE7JcajGVN4ex0wkYzdfX+nHJ2oA+U4Ys7PbIywg5/cN86RtTNH516h/SoZjfld
-	 4EiTmpJ8rR1rEEkhO+WiO7d7glTxzDSMnB4kzyEDT14CFe28ivJtyg+s9cG8WwG23WrmI
-	 POPoXgh4hEGCOgQcFJ9hgbeVA5S0SMcoe/Vugs7WRXyx3wneE4yvD3kURdYHUtaW63r8Y
-	 j9z95yn+6HdiZeoaeemTdUa3GNvN5RRntUMR2egdI7SGv6gwKEqYDc8H/SB/sCHv1sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792769211;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=elQp4eJjgV7CDBDpIJwmmrdpKNOO8F+o3POaFwYjmFA=;
+	b=WFc9z/0hU/4QgS7horqux01PCkdZl40txrYnfl4ZOvMsidy9KquET7oACi+I7yhl0s4v
+	 95rjjQlmiBTe+/nBmTUJXEx1Y0BbEGKDfoxhouNArNdzgtuK5cJldvlaKjHrf0mgZM6c7
+	 jG1zuh1oJyIkcvu1HVl2VP5b8X6NX7NUXt2wjW7gHXj8p2nlSAKUGaGEV1xnbIDFtmWin
+	 4PlcXO0nafRISFOI6yhOp1vsd/ti5bN6B8deBD7oonC3rQJReT+6TotunweueTl7XbXST
+	 QH9+YmFHcvAXbpjuhgDcuxiB4svmlTfOOkB3W/yS/KLNLPIhL1/AUYNtwGRyEh1GQ3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=clz6LlPj;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QuQ2JfJg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776C5606A31D
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:26:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 776C5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8DD606A31D
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:26:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=clz6LlPj
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1df146015so7365035e9.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 08:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792769161; x=1793373961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4a2HGeqSU90/oPjDCBfIOMhTpn84AQ4hBfmcEVcMu7Y=;
-        b=clz6LlPjUTdI3liTjbBPzvaJkyBEN/TX3HWi/4eIyxmmD8ZI4SkQKMe8JEaByKZ2ik
-         eRDS3Q02MyWHy2PC32Wy6vIuqBCo7vnr1u6nXWBuVNKCKKXgPR1pZJnAuOF6WVJ3t6rO
-         10pytd3CMYvrnCQ6Dn/V7zVk4+RxfpV1d8ZZ6M9d4Io/cMYyW4ZUZJY31xhESceKPYId
-         7N7O8IUvcNX7rQU/YQBztiPewCNQOmbApYI13yZUd0WOdeMqN6FPwbf8jRCg6S6KGBaX
-         /CxfKtvmcVdVaInpniLAhO10G5Ie74B4YrO3ewquG0c2v2p+5S9TMTpKGcjV4OXa4a+0
-         zgSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792769161; x=1793373961;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4a2HGeqSU90/oPjDCBfIOMhTpn84AQ4hBfmcEVcMu7Y=;
-        b=hPM9CJV5jftKJix1dzHIgnIAym6FuxOJFxW8H61TRPGY2JVJe4r7xaopS1ASfBjGsD
-         ae64R1jQEl8fAh8xVC8IgeKV00DvdtHpPzKIcU2Ud2yFS2h13QsY3eHTkg42CbIvSKwz
-         NY05C8A9OvEuZ5L34esaWgBwzKFHxBYzhetYvQcANkYgQu9Tgof6k7Z9YfjiRcVzpr8P
-         xFa/vptHWv5QizO7WvPBwn3jL4Om0SSyUvbrW4XV7oc4A0/I86LZiVSxJmsZ67PzNsm4
-         7jp3uEh1afYEFPyVbCmXdkc87Wlz0e7gsuIQ9zmB2F8xT1EKKzKm5pZsSbkA01+5Peoa
-         sVdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByD617aRGdizLz8HZ+5WrfhD1RHWeTSFA/ukbiObM1KwD20VcgKlQfJi+W5hB5+7zv5SK+hjskOp/wX@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4kIxoY/nFlZDx62ciHV+wfgsNSCEm9zuwXKI/KZ4COyY+Y4RZ
-	gDlCjtrJS0VvK1nMeVciFf0sA2Q8TzUXQ/MxO0y81ZfdrPSucVx71zM=
-X-Gm-Gg: AYBFou0NDRIUnNVV/kqqVDP/B9RkwpAHhkk6uYiDyAOP5QzhzECDMv7tSN4gd57/1j6
-	MsLSkIbAJZoBG1QaMjneogpisN4OuGaaHIxy9Ft72c8Eh4UcpeOOy2JDF2h5l2BEFOP+hMIGqm9
-	JT1+du5+nB6D2QOwmcuciODqN+Fc/UfNptQRty2lNlhLU4zD4Yx93Roqa6RMLiA1Jipc296kFGw
-	7aRZZ+38tbo89cnPpmfjXwg6WGf45kcjiDH9p2iMsl/1WI4qnn2zpbDL1dtO0iYjc/wW7zIF2NX
-	JSSc5uz1g22ZB2K6vn+6y2nIOrDMLFN25B53Pp/f061/a1K4zFdJwQIsc4oAX9V3+1d1Qk33ofv
-	nSdi6DHwGTYALObt8TLsWW0OlKaixuP0iyrSngHwNlGcAo74bWhzDP7UeX4QvW23mtSKivzR2gN
-	hWz8tHViBG5FBttyGt1w0JLLUmda66fVH96K8zVth5QF0U2AuVOkbgH3rcjHvdHmQ1FewT5unId
-	exISJxiS9cgThzj3hYGYN+ROSifw8H01d2HRqSI+kxYiwBbu7GwuMUBbpHS1ucLY4NzSuRVw3YK
-	ZFeqb3kNm55SbfiKIklUjQk2LxpD96Rw/wBOLVHtxDnmWEMI0qlP9ln3aw==
-X-Received: by 2002:a05:600c:19ca:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4a211c8fa81mr43106325e9.8.1792769161277;
-        Fri, 23 Oct 2026 08:26:01 -0700 (PDT)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a29cda9686sm11718245e9.6.2026.10.23.08.25.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 08:26:00 -0700 (PDT)
-Message-ID: <af06c4b0-55a6-45e2-b2d0-81d64fcc845d@gmail.com>
-Date: Fri, 23 Oct 2026 17:25:58 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QuQ2JfJg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B59F1F01825;
+	Fri, 23 Oct 2026 15:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792769210;
+	bh=elQp4eJjgV7CDBDpIJwmmrdpKNOO8F+o3POaFwYjmFA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QuQ2JfJgDNhmbYNVuvr2//e7l4mMbVtANnUFAhbRdajNSFEvCEEZTVjnAYCVr2snJ
+	 kYObE3/aXS3CLJTHv7FrrHaURzTrjOWwWtxWsxqkZ+VEdYOwfCJcnZ9IJivkgvnQHa
+	 Tr6eRMVhMwLS+lpVPCENAN/oVYM5A1WJxphOfvoQJY1Hu2m1ei/mfk34yalt8Qa3jp
+	 Fii6jFwUsHqy1JqWCkI6YS+RPfgnGKgSrTX/aspQo/ymxzd0y0BwSAIzWZCYFKpKkL
+	 sCiEu6pCcfbBO9GPfUWhZR9/VpBLr2ILT7kGgbyo0fX6XbzsmBivl1m1lqiWCwLUGY
+	 B09Cu0oLSrgcg==
+Message-ID: <sashiko-outbox-182905@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 4/9] media: uapi: Add CAMSS ISP configuration
+ definition
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261023-camss-isp-ope-v11-4-0c2937195298@oss.qualcomm.com>
+References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
+ <20261023-camss-isp-ope-v11-4-0c2937195298@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 15:26:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,111 +60,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
- <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
- <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
- <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
- <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
- <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 10/22/26 11:46 PM, Akhil P Oommen wrote:
->
-> On 10/22/2026 6:24 PM, Anna Maniscalco wrote:
->> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
->>> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
->>>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
->>>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
->>>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
->>>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
->>>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
->>>>>>>>> In order to associate the SID used by LPAC to it's own domain and
->>>>>>>>> context bank we need a separate node on the DTS.
->>>>>>>> Can we use iommu-map instead of adding a new device using the same
->>>>>>>> addresses? You provide zero explanations, but it seems like you are
->>>>>>>> trying to separate a part of the GPU into a separate device, but it's
->>>>>>>> unnecessary.
->>>>>>> What I was trying to say is that we need to map sid0 and sid1 to different
->>>>>>> context banks.
->>>>>>>
->>>>>>>   From what I recall, so long as we use the same dt node, the iommu drivert
->>>>>>> provides no way of doing this.
->>>>>>>
->>>>>>> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
->>>>>>> and secure.
->>>>>>>
->>>>>>> The address on the lpac device doesn't really matter. I have very limted
->>>>>>> knowledge of DTSs but I think we could just leave it out altogether?
->>>>>> I think, you were poined to the Glymur Iris patches. Another option is
->>>>>> the QDA driver being submitted too. Both ot them use iommu-map to
->>>>>> describe the same usecase - a set of SIDs which are used by the device
->>>>>> but which should not be a part of the defaut set. With it in place you
->>>>>> don't need to have separate qcom,lpac devices, no additional properties,
->>>>>> etc.
->>>>>>
->>>>>> I'd recommend following the same approach.
->>>>> iiuc, the conclusion in this recent thread is to use child nodes for a
->>>>> similar case:
->>>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
->>>> Let me check internally.
->>> After a brief discussion: it can be either, depending on what suites
->>> better (and if you can persuade DMA / IOMMU maintainers to let one extra
->>> bus or not).
->>>
->> One thing sashiko is pointing out is that new dt should work with hold kernel so, in general moving sid1 from there would break it since old kernels don't know how to handle them separately.
->>
-> + Bjorn/Konrad
->
-> Not sure how strict is the requirement for compatibility with older kernel version. An
-> option in your case could be just do an override in the board dts file of the
-> Steam Frame.'
-In other words that would mean not upstreaming the DTS change? Although 
-we plan
-on keeping LPAC off by default upstream it feels like that would be 
-quite a big
-barrier to enabling it for people that want it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: uapi: 1-based camss_params_block_type breaks v4l2-isp valid=
+ation
+--
 
-Also yeah not sure where sashiko got that requirement, maybe it's not a 
-real problem?
->
-> -Akhil.
->
->> Not sure how to address this.
->>
->> Best regards,
+commit 5063b494328e812916323b381b136d2e5d3ac987
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
+media: uapi: Add CAMSS ISP configuration definition
 
-Best regards,
--- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+This commit adds the UAPI header qcom-camss-config.h defining the ISP
+parameter structures and shared block type identifiers for the CAMSS
+Offline Processing Engine (OPE) driver.
 
+> diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/=
+qcom-camss-config.h
+> new file mode 100644
+> index 0000000000000..5756d165e7e87
+> --- /dev/null
+> +++ b/include/uapi/linux/qcom-camss-config.h
+> @@ -0,0 +1,212 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
+> +/*
+> + * Qualcomm CAMSS ISP Driver - Userspace API
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
+> +#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/media/v4l2-isp.h>
+> +
+> +/**
+> + * enum camss_params_block_type - CAMSS ISP parameter block identifiers
+> + *
+> + * Each value identifies one ISP processing block.  The value is placed =
+in
+> + * the @type field of &struct v4l2_isp_block_header.
+> + *
+> + * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
+> + *	&struct camss_params_wb_gain
+> + * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
+> + *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
+> + * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
+> + *	&struct camss_params_color_correct
+> + * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
+> + *	&struct camss_params_gamma
+> + */
+> +enum camss_params_block_type {
+> +	CAMSS_PARAMS_WB_GAIN =3D 1,
+> +	CAMSS_PARAMS_CHROMA_ENHAN =3D 2,
+> +	CAMSS_PARAMS_COLOR_CORRECT =3D 3,
+> +	CAMSS_PARAMS_GAMMA =3D 4,
+> +};
+
+[Severity: High]
+Starting enum camss_params_block_type at 1 (and sharing the enum across
+ISPs that may only populate a subset of blocks in their
+v4l2_isp_params_block_type_info array) leaves index 0 and any unsupported
+block indices zero-initialized with info->size =3D=3D 0.
+
+In drivers/media/v4l2-core/v4l2-isp.c:v4l2_isp_params_validate_buffer():
+
+		info =3D &type_info[block->type];
+		if (block->size !=3D info->size &&
+		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+		    block->size !=3D sizeof(*block))) {
+			dev_dbg(dev,
+				"Invalid block size %u (expected %zu) at offset %zu\n",
+				block->size, info->size, block_offset);
+			return -EINVAL;
+		}
+
+		if (info->block_validate && info->block_validate(dev, block))
+			return -EINVAL;
+
+		block_offset +=3D block->size;
+		buffer_size -=3D block->size;
+
+If userspace queues a parameter buffer with data_size >=3D
+sizeof(struct v4l2_isp_block_header) containing a zeroed block header
+(type =3D 0, flags =3D 0, size =3D 0), block->type passes the bounds check =
+and
+block->size !=3D info->size evaluates 0 !=3D 0 (false). Because block->size=
+ is
+0, block_offset and buffer_size never advance in the validation loop,
+causing an infinite loop in the kernel.
+
+Additionally, if userspace submits block->type =3D 0 with
+V4L2_ISP_PARAMS_FL_BLOCK_DISABLE and block->size =3D=3D sizeof(*block),
+v4l2_isp_params_validate_buffer() accepts the unpopulated block type 0 as
+valid.
+
+Should enum camss_params_block_type start at 0 like other V4L2 ISP block
+type enums, or should v4l2_isp_params_validate_buffer() also reject
+entries where info->size =3D=3D 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-camss-isp-=
+ope-v11-0-0c2937195298@oss.qualcomm.com?part=3D4
