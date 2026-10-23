@@ -1,90 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792790381;
-	b=rRpLdTVsn1CyNdug0RIIucwM1mDkaltXjv6qZVG1bY06KFXFnJ7f8qQbMbUedv84PDCy
-	 57li8upRGEL1esqD3tUHf/WyRd04YnxffbM1wVb71oaEgClmMtRCjvkyALu/eIjrxnHwy
-	 HWd51Dr26f5s/NevSqExPxWdXY5r0/ALhOKlBvYh9mCjtSY0xcQEaEIkfBLSzndmA6A+c
-	 k1HdBR6blWQlllkDoF9tgz1Tc+sN/bfjczGld9m1nrG1QOUSQ2AaS5TlcP5kKCZKfp1Ot
-	 QEv4DLcx3Pychrng3eMncQkC8jOB19SQ3OCtBfeAQL4tlf3XNXf6BalPSFw+EmTgPQg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792790381;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792790984;
+	b=qS5zn0c/XpfpC1MFXoqfn4W/8u19UDPtkvTCKN7Fc2Iqt208m8r4nX4GwRbu5qckVP/n
+	 YW3RsOQ3HC48ylgA9z1nL4uyyKoO5n/+m+o8Jg2cUoW5i9h6WYQUX4YY7IGGmOMF6OwOt
+	 GRq/ChlMEjBQHcAgtCld7J0MKoX4wXK56PXATIDN7jvXatFUBCHkAcDpdoHjUHvhEDcKI
+	 mRg/RffOfxon/RWHNAUxDkrKW/d0+eyCks7IC5bqKys11QK5Rsqj3NVcBd0xAKVV0315y
+	 gLaxIw+PkzuE6MzSwylWrAjHdFVms/FT3cg62PNoPCfjp724AYnWyUkQguPgU1i9zNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792790984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=mVsOr+ec2L55sOlcfZggstu7WJwFcYb+XFa3A0v3Vtw=;
-	b=NaPvZ5X+LGSxVoMELpXRhIkv/H9yAAep4SJ4ek19DrTOlpzMneD1npa5XAselzGKU4iv
-	 f5BYJmok+irpHIcKYbJr89wF535VzymUxnLj0OSefsYIDJInpI73JBEJr+1FBoZPs0QZ/
-	 ZIy2b+DxAluga0EtnwW/hVQ/Vnndh9ZbDLnmbbbUuLBR/WrB0XCz/2qB228mSO2TmIGL0
-	 hdiqFVKtrui/CsYh1ZqsDQktcHfI12/B90mJwfWgNWJei57N42TuiXrRbWtRI433zst9g
-	 8GsW+DcyGh1snAcIPfo+23j9nI2/8m1fSjHFwGMCLaHnRM4xZu23Istx+3wvz1Aulew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s84EnQUw;
-	arc=none smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tUl6eNqYTZcDOJocOSUOl6ratLkDYu9rB2KUNaQCwrg=;
+	b=tQy3BhFy/RoBEoT40Onu+PTsTMfxp2ZP9NmmpxvE4QBhFsrxfHISjnPh0CQm5M+Z+OHz
+	 zbHnwJIUn6wflG9UyC2Op112V4pwelFW5HdaeEk5tUodVstDAk5xVjiIxo9IblqUx7QNw
+	 RSfaKFaWMhjB7aMwlmMl07K5nvdFQicqy8K3PG25Epr1Ms6PdEV2+eoVgntKhwuFe3Dep
+	 VHhhM0zuefIwTHfBHt/nJwmXdYCyyIpyhLo2iyUnMYB3XYzd+4/0kvb2ULzG7zT88tmpb
+	 f7PFvSbp39TuB0wYWu7ZCWhvrHgLgJnHRj01gkaSb6UeJTh8/WeLiJrWi8KASV8Ba3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bfcjC1d1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2CC606A31F
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2CC606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5949606A320
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5949606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s84EnQUw
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7f84a55e31aso839762a34.2
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 14:19:36 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=bfcjC1d1
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ac9d666d4eso11360897b3.3
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 14:29:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792790983; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dS5crtgt9zn0t7nng/p7YXPU4A9OAS2r+maIttYiOhEzvXYNWOMVJaAQxBiEfbD0fQ
+         8bRvTEdiYasvUbyfppjnQlfDI2CEgtvzGikquAeJ3FBhZa2J34W3Y6jBzI0yI8NuaNP3
+         vnT3f+gZfLfGB+khlMGCVhwBk0yMxAJkXhLoF0UShv5hk9rZLu77WLiNsFzMG4cHm3eM
+         WpjNtjdgooh7mgGJdqRD5cAAK0ycMbyNhs4673vNrbOMki7tKx0WvIF7Hn+R6O1+lqvU
+         eNP6rm4syyuKpMwutVxxCnfCboGakfcBTGF/aRmx3aE9qys5jfTyECTqLunKwIsi41r1
+         uoXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tUl6eNqYTZcDOJocOSUOl6ratLkDYu9rB2KUNaQCwrg=;
+        fh=ljXasO4VMoM21l5GNsHXZImpyKfkGBNJAs0Sbi9vHrk=;
+        b=jYxnzfjv5Quky6IeL0VFL4Df75+SzuXhxXiihcezdOkByYxt89jVLUOssZUo+IkyNK
+         Rrup7Rdy+PJI/YcyByGzsH0nBuVXS60HKCGu/5zwqqHzlLwCGvPy4SF2HBpmP1KPyqPY
+         XfHPgHoF50A+u+Y4bk1E9U7wkKUQcr4fcJqCGtZdchkezDcXPYPorxmKElR8cTp/SsqX
+         7YDkIKcJpzTGx35N8q5mm0WNSLvFa23G1Q996VBK4vqPdEfcxv11hF5U2gGsTYNoY8U8
+         YDZqx1FgvAjj/jH1AlkmT+X91MW0TasGQVf9XuSmBelShFSSPTk1k+TeL70wuCkmATFZ
+         7Arg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792790375; x=1793395175; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mVsOr+ec2L55sOlcfZggstu7WJwFcYb+XFa3A0v3Vtw=;
-        b=s84EnQUwh51TN5JAgndhoT5KOgs7U6N6XwybtUOHCnuENP+4Bfe6YjQbzPG8sQOAN2
-         beWfQi2nybUsKw4r7MRV9hgxTFMkRoMvNECYToehWpfrzilR2AYpg/x8bP2kr1jxOkKa
-         mo49KYtmW7X2mzthF58JQyNvqzFkksImrrDnGdCqW+Lfl1tKy7lQIXyn+FryfmvU7mQM
-         h9b4NzJ+/PY9soGIaEP1g6u+DfvsZJikWsb9yBkmnwPNCi/7CLCqqjP/PGIkZcTgguQ1
-         tyPIHy+LB2e2RDXKV1VtL1LPRmeWSu6f2daZ0qqMiAf/2UE7ZfP9eItUxBYZJdAI3Y9o
-         HHNw==
+        d=chromium.org; s=google; t=1792790983; x=1793395783; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tUl6eNqYTZcDOJocOSUOl6ratLkDYu9rB2KUNaQCwrg=;
+        b=bfcjC1d1vWOT1pE9X7gNabyHtF99QX5dSLBV1xVK5YhE+PCKgQcMtacFiknvczljas
+         pSbRQQ9f00apAwLTNHlvUICLRGZIUiHLO8ZQWR+ht4d+xEi4Ee1BfJDsQU16ahnkS88G
+         uC4l5/cmHNgM95Gpkf2IrZNxEA2vsG73DTUts=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792790375; x=1793395175;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792790983; x=1793395783;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mVsOr+ec2L55sOlcfZggstu7WJwFcYb+XFa3A0v3Vtw=;
-        b=W/ZiKYJ1/m2z2ZHRpIhFWXi/SRPTbJgu875Rtj2uZ0litduAlV3yEa30idOsdlC8UE
-         TPcY/E4oSSpQ+3ytKBgE7r3h1kaLC4JVvQtwhLmqwpxStao3OIbSO1gEc4KpHz7b3VtS
-         6zgkcD4O5F6polBWgMjEwLpLxFDLA/LB+NRbvHQ4NoW9Tjh1h6IXPrGjD4UBLquIbZ6F
-         1qJhE0IWh5Ej90E5iEp5bpch8ZSN9cF923Ccgm8cscvsRNp7YquNOmiPxICmCcd8sJxm
-         x7+G2/zxAv9Hg14mkb3JrCW089aNBCQcolY5wTC+vvadfFPQO429u2QGbvjdfvIOHOnE
-         N0qg==
-X-Forwarded-Encrypted: i=1; AKwUvBytydj1w4Q3MIeeXx2Fssvu174+vC2GncU6i88JVlk3l/YTPbJ6w0zVdmnbJUfw/v4648ebVVrACJwR@vger.kernel.org
-X-Gm-Message-State: AFq9FYJy+8qeMIeMKZl8PKO5nNH+6rLvnkEjIISRwatr9P3Rh2MZeVcc
-	7wMeQRUirxS81bNe6tek8WkKCScFzvVqii6BI7+4cSlRSUmXAXJuG/hF
-X-Gm-Gg: AYBFou11i2a8hKEZ3rmuNCr8/VLUEx3VmcNeNxQ8BW8KVeVJdYTJXmrhldkZltbRc0n
-	KkY9qRBIbi1LTDDRC6ZJRHH801PzI+eeaqFpNWwFGA3Q11nv1i+PyBUmWGfK0B5xH9B2CZoRXBq
-	TxZtUmOR5FV5gS6T1T54SIFn1L99lJ1a5gMT46ERCYEgQOabwcEMA3hd8UsbliuFIKfaqmiDyJF
-	B1/E817p938roY7ZPTFJ14p1Pojp6umnXXHpkAVlgWDRDHC/4tDrYH378EvdVi7cvMSPy81B4nH
-	hONqhX9Csy+VkIvYkVAQuKedGpDOhzhVBNw21dIv+tLOXmbcYg6lk08AWPYud8ElLCMhGaOjvdo
-	5A7VXJYKKRlDSDR6zwonlZtM1Q6EW3BIy+xDYqt/Hg8OB7EC4RW97qkNdjGykiJPD4H12kryGFj
-	rjqBQvi5oU4wKYJwfzC3kBpjZQv+zRkojyvcfn4omcYDQaixrZu1YBiiLrdAHj8oRA8j73rUK+y
-	mD+oFcBtJmAO3HchcS114/OlS6YBYH5flRo2QsTxzPzNAxrZ9y5EBHxw8XoS43fwpX0e9BIYMbe
-	pxQ5oYTkIRU8yVaDrz0cx2hZda2XdMPsBbZvR5HIWqYj6xYX04Vl7qP7xjlZhyk3kL8XNt7YvU6
-	DK0DecHnZs0O/UpG26Y5b7yqWPmS1UjCK2tluAHkN88yfA2BwM2QVNafxv6QRjVBAGr0x8ffHkG
-	OF4A==
-X-Received: by 2002:a05:6830:906:b0:7fa:5c49:523e with SMTP id 46e09a7af769-850fecc32fcmr525089a34.23.1792790375055;
-        Fri, 23 Oct 2026 14:19:35 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850f8458d8esm565721a34.1.2026.10.23.14.19.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 14:19:34 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 15:19:29 -0600
-Subject: [PATCH v2 3/3] arm64: dts: allwinner: h616: identify the UART
- integration
+        bh=tUl6eNqYTZcDOJocOSUOl6ratLkDYu9rB2KUNaQCwrg=;
+        b=e1tCe7yxzW/iKCQmNqn1m4iefEecFKbMbSLSgB4b3U87Cup+hbaV8WJ7VJtjftXnzr
+         ubzWs0/WxV6gADvml7/wZdtJRHF3gKn6Fnk2FoHh1HH8T9XfjhYKEAuT+NvEFAhiG0wm
+         VACstsWHo/LYYmlqes89Q/+9kyLhFfnrr3AsBZQ+mpblgwfqC7shkuDshsusuWaTbNsw
+         KCoafnuDIIR1zCU5QdtdJoXc+NHUuObpki5WLzLuMGOrjyEKJnQKoMFLKl/iSBQNwXuB
+         YOj2Sg/9JgunZvplMWSaj9MAgFnbtwM4Y9x5FGgtcah1kyfKZV1gmUCdhHXaX1l64nxR
+         vgdA==
+X-Forwarded-Encrypted: i=1; AKwUvByJVetTz/ctq9+wD5ffUbHy1VY1fhGo6bNoDprjq0Osgy7SzhlFYQpZKXmP1rCchkPmkUl6WnUwft3E@vger.kernel.org
+X-Gm-Message-State: AFq9FYLptWzyY0vhX3RJ/NKgCge4I49kKY95TU6CwHh9OFuo6EtCLhs3
+	um69Fic5XYBm2tIlwWbaysOyZa79CT6P2mPXxMT5jH1QfjkwVI7caPL8xbVxKkQ4JbV9opbyVuY
+	1i/+EwtRLPkVE7JipqNSrp+/YNutQRtJL2J4tBwjQ
+X-Gm-Gg: AYBFou2oohfkl6mwcRC3MvKPs8/G7QCL5d9OrPf2x17QXa15/dYEf5jyDdnjy8DoAAQ
+	CDTkgUWtU4b1C5ueN6wSGEBO7PM7r7TbwZHoYJX1ePmUzcIUVwNTHIvcdJzE2DhX60qtVigp4lT
+	nT1ULoIQvmySOxm5iGwd9ZCdFxK2Y91qAKEnQ05mHyqYRh3TGMgJBcjYaNi7CJ1TvItNvSgESiy
+	q3ZkhwMgUnOSyjxfk+/ku31uFELfCT/cEXlgyfiaBWQfHyXSHlac6SdOqkO6u8XpzVfOjvEvXBQ
+	FgVGIotCVbTZ2AIYcOHSwLtjsYhAX8waYY8ahY4wglkB7NPw3G0QNX5cuaYV9LAb8ooXoKHKUd0
+	H5p+WwRWe/Zk7Znq11CVO0Ak2WrwdR/HaCa6p3SOQ2OxXIJ9rab1M4vkLC95XQpiaVw==
+X-Received: by 2002:a05:690c:6113:b0:8b0:9e11:b636 with SMTP id
+ 00721157ae682-8b166c28a62mr2850907b3.62.1792790982824; Fri, 23 Oct 2026
+ 14:29:42 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,92 +101,226 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-h616-uart-fifo-v1-v2-3-af0593504635@gmail.com>
-References: <20261023-submit-h616-uart-fifo-v1-v2-0-af0593504635@gmail.com>
-In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v2-0-af0593504635@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+References: <20261019-send-upstream-v6-0-cb9ba4b3d6fa@chromium.org>
+ <20261019-send-upstream-v6-8-cb9ba4b3d6fa@chromium.org> <20261020-breach-aim-4a497c0089e6@spud>
+In-Reply-To: <20261020-breach-aim-4a497c0089e6@spud>
+From: Jingyuan Liang <jingyliang@chromium.org>
+Date: Fri, 23 Oct 2026 14:29:31 -0700
+X-Gm-Features: AclHuK_rDtmewSuhFWuooVP3bMSAuGCimyDmFSMqJ4WysgkfaBZ_lCNbaUs0JsA
+Message-ID: <CAEe3GZHKKXTMGKTNKK2VxWJucCdTM1cTEQ1MWeN+CYzdkYb8xA@mail.gmail.com>
+Subject: Re: [PATCH v6 08/11] dt-bindings: input: Document hid-over-spi DT schema
+To: Conor Dooley <conor@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, hbarnor@chromium.org, tfiga@chromium.org, 
+	fqwqf@fqwqf.xyz, daleyo@gmail.com, Dmitry Antipov <dmanti@microsoft.com>, 
+	Jarrett Schultz <jaschultz@microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Use the H616 UART compatible for all six controllers so the driver can
-select their fixed 256-byte FIFO configuration and register layout.
-Retain the generic DesignWare compatible as a fallback for older kernels.
+On Tue, Oct 20, 2026 at 10:57=E2=80=AFAM Conor Dooley <conor@kernel.org> wr=
+ote:
+>
+> On Mon, Oct 19, 2026 at 07:01:20PM +0000, Jingyuan Liang wrote:
+> > Documentation describes the required and optional properties for
+> > implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> > supports HID over SPI Protocol 1.0 specification.
+> >
+> > The properties are common to HID over SPI.
+> >
+> > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> > Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> > Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
+>
+> Signoff chain is not right, since the nominal patch author is the last
+> signoff.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Thanks! Will fix this in v7.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index c6b3a3f8359a..b4b2f85726e0 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -550,7 +550,7 @@ mmc2: mmc@4022000 {
- 		};
- 
- 		uart0: serial@5000000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000000 0x400>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -563,7 +563,7 @@ uart0: serial@5000000 {
- 		};
- 
- 		uart1: serial@5000400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000400 0x400>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -576,7 +576,7 @@ uart1: serial@5000400 {
- 		};
- 
- 		uart2: serial@5000800 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000800 0x400>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -589,7 +589,7 @@ uart2: serial@5000800 {
- 		};
- 
- 		uart3: serial@5000c00 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000c00 0x400>;
- 			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -602,7 +602,7 @@ uart3: serial@5000c00 {
- 		};
- 
- 		uart4: serial@5001000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001000 0x400>;
- 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -615,7 +615,7 @@ uart4: serial@5001000 {
- 		};
- 
- 		uart5: serial@5001400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001400 0x400>;
- 			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
+>
+> > ---
+> >  .../devicetree/bindings/input/hid-over-spi.yaml    | 130 +++++++++++++=
+++++++++
+> >  1 file changed, 130 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml =
+b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> > new file mode 100644
+> > index 000000000000..2a5fa0868a09
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> > @@ -0,0 +1,130 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: HID over SPI Devices
+> > +
+> > +maintainers:
+> > +  - Benjamin Tissoires <benjamin.tissoires@redhat.com>
+> > +  - Jiri Kosina <jkosina@suse.cz>
+> > +  - Jingyuan Liang <jingyliang@chromium.org>
+> > +
+> > +description: |+
+> > +  HID over SPI provides support for various Human Interface Devices ov=
+er the
+> > +  SPI bus. These devices can be for example touchpads, keyboards, touc=
+h screens
+> > +  or sensors.
+> > +
+> > +  The specification has been written by Microsoft and is currently ava=
+ilable
+> > +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103=
+325
+> > +
+> > +  The HID over SPI specification does not define fixed values for the
+> > +  read/write opcodes and the input/output report addresses. The host
+> > +  retrieves them from platform firmware (ACPI _DSM), and they differ
+> > +  between devices. These properties provide the same values on Device
+> > +  Tree systems, so devices that fully comply with the specification wo=
+rk
+> > +  with the "hid-over-spi" fallback compatible.
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    items:
+> > +      - enum:
+> > +          - microsoft,g6-touch-digitizer
+> > +      - const: hid-over-spi
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  reset-gpios:
+> > +    maxItems: 1
+> > +    description:
+> > +      GPIO specifier for the device's reset line. The HID over SPI
+> > +      specification requires a dedicated, host-driven, active-low rese=
+t
+> > +      line. The line must be flagged with GPIO_ACTIVE_LOW.
+> > +
+> > +  vdd-supply:
+> > +    description:
+> > +      Regulator for the VDD supply voltage.
+> > +
+> > +  input-report-header-address:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 0xffffff
+> > +    description:
+> > +      A value to be included in the Read Approval packet, listing an a=
+ddress of
+> > +      the input report header to be put on the SPI bus. This address h=
+as 24
+> > +      bits.
+> > +
+> > +  input-report-body-address:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 0xffffff
+> > +    description:
+> > +      A value to be included in the Read Approval packet, listing an a=
+ddress of
+> > +      the input report body to be put on the SPI bus. This address has=
+ 24 bits.
+> > +
+> > +  output-report-address:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 0
+> > +    maximum: 0xffffff
+> > +    description:
+> > +      A value to be included in the Output Report sent by the host, li=
+sting an
+> > +      address where the output report on the SPI bus is to be written =
+to. This
+> > +      address has 24 bits.
+> > +
+> > +  read-opcode:
+> > +    $ref: /schemas/types.yaml#/definitions/uint8
+> > +    description:
+> > +      Value to be used in Read Approval packets. 1 byte.
+> > +
+> > +  write-opcode:
+> > +    $ref: /schemas/types.yaml#/definitions/uint8
+> > +    description:
+> > +      Value to be used in Output Report packets. 1 byte.
+>
+> I still dunno why any of these properties exist, especially when there's
+> a patch in my queue for another microsoft touch device on top of
+> this series that does not use any of them.
+>
+> The commit message really needs to explain why these exist and why
+> compatibles cannot be used to determine these things - as is done for
+> the microsoft,romulus13-touchpad. If the very next device that appears
+> seems to require a specific compatible and cannot use these properties
+> to get across what's needed to the kernel it calls into question why
+> the binding is designed like this.
+>
+> pw-bot: changes-requested
+>
+> Thanks,
+> Conor.
 
--- 
-2.53.0
+Will drop these properties in v7.
 
+Rob, since the binding changes, I'll drop your Reviewed-by from v7.
+
+>
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - reset-gpios
+> > +  - vdd-supply
+> > +  - input-report-header-address
+> > +  - input-report-body-address
+> > +  - output-report-address
+> > +  - read-opcode
+> > +  - write-opcode
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    spi {
+> > +      #address-cells =3D <1>;
+> > +      #size-cells =3D <0>;
+> > +
+> > +      hid@0 {
+> > +        compatible =3D "microsoft,g6-touch-digitizer", "hid-over-spi";
+> > +        reg =3D <0x0>;
+> > +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
+> > +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
+> > +        vdd-supply =3D <&pm8350c_l3>;
+> > +        pinctrl-names =3D "default";
+> > +        pinctrl-0 =3D <&ts_d6_int_bias>;
+> > +        input-report-header-address =3D <0x1000>;
+> > +        input-report-body-address =3D <0x1004>;
+> > +        output-report-address =3D <0x2000>;
+> > +        read-opcode =3D /bits/ 8 <0x0b>;
+> > +        write-opcode =3D /bits/ 8 <0x02>;
+> > +      };
+> > +    };
+> >
+> > --
+> > 2.56.0.212.g129ede20d9-goog
+> >
