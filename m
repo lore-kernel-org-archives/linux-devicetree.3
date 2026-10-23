@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792738877;
-	b=0UibTTf9HcCwxD1Q0o+JafmQFo9vcLkUuKgqyYeu6n7IXVPx5u4K6LbfMCcEEYM36x2I
-	 QNMx40bxW0MVEI2sYS3aZk6lF5N9ow7iDC4pRLN4l5M2RhqHQAnXcISmUg5MH/TClaQJW
-	 dIsRGYczAEL2Od6jwiqZfJzJeQUiaQKpx0DtN4VYSg444IyYhFF5ob4g9ZXxubjj9rHHq
-	 OzCMu/LveyzlnC7/A4jsR1FTgg4s2nnQndPMEIeDMaA5JDeAJgYEun0fifvKwo596y0FH
-	 6hLvgpKNJMRBZg4C41I/n5wBZIhrvQN+CT0qA9s/YkNTDF4AqoCvB4Zhhdlns6JAVyw==
+	t=1792738881;
+	b=wtvlW4zcHtd9IwsnNs3eXjNXpkk1OvKOLrN82soOc0xPurQqVqimLW8UgPeOQs5ItEvZ
+	 FOTkWNqnQnV8ucDcszbwrXVrkGy/0QEWGJDfDW0hbz8Pv30+VMsSa7pLKCypKNB/iwXA9
+	 0AYKX3PqWJlEGRfnBMhaaLSl8xiSOkoEyvHIDNZ4LPLprzW0Qozllgz5G6s8xQfZD1Y/Y
+	 CxNWt4nMRjWdQYu8QRIknqNnVC/MrRs9Jtm30/6AYHOWAARUluvIWmGs48SKbua35l1ch
+	 vE+L5osXI07dXrAQVIeNjrUPx0HuViCcC9fYzxXmsMG1I6DECnOjoiKjqwpx4QBfsDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738881;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=p8K8L3wm/2TFwy9MEBg0/j022FtSD7ewKzpYCuY3Up4=;
-	b=nHK3KiymZmMB1MYT2xt8ss96EMVLCHyGOj8phbi7YME6wfb0/IF2k+sEE+kYb6tdJbBk
-	 W0cdOdD9hUYFVGYkU9ocE8SctsaKCjJJHV+477mqmQtaP96wZk/5TtXXqZCWFrSYxP6C5
-	 CDj9VULb2+NrLODUMQaRB40YeefVsW/aEzzSqmFucAt6Au3uHcHSZf6lknieIDqvi1lTI
-	 oBWKhjKSenepqbxMJ3R3+qiTIXAKtGLGpFgJVJu1SMwscjHRHk3MZa02db8LLzKhfvX2o
-	 uwufq4vrV0xmY2Emw2YQK3nOPd6e/IRXsT5T9oDWsy2M6Ywbdo2uMQHtJDVZvTG4zLQ==
+	bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
+	b=hDqGdcPKE63CISz4AlEHJAzQvqfqo5nIP1xCo6QcKjNTDbSx+TuiCWazrESgwCi+76HS
+	 5hW6X3lCK/MouOkYYZby3G5hW1zV8hrLOykFleY1UCkRDI+i6SKrpcrP/RWwAZZyL9oWT
+	 W9f8sY3uIeKHCogBWPGuDLE+OrBVz4mCklmUL6MhoQIJ8G/EqNHyGa9gGizBMttl0d7MJ
+	 ujT/eI4SnUo8lntEQ8VBXyCGqL9MSD7MdynFCuTmDkgXNlW+zel3uLJaz8n5OphGcr3wo
+	 CDEJeshoNHZuTeYLCxoFOYgRCtwZiJ4SbwD8wPbaZCAGevJGtPDcHmTYzAgHnVFTM3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="LqEZs/9C";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TQyFQ0Er;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C6Pg3Mau;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bLuSimw4;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B26F606A325
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B26F606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9457A606A327
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9457A606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LqEZs/9C;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TQyFQ0Er
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1FvBo1319415
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:16 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C6Pg3Mau;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bLuSimw4
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1FZE9775990
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=p8K8L3wm/2TFwy9MEBg0/j
-	022FtSD7ewKzpYCuY3Up4=; b=LqEZs/9CtzveTW1BQmCuKGsRV4Ouli4SjIZIHw
-	Kb42DKaWDD3kTRLwXim4TKFL/0VSJ9Cigi2lKKyfGIF9wVVu1JwXsw7DyQENjOJF
-	GcBAFyGT/T2QR5Yx9hDIdUpmzaF130CMLw/+Mr5cggLF0Y3k+yLVI4U7hYFEcySU
-	fezzCshxBfCfK2+84fgpGxYFwkSMg1z0h81jFjBXm8K3SiFVDt2+jpK+GaSb8oV2
-	V2NVi+C0gxdLjyHvTOAGVeFDs4jKzlf/t7N0X1SAVuZCu87rHBSXKUuQQy2jX420
-	LiQ1QBFx9Z6lsWRNR+07spaJpZoNDrBIQZU00b87Wgex+wNw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hftyg9jmc-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=; b=C6Pg3MauuJR9m3Rg
+	nM7VfMaqEJnktOK9ECURmTXmZwy1qnTPK/9EPKAV1PD13LVVc/Phq8BW8a6P1z79
+	1uqInJF79LacbA+H0OqSa1r2RlRE34e0ZYyUPNcvnE4cIBo/Rpmu4urJhiu+eHBV
+	Uw2GQvx5DdasfZmtwgDWEOI53T1yOO5b/nE656qItGg45sfQsCu+JDIsRg8h0pnP
+	qe00nF7XqO9EM1Q7LmpO2QAYnpoaJRYIKuFbb+rpD4Xf+iBLEvi+TbNXobD2hv5K
+	74Bh78hlIxnofyin7/AUFPbRX1GzPBTGTR/PCrM/81eIFsRV18TSbC7rpVRasjHc
+	j9bxpg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmttbka-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:16 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so546093b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:01:15 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:01:19 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso981739a91.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:01:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792738875; x=1793343675; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=p8K8L3wm/2TFwy9MEBg0/j022FtSD7ewKzpYCuY3Up4=;
-        b=TQyFQ0ErsxKQjebb6LIqAHQh6FWHYCixcj311dvvQ7oOm8AdxAcuqMlvH5eHLO9iV2
-         6/+QNcruh304LmTUVxT+DXC47WMNSsnGeFgORZCz5hlsVN1rgOo16Y2eHKnhXqz5+wQr
-         eJjF1WfRAHQ8i5Iv2K3mB8j89WkXApkgdc/rN/aTdy2LXi7kOzuW6qi7vUtGLU2TwAmF
-         rKCVyRxNRLMx4U9lH0GKlUOgPzK2JpFynyYQEGZbxNw5pvAurGkLMCdd0IJfen7Ipp8j
-         m7txvGxdC6Iure8LeUbOIl6hp7N5RdyjGCkZ4+5ZuK5K+DM46spnN5i1ONbE1J9q9aWW
-         mXAw==
+        d=oss.qualcomm.com; s=google; t=1792738879; x=1793343679; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
+        b=bLuSimw4nC+VEE7IPyYlu9ZY9BMQuI3/knPhUU3kHqhivZCHfCkXfD73Z+LE6a836t
+         y/PKsVy4JI1xc3q10O5bAFxvoAx0AkibCsMKyypSvU1ei41iaMhK68p7HAUA+43FuJVS
+         s8uv3oA4e/FUYH6tQphWrWkzWl6Bf5zoIcBYWhT1XQssTb1eCuUBe0GREYu6gzQYZwFx
+         p/+pQAU2W9x9SanqlKPfRDa79NLxXwhkqxBKLYuCu4gnwRsoQbW2TmNmFxWMe52ccXB5
+         CifOXe0L++JyP77uvRWgeDBFdSghh9VulNr8p49TGlk4PhWKZXNYFjVQC3qHN9xjLECp
+         uxYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792738875; x=1793343675;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p8K8L3wm/2TFwy9MEBg0/j022FtSD7ewKzpYCuY3Up4=;
-        b=y8FECuHCxaPL4+aEI5vGKJuNsr2SIZAuMeHl2JrlIRZAShdhw/KOvyddzfQ1XAcYHG
-         Aq4VeWDI9drMQLJfxv6+NSV8v7T+/UcFoJKffo8BHXhxqie9l2C0Q2RjUQG1a11Q1bhv
-         bF914+PSZcVBX384dGjeAs1aNk83VzY1j7nsRoo/3lCk44JXwiUXoTGAyBoRM+3+5fDF
-         Dur6wQBw1Dcdr1uVEDl+0otlSSJcFAI/jFih01SeeAXVX8GDhfPdjVmFfDqqmghsua2f
-         sztByrOdxZBEE354yedDFyRTcAJRElgPm5P+L2hjctp4TwpNaAx79VvsHq5XZzXZLhcK
-         oE+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ8NlLemtS25dK+bTVP3UCSxhFACf7BRsZITGH6mah598PjH2fvJMwC82SG5mcIYi9zeRpCNjUV+gq@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPoXd/itG84BJ21pg/WIZKTFm4nqQJXJrFk7ZAqjyBjag4S80A
-	VetMy0ETB+ELntfeWTVvomz0s/X9dp/rD9MrxWqdAgIathlzClRlm0IiZpBiwsal/yAfCaO1zGk
-	nBrdVTr/uUfI422/E3KI4GhzFIGsZv62vB21l0eLRsq4bs8GvYBmyG041SYQk3mTx
-X-Gm-Gg: AYBFou1WebTCChjt7u0ndjHbb6GC/Exj0AmKkKfO75zA7VyUxzJ6JY/8NzqP8H23g9P
-	yY61eKpnuc+PvkQIIcns7ERSk01N6iM0ZR8bOa4M3/ESZhXDuctfpaVmxeUmWLkEwLC4Pe+/Suk
-	S8bSIF65bNziZ9las9RzKT6cDu4L0r/ALySTdnyabdY+XcnjQ29qo7UCOA1ISixxUYPc0zu7tUS
-	EFeFUwSOgVab1alDQLlXPBR2hI5sOrYk3lzJ2aiZx4QvLyJhBw3sC8aAKnSEaFUZ6FT9eZeuCEh
-	s/cgDgPJzVWYO/8U5UzuW7ekibHLOpPrVYdzGeSZdNeA8C7UC/PFM55U6+rbOFATmR1XwIV8eMf
-	KEdVu85V6bhy+UEQESt9ScUtgsS2OFBcGWOqPlnYmMrwP3qFd7EoBTqVS+9eHvhzXcwNosGPxiB
-	EaVptH34Di2+zHha3lnV+77w==
-X-Received: by 2002:a05:6a20:4306:b0:3e1:c04b:59cc with SMTP id adf61e73a8af0-3e3767aa572mr965990637.70.1792738874947;
-        Fri, 23 Oct 2026 00:01:14 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4306:b0:3e1:c04b:59cc with SMTP id adf61e73a8af0-3e3767aa572mr965967637.70.1792738874414;
-        Fri, 23 Oct 2026 00:01:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792738879; x=1793343679;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AACcgwhYkC3KUc2WR3EDrO9YGPVQuZ9/nNSNkiIADP0=;
+        b=wZ+b9pv/J5QaKX/eyhTflnB0D3Kj6yRq3O2x49vyMr9kDvVCYDtuXzHityJKTcxfK2
+         vGpl4XujVIatJ4ztuuKjIUlzSrChJ4s9qsIQDwaHb0ehWxaSzHAHxDGtuQMUYRzMOWTr
+         A2I9A9gc3LmETUDAlTUMVusPFyQsuwy6/0Cy4Boy+GjMnrqr2IenDsxEF9j9/wntO+w8
+         vXuEe4CLVA78H9dmxwX4nWxvDR8Iy2GorzlWSv0nLWJg0waAurMTTghffPPALvuN0oAU
+         Jd69vl3LUS5ILlrVOocnxVr8BgwGfPRNqPKJ0guaTAb4FoLxEJ8YPiRIEV7fmftGnymg
+         4wgA==
+X-Forwarded-Encrypted: i=1; AKwUvBy09C3g+Hrp9+IyX8HnKACslM/RPxN1GiG5dXH7OOBjWd4S6XQqHHMrYENwT2qFPuwlYEKxjJcg0HnT@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf0aI1zkLZtxw0/9nltZA5BDCRg+hZSN28uj7dPBQGIMccIZpc
+	Ad1VckyQtLSgxIP1FHlxB8DnooLBG7nuf+YwfB+xFfegbaGZ9DFjKbCZVHzGSlC7crOjaFCoQW7
+	Pp/Q44GyvsugxXEAuGkQWOqr7MtkPSJHAHtQCKMBOZNODXpG2DGU0qsCa8BWKWix7XPofU5xX
+X-Gm-Gg: AYBFou11AbN+etHwUtzGq8Aj5cMGMRrFEsRKyWMWX3Z5UD8fTAASHzgIfarpXjOV4mA
+	FsNuoGUj3cTF9kXe0nyJwNbSdp4aqbXAGfpJqJMxbyMmWximL+B1oPkc6DCzYpcLP+2m1socF66
+	FmgMJj9J4Akx8ra9B7cocMl/BGyhYwfaYopCY6DwzVefBif3SgcPCguBg9jHcREKTw0/I8QrjL0
+	+38GVqjYcEwCPtrZnBdCWO+IGhugk7l5rezN3jKsE02OYxm0Hib20a0rcSVaNkWMBTEkar40JQL
+	gGZaq1I+q4aQNJb7MptLIlKhrZLYErdceJM1ReUcuq8OjNzcA4qj/04fzvM5OWyKRAN8zrhADyK
+	dbQIvEqq41WiB6UvJ/d1yqHo+rULBySnc64UY2/xvWujv0BUSOd701FA4zJcJ9KwYwzdR117i0q
+	cQHdSJs+8kF10ri0zSVQrXrw==
+X-Received: by 2002:a17:90b:17c5:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3adce0cfd32mr1195280a91.63.1792738879074;
+        Fri, 23 Oct 2026 00:01:19 -0700 (PDT)
+X-Received: by 2002:a17:90b:17c5:b0:3ac:86a0:5766 with SMTP id 98e67ed59e1d1-3adce0cfd32mr1195233a91.63.1792738878394;
+        Fri, 23 Oct 2026 00:01:18 -0700 (PDT)
 Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8a6dcdsm399751a12.18.2026.10.23.00.01.10
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8a6dcdsm399751a12.18.2026.10.23.00.01.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:01:13 -0700 (PDT)
+        Fri, 23 Oct 2026 00:01:17 -0700 (PDT)
 From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Subject: [PATCH ath-next v3 00/17] wifi: ath12k: Add support for QCN6432
-Date: Fri, 23 Oct 2026 12:31:03 +0530
-Message-Id: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:31:04 +0530
+Subject: [PATCH ath-next v3 01/17] dt-bindings: net: wireless: Add QCN6432
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,135 +117,214 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC8G22oC/1WNTQ6DIBSEr2LeuhjEok1X3qNxIfShNBUooLEx3
- r1ou+lmksn8fCsE9BoDXLMVPM46aGuSKU8ZyKEzPRJ9Tx4YZVVBC05G54jw2vSTIzVXZ14LVBd
- ESAvnUenleLtBFwdicInQfpMwiQfKuJ/t3UGHaP37AM/sWPwY1R9jZoQSxQsqy1IoqXhjQ8hfU
- /eUdhzzJNBu2/YB6TORMMkAAAA=
-X-Change-ID: 20261015-mpp-bringup-75f457bef8ee
+Message-Id: <20261023-mpp-bringup-v3-1-19f3fcbf7b5f@oss.qualcomm.com>
+References: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
+In-Reply-To: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
 To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
 Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=cZpHPXDM c=1 sm=1 tr=0 ts=6adb063c cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb063f cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=j9mdO8TpxRXb4I9anNkA:9
- a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX5RhubQVxv4Oi
- XYY4IcoYQO0/DXH3etH6LBsIii9F9QQ4G1nfHTWZ4cwYHg8LrWatayhvCR43lsYwETllGb8kNnD
- 3MlsqyMWpUVwmizJogRIVdC38pQulDM=
-X-Proofpoint-GUID: LJYNfWzKkSEeEbKCw8ac2KyciXmUjCE_
-X-Proofpoint-ORIG-GUID: LJYNfWzKkSEeEbKCw8ac2KyciXmUjCE_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfXyyd15Sx4qkqr
- dsITn9lBthZ0cD+HJY61xybu9LMoef229LAWxYLein622GY697XbLxF/zFhaSFZ9VgH/udukXR5
- lLGNvkRIKztgH1PoDzbRabngt+EPjMjNibVOAB7E+SxU07G1t4ysB0I1BVFb/LmIJz03s6Hzo4c
- ncu8OOXwDaAFk52fDrJkE2Uca72qzjJbnrBhqetLXsPCaKxb2r5MxzZXV8rSMxdtDoQs0jyrXPc
- ojFDaivqSgUXmJdka0YKFb6ETCNVuUTVki7bz2kbW2pqEKQorTsObUD3b28zHCThGZBWM8lgT3P
- KnCqm1HbDl4xhEI9tUYGAHLKCY22oaSlpPycHY0jaSvzO9jHtqCtDeB53tsNSSlwHPum8XQcTRX
- VG+szR+uMxnvWMGe+dGIaPkvHFnDuVuq3PPINXouX2X/bx1a5R/9dg0OpHs/cz4YfqtZQgJA3oy
- 9Ptqb0Ilicjx/h3MFGQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Zbx1xPUqErz4vskW_SEA:9
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: LqkTE-UjckHXOcvLr2s-Vw06g1C4lPHI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX30s+zQ/Yqn0d
+ ZoN880ZjP7K1V4qN04/MfVsYiPMP8UkvyppoKO+J7M+rM/w4cjg4iztkb4kiVpl1MKQ8KlrR8Ng
+ OebCKWT8xnX9abgIe550zOUcr/IsN/V3KT1uBneS7U3QGL48S0Nk0+0oRgVK0914OwxsJw5lMPw
+ aXJ0FvHVr1gC3ytk9X/dMMSKb8n+ns7sdfEjm4Itzmz77L/uONldec7D3eQl0mdx1Ki3ey0zhRx
+ Wp8NIhqBLIkQxwelFnnsTrhEveg8j9Kfvh0rVozll8O15/aW7anKktqLewqQypUq3b3YtS35CMO
+ vsMP0DPdgPECQ/LxTeh3YlPA/hra9uhPnMTywoDh8xZ7Q6zl8VN7rPESFQDJNtzIbRHiSmS9SgY
+ /5VcUMEXWZjZvoPHQ2+9daIN9k8u6SpoEYgAWnmY2367FeKxD2zOIgUkohYgFao9iQpFE82IiK0
+ 1VN7Kqw8FppHwMVyF5w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX0a9verzckPnD
+ RA13twZIxV5M/TGkMsr4e4jzKzF51vxIaaKs1zM63GElnyXe3SNw8h5928Hg4M9KrmKyDi7Xt4D
+ v3ETqhrlZpcuXVoRpr9feR1WuekcHxE=
+X-Proofpoint-ORIG-GUID: LqkTE-UjckHXOcvLr2s-Vw06g1C4lPHI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- clxscore=1015 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230027
+ bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230027
 
-QCN6432 is a PCIe-based device attached to the WCSS Q6 processor. It is
-registered as a platform device (AHB), and remoteproc APIs are used to
-boot and shut down the device, similar to other AHB-based devices such
-as IPQ5332.
+Add Devicetree binding documentation for the Qualcomm QCN6432 IEEE 802.11be
+wireless device.
 
-However, PCI APIs are used for device setup and register access. Since
-QCN6432 requires both AHB and PCI APIs for its operation, a hybrid
-AHB/PCI approach is implemented.
+QCN6432 is attached to the WCSS Q6 subsystem and is represented as an AHB
+platform device, even though the Wi-Fi hardware interfaces over PCIe.
+Document the compatible string and the resources, including the Q6 remote
+processor phandle, MSI interrupts, SMEM states and memory regions.
 
-Overview:
-  - Patch [1/17] adds DT binding documentation for QCN6432.
-  - Patch [2/17] refactors PCI operations and MSI config structure to
-    support different MSI configurations.
-  - Patches [3,4,5/17] add hardware parameters, ring mask, and registers
-    for QCN6432.
-  - Patch [6/17] moves multi MSI vector flag to ath12k_dev_flags.
-  - Patches [7,8/17] add hybrid_bus_type and HIF operations support for
-    QCN6432.
-  - Patch [9/17] adds support for unified data-region memory allocation.
-  - Patch [10/17] moves MSI config to pcic for better abstraction.
-  - Patches [11,12/17] enable MSI interrupt support for CE and DP rings
-    specific to QCN6432.
-  - Patch [13/17] uses CMEM write for PPT on hybrid bus devices.
-  - Patch [14/17] stores and uses per CE DP MSI data for QCN6432.
-  - Patch [15/17] derives QMI service instance ID per protection domain.
-  - Patch [16/17] add userpd ID mapping per device.
-  - Patch [17/17] adds support for QCN6432 in the driver.
-
-Changes in v3:
-- patch 1/17: Update the commit subject and change the file name.
-- patch 3/17: Initialize qmi_max_chunk_size for QCN6432.
-- Link to v2: https://patch.msgid.link/20261016-mpp-bringup-v2-0-f510c33bfcf5@oss.qualcomm.com
-
-Changes in v2:
-- patch 1/17: Update the compatible string from qcom,qcn6432-wifi to qcom,qcn6432 and remove the | character.
-- patch 11/17 and patch 12/17: Fix resource leaks on probe error paths.
-- patch 16/17: Move the NULL check before the loop.
-- Link to v1: https://lore.kernel.org/linux-wireless/20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com/
-
+Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 ---
-Aaradhana Sahu (10):
-      dt-bindings: net: wireless: Add QCN6432
-      wifi: ath12k: Refactor PCI operations and MSI config structure
-      wifi: ath12k: move multi MSI vector flag to ath12k_dev_flags
-      wifi: ath12k: Add hybrid_bus_type in ath12k_hw_params
-      wifi: ath12k: add support for unified data-region memory allocation
-      wifi: ath12k: move MSI config to pci.c
-      wifi: ath12k: Add platform MSI support for CE
-      wifi: ath12k: use CMEM write for PPT on hybrid bus devices
-      wifi: ath12k: Resolve userPD ID per device
-      wifi: ath12k: Add QCN6432 AHB support
+ .../bindings/net/wireless/qcom,qcn6432.yaml        | 149 +++++++++++++++++++++
+ 1 file changed, 149 insertions(+)
 
-Sowmiya Sree Elavalagan (7):
-      wifi: ath12k: Add hardware parameter for QCN6432
-      wifi: ath12k: Add hardware ring mask for QCN6432
-      wifi: ath12k: add hardware registers for QCN6432
-      wifi: ath12k: Add hif operation support for QCN6432
-      wifi: ath12k: Enable MSI interrupt support for DP interrupt
-      wifi: ath12k: store and use MSI data per CE and DP interrupt group for QCN6432
-      wifi: ath12k: Derive QMI service instance ID per protection domain
- 
- .../bindings/net/wireless/qcom,qcn6432.yaml        | 149 +++++++
- drivers/net/wireless/ath/ath12k/Makefile           |   2 +-
- drivers/net/wireless/ath/ath12k/ahb.c              |  54 ++-
- drivers/net/wireless/ath/ath12k/ahb.h              |  10 +-
- drivers/net/wireless/ath/ath12k/ce.c               |   7 +-
- drivers/net/wireless/ath/ath12k/ce.h               |   6 +
- drivers/net/wireless/ath/ath12k/core.c             |  10 +-
- drivers/net/wireless/ath/ath12k/core.h             |  24 ++
- drivers/net/wireless/ath/ath12k/dp.c               |  39 +-
- drivers/net/wireless/ath/ath12k/dp.h               |   2 +-
- drivers/net/wireless/ath/ath12k/hif.h              |  30 ++
- drivers/net/wireless/ath/ath12k/hw.h               |   8 +-
- drivers/net/wireless/ath/ath12k/mhi.c              |   4 +-
- drivers/net/wireless/ath/ath12k/pci.c              | 111 +++---
- drivers/net/wireless/ath/ath12k/pci.h              |  21 +-
- drivers/net/wireless/ath/ath12k/pcic.c             | 435 +++++++++++++++++++++
- drivers/net/wireless/ath/ath12k/pcic.h             |  24 ++
- drivers/net/wireless/ath/ath12k/qmi.c              |  83 +++-
- drivers/net/wireless/ath/ath12k/qmi.h              |   1 +
- drivers/net/wireless/ath/ath12k/wifi7/ahb.c        |  45 ++-
- drivers/net/wireless/ath/ath12k/wifi7/hal.c        |   7 +
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    |  85 ++++
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |   1 +
- drivers/net/wireless/ath/ath12k/wifi7/hw.c         | 143 +++++++
- drivers/net/wireless/ath/ath12k/wifi7/pci.c        |  22 +-
- 25 files changed, 1214 insertions(+), 109 deletions(-)
----
-base-commit: 2d57db8fbf72b1872e7411e917166bd12ed5bc98
-change-id: 20261015-mpp-bringup-75f457bef8ee
+diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml
+new file mode 100644
+index 000000000000..96e164620574
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432.yaml
+@@ -0,0 +1,149 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/wireless/qcom,qcn6432.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm Technologies QCN6432 wireless device
++
++maintainers:
++  - Jeff Johnson <jjohnson@kernel.org>
++
++description:
++  Qualcomm Technologies QCN6432 is an IEEE 802.11be Wi-Fi device
++  associated with the WCSS Q6 subsystem. The device is represented
++  as a platform device and uses MSI interrupts for its Copy Engine
++  (CE) and Data Path (DP) rings.
++
++properties:
++  compatible:
++    enum:
++      - qcom,qcn6432
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Fatal interrupt
++      - description: Ready interrupt
++      - description: Spawn acknowledge interrupt
++      - description: Stop acknowledge interrupt
++      - description: UMAC reset interrupt
++
++  interrupt-names:
++    items:
++      - const: fatal
++      - const: ready
++      - const: spawn
++      - const: stop-ack
++      - const: umac-reset
++
++  memory-region:
++    items:
++      - description: Q6 memory region
++      - description: Combined firmware data memory region
++      - description: Multi Link Operation (MLO) Global memory region
++
++  memory-region-names:
++    items:
++      - const: q6-region
++      - const: data-region
++      - const: mlo-global-mem
++
++  msi-parent:
++    description: Phandle to the MSI controller.
++    maxItems: 1
++
++  qcom,calibration-variant:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      String to uniquely identify variant of the calibration data for designs
++      with colliding bus and device ids
++
++  qcom,rproc:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the Qualcomm Hexagon DSP (Q6 remote processor), which is
++      utilized for offloading Wi-Fi processing tasks. This Q6 remote processor
++      operates in conjunction with Wi-Fi.
++
++  qcom,smem-states:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: States used by the AP to signal the remote processor
++    items:
++      - description: Shutdown WCSS PD
++        items:
++          - description: Phandle to the Shared Memory Point 2 Point device
++              handling the communication with a remote processor
++          - description: Single bit index to toggle in the value sent to
++              the remote processor
++            maximum: 31
++      - description: Stop WCSS PD
++        items:
++          - description: Phandle to the Shared Memory Point 2 Point device
++              handling the communication with a remote processor
++          - description: Single bit index to toggle in the value sent to
++              the remote processor
++            maximum: 31
++      - description: Spawn WCSS PD
++        items:
++          - description: Phandle to the Shared Memory Point 2 Point device
++              handling the communication with a remote processor
++          - description: Single bit index to toggle in the value sent to
++              the remote processor
++            maximum: 31
++
++  qcom,smem-state-names:
++    description:
++      Names of the states used by the AP to signal the remote processor
++    items:
++      - const: shutdown
++      - const: stop
++      - const: spawn
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - memory-region
++  - memory-region-names
++  - msi-parent
++  - qcom,rproc
++  - qcom,smem-states
++  - qcom,smem-state-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    wifi@21e00000 {
++        compatible = "qcom,qcn6432";
++        reg = <0x21e00000 0x200000>;
++        interrupts-extended = <&smp2p_wcss_in 16 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 17 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 20 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 19 IRQ_TYPE_NONE>,
++                              <&intc GIC_SPI 33 IRQ_TYPE_EDGE_RISING>;
++        interrupt-names = "fatal",
++                          "ready",
++                          "spawn",
++                          "stop-ack",
++                          "umac-reset";
++        memory-region = <&q6_region>, <&data_region>, <&mlo_mem>;
++        memory-region-names = "q6-region", "data-region", "mlo-global-mem";
++        msi-parent = <&v2m0>;
++        qcom,calibration-variant = "RDP442_1";
++        qcom,rproc = <&q6v5_wcss>;
++        qcom,smem-states = <&smp2p_wcss_out 16>,
++                           <&smp2p_wcss_out 17>,
++                           <&smp2p_wcss_out 18>;
++        qcom,smem-state-names = "shutdown",
++                                "stop",
++                                "spawn";
++    };
+
+-- 
+2.34.1
 
