@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792746873;
-	b=IWEnG69dq4Bx7VrHRY8m5Sl7l/Q7UupY966KzrUdQRM7yHY9SO8BoeWTrURgIaVG0QMv
-	 3Z3wKBsCbKTIKTHLkJsOa25lsFSbDIvr4NXz78mCjOWQ/klVB8jbzXhnmcm7w6Uw/U6qb
-	 zYyw46geY/YcOR5u6rendBYJy/DSN2Mwq1k/KD4tT/7tjwvRxSFgFgVyWo3Bwpdk3jcDt
-	 Zjbgc6+YXzi51kwHxIOIvvW/UsUygz0GRUjHoTiOq41vjQOSvGds9thW1UfBKKxEbfMni
-	 WxPIwdQcG6aDm6Ww31ZgC9EqDBQ5bxfMsF9ehcfAPwhmi/V2VqDwUzTodl0EbKkfqyw==
+	t=1792746992;
+	b=IUuNEVU+Vve3KnNWh8umAUrFu6cSCmIr+YgdnzLyXqoxbSEilS9FZD/CL/lI54Ht0XoA
+	 83a+RXD5UoS8ucVCkqaEkKt9nlwHA96YnoVFARfLyp5lDjwacn8BgiKmOinxwm5nZSAax
+	 r26emMH3ggWnUAcPvMQGBREPPu6Gtcu+r23+R973OS/GClZkvOlE1F3VpbqoTObLmNixw
+	 KhH61ydfg9YrZ8gScSM8ZOBj5FrkgioQU3u9Dh/v2T6OSokOtDHlFcSDaBszvoEbmjbYE
+	 FbAOaYzJF0NbauDozRh0GODjEdy+PgZKWXeCKhc1WbmEtZUFl+ESIR3/zGn9pOE7WEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792746873;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=VtvWRjl8MAnddMfovWj2q6w872RtxbrfTWw2pjGsNnM=;
-	b=KE3OYEsX98jXBR1bmC19ExF2D0rxhtvLNnHOLaXaJOSk4rY8IP/EAHHitUzghZSCtYnL
-	 zbI+HAsDLCQonYfTtIkrjn6JLSqB68vGcgLEzIWTzySGSn5IK9lj4sBQBEy5UC6RKKkEu
-	 3bE+pSyK0vjnCjPYyC04l6T4yrLFwIv6KNffxnGNJFTeP48vSWLkgnqZTuLJh6oj8Y1j1
-	 zWGyF6MXN149nfabLzaCNPhAq0b/xwIKZRb+O9/AKmGa0Y6aTDhvIPPbtKP8459zSnpyW
-	 Sf6GQ8nICKdN3VSOjE+PfWzUlQWelrS3MCVCPa5/A7oCW0fSlpJ5m1Rn/DFUcr+3MmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792746992;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4nuVbqjmwVtBwkEi5lYOaDCphgBSo6SLRygw+zLWz5I=;
+	b=UZqLGEX6GM7PCgzoe4dKlot/Jen2UdcOOl/5FJ7NfUk5U7pMiuFSmEGcmgHt8XHz0Nsl
+	 wsW5o7LkDRboB0mKTHIEVVXSHUpavZGLW3qVhQ/XhSf1sZ4ojliARU/nD9OozxgVwMdKU
+	 9XWpO7V/pDuOp5wKNHqzxh3QoC3MkPbxPVeiy21aHFCKHXX/kgT8yeXGkdxYBMq7U3kdb
+	 PLgyLHfUR4F35qkR0HbvkEH7D9WNZWzr/5YwUAd99VAPXxjeR4FStzA/hmEMzjW/5bP3R
+	 TVqc3TMLwUw+SPpR/HEREuXetJ0o6szHTMIF7gL51jtJiZzYaFdaCOC+9gN3xtNFS3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ewnVWNE2;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=K4d1fxQ+;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC25E606A31B;
-	Fri, 23 Oct 2026 09:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC25E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A59F606A322;
+	Fri, 23 Oct 2026 09:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A59F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O2vUllAP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792746873; x=1824282873;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2W39ih95/AzH17zBqn6rXJXjjgFZun+fD1/GtsbiOl8=;
-  b=O2vUllAPIFDhc83mLr/g9VLBoisngjk+bb6qh3pObjQ2wbvUH7XsgikX
-   YNl9ZRoa+6ZHwR1QiArJCI/ThYnBoFlt5g6AkmAQnershqHBPmfqykhdr
-   uBUw6fODlZndtwwwj6EOImzFyB5XLLLVUc7tDSqgetFdJiClyg+/EnUzw
-   /D2F5tVmhZ0nnaaMXqZAEBAb6KjXD0myQLQh/aZPZ/2KjS4CElP9NquIV
-   86T6sKc+YN8u8z2HeI5eUWQIO+JB9elJWepaGSc+/ahIHr0XBWZWXAJJl
-   LTJ3tBm1yyKbijLuMAgxclvwem5rlqVXVQLq59DL2zn2FVxtRBaqdelKF
-   A==;
-X-CSE-ConnectionGUID: 6kJuGdiwQ1C43VeleGWR4A==
-X-CSE-MsgGUID: BQSd+Gs8S1StyUPGuY4aQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1399923"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1399923"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:32 -0700
-X-CSE-ConnectionGUID: Jbq1sZTuSHmmN4/ImqFQnQ==
-X-CSE-MsgGUID: KZS3rtAYTC6W5vNMIGoNRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3685630"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:14:28 -0700
-Date: Fri, 23 Oct 2026 12:14:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH 3/3] iio: light: opt4001: add support for opt4041
-Message-ID: <atslcgx03BMp-juY@ashevche-desk.local>
-References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
- <20261023-opt4041-v1-3-45227f82d05c@axis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ewnVWNE2;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=K4d1fxQ+
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7GmN4820734;
+	Fri, 23 Oct 2026 05:16:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=DKIM; bh=4nuVbqjmwVtBwkEi
+	5lYOaDCphgBSo6SLRygw+zLWz5I=; b=ewnVWNE2zbWqgeek4lJcYe/KfCozU9Mn
+	JWBKauKJfZnBELQHP4KLlJWItI9SqAce8VW+xEhc/PEEJttUwjhrKgol2SwGtu8T
+	eFgyZujc4HAgmDLqaizywwaZs4vZNyR0LV+8V4h+b78ow82rqUV9HkxVXjwpvXXn
+	KxZTQ6kfwdCbmVjskrJUYnOMITGnZrED/CtLkifclO0Ae5rbrBTRLvArYS6qaG3/
+	lz1yTrhsKPD9ECtrRMyzxEosAqJtalM6KsFcJuGIMDU7O68kuQZuYEyGbzc/ckxn
+	u//P70ckMBj2dnXcBT/RLRYvT1B3PDMRlKAKIbjY07Q6XfMDJUnW2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=4nuVbqjmwVtBwkEi5lYOaDCphgB
+	So6SLRygw+zLWz5I=; b=K4d1fxQ+GYGyBA3ZieXJI9/IAnjgY/VPXHF/ScTqo44
+	F7Ln5pUtJ2mHJc7pz8xa6eCbTdWHV4TqIT0fi18s9/YMHD8WjwIfrSvgn8VuofG+
+	qMlEo3Dx2koghX2lz9U02qLQCRKKgFXPoyKkGh3tyBzeCmVRBJ1sz2qAqO48Zjlo
+	LRRiPohRwihPhL9b69KKQsyBgLf+cVMnT2XHioRGFr6tPEU/4/BgAzljvlOoqNMI
+	zfxDx98SU2gHMy7c3A2gopz5cSsEk2e2dMbwVANlGpoPlwz/fBC661jwOPJ0HPnO
+	vDD/ikOGFqBBYEnRrAesKn6W/ccL4RKxbzZca4QRZ/g==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hfy3wsrsa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 05:16:16 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69N9GF49049047
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 23 Oct 2026 05:16:15 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 23 Oct 2026 05:16:14 -0400
+Received: from JGERONI2-L01.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69N9FwZC023047;
+	Fri, 23 Oct 2026 05:16:01 -0400
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+To: <linux@roeck-us.net>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <corbet@lwn.net>, <skhan@linuxfoundation.org>, <jdelvare@suse.com>,
+        <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+Subject: [PATCH v4 0/3] hwmon: (lm75) add MAX31875 support
+Date: Fri, 23 Oct 2026 17:15:47 +0800
+Message-ID: <20261023091550.1494-1-johnerasmusmari.geronimo@analog.com>
+X-Mailer: git-send-email 2.44.0.windows.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,108 +101,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-opt4041-v1-3-45227f82d05c@axis.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfXxxUKP6Aqbm/y
+ hln7sGXtLTvEFQ3aHpxwkqLz8PFPX75Xke5IzvJME2gfJ1QGXDrtZOHEtWnWdS5pH+vNbOEbYl4
+ sGI1UWHjvxQukVz8MH8bY08IuHIT17tdgK4N1rbpa47W3DQAEZYc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfXxnbsOh7sBSc1
+ EFfOMCKyfZRIaAxijvaC4vTXMMqkbsn7Pucjzzka5XOR6iVfguUtoLYcJnztqmlTxVK5hcZ35A3
+ dWaQTI3DtaWrmhhzg4aI/GdDyJkTXJSEomiZCd7TJ8cEqgQagy+xTfEWzOepqpXLw3m512lp63M
+ +P2Ht88kiaG2xed+XUAh28SNAuG7o5ZUsnH1aXPiGZjlVQvpRNGPeyhvP4VlONbj4RCmTMq7pv5
+ fL0BQkVUTlBqD9+qN3LWFGIfsC7vDFdy8GtySgkAGvQSyj4c9KXsCP7zLvkvU/BZt7Pw8iwevnZ
+ fTLVidilxkuIetoJafQZMvp7JpycAWZL2Aqgln8sBVnY+wJC5hKLJ6AJKCwmyTkFliwAyidrYAC
+ shj8lZ9gEd3VWSlKnGXK891seL3xDsPNvHnpJ0L1Ny93V54mk5/QVn21gnf1CDQ1L56XpJZlgN7
+ 8bWT07ZW2yQG+ARcFlQ==
+X-Authority-Analysis: v=2.4 cv=fJ+sTpae c=1 sm=1 tr=0 ts=6adb25e0 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=vFOL9JNIDB1nI9Vvyn0A:9
+X-Proofpoint-ORIG-GUID: Jn-lZmP5oFTMNcKv1zU6d6VNUVaYzYsm
+X-Proofpoint-GUID: Jn-lZmP5oFTMNcKv1zU6d6VNUVaYzYsm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230036
 
-On Fri, Oct 23, 2026 at 09:48:15AM +0200, Jesper X Nilsson wrote:
-> Extend the opt4001 driver to also support OPT4041. The devices are very
-> similar, with the difference being OPT4041 having two channels, one
-> visible and one wide band channel ranging from 380nm to 1000nm.
-> 
-> The register map is almost the same. OPT4001 has registers to read out
-> the last four values sampled. OPT4041 maps to the same registers, but
-> has two channels, saving the last two samples for each channel.
+Add support for the Analog Devices MAX31875 I2C temperature sensor by
+extending the existing lm75 driver.
 
-...
+The MAX31875 provides a 16-bit configuration register, selectable
+resolution of 8, 9, 10, or 12 bits, conversion rates of 125 ms, 250 ms,
+1 s, or 4 s, and an alarm output.
 
-> Assisted-by: LLM
+Changes since v3:
+- driver: skip the alert polarity configuration for the MAX31875. It has
+  no polarity bit, and the bit used for 16-bit chips is part of its
+  conversion rate field.
+- driver: set the default resolution and conversion rate at probe so the
+  driver state matches the chip.
+- The conversion rate field is D2:D1 of the configuration register (see
+  the datasheet's Configuration Register Definition). It is read here as
+  0x0600 because the driver reads this register without byte swapping.
 
-Drop this.
+Tested on a Raspberry Pi 4B with a MAX31875: defaults are restored at
+probe after the chip is set to 12-bit/125 ms, update_interval selects
+each of the four conversion rates without changing the resolution, and
+temp1_alarm follows temp1_max. This was run on the Raspberry Pi 6.12
+tree, which reads the configuration register byte-swapped, so the
+equivalent bit positions were used there.
 
-...
+Changes since v2:
+- dt-bindings: expand the commit message to explain why the MAX31875
+  needs its own compatible string instead of reusing an existing
+  lm75-family one, and pick up Conor Dooley's Acked-by given
+  conditional on that fix.
+- driver: drop the .resolutions table, which incorrectly tied
+  resolution to the sample-time index even though the two are
+  independently configurable on this chip (Guenter Roeck).
+- driver: use the BIT() idiom for the alarm bit read to match the
+  rest of the file (Guenter Roeck).
 
->  	help
->  	  If you say Y or M here, you get support for Texas Instruments
-> -	  OPT4001 Ambient Light Sensor.
-> +	  OPT4001 and OPT4041 Ambient Light Sensors.
+Changes since v1:
+- Rework the implementation to use the existing lm75 driver instead of
+  the previously selected max31827 base driver.
+- Add the MAX31875 Device Tree binding, documentation, and driver
+  configuration for resolution, conversion rate, and alarm reporting.
 
-We in IIO established kinda a style for this to be scalable, id est list them
-one-per-line:
+John Erasmus Mari Geronimo (3):
+  dt-bindings: hwmon: lm75: add MAX31875
+  hwmon: (lm75) add MAX31875 documentation
+  hwmon: (lm75) add MAX31875 support
 
-	  If you say Y or M here, you get support for Texas Instruments
-	  Ambient Light Sensors:
-	  - OPT4001 (...can add some short useful detail here...)
-	  - OPT4041 (...can add some short useful detail here...)
-
->  	  If built as a dynamically linked module, it will be called
->  	  opt4001.
-
-Perhaps also consider changing summary text at tristate to make it like
-"...OPT4001 and compatible".
-
-...
-
-> - * Device driver for the Texas Instruments OPT4001.
-> + * Device driver for the Texas Instruments OPT4001 and OPT4041.
-
-Make this and MODULE_DESCRIPTION() to be the same as summary in the Kconfig,
-see above.
-
->   */
-
-...
-
-> +static const struct iio_chan_spec opt4041_channels[] = {
-> +	{
-> +		.type = IIO_LIGHT,
-> +		.address = OPT4001_LIGHT1_MSB,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
-> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
-
-Trailing comma.
-
-> +	},
-> +	{
-> +		.type = IIO_INTENSITY,
-> +		.modified = 1,
-> +		.channel2 = IIO_MOD_LIGHT_BOTH,
-> +		.address = OPT4041_LIGHT2_MSB,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE),
-> +		.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_INT_TIME),
-> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_INT_TIME)
-
-Ditto.
-
-> +	},
-> +};
-
-...
-
-> +static const struct opt4001_chip_info opt4041_sot_5x3_info = {
-> +	.mul = 5850,
-> +	.div = 10000000,
-
-Just sent a patch to move this to use struct s32_fract, I believe you may
-incorporate it into your series as a precursor).
-
-> +	.name = "opt4041-sot-5x3",
-> +	.channels = opt4041_channels,
-> +	.num_channels = ARRAY_SIZE(opt4041_channels),
-> +	.device_id = OPT4041_DEVICE_ID_VAL,
-> +};
-
-...
-
-> +MODULE_DESCRIPTION("Texas Instruments opt4001 and opt4041 ambient light sensor driver");
-
-See above.
+ .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
+ Documentation/hwmon/lm75.rst                  |  6 ++--
+ drivers/hwmon/Kconfig                         |  2 +-
+ drivers/hwmon/lm75.c                          | 30 ++++++++++++++++++-
+ 4 files changed, 35 insertions(+), 4 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
