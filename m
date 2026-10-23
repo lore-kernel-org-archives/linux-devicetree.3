@@ -1,90 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740843;
-	b=JLuis16dR3lks2B91GSthNHfC+z1TTQJBiu8PoIuGnDdEGskGyH/n1xMUWzJC+42p5lj
-	 X9Zicum2k7AWcArbQfeIPBYS5RElEwsHO6cqZvzRyar+jDZvMMMDQ33fyb93yGMLnm+YA
-	 NlJweds45wVzSjyVAC/Yq+C+rmNUJOkasRfBTi76H9iPEUYbWcudkrhFnx1AqGSuVaYwU
-	 y1qY7cUjL2SLAEGhMbPEgDFsP55xZ1POoGeBDXE9etNQ7Y/FoXL9JR/gjhIq6KcKVns9P
-	 r34iaepgiUGA6wpAwpHAQTK6X+xzWeq0P7lwGeW9bSpNSyz77aXr0JtslM9gzw3P6ew==
+	t=1792740893;
+	b=MmjadR7qNVpFaLgOaiTDx1mtqxHYbxHz4DqWvCXVil+d9Ol8bGQoCZtlRQdfB8jj0gRK
+	 5cBqskvAqHhOw0+gkoWXbiOyJt4s/PsOFwYdxr4Dpsgt9y8Mn+jXz8j21+Y5EyPwVacPz
+	 9MxF4J4G56v/jp33cHbQxO2RsX/dWk5DM0ryPLZj87hIa0VJQHjDGDaNNxKjM/VGk3THJ
+	 dnCGo9u9fszH3TNWaOoNsmHSyHZfbGCiQnO5cRx1ypNnQ7ES8chgpxPVHECNPvYM/IcLn
+	 SvkmhebQ63UpVrcAUE0jGa/WN9pTKdOZF2UhpLszN9gmEnIdRi4x3BBABgXVq6Cg81A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-	b=bQrjMd7Iu9Hm0Q+GIe0rVS+dED0OTxnOlAa2IJM8GvCsQCx0lGkxG9hCjdGKgmQZqhSl
-	 +VcvsSsxyPMZ9+tas0SLUDMZPhdXfG9iVgbOw7C6CVTfBWfA9ENM5XXT7FsKPnbygFSv1
-	 52QnG2cDKwYSLLoW9lavb4Nig3i9kdOojvyz+JOxuyLx57bz78Gk8111tT44qyh2LhvoT
-	 2hFMDKUxWfiW6rIDEyur89kQ2m6v5zFnxxDT9Z5toE8hpD50C3+GIWMaXZ8EKah0K9pj7
-	 IBouswKAXZvxT99yIwpdOhYqvUH46j+8EJkNrA1Db2qGC638Jyzhq2IkHqXeshIPMFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740893;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=eXol6dZvKepAqGtyVkHPm9mEeBZl0qhviZljTMDM3Zs=;
+	b=5jiYQrNZwFHdXsDuKh+K1wCQ3ADnkNGDxF/tTwkqW6inf/sYb101TOYo943Mv40wAcJG
+	 P/qg7+3hkJSqPCIVDRVS/EB8eTMnPzbG4u84eL3VF811ff697xNdc4ZYBRcIXZGT0bHJ2
+	 /q0ETEeCQ6uzkjEJ0998hnmvGfvM1Mb7Pi9UT/cChpXT7+7U8uMVkTc72tE60zkbGUCLZ
+	 Xm9G1lEuOYbUBwLUw23PxrpyfwqXm4wC2hcXtkwhMAQ1aANF/D2HZ3hRq4WU47BcYyPji
+	 vHeDfkELFY1a4Hw1CiGYCO7lvXqolhKZjzzVkavB+yPzo25A2VmBWG6Lkcfr4gbLOFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE+5UgD5;
-	arc=none smtp.remote-ip=209.85.167.180
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRa85gNo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2E3606A33E
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A2E3606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D52606A325
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:34:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE+5UgD5
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4af81963f35so446656b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740842; x=1793345642; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-        b=AE+5UgD5XLmund89M9O1VO1HJzardo2DXQUzwyptN++zcMGy12TXIXqAxCCwIvBzzJ
-         Dp3S2aCqBjIDQhLAMjRR1ulBCzqKMiiAt5eTeaAvU3ky6iB4k+8lR5T3wQmcdUTzuu8D
-         AIwf/du+/mq1+p53YUS7iHJSK2hPdd5Yj0ZJnjTvx+hxwSv39IsVwJYS+B9Rf0zZ7I+u
-         nV9eL8e3upF+441sry0/P9AN8XRaJFlsoL7dnKjLnMerhUHWSPwErL2YRlNSJUscRnE9
-         FP8KDdo4TpKlvJBj83bJgD33SXd9c/LH8lhMYe4U9b0njue1S9fvNQZjSEUJhqxTsKZ5
-         zUng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740842; x=1793345642;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hMLYY/97Uq9CVtG7QdmP7izisduGXF/upTM7pDvQJmw=;
-        b=G0K6qY+X1LfONlBJnLl7om3dOWXzvEJjctohW9/Z0qRovJvvq1Ojv3lpNX6cHgcIy4
-         /ZbRvgENi8BonTpwSJmb66wkGmZFve/XkLIrNzSYp1boyIabk1U6SRcffeBC32rtVRqQ
-         sQYQuFzKacpKBwx/a/Tsrg+EwsWwQtvuL/VCc77tZEw1BuASQGxXWec3ULqWWJ682qBj
-         yOow8p8dcs4H8fiTIvMsB087mJ/Lkbf+BFEyu3SYzpM+Mo64Dv2AlGkBJz0y2rXrBunU
-         WrlHaSYme2VJscK0c52HUndmdLRqA/ZnG505q9QjxZljY6vdRVc+Mhoe6z+lpXuMXxlw
-         Af3w==
-X-Forwarded-Encrypted: i=1; AKwUvBx2jtOnMRg6c+VdNGvPZoQbfRuZnSFyTG3dqVovoi0vrC+4LOEFeMQLYrhxfCroPlRoUkxeRmOQK6L4@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGkWsZQqXR+FZzGjq4LlpTkoKR1FXe64WQnReXnBPBODdFT3VY
-	OJQP6AVbZ3jhVlmMBwld7dkaMy+XJBQ4FgHJvcwsUBEpUKUSo5h/x3ec
-X-Gm-Gg: AYBFou2Cl6X+2HwJXXO/OJJLnTUB2CdzmuKEOHLGExGsEX5JGDYgIEkqgVAf7/Saez+
-	OAqUfSiaTxlNVgoYuVuRZCtI+t0arJuteSdPNH/S7PwdH8J5XeWGeYGycQ4zJWbsjXqhxqCzEJ2
-	SwyVGkWAerxkz4S6rmbTHk9FYGrdoL+o0L0/uBOryZ2OZfhy5fmgzWtWq11pZdYXKk3p/tm2OK4
-	BNZMFdYPCa7tAxsIFkqUGOekWL9lBHbp6AvLP9HDdPAAJkFWz4a0xte+KQnD+/HdsqEIXSol+uk
-	OqqEqBZ/Yu31peqK8Fwbo5P26MPOzozdhA6F+iJy/5Unw5P4pkSYNt1irUGzxT0pZPmlmRl3Su7
-	Bc3+XDWeefzt1TOCNWFmRARwazZO7bZhIzBK4nrV/rFo+qCfKoPNNFctb+ZdvHFgv9TdxMlODgq
-	iGsLwRmmp3Ox95kiek+MN5t4I/PRZqQsbX+XDNeUVTz8EjMF0mJbMLLToRPjFgWbKW7PiJj/jUz
-	a+HToQiivykJESNHFsElclW/Qx0Ku1oVxin7hjCMoYbaTbEqAlDlum26arsaafQJLU2ftHexF7+
-	l8ATX9ujFxoS/ahuLuXHXg9vXbuKMsPMzfXq5aoBIby84Gl5dcV3evZjmtPZ58AI3LOQjLAlgIS
-	89dGsz4yoxbw5TQfWyhJHM457b1tDedEXnF/3asqyD5QedXCeNWxfxL3a8aB8OSmgNvfe8CANKQ
-	Jv5Gs=
-X-Received: by 2002:a05:6808:5092:b0:4e8:3707:d4cf with SMTP id 5614622812f47-55be7a45f4cmr859576b6e.0.1792740842142;
-        Fri, 23 Oct 2026 00:34:02 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55be9880a99sm909562b6e.14.2026.10.23.00.34.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:34:01 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 23 Oct 2026 01:33:51 -0600
-Subject: [PATCH 3/3] arm64: dts: allwinner: h616: identify the UART
- integration
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRa85gNo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FBA1F01825;
+	Fri, 23 Oct 2026 07:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792740892;
+	bh=eXol6dZvKepAqGtyVkHPm9mEeBZl0qhviZljTMDM3Zs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NRa85gNoK1jT3cXw1Y/3OAlcqKaKvVdZMTqV3A1Eq6TJQIAiGTPWaTNgzfis+XxaA
+	 rdtIwwtVdrOcYYHnesiyAEyVmjg+U9+p8jrgOFaRC4kLz/s42jBdqI7ooTybXgxCg1
+	 XUn+5CJ2XrUZTCJJmbWZXLFaGl4zzY/rDND9sOo62ICacDPugyRqSy1ZjMEdihSrUW
+	 W8rHl4pkaor3O114/tSND33YiBmzwtxEgT1q7E5/qzAKyn05s9x+eWtXE+6MD7VPhs
+	 UCR6U7lPXe5WNcAMaDWSixa2+IMdEevvT4PX3iDnvewLVYUVWycl81w1Csz+qzUOVq
+	 2QYKcLIamabBA==
+Message-ID: <sashiko-outbox-182415@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 12/16] accel/thames: Install memory mappings
+ populated and dirty
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261023-thames-v3-12-3ab40aa17157@tomeuvizoso.net>
+References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
+ <20261023-thames-v3-12-3ab40aa17157@tomeuvizoso.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 07:34:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,93 +60,182 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-submit-h616-uart-fifo-v1-v1-3-e4a3bae2eba8@gmail.com>
-References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
-In-Reply-To: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-Use the H616 UART compatible for all six controllers so the driver can
-select their fixed 256-byte FIFO configuration and register layout.
-Retain the generic DesignWare compatible as a fallback for older kernels.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] accel/thames: double put and NULL deref on error in thames_gem=
+_mmap()
+- [Critical] accel/thames: COW bypass in thames_gem_mmap() on MAP_PRIVATE m=
+appings
+- [Low] accel/thames: MMU-only PTE helpers in thames_gem.c break !MMU COMPI=
+LE_TEST builds
+--
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+commit c4d46a848bca800b97f80e3d5bd5a0d1cb370cf4
+Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index 1598e86259ab..6905c9eaa249 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -538,7 +538,7 @@ mmc2: mmc@4022000 {
- 		};
- 
- 		uart0: serial@5000000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000000 0x400>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -551,7 +551,7 @@ uart0: serial@5000000 {
- 		};
- 
- 		uart1: serial@5000400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000400 0x400>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -564,7 +564,7 @@ uart1: serial@5000400 {
- 		};
- 
- 		uart2: serial@5000800 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000800 0x400>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -577,7 +577,7 @@ uart2: serial@5000800 {
- 		};
- 
- 		uart3: serial@5000c00 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05000c00 0x400>;
- 			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -590,7 +590,7 @@ uart3: serial@5000c00 {
- 		};
- 
- 		uart4: serial@5001000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001000 0x400>;
- 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -603,7 +603,7 @@ uart4: serial@5001000 {
- 		};
- 
- 		uart5: serial@5001400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
- 			reg = <0x05001400 0x400>;
- 			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
+accel/thames: Install memory mappings populated and dirty
 
--- 
-2.53.0
+This commit replaces the default GEM DMA and GEM shmem mmap helpers in the
+thames accelerator driver with custom mmap callbacks that pre-populate page
+table entries as writable and dirty up front.
 
+> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/tha=
+mes_gem.c
+> index 5a4dc497768f8..9f55169c6370b 100644
+> --- a/drivers/accel/thames/thames_gem.c
+> +++ b/drivers/accel/thames/thames_gem.c
+> @@ -808,12 +808,82 @@ static void thames_gem_shmem_bo_free(struct drm_gem=
+_object *obj)
+>  	drm_gem_shmem_free(&bo->shmem);
+>  }
+> =20
+> +/*
+> + * Installed dirty and writable: the A53s have no hardware dirty-bit man=
+agement,
+> + * so every first write would fault.
+> + */
+> +static int thames_gem_mmap(struct drm_gem_object *obj, struct vm_area_st=
+ruct *vma)
+> +{
+> +	struct drm_gem_dma_object *dma_obj =3D to_drm_gem_dma_obj(obj);
+> +	pgprot_t prot;
+> +	int ret;
+> +
+> +	vma->vm_pgoff -=3D drm_vma_node_start(&obj->vma_node);
+> +	vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);
+> +
+> +	prot =3D vm_get_page_prot(vma->vm_flags);
+> +	if (vma->vm_flags & VM_WRITE)
+> +		prot =3D pte_pgprot(pte_mkdirty(pte_mkwrite_novma(pfn_pte(0, prot))));
+> +	vma->vm_page_prot =3D prot;
+
+[Severity: Critical]
+What happens here if userspace calls mmap() with PROT_WRITE and MAP_PRIVATE
+on a contiguous buffer object?
+
+In that case, vma_is_cow_mapping(vma) is true (VM_WRITE is set while
+VM_SHARED is clear), so vm_get_page_prot(vma->vm_flags) returns read-only
+page protection to fault on writes for copy-on-write.
+
+Because thames_gem_mmap() does not reject vma_is_cow_mapping(vma) (unlike
+thames_gem_shmem_mmap() below) and applies pte_mkwrite_novma() whenever
+VM_WRITE is set, dma_mmap_pages() -> remap_pfn_range() will install
+hardware-writable PTEs pointing directly to dma_obj->vaddr in a private
+mapping, allowing writes to bypass copy-on-write and mutate the shared DMA
+buffer.
+
+Should thames_gem_mmap() reject vma_is_cow_mapping(vma) with -EINVAL as wel=
+l?
+
+> +
+> +	ret =3D dma_mmap_pages(drm_dev_dma_dev(obj->dev), vma, vma->vm_end - vm=
+a->vm_start,
+> +			     virt_to_page(dma_obj->vaddr));
+> +	if (ret)
+> +		drm_gem_vm_close(vma);
+> +
+> +	return ret;
+> +}
+
+[Severity: Critical]
+Does calling drm_gem_vm_close(vma) when dma_mmap_pages() fails cause a
+double put or a NULL pointer dereference?
+
+thames_gem_mmap() is wired up as the drm_gem_object_funcs.mmap callback in
+thames_gem_funcs.
+
+When called via drm_gem_mmap() -> drm_gem_mmap_obj(), drm_gem_mmap_obj()
+takes one reference on obj for the VMA and drops that reference on error:
+
+drivers/gpu/drm/drm_gem.c:drm_gem_mmap_obj() {
+	drm_gem_object_get(obj);
+
+	vma->vm_private_data =3D obj;
+	vma->vm_ops =3D obj->funcs->vm_ops;
+
+	if (obj->funcs->mmap) {
+		ret =3D obj->funcs->mmap(obj, vma);
+		if (ret)
+			goto err_drm_gem_object_put;
+	...
+err_drm_gem_object_put:
+	drm_gem_object_put(obj);
+	return ret;
+}
+
+Since drm_gem_vm_close(vma) also calls drm_gem_object_put(vma->vm_private_d=
+ata),
+a failure in dma_mmap_pages() (for example, -ENOMEM in remap_pfn_range() or
+-ENXIO on an out-of-range page offset) drops obj's reference twice,
+underflowing the reference count held by the GEM handle and prematurely
+freeing the buffer object.
+
+Furthermore, when called on an exported DMA-BUF via
+dma_buf_mmap_internal() -> drm_gem_dmabuf_mmap() -> drm_gem_prime_mmap(),
+vma->vm_private_data is still NULL when obj->funcs->mmap(obj, vma) runs:
+
+drivers/gpu/drm/drm_prime.c:drm_gem_prime_mmap() {
+	if (obj->funcs && obj->funcs->mmap) {
+		vma->vm_ops =3D obj->funcs->vm_ops;
+
+		drm_gem_object_get(obj);
+		ret =3D obj->funcs->mmap(obj, vma);
+		if (ret) {
+			drm_gem_object_put(obj);
+			return ret;
+		}
+		vma->vm_private_data =3D obj;
+		return 0;
+	}
+}
+
+In that path, calling drm_gem_vm_close(vma) passes NULL to
+drm_gem_object_put(), triggering a NULL pointer dereference.
+
+> +
+> +/*
+> + * Every page installed now, dirty and writable: they are pinned for the
+> + * object's life, and the helper would take two faults on each.
+> + */
+> +static int thames_gem_shmem_mmap(struct drm_gem_object *obj, struct vm_a=
+rea_struct *vma)
+> +{
+> +	struct thames_gem_object *bo =3D to_thames_bo(obj);
+> +	unsigned long addr =3D vma->vm_start;
+> +	struct scatterlist *sg;
+> +	pgprot_t prot;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	if (vma_is_cow_mapping(vma))
+> +		return -EINVAL;
+> +
+> +	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
+> +
+> +	prot =3D vm_get_page_prot(vma->vm_flags);
+> +	if (vma->vm_flags & VM_WRITE)
+> +		prot =3D pte_pgprot(pte_mkdirty(pte_mkwrite_novma(pfn_pte(0, prot))));
+> +	vma->vm_page_prot =3D prot;
+
+[Severity: Low]
+Could the use of pfn_pte(), pte_mkwrite_novma(), pte_mkdirty(), and
+pte_pgprot() in both thames_gem_mmap() and thames_gem_shmem_mmap() break
+COMPILE_TEST builds when CONFIG_MMU is disabled or clear protection bits on
+architectures without a custom pte_pgprot()?
+
+In drivers/accel/thames/Kconfig, DRM_ACCEL_THAMES depends on
+TI_K3_DSP_REMOTEPROC (which allows COMPILE_TEST) without a depends on MMU
+dependency. On !CONFIG_MMU targets, pfn_pte(), pte_mkwrite_novma(), and
+pte_mkdirty() are not declared. Additionally, on architectures that rely on
+the generic fallback in include/linux/pgtable.h:
+
+#ifndef pte_pgprot
+#define pte_pgprot(x) ((pgprot_t) {0})
+#endif
+
+pte_pgprot() zeroes out all protection bits in prot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
+0-3ab40aa17157@tomeuvizoso.net?part=3D12
