@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792741787;
-	b=1+ieJ23Zwc6S1h8QEYmggYkpZv7Zq7ToDm/k9rxJ4yTgKwvgfRndbshbDHnBIohGCuZW
-	 cEkO2uX2e9EoICLscx6ykiOTG4SleYtlx9xWLPTYjhJeva3AbDAXejfvpHKs9fWVX+P5O
-	 D+XMfrI+GibdGFLutv6ZjI5719PmDiw1drrwNENosa+6geUYtvB53oGgYwnrmOqcGAzQL
-	 vNWsaxCXTjcWHb9m04nQibaiOZL/c8hmDYrfbdumy7oAC0JorFlHAAWcvZWJVKiPBcGN9
-	 NEpTGruHTH7pbviSBjTxHL23sXWgSzgteeAw8489gRurrJjaB3sNPsFic0RkDioCtfA==
+	t=1792741862;
+	b=HKfC9agG34hzUv49hhFJcVhQNFI5htTz9a46CqcvumMh00A4/IfhsxyINg+1grmPspFU
+	 xD3jxtMQ5XG7hxF83MlMB6T98SYS1KpuG3t+Jwk5WBk18uY4eTcA+qCajj4L5H/hRROjT
+	 0K/2gz93+37Rl7eYAD2ykRTCyBCjr8OWB8qFA3PL7x++J68q8LJvcWBOnuZ0KikSe2pbW
+	 rjm+uI/xwSdqy4kZaB6SB+g9bl3HHlDwWUoLyBOPoFdGLK5KHXeTy0KQhxHvuIvfd/4hU
+	 CH/eCO1kaE+j7bdxTrK8WNZ6sU8az6zdqSwk9HVrUCxqECyjWY1GXh4MMGITurfVzxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792741787;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WzOpYD46ST4arJ0WPiIMyO/fbGeCiLktthls5twsZNQ=;
-	b=YFO349Bm68uSLk+CIr5hRcO+Umy5TATEY/HNBNM5fIo3qa10+GS8FwTPUQEQJCHgdNoL
-	 25QqVnr4gX9GOeeyNtc6dRgOdcMjryPzPDRbWAV3bo0ZyuIKXIh6ONjAYQeCN7/7+NaUw
-	 A+ikyByknk6GMVkXkf7YsjFPL3O6uyTM9gCrqb9YX3QqP9bnNAFIwvKl6vjQ5XcMyDmPs
-	 6QI7V1v9XW1YYTbos4/eu95wTLZclcpADtQJMozHNm7zzLI7y+mY3GyITHrYKwb6hSqva
-	 oooRNk9QJ9NJlvEcYPbBQmDs6H4zptBTea+I5B4z3BXvKByKGgessGxqwVjHrQTjFzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792741862;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=mibySmlXEPWTc5EM703PPeSakYAc/2HraKR0WHF6ldk=;
+	b=5rJ1gOHZaU5H6Fbv/4SKBvJYV8mALrZik9qHb3C1sa6G5198WI14Rs9kBlBXcLocpXix
+	 tgEC6ixb6c5JGFM1pZJJ3NYdSsunWY5EAGbmKOTJGY7DK5oX+f6XCpcBo/IkQMALiJDi8
+	 WmXSQZlZYVPZYll/xlefTLT8y02OguPzTRz/vMr9F0RdAirOUNDOvrwrzUGafKV47UWYq
+	 ANFADMEJrbsl5rHHTsuDZjsCD99+brRlqnCRKGyI645su5kG8hL8/riE/s3V8wExnnmu3
+	 Al2U8a/W0SfTaUs7y3O5VmRRlWMVrnt/knwKWpwDc+x1cAbtAzY7idCp9VPwlI8188w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0XpAkF3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rvem5Yxx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6492606A31A;
-	Fri, 23 Oct 2026 07:49:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD6A606A31F
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0XpAkF3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923AB1F01825;
-	Fri, 23 Oct 2026 07:49:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rvem5Yxx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640341F01829;
+	Fri, 23 Oct 2026 07:51:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792741786;
-	bh=WzOpYD46ST4arJ0WPiIMyO/fbGeCiLktthls5twsZNQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H0XpAkF3lnqYyyKXoalzqjQqZUXktMIBndt0IFoP95dXAmSiBd/MSmg5S47aZEkMO
-	 0Be6wZ5hJyF6it8ZrbYWPs6IfqYUOuCHIRAwg4P3C2CI4IKBdXTQDSACU6LDzfS9N2
-	 8H2c93i6qeNXNZNuaEczS0bN9v2Ht+f2FWQfNsv9Ik2yAVTEW9xp4Y5qiorY12Dpjt
-	 VOV7h/JqDfBk9QV0XVhwjutcPhtm3syhem+FOE53tHUzeecWxyZi4Xvb7byUddYpit
-	 yPs4GeLX+VMEQXHpvKX9cL1SALtYPgnSHe7Nqp4YT53v1MBN3ZQvGeko8Q9OpL2ar4
-	 zGefdbbGrSZVg==
-Date: Fri, 23 Oct 2026 09:49:43 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v3 1/2] dt-bindings: usb: snps,dwc3: describe two
- connectors sharing one HS bus
-Message-ID: <20261023-conscious-newt-of-experience-2dddf2@quoll>
-References: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261019131848.344689-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261019131848.344689-2-xiaqinghuan@mail.ustc.edu.cn>
+	s=k20260515; t=1792741861;
+	bh=mibySmlXEPWTc5EM703PPeSakYAc/2HraKR0WHF6ldk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rvem5YxxPeTEz6R0tA69+HrM7+jXfoqKZQUMx5Y18cj7ZoM2tBayvyg5K9ivxHzif
+	 2WU23grL2C0+I8hQnPQ2hCWRQODGxkvxxDzClT1JRSDofPDD3/6Ma3NpnTd5yb4Z0B
+	 b0/xBK//QZbfiec8LpJsAD+olp3U6Hi6fSxYUwQmUp7w2xqAgX6BxjG//DDwC189Bp
+	 qmAUI8DnaV7+kOUA9Epq3/5dqDTsh2F2DwWMNxYDXqF+v9vdfpIW1PTFsHuPHohjcS
+	 hHwE2sPnVZ6ymTR1O62hD3ZpwNrysP+sqBUu7DlIpNbW1YBz/jV1hInDbPJvS1n2zr
+	 x/SGxjfUEyNtQ==
+Message-ID: <sashiko-outbox-182442@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/6] arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C
+ protocol chip
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "ShiTou Hong" <redstone.dcity@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023072832.2642647-3-dc_redstone@outlook.com>
+References: <20261023072832.2642647-1-dc_redstone@outlook.com>
+ <20261023072832.2642647-3-dc_redstone@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 07:51:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,37 +60,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019131848.344689-2-xiaqinghuan@mail.ustc.edu.cn>
 
-On Mon, Oct 19, 2026 at 09:18:47PM +0800, Qianhui Xu wrote:
-> Two connectors can share the High Speed D+/D- pair of a single DWC3
-> controller, with a GPIO selecting which one is connected.  Super Speed
-> lanes stay per connector.
-> 
-> Describe that in snps,dwc3-common.yaml:
-> 
->   - port-select-gpios selects which connector drives the shared HS bus;
->   - the shared HS bus is port@0 with two numbered endpoints, endpoint@0
->     and endpoint@1, so that "ports" keeps describing the controller's own
->     buses as the graph bindings expect;
->   - each endpoint carries "mux-state", the port-select level of that
->     connector, and "usb-role-switch" to declare that this connector has
->     its own role switch input.
-> 
-> When port-select-gpios is absent the endpoint properties are rejected,
-> so existing single-connector descriptions are unaffected.  The two
-> mux-state values are constrained to be complementary.
-> 
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] arm64: dts: qcom: missing co-author sign-off and mismatched author =
+email
+--
 
-v2 had several Sashiko comments, this is called RFC and threaded there,
-so kind of confusing what you expect us here. I assume RFC, so I drop
-this patch from DT patchwork.
+commit 1a1ede276cc0d97ceb67bad5a51673b00f7ce0c3
+Author: ShiTou Hong <redstone.dcity@gmail.com>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip
 
+This commit adds the FSA4480 USB-C switch node and configures the PM8150B
+type-c module, USB OTG role switch, and DisplayPort altmode in
+arch/arm64/boot/dts/qcom/sm8250-hdk.dts.
+
+>     arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip
+>
+>     The sm8250-hdk has a USB-C port supporting OTG and DP altmode.
+>     This is implemented with the FSA4480 chip,
+>     which hasn't been added in the dts file.
+>
+>     Change the USB controller mode to OTG.
+>     Enable the i2c controller for the chip and the dp controller.
+>     Configure the PM8150b type-c module and vbus regulator.
+>
+>     Co-developed-by: KancyJoe <kancy2333@outlook.com>
+>     Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+
+[Severity: Low]
+As documented in Documentation/process/submitting-patches.rst:
+
+    Co-developed-by: denotes authorship, every Co-developed-by: must be imm=
+ediately
+    followed by a Signed-off-by: of the associated co-author.
+
+Should the Co-developed-by tag for KancyJoe <kancy2333@outlook.com> be
+immediately followed by a matching Signed-off-by tag from KancyJoe?
+
+Also, the commit Author header uses redstone.dcity@gmail.com while the
+Signed-off-by line uses dc_redstone@outlook.com. Should these two email
+addresses match?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023072832.2642=
+647-1-dc_redstone@outlook.com?part=3D3
