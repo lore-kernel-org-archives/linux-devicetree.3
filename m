@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747083;
-	b=uO+STub5vvBpsn7Ttl+48k7NnYk94/YTDOOU2ANiTgZooQQmYyyaQ5nqFrRb6x/KfxnO
-	 Szq9G9rb22KEl4983bvWPbwfLrBKgpJIW6wkadu9oIBsRxLWQzsP7GqJJMWoFY7v8YBXQ
-	 mxkFnnkP+EWs1QNHwseLMp2OJ1JoSXRPCm23AZm9esKkafsolDShNLb8CPRShKQ+euWEp
-	 j7tmHXd+HULlw+yxLSeL9MPAtmr9pbqV/T4U94OXqBZ8dQy9uJz9EOt0lk3ubAxmU224E
-	 rDvyUQ1vgnqfjX1jFlTQRfcUmSxUjX6Mzr3lTkIfsMVoJu0jGV+nc39uZEsSlZ6avlQ==
+	t=1792747126;
+	b=ngaR28FTUHaflpf0cJ/00xXEbq77X+7HTI1YrcE9HUFl1lddx8l1xSDfnMFxfCd0XQRq
+	 PjEnJGiyyAyj5Guj0X4JXJCyIUnXpwe1JrGB67IuWx05YIKSURbvwqCX3Bbbgs6t1PdRH
+	 TPEa09l3+PJjIJaHs1gaVB80mpyTLHA0HlqhkyKFL4tGkKoqHFZM/ha6+lzSHnjl0KA6+
+	 4z9Tgmlx0stwnw1r2CVDB/iQnPYl9wxeuNQep7LsNdG7QXFkfRQVNckVW/SCoglD9sPjN
+	 odVAOWH4qoolosiFUPQnf+ds5NtMYM1OZHAHarjm2oUCS0liSnAMd9BQAQCJwczcrkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747083;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
-	b=fqAVz6kUT2rLErub7+BW84swgmmYVkHoypI9Of1p8TGHhmiaswVmVh1WUMoypNMyc0Gi
-	 rzOowHc4obHf3XKgP+mysLF3253pJnUs6ms3/VAYinIDp8Ytu8VOQhd4AS9BDGtpuYshp
-	 jrK6yHZMdqge8pUX1DhTo/ANYSNf1iVS4Mdaspo4lBbg87//wL5IQoyvyK28bkJBGdvqG
-	 Eyzx8gDSfadSEeerSlw8sR8T5hu9wfJZ7FvMVHXi3BxyHIdh09pQJoXc0JrZB83iezAjS
-	 85bllr99AxVrqw8dn2umABGBRADMWl3Ay1EIut7S/aT1+lB5Lh6edi9kCRxiu313p3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747126;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=HVbfw3LWtA41Gw7QpcFN5osov7cP7IWH2VaLMp5lUsI=;
+	b=AQ5D95rT+aVzr/ESDesIIzKLePwUGecGqHBaBNThsMCVwSA/kvmkmahY54JpiFvpnM5J
+	 T3Xj3YvFtPJCgWwPZ4sCELD4sifqVlg3hpSZU/DoAOEv5OvML90A20J/1f3toGAUTOduh
+	 2NpSvgdFHm3hz3IVFQn2mQuboxUF7AXe6cxFo+sGLcXLhHRUAAGG4YCZTvw4FKwbT6Gx7
+	 a97xZlYvkaKg4dkHylXPBOz0YQmoEzta1MTx3wn21HntWe/UQsDxa8RejRfqNsBypBuBQ
+	 wQXxiVkpsrS08wXqZcWcC/H0TSib5LnfW1xyPoONFlskO0X6IcPMizSDXTcTzi+omGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gS3DtNMp;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gImSatuU;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA95606A334
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CA95606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD9B606A31A;
+	Fri, 23 Oct 2026 09:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACD9B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gS3DtNMp
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso6684695e9.2
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 02:18:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792747081; x=1793351881; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
-        b=gS3DtNMpVSAhRKLz/tO31/qW1Tzg+CpzolIJbnfPCQqQhCPskhnR67AHmvHStKqN/R
-         J8x0Wa+nSdPYcJ9V/6oKnZ2LB6Ccc52tI10KRfK/VZ8/CEuDy4VYK4KnnK/pJYt699C1
-         Rx0GwdA8qfU/5PAy0ef+tOhp06JEsfDPt4NL4QQqJpDunFr/oYu6V5VxUZiGfaDygrQN
-         PqzJSJK/IF5owlKtIVT1tWdvhO0uz6pzCk5wgQCn25M9s2v0AdnRrK3MskJmF2bccnXK
-         +MJD7m3z+bUHECxczgtCxes5DQOElAt1OsoqfjXiptxebUrBZytcmUC5rzfcl/TBSQJU
-         GTZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792747081; x=1793351881;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DkBtcEeyoOj9rnNnUDnU5HJQyBwrAv9r2nNM1OjD5c4=;
-        b=uct3vlQJdYFkNKs+ELRweLdRanVllWyYuDml4OF7N/MyiCgeyEJAJ7f6pDzG3T9KqJ
-         iK7FtBzXIQ+vcv90GCcInfks711TsjEV1AtoAGvjlCpJoFQPpKtC8WzMs8QLjOyz0Rgf
-         EjcBmAMpxDZCATNDcM69cQZvqAXFSBrju+1z+kWMMsN6/2zT0q6SHTrnKhbFMlJ8VBv1
-         wiRlg5CC+/ovDWvCuqkB+A60aUltbZ417FrdbUSRrsEewI/WnlVr6oNJlilez3iFim2s
-         Rp7xiL3dp/HpiJ3hRAV5/seNtVxWyclMceMMaCBuEgMVdXNv8XAA8COe30e9m1gk+k63
-         KsSg==
-X-Forwarded-Encrypted: i=1; AKwUvByawZ05WU7434KK4CiY7Hb5DXKS29NMoU14qkJteTYm8UqlEs5QBUuYwPo1188qWemtixsysXPITYsf@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh97Rnf11sZBGbB0RSykxw7z+aoDtcpPtHjH5UdaUwDjVaWHwI
-	Yc85Edvkc7Vg5973SSNzM7As9Q21lthPgYiqwOVjECa9Fd/XqsYAB9r0CtBIZ2WuWjQ=
-X-Gm-Gg: AYBFou1uPOAFYT5U0ca4RNPO7N3eVyHH1fAaEPN13hVOyezvJ2ZRljOfa8Xq7YwIOwN
-	INdMpizCjAP3/FzhH9ouPYjZKaUAKPDGGeCsH+T3j3LqhP+BY+zj5XX1uK/qSSbowzuVuLyjEVh
-	6yvzCoMDWbtnRsiL9MbJDBMKcFvq/IzIA163TG5MnmW9jR1F3bvAPKCidnNrnWAF1jTHIV6euOb
-	N0qQts9pFuf5WxjIG4qbpcPmNuHM7TYAPKMlz6y0tWc54tWpY36ZNzMpUImkXYO7+EkoWkT3sYW
-	0sTMqHp3lD5rGlw1UIMNYM4766+Ls4KYQ5rzWd1ZCaVq9/vMrbq2WvPb7Dt6O3qPA48n0tK9Kh4
-	A5fIpCOJXzFHVzU7hQJbU+sLlWOd4Nfubqqur+U13mj+xpxho0krHfDDH4sGpkYtZ50yph6g8MH
-	caT3hecQVmsNG0hkRhXYjVsODaCxkRaQgpfgS0REJ3DJFbwux1FVKE590d9rZkYa+7sIbBlmxsL
-	75TxopLA42gymqY2BBovkawncHcXUoDt52zoCkJIOIyFAxb8XL6ZaKuXCNTOGJjlMY=
-X-Received: by 2002:a05:600d:84ca:10b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4a2150f1826mr12043165e9.23.1792747080587;
-        Fri, 23 Oct 2026 02:18:00 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f10:a88e:f1a2:fd42:7693])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2104627e0sm60827045e9.9.2026.10.23.02.17.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 02:18:00 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:17:54 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: Re: [PATCH v4] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-Message-ID: <atsmQqSOuqp1LKw8@linaro.org>
-References: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gImSatuU
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7FP5X1048719;
+	Fri, 23 Oct 2026 09:18:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=HVbfw3LWtA41Gw7QpcFN5o
+	sov7cP7IWH2VaLMp5lUsI=; b=gImSatuUmY4gyDKSDiRO0XM9dOckXvNNO+gbsf
+	r/u+gUka42VQIiI3+y8Xo4WI0pNPf55V82UN2tN5Pe2s0lhqCSCaqtFN8YLddG7/
+	IByf905vhrQMHgDKK0WqwWjPFDeTePpsFxQmkWjXcgQbpP1uBT0PGDJc2NLm6f77
+	OiSYqsjd51QiajKxY/of6wEGb1iNuu0aZl7xNBJLuiV5P0h3gpo4ww4xZ9LVc0Q2
+	3aYF+RVb/cuMnujm2XPu5GFvzNwNl5C7xAsMqh0qoP5q7vUsHLlmaveuhgGHTtRz
+	l7uEEal79oSsa4LxlrprrksRbNHBtpXp8OLMALjYib259xNw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmbjyup-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 23 Oct 2026 09:18:17 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69N9IESN4054733;
+	Fri, 23 Oct 2026 09:18:14 GMT
+Received: from hu-ffaruque-hyd.qualcomm.com (hu-ffaruque-hyd.qualcomm.com [10.147.245.31])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 69N9IEN14054700;
+	Fri, 23 Oct 2026 09:18:14 +0000 (GMT)
+From: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] power: reset: Add NVMEM recorder provider for PSCRR
+Date: Fri, 23 Oct 2026 14:47:52 +0530
+Message-Id: <20261023-pscrr-provider-v4-0-e70fabb7e927@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,158 +72,145 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023083827.7648-1-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAEAm22oC/23OTWrDMBAF4KsErStV/7ayyj1KF4k8TgSxpYxsk
+ RB896j2ItCWgYE3MB/vSTJggEz2uydBKCGHONagP3bEX47jGWjoaiaSS8tbbmnKHpEmjCV0gPT
+ k+rbXRjRcAKlPCaEP9xX8+t4ywm2u7rQdN6lRgjtTh0lnubFU0MgQhgTXQ4LxPE8Yx3BnHXySH
+ +YS8hTxsdYs8u20wv1uVCTl1PFGqlYB73V3iDmz23y8+jgMrK5VLOqtOKH/KKoqXht/EtZoCe0
+ /yrIsL3aZLitAAQAA
+X-Change-ID: 20260806-pscrr-provider-b9f8f451701e
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Wim Van Sebroeck <wim@linux-watchdog.org>,
+        Guenter Roeck <linux@roeck-us.net>, Benson Leung <bleung@chromium.org>,
+        Tzung-Bi Shih <tzungbi@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-watchdog@vger.kernel.org, kernel@pengutronix.de,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        =?utf-8?q?S=C3=B8ren_Andersen?= <san@skov.dk>,
+        Guenter Roeck <groeck@chromium.org>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        Ahmad Fatoum <a.fatoum@pengutronix.de>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        avaneesh.dwivedi@oss.qualcomm.com,
+        Umang Chheda <umang.chheda@oss.qualcomm.com>,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfX3wnX1LCr7Z6i
+ C8vmXxsE5v6nNm6A6AyQ5x/4awqYxbcOfEywOT8r2hVdOlb3CHRUE3MrenQlx3uF5Q8L3lGr8yb
+ LR4b9zHAoTZM9HOoaPsOwxf/TsjcurQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfXx+WivEEOl+Pd
+ lDN8LcgS6pxGzDWJKKEvCVDberiT1XjenAP7kJG0LSm7WkloRzUYcdMRb4J89QTKVqoq0MYE432
+ KEVZYobXjHKg+EayrWvJtmcKdNlCYxgu6OTkVvZ/sCFzA3vtZT7+0cPISrr4pHAKUgltcv918Nn
+ m+qRCophIX80Taa/1JgxmI0IPEKMptPggrLzRAvKiJA9ymL9hE3s/IrIXzBUJcvtDC6ELEZ4/mT
+ x6bpO1hSdVVft9CZATe6jzP1UjAD7F0o79UAmZXhkhOG01pMU2sjwb8vr9KjWFZfm+gkt8CL4P5
+ wkIKHoRYBq1BXCjTf5em95IVGP9cgzqEUQ5L8Fpds0XSjV/tC6DMxQClFUYug5EuJxW+NxtnnRI
+ L63YOtsAL3kxt1OExQmSTpvTBMCqa3esgnEDPJlFEyJeOpYvsQhQQW7+bbQP+KecDYU4rT2Hdm+
+ wq65tM6HBN8qvt0UIBQ==
+X-Proofpoint-ORIG-GUID: XgRRe7D-AMa8veb5gkhCzCIMKvdR16ir
+X-Authority-Analysis: v=2.4 cv=Nt1E4MdJ c=1 sm=1 tr=0 ts=6adb265a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=Tb4baJqIJvETSDKJSKYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: XgRRe7D-AMa8veb5gkhCzCIMKvdR16ir
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230036
 
-On Fri, Oct 23, 2026 at 10:38:27AM +0200, Daniel Lezcano wrote:
-> The ThinkPad T14s needs thermal mitigation under sustained workloads to
-> limit temperature rise before thermal shutdown. EC interrupt-driven thermal
-> monitoring is not yet supported, so use the board temperature sensors
-> exposed through the PMK8550 VADC to provide mitigation now.
-> 
-> Describe the sensors near DRAM, the fan/heatpipe, the GPU and CPU PMICs,
-> the charger, the WWAN area and the USB-C ports. The DRAM-area sensor faces
-> the keyboard, while the fan/heatpipe-area sensor faces the back cover.
-> These are internal board measurements rather than direct measurements of
-> the user-contact surfaces.
-> 
-> Use the heatpipe-area sensor for passive mitigation at 57.85 degrees
-> Celsius, derived from observed platform behaviour with the Windows
-> balanced power profile. Map the passive trip to all CPUs and the GPU,
-> with 1 degree Celsius hysteresis and a 500 ms passive polling interval.
-> Name the trip "backcover-ec-alert" so that the planned EC support can
-> locate and adjust it.
-> 
-> An earlier approach using staged CPU-cluster throttling did not show a
-> significant improvement and introduced a latency imbalance between CPU
-> clusters. Keep a single passive trip to provide timely mitigation.
-> 
-> Add 73 degree Celsius critical shutdown trips for the DRAM-area and
-> heatpipe-area sensors. Retain these baseline thresholds pending
-> sensor-specific hardware validation. The reported Windows DRAM threshold
-> of 115 degrees Celsius has not been established to apply to these VADC
-> measurements and does not justify changing the shutdown thresholds.
-> 
-> Thermal camera measurements indicate that the readings primarily reflect
-> internal temperatures rather than chassis surface temperatures. No unsafe
-> external surface temperature was observed during those tests, but they do
-> not establish qualified critical limits for the internal sensors.
-> 
-> Expose the remaining sensors as monitoring-only zones and enable ADC
-> threshold monitoring on the corresponding PMK8550 VADC channels.
-> 
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Link: https://patch.msgid.link/20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->  .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 112 ++++++++++++++++++
->  1 file changed, 112 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> index 75ad74bcb042..21f4569068e1 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-> @@ -502,6 +502,88 @@ platform {
->  			};
->  		};
->  	};
-> +
-> +	thermal-zones {
-> +		/* Sensor near DRAM, facing the keyboard. */
-> +		dram-thermal {
-> +			critical-action = "shutdown";
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-> +
-> +			trips {
-> +				dram-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +		};
-> +
-> +		/* Sensor near the GPU PMICs. */
-> +		gpu-pmic-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-> +		};
-> +
-> +		/* Sensor near the fan/heatpipe, facing the back cover. */
-> +		heatpipe-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <500>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-> +
-> +			trips {
-> +				backcover_ec_alert: backcover-ec-alert {
-> +					temperature = <57850>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				heatpipe-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&backcover_ec_alert>;
-> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +		};
-> +
-> +		/* Sensor in the WWAN area. */
-> +		wwan-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-> +		};
-> +
-> +		/* Sensor in the charger area. */
-> +		charger-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-> +		};
-> +
-> +		/* Sensor near the CPU PMICs. */
-> +		cpu-pmic-thermal {
+The PSCRR framework[1] currently does not provide a recorder provider
+capable of persisting power state change reasons across power cycles.
 
-I'm a bit confused by the node order here. It's not ordered by the
-thermal sensor (SYS_THERMx) like in x1e80100-crd.dts, but it's not
-ordered alphabetically either. Or is it still the old order from the
-previous revision?
+This series extends the PSCRR framework[1] with support for an
+NVMEM-cell recorder provider, integrating PSCRR-recorded power state
+change reasons with the NVMEM subsystem.
 
-I think I'd personally prefer ordering by SYS_THERMx, but alphabetical
-order would be our typical rule.
+The recorder writes the power state change reason into a small NVMEM cell
+(e.g. a PMIC SDAM byte or RTC scratch register) before shutdown or reset,
+so the cause survives a power cycle and is available via
+/sys/kernel/pscrr/ on the next boot.
 
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> +		};
-> +
-> +		/* Sensor near the USB-C ports. */
-> +		typec-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-> +		};
-> +	};
->  };
+Only the NVMEM-cell provider is included here. The PMIC hardware-register
+provider will be submitted as a separate series.
 
-Anyway, for the changes itself:
+[1] https://lore.kernel.org/all/20261019-pscrr-framework-v17-0-69ea6cdf4731@oss.qualcomm.com/
 
-Reviewed-by: Stephan Gerhold <stephan.gerhold@linaro.org>
+---
+Changes in v4:
+- Move the PSCRR NVMEM provider recorder from drivers/power/reset/pscrr/
+  to drivers/nvmem/layouts/ and relocate its Kconfig/Makefile/MAINTAINERS
+  entries accordingly, as suggested by Srinivas Kandagatla.
+- Reject a layout that declares more than one reason cell with -EINVAL
+  instead of silently using the first one - Srinivas Kandagatla.
+- Consolidate the probe error paths onto a single of_node_put() unwind
+  label instead of repeating the put on every failure - Srinivas Kandagatla.
+- add Reviewed-by tags from Abel Vesa and Rob Herring.
+- Link to v3: https://lore.kernel.org/r/20260914-pscrr-provider-v3-0-c45cb16542e8@oss.qualcomm.com
 
-Thanks for fixing the names!
-Stephan
+Changes in v3:
+- Drop unnecessary nvmem_cell_get_size() and core compatibility
+  detection changes because the layout now owns the compatible.
+- Patch 1/3 (dt-bindings): Move compatible from the cell to the
+  nvmem-layout node, relocate binding to nvmem/layouts/, and
+  simplify the cell to a plain reg/bits child.
+- Drop the trailing "binding" from the subject, as suggested by
+  Krzysztof.
+- Patch 2/3 (driver): Convert pscrr-nvmem from a consumer-based
+  platform driver to an nvmem_layout_driver that directly manages
+  its cell.
+- Patch 3/3 (dts): Update DTS to place compatible on the layout
+  node, add bits to reboot_reason_persist, and remove the separate
+  reboot-reason consumer node.
+- Link to v2: https://patch.msgid.link/20260819-pscrr-provider-v2-0-9072383e0f4d@oss.qualcomm.com
+
+Changes in v2:
+- Add reviewers to To/Cc list.
+- Update patch 1/4:
+   * Rename DT node from pscr-reason to reboot-reason.
+   * Update DT binding example to use fixed-layout NVMEM layout.
+   * Add reboot_reason_persist NVMEM cell under fixed-layout.
+   * Update Qualcomm DTS example accordingly.
+- Update patch 2/4 based on Uwe Kleine-König feedback:
+   * Remove unnecessary #include <linux/mod_devicetable.h>
+- Link to v1: https://lore.kernel.org/all/20260817-pscrr-provider-v1-0-88a318c13d41@oss.qualcomm.com/
+
+---
+Faruque Ansari (3):
+      dt-bindings: nvmem: layouts: Add PSCRR NVMEM layout
+      power: reset: Add PSCRR NVMEM recorder
+      arm64: dts: qcom: lemans: Add PSCRR NVMEM recorder node
+
+ .../bindings/nvmem/layouts/nvmem-layout.yaml       |   1 +
+ .../bindings/nvmem/layouts/pscrr-nvmem.yaml        |  87 +++++++
+ MAINTAINERS                                        |   2 +
+ arch/arm64/boot/dts/qcom/lemans-pmics.dtsi         |  11 +
+ drivers/nvmem/layouts/Kconfig                      |  10 +
+ drivers/nvmem/layouts/Makefile                     |   1 +
+ drivers/nvmem/layouts/pscrr-nvmem.c                | 270 +++++++++++++++++++++
+ 7 files changed, 382 insertions(+)
+---
+base-commit: be461b2185ea3ff6d9c92deedcee0a62a57e1332
+change-id: 20260806-pscrr-provider-b9f8f451701e
+
+Best regards,
+-- 
+Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+
