@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792747003;
-	b=BGg0JX4vnjMHINSa1Bz6oyA3ukiSm3NgFP8Ogl7fBrMsRN3YPliqrszVZKd5OzOadRno
-	 kc3FJMgkQ3CEI3EvGknbSK0JwBnAze9GW3y1Q3FkAtfIIVb4Wrs8QXiBYCktMJpQ8HIL5
-	 GIis/XFBEwhLQ3q/xPvMSOGOhxtWkKQccnsTJl90C+ZkEGhQ7Kxpug4QF3tFPiJxnX2CN
-	 evtxmpsH7JWEtzTUI/aNYz6bOwYpmmiPYEHuWmVo9uPYdqD1pGeTJFzhzPknqFE0+E9My
-	 rGyuG51aB8S+kDX+u8hz5ja1bn9CFzcHUIqfVPA1aUuhZjGl+sIOy2Nsgu1R6EgbyZw==
+	t=1792747010;
+	b=q7bvhy/IhyYHVZXB4NPYk/8rvdQIXD1uo0r6wzrkyJD3bDt0HXZKne4T0wgWbRgpobPX
+	 MYcOkFw+Jvuw5mNyz8WrYI/CJD4IKsy9Q0HYav5ljfXHSCpY1c8clsBwYrcQdRJqwre+z
+	 eTpTjuVipeTV4iqctW6G+IXu4vZVVOlrdiViLvkQ/iTJxOa737nllhgyzZkWUW3LbLp3M
+	 WU206rrfUYdgPMwF1qQE3rbV07Y3P3CLFZx/axR1VfQWStYkUT0jIym535vOjjIpPsYP8
+	 D0/VX936iv4UZZWia8pNJrKDTQ0taW5e/lH88WqD29I8xvWZOIdShRrel9SPzLncOFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792747003;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=SfWCF7jui+xukUwppPnuOKg0zag5vcg2lj3moO9F6cU=;
-	b=tilDK6AtElCS4xdD2A5KE35yz5R0alhBi9tMMbddmZjrBPJmBWjV792gU3B9WgXGQXQa
-	 CQRl/IYA7brBhY9/u2B17QfITli/DwQW2Tlv1CSZK2B2o7vqBdJ0V4xwUxiWiBXXP+COP
-	 F+iVgcmB+MP+wwaIRxnXrslouDyLc0hq4iZqTEdVH6JD7XWEMyzX21Kg61uzDH3Adr0Ym
-	 UgLY/7j/+a3kNTBZdmE8/zknmwtPkRk60NckumS5LBCIbTbSGMZjnT6fEl06km98KNia2
-	 vxpUMJ92XlfQhXSHhcBU5NBxKfA+pyF1Il119ecAw+cdetVNrAAKM9Aa0cAVjqKzRPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747010;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7QbAvKZlHDd3AEbAYJ/zukbrl6OsuWTPpYdirZ5iLSM=;
+	b=MVP0gDwC76pcqjxVFVgYnf79CSz7IPoXnSqlAuCvp08Ln+Vr0JRVB1J5Q3gvNcdSjwAG
+	 ShTfLL6Dm5pgn/TxwLJq5cV6MkxuSD9DR9GBG8QWbYmCgLIksiE6hD7v2bpJVWsvmf/+N
+	 nPEtiUg56K6ny5jKXAqFDUUyOOoVqHB5tDTeVmZIab/I0yPC/RxnefiCCEIWVrvV/Dmsj
+	 3lxd8r0chGb0ObKSq3LvtNUFGTt491DD8uK/ekxuRLZBPR3yS8wsGCMvhwc2aRUl2Ce/v
+	 KS8dvIVTXrGjfMVECZOZUHCR/3z0m7mOe75PanQ/o5ys5KQ3vtu4nt0AhSijnwSg89g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=DxhZKEtI;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="OpTYx/cP";
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mW+avd+h;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF4860A2614;
-	Fri, 23 Oct 2026 09:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF4860A2614
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84F5606A32C
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 09:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D84F5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=DxhZKEtI;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=OpTYx/cP
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N7NASd1231570;
-	Fri, 23 Oct 2026 05:16:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=SfWCF7jui+xukUwppPnuOKg0zag5vcg2lj3moO9F6cU=; b=DxhZKEt
-	I0hF02fEZiDrc9IicUcYMr/LPKQDPdbPspTby+jvJextGLRObG2JdHl7HguWcxTo
-	Pz73AigdDHYoi4ezekvZN4T53KCdNAyQhBTXiqdSIHs1cH2LCMPTMta88cnCaXNU
-	bht6x6U3EYeQl+BK14EDkdMDTCx9uN91FvTqqHxNbtV0cMq7uGG8iZicrqFBtUvB
-	K2j6Do7++Ock0PW5J6PldLIYRr/q6MXAiGU3kU66servyemduC4sMOO928tNqZlP
-	rdjq8gf0I/AIz9lmUhyKnSdDFM13KEVDdQqERlori7JvOFgMdE2uorOblY5zbppj
-	QvYhXUvB0hp+PHw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=SfWCF
-	7jui+xukUwppPnuOKg0zag5vcg2lj3moO9F6cU=; b=OpTYx/cPMVYq9pWpuXsE+
-	cI0sSdpzSZjojC+4Hy9kjt64kQ8p+hpwyKLdpt5eVf7d+0G0Rj0qB9Rwg13GKIu1
-	t6Obxele/BEUSabHC2ZeOEbgz+Rwz/30axJPgRkpPhOyp7mW4VIe2E1yOmD4w19P
-	A1KvsBHjKWUKyVbE85/mPxsNJD4hy0zz4Fn9F7Z+FrdLg1iyLyuOBoUZ49Z8xbjK
-	RoS/6dkyHYiLubKcTx3qnBBZAUY+p+pVYt1bK+CDx5py+IApN1p/PNiUouDLLCeO
-	VlJ5dzdL8g5te6OT/s/rtvS4mvEmlikkUqhIqrFbNle8UC81ofHq4yHqLdkg3YSt
-	w==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hg3570gus-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Oct 2026 05:16:28 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69N9GRL1049080
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 23 Oct 2026 05:16:27 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 23 Oct 2026 05:16:27 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 23 Oct 2026 05:16:26 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 23 Oct 2026 05:16:27 -0400
-Received: from JGERONI2-L01.ad.analog.com ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69N9FwZF023047;
-	Fri, 23 Oct 2026 05:16:21 -0400
-From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-To: <linux@roeck-us.net>
-CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <corbet@lwn.net>, <skhan@linuxfoundation.org>, <jdelvare@suse.com>,
-        <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-Subject: [PATCH v4 3/3] hwmon: (lm75) add MAX31875 support
-Date: Fri, 23 Oct 2026 17:15:50 +0800
-Message-ID: <20261023091550.1494-4-johnerasmusmari.geronimo@analog.com>
-X-Mailer: git-send-email 2.44.0.windows.1
-In-Reply-To: <20261023091550.1494-1-johnerasmusmari.geronimo@analog.com>
-References: <20261023091550.1494-1-johnerasmusmari.geronimo@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mW+avd+h
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a210470b49so5196195e9.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 02:16:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792747008; x=1793351808; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7QbAvKZlHDd3AEbAYJ/zukbrl6OsuWTPpYdirZ5iLSM=;
+        b=mW+avd+hjO8+1Rstd5HMROdiarYwWClCmO+5Kd4xM5ZoI3CKxiuXaywpfuOj6Os9S8
+         groA2rZBSGzxCF4MYRQGf80pez30iNfMrhBRjFZTb08jpPeOqxcJfBnVLD4+KPmHrbwS
+         kOm2rvFEl23NAbCROpt/y3G8MTyHGaXeV8yskvIvmEwxVp2O3TVbH5Ft/zecFQQc4SJT
+         khNsF0eriWubmgTIwxXYAv58AR5f7oWNaonNlCrTIrfLZMMqz6SHEtnFIv4GKV6w+PVz
+         AD7rxCI7/kxEigsMZvlFq0Fxn4dRFZR6+79WXXMCe5HU4rY/L9SWZBQ1T7nZTjAG5J85
+         hz4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792747008; x=1793351808;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7QbAvKZlHDd3AEbAYJ/zukbrl6OsuWTPpYdirZ5iLSM=;
+        b=c/PB5lkNcOV3iBQmapdhjg2sJNHcP4Js1lG9kOiQkvLHz0aQ7HaUMeC5D83pbJOWv6
+         IOXLVQWrkSNVJfjo66WDD33RJaVi/cVNrviRRO3cYIA5sdbTWugJOyJzEca5EuFg8e7e
+         OqXmBRsJ1MnbTl8kL8TqEm3fRhOQJm+/udbTUN4hMRsVns5S7id2OKqFtj5aOGYcxaFi
+         xS3b2HTBOdcbQR8XVo0sBwp50fbmBYT7ny04HJovfifXzSkv45D1U9LDVxuTh8rsmM4k
+         wUWyRwxxLR0xqUXRHc09llHfFlFoC+NSRpM1aC0J5Y9+hFTPRn+PXsDusytcAkKPXz3H
+         0piA==
+X-Forwarded-Encrypted: i=1; AKwUvBy1KNhc+iXQg+vz8ZA4eSg1sKlUM/aEckRZkEMKe65e+4se5nXMcIQXxeAwywrC7HEPpx6j6D1PcEMu@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjENqYwGGBFyVhYSnTzOVBlVUQhvTPFhz+2+5Zyyn3JgDYP2Rv
+	tiAN/IoqJ5cQBvjUy16ME507a/oz0L9WJ0WI16ehv+MW/vbw4CNR3vse
+X-Gm-Gg: AYBFou3fmAy7oiLYGoUc/xVaUc/FJHAtQ478bjS0dEpljCfn1Wwnd32QRrI1yBHNEgQ
+	CkZG+t9hfFgHaOmTM5lqdy0VWCPIZ0BBs92zwmlyD2suqff1f2ZAiAYpYPs0cAZsPQ3VFGjAKtb
+	ri/QqWONiI2HJN4cEaI7aJTap/6ojNEgd1zWaLlzyUZTVWHkcmgIe30JWesfdD88ZAu4ZhZF+X3
+	s+7EtlFBccrIe/9syNb305rDNzcOuixYln1MTy5QhPXcTLRgge4hdwOqMeX2ozdcq6TJHf+zcLh
+	GaGRy7UecYkza1TOGF87AQfqwF4ipjqDzuYP38Kp4AU8oFITCMV+oPp/W3QkvFGOAR653cARSlx
+	gUNruj+cdm5T/AByeE0N0HtTRVjpoDTfgZCsiXApoPlJt8ZBPQiYwF8mKSo0/Dm4gkguoVnssf+
+	Etj1nHh1hX3ul7r7DI/6OY0xWmfm/pkUrQ9eq80n0PJk1LTSoVCqGZ5Ihm9ciWxcpbSeD9eBcmw
+	qIkoAdKq17qQVP28o7xgqN/7m+Shfn8O9A4SDcZ6gXAOCyCPmF7+oa8yiZUvksra/llNajsU/Fz
+	VYN6sNHj0SRLJDlEej+aM36icT8leajq0PYNjdOokHSHOmNeK87/SGEC7gHBxsvBZ+S4Ez+51fR
+	HKHTwtap6hrzl+dIhT65oc8xgDBXwCMkqT8U36AqB8RXunJDNu4tetjBLF2lYlsKIfZRrWivHj1
+	C3vFDSqn0G1dQa5x5OVrRJSjDqwBX4UYwheKhlruqHtNpoHmkCOxDWCH7tT7Q+kg==
+X-Received: by 2002:a05:600c:c11c:b0:4a2:167a:c93b with SMTP id 5b1f17b1804b1-4a2167acde3mr10151235e9.30.1792747008186;
+        Fri, 23 Oct 2026 02:16:48 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a211ba3ab5sm55235845e9.7.2026.10.23.02.16.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 02:16:48 -0700 (PDT)
+Date: Fri, 23 Oct 2026 11:16:43 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Stefan Windfeldt-Prytz"
+ <stefan.windfeldt-prytz@axis.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kernel@axis.com>
+Subject: Re: [PATCH 2/3] iio: light: opt4001: refactor driver to prepare to
+ support more devices
+Message-ID: <20261023111643.00007823@gmail.com>
+In-Reply-To: <20261023111032.0000019b@gmail.com>
+References: <20261023-opt4041-v1-0-45227f82d05c@axis.com>
+	<20261023-opt4041-v1-2-45227f82d05c@axis.com>
+	<20261023111032.0000019b@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,149 +109,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: 4an-aqxSkzXwmQ7HufUrir_xThU6dYZ9
-X-Proofpoint-GUID: 4an-aqxSkzXwmQ7HufUrir_xThU6dYZ9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfX/KMVl102fTkr
- fjkJCKJYOdDMjwh5BWI9ouv4yd/zEgjPvw3ghxZUbpnW8Gv6P/J1YiHVFafrjL62ona97+T40mM
- 3Epkhau4y+dxstTNWK94tIYIzcT8IlcRW185rSUqpYuFI/etpYNPeKtX2i7S+VWjSffUUTo/ANM
- NnHAzsiaD1BW0YIxX01pTHyTNjp6zQe/0QvvQikAPDkdlUBoWD8C5ifva8AAkaeJO7gxfzsEnrD
- rZ1cyouCrWNSsoCTtbGFnWoP2eoXfMTHFCPLJPdw4kRxjUU9TbQiYczs9KQgZOG6I7Any6fcjCy
- ur2+fskaG+eIgM+vmGZ9O07ccZytKKU3Rg3TanotgVIaJXJEJcyD8ssYWvFrEf6IT8ErdSs8zWw
- iJnjzoNY6UuQbl1geo++WURo5lZoywoeJD7/7WDSLMM629Yy9jvnpX5w1NY1PoQZscK2uT0RauT
- DbYFvRtiLEU+EvzYBEA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzNiBTYWx0ZWRfX7djMv5nQDCbp
- HafZ6LrWuOYKN7ae0bw/ZqFDV30W2Md0zgQLMVZZm8L3GPeu7rhHpthLI/ah42rJ63JNE12smBW
- uZPINNBCes7aM3ckgIdjhZoiW7orKvu/4C5cJltFhzYgDclOx0n4
-X-Authority-Analysis: v=2.4 cv=V5PoQuni c=1 sm=1 tr=0 ts=6adb25ec cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=_jlGtV7tAAAA:8 a=gAnH3GRIAAAA:8
- a=QaSggq9muv9vvWMzKZIA:9 a=nlm17XC03S6CtCLSeiRr:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230036
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add support for the Maxim MAX31875 I2C temperature sensor by
-extending the lm75 driver. The MAX31875 features a 16-bit
-configuration register, configurable resolution (8, 9, 10, or
-12 bits), and selectable conversion rates (125ms, 250ms, 1s, 4s).
+On Fri, 23 Oct 2026 11:10:32 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-The MAX31875 has no alert polarity bit, and the bit the driver would
-use for 16-bit chips is part of its conversion rate field, so skip
-the polarity configuration for it. Also set the default resolution
-and conversion rate at probe so the driver state matches the chip.
+> On Fri, 23 Oct 2026 09:48:14 +0200
+> Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
+> 
+> > Prepare opt4001 driver to be able to support OPT4041. Extend struct
+> > opt4001_chip_info with fields channels and device_id because OPT4041 has
+> > two channels and another device id.
+> > 
+> > Datasheet: https://www.ti.com/lit/gpn/opt4041
+> > Assisted-by: LLM  
+> 
+> This tag has been deprecated.
+> 
+> > Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>  
+> 
+> ...
+> 
+> > @@ -388,19 +411,19 @@ static int opt4001_probe(struct i2c_client *client)
+> >  		return dev_err_probe(&client->dev, ret,
+> >  				     "failed to reinit regmap cache\n");
+> >  
+> > +	chip->chip_info = i2c_get_match_data(client);  
+> 
+> + null check and return -ENODATA on failure.
+> 
 
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
----
- drivers/hwmon/Kconfig |  2 +-
- drivers/hwmon/lm75.c  | 30 +++++++++++++++++++++++++++++-
- 2 files changed, 30 insertions(+), 2 deletions(-)
+Just noticed that Andy was faster :)
 
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 18c682e1a..3123f1282 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1597,7 +1597,7 @@ config SENSORS_LM75
- 	  If you say yes here you get support for one common type of
- 	  temperature sensor chip, with models including:
- 
--		- Analog Devices ADT75
-+		- Analog Devices ADT75, MAX31875
- 		- Atmel (now Microchip) AT30TS74
- 		- Dallas Semiconductor DS75, DS1775 and DS7505
- 		- Global Mixed-mode Technology (GMT) G751
-diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-index 2d2d752ae..349648fd0 100644
---- a/drivers/hwmon/lm75.c
-+++ b/drivers/hwmon/lm75.c
-@@ -38,6 +38,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- 	max6625,
- 	max6626,
- 	max31725,
-+	max31875,
- 	mcp980x,
- 	p3t1750,
- 	p3t1755,
-@@ -222,6 +223,16 @@ static const struct lm75_params device_params[] = {
- 		.default_resolution = 16,
- 		.default_sample_time = MSEC_PER_SEC / 20,
- 	},
-+	[max31875] = {
-+		.config_reg_16bits = true,
-+		.set_mask = 2 << 13,	/* 10-bit resolution */
-+		.clr_mask = 3 << 13 | 3 << 9,	/* resolution, 4 s conversion rate */
-+		.default_resolution = 10,
-+		.default_sample_time = 4000,
-+		.num_sample_times = 4,
-+		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
-+		.alarm = true,
-+	},
- 	[tcn75] = {
- 		.default_resolution = 9,
- 		.default_sample_time = MSEC_PER_SEC / 18,
-@@ -420,6 +431,9 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
- 			case tmp112:
- 				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
- 				break;
-+			case max31875:
-+				*val = !!(regval & BIT(7));
-+				break;
- 			default:
- 				return -EINVAL;
- 			}
-@@ -494,6 +508,13 @@ static int lm75_update_interval(struct device *dev, long val)
- 			return err;
- 		data->sample_time = data->params->sample_times[index];
- 		break;
-+	case max31875:
-+		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
-+					 0x0600, (3 - index) << 9);
-+		if (err < 0)
-+			return err;
-+		data->sample_time = data->params->sample_times[index];
-+		break;
- 	case pct2075:
- 		err = regmap_write(data->regmap, PCT2075_REG_IDLE, index + 1);
- 		if (err)
-@@ -770,7 +791,9 @@ static int lm75_generic_probe(struct device *dev, const char *name,
- 	data->orig_conf = status;
- 
- 	/* Enforce polarity active-low (default) or active-high (devicetree) */
--	if (!data->params->config_reg_16bits)
-+	if (data->kind == max31875)
-+		pol_mask = 0;	/* no alert polarity bit */
-+	else if (!data->params->config_reg_16bits)
- 		pol_mask = LM75_ALERT_POLARITY_HIGH_8_BIT;
- 	else
- 		pol_mask = LM75_ALERT_POLARITY_HIGH_16_BIT;
-@@ -847,6 +870,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
- 	{ .name = "max6626", .driver_data = max6626 },
- 	{ .name = "max31725", .driver_data = max31725 },
- 	{ .name = "max31726", .driver_data = max31725 },
-+	{ .name = "max31875", .driver_data = max31875 },
- 	{ .name = "mcp980x", .driver_data = mcp980x },
- 	{ .name = "p3t1750", .driver_data = p3t1750 },
- 	{ .name = "p3t1755", .driver_data = p3t1755 },
-@@ -904,6 +928,10 @@ static const struct of_device_id lm75_of_match[] = {
- 		.compatible = "adi,adt75",
- 		.data = (void *)adt75
- 	},
-+	{
-+		.compatible = "adi,max31875",
-+		.data = (void *)max31875
-+	},
- 	{
- 		.compatible = "ams,as6200",
- 		.data = (void *)as6200
 -- 
-2.34.1
-
+Kind regards,
+Joshua Crofts
