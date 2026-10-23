@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770486;
-	b=idJFwsyg0bV+nxqc9wA2jejW5IuXzyDK/hYmjmuFGCKex3XYyMh1H+rM2v25xLvOveHH
-	 ax0u4pvue4E/3eMTSQI5efRJjRW8x8dFntnlZRJYq2GOwG1Xdf1QUT/05ZRUp5goz2vpB
-	 lseCgy9GbpWy9XPW/9S3mTV2SmnoOfjSSzAxhsdfJhaNhWi1PQMMjn+5AQK/3iXD78RC8
-	 mqCJk3EkBB0wqQSxTsg3Pv7duu7WVz7yLM2rerE9U0l8k3vGfyQ5B/PiJb5U/5fEOh8Cb
-	 Bvxju+9dmcgS42IZV1LCwGaEdDQsYVNwWuB19MK7r1GwpDeQpnCWpIvpY26iMjtzCLw==
+	t=1792770976;
+	b=QEPZyfOUg6/I34faheQ1uQ3kj5WpMp0l5V22Ztd9Ve/qQkDzDP6TS1jewbfIZ7HznyI9
+	 cujt8Idk26fUf9ZLSMaOQTf+45rK5xvPARHuXtOtRvBqX3HxP9p0xbtZa5ilI295Nm0De
+	 CbYf2ANpcctRxEtbo9ZjKryjOP2WBVA3HXVP9dq1yrCobXmkA3RdYN1Bhfy8n981gi2nO
+	 JvDsj7oKGwh/kI8FKyAQKo/eE67AYJk2sM4I2PmAoI1K/fxWtcTLIOnhi0ItZyz6RblTl
+	 yug7OdqvvZJkIFkHj2ZvSKKAqbLQ44Y/ZmMaD8FR3NIaFHvT6q/xSTqXCTQt5whM0QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770486;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=V4i2Lc7pbZ5OVv4PHb4ts+cE3NYD0qCWt6o3oY78o/I=;
-	b=aX2/rRSAQrhtAxsvQQYo8apHu1hkHxXUVLnZMvP/D2T3/yFqVEgtokuYVEP4wCGAQZJF
-	 Bitgfn/ceD4DCsq+LZfiBXFQu3iOuFROi3iETxKM3wmHNFjaA3ztntoH6MmeQ5b+BUD8B
-	 Y6qMEhMySHdNxC53H4OUM3XzDJTErQk7AXaWn9Wjy+LW26BFm8++CTcfer7xQ0BAmEDLl
-	 IZbtLfaHIxpUXwrb4kVWZK1FBWK/kPhGdObg45CWgfocCfr9PWxKvIuyYi5qtBbQTSzcN
-	 TZQaZHywJNhxtXDuPwDvyaaCukBMwqpE6Ol51YefDz6/qYr/xjUp4gTSZUjUn56UKEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770976;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
+	b=MBy1HxSDtkODCPMOvwRleC4w2Y2GIwHoff4EKDx5V2SfvYSAKfT+BHVLxkW+F2YGRrMk
+	 VZKB+x1XPvz4/DM4wgdJ7SmypZgjB6SpRNodpi3bBeoYeUokFThn8y/g3FK+aiSeGfuB3
+	 P/KcbCIfsDoHha1H1SkRVxC+7OVJG+raNiw4fjAWSOOg2uduakmL120tfBvNduaoSWzdK
+	 k4KY8zDUJ0HT9PyLGsHinSEkC6Hu5h9/IujfnRp54Y81y5gUSs9OqU/EnBljN3bixf8Gn
+	 jfVJ0mYAGJitOzL3v2rmLnEnZ2qZCcay/STQ6R2T8KXt1arjoS7McuS6MV3sHzYVYrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luD5HMdF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA11606A31B
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B965606A31B;
+	Fri, 23 Oct 2026 15:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=luD5HMdF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34ED1F01825;
-	Fri, 23 Oct 2026 15:48:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TWB7iaoU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0351C1F01825;
+	Fri, 23 Oct 2026 15:56:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792770486;
-	bh=V4i2Lc7pbZ5OVv4PHb4ts+cE3NYD0qCWt6o3oY78o/I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=luD5HMdFylgRhn8J0X1vyxYSUwcZvsy9wrWQOpFPfwO8QcrVPxsWKru7yHeTDJ0uy
-	 1Kn5LZQwP9HCxw1OFRTUwZBv9m+UtXJqiGOh6AP3a0sRpWywb3KERKNbVrJmFHyLcZ
-	 rbBtO8HyABWEQX9vQu2gkUW073EhvFPKlDhf219YPT37eIJkvjVeAn6FrVnf9WnlFZ
-	 XBtcsiBdOi9KotfMKzv+1qY7hoUflAstT7SrligjHeoOBHdQIrhydzw2+NQbdzF4Qd
-	 /lxJV+ewqQFtkheOhLSlgCrojXJGx/fraOR9Bd96klsfFJzq2Npbz4GUZuoZj5+EXH
-	 ATp4Lowtb7Qmg==
-Message-ID: <sashiko-outbox-182924@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 7/9] arm64: dts: qcom: agatti: Add OPE node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-camss-isp-ope-v11-7-0c2937195298@oss.qualcomm.com>
-References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
- <20261023-camss-isp-ope-v11-7-0c2937195298@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 15:48:05 +0000
+	s=k20260515; t=1792770975;
+	bh=XuZgvrBWboI3rpW18QcCXiO5LrzdiM17tAi+GoKtDEc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TWB7iaoU0mqHu7XMC6qJKeP6ShXGY/fvZ0moZp8oYAhvj+Erh31gPg6uk5N+YkGUv
+	 fjw5vIBRdELK/grhuh/8ykk2bF6Seq3+J8EWPILmphRz6hDQrGbQbX3MKbXys7xHpY
+	 6GnGgVrvMOwypfqqPOjVkoduLfcBH3Xmi7WNa5Uu7nsJQK+VeHK3vQvuQsDcfNQyIu
+	 Rv7D7qvQflAOj/K1U6rmyTTwNMrweW6RjE4yNMpWwP6SdPpD3vD/glpmuhlHaMQBV1
+	 /UQv8RJgj6+nvx1zFN+uhYPfGBLVL1u7t8Abgejl7E6cXlzdBIhlcUeIGwCtbSpY4r
+	 JVHRY2AsStYZg==
+Date: Fri, 23 Oct 2026 16:56:46 +0100
+From: Jean-Philippe Brucker <jpb@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH v2 11/15] KVM: arm64: Export stage-2 MMU config
+Message-ID: <20261023155646.GA52056@myrica>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-12-ryan.roberts@arm.com>
+ <86h5idzqow.wl-maz@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,98 +70,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86h5idzqow.wl-maz@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] media: qcom: camss: premature job scheduling in ope_job_ready()
---
+On Thu, Oct 22, 2026 at 04:43:27PM +0100, Marc Zyngier wrote:
+> > +struct kvm_arch_guest_mmu *kvm_arch_get_guest_mmu(struct kvm *kvm)
+> > +{
+> > +	int ret;
+> > +	struct kvm_arch_guest_mmu *mmu;
+> > +
+> > +	guard(mutex)(&kvm->arch.config_lock);
+> > +
+> > +	if (is_protected_kvm_enabled())
+> > +		return ERR_PTR(-EOPNOTSUPP);
+> 
+> How does this compose with CCA?
 
-commit aa471928bbc1acb687daa92f09cbfa25620a5f39
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+This function would reject realm VMs once they're supported. If we
+wanted to assign a CLA device to a realm VM, I think it would be managed
+entirely outside the host:
 
-arm64: dts: qcom: agatti: Add OPE node
+* EL3 driver reconfigures the device's accesses to
+  physical memory (security state, memory encryption etc),
+* RMM driver owns the PL2 registers to program the stage 2 MTC,
+* the VM owns the rest of the device.
 
-This commit adds and enables the Offline Processing Engine (OPE) device tree
-node for the QCM2290 (Agatti) platform, describing its register regions,
-clocks, interrupt, interconnects, IOMMU mappings, power domains, and OPP
-table.
+Lack of interrupts should make this assignment relatively simple.
 
-> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
-com/agatti.dtsi
-> index 590bd2432d85b..69237959adc15 100644
-> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-> @@ -1984,6 +1984,83 @@ port@1 {
->  			};
->  		};
-> =20
-> +		isp_ope: isp@5c42000 {
-> +			compatible =3D "qcom,qcm2290-camss-ope";
+> Can it be restricted to exclusively running VHE rather than also
+> dealing with the lesser configurations?
 
-[Severity: High]
-Enabling isp_ope exposes the qcom-camss-ope driver added in this series. Can
-ope_job_ready() in drivers/media/platform/qcom/camss/ope/core.c schedule ha=
-rdware
-DMA before ope_start_streaming() has validated the pipeline on the capture
-queue?
+Yes, I don't think we want to support any nVHE config at this point.
 
-In drivers/media/platform/qcom/camss/ope/core.c, ope_job_ready() checks only
-ctx->started (which is set when OPE_QUEUE_FRAME_IN starts streaming) and
-whether the input and output rdy_queue lists are non-empty:
 
-drivers/media/platform/qcom/camss/ope/core.c:ope_job_ready() {
-	struct ope_ctx *ctx =3D priv;
+> > +	mmu->vtcr = kvm->arch.mmu.vtcr;
+> > +	mmu->vttbr = kvm_get_vttbr(&kvm->arch.mmu);
+> > +	mmu->hcr = kvm_mmu_get_hcr(kvm, 0);
+> 
+> How about the hcrx field in the structure?
 
-	guard(spinlock_irqsave)(&ctx->queues_lock);
+It's 0 because HCRX doesn't seem to have bits relevant to MMU
+translation, except maybe EnSDERR and EnSNERR that KVM doesn't set.
+But it's not entirely clear which bits are relevant to this function,
+because other possible users may access memory differently (eg. no
+instruction fetch or CMO from a CLA device). Your suggestion below
+should simplify this.
 
-	return ctx->started &&
-	       !list_empty(&ctx->queues[OPE_QUEUE_FRAME_IN].rdy_queue) &&
-	       !list_empty(&ctx->queues[OPE_QUEUE_DISP_OUT].rdy_queue);
-}
+> > +
+> > +	return mmu;
+> > +
+> > +err_unpin_vmid:
+> > +	kvm_arm_pinned_vmid_put(kvm);
+> > +	return ERR_PTR(ret);
+> > +}
+> > +EXPORT_SYMBOL_GPL(kvm_arch_get_guest_mmu);
+> 
+> It really feels like this is a bit upside down. Since you are actively
+> pinning the S2 MMU context, it should only be a matter of taking a
+> reference on the kvm struct (just like KVM devices do), and handing
+> off the kvm_s2_mmu structure, rather than copying things. When you're
+> done with it, drop the reference.
 
-When OPE_QUEUE_FRAME_IN is already streaming with a queued input buffer and
-userspace pre-queues a capture buffer on OPE_QUEUE_DISP_OUT before calling
-VIDIOC_STREAMON, vb2_start_streaming() passes the pre-queued capture buffer=
- to
-ope_buf_queue() prior to calling ope_start_streaming():
+OK, I'll update this. The reason for this copy was to keep a clear
+separation between KVM and the CLA driver, so the driver wouldn't have
+to use KVM internals like kvm_get_vttbr() and kvm_has_mte(). I think
+those are the only ones at the moment.
 
-vb2_start_streaming()
-  -> ope_buf_queue()
-       -> list_add_tail(&buf->list, &ctx->queues[idx].rdy_queue);
-       -> ope_try_schedule(ctx)
-            -> ope_job_ready(ctx) /* returns true */
-            -> schedule_work(&ope->run_work)
+> If there is a need to deal with a different value for HCR_EL2 (or
+> anything else), it can be done in the code that makes use of it,
+> rather than being in the KVM code.
 
-Because ope_run_work() runs asynchronously without holding ctx->vbq_lock,
-ope_run_job() can start hardware DMA into the capture buffer before
-ope_start_streaming() on OPE_QUEUE_DISP_OUT runs
-video_device_pipeline_alloc_start() (including ope_disp_output_link_validat=
-e())
-or pm_runtime_resume_and_get().
+Makes sense
 
-If video_device_pipeline_alloc_start() or pm_runtime_resume_and_get() then
-fails in ope_start_streaming(), the error path drains rdy_queue without
-canceling the scheduled or running job:
-
-drivers/media/platform/qcom/camss/ope/core.c:ope_start_streaming() {
-...
-err_pipeline_stop:
-	video_device_pipeline_stop(vdev);
-err_drain:
-	ope_queue_drain(ctx, idx, VB2_BUF_STATE_QUEUED);
-	return ret;
-}
-
-Wouldn't this return the capture buffer to VB2_BUF_STATE_QUEUED while the O=
-PE
-hardware is actively DMA-writing to it, or trigger
-WARN_ON(!list_empty(&q->done_list)) in vb2_start_streaming() if
-ope_job_finish() already completed the buffer?
-
-Should ope_job_ready() require both OPE_QUEUE_FRAME_IN and OPE_QUEUE_DISP_O=
-UT
-to have completed ope_start_streaming() before returning true?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-camss-isp-=
-ope-v11-0-0c2937195298@oss.qualcomm.com?part=3D7
+Thanks,
+Jean
