@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792796113;
-	b=DLkpAynIMya0v6I/XxuG+b80x8VYitLTVwDufP3RQOangrrZ7HUNzj67u/9jA1Fy/JBL
-	 Xf73Fu2OX5r/hKRcjTFFkqduwFGFERsqtNifW0K9tF0gVEd25YC4pVqJ8brFBgyefgm4X
-	 5iIr/7hcNIpJ9+36KlKe/Xsq7/DGScLWbBUbiLz1nj+SE3bp+g2JLy7U8dIPcqVzCD7Fn
-	 MuNQLaQHKGfTsvVWbpf3c8tr3edr299bnyVWQJD653DuS+tlwNDjbBpsIyAjiMV1Q80FK
-	 X9Q6PaIQ1wW7+/2p2szWeTGMgAPK7B1/R6FZvfEiT1jKVWqilpC6RNpEBxjH3ZKT1TA==
+	t=1792796395;
+	b=MglzFFWlgrM5l5zjYPOKzKDkcoehLUp58TBOLNKe84Ej3tN9/qKNVqtOTjINiLnBCr4s
+	 fLD/LCVGrqmyHuYgYOpnTLKmLgwADu/4XSzdOiXPiDlPTsjwKOQ+is5UW7+qBI/12tr88
+	 miIQEUSHxA+IN+GrBDOLnxuDySaQqNGI9cEWDq+yNjuM78f5/4OJyt7rc/0qb2mJ0wFTX
+	 FuWNgeCt2BmUME3HBhKvl4bTQ4br10TEJpi+lnxLaF6Cg+pQ0s1YEA+9n6W/b/tFjUkZu
+	 cYa2oIA/3K2ygzwg9zqL6QpP4dJR6VELRm48WMCiNzuQK59l1BtPtXqTxjQDebjA80g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792796113;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792796395;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MmwIB47NU7LpmpHmjbdAghXH/+H5H3D3MvJIH4OVVGE=;
-	b=ehBinSUvwX7qpHl8LePUp1Iz+pn1zPTwJJVGEo8w1XGgaid3NbnLCkb0GmqlzEQBCwm9
-	 eJ/8j8o/NycKeqMsRLcebeQAkdXwIvhZ94TSlyq4/r8aKQuKDW/JEgQRUY1XYCwdhwQPf
-	 vb+9KVB3gmAlggD20o6CCdHYyx2VGcPz0gQSjYoM2CqJ1vUVipli4Q07mRflTAbYr1v8m
-	 QjiTiBwFGZpB5i4gSn/wBVNLf0qF9ml4q/xUmRjGsEvdaHi8hBRFMZA5xpf3Dba1EUm7q
-	 PW3cjQ/ZpN+U15JDekMCbrOJuMbGtVCEc+DrYzQBulrgfn8KbxkmqRvlnqG0KLFncZA==
+	bh=7LngX3BsQ1ssKmRG3DIOdt7fPc9Ddu6x/uUu6aO/i5I=;
+	b=kcDYWnkf9OqPg9Pqg9LN/pu9o1T04v7dG4uln7xUwwNWmMxP+VhN2vuN6U7S3hRQ7f1z
+	 BsTREV0he92XDYrupDbbgi+b/7qXRxso7+C8eJwJwDYprXolVNOnwIJKD8So9/PqlPrP9
+	 JMzVTWuVAfQrsZNweFed3BPgmCm3ifNzQ+hupEZDqzqWfJ6bmvapBixSCNFsLhwnO6JHz
+	 5MQvvHWkHiKz064qSetIFeBAMVXtoVrA6cYZDOvojW6q5BJRkk+hwboZsZLuWQq0J31CK
+	 2BdsLDcg7PIj8SLK5zOzWcNUAUeiRpwnrmu6LmFq1H3GN1RCW6GYVZGmIHjf003Mm+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SUX7/QQU";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MWXYQNGd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834A3606A31A
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 22:55:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785AE606A31F
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 22:59:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUX7/QQU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308C21F01825;
-	Fri, 23 Oct 2026 22:55:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MWXYQNGd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F171F01825;
+	Fri, 23 Oct 2026 22:59:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792796113;
-	bh=MmwIB47NU7LpmpHmjbdAghXH/+H5H3D3MvJIH4OVVGE=;
+	s=k20260515; t=1792796395;
+	bh=7LngX3BsQ1ssKmRG3DIOdt7fPc9Ddu6x/uUu6aO/i5I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SUX7/QQUK27FRq1xitRQt9BSpIpTOxU8wUq3SoY1fgIuS4YMZy7YRPx1Var1brcTh
-	 ZmuFic0LczvV14gGF+tW283XAnenfFJyxZ/A1a4QDWSSOP3weXJkDx1iWIykHmseBg
-	 wD/w9zkl8AvZp4bv2a5f8DquKyizx4oDMvFpiqkSIqVV9lHlOXEfLheRnyoz2Ew+Pu
-	 N5uIKOD/1U7rrPpGY8/7bteeDcAnPkWlYPze2S3ozIakhcBJQF2mx7gATeVCUiJesY
-	 qVYhtZSrn4GGJJP52ThwczVK+FUHOUUk44U/yJ2Z7cNfIYXE6hYt7kiQUccnMvX37n
-	 nVDouR8CgWrTg==
-Message-ID: <sashiko-outbox-183334@kernel.org>
+	b=MWXYQNGdDz7DUKSLuVEErQA65C95+U2VCSvlVaPyK5tx2kFTGabKh0WugvRt4kaiJ
+	 8fZJU6/k4Ru0n54w9OWL46mgBgnQHYscUIJoxQdiL0bT6hYK6YjzKutUVroZoUmXFe
+	 PO+hneobeWuNPbRI16EZOBkV+BUFmPbfQtQ1Cf5mbRr3L1qpvVc6+OgQv54NtrU8En
+	 asW3dGaC7g2PcS/0n8s3UF/c0plmqEaCpOYbi0X3U97aqwIiuyawmCx202OlHNr3xS
+	 PJgKkki1pEYb1UCUTnTAA4WNGE56jG9pbE34HZW3VK1+dyi+14WFrkEEf7+EyrmV1s
+	 KO+3twq50KuPA==
+Message-ID: <sashiko-outbox-183346@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 13/16] iio: adc: ad4134: Support SPI 4-wire mode
+Subject: Re: [PATCH v6 15/16] iio: adc: ad4134: Support high-speed data
+ capture
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <d7e9cffc6a8c90295631b2b6119743d37b8ccce5.1792792325.git.marcelo.schmitt@analog.com>
+In-Reply-To: <129d38f50d44c804d657d067a9c77691ec4b9d74.1792792325.git.marcelo.schmitt@analog.com>
 References: <cover.1792792325.git.marcelo.schmitt@analog.com>
- <d7e9cffc6a8c90295631b2b6119743d37b8ccce5.1792792325.git.marcelo.schmitt@analog.com>
+ <129d38f50d44c804d657d067a9c77691ec4b9d74.1792792325.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 22:55:12 +0000
+Date: Fri, 23 Oct 2026 22:59:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,255 +63,215 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] iio: adc: ad4134: broken ACQUIRE() and DEFINE_GUARD_COND() for acc=
-ess claims
-- [Medium] iio: adc: ad4134: duplicate devm_mux_state_get() call in ad4134_=
-probe()
+- [High] iio: adc: ad4134: premature -EDOM in ad4134_update_conversion_rate=
+() offset loop
+- [Medium] iio: adc: ad4134: st->odr_pwm left enabled on error, buffer disa=
+ble, and unbind
 --
 
-commit 2e7d5e9974efe0835378f504b67e632ce2d53ac2
+commit 7220c3687cb1811a6679e1fe3b919243558ed540
 Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-iio: adc: ad4134: Support SPI 4-wire mode
+iio: adc: ad4134: Support high-speed data capture
 
-This commit adds support for interfacing with the AD4134 ADC in SPI 4-wire
-mode using an external multiplexer to switch between register access on SDO
-and ADC sample data reads on DOUT0.
+This commit adds SPI offload support to the ad4134 ADC driver to allow
+high-speed data capture up to 1.496 MSPS using a PWM-driven ODR signal and
+DMA-backed IIO buffers.
 
 > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 4252244a23bc9..4efb63c45aa29 100644
+> index 4efb63c45aa29..bc6407ae25e06 100644
 > --- a/drivers/iio/adc/ad4134.c
 > +++ b/drivers/iio/adc/ad4134.c
 
 [ ... ]
 
-> @@ -221,6 +239,99 @@ static const struct regmap_access_table ad4134_regma=
-p_wr_table =3D {
->  	.n_yes_ranges =3D ARRAY_SIZE(ad4134_regmap_wr_range),
+> @@ -462,6 +516,94 @@ static const struct regmap_config ad4134_regmap_conf=
+ig =3D {
+>  	.max_register =3D AD4134_CH_VREG(AD4134_NUM_CHANNELS - 1),
 >  };
 > =20
-> +/*
-> + * When operating in modes other than minimum I/O mode, AD4134 register =
-data on
-> + * the SDO line is sampled on SCLK rising edge (SPI mode 0). In addition=
- to
-> + * that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTS=
-IDE
-> + * AD4134 SILICON, the multiplexer state must be set to route SDO to the=
- SPI
-> + * controller. With both SPI mode and multiplexer state properly set, re=
-gister
-> + * access runs as usual. Successful calls to this function must be balan=
-ced with
-> + * calls to ad4134_release_reg_access() so to release the mux state lock=
-. See
-> + * AD4134 IIO documentation for details.
-> + */
-> +static int ad4134_claim_reg_access(struct ad4134_state *st)
+> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
+> +					 unsigned int freq_Hz)
 > +{
-> +	unsigned int spi_mode =3D st->spi->mode & SPI_MODE_X_MASK;
+> +	struct spi_offload_trigger_config config =3D st->offload_trigger_config;
+> +	struct pwm_waveform odr_wf =3D { };
+> +	u64 max_odr_high_time_ns;
+> +	u64 offload_period_ns;
+> +	u64 offload_offset_ns;
+> +	u64 odr_high_time_ns;
+> +	unsigned int count;
+> +	u64 target_ns;
 > +	int ret;
 > +
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && spi_mode !=3D SPI_MODE_0=
-) {
-> +		st->spi->mode &=3D ~SPI_MODE_X_MASK;
-> +		st->spi->mode |=3D SPI_MODE_0;
-> +		ret =3D spi_setup(st->spi);
-> +		if (ret) {
-> +			st->spi->mode &=3D ~SPI_MODE_X_MASK;
-> +			st->spi->mode |=3D spi_mode;
+> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ,
+> +		      AD4134_MAX_ODR_FREQ_HZ - AD4134_MIN_ODR_FREQ_HZ + 1))
+> +		return -ERANGE;
+> +
+> +	odr_wf.period_length_ns =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
+> +	/*
+> +	 * Set the PWM duty cycle to keep ODR high for at least minimum required
+> +	 * time. If the rounded PWM's value is less than the minimum required,
+> +	 * increase the target value by 10 and attempt to round the waveform
+> +	 * again, until the minimum (or try count limit) is reached.
+> +	 */
+> +	odr_high_time_ns =3D div64_ul(6ULL * NSEC_PER_SEC, st->sys_clk_hz);
+> +	target_ns =3D odr_high_time_ns;
+> +	count =3D 100;
+> +	do {
+> +		odr_wf.duty_length_ns =3D target_ns;
+> +		ret =3D pwm_round_waveform_might_sleep(st->odr_pwm, &odr_wf);
+> +		if (ret < 0)
 > +			return ret;
-> +		}
-> +	}
+> +		target_ns +=3D 10; /* Increment by PWM duty cycle period */
+> +	} while (--count && odr_wf.duty_length_ns < odr_high_time_ns);
 > +
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_SDO_IN=
-PUT])
-> +		return mux_state_select(st->mux_st[AD4134_SDO_INPUT]);
+> +	/* Check the minimum ODR high time is met */
+> +	if (odr_wf.duty_length_ns < odr_high_time_ns)
+> +		return -EDOM;
 > +
-> +	return 0;
-> +}
+> +	if (odr_wf.period_length_ns < 2 * odr_high_time_ns)
+> +		return -EDOM;
 > +
-> +/*
-> + * Must be balanced with successful calls to ad4134_claim_reg_access().
-> + */
-> +static int ad4134_release_reg_access(struct ad4134_state *st)
-> +{
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_SDO_IN=
-PUT])
-> +		return mux_state_deselect(st->mux_st[AD4134_SDO_INPUT]);
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_GUARD(__ad4134_reg_access_mode, struct ad4134_state *,
-> +	     ad4134_claim_reg_access(_T), ad4134_release_reg_access(_T));
-> +DEFINE_GUARD_COND(__ad4134_reg_access_mode, _try, ad4134_claim_reg_acces=
-s(_T));
-> +
-> +/*
-> + * When operating in modes other than minimum I/O mode, AD4134 ADC sampl=
-e data
-> + * on the DOUT lines is sampled on SCLK falling edge (SPI mode 1). In ad=
-dition
-> + * to that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware O=
-UTSIDE
-> + * AD4134 SILICON, the multiplexer state must be set to route DOUT0 to t=
-he SPI
-> + * controller. With both SPI mode and multiplexer state properly set, ADC
-> + * samples can be read normally. Successful call to this function must b=
-e paired
-> + * with a call to ad4134_release_sample_access().
-> + */
-> +static int ad4134_claim_sample_access(struct ad4134_state *st)
-> +{
-> +	unsigned int spi_mode =3D st->spi->mode & SPI_MODE_X_MASK;
-> +	int ret;
-> +
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && spi_mode !=3D SPI_MODE_1=
-) {
-> +		st->spi->mode &=3D ~SPI_MODE_X_MASK;
-> +		st->spi->mode |=3D SPI_MODE_1;
-> +		ret =3D spi_setup(st->spi);
-> +		if (ret) {
-> +			st->spi->mode &=3D ~SPI_MODE_X_MASK;
-> +			st->spi->mode |=3D spi_mode;
+> +	/*
+> +	 * Configure SPI offload PWM trigger.
+> +	 * For gated DCLK, the minimum required time between ODR rising edge
+> +	 * and DCLK rising edge is the sum of ODR high time and ODR falling
+> +	 * edge to DCLK rising edge time. Delay the offload trigger for at least
+> +	 * that amount of time so the ADC sample data will be available when the
+> +	 * SPI transfer begin.
+> +	 *
+> +	 * Use the same period as ODR PWM to avoid timing issues.
+> +	 * Convert back from period to frequency for the SPI offload API.
+> +	 */
+> +	offload_period_ns =3D odr_wf.period_length_ns;
+> +	config.periodic.frequency_hz =3D DIV_ROUND_UP_ULL(HZ_PER_GHZ, offload_p=
+eriod_ns);
+> +	offload_offset_ns =3D odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS;
+> +	count =3D 100;
+> +	do {
+> +		config.periodic.offset_ns =3D offload_offset_ns;
+> +		ret =3D spi_offload_trigger_validate(st->offload_trigger, &config);
+> +		if (ret)
 > +			return ret;
-> +		}
-> +	}
 > +
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_DOUT0_=
-INPUT])
-> +		return mux_state_select(st->mux_st[AD4134_DOUT0_INPUT]);
+> +		offload_offset_ns +=3D 10;
+> +	} while (--count && config.periodic.offset_ns < odr_high_time_ns +
+> +							AD4134_DCLK_RISING_OFFSET_NS);
 > +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Must be balanced with successful calls to ad4134_claim_sample_access(=
-).
-> + */
-> +static int ad4134_release_sample_access(struct ad4134_state *st)
-> +{
-> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && st->mux_st[AD4134_DOUT0_=
-INPUT])
-> +		return mux_state_deselect(st->mux_st[AD4134_DOUT0_INPUT]);
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_GUARD(__ad4134_sample_access_mode, struct ad4134_state *,
-> +	     ad4134_claim_sample_access(_T), ad4134_release_sample_access(_T));
-> +DEFINE_GUARD_COND(__ad4134_sample_access_mode, _try, ad4134_claim_sample=
-_access(_T));
-> +
->  static int ad4134_calc_spi_crc(u8 inst, u8 data)
->  {
->  	u8 buf[] =3D { inst, data };
-> @@ -246,6 +357,10 @@ static int ad4134_reg_write(void *context, unsigned =
-int reg, unsigned int val)
->  	};
->  	int ret;
-> =20
-> +	ACQUIRE(__ad4134_reg_access_mode, claim)(st);
-> +	if (ACQUIRE_ERR(__ad4134_reg_access_mode, &claim))
-> +		return -EBUSY;
-> +
->  	ad4134_prepare_spi_tx_buf(reg, val, st->tx_buf);
-> =20
->  	ret =3D spi_sync_transfer(st->spi, &xfer, 1);
-> @@ -265,6 +380,10 @@ static int ad4134_data_read(struct ad4134_state *st,=
- unsigned int reg,
->  	u32 sample =3D 0;
->  	int ret;
-> =20
-> +	ACQUIRE(__ad4134_sample_access_mode, claim)(st);
-> +	if (ACQUIRE_ERR(__ad4134_sample_access_mode, &claim))
-> +		return -EBUSY;
-> +
->  	/*
->  	 * To be able to read data from all 4 channels through a single line, we
->  	 * set DOUTx output format to 0 in the digital interface config register
-> @@ -305,6 +424,10 @@ static int ad4134_register_read(struct ad4134_state =
-*st, unsigned int reg,
->  	unsigned int inst;
->  	int ret;
-> =20
-> +	ACQUIRE(__ad4134_reg_access_mode, claim)(st);
-> +	if (ACQUIRE_ERR(__ad4134_reg_access_mode, &claim))
-> +		return -EBUSY;
+> +	/* Check the minimum ODR to DCLK delay is met */
+> +	max_odr_high_time_ns =3D max_t(u64, odr_high_time_ns, odr_wf.duty_lengt=
+h_ns);
+> +	if (config.periodic.offset_ns < max_odr_high_time_ns + AD4134_DCLK_RISI=
+NG_OFFSET_NS)
+> +		return -EDOM;
 
 [Severity: High]
-Are these guard definitions and ACQUIRE() calls handling claim failures as
-intended?
+Can this loop in ad4134_update_conversion_rate() exit early and cause the
+subsequent check to fail with -EDOM?
 
-In ad4134_reg_write(), ad4134_data_read(), and ad4134_register_read(),
-ACQUIRE() and ACQUIRE_ERR() are called with the unconditional guard classes
-__ad4134_reg_access_mode and __ad4134_sample_access_mode rather than the
-conditional _try variants (__ad4134_reg_access_mode_try and
-__ad4134_sample_access_mode_try).
+After the ODR PWM rounding loop finishes, odr_wf.duty_length_ns is guarante=
+ed
+to be at least odr_high_time_ns (for example, 125 ns at a 48 MHz sys_clk_hz
+rounded up to 130 ns or 140 ns depending on the PWM clock period), so
+max_odr_high_time_ns is equal to odr_wf.duty_length_ns.
 
-DEFINE_GUARD() defines a constructor of the form ({ _lock; _T; }), which
-discards the return value of ad4134_claim_reg_access(st) or
-ad4134_claim_sample_access(st) and unconditionally initializes claim to the
-valid pointer st. As a result, ACQUIRE_ERR(..., &claim) always evaluates to=
- 0.
-If spi_setup() or mux_state_select() fails, the error is ignored, the SPI
-transfer runs with the wrong SPI mode or mux routing, and scope exit runs
-ad4134_release_*_access() -> mux_state_deselect(), calling up(&mux->lock) on
-a semaphore that was never acquired.
+However, the SPI offload trigger validation loop initializes offload_offset=
+_ns
+to odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS and stops as soon as
+config.periodic.offset_ns reaches odr_high_time_ns +
+AD4134_DCLK_RISING_OFFSET_NS.
 
-Additionally, the conditional guards use the 3-argument DEFINE_GUARD_COND()
-macro:
+When odr_wf.duty_length_ns was rounded above odr_high_time_ns and
+spi_offload_trigger_validate() rounds config.periodic.offset_ns to a value =
+in
+[odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS, max_odr_high_time_ns +
+AD4134_DCLK_RISING_OFFSET_NS), the loop terminates on the first iteration a=
+nd
+the check against max_odr_high_time_ns + AD4134_DCLK_RISING_OFFSET_NS
+immediately returns -EDOM, failing both ad4134_probe() ->
+ad4134_offload_setup() and ad4134_write_raw().
 
-include/linux/cleanup.h:
-#define DEFINE_GUARD_COND_3(_name, _ext, _condlock) \
-	DEFINE_GUARD_COND_4(_name, _ext, _condlock, _RET)
+Should max_odr_high_time_ns be computed before the loop and used for both t=
+he
+initial offload_offset_ns and the loop termination condition (and should
+config.periodic.frequency_hz be re-initialized on each iteration in case
+spi_offload_trigger_validate() modifies it in place)?
 
-Because ad4134_claim_reg_access() and ad4134_claim_sample_access() return 0
-on success and a negative errno on failure, the default _RET condition trea=
-ts
-0 as failure and negative error codes as success. Should DEFINE_GUARD_COND()
-pass _RET =3D=3D 0 as the fourth argument, and should the callers use
-__ad4134_reg_access_mode_try and __ad4134_sample_access_mode_try?
+> +
+> +	/* Check the PWM periods remain the same */
+> +	offload_period_ns =3D DIV_ROUND_UP_ULL(HZ_PER_GHZ, config.periodic.freq=
+uency_hz);
+> +	if (odr_wf.period_length_ns !=3D offload_period_ns)
+> +		return -EDOM;
+> +
+> +	ret =3D pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->offload_trigger_config =3D config;
+> +	st->odr_wf =3D odr_wf;
+> +	st->odr_hz =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
+> +
+> +	return 0;
+> +}
 
 [ ... ]
 
-> @@ -593,10 +727,64 @@ static int ad4134_probe(struct spi_device *spi)
+> @@ -603,6 +783,166 @@ static const struct iio_info ad4134_info =3D {
 
 [ ... ]
 
-> +	} else {
-> +		/*
-> +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
-> +		 * See AD4134 IIO documentation for details.
-> +		 */
-> +		mux_st =3D devm_mux_state_get(dev, "reg_access");
-> +		if (IS_ERR(mux_st))
-> +			return dev_err_probe(dev, PTR_ERR(mux_st),
-> +					     "failed to get reg_access mux-state\n");
+> +static int ad4134_offload_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
 > +
-> +		st->mux_st[AD4134_SDO_INPUT] =3D mux_st;
+> +	spi_offload_trigger_disable(st->offload, st->offload_trigger);
+> +	spi_unoptimize_message(&st->msg);
 > +
-> +		mux_st =3D devm_mux_state_get(dev, "data_read");
-> +		st->mux_st[AD4134_DOUT0_INPUT] =3D devm_mux_state_get(dev, "data_read"=
-);
-> +		if (IS_ERR(mux_st))
-> +			return dev_err_probe(dev, PTR_ERR(mux_st),
-> +					     "failed to get data_read mux-state\n");
+> +	return ad4134_release_sample_access(st);
+> +}
 > +
-> +		st->mux_st[AD4134_DOUT0_INPUT] =3D mux_st;
+> +static const struct iio_buffer_setup_ops ad4134_offload_buffer_setup_ops=
+ =3D {
+> +	.postenable =3D &ad4134_offload_buffer_postenable,
+> +	.predisable =3D &ad4134_offload_buffer_predisable,
+> +};
+> +
+> +static int ad4134_pwm_get(struct ad4134_state *st)
+> +{
+> +	struct device *dev =3D &st->spi->dev;
+> +
+> +	st->odr_pwm =3D devm_pwm_get(dev, NULL);
+> +	if (IS_ERR(st->odr_pwm))
+> +		return dev_err_probe(dev, PTR_ERR(st->odr_pwm),
+> +				     "failed to get ODR PWM\n");
+> +
+> +	return 0;
+> +}
 
 [Severity: Medium]
-In ad4134_probe(), when st->spi_mode is not AD4134_SPI_MODE_NO_CS,
-devm_mux_state_get(dev, "data_read") is called twice in succession, and the
-second call's result in st->mux_st[AD4134_DOUT0_INPUT] is later overwritten
-by mux_st without checking for errors.
+Does this leave st->odr_pwm enabled when the buffer is disabled, if probe
+fails after ad4134_update_conversion_rate(), or when the driver is unbound?
 
-Was the second devm_mux_state_get(dev, "data_read") call left in by mistake
-when introducing the mux_st local variable, leaving an extra struct mux_sta=
-te
-allocation and mux_chip reference held for the lifetime of the device?
+In ad4134_probe() -> ad4134_offload_setup() -> ad4134_update_conversion_rat=
+e(),
+pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false) is called with a
+non-zero duty cycle and period, which immediately enables the PWM output in
+hardware. It is also saved to st->odr_wf, which is never read anywhere else
+in the driver.
+
+Because devm_pwm_get() only releases the PWM handle on teardown without
+disabling the hardware output, and neither a devm_add_action_or_reset()
+callback nor ad4134_offload_buffer_predisable() disables st->odr_pwm, the P=
+WM
+continues toggling the AD4134 ODR pin while the IIO buffer is idle, if a
+subsequent step in ad4134_offload_setup() or ad4134_probe() fails, or after
+driver unbind when the ADC regulators and clocks have been disabled.
+
+Should st->odr_pwm be disabled via a devm action (or only enabled between
+ad4134_offload_buffer_postenable() and ad4134_offload_buffer_predisable()
+using the saved st->odr_wf)?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792792325.gi=
-t.marcelo.schmitt@analog.com?part=3D13
+t.marcelo.schmitt@analog.com?part=3D15
