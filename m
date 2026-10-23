@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792768192;
-	b=RCfZSn8yLqQxd1/vaeoCQ2aRcVp6ODNTJdtNI6DDkNt3RZfb/O+q5Zy6570HHrhdCBXI
-	 GV91k2VApwNG/kpFQUFRnXItiLZQOEKfF5TBCFgcfImRhOTKq4cvH1jRAkhkdseBX2nBK
-	 nC1SfxMdmYyFtDFCYUlHGp5OGiJ9mI1PsKoY5cAbMABZB1jhNRfanD4bN8VnqJr0gBVLv
-	 8hdjNGS2s9oOlIp//E5dDPDkaGA8DQZMbCu+Y4HJUJBxmnLaVV/vOQkWiDdHCSSsWIdgY
-	 TvPrdgknCF1uwN13XXzG3V5T5/RVwHKXw+1mmrZcfALsnTem7Ts3rZnn/U1thCvnYiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792768192;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=yQgJsfAJIwc1P3YmgjY5JtZQxBkIW43VtHK4ofExmak=;
-	b=4VLW+GzHLRwJrq17aLkwbaTN2SHYS0hHsL4A+r5R5ZR6MGS0ZucYSRt/SmgWmfGI2Qvh
-	 rRBwf/QECD+RXwmZKTGE94E0qun5VaTV7P7sUysIkx+ZKF0Q4Hhxo4xG2V0soUxLbcCKZ
-	 aBrjd55n4ETM7pBll/5125cKMCaIV/qdF6GM3uqcERHmy0X+F4y6Pu5trgonbnPkHXnzG
-	 tx7iYB3SGCp/8l70TqnnOVoS+7pyUJhVXEILAZPLGzR+cUoWPn7L7GoITqVpWNB/d+Goj
-	 WEMfcCRmJCKTGhHiJ3bcoE/GgjyzztlHdkVF/0XmAZv7e/7OMvj4FMjsAwf4KPi/aJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NZGBaYEI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=e6YrW8XB;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792768376;
+	b=qOW/YS4BNwVBmiAjIJn0SZkqCr8vIFAloWXIKSDvwEp3AjKhEDuuezQ4eBkyfpQVbx55
+	 s997Mrzjd8XtaDkVlyePCZ9QoBHn0gmKtou2yQ1wkhCTPc4NLcPZqjyDWh2jroUXgHVxN
+	 GJrWNETVVE3vFBY14ybquYk8dfRGxy3obvXvTDECcRsK2IgZ1z8ddyv9p1Xy8MK+a9jYK
+	 MAlK2mK0LCpzimKni+hH/p8a1dr/lnkDua2KsJ4TOZJO/FfkZ0J0cfzymaEFxNxvVj4vW
+	 MW8ul/q+X78cYyaGQHjpMg5pAPBdlQtwpXgK12yIflhzLJ+G0capZaK+pMCMh7z6VEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792768376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+	b=aW679mvZC5txGMNcUFyCjBHdQM0sN8vKLCzys1itlcz2eSoVVNBIVX50puuA1R0FHc7Q
+	 GG/t+rvcwfshjkbCgQiSWJ2dgVVBx8furmqsGqqU7LR8dZRbXHvJZldIL+TH0+LOsEN66
+	 3RYpAqy/V4rdJUh/L7YOd7yPRlMu+tU5ZdIVniIjbXZZyUGWOG+tTqfd+kol2ezzhK7QX
+	 DPS8HMb+eqkbGYTYq5OLmfHE1OjYK8V2Yl27+BWQJpRAsTzjFpkHr/NFWjLGykTnUNgpO
+	 5h12MOeJ/sCmK2hlDCXQqwWUc7p5qQV8Afpjfd/FnAYZk2/OjiSGPSP+OcElq8g/yIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8AF606A32C
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:09:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D8AF606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E37606A321
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E37606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NZGBaYEI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=e6YrW8XB
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE64FX1954822
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:09:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yQgJsfAJIwc1P3YmgjY5JtZQxBkIW43VtHK4ofExmak=; b=NZGBaYEIXE0N1yD1
-	D2c0Z9sI5DPzXOPxazuibbY3cewSAgRt3Z2XcH8HuLNR9IWzayhD3kYeY1PMNk7x
-	rn7G0PMp+Jk2FIUpHSZIx1V2GdfleFpEoRisY7M3Jess6mFtjzA+OVC60ulJ1qMK
-	T2mHfIZZNu+Vt+TB80uaW4FZ90aLZZwryB11ZIqUx658pbmKjWSYMrB51pImh9CH
-	FiP6ZTqorHJHE4rsVHJX7iDJxhADRvnQB6m7A3bZAlnMu8LPZe0pwmiZJcCUgA9J
-	E+OB6rv93zZ0dMyEhTJirgiN4+FOXK2yEmyFV/VIyNnQspqAwArp4VlG71p/MKqw
-	//t9Kg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmbm99d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 15:09:39 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f559420f3so99920985a.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 08:09:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EWGG0AQy
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4322d310e7so152629766b.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 08:12:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792768374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pv1OjSzkbtbAwaAbYNdNlawzr5fZRhhfzDf0VGkcu1MXvUBy+npgNCKg76ZlxAB4b5
+         sk38srZMLr46j8AgLwf0XpsLLvcc5JFqbe4PzxzynIArQJXIjGzvyaVHwfnTAI9UZPeb
+         L9RQfLSXGWQWpP+6VyVNe+xD05/BxSFLz2Qnfx3hTy45L2ke+Ajo1ST3az+j4UBL68hK
+         g2HU888yP97Ycrp5Ox/NiCbA30NvYQtMnnojNoC4jExgKQcXpQ07sn2cqtkc/TWe/wbV
+         kTs7h25uGr7yjAdcnPCoKZ6UEdsg+GqcIMgQnzEzIO8AnZWiG0EVUU7YDLaQkpYD/S+b
+         n5Zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        fh=corcrP1H4gKk9N/bONEpP4qitDEDE8aoRQ9rvBh8/EU=;
+        b=nVgjimysGQrfhmZ4zgG+g81UrMHzMOVBCtQAChYkj/nCMMLxok0BRe3i4xf4iYiSfa
+         6JDqeoIuDPVW90fifty5TlGBDZnSPVrRdO5r3SaI0tMNB/QWR373te4OeEDAEozDC8CE
+         OpUDx923DV1bWJe+ZUW4YH6/tP984Y9GryJB1jaVYAMSAzn3PEbltXlq+p+VfpgOX/9D
+         NXl4Pwm2FJHu10WBxmD4RZHdGq1Ebqny7z9KeDNnKN9h1cdArVVhPXoo+OkHoyBAOnRo
+         fC0nLh9I7wN6XMNL2/ylgBu4xyl7exqPf4IY+rJXakMhDwrg7F/Smf4/DsPriOcRhZCP
+         spfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792768178; x=1793372978; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yQgJsfAJIwc1P3YmgjY5JtZQxBkIW43VtHK4ofExmak=;
-        b=e6YrW8XBLzztTWtNFawQUtE6I5GotyiaTGqKVZUACA2LZrmCBy/pfKBQVsnGSD/7cA
-         pIbXVukXwXML/myQ/h1a09nzYgW+rYgtfkphk/9gYn5fiAB58e2f6DRHTrsDWgXmqg+U
-         ikWQ0OZmBdjJw50p1NDz5Su6ITCaRs8ttSuddYwHvQLE2HggCPV1P5T+pcKdJzquSzNE
-         N0B+HdLwwrcJ253+Jt/jxZzAyJ33jkmOjNc2t7mVdQVbpmIry5K7OLjZS2CYJIkhmAKa
-         0HetEB/rWuHym2B8u6yRtCFBzfKsbad9XtyPnFHYf1gz99EzdIxRiWHxa8qFvKmamjhI
-         ITBw==
+        d=gmail.com; s=20251104; t=1792768374; x=1793373174; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        b=EWGG0AQy2mGqncgCdvHiz4YaQrECiIJLSYoSBJ5NHSMunVaPrfVvlknF0DuKclSyUu
+         qCI+SC31yn2BoepSszw36L8zEOeJf3mj1C+D4RWWBxJtXYB2LTHf6W93JTSrrS2tbVzs
+         /SQReJc0ZT5f5ckNvF9/2aGpl92C17PlbkNdMVJA5oXvMmF+vXB88XDBSUj9y7ltGHUP
+         BTYzibNxNnm+toKAgpaXdQcTZofbUnRLAei86WuXqw/qCERy4xLDn/4N2yb15w5YuWpR
+         tTItHoUSIzfZpdy67qzB/9sXgsSl6pFGsuiTQZ/aoJmzMu5gZzNPmNFlS4+8RELQzJB4
+         YcEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792768178; x=1793372978;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792768374; x=1793373174;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yQgJsfAJIwc1P3YmgjY5JtZQxBkIW43VtHK4ofExmak=;
-        b=X3Frd2367+irYxaIDvMsUTYqz2sCtE0cD0moIzhV+C7J7I28NSnT9t3slzzwScgvin
-         g0ZB1w++z4OL225g+1R5rZ79X2vRQX8z8iSMM8IaHAWoV/Mu40gXInE7pJG00+nu3jXn
-         UrbGhXsnkM1jJMv9l+9PcONbIcM8nzGct71jo3e1H3+ah8vhaOnTpWRe0reDmAVOgyCW
-         T1j1SRdfdQu8q6310TIDvempZtAUQG2Afp1mgbb/gEWJ26GrJJ3bAkGXY6k1U+kOMzcp
-         ZF9akZwUnZLEj/k19+WqvnPKVRrNGetMb3hDJqEVCGJCESLDPQzRqQpxiXD7l2Gb/oab
-         N/+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzOJA3iv7uNDSzURVefK5caQKyQUQuQH8zTlG2EASzIK4V01jowtwA430McFWOaTR430wkAzos6dyxA@vger.kernel.org
-X-Gm-Message-State: AFq9FYI24dvBlXWA2PnI59O/uh/UHqkHRTpMjNL81DrE/TyhCLlEvpVs
-	MOJoyv0k7R6UwiTLjbNgHZV1ReF2DyDEAw0RARbIno63rvaFt6gy9KVcFtPKCoIUEuZ8YKzX7fm
-	s6ITx44LjjbgnpF9J9jt9KV/tiTN3xhgbFgAY+3IQSNh0GhL3YPPcN9YjBisePQSk
-X-Gm-Gg: AYBFou2ETTj9ZAfxBIu6epo62ME7AWViRBG0+hPDtczLOWgLZfvFaMYS7Hbfi3eyQll
-	4nHJdBM7rJrqP6YXQvj8HnQNvxnLpGsYASx32KREYWvmxbTjMKyxN41bLO3sanoBta5zFttAVCA
-	jQalN0h2xyuAjrJYwu4Y8+LbzXNvwUAJg8rh/ewAJXEttl2t7SHYKEO0jjbTkq+r3HChATA69lC
-	HHLGbrBX6mTC+fwzyU778ffXg7jfnCkUm91At32WivPV7Twz8RdRhRkPH2Rjf6a4A8DzXI2C+Mp
-	o1wp2taORZOvcOaLfNxWk1RqVMGlTTwHKKR9tDR/yrPye9Vc7NF7wyytZSOh60lY+o/ez8dknpw
-	TlMD/3uRsH0vuFT/iZn2B1WemsMSncpyT+/hquC1qTfyQgGppz4QOdfpks9hVSqV9beq5ip88ok
-	FMiJryF1L6Di5MeR11aiuK2VrLTuXa4p8PpnccUHwGvribNYQlE3c=
-X-Received: by 2002:a05:620a:4712:b0:93f:34c9:9259 with SMTP id af79cd13be357-93f6f9a2222mr463352985a.50.1792768178252;
-        Fri, 23 Oct 2026 08:09:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:4712:b0:93f:34c9:9259 with SMTP id af79cd13be357-93f6f9a2222mr463341585a.50.1792768177528;
-        Fri, 23 Oct 2026 08:09:37 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d0fb:daf1:3106:3697])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d4040d3sm323962f8f.27.2026.10.23.08.09.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 08:09:36 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 17:09:13 +0200
-Subject: [PATCH v11 2/9] dt-bindings: media: qcom: Add CAMSS Offline
- Processing Engine (OPE)
+        bh=qg7iB6bscMTGZD77CGgbdOimAao7FC1LowqN4FOrg2M=;
+        b=Gy/9r3grqpPTKwt+NY+ilBcQunGIVXwJB+CRehAnHjobQ4F3xWQ97lut54Af6QshXa
+         DF9DnZkcKYqbhfyNQfTEXteINmSmzRp9M0fzOggPpDyaM2zOIeDTd3TKEL0D3goEPQmt
+         lf/s6NOm/muW/y+kBn9MA5j8RmJdBNrX8uaLuo/tcsQ7yaCmCesEhzxWcON6Sf/wB+IZ
+         oDmZ6WAX27Vco6Sghhu21gmbjygKzmnQPP2TRiPOJAfqQ+vefjPMJ8gvtT4TFZB0p1Yx
+         ofL0XGwGhtA8wf77JLTHtXIwwDqiBM4UAZz/wtHqO8JeGRdY2Na8TWJUfp2ARxIXdjY6
+         Wm7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBywiECv2KuHY/g/oPJ0x4ZMF+rxSQgEXb2Ak80//oQN9sIas5EM6j8WKFy7CnW4EFQDtN+2+x79ePTm@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRiNx//9Bmu681rgDDhtSunK1CTqPlWACUjpD2+Mp2KAajgVZr
+	1LrEcKGVwgu7jCgWRHZs96/eTqJ/LHA+rt5eS64Zmi7S5tpiamHx7hGI3TMJ9xWwHH9KNM5mJry
+	vW21KV9ZIEeLD+IVnakhGcsFeR9xAX7E=
+X-Gm-Gg: AYBFou3o7bd7ZWWzHbPTeIHyCTcwpWcf2Y0y70u0+QSrFwOmme2j3MRqstbTLFlG7QZ
+	cBXioHwx30URsvrzVr4bL2uMM76SJqrUgdSJ3YGWkPMHLgIxU3v5kcKcib9HbRTSxtE1JifBLRB
+	szqSLypK3E3IeOTntZTDT0vGcQipW98TbS/xhV6rbGCXIZY67n35igGsoTERlt4yBYFLSAqkzIU
+	eJQd1/YeCr2P0kesZ6/u0OmnJAzxM3UlHK/lBWtcj8FEUlvX4gbInDWTkSnUm+mPYI/MKBiLlas
+	PH42Ddk8S1Tnws6ayski06B5kioCBN4hgc+t6D/wwHasNNTuctf1Hm6sZ3JeLzGBpx4bOTSclIJ
+	gvqOSU5nzrGoZ313iCc6JNU4luYazW1sbzs5HV6TeHTSA1WBK+Mw9sBzlX57reuxNnFP8Xma7Qu
+	n4/sqvJ6pTkoHVgKsmwb58H9llBm05Dq+zl1CG60tc3d9cOfa3bWGnlEIwo34u0+GsAGfk9ai3q
+	G+5Luwji6NYEC/7mU8D4sbIsCiz9Q==
+X-Received: by 2002:a17:907:3e12:b0:c29:22cf:b0f5 with SMTP id
+ a640c23a62f3a-c46a922dee5mr411130066b.33.1792768373956; Fri, 23 Oct 2026
+ 08:12:53 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,224 +106,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-camss-isp-ope-v11-2-0c2937195298@oss.qualcomm.com>
-References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
-In-Reply-To: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfXwi43QfqhTf4l
- z8DL1nJKE8LtN6K/ZKiRsBsitHUGaB4bRZ8637H6NfyDHMyifKdJoNTJCqanBj2R2aFwqgUXiTw
- yOyYbAxkGXD9M+OU4bBlKWJMmrKQvgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA1OSBTYWx0ZWRfXzPKrGOkG8FEW
- Q96PKtXTM3mMEM1l3pIJssQ+uMAGcjYUD32WdScHKhYlhlai7XBU32g5tCJRoXAXjTr1bp22hDO
- yId8D2rdzF3Uzhw5rqqdJZ9Jcxm9mjLDIxbQ89s9Fs5k8ky+9BZOSsn9wcwV4iwA7ySvcNVUdf4
- lkhZ904TGzlmnKpeAbopqt63rOzpVblcm7IayjYPBnZKs/WLeUJyZ+UHSmTs6BzuDjAWpIyLoWD
- tMZu5HUtzoWe9hqVlLD021/j+qKzBVjPrIko+dZcsfNPfHcMD0wHNXf32b2UD9rYLhzmPz9aZOq
- 55eZCHKVcn/QzapGHUgUEvmIa0ggoNqiuMAqqBYRx6RLWOCTY8+u1LAvrR0DoQAQeJgDstgbqkm
- m1qKFrIXjsqANtkKoIzo31byUCLMueVRw88cby2qkS+P5u/k43Vvy+UmBaXjFMK3CyAY6uSNBzO
- jdm/2S0rCACAqolnXtw==
-X-Proofpoint-ORIG-GUID: 5kWVqqGV53CQfyEMbKBYf2qdYkXbH2o1
-X-Authority-Analysis: v=2.4 cv=Nt1E4MdJ c=1 sm=1 tr=0 ts=6adb78b3 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=l64rWm3OqFMOLA4dSg0A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: 5kWVqqGV53CQfyEMbKBYf2qdYkXbH2o1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230059
+References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+ <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com> <atseYvQUYvpMFEIM@ashevche-desk.local>
+In-Reply-To: <atseYvQUYvpMFEIM@ashevche-desk.local>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 23 Oct 2026 09:12:40 -0600
+X-Gm-Features: AclHuK8N0aoS8N5_iVP1byTsJlqPWe2cGv2Z_GYIPJWKyo5TvqjUOKI8du6YHIo
+Message-ID: <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add Devicetree binding documentation for the Qualcomm Camera Subsystem
-Offline Processing Engine (OPE) found on platforms such as Agatti.
-The OPE is a memory-to-memory image processing block which operates
-on frames read from and written back to system memory.
+On Fri, Oct 23, 2026 at 2:44=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrote:
+> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWa=
+re
+> > component parameter register reads as zero. Generic 16550 probing leave=
+s
+> > the port using the 16-byte FIFO configuration and its trigger-level tab=
+le.
+> > DMA attachment also depends on a FIFO size being available during probe=
+,
+> > so these ports do not reach the existing 8250 DMA path.
+> >
+> > Use a fixed port configuration for the H616 compatible, with a 256-byte
+> > transmit load and the documented receive thresholds of 1, 64, 128 and 2=
+54
+> > bytes. Select the quarter-full receive trigger by default.
+> >
+> > Skip optional-register probing for this fixed configuration. H616 has
+> > debug-divisor and RS485 control registers at the offsets used to detect
+> > DesignWare hardware RS485 and fractional-divisor support. Probing these
+> > offsets writes unrelated registers and can select incompatible callback=
+s.
+> > Keep the BUSY-safe integer divisor hook and software RS485 handling.
+> >
+> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled dur=
+ing
+> > termios changes. Its clock is a gate on the shared APB2 source, rather =
+than
+> > an independent baud-rate generator.
+> >
+> > Attach DMA from the fixed configuration before registering the port. Th=
+e
+> > 8250 core installs its FIFO defaults during registration, after the pro=
+be's
+> > FIFO-size test. Configure single-byte RX and TX bursts because the
+> > peripheral request can correspond to just one character. The existing
+> > startup path requests the firmware-described channels and falls back to
+> > PIO when they are unavailable or the port is a kernel console.
+>
+> ...
+>
+> >       /* Internal 8250 only */
+> >       UART_PORT_AIROHA                =3D 124,
+> >       UART_PORT_AIROHA_HS             =3D 125,
+> > +     UART_PORT_DW_APB_256    =3D 126,
+>
+> Why? Besides the poorly chosen name, what prevents us from modifying the
+> corresponding parameters at probe time by leaving the one of the existing
+> types?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- .../bindings/media/qcom,qcm2290-camss-ope.yaml     | 151 +++++++++++++++++++++
- 1 file changed, 151 insertions(+)
+The new type was primarily a way to reuse the core's FIFO configuration
+table, including the RX trigger mapping. H616 uses thresholds of 1, 64,
+128 and 254 bytes, whereas PORT_16550A maps the same FCR bits to 1, 4, 8
+and 14 bytes. Overriding only fifosize and tx_loadsz would leave
+rx_trig_bytes reporting and selecting the wrong thresholds.
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..f9c31bc88e94b028c241060bbd8e56e0bdc49af5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml
-@@ -0,0 +1,151 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,qcm2290-camss-ope.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Camera Subsystem Offline Processing Engine
-+
-+maintainers:
-+  - Loic Poulain <loic.poulain@oss.qualcomm.com>
-+
-+description:
-+  The Qualcomm Camera Subsystem (CAMSS) Offline Processing Engine (OPE)
-+  is a memory-to-memory image processing block. It supports a range of
-+  pixel-processing operations such as scaling, cropping, gain adjustments,
-+  white-balancing, and various format conversions. The OPE does not
-+  interface directly with image sensors, instead, it processes frames
-+  sourced from and written back to system memory.
-+
-+properties:
-+  compatible:
-+    const: qcom,qcm2290-camss-ope
-+
-+  reg:
-+    maxItems: 6
-+
-+  reg-names:
-+    items:
-+      - const: cdm
-+      - const: top
-+      - const: qos
-+      - const: pipeline
-+      - const: bus_read
-+      - const: bus_write
-+
-+  clocks:
-+    maxItems: 5
-+
-+  clock-names:
-+    items:
-+      - const: axi
-+      - const: core
-+      - const: iface
-+      - const: nrt
-+      - const: top
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interconnects:
-+    maxItems: 2
-+
-+  interconnect-names:
-+    items:
-+      - const: config
-+      - const: data
-+
-+  iommus:
-+    items:
-+      - description: OPE CDM (Configuration DMA) port.
-+      - description: OPE read (fetch engine) port.
-+      - description: OPE write (write engine) port.
-+
-+  operating-points-v2: true
-+
-+  opp-table:
-+    type: object
-+
-+  power-domains:
-+    items:
-+      - description: GDSC CAMSS Block, Global Distributed Switch Controller.
-+      - description: CX power domain.
-+
-+  power-domain-names:
-+    items:
-+      - const: camss
-+      - const: cx
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interconnects
-+  - interconnect-names
-+  - iommus
-+  - power-domains
-+  - power-domain-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,gcc-qcm2290.h>
-+    #include <dt-bindings/interconnect/qcom,qcm2290.h>
-+    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    camss_ope: isp@5c42000 {
-+        compatible = "qcom,qcm2290-camss-ope";
-+
-+        reg = <0x5c42000 0x400>,
-+              <0x5c42400 0x200>,
-+              <0x5c42600 0x200>,
-+              <0x5c42800 0x4400>,
-+              <0x5c46c00 0x190>,
-+              <0x5c46d90 0xa00>;
-+        reg-names = "cdm", "top", "qos", "pipeline",
-+                    "bus_read", "bus_write";
-+
-+        clocks = <&gcc GCC_CAMSS_AXI_CLK>,
-+                 <&gcc GCC_CAMSS_OPE_CLK>,
-+                 <&gcc GCC_CAMSS_OPE_AHB_CLK>,
-+                 <&gcc GCC_CAMSS_NRT_AXI_CLK>,
-+                 <&gcc GCC_CAMSS_TOP_AHB_CLK>;
-+        clock-names = "axi", "core", "iface", "nrt", "top";
-+
-+        interrupts = <GIC_SPI 209 IRQ_TYPE_EDGE_RISING>;
-+
-+        interconnects = <&bimc MASTER_APPSS_PROC RPM_ACTIVE_TAG
-+                         &config_noc SLAVE_CAMERA_CFG RPM_ACTIVE_TAG>,
-+                        <&mmnrt_virt MASTER_CAMNOC_SF RPM_ALWAYS_TAG
-+                         &bimc SLAVE_EBI1 RPM_ALWAYS_TAG>;
-+        interconnect-names = "config", "data";
-+
-+        iommus = <&apps_smmu 0x800 0x0>,
-+                 <&apps_smmu 0x820 0x0>,
-+                 <&apps_smmu 0x840 0x0>;
-+
-+        operating-points-v2 = <&ope_opp_table>;
-+        power-domains = <&gcc GCC_CAMSS_TOP_GDSC>,
-+                         <&rpmpd QCM2290_VDDCX>;
-+        power-domain-names = "camss", "cx";
-+
-+        ope_opp_table: opp-table {
-+            compatible = "operating-points-v2";
-+
-+            opp-200000000 {
-+                opp-hz = /bits/ 64 <200000000>;
-+                required-opps = <&rpmpd_opp_svs>;
-+            };
-+
-+            opp-465000000 {
-+                opp-hz = /bits/ 64 <465000000>;
-+                required-opps = <&rpmpd_opp_nom>;
-+            };
-+        };
-+    };
+The core already has get_rxtrig/set_rxtrig callbacks, though. I'll rework
+this to retain PORT_16550A, supply the H616 FIFO parameters during setup,
+and use those callbacks for the correct trigger mapping.
 
--- 
-2.34.1
+>
+> ...
+>
+> >  struct dw8250_platform_data {
+> >       u8 usr_reg;
+> >       u32 cpr_value;
+> > +     /* Use a fixed configuration instead of probing optional register=
+s. */
+> > +     unsigned int type;
+> > +     unsigned int dma_maxburst;
+>
+> This sounds like a hack.  Why do we need type here? The address of platfo=
+rm
+> data is enough, no?
 
+The type member selected the new table entry and also identified the
+fixed-configuration path. The matched platform-data pointer can select
+the H616 setup directly, including bypassing the incompatible optional
+register probes. I'll remove the type member and use that instead.
+
+>
+> >       unsigned int quirks;
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
