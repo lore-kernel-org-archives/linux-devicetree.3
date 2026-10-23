@@ -1,108 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792748113;
-	b=t4SsN9xegZ8hra3ucfCY7HrXJAbfGIhvzQpwaGoKI9mc/2kAdjwT0ljKmsFCla4cenHK
-	 8rEF6oTxusOiCeYvKILXJh2syePvo1KColD4+RYg6TSfak/ayrOiUMVG33XN+lKPjHVqF
-	 nIU/QYKy8vuX1d8lLvnRZU+AHPGa6qcnXWlf3/TeqeiYkHzO2JdB5/8ar2GJntPNQkynA
-	 6WETgtmqt9azdDpEyxUGjRLC40i7JOJHwplhFcky7OewFYoLEoF/2tRYPs1U9q66HerZI
-	 ruM5/367p6hOVXnoiZ0TbBIm8yyryow59QKy77GFmbrWNSNylbUlIVBr+JdoYN2CfQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792748113;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/p2dtukBPWbkRywQZ5ucF/rysnjkZ5ykYHpZ9Hr4Ur0=;
-	b=BpmQ+7VxJ9dlSHNBlzXZq5p5K7N+J+x03bMi8lsNttOmI1CoCIebIxp+h8ZfSNZPygJg
-	 nj+h21Yy7ABiZZKdcNQF+mH/8AEtBFGKrlsQ1aVos5gKCD+GYeINijIUY1laqZ3oJTwIk
-	 YDegx2rxAsBw74RykkLznMGqpROdcj1iEN37ixs4DEewKVcPo4ZSjxYbCG49p5nFZAuY0
-	 QZpSPt7vVNX3NSk8ZEECHtmHukJDoS3/RLKSOlmflhjCeH8rYrwKH5laaOgKTTc/zHIXB
-	 TQkP4MJa12Jn5+bSoM+Vsrv/LWVO7/62KTwZ+yuHQMY4QjDYXD1ut1IzCtPJlIliiKw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BHhdeGmn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012052.outbound.protection.outlook.com [52.101.66.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792748163;
+	b=ZRZ6xUfMusDc47syFC7hrwVkN9o/A/xZkiTCZkXrnOAdFoxXMgzOu9va6bSd01AASFEu
+	 AxjplyKYMpQSEHmF6YaX8Qefbujp+Ur5na7YneAASkBAzxMorG2/L48YdkPm2I3pVbBVQ
+	 ClNwGo0f/qVHZy7C8/Z77ldoJVGtqu00JRKyi6ElwhDzxABVubU4FYztiFp0UVDR8sEpP
+	 Le/F3t5LLXzeLwQ6PUncsOSw0WdsWMyM2quAGoKMIQOW7fEkL5JE8g2lLNcoL2ciNdb0l
+	 0beQTwmr383Xop2q+1kQra1L5RRDqibQ9n0lY6Oh6LqavKSIvz9hs0XJ5ke8MWbpPsw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792748163;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=DRDvuDCECKOhdwv+mVGaOIRzQq9EqISIxTJtZlv4H3g=;
+	b=2msCLLb6jLIGUSgchmZuD14rbny3r5ZZ8qksHqqPQaY9t3NfLjr1CW0sHaeRiXhkq84M
+	 tB5izu1WCNHpw9Mh/tRTbP2njPzpe0gHOS6slLVsWgqU5FYvVTLee/BOPsEQHUjd8e5Ce
+	 y2HG7NhAKLaJS8s36UbNfwgTDilKSIC7XsgOsrXmgI1ejaUzmlRVQjieXMYpZJDbL9pxC
+	 aKf6rIrmy1mG3+jHy+f8h+YAczP3InBypbc0MVuqnrxlfP5kCmUJEjr6Wq0u+R67k3qcp
+	 vwVEuzP0CpxeqtLJvUR+LlyCCZnSkQeXfbcsVHxmj/eII7qE1EwYqCmg/RaJc4VQzyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gaRrjkkR;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62BE606A323;
-	Fri, 23 Oct 2026 09:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A62BE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6964B606A323;
+	Fri, 23 Oct 2026 09:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6964B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BHhdeGmn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NDx24Y+moeiIQVH/cMfma8l5MZovfIclyXJGJXeMsxMrDve/Du/bZ2KBgAdpMBZXe6AEintAfuMuc9RX7GfVwSr2G1A5IrJJRgIA5/eeZ/uIIVRPJqHTOKQt4z1Ff4oQEO5SX43PDbrIc4UiywK7EgWy39FU3NjVOFUG2g8uOTZlkmpLd5KEOgDjc1l3UiCvvDeEO9bJ788RiOMv5JuSbpk515PqkMdc2RUSb5M7kFkmjxN+vhzJnkRO82jINKs5FG8opiw1vwaVtFFO+GeVpJibPoaN5klcmQd2MMp04FbCkJ8idP8yFa6Tr2+fT6va29cTbauGv/HgGe4bVWn5CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/p2dtukBPWbkRywQZ5ucF/rysnjkZ5ykYHpZ9Hr4Ur0=;
- b=Al0bYI3xTb0cNg8UVFwevibes8nNYwuDALYk3ALYN/whqBDdB7APGz4angTHqlN5HszSmUUKOYbzwRApIBgj4ATg1g8wCOsxkBWLIDOMzSvKk6FLUT2EFFbU6aeEfU5eT2nsX6q30Xi9MV8Sh8l2ncBEZXEJwIeOuAaqNJa5YSsjHXtbcoL3lR9c/XFjiejYTUN03QQme1sGd7t3YCMC8GP2ZeDvNy7pHace8phdA9fc6zljVCfwJhFAaF16ZQNM7RfJRZsE7K+zo5nsdpXdwdqUU7AIFe4eyyBYzYjPSX03kcOK834QTztHloQ6GD7Xjp60K4grZJ5TbB4pzluZjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/p2dtukBPWbkRywQZ5ucF/rysnjkZ5ykYHpZ9Hr4Ur0=;
- b=BHhdeGmny7woWK4LGfEriHD2VC4WNSxJLwYVabZ+3DiAJOpYwFwyEwh0g9mqNWEaTlSHKTwK5oqoJ/gq908W8NTS7PL10VG7X/sXFPpXnY8R8MrJqec9OLm9CCWwaeyBNvg6nUSYxNjgfn4/Y+sK6AFUXWHgFFKQaiHNV7IDHEm/5LWKyxztFZ5DXDSG3LMrWC6lVukC1gzhvaXOtqTkyVsj65gGw938WBbCfoTb15fTMedjZdvcOXLepPusQBHl/po7ZogFXQF/fQzUEkODmlhx4q12qXkjkpKk54FhlM8WgajEOhzKcolnoVxBgzbdvoSW6vu75n39e6ViSZguOw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
- by AS8PR04MB8643.eurprd04.prod.outlook.com (2603:10a6:20b:42a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 09:35:10 +0000
-Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
- ([fe80::60d7:a8e5:eb88:9be%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 09:35:10 +0000
-From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Date: Fri, 23 Oct 2026 17:37:49 +0800
-Subject: [PATCH] arm64: dts: imx95-19x19-frdm-pro: Move PCIe PERST# and
- vpcie supply to Root Port nodes
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-b4-imx95-19x19-frdm-v1-1-a15eecbf9963@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAO0q22oC/x3MOwqAMBAA0avI1i7kq8SriIWaVbdIlAQkIN7dY
- PmKmQcyJaYMQ/NAopszn7FCtg2sxxx3QvbVoITqpFAaF4McirMoXZEOt+QDOmOt0r0Wxq9Qyyv
- RxuW/jtP7fnjWhpxlAAAA
-X-Change-ID: 20261023-b4-imx95-19x19-frdm-9455237304dc
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- sherry.sun@nxp.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792748279; l=1826;
- i=sherry.sun@nxp.com; s=20260723; h=from:subject:message-id;
- bh=NWAD1JUJ5hWDt0l5qnBBihQz8UKP30/HI02M3Ngrhx8=;
- b=fg1kthVt+/bngK5bvG1eKNtD59Cn1IC3EGIn94w+Gdeo1YBkXaiIZ3Z06eNnUKZnA+1JWfaLb
- pmL4pm4252kBrz0NCTlSvleU/XWWWJkeHTnw9GoZI8s9srqU4wsjQYQ
-X-Developer-Key: i=sherry.sun@nxp.com; a=ed25519;
- pk=YnYnIFJ2l+5v951x9shBVfHhminNi+3LTfFa3PxSdnI=
-X-ClientProxiedBy: SI2PR01CA0016.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::20) To VI2PR04MB11276.eurprd04.prod.outlook.com
- (2603:10a6:800:296::7)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gaRrjkkR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792748162; x=1824284162;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kq7NkE2cr8Qo3l61xI3ohL2L4IDlTWv9dqF/h0S92jI=;
+  b=gaRrjkkRnnpjnFRbAGVq+vgMcdEgXIp3zXiqJ9oDwigcznygqaun8Wva
+   /x4P0+OcE1m7X+gc2+USoay7st9z0ARh1QHJj0nDnyWjg4yd6TEGquqgj
+   I/Ni9V5KGiGNmq9TINExaWyPaOCoVuL8fakZzWnF4kF0HF7/LIEPeVs9m
+   PelAeOoR882UVl1aLs7SnN3HHb39zpagb4QO21DeLAb0C2d3rCRG/7ZIV
+   UXKLLC/N+LAoosji8EeqL47uEbDxnp1HmpQNVZKqlGlhKPDL4nnPekfuJ
+   uJaSwFwuiS2jeBa7H9e3g/uxXXeNL33nsyB1KzUYJv9wsJWGySO1DUWWe
+   Q==;
+X-CSE-ConnectionGUID: 82RpbFAQRBeyf3y3M94CWg==
+X-CSE-MsgGUID: zJdhYL1DQ/2Vp5btuIcESQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1386858"
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="1386858"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Oct 2026 02:36:01 -0700
+X-CSE-ConnectionGUID: MwmaD4hCQVO1BDIjcrs/jw==
+X-CSE-MsgGUID: m/wNhlphSg2/f6srMEu9Nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
+   d="scan'208";a="3480953"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 23 Oct 2026 02:35:59 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xKBgq-00000000SUY-2RDC;
+	Fri, 23 Oct 2026 09:35:56 +0000
+Date: Fri, 23 Oct 2026 17:35:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Neo Chang <YLCHANG2@nuvoton.com>, broonie@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, lgirdwood@gmail.com, perex@perex.cz,
+	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com,
+	Neo Chang <YLCHANG2@nuvoton.com>
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: nau8310: Add support for NAU83G10
+ amplifier
+Message-ID: <202610231724.YNiXxf9w-lkp@intel.com>
+References: <20261022084037.259983-3-YLCHANG2@nuvoton.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,126 +86,347 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|AS8PR04MB8643:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb7c7525-ebd1-4121-391e-08df30e8ee4b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|19092799006|260925021311599003|260925021911599003|260925022911599003|11063799006|56012099006|261009223027099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	n+4mYuTpZD6bb4IgME0XVebMgd6lvGfGeLOZhd6CCQ+sw4NvQb+bzylL8NqWv+QJ/mRDpjw7HQJqELhz1xSkDODB+hLQ0ZTGBT2mz8YduHj/9+I16zkAdl5KJnJx7qqlWt3BgYIbD465O0qW5e1TQwGroqqrBBf7+Mbld23i5icIQ7vWKU/50d1FM9aPAp9LdRFVodd9i6GdgkNywiR0lufe8Toi1LO7rae2um9bVC8zT2KTBWR+yfmvd0hTCXzl0Q3jLD9y5Yodx3/0aSNeRs59Xc2kBtVHJTI9Ba3E+w3dd4T2WL0RHzkRpTmbYDRmBtzddOB+xlIJayRC1JduUH8iDEOu4gBO3XM48UsBswduvdWJpRipRDw63owJqF68VrA4WY6D9BLeEMWk0PvzyctPDRjq7LkLWmijC7d2zHlY7UH86sBaHvssNhl5s5TQZ79T9SO+S9uMLfa+eidt5vmU+xxRIEi4dznMX2WmDCmb6oR6lPqYRlr1fPJ9fTvUy6XZdnknaiWtPTcL5UPegH4L9aHkLVFGuqR4Wz6bQ6BYuTSGGH19S5cLtXkX5d0jbFAxLTzGkedag/JkJXFXLw0CWpLzmqZgbUQ4fc7kVajkq311YimvoST+O3EG+dMprbKOIDJL2jrnMfVAVqtthOJvBrEfrcfeXcUSjN4bN+A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(19092799006)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2RzdjRDL2NRa1h6RWxhaUlvV084SmVMNzN1QVBqa2pCTERFbzUvZEJiR0Vu?=
- =?utf-8?B?OFpobGk5WmZsOWhLcEY2U1l5YWRsS1pqUENhZ2VoSkwwZUt0WjVIbGlhbkxn?=
- =?utf-8?B?eVczVWc5NVpjcXByU2d4VE5yNkJxTDJhelJRN2lpSkN3cmhEVk9OM29sMEVz?=
- =?utf-8?B?K3daT3lIMzBtRTdCU2VOZjBvS0dLdWYrVitWOEo2RGZLd0FGVTcvMUNKT2FX?=
- =?utf-8?B?YXo5OThCMUhMOXdYendRZjVFcTN1QjF0ZFVZYkVuVUZaSGMxZEFCOWdGSFQy?=
- =?utf-8?B?eXBZbVpoRiszbjFnbFFaK2ZjRVR1OCtpYng0QnBjTnN3d3pWN1ZReDZ2ZDNw?=
- =?utf-8?B?Q3ZwbWh2SUVVYnhDOHpPZ3hZNm1hYXZqTURxL0dVcysreEJuNnl6SjQrbnZl?=
- =?utf-8?B?dTVIUHpuY2wxeWlTL3Bob3Jzc3Z4TWszWkpHaVJHOG9JOVFLSkJmQWZsVHBS?=
- =?utf-8?B?UlcvdjlKendZd2pZazJ6VHFZWXMzWUdDbFUzRW9tY2tkbFBNSE9YSEVUYmtM?=
- =?utf-8?B?Y2tUN3RZWlhlNUlncGZadkVZb1o5aEVjSElIai9kSlgrWG4yK254WWJrMy95?=
- =?utf-8?B?b0drbjR1aVRJUENxdkF0dzlvQzJJRU1QaTlTVDJzZHZSUHpJb1BwZk9rZzZ2?=
- =?utf-8?B?YjdBR0xCaWhvWXZXS1o4WmN6bjY5cy9aYWpjMGxuRjFQQXprZ010MTQ1QlEz?=
- =?utf-8?B?VlliQU9kY29ETjVBWllXaU9EbSthdGQ4NWxSRlVHR3QwcmZZd3RGV0tuMTFt?=
- =?utf-8?B?VGRJaGlzMlpwZWJndUhOeWxxVHE1OGdIclc3Um1IRU8rSmovRWhyVjA2Ym5q?=
- =?utf-8?B?dUVmaVNLZmVkakhuZW5sR0JQRTN6TlNSR1luL0dyQmtoOGsyVE96QU1EaXJR?=
- =?utf-8?B?Ri80SzBtNFZIMjErVmZEZkhrV01Id0d6dnFMWTVwbkxEK3VBdzcxUDVZb3pP?=
- =?utf-8?B?eHg2Sk92bTBRT0JkR1F5T1F3ekYyY2p3YThXTldnVEcrRjMwcXpwcXZVc2I2?=
- =?utf-8?B?bjNYVmV1bHBydzRaRUk1Nng5K0xjZmlhWWRYQ05EbThTbVl1VExSWkhqSUlT?=
- =?utf-8?B?Tm5iUEEyV0xiM2VhS25NOXFYeUx4OGhuVExYTlcrZWJNbTdnUVYxYWt5Qm15?=
- =?utf-8?B?NDh3bzl0UDJwNXpjMHhsTDMyTk4zSDAyWFZMNHJETmNha1hTWUM1RWJCblRk?=
- =?utf-8?B?VmNEbjNtbU5YVzdUTXR3SlNIbi9yU3BpRWZ4UjhQWlF5ZktJYUkvQkNNKytp?=
- =?utf-8?B?RWUzWU5PdnJsMnRjSUhYaGRSVXh4R3g5b0F3RCs2V000dHpRMWdGZWV0RTI4?=
- =?utf-8?B?RmVNcnVRL2VxT1lmZkdIem44Qi9YaXFuOTRSMER4M3R3cFJ1QW1VeWhxMHNI?=
- =?utf-8?B?aWIxT1dYL2ZDYW5Say9id1dXNGRCaVQ4ZmNjMStqNmFUdW80Mi9qRk1vR3Fa?=
- =?utf-8?B?a3NvaUFyNDF3M3RlVXZsOFNhYjZYbDNqTml5L1ZlYVdUTE5FY1pNeUtCdlpk?=
- =?utf-8?B?WlQ3aWRldmpHTGNMcWE2YjRrZFJodDgwVVhSc1QxQ09KTlRuVE9vbmIzSXJM?=
- =?utf-8?B?YkZCVmtTK1dzZ0tJYXVYeDM2c0xzbkVPVE0vTmZSbW0ydlZGMDV3bFIxcXVa?=
- =?utf-8?B?UnFXN1AzQ0tpb2o3b21PQ1FrRzdVd2h0OHNkWmI4UFV4R0hqc1ZaQ0RzVDJj?=
- =?utf-8?B?dFAyNGtNQkNDQ09KUi9jckt0OVNyL0tDRzk3Y29HMkNuTzlrYzZBck05NTNW?=
- =?utf-8?B?NVNKVkFOV29makFzT2VlOVdDY1Brd0dzY0R6N3F5Tm02Tkd2d2NHQzhNSmhQ?=
- =?utf-8?B?WitDbEhmRnFpdEhwZkl5VThnb0lMMzZhR3NvSmZMS3pNNytSelJzd01Wa2VD?=
- =?utf-8?B?RFBLZkNzOGE3Q1F0U0R1OUFLTUhUWDZhc1hQUXlSNjFlZmgzbzRBaEh6cnBQ?=
- =?utf-8?B?L243cXdkQ3pwNVI5a0pOK256SmRjaVZvNFMxRlhrbEhOdzR1eEJIK2h3dmRs?=
- =?utf-8?B?SGdPbG9jSW9Cd3RHZlFMc2oxODZZSlY4OE1tSGdCVEduenVzOWVMK0dDaWgz?=
- =?utf-8?B?ZkxiU1NaMC9kU1FrbjErUXA3U1dDQkl3MHVMa2RDL1BHdUMzZmlPUEFSL2o4?=
- =?utf-8?B?eHRyankyMWlreTdLMjVrRUlhaGgzK1FLeVRrWTF4b2RpRm1mbElGOUUzbTQy?=
- =?utf-8?B?dzE1SEFMTng0SlI2TDJnLzBHckRDTldpd1RjVzJtN1dQeXE4OFVEUHM2a3Zs?=
- =?utf-8?B?ckp0SUJEWXRBOFlQVXlLOHpGV1g2NWhBcDUwSnZnMHRYTWxQMEdqUHdoWWd3?=
- =?utf-8?B?U3Y4T2U2TFZPMHpvWjZyZUpQQ0REQldkendIQnJ5TEkwQmJ3U05pQXFOZEdE?=
- =?utf-8?Q?Z+pMlqEz4zulWMTecNomcWlFc2wzDlTTgJKEb?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb7c7525-ebd1-4121-391e-08df30e8ee4b
-X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 09:35:10.0375
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yRcUUnd3xANeoZt1d0oJpSN+Htq1xOJT2iD0NsXZgsT85TNXa4qY61MBoFF705ZMOWS6arnfIF51Bs7e90a462y5ajIefY51Yne4oOyjoIUsNMbN0JKSLOwDXE8qLkzD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8643
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022084037.259983-3-YLCHANG2@nuvoton.com>
 
-From: Sherry Sun <sherry.sun@nxp.com>
+Hi Neo,
 
-Describing the PCIe PERST# and vpcie supply properties under the Host
-Bridge node is now deprecated. Add the PERST# (reset-gpios) and the
-power regulator (vpcie3v3-supply) in the pcie0_port0 and pcie1_port0
-Root Port node.
+kernel test robot noticed the following build warnings:
 
-Since i.MX95 is the new platform that under development phase, it should
-be fine to simply move the PERST# and power supply properties.
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on next-20261022]
+[cannot apply to linus/master v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Neo-Chang/ASoC-dt-bindings-nuvoton-nau8310-Add-NAU83G10/20261022-164036
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261022084037.259983-3-YLCHANG2%40nuvoton.com
+patch subject: [PATCH v1 2/2] ASoC: codecs: nau8310: Add support for NAU83G10 amplifier
+config: powerpc-randconfig-1000-20261023 (https://download.01.org/0day-ci/archive/20261023/202610231724.YNiXxf9w-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 15.3.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261023/202610231724.YNiXxf9w-lkp@intel.com/reproduce)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-index 1f62d729a5e7..d764d195caec 100644
---- a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-@@ -497,19 +497,25 @@ &netcmix_blk_ctrl {
- &pcie0 {
- 	pinctrl-0 = <&pinctrl_pcie0>;
- 	pinctrl-names = "default";
--	reset-gpio = <&i2c4_gpio_expander_22 19 GPIO_ACTIVE_LOW>;
--	vpcie-supply = <&reg_m2_mkey_1_pwr>;
- 	status = "okay";
- };
- 
-+&pcie0_port0 {
-+	reset-gpios = <&i2c4_gpio_expander_22 19 GPIO_ACTIVE_LOW>;
-+	vpcie3v3-supply = <&reg_m2_mkey_1_pwr>;
-+};
-+
- &pcie1 {
- 	pinctrl-0 = <&pinctrl_pcie1>;
- 	pinctrl-names = "default";
--	reset-gpio = <&i2c3_gpio_expander_20 9 GPIO_ACTIVE_LOW>;
--	vpcie-supply = <&reg_m2_mkey_2_pwr>;
- 	status = "okay";
- };
- 
-+&pcie1_port0 {
-+	reset-gpios = <&i2c3_gpio_expander_20 9 GPIO_ACTIVE_LOW>;
-+	vpcie3v3-supply = <&reg_m2_mkey_2_pwr>;
-+};
-+
- &sai1 {
- 	clocks = <&scmi_clk IMX95_CLK_BUSAON>, <&dummy>,
- 		 <&scmi_clk IMX95_CLK_SAI1>, <&dummy>,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610231724.YNiXxf9w-lkp@intel.com/
 
----
-base-commit: 9a482184d910775cf648863148944945b74e2815
-change-id: 20261023-b4-imx95-19x19-frdm-9455237304dc
+All warnings (new ones prefixed by >>):
 
-Best regards,
--- 
-Sherry Sun <sherry.sun@nxp.com>
+   In function 'nau8310_send_dsp_command',
+       inlined from 'nau8310_dsp_set_kcs_setup' at sound/soc/codecs/nau8310-dsp.c:603:8:
+>> sound/soc/codecs/nau8310-dsp.c:419:15: warning: 'kcs_setup_comp.set_kcs_offset' is used uninitialized [-Wuninitialized]
+     419 |         ret = nau8310_message_to_dsp(cp, cmd_info, frag_len,
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     420 |                 kcs_setup->set_kcs_offset, kcs_setup->set_len,
+         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     421 |                 kcs_setup->set_kcs_data);
+         |                 ~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/soc/codecs/nau8310-dsp.c: In function 'nau8310_dsp_set_kcs_setup':
+   sound/soc/codecs/nau8310-dsp.c:592:34: note: 'kcs_setup_comp' declared here
+     592 |         struct nau8310_kcs_setup kcs_setup_comp, *kcs_setup = &kcs_setup_comp;
+         |                                  ^~~~~~~~~~~~~~
+   In function 'nau8310_send_dsp_command',
+       inlined from 'nau8310_dsp_set_kcs_setup' at sound/soc/codecs/nau8310-dsp.c:603:8:
+>> sound/soc/codecs/nau8310-dsp.c:419:15: warning: 'kcs_setup_comp.set_kcs_data' is used uninitialized [-Wuninitialized]
+     419 |         ret = nau8310_message_to_dsp(cp, cmd_info, frag_len,
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     420 |                 kcs_setup->set_kcs_offset, kcs_setup->set_len,
+         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     421 |                 kcs_setup->set_kcs_data);
+         |                 ~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/soc/codecs/nau8310-dsp.c: In function 'nau8310_dsp_set_kcs_setup':
+   sound/soc/codecs/nau8310-dsp.c:592:34: note: 'kcs_setup_comp' declared here
+     592 |         struct nau8310_kcs_setup kcs_setup_comp, *kcs_setup = &kcs_setup_comp;
+         |                                  ^~~~~~~~~~~~~~
 
+
+vim +419 sound/soc/codecs/nau8310-dsp.c
+
+   370	
+   371	/*
+   372	 * nau8310_send_dsp_command - Send command to DSP
+   373	 *
+   374	 * @cp:  component to register
+   375	 * @cmd_id:  DSP supported command ID
+   376	 * @kcs_setup: KCS setup structure
+   377	 *
+   378	 * The communication protocol is a Master-Slave type protocol
+   379	 * where the host processor is the master and DSP is the slave.
+   380	 * The Master initiates the communication and can either write or
+   381	 * read back from the slave.
+   382	 * Transactions from the Master are called "Messages",
+   383	 * and read-back data from the Slave is called a "Reply".
+   384	 *
+   385	 * The function sends command to DSP according to the command ID.
+   386	 * These commands include getting the information of DSP,
+   387	 * getting or setting KCS configuration, or making DSP control.
+   388	 */
+   389	static int nau8310_send_dsp_command(struct snd_soc_component *cp, int cmd_id,
+   390		struct nau8310_kcs_setup *kcs_setup)
+   391	{
+   392		const struct nau8310_cmd_info *cmd_info;
+   393		int ret = 0, frag_len = 0;
+   394	
+   395		cmd_info = &nau8310_dsp_cmd_table[cmd_id];
+   396		if ((cmd_info->msg_param && !kcs_setup->set_len) ||
+   397			(cmd_info->setup_data && !kcs_setup->set_kcs_data) ||
+   398			(cmd_info->reply_data && !kcs_setup->get_data))
+   399			return -EFAULT;
+   400	
+   401		/* Read up to 1kB data because the LEN field to request data is 10-bits
+   402		 * long; and not beyond 3kB offset.
+   403		 */
+   404		if (cmd_id == NAU8310_DSP_CMD_GET_KCS_SETUP &&
+   405			(kcs_setup->set_len > NAU8310_DSP_KCS_DAT_LEN_MAX ||
+   406			kcs_setup->set_kcs_offset > NAU8310_DSP_KCS_OFFSET_MAX))
+   407			return -ERANGE;
+   408	
+   409		/* one fragment for offset and size parameters
+   410		 * one fragment for a postamble fragment
+   411		 */
+   412		if (cmd_info->msg_param)
+   413			frag_len += 2;
+   414	
+   415		/* fragments for KCS setup writen */
+   416		if (cmd_info->setup_data)
+   417			frag_len += DIV_ROUND_UP(kcs_setup->set_len, NAU8310_DSP_DATA_BYTE);
+   418	
+ > 419		ret = nau8310_message_to_dsp(cp, cmd_info, frag_len,
+   420			kcs_setup->set_kcs_offset, kcs_setup->set_len,
+   421			kcs_setup->set_kcs_data);
+   422		if (ret)
+   423			return ret;
+   424	
+   425		return nau8310_reply_from_dsp(cp, cmd_info, kcs_setup->get_len,
+   426			kcs_setup->get_data);
+   427	}
+   428	
+   429	static inline int nau8310_dsp_exec_command(struct snd_soc_component *cp, int cmd_id,
+   430		int offset, int set_len, void *set_data, int get_len, void *get_data)
+   431	{
+   432		struct nau8310_kcs_setup kcs_setup = {
+   433			.set_kcs_offset = offset,
+   434			.set_len = set_len,
+   435			.set_kcs_data = set_data,
+   436			.get_len = get_len,
+   437			.get_data = get_data,
+   438		};
+   439	
+   440		return nau8310_send_dsp_command(cp, cmd_id, &kcs_setup);
+   441	}
+   442	
+   443	/*
+   444	 * nau8310_dsp_kcs_setup - Send KCS setup command to DSP
+   445	 *
+   446	 * @cp:  component to register
+   447	 * @offset: address offset relative to KCS start
+   448	 * @size: size of data writen to KCS
+   449	 * @data: data writen to KCS setup
+   450	 *
+   451	 * The function sends KCS setup command to DSP for
+   452	 * setting KCS configuration. The maximum size that you can transfer into
+   453	 * the DSP is 96 bytes. Therefore, the driver has to split the data into
+   454	 * 96 bytes chucks, if the setup configuration over the threshold.
+   455	 */
+   456	static int nau8310_dsp_kcs_setup(struct snd_soc_component *cp, int offset, int size,
+   457		const void *data)
+   458	{
+   459		u8 *data_buf = (u8 *)data;
+   460		unsigned int kcs_rst;
+   461		int retries = 0, ret, data_len, data_rem, addr_offset;
+   462	
+   463		/* Limit full load of KCS_SETUP data and not beyond 3kB offset. */
+   464		if (!data || size > NAU8310_DSP_KCS_DAT_LEN_MAX ||
+   465			offset > NAU8310_DSP_KCS_OFFSET_MAX)
+   466			return -EINVAL;
+   467	
+   468		/* sending fragments for KCS setup */
+   469		addr_offset = offset;
+   470		data_rem = size;
+   471	
+   472		while (data_rem) {
+   473			data_len = min(data_rem, NAU8310_DSP_KCS_TX_MAX);
+   474	
+   475			ret = nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_SET_KCS_SETUP,
+   476				addr_offset, data_len, (void *)data_buf, 0, &kcs_rst);
+   477			if (ret) {
+   478				if (retries++ < NAU8310_DSP_RETRY_MAX)
+   479					continue;
+   480				return ret;
+   481			}
+   482	
+   483			data_buf += (u8)data_len;
+   484			addr_offset += data_len;
+   485			data_rem -= data_len;
+   486	
+   487			/* checking KCS result */
+   488			ret = nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_GET_KCS_RSLTS,
+   489				0, NAU8310_DSP_DATA_BYTE, NULL, NAU8310_DSP_DATA_BYTE, &kcs_rst);
+   490			if (ret)
+   491				return ret;
+   492			if (kcs_rst != NAU8310_DSP_KCS_RSLTS_SUCCESS)
+   493				return -EINVAL;
+   494		}
+   495	
+   496		return 0;
+   497	}
+   498	
+   499	static int nau8310_dsp_snd_soc_dapm_put(struct snd_kcontrol *kcontrol,
+   500		struct snd_ctl_elem_value *ucontrol)
+   501	{
+   502		struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
+   503		struct snd_soc_component *component = snd_soc_dapm_to_component(dapm);
+   504		struct nau8310 *nau8310 = snd_soc_component_get_drvdata(component);
+   505		struct soc_mixer_control *mc =
+   506			(struct soc_mixer_control *)kcontrol->private_value;
+   507		unsigned int mask = (1 << fls(mc->max)) - 1;
+   508		unsigned int val;
+   509		int ret;
+   510	
+   511		if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
+   512			dev_warn_ratelimited(nau8310->dev, "changing path is not allowed during playback");
+   513			return -EBUSY;
+   514		}
+   515	
+   516		val = (ucontrol->value.integer.value[0] & mask);
+   517	
+   518		mutex_lock(&nau8310->lock);
+   519		if (val == NAU8310_DAC_SRC_DSP && !nau8310->load_fw_done) {
+   520			dev_warn_ratelimited(nau8310->dev, "Cannot enable DSP: Firmware not ready or disabled");
+   521			mutex_unlock(&nau8310->lock);
+   522			return -EBUSY;
+   523		}
+   524	
+   525		ret = snd_soc_dapm_put_volsw(kcontrol, ucontrol);
+   526	
+   527		if (val == NAU8310_DAC_SRC_BYPASS) {
+   528			/* Switch the clock source of DSP to MCLK. */
+   529			regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
+   530				NAU8310_DSP_SEL_OSC, 0);
+   531		}
+   532		mutex_unlock(&nau8310->lock);
+   533	
+   534		return ret;
+   535	}
+   536	
+   537	#define NAU8310_DSP_SOC_DAPM_SINGLE(xname, reg, shift, mask, invert) \
+   538		SOC_SINGLE_EXT(xname, reg, shift, mask, invert, \
+   539			snd_soc_dapm_get_volsw, nau8310_dsp_snd_soc_dapm_put)
+   540	
+   541	static const struct snd_kcontrol_new nau8310_dacdat_select_dsp =
+   542		NAU8310_DSP_SOC_DAPM_SINGLE("Switch", NAU8310_R1A_DSP_CORE_CTRL2,
+   543			NAU8310_DAC_SEL_DSP_SFT, 1, 0);
+   544	
+   545	static int nau8310_dsp_clock_event(struct snd_soc_dapm_widget *w,
+   546		struct snd_kcontrol *kcontrol, int event)
+   547	{
+   548		struct snd_soc_component *cp = snd_soc_dapm_to_component(w->dapm);
+   549		struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
+   550		int ret = 0;
+   551	
+   552		if (SND_SOC_DAPM_EVENT_ON(event)) {
+   553			ret = nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_CLK_RESTART,
+   554				0, 0, NULL, 0, NULL);
+   555			if (ret)
+   556				dev_err(cp->dev, "Send DSP command %s fail (%d)",
+   557					dsp_cmd_table[NAU8310_DSP_CMD_CLK_RESTART], ret);
+   558	
+   559			/* Switch the clock source of DSP to MCLK. */
+   560			regmap_update_bits(nau8310->regmap, NAU8310_R04_ENA_CTRL,
+   561				NAU8310_DSP_SEL_OSC, 0);
+   562		} else if (SND_SOC_DAPM_EVENT_OFF(event)) {
+   563			ret = nau8310_dsp_exec_command(cp, NAU8310_DSP_CMD_CLK_STOP,
+   564				0, 0, NULL, 0, NULL);
+   565			if (ret)
+   566				dev_err(cp->dev, "Send DSP command %s fail (%d)",
+   567					dsp_cmd_table[NAU8310_DSP_CMD_CLK_STOP], ret);
+   568		}
+   569	
+   570		return ret;
+   571	}
+   572	
+   573	static const struct snd_soc_dapm_widget nau8310_dsp_dapm_widgets[] = {
+   574		SND_SOC_DAPM_PGA("DSP", SND_SOC_NOPM, 0, 0, NULL, 0),
+   575		SND_SOC_DAPM_SWITCH("DAC data from DSP", SND_SOC_NOPM,
+   576			0, 0, &nau8310_dacdat_select_dsp),
+   577		SND_SOC_DAPM_SUPPLY("DSP Clock", SND_SOC_NOPM, 0, 0,
+   578			nau8310_dsp_clock_event, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+   579	};
+   580	
+   581	static const struct snd_soc_dapm_route nau8310_dsp_dapm_routes[] = {
+   582		{ "DSP", NULL, "Capture Sense" },
+   583		{ "DAC data from DSP", "Switch", "DSP" },
+   584		{ "DAC", NULL, "DAC data from DSP" },
+   585		{ "DSP", NULL, "DSP Clock" },
+   586	};
+   587	
+   588	static int nau8310_dsp_set_kcs_setup(struct snd_soc_component *cp)
+   589	{
+   590		struct nau8310 *nau8310 = snd_soc_component_get_drvdata(cp);
+   591		struct regmap *regmap = nau8310->regmap;
+ > 592		struct nau8310_kcs_setup kcs_setup_comp, *kcs_setup = &kcs_setup_comp;
+   593		struct device *dev = cp->dev;
+   594		const struct firmware *fw;
+   595		int ret, status = 0, buf_off, buf_len;
+   596	
+   597		dev_dbg(dev, "Send DSP command %s",
+   598			dsp_cmd_table[NAU8310_DSP_CMD_GET_FRAME_STATUS]);
+   599	
+   600		kcs_setup->get_len = kcs_setup->set_len = sizeof(status);
+   601		kcs_setup->get_data = (void *)&status;
+   602	
+ > 603		ret = nau8310_send_dsp_command(cp, NAU8310_DSP_CMD_GET_FRAME_STATUS, kcs_setup);
+   604		if (ret) {
+   605			dev_err(dev, "Send DSP command %s fail (%d)",
+   606				dsp_cmd_table[NAU8310_DSP_CMD_GET_FRAME_STATUS], ret);
+   607			goto err;
+   608		}
+   609	
+   610		if (!(status & NAU8310_DSP_ALGO_OK)) {
+   611			dev_err(dev, "Algorithm of DSP is not ready, status %x", status);
+   612			ret = -EIO;
+   613			goto err;
+   614		}
+   615	
+   616		dev_info(dev, "Algorithm of DSP is ready, status %x", status);
+   617	
+   618		dev_dbg(dev, "Request firmware and wait until finish.");
+   619		ret = request_firmware(&fw, NAU8310_DSP_FIRMWARE, dev);
+   620		if (ret) {
+   621			dev_err(dev, "Failed to load firmware (%d)", ret);
+   622			goto err;
+   623		}
+   624	
+   625		buf_off = 0;
+   626		buf_len = nau8310->kcs_setup_size = fw->size;
+   627		dev_dbg(dev, "Send DSP command %s (OFF %d, LEN %d)",
+   628			dsp_cmd_table[NAU8310_DSP_CMD_SET_KCS_SETUP], buf_off, buf_len);
+   629		ret = nau8310_dsp_kcs_setup(cp, buf_off, buf_len, fw->data);
+   630		if (ret) {
+   631			dev_err(dev, "Send DSP command %s fail (%d)",
+   632				dsp_cmd_table[NAU8310_DSP_CMD_SET_KCS_SETUP], ret);
+   633			goto err_loaded;
+   634		}
+   635	
+   636		release_firmware(fw);
+   637		nau8310->load_fw_done = true;
+   638	
+   639		return 0;
+   640	
+   641	err_loaded:
+   642		regmap_update_bits(regmap, NAU8310_R13_MUTE_CTRL, NAU8310_SOFT_MUTE, 0);
+   643		if (fw)
+   644			release_firmware(fw);
+   645	err:
+   646		nau8310->load_fw_done = false;
+   647		return ret;
+   648	}
+   649	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
