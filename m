@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740466;
-	b=lyrSgNi0fxM+6LRvOZNCEVUikzdVbs2I0Wc8yk8dey1hrd50++/A1zW0z30+AVpKxb3N
-	 1Gez2kVRHt/y56bnkzrJHe3gTVSUtan8PAv341hhsWpQXNuIh0AQLX2N2NhwJft4f1Wb/
-	 w/4S3vOXq76Vz7LKs29qKMPs/bBUicHJNbZ0VqT4xDmU4kxO4wPIz3XJtd3rGovmjZxvK
-	 AqLsiiPQ7CGYYCd8t6FnJo9MTr+j0c360402S2N+FRTDMT0FRWNz0ri9VC6ZmD5pOASKs
-	 UpxVuWN727HaRcw0tOguHJZWTkDcbBmoJiJ5aeSvca27iRf0mnfZ6NVvqzUFv1DPiuA==
+	t=1792740571;
+	b=zHQEFQ1HCA+3UyROXOpCwJR2bL56v9NqyoOgWh5g4rAAnviMBRQTwQWQ0d5TaLB9O7Fa
+	 j3K1co3VUwdiUCOTSlODz5DLYPSekKngVfdKdWIoiaeKYaqLUjI7WYJU9ndH61n9ZtmxU
+	 JvUipuTTvHKch8z5wQ9EXkqF4ExiHMjUyy9aOtdSwjcgSpibjozH0sQXwzYc9ZM2ORXeI
+	 JuFtohI2NVmLgPG1UigrhreGRNu+F6Rk1xI3Vg3n6RltCFGoSe+HCX1P/qJNKWHM6rlV+
+	 uO98clA3ndIzs5BqtNDZ0cQO58T6kbpu6RCOPyl88mgLmh4HvLlto4V3B4BRwi4Rt4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740466;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Fsn5fcCLJL4J5YSgosoLT98bUyV1U1KOay8uVikHbUU=;
-	b=ZcP9LCERgKKB2rVmgeEYEG+zvg+cZikBxz2qz+aRZRh+zDsc4OQJ9jiMzOzvq1ykY4US
-	 IeCYiceBVXgzcOZbhkKNHzRq6pyK3ta0CoUq71ElNS2/6YbBPZEAjjBmW3orxY5g7OJa/
-	 TQnjv+PIYXI1Vn9/5nfH1dFi5tZ2wE+B+RKj0/3M72+V6ItOFfCzrEmTlU3xuU2W4wq8k
-	 6GDID2BGHLzSL7PMQ3zgok8iD6OOhbVRfy62CSbXU940xw0FohCs81ngFugflafKIkmI3
-	 6+j+iWfIJpwt6zkJ6XVDGQz6UyDxHuEUtL+tyvPM8nhc5zZqXRxN/oFYQ3x9kT3adNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792740571;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+5UHV1G0YVSK/YoGiO0tozDo+nOza612odgEK6eiNJE=;
+	b=LlIcFkhOIjc45RCMRKF4CXSzX6bom+cEgYnmcwk/iRGcPzSmOfdiyw2Ec1T4OehzUXK5
+	 jfhMCFenuBlw4aPTyS7nHWnnP1AsDxPYud3EBP+96P1eERTDB0gbQtbrI8lafKXIf+Lwx
+	 pljBEZripbJTBApGM9ClGYT3ZuBXoXtAVB1h13pcLTH4mLVGCFKWoRovy22uQNkl5ny5X
+	 nIVV2+Yvqhbeq2OBlmtvV7zWrmvocj+gz48NhU6KABHxxqRf5t5QvItd9egnYFp9m2vc5
+	 Qk2feC3TUKqlW9/VoItrRg6vwhQOiHtxR85rdP76n6VXai7FQkL5awFEdHMU/4W8jRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNdEAGo5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GpEoGB4A;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E13F606A321
-	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2643A606A31D
+	for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 07:29:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2643A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNdEAGo5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D1A1F031E2;
-	Fri, 23 Oct 2026 07:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792740466;
-	bh=Fsn5fcCLJL4J5YSgosoLT98bUyV1U1KOay8uVikHbUU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DNdEAGo5uH1HZd79+tHz57jDdv7x83qxETjru6MyJPIJeV5rJ7L2adPA7xhZpVQt4
-	 L1O4oW27ikBgxUYzzKHPdbFgXEem7UIpY61JTI5PEMk82kG3oPuMsZzWfHt/zYYT5q
-	 SNbB8U8YwXGsHe31pmipdhd2qYszjP3TUjqKTJupf5BmzmILVumgZG2oFsc8CQn0Sx
-	 HDTLrOg6p8UTJNbQ4Ah5sMxou6sehNWuEApikSwr6si/doOrCMhDMslpgGh/9wSS01
-	 QWf+lJrriL51R7ryMNLPcnbFFRdEnCZ61/OJNpvU0Zzjp4HIGIFVXK6G3e2LmqLKN2
-	 T0bBxOshfTYtA==
-Message-ID: <sashiko-outbox-182411@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/16] accel/thames: Create a context per client on
- device open
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 07:27:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GpEoGB4A
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9eb579c0eso2803715ad.3
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 00:29:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792740570; x=1793345370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+5UHV1G0YVSK/YoGiO0tozDo+nOza612odgEK6eiNJE=;
+        b=GpEoGB4ActhJ17tme5qS49n3VkDxo91rpsAwE+aaUy7pqELCSZbbmFdbMNCp4Bg9EY
+         sZPJU/zII4O7Z5F5k+jRVNIBSu4JTvFwHvNnpFLrkWXMUNxm7hp7vSoRkQbC7vKImuiO
+         GEi81FnsHdjurtXKSbPc5VuVPnmkim8os3p9mmphJvZ/5Drp+iVMbgsGAHjeTq1VbzT1
+         qbVsIYKaBdbxJJWYRn/w6sffafAxYbub4iAN6X2XGRwMJu6mCJa12pT8JtHsnbpEgIwK
+         5nIPEPyfGoSdIiMVTTl9SGK+EeJv/Xs4M6v7MdDqcsZ6QqR1yGA6Bem8p38AuCesaDmB
+         d5OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792740570; x=1793345370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+5UHV1G0YVSK/YoGiO0tozDo+nOza612odgEK6eiNJE=;
+        b=KCE7xE4E7OYP3c4/3vnowss8XGPqNqcElzP1F2lA8w694qSvF0myd9XMsV4acPAbPw
+         I0tUA2rSsro1gOhdwfKhbcl+98QeonhxqFO9JdmFPB4SUMKM8kTb60Zk+wrX/HAtgxUG
+         o/oOlwzdNi2F1smPoTrVtdyfHZy525oJuTjne/5SzKSNfc7dcaiKgcxHWAzV2KBEhK57
+         yS19FcBExQWblqaMKwAsl4vkY2Vl2C5ZV3PEsM4d1aLC6x+tqHlwNTQetsXg8EQnNXEo
+         9aX3SPZNU0u7zEMqAXM6x8brt3fNmSMUmnLSLjzPOZssaRwup1QK0Q/uEW6uapq6NwIJ
+         dWhw==
+X-Forwarded-Encrypted: i=1; AKwUvBz0toKyFmf8BLNqzqReiBJ+DojcLq6qW5rDhm7cr3vqRyCGi+6+9g1NWs+hG/9JHVoxayGD+WpR8lYK@vger.kernel.org
+X-Gm-Message-State: AFq9FYKadfMakfLaF4h/q/cCj5ocBHbsq0+Qdk2c6LilimyuZc91xgEo
+	JtLhE+O/2PTspRXEXRogzKtRrBVc7d0E0NNvS/lwHSHVVpE0RNxsQjkH
+X-Gm-Gg: AYBFou1rCcsuZg/8M48BRVLVCKVbWIwIYJ+sqlLgt82IaEbIcFMk9n9Ky5fcFqyhVzD
+	4JALBpix+wm1qegdVD/oWZqBFqqWq21Lh1Mel9vKhRJCXDz1riN9OSKo8IiR/a4+QMwR5Keq8vx
+	3QbBF3axo7gDLwqcBbnJQnxnEvJoIWJS8KdvbS0ikFIBKBMeUAhR0XnH8hjPa6BvTtKWfT5BR36
+	zl6TFuB6LSt/gD5xMeG7346Tmt5AjPz1JcjSfWkDOzdPI5VThk8OMRpgBn0O8bvtEHeNmZ6IYWK
+	i4JR5zD6qsdbkBw5MpSanTXXSGOdsL9gL+jJ0BnQi3Df8uhV977wPaoqh5dZ1WaQQCLfWVFR92K
+	W8/oifBRELaVdP6s20lBCb9HkMmv2qvcTao4xrkFhmUSmrUnllZRIuND96CcRlSfxwJ4ZPmRi+R
+	F7PzY0u8u5idCf/Dcb3/zIwIZaYPG88P82u1xe/cal4SHPOByzYxU1lfvDuhrdp42YRdMype+OT
+	Nz1z+qvJj4noaCrTmZtk8TlxJzVFYC2MlgBxWcMJoH3c2xaY6HbgAbw/QBI/XS1TQ9QUIkTdQ==
+X-Received: by 2002:a17:903:2b0e:b0:2e9:6788:9373 with SMTP id d9443c01a7336-2ea7c2bf29amr15867445ad.17.1792740570393;
+        Fri, 23 Oct 2026 00:29:30 -0700 (PDT)
+Received: from localhost.localdomain ([218.194.41.155])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af6a466sm6858715ad.9.2026.10.23.00.29.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 00:29:29 -0700 (PDT)
+From: ShiTou Hong <redstone.dcity@gmail.com>
+X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	ShiTou Hong <dc_redstone@outlook.com>,
+	KancyJoe <kancy2333@outlook.com>
+Subject: [PATCH 1/6] arm64: dts: qcom: sm8250-hdk: Enable the sdhc_2 port
+Date: Fri, 23 Oct 2026 15:28:27 +0800
+Message-ID: <20261023072832.2642647-1-dc_redstone@outlook.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,172 +97,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] accel/thames: mapping overlap in thames_context_alloc_user_pages()=
- on >4K pages
-- [Medium] accel/thames: select IOMMU_IO_PGTABLE_LPAE without Kconfig depen=
-dencies
---
+The sm8250-hdk has an on-board SD/UFS card slot,
+but the SDHCI port hasn't been enabled in the dts,
+so we can't use it after booting.
 
-commit aad1ae439ba5b7b0cdec19071014a9f8abea740d
-Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
+Enable the dts node of SDHCI for the on-board SD card slot.
+Add the pinctrl node of the SD card pins.
 
-accel/thames: Create a context per client on device open
+Co-developed-by: KancyJoe <kancy2333@outlook.com>
+Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+---
+ arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 39 +++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-This commit creates a per-client context on device open and manages an
-ARM_64_LPAE_S1 page table for each context using IOMMU_IO_PGTABLE_LPAE. It
-allocates cyclic ASIDs, maps the core windows and per-context user stack and
-save area pages, and populates the IPC context table entries.
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
+index c1c673086..a049d78f5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
+@@ -398,6 +398,32 @@ &qupv3_id_1 {
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = <28 4>, <40 4>;
++
++	sd_ufs_cd_pins: sd-ufs-cd-default-state {
++		pins = "gpio77";
++		function = "gpio";
++		bias-pull-up;
++	};
++
++	sdc2_default: sdc2-default-state {
++		cmd-pins {
++			pins = "sdc2_cmd";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		data-pins {
++			pins = "sdc2_data";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		clk-pins {
++			pins = "sdc2_clk";
++			bias-disable;
++			drive-strength = <16>;
++		};
++	};
+ };
+ 
+ &uart12 {
+@@ -467,3 +493,16 @@ &usb_2_dwc3 {
+ &venus {
+ 	status = "okay";
+ };
++
++&sdhc_2 {
++	status = "okay";
++
++	cd-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
++
++	vmmc-supply = <&vreg_l9c_2p96>;
++	vqmmc-supply = <&vreg_l6c_2p96>;
++
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sdc2_default>, <&sd_ufs_cd_pins>;
++	pinctrl-1 = <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
++};
+-- 
+2.47.3
 
-> diff --git a/drivers/accel/thames/Kconfig b/drivers/accel/thames/Kconfig
-> index c621002d8efaa..9362b92740751 100644
-> --- a/drivers/accel/thames/Kconfig
-> +++ b/drivers/accel/thames/Kconfig
-> @@ -6,6 +6,7 @@ config DRM_ACCEL_THAMES
->  	depends on TI_K3_DSP_REMOTEPROC
->  	depends on REMOTEPROC
->  	depends on MAILBOX
-> +	select IOMMU_IO_PGTABLE_LPAE
-
-[Severity: Medium]
-Can selecting IOMMU_IO_PGTABLE_LPAE here without its dependencies cause
-unmet direct dependency warnings and build failures?
-
-In drivers/iommu/Kconfig, IOMMU_IO_PGTABLE_LPAE is inside an if IOMMU_SUPPO=
-RT
-block (which depends on MMU) and has:
-
-config IOMMU_IO_PGTABLE_LPAE
-	bool "ARMv7/v8 Long Descriptor Format"
-	select IOMMU_IO_PGTABLE
-	depends on ARM || ARM64 || COMPILE_TEST
-	depends on !GENERIC_ATOMIC64	# for cmpxchg64()
-
-Because TI_K3_DSP_REMOTEPROC depends on ARCH_K3 || COMPILE_TEST,
-DRM_ACCEL_THAMES can be enabled when IOMMU_SUPPORT is disabled, or under
-COMPILE_TEST on architectures with GENERIC_ATOMIC64=3Dy or MMU=3Dn.
-
-When IOMMU_SUPPORT=3Dn, drivers/iommu/iommu-pages.o is not built, causing
-undefined references to iommu_alloc_pages_node_sz() and iommu_free_pages() =
-in
-drivers/iommu/io-pgtable-arm.c, and GENERIC_ATOMIC64=3Dy fails to compile d=
-ue
-to cmpxchg64_relaxed().
-
-Should DRM_ACCEL_THAMES also depend on MMU and !GENERIC_ATOMIC64, and select
-IOMMU_SUPPORT (similar to DRM_PANTHOR and DRM_PANFROST)?
-
->  	help
->  	  Choose this option if you have a Texas Instruments J722S and want to
->  	  use its C7x DSP cores as compute accelerators.
-> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/tha=
-mes_gem.c
-> new file mode 100644
-> index 0000000000000..b98e0fe203b08
-> --- /dev/null
-> +++ b/drivers/accel/thames/thames_gem.c
-
-[ ... ]
-
-> +static struct drm_gem_dma_object *thames_gem_create(struct drm_device *d=
-dev, size_t size)
-> +{
-> +	struct device *dev =3D drm_dev_dma_dev(ddev);
-> +	struct thames_gem_object *bo;
-> +	struct drm_gem_object *obj;
-> +	size_t offset =3D 0;
-> +	int ret;
-> +
-> +	size =3D PAGE_ALIGN(size);
-> +
-> +	bo =3D kzalloc_obj(*bo, GFP_KERNEL);
-> +	if (!bo)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	obj =3D &bo->base.base;
-> +	obj->funcs =3D &thames_gem_funcs;
-> +	bo->base.map_noncoherent =3D true;
-> +
-> +	ret =3D drm_gem_object_init(ddev, obj, size);
-
-[ ... ]
-
-> +static struct drm_gem_dma_object *thames_context_alloc_user_pages(struct=
- thames_file_priv *priv,
-> +								  u64 dsp_va, size_t size)
-> +{
-> +	int prot =3D IOMMU_READ | IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_CACHE;
-> +	struct drm_gem_dma_object *dma_obj;
-> +	int ret;
-> +
-> +	dma_obj =3D thames_gem_create(&priv->tdev->ddev, size);
-> +	if (IS_ERR(dma_obj))
-> +		return dma_obj;
-> +
-> +	ret =3D thames_context_map(priv, dsp_va, prot, dma_obj->dma_addr, dma_o=
-bj->base.size);
-> +	if (ret) {
-> +		drm_gem_object_put(&dma_obj->base);
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	return dma_obj;
-> +}
-> +
-> +static int thames_context_map_user_pages(struct thames_file_priv *priv)
-> +{
-> +	struct drm_gem_dma_object *dma_obj;
-> +
-> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_STACK_BAS=
-E,
-> +						  THAMES_USER_STACK_SIZE);
-> +	if (IS_ERR(dma_obj))
-> +		return PTR_ERR(dma_obj);
-> +	priv->user_stack =3D dma_obj;
-> +
-> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_SAVE_AREA=
-_BASE,
-> +						  THAMES_USER_SAVE_AREA_SIZE);
-> +	if (IS_ERR(dma_obj))
-> +		return PTR_ERR(dma_obj);
-> +	priv->save_area =3D dma_obj;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-What happens on arm64 kernels configured with 16 KiB or 64 KiB pages when
-thames_open() calls thames_context_create() -> thames_context_map_user_page=
-s()?
-
-In drivers/accel/thames/thames_abi.h, the user region addresses are fixed at
-4 KiB granularity:
-
-#define THAMES_USER_REGION_BASE		0x10000000000ull
-#define THAMES_USER_REGION_SIZE		0x200000ull
-#define THAMES_USER_SAVE_AREA_BASE	(THAMES_USER_REGION_BASE + 0x2000ull)
-#define THAMES_USER_SAVE_AREA_SIZE	0x2000ull
-#define THAMES_USER_STACK_BASE		(THAMES_USER_REGION_BASE + 0x5000ull)
-#define THAMES_USER_STACK_SIZE		0x1000ull
-
-In thames_gem_create(), size is rounded up to the host PAGE_SIZE via
-PAGE_ALIGN(size) and stored in dma_obj->base.size. Then
-thames_context_alloc_user_pages() maps dma_obj->base.size bytes into the DSP
-page table rather than the requested size.
-
-When PAGE_SIZE is 16 KiB (0x4000) or 64 KiB (0x10000),
-thames_context_map_user_pages() first maps user_stack starting at
-THAMES_USER_REGION_BASE + 0x5000, and then maps save_area for PAGE_SIZE byt=
-es
-starting at THAMES_USER_REGION_BASE + 0x2000 (covering at least +0x2000 to
-+0x6000).
-
-Won't the save_area mapping cover the guard page at +0x4000 and collide with
-the already-mapped user_stack PTEs at +0x5000, triggering a WARN_ON in
-arm_lpae_init_pte() and failing context creation with -EEXIST?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D6
