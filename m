@@ -1,69 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725946;
-	b=Qkyd/HTGCEbLHiI/6ZF3oHF6K+yAVDFrNIv5woNpJGxTS73Dfn6A9LvbawfyuQtEJTHM
-	 rF8/EVanbynMKsFtKMIK349Q2H9+/y9vxtUEyl2elpetnU2ZL3B3edhqoSUXpFjCWtz98
-	 IZ+PKI4eQKbvDNAxARXj8Q/CJuhYFm8L0xNtDA3M3xOTC6YQA4wyKoqNldn8wT0cQK4Io
-	 I+kZlTug41CvvlqeGwfYOXYUG0WZOlQkq73LuAru/3zbaFYTY9YM7nxeETZUEi8NxUSX9
-	 XzkmKtHVokISpMyRP5uccIEBfCOmOvQi5oKvoZqggIE6Db0qVZxZKUPjUs5WA+LaJWg==
+	t=1792726616;
+	b=z4sYfCoeXHmOeI+dVPGEPL8Ie+HnejuyMzTdHcyO4yC7fQYB+c2zxq0pZSpL0XnP1jRu
+	 u3JTA3KLlDoQYjkfedoQhqKOSQI512Bf8JSh9u0GrNhHfcN6oxBJy4VFhSd07Gq8KynVA
+	 R9VaezUdd3U7hZsfgxHutgmYvBbDc0BaQDwVjPgyLq3LRarkkfbi0bY0nAeUZ8Fwdo0Gl
+	 7uiQrjD6ASQwEvufJf3kYinusIJL25F9bHCbVExQLtHZDLc1qAPUBKlOyhCbr/6rkIlv9
+	 97ASsgo2JkKUFwHIHM1l7lSuudchl95vNnZJrFK3TlPFjr9UXHwO24gbrWvOv1q0mPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725946;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
-	b=HI4Pva7zp2Mo0ws01feeo6R74Xo8n2RvK4Qf7Fz47B6eeRWRncdSM6moTW9pr6Vn4G2S
-	 a6r+84U31dlV4vv6Re8gt1pPxOf/mpx+XwyqlLoMuNsEHZpOFZbwevV1pzS4Y0Vq2/B6T
-	 cHOp0+tV11b7FmG2fuzlF5JMsTZOSIBw6D3jpGNU9wWzr49vEycRZcn1sdkZnIk5KBo4X
-	 s4WOrNP8bMzdLGiF5E2fCOIaIT2Z+U7g9YSbVxxsBPcP+eoJc2KZ6Z1hF+NZSi02AKgL6
-	 Ldu5+NRnPxYJetTwMEE/zPPXYkeMzyag51xMtmYiBMaIkRHQNqJI6T4qUzWo7/zwgdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792726616;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=CwTUdhR4eBYFEeTkoYMhPnX08JKC44f+6H0oQsn1gTQ=;
+	b=a9tMN+GbZGh9abeBfLM+iXcbfilwlrSCC1ml5nZWc+pMBckGYZ/LqZ9rgkuwpjP7qNFK
+	 ttwktEvOliV8XXi9WpLq2KAvDCEaSUAYc3Q4WSSYejwURo9Fx5vXKH46ptckSkj2HtH0X
+	 XN29ANr4ZYLXTFGuqal6N6+sPZNMri3ipP/lBkJuTqxfIWgL/QJxZW6qr6FdImpiwJn6H
+	 qA0/c6CkQbK7OMZSOHUXJu6SzD90m+X1W0QQuostDkZ4OJ8Q1epl6JsPBxvIzbSHvu5o+
+	 t4C3xtGf5w5IxAS+uKsWjgshsdDzzOTzaobIjt6Heg0G6vTNgEkQHAHF0bXYkYOKnwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnOsRdbB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA390606A326;
-	Fri, 23 Oct 2026 03:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA390606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9D3606A319;
+	Fri, 23 Oct 2026 03:36:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YNHpzND+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792725937;
-	bh=8aGeedHzUEF0b4HOKqY8QqZNQHGftmFLkNiMFc+pgKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YNHpzND+apnMh9YvHi+xVUFThwqsZUYls8nM3oWScVJiE8dDAEXC68jji5LrBbvtT
-	 AV0FjgIL8rvzeb4lyK/jPVfo8rOYwvo/e2lgsnk0tDgD5ZrvXR8gK3ewOKXlsF02I6
-	 uJVdaoN4AZk+G22449/Cv8aRhlicifE0BrLPIu442t883ZhD3bmvg1uu2TqwanynjI
-	 BG1MidmaXOstNWK+B9JHuFjm+6Sp5LyEKEVoidmh52SWSYmYSllQlL5MId7eM1DTci
-	 p59baXTH+Ti8Z1WOJvF0yaM3OnCNcTOIykN9kJXpndWhfH5rLFpSbkmBULimi86Y1s
-	 NYrtk0IiNNZ3A==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j9pLn4ZXGz4wBB; Fri, 23 Oct 2026 14:25:37 +1100 (AEDT)
-Date: Fri, 23 Oct 2026 14:25:29 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <atrTn_I_8O6q9QUW@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-9-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnOsRdbB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90B51F01825;
+	Fri, 23 Oct 2026 03:36:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792726615;
+	bh=CwTUdhR4eBYFEeTkoYMhPnX08JKC44f+6H0oQsn1gTQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MnOsRdbBYNTAANy9atjTIoNc86VOnlvh4Aj7omsernt3bz5uCSq9nnGSDi5C11e13
+	 T4fB+2TMuEztWAzvGbZar+BGxOp65XRxW7xBk4MXfOZ17SS+Cl0KXbOhdnF/zXRE+9
+	 HMphKcK/omOFkRCKu21QDReqHv9KiA0xS1AAmdRLf0uy5M3B5ssmE25ETtuWj4pZHs
+	 RWmPCWBFJkg6iyeFbSqL4pMOa9Sl7UVyXxn28NTU9uO2QoZcHo22sb3mW4f/xBn6Gu
+	 pQY+gzWc2Wo08LgtNPGZ/oADIS3eWFiE91NaQiFc3AvsvhOelUGMazZVQwKz3wLkE7
+	 Bw7QomvV0x5Fg==
+Subject: Re: [PATCH net-next v3 1/5] dt-bindings: net: maxlinear: add
+ MxL86211C VDDP supply
+From: netdev-bot+sashiko@kernel.org
+To: robert.marko@sartura.hr
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, lxu@maxlinear.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, lgirdwood@gmail.com, broonie@kernel.org,
+ michael@walle.cc, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lrosu@maxlinear.com, luka.perkov@sartura.hr
+Date: Fri, 23 Oct 2026 03:36:54 +0000
+Message-ID: <179272661435.3134.10605479743655559994@kernel.org>
+In-Reply-To: <20261020093655.344585-1-robert.marko@sartura.hr>
+References: <20261020093655.344585-1-robert.marko@sartura.hr>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,157 +66,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lz/gZO3uSfdIiUAi"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-9-herve.codina@bootlin.com>
 
---lz/gZO3uSfdIiUAi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On Wed, Aug 26, 2026 at 11:48:37AM +0200, Herve Codina wrote:
-> get_node_by_phandle() allows to get a node based on its phandle value.
-> It checks the phandle value against value available in internal node
-> structure.
->=20
-> This internal phandle value is updated during process_check() and so,
-> get_node_by_phandle() cannot give correct results before the
-> process_check() call.
->=20
-> Improve get_node_by_phandle() to look at node phandle properties when
-> the internal phandle value is not valid.
->=20
-> This allows to return a correct matching node even if process_check()
-> was not called yet.
+Low priority / nit picks for your consideration:
 
-The idea is sound - it's always been kind of clunky that we need the
-process_checks() pass to fill the phandles before we can use them.
-But, there's at least one significant catch:
+- [Low] At this commit, the binding adds `vddp-supply`
+  (Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml,…
+- [Low] Before this patch, maxlinear,gpy2xx.yaml had no `select`, no
+  `properties/compatible` and no `$nodename`.
 
-[Aside: you might notice the way it's done violates the principle I
- stated elsewhere of avoiding structures where you must know where you
- are in the flow to know which parts are populated.  My type
- discipline has improved since I first wrote this code :)]
+--
 
-We need to gracefully handle the case of malformed phandle /
-linux,phandle properties; that's actually the reason for the weird
-placement of this in checks.c.  By treating it as a "check" we handle
-this case by failing the check.  Other checks that rely on phandles
-then have the 'explicit_phandles' check as a prereq so they don't need
-to verify this again.  We can still report errors for other checks
-that don't rely on that (which is the whole point of the checks
-mechanism).
+dt-bindings: net: maxlinear: add MxL86211C VDDP supply
 
-That's not the only way to do it, of course, but we need something to
-check for that error case.  Further notes on the code.
+This commit adds an optional vddp-supply property to the MaxLinear GPY2xx
+PHY binding and limits it to the MxL86211C (ethernet-phy-idc133.5400). It
+also adds a select statement, so the schema now applies to nodes with that
+PHY ID or with the maxlinear,use-broken-interrupts property. A second
+example showing the supply is added too.
 
-> With the recently introduced FDT_PROPDATA_HANDLE dtb tag, this will be
-> needed to update internal phandle references before the call to
-> process_check(). Indeed, this tag allows to identify phandles and
-> internal references need to be updated based on the phandle value before
-> the process_check() call.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  livetree.c | 21 ++++++++++++++++++++-
->  1 file changed, 20 insertions(+), 1 deletion(-)
->=20
-> diff --git a/livetree.c b/livetree.c
-> index abe73de1..a9f8c5d2 100644
-> --- a/livetree.c
-> +++ b/livetree.c
-> @@ -628,16 +628,35 @@ struct node *get_node_by_label(struct node *tree, c=
-onst char *label)
->  	return NULL;
->  }
-> =20
-> +static cell_t get_node_phandle_existing(struct node *node)
-> +{
-> +	struct property *prop;
+> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> index 8a3713abd1ca..53f430e12151 100644
+> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> @@ -10,10 +10,37 @@ maintainers:
+>    - Andrew Lunn <andrew@lunn.ch>
+>    - Michael Walle <michael@walle.cc>
+>  
+> +select:
+> +  anyOf:
+> +    - properties:
+> +        compatible:
+> +          contains:
+> +            const: ethernet-phy-idc133.5400
+> +      required:
+> +        - compatible
+> +    - required:
+> +        - maxlinear,use-broken-interrupts
+
+[Severity: Low]
+Will this select branch make the first example in this file fail
+dt_binding_check?
+
+Before this patch the schema had no select, no compatible and no
+$nodename. dtschema therefore generated a select that matched nothing, and
+the existing dependency was never checked:
+
+dependencies:
+  maxlinear,use-broken-interrupts: [ interrupts ]
+
+With this branch, every node that has maxlinear,use-broken-interrupts is
+now selected. The first example has that property, but it uses
+interrupts-extended instead of interrupts:
+
+        ethernet-phy@0 {
+            reg = <0>;
+            interrupts-extended = <&intc 0>;
+            maxlinear,use-broken-interrupts;
+        };
+
+If the dtschema interrupts fixup only rewrites properties and required, and
+not dependencies, wouldn't this report interrupts as a missing dependency
+of maxlinear,use-broken-interrupts? Real DTs that wire the GPY2xx IRQ with
+interrupts-extended would get the same dtbs_check error.
+
+The example and the dependency are unchanged at the end of the series.
+Could the dependency accept either interrupts or interrupts-extended (for
+example a oneOf of required: [interrupts] and
+required: [interrupts-extended])? Or could the example use interrupts?
+
 > +
-> +	if (phandle_is_valid(node->phandle))
-> +		return node->phandle;
+>  allOf:
+
+[ ... ]
+
+>  properties:
+> +  vddp-supply:
+> +    description: |
+> +      Optional regulator supplying the VDDP pin. Its voltage configures the
+> +      MDIO, MDC, and MDINT pad voltage and must be either 1.8 V or 3.3 V.
 > +
-> +	prop =3D get_property(node, "phandle");
-> +	if (!prop) {
-> +		prop =3D get_property(node, "linux,phandle");
-> +		if (!prop)
-> +			return 0;
-> +	}
-> +
-> +	return propval_cell(prop);
 
-In the case of a malformed property, this could SEGV.
+[Severity: Low]
+Does anything use vddp-supply at this commit? The MxL86211C entry in
+gpy_drivers[] in drivers/net/phy/mxl-gpy.c still uses gpy_probe() and
+gpy21x_config_init(). Neither of them gets or enables a regulator.
 
-> +}
-> +
->  struct node *get_node_by_phandle(struct node *tree, cell_t phandle)
->  {
->  	struct node *child, *node;
-> +	cell_t tree_phandle;
-> =20
->  	if (!phandle_is_valid(phandle)) {
->  		assert(generate_fixups);
->  		return NULL;
->  	}
-> =20
-> -	if (tree->phandle =3D=3D phandle) {
-> +	tree_phandle =3D get_node_phandle_existing(tree);
+Suppose a DT points vddp-supply at a switchable regulator that lacks
+regulator-always-on. Could the rail stay off, or be turned off by the
+unused-regulator cleanup, leaving the MDIO, MDC and MDINT pads without
+power?
 
-This means that every time we search for a phandle, for every node
-scanned before the destination with no phandle, we do a full property
-scan to check that no, it still doesn't have a phandle.
+The next patch in the series, "net: phy: mxl-gpy: add MxL86211C VDDP
+supply", fixes this. It adds mxl86211c_probe(), which calls
+devm_regulator_get_optional(dev, "vddp") and regulator_enable(). It also
+adds mxl86211c_config_init(), which reapplies the pad voltage after reset.
+So only a kernel built at exactly this commit is affected.
 
-I don't care that much about dtc performance, but that's still a bit
-much to swallow.  I think we need to cache negative lookups to avoid
-that.  Happily, since there are two invalid phandle values this
-shouldn't be too hard.  We could, say, use tree->phandle =3D=3D 0 to mean
-we don't know if there's a phandle, and tree->phandle =3D=3D -1 to mean
-we've scanned the properties and we know there isn't one.
-
-In fact, caching property lookups might be the better way to do this.
-Rather than having an explicit pass where tree->phandle is populated,
-we could have get_node_by_phandle() cache its property scan (success
-or failure) in tree->phandle.
-
-I think that's a more elegant approach than the current one, but we do
-still need to handle the malformed property case.
-
-> +	if (phandle_is_valid(tree_phandle) && tree_phandle =3D=3D phandle) {
->  		if (tree->deleted)
->  			return NULL;
->  		return tree;
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---lz/gZO3uSfdIiUAi
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmra058ACgkQzQJF27ox
-2GcVGxAAqVsqw74rGD8w0m9ospZ0NsC5yBuq2l2/26gjHs4tL6qdl7Op1Ibxv6b2
-NA87Sll7xzM2pS5YOgQiU02aVB3otmNsS5bd9M8xhXbLrK8amvSf0evWU/bMgQok
-E8WwqkRtXMWfbl0xNXsqSLahtXdTPhFi4/eBiOywcBqLQ2Nzs9/SFG3L+Uc57TA6
-c2/yzxEMHhpJz8nIh2qyWwSCIDX4cocH0QhIUEMv4IDju7Qwdx/S4y1KbLUUIWmF
-f0AbbVyB6G/lEZp6BMXD/82mZazmwtFIDSH+stPDqbN6i8VS+OsFqYz0tG2+xW/2
-F83MjCB+WIyGFriEnnBEsNNkRWRu3gY84xWTIYGwwMdDYw3NkmkHOnJkODmqYayv
-JwOrfO9YE/s9UFXaESG3ZWvP9gtHSyhL2mSl+EY6KV4UkCkjAoZzk0cJIiqaE2GT
-yvwWXXtDPXbCpvx59Pmce+LPzcM9FY8OpmwO3Gu78zYzS43YxVFXpxqxHXoie0NO
-WBtOA79prvPTJebdCl67YzWGjKrhvucum71Ry+wQnAc27494VYMJtL+eEZvqdY5q
-B6rxkFzKjwsl7xyRY6/DW3vyLvEZdQyvoiJK2IZynnhtOjk9cc47Uiyn7V+envl2
-f6NycJ7ymQ4PNmwSVHbvJOZNdLO6qpejG14waebE261wxSYIdAE=
-=+sPE
------END PGP SIGNATURE-----
-
---lz/gZO3uSfdIiUAi--
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020093655.344585-1-robert.marko%40sartura.hr
