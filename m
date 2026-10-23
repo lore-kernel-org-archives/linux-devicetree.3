@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792745344;
-	b=K0drYxpvA6Gxa368c70bYrF08RJkvx5wvQV9Vly7kIDe05JkH6rPbuSd97ay/f1Jl+/i
-	 0Z+SUB5uM7U4yRDZqG90BFkn/EVFNjFtM8qzPPWDpVc9PKlPLSkg0PsDcmCZkbdIrM/N8
-	 d6J89yuYXexgoZ6J8Gcp8Ia1ei7WMdJMA/ZGcHq6adTrz94MDlBodfA1MkCDPSkSp1/Um
-	 TB+KhrTx8OMTv5HPo9WBQfWisf3oXnzTJkFOj+JiLsuf6m17GRRcdWyqU17BTG5Hc6Yg9
-	 01zqCaTeUhcxKTmb34lS58qHfF4T3VIYcX2RMTVqU8UDj6e8Xayb5hxlRf7qnr4DEMA==
+	b=tBdP+d7x0sV6Hwtbe8Tlx4GYNrHvDsPzaaee7SGkBwFZ+0VWv10B4kS9HBDdZsGBV6Iv
+	 MBp6VgaAc7vLZQslu8G7EdOHRtS5wUXZAxyrSU7zebxuh7Rf5qbay32WwZrKIkO89Qdm3
+	 nzo8HJj0tg3ldziHEh1Fb1m+hqhVMQAW4ykGLUzKpla9mW/JUbAJX3Q/ZQiKEBwTivA+h
+	 UsbU94CvjOmIgfvpoBZrWvfUspOOSnUmyuiPcXwwD00/2sX5bhOiP8e8C13vw8LjyDsvR
+	 MAiIYq2uJ8hAHsZ/WdDc+p8jb6KkNJqH64IXI8FW7LFI1KGHC7wE+4UlobS7+NlXJFw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792745344;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=W+RT6HxR5If0G7m8IPAN9OQgNQrkSvvUbrqPtxghAd4=;
-	b=Lm81bPYdLKNFHLNORiT7v207VVqVk+FCxO5LVrvjl3wK1pgZQAtOt17ggwkhedK/eEGS
-	 MUvi4mKBFc/ZR2lmsckf/Ff/vagr7OlF4zl0QSMgSCw8F13xN34GBiCivklWF3CnwWbQm
-	 k/aSDbnPNmBQ0pN3GAEp4C723f8zQWqHZ5xT+A/uapaKduScM3m/aVdtoM3oVHAlFGQb6
-	 MPSXUTn48qoi+iyVvFLZvGRYL3Hp8PrNQlvtb4m2TOomj2Hqm6m3pDARWAw6ZKMxkztuu
-	 t/q9i5PpNFMdHV540oNk3A9bMlqGx1I3jKMxzW8fA1Rx6ElXPfYWOeYSJTeS+zqmhhA==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	b=N7tNQkIN9SDSs7i4mAprl8Bst+Ufcy1S8VwYKDRqqM/a7NljUbwtKAVd6SF1wR0bVtPL
+	 wGY1zneNoS+64nDAqRLzl9z52+FtfMliC6EKZa/vXFHtjhSqbED8vL+5Nu5tdc8nWIURk
+	 DNp4ByfJ+5HVPqCFf+x9HBS1os0+H/+mMbIWpZJU2iDPg8WJqnFCttFULS872HAtj21nF
+	 lQrtnlN1f5ovXqAlnTIT/z9RNplWPED+Dgy4CbOgWo33ecKN9XQSj2iJZ8czv1cEJQGRu
+	 Fk1do53GasOz3vtLC8E5RBQ/FZVNFRIDLo6obYGY+ADq5aq4O1Iz7pJuHDYzl+BzrhA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lvi6wnqi;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOP3W1+X;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61094606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3D3606A31B;
 	Fri, 23 Oct 2026 08:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lvi6wnqi
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOP3W1+X
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1792745344;
-	b=BESV0W5vW5pO4QEOwDCfTh25yRNCj1by1aNdjylAVNn7H6eCTaMoOin8J2Hw8NkEaRhB
-	 mReUxq2bjX7p9VlqpEq0Q09LLxiDJXoE8bT54PhlNl533QKWYqRkt9tD4WD+u771ZKZGK
-	 KiTJaGM08GtOE/0k58OK8qIJB8cTKyqFzOyL99SS4oWaJ+Jh8g52dh2mKPbnTDq0B0Pto
-	 oI92MD/2412sKt2St6JDiddcBXwnmCxI2M1p0SvPlkKwv+TUa3TMUuVS7i8Or0okTZDWP
-	 mmV48Dsm0bVguDpDj0aaLXe/V/3g098ESfcSauD6COXMNp9Q5dOYKU683MoWH5mRS4Q==
+	b=OJG96vslcaSapPFMWpTNRnHGO8ozHQLeSZQZcR0lsPkFU24qhY64LEUUAu0cQZ0Nfi0t
+	 dmA6T3p2e1Yy2GdDAuWcNUAxJs2XMOL/Ezjz6z65XLmoCV5iBLx7qUX7OnhfK8zlO8Uns
+	 NRuLWJOihitwva7n0cVHTFbVf/4mM82p+M0G9E9lpu38ZgH5eyPJOuA+zcuUJVrpEqmYr
+	 z/DmuZY5mhydbQgTdsEtTxBdp55DgPib+xFNq2IwIyFvzuZZRhwxFQeSVBUqsY7R/35Ug
+	 5adrjqHCmjcKnmhnox+HFkzlwlFHRj/6fsAj4GrPEXkvlh6kfX+ecGyXOdQoBQNIYyw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1792745344;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=W+RT6HxR5If0G7m8IPAN9OQgNQrkSvvUbrqPtxghAd4=;
-	b=VZSRU/rz4XV38PR6M0DzSyIy+xwpXOqRfkaELYhkGr2iSFwUJ2R2l2MueiLQMLO5Lgwo
-	 aYPSUqknfkOY/MCrQEpfsUgPEzw8LORoJYpzZ8yRhZc2fdo1Cw0FINwMJJcIwfMy8FoBa
-	 pdZvZ5B3Wtqs7mCJZFh0NDEDwTTRWbkOTSBTnd529U0frkJR1OEqBDATnOk0+bVK9E+Jv
-	 7W/bh5d2ep8KYaJvwb19++tkzOLi568JCHrI8rpDfVyBD2ip27McmNalxT0eUGAlaVN4E
-	 wkebKtba+INdiD41GORQ9A3CO24EL5bTQ3D+D2ZkfpFY5Na6tDtjEXn3QFmQjxhb4Xw==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	b=UuQAYlS5Ky75kAWpbFyyTt1wuctTPrgFQ1WN1E+cmECVhp7NTL9C1O/bizo3bRRrp/A8
+	 U0XyatAJbpPDw4Vtn+7R7WIHpXOG6aW4HUpV5aqCi3Cahz13Uw2dKK2CcBu1jhvR1TLNO
+	 F1h04cBP26nxHNksILIme9AmF652pqXarZQyUdZp0+/indeBrwe3pAPm65uJpWe4vX67v
+	 W5X6JIuVyP0PnFY7q5we0o9k0CRZ2XaPDAPopEtZM9zafHeL4ZN43X2nVb5ebbt3dmX10
+	 3tg91XeaFJSgaTKXBv2jEdDuAfo09NtvQRvf+psfjAWmCFCwJjbu+G9h1WtYhsIl3Hg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CD6471F01825;
+	by smtp.kernel.org (Postfix) with ESMTPS id F2ACC1F031E1;
 	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792745344;
-	bh=W+RT6HxR5If0G7m8IPAN9OQgNQrkSvvUbrqPtxghAd4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Lvi6wnqiDjSvkqZoInc6X/QDfUkYJVrYq7wUfuMeYJs9l4srhU/jkSSd3lXMbcuCM
-	 Uj8ohrMEIvyzHjeKqGa10Kmyr+LgbXXWPMBLQv95iq4NxeJS5ydSmLhQT8tkO3UVIb
-	 sfwzLI0SCDCbA3sWT+dNpFmlvP/TF4ny9z3VVq5piQXF/jZi4ILd4nc60ye1hN3Hb2
-	 WaHdlY0ymn30qbjX++dpZ5kIwq6tGoZkyt6+1U21th+p70I04hEr/Fr1Ahkus7gYlG
-	 N11ZZGMAC22mQ/8ONBpzsSZNbyr3L622NFuegj0tycSZWZLUS9sXVWZTASXKh3G6Pn
-	 Km8dM+DwxTdDw==
+	bh=VC9nYWlngLoo0ikksJdWqMZri11D3jtQull+TR9q83U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bOP3W1+XtnZULebPv1WwtFfZ6Yc2QQ9zHsdnxF85OnAK6ivTSPKojZ4zbPfzuVAkx
+	 0bKqaf4N9bER+deu8V1pMUW+xoCI4N4iVvqZKDSAsGutYquWtSVB74PLkzKo6Pj3Dv
+	 h6eQERK7mhiMhgttEhMHU0pB7V5PUSOCRrT4YNVuJYz8AzF5Mgl4Kx82Y+KVY+bYGZ
+	 KkW8qk/RU13lzC/27FqtR+hDW4efYto9P3J8TMdGWfEGWsGZK4o3nv7ImYAxvGzuq0
+	 ouBztNBYxhf4boaAongYUPdEFaAaKrIzFgf4mgvSiEIbPMbiC2XZscQVhX6/zNSvtn
+	 M8LE41GvKCfww==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5C51B44439;
+	by lkml.kernel.org (Postfix) with ESMTP id 8313F44445;
 	Fri, 23 Oct 2026 08:49:02 +0000 (UTC)
 From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Subject: [PATCH v2 0/4] drm/msm/adreno: Add Adreno 620
-Date: Fri, 23 Oct 2026 14:18:58 +0530
-Message-Id: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
+Date: Fri, 23 Oct 2026 14:19:02 +0530
+Subject: [PATCH v2 4/4] drm/msm/adreno: Add Adreno 620
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,12 +83,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBBFr9LMWgygodZV72G6oGWw4wLMUImm6
- d2FunX5kvffXyEhEya4NiswZkoUQwF9aGCabbijIFcYtNRGSWWEdYwhCmu0FN4imq4bTxftoSy
- ejJ7ee+02/Di9xgdOS01UY6a0RP7sd1lV7385KyHF2bbojFbSta4f2fIxEQzbtn0B0Y5YkLYAA
- AA=
-X-Change-ID: 20261016-adreno-a620-faee699b382f
+Message-Id: <20261023-adreno-a620-v2-4-1d654c3f52d5@brar.si>
+References: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
+In-Reply-To: <20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -105,103 +101,90 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792745340; l=4076;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792745340; l=2351;
  i=patches@brar.si; h=from:subject:message-id;
- bh=/beW+AELpxp6o1wu1hniusiXifJZlEukCyeC01/aOdM=;
- b=FQHQoc8nksHyFjwH9rtQud/6Sz7XiVo9yW+GxJLlCUUjw1Ls15rVTcsdPiz/S/b0//za1teSJ
- gD3SEC2o7apC+fT/I0o+6AihJHFhbUqZSi01k882SZIwpPELBzyZrqr
+ bh=tU61s/7XnImqnoXanHZtlX9L/8bbUJ87V/QXf+2mrqI=;
+ b=OG6UaA9YwE3jmVOZ0IRBLIxk82gnLtPxhTtMjMEkVUhl1vSTVzrmwhVpXvvAMrBh2xa1Wwae1
+ XDeSEWgm/KKBtxQn9doZl9UHBq9NAeGvqTYqEgHU/fsinYx/+kRMyH8
 X-Developer-Key: i=patches@brar.si; a=ed25519;
  pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
 X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
  auth_id=1189
 X-Original-From: Ishu Brar <patches@brar.si>
 Reply-To: patches@brar.si
+Content-Transfer-Encoding: 7bit
 
-This adds Adreno 620 GPU found in Qualcomm SM7250 (Snapdragon
-765/765G/768G) to msm driver. It is A650 derivative using 
-a650 SQE/GMU firmware and a620_zap.mbn. On top of catalog entry it
-needs two A620 specific GMU changes:
+From: Ishu Brar <patches@brar.si>
 
- - A620 has no PDC setup from AOP, so PDC sequencer is
-   programmed from driver (xo/mx/cx addresses from cmd-db). Without
-   it RSC never acks second power-up and device hangs.
- - A bandwidth table with BCM addresses of this SoC. The generic
-   A630 one does not exist on SM7250, so first GX performance vote
-   times out.
+Add the catalog entry for the Adreno 620 (chip id 0x06020000) found in
+the Snapdragon 765/765G/768G (SM7250). It is an A650 derivative and
+uses its SQE and GMU firmware and protect table, together with the A620
+zap shader.
 
-Tested on OnePlus Nord (SM7250) running mainline: the GPU, GMU and
-Vulkan work. This needs the SM7250 SMMU series [1] as well, otherwise
-the device is reset when the first per-process pagetable is created.
-The SoC devicetree nodes are not part of this series; they will be sent
-separately once the SoC dtsi is accepted.
+The speed-bin fuse values map to the OPP bins as in the downstream
+"lito" devicetree: fuse 0 is the default bin and fuse 132 and 115 are
+the two alternate ones.
 
-[1] https://lore.kernel.org/all/20261023-smmu-sm7250-v2-0-8bb881ce19f5@brar.si/
+The GMU clock gating mode is 0x00020202, which is what the downstream
+driver programs on every A6xx except the A612 and A615 family. List the
+SH0/MC0/ACV bus clock managers like the other A6xx and A7xx parts do, so
+the bandwidth table is generated from the OPP table once it carries
+bandwidth votes; until then the table added earlier in this series is
+used. The bus widths are the ones the other parts use.
 
 Signed-off-by: Ishu Brar <patches@brar.si>
 ---
-Changes in v2:
-- Patch 3: also program the VRM command (vrm.soc + 4) in TCS1 and TCS3
-  when cmd-db has it, as the downstream driver does (Konrad).
-- Patch 4: GMU clock gating mode is 0x00020202 as downstream (was
-  0x00020200); add the SH0/MC0/ACV BCM list for the generic bandwidth
-  table. The bus widths are the ones the other A6xx/A7xx parts use.
-- Patch 2 is kept for now: the generic table is only used when the OPP
-  table has bandwidth levels, which needs the SM7250 interconnect
-  driver and DT that are not upstream yet. Without it the A620 would
-  fall back to the A630 table.
-- Testing: v2 was re-tested on the OnePlus Nord (these changes on top
-  of my 7.3-rc7 port tree, not on msm-next), with the interconnect
-  path and OPP bandwidth levels in the GPU node. Vulkan workloads ran
-  across GPU power cycles and all four GPU frequencies; each frequency
-  selected its own bandwidth level, the generated BCM votes scale
-  linearly with the OPP bandwidth and the GMU accepted the table. I
-  could not read back the resulting DDR frequency.
-- Protect map (patch 4 follow-up suggested by Konrad): not included
-  yet, waiting for the downstream reference of the 0x1c800 range.
-- Link to v1: https://patch.msgid.link/20261016-adreno-a620-v1-0-4a7ed6210d7d@brar.si
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 35 +++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Sean Paul <sean@poorly.run>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 4ef2bd6e7..bea11ba6c 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -943,6 +943,41 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			{ 169, 2 },
+ 			{ 180, 1 },
+ 		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x06020000),
++		.family = ADRENO_6XX_GEN3,
++		.fw = {
++			[ADRENO_FW_SQE] = "a650_sqe.fw",
++			[ADRENO_FW_GMU] = "a650_gmu.bin",
++		},
++		.gmem = SZ_512K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV,
++		.funcs = &a6xx_gpu_funcs,
++		.zapfw = "a620_zap.mbn",
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a620_hwcg,
++			.protect = &a650_protect,
++			.gbif_cx = a640_gbif,
++			.gmu_cgc_mode = 0x00020202,
++			.prim_fifo_threshold = 0x00010000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 132, 1 },
++			{ 115, 3 },
++		),
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06020100),
+ 		.family = ADRENO_6XX_GEN3,
 
----
-Ishu Brar (4):
-      dt-bindings: display: msm: Document Adreno 620 and its GMU
-      drm/msm/a6xx: Add a bandwidth table for the Adreno 620 GMU
-      drm/msm/a6xx: Program the PDC sequencer on Adreno 620
-      drm/msm/adreno: Add Adreno 620
-
- .../devicetree/bindings/display/msm/gmu.yaml       |  2 ++
- .../devicetree/bindings/display/msm/gpu.yaml       |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 35 ++++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 35 ++++++++++++++++++----
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c              | 34 +++++++++++++++++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 ++++
- 6 files changed, 106 insertions(+), 6 deletions(-)
----
-base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
-change-id: 20261016-adreno-a620-faee699b382f
-
-Best regards,
---  
-Ishu Brar <patches@brar.si>
+-- 
+2.56.0
 
 
