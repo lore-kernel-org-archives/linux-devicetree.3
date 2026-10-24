@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.122.197.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792881200;
-	b=g+1GD1E0pY37OVsXnWQ0/6uM4emrnwULEoqDZeoXSk+pAqLbHbQyrOX+0KMEAc1BGJcK
-	 ynHJv2HEFDq4ugXCE9nli5XgVCGJRtN3OQA6kx8ArO4yS/zTB3S5Jzfhu967K55Jhk5ME
-	 7UZeC8VM3NzJLqbWePxEfNbddr8t00yxlS22ZS5nj4x8pGVVFQ4jEDzhPDVwG63OBdHdK
-	 kBAhwof4J2521MdfWNeMuTSjYFT96tZXjOi1qLVkLpw/U4b59aXsFn8CuH/i+YQZCczl8
-	 qY1jEoyTcGlMKYkUqTdGg+4NfR3UiKh2pnqoAqaASN7SlIlQd4CbWDSzswzZbs04j4g==
+	t=1792881244;
+	b=G6W+d/Rkzy4+8HEf7VyCW8QmFAMiZHUWGmDy+WHoBlczsEwceOF0Eq21vbdTWcEuB7HK
+	 4tyvNdzXsp537j4OyoO1Rw/CS/lbpFwXPLlqaJMvYgYZlLLbA4Rw0giOKk01CMBPmeqYj
+	 v0voRHNO5wP4C5Q8dJMXnxssoG2FlPJz0wyjaDXnwrI1kQ4d/lqF5USwkj/LssKi8EdPv
+	 8ngWTIee01DNxbY+V8kicxk3kCQbrNqcJ4ZZTlzWfXWs1O0QIQMPiITP7yyoJ/qyEGucq
+	 NAaCcafkhT0cyoReE4JnAwcHz5gKfBUAn3CLvogBNhrAVpoAYO0fh/5VW/Xf04iK0Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792881200;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TGz7r1Aby2yZxmQUWdeEn21pWMzlGMbPc089rpZiF60=;
-	b=1iN946JnlMGq5vCIPvDUNw3Ol988IDJ7IKx6mjJDlN9MvABdb6RmZf6uTNjsuVMHhp45
-	 fwNAqL8p18IxqiPzK1+UhGDRlwYaVZ9gD3CiHa0IKdi2rydQ3PLtTpiz5AbRQGoZpwd3L
-	 dN6PaKW5sxY2xfaL0YZJMdXA/VBpbq8YpKbQ9B1G/0EcSogIAJ1ZdyTILVC4YjShtvQ4f
-	 PCgrn1UR0pK+s/o835nkLLFLUhUVo11nnFXVhfS4QxpJIz+Kc/HGi1sXUc8lvbTgvVOLt
-	 2zOAMAjTOQk6DRSQnaRnHm2Ci0EtMuKxwxryziOZlMR3Z4YhddEhCIB07F7v0Qncbtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792881244;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=9FKFT4GV4wTq0oAbEu1SN4x45q9hHNfBb4/xX4YHDwU=;
+	b=gbOvu8x4LxopiMLaQa7g/C/crl8K3hjKSxUClsWTzqYJBNpxsdPTg3mU7C4nXwSoKaqq
+	 9b7W4wImj7XmOWTa1pi9tjFEh3SkIjYSg3WBXT/+fxiPyI6omCDbJUO0frR4n4DIX50Dn
+	 tMnqIi3ayFNLnFa9nMtT34gYZF3TSQ7Jjogs6ItgbZNlA4sZLbWGxRnfFfapwYoKLX59P
+	 GM9bfFapfW41Jx3wAm+DGgLzkSTuFUVrla7TyuyXB1npmN8UvwAO90v27jjqcctcWztfg
+	 5YimQpgve1W1aNFE12m77Zi+wfrhDanjTKfolr/19gQGxq8lG5643Eqmwg2Y/LRw0+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gsjvu2f/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=ptudor.net;
+	spf=pass smtp.mailfrom=ptudor.net;
+	dkim=pass header.d=ptudor.net header.i=@ptudor.net header.a=rsa-sha256 header.s=epistula202610 header.b=u9v3+Y3Q;
+	arc=none smtp.remote-ip=74.122.197.115
+Received: from junia.packetexport.com (unknown [74.122.197.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D16B606A31A;
-	Sat, 24 Oct 2026 22:33:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3210C606A31B;
+	Sat, 24 Oct 2026 22:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3210C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ptudor.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ptudor.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gsjvu2f/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9371F01825;
-	Sat, 24 Oct 2026 22:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792881200;
-	bh=TGz7r1Aby2yZxmQUWdeEn21pWMzlGMbPc089rpZiF60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gsjvu2f/4orqpDcqlU52e59XPEzbiNQWZwmx24oDc2m4q8v/RMh4WziztpRDDZt2W
-	 xNz+BSDzwqxY2zYdOFTTOI9pwpXA9f85PDGAmayIcFuJj12Bs/CRmw6GS+BGuCdUrC
-	 jxgniBwN0BjPxPAfYSyOyPga1BAG8EpB7SiVL56cHXq/4jKgu+919p8Q/LKuc9Un1z
-	 PbpsxA1ZpTY/vCHXLp3ACN1jJuTn3mC3/S1G/fWd9t9MkWNalMPqoyGhFIA5WQLXh/
-	 goSgcTd9OOh68bUe4fqvHumpgCBe7JoCodiLLKncAlQ7NXQiBJZgnRZRm16FYepzsp
-	 BEAiWyOFXjoRQ==
-Message-ID: <sashiko-outbox-183928@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/2] kbuild: Convert %.dtb(o) targets to single
- target rules
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>, "Nathan
- Chancellor" <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Saravana
- Kannan" <saravanak@kernel.org>
-Cc: "David Heidelberg" <david@ixit.cz>, "Arnd Bergmann" <arnd@arndb.de>, linux-kbuild@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261023-dtb-dirs-v3-v5-1-dfe13d47aa64@kernel.org>
-References: <20261023-dtb-dirs-v3-v5-0-dfe13d47aa64@kernel.org>
- <20261023-dtb-dirs-v3-v5-1-dfe13d47aa64@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 22:33:19 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=ptudor.net header.i=@ptudor.net header.a=rsa-sha256 header.s=epistula202610 header.b=u9v3+Y3Q
+Received: from junia.packetexport.com (unknown [74.122.197.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by junia.packetexport.com (Postfix) with UTF8SMTPSA id C282F1A8F4;
+	Sat, 24 Oct 2026 22:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ptudor.net;
+	s=epistula202610; t=1792881235;
+	bh=9FKFT4GV4wTq0oAbEu1SN4x45q9hHNfBb4/xX4YHDwU=;
+	h=From:Subject:Date:To:Cc:From;
+	b=u9v3+Y3QBsILPCGvEueHvFsak4yg9Dczx5FmhPGDdQoSl7MtIyh0jgq0c+VjQFjLj
+	 fnoMrxM7UDHeMgJ/Vzr6BYGaC8SX5Kqfaz8liF2GBEVXnmRt1dDMl3DtXyhpVUjlso
+	 Ze4UPyolYeEl6P4le2qhIPLejcFwmwqItQa02kV8bqdEGFodHHdm2yhYqVkRa2iayh
+	 aTrFHfxVnzXQ1f4AfDoHmBSIjD+PRPPFayvCHRhzji7UHs5dDnEr5W05fx9d4KzzSo
+	 6cMB8AdIvy9SWnIYtUxco67YyPiP0epwDWfLAh02OV9fDPsDRi2HOX8Gf8kZvraSO7
+	 o+uhEwCtgc6FA==
+From: Patrick Tudor <ptudor@ptudor.net>
+Subject: [PATCH 0/3] hwrng: add Microchip RNG90 support
+Date: Sat, 24 Oct 2026 20:18:21 +0000
+Message-Id: <20261024-rng90-submit-v1-v1-0-e265cfabc9af@ptudor.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,145 +61,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQ6CMAyA4VchPdvYTYXoqxAP26yjB4ZpkZAQ3
+ p3p8Tv8/wbGKmzwaDZQXsRkKhXu1EAaQsmM8qoGT7515K+oJd8J7RtHmXFx2NEtXVJHwbkWavV
+ Rfsv6P/bP6hiMMWooafh9JpUs5TwGm1lh3w9KZ9rwgQAAAA==
+X-Change-ID: 20261024-rng90-submit-v1-705c3c70a116
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Olivia Mackall <olivia@selenic.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, Patrick Tudor <ptudor@ptudor.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2135; i=ptudor@ptudor.net;
+ h=from:subject:message-id; bh=BEsr2UYznJ1f7avw8c0N4xKRrhZmnDrB3+ETAb7s0/s=;
+ b=owEBiQJ2/ZANAwAKAUJsSqIaQAcoAcsmYgBq3RLK+lNbgUC3/1zv7/0dgEdwSwWMpc8Ud/5k7
+ qZEHeWl0f2JAk8EAAEKADkWIQSMT1jvuUVJAiZ9mz5CbEqiGkAHKAUCat0SyhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQQmxKohpAByjwChAAhyDHVKor77hPmp1XLylHBpeYFRyxaXb
+ QuhuOENv42ht8J0PkLbhTc00mpDm3D9ZQuOmXoECyiNTOrxXWRI8BHbamAFUrFq+dgo82d+Pztf
+ RmtUPvRegzEMVn1X+Mj6P8HLKryLb4Hdz+w3imzUpFvhoWMkba5qgz7n+Q3QX5Y7+BvzufD32KP
+ 36+UjMwIV1Jx+7HAaZOmZqGCVZjGgP3+sK4xWqxW9ssxsTwZQ34I1HvRGKCccLBQELESkdlyJMn
+ 2Kzmv2TsSHeRDavya6sYrVCgvfA6MciMaIa5Tiu3YU+Yy/qfE/KFPcEdoW5nzytFRY2MkSgiXfD
+ DxSfjJmJzEOo/rh4hR+sdkAkNNw4JRArbDQm9OQBaO/cVgabfjYL0KejRIA/sgyv78Qeirvvxb/
+ YNxdnpIP+7kDZ4tvqjIsqsvApPvp+yJUcKuxS+ms6y1jyt6RmSKpXKLD6pYXa1/MYbzZ5ytiMZn
+ XHSbNojXzVhEWwt3ohj0wLDD8XS/QDTcr/dAOV0ygTIauX9yuZvj9ccWQfWGYIrFwVkeCP8DeYT
+ apYGkS1X6XjcXFSMVimAJ0gBrvJLjHqQH9quSw3VNd6XZf2WkROkvc4OllkqGFrheAS0tHiw5/g
+ 91m/vgD1zCsCbRjoplVIYHiNM7v1uezlg+J/zUWyHguovB16/vns=
+X-Developer-Key: i=ptudor@ptudor.net; a=openpgp;
+ fpr=8C4F58EFB9454902267D9B3E426C4AA21A400728
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] kbuild: single-target .dtb and .dtbo rules fail to descend into bo=
-ot/dts
-- [Medium] kbuild: unconditional dtstree prefixing corrupts non-dtstree .dt=
-b targets
---
+The Microchip RNG90 is an I2C cryptographic random number generator at
+the fixed 0x40 address. It combines a physical noise source with a
+SHA-256 Hash_DRBG and returns a 256-bit result for each Random command.
+The device performs runtime health tests and self-tests before releasing
+output.
 
-commit 7e93223635a0ece771bb2b9e12840b3751ca5a16
-Author: Rob Herring (Arm) <robh@kernel.org>
+This series documents the compatible, adds the hwrng driver, and adds a
+KUnit suite using a scripted I2C adapter. The driver wakes and identifies
+the part, validates framing and CRCs, polls within data-sheet deadlines,
+recovers once from transport or synchronization failures, and withholds
+output after any device verdict or malformed response.
 
-kbuild: Convert %.dtb(o) targets to single target rules
+The data sheet specifies 128-bit security strength for each 256-bit
+result, but that does not establish entropy per output bit. The driver
+therefore starts at the hwrng framework's minimum nonzero quality of 1.
+An administrator can raise rng_quality after qualifying the complete
+platform and its operating conditions.
 
-This commit replaces the dedicated top-level %.dtb and %.dtbo rules with the
-generic kbuild single-target infrastructure, rewriting relative DTB paths to
-include $(dtstree) and using dtbs_prepare as the prerequisite for DT-only
-single builds.
+Validation against the base commit:
 
-> diff --git a/Makefile b/Makefile
-> index 4ad67b737af7a..c307ee9293bcd 100644
-> --- a/Makefile
-> +++ b/Makefile
+  - dt_binding_check for trivial-devices.yaml
+  - full x86_64 defconfig build and a separate W=1 module rebuild
+  - UML KUnit: 32 tests passed
 
-[ ... ]
+The driver was also exercised on physical RNG90 hardware through the
+in-tree hid-cp2112 adapter: three 500-block streams, hot unplug/replug,
+unbind/rebind, and S3 suspend/resume completed without driver errors.
 
-> @@ -2212,8 +2208,20 @@ ifneq ($(KBUILD_MODPOST_NOFINAL),1)
->  endif
->  	$(Q)rm -f modules.order
-> =20
-> +# For compatibility with existing %.dtb targets without full path
-> +single-dtb :=3D $(filter-out $(dtstree)/%, $(filter %.dtb %.dtbo, $(sing=
-le-no-ko)))
-> +single-no-ko :=3D $(filter-out $(single-dtb), $(single-no-ko)) $(addpref=
-ix $(dtstree)/, $(single-dtb))
+Signed-off-by: Patrick Tudor <ptudor@ptudor.net>
+---
+Patrick Tudor (3):
+      dt-bindings: trivial-devices: add Microchip RNG90
+      hwrng: add Microchip RNG90 driver
+      hwrng: rng90: add KUnit tests
 
-[Severity: Medium]
-What happens here when building an in-tree .dtb or .dtbo target located
-outside $(dtstree), such as make drivers/of/empty_root.dtb or
-make drivers/of/unittest-data/testcases.dtbo, or when $(dtstree) is empty?
+ .../devicetree/bindings/trivial-devices.yaml       |   2 +
+ drivers/char/hw_random/Kconfig                     |  26 +
+ drivers/char/hw_random/Makefile                    |   1 +
+ drivers/char/hw_random/rng90-kunit.c               | 820 +++++++++++++++++++++
+ drivers/char/hw_random/rng90.c                     | 555 ++++++++++++++
+ 5 files changed, 1404 insertions(+)
+---
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+change-id: 20261024-rng90-submit-v1-705c3c70a116
 
-Because single-dtb matches any %.dtb or %.dtbo target that does not begin
-with $(dtstree)/, targets under drivers/of/ or drivers/clk/ have
-$(dtstree)/ unconditionally prepended to their path, rewriting them to
-non-existent paths under arch/$(SRCARCH)/boot/dts/drivers/....
+Best regards,
+-- 
+Patrick Tudor <ptudor@ptudor.net>
 
-In addition, unlike the single-dt-patterns check just below, this rewrite is
-not guarded by ifneq ($(dtstree),). On architectures without a boot/dts
-directory or during external module M=3D builds where $(dtstree) is empty,
-$(addprefix $(dtstree)/, $(single-dtb)) prepends a leading / to the target.
-
-Should this rewrite be guarded by ifneq ($(dtstree),) and restricted to
-paths that actually exist under $(dtstree) (or do not already exist at their
-given path)?
-
-> +
->  single-goals :=3D $(addprefix $(build-dir)/, $(single-no-ko))
-> =20
-> +# DT-only targets need host tools, but no architecture-specific preparat=
-ion.
-> +ifneq ($(dtstree),)
-> +single-dt-patterns :=3D $(addprefix $(dtstree)/,%.dtb %.dtbo)
-> +ifeq ($(filter-out $(single-dt-patterns),$(single-no-ko)),)
-> +single-build-prep :=3D dtbs_prepare
-> +endif
-> +endif
-> +
->  KBUILD_MODULES :=3D y
-> =20
->  endif
-> @@ -2225,7 +2233,7 @@ prepare: outputmakefile
->  # make menuconfig etc.
->  # Error messages still appears in the original language
->  PHONY +=3D $(build-dir)
-> -$(build-dir): prepare
-> +$(build-dir): $(single-build-prep)
->  	$(Q)$(MAKE) $(build)=3D$@ need-builtin=3D1 need-modorder=3D1 $(single-g=
-oals)
-
-[Severity: High]
-Does routing single .dtb and .dtbo targets through $(build-dir) allow
-scripts/Makefile.build to descend into arch/$(SRCARCH)/boot/dts?
-
-Previously, the %.dtb and %.dtbo rules invoked
-$(MAKE) $(build)=3D$(dtstree) $(dtstree)/$@, starting scripts/Makefile.build
-directly at obj=3Darch/$(SRCARCH)/boot/dts. With this change, $(build-dir)
-starts at obj=3D. and descends into obj=3Darch/$(SRCARCH), which includes
-arch/$(SRCARCH)/Kbuild. However, in arch/$(SRCARCH)/Kbuild (for example in
-arch/arm64/Kbuild):
-
-    # for cleaning
-    subdir- +=3D boot
-
-neither boot nor boot/dts is in obj-y, obj-m, subdir-y, or subdir-m. When
-scripts/Makefile.build evaluates single-subdirs at obj=3Darch/$(SRCARCH):
-
-    single-subdirs :=3D $(foreach d, $(subdir-ym), $(if $(filter $d/%, $(MA=
-KECMDGOALS)), $d))
-    single-subdir-goals :=3D $(filter $(addsuffix /%, $(single-subdirs)), $=
-(MAKECMDGOALS))
-
-single-subdirs is empty, so Kbuild stops descending at obj=3Darch/$(SRCARCH)
-and places arch/$(SRCARCH)/boot/dts/<vendor>/<target>.dtb(o) directly into
-$(targets) at obj=3Darch/$(SRCARCH) without ever including
-arch/$(SRCARCH)/boot/dts/Makefile or the vendor subdirectory Makefile.
-
-This causes three regressions when building single targets at this commit:
-
-1. Building any single .dtbo target (e.g. make <vendor>/<overlay>.dtbo)
-   fails with "No rule to make target", because at obj=3Darch/$(SRCARCH),
-   need-dtbslist, dtb-y, and dtb- are empty, and scripts/Makefile.build:
-
-       ifneq ($(need-dtbslist)$(dtb-y)$(dtb-)$(filter %.dtb %.dtb.o %.dtbo.=
-o,$(targets)),)
-       include $(srctree)/scripts/Makefile.dtbs
-       endif
-
-   omits %.dtbo from the $(targets) filter, so scripts/Makefile.dtbs is
-   never included.
-
-2. Building any composite .dtb target defined via <name>-dtbs :=3D base.dtb
-   overlay.dtbo (such as make qcom/apq8016-sbc-usb-host.dtb) fails with
-   "No rule to make target" because the vendor Makefile is not included and
-   multi-dtb-y remains empty.
-
-3. Building simple .dtb targets matches $(obj)/%.dtb: $(obj)/%.dts at
-   obj=3Darch/$(SRCARCH) with target-stem set to boot/dts/<vendor>/<board>
-   instead of <board>, silently dropping per-directory DTC_FLAGS,
-   per-target DTC_FLAGS_<stem>, and base-dtb-y automatic -@ symbol
-   generation.
-
-Note that a subsequent commit in this series, commit 02ed329e5679 ("kbuild:
-Support directory targets for building DTBs"), partially addresses traversal
-by passing need-dtbslist=3D1 for DT builds and adding subdir-y +=3D boot/dt=
-s in
-scripts/Makefile.build when need-dtbslist is set, though this commit is
-broken on its own during bisection (and the %.dtbo filter omission in
-scripts/Makefile.build remains if need-dtbslist, dtb-y, and dtb- are empty).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-dtb-dirs-v=
-3-v5-0-dfe13d47aa64@kernel.org?part=3D1
