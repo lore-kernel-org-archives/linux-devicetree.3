@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792834586;
-	b=VhUWo0nX7FXpqXJhnuuS3Vx0YvTNbdHyyGqMCMn3KTeQNaceHxmTsokEVYwRrYY4Eisw
-	 8l+dXEVPDbL6Y5/vHIa78Iza20vMN74r4MaZR66FEgpiWrfNSRlB0YeLfr5kyCTl78ZGg
-	 Uu3xykO72IdbI2liCN1/ffGbsaEZDIr582AqmP3Qe/X8MEXmNOxKH9WQl8DJNz4YfB573
-	 33FrsRQQGTxwph770iYsnAnOzvBA/jWKwXib9o3+0T5RxoGUCn8DRXmz1oa8nbqxDk+gZ
-	 JvfW1wDYmVudEo4LIHoWHzN39ouRumiQ4AD/gOs3tOqb8njglyIbW7FOMTVE7D6UuwQ==
+	t=1792834870;
+	b=xVsZECg6GucCD9udvvANamY0n0PSPXMZTkCWbmHe9KnjIK/lS1fXiYrBc9wjI1RZxGr1
+	 3Mgd59YCE7JQ+xyCOmmA4hheNMFQfEFyDXaZrOiYW35p1cuc15x3fo7gPsZMZIf+jJi1k
+	 KG37TIM3BodbwxmlXP934agdT+ZYB4fZhXcDJKWHJiw5lMnZSlcz5Kh/Qf2tUgqtu1sWR
+	 MunT30mA4yb29/WonEN5e41epESBi8ppO80n8KcJLCVdh3KFyiOabdGE6ItE6WwabvKhw
+	 y2oSBj0UF/6oF98JK4OSaXnaCIMxENIuDhrTMQM4TRzo11Jkbub1I5Ll+HCalT/v1RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792834586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834870;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gMyE/bwNHNvJtVtft6/NTSea/d4Id6yYWiO5x03MIPU=;
-	b=QgbSnVXhMyK/iiyC1fxwl2yQNrxxaUgZyfW77O6TDCtV6w6ab1EwHkWfYCIAAZtJ7MIs
-	 fWg+cCHfVkWnIcKp6WC5Us8dm5R0BIfnQPD2X+sTqLUlPWMyXWX55KxP1p0cI3GRbwCGn
-	 nDm+oHv5GyGolvU0Q6jFwzIgZm/R/5DaUrAgvrh5mYm/449slXl1gZyH63xIjt2ZnP+sq
-	 coZcqZlJQKRsjh9MU2pNvPQlyT4IdxGLakzXGnR2PTZGzu7Durc7epS2oG2du6nIdA9Yo
-	 Glf0oByPOMZqJJh3d9zC3JWLY1Vf171iy4olFt5sLgdPFrvWQUbZ8V+kSrsiQTYF0Ew==
+	bh=gp8v4YIpvhc/cW+8AAwH/pbh7kW/DrLh0VSfsyEpdY0=;
+	b=Qq5Vy3zYi2yf+y4T+8vJPCTUNRChY7UGc/4LjpH59zlF6GmFoz/WDJIJpJ/iJeXyyH9R
+	 NLu0hdV5cqI/+zxTQCtHjf6UFojxqIsbl5tBBCtXiAzm9rjbaXTs93ZCF7yl6/QMK35Fm
+	 KgO2eHi79lVrkioYhXC/SiWnbtfmx17N7LC3bFQyR+y0UmN0Qa8TgWxu8CQVQ7uDmBreN
+	 YCLfcC+J3L5u/8M4MDku4rERCkSNiXaSVUG/kWNKoVVKNuq2TQ2YH+ILhtLcHGq1nVy4+
+	 P9x0YSlIISN+9YYm+QAp9ToXphA6NEroJ3879VL2Eqn0RQwQ9LZ5NKcx1Rv+cZqLWyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf2rqR+s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X96CjI4y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E1F606A31B
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:36:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98DE606A31B
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf2rqR+s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E355F1F01825;
-	Sat, 24 Oct 2026 09:36:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X96CjI4y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58841F01825;
+	Sat, 24 Oct 2026 09:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792834586;
-	bh=gMyE/bwNHNvJtVtft6/NTSea/d4Id6yYWiO5x03MIPU=;
+	s=k20260515; t=1792834869;
+	bh=gp8v4YIpvhc/cW+8AAwH/pbh7kW/DrLh0VSfsyEpdY0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gf2rqR+sQ2pRf/tXhR1gZwubb0kE3RYu2sOF7kAGjvE59LyCHYnuIPGKlzBCgMEzv
-	 nGmk3JNTDQ3zpXWO+UnKi9P6upN/wsZ2D34RsIx8tmiF3XddMMoBE5b4bjIy1Pupzl
-	 2ka64P76roMiCPkcK9G91jaNmclRoNAFveWLEnUV4/ss5rmXBGt7oND3teK0cYiUf9
-	 JXGF4A9YOYWQfttF17qFqz8S2vrU356BU6gTNueMuC8hLp/oyIiXqliJGL2gm0AfLQ
-	 DkeVhiTb+4xzhDfzwkHBWohDgZztRtEntGBhawhQRSWiGuYXTgQQwJI45y1vnDMnF+
-	 tlCIKNHBgX7GA==
-Message-ID: <sashiko-outbox-183622@kernel.org>
+	b=X96CjI4yQPel2m1uAa4dQu98jZ+TOmYr1MYIUvHY/9ZzcfeFQ5/fPBmt1KWbWOkwy
+	 +SVz6/yPalDN82bwpqTkHkaoeBG3sGn3s0o71F2MNJpp/zHH3hc+TBuQo7b8JHkfuf
+	 Jv+fz4tvRJU8MsOBh8KJjmBXLxP9VDxpktS8zsi++/QEyAhSqbmJDqUOGHUOoIDdYS
+	 PStQ793SNT4XQvJFIyH+os36i4SUos+UafwcajUT8cAgs4dTO5z0eYaZH6eDu8qEFJ
+	 nFWL9oRuTItnE0Uahzef/3tfnZD32D9I1aD/RBZhzGvNoyoTGG9FgX7RfPb8hszSMz
+	 K/BNJmsOjeNYQ==
+Message-ID: <sashiko-outbox-183626@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5] arm64: dts: qcom: sm7125-samsung: add initial device
- tree
+Subject: Re: [PATCH v6 6/7] riscv: dts: ultrarisc: Add Shenzhen Rongda M0
+ board device tree
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
+To: "Xincheng Ji" <jixincheng@ultrarisc.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261024-sm7125-samsung-v5-1-5a602ab00626@gmail.com>
-References: <20261024-sm7125-samsung-v5-1-5a602ab00626@gmail.com>
+In-Reply-To: <20261024-ultrarisc-dts-v6-6-c62994d8a114@ultrarisc.com>
+References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+ <20261024-ultrarisc-dts-v6-6-c62994d8a114@ultrarisc.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 09:36:25 +0000
+Date: Sat, 24 Oct 2026 09:41:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,146 +61,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] arm64: dts: qcom: sm7125-samsung: missing unit-address on rmtfs_mem=
- node
-- [Low] arm64: dts: qcom: sm7125-samsung: unit-address without reg on frame=
-buffer
+- [Low] riscv: dts: ultrarisc: dtc build error from duplicate @9000000 on p=
+lic
 --
 
-commit 0db97bf83930cb651c62d03dfabe385a7334be7f
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+commit 5c5bd7084b50957dfbe0dd32f4f9ea2d09255694
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-arm64: dts: qcom: sm7125-samsung: add initial device tree
+riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board device tree
 
-This commit adds the initial device trees for the Samsung Galaxy A52 (a52q)
-and Galaxy A72 (a72q) based on the Qualcomm SM7125 platform, along with
-their shared common device tree include file.
+This commit adds the device tree and pinctrl definitions for the Shenzhen
+Rongda M0 mATX motherboard based on the UltraRISC DP1000 SoC, and enables
+building dp1000-shenrongda-m0.dtb under CONFIG_ARCH_ULTRARISC.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/a=
-rm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+> diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts=
+/ultrarisc/Makefile
 > new file mode 100644
-> index 0000000000000..3a8339395d6cb
+> index 0000000000000..454d849a6ce4c
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-> @@ -0,0 +1,583 @@
+> +++ b/arch/riscv/boot/dts/ultrarisc/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +dtb-$(CONFIG_ARCH_ULTRARISC) +=3D dp1000-shenrongda-m0.dtb
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.d=
+tsi b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
+> new file mode 100644
+> index 0000000000000..ab927c6cd6146
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi
+> @@ -0,0 +1,79 @@
 > +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * SM7125 Samsung common device tree source
-> + *
-> + * Copyright (c) 2026, Erikas Bitovtas. All rights reserved.
+> + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
 > + */
 > +
-> +#include <dt-bindings/arm/qcom,ids.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include "sm7125.dtsi"
-> +#include "pm6150.dtsi"
-> +#include "pm6150l.dtsi"
-> +
-> +/delete-node/ &rmtfs_mem;
-> +/delete-node/ &ipa_fw_mem;
-> +/delete-node/ &tz_mem;
-> +
-> +/ {
-> +	chassis-type =3D "handset";
-> +
-> +	qcom,msm-id =3D <QCOM_ID_SM7125 0x0>;
-> +
-> +	chosen {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		framebuffer@9c000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&cont_splash_mem>;
-> +			width =3D <1080>;
-> +			height =3D <2400>;
-> +			stride =3D <(1080 * 4)>;
-> +			format =3D "a8r8g8b8";
-> +			clocks =3D <&gcc GCC_DISP_HF_AXI_CLK>;
-> +		};
-> +	};
+> +#include "dp1000.dtsi"
 
 [Severity: Low]
-Since the simple-framebuffer node under chosen uses memory-region =3D
-<&cont_splash_mem> instead of a reg property, does naming it
-framebuffer@9c000000 trigger a dtc unit_address_vs_reg warning during W=3D1
-DTB builds?
+Does building dp1000-shenrongda-m0.dtb with CONFIG_ARCH_ULTRARISC enabled f=
+ail
+in dtc?
 
-In scripts/dtc/checks.c, check_unit_address_vs_reg() warns when a node has
-a unit name without a reg or ranges property:
+arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts includes
+dp1000-shenrongda-m0-pinctrl.dtsi, which in turn includes
+arch/riscv/boot/dts/ultrarisc/dp1000.dtsi. In dp1000.dtsi, the plic node ha=
+s a
+duplicated @9000000 unit-address suffix:
 
-scripts/dtc/checks.c:check_unit_address_vs_reg() {
-	...
-	} else {
-		if (unitname[0])
-			FAIL(c, dti, node, "node has a unit name, but no reg or ranges property"=
-);
-	}
+arch/riscv/boot/dts/ultrarisc/dp1000.dtsi:
+		plic: interrupt-controller@9000000@9000000 {
+			compatible =3D "ultrarisc,dp1000-plic", "ultrarisc,cp100-plic";
+			reg =3D <0x0 0x9000000 0x0 0x4000000>;
+
+When dtc compiles dp1000-shenrongda-m0.dts, fill_fullpaths() splits the node
+name at the first '@' character, leaving get_unitname(node) as
+"9000000@9000000", which triggers a fatal error in check_node_name_format():
+
+scripts/dtc/checks.c:
+static void check_node_name_format(struct check *c, struct dt_info *dti,
+				   struct node *node)
+{
+	if (strchr(get_unitname(node), '@'))
+		FAIL(c, dti, node, "multiple '@' characters in node name");
 }
+ERROR(node_name_format, check_node_name_format, NULL, &node_name_chars);
 
-Should this node be named framebuffer without the @9c000000 unit-address
-(and without #address-cells, #size-cells, and ranges in chosen)?
-
-[ ... ]
-
-> +		pstore_mem: ramoops@b4600000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xb4600000 0x0 0x100000>;
-> +			record-size =3D <0x40000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x40000>;
-> +			pmsg-size =3D <0x40000>;
-> +		};
-> +
-> +		rmtfs_mem: memory {
-> +			compatible =3D "qcom,rmtfs-mem";
-> +			qcom,use-guard-pages;
-> +			no-map;
-> +
-> +			qcom,client-id =3D <1>;
-> +			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA>;
-> +		};
-> +	};
-
-[Severity: Low]
-Here rmtfs_mem is defined under reserved-memory with the node name memory
-and no unit-address, while sm7125-samsung-a52q.dts and
-sm7125-samsung-a72q.dts override &rmtfs_mem by label to add a reg property:
-
-arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts:
-&rmtfs_mem {
-	reg =3D <0x0 0xf4f00000 0x0 0x202000>;
-};
-
-arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts:
-&rmtfs_mem {
-	reg =3D <0x0 0xf3700000 0x0 0x202000>;
-};
-
-Because referencing &rmtfs_mem merges reg into /reserved-memory/memory
-without adding a unit-address to the node name, won't this trigger a dtc
-warning in check_unit_address_vs_reg() under W=3D1 and a dtbs_check schema
-violation?
-
-scripts/dtc/checks.c:check_unit_address_vs_reg() {
-	...
-	if (prop) {
-		if (!unitname[0])
-			FAIL(c, dti, node, "node has a reg or ranges property, but no unit name"=
-);
-	} else {
-	...
-}
-
-Since the two boards use different base addresses for rmtfs_mem, should the
-rmtfs_mem node be defined with its respective unit-address (memory@f4f00000
-and memory@f3700000) in each board's .dts file instead?
+Should the plic node in dp1000.dtsi be named interrupt-controller@9000000
+instead of interrupt-controller@9000000@9000000 so that
+dp1000-shenrongda-m0.dtb compiles cleanly?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-sm7125-sam=
-sung-v5-1-5a602ab00626@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-ultrarisc-=
+dts-v6-0-c62994d8a114@ultrarisc.com?part=3D6
