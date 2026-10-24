@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792879638;
-	b=B+i9FAsQCG8Hpz6ekycfSKy3u6bJRgBtFfzBMIk5hzaRPYo0tQiegN6donISp/6OijJ/
-	 Jcj8Rg9A/buHibI+o2AADdlR2F7GaoAmcSQcNwC2Wzca61sQBA47p0WbJyetKluieTBEg
-	 3cVOL8OevF2jSj5llxvmZ7VPNQOAHn4ApbWhohplj/ioOPrYnKvdl9DTlj2KwNVIrIsWU
-	 5mDbkPGKDaWSJbOMfcQLnv6v0eFPPF5ZaFCrXxwQWSAd+ba4ne6TKkHKpHZc81LeBUk+3
-	 PGMzsmPucxRW5ucVMNdXPffQ8sY4Dk/S+6U3pjZ6Tw0v6F2urDnYeKXZCingWK4TXLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792879638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xpsIF/cfagR2zVFmuilPnUkqxjm9mv7XoS2i7FolaHE=;
-	b=3e13w7olA78+Bls2e4vCoaHAAFlNMglIKgzJuxf8o+jFDlSkvKvAVK71bAi2q2vRgmRO
-	 Gmnl2olFFd30pNSklU+IGJHOmX2jujLNFWj3JMWJeTwtUEavW4s8Xgy4MFPwZyWoZWhzN
-	 EAipKZ51mysdui6QnWHmtqRvgMKZlHPjGDsmgcPVKhMQv/NPGX5MqsSGlLNM6c1lAP6JS
-	 ZZRO5x3/1E9Ac5QkZ6Y8x+iHQZUx4rOC+QWmSjBxtgKx7rnIafEgK2mtz/tw7GnlGq7xA
-	 KJD7Jl68zu/ryXCWfNqgoy0eJqwBAWy7RU5eQDF0ive9U/lZ30kBMXcC4z6BDU2kz3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=bMCFuXIW;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792880109;
+	b=hbTvFlkqif59IiB3070IMmzppJpq9Gqxanor55ZHA9ZPoij0XIqHJqf/iWpwCYj41nRz
+	 ptHHHm617LjhosE5ygYY03B3Yu/YzfBRLWf2MNjQKjZHxy0FqvdHUkdDn4WV2T5/jv9M4
+	 gi59dw3gY61tXrUBWZNNJYRYgDbBB125IQW4gq66lu6EwKf/Ek9jhnswfAXbkmiHy8wqb
+	 l1fBCh5/oUdqoYo1xD5gXJ8DSpj+yTaVJcdmIRiTy67vcbsyobO2zcsIiTfVAzplkHQxo
+	 OLhaOaPI0jGh4YVNZNu2i+jttCa9F8XDQGq9TNDXiakvki0yJXEC4Ye1S88U4smnkgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792880109;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	b=q8IVQuqPNL9FOJa7lz0pn6HuJv8ULrEUBSBXPZegVJk65vVKjwLAQ9kUAxxVeHT4BwvS
+	 14SJn2HCK72alHoSqEl/J2VxJF5LaNnw2B1yng6IqZlucqk1ibIbJIMudiDOzf72aUyMG
+	 Tofjr+cLSM5sNKQq2f8AnjMRoTyW14IjqjRyROb6KuPxSyDJJPDNNjVX91yl/sg2dXyPm
+	 1jerKfJ0aZmdKfM2TAOXlvyZM9kbB5OffRcr/+ayItTqv4EMETsxzrytjqT4Mn2Df8Jrw
+	 5/WKPJn9Fu41J7hDiEf3V0niQnsDeaL2uagZVmNvUlYop9ef2hJuFkr+wesAyfz1toA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcnNS8Tm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16437606A321;
+	Sat, 24 Oct 2026 22:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcnNS8Tm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792880108;
+	b=TDnFzVEcvMWSZvffwloJwn0y6puG5QuzCfO2KhljkH0/r8P1tWaqjYmlk6pNuZWgSkr+
+	 gF0z3+SDj46Ntwj6iOrHrreWsXyFdWiPZGxdeNWgm+e/j0MGKX1wt2LIW/8uzaBWlK0cd
+	 G+xRRrdlMoaBeKpy2JaGfzr0hakzFogcZAUD0kEGki29SkKaP6/Hst1LXF3SItCP274bW
+	 o2KVfXUdft6OntHrad44Ic8kLc3QiOWNS/8nggoAHsLFrKzAY9/BABZoyZNuMUd/BtjDk
+	 4W8lqtpNPOZUBitKQ49vYF40bUqLt48LFVMZQsL55hmtzN7CtkW3Pdfe5BlhYrKjV5w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792880108;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	b=Nyz1muwitGrHqzS7D4q+U7Rsi1hNEHMMq444nVjnlKdlw4tq/BWBztiKGwA2hRlUSTn0
+	 BbwhtEJW0K4+1GC/sxUzVF1nQnYFGdVxdvyd33ZCG8FPNk4HL9HlhVMMSTzBQTxSLvWk7
+	 KC1BdnfLUIzbdpl5t273uc/9462DYmnI2hJ4fXT7+3X0kET4odMPgZfct5qeJ7Mgj8Dql
+	 p/FMQq5xqWD/KsMbJpQ0kH+g5cBHWRj+zsTe4xvwduIvV6+0ZCHZ+ZtfAbooew1NY6IQ0
+	 FJj3vxzQGh9bhIYB+etfjv92Wf0WAmKkr92wvuub6/qa7oa0Hh02WkGoZ2/4e81cPxA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E78606A32A
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 22:07:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68E78606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=bMCFuXIW
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso19291675e9.3
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:07:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792879637; x=1793484437; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xpsIF/cfagR2zVFmuilPnUkqxjm9mv7XoS2i7FolaHE=;
-        b=bMCFuXIW8WSLFTdO69RsRRj1TOG56FNvXFJDyPKPQCXvpDcbUqzwN5B7XZLTqwR0pQ
-         LhxaNIdIIsCo3fSitwA8UGcYqaF7HYfb7Kkc+I1OmOSlxW6jWJ9w9XVrRiL+01JuXA3/
-         SXcVpcXnls1i1R9b2RAcyjuJlJLZu4LxZeGfGd+xTn5rFEpta2FDYcwDKnulNcKrFhBW
-         53G5GOCh+TkA+UuSB9NdHoHiHQjTGPsxx/c78Vl9NXwkMjLg0hVdnpRVi3zepykbMAT7
-         aZapMts7o0kFqf8YmGfj2XBPq5mqc4eVwFL5aw7pcY8u72ghz0nKfBsejE3tkjA/fMnE
-         SpHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792879637; x=1793484437;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xpsIF/cfagR2zVFmuilPnUkqxjm9mv7XoS2i7FolaHE=;
-        b=M4c2hnwP7zXoezRLAMSe2/iSKQce7LOwx++KY6a5hJnWpGmSBQOXuAC4wKrTtpIAo9
-         JapmsR1I+puwtgwf01p1XPjbCU6Z2O8sCQiXfiBIymHmX9lbn62bEgFp+KBLPms2eCuC
-         DIfvkQ6WKMzKoZsb/hGPV6Mw2H8iQb08ARg8XMiYOjJcj/yb3edTLYbJ45sVEFr7Aa4D
-         LgnzEMKw6D5bQejisa6SQ8aVAWs7UejPJquJAtrkUNBCDWc2xP803QpYVvjXAk3FGhUr
-         zpPj8jo4s7miEL7hpKQeaAoTeytJsJPvYIjx9Lkj6xoDjvHH+La3hlfZPhSQxeg2VjjJ
-         s+Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgib2Soqp7Lf1GIFphy/SKdD8m3TJXjLOjvC/B5WzgteBZYCKQWr0IiRpQ54qwCkSCPWXHKGQTMWT4@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhe87iWPf0sEvT83pwwR0R+NodUynkWu7EMzo7K8sZJvr0vT7Y
-	muDXN32jnKsjxtrc4FEQ7twcZYmhWrILwh/X8je8ofq1eyyRRVaElo/44OpGvPuXneE=
-X-Gm-Gg: AYBFou1f6J2ifYWY+R7e1pd2HXf7aC2VTQUZrfIdk1xGuf8z7jpxCzBQePFmLKLSc5H
-	3KG6scLYwHIiS4jWggVgUc80OTwHYpXKcVcdzxXzC4GYMfXfBvRZx7KQfBNg51N+rK1pXZNGgah
-	zobjpsLI/nBGaAag3hzTAXu8hxQoBgr2iV7dSVL7GlrbEppnTPYHnbONt7BnQhIwRRLscwtOp2Q
-	s9XkvSRk0JR3hfcodRc0tOpsshFHO7jlsD0m4eOHt/Z8vTUr+I5JSR6DAR2nu6yS7INOBtyIPT0
-	6aHKd3L0W65Z1kaThn4p/QP9XMH8BSznA5c7KMWSgvYrAbxyfSKRMSny0IlzvbTMrxJ1bwWlIV9
-	kVpPFqYQGXghphM2y7Cj1f4Jf0G9sX2tcPSo6KOyjYz6kt1O/OwJx2f2bJyOZ9yVxSMyRZuSZGe
-	JqWg7VjApZVzvGU24bjY+NV6b4IS99D43iRXH6z3tY5HkQ4HAXTgXLJsGj7ruK30vez1J6QUos0
-	o3gofDRSUgtg9TigbRYhCzucSe4sjte4QDqI/ARgotiVk7dznjB5yW368VCOXfTZbsFIE8BUZcl
-	7M7bP902rkjE6BBgkQTE9ey2BdPVnELcFonDl7d2yV41gnbLRWkjnNTHVp6BXuZ2xf9O
-X-Received: by 2002:a05:600c:6212:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4a35acdd912mr42496565e9.27.1792879635966;
-        Sat, 24 Oct 2026 15:07:15 -0700 (PDT)
-Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm53466635e9.3.2026.10.24.15.07.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 24 Oct 2026 15:07:15 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2 2/2] serial: 8250_ingenic: Set UMR and UACR at probe
-Date: Sun, 25 Oct 2026 00:07:12 +0200
-Message-ID: <20261024220712.23250-3-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261024220712.23250-1-olivier@mgcrea.io>
-References: <20261024220712.23250-1-olivier@mgcrea.io>
+	by smtp.kernel.org (Postfix) with ESMTPS id 31A281F01825;
+	Sat, 24 Oct 2026 22:15:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792880108;
+	bh=WrnBH/yj5xL+KVHbii79LvyK9OxW7IAvQMQuf3gi2zE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=kcnNS8Tm3AaWdbwd4g+/0FXMBQHsyLeyhcO2rD36X/osf3HBJFWp6SqhgdyDvuNYo
+	 eSMKbzS0yM5Ck7t0ZhS4PpYhIgK3Di1R1pTEDXQ+jfw4O+V92bJezPfImzEeE0NGtC
+	 E/Rqa7k0u8MTmsrSl0/GDLavcg9JzJOXkYKNNzy19i5tR+sXCnx1Qn9BEGqwuuaZGf
+	 47pxiVT5pwPHXWvWnxYPYoDG4ZxaqlIlU5Nb2/hA9m0Pe3yjT7FoYHAP8J6e28GjZh
+	 bdHaMBi+Cdia9XAi5V4gkIdp4FtZkOLYQH7usBa+W0H9Lb0ZIJjbVX7d8J/WMMKO6l
+	 Jx2Vt7BX68K0A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BAA63448CC;
+	Sat, 24 Oct 2026 22:15:07 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 24 Oct 2026 22:15:04 +0000
+Subject: [PATCH v2] arm64: dts: rockchip: Add the GPIO expander to Kobol
+ Helios64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,63 +83,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-helios64-pca9655-v2-1-97210e9aafb1@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAOgt3WoC/32NSwrCMBRFt1Le2Ej+EkfuQzoI6at5UJqSlKCU7
+ N3YBTg8B+65BxTMhAXuwwEZKxVKawd5GSBEv76Q0dQZJJdWcO5YxIVSsZptwTtrDFPOahWkD7O
+ eoM+2jDO9z+Rz7Byp7Cl/zocqfvZPrArGmb0pRK2VtIY/yNfrUmFsrX0BjMhYFK0AAAA=
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rosen Penev <rosenp@gmail.com>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2516; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=NxG+xHVeylkpzOnvEZLanDkLJTXNZz8dgrlgIaGTkKw=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFl3dV/d6TAQm7Npl2PW069avwLfBltsv2fFzcbnUztpR
+ deDGd8COkpZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEbi1gZFgQbsmwMNKU9xyb
+ bXLOMam4R1xHNzAl2y5cxxRXeUSqRIPhv3dFqTFXxhdWJSkTB/uIMt35/0uYZoWKbPqZlW43474
+ aGwA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Ingenic UARTs have two registers beyond the 16550's: UMR, the number of
-clocks a bit takes, and UACR, which adds one clock to chosen bits of a
-frame, for fractional baud rates. The JZ4725, JZ4740, JZ4755, JZ4760,
-X1000, X1830, X2000 and X1600 programming manuals all have them at 0x24
-and 0x28. The divisor the 8250 core computes assumes 16 clocks a bit and
-none added.
+From: Igor Velkov <iav@iav.lv>
 
-The driver never writes them, so a UART keeps whatever was there before.
-On a HiBy R1 (X1600) the vendor boot loader sets UMR to 8 on its console
-UART, and the vendor kernel had left 8 on UART0, which carries the
-Bluetooth chip: every rate came out doubled, and the chip never answered
-("command 0xfc18 tx timeout" from hci_bcm). Their reset value, 0, which
-the X1000 and X1600 manuals call normal mode, does not work on the X1600
-either: with UMR at 0 the same command times out.
+Helios64 has an ON Semiconductor PCA9655E 16-bit GPIO expander at 0x20
+on I2C2, powered from VCC3V3_SYS_S3. Its 16 lines go to pins 4-19 of
+the P5 GPIO header, one line per pin in order, so name them after the
+pins. Its INT# output goes to GPIO0_B1 with an external pull-up (R59
+to 1V8_S3), so the pin has no internal bias. Schematic, sheets 34 and
+35:
+https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
 
-Set UMR to 16 and UACR to 0 at probe.
-
-Tested on a HiBy R1: with UMR at 0 or 8 the BCM43430A1 on UART0 fails to
-set up; with this patch it comes up at 1.5 Mbaud and streams A2DP audio.
-
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- drivers/tty/serial/8250/8250_ingenic.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+The node is the one tested on the board in v1; the line names are
+checked with dt-validate only.
+---
+Changes in v2:
+- Drop the binding patch, applied by Bartosz as 356cab616b6f.
+- Name the lines after the P5 header pins, label the node p5_gpio.
+- Rebase on for-next.
+- Link to v1: https://lore.kernel.org/r/20261009-helios64-pca9655-v1-0-673ee4432650@iav.lv
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 25 ++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/tty/serial/8250/8250_ingenic.c b/drivers/tty/serial/8250/8250_ingenic.c
-index 0cdadacd7019..ca45e74b999b 100644
---- a/drivers/tty/serial/8250/8250_ingenic.c
-+++ b/drivers/tty/serial/8250/8250_ingenic.c
-@@ -40,6 +40,10 @@ static const struct of_device_id of_match[];
- #define UART_MCR_MDCE	BIT(7)
- #define UART_MCR_FCM	BIT(6)
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index 63ad79b4c8ac..df993cbb17c8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -461,6 +461,25 @@ &i2c2 {
+ 	i2c-scl-falling-time-ns = <30>;
+ 	status = "okay";
  
-+/* Clocks a bit, and an extra clock for chosen bits */
-+#define UART_UMR	9
-+#define UART_UACR	10
++	p5_gpio: gpio@20 {
++		compatible = "onnn,pca9655", "nxp,pca9555";
++		reg = <0x20>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		/* All 16 lines go to pins 4-19 of the P5 GPIO header */
++		gpio-line-names = "PIN_4", "PIN_5", "PIN_6", "PIN_7",
++				  "PIN_8", "PIN_9", "PIN_10", "PIN_11",
++				  "PIN_12", "PIN_13", "PIN_14", "PIN_15",
++				  "PIN_16", "PIN_17", "PIN_18", "PIN_19";
++		interrupt-controller;
++		#interrupt-cells = <2>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PB1 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&exp16_int_l>;
++		vcc-supply = <&vcc3v3_sys_s3>;
++	};
 +
- static struct earlycon_device *early_device;
+ 	temp@4c {
+ 		compatible = "national,lm75";
+ 		reg = <0x4c>;
+@@ -501,6 +520,12 @@ user1_btn: user1-btn {
+ 		};
+ 	};
  
- static uint8_t early_in(struct uart_port *port, int offset)
-@@ -298,6 +302,14 @@ static int ingenic_uart_probe(struct platform_device *pdev)
- 	}
- 	uart.port.uartclk = clk_get_rate(data->clk_baud);
- 
-+	/*
-+	 * The 8250 core's divisor assumes 16 clocks a bit. Whatever ran before
-+	 * may have left another count, and on the X1600 even the reset value,
-+	 * 0, does not give 16.
-+	 */
-+	writel(16, uart.port.membase + (UART_UMR << uart.port.regshift));
-+	writel(0, uart.port.membase + (UART_UACR << uart.port.regshift));
++	expander {
++		exp16_int_l: exp16-int-l {
++			rockchip,pins = <0 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
 +
- 	data->uport = serial8250_register_8250_port(&uart);
- 	if (IS_ERR(data->uport)) {
- 		err = PTR_ERR(data->uport);
+ 	fan {
+ 		fan1_sense: fan1-sense {
+ 			rockchip,pins = <4 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261009-helios64-pca9655-39643c2acf4d
+
+Best regards,
 -- 
-2.39.5
+Igor Velkov <iav@iav.lv>
+
 
