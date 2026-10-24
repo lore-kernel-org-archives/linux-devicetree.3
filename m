@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792800005;
-	b=SU5GSMWmbWsSJDCjDZxYK/JUU2QcqKTej7P8bV5AUOfwi32OKbXrNA4c3bCE1jf8jE6b
-	 znIb4BIEJacgLSOiaHb3Sip1LOr3RQDrGIBI8gg/WijIumjM9zmEBiV+N8DNjH+fX8VM5
-	 YJTZRRN+KRA8/8URGWx4SesubASRoygOBLDKDTs1yhN7Zd61JfYqduVXAJMs/UxBog4or
-	 aPD6q7IY3qXW9gtNBmNZ1Uwgc58gdAaYKlmaaNsDJugZGnzBDmTdqOYOMBKZlJZAV8c9q
-	 kyk1HRG0Vfvd2GOXAG8e2dZg0527Xwp1lkZJMdTI3nZCyI2eQYAF0LAo6wx8kVgPpRA==
+	t=1792800424;
+	b=tgYyntXsINomqa72dXFLCm7wr/NkHikqIUfFu7KYXjqBIWr54ZbMpWVV2nMmOBoTZ9Uq
+	 XrVlPh58ubVbmG4GWuKrMHA31Ys36QsoZR8b5KfdBJIPdsj+AuV2s9ZKLFIfaYRa2Acu1
+	 CVq+t86x9X27t9ssIFfdQAnp4Hy09PpSvP8BdmuGGt4v0F3cXr3KFu795QA9H5HS7Tro8
+	 70Q0peq4nW9UofJCMayJHR1i8PxQPhy97hLRoizh/HNLMap1pTlNUiDYXMKlO7jQO+UJe
+	 t88gxRuGHEaDDSr/4SypD5UG4ETO2sjehFjg31tcrVKOhDWYpEdIxulP6XTWYrOMcrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792800005;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RVoXlCSb6jIMaGtRjcozIyYGAhMCZqne31Hnbkv4d2I=;
-	b=t3QbjK7yQSfebetokd8R/I5FmA6XnNoQfFXsMqTdmu5k8Ac2qHSpa6ZTeGxxoML3Q839
-	 l+1YvyjN+Z4Jbu0sBgRmgYUIK3BqKAvyWocFm9sLSbJsxuDdznuqR1kH0urX5J4roP/vh
-	 qwpAq0tsu86oVRZKXW6Pb5U/IqNNpsjdIkgnr6u2LbwF4+eaywuNt468OfYvGn4YUOIhb
-	 ikcgPa64irYsOqHY4a2Qu5i+qpX0I8vfAdXtLudigx0OOOCeplWSjB9ST9g8DXXu1V5Dv
-	 qsTZxb72/pSI+6fQmK5J+n4YPPa6nrp68r7DlGRIqL99xus+CEf44qEDqcnkzMJxeyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792800424;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8QSFtUWKqh2jcPqpJ5sJ88P6wbY2k9u47znbRX46k78=;
+	b=qA7VyH7ifiMGrGeG2ycAKzXrVD3gat87c7AYjumS1TLESv07rtw7Z9vwRwkBTUCFvpYw
+	 qQBxFBkSoJKflznobBotk6uyKzy+nmT5bUA8NdpjkSTbrwWSCeOujHYM402dtq0orAM9W
+	 sOEmEh3TifNGsAp2vYa9vsdaE+ImMOPCxnPLqOUkcXaI5AVxyj7xhOgJ2TSshZGClj9Ag
+	 HRigCJtZf3lICzwck7kscQHe0EcUAvhMwh6UWjTiTCh5UrgF1GHN4wjRzG726OjZGU0xx
+	 gjzTv2Fdc9onTPO+Ac8ElN1yAfzlh0mvhCIrPh65Y2nFJ2/A0iNDxXzjqUSqb4Y2b8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=j0bVKA1e;
-	arc=none smtp.remote-ip=144.76.98.110
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qgoyu8Zs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED5B606A31F;
-	Sat, 24 Oct 2026 00:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED5B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E34606A31A
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 00:07:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=j0bVKA1e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1792800001; bh=qvU369dgJvWvyI9h764kYcAsK2/h8+Rf6mBdDUM83RU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=j0bVKA1em2H2nHaOheBGsJ77Q7+5+oW6aioIXy1KOwEcUyGeiJehGAvbJX8GUdW1e
-	 cl8RKykMcsQrYvTKTSqAZMaK98Tx+qtBjiYhGjULLO4ToEjPV/r0kYL3+vZokTDk/0
-	 QFTU2crl7GDNR/LB62sYUolkYsEY8LqjI39TK0N2lEQB1uvmDoGL12Ajci2nQri20y
-	 pr4DXKLRlJluTRQ/dTE0GG1geUaK602Y9WfwyRAWH2RwGPXXnaYQ4FsEh6r4UJ48dt
-	 b4EtJ4dX6mNUsokpfqfz2LdbmOt87x4NkAVW/dPOJdf4MHHoOBd9F93xuGLGWigPLx
-	 9Z44rmqI/wWyQ==
-Received: from nbf.lan (212-5-142-134.ip.btc-net.bg [212.5.142.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 7B9BE1271E1;
-	Sat, 24 Oct 2026 00:00:01 +0000 (UTC)
-From: Deomid rojer Ryabkov <rojer@rojer.me>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sergey Bostandzhyan <jin@mediatomb.cc>,
-	Jensen Huang <jensenhuang@friendlyarm.com>,
-	Deomid rojer Ryabkov <rojer@rojer.me>
-Subject: [PATCH 1/2] arm64: dts: rockchip: Fix VCCIO4/VCCIO6 supplies on NanoPi R2S Plus
-Date: Sat, 24 Oct 2026 02:59:58 +0300
-Message-ID: <20261023235959.2988087-2-rojer@rojer.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023235959.2988087-1-rojer@rojer.me>
-References: <20261023235959.2988087-1-rojer@rojer.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qgoyu8Zs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE9D1F01825;
+	Sat, 24 Oct 2026 00:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792800423;
+	bh=8QSFtUWKqh2jcPqpJ5sJ88P6wbY2k9u47znbRX46k78=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Qgoyu8ZsM0ObIf1+VFwdOBCJzLWLNhcsyb6FlB9yqzw4wtbjecn2is6Me7KDaXi37
+	 mzieCf+7QKQFY/mtaUAeqJnm33+lOqd24r98yKWivqtAu8/Yc+XDQYFVfDU60YhgTf
+	 BVgwOPTraEZQK2LRLLUmZoLdrtfDzoPB0w5IVEBSU8+7MEYTpUmUk+xTp7T1mdd2e+
+	 qPIBIRasMvJNX+gMnBwR2GUQLbvCc/7DU3x4p4lWMx+wLHm5NK/QCMQb2e7GNK3tb/
+	 YhKXS8kt4u947xVCbXogUH+lfLQ20XrUTIB/rs4UsfroTO9XRA/+0OYESl7FNlliAE
+	 d/QigcqdWIOUw==
+Message-ID: <sashiko-outbox-183450@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] dt-bindings: mailbox: goog-mba: Add goog-mba
+ mailbox bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Douglas Anderson" <dianders@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261023165211.v2.3.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
+References: <20261023235408.3063350-1-dianders@chromium.org>
+ <20261023165211.v2.3.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 24 Oct 2026 00:07:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,52 +60,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The NanoPi R2S Plus inherits its io-domain supplies from the NanoPi R2S,
-but the two boards are wired differently. From sheet 6 of the schematics:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: mailbox: google,lga-mailbox-array: wrong $schema and e=
+xample indent
+--
 
-NanoPi R2S (NanoPi-R2S-V1.1-2009-Schematic.pdf):
-  VCCIO4 (U12) = VDD_PHY_IO
-  VCCIO6 (H6)  = VCC_IO_33
+commit 8e0bbd08122b063bf8c9d67ff1997606b186bf0b
+Author: Douglas Anderson <dianders@chromium.org>
 
-NanoPi R2S Plus (NanoPi_R2S_Plus_2309_SCH.PDF):
-  VCCIO4 (U12) = VCC_IO_33
-  VCCIO6 (H6)  = VCC_18
+dt-bindings: mailbox: goog-mba: Add goog-mba mailbox bindings
 
-rk3328-nanopi-r2.dtsi describes the R2S. On the R2S Plus this leaves the
-VCCIO4 domain configured for 1.8V while supplied with 3.3V, and the
-VCCIO6 domain, which carries the M.2 E-key SDIO signals, configured for
-3.3V while supplied with 1.8V; the latter prevents the optional RTL8822CS
-Wi-Fi module from initialising at all.
+This commit introduces the devicetree binding schema for the Google MailBox
+Array IP block present in Laguna SoCs.
 
-Describe the actual supplies. The vendor's own kernel uses the same
-values [1], although there they come from a .dtsi shared by the whole
-NanoPi R2 family, so the schematics above are the reference. Tested on
-an R2S Plus: Ethernet still links at 1Gbps and the SDIO Wi-Fi module
-enumerates.
+> diff --git a/Documentation/devicetree/bindings/mailbox/google,lga-mailbox=
+-array.yaml b/Documentation/devicetree/bindings/mailbox/google,lga-mailbox-=
+array.yaml
+> new file mode 100644
+> index 0000000000000..f265993fe71d4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.=
+yaml
+> @@ -0,0 +1,226 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2025 Google LLC
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mailbox/google,lga-mailbox-array.yaml#
+> +$schema: http://devicetree.org/meta-schemas/base.yaml#
 
-[1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-common.dtsi#L425-L435
-Fixes: b8c028782922 ("arm64: dts: rockchip: Add DTS for FriendlyARM NanoPi R2S Plus")
-Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
----
- arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+[Severity: Low]
+Should $schema in
+Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml use
+http://devicetree.org/meta-schemas/core.yaml# instead of
+http://devicetree.org/meta-schemas/base.yaml#?
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-index 4eff0503928..6ba4a74cb1f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-@@ -29,3 +29,8 @@ &emmc {
- 	pinctrl-0 = <&emmc_clk &emmc_cmd &emmc_bus8>;
- 	status = "okay";
- };
-+
-+&io_domains {
-+	vccio4-supply = <&vcc_io_33>;
-+	vccio6-supply = <&vcc_18>;
-+};
--- 
-2.53.0
+In dtschema (see commit 962e62128feb60), meta-schemas/base.yaml# is intended
+for common consumer and provider property definitions rather than hardware
+device bindings. Using base.yaml# causes dt-doc-validate during make
+dt_binding_check to skip the standard device-binding meta-schema checks
+included by core.yaml#.
 
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    soc {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+
+[Severity: Low]
+Could the devicetree block under examples in
+Documentation/devicetree/bindings/mailbox/google,lga-mailbox-array.yaml use
+4-space indentation instead of 2-space indentation?
+
+Running scripts/dtc/dt-check-style --mode=3Dstrict on this file as required=
+ by
+Documentation/devicetree/bindings/submitting-patches.rst currently fails
+because the example nodes and properties are indented by 2 spaces per level
+instead of 4 spaces.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023235408.3063=
+350-1-dianders@chromium.org?part=3D3
