@@ -1,108 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856542;
-	b=aeMhVL4KEoaeu2iAPCzv6A26cxXSzWBhZqbP+04QzPmxgEoBeKaaZfFT/exX4tff1NnC
-	 VLMKxGjSG6a1VCEkPs82vkmoVlVdfayEkyc0y9/CkfeFMmJnsGwc1MHJvhYYlLpCq3wjl
-	 vuROSZ7O0gtJWAJCsCznmN2+iNZFfSZ0n0l41z6wG9meoSpAndAssIh0BPjbXCOHx1Kjw
-	 SO0l8H0cyrWi1XMffuVROhPyoT5CEdhEYsLqJcBsIiGB5Vy7PXqlRdRXSw62PhFpE9OWV
-	 j7za2NXybY4WMxNyOZcu2+2pg4rnUPrdzqrcO6cm61RnKuyaLlTQihAtOrDgyPi+Jhw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856542;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-	b=avmkN31hvnJ/EdFJ+BS9s7r8tiXRKW09fUNRIRu+my7C9gI4RlDR9/KUoHT4ty9rnyAw
-	 f9qF+Ns/ZfrF5C6nT4pgJYdtAjPl7+eNzWjtal+RoTj5H2i57W5QzSs2aaLmahzVPN5w3
-	 sd4c+bEuoSo1DssqtMFpr7Q2t8nzx9k+p/zFlE3zReZTRoXknGAPkF+yFZ8piONG85whM
-	 Qbi7HylWydb0XzsUx8IPEPiWlDGdZNoPZTS/vl12bWlHsbHOf+yGv9SDiNaCe88mUg+rM
-	 /LQfN/8/0YCl+juRbSehkUgOkKiDBIlKtzUMlQ3Ptx1x6I+EX4sr8VNVx5MATZyPQlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792862265;
+	b=PWyBzFvqM0B4tGuGXhXoa/VYQ8sgeJ8FFeITDiUp/g0jfH6CFLvL30dGYDxzB6Z+PfGk
+	 SVY2Xo1Vt4lNoxEB5LtJ9aPMvq6yC/zIZ4xWdfbHrNM+I+53gvuy5tIsCtMioR/jvej6f
+	 XTtcmd9M8F2Xj4t8rTVPROidJ+zT1ha2zqvfuK4ZnT+jnstO0YpW3tfKSN5rY8uXNq9Pz
+	 2MNGOVWj7YbfMq750IZeUxHhp3U2KcCtxRho2yCdNHU2vGaayHmN6kTiF5QZ/wvvPcyCc
+	 YGZ5Oq4FzdJYjy8lGIgMJrK/Ljn/Ar0TjqDt7YYDQHNe5P8nI5kp24dY16tnZmZSdRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792862265;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=Jz4Cnd/nhouONlfQ/xSLSuMu4e8PJl5vjZF5FfVC+vg=;
+	b=0qDC+vObn7ScqBv896Gu6yEQoLpk92I/zu6WoryHuN2csBCTQb6vOuS6vPDnW5rIgrUi
+	 ybwnqjnE2JD8KARhR0Ol7uP1MxUgLWAjg4hEc92Xh2YzHEtcxKRcvWunLWrdF1R0QJ/k/
+	 DsP9pq6rQbu/xXnV3KyP1naB+b/NFSNCXk5DWzUmTTy2moDIVTGZhoAXTPaq3hxg02Nz8
+	 NpFysp/p1QqaIQ0vBojyQ8ydJIbEAmM7wiHZdb/Bu4ab6vwtKh9MW8SdLf3QuwHCzy+oG
+	 wsM9jY2m2Q6FYG1uxrYbFQvTQs/Y0ZHzaS7uDYyRwUclLFej6T3tHnPRWrmcERVbsvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=UUV6Y4Mv;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=uyj2KSsT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1F0606A31F
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:42:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA1F0606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316AD606A31A;
+	Sat, 24 Oct 2026 17:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 316AD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36661f953e4so3195146eec.1
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792856541; x=1793461341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-        b=ZtbZRwUPjVQiSvYWWtMu6dPTKilxoct/OWvipe27Jqf5G28IPqMi55WvuE+zmC1HFZ
-         OL/Ws1vcN1cxGJpO+Encb1YRO3M6m7ZNiBAmayVlAcdZyFeDyQhifsfVwo9SDu6hSTPA
-         TKIvnz8sRyd3ncvbREayOVyHYdssYPLAxON08pyahSkqyBOXzvbiavGi+fqdHUUdfod6
-         HK/1coQjD6/w6rz3XnPKbUW/ynFejEsN1OyZb91Df29ZCCPys5qab05Vv/Ob8HkX2P68
-         DHTLWYxdTt00EZ0Jh2N2krvQiRUSSrlNTmJwC0ujKCA3WmoSchFLq8pAwvMrKyQYRCSM
-         SCmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792856541; x=1793461341;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
-        b=1ySxM2/ba5aEJ0bjdg/LvWuTftynCLa3WEGByPjZWyCUWsF4YsZeZgN72taMz6Mn/3
-         uGxZra/cVCYhMpSxfuR0XmtikvZ48DHGmHmO0K0DMqvHcppOBHRdiPr2Ntnkbt2rAG33
-         3Vc/WSaVlOR/Mk1xuuc5eweW952LTuMB/PAJLoT5TGFe1YzbJ5IpQrSNGNRZoi812K58
-         BcV3E/ohluB6rMA1PwhnyVdSSM90e7J+j1JgtCLU/V4z3ER3TSXzJ9dJO8XcQ0IdMOIh
-         vhi5opWTUsqbro4pnz2kworcZid7nQqbBgZ3wFAQ1gUfK41BV6Vttw7H8LZAjOJCnPG8
-         UQbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrLj310AgRvhhxF41vgzyKbsDGoyTJi7L1yzX/pTuprqQHC+gB2rsxC3HWjz1J+ldaT/cqYsDUWsuE@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5FVbTfQGNb0wkIjODLT1tl31ap0wUHbu8vSoG/xwnEHq13NoD
-	CQnTCQ/u7qrB+B0DuCh1dsRByIZtys794ohnkQL1coSINIAKvsdOrZCB
-X-Gm-Gg: AYBFou0UEhuarYHdwTZB0dGsZ6CRDEd9/EXy2TqG0RcPrdfyw+kBL7arTYtQkwS+wbw
-	eRMifP1Jc5I+ec01TmEcxHtJZnZSY3ZBQjU9OuqxA/Kaluxy6qOrsMzRp1Dqvt2bR+oHezSejZg
-	1kuXwjPjvi8IrNsbV5060VRbmVq5R7fgT87+cWmplYYaulR3BSkWyk9M44DMJ8gcPEinqGxX8FL
-	W7s9DkyZbH1zqbqAHySZ0tg+3M1LrMet4BSaz2C9kRZB32c1bMpFFbK8tClLY+xUX4GF+HYSgNP
-	4yr5P/GtH1GTb1FnN30YZer7Z38y+iNzU2XX939ghhDKe+4A60MjqvuPxBiExoGYNK0EFRRO6ys
-	qVzawwly88QtFwJ8lgb5P43UfT5Tk2b4vzCntELOWb0derUlXkZqpxsZ1i9DQkB0zv0jqeu5dmK
-	bK+DwTwKPOJfDDW9iJy6BQ0o7AOXnSbO+MlEUGRUzZcjdr58Gd1bzGsEP7sjqcxrv1E8jHhXkGk
-	87iEmmE19Cm8Ccf7/BLdU3jLxZtqaU2fYLmZVAU6tkVIdDHEetw0PdgyA==
-X-Received: by 2002:a05:7022:5f06:b0:151:2e62:fe8a with SMTP id a92af1059eb24-199379c8064mr3258864c88.40.1792856540859;
-        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
-Received: from plex ([2406:6d00:a27c:4200:aab8:e0ff:fe02:33c1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm7766450eec.18.2026.10.24.08.42.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
-From: Chris Scott <gilroyscott1970@gmail.com>
-To: netdev@vger.kernel.org
-Cc: lorenzo@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	pawlik.dan@gmail.com,
-	zhengping.zhang@airoha.com,
-	Chris Scott <gilroyscott1970@gmail.com>
-Subject: [RFC net-next 3/3] net: airoha: npu: use coherent memory for mailbox messages
-Date: Sun, 25 Oct 2026 01:41:50 +1000
-Message-ID: <20261024154150.45733-4-gilroyscott1970@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261024154150.45733-1-gilroyscott1970@gmail.com>
-References: <20261024154150.45733-1-gilroyscott1970@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=UUV6Y4Mv;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=uyj2KSsT
+ARC-Seal: i=1; a=rsa-sha256; t=1792862239; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=SB8XZZrpIG6SFwH3MSks5cx+xyGlUX+Ypfd81+KKHWb9sU9b6EJdBNtKEl6ZrwG5wK
+    Q/Vvfu8FkcZZu3mWx51VrL565uoSpO7ofaTYo6c40SA6n9xCIe2iTluY/CX5H/2R1DMA
+    qmSYWut+aquMMSQTTN9AXfwcOst0f8ROoV/YvBvUmWzzxZDKYmMDxVwGWEB/kEUtOLM8
+    1gvBgILllwhAEe8niw8fkr/04Vq3YSJ6fptfWHvU/DXfN/Jbg/E9FpLFZY17BOHzCGep
+    KkbouDZyHqx9nHldSaphlqgL+3LfzKmCFgsWQBUvvNE+3NKTxJp/NnU+N/loYqCP3ZLQ
+    nxuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862239;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Jz4Cnd/nhouONlfQ/xSLSuMu4e8PJl5vjZF5FfVC+vg=;
+    b=Jra9sXop+q5fbObrshwSaLYfc6YRGDps6bJiX0fmfWBRJEuTzaBu1nWmWwAXKdE9/z
+    w6f+F26YvoqHB8wzkTNYohgpTruuVb7DpNrc8IudBS182KFHV4+h9hI/dzu/N67eVw6X
+    uD5HrO2UnQlIPAS0y5aWNYYl9cG0PX7+oVdt7rc9OyG2To9Ea2kyBDqqeaCVoqlwu3UA
+    9TEbKLV9RqC21AoMSC7NnjlSsPdVM5MhDpfPGjBvgYZ5ZnuismPWBQoKmN54BOdYcoVi
+    9VFJievmln/hBHU9z6emWySunVnqKgXZc2t38ACYXnkdwcbx1uCe84zvxDBdqa1+qHl7
+    U5nA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792862239;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Jz4Cnd/nhouONlfQ/xSLSuMu4e8PJl5vjZF5FfVC+vg=;
+    b=UUV6Y4Mv3ZMOQXx5JatK0g6hTe7VfU+r5qCKo3oYR9olahyEChj6Hh1avQBBNY8mLh
+    HNUEcVzOBgc9+piFEYkd37vfZT9MUp6e+CKig/pAkd4EzTc2nitdpAOsguPfCTFcO5z1
+    P3q7W3MQ9DqOtroJz+11pbcMBEE0ox+cOFVj6v+IM/FnfmnPxV/1UQT221tJ+TvLo1lA
+    Dxi7bgK1lY10Qs1tH/BWtIUHoMHdvGt0HXx6SWQtd3VlCGM4yEOWGUwttQ1Hr7ggw1r5
+    pwdHoc3PlW9ohYasKFAoyvPIs0iF3QMBeZee2jOlxPko1yNTPcFujC7N1Wm6NnNEl3RH
+    /QSA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792862239;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Jz4Cnd/nhouONlfQ/xSLSuMu4e8PJl5vjZF5FfVC+vg=;
+    b=uyj2KSsTvIPS4h1wX672U5aKGxQ1SUEA0IRBbemK8ZTZoeMmGVoodWKCFjigT7vsfT
+    ickwUHL3WbHQy/Jt2WCA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzptYNlV1C1yk7253raiyx+O3Hxli"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229OHHIwpn
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sat, 24 Oct 2026 19:17:18 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,171 +93,255 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 2/2] ASoC: jz4740-i2s: Add support for the X1600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261023152011.85407-2-olivier@mgcrea.io>
+Date: Sat, 24 Oct 2026 19:16:47 +0200
+Cc: Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Andreas Kemnade <akemnade@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <396AA4F3-A78E-47E5-83E0-546A813D6738@goldelico.com>
+References: <20261023152011.85407-1-olivier@mgcrea.io>
+ <20261023152011.85407-2-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-From: Daniel Pawlik <pawlik.dan@gmail.com>
+Hi,
 
-airoha_npu_send_msg() maps the caller's kzalloc() buffer with
-DMA_BIDIRECTIONAL. These buffers are small and not cacheline aligned,
-so on arm64 the mapping bounces through swiotlb. On a 2 GiB EN7581
-board the default swiotlb pool sits above 0xc0000000 (0xff6cf000 on
-W1700K), outside the 0x80000000-0xbfffffff window the NPU can address;
-higher addresses alias the lower 1 GiB. On W1700K + MT7996 this makes
-WLAN_FUNC_GET_WAIT_NPU_VERSION read back 0.0 and mt76 does not bind
-NPU offload.
+> Am 23.10.2026 um 17:20 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>=20
+> The X1600's AIC is the X1000's, with two differences.
+>=20
+> Its I2SDIV register holds the bit clock divider itself, not the =
+divider
+> minus one, and drops the lowest bit of what is written. The driver =
+writes
+> div - 1 and, from a 22.5792 MHz clock, asks for 44.1 kHz with 7: the
+> register keeps 6, and the stream plays at 58.8 kHz (measured on a HiBy =
+R1
+> from the PCM hardware pointer: 44,100 expected, 58,700 observed).
 
-Allocate one coherent buffer per NPU core at probe and reuse it under
-the per-core mailbox lock. With the previous patch it comes from the
-NPU DMA pool, inside the window. airoha_npu_send_msg() is also called
-from PPE foe_commit under spin_lock_bh(), which rules out a per-message
-GFP_ATOMIC coherent allocation.
+In addition compared to the x1000 there are separate TX and RX dividers
+(RDIV and TDIV).
 
-Add __airoha_npu_send_msg() with an optional reply buffer so GET
-callers copy only the trailing response payload; airoha_npu_send_msg()
-keeps copying the whole buffer back, like the bidirectional mapping.
+x2000 has no comparable AIC.
 
-The original version of this patch was written with Cursor (composer-2);
-it was rebased onto net-next and its commit message rewritten with
-Claude (Anthropic).
+The x2600 has again a different divider setup in the I2SDIV register
+(5 bit MDIV and 9 bit TDIV) but shares the bus address with the x1000
+while the x1600 has a different one.
 
-Link: https://lore.kernel.org/r/20260809152813.585797-1-pawlik.dan@gmail.com
-Link: https://lore.kernel.org/r/atCRsquzA1UxSpCc@mediatek.com
-Signed-off-by: Daniel Pawlik <pawlik.dan@gmail.com>
-Signed-off-by: Chris Scott <gilroyscott1970@gmail.com>
----
- drivers/net/ethernet/airoha/airoha_npu.c  | 65 +++++++++++++++++------
- include/linux/soc/airoha/airoha_offload.h |  3 ++
- 2 files changed, 51 insertions(+), 17 deletions(-)
+>=20
+> Its AICCR has a channel count in bits 27:24 that the driver never =
+wrote.
 
-diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
-index 069fd60680..3d1aa63dd5 100644
---- a/drivers/net/ethernet/airoha/airoha_npu.c
-+++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -24,6 +24,12 @@
- #define NPU_EN7581_FIRMWARE_RV32_MAX_SIZE	0x200000
- #define NPU_EN7581_FIRMWARE_DATA_MAX_SIZE	0x10000
- #define NPU_DUMP_SIZE				512
-+/*
-+ * Mailbox DMA payload size. Covers sizeof(struct ppe_mbox_data) (28) and
-+ * WLAN TLV messages (header + payload); largest in-tree WLAN payload today
-+ * is 16 bytes (INODE_TXRX_REG_ADDR). Keep headroom for future commands.
-+ */
-+#define AIROHA_NPU_MBOX_SIZE			256
- 
- #define REG_NPU_LOCAL_SRAM		0x0
- 
-@@ -161,23 +167,32 @@ struct wlan_mbox_data {
- 	DECLARE_FLEX_ARRAY(u8, d);
- };
- 
--static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
--			       void *p, int size)
-+static int __airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
-+				 const void *data, int len, void *reply,
-+				 u16 reply_len)
- {
--	u16 core = 0; /* FIXME */
--	u32 val, offset = core << 4;
--	dma_addr_t dma_addr;
-+	struct airoha_npu_core *core = &npu->cores[0]; /* FIXME: core */
-+	u32 val, offset = 0;
- 	int ret;
- 
--	dma_addr = dma_map_single(npu->dev, p, size, DMA_BIDIRECTIONAL);
--	ret = dma_mapping_error(npu->dev, dma_addr);
--	if (ret)
--		return ret;
-+	if (len > AIROHA_NPU_MBOX_SIZE)
-+		return -EINVAL;
-+
-+	if (reply && reply_len > len)
-+		return -EINVAL;
-+
-+	/*
-+	 * The NPU only reaches DRAM at 0x80000000-0xbfffffff; a streaming
-+	 * mapping of the caller buffer may bounce through swiotlb outside
-+	 * that window. Use the probe-time coherent buffer, which comes from
-+	 * the NPU DMA pool when one is declared.
-+	 */
-+	spin_lock_bh(&core->lock);
- 
--	spin_lock_bh(&npu->cores[core].lock);
-+	memcpy(core->buf, data, len);
- 
--	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, dma_addr);
--	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, size);
-+	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, core->addr);
-+	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, len);
- 	regmap_read(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, &val);
- 	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, val + 1);
- 	val = FIELD_PREP(MBOX_MSG_FUNC_ID, func_id) | MBOX_MSG_WAIT_RSP;
-@@ -190,13 +205,21 @@ static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
- 	if (!ret && FIELD_GET(MBOX_MSG_STATUS, val) != NPU_MBOX_SUCCESS)
- 		ret = -EINVAL;
- 
--	spin_unlock_bh(&npu->cores[core].lock);
-+	/* Copy the trailing reply_len bytes of the response. */
-+	if (!ret && reply)
-+		memcpy(reply, core->buf + len - reply_len, reply_len);
- 
--	dma_unmap_single(npu->dev, dma_addr, size, DMA_BIDIRECTIONAL);
-+	spin_unlock_bh(&core->lock);
- 
- 	return ret;
- }
- 
-+static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
-+			       void *data, int len)
-+{
-+	return __airoha_npu_send_msg(npu, func_id, data, len, data, len);
-+}
-+
- static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
- 				    const char *fw_name, int fw_max_size)
- {
-@@ -500,9 +523,8 @@ static int airoha_npu_wlan_msg_get(struct airoha_npu *npu, int ifindex,
- 	wlan_data->func_type = NPU_OP_GET;
- 	wlan_data->func_id = func_id;
- 
--	err = airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len);
--	if (!err)
--		memcpy(data, wlan_data->d, data_len);
-+	err = __airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len,
-+				    data, data_len);
- 	kfree(wlan_data);
- 
- 	return err;
-@@ -794,6 +816,15 @@ static int airoha_npu_probe(struct platform_device *pdev)
- 			return err;
- 	}
- 
-+	for (i = 0; i < ARRAY_SIZE(npu->cores); i++) {
-+		struct airoha_npu_core *core = &npu->cores[i];
-+
-+		core->buf = dmam_alloc_coherent(dev, AIROHA_NPU_MBOX_SIZE,
-+						&core->addr, GFP_KERNEL);
-+		if (!core->buf)
-+			return -ENOMEM;
-+	}
-+
- 	err = airoha_npu_run_firmware(dev, base, &res);
- 	if (err)
- 		return err;
-diff --git a/include/linux/soc/airoha/airoha_offload.h b/include/linux/soc/airoha/airoha_offload.h
-index 7589fccfee..16a988ad74 100644
---- a/include/linux/soc/airoha/airoha_offload.h
-+++ b/include/linux/soc/airoha/airoha_offload.h
-@@ -173,6 +173,9 @@ struct airoha_npu {
- 		/* protect concurrent npu memory accesses */
- 		spinlock_t lock;
- 		struct work_struct wdt_work;
-+		/* Coherent bounce buffer for mailbox cmd/rsp */
-+		void *buf;
-+		dma_addr_t addr;
- 	} cores[NPU_NUM_CORES];
- 
- 	int irqs[NPU_NUM_IRQ];
--- 
-2.53.0
+x2600 has the same AICCR, but in programming manual of both, bit 27 is a
+Reserved bit? Bit 24:26 indeed define the number of channels and there =
+is
+mono (0x0) and stereo (0x1).
+
+> It held 1 (two channels) in every stream I saw, and with it a mono
+> stream is taken two samples per frame, as left and right, so it plays =
+an
+> octave high and ends in half the time even with MONO_TO_STEREO set.
+> Write the number of channels minus one, as for stereo, and mono plays =
+at
+> the right speed (a 6 s mono stream took 3 s before, and 8 s took 7 s
+> once the field was cleared after one second).
+>=20
+> Add an X1600 entry that picks even dividers, writes them as they are =
+and
+> sets the channel field.
+>=20
+> Tested on a HiBy R1 (Ingenic X1600) with a CS43131 DAC, on v7.3: 44.1
+> and 48 kHz run at the right rate.
+
+I can't test because our board has no audio codec.
+
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+> Changes in v2:
+> - Also write the number of channels, minus one, into AICCR bits 27:24
+>   (X1600 only). I found after v1 that the driver never wrote that =
+field:
+>   it held 1 in every stream I saw, and with it a mono stream is taken =
+two
+>   samples per frame, so it plays an octave high and finishes in half =
+the
+>   time. Measured on the R1 with silence: 6 s of mono took 3 s before =
+and
+>   6 s with this, at 44.1 and 48 kHz; mono and stereo now have the same
+>   pitch by ear. That the field is a channel count is my inference from
+>   this, there is no datasheet here: if one of you knows the register,
+>   please say so.
+>=20
+> sound/soc/jz4740/jz4740-i2s.c | 44 +++++++++++++++++++++++++++++------
+> 1 file changed, 37 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/sound/soc/jz4740/jz4740-i2s.c =
+b/sound/soc/jz4740/jz4740-i2s.c
+> index d36bbc820618..5153fedc5978 100644
+> --- a/sound/soc/jz4740/jz4740-i2s.c
+> +++ b/sound/soc/jz4740/jz4740-i2s.c
+> @@ -38,6 +38,7 @@
+> #define JZ_AIC_CONF_SYNC_CLK_MASTER BIT(1)
+> #define JZ_AIC_CONF_ENABLE BIT(0)
+>=20
+> +#define JZ_AIC_CTRL_CHANNEL GENMASK(27, 24)
+
+should be 26, 24
+
+> #define JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE GENMASK(21, 19)
+> #define JZ_AIC_CTRL_INPUT_SAMPLE_SIZE GENMASK(18, 16)
+> #define JZ_AIC_CTRL_ENABLE_RX_DMA BIT(15)
+> @@ -71,6 +72,16 @@ struct i2s_soc_info {
+> struct reg_field field_i2sdiv_playback;
+>=20
+> bool shared_fifo_flush;
+> + /*
+> + * I2SDIV holds the bit clock divider itself rather than the divider
+> + * minus one, and only keeps even values (X1600).
+> + */
+> + bool i2sdiv_even;
+> + /*
+> + * AICCR has the number of channels, minus one, in bits 27:24, which
+> + * the AIC uses to size a frame in the FIFO (X1600).
+> + */
+> + bool channel_field;
+> };
+>=20
+> struct jz4740_i2s {
+> @@ -218,16 +229,17 @@ static int jz4740_i2s_set_fmt(struct snd_soc_dai =
+*dai, unsigned int fmt)
+> }
+>=20
+> static int jz4740_i2s_get_i2sdiv(unsigned long mclk, unsigned long =
+rate,
+> - unsigned long i2sdiv_max)
+> + unsigned long i2sdiv_max, unsigned int step)
+> {
+> unsigned long div, rate1, rate2, err1, err2;
+>=20
+> div =3D mclk / (64 * rate);
+> + div -=3D div % step;
+> if (div =3D=3D 0)
+> - div =3D 1;
+> + div =3D step;
+>=20
+> rate1 =3D mclk / (64 * div);
+> - rate2 =3D mclk / (64 * (div + 1));
+> + rate2 =3D mclk / (64 * (div + step));
+>=20
+> err1 =3D abs(rate1 - rate);
+> err2 =3D abs(rate2 - rate);
+> @@ -241,8 +253,8 @@ static int jz4740_i2s_get_i2sdiv(unsigned long =
+mclk, unsigned long rate,
+> */
+> if (div <=3D i2sdiv_max && err1 <=3D err2 && err1 < rate/20)
+> return div;
+> - if (div < i2sdiv_max && err2 < rate/20)
+> - return div + 1;
+> + if (div + step <=3D i2sdiv_max && err2 < rate / 20)
+> + return div + step;
+>=20
+> return -EINVAL;
+> }
+> @@ -281,6 +293,12 @@ static int jz4740_i2s_hw_params(struct =
+snd_pcm_substream *substream,
+> ctrl &=3D ~JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE;
+> ctrl |=3D FIELD_PREP(JZ_AIC_CTRL_OUTPUT_SAMPLE_SIZE, sample_size);
+>=20
+> + if (i2s->soc_info->channel_field) {
+> + ctrl &=3D ~JZ_AIC_CTRL_CHANNEL;
+> + ctrl |=3D FIELD_PREP(JZ_AIC_CTRL_CHANNEL,
+> +   params_channels(params) - 1);
+> + }
+
+looks ok.
+
+> +
+> if (params_channels(params) =3D=3D 1)
+> ctrl |=3D JZ_AIC_CTRL_MONO_TO_STEREO;
+
+Hm. doesn't this logic contradict the above logic of having 1 channel?
+It should not be changed for the x1600 since this bit is x1000 only.
+
+Here the x1600 PM contradicts itself and talks about mono to stereo =
+expansion
+feature, but the MS bit is missing and "reserved"). Note: the x2600 also =
+lacks
+this feature.
+
+> else
+> @@ -305,13 +323,14 @@ static int jz4740_i2s_hw_params(struct =
+snd_pcm_substream *substream,
+> */
+> if (conf & (JZ_AIC_CONF_BIT_CLK_MASTER | JZ_AIC_CONF_SYNC_CLK_MASTER)) =
+{
+> div =3D jz4740_i2s_get_i2sdiv(clk_get_rate(i2s->clk_i2s),
+> -    params_rate(params), i2sdiv_max);
+> +    params_rate(params), i2sdiv_max,
+> +    i2s->soc_info->i2sdiv_even ? 2 : 1);
+> if (div < 0)
+> return div;
+> }
+>=20
+> regmap_write(i2s->regmap, JZ_REG_AIC_CTRL, ctrl);
+> - regmap_field_write(div_field, div - 1);
+> + regmap_field_write(div_field, i2s->soc_info->i2sdiv_even ? div : div =
+- 1);
+
+>=20
+> return 0;
+> }
+> @@ -382,6 +401,16 @@ static const struct i2s_soc_info =
+x1000_i2s_soc_info =3D {
+> .field_i2sdiv_playback =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
+> };
+>=20
+> +static const struct i2s_soc_info x1600_i2s_soc_info =3D {
+> + .dai =3D &jz4740_i2s_dai,
+> + .field_rx_fifo_thresh =3D REG_FIELD(JZ_REG_AIC_CONF, 24, 27),
+> + .field_tx_fifo_thresh =3D REG_FIELD(JZ_REG_AIC_CONF, 16, 20),
+> + .field_i2sdiv_capture =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
+> + .field_i2sdiv_playback =3D REG_FIELD(JZ_REG_AIC_CLK_DIV, 0, 8),
+> + .i2sdiv_even =3D true,
+> + .channel_field =3D true,
+> +};
+> +
+> static struct snd_soc_dai_driver jz4770_i2s_dai =3D {
+> .playback =3D {
+> .channels_min =3D 1,
+> @@ -493,6 +522,7 @@ static const struct of_device_id =
+jz4740_of_matches[] =3D {
+> { .compatible =3D "ingenic,jz4770-i2s", .data =3D &jz4770_i2s_soc_info =
+},
+> { .compatible =3D "ingenic,jz4780-i2s", .data =3D &jz4780_i2s_soc_info =
+},
+> { .compatible =3D "ingenic,x1000-i2s", .data =3D &x1000_i2s_soc_info =
+},
+> + { .compatible =3D "ingenic,x1600-i2s", .data =3D &x1600_i2s_soc_info =
+},
+> { /* sentinel */ }
+> };
+> MODULE_DEVICE_TABLE(of, jz4740_of_matches);
+> --=20
+> 2.39.5
+>=20
+
+Otherwise this looks reasonable and it might need some x2600 adjustments
+in the future.
+
+BR, H. Nikolaus Schaller <hns@goldelico.com>
 
