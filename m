@@ -1,80 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792879637;
-	b=2q2wCReEiAWiUMmwRwKGVZXmFWQMPFRLtL5lcrsBdFEcPuWuFsPcJPFJjCLG7ZzVhZUM
-	 rafrS2ZVSkjJ9XFeQ38ZQOTVYlPzobp0qltU+jX34Sy4tQfSfNkNaRu21k//zfp7nQgdK
-	 ArjW+r95bltggVkY8PJw4Yt6u1fsSuQzOkJpC3oE9d5gZ9mJqono2bwg403GFo3juSW0M
-	 RR6rk6kpDArSzaB6O4E9tFfKFpFkhJIQFRhGSqA5V6QK2AijhreCur6wivofX+04KuO2r
-	 +NpgauC0By2fqX2nQRogoZZ3v9wqi+qN6+wAzRFZXSzncDWdIy9WJ7Ej3/tUPoMKXZw==
+	t=1792879638;
+	b=hr/grDy0hD8GHZrKNORE0KpNjiwRLK3a2tsKCwvy/M1DViXOkDKYCgmmSmDTVi4ICzy7
+	 gJu/LkTukLxFbojZnLWsgBMIniBrreVitRRWPEH/XbpGIrnV/+6mK2WZgfyDhVUgwAPOK
+	 yni++ABBQSEdCMZ3T6b0EWsFRdplZ6k7qHDLW/xYrPUNx/lSr8TJoRqc9vTLEVVtshG+5
+	 njXu/tVzmGi22mBu2mPjAHhMZsuaYJlljjf2WnuzSxU41xA3oKd8h6bCDPOyQIW0Du/Na
+	 uQ0R+rG/t7ZuiY4kPG7nceMYskAWDJNEiNcBVi9Poc/ZscSncZx3sZPRs0DsTrBsD0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792879637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792879638;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-	b=NoV+3WW9WGBxE6fG2DirHuZ0PpliYPQupC1rVMg0Vt5qLhNgneVPvT5uQsh55QaMAszC
-	 jdUBO+2GOQBTJvpsake0nLyBBPcLPdLTBE2OXwHr5PeKKSM1rH4M/vOmiEMws3HHt2RqE
-	 Eeq2+77V2IeRqdcfTTkn05Wqyz1rmGo5ovbhLHlQffYCgGCa+bZ8hzvsPhOaNlJ6i1bzU
-	 HfUM5m/Llg89GB0pz8cDFL4DbHTsB1UK7PWZU3otBdDyT+TwyOKSJKMqaghQYzRSo4D5U
-	 NbqPN33P0o0+XSIBvH0YgCO9a6NwhweAflTybaaweQ3dNIQzBeZzeWfmAubFBzY2W7A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tQ3jUZJIzHj6BmefEU8b04rCHYVmSDvqexKo06XbRm0=;
+	b=nmRCK13wRljZ36UNAzPJJtMUd5gKEVXmYSsSxJq5XfRfommLTPd0zsyIOG+SMNofX7iS
+	 3V1dDcSpn1XH/fj44VQeYVD1my2ihuiuMWgUtx9UG7IhLHJuEgBffceuu2Sxfyys/li1G
+	 Uvmegnjh3oXQafbBQDyNxVkzwsBhpj91n3fzI3n3qhF045JLRTAF4WKXiNWljl70qPqAZ
+	 SNaO9OqMCJW8X+xz/CDlGf03WuKJI3X/GUv0gpj30Ws7z1kp8OWJomehfJ8mQbVW1oJZc
+	 ilEsoo1c5m/W2aYxwP/Kxs55X0/7/GhC1d4eTcxLfhfwHz1fpvSK5z/s3PWtG52NsVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="m/Yiaxx0";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=J2pjKcHm;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C54A606A31D
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 22:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C54A606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D59606A323
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 22:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D59606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=m/Yiaxx0
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12079175e9.1
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:07:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=J2pjKcHm
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so17972435e9.2
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792879634; x=1793484434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-        b=m/Yiaxx0FIqI6y8cI2iuR0zdNsFeLRnz0FOtHgOsrzW+5KCuuPQugZ93Ke01QJE0CX
-         bgEDUwewvdImvccpLlwzLdHkfPZWi2K/DoFq/lsKSQv0yIyu6uj8Svv8UWocoX/ECUi7
-         Wv6KiU0K2hsSfxOzPqVVRrI+BT0H3JV3FlRPM0NckY3Xn3lnAdIWdBftRG/rBpPP8cbs
-         8oJiQc4RsgtjfL3PzpAMPFlqZPHOD0V7FTsocJv8o7mW1CqfE2O+QX0+8uFQwxTd3ZgY
-         Tj5hJwq8B/p2U7kBtr7+rtkWpbVQevAwMYQFJxGeWh61fK17emqcVXjCer/HZlmpxtTE
-         WIEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792879634; x=1793484434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792879636; x=1793484436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=McYURVHSivgc1y7QO81KCrd/LSo/Pg6FF1ntLro9Qvw=;
-        b=DhZ8Vt0DhR1hKFElBdIhYgF4ohvcomi3jeqdbf0hVblMuOw4RuiE8niktCuS8uk7U1
-         4vKm1vFzNgONlm6OUCRsirWRUHwyNogbSFOWma68l/ExXqJq77yBEZNUEPjfzAjtTPxb
-         slP9Kuaez61SzcDMkdpnPY5GIABVh5w5Sjl+S3pscNIpJOFhqMx656wD7TXvN9BNlwLq
-         7bjbOj9PKvGcYXoHVhw4B2VBa6ZAdMSbOpbw7gDlMo6B+5+do9suy1UuXD6JmNQ62pKU
-         xQMP4JwlrmUs0hgzgzqqCqKnVhgVabVnq5zptEImt7CGSVHBDtxZ1Rz3tuvmouNSX1/a
-         rCRg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBeIbG5Jv+glcb7mkI117CGPxsYzx6RiJtGwtUAzPIBdJwBpRi/AuuR8hijyEkGqinYQWpx5FFR12m@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnmVUyx2whYkf6THkmzaNIopJ+Kdo3vDcXWwCyddbVkNoutpDK
-	4uqD3qBdk+QjNmOqmWmYTDIR5hnkskL/nd0YDa7y2VLhLfgRTRVv5czm9+OWocCvkAU=
-X-Gm-Gg: AYBFou2D23jSi/sIYh/FAJusM4qCfO7h/bwFOZqEqc1/9/MhsJhgplbv6oBgw8pjhHq
-	C8PD3gGDtwgX4Ar+oqxjFUMW9zKKzfQI4dlw0eprZf5B4MKaQaUwv/dWj9WtQ/X87EmNpgd6Lly
-	VGqvzK3FgXNgfYyJywZ2h2g/rdP1u3X5MgAd60Y8iJQIEbwlh4vFRQeT+gud4UV+0xKQvHrboFk
-	OwFpiIfP7KdkBzwCyvlUt/Iz6n4E06OKvlwj4/W5ugmjQuePbmMxP/7WDW4PB0X7ait1qUh2T+V
-	oTvlNEP7WTpwSAsxKiHXq89WMJ6MzVBWdzC6ZU9g/iSK1z/OtuXd61AGgznMZrTGNs0pmvF7O5H
-	qUXnSh8ae1TrZg3JdeHlgIQPt3/7/77JUgZ97e//2b1UI42WyRKhedVrKqgszlsXK/cjrM7XC9V
-	fNTT0JJzrtApBiChTINAIXs9f/q2FzFx1oeE+25OByUwPp2Vje++ZSBBVwcGOmGtkYq3ZcgqwoC
-	TqJZS/GzgtpB5jWr0Wku9qHEbdqD03yM9VlLiMwjhvE7V2dyIKcpyUJZhTjma2MO5C9vZUmggGC
-	q1M410hMAxboNpTh5HnRSBlxy+YefpGyuFKVQkUdpHfFZ1uiIsVUiWUXQWiCIeUDksfa
-X-Received: by 2002:a05:600c:1906:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a35acc3f50mr41010605e9.34.1792879634534;
-        Sat, 24 Oct 2026 15:07:14 -0700 (PDT)
+        bh=tQ3jUZJIzHj6BmefEU8b04rCHYVmSDvqexKo06XbRm0=;
+        b=J2pjKcHmpyNpyYak4hiq1SqLoHAF6XZ35w75hkj/BumakTFlBwBraSHF2PagBbWmip
+         W3Dk43oauZBfj1Nh2zbRvGi5ZPCe1peDeMDB1S1xj1IBuT5Ij2JhjA3cCE/su9ELlFMK
+         MiRaxrm1HSw5V8evkCV4PZLumnDDXTq8oTFpVesi9wv2CT41uB16F8mFkOWBui/lnjL+
+         pWNT9PKZox+11oMfnZOO9gGsZQzPxIdAhBL3d95XUuGIW33n+n9Fu4NPXThXPSORGoBi
+         O5E39mTTHrUQfoFbuhnXXKHz4DvtOBxe5/VsYbn4MBCFI3OHLKClt7luQKEnUaSCVleE
+         32bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792879636; x=1793484436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tQ3jUZJIzHj6BmefEU8b04rCHYVmSDvqexKo06XbRm0=;
+        b=yYTYYjYEJClxG9QASlGxgbWToDBYLoT1K2DfJTvj1EnasyHRLnMpwn7+CfM+xtf41G
+         n368wu7UuaZ0lZ81rcIeBzf8gV5oRpeZj9A3WXZFB1aXo5aBx4YGNdaG0dR74929N0dg
+         gPrfkbzipf7etcd/6Vy/mqtGOm3OjIqmNV2VE578OXqiE13WzCFbMZShb/XGk89Z2GK6
+         Ir1UKNsaN9rxu8BhcyTqWcz8NP+rQpLp2lzVxv81hUDNSX+Lq9N993yahGjVrPGtPJnO
+         qhicNLlbEusbsMtkYePJ9u6lfGKXRYLDvATbukIDxANH0wxjnGIG6tjT9G9HEcnC3AGX
+         0ZRA==
+X-Forwarded-Encrypted: i=1; AKwUvByDyvbNw4LNK24K9+8u9RLepEvudAZFBQ3LeULPcSlDEvPftq58tg6uD67CNqNrjVhtongrIUCS0Gkg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKjVC++V+DogbNicKYMwCYO0fjeViMRxzcit7hqAlJFkQ8CdCW
+	PlhXFCbQeWQiffaEIJOSuIISyd/tflP6wOLRyyUu9xg8/Qzxrn20Z0zOtRv88Jn2KpY=
+X-Gm-Gg: AYBFou0pGUmhtnAmUhxwrPTqbJCP/2JvrfLSOn1+uT9XRpEoa2boZ+rncTh7VdwetCq
+	vEt4h5shYYGsG7Ow/+KKLwtyvrfC991rb3M52Tt7Xay2ncjhTr/76P8cnmT2NYCmhEmI7qM9UP3
+	DoXjx0Ugj/qVnk2e9V6ddJSnxhVEmWb0HJOu1GkrlSOP03DxE3JfcH1tn8VWpwbHWiiojkYDznT
+	a7AHCTBhlJx0ndrB2TAhSYpnLdiyDgmFJs64i6p6v/MfBcvtlqHyGpfQPeOLgOdsvzj+i5RsvL2
+	gDL5tTHvTyVVU6LzqZEpRoIdpR10VTQqURJhaH19AC2QIvnHsjDoz3W8ZiJ3MAhArze9gYiJ7sZ
+	JD8LL68oWmuWE3B32NwSahNydBK2dlc2Ro6K6HelbEtM+SXNf6DGSlQ2xKbTbzVJXLv4tkV24rw
+	mwr/Txlt4PwHOE5jpfpuVQVr5bfcn9dhfviqgj6jTGXzGxBxvRAzftVOW9GPD6Im1Ux2Z+2LddI
+	utsMk3nZgK1upnBX7TjJvx52BcHqhwECTdeatiMaAxmELemRYsh06iiaj/Zz2vcaS3iaoGvipLD
+	VxjViagHx9fACw/oU8mdIN7zOsKkR6YnFTkoXPXlAul+lO9naRtqvpl9ThG5VEtJrck8QjJQ+Qt
+	FJ6El7agjJixfEHM=
+X-Received: by 2002:a05:600c:4e87:b0:4a2:cbe:beac with SMTP id 5b1f17b1804b1-4a35aca73dfmr47824675e9.23.1792879635309;
+        Sat, 24 Oct 2026 15:07:15 -0700 (PDT)
 Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm53466635e9.3.2026.10.24.15.07.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm53466635e9.3.2026.10.24.15.07.14
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
         Sat, 24 Oct 2026 15:07:14 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
@@ -90,10 +92,12 @@ Cc: Jiri Slaby <jirislaby@kernel.org>,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2 0/2] serial: 8250_ingenic: Set UMR and UACR, add the X1600
-Date: Sun, 25 Oct 2026 00:07:10 +0200
-Message-ID: <20261024220712.23250-1-olivier@mgcrea.io>
+Subject: [PATCH v2 1/2] dt-bindings: serial: ingenic: Add the X1600
+Date: Sun, 25 Oct 2026 00:07:11 +0200
+Message-ID: <20261024220712.23250-2-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261024220712.23250-1-olivier@mgcrea.io>
+References: <20261024220712.23250-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,37 +109,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ingenic UARTs carry a bit clock count (UMR) and a per-bit adjustment
-(UACR) that the driver never sets, so a UART runs with whatever was left
-there. On the X1600 of a HiBy R1 neither the vendor's 8 nor the reset
-value 0 gives the 16 clocks a bit the 8250 divisor assumes, and the
-Bluetooth chip on UART0 fails to set up. Patch 2 sets 16 and 0 at probe.
+The X1600's UARTs have the X1000's registers. Add ingenic,x1600-uart,
+with the X1000's as fallback.
 
-Changes since v1:
-- Set UMR and UACR on every Ingenic UART rather than in an X1600 entry,
-  as Nikolaus asked: the JZ4725, JZ4740, JZ4755, JZ4760, X1000, X1830,
-  X2000 and X1600 programming manuals all have them at 0x24 and 0x28.
-- Write 16 rather than the reset value: with UMR at 0 the R1's Bluetooth
-  chip fails just as it does with 8.
-- The binding keeps the X1600 compatible with the X1000's as fallback;
-  the driver needs no entry of its own.
-- Rebased on tty-next.
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ Documentation/devicetree/bindings/serial/ingenic,uart.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I could only test the X1600. On the other SoCs this writes the value the
-divisor already assumes.
-
-v1: https://lore.kernel.org/all/20261024051515.55639-1-olivier@mgcrea.io/
-
-Olivier Louvignes (2):
-  dt-bindings: serial: ingenic: Add the X1600
-  serial: 8250_ingenic: Set UMR and UACR at probe
-
- .../devicetree/bindings/serial/ingenic,uart.yaml     |  3 +++
- drivers/tty/serial/8250/8250_ingenic.c               | 12 ++++++++++++
- 2 files changed, 15 insertions(+)
-
-
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
---
+diff --git a/Documentation/devicetree/bindings/serial/ingenic,uart.yaml b/Documentation/devicetree/bindings/serial/ingenic,uart.yaml
+index d5f153bdeb0d..635342d43ddb 100644
+--- a/Documentation/devicetree/bindings/serial/ingenic,uart.yaml
++++ b/Documentation/devicetree/bindings/serial/ingenic,uart.yaml
+@@ -32,6 +32,9 @@ properties:
+       - items:
+           - const: ingenic,jz4725b-uart
+           - const: ingenic,jz4740-uart
++      - items:
++          - const: ingenic,x1600-uart
++          - const: ingenic,x1000-uart
+       - items:
+           - const: ingenic,jz4755-uart
+           - const: ingenic,jz4750-uart
+-- 
 2.39.5
 
