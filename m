@@ -1,57 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792835414;
-	b=vQ6Uz0qAIjhQsrwueMK9/aIFHjCdC2GscyiI8xXl+Th4uLHbzvJ+QcPKeOnLbFoSdMTc
-	 0XNEiXFwPksFbcwIyAdCfE2bDwv3CwH0pKXplx4uNdRhaWFPn8jdZpmJTbzu2oOM3Z64u
-	 34ZPGvnmNTyjV7lNosaCYP9cDzTTIKQh8ZsvYQj0tcl3FFhA62iYVwUjnh5PXRDaYTkae
-	 /kcumGxnkAjTV1jgYq+DHrLHGX1/CzyOcKUEpayb18+D1NnQtyP9B+9zhkSs/W+WitPAP
-	 TZxzHZD0DrKDzvZi8Dpwv+pX5/YiM2PTKtIzVO6Qg1gNjn1FIfRJOolKEIQHYzojV1g==
+	t=1792836769;
+	b=KrRaZevXMllYnZmNaXf9gHWAm94VjEATgELyCBVPFPbtEOHcV8ye8s6XO5kkgCgoLDxo
+	 7i2xV+Y1aq5JSLGviYQu0U16vRyqIecuvbMH0R1LE08YYbt632C99LvRO9EKlhW5xDrf1
+	 WEDQz9grcNraxFkOgWO0ZD2oCW0I3Fu2VacBMbVOL8TVc4QXBnLkk4idVG74+u3AuMhAO
+	 2lWjwhwAKQuVxHJ0/mkWYuIULYMLgxMLpZq30YcH1VEh/Kc+uW//9n2YisNK3mcFbVi6T
+	 UZIUpT+Din8UA7Bwo5nkc3j4IEBEcHmcIYiklGqoxTsaYV+C+gudh+uqmvYhcRrCCGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792835414;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=joX7KNmhDorE+Hx6BDJVCLKKQ1nBdGQBaPGjr877ZVA=;
-	b=UBG0sd4Jb7p22i5XbK3DCR5bqW6caTSseO5uqWDacwDSpUtNxT0qcNzE0jm/QPz3JpR0
-	 X1nMDjiCAmHI3jdpS4NNKb8vXxR4uByASvbg+qdJlFRzUtPMUXSNuyE0nZJKZkL6bMBkR
-	 0mwejzsXIfaKuCzHu7sbF0C+GrqVFouIelrsJl3KytKUYsk1Inpc1GOv6nB4YfsCorfz3
-	 QJGP9i+o15wx6viwVor73kNgwjhy6ukAo4WsLDlP1wd9z8oYkfSdieyO05WfcTUpBinhm
-	 tEGKDxnSZUtE5KKm8l02fIMG+fqMSVoyxE/HOv97pDGtTlJKhSOIWO/7DiPACsQkMVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792836769;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6qEolPCd+FIDEdvDW5rn9Pcg+lhQtBbgEWH4D9yZSJc=;
+	b=pAP1hL4W8lmjmPAVyc51EQGVtbkX4oCm7s3Z+l2eldPWQmaik/mDD2oSSuF0smfT+/pK
+	 SLpgQu1LM9KYPC/e8pelFTVl59vsOv8fnVixjxZbBA4vNY80HwmonEt0Tb/ZOBM5BNWYB
+	 09pAJFEd9cXtCSiuMuOpLSRfjnJ4dMt153tIuBZnwvb5nz/HQcIDNoBSqjz4r08FJHEwW
+	 hXWlZR+qddeIOAtL6EojmVAQt/Dfya/z4alm3qDKKUUymg0lJ0wiDGtuEPIu9goVJLRGn
+	 yCwGVULv7ZoyR/faQ89ntc+x7mcKBYe08nsJu7mo7dRGvZW4JQ/mtuenlZudmGLqGYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1FJwdfD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UpBtbyfD;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AA9606A31A
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D85606A31A;
+	Sat, 24 Oct 2026 10:12:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35D85606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1FJwdfD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98421F01825;
-	Sat, 24 Oct 2026 09:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792835413;
-	bh=joX7KNmhDorE+Hx6BDJVCLKKQ1nBdGQBaPGjr877ZVA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F1FJwdfDQbYTzjqL2Ol2OsvLVvTUaMS7UmE6Oi7ofh+XUMns+NANUnvANsmW6j7dL
-	 9U8WQa1yMCwKdEElYVAIKwRXUfsvZJ6A19UHtuJZguNEYqD2RQikiu0xRcQsEDvV18
-	 6LlxdNaBe1VHaMpO7J3CzdQw+Kvweh4/2VY5zx6VnTwbkNnR4A+aNOfOQ2wqHfWSmr
-	 gCSD+OO77Qy557UaDj5OwlfXDtgmX63rvgWHYeFiO+1XRB1OW/5sPQPgnG94KNZESY
-	 /xzRxxG4vjy9vJElsm2CVHiobouhpNQ5V4Dy/WRXqDe8wqvNvQHBSDiphKW0LqVZO6
-	 IFgSYnfBDsK6w==
-Message-ID: <sashiko-outbox-183632@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xincheng Ji" <jixincheng@ultrarisc.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261024-ultrarisc-dts-v6-7-c62994d8a114@ultrarisc.com>
-References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
- <20261024-ultrarisc-dts-v6-7-c62994d8a114@ultrarisc.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 09:50:12 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UpBtbyfD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792836768; x=1824372768;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Jmzw3oy5IsJnayq6obhuhIQ3HrlE0gEKvphfs8NF1/I=;
+  b=UpBtbyfDoBNZ0jO+ggSjP+FCoahuQCrreUGbGPSYuHMhi7/ivnNNIylB
+   YBNgi8CVfAy5G6P/4v3tKY42TTDwcGarGWVK1Imd5HhIEIJjQQgM4x35S
+   PU0tEWKnRRvmt7xZwp1+c8ucDg+hVkZiqd09pstW3ii43WNY+qA2UwpCA
+   0VVfaU8UX99u3ftWgKfD2KZpxqAGRCdsrJlLj/DSgyTJCBpdldEB7sSLD
+   8LgFBS/ZAj4M+l9qF54UP82KFjZZpROmP3kXqjj6mD+2NdC7t2ZpioM+Z
+   3USpj/tQQOLaNxXzeY3d91cHQFOuUevkZWdZB/mF5+wplc7i4cmGMQzSa
+   A==;
+X-CSE-ConnectionGUID: aeFSJlraQ82yBQH97eRMYA==
+X-CSE-MsgGUID: eufke7ahRYueM2oG7wdCFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1598201"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1598201"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:12:47 -0700
+X-CSE-ConnectionGUID: 2xeI12+9QAiNMSqDWYMpMA==
+X-CSE-MsgGUID: gLDQp0wbTtWmmfWLXsiEVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="3907642"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:12:44 -0700
+Date: Sat, 24 Oct 2026 13:12:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <atyEmgH7jqY0cM7A@ashevche-desk.local>
+References: <20261024041357.34346-1-olivier@mgcrea.io>
+ <20261024041357.34346-2-olivier@mgcrea.io>
+ <20261024090006.00002720@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,99 +87,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024090006.00002720@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] riscv: dts: ultrarisc: malformed PLIC node name breaks DTB build
-- [Low] riscv: dts: ultrarisc: unrelated dp1000-shenrongda-m0.dts fixup
---
+On Sat, Oct 24, 2026 at 09:00:06AM +0200, Joshua Crofts wrote:
+> On Sat, 24 Oct 2026 06:13:57 +0200
+> Olivier Louvignes <olivier@mgcrea.io> wrote:
 
-commit 81481b50c1512c545051667e9b53f021c85ecb18
-Author: Jia Wang <wangjia@ultrarisc.com>
+Olivier, I also missed the cover letter, can you make sure it's there in v3,
+please?
 
-riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+...
 
-This commit adds the device tree and pinctrl definitions for the Milk-V
-Titan ITX motherboard based on the UltraRISC DP1000 SoC.
+> > +	case IIO_CHAN_INFO_RAW:
+> > +		ret = x1600_adc_read_raw_channel(adc, chan->channel, val);
+> > +		return ret ? ret : IIO_VAL_INT;
+> 
+> You can use the Elvis operator here.
 
-Link: https://milkv.io/docs/titan/overview
+While true, Jonathan preference to open code this type of cases
 
-> diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts=
-/ultrarisc/Makefile
-> index 454d849a6ce4c..dfd15c064d078 100644
-> --- a/arch/riscv/boot/dts/ultrarisc/Makefile
-> +++ b/arch/riscv/boot/dts/ultrarisc/Makefile
-> @@ -1,2 +1,3 @@
->  # SPDX-License-Identifier: GPL-2.0
-> +dtb-$(CONFIG_ARCH_ULTRARISC) +=3D dp1000-milkv-titan.dtb
->  dtb-$(CONFIG_ARCH_ULTRARISC) +=3D dp1000-shenrongda-m0.dtb
-> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dts=
-i b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-> new file mode 100644
-> index 0000000000000..7a812e40a2496
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-> @@ -0,0 +1,108 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-> + */
-> +
-> +#include "dp1000.dtsi"
+		if (ret)
+			return ret;
 
-[Severity: Medium]
-Does building dp1000-milkv-titan.dtb fail when CONFIG_ARCH_ULTRARISC is
-enabled?
+		return IIO_VAL_INT;
 
-arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts includes
-arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi, which
-includes arch/riscv/boot/dts/ultrarisc/dp1000.dtsi (introduced in commit
-65da27c69d17). In arch/riscv/boot/dts/ultrarisc/dp1000.dtsi, the plic node
-is declared with a duplicated unit-address suffix:
+...
 
-	plic: interrupt-controller@9000000@9000000 {
-		compatible =3D "ultrarisc,dp1000-plic", "ultrarisc,cp100-plic";
-		reg =3D <0x0 0x9000000 0x0 0x4000000>;
+> > +	/*
+> > +	 * Powered up for good: the keys poll it every few tens of milliseconds,
+> > +	 * and powering up takes 2 ms.
+> > +	 */
+> > +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
+> > +	fsleep(2000);
 
-When dtc compiles dp1000-milkv-titan.dtb, check_node_name_format() in
-scripts/dtc/checks.c inspects the unit name via get_unitname(node), sees
-the second '@' character, and aborts the build with a node_name_format
-error:
+	fsleep(2 * USEC_PER_MSEC);
 
-	static void check_node_name_format(struct check *c, struct dt_info *dti,
-					   struct node *node)
-	{
-		if (strchr(get_unitname(node), '@'))
-			FAIL(c, dti, node, "multiple '@' characters in node name");
-	}
+(will require time.h to be included).
 
-Should the plic node in arch/riscv/boot/dts/ultrarisc/dp1000.dtsi be named
-interrupt-controller@9000000 instead?
+> > +	writel(0, adc->base + X1600_ADC_REG_CTRL);
 
-[ ... ]
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts b/arc=
-h/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-> index 43f713bcea257..b6027420175c2 100644
-> --- a/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-m0.dts
-> @@ -106,7 +106,7 @@ mdio {
->  		#address-cells =3D <1>;
->  		#size-cells =3D <0>;
-> =20
-> -		phy0: phy@0 {
-> +		phy0: ethernet-phy@0 {
->  			reg =3D <0>;
->  		};
->  	};
 
-[Severity: Low]
-Was this change to phy0 in arch/riscv/boot/dts/ultrarisc/dp1000-shenrongda-=
-m0.dts
-intended to be squashed into the preceding commit 5c5bd7084b50 ("riscv: dts:
-ultrarisc: Add Shenzhen Rongda M0 board device tree") rather than included
-in the Milk-V Titan patch?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-ultrarisc-=
-dts-v6-0-c62994d8a114@ultrarisc.com?part=3D7
