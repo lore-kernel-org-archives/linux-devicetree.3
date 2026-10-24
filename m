@@ -1,62 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792840270;
-	b=M93yD37bUH33dNEE0wgh2Lv3Cv+h0BGNxkXecVG5k2zfF/KxeXzdEFTExl/UiliTUq7F
-	 o/SBiOrwifVnondiqdt6AexYnf/OzOnEA2v8hmbKTdHrgSoAaXPiuqDkXNNpcf8lzzxvw
-	 epoaf8xJ/cP/YnUKbyfmq7QPnGy2LbhP5v1rNnMmReS4MikYrukFW3gNK2q1YCOi227u4
-	 JUCvtjR4ENHwEjZ5u0Qn1u2CEmE1fqfedM2bL1FZi6/9pLfTjfddF3JEeg13N68cSdlOS
-	 qVDB4AWqbqJQ3+19R49cXaizOrytAZbLnreVyVcJtH4k11t8Tl4VvUV73NNtT9f63ug==
+	t=1792844088;
+	b=JX2tIS6mGyAkgHHF+QPNR0NAAdldsMQzU9AS7+sE53u6oyNFjX3TDtRFaXU3KGd7TXRl
+	 FqX2Q9dQ545ARaYU76UU8F/cXyN08k0WuNbiQlMgcSl39mhXK8iMLEuC2iK+PKmCHx49I
+	 4SlFgLGFCWhPw0NG1ksM+7GygkQ28sjnfkBBawMNMw58NXpwv2XAt2zkClYDGXYwlgtKd
+	 bPCj+CdPnQcpbQHYwJIveP44rPEtbPPNbZWCTEc5sXCAkpe/D31C1Irokfl462vXH5DSr
+	 2PPhexNQ/eGcYYBKueZg46M2fxDnd3qdAcb5PMq5ZG+gSlNe+OtgpCwmzpavKUk2aPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792840270;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
-	 Subject:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=+pCjYuPgcaJ2F7dZslcnQcAsaGg/IMaeWcFaiwfAsJ4=;
-	b=gW9nt+Rg3Vtx08nK05Dg370iNuUMOgi+ILcXHk8e6LLngK/MaNstS/bN48XDjqAvD/OX
-	 OIwxfXnTWmwEc989kgt/CBq7CFausd9WgeQGC5LPWTZpKNgO+ONSWklAAd3OveobFug2T
-	 lF0YdLyiONtQ4wfKu6aXWUpSyQdFpBho492+JEpn3QB6tlySxWqEpZ2HhxKs/W9v59s/S
-	 Yr/hlqg95MzUWcCLKbaakeGrjTiQWfaldZEbJUKGQRRj/m5gQH49YUIZhe68aLaQ7SJJC
-	 /xKzUc27/JR5CtfhOam1RhT4Epqo2o0lStg3ZmJSwylaHm+gMdEA9AY4EzQvm6nw0DQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844088;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=K7LxKW+FRj6QhUxGWybJkziD8iYolGetDeRLOo4voUU=;
+	b=IRnLYA7gVRuIrwNiZmkOeGvSo5zshFNawENCxsm8qjYB9cUoSJBNBO27gCQuD0bOf1TB
+	 u7Wh4WeBuQRGx5D88m+o3RczdbQWGST19agQC28hybc6s+pVnaAiAB4z4TUBKTXGdu/AG
+	 PZjaEVFQwizTrLJtpSoxTmU2UFj4DUx2oAHbyPAgdW2Gin0MU+bDFsTDvp4mvBajmeftk
+	 uwMHivhSNR8J2WUn61btZ85FJFlIFjmuoxxZ3blXIMsP/7nC64svvYGPpMmI6sH/jsb1G
+	 aoBWrtE5FPqxM3lB+fvDPTmnTIKlv/8N55w9b6DypMEwbrWcFhppgDI+l6h5yWD6f5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b="s/Lm2Uvi";
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jadg3h8S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C77606A31B;
-	Sat, 24 Oct 2026 11:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44C77606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFBF606A31A;
+	Sat, 24 Oct 2026 12:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=s/Lm2Uvi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1792840261; x=1793099461;
-	bh=+pCjYuPgcaJ2F7dZslcnQcAsaGg/IMaeWcFaiwfAsJ4=;
-	h=From:To:Cc:Date:Subject:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=s/Lm2UviQ6bIMviRyZa3r++i853dV8aWIMaKTIaZocfyjWstxLfuA5Yf/UqPTtUqZ
-	 +SQrJpN8NX6gk/jNlHIKc0uXATgC/8PxMDLGZUYwZLb3JEC7gMmv9JXft3UEX/4DuT
-	 Rel2zAOWB5EhEUYLcC3NniYWRshCw3AChpa2XPk632uMeGgYd+NcC9em72Xx3PTzDr
-	 7LdYh3lrnHQFeqZcpJUXXT7nrsxCy3GSYTD8IXaOZ/dtyowt3RmlfjX9g+tkI1W7Il
-	 OIStbuqHudDqKS2YjyHZ+DRcjTIjiFKnZQMpE6Brh97wLVzLepO+G/ItW5MVEvLiNk
-	 t9PICtCbP/big==
-X-Pm-Submission-Id: 4jBcdG4RH4z1DFSm
-From: Michael McAllister <me@michaelmcallister.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 24 Oct 2026 12:10:08 +0100
-Subject:
- [PATCH v2 0/3] arm64: dts: qcom: Add initial Motorola Moto G10 support
-Message-ID: <cover.1792840208.git.me@michaelmcallister.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jadg3h8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577411F01825;
+	Sat, 24 Oct 2026 12:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792844087;
+	bh=K7LxKW+FRj6QhUxGWybJkziD8iYolGetDeRLOo4voUU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jadg3h8SLRb3uUDnsNzEkg1KuYpxgcXTiIhDw3HrtvHPdm/Ff70F6TssleNtZkArV
+	 8JHRx/LjVeNGGUrfaOZNMCsMAMvGaLxdGb59xyhYp9K9qGPIeirup446eQJuCVEkp8
+	 RvsTRP+pPB2JmXO2vF99A5VVEL1e6xnKmY5TeW5Jd3EY7WNlOomoakwl/c8WCztKUm
+	 +PAOrPTes4AL9YwyrunlLh1Lz8otExVHTQmj/HLrPWgPnyd91bb+fMKdS+G4AddGQZ
+	 iN0CWJWgIes/rLWjwcahyrKIDYHuUJHdZKWDo1s1dFezUkomUNrqbLzlVV9MaUjWQa
+	 IH+9IFBthob5Q==
+Subject: Re: [PATCH net-next v4 1/7] dt-bindings: net: ftgmac100: Make Aspeed
+ compatibles standalone
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew@lunn.ch
+Date: Sat, 24 Oct 2026 12:14:45 +0000
+Message-ID: <179284408591.3134.16629228418200101664@kernel.org>
+In-Reply-To: <20261020-support_ast2700-v4-1-4d36b40939b3@aspeedtech.com>
+References: <20261020-support_ast2700-v4-1-4d36b40939b3@aspeedtech.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,48 +66,166 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Konrad, all,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Thanks for the review. I've updated the Moto G10 (SM4250) series with
-a separate patch for the shared idle-state fix. I've disabled Bluetooth
-for now while I work through the remaining driver changes.
+Critical: 0 · High: 0 · Medium: 3 · Low: 0
 
-Regarding the magic smoke, I checked the 25 voltage ranges against
-the Android DT pulled from the G10, and they're all within the vendor
-ranges. The 640 mV L8 setting also matches Android's ICNSS override.
-These settings are also running on my device.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Changes since v1:
-- Correct the cluster idle-state parameters in sm6115.dtsi first.
-- Use QCOM_ID_SM4250, delete reserved-memory nodes by label, and tidy
-  the comments and redundant USB defaults.
-- Keep GPIOs 14-17 reserved; I haven't established their board-specific
-  use.
-- Keep both framebuffer bus clocks enabled, disable DISPCC, and point
-  display0 at MDSS to preserve the bootloader display.
-- Leave Bluetooth disabled pending the separate shutdown fixes.
+- [Medium] The commit message's reason for the change does not hold up
+  for the code at this commit.
+- [Medium] The binding now asks for a standalone "aspeed,ast2400-mac" /
+  "aspeed,ast2500-mac" / "aspeed,ast2600-mac" compatible with no…
+- [Medium] The patch deletes the `items: [enum: [aspeed,ast2400-mac,
+  aspeed,ast2500-mac, aspeed,ast2600-mac], const: faraday,ftgmac100]`…
 
-The DT passes schema validation and boots on the phone using separate
-Android bootloader handoff/alignment code, with USB transfers and
-read-only eMMC access tested. GPU, Wi-Fi, DSPs and suspend weren't
-exercised in that minimal test image.
+--
 
-v1: https://lore.kernel.org/linux-arm-msm/cover.1792703903.git.me@michaelmcallister.org/
+dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone
 
+This patch changes the faraday,ftgmac100 binding so that aspeed,ast2400-mac,
+aspeed,ast2500-mac and aspeed,ast2600-mac are standalone compatibles. It
+drops the two-string form that carried the "faraday,ftgmac100" fallback.
+The examples now use "aspeed,ast2500-mac" on its own.
 
-Michael McAllister (3):
-  arm64: dts: qcom: sm6115: Correct cluster idle state parameters
-  dt-bindings: arm: qcom: Add Motorola Moto G10
-  arm64: dts: qcom: Add Motorola Moto G10
+> The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
+> compatibles are currently only valid when paired with the generic
+> "faraday,ftgmac100" fallback: if a node ever bound through the
+> generic entry alone, ftgmac100_probe() would set
+> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
+> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
 
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/sm4250-motorola-capri.dts   | 374 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/sm6115.dtsi          |   8 +-
- 4 files changed, 380 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
+[Severity: Medium]
+Is this rationale accurate for the driver at this commit?
 
+In drivers/net/ethernet/faraday/ftgmac100.c, ftgmac100_of_match[] has
+dedicated Aspeed entries ahead of the generic one:
 
-base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
+    { .compatible = "aspeed,ast2400-mac",
+      .data = &ftgmac100_match_data_ast2400},
+    ...
+    { .compatible = "faraday,ftgmac100",
+      .data = &ftgmac100_match_data_faraday },
+
+The most specific compatible wins. So a node with "aspeed,astXXXX-mac",
+"faraday,ftgmac100" always gets the Aspeed mac_id, and ftgmac100_probe()
+then does:
+
+    if (priv->mac_id == FTGMAC100_AST2400 ||
+        priv->mac_id == FTGMAC100_AST2500 ||
+        priv->mac_id == FTGMAC100_AST2600) {
+        priv->rxdes0_edorr_mask = BIT(30);
+        priv->txdes0_edotr_mask = BIT(30);
+        priv->is_aspeed = true;
+
+The two-string form this patch removes therefore can't reach the BIT(15)
+and no-clock path. The only node that could reach it is one with just
+"faraday,ftgmac100", and the binding still accepts that through
+"- const: faraday,ftgmac100".
+
+The DMA mask claim also doesn't seem to match the driver. Nothing under
+drivers/net/ethernet/faraday/ calls dma_set_mask*() at this commit. Even at
+the end of the series, the only DMA mask set is the 35-bit one under
+FTGMAC100_QUIRK_DMA_35BIT, and only the AST2700 match data selects it.
+
+The note below the --- line says there is no known combination "where a
+node has actually bound through the generic entry and gotten the wrong
+EDORR bit". Before commit 03a2aba50b2c ("net: ftgmac100: List all
+compatibles"), though, "faraday,ftgmac100" was the driver's only of_match
+entry. Every Aspeed MAC bound through it, and the driver detected Aspeed
+afterwards with of_device_is_compatible(). In those kernels the fallback
+was how the device bound, not a hazard.
+
+Could the commit message give the real reason for the change and drop the
+DMA mask claim?
+
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..c870dd0bda7b2 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -13,12 +13,10 @@ properties:
+>    compatible:
+>      oneOf:
+>        - const: faraday,ftgmac100
+> -      - items:
+> -          - enum:
+> -              - aspeed,ast2400-mac
+> -              - aspeed,ast2500-mac
+> -              - aspeed,ast2600-mac
+> -          - const: faraday,ftgmac100
+
+[Severity: Medium]
+Should this items branch stay in the oneOf with deprecated: true instead of
+being removed?
+
+All eight Aspeed MAC nodes in the tree still use the two-string form:
+
+arch/arm/boot/dts/aspeed/aspeed-g4.dtsi (mac0, mac1):
+    compatible = "aspeed,ast2400-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g5.dtsi (mac0, mac1):
+    compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
+
+arch/arm/boot/dts/aspeed/aspeed-g6.dtsi (mac0 to mac3):
+    compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
+
+Every remaining oneOf branch matches a single string. Won't every
+AST2400/AST2500/AST2600 board DTB now fail dtbs_check? The schema would
+also stop describing the DT form that is deployed in the field.
+
+No later patch in this series touches arch/ or brings the old form back.
+The "dt-bindings: net: ftgmac100: Add AST2700 compatible" patch only adds
+aspeed,ast2700-mac to the enum plus new if blocks. The tree stays
+inconsistent until a separate series lands through another tree.
+
+Runtime binding on this kernel is not affected, because of_match prefers
+the first compatible.
+
+> +      - enum:
+> +          - aspeed,ast2400-mac
+> +          - aspeed,ast2500-mac
+> +          - aspeed,ast2600-mac
+
+[ ... ]
+
+> @@ -94,14 +92,14 @@ unevaluatedProperties: false
+>  examples:
+>    - |
+>      ethernet@1e660000 {
+> -        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
+> +        compatible = "aspeed,ast2500-mac";
+>          reg = <0x1e660000 0x180>;
+>          interrupts = <2>;
+>          use-ncsi;
+>      };
+
+[Severity: Medium]
+What happens when a DTB written to this binding boots on a kernel that
+doesn't have commit 03a2aba50b2c ("net: ftgmac100: List all compatibles")?
+
+Before that commit, ftgmac100_of_match[] had only:
+
+    { .compatible = "faraday,ftgmac100" },
+
+Aspeed variants were identified after binding, with
+of_device_is_compatible().
+
+On those kernels, a node with only "aspeed,ast2500-mac" matches nothing.
+That includes stable and LTS branches without 03a2aba50b2c. The Ethernet
+MAC would never probe, which on BMCs usually means losing NC-SI and network
+management. Other DT consumers that match only the generic string would be
+affected the same way.
+
+The fallback is what lets new DTBs work with older software. Could the
+commit message mention this forward compatibility cost, instead of calling
+the change only "a binding correctness fix"?
+
+[ ... ]
+
 -- 
-2.39.5
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-support_ast2700-v4-0-4d36b40939b3%40aspeedtech.com
