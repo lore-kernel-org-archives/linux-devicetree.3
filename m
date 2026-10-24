@@ -1,57 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838106;
-	b=xmgOA6ta7cywqKFK7xWBbTiYWmM0Shln1pF3XFyGAvbXzinI7cj/wPe5iGW9qH6HSzzH
-	 GMZVlBgqO9EYiv7+PSBomJTRgrO9LjsrDwSDg5sr2o4m8fLnT4sg2I/GkGvTyGYQjFlK7
-	 fCo8nKzx8UPLFy5XUOIgAdvqCOerzZd9x08oGSbWPZUoVHUfDjY7WUOxBoYTTi0AQ0stq
-	 4IABesNiTkGQ+vqtpZC7DQ778X/qTNkvybtoDYx5XKLnTsU2qu70I3pQVYfNy7oHvckfo
-	 je+2c1Keoba8htv4b8OSQ8c04Q4lsJTwHfw+xFeOLHjm0vbI0nIgOMd2z4gy4bdE7Fg==
+	t=1792838317;
+	b=EOplBcaglWPi+YB7tKe7bTdn72ainNg1f59K+nWCl0syfijddI7QqiDtcc3KGmDimXPK
+	 22GvU+Z967yFC0QzY+/0d62gFTXdfnLMoxWixr40hogD3lTSRsPqnES80gZkH1BtAdrJ8
+	 Ypl5ngX5bI4gA/vSIQYiLKcAf11iWCXiBJQMepzgLNQqfFQvN4KQ0Pm1tBR1vjubLa28F
+	 eB11enu0Vvz5wXnP4YC5Jr3TxLJKu9dmWlQ7dbrGkVWduLottyxGC2tcqYFdbP+vTZ/0l
+	 mp4kvu0s5eOkbV7Jes/mrxw/OpdMNblfXtJ1O3ybzCt3CpNjw+PaO5hsi9V2wU/KGlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838106;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JGZAyCfHQCpkCJjI7NsK9bMmB4Fj+DMuMDpfTh+tpcc=;
-	b=kuyI9WpkhhJSHhjhctZ6Y50WnBzkCmZ4bCt1t/1QE+IBCeqmt35GbZrQMue40WL1+TaQ
-	 PjU6b0XlIYFCjA9BVQqllQc3lowBHI38b01SdcPaOFoYtpcnsJagSPlM73dRqPZraOaw4
-	 +Oddla+aeVsbTMwWLoG8R9N7mdlWmPMFdi8p5RoFizXnFKNXbGkpMhHwU+bw+2o/sRTLA
-	 lCjfB2uRO+iCT82uKJYJeRJWUkr0ykO5qWmLFXO0z6nBz7+ZB6A8+VCrVCnxkD/I1LEDE
-	 kXtbXxTVGiV7+/BsMeLzHcyNNxHHm+nfx6egHBIn7hpyXj7CQCN1jUZZnKw8nrTZjDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838317;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=qAQjYYDYYKT+pQI95I063wXWoy76Y7CUBOwu7TGf1IY=;
+	b=pnGlllCIFCps6S3b5oI1qu2527BSu9aoKMGHxYKFFhJUIW/r8NMB0f6JwqV0h1jmAoW5
+	 u9niXzwT8PcKfhc/YB/diR47C54TQ8GalahmEfVq61UHdsEvKKNGoQEA/r1gGgXV+97Cl
+	 RkTEpBGO5ChuC39CPjs2vYxcQDd/oCslcgNDg4G4jwtJKWjS+9WVzmRLEPydO5ABFC+l7
+	 KpPCdN0IjXbUGZrnJZLoFzRshxjPJVuZ4HrZCM3C00CtX5fmfeVgzNnCbnUuBZNpb8lBp
+	 BZj2Qp/us4wJBoJIUdglWRdSUoDRjfrepyGOPZcDHrP4vvgOEHlrkUAXmN8zylTEC3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgJizdDE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aU0E1De+;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A41606A31D;
-	Sat, 24 Oct 2026 10:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EBE606A31A;
+	Sat, 24 Oct 2026 10:38:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25EBE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgJizdDE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813C91F01828;
-	Sat, 24 Oct 2026 10:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792838105;
-	bh=JGZAyCfHQCpkCJjI7NsK9bMmB4Fj+DMuMDpfTh+tpcc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KgJizdDEayJMV09X3w8klI0/QMqm0nD1j5CuT3P+S8ssRmZYoMRPYBRa3QralHF4e
-	 V7S7G7LJV2qF+BAtNApGQ6nnqqifOODa8oi8s5lbjJUGEfkIjWI4tcxVfQrapcy9NI
-	 psDfog0ddk/cC+GsJ8mOmQMZIHCRjVInYbYCnbRr8vNlEFbY+H0Fx1uou3rTeQGwVM
-	 JSUmQCfzrpNGn4O7k7lBQstE/LngvusKSxVbHDuDTEle+uMuIWppepMlGWjbXeDvwV
-	 muNEe8Vku2rUlvSvwz5YbFGw/nvKUcCxEgI8VyzphO3i6c7n+8CUTgm1ACY7n2/XDw
-	 fPislacpkKqag==
-Message-ID: <sashiko-outbox-183649@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] clk: rockchip: Add internal support for 24-bit
- fractional dividers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cunhao Lu" <1579567540@qq.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261023-add-board-ok3572-c-clk-v2-2-90b98836be6e@qq.com>
-References: <20261023-add-board-ok3572-c-clk-v2-0-90b98836be6e@qq.com>
- <20261023-add-board-ok3572-c-clk-v2-2-90b98836be6e@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 10:35:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aU0E1De+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792838315; x=1824374315;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZxGAs6w37sgIAZ5tR3Pk9MNEYp0l0AYRzOBPoS71Bmc=;
+  b=aU0E1De+gd7THqGkSNHOleBl4PyDu+oqdw9qRbqJgl9b0PiC/gLnr6WQ
+   0qTmr+CD0JME/vyi9uXgMcSe7i6YIpY54vdRREYfXwNy6z9j6axnTJVVH
+   2SkVXj5rzynmZqPJFEyem3Wuy1OQmClBK9nrbFE4rtoE66zBrbrum6u0y
+   F9njXrytprQj97klB8KF8LlVEP1CFSWRjWIszQMO/m/XQEoaTnqjhWWWU
+   IKXDhhnijkT7SBRXuc+TnH9Po6W4kQyJsars3qD2loSdUbuHksrK1QND5
+   x6KzaglV/d6zOmhgwWn4nbQ2cVJ4uXtBgny09ivQFug/880fUvDwte9X/
+   A==;
+X-CSE-ConnectionGUID: +tyEyAoSQI+dJrM6L+s6Lw==
+X-CSE-MsgGUID: amuvo9khRweyFKhZrthVug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11944"; a="1592048"
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="1592048"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:38:34 -0700
+X-CSE-ConnectionGUID: w9T+kWYHQNGD7VXGJP/KAA==
+X-CSE-MsgGUID: AvxYF/CPSgGNMkzOFLK6fQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,176,1787036400"; 
+   d="scan'208";a="3854300"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.221])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Oct 2026 03:38:30 -0700
+Date: Sat, 24 Oct 2026 13:38:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+Message-ID: <atyKo0pTYZyt5XJc@ashevche-desk.local>
+References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,108 +93,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: rockchip: double-counted high_nwidth in clk_fd_v2_set_rate() =
-mask
---
+On Fri, Oct 23, 2026 at 06:59:19PM +0100, Prabhakar wrote:
 
-commit ff752d6d0f06073d53779cab9bd1294682b4f0b0
-Author: Elaine Zhang <zhangqing@rock-chips.com>
+> Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which shares
+> the RZ/T2H ADC IP but differs in channel count, sampling, calibration and
+> resolution support.
+> 
+> The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> 20 ADCLK cycles, does not support calibration, and supports selectable
+> 12-bit and 8-bit conversion resolution.
+> 
+> Expose the fixed sampling frequency as a read-only attribute and allow
+> the conversion resolution to be changed through the scale attribute.
+> Use extended scan types so the reported scan type follows the selected
+> resolution, and prevent resolution changes while buffered capture is
+> active.
 
-clk: rockchip: Add internal support for 24-bit fractional dividers
+...
 
-This commit adds internal support and a clock branch type for Rockchip
-24-bit fractional dividers whose numerator and denominator are split across
-a 16-bit low register and an 8-bit high register.
-
-> diff --git a/drivers/clk/rockchip/clk-fractional-divider-v2.c b/drivers/c=
-lk/rockchip/clk-fractional-divider-v2.c
-> new file mode 100644
-> index 0000000000000..5ab2c43180661
-> --- /dev/null
-> +++ b/drivers/clk/rockchip/clk-fractional-divider-v2.c
-
-[ ... ]
-
-> +static int clk_fd_v2_set_rate(struct clk_hw *hw, unsigned long rate,
-> +			      unsigned long parent_rate)
+> +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> +				 struct iio_chan_spec const *chan,
+> +				 int val, int val2)
 > +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	unsigned long flags =3D 0;
-> +	unsigned long m, n, m_low, n_low, m_high, n_high;
-> +	u32 val, val_high;
+> +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> +	u64 req_scale, scale;
+> +	unsigned int i;
 > +
-> +	rational_best_approximation(rate, parent_rate,
-> +				    GENMASK(fd->mwidth - 1, 0),
-> +				    GENMASK(fd->nwidth - 1, 0),
-> +				    &m, &n);
+> +	if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> +		return -EINVAL;
 > +
-> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-> +		m--;
-> +		n--;
+> +	req_scale = mul_u32_u32(val, NANO) + val2;
+
+But what's wrong with the simple 1ULL * val * NANO?
+
+> +	for (i = 0; i < chan->num_ext_scan_type; i++) {
+> +		scale = mul_u32_u32(RZT2H_ADC_VREF_mV, NANO) >>
+
+Similar Q.
+
+> +			chan->ext_scan_type[i].realbits;
+> +		if (scale == req_scale)
+> +			break;
 > +	}
-> +	/*
-> +	 * When compensation the fractional divider,
-> +	 * the [1:0] bits of the numerator register are omitted,
-> +	 * which will lead to a large deviation in the result.
-> +	 * Therefore, it is required that the numerator must
-> +	 * be greater than 4.
-> +	 *
-> +	 * Note that there are some exceptions here:
-> +	 * If there is an even frac div, we need to keep the original
-> +	 * numerator(<4) and denominator. Otherwise, it may cause the
-> +	 * issue that the duty ratio is not 50%.
-> +	 */
-> +	if (m < 4 && m !=3D 0) {
-> +		if (n % 2 =3D=3D 0)
-> +			val =3D 1;
-> +		else
-> +			val =3D DIV_ROUND_UP(4, m);
+> +	if (i == chan->num_ext_scan_type)
+> +		return -EINVAL;
 > +
-> +		n *=3D val;
-> +		m *=3D val;
-> +		if (n > GENMASK(fd->nwidth + fd->high_nwidth - 1, 0)) {
-> +			pr_debug("%s n(%ld) is overflow, use mask value\n",
-> +				 __func__, n);
-> +			n =3D GENMASK(fd->nwidth + fd->high_nwidth - 1, 0);
-> +		}
-> +	}
+> +	/* The scan type changes with the resolution. */
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	adc->resolution = i;
+> +
+> +	return 0;
+> +}
 
-[Severity: High]
-Does this overflow check in clk_fd_v2_set_rate() double-count
-fd->high_nwidth and allow n to overflow the 24-bit denominator register?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-In clk_hw_register_fractional_divider_v2(), fd->nwidth is already
-initialized to the combined width of the low and high registers:
 
-	fd->nwidth =3D nwidth + high_nwidth;
-	...
-	fd->high_nwidth =3D high_nwidth;
-
-For a 24-bit divider (16-bit low + 8-bit high), fd->nwidth is 24 and
-fd->high_nwidth is 8, so GENMASK(fd->nwidth + fd->high_nwidth - 1, 0)
-evaluates to 32 bits (0xffffffff) instead of 24 bits (0xffffff).
-
-When rational_best_approximation() returns m in {1, 2, 3} and an odd n
-such that n * val exceeds 0xffffff (for example, m =3D 1 and n =3D 0x400001,
-giving m =3D 4 and n =3D 0x1000004), the overflow check does not trigger.
-Subsequent register extraction in clk_fd_v2_set_rate():
-
-	n_low =3D n & fd->nmask;
-	...
-	n_high =3D (n & GENMASK(fd->nwidth - 1, (fd->nwidth - fd->high_nwidth))) >>
-		 (fd->nwidth - fd->high_nwidth);
-
-only extracts bits [23:0], silently truncating the upper bits of n while
-keeping the scaled m.
-
-Also, if the mask is changed to GENMASK(fd->nwidth - 1, 0), wouldn't
-clamping only n to the maximum mask after multiplying both m and n by val
-distort the m / n ratio instead of keeping the unscaled m and n when
-n * val overflows?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-add-board-=
-ok3572-c-clk-v2-0-90b98836be6e@qq.com?part=3D2
