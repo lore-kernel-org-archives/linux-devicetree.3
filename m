@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792827212;
-	b=sUbFFJ3rzMXMWg2IzMQeIJSbtsh5/A7cnSuWcwcbgV9ZR0jEXC6kY8va1Jk1hDY3ZVm8
-	 LCRskR79+ww7dRlaPR00X94yeERBoO0t3jZFpcjhRAJrdjJdCEVNgUHFeJFs3kmkgSY9F
-	 cP+cqWTSoVmV6g3BwQY0Kxw922O49SodFzZuW9nYdYtMvnhniwhoEW9cyKt7ig1h9BqmE
-	 VLZz+uQNiK3FfcMHKHrBBqoc1ZrA43p7l9Kk2vqsqBotniyayKB3KH0LC91OImrSbpSqv
-	 r9WuAqq6peTtQTjIJhl6+uDNcAC1kbncpIsJxY3f8+UTdEaDc0ikncG8rzrHlNMTdow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792827212;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792829818;
+	b=qU9cBJZRGQEOVOlZSI6o41DLj93ib/TkcqipHw7lZXoaDuFR6zxy0mI7kQU/WqWYFRGd
+	 2+ScgU/idITwjbqXPGM3yCuW8HScbDxbYpDo/961TvYvuXjmHJqqeyioS3ZzvimSbN2ri
+	 CBXxoLMSw1hzey1ovnmyW7cvHEUx8a8x9X/kkvSBqyCfPL6HOnKVzswe0W/Sk6HFgQYhY
+	 Eh822KmX+SrWcL8bu7z/7MHrbFQRRr+o7HcTRkK8PcfCqQDM1sQD9EJUNQaZkH4Rd5WL6
+	 +z0vip+IoZ8JFtJltHmTjo3XXINbktlO9b/PHGZSb1Shz7eyAKV2gAbtOBcXlbhsXfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792829818;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
-	b=3s5nSOwdU+ox+wwhjJNxaLQlMOCcl2Vp3XELGRwAmZmNo6aYLYKvV51kxUfIsbW3C7xr
-	 HZf7OIa/N4s2XPCClp4SlN95ifkK19RqyZtERN6OiA9pzYHaldFta27nqKiRH2lS6YgWk
-	 9+tchkRAcj66RBSZ9OjBF431+CXLSxj2SvM+SK43IDmC4ItS/WAEFnbyUdJxbpwYREMjj
-	 cdoGAAGwc1EKLhXoAjWbG1pjRPnaAMlsSRix/wdkyh6LimGfdDTQYaCbsIi5n7MyfVU43
-	 rmn/eJaNcmBGegtg8sr1DfNV2Yw3C6HDe8IJPv11RWD19xN3erv1EJqnLpprMXkiKCw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="h/nhEG57";
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=lPv80ccJgYYw4AUwmqTrRtQb9q7abpSwK/Y4bqqZPDM=;
+	b=zmmUuD3wuqOn2s+SBpaZNRDSDrgU99mCVAtbhYk5ex5/FaB92XH2uBGG3Bui/ybwnfI4
+	 8ma4YUuvAX+SaLvrtI+HnN8D8hK8JbLD3QVHKxg1Q53HkHpedFsgEzqNjppjS8rNaw/3A
+	 yXtDc1wunpUYET/AwXIhTuMocK774MrL77iZDAtpLfcTV9e/PcjNiq7QGsZQ3my+DdCi2
+	 8RMxN4NsoWqfQZH1VEhMyeRY3xMhGQ3dCBa0bHf/Z+qPmN5uJM04oDRNvG1mmnVH15qs4
+	 C9u8cNFSzud9rt5o8yL/JOPk5Vv/DPcneygaq04ljTmRaLpXzGhx1zJw2hqw9RueJTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=J7SknmwT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124E3606A326
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 07:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124E3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C961606A31F
+	for <Devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C961606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h/nhEG57
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1397a4855beso91648c88.2
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 00:33:31 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=J7SknmwT
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c43fbcb4393so223430566b.0
+        for <Devicetree@vger.kernel.org>; Sat, 24 Oct 2026 01:16:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792829816; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bIZN3SK8Exh+R+WRzV08jnE7ePKs5VtJiJyzMw7ddJPDcBiyo5xFItZ1VNPRtvXOPt
+         CYR+uQNWybm8oGM1tBg4RzGlYt7tRBfqaJ7DMfd9wcrv1JAKInOyJmF9YgOxelqK0bwX
+         UHByAXKERElz4KA7AHnd9+XTzsc9eIXZoM6+c6ezJcDhv3tuDSNuhz1aXfiH3vpIzvJK
+         lx8a153hHiO96Vi6wkeZ2oqK1OxpozQRGOpUHzGPlylYnOSjJ60Gl+RVHvjQZ3I0xuNl
+         uu2t4xSYOdHPCfZte6JhWlTac78jlQVrMgYkdxy/qlVwMtzFgP6t7cEDgMeCNZbgfg9r
+         c5cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=lPv80ccJgYYw4AUwmqTrRtQb9q7abpSwK/Y4bqqZPDM=;
+        fh=sPz2IdyIpUMIOILKWbG9i4L5Hk22/wxpjH+jb64dyPI=;
+        b=PadXU2FPF42FNRrgtjBd8lTOebZ0xN85f07lzRHlNm6t5gmRyo/wzlVBtaIH9JdlsW
+         VTkTbV68EgvJVAszfgcgDY4Zqgo/FsS8BFVboUPUDbnsBs/EGcGnxjptechRRWQUia80
+         6DbixnaZqZkYWPkHKl2W4Jc+w91bPcJ6sOoFq0B09wTWTvu1FHhGCHqeL5GxVWRhGsDK
+         qV2LunspB5myuPFm4EG8vsTZ40CSARrBAkfCQXf+u1jOBSeWgrWNtGxh7Omz/Q3ZrMaX
+         lsMBs/ap8XX6iWOe9JGx+5Bzz1Z5LXgFpO8IzDfjaf+mhUrJkMNNsEU7YYsyDoDmhmcG
+         bxqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792827211; x=1793432011; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
-        b=h/nhEG57h+Lg9OmydDnC/PAhyAF82HN17Hdx+qIDe2YpQQU5kl4a2iiwUz4tzpE67O
-         HuMCnjk/TvX5Q+2ITw5ISZfE03NVA9+Te3+g5F5iSELzfkOgpefeB68vPuQliqcp7VLm
-         OPOPnYTtexrTe6z87YGKpZmovoPlz3f5G1WDLAZ7hz+76BUlhI8WHS9Qd2qQ1SOK2zL9
-         zf3PprR++JukjDdlSh2ugTqPCmfYaxROhxdhvm2/hmYqpgIPpXKtWbfNqPMmGpON2XGb
-         Rvdr3ecMyK0ObGDb9DSe15Yezgt5zO7laSJWBU/X2tS6lTdFow+5qAck3ZXeLDxB6jw4
-         uAmg==
+        d=chromium.org; s=google; t=1792829816; x=1793434616; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lPv80ccJgYYw4AUwmqTrRtQb9q7abpSwK/Y4bqqZPDM=;
+        b=J7SknmwTTzL7ECy7vAoxuDafrONez3XeCWql0X/0YXhgvAQE2BfBECDlTFWueGZ8Jh
+         klrfah4NQphtxV5+spcx32j1zY8Lj6vh+cJFzrPDn1Ptw8VqQ53UpyioqrJd6EaGMvWO
+         eSd9MJuHBLn7s+f0x+KjG9NHtf+4lfLEvhiOo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792827211; x=1793432011;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
-        b=e3iweLVNNZtOw9QQzTn86gprH3XLJz5WJ4kjpCZjbd1ZYT1BbV3Em+zYgeFHn3aYxE
-         eImCSCLsNBzLtNat+CawpBLkQTjZxtDvmz4u7PW7RRjNpYSneEMJBI3T4U9mIxRksSSa
-         g3OwFFYJrRMJvKjTnHfXuAFwKQsEmqs89DRh8jY9C9hYg8ds7JPkZmA2MCXtwOZDRyg9
-         Qow7HyVu7kPiWmDR3lpH0WEJOZYgrUeuznSnTsl4DI7ZqOTFindhS7CovPGEIFCE55f+
-         ns8Sm8v5N689iUEGpneFG0issi3UnAar27bW38Xx1hX9S09FxvG+6mxmKcVI4aXMiaMZ
-         4ylg==
-X-Forwarded-Encrypted: i=1; AKwUvBxREHOckRqJLZeTdXdnrPEh9fILEf3B/s7SGqpPEl0Ftj4XmFA8QtJjMA71Xs+OcyBkj272+9zDYnuU@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4u9GswXpEE0XGGrl1rJCqgg0/JUfF9BssMPjFiJgFgXRroJ07
-	78Aw2vdKlwsDBLrkgAOqEi39hpqypZvLSDb7B0hcLmYb7+LeS2W0Bhp9
-X-Gm-Gg: AYBFou1J1xm4HmKLiec1eiFDs4ddPHDouAaujxztjser8tlC4BQqI8Yl8+KO+NEwEgs
-	iRUPt5PiFO5kxPyGveUGAx1YJaDa6kwj51V6l/iTwuG3YzDiUv8F//A0h6ZzArJP/WKJ0tvEENW
-	ZSD4Y+sUH+GTQ9jt7nBCuPujy0OnMlMNMFy95B6Gx6EzXaetXebmX165sNnuFrqGHd37eUzsnpZ
-	Wpq725TK3w3B0DtLpuAJSRVcTNwECvQ1i3nIdrDF6K+3/RQiEtgGN7PzyJLsBVLdrN94kL9t4L7
-	/Pau1u9HkpljM6kfSWJJ5PAPG0MLtJviC80di7yllDVsD1RM3IZ3oCxie9x7+on+Mh/D3j1aJ6g
-	QXtJ6kdaL/+8BOfAUXStSsMuQyJT8baG/2iP9i7eMYmapEPkG3UecV0T9u0lnLxDRwyTOUylYZA
-	iV1CUs5aWTSUuJ9ocEsZ2SAGjAhsOG0ffPjDObyNVplIJ1CBJaxzvDNsSD6SmjK4OXg/qwWI0YX
-	l1pNx+Ex+GzhNQ3zTrGPw9Tjg0iroPbphxYEA/tq+3ZhvAbvJwPoOzTVSJRdUxK9xVdsMU=
-X-Received: by 2002:a05:701b:4516:20b0:143:5c2a:e45f with SMTP id a92af1059eb24-1991b1423bdmr2509746c88.0.1792827210988;
-        Sat, 24 Oct 2026 00:33:30 -0700 (PDT)
-Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0e8d700sm5402319c88.10.2026.10.24.00.33.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 00:33:30 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: kaipeng94@gmail.com
-Cc: abelvesa@kernel.org,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v5 0/2] Add device tree for Acer Swift Go Pro AI (SFA14-11)
-Date: Sat, 24 Oct 2026 15:33:24 +0800
-Message-ID: <20261024073326.3018902-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261023180513.36417-1-kaipeng94@gmail.com>
-References: <20261023180513.36417-1-kaipeng94@gmail.com>
+        d=1e100.net; s=20260707; t=1792829816; x=1793434616;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lPv80ccJgYYw4AUwmqTrRtQb9q7abpSwK/Y4bqqZPDM=;
+        b=XbnqciMMrQXlVFUk7NXxRd1BWXun39Jp8IUaq+ISNPHMyU4wjVmSyrNLGeOmFq+LRr
+         8K8Rbp/GzIyKgoDXmHbniPEqqKkTDFesLZWBItPPWeMeI/iE721sp+Env8lZbcWDvBYc
+         xZKRHMMD7MfcKP051WQa+YeK89IlI9xXqvyTaCanTze7xsyjfoyr8eQ1eIDNgUUXbNNJ
+         9PZb6vpkxLy5BXlKkvWsGdxog+RAsoOTn/ulh8gf5vGyVudBxV48DaW5tut0cWBSBFoT
+         PEu+hzkcfCE8KuJPgU2c/Xzra0OXihRyqlkpkqxJNnSlrFphAvRzYULogaObLCj5+A16
+         jgfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwH1K7KRptCsgf6yOImv0rw/6xqQOZNNrOO7ZipsNh70ZcX7sucEv05xBgmn2yLDKgzYPetjVWyFVHi@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLIXZ5vSkPgzy1oB2C+mo4I7riv3kXLLV/NCaarZ21VxG4jzEy
+	v3eHeGx0vtubj4E+N3n6XQDoMcSaVJvNGFeFWLCxdxhr92Zay6m77bODfdKfUKWWqv3249MnFuL
+	Qn5byBGseA6IkH9Q/Ih+3w09VG/kOYGog+2FlzQlg
+X-Gm-Gg: AYBFou3uLpW77KTgxr+cn85CjWOQSEOUSjvwh4U8j6TlNvMfY1nGtSULjaFMPAo8Z7+
+	VvP5w6LrxH3XYQ8kBpe3tYKhTUd+5s7WIFOXbZcqJD2G1BidfwoRAUfA0rrXwdZy1B2B/N5rP1e
+	I4Zq9G/ctds6rYuctwNJsUgcm63uGaQ0DBLIHE+n6Na8GtByucIqVpFok/2lbMwTYgeRJyUBp/x
+	rJKahKwzQGeIKwDQqhVh3lf5gQWh1hj8PUYI+UNTkkuQfipY3q88vhKYyn0wlMcIDiqO9P8o/gy
+	5czdfoHBtePxIZ6gdKP6V+2D4OEzIkT3/H5mubErcxa9NRjYnSV02r+kJiIR59J7WSeeWwqZGr4
+	TWn+fItzlxi49AAEmHUzeojf+1xEAm57elow=
+X-Received: by 2002:a17:906:9f84:b0:c44:494:692b with SMTP id
+ a640c23a62f3a-c46bde198e0mr151110066b.22.1792829815874; Sat, 24 Oct 2026
+ 01:16:55 -0700 (PDT)
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 24 Oct 2026 01:16:54 -0700
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 24 Oct 2026 01:16:49 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,24 +104,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020153652.2907186-1-dianders@chromium.org>
+References: <20261020153652.2907186-1-dianders@chromium.org>
+From: Simon Glass <sjg@chromium.org>
+Date: Sat, 24 Oct 2026 01:16:54 -0700
+X-Gm-Features: AclHuK_VJyuusU7nyQWEvJVdBRj5rBge31M7RaY0GTXZjSe04p7xrEJjqvNNRK4
+Message-ID: <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
+To: dianders@chromium.org
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
+	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
+	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Kaipeng,
+Hi Doug!
 
-Thanks for v5 and for the detailed notes on the eUSB repeaters and the EC — those are very useful.
+On 2026-10-20T15:35:18, Douglas Anderson <dianders@chromium.org> wrote:
 
-Two points from my side.
+> 1. It uses a checked-in .its script to associate metadata with each
+>    board's devicetree. Other tools can parse this metadata in order to
+>    craft a package that the Pixel bootloader can understand.
 
-On the naming: I'm fine with the model string carrying the retail name, i.e.
+One thing I'd like to check before this goes further. In lga.its the
+metadata is a string packed into the configuration description
+(board_id=...,board_rev=...,soc_id=...,soc_rev=...). The FIT spec
+treats 'description' as human-readable text, so this turns a
+free-form, undocumented string into an ABI that bootloaders and
+packaging tools must parse. I'd much prefer proper properties in the
+configuration node, defined in the FIT spec [1], so that every tool
+can rely on the same names and types. I'm happy to help get that into
+the spec. What do you think?
 
-    model = "Acer Swift Go Pro AI (SFA14-11)";
+> How does this series help us?
 
-For the compatible, though, I think we should choose a name that can be found on the hardware or in the firmware itself, and "acer,swift-sfa14-11" does that: it matches the DMI product name (SFA14-11) combined with the family name Acer itself uses on its support site ("Swift SFA14-11"). The archived retail page lists the Chinese product name, but it doesn't show the device configuration or images, and in practice users identify their machine by the name Windows shows (which comes from the DMI) or through Acer's support site. So my suggestion is: model = "Acer Swift Go Pro AI (SFA14-11)", compatible = "acer,swift-sfa14-11". Note this is also the string quoted earlier in this thread, while v5 uses "acer,swift-go-sfa14-11" in both the binding and the DTS — could we align on one?
+The FIT_ITS path is a second way to build image.fit alongside
+make_fit.py, and much of it repeats what make_fit.py already does: it
+puts the root compatible from each DTB into the configuration and
+compresses the DTBs. The series adds fdtget/fdtput, sed parsing of
+/incbin/ paths and a shell loop in Makefile.lib to do the same for a
+hand-written .its file, and the .its files repeat the DTB lists from
+the Makefiles. Have you thought about extending make_fit.py to take
+the per-board metadata (e.g. from a small file next to the DTs, or via
+FIT_EXTRA_ARGS) and to run fdtfactor itself? That would avoid the
+in-tree fdtget/fdtput, the mkimage dependency and most of the Makefile
+logic, and trogdor would come almost for free.
 
-Second, please add the machine to the QSEECOM allowlist (qcom_scm_qseecom_allowlist) as a separate "firmware: qcom: scm" patch. This device's firmware does not accept keyboard input, so the EFI boot order cannot be configured from the setup UI: without QSEECOM/efivars, the only way to boot Linux is to press F12 and select the entry on every boot. With the allowlist entry, efibootmgr can make Linux the default boot entry. This is the same kind of change other boards carry, e.g. the recent addition by Srinivas [1]. My series has it as a third patch; I'm happy to have it folded into whichever series moves forward.
+The new FIT_ITS, FIT_FACTOR_DTBS and FDTFACTOR_ARGS variables aren't
+documented anywhere, including the image.fit entry in the arm64 'make
+help' output. Please can you add something, perhaps alongside wherever
+FIT_DECOMPOSE_DTBS ends up being described.
 
-[1] https://lore.kernel.org/all/20260928145122.1337186-1-srinivas.kandagatla@oss.qualcomm.com/
+[1] https://github.com/open-source-firmware/flat-image-tree
 
-Best regards,
-Jianfeng
+Regards,
+Simon
