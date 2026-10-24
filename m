@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792856536;
-	b=RdigpZ/pnIy30XTYJUnh83xvuOk1dNTplkv4YgRR4LEfAknprjD8r5ragC9rropTojzm
-	 McTAp2ycAFfrVH8Zo3xd2Udfu9DhqU3qU6OP086ldvXklASlVcPmm+4Dyo+4SNPidsmiJ
-	 G7NxStjXVJN9WocUYRp+0nDxTiOkS/PxVwLohtFhRz39sek//eRhdjiMSgBhKf7vs4ZDI
-	 tsxcsuykGKzbl6N3+Ar3CW4goKaYwJU+irLlwwPO3/sQhx1YFH5FQ0BdBhT+6RkEBAHY7
-	 xc8hUkf3YER62ZIDc0m8fu9MGiWHKPmhmLfhQ1eT5ZWmkk3q2o4dgVOCn5aieQ4d0kQ==
+	t=1792856542;
+	b=aeMhVL4KEoaeu2iAPCzv6A26cxXSzWBhZqbP+04QzPmxgEoBeKaaZfFT/exX4tff1NnC
+	 VLMKxGjSG6a1VCEkPs82vkmoVlVdfayEkyc0y9/CkfeFMmJnsGwc1MHJvhYYlLpCq3wjl
+	 vuROSZ7O0gtJWAJCsCznmN2+iNZFfSZ0n0l41z6wG9meoSpAndAssIh0BPjbXCOHx1Kjw
+	 SO0l8H0cyrWi1XMffuVROhPyoT5CEdhEYsLqJcBsIiGB5Vy7PXqlRdRXSw62PhFpE9OWV
+	 j7za2NXybY4WMxNyOZcu2+2pg4rnUPrdzqrcO6cm61RnKuyaLlTQihAtOrDgyPi+Jhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792856536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792856542;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vjEeye3G0zd8caK/nKeFaZ6nAZ8lGBdWDRGnP6Iv4Rk=;
-	b=pTTnvEmS7Cz5Jtt2CWRfxihGHuRXUxzc8qWYrFZ8fk8CCpLgAp8l9mIUtevZ4f+455Ts
-	 eaLOrxRPDJphZkI3Qjr6qeUSwEF9hn43OSp1ClquH1HAUWfOcefr4v5gMmhCRiETni3Kt
-	 ic2R988wD8tB4GU41aHQYO9QkZ+ETrTAvSSdPCn3IHibTP+5rQEHsiGQclRlOLUyKsfID
-	 6Fe/VverhXRzAF1LLWalIvcBGuho7aOxTrCOFqr47YYvHR6FyG/axvtM1o4EL7+dYZUqc
-	 +JAerpzy4CdVaSAhCSys85bG5Z8FR4HxOac2g3rnjk4/y85BpH9+CjwaIfuJ8W5OBWg==
+	bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
+	b=avmkN31hvnJ/EdFJ+BS9s7r8tiXRKW09fUNRIRu+my7C9gI4RlDR9/KUoHT4ty9rnyAw
+	 f9qF+Ns/ZfrF5C6nT4pgJYdtAjPl7+eNzWjtal+RoTj5H2i57W5QzSs2aaLmahzVPN5w3
+	 sd4c+bEuoSo1DssqtMFpr7Q2t8nzx9k+p/zFlE3zReZTRoXknGAPkF+yFZ8piONG85whM
+	 Qbi7HylWydb0XzsUx8IPEPiWlDGdZNoPZTS/vl12bWlHsbHOf+yGv9SDiNaCe88mUg+rM
+	 /LQfN/8/0YCl+juRbSehkUgOkKiDBIlKtzUMlQ3Ptx1x6I+EX4sr8VNVx5MATZyPQlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p1wELQ+o;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF36B606A324
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:42:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF36B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1F0606A31F
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 15:42:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA1F0606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p1wELQ+o
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35f1f76ea84so2975720eec.1
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZtbZRwUP
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36661f953e4so3195146eec.1
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:42:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792856535; x=1793461335; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792856541; x=1793461341; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vjEeye3G0zd8caK/nKeFaZ6nAZ8lGBdWDRGnP6Iv4Rk=;
-        b=p1wELQ+orMTpRswwM/ZFz0l/PQum7SYe5fMWmghobxe8OJfJ36isFVuGAi3JSPs7Ok
-         uXKGICH8ql8O9uUNuU426L5tX14TwQTKfRta7EP9cbTapnLomRgdPDaRmUWGolJ3YxQS
-         hMY6LzlVH5sFHkAADPtO1ZhbQbzC4OiiUn3RSOHX+XavV5C9yCwEakRzOLXgbFDqgNHf
-         YDlGTgwkg9ci8ztGSyKkHjF7pwjFbfCJKUhWv2581RJ5RuTNTq5qiJbDHT76AtAz+uqN
-         7w3g0B19n3hnkrvKUtfDBdu24fZotplO1BRbGnLDVRpADxZYEi8QguCP1Y3r/2e2+r60
-         7EvA==
+        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
+        b=ZtbZRwUPjVQiSvYWWtMu6dPTKilxoct/OWvipe27Jqf5G28IPqMi55WvuE+zmC1HFZ
+         OL/Ws1vcN1cxGJpO+Encb1YRO3M6m7ZNiBAmayVlAcdZyFeDyQhifsfVwo9SDu6hSTPA
+         TKIvnz8sRyd3ncvbREayOVyHYdssYPLAxON08pyahSkqyBOXzvbiavGi+fqdHUUdfod6
+         HK/1coQjD6/w6rz3XnPKbUW/ynFejEsN1OyZb91Df29ZCCPys5qab05Vv/Ob8HkX2P68
+         DHTLWYxdTt00EZ0Jh2N2krvQiRUSSrlNTmJwC0ujKCA3WmoSchFLq8pAwvMrKyQYRCSM
+         SCmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792856535; x=1793461335;
+        d=1e100.net; s=20260707; t=1792856541; x=1793461341;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vjEeye3G0zd8caK/nKeFaZ6nAZ8lGBdWDRGnP6Iv4Rk=;
-        b=l1R4hCleZTlppQbcTeqO6G5ANGOTsuwmiL2qa1sGo6fHxKHBKQGECm2AMcvJks8sFX
-         bkkXOpGtoMrZwg9vjC9tFyLF4TzBxxEJthIFrvwKgFCdhFHwbjZNYup+pNlC1FvBbZcp
-         aGW4Ok+vpKe3BrRvMF2suH97+o+7qVnKLEzUIQOrZq6Yl1h8MOmm+QP+FkfLYShTQdDF
-         Q5XVgAFyA71sIEFR/XV1GCVXoSu9wbtS2F4+h8ta7NndPFBWM8cd19pt5n8bg44O+s8Y
-         6icU2N/bkRJrJwVTsBwP/ApEewM9Z5i95B66oypiCNw0H8QPOcNn+0758R6XTp3a0s5G
-         +JNQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWBllk3CSLn0tAbqBI5M5XYSnEMdzQRVTu2mRkZLkfMP5AAxdGdxLf/iT9RyYLrRKQUTSFrFc6ihEo@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWLi4yQA3tISPmMuZ8miXnyR4HgbYzmn4X7ZxzQLmcu6t+gVVQ
-	2X1sHOY6FNkBrqJ5czrGMCagwd4aHW+oB96IIyOdf549oPKHT0XUJ07G
-X-Gm-Gg: AYBFou3qrDoeMjGTbtV2AP3fkHY7gbQP1Jmt54/eLxHMoowXfGnBF1uorlO8WCLAwsi
-	8cxN3R2vVwSQ2Ga4Y1Pj+rzJ92H29sPL4tusmiqpo8A3ZGfP25Cf8Wt+kcbPcH3ZbxdNEGg6yjm
-	jXAVkgpq/zR0+CHUktvkBjwmNgNeSmu6GuGnmXJ2Pnsc/T4SK8G88xTrg/BpaNf86PmzYYl31Ip
-	zT5JDPX3pcqxD93vLob7hN317NwJSBWYNMZt2PtuNyFgKdFVxUKPUPzImgWEGAcSktMwtE2rYfx
-	Nz0luK4TL9JAjjwcGoro3GanRWUVMxPopQNQDvHXxiCzzpHyawMEeJjGAjbx5uRrGzqE2qhQ4Z2
-	hGFkN6BmjkEexJTbX1nUhaP5CaMF28w4eWIm0V8K4+NBqHNlIh9HcCJi6aCY30U1QsVswghwjAG
-	z7Z2/IZV7tJIN1sS52ourYsbSV+wtJcore1mCmoiKtREi8MQT7g76fKBJvk1QKHA3bgq+2PqngP
-	J84sHfD6cWIe5CYrumNa8IW1lR0nARlXuE9AVgG8fU4XfwbO2ENL3VBog==
-X-Received: by 2002:a05:693c:8381:10b0:351:dbc:b663 with SMTP id 5a478bee46e88-369e863b90emr3837046eec.31.1792856534783;
-        Sat, 24 Oct 2026 08:42:14 -0700 (PDT)
+        bh=tD2feZvStARhEioc5t9JjRKN0PpC4uBKpPB9fxOPNPo=;
+        b=1ySxM2/ba5aEJ0bjdg/LvWuTftynCLa3WEGByPjZWyCUWsF4YsZeZgN72taMz6Mn/3
+         uGxZra/cVCYhMpSxfuR0XmtikvZ48DHGmHmO0K0DMqvHcppOBHRdiPr2Ntnkbt2rAG33
+         3Vc/WSaVlOR/Mk1xuuc5eweW952LTuMB/PAJLoT5TGFe1YzbJ5IpQrSNGNRZoi812K58
+         BcV3E/ohluB6rMA1PwhnyVdSSM90e7J+j1JgtCLU/V4z3ER3TSXzJ9dJO8XcQ0IdMOIh
+         vhi5opWTUsqbro4pnz2kworcZid7nQqbBgZ3wFAQ1gUfK41BV6Vttw7H8LZAjOJCnPG8
+         UQbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrLj310AgRvhhxF41vgzyKbsDGoyTJi7L1yzX/pTuprqQHC+gB2rsxC3HWjz1J+ldaT/cqYsDUWsuE@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5FVbTfQGNb0wkIjODLT1tl31ap0wUHbu8vSoG/xwnEHq13NoD
+	CQnTCQ/u7qrB+B0DuCh1dsRByIZtys794ohnkQL1coSINIAKvsdOrZCB
+X-Gm-Gg: AYBFou0UEhuarYHdwTZB0dGsZ6CRDEd9/EXy2TqG0RcPrdfyw+kBL7arTYtQkwS+wbw
+	eRMifP1Jc5I+ec01TmEcxHtJZnZSY3ZBQjU9OuqxA/Kaluxy6qOrsMzRp1Dqvt2bR+oHezSejZg
+	1kuXwjPjvi8IrNsbV5060VRbmVq5R7fgT87+cWmplYYaulR3BSkWyk9M44DMJ8gcPEinqGxX8FL
+	W7s9DkyZbH1zqbqAHySZ0tg+3M1LrMet4BSaz2C9kRZB32c1bMpFFbK8tClLY+xUX4GF+HYSgNP
+	4yr5P/GtH1GTb1FnN30YZer7Z38y+iNzU2XX939ghhDKe+4A60MjqvuPxBiExoGYNK0EFRRO6ys
+	qVzawwly88QtFwJ8lgb5P43UfT5Tk2b4vzCntELOWb0derUlXkZqpxsZ1i9DQkB0zv0jqeu5dmK
+	bK+DwTwKPOJfDDW9iJy6BQ0o7AOXnSbO+MlEUGRUzZcjdr58Gd1bzGsEP7sjqcxrv1E8jHhXkGk
+	87iEmmE19Cm8Ccf7/BLdU3jLxZtqaU2fYLmZVAU6tkVIdDHEetw0PdgyA==
+X-Received: by 2002:a05:7022:5f06:b0:151:2e62:fe8a with SMTP id a92af1059eb24-199379c8064mr3258864c88.40.1792856540859;
+        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
 Received: from plex ([2406:6d00:a27c:4200:aab8:e0ff:fe02:33c1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm7766450eec.18.2026.10.24.08.42.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8daf444sm7766450eec.18.2026.10.24.08.42.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 08:42:14 -0700 (PDT)
+        Sat, 24 Oct 2026 08:42:20 -0700 (PDT)
 From: Chris Scott <gilroyscott1970@gmail.com>
 To: netdev@vger.kernel.org
 Cc: lorenzo@kernel.org,
@@ -97,9 +97,9 @@ Cc: lorenzo@kernel.org,
 	pawlik.dan@gmail.com,
 	zhengping.zhang@airoha.com,
 	Chris Scott <gilroyscott1970@gmail.com>
-Subject: [RFC net-next 2/3] net: airoha: npu: attach a coherent pool in the NPU window
-Date: Sun, 25 Oct 2026 01:41:49 +1000
-Message-ID: <20261024154150.45733-3-gilroyscott1970@gmail.com>
+Subject: [RFC net-next 3/3] net: airoha: npu: use coherent memory for mailbox messages
+Date: Sun, 25 Oct 2026 01:41:50 +1000
+Message-ID: <20261024154150.45733-4-gilroyscott1970@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261024154150.45733-1-gilroyscott1970@gmail.com>
 References: <20261024154150.45733-1-gilroyscott1970@gmail.com>
@@ -114,75 +114,168 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EN7581 NPU can only address host DRAM at 0x80000000-0xbfffffff;
-higher addresses alias the lower 1 GiB. The coherent buffers allocated
-on the NPU device are all shared with the NPU: since mt76 uses the NPU
-device as dma_dev, these are the NPU TX/RX descriptor rings, the HW-RRO
-ba_bitmap/addr_elem/msdu_pg/session buffers and the NPU TXD buffers.
-On a 2 GiB board nothing keeps them below 0xc0000000; they normally
-land there only because of early-boot allocation order. With low DRAM
-reserved away on W1700K the SoC hangs right after mt7996 firmware load.
+From: Daniel Pawlik <pawlik.dan@gmail.com>
 
-If the NPU node has an optional "dma" reserved-memory region, attach it
-as the device coherent pool so all of these come from the window. The
-next patch moves the mailbox buffers to coherent memory as well.
+airoha_npu_send_msg() maps the caller's kzalloc() buffer with
+DMA_BIDIRECTIONAL. These buffers are small and not cacheline aligned,
+so on arm64 the mapping bounces through swiotlb. On a 2 GiB EN7581
+board the default swiotlb pool sits above 0xc0000000 (0xff6cf000 on
+W1700K), outside the 0x80000000-0xbfffffff window the NPU can address;
+higher addresses alias the lower 1 GiB. On W1700K + MT7996 this makes
+WLAN_FUNC_GET_WAIT_NPU_VERSION read back 0.0 and mt76 does not bind
+NPU offload.
 
-Unlike a restricted-dma-pool this leaves streaming mappings alone.
-Packet buffers are passed through to the WiFi DMA engine: on W1700K
-with 96% of TX skbs and ~20% of RX page_pool buffers above 0xc0000000,
-host-path traffic and sha256 file round-trips stay intact, at the same
-throughput as without a pool, whereas a restricted-dma-pool (swiotlb
-bouncing) costs ~22% of host-path TX.
+Allocate one coherent buffer per NPU core at probe and reuse it under
+the per-core mailbox lock. With the previous patch it comes from the
+NPU DMA pool, inside the window. airoha_npu_send_msg() is also called
+from PPE foe_commit under spin_lock_bh(), which rules out a per-message
+GFP_ATOMIC coherent allocation.
 
-A device coherent pool has no fallback once full; mt76 and the mailbox
-use ~10.7 MiB with MT7996, so the DT region should be 16 MiB.
+Add __airoha_npu_send_msg() with an optional reply buffer so GET
+callers copy only the trailing response payload; airoha_npu_send_msg()
+keeps copying the whole buffer back, like the bidirectional mapping.
 
-This patch was written with the help of Claude (Anthropic, claude-
-opus-5-5).
+The original version of this patch was written with Cursor (composer-2);
+it was rebased onto net-next and its commit message rewritten with
+Claude (Anthropic).
 
+Link: https://lore.kernel.org/r/20260809152813.585797-1-pawlik.dan@gmail.com
 Link: https://lore.kernel.org/r/atCRsquzA1UxSpCc@mediatek.com
-Tested-by: Daniel Pawlik <pawlik.dan@gmail.com>
+Signed-off-by: Daniel Pawlik <pawlik.dan@gmail.com>
 Signed-off-by: Chris Scott <gilroyscott1970@gmail.com>
 ---
- drivers/net/ethernet/airoha/airoha_npu.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/net/ethernet/airoha/airoha_npu.c  | 65 +++++++++++++++++------
+ include/linux/soc/airoha/airoha_offload.h |  3 ++
+ 2 files changed, 51 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/net/ethernet/airoha/airoha_npu.c b/drivers/net/ethernet/airoha/airoha_npu.c
-index 4d3195eb00..069fd60680 100644
+index 069fd60680..3d1aa63dd5 100644
 --- a/drivers/net/ethernet/airoha/airoha_npu.c
 +++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -693,6 +693,11 @@ static const struct regmap_config regmap_config = {
- 	.disable_locking	= true,
+@@ -24,6 +24,12 @@
+ #define NPU_EN7581_FIRMWARE_RV32_MAX_SIZE	0x200000
+ #define NPU_EN7581_FIRMWARE_DATA_MAX_SIZE	0x10000
+ #define NPU_DUMP_SIZE				512
++/*
++ * Mailbox DMA payload size. Covers sizeof(struct ppe_mbox_data) (28) and
++ * WLAN TLV messages (header + payload); largest in-tree WLAN payload today
++ * is 16 bytes (INODE_TXRX_REG_ADDR). Keep headroom for future commands.
++ */
++#define AIROHA_NPU_MBOX_SIZE			256
+ 
+ #define REG_NPU_LOCAL_SRAM		0x0
+ 
+@@ -161,23 +167,32 @@ struct wlan_mbox_data {
+ 	DECLARE_FLEX_ARRAY(u8, d);
  };
  
-+static void airoha_npu_rmem_release(void *data)
+-static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
+-			       void *p, int size)
++static int __airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
++				 const void *data, int len, void *reply,
++				 u16 reply_len)
+ {
+-	u16 core = 0; /* FIXME */
+-	u32 val, offset = core << 4;
+-	dma_addr_t dma_addr;
++	struct airoha_npu_core *core = &npu->cores[0]; /* FIXME: core */
++	u32 val, offset = 0;
+ 	int ret;
+ 
+-	dma_addr = dma_map_single(npu->dev, p, size, DMA_BIDIRECTIONAL);
+-	ret = dma_mapping_error(npu->dev, dma_addr);
+-	if (ret)
+-		return ret;
++	if (len > AIROHA_NPU_MBOX_SIZE)
++		return -EINVAL;
++
++	if (reply && reply_len > len)
++		return -EINVAL;
++
++	/*
++	 * The NPU only reaches DRAM at 0x80000000-0xbfffffff; a streaming
++	 * mapping of the caller buffer may bounce through swiotlb outside
++	 * that window. Use the probe-time coherent buffer, which comes from
++	 * the NPU DMA pool when one is declared.
++	 */
++	spin_lock_bh(&core->lock);
+ 
+-	spin_lock_bh(&npu->cores[core].lock);
++	memcpy(core->buf, data, len);
+ 
+-	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, dma_addr);
+-	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, size);
++	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, core->addr);
++	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(1) + offset, len);
+ 	regmap_read(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, &val);
+ 	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(2) + offset, val + 1);
+ 	val = FIELD_PREP(MBOX_MSG_FUNC_ID, func_id) | MBOX_MSG_WAIT_RSP;
+@@ -190,13 +205,21 @@ static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
+ 	if (!ret && FIELD_GET(MBOX_MSG_STATUS, val) != NPU_MBOX_SUCCESS)
+ 		ret = -EINVAL;
+ 
+-	spin_unlock_bh(&npu->cores[core].lock);
++	/* Copy the trailing reply_len bytes of the response. */
++	if (!ret && reply)
++		memcpy(reply, core->buf + len - reply_len, reply_len);
+ 
+-	dma_unmap_single(npu->dev, dma_addr, size, DMA_BIDIRECTIONAL);
++	spin_unlock_bh(&core->lock);
+ 
+ 	return ret;
+ }
+ 
++static int airoha_npu_send_msg(struct airoha_npu *npu, int func_id,
++			       void *data, int len)
 +{
-+	of_reserved_mem_device_release(data);
++	return __airoha_npu_send_msg(npu, func_id, data, len, data, len);
 +}
 +
- static int airoha_npu_probe(struct platform_device *pdev)
+ static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
+ 				    const char *fw_name, int fw_max_size)
  {
- 	struct device *dev = &pdev->dev;
-@@ -776,6 +781,19 @@ static int airoha_npu_probe(struct platform_device *pdev)
- 	if (err)
- 		return err;
+@@ -500,9 +523,8 @@ static int airoha_npu_wlan_msg_get(struct airoha_npu *npu, int ifindex,
+ 	wlan_data->func_type = NPU_OP_GET;
+ 	wlan_data->func_id = func_id;
  
-+	if (of_property_match_string(dev->of_node, "memory-region-names",
-+				     "dma") >= 0) {
-+		err = of_reserved_mem_device_init_by_name(dev, dev->of_node,
-+							  "dma");
-+		if (err)
-+			return err;
+-	err = airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len);
+-	if (!err)
+-		memcpy(data, wlan_data->d, data_len);
++	err = __airoha_npu_send_msg(npu, NPU_FUNC_WIFI, wlan_data, len,
++				    data, data_len);
+ 	kfree(wlan_data);
+ 
+ 	return err;
+@@ -794,6 +816,15 @@ static int airoha_npu_probe(struct platform_device *pdev)
+ 			return err;
+ 	}
+ 
++	for (i = 0; i < ARRAY_SIZE(npu->cores); i++) {
++		struct airoha_npu_core *core = &npu->cores[i];
 +
-+		err = devm_add_action_or_reset(dev, airoha_npu_rmem_release,
-+					       dev);
-+		if (err)
-+			return err;
++		core->buf = dmam_alloc_coherent(dev, AIROHA_NPU_MBOX_SIZE,
++						&core->addr, GFP_KERNEL);
++		if (!core->buf)
++			return -ENOMEM;
 +	}
 +
  	err = airoha_npu_run_firmware(dev, base, &res);
  	if (err)
  		return err;
+diff --git a/include/linux/soc/airoha/airoha_offload.h b/include/linux/soc/airoha/airoha_offload.h
+index 7589fccfee..16a988ad74 100644
+--- a/include/linux/soc/airoha/airoha_offload.h
++++ b/include/linux/soc/airoha/airoha_offload.h
+@@ -173,6 +173,9 @@ struct airoha_npu {
+ 		/* protect concurrent npu memory accesses */
+ 		spinlock_t lock;
+ 		struct work_struct wdt_work;
++		/* Coherent bounce buffer for mailbox cmd/rsp */
++		void *buf;
++		dma_addr_t addr;
+ 	} cores[NPU_NUM_CORES];
+ 
+ 	int irqs[NPU_NUM_IRQ];
 -- 
 2.53.0
 
