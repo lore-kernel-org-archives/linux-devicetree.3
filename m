@@ -1,100 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792829855;
-	b=4xScEEG841pBiVlTJkZNldLCRvbrA4E7oYbSGTpBiQiiH9uWsZeEaVjHFiRYr+9A0FQi
-	 38b3QjN5oNotaAi5j8irVcCtelfwq483zJX6YNO573sziWP6tDSF1OTBiz7vWPvhu+Z6D
-	 co86MNkr8nlDTHNzp+7/SDKr3FK5paV98CNB0Wz7hg4wkAgdU2VsifA9mMTuer2ubBgCn
-	 2TbEjTQD2oWC+xX0SdR0h/kmzeKlQmA+3yfyaDWiPNG4Lq+CA4YlM0TUf7GUm1044Y9Ds
-	 rCBekfXngp/9vM3A3phVoXMxkW3R7GNQtQel1gmT/udN6FwcYN9AW+maia3lTIAIjfA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792830189;
+	b=ODnA0BRS8x/iZGyOEF8XxWiep6MkPExQ0AtrrKua+9dGXtcOPi4TqSzhlHMfkrsqDMkE
+	 nSaDuuvuqaNgSLKRGHCRa96fgw11BoEKjfsPDl91gMOaKyzTO1aartNaIyBmBNb02SPl/
+	 UWiaMbSiPjVKvTI1XQY5m6M6Z/KXUPUL0KxVDLYo2AsT0zOYm3Ry88+bn0APsj+uRc+kc
+	 7bZV0RqmvHOkS57dLnImrTsXL/SjMzVO41qlMi04BlMm8mUMFEPQD57wx97kI1GUhabyz
+	 BWY+L6wmG7HipN2Kt2gtNpYqNe/lmA0yHBHXnRQilDFpLrjUPTV9GfLaoK/q5c6hyUQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792829855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=f/c+EwpzzrIdTL0a0bddGX7KBZ15+Zku2avwoxWG2Wk=;
-	b=H1oeaz6I8GUH6VMdCDvsHJeeGUx5kV0p7qqXvUZGl+2MwKEzvw5+oUIVsJw116hsysiG
-	 S3jnSwZ2yGLk2WeI0bYCR9s966BALvLWDyH1fhR3Q1cyG2cA6qZCHNQzCMNpCy3DFCOrB
-	 T8uLmwBvWRn2O4IS0i5b2emxpXn9VvjepV0xshNiHBgQCwkAQVhPBoeJFNWhEQtXvXs7q
-	 SFGIc2N31rqu2uKRl2o91CB5GQfckHCAf/1de79I/SIKgGOfngKQ2T98i/nJ1MqgEUGVP
-	 ua241yz+qN6Z0k3/H3IOrBsMl0lntoWrUiiNoyMWPJpQDQYlk5hIA1ABZedwh7aZeQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792830189;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
+	b=btAbFoQTj1oLNvL8xBfmPMnngq6HUy2pQdWyaIJUIOLgRZJcIhZbes1u2reGKbc/9ls4
+	 JB6D83Y5uaeJfzdGBwDdyDMt06Rk61S4FfNfeFpwA8Ojpb+pxXBWDrXMxdQKpceHsltqR
+	 8HCCbeR261vJxMEXdyMLr46tBAEOXAG/G+QW7ypt8YYnZI8VPHM1JEDxjDC5MfPxDSbER
+	 R7pJM+BUGUXrT7ZCw6iiaJiO7jPwFa4nHr5nwczWETOYoE2O0I0DGD0ZHxkv7s3W7s0KD
+	 Vhx3bdsrgA4jvaDHvkLdWaA8TeZz/Lq3cEt0MVlBRIq7l61rvw+DFxIDJF8FvnavCHQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=k059ccS5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW;
+	arc=fail smtp.remote-ip=85.215.255.53
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4CE606A324
-	for <Devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D4CE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CC606A31D;
+	Sat, 24 Oct 2026 08:23:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2CC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=k059ccS5
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so1175514a91.2
-        for <Devicetree@vger.kernel.org>; Sat, 24 Oct 2026 01:17:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792829854; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Esgu8MT+mpujm/67NTlmyCMCHw4u4X6JzCbG3HDHTTPGfPT53oGWbMBsVr23wsE1EU
-         F84ip4eJnUoEdSFFmkrM84E5MWoD6HudoiX1jruM79FAs60TKd03CjOQhEbH7UITCMXz
-         5S/mDLNecKnd4Dzs2ecdp46kA4yYQSBcMwb0sV+duWpYvqy+R2Yq+gOlX73Ib5xd0aRW
-         gS/tlEpgB0xThnh6tmyrGKLLZjXzJvtNB3KXcuYdMa6kvT52QjJX+492uf3Qpzjm3DgN
-         JI+lKzw2XC32beZUuhuEk+yzNnTDKPQfkeg/alCIQt3QA9GPzDbRSsh5ityDspvIE+wM
-         ppTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=f/c+EwpzzrIdTL0a0bddGX7KBZ15+Zku2avwoxWG2Wk=;
-        fh=ee50yn8HF2RixmPe/xY+G5MgPSOdIgoaEGGLMfxnGng=;
-        b=KsTA808RzzoJCm86Dy4ET9dB8On68f5aw82i9Cv8SiXfI55mr0pmncERSBfKVW24eP
-         AJJRJG/BfDNDu83Mqn11a4OLNdWROKtdCh/zw5yyW/8DsIwG0baLHoWa2RliF8AadlpM
-         cSziZkFJY29di3eFaXcxaEommtNjdOEpNrFCZ6sOaCBUSmV7rSAQz3bxP1PUVdgMmkTs
-         OraORlqZW9MZM7v5TnN6TWE6j7Xcl43H1WJbfkamPA/X8Pj8Ew9DwYumXPhQ0ACRjTts
-         Biioelwrz7bImpjd6/KotjXyDFtfz0lS5uCDs+huRNUYznv3abgmDkm75g85W1wSd0o/
-         DJTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792829854; x=1793434654; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=f/c+EwpzzrIdTL0a0bddGX7KBZ15+Zku2avwoxWG2Wk=;
-        b=k059ccS55T1YaNzStugk5ne3uFifaL4k2aSKrT12fShPJOVrNwIpZsTVvJguE9dBVX
-         ygElTWkmgtdIXDyK+7PyNXPPrJ9Md9fuHPq/S6rSCxD0nkfAZFvNflsz/tXuQHDdBLHD
-         xL65BHj8HVU1+f0FgiCizf5ZuSn5MRY7FWfjw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792829854; x=1793434654;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=f/c+EwpzzrIdTL0a0bddGX7KBZ15+Zku2avwoxWG2Wk=;
-        b=cONoC4CgjBuEs1WE5sj2FLx6VP0RdCDTJNihuIYFwWN/21P0Dn2W0QUjoPqXQyRaK5
-         KEoVH8bpZAEV0OrsY12tGMsBg5e5q9/cqR8vJGKC5n5r5EIG+oFgU+gduZf64WRurFw6
-         YXIRD9IeNgPRvAHlyQE7l8CBumGMcEOSQH6Ubt2mR+XOaEzi5G2ide+An09rKIe/9gP7
-         nSfBTomkN4Nelq1z/cieylsIExB+KtuZbEGw3mCwvh29QwNDi8i3zbl/wwyO4q688wmI
-         gZnko+o3eKRV3Q/zudn9LvpLOCHPlqHxdNTU2uVx5bv7dAd6UZCtR39b791/LMUB8Tsu
-         PCjw==
-X-Forwarded-Encrypted: i=1; AKwUvByN1CRGlWXv4X0tJw5wnyxlPqXRfD26aIoWetCqQJHSVdK43+55CrH3EC+SXhYTeBVX3AnRco6Bx188@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPV/dfsPPY+qnrax8BgUSJR7d06g0EhIYGrPCgEzPJkz+MY5Ld
-	HApQQ93v0YNGxdKn+z5e5V5A2yUrFBFJRmv23lS/wxO/PApDjIHBXBCqz7WbkcQX8S0ye4bWFj8
-	YT4oMQn/LYUbm8D0aA+5960/Wvf5PRdwK6Oem2S8V
-X-Gm-Gg: AYBFou2aYIfIjKTplBk7IRDMRfG5a7XsAR6vKIN5BeTEUcuFtFdNmjA31TwrNe9bxss
-	Gon2m3GHyq59ZyDCQIubmMHKXAgR92CaxEd+UDG3D6g2INCKjJqDNiy0MRxR3YEff8B5+5LD0Qs
-	raW5awNkFN/NOTX8u1KuDQVLKQDx8dz/H8XvozXQUniNW1eBKethVpD6axLFhjfTov3jzwAJLfX
-	lRG5ugFFUANPaci80HrceqGcR18A7ZITcpSyBPh+6/XWgVJCwS0ppuSNu6U1bHugBssKi3nl7cR
-	b0mNegy/wvMuKHSsI/PwV/ch+vvNSws32Qk0hYaPJW6JqvekMZ7MwL6IK1CUXYEtV98EHySIg3F
-	szvP4+nRy+95d62jqem3wYnAHleO2Ot/llW/y
-X-Received: by 2002:a17:90b:1fc8:b0:3ad:c14:35ce with SMTP id
- 98e67ed59e1d1-3adeb0f4b03mr1215366a91.64.1792829854594; Sat, 24 Oct 2026
- 01:17:34 -0700 (PDT)
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 24 Oct 2026 01:17:32 -0700
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sat, 24 Oct 2026 01:15:41 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW
+ARC-Seal: i=1; a=rsa-sha256; t=1792830162; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=iQJsjfbJMxpXE1DdpFwrGdEjDUgp2jPVTW4FVxuYXDDvBkDCs2OBQggqRozc2xYHYd
+    zl8bawHG+GSnOPnq5rAlddwvugYcLunF8tvSq78o//oV70l5mmaaWN9/qgpETN2p3GIF
+    dGA9oW46/pWm7ja/Umd30mssxwSVhYfk8/DcIpnbtWlI0+BQJNA457d/G9mfJCSX/LcE
+    0Kq3INOYXbRTCkmPeTVmW3Gj9YdmFhKPgRjr/+//avhNd3utcgW/KOBuEjsThx/IDPuS
+    b1WXmYJCR9KZl4paN5OdXYzg7AAMB5qN8JwqKjPWGknEgKkOuuKVQUqhdHOF0fm0kbfn
+    qpzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
+    b=BfIwc8xZhGZtmm1ZtOLTnU8F9okZGxo2QZxFFJprNf8PLTQ7uxsoQMVoxo6rRJqZX4
+    JJKN8i3tjkirKTvpZiZOaJxutK/xuVhHLkVx/+jEAirimZz3qMOBFDVoFyXzwQZFz8lT
+    h2I9eH8ZCKJEQjlKwbvUbBns2sFNIKpsZdZxmiqTgH2FPRHmiC/atbvxEGLbwJNhP1iI
+    cPG8QXLFbzqb7KVm07H0Ifd8QfbQTa0a7dU4ZVx5u4cTp+JRTRdYvmBIsQBd+dPzqqMF
+    1Rn0bVdp6Ou6nx5jFrRajaPcbxcfpiBtlTKdHwREDUErJDrBfQsgYY/Lv/nLKbDzJSka
+    q5bw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
+    b=Ewz0SQBKI9xjG6fbHoUS2zURQbpZk/f6qAYZHCd3iDb2rSgnoEWaFgklRu+8VmoL6+
+    PEM/5/xn38GVfl02iODRL8yjS7i2kzY5WlIqommZgK48xWtc+OM4rxDo69pw7627UrHG
+    BOgsaS0a0zoEhhQ9xzGg6hYqnXaXITqOG/WZNJn2gfKIso/eiFYJkkRlCo6KyPN40VyZ
+    ZuqJgitTVps2u8LfQbkZs87+QbVA3jM/rWC4gzD+DGzhwYE/iUz3S+HJSlAxdD1cbwj7
+    OkVGbDKKdwM3QX/G65wsDLth7d8dc5z7ASMrygtGCYjj8QoSSbJdtS7suS3/xizpqYv1
+    4N3A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792830162;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
+    b=iZ3rjytWh6zqKBqxxwTvoevyS5G0FCg66imV26P8AbqHzDLX8vxOmACOods6S9rN2V
+    kxEa/H00rQF8ruEo4FDA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzssJZVJ1W1pIJ42bR3YaapQ9RNEb"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229O8MfvmV
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sat, 24 Oct 2026 10:22:41 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,77 +93,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <20261020083501.RFC.7.I1683fb18dd1cb29680af5efb2c2d3c3f539af0f4@changeid>
-References: <20261020153652.2907186-1-dianders@chromium.org> <20261020083501.RFC.7.I1683fb18dd1cb29680af5efb2c2d3c3f539af0f4@changeid>
-From: Simon Glass <sjg@chromium.org>
-Date: Sat, 24 Oct 2026 01:17:31 -0700
-X-Gm-Features: AclHuK_RH6hRiswn7VkHcSfsxk2rWaTJ0grpI4PKmWKFGktw6V3bTGvWs-_Kz3M
-Message-ID: <CAFLszTgz66uz4gU6deR_go028R6MhwYuB=Jb5RJ8hqtzb5j80Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 7/7] arm64: dts: qcom: sc7180: Add sc7180-trogdor.its
- FIT image script
-To: dianders@chromium.org
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
+Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
+Date: Sat, 24 Oct 2026 10:22:30 +0200
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
+ Paul Boddie <paul@boddie.org.uk>,
+ Andreas Kemnade <akemnade@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6EC261C8-74E7-4F0A-B739-6851D6BFCA44@goldelico.com>
+References: <20261024041357.34346-1-olivier@mgcrea.io>
+ <20261024041357.34346-2-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3864.700.51.1.3)
 
-Hi Doug,
+Hi,
 
-On 2026-10-20T15:35:18, Douglas Anderson <dianders@chromium.org> wrote:
-> arm64: dts: qcom: sc7180: Add sc7180-trogdor.its FIT image script
->
-> Add an Image Tree Source (`sc7180-trogdor.its`) describing the FIT
-> image for SC7180 Trogdor family boards using `Image-framed.lz4` and
-> LZ4-compressed board DTBs (`*.dtb.lz4`), allowing the Trogdor FIT image
-> to be built with:
+> Am 24.10.2026 um 06:13 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+>=20
+> There is no datasheet here: the register layout and the clock dividers
+> come from the X1600 driver of the vendor's 4.4 kernel.
 
-This says what the file is but not why it is wanted. Please can you
-move a short version of your notes below the --- into the commit
-message (matching what the ChromeOS scripts produce, a model for
-future Chromebooks, helping people who run upstream kernels on
-trogdor)?
+You can find the programming manual X1600_PM_20220117.pdf here:
 
->
->   make FIT_ITS=qcom/sc7180-trogdor.its image.fit
->
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
->
->  arch/arm64/boot/dts/qcom/sc7180-trogdor.its | 728 ++++++++++++++++++++++++++++
->  1 file changed, 728 insertions(+)
+https://github.com/Ingenic-community/datasheets/blob/main/X/
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.its b/arch/arm64/boot/dts/qcom/sc7180-trogdor.its
-> @@ -0,0 +1,728 @@
-> +	configurations {
-> +		conf-1 {
-> +			description = "sc7180-trogdor-coachz-r1-lte";
-> +			kernel = "kernel-1";
-> +			fdt = "fdt-1";
-> +		};
+Chapter 19.4 describes the registers.
 
-One thing I'd like to check. Patch 4 says the main reason for a
-checked-in .its is to have a hand-written description per
-configuration, but here each description is just the DTB filename, the
-compatible is filled in automatically, and patch 5 adds fdtfactor to
-cmd_fit too. So as far as I can tell, the only thing this file gives
-over 'make FIT_COMPRESSION=lz4 image.fit' is limiting the FIT to the
-trogdor DTBs. In exchange there are 47 entries which must be updated
-by hand whenever a trogdor board is added to or removed from
-qcom/Makefile, and nothing checks this. The list matches the Makefile
-today, but the two are likely to drift apart. Would a way to filter
-the dtbs-list passed to make_fit.py (e.g. by a pattern such as
-sc7180-trogdor-*) get you the same result without the duplication?
-What do you think?
+There is also an X1000 PM to compare.
 
-Regards,
-Simon
+BTW: we have tons of patches for the x1600/x2000/x2600 (and even jz4730) =
+waiting for cleanup
+and upstreaming so we should avoid double and incompatible work but join =
+forces.
+Please refer to =
+https://github.com/goldelico/letux-kernel/tree/letux-current
+
+BR,
+Nikolaus
+
