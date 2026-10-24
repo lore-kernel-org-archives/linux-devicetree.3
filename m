@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792815403;
-	b=ZWLwylWZMLUPNB6RiS4svbYjsXI36QaqiUFI3hD6DQ3ZSjqaZHfCq78M9qhEIb3Qr7x3
-	 iBxFAQjWwjzFGdM6/6rhosPjy//1KuqAxELeD23L2kXV9k0/EJ9VC44w3Ws7iKMZAm4Gv
-	 tOWPbe3gY0bnov3NDyyjYxpoitnXclWnVbS6JpdhTjeHSAWf7HE5EQ4row6IpzBj5TguT
-	 0osEUIWFg8jStm22ldhvBqA0h51QB426BD0UoSORzUxRc60D+7S52G/KD/1hfI7tQty68
-	 1Pz7Jj3aqWzyewB38eqLdtQEL672yhXuq5CSwSpbWm6EyCHte2LABLld1pgeIYNLIpQ==
+	t=1792815622;
+	b=M6Lbs2C2x4u7o78scdq5X1uf208TzzpHUummFWJayyJ9PxkwXzd7XYFb2/VY7lVeNsbS
+	 pk3ITdJ0TZIwj6wuH2FdCDz4O98NU3LAZZfU7m9uhyCrZv8nInIKZxIJ1M96cuW7XMFYq
+	 GHcwcK+lGDCLAbOjUSm5/ea8SGdThDiTCKvb7//WYg0PYSbQzibdW+nrkYrMGqru+61oj
+	 20wDSueI9SWJ8xKt2JuPlkbg9gza1sI6tsGSy/9YeWe39EzsEsuXFomEY6gzorV6erGU3
+	 EJcjSPhx13C1sQ4Ww8VkeD+BiokKFq1vwYDmgy2eFnOvIk1Jh6J8RdGEpmiyFr59dDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792815403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792815622;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
 	 Content-Type;
-	bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
-	b=hlYl2anAByNRCfpWQ0vUQEK56ete+cxwSVg0WL7SfPdstXJLwOsY0hTznEtDogXNFzg1
-	 WoKf8yanze7tq2NLRPU/oyY1Qoraux5zpXsRJWNd+zO4nclgu4yBfwe4HbkRvc7DQVUrV
-	 TjU4d2Uhks/aBFxvlqLvjIsSoFF1fmOB7+a/2ytS2dFa2xN/NqasTh/FVFs3JlKkicz/r
-	 ntDzvHFzIgPcW/imMWFJ4roA+0alMZBD4KbY6BI6aQEoLuHacWw09mzxd4K048+iz1J1A
-	 k12KNf1WsxBIg4XSRait2yXnsQEnziP7B+3B7mSfVf/XvEcrbmSWLiT1DRzgCcQMH6w==
+	bh=jGQrYdri7l5Ge8lTQSKZFuRUGOdSY70OgzsQrO4cwUQ=;
+	b=SD/P7Zf9MYLyEWI+AnofSsiT8zl42bNot+TpmuxgqsT916Jp0yKmBWdEqFeS1kJDu5xJ
+	 SYfX2YovIUoY8KuH2bCA68BDjUFX2xoHXSz1hO4vTAB/T/8SDeFBA9H3+EiXNAUcHnBr6
+	 LxTf4qeDYfSFHkyPWPvsPfaYuAW9d+MqNRfRygQboIlK96DumGgQav9ONXwDVdACOffcx
+	 6Ts7T0cQZOGVkYhOIux9LQeNpnObu4hu0rx6HT1PvwZ6SQ7ep5XorQ1HGxXrgxlajS16s
+	 B1QCADzyajlciO1NNCCPQJgWWser6D5Zm8lbE1M0exD8tJl4RUWghOZGQ+nkSCOYwGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TGpRFMFM;
-	arc=none smtp.remote-ip=209.85.214.227
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hPPk8RYp;
+	arc=none smtp.remote-ip=74.125.224.100
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E4D606A31A
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E4D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B77606A31A
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B77606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TGpRFMFM
-Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2e5378b281aso10214155ad.2
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hPPk8RYp
+Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-679334baa1fso1596305d50.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:20:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792815402; x=1793420202;
+        d=1e100.net; s=20260707; t=1792815621; x=1793420421;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
-        b=KtKVJFcQtvexgEakI6gjJVm8kmbltEiFNe6X1fzQmvBL8RTVYiO6IniU5oQMcmFA/V
-         RU3iFe7h4pi3jYDwyRy6R6nDxvRAySVq/92OiV94eM5rYfF8PoFo+RYl10YhUUtzr+FS
-         mrIuPuDJC7rfZNTzLNf3DPJYvTIMyuxjFlhmu56H9kYpqy08lPnt5KydsXS8Z7I55Dc9
-         SHofo3lfQPVlJBpXR1ioUAtPziLlZ2Osz5IMV+aqTPgKooegT+3S3NtwxrNvPnTtVQ/Z
-         yqvPHYe/Fdm4kWFYdl+lINEZX8W3WXs8SiCJ3C0A7+MzdvH+MMNT6O4GnaU0OFNiu43L
-         IlzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwTaaqu+ZH+MTKSQbQ30l5PfvgzubrQdy4S/Ax7IzI3N8AALTtI9AAepEG0aAeO15M1QjL7cNcv1q9U@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUg/yHYjP9dM3rxYuFhDRsc8PnolpK5sNLVqiuaGHYT4L7vyzG
-	+/VjYII2vNZ4LlVY7BFnBhFJv4aNRZzeklquCd0K17aUGFoWC5nA9ZG2/+o160pWnOOFZZtImTR
-	sQ/3ZKVfvLqRSeWsa3nfJcBfuA6xEkf86v41henoggPD5uJ41U9OKAmnJT8Y5Ixe1Rg2/O1URfM
-	wJ96+uz8YAXst1WXPpa5OdP+XJau/kjSVGlUpoi0zDXuDGRHi4t9zWe3dL0Q/BbxJkHMIZz0Q5l
-	LHi/ZePAyZPA0j6pA==
-X-Gm-Gg: AYBFou2RhwQP1wOjtJsY0qyt+g0CA1sPTnRF/oiPWH4UfshRxEFnw966ChljjxdZnxc
-	IUoUWU8KFHeoBYcXc82iJu5HmAKYTzDp3AkaLocUJqdz4kjDtrE92iso9D0nDZBu8gYS796DVvf
-	vU/jegTE//W9Rnz8PUjP3nuQa2Q3qXcOZ9moiN5XWSRdy/+4WfnD9OAV1FLEV2FMulvioRareqJ
-	aJH6gMIskE56o1DtiuSJ4hgvwhuUfw9xjs/Mnh9b5RpOQDmoWXUMD2aHwLLPetYrGvAhGrm5Ipd
-	XO9ZrjxToo8MirGXgk3/+wyZJCvy89IavMGypXwGBoa6SgoLkxQ+UeOsRzKuX64Fruj/gzDI1jI
-	xGoJ3GDIGKD2cV/06Nvvka6Pb2a4MgPkj1HB/HACoyclYIlCYuFpVTNxVmRLX6pO8Fhi4c2XpKd
-	dtL4cBTkZIvi/F/NNnxD6fgtoqkjU+k4tG7Cbz
-X-Received: by 2002:a17:90b:5105:b0:3ac:9ed8:f309 with SMTP id 98e67ed59e1d1-3adeae71db3mr1058360a91.29.1792815402156;
-        Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adebb0a2e2sm1008434a91.7.2026.10.23.21.16.41
+        bh=jGQrYdri7l5Ge8lTQSKZFuRUGOdSY70OgzsQrO4cwUQ=;
+        b=eayURg5w0OX486ybVJxHqpEM5qTXqpER6Qir4KnCfDltyA2zRaach4pQLTsRApa3gv
+         NmDGOpNtuiQVQGX4OsiZq5BFketJ4HJh6CaFSncDlApCPOJq6ZWG7vaEkV+haJqpECQh
+         VGduE46eF8E+SbKj7ZcvUOsaRSi8gpND/QyzN5ZuS9Xf3FxWh/Q00TrIUa+tByZiqSmg
+         +YEw+E9YXet5ubec4Bd2qRgiipwOxK4O5uop7PiBZqU+TGq67hLOTUC38v/YDmVFW0Bj
+         b1+BfANVlRw/tRztlhl8aMxg4FMuuNCqXbPyKYDXj/4x6vDb6GEM1SjDSSYcnN1jky71
+         S1rw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZTdPIWqkijqyxQFg/dNdOJ2sCkWStiHteyiee3obGk/Hbv0fmxFpaALWtHNzypDGqBiMeYCEpdVpo@vger.kernel.org
+X-Gm-Message-State: AFq9FYJX4z/7fqnbPMEumXShRmExxPKzmfTiqSvB2ZG7ODAsnFwYCp09
+	vqTGJ/ZcvGOe6PRqOnbo1F4WaXpZuefjrPJVj5nyPxXC/aQ/lfh8VQlm11bmyjKOYSpsQKLmJ8g
+	6AaMXw/cuIZiIJognoQqDHgqGeVB9OKQrSbPa2LTGaSjvSOIH+/mdXW+PnIyedH1eRC7ufn/wHV
+	lsSnLso0JGTOQ4RRbAf/DrenOYwmIqIODAKt49zF3kndWMFdFA/lu1sTNADgH+cB7Bv4mCfITKh
+	X8DiSsTsG201CYG1g==
+X-Gm-Gg: AYBFou0Yonzl1dEHEm3aCwZFh+OW3//PRoVk6UjJx6oh58/ccF2cC9Enf7K/gNDO8ws
+	Rsm/muMPRMKgam3iP0KhmkqESLXdrjtv80/UuJTp0Zt2zx5eNBOwhp+UD8JjcOMZm6yPGYXEUsV
+	hM7EEUt4wiGhtUcisn5Xtyn/2KJNUk+tIhjGvkmdUDpzqH8QWt/FUlsjwJNr46xAWRj+TcfaVX4
+	AKEPlbEyqfHr0ymdWbpMb5wsONx26Mkz2Rae0GtrySwfsIAxHm3bGvKwI0Q8/ssaEHhS/sp2sC/
+	6zCfiBPwVB6//OhI8eQm3QaIl8+6xxT0Yek0vjHlQFnlB+6N3Q+I+ySYOItZD53SJJyhV17AsjU
+	sgHx8juXIahxVQmqQwGJpCTTcxIUq68Dcj2OrxhhFP1/3yOd+byiBzjByqflhErmHHHU37CXAWq
+	e7KzN+J0jf2VG0xwCIu24hhlXxEJ34oqkVyXkJ9eo=
+X-Received: by 2002:a05:690e:dcd:b0:679:8ba4:e912 with SMTP id 956f58d0204a3-67a4554fbc1mr668945d50.133.1792815621030;
+        Fri, 23 Oct 2026 21:20:21 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-67a4615a30bsm11154d50.48.2026.10.23.21.20.20
         for <devicetree@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
+        Fri, 23 Oct 2026 21:20:21 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b0d978e4faso25101327b3.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:16:41 -0700 (PDT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0cd41e7aaso24513357b3.3
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792815401; x=1793420201; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1792815620; x=1793420420; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
-        b=TGpRFMFMvezrEXptz76Odi4QNzsKY4pyKz8ut2AV+39pkYXCCxGq5C+IYGw2RSmZju
-         3/gJDX3h1uSBYrgdVn/T0Eug4LHvWFTFld8N1uFgDg7MPMIXqkKA1acOiTPuJ9KZzg/5
-         deFvksOyKigAbp9u3LpvbJp5Ru7uw3hJzG9W4=
-X-Forwarded-Encrypted: i=1; AKwUvByXHPFD2n6PPDgJPA7F6uiccy5sTq65sl1SYPzVRzSWa3xOdF7g8FUQ+rCrOuKAsDnz1oVlyMQd9ko2@vger.kernel.org
-X-Received: by 2002:a05:690c:e1d7:20b0:8b0:e207:34b4 with SMTP id 00721157ae682-8b166b86c4bmr6719947b3.18.1792815400826;
-        Fri, 23 Oct 2026 21:16:40 -0700 (PDT)
-X-Received: by 2002:a05:690c:e1d7:20b0:8b0:e207:34b4 with SMTP id
- 00721157ae682-8b166b86c4bmr6719867b3.18.1792815400478; Fri, 23 Oct 2026
- 21:16:40 -0700 (PDT)
+        bh=jGQrYdri7l5Ge8lTQSKZFuRUGOdSY70OgzsQrO4cwUQ=;
+        b=hPPk8RYpQMjYsfCFwHeF47xz5kpFvI6uuonnmkzypvvytP582PK9Xcu94u/wZ1n9+V
+         E6xGeYm2CDSCzB5nOLN+0Ee8xwJzNjdCYv3RfX+OUsOOLGUd0mEQWF30SQx0EEZku4Oh
+         LwWLaS9kyu/sjotoOTjYArXxXw96Bz+W8sDq4=
+X-Forwarded-Encrypted: i=1; AKwUvBxf05XGzNuOluHYpdyYjtzqS8ZL3q47SotEVd6KnNAy5EUk1liJ+ra6XBrC3Wen7xr0S3D84OaGIrO2@vger.kernel.org
+X-Received: by 2002:a05:690c:c18b:b0:8b0:dabe:cf3e with SMTP id 00721157ae682-8b166c3b836mr6714207b3.49.1792815620243;
+        Fri, 23 Oct 2026 21:20:20 -0700 (PDT)
+X-Received: by 2002:a05:690c:c18b:b0:8b0:dabe:cf3e with SMTP id
+ 00721157ae682-8b166c3b836mr6714107b3.49.1792815619878; Fri, 23 Oct 2026
+ 21:20:19 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,15 +99,15 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
- <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
-In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
+ <20261021-genexis-xg6846-smp-v7-3-rc1-v3-1-7c871f1755db@kernel.org> <20261022141541.GA1009304-robh@kernel.org>
+In-Reply-To: <20261022141541.GA1009304-robh@kernel.org>
 From: William Zhang <william.zhang@broadcom.com>
-Date: Fri, 23 Oct 2026 21:16:28 -0700
-X-Gm-Features: AclHuK9RuItz_DZ3wVK43enrFIQGul9TWQAwbLIKANHNYfy1pUzBkwXbxgy7ZtY
-Message-ID: <CAHi4H7ES2GEWN+NZbCUUe9n6YvTPnDbVn42XzqyDfAybub2tbA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+Date: Fri, 23 Oct 2026 21:20:06 -0700
+X-Gm-Features: AclHuK-jY5nZlp7VXKmAqElNTjaLuAOJrGGwfzJe2sRdomHsXRx_zZwJG5LEvdg
+Message-ID: <CAHi4H7FpJJs0FqfCV=7bT26J642JTMgJ860hsDezKRET7q9TeQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable method
+To: Rob Herring <robh@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
 	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
 	Florian Fainelli <florian.fainelli@broadcom.com>, 
 	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
@@ -116,79 +116,117 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000021e3c7065e8e5d3e"
+	boundary="0000000000003594fe065e8e6a5b"
 
---00000000000021e3c7065e8e5d3e
+--0000000000003594fe065e8e6a5b
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 8:10=E2=80=AFAM Linus Walleij <linusw@kernel.org> w=
-rote:
+On Thu, Oct 22, 2026 at 7:15=E2=80=AFAM Rob Herring <robh@kernel.org> wrote=
+:
 >
-> The XG6846B boots through CFE, which parks CPU1 in a holding pen and does
-> not provide PSCI. Starting Linux from CFE does not install a PSCI
-> implementation either. The working PSCI interface in newer GenXOS
-> firmware belongs to a different boot stack.
+> On Wed, Oct 21, 2026 at 05:09:52PM +0200, Linus Walleij wrote:
+> > BCMBCA systems booted through CFE can release a secondary CPU by
+> > writing its ARM-state entry address to a 32-bit MMIO mailbox and
+> > sending a wakeup interrupt.
+> >
+> > Document brcm,bca-smp and its single-cell cpu-release-addr property.
+> > The boot CPU does not need a mailbox; secondary CPUs do. Add a
+> > Cortex-A7 example showing both CPU nodes.
+> >
+> > Suggested-by: William Zhang <william.zhang@broadcom.com>
+> > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > ---
+> >  Documentation/devicetree/bindings/arm/cpus.yaml | 36 +++++++++++++++++=
+++++++++
+> >  1 file changed, 36 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Document=
+ation/devicetree/bindings/arm/cpus.yaml
+> > index 5be89c584026..6771b85f757b 100644
+> > --- a/Documentation/devicetree/bindings/arm/cpus.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/cpus.yaml
+> > @@ -255,6 +255,7 @@ properties:
+> >            - amlogic,meson8b-smp
+> >            - arm,realview-smp
+> >            - aspeed,ast2600-smp
+> > +          - brcm,bca-smp
+> >            - brcm,bcm11351-cpu-method
+> >            - brcm,bcm23550
+> >            - brcm,bcm2836-smp
+> > @@ -471,6 +472,20 @@ allOf:
+> >      then:
+> >        required:
+> >          - secondary-boot-reg
+> > +  - if:
+> > +      properties:
+> > +        enable-method:
+> > +          const: brcm,bca-smp
+> > +      required:
+> > +        - enable-method
+> > +    then:
+> > +      properties:
+> > +        cpu-release-addr:
+> > +          $ref: /schemas/types.yaml#/definitions/uint32
+> > +          description:
+> > +            Physical address of the 32-bit MMIO mailbox read by CFE af=
+ter
+> > +            a wakeup interrupt. Required on secondary CPUs. The kernel
+> > +            writes the ARM-state entry address before sending the inte=
+rrupt.
 >
-> Disable the inherited PSCI node on this board so Linux does not issue
-> SMCs to an interface that is absent. Set the CPUs' enable-method to
-> brcm,bca-smp to select the BCMBCA CFE SMP operations. Describe the CFE
-> mailbox in CPU1's cpu-release-addr property. Keep both CPU nodes enabled
-> and leave the SoC's PSCI defaults available to other boards.
+> required:
+>   - cpu-release-addr
 >
-> Also remove no-map from the secondary-boot reservation. Its overlap
-> with ARM's initial page tables otherwise causes the reservation to be
-> rejected, leaving CFE's holding pen unprotected.
+> ??? But cpu0 doesn't have an address. Is there really no address or you
+> just omitted because you don't really need it. Should still be there in
+> the latter case IMO.
 >
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts | 16 ++++++++++++=
-+++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
+> Alternatively, add the enable-method value to the existing section that
+> does this. Also, there might be other cases that are a 32-bit address
+> and need this same constraint.
 >
-> diff --git a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts b/arc=
-h/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
-> index a3616fb7b3a8..45d4df523110 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
-> @@ -34,7 +34,7 @@ reserved-memory {
->                 ranges;
->
->                 secondary-boot@0 {
-> -                       no-map;
-> +                       /* Includes the kernel's initial page tables. */
->                         reg =3D <0x00000000 0x00008000>;
->                 };
->                 pmc3-firmware@8000 {
-> @@ -56,6 +56,20 @@ button-restart {
->         };
->  };
->
-> +/* CFE parks CPU1 in its holding pen and does not provide PSCI. */
-> +&{/psci} {
-> +       status =3D "disabled";
-> +};
-> +
-> +&CA7_0 {
-> +       enable-method =3D "brcm,bca-smp";
-> +};
-> +
-> +&CA7_1 {
-> +       enable-method =3D "brcm,bca-smp";
-> +       cpu-release-addr =3D <0xff800568>;
-> +};
-> +
->  &gpio0 {
->         status =3D "okay";
->  };
->
-> --
-> 2.56.0
->
-
+Cpu0 does not need release because it is the boot up CPU.  But there
+is no harm to add it to be consistent.
+All the BCA v7 chips only use 32 bit address for MMIO register.
+Otheriwse,
 Reviewed-by: William Zhang <william.zhang@broadcom.com>
 
---00000000000021e3c7065e8e5d3e
+> >    - if:
+> >        properties:
+> >          enable-method:
+> > @@ -712,4 +727,25 @@ examples:
+> >          cpu-release-addr =3D <0 0x20000000>;
+> >        };
+> >      };
+> > +  - |
+> > +    // Example 5 (Broadcom BCMBCA with CFE):
+> > +    cpus {
+> > +      #size-cells =3D <0>;
+> > +      #address-cells =3D <1>;
+> > +
+> > +      cpu@0 {
+> > +        device_type =3D "cpu";
+> > +        compatible =3D "arm,cortex-a7";
+> > +        reg =3D <0>;
+> > +        enable-method =3D "brcm,bca-smp";
+> > +      };
+> > +
+> > +      cpu@1 {
+> > +        device_type =3D "cpu";
+> > +        compatible =3D "arm,cortex-a7";
+> > +        reg =3D <1>;
+> > +        enable-method =3D "brcm,bca-smp";
+> > +        cpu-release-addr =3D <0xff800568>;
+> > +      };
+> > +    };
+> >  ...
+> >
+> > --
+> > 2.56.0
+> >
+
+--0000000000003594fe065e8e6a5b
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -282,13 +320,13 @@ TVAZ9uyO9N20yU0p7igESOWKR1ccL1TPA1jrSHK18Y75ot5199FNWeE/UKoDKSML39iPZho9XPh/
 WkDCNNacYJWZtSp87i6jmw+l5xx7OkEJ9DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAX
 BgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1F
 IENBIDIwMjMCDD2ooFIye/WiO3KgZTANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQg
-mquUAu9dQtewxjHBhnp8oeUn3BuihIc6Y6BluEPXDUUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
-ATAcBgkqhkiG9w0BCQUxDxcNMjYxMDI0MDQxNjQxWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFl
+yE1uKKhIB+1cliMBryxLaNqQHWo1xv870+ijNmDpHAcwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
+ATAcBgkqhkiG9w0BCQUxDxcNMjYxMDI0MDQyMDIwWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFl
 AwQBKjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzAL
-BglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEABnlWVpIgsI5eMPTawGdB006DrFLMKLYEP540
-hr72tIjbeEAqyAPU+ITWrBp8Czmz4zGLFQDusiaBhuuHOyHxtm6Gdd4PiHo5v6B0IAhWsS5J92ma
-hL2QU3nX7jJgbp+JxZHAszWBlMFHM4AoXgWM1wXZ8o5tcZt+aIaBOuzZVD9ULb0ol8FxD/BbwbSn
-AHyMqgV4MNGaeICAV0BCA3uT3auLFnQDQNMmeRNSG2UhQFdrMMA7CnEPLRDhMSNRvS93HLmIHIUz
-aon5Fv3MTltzDum67VT3v4ew0pSS/cVheQF1c95kzsefxaqe/R/CqohumQiXXdC/j6uqL4EekDbR
-og==
---00000000000021e3c7065e8e5d3e--
+BglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAFASKg4I1vOxjgervq+gnt4jNFUNpmfM29PIo
+cGwHQQbxZ+Pj4Ic7nnp5cwEgKGbzidc1ViqczAKYCyniOiJ9KWMZdZrmnX2cK1pW4IVZ3NDCoZD1
+kiGy6vDqmqZrfRYLgULNwv0scnGg7DprQPJOc12XUUgM/zAVArazjfNWONexFiLtG7JwnZtrUah0
+YVyWR/yrdj8gWwROSJGnToC4o8+5+AOcpCmBoUJ7koiC14kyvMjqVScuH+zDx886CxXfPkGWLc0F
+uNXMor1GbCeqVqgVgl/y9Zu5+vujBJZ6ZEtGjk7uld4Nfou8hvw21PEiVNMUGVxom96IPmlLK9we
+uQ==
+--0000000000003594fe065e8e6a5b--
