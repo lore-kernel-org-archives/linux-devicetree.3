@@ -1,90 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792873356;
-	b=bpZL62/jJ4D4GIDu7vL8c3/wQ+jTKRb/x7lL4mCGqAiuqbudasZlD6VVdRwke7iIn/7g
-	 lX4uCritW6D4Zy/kRhMZsriyTIfr7H7sYcTIPy6mJ5/kfzEWkvS9BRaxRGNtowb3cOAtl
-	 G9GzqUCsJEyjEqdNGhFqSj5aHUnH7MJ0aWAKDZ7NQLaXR/Nnqg6C2AO81EYsw8YZGf0pF
-	 PR2iE46dckn1XWY5FxWdtXISVVjREA/71VTXsqOw4N58YOB7aI+cXKj9v0VTj+5q90g8Q
-	 8ae0hD2Oq6546MZ0ecVaj/JiT2HuyeuRIrw2nuSIsFOtBgQlmcFZQnNnWGPK2NFkoCg==
+	t=1792873455;
+	b=y8yhnfHNdMdUrU2EOWnHG4KZNXhG6+ga5KY0PVBbGbD5+HRJqb6qgx9A0SPft930Spi+
+	 Pu/z/5ZRD1lmfMagYQJ7QPt8Ab97BNkfo40tQfU0xF4KBbKE8LLh/AH9vZWf4UBsILi+o
+	 UhZTVv9KtXIXiCzGqYj6+5gdgj4eaS2GgmaN+qz//DSVTgg8YOEj4pbsFS8sClm6eItTF
+	 YF4H0f2bsFseKHvRbgNnbP/EFMCdzINvmH3dxg8chNau1I61nqO7UKZEpOyJt13RA0Kkg
+	 tyg0Upn2C5oKAIJTcYZEJVwHuDbtCu1pfQeOHq3gQtDBlnWb/W7D2EUINKL2sa4YIGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792873356;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=YTxJJJ8fbTcAU9VqNhqp+UqN8RZ1Zq5MlC0xiBzcrfM=;
-	b=vCliIwnkKg4oX7mxo8+/XHXQ67nocdB8QfZVBMSOshlVKG1HFBjsAmUmRgNdNs+MBGjH
-	 1zRcL+e6JceXRb6SDWPHTFpSW06CAGwlp6PQ+ZvSC/HNkGsqKmR0EBBjE12G84d+osfvu
-	 J7ROPsegQfswqGixhYMeUlIJuedpyo48y7XFJY20MJExa8WRg61V86rvBpzrrf8F2Vxv3
-	 DN3qIFJWbcWfrEKfDmfOeTXPdm7wfWcQichTVOxc9KwZEte1RNgZXs9LkRDo3rxcAPhkp
-	 DsFe62oAkzVXmnrTV78VEELhlAQHw3IDBoNRXR6rWdg2Pfv8j2zSiIXBScPXLpHJnlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792873455;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=OSWoeKkSl8LV8SI4xnbQdI97ATBMcNBTzfvGNoiDQeE=;
+	b=A+VDCbrf0nbMeklNbIHjWdOGzFogH5rJyw5Nv2fJu9jzp2U0B9O0YxXcgHLAErlzQtGd
+	 J5N+e/Z9B94D6iQWrV9GvsqZX6e5uEt3m5NRP9fxh6RNGaDnLfAP2LjhQWoQGtu5P+Pzn
+	 s8s+EofeNBlbhmG21kCJQRYpSgeRBFWTpkR32dHaEXTGqjsigKIDU7u8scv/RMOfqS3SD
+	 Q39bV/x56WcQ04S5pqAwqG6S5CEym0uZIoWoTA3f5lInXqGAC6eOvHcxlGHKJkVlTXWs/
+	 fVYo8pHUp6z88zLtDIIwDDmpq/DW/I5Bbjy6R90LbjRfUJX2+cyOk4mjJuk/+4egRHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i6G+YSE2;
-	arc=none smtp.remote-ip=209.85.210.53
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nSFLzhfB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AWmCLqyE;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450B4606A327
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 20:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 450B4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB81D606A31D
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 20:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB81D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i6G+YSE2
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-823b938464fso1395807a34.2
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 13:22:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nSFLzhfB;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AWmCLqyE
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69OIUErl3376420
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 20:24:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=OSWoeKkSl8LV8SI4xnbQdI97
+	ATBMcNBTzfvGNoiDQeE=; b=nSFLzhfBkwVROVya8rQbcprcd/wwmxZH2IEH+0NC
+	/EGySx2O54lH4yS+3MCMM7e4Bf2L7/0LXM0rUPVBbH2GsT+B3yJveCFKOw88DPCQ
+	R0aX83tHrbINfjf1ResSTTQ2ZgYVuBRaUwdaJ3hVgZRKSSCS7e+GPfJSKqL8LvAO
+	5wTNZ9iZRUUgVVn4mQ7nUFGZV14sz2dpgpS4a/tM7RIGPBZ3nipMGdfjN0sQVWcS
+	WBMvptXJcUBu00iPf2NFwDREQk4gK4na3cgZBysIZ5B3pb23YVDWF6YAbyv0MHTZ
+	CQaO6xck6xKKJrA49A45ywGiUhF2ryMtB1ZFi2vDekBDlA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkms9uxf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 20:24:14 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ce7a85f04so397054685a.0
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 13:24:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792873355; x=1793478155; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YTxJJJ8fbTcAU9VqNhqp+UqN8RZ1Zq5MlC0xiBzcrfM=;
-        b=i6G+YSE2VtuPXvFmigV45DZZLCH6LB+XkG5kfejVXRhCgum2x/GkbzfSq3f1FtjFLt
-         A/k/PV/HiOSWfoX+TuzckdEWAdfd0jVZZtNsWh2nGw2rQTKgHcck3DcZ4viCwL+v1cu6
-         Gi3M8ht7pwLkefdSvbUizVO3r2f7Z/u5nJ3Yk29OFmRKrX7N0SkJn/3IsdEwbrssEHXq
-         QIpqpkjoLrKmzMntlP34ejWW3qK1f4w8EOtQwvVY5PnhWk+lwGNyPOmoKIt0Ev3xIKUo
-         gH7oZmipSqJFMpi/M8iXt+hvhMdkqVRaguhWtx2ptIvEiQ9nL09P4B2dlisWxhpM/dWe
-         aS9w==
+        d=oss.qualcomm.com; s=google; t=1792873453; x=1793478253; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OSWoeKkSl8LV8SI4xnbQdI97ATBMcNBTzfvGNoiDQeE=;
+        b=AWmCLqyEwBm/meuHJkBuuEbfmtULihA4NR1YSFB4Au+T7j7I9IZgonW6E+0tWY3eVk
+         C9+77cMndtfPcggxTJWefEKpPSPJiA3EMqqK2H3MyF7z9P/9unPckabc9HU5c/aFV8hK
+         XV6kYwp6QVEyU0VCs/JTAEmywJZQRy6pYbo/sI889pTdDX5V2zo9ZtXS/zgXXUXMsW7+
+         ExKI2HyM14OlvsPZ+M6D6cmD6jODdFD+Ckxg3M4KBYX7GXTQzxpK+InKF221GYTExpT3
+         u3Q0xAvyfG9TMtvKboipM9Omq/1DDC1akzU7T67DJ9WQu8XpG3tHuGIhR+CJRA8J1/2k
+         mUZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792873355; x=1793478155;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792873453; x=1793478253;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YTxJJJ8fbTcAU9VqNhqp+UqN8RZ1Zq5MlC0xiBzcrfM=;
-        b=0q7v8i+lb7mvA5MSCvenL88fOMIWcUOF3HN5srrSfFGV8vuffYO2KmOXeypSoHm9OS
-         N9W8wMsrO7Sf/yyBPZe7vjyEhNGO2Nw72drEH08MZGNk6MojLsMI4ctX2HodUs+BtLnD
-         Whi4WUUlB0db4YeEwyu++yMVxQxUkWXXTheJ+gAHA0NmG+Nhd/hllCVs1xgbJyblM0Na
-         Kv09jNY7aNjlT89PslXB8Tlb/w5cyOp9dBjHASl6QNn/eYWNfPEG3DQd5SnkG0Dqc4/w
-         mcly9oL5ToU6SXq0yVrMS2Yqwgwtq9cRLflkwnbkKe/g6s5GaQ5jr4oYl4gsjhNhv7W/
-         R3Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBxAxWpRiHeNB5z1d7QupqdK5RSC4FHGsVglsSureXWo0TJvlNHtKue4SxaD8zFmm2HjJuH8fLnZCkMw@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGiw0yBetY0s/k1zu3tdzTc955lWkFsy8Nv9TVbWX4K2Ioa15E
-	uMurnWJvl5cv/vKO0H5jviECdZ46EkS9OPh/d8fR77323rlizV7F49iH
-X-Gm-Gg: AYBFou2hDVH9d/mhY8cXfGO9hjnN3q8dL3xtUlZK4i0Q2GKFBgCRt0Dz/VnbEv5n1FY
-	8wirIZngmLmMeB1CsFeahaQmN4zH6Z/LK/Kmm6xUYbdUgB/xt1t+0Vf7Qjy6zO+9XjzAQTvmCmg
-	/ATA/+5HV0Sx8iz4oa+fG3KNTLjK8XPE7v3cPf4WIE/WvLwqE3n9bh/lnxqMaVXkRvK17DhZg15
-	fGfGRfsCPKdDOkGBx4mIRzfe3k1bZFD7k1A73nCaOIfvPWqGFUiTDDnFh6W32ebKm8CMro6XDSi
-	GiQJuMHKBE0QmYVwe0+0pTn9TrHRs+LZcnX4wSaSYCzUmEevZJemft41eUZXEVMEzvk7sHZIUhj
-	Gepj4YYynB1AImlFy9fHlhp+FQg7vUioeY03C4ZWmis/Vc8KlXO5FVbIs8HyRavDmVb/OXGViCD
-	13g/29xFv0XlpXr+f//BikTHi2ELerbcevSDgfXR2EY1sMglJQXNgZQtcyqVhE9E6nMfNssbMkK
-	4kncuBNT7rTS167afgzUi+e/bz5jhcRqmwDIEfCAvucTh7lROISZeobvV5y6UpP8xHiNxknorI7
-	9U1T/NhX0oq/ZfU2Vf9T9aaWNv+/uuNF5L5dj++qXJjAZWxuutycLcPjJ6YgiCbw/Ur28hKnLJt
-	Fgoy8oPJX3VoKZZtk+Fry7ilO0oUto5DfxWZNE8yBL5b5vNVMe38LA+O47kLMIEzgpnYNEDvWVG
-	f2efcHk2/yojN2bOU1t9F+cWBr
-X-Received: by 2002:a05:6808:1786:b0:4ec:d521:9124 with SMTP id 5614622812f47-55c002e11f9mr2173304b6e.30.1792873355240;
-        Sat, 24 Oct 2026 13:22:35 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0424775dsm1815063b6e.5.2026.10.24.13.22.34
+        bh=OSWoeKkSl8LV8SI4xnbQdI97ATBMcNBTzfvGNoiDQeE=;
+        b=C+sGhgLwUjxhRN52aL2jQe5QSg6a4OOb5d/j/tEcEWTyVbkyTs8GfORuJK09JnOtyt
+         8e++ox1HB6U4eUTdzae9jDz92mgeWlPSVW9OmI8ih2WC0HDKpRcy/Nb/UcwBS+F4VGyS
+         Qp5LrPpDG2TFu6uBZcvTwAn3FmcrriY72WY5qZ+R+gus8AlfbSyYVkkrmgSMYziUrLjO
+         sHTJtTtE7VeNobwsU3xpnedDn1iJwxUeqMwyADzy0iF6X282neTTYpO97Qx4m1B4G9GZ
+         4aSSnYDzwc2OSzN09ycdKLdLSyedFSZp9ecc1bVxCmRphBtCojLY1LBf5cCc1MS3iSIX
+         y9GA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4p01Q8hk0R8B+iMAiCkLabBB2P2q25ZHAerROyRnB+/2bCPgby6MtjtFRSOekqy2mJ8MPb4MYEJAs@vger.kernel.org
+X-Gm-Message-State: AFq9FYI16zq/IezHA0rs9KQUR10hDYZybvLdh2/KnRKZHJJdj7kEMB/Y
+	PEu5p38NBmQWmxFx/wAnosjt/qJ6cOWkLURbOLPgzvYwCfXaa46SVmGJ2jAr6G8q/7KQ7zVyHBp
+	T/r4uewN7AoNX2peF0NMvfOnkPDvg9xhxFhDl9/9XmbHQEag/rO4dzL4mRLWK6pBD
+X-Gm-Gg: AYBFou3EllxS914QUZTHG7HJsbpJp/MDt+syqRceqyymUepwEjvNhflbYpTvXBsfyak
+	vCQ4C9llGfCvPOH+zGA75AZSqscWEwvrHTdSfB0toUBelA+F58XrIhH3R/3BqRfJI0O7OQgLC74
+	1+0mU8pmWD9GbmJNuRHGEcDL78CpzCOKalS7VqltILsOHTftRTnuYGg3/gkz92O3nO7AA/9YXrr
+	ARZA83w8owx2tWqns7PtFX6eJ79mzJpjXZP8BiLwDgtIdY+49y0A6NV5+ed8MwaxTQMqvmZD0K0
+	la0RFDDONCwFG7D+x5s6t/lpz50rp1pkkH92i0lPWtWiTlCSMo3HVZq37sSqTaRUk3pATn2ia09
+	dcOgkI2sDx8Oz06u+
+X-Received: by 2002:a05:620a:4152:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-940ef98b7d3mr417512785a.64.1792873453048;
+        Sat, 24 Oct 2026 13:24:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:4152:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-940ef98b7d3mr417509085a.64.1792873452350;
+        Sat, 24 Oct 2026 13:24:12 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2d6f6fsm73364725e9.12.2026.10.24.13.24.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:22:34 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 24 Oct 2026 14:22:23 -0600
-Subject: [PATCH v3 1/4] serial: 8250_dw: select port setup through platform
- data
+        Sat, 24 Oct 2026 13:24:11 -0700 (PDT)
+Date: Sat, 24 Oct 2026 23:24:10 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: sm8450-hdk: add DisplayPort audio
+ playback support
+Message-ID: <x4vqbuds2nl4apdi533rqkx4jbtb42f3gtdog5fqvilqx62x5g@lhud5o6ayymw>
+References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+ <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-1-8a189c71938c@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,180 +124,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-submit-h616-uart-fifo-v1-v3-1-286fc1b8c3c1@gmail.com>
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
-In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-1-8a189c71938c@linaro.org>
+X-Proofpoint-ORIG-GUID: b7zN5FqXq9GFUvs_9JE8gGDxKIuMPcdS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA4MSBTYWx0ZWRfX2RhnwBNpdhDK
+ kpMqmJw1Tb6v+V4ggr+UBPgiUa3LowLpf5stUotR0Zr6jTcrLo2fi19BOTgqI//KOWwaqSl0dC7
+ OcPFJBzpImrbcI/XrvMNUMTycG7QqAO8XrLZHsf4hUacvsXPzrlIuON5BC3vj2HD8FtK1aZDkbr
+ gTH9sObjPtDdyVQEy5SIbQJGqYNTCr5WICXhKG0ZFl6Uj5K3c1kVpEiD4oFxLndfNxIcBdRiDLX
+ vQ0zmcHTJRW9BdQ84ue6AgFYmXZtsJUPLYAb1Sh5SLe/xC5vX44YyWypJ16twPBmJduj5JTFCgW
+ h6Zt+Xib9ceA23Rsm1AONPAAJPcbzVVgV2o+/5dMrziMFPKLnNxFgumT6uNU6MS/diRVnTtjMv9
+ 7MwZd/eHFIyHzY2c5mFpqxEzJ34b+IUfaSzqlqgDXJTzKAmPhTXu1Mp7Xtgr7XlcrZMD4/bnJVP
+ 1WFsTDzcPRVUnZBw93g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA4MSBTYWx0ZWRfX9GlD3GH9Wnpz
+ 0wC9IIoCsYZ7OKRDpS3GaqEwhaHGM9eFr9tiSI13K8mC81xm5h9+30nxv6W26jhpaaOxqQap0cM
+ N2ueNB3ZTN0p9k1ll0yNcJRMmrvFUqc=
+X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6add13ee cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=lwKPvcPLtPgdvEeQYCQA:9 a=CjuIK1q_8ugA:10
+ a=3Q3lADbaBCgA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: b7zN5FqXq9GFUvs_9JE8gGDxKIuMPcdS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-24_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610240081
 
-Select feature discovery and DMA attachment through a platform-data setup
-callback. The generic callback probes the optional registers and attaches
-DMA when a FIFO size is available. Integrations with a fixed configuration
-can supply their own setup before the port is registered.
+On 26-10-22 11:36:21, Neil Armstrong wrote:
+> Add the DAI link needed to enable audio playback over the
+> DisplayPort altmode output.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Replace skip_autocfg with the Octeon setup selection. On 64-bit builds,
-Octeon continues to skip optional-register probing while retaining its DMA
-setup; on 32-bit builds it retains the generic setup. Keep generic setup
-for devices without matched platform data as well.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250_dw.c | 48 +++++++++++++++++++++++++++++++--------
- 1 file changed, 38 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index eca02e8bd6d1..9c171c5775a6 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -64,6 +64,7 @@ struct dw8250_platform_data {
- 	u8 usr_reg;
- 	u32 cpr_value;
- 	unsigned int quirks;
-+	void (*setup)(struct uart_port *p);
- };
- 
- struct dw8250_data {
-@@ -76,7 +77,6 @@ struct dw8250_data {
- 	struct clk		*pclk;
- 	struct reset_control	*rst;
- 
--	unsigned int		skip_autocfg:1;
- 	unsigned int		uart_16550_compatible:1;
- 	unsigned int		in_idle:1;
- 
-@@ -595,7 +595,6 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
- 		p->serial_out = dw8250_serial_outq;
- 		p->flags = UPF_SKIP_TEST | UPF_SHARE_IRQ | UPF_FIXED_TYPE;
- 		p->type = PORT_OCTEON;
--		data->skip_autocfg = true;
- 	}
- #endif
- 
-@@ -630,6 +629,25 @@ static void dw8250_shutdown(struct uart_port *port)
- 	d->no_int_count = 0;
- }
- 
-+static void dw8250_setup_dma(struct uart_port *p)
-+{
-+	struct dw8250_data *data = to_dw8250_data(p->private_data);
-+	struct uart_8250_port *up = up_to_u8250p(p);
-+
-+	/* If we have a valid fifosize, try hooking up DMA */
-+	if (p->fifosize) {
-+		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-+		data->data.dma.txconf.dst_maxburst = p->fifosize / 4;
-+		up->dma = &data->data.dma;
-+	}
-+}
-+
-+static void dw8250_setup(struct uart_port *p)
-+{
-+	dw8250_setup_port(p);
-+	dw8250_setup_dma(p);
-+}
-+
- static int dw8250_probe(struct platform_device *pdev)
- {
- 	struct uart_8250_port uart = {}, *up = &uart;
-@@ -765,14 +783,11 @@ static int dw8250_probe(struct platform_device *pdev)
- 
- 	dw8250_setup_dma_filter(p, data);
- 
--	if (!data->skip_autocfg)
--		dw8250_setup_port(p);
--
--	/* If we have a valid fifosize, try hooking up DMA */
--	if (p->fifosize) {
--		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
--		data->data.dma.txconf.dst_maxburst = p->fifosize / 4;
--		up->dma = &data->data.dma;
-+	if (data->pdata) {
-+		if (data->pdata->setup)
-+			data->pdata->setup(p);
-+	} else {
-+		dw8250_setup(p);
- 	}
- 
- 	data->data.uport = serial8250_register_8250_port(up);
-@@ -852,16 +867,23 @@ static _DEFINE_DEV_PM_OPS(dw8250_pm_ops, dw8250_suspend, dw8250_resume,
- 
- static const struct dw8250_platform_data dw8250_dw_apb = {
- 	.usr_reg = DW_UART_USR,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_octeon_3860_data = {
- 	.usr_reg = OCTEON_UART_USR,
- 	.quirks = DW_UART_QUIRK_OCTEON,
-+#ifdef CONFIG_64BIT
-+	.setup = dw8250_setup_dma,
-+#else
-+	.setup = dw8250_setup,
-+#endif
- };
- 
- static const struct dw8250_platform_data dw8250_armada_38x_data = {
- 	.usr_reg = DW_UART_USR,
- 	.quirks = DW_UART_QUIRK_ARMADA_38X,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_renesas_rzn1_data = {
-@@ -876,16 +898,19 @@ static const struct dw8250_platform_data dw8250_renesas_rzn1_data = {
- 		     DW_UART_CPR_DMA_EXTRA |
- 		     DW_UART_CPR_FIFO_MODE_FROM_SIZE(16),
- 	.quirks = DW_UART_QUIRK_CPR_VALUE | DW_UART_QUIRK_IS_DMA_FC,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_skip_set_rate_data = {
- 	.usr_reg = DW_UART_USR,
- 	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_intc10ee = {
- 	.usr_reg = DW_UART_USR,
- 	.quirks = DW_UART_QUIRK_IER_KICK,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
-@@ -895,11 +920,13 @@ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
- 		     DW_UART_CPR_DMA_EXTRA |
- 		     DW_UART_CPR_FIFO_MODE_FROM_SIZE(32),
- 	.quirks = DW_UART_QUIRK_CPR_VALUE,
-+	.setup = dw8250_setup,
- };
- 
- static const struct dw8250_platform_data dw8250_tda54 = {
- 	.usr_reg = DW_UART_USR,
- 	.quirks = DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ,
-+	.setup = dw8250_setup,
- };
- 
- static const struct of_device_id dw8250_of_match[] = {
-@@ -918,6 +945,7 @@ MODULE_DEVICE_TABLE(of, dw8250_of_match);
- static const struct dw8250_platform_data dw8250_apmc0d08 = {
- 	.usr_reg = DW_UART_USR,
- 	.quirks = DW_UART_QUIRK_APMC0D08,
-+	.setup = dw8250_setup,
- };
- 
- static const struct acpi_device_id dw8250_acpi_match[] = {
-
--- 
-2.53.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
