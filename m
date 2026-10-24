@@ -1,61 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792844089;
-	b=xSWRM5WH60wLiXw+BmnNdkrurVUmhZe5L77nAGbClP0Jz/zpbXMdbNMHqdsO6nyd2XS4
-	 WgtmP1GZfhHZBwKhkCb1feSaTUI36uX9tf8oWfNOB5yIuNCz5iw4XXl5g0f+kC1zuS4ra
-	 RRVWU6+XFa0hq8kAtv28jIGdwtHOhpwu2gTyo3mkF14Hmt9bSLcbq0n1IcQIUPe03nrGI
-	 ZEk6ZsmreuUIR4pE/7eRfVPEymaObJntk2qNIx7YWOSh+bDaUyPRXZcjXRVFOIAlbU0tb
-	 eg5VwHGg1lILVwSDS45PitCD4Kseftyfxi7ZVqDWA8xxQdf9UD7WOJKzGUQybhKLtiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792844089;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=E5AyoP6mbHziWGgjUa8zzhwiZ6VV6LjlGezRNss3iLk=;
-	b=wza3LHqVjTRRyMinpHCNB7kd3ZiSS5Z498yt5vHSQRMS9oPdC7BrrUaDZWKZvCZeExAQ
-	 jyI1/laYQss8CiSYPzSWuVed08XHj7fsFIS5pOSi7Q1D5SW3ZgnHZdU5MSu+hGdjMnzqT
-	 7iZCxLqsrH8Q+Eu6Nx7BGkQK38mIG1MdnbJ/Z86yWxZgYx25GFpYYtxlln6QMW+678Wtj
-	 /2uETldpA3aw3kFIIWvdkF4jqnoioYzW5pZoi1Vqk2InwVRyOTso/akxbFzcU6q4rYw7Q
-	 8WCgRmngdGMng5lr5mCCyktXq1SjMJDgibAYMBR4JjV4k1aL0tOVR1o9DEIQuxtFLHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWH8fcI+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792844750;
+	b=yHtPBUkPQXUQE05zBZnbZkrYdMbcGLuRSbiWNXUGHJFtj6/hftJubScPmtz3kFaTseSA
+	 KvDOBH7zKkrRziZAj0adzAJjdDkEYP/DMKY7HMQt8pba87dibbdf9pXtcNq/1G9QWwJGF
+	 Wloi5qLDNKAN4I1BinEThvs+r8p56H+DvRqHAfeCfOzIJdmxfm72JqCFLUxgWKQn9UXNg
+	 KbwkXJXkOiUGyxSkAy5j0G4yOnuG7pOgJX62yZwX+fbbQlx+FssPHMO1/rjBIHHG4NpG4
+	 +S+uza7dqBURg1fLjYqgOdrD8f9DRU1o8c+IPAg3Y30fHgAFsGA8qX3kHcGWN7MYBdg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792844750;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Mt4MM2b+kEda7XeWiXcjklx11vtEoBsUUQ1dFr4um50=;
+	b=OVdiW+4ZWmHxKVE3D5FgRQ++925idXbvUgjV52LZc/S2f8uDIJoCguYCBFia7vKLM2A1
+	 LwWIx+B8URhLd3PGj8Ml8kwWgAxnp9JxhmLPQADvRjbJCiUXMX+rTt1i2ipWxOxXig0zp
+	 hvw0Y9ArddcgsZ2Q+8eNNcVWw+ZQpQww45A75bg0RZL2wxQRjMox8CMso/g6j+i94jqB7
+	 VhnO0/ivNyiVxsvn8quijalD2k6MM0XZWmiJcKfrZPZSgS2zjsfcTk/uuw+f9CUKDdjdd
+	 aCiTN84JXSB0l4XBPZDdJTHTICu7nzGLlN2HVtKzYtMwGuGBG6R070G/5+WAHM/6X0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QLOwrLbH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.69
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013069.outbound.protection.outlook.com [40.107.162.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BA1606A321;
-	Sat, 24 Oct 2026 12:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3F1606A31D;
+	Sat, 24 Oct 2026 12:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F3F1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWH8fcI+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF221F01828;
-	Sat, 24 Oct 2026 12:14:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792844088;
-	bh=E5AyoP6mbHziWGgjUa8zzhwiZ6VV6LjlGezRNss3iLk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GWH8fcI+AOK4pO8D2LIpl/lFt4jLQF2hkPxD05pDsYoBxzVR9gtpS9D7iFLY8Crj1
-	 Q3p0YEbjlJ7S2USVoGXQnRx64TU/gIRxnWW3KniRyJ2tBAI5UIguf6/XLzWuTgfGry
-	 Scie+Jnw8BR0Das9tWaTWt3tfQ2WoPFJ7bA/oQTqvom6AZkApWVTUBn2DJ9cn+Wyu7
-	 QgsvmOhbf6tlvsRFYEZYY05jYNIn/t/wzdUC2V3k2xFDGokVIx2aMHcRGD9X4egUy+
-	 tKOQqs0XaJQoGk/9J0fVYEWfGOaHtgnfF//Th7xPnd/wV4ZM0bmspJF+VYmSjcih4O
-	 GNBEtElTZBKPg==
-Subject: Re: [PATCH net-next v4 2/7] dt-bindings: net: ftgmac100: Add AST2700
- compatible
-From: netdev-bot+sashiko@kernel.org
-To: jacky_chou@aspeedtech.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew@lunn.ch
-Date: Sat, 24 Oct 2026 12:14:47 +0000
-Message-ID: <179284408729.3134.422734573561915200@kernel.org>
-In-Reply-To: <20261020-support_ast2700-v4-2-4d36b40939b3@aspeedtech.com>
-References: <20261020-support_ast2700-v4-2-4d36b40939b3@aspeedtech.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QLOwrLbH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G/lMBHTzcZdHLCZ3oedHyie2/daZHCkVj8ns9Xh1VvtoF810e/YlaBv4+AtP4e5b5t7RhHEjWmmBh8dDZzjZnKW7nRXbW+P3aa/aGJm+vdlpdr4dWkYX+lsdr3MyDLI+6svUtig+xSg9jJXuoclimciiAHBjcJ/etqL5mPUPGzjCDH5hRc+V+ljvTAcQlzMA+EFRU+IrVeLIF4Wm+0MlbubLKU2jAXx4iHhLqRHJHR3t/gh+iBvDkU6hMERsVPmbysMRHLkPH5pCDB0HJJ48dLbJg98OBzneS/zkUZru7WwLymQ2rudusudqcH6EwNicRc5octNWS6/8E3bz2dNVSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mt4MM2b+kEda7XeWiXcjklx11vtEoBsUUQ1dFr4um50=;
+ b=cPMkl0oMzg1cI+8/buGkbpq2/d0L+4ciZqZIE2e2fMyaxD26979xQ0b8KL+ny2D599KuuKG95fr9HLayw1eYebPKX3dkfBb4Lru24z3BzTIjBtc+pcpSGvRkLxAhXnq8zyk1BH2u/oZb3zRisu0XwMjj2DvImDrkwZNrarBUWL0CkGAPFXuyLPErkXWjJ91AZ7i8TxlXD/UJH8QnnQsku1G8s2cXHLPbcrop1GbY6pvrkprl59W23uJRFCaXrtAUdF1J3Ri0TB311BjJdL551YddrLPtpyH9e5+LNXMPNaVLEEIqhQeqjMsUmPyqrcVm1KqnheTOkkSbTKTkwDrBlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mt4MM2b+kEda7XeWiXcjklx11vtEoBsUUQ1dFr4um50=;
+ b=QLOwrLbHbjL8r+b3XsTuPiQdtrl59GwnCpfdMeebKV7eBZ4pD/d01LQdn90TWKQiXBSBGtoCi6kJs7gh6H+kdkGSBGE/OzE1ErlS5frZuiWulO8JpB9gvLY2m8N5EJbuoQfENRuI+v60j9Edna4aLmRy4uwAZRVqyE6KEhDOcxhHfASBs8ewZDq7NSgWdprfAtnOE1+4/IKt3vgRzQXr8pR2KKlus0LY4UmvT4W0ECHL5Yu/S7/Xp6kTi9bZL6u9qN49733BBeqkpfB5/Mhnks0Zuoa7MMMu9n5ToSKL7lzxRUxFzFgcYU2AgnibtzmO7jo+hOQzj8O4TkkbyZrEmQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by FRRPR04MB12572.eurprd04.prod.outlook.com
+ (2603:10a6:d10:1d0::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Sat, 24 Oct
+ 2026 12:25:45 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0546.019; Sat, 24 Oct 2026
+ 12:25:44 +0000
+From: Larisa Grigore <larisa.grigore@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Joao Pinto <Joao.Pinto@synopsys.com>,
+	Hannes Reinicke <hare@suse.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	clizzi@redhat.com,
+	aruizrui@redhat.com,
+	eballetb@redhat.com,
+	echanude@redhat.com,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 01/10] scsi: ufs: dwc: Return a negative error if the link is down
+Date: Sat, 24 Oct 2026 14:25:24 +0200
+Message-ID: <20261024122533.3609180-2-larisa.grigore@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+References: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P190CA0014.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5de::18) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,187 +124,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|FRRPR04MB12572:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75215b4c-8c39-451b-11ce-08df31c9ed1a
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|19092799006|1800799024|23010399003|366016|10067099003|18002099003|22082099003|921020|11063799006|56012099006|261009223027099003|261022105027099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+ KCK5cSYsH3M0+py63DyTEL9wTysJFXaLjnmymvXIgBFEwguzAgalUgpbmlCLUkEycPulSheLkGKYYMxvyBlAfKFtpSImYSJ9TKJzLo6AXxz1dvmpEgFOhnFsp1p4o3ioewSQfeJswkd0dJ1iPNjDEtiQN9R3yc12/8vB1eyYL4LrfSgSzyTWv4tKmiKp5o88b7sGXh5MlNQUvpANHie8jDLw5hczvE9YF/eCuu/IV2Q6aPo4LIDo6OoSpSC/y4twzGnCkTMlRqjWuGSMkeXRuxItAZKu1qJzre0XbKu5DfF0LK1PrICUJkj9arpTLVaNJ1HeCEBSTz79b2NQ2UgOZvNT8XQvIyrt48aAT4JfB00YsOzmEKMDxfpX+8Hr8Ie3I2jcUO9LjgGMBQj9ElZvD9+MwHxmqsLSnGGU/OpuPYN0qyP6V68U/p4nAcDAPkI4HfxNQNpneSJaM6qKJIruFjPfpZDwLfhaeUmc/7BDIEuaIQ3TPDHNYHs9XdA5ShFVpIAPJtkXtkeDC+d046M1lovsT4OGs1fhJrvuof/hX6KVoHbKALakyrdefSD5KnJ9xEc3qvQmrGS3RWsgBbS8WCsgy81/oyNoRyXcBPlwNkhpGql4cd0ZGDO5k2cFwBtOGlKjV2AkDyf7nPFWflsY2fv6Ge4cogjCP9RrPm5Gddv+OF3DzgzipydMZ2Ai+YaTALuMmsaqU2sCgzJ3ANscZg==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(1800799024)(23010399003)(366016)(10067099003)(18002099003)(22082099003)(921020)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?bW05cDBtd0dFUEtVbEtZS09hb1FlbEpMcisvLzczZU81eFN2bE11VENUTFF4?=
+ =?utf-8?B?SXU2dE11U2JJM2JPRElGUDRxaERXM1UwY2VJOUF2NUVKeFlFUEUvQXR6TUdN?=
+ =?utf-8?B?WW5GYm16emdsSGNQVm94ZU5lNDgwWXJJR0ROQUlzRWRTejNWcDZjdU9hRTUv?=
+ =?utf-8?B?aEF3RDEwbm14ZVc2dkZPb0FzUFVHcW02Z3NjZEFlZ2oweUdyU1FFU0xuRWY3?=
+ =?utf-8?B?OEp3eUhndWVYT2s3NlRhTHlvTUUyZzF4ZGl0SGpaOHpCWVlWR2FDL2QvcWFy?=
+ =?utf-8?B?L1RodFVLZUpKOWoxbWNuOXNjN2ZyNzFJSysySVlSRXcza3RpVmFDaDROSWJZ?=
+ =?utf-8?B?a3VLTTlYcU5vd1VUZ2tOdnhyRWtMMndUUExmbkFmNE9neTB0azJRSkxXU25Q?=
+ =?utf-8?B?NkM0K0Z5d2ZlN0RVaDBGVWRJL2hjcHRJY3BPT0ZNTE9IOHpFeEJyNC9FZHU2?=
+ =?utf-8?B?eTZNSnJCMVdvZnpidEVSY0EzMFUzNGorRnB2aXcvR1ZQU1BVeVNFR2E5UTdn?=
+ =?utf-8?B?c0RQUHUvOEMwYjdrM3dybHhBRlVWQk5STG9HZkMra0hqZ216clZBdlA2d1R2?=
+ =?utf-8?B?YVArWFhjY3Zjdzd6VnUvNEJwb3dPaWVLcVg4eFA2U203S3R3Y1VBaTZBNjdD?=
+ =?utf-8?B?VHZZM1ZDSHZEMTFlVzBCTFZjNlBEU3NkU0Z1T2FrZVUzTEV6K0dDZXhGclNW?=
+ =?utf-8?B?eDYwWHJjSTl5d21DSnlpdGRKaEIwWUlXMU9xQ3BRTmpyeGpyM3FseWZOMENL?=
+ =?utf-8?B?K2U1MFNXRzBqa1QrUzN5M0xYSW5LL01xaTJGV3JPYmFNZUxCNzVTaDRqdWZW?=
+ =?utf-8?B?K2krMVZ2VDFwQlFSMWdkTWlTV3JNclVzZkd5UiswbTluSFZubDhEcGJXUG5a?=
+ =?utf-8?B?ZjZNNjdCcVhKWDM2RTA1NEtLNkZRd2ZOMGxCNXcwWmJUemVWMm4vTEd2bGVu?=
+ =?utf-8?B?dDhwR1ZBZ1RQVmxRZGh1akpxUkRRcld4MjIzZE91cyt5OGoxQ3RKNUpUTEtJ?=
+ =?utf-8?B?eXYzNXdwcTZLVGE2NjRHOEkzMnF3Ky9MVXBjWjFMVXlvNy9SWFJ2WWVlQWxF?=
+ =?utf-8?B?ZUFqQnNMbWV5blpTR1g5VmwxUUZHaTNOSkVLcGNYUXlIU2ZpQ3N2bTFHMDk4?=
+ =?utf-8?B?SEtoSUhBczAydHlWK0hUUm1nZ3Y0TkwwRWkzeXZvOWdVSWNZMXYzRi9IRkN5?=
+ =?utf-8?B?cDZoaVNOOGpXMSttWXlQSlBFc0hJbVF6WEhwWE9kalZvdkxhWmkrcGtJdCtx?=
+ =?utf-8?B?Ykp2R3B0eDJGaVllR2xCZE5KOWJ3eUV6Q0g3ZjNBbFp2TElYa3VEYjZxWjRH?=
+ =?utf-8?B?ZEQvM0JTODV2WTBNZFBHemt2Yk9PL0FpRkJ4aEtVTUJRVjV5K3RMeTB4R0FG?=
+ =?utf-8?B?Mis4YWQ1SmJQN2dPdG5FWEY4S3JRZ0x6TzZBSzUwUjZPRGM1c3dtK1VXY3JL?=
+ =?utf-8?B?MmRzRjVkcDZIUnNhdzU5N0JISlh6TWJnR2k2bmdNUzMxekdtdUZZdFMzQmI1?=
+ =?utf-8?B?VVR0WkRuU2FCU1JRckZOa3dIQWRIeFpzaXc3eFd3ajZ5ZWxHSDZBRGQ4Tm9V?=
+ =?utf-8?B?S25uWG9GMXNjeFl4WXBGb0dqaG51VHgzQWtnNUorMEtoT3R3RzRGN0UrdHEz?=
+ =?utf-8?B?eHNSL2R5b1ltR2JWMmpKM2t6QXNFYkw3N0pjVU5INTFUcmxCSUZBRis5ZFBr?=
+ =?utf-8?B?SUxBeUVOTmk2Q3M3TTlXK0pXdFJkVWtFRlp5MS9BcllscEM0b3hJenAxb3l6?=
+ =?utf-8?B?UXBPbnJ6OGFVRTdISGpxaVQwUERYU2J1ZXVnUDU1MlNmZng1R01uU2tYWGx5?=
+ =?utf-8?B?VVBzSmRyc0s3a2VOdGxzQ1ZMQytMejRudStCR3VwOXRiS21HdmErY0ZXUXo0?=
+ =?utf-8?B?WXhIL0tCdkh0d2UrZGFkblVJQ1J1YTJOYXZyUDhWSE5IdlBudHN0blp6c2hu?=
+ =?utf-8?B?b1RqSmQzMTN1K0NkT3JoSjAzbTk4REpCL0lUMmlqSllicGFORFYxV2crbUhX?=
+ =?utf-8?B?QUI2OTVDNVc4SjFDWTVuZk1WZ2ZnQTlFVUpvMmlqRVdaa1dRUFdRMjgwMEZt?=
+ =?utf-8?B?NEs5Q0s3bWFnckcyQ25ROGk2OHluWnkrcXJZc0pUOHl1d1JZTGZ2ZDVBSXNF?=
+ =?utf-8?B?aVROa2ZjUXpPa091blUvSWIxTXJYTW5hR1pnakNWVFlkRThXTDJ2VE9yK2V1?=
+ =?utf-8?B?Vjduc3ZwRmZwSkhNbVZ3VmdxNE5kNEhpUnZ2aWpieVdGWU5QL1RMK0ZKaENr?=
+ =?utf-8?B?ck81UE9pWlBiRmVJeGxJQVh2cWxLME92dkJnRWdOcVVTMWJYZGxESXBwZ01G?=
+ =?utf-8?B?bThoNHVwcWFpWEJJWlVBRHlvckFHbEhGSzRreFFqbUFBa0kyY1JqQT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75215b4c-8c39-451b-11ce-08df31c9ed1a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2026 12:25:44.6700
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c6GwfuPxkJTDfK53ciBQ1GiHnyZtSOlucZr0OIFsmNE5hon1GBlzXF0FgFno0KcBkMTn/4eiQCEiqtj9auAXfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRRPR04MB12572
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+ufshcd_dwc_link_is_up() returns 1 when the UniPro link is not up. The
+value may propagate through callers that expect failures to be reported as
+negative errno values.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 3
+Return -ENOLINK when the link is down, and report a failed
+ufshcd_dme_get() as a negative errno instead of its positive UIC result.
+Declare dme_result as u32 to match the ufshcd_dme_get() parameter type.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 4b9ffb5a353b ("ufs: add support for DesignWare Controller")
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+---
+ drivers/ufs/host/ufshcd-dwc.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-- [Medium] In this binding patch, the new AST2700 rule `if compatible
-  contains aspeed,ast2700-mac then required: [phy-mode]`…
-- [Medium] This patch makes `aspeed,ast2700-mac` a standalone compatible,
-  "consistent with the other Aspeed compatibles".
-- [Low] Concern (baseline: not a valid finding): the commit message says
-  the AST2700 phy-mode requirement matches "the driver's probe-time…
-- [Low] Concern (baseline: not a valid finding): the binding documents
-  `aspeed,ast2700-mac` as standalone, but ftgmac100_of_match[] has no…
-- [Low] Concern (baseline: not a valid finding): for AST2700 the binding
-  only allows `resets`, as for AST2600, instead of requiring it.
-
---
-
-dt-bindings: net: ftgmac100: Add AST2700 compatible
-
-This adds aspeed,ast2700-mac as a standalone compatible to the ftgmac100
-binding. It allows the resets property for it, as is already done for
-AST2600. It also adds a conditional block that requires phy-mode whenever
-the AST2700 compatible is used.
-
-> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> index c870dd0bda7b2..0a376b849a916 100644
-> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> @@ -17,6 +17,7 @@ properties:
->            - aspeed,ast2400-mac
->            - aspeed,ast2500-mac
->            - aspeed,ast2600-mac
-> +          - aspeed,ast2700-mac
-
-[Severity: Medium]
-This builds on the previous patch in the series, commit c64ed4df5e64
-("dt-bindings: net: ftgmac100: Make Aspeed compatibles standalone"). That
-patch turned the compatible into a oneOf of single strings. Do the existing
-in-tree Aspeed MAC nodes still pass validation with that?
-
-aspeed-g4.dtsi, aspeed-g5.dtsi and aspeed-g6.dtsi all use the two-string
-form. For example, in aspeed-g6.dtsi:
-
-    compatible = "aspeed,ast2600-mac", "faraday,ftgmac100";
-
-A compatible with two entries matches neither oneOf branch. So dtbs_check
-would now fail for the MAC nodes on every AST2400/2500/2600 board. The
-series doesn't update those dtsi files, and neither commit message
-mentions this.
-
-The reason given in the previous patch also looks doubtful. In
-__of_device_is_compatible() the score depends on the position in the
-compatible list:
-
-    if (of_compat_cmp(cp, compat, strlen(compat)) == 0) {
-            score = INT_MAX/2 - (index << 2);
-            break;
-    }
-
-So the more specific "aspeed,ast2x00-mac" entry always wins over
-"faraday,ftgmac100". A two-string node can't bind through the generic
-entry alone. The bare "faraday,ftgmac100" alternative is also still
-accepted, so the hazard described there is still present.
-
-Could the two-string fallback form stay as an accepted alternative, or
-could the dtsi files be updated as part of this series?
-
-[Severity: Low]
-At this commit, ftgmac100_of_match[] has no entry for aspeed,ast2700-mac
-and there is no FTGMAC100_AST2700 mac_id. Would a node that follows this
-binding fail to bind at this point?
-
-A later patch in the series, "net: ftgmac100: Add AST2700 compatible
-support", seems to handle this. It adds:
-
-    { .compatible = "aspeed,ast2700-mac",
-      .data = &ftgmac100_match_data_ast2700 },
-
-It also adds FTGMAC100_AST2700 to the is_aspeed / BIT(30) selection in
-ftgmac100_probe(). So this only affects the intermediate state of the
-series, and putting the binding before the driver is the usual DT order.
-
-[ ... ]
-
-> @@ -80,12 +81,21 @@ allOf:
->            contains:
->              enum:
->                - aspeed,ast2600-mac
-> +              - aspeed,ast2700-mac
->      then:
->        properties:
->          resets: true
->      else:
->        properties:
->          resets: false
-
-[Severity: Low]
-This isn't a bug, but for AST2700 resets is only allowed here, not
-required. ftgmac100_probe() gets the reset with
-devm_reset_control_get_optional_exclusive(). If resets is missing, the
-RMII SCU reset in ftgmac100_reset_and_config_mac() silently does nothing.
-
-This matches the AST2600 handling and the commit message. AST2400/2500 run
-the same is_aspeed && RMII reset path while their binding forbids resets,
-so this is probably intended.
-
-Does AST2700 hardware need the reset in a way AST2600 does not, so that
-resets should be required?
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: aspeed,ast2700-mac
-> +    then:
-> +      required:
-> +        - phy-mode
-
-[Severity: Medium]
-Should NC-SI nodes be exempt from this rule? There is no use-ncsi
-exception, so an AST2700 node with use-ncsi and no phy-mode now fails
-dtbs_check.
-
-That is the same shape as the first example in this binding, which uses
-aspeed,ast2500-mac. The use-ncsi description also says "Currently assumes
-rmii (100bT)".
-
-The driver doesn't read phy-mode in NC-SI mode, even at the end of the
-series. ftgmac100_probe_dt() returns early:
-
-    if (of_get_property(np, "use-ncsi", NULL))
-            return ftgmac100_probe_ncsi(netdev, priv, pdev);
-
-and ftgmac100_probe_ncsi() hardcodes the interface:
-
-    err = phy_connect_direct(netdev, phydev, ftgmac100_adjust_link,
-                             PHY_INTERFACE_MODE_RMII);
-
-The phy-mode check that "net: ftgmac100: Require phy-mode for AST2700"
-adds to ftgmac100_mii_probe() also looks unreachable on AST2700. Only
-ftgmac100_setup_mdio() sets priv->mii_bus, and it is called only for
-FARADAY/AST2400/AST2500. So ftgmac100_mii_probe() returns -ENODEV with
-"No MDIO bus available" before it gets to the phy-mode test.
-
-That leaves the generic requirement in of_phy_get_and_connect() on the
-phy-handle/fixed-link path. AST2600 goes through the same path, but this
-binding does not require phy-mode for AST2600.
-
-Given this, is "matching the driver's probe-time requirement" accurate?
-Could the rule require phy-mode only when use-ncsi is absent?
-
-[Severity: Low]
-On the same topic, the commit message says:
-
-    Require "phy-mode" to be present in the device tree when the AST2700
-    compatible is used, matching the driver's probe-time requirement.
-
-At this commit the driver has no AST2700 support yet, and a missing
-phy-mode falls back to RGMII. Is the driver requirement referred to here
-only the one added later in the series?
-
-After "net: ftgmac100: Add AST2700 compatible support" and "net:
-ftgmac100: Require phy-mode for AST2700", the AST2700
-phy-handle/fixed-link path does require phy-mode, through
-of_phy_get_and_connect():
-
-    ret = of_get_phy_mode(np, &iface);
-    if (ret)
-            return NULL;
-
-The RGMII default no longer applies to AST2700, because
-ftgmac100_mii_probe() returns -ENODEV before reaching it. The remaining
-gap is the NC-SI case above.
-
+diff --git a/drivers/ufs/host/ufshcd-dwc.c b/drivers/ufs/host/ufshcd-dwc.c
+index 21b1cf912dcc..71433b4d04aa 100644
+--- a/drivers/ufs/host/ufshcd-dwc.c
++++ b/drivers/ufs/host/ufshcd-dwc.c
+@@ -48,20 +48,23 @@ static void ufshcd_dwc_program_clk_div(struct ufs_hba *hba, u32 divider_val)
+  * ufshcd_dwc_link_is_up() - check if link is up.
+  * @hba: private structure pointer
+  *
+- * Return: 0 on success, non-zero value on failure.
++ * Return: 0 on success, a negative errno value on failure.
+  */
+ static int ufshcd_dwc_link_is_up(struct ufs_hba *hba)
+ {
+-	int dme_result = 0;
++	u32 dme_result = 0;
++	int ret;
+ 
+-	ufshcd_dme_get(hba, UIC_ARG_MIB(VS_POWERSTATE), &dme_result);
++	ret = ufshcd_dme_get(hba, UIC_ARG_MIB(VS_POWERSTATE), &dme_result);
++	if (ret)
++		return ret > 0 ? -EIO : ret;
+ 
+ 	if (dme_result == UFSHCD_LINK_IS_UP) {
+ 		ufshcd_set_link_active(hba);
+ 		return 0;
+ 	}
+ 
+-	return 1;
++	return -ENOLINK;
+ }
+ 
+ /**
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-support_ast2700-v4-0-4d36b40939b3%40aspeedtech.com
+2.43.0
+
