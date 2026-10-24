@@ -1,123 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792831194;
-	b=i3ue6nhcORXjS576hBBc0i9KRECCchU91+QHRjuJv14tVpHJy5DlNHhT2A45viR445wa
-	 yxwdmY1ity8GP+Wl1MnYK0INxAugjLp/fr7DyFRaBy4IQcgLbHlBWVXcW1QtBmLHvlHNs
-	 9zFHttO2sHL2W37L8B0/KiSymew3m4jnkNYsUh/oIGyE4zHDtSHO9nYNYLtRlkVPHNM8a
-	 T+xTKDumPU8/fSu87wUipUNfi2KE/45XjFcWXg0GXypcCp1g/fLl5XJE08lqWxLkXrrC8
-	 Yu4P9EhHww2ZSVLjDViSLVAfb/vJRnlAMktwssETsWFVFIY8GPLWMK7SQKmRjrn3Y/A==
+	t=1792831414;
+	b=dV1z3rZcDwkW0U1DyWVUQ2P4yOS88LjDH6Gw+KDFs91U7/skpZmqypOeycDqzwkDd8lg
+	 FxvI9F5ifWPwE1Ux7PbKAVmU7jV7qPR9VzF0lqECPEHUNvrTrYMAmfALG5zYQ+9Vhvbo/
+	 ImKHs8ii3TNvjLRMDZ/DJL1qY50Qz9suLxSO/EHWBz3gNkoDTYvZu8KPI0violo3LttoJ
+	 hr8Cp7QYrT2UFVJ/HAsU9NP6gkYZTb7HwhmCEi01ymncoo/y6FBOlI16MavEcXjxJFIXt
+	 iu4pJUHMCHb0h+QQozVi4iI/sWMPa0Lo9Y9BA3F/EfjfsTC2sERxbSJyWcqu+4CK4Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792831194;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831414;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dk4e+eedEam13wGCRMmw9y+wJRNgv+ioxH1lvC55NVc=;
-	b=Ob4lMQNVhlQxupY6GptG9AV2q7HYAQPQnSOeIuwtvsUgvfOfxUX68B0VHUaJAb2EVeJi
-	 b4dhM5EEsCjXyBYflPVUq3DQsa7JnCZ5gVY34lwAUlLC7Cgg8xUVoFKQAb0cuVjkWdb4a
-	 Nnu0qcxd+/YqSTaMxEPDkrkow93lrwh6qydP3frVaOmz7+B2ZgW4bJWl2IRuv1QLkK9A0
-	 m4Gkv5UsvRujreWHa2HDPFI09yWoA8iubdiyhDROjXQ1LJP+YnKNC0t+JnT3Kne2EvyEW
-	 fdaqxsC44UrjaSGg3F9sBBlGFNtEfMSu0Og4YlGeNpdPVM+ZJxnXffuHLVYg2hDl50g==
+	bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+	b=SXIUAq3aOZIKrTQ8AervFYvGs+Cpq28o9eTgvorG0/d0pzUnF+fRyaKEIAw4j0rR/a7b
+	 GrVLZkbAdPjKPlFPjxmuYf+ov4DHq+m7V3uHCDYki1SLqHC9q0bXLoLoeBJwjVGnOq1zO
+	 5BOR9B3W3bBNrApmWcItNQQ0BDzxM3KXjDpsNMCg5OK5TVwD8F+RsiP7cDCcnW3Ri1vra
+	 kcK53JaP/3ilggFx17lLFxsWKF/kiqO4VfY+yuxNJuT57nRMpM8eKRZ62iX5sH37GMDzG
+	 IXy+jZcicifeEQHr9SnUCMcNBdpAx15GOUOthjWvAhlSNdyRVgk2VNo5OYMDMr1Ni4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=d2oFM8mz;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bz7bIU1+;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ncOG1xga;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763D1606A31A
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:39:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 763D1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E2D606A31B
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:43:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E2D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=d2oFM8mz;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bz7bIU1+
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 87608EC01A3
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:39:47 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sat, 24 Oct 2026 04:39:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1792831187; x=1792917587; bh=dk4e+eedEa
-	m13wGCRMmw9y+wJRNgv+ioxH1lvC55NVc=; b=d2oFM8mzMyYcif1eaPVo2jhsA7
-	WOwgW93frOdQJXWbBek6F/HwlA89fPCyZy1+CzKUICrNZUSLZuZCRPdZQt2svot1
-	PDRMmceHJa+FVQ+YV7iMWiE6bTWTpZMI5Cd+T1yb3pizlhTxsJwIwCAr40XHEmmm
-	D/Qo1xJlsO11fqA56nQ/vhzGCLiXQQ4JK6rKuSQ8YokFsqRiTP0Bc6kz6oj/9YfX
-	Qvc+f9dEc3S/0HzSfE7gSkIMTsS/YIFMrkM1oXLaaW+frijSi6nCv1RgeGPinXQk
-	wGJlf9JRC/NExOlpstg6J3c6Lw6Vnzyyzsd2WTylb7nQoQrns7o4iJW9DK+A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792831187; x=1792917587; bh=dk4e+eedEam13wGCRMmw9y+wJRNgv+ioxH1
-	lvC55NVc=; b=bz7bIU1+txNPYxcw6Lf6y2182964hZRmqA3nEkHJ+0HuoLm/sIn
-	cXHYP8AIpOf6aFJDkKt6fQThYwLZmvC2bd2KLzkk0tSLt+MF5ev1YYJsIRrzHTID
-	OIHqSzw3Np3o72Wwi/hvWRSgNZUfDToPyCry10csGawEK76ZCc4LKLb4rMPtliWN
-	b6huJOGrdeIRimkS145EzjldJzRBNnsCB0vUtSlL0buL0j0bsf8Dxp9/sJy6KbAd
-	SQoNoLfRuA09s+ce7ZA6l33MYYhHKacqMZHWUIXUhVHfv4lzZoRaG/sHwPQZ/kxT
-	jkhUj5oYvXCS6huEfGe68QteHxznF9PJq5A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792831187; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:eKV2A+rQPczZzbIs5AJOn/5Zpkob7sQuo9AiiGCyWLRuyz0
-	6G2/EosJrxfR3PxGSjlbION4sWltaQqJ9H/1DeKYQbYWgFtcCzBs0Gt5ltDiUaXe
-	1kloFTLMBfIhhac3cdY2WQEsqi4Gqwdr2B/5aB/OXWsM8G5R68OE7vjAil68fsYv
-	LFv29FMDuoWCq4qBwAj6u9nUSqbgCXhjwGfWjQ0mwDy9RFyLvE/JnPVnRYMBoXhL
-	i/Pe2Q9EemuIUSkKDg16Iv3uv3hEcRr5Oa5l75VmxQREF/uHvRHBGkURwmnNfRkU
-	mIzvq6Dy5byGkJdrVAIymiHgEwflcgJlJCgGl+g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:PnvPF/K/NdvXhLu/i91FAf5qb4UUBnCMoCSJ9dKYvZA=:kWDPm/EXmOFJ312wfG/g9OlfSszOPhrx452WIAG2ZOM=;
-X-ME-Sender: <xms:027cao0QKnJgl2TuVdsLf4LzmCpdLG1R6iN8iEPsoW_ug6veKOAz_g>
-    <xme:027cavqgj2a9BTYILKyNs47uPoKU9Yz6y2s2yg10W3kN4WcuCZ-IPkg6Cyv_kXlYB
-    JSda3XXwht6M3f5UG9oHWKgGwJZwKj-V5idj2DUmittloA7OGlevKGM>
-X-ME-Received: <xmr:027calVf5lsVURzsm9eHjFP4bld6tI7ZO2nteb1O_Hu_lnwxL0I4rjnAT2sxqdxsULs0cz5D>
-X-ME-Proxy-Cause: dmFkZTEilkQ7QRTV3WCqk13zuvyPjR3rvfRKdMmJjP/0IUkSonux5v7d6YiFkowHCHQQMZ
-    UKTuka+etnp0I4pQi4LorcpHTgVejGL0wuRdrC+MGiY+0bYFfrp5Tml1fj2yv6N4JzjygW
-    ciLvzb9zDqU9LKMdU/KronOfZfUPAzti/iKqSp/9Ri+tI9S8gQEpchHvM4CzTKNRPKRrLq
-    fGuXpHBMMyPZae46Tawr8eZeG80mtkUkkmo9JDsT17WuJINe+UpplGjh9UY0mWBDvAjAfm
-    pxNJ1WZSmmsOnyEBqC8Z6C0pfXlBrw+DW0PdJtpX5VPHttAf97aVchdt8+K63vy7glvIkl
-    Yg33go8lQiWCw1mp1AzkNjfPFCf61tY8tRIAvu/+iI5dZca04qH/Xyly2C0tFbtD7X5lOn
-    0u1hJ2xngjMOqOgLIQ8KTDlltMJPvKmTwk0aAEiqNjIiBs8MvGkm0FLPm0iT/MU4j3vJbu
-    iTx/5qwURcN55LtColc3bzrXD3m7oQ6gxkMZJAF+tQ2jNoUbH4TyznDmnnx/stac2kALRJ
-    ZQ1HPB25/TBVyS10xcOvGf4c1Do9Ums1oV4VUw4Co+doLnuS+cGF5qqdF5px4D109sqZxH
-    aUB2lvdblTY5vbbmXjnGpVK7/oIWB6sk7z4hs2dr8VLUbJNmI5NZ+iVkaNqg
-X-ME-Proxy: <xmx:027caor2jeOv-FnZxvtoS_1nX56nfR-TxlOWlrSTlxLCJi7DU_eM5g>
-    <xmx:027casDMR76atB6V3gxHlB0PFBCUIeaG77wohXkh2IG4ZInIy-Zajw>
-    <xmx:027cakgliaDkw1uvOVvES9ms5Hfo3ervdV15hP7SLtfKA2xDSuWhsg>
-    <xmx:027caqb4A_RLixhzDX2E7MCHDs3GGzGJ8NrtjLwMpd6RPr00q8CxfQ>
-    <xmx:027caih8zVv4CLHufmo0XMD8YQU22aSF7R41Zo25Bh-l5WligFRn5A6Z>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 24 Oct 2026 04:39:44 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Jiaxing Hu <gahing@gahingwoo.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ncOG1xga
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e8c710847so198156366b.0
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 01:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792831413; x=1793436213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+        b=ncOG1xgaONvXeiaMUE7R79ovJmwawvtZtfagrUqVaV6SCx3XMHlsbs6sSfOF8KdlSv
+         AMAp+8v00bmNVHOUvqO2+6QzbcTm2dHjSPn6ykRWAbQI3FAj9QkqeRhtDrBSQObhk9Hl
+         olSDf3wCDZSvG+bru+umoFIOSZBg2a9hsh6HLiquxNDSAK6HV0dCNDfdfnU9tJ500gsc
+         SPg4ybU6xy22v58T+GJmx3gBX53Y9taqF41tXHGihH+DH8i8P1C9wED1kHKvHtbVDBhF
+         pmTD3ADcqNcwMRBxtcrSY7lJvOj5zKaTPXZeJHyWNTV/kfjd0Cg8PHw9y0ZXq62r7GX2
+         G/1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792831413; x=1793436213;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NyJpmj5FPVaDV7h+XvGySkhqmILNqo7NWUj7f7DmacA=;
+        b=mUNh+RvSAmyk9ssYM3+T6pgYJ88+BepfMaV9GEvLhNSQ9WNTbhkuAxHHSHtHHCNxcE
+         NGptP5Mq+qVfmhJYTNMzBrza8K4xRB6jXSZnKtc0gSB4qkJq4BWV3NIZuCPxSrOQ9cOP
+         VnisuvCg+u0kkfjmJPI/y+i7hb2WzCmatc2I/2GWbO5H1fgIMQg8YqGT3pwBFmRA9hMy
+         gM8eTJ1M5e+7OSvYZ6fLMnVF2FemA9XnNfAckx4NsCuHPFakDD6381CK5+IYOgxdxTiK
+         TqOVi+w4KSEyNLghMdklhseZrxXu44jPyYivntzWkqS1yTqAmLKK/jbVHTFC3gwQY2gA
+         RDcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGd5lGLvGiqPLCY80IWBKPidze8xvqQF3ZLtaVoy5MZwmhC1HDlxoMeIbrWvwuodttPNXuV73D9Gsh@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3JhDH6wEO9rFPvrV6Iat4rdz0CwDV+E/emZ9yroqhYrNFg8AN
+	ABCOVF6O4t/i8oVs2S0BTJEdNj8y/sH1RHtfpDVKHZyrJR1ZUb7A43kA
+X-Gm-Gg: AYBFou2dDiO9Urf4eTwWXYvFroKke9e4SdZMpEwSGBQLcpicHtPZS3EHmPiia7D+F8m
+	477e98GzH1v8tbs956D4OVTdiCL0l65peLFZ24P/xzOO7ngY3b161PnuqsJkoO1jtnco4TNt9gF
+	auk6QuNV+YFaDAODJw7opiFpMUhqco9BovSyiFL5jnvpGzoAsJdFqVkmVTFDNtQFYVzolvC9EwE
+	Rvr+01uEcv3ax70TcYiRiShZvJjdJGJQP4a6ZEQfDlNNGqCG2fwNX5skZn5WvB4CZRaXn0fCyfQ
+	+YQNYF/QKhUqcm1jEma2uGAXjmS24MixkMSZr7g0n3mfDJKwP2K8wsSfXBjxzQaKhVmO3c+aFes
+	enuuYnbUH9j22IloIOM7nQOhijSvVwAqU8pwG1zrb5TDNoTerU6X9QqPa4Fhvji2M0kEhUs7w1u
+	/19KO+gCYyJYMyM7N9lTyPt+qoFUsXPw3PyJd5jg4Oxs0Whv7rhoUiVeqaPuOHvLPUBHsPeuERv
+	TUsuUlyhST2zQc7rl3EQ2DMA4/RHQ2R2cjbVNqsK5wNqn00mXMhizQmHY6Wwvn/I3X7Em0RzdsM
+X-Received: by 2002:a17:906:c141:b0:c40:c6c8:6bd8 with SMTP id a640c23a62f3a-c46bde0a0e9mr153005466b.20.1792831412672;
+        Sat, 24 Oct 2026 01:43:32 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4ea608sm64608566b.21.2026.10.24.01.43.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 01:43:30 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
-Date: Sat, 24 Oct 2026 21:39:42 +1300
-Message-ID: <20261024083942.148860-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v1 RFC] ASoC: dt-bindings: Define '#sound-dai-cells' only in the dai-common schema
+Date: Sat, 24 Oct 2026 11:43:07 +0300
+Message-ID: <20261024084307.116715-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -129,35 +101,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vcc_5v0_typec0 is the switched VBUS of the USB-C port. It is the
-vbus-supply of the FUSB302, but also the phy-supply of u2phy0_otg.
-The PHY enables it at boot and keeps it on, so TCPM never sees
-vSafe0V and a sink partner stays in SRC_ATTACH_WAIT. A USB-C dock is
-not detected.
+Define the '#sound-dai-cells' property only in the dai-common schema with
+an enum of commonly used values and a description on how to use them. Drop
+all trivial uses of '#sound-dai-cells' across devices with DAI support,
+replacing them with a reference to the dai-common schema.
 
-Drop the phy-supply and leave VBUS to TCPM.
+This should resolve any issues with codecs having multiple DAI cells, no
+DAI cells at all, or incorrectly configured sound-dai-cells properties.
+Simply include the common schema and switch additionalProperties to
+unevaluatedProperties.
 
-Fixes: 44a48a23974b ("arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Non-trivial '#sound-dai-cells' usages can still be overridden in dedicated
+device schemas.
+
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Resent with the lists on Cc. The first copy went to Heiko only.
+NOTE: This is currently just a concept. The actual patch will be very large,
+as it touches nearly every codec binding. Therefore, I am sending this RFC
+to ask if this change would be acceptable in principle, and if so, how it
+should best be structured and split. Thanks.
+---
+ Documentation/devicetree/bindings/sound/dai-common.yaml   | 6 +++++-
+ Documentation/devicetree/bindings/sound/linux,bt-sco.yaml | 7 -------
+ Documentation/devicetree/bindings/sound/linux,spdif.yaml  | 5 +----
+ 3 files changed, 6 insertions(+), 12 deletions(-)
 
- arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
-index 5958b391e..72ca49ec3 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
-@@ -306,7 +306,6 @@ &u2phy0 {
- };
+diff --git a/Documentation/devicetree/bindings/sound/dai-common.yaml b/Documentation/devicetree/bindings/sound/dai-common.yaml
+index 1aed2f0f17756..152f319d8f382 100644
+--- a/Documentation/devicetree/bindings/sound/dai-common.yaml
++++ b/Documentation/devicetree/bindings/sound/dai-common.yaml
+@@ -13,6 +13,10 @@ allOf:
+   - $ref: component-common.yaml#
  
- &u2phy0_otg {
--	phy-supply = <&vcc_5v0_typec0>;
- 	status = "okay";
- };
+ properties:
+-  '#sound-dai-cells': true
++  '#sound-dai-cells':
++    description:
++      Use 0 if only a single DAI cell is available, or 1 if there are multiple
++      DAI cells. For special cases, check the device schema.
++    enum: [0, 1]
  
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml b/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
+index a67b79cbe006b..f30aea4b545c9 100644
+--- a/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
++++ b/Documentation/devicetree/bindings/sound/linux,bt-sco.yaml
+@@ -13,13 +13,6 @@ allOf:
+   - $ref: dai-common.yaml#
+ 
+ properties:
+-  '#sound-dai-cells':
+-    enum:
+-      - 0
+-
+-      # For Wideband PCM
+-      - 1
+-
+   compatible:
+     enum:
+       - delta,dfbmcs320
+diff --git a/Documentation/devicetree/bindings/sound/linux,spdif.yaml b/Documentation/devicetree/bindings/sound/linux,spdif.yaml
+index aea6230db54c8..62c035b739d38 100644
+--- a/Documentation/devicetree/bindings/sound/linux,spdif.yaml
++++ b/Documentation/devicetree/bindings/sound/linux,spdif.yaml
+@@ -18,9 +18,6 @@ properties:
+       - linux,spdif-dit
+       - linux,spdif-dir
+ 
+-  "#sound-dai-cells":
+-    const: 0
+-
+   sound-name-prefix: true
+ 
+   port:
+@@ -30,7 +27,7 @@ required:
+   - "#sound-dai-cells"
+   - compatible
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 -- 
-2.43.0
+2.53.0
 
