@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792804781;
-	b=kVy61q8imum7BAEownCx9/FMDvNcnWEeUResTefQiJy3bcYiJxckra+RsaEQiJlgsc/s
-	 5Og53q+aWGhXQ4NOlC9+3QSeOh0ZgmYwX6P6lmUZnTJl/vuLreUi46oUNFKxran36PM+L
-	 3sV/twM54DlTNc9g/TSsCV5E5JMf8AXs0DZAOm5Cn7Q6DW5Pm6Lw/iG6+2SqLgb/5XSbG
-	 F/qPhqFUQ0MPqzGiiBeRcLqPHBM5J3qAj6GWdGiQpVad8e70ANf0Cso9s+H8wRhv8eqCT
-	 AIrxbcMjxgtM3ULzuRQ6AFpatIomCrusk8p0/83aakremuH4nBiYZIGWSyGXo0ajIDw==
+	t=1792806260;
+	b=Nsyq5MJbZwF3y37+FuDGJrGfXvc085YsZF6eo/Zp3zE3VcTa0udqSuyCY3iObv3win7s
+	 ghEcz3RWTSIki2G5temGMa6OqTvl+Wj6BKudLIWxTtnwCP+37Yii2jfOOZXb8mWsjNCo8
+	 p6+Qs+mMRqM3rrl8CFnZGMS1jgsh+vz7iRxx9bTMGeUkZ6mr9CWUOxtYniPb4cuei4I/y
+	 w7PtNUpn+Zo99n/QBDBTP1Qv+zfHtx4QJ3VzAs6rIUOwNjdI7uvZc00oe8oFz9VkIGSVe
+	 1J1Bzt/FbiUVXs3uenXOkMlNVJyNX326tbWamyk6sPDZHI1tfTHWaFXztUNmDOZV9JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792804781;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RRpIz9YptYeOb9UL4YoX/0KazKBsdDQBORh1PGSCla4=;
-	b=L4FterTiRXEZFRj0OwhJtlB/W9nYKEK9wak7x1CQfXbqYuVuZQO+tC8pfLjdonrVvlsA
-	 usVfAiE5GB3VKDrOZBAyTe3GMELXaxZFu+8xJP7k1gXZncc182+MncCPM9wSE/y1BJ9nF
-	 hzSj+GxstX59HqFGLHNrqy0ycaX9wlCFLKy8f/Q6z7Ufc60tQ3bxoZJPP/Miy67gTvYuZ
-	 5pRt3w7IC+vg43wPVJjmr9yDaApGv55i+5s85IJc6xms2UQNr8iK1frDpqICpgNSzuQ6j
-	 mUUYCd3LgtD54P7gKM9xKiao2wwq5qjEV69uZzz9OgXLXvMlKhOZa5cUl8GZRrukDPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792806260;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
+	b=A2y/aYvSF6HT+KmHibxP7kjPwwKYFtv8K2SIPDeIscZ48BXaqdSJHKTigCQnT5xa/rXa
+	 baPtJXqnmA2UMbnYaj97g7KDeoEpaejsRF31Cjt6WenOwkMiQvT0D64HidkJGZBsBa5ov
+	 TQDYL45J2HV3SK/Snn/pQxObFED4yH3lsgM7WPqGZvg+r4BL+52Gm2r8O/2FlcjfWoI/w
+	 P3bFw9UDtXPNp5HcircZhPpUhd6uduiE8H3FAKsL6VONGgHrZoOWToEGbROCLZ2VS24k6
+	 nxF0OwdKDe5yPx+oh4jthAmWEcQdVYPVFFZZYnbzSkX21WdpikZO0qGY5mNtBskIYjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxELPvsA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE525606A31A;
-	Sat, 24 Oct 2026 01:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205E606A31B;
+	Sat, 24 Oct 2026 01:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxELPvsA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AAA1F01825;
-	Sat, 24 Oct 2026 01:19:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeDgx7pC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09811F01825;
+	Sat, 24 Oct 2026 01:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792804780;
-	bh=RRpIz9YptYeOb9UL4YoX/0KazKBsdDQBORh1PGSCla4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BxELPvsApqPItJje1LxwSVvko/LHe61g6XtRyXxctIfSslsd1dT+6Mf+SPaniJZUc
-	 p2gWNw4FbOpVr785T1UhrrwVvQWR/J6XBPsbAfpliT+Eez7piVGYylLBpdqMvg0iun
-	 A52IjhNN1s59/b8DcfQugVWeDyB8NNbPr/B2eiXLzsCmCNU01VTnrLwrMJv1WZZ6f+
-	 2ozDPhlmKg2akygSM7rIIen1bD4I50yJkOBfo32KwtySMsxVmFtvBAg/Xs7wVUTpV1
-	 SRkJQ+eZllsRkYfbzEtOW30Cw1sOpe5Kl/CGBLYGcMRUFzv440fnw2Ea01ByMXznO+
-	 h/BSevnHnGb6Q==
-Message-ID: <sashiko-outbox-183486@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/11] HID: spi-hid: add power management
- implementation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingyuan Liang" <jingyliang@chromium.org>
-Cc: linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261024-send-upstream-v7-10-abad13174b43@chromium.org>
-References: <20261024-send-upstream-v7-0-abad13174b43@chromium.org>
- <20261024-send-upstream-v7-10-abad13174b43@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 01:19:39 +0000
+	s=k20260515; t=1792806260;
+	bh=RcA6NgDzwdyhPOZofiKPLepQmqwVn5qMh3MWdeVUR5Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AeDgx7pC74sQPUM3WGP4IayUX+OTFLBRFSjVjknZAHSNOCRAWTeHJVmJYR8sKUSVJ
+	 2Tb/dqrjJYjQII/XA3V0FQMO7VwIFEew1b6TeW638tuGqKfPODFW3kl0wMH3Aj1u7M
+	 oKYqLrfiYaw51fJtmGnzsbSQS/ec7sBjid0l0RJbidtnFflad2TGDs2fQhFHTnRzKA
+	 ywv0aHOe6LP+22ph93h0ql4Ljdh1QbO0ZuyXkQOGcv2BwNKXTRhFPrRTy5Q8XvemFq
+	 mifdyXfwIr8wwRKuZRIJO3q2GuUT11JlFEFtLeL882j656fMzz3U83+ShxJomlob+6
+	 pDOrj/EWq8hSg==
+Date: Sat, 24 Oct 2026 02:44:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <20261024024412.2fa37c17@jic23-hlaptop>
+In-Reply-To: <20261023204209.48556-2-olivier@mgcrea.io>
+References: <20261023204209.48556-1-olivier@mgcrea.io>
+	<20261023204209.48556-2-olivier@mgcrea.io>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,263 +63,221 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] hid: spi-hid: unhandled deassert_reset() failure in spi_hid_resume=
-()
-- [Medium] HID: spi-hid: race and missed hid_driver_reset_resume() in spi_h=
-id_resume()
---
+On Fri, 23 Oct 2026 22:42:09 +0200
+Olivier Louvignes <olivier@mgcrea.io> wrote:
 
-commit 9bd51942caad3c04cffc9fdd14002340e1980586
-Author: Jingyuan Liang <jingyliang@chromium.org>
+> The X1600's SAR ADC has four auxiliary channels, each with its own start
+> bit, interrupt flag and 12-bit result, and none of the touchscreen or
+> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
+> driver that exposes the four channels as voltages against the 3.3 V
+> reference.
+> 
+> There is no datasheet here: the register layout and the clock dividers
+> come from the X1600 driver of the vendor's 4.4 kernel.
+> 
+> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
+> behind adc-keys: all three read and report correctly.
+> 
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Hi Olivier.
 
-HID: spi-hid: add power management implementation
+Very clean driver. Just a few really small things inline.
 
-This patch adds system sleep power management callbacks to the HID over SPI
-transport driver, handling device power down, reset synchronization, and wa=
-ke
-IRQ setup across suspend and resume.
+Thanks,
 
-> diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi=
--hid-core.c
-> index 4ff93d22715cd..3b8874ca0e1cc 100644
-> --- a/drivers/hid/spi-hid/spi-hid-core.c
-> +++ b/drivers/hid/spi-hid/spi-hid-core.c
+Jonathan.
 
-[ ... ]
-
-> @@ -231,6 +239,147 @@ static const char *spi_hid_power_mode_string(enum h=
-idspi_power_state power_state
->  	}
->  }
-> =20
+> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
+> new file mode 100644
+> index 000000000000..d54f6d7989b6
+> --- /dev/null
+> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
+> @@ -0,0 +1,227 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * Wait for the device descriptor response after reset; the device then =
-takes
-> + * requests. Set READY here: the report descriptor check that normally s=
-ets it
-> + * needs power_lock, which callers hold.
+> + * ADC driver for the Ingenic X1600 SoC
+> + *
+> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
+> + * bit, interrupt and 12-bit result, and none of the touchscreen or battery
+> + * engines of the JZ47xx ADCs that ingenic-adc drives. The register layout
+> + * and the clock set-up were read from the vendor 4.4 kernel's driver.
+
+I'm not sure we need the comparison with the JZ47xx ADCs here.
+Keep that for the patch description / cover letter.
+
 > + */
-> +static int spi_hid_wait_for_reset(struct spi_hid *shid)
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/mod_devicetable.h>
+
+Drop this. Now assumed to be coming via platform_device.h
+after that header got broken down into bus specific ones recently.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +
+> +#define X1600_ADC_REG_ENABLE		0x00
+> +#define X1600_ADC_REG_CTRL		0x08
+> +#define X1600_ADC_REG_STATUS		0x0c
+> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
+> +#define X1600_ADC_REG_CLKDIV		0x20
+> +#define X1600_ADC_REG_STABLE		0x24
+> +
+> +/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
+> +#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
+> +/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
+> +#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
+> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
+> +#define X1600_ADC_CLKDIV_DIV0		GENMASK(7, 0)
+> +#define X1600_ADC_CLKDIV_DIV1		GENMASK(15, 8)
+> +#define X1600_ADC_CLKDIV_DIV2		GENMASK(31, 16)
+> +#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
+> +
+> +#define X1600_ADC_NUM_CHANNELS		4
+> +#define X1600_ADC_VREF_MV		3300
+
+Use _mV . Fine to use case for units in IIO at least.  Avoids
+us maybe thinking it's Mega Volts :)
+
+> +#define X1600_ADC_BITS			12
+> +/* The vendor kernel brings its 140 MHz APB clock down to about this. */
+> +#define X1600_ADC_CLK_RATE		1166667
+> +#define X1600_ADC_TIMEOUT_MS		20
+
+> +static irqreturn_t x1600_adc_irq(int irq, void *data)
 > +{
-> +	unsigned long timeout =3D msecs_to_jiffies(SPI_HID_RESET_TIMEOUT +
-> +						 SPI_HID_RESP_TIMEOUT);
+> +	struct x1600_adc *adc = data;
+> +	u32 status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
 > +
-> +	if (!wait_for_completion_timeout(&shid->reset_done, timeout)) {
-> +		dev_warn(&shid->spi->dev,
-> +			 "Device descriptor not received after reset\n");
-> +		return -ETIMEDOUT;
-> +	}
+
+Split declaration and assignment given error check should be right next to assignment
+	status = readl();
+	if (!status)
+
+> +	if (!status)
+> +		return IRQ_NONE;
 > +
-> +	set_bit(SPI_HID_READY, &shid->flags);
-> +	return 0;
+> +	writel(status, adc->base + X1600_ADC_REG_STATUS);
+> +	complete(&adc->done);
+> +	return IRQ_HANDLED;
 > +}
 > +
-> +static int spi_hid_suspend(struct spi_hid *shid)
+> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
 > +{
-> +	int error;
-> +	struct device *dev =3D &shid->spi->dev;
+> +	u32 data;
+> +	int ret = 0;
+> +
+> +	guard(mutex)(&adc->lock);
+> +
+> +	reinit_completion(&adc->done);
+> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +
+> +	if (!wait_for_completion_timeout(&adc->done,
+> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
+> +		ret = -ETIMEDOUT;
+> +
+> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
+> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
+> +	*val = (data & X1600_ADC_DATA_MASK(ch)) >> (ch % 2 * 16);
+
+Can that be field_get()?
+
+> +	return 0;
+> +}
+
+> +
+> +static int x1600_adc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct iio_dev *iio_dev;
+> +	struct x1600_adc *adc;
+> +	unsigned long rate;
+> +	u32 div0, reg;
+> +	int irq, ret;
+> +
+> +	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
+> +	if (!iio_dev)
+> +		return -ENOMEM;
+> +
+> +	adc = iio_priv(iio_dev);
+> +	init_completion(&adc->done);
+> +	ret = devm_mutex_init(dev, &adc->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	adc->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(adc->base))
+> +		return PTR_ERR(adc->base);
+> +
+> +	adc->clk = devm_clk_get_enabled(dev, "adc");
+> +	if (IS_ERR(adc->clk))
+> +		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
+> +
+> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
+> +	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
+> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
+> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
+> +
+> +	rate = clk_get_rate(adc->clk);
+> +	div0 = clamp(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 1UL, 256UL) - 1;
+> +	/* DIV1 and DIV2 as the vendor kernel sets them. */
+> +	writel(FIELD_PREP(X1600_ADC_CLKDIV_DIV0, div0) |
+> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV1, 1) |
+> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV2, 99),
+> +	       adc->base + X1600_ADC_REG_CLKDIV);
+> +	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
+> +	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
+> +	       adc->base + X1600_ADC_REG_STABLE);
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
 > +
 > +	/*
-> +	 * Stop reset_work until resume; pending steps keep their flags. The
-> +	 * IRQ stays on so a request in flight gets its response.
+> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
+> +	 * and powering up takes 2 ms.
 > +	 */
-> +	disable_work_sync(&shid->reset_work);
-> +
-> +	/* HID driver suspend may talk to the device; responses need the IRQ. */
-> +	scoped_guard(mutex, &shid->power_lock) {
-> +		if (shid->power_state !=3D HIDSPI_OFF && shid->hid) {
-> +			error =3D hid_driver_suspend(shid->hid, PMSG_SUSPEND);
-> +			if (error) {
-> +				dev_err(dev, "%s failed to suspend hid driver: %d\n",
-> +					__func__, error);
-> +				enable_work(&shid->reset_work);
-> +				/* Redo a schedule_work() dropped while disabled. */
-> +				schedule_work(&shid->reset_work);
-> +				return error;
-> +			}
-> +		}
-> +	}
-> +
-> +	/* disable_irq() waits for a running IRQ thread. */
-> +	disable_irq(shid->spi->irq);
-> +
-> +	guard(mutex)(&shid->power_lock);
-> +	if (!device_may_wakeup(dev)) {
-> +		if (shid->power_state !=3D HIDSPI_OFF) {
-> +			/* Device is fully reset on resume; drop stale state. */
-> +			clear_bit(SPI_HID_READY, &shid->flags);
-> +			clear_bit(SPI_HID_RESET_RESPONSE, &shid->flags);
-> +			clear_bit(SPI_HID_CREATE_DEVICE, &shid->flags);
-> +			clear_bit(SPI_HID_ERROR, &shid->flags);
-> +			set_bit(SPI_HID_RESET_PENDING, &shid->flags);
-> +
-> +			shid->ops->assert_reset(shid->ops);
-> +
-> +			error =3D shid->ops->power_down(shid->ops);
-> +			if (error)
-> +				dev_err(dev, "%s: could not power down: %d\n", __func__, error);
-> +
-> +			/* Held in reset either way; resume resets it. */
-> +			shid->power_state =3D HIDSPI_OFF;
-> +		}
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int spi_hid_resume(struct spi_hid *shid)
-> +{
-> +	int error;
-> +	struct device *dev =3D &shid->spi->dev;
-> +	bool was_reset =3D false;
-> +
-> +	guard(mutex)(&shid->power_lock);
-> +	enable_work(&shid->reset_work);
-> +	if (test_bit(SPI_HID_DEAD, &shid->flags)) {
-> +		/* Stay off; only balance disable_*() in suspend. */
-> +		enable_irq(shid->spi->irq);
-> +		return 0;
-> +	}
-> +
-> +	if (!device_may_wakeup(dev)) {
-> +		if (shid->power_state =3D=3D HIDSPI_OFF) {
-> +			shid->ops->assert_reset(shid->ops);
-> +
-> +			shid->ops->sleep_minimal_reset_delay(shid->ops);
-> +
-> +			error =3D shid->ops->power_up(shid->ops);
-> +			if (error) {
-> +				dev_err(dev, "%s: could not power up: %d\n", __func__, error);
-> +				/* Suspend runs next even if resume fails. */
-> +				enable_irq(shid->spi->irq);
-> +				return error;
-> +			}
-> +			shid->power_state =3D HIDSPI_ON;
-> +			reinit_completion(&shid->reset_done);
-> +			error =3D shid->ops->deassert_reset(shid->ops);
-> +			if (error)
-> +				dev_err(dev, "%s: failed to deassert reset: %d\n",
-> +					__func__, error);
-> +			else
-> +				was_reset =3D true;
-> +		}
-> +	}
+> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
+> +	usleep_range(2000, 3000);
 
-[Severity: High]
-What happens in spi_hid_resume() if shid->ops->deassert_reset(shid->ops)
-fails (or if was_reset is true while shid->hid is still NULL and the reset
-times out)?
+fsleep(2000);
 
-When deassert_reset() fails in spi_hid_error_handler(), the driver sets
-SPI_HID_ERROR and schedules shid->reset_work because a device held in reset
-will not assert a reset-response IRQ:
+Lets us be lazy when thinking about what slack we
+should allow by standardizing it for us.
 
-drivers/hid/spi-hid/spi-hid-core.c:spi_hid_error_handler() {
-	...
-	error =3D shid->ops->deassert_reset(shid->ops);
-	if (error) {
-		dev_err(dev, "failed to deassert reset: %d\n", error);
-		set_bit(SPI_HID_ERROR, &shid->flags);
-		schedule_work(&shid->reset_work);
-	}
-}
 
-In spi_hid_resume(), however, a deassert_reset() failure only logs the error
-and leaves was_reset false. Because spi_hid_suspend() cleared SPI_HID_READY,
-SPI_HID_RESET_RESPONSE, SPI_HID_CREATE_DEVICE, and SPI_HID_ERROR before
-powering down, shid->reset_work is not scheduled, spi_hid_wait_for_reset() =
-is
-skipped, and spi_hid_resume() returns 0 when !test_bit(SPI_HID_READY,
-&shid->flags).
-
-Similarly, because spi_hid_wait_for_reset() is gated inside if (shid->hid),=
- if
-shid->hid was not yet created before suspend and the post-resume reset times
-out, nothing sets SPI_HID_ERROR or schedules shid->reset_work.
-
-Could this leave the device permanently held in reset with its regulator
-enabled in HIDSPI_ON and no recovery work queued?
-
+> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
+> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
+> +	if (ret)
+> +		return ret;
 > +
-> +	enable_irq(shid->spi->irq);
+> +	iio_dev->name = "x1600-adc";
+> +	iio_dev->modes = INDIO_DIRECT_MODE;
+> +	iio_dev->channels = x1600_adc_channels;
+> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
+> +	iio_dev->info = &x1600_adc_info;
 > +
-> +	/*
-> +	 * For devices that may wake up, process work that was pending while
-> +	 * suspend had reset_work disabled. Otherwise suspend already dropped i=
-t.
-> +	 */
-> +	if (test_bit(SPI_HID_RESET_RESPONSE, &shid->flags) ||
-> +	    test_bit(SPI_HID_CREATE_DEVICE, &shid->flags) ||
-> +	    test_bit(SPI_HID_ERROR, &shid->flags))
-> +		schedule_work(&shid->reset_work);
-> +
-> +	if (shid->hid) {
-> +		if (was_reset && spi_hid_wait_for_reset(shid)) {
-> +			/* No reset response: let recovery retry. */
-> +			set_bit(SPI_HID_ERROR, &shid->flags);
-> +			schedule_work(&shid->reset_work);
-> +			return -ETIMEDOUT;
-> +		}
-> +		/* HID requests would fail while the device is not ready. */
-> +		if (!test_bit(SPI_HID_READY, &shid->flags))
-> +			return 0;
-> +		error =3D hid_driver_reset_resume(shid->hid);
-> +		if (error) {
-> +			dev_err(dev, "%s: failed to reset resume hid driver: %d\n",
-> +				__func__, error);
-> +			return error;
-> +		}
-> +	}
-> +	return 0;
+> +	return devm_iio_device_register(dev, iio_dev);
 > +}
 
-[Severity: Medium]
-On the wakeup path (when device_may_wakeup(dev) is true and was_reset is
-false), how does hid_driver_reset_resume(shid->hid) interact with a pending
-reset_work?
-
-When spi_hid_irq_error() sets SPI_HID_ERROR or spi_hid_process_input_report=
-()
-sets SPI_HID_RESET_RESPONSE in the IRQ thread, SPI_HID_READY is not cleared
-immediately. Instead, SPI_HID_READY is cleared later when shid->reset_work
-runs spi_hid_error_handler() (which must first acquire shid->power_lock) or
-spi_hid_reset_response().
-
-Because spi_hid_resume() holds shid->power_lock across the entire function,
-scheduling shid->reset_work and immediately checking test_bit(SPI_HID_READY,
-&shid->flags) means:
-
-1. If SPI_HID_ERROR or SPI_HID_RESET_RESPONSE was set while SPI_HID_READY is
-still set, spi_hid_resume() sees SPI_HID_READY set and calls
-hid_driver_reset_resume(shid->hid) right before shid->reset_work runs and
-resets the device.
-
-2. Conversely, if SPI_HID_READY was already cleared (for example, after a s=
-ync
-request timeout or while SPI_HID_CREATE_DEVICE is pending), spi_hid_resume()
-returns 0 early at !test_bit(SPI_HID_READY, &shid->flags). Once
-shid->reset_work later completes in spi_hid_refresh_device():
-
-drivers/hid/spi-hid/spi-hid-core.c:spi_hid_refresh_device() {
-	...
-	/* Same report descriptor, so no need to create a new hid device. */
-	if (new_crc32 =3D=3D shid->report_descriptor_crc32) {
-		shid->reset_attempts =3D 0;
-		set_bit(SPI_HID_READY, &shid->flags);
-		return;
-	}
-}
-
-it sets SPI_HID_READY and returns without calling
-hid_driver_reset_resume(shid->hid), leaving the HID driver in the suspended
-state set by spi_hid_suspend().
-
-Should spi_hid_resume() coordinate with pending reset work on the wakeup pa=
-th
-so hid_driver_reset_resume() runs after the reset completes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-send-upstr=
-eam-v7-0-abad13174b43@chromium.org?part=3D10
