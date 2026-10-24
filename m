@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792820113;
-	b=SZ3MCsw87wzQmBc8wgsW6+nGog5oRoVYlOD8EfGyfQXDFz+DdyV5gncNLHMBgxlb6XU2
-	 lctCqL5XdhSayapDRZaWXlZwAwqdxcqW+q6ZTOhoAiLpDW5h27rKg48/yBeOCFU9Ni2wq
-	 a43H8ZnyuhAgJ9VrpqrojooJmnM/L9Uvxk+Rn8oncPXT7s5eFUReJ8bD5gIf75DC9n7+Y
-	 dWx4QtrXVXbwVhq349c9FjNp+g8gTmQ5OSpvfIIeJjxk08K8LJ0W/wjwOQK6sCrdPbqKL
-	 /ylrCp9+/kuhRYME5sbMVXzk7eijCmqIzoVIC0L6hp4H0cRA2DzvOPFh3WWarnD21jw==
+	t=1792823892;
+	b=DuTeEmw2PBN0uhe9pa/2VVpwhn1O3QwWTWe/mGkVSXZA63hKPmZheEDCIr0WpDboWjGI
+	 Xhd7lUXzVQSndGVQjppHsLpM6MURPOZjvQg7QHsyEzYx5cJAt08V1WTeBfWJJcxyyNoCi
+	 lHdn0ngJnJcyoTn+21Kux2poTRADMpUaR9Aa5B/V3zq3irFvWg1k/1yR4ngJ5ukLHjvkP
+	 u+lF07uFktb8FQyu6oJgsWGnf9mvx7o+iNE97fOEQS/WgXyckAih2MPE7T03OAPcti98N
+	 AsCq7DvbfUctSvpbcQMrFkYeHj/oHbskfyjrNhEQGbGVCYXi6wH1BoZysVhMsCFVsFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792820113;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=MiVht9ym0EURv1bddnJJbI5enBTslXQ1JEWYlf28Cto=;
-	b=31/NJVYA03+/puCmtY1s+jTtffLJOILV5YBvZM5/o+HxncaA+JtwEhV5bkkydRg53vpz
-	 53yu4LCRwq//rdimkrfNPglsxszoRajDbvU0Cup5YahXbXsXPbrwStGV06nTZFOSdWIoK
-	 bDzH8Hg1Ls9zZ//BEFYyNgFGvVummO/OnmhGS6+GDnKFKS/8ak+24BFEOiDkfzOdzKwBT
-	 gr4hek5fS7dv2K0wYpMggil+K0pEReGcRk35eqYSCOA08iwXLg3HpopbSYza11S0Z7GQN
-	 LrqxJyT3UQQAuO4gPSaHEv2pw/2v5TOzDSqDP/xRm3AVwjuKzjaFqwFg7b+TlzKaMiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792823892;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
+	b=T1woWMIbTfdslbFys1avvUnUw7d/qP7k9aiVQlltrzzzAv9gbsCExTNWjF/FQeZlsnET
+	 glAQnhc3nvf0iMUgvDMkjfHgScut+r8bfyNeAIUXCOTojDQQA9asxB4su6HkQyybK31wA
+	 81qUD/mkltbNm51W17nN8zAjS65dqHVAU9fkR3bAiORw1a/qUn7BHoam75iDTNuyJ0UgD
+	 4I+bPwYJChI92xLAb83MoA68u/zxuYYTx/rv/KAdF25wDAiHuzf32+Mr6smv1Q1mIjo/h
+	 4UFyt50w2WWx/kbJgeWWEmpvkJYgY1vndAVoM0Vs0UNtyDJkjL8kTZG5Zb1yIyXQPvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=prTvNw0e;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JSq5usht;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCE9606A33B;
-	Sat, 24 Oct 2026 05:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FCE9606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B543606A31B
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 06:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B543606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=prTvNw0e
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jBT9m5Z5pzKnCD;
-	Sat, 24 Oct 2026 07:35:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792820108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MiVht9ym0EURv1bddnJJbI5enBTslXQ1JEWYlf28Cto=;
-	b=prTvNw0enYprIWmGhaUdr7P6UZhA+faYgPuaALUaN5kRnUv5IOQZXOpqRtooY2lDAjCSP1
-	7Vpi3t81dZta8GKCcNAj+qBQ0oEuqO/ft8xClKZvXGUHAhg0CJ00xyLWulOlIDLn5TWZ9z
-	rDxV8v0zN3isDvgThk8CJ3jZflJPxvmniS2D8z3mmiGWcYm+LRy+x7exPXgqV7lH0nlcXG
-	DHPRW36n+VLby7NhHJo76mMt838CfUfpE9XO91XL35NNk7dKNcS12AUoi0d03MzkXcG9V3
-	hNgIUS+wSCdgRbsqH/iprgRu10tHbIQMu11ZPjV5QlYEix+YxjnTh2vqceqfmg==
-Message-ID: <d870c163-8d90-48c0-bae0-5f6e0e38c5bc@mailbox.org>
-Date: Fri, 23 Oct 2026 22:51:33 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JSq5usht
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so13940585e9.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 23:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792823891; x=1793428691; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
+        b=JSq5ushtKCOp88C6tHvh//K5tNcwrAAwAHXEk/x9OnSeJ/X9kmdoR7O5qQ51NAbMXf
+         PDaoU5tQ3bQOy7RkA2Xe7tSu0TgTxjIWtZtnmhxMaxVIaDhauDuYTTPB2D18kW6LOa3a
+         copeaz0+6y2herGTsVGoBl7nU6YdW+c7qmbS+/scTzCXantPYa/AvOTu/rTxxN54c4qE
+         snedA8EKU068xKbI0cT9dOgtk8ora/IKMl1pQ4flfYz4RbMahCMzNBarV6gMV4Ykz0ML
+         4HPLYq1EZhhqGGrzUvGIvCDclZGXCB3FeqgdzY8PTbLg491oCK9Z7fai5d1OPScoiC1j
+         2m8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792823891; x=1793428691;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Eo/uDup4KcaVJ1mR+rT1i9h2PRHKpBooRZboT0Neq5k=;
+        b=vcgO4Whw8PbhsWl8p7wcB/otexeFVFNRsC3E+U65HWSHL1N6s+nq2xZKOMbWM/iSaU
+         EbXOJgiiIXOdLysoS1cVukU41Z4E9fMvOGtmxsGZY5A4kXKDHVW1cR3HS6TRynzNSP6r
+         /meQzVWkQeEHUfTHUc14ul0p4rWxfJIy8tX6ul/l/7xcZW9leF5lLUNk4781lQGkRHlw
+         clTtZr1q6vIsH9k4ibREGtRRHBF212c3oUVlpckfgsKMAQFOIHUUKmkkQbOoN9DHw5Vc
+         r49Wars4i9ksaW/YdiI7vFyOy0c8aaisFgyC4an+K3FbTKeV1MsiLvhQEmhnzamknxlk
+         LrWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwu3lU+/961eKPfvm3+1YHH+BnM2FHzNO8fcFBFWV2OUoyuKX8H/ubxrDavxbgh0UiQoHQOI4xKy7IT@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqDB67GCLqXKqUzT/RC/3IuQCDCMAvBGdNQD5xmgI4V0Tf4VJH
+	7JIrOMc5j2DQxKt380+USiieqh1MH95EynGR9cJq0fuDOYjNcd0KNERW
+X-Gm-Gg: AYBFou2+VJMae83/iyLvfcpkXjlOzwl9HIzySl5UeU44yAvOpPXfjUckNXcVRlILBmM
+	iI8f6uatCvcBrHNF3Kgj+RtSjRFZGe/9DWutaCnGMxZ0SP1/600HVg/FPe+D8p4Hgt5BNgQFzCv
+	Mzzb/vy4NNsaFHawjCgDh3bG623zMJ+sWXvq3abqkBsjKyB1eG0C4lVF7TQ0oxJSZbb4YP9wgec
+	NuH0/9qCQ5gGjGosN633j7QXhYJoMQ34doAZT23XpgvscMxAKOUoYypWB/R7L6obRLjulrxtMH7
+	wIwmT3uw/QRJFRES9hJVBk+s+zJJObMrqsPeoQ4Va2LdJz7+0XwN3gHqfZcmEo8jAdcq9x4ZbEB
+	RQqmr0FaWp5QOy+MR8ORFRCq8Khs3iubxugOFHDJiYkNl06Fgw1yzDqvg80c00Ox07aUxPhiwy1
+	BqC1Evlu6zifY75j+wnVtMBGfTXqwd0oQdGsTJHL7mMUDx7yA+4fyhNGnUD4w0KY37+3gfNDi+Q
+	9D/b5PvKAB2/od63WLLt/SH4sK4tF+3lift97crnvr265b7yxEd+DQm+P2q5shfDqF0+7YOJRu4
+	0MDwCqKFxHY7olzRIMNmR6ISUCYjDGo4R1Owomwv+rIOGekGH6KoPViQ7CjZ/0iAeosd9ik9iLA
+	AMVywB5I3mZKr7RxtmqK4d7T74XX3+oZ1fqs1ebRUC0c1V/oeRX7qPD4N1ZqhhrUrKXzJpf5fTj
+	4wRuetJcLVxTsAspA7Pdavu6Jdy/Di
+X-Received: by 2002:a05:600c:5308:b0:4a2:86b8:7e9 with SMTP id 5b1f17b1804b1-4a35ac9d077mr14744425e9.16.1792823890868;
+        Fri, 23 Oct 2026 23:38:10 -0700 (PDT)
+Received: from localhost ([2001:718:1202:45:44bf:6db8:6c32:23e1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bdd59sm22278075e9.4.2026.10.23.23.38.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 23 Oct 2026 23:38:10 -0700 (PDT)
+Date: Sat, 24 Oct 2026 08:38:09 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
+ Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+Message-ID: <20261024083809.000026e5@gmail.com>
+In-Reply-To: <20261024041357.34346-1-olivier@mgcrea.io>
+References: <20261024041357.34346-1-olivier@mgcrea.io>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,50 +105,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] arm64: dts: renesas: r8a78000: Add GPIO controller
- nodes
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Magnus Damm
- <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-References: <cover.1792776697.git.geert+renesas@glider.be>
- <f9de8214043ad4c8748fadce7fd2cc2fa95b1291.1792776697.git.geert+renesas@glider.be>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <f9de8214043ad4c8748fadce7fd2cc2fa95b1291.1792776697.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 67d5bdyjkzczox9iyuyt8upuxs5tyx3t
-X-MBO-RS-ID: a841861d307c1214dd9
 
-On 10/23/26 7:50 PM, Geert Uytterhoeven wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Sat, 24 Oct 2026 06:13:56 +0200
+Olivier Louvignes <olivier@mgcrea.io> wrote:
+
+> The X1600's SAR ADC has four auxiliary channels and none of the
+> touchscreen or battery engines of the JZ47xx ADCs in
+> ingenic,adc.yaml, so it gets a binding of its own.
 > 
-> Add device nodes for the General-Purpose Input/Output Ports (GPIO) on
-> the Renesas R-Car X5H (R8A78000) SoC.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Co-developed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
-> Changes compared to Marek's original:
->    - Use hardware clocks/power-domains/resets instead of direct SCMI
->      references,
->    - Drop gpio-ranges properties for now, as upstream lacks Pin Function
->      Controller (PFC) support.
 
-Is that ^ OK ? If so, good, TIL.
+Please use a cover letter when submitting a patch series.
 
-The rest is
-
-Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-
-Thank you !
+-- 
+Kind regards,
+Joshua Crofts
