@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792877125;
-	b=rtONJwvUrhnxRxj7x/a/t3U2jNk0XzPmJSnR9hwF4twjsR+YMsgyNxfPNvWBOxd5Tu7h
-	 XHp67b2iDEgKVY0mx/JdX7+Qzd9fQrWUlbdsTLC2mn0I19Td8H5DuexdewjMAwEcEWY27
-	 +npCNoqFhmHwJSi6FsCEbW2MW8JPaNbiT9OTkNbH9830Iea4Y9vGL1xGEywts3p1N116B
-	 Ljcqrkt4rV5JT18jDWtxUdPA7K5GstX5CERKK4YNv6vwDIpg98i7oi364lUPFkmmb05J3
-	 Gyv19Nz4/YDBAN//T8zLaLSjr5iIsg1BsKH/g5OOQIjGdM2wynw6hiP3nTEk/a5+K+g==
+	t=1792877124;
+	b=DpvpzV1Oe/cun2gvQuvYu2Qs94GyWK5Kt14xlW7gQU8gazi3riU251IJvaewfPsY6z6a
+	 mbRmGI+1d7rQhEL2hXxJnMDfJ48LcT7r8HZYmln5AQeVpdx94KjpAp8CDADKAqCzCKcCx
+	 bFNSauGwCbaK9O4MKLZP5CBURMEgepoG8AOY2MuUg/Cwu9Fl8WF1mdpDosEgBw7JtQD6C
+	 ScpezYzVb4ZmoAzsWyuStCnFaWrIUAfPvgnLnzO0jTv8WYgCARig6okQNcEDE0MKOKC7O
+	 t11RdzuTvtEbR6oAlLp6y1+GtoHVdD3AA8TyLCHjzOvLsLrohCff8AM/b7hjcCXApVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792877125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792877124;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FT/A/DgEc/1PdtmIuuiz9qA/j5kLnlOWpR51oppuUm0=;
-	b=Y2bZULzIfUK6zYNo1OzeKQCm065iXz/YGmC/hDBhTt42MSy6NF3jiPRp63YH5ykYf1Nm
-	 8m5rtYjvxOX7wtvf7puqskzfDBIW6+bTlJYRveSomcODcKUHRae2MWXetQ/8h13UJhOYt
-	 aCMZA/YVeXIglv4E3T1t8QVI0ttIQMBAMg4OCzl8TRunONGE5XNYqZyMQp/0CLd+WOpVO
-	 ykaX/mcAP6qRyPon/3nB59+r80BHf90/fFNU0POlJ8muVCWLKaMJYzBK+LU9LpVBSzIIy
-	 VSnTII/UJHO8BQQJpcUz6k2o3RTP5t9Aut3ekKdctySVqZa4+dSwB0M+NZqajLXKLUg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RB/QFiAwZFPgogQWGkL0l25DXALwqoy/QmskzaMu3fY=;
+	b=Hex6HEX9RbID+0nyBc1NhsP82M9u0CBFTJ3llAg+hT3XvWVeM9SgilDyj8yVT/GB0KrI
+	 GIJU8CooURJrv6Pt84lNgknhjkr5vmQ4JQc3u1T8PP9OnkYhmdyPIi/oVEnnrN1OYX/Xi
+	 KU/zlzAKr1t5WzRBowVObZcNmL37EIB5ti/rNsDcrTgkWuMVubId1kEeWQ51wjzBkJAEg
+	 3YtE9tfEgLvmyVTXM7OzpqLy1c5kcb5CQeg8xfh+uTn0fdaF4a3wuEv23rQ6zsZ8mpKC8
+	 jkqvN9KMNCg2krLg4e9Gf3AmyvVXNh/cQjsL/aYP+F9IsuAunaaKc2/F3haMjwzi8Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FFY9UXC4;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Zvgo6i15;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04952606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B43606A31E
 	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 21:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04952606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B43606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=FFY9UXC4
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso19145215e9.3
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 14:25:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Zvgo6i15
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so14594425e9.3
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 14:25:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792877123; x=1793481923; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FT/A/DgEc/1PdtmIuuiz9qA/j5kLnlOWpR51oppuUm0=;
-        b=FFY9UXC4nEgSwxaS/SuV8AKXzuWttgHbi8x3huR9cAIRIERXXxOiOL1H4056S67fKy
-         YHJyipd0Zk8OCh4mygo/AW5Zq4wNUSa0/srwX9oh9WnuMfdpOQpCL7idhjBfQhy4pBGH
-         by4wi+S8CG9zXPl8BkJXA9ZOB/bjoDoc9t7EjDySRlmH5FGqzzFnXZsiAdQFzD0biWxA
-         gxQL2k2L/AkwbBVc/RT3vdzBLteAzUV0wwaiEGrgXACrd/9+QHw4o94TgVrJS/8Y+8b3
-         CxFw7GgFGWvkbup+GIdekR39+ntWGKaXKmbhZHI0e2jCQGhigvdv/mQsQQRqkzhVACoD
-         Zcew==
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792877122; x=1793481922; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RB/QFiAwZFPgogQWGkL0l25DXALwqoy/QmskzaMu3fY=;
+        b=Zvgo6i1589cIQqIk1mSPjEk9cn89c4NbZ3U8EmUe7UMtPnDkn/IB4x3IlE//XsR47q
+         A4Hp6Q9geaXji2lWuUS9eTVjtUaIk3AhPl3Glx0wam7vcVdRlXHKtxXN0XBbN9n626ei
+         4BMSKivumEOIVuu6PP/FPuIiRnIdNkTICg/UUDy/VfBbO3PcBoU9EYnl0SstdOvb7G+a
+         2HXT/DHEIdOXMBS2IGxrXwDEQSUFnyu01doDpIiKZprnEr/DlR38bfGr7s/ymjXs8oo0
+         L4ofMdhONoeyLzNJps+vsNDHggxQp7T1TGQdgB3TdfHgMNe8g0okSwHbjlehL4KmGEpz
+         RhiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792877123; x=1793481923;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FT/A/DgEc/1PdtmIuuiz9qA/j5kLnlOWpR51oppuUm0=;
-        b=PJYWuNNlQpSt8KBfL/xGyxb6fIOWby3rSUGC0jg43iMvNKZNPf7alCgFOrYb4df7PL
-         ifw3ljrhA+Ym+lrq7jYs030V1A3T+ZCBXckclKtklKieUXwW38YJYKVtMYYKrvYRSEsg
-         bK+3oqRS5/g/5phpYve+khs8n/M/gEQKOy3NjZhL6H1M9TfcbBeCJNC8O2Jn4RJ8iAKe
-         Okono8WUGKFv8RgD7IWDZRCzqVNvZCr1sbZfbn21/snOVo5uaVsfVFs6PaExpZ6F/PTF
-         pnjVhJQQbGulsK5gkX5tYmc1m+h2TvN8DxYYT8cZppmOcNyJrbXZrZJO1W+n3RLIMV3k
-         /qxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFD9p82dLT1fzm+WwVW+l3HyuALwrFR68bYoToE9bVQkc+DvbH4kJsgPrgMuVAmzVxklL5P5TffsT+@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDffeT88Dounew1iVSEFuHb+f8tqJu1dvirilhc08Ai1gJ4jzy
-	h/mMSw6L7uRjwebKqdCD8ql++q2s2aBdBd6FkUf63Y0nao39lDPpMU0DEWNXJEi8+Bg=
-X-Gm-Gg: AYBFou09MxM2FfdZ9okl2qiy4Eoq1HoAWWh82LinmNl695TbHhEq/ZWBWMd0FHiL75a
-	lbPd8ynBKIhYG2jAJpOryq9ggNv/8X6R44Qmj1ru81m6+29ZSI7dBU9rvjpvRs2y2ziVAqmTuwm
-	eJ1DRhRrTiP8N+cnidrMi+HCWe40ht7ovfn0AAToSWZUBotF+gOaa4niAHB1GY4Ji0VKWo+nRox
-	v7q8GG4LmCpgjnme70FbneEtT7vnq+LwiCITxXyim6YWxyeygg+tFO557FtfGM2QLOqTNylt1I3
-	Wd7W9QRRpiKIflelEqeBu3eTr0Q9ZzRVnOPUV463hHEkoZ/f3kRs8bvmtl5bGHo6iMFLVtBbLpE
-	iOXYGs+fDE6FVsPgz2Ey5UMQrmHohK9GNYh2N9ktRAAUxCmRsbvo0hdmw3BAaF7mmpRnVl8D3tl
-	VRe4AiwO797/p+9K3XWGt0ookpr6xu1nYGh7GPvJFyHBEb2SgiBgHCALTISNeQ7IRnoswHjbRu1
-	UbdoKPfz4bby7r1AOgCclzWq06XglieQJOUOHV+8Xs6TcJZHIZle3WHIdUssX5VlbFE38iaXfKx
-	s+FggGQ8On6ecCuIJ7d+XVIW+SuYyXFCAh+lrWJraLaqiB1uwgRkQnAHHYQy0GPef1GgH8GxtkZ
-	N4Cf5XmVNWRymMLDK0pQ=
-X-Received: by 2002:a05:600c:870c:b0:4a5:4589:24e2 with SMTP id 5b1f17b1804b1-4a545892686mr2153365e9.7.1792877123471;
-        Sat, 24 Oct 2026 14:25:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792877122; x=1793481922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RB/QFiAwZFPgogQWGkL0l25DXALwqoy/QmskzaMu3fY=;
+        b=WBqY2dD0EQ7RWgF0gXc0zsFepRSRPwkYy3qi//Ga2zrFgrWh2cAtofGI3Ab5lj2gxl
+         JoH0tL3Tari2L1Xap77TtHY2/RzIGYGWhLxnrT43dpS+0jk5VzibuJ+mvBGZbQ6VycWl
+         YanTRDOJ5b0TrDiIEWe9JN94SRsoJyJywzIKLpCk4IUtRdZ0FBCXwfMdF1iprWQx7/fV
+         BZFkRT0278WlvXWD+uzaShLGFkBu3JP5bhQoRj/5pWRocfzfL7qyu7n1QTdfktgsA8z5
+         IEOunldjN9PwyoeOaevHl46Hnz92D8JFGNkzyP7p9qcnbrNm/fWqstv9gY/jHorwK5ES
+         fUPg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/soJR5LzBAZcjghCIuhbsBKDhF21NReHtHoSavw207bcycRRj4NcAW4soeJft87yxUYWyTjYTf0yI@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZsUzKTEBCrG1PfIgY4/sUeMNmmCYDVCsKY43OWA5PWVcKRCBs
+	WVNTappMm1B920tQ0u5PfbCBEhyi3HUy1DiyRb3sJS5CNzEjY/PBLch17fQQkrJGQ0k=
+X-Gm-Gg: AYBFou10h30Xlqr4DiA3D4qSxxkwcf8zVkG4LPBLOz3CkdGh9nw89fiLePmMZhlWosj
+	i8u8J1NlBulfDZRhSKxZMQ83Go+Bvp9yIMifPjGJv7dU53HW2X4G+huufarM1RjYY9tP0nQ5uQE
+	O/Xros5Iyyrfqqzw3qGN5RVPhtOoollhHGjdIT5ryXXFjCNOT/iuciwxCnWSKHRa2B+2DgwPwQM
+	klrg+aZZRqMpu7qgc37i9yB10HQ8pRve2f+zvhyOFENKJRI8pRGc3p28JrVD+a/D367a6t6bRMn
+	TXdIO/TtM2qttXuoyZ+QdvJEmDw9RrptYND0ATt7gFdxXNb7y8bt+nFUeRNjTXrSX+1atOELAHh
+	2Fn/66D9TdmqTkP0pZLC3THMNnzCh2JU+td56+5xtSykJuPY3ho3RgaprOJFTM2+oNOEuIk26Qy
+	LtZC41fPSLb3eKUX7zeQGhGTvT0Bc+PlKYWtZOAlXpP5MzKyQPie7uBBN2+7ByCgYO+N3dyiWCe
+	90H0URdyTeYPFiwNmZlC5Q7tHtk8dDWEbnVwrph+4NKlcTvx681tn0HRp3XsCC7IMtNTX0hcGyt
+	Z4MpsukzC6Bi1DRRptZjl7EYQu1oy+Zxli7+CgFgo2WlkkrKc2yRHv43LlfUoag8g+CF2F8tMA=
+	=
+X-Received: by 2002:a05:600c:6289:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a35ac9f52cmr43172355e9.22.1792877122133;
+        Sat, 24 Oct 2026 14:25:22 -0700 (PDT)
 Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2ed5a2sm79597135e9.15.2026.10.24.14.25.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2ed5a2sm79597135e9.15.2026.10.24.14.25.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 24 Oct 2026 14:25:23 -0700 (PDT)
+        Sat, 24 Oct 2026 14:25:21 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: Andi Shyti <andi.shyti@kernel.org>
 Cc: Paul Cercueil <paul@crapouillou.net>,
@@ -91,12 +90,10 @@ Cc: Paul Cercueil <paul@crapouillou.net>,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v2 2/2] dt-bindings: i2c: ingenic,i2c: Add the X1600
-Date: Sat, 24 Oct 2026 23:25:20 +0200
-Message-ID: <20261024212520.91401-3-olivier@mgcrea.io>
+Subject: [PATCH v2 0/2] i2c: jz4780: Program the spike filter, add the X1600
+Date: Sat, 24 Oct 2026 23:25:18 +0200
+Message-ID: <20261024212520.91401-1-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261024212520.91401-1-olivier@mgcrea.io>
-References: <20261024212520.91401-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,28 +105,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X1600's I2C controller has the X1000's registers, so it falls back
-to ingenic,x1000-i2c.
+v1 said the X1600 moved the SDA set-up register from 0x94 to 0xa0. It
+didn't: as Nikolaus pointed out from the programming manuals, SDASU is
+at 0x94 on the X1000, X1830 and X1600 alike, and 0xa0 is the spike
+suppression length. v1 worked by accident, by writing the set-up value
+into the spike filter.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- Documentation/devicetree/bindings/i2c/ingenic,i2c.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+What was wrong on the HiBy R1: started from the vendor kernel, the
+filter held 116 APB cycles, longer than SCL's high period at 400 kHz
+(102 cycles at 140 MHz), and every transfer lost arbitration. Setting
+the filter by hand before single reads, transfers work from 1 to 100
+cycles and fail from 110 up, whatever SDASU holds (1 to 100 tried). A
+cold boot leaves it at its reset value of 1 and works.
 
-diff --git a/Documentation/devicetree/bindings/i2c/ingenic,i2c.yaml b/Documentation/devicetree/bindings/i2c/ingenic,i2c.yaml
-index b61fdc9548d8..9004f9799fd0 100644
---- a/Documentation/devicetree/bindings/i2c/ingenic,i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/ingenic,i2c.yaml
-@@ -24,6 +24,9 @@ properties:
-       - items:
-           - const: ingenic,jz4780-i2c
-           - const: ingenic,jz4770-i2c
-+      - items:
-+          - const: ingenic,x1600-i2c
-+          - const: ingenic,x1000-i2c
- 
-   reg:
-     maxItems: 1
--- 
+So patch 1 programs the filter for every X1000-class SoC, to the 50 ns
+of the I2C specification, and the X1600 needs no driver change: patch 2
+adds its compatible with a fallback to ingenic,x1000-i2c.
+
+Changes since v1:
+- Replace "Add support for the X1600" (wrong register) with a fix to
+  the spike filter for all X1000-class SoCs.
+- The binding now falls back to ingenic,x1000-i2c.
+- Rebased on i2c/i2c-next.
+
+v1: https://lore.kernel.org/all/20261023081452.44118-1-olivier@mgcrea.io/
+
+Olivier Louvignes (2):
+  i2c: jz4780: Program the spike suppression length
+  dt-bindings: i2c: ingenic,i2c: Add the X1600
+
+ .../devicetree/bindings/i2c/ingenic,i2c.yaml         |  3 +++
+ drivers/i2c/busses/i2c-jz4780.c                      | 12 ++++++++++++
+ 2 files changed, 15 insertions(+)
+
+
+base-commit: 03a5cffc818695157414456dec695f7c30b9ffff
+--
 2.39.5
 
