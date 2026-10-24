@@ -1,46 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792837142;
-	b=njwyA/LsdfHsk7B2xJZrSmUMNVGZeAcOq78ZJjeIywXhw1NwJ5/QLxq9P0MqIFeRXR65
-	 sikcUivuKs0n+W9CeiWTFHXQ6w9WqTZY4d18GQKzqmx3Vg1V3+Qot7RVhjZmK8qwoLiqF
-	 I3HEFkjGLR1JnDk25ar9rNddB8b21PqbRYnSB3AFYnkNz1dfw+bDNM9EbaNhI9hvtNsH/
-	 frHO32pOuG56U34syicnwbA6yCW2p2pstgW6IwAO2cg8kX2Pz0L90Jm57penTxLbFErSt
-	 vunAr/LsaisnnSJhhL4WIS21gfBHAAuKKLrmgYa62itqOLLLUcP3Wv+CDr4tbmZEXFg==
+	t=1792838053;
+	b=Ua39IOfVpEakxuzAOiaLewmm/nAKDZJojU9W7EtVEVdeOksFbIajbepmVn42vOUieyUH
+	 ek5QfKff1sSmq2bJwgJi4mZNFCurBWZxylqcvsNxcNaRHzFN2BqKaksIyBPdaqo+VjUAT
+	 LZrHtXws5A7fCbeQNHp5TmVSPlYwkaFnAfeBA63ZSH/wjzpm8ZyOBJB+qWoF06qiTN7Wu
+	 1KEU7Pbl8c6JBRjZYFY9KiY05a2UwjuniFY7kqgjAFXNEzMgO8jRJE6yY8PMdFSn1TltV
+	 wrDgkBqty8MstnfvWy90rjeVYgHMY5pBwfwN/t9ZzrWOVZWyoNB4IViD6NUZJjSVt/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792837142;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=mhr9qgQE0EJPZKLcMiOOrsxk2svu6ZzTrQM8BT1dCJc=;
-	b=0+2UESIIG3BInTyKbVrcajl7uTOQaHOr7iEyzRIT+FLFVgmjgN21ruqa69FaJWwlPx4O
-	 CoqHs3GHqiGPNsoXCoa8vv8z6+jp5zcoZfHrdDrsHR8eZ+30lx8k7umLW42OR9A/pdrwd
-	 U5KD3i4g141Kd3dCPWHfWksInQ5a6AsS3V6eW+mTPI/Soga6jnBN03iXtZg6QovU/8Nmc
-	 USXa63jfPXordy9JAszvGbUdVIl3WgQih5FWtR8ugBUh1JjFide6zTkTq7YM8m1DyZDQf
-	 VOratzZEjD69Y1UjvZ/UG3MFaQMxDcALl8ST65BlG/9hCEYWJOOwTE7fmHJE/AiMoNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838053;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
+	b=qwHK/GcdAS7sSRkj5PbnRfCI2B5NG/sKgp3YIc54K4cuyC+ptmyfk780Ei3xle8g16+9
+	 +Zh+pCjaPztIZ/8/td2iT9TsMl+ikX9JZ3Olpt92IP2PHjHUADHOdLdHSHyo4dvX2hYfN
+	 Qpp9Oekyb6pZJGbGEa4Jnrfur+OoKv36nM43YZ5C1Cid0sCXbRLAbsWXzXpVdRYdOyQPg
+	 HNhGvJvkkYDfkvbgS+kQ9tTelI5h0z2QbFsWLgyeR9XzjWFitNJDrcLiEiV3uZ7LSRGw8
+	 l6sBnmH01OWPCgRrjRg7TJ57v7EWl5orEv1EwrvYXf6asTCAAI6jEE1JxFETlEACr8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ultrarisc.com;
-	spf=pass smtp.mailfrom=ultrarisc.com;
-	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=GRuZkjY5;
-	arc=none smtp.remote-ip=218.76.62.146
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C29D606A31B
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 10:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C29D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E14606A31B
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 10:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E14606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=GRuZkjY5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b060ec084so1005286f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=mhr9qgQE0EJPZKLcMiOOrsxk2svu6ZzTr
-	QM8BT1dCJc=; b=GRuZkjY54UQOdhvq+HKxgcbh1/Of2eUSAgruFfFKI2RC7k1KX
-	K33vGdyftDFkIq6Na7CcyFo3Ai2nJ2XRv0FEWKwiBgeKgQXCoy2SyTSmHtkDmH8T
-	DCWTnMh4erjSfRZxZtTQQeeSH6MKUOqjUiXQPgTOZC7Y2N8IKcFljoIwdI=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwCnYwX9hdxqkrMCAA--.881S2;
-	Sat, 24 Oct 2026 18:18:49 +0800 (CST)
+        d=gmail.com; s=20251104; t=1792838051; x=1793442851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
+        b=YKgowXyLWBwrg7I++LDP8W180Q8ZiqniVMWkvWW4/5iaBMr2iDr91+cTkh1b3/m4Sv
+         Lea1ql+KOC7EtGE/uJDarJSmpxelzCuHTBIVoce3HLGWesCapXCXBPK9wSsP4E9oE/KW
+         um9D8prowuOKuB8EHFlLI02pStgKNsLQlt8oLKhxZaLgwHA23puRZtrvnWuj4ryDGqBW
+         /K7w/9mWlK8LlfeKJwraHbK5ByzlQAUDD8SUCv0eVS0kEIfuyUEm3uF1LnCMQ7em7eJM
+         vYoWLjhE3IDHpIyjKzsBeLYQawgqgrYl48ympnOHRm4P5/xSLaN4WpJWZpdvcR04WiXf
+         8VOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792838051; x=1793442851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
+        b=ggxC6bvmBNNzl/k4YcaN1ebG9QpECROzTaAXThaK12N8ueZ3dU917QosIz9jGv6DPq
+         g1RZIIJcqLG9nFawxTDumoKMCje7KTiMoXQiOiJZfF2He2knHTlHwTGzTvovF8m/0Bt6
+         d7CkHCCrPrawu6nA3s72+bvaofBEwNsMh3TqlaVsViKe4Lw9SCwS3RQe/TxNx+vcUKen
+         Rwg5gMvzARD/sIzLg9lqQd0/TQ6u1R8r6pwb/KzAm/VkNEMCfJj5LrRsVQi4JJI5garU
+         CXg8QXdKbzOQ6hpufnSkaF8ZjWIQt+vd/cDImtMKlMVfER8ikYhy1+9OMRq3OmU4axlZ
+         7cYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ5w/4sA0INj5LaMeGWL1I243JdMyNbOg0Sla7lBWgd9GGuFHCk3961YtWyOUAdVqeBfu5hTZrvxdc@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJWULKJSynjNWR1LR7muHnj8VSO3bkD445bwRvHI7f9L6v9tS8
+	cvtNcCe+J1hBtiKgmd7zDucVcbhqsG/PEoHBos7qANWEDdxsk3/klN4Y
+X-Gm-Gg: AYBFou2zsTliMqjfn/bYbQ1V051SZ286YHs8i8Re//0u1eIm1KLx4xH5xPixA24+3FP
+	obtCtoIY8Q30BaDVHXTqf4UAjBfdaubOpTSnXCVmCUx8zb49IDYRx02x1ozK0xQL+Xf0wfGnc2r
+	fIO/Qv9R7bqU/xixmknJ/1GOS6KjZCsJxv9FXJkaKDn78eu+BGq9yx7t+2sZi4neBWNhEMujZ4w
+	xgmX203l51MYlsjm3Go1uomK9p2KSfrtUimIFQJ5p3pprAWF8gArbKGHLD8At7X6hVOODWUtNP1
+	UvM1LGL4731of17N/B4d9HKhiXbWKcgjX6c0NILNDAj1sJ+fQ2EyfMjLwHGCRYocJefPH6H4BSM
+	efzBNm1PY+MP1ipAcNC3MNOKKrhdXEa//U1e2Ru+d3wgxkPNAuFR2kHxzGWBSMnJ+3S7KPG2G/H
+	GkgB/gkFwCpID80RyxWFvdHsDxKOf7mC54KRCJ0OLB1VKt2/ggBrvKvEUbmaVLIMr2mzDDBvSwW
+	u8FY3wahjkrFminrwT5PGSgpfhExvYv5BCQDEgnSOrpFaqkO+6bJ9eezzMlzApBQexvlrkqfNn3
+	l4jRkEVsNPUDYul+eySCaG9YEWx514htljXbCU55jjUO64Q7aLzGUPT3Ph4X27AbF67AydXPm38
+	5uM41WuM=
+X-Received: by 2002:a05:6000:2312:b0:48e:e98:8b64 with SMTP id ffacd0b85a97d-48e3eb8b45bmr2346024f8f.19.1792838051352;
+        Sat, 24 Oct 2026 03:34:11 -0700 (PDT)
+Received: from threadripper-fedora-workstation (d-zg2-024.globalnet.hr. [213.149.37.24])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm3544825f8f.39.2026.10.24.03.34.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 03:34:10 -0700 (PDT)
+From: Robert Marko <robimarko@gmail.com>
+To: andersson@kernel.org,
+	abelvesa@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	konradybcio@kernel.org,
+	taniya.das@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Robert Marko <robimarko@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: clocks: qcom,gcc-ipq8074: allow CMN PLL bias clocks
+Date: Sat, 24 Oct 2026 12:33:09 +0200
+Message-ID: <20261024103401.761125-1-robimarko@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,69 +107,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 5/7] riscv: dts: ultrarisc: Add initial device tree
- for UltraRISC DP1000
-From: Xincheng Ji <jixincheng@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Xincheng Ji <jixincheng@ultrarisc.com>, devicetree@vger.kernel.org, 
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <sashiko-outbox-183627@kernel.org>
-References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
- <20261024-ultrarisc-dts-v6-5-c62994d8a114@ultrarisc.com>
- <sashiko-outbox-183627@kernel.org>
-Date: Sat, 24 Oct 2026 18:18:38 +0800
-Message-Id: <179283711841.2737981.7618602420031907655.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837118; l=893;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=L946K+8csVVFcJRZMouriLB15lZ6UCCrxKjDXCdTcrE=;
- b=aUiU6l6gLNmzjFU2VEY2F89m6bh9b253J2I1VbEzX2lkDDXMbu7cvpQ/WJ8JkkJncic125ca+
- 49aLkbY55aMAlwL/ltz5cxXNx2WW4DOwU2Qrcm2RwZwraqqPa9f9cR/
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-CM-TRANSID:AQAAfwCnYwX9hdxqkrMCAA--.881S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gr45AFWfKFyDWr4UuryfZwb_yoWfXFcEgF
-	WIyasrCw4DGrs5GanIkrs0qr1Fyr4xGF18Jr1YkrnxtrW5JFsrJFW8tr1SvFyIq3y7tF90
-	9ryfWanrKr1IgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbI8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Jr0_
-	Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Jr0_Gr
-	1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
-	cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
-	ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
-	Jw1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	AVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvj
-	fUehL0UUUUU
-X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQAHDmrYYSwADQAgsa
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-24 09:43 +0000, sashiko-bot@kernel.org wrote:
-> The duplicated @9000000 suffix causes dtc to fail compilation in
-> scripts/dtc/checks.c:check_node_name_format() when building any board
-> device tree that includes dp1000.dtsi:
-> 
->     if (strchr(get_unitname(node), '@'))
->         FAIL(c, dti, node, "multiple '@' characters in node name");
-> 
-> It also causes check_simple_bus_reg() and dtbs_check validation to fail
-> because the unit-address does not match the reg property address.
-> 
-Thanks for catching these mistakes, and sorry for the careless errors.
+CMN PLL in IPQ8074 provides 2 fixed clocks to the GCC clock controller.
+In order to describe this in DTS, allow passing them as the inputs to GCC.
 
-I've fixed the PLIC node name and moved the M0 PHY node rename into
-the M0 board patch for v7. Both board DTBs now compile successfully.
+This has a benefit that it avoids doing a global matching by name.
 
-I'll review the changes and validate each patch more carefully before
-sending future revisions.
+Signed-off-by: Robert Marko <robimarko@gmail.com>
+---
+ Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks,
-Xincheng
-
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
+index 00d7df75b3d6..d489c6332e6c 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
+@@ -29,6 +29,8 @@ properties:
+       - description: sleep clock
+       - description: Gen3 QMP PCIe PHY PIPE clock
+       - description: Gen2 QMP PCIe PHY PIPE clock
++      - description: 300 MHz bias clock from CMN PLL
++      - description: 416.5 MHz NSS NoC bias clock from CMN PLL
+ 
+   clock-names:
+     items:
+@@ -36,6 +38,8 @@ properties:
+       - const: sleep_clk
+       - const: pcie0_pipe
+       - const: pcie1_pipe
++      - const: bias_pll_cc_clk
++      - const: bias_pll_nss_noc_clk
+ 
+ required:
+   - compatible
 -- 
-Xincheng Ji <jixincheng@ultrarisc.com>
+2.56.0
 
