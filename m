@@ -1,54 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792853158;
-	b=E5ogMhLInnGjcBaJCs+8/b6K6vZu1mfZNR9g9RUoQGzoUAf89Y0jCTmwu6H9JyS8it+Q
-	 V/eL4LF3Jgf3XSd6t13oc++NwRBcY/WGrE2P+EWT9C1pLrMTz9PHDr6nNYV5oUTWfClmK
-	 1Jr0wWLdMdn/AIc6VD9YCS5sIiQa4ECWGKKYR5cEd3vmUROTqFYkOX95kuV6wtZ+SBfMR
-	 oDLSD8o3QNIRkhzGHGO6FY8ozhGPVFy79fxTMGLKmEaOqseYgJ5xO0lNh3wDbxC6gJ7ua
-	 9SA11zpWewXPnR8ucCOaDplCa168fiMyslcLtejsXptntKamJeljdSAPPeIGLsDTaJw==
+	t=1792853880;
+	b=WSKXW3bNrTwIaG2o2JOp4usf62q8r5OC0J1Rdt9+k1GYWBvfGk6yxMgCZqXZwEv97ien
+	 mKRKYbp+zCWqzKdjh/9LXb17sEM8+wmL1a+XkxKN8ZTU+3P5UupqmT5ntTB9nZRL9GJyk
+	 QaIuEbEK7fUt7U4y5gqfcIhjSpWoXQVdFEDczGGStyBpY1S2ZIt67q5SmD4BaYmFTCzzy
+	 FaqBpVDFqN8AriiGWaWrEffnExQ/ejA92mQ3mV7Y74kkGW7GctfaRgUTf4pYcTo6ZGG+S
+	 NTKAwjmrx6Bw6toyLAuOsT6PE8k8bIVRam4XWsBCFjISQrHd3kFgtZXKNbQEufOK+uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792853158;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ht4YxbyeqGa1db/OQDgQujtesPQ8TVSqALdRMTOwsLs=;
-	b=tinqgbF/BPZIG8CXYKGNMCDbGDqSxLITkoz8TsAhA5ca+K7+4RogivzAyPYxkcizlT9X
-	 HgOwqeeHsK3Sr2JW3+ZGV9MAZStWprX+JdGggCSEAjeDSfpHGDwYdjqvhQx29k4xJfmQb
-	 23KYDoYxIz/qfehrUCMVXN4Cto3Avv7PgUn4k0N/jxnRUhhfpFB/AhgIgSkf9ZsLevllO
-	 4/bFiLfd6KjMW/hcvBA0ePNLoOnOpnI6/RN+wpsdTTTslqxBnWtltNPsfGnnlbMgwg3xQ
-	 WivOiI5F0FOQzN2WcOMppocz9NQ010oVhuA0xt3i8CsKH3hZ9I5noHxlNdA8E8jlMlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792853880;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+	b=Op8sD6IYsZcdnnY3atdLB+ok31av50c6rrjFR+EFH2XycRH44uwQeG/EAPmubvhdWOVd
+	 X1Zz9sFHFzqtrnaYn+/Cb7HpGKc/JF7BTE3wuy9vKnexRRCE9uUwepLKRnhFtefzIzxse
+	 KLUm8iGJZYuAZxyxdd/8aL7hITf1lIRgUXw7BbDjcRtxrQryr8fW/de6oxJsMWoM77n40
+	 6zUpA3udHo3Pz/343iBCrNax2QKoSrnkMWE6W0uluu20C/BOk9WH83sM/s/pvC5cBG27I
+	 scpNUW9iP/EitoW7BpsKeSftG6cgkFXCAwtILI8SwxQtFOMycnhtJzNOPEgN8mRpQOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=DPmSQd9l;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nMxrjfJN;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00F2606A31B;
-	Sat, 24 Oct 2026 14:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F00F2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC04B606A31E
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 14:57:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC04B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=DPmSQd9l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1792853110;
-	bh=Ht4YxbyeqGa1db/OQDgQujtesPQ8TVSqALdRMTOwsLs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DPmSQd9l1TQiRD/eGQSXusE1uIUEOaoLi4dOC3T3mPp0epM6IqOnZmenHs/4sPj15
-	 9DEn/m617tc5hC/qnezROhHiH+HZ8oEy8ezg0Knzo1p26OUzReK4tN4JCEI1UjduQr
-	 Sw5sB/1E+CW44zRHCvbaM3f5hVJtlDVW4lyU/lqDPVQI10O2NEGyT8jIaiZsAVI7Lg
-	 n0H+IdvD50UgM0DCxbtgpU7yTlxlbfDxs/ADQnMoFPlWS7B8Dw1tCjQRwWHo9ti7Mh
-	 34A61b9jXK8juDNzZ6MtkR2qji2yP95+oYTsqcN0knYnWkPBsKYHVbh/70LX9PnoM+
-	 l5jTWcKV/harA==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id C54ECB225CF1;
-	Sat, 24 Oct 2026 16:45:07 +0200 (CEST)
-Message-ID: <813d3f4a-66a9-48df-b9de-6a46b9388d0a@freeshell.de>
-Date: Sat, 24 Oct 2026 07:45:00 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nMxrjfJN
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c45111bebso875474f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 07:57:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792853878; x=1793458678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+        b=nMxrjfJNFph/Sn/t1gDc23RmnPkpjH+f+gr0HSGObz4xkS4q0QihM+B/1cDxlUhIc4
+         sDnXXIVtwJjBhP1yY8aNpREl5r+B7A4jWr2NCudhe+0CNu17U9Gk6VfIx/grCZUKKtKc
+         /dzpm80Vot/uFLoyRD6Jn9h8f2/vRSrUL9uPREc4Egg1f3vhEnSRZTxWYqVUlwJ2sv0H
+         5LkZ1zS21msqH3aYZ8/ehsgHVCRF1e+PsododjaTmJrBRtBk836CgY4/Jym1DGWzVowO
+         9AFPAoXjhH0iRMvv3u6TzGC2IERxaRuJTCl+zZF0NMjyleTjpdGU33dQzkTIHKFTNmy2
+         OkQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792853878; x=1793458678;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0glh7Tm3hCTaLHkk+iB1ZlmshEZqwQSCyeFUL075eSY=;
+        b=bhpSFEhi6QHF5WRuBdu5WxHFeFP9UBFQTcuKKuazgQIxDWE19pAKJ0cs0tP/wkvfxu
+         oOIEmQKsyyCFa1pJ6MGGgh+Ay2fCxX2dW8600LC3m8oMIR4wKEGqPneUlWMdCQSofdOF
+         wcwaZwVUKZ2RuaTKyk6w0kHNn4pGT4Ng2JZy+3NsqX09/U8/tYSN48PVeWBd82soY4jg
+         Iq6TUHw69QuFEY7h9CjKotBcCtRTB+lCuoKgQNcNiLygLCo21NIlrSk/b/lE4qyhvTut
+         GiMJtKncGlN8qtGrmQT2Y2/A7rrdgLKWqKMWJ1dhoVcwbk1o30hHsbiugVLg1dC1gz9f
+         9eAQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyJ2PXIi6p1UT/hB02MfXc/fhWbs/hnWRCUfHpJh/8mVsOMbUilaJk6/sniXcL62Kgj+8G0Pexl67X@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhytB69Af5GkdXNzyK4jouSl2Oyc1LO0holF+DgzJ7TP8HecX5
+	pAbpVGpVl7wNQSQz0IyUJ01VckUjO8dttm+W0FhhD4DGtXZpIGXZmx+fI8Dk
+X-Gm-Gg: AYBFou2LKQsw0R2FfagoV4imDr0WZYkXjJNHpgXfvJR1j892LkjwbRpIwG6q3Y8tye3
+	FtJmryxKsKy68Zvbbys+ATDxUHJbiWZugKReQmNGdMKapAcWDXgzPAdAsMumlvuBXYnNS01vRoU
+	39pGEbN/m6fdMCBovlLHNn1lZsfgY8x9xHz+ZxesjpzNQvEWNLBz4DmjNY51F3FZHzRPiXA7xkz
+	BsSkMkZnSN/YS/+caRAaJNUhflycXYr97bGsR1a+lV20ibwNvW7J/nY7nVZBP4SY60NAZkPH6xm
+	bkxArTaR68cxXRy9imQetAPU+CEl2L7R3BZWXtofAUaYPy0AgSMqnomZN2fm7IMjfhYQ0yetivD
+	0rPj1z4lL1YxS2nD4TMDy2hRKe+Vy4K97Howhxe4mh52gMySEVLKSSJyyJhyitPikqu5+EL48u8
+	0AnI7gsePU9xeWYZ4+WzkX1r15FtTHfKBDQg2vLMSV2wBhkMs+6+BPTcUq5qvugdselYxs1r8tz
+	dN1cRwb/UAfTHNyqMqqHDgD4taI3ZTug19kOwbY7nZZG+juL/RvMZ7AadFnrLhi7NcizW4ypJHI
+	dvfNkNVCnVkDqJ1TNfptpMDqrAKTmWHXSDGvi20p52P5P0yxf58YhH+Ojw==
+X-Received: by 2002:a05:600c:198e:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4a35acafde7mr31200265e9.30.1792853878070;
+        Sat, 24 Oct 2026 07:57:58 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbc718sm50327315e9.2.2026.10.24.07.57.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 24 Oct 2026 07:57:57 -0700 (PDT)
+Message-ID: <7d35f41a-c72b-4743-b8a4-0ba715be6756@gmail.com>
+Date: Sat, 24 Oct 2026 16:57:55 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,109 +93,113 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes
- bootph-pre-ram
-To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>, Yixun Lan <dlan@kernel.org>,
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+ <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
+ <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+ <fcb86c33-1893-47bb-80eb-20acd65f3805@oss.qualcomm.com>
+ <o2zmplbtmoueumw3iqejfsdmucp5f66woa5hmw3vodbe66reab@syn2ashugzyg>
 Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+In-Reply-To: <o2zmplbtmoueumw3iqejfsdmucp5f66woa5hmw3vodbe66reab@syn2ashugzyg>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Hung-Chun,
+On 10/24/26 1:36 AM, Dmitry Baryshkov wrote:
+> On Fri, Oct 23, 2026 at 03:16:27AM +0530, Akhil P Oommen wrote:
+>>
+>> On 10/22/2026 6:24 PM, Anna Maniscalco wrote:
+>>> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
+>>>> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
+>>>>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+>>>>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+>>>>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+>>>>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+>>>>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+>>>>>>>>>> In order to associate the SID used by LPAC to it's own domain and
+>>>>>>>>>> context bank we need a separate node on the DTS.
+>>>>>>>>> Can we use iommu-map instead of adding a new device using the same
+>>>>>>>>> addresses? You provide zero explanations, but it seems like you are
+>>>>>>>>> trying to separate a part of the GPU into a separate device, but it's
+>>>>>>>>> unnecessary.
+>>>>>>>> What I was trying to say is that we need to map sid0 and sid1 to different
+>>>>>>>> context banks.
+>>>>>>>>
+>>>>>>>>   From what I recall, so long as we use the same dt node, the iommu drivert
+>>>>>>>> provides no way of doing this.
+>>>>>>>>
+>>>>>>>> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
+>>>>>>>> and secure.
+>>>>>>>>
+>>>>>>>> The address on the lpac device doesn't really matter. I have very limted
+>>>>>>>> knowledge of DTSs but I think we could just leave it out altogether?
+>>>>>>> I think, you were poined to the Glymur Iris patches. Another option is
+>>>>>>> the QDA driver being submitted too. Both ot them use iommu-map to
+>>>>>>> describe the same usecase - a set of SIDs which are used by the device
+>>>>>>> but which should not be a part of the defaut set. With it in place you
+>>>>>>> don't need to have separate qcom,lpac devices, no additional properties,
+>>>>>>> etc.
+>>>>>>>
+>>>>>>> I'd recommend following the same approach.
+>>>>>> iiuc, the conclusion in this recent thread is to use child nodes for a
+>>>>>> similar case:
+>>>>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+>>>>> Let me check internally.
+>>>> After a brief discussion: it can be either, depending on what suites
+>>>> better (and if you can persuade DMA / IOMMU maintainers to let one extra
+>>>> bus or not).
+>>>>
+>>> One thing sashiko is pointing out is that new dt should work with hold kernel so, in general moving sid1 from there would break it since old kernels don't know how to handle them separately.
+> The rule is the opposite: new kernels must continue to work with the old
+> DTs. If the new DT breaks with the older kernel, just specify it in the
+> cover letter so that Bjorn doesn't merge DT changes before the driver
+> changes find the way into his tree.
+Ah ok thanks for clarifying that.
+>
+>> + Bjorn/Konrad
+>>
+>> Not sure how strict is the requirement for compatibility with older kernel version. An
+>> option in your case could be just do an override in the board dts file of the
+>> Steam Frame.
+> Anyway, would it be a problem? Does GPU normally use SID 1? Or is it
+> only used by the LPAC?
+It is a problem because, even if nothing touches the LPAC ring, it's 
+firmware
+will still initialize and that will cause page faults if sid1 isn't setup.
+>
+>> -Akhil.
+>>
+>>> Not sure how to address this.
+>>>
+>>> Best regards,
 
-On 10/24/26 02:25, Hung-Chun Tseng wrote:
-> On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
-> that stage sets up DRAM. This series marks the nodes it needs for that
-> bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
-> in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
-> the PMIC rails and the SPI NOR in the board files.
-> 
-> The vendor confirmed that the BootROM itself does not access the
-> EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
-> sets up SDRAM, and DRAM cannot be trained without it.
-> 
-> Testing: all K1 DTBs build, and dtbs_check is clean for them with and
-> without this series.
-> 
-> I used Claude to help read the U-Boot SPL and the device trees. I
-> checked the changes and ran dtbs_check myself.
-> 
-> Changes in v3:
-> - Reword both commit messages to describe the hardware instead of what
->   an SPL does, and drop the U-Boot paragraph from patch 1 (E)
-> - Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
-> - Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
-> - Drop the Assisted-by tags, see commit 1e035297ffda
-> - Keep E's Reviewed-by on both patches, as the changes are the ones
->   discussed on v2
-> - Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
-> 
-> Changes in v2:
-> - Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
-> - Rebase onto the spacemit dt-for-next branch
-> - Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
-> 
-> [1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
-> 
-> Hung-Chun Tseng (2):
->   riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
->   riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-> 
->  arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  5 +++++
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  5 +++++
->  arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  6 ++++++
->  arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  6 ++++++
->  arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
->  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
->  arch/riscv/boot/dts/spacemit/k1.dtsi              | 14 ++++++++++++++
->  7 files changed, 47 insertions(+)
-> 
-> 
-> base-commit: d05c6236496071916e19012cda7149465f15e66e
 
-The series is looking good although I now have a nitpick about patch
-organization since it is acknowledged that BootROM does not setup or
-access DRAM. BootROM may load code that does not setup or access DRAM.
-At the moment the patches are strictly split on "K1 SoC" and "Per-board"
-while the one stated intention is DRAM initialization after some of the
-peripherals BootROM may have configured also; that makes sense not
-knowing the split between BootROM and other things and so I ask to
-change this.
+Best regards,
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-Split the patches in this series so we have a clearly defined initial
-changeset that does "Extend the BootROM configured peripherals to device
-tree bootph-pre-ram hints for any SPL loaded by that BootROM in SD,
-eMMC, and SPI NOR boot modes". Capture all the BootROM SPL loader flows
-that we can understand (USB missing currently? please add this) from
-documentation, and with active participation from the vendor for any
-questions. If that is an excessive burden then please let me know I will
-look more closely at and give specific suggestions to be more helpful.
-
-If you choose to keep patches for anything else that you want to add
-(e.g. DRAM setup) extra beyond the basis of "BootROM" extension, defer
-to the maintainer preference if they want it or not. I'm okay with "DRAM
-setup" being an add-on with this series, but just as well for my
-interest it certainly belongs in U-Boot if not in Linux. There may be
-different requirements for linuxboot, oreboot, etc.
-
-Aside, if the add-on patch is rejected by the maintainer here, it will
-be then the basis for import to U-Boot (this is a different discussion)
-and we can refer to the mailing list archive link; for the accepted
-patches anyways these can be imported early to U-Boot and dropped there
-when devicetree-rebasing will receive the changes.
-
-I do not wish to delay anything but it seems to me to be important that
-there is a distinction between describing the environment in which we
-find ourselves subsequent to hardware BootROM, and any other extra
-additions that we have for the most likely use (U-Boot SPL, linuxboot,
-oreboot, whatever it is that wants DRAM initialized).
-
--E
