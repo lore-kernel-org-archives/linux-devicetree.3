@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833965;
-	b=BZB697cnWY8s7r9+Ctduqbncvk/utduf5JBgJxGdGAyIaj4E+3C8Nhyx6wTFThXXusf/
-	 Pau315F8vdyrJ7Ca4SvnhHUZCEt61z07o6G+QbqxTeBBpD/7z5BK38c+aOURcA1sij4PS
-	 xkterwXsqJtQdx7Ltxn4nV/SfVVXB9rrnKsVZayKbZipDppgvCo7YLU5acS9oRxDiuGJA
-	 ZS7PZcj8Xh6A9bA5XaoBy4hhcdZnem/yqlO08wRD5te50SBWZ4I/d52EavwNgcfPy2Q6j
-	 3d2mqa4hICPHQ/ekNDlZyw1juBWE+33JALIb9k35l9DxWFrdJohZrndfBxKrsnPn4bw==
+	t=1792833969;
+	b=xKp1GsuWWgfueiajiOPKIz+AcmJHGI6UXoGcHnhgnJrbPPC2YlnkHLAaQtiWfnFl6ACQ
+	 /eetfbVPGnen5AX/OMWEeC//UTMGk2uw4M88dggxw+VmxWSvCxz2p41Rfa43RHtZ4gidR
+	 W5fhyAJT7xMDpFcTCx9Z0zDt9Z3LPfnWMenGAPim2eCybOe8fe+ds7CDs8mDVVx8WNjYR
+	 Aj6qfTkRWzyhRVIudzfWf/38VpVbzQl30OwSOE8IeY4rX5LzcNM80TO3RIH+8B+i7EZ8+
+	 Mefi6gpmwD+4oeqyAzfnkfLppT3/wTMY4k/OKKx1Td99q54Kr/kJU1t3Ct/rsq9Vx5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833965;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792833969;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-	b=IkzzPZe4ek9ZO3D5r6pysz0uWbT931v1gIrY007bIUrU+fsVg8d3RXOknxCOwa/GtFjF
-	 FlGpr8qypL6XimzJgGQCT1L7jEfPR7C8y4R3eZvBIgIAgvpYTXmHIayYwo5SXgq2vO9jM
-	 bbCtmpKph2GOjDFEjxczJgl2AhP8e9jHYMNQs3e4bYT63MlFf7ZYlvllSa+Dt0fhn8Qmx
-	 Yuab6pX+Tzmb7C/ZtKbevvi82RCT2p5wN41ALODvalDY1/fCn8BOR+6bsQPJ9h1xAHZmV
-	 WTcjM8pLZVA72DC8FTVsWPqCAG04uEkowgwEhVzK12TxSIVLEVli+zsPIeRkuRq0t7w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=X5ZJMOxvmROQRxk8HIdSLxRbfib4kWxlGWVgMaC6xl4=;
+	b=cvySuqQRdF9q0v1UobPShDiFjQ37ZQmdpM89w/bNjLKyX75jnRU4WiHJ+pnmKRmUhXg/
+	 arXy734verEFhmV0SOayDm+502AaQxmg3I5Y3Co2a/E/ZlHhGcztiR89wA4JM2IVSQnGB
+	 GLWz7MhbhEwr6J6k+xIpyBlDVlio7/4B6nup04bqz1HOuvUuwTwt00pFA0Q0v0X3VeEV0
+	 6yBuveVNRovRYu4OekF2L1jfTZJfltfiWo1StrmcXqY28M21uh3kWqR1LbQ/jCojPzR6f
+	 O9KdttnVY4ofAr49N/2wyr56DQROcFzPJf/SOPXdej7LRk23Y0dyOOIpFhZ/nreg1Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K9k1Ywog;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="W51/Lg0e";
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64C606A31D
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F64C606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6F0606A321
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:26:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F6F0606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K9k1Ywog
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e812e2b31bso9278075ad.3
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 02:26:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W51/Lg0e
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so1196175a91.2
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 02:26:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792833964; x=1793438764; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-        b=K9k1YwogFvOOLanyVvhG+A0pGAz3/TOKZKGBKQbinaGMvITLnldoPfssMmSqBrKrzz
-         mJNBVSkJPpqAV0Svhw3lcV1eqXLYa0OLfhV/j9ANUwHanaIxz8a4+g86lfQXln8gz7Q+
-         oFuwAXLJy0jgzdf2U3jvzwUQ4XypEbwl+RisEOahJLlS/jfx+g6ZXSZX65qvAe10CeS2
-         hXq9CkoAkPBw6ZSosy8xiUKO1+qyi7JOAwdGfkhXNo+9gngD4L88Cj3yMrHrRnJ1MJ4Q
-         YlbvH1ADKI5TFTRJDGKIbjuTBaNW+uz9EWcCHl8epHeub9J9wslSMVS9TKiUBB0EjZ6f
-         JdPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792833964; x=1793438764;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792833967; x=1793438767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
-        b=2f2/4vQrYqzRB6pgPwxpW2pFgDQCWn13fi/ahyK3t23nz3MGWLlvWSUzrJj4kBHxpG
-         SXRDo3xKXXB/L9QejXCQfiyi+zPVe4jvFn9TEifrU0VolCZzNwFl1VKUfj0akstnOJbk
-         OXRhZpU83A105gDbgHbD+cxeJnwsxatAf7x0pZbAztgvhqazMx3CLMWDjgKxUvmcrf7E
-         a00n4yChjqZ+6ryw8L21bUzAqtj7H46pblz77K+1efZntK5dxQ2EPN3CPiNBfZnmpj5D
-         nMfJR+xhL9vmj/Wm/zzHsi9itZXYKWxeZfX3ROY0ADi9vmjvU2Ouw0TpQGcKLLobxOZu
-         BBsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9ZK6N3M0MDtVstAn5jHtSwTuUzzWdZKBYu5+KnWO2m+g927yuW4IL1eB90B212arlwApxZuRgEDNq@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSxaDuERNe2BXO1PkXVLKx7Zl9xchfr5lS1Io+7JOwx9eMtp1L
-	m9WHnexf2cRGL/JnMuMvAMANUtlND8AS94cibC6/l7jN5uVy4DR5ZrjN
-X-Gm-Gg: AYBFou1Bu3Ltlpk3+ABfjzrZJHwxtsjQGhhWa2aTFf8XH1gF+wyLeQe5++sfJRN7CxU
-	of5szUquP3GXXCSUXseuRR+lzWm2g4WQFLBHcs+ccRLghI4tKK8tc1rvElMh52Lmb99qNp2O2Vd
-	CUxRIxMPPyR265WvSycvWiJwiNnz5kan/OxWt3Rzc3PwpXMJcfGaVM8KWD20kmM98IEgjOqxyF/
-	8dg8ViHtyRJKQHpcnXwPWJsSHfC/7csJqWDRIyUeF6Iz3wHL33tiyPnPh3EGto8xmcczRVg6jXW
-	CHkn4HklhmirIZn0ct8GMs+uNHjK0yI9BRtRyvVlFmCCGWqrMLDB2EL9W3XuSJul0KG5sTVTnNb
-	5E0IaFUsZ7CGQ2/LMx9njG8wmQ8/UhQCGfgbL2Ez5QeCVByYwGvoZNFUOcsPtRO/4NDdF2Biy8Y
-	kXcr6Vmd6dYREyEuD5KUN6Se7WFvcun2CJBdHLwiqFd7Jt5YRJ0DaGq+xcpvYf83KDe3D1rt3BT
-	NfEwUu++CHpRISUFgGyLbq8C+BCxqMrUbcNu7SW0LRYJ2LPE2DCrPwAZCHUQuOwnrrs523cDSg5
-	GFVLZ5fpgIL+gi/NYLLLbHiu5le/B8xmr9nwQd888F8fsxMfZFXIEFvFtOnuPuwB0diCmZT7o7y
-	MRsYByhEiluq+BY8jTkci38/FlmS0EGgdF7A=
-X-Received: by 2002:a17:90b:5823:b0:3ac:8897:7b98 with SMTP id 98e67ed59e1d1-3adeae7644emr1496748a91.32.1792833964552;
-        Sat, 24 Oct 2026 02:26:04 -0700 (PDT)
+        bh=X5ZJMOxvmROQRxk8HIdSLxRbfib4kWxlGWVgMaC6xl4=;
+        b=W51/Lg0ea8WRSyIB0CJF2KEH9Qk7M2dEWp9lsvfMd7bQJY7HcFidcEvC+em4DZ0lt2
+         IT7CCEPqMjCpfL37yynWiaiGae/9+zv8bx+WcYtfLd6ZfERu6i850uKXTX2agM+0VNb2
+         uZB/fNOt4nZLPzwv/pS1NYkn+vddbGFvS+Rdpe8jR7Z/2TBpeomGQEPZZNWjsL3fAwP+
+         ybF+oK0wrHdaaqan3af4IxAev31MekMNQAqRgpY5Ip5hw6XM7SDV9xGzHXVL8T2xioAz
+         6zX7dnNBzMWpWnQLOB8e/JlCwrh8OTS4S3gQ0vmjSr8aXSYNEQrHk5WvJxC4t3aWfwE3
+         VuWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792833967; x=1793438767;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X5ZJMOxvmROQRxk8HIdSLxRbfib4kWxlGWVgMaC6xl4=;
+        b=Dtu/Ld3k5ExPf1o7Aq2lF08nCAK890p8vP+7bWs1XzZ5w7jLENGq6+n6XfFdJ/OLFn
+         WzwEiIV9Us797NWyhGNrVxTxWHDSvDqqYVmBTdVx+STQ6qkulxztnMPehi1KnfkdKPRh
+         WJPiHAzAIZkojsvQ+GBNptpwUTkFrodIlMsNfeNfz3gbVeBb6SimYDQVW91j8LZ14wQi
+         vIvdxYATri9hI/AC8h3CwUu6ypi0YRL5ksJGE5xL/V9z/vu/Bx42Uz8EcKliiN9J/lB0
+         RjVEHJmtWBEGMbz4lN6/5ShiDmfoLegVYThBuKuDUq/2ExxSMLiivxAXoQQ57Lz+Kd0A
+         IWqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWqlSAkhkqqLcWcfCN5CWYJwsggWReDiX4WlvBCL3KT7fQzcnJvdXnqkaWDh8uy1POWopiLf8u9XL+@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxhffa8Mo/AAC5fkPJfDcq/HV1/PXu1YVWI8uV89ecVvjmyxBJ
+	l7XgUFvlv0V4u9QdIxfT11GwwQHeR/h4RGcf5t25XUqFjml94Yv83PIV
+X-Gm-Gg: AYBFou2LdD8VLwcL16QQvbvyyl8623Szx6o/SCwnaB7Zp4n7SaIUNYMsFn7uMe9mkba
+	n6aqOnFhtDsJsLQQZLldI9iewoy70cH6ai1O8qeZnhmN+FNjAVfZnQs8fvnymV6yRL2mTGFZh5V
+	J9fFsuUVMhMBB8DFV9RGcnK70ECQ8FgkSAWlBKldBd8AWDIeUCI1E7jhSQ3HXE+hXidsp4MkAZJ
+	dvinoKhIprUHc3oEwdiZG5gSi85vqyjnOf8Y7E/ZGFL4qYKfxzV/7fF3YJX8uWAXxNnyc6dylmc
+	1GPf6AptQ8evVxuK/ICeciXypkODcel29szM1mxWBT2aagcufrb96vCXVi8yiqlumkvyQcaCqpd
+	sAH2UkJ1OTIMqQMELnfYt8kSfaqXykRYzu8ErUe94yDTM0Yu+L369OQNQGsGSvD1EAbHQJIHzKD
+	CeB9R+ZBW+orK+RkmdDWiv4W7dJNLiWmHTlFFMBMzB87dPFlKTylm+yvVTZRA3DevqL/lek7wrs
+	WmhhckgPnN/8IdfbFOSuSqma5J1P0MMPTLdRROSGl2F7Zn1avNHJTfK6mgpLmAe8XlYm0gA3yHN
+	npnQIuPbeYEAzGMhggOG+Grzmk4UX1ZPxJvxwpd9A8fxWSEBMx4GPnyjsIhWZ8Eh+hsdb+cKETs
+	JqiVHBH1pxwM/qpOpx5n29qgInxRSmVfMR+g=
+X-Received: by 2002:a17:90b:1812:b0:3aa:fdad:7d6e with SMTP id 98e67ed59e1d1-3adeac04979mr1472063a91.10.1792833967618;
+        Sat, 24 Oct 2026 02:26:07 -0700 (PDT)
 Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm1392312a91.1.2026.10.24.02.26.00
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm1392312a91.1.2026.10.24.02.26.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:26:03 -0700 (PDT)
+        Sat, 24 Oct 2026 02:26:07 -0700 (PDT)
 From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 To: Yixun Lan <dlan@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -92,10 +93,12 @@ Cc: Paul Walmsley <pjw@kernel.org>,
 	linux-riscv@lists.infradead.org,
 	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
-Date: Sat, 24 Oct 2026 17:25:56 +0800
-Message-ID: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+Subject: [PATCH v3 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+Date: Sat, 24 Oct 2026 17:25:57 +0800
+Message-ID: <20261024092558.143621-2-alan.tseng.cs@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,54 +110,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
-that stage sets up DRAM. This series marks the nodes it needs for that
-bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
-in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
-the PMIC rails and the SPI NOR in the board files.
+The K1 BootROM loads the next boot stage from SD, eMMC or SPI NOR into
+SRAM, and that stage brings up DRAM. To do so it needs the fixed clocks,
+the clock and reset controllers, the console UART, the boot media
+controllers (sdhci0, eMMC and QSPI), and two I2C buses that every K1
+board wires the same way: i2c2 to the EEPROM that holds the DRAM
+configuration, and i2c8 to the PMIC that supplies the SoC.
 
-The vendor confirmed that the BootROM itself does not access the
-EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
-sets up SDRAM, and DRAM cannot be trained without it.
+Mark these nodes bootph-pre-ram, the phase that sets up SDRAM.
 
-Testing: all K1 DTBs build, and dtbs_check is clean for them with and
-without this series.
+Reviewed-by: E Shattow <e@freeshell.de>
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+---
+ arch/riscv/boot/dts/spacemit/k1.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-I used Claude to help read the U-Boot SPL and the device trees. I
-checked the changes and ran dtbs_check myself.
-
-Changes in v3:
-- Reword both commit messages to describe the hardware instead of what
-  an SPL does, and drop the U-Boot paragraph from patch 1 (E)
-- Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
-- Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
-- Drop the Assisted-by tags, see commit 1e035297ffda
-- Keep E's Reviewed-by on both patches, as the changes are the ones
-  discussed on v2
-- Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
-
-Changes in v2:
-- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
-- Rebase onto the spacemit dt-for-next branch
-- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
-
-[1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
-
-Hung-Chun Tseng (2):
-  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi              | 14 ++++++++++++++
- 7 files changed, 47 insertions(+)
-
-
-base-commit: d05c6236496071916e19012cda7149465f15e66e
+diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+index 3fabfd3411..8a954f56a9 100644
+--- a/arch/riscv/boot/dts/spacemit/k1.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+@@ -322,6 +322,7 @@ cluster1_l2_cache: l2-cache1 {
+ 	clocks {
+ 		vctcxo_1m: clock-1m {
+ 			compatible = "fixed-clock";
++			bootph-pre-ram;
+ 			clock-frequency = <1000000>;
+ 			clock-output-names = "vctcxo_1m";
+ 			#clock-cells = <0>;
+@@ -329,6 +330,7 @@ vctcxo_1m: clock-1m {
+ 
+ 		vctcxo_24m: clock-24m {
+ 			compatible = "fixed-clock";
++			bootph-pre-ram;
+ 			clock-frequency = <24000000>;
+ 			clock-output-names = "vctcxo_24m";
+ 			#clock-cells = <0>;
+@@ -336,6 +338,7 @@ vctcxo_24m: clock-24m {
+ 
+ 		vctcxo_3m: clock-3m {
+ 			compatible = "fixed-clock";
++			bootph-pre-ram;
+ 			clock-frequency = <3000000>;
+ 			clock-output-names = "vctcxo_3m";
+ 			#clock-cells = <0>;
+@@ -343,6 +346,7 @@ vctcxo_3m: clock-3m {
+ 
+ 		osc_32k: clock-32k {
+ 			compatible = "fixed-clock";
++			bootph-pre-ram;
+ 			clock-frequency = <32768>;
+ 			clock-output-names = "osc_32k";
+ 			#clock-cells = <0>;
+@@ -544,6 +548,7 @@ i2c1: i2c@d4011000 {
+ 		i2c2: i2c@d4012000 {
+ 			compatible = "spacemit,k1-i2c";
+ 			reg = <0x0 0xd4012000 0x0 0x38>;
++			bootph-pre-ram;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			clocks = <&syscon_apbc CLK_TWSI2>,
+@@ -586,6 +591,7 @@ i2c5: i2c@d4013800 {
+ 		syscon_apbc: system-controller@d4015000 {
+ 			compatible = "spacemit,k1-syscon-apbc";
+ 			reg = <0x0 0xd4015000 0x0 0x1000>;
++			bootph-pre-ram;
+ 			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+ 				 <&vctcxo_24m>;
+ 			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+@@ -726,6 +732,7 @@ i2c7: i2c@d401d000 {
+ 		i2c8: i2c@d401d800 {
+ 			compatible = "spacemit,k1-i2c";
+ 			reg = <0x0 0xd401d800 0x0 0x38>;
++			bootph-pre-ram;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			clocks = <&syscon_apbc CLK_TWSI8>,
+@@ -857,6 +864,7 @@ pwm19: pwm@d4022c00 {
+ 		syscon_mpmu: system-controller@d4050000 {
+ 			compatible = "spacemit,k1-syscon-mpmu";
+ 			reg = <0x0 0xd4050000 0x0 0x209c>;
++			bootph-pre-ram;
+ 			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+ 				 <&vctcxo_24m>;
+ 			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+@@ -869,6 +877,7 @@ syscon_mpmu: system-controller@d4050000 {
+ 		pll: clock-controller@d4090000 {
+ 			compatible = "spacemit,k1-pll";
+ 			reg = <0x0 0xd4090000 0x0 0x1000>;
++			bootph-pre-ram;
+ 			clocks = <&vctcxo_24m>;
+ 			spacemit,mpmu = <&syscon_mpmu>;
+ 			#clock-cells = <1>;
+@@ -877,6 +886,7 @@ pll: clock-controller@d4090000 {
+ 		syscon_apmu: system-controller@d4282800 {
+ 			compatible = "spacemit,k1-syscon-apmu";
+ 			reg = <0x0 0xd4282800 0x0 0x400>;
++			bootph-pre-ram;
+ 			clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>,
+ 				 <&vctcxo_24m>;
+ 			clock-names = "osc", "vctcxo_1m", "vctcxo_3m",
+@@ -956,6 +966,7 @@ uart0: serial@d4017000 {
+ 				compatible = "spacemit,k1-uart",
+ 					     "intel,xscale-uart";
+ 				reg = <0x0 0xd4017000 0x0 0x100>;
++				bootph-pre-ram;
+ 				clocks = <&syscon_apbc CLK_UART0>,
+ 					 <&syscon_apbc CLK_UART0_BUS>;
+ 				clock-names = "core", "bus";
+@@ -1085,6 +1096,7 @@ qspi: spi@d420c000 {
+ 				reg = <0x0 0xd420c000 0x0 0x1000>,
+ 				      <0x0 0xb8000000 0x0 0xc00000>;
+ 				reg-names = "QuadSPI", "QuadSPI-memory";
++				bootph-pre-ram;
+ 				clocks = <&syscon_apmu CLK_QSPI_BUS>,
+ 					 <&syscon_apmu CLK_QSPI>;
+ 				clock-names = "qspi_en", "qspi";
+@@ -1328,6 +1340,7 @@ usb_dwc3: usb@c0a00000 {
+ 			sdhci0: mmc@d4280000 {
+ 				compatible = "spacemit,k1-sdhci";
+ 				reg = <0x0 0xd4280000 0x0 0x200>;
++				bootph-pre-ram;
+ 				clocks = <&syscon_apmu CLK_SDH_AXI>,
+ 					 <&syscon_apmu CLK_SDH0>;
+ 				clock-names = "core", "io";
+@@ -1341,6 +1354,7 @@ sdhci0: mmc@d4280000 {
+ 			emmc: mmc@d4281000 {
+ 				compatible = "spacemit,k1-sdhci";
+ 				reg = <0x0 0xd4281000 0x0 0x200>;
++				bootph-pre-ram;
+ 				clocks = <&syscon_apmu CLK_SDH_AXI>,
+ 					 <&syscon_apmu CLK_SDH2>;
+ 				clock-names = "core", "io";
 -- 
 2.43.0
 
