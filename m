@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792825221;
-	b=bBv7Z1PMn1tSL1d4nlNDGTBSvDIx7DTaUmhjsteNaw4+Ne4g9vhLd3x9D2R9aL2iHZ5l
-	 dpU2pebv+S7DmTVoMzMwk0YZ/nMbmmPGNC2+1XnuJTp6Qa3DUJc6yBIfaPVSNIGpTfyT5
-	 AYhJIbopWea/Net7uPAjczLM769OfjybyR6iCbjx8GGZ7N5dvATrDKSxWs1jZr6DpLtQt
-	 /jYD+1gbE+zUf+1NCyTrISP2tLDy7v7sf7vm0S3gqAlaR3jl6bpXwBBCA8UZZM0VkrW8t
-	 v2ZeOVWC2+nShISjTRTTBWKj60HgbmK5Hq7BTis9AzW9asJ/ePZkvGWkLZxK1li6y7A==
+	t=1792827212;
+	b=sUbFFJ3rzMXMWg2IzMQeIJSbtsh5/A7cnSuWcwcbgV9ZR0jEXC6kY8va1Jk1hDY3ZVm8
+	 LCRskR79+ww7dRlaPR00X94yeERBoO0t3jZFpcjhRAJrdjJdCEVNgUHFeJFs3kmkgSY9F
+	 cP+cqWTSoVmV6g3BwQY0Kxw922O49SodFzZuW9nYdYtMvnhniwhoEW9cyKt7ig1h9BqmE
+	 VLZz+uQNiK3FfcMHKHrBBqoc1ZrA43p7l9Kk2vqsqBotniyayKB3KH0LC91OImrSbpSqv
+	 r9WuAqq6peTtQTjIJhl6+uDNcAC1kbncpIsJxY3f8+UTdEaDc0ikncG8rzrHlNMTdow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792825221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792827212;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-	b=hxPwE6CTPAaLMYCvIeJJtP5Pmn3XEv4MDr7z4uwrFlCSIuSbmmqGH6jZh1lGfGkCE549
-	 kMoIYLOZPUtOBrg7Mbgx1JEkMYSLjsuueI0+9NWSl/BWqgyBR5BDX45e+p9pqNXVCtZ6z
-	 u6Y5Rw4uDHE7x1CoPBMSRBRUCt6i2HvndPfTco2VeVtsEWqV7KGeGDe6cXZ0+/emxQghk
-	 LF6gLPFhMRLbi5wOv78oFuLi+VkaA6cdaDbgc/7b9eIfjLb2tzPRSCojaUFuu/2U7tbEk
-	 +flgLQlMfRlVc/PoILBH6MeO8kw3+qgJJX2YIrnViOvzd3V7HfZLeTaB40atJ9H206Q==
+	bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
+	b=3s5nSOwdU+ox+wwhjJNxaLQlMOCcl2Vp3XELGRwAmZmNo6aYLYKvV51kxUfIsbW3C7xr
+	 HZf7OIa/N4s2XPCClp4SlN95ifkK19RqyZtERN6OiA9pzYHaldFta27nqKiRH2lS6YgWk
+	 9+tchkRAcj66RBSZ9OjBF431+CXLSxj2SvM+SK43IDmC4ItS/WAEFnbyUdJxbpwYREMjj
+	 cdoGAAGwc1EKLhXoAjWbG1pjRPnaAMlsSRix/wdkyh6LimGfdDTQYaCbsIi5n7MyfVU43
+	 rmn/eJaNcmBGegtg8sr1DfNV2Yw3C6HDe8IJPv11RWD19xN3erv1EJqnLpprMXkiKCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UYn1LBbD;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="h/nhEG57";
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0085C606A322
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 07:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0085C606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124E3606A326
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 07:33:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124E3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UYn1LBbD
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e10a70540so887119f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 00:00:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h/nhEG57
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1397a4855beso91648c88.2
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 00:33:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792825209; x=1793430009; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792827211; x=1793432011; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-        b=UYn1LBbD088fngO6Ea5WxjmUHVrrWb6podP0F3wiQvM0gVTs5C42y7l+i9kh6QpE9k
-         /6WBRyKDvXQlY3n4SKrYRVJ+pRqc6Bl0PdS8Jsk4QAU93686VXi7iEfITXHWb3zoEUAp
-         ffWyEkT9StzVDCMcGlBUQkv9QbPpYc8HQ+9SYO0UNTkec2wBNqRk8cl+ccUONziuYIYX
-         P4RNH7IX+S8Eq5yDP450hPZtzCwBzIPxEIqDC2l/peyBPk7kL5dc8ghmfruKe47puiRE
-         e04ghXYmkrCDjWeoVpKvxdUIGkUT5t97QMJg5jcVsnG7tcvK0gPgxd9V63dqrtH4BULX
-         yINw==
+        bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
+        b=h/nhEG57h+Lg9OmydDnC/PAhyAF82HN17Hdx+qIDe2YpQQU5kl4a2iiwUz4tzpE67O
+         HuMCnjk/TvX5Q+2ITw5ISZfE03NVA9+Te3+g5F5iSELzfkOgpefeB68vPuQliqcp7VLm
+         OPOPnYTtexrTe6z87YGKpZmovoPlz3f5G1WDLAZ7hz+76BUlhI8WHS9Qd2qQ1SOK2zL9
+         zf3PprR++JukjDdlSh2ugTqPCmfYaxROhxdhvm2/hmYqpgIPpXKtWbfNqPMmGpON2XGb
+         Rvdr3ecMyK0ObGDb9DSe15Yezgt5zO7laSJWBU/X2tS6lTdFow+5qAck3ZXeLDxB6jw4
+         uAmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792825209; x=1793430009;
+        d=1e100.net; s=20260707; t=1792827211; x=1793432011;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Y6MPlItNnv+GsY20I3sstkpXLDue914ZTPjNUcDG96g=;
-        b=eeCKDWhz4NTiL7pZZyZpSr1LFKd5am1W+KTr/zDLuCpgYUgFGiDXBe5sRI/cVlpBJH
-         Q6RZM/AlPthxKMC8hWJ1tGjil5qBGu11hBICEP13n+j66fHfi/tsOtmdse9ylfyOB13s
-         ejwgi3c+SJHfGnzUs3GEoKjfhzl2/BrbQ1GXEhVFTKeLpMytCeXODm9tCqhrJI67BDoI
-         KaEz5RSEaQ38bPCcqehuzxmXKPK+IlxsRUxmjBU6wtfDxjmqTOs+nyuz6OjnzIdqpadt
-         KLsu3qeTeTnA0yV/77KVVyC5HqRdLrApf4rl9JXdnyVxoZVge4JtyLsi0tgj8wEqH5ze
-         AZWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwa6XGW7+NYAiSO2rWEW7waiTLAesDskh65Lwhd4QeabSSTk89/JBjXyp7N+VQR/6tWWWVt1mJrymdh@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFUcHQj6e/Z1J9wG4bqVAY/Kg4AcXNgWaYPN0V1Tb7jlblveV7
-	XnDL3vzMj9QwsQ89z8tAfaJg2Z1Ur3aVFRr0tfn+8eb7IpG91wknlWU1
-X-Gm-Gg: AYBFou0/eGX5dzT/qD5AagzeUPp073tlhNjohxBEtYBgqz2NvcK4cHdeYrqbTh7yoWp
-	6BPDMJueC4zPWyHzKzy1wIkwWsp6DmbDtp/Mgx9zRUWGiKOp8nBWDlYQPP8js9J0/VJlIIVt9NC
-	ehm5RkruCZGsqDOOW8iwHwI8gdkrnjsfl7J2Yf9jat2K81lWaYEnK+6uPYTpBltapvkTI1ni1iG
-	OUXie/cP0D/golc4AVUaDpyjtF7TPIIywPEs6zFEcq1HHyhVdncF8KC6UaLrfWmZFOwQAR3adBq
-	i4ep11Q8775ekt9NMYOA/LKEQyG+nP8xgf/B23+suk85C7FcydMnbWYJXjNhW6xZA4FpEZNB2yT
-	gHS+8tHbePZs0YvouO0fTglldGJ4c0lKdx6d92stuoxhxzlQcnwhF18lsS4MTZPEPRKxi2OgzxZ
-	wS/BPEaIk+FAbBCiJxo1Tpnk0q9yTaHMyQSDa919h+9CgUTEcsiXKl5UjjcCaaNwhoTlF9Wd+pr
-	bHeIw3rs4/pYDLqZ3yzgMeMD65cVuQMii02/7rfpv00QTIWTieFJ9EdmoyrDQhH8Ba0/vJIG9Yv
-	jn5oDWwl+agiRfVvzVmGwYqbkidtvc1MR845KpGcL6n6N/ta/78hCAmp0VMNEy9OuzkLCFCTj72
-	ppJ3ik9F1zSdy4AZOTOHEz0bLtt+vzWsqv04eBfvipxF1tnKvtNkae/gvI3BD2sJ0aFqvL5iKAv
-	ws71gR5eFVIOmKYg7lAnGHuyCWF+unkU1W1E/ildHurcNyF5IDGlEZuRpcAUdxDw==
-X-Received: by 2002:a05:600c:6748:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a35aca53camr16321375e9.15.1792825209014;
-        Sat, 24 Oct 2026 00:00:09 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm100667405e9.1.2026.10.24.00.00.08
+        bh=EizUEZn6zIBi8G1IeAjstYEBnHs91ety8PPfTu13Tuo=;
+        b=e3iweLVNNZtOw9QQzTn86gprH3XLJz5WJ4kjpCZjbd1ZYT1BbV3Em+zYgeFHn3aYxE
+         eImCSCLsNBzLtNat+CawpBLkQTjZxtDvmz4u7PW7RRjNpYSneEMJBI3T4U9mIxRksSSa
+         g3OwFFYJrRMJvKjTnHfXuAFwKQsEmqs89DRh8jY9C9hYg8ds7JPkZmA2MCXtwOZDRyg9
+         Qow7HyVu7kPiWmDR3lpH0WEJOZYgrUeuznSnTsl4DI7ZqOTFindhS7CovPGEIFCE55f+
+         ns8Sm8v5N689iUEGpneFG0issi3UnAar27bW38Xx1hX9S09FxvG+6mxmKcVI4aXMiaMZ
+         4ylg==
+X-Forwarded-Encrypted: i=1; AKwUvBxREHOckRqJLZeTdXdnrPEh9fILEf3B/s7SGqpPEl0Ftj4XmFA8QtJjMA71Xs+OcyBkj272+9zDYnuU@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4u9GswXpEE0XGGrl1rJCqgg0/JUfF9BssMPjFiJgFgXRroJ07
+	78Aw2vdKlwsDBLrkgAOqEi39hpqypZvLSDb7B0hcLmYb7+LeS2W0Bhp9
+X-Gm-Gg: AYBFou1J1xm4HmKLiec1eiFDs4ddPHDouAaujxztjser8tlC4BQqI8Yl8+KO+NEwEgs
+	iRUPt5PiFO5kxPyGveUGAx1YJaDa6kwj51V6l/iTwuG3YzDiUv8F//A0h6ZzArJP/WKJ0tvEENW
+	ZSD4Y+sUH+GTQ9jt7nBCuPujy0OnMlMNMFy95B6Gx6EzXaetXebmX165sNnuFrqGHd37eUzsnpZ
+	Wpq725TK3w3B0DtLpuAJSRVcTNwECvQ1i3nIdrDF6K+3/RQiEtgGN7PzyJLsBVLdrN94kL9t4L7
+	/Pau1u9HkpljM6kfSWJJ5PAPG0MLtJviC80di7yllDVsD1RM3IZ3oCxie9x7+on+Mh/D3j1aJ6g
+	QXtJ6kdaL/+8BOfAUXStSsMuQyJT8baG/2iP9i7eMYmapEPkG3UecV0T9u0lnLxDRwyTOUylYZA
+	iV1CUs5aWTSUuJ9ocEsZ2SAGjAhsOG0ffPjDObyNVplIJ1CBJaxzvDNsSD6SmjK4OXg/qwWI0YX
+	l1pNx+Ex+GzhNQ3zTrGPw9Tjg0iroPbphxYEA/tq+3ZhvAbvJwPoOzTVSJRdUxK9xVdsMU=
+X-Received: by 2002:a05:701b:4516:20b0:143:5c2a:e45f with SMTP id a92af1059eb24-1991b1423bdmr2509746c88.0.1792827210988;
+        Sat, 24 Oct 2026 00:33:30 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0e8d700sm5402319c88.10.2026.10.24.00.33.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 00:00:08 -0700 (PDT)
-Date: Sat, 24 Oct 2026 09:00:06 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul
- Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261024090006.00002720@gmail.com>
-In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-	<20261024041357.34346-2-olivier@mgcrea.io>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Sat, 24 Oct 2026 00:33:30 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: kaipeng94@gmail.com
+Cc: abelvesa@kernel.org,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v5 0/2] Add device tree for Acer Swift Go Pro AI (SFA14-11)
+Date: Sat, 24 Oct 2026 15:33:24 +0800
+Message-ID: <20261024073326.3018902-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261023180513.36417-1-kaipeng94@gmail.com>
+References: <20261023180513.36417-1-kaipeng94@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,260 +103,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 24 Oct 2026 06:13:57 +0200
-Olivier Louvignes <olivier@mgcrea.io> wrote:
+Hi Kaipeng,
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ecc22d1149d1..bbb63228e330 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -12925,6 +12925,13 @@ F:	include/linux/mfd/ingenic-tcu.h
->  F:	sound/soc/codecs/jz47*
->  F:	sound/soc/jz4740/
->  
-> +INGENIC X1600 ADC DRIVER
-> +M:	Olivier Louvignes <olivier@mgcrea.io>
-> +L:	linux-iio@vger.kernel.org
+Thanks for v5 and for the detailed notes on the eUSB repeaters and the EC — those are very useful.
 
-Drop the list, get_maintainer gets this via the directory.
+Two points from my side.
 
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+On the naming: I'm fine with the model string carrying the retail name, i.e.
 
-The changes above should go into patch 1 (checkpatch will
-raise a warning if you're creating a new file and it's not
-documented in MAINTAINERS).
+    model = "Acer Swift Go Pro AI (SFA14-11)";
 
-> +F:	drivers/iio/adc/ingenic-x1600-adc.c
+For the compatible, though, I think we should choose a name that can be found on the hardware or in the firmware itself, and "acer,swift-sfa14-11" does that: it matches the DMI product name (SFA14-11) combined with the family name Acer itself uses on its support site ("Swift SFA14-11"). The archived retail page lists the Chinese product name, but it doesn't show the device configuration or images, and in practice users identify their machine by the name Windows shows (which comes from the DMI) or through Acer's support site. So my suggestion is: model = "Acer Swift Go Pro AI (SFA14-11)", compatible = "acer,swift-sfa14-11". Note this is also the string quoted earlier in this thread, while v5 uses "acer,swift-go-sfa14-11" in both the binding and the DTS — could we align on one?
 
-And this addition goes into patch 2.
+Second, please add the machine to the QSEECOM allowlist (qcom_scm_qseecom_allowlist) as a separate "firmware: qcom: scm" patch. This device's firmware does not accept keyboard input, so the EFI boot order cannot be configured from the setup UI: without QSEECOM/efivars, the only way to boot Linux is to press F12 and select the entry on every boot. With the allowlist entry, efibootmgr can make Linux the default boot entry. This is the same kind of change other boards carry, e.g. the recent addition by Srinivas [1]. My series has it as a third patch; I'm happy to have it folded into whichever series moves forward.
 
-...
+[1] https://lore.kernel.org/all/20260928145122.1337186-1-srinivas.kandagatla@oss.qualcomm.com/
 
-> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-> new file mode 100644
-> index 000000000000..60683f26c693
-> --- /dev/null
-> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
-> @@ -0,0 +1,226 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * ADC driver for the Ingenic X1600 SoC
-> + *
-
-+ Copyright (c) 2026 YOUR_NAME <YOUR_EMAIL>
-
-> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
-> + * bit, interrupt and 12-bit result. The register layout and the clock set-up
-> + * were read from the vendor 4.4 kernel's driver.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/platform_device.h>
-
-+ bits.h, types.h, array_size.h, cleanup.h, jiffies.h, minmax.h
-
-> +
-> +#define X1600_ADC_REG_ENABLE		0x00
-> +#define X1600_ADC_REG_CTRL		0x08
-> +#define X1600_ADC_REG_STATUS		0x0c
-> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
-> +#define X1600_ADC_REG_CLKDIV		0x20
-> +#define X1600_ADC_REG_STABLE		0x24
-> +
-> +/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
-> +#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
-> +/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
-> +#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
-> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
-> +#define X1600_ADC_CLKDIV_DIV0		GENMASK(7, 0)
-> +#define X1600_ADC_CLKDIV_DIV1		GENMASK(15, 8)
-> +#define X1600_ADC_CLKDIV_DIV2		GENMASK(31, 16)
-> +#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
-> +
-> +#define X1600_ADC_NUM_CHANNELS		4
-> +#define X1600_ADC_VREF_mV		3300
-> +#define X1600_ADC_BITS			12
-> +/* The vendor kernel brings its 140 MHz APB clock down to about this. */
-> +#define X1600_ADC_CLK_RATE		1166667
-> +#define X1600_ADC_TIMEOUT_MS		20
-> +
-> +struct x1600_adc {
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	struct completion done;
-> +	/* Serialises conversions: there is one completion for all channels. */
-> +	struct mutex lock;
-> +};
-> +
-> +static irqreturn_t x1600_adc_irq(int irq, void *data)
-> +{
-> +	struct x1600_adc *adc = data;
-> +	u32 status;
-> +
-> +	status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
-> +	if (!status)
-> +		return IRQ_NONE;
-> +
-> +	writel(status, adc->base + X1600_ADC_REG_STATUS);
-> +	complete(&adc->done);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-> +{
-> +	u32 data;
-> +	int ret = 0;
-
-Reverse xmas tree.
-
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	reinit_completion(&adc->done);
-> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +
-> +	if (!wait_for_completion_timeout(&adc->done,
-> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
-> +		ret = -ETIMEDOUT;
-> +
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
-> +	*val = field_get(X1600_ADC_DATA_MASK(ch), data);
-> +	return 0;
-> +}
-> +
-> +static int x1600_adc_read_raw(struct iio_dev *iio_dev,
-> +			      struct iio_chan_spec const *chan,
-> +			      int *val, int *val2, long mask)
-> +{
-> +	struct x1600_adc *adc = iio_priv(iio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = x1600_adc_read_raw_channel(adc, chan->channel, val);
-> +		return ret ? ret : IIO_VAL_INT;
-
-You can use the Elvis operator here.
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = X1600_ADC_VREF_mV;
-> +		*val2 = X1600_ADC_BITS;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct iio_info x1600_adc_info = {
-> +	.read_raw = x1600_adc_read_raw,
-> +};
-> +
-> +#define X1600_ADC_CHANNEL(ch) {					\
-
-Small nit, but align the \ with the others.
-
-> +	.type = IIO_VOLTAGE,					\
-> +	.indexed = 1,						\
-> +	.channel = (ch),					\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-> +}
-> +
-x
-...
-
-> +	/* Powered down, interrupts masked and cleared, as the vendor does. */
-> +	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
-> +
-> +	rate = clk_get_rate(adc->clk);
-> +	div0 = clamp(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 1UL, 256UL) - 1;
-> +	/* DIV1 and DIV2 as the vendor kernel sets them. */
-> +	writel(FIELD_PREP(X1600_ADC_CLKDIV_DIV0, div0) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV1, 1) |
-> +	       FIELD_PREP(X1600_ADC_CLKDIV_DIV2, 99),
-> +	       adc->base + X1600_ADC_REG_CLKDIV);
-> +	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
-> +	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
-> +	       adc->base + X1600_ADC_REG_STABLE);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
-
-devm_request_irq() already prints an error message on failure, just
-"return ret;" is fine.
-
-> +
-> +	/*
-> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
-> +	 * and powering up takes 2 ms.
-> +	 */
-> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
-> +	fsleep(2000);
-> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
-
-+ blank line.
-
-> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	iio_dev->name = "x1600-adc";
-> +	iio_dev->modes = INDIO_DIRECT_MODE;
-> +	iio_dev->channels = x1600_adc_channels;
-> +	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
-> +	iio_dev->info = &x1600_adc_info;
-> +
-> +	return devm_iio_device_register(dev, iio_dev);
-> +}
-> +
-> +static const struct of_device_id x1600_adc_of_match[] = {
-> +	{ .compatible = "ingenic,x1600-adc" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, x1600_adc_of_match);
-> +
-> +static struct platform_driver x1600_adc_driver = {
-> +	.driver = {
-> +		.name = "ingenic-x1600-adc",
-> +		.of_match_table = x1600_adc_of_match,
-> +	},
-> +	.probe = x1600_adc_probe,
-> +};
-> +module_platform_driver(x1600_adc_driver);
-> +MODULE_DESCRIPTION("ADC driver for the Ingenic X1600 SoC");
-
-MODULE_AUTHOR()?
-
-> +MODULE_LICENSE("GPL");
-
-
-
--- 
-Kind regards,
-Joshua Crofts
+Best regards,
+Jianfeng
