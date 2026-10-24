@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792833971;
-	b=jBXsv0RFspzAa8UYzGT9hNL0HMxPxlN0ep3kjES4HA4/PcihByNO2FZfsJARF67vO8Gj
-	 wRGV9NLPDQ/vXeDZy62kGytswAicIkgdu7eXobNrUtqeMPTJ3ZYQy9sa8chj1fVX24eyI
-	 91GyRbRC8BFPCqZNrxFuS7REh4QUIVOs5lz9SyoGvFIvJpARBkPF54awx8erkXsQ3bKEt
-	 ga5y9xyF3L6aK/qCNnymHZhH+LKDGgzGdtD0HK8peeh4/jZ5zZZw3VKSVkxWK/y5nvu61
-	 T6prTe8DSsTqLlQkKPx1lguvF8w/CJSjGtIYiIahgPqSn12YGPSPf+e1LGV3GoLr0dQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792833971;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-	b=1VlTJ0n+YKCYvdvdfYZK5A+umUWWJ6+hVKUVo1WpwPDIsqpu/RJ89NteU3qIV+xzzmsU
-	 As31mfP7pmszPDGD1vqVuy+vTVFxWtLxVIhMNkCVMuyvUiyTnPdI6IwVpw3FuyUMneWJd
-	 Qv0UrKlynqKVcs5xo91Fw7gA/YFjt9sGD2DrvfGF0CHXnTtmbFSl8ssXbpP3StzCOXeCr
-	 Rv+qjlGfPuxQL1CVd5VUke334a3aKWRR59r/wwhKXhC6+6ZfppMrePPkO7XQBqgrKscsd
-	 RxOpK4vIaxufrGlG31+0NbxhpJBoqAFptiz7UnpW59o/LJypfTBDx85IrIK2aO5j5uQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yom9RZ3l;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792834093;
+	b=BxuMdwSb9MnTgIU8ZR1wjmXlYVTEibhzLZluutSE3/f1rbkbHt1Qgc1GvOuGpmKg5f9+
+	 16t2W9zOtG5UsPvrEoN+xuhUnx7RftR1+Io4jkzSttQKIcDNemKdehUWtDcU3qfQna1aU
+	 //cJMtpd2rPxfhuCs5bjIA3V6YQ5l+owzvsbHUqcaY6JKL9Vmrdm/D0qb/6HekqmOVFx6
+	 RSUKh6cJnKW1LuGE9c6mdpvdnlVUt6X5h4e42u58ggbhd07Iv/XkgeSEAX/bEuQz9TmoP
+	 KmJrC9HmQ/5/03YinhuwKbVqpmq9yzD8nkFZVhzziMvJmLUVogiFQ2p1GvBElbjRlgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834093;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=f8q1SYh7//SkxmxzJ/7bDN4zioppr20oHg8DZ0YDnO/AqFPyTHPrGcKeu5R+1JUIHMoB
+	 TccqlVSwvsN8r9IKGlRwTmBsAfbmZoyP+w0m1G5qgjNf9owvkBUEHvk4CtZ286CPDdeLD
+	 DqzRwWF4KJI/Io3PTNVW85ileN7pMUpgB41HUrIeqLheptzKjEzjcy/duC/kae3+DHTZg
+	 f2w9jnxMDOoZqjQIdroNCU2oF5XbZ8ZoO2aoO1Xh2VgR5aC1xv1YhmdfVBTO5oZLbMZsN
+	 EsPyCPI+NbbmVUAc3bNZd09rVE+l79Ah0oceLvN0bxK2Rpi7PAozhiV9Ve4kamzcV1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyMB54W1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642FA606AC14;
+	Sat, 24 Oct 2026 09:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyMB54W1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792834093;
+	b=Yxab4qHM2d9yXMvDgpitlqdoZxa4kVNEImb8R+grD6Fcg9FGTkvUNguwBOohzL9MRPyx
+	 IM9ocA+ec1/jaX/rtzMBb3Zags2OxRHF4m9niBOFtl1JnkoFxT7qoaBSY7cyMTm9gQ37J
+	 mnUT//E4SVvPV41j3MUf0KVMWqJbig/9pIK4EIA3cqkuMoJDiPvSY+cXm3l+4axE2KE9H
+	 z/lEEj22ZXB4rYN15tD4vEw9Yv3gpcwcykPfbkTe45q/NfqOjd8FJs/WdW7+AQYLXJP2W
+	 mvDsoqjeJuZmICiUJgIehMemg5E1XVMULEsqQfBNx4RCHSOiMLJtiY7rN8PvJ/krV8A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792834093;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	b=Qu/JpBxLj+mo1AeMLV1aAz7/cOxjT3/EyNtddCqQIs/u/3OmHWZ8ej+Us88y+VFZZpP3
+	 rpHIQL5rsv9rTCPv0DuJJJZmPEC3lrHjLZbbHDZp9BkNaKkOuY5mzoYNIcqnPRGtk2bc7
+	 OEYz3x9rMh26JvTcRdX2eJe5VgWhhuiglSzWQpvt7cMTAA4g1Bw9UCIdr4NubitU5CDna
+	 VSLyE1kI7bQeLsEZPngmHgl4PsXF7dllZNqJr9G0qOlzXzJuyZz9JUwRfc7pVSqquTOLK
+	 REJW63jWHbClzJAKD5WcSGgHeaSFMfWJWS5mm0kbW1h1UIUrso6IbIkA7C7aIlQi8EA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C22606A323
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 09:26:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68C22606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Yom9RZ3l
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so881321a91.2
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 02:26:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792833971; x=1793438771; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-        b=Yom9RZ3lbEZ6Ax6ZUwhl8hPNc4gHe8FzT3pYzh7VUa9NX7nyj8Fxc4nAGg6OowU28I
-         mAB7peGMdUBo3782ZWTuQxaVFLn6M1tYp45M3HLyIh7MLlndZwSAVkvxfi97H9VbvniO
-         FOnT3i2BH+38FkBrUl3vmMq2Eiv7SAUrnA3Y9fCZQ+xqhEyb9htEcjaWjualhqBFv91a
-         M95XjryA6L6UNN/Y1iG67QkFBt+I31yHp3CofNImku26o7pse+zLTTtUPL51hYi94QTX
-         ZpNxTSbwICCncT5okcQcXX+EUk6fTGroreTrgj0Vl9aTR9AQbH/87AJ+PmnTWvwEJzZr
-         +FVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792833971; x=1793438771;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=thIlTFdBb0qcp3PAkfPcVWyFY4ERXyIUZczud0xoE2o=;
-        b=PvYtirMLDG+2J985OoTCRskE9HVETodWL+g8kuSZdmLeNbHe9i0poxhozOQ3GvfpyB
-         4UvGsU31KV0J+6mMY8fdCcZrlveKq1K/mOMtWmfeTlsoPYuGZivkUNkhTAxN6kjDDyKD
-         mc/X+R9RVNqkmcwtCo0QQ0YsuveNZbbkzvy+ISTkvRqBcgDDES+4+Vy/7UMVI5d1E/0R
-         nyKssLektjVL7saj9tqodumHPMT7M6BOffdCCPagUj8hWJtt/+kWQ+E8wW3s8WDRSFrY
-         YcVzYqhDG7rj1RXUW4h/qM1ZQ9eC/Rte/bl1bCtQIEyym+m2D7Ccwt0vPJJ36KiisQm8
-         gFHA==
-X-Forwarded-Encrypted: i=1; AKwUvBw31jBK00Zi7X2lFSB/CseEG4wnPPfOg0nRYPu7alfJAp8gcqdeSRpiMx6DhzrZmlDMQJezZ9L1jY6Z@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkh5B7O3XRxi8vdGhfw6XwH+PA3bWT2r+2LsTnObdRcFaTjZm1
-	DJWhA8xO4gjziR3UArXIH8lJwmo5daRl/AfSkos5NvVT0F0WoAPv80k0
-X-Gm-Gg: AYBFou1J/k1ZWe5vchWCVuVSHe58SkuQ3MQLiXetEDu4wHJoFahWkty8Rii05wDeiTr
-	+ZmEp5LL7MBeJSjMm08P/f0X+Z1YrflNBozF4nofgvibnqwYW2OioqVdRLHx7lbG2mKC+WFv4sM
-	BlLC+AWhrc20onWeMp4xUrKN7olNh3L7BTWTetctv+zedr5TQhLiPM/0Yp0imYwYgJ9HWMS3qVM
-	8P35ixWFtMPPzNtysKqjv7sUukw5ywZGUuHDCSeVg3nWlootJXKAt8ll7T594E+B62eOzzTvarL
-	Qfpf1ICSbZK8AVWmKkgmflcoXik7RIIVe7TN7jJEMUdA+8SofF+Ur/oY5u/Iuv2lt3o2xCfTe8+
-	jXIg1JlxqRZr76/SgBMhgGYumYMWjOYnCZKF8hV7fCIGTRRqQdq+ifUh13uHweLoJy1QoqsxvxC
-	AHQ6VZefFS+yKKu79HwLWAToeWWL3CZfxvmbRJJQNYXlr+sTAcSpz/BISh1iabEFl27pOeC2NkH
-	6pwH/hDa2/wIHyX09nkyPySSkjU+B3TLjGxXQRRLA4WTJlwYsxH5E8st8Apfw+NfAOfufa8zVNG
-	m7LMc6qP4vYoECzHaPhT48N45IpkrnMEY1r+t7OJLl9bk5B7+XIySfpwttEoqGSbPWUj8ukm3lS
-	veUxZkkYuBJyobLujSht0hKRD5/vBZoiDg2s=
-X-Received: by 2002:a17:90b:35c6:b0:3ac:8897:7baa with SMTP id 98e67ed59e1d1-3adeae64f23mr1257289a91.40.1792833970704;
-        Sat, 24 Oct 2026 02:26:10 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm1392312a91.1.2026.10.24.02.26.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 02:26:10 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Sat, 24 Oct 2026 17:25:58 +0800
-Message-ID: <20261024092558.143621-3-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 445A61F031E1;
+	Sat, 24 Oct 2026 09:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792834092;
+	bh=DD5cXHejc9AzipRD2mTyljcuDKOHkmSCoSY8IAjL2s8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RyMB54W1giMnzm34xEfrOPKPCVkcpW02nzq2JwVsSV8gYnEA4ZWNPpeuNU1wapjmV
+	 UeJyh8JpOeDC7+lEIwAh08SEs5jGc+KcovMMonuJDRO884xw5Ev7J/kpGEfHxv9xoM
+	 DTAmWpCEcIQOvCb5Q9iwsX1KGqL/0MyJx/5EUYl5DEpqij4uWaai8P0ruvKjgxCujP
+	 94vczpML34RiDO20juYvN7A0VRDNinsCHgkR68e0YGkZQsv9tiZe/GR7wvfoqGneRp
+	 Wmv0lrGW1Ge8w1GmXcm7smKgQ74i3zpw1GFco1rQNvVFaMMaa9LJ7OjyRfSXH/e5nB
+	 feTqe3kuoi95Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C1BD744787;
+	Sat, 24 Oct 2026 09:28:10 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Date: Sat, 24 Oct 2026 17:27:54 +0800
+Subject: [PATCH v6 4/7] dt-bindings: timer: Add UltraRISC DP1000 CLINT
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,316 +82,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-ultrarisc-dts-v6-4-c62994d8a114@ultrarisc.com>
+References: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+In-Reply-To: <20261024-ultrarisc-dts-v6-0-c62994d8a114@ultrarisc.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792834086; l=964;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=H5nCeqGhgsZIHGD5OQKUEdhmWR2MLVPLwQY1q4JBFrk=;
+ b=1bzvBBc2iIDzQR3MOWa2Gg0lJhA/UHzmiTgEugQ+JxjboDo1JWgdtxyst6L8/XUUKGHs5GrmO
+ D04X0p9hEe1B5S/XyVGTvWM7wfC9NZMQ1Mq2zpMAv1kZBYCt0dM+SXi
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-The board EEPROM at 0x50 holds the DRAM configuration (number of chip
-selects, data rate and type), which has to be read before DRAM can be
-trained. The P1 PMIC at 0x41 supplies the CPU core (buck1), the 1.8 V
-rail of the EEPROM (buck3) and the SD card I/O (aldo1), which have to
-be set up before that. Boards that boot from SPI NOR also need the
-flash.
+From: Jia Wang <wangjia@ultrarisc.com>
 
-Mark these board devices bootph-pre-ram on the boards that have them.
+Add compatible string for UltraRISC DP1000 CLINT.
 
-Reviewed-by: E Shattow <e@freeshell.de>
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 6 ++++++
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    | 6 ++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  | 5 +++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  | 6 ++++++
- 6 files changed, 33 insertions(+)
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-index 81c40df2a3..5d1132f5a9 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
-@@ -71,6 +71,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>;
- 		pagesize = <16>;
- 		read-only;
-@@ -100,6 +101,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -113,6 +115,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -127,6 +130,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -155,6 +159,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index 58035d886b..90c4585d94 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -194,6 +194,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <16>;
- 		read-only;
-@@ -223,6 +224,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -236,6 +238,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -250,6 +253,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -278,6 +282,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-index 635e95aad1..93f486ba60 100644
---- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-@@ -208,6 +208,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c04";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC18 */
- 		pagesize = <16>;
- 		read-only;
-@@ -230,6 +231,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -243,6 +245,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -257,6 +260,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -285,6 +289,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -386,6 +391,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 23f32a8a3d..ce7342ed82 100644
---- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -167,6 +167,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		vcc-supply = <&buck3_1v8>; /* EEPROM_VCC1V8 */
- 		pagesize = <8>;
- 		read-only;
-@@ -199,6 +200,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&reg_vcc_4v>;
- 		vin2-supply = <&reg_vcc_4v>;
-@@ -212,6 +214,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -226,6 +229,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -254,6 +258,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -353,6 +358,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index eb77aae9d6..83ad1cc06d 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -158,6 +158,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		pagesize = <16>;
- 		size = <256>;
- 		read-only;
-@@ -187,6 +188,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -200,6 +202,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -214,6 +217,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -242,6 +246,7 @@ buck6 {
- 			};
- 
- 			aldo1_3v3: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 790234f355..dba5f8a021 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -185,6 +185,7 @@ &i2c2 {
- 	eeprom@50 {
- 		compatible = "atmel,24c02";
- 		reg = <0x50>;
-+		bootph-pre-ram;
- 		pagesize = <16>;
- 		size = <256>;
- 		read-only;
-@@ -214,6 +215,7 @@ &i2c8 {
- 	pmic@41 {
- 		compatible = "spacemit,p1";
- 		reg = <0x41>;
-+		bootph-pre-ram;
- 		interrupts = <64>;
- 		vin1-supply = <&vcc4v0>;
- 		vin2-supply = <&vcc4v0>;
-@@ -227,6 +229,7 @@ pmic@41 {
- 
- 		regulators {
- 			buck1_0v9: buck1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
-@@ -241,6 +244,7 @@ buck2 {
- 			};
- 
- 			buck3_1v8: buck3 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <1800000>;
- 				regulator-ramp-delay = <5000>;
-@@ -269,6 +273,7 @@ buck6 {
- 			};
- 
- 			aldo1: aldo1 {
-+				bootph-pre-ram;
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3400000>;
- 				regulator-boot-on;
-@@ -366,6 +371,7 @@ &qspi {
- 	flash@0 {
- 		compatible = "jedec,spi-nor";
- 		reg = <0>;
-+		bootph-pre-ram;
- 		spi-max-frequency = <26500000>;
- 		spi-rx-bus-width = <4>;
- 		spi-tx-bus-width = <4>;
+diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+index 3673836e14de..878f267d089b 100644
+--- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
++++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+@@ -40,6 +40,7 @@ properties:
+               - starfive,jh8100-clint   # StarFive JH8100
+               - starfive,jhb100-clint   # StarFive JHB100
+               - tenstorrent,blackhole-clint # Tenstorrent Blackhole
++              - ultrarisc,dp1000-clint  # UltraRISC DP1000
+           - const: sifive,clint0        # SiFive CLINT v0 IP block
+       - items:
+           - {}
+
 -- 
-2.43.0
+2.34.1
+
 
