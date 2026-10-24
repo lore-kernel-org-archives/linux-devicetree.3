@@ -1,90 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792830189;
-	b=ODnA0BRS8x/iZGyOEF8XxWiep6MkPExQ0AtrrKua+9dGXtcOPi4TqSzhlHMfkrsqDMkE
-	 nSaDuuvuqaNgSLKRGHCRa96fgw11BoEKjfsPDl91gMOaKyzTO1aartNaIyBmBNb02SPl/
-	 UWiaMbSiPjVKvTI1XQY5m6M6Z/KXUPUL0KxVDLYo2AsT0zOYm3Ry88+bn0APsj+uRc+kc
-	 7bZV0RqmvHOkS57dLnImrTsXL/SjMzVO41qlMi04BlMm8mUMFEPQD57wx97kI1GUhabyz
-	 BWY+L6wmG7HipN2Kt2gtNpYqNe/lmA0yHBHXnRQilDFpLrjUPTV9GfLaoK/q5c6hyUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830189;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-	b=btAbFoQTj1oLNvL8xBfmPMnngq6HUy2pQdWyaIJUIOLgRZJcIhZbes1u2reGKbc/9ls4
-	 JB6D83Y5uaeJfzdGBwDdyDMt06Rk61S4FfNfeFpwA8Ojpb+pxXBWDrXMxdQKpceHsltqR
-	 8HCCbeR261vJxMEXdyMLr46tBAEOXAG/G+QW7ypt8YYnZI8VPHM1JEDxjDC5MfPxDSbER
-	 R7pJM+BUGUXrT7ZCw6iiaJiO7jPwFa4nHr5nwczWETOYoE2O0I0DGD0ZHxkv7s3W7s0KD
-	 Vhx3bdsrgA4jvaDHvkLdWaA8TeZz/Lq3cEt0MVlBRIq7l61rvw+DFxIDJF8FvnavCHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW;
-	arc=fail smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792831194;
+	b=i3ue6nhcORXjS576hBBc0i9KRECCchU91+QHRjuJv14tVpHJy5DlNHhT2A45viR445wa
+	 yxwdmY1ity8GP+Wl1MnYK0INxAugjLp/fr7DyFRaBy4IQcgLbHlBWVXcW1QtBmLHvlHNs
+	 9zFHttO2sHL2W37L8B0/KiSymew3m4jnkNYsUh/oIGyE4zHDtSHO9nYNYLtRlkVPHNM8a
+	 T+xTKDumPU8/fSu87wUipUNfi2KE/45XjFcWXg0GXypcCp1g/fLl5XJE08lqWxLkXrrC8
+	 Yu4P9EhHww2ZSVLjDViSLVAfb/vJRnlAMktwssETsWFVFIY8GPLWMK7SQKmRjrn3Y/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792831194;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dk4e+eedEam13wGCRMmw9y+wJRNgv+ioxH1lvC55NVc=;
+	b=Ob4lMQNVhlQxupY6GptG9AV2q7HYAQPQnSOeIuwtvsUgvfOfxUX68B0VHUaJAb2EVeJi
+	 b4dhM5EEsCjXyBYflPVUq3DQsa7JnCZ5gVY34lwAUlLC7Cgg8xUVoFKQAb0cuVjkWdb4a
+	 Nnu0qcxd+/YqSTaMxEPDkrkow93lrwh6qydP3frVaOmz7+B2ZgW4bJWl2IRuv1QLkK9A0
+	 m4Gkv5UsvRujreWHa2HDPFI09yWoA8iubdiyhDROjXQ1LJP+YnKNC0t+JnT3Kne2EvyEW
+	 fdaqxsC44UrjaSGg3F9sBBlGFNtEfMSu0Og4YlGeNpdPVM+ZJxnXffuHLVYg2hDl50g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=d2oFM8mz;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bz7bIU1+;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CC606A31D;
-	Sat, 24 Oct 2026 08:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2CC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763D1606A31A
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 08:39:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 763D1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Ewz0SQBK;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iZ3rjytW
-ARC-Seal: i=1; a=rsa-sha256; t=1792830162; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=iQJsjfbJMxpXE1DdpFwrGdEjDUgp2jPVTW4FVxuYXDDvBkDCs2OBQggqRozc2xYHYd
-    zl8bawHG+GSnOPnq5rAlddwvugYcLunF8tvSq78o//oV70l5mmaaWN9/qgpETN2p3GIF
-    dGA9oW46/pWm7ja/Umd30mssxwSVhYfk8/DcIpnbtWlI0+BQJNA457d/G9mfJCSX/LcE
-    0Kq3INOYXbRTCkmPeTVmW3Gj9YdmFhKPgRjr/+//avhNd3utcgW/KOBuEjsThx/IDPuS
-    b1WXmYJCR9KZl4paN5OdXYzg7AAMB5qN8JwqKjPWGknEgKkOuuKVQUqhdHOF0fm0kbfn
-    qpzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=BfIwc8xZhGZtmm1ZtOLTnU8F9okZGxo2QZxFFJprNf8PLTQ7uxsoQMVoxo6rRJqZX4
-    JJKN8i3tjkirKTvpZiZOaJxutK/xuVhHLkVx/+jEAirimZz3qMOBFDVoFyXzwQZFz8lT
-    h2I9eH8ZCKJEQjlKwbvUbBns2sFNIKpsZdZxmiqTgH2FPRHmiC/atbvxEGLbwJNhP1iI
-    cPG8QXLFbzqb7KVm07H0Ifd8QfbQTa0a7dU4ZVx5u4cTp+JRTRdYvmBIsQBd+dPzqqMF
-    1Rn0bVdp6Ou6nx5jFrRajaPcbxcfpiBtlTKdHwREDUErJDrBfQsgYY/Lv/nLKbDzJSka
-    q5bw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=Ewz0SQBKI9xjG6fbHoUS2zURQbpZk/f6qAYZHCd3iDb2rSgnoEWaFgklRu+8VmoL6+
-    PEM/5/xn38GVfl02iODRL8yjS7i2kzY5WlIqommZgK48xWtc+OM4rxDo69pw7627UrHG
-    BOgsaS0a0zoEhhQ9xzGg6hYqnXaXITqOG/WZNJn2gfKIso/eiFYJkkRlCo6KyPN40VyZ
-    ZuqJgitTVps2u8LfQbkZs87+QbVA3jM/rWC4gzD+DGzhwYE/iUz3S+HJSlAxdD1cbwj7
-    OkVGbDKKdwM3QX/G65wsDLth7d8dc5z7ASMrygtGCYjj8QoSSbJdtS7suS3/xizpqYv1
-    4N3A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792830162;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=F/Qrv5HNX1QraYhmI2aGxi+9HcgIrW3DX/bT4ArG3eI=;
-    b=iZ3rjytWh6zqKBqxxwTvoevyS5G0FCg66imV26P8AbqHzDLX8vxOmACOods6S9rN2V
-    kxEa/H00rQF8ruEo4FDA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2poKzsiNzssJZVJ1W1pIJ42bR3YaapQ9RNEb"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a229O8MfvmV
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Sat, 24 Oct 2026 10:22:41 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=d2oFM8mz;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bz7bIU1+
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 87608EC01A3
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:39:47 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sat, 24 Oct 2026 04:39:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1792831187; x=1792917587; bh=dk4e+eedEa
+	m13wGCRMmw9y+wJRNgv+ioxH1lvC55NVc=; b=d2oFM8mzMyYcif1eaPVo2jhsA7
+	WOwgW93frOdQJXWbBek6F/HwlA89fPCyZy1+CzKUICrNZUSLZuZCRPdZQt2svot1
+	PDRMmceHJa+FVQ+YV7iMWiE6bTWTpZMI5Cd+T1yb3pizlhTxsJwIwCAr40XHEmmm
+	D/Qo1xJlsO11fqA56nQ/vhzGCLiXQQ4JK6rKuSQ8YokFsqRiTP0Bc6kz6oj/9YfX
+	Qvc+f9dEc3S/0HzSfE7gSkIMTsS/YIFMrkM1oXLaaW+frijSi6nCv1RgeGPinXQk
+	wGJlf9JRC/NExOlpstg6J3c6Lw6Vnzyyzsd2WTylb7nQoQrns7o4iJW9DK+A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792831187; x=1792917587; bh=dk4e+eedEam13wGCRMmw9y+wJRNgv+ioxH1
+	lvC55NVc=; b=bz7bIU1+txNPYxcw6Lf6y2182964hZRmqA3nEkHJ+0HuoLm/sIn
+	cXHYP8AIpOf6aFJDkKt6fQThYwLZmvC2bd2KLzkk0tSLt+MF5ev1YYJsIRrzHTID
+	OIHqSzw3Np3o72Wwi/hvWRSgNZUfDToPyCry10csGawEK76ZCc4LKLb4rMPtliWN
+	b6huJOGrdeIRimkS145EzjldJzRBNnsCB0vUtSlL0buL0j0bsf8Dxp9/sJy6KbAd
+	SQoNoLfRuA09s+ce7ZA6l33MYYhHKacqMZHWUIXUhVHfv4lzZoRaG/sHwPQZ/kxT
+	jkhUj5oYvXCS6huEfGe68QteHxznF9PJq5A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792831187; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:eKV2A+rQPczZzbIs5AJOn/5Zpkob7sQuo9AiiGCyWLRuyz0
+	6G2/EosJrxfR3PxGSjlbION4sWltaQqJ9H/1DeKYQbYWgFtcCzBs0Gt5ltDiUaXe
+	1kloFTLMBfIhhac3cdY2WQEsqi4Gqwdr2B/5aB/OXWsM8G5R68OE7vjAil68fsYv
+	LFv29FMDuoWCq4qBwAj6u9nUSqbgCXhjwGfWjQ0mwDy9RFyLvE/JnPVnRYMBoXhL
+	i/Pe2Q9EemuIUSkKDg16Iv3uv3hEcRr5Oa5l75VmxQREF/uHvRHBGkURwmnNfRkU
+	mIzvq6Dy5byGkJdrVAIymiHgEwflcgJlJCgGl+g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:PnvPF/K/NdvXhLu/i91FAf5qb4UUBnCMoCSJ9dKYvZA=:kWDPm/EXmOFJ312wfG/g9OlfSszOPhrx452WIAG2ZOM=;
+X-ME-Sender: <xms:027cao0QKnJgl2TuVdsLf4LzmCpdLG1R6iN8iEPsoW_ug6veKOAz_g>
+    <xme:027cavqgj2a9BTYILKyNs47uPoKU9Yz6y2s2yg10W3kN4WcuCZ-IPkg6Cyv_kXlYB
+    JSda3XXwht6M3f5UG9oHWKgGwJZwKj-V5idj2DUmittloA7OGlevKGM>
+X-ME-Received: <xmr:027calVf5lsVURzsm9eHjFP4bld6tI7ZO2nteb1O_Hu_lnwxL0I4rjnAT2sxqdxsULs0cz5D>
+X-ME-Proxy-Cause: dmFkZTEilkQ7QRTV3WCqk13zuvyPjR3rvfRKdMmJjP/0IUkSonux5v7d6YiFkowHCHQQMZ
+    UKTuka+etnp0I4pQi4LorcpHTgVejGL0wuRdrC+MGiY+0bYFfrp5Tml1fj2yv6N4JzjygW
+    ciLvzb9zDqU9LKMdU/KronOfZfUPAzti/iKqSp/9Ri+tI9S8gQEpchHvM4CzTKNRPKRrLq
+    fGuXpHBMMyPZae46Tawr8eZeG80mtkUkkmo9JDsT17WuJINe+UpplGjh9UY0mWBDvAjAfm
+    pxNJ1WZSmmsOnyEBqC8Z6C0pfXlBrw+DW0PdJtpX5VPHttAf97aVchdt8+K63vy7glvIkl
+    Yg33go8lQiWCw1mp1AzkNjfPFCf61tY8tRIAvu/+iI5dZca04qH/Xyly2C0tFbtD7X5lOn
+    0u1hJ2xngjMOqOgLIQ8KTDlltMJPvKmTwk0aAEiqNjIiBs8MvGkm0FLPm0iT/MU4j3vJbu
+    iTx/5qwURcN55LtColc3bzrXD3m7oQ6gxkMZJAF+tQ2jNoUbH4TyznDmnnx/stac2kALRJ
+    ZQ1HPB25/TBVyS10xcOvGf4c1Do9Ums1oV4VUw4Co+doLnuS+cGF5qqdF5px4D109sqZxH
+    aUB2lvdblTY5vbbmXjnGpVK7/oIWB6sk7z4hs2dr8VLUbJNmI5NZ+iVkaNqg
+X-ME-Proxy: <xmx:027caor2jeOv-FnZxvtoS_1nX56nfR-TxlOWlrSTlxLCJi7DU_eM5g>
+    <xmx:027casDMR76atB6V3gxHlB0PFBCUIeaG77wohXkh2IG4ZInIy-Zajw>
+    <xmx:027cakgliaDkw1uvOVvES9ms5Hfo3ervdV15hP7SLtfKA2xDSuWhsg>
+    <xmx:027caqb4A_RLixhzDX2E7MCHDs3GGzGJ8NrtjLwMpd6RPr00q8CxfQ>
+    <xmx:027caih8zVv4CLHufmo0XMD8YQU22aSF7R41Zo25Bh-l5WligFRn5A6Z>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 24 Oct 2026 04:39:44 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Jiaxing Hu <gahing@gahingwoo.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
+Date: Sat, 24 Oct 2026 21:39:42 +1300
+Message-ID: <20261024083942.148860-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,55 +126,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
-Date: Sat, 24 Oct 2026 10:22:30 +0200
-Cc: Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>,
- Paul Boddie <paul@boddie.org.uk>,
- Andreas Kemnade <akemnade@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6EC261C8-74E7-4F0A-B739-6851D6BFCA44@goldelico.com>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
- <20261024041357.34346-2-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3864.700.51.1.3)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+vcc_5v0_typec0 is the switched VBUS of the USB-C port. It is the
+vbus-supply of the FUSB302, but also the phy-supply of u2phy0_otg.
+The PHY enables it at boot and keeps it on, so TCPM never sees
+vSafe0V and a sink partner stays in SRC_ATTACH_WAIT. A USB-C dock is
+not detected.
 
-> Am 24.10.2026 um 06:13 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> There is no datasheet here: the register layout and the clock dividers
-> come from the X1600 driver of the vendor's 4.4 kernel.
+Drop the phy-supply and leave VBUS to TCPM.
 
-You can find the programming manual X1600_PM_20220117.pdf here:
+Fixes: 44a48a23974b ("arm64: dts: rockchip: Add ArmSoM CM5 and CM5-IO")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+---
+Resent with the lists on Cc. The first copy went to Heiko only.
 
-https://github.com/Ingenic-community/datasheets/blob/main/X/
+ arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-Chapter 19.4 describes the registers.
-
-There is also an X1000 PM to compare.
-
-BTW: we have tons of patches for the x1600/x2000/x2600 (and even jz4730) =
-waiting for cleanup
-and upstreaming so we should avoid double and incompatible work but join =
-forces.
-Please refer to =
-https://github.com/goldelico/letux-kernel/tree/letux-current
-
-BR,
-Nikolaus
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+index 5958b391e..72ca49ec3 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-armsom-cm5-io.dts
+@@ -306,7 +306,6 @@ &u2phy0 {
+ };
+ 
+ &u2phy0_otg {
+-	phy-supply = <&vcc_5v0_typec0>;
+ 	status = "okay";
+ };
+ 
+-- 
+2.43.0
 
