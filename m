@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792838053;
-	b=Ua39IOfVpEakxuzAOiaLewmm/nAKDZJojU9W7EtVEVdeOksFbIajbepmVn42vOUieyUH
-	 ek5QfKff1sSmq2bJwgJi4mZNFCurBWZxylqcvsNxcNaRHzFN2BqKaksIyBPdaqo+VjUAT
-	 LZrHtXws5A7fCbeQNHp5TmVSPlYwkaFnAfeBA63ZSH/wjzpm8ZyOBJB+qWoF06qiTN7Wu
-	 1KEU7Pbl8c6JBRjZYFY9KiY05a2UwjuniFY7kqgjAFXNEzMgO8jRJE6yY8PMdFSn1TltV
-	 wrDgkBqty8MstnfvWy90rjeVYgHMY5pBwfwN/t9ZzrWOVZWyoNB4IViD6NUZJjSVt/Q==
+	t=1792838054;
+	b=o4/RuengHXPkB/k2duzgeTHR78aRhLaZBURMw+8nmmbyzKDVJso7N+OfcyHFemz5xR61
+	 548mjp/N1gJVLt1fE8ypMP0P+mQd9c4+W9pq5SAOTaeB05vgxPl8+WQv+3AJy4ueBVl9i
+	 YTlY380Cj+wrterhMbKC8DCjIPy/NkeZ9dxaKmC6E8bzRJ/XQjS4Im4NTm96D1Za540/B
+	 KtZJtgL7oexxd7HUoKVn38n9/brwRObZYMeoV6KDaKcqO1dzEylXTP3eMg7wjkMXLW2Gu
+	 Py3dxaCZpcDsZqihyC0voWPkEwOmB/AQgan6oT4k66Zr3qNLZpShToMXjV0vyyoNRnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792838053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792838054;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-	b=qwHK/GcdAS7sSRkj5PbnRfCI2B5NG/sKgp3YIc54K4cuyC+ptmyfk780Ei3xle8g16+9
-	 +Zh+pCjaPztIZ/8/td2iT9TsMl+ikX9JZ3Olpt92IP2PHjHUADHOdLdHSHyo4dvX2hYfN
-	 Qpp9Oekyb6pZJGbGEa4Jnrfur+OoKv36nM43YZ5C1Cid0sCXbRLAbsWXzXpVdRYdOyQPg
-	 HNhGvJvkkYDfkvbgS+kQ9tTelI5h0z2QbFsWLgyeR9XzjWFitNJDrcLiEiV3uZ7LSRGw8
-	 l6sBnmH01OWPCgRrjRg7TJ57v7EWl5orEv1EwrvYXf6asTCAAI6jEE1JxFETlEACr8g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+	b=lSyY+jBAI5Bg7FSSIqjcPzsvjk1vXoJBpIar1iVHWwfeSyanZMf1af7N6EfmOMkIET8r
+	 stIM6UTJ1MNZmdA7h9yOVJePe9YwpDFDpoDYvwKNgsCYbm84zQHy/Q3UMrf1xFUdR2r6W
+	 WLPmSHAHcw0VLIwrAwy7graOvKaqDd4bsni5wtXXFyJHDNj0fwHmsrCkO313uAWajbQjE
+	 AVcEVGR41dRq4R9QMLfpuNXS1f/x8yZHnfxHS0T940qGxENP1jvbbEcVnxARD1kqtuJs6
+	 dVW6iLRwHthIHjdrnS9Yt/DSWyw1GxSRL2hCn598We+1DTt2DV8OseryfqCu56JyrPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdKX24K5;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E14606A31B
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 10:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28E14606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26352606A324
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 10:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26352606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YKgowXyL
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b060ec084so1005286f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YdKX24K5
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so9368195e9.1
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 03:34:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792838051; x=1793442851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-        b=YKgowXyLWBwrg7I++LDP8W180Q8ZiqniVMWkvWW4/5iaBMr2iDr91+cTkh1b3/m4Sv
-         Lea1ql+KOC7EtGE/uJDarJSmpxelzCuHTBIVoce3HLGWesCapXCXBPK9wSsP4E9oE/KW
-         um9D8prowuOKuB8EHFlLI02pStgKNsLQlt8oLKhxZaLgwHA23puRZtrvnWuj4ryDGqBW
-         /K7w/9mWlK8LlfeKJwraHbK5ByzlQAUDD8SUCv0eVS0kEIfuyUEm3uF1LnCMQ7em7eJM
-         vYoWLjhE3IDHpIyjKzsBeLYQawgqgrYl48ympnOHRm4P5/xSLaN4WpJWZpdvcR04WiXf
-         8VOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792838051; x=1793442851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792838052; x=1793442852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hCXXvkDREgXehAsGvMm5K0+I2Qb1ZrSjqYAiJ+UTLTc=;
-        b=ggxC6bvmBNNzl/k4YcaN1ebG9QpECROzTaAXThaK12N8ueZ3dU917QosIz9jGv6DPq
-         g1RZIIJcqLG9nFawxTDumoKMCje7KTiMoXQiOiJZfF2He2knHTlHwTGzTvovF8m/0Bt6
-         d7CkHCCrPrawu6nA3s72+bvaofBEwNsMh3TqlaVsViKe4Lw9SCwS3RQe/TxNx+vcUKen
-         Rwg5gMvzARD/sIzLg9lqQd0/TQ6u1R8r6pwb/KzAm/VkNEMCfJj5LrRsVQi4JJI5garU
-         CXg8QXdKbzOQ6hpufnSkaF8ZjWIQt+vd/cDImtMKlMVfER8ikYhy1+9OMRq3OmU4axlZ
-         7cYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ5w/4sA0INj5LaMeGWL1I243JdMyNbOg0Sla7lBWgd9GGuFHCk3961YtWyOUAdVqeBfu5hTZrvxdc@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJWULKJSynjNWR1LR7muHnj8VSO3bkD445bwRvHI7f9L6v9tS8
-	cvtNcCe+J1hBtiKgmd7zDucVcbhqsG/PEoHBos7qANWEDdxsk3/klN4Y
-X-Gm-Gg: AYBFou2zsTliMqjfn/bYbQ1V051SZ286YHs8i8Re//0u1eIm1KLx4xH5xPixA24+3FP
-	obtCtoIY8Q30BaDVHXTqf4UAjBfdaubOpTSnXCVmCUx8zb49IDYRx02x1ozK0xQL+Xf0wfGnc2r
-	fIO/Qv9R7bqU/xixmknJ/1GOS6KjZCsJxv9FXJkaKDn78eu+BGq9yx7t+2sZi4neBWNhEMujZ4w
-	xgmX203l51MYlsjm3Go1uomK9p2KSfrtUimIFQJ5p3pprAWF8gArbKGHLD8At7X6hVOODWUtNP1
-	UvM1LGL4731of17N/B4d9HKhiXbWKcgjX6c0NILNDAj1sJ+fQ2EyfMjLwHGCRYocJefPH6H4BSM
-	efzBNm1PY+MP1ipAcNC3MNOKKrhdXEa//U1e2Ru+d3wgxkPNAuFR2kHxzGWBSMnJ+3S7KPG2G/H
-	GkgB/gkFwCpID80RyxWFvdHsDxKOf7mC54KRCJ0OLB1VKt2/ggBrvKvEUbmaVLIMr2mzDDBvSwW
-	u8FY3wahjkrFminrwT5PGSgpfhExvYv5BCQDEgnSOrpFaqkO+6bJ9eezzMlzApBQexvlrkqfNn3
-	l4jRkEVsNPUDYul+eySCaG9YEWx514htljXbCU55jjUO64Q7aLzGUPT3Ph4X27AbF67AydXPm38
-	5uM41WuM=
-X-Received: by 2002:a05:6000:2312:b0:48e:e98:8b64 with SMTP id ffacd0b85a97d-48e3eb8b45bmr2346024f8f.19.1792838051352;
-        Sat, 24 Oct 2026 03:34:11 -0700 (PDT)
+        bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+        b=YdKX24K5TOlpcFJ0JFIKaPqeZd4jYWqUjIEwLJZQlXOYeeUNYiMecPrIjGLx4Z4fnx
+         m7HvkLbn/xgQWV/9JK9FzWU81MbsnAt89fyh5SOPZcPW7LTgeEEex2KX6oFkYxrL87Gr
+         5Fh6FS/GSOTMoj4WtGxvocaACDei6U2u6mXZaoqJ+zP9ZwJyg1YPYl2l/Xx8QAZMbIWc
+         eafGUH0BG9+0f4o77CCKZS0eTQYVuIuC3270RWyV+W86puo4d2xYSl8OQe2QWUJ4ffom
+         tkNmTSe6kHB09Dm23ZQmSm4Unn66KFGafc7CF93cE8MMb3By5rX8S+0REEDh0s95Uqyp
+         bfXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792838052; x=1793442852;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A5n4SrWvMlC2EiMhPFY7DM1ChkFypUIMEv8fI4m9dNU=;
+        b=MT1KuJqeuRQVowXsPfjVRg9yqc1pXf9hfk4GKSgpzJqaWt2BEeYHlzOSGqkOeTx/e9
+         6LTJTC4i2VqnExu6+e6H8V2uyTrQcdiD9mC7Xxeib9vB86TTzqkox8olKuTOiYOiSvf/
+         hoRGvILLdAPBpzit2+cKX40dvAqQ9Xw4gzMlWmEwTPkcQjaLbh7c1ita29MRA6xv2HLV
+         LtMDoWymxWu1a/QgVE17OZxVW0dDRp/jh8hi3RkH2grEtz7fodTiyra2m6XaFtEeoyvx
+         ANhSbWQlU8SYfeJePfzCZ0G63zrD5iE9EgJoO99XaFoNgbZwdipXKQE0XR7YeplUGHFS
+         LLSA==
+X-Forwarded-Encrypted: i=1; AKwUvBywydbM+M8KB4kSDhLVDAfD9LCtH2oT43yIIAz+6JYlzpMO04sBGvzfCi7WidId4nguxrXYoVHMP4D/@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm++MbYTJLyCsmrp2kcsNuY6vUAlfwmswD7yWCzGXDXE56efBC
+	BmTe0uLUVGGN/Ty5nc6t5Fj1qmRlcgC9NNQr8K+SA+BkTZeE3o29GyEL
+X-Gm-Gg: AYBFou31QR/lAvEG+DzqmrzVo9X5yoM6ikEP4TSP1/1tWVpizAB1O0jx7q9CqHwi450
+	o9UCHHHlxHqlkna7NVzctFMxA+4bXiWNsjRqwBWUCp7Gy7Lb6h0mV1hsD8ganISHMkk6+U0kFEV
+	6IW2SFN2N2RnfTSo/Fv+RoeCVUQr0FgidYuIFu7FJVobLFlFPG+s0s64QDqurhr0RuYCsY+8hzb
+	nxq3jCgNrrqYVhXpMPfMcOXCQiGoEzFAMqAK/fQ5fL1BCtjMd+X2YLFzItwEokd9eX6SSH3/BAe
+	p/vTz3pV+vHTeczoMIXIm6deTCaVNwJABVde5Z0sdkUCrplfRQ9ZZf0gikkA8ZSRkyN7fI4ORzB
+	nAArby26p7Prv7i6Y697m3TGbHhRhvPGg301pQhNqTkPjAEwXp0Msygzy6/XKyZTFBt+qlLhm/s
+	4zkCKZLMUP/3hR0xhMh1w2MG7ZM9DwkJZzSfv5F1obTjfmILxFFrcIh/NrMi1opL00I6MFgLiso
+	8xDtMzSy5JN8Wyc+cJ7wOmCtl+bjAnGTFl2THSz7TJfEGS3pmMimw3/ZWMDrHU2bBVeS9EiEy8h
+	CLRIyT7j0mDQ6fVc6k6GOQj0bavlmXsRoteaZdPx2BCpsoccg6fvuEdlFMK8bXbpzbxMDHWKd2w
+	NOp9m/Bg=
+X-Received: by 2002:a05:600c:83c7:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4a35ac3f293mr26033995e9.1.1792838052522;
+        Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
 Received: from threadripper-fedora-workstation (d-zg2-024.globalnet.hr. [213.149.37.24])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm3544825f8f.39.2026.10.24.03.34.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm3544825f8f.39.2026.10.24.03.34.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 03:34:10 -0700 (PDT)
+        Sat, 24 Oct 2026 03:34:12 -0700 (PDT)
 From: Robert Marko <robimarko@gmail.com>
 To: andersson@kernel.org,
 	abelvesa@kernel.org,
@@ -94,10 +95,12 @@ To: andersson@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Robert Marko <robimarko@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: clocks: qcom,gcc-ipq8074: allow CMN PLL bias clocks
-Date: Sat, 24 Oct 2026 12:33:09 +0200
-Message-ID: <20261024103401.761125-1-robimarko@gmail.com>
+Subject: [PATCH 2/2] arm64: dts: qcom: ipq8074: Add CMN PLL
+Date: Sat, 24 Oct 2026 12:33:10 +0200
+Message-ID: <20261024103401.761125-2-robimarko@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261024103401.761125-1-robimarko@gmail.com>
+References: <20261024103401.761125-1-robimarko@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,38 +112,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CMN PLL in IPQ8074 provides 2 fixed clocks to the GCC clock controller.
-In order to describe this in DTS, allow passing them as the inputs to GCC.
+Add the CMN PLL node, it will be used to feed the required fixed clocks
+to networking subsystem.
 
-This has a benefit that it avoids doing a global matching by name.
+CMN PLL provides bias_pll_cc_clk and bias_pll_nss_noc_clk to GCC.
 
 Signed-off-by: Robert Marko <robimarko@gmail.com>
 ---
- Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/boot/dts/qcom/ipq8074.dtsi | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-index 00d7df75b3d6..d489c6332e6c 100644
---- a/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,gcc-ipq8074.yaml
-@@ -29,6 +29,8 @@ properties:
-       - description: sleep clock
-       - description: Gen3 QMP PCIe PHY PIPE clock
-       - description: Gen2 QMP PCIe PHY PIPE clock
-+      - description: 300 MHz bias clock from CMN PLL
-+      - description: 416.5 MHz NSS NoC bias clock from CMN PLL
+diff --git a/arch/arm64/boot/dts/qcom/ipq8074.dtsi b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+index 75a5ae30d966..8afc63a72144 100644
+--- a/arch/arm64/boot/dts/qcom/ipq8074.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+@@ -5,6 +5,7 @@
  
-   clock-names:
-     items:
-@@ -36,6 +38,8 @@ properties:
-       - const: sleep_clk
-       - const: pcie0_pipe
-       - const: pcie1_pipe
-+      - const: bias_pll_cc_clk
-+      - const: bias_pll_nss_noc_clk
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/clock/qcom,gcc-ipq8074.h>
++#include <dt-bindings/clock/qcom,ipq8074-cmn-pll.h>
  
- required:
-   - compatible
+ / {
+ 	#address-cells = <2>;
+@@ -15,6 +16,12 @@ / {
+ 	interrupt-parent = <&intc>;
+ 
+ 	clocks {
++		ref_48mhz_clk: ref-48mhz-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <48000000>;
++			#clock-cells = <0>;
++		};
++
+ 		sleep_clk: sleep_clk {
+ 			compatible = "fixed-clock";
+ 			clock-frequency = <32768>;
+@@ -257,6 +264,18 @@ mdio: mdio@90000 {
+ 			status = "disabled";
+ 		};
+ 
++		cmn_pll: clock-controller@9b000 {
++			compatible = "qcom,ipq8074-cmn-pll";
++			reg = <0x0009b000 0x800>;
++			clocks = <&ref_48mhz_clk>,
++				 <&gcc GCC_CMN_12GPLL_AHB_CLK>,
++				 <&gcc GCC_CMN_12GPLL_SYS_CLK>;
++			clock-names = "ref", "ahb", "sys";
++			#clock-cells = <1>;
++			assigned-clocks = <&cmn_pll IPQ8074_CMN_PLL_CLK>;
++			assigned-clock-rates-u64 = /bits/ 64 <12000000000>;
++		};
++
+ 		qfprom: efuse@a4000 {
+ 			compatible = "qcom,ipq8074-qfprom", "qcom,qfprom";
+ 			reg = <0x000a4000 0x2000>;
+@@ -369,11 +388,15 @@ gcc: clock-controller@1800000 {
+ 			clocks = <&xo>,
+ 				 <&sleep_clk>,
+ 				 <&pcie_qmp0>,
+-				 <&pcie_qmp1>;
++				 <&pcie_qmp1>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_CC_CLK>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_NSS_NOC_CLK>;
+ 			clock-names = "xo",
+ 				      "sleep_clk",
+ 				      "pcie0_pipe",
+-				      "pcie1_pipe";
++				      "pcie1_pipe",
++				      "bias_pll_cc_clk",
++				      "bias_pll_nss_noc_clk";
+ 			#clock-cells = <1>;
+ 			#power-domain-cells = <1>;
+ 			#reset-cells = <1>;
 -- 
 2.56.0
 
