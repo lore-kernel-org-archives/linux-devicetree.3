@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792815326;
-	b=lArYDRhbEytP+BRQnzgL/36YDqH4QFAZ+HjbA4gf5loHb7Gp9AdZgoWGlizuRvcaOGCo
-	 O/0g0pwFksVeKNbBjduMe4fCPpXinJ0RGvqC5BUk35P/dqMrkX4aD1eTTpz3a9Otxh0cI
-	 c/wMNc12gXJpR7M98jwc3GdZkAgd7qtx6tOKFtCwTM1vRNFFWOln8jOPX9GXn882xY+ja
-	 5MXa7oP9szj7nioVvR6PnbBSo6G37epDl1WahvrJIx91QOXM6WG0+m8r0Dr0KPWCg/vV9
-	 VhIEL512zQkGxm1MLKgG6J6adgtnNg/jaY8VWN1168cmDpTR8V059idhLfQe//6Z4yw==
+	t=1792815403;
+	b=ZWLwylWZMLUPNB6RiS4svbYjsXI36QaqiUFI3hD6DQ3ZSjqaZHfCq78M9qhEIb3Qr7x3
+	 iBxFAQjWwjzFGdM6/6rhosPjy//1KuqAxELeD23L2kXV9k0/EJ9VC44w3Ws7iKMZAm4Gv
+	 tOWPbe3gY0bnov3NDyyjYxpoitnXclWnVbS6JpdhTjeHSAWf7HE5EQ4row6IpzBj5TguT
+	 0osEUIWFg8jStm22ldhvBqA0h51QB426BD0UoSORzUxRc60D+7S52G/KD/1hfI7tQty68
+	 1Pz7Jj3aqWzyewB38eqLdtQEL672yhXuq5CSwSpbWm6EyCHte2LABLld1pgeIYNLIpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792815326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792815403;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
 	 Content-Type;
-	bh=TJa5U577EWGlQslkhoqw4b8GmJSFbtq6SM0aUFd8XA4=;
-	b=CEoY6glvZcnRKpC/QqVkLCy0Xah0F752y0dkuS72KzXlbGTbtgJN83qoOz7np6Z356YK
-	 Q6ZxSnqcNPx6bC2TJ/ywne2DyXjzNFSknjKdBsLubBaoRga0VOkL8khrrS1jDtGvk4WCZ
-	 WZKCxrEHH7cJZGlaoxJmVoR7JE6VJ/gSU5e2+Wh71nWNhWd0h2RS86YombvWRWWrpOC2O
-	 5I0a+m0oJ71XiLAnKgBpMur6t4yZgr1fpdNfwfzEp76+pWoXdj6AxNzAelGG9zP2y5157
-	 nfJVwAc761SA0FSqiYAVZOROWKAqJVIhoQFargHh2eO8mTxdUn6K+nmAcZ3H/gTn0kw==
+	bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
+	b=hlYl2anAByNRCfpWQ0vUQEK56ete+cxwSVg0WL7SfPdstXJLwOsY0hTznEtDogXNFzg1
+	 WoKf8yanze7tq2NLRPU/oyY1Qoraux5zpXsRJWNd+zO4nclgu4yBfwe4HbkRvc7DQVUrV
+	 TjU4d2Uhks/aBFxvlqLvjIsSoFF1fmOB7+a/2ytS2dFa2xN/NqasTh/FVFs3JlKkicz/r
+	 ntDzvHFzIgPcW/imMWFJ4roA+0alMZBD4KbY6BI6aQEoLuHacWw09mzxd4K048+iz1J1A
+	 k12KNf1WsxBIg4XSRait2yXnsQEnziP7B+3B7mSfVf/XvEcrbmSWLiT1DRzgCcQMH6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XtaHdzlT;
-	arc=none smtp.remote-ip=74.125.82.227
-Received: from mail-dy1-f227.google.com (mail-dy1-f227.google.com [74.125.82.227])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TGpRFMFM;
+	arc=none smtp.remote-ip=209.85.214.227
+Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2DC606A31B
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:15:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A2DC606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E4D606A31A
+	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 04:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E4D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XtaHdzlT
-Received: by mail-dy1-f227.google.com with SMTP id 5a478bee46e88-3550c917fd3so2230925eec.0
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:15:25 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=TGpRFMFM
+Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2e5378b281aso10214155ad.2
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792815325; x=1793420125;
+        d=1e100.net; s=20260707; t=1792815402; x=1793420202;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TJa5U577EWGlQslkhoqw4b8GmJSFbtq6SM0aUFd8XA4=;
-        b=ueTnHPW9z4YZC0MNqxmRBFQMwTHEs5q6pce+NETOuOFp0d8PdRmzdGuDR9wSa5N+FH
-         M+ITwkY6/fnhK/wPcv8MPlVYh5sIdQkTeBvsYtOsnIFchGSdEUJ+E1cOdFqiyYv5ocC2
-         FyxGdTYlaAcLiM1cM7iyCBDATx/Y1Tm67wkx7gCVvpaNenLIfL6CZjBq0QWezJCc4v4+
-         iJ/DuP1IXCphFwVVDIdgIjsXYePWbuYlnLW51ike5Q8daKQOX5Jy+HUGtr6qtDxSNcib
-         0d8bvnJb60xycxIHrPZ+mlb+L4YdWObJQLquWF3KiHNOqcByq+BdhiAIbmvkmDoi766/
-         R98A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCs8IDmyN5dWRXCcfraKM+zjgaNsHzgxcQ490goF/Cfmhif5F011BTcF/WlOsfMP/9RoFy9KnJRHr6@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYk8IYN7A2CUf61NvAnKnvOmKUp/h6kSzkmZH9oYJcdgzLm/KE
-	ElUz6wGwxbWWgnTSQ9Gt2ot4IDADaYLQESAOzY4TajAkN4+4BjiBrIf6R25X2tuFeQEQ8+AmmrF
-	DVXEPGqFLxDBSmyVGXUYXA0LLyLHTopNHfAlOJVrQbdFBTzpPDIIplTSX/6ng6bx5WzwuNWUznW
-	YVa6afuUwevQ+xsyqRye8mTj656l8NqU6dcm7sebCsb25Bv71VoQQOPEJ3PCafpbo/Kxfw+1D4h
-	f29wSOWIFRDgP3Cig==
-X-Gm-Gg: AYBFou3U8rIwYk3fCGgXmHiKSikRFA2a6czoswTJyjkZWSZjqjoxM4+jpQNbu2tBYpG
-	7LpnKebdZGX80fuOlxfDB/3tUCJCvPYiXT3su4k8jLIdpjr9ESelwj0g116glCHyDbXXXXnzN51
-	axPq12Spal18Fs/YCJwL/Nd+GIEpmMRMUSsoT5ni82U8ShUiLO+QB4x7hAJlCILEzae2Z+AaaFE
-	1DGovMEguQPwt6x1nZxcZ3WAh6JDjIM2pTdmusWK5ROEhY0XNQuE2Va7C6wFUwfqD8RCOzrVvVc
-	jYhe2gDSQfZksRrydNbw67inG/QKSZOC+R2kLVLU4Ps9i+uYsGDa/MLb6hQCzP1csCOjMooJ3TD
-	8ax5CJ2gn9vZLDZa503MqMCmXGHNHqt5FGRnCropJH7kl2UU6pCi9b62ES9gAkNTiOTvxiIRlsn
-	rMtABhzrSQ1uoHqgoiG5BpY3yuquy847JVCbU2
-X-Received: by 2002:a05:7301:188e:b0:368:6f29:f26c with SMTP id 5a478bee46e88-369e83369ffmr1593095eec.4.1792815324593;
-        Fri, 23 Oct 2026 21:15:24 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-369e8f5fc3dsm11847eec.14.2026.10.23.21.15.24
+        bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
+        b=KtKVJFcQtvexgEakI6gjJVm8kmbltEiFNe6X1fzQmvBL8RTVYiO6IniU5oQMcmFA/V
+         RU3iFe7h4pi3jYDwyRy6R6nDxvRAySVq/92OiV94eM5rYfF8PoFo+RYl10YhUUtzr+FS
+         mrIuPuDJC7rfZNTzLNf3DPJYvTIMyuxjFlhmu56H9kYpqy08lPnt5KydsXS8Z7I55Dc9
+         SHofo3lfQPVlJBpXR1ioUAtPziLlZ2Osz5IMV+aqTPgKooegT+3S3NtwxrNvPnTtVQ/Z
+         yqvPHYe/Fdm4kWFYdl+lINEZX8W3WXs8SiCJ3C0A7+MzdvH+MMNT6O4GnaU0OFNiu43L
+         IlzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTaaqu+ZH+MTKSQbQ30l5PfvgzubrQdy4S/Ax7IzI3N8AALTtI9AAepEG0aAeO15M1QjL7cNcv1q9U@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUg/yHYjP9dM3rxYuFhDRsc8PnolpK5sNLVqiuaGHYT4L7vyzG
+	+/VjYII2vNZ4LlVY7BFnBhFJv4aNRZzeklquCd0K17aUGFoWC5nA9ZG2/+o160pWnOOFZZtImTR
+	sQ/3ZKVfvLqRSeWsa3nfJcBfuA6xEkf86v41henoggPD5uJ41U9OKAmnJT8Y5Ixe1Rg2/O1URfM
+	wJ96+uz8YAXst1WXPpa5OdP+XJau/kjSVGlUpoi0zDXuDGRHi4t9zWe3dL0Q/BbxJkHMIZz0Q5l
+	LHi/ZePAyZPA0j6pA==
+X-Gm-Gg: AYBFou2RhwQP1wOjtJsY0qyt+g0CA1sPTnRF/oiPWH4UfshRxEFnw966ChljjxdZnxc
+	IUoUWU8KFHeoBYcXc82iJu5HmAKYTzDp3AkaLocUJqdz4kjDtrE92iso9D0nDZBu8gYS796DVvf
+	vU/jegTE//W9Rnz8PUjP3nuQa2Q3qXcOZ9moiN5XWSRdy/+4WfnD9OAV1FLEV2FMulvioRareqJ
+	aJH6gMIskE56o1DtiuSJ4hgvwhuUfw9xjs/Mnh9b5RpOQDmoWXUMD2aHwLLPetYrGvAhGrm5Ipd
+	XO9ZrjxToo8MirGXgk3/+wyZJCvy89IavMGypXwGBoa6SgoLkxQ+UeOsRzKuX64Fruj/gzDI1jI
+	xGoJ3GDIGKD2cV/06Nvvka6Pb2a4MgPkj1HB/HACoyclYIlCYuFpVTNxVmRLX6pO8Fhi4c2XpKd
+	dtL4cBTkZIvi/F/NNnxD6fgtoqkjU+k4tG7Cbz
+X-Received: by 2002:a17:90b:5105:b0:3ac:9ed8:f309 with SMTP id 98e67ed59e1d1-3adeae71db3mr1058360a91.29.1792815402156;
+        Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adebb0a2e2sm1008434a91.7.2026.10.23.21.16.41
         for <devicetree@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 23 Oct 2026 21:15:24 -0700 (PDT)
+        Fri, 23 Oct 2026 21:16:42 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0e757e70eso25482147b3.3
-        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:15:23 -0700 (PDT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b0d978e4faso25101327b3.0
+        for <devicetree@vger.kernel.org>; Fri, 23 Oct 2026 21:16:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792815323; x=1793420123; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1792815401; x=1793420201; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TJa5U577EWGlQslkhoqw4b8GmJSFbtq6SM0aUFd8XA4=;
-        b=XtaHdzlTLsFg7sv8WRMufy+mIB94RltncBzW/KqB4ekssiPAsELDNOfoQM6YAfVQsK
-         xdsGJ4AIeZeJ2VHJBzgxCI9JwFAn0SguGF6grGZuItV4cIIAubrswBz+LoAlQpxjoNb9
-         6Hi6UpylE+tgYLpjn3UjnFrGMDNMLOwwdO6pI=
-X-Forwarded-Encrypted: i=1; AKwUvBzXW2AecaNOYYUWytbRD+hAT7vam4V3Hi90Md3evCdP/UDJIJTmpsNfJYxB7lcOMMSM63NicpHFsg6F@vger.kernel.org
-X-Received: by 2002:a05:690c:e0d2:10b0:8b0:e238:2716 with SMTP id 00721157ae682-8b1669e4693mr5708807b3.2.1792815323038;
-        Fri, 23 Oct 2026 21:15:23 -0700 (PDT)
-X-Received: by 2002:a05:690c:e0d2:10b0:8b0:e238:2716 with SMTP id
- 00721157ae682-8b1669e4693mr5708687b3.2.1792815322635; Fri, 23 Oct 2026
- 21:15:22 -0700 (PDT)
+        bh=NxO1ArGF/ouncJjlNiC6eK7NyLkkHrtVCnIHNEm5JoM=;
+        b=TGpRFMFMvezrEXptz76Odi4QNzsKY4pyKz8ut2AV+39pkYXCCxGq5C+IYGw2RSmZju
+         3/gJDX3h1uSBYrgdVn/T0Eug4LHvWFTFld8N1uFgDg7MPMIXqkKA1acOiTPuJ9KZzg/5
+         deFvksOyKigAbp9u3LpvbJp5Ru7uw3hJzG9W4=
+X-Forwarded-Encrypted: i=1; AKwUvByXHPFD2n6PPDgJPA7F6uiccy5sTq65sl1SYPzVRzSWa3xOdF7g8FUQ+rCrOuKAsDnz1oVlyMQd9ko2@vger.kernel.org
+X-Received: by 2002:a05:690c:e1d7:20b0:8b0:e207:34b4 with SMTP id 00721157ae682-8b166b86c4bmr6719947b3.18.1792815400826;
+        Fri, 23 Oct 2026 21:16:40 -0700 (PDT)
+X-Received: by 2002:a05:690c:e1d7:20b0:8b0:e207:34b4 with SMTP id
+ 00721157ae682-8b166b86c4bmr6719867b3.18.1792815400478; Fri, 23 Oct 2026
+ 21:16:40 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,13 +99,13 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org>
- <20261021-genexis-xg6846-smp-v7-3-rc1-v3-2-7c871f1755db@kernel.org>
-In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-2-7c871f1755db@kernel.org>
+ <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
+In-Reply-To: <20261021-genexis-xg6846-smp-v7-3-rc1-v3-3-7c871f1755db@kernel.org>
 From: William Zhang <william.zhang@broadcom.com>
-Date: Fri, 23 Oct 2026 21:15:10 -0700
-X-Gm-Features: AclHuK-gGJpSwkg-29bJjBMoh3mShMyyFMuIMm4hsVsfGjBF1BHx2Sk3mGmLrfc
-Message-ID: <CAHi4H7FLByZDW2QjwFUfzm=E2Kiq_igQMZS-7smgLrLWwM0Lmg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] ARM: bcm: Add CFE SMP support for BCMBCA
+Date: Fri, 23 Oct 2026 21:16:28 -0700
+X-Gm-Features: AclHuK9RuItz_DZ3wVK43enrFIQGul9TWQAwbLIKANHNYfy1pUzBkwXbxgy7ZtY
+Message-ID: <CAHi4H7ES2GEWN+NZbCUUe9n6YvTPnDbVn42XzqyDfAybub2tbA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
 To: Linus Walleij <linusw@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
 	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
@@ -116,142 +116,71 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000007f051c065e8e5810"
+	boundary="00000000000021e3c7065e8e5d3e"
 
---0000000000007f051c065e8e5810
+--00000000000021e3c7065e8e5d3e
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, Oct 21, 2026 at 8:10=E2=80=AFAM Linus Walleij <linusw@kernel.org> w=
 rote:
 >
-> The XG6846B CFE bootloader powers up CPU1 and leaves it in a holding pen
-> waiting for an interrupt. After waking, the stub reads the GPIO
-> GeneralPurpose register at 0xff800568 and branches to the stored address
-> in ARM state. The vendor kernel uses this mailbox and a wakeup IPI.
+> The XG6846B boots through CFE, which parks CPU1 in a holding pen and does
+> not provide PSCI. Starting Linux from CFE does not install a PSCI
+> implementation either. The working PSCI interface in newer GenXOS
+> firmware belongs to a different boot stack.
 >
-> Implement the brcm,bca-smp CPU enable-method for BCMBCA systems
-> booted through CFE.
-> Read the mailbox address from the secondary CPU's cpu-release-addr
-> property. Map it as device memory, write secondary_startup_arm and
-> complete the write before sending the wakeup IPI. CPU1 is already
-> running, so no power or reset sequence is needed. Using the ARM entry
-> also supports kernels built in Thumb-2 mode. Clear any Thumb function
-> pointer tag before programming this ARM entry address.
+> Disable the inherited PSCI node on this board so Linux does not issue
+> SMCs to an interface that is absent. Set the CPUs' enable-method to
+> brcm,bca-smp to select the BCMBCA CFE SMP operations. Describe the CFE
+> mailbox in CPU1's cpu-release-addr property. Keep both CPU nodes enabled
+> and leave the SoC's PSCI defaults available to other boards.
 >
-> Register the operations with CPU_METHOD_OF_DECLARE() so the CPU
-> nodes select CFE bring-up explicitly. Build the BCMBCA machine
-> description independently of DEBUG_BCMBCA, keeping the debug UART
-> mapping conditional. The generic ARM startup code retains PSCI priority.
+> Also remove no-map from the secondary-boot reservation. Its overlap
+> with ARM's initial page tables otherwise causes the reservation to be
+> rejected, leaving CFE's holding pen unprotected.
 >
-> Suggested-by: William Zhang <william.zhang@broadcom.com>
 > Signed-off-by: Linus Walleij <linusw@kernel.org>
 > ---
->  arch/arm/mach-bcm/Makefile       |  2 +-
->  arch/arm/mach-bcm/board_bcmbca.c | 56 ++++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 57 insertions(+), 1 deletion(-)
+>  arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts | 16 ++++++++++++=
++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
 >
-> diff --git a/arch/arm/mach-bcm/Makefile b/arch/arm/mach-bcm/Makefile
-> index 6baedf4c6304..fcc4e0174adc 100644
-> --- a/arch/arm/mach-bcm/Makefile
-> +++ b/arch/arm/mach-bcm/Makefile
-> @@ -58,6 +58,6 @@ endif
+> diff --git a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts b/arc=
+h/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> index a3616fb7b3a8..45d4df523110 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> +++ b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> @@ -34,7 +34,7 @@ reserved-memory {
+>                 ranges;
 >
->  # BCMBCA
->  ifeq ($(CONFIG_ARCH_BCMBCA),y)
-> -obj-$(CONFIG_DEBUG_BCMBCA)     +=3D board_bcmbca.o
-> +obj-y                          +=3D board_bcmbca.o
->  obj-$(CONFIG_SMP)              +=3D bcm63xx_smp.o bcm63xx_pmb.o
->  endif
-> diff --git a/arch/arm/mach-bcm/board_bcmbca.c b/arch/arm/mach-bcm/board_b=
-cmbca.c
-> index b510d959870a..248b8bd77645 100644
-> --- a/arch/arm/mach-bcm/board_bcmbca.c
-> +++ b/arch/arm/mach-bcm/board_bcmbca.c
-> @@ -1,9 +1,15 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  // Copyright (C) 2024 Linus Walleij <linus.walleij@linaro.org>
->
-> +#include <linux/io.h>
-> +#include <linux/of.h>
-> +#include <linux/smp.h>
-> +
->  #include <asm/mach/arch.h>
->  #include <asm/mach/map.h>
-> +#include <asm/smp_plat.h>
->
-> +#ifdef CONFIG_DEBUG_BCMBCA
->  /* This is needed for LL-debug/earlyprintk/debug-macro.S */
->  static struct map_desc bcmbca_io_desc[] __initdata =3D {
->         {
-> @@ -13,12 +19,62 @@ static struct map_desc bcmbca_io_desc[] __initdata =
-=3D {
->                 .type =3D MT_DEVICE,
->         },
+>                 secondary-boot@0 {
+> -                       no-map;
+> +                       /* Includes the kernel's initial page tables. */
+>                         reg =3D <0x00000000 0x00008000>;
+>                 };
+>                 pmc3-firmware@8000 {
+> @@ -56,6 +56,20 @@ button-restart {
+>         };
 >  };
-> +#endif
 >
->  static void __init bcmbca_map_io(void)
->  {
-> +#ifdef CONFIG_DEBUG_BCMBCA
->         iotable_init(bcmbca_io_desc, ARRAY_SIZE(bcmbca_io_desc));
-> +#endif
->  }
->
-> +#ifdef CONFIG_SMP
-> +static int bcmbca_boot_secondary(unsigned int cpu, struct task_struct *i=
-dle)
-> +{
-> +       struct device_node *np;
-> +       void __iomem *mailbox;
-> +       u32 release_addr;
-> +       int ret;
-> +
-> +       /* CFE has already powered up CPU1 and left it waiting in WFI. */
-> +       if (cpu_logical_map(cpu) !=3D 1)
-> +               return -EINVAL;
-> +
-> +       np =3D of_get_cpu_node(cpu, NULL);
-> +       if (!np)
-> +               return -ENODEV;
-> +
-> +       ret =3D of_property_read_u32(np, "cpu-release-addr", &release_add=
-r);
-> +       of_node_put(np);
-> +       if (ret) {
-> +               pr_err("CPU%u: missing or invalid cpu-release-addr proper=
-ty\n", cpu);
-> +               return ret;
-> +       }
-> +
-> +       mailbox =3D ioremap(release_addr, sizeof(u32));
-> +       if (!mailbox)
-> +               return -ENOMEM;
-> +
-> +       /*
-> +        * The CFE stub reads GPIO GeneralPurpose after an interrupt and
-> +        * branches to it in ARM state. Clear any Thumb function pointer
-> +        * tag and complete the MMIO write before sending the wakeup IPI.
-> +        */
-> +       writel(__pa_symbol(secondary_startup_arm) & ~1, mailbox);
-> +       dsb(sy);
-> +       arch_send_wakeup_ipi_mask(cpumask_of(cpu));
-> +       iounmap(mailbox);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct smp_operations bcmbca_smp_ops __initconst =3D {
-> +       .smp_boot_secondary =3D bcmbca_boot_secondary,
+> +/* CFE parks CPU1 in its holding pen and does not provide PSCI. */
+> +&{/psci} {
+> +       status =3D "disabled";
 > +};
 > +
-> +CPU_METHOD_OF_DECLARE(bcmbca_smp, "brcm,bca-smp", &bcmbca_smp_ops);
-> +#endif
+> +&CA7_0 {
+> +       enable-method =3D "brcm,bca-smp";
+> +};
 > +
->  static const char * const bcmbca_dt_compat[] =3D {
->         /* TODO: Add other BCMBCA SoCs here to get debug UART support */
->         "brcm,bcm6846",
+> +&CA7_1 {
+> +       enable-method =3D "brcm,bca-smp";
+> +       cpu-release-addr =3D <0xff800568>;
+> +};
+> +
+>  &gpio0 {
+>         status =3D "okay";
+>  };
 >
 > --
 > 2.56.0
@@ -259,7 +188,7 @@ ty\n", cpu);
 
 Reviewed-by: William Zhang <william.zhang@broadcom.com>
 
---0000000000007f051c065e8e5810
+--00000000000021e3c7065e8e5d3e
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -353,13 +282,13 @@ TVAZ9uyO9N20yU0p7igESOWKR1ccL1TPA1jrSHK18Y75ot5199FNWeE/UKoDKSML39iPZho9XPh/
 WkDCNNacYJWZtSp87i6jmw+l5xx7OkEJ9DGCAlcwggJTAgEBMGIwUjELMAkGA1UEBhMCQkUxGTAX
 BgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExKDAmBgNVBAMTH0dsb2JhbFNpZ24gR0NDIFI2IFNNSU1F
 IENBIDIwMjMCDD2ooFIye/WiO3KgZTANBglghkgBZQMEAgEFAKCBxzAvBgkqhkiG9w0BCQQxIgQg
-z3ZQpoCrl/7Hn0Esg0FnwFQWKp/lYw9RnsTOEA2nYHcwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
-ATAcBgkqhkiG9w0BCQUxDxcNMjYxMDI0MDQxNTIzWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFl
+mquUAu9dQtewxjHBhnp8oeUn3BuihIc6Y6BluEPXDUUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
+ATAcBgkqhkiG9w0BCQUxDxcNMjYxMDI0MDQxNjQxWjBcBgkqhkiG9w0BCQ8xTzBNMAsGCWCGSAFl
 AwQBKjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMAsGCSqGSIb3DQEBBzAL
-BglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEACXqBYSMNIf2CAYP66jG5CSOkBcftdzrU5zYj
-FxIH6wkmu9BroTvGqup968Wno6rfyJ6Ptu4VcgV/gQOMNg6IpRemerWM93bFok/XTfMeTEpdGH0W
-5jqfg3Uz2sOP66FZjP17X5fQlG+jwVUHIJJVGhyc48ZQa5axLRlXx+j+GOUHQXP9FGYmEC2whMNW
-4LlubvhGb6kajQsUPiNyt9uyAwXD5V3bIPoEuwbMNW7A+9ecRAmQWd2Y1XiM7iBSx0BBZQ7ow2Q1
-NA59rLpxGg8TzBBZ3xZxCAb2xvfLNv2tnKFJX0smLSQ8iEPAS/jaT/LQ6BGKxb17un9BxYC1ziYy
-pA==
---0000000000007f051c065e8e5810--
+BglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEABnlWVpIgsI5eMPTawGdB006DrFLMKLYEP540
+hr72tIjbeEAqyAPU+ITWrBp8Czmz4zGLFQDusiaBhuuHOyHxtm6Gdd4PiHo5v6B0IAhWsS5J92ma
+hL2QU3nX7jJgbp+JxZHAszWBlMFHM4AoXgWM1wXZ8o5tcZt+aIaBOuzZVD9ULb0ol8FxD/BbwbSn
+AHyMqgV4MNGaeICAV0BCA3uT3auLFnQDQNMmeRNSG2UhQFdrMMA7CnEPLRDhMSNRvS93HLmIHIUz
+aon5Fv3MTltzDum67VT3v4ew0pSS/cVheQF1c95kzsefxaqe/R/CqohumQiXXdC/j6uqL4EekDbR
+og==
+--00000000000021e3c7065e8e5d3e--
