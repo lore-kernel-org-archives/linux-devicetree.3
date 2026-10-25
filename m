@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792956236;
-	b=MFJD8h+PEBrzTJvk9XgB0tL2xiMEEhnJqhd8RoxZi/tQhfsTMQwN6is8o+vZoL+/wkcv
-	 YWB4wnZTe9Tp/DpFJa8xMr6nXTAiHV8cj1RCauiuMY3th6/bdE9f3qoTNp34btOu9L2SC
-	 jQ4jt+ozmdajKtaw5aLNaJkbsQ5sLeAlQU75KpykdIvHTGIn2HlFIWZae/Yeqoci98aBg
-	 s3EVPlrqPZRs0moHCGyW8HJ4EQ7iH0BZ+zVnzbwyrrCwi5drd+n6PiRf9udBGX1BXsoxg
-	 7ATuJrznDsr/8jUwHWvGizVzWMkbOQqmrcx45JgHs57BM2WZI8S/xV25cKxGPj65mog==
+	t=1792956233;
+	b=HZqm5B1DoS9ekh+yXtQulJELXhJpkp2V1H6TNBo9ClAM/EOSHAskqEZrx9Dys181JFHC
+	 dovG7P1YopsEGz2vytqfeomqHtXp539BgLTEdXxwq4SEZcgpnthyIrBi19LbQcmAfRagf
+	 +czFai69DaWptXCq0HVYXtK7TIxZKl9Hgx5daRoeV5xK3vdp6Y9ALRgSXR4J2EZ7SQ7YJ
+	 IeefUBt62Q7WR/xnkjVCJ9pkjzTMbzNeZ/nEpyrLKesqNqYK+oSm3FhwOn8+JUWRZ7Ise
+	 t8CiE/FJdKBQUCz5xQkT/kiJAZ3D6Zj4sMwG2/4zk3bSc8mrz5A1q07U2klA3sX9L8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956233;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=6E++VHotPZYkQ/ssHKSp6n1jMzbTEXMXVTkIq65oCPo=;
-	b=WeV9J2/iQhlBbFf6/iWHNPby/cOgFV/N6Gk/LomWIbY+bSADeoPnHY9QYx+KLWSW+KIT
-	 7xynLqWmAXk0QVS0eJpdXNOCLdg7Hl081xjruAQmKoZj61l8tRhKEMVO8lvtEYAM7nkE4
-	 1z3aBQVXFnt8GRNYNYWA2TOw2aDsszk58HnaObpM3w/lr84iVFBXpxexyNSRe6opfU+2o
-	 s9etON8z1RxO7hf2a6gck1JyFGkFQM/MbTTnhKAGiB3SlB5BQzZQfumrTBXvS/51Inw9Q
-	 3z07yZrFODVjoB9905xZaYE5yyzLZ1jL685Ri/afdQCE3THvu6MAqRtT2cD9dNOi15A==
+	bh=VIAOGyj5zSee2fheBf6+AbjLxYAPl3WFD1ZUhlbKULg=;
+	b=2e9JfSl2LnDBa5hM6on9ZQnxjRxSc1VUafDOgMW4oqSwKLUxY+iYTRyMRasDttxc6rlv
+	 EnDQh/88Q8uQBsm1Xe7ch2pvUVGKdBuJzs8cJ6oHkB2KOQ5Mf6Ythy5dxlUliBxCRaWqj
+	 w2MKea+SmJ0bhu5SUbtiDdN+rXTm/jT5zgZW+BefQUprEVHSaoxlks5BGg/odGm4B66ko
+	 31Hphf/LM4RYx1bkg+isuMvRr2/XO5q9dOLFRJnsrwe1U9Nf3fP3h2Yf9iPi4NHhf0YVu
+	 AYYi+BQUqQkLZewCUHc0f+MysELBqtydTLPw0uulAqOniNr+0zJD370mJoGOGiO0eiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b="BZfCUoq/";
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UbFBc43S;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C098F606A327;
-	Sun, 25 Oct 2026 19:23:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C098F606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02935606A33E;
+	Sun, 25 Oct 2026 19:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02935606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=BZfCUoq/
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=UbFBc43S
 Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com [178.115.151.51])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJNdOv518064
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJNdOu518064
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 25 Oct 2026 20:23:44 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJNdOv518064
+	Sun, 25 Oct 2026 20:23:43 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJNdOu518064
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1792956225;
-	bh=6E++VHotPZYkQ/ssHKSp6n1jMzbTEXMXVTkIq65oCPo=;
+	s=prod24a; t=1792956223;
+	bh=VIAOGyj5zSee2fheBf6+AbjLxYAPl3WFD1ZUhlbKULg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BZfCUoq/aWBQXv97kKmESMNH8V3ZbNVwYSrxVX4yPzXaK8GhFm9ErnSOVjWThMHrW
-	 XIn9ZkIrsZJ06LHhjy05sBXwi20GE20hGgtvVnLHeV2Jo1j6TG02GHoUQGnVXqQ+HL
-	 BWgTqtmkxoXlnOj0/S8FaQ6nLQxbSUL3YCyTW6l0=
+	b=UbFBc43S6JGOX6qXYxPYMGysML3SCFV53Mdq6L1qADFUuEE0iiqfbjw8qem8NUFc+
+	 QZ9z2JMiAYlzheTCuetAmbQkQIELRVFC4tronrD8j/6rgMS0rEBvkZlRQLQsRV8Aag
+	 dDBRCwN5a8qM1BI3xlLHbvIFHW74QOh0nvw+RVfA=
 From: christian.koever-draxl@student.uibk.ac.at
 To: yang.li@amlogic.com, marcel@holtmann.org, luiz.dentz@gmail.com,
         robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
 Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 2/7] Bluetooth: add a quirk for controllers that hang on Write Current IAC LAP
-Date: Sun, 25 Oct 2026 20:23:33 +0100
-Message-ID: <20261025192338.209574-3-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 1/7] Bluetooth: add a quirk for controllers that cannot enable Secure Connections
+Date: Sun, 25 Oct 2026 20:23:32 +0100
+Message-ID: <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
 References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
@@ -74,102 +74,97 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Some controllers list Write Current IAC LAP among their supported
-commands and answer Read Current IAC LAP, but stop responding to HCI
-altogether as soon as the write is issued, even when the value written
-is the general inquiry access code the controller already reports.
-Nothing short of a power cycle recovers the part.
+The Amlogic W1 (W155S2) lists BR/EDR Secure Connections among its
+extended features and then fails HCI_OP_WRITE_SC_SUPPORT with an error.
+That failure is fatal to hci_dev_open_sync(), so the adapter can never
+be powered on: every mgmt Set Powered returns Invalid Parameters and
+bluetoothd gives up on the controller.
 
-The write is only sent on the way to becoming discoverable, so such a
-controller dies exactly when something asks it to become visible, and
-the failure looks like a dead radio rather than a refused command.
-
-Add HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP and skip the write when it
-is set. This costs limited discoverable mode, which needs the LIAC
-programmed. General discoverable mode is unaffected, as the controller
-already holds the GIAC.
-
-Seen on the Amlogic W1 (W155S2); set the quirk in hci_aml.
+Add HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT for controllers whose feature bit
+cannot be taken at face value, skip the command in both places it is
+issued, and set the quirk in hci_aml.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
- drivers/bluetooth/hci_aml.c |  6 ++++++
- include/net/bluetooth/hci.h | 18 ++++++++++++++++++
- net/bluetooth/hci_sync.c    |  8 ++++++++
- 3 files changed, 32 insertions(+)
+ drivers/bluetooth/hci_aml.c |  5 +++++
+ include/net/bluetooth/hci.h | 14 ++++++++++++++
+ net/bluetooth/hci_sync.c    |  8 ++++++--
+ 3 files changed, 25 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/bluetooth/hci_aml.c b/drivers/bluetooth/hci_aml.c
-index 990e701da4be..5979b114f2e4 100644
+index 067fbf278b44..990e701da4be 100644
 --- a/drivers/bluetooth/hci_aml.c
 +++ b/drivers/bluetooth/hci_aml.c
-@@ -603,6 +603,12 @@ static int aml_setup(struct hci_uart *hu)
- 	 */
- 	hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT);
+@@ -598,6 +598,11 @@ static int aml_setup(struct hci_uart *hu)
+ 	/* Setup bdaddr */
+ 	hdev->set_bdaddr = aml_set_bdaddr;
  
-+	/* Write Current IAC LAP is advertised, but the controller stops
-+	 * answering HCI as soon as it is sent, until the combo chip is power
-+	 * cycled. It is sent when the adapter is made discoverable.
++	/* The controller lists BR/EDR Secure Connections among its extended
++	 * features and then rejects the command that turns host support on.
 +	 */
-+	hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP);
++	hci_set_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT);
 +
  	err = aml_power_on(amldev);
  	if (err)
  		return err;
 diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index bcbe76c84d1b..a59f48f387ac 100644
+index 1641d879dbda..bcbe76c84d1b 100644
 --- a/include/net/bluetooth/hci.h
 +++ b/include/net/bluetooth/hci.h
-@@ -389,6 +389,24 @@ enum {
+@@ -375,6 +375,20 @@ enum {
  	 */
- 	HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
+ 	HCI_QUIRK_BROKEN_READ_PAGE_SCAN_TYPE,
  
-+	/* When this quirk is set, HCI_OP_WRITE_CURRENT_IAC_LAP is never sent.
++	/*
++	 * When this quirk is set, the HCI_OP_WRITE_SC_SUPPORT command is
++	 * not supported.
 +	 *
-+	 * Some controllers list the command among the ones they support, and
-+	 * answer Read Current IAC LAP quite happily, but wedge and stop
-+	 * responding to anything at all the moment the write is issued - even
-+	 * when the value being written is the general inquiry access code the
-+	 * controller already reports. Going discoverable is what triggers the
-+	 * write, so on such a controller the adapter dies precisely when it is
-+	 * asked to become visible.
-+	 *
-+	 * Skipping the write costs limited discoverable mode, which needs the
-+	 * LIAC programmed. General discoverable mode is unaffected: the GIAC
-+	 * is what these controllers already have.
++	 * This quirk is intended for controllers that list BR/EDR Secure
++	 * Connections among their extended features and then reject the
++	 * command that turns host support on. Without it the failure takes
++	 * the whole of hci_dev_open_sync() with it and the controller can
++	 * never be powered on.
 +	 *
 +	 * This quirk must be set before hci_register_dev is called.
 +	 */
-+	HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP,
++	HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
 +
  	__HCI_NUM_QUIRKS,
  };
  
 diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index f1dfef81ca96..92c442910d6a 100644
+index a92a81846e9d..f1dfef81ca96 100644
 --- a/net/bluetooth/hci_sync.c
 +++ b/net/bluetooth/hci_sync.c
-@@ -5258,6 +5258,8 @@ static const struct {
+@@ -3419,7 +3419,8 @@ int hci_write_sc_support_sync(struct hci_dev *hdev, u8 val)
+ {
+ 	int err;
+ 
+-	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev))
++	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev) ||
++	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
+ 		return 0;
+ 
+ 	err = __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
+@@ -5040,7 +5041,8 @@ static int hci_write_sc_support_1_sync(struct hci_dev *hdev)
+ 	u8 support = 0x01;
+ 
+ 	if (!hci_dev_test_flag(hdev, HCI_SSP_ENABLED) ||
+-	    !bredr_sc_enabled(hdev))
++	    !bredr_sc_enabled(hdev) ||
++	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
+ 		return 0;
+ 
+ 	return __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
+@@ -5254,6 +5256,8 @@ static const struct {
+ 			 "HCI WRITE AUTH PAYLOAD TIMEOUT command leads "
+ 			 "to unexpected SMP errors when pairing "
  			 "and will not be used."),
- 	HCI_QUIRK_BROKEN(WRITE_SC_SUPPORT,
- 			 "HCI BR/EDR Secure Connections is advertised, but cannot be enabled."),
-+	HCI_QUIRK_BROKEN(WRITE_CURRENT_IAC_LAP,
-+			 "HCI Write Current IAC LAP is advertised, but hangs the controller."),
++	HCI_QUIRK_BROKEN(WRITE_SC_SUPPORT,
++			 "HCI BR/EDR Secure Connections is advertised, but cannot be enabled."),
  	HCI_QUIRK_BROKEN(LE_CODED,
  			 "HCI LE Coded PHY feature bit is set, "
  			 "but its usage is not supported.")
-@@ -6127,6 +6129,12 @@ static int hci_write_iac_sync(struct hci_dev *hdev)
- 	if (!hci_dev_test_flag(hdev, HCI_DISCOVERABLE))
- 		return 0;
- 
-+	/* Controllers that wedge on the write are left alone. They already
-+	 * hold the GIAC, so general discoverable mode works without it.
-+	 */
-+	if (hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_CURRENT_IAC_LAP))
-+		return 0;
-+
- 	memset(&cp, 0, sizeof(cp));
- 
- 	if (hci_dev_test_flag(hdev, HCI_LIMITED_DISCOVERABLE)) {
 -- 
 2.56.0
 
