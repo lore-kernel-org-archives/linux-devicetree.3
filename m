@@ -1,83 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792937084;
-	b=5Fti3hv6I+6iRAcVjzANcX2C2TU94IKqeu2Dvr+NIsnXzehMCPLdAUdFskhowUHJMhRx
-	 rSVx7PU3Ez8oE0CQ8zPyqE9X5mPyNiXWLIEU+0VQ9P9tasUKLGvYSVZeIZhM9CX/xGg8D
-	 xoGYfGzJ+91/c1/F9D29gxRQG439pOXhfWaDxYtM/Sf6QH1gv6mB0OvczgZi+AjrnMLEh
-	 HGLIhXeeY4OTIsSSidpBgxrPwz9HL2ybE2ruAY3/axC90eTZcyy4izmmY11VARFEAHBo5
-	 +fZhC3mv95iGY3a620hgkQ8T310ON2JZykNf2wTHYju46miGJ2U/WT+aLadwsa6RiPA==
+	t=1792937085;
+	b=KXGfRSPHF2KgfSYOE6+sKc7Ep63qBLnLFVboBsBMUnYdKDpoW8qVHAQa8UOMg5/tF8ww
+	 evgNLRuXH2q5qofNxJ/u7Dm30CAU0IiH30i2RSP9GV60oo2kToYvXZf9xgqUyQ62aR2BW
+	 OLmIZhCFpDIre8mnmwEbqEZnHiyfv+hyedGVuXFiOhB2PeSTewNXz+txzmbyXcZ+IC5L6
+	 +mNj3JntQzT30WavRLqnEY47PT9o9CVATFqN7FNQmNgKFGeUAsmYDms2gUMvSfFIS9xHe
+	 9Yed+m0Gk0BtWz0GdJRrtFrPKEJyoD5r2E4BUxLkI7WhkFDVTbJjAAsIfWMCBgShnVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792937084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792937085;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ri0CPShEuql4BAUZEt5/v7rw6sqPDnjjvp/wkFZ8g2o=;
-	b=mhW3cCvXlBwJX83eWgmm01QIjek1FGb3XGSoLik3sx1UT5s8RSTPfENle4IrmcrC3Hd5
-	 u5cGElLN/uBDSjbwxt8ISSL0uvwUt9buHJR9Tnm9N9kntwYSVxyAhUJlNX5wRwpZJPeNi
-	 AfYDLzg9eyBewd4g9YccTTHRuX83cl0qyKOdAl5xbqas/Hd9h96bres+pE6EOtNNd0Xgp
-	 rgfrO6bBpa0FNalq+Ppb2B/4xhXAVosBRn1BGUbcwNXQvGej/mlGL7a17mrPKTDS6fKr4
-	 vwQ+LNDP103WE3sOaNwbPtsz+nn+FOcbZeOR9DGKQI8zKLA0NsNP5ODDQXTF5CLo40g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1ylJOrV4RVdNm4kQ38Gy4IYON4GIqfukuZd5CNvB1e4=;
+	b=xOhgY01ZDXG3X9bZI7F89bWFeVf1iFJ/AHLi0bnWl+VQeAvGQOGWg6dUK77n61a20kM9
+	 tBbQhEW9xP5oDneE6oOeWbOrFpvHcJ+RWIhMAO1p/f4XZxhb6B2nEsHq+F2+XlVLBzP6K
+	 jHKp2mnWqRvLuJe3ZIY5GakdStjG2jtMk2CoqcZIyijzaPcT+/t5ygp2UUhMXYz8CHmC5
+	 6LmX3ggx6gTiO7rfYQlS/7tQA0/Es9JTM1aZBXt2t/loNqaGRe7eNmQ8W61Lmsmw/sM+T
+	 MjXd+fGcy2FsIn6fipKJYWSjdjFO3WzipcleAQiCNX1AT2RStF4SMscHxilD7d20AHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=SjDpN5Dj;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=yZNzDZqC;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76A8606A31D
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 14:04:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B76A8606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A8D606A32D
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 14:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08A8D606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=SjDpN5Dj
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so5967265e9.1
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 07:04:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=yZNzDZqC
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so4499835e9.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 07:04:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792937082; x=1793541882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ri0CPShEuql4BAUZEt5/v7rw6sqPDnjjvp/wkFZ8g2o=;
-        b=SjDpN5DjCTnhznnyUfyIVV7i5xm+PqIL6QXKyqXFa8G2NJQ6k84eQdfRSr/lMkb/f1
-         s0sWzyNB06ewQNCakES2NfeWkb3pioPR0z42VT9ERjg2nJS4V3y64dWjBS9Ek00efXYb
-         finHWi9ats9CUH6KdxD+EwYM85Zt4j4asDR0LYgD0bdDFtc73SpDvQ1FrSfh7kirQhfn
-         gJKyFyj3A9ypexVlwr3MD9ghP4lkMO0mvSeqY2zS5w+GN6i6UXxT38BfEydclyy3Rdrn
-         bQaJ34hDcqqFsymi4vUUyXtXoT/AHJ8J5fXepQeksl0/mtXL2nvEIscWmckZnFNMvcK0
-         mumA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792937082; x=1793541882;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792937083; x=1793541883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ri0CPShEuql4BAUZEt5/v7rw6sqPDnjjvp/wkFZ8g2o=;
-        b=iOeGchJFGtsdFzwGZUZ+M4OTTnICuiYPfIljbHdcpGEqy4vhx2MBnz+I8llorQNPsm
-         BF0H43iRF6meSpBYbiubW/2pzQfllaBgfAOko9vBS12oYYxFZB4z9n8YgWKgr+wrfIjM
-         sV8B9LXMRKPB1kOfxJ1DwP94S8qkqzB5sgPqTMRQXh46ubXvCCqjFHeTzwArlkSMHM4d
-         O01XfZulvEPul6JicXCHop4xvcjMrFeD+RK3n0jLKi7A7kTwB8kEpHKb6vl+d2LMCSCs
-         uz4qHGOKY7BRFsh7dQCWntSv5FyrQZuN+p+R4uEfh4OXPEuipKemEc25CucpqAhD0Rvq
-         ORag==
-X-Forwarded-Encrypted: i=1; AKwUvBxi25+NFemP2+po0b2SbBQLGq/jXf3qLYn/gcGZr0ADaEF37fceibA7mTw9mCq6yasfVN9J8phqEw37@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDw9Zj09auscmu1IenoeQ9U7xg2USfiB4xMYk7MJMB4sO4JGqi
-	/ZFOS9CAF88D/vFfLv+m91Xar+dedwekgsVvpaRZmt7fQaEXr7GtPPaDy6zXtUXJ/q8=
-X-Gm-Gg: AYBFou1XJyAftKGs1yKkgfAwoOAhmFJn592AVsmJsErTlEUFEXVdpU7MKclX/6Voaw5
-	p4vqBJlJjYqvMSqgSFQ901SFKoltK4q4yMs7W86zgtKyXBWejpBCkh22WJXrQ7VdoXhWUhSJG9x
-	sR8BY1fCVlExdyQQhnk4d+PNwYYIQDJ0RsT57ofZm1jY6X5UIDF5FXEzv15AM2YJLbQCGUGo3sU
-	UjxJiPEu/CA7iPY4uJFDf0K36cHfAsx0SG4okS3UhgTQVuFe8dKUso7ZbP+lCwBzzsReCIU3B6p
-	JHzJ0vbTYuwGBMKrtVx0PAjRR1EzArpUV0ckZyZdFB7MTw88M5z8Tcgqrkzg15JcQoLb2qsK41U
-	UrBv46FKQfIYACZjKp7PM/O3t+y/FFvXAxMSq+yRt0Fo4f/PHTR2j+XfJ39U4wX82EJMIEMwUFs
-	ntZXQcNZYP/UJ+uEsoMiuaHmscB6xcu+X4cTtBdZ5qPD2WCQzDR/dA9PTOz4FfkQqi5/+4q10iZ
-	OqZLh9d0usgs6lzvu434myLXmEbDPXZxrEJM0OQS5FhLjTfyE1R0Xrun3LnV05jF5iTEPTf2DfI
-	/WQw6ySicq/qSgI1Zitw6u01Hen5HIv+foB7YuA2vLvxuUg+jKeR5vhaaYozZAbfSJvNO7lHaOo
-	sNH7VNu8veJWlIq3ilVw=
-X-Received: by 2002:a05:600c:46c5:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4a35acba20dmr76716765e9.35.1792937081944;
-        Sun, 25 Oct 2026 07:04:41 -0700 (PDT)
+        bh=1ylJOrV4RVdNm4kQ38Gy4IYON4GIqfukuZd5CNvB1e4=;
+        b=yZNzDZqCcrbtezTrAhcE8PxbaYEc9T+6wfov//qGCLX/v/uSOauXZw8acQqDQjRzlw
+         k69GUNBc+LW889A0Di2V8ynOfc5Jhli+DEbQNbEnaKFUO7do3Z45PIxEGIDUl52GgRDd
+         kK4XdH9ANzpbVQ81DIv4gmhLOrbERqrsui7dNnshDtn/+LnBulUwaOePfqi8nGKuMzef
+         fAT0mjv7/OtKggxWgX1Z/uYQYYOcol+7mDOd7shQjB10CBeki0pJVnm5Eoym9p56E0nU
+         8zH4/fIjSkCKybtBvliG/B0kaUu+QVdc3ITCtNQiZVlHahS9jdpPVpAvgyvr1V/kSsgh
+         ME2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792937083; x=1793541883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1ylJOrV4RVdNm4kQ38Gy4IYON4GIqfukuZd5CNvB1e4=;
+        b=2Ym4jRSJJXuQTEbSOxPu1qvNBEmYADvbZm6V5AQYnCEkG4NTAKl+w5p70geWYOlDpt
+         5+70qZ1cKVFYjJq6uyEonXlVfITmajKcX6G7DVhUbyrDFBF5cLvVgdcEuETIOXX4q8JE
+         qNGtmTZFwoHym0qdSJ60dMtEMFXCFLSO0bfAXqpOY7HwrBrtCLRQ0doVX29kQZDKOQz7
+         S3/lhCqYj0N7Pc+dltOrzHPcXgImB+pCsH5P2HvWWCQMhZF6IsKRAeqCm7lsOSOebIBN
+         /LpXZ8BvqVlyee31QzYZBxwdQduovOyhronPy8bUy4WzXRJGdw0mXE+P8kCAWs8qP8cj
+         F/Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBy/oJpnAkyiwFtQrmQ74w+RuoXD2fDoQ/VhbQa4wP/ANWJy7JHk8wA/nlQpK4yjRVFxoqjPTqe7xrI9@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlQqbuqpEL3b+3nUSORKAZFnxfn7gTkJhFFxH+uiDzw6y+WDHT
+	pZwOUMgrDNKGB9uBM2B/LHLZWrHER2TO3GW65unkHA7es1kpq55Pw0jG5IfiD9z3Qb7QbkHkMrT
+	j1WRaFIU=
+X-Gm-Gg: AYBFou1nGW2Bve4BqOJG64dviixVV1cAMfpoz+jo7iSeSfyKdZEL8NI4CFIz+2Nv4/Y
+	jAnxUaeVSLcAIUWbQe3VOTlLVXBlWfTUyyTicILzV+PPvN5XbTFwAVIdQL1+vFGFHNPjBlGQAUp
+	3rwI45nhsAbOmQsPYE7KcLvv841j/1/0ELFaiWec++LiSeniHfTiSEkfWcVJ1MoCOqDSAQgKeN1
+	IATJuB5gw1aSlrUK2NAtwJGtLh9PTntOOSLlsTIBsqiPz1QUoUpRUU72f244aZDnpvmxzAsJxO3
+	vRSTVkvNEx5w2JVkm9DzI/4PGlAdgagFTdU97Yzy/Tdu0EL++WtgEQy5VSEUrIGXQ2rDx72PXoV
+	TAknwcDtHvmsxbl5FUY6vAHEclAjTtzEMjQJg8fVLyd9d4j1uuVFHnqlCfX+yAmvl1HnCZFz/R0
+	7mtchU6cQkQ64Y3HQCelsj8IZrClBH/0PSjgoCOx9z25ts968rXSzwCfcY041zDbK9D3LCj2spa
+	QN238mJvDNAJk0W5+mjzQu8MJnzST51xJQg6KpcjtmTRH0spSW2WobmoZMzu3s3C1BASZCdp/g8
+	GVVsglQGpTcZpJjGfdzAqs9e1uzmyMJ0hUmOqMnWvDya0ArG7LEOjp5E4NFKX2EiQeD6rWNHeXQ
+	QJrwSVaTIKqLmS2qYLtc=
+X-Received: by 2002:a05:600c:6095:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a35ac7f0d2mr62913685e9.9.1792937083243;
+        Sun, 25 Oct 2026 07:04:43 -0700 (PDT)
 Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a574088sm112317695e9.9.2026.10.25.07.04.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a574088sm112317695e9.9.2026.10.25.07.04.42
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 07:04:41 -0700 (PDT)
+        Sun, 25 Oct 2026 07:04:42 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: Ulf Hansson <ulfh@kernel.org>
 Cc: Rob Herring <robh@kernel.org>,
@@ -90,10 +92,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH RFC 0/2] mmc: jz4740: Use the integrated DMA controller on the X1600
-Date: Sun, 25 Oct 2026 15:03:23 +0100
-Message-ID: <20261025140325.73204-1-olivier@mgcrea.io>
+Subject: [PATCH RFC 2/2] mmc: jz4740: Use the integrated DMA controller on the X1600
+Date: Sun, 25 Oct 2026 15:03:25 +0100
+Message-ID: <20261025140325.73204-3-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261025140325.73204-1-olivier@mgcrea.io>
+References: <20261025140325.73204-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,62 +109,384 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X1600's MSCs have no request lines to the system DMA controller, so
-jz4740_mmc runs them in PIO. This series uses the MSC's own descriptor
-DMA there instead. On a HiBy R1 (X1600, SDHC, 4-bit, 50 MHz), reads go
-from 17.3 to 22.5 MB/s and writes from 13.9 to 18.2 MB/s, with the CPU
-free.
+From the JZ4780 on, the MSC has a DMA controller of its own, which walks
+a chain of descriptors (next, address, length, command) and is selected
+with DMA_SEL clear in DMAC. The X1600 has no request lines from its MSCs
+to the system DMA controller (Ingenic's own kernel uses the integrated
+controller), so the driver fell back to PIO there, which takes the CPU
+for every word.
 
-It is an RFC because of how a read is known to be finished. On the
-X1600:
+Use the integrated controller on the X1600 when the device tree gives no
+DMA channels: one descriptor per scatterlist segment, up to 64 KiB each,
+started right after the command. Buffers that aren't word-aligned,
+transfers under a block and segments that end inside a block still go
+through PIO.
 
-- DMA_DATA_DONE (IFLG bit 31) never came in our tests, masked or
-  unmasked. Rockbox's driver for the X1000 and X1600 waits for it, with
-  the FIFO thresholds (CMDAT RTRG/TTRG) at 32; we tried those thresholds
-  only with the flags masked.
-- DMAEND (IFLG bit 16) is only flagged while it is unmasked, as the
-  manual says. Unmasked, it came for every read we watched, including
-  the 8- and 64-byte register reads at card setup; MSC_STAT's DMAEND
-  stayed clear for the 64-byte one.
-- Waiting for the DMAEND interrupt made reads very slow in a first
-  attempt (minutes to list a directory). We haven't found why.
+A write is complete once the transfer is done, as before. A read needs
+its last words in memory, and on the X1600 no flag the driver polls says
+so: DMA_DATA_DONE never came, even unmasked, and DMAEND is only flagged
+while unmasked. So a read is done when the DMA address has reached the
+end of the last segment with nothing left of it, or on DMAEND.
 
-So this version polls: a read is done once DMADA has reached the end of
-the last segment with DMALEN at 0, or on DMAEND. Is there a completion
-signal on this controller that we have missed, or is this acceptable?
+On the HiBy R1 (X1600, an SDHC card at 50 MHz, 4-bit), reads go from 17.3
+to 22.5 MB/s and writes from 13.9 to 18.2 MB/s, with the CPU free; as a
+USB mass storage gadget, writes from a computer from 4.4 to 10.7 MB/s.
 
-Second, reads under a block (the SCR and SD status at card setup)
-sometimes never raised DATA_TRAN_DONE through the DMA, and the card
-setup timed out, so they stay on PIO.
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ drivers/mmc/host/jz4740_mmc.c | 182 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 171 insertions(+), 11 deletions(-)
 
-Third, SDIO writes that brcmfmac glued together from several frames, in
-segments that end inside a block, timed out through the DMA (CMD53,
--ETIMEDOUT) and left the bus dead, while the same writes went through PIO
-cleanly. Transfers with such a segment stay on PIO.
-
-Fourth, the X1600 manual's two descriptions of the descriptor's LINK bit
-disagree. The code follows the MSC_DMACMD register table, which the
-hardware matches: reads spanning several descriptors work.
-
-The R1's Wi-Fi (brcmfmac over SDIO on the other MSC) goes through it
-too: its firmware download of about 420 KB in CMD53 transfers read back
-correctly, and with the rule above, 10 rounds of DNS, HTTP and ping and
-three Wi-Fi off/on cycles went through cleanly.
-
-Only the new ingenic,x1600-mmc compatible turns this on, so the other
-SoCs keep their external DMA or PIO. Not tested: error paths (CRC
-errors, a card pulled mid-transfer), suspend and resume.
-
-Olivier Louvignes (2):
-  dt-bindings: mmc: ingenic: Add the X1600
-  mmc: jz4740: Use the integrated DMA controller on the X1600
-
- .../devicetree/bindings/mmc/ingenic,mmc.yaml  |   3 +
- drivers/mmc/host/jz4740_mmc.c                 | 182 ++++++++++++++++--
- 2 files changed, 174 insertions(+), 11 deletions(-)
-
-
-base-commit: fd9af27f6c2319713bb23832066585f8a59a1771
+diff --git a/drivers/mmc/host/jz4740_mmc.c b/drivers/mmc/host/jz4740_mmc.c
+index 6a3c26b7c82d..300ad2a01b17 100644
+--- a/drivers/mmc/host/jz4740_mmc.c
++++ b/drivers/mmc/host/jz4740_mmc.c
+@@ -24,6 +24,7 @@
+ #include <linux/property.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/scatterlist.h>
++#include <linux/sizes.h>
+ 
+ #include <asm/cacheflush.h>
+ 
+@@ -45,6 +46,9 @@
+ #define JZ_REG_MMC_TXFIFO	0x3C
+ #define JZ_REG_MMC_LPM		0x40
+ #define JZ_REG_MMC_DMAC		0x44
++#define JZ_REG_MMC_DMANDA	0x48
++#define JZ_REG_MMC_DMADA	0x4C
++#define JZ_REG_MMC_DMALEN	0x50
+ 
+ #define JZ_MMC_STRPCL_EXIT_MULTIPLE BIT(7)
+ #define JZ_MMC_STRPCL_EXIT_TRANSFER BIT(6)
+@@ -93,6 +97,7 @@
+ #define JZ_MMC_CMDAT_RSP_R2 2
+ #define JZ_MMC_CMDAT_RSP_R3 3
+ 
++#define JZ_MMC_IRQ_DMAEND BIT(16)
+ #define JZ_MMC_IRQ_SDIO BIT(7)
+ #define JZ_MMC_IRQ_TXFIFO_WR_REQ BIT(6)
+ #define JZ_MMC_IRQ_RXFIFO_RD_REQ BIT(5)
+@@ -103,6 +108,15 @@
+ #define JZ_MMC_DMAC_DMA_SEL BIT(1)
+ #define JZ_MMC_DMAC_DMA_EN BIT(0)
+ 
++/*
++ * A descriptor of the integrated DMA controller; dcmd bits. LINK set fetches
++ * the next descriptor, as the X1600 manual's MSC_DMACMD table says (its
++ * descriptor section says the opposite).
++ */
++#define JZ_MMC_DESC_LINK BIT(0)
++#define JZ_MMC_DESC_ENDI BIT(1)
++#define JZ_MMC_DESC_MAX_LEN SZ_64K
++
+ #define	JZ_MMC_LPM_DRV_RISING BIT(31)
+ #define	JZ_MMC_LPM_DRV_RISING_QTR_PHASE_DLY BIT(31)
+ #define	JZ_MMC_LPM_DRV_RISING_1NS_DLY BIT(30)
+@@ -118,6 +132,7 @@ enum jz4740_mmc_version {
+ 	JZ_MMC_JZ4760,
+ 	JZ_MMC_JZ4780,
+ 	JZ_MMC_X1000,
++	JZ_MMC_X1600,
+ };
+ 
+ enum jz4740_mmc_state {
+@@ -140,6 +155,13 @@ enum jz4740_mmc_state {
+  * COOKIE_MAPPED: the request was mapped in the irq handler,
+  * and should be unmapped before mmc_request_done is called..
+  */
++struct jz4740_mmc_desc {
++	__le32 next;
++	__le32 addr;
++	__le32 len;
++	__le32 cmd;
++};
++
+ enum jz4780_cookie {
+ 	COOKIE_UNMAPPED = 0,
+ 	COOKIE_PREMAPPED,
+@@ -179,6 +201,18 @@ struct jz4740_mmc_host {
+ 	struct dma_chan *dma_tx;
+ 	bool use_dma;
+ 
++	/*
++	 * The integrated DMA controller, used on the X1600, whose MSCs have no
++	 * request lines to the system DMA controller; idma_active is set for a
++	 * request it carries.
++	 */
++	bool use_idma;
++	bool idma_active;
++	struct jz4740_mmc_desc *descs;
++	dma_addr_t descs_dma;
++	/* Where the integrated DMA's address ends up when it is done */
++	u32 idma_end;
++
+ /* The DMA trigger level is 8 words, that is to say, the DMA read
+  * trigger is when data words in MSC_RXFIFO is >= 8 and the DMA write
+  * trigger is when data words in MSC_TXFIFO is < 8.
+@@ -283,13 +317,22 @@ static inline struct dma_chan *jz4740_mmc_get_dma_chan(struct jz4740_mmc_host *h
+ 		return host->dma_tx;
+ }
+ 
++/* The device that maps buffers: the DMA engine's, or ours for the integrated one */
++static struct device *jz4740_mmc_dma_dev(struct jz4740_mmc_host *host,
++					 struct mmc_data *data)
++{
++	if (host->use_idma)
++		return mmc_dev(host->mmc);
++
++	return jz4740_mmc_get_dma_chan(host, data)->device->dev;
++}
++
+ static void jz4740_mmc_dma_unmap(struct jz4740_mmc_host *host,
+ 				 struct mmc_data *data)
+ {
+-	struct dma_chan *chan = jz4740_mmc_get_dma_chan(host, data);
+ 	enum dma_data_direction dir = mmc_get_dma_dir(data);
+ 
+-	dma_unmap_sg(chan->device->dev, data->sg, data->sg_len, dir);
++	dma_unmap_sg(jz4740_mmc_dma_dev(host, data), data->sg, data->sg_len, dir);
+ 	data->host_cookie = COOKIE_UNMAPPED;
+ }
+ 
+@@ -300,17 +343,14 @@ static int jz4740_mmc_prepare_dma_data(struct jz4740_mmc_host *host,
+ 				       struct mmc_data *data,
+ 				       int cookie)
+ {
+-	struct dma_chan *chan = jz4740_mmc_get_dma_chan(host, data);
+ 	enum dma_data_direction dir = mmc_get_dma_dir(data);
+ 	unsigned int sg_count;
+ 
+ 	if (data->host_cookie == COOKIE_PREMAPPED)
+ 		return data->sg_count;
+ 
+-	sg_count = dma_map_sg(chan->device->dev,
+-			data->sg,
+-			data->sg_len,
+-			dir);
++	sg_count = dma_map_sg(jz4740_mmc_dma_dev(host, data), data->sg,
++			      data->sg_len, dir);
+ 
+ 	if (!sg_count) {
+ 		dev_err(mmc_dev(host->mmc),
+@@ -371,13 +411,101 @@ static int jz4740_mmc_start_dma_transfer(struct jz4740_mmc_host *host,
+ 	return -ENOMEM;
+ }
+ 
++/*
++ * The integrated DMA controller moves whole words from word-aligned
++ * addresses; other buffers (none the block layer hands us) go through PIO.
++ * So do transfers under a block, which are the card's registers read while
++ * it is set up: on the X1600 such a read through the DMA sometimes never
++ * raised DATA_TRAN_DONE although all of it had been moved, and the setup
++ * started over after each 5 s timeout. And so do segments that end inside
++ * a block: SDIO writes that brcmfmac glued together from several frames
++ * timed out and left the bus dead, while the same writes went through PIO.
++ */
++static bool jz4740_mmc_idma_can(struct jz4740_mmc_host *host,
++				struct mmc_data *data)
++{
++	struct scatterlist *sg;
++	int i;
++
++	if (!host->use_idma || data->blocks * data->blksz < 512)
++		return false;
++
++	for_each_sg(data->sg, sg, data->sg_len, i)
++		if ((sg->offset | sg->length) & 3 || sg->length % data->blksz)
++			return false;
++
++	return true;
++}
++
++/* Maps the request's buffers and chains one descriptor per segment */
++static int jz4740_mmc_idma_prepare(struct jz4740_mmc_host *host,
++				   struct mmc_data *data)
++{
++	struct scatterlist *sg;
++	int i, sg_count;
++
++	sg_count = jz4740_mmc_prepare_dma_data(host, data, COOKIE_MAPPED);
++	if (sg_count < 0)
++		return sg_count;
++
++	for_each_sg(data->sg, sg, sg_count, i) {
++		struct jz4740_mmc_desc *desc = &host->descs[i];
++		bool last = i == sg_count - 1;
++
++		desc->next = cpu_to_le32(last ? 0 : host->descs_dma + (i + 1) * sizeof(*desc));
++		desc->addr = cpu_to_le32(sg_dma_address(sg));
++		desc->len = cpu_to_le32(sg_dma_len(sg));
++		desc->cmd = cpu_to_le32(last ? JZ_MMC_DESC_ENDI : JZ_MMC_DESC_LINK);
++		if (last)
++			host->idma_end = sg_dma_address(sg) + sg_dma_len(sg);
++	}
++	/* The descriptors are coherent memory; order them before the start */
++	wmb();
++
++	return 0;
++}
++
++/*
++ * The card's data is in (DATA_TRAN_DONE); wait for the integrated DMA to
++ * have written the last of it to memory. On the X1600 DMA_DATA_DONE (bit
++ * 31) didn't come, even unmasked, and DMAEND is only flagged while
++ * unmasked, which the polling here doesn't do. So it is done when the
++ * address has reached the end of the last segment with nothing left of it,
++ * or on DMAEND.
++ */
++static bool jz4740_mmc_idma_read_done(struct jz4740_mmc_host *host)
++{
++	if (jz4740_mmc_read_irq_reg(host) & JZ_MMC_IRQ_DMAEND)
++		return true;
++
++	return readl(host->base + JZ_REG_MMC_DMADA) == host->idma_end &&
++	       readl(host->base + JZ_REG_MMC_DMALEN) == 0;
++}
++
++static void jz4740_mmc_idma_wait_read(struct jz4740_mmc_host *host,
++				      struct mmc_data *data)
++{
++	unsigned int timeout = 10000;
++
++	while (!jz4740_mmc_idma_read_done(host) && --timeout)
++		udelay(1);
++
++	if (!timeout && !data->error) {
++		dev_err(mmc_dev(host->mmc), "DMA did not finish a read\n");
++		data->error = -EIO;
++	}
++}
++
+ static void jz4740_mmc_pre_request(struct mmc_host *mmc,
+ 				   struct mmc_request *mrq)
+ {
+ 	struct jz4740_mmc_host *host = mmc_priv(mmc);
+ 	struct mmc_data *data = mrq->data;
+ 
+-	if (!host->use_dma)
++	if (host->use_idma && !jz4740_mmc_idma_can(host, data))
++		return;
++
++	if (!host->use_dma && !host->use_idma)
+ 		return;
+ 
+ 	data->host_cookie = COOKIE_UNMAPPED;
+@@ -395,7 +523,7 @@ static void jz4740_mmc_post_request(struct mmc_host *mmc,
+ 	if (data && data->host_cookie != COOKIE_UNMAPPED)
+ 		jz4740_mmc_dma_unmap(host, data);
+ 
+-	if (err) {
++	if (err && host->use_dma) {
+ 		struct dma_chan *chan = jz4740_mmc_get_dma_chan(host, data);
+ 
+ 		dmaengine_terminate_all(chan);
+@@ -462,6 +590,11 @@ static void jz4740_mmc_request_done(struct jz4740_mmc_host *host)
+ 	data = req->data;
+ 	host->req = NULL;
+ 
++	if (host->idma_active) {
++		writel(0, host->base + JZ_REG_MMC_DMAC);
++		host->idma_active = false;
++	}
++
+ 	if (data && data->host_cookie == COOKIE_MAPPED)
+ 		jz4740_mmc_dma_unmap(host, data);
+ 	mmc_request_done(host->mmc, req);
+@@ -680,6 +813,7 @@ static void jz4740_mmc_send_command(struct jz4740_mmc_host *host,
+ 	struct mmc_command *cmd)
+ {
+ 	uint32_t cmdat = host->cmdat;
++	bool idma = false;
+ 
+ 	host->cmdat &= ~JZ_MMC_CMDAT_INIT;
+ 	jz4740_mmc_clock_disable(host);
+@@ -726,6 +860,11 @@ static void jz4740_mmc_send_command(struct jz4740_mmc_host *host,
+ 			}
+ 		} else if (host->version >= JZ_MMC_JZ4780) {
+ 			writel(0, host->base + JZ_REG_MMC_DMAC);
++			idma = jz4740_mmc_idma_can(host, cmd->data) &&
++			       !jz4740_mmc_idma_prepare(host, cmd->data);
++			if (idma)
++				writel(host->descs_dma, host->base + JZ_REG_MMC_DMANDA);
++			host->idma_active = idma;
+ 		}
+ 
+ 		writew(cmd->data->blksz, host->base + JZ_REG_MMC_BLKLEN);
+@@ -737,6 +876,10 @@ static void jz4740_mmc_send_command(struct jz4740_mmc_host *host,
+ 	writel(cmdat, host->base + JZ_REG_MMC_CMDAT);
+ 
+ 	jz4740_mmc_clock_enable(host, 1);
++
++	/* Started after the command, as Ingenic's own drivers do */
++	if (idma)
++		writel(JZ_MMC_DMAC_DMA_EN, host->base + JZ_REG_MMC_DMAC);
+ }
+ 
+ static void jz_mmc_prepare_data_transfer(struct jz4740_mmc_host *host)
+@@ -786,6 +929,9 @@ static irqreturn_t jz_mmc_irq_worker(int irq, void *devid)
+ 			 */
+ 			timeout = jz4740_mmc_start_dma_transfer(host, data);
+ 			data->bytes_xfered = data->blocks * data->blksz;
++		} else if (host->idma_active) {
++			/* Running since the command started */
++			data->bytes_xfered = data->blocks * data->blksz;
+ 		} else if (data->flags & MMC_DATA_READ)
+ 			/* Use PIO if DMA is not enabled.
+ 			 * Data transfer direction was defined before
+@@ -812,6 +958,9 @@ static irqreturn_t jz_mmc_irq_worker(int irq, void *devid)
+ 		fallthrough;
+ 
+ 	case JZ4740_MMC_STATE_SEND_STOP:
++		if (host->idma_active && (data->flags & MMC_DATA_READ))
++			jz4740_mmc_idma_wait_read(host, data);
++
+ 		if (!req->stop)
+ 			break;
+ 
+@@ -850,7 +999,8 @@ static irqreturn_t jz_mmc_irq(int irq, void *devid)
+ 	irq_reg &= ~host->irq_mask;
+ 
+ 	tmp &= ~(JZ_MMC_IRQ_TXFIFO_WR_REQ | JZ_MMC_IRQ_RXFIFO_RD_REQ |
+-		JZ_MMC_IRQ_PRG_DONE | JZ_MMC_IRQ_DATA_TRAN_DONE);
++		JZ_MMC_IRQ_PRG_DONE | JZ_MMC_IRQ_DATA_TRAN_DONE |
++		JZ_MMC_IRQ_DMAEND);
+ 
+ 	if (tmp != irq_reg)
+ 		jz4740_mmc_write_irq_reg(host, tmp & ~irq_reg);
+@@ -1033,6 +1183,7 @@ static const struct of_device_id jz4740_mmc_of_match[] = {
+ 	{ .compatible = "ingenic,jz4775-mmc", .data = (void *) JZ_MMC_JZ4780 },
+ 	{ .compatible = "ingenic,jz4780-mmc", .data = (void *) JZ_MMC_JZ4780 },
+ 	{ .compatible = "ingenic,x1000-mmc", .data = (void *) JZ_MMC_X1000 },
++	{ .compatible = "ingenic,x1600-mmc", .data = (void *)JZ_MMC_X1600 },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, jz4740_mmc_of_match);
+@@ -1123,6 +1274,15 @@ static int jz4740_mmc_probe(struct platform_device* pdev)
+ 		goto err_free_irq;
+ 	host->use_dma = !ret;
+ 
++	if (!host->use_dma && host->version >= JZ_MMC_X1600) {
++		host->descs = dmam_alloc_coherent(&pdev->dev,
++						  mmc->max_segs * sizeof(*host->descs),
++						  &host->descs_dma, GFP_KERNEL);
++		host->use_idma = !!host->descs;
++		if (host->use_idma)
++			mmc->max_seg_size = JZ_MMC_DESC_MAX_LEN;
++	}
++
+ 	platform_set_drvdata(pdev, host);
+ 	ret = mmc_add_host(mmc);
+ 
+@@ -1133,7 +1293,7 @@ static int jz4740_mmc_probe(struct platform_device* pdev)
+ 	dev_info(&pdev->dev, "Ingenic SD/MMC card driver registered\n");
+ 
+ 	dev_info(&pdev->dev, "Using %s, %d-bit mode\n",
+-		 host->use_dma ? "DMA" : "PIO",
++		 host->use_dma ? "DMA" : host->use_idma ? "integrated DMA" : "PIO",
+ 		 (mmc->caps & MMC_CAP_8_BIT_DATA) ? 8 :
+ 		 ((mmc->caps & MMC_CAP_4_BIT_DATA) ? 4 : 1));
+ 
 -- 
 2.39.5
 
