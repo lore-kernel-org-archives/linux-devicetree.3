@@ -1,63 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792969967;
-	b=AOr/h+HHbQ1JsRq5rJxCmbOzLcGvYIDp1Ok8ElNq5/WyJ6AeiGcIWrXcicDvbI68e8Ql
-	 1qHG9lcZWEkWUR/f+7tWl2z9sVKQ1PzYvcjdMV0kdHh+hidb8tevnaqeYb/O5KAtS3l14
-	 udZpJQ9c/L6HiYZPiqy8uQAAywZ+81SyZX3RP9zSoYT8FnnJ5oCGyRSo81rQFoO+nYYHE
-	 fqY7xsQkAoxU2LZkU7WfuHhGY+EiSrWac+1/mJjWHS+hnnJP59ac4oSyjatqQb6S558hf
-	 1cF54KaivGtMmKbGEVd9Cr05FdtW7AIE3WeoPR3fucx0mTdsHddUNdlSH1qI4iAs3ew==
+	t=1792970253;
+	b=qFFCcfiVDPR+yPHUzJAA5JyijwjjU/80svujUdN2Ka9XX8KUmo3Sp+XXI5tQOaCnr2es
+	 0Sos7ujsQLcS/QRO+jq8etxa2IP8tiVH0sVsUcQSqdRtmG1xmOvdqM6UZftQ5zx85nuTI
+	 9MQ/zX6MRgQoH7JsfyugipBDylc6Z8DSYe4nN3UiVo4jXyoIrrhvLJTu4kr4Dob9CvA96
+	 JUcCfa62zvzihiLuu6lHr2iG4yqAODFPFp7IcRsLLGVogvk6n7ZT+aKTaIn8KCqbo8/aK
+	 l0BWwdmvzEs2fFA6kg/Dz03mrDnNzol9/3cdCGUzJ20u+PF/rIOG4aj/BmjiMXWx+cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792969967;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aIUFJoFYTsajTpY+ck7fTBnjmSDJNtvuj8FkCBnGqao=;
-	b=rnWMCJwPOrc458mkKwjv+7PNh1jZPCE/ikvHoybVj9/kUgrkfI/HpqGq3mUiR2226oHW
-	 +ndqL+uoehiJWe0hFSEC9XuDrNnflUCdm9dG+YKMDb+c+kCNuQrh1r5IdeVYi9YpNE0ev
-	 vj7rXdrC23WgTtcZH3kYPmZhcTRepCOSV9NKH3uqVzTUcDzAFjSgm9ova7o+w+4b7dNse
-	 UonwdIxayehYSoIgg5ygPzbn/jb0BAPet8EajD87YedSDriZNq9U4fWSZXvGIB0gDORPT
-	 8RUuIkUum9+Mhj36ubghJZvNpGFsoigwvJl34h5ZkPX1ueYINdUmLIjPktum3Zwy31g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792970253;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1hVXHSSffpcrZE2/dIYy72FKUCCmACgLfbWxbiqGBxk=;
+	b=rXvM7k/Hny/IPWmM8gntQHsrnUota18Q+xCfYixixW7cfWaUuSxkANVPR/zcOfjQC8iv
+	 V8Ne/XDP8t6qA4YjwZnCmP8tQ0BxNbrsCpguOSsFGJgbLroyUZGBI1pMS9/U/02NO4cDj
+	 U/r0YRtzbospfGh3BVI2AifyBm8PBN7274oNeAosUfVTVtIsthaJwlhK3yoyI0oMRG8pO
+	 w8GI8DJvgYWAp/PMOyu05sjhgoNULoklZ8xF+MQ+COJLNhlnuczG9yxLTbFwKed53Gk4O
+	 6AqTFt49G+pvgNIwnGJXrNGGCPLRE/yczcIG1YUvjAdaXgeNNUpZLuBVWYAIys3IygQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vd2dFF9+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToJEnEMm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B0B606A31A;
-	Sun, 25 Oct 2026 23:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F73606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vd2dFF9+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB361F01825;
-	Sun, 25 Oct 2026 23:12:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToJEnEMm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1671F01825
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792969966;
-	bh=aIUFJoFYTsajTpY+ck7fTBnjmSDJNtvuj8FkCBnGqao=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vd2dFF9+J1LK8EfBQv8o40zxH43ruMAtF+hOdYbAQ4FkMOhQWzPypTQHHaHMEZKNc
-	 v/x3eooK6IF2tAZHpaytPQpJltkD01bmRatAjaKBFU+ZMHg62K/Fw4lhR3Hrqx6Lar
-	 XrIMl7l7ItrZZ5+/mmEpxcrcBCvXfeKtygttRoaOYWlm7AAP+dUbGmsfXRiSm1KeOd
-	 ppAREyo7OxMJdHSN0ImPBlPV/BapKM4bE2ttzJpnY8l6Bv2w+BXiFXT9MBLc3gRX1S
-	 txMb3yh+iAxZA8/qx4qlX1D7rhS09pivbTHPN0AyFas8Rqam2W3UdsvpQeCIkNQLy2
-	 n2slycruHCVUA==
-Date: Sun, 25 Oct 2026 23:12:37 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mike Looijmans <mike.looijmans@topic.nl>, Andy
- Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?=
- =?UTF-8?B?Zw==?= <u.kleine-koenig@baylibre.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] iio: adc: ti-ads1298: fix scale, ID check,
- regmap and Kconfig
-Message-ID: <20261025231237.55d4ebd0@jic23-hlaptop>
-In-Reply-To: <20261024231335.280955-4-stephanbrrs8@gmail.com>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
-	<20261024231335.280955-4-stephanbrrs8@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792970253;
+	bh=1hVXHSSffpcrZE2/dIYy72FKUCCmACgLfbWxbiqGBxk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ToJEnEMmIVfjGvCctb2YmRbovLJqqptQ0eSV3TAce8knL7eWYTU8PTmxl7Ld/AmZl
+	 vhDC/HZ2XnCdjus2MWVCm+ZXiVoCJHpFf9z6J2Lhrb01hGUfSsZvElxkJlW92uZ80j
+	 GyZ433ftSpxT55G0dDNI58CjFVBlZZqZ27zs7JnTQNCsEeIASZ+sgkJ7L0NTSXKEvI
+	 aeI2yWENQ5WqhSgqUEQGZDLPbtwuMtZ28Jl+tZPuqHhe1/j4s4dmj8rrN/dViySDkY
+	 VVm1d+x6wEsC0dO4zV0HHs+Mp28n52dYY+L7uTI52mzAYEeURH1tNEzfkZqB+VKhc/
+	 CbGThHW6AJjOA==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso1806211e87.3
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 16:17:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByZaonMZN4LpCqXfIqnBBpw1bPRBhM8wKE1KEyqhup1MoGtZhP41gEewNikG6iImfE9PXE3Vc8msNM2@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+vdnIagOB6GEqc6mF4c3W5y93Raws0mqluv4cucenBqXzF0c4
+	2lVOTAsz4J9X8AlDt5WfZesVLfBKdwFpeFW/wFBwpvbcBTikjwa6V3TZb57wIBc5lmzHfcS/wib
+	wkrIUZ5S1sYZdT7mi7pKyrVh5RVFulQw=
+X-Received: by 2002:a05:6512:128f:b0:5bf:6c49:42b3 with SMTP id
+ 2adb3069b0e04-5bfb716e26cmr1579164e87.6.1792970251552; Sun, 25 Oct 2026
+ 16:17:31 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,60 +59,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261025-genexis-xg6846-smp-v7-3-rc1-v4-0-b352ab54f46b@kernel.org>
+ <20261025-genexis-xg6846-smp-v7-3-rc1-v4-3-b352ab54f46b@kernel.org> <CAHi4H7Gc9_b0L5xdEBd7dVdbYMUirWm4vSVaSpDDB6yZP8NSHA@mail.gmail.com>
+In-Reply-To: <CAHi4H7Gc9_b0L5xdEBd7dVdbYMUirWm4vSVaSpDDB6yZP8NSHA@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 26 Oct 2026 00:17:19 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=sYrL8BV6ap2POTbT5=4iPEjG1mAUexwexiiQGqEUwPA@mail.gmail.com>
+X-Gm-Features: AclHuK8hWfyHYeZsI3EvK84CwASHP7zMUupYjb-JuuwHInkQdWD88LMlReS1FOY
+Message-ID: <CAD++jL=sYrL8BV6ap2POTbT5=4iPEjG1mAUexwexiiQGqEUwPA@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
+To: William Zhang <william.zhang@broadcom.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Russell King <linux@armlinux.org.uk>, Anand Gore <anand.gore@broadcom.com>, 
+	Kursad Oney <kursad.oney@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 24 Oct 2026 20:13:32 -0300
-Stephan Costa Barros <stephanbrrs8@gmail.com> wrote:
+On Sun, Oct 25, 2026 at 7:02=E2=80=AFPM William Zhang
+<william.zhang@broadcom.com> wrote:
 
-> Fix four smaller issues:
-> 
-> - The scale divides the reference, in whole millivolts, by the gain
->   before it is reported. With the internal 4 V reference, it is 0.099 %
->   low at gain 6, 0.101 % at gain 12 and 0.025 % at gain 3. Report
->   VREF / (gain * 2^23) as an IIO_VAL_FRACTIONAL; sysfs still shows it
->   with nine decimals, now without the error.
-Move this to end of the fixes. An accuracy improvement is nice to have
-but not necessarily something anyone will backport if the previous driver
-is working well enough for them.  As with prior set, separate patch
-per fix.
+> > +&CA7_0 {
+> > +       enable-method =3D "brcm,bca-smp";
+> > +       /* Dummy release address since CPU0 is already online */
+> > +       cpu-release-addr =3D <0x00000000>;
 
-I appreciate that will mean a lot of patches, but they will each
-be simpler to review.
+> Nitpicky. In your dt-bindings patch,  you use <0xff800568> as example.
+> I guess it is better to use the same here to keep consistent, although
+> what value doe not really matter.
 
-> 
-> - Only the channel codes 0, 1 and 2 of the ID register are defined; an
->   ID of 0x93, for example, gives 10 channels. The IIO core then reads
->   past ads1298_channels, and the RDATA transfer writes past rx_buffer.
->   Refuse the reserved codes as an unknown ID.
+I did it this way on purpose because I didn't want to put 0x00000000 into t=
+he
+example in the binding, lest the DT maintainers would complain
+about that the dummy is not a good example.
 
-No problem with this, but it is hardening against devices we have
-never seen. So after fixes and marked as hardening.  We should never
-have a fallback compatible issue on this, because they shouldn't
-be using larger numbers of channels.
-
-> 
-> - The driver uses regmap but does not select REGMAP, and fails to build
->   where nothing else selects it, such as tinyconfig with SPI, IIO and
->   TI_ADS1298 on x86_64.
-
-Interesting we never saw this in random builds.  Indeed good to fix
-but has nothing to do with the rest of this patch.
-
-> 
-> - Bit 0 of CONFIG3 is a read-only status bit and the GPIO register
->   reads the pins, but both are cached, so a read through debugfs returns
->   a stale value; debugfs can also write ID, LOFF_STATP and LOFF_STATN.
->   Mark CONFIG3 and GPIO volatile, and the other three not writeable.
-
-I don't really care about stale data in debugfs. By all means fix
-this but it isn't something we'd bother backporting.
-
-> 
-> The ID check was found by review and reproduced on an emulated device
-> only, where KASAN reports the read past ads1298_channels.
-> 
-> Fixes: 00ef7708fa60 ("iio: adc: ti-ads1298: Add driver")
-> Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
-
-
+Yours,
+Linus Walleij
