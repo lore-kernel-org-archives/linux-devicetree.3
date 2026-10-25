@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948481;
-	b=EJdTYts9rqFSkFbj3Q4Wu5Jn2JQ23saJx8x4dEUmJZoZuxYl0HVgwCwDexlU8+t9GgLT
-	 oW+H+NWEVOL5e2VgPkFCb9M9d9AIKucjSTCt7rO9M7zNpeD7ma7LB8dbL1RNZQxgCUMeG
-	 hCQo5DHZt+l1ewvo10FxgYD1IB5a7EtHApYn372RUBlivxaf8CIFlLV7O/OAjts5SAEVW
-	 jCRfcID+smqdiWMho8gNFQeVRl1VCPQh48g/+y+CexwkCafyrepvvwBAKQbEqvkrcc0qS
-	 dVierw7WSEkl70acizcs9XWDbeoOs8F4T5s6URG/ebPB2sx9ztaT3cFCMtMPGbwZXMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948481;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MhHztknkSHPqrXjrHLscjPHwEDTCdUtJkajY/SvLZKw=;
-	b=U6yyVZNE323bLQr3ED0UFi0kFcfUCWoiuJNbYEfn8F0LV+rgZ7zq810hI117j01bFmmz
-	 BEBIuIy5W6L8ANA/HeO3b1+aGbLL2WnnHflNV5tF710stucID6YXaO4/xaS+oCmrx+fYv
-	 E/AAvzg2fBit7q8Uua4R+Xd1ouk3Pp9Y6dQY42AoPP1bT79rq0ZlOQ3AQTV0+irjlRkOH
-	 8feqeYkEXoz0IHp4Ut9YKRt4tyDqVxCx2aLAcwLvMhuMAIDf6wOThS2/84IowTweaiexg
-	 1NrY1B/ma9s68IaImm7LuraJF5BmZkmiW6cuWjP7k5jD1aDAyJzr5l+q3AGeRDkaiUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aBUprk/T";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792949894;
+	b=tqy6VC1xYuXZGANnnLr70Z4V8pJldDOXJXPhU5PX54wN7p2plL60GL23lCCpmUgRjQ1I
+	 u6Ot2uO9Ytp3X5T5L2T1/68HvPkkakAMx4yrBB7vHyjktwZ9Ye+n4EgIzSIoEu6bDrSBL
+	 APpjmWNIHrV71b+JzOevorOEKW1IBQ2vhQfsC/1M6SZo2khplITJ1JxY+1c9LTU+RIFMO
+	 4re9ouWxt4zLXYsQvnNo8iONsPHZfzcLpsz4WKDACnwNl3hYRU5gnkGISNeriO4ibBlAX
+	 g8bpwtm6Znwlv1Y205Wi0PEp23SP4oMndoCuDWiKXgybJWjL47YmorUhCKVLjuGwJng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792949894;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HnZXVXFJcjscxnrsOc4diI+ORhtNKVuKMIKyqdM2PuM=;
+	b=iOMgiOv+TPvPuGGbSDpiOB40lSLpe2wk2MNYYd/D2/LiqI0iLCj8TWe9PjggBR/AHU5D
+	 7WjMR9Gc2kWSWcmjkAEuY6SadOJxCM1nZ65cKPu/rz7Az9NGL5RoakgsmXB9vthmniBDt
+	 Pb6ktiwxt96to+gAfwZau6ACuPusGnLUz4dGnb/QIR/RUygUq1OjrU+6u2PWnF2Ohz8wH
+	 SycPDXafAzV7tjZGK9rl11xyCPR6AtP7nQ2vYjZxEzR2gDymws4a6A/iLAVOlmcY73foI
+	 cJk8RW8YmKAa7nfexIDgbPuUE2DiZXmIOJ0ILvGjXGWAQFnDpM7BnK5rpI585AtGo3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nIkPcrj4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3B7606A31A;
-	Sun, 25 Oct 2026 17:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90695606A31D
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 17:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90695606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBUprk/T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC4F1F01825;
-	Sun, 25 Oct 2026 17:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792948480;
-	bh=MhHztknkSHPqrXjrHLscjPHwEDTCdUtJkajY/SvLZKw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aBUprk/TK0tNCbZt1AonK4UsFkV1ptKhZSpIYnueV7rZEan8xoKMSJhG5kIBuH+Ir
-	 3ltueCVb6gQ7ckASgE9wmXxnKbsBrYOs3wnA6ZYqK93jE3meIEHQIKl2eJdYnHhK5W
-	 dhzTPciAU8j0K3b9Aw53tckmtfhh01je1v+FZQHYFF+xz28AFN1+kUKOFIQgIXBPYB
-	 hvOqEEMm45KHLp6/OmxdZ638iFuuO3vSibghH3Fh8zyD2NsxmShuUF20KR/svHcVGU
-	 mDBRJmB7IbGO/VEADt6ylCZ9cML61rNH0TTQswgJ5EXHknjQQ03I3RctuJKI46DyBx
-	 r7q6FDMwmCVKA==
-Message-ID: <98938da0-6018-433a-9b06-b593bb1cfc11@kernel.org>
-Date: Sun, 25 Oct 2026 18:14:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nIkPcrj4
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-9906870a9baso1228041241.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 10:38:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792949893; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aEtn1LWHzjHZn80nfp9onlRQfWAZQPGO3lBZoVRXHav0LOygHuJqWoVAK6H405N9zt
+         CNNuaqryN7SzMtSX9DoiGu18n6q1ncmT9aVOOxWbC8ipQ18ZsGFiKGx82WXiZ5mOIjvX
+         LbY2Za6Tp5TALhvf3piyP0wqiTVTiQ2XW61TWAVU8dmoceqFNCwdPiT3jpi+riH03R50
+         8Sy4WzcENdOrG98GSamvCjguV1mlvhHEtM7vBtw+X98I48e2GBQBe5qD/L4Gde3WKOQJ
+         fkX74v4zGmmgserT9+ffpJywmJb3RqWhRVEXjz/lctIeiVE7KQmxYDz4lLrn9Mx4TLe6
+         Xlwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HnZXVXFJcjscxnrsOc4diI+ORhtNKVuKMIKyqdM2PuM=;
+        fh=KWvzHbn6A06h7Q1/Utd59faBZnBaOihNEeCqekkhZUM=;
+        b=bpwXmVh1H477xlLha+UGlW9KMVYTeIddfb4hx1QiP4QEkJKfZa1JV3GxAULdHaTy5Q
+         B6HEgDKrm8FljWOtd13DqHVvURdHZfLlVtbj88XeCHkC7rxHf0nXBXCHfZgJgW3HRJEn
+         hoaas8kYOpuqgZ19g96SnZLtzeZpbXMTFbSh1FbQtsy/v7ZGigi8kFdNy/lQE39I/DO9
+         wFexcLCsrJzofuUGLD1SIpSO/T/qn2GRKjy8a52CPsxpg+bMy3+PNiydaMQZmi3Qefux
+         IoMlIfjgRXVeoCQgti4TyVGxOI6EaBeI1hB3K0OD5ixr7KaihsNbnDClMRrcCYQ7zigC
+         yAWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792949893; x=1793554693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HnZXVXFJcjscxnrsOc4diI+ORhtNKVuKMIKyqdM2PuM=;
+        b=nIkPcrj4adrfpAUrnBjpXJhXo/oI3cDEOj8KZyAVt8jj+1EStmwZqQx6GSUr11keuw
+         w87YVz9pZMNT+G+C1BdlQnlBHofrKt1dh4OOzzwiKPq71UzNF+gAcValpDFmvoB7lG8G
+         nmBVsbkZc3GW7xmnz2JnQCeo4huxSWLe3l9ead1ZSSoGlt80L5FzQomyf4dzsYjT/gUB
+         9XpTqLaQv5GCGA1NfIwCYuxaQ6d8ANH3T28JrOdK4QsmRTtjeytvJHDrtiTQfRxvWNX1
+         LR41TNA2Ed4NX5bRprt64EWmwRD+zEUUvdkH6Ro6UX+A8eaE+uCMUFZZkL9piVK9nvUq
+         JNPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792949893; x=1793554693;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HnZXVXFJcjscxnrsOc4diI+ORhtNKVuKMIKyqdM2PuM=;
+        b=NpAGBG+ORVQRTy/sRkOn5iDtRbu7WPyNAQo76pQKAUOOjZgLvRtHFsypF0+8f2dVKq
+         AmivwFJEop95sV4OBXoaH5ts1NuDNnQhY4nmN2/ThlvAzNeyIbNDvIB2P1tt6jcuqAKP
+         l4H/5N7KK4Ev5cyGT2sW+yrBGBKve+FnnCWkPLJSXFyBXUHRSV0KVz0T3MoJ13IAFAYX
+         iuyhqKhwZJpRWUHobhq3aYYcBzqODEcny8kJGJHbjOzTjj349Cd1OxxLl7Q9wwNw62MJ
+         KrI5HzPrOQYw0uCLgkFgks+SGk8ZGpK84nGhfKYC/1Lu7wDQ0yppD5uZI40fRgTE700i
+         SeLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXo7Wu0nt/ZlugfgLl/sE2ehOaLpEmDqUIksVvE/k40x+cgPJ31Em/5BlkUFkblCoMF6+JDBxm4Gpy@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7+oZ3oaJdj8JiagK83uui1zqHkKdTPGFPedwMWRsDcdNSB2/s
+	SSPV6i21zK0P58K/eCH6AsNobq+7dCwy7+xoTJuzFHrcdpco0H0fnQQiavNkNmF3K37101d8KR6
+	ROE6yZM3yFc+Si5sHl2pG3ibSGCqcjAU=
+X-Gm-Gg: AYBFou0tmCf0NVEBOSfzNZ5YJcZHy6Dmdnv8fAL4l45xtPBo6XKqONrAHmraJOAaAmd
+	SWcI2wSoEwp6Fhn4JxFFRhP4XypAgPUudPfkhQtgOcn1LA+9TsqebHNULMdD3rprSLr0oO/m1cF
+	AKeQ9yAe9Zr6dDwfzwRNiZbf/NAtduOBA5ulBaSK+PMXQ8fbSImiJDplPjInvCqc7XofBq0p1h9
+	jbO6kS4YsevWDyJFewZpiG7Q5HLRHd94G0JBhfajmygiurtOXdjq2ZfYC1XMj+nzwqbk/MAmYYK
+	WYB85xPte+VnJyss1/tjm+pjyR3qmLUvJSoaYvyeHWLF2qPfUNCRH4jCT1mn+x+cCoTqBu5XwCK
+	GBIgpVX3xW166MoBZ/KQJzIPLtuixV+jTmT3Sy46sKiKtMlXW3cMsaM7YejB2ZEH3/G7LL9/O0f
+	P+U6q69PwYenf3viooUWIyDgTfhv28A5Hq5udNAsEu9MtPYpAyIgnIrEcIPKllNRLpQvd9RlmQW
+	ik0rBrNeVNG0a20FOfqGkjpXsGrS5GdZAhOhErA9kRq1gzxo4k=
+X-Received: by 2002:a05:6102:c8f:b0:7c0:4d52:8cc9 with SMTP id
+ ada2fe7eead31-7ce5cc8d55dmr1213666137.14.1792949893405; Sun, 25 Oct 2026
+ 10:38:13 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,95 +106,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: samsung: exynos4412-p4note: allow powering off
- the wifi card
-To: thesame-personal <thesame.personal@gmail.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261023-submit-h616-uart-fifo-v1-v1-0-e4a3bae2eba8@gmail.com>
+ <20261023-submit-h616-uart-fifo-v1-v1-2-e4a3bae2eba8@gmail.com>
+ <atseYvQUYvpMFEIM@ashevche-desk.local> <CADvTj4pRW9q6VyQ=nLi8q0mMF8LgccfO4eqAeqgzzgOkDno1dw@mail.gmail.com>
+ <CAGb2v65LVm1GV2kV4bVO8YJd16tkubHOvXUtbJ3uuBw2O3TBsA@mail.gmail.com>
+ <atywVnHU5NsP_gOP@ashevche-desk.local> <CAGb2v64P2rM0VnFh0NfNhi+3_xGPYkxt2j+2hmBMu5ZvugHRow@mail.gmail.com>
+ <aty37_xHO-QRa7hQ@ashevche-desk.local> <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
+In-Reply-To: <CAGb2v66jqrrix903k2OT-z0kV-9XWm6LpXmHQsCyLL5P6uXD7Q@mail.gmail.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 25 Oct 2026 11:38:00 -0600
+X-Gm-Features: AclHuK9ADptacPxgJpmNc7NJsHyAAEhwuFjXIctIvJ_VhKssk-2-2xQxAyeIEHs
+Message-ID: <CADvTj4p1vxCUsNk98Q=TRkvtZQ4LzXNY9V-2GT30aspRGUgrsw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] serial: 8250_dw: configure the Allwinner H616 UART
+To: wens@kernel.org
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 24/10/2026 22:48, thesame-personal wrote:
-> sdhci_3 serving BCM4334 was missing cap-power-off-card.
-> On my N8000 this resulted in the following messages after sleeping:
-> [305.759883] PM: suspend entry (deep)
-> [306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
-> [306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
-> [307.127267] PM: suspend exit
-> 
-> The regression was triggered by commit 8c3170628a9c
-> ("wifi: brcmfmac: keep power during suspend if board requires it").
-> Midas already has a fix in commit 2ff147fdfa99
-> ("ARM: dts: samsung: exynos4412-midas:
-> turn off SDIO WLAN chip during system suspend").
-> exynos4412-p4note.dtsi does not include exynos4412-midas.dtsi,
-> so p4note did not automatically inherit the Midas fix.
-> 
-> Another affected board was fixed in commit 863d69923bdb ("ARM: dts:
-> samsung: exynos4210-i9100: turn off SDIO WLAN chip during system
-> suspend").
+On Sat, Oct 24, 2026 at 8:10=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wrot=
+e:
+>
+> On Sat, Oct 24, 2026 at 10:51=E2=80=AFPM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Sat, Oct 24, 2026 at 10:41:55PM +0900, Chen-Yu Tsai wrote:
+> > > On Sat, Oct 24, 2026 at 10:19=E2=80=AFPM Andy Shevchenko
+> > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > On Sat, Oct 24, 2026 at 10:10:33PM +0900, Chen-Yu Tsai wrote:
+> > > > > On Sat, Oct 24, 2026 at 12:12=E2=80=AFAM James Hilliard
+> > > > > <james.hilliard1@gmail.com> wrote:
+> > > > > > On Fri, Oct 23, 2026 at 2:44=E2=80=AFAM Andy Shevchenko
+> > > > > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > > > > On Fri, Oct 23, 2026 at 01:33:50AM -0600, James Hilliard wrot=
+e:
+> >
+> > ...
+> >
+> > > > > > > >       /* Internal 8250 only */
+> > > > > > > >       UART_PORT_AIROHA                =3D 124,
+> > > > > > > >       UART_PORT_AIROHA_HS             =3D 125,
+> > > > > > > > +     UART_PORT_DW_APB_256    =3D 126,
+> > > > > > >
+> > > > > > > Why? Besides the poorly chosen name, what prevents us from mo=
+difying the
+> > > > > > > corresponding parameters at probe time by leaving the one of =
+the existing
+> > > > > > > types?
+> > > > > >
+> > > > > > The new type was primarily a way to reuse the core's FIFO confi=
+guration
+> > > > > > table, including the RX trigger mapping. H616 uses thresholds o=
+f 1, 64,
+> > > > > > 128 and 254 bytes, whereas PORT_16550A maps the same FCR bits t=
+o 1, 4, 8
+> > > > > > and 14 bytes. Overriding only fifosize and tx_loadsz would leav=
+e
+> > > > > > rx_trig_bytes reporting and selecting the wrong thresholds.
+> > > > > >
+> > > > > > The core already has get_rxtrig/set_rxtrig callbacks, though. I=
+'ll rework
+> > > > > > this to retain PORT_16550A, supply the H616 FIFO parameters dur=
+ing setup,
+> > > > > > and use those callbacks for the correct trigger mapping.
+> > > > >
+> > > > > Please consider just taking the FIFO size from the DT. On some ch=
+ips
+> > > > > not every UART has the same size FIFO, so we already need to deal=
+ with
+> > > > > it.
+> > > > >
+> > > > > Also, FIFO size is a standard UART DT property, though somehow no=
+t included
+> > > > > for dw-uart.
+> > > >
+> > > > FWIW, it supports all standard properties for UART.
+> > > > Check what uart_read_port_properties() does.
+> > >
+> > > Ah, that's nice. I hacked up something [1] in the past to get it to
+> > > work, but that was probably before you added the helper. I never got
+> > > around to splitting up the commits and sending it out.
+> >
+> > Hmm... The helper is in the kernel for the past 2.5 years.
+> > Maybe you rebased it and it lost original dates?
+>
+> I had been carrying the changes locally without committing them. I only
+> committed them recently to back them up remotely. So yeah, the dates are
+> not accurate.
+>
+> > But if it's not working, we need to address that, I believe it should w=
+ork out
+> > of the box, because the same function is used across dozen of serial dr=
+ivers.
+>
+> The new helper probably works fine. I can rework my code to use the value=
+s
+> given by the helpers and give it a try sometime next week.
 
-Drop paragraph, not needed here.
+I've incorporated that approach into v3[0]. The H616 DTS supplies
+fifo-size =3D <256>, and the driver uses the value populated by
+uart_read_port_properties() for the transmit load and receive-trigger
+mapping.
 
-> 
+[0] https://lore.kernel.org/all/20261024-submit-h616-uart-fifo-v1-v3-4-286f=
+c1b8c3c1@gmail.com/T/
 
-Please add Fixed tax and Cc-stable.
-
-> Signed-off-by: Artem Utkin <thesame.personal@gmail.com>
-
-Does not match From.
-
-Best regards,
-Krzysztof
+>
+> > It might be an issue in 8250_dw.c, but I can't tell for sure.
+> >
+> > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/wens/linux.git/co=
+mmit/?id=3De7e0741fa04f349ad9f94a4059e32467a30ef5d9
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko
+> >
+> >
