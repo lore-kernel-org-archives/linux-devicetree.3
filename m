@@ -1,59 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792971951;
-	b=rwca6l0rEB6WpW3aXeVa3VqJZT2ANfU5qN17jI4AgEK9Ig4Q1p5dHfDPa5ikSmOJVEAK
-	 YLUU976KAwhZxt3MTdZnDwib9/mtkLyGp2wp9S4XVPQvUhuNFy4kmikRhtqVJ19MPGTsr
-	 lWdljUD3Qf0igqzYL/qB74UWwnj/J23xeS5ZvZdr8CoyiJ23kbeJ2ketTxqTiFUvnXDx9
-	 sgKukGTtMNFhSjNMVHFMEm2TOvuGzxXmrCSxjEbI7sOeOqfwaygVHr+dGhAh/Bn5aUk2m
-	 cV7v0pLFN9S39IgipqNF1r9Oez692i+7mlBwjbRM/dODxur9W8q0he1gpf9PzRA/gDQ==
+	t=1792972140;
+	b=04JsETalSd5blhZ82TpLG3Gu7CEjT7cw/rGHZLMPe8xrdvdWXyztFyszPgOEMtTRj6vG
+	 znWtmy9xjhH+4re8DBpHXN0Lz4QINystXVD5XdDljIMMlfp9I21VR3BnR8mH7+o+4HF9o
+	 NNUu4SC8F+0CvMtw05FmNH4Ow+aPmLTNvjmufBP5n9pdSiQXd5xS3Oz1Ie7zgokeWjfhY
+	 QqhaQ57q6xQ/pCUvWuWlHo3pYvvce7oRY1+FZssaYbqFxgqZd2M3WrGBXnI9X1N8/kfMQ
+	 u5ftt4BK7pTFdbx61tSgHdLxFSG0F3TBtZlEoX8HNVGEiyRvXSlME5niRp4/56NWu2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792971951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972140;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hakPJTGZwby279hgNDWQpX5r27VL4n94rHKLpL8MZvI=;
-	b=WPVnAHEvTUoZy1QoNg1b1qnYjSQvDxCf70C+dmlrtZBCfJ+/hTRYfdCbgmo/6wy8r3CH
-	 PSPJd9SuxxEnjOLiFrQBoysbSdM4Vc79sSoWosgtChS9G79jhHd0FuBKBh573BcszPbUt
-	 mYwTQ8qNpcsBXx0scWPxPMn9K3paBgZK03yv/EGCsYt2IZfQDBhogv/F6JOYXvTix6AZD
-	 nGZ26uLItXGNx+7UC0MrgHVT8wCQw1f8zK6iyFUu1QrS1d6GhQatD0kZyqzxVqNX4nMl9
-	 DGN2ys8YIjqcx4QrkAlPQIjz8BLsS1vZN2inKk9cD84+Lx3BMBhza9WoHX9t9/C8HAw==
+	bh=mezoK2VZHuQsu7p6myHJ5EdzM1VQCFQnX3rSyq9jwJw=;
+	b=hLm8uLheWLNc/1P7HlVFtGsCZ2XZwI6E7oPP2utOq7+lg0y9BR7lp8RzCL19XZmPi5yU
+	 erpe/MNoVCmVHevKrlkKjRdV93FjKkY0i30Om9haWLfhTI+5vSYNS3kssIJ6NHEydXorp
+	 1OKXIwO8TNZ/chr0l8ZJBJX2zGgE5SSovbLOEGRlFcdqqDHRAr/+959sEErKEsXAuZPLN
+	 eqcO/h8Yrfhe/HpfEfgl+RbXWJp+zolXHJQkLtKYVoS4y1WpfIneDTxiXnjPwQF93wxxI
+	 FPP7TxWg3rTqZItlpkVSk+WWv+/XCVIxHnbiFd1EK+j5aTRA0ltkBojUGMg8qtW4mfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrdwL6sB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcC6fvOA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5194606A324;
-	Sun, 25 Oct 2026 23:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66059606A31B;
+	Sun, 25 Oct 2026 23:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrdwL6sB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1921F031E3;
-	Sun, 25 Oct 2026 23:45:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcC6fvOA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3934E1F01825;
+	Sun, 25 Oct 2026 23:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792971951;
-	bh=hakPJTGZwby279hgNDWQpX5r27VL4n94rHKLpL8MZvI=;
+	s=k20260515; t=1792972140;
+	bh=mezoK2VZHuQsu7p6myHJ5EdzM1VQCFQnX3rSyq9jwJw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IrdwL6sB6nvALGjivn8Wto5yP4vhYdRRmNwmCq+SsJlkGH75VlZMWdS5PjsEIWBSP
-	 fnUdx8U8xUxc7pEXbvDzpLMfSSNlNmcxNacePgn+A2kb+lXhVvuH+jDCX9dH0ZifG+
-	 ORseMRwCkpTZ9ZS+wrLJbIdU0DnJsYGyVJWOL7payFTBUxOxBecGcvjPBOefMWlrM5
-	 YqzK6xfXJt6WZGIv1+EzmYIO8RhzWgDk3070mFw5HyPLyYT8GGC/3ZNOoc5cMRo6bk
-	 hkyEb+t+sNMYO6jXg0aOT1kIF+OOnf2pzQWUTyKDOpKwWz9OuVfSWYWRqWlTSRJIwD
-	 an5Qv9txD4//A==
-Date: Sun, 25 Oct 2026 23:45:43 +0000
+	b=UcC6fvOAeuddlpGwwm5HvyA0ve7BfGvTmFrXzAT4C5WxFJpGVIz3B021hWyrby6tp
+	 L85l/hn0qFp1jD9XG3iguON0YmZO1g3uWocCLCzBpmT3cknt1vosg4T9LMKLJJpJQ/
+	 Dt7EXHSkkLn6BRz5yGMiDw9NMh2LujLU/XdppFQhdt62nBM6qO2xccg/XQq+7pWgud
+	 upvH847HUjEn/W9XbHZJU9gxaH11oJ1sq+jTUpk4rLrqqfuC1IkmH2FLvYpc2unCEi
+	 Vd/d7JxZRNNk4lJE7JvZmuUvIVkUE7siywxv6ammW6TR3zendxtCD93Bddj58VygfK
+	 GAwrtUJuLNE/w==
+Date: Sun, 25 Oct 2026 23:48:50 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <20261025234543.0d5fb3db@jic23-hlaptop>
-In-Reply-To: <20261024041357.34346-2-olivier@mgcrea.io>
-References: <20261024041357.34346-1-olivier@mgcrea.io>
-	<20261024041357.34346-2-olivier@mgcrea.io>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, Andy Shevchenko
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+ <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Prabhakar
+ <prabhakar.csengg+renesas@gmail.com>, Biju Das
+ <biju.das.jz@bp.renesas.com>, Fabrizio Castro
+ <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+Message-ID: <20261025234850.41bc8f15@jic23-hlaptop>
+In-Reply-To: <atyKo0pTYZyt5XJc@ashevche-desk.local>
+References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	<20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	<atyKo0pTYZyt5XJc@ashevche-desk.local>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,51 +76,69 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sat, 24 Oct 2026 06:13:57 +0200
-Olivier Louvignes <olivier@mgcrea.io> wrote:
+On Sat, 24 Oct 2026 13:38:27 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> The X1600's SAR ADC has four auxiliary channels, each with its own start
-> bit, interrupt flag and 12-bit result, and none of the touchscreen or
-> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-> driver that exposes the four channels as voltages against the 3.3 V
-> reference.
+> On Fri, Oct 23, 2026 at 06:59:19PM +0100, Prabhakar wrote:
 > 
-> There is no datasheet here: the register layout and the clock dividers
-> come from the X1600 driver of the vendor's 4.4 kernel.
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which shares
+> > the RZ/T2H ADC IP but differs in channel count, sampling, calibration and
+> > resolution support.
+> > 
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable
+> > 12-bit and 8-bit conversion resolution.
+> > 
+> > Expose the fixed sampling frequency as a read-only attribute and allow
+> > the conversion resolution to be changed through the scale attribute.
+> > Use extended scan types so the reported scan type follows the selected
+> > resolution, and prevent resolution changes while buffered capture is
+> > active.  
 > 
-> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-> behind adc-keys: all three read and report correctly.
+> ...
 > 
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> > +				 struct iio_chan_spec const *chan,
+> > +				 int val, int val2)
+> > +{
+> > +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +	u64 req_scale, scale;
+> > +	unsigned int i;
+> > +
+> > +	if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> > +		return -EINVAL;
+> > +
+> > +	req_scale = mul_u32_u32(val, NANO) + val2;  
+> 
+> But what's wrong with the simple 1ULL * val * NANO?
+> 
+> > +	for (i = 0; i < chan->num_ext_scan_type; i++) {
+> > +		scale = mul_u32_u32(RZT2H_ADC_VREF_mV, NANO) >>  
+> 
+> Similar Q.
 
-Just one trivial things in addition to the other reviewer comments.
+Patch on top please - I might squash it with original.
 
-> diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-> new file mode 100644
-> index 000000000000..60683f26c693
-> --- /dev/null
-> +++ b/drivers/iio/adc/ingenic-x1600-adc.c
+Thanks,
 
-> +static int x1600_adc_probe(struct platform_device *pdev)
-> +{
+Jonathan
 
-> +	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request irq\n");
-> +
-> +	/*
-> +	 * Powered up for good: the keys poll it every few tens of milliseconds,
-> +	 * and powering up takes 2 ms.
-The keys aren't tightly coupled to this driver so make that a little vaguer.
-
-A typically usecase makes use of .... for which polling is every few...
-Hence leave powered up.
-
-> +	 */
-> +	writel(0, adc->base + X1600_ADC_REG_ENABLE);
-> +	fsleep(2000);
-> +	writel(0, adc->base + X1600_ADC_REG_CTRL);
-> +	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-> +	if (ret)
-> +		return ret;
+> 
+> > +			chan->ext_scan_type[i].realbits;
+> > +		if (scale == req_scale)
+> > +			break;
+> > +	}
+> > +	if (i == chan->num_ext_scan_type)
+> > +		return -EINVAL;
+> > +
+> > +	/* The scan type changes with the resolution. */
+> > +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > +		return -EBUSY;
+> > +
+> > +	adc->resolution = i;
+> > +
+> > +	return 0;
+> > +}  
+> 
 
