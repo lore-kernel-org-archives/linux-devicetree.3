@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792937084;
-	b=y1dJaUcIrZV43A3sHB86FnHjrX9hIr9/dvU53N+iz2KbeWwyEYlJDEwTrAEZkr0d/bhr
-	 A3kaxEzkXDR4KOV5PJeJpkjt8bieX3pdGHtn4cZXScXzZ9Q8esSlgeRCxGtcH3BJ9Es6Z
-	 BX6ccbeH9fpep4ktAcgS2iGQc0a6fWAbqCGrQVF5wLxl0Ix1+fyiS+TBojoZqgPyMI+T6
-	 zswz++TwXA3n/eoZ3vFAjyckwX76UK4pUIjHg6X3PTg4+rFMlUBMW20z05z05iIH9bbcX
-	 DqZIXbU6NjzyLNpvWxHTIAgEEjSZoWSkEzbqy3TQ3gIg7iHHZ7VhdCQnqfzdmI27BkQ==
+	t=1792937187;
+	b=Y2p4OwY896bt+x9JPMbYWo3UEGBYro1XmSHTMCQ4amlsEsgJ7rnbEhIRwAbiLPLqNBEY
+	 UV3jtK34uf33th90v00/SR05aur25cILkXNs4BibYAomR3ZoCUpKW8P79SUeMq2IOJMnv
+	 CSPuZ71Y89zThYYPpMjLG6IAouXVrQJCKH3clplSHmQE9P6l4Pn77UfZogv+GbvaqEx0R
+	 ArXtQigWxo+YRWocu2zUW1GZr/NZXuO3VO+1Q3qP6RWw8Fx6Wutap3Bip18xu8gO+gn6P
+	 ennQsymiybNxWiTKDvSFxCnp+ZS+2ANQiMq2kn/9N8rvp3mCaRl5m0rWKNcmPL7FWsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792937084;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gf2N8Nd/TL/v9Ty3pc7g07aVuF2lX3oZKxasqQ7SD9I=;
-	b=EOLwic8heOKnbg1UDTxtLx9nRLm74FURPDTiO5hcUoi/J2Cr4Gt4x0FppstKSwyfbDj5
-	 ivU69x4exo15KIK3Up2xmyvCra0GDuhfyBAATeY8PwgD3qzECA73Ycy04ygoi62mwZqDn
-	 0l+izop5xMKalYhr7eUk4N6h7iTkx06HWOOIRyOkBFDWE1yYoFx4u1ct2KmQheYkVYDPJ
-	 GpvaWG8lhqDLTqB48gegsweethJrmmN7/nxeRF9s7Mwz4MDax7fFqKe/VrVq8xzCZMFqL
-	 QWINKcgA8VCZlvvIElU847OTAvkNPsGixFsO8X1RcQKEX0rSnOMJzWRtwie71X1wNKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792937187;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sYFPd41i3hKOPb7ElJhVpPl7TKbKVA+dirHOxIiACxg=;
+	b=kYkkryfPnJ6wzTRe/WgO2FGKhyLuLHkbQMS/aSebGoh1tD6z5QF5Qd4ncEZCMA6gIm/T
+	 RmSsihfP31TrcKMV1Rbp+NsZ4rnqd1USd2PSTxA4FMaHP0dKCBJU1P8sU0WsnDcwYwi1P
+	 Bk9fxKRSuU3QG3X3YmhbKEOwSGjEgZqCMUA6VUzP0KD3Y7oaOZJm+tUIto2UrztcEFcJW
+	 E0LgWynrvNxQ/EdTSI3cE15IpJ1n6Avw99FcgYzdFb5uyEXEJXZb4p65/+Fg/wEG3eBTu
+	 pnj+omrpALnxy5do8BBR0sGwMoIx/9whTTXWAacqgXasEeh7OvY1hNbmvP89WFUCfRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="JvkyLz/Z";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B594WxHk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D621606A321
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 14:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D621606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC482606A31A;
+	Sun, 25 Oct 2026 14:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=JvkyLz/Z
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so14143165e9.0
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 07:04:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792937082; x=1793541882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gf2N8Nd/TL/v9Ty3pc7g07aVuF2lX3oZKxasqQ7SD9I=;
-        b=JvkyLz/ZNZaUn5KvDlRMFowHcFjJnQwtRGtucdh9VQYbheAbLH5l83M5ujW1w0K8MG
-         t/M2ycE/8cXAyROJC8vJ80SmRrO29JVPGxugVEkAAztqPVJxz0oYRBhT6N7oIRiroxbd
-         pnMnWQ3UCMLFgxtDDkDMO8Ci1NRIcrBH+pheYYOhWnJiV+4A/PE72b/THGoPbVYsHu2q
-         8vXAm68b4hSIY76GjyrBKtef/M8p9wIMsP2M0Y5C4ikEp/LDXcI1MlG3LTUMOmZudL7/
-         xfwG3qCrQ0oWW50A3SVc6hypDeRGOQqA6AleGsmiadzHOtXL/jCSFa7b5qs91zUAL+vM
-         4fuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792937082; x=1793541882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gf2N8Nd/TL/v9Ty3pc7g07aVuF2lX3oZKxasqQ7SD9I=;
-        b=0VkI5dZQ2scyx6q7fqgp2trkMMgT+asNDNy3YQ5LNTIjIeyt/Hyaaxhg+RqC0KxKtS
-         SnGUgbagPtDYnIjvQhXK1cM+hpkvQ9ICXR7ns74nBs+X58HWdVJ7+qaEF04bXTnMy0/a
-         Rq+N5R7lofeDga/rFtl7jM5U45mJSYmIc27y2jwsI3MWoSQAd2a/bz6kJ9MRoc6alVLK
-         ih/PF3nY/Bwk54g/RE7m1m0+9tKOVfYU6nZhWXs2s4lJVpPIHA9gwpU01rZfS8uOakkj
-         YCFUBT42Er28g/hvYcCURjjo/H5H/N2XXzDPRR/jRypE6kj7ZxIMQc3I4FrULMcX6zAL
-         lBIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtEsF/YQExOnI6lc4IUu6FQyOwpxFy/4aQ68Fdo6ubU5o9Tx56gnL6Wy3IF+zoQGPpOyWQYC31XzXI@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2yOrHv/PsmMlR1CsdLrwlZIpd4aIGSSQQ3I8UNR/QvFmEB+y9
-	hEf2883/ph6coxXsSiJ/ckdZ6jQkQNrYTRCjrEyjLF+3Md4ZuPALaUiE5RsF/6qaxEQ=
-X-Gm-Gg: AYBFou01zHpwYi9/4qNsrS/TY8SmhDhGON76TNY+0OFoFU0nLliy2IrjbmbdhYVGMLd
-	TxJiZEPtEdvH5DjRL46o1kzJEc2C7npL450NntU58bN0j3FyNQb3xxotlsf8Xnv1Urg5KZQheUr
-	7S+mwt2dd41SxwSA1q/Fr35iYbWtlbYu6lbAhjp7+G4AKeWmvqqUmXFcQR3MhEyTg0KR/y7J0tT
-	3IbZP2a2+QtKf/s1uIZUgekmWneoxWL5NReH8Izup/MHO+SxYpVZq0sozDOBrFdgABHOPm/wv+s
-	rlc2BuztIajyfFNa+ufiB81FmwLGD+SbfcGCZDeae+zxbnrEoe8DgS+CEUXzUs+aZFNEtY15yfb
-	0iJEW62ZVniwINfZkg3dIQenq5N7wBra9528jj7KOAs5lmwBRs+ddkc2NSr5Ax60WmWx7MuXL5B
-	r4eFMT5vlg3zLSUsX2h8oiWqGVad6y7COKOXSzHsJEHTzsACbGj8n3eFPUITDX06sSimIcnU+vC
-	ljoQsFzxmzhx8nWIl+H8HzMlu/NLg8BEnyxucey8uySKbME2VSvZSwKujDqaNFjHVwvUatkdLiB
-	rKUBb27x/YZ0VavcQSj5zJRO7Xo6Lp8mIY6irXy+NpzKMK4fnx2ygmZxgTGa6J8vTQnl72dxVA=
-	=
-X-Received: by 2002:a05:600c:37cc:b0:4a1:f720:74cd with SMTP id 5b1f17b1804b1-4a35acaf08fmr74313465e9.24.1792937082605;
-        Sun, 25 Oct 2026 07:04:42 -0700 (PDT)
-Received: from localhost.localdomain (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr. [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a574088sm112317695e9.9.2026.10.25.07.04.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 25 Oct 2026 07:04:42 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH RFC 1/2] dt-bindings: mmc: ingenic: Add the X1600
-Date: Sun, 25 Oct 2026 15:03:24 +0100
-Message-ID: <20261025140325.73204-2-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261025140325.73204-1-olivier@mgcrea.io>
-References: <20261025140325.73204-1-olivier@mgcrea.io>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B594WxHk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148A61F01825;
+	Sun, 25 Oct 2026 14:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792937186;
+	bh=sYFPd41i3hKOPb7ElJhVpPl7TKbKVA+dirHOxIiACxg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B594WxHkbQEYBjhurEkNH+8eFDOf8E9TVu0XXp2RPXglP9owiAIbZVpKSj1XuSHqk
+	 ULzGPImv8NAa2Xl/yeUzls9P2bcTpv55arDGkj4oKJFCQz6nh9VZg5r9EtJ0IyCB38
+	 TqPQshPLIvBJnLNnk+XJ+PTVWMm3g3BiS10RhJn0uJVcK7uLFo8Jdvg6DaSey9V46r
+	 zlJFLuLW31EmZntbZY6ENIVbB9QUmVmLOfiF4ddcgT+5UvEsd+VpMDQSWjYiKG4MQw
+	 YZJJYvMhm6M+qR1naC88nrtMRXuRU0EEha6o3jiwcefCLRUmxSEmw2Ud4RlfYfEtYI
+	 xW3wik+rcxUWg==
+Message-ID: <sashiko-outbox-184238@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: a523: drop the PA GPIO
+ interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pablo Mazzini" <pmazzini@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261025135745.102970-4-pmazzini@gmail.com>
+References: <20261025135745.102970-1-pmazzini@gmail.com>
+ <20261025135745.102970-4-pmazzini@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 25 Oct 2026 14:06:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,35 +60,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The X1600's MSC has the X1000's registers, so the X1000 is its fallback.
-Unlike the X1000's, its MSCs have no request lines to the system DMA
-controller: the driver uses their own DMA controller instead, which needs
-the X1600 compatible to tell them apart.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] pinctrl: sunxi: sunxi_irq_base_reg() ignores irq_bank_map on A733
+--
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+commit 1d99efa95c547fd409284e1974176bcf35345f69
+Author: Pablo Mazzini <pmazzini@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml b/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml
-index bb4e0be0c893..6b26a17982f3 100644
---- a/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml
-+++ b/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml
-@@ -25,6 +25,9 @@ properties:
-       - items:
-           - const: ingenic,jz4770-mmc
-           - const: ingenic,jz4760-mmc
-+      - items:
-+          - const: ingenic,x1600-mmc
-+          - const: ingenic,x1000-mmc
- 
-   reg:
-     maxItems: 1
+pinctrl: sunxi: dt: number the IRQ banks from the first one that has IRQs
 
-base-commit: fd9af27f6c2319713bb23832066585f8a59a1771
--- 
-2.39.5
+This commit updates prepare_function_table() in the sunxi DT pinctrl
+driver to number logical IRQ banks starting from 0 at the first bank that
+supports interrupts, rather than starting from PA. It also updates
+a523_irq_bank_map and adds a733_irq_bank_map to map logical IRQ banks
+0..9 back to hardware banks 1..10 (PB..PK).
 
+> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctr=
+l/sunxi/pinctrl-sun60i-a733.c
+> index ca82f08a3a65b..3ebe926a1bc6b 100644
+> --- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+> +++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+> @@ -21,8 +21,11 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_=
+BANKS] =3D
+>  /*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
+>  	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
+> =20
+> +static const unsigned int a733_irq_bank_map[] =3D { 1, 2, 3, 4, 5, 6, 7,=
+ 8, 9, 10 };
+> +
+>  static struct sunxi_pinctrl_desc a733_pinctrl_data =3D {
+> -	.irq_banks =3D 10,
+> +	.irq_banks =3D ARRAY_SIZE(a733_irq_bank_map),
+> +	.irq_bank_map =3D a733_irq_bank_map,
+>  	.irq_read_needs_mux =3D true,
+>  	.io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+>  };
+
+[Severity: High]
+Does sunxi_irq_base_reg() in drivers/pinctrl/sunxi/pinctrl-sunxi.h ignore
+a733_irq_bank_map when SUNXI_PINCTRL_NCAT3_REG_LAYOUT is set?
+
+In drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c, a733_pinctrl_probe() passes
+SUNXI_PINCTRL_NCAT3_REG_LAYOUT to sunxi_pinctrl_dt_table_init(). However,
+when accessing IRQ registers via sunxi_irq_cfg_reg(), sunxi_irq_ctrl_reg(),
+sunxi_irq_status_reg(), or sunxi_irq_debounce_reg(), sunxi_irq_base_reg()
+only calls sunxi_irq_hw_bank_num() on the non-NCAT3 path:
+
+drivers/pinctrl/sunxi/pinctrl-sunxi.h:sunxi_irq_base_reg() {
+	if (pctl->flags & SUNXI_PINCTRL_NCAT3_REG_LAYOUT)
+		return pctl->bank_offset + bank * pctl->bank_mem_size +
+		       A733_IRQ_REGS_OFFSET;
+
+	return IRQ_REGS_OFFSET +
+	       sunxi_irq_hw_bank_num(pctl->desc, bank) * IRQ_MEM_SIZE;
+}
+
+With prepare_function_table() in drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+now numbering PB..PK as logical IRQ banks 0..9 instead of 1..10, and
+pctl->bank_offset set to A733_BANK_OFFSET (0x80, the base of PA),
+passing the unmapped bank index in the SUNXI_PINCTRL_NCAT3_REG_LAYOUT
+branch shifts every GPIO IRQ register access on the A733 down by one bank
+(0x80 bytes), so PB..PK access offsets 0x0c0..0x540 (PA..PJ) instead of
+0x140..0x5c0.
+
+Should the SUNXI_PINCTRL_NCAT3_REG_LAYOUT branch in sunxi_irq_base_reg()
+also translate bank through sunxi_irq_hw_bank_num(pctl->desc, bank)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025135745.1029=
+70-1-pmazzini@gmail.com?part=3D3
