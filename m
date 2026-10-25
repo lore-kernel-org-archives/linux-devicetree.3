@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792916396;
-	b=3KZG0gjUkH9Epz55KaC0AXioL3n9aznIdlvIzNV60nqVVHhDW6IiuZ2ukD90fxHtYnWm
-	 0D9NmV2xeDvNOr7kxkTcki5NcR5S2313zk6ke95zxzj1GVd21LwsLm8WXkPytl/wndcsu
-	 J/UREoF8EVZiuVcbqMO1e9jKi4xUVtxcRUG+0/neKCLY1SnuMG6bcysqN5imr0LO9kKQP
-	 5Yt58phlXWGrq2mBzArwN1F0I6CgR36k90Pssdw6KfHHks+WaNfbrA5af2DlJBsrEY2rB
-	 Ah9EDlegi8Ak142volsD1AMcNjQdq/Y+CpI2SZ5r2+RfdKVEjiFv7BIRg+LNCgbzaxg==
+	t=1792917580;
+	b=jGhBvthZpoi0ixv3Hq1i/tjulcydpg16BGbvgrqJvGI/Si3dIAHVfqld1dr9YbAoApo6
+	 coA6xISvko/CtaSWzzKH0r19dlWYkSDIlB2BVmb6w0GPJ5zqCW7jxeGlcVPIxyQgUUMy8
+	 GZMyapSFFBmGkVmBxq4j9hOHGgFCVs98CfPbqmNGvMqbOJgDfc8TxmWLOmKZ+4r8exxrO
+	 Yqkse2/XaQzDV09Yt1VB29Z3Z+ClqqJ+psfux1TPBdG76PdSNy492bD8KoqN5c10gQN4B
+	 iASuXsXJtOO6g9YcG6XTPzAkqpX8+I4/lB5qf6szy7XokasUf1FGYuHQunqqWOvBLcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792916396;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=L5vQuDzdFc2/TL510zPfdcRtJl0VtToAbSliAS1HTxU=;
-	b=hqnYfQVkOmzm0fHMmU9QSantYVgcXDDNXy/guMG5YBYrNGTbUpIiEFBKPBV1e06GsT4T
-	 vNP7bH3yOSm6j7mMmjk4PrBaud123ItSrw6ejpt4n8bON9btZXUAETBXs89zRaE1CvpZ4
-	 0tjGtRGclCJZWnZ0wnJXxxcJftTgNay+iUJgoHnFNnvDWxF6JjWdtWbHfDYMKPwQVHHFg
-	 wNJZuQvdp0OE/0f14TKwp7YRqFZHOz36toe5d7AKjqkagL/sjD27g7GjayPG0eBYqpGTv
-	 5taUPyGti/mdPGwpJihHIATqOYwGrKyuwrkVzP8h8FdE4/AczD/G+jRAQ9W5bqzU8xQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792917580;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+	b=ObGEsStN55X2JvUAnhunsv1rE5EPlE5Sw496jyf5vbqoiOonXaK52EIZPs3Er1HwVATc
+	 RjsLTuJyqDBTwh/HkjG51lJZLtS/2lYRqsozw1xdQVqzZxyIQ20MedpY83+QruZSi6NJN
+	 nBXq5BbcATIBOV/vJjQWWsmP02tbKK/Ir1NPZn/6Kj9p8/bKdT0KLvmuInft7aFrhPwQn
+	 jLsLQd43WipS4IEb58Gq0f4pUJWA3sH43IQy228bvp2sWdlAfj0vIHjZXhSvwB30fTQ3y
+	 68GuQUxKhOKdAXMzci+qMpaeZ02y+ZAHo0l26wPJ+7jnTuM5Krng/U5Aa1L4vIzau0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzAKHX8L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVowlhw5;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F3C606A31E
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 08:19:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEBA606A31B
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 08:39:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DEBA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzAKHX8L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033971F031E5
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 08:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792916395;
-	bh=L5vQuDzdFc2/TL510zPfdcRtJl0VtToAbSliAS1HTxU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WzAKHX8LEKtVY9zk/E0YetCkq2IqbixZ7eZFlY/NmT7GiAah5KaknkLqcn/zwSbwJ
-	 gHqHvRfXpLvPvoidVb/SYEEyIRzBPFcZRrw6wbGd5qfYPf7NbCBTgfx20xfv2Wkujn
-	 zzUzIRMCKFFAahKL7MCARqNDC7m9S1ZVCXl7Ju+dIfftNXxyRIW46fUFdhNdAJsNga
-	 rWQU/U8ZL4VSyU2YWSMSNWbkigaHIvS20j8s0vfWNAI2DTwwq/74JxrdKrJIcm5pCI
-	 oQMFEzgwDvIPUHei0BYUSvS/FSdsgBeEht2Y7Rxb0tBdoN+zKRlT8vduTVsgmNsExX
-	 zFDpd3TNw47NA==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so4077666a12.1
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 01:19:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByEqWiGLIgoDUhWc8fazjWNOGi12xGOgQnWIWSw7kk02IAbwjVy2eFaxFAe5I30GRvCtAnx2bLRTBxE@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5eBbdO+ciR+oGZ5O+CpkerhN+Q+iBRJFjcX/o6VkoKzP5pESx
-	N9TGdb8U8WpMckQ4aYvciyaJmOEm5g2xA7aA0Mi48KZXLfy7dabXPeHj/E5XfKSLh59w8QjdSCq
-	eX+QYqSzAcv9Jzp5Y79EJ93S+m3FSQ7o=
-X-Received: by 2002:a05:6402:448c:b0:6b1:d2ee:3933 with SMTP id
- 4fb4d7f45d1cf-6b443122e1cmr5036368a12.45.1792916393592; Sun, 25 Oct 2026
- 01:19:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVowlhw5
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso1066826a91.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 01:39:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792917579; x=1793522379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+        b=nVowlhw5w3749vHvseTxbox5D9wvDbWlmIxnJfFFAvn/eVTcQfk8k3Fxue/AN/xh6R
+         h4EU2FwFyNUZW1U8wWQKfiZERuGQujIelOXPRLIw4v4ee9vXMcrvvxEPyb5hHfa3l6T5
+         2L88KJ2NYZ4d739vkxgLtOki+EGyrjkqyza0rASP3m/WN83DnL0vK4Yxrfj55gUjav28
+         wMP/1dm0vTncLzEKWO7JVdT+YwrMcPSBy6E27Vi/eDDbLEmMoeQKJ3v+g2H3Ngq1qqqZ
+         qLr33BSEZgauVZ7CfdKsF13/JHZGlqd/AxHhV88Io5XOHMx7SSLbv9r3iOCO+oRk7ffN
+         Ce+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792917579; x=1793522379;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aZgZnRh0aurROdQhtMg5ehI3tYqFA35O+N2pjyOvIwc=;
+        b=Rsxnmq0K56vWwvNbcCEIDBqdUoBVr1keXfy492L8LLQqJ9Zy0xEs5zMJEzy4m7nngz
+         pOgLg91pGiPiM8EGRmzSkVMy6hs/9omGsF5qz+/yd2Oyt4av8sDZc21s12oL/8Lp11c6
+         Wsah27U//InHa4U7ijnCzHl+K/xL7UmZ28aCzjDRisIlYvKUiTndNaxVCpT1/jEfWN8Z
+         1UoKIsEMgi8qPFQmMjxGwQ5D7LNTbjXwmztQkf8ePrNT5xae6Lsmxtss0WHI/GS+cbNm
+         MFaln50jsmpMtXmDcCR9aKaYGewnxzF7zNftyDDj0kLSqjUApQ2FVjaRBjCOoikV+0/r
+         8TeA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxKfUinizreCx0wcqlJXQd2f1GWAmhqu2cJt/72UT/2csUH2xDyFusEYqCopvbzwWtPvmdSxx5VGfq@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo9PzECRL3TAjibiakDiF2UkcMdtIL6tFOfFDT/LSyxCs3QIq+
+	Cw29SEECPUMMteKJCpvpU88pzKaK2g6J+Y0BxtIuBp4zHHEivz0L0aJr
+X-Gm-Gg: AYBFou3H2ZhA8g5XQ+8Re2UToD5gN/YMYLhCOvWgn2xSA4XreevNoyIwikJ7uz484AO
+	7DGSm5InbsQy+jOJCTdN/5Dspc16vEgkhtnvxmr2R9zXL/uhTsM3eTgZBn2tx1N5fg4XS6KYk8/
+	Mndl7A9rYAKxOvqxd/FjupMPVx5qMn5R8OZVkuEFfpmaUyjY5ZXPfyjKqIvuYw4rD5ywcN8Fbo8
+	3DC0E5FwIoYJfNou+CZ9MAFYrdvbYVCQbYGBSuv7IQPU+anM5hWJNZbgU9VVWr8wK77qR3GoD4i
+	4hBhae/8bnWGOV9Hfto4HrJKLepEaS5jElvr/n8TdNFFnEX3unDphnh7ghuTsqPnJm5C4XxT1x8
+	sJMQUXFb0jjquzFXoa7jeJdhoxsi1BMOil+HnKJv/VlWZ5ZCC6oYwNYR7g99zIChcYcFNZfHjOz
+	xPqIDpLN4uQTRO4GK8M8Hb6ieYhScIpHJalSaZrDeTOfAX14UOCbWIM/0nJDD4MfjKnQOFDsSYc
+	lRViIVogmaXDjyLN7nfRt6chvFcoZ4+rJOasigQYiTL/M52HcSBA27kejzaJcx2AdebNNRDSzeH
+	Xnaoz5dGNJrFzpQDXTYSNIPSAHp3oIUyiTtjTSiLrBpWW3qDM8bKZ7xLggf5+XOdVgfYpmxQF6z
+	azIjkGM6cb2MhEDDKiA4VRINVzIO9u2Zl7P4=
+X-Received: by 2002:a17:90b:5906:b0:3ad:1841:6f8b with SMTP id 98e67ed59e1d1-3adead0bdc7mr3144482a91.37.1792917578985;
+        Sun, 25 Oct 2026 01:39:38 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe69478sm4585051a91.3.2026.10.25.01.39.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 01:39:38 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Yixun Lan <dlan@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
+Date: Sun, 25 Oct 2026 16:39:31 +0800
+Message-ID: <20261025083933.26066-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,526 +105,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1791535540.git.zhoubinbin@loongson.cn> <54a6180b35353d2c03c5a752305636baacd02e9c.1791535540.git.zhoubinbin@loongson.cn>
-In-Reply-To: <54a6180b35353d2c03c5a752305636baacd02e9c.1791535540.git.zhoubinbin@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 25 Oct 2026 16:19:42 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5s9o=9t7cmdh-C3TaAnfxeJkE-gKiD6s+mVn_XoN7GxA@mail.gmail.com>
-X-Gm-Features: AclHuK87Nz-siV_1h94HZiErIw95AdvaGDUsSMYLDb1N_pU5439lWqar8k2C89Y
-Message-ID: <CAAhV-H5s9o=9t7cmdh-C3TaAnfxeJkE-gKiD6s+mVn_XoN7GxA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] dmaengine: loongson: Add Loongson-2K0300 APB DMA
- mux driver
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
-	Keguang Zhang <keguang.zhang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi, Binbin,
+On the SpacemiT K1 the BootROM loads the next boot stage into SRAM, and
+that stage sets up DRAM. This series marks the nodes it needs for that
+bootph-pre-ram: the SoC clocks, UART, boot media and the two I2C buses
+in k1.dtsi, and the board EEPROM (which holds the DRAM configuration),
+the PMIC rails and the SPI NOR in the board files.
 
-On Fri, Oct 9, 2026 at 5:20=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
- wrote:
->
-> The Loongson-2K0300 DMA mux is not a standalone DMA controller. It is
-> implemented as a set of routing fields in the chip global configuration
-> registers CHIP_CTRL13/14/15, which select which physical channel of the
-> on-chip CMC DMA controller handles each peripheral DMA request.
->
-> Add a driver that exposes these routing fields as an OF DMA router. The
-> router's allocation callback validates the <request> <channel> <flags>
-> specifier, programs the corresponding CHIP_CTRL register field, and then
-> rewrites the specifier to <channel> <flags> so that the parent CMC DMA
-> controller's xlate is used.
->
-> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> ---
->  MAINTAINERS                                 |   1 +
->  drivers/dma/loongson/Makefile               |   1 +
->  drivers/dma/loongson/loongson2-apb-dmamux.c | 398 ++++++++++++++++++++
->  3 files changed, 400 insertions(+)
->  create mode 100644 drivers/dma/loongson/loongson2-apb-dmamux.c
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 78622b255f88..0b0c6ea41c64 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -15355,6 +15355,7 @@ F:      Documentation/devicetree/bindings/dma/loo=
-ngson,ls2k0300-dmamux.yaml
->  F:     Documentation/devicetree/bindings/dma/loongson,ls2x-apbdma.yaml
->  F:     drivers/dma/loongson/loongson2-apb-cmc-dma.c
->  F:     drivers/dma/loongson/loongson2-apb-dma.c
-> +F:     drivers/dma/loongson/loongson2-apb-dmamux.c
->  F:     include/dt-bindings/dma/loongson,ls2k-dmamux.h
->
->  LOONGSON LS2X I2C DRIVER
-> diff --git a/drivers/dma/loongson/Makefile b/drivers/dma/loongson/Makefil=
-e
-> index 48c19781e729..271fd38fa8f2 100644
-> --- a/drivers/dma/loongson/Makefile
-> +++ b/drivers/dma/loongson/Makefile
-> @@ -2,3 +2,4 @@
->  obj-$(CONFIG_LOONGSON1_APB_DMA) +=3D loongson1-apb-dma.o
->  obj-$(CONFIG_LOONGSON2_APB_DMA) +=3D loongson2-apb-dma.o
->  obj-$(CONFIG_LOONGSON2_APB_CMC_DMA) +=3D loongson2-apb-cmc-dma.o
-> +obj-$(CONFIG_LOONGSON2_APB_CMC_DMA) +=3D loongson2-apb-dmamux.o
-Here we can use
-obj-$(CONFIG_LOONGSON2_APB_CMC_DMA) +=3D loongson2-apb-cmc-dma.o
-loongson2-apb-dmamux.o
+The vendor confirmed that the BootROM itself does not access the
+EEPROM [1]. It is tagged because bootph-pre-ram covers the phase that
+sets up SDRAM, and DRAM cannot be trained without it.
 
-Huacai
+Testing: all K1 DTBs build, and dtbs_check is clean for them with and
+without this series.
 
-> diff --git a/drivers/dma/loongson/loongson2-apb-dmamux.c b/drivers/dma/lo=
-ongson/loongson2-apb-dmamux.c
-> new file mode 100644
-> index 000000000000..01bd3ce4ca25
-> --- /dev/null
-> +++ b/drivers/dma/loongson/loongson2-apb-dmamux.c
-> @@ -0,0 +1,398 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Loongson2 SoC APB DMA Mux Controller
-> + *
-> + * Copyright (C) 2026 Loongson Technology Corporation Limited
-> + *
-> + * Device tree bindings:
-> + *
-> + *   2K0300:
-> + *     dma_mux: dma-mux@16000134 {
-> + *             compatible =3D "loongson,ls2k0300-dmamux";
-> + *             reg =3D <0x0 0x16000134 0x0 0xc>;
-> + *             #dma-cells =3D <3>;
-> + *             dma-masters =3D <&dma>;
-> + *             dma-requests =3D <22>;
-> + *     };
-> + *
-> + * DMA specifier: <request> <channel> <flags>
-> + *   - request: peripheral request ID (LS2K0300_DMA_*)
-> + *   - channel: target physical DMA channel
-> + *   - flags:   channel configuration flags forwarded to the parent DMA
-> + *              controller
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/device.h>
-> +#include <linux/dmaengine.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_dma.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +
-> +#include <dt-bindings/dma/loongson,ls2k-dmamux.h>
-> +
-> +/* Loongson-2K0300 registers definitions */
-> +#define LS2K0300_CHIP_CTRL13           0x00
-> +#define LS2K0300_CHIP_CTRL14           0x04
-> +#define LS2K0300_CHIP_CTRL15           0x08
-> +
-> +/* CHIP_CTRL13 bitfields */
-> +#define CTRL13_UART0_DMA_MAP           GENMASK(17, 16)
-> +#define CTRL13_UART1_DMA_MAP           GENMASK(19, 18)
-> +#define CTRL13_UART2_DMA_MAP           GENMASK(21, 20)
-> +#define CTRL13_UART3_DMA_MAP           GENMASK(23, 22)
-> +#define CTRL13_UART4_DMA_MAP           GENMASK(25, 24)
-> +#define CTRL13_UART5_DMA_MAP           GENMASK(27, 26)
-> +#define CTRL13_UART6_DMA_MAP           GENMASK(29, 28)
-> +#define CTRL13_UART7_DMA_MAP           GENMASK(31, 30)
-> +
-> +/* CHIP_CTRL14 bitfields */
-> +#define CTRL14_UART8_DMA_MAP           GENMASK(1, 0)
-> +#define CTRL14_UART9_DMA_MAP           GENMASK(3, 2)
-> +#define CTRL14_I2C0_DMA_MAP            GENMASK(5, 4)
-> +#define CTRL14_I2C1_DMA_MAP            GENMASK(7, 6)
-> +#define CTRL14_I2C2_DMA_MAP            GENMASK(9, 8)
-> +#define CTRL14_I2C3_DMA_MAP            GENMASK(11, 10)
-> +#define CTRL14_SPI2_DMA_MAP            GENMASK(13, 12)
-> +#define CTRL14_SPI3_DMA_MAP            GENMASK(15, 14)
-> +#define CTRL14_I2S_DMA_MAP             GENMASK(17, 16)
-> +#define CTRL14_ADC_DMA_MAP             GENMASK(20, 18)
-> +#define CTRL14_CAN0_DMA_MAP            GENMASK(23, 21)
-> +#define CTRL14_CAN1_DMA_MAP            GENMASK(26, 24)
-> +#define CTRL14_CAN2_DMA_MAP            GENMASK(29, 27)
-> +#define CTRL14_CAN3_DMA_MAP            GENMASK(31, 30)
-> +
-> +/* CHIP_CTRL15 bitfields */
-> +#define CTRL15_CAN3_DMA_MAP_HI         BIT(0)
-> +
-> +#define LS2K0300_DMA_MAX_CHANNEL       7
-> +
-> +/**
-> + * enum loongson2_dmamux_type - Type of the mapping field
-> + * @LOONGSON_DMAMUX_PAIR: 2-bit field, value selects a channel pair
-> + *                        (0/1, 2/3, 4/5, 6/7).
-> + * @LOONGSON_DMAMUX_SINGLE: 3-bit field, value selects a single channel
-> + *                          or controller index directly.
-> + */
-> +enum loongson2_dmamux_type {
-> +       LOONGSON_DMAMUX_PAIR,
-> +       LOONGSON_DMAMUX_SINGLE,
-> +};
-> +
-> +/**
-> + * struct loongson2_dmamux_map - DMA request to register bitfield mappin=
-g
-> + * @reg: Register offset from the controller base
-> + * @mask: Bitfield mask within the register
-> + * @type: Mapping type (pair or single)
-> + * @high_reg: Optional extension register offset (0 if unused)
-> + * @high_shift: Bit position in the extension register
-> + */
-> +struct loongson2_dmamux_map {
-> +       u32 reg;
-> +       u32 mask;
-> +       enum loongson2_dmamux_type type;
-> +       u32 high_reg;
-> +       u8 high_shift;
-> +};
-> +
-> +/**
-> + * struct loongson2_dmamux_config - SoC-specific DMA mux configuration
-> + * @maps: Pointer to the request mapping table
-> + * @num_maps: Number of entries in @maps
-> + * @max_channel: Highest valid channel/controller index
-> + * @parent_args_count: Number of cells to write to dma_spec->args[]
-> + *                     when forwarding to the parent xlate.
-> + */
-> +struct loongson2_dmamux_config {
-> +       const struct loongson2_dmamux_map *maps;
-> +       u32 num_maps;
-> +       u32 max_channel;
-> +       u32 parent_args_count;
-> +};
-> +
-> +/**
-> + * struct loongson2_dmamux - DMA mux controller state
-> + * @base: I/O-mapped register base
-> + * @lock: Protects register read-modify-write sequences
-> + * @dma_router: Router structure passed to of_dma_router_register()
-> + * @config: SoC-specific configuration
-> + */
-> +struct loongson2_dmamux {
-> +       void __iomem *base;
-> +       spinlock_t lock;        /* Protects register read-modify-write se=
-quences */
-> +       struct dma_router dma_router;
-> +       const struct loongson2_dmamux_config *config;
-> +};
-> +
-> +/* Loongson-2K0300 mapping table */
-> +static const struct loongson2_dmamux_map ls2k0300_dmamux_maps[] =3D {
-> +       [LS2K0300_DMA_UART0] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART0_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART1] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART1_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART2] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART2_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART3] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART3_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART4] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART4_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART5] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART5_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART6] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART6_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART7] =3D { LS2K0300_CHIP_CTRL13, CTRL13_UART7_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART8] =3D { LS2K0300_CHIP_CTRL14, CTRL14_UART8_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_UART9] =3D { LS2K0300_CHIP_CTRL14, CTRL14_UART9_DMA=
-_MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_I2C0]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_I2C0_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_I2C1]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_I2C1_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_I2C2]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_I2C2_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_I2C3]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_I2C3_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_SPI2]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_SPI2_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_SPI3]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_SPI3_DMA_=
-MAP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_I2S]   =3D { LS2K0300_CHIP_CTRL14, CTRL14_I2S_DMA_M=
-AP, LOONGSON_DMAMUX_PAIR,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_ADC]   =3D { LS2K0300_CHIP_CTRL14, CTRL14_ADC_DMA_M=
-AP, LOONGSON_DMAMUX_SINGLE,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_CAN0]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_CAN0_DMA_=
-MAP, LOONGSON_DMAMUX_SINGLE,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_CAN1]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_CAN1_DMA_=
-MAP, LOONGSON_DMAMUX_SINGLE,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_CAN2]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_CAN2_DMA_=
-MAP, LOONGSON_DMAMUX_SINGLE,
-> +                                0, 0 },
-> +       [LS2K0300_DMA_CAN3]  =3D { LS2K0300_CHIP_CTRL14, CTRL14_CAN3_DMA_=
-MAP, LOONGSON_DMAMUX_SINGLE,
-> +                                LS2K0300_CHIP_CTRL15, 0 },
-> +};
-> +
-> +static const struct loongson2_dmamux_config ls2k0300_dmamux_config =3D {
-> +       .maps                   =3D ls2k0300_dmamux_maps,
-> +       .num_maps               =3D ARRAY_SIZE(ls2k0300_dmamux_maps),
-> +       .max_channel            =3D LS2K0300_DMA_MAX_CHANNEL,
-> +       .parent_args_count      =3D 2,
-> +};
-> +
-> +static inline u32 loongson2_dmamux_read(struct loongson2_dmamux *mux, u3=
-2 reg)
-> +{
-> +       return readl(mux->base + reg);
-> +}
-> +
-> +static inline void loongson2_dmamux_write(struct loongson2_dmamux *mux, =
-u32 reg, u32 val)
-> +{
-> +       writel(val, mux->base + reg);
-> +}
-> +
-> +/**
-> + * loongson2_dmamux_set_route() - Program the DMA request route
-> + * @mux:     DMA mux controller
-> + * @request: Peripheral DMA request ID
-> + * @channel: Target physical DMA channel or controller index
-> + *
-> + * Computes the register value according to the mapping type:
-> + *   - PAIR   : channel / 2 selects the pair index
-> + *   - SINGLE : channel is written directly
-> + *
-> + * Return: 0 on success, negative error code otherwise.
-> + */
-> +static int loongson2_dmamux_set_route(struct loongson2_dmamux *mux, u32 =
-request, u32 channel)
-> +{
-> +       const struct loongson2_dmamux_map *map;
-> +       u32 reg_val, route_val, high_val =3D 0;
-> +
-> +       if (request >=3D mux->config->num_maps)
-> +               return -EINVAL;
-> +
-> +       if (channel > mux->config->max_channel)
-> +               return -EINVAL;
-> +
-> +       map =3D &mux->config->maps[request];
-> +
-> +       switch (map->type) {
-> +       case LOONGSON_DMAMUX_PAIR:
-> +               route_val =3D channel / 2;
-> +               break;
-> +       case LOONGSON_DMAMUX_SINGLE:
-> +               route_val =3D channel;
-> +               if (map->high_reg)
-> +                       high_val =3D (channel >> 2) & 0x1;
-> +               break;
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +
-> +       guard(spinlock_irqsave)(&mux->lock);
-> +
-> +       /* Write the primary register field */
-> +       reg_val =3D loongson2_dmamux_read(mux, map->reg);
-> +       reg_val &=3D ~map->mask;
-> +       reg_val |=3D field_prep(map->mask, route_val);
-> +       loongson2_dmamux_write(mux, map->reg, reg_val);
-> +
-> +       /* Write the extension register field if present */
-> +       if (map->high_reg) {
-> +               reg_val =3D loongson2_dmamux_read(mux, map->high_reg);
-> +               reg_val &=3D ~BIT(map->high_shift);
-> +               reg_val |=3D high_val << map->high_shift;
-> +               loongson2_dmamux_write(mux, map->high_reg, reg_val);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +/**
-> + * loongson2_dmamux_route_allocate() - DMA router allocation callback
-> + * @dma_spec: OF DMA specifier <request> <channel> <flags>
-> + * @ofdma:    Router's of_dma structure; ofdma->dma_router points to our
-> + *            struct dma_router embedded in struct loongson2_dmamux.
-> + *
-> + * Return: NULL as route_data (nothing to free), or an ERR_PTR on failur=
-e.
-> + */
-> +static void *loongson2_dmamux_route_allocate(struct of_phandle_args *dma=
-_spec,
-> +                                            struct of_dma *ofdma)
-> +{
-> +       struct loongson2_dmamux *mux;
-> +       u32 request, channel, flags;
-> +       int ret;
-> +
-> +       if (!ofdma->dma_router)
-> +               return ERR_PTR(-EINVAL);
-> +
-> +       mux =3D container_of(ofdma->dma_router, struct loongson2_dmamux, =
-dma_router);
-> +
-> +       if (dma_spec->args_count !=3D 3)
-> +               return ERR_PTR(-EINVAL);
-> +
-> +       request =3D dma_spec->args[0];
-> +       channel =3D dma_spec->args[1];
-> +       flags =3D dma_spec->args[2];
-> +
-> +       if (request >=3D mux->config->num_maps ||
-> +           channel > mux->config->max_channel)
-> +               return ERR_PTR(-EINVAL);
-> +
-> +       /* Program the SoC-specific route register */
-> +       ret =3D loongson2_dmamux_set_route(mux, request, channel);
-> +       if (ret)
-> +               return ERR_PTR(ret);
-> +
-> +       /* The of_node_put() will be done in of_dma_router_xlate function=
- */
-> +       dma_spec->np =3D of_parse_phandle(ofdma->of_node, "dma-masters", =
-0);
-> +       if (!dma_spec->np)
-> +               return ERR_PTR(-ENODEV);
-> +
-> +       dma_spec->args[0] =3D channel;
-> +       dma_spec->args[1] =3D flags;
-> +       dma_spec->args_count =3D mux->config->parent_args_count;
-> +
-> +       return NULL;
-> +}
-> +
-> +/**
-> + * loongson2_dmamux_route_free() - DMA router free callback
-> + * @dev: Back pointer to the router's device
-> + * @route_data: Router-specific data returned by route_allocate
-> + *
-> + * The driver does not allocate any per-route resources, so this callbac=
-k
-> + * is intentionally empty. It must still be provided because the OF DMA
-> + * core calls it unconditionally on some error paths (e.g. -EPROBE_DEFER=
-)
-> + * without checking for a NULL pointer.
-> + */
-> +static void loongson2_dmamux_route_free(struct device *dev, void *route_=
-data)
-> +{
-> +}
-> +
-> +/**
-> + * loongson2_dmamux_unregister_of_dma() - devm action to unregister the =
-router
-> + * @data: Pointer to struct loongson2_dmamux
-> + *
-> + * Called automatically by the device-managed resource framework both on
-> + * probe failure and on driver removal, ensuring the OF DMA router is
-> + * always unregistered.
-> + */
-> +static void loongson2_dmamux_unregister_of_dma(void *data)
-> +{
-> +       struct loongson2_dmamux *mux =3D data;
-> +
-> +       of_dma_router_free(mux->dma_router.dev->of_node);
-> +}
-> +
-> +static int loongson2_dmamux_probe(struct platform_device *pdev)
-> +{
-> +       struct device *dev =3D &pdev->dev;
-> +       struct loongson2_dmamux *mux;
-> +       u32 dma_requests;
-> +       int ret;
-> +
-> +       mux =3D devm_kzalloc(dev, sizeof(*mux), GFP_KERNEL);
-> +       if (!mux)
-> +               return -ENOMEM;
-> +
-> +       mux->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +       if (IS_ERR(mux->base))
-> +               return PTR_ERR(mux->base);
-> +
-> +       spin_lock_init(&mux->lock);
-> +       mux->config =3D &ls2k0300_dmamux_config;
-> +
-> +       ret =3D of_property_read_u32(dev->of_node, "dma-requests", &dma_r=
-equests);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "missing dma-requests prop=
-erty\n");
-> +
-> +       if (dma_requests !=3D mux->config->num_maps)
-> +               return dev_err_probe(dev, -EINVAL,
-> +                                    "dma-requests=3D%u mismatches driver=
- num_maps=3D%u",
-> +                                    dma_requests, mux->config->num_maps)=
-;
-> +
-> +       mux->dma_router.dev =3D dev;
-> +       mux->dma_router.route_free =3D loongson2_dmamux_route_free;
-> +
-> +       platform_set_drvdata(pdev, mux);
-> +
-> +       ret =3D of_dma_router_register(dev->of_node, loongson2_dmamux_rou=
-te_allocate,
-> +                                    &mux->dma_router);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret,
-> +                                    "Failed to register DMA router");
-> +
-> +       ret =3D devm_add_action_or_reset(dev, loongson2_dmamux_unregister=
-_of_dma, mux);
-> +       if (ret)
-> +               return ret;
-> +
-> +       dev_info(dev,
-> +                "Loongson2 DMA Mux Controller registered (max_channel=3D=
-%u, requests=3D%u)",
-> +                mux->config->max_channel, mux->config->num_maps);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct of_device_id loongson2_dmamux_of_match[] =3D {
-> +       { .compatible =3D "loongson,ls2k0300-dmamux" },
-> +       { /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, loongson2_dmamux_of_match);
-> +
-> +static struct platform_driver loongson2_dmamux_driver =3D {
-> +       .driver =3D {
-> +               .name =3D "loongson2-dmamux",
-> +               .of_match_table =3D loongson2_dmamux_of_match,
-> +       },
-> +       .probe =3D loongson2_dmamux_probe,
-> +};
-> +module_platform_driver(loongson2_dmamux_driver);
-> +
-> +MODULE_DESCRIPTION("Loongson2 SoC DMA Mux Controller driver");
-> +MODULE_AUTHOR("Loongson Technology Corporation Limited");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.52.0
->
->
+I used Claude to help read the U-Boot SPL and the device trees. I
+checked the changes and ran dtbs_check myself.
+
+Changes in v3:
+- Reword both commit messages to describe the hardware instead of what
+  an SPL does, and drop the U-Boot paragraph from patch 1 (E)
+- Tag i2c2 in k1.dtsi too, as every K1 board has the EEPROM there
+- Tag eeprom@50 on the OrangePi RV2 and R2S, missed in v2 (Sashiko)
+- Drop the Assisted-by tags, see commit 1e035297ffda
+- Keep E's Reviewed-by on both patches, as the changes are the ones
+  discussed on v2
+- Link to v2: https://lore.kernel.org/all/20261017180141.3477743-1-alan.tseng.cs@gmail.com/
+
+Changes in v2:
+- Tag i2c8 in k1.dtsi instead of in every board file (Yixun)
+- Rebase onto the spacemit dt-for-next branch
+- Link to v1: https://lore.kernel.org/all/20261012235624.77993-1-alan.tseng.cs@gmail.com/
+
+[1] https://lore.kernel.org/all/20261021083425-GKA125937@kernel.org/
+
+Hung-Chun Tseng (2):
+  riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
+  riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
+
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts    |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts  |  5 +++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts  |  6 ++++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi              | 14 ++++++++++++++
+ 7 files changed, 47 insertions(+)
+
+
+base-commit: d05c6236496071916e19012cda7149465f15e66e
+-- 
+2.43.0
+
