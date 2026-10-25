@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792958485;
-	b=aCQ/BLnkX0pDn7Vs7WGhB9FM+YceEyVC3nzM3Tg/94+DJf2+/9OkHdV7eLTZ0gK9tSRd
-	 ydfxms4bI2F33ij7a2SEwgnbBShKvlIxgzd83v8GvGOnuUgvzjp6OEkgG0+mA5wSoHDOV
-	 VQQ1O0VgpVjrJh1UJUyEj3SN3Cq/O0t6Xi7gtyZlaHa2H+Nvo8QbzRTRqwoqOEavnX+hD
-	 ZfUMP0a13rVw4zzcf55hW4oK82zm4YXCwKPOD8duu//XePftrSfBpatZXOgu8lyGj/yY4
-	 r4x+qSl/6BRT/GMpwZKWS0eqaWDrSNHj91FdXJQ+GpS1gF7xC5Wc6xaPwabr0dOMoiA==
+	t=1792958902;
+	b=eTo2W+Yd9dD3PZJwIOjdvFVrV9OWQie0X4c6rdg+/+3EImsfsLCenxoGzAwiT2xEHxcC
+	 O4pN9WlLJ8eDmQh34L4GrmWNkIXu3VEvCKVenlakxF5xevyiHcW17QE6ePnAeKpeRns1M
+	 usMs9IKJM8XJnDBm4KQFNp+cy06wgKYptn/RJmlSliQLiNsT7+8joIQKkmU9z+ntcHcwM
+	 nmmzLnQMNi9moQ/5IxkunY/k5y0cZaOpyQ42r6lAmiqm5GeKa0f8E+yTxNvbz0o0iFpW6
+	 zcIgo6EN9bRaRV2PcywNI2nTm7/j87TfF0WA37SFKp/76+HK1CRGaBkJxUsseYFIY8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792958485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792958902;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EK9CyIM+K3hFZ84sslRcMH0oZvAsGQHlLpODIU1QdJQ=;
-	b=5Uuh795JK4TJdoSrF7N2WsGbGfODECavY0yOxNa6h9kH03m5P3onOb+/EXm0YmciFy/F
-	 BjU8stBymgfzFt0akeLbbb1sR7tVWXsfyagMqiGsUsO5HRN5Xc7JEfkSHlyQkZgJR7xrV
-	 8DG3cKNiLGrC0ZYh+mGoPZNkGadXx6AGIREa3kBiXXJyr5roPe2hpKh+c8btEk5lOBpRH
-	 t0SbA+pOUd5yuAtj333W/bNEfqmpGlMoaamoRLVjQ1tFiAec7eATGLs5CkNfSQqKCYEAC
-	 Wr3J7VWHWdxwjyEyYhrVEykcGNYlSz61yw4FMJs5TY54sU7geOuO/zQi6Q4JdUUiLrg==
+	bh=0pAw7ssMwwqHoXECiMNJXwZAbmNa/ymHKrMxfo2qDdw=;
+	b=uSyEpbfPXh83etC2KwiYcaerbQblwVU8x1oSN2C0xbLMA1n1Nmpp/Szs4+FYhR5wPIlb
+	 +yudyVm5EZoBZ7G4GoGATMOF1zqa+crURNxdTpMe7CmFlW/pX+ETbYcu0EcS957Rne585
+	 /rsTyS24ht/uqmQG5F0OOfpdyexU1QprIM//QYpTwOhpGhcVGLJcGo+o/wb8dZ6f6oogV
+	 i21figFsv7IA3bZfDZwktUAHhGzn5ZJTkL6I7yrF7uWf/deFjBp/CfNS/16EMflOGsqmg
+	 dZkDdBQ/BKV+Q11NQHMJBeppFIC94kAfRUVi9X7Yf3ii0SdzdWxerAb9WqhzEo1HJDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJsJieZt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji3AOAvt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7EB606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3D5606A31D
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:08:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJsJieZt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9CF1F01825;
-	Sun, 25 Oct 2026 20:01:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji3AOAvt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E341F01825;
+	Sun, 25 Oct 2026 20:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792958485;
-	bh=EK9CyIM+K3hFZ84sslRcMH0oZvAsGQHlLpODIU1QdJQ=;
+	s=k20260515; t=1792958901;
+	bh=0pAw7ssMwwqHoXECiMNJXwZAbmNa/ymHKrMxfo2qDdw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJsJieZtbE4axx1SZ2Dvnf66b2FDlXfxFT8u28s+cnQn9U6lO+zDMq3mJAGcSlD2r
-	 DIUNg6saKKutIsRDfyd/XfQOobpYe4Fgb5LZWaCtqp9ETXSY81joIWzEmuPG3N4mjd
-	 UGCyjpT9QMj+uXln65ovxYsUNY+kJ0BiYuPdhNGVtO9wKY2SwzhLOF+OPlqFyFu7vC
-	 fL/I6nzssvtyGQz8BgV9ekH2zIQM/FcZQ5W1dbtGaGXUrkbCoKPMq6pjwh/XgeRKZR
-	 H4pIyf1/kh0tSz5W6dMVodH1kuBzEczlUJ4iRWV1wo8eRrJy/ahMgsSOrMQs1zBmvs
-	 mbp8gB5zflC+Q==
-Message-ID: <sashiko-outbox-184396@kernel.org>
+	b=ji3AOAvtKbCNVmmpALrjy7RyDe6XTEOFGIF26VxhAPqVuRWziB9C4skos0i9pTemN
+	 EDPayjv5Y4MWTOA1cIuqwtXWCZLHpcYSGUH2kDmLkJJTIzz2mlUBOMEqTX2UCs+FkM
+	 zQ9Fm10HNfzmWtHHwX75DTUv7ipyOM4GzhSYvLVcr977JTfUGGsVzyr/g7giw+XjYu
+	 cDg9zFYaRfTpz5HzkkRO/RjmdKatB38SEa/+HNsNBbv+OQLMDWLpKoW7Hh4g6r9e7v
+	 NgXiybp2wmtYiKHUY+SM6MX69csxCNSUyU1KehSFPsPTgdrSuliIH/DuGOzN0OQ7fF
+	 Jb2SS+XNADdYg==
+Message-ID: <sashiko-outbox-184409@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] firmware: meson: sm: make power-off work on S4
+Subject: Re: [PATCH 1/7] Bluetooth: add a quirk for controllers that cannot
+ enable Secure Connections
 Reply-To: sashiko-reviews@lists.linux.dev
 To: christian.koever-draxl@student.uibk.ac.at
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261025192144.208954-3-christian.koever-draxl@student.uibk.ac.at>
-References: <20261025192144.208954-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192144.208954-3-christian.koever-draxl@student.uibk.ac.at>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
+References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 20:01:24 +0000
+Date: Sun, 25 Oct 2026 20:08:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,203 +61,147 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] firmware: meson: sm: broken CPU offlining via freeze_secondary_cpu=
-s()
-- [Medium] firmware: meson: sm: build and link failure calling freeze_secon=
-dary_cpus()
-- [Medium] firmware: meson_sm: missing cleanup on error in meson_sm_registe=
-r_power_off()
+- [High] Bluetooth: unmasked lmp_sc_capable() with HCI_QUIRK_BROKEN_WRITE_S=
+C_SUPPORT
+- [Low] Bluetooth: inaccurate comment for HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT=
+ in hci.h
 --
 
-commit 520b94ab82581e32dd9c97ba0f810c53f3ecadaf
+commit 300bedb0d4e07bfd158958e39e058f268b697a0b
 Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 
-firmware: meson: sm: make power-off work on S4
+Bluetooth: add a quirk for controllers that cannot enable Secure Connections
 
-This patch adds power-off prepare and power-off handlers for the Amlogic S4
-secure monitor to offline secondary processors and set the firmware shutdown
-flag prior to system power-off.
+This commit introduces HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT to skip the
+HCI_OP_WRITE_SC_SUPPORT command on controllers that advertise BR/EDR Secure
+Connections in their extended features but reject enabling host support. It
+also sets this quirk in the Amlogic Bluetooth driver (hci_aml).
 
-> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/m=
-eson_sm.c
-> index ab9751a59b552..5410386603c70 100644
-> --- a/drivers/firmware/meson/meson_sm.c
-> +++ b/drivers/firmware/meson/meson_sm.c
-
-[ ... ]
-
-> @@ -303,6 +306,45 @@ static struct attribute *meson_sm_sysfs_attrs[] =3D {
->  };
->  ATTRIBUTE_GROUPS(meson_sm_sysfs);
+> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+> index 1641d879dbda9..bcbe76c84d1b5 100644
+> --- a/include/net/bluetooth/hci.h
+> +++ b/include/net/bluetooth/hci.h
+> @@ -375,6 +375,20 @@ enum {
+>  	 */
+>  	HCI_QUIRK_BROKEN_READ_PAGE_SCAN_TYPE,
 > =20
-> +/*
-> + * The S4 firmware implements PSCI SYSTEM_OFF as DDR self-refresh: on the
-> + * power key it jumps back to the kernel instead of booting, which hangs=
- the
-> + * board. Setting the shutdown flag first makes it cold-boot instead, an=
-d the
-> + * secondary CPUs must have been taken down through PSCI CPU_OFF beforeh=
-and,
-> + * otherwise the wake-up path hangs as well.
-> + */
-> +static int meson_sm_power_off_prepare(struct sys_off_data *data)
-> +{
-> +	if (freeze_secondary_cpus(0))
-> +		pr_warn("meson-sm: failed to stop secondary CPUs\n");
+> +	/*
+> +	 * When this quirk is set, the HCI_OP_WRITE_SC_SUPPORT command is
+> +	 * not supported.
+> +	 *
+> +	 * This quirk is intended for controllers that list BR/EDR Secure
+> +	 * Connections among their extended features and then reject the
+> +	 * command that turns host support on. Without it the failure takes
+> +	 * the whole of hci_dev_open_sync() with it and the controller can
+> +	 * never be powered on.
+> +	 *
+> +	 * This quirk must be set before hci_register_dev is called.
+> +	 */
+> +	HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
 
-[Severity: Medium]
-Does calling freeze_secondary_cpus(0) in meson_sm_power_off_prepare() in
-drivers/firmware/meson/meson_sm.c break the build when this driver is built
-as a module or when sleep support is disabled?
+[Severity: Low]
+Is the comment stating that this quirk must be set before hci_register_dev
+is called accurate?
 
-In drivers/firmware/meson/Kconfig, the driver is tristate and does not
-depend on sleep or symmetric multiprocessing support:
+In drivers/bluetooth/hci_aml.c, aml_serdev_probe() registers the HCI device
+first via:
 
-drivers/firmware/meson/Kconfig:
-	config MESON_SM
-		tristate "Amlogic Secure Monitor driver"
-		depends on ARCH_MESON || COMPILE_TEST
-		default ARCH_MESON
-		depends on ARM64_4K_PAGES
+  aml_serdev_probe()
+    -> hci_uart_register_device()
+      -> hci_uart_register_device_priv()
+        -> hci_register_dev()
 
-However, include/linux/cpu.h only declares freeze_secondary_cpus() under
-the sleep configuration guard and provides no stub in the else branch:
+and aml_setup() sets HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT later inside the
+hdev->setup callback during hci_dev_open_sync() -> hci_dev_init_sync() ->
+hci_dev_setup_sync().
 
-include/linux/cpu.h:
-	#ifdef CONFIG_PM_SLEEP_SMP
-	extern int freeze_secondary_cpus(int primary);
-	extern void thaw_secondary_cpus(void);
-	...
-	#else /* !CONFIG_PM_SLEEP_SMP */
-	static inline void thaw_secondary_cpus(void) {}
-	static inline int suspend_disable_secondary_cpus(void) { return 0; }
-	static inline void suspend_enable_secondary_cpus(void) { }
-	#endif /* !CONFIG_PM_SLEEP_SMP */
+Should this comment note that the quirk can also be set in the hdev->setup
+vendor callback?
 
-In addition, freeze_secondary_cpus() in kernel/cpu.c is not exported for
-loadable modules:
-
-kernel/cpu.c:
-	#ifdef CONFIG_PM_SLEEP_SMP
-	static cpumask_var_t frozen_cpus;
-
-	int freeze_secondary_cpus(int primary)
-
-When sleep support is disabled, compiling drivers/firmware/meson/meson_sm.c
-fails with an implicit function declaration error. When the driver is built
-as a module (for example in an arm64 allmodconfig build), linking fails at
-modpost with an undefined symbol error for freeze_secondary_cpus().
-
-> +
-> +	return NOTIFY_DONE;
-> +}
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index a92a81846e9df..f1dfef81ca961 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -3419,7 +3419,8 @@ int hci_write_sc_support_sync(struct hci_dev *hdev,=
+ u8 val)
+>  {
+>  	int err;
+> =20
+> -	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev))
+> +	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev) ||
+> +	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
+>  		return 0;
+> =20
+>  	err =3D __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
+> @@ -5040,7 +5041,8 @@ static int hci_write_sc_support_1_sync(struct hci_d=
+ev *hdev)
+>  	u8 support =3D 0x01;
+> =20
+>  	if (!hci_dev_test_flag(hdev, HCI_SSP_ENABLED) ||
+> -	    !bredr_sc_enabled(hdev))
+> +	    !bredr_sc_enabled(hdev) ||
+> +	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
+>  		return 0;
 
 [Severity: High]
-Can calling the suspend helper freeze_secondary_cpus(0) from
-meson_sm_power_off_prepare() during kernel_power_off() ->
-do_kernel_power_off_prepare() fail to offline secondary processors after a
-prior wakeup event?
+When HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT is set, skipping
+HCI_OP_WRITE_SC_SUPPORT in hci_write_sc_support_sync() and
+hci_write_sc_support_1_sync() leaves LMP_HOST_SC unset on the controller,
+while lmp_sc_capable(hdev) and bredr_sc_enabled(hdev) in
+include/net/bluetooth/hci_core.h still evaluate to true:
 
-Inside kernel/cpu.c:freeze_secondary_cpus(), the loop checks
-pm_wakeup_pending() before taking down each processor and aborts if a wakeup
-is pending:
+  #define lmp_sc_capable(dev)     ((dev)->features[2][1] & LMP_SC)
+  ...
+  #define bredr_sc_enabled(dev)   (lmp_sc_capable(dev) && \
+                                   hci_dev_test_flag(dev, HCI_SC_ENABLED))
 
-kernel/cpu.c:freeze_secondary_cpus() {
-	...
-		if (pm_wakeup_pending()) {
-			pr_info("Wakeup pending. Abort CPU freeze\n");
-			error =3D -EBUSY;
-			break;
-		}
+When userspace (such as bluetoothd) issues MGMT_OP_SET_SECURE_CONN,
+set_secure_conn() or set_secure_conn_sync() in net/bluetooth/mgmt.c sets
+HCI_SC_ENABLED:
 
-		trace_suspend_resume(TPS("CPU_OFF"), cpu, true);
-		error =3D _cpu_down(cpu, 1, CPUHP_OFFLINE);
-	...
-}
+  set_secure_conn_sync()
+    hci_dev_set_flag(hdev, HCI_SC_ENABLED);
+    return hci_write_sc_support_sync(hdev, val);
 
-In drivers/base/power/wakeup.c:pm_wakeup_pending(), the check returns true
-whenever pm_abort_suspend is positive:
+Because hci_write_sc_support_sync() returns 0 under the quirk,
+set_secure_conn_complete() keeps HCI_SC_ENABLED (and HCI_SC_ONLY if
+requested) set, leaving bredr_sc_enabled(hdev) true even though BR/EDR
+Secure Connections was never enabled on the controller.
 
-drivers/base/power/wakeup.c:pm_wakeup_pending() {
-	...
-	return ret || atomic_read(&pm_abort_suspend) > 0;
-}
+Won't this cause callers of lmp_sc_capable() and bredr_sc_enabled() to
+misbehave on BR/EDR links? For example:
 
-void pm_system_wakeup(void)
-{
-	atomic_inc(&pm_abort_suspend);
-	s2idle_wake();
-}
+- In net/bluetooth/mgmt.c, read_local_oob_data_sync(),
+  read_local_oob_data_complete(), and read_local_oob_ext_data_complete()
+  check bredr_sc_enabled(hdev) and issue HCI_OP_READ_LOCAL_OOB_EXT_DATA
+  instead of HCI_OP_READ_LOCAL_OOB_DATA.
 
-Because pm_abort_suspend is incremented by pm_system_wakeup() during a
-suspend or s2idle wakeup event and is only cleared by pm_wakeup_clear(0) at
-the start of a subsequent suspend or hibernate cycle (in pm_sleep_fs_sync()
-and freeze_processes()), it remains positive after resume and is never
-cleared along the kernel_power_off() path.
+- In net/bluetooth/hci_event.c, bredr_oob_data_present() and
+  hci_remote_oob_data_request_evt() check bredr_sc_enabled(hdev) and report
+  P-256 OOB data or send HCI_OP_REMOTE_OOB_EXT_DATA_REPLY instead of
+  HCI_OP_REMOTE_OOB_DATA_REPLY.
 
-Furthermore, freeze_secondary_cpus(0) passes tasks_frozen =3D 1 to
-_cpu_down(), which sets cpuhp_tasks_frozen during shutdown even though
-tasks are not frozen.
+- In net/bluetooth/smp.c and net/bluetooth/l2cap_core.c, smp_register() and
+  l2cap_conn_add() check bredr_sc_enabled(hdev) and advertise
+  L2CAP_FC_SMP_BREDR to remote BR/EDR peers. When a peer initiates SMP
+  pairing / Cross-Transport Key Derivation over BR/EDR,
+  smp_cmd_pairing_req() rejects it with SMP_CROSS_TRANSP_NOT_ALLOWED
+  because HCI_CONN_AES_CCM is not set on the link, and smp_recv_cb()
+  disconnects the ACL connection with HCI_ERROR_AUTH_FAILURE.
 
-Would powering off after any suspend/resume cycle or wakeup event cause
-freeze_secondary_cpus(0) to abort with -EBUSY before offlining secondary
-processors, leaving them parked in the kernel and reintroducing the
-firmware wake-up hang?
+- In net/bluetooth/mgmt.c and net/bluetooth/hci_debugfs.c,
+  get_supported_settings(), set_secure_conn(), and
+  hci_debugfs_create_bredr() check lmp_sc_capable(hdev) and treat BR/EDR
+  Secure Connections as supported.
 
-> +
-> +static int meson_sm_power_off(struct sys_off_data *data)
-> +{
-> +	meson_sm_call(data->cb_data, SM_SET_POWEROFF_FLAG, NULL, 1, 0, 0, 0, 0);
-> +
-> +	return NOTIFY_DONE;
-> +}
-> +
-> +static int meson_sm_register_power_off(struct device *dev,
-> +				       struct meson_sm_firmware *fw)
-> +{
-> +	int ret;
-> +
-> +	ret =3D devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF_PREPA=
-RE,
-> +					    SYS_OFF_PRIO_DEFAULT,
-> +					    meson_sm_power_off_prepare, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Run before the PSCI handler, which never returns */
-> +	return devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF,
-> +					     SYS_OFF_PRIO_HIGH,
-> +					     meson_sm_power_off, fw);
-> +}
-> +
->  static const struct of_device_id meson_sm_ids[] =3D {
->  	{ .compatible =3D "amlogic,meson-gxbb-sm", .data =3D &gxbb_chip },
->  	{ /* sentinel */ },
-> @@ -343,6 +385,10 @@ static int __init meson_sm_probe(struct platform_dev=
-ice *pdev)
->  	if (devm_of_platform_populate(dev))
->  		goto unmap_out_base;
-> =20
-> +	if (of_device_is_compatible(dev->of_node, "amlogic,meson-s4-sm") &&
-> +	    meson_sm_register_power_off(dev, fw))
-> +		dev_warn(dev, "failed to register power-off handlers\n");
-
-[Severity: Medium]
-If the second devm_register_sys_off_handler() call in
-meson_sm_register_power_off() fails (for example, if registering at high
-priority via register_sys_off_handler() ->
-atomic_notifier_chain_register_unique_prio() returns -EBUSY or -ENOMEM),
-meson_sm_probe() logs a warning and still returns 0.
-
-Because meson_sm_probe() succeeds, devres cleanup does not run, leaving
-meson_sm_power_off_prepare() registered on power_off_prep_handler_list
-without its companion meson_sm_power_off() handler.
-
-Should meson_sm_register_power_off() or meson_sm_probe() clean up the
-prepare handler when registering the power-off handler fails?
+Should lmp_sc_capable(dev) in include/net/bluetooth/hci_core.h instead mask
+out the feature bit when the quirk is set (similar to how le_coded_capable()
+checks HCI_QUIRK_BROKEN_LE_CODED), so that both lmp_sc_capable() and
+bredr_sc_enabled() evaluate to false across the stack while still allowing
+HCI_SC_ENABLED for LE Secure Connections?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025192144.2089=
-54-1-christian.koever-draxl@student.uibk.ac.at?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025192338.2095=
+74-1-christian.koever-draxl@student.uibk.ac.at?part=3D1
