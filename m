@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792919012;
-	b=MDUHuklWtjgGtgvk4bJc1XXFmj5pcep/wJzqO/O31459hc/XjnsPn8VFDWzrCtZL1Ns0
-	 QWqZaJyHsMPOChv+09A8hFu6tqeJUlD4C41D5wEsBWhBBIH4SotRakQk7B0ncNfnflFQO
-	 P6jm/494YofsD5XV9cDYn+BhLHzsUtq19sU8FqDaORY1qvArL+2bLoFtLRgJSLe+JHyhl
-	 DwTDpcIHa9ibr8dGdtQM6zA6d9bH0wXIkpmLT/OImqJvJeO0vbhHAZKxoKYZtc6hHwDhR
-	 KMLISOlEybGpOKusuod2e/51PhO9HhkQdXpvZm4VA9PLB+cT5UkTmqHWlPgax/3xa9w==
+	t=1792921489;
+	b=wV+JyPC5ahcZzGZn9hM40I5M0Q46M5Xe+NAV9/hzr7OeWom9nYGBaDHPwJ8zAv9prq4+
+	 tJrrMgLSszxQCD4z+Se5QZhdmy2ftFOw1YmkjjpK8BvxHMl/5uAb+shb2Z6F/LLCmYmXG
+	 H9xEqg/y4fNenOCb8G0WgnaR7h1EV38zqfx3fFCdNZlfAV7sq9dzktbnjm2JVspUIvxlx
+	 oeEpnEDS0Pgaq0HsOuRav0G/curlHsUK9eJ3EdJSTzLjA8U8gSEWXRKbJfqc8ichQCfv6
+	 7x4ioayzpW+TC43DU4yHdiM4Cc8lhtWnNM6bsvOgEIFuJT0Yw17rlt4S6bxH0o2U9pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792919012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792921489;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+NilHK3oMugeEXT7HBDL+cSg2hLN62/X+Khq5RcBrX0=;
-	b=KU94Wj0UGIpcPtkoGWUcN5+WpZ0Y7j148Uw09mcpYj0h42uWN/tqAj8wmQwo7KFmvna/
-	 n+PFi/p15wdi/rhGde0PXHwxfQAH9BOatZjPfyCqKHOlNqBQEkJ4pEarNS4FY6VyeeHoN
-	 QylGvu9HjtBCNRjvD61DaQ1GQ0z2hEH4v8EOrAQT6796ljw5Qond2Xq4bWQsTCEfUnj4g
-	 9y713G/wo7W4klWLfQDb467aDwrjaIYdnz69XFDmw4g6uFtLdKfs59W+2JdHFvKBMd/TT
-	 1sB1CcsiyQCPM8EvX+gWSJDxjyd0byL0hJFnuSaWewrEdGRkio+T7kzp0qObfEyPmow==
+	bh=3JwxsyCfb55NCobpjZR9jSidMoC2tmsb6VCKlofU2pk=;
+	b=I1LPj7SC5GUHZRAcARLtHRjsZOOM6gmCq0uKZGhp/5uBn6kfgogPtSSCTpn+hXp55C4x
+	 5VPDLC4gYkI+zHM5tXi4TSjY44Bxl2dp8CFi5WDWCy2w1lJObaoly5gRFRFeKY1cnjvgT
+	 e459ml4TwIQSGQXPbZxyR+qKW3h+bRMFaKzCK0DXHpoDOvnkNwSBqh8gshW/LF76zR2IX
+	 pssG4pabK5Ihx91toHNeGaoYic4BUDJcDjgEIfXTpf4jVeARHRqolg/Cv4w/uF4k8QzMo
+	 jJQJZ/tPM1t6E/U2Bi+eiI+95d1YxuSnqJDGy4guCDJc7tt0ltLhRNulHmKurcp8W6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0eTlElL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ1FJQd4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA17606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 09:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2B5606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 09:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0eTlElL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E155C1F01825;
-	Sun, 25 Oct 2026 09:03:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ1FJQd4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDB91F01828;
+	Sun, 25 Oct 2026 09:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792919012;
-	bh=+NilHK3oMugeEXT7HBDL+cSg2hLN62/X+Khq5RcBrX0=;
+	s=k20260515; t=1792921488;
+	bh=3JwxsyCfb55NCobpjZR9jSidMoC2tmsb6VCKlofU2pk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P0eTlElLPf+gSRES5x9Xm0CjafmR2YFIo42mPcmS5CjZks/kTrTl0pIG4jRrQqfB7
-	 MxIiHrDk2j2+Rs265rJzkQmolbhsJmYht3ucPD54QBY1DzQlnrUdJyC4i4MPuNrf4N
-	 5//2ISx6sW+QH9j5UHFoqu4WBAK1/0iU7uhlEHdukK9+/2POZxRURUokniFX00UCbL
-	 J8MQyufW7X20wDNpP25s628DAiiQ6k8QwrbNsYNap2r910Tbr3Mw+FVdTHbMdB/rz7
-	 WnFnB9nf3S/LjyfkaFuojIxG3kMMuMDnkIz9KpKoCXCUCdq7658CLrSMStMqMZzRVI
-	 eqNOWaTvG7UCA==
-Message-ID: <sashiko-outbox-184150@kernel.org>
+	b=VZ1FJQd4qCNVdhT+MWemv6Ng8GdRPBxzHaY7VI0yCLqBRve3keb3D6j7XvYCamY6j
+	 DiluvvT4toB0FPF1HomuzJw9DGzTeVTNrT1mzf7wVOgEAsOn6499AR7p5l/GTfFRKO
+	 sst55MaFYrgulbZsDZSYiGIxgeAZQHq8H18OrfpoQlIYzfB3qCH4tl0XHCkigfpS/4
+	 9ZS0QL8odZD73GsRA24PLbJDDENn07uQK1zxKhiTNIrFpKRWT6le7fss7pCmguO9DW
+	 x92gwhX89Ws3sjKYKwoXdKfdjQ+LjCYIms35xLlL8/d+mXTpGEPGT8sZ0y854sOX5z
+	 JO/Roed9oj1/g==
+Message-ID: <sashiko-outbox-184181@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] pwm: Add a driver for the Ingenic X1600 PWM
+Subject: Re: [PATCH 3/5] drm/ingenic: Add a driver for the X1600 LCD
  controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Olivier Louvignes" <olivier@mgcrea.io>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261025084643.93167-3-olivier@mgcrea.io>
-References: <20261025084643.93167-1-olivier@mgcrea.io>
- <20261025084643.93167-3-olivier@mgcrea.io>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261025085816.60405-4-olivier@mgcrea.io>
+References: <20261025085816.60405-1-olivier@mgcrea.io>
+ <20261025085816.60405-4-olivier@mgcrea.io>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 09:03:31 +0000
+Date: Sun, 25 Oct 2026 09:44:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,171 +61,263 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] pwm: ingenic-x1600: fix disabled state in x1600_pwm_round_wavefo=
-rm_fromhw()
-- [Medium] pwm: ingenic-x1600: missing zero clock rate check in tohw and wr=
-ite callbacks
+- [High] drm/ingenic: premature plane cleanup via drm_atomic_helper_wait_fo=
+r_vblanks()
+- [High] drm/ingenic: missing visibility check in x1600_lcd_plane_atomic_ch=
+eck()
+- [Medium] drm/ingenic: premature vblank event in x1600_lcd_crtc_atomic_flu=
+sh()
+- [Medium] drm/ingenic: unclocked MMIO on disable in x1600_lcd_crtc_atomic_=
+disable()
 --
 
-commit 74e98d5b2d04354ee35668eb97dc06066a966e45
+commit ff594f68d62e2b467c0fa558eebe60679b4a51ba
 Author: Olivier Louvignes <olivier@mgcrea.io>
 
-pwm: Add a driver for the Ingenic X1600 PWM controller
+drm/ingenic: Add a driver for the X1600 LCD controller
 
-This commit adds a PWM driver for the 8-channel PWM controller found on the
-Ingenic X1600 SoC, implementing the PWM waveform callbacks.
+This commit adds a DRM driver for the Ingenic X1600 LCD controller,
+supporting parallel RGB panels on a 24-bit bus with a single full-screen
+RGB565 primary plane and descriptor-chain page flipping.
 
-> diff --git a/drivers/pwm/pwm-ingenic-x1600.c b/drivers/pwm/pwm-ingenic-x1=
-600.c
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c b/drivers/gpu/dr=
+m/ingenic/ingenic-x1600-drm.c
 > new file mode 100644
-> index 0000000000000..83a8d5eec6bff
+> index 0000000000000..34fbfc7de1c4b
 > --- /dev/null
-> +++ b/drivers/pwm/pwm-ingenic-x1600.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
 [ ... ]
-> +static int x1600_pwm_round_waveform_tohw(struct pwm_chip *chip, struct p=
-wm_device *pwm,
-> +					 const struct pwm_waveform *wf, void *_wfhw)
+> +static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
+> +					 struct drm_atomic_commit *state)
 > +{
-> +	struct x1600_pwm *x =3D pwmchip_get_drvdata(chip);
-> +	unsigned long rate =3D clk_get_rate(x->clk);
-> +	struct x1600_pwm_wfhw *wfhw =3D _wfhw;
-> +	u64 period, high, offset;
-> +	unsigned int prescale;
-> +	int ret =3D 0;
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
+> +	unsigned int hde =3D mode->htotal - mode->hsync_start;
+> +	unsigned int vde =3D mode->vtotal - mode->vsync_start;
+> +	u32 val;
+> +	int ret;
 > +
-> +	*wfhw =3D (struct x1600_pwm_wfhw){ };
-> +	if (!wf->period_length_ns)
-> +		return 0;
-
-[Severity: Medium]
-Should x1600_pwm_round_waveform_tohw() check for !rate and return -EINVAL j=
-ust
-like x1600_pwm_round_waveform_fromhw() does?
-
-When rate is 0 and wf->period_length_ns > 0, x1600_pwm_counts() returns 0,
-which clamps period to 2 with high =3D 0 and wfhw->enabled =3D false, retur=
-ning 1.
-In pwm_set_waveform_might_sleep() -> __pwm_set_waveform() with exact =3D=3D=
- false
-and CONFIG_PWM_DEBUG disabled, __pwm_round_waveform_fromhw() is not called,=
- so
-x1600_pwm_write_waveform() is invoked with that wfhw and disables the chann=
-el
-while returning 0 to the caller.
-
-> +
-> +	for (prescale =3D 0; prescale < X1600_PWM_MAX_PRESCALE; prescale++)
-> +		if (x1600_pwm_counts(wf->period_length_ns, rate, prescale) <=3D
-> +		    X1600_PWM_MAX_COUNT)
-> +			break;
-> +
-> +	period =3D min(x1600_pwm_counts(wf->period_length_ns, rate, prescale),
-> +		     X1600_PWM_MAX_COUNT);
-> +	if (period < 2) {
-> +		period =3D 2;
-> +		ret =3D 1;
+> +	ret =3D clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
+> +	if (ret)
+> +		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n", ret);
+> +	ret =3D clk_prepare_enable(lcd->clk);
+> +	if (ret) {
+> +		dev_err(lcd->drm.dev, "Unable to start the pixel clock: %d\n", ret);
+> +		return;
 > +	}
-> +	high =3D min(x1600_pwm_counts(wf->duty_length_ns, rate, prescale), peri=
-od);
-> +	offset =3D x1600_pwm_counts(wf->duty_offset_ns, rate, prescale);
+[ ... ]
+> +	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base + X1600_LCD_SRD_CH=
+AIN_ADDR);
+> +	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
+> +	lcd->running =3D true;
 > +
-> +	wfhw->prescale =3D prescale;
-> +	wfhw->wcfg =3D FIELD_PREP(X1600_PWM_WCFG_HIGH, high) |
-> +		     FIELD_PREP(X1600_PWM_WCFG_LOW, period - high);
-> +	wfhw->enabled =3D high && high < period;
-> +	/* Low first only if the requested offset reaches period - duty. */
-> +	wfhw->inl =3D !wfhw->enabled || offset < period - high;
-> +	wfhw->idl =3D high =3D=3D period;
-> +
-> +	return ret;
+> +	drm_crtc_vblank_on(crtc);
 > +}
 > +
-> +static int x1600_pwm_round_waveform_fromhw(struct pwm_chip *chip, struct=
- pwm_device *pwm,
-> +					   const void *_wfhw, struct pwm_waveform *wf)
+> +static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
+> +					  struct drm_atomic_commit *state)
 > +{
-> +	struct x1600_pwm *x =3D pwmchip_get_drvdata(chip);
-> +	unsigned long rate =3D clk_get_rate(x->clk);
-> +	const struct x1600_pwm_wfhw *wfhw =3D _wfhw;
-> +	u32 high =3D FIELD_GET(X1600_PWM_WCFG_HIGH, wfhw->wcfg);
-> +	u32 low =3D FIELD_GET(X1600_PWM_WCFG_LOW, wfhw->wcfg);
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
 > +
-> +	if (!rate)
-> +		return -EINVAL;
+> +	if (!x1600_lcd_stop(lcd))
+> +		dev_warn(lcd->drm.dev, "The controller did not stop\n");
+> +	lcd->running =3D false;
 > +
-> +	wf->period_length_ns =3D x1600_pwm_ns(high + low, rate, wfhw->prescale);
-> +	wf->duty_length_ns =3D x1600_pwm_ns(high, rate, wfhw->prescale);
-> +	wf->duty_offset_ns =3D wfhw->enabled && !wfhw->inl ?
-> +			     x1600_pwm_ns(low, rate, wfhw->prescale) : 0;
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->event) {
+> +		drm_crtc_send_vblank_event(crtc, lcd->event);
+> +		drm_crtc_vblank_put(crtc);
+> +		lcd->event =3D NULL;
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +	clk_disable_unprepare(lcd->clk);
+> +}
 
 [Severity: Medium]
-Does x1600_pwm_round_waveform_fromhw() misreport the waveform when a channel
-is disabled in hardware (wfhw->enabled =3D=3D false)?
+In drivers/gpu/drm/ingenic/ingenic-x1600-drm.c, if clk_prepare_enable() fai=
+ls
+in x1600_lcd_crtc_atomic_enable(), the function returns early with lcd->clk
+disabled and lcd->running left false, while the atomic state still marks the
+crtc as enabled.
 
-In x1600_pwm_read_waveform(), wfhw->enabled is read from X1600_PWM_EN and
-wfhw->idl is read from X1600_PWM_IDL:
+When the crtc is later disabled (for example via DPMS off, a subsequent
+modeset, or drm_atomic_helper_shutdown() in x1600_lcd_remove()),
+x1600_lcd_crtc_atomic_disable() unconditionally calls x1600_lcd_stop(lcd) a=
+nd
+clk_disable_unprepare(lcd->clk).
 
-	wfhw->enabled =3D readl(x->base + X1600_PWM_EN) & BIT(ch);
-	wfhw->inl =3D readl(x->base + X1600_PWM_INL) & BIT(ch);
-	wfhw->idl =3D readl(x->base + X1600_PWM_IDL) & BIT(ch);
-	wfhw->prescale =3D FIELD_GET(X1600_PWM_CCFG_PRESCALE,
-				   readl(x->base + X1600_PWM_CCFG(ch)));
-	wfhw->wcfg =3D readl(x->base + X1600_PWM_WCFG(ch));
+Could this access hardware registers in x1600_lcd_stop() while lcd->clk is
+gated and underflow the clock prepare/enable counts in
+clk_disable_unprepare(lcd->clk) if x1600_lcd_crtc_atomic_disable() does not
+check lcd->running first?
 
-However, wfhw->idl is never used in x1600_pwm_round_waveform_fromhw(), and
-wf->duty_length_ns is computed unconditionally from high in wfhw->wcfg even
-when wfhw->enabled is false.
-
-If a channel was stopped via X1600_PWM_ENC while X1600_PWM_WCFG(ch) still
-holds non-zero high and low counts, hardware holds the static idle level fr=
-om
-X1600_PWM_IDL rather than toggling. Because x1600_pwm_round_waveform_fromhw=
-()
-still computes wf->period_length_ns and wf->duty_length_ns from wfhw->wcfg,
-pwm_device_request() -> pwm_get_state_hw() -> pwm_wf2state() will populate
-pwm->state with enabled =3D true and the stale WCFG period and duty cycle. A
-subsequent call to pwm_apply_might_sleep() requesting that same period and
-duty cycle will then short-circuit in __pwm_apply() without calling
-x1600_pwm_write_waveform() to enable the channel via X1600_PWM_ENS.
-
-> +
-> +	return 0;
-> +}
 [ ... ]
-> +static int x1600_pwm_write_waveform(struct pwm_chip *chip, struct pwm_de=
-vice *pwm,
-> +				    const void *_wfhw)
+> +static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
+> +					struct drm_atomic_commit *state)
 > +{
-> +	struct x1600_pwm *x =3D pwmchip_get_drvdata(chip);
-> +	const struct x1600_pwm_wfhw *wfhw =3D _wfhw;
-> +	unsigned long rate =3D clk_get_rate(x->clk);
-> +	struct x1600_pwm_wfhw cur;
-> +	unsigned int ch =3D pwm->hwpwm;
-> +	u32 busy;
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct drm_pending_vblank_event *event =3D crtc_state->event;
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
 > +
-> +	x1600_pwm_read_waveform(chip, pwm, &cur);
+> +	if (!event)
+> +		return;
+> +
+> +	crtc_state->event =3D NULL;
 > +
 > +	/*
-> +	 * Running with the same divider and initial level: load the new word,
-> +	 * which the channel takes at the end of its period.
+> +	 * The controller takes a new descriptor "at appropriate time" (manual,
+> +	 * 10.6.4): wait until it reports reading the one just handed over.
 > +	 */
-> +	if (cur.enabled && wfhw->enabled && cur.prescale =3D=3D wfhw->prescale =
-&&
-> +	    cur.inl =3D=3D wfhw->inl) {
-> +		writel(wfhw->wcfg, x->base + X1600_PWM_WCFG(ch));
-> +		writel(BIT(ch), x->base + X1600_PWM_UPT);
-> +		return readl_poll_timeout(x->base + X1600_PWM_BUSY, busy,
-> +					  !(busy & BIT(ch)), 10,
-> +					  DIV_ROUND_UP_ULL(2ULL * USEC_PER_SEC *
-> +							   (X1600_PWM_MAX_COUNT << cur.prescale),
-> +							   rate));
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc) =
+=3D=3D 0) {
+> +		lcd->event =3D event;
+> +		lcd->event_desc =3D x1600_lcd_desc_addr(lcd, lcd->cur);
+> +	} else {
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +}
 
 [Severity: Medium]
-Can DIV_ROUND_UP_ULL() divide by zero here in x1600_pwm_write_waveform() if
-clk_get_rate(x->clk) returns 0?
+In x1600_lcd_probe(), drm->mode_config.helper_private is left unset, so
+atomic commits use the default drm_atomic_helper_commit_tail() ordering:
+
+  drm_atomic_helper_commit_tail()
+    drm_atomic_helper_commit_modeset_disables()
+    drm_atomic_helper_commit_planes()
+      x1600_lcd_plane_atomic_update()
+      x1600_lcd_crtc_atomic_flush()
+    drm_atomic_helper_commit_modeset_enables()
+      x1600_lcd_crtc_atomic_enable()
+
+During any commit that enables or re-enables the crtc,
+x1600_lcd_crtc_atomic_flush() runs before x1600_lcd_crtc_atomic_enable() se=
+ts
+lcd->running =3D true and calls drm_crtc_vblank_on(crtc).
+
+Won't the check in x1600_lcd_crtc_atomic_flush() always take the else branch
+during a modeset enable, sending the vblank event and completing flip_done
+before the controller and panel bridge have even started?
+
+[ ... ]
+> +static irqreturn_t x1600_lcd_irq(int irq, void *data)
+> +{
+> +	struct x1600_lcd *lcd =3D data;
+> +	u32 st =3D readl(lcd->base + X1600_LCD_INT_FLAG);
+> +
+> +	if (!st)
+> +		return IRQ_NONE;
+> +
+> +	writel(st, lcd->base + X1600_LCD_CLR_ST);
+> +	if (st & X1600_LCD_ST_STOP_SRD_ACK)
+> +		complete(&lcd->stopped);
+> +
+> +	if (st & X1600_LCD_ST_DISP_END) {
+> +		drm_crtc_handle_vblank(&lcd->crtc);
+> +
+> +		spin_lock(&lcd->drm.event_lock);
+> +		if (lcd->event &&
+> +		    readl(lcd->base + X1600_LCD_CHAIN_SITE) =3D=3D lcd->event_desc) {
+> +			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
+> +			drm_crtc_vblank_put(&lcd->crtc);
+> +			lcd->event =3D NULL;
+> +		}
+> +		spin_unlock(&lcd->drm.event_lock);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: High]
+When a page flip is programmed near the end of a frame and the controller h=
+as
+not yet switched to the new descriptor in lcd->event_desc when the next
+end-of-frame interrupt fires, x1600_lcd_irq() holds back the flip event
+because X1600_LCD_CHAIN_SITE does not match lcd->event_desc yet, but it sti=
+ll
+calls drm_crtc_handle_vblank(&lcd->crtc) unconditionally.
+
+Because drm->mode_config.helper_private is unset in x1600_lcd_probe(), the
+default drm_atomic_helper_commit_tail() waits for
+drm_atomic_helper_wait_for_vblanks() rather than
+drm_atomic_helper_wait_for_flip_done():
+
+  drm_atomic_helper_commit_tail()
+    drm_atomic_helper_wait_for_vblanks()
+    drm_atomic_helper_cleanup_planes()
+
+Can that first vblank interrupt wake drm_atomic_helper_wait_for_vblanks() a=
+nd
+allow drm_atomic_helper_cleanup_planes() to release the old framebuffer whi=
+le
+the controller is still scanning out the previous descriptor for another
+frame?
+
+> +
+> +static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
+> +					struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_crtc_state *crtc_state;
+> +
+> +	if (!plane_state->crtc)
+> +		return 0;
+> +
+> +	crtc_state =3D drm_atomic_get_new_crtc_state(state, plane_state->crtc);
+> +	if (WARN_ON(!crtc_state))
+> +		return -EINVAL;
+> +
+> +	/* The plane covers the whole screen: no scaling, no position. */
+> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, true);
+> +}
+> +
+> +static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(plane->dev);
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	unsigned int next =3D lcd->running ? !lcd->cur : lcd->cur;
+> +	struct x1600_lcd_desc *desc =3D &lcd->desc[next];
+> +
+> +	if (!fb)
+> +		return;
+> +
+> +	desc->next =3D x1600_lcd_desc_addr(lcd, next);
+> +	desc->addr =3D drm_fb_dma_get_gem_addr(fb, plane_state, 0);
+> +	desc->stride =3D fb->pitches[0] / fb->format->cpp[0];
+
+[Severity: High]
+In drm_atomic_helper_check_plane_state(), if userspace places the plane's
+destination rectangle completely outside the active crtc dimensions, the
+helper sets plane_state->visible =3D false and returns 0 before checking
+can_position:
+
+  drm_atomic_helper_check_plane_state()
+    plane_state->visible =3D drm_rect_clip_scaled(src, dst, &clip);
+    ...
+    if (!plane_state->visible)
+            return 0;
+
+    if (!can_position && !drm_rect_equals(dst, &clip))
+            return -EINVAL;
+
+If userspace submits a small framebuffer positioned off-screen, won't
+x1600_lcd_plane_atomic_check() accept the state and
+x1600_lcd_plane_atomic_update() program desc->addr to scan out a full frame
+past the end of the small buffer unless !plane_state->visible is rejected?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025084643.9316=
-7-1-olivier@mgcrea.io?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025085816.6040=
+5-1-olivier@mgcrea.io?part=3D3
