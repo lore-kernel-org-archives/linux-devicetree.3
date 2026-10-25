@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792945487;
-	b=ENw2peEkxwzvotxavmYt4rX8oiZmHQsPBTdcX5fy5Xnuy89VM0m0ueMNwA22JOu0E5qh
-	 p2Fk782fYkQJLVVJKKZYMOxrwL6dxGoP0eKd8QJvWISdGkXIEFwzvwHP6sK1v+REswxZG
-	 WkCdk7gCg3vFr9uB6o6CAuH9bHU5ydkFAY/acGAZq7wF9fX6/UaNbNlyddcrmO7lGMXGL
-	 QGtL55LpE6m+IsfIT3cdUiC3XxcVREQM/pbGOjEzQR4u7OSFd7kPapqr1YUT/5HNf4BdG
-	 7wNbHp//5ZjjkRRcwGHe3weYdKweXieyIv1Z5QytBoqnmS7Om09rInViAX+mTLPOiKg==
+	t=1792946549;
+	b=0lA6BquLMYUPF4Iisrm53bsCf+LoosI54986Q5TeBPg1Whulb7tbYnOFtvahUN+x2gAR
+	 R9lNYPiyQP3/ZXZweqYpEZ9pW7N+tIgHtD9BajxayAwQCt22Pr1kRIFo+TjPAARBYiqdd
+	 4FCVuEnKJWs4/+2b07vV2xpWzalyVya7HD/RQ9wyMCp0r/Bfm7zZYOilT/nh8sJdAT819
+	 xLwodshVMfxnDsVMkKeQ3RnFYcx+GKJKzRN62FiC85X2yJ1vnGfmAKCAkhMM7g5YFi0xZ
+	 ByCp38U0rYTTLqHebLvPFRoNOT7Sgi2J7EmMCnpD9jR1WTVPrSAkNg2K9XNpyw6pfFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792945487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=80ca2O6qBbVwoG6RHh2KLpvcCGHdQaG4+4LYc9JO+e0=;
-	b=u1KVsBAQtP1b9YN7qUb1WNCRRRcZxh5Q59K+tWulP5SUUj56TdTThSxxQUYOLBhZamEj
-	 kHPip3XRSkeiOBnpdHuF9ig7IfC5AZDT3elohGLLtUuzOjpdq+9pUQRly5pfly+l4/LsX
-	 ua4vbYXimNX/aIOH496qwu7diIfpfcdehVouajiCRz58cUQnxx8oOQgyA3XipJKtxN8V9
-	 /Xz+nCujmXqRj8aAjU6e8MlRRVSTKDwMDeyN0d5OQnMP4k7ulwzVbeJYgIX8WcEJJQjPC
-	 3fvgWCn8AEjVpT+JaRaOwNY9RRvTArnl8ARC+46fOiRGbIr5LLOlpDhJcs/faGgCoPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792946549;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=cPJgO1+8d5mUNiWnEOFR8vqpitnJgqR/qZvpv/l/KWU=;
+	b=fIiLlM5viFaqvGHDdYOHlw3uC5rbTYnJZVnjaYpsKdWsXufZQ3aiB+aXLwKjkhquX/wE
+	 8RS8Wp/OCKA9Q50/uNPAGrvhioj34k2iiH4JAkGGtdpIWv4PUryS6fgxkIwAfwSrBoXL9
+	 uEpiAcDIhn8olZiJQytBZA5u6E5j3T0gbYgjIukPuK+Bd0AC6tV/csJ1Ksqxbgm4+Aq4W
+	 FMf92BjyTWiwN04P9nFQujuE+cdLgykj1/B3uxunkQncMpJH/QgDgv7pWj3HWRSQA/8QG
+	 WgAsqcOEtns42sOjqjl/80Vj3qR0MrbZQBw2fbuRgA73ZH9758uOLsL90tNE/j6/f6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=itX0tEkr;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfGbTAqX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E988606A31E
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 16:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E988606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1925A606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 16:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=itX0tEkr
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso6552427eec.0
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 09:24:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792945485; x=1793550285; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=80ca2O6qBbVwoG6RHh2KLpvcCGHdQaG4+4LYc9JO+e0=;
-        b=itX0tEkrjwxesqAayv2OY2r7pdTcQopmhxRX7vqYJZL9qRS3briVHM2fMX7MX5DqOy
-         nTw9CiygPY0GiE6BAEudpE8cywtaE+eDIE7dDyezgDWVIs3vOE9CVVdTzODrsKzRKQOt
-         yFyFFawYF5mq828QJBqAUsZiaaaL3YJwlzhJgDi0ZkE0pZe9AxbT6nwGbVqgeE4eqyYa
-         eFJ3/QQPfKYjtPmrkg69EkcxMfoMpKgd18YTGvpT/+0tsq1LJPvuHUujd5Z86e4M9zFC
-         RBSnehFIJ//TW/L9ekPlwaOMCHwouZXD76K0yAJkTRJ6j2iJ84Fo2IrFTlTobv2dxItY
-         6S+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792945485; x=1793550285;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=80ca2O6qBbVwoG6RHh2KLpvcCGHdQaG4+4LYc9JO+e0=;
-        b=2VcEzGZD2YKIbLwB4cjnbDFOastlTSCJI4PKFuMtOQbj0NA7GhDbgqX324oMGVIUgt
-         K/SuAyb60P3gm3HzG+DPUQMnEnh2zdL+mE4FxpBD3jvbATg6OXZOPZPxXn2oB1a7tYCK
-         Cdm9GhnkhvIMmJqNlhQFWYM+fjYTSBDbxfvAnN4ZpIj1ZI0SH7PF+YebnIC9OZkaEyaE
-         +mVrwiPTbbAV8HDQGBJpCHsPXCQVmAxnRLeIiz9gZVpY/cIsfl/04m+JCrVv/bQUk12s
-         NBAzQC2fdb2Br17BWYphYPWqY7Xpk2VpACagiOME1Ht3ElzWj31W5deQ8KksKLXLS5/W
-         jtXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwz0hXk5bTsYa/53FDt/sy2t/5iop6ED4SDx630Haiv9hUyDqCNeemosPnrwWWX6mL1g7n2s8gZMAzY@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLvPrschhN7al2XUwN7XmDw2CaTTWzi4hXpT2uyGg3OmHH2qcd
-	54c+aF049WMbrbpwkLX2GnAQsjMQkQ0X4zx2+Trx3yDTW0GZ17ObYpSh
-X-Gm-Gg: AYBFou3GEorleDTi1GhBCbkJpdOhNsFtsut36XZU9jKMd4TXbAFdnE7KqyryZH9KwQu
-	EavqGFZi6KkbUhvWIOmdzzfJuMSLoUXT+FFYAGG04Dz3zVVYnjtprPUnZcO8unHO5sGkCEHguKa
-	4R7eHKryL5KSDxkU4pDDVET1tVlKcd5321LoeIk95RYMl2Vl3Oc03DP/RvomqLOQNKHXi2B8NZ4
-	KrCOTHyuNdaqWsJel6dZeT6aeBgT6LzO3z5BuWMthmLxjYMuWDMMEZPL5Q74IM9r5WqZqO/EVrg
-	QtAnuOPZ8JiGjAAsUCMJg8OxbSc+2se5yLA0itVJIx99t32Bv6elxsxWyj5DgdsPfXST+ssn52o
-	k44bTfnI7qbTDL5hiC95Ji2NPJVvpEoTPaZItTZfAOaHg3JL6vFgwS2ELizkAY6Fg/QJT5AnAsD
-	AyN67TI0N74+pji8AE+Txtu+9ei3fdrHAIeB2GAoyNY3rKxJ1ve4JpIT1DVzIIk708obfBdX7jg
-	wTDwKNLyBBElS1m0NLmIlDrWPrE6YTj4x1Duh94emR9mshon4GN8mtp6mhIL8eblXeFfkcLIfl1
-	FCf5eqOGxA62QP48903lpA5ZnlJm7+X47YogfBdMy3xQ7Ea+sLFJ1XoE9Go=
-X-Received: by 2002:a05:7022:48:b0:16d:1e24:5cc3 with SMTP id a92af1059eb24-199375eb24amr9315847c88.19.1792945485330;
-        Sun, 25 Oct 2026 09:24:45 -0700 (PDT)
-Received: from [127.0.0.2] ([2401:4900:7b93:fac6:22d5:5a09:b572:da26])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19a3736d16fsm16385722c88.12.2026.10.25.09.24.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 09:24:45 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Sun, 25 Oct 2026 21:54:19 +0530
-Subject: [PATCH v8 3/3] media: i2c: hm1092: Add ACPI enumeration and the
- 19.2 MHz configuration
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfGbTAqX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B84E1F01825;
+	Sun, 25 Oct 2026 16:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792946548;
+	bh=cPJgO1+8d5mUNiWnEOFR8vqpitnJgqR/qZvpv/l/KWU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dfGbTAqXqsIlo9jwMJYxUedMTER0GY0oG+lSvZl3Yfm5q86Dlbxu/Tl4yGae3Lon4
+	 yogYUGnUrFaSQtyrUrCQEPBjSUju/GFqjmN8T6IGVhhUF9OHMfyOaTIzoMyVA0F3Zu
+	 1Cj9NZKIHVeynMlopi1K2JzlcQWvo9VdQXzf6+B4L3ZFl2JJTqJabELUC4sH53C8qh
+	 AV3PHeST665YL+T4j/Ynp/61SnYsLheJMFpIiXCrK2ahdZ6XVJg+w3T2Wbv0p0I3aq
+	 /dT6CJxsPWxkSahPk0ieBtOb+qdnir3DlTBP7izVoREoRmKpuG0CMJS5AGuzswe81j
+	 h2agp2DHUIawQ==
+Message-ID: <sashiko-outbox-184277@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/3] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ramshouriesh R" <rshouriesh@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
+References: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
+ <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 25 Oct 2026 16:42:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,603 +60,169 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261025-hm1092-driver-v8-3-9cd575c366cf@gmail.com>
-References: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
-In-Reply-To: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jake Steinman <j@metarealtyinc.ca>, 
- Eduard Kulyk <kulikeduard89@gmail.com>, Ray Strode <halfline@gmail.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19613; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=poWqPEw29IZyZccfXN+PJ70EKNZ0tpyAI0x1hwI/wMY=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBq3i00vyL45aVSpKGX6w/A1c7xeHN9D6NcUmjOQ
- JvTD8DCueyJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCat4tNAAKCRAVlYpeERwF
- 3u8OD/9qWkScT+IzhDxj2tCL85ad1oD65g/aFg/gxYyQrjnMhxOs/RqRNvWn5J0rd2e+4SOlSMl
- /HO1cck53PwGAt53g43ilnQkbKBuRJgdhoRbnP+BVM46QFjdWYMTpdIZ1WxMRX8mC78BZgmokVE
- JWV4sfudodH7/Dume5RfdlMvCzAzoAYpIMK7TR9K5xO6I6nmS/5G06Uf/OW9o59uf3rtdb527FD
- RFeVk73q8Lmwqyo7FN5PArIuadNCR3MTmC9snh8kOS/WQPqLFmSsZ371tz1Eb16w9K9QMQAizU4
- oy3iI3HmuS7kywjGL9aUQ6+o6HELbJ4JL4uWnLeDtttldxljSMoxU83N0rCN8mQ5WKMgMPo1k/k
- uLlnEKIGRlQ/9K58HIzBRFEVOtURXDna2nsSgqYS9BgSepCUugFJ3ySILxu2kJJPrtB0VyYGW9d
- n9bWeM3+iQk3howpZj7sAG+YK5VOlIKkUXjPSAT5nBazJ91pZFJKOYBcChm9heKiQFi6QTl9FY8
- MGk7HUxnJLwwiBmcPNBOJ4Jkw3oOj7dfKMVNmsFdFFaugeA/2tl02UJof70mq9H7BH2wD7H/UxN
- RB2wOnbyCxwZRQKReKIPqMe7fm09tvpFHh3cNYZArNGQzpd1XOpUBKwNAUJFP0K/rJGCVMlofTZ
- yORf6ujs/L2VTjw==
-X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
- fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-From: Jake Steinman <j@metarealtyinc.ca>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] media: i2c: hm1092: broken CONFIG_PM=3Dn and disabled runtime PM=
+ handling
+- [Low] media: i2c: hm1092: invalid max range on read-only VBLANK in hm1092=
+_init_controls()
+--
 
-The HM1092 is also the IR camera of Intel IPU6/IPU7 laptops. There it is
-enumerated through ACPI as HIMX1092 and clocked at 19.2 MHz rather than
-24 MHz. The driver cannot bind on those machines: it has no ACPI match
-table and probe rejects any external clock other than 24 MHz.
+commit f1e4ed7ce54114835ec68f36cc7257ae9a2789c1
+Author: Ramshouriesh R <rshouriesh@gmail.com>
 
-Turn the single fixed mode into a table of configurations selected by
-the external clock rate, each with its own init sequence, link
-frequency, timings, readout window and exposure default. Add the
-configuration the vendor Windows driver uses on the Intel platforms:
-648x368, HTS 1620, VTS 740, with the PLL pre-divider at 10 and the
-multiplier at 94, giving 19200000 * 94 / 10 = 180480000 Hz.
+media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
 
-ipu-bridge lists both 180000000 and 180480000 for this sensor, so
-matching any menu entry against the endpoint is no longer enough. Check
-that the endpoint offers the link frequency of the selected
-configuration.
+This commit adds a V4L2 subdevice driver for the Himax HM1092 monochrome
+near-infrared CMOS image sensor over a single-lane MIPI CSI-2 interface. It
+supports the sensor's 560x360 10-bit monochrome mode, standard controls
+including exposure, analogue gain, digital gain, and test patterns, and
+manages sensor power via runtime PM.
 
-The 24 MHz configuration is unchanged: same init sequence, timings,
-controls and defaults.
+Link: https://lore.kernel.org/r/20260727131252.1580332-1-j@metarealtyinc.ca
+Link: https://lore.kernel.org/r/20260727154058.2350497-1-j@metarealtyinc.ca
 
-Tested on a Dell XPS 16 DA16260 (Panther Lake, IPU7, 19.2 MHz clock
-from INT3472): the sensor binds on CSI-2 port 2, streams 648x368 at
-link frequency 180480000 and the exposure control changes the image
-level. The 24 MHz configuration is compile-tested only.
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 7de2d095c9696..24ea806768493 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -137,6 +137,17 @@ config VIDEO_HI847
+>            To compile this driver as a module, choose M here: the
+>            module will be called hi847.
+> =20
+> +config VIDEO_HM1092
+> +	tristate "Himax HM1092 sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the Himax HM1092
+> +	  monochrome near-infrared CMOS image sensor, used as the
+> +	  face-authentication IR camera on laptops.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called hm1092.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
-Tested-by: Eduard Kulyk <kulikeduard89@gmail.com> # Dell Latitude 7350 (IPU6)
-Link: https://lore.kernel.org/r/b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca
-[rshouriesh: drop the <linux/mod_devicetable.h> include, <linux/i2c.h>
- already provides struct acpi_device_id; rebase the pixel-array comment
- over the widened crop bounds]
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
----
- drivers/media/i2c/hm1092.c | 362 +++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 316 insertions(+), 46 deletions(-)
+[ ... ]
 
-diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-index 400e9ded2166..ac61fd59c63c 100644
---- a/drivers/media/i2c/hm1092.c
-+++ b/drivers/media/i2c/hm1092.c
-@@ -20,15 +20,19 @@
- /*
-  * CSI-2 D-PHY link frequency (DDR, i.e. half the per-lane bit rate).
-  *
-- * The vendor Windows configuration supplies a 24 MHz EXTCLK and programs the
-- * MIPI PLL pre-divider to 12 (0x030d = 0x0c) and multiplier to 90
-- * (0x030f = 0x5a):
-- *   link freq  = 24000000 * 90 / 12          = 180000000
-- *   bit rate   = link freq * 2               = 360000000 bps
-- *   pixel_rate = bit rate * 1 lane / 10 bpp  = 36000000 pixels/s
-+ * Two vendor Windows configurations are known. Each pairs an EXTCLK rate with
-+ * its own MIPI PLL pre-divider (0x030d) and multiplier (0x030f):
-+ *
-+ *   24 MHz EXTCLK, pre-divider 12, multiplier 90 (Qualcomm):
-+ *     link freq  = 24000000 * 90 / 12          = 180000000
-+ *     pixel_rate = link freq * 2 * 1 lane / 10 = 36000000 pixels/s
-+ *
-+ *   19.2 MHz EXTCLK, pre-divider 10, multiplier 94 (Intel IPU):
-+ *     link freq  = 19200000 * 94 / 10          = 180480000
-+ *     pixel_rate = link freq * 2 * 1 lane / 10 = 36096000 pixels/s
-  */
--#define HM1092_LINK_FREQ		180000000ULL
--#define HM1092_MCLK			24000000
-+#define HM1092_LINK_FREQ_180MHZ		180000000ULL
-+#define HM1092_LINK_FREQ_180P48MHZ	180480000ULL
- #define HM1092_BITS_PER_SAMPLE		10
- 
- #define HM1092_REG_STREAM		CCI_REG8(0x0100)
-@@ -43,16 +47,14 @@
-  * Digital gain is a 10-bit value in 2.8 fixed point (0x100 is unity) split
-  * across 0x020e/0x020f; bits above bit 9 are ignored by the sensor.
-  * The register layout is not documented publicly; it was recovered from the
-- * vendor Windows driver. The exposure default (500) was selected from
-- * illuminated hardware tests and is also programmed by the init sequence at
-- * 0x0202/0x0203.
-+ * vendor Windows driver. The exposure default is per mode and matches what
-+ * that mode's init sequence programs at 0x0202/0x0203.
-  */
- #define HM1092_REG_EXPOSURE_H		CCI_REG8(0x0202)
- #define HM1092_REG_EXPOSURE_L		CCI_REG8(0x0203)
- #define HM1092_EXPOSURE_MIN		2
- #define HM1092_EXPOSURE_MARGIN		21
- #define HM1092_EXPOSURE_STEP		1
--#define HM1092_EXPOSURE_DEFAULT		500
- 
- #define HM1092_REG_ANALOGUE_GAIN	CCI_REG8(0x0205)
- #define HM1092_ANALOGUE_GAIN_MIN	0
-@@ -76,9 +78,9 @@
-  * full array including the surrounding dummy/optical-black pixels is 1296x736
-  * (8 pixels of margin on each side). The crop bounds cover the full array,
-  * since a readout window may include the margin; the default crop is the
-- * active array. The single fixed mode reads a window out of the active array
-- * (X_ADDR [0x0030..0x04ad], Y_ADDR [0x0008..0x02d5]); subsequent internal
-- * processing produces the 560x360 output.
-+ * active array. Each mode reads a fixed window out of the array (X_ADDR/Y_ADDR
-+ * registers 0x0344..0x034b, reported as the crop rectangle); subsequent
-+ * internal processing produces the output size.
-  */
- #define HM1092_NATIVE_WIDTH		1296U
- #define HM1092_NATIVE_HEIGHT		736U
-@@ -86,12 +88,8 @@
- #define HM1092_ACTIVE_TOP		8U
- #define HM1092_ACTIVE_WIDTH		1280U
- #define HM1092_ACTIVE_HEIGHT		720U
--#define HM1092_CROP_LEFT		48U
--#define HM1092_CROP_TOP			8U
--#define HM1092_CROP_WIDTH		1150U
--#define HM1092_CROP_HEIGHT		718U
- 
--static const struct cci_reg_sequence hm1092_init_regs[] = {
-+static const struct cci_reg_sequence hm1092_560x360_regs[] = {
- 	{ CCI_REG8(0x0103), 0x00 },
- 	{ CCI_REG8(0x030a), 0x05 },
- 	{ CCI_REG8(0x030d), 0x0c },
-@@ -279,18 +277,265 @@ static const struct cci_reg_sequence hm1092_init_regs[] = {
- 	{ CCI_REG8(0x0037), 0x30 },
- };
- 
-+/*
-+ * Init sequence used with a 19.2 MHz EXTCLK, as found on Intel IPU laptops
-+ * where the sensor is described in ACPI as HIMX1092. Recovered from the
-+ * vendor Windows driver for those platforms; kept in the order that driver
-+ * issues it, including its repeated writes.
-+ */
-+static const struct cci_reg_sequence hm1092_648x368_regs[] = {
-+	{ CCI_REG8(0x0100), 0x00 },
-+	{ CCI_REG8(0x0103), 0x00 },
-+	{ CCI_REG8(0x0000), 0x00 },
-+	{ CCI_REG8(0x0101), 0x00 },
-+	{ CCI_REG8(0x0202), 0x02 },
-+	{ CCI_REG8(0x0203), 0xe5 },
-+	{ CCI_REG8(0x0307), 0x00 },
-+	{ CCI_REG8(0x0309), 0x01 },
-+	{ CCI_REG8(0x030a), 0x05 },
-+	{ CCI_REG8(0x030d), 0x0a },
-+	{ CCI_REG8(0x030f), 0x5e },
-+	{ CCI_REG8(0x0310), 0x00 },
-+	{ CCI_REG8(0x0340), 0x03 },
-+	{ CCI_REG8(0x0341), 0x1e },
-+	{ CCI_REG8(0x0342), 0x05 },
-+	{ CCI_REG8(0x0343), 0xe4 },
-+	{ CCI_REG8(0x0350), 0x53 },
-+	{ CCI_REG8(0x0387), 0x01 },
-+	{ CCI_REG8(0x3110), 0x02 },
-+	{ CCI_REG8(0x3735), 0xe2 },
-+	{ CCI_REG8(0x3704), 0x04 },
-+	{ CCI_REG8(0x4001), 0x00 },
-+	{ CCI_REG8(0x4002), 0x2b },
-+	{ CCI_REG8(0x4024), 0x40 },
-+	{ CCI_REG8(0x4131), 0x01 },
-+	{ CCI_REG8(0x4132), 0x20 },
-+	{ CCI_REG8(0x4265), 0x02 },
-+	{ CCI_REG8(0x4b04), 0x01 },
-+	{ CCI_REG8(0x4b0e), 0x0e },
-+	{ CCI_REG8(0x4b18), 0x00 },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x4b31), 0x06 },
-+	{ CCI_REG8(0x4b3b), 0x02 },
-+	{ CCI_REG8(0x4b3e), 0x00 },
-+	{ CCI_REG8(0x4b44), 0x0c },
-+	{ CCI_REG8(0x4b45), 0x01 },
-+	{ CCI_REG8(0x4b47), 0x00 },
-+	{ CCI_REG8(0x5004), 0x40 },
-+	{ CCI_REG8(0x5005), 0x28 },
-+	{ CCI_REG8(0x5006), 0x40 },
-+	{ CCI_REG8(0x5007), 0x28 },
-+	{ CCI_REG8(0x5010), 0x20 },
-+	{ CCI_REG8(0x5011), 0x00 },
-+	{ CCI_REG8(0x5013), 0x03 },
-+	{ CCI_REG8(0x5015), 0xb3 },
-+	{ CCI_REG8(0x501d), 0x4c },
-+	{ CCI_REG8(0x5098), 0x00 },
-+	{ CCI_REG8(0x5099), 0x11 },
-+	{ CCI_REG8(0x509b), 0x03 },
-+	{ CCI_REG8(0x50a0), 0x30 },
-+	{ CCI_REG8(0x50a2), 0x0b },
-+	{ CCI_REG8(0x50a6), 0x00 },
-+	{ CCI_REG8(0x50a7), 0x00 },
-+	{ CCI_REG8(0x50aa), 0x22 },
-+	{ CCI_REG8(0x50ab), 0x07 },
-+	{ CCI_REG8(0x50ac), 0x24 },
-+	{ CCI_REG8(0x50ad), 0x07 },
-+	{ CCI_REG8(0x50ae), 0x20 },
-+	{ CCI_REG8(0x50af), 0x40 },
-+	{ CCI_REG8(0x50b3), 0x04 },
-+	{ CCI_REG8(0x50b4), 0x00 },
-+	{ CCI_REG8(0x50b7), 0x00 },
-+	{ CCI_REG8(0x50b8), 0x70 },
-+	{ CCI_REG8(0x50b9), 0xff },
-+	{ CCI_REG8(0x50ba), 0xff },
-+	{ CCI_REG8(0x50bb), 0x14 },
-+	{ CCI_REG8(0x50cb), 0x21 },
-+	{ CCI_REG8(0x50d5), 0xe0 },
-+	{ CCI_REG8(0x50d7), 0x12 },
-+	{ CCI_REG8(0x50dd), 0x00 },
-+	{ CCI_REG8(0x50e8), 0x00 },
-+	{ CCI_REG8(0x50ea), 0x74 },
-+	{ CCI_REG8(0x50fa), 0x02 },
-+	{ CCI_REG8(0x5100), 0x03 },
-+	{ CCI_REG8(0x5101), 0x13 },
-+	{ CCI_REG8(0x5102), 0x23 },
-+	{ CCI_REG8(0x5103), 0x33 },
-+	{ CCI_REG8(0x5104), 0x43 },
-+	{ CCI_REG8(0x5105), 0x42 },
-+	{ CCI_REG8(0x5106), 0x40 },
-+	{ CCI_REG8(0x5118), 0x00 },
-+	{ CCI_REG8(0x5119), 0x00 },
-+	{ CCI_REG8(0x511a), 0x00 },
-+	{ CCI_REG8(0x511b), 0x00 },
-+	{ CCI_REG8(0x511c), 0x00 },
-+	{ CCI_REG8(0x511d), 0x00 },
-+	{ CCI_REG8(0x511e), 0x00 },
-+	{ CCI_REG8(0x5130), 0x13 },
-+	{ CCI_REG8(0x5131), 0x23 },
-+	{ CCI_REG8(0x5132), 0x33 },
-+	{ CCI_REG8(0x5133), 0x43 },
-+	{ CCI_REG8(0x5134), 0x42 },
-+	{ CCI_REG8(0x5135), 0x40 },
-+	{ CCI_REG8(0x5136), 0x40 },
-+	{ CCI_REG8(0x5148), 0x01 },
-+	{ CCI_REG8(0x5149), 0x01 },
-+	{ CCI_REG8(0x514a), 0x01 },
-+	{ CCI_REG8(0x514b), 0x01 },
-+	{ CCI_REG8(0x514c), 0x01 },
-+	{ CCI_REG8(0x514d), 0x01 },
-+	{ CCI_REG8(0x514e), 0x01 },
-+	{ CCI_REG8(0x51c0), 0x00 },
-+	{ CCI_REG8(0x51c1), 0x81 },
-+	{ CCI_REG8(0x51c2), 0xec },
-+	{ CCI_REG8(0x51c3), 0x00 },
-+	{ CCI_REG8(0x51c4), 0x55 },
-+	{ CCI_REG8(0x51c5), 0x44 },
-+	{ CCI_REG8(0x51c6), 0x00 },
-+	{ CCI_REG8(0x51c7), 0x81 },
-+	{ CCI_REG8(0x51c8), 0xec },
-+	{ CCI_REG8(0x51c9), 0x00 },
-+	{ CCI_REG8(0x51ca), 0x55 },
-+	{ CCI_REG8(0x51cb), 0x24 },
-+	{ CCI_REG8(0x51cc), 0x00 },
-+	{ CCI_REG8(0x51cd), 0x81 },
-+	{ CCI_REG8(0x51ce), 0xec },
-+	{ CCI_REG8(0x51cf), 0x00 },
-+	{ CCI_REG8(0x51d0), 0x54 },
-+	{ CCI_REG8(0x51d1), 0x24 },
-+	{ CCI_REG8(0x51d2), 0x00 },
-+	{ CCI_REG8(0x51d3), 0x81 },
-+	{ CCI_REG8(0x51d4), 0xec },
-+	{ CCI_REG8(0x51d5), 0x00 },
-+	{ CCI_REG8(0x51d6), 0x53 },
-+	{ CCI_REG8(0x51d7), 0x14 },
-+	{ CCI_REG8(0x51d8), 0x00 },
-+	{ CCI_REG8(0x51d9), 0x81 },
-+	{ CCI_REG8(0x51da), 0xec },
-+	{ CCI_REG8(0x51db), 0x00 },
-+	{ CCI_REG8(0x51dc), 0x53 },
-+	{ CCI_REG8(0x51dd), 0x14 },
-+	{ CCI_REG8(0x51e0), 0x09 },
-+	{ CCI_REG8(0x51e1), 0x03 },
-+	{ CCI_REG8(0x51e2), 0x04 },
-+	{ CCI_REG8(0x51e3), 0x03 },
-+	{ CCI_REG8(0x51e4), 0x08 },
-+	{ CCI_REG8(0x51e5), 0x07 },
-+	{ CCI_REG8(0x51e6), 0x08 },
-+	{ CCI_REG8(0x51e7), 0x07 },
-+	{ CCI_REG8(0x51e8), 0x04 },
-+	{ CCI_REG8(0x51e9), 0x46 },
-+	{ CCI_REG8(0x51ea), 0x43 },
-+	{ CCI_REG8(0x51eb), 0x62 },
-+	{ CCI_REG8(0x51ec), 0x61 },
-+	{ CCI_REG8(0x51ed), 0x00 },
-+	{ CCI_REG8(0x51ee), 0x00 },
-+	{ CCI_REG8(0x5200), 0x60 },
-+	{ CCI_REG8(0x5201), 0x80 },
-+	{ CCI_REG8(0x5202), 0x00 },
-+	{ CCI_REG8(0x5203), 0x01 },
-+	{ CCI_REG8(0x5206), 0x80 },
-+	{ CCI_REG8(0x5208), 0x0b },
-+	{ CCI_REG8(0x5209), 0x0c },
-+	{ CCI_REG8(0x520c), 0x15 },
-+	{ CCI_REG8(0x520d), 0x40 },
-+	{ CCI_REG8(0x5214), 0x28 },
-+	{ CCI_REG8(0x5215), 0x04 },
-+	{ CCI_REG8(0x5216), 0x02 },
-+	{ CCI_REG8(0x5217), 0x01 },
-+	{ CCI_REG8(0x5218), 0x07 },
-+	{ CCI_REG8(0x521e), 0x01 },
-+	{ CCI_REG8(0x5282), 0xff },
-+	{ CCI_REG8(0x5283), 0x03 },
-+	{ CCI_REG8(0x0202), 0x01 },
-+	{ CCI_REG8(0x0203), 0x68 },
-+	{ CCI_REG8(0x0340), 0x02 },
-+	{ CCI_REG8(0x0341), 0xe4 },
-+	{ CCI_REG8(0x0342), 0x06 },
-+	{ CCI_REG8(0x0343), 0x54 },
-+	{ CCI_REG8(0x0344), 0x00 },
-+	{ CCI_REG8(0x0345), 0x00 },
-+	{ CCI_REG8(0x0346), 0x00 },
-+	{ CCI_REG8(0x0347), 0x00 },
-+	{ CCI_REG8(0x0348), 0x05 },
-+	{ CCI_REG8(0x0349), 0x0d },
-+	{ CCI_REG8(0x034a), 0x02 },
-+	{ CCI_REG8(0x034b), 0xdd },
-+	{ CCI_REG8(0x034c), 0x02 },
-+	{ CCI_REG8(0x034d), 0x88 },
-+	{ CCI_REG8(0x034e), 0x01 },
-+	{ CCI_REG8(0x034f), 0x70 },
-+	{ CCI_REG8(0x0383), 0x00 },
-+	{ CCI_REG8(0x0387), 0x10 },
-+	{ CCI_REG8(0x0390), 0x03 },
-+	{ CCI_REG8(0x4800), 0xac },
-+	{ CCI_REG8(0x0104), 0x01 },
-+	{ CCI_REG8(0x0104), 0x00 },
-+	{ CCI_REG8(0x4801), 0xae },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x0101), 0x03 },
-+};
-+
-+/**
-+ * struct hm1092_mode - sensor configuration, selected by the EXTCLK rate
-+ * @mclk: EXTCLK rate the init sequence programs the PLL for
-+ * @link_freq_index: index into hm1092_link_freq_menu
-+ * @width: output width
-+ * @height: output height
-+ * @hts: horizontal total size, 0x0342/0x0343
-+ * @vts: vertical total size, 0x0340/0x0341
-+ * @exposure_def: exposure programmed by the init sequence
-+ * @crop: readout window on the pixel array
-+ * @regs: init sequence
-+ * @num_regs: number of entries in @regs
-+ */
- struct hm1092_mode {
-+	unsigned long mclk;
-+	unsigned int link_freq_index;
- 	u32 width;
- 	u32 height;
- 	u32 hts;
- 	u32 vts;
-+	u32 exposure_def;
-+	struct v4l2_rect crop;
-+	const struct cci_reg_sequence *regs;
-+	unsigned int num_regs;
- };
- 
--static const struct hm1092_mode hm1092_mode_560x360 = {
--	.width = 560,
--	.height = 360,
--	.hts = 0x0650,
--	.vts = 0x02ee,
-+static const struct hm1092_mode hm1092_modes[] = {
-+	{
-+		.mclk = 24000000,
-+		.link_freq_index = 0,
-+		.width = 560,
-+		.height = 360,
-+		.hts = 0x0650,
-+		.vts = 0x02ee,
-+		.exposure_def = 500,
-+		.crop = {
-+			.left = 48,
-+			.top = 8,
-+			.width = 1150,
-+			.height = 718,
-+		},
-+		.regs = hm1092_560x360_regs,
-+		.num_regs = ARRAY_SIZE(hm1092_560x360_regs),
-+	}, {
-+		.mclk = 19200000,
-+		.link_freq_index = 1,
-+		.width = 648,
-+		.height = 368,
-+		.hts = 0x0654,
-+		.vts = 0x02e4,
-+		.exposure_def = 360,
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 1294,
-+			.height = 734,
-+		},
-+		.regs = hm1092_648x368_regs,
-+		.num_regs = ARRAY_SIZE(hm1092_648x368_regs),
-+	},
- };
- 
- static const char * const hm1092_supply_names[] = {
-@@ -313,7 +558,8 @@ static const char * const hm1092_test_pattern_menu[] = {
- };
- 
- static const s64 hm1092_link_freq_menu[] = {
--	HM1092_LINK_FREQ,
-+	HM1092_LINK_FREQ_180MHZ,
-+	HM1092_LINK_FREQ_180P48MHZ,
- };
- 
- struct hm1092 {
-@@ -330,6 +576,7 @@ struct hm1092 {
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *vblank;
- 	struct v4l2_ctrl *exposure;
-+	const struct hm1092_mode *mode;
- 	u8 mipi_lanes;
- };
- 
-@@ -405,7 +652,7 @@ static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
- static int hm1092_init_controls(struct hm1092 *hm1092)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
--	const struct hm1092_mode *mode = &hm1092_mode_560x360;
-+	const struct hm1092_mode *mode = hm1092->mode;
- 	struct v4l2_fwnode_device_properties props;
- 	s64 hblank, pixel_rate;
- 	int ret;
-@@ -419,11 +666,12 @@ static int hm1092_init_controls(struct hm1092 *hm1092)
- 	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						   &hm1092_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ,
--						   0, 0,
-+						   ARRAY_SIZE(hm1092_link_freq_menu) - 1,
-+						   mode->link_freq_index,
- 						   hm1092_link_freq_menu);
- 
--	pixel_rate = div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
--			     HM1092_BITS_PER_SAMPLE);
-+	pixel_rate = div_u64(hm1092_link_freq_menu[mode->link_freq_index] * 2 *
-+			     hm1092->mipi_lanes, HM1092_BITS_PER_SAMPLE);
- 	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
- 					       V4L2_CID_PIXEL_RATE, 0,
- 					       pixel_rate, 1, pixel_rate);
-@@ -445,7 +693,7 @@ static int hm1092_init_controls(struct hm1092 *hm1092)
- 					     mode->vts -
- 					     HM1092_EXPOSURE_MARGIN,
- 					     HM1092_EXPOSURE_STEP,
--					     HM1092_EXPOSURE_DEFAULT);
-+					     mode->exposure_def);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
- 			  V4L2_CID_ANALOGUE_GAIN,
-@@ -487,10 +735,11 @@ static int hm1092_init_controls(struct hm1092 *hm1092)
- 	return ret;
- }
- 
--static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
-+static void hm1092_update_pad_format(const struct hm1092_mode *mode,
-+				     struct v4l2_mbus_framefmt *fmt)
- {
--	fmt->width = hm1092_mode_560x360.width;
--	fmt->height = hm1092_mode_560x360.height;
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
- 	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
- 	fmt->field = V4L2_FIELD_NONE;
- 	fmt->colorspace = V4L2_COLORSPACE_RAW;
-@@ -510,8 +759,8 @@ static int hm1092_enable_streams(struct v4l2_subdev *sd,
- 	if (ret)
- 		return ret;
- 
--	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
--				  ARRAY_SIZE(hm1092_init_regs), NULL);
-+	ret = cci_multi_reg_write(hm1092->regmap, hm1092->mode->regs,
-+				  hm1092->mode->num_regs, NULL);
- 	if (ret) {
- 		dev_err(hm1092->dev, "failed to write init registers\n");
- 		goto out;
-@@ -563,16 +812,18 @@ static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state,
- 				  struct v4l2_subdev_frame_size_enum *fse)
- {
-+	const struct hm1092_mode *mode = to_hm1092(sd)->mode;
-+
- 	if (fse->index)
- 		return -EINVAL;
- 
- 	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
- 		return -EINVAL;
- 
--	fse->min_width = hm1092_mode_560x360.width;
--	fse->max_width = hm1092_mode_560x360.width;
--	fse->min_height = hm1092_mode_560x360.height;
--	fse->max_height = hm1092_mode_560x360.height;
-+	fse->min_width = mode->width;
-+	fse->max_width = mode->width;
-+	fse->min_height = mode->height;
-+	fse->max_height = mode->height;
- 
- 	return 0;
- }
-@@ -584,10 +835,7 @@ static int hm1092_get_selection(struct v4l2_subdev *sd,
- {
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP:
--		sel->r.left = HM1092_CROP_LEFT;
--		sel->r.top = HM1092_CROP_TOP;
--		sel->r.width = HM1092_CROP_WIDTH;
--		sel->r.height = HM1092_CROP_HEIGHT;
-+		sel->r = to_hm1092(sd)->mode->crop;
- 		return 0;
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 		sel->r.left = HM1092_ACTIVE_LEFT;
-@@ -610,7 +858,8 @@ static int hm1092_get_selection(struct v4l2_subdev *sd,
- static int hm1092_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *state)
- {
--	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
-+	hm1092_update_pad_format(to_hm1092(sd)->mode,
-+				 v4l2_subdev_state_get_format(state, 0));
- 
- 	return 0;
- }
-@@ -670,6 +919,14 @@ static int hm1092_check_hwcfg(struct hm1092 *hm1092)
- 	if (ret)
- 		goto out;
- 
-+	if (!(link_freq_bitmap & BIT(hm1092->mode->link_freq_index))) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "link frequency %lld not available for a %lu Hz external clock\n",
-+				    hm1092_link_freq_menu[hm1092->mode->link_freq_index],
-+				    hm1092->mode->mclk);
-+		goto out;
-+	}
-+
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
- 		ret = dev_err_probe(dev, -EINVAL,
- 				    "only 1 data lane is supported, got %u\n",
-@@ -782,7 +1039,13 @@ static int hm1092_probe(struct i2c_client *client)
- 				     "failed to get imaging clock\n");
- 
- 	freq = clk_get_rate(hm1092->img_clk);
--	if (freq != HM1092_MCLK)
-+	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_modes); i++) {
-+		if (hm1092_modes[i].mclk == freq) {
-+			hm1092->mode = &hm1092_modes[i];
-+			break;
-+		}
-+	}
-+	if (!hm1092->mode)
- 		return dev_err_probe(hm1092->dev, -EINVAL,
- 				     "external clock %lu is not supported\n",
- 				     freq);
-@@ -848,6 +1111,12 @@ static int hm1092_probe(struct i2c_client *client)
- static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
- 				 hm1092_power_on, NULL);
- 
-+static const struct acpi_device_id hm1092_acpi_ids[] = {
-+	{ "HIMX1092" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(acpi, hm1092_acpi_ids);
-+
- static const struct of_device_id hm1092_of_match[] = {
- 	{ .compatible = "himax,hm1092" },
- 	{ /* sentinel */ }
-@@ -858,6 +1127,7 @@ static struct i2c_driver hm1092_i2c_driver = {
- 	.driver = {
- 		.name = "hm1092",
- 		.pm = pm_ptr(&hm1092_pm_ops),
-+		.acpi_match_table = hm1092_acpi_ids,
- 		.of_match_table = hm1092_of_match,
- 	},
- 	.probe = hm1092_probe,
+> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
+> new file mode 100644
+> index 0000000000000..400e9ded21667
+> --- /dev/null
+> +++ b/drivers/media/i2c/hm1092.c
 
--- 
-2.55.0
+[ ... ]
 
+> +static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct hm1092 *hm1092 =3D container_of(ctrl->handler, struct hm1092,
+> +					     ctrl_handler);
+> +	int release_ret;
+> +	int ret =3D 0;
+> +
+> +	/*
+> +	 * The control value is cached by the framework and (re)applied from
+> +	 * hm1092_enable_streams() once the device is powered up for streaming.
+> +	 */
+> +	ret =3D pm_runtime_get_if_in_use(hm1092->dev);
+> +	if (ret <=3D 0)
+> +		return ret;
+
+[Severity: Medium]
+Can this return -EINVAL when runtime PM is disabled or when the kernel is
+built with CONFIG_PM=3Dn?
+
+pm_runtime_get_if_in_use() returns 0 when the device is runtime suspended, 1
+when it is active and in use, and -EINVAL when runtime PM is disabled
+(dev->power.disable_depth > 0 or CONFIG_PM=3Dn). Returning ret directly when
+ret <=3D 0 propagates -EINVAL to VIDIOC_S_CTRL / VIDIOC_S_EXT_CTRLS callers=
+ and
+causes hm1092_enable_streams() -> __v4l2_ctrl_handler_setup() ->
+hm1092_set_ctrl() to fail if runtime PM is disabled.
+
+Additionally, VIDEO_HM1092 in drivers/media/i2c/Kconfig does not depend on =
+PM,
+while hm1092_probe() leaves the sensor powered off (with reset asserted via
+GPIOD_OUT_HIGH) and relies solely on pm_runtime_resume_and_get() in
+hm1092_enable_streams() to invoke hm1092_power_on(). When CONFIG_PM=3Dn:
+
+- pm_runtime_resume_and_get() is a no-op returning 0, so hm1092_power_on() =
+is
+  never called and the sensor remains unpowered during streaming.
+- In hm1092_remove(), pm_runtime_status_suspended() unconditionally returns
+  false, so hm1092_power_off() calls clk_disable_unprepare(hm1092->img_clk)
+  and regulator_bulk_disable() on resources that were never enabled.
+
+Should hm1092_set_ctrl() return 0 when pm_runtime_get_if_in_use() <=3D 0 (or
+use pm_runtime_get_if_active()), and should the driver either depend on PM =
+in
+Kconfig or handle powering the sensor on/off in hm1092_probe() and
+hm1092_remove() when CONFIG_PM is disabled?
+
+[ ... ]
+
+> +static int hm1092_init_controls(struct hm1092 *hm1092)
+> +{
+> +	struct v4l2_ctrl_handler *ctrl_hdlr =3D &hm1092->ctrl_handler;
+> +	const struct hm1092_mode *mode =3D &hm1092_mode_560x360;
+> +	struct v4l2_fwnode_device_properties props;
+> +	s64 hblank, pixel_rate;
+> +	int ret;
+> +
+> +	ret =3D v4l2_fwnode_device_parse(hm1092->dev, &props);
+> +	if (ret)
+> +		return ret;
+> +
+> +	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
+> +
+> +	hm1092->link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr,
+> +						   &hm1092_ctrl_ops,
+> +						   V4L2_CID_LINK_FREQ,
+> +						   0, 0,
+> +						   hm1092_link_freq_menu);
+> +
+> +	pixel_rate =3D div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
+> +			     HM1092_BITS_PER_SAMPLE);
+> +	hm1092->pixel_rate =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					       V4L2_CID_PIXEL_RATE, 0,
+> +					       pixel_rate, 1, pixel_rate);
+> +
+> +	hblank =3D mode->hts - mode->width;
+> +	hm1092->hblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					   V4L2_CID_HBLANK, hblank, hblank, 1,
+> +					   hblank);
+> +
+> +	hm1092->vblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					   V4L2_CID_VBLANK,
+> +					   mode->vts - mode->height,
+> +					   0xffff - mode->height, 1,
+> +					   mode->vts - mode->height);
+
+[ ... ]
+
+> +	if (ctrl_hdlr->error) {
+> +		ret =3D ctrl_hdlr->error;
+> +		goto err_free;
+> +	}
+> +
+> +	hm1092->link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+> +	hm1092->hblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+> +	hm1092->vblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+
+[Severity: Low]
+In hm1092_init_controls(), V4L2_CID_VBLANK is marked with
+V4L2_CTRL_FLAG_READ_ONLY and is not handled in hm1092_set_ctrl(), but its
+maximum value is set to 0xffff - mode->height instead of mode->vts -
+mode->height.
+
+Will advertising a larger maximum on a fixed, read-only V4L2_CID_VBLANK
+control cause userspace camera stacks to compute an incorrect maximum frame
+duration? Should the maximum for V4L2_CID_VBLANK match mode->vts -
+mode->height, similar to V4L2_CID_HBLANK?
+
+Also, the pixel_rate and exposure pointers in struct hm1092 (along with
+HM1092_TEST_PATTERN_MAX) are never read after assignment; could those unused
+fields and macro be dropped?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025-hm1092-dri=
+ver-v8-0-9cd575c366cf@gmail.com?part=3D2
