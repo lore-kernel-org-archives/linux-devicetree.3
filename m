@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792937187;
-	b=Y2p4OwY896bt+x9JPMbYWo3UEGBYro1XmSHTMCQ4amlsEsgJ7rnbEhIRwAbiLPLqNBEY
-	 UV3jtK34uf33th90v00/SR05aur25cILkXNs4BibYAomR3ZoCUpKW8P79SUeMq2IOJMnv
-	 CSPuZ71Y89zThYYPpMjLG6IAouXVrQJCKH3clplSHmQE9P6l4Pn77UfZogv+GbvaqEx0R
-	 ArXtQigWxo+YRWocu2zUW1GZr/NZXuO3VO+1Q3qP6RWw8Fx6Wutap3Bip18xu8gO+gn6P
-	 ennQsymiybNxWiTKDvSFxCnp+ZS+2ANQiMq2kn/9N8rvp3mCaRl5m0rWKNcmPL7FWsQ==
+	t=1792937505;
+	b=HdtN1gU0GzwsmwIHLwGELczBee32FeCbihisjPybkWBw80zufdLOqIq1H1vJJCi43Ohw
+	 a4C4ryIRP8qK3j6dCx5TsYvzc0dHhulDnb8TKs4jqQCw8MmkkRDeNexyNMB97Wv76lkok
+	 0/i7qv2bQEwunz8svKwHz+YLx3cZhwITGPALU+wdsXr36ixe3vKbMJ463K0z2/AgsoV5f
+	 mo8g16KK298m6f3XbixkvCT+lYuWCokLAA49mLAlXHwh3Lx0K+qSrutOHqtOd1hcM9quM
+	 whQ8RpZB0iiLpkyLwEXix92Jf0f0m0keO3Wa2D41X0fiwnM8zO5+AOVN5eqT4a5VbFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792937187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792937505;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sYFPd41i3hKOPb7ElJhVpPl7TKbKVA+dirHOxIiACxg=;
-	b=kYkkryfPnJ6wzTRe/WgO2FGKhyLuLHkbQMS/aSebGoh1tD6z5QF5Qd4ncEZCMA6gIm/T
-	 RmSsihfP31TrcKMV1Rbp+NsZ4rnqd1USd2PSTxA4FMaHP0dKCBJU1P8sU0WsnDcwYwi1P
-	 Bk9fxKRSuU3QG3X3YmhbKEOwSGjEgZqCMUA6VUzP0KD3Y7oaOZJm+tUIto2UrztcEFcJW
-	 E0LgWynrvNxQ/EdTSI3cE15IpJ1n6Avw99FcgYzdFb5uyEXEJXZb4p65/+Fg/wEG3eBTu
-	 pnj+omrpALnxy5do8BBR0sGwMoIx/9whTTXWAacqgXasEeh7OvY1hNbmvP89WFUCfRA==
+	bh=llJsrECdkDpfrBeXb0WwCvFAtT1r0Hc3ZJY96YDwlI0=;
+	b=t5WNC8k/EVGRABxZeCjI7xSNR8p5EpreTjsIggb4vStTVTQ8jmlf1KOnHo/eH17JeWzq
+	 cG3qQJXXQ5KJFi9/uIpyyKgcGIy6RYrJwwDzexORhkqKntDp6mQwz6rD9jJNaUtwZVM8S
+	 on6RZALQpGa5xGObZehD52CHhemkE/HDPRsFmUFpQexVbsxctH100zu41pqXj2RWfZ3s6
+	 ElSGYBf1MyZfSFMxII2e/dF/goOHe8xS1tnnFlQcb09/aiSamkJ59enXppVWxMxcneLXL
+	 4ltBq8FhSkxZzn2PUs1lcRXvTGpbZTpPCiua34azvWOrHVpMPS9l50L01IPNQX1R0HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B594WxHk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmkjsu+J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC482606A31A;
-	Sun, 25 Oct 2026 14:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB1B606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 14:11:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B594WxHk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148A61F01825;
-	Sun, 25 Oct 2026 14:06:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmkjsu+J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86DB1F01825;
+	Sun, 25 Oct 2026 14:11:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792937186;
-	bh=sYFPd41i3hKOPb7ElJhVpPl7TKbKVA+dirHOxIiACxg=;
+	s=k20260515; t=1792937505;
+	bh=llJsrECdkDpfrBeXb0WwCvFAtT1r0Hc3ZJY96YDwlI0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B594WxHkbQEYBjhurEkNH+8eFDOf8E9TVu0XXp2RPXglP9owiAIbZVpKSj1XuSHqk
-	 ULzGPImv8NAa2Xl/yeUzls9P2bcTpv55arDGkj4oKJFCQz6nh9VZg5r9EtJ0IyCB38
-	 TqPQshPLIvBJnLNnk+XJ+PTVWMm3g3BiS10RhJn0uJVcK7uLFo8Jdvg6DaSey9V46r
-	 zlJFLuLW31EmZntbZY6ENIVbB9QUmVmLOfiF4ddcgT+5UvEsd+VpMDQSWjYiKG4MQw
-	 YZJJYvMhm6M+qR1naC88nrtMRXuRU0EEha6o3jiwcefCLRUmxSEmw2Ud4RlfYfEtYI
-	 xW3wik+rcxUWg==
-Message-ID: <sashiko-outbox-184238@kernel.org>
+	b=cmkjsu+JWLlcp48VUTqrLkCwE4+wptBuqE+8UGIJc9pW8o3/Ai03dXYn6NPoHU8LX
+	 nmKepymOntrD0nPI+vjWvidGbtBMMVny3sHCyykU8at5mvcz6LN6WGhfUDM1k+ZH5x
+	 DfzkxGIeEOMtTkMXGNZf60Q66L9wKzMT3jX3XaYaiUDgGcjGRN94Iydcr8qtSiN7lF
+	 JSKL/eQLMKqsJlDyfhsNEjLzUexvcSnE7zG5ELpPYuNpIEckSPBw/a8+PadvgbfRDx
+	 KIEmJvKIboWCVFBJcHk+2MNiEF0sEdgepLIdIk4iwnIq5ishZz5/oru9Z7GAQRv2n5
+	 6IBsKxEx3AJrw==
+Message-ID: <sashiko-outbox-184241@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: a523: drop the PA GPIO
- interrupt
+Subject: Re: [PATCH RFC 1/2] dt-bindings: mmc: ingenic: Add the X1600
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pablo Mazzini" <pmazzini@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261025135745.102970-4-pmazzini@gmail.com>
-References: <20261025135745.102970-1-pmazzini@gmail.com>
- <20261025135745.102970-4-pmazzini@gmail.com>
+To: "Olivier Louvignes" <olivier@mgcrea.io>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261025140325.73204-2-olivier@mgcrea.io>
+References: <20261025140325.73204-1-olivier@mgcrea.io>
+ <20261025140325.73204-2-olivier@mgcrea.io>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 14:06:25 +0000
+Date: Sun, 25 Oct 2026 14:11:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,71 +62,53 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pinctrl: sunxi: sunxi_irq_base_reg() ignores irq_bank_map on A733
+- [Medium] dt-bindings: mmc: ingenic: dmas and dma-names required for ingen=
+ic,x1600-mmc
 --
 
-commit 1d99efa95c547fd409284e1974176bcf35345f69
-Author: Pablo Mazzini <pmazzini@gmail.com>
+commit 43640170e1ca344d80f3c0f4831c11fa293a023e
+Author: Olivier Louvignes <olivier@mgcrea.io>
 
-pinctrl: sunxi: dt: number the IRQ banks from the first one that has IRQs
+dt-bindings: mmc: ingenic: Add the X1600
 
-This commit updates prepare_function_table() in the sunxi DT pinctrl
-driver to number logical IRQ banks starting from 0 at the first bank that
-supports interrupts, rather than starting from PA. It also updates
-a523_irq_bank_map and adds a733_irq_bank_map to map logical IRQ banks
-0..9 back to hardware banks 1..10 (PB..PK).
+This commit adds the ingenic,x1600-mmc compatible string with
+ingenic,x1000-mmc as a fallback to the Ingenic MMC device tree binding
+schema.
 
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctr=
-l/sunxi/pinctrl-sun60i-a733.c
-> index ca82f08a3a65b..3ebe926a1bc6b 100644
-> --- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-> @@ -21,8 +21,11 @@ static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_=
-BANKS] =3D
->  /*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
->  	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
-> =20
-> +static const unsigned int a733_irq_bank_map[] =3D { 1, 2, 3, 4, 5, 6, 7,=
- 8, 9, 10 };
-> +
->  static struct sunxi_pinctrl_desc a733_pinctrl_data =3D {
-> -	.irq_banks =3D 10,
-> +	.irq_banks =3D ARRAY_SIZE(a733_irq_bank_map),
-> +	.irq_bank_map =3D a733_irq_bank_map,
->  	.irq_read_needs_mux =3D true,
->  	.io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
->  };
+> diff --git a/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml b/Doc=
+umentation/devicetree/bindings/mmc/ingenic,mmc.yaml
+> index bb4e0be0c8935..6b26a17982f37 100644
+> --- a/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml
+> @@ -25,6 +25,9 @@ properties:
+>        - items:
+>            - const: ingenic,jz4770-mmc
+>            - const: ingenic,jz4760-mmc
+> +      - items:
+> +          - const: ingenic,x1600-mmc
+> +          - const: ingenic,x1000-mmc
 
-[Severity: High]
-Does sunxi_irq_base_reg() in drivers/pinctrl/sunxi/pinctrl-sunxi.h ignore
-a733_irq_bank_map when SUNXI_PINCTRL_NCAT3_REG_LAYOUT is set?
+[Severity: Medium]
+The commit message notes that the X1600 MSCs have no request lines to the
+system DMA controller and use their own integrated DMA controller instead.
 
-In drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c, a733_pinctrl_probe() passes
-SUNXI_PINCTRL_NCAT3_REG_LAYOUT to sunxi_pinctrl_dt_table_init(). However,
-when accessing IRQ registers via sunxi_irq_cfg_reg(), sunxi_irq_ctrl_reg(),
-sunxi_irq_status_reg(), or sunxi_irq_debounce_reg(), sunxi_irq_base_reg()
-only calls sunxi_irq_hw_bank_num() on the non-NCAT3 path:
+However, in Documentation/devicetree/bindings/mmc/ingenic,mmc.yaml, the
+top-level required list still unconditionally includes dmas and dma-names:
 
-drivers/pinctrl/sunxi/pinctrl-sunxi.h:sunxi_irq_base_reg() {
-	if (pctl->flags & SUNXI_PINCTRL_NCAT3_REG_LAYOUT)
-		return pctl->bank_offset + bank * pctl->bank_mem_size +
-		       A733_IRQ_REGS_OFFSET;
+required:
+  - compatible
+  - reg
+  - interrupts
+  - clocks
+  - clock-names
+  - dmas
+  - dma-names
 
-	return IRQ_REGS_OFFSET +
-	       sunxi_irq_hw_bank_num(pctl->desc, bank) * IRQ_MEM_SIZE;
-}
-
-With prepare_function_table() in drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
-now numbering PB..PK as logical IRQ banks 0..9 instead of 1..10, and
-pctl->bank_offset set to A733_BANK_OFFSET (0x80, the base of PA),
-passing the unmapped bank index in the SUNXI_PINCTRL_NCAT3_REG_LAYOUT
-branch shifts every GPIO IRQ register access on the A733 down by one bank
-(0x80 bytes), so PB..PK access offsets 0x0c0..0x540 (PA..PJ) instead of
-0x140..0x5c0.
-
-Should the SUNXI_PINCTRL_NCAT3_REG_LAYOUT branch in sunxi_irq_base_reg()
-also translate bank through sunxi_irq_hw_bank_num(pctl->desc, bank)?
+Won't dtbs_check fail when validating X1600 MMC device tree nodes that
+omit dmas and dma-names? Should dmas and dma-names be moved to a
+conditional block under allOf so that they are disallowed (or not
+required) when compatible contains ingenic,x1600-mmc?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025135745.1029=
-70-1-pmazzini@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025140325.7320=
+4-1-olivier@mgcrea.io?part=3D1
