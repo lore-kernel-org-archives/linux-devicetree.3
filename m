@@ -1,99 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792925015;
-	b=H75mXu8JAmi64/hbxYKjI4hswc3DMSFwIGhLabu4QG9TROXvZeWCcmYGaFpuXFd7MCX0
-	 naggA89C06q8q9FJC5Zuvxj478kTq0uGILcgczvqAFDThlO4LtOieVdQOWrEeOovb2b+9
-	 Uc9ditrBDJXzXzMD+YYIK3qrUqm3nwPZ28BMwMQT4AbxmaUbomcDoIWSbl58gdqp2ZkGu
-	 kVpf6CNM/q5TgYB+ssT9nQKTrhH6Dm6+nCjOTSCp6mR6Pr3ZVUg/EPlceA4vj3poQa/p8
-	 W6zUxgvtzAIegkazOwG+Zvwp8Altrphis01k3JE3R2cXztJMovzXx8FwZRUZg5DjIdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792925015;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=2nhVqeDWML+DyZIbNVrMj09Q/t6YqRPgh+lFp44NdbU=;
-	b=c12FUV4EX7cZEVYDmmDPaGiIMCqgFHbq0MbbzzL6cI/dwGTt22f/5p7xLKIMSsshgR1T
-	 HNJXsXcP/N6PqBvGlDS1XLxZ/Rtmaq9gAzAKl8dRjR5Ea47Z1QYCYMKcIQuIABBwFHGPw
-	 239M2XdNJkkqbDtpBpCFNBCwnY6YpSP39zfk1f9BOwz9dnNxbnI9Vxu6AYpFdHKR4KhLn
-	 wNXOIA+CvRNfeIi5iwouk7sS+n/G9qkdB8U/irk7OylmzQxCmvnWnA7M+tAAsDRe02ZFb
-	 XYVz7QayJulcjYfImx8bs0SGs+2F3IZvwKLmVROuIkqHDQ9f38kBzad6e3cpXLTuFOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792926624;
+	b=qcd7vP7gWvkw8BDlX3UieXVHh7211THHpe4CEqc8t7+TfJP8yGZliYQgo1MqF+6Ae8gZ
+	 hg5kr2sSvUGADy3iUSQu5d05pCe8+pjGbuu8F+12Rl4rGCP+mnTRqoEJaITLroqJEcjiM
+	 1dyDBveuLXOKRgKZJV+XuTqWDSx1B671maN6Se7kpIDd4QdxdDxS4LKnpkyQuoPgfNl8r
+	 YcsyXAP2ZvC1O1qvU8vaMOEgo4XV2b/SkJqHmIno8SBkcnIFgG2IHOm8VoDGRi1b9oFHg
+	 spUO4z+XQP6F1Hp+f4eBa0P7Yd8E8UftQY0itTMPWOWC8Ed+4zKwUyaT63TsHZBot3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792926624;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=GjtDmUDJ7P9a7dCWsPAQRfLzfmaw50jjj96MMkbrG+o=;
+	b=wShKGtRUzLoUqh5EyUDVNnNZ5hWj8cywcYuFKo8Pz0DZ1x6IGAU5A0HC/N/PPQEE1eBQ
+	 mSyJU9dJpOUu142KUyPTWtqyPsIxM2CS9aiON+exMXXqU8Szo22J5ndAmZX3xENdnyjs6
+	 PjoiXwyW0LiSJPSk5trCcG0/Hgnv/Z39LQkWsflbik08i+5NGUqU3Kdm0i1Cdky/+GPgU
+	 +ZSVZJEJd/XlguCoC7R4Td0PBjIZUn9MpIgz55pHO99eT1oYNQ+Jc/t/N1tF/VG/cQNvT
+	 ucuK+CO0Ifab9mY1R29PeRQojfh/atydgYxXk/6JOw0FhVHXymlAH/n+DGytn8j55mA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rbt38REz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72808606A31D
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 10:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72808606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF37606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 11:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AF37606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rbt38REz
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so2672679a12.3
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 03:43:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792925014; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RteEyGrMycWpg338y3JQ5wwOBspJeTZcPllTIxzVSMpOLI/GU/lr2Yg6aomy+++GkK
-         7mRPm79B6GTGrE9xbuHYzhkDvD6gSaKrwQgA7FEyjFGxWcyDjG2hLZN1ON21rjAtMz+V
-         8fHkwxy4fQQPlkf0q0lTPNU0iZ0o6SEZniWeD7Q1KYImNAx1jAUm0Y9fSXI7Kl0dRbZM
-         dqmBbDa3yCxxzgjsaUtFfP6Vn/M7yPNnNBUX/cpV6jBnGFzNJWRUzr4o9kwGMkYVzFbi
-         eP2N9Z2olcwnCkCLlkGotwuhr4bbkjUhqHD39njm+A5cFBbTQOh83sdXs0F8dMpR86pL
-         Qztg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2nhVqeDWML+DyZIbNVrMj09Q/t6YqRPgh+lFp44NdbU=;
-        fh=iSeQpTrY3QkMPByVYeN2GFGatPrH40sPWVQPsQXSPac=;
-        b=LDEitvwcSnauJIC0i3OP3W7NG0plkf6A2j8Bw7MRDfgQnilKB0ShLQSVK0+ToziMBt
-         e/PAguLXuBhloiH5yCewbZ/dlNFx0VdoPg2mJtVXCWw6qhTj0/M5nxoL55RTEOgh8tFP
-         66DemkZag+jlZCMSJ6/Fb4p/58DOctjjlhPmVSmT2mhj09iiUfwB52FAOn1ERjCAP0sg
-         IcGEd70zmL523nfsAZUbwTMgCOM7VLEebZat9EKfQOquOCBS8/dDQtb6KC/h4V9z3Ath
-         Grb+2ArzwAvJJOv2petaMqQuTAvFet/EFmQ91dYGZLL5IU8m8grlzhdlKGyluQU61nbl
-         ahCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792925014; x=1793529814; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2nhVqeDWML+DyZIbNVrMj09Q/t6YqRPgh+lFp44NdbU=;
-        b=Rbt38REzAy+sj6ZjpLOT+mVNyxZj6UqGJHgMQrw0MppcvV85pE8CtuLLb9hWrJ5MZn
-         BIDRHdjJFWGCbHVvxxXxgt03fSFR6yIofwtQtO0cN4x/OEeQrBru0OMr1vx9tj5aRFmJ
-         vqeCzDfDHUWYVOH0G32D7lHGuCZ3DfRIOyiisMx23EVkzlHfe1wugq7IAYpYqy5RyYI0
-         DwnEj9UfRFbldIimFSvTe9TZab3uhQnHNvUTEGae1o/d7FA2pSPJhclP+URG1VGJP9BC
-         yCExYq/OXmwGVreIA6v7Yb3h/AEISO+z10zhexnOUWfTg++d9TjVrr2pwHzsDV7MvlHr
-         IXAA==
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-823e4047037so1735241a34.2
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 04:10:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792925014; x=1793529814;
+        d=1e100.net; s=20260707; t=1792926623; x=1793531423;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=2nhVqeDWML+DyZIbNVrMj09Q/t6YqRPgh+lFp44NdbU=;
-        b=EvjvqJvP4S+Z6VA+19lbHtdzgDSq3H2U7L4Z7axIbZNZLnXgnvsU2QtTzPTAiyjdxA
-         dCcKZCz3MB6+sudB6szhjjNRMaIl4lgxCMgHd5cVHwBa4e2OT9mcIr1Rse4wr5E95Y/m
-         clNncVQTPnUDeNDjaNkp5pd0cZH+mY5oiqD93suSgo+UjShHsVE32XuJxYmSwv8WTjA7
-         pmBpi+foCdd+iEYsNWNpk9kszrWKqdsyhTEM5XtLvwlylgFS3EblTqUuJqJ3zHgw4rNS
-         Rk7FiuYhd4jm2P3fmm3KiGMfBBu2yz4qnQNbbwB86RF9McN4MbT6r1sQPKnzFIEoOEVJ
-         4AzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzL5yDGjFjr750fvOp4Ryy9x7dpggiYTDSe+PX8FfkSAlRo1TgQcaKeRCZxISPQWGiDsEs4xW8pMFBU@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZJmKcrH+BZDAvhLIKOktLAL5oWvHbyyZeopIT0bOfeSlhI8Qq
-	c4Z44zM9bte/6KOOu25WS+R0Ooe4vsJjzeL8/fBVNst7Ddd2yGnc3OgO58Tx9Si/O0o+Od+cxFw
-	OqWLNwiF7TJnSYRB2f9b7kaqz5fZKm34=
-X-Gm-Gg: AYBFou3/Hm6IJHjh7pZCGwuAqjODLMI5l5+u5NPLPmE6IOONkNElfQJc5cbkA+LCCW+
-	oEGYRs7idJpMSECEAVvFnMYN6hau+XqeMsmJVOIQCAlg2Svvm+zwbyhYZ69h+Bpi1K7drY70Ruy
-	B56oERX9o9Q1xqHdSDAWkAPR0DFL5h2jocgHK++uG17TMAMHBYWiz94LOdBssL4c/ycsBOsIrgo
-	ORQgcztY20dobbxBf/rK86glsz+lGWSsOPZ99yPjjHYb4d8C6apLABZsyVBWCHy+bbHOFwOEE+h
-	0rlVaKzlUb0OEXzaSrMx6w3JiG102N6bje+wWC8TnO8cWXWPrcrKlaL19tZhrzYKPZxYuj6psUn
-	FWQMO0m7U3O9N7hBWd+i5gw4udl9tWAAlNiY=
-X-Received: by 2002:a05:6402:270c:b0:6b2:20b:aed4 with SMTP id
- 4fb4d7f45d1cf-6b4430199aamr5305867a12.38.1792925013523; Sun, 25 Oct 2026
- 03:43:33 -0700 (PDT)
+        bh=GjtDmUDJ7P9a7dCWsPAQRfLzfmaw50jjj96MMkbrG+o=;
+        b=z9n3l73W1SQ9Hji/WTWwmONdgNhe5wNGxM6N+TI/38Vz6JXiTS3eq5dbv8JQEHWPOA
+         H8zpyhmkNyX54lq17Hl+8gGn2caLTKmsVHndNaoXCfWcJC95LtnIE+AvGZtCEk1wPXMZ
+         6gze6TRaxeJewaczTFy+i3BTxnCQVtn+MXCwyTj+Y7ObzjB+g8JRsHpWctvFDvMH8Ufp
+         Pz/8c/vrC6lWxoRgovwSLjkwInrAjXg8yUxYWiXdiTw+b2QqxNSAgrdvAZac5eowufrw
+         s51skKjzQI2o0EcsH720sMbKM3WZg/yHUpHiDSxIuf4gGfEceaOMDC6uIUIqsqRFi3eX
+         NMjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrIWhJ0telJ/oaof+K78/TTC1GSMnQmo28YK3llr2vtqNxfaV3iUNOTeBPwD52l2ijzgFsFKNFDZpJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVjclIHf0AXqN0PaqKlbvd6EDrPgduyS/qREfzbj/RlDEOnaOw
+	+7s+nnKjXJ0S7IfJTnZCLd5Dj2qloxcSciCWNcVfdVUKr/4YOzcdRHP+Kt+UKkSO
+X-Gm-Gg: AYBFou0V2mhp+/yyBf6gbhvN0QIqd+hbnqSgQfvO+JDIGQZR+N6knTsIbyAFJrzmw1+
+	7h6gnO0bCll6d8Gey+WAkxhE2yMs9UUiq975Ao1EvLQ9+9XvTTcCI0L2l4GjDz+8PnIXiU38oAU
+	kKikK2MHKnAUktMQG9CV/br1P06kzuykzcc4DEpKyIJcPEPT1OXA8mabIHKpAPRHJQxyLICtJKj
+	SDs56TrYxWI757IDtuXHWlXgXfrK3oHY5gyFxaNW1BZUbmBmc0FoLTkHs6vLb22X1kCfIzfYnF4
+	hLQv96eP3bHr36ra/6fPExhVZxsDmt7z0heN/jHduGhFSeXb6mgaagEECsHU5dXzG8qQqFyqW93
+	b0qhpCsRzGGKKN6oZ9Mts4tp1jbWOKCxsRzrP4BhvPEfV9tg3pDijFhCqdAQpoR1aZnK6Owav7W
+	RIZ4WctTvz5Y7Qlukgv8NNO9cAgAix3fWbH4I+RNj0hhWWUxU7KwwxBJbBrmPVG1cUv+xlyxUeL
+	q7pm47uI0es9XeByAOqJf8WVlg0kS9jMLaOYStppZvTeF17rmCBwzl0rN7P+K3exFbO3szZvBa9
+	m7skBL5VJxfP1dzxJs3qRQayKiwe5cRXM9t3tI0=
+X-Received: by 2002:a05:6830:4408:b0:821:c01c:2ec3 with SMTP id 46e09a7af769-850f81696eamr3242768a34.0.1792926623489;
+        Sun, 25 Oct 2026 04:10:23 -0700 (PDT)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com. [209.85.161.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fa99c4f2sm4596694a34.6.2026.10.25.04.10.21
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Oct 2026 04:10:22 -0700 (PDT)
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6e560e00a86so1504140eaf.1
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 04:10:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzmFSa2gxFGp8IkaCYuSt0hnHnNOJcWXPU343ljzTz5kBnSiePosQj6boMu8Uqp7iSHhAQ4mVFFw/XD@vger.kernel.org
+X-Received: by 2002:a05:6102:4423:b0:7cc:776:6c54 with SMTP id
+ ada2fe7eead31-7ce5cd246a2mr1349167137.21.1792926141152; Sun, 25 Oct 2026
+ 04:02:21 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,58 +80,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com> <20261024092558.143621-2-alan.tseng.cs@gmail.com>
-In-Reply-To: <20261024092558.143621-2-alan.tseng.cs@gmail.com>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Sun, 25 Oct 2026 16:13:16 +0530
-X-Gm-Features: AclHuK-kOeWVKlgsWorJqSjEZdHZLjS8gQzZJLPBLsv2jCYHjrUYgUabSVC5ZyA
-Message-ID: <CANAwSgQ=Djw_o89MgvEsmKVxuNiE3Yuy=e0T5DcLfqCYy6eWMw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC
- nodes bootph-pre-ram
-To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Cc: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, E Shattow <e@freeshell.de>, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
+References: <cover.1792776697.git.geert+renesas@glider.be> <f9de8214043ad4c8748fadce7fd2cc2fa95b1291.1792776697.git.geert+renesas@glider.be>
+ <d870c163-8d90-48c0-bae0-5f6e0e38c5bc@mailbox.org>
+In-Reply-To: <d870c163-8d90-48c0-bae0-5f6e0e38c5bc@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 25 Oct 2026 12:02:09 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVcxDY2q7MK6Zj5MFi-4UVJe=i8L=gWSTCmLE4NMjdh4Q@mail.gmail.com>
+X-Gm-Features: AclHuK8CaW_17mlyRa4Y7XpLgXIYuKk4YmAF6_as85fetPG-fOFZ1fPRmRtKgD8
+Message-ID: <CAMuHMdVcxDY2q7MK6Zj5MFi-4UVJe=i8L=gWSTCmLE4NMjdh4Q@mail.gmail.com>
+Subject: Re: [PATCH 3/7] arm64: dts: renesas: r8a78000: Add GPIO controller nodes
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Ulf Hansson <ulfh@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Hung-Chun,
+Hi Marek,
 
-On Sat, 24 Oct 2026 at 14:57, Hung-Chun Tseng <alan.tseng.cs@gmail.com> wrote:
+On Sat, 24 Oct 2026 at 07:35, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 10/23/26 7:50 PM, Geert Uytterhoeven wrote:
+> > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> >
+> > Add device nodes for the General-Purpose Input/Output Ports (GPIO) on
+> > the Renesas R-Car X5H (R8A78000) SoC.
+> >
+> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > Co-developed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > ---
+> > Changes compared to Marek's original:
+> >    - Use hardware clocks/power-domains/resets instead of direct SCMI
+> >      references,
+> >    - Drop gpio-ranges properties for now, as upstream lacks Pin Function
+> >      Controller (PFC) support.
 >
-> The K1 BootROM loads the next boot stage from SD, eMMC or SPI NOR into
-> SRAM, and that stage brings up DRAM. To do so it needs the fixed clocks,
-> the clock and reset controllers, the console UART, the boot media
-> controllers (sdhci0, eMMC and QSPI), and two I2C buses that every K1
-> board wires the same way: i2c2 to the EEPROM that holds the DRAM
-> configuration, and i2c8 to the PMIC that supplies the SoC.
->
-> Mark these nodes bootph-pre-ram, the phase that sets up SDRAM.
->
-> Reviewed-by: E Shattow <e@freeshell.de>
-> Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+> Is that ^ OK ? If so, good, TIL.
 
-Thanks for these changes. It helped me a lot.
+Yes, it works without PFC, as long as the pins are kept at their reset
+state or configured for GPIO before Linux boots, which is the case
+for the pins on the PWM connector.
 
-Could you update the pinctrl and GPIO configurations, including all
-necessary pin
-assignments, to bring up the SD card, PCIe, and Ethernet nodes?
+> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Please ensure that the required bootph-pre-ram properties are applied
-to the relevant
-pinctrl, GPIO, and other dependent nodes wherever necessary for SD card boot and
-SPL initialization.
+Thanks!
 
-Additionally, could you update the regulator-name properties for
-vdd_core, vdd_1v8,
-and vdd_1v8_mmc?  On all the boards, the SPL code requires these regulator names
-to locate and enable the corresponding regulators during early boot.
+BTW, looks like I used a wrong base for submitting, as the context does
+include the pfc node, which is not present in upstream ;-)
 
-I am verifying the changes against the existing U-Boot board device
-tree and configuration to ensure
-that SD card, eMMC, PCIe, and Ethernet initialization work correctly.
+Gr{oetje,eeting}s,
 
-Thanks
--Anand
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
