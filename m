@@ -1,56 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792885875;
-	b=AAqJB9Hbx30oQ0/n9Dn0svBrxxVO44yNzy+Oge2ZkruxmxqA1uTHiJg1Z+qa/EOFGg/I
-	 MJ3nxY8NOmdnEqMb+Mw65y7GXcX8KsRYYM1qztZEm+QxPJqJSqK0PmlwhL9TtDjkfaiAm
-	 FZuCZgDf4qByIiZlK3CBDjFT5fabLycjMCjs3QnRO2+6MPpdfL0ehnnq+MqRFvWEl4mXY
-	 IjTA8hlAoHQ3BMime6nGOUfWB1HwVlA40TsvclM73+GMJ4Cshwn4SwY+haABI6cJLW+mT
-	 6QGXEiPLb1fyij5H5r4JtBsFjH344KUq7XIUXiZnpLILHBT565u4U0v06uk6TbpQMhA==
+	t=1792890589;
+	b=ivpKt1aK49Wd9GSjdyM7zbNVEaW5FkiZvuufxDzeqosYoHWNVL9COymGziViMorS7Iv0
+	 gxtwUe55Et3bFc7Djxy9F3r00qIMKyK7jDbyVx1mBjeLXcpHeuItl6Ra8Zu966kToeQdi
+	 Skh/PHx1QRmy8m34d9KN6Fh7SySwK5ztWLeD4xBtGjRGNX20EuXbNPDdFCE4conmO4WoM
+	 SyWiUuKTTv1YbkFDsfCCfcWmSbNrt87nEjovnTFSTZl3918wn/kggR3ynlt+ySH+LYXQw
+	 otCBnYAqxhs1iBp2A6ocS5PdpbL5T+s8l18cCzlbwlZgsh3DNX0uQ38x9hfjpskNwxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792885875;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JhxDMMjRlVsVxdfXGZ3Kjp9wAjocudtdfkRYELHsjng=;
-	b=O0aXxPLZ9iLqg4UMzGQWqEfvEK8dbWMZ31rfWoCtRfe0ZIMTBejyMrh7cRSTdNef+KGq
-	 F0vPKBLrS5EIHRWxfXflDIxPmCXRytaYUqO7EdBHktUdQ0cuW23z4YPqEh6dAI/iPKPL7
-	 DUuHzSw/7klRV4mFn+/5nUyPy6/xgIX4Elj4gl2fjaakU+lcZ1N/Qt6mhLR0WuYuFqzsT
-	 +HDis/5gmBdnsoK6Y3WfC0MAcUVM9/nXHKPahuM1SGTpuiBHRg8pnkMnPFoLJTv+jFiPk
-	 TbCUdCgpz0yXzqVVEu9DVzLbs7zPWVhY4RPI593BiDa5H7zXITPMtXNwjywj/GR7YEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792890589;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=i0AwH57X1vsjWKq5fcOf8sV7EOFwtM7v+VTGA+PEix0=;
+	b=i1GXtbBFXSN3lwTaeNb4Q3VwEMaMa7mEVt0J2P3mV3qgBxFQy0nS+MWegYZjhCxIHQN1
+	 WV2s6/Y4a65VUOcwQnPRUpSvLVh8ez18zjQlpP0hcYUs16Mc9J17bnMsFIL+cHu08xFjl
+	 74t8K7lP5klGA1mNt3YOgjNz9TiKCb0cIYdP2hS1lPGW+a46ZmAB3mdS9NjyLVnlyKbTJ
+	 u9S40l7NeZyLdQk0qmvkrDsuC3fkv0Ii5kiZVhaj0OQ3raIJPen8tCGDU9aYprRDjJZtk
+	 oeEBkcCLDtcGjiuZKHnyFfA4qwEI9citWZ2fZ69sxbKZdcRLvm0QuVYQfbvtEYPJ7NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JscMD61r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QGtUbw2y;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gIBrV5CJ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB147606A31A
-	for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 23:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8A6606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 01:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F8A6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JscMD61r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3F81F01825;
-	Sat, 24 Oct 2026 23:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792885874;
-	bh=JhxDMMjRlVsVxdfXGZ3Kjp9wAjocudtdfkRYELHsjng=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JscMD61rfc8Z8hAwdQCaOJh+V6e3zhsr1dhGdzvA4ekMX8t38pfuHsHms7zXmkt8z
-	 /ds2ObfxebT1X8AM4S6nS3RDxXXPUlvAsy4nAkpJlwNv6Eomh+fp6o6uxf5CfCIs49
-	 2Nc4K/OcVDk3sVR9tWiHznYxm+AnyWQWbzdrgqkxVCfCWYMRHb3cHwxYSg79T53frM
-	 v8E6fE6eFscaNRpG4ECt+TiWy33VHqlwOtMCNIpvnDtpIbgBoUPiqaqGtOPhPmZqwM
-	 v46nhGmzqo+XKL1OXgfpbMFYgrPnvu47QD1dFu+KJjnsovpE3ODuznxDxXLs3L0Rkn
-	 McDBLwD3UnWSw==
-Message-ID: <sashiko-outbox-183952@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/6] iio: adc: ti-ads1298: fix the data read path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stephan Costa Barros" <stephanbrrs8@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261024231335.280955-2-stephanbrrs8@gmail.com>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
- <20261024231335.280955-2-stephanbrrs8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 23:51:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QGtUbw2y;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gIBrV5CJ
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69P18FjJ3588704
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 01:09:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=i0AwH57X1vsjWKq5fcOf8s
+	V7EOFwtM7v+VTGA+PEix0=; b=QGtUbw2yK1pVFAsoGD4U9LzWjD0BnmL3TQMIpp
+	NAXom6pW3HzUNaqsSJBwJk9PC29G5/e1ELJ7gjyMnZf6ZBEUxnDXutYoYDBXzY9Z
+	edjHqm9CN/AUFi9k1Cuhk4cYuDLpPJxavvE3kEGGmF8IGSkPmvgTu0cmpayniElI
+	ghrG1dsRi2FcbXV1f9KQMqKmyxaSDuzbu7c5N+OfKRdHL6EIaLFAWK+OeeNxoV7v
+	IttQKFdb+aJ9aWFutZGCkQJOF8gQLndsEXMMWYkRhGkmtQliLqEEEND0G1qfnCoQ
+	ooedrZNEUknWSryjzjSGhbkWCic1d7/nRXM/EvMjPcclg6gA==
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6j8bb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 01:09:47 +0000 (GMT)
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-679f81d5d7bso3544153d50.2
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 18:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792890587; x=1793495387; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i0AwH57X1vsjWKq5fcOf8sV7EOFwtM7v+VTGA+PEix0=;
+        b=gIBrV5CJcyN563rzh+tOsnN930dET4phKmPbSeukGxvKogVQgn0nLzLIwSjF9FbSUO
+         Dq+2wSwgXjlhNsKuOSrL/+/Sl7Q4zukPTsCw8+joNntyLfWRhpLMrJpqkd2+jrvj4ezy
+         PvGwlsqX0619AUL/XXaA5PEpQqWbfJlhlu7SnEyZWkMQ8VdKo+4sxbSjiruuvflRL+oV
+         KfXSWDMp4MLC8SfLW2mOpXKC83sBLrbtPyQFpuxbYjR3tHKLAuHVl3fTLWKPiTW0muRP
+         xRpeaItCkl+3ZCgeTDY28j5j8tapsN8KjVIxaLastGfpiXnYx5zqqjManT0Zos8cYUky
+         Cehg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792890587; x=1793495387;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=i0AwH57X1vsjWKq5fcOf8sV7EOFwtM7v+VTGA+PEix0=;
+        b=EdiqNmtTay2DDKnW5sJVBJjwgVdMUe4vmBAo0sOOGGwVvxa3Nj3tYF/rtAGs0RtOl+
+         XToVevOkRidC3YYf+0OZk8rXESEmvakNTBZXkb6X9L7bxzdOOVs/OVwQyC9VAdw214TD
+         MQ3HyVKDJKUrzLJPM5W354/y2hXX+CX77GAIzJ5E1O+6afLb8ce1MbbhGARwm9AHW1Tv
+         1RSUxvmYnUnAo55yy/Ubs8Woatg5XIg5r2ZqZOHsxjZ01O3Ju4bdqZSf4+masLWafcWf
+         fvpPmksmiSlqdUpItbMVy1Zm0bdm2D2PFaGl20ydpNbBxzkYKEbp91rntlYoCFGblD+s
+         kSwg==
+X-Forwarded-Encrypted: i=1; AKwUvBztClTrfwd8djG29RCzcBslVO9QNwR/iACd2RpvPp1JiRdQCOQtN1BcsHCRLe0DAal2gCwM0zjzkcJa@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7q9cdTpBtr/heEb5sP8IACtBI/3XWS0ddw/5us5pDinKvu+uJ
+	3hsvLiiRmxlPs1/8MkG5lMxRFa+/ZeDIbNyqttJXjTA5rcFwMNYTSjBDLPYSfzUbfRnTeXcgZWk
+	LahdRlPM3E/zLwz6wMGHfnHPprIJ6TrV3h2fdME9vdU78lwnqU72TZdvMK7SvW3Bl
+X-Gm-Gg: AYBFou22V/jii3P4279+nnocSwCKYWqNXQhixA7mP/8IhhZQrQnzYYshgMWQRFRICKp
+	MHc4K24EWC9qb7+X/ex380RrtGGD2gA6/2h2BJ17GkCBZ2MAGCvHkCvE86UlzBeP4U5Al4hqY9k
+	ze//WiyIOh5E5ShdqTHw3/4IYdG6Saob6wpUoyn31Fulyv4v13Yi4goTHBFHZLbCI1vvCvLPtvk
+	aBHfvPNloxW31FEyzXtPmZEXAARd/54WSqbhsN1AJkP3PRnNoosT5a5xFMvnylrFJy6KbOULauQ
+	4Dh6BIAdaWeJ5WF5lald5m/czSWNJByaw85wf+Cr8BsfJCFCuS7g5y/qvuNXUSMIDLCWX4j67L7
+	L9a/+mH34iqAvhGiOz+slkvbMRFLwjHZD8pbYOwKyOLX+KNE1jYAEHUoXnuBwQfR6bQxL9Bo=
+X-Received: by 2002:a05:690e:b84:b0:679:a56c:e2d4 with SMTP id 956f58d0204a3-67a4525b99cmr1612670d50.21.1792890586829;
+        Sat, 24 Oct 2026 18:09:46 -0700 (PDT)
+X-Received: by 2002:a05:690e:b84:b0:679:a56c:e2d4 with SMTP id 956f58d0204a3-67a4525b99cmr1612653d50.21.1792890586313;
+        Sat, 24 Oct 2026 18:09:46 -0700 (PDT)
+Received: from x2e.localdomain (108-208-224-205.lightspeed.gnbonc.sbcglobal.net. [108.208.224.205])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a4626fb03sm1517286d50.17.2026.10.24.18.09.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 24 Oct 2026 18:09:45 -0700 (PDT)
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+Date: Sat, 24 Oct 2026 21:09:44 -0400
+Subject: [PATCH] arm64: dts: qcom: monaco: reserve firmware carve-outs
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,304 +111,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261024-monaco-fw-carveouts-v1-1-1cd68aedf46d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANdW3WoC/yXMQQ6CMBBA0auQWTsJtFqMVzEs6jDVMbE1nYImh
+ LtTcfkW/y+gnIUVLs0CmWdRSbGiOzRADx/vjDJWg2mN61pzxFeKnhKGD5LPM6epKFpn7cm70Ds
+ 6Qy3fmYN89+t1+Fun25Op/FawrhsiN8QYdwAAAA==
+X-Change-ID: 20261024-monaco-fw-carveouts-36335a6f76c8
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Tyler Baker <tyler.baker@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Proofpoint-ORIG-GUID: rZ0v0eOrnw2iyU-AsSyNKOfdQazuyuGW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDAwNCBTYWx0ZWRfX8oaqOjxfZvWE
+ 65Jebt0a9v9EATtPSj326ch34TuPqnlwMGY0u/cRhrrUCoICIm35lBzxngjMol14SmLeYcm5z47
+ IFgE4f0k5hZsR/p8hAreyeMK4Qrb9+Q=
+X-Proofpoint-GUID: rZ0v0eOrnw2iyU-AsSyNKOfdQazuyuGW
+X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6add56db cx=c_pps
+ a=ngMg22mHWrP7m7pwYf9JkA==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pG-yhIzIu_fIu1UVJuAA:9 a=QEXdDO2ut3YA:10
+ a=yHXA93iunegOHmWoMUFd:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDAwNCBTYWx0ZWRfXxKJ/Un0RMQNl
+ jn8aehK72HXeM3hOBhMmMtHd44bS2OHauGRSGT7p3uu3PI06wGJ8U1AlKZxvr/bKf4wIHjCsMG8
+ JpgZpS8zn88Dx8jLgsJxddqjST02T3Y1ZS3OdkofDid7UPX8iokUeIZm/LCZa08AgM3kf3YSIpL
+ p690SfGXu7zXVESZ19dDYofveMVhaESpp54Q4fE1ewKuDJqEsC03yAkGXRucl5tkMemrFVLid5I
+ 4pQYioPZQSWi598mO28Nfhi+5PuFNu4Whq/BUfTVxWfORa5TAcPOzhy94SZ3L6Ji1Fo6As98pTp
+ 9fT9Prg+pcq8kQ6aU01ASEjwkt0aixaC1OIPe8Ns+cAB6Sw2r9DvnDw2wgFKA/o2x4bm5jCGBtT
+ o72F8WHolMmklo7Nb119WH4/c5xTC98cDrx8fjesaqcepqreNdicxSCzOJ4QFs40l5P4n0g6oQy
+ M0x1Yg/XD1Zb8c8W9Dw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-25_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 clxscore=1011 lowpriorityscore=0 priorityscore=1501
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610250004
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] iio: adc: ti-ads1298: race in ads1298_rdata_complete() before comp=
-lete()
-- [High] iio: adc: ti-ads1298: race in ads1298_buffer_predisable() on scan =
-teardown
-- [High] iio: adc: ti-ads1298: use-after-free on timeout in ads1298_wait_rd=
-ata_idle()
---
+monaco.dtsi does not reserve the DDR carve-outs used by firmware at
+runtime.
 
-commit f34a13120edd070609343b6d64ffb0e2efc8cfd5
-Author: Stephan Costa Barros <stephanbrrs8@gmail.com>
+The downstream UEFI hides these from the OS. U-Boot as the EFI firmware
+[0] builds its memory map from the SMEM DDR banks, which do not list
+them, so it hands them to Linux as RAM, and the first write to one of
+those pages takes an SError.
 
-iio: adc: ti-ads1298: fix the data read path
+Reserve them as no-map, at the base and size the QCS8300 boot binaries
+use, as lemans.dtsi does.
 
-This commit separates the SPI transfer buffers onto dedicated cachelines,
-tracks buffered mode and in-flight RDATA transfers with a waitqueue, handles
-spi_async() and RDATA message errors, and reads single-shot data before
-releasing direct mode.
+Link: https://lore.kernel.org/r/20260928-monaco-ventuno-q-v2-0-0e046c8242be@oss.qualcomm.com [0]
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+---
+Tested on the Arduino VENTUNO Q with U-Boot as the EFI firmware and
+with the downstream UEFI, which already withholds these regions.
+---
+ arch/arm64/boot/dts/qcom/monaco.dtsi | 55 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-> diff --git a/drivers/iio/adc/ti-ads1298.c b/drivers/iio/adc/ti-ads1298.c
-> index 06c6353aa1b2e..1d32b1f47f726 100644
-> --- a/drivers/iio/adc/ti-ads1298.c
-> +++ b/drivers/iio/adc/ti-ads1298.c
+diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+index 35fbee63d4c65..43e1954b563b9 100644
+--- a/arch/arm64/boot/dts/qcom/monaco.dtsi
++++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+@@ -729,6 +729,11 @@ reserved-memory {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
++		sail_ss_mem: sail-ss-region@80000000 {
++			reg = <0x0 0x80000000 0x0 0x10000000>;
++			no-map;
++		};
++
+ 		aop_image_mem: aop-image-region@90800000 {
+ 			reg = <0x0 0x90800000 0x0 0x60000>;
+ 			no-map;
+@@ -740,6 +745,11 @@ aop_cmd_db_mem: aop-cmd-db-region@90860000 {
+ 			no-map;
+ 		};
+ 
++		ddr_training_checksum_mem: ddr-training-checksum-region@908c0000 {
++			reg = <0x0 0x908c0000 0x0 0x1000>;
++			no-map;
++		};
++
+ 		smem_mem: smem@90900000 {
+ 			compatible = "qcom,smem";
+ 			reg = <0x0 0x90900000 0x0 0x200000>;
+@@ -747,6 +757,21 @@ smem_mem: smem@90900000 {
+ 			hwlocks = <&tcsr_mutex 3>;
+ 		};
+ 
++		tz_sail_mailbox_mem: tz-sail-mailbox-region@90c00000 {
++			reg = <0x0 0x90c00000 0x0 0x100000>;
++			no-map;
++		};
++
++		sail_mailbox_mem: sail-mailbox-region@90d00000 {
++			reg = <0x0 0x90d00000 0x0 0x100000>;
++			no-map;
++		};
++
++		sail_ota_mem: sail-ota-region@90e00000 {
++			reg = <0x0 0x90e00000 0x0 0x300000>;
++			no-map;
++		};
++
+ 		gunyah_md_mem: gunyah-md-region@91a80000 {
+ 			reg = <0x0 0x91a80000 0x0 0x80000>;
+ 			no-map;
+@@ -811,6 +836,36 @@ video_mem: video-region@9be82000 {
+ 			reg = <0x0 0x9be82000 0x0 0x700000>;
+ 			no-map;
+ 		};
++
++		tags_mem: tags-region@d0100000 {
++			reg = <0x0 0xd0100000 0x0 0x1200000>;
++			no-map;
++		};
++
++		qtee_mem: qtee-region@d1300000 {
++			reg = <0x0 0xd1300000 0x0 0x500000>;
++			no-map;
++		};
++
++		deepsleep_backup_mem: deepsleep-backup-region@d1800000 {
++			reg = <0x0 0xd1800000 0x0 0x100000>;
++			no-map;
++		};
++
++		trusted_apps_mem: trusted-apps-region@d1900000 {
++			reg = <0x0 0xd1900000 0x0 0x1a00000>;
++			no-map;
++		};
++
++		tz_stat_mem: tz-stat-region@db100000 {
++			reg = <0x0 0xdb100000 0x0 0x100000>;
++			no-map;
++		};
++
++		cpucp_fw_mem: cpucp-fw-region@db200000 {
++			reg = <0x0 0xdb200000 0x0 0x100000>;
++			no-map;
++		};
+ 	};
+ 
+ 	smp2p-adsp {
 
-[ ... ]
+---
+base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+change-id: 20261024-monaco-fw-carveouts-36335a6f76c8
 
-> @@ -185,10 +198,49 @@ static int ads1298_write_cmd(struct ads1298_private=
- *priv, u8 command)
->  	return spi_sync_transfer(priv->spi, &xfer, 1);
->  }
-> =20
-> +/* Whether no RDATA transfer is queued or in flight */
-> +static bool ads1298_rdata_idle(struct ads1298_private *priv)
-> +{
-> +	guard(spinlock_irqsave)(&priv->irq_busy_lock);
-> +	return !priv->rdata_xfer_busy;
-> +}
-> +
-> +static int ads1298_wait_rdata_idle(struct ads1298_private *priv)
-> +{
-> +	if (!wait_event_timeout(priv->idle_wq, ads1298_rdata_idle(priv),
-> +				msecs_to_jiffies(100)))
-> +		return -ETIMEDOUT;
-> +
-> +	return 0;
-> +}
-> +
-> +/* Called with irq_busy_lock held */
-> +static void ads1298_rdata_start(struct ads1298_private *priv)
-> +{
-> +	int ret;
-> +
-> +	ret =3D spi_async(priv->spi, &priv->rdata_msg);
-> +	if (!ret)
-> +		return;
-> +
-> +	/* No completion will run for this transfer */
-> +	priv->rdata_xfer_busy =3D 0;
-> +	if (!priv->buffered) {
-> +		priv->rdata_status =3D ret;
-> +		complete(&priv->completion);
-> +	}
-> +	wake_up(&priv->idle_wq);
-> +}
-> +
->  static int ads1298_read_one(struct ads1298_private *priv, int chan_index)
->  {
->  	int ret;
-> =20
-> +	/* A transfer left over from an earlier timeout must finish first */
-> +	ret =3D ads1298_wait_rdata_idle(priv);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* Enable the channel */
->  	ret =3D regmap_update_bits(priv->regmap, ADS1298_REG_CHnSET(chan_index),
->  				 ADS1298_MASK_CH_PD, 0);
+Best regards,
+--  
+Tyler Baker <tyler.baker@oss.qualcomm.com>
 
-[ ... ]
-
-> @@ -494,19 +544,32 @@ static void ads1298_rdata_complete(void *context)
->  {
->  	struct iio_dev *indio_dev =3D context;
->  	struct ads1298_private *priv =3D iio_priv(indio_dev);
-> +	int status =3D priv->rdata_msg.status;
->  	int scan_index;
->  	u32 *bounce =3D priv->bounce_buffer;
-> +	bool buffered;
-> =20
-> -	if (!iio_buffer_enabled(indio_dev)) {
-> +	/* Only changes while no transfer is in flight */
-> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
-> +		buffered =3D priv->buffered;
-> +
-> +	if (!buffered) {
->  		/*
->  		 * for a single transfer mode we're kept in direct_mode until
->  		 * completion, avoiding a race with buffered IO.
->  		 */
-> -		ads1298_rdata_unmark_busy(priv);
-> +		priv->rdata_status =3D status;
-> +		ads1298_rdata_release_busy_or_restart(priv);
->  		complete(&priv->completion);
->  		return;
->  	}
-
-[Severity: High]
-In ads1298_rdata_complete(), does calling
-ads1298_rdata_release_busy_or_restart(priv) before complete(&priv->completi=
-on)
-leave a race window when recovering from a timed-out single-shot read or
-unbinding the driver?
-
-Inside ads1298_rdata_release_busy_or_restart(priv), priv->rdata_xfer_busy is
-set to 0, wake_up(&priv->idle_wq) is called, and priv->irq_busy_lock is
-released before complete(&priv->completion) runs:
-
-    ads1298_rdata_complete()
-        if (!buffered) {
-            priv->rdata_status =3D status;
-            ads1298_rdata_release_busy_or_restart(priv)
-                priv->rdata_xfer_busy =3D 0;
-                wake_up(&priv->idle_wq);
-            complete(&priv->completion);
-        }
-
-If an earlier call to ads1298_read_one() timed out at
-wait_for_completion_timeout() while its spi_async() transfer was still in
-flight, a subsequent ads1298_read_one() call waiting in
-ads1298_wait_rdata_idle(priv) can wake up as soon as priv->rdata_xfer_busy
-becomes 0. Because ads1298_regmap_config uses REGCACHE_MAPLE and neither
-ADS1298_REG_CHnSET(chan_index) nor ADS1298_REG_CONFIG4 is volatile, repeati=
-ng
-a read on the same channel hits the regmap cache without doing any SPI bus
-transfers and reaches reinit_completion(&priv->completion) immediately:
-
-    ads1298_read_one()
-        ads1298_wait_rdata_idle(priv)
-        regmap_update_bits(..., ADS1298_REG_CHnSET(chan_index), ...)
-        regmap_update_bits(..., ADS1298_REG_CONFIG4, ...)
-        reinit_completion(&priv->completion);
-
-If reinit_completion(&priv->completion) runs before the previous transfer's
-ads1298_rdata_complete() executes complete(&priv->completion), that late
-complete(&priv->completion) signals the newly reinitialized completion. The
-second ads1298_read_one() then returns the old sample from priv->rx_buffer
-while the new conversion and its SPI transfer are still in flight after dir=
-ect
-mode is released.
-
-Similarly, if ads1298_quiesce() is waiting in ads1298_wait_rdata_idle(priv)
-during driver unbind, it can return as soon as priv->rdata_xfer_busy is
-cleared, allowing devres teardown to free indio_dev and priv before
-complete(&priv->completion) finishes executing.
-
-Should complete(&priv->completion) be called before releasing
-priv->rdata_xfer_busy and waking priv->idle_wq (or while holding
-priv->irq_busy_lock, matching ads1298_rdata_start())?
-
-[ ... ]
-
-> @@ -549,14 +615,39 @@ static int ads1298_buffer_postenable(struct iio_dev=
- *indio_dev)
->  	if (ret)
->  		return ret;
-> =20
-> -	return ads1298_write_cmd(priv, ADS1298_CMD_START);
-> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
-> +		priv->buffered =3D true;
-> +
-> +	ret =3D ads1298_write_cmd(priv, ADS1298_CMD_START);
-> +	if (ret) {
-> +		scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
-> +			priv->buffered =3D false;
-> +	}
-> +
-> +	return ret;
->  }
-> =20
->  static int ads1298_buffer_predisable(struct iio_dev *indio_dev)
->  {
->  	struct ads1298_private *priv =3D iio_priv(indio_dev);
-> +	int ret, ret2;
-> +	int rate;
-> +
-> +	ret =3D ads1298_write_cmd(priv, ADS1298_CMD_STOP);
-> +
-> +	/*
-> +	 * The conversion in progress completes and raises DRDY once more.
-> +	 * Wait for it and for its transfer before the core tears down the
-> +	 * scan.
-> +	 */
-> +	if (ads1298_get_samp_freq(priv, &rate) >=3D 0 && rate > 0)
-> +		fsleep(2 * DIV_ROUND_UP(USEC_PER_SEC, rate));
-> +	ret2 =3D ads1298_wait_rdata_idle(priv);
-> =20
-> -	return ads1298_write_cmd(priv, ADS1298_CMD_STOP);
-> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
-> +		priv->buffered =3D false;
-> +
-> +	return ret ?: ret2;
->  }
-
-[Severity: High]
-Can an RDATA transfer still start or remain in flight when
-ads1298_buffer_predisable() returns, racing with active_scan_mask teardown =
-in
-iio_disable_buffers()?
-
-In drivers/iio/industrialio-buffer.c, iio_disable_buffers() frees and clears
-indio_dev->active_scan_mask unconditionally after predisable() returns, even
-when predisable() returns an error:
-
-    iio_disable_buffers()
-        if (indio_dev->setup_ops->predisable) {
-            ret2 =3D indio_dev->setup_ops->predisable(indio_dev);
-            if (ret2 && !ret)
-                ret =3D ret2;
-        }
-        ...
-        iio_free_scan_mask(indio_dev, indio_dev->active_scan_mask);
-        indio_dev->active_scan_mask =3D NULL;
-
-In ads1298_buffer_predisable(), ads1298_interrupt() remains enabled and
-unconditionally increments priv->rdata_xfer_busy and calls
-ads1298_rdata_start(priv) whenever a falling edge occurs:
-
-1. If ads1298_write_cmd(priv, ADS1298_CMD_STOP) fails (so the chip keeps
-   converting), if ads1298_get_samp_freq(priv, &rate) fails (so fsleep() is
-   skipped while the last conversion is still running), or if the final
-   interrupt is delayed past the two-period fsleep(), ads1298_wait_rdata_id=
-le()
-   can observe priv->rdata_xfer_busy =3D=3D 0 and return before the interru=
-pt
-   fires.
-
-2. If the interrupt fires after ads1298_wait_rdata_idle(priv) drops
-   priv->irq_busy_lock and before ads1298_buffer_predisable() acquires
-   priv->irq_busy_lock to set priv->buffered =3D false, ads1298_interrupt()
-   starts a new SPI transfer while priv->buffered is true, and
-   ads1298_buffer_predisable() then sets priv->buffered =3D false while that
-   transfer is in flight and returns without waiting for it.
-
-3. While priv->buffered remains true during ads1298_wait_rdata_idle(priv),
-   ads1298_rdata_release_busy_or_restart() continues starting new transfers=
- if
-   priv->rdata_xfer_busy > 1, and if ads1298_wait_rdata_idle(priv) returns
-   -ETIMEDOUT, iio_disable_buffers() still frees indio_dev->active_scan_mas=
-k.
-
-If ads1298_rdata_complete() reads priv->buffered =3D=3D true, it iterates
-iio_for_each_active_channel(indio_dev, scan_index) and dereferences
-indio_dev->active_scan_mask while iio_disable_buffers() frees it and sets it
-to NULL. If the interrupt or completion runs after priv->buffered =3D false=
- is
-set, ads1298_rdata_complete() takes the !buffered branch and overwrites
-priv->rx_buffer and priv->rdata_status and completes priv->completion.
-
-> @@ -569,6 +660,15 @@ static void ads1298_reg_disable(void *reg)
->  	regulator_disable(reg);
->  }
-> =20
-> +static void ads1298_quiesce(void *data)
-> +{
-> +	struct ads1298_private *priv =3D data;
-> +
-> +	/* No new transfer may start, and the last one must end, before teardow=
-n */
-> +	disable_irq(priv->spi->irq);
-> +	ads1298_wait_rdata_idle(priv);
-> +}
-
-[Severity: High]
-What happens in ads1298_quiesce() if the in-flight spi_async() transfer tak=
-es
-longer than the 100ms timeout in ads1298_wait_rdata_idle()?
-
-Once spi_async(priv->spi, &priv->rdata_msg) succeeds in ads1298_rdata_start=
-(),
-the SPI controller owns priv->rdata_msg, priv->rdata_xfer, priv->rx_buffer,
-and priv->tx_buffer until the completion callback ads1298_rdata_complete()
-runs. In drivers/spi/spi.c, spi_transfer_wait() uses a minimum transfer
-timeout of 200ms (2 * ms + 200ms), and messages can also wait behind other
-transfers on the SPI controller queue.
-
-Because ads1298_quiesce() calls ads1298_wait_rdata_idle(priv) with a bounded
-100ms wait_event_timeout() and ignores the return value, any stalled or
-delayed SPI transfer that exceeds 100ms causes ads1298_quiesce() to return
-while the transfer is still active. Devres teardown then frees indio_dev and
-priv while the SPI controller is still using priv->rdata_msg and its buffers
-and before ads1298_rdata_complete() is invoked on the freed context.
-
-Should teardown use an uninterruptible wait_event() so that devres cannot f=
-ree
-priv before the SPI controller finishes with priv->rdata_msg?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024231335.2809=
-55-1-stephanbrrs8@gmail.com?part=3D1
