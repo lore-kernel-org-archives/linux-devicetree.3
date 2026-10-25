@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792921489;
-	b=wV+JyPC5ahcZzGZn9hM40I5M0Q46M5Xe+NAV9/hzr7OeWom9nYGBaDHPwJ8zAv9prq4+
-	 tJrrMgLSszxQCD4z+Se5QZhdmy2ftFOw1YmkjjpK8BvxHMl/5uAb+shb2Z6F/LLCmYmXG
-	 H9xEqg/y4fNenOCb8G0WgnaR7h1EV38zqfx3fFCdNZlfAV7sq9dzktbnjm2JVspUIvxlx
-	 oeEpnEDS0Pgaq0HsOuRav0G/curlHsUK9eJ3EdJSTzLjA8U8gSEWXRKbJfqc8ichQCfv6
-	 7x4ioayzpW+TC43DU4yHdiM4Cc8lhtWnNM6bsvOgEIFuJT0Yw17rlt4S6bxH0o2U9pQ==
+	t=1792923801;
+	b=dnoQZR7/jMC3hOBI3cP6WsJMp8yjlqhRjBm8plfue0dg7egcrBmY028O84g9dMod2Fpt
+	 ox+j9Zk9rtJM3pIdnCYszAAP1wsdqO9p+oNDBtsDQ3FNNmuxrOYfVDFIfwW2I3mkxANoy
+	 MAMzkpb68haIyw08xF3hz2jMwNC7mD2s1iICtYTSOX/Ed5e2i14/Ko+ujHgOzsz2l7g38
+	 w2B9SuS3x3O1ndbB92CqOHH4/Z2JpS9rgKyHx+hJUG1UPmP031AwtXDz08hMKZcPuLIrz
+	 vCrASzaWacW3TnKWEN5X4wjQvJPqYZ1f/Udpdq4/OgEYCNDecwflC7OjX45YsEUz12w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792921489;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3JwxsyCfb55NCobpjZR9jSidMoC2tmsb6VCKlofU2pk=;
-	b=I1LPj7SC5GUHZRAcARLtHRjsZOOM6gmCq0uKZGhp/5uBn6kfgogPtSSCTpn+hXp55C4x
-	 5VPDLC4gYkI+zHM5tXi4TSjY44Bxl2dp8CFi5WDWCy2w1lJObaoly5gRFRFeKY1cnjvgT
-	 e459ml4TwIQSGQXPbZxyR+qKW3h+bRMFaKzCK0DXHpoDOvnkNwSBqh8gshW/LF76zR2IX
-	 pssG4pabK5Ihx91toHNeGaoYic4BUDJcDjgEIfXTpf4jVeARHRqolg/Cv4w/uF4k8QzMo
-	 jJQJZ/tPM1t6E/U2Bi+eiI+95d1YxuSnqJDGy4guCDJc7tt0ltLhRNulHmKurcp8W6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792923801;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=GoT4ZVHSTikshyQ0zbV5Oqm1IemHj+H26qOFKFZz1nQ=;
+	b=0tE8Cr86PvoaUXfceLtDBSGD0QVWWexGnzAXizrnslVndBQmC+wgGTcGlvi9GuzZmxOJ
+	 l6RVfH1M/aG1Np0V527LyH7tndtgJcVqob3F2olmgrvLQOmtujP136fEK4/hrGVAMc4bD
+	 DdY5VrDZLGY28gnKlaYLZlE8niLl7fcxK70Unj36mtcDI729VPyWu/oKculkEvI6qL4e3
+	 Irc+ZY4idcC9L/m/tbAjEcRBG3yv4OO/flZYHfj276HNZSCeVfLe/HtvMzN8iZE7GCJQ2
+	 uzae1KHWkNx4nkBIFus8qsq6oAm3Ww/Y69X5BgtrmJghwextGVulK8q+pJzDdR8LagA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ1FJQd4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UU8AgQ95;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2B5606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 09:44:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6386F606A327;
+	Sun, 25 Oct 2026 10:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ1FJQd4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDB91F01828;
-	Sun, 25 Oct 2026 09:44:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UU8AgQ95
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D09E1F01828;
+	Sun, 25 Oct 2026 10:23:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792921488;
-	bh=3JwxsyCfb55NCobpjZR9jSidMoC2tmsb6VCKlofU2pk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VZ1FJQd4qCNVdhT+MWemv6Ng8GdRPBxzHaY7VI0yCLqBRve3keb3D6j7XvYCamY6j
-	 DiluvvT4toB0FPF1HomuzJw9DGzTeVTNrT1mzf7wVOgEAsOn6499AR7p5l/GTfFRKO
-	 sst55MaFYrgulbZsDZSYiGIxgeAZQHq8H18OrfpoQlIYzfB3qCH4tl0XHCkigfpS/4
-	 9ZS0QL8odZD73GsRA24PLbJDDENn07uQK1zxKhiTNIrFpKRWT6le7fss7pCmguO9DW
-	 x92gwhX89Ws3sjKYKwoXdKfdjQ+LjCYIms35xLlL8/d+mXTpGEPGT8sZ0y854sOX5z
-	 JO/Roed9oj1/g==
-Message-ID: <sashiko-outbox-184181@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] drm/ingenic: Add a driver for the X1600 LCD
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Olivier Louvignes" <olivier@mgcrea.io>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261025085816.60405-4-olivier@mgcrea.io>
-References: <20261025085816.60405-1-olivier@mgcrea.io>
- <20261025085816.60405-4-olivier@mgcrea.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 09:44:47 +0000
+	s=k20260515; t=1792923801;
+	bh=GoT4ZVHSTikshyQ0zbV5Oqm1IemHj+H26qOFKFZz1nQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UU8AgQ952wFGYgFJ3XB6CnIZXneWkCKRuk8ALP/o8TwEQvJu0mrVduutaFPgIMpCA
+	 Vrt+EcNBOZEpIo1ujxIij+8cQ9co5gk075y/ttHw2IYtdkG09ezxPtHCvu/2RoAZvT
+	 U+DJhFLO8Z+dNOl0eAL1x2PV7NdpzOpfev2eDdoqfqFs9tIrVP2hPGDeOg6qdETmDX
+	 C2WT184qgdYm4w6jnG69jY9+Ic3AzdFQpF5Wcc4ftcVf3VWLz/Q6pgo0WkyOf1+5iE
+	 s3HCkQUVAq1hQpeYU/JAHLzEzC+snPp9yFG/PfoHhXYsLY/LDWQpF8VK6eH3U7Dpty
+	 jL8ikplEiybAA==
+Subject: Re: [PATCH net-next v3 2/2] net: wwan: qcom_bam_dmux: Assign
+ restricted DMA pool to remote processor
+From: netdev-bot+sashiko@kernel.org
+To: vishnu.santhosh@oss.qualcomm.com
+Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ johannes@sipsolutions.net, edumazet@kernel.org, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, deepak.singh@oss.qualcomm.com
+Date: Sun, 25 Oct 2026 10:23:19 +0000
+Message-ID: <179292379960.3134.17105636011699871887@kernel.org>
+In-Reply-To:
+ <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
+References:
+ <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,264 +67,354 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/ingenic: premature plane cleanup via drm_atomic_helper_wait_fo=
-r_vblanks()
-- [High] drm/ingenic: missing visibility check in x1600_lcd_plane_atomic_ch=
-eck()
-- [Medium] drm/ingenic: premature vblank event in x1600_lcd_crtc_atomic_flu=
-sh()
-- [Medium] drm/ingenic: unclocked MMIO on disable in x1600_lcd_crtc_atomic_=
-disable()
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 (1) · Medium: 4 (1) · Low: 3
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit message says BAM descriptor FIFOs "must therefore
+  be constrained" to the shared region, and that they are covered "when…
+- [Medium] bam_dmux_assign_dma_pool() always passes `u64 src =
+  BIT_ULL(QCOM_SCM_VMID_HLOS)` (line 777) to qcom_scm_assign_mem(), so…
+- [Medium] In bam_dmux_remove(), `remote_suspended` decides whether the
+  pool goes back to HLOS-only, and it can be wrong in two ways.
+- [Medium] Once the restricted pool is assigned RW to the modem VMID,
+  every RX buffer mapping copies uninitialized HLOS memory into memory…
+- [Low] The patch changes the probe error path in bam_dmux_probe() for an
+  irq_get_irqchip_state() failure.
+- [Low] The binding and the driver disagree on which qcom,vmid values are
+  valid.
+- [Low] The driver and binding accept qcom,vmid values up to 63, and
+  bam_dmux_reclaim_dma_pool() passes `src = BIT_ULL(HLOS) |…
+
+Pre-existing issues:
+- [High] bam_dmux_remove() calls
+  cancel_work_sync(&dmux->register_netdev_work) at line 964, before RX…
+- [Medium] This problem wasn't introduced by this patch, but net_devices
+  that registered successfully are unregistered and never freed.
+
 --
 
-commit ff594f68d62e2b467c0fa558eebe60679b4a51ba
-Author: Olivier Louvignes <olivier@mgcrea.io>
+net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
 
-drm/ingenic: Add a driver for the X1600 LCD controller
+When qcom,vmid is present in DT, this patch requires a restricted DMA pool
+and uses SCM to assign the whole pool to both HLOS and the remote VMID. The
+pool is reclaimed for HLOS on remove or on probe error cleanup, unless the
+remote side did not drop its power vote. It also changes the
+irq_get_irqchip_state() failure path in probe to call bam_dmux_remove().
 
-This commit adds a DRM driver for the Ingenic X1600 LCD controller,
-supporting parallel RGB panels on a 24-bit bus with a single full-screen
-RGB565 primary plane and descriptor-chain page flipping.
+> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+> index cc6ace8d64371..fa3621224a56e 100644
+> --- a/drivers/net/wwan/qcom_bam_dmux.c
+> +++ b/drivers/net/wwan/qcom_bam_dmux.c
 
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c b/drivers/gpu/dr=
-m/ingenic/ingenic-x1600-drm.c
-> new file mode 100644
-> index 0000000000000..34fbfc7de1c4b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
 [ ... ]
-> +static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
-> +					 struct drm_atomic_commit *state)
+
+> @@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
+>  	return 0;
+>  }
+>  
+> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
 > +{
-> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
-> +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
-> +	unsigned int hde =3D mode->htotal - mode->hsync_start;
-> +	unsigned int vde =3D mode->vtotal - mode->vsync_start;
-> +	u32 val;
+> +	struct device *dev = dmux->dev;
+> +	struct device_node *rmem_np;
+> +	struct reserved_mem *rmem;
+> +	struct qcom_scm_vmperm dst[2];
+> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
+
+[Severity: Medium]
+
+Is it safe to assume on every probe that HLOS is the only current owner?
+qcom_scm_assign_mem() documents @srcvm as the "vmid for current set of
+owners".
+
+Two paths can leave the pool owned by {HLOS, vmid} after the driver
+instance is gone. The first is bam_dmux_remove(), which skips the reclaim
+on a remote timeout:
+
+	else if (dmux->dma_pool_perms)
+		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+
+The second is bam_dmux_reclaim_dma_pool(), which only logs when the SCM
+call fails.
+
+In both cases the only record of the assignment is dmux->dma_pool_perms.
+That field lives in devm_kzalloc() memory, which is freed right after
+remove or after the failed probe.
+
+On the next probe (module reload, or unbind/bind of the remoteproc
+parent), the zeroed dmux would ask TZ to move the pool from {HLOS} while
+{HLOS, vmid} actually owns it. Would the assign then fail with "SCM assign
+restricted DMA pool failed" until reboot?
+
+The new probe error path calls bam_dmux_remove() right after the PC IRQ
+may have powered up RX, so it seems likely to hit the timeout case.
+
+> +	u32 vmid;
 > +	int ret;
 > +
-> +	ret =3D clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
-> +	if (ret)
-> +		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n", ret);
-> +	ret =3D clk_prepare_enable(lcd->clk);
-> +	if (ret) {
-> +		dev_err(lcd->drm.dev, "Unable to start the pixel clock: %d\n", ret);
-> +		return;
-> +	}
-[ ... ]
-> +	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base + X1600_LCD_SRD_CH=
-AIN_ADDR);
-> +	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
-> +	lcd->running =3D true;
-> +
-> +	drm_crtc_vblank_on(crtc);
-> +}
-> +
-> +static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
-> +					  struct drm_atomic_commit *state)
-> +{
-> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
-> +
-> +	if (!x1600_lcd_stop(lcd))
-> +		dev_warn(lcd->drm.dev, "The controller did not stop\n");
-> +	lcd->running =3D false;
-> +
-> +	spin_lock_irq(&crtc->dev->event_lock);
-> +	if (lcd->event) {
-> +		drm_crtc_send_vblank_event(crtc, lcd->event);
-> +		drm_crtc_vblank_put(crtc);
-> +		lcd->event =3D NULL;
-> +	}
-> +	spin_unlock_irq(&crtc->dev->event_lock);
-> +
-> +	drm_crtc_vblank_off(crtc);
-> +	clk_disable_unprepare(lcd->clk);
-> +}
-
-[Severity: Medium]
-In drivers/gpu/drm/ingenic/ingenic-x1600-drm.c, if clk_prepare_enable() fai=
-ls
-in x1600_lcd_crtc_atomic_enable(), the function returns early with lcd->clk
-disabled and lcd->running left false, while the atomic state still marks the
-crtc as enabled.
-
-When the crtc is later disabled (for example via DPMS off, a subsequent
-modeset, or drm_atomic_helper_shutdown() in x1600_lcd_remove()),
-x1600_lcd_crtc_atomic_disable() unconditionally calls x1600_lcd_stop(lcd) a=
-nd
-clk_disable_unprepare(lcd->clk).
-
-Could this access hardware registers in x1600_lcd_stop() while lcd->clk is
-gated and underflow the clock prepare/enable counts in
-clk_disable_unprepare(lcd->clk) if x1600_lcd_crtc_atomic_disable() does not
-check lcd->running first?
-
-[ ... ]
-> +static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
-> +					struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te, crtc);
-> +	struct drm_pending_vblank_event *event =3D crtc_state->event;
-> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
-> +
-> +	if (!event)
-> +		return;
-> +
-> +	crtc_state->event =3D NULL;
-> +
-> +	/*
-> +	 * The controller takes a new descriptor "at appropriate time" (manual,
-> +	 * 10.6.4): wait until it reports reading the one just handed over.
-> +	 */
-> +	spin_lock_irq(&crtc->dev->event_lock);
-> +	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc) =
-=3D=3D 0) {
-> +		lcd->event =3D event;
-> +		lcd->event_desc =3D x1600_lcd_desc_addr(lcd, lcd->cur);
-> +	} else {
-> +		drm_crtc_send_vblank_event(crtc, event);
-> +	}
-> +	spin_unlock_irq(&crtc->dev->event_lock);
-> +}
-
-[Severity: Medium]
-In x1600_lcd_probe(), drm->mode_config.helper_private is left unset, so
-atomic commits use the default drm_atomic_helper_commit_tail() ordering:
-
-  drm_atomic_helper_commit_tail()
-    drm_atomic_helper_commit_modeset_disables()
-    drm_atomic_helper_commit_planes()
-      x1600_lcd_plane_atomic_update()
-      x1600_lcd_crtc_atomic_flush()
-    drm_atomic_helper_commit_modeset_enables()
-      x1600_lcd_crtc_atomic_enable()
-
-During any commit that enables or re-enables the crtc,
-x1600_lcd_crtc_atomic_flush() runs before x1600_lcd_crtc_atomic_enable() se=
-ts
-lcd->running =3D true and calls drm_crtc_vblank_on(crtc).
-
-Won't the check in x1600_lcd_crtc_atomic_flush() always take the else branch
-during a modeset enable, sending the vblank event and completing flip_done
-before the controller and panel bridge have even started?
-
-[ ... ]
-> +static irqreturn_t x1600_lcd_irq(int irq, void *data)
-> +{
-> +	struct x1600_lcd *lcd =3D data;
-> +	u32 st =3D readl(lcd->base + X1600_LCD_INT_FLAG);
-> +
-> +	if (!st)
-> +		return IRQ_NONE;
-> +
-> +	writel(st, lcd->base + X1600_LCD_CLR_ST);
-> +	if (st & X1600_LCD_ST_STOP_SRD_ACK)
-> +		complete(&lcd->stopped);
-> +
-> +	if (st & X1600_LCD_ST_DISP_END) {
-> +		drm_crtc_handle_vblank(&lcd->crtc);
-> +
-> +		spin_lock(&lcd->drm.event_lock);
-> +		if (lcd->event &&
-> +		    readl(lcd->base + X1600_LCD_CHAIN_SITE) =3D=3D lcd->event_desc) {
-> +			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
-> +			drm_crtc_vblank_put(&lcd->crtc);
-> +			lcd->event =3D NULL;
-> +		}
-> +		spin_unlock(&lcd->drm.event_lock);
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: High]
-When a page flip is programmed near the end of a frame and the controller h=
-as
-not yet switched to the new descriptor in lcd->event_desc when the next
-end-of-frame interrupt fires, x1600_lcd_irq() holds back the flip event
-because X1600_LCD_CHAIN_SITE does not match lcd->event_desc yet, but it sti=
-ll
-calls drm_crtc_handle_vblank(&lcd->crtc) unconditionally.
-
-Because drm->mode_config.helper_private is unset in x1600_lcd_probe(), the
-default drm_atomic_helper_commit_tail() waits for
-drm_atomic_helper_wait_for_vblanks() rather than
-drm_atomic_helper_wait_for_flip_done():
-
-  drm_atomic_helper_commit_tail()
-    drm_atomic_helper_wait_for_vblanks()
-    drm_atomic_helper_cleanup_planes()
-
-Can that first vblank interrupt wake drm_atomic_helper_wait_for_vblanks() a=
-nd
-allow drm_atomic_helper_cleanup_planes() to release the old framebuffer whi=
-le
-the controller is still scanning out the previous descriptor for another
-frame?
-
-> +
-> +static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
-> +					struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_crtc_state *crtc_state;
-> +
-> +	if (!plane_state->crtc)
+> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
 > +		return 0;
 > +
-> +	crtc_state =3D drm_atomic_get_new_crtc_state(state, plane_state->crtc);
-> +	if (WARN_ON(!crtc_state))
-> +		return -EINVAL;
+> +	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
+> +	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
+> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
+
+[Severity: Low]
+
+Should the binding and this check agree on the valid range? The
+qcom,bam-dmux.yaml binding in this series allows:
+
+    items:
+      minimum: 1
+      maximum: 63
+
+This check rejects 3 (QCOM_SCM_VMID_HLOS) but accepts 0. So a DT with
+qcom,vmid = <3> passes dtbs_check and then fails probe with -EINVAL. In
+the other direction, vmid 0 is rejected by the schema but is passed to
+SCM here.
+
+[Severity: Low]
+
+On 32-bit kernels, can a vmid between 32 and 63 be reclaimed correctly?
+bam_dmux_reclaim_dma_pool() passes src = BIT_ULL(HLOS) | BIT_ULL(vmid).
+However, qcom_scm_assign_mem() builds the source list with the unsigned
+long BIT():
+
+	for (b = 0; b < BITS_PER_TYPE(u64); b++) {
+		if (srcvm_bits & BIT(b))
+			src[i++] = cpu_to_le32(b);
+	}
+
+On 32-bit this shift is undefined for b >= 32, so the remote VMID entry
+would not be written. src_sz is still computed with hweight64(), so the
+SCM call would see an uninitialized trailing source slot. The helper's
+int next_vm |= BIT(newvm->vmid) has a similar limit.
+
+The root cause is in the existing SCM helper. However, this patch adds a
+caller and accepts a range the helper cannot encode on 32-bit, and
+QCOM_BAM_DMUX is used on 32-bit SoCs such as MSM8974. Should the range be
+tightened here, or should the helper switch to BIT_ULL()?
+
+[ ... ]
+
+> +	rmem = of_reserved_mem_lookup(rmem_np);
+> +	of_node_put(rmem_np);
+> +	if (!rmem)
+> +		return dev_err_probe(dev, -EINVAL,
+> +					     "Failed to look up restricted DMA pool\n");
 > +
-> +	/* The plane covers the whole screen: no scaling, no position. */
-> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   DRM_PLANE_NO_SCALING,
-> +						   false, true);
-> +}
+> +	if (!is_swiotlb_for_alloc(dev))
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Restricted DMA pool not attached\n");
+
+[Severity: Medium]
+
+The commit message says:
+
+    BAM-DMUX DMA mappings and BAM descriptor FIFOs must therefore be
+    constrained to a designated memory region ...
+
+    When the BAM DMA controller references the same pool, its descriptor
+    FIFOs are covered by the assignment as well.
+
+This check only looks at the bam-dmux device. The descriptor FIFOs are
+allocated on the BAM controller's own device in bam_alloc_chan():
+
+	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+					&bchan->fifo_phys, GFP_KERNEL);
+
+Their address is then programmed into BAM_P_DESC_FIFO_ADDR in
+bam_chan_init_hw().
+
+Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml has no
+memory-region property and sets additionalProperties: false. This series
+only updates the bam-dmux binding.
+
+With a schema-valid DT, wouldn't the FIFOs stay in ordinary memory that
+the modem VMID cannot reach? That would leave the XPU violation possible
+for FIFO accesses.
+
+Should the bam-dma binding gain a memory-region property? Should the
+driver also verify, or at least warn, that the DMA controller behind the
+rx/tx channels uses the same pool?
+
 > +
-> +static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
-> +					  struct drm_atomic_commit *state)
-> +{
-> +	struct x1600_lcd *lcd =3D to_x1600_lcd(plane->dev);
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_framebuffer *fb =3D plane_state->fb;
-> +	unsigned int next =3D lcd->running ? !lcd->cur : lcd->cur;
-> +	struct x1600_lcd_desc *desc =3D &lcd->desc[next];
+> +	if (!qcom_scm_is_available())
+> +		return -EPROBE_DEFER;
 > +
-> +	if (!fb)
-> +		return;
+> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
+> +	dst[0].perm = QCOM_SCM_PERM_RW;
+> +	dst[1].vmid = vmid;
+> +	dst[1].perm = QCOM_SCM_PERM_RW;
 > +
-> +	desc->next =3D x1600_lcd_desc_addr(lcd, next);
-> +	desc->addr =3D drm_fb_dma_get_gem_addr(fb, plane_state, 0);
-> +	desc->stride =3D fb->pitches[0] / fb->format->cpp[0];
+> +	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
+> +				  ARRAY_SIZE(dst));
+
+[Severity: Medium]
+
+Once the whole pool is RW for the modem VMID, does every RX mapping copy
+uninitialized kernel memory into it?
+
+bam_dmux_skb_dma_queue_rx() allocates the RX skb with
+__netdev_alloc_skb() and calls skb_put(skb, BAM_DMUX_BUFFER_SIZE) without
+zeroing. It then maps the buffer DMA_FROM_DEVICE.
+
+With a restricted-dma-pool, swiotlb_tbl_map_single() copies the original
+buffer into the pool slot before the transfer, whatever the direction:
+
+	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
+
+That would put up to 2 KiB of stale kernel data per buffer into memory
+shared with the modem. This happens for all 32 RX buffers at power-on and
+again on each refill in bam_dmux_rx_callback().
+
+Should the RX buffers be zeroed before mapping when qcom,vmid is set?
+
+[ ... ]
+
+> @@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>  
+>  	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
+>  				    &dmux->pc_state);
+> -	if (ret)
+> -		goto err_disable_pm;
+> +	if (ret) {
+> +		/* The PC IRQ may already have powered up the RX path */
+> +		bam_dmux_remove(pdev);
+> +		return ret;
+> +	}
+
+[Severity: Low]
+
+This changes the irq_get_irqchip_state() failure path from only disabling
+runtime PM to a full bam_dmux_remove(). That seems to fix an existing bug.
+The threaded PC IRQ is already registered at this point and may have run
+bam_dmux_power_on(), which requests the RX channel and maps and submits
+the RX skbs. The old err_disable_pm path leaked all of that while devm
+freed dmux.
+
+Could this be split into a separate patch with a Fixes: tag so it reaches
+stable, and mentioned in the commit message?
+
+The change also alters probe behaviour. The failure path can now block in
+wait_event_timeout() for up to BAM_DMUX_REMOTE_TIMEOUT, it sends a
+power-down vote through bam_dmux_runtime_suspend(), and it calls
+disable_irq() on devm-managed IRQs.
+
+[ ... ]
+
+> @@ -853,6 +957,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>  	struct bam_dmux *dmux = platform_get_drvdata(pdev);
+>  	struct device *dev = dmux->dev;
+>  	LIST_HEAD(list);
+> +	bool remote_suspended;
+>  	int i;
+>  
+>  	/* Unregister network interfaces */
 
 [Severity: High]
-In drm_atomic_helper_check_plane_state(), if userspace places the plane's
-destination rectangle completely outside the active crtc dimensions, the
-helper sets plane_state->visible =3D false and returns 0 before checking
-can_position:
 
-  drm_atomic_helper_check_plane_state()
-    plane_state->visible =3D drm_rect_clip_scaled(src, dst, &clip);
-    ...
-    if (!plane_state->visible)
-            return 0;
+This isn't a bug introduced by this patch, but the new probe error path
+relies on bam_dmux_remove() to tear down an RX path that may already be
+active. remove cancels register_netdev_work before RX is stopped:
 
-    if (!can_position && !drm_rect_equals(dst, &clip))
-            return -EINVAL;
+	cancel_work_sync(&dmux->register_netdev_work);
+	...
+	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+	...
+	disable_irq(dmux->pc_irq);
+	bam_dmux_power_off(dmux);
 
-If userspace submits a small framebuffer positioned off-screen, won't
-x1600_lcd_plane_atomic_check() accept the state and
-x1600_lcd_plane_atomic_update() program desc->addr to scan out a full frame
-past the end of the small buffer unless !plane_state->visible is rejected?
+During the wait, an RX completion can carry a BAM_DMUX_CMD_OPEN command
+for a channel that has no netdev. That goes through
+bam_dmux_rx_callback()->bam_dmux_cmd_open(), which calls
+schedule_work(&dmux->register_netdev_work) again. Nothing cancels the work
+after that.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025085816.6040=
-5-1-olivier@mgcrea.io?part=3D3
+Can the work then run after devres frees dmux, or register netdevs that
+point at the freed dmux and are never unregistered?
+
+During probe, netdevs[] is all NULL, so after a power-up ack every open
+command from the modem would schedule the work.
+
+[Severity: Medium]
+
+This isn't a bug introduced by this patch, but are the registered
+net_devices ever freed?
+
+bam_dmux_register_netdev_work() calls free_netdev() only when
+register_netdev() fails. bam_dmux_netdev_setup() does not set
+needs_free_netdev, and this path only calls unregister_netdevice_queue()
+and unregister_netdevice_many(). netdev_run_todo() only frees the device
+when needs_free_netdev is set.
+
+So each registered netdev seems to leak on remove. With this patch it can
+also leak in the new probe error cleanup, if interfaces were already
+created.
+
+> @@ -872,13 +977,21 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>  	pm_runtime_set_suspended(dev);
+>  
+>  	/* Try to wait for remote side to drop power vote */
+> -	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
+> +	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+> +					      BAM_DMUX_REMOTE_TIMEOUT);
+> +	if (!remote_suspended)
+>  		dev_err(dev, "Timed out waiting for remote side to suspend\n");
+>  
+>  	/* Make sure everything is cleaned up before we return */
+>  	disable_irq(dmux->pc_irq);
+>  	bam_dmux_power_off(dmux);
+>  	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+> +
+> +	/* The remote side may still access the pool if it did not suspend */
+> +	if (remote_suspended)
+> +		bam_dmux_reclaim_dma_pool(dmux);
+
+[Severity: Medium]
+
+Can remote_suspended be stale or wrong by the time it gates the reclaim?
+
+It is sampled while the PC IRQ is still enabled, and disable_irq() only
+runs afterwards. In between, the modem can raise its power vote again,
+and bam_dmux_pc_irq() would run:
+
+	if (new_state) {
+		if (bam_dmux_power_on(dmux))
+			bam_dmux_pc_ack(dmux);
+
+That requests RX, maps the RX skbs into the pool and acks the modem.
+disable_irq() only waits for the handler to finish. The earlier true value
+then reclaims the pool while the modem believes the link is up.
+
+Also, dmux->rx == NULL does not necessarily mean the remote powered down.
+If bam_dmux_power_on() fails in the PC IRQ handler or in probe,
+bam_dmux_power_off() clears rx while pc_state is set to true. The wait
+then returns immediately and the pool is reclaimed while the remote vote
+is still asserted.
+
+The commit message says:
+
+    Skip the reclaim and leave the pool assigned if the remote side did not
+    acknowledge the power-down, since it may still access the pool.
+
+Would it be more robust to make this decision after disable_irq(), based
+on the remote PC state (for example !dmux->pc_state)?
+
+> +	else if (dmux->dma_pool_perms)
+> +		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102%40oss.qualcomm.com
