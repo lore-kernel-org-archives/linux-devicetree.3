@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792946549;
-	b=0lA6BquLMYUPF4Iisrm53bsCf+LoosI54986Q5TeBPg1Whulb7tbYnOFtvahUN+x2gAR
-	 R9lNYPiyQP3/ZXZweqYpEZ9pW7N+tIgHtD9BajxayAwQCt22Pr1kRIFo+TjPAARBYiqdd
-	 4FCVuEnKJWs4/+2b07vV2xpWzalyVya7HD/RQ9wyMCp0r/Bfm7zZYOilT/nh8sJdAT819
-	 xLwodshVMfxnDsVMkKeQ3RnFYcx+GKJKzRN62FiC85X2yJ1vnGfmAKCAkhMM7g5YFi0xZ
-	 ByCp38U0rYTTLqHebLvPFRoNOT7Sgi2J7EmMCnpD9jR1WTVPrSAkNg2K9XNpyw6pfFA==
+	t=1792948481;
+	b=EJdTYts9rqFSkFbj3Q4Wu5Jn2JQ23saJx8x4dEUmJZoZuxYl0HVgwCwDexlU8+t9GgLT
+	 oW+H+NWEVOL5e2VgPkFCb9M9d9AIKucjSTCt7rO9M7zNpeD7ma7LB8dbL1RNZQxgCUMeG
+	 hCQo5DHZt+l1ewvo10FxgYD1IB5a7EtHApYn372RUBlivxaf8CIFlLV7O/OAjts5SAEVW
+	 jCRfcID+smqdiWMho8gNFQeVRl1VCPQh48g/+y+CexwkCafyrepvvwBAKQbEqvkrcc0qS
+	 dVierw7WSEkl70acizcs9XWDbeoOs8F4T5s6URG/ebPB2sx9ztaT3cFCMtMPGbwZXMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792946549;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cPJgO1+8d5mUNiWnEOFR8vqpitnJgqR/qZvpv/l/KWU=;
-	b=fIiLlM5viFaqvGHDdYOHlw3uC5rbTYnJZVnjaYpsKdWsXufZQ3aiB+aXLwKjkhquX/wE
-	 8RS8Wp/OCKA9Q50/uNPAGrvhioj34k2iiH4JAkGGtdpIWv4PUryS6fgxkIwAfwSrBoXL9
-	 uEpiAcDIhn8olZiJQytBZA5u6E5j3T0gbYgjIukPuK+Bd0AC6tV/csJ1Ksqxbgm4+Aq4W
-	 FMf92BjyTWiwN04P9nFQujuE+cdLgykj1/B3uxunkQncMpJH/QgDgv7pWj3HWRSQA/8QG
-	 WgAsqcOEtns42sOjqjl/80Vj3qR0MrbZQBw2fbuRgA73ZH9758uOLsL90tNE/j6/f6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792948481;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MhHztknkSHPqrXjrHLscjPHwEDTCdUtJkajY/SvLZKw=;
+	b=U6yyVZNE323bLQr3ED0UFi0kFcfUCWoiuJNbYEfn8F0LV+rgZ7zq810hI117j01bFmmz
+	 BEBIuIy5W6L8ANA/HeO3b1+aGbLL2WnnHflNV5tF710stucID6YXaO4/xaS+oCmrx+fYv
+	 E/AAvzg2fBit7q8Uua4R+Xd1ouk3Pp9Y6dQY42AoPP1bT79rq0ZlOQ3AQTV0+irjlRkOH
+	 8feqeYkEXoz0IHp4Ut9YKRt4tyDqVxCx2aLAcwLvMhuMAIDf6wOThS2/84IowTweaiexg
+	 1NrY1B/ma9s68IaImm7LuraJF5BmZkmiW6cuWjP7k5jD1aDAyJzr5l+q3AGeRDkaiUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfGbTAqX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aBUprk/T";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1925A606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 16:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3B7606A31A;
+	Sun, 25 Oct 2026 17:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfGbTAqX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B84E1F01825;
-	Sun, 25 Oct 2026 16:42:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBUprk/T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC4F1F01825;
+	Sun, 25 Oct 2026 17:14:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792946548;
-	bh=cPJgO1+8d5mUNiWnEOFR8vqpitnJgqR/qZvpv/l/KWU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dfGbTAqXqsIlo9jwMJYxUedMTER0GY0oG+lSvZl3Yfm5q86Dlbxu/Tl4yGae3Lon4
-	 yogYUGnUrFaSQtyrUrCQEPBjSUju/GFqjmN8T6IGVhhUF9OHMfyOaTIzoMyVA0F3Zu
-	 1Cj9NZKIHVeynMlopi1K2JzlcQWvo9VdQXzf6+B4L3ZFl2JJTqJabELUC4sH53C8qh
-	 AV3PHeST665YL+T4j/Ynp/61SnYsLheJMFpIiXCrK2ahdZ6XVJg+w3T2Wbv0p0I3aq
-	 /dT6CJxsPWxkSahPk0ieBtOb+qdnir3DlTBP7izVoREoRmKpuG0CMJS5AGuzswe81j
-	 h2agp2DHUIawQ==
-Message-ID: <sashiko-outbox-184277@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/3] media: i2c: hm1092: add Himax HM1092 mono NIR
- sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ramshouriesh R" <rshouriesh@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
-References: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
- <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 16:42:28 +0000
+	s=k20260515; t=1792948480;
+	bh=MhHztknkSHPqrXjrHLscjPHwEDTCdUtJkajY/SvLZKw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aBUprk/TK0tNCbZt1AonK4UsFkV1ptKhZSpIYnueV7rZEan8xoKMSJhG5kIBuH+Ir
+	 3ltueCVb6gQ7ckASgE9wmXxnKbsBrYOs3wnA6ZYqK93jE3meIEHQIKl2eJdYnHhK5W
+	 dhzTPciAU8j0K3b9Aw53tckmtfhh01je1v+FZQHYFF+xz28AFN1+kUKOFIQgIXBPYB
+	 hvOqEEMm45KHLp6/OmxdZ638iFuuO3vSibghH3Fh8zyD2NsxmShuUF20KR/svHcVGU
+	 mDBRJmB7IbGO/VEADt6ylCZ9cML61rNH0TTQswgJ5EXHknjQQ03I3RctuJKI46DyBx
+	 r7q6FDMwmCVKA==
+Message-ID: <98938da0-6018-433a-9b06-b593bb1cfc11@kernel.org>
+Date: Sun, 25 Oct 2026 18:14:34 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,169 +50,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: samsung: exynos4412-p4note: allow powering off
+ the wifi card
+To: thesame-personal <thesame.personal@gmail.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024-exynos4412-p4note-brcmfmac-v1-1-3d09e496c2c7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] media: i2c: hm1092: broken CONFIG_PM=3Dn and disabled runtime PM=
- handling
-- [Low] media: i2c: hm1092: invalid max range on read-only VBLANK in hm1092=
-_init_controls()
---
+On 24/10/2026 22:48, thesame-personal wrote:
+> sdhci_3 serving BCM4334 was missing cap-power-off-card.
+> On my N8000 this resulted in the following messages after sleeping:
+> [305.759883] PM: suspend entry (deep)
+> [306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
+> [306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
+> [307.127267] PM: suspend exit
+> 
+> The regression was triggered by commit 8c3170628a9c
+> ("wifi: brcmfmac: keep power during suspend if board requires it").
+> Midas already has a fix in commit 2ff147fdfa99
+> ("ARM: dts: samsung: exynos4412-midas:
+> turn off SDIO WLAN chip during system suspend").
+> exynos4412-p4note.dtsi does not include exynos4412-midas.dtsi,
+> so p4note did not automatically inherit the Midas fix.
+> 
+> Another affected board was fixed in commit 863d69923bdb ("ARM: dts:
+> samsung: exynos4210-i9100: turn off SDIO WLAN chip during system
+> suspend").
 
-commit f1e4ed7ce54114835ec68f36cc7257ae9a2789c1
-Author: Ramshouriesh R <rshouriesh@gmail.com>
+Drop paragraph, not needed here.
 
-media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+> 
 
-This commit adds a V4L2 subdevice driver for the Himax HM1092 monochrome
-near-infrared CMOS image sensor over a single-lane MIPI CSI-2 interface. It
-supports the sensor's 560x360 10-bit monochrome mode, standard controls
-including exposure, analogue gain, digital gain, and test patterns, and
-manages sensor power via runtime PM.
+Please add Fixed tax and Cc-stable.
 
-Link: https://lore.kernel.org/r/20260727131252.1580332-1-j@metarealtyinc.ca
-Link: https://lore.kernel.org/r/20260727154058.2350497-1-j@metarealtyinc.ca
+> Signed-off-by: Artem Utkin <thesame.personal@gmail.com>
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 7de2d095c9696..24ea806768493 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -137,6 +137,17 @@ config VIDEO_HI847
->            To compile this driver as a module, choose M here: the
->            module will be called hi847.
-> =20
-> +config VIDEO_HM1092
-> +	tristate "Himax HM1092 sensor support"
-> +	select V4L2_CCI_I2C
-> +	help
-> +	  This is a Video4Linux2 sensor driver for the Himax HM1092
-> +	  monochrome near-infrared CMOS image sensor, used as the
-> +	  face-authentication IR camera on laptops.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called hm1092.
+Does not match From.
 
-[ ... ]
-
-> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-> new file mode 100644
-> index 0000000000000..400e9ded21667
-> --- /dev/null
-> +++ b/drivers/media/i2c/hm1092.c
-
-[ ... ]
-
-> +static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct hm1092 *hm1092 =3D container_of(ctrl->handler, struct hm1092,
-> +					     ctrl_handler);
-> +	int release_ret;
-> +	int ret =3D 0;
-> +
-> +	/*
-> +	 * The control value is cached by the framework and (re)applied from
-> +	 * hm1092_enable_streams() once the device is powered up for streaming.
-> +	 */
-> +	ret =3D pm_runtime_get_if_in_use(hm1092->dev);
-> +	if (ret <=3D 0)
-> +		return ret;
-
-[Severity: Medium]
-Can this return -EINVAL when runtime PM is disabled or when the kernel is
-built with CONFIG_PM=3Dn?
-
-pm_runtime_get_if_in_use() returns 0 when the device is runtime suspended, 1
-when it is active and in use, and -EINVAL when runtime PM is disabled
-(dev->power.disable_depth > 0 or CONFIG_PM=3Dn). Returning ret directly when
-ret <=3D 0 propagates -EINVAL to VIDIOC_S_CTRL / VIDIOC_S_EXT_CTRLS callers=
- and
-causes hm1092_enable_streams() -> __v4l2_ctrl_handler_setup() ->
-hm1092_set_ctrl() to fail if runtime PM is disabled.
-
-Additionally, VIDEO_HM1092 in drivers/media/i2c/Kconfig does not depend on =
-PM,
-while hm1092_probe() leaves the sensor powered off (with reset asserted via
-GPIOD_OUT_HIGH) and relies solely on pm_runtime_resume_and_get() in
-hm1092_enable_streams() to invoke hm1092_power_on(). When CONFIG_PM=3Dn:
-
-- pm_runtime_resume_and_get() is a no-op returning 0, so hm1092_power_on() =
-is
-  never called and the sensor remains unpowered during streaming.
-- In hm1092_remove(), pm_runtime_status_suspended() unconditionally returns
-  false, so hm1092_power_off() calls clk_disable_unprepare(hm1092->img_clk)
-  and regulator_bulk_disable() on resources that were never enabled.
-
-Should hm1092_set_ctrl() return 0 when pm_runtime_get_if_in_use() <=3D 0 (or
-use pm_runtime_get_if_active()), and should the driver either depend on PM =
-in
-Kconfig or handle powering the sensor on/off in hm1092_probe() and
-hm1092_remove() when CONFIG_PM is disabled?
-
-[ ... ]
-
-> +static int hm1092_init_controls(struct hm1092 *hm1092)
-> +{
-> +	struct v4l2_ctrl_handler *ctrl_hdlr =3D &hm1092->ctrl_handler;
-> +	const struct hm1092_mode *mode =3D &hm1092_mode_560x360;
-> +	struct v4l2_fwnode_device_properties props;
-> +	s64 hblank, pixel_rate;
-> +	int ret;
-> +
-> +	ret =3D v4l2_fwnode_device_parse(hm1092->dev, &props);
-> +	if (ret)
-> +		return ret;
-> +
-> +	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
-> +
-> +	hm1092->link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr,
-> +						   &hm1092_ctrl_ops,
-> +						   V4L2_CID_LINK_FREQ,
-> +						   0, 0,
-> +						   hm1092_link_freq_menu);
-> +
-> +	pixel_rate =3D div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
-> +			     HM1092_BITS_PER_SAMPLE);
-> +	hm1092->pixel_rate =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-> +					       V4L2_CID_PIXEL_RATE, 0,
-> +					       pixel_rate, 1, pixel_rate);
-> +
-> +	hblank =3D mode->hts - mode->width;
-> +	hm1092->hblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-> +					   V4L2_CID_HBLANK, hblank, hblank, 1,
-> +					   hblank);
-> +
-> +	hm1092->vblank =3D v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-> +					   V4L2_CID_VBLANK,
-> +					   mode->vts - mode->height,
-> +					   0xffff - mode->height, 1,
-> +					   mode->vts - mode->height);
-
-[ ... ]
-
-> +	if (ctrl_hdlr->error) {
-> +		ret =3D ctrl_hdlr->error;
-> +		goto err_free;
-> +	}
-> +
-> +	hm1092->link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-> +	hm1092->hblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-> +	hm1092->vblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-
-[Severity: Low]
-In hm1092_init_controls(), V4L2_CID_VBLANK is marked with
-V4L2_CTRL_FLAG_READ_ONLY and is not handled in hm1092_set_ctrl(), but its
-maximum value is set to 0xffff - mode->height instead of mode->vts -
-mode->height.
-
-Will advertising a larger maximum on a fixed, read-only V4L2_CID_VBLANK
-control cause userspace camera stacks to compute an incorrect maximum frame
-duration? Should the maximum for V4L2_CID_VBLANK match mode->vts -
-mode->height, similar to V4L2_CID_HBLANK?
-
-Also, the pixel_rate and exposure pointers in struct hm1092 (along with
-HM1092_TEST_PATTERN_MAX) are never read after assignment; could those unused
-fields and macro be dropped?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025-hm1092-dri=
-ver-v8-0-9cd575c366cf@gmail.com?part=3D2
+Best regards,
+Krzysztof
