@@ -1,57 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792958902;
-	b=eTo2W+Yd9dD3PZJwIOjdvFVrV9OWQie0X4c6rdg+/+3EImsfsLCenxoGzAwiT2xEHxcC
-	 O4pN9WlLJ8eDmQh34L4GrmWNkIXu3VEvCKVenlakxF5xevyiHcW17QE6ePnAeKpeRns1M
-	 usMs9IKJM8XJnDBm4KQFNp+cy06wgKYptn/RJmlSliQLiNsT7+8joIQKkmU9z+ntcHcwM
-	 nmmzLnQMNi9moQ/5IxkunY/k5y0cZaOpyQ42r6lAmiqm5GeKa0f8E+yTxNvbz0o0iFpW6
-	 zcIgo6EN9bRaRV2PcywNI2nTm7/j87TfF0WA37SFKp/76+HK1CRGaBkJxUsseYFIY8Q==
+	t=1792959287;
+	b=y+31rwBJv9y73oTrZU3fCnkPINTkG5/fGm9/mojmY4oyxRbMVZuu1H/GiIOhHgSnnz32
+	 4LfIPzmxaxkHa4js/ZLHJViGExIsDbt6Ppn0qix+CDZV/GN2qG9UUtKUPuni5uGCBo9v9
+	 EQrQPcgEqxY8VypMfhWneeFL9wEE3zPGeg4AzmjMEByujIXQ6cayBOwAU9tia+l7Ae/Ip
+	 TJKlwqeZRPJg8mrW4VKq3nY1QnzpdWDf+bzcZOMCVhqnbpg6X7C3fIUXsYQuco6oFOrkY
+	 49yjyZsoCRKnVODVBPEWSVZYKvHqTGGjiwNemtTwj0qxBd0g41ZfaL/YHL0ygPWJJjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792958902;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0pAw7ssMwwqHoXECiMNJXwZAbmNa/ymHKrMxfo2qDdw=;
-	b=uSyEpbfPXh83etC2KwiYcaerbQblwVU8x1oSN2C0xbLMA1n1Nmpp/Szs4+FYhR5wPIlb
-	 +yudyVm5EZoBZ7G4GoGATMOF1zqa+crURNxdTpMe7CmFlW/pX+ETbYcu0EcS957Rne585
-	 /rsTyS24ht/uqmQG5F0OOfpdyexU1QprIM//QYpTwOhpGhcVGLJcGo+o/wb8dZ6f6oogV
-	 i21figFsv7IA3bZfDZwktUAHhGzn5ZJTkL6I7yrF7uWf/deFjBp/CfNS/16EMflOGsqmg
-	 dZkDdBQ/BKV+Q11NQHMJBeppFIC94kAfRUVi9X7Yf3ii0SdzdWxerAb9WqhzEo1HJDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792959287;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=nGJHavF6dSjRKsxaMbsvbObMuN/1FJT3WyyQ9KeYG14=;
+	b=OOjvJGMWwlZxXTvpoYTdg8r21JhEbmrOZFqr9m3KL7yhv8X4cL03EcWiqCeseuqJxosd
+	 2EGFv9KheC9NidDm9ZXFcd5w1qVIlllIdRgC9lknamxm/GL5B79zkpn6sjS0i8FdHuQBv
+	 1AyZ3PedARNkgSyDZNV8luOgKTD+s0XGdGQFagkYhX/TFasE61rOyKLt9qMfntKrL5c2+
+	 DcxTxp4iRvryi2BKIGxWL5tAX1bzQ/cycC+5+flNmXN3+x6FthPF0hfgzimQHZzbtNk/q
+	 ssT7VSJnBf3F3tYL9xERQRVMPkgR1dx++1+BdrIQ7bGa5MDSlg7qrH5p1GlLBEggSDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji3AOAvt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RhGP+OHz;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3D5606A31D
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962AC606A31A;
+	Sun, 25 Oct 2026 20:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962AC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji3AOAvt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E341F01825;
-	Sun, 25 Oct 2026 20:08:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792958901;
-	bh=0pAw7ssMwwqHoXECiMNJXwZAbmNa/ymHKrMxfo2qDdw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ji3AOAvtKbCNVmmpALrjy7RyDe6XTEOFGIF26VxhAPqVuRWziB9C4skos0i9pTemN
-	 EDPayjv5Y4MWTOA1cIuqwtXWCZLHpcYSGUH2kDmLkJJTIzz2mlUBOMEqTX2UCs+FkM
-	 zQ9Fm10HNfzmWtHHwX75DTUv7ipyOM4GzhSYvLVcr977JTfUGGsVzyr/g7giw+XjYu
-	 cDg9zFYaRfTpz5HzkkRO/RjmdKatB38SEa/+HNsNBbv+OQLMDWLpKoW7Hh4g6r9e7v
-	 NgXiybp2wmtYiKHUY+SM6MX69csxCNSUyU1KehSFPsPTgdrSuliIH/DuGOzN0OQ7fF
-	 Jb2SS+XNADdYg==
-Message-ID: <sashiko-outbox-184409@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] Bluetooth: add a quirk for controllers that cannot
- enable Secure Connections
-Reply-To: sashiko-reviews@lists.linux.dev
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
-References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192338.209574-2-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 20:08:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RhGP+OHz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792959285; x=1824495285;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9GKkWz1dS8PrpKepJfMr9pKKIngX8+cFO3s2cipkbo8=;
+  b=RhGP+OHz1IVu8HJdFb6mDqgNPr5+wLXFBuiixfc5QiH24zZQaAfTjC1g
+   YkuDgNrn3sdAPAVHMcT7u93o9zqiSa8dzUHP0Z6+f5bQkSHPnu/XWciVn
+   LhQkltKAhfjBWpIFodDvxAFp4cdJsqt2jAYz3V3i17fyXHuauL1/XUs77
+   Lp6cRNYpcXXjLcLWBBICbAeyZiX0f69RaygM9U8KIMX4pY0LegjHJsF5O
+   YwQzTXrs31bo0PdlgDiTmLwds++U7MtcxmZylOk812UleUlgGx92Nxsne
+   bkd+3Oyy2EPsdl+dVs2miJtbluWxKI02qxmxK9fLTes4JcJ3TTJGNIbty
+   A==;
+X-CSE-ConnectionGUID: LQQs0V6NSDy/mVdcnQhnNg==
+X-CSE-MsgGUID: 5QhiAhhUT82g0SoGY3v9ug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1517950"
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="1517950"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:14:45 -0700
+X-CSE-ConnectionGUID: XymywbSuQaiqi2CTwJ07hA==
+X-CSE-MsgGUID: uQIrykXUQguTpx5uGdlWbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
+   d="scan'208";a="4045131"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 13:14:42 -0700
+Date: Sun, 25 Oct 2026 22:14:39 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mike Looijmans <mike.looijmans@topic.nl>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] iio: adc: ti-ads1298: fix the data read path
+Message-ID: <at5jL47A-6vQJYOX@ashevche-desk.local>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
+ <20261024231335.280955-2-stephanbrrs8@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,148 +86,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024231335.280955-2-stephanbrrs8@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Bluetooth: unmasked lmp_sc_capable() with HCI_QUIRK_BROKEN_WRITE_S=
-C_SUPPORT
-- [Low] Bluetooth: inaccurate comment for HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT=
- in hci.h
---
+On Sat, Oct 24, 2026 at 08:13:30PM -0300, Stephan Costa Barros wrote:
+> Fix five issues in how the driver reads samples:
+> 
+> - cmd_buffer serves both the register accessors, under the regmap lock,
+>   and the commands, under the IIO device lock, and shares a cacheline
+>   with rx_buffer and tx_buffer. A register access can then rewrite a
+>   command on the bus, or corrupt an RDATA transfer in flight on a
+>   platform without coherent DMA. Give each path its own buffer, each on
+>   its own cacheline.
+> 
+> - After STOP, the conversion in progress still raises DRDY, so an RDATA
+>   transfer can be in flight when the core frees the active scan mask.
+>   Track in the driver whether samples go to the buffer, wait in
+>   predisable for the last DRDY and its transfer, and push the sample
+>   before marking the transfer done. update_scan_mode reset the transfer
+>   counter, which let a new transfer be queued over one in flight; wait
+>   for it instead.
+> 
+> - When a single-shot read times out, its transfer may still be in
+>   flight, and the next read then wakes up with the old sample. On
+>   unbind, nothing waits for the DRDY interrupt or its transfer. Wait for
+>   the transfer before a single-shot read, and on teardown disable the
+>   interrupt and wait for the last transfer.
+> 
+> - The return value of spi_async() and the status of the RDATA message
+>   are ignored: a failure leaves the transfer counter stuck, and a failed
+>   transfer is reported as a sample. Handle both.
+> 
+> - read_raw takes the sample out of rx_buffer after releasing direct
+>   mode, so a buffer enabled in between can overwrite it. Take it while
+>   direct mode is still held.
+> 
+> The first, second and last were found by review and not reproduced.
+> The third and fourth were found by review and reproduced on an emulated
+> device only.
 
-commit 300bedb0d4e07bfd158958e39e058f268b697a0b
-Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+...
 
-Bluetooth: add a quirk for controllers that cannot enable Secure Connections
-
-This commit introduces HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT to skip the
-HCI_OP_WRITE_SC_SUPPORT command on controllers that advertise BR/EDR Secure
-Connections in their extended features but reject enabling host support. It
-also sets this quirk in the Amlogic Bluetooth driver (hci_aml).
-
-> diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-> index 1641d879dbda9..bcbe76c84d1b5 100644
-> --- a/include/net/bluetooth/hci.h
-> +++ b/include/net/bluetooth/hci.h
-> @@ -375,6 +375,20 @@ enum {
->  	 */
->  	HCI_QUIRK_BROKEN_READ_PAGE_SCAN_TYPE,
-> =20
-> +	/*
-> +	 * When this quirk is set, the HCI_OP_WRITE_SC_SUPPORT command is
-> +	 * not supported.
-> +	 *
-> +	 * This quirk is intended for controllers that list BR/EDR Secure
-> +	 * Connections among their extended features and then reject the
-> +	 * command that turns host support on. Without it the failure takes
-> +	 * the whole of hci_dev_open_sync() with it and the controller can
-> +	 * never be powered on.
-> +	 *
-> +	 * This quirk must be set before hci_register_dev is called.
-> +	 */
-> +	HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT,
-
-[Severity: Low]
-Is the comment stating that this quirk must be set before hci_register_dev
-is called accurate?
-
-In drivers/bluetooth/hci_aml.c, aml_serdev_probe() registers the HCI device
-first via:
-
-  aml_serdev_probe()
-    -> hci_uart_register_device()
-      -> hci_uart_register_device_priv()
-        -> hci_register_dev()
-
-and aml_setup() sets HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT later inside the
-hdev->setup callback during hci_dev_open_sync() -> hci_dev_init_sync() ->
-hci_dev_setup_sync().
-
-Should this comment note that the quirk can also be set in the hdev->setup
-vendor callback?
-
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index a92a81846e9df..f1dfef81ca961 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -3419,7 +3419,8 @@ int hci_write_sc_support_sync(struct hci_dev *hdev,=
- u8 val)
+> static void ads1298_rdata_complete(void *context)
 >  {
->  	int err;
-> =20
-> -	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev))
-> +	if (!bredr_sc_enabled(hdev) || lmp_host_sc_capable(hdev) ||
-> +	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
->  		return 0;
-> =20
->  	err =3D __hci_cmd_sync_status(hdev, HCI_OP_WRITE_SC_SUPPORT,
-> @@ -5040,7 +5041,8 @@ static int hci_write_sc_support_1_sync(struct hci_d=
-ev *hdev)
->  	u8 support =3D 0x01;
-> =20
->  	if (!hci_dev_test_flag(hdev, HCI_SSP_ENABLED) ||
-> -	    !bredr_sc_enabled(hdev))
-> +	    !bredr_sc_enabled(hdev) ||
-> +	    hci_test_quirk(hdev, HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT))
->  		return 0;
+>  	struct iio_dev *indio_dev = context;
+>  	struct ads1298_private *priv = iio_priv(indio_dev);
+> +	int status = priv->rdata_msg.status;
+>  	int scan_index;
+>  	u32 *bounce = priv->bounce_buffer;
+> +	bool buffered;
+>  
+> -	if (!iio_buffer_enabled(indio_dev)) {
 
-[Severity: High]
-When HCI_QUIRK_BROKEN_WRITE_SC_SUPPORT is set, skipping
-HCI_OP_WRITE_SC_SUPPORT in hci_write_sc_support_sync() and
-hci_write_sc_support_1_sync() leaves LMP_HOST_SC unset on the controller,
-while lmp_sc_capable(hdev) and bredr_sc_enabled(hdev) in
-include/net/bluetooth/hci_core.h still evaluate to true:
+> +	/* Only changes while no transfer is in flight */
+> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
+> +		buffered = priv->buffered;
+> +
+> +	if (!buffered) {
 
-  #define lmp_sc_capable(dev)     ((dev)->features[2][1] & LMP_SC)
-  ...
-  #define bredr_sc_enabled(dev)   (lmp_sc_capable(dev) && \
-                                   hci_dev_test_flag(dev, HCI_SC_ENABLED))
+Strictly speaking you need to assign buffered to make any compiler not being
+confused by the scoped_guard(), which cases IIRC we used to have the past.
 
-When userspace (such as bluetoothd) issues MGMT_OP_SET_SECURE_CONN,
-set_secure_conn() or set_secure_conn_sync() in net/bluetooth/mgmt.c sets
-HCI_SC_ENABLED:
+...
 
-  set_secure_conn_sync()
-    hci_dev_set_flag(hdev, HCI_SC_ENABLED);
-    return hci_write_sc_support_sync(hdev, val);
+> static int ads1298_buffer_postenable(struct iio_dev *indio_dev)
 
-Because hci_write_sc_support_sync() returns 0 under the quirk,
-set_secure_conn_complete() keeps HCI_SC_ENABLED (and HCI_SC_ONLY if
-requested) set, leaving bredr_sc_enabled(hdev) true even though BR/EDR
-Secure Connections was never enabled on the controller.
+> -	return ads1298_write_cmd(priv, ADS1298_CMD_START);
+> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
+> +		priv->buffered = true;
+> +
+> +	ret = ads1298_write_cmd(priv, ADS1298_CMD_START);
+> +	if (ret) {
+> +		scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
+> +			priv->buffered = false;
+> +	}
+> +
+> +	return ret;
 
-Won't this cause callers of lmp_sc_capable() and bredr_sc_enabled() to
-misbehave on BR/EDR links? For example:
+Before write_cmd is called the buffered might have been triggered. Is it okay?
 
-- In net/bluetooth/mgmt.c, read_local_oob_data_sync(),
-  read_local_oob_data_complete(), and read_local_oob_ext_data_complete()
-  check bredr_sc_enabled(hdev) and issue HCI_OP_READ_LOCAL_OOB_EXT_DATA
-  instead of HCI_OP_READ_LOCAL_OOB_DATA.
+...
 
-- In net/bluetooth/hci_event.c, bredr_oob_data_present() and
-  hci_remote_oob_data_request_evt() check bredr_sc_enabled(hdev) and report
-  P-256 OOB data or send HCI_OP_REMOTE_OOB_EXT_DATA_REPLY instead of
-  HCI_OP_REMOTE_OOB_DATA_REPLY.
+>  static int ads1298_buffer_predisable(struct iio_dev *indio_dev)
+>  {
+>  	struct ads1298_private *priv = iio_priv(indio_dev);
+> +	int ret, ret2;
+> +	int rate;
+> +
+> +	ret = ads1298_write_cmd(priv, ADS1298_CMD_STOP);
+> +
+> +	/*
+> +	 * The conversion in progress completes and raises DRDY once more.
+> +	 * Wait for it and for its transfer before the core tears down the
+> +	 * scan.
+> +	 */
+> +	if (ads1298_get_samp_freq(priv, &rate) >= 0 && rate > 0)
+> +		fsleep(2 * DIV_ROUND_UP(USEC_PER_SEC, rate));
+> +	ret2 = ads1298_wait_rdata_idle(priv);
+>  
+> -	return ads1298_write_cmd(priv, ADS1298_CMD_STOP);
+> +	scoped_guard(spinlock_irqsave, &priv->irq_busy_lock)
+> +		priv->buffered = false;
+> +
+> +	return ret ?: ret2;
+>  }
 
-- In net/bluetooth/smp.c and net/bluetooth/l2cap_core.c, smp_register() and
-  l2cap_conn_add() check bredr_sc_enabled(hdev) and advertise
-  L2CAP_FC_SMP_BREDR to remote BR/EDR peers. When a peer initiates SMP
-  pairing / Cross-Transport Key Derivation over BR/EDR,
-  smp_cmd_pairing_req() rejects it with SMP_CROSS_TRANSP_NOT_ALLOWED
-  because HCI_CONN_AES_CCM is not set on the link, and smp_recv_cb()
-  disconnects the ACL connection with HCI_ERROR_AUTH_FAILURE.
+The code lacks of comments on why in all error cases (either first one, or
+second, or both are triggered) it's fine to continue. And what will be the
+meaning of the returned value in all three cases?
 
-- In net/bluetooth/mgmt.c and net/bluetooth/hci_debugfs.c,
-  get_supported_settings(), set_secure_conn(), and
-  hci_debugfs_create_bredr() check lmp_sc_capable(hdev) and treat BR/EDR
-  Secure Connections as supported.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Should lmp_sc_capable(dev) in include/net/bluetooth/hci_core.h instead mask
-out the feature bit when the quirk is set (similar to how le_coded_capable()
-checks HCI_QUIRK_BROKEN_LE_CODED), so that both lmp_sc_capable() and
-bredr_sc_enabled() evaluate to false across the stack while still allowing
-HCI_SC_ENABLED for LE Secure Connections?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025192338.2095=
-74-1-christian.koever-draxl@student.uibk.ac.at?part=3D1
