@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.117
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792966576;
-	b=a3LyLViNHWlPCsqyoC8DG1iAksl8rff0Bl1aAlurV0TOEVXTiXyOIEW9lqW5/ge0MJ77
-	 /mentVWU5ls5w0XB42eAHRq427AlgG/1jW5Njt3OFDsYuhb8N/BnF4lL014VUsNyXEGwO
-	 XQxH/pKpXPP9EnqPSrkA5VJiCLykCgUqRhkKSFLN9EqMAdwmUgA/DKiu9SrSXoeYY5Hfn
-	 jCQrUH4Ozcu0plrZtwciMQSdAkAI03KFTHe7GAtM++MlHniEaXqNVvANHHOzmzYs1x+ck
-	 1WBh5fJ+Pij6T4m2+SrC63AiD8UoRC6tzjBnfz8EtPKrH74qGCozHodsLtQUdftfBgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792966576;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DMnV/6aSn1ZXSp1qQ4XFqAj3ot4W3oi4+OfSLRlndkc=;
-	b=l9ESOPcnwroe3muqEBwjGOavlWGCY+tGJ5nb1gjQfyNvW9yoXE/PjNc/8sxLQIE9QmSj
-	 89FmhLxnuudQQ4uNeXA+33mN3uGMPcztwKMGbrQ+qvLDnthtjrf4vktEZHpNnE9tir9Qj
-	 V6e7E+ljRY+2GUZyoq0XPLn1+ywB4GvlU27WZvlJZ+pv/eFr/z9IybaNo28hUsVB8o6oN
-	 SFTc9dB0Ejz/LBeDnCSAMI6dPV/QTYALm4Yzt3ThNT95NKriE7KmWPaW7bu7Mx/WCB8dx
-	 S9sqGUjGme+PHCt6NiATWG4fj9ToN8L2HWi2whKOtrlLIEB9ws6QcFGSSOaG553LdYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=FzFEwH16;
-	arc=none smtp.remote-ip=109.224.244.117
-Received: from mail-244117.protonmail.ch (mail-244117.protonmail.ch [109.224.244.117])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792967297;
+	b=zxn6upMDXo53SDiin84GqAf2oCHuMZuku3TZHpv6eGeYUH5ruQ7T6WLuS4fd9PSwTmuP
+	 fPFPhQdjip6gSkz1jMrQTloOGCiFaWCtKq0oT+bxXggkpkCoGstD2x0reB/FFCzgWb2fg
+	 s+9ycLQzgoaC/8t90tFVxVK5PlsGwY/XbNWtCW5bVv5eyz6Xoc4ecTRmmgdJmQnypa1CD
+	 77ofBS6omQHZkoi7kwSHxG1fGiYpnAP4H+8lfk8NhygOD5rGlpxAGmUMvxhjSATx/LJ2F
+	 MEzIGTiCTOS8ktmXF3DKIjqOewTwaBh0ViIxlZnkWgYLMGIgPV+mhdxsqYCVgpe5isw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792967297;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jBGXedtFj5yMPt41b+rMsSFilMVowbpHnBCDEXrvcwA=;
+	b=U5kDu0XUXq2/3vCwMeKtX1+MRlQaqW5j11wMYlVDi0Wu6Mp6W97oKpwouYThen7w1zs1
+	 Dn93BBOuz+DaI2S6M9KE4oOxIgvgKtn4pcOZtXL9CUqifCBFUICGC5t9mLhUOFi/tgaBW
+	 I/YhuTiNUBEr2o9Nqs0LIM5m8TU21GYuai4TOKEYLHjknArfY0yNfuMQI9EsuPHRnINua
+	 jDGz8TpgMsuQAv9SU1p358o3m867Rqu21BCo78MM24teN66c8qIW2cMY2Citk72rdfCvY
+	 ivCwbU23pgd47hkN+wUuA61UIRZtROJbE7qmYZ7PzVPmgsSkprc6oyGswPqmkALna4Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5kAK9eB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0595606A31A;
+	Sun, 25 Oct 2026 22:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5kAK9eB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792967296;
+	b=XC4d7REHp8iXlwAsKu7/avsurvknEWfmddmFuOgfdvAOhue6IyVNhELiObSVrxMZLKhb
+	 e2Dgyl6OUbHuLZbDlTCYFRrepE03ylPW3zSukBChXaxXjyyneVNvpvCkKf5F7eZqjodCi
+	 6fRNpFVtw6ScGYL8lz5q8iRu8/QQ92GK1hMAiiBF9+w86pzveFJvA8lsJZpRdi0XOxrxZ
+	 0m+8LJzQz+P7BPILXxCEFndlUqx0x/rVREY0QI8llaY7HQ3cFRk5/SWSAWZ57m0RMp7O9
+	 qCh1TyvmqFgYK/3ClwyrQsDNv8yq/GoL8pMd/vpMZHliwCGTwPURxxl+1gCa7IDNrkw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792967296;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jBGXedtFj5yMPt41b+rMsSFilMVowbpHnBCDEXrvcwA=;
+	b=d9OuDLD69yhAbwtuJS4JeZ4KLl8zEAVloxj1AyrY2SOqnAF1unRE4i51QHz8tz4l26A9
+	 T4vsuMrK9kULagEwYpbp2y2glGvZB0c6iALpUMRDJWrpNCWpfsv4NObSqg8jZ+znZnkql
+	 rd5MRysJlkUG83LU+1muu8Wm/rzGmOGTFcOhTRwxkmnCpgpkerPMtcYfck83r3ECG5i79
+	 h7iMjyej4pjme1KSFgTdaV/P7j2W9k1dt/TJL7PRWEu4OBPrrmT19CGcl9qceEyl4xqrV
+	 u5el6MEVBBQ5ckKOIjMGQehZbZy8e1zxh0O4V/kexArxf31PfeZ3tJ6mtYACPoefiiA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4111606A31B;
-	Sun, 25 Oct 2026 22:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4111606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=FzFEwH16
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792966573; x=1793225773;
-	bh=DMnV/6aSn1ZXSp1qQ4XFqAj3ot4W3oi4+OfSLRlndkc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FzFEwH163Kethc0JpXcJAw5b98NkdekC+gczB91jtDHhg4YCXncWSKMzoePU73eyk
-	 7xecNkYt7sny7Wex8uMGZbMIEREPOWh4XB/51TSqoWYyoNW91N1mjTKv3eXaASVoPN
-	 btMettP4GvM5nzts47lCEf28kyOCHfNWpkBTsObcGDbailPlkZ6Bod1Bwiabi4ZCkb
-	 lQz7LmGq9e42ZEMKa5IAwGvwuQTkuOVEQ11UW538sn6z5e3y2QSt1v7Q7q0h9rFKyf
-	 W0qbuB1uYzSZ2OCCXNy47a+YmNZcOI5n2s8YdxVVKPfIihltjF4QGTO4CLisPeWHij
-	 V+1N3Z+XvM3rA==
-Date: Sun, 25 Oct 2026 22:16:07 +0000
-To: Liviu Nicoara <lnicoara@thinkoid.org>
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Michael Burch <me@michaelburch.net>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, Neil Armstrong <neil.armstrong@linaro.org>, Stephan Gerhold <stephan.gerhold@linaro.org>, linux-hardening@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-Message-ID: <tgnlBNUOnW42EiLCz_akAzeeWkNknNtC0L6XgPu22x5snLwk-jvS8K8byxz0LVhf-i0Zi5deKpU5UuE0QqzqMOZHx6OqLcpSllgj6JyZAAM=@vinarskis.com>
-In-Reply-To: <20261022192709.12149-1-lnicoara@thinkoid.org>
-References: <NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com> <20261022192709.12149-1-lnicoara@thinkoid.org>
-Feedback-ID: 158356072:user:proton
-X-Pm-Message-ID: 18a3e30b6d997ba5a1b9c6346f460aaab43f928c
+	by smtp.kernel.org (Postfix) with ESMTPS id ADC341F01825;
+	Sun, 25 Oct 2026 22:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792967296;
+	bh=jBGXedtFj5yMPt41b+rMsSFilMVowbpHnBCDEXrvcwA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=P5kAK9eBwYKnFill6BjwP6J5P4mWqL6AJoEL6L/5/hb0XJmGmntRQHvPHxCtTap3S
+	 CXYxBS/aaa3Qh6/c7e93VHRRVxBe8/neyZOfRfgAG0GhIzd5vXdYKQoxLVX53z7NLW
+	 6eB8qFsMgPXCqOs2jUTzTOU5H9fjDiJNH9HyKxO2JVE/UDr7+dkmhJ9gwcGkv//PET
+	 NlZUIxHY9vrCYlQ2q61v2CXh+JBL4K9j19ISbDziC9t9RYkeCZb3N380iKRiOqQ6g6
+	 K3UjFUWvSKVo2sz/eJ0Ji/OlUSN7BJrpX8tLZPmbnE6x1G2RTXUR8uRGkwSGq5ttxD
+	 cYVXcko4cV9ow==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 267BC44ADF;
+	Sun, 25 Oct 2026 22:28:15 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 25 Oct 2026 23:28:13 +0100
+Subject: [PATCH] arm64: dts: qcom: sdm845-google: Move panel pins into
+ common
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,127 +83,147 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-pixel-panel-pins-fix-v1-1-7cde6f7ca861@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QoCIRBFf0XmuQGdKKJfiR5sd9wmwsRpF0H89
+ 7R9uXAunFNBOQsrXE2FzJuofGIHdzAwPX1cGGXuDGTp7CydMEnhNyYfx0pUDFKQOBAdw0wXstD
+ VlLnf/+ztvrOujxdP39GC1n6ehVk9eAAAAA==
+X-Change-ID: 20261025-pixel-panel-pins-fix-2ef223fd2820
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj <foss@joelselvaraj.com>, 
+ Casey Connolly <casey@connolly.tech>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Vinod Koul <vkoul@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Petr Vorel <petr.vorel@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2816; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=sZieprxE4e1RIG8z6t14P5reed770kk+50G6rXBQCqo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq3oJ+en+4/21fx6ETZOMR/4ZxYH/0jNcVLy9fa
+ XhiVr9xT02JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCat6CfgAKCRBgAj/E00kg
+ cnu8EADJgEy9gtlVyB/MBlIDisr8uSn3q7V8RQbuFp0zlCmixuOczwSqLvqdcVHmJD48cWluUs5
+ r1WRvjRyE5Hs9fPCc6yzRGzbAW0ALINPMhInIzRRikLkJTz8Tc4N/0xorCdc6zFfIB412Iv+FZR
+ +LThREZvwGYo+EombXjyJNybm7CDCtXgWR8s3+u8UyQVY7Jb3r+p9dq3pq4WcCX8ars02wOHu7a
+ Qxzmupa5ed/WXM3R1t/q/bAbhq1R+DQjat+ACWHO4pmQid3W5W52SXPlyHQaJdrx7d9TIFH92hA
+ 6IJnSCtGTyRks0jNrCLq+B7muymD1dN/Bfkyh0SMu6wQBKwAvZtarwNxeuQYr4kepyvWcVTmRZi
+ 8HrYsbt7swrPBDbpN4uV9UUmWZM6J2MKfTYAQYcIIVD+fRay4pJ2mMKZDbfP3rrFhoYnYSPKqtj
+ AkeTVysMqInbeezc1Vq8wVYeAP8SvRG3MkPAWb7R5JDkZpcru5nFjYRCnVHZAwbbO0x2270ffh5
+ WX3h5BuFNanyxkiWccaKlIy5YDx07TL6kyOSZLpfmGOdxeLhPArc4hZNgci0/tzbCtUCNU5ESg5
+ fP11dU6xtEXVyzUSYNPgn9eGZDQWPjnhoPw7kVr3U16rRRiRfNmc0iUTo1bd39nDVDxAmy4Pfsk
+ hZyasE5jYS9MZbQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
+
+From: David Heidelberg <david@ixit.cz>
+
+Both devices share the pinctrl configuration.
+
+Fixes: a678adbf2d22 ("arm64: dts: qcom: Add support for Pixel 3 and Pixel 3 XL")
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Retained R-b from previous series, added Fixes: tag.
+
+https://lore.kernel.org/all/20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz
+
+While it's not obvious from current DT, as we upstreaming Pixel 3 XL
+bits, we already know this block was misplaced.
+
+This will save us some unplesant rebase conflicts while we upstream the
+rest of the panel for Pixel 3 XL and other bits.
+---
+ arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
+ 2 files changed, 16 insertions(+), 18 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index fa89be500fb85..a000c75494f1c 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -61,29 +61,11 @@ &mdss_dsi0_out {
+ };
+ 
+ &mdss_dsi0_phy {
+ 	vdds-supply = <&vdda_mipi_dsi0_pll>;
+ 
+ 	status = "okay";
+ };
+ 
+-&tlmm {
+-	panel_default: panel-default-state {
+-		reset-pins {
+-			pins = "gpio6";
+-			function = "gpio";
+-			drive-strength = <8>;
+-			bias-disable;
+-		};
+-
+-		te-pins {
+-			pins = "gpio12";
+-			function = "mdp_vsync";
+-			drive-strength = <2>;
+-			bias-pull-down;
+-		};
+-	};
+-};
+-
+ &wifi {
+ 	qcom,calibration-variant = "Google_blueline";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index f1379857e2742..d54cb47cdf95b 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -473,16 +473,32 @@ &qup_uart9_tx {
+ 	drive-strength = <2>;
+ 	bias-disable;
+ };
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
+ 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+ 
++	panel_default: panel-default-state {
++		reset-pins {
++			pins = "gpio6";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-disable;
++		};
++
++		te-pins {
++			pins = "gpio12";
++			function = "mdp_vsync";
++			drive-strength = <2>;
++			bias-pull-down;
++		};
++	};
++
+ 	nfc_default: nfc-default-state {
+ 		enable-pins {
+ 			pins = "gpio25";
+ 			function = "gpio";
+ 			drive-strength = <2>;
+ 			bias-pull-down;
+ 		};
+ 
+
+---
+base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+change-id: 20261025-pixel-panel-pins-fix-2ef223fd2820
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
-
-
-
-On Thursday, October 22nd, 2026 at 21:27, Liviu Nicoara <lnicoara@thinkoid.=
-org> wrote:
-
-> On Thu, 22 Oct 2026 17:07:25 +0000, Aleksandrs Vinarskis wrote:
-> > I do not think the left charger you identified is correct - how did
-> > you arrive to that conclusion? Curious to compare to my method.
->=20
-> I am afraid my method was simpler and coarser than yours: one run per
-> port, nineteen samples ten seconds apart, the charger feeding the
-> system only (battery at 96 % and not charging), on a 7.2.6 kernel
-> with all four GPIO channels in one DTB. The deltas over three minutes:
->=20
-> Channel                Left charger   Right charger
-> 0x14b  AMUX2_GPIO          +1.6           -0.9
-> 0x145  AMUX2_THM           +0.1           +3.4
-> 0x146  AMUX3_THM           +0.8           -0.1
-> 0x14a  AMUX1_GPIO          -0.2           +1.3
-> 0x144  AMUX1_THM           -0.1           +0.2
-> 0x148  AMUX5_THM           -0.2           +1.2
-> 0x147  AMUX4_THM           +0.1           +1.8
-> 0x14d  AMUX4_GPIO          +0.0           -0.0
->=20
-> The other channels fell or held while 0x14b rose, so it was not the
-> board warming as a whole. But 1.6 C in three minutes, against your
-> 2.3 C in ten seconds on the right, might mean that 0x14b is a sensor
-> somewhere on the left side of the board, not necessarily on the left
-> port's power path. Under SSD load it moved with 0x146 and fell with
-> it in cool-down, which puts it close to the SSD. "Left charger" was
-> my reading of the sign pattern. Your ten-second test is probably the
-> better discriminator for a sensor on a power path. If nothing answers
-> the left charger in ten seconds, the simpler reading is that the left
-> port has no thermistor of its own among these seven.
->=20
-> > pm8550_gpio_02 does NOT clearly follow. In your test you have
-> > waited multiple minutes, which is enough to heat up a larger
-> > area on the motherboard.
->=20
-> Agreed. In your left run it was the only channel with a positive
-> delta while the board drifted down, which is the same weak signal I
-> had, and no more than that.
->=20
-> On the two AMUX3/AMUX4 GPIO channels: neither carries a thermistor
-> on this unit, and your tables say the same for yours. 0x14c reads
-> 130.048 C on every sample, the last row of the conversion table,
-> where the driver clamps a voltage at or below the lowest it knows.
-> Its input sits near 0 V. Windows' ADC configuration sets up only
-> PM8550 GPIO3 and GPIO4 as analog inputs, for AMUX1 and AMUX2, so the
-> pin behind AMUX3 is in its digital default, and PM8550's low GPIOs
-> read back here as inputs with a 10 uA pull-down. 0x14d held 34.7 C
-> within 0.1 C through both chargers and two load runs on this unit,
-> and 35.8 to 36.0 C through every one of your tests, the hairdryer
-> included. That is a biased pin, not a sensor. Both nodes can go.
->=20
-> > ADC5_GEN3_AMUX1_GPIO_100K_PU - Likely "lpddr5_therm"
->=20
-> I cannot separate 0x14a from 0x144 and 0x148 by heating. Under a
-> one-core load reading a file from /dev/shm they rose 14.0, 14.4 and
-> 14.2 C in lockstep, while the SoC's mem TSENS zone rose 20 C. Your
-> RAM stress warmed every PMIC die by 1 to 4 C as well, so it does not
-> single out 0x14a either. The three sit with the SoC; which one is the
-> memory I cannot tell.
->=20
-> > Looks more like "sys_therm5" is the actual keyboard thermistor.
->=20
-> Consistent with what I see. 0x147 is the coolest of the seven, 29 C
-> at idle, and nearly indifferent to board loads: it gained 2.0 C where
-> 0x144 gained 9.2 under SSD I/O, and 2.5 C where 0x144 gained 14.4
-> under the CPU load. A sensor away from the board, on the skin side,
-> fits.
->=20
-> On 0x146: under four minutes of direct-I/O reads it rose 8.2 C
-> against 10.0 C on the NVMe's own sensor, the largest share of any
-> channel, and it fell at once when the load stopped while the
-> SoC-side channels kept rising. Under the CPU-only control its share
-> halved. I would keep "ssd_conn_therm" on it with partial confidence,
-> but I will not argue if it goes with the others.
->=20
-> > Alternatively, I am leaning to drop the labels for anything we are
-> > not sure about...
->=20
-> Or just give them pirate names. Jk.
->=20
-> Agreed. 0x145 as the right charger is what both of us measured.
-> Everything else is a guess until the teardown. Numbering sys_therm
-> from 1 matches Windows' SYS_THERM1 to 7, so that helps too.
->=20
-> One consequence on my side: the 9345 thermal-zones patch
-> (20261006185557.23016-1-lnicoara@thinkoid.org) names its zones
-> chg-left on 0x14b and ssd on 0x146. I will respin it with neutral
-> names for the zones that are not settled, so the two patches agree.
->=20
-> Happy to test a v7, including a lid close on the EC interrupt line,
-> which my v6 run did not cover.
->=20
-> I love this laptop, but I will not open it up just to pinpoint the
-> right thermistors' locations.
-
-I went ahead and tested thermistors against their potential names.
-Finding are available here:
-https://github.com/alexVinarskis/linux-x1e80100-dell-tributo/blob/master/de=
-ll-xps13-9345-ec.pdf
-
-TL;DR: with your correction of AMUX GPIOs to 1, 2 instead of 3, 4 most=20
-of the proposed labels are correct, except for left charging controller.
-This thermistor is quite far away such that IMO it cannot be associated
-with the charger. This perfectly explains the difference in heating up
-rate we both observed.
-
-I will adjust labels, address rest of the comments and respin series
-shortly.
-
-Regards,
-Alex
-
->=20
-> Liviu
-> 
