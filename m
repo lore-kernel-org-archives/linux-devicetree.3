@@ -1,91 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792951364;
-	b=cKJVRwtTEKOJvG+zHdwEYq0l9oTyh3vl2woRsfD7YILz7EkOMC0JIn0XReBHfqvxUBXL
-	 0TTAxQwHO7N4IQ+g68f89k/7z9atCStxYZhzkanK+PNV/IkXp6nwmrN+CfqpjAGva/FC1
-	 54Ryzb5kcq0it6pmHdgYO/glXxhxEnTgtjw3XLB6vxhEzVsCHU3FSd/RuyTJea40jwFDl
-	 Isa0MluA0wq95dF53y4gU3QSAgQ1hJWLXrCfEW7dXX80KrqpENy6NS2v5ATMiqvlxeAyV
-	 nU92mR2Fr32vGMzQz/lUYnpcxkX4iCfnQBsE6REvcl5zgzUpmiQz9vTY7r3Byz45hUA==
+	t=1792955788;
+	b=x9GsoK7Cc9zxf4eZwV7Fh6kvoam4g+O3N7YpkXOSi+N8MBG+YONttiC3+wpgnHukUzUM
+	 2PXxwW5Un8dqiMf4amONIvtvbll/ZXIHT51RirMz6ij2izgDbBXnyk85JYErGDdD3IG4J
+	 /V7uM/UyyHjLbOApt1yjam+fcnsordhonb3MhCW8JUTL+vpgPM2KcVWIC1mkTptCNlf+Z
+	 mxNlHZD73qm1tG3JAZ4/u8RWq29NbLXwRUEhPZO7WYd9HxUXtRJn+XLwKb25dJBgudBPT
+	 l6QmZHnA8DcO4kMlpV9ttlfhOnFpil4OIQN2je+jZatMsSReOPMw/FeDMKi308z+wZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792951364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792955788;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=uvWB+cWQ5tAH9q/mNwHxkCim2VtHEwZoSQ5glTQJ+xw=;
-	b=AtfYNzs1wWopv9l8zsG0pZdBLpwSQZQE1F6Ar3yJcL2hNab1qwpf0224oBGJnejIQbPG
-	 k1gu/SuYDuVaGdJsxUPig5HQqEGRfYy2bGraCmCxkrhLUknXPzrUDck2cqroqsDmttVhD
-	 Mvhv0Tllv1S06KQ67nrMhgarSb0edZJneRU/vzRMi24Cqd9c0EXQK1zvNCXkWOFGZckeJ
-	 B+ejQUfTNB5eB1ZadLPihDf8SKUZFp2TSyM0a1TNnck+4UGV7tOyv2Sp6l8YecPpkQ+6+
-	 rCGQMnkGM9u/yreIKi15ifrc82cO++w/vIRS9SAZz+RuKCA7IvTd9azt2VJxriccX6A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dsKEoWn0J6eZRSfAvhzwhCyUkWA5eiqJ4y72mpKVBNU=;
+	b=CZlYt1hapkRwCAPK39qgHknMzj+FpweB4p0/USWBmMK/1fTtYKfW6QdM7PY9RwXiiLO0
+	 iApHibhcjYTXbFOzLCjVLxNLy/0SJZVM3Z8U1Q/BKvdKygNI1dnwFR9MRB11nW912zQl/
+	 1JqD18RPAkVH1Rvnz5goNWu2XB5a5o3QtbLMrTON4nc7mCFReq4BXQGIWGlOK+vY1IcwH
+	 +JPOxXd523jd4Dt8jeJhXPzXt0AuFLDG6+CD7RksgX/eRrkyH6Hzmix10m9inJXZf9Qbz
+	 +9JwSE/WCLgfSqIoMv47hWc9RnmM+2KwZ8jVOAOCxkpfmEDG5R1UnIdE27Sae3AiAmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GIkf9kAK;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VTvXvSik;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B11606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 18:02:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B11606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B093606A31F
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 19:16:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B093606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GIkf9kAK
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso20392455e9.3
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 11:02:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=VTvXvSik
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e4831c028so731775f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 12:16:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792951362; x=1793556162; darn=vger.kernel.org;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792955786; x=1793560586; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uvWB+cWQ5tAH9q/mNwHxkCim2VtHEwZoSQ5glTQJ+xw=;
-        b=GIkf9kAKGm2WIoQZEexvqWpzEFiyxVpWcQAuI3yizHai3paX8FMUWCNjw55di2kcHn
-         ZjPV3GRiHH/nM/w+5R47bfWoOBVWFfWg/I4U4PkCP9LohxuVNWrCoHDC3Wcb35/chDwv
-         9W4Ijvtfa/sw/xt1EANuaFfZXzTWo2nrpyc9QHlWbuAIEiOyizPIqT5Mx0Qqyg/lXyn6
-         y32FlV6Z221tY4FkiHXtnHHtY2a58mq/PYVR87oU8kg+AkbiWbt8HojPdS5hggv8WOD+
-         fz3r8Z9040gzO45WC9tcOEcNo5Ack/73m3aS8Wc5hQtQEF8CJoX6447XoP04Ocvd+bBE
-         MrYg==
+        bh=dsKEoWn0J6eZRSfAvhzwhCyUkWA5eiqJ4y72mpKVBNU=;
+        b=VTvXvSikLfJGslamcvpxzCJTu9WkCqjiJqpiEmRb3NyqMiAEDAZqGiMJOtgonAhvVe
+         ghVqAx1FnE16xEaww+LmUM3JTFBWGkrjBFsQlyG/IdXi2YGFwzny5206DDVamb8N1MGh
+         cAfRYHnoGVF63+UjNmuJm0Sn3D99fSfvJFaUV2DjMknY2UjvCIJL4FyhRSOrznDeFOBV
+         liWh36MSsxs/4AcMi2HmaxivN7SLlfqr/r5HQIp+4u0Asqk/CSyU+BluZIGLCmNB28TC
+         YEoChXByW7WkhkxR9+w3vExNtNv2TtfBR9fafQblnxFRZfD7O5NPhGQo187Ak4APjsFn
+         sBxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792951362; x=1793556162;
+        d=1e100.net; s=20260707; t=1792955786; x=1793560586;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uvWB+cWQ5tAH9q/mNwHxkCim2VtHEwZoSQ5glTQJ+xw=;
-        b=V7xkUb0VAPnNJN/mmLiqjw6Fyj1E7obkpKvWys8xtdQuGS3MRhcaFIFL8yObXdVQoe
-         8DA+3RhE+edn2QXS1MgguLsXuknik0YPyi/2nddw5PR6qMiTEfsO1Un0nzjWXLq1BGPU
-         jU/n2MuiRvlsDyd9TV1DjVS0C9gn9j45O5WCaAlmw00/bFr0XvIL86yjAC6wDPGfhWXe
-         8q8qh6+f3mqVesMkGU07H7iJU03G9sq1M68ZfA2UQdD9KNffnzcuLaGCCtEiCVXCLapV
-         zEfIG9UckGmn0D+j3QaBVFYyc4a1cLAkYgGP/RCi7LFzFZc0tidHfNhl4uVMPQTxWun+
-         X7mA==
-X-Gm-Message-State: AFq9FYJb6hOF/lI72OpThWQmyNXDYVgLLXjvzmPUzQn6QipF5QSua4M+
-	L/YOa/m8oGvrSIHK3h3xvemEPmqYKBPIkBFa8qrUQ5bgRRBd9sEQ3+wI
-X-Gm-Gg: AYBFou1KNpmtX0UPpTQCvKAS3ASmwXrOY3A7CB1S8Tea/OzhYLkAdjAKyKovz/z5nqZ
-	gG09lV+a5TbFrPywkL6GoLelci7+ChhTrXldBV0MZVHR01FtW05JDkOVTDWTW6ryw8AGuKXg7Mu
-	Zjo5SJUBNridvEBnUkkqOATyUdQ43FJymgpSwG8P+NOGVS8s64aWn5cxgCyMOJzogiRuuKbmPRH
-	XJrTZwbRVzKdZIsc+0xne8/98FqjMmhzVLnZCl4X4cpT+1US+84EPcr9PilNRcskdUOqN2y4Cax
-	BCtADuQ/xqy13cZ67EV7bH8tblIjfR88XYKZD8zC9761fDVN3u+6JOM8MNSyC0eXcM84OldD08I
-	PtzJxxPymb9EQ2/G3pVvd+TwjTXmLga4bwIplkR+lWn1yXPPnRV55EdpcUjppDQv0V2zWrhNZkx
-	FiqDV34xL3vC9+LyUJapN6Xz5GxJWw8eprUkYsA26dKjjThJ42UF1lv/sHZxERdU4cYOQz9Had7
-	UOdVTJieqXh3VSSDu0W+inHwqg5Jff9Lz1pmptbt4Lnbq5MVO0wET7/KtryawolknWDylF7VC08
-	V3l8w7RbenlVRydzYRf7TCpgy2BFPdBODvsBRSefxy0FKNOLcJCqeDOLIwDn53MAE67rPSRD910
-	QhriHLVcz4eHnAV4z33VD9UkmWTlKCpN5Sz6BB+cYzwGctJxzDqf9z4/8UovQsbw3gPg=
-X-Received: by 2002:a05:600c:4e87:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4a35aca7643mr99183135e9.25.1792951361603;
-        Sun, 25 Oct 2026 11:02:41 -0700 (PDT)
-Received: from localhost ([2605:59c1:3500:c210:70b0:9267:4b0f:4193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm367961345e9.1.2026.10.25.11.02.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 11:02:41 -0700 (PDT)
-From: Selby Mashiki <mashikiselby@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org,
+        bh=dsKEoWn0J6eZRSfAvhzwhCyUkWA5eiqJ4y72mpKVBNU=;
+        b=XCFGa4BuP6G2XPTk4eoixtdle6miffmj1MZBvtgAab5BMADRfpdWBQ5uraMpNEfmo3
+         hoXQugeBBoiu//+3r42mvaGXNefbIOlV1hMAmKkcNrr6O/NEOO8EvngaTyPvgfbWhUnu
+         T8H93GtWZeJ7KWC93z6TLl46KFzIbqWDS4tEX3Fhr9UpB85e74v7S/EkP9W9flQKxtyy
+         vj5QRSoAK7C5Pr2hqyL1kckmDEby3pOS4WQH82gf6ZnVMBInCMx/Nq6JvFq/CX6HgR+P
+         Il+i8TeQIHnT/sZOeN5f3stEk4oi8BkvyOrz8/UroLGLT5WHgjdJ5GykBM9AMNtwdKCi
+         6pzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNQki6Fo8uRzj1jSTmYq9h0bR90oXhJoVYxw3ojtKUqAXM1QcbuuxobshZAY9+FfFpUb+VebbeszzZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGPfhure3YDd/jSwL9iylsnzIZftN/pkRXZCBl47O25NcvwmrD
+	/t0k3r8S+shMbRcbhc1NrakL2YecH2LUXSj1H8ODchq3LCOp5DMEFB8UsPnSp/zJyFQ=
+X-Gm-Gg: AYBFou22CnkFik8Y6XTj3YiGl4RtQjr69v3ucHKIH88P9Y3DdAIZMl1WsveTfPtoSZg
+	me8S9OleTlMXctp8wc7GYKvff0bvtRk5UabySUon5AvXnnkXXMmPqhQx6NCvZ7uT8SPzkSIIWyx
+	93/cX4IabDZEHtp/nqfZV3ymDOrW0wsDTixr2s9SEjCPofB0P42LPG1ZBt1hJ0xNbHxuhn/hUqR
+	QuoPTWGJbp/n60c0KiMFXizqlCZ1MLxf55ep+l6k0zitD4S80+Pq5PfIKT2eu9quLKQtxJbUd9c
+	ZYQYagedfG1J+enVfCFR42gixSzkxfrqRlPmhaG/ISiCxGBzBzaeTfwvAxxxHGL0tOYhPcxaw2m
+	JI/IEX1a0yj6q+xWaSL36PAGzBvrSWS2xKJIjI2WztLRiYUkxEmpeZ3MndW1VPoTwX+8WisqLwP
+	6wVghYuekfzZPDnpRnimvNZKQvlOL4cVpzeezgAw9ICfws86iiFMeHUPGaXT1OvlorhGBZJvz8E
+	bOzSX2QL1yfLIw9RRaMrMSaiVGRSRlP8TFRcLG3NKDHJa+h+MhNjVRy1b86MdCE0ygo7S3vjz9e
+	Sdy0+fDgnubaKmzLljNmYosAWAByPoSrdTs=
+X-Received: by 2002:a05:6000:4b04:b0:48d:fbe1:bb17 with SMTP id ffacd0b85a97d-48e3eb7ca4emr8944736f8f.41.1792955785830;
+        Sun, 25 Oct 2026 12:16:25 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3bcdsm10082051f8f.13.2026.10.25.12.16.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 25 Oct 2026 12:16:25 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Selby Mashiki <mashikiselby@gmail.com>
-Subject: [PATCH] of: overlay: fix device_node leak when attaching node to changeset fails
-Date: Sun, 25 Oct 2026 20:02:37 +0200
-Message-ID: <20261025180237.445403-1-mashikiselby@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v2 0/2] pwm: Add the Ingenic X1600 PWM controller
+Date: Sun, 25 Oct 2026 20:16:22 +0100
+Message-ID: <20261025191624.9219-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,51 +104,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In add_changeset_node(), when creating a new target child node via
-__of_node_dup(), tchild is initialized with a reference count of 1. If
-of_changeset_attach_node() subsequently fails, add_changeset_node()
-returns the error without calling of_node_put(tchild), leaking the
-allocated device_node.
+The Ingenic X1600 has a PWM controller of its own, separate from the TCU
+timers that pwm-jz4740 drives on the earlier Ingenic SoCs. This adds its
+binding and a driver built on the waveform callbacks.
 
-Furthermore, because OF_OVERLAY is set on tchild before
-of_changeset_attach_node() is called, calling of_node_put(tchild) when
-tchild was never added to the changeset (and thus never had
-OF_OVERLAY_FREE_CSET set by __of_changeset_entry_destroy()) would cause
-of_node_release() to log a premature refcount zero error and skip
-freeing the node.
+Changes in v2 (both found by the Sashiko review of v1):
+- A channel that is off with both counts still loaded, as one stopped
+  behind the driver's back leaves it, now reads back as disabled. v1 read
+  it as running, so asking for the same waveform again didn't switch it
+  on. A channel off with one count zero is how 0 and 100% are written; the
+  idle level gives which.
+- A clock rate of 0 is refused with -EINVAL when rounding a waveform and
+  when writing one, instead of switching the channel off silently or
+  dividing by zero in the update timeout.
 
-Move of_node_set_flag(tchild, OF_OVERLAY) after
-of_changeset_attach_node() succeeds and call of_node_put(tchild) on the
-failure path, matching of_changeset_create_node().
+Tested on a HiBy R1 (X1600), whose backlight is channel 0, through
+pwm-backlight: brightness 1, 25, 50, 60 and 100% give the expected high and
+low counts, 0 and 100% switch the channel off at the right idle level,
+and an inversed 250 us of 1 ms on channel 1 reads back as INL 0, LOW
+9375 then HIGH 28125 with the clock divided by 8. PWM_DEBUG stayed
+silent. For v2 also: channel 1 running 250 us of 1 ms, switched off
+through ENC directly, then requested again through sysfs, reads back as
+disabled, and the same waveform asked again switches it back on; v1's
+driver read it as enabled and left it off.
 
-Fixes: 7c528e457d53 ("of: overlay: add missing of_node_put() after add new node to changeset")
-Fixes: 144552c78692 ("of: overlay: add tests to validate kfrees from overlay removal")
-Signed-off-by: Selby Mashiki <mashikiselby@gmail.com>
----
- drivers/of/overlay.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+The X1600 has no device tree upstream yet; its support is being posted
+one subsystem at a time.
 
-diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index 08d535174..936d5d742 100644
---- a/drivers/of/overlay.c
-+++ b/drivers/of/overlay.c
-@@ -442,11 +442,13 @@ static int add_changeset_node(struct overlay_changeset *ovcs,
- 		if (phandle && (size == 4))
- 			tchild->phandle = be32_to_cpup(phandle);
- 
--		of_node_set_flag(tchild, OF_OVERLAY);
--
- 		ret = of_changeset_attach_node(&ovcs->cset, tchild);
--		if (ret)
-+		if (ret) {
-+			of_node_put(tchild);
- 			return ret;
-+		}
-+
-+		of_node_set_flag(tchild, OF_OVERLAY);
- 
- 		target_child.np = tchild;
- 		target_child.in_livetree = false;
+v1: https://lore.kernel.org/r/20261025084643.93167-1-olivier@mgcrea.io
+
+Olivier Louvignes (2):
+  dt-bindings: pwm: Add the Ingenic X1600 PWM controller
+  pwm: Add a driver for the Ingenic X1600 PWM controller
+
+ .../bindings/pwm/ingenic,x1600-pwm.yaml       |  47 +++
+ MAINTAINERS                                   |   6 +
+ drivers/pwm/Kconfig                           |  11 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-ingenic-x1600.c               | 280 ++++++++++++++++++
+ 5 files changed, 345 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-ingenic-x1600.c
+
+
+base-commit: 00e917df050d79ac26ec700717680ad6421d2808
 -- 
-2.56.0
+2.39.5
 
