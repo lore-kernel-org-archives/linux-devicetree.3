@@ -1,56 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792911391;
-	b=cGOo1hERdD+PIZpANtVCABVdnvHyQiPhP/uwHOabXfU2Pbtetw9s/3r7bCRDJgRFuaOt
-	 7228Ncn3nv6An7jNUOJ5pTOODgahs8KBNuV7gEe3q08+saBDoW5SS1WUp3isBnWB5RPKr
-	 X9P0HZXWNrNdwYuxKTp374uJWfFJIpN8D+2xBlfFkvkJHAo1sX1MIEjgNYj/g+w2FECIp
-	 RQiSi5Rf1Y3fB0FsxBvToXqgSgxKXvVQ8JShaBGb09Cl05PMehgDIhu8pqGnnAuehPA5c
-	 gW/nkwKi5AN17cKOPkcV5vOdIIRu1czJmKh5IaSDJNlYQ5k2juJI6IgjHA+vV1hXGVw==
+	t=1792912518;
+	b=amLDaBX5ong3EXapMgBsT5sgWlTstYV+2C6tIP9ty+RVq19tYaDq3TGn43efrv4RWNqC
+	 NZEKKTd0nD8VJSOeg41s/avu0rHSCWa7UU/z4jePgkKfzfb8c2IPZNemyTi8/C5ZSM5jv
+	 gRgWiUzYpb8syGueduh+RYbTrX91DOZzyMF263dCEUNGklXnEyDgZ1tLR8s7WOr2jtdEs
+	 oRgasIcav+D/QP3b2Fg3LQeXTUNlH67pKHZUJfY5HPLoRO7I12BkdOOuNu6hS58G0Fz4J
+	 gNunxzQ4VzOYnWF0jfxqBVXkPWwYcySJEaNfFfvXzt9ypoiVfEjub7dDWy2OUq4bu9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792911391;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0ezsd3nRAc1ZdSjbShWOpXeUqPu76DzysMbu8VG82ew=;
-	b=nm8PEaWonEhydT3LunJiWNwMopyiQ9kxV+Y+rIQrvFbL8o29to2RYBeq/c+O7U3K4ETD
-	 4hMdAYxp4aOk+ZHKZLCBvWBBR7W/uQdQwfST0YNdSOlA7tW/m944Y8sPzJrqwKU5YrVo7
-	 tSVLx7DBFvgdiu+dxBFGqAk4PoX9wQWPm1GV2LWiO71++CDHLMwesiSPulpoT//g6Uiz1
-	 3LoRHA8xuMwaFmLUKaszudC9hlAmMS4kbnQ//C6tWweSqZINH8pNbAq6KI5GsAYHk+rfR
-	 fhDImq3Aldr0pHvPC9tPkBmQWh2nA+r8iQ4cGHucYcoW3Nxi1BDJWMW2aMxSnyGwaGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792912518;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=1k/YOFzcHBp/hoasHW07eVZPh9bCyJ8vWurMur7edBQ=;
+	b=L4K2na04kABpzLEftCoN8Gf2u9Q1Ochu844h9ecXxblARuopma1M3RuZLSkNrUxRVUn0
+	 2DYemoxcdj6kuBoYGJr4QqDBFHR4dU7e1K1Z+YOpa3wXIRCs0GWM8zpeSY7R2RmBckKRb
+	 liWtf0j7/UF6DwJ1OKTeux7L4qvDNtUjNd92B3mP5Vf/f5obN52f8WqV3zmFKxCsQQbN3
+	 MqYRgB7Py2d9u3D3tCZ/F7C12t8RRe1UBhZqKkezJ7NanBWvx9ocYGxWTBveBNpNFignY
+	 SKUXCv1KWGhaZZGKMEwVUFQRW+Kh/5bu1YAGfc54+pUAv+2gUHLZf/QEEpCJ4aB5yHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z84HQXUy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcXxFAfp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA43606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 06:56:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738E1606A321
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 07:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z84HQXUy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C07B11F01825;
-	Sun, 25 Oct 2026 06:56:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcXxFAfp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE331F01825;
+	Sun, 25 Oct 2026 07:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792911391;
-	bh=0ezsd3nRAc1ZdSjbShWOpXeUqPu76DzysMbu8VG82ew=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z84HQXUyKfjkbOnq+6kmxAtWsVbpgQUElAO8vBlc353DH+a2hYZv1McwdBq2Nr4rG
-	 eRmbLkJTj7UwLRVO4g67shJ4QDzLS6ee0zRxnNyU/Z3i/fLIf0HEDlVdimoZfXHlra
-	 lYxOrlF4xggclCsepWaF1HbzLiV+OmWylvCJhBdWdyONtuP36reYLGalr+hfXCPJGF
-	 t/SYPTdUWaj71v1OtgqLDlzDR4q7sZI4cARflkz2wO+uMAPMDKzKmSHjiGHfEj9HKQ
-	 4xk2lRaRH8JG4dInAw54ieE1c4bMUescS2cs+4Vv4I5uicjp1I8EB9WWUJAFfTDEmR
-	 qeJzeU6Q8+9pg==
-Message-ID: <sashiko-outbox-184104@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
- backlight property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Saini" <vishnu.saini@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
-References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 06:56:30 +0000
+	s=k20260515; t=1792912517;
+	bh=1k/YOFzcHBp/hoasHW07eVZPh9bCyJ8vWurMur7edBQ=;
+	h=From:Subject:Date:To:Cc;
+	b=dcXxFAfpTp0csq2KMjImqdCCQ2mskRHPrHFEjnm5qSIqR8GvRQrxLMMHceIh1V0po
+	 TnNkKvphl7cMQgEVfHoEs4s/6RdDnbc+b3def39JwKEbVceOZQtCUz9ih+dkw+LNlH
+	 BN5hLMa3iNwUOWbk8mLRl7veO9XfyPhADjRvyylJhT0uQ19COmozdQ8wojYWsu0wH5
+	 zanwNVljUu3UAQJpIPM0OrG/MZezI1ftdmjV86612LM2RBvGdFmmIdMHkEBaNFfrYd
+	 dVUVJMw+8dVI8+PVLTiN9CWAs4iz7MabjlyrF/daPPEBcYt3jtZmqEEC2eXyWlsJZw
+	 P5W5pwxYDL4zg==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v4 0/3] ARM: bcm: Enable CFE SMP on BCMBCA
+Date: Sun, 25 Oct 2026 08:15:11 +0100
+Message-Id: <20261025-genexis-xg6846-smp-v7-3-rc1-v4-0-b352ab54f46b@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,66 +52,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PQQrCMBCF4atI1o5k0jQjrryHuGjaSQ1qWxIJl
+ dK7mwqCInT5z+J7zCQiB89RHDaTCJx89H2XQ283or5UXcvgm9xCSWVQIkLLHY8+wtiavTYQ7wM
+ kggJCjWA1SSdZSU2lyMIQ2PnxrZ/OuS8+PvrwfI8lXK4fV626CUFCVWKjK9ewruh45dDxbdeHV
+ ixwUt8YrWMqY9YZq21B2hr+w4ovTK1/nIqMUb0ndEhl2dgfbJ7nF+XYrsxhAQAA
+X-Change-ID: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ William Zhang <william.zhang@broadcom.com>, 
+ Anand Gore <anand.gore@broadcom.com>, 
+ Kursad Oney <kursad.oney@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: display: panel: ilitek,ili7807s: redundant backlight p=
-roperty
---
+When booted through CFE and mainline U-Boot, the XG6846B has no PSCI
+provider. CFE powers up CPU1 and leaves it waiting in a holding pen.
 
-commit dfbb23459fc3c8847cb20a8c363e813da0ef5bc0
-Author: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Add a BCMBCA CFE SMP method selected by enable-method = "brcm,bca-smp".
+It uses a GPIO mailbox and a wakeup IPI, with PSCI retaining priority.
+On the XG6846B, preserve the holding pen and disable the board's inherited
+PSCI setup.
+Tested on the XG6846B with both CPUs coming online.
 
-dt-bindings: display: panel: ilitek,ili7807s: Allow backlight property
+These patches were authored with the assistance of an LLM.
 
-This commit adds the backlight property to the Ilitek ILI7807S DSI panel
-devicetree binding schema.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v4:
+- Require cpu-release-addr for brcm,bca-smp and provide a dummy release
+  address for CPU0, which is already online.
+- Link to v3: https://patch.msgid.link/20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili78=
-07s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.=
-yaml
-> index ba8c5bbf8ffc4..46b941c18565d 100644
-> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
-> @@ -23,6 +23,8 @@ properties:
->      maxItems: 1
->      description: DSI virtual channel
-> =20
-> +  backlight: true
+Changes in v3:
+- Use BCMBCA naming for the CFE SMP implementation.
+- Add the brcm,bca-smp binding and select CFE SMP through the CPU
+  enable-method, retaining PSCI priority.
+- Squash the holding-pen reservation fix into the CFE bring-up DTS patch.
+- Boot tested successfully on the XG6846B.
+- Link to v2: https://patch.msgid.link/20261017-genexis-xg6846-smp-v7-3-rc1-v2-0-bf6b4b374b6e@kernel.org
 
-[Severity: Low]
-Is this declaration needed in
-Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml?
+Changes in v2:
+- Read the CFE mailbox address from CPU1's cpu-release-addr property,
+  as suggested by William Zhang.
+- Link to v1: https://patch.msgid.link/20261012-genexis-xg6846-smp-v7-3-rc1-v1-0-a51d4afde4a7@kernel.org
 
-This binding schema already references panel-common.yaml and uses
-unevaluatedProperties: false:
+---
+Linus Walleij (3):
+      dt-bindings: arm: cpus: Add brcm,bca-smp enable method
+      ARM: bcm: Add CFE SMP support for BCMBCA
+      ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
 
-allOf:
-  - $ref: panel-common.yaml#
-...
-unevaluatedProperties: false
+ Documentation/devicetree/bindings/arm/cpus.yaml    | 39 +++++++++++++++
+ .../boot/dts/broadcom/bcm6846-genexis-xg6846b.dts  | 18 ++++++-
+ arch/arm/mach-bcm/Makefile                         |  2 +-
+ arch/arm/mach-bcm/board_bcmbca.c                   | 56 ++++++++++++++++++++++
+ 4 files changed, 113 insertions(+), 2 deletions(-)
+---
+base-commit: 6356fd3dd29d8b5620507a0ce037c644e052b5dd
+change-id: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
 
-Because Documentation/devicetree/bindings/display/panel/panel-common.yaml
-already defines the backlight property:
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
-  backlight:
-    $ref: /schemas/types.yaml#/definitions/phandle
-    description:
-      For panels whose backlight is controlled by an external backlight
-      controller, this property contains a phandle that references the
-      controller.
-
-unevaluatedProperties: false automatically permits all properties defined in
-panel-common.yaml without re-listing them under properties (just as
-reset-gpios and port are used in this schema without being listed under
-properties).
-
-Commit 72cfe73347fac6 ("dt-bindings: display: panel: Drop redundant
-properties") previously removed redundant backlight: true entries from panel
-bindings that reference panel-common.yaml and use unevaluatedProperties:
-false. Unless the intent was to add backlight to the required list, could
-this change be dropped?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025-dlc_backli=
-ght-v1-1-1d1c49c3e101@oss.qualcomm.com?part=3D1
