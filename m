@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792899853;
-	b=Y7yMdNroebH4PWrk9t9vg9dn4W8V9Dg2IiCC2fiJEAuCdqbYd9juu7kZzfqvpNoSz5rK
-	 URfPnj4CV62D/PFB+V5BZP/Z0LPxoXLwd8rKWBdUu3mU7iVd+12MmMh0L2i1ZmJsf2ewS
-	 fqr/ODq/faONVGIWaV/Cpqs167HugcdbOgXn82kFba6UyoWNpk/X0bvZR8p3psmr2qxpF
-	 vUlgaDkzaY2k/QvED1kiojIl26SE88fBajCUcgGvX0KOJEkwmfykVTjr/YB10i9MZO2g7
-	 TmU2jsD6WBBVrvMQjE/oi8Ya2wLY/ksDMgstyjhY++Bzpreqqgn/AW1BiPAZwyyiUag==
+	t=1792899894;
+	b=dP8Q6tWTqoRYb/Dt88vnLn0y8iv2VMlBXA3JjVVTIQQcDwSfKQA6PHx2Ey/5yYo2RCbA
+	 hwgwsd0htzYlWoSSzUqnsW9Qa222MvszoxgZly95Tut3x0nPigOTRsVEBNL1fCkxWPkFw
+	 iQm30frgUnvPS29XgemUHjjB9RxXUjVnLCpnVURSImqRgxbnFmA6ayYhACuLNRPYKvOIB
+	 8EcmJFd3V9Zb7JnZtJ9J2xkSmQiPoiXncwK5CaGQYFsoywrDmPqfAgg6qrWCIgPrhgHfy
+	 EH50wBoYsB3sQG7uH1AoBi2UWwoCg4Zv8gzqwQfycA/bdXRA1cLKGh+1ERgywZYQEEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792899853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792899894;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3B8FSFySMXgVmqpSaZ5ZZGIrWYl20ZD9asecGND8meI=;
-	b=iFaJtGs3EPX5jtyfhfPG2Sg/Z19N570rCehd642oW3SK5VZ36i5JgoMGK4syP0gq8sGV
-	 BL1w1B5fIw/nIFAosxX8CFlw1Ob1Vz/pp1a6UWEjV/eqnFMRqZOWNenDFA6frJVdSAuwG
-	 lEoMakrMCKWZ+TiEJnKC48ps62Cny6zS4zEZbb9FVFKF4oRHdV5Qx28F8xe2yPh49YF/A
-	 h809AHNRSj0IvzhsjnK5tW0CubOlTRHbQwTQx0OJTYXatTKuXcqFYUyBtowfqLXtCrlpF
-	 +HW0C86JCngV50+gnrGeisvtEXk4pzDV0+9BOKbGpnDzpzRMsJEYN354Ajs2bkcw/Pg==
+	bh=04Aa1UWoYBk/386uOW/AdhSWVgGEI5LqU0bsisYlue4=;
+	b=nYYd2qrhJ85Z+z3g6ba0w6gHhgX5QiQuo4Z68e+lHzNDof7bCxE0MQoJQWHgEB7bRnAz
+	 AbiZCBIBDUMgeAivDfgEyu38PB38E987v7WG0IxfnZ2WQNoQ0EN9/ZcTJEV/KkAay3T5D
+	 26HDzM0zcYmAucEJOXuEGk5vSoEPvVxsV3X4rY0XD1P6wInYuBGy8Rxrsy0u7P1Jxa7as
+	 7fOxTTB9V2XjM+f4VY+LjRmV24Q3oxqSWEfEKfQZFf48x0kmSw9vija2rMefkBRC57GLK
+	 f8Pg72Zi39uYAOSLFv1mSKgwt1JPEeZBTZvHzbi747+9guq4F3BPpaXmXA+eB7fSoIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b+Nj4BOl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWZqzkMf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EC6606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 03:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E88606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 03:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b+Nj4BOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82AEC1F01825;
-	Sun, 25 Oct 2026 03:44:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWZqzkMf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737F21F01825;
+	Sun, 25 Oct 2026 03:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792899853;
-	bh=3B8FSFySMXgVmqpSaZ5ZZGIrWYl20ZD9asecGND8meI=;
+	s=k20260515; t=1792899893;
+	bh=04Aa1UWoYBk/386uOW/AdhSWVgGEI5LqU0bsisYlue4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b+Nj4BOlnPTjLvkTf0/YxwYs3ouzj+SC7HJqKdBvSkCW/UJtno07waDHFPeLE7wJT
-	 YUoZ/L7VFto2E7J3Io0M236R8dVLyAdMDUHpyM2vLu1UCk/slSLHf/1SnVvVHPIsm4
-	 dDAuXIntlvFolSN+VMNsTXhsnrp48vLGcBI6PILSw3HJBI+GHrQAcbO7T2EI5NzLjY
-	 wLteo3JMr6u849c4X7L/C883V3wyhUHic8rqWpLnHLzcucZQZDmyh05RlDhKG+UpYO
-	 Exb1D9BmOYC2L5MjtwuAJwnvtom8sR6dpQI7QpAEU9FkMDlVRqhGoSXASvV/cPq8JX
-	 maAb3XW/uc7Gg==
-Message-ID: <sashiko-outbox-184025@kernel.org>
+	b=KWZqzkMfG41rk3tnLHuNf7z4kXf1r2BZt1wFgRRyXGDp/avlJVKRmnWO0dsMrY62k
+	 0b9ynfeG1p6HE0kmtRrq2UHiE1jw2ZW5opJGL8Cdjpdtr2VdJyTd6PN70hyW/64y5b
+	 fROuoGx+hZrd8GsNhSPHu8w9D2b2JoURbnzS2mThdbXwm9uryx4iH54Pk1bzkKh7Ap
+	 XIdFamA5pehSk75+axLEvnyQIsbfR7pUeKGt1gzxqcWl0JouPuUrNa3BnTbrmqRv7q
+	 6NuYKkLFXo7g9AGpByUA8z5vwNfqMX4aWFFyHJAQ5kqPsp6+irtliRPO63hDtefSfW
+	 I4iO0JQ8b5YNw==
+Message-ID: <sashiko-outbox-184026@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v22 07/14] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
+Subject: Re: [PATCH v22 08/14] media: qcom: camss: csid: Add support for
+ CSID 1080
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
 Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261024-kaanapali-camss-v22-7-7da3ea49c8a1@oss.qualcomm.com>
+In-Reply-To: <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
 References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com>
- <20261024-kaanapali-camss-v22-7-7da3ea49c8a1@oss.qualcomm.com>
+ <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 03:44:12 +0000
+Date: Sun, 25 Oct 2026 03:44:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,133 +63,155 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] media: qcom: camss: NULL hw_ops deref in msm_csiphy_subdev_init_le=
-gacy()
-- [Low] media: qcom: camss: commit message describes phy driver changes
+- [High] media: qcom: camss: out-of-bounds fmt[] read in __csid_configure_r=
+di_stream()
+- [Medium] media: qcom: camss: unsynchronized aup_update and rup_update in =
+csid-1080
 --
 
-commit 64814811592ee91f0301ddbd08c2ef3cf1f43a07
+commit 1c1d5d42b8b4ca9551e5451d2fb39377493b3ca8
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-media: qcom: camss: csiphy: Add support for v2.4.0 two-phase CSIPHY
+media: qcom: camss: csid: Add support for CSID 1080
 
-This commit adds the csiphy_res_kaanapali subdevice resource table for
-CSIPHY0 through CSIPHY5 and wires it into kaanapali_resources in the
-Qualcomm CAMSS driver.
+This commit adds hardware resource definitions, register programming, reset
+handling, and interrupt handling for the CSID 1080 module found on the
+Kaanapali SoC. It also extends the CSID interface to support separate RUP a=
+nd
+AUP update registers committed via a shared SET register.
 
->     media: qcom: camss: csiphy: Add support for v2.4.0 two-phase CSIPHY
->    =20
->     Add support for the v2.4.0 two-phase CSIPHY found on Kaanapali, where
->     the PHY is driven by the standalone phy-qcom-mipi-csi2 DPHY driver
->     rather than by CAMSS. Add the mipi_csi2_dphy_3nm_kaanapali configurat=
-ion,
->     which reuses the x1e80100 lane sequence, clocks and supplies but sele=
-cts
->     the v2.4.0 common status offset, adds Kaanapali power domain and regi=
-ster
->     the "qcom,kaanapali-csi2-phy" compatible.
->    =20
->     Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->     Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-
-[Severity: Low]
-This isn't a bug, but does the second sentence of the commit message
-describe changes from an earlier patch in the series ("phy: qcom-mipi-csi2:
-Add Kaanapali support") rather than this patch?
-
-Those changes to drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c and
-drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c were split into that earlier
-commit, whereas this commit adds csiphy_res_kaanapali in
-drivers/media/platform/qcom/camss/camss.c and wires .csiphy_res and
-.csiphy_num into kaanapali_resources. Could the commit message be updated
-to describe the CAMSS changes in this patch?
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 98ec23c39fda2..0358ee3840129 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -38,6 +38,51 @@
-> =20
->  static const struct parent_dev_ops vfe_parent_dev_ops;
-> =20
-> +static const struct camss_subdev_resources csiphy_res_kaanapali[] =3D {
-> +	/* CSIPHY0 */
-> +	{
-> +		.csiphy =3D {
-> +			.id =3D 0,
-> +			.formats =3D &csiphy_formats_sdm845
-> +		},
-> +	},
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> new file mode 100644
+> index 0000000000000..9830fa0f8d24e
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> @@ -0,0 +1,402 @@
 
 [ ... ]
 
-> @@ -5606,8 +5651,10 @@ static void camss_remove(struct platform_device *p=
-dev)
->  static const struct camss_resources kaanapali_resources =3D {
->  	.version =3D CAMSS_KAANAPALI,
->  	.pd_name =3D "top",
-> +	.csiphy_res =3D csiphy_res_kaanapali,
->  	.icc_res =3D icc_res_kaanapali,
->  	.icc_path_num =3D ARRAY_SIZE(icc_res_kaanapali),
-> +	.csiphy_num =3D ARRAY_SIZE(csiphy_res_kaanapali),
->  };
+> +#define MSM_CSID_MAX_SRC_STREAMS_1080		(csid_is_lite(csid) ? 4 : 5)
+
+[ ... ]
+
+> +static void __csid_aup_rup_trigger(struct csid_device *csid)
+> +{
+> +	/* trigger SET in combined register */
+> +	writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
+> +}
+> +
+> +static void __csid_addr_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->aup_update, csid->base + CSID_AUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_addr_update_clear(struct csid_device *csid, int port_=
+id)
+> +{
+> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+> +
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->rup_update, csid->base + CSID_RUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_reg_update_clear(struct csid_device *csid, int port_i=
+d)
+> +{
+> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+
+[Severity: Medium]
+Can concurrent updates to csid->aup_update and csid->rup_update race with
+csid_isr()?
+
+During streaming, vfe_queue_buffer_v2() and vfe_enable_output_v2() in
+drivers/media/platform/qcom/camss/camss-vfe.c call ops->addr_update(),
+ops->reg_update(), ops->addr_update_clear(), and ops->reg_update_clear()
+while holding vfe->output_lock.
+
+However, csid_isr() in drivers/media/platform/qcom/camss/camss-csid-1080.c
+clears those same bitmasks in hardirq context when INFO_RUP_DONE is set,
+without holding vfe->output_lock or any CSID-level spinlock:
+
+drivers/media/platform/qcom/camss/camss-csid-1080.c:csid_isr() {
+	...
+			if (val & INFO_RUP_DONE) {
+				__csid_addr_update_clear(csid, i);
+				__csid_reg_update_clear(csid, i);
+			}
+	...
+}
+
+In addition, csid_configure_stream() calls __csid_addr_update() and
+__csid_reg_update() in process context without holding a lock after
+vfe_enable_output_v2() has already set output->state to VFE_OUTPUT_ON and
+while csid->irq is enabled.
+
+Could these unsynchronized read-modify-write operations on csid->aup_update
+and csid->rup_update, along with the writes to CSID_AUP_CMD, CSID_RUP_CMD,
+and CSID_RUP_AUP_CMD, clobber a newly set RDI bit or write a just-cleared R=
+DI
+bit back into the command registers?
+
+[ ... ]
+
+> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
+ble, u8 port, u8 vc)
+> +{
+> +	u8 lane_cnt =3D csid->phy.lane_cnt;
+> +	u32 val;
+> +
+> +	/* Source pads matching RDI channels on hardware.
+> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
+> +	 */
+> +	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIR=
+ST_SRC + port];
+> +	const struct csid_format_info *format =3D csid_get_fmt_entry(csid->res-=
+>formats->formats,
+> +								   csid->res->formats->nformats,
+> +								   input_format->code);
 
 [Severity: High]
-Can this dereference a NULL csiphy->res->hw_ops pointer in
-msm_csiphy_subdev_init_legacy() when probing qcom,kaanapali-camss without
-any connected external PHY endpoints in the device tree (for example, with
-the default empty port nodes in kaanapali.dtsi or when only using internal
-TPGs)?
+Does __csid_configure_rdi_stream() read past the end of csid->fmt[] when
+configuring the fifth stream on non-lite CSID 1080 instances?
 
-Because Kaanapali CSIPHY blocks are driven by the standalone PHY driver,
-csiphy_res_kaanapali leaves .csiphy.hw_ops as NULL.
+For non-lite CSID 1080 instances (CSID0, CSID1, and CSID2 in
+csid_res_kaanapali), MSM_CSID_MAX_SRC_STREAMS_1080 evaluates to 5. In
+csid_configure_stream(), the loop iterates i from 0 to 4 and calls
+__csid_configure_rdi_stream(csid, enable, i, 0) when BIT(i) is set in
+csid->phy.en_vc.
 
-However, during camss_probe() -> camss_init_subdevices() ->
-camss_detect_legacy_phy() in drivers/media/platform/qcom/camss/camss.c,
-camss->legacy_phy defaults to true when no endpoint connected to a remote
-node named "phy" is found:
+However, in drivers/media/platform/qcom/camss/camss-csid.h, MSM_CSID_PADS_N=
+UM
+is still defined as 5:
 
-	camss->legacy_phy =3D true;
+#define MSM_CSID_PAD_SINK 0
+#define MSM_CSID_PAD_FIRST_SRC 1
+#define MSM_CSID_PADS_NUM 5
 
-	/* Find first remote-endpoint and determine if its a PHY */
-	for_each_endpoint_of_node(camss->dev->of_node, ep) {
-		remote =3D of_graph_get_remote_port_parent(ep);
-		if (!remote)
-			continue;
+struct csid_device {
+	...
+	struct media_pad pads[MSM_CSID_PADS_NUM];
+	...
+	struct v4l2_mbus_framefmt fmt[MSM_CSID_PADS_NUM];
+	...
+};
 
-		camss->legacy_phy =3D !of_node_name_eq(remote, "phy");
-		of_node_put(remote);
-		of_node_put(ep);
-		break;
-	}
-
-Then camss_init_subdevices() takes the legacy path:
-
-	for (i =3D 0; i < camss->res->csiphy_num; i++) {
-		if (!camss->legacy_phy) {
-			ret =3D msm_csiphy_subdev_init(camss, i);
-		} else {
-			ret =3D msm_csiphy_subdev_init_legacy(camss,
-							    &camss->csiphy[i],
-							    &res->csiphy_res[i],
-							    res->csiphy_res[i].csiphy.id);
-		}
-
-and msm_csiphy_subdev_init_legacy() in
-drivers/media/platform/qcom/camss/camss-csiphy.c unconditionally
-dereferences csiphy->res->hw_ops:
-
-	csiphy->camss =3D camss;
-	csiphy->id =3D id;
-	csiphy->cfg.combo_mode =3D 0;
-	csiphy->res =3D &res->csiphy;
-
-	ret =3D csiphy->res->hw_ops->init(csiphy);
-
-Should camss_detect_legacy_phy() or camss_init_subdevices() avoid selecting
-legacy PHY mode on platforms where csiphy_res[i].csiphy.hw_ops is NULL?
+When port is 4 (RDI4), MSM_CSID_PAD_FIRST_SRC + port evaluates to 5, which =
+is
+one element past the end of the 5-element csid->fmt[] array. In addition,
+msm_csid_register_entity() in drivers/media/platform/qcom/camss/camss-csid.c
+only initializes MSM_CSID_PADS_NUM pads on the media entity, leaving RDI4
+without a source media pad.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-kaanapali-=
-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com?part=3D7
+camss-v22-0-7da3ea49c8a1@oss.qualcomm.com?part=3D8
