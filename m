@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972492;
-	b=fYFS2KbqcQaBVt7rGlAqKHkF1QoVE48kXVP2gloWMkYfE+6W3rhhClBHAtff6YGTkNbh
-	 24VLW0I4zHN0IZVpZUbHgyFrfXIyZ+mcHiVPLyfbt8hizxYEu6JeGe7CrArpwAWkJtMkw
-	 GQxyleb5ywSaSFeueHGZ66HVcwZfnyDzRn7k/ukH2S3eKJ2JleytiviN24xaRcFV57CQH
-	 BcllILoNbJk+bMZXHaOdgDdYHOfnf3eZZAOJWH9SkM417XfXHgNTTqLp1FIPys86Agf2v
-	 5H6b/29HLWQxDmxIeOJRj0T4HF6oYyAbbagPfiCQJqrC1JoZL8v11xnlY2hxHb2/J+g==
+	t=1792972601;
+	b=kf+youdowxUo7vW1IVtRlfmUJP1srt5jg2HAhjDWdxIW90Irgy3IfU/Pb9AVCA6JqOFp
+	 SKNzzxZie6LBptqBT0myTOIwFik9b71Aq/yL7D1yTC1fFdg49omlN4adVhXUCxySnNQ7S
+	 rycGTRvLcWfkfeBR7/YknU7L3GLhBV5U1ulZLp7Iz7EuBOaPC5eoqFLklfQpoFDL80ELv
+	 WiNeI5T3mt1xb+8iP8uqD3A0Z6eVsEcfhCxACAu1NdsZ9nFrRm2i4z2czT2l/aVFBQOBx
+	 0my+qlh+a9BpHWv5sW2oLiytlt+CnFUdp+LZueD+87QzgjNnZYMB1cX2muazU/948aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972492;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LkGkgiiJ14vcz/5K/9BxVarCa1Rt0W0jKXIzP/tm76s=;
-	b=4bqw5eODROsNHj0mmtRzu3e0+LgY3zrqFsbY2lhVflHLguzOAxxWVtjOJhlokXoiBUn+
-	 Y43WFrEG28bRDf+GG2yFS9yiMuN50e/dgHcqN2vZ3zLqedSQnF/mkZHxqlQYqBZ0zKDms
-	 mveFjkAjZY5oIPqP8jm5jyxWYglzhE8MymKyyMy7bt9uBHgoBg6q8llrjSqzFB6VdzWeE
-	 4Lyj8de63Wk5Tyn9aiCv+o1btEZ6U77Xe1bU7ySKkciWeGTo237fclyrIbe+zu+N7l09e
-	 r0hW+n1Cah6EAR4gOu+uJw/DpiW22AXoK8r8IcqmNHLltyTkmRqsUD78P1Mk6tvVT/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972601;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:gpg:gpg:gpg:gpg:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=AIndq0QBvBOMT4aQTC7iTxVdxRNMAQYJH+2zTStxf7s=;
+	b=A2jzJGTOvfvSYV93+/VBsBESL2u0ahxSgt9nG5PaCZaNfFKTLWM8v+IqTXkmHADGhngB
+	 kaMFPJbqCn3O0UPh1MDxt4IIN5Q9+gh3RZOjqa3URQmQOLC656CfcOt05ADi4JK7L2Vkm
+	 uPL4h8ySf7L3xpwNXKGnLOPQzGbgB/M+DS0NP36Mmsun3h8ezn95Ws+72DnwEo7Bc5DRU
+	 l+hgUTLdI7HVZB7GPSOKgw5shdQoS/sLlYoyteS/gtViE1b/XwBEEuz9y4c3NJkBfMGLg
+	 /4pQrFFcwT/3sVh0OuuLzjaIG1IEi5JrqDwHKR4mT3tCvN/PL+0doEDhvXZevxUEu9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FN7XVxpC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=vinarskis.com;
+	spf=pass smtp.mailfrom=vinarskis.com;
+	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=BOdBholy;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE287606A31A;
-	Sun, 25 Oct 2026 23:54:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25E7606A325
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A25E7606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FN7XVxpC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9C51F01825;
-	Sun, 25 Oct 2026 23:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792972491;
-	bh=LkGkgiiJ14vcz/5K/9BxVarCa1Rt0W0jKXIzP/tm76s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FN7XVxpCqcCIg269fh5/6/vn/3TEvobOrTKHo7ZxV9ptsP554olOyR6qlVnkoIj7K
-	 HAHxhBol0Pop7Rg2W92nQ0ORoimqeNL/5otJFyFBklxw07jWtCZSlnmyiIKABqlPs3
-	 chTZK9hL+3XoMn+yrNNu4cVrmHME4ReDa9iAj3qpuATFxmPcAYavhMvUFso/rucOHl
-	 hHWUjdL345QuoNutepUK3xMvUbm9ql7uYhFytyOQDproSXQlFYLVqL7q4TK7RTTiU5
-	 zCbNCRZlI2vkZPilFJGkH3S3OLJayJ9E5JZyLGaRc0qzL7wBaghUztmFV+DEFFx9kQ
-	 5KLqmsfUtBoEQ==
-Date: Sun, 25 Oct 2026 23:54:43 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v4 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
-Message-ID: <20261025235443.07d75197@jic23-hlaptop>
-In-Reply-To: <20261023-adis16607-v4-4-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-4-a4d541ebfd13@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=BOdBholy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1792972598; x=1793231798;
+	bh=AIndq0QBvBOMT4aQTC7iTxVdxRNMAQYJH+2zTStxf7s=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BOdBholyd06SYb60P+E3Gd+QYiQWF2aplz/xf/iFtNw1yOlc8lBcFACq47V3nGvo8
+	 FhAiwBIirFP8TkzjqUHWbq7LBwq45AGo80TpKOSmL0I0hXvCc4BHua86579SV6lKQp
+	 Qd1+HcJfg4H7F7Dtmua0cOPaYPMu7BEssKV/70ITP5cPEPJFY6f2TtnlU3YxVlxYB7
+	 P4Zy1thwXwIfOnp+gLmOmv4lBMjgbY/OzWMjPEXNPmsRgvEU+BRKH9qO0B/cDs3A23
+	 H/ejNgsLzTmK/q6315Cg/lR+/4kFW6YFLDSHe635HFcijNWZskB/t2c4N6B1kE+jdH
+	 iqewaBrCYz/8Q==
+X-Pm-Submission-Id: 4jCYZB735xz1DFSk
+gpg: Signature made Sun 25 Oct 2026 11:52:52 PM CET
+gpg: using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
+gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>"
+ [ultimate]
+gpg: aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Date: Mon, 26 Oct 2026 00:56:23 +0100
+Subject: [PATCH v7 1/3] dt-bindings: platform: introduce EC for Dell XPS 13
+ 9345
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,164 +64,161 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-dell-xps-9345-ec-v7-1-828ce301b839@vinarskis.com>
+References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+In-Reply-To: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4342; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=dLLWTs/IeTVPq6lqhexxwVftq/rPlXDy4Flf9DCOHHA=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn3putLd+4K9Py958J0s66dlo4Ptp3ivXpBLX/F4iIR9
+ hlaPDPjO0pZGMS4GGTFFFm6/3xN61o0dy3DdY1vMHNYmUCGMHBxCsBEatcx/BVcMkHUcnUDV6Wp
+ 7vndK13Fo9b02xj/2uPsWq8o49zq48TwT6/l1NMD7NF+s11Xzk98N91M8mvUw9ZONsuq72U6h5Y
+ oMgIA
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-On Fri, 23 Oct 2026 12:30:21 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
 
-> From: Radu Sabau <radu.sabau@analog.com>
->=20
-> Add device tree bindings for the Analog Devices ADIS16607 Precision
-> MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-> gyroscope, triaxial accelerometer, and temperature sensor, and
-> communicates over SPI Half-Duplex.
->=20
-> Two variants are supported, adis16607-2 and adis16607-3, differing
-> only in gyroscope full-scale range (=C2=B1450=C2=B0/s and =C2=B12000=C2=
-=B0/s
-> respectively).
->=20
-> The binding exposes optional properties for:
->   - An external clock for sync mode (falling back to the internal 8 kHz
->     clock when absent)
->   - A hardware reset GPIO (active low)
->=20
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+ .../embedded-controller/dell,xps13-9345-ec.yaml    | 90 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 95 insertions(+)
 
-There is enough new stuff in here I'd have dropped Rob's tag.
+diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+new file mode 100644
+index 000000000000..29cbb837a31b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dell XPS 13 9345 Embedded Controller
++
++maintainers:
++  - Aleksandrs Vinarskis <alex@vinarskis.com>
++
++description:
++  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal
++  and power management. It is communicating with SoC over multiple i2c busses.
++  Among other things, it handles fan speed control, thermal shutdown, peripheral
++  power supply including trackpad, touch-row, display. For these functions, it
++  requires frequently updated thermal readings from onboard thermistors.
++
++properties:
++  compatible:
++    const: dell,xps13-9345-ec
++
++  reg:
++    const: 0x3b
++
++  interrupts:
++    maxItems: 1
++
++  io-channels:
++    description:
++      ADC channels connected to the 7 onboard thermistors on PMK8550.
++      EC requires frequent thermal readings of these channels to perform
++      automated fan speed control.
++    items:
++      - description: ADC channel for sys_therm1
++      - description: ADC channel for sys_therm2
++      - description: ADC channel for sys_therm3
++      - description: ADC channel for sys_therm4
++      - description: ADC channel for sys_therm5
++      - description: ADC channel for sys_therm6
++      - description: ADC channel for sys_therm7
++
++  io-channel-names:
++    items:
++      - const: sys_therm1
++      - const: sys_therm2
++      - const: sys_therm3
++      - const: sys_therm4
++      - const: sys_therm5
++      - const: sys_therm6
++      - const: sys_therm7
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - io-channels
++  - io-channel-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@3b {
++            compatible = "dell,xps13-9345-ec";
++            reg = <0x3b>;
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++            io-channels = <&pmk8550_vadc 0x14a>,
++                          <&pmk8550_vadc 0x14b>,
++                          <&pmk8550_vadc 0x144>,
++                          <&pmk8550_vadc 0x145>,
++                          <&pmk8550_vadc 0x146>,
++                          <&pmk8550_vadc 0x147>,
++                          <&pmk8550_vadc 0x148>,
++            io-channel-names = "sys_therm1",
++                               "sys_therm2",
++                               "sys_therm3",
++                               "sys_therm4",
++                               "sys_therm5",
++                               "sys_therm6",
++                               "sys_therm7";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1e0d90fe2220..f20bb171e5ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7537,6 +7537,11 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-class-firmware-attributes
+ F:	drivers/platform/x86/dell/dell-wmi-sysman/
+ 
++DELL XPS EMBEDDED CONTROLLER DRIVER
++M:	Aleksandrs Vinarskis <alex@vinarskis.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
++
+ DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+ M:	Zev Weiss <zev@bewilderbeest.net>
+ L:	linux-hwmon@vger.kernel.org
 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-> ---
-
-and noted you had done so here with a breadcrumb of why, which
-is the gpio handling
-
->  .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 94 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 101 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml=
- b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> new file mode 100644
-> index 000000000000..4545f942365c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> @@ -0,0 +1,94 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/imu/adi,adis16607.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices ADIS16607 IMU
-> +
-> +maintainers:
-> +  - Radu Sabau <radu.sabau@analog.com>
-> +
-> +description: |
-> +  Analog Devices ADIS16607 Precision MEMS Inertial Measurement Unit (IMU)
-> +  with a triaxial gyroscope, triaxial accelerometer, and temperature sen=
-sor.
-> +  Uses SPI Half-Duplex communication protocol.
-> +
-> +  The device has five GPIO pins (GPIO0-GPIO4 in the datasheet), each
-> +  independently selectable for a single fixed function. This binding
-> +  exposes GPIO0's reset function as reset-gpios; GPIO2's sync function
-> +  is modeled via the clocks property, and GPIO4's DEV_NOK interrupt via
-> +  the interrupts property. GPIO3 (data-ready) is required internally
-> +  regardless of board wiring and isn't exposed. GPIO1 (wake) gates
-> +  whether the bootloader auto-loads its NVM contents after reset; it
-> +  defaults to enabled with a weak pull-up, which already gives normal
-> +  operation with no configuration needed, so it isn't exposed either.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,adis16607-2
-> +      - adi,adis16607-3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: true
-> +
-> +  spi-max-frequency:
-> +    maximum: 10000000
-> +
-> +  vdd-supply: true
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description:
-> +      Optional external clock for sync mode. If not provided, the intern=
-al
-> +      8 kHz clock is used.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description:
-> +      Optional GPIO for hardware reset, active low. Routes to the
-> +      device's GPIO0 pin, which can be independently set to the reset
-> +      function or left idle via an on-chip register.
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - spi-cpha
-> +  - spi-cpol
-> +  - vdd-supply
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        imu@0 {
-> +            compatible =3D "adi,adis16607-2";
-> +            reg =3D <0>;
-> +            spi-cpha;
-> +            spi-cpol;
-> +            spi-max-frequency =3D <10000000>;
-> +            vdd-supply =3D <&vdd>;
-> +            interrupts =3D <4 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-parent =3D <&gpio>;
-> +            clocks =3D <&sync_clk>;
-> +            reset-gpios =3D <&gpio 10 GPIO_ACTIVE_LOW>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..d5679e8d0ffd 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1792,6 +1792,13 @@ S:	Supported
->  W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/imu/adi,adis16550.yaml
-> =20
-> +ANALOG DEVICES INC ADIS16607 DRIVER
-> +M:	Radu Sabau <radu.sabau@analog.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Supported
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/iio/imu/adi,adis16607.yaml
-> +
->  ANALOG DEVICES INC ADL8113 DRIVER
->  M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
->  L:	linux-iio@vger.kernel.org
->=20
+-- 
+2.54.0
 
