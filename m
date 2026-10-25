@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.172.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792961659;
-	b=LS52MRvAUbA1ttWb9d2YpDldjYzyaEPO8zTZ85GW7vXtQsVkCAlfAV0fNLgbPgtZCouP
-	 R/KseVudoOPpMxaWBRruHB43ovKfN/jwOctN4XiNVBNzv3PbHBndkoNkaak7I2kZu1kuh
-	 cBEDBS5T3DWuAo7EiPBGWddR6yVkv/EuRatXDxzkuhm9R6IR4R5hV2g1Lv+jDRSSd23Fn
-	 sN3UIYRTC0J34vWwLY3bFS7WQ8zRuINoEl39pc/hmbSy23PwBcabpaWA8p0IUu4jbgeEz
-	 /M3Aq4eshYqxN/gJt7rvQCSeGqKYCeJ7SQjvJoUJVqW5DLWixCx5s21WtEnTbWI3ILA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792961659;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Bar:X-Rspamd-Report:X-Rspamd-Score:DKIM-Signature;
-	bh=v5wUyzr+DyPRm9u7hQz3ABD0SUSnHt3iQOyUP/pLhMk=;
-	b=jvNQHz0b2RMEk2rfqIobSwa0bXc3QYS7aNHxuOtvd9rd3CKy0gTenKVlFKqRF7nwDyfV
-	 ZELg9YFUvdm1HSl6hSXKwdyR3wupTpoJ30kS+pu2MquYmYwi8RufiVJXmz3sok6mfMXfX
-	 BTRx9w+egkADy5vWnewMHAbjtY/gPGPxVJigkOOUIDZ9buuYGeIFeNtCuz1Eg9s94rU/b
-	 MDgDgnHOk2pAaQZMuFag3vuVQ8rYFdgTrKK2PYrlWUmhRjTH+7K8l6Rj/YLW5ruLAyZiE
-	 L6HFHgMw03kDi5U4xrpv6S1eQYQMjFaRNfa3gdeI0mJZHdB2ERsHxamVEsQcpu1p5XQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lausen.nl;
-	spf=pass smtp.mailfrom=lausen.nl;
-	dkim=pass header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b="ph6/xYnr";
-	arc=none smtp.remote-ip=95.143.172.20
-Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792965987;
+	b=LENnVo0lxggw0Ib9nsofzrA1jq6km3TmFAiGFQvDe9JG4O2W3tmiSfh8Xm6KgeJqIDAo
+	 qNvUDb/aeFhvKWS3JZJvZth2mC4P5bGAw5AI7LJgNNw2JtnwPhoL0Fu26ItQ6kOibS7C/
+	 15EMEHxeN3tmac+RdWytizLY+lorCNetsK9LfCDGM1Ohxvc/9ucJdaR9cwdrK8+1G5nqd
+	 CVgTViaNmzSdMYq7XgW7qu+eko0+IAWeWtEApSKRYtF6Nu8HQGRi4VkdaX8bt2MAjUiPd
+	 PMj6DF5zNV792YcnlJ7S3Hq/KW+6x5jHGYrxpJVyUiCoDufGmqHj5I9ZipuN+qLGVIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792965987;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=InTBVuYJDkDbarDfbmFiK7vMvKZsADS4capA79VR7aw=;
+	b=OUf3zgB2E7QpRMwEj4YaF2s4Ia1d2SaNDF2QTuafjOS+ZVnwTlKgRcUshWLiDgOVcg2+
+	 5GVrzD4rHlpOpjcQOmi6wgb91+AYFLlK2RcfdsTTjrQd7QDSA6Avp4/i7lGdnAVF5sjtm
+	 6244Hvym4XqpwSTOstialuw/tJS788TH3xEl2lpFNMmhVBsHE2MDu23vnqTIWsPL0fgDu
+	 dK/OFrGTTPy3ne8XjE/N5JIM3x+mnvywz4hTBOHh/6LdJECQXr96ltoCBh05daALqJ9eF
+	 Sw0/PVp+kak8U6lpACFA6JolqGqRhto4ZkIWlVPKejeq7AY/pYuCtkHjn5qCeXBXHBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=HHpzSW98;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="EUKfcOl/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132E1606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:54:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 132E1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2CD606A31A;
+	Sun, 25 Oct 2026 22:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB2CD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=lausen.nl header.i=@lausen.nl header.a=rsa-sha256 header.s=uberspace header.b=ph6/xYnr
-Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
-	by mailgate01.uberspace.is (Postfix) with ESMTPS id 073EF61046
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 21:54:09 +0100 (CET)
-Received: (qmail 25742 invoked by uid 990); 25 Oct 2026 20:54:08 -0000
-Authentication-Results: devico.uberspace.de;
-	auth=pass (plain)
-Received: from unknown (HELO unknown) (::1)
-	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Sun, 25 Oct 2026 21:54:08 +0100
-From: Leonard Lausen <leonard@lausen.nl>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Leonard Lausen <leonard@lausen.nl>
-Subject: [PATCH] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-Date: Sun, 25 Oct 2026 20:52:48 +0000
-Message-ID: <20261025205339.14539-2-leonard@lausen.nl>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=HHpzSW98;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=EUKfcOl/
+ARC-Seal: i=1; a=rsa-sha256; t=1792965975; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=ml4+SpjoPhGa+IJYKpsmlZ1yGnQT1EQ4VJR5jA27XQ6LrJc8kT8Bnbk/ut1U5adrK5
+    jOr6l82a4/7CQFpz+H9TkGZJihwidNPAioAIXar8o522MvdMiTkOdduI4+PghDC1cefn
+    4dk/7wGIrLz/xlqVMtLOwCV6opMjdoIuMhG9TiB6PN76L21eo18cfRwVOpmieGiHE6oz
+    UxtyPWG6a7rmH2v7hRPxC/jZSKBp77CaH03SpzShosRoNXidL1kPRGluRPbe2rJAFXCm
+    7LWhsZeszhxiHrHmCzgOVg5+RkpQBFGNTIywZFL1ou8G+KZjBPR9d3MKvS/Kt/p1694a
+    t/OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792965975;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=InTBVuYJDkDbarDfbmFiK7vMvKZsADS4capA79VR7aw=;
+    b=ZG+hEOZtsIGuF+RxL9ILUUaKTbUYnYnDjCkeF9HRJFxKzjsn8cYVlgq1AZ6cUyhRwa
+    TZ0CwTGoY6kz4tO8CXR1XrJadN5kVQGN4Ov8jDPGzZSUf2TiT4lap27Lh6wQFKZaWRpw
+    068l6cfM2Mt2l6BQIkPWbF8FODu7nqgEFX05AlNx0k4dFosxfTeh1ssT6QJGHZgzxyF7
+    6KtLpz7QnSXJ1ZXbBltaRxCiiHZRlN9PRpy3kPdPXOvv54USdDPJ/cvYSY/ZCWXa8je0
+    MyZmB+gOOT7WtAfYXo3bEKHiT9vHvv14RYthd1E4+vKw6Nu4J7vB4abJiSSMFlnQvQBK
+    u3hg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792965975;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=InTBVuYJDkDbarDfbmFiK7vMvKZsADS4capA79VR7aw=;
+    b=HHpzSW98/IZY1p5xvu/1iCg7Kqa8b8AH9nSJgAT14E/ZphDcyaAcpUa+C94XI4CZOO
+    xchCYe9EWFiGZJoBAQ0kegDX8PLWPnEQh7R5M/kxhJ+jB32pHt4wO7YrFlXW8qpIesAn
+    UEKWdXHbZHDNd+vMK9wiZCrWm6zJy1MyFzlaHXabV4UlRDbp7UfE1xT0gqmhco5ArSow
+    TCM4cebOdRDEzAI6FAsbMu75Cw5IgxplYq4wMDY0phEjouTjM0dZve9QyFbQAvCcKiLv
+    9WtCYSf5+PIu5wyb337ZH6xbbHgDJlZ7f1PFO26RuP1I1m1XljH+gAx/m6aqiBGEaGl2
+    m9hQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792965975;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=InTBVuYJDkDbarDfbmFiK7vMvKZsADS4capA79VR7aw=;
+    b=EUKfcOl/+UwfGj2YSIIwk5IRigAqzKvym5bL+5HEBPFo6FwwbXo5hkXOBuJAy96163
+    BcsY4N+Fr9zlAUB8IiCg==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2poNy8iNoc+LWkugLIF0fnfvFgpgbBBt2w=="
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a229PM6Fzgm
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Sun, 25 Oct 2026 23:06:15 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,107 +93,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Bar: /
-X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) BAYES_HAM(-2.999799) MID_CONTAINS_FROM(1) MIME_GOOD(-0.1) R_MISSING_CHARSET(0.5)
-X-Rspamd-Score: -0.099799
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=lausen.nl; s=uberspace;
-	h=from:to:cc:subject:date;
-	bh=vZp7WOiFDniDGGPVB44BCfmjNLNKpcugqLlTg39BwmY=;
-	b=ph6/xYnrrUxOCAl6qoRBXpbH0JRaj0GL9p69gDqEDI9uZ2+N1Pk/Qp5rXwxKv75BLb+K+wUfHc
-	ttxdkc4ak71hq6vAdf1xp2R5T08BgrX0glv4CeV2jb0t2f1lm0I/4fmvP02wSc+OUdkucDW0gA6H
-	HeopSLDqOk+IAHX1IOT6ODedzzQ4dc3sjSIWHAjIbsgeoewnx41tbkTAICtBp2kNXM9zxBad2wxT
-	WV9Yvbpji2KSfrWcug4sTc65mEMra8Q7IunNLTpGfZ5UERBkqA05eGOYN6IPp3V16DFzc1x7uUtU
-	aknRUf8TkdpoowDJgmysVGbkJBIpKRCtFF7n8FHdRK7bg/tMKRa8wysHhJGRxKvLDo5cOYbwvXQM
-	kQUbewTE4MwAgvHSV2IVgfuhUAr5iOtq6T3TxJKAka1zVxb+sYkfaBhKbxL0yO43CNbkMk3vj6Kb
-	HAOnPJNwHwUjKTSoaHr2nhrNhoebOp2YQE1631GDhGgR96vLPLYlzEBPd0m6WB8pfcSQpWkxjUvf
-	duJcssmbBWWECTPTKSLqXikRAq02ksLD3LxW5eVbQmSTvJAqxY54rFBOXTGXzuMIYyh54sXk1owu
-	3Bz07OAOrwyK9ldMTmLyrCnmFB8XxbNkfsay/z6O4mxqN1P/SBifh5BVBPJU55SjjtEhobB1EtvB
-	k=
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v2 0/2] serial: 8250_ingenic: Set UMR and UACR, add the
+ X1600
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261024220712.23250-1-olivier@mgcrea.io>
+Date: Sun, 25 Oct 2026 23:05:44 +0100
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <A1F59D84-765D-4363-A7A0-47E9312DCCB2@goldelico.com>
+References: <20261024220712.23250-1-olivier@mgcrea.io>
+To: Olivier Louvignes <olivier@mgcrea.io>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
-RTL8822CS-based AC200. The SDIO controller is disabled and the module's
-power sequence is not described, preventing the card from enumerating.
+Hi,
 
-Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
-and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
-200 ms power-on delay used by the vendor device tree, and the external
-32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
-suspend as required by the rtw88 SDIO driver.
+> Am 25.10.2026 um 00:07 schrieb Olivier Louvignes <olivier@mgcrea.io>:
+> 
+> Ingenic UARTs carry a bit clock count (UMR) and a per-bit adjustment
+> (UACR) that the driver never sets, so a UART runs with whatever was left
+> there. On the X1600 of a HiBy R1 neither the vendor's 8 nor the reset
+> value 0 gives the 16 clocks a bit the 8250 divisor assumes, and the
+> Bluetooth chip on UART0 fails to set up. Patch 2 sets 16 and 0 at probe.
 
-Signed-off-by: Leonard Lausen <leonard@lausen.nl>
----
- .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 34 +++++++++++++++++++
- 1 file changed, 34 insertions(+)
+I am still not convinced that this is a x1600 kernel issue or something
+that should be solved in kernel code.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-index 3a305408fa16c..bfa18de1ae1af 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-@@ -23,6 +23,7 @@ aliases {
- 		ethernet0 = &gmac0;
- 		ethernet1 = &gmac1;
- 		mmc0 = &sdmmc;
-+		mmc1 = &sdio;
- 	};
- 
- 	chosen {
-@@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
- 		vin-supply = <&vcc_3v3_s3>;
- 	};
- 
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		clocks = <&hym8563>;
-+		clock-names = "ext_clock";
-+		pinctrl-0 = <&wifi_reg_on_h>;
-+		pinctrl-names = "default";
-+		post-power-on-delay-ms = <200>;
-+		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+
- 	sound {
- 		compatible = "simple-audio-card";
- 		pinctrl-names = "default";
-@@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
- 		};
- 	};
- 
-+	sdio-pwrseq {
-+		wifi_reg_on_h: wifi-reg-on-h {
-+			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	sdmmc {
- 		sdmmc0_pwren_h: sdmmc0-pwren-h {
- 			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
-@@ -890,6 +907,23 @@ &saradc {
- 	status = "okay";
- };
- 
-+&sdio {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	disable-wp;
-+	keep-power-in-suspend;
-+	mmc-pwrseq = <&sdio_pwrseq>;
-+	no-mmc;
-+	no-sd;
-+	non-removable;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+
-+	status = "okay";
-+};
-+
- &sdmmc {
- 	bus-width = <4>;
- 	cap-sd-highspeed;
--- 
-2.47.3
+On our LX16 board all 4 UARTs come up with UMR value 0x10.
+
+> 
+> Changes since v1:
+> - Set UMR and UACR on every Ingenic UART rather than in an X1600 entry,
+>  as Nikolaus asked: the JZ4725, JZ4740, JZ4755, JZ4760, X1000, X1830,
+>  X2000 and X1600 programming manuals all have them at 0x24 and 0x28.
+
+That was not what I have suggested. I asked to a mechanism that allows to
+tailor this if the boot loader fails to provide the correct value.
+
+> - Write 16 rather than the reset value: with UMR at 0 the R1's Bluetooth
+>  chip fails just as it does with 8.
+
+Ok, it would not harm our boards, but there we get the right value anyways.
+
+> - The binding keeps the X1600 compatible with the X1000's as fallback;
+>  the driver needs no entry of its own.
+> - Rebased on tty-next.
+> 
+> I could only test the X1600. On the other SoCs this writes the value the
+> divisor already assumes.
+
+On our LX16 I find in U-Boot the default value 0x00 for UART0, 1 and 3 
+and 0x10 for UART2 (which is the serial console activated by U-Boot):
+
+lx16# 
+lx16# md.l 10030024 1
+10030024: 00000000                               ....
+lx16# md.l 10031024 1
+10031024: 00000000                               ....
+lx16# md.l 10032024 1
+10032024: 00000010                               ....
+lx16# md.l 10033024 1
+10033024: 00000000                               ....
+lx16# 
+
+But after booting into Linux (without your patch):
+
+root@letux-lx16v0-3:~# devmem2 0x10030024
+/dev/mem opened.
+Memory mapped at address 0x77e61000.
+Value at address 0x0x10030024 (0x77e61024): 0x10
+root@letux-lx16v0-3:~# devmem2 0x10031024
+/dev/mem opened.
+Memory mapped at address 0x77e05000.
+Value at address 0x0x10031024 (0x77e05024): 0x10
+root@letux-lx16v0-3:~# devmem2 0x10032024
+/dev/mem opened.
+Memory mapped at address 0x77eb0000.
+Value at address 0x0x10032024 (0x77eb0024): 0x10
+root@letux-lx16v0-3:~# devmem2 0x10033024
+/dev/mem opened.
+Memory mapped at address 0x77ea1000.
+Value at address 0x0x10033024 (0x77ea1024): 0x10
+root@letux-lx16v0-3:~# 
+
+So something is already setting the UMR register properly on our x1600
+without your patch.
+
+I am not at all a specialist for the 8250/16650 but I got the impression that
+what we call UMR in x1600 language could be the UART_XR_EFR register
+in 8250 language.
+
+There is a function called default_setup() in 8250_exar.c which says that
+some UARTs have an extra divisor register.
+
+This all sounds like some standard code might already be responsible to set
+the UMR registers to 0x10 for UARTs initialized on the x1600?
+
+But that needs deeper analysis than I have done for now.
+
+BR,
+Nikolaus
 
