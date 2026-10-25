@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=145.131.90.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792935524;
-	b=jF3x93/ow6+Yb7+z6PleENVs2yUpQd5K4mZVaKVZ9qPtw5LRQsW86FL8LC4/2bHZca6O
-	 TSyBMeabbcMcWw4FHi+mG4sKW5w7nzacPP7iH0GvxJqybhPEauDqWc4IBvlyw/v3mOuHI
-	 sT1zPQoQBlkICIyNRVS4YBdsWGV1FSlXQ/9MATBnWhUHk1RbmTZhnroPndM3QTYVs5M8w
-	 zAxyJCOHKINVq3kpEDcXYI18y5CmsLmrLz8jl2cdPBuOSy2wtJiUEaMbhy9tcRBJZvno2
-	 Amp1ud3UEsZ8UQIlpM6rRZqugRihyUkn4vW5QczzOsUu8e3EtsJtJrEHS9dv22XBsxg==
+	t=1792935521;
+	b=4jnwjmmwzF+plGnoAl4nzi5jcNbP55pKQvQdsqDUgMgSGaZJM0icSDUo8hEhSaOGNPdH
+	 RGQcaYWhgNq4FJwbX2ZpxpnlfSyP06I3maopoDyee2ow9LspoGIcTY+57VYzWss+VeM1+
+	 tNKFpbi2iBCS15rChiPo0x5j7n3tvnTqQrFqi3OKZTKzqozxNkeLX5QnW4xHP0GIJyVNr
+	 9nwRevdrIePKHiepcK5WRSXkcIbeD/OelOPjErrQyPpo5hVTutdYaPffpD5Z9DEt1gEyT
+	 uNmsEIPRu3j5l1Mc+wwswtvTUR8e4E5NeQi2f2rDpIQ8ng/Z7lX3ZNAiardQYMPsMZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792935524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792935521;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Mime-Version:Content-Transfer-Encoding;
-	bh=q1vKgStrzXjEJP5RZmOMPgEo0qGUaawqbRx2jW6a168=;
-	b=vAT6iVpnEieEXCxLbCR0SFc7DMXx76My+zWlInXV9LalCuwY6XlZObx2mGwR61TMVf/i
-	 9gxeF2nBC8XO7bM485ckOEpalAJjGff3HIk9uort+zmh4tdeRCaY2WqRiH/Jn56/V6E5i
-	 /sCFIH2OVORNpfPv7ueScro2pmEFHPHZff9/T7B47GvHPtKo0zfzMIsDeolDQqMP75OoP
-	 cxf67VGCP68Wvd6xoG6VgTH9+y9GAIqF8R7+1xuSmNc0diizmma1I6KDUyWZzjaBuOENG
-	 N+2wzlwRL+aEAne2APnUvcfyF8u24nnqEilP64bc4W6g9t3SxhO+ZuMmOhBlUoomeGA==
+	 Mime-Version:Content-Transfer-Encoding;
+	bh=pqxz8tLX7ebcqdkF46g3geLYrBK/2IZj+ZWtkgQ9FzU=;
+	b=HLvxC4WULuvjmqS3oM18VSMx1y3HrXCxrxNIWcGKZJoQduqRtkv8Y+h//CQKMQYjhIcj
+	 uv6UKNjDzRTJLeTnuhTSjRNsor0YuE9v4JoTPUuPnvrENt7HG99X83TVBZrMtALlAkQPe
+	 ZhN25LJxx2VJVstLE8OH9a8KzBqshdcPOOwyVS1iauuweM0r8+st30dVxBqY/UmjJgJWa
+	 +RTu2B42Bx6TfECMCcYWjeE6zowofWS2eWsVP11ES4Jerrj1wmB4ces9IW+NDwko1Y72D
+	 vmkgExnGw2HiCaowu56HGIyLuWHuDOP9NxdHsFVOAcmZa7XnSfYM7lAvmEIonCGu94Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pyk.ee;
 	spf=pass smtp.mailfrom=pyk.ee;
-	dkim=pass header.d=startmail.com header.i=@startmail.com header.a=rsa-sha256 header.s=2020-07 header.b=QntIlxDd;
+	dkim=pass header.d=startmail.com header.i=@startmail.com header.a=rsa-sha256 header.s=2020-07 header.b=AJAMsJcg;
 	arc=none smtp.remote-ip=145.131.90.139
 Received: from mx-out1.startmail.com (mx-out1.startmail.com [145.131.90.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98128606A31E;
-	Sun, 25 Oct 2026 13:38:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98128606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C8C606A31A;
+	Sun, 25 Oct 2026 13:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6C8C606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pyk.ee
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pyk.ee
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=startmail.com header.i=@startmail.com header.a=rsa-sha256 header.s=2020-07 header.b=QntIlxDd
+	dkim=pass (2048-bit key, unprotected) header.d=startmail.com header.i=@startmail.com header.a=rsa-sha256 header.s=2020-07 header.b=AJAMsJcg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=startmail.com;
-	s=2020-07; t=1792935522;
-	bh=q1vKgStrzXjEJP5RZmOMPgEo0qGUaawqbRx2jW6a168=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Mime-Version:Content-Transfer-Encoding:From:Subject:To:Date:Sender:
-	 Content-Type:Content-Transfer-Encoding:Content-Disposition:
-	 Mime-Version:Reply-To:In-Reply-To:References:Message-Id:Autocrypt;
-	b=QntIlxDd9yVPqC5/Vm0kQf7qhHchhn2tr3Ohw9JwQMSD2A/DhrjiA+zEyKbsKFWQ4
-	 7HC7K415+JZpWNBLozsDpNEFDMtVnJJNOZNOI+H/qheg4+E8uR8WLAanAei4KyUtWI
-	 LWzzGNWdZnKq7MlqvAXCeEfVD8fP7V64Zp7bC9OPmR7BJ2smuO+zm1v9bJWYEHHpgs
-	 PkPMtWC67NuNYQL95Hs8+czPMygutYrBDoCRHCEsx+SSC1/o5uuP2LHCnIW7L75meH
-	 KgnB0paD8stVpv5lMZMwvnjT0vpQ6LczJlz7Ohf0iTejbPN265Ofg5hmlyuAOb0B5Z
-	 ykX3Bvb95nc0Q==
+	s=2020-07; t=1792935513;
+	bh=pqxz8tLX7ebcqdkF46g3geLYrBK/2IZj+ZWtkgQ9FzU=;
+	h=From:To:Subject:Date:Message-ID:Mime-Version:
+	 Content-Transfer-Encoding:From:Subject:To:Date:Sender:Content-Type:
+	 Content-Transfer-Encoding:Content-Disposition:Mime-Version:
+	 Reply-To:In-Reply-To:References:Message-Id:Autocrypt;
+	b=AJAMsJcgPl4OLWUGrz4u1lLJx7RAfxQ7x4CSU5eqkK0IwEUnXFflyuFRIu5FjzmQM
+	 oTLnq22Iw1vmCvgXatNSMb0dVsaQqUpISn4Y1Nuioi8IAKMT7KyYMnZ4PEwuoUP1ot
+	 0sSbkxfetJMZBeUi2gaUnHCkuIJ3aPMDxMiq/KWec0lhSp0IU8FT6Cuk06k0Mviafa
+	 Zj0n1AcrGmp7tVwJR6HGeIM+BjslQu/IdTAQ91OyAkaDxqhamo+oibY/FjiOygujI6
+	 E5RLHrEmXq0nTWc32/ZZE6XdxaqX6b5Yq7F3kWy2Zsz+kz20xwqTvvS5bk+UYpCs0L
+	 LngjnJkX8ed2A==
 From: Jacob Pyke <jacob@pyk.ee>
 To: neil.armstrong@linaro.org
 Cc: jesszhan0024@gmail.com,
@@ -57,11 +57,9 @@ Cc: jesszhan0024@gmail.com,
 	teguh@sobir.in,
 	Andrew.liu@moorechip.net,
 	Jacob Pyke <jacob@pyk.ee>
-Subject: [PATCH 2/2] drm/panel: Add Ilitek IL97680A panels for Retroid Pocket Nova and Duo
-Date: Sun, 25 Oct 2026 23:37:41 +1000
-Message-ID: <20261025133741.100490-3-jacob@pyk.ee>
-In-Reply-To: <20261025133741.100490-1-jacob@pyk.ee>
-References: <20261025133741.100490-1-jacob@pyk.ee>
+Subject: [PATCH 0/2] drm/panel: Add IL97680A panels for Retroid Pocket Nova and Duo
+Date: Sun, 25 Oct 2026 23:37:39 +1000
+Message-ID: <20261025133741.100490-1-jacob@pyk.ee>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,511 +71,32 @@ Precedence: list
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Teguh Sobirin <teguh@sobir.in>
+This series adds bindings and a driver for the Ilitek IL97680A panels
+in the Retroid Pocket Nova and the bottom display of the Retroid Pocket
+Duo. Both are 1280x960, four-lane RGB888 command-mode panels supporting
+60 Hz and 120 Hz, with DCS brightness control.
 
-Add support for the Ilitek IL97680A panels in the Retroid Pocket Nova
-and the bottom display of the Retroid Pocket Duo. Both are 1280x960
-command-mode panels using four DSI lanes and RGB888 pixels, with fixed
-60 Hz and 120 Hz modes and DCS brightness control.
+The driver is based on Teguh Sobirin's RetroidPocket implementation.
+Display operation at both refresh rates, brightness adjustment and panel
+recovery after suspend/resume were tested on both devices.
 
-Share initialization and timings, with per-panel supply configurations.
-Apply the requested brightness after display-on rather than setting full
-brightness during initialization, to avoid a white flash on startup.
+Testing on these Qualcomm DPU systems also used Teguh's command-mode
+MERGE_3D fix [1], which is not included in this series. Board Devicetree
+changes are outside the scope of this series.
 
-Link: https://github.com/RetroidPocket/linux/commit/32d07e207d8c09b97b9ad5009999c32c7058d4af
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Assisted-by: LLM
-Signed-off-by: Jacob Pyke <jacob@pyk.ee>
----
- MAINTAINERS                                   |   1 +
+[1] https://github.com/RetroidPocket/linux/commit/b547718c91dbaf8fe27745afced8de00d1f7415b
+
+Teguh Sobirin (2):
+  dt-bindings: display: panel: Add Retroid Pocket IL97680A panels
+  drm/panel: Add Ilitek IL97680A panels for Retroid Pocket Nova and Duo
+
+ .../display/panel/ilitek,il97680a.yaml        | 121 +++++
+ MAINTAINERS                                   |   7 +
  drivers/gpu/drm/panel/Kconfig                 |  11 +
  drivers/gpu/drm/panel/Makefile                |   1 +
  drivers/gpu/drm/panel/panel-ilitek-il97680a.c | 433 ++++++++++++++++++
- 4 files changed, 446 insertions(+)
+ 5 files changed, 573 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
  create mode 100644 drivers/gpu/drm/panel/panel-ilitek-il97680a.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d1be1cf2b93c4fa57ffcb6a17aaf2e14dad0deed..70d04c3870022c468295ce1de2a636c05e3accee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8240,6 +8240,7 @@ M:	Jacob Pyke <jacob@pyk.ee>
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
-+F:	drivers/gpu/drm/panel/panel-ilitek-il97680a.c
- 
- DRM DRIVER FOR ILITEK ILI9225 PANELS
- M:	David Lechner <david@lechnology.com>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index cbdf7b8f7f7afc7f8aa3a9cefd2258ca81ac9673..fafa658d0c42cf26842e7ebb46dbf70ad59e4b9f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -306,6 +306,17 @@ config DRM_PANEL_ILITEK_IL9322
- 	  Say Y here if you want to enable support for Ilitek IL9322
- 	  QVGA (320x240) RGB, YUV and ITU-T BT.656 panels.
- 
-+config DRM_PANEL_ILITEK_IL97680A
-+	tristate "Ilitek IL97680A-based panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here to enable the 1280x960 Ilitek IL97680A panels in the
-+	  Retroid Pocket Nova and the bottom display of the Retroid Pocket Duo.
-+	  These panels use four-lane MIPI DSI command mode and support fixed
-+	  60 Hz and 120 Hz refresh rates with brightness controlled over DCS.
-+
- config DRM_PANEL_ILITEK_ILI9341
- 	tristate "Ilitek ILI9341 240x320 QVGA panels"
- 	depends on SPI
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 3b523cf37833067c3b0b02ffd90694c3558f0741..ca03c07a1d255c1a8e0bd34dc0f3ba4fe2b65098 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -30,6 +30,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
- obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
-+obj-$(CONFIG_DRM_PANEL_ILITEK_IL97680A) += panel-ilitek-il97680a.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-il97680a.c b/drivers/gpu/drm/panel/panel-ilitek-il97680a.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..8edc9ee9ea3f685179765027bd2864c9c592e4de
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-ilitek-il97680a.c
-@@ -0,0 +1,433 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Ilitek IL97680A panels driver
-+ *
-+ * Copyright (c) 2026 Teguh Sobirin <teguh@sobir.in>
-+ * Copyright (c) 2026 Jacob Pyke <jacob@pyk.ee>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
-+
-+struct il97680a {
-+	struct drm_panel panel;
-+	struct drm_connector *connector;
-+	struct mipi_dsi_device *dsi;
-+	const struct il97680a_desc *desc;
-+	enum drm_panel_orientation orientation;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *supplies;
-+	/* Protects panel power state and serializes DSI transfers. */
-+	struct mutex lock;
-+	bool powered;
-+	bool prepared;
-+	bool enabled;
-+};
-+
-+struct il97680a_desc {
-+	const struct regulator_bulk_data *supplies;
-+	unsigned int num_supplies;
-+};
-+
-+static const struct regulator_bulk_data il97680a_rpnova_supplies[] = {
-+	{ .supply = "vdd" },
-+	{ .supply = "vddio" },
-+	{ .supply = "vci" },
-+	{ .supply = "vdd18" },
-+	{ .supply = "vdd28" },
-+};
-+
-+static const struct regulator_bulk_data il97680a_rpduo_supplies[] = {
-+	{ .supply = "vdd" },
-+	{ .supply = "vddio" },
-+	{ .supply = "vci" },
-+};
-+
-+static inline struct il97680a *to_il97680a(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct il97680a, panel);
-+}
-+
-+static const struct drm_display_mode il97680a_retroid_modes[] = {
-+	{
-+		/* 120Hz */
-+		.clock = (1280 + 12 + 2 + 8) * (960 + 12 + 2 + 24) * 120 / 1000,
-+		.hdisplay = 1280,
-+		.hsync_start = 1280 + 12,
-+		.hsync_end = 1280 + 12 + 2,
-+		.htotal = 1280 + 12 + 2 + 8,
-+		.vdisplay = 960,
-+		.vsync_start = 960 + 12,
-+		.vsync_end = 960 + 12 + 2,
-+		.vtotal = 960 + 12 + 2 + 24,
-+	},
-+	{
-+		/* 60Hz */
-+		.clock = (1280 + 12 + 2 + 8) * (960 + 12 + 2 + 24) * 60 / 1000,
-+		.hdisplay = 1280,
-+		.hsync_start = 1280 + 12,
-+		.hsync_end = 1280 + 12 + 2,
-+		.htotal = 1280 + 12 + 2 + 8,
-+		.vdisplay = 960,
-+		.vsync_start = 960 + 12,
-+		.vsync_end = 960 + 12 + 2,
-+		.vtotal = 960 + 12 + 2 + 24,
-+	}
-+};
-+
-+static int il97680a_get_current_mode(struct il97680a *pinfo)
-+{
-+	struct drm_connector *connector = pinfo->connector;
-+	struct drm_crtc_state *crtc_state;
-+	unsigned int i;
-+
-+	if (!connector || !connector->state || !connector->state->crtc)
-+		return 0;
-+
-+	crtc_state = connector->state->crtc->state;
-+	if (!crtc_state)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(il97680a_retroid_modes); i++) {
-+		if (drm_mode_match(&crtc_state->mode,
-+				   &il97680a_retroid_modes[i],
-+				   DRM_MODE_MATCH_TIMINGS | DRM_MODE_MATCH_CLOCK))
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int il97680a_init_sequence(struct il97680a *pinfo, unsigned int mode)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
-+	int vrefresh = drm_mode_vrefresh(&il97680a_retroid_modes[mode]);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc8, 0x62);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x21);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa4, 0x38);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x85, 0x15);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x00);
-+
-+	if (vrefresh == 120)
-+		mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x00);
-+	else
-+		mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
-+
-+	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x20);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static const struct il97680a_desc il97680a_rpnova_desc = {
-+	.supplies = il97680a_rpnova_supplies,
-+	.num_supplies = ARRAY_SIZE(il97680a_rpnova_supplies),
-+};
-+
-+static const struct il97680a_desc il97680a_rpduo_desc = {
-+	.supplies = il97680a_rpduo_supplies,
-+	.num_supplies = ARRAY_SIZE(il97680a_rpduo_supplies),
-+};
-+
-+static void il97680a_reset(struct il97680a *pinfo)
-+{
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(20000, 21000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-+	usleep_range(20000, 21000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(20000, 21000);
-+}
-+
-+static void il97680a_power_off(struct il97680a *pinfo)
-+{
-+	int ret;
-+
-+	pinfo->enabled = false;
-+	pinfo->prepared = false;
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-+
-+	if (!pinfo->powered)
-+		return;
-+
-+	ret = regulator_bulk_disable(pinfo->desc->num_supplies, pinfo->supplies);
-+	if (ret)
-+		dev_err(pinfo->panel.dev, "Failed to disable supplies: %d\n", ret);
-+	else
-+		pinfo->powered = false;
-+}
-+
-+static int il97680a_prepare(struct drm_panel *panel)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+	int mode, ret;
-+
-+	guard(mutex)(&pinfo->lock);
-+
-+	mode = il97680a_get_current_mode(pinfo);
-+	if (mode < 0) {
-+		dev_err(panel->dev, "Invalid display mode\n");
-+		return mode;
-+	}
-+
-+	if (!pinfo->powered) {
-+		ret = regulator_bulk_enable(pinfo->desc->num_supplies, pinfo->supplies);
-+		if (ret)
-+			return ret;
-+		pinfo->powered = true;
-+	}
-+
-+	il97680a_reset(pinfo);
-+
-+	ret = il97680a_init_sequence(pinfo, mode);
-+	if (ret) {
-+		il97680a_power_off(pinfo);
-+		return ret;
-+	}
-+
-+	pinfo->prepared = true;
-+
-+	return 0;
-+}
-+
-+static int il97680a_enable(struct drm_panel *panel)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
-+
-+	guard(mutex)(&pinfo->lock);
-+
-+	if (!pinfo->prepared)
-+		return -EPERM;
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe1, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x5a, 0xa5, 0x00);
-+
-+	if (!dsi_ctx.accum_err)
-+		pinfo->enabled = true;
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int il97680a_disable(struct drm_panel *panel)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
-+
-+	guard(mutex)(&pinfo->lock);
-+
-+	pinfo->enabled = false;
-+	if (!pinfo->prepared)
-+		return 0;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	msleep(20);
-+
-+	return 0;
-+}
-+
-+static int il97680a_unprepare(struct drm_panel *panel)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
-+
-+	guard(mutex)(&pinfo->lock);
-+
-+	pinfo->enabled = false;
-+	if (pinfo->prepared) {
-+		mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+		msleep(120);
-+	}
-+
-+	il97680a_power_off(pinfo);
-+
-+	return 0;
-+}
-+
-+static int il97680a_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+	struct drm_display_mode *mode;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(il97680a_retroid_modes); i++) {
-+		mode = drm_mode_duplicate(connector->dev, &il97680a_retroid_modes[i]);
-+		if (!mode)
-+			return -ENOMEM;
-+
-+		mode->type = DRM_MODE_TYPE_DRIVER;
-+		if (i == 0)
-+			mode->type |= DRM_MODE_TYPE_PREFERRED;
-+
-+		drm_mode_set_name(mode);
-+		drm_mode_probed_add(connector, mode);
-+	}
-+
-+	connector->display_info.width_mm = 91;
-+	connector->display_info.height_mm = 68;
-+	connector->display_info.bpc = 8;
-+	pinfo->connector = connector;
-+
-+	return ARRAY_SIZE(il97680a_retroid_modes);
-+}
-+
-+static enum drm_panel_orientation il97680a_get_orientation(struct drm_panel *panel)
-+{
-+	struct il97680a *pinfo = to_il97680a(panel);
-+
-+	return pinfo->orientation;
-+}
-+
-+static const struct drm_panel_funcs il97680a_panel_funcs = {
-+	.enable = il97680a_enable,
-+	.disable = il97680a_disable,
-+	.prepare = il97680a_prepare,
-+	.unprepare = il97680a_unprepare,
-+	.get_modes = il97680a_get_modes,
-+	.get_orientation = il97680a_get_orientation,
-+};
-+
-+static int il97680a_bl_update_status(struct backlight_device *bl)
-+{
-+	struct il97680a *pinfo = bl_get_data(bl);
-+	struct mipi_dsi_device *dsi = pinfo->dsi;
-+	unsigned long mode_flags;
-+	int ret;
-+
-+	guard(mutex)(&pinfo->lock);
-+
-+	if (!pinfo->enabled)
-+		return 0;
-+
-+	mode_flags = dsi->mode_flags;
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, backlight_get_brightness(bl));
-+	dsi->mode_flags = mode_flags;
-+
-+	return ret;
-+}
-+
-+static const struct backlight_ops il97680a_bl_ops = {
-+	.update_status = il97680a_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+il97680a_create_backlight(struct il97680a *pinfo)
-+{
-+	struct device *dev = &pinfo->dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = 3445,
-+		.max_brightness = 3445,
-+		.scale = BACKLIGHT_SCALE_NON_LINEAR,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, pinfo,
-+					      &il97680a_bl_ops, &props);
-+}
-+
-+static int il97680a_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct il97680a *pinfo;
-+	int ret;
-+
-+	pinfo = devm_drm_panel_alloc(dev, struct il97680a, panel,
-+				     &il97680a_panel_funcs,
-+				     DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(pinfo))
-+		return PTR_ERR(pinfo);
-+
-+	pinfo->desc = of_device_get_match_data(dev);
-+	if (!pinfo->desc)
-+		return -ENODEV;
-+
-+	ret = devm_mutex_init(dev, &pinfo->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regulator_bulk_get_const(dev, pinfo->desc->num_supplies,
-+					    pinfo->desc->supplies, &pinfo->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	pinfo->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(pinfo->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	pinfo->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, pinfo);
-+
-+	ret = drm_of_get_panel_orientation(dev->of_node, &pinfo->orientation);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to get orientation\n");
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM;
-+	pinfo->panel.prepare_prev_first = true;
-+
-+	pinfo->panel.backlight = il97680a_create_backlight(pinfo);
-+	if (IS_ERR(pinfo->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(pinfo->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &pinfo->panel);
-+	if (ret)
-+		return ret;
-+
-+	return devm_mipi_dsi_attach(dev, dsi);
-+}
-+
-+static const struct of_device_id il97680a_of_match[] = {
-+	{ .compatible = "retroidpocket,rpnova-panel", .data = &il97680a_rpnova_desc },
-+	{ .compatible = "retroidpocket,rpduo-panel-bottom", .data = &il97680a_rpduo_desc },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, il97680a_of_match);
-+
-+static struct mipi_dsi_driver il97680a_driver = {
-+	.probe = il97680a_probe,
-+	.driver = {
-+		.name = "panel-ilitek-il97680a",
-+		.of_match_table = il97680a_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(il97680a_driver);
-+
-+MODULE_AUTHOR("Teguh Sobirin <teguh@sobir.in>");
-+MODULE_AUTHOR("Jacob Pyke <jacob@pyk.ee>");
-+MODULE_DESCRIPTION("DRM driver for Ilitek IL97680A based MIPI DSI panels");
-+MODULE_LICENSE("GPL");
+base-commit: 17bb0e2f6c8043f70a693a5f3797471cbed354c8
