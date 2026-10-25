@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792960009;
-	b=cNqZVoqv4sRrsUJG913BGeMDua2BU0/TNHl1sOvegGJQCsoO6tlVseMhURfzYUhMo15A
-	 cJSTy4uBdkjGn621chfN1n/QGhdvHrUs8qoJiYcgkdX5x45pf6sxlLO4ssqhP+GBjWXRz
-	 O4/HrmO0rD2lLmgZjgnUnyYjHbheLlCg5W3HholTHtEhYnIgjmKgURnWwCuCqQ7hKknyf
-	 Km6ZzTYpsnC75TVo9vjrcYFQZT+LRaxhyCmuTeDh9HorSw6+7FO7Cm9Vhde0g4IFrvMKa
-	 HQfuLuZJRJw92bDGl87kkFj6pjINkndH82CIeZpyB1CK6SZqzqVlvz93Y2R3dWm2N1A==
+	t=1792960055;
+	b=D+4J1KAlErk3wLvs7HApUuKGHgBNHLAmNw/2v0qAWT4SNE81BcQDkUu2CuXvDutB4Cq5
+	 Ll6ew7zXFDp/i5sL6/zkYeCnaOfwQKWWqWmU1EoTokZYSiJmfmajXMk2EiKNBz/Cs0Wm5
+	 QoWOIo+VlMdlkl6DLYH+O4kSAO5zjz0nxqYOoXYf83nu+g4b11hediGNOUXuDRYFfryRE
+	 NRv7VJLHFwRvnbeZ6iMLy5gdNJ7E/OeBzAmUy4pv5Z9R7OthBTe8rqL28i73JcRCaYUIl
+	 Y9fH6XVCPeFFSDq+Y4o++ZSaSdu9VDctzGRz2wPyZAsa6J4X9P8iUghpeVUdHWhAkfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792960009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792960055;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=vGtMHIQT0AmVDrZaIKlwqAZiaYddatsDoOvXDdq+810=;
-	b=zgS0cIif5tnfjFPlAv9axJV2BJNbUuKPGJuTbQxieviV0vToFDEehEmZREmfz94MH2XT
-	 Utj/xosxvnbpBXEIdvvNfyenX66o1EvizERCUGLq26HUkevR44UfoCo1KsNTS+3Z3q1Ec
-	 EgR1m78UkvhW7KpZpemK4fiXOzxGrZpT7sG1VBcsdmqN3dFFFSS4mtW6ifZkqOw213yS9
-	 MSytUBSee/6MptPg3p2r40tE5pRXD1LC+/Qxx39RhdURJhnM5t7r3F4gd6ISn5WeHqy59
-	 amRAm+s15+0glBg95OXR4v+7SknLcIHFM9a9SziLhbETghb/0kMiugR8xZcOmnlH3zg==
+	bh=39T7/si6JAyxDX8RF+i0POE9eBeV6NAYtOjXoeBojL8=;
+	b=Vrm2D2GgNBprepG1SnotL9GKeDyXA8dLhTx7yEakgn1hCTR6Du7ImqtjaCGCJiMWI4fm
+	 RT9kl4FVbFepQjvzoY1VuAIlrOxazZYZsCz+A5aVShqOkksWmpG1UxZoS9u6xWzoVWmBP
+	 vPSZUCIL3GmO2GfQ7ds/LzW97MhLxUCDMudASJ6Q91n2dxZnAIwCWs/8Y2Es0s5JrFaSv
+	 tfWS+NeNf0+T/TJ+/YpAwmPRs++ToyxupulK1u2PzP7rkleDFxNLcAWIvlkneiIR7tCWg
+	 6Uc4AjQLg/eLinjsF/rJtwnOWVE0lKyDggbh6BJ3t26ia0V06el65/JmD6SArbxu81w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtbSJfdE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XLfrguqW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D29606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:26:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF702606A31A
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:27:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtbSJfdE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DAE1F01825;
-	Sun, 25 Oct 2026 20:26:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XLfrguqW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157B51F01825;
+	Sun, 25 Oct 2026 20:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792960008;
-	bh=vGtMHIQT0AmVDrZaIKlwqAZiaYddatsDoOvXDdq+810=;
+	s=k20260515; t=1792960054;
+	bh=39T7/si6JAyxDX8RF+i0POE9eBeV6NAYtOjXoeBojL8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NtbSJfdE3HjIusXFjUZX9aKcHMygl5jdUtV+M+oEX/rS0e3MO0fbQHxBZfdGbTDNG
-	 LQYdZnpLcUh8+J0AtKLeOqyjNjcb4nyeWjAV/aBBfzcEYC6GNcEDVy2/TriqQL8rMS
-	 ievQ/xO8jNJncOpLE103XVef/u7A3JxV+nxEFuZflVFa2NdbdzpIXAZGHdkN6dY4Sm
-	 Chr+pLIG1N0YYAz0l7SLYuJ07YuFHn0X7dFOGX6Jc/OljOqneGQIhEGkZfZvXSCqKd
-	 LLNxBzXjF+TrVWxqMORkhXj2sd329eXsgbuQtC2rsv/zk3gaVzn8McijdXAYT0AiwK
-	 14pPyboc6RtkQ==
-Message-ID: <sashiko-outbox-184427@kernel.org>
+	b=XLfrguqWJpPvjRaufJNHt7laN2P6tUDoFVLePjAIbp9LQr8EVMnM0QB0NUzFo/zHO
+	 zLdI2iYeBRuSnyPUbNeuAslG3mWUHlsVeVDCLS5fTo+ZDKYLpb5QvEx7sNnF4Wo/F7
+	 oAEKVJisjgyAuR/+YNavYf06bhUh9q3FWP77+3IWCSKsO+uBCkCK/cDzsKVz3qW9ww
+	 3U4KRFaUhXqdiln8oj/wEpYKxxWMtfrH2ybbltwd9cKqEleFkWwrQKhxLdBIFFca0V
+	 A8uLK11fteMlSAkR1kq/x6HOQKaLRuXrKPBwWqEg4ZeE6GVgv0yGZi0ekw3NIKeRlq
+	 hTMRkx3swO/QQ==
+Message-ID: <sashiko-outbox-184430@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/11] media: amlogic: vdec: add HEVC decoding on the
+Subject: Re: [PATCH 07/11] media: amlogic: vdec: add AV1 decoding on the
  HEVC core
 Reply-To: sashiko-reviews@lists.linux.dev
 To: christian.koever-draxl@student.uibk.ac.at
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261025192507.210058-10-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261025192507.210058-8-christian.koever-draxl@student.uibk.ac.at>
 References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192507.210058-10-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192507.210058-8-christian.koever-draxl@student.uibk.ac.at>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 20:26:47 +0000
+Date: Sun, 25 Oct 2026 20:27:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,806 +61,1047 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 14 potential issue=
+Thank you for your contribution! Sashiko AI review found 17 potential issue=
 (s) to consider:
-- [Critical] media: amlogic: vdec: CAPTURE overflow in h265_config_sao() an=
-d h265_copy_out()
-- [Critical] media: amlogic: vdec: MMU map truncation in h265_fill_mmu_map(=
-) above 2304p
-- [Critical] media: amlogic: vdec: unvalidated non-first slice state in h26=
-5_slice_header()
-- [Critical] media: amlogic: vdec: unsynchronized IRQ teardown in aml_hevc_=
-exit()
-- [High] media: amlogic: vdec: V4L2_PIX_FMT_HEVC_SLICE lacks stateless HEVC=
- controls
-- [High] media: amlogic: vdec: OOB read and invalid tile sizes in h265_upda=
-te_tiles()
-- [High] media: amlogic: vdec: shift overflow and broken POC math in h265_s=
-lice_header()
-- [High] media: amlogic: vdec: DPB slot leak on IDR pictures in h265_apply_=
-rps()
-- [High] media: amlogic: vdec: swap buffers not programmed in h265_config_w=
-orkspace()
-- [High] media: amlogic: vdec: freed DMA addresses left active on slice hea=
-der error
-- [High] media: amlogic: vdec: timeout recovery and IRQ race in aml_hevc_de=
-c_run()
-- [High] media: amlogic: vdec: premature job completion in h265_finish() fr=
-om IRQ thread
-- [High] media: amlogic: vdec: NULL deref in aml_hevc_dec_run() after CAPTU=
-RE restart
-- [Medium] media: amlogic: vdec: skipped tile init on same POC in h265_slic=
-e_header()
+- [Critical] media: amlogic: vdec: active DMA and IRQ race on timeout in am=
+l_av1_dec_run()
+- [Critical] media: amlogic: vdec: unsynchronized IRQ teardown in aml_av1_e=
+xit()
+- [Critical] media: amlogic: vdec: broken stride/bounds check and show_exis=
+ting_frame in DW path
+- [Critical] media: amlogic: vdec: out-of-bounds memcpy in av1_copy_out() w=
+hen av1_dw_target_y is 0
+- [Critical] media: amlogic: vdec: height bound in aml_av1_config_picture()=
+ allows workspace overrun
+- [High] media: amlogic: vdec: av1_finish() completes buffers before metada=
+ta copy
+- [High] media: amlogic: vdec: race on av1->started in aml_av1_dec_run() ca=
+uses DMA UAF
+- [High] media: amlogic: vdec: stream FIFO updated before halting core in a=
+ml_av1_dec_run()
+- [High] media: amlogic: vdec: DMA buffers leaked on early error in aml_av1=
+_dec_run()
+- [High] media: amlogic: vdec: unbalanced hvdec_enable() in aml_av1_dec_run=
+() leaks PM refs
+- [High] media: amlogic: vdec: LEB128 size truncation and missing bounds in=
+ OBU parsers
+- [Medium] media: amlogic: vdec: static AV1 decoder state is not reset acro=
+ss sessions
+- [Medium] media: amlogic: vdec: av1_apply_reference_ts() skips ts 0 and ma=
+tches stale slots
+- [Medium] media: amlogic: vdec: wrong show_existing_frame ref reset in aml=
+_av1_config_picture()
+- [Medium] media: amlogic: vdec: aml_av1_config_picture() treats SWITCH_FRA=
+ME as intra
+- [Medium] media: amlogic: vdec: aml_av1_config_picture() misprograms loop =
+filter registers
+- [Medium] media: amlogic: vdec: dead bring-up helpers with filp_open() and=
+ unused DMA in av1.c
 --
 
-commit 6edd9c45f2e4b6fa27b412395f4321725272a652
+commit a46d92fb9c757233f35e346c8e20a00518a6480a
 Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 
-media: amlogic: vdec: add HEVC decoding on the HEVC core
+media: amlogic: vdec: add AV1 decoding on the HEVC core
 
-This commit adds HEVC Main and Main 10 decoding support up to 4K on the
-Amlogic S4 HEVC hardware core. It registers the V4L2_PIX_FMT_HEVC_SLICE
-format, manages workspace and DPB picture buffers, and configures the
-hardware decoder per slice from the microcode RPM parameter block.
+This commit adds V4L2 stateless AV1 decoding support on the Amlogic S4 HEVC
+core, handling 8-bit and 10-bit main profile streams up to 4096x2304. It
+rebuilds sequence and frame OBUs with AMLV headers, manages reference slots
+and the frame MMU, and outputs NV12 frames into CAPTURE buffers.
 
-> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec.c b/drivers/med=
-ia/platform/amlogic/vdec/aml_vdec.c
-> index f1696aa2fac53..ee020a62836fc 100644
-> --- a/drivers/media/platform/amlogic/vdec/aml_vdec.c
-> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec.c
-
-[ ... ]
-
-> @@ -112,7 +113,19 @@ static const struct aml_vdec_v4l2_ctrl controls[] =
-=3D {
->  		.cfg =3D {
->  			.id =3D V4L2_CID_STATELESS_MPEG2_QUANTISATION,
->  		},
-> -	},};
-> +	}, {
-> +		.codec_type =3D CODEC_TYPE_HEVC,
-> +		.cfg =3D {
-> +			.id =3D V4L2_CID_AML_HEVC_REFS,
-> +			.name =3D "HEVC Reference Lists",
-> +			.type =3D V4L2_CTRL_TYPE_INTEGER,
-> +			.min =3D S32_MIN,
-> +			.max =3D S32_MAX,
-> +			.step =3D 1,
-> +			.dims =3D { AML_HEVC_REFS_LEN },
-> +		},
-> +	}
-> +};
-
-[Severity: High]
-In drivers/media/platform/amlogic/vdec/aml_vdec_platform.c,
-aml_s4_video_formats[] advertises V4L2_PIX_FMT_HEVC_SLICE:
-
-	{
-		.name =3D "HEVC",
-		.fourcc =3D V4L2_PIX_FMT_HEVC_SLICE,
-		.type =3D AML_FMT_DEC,
-		...
-		.codec_type =3D CODEC_TYPE_HEVC,
-
-However, controls[] in drivers/media/platform/amlogic/vdec/aml_vdec.c only
-registers the private V4L2_CID_AML_HEVC_REFS control (defined in
-drivers/media/platform/amlogic/vdec/hevc.h as V4L2_CID_USER_BASE + 0x1f01)
-and omits the standard V4L2 stateless HEVC controls
-(V4L2_CID_STATELESS_HEVC_SPS, V4L2_CID_STATELESS_HEVC_PPS,
-V4L2_CID_STATELESS_HEVC_DECODE_PARAMS, V4L2_CID_STATELESS_HEVC_SLICE_PARAMS,
-V4L2_CID_STATELESS_HEVC_SCALING_MATRIX, V4L2_CID_STATELESS_HEVC_DECODE_MODE,
-and V4L2_CID_STATELESS_HEVC_START_CODE).
-
-In addition, although the commit description states that the access unit is
-rebuilt in Annex-B form with VPS, SPS, and PPS from the stateless controls,
-aml_hevc_dec_run() passes the raw OUTPUT buffer directly to h265_feed(), and
-h265_irq_thread() under H265_NAL_SEARCH_DONE discards coded slices with
-H265_DISCARD_NAL until in-band H265_NAL_VPS, H265_NAL_SPS, and H265_NAL_PPS
-NAL units have been seen in the bitstream:
-
-	case H265_NAL_SEARCH_DONE: {
-		int nal =3D read_dos_reg(hw, H265_CUR_NAL_UNIT_TYPE);
-		u32 parse =3D H265_DISCARD_NAL;
-		...
-		} else if (h->have_vps && h->have_sps && h->have_pps && nal <=3D H265_NAL=
-_CRA) {
-
-How can standard V4L2 stateless HEVC clients drive V4L2_PIX_FMT_HEVC_SLICE
-without the stateless HEVC controls and Annex-B header reconstruction, or
-was this intended to use the stateless controls rather than in-band paramet=
-er
-sets and a driver-private control?
-
-> diff --git a/drivers/media/platform/amlogic/vdec/hevc.c b/drivers/media/p=
-latform/amlogic/vdec/hevc.c
+> diff --git a/drivers/media/platform/amlogic/vdec/av1.c b/drivers/media/pl=
+atform/amlogic/vdec/av1.c
 > new file mode 100644
-> index 0000000000000..6d9f457436cfd
+> index 0000000000000..ddadc83c8d866
 > --- /dev/null
-> +++ b/drivers/media/platform/amlogic/vdec/hevc.c
-> @@ -0,0 +1,1728 @@
+> +++ b/drivers/media/platform/amlogic/vdec/av1.c
+> @@ -0,0 +1,3140 @@
 
 [ ... ]
 
-> +static int h265_alloc_pics(struct aml_hevc_ctx *h)
+> +static struct av1_slot av1_slots[AV1_SLOTS];
+> +static size_t av1_slot_body_size, av1_slot_mv_size, av1_slot_hdr_size;
+> +static size_t av1_slot_dw_size;
+> +static int av1_cur_slot;
+> +static u32 av1_last_width, av1_last_height;
+> +static int av1_prev_slot;
+> +/* False for a key frame and for any frame with PRIMARY_REF_NONE. */
+> +static bool av1_prev_valid;
+> +/* Slot a show_existing_frame header asked to be displayed again. */
+> +static int av1_shown_slot =3D -1;
+> +/* Slot that should be handed to the display next, -1 when there is none=
+. */
+> +static int av1_out_slot =3D -1;
+> +static bool av1_cur_show;
+
+[ ... ]
+
+> +static bool av1_stateless;
+
+[ ... ]
+
+> +static dma_addr_t av1_dw_target_y, av1_dw_target_c;
+> +
+> +/* Bytes the hardware may write at av1_dw_target_y, the CAPTURE buffer s=
+ize. */
+> +static size_t av1_dw_target_size;
+> +/* AV1 keeps eight reference slots; each names one of our picture slots.=
+ */
+> +static int av1_ref_slot[8];
+> +static u32 av1_pending_refresh;
+> +/* OUTPUT timestamp of the frame being decoded, stateless path only. */
+> +static u64 av1_cur_ts;
+> +/* The picture slot each reference frame LAST..ALTREF resolves to, plus =
+[0] =3D current. */
+> +static int av1_frame_slot[8];
+> +
+> +static struct av1_workspace av1_ws;
+
+[Severity: Medium]
+What happens when a second AV1 decoding session is opened after a previous
+session closes?
+
+All of the stream and reference tracking state (av1_seq_obu, av1_seq_len,
+av1_ref_slot[], av1_cur_slot, av1_prev_slot, av1_prev_valid, av1_shown_slot,
+av1_out_slot, av1_last_width, av1_last_height, and av1_ws.dw_width /
+av1_ws.dw_height) is kept in file-scope static variables.
+
+None of these variables are reset in aml_av1_init(), aml_av1_bringup(),
+aml_av1_teardown(), or aml_av1_exit(). On a subsequent session,
+aml_av1_have_sequence() will return true using the previous session's cached
+av1_seq_obu, and the slot and reference indices will start from stale value=
+s.
+
+Should this state live in struct aml_av1_ctx or be explicitly cleared during
+session initialization and teardown?
+
+[ ... ]
+
+> +static int av1_reframe(struct aml_vdec_hw *hw, const u8 *src, size_t len,
+> +		       u8 *dst, size_t dst_cap, size_t *out_len)
 > +{
-> +	struct device *dev =3D h->hw->dev;
-> +	u32 w =3D h->pic_w, ht =3D h->pic_h;
-> +	size_t body =3D ALIGN(h265_comp_body_size(w, ht, h->ten_bit), PAGE_SIZE=
-);
-> +	/* Size the MV buffers for the smallest LCU, so they fit any. */
-> +	size_t mv =3D h265_mv_buf_size(w, ht, 16);
-> +	size_t hdr =3D h265_hdr_alloc_size(w, ht);
-> +	size_t dw =3D h->dw_target_y ? 0 : ALIGN(w * ht * 3 / 2, SZ_64K);
-> +	int i;
+> +	size_t pos =3D 0, outp =3D 0, obus =3D 0;
 > +
-> +	if (h->alloc_w =3D=3D w && h->alloc_h =3D=3D ht && h->dw_size =3D=3D dw=
- &&
-> +	    h->alloc_ten_bit =3D=3D h->ten_bit && h->alloc_nslots =3D=3D h->nsl=
-ots)
-> +		return 0;
+> +	while (pos < len) {
+> +		size_t hdr_len =3D 1, size_len =3D 0, consumed, total;
+> +		u64 payload;
+> +		u32 obu_size;
+> +		u8 h[AV1_AMLV_HEADER_SIZE] =3D { 0 };
 > +
-> +	h265_free_pics(h);
-> +	for (i =3D 0; i < h->nslots; i++) {
-> +		struct h265_pic *pic =3D &h->pic[i];
+> +		bool synth =3D false;
+> +		u8 obu_hdr[2];
+> +		u8 leb[8];
+> +		size_t leb_len =3D 0;
 > +
-> +		pic->body_v =3D dma_alloc_coherent(dev, body, &pic->body_p, GFP_KERNEL=
-);
-> +		pic->hdr_v =3D dma_alloc_coherent(dev, hdr, &pic->hdr_p, GFP_KERNEL);
-> +		pic->mv_v =3D dma_alloc_coherent(dev, mv, &pic->mv_p, GFP_KERNEL);
-> +		if (dw)
-> +			pic->dw_v =3D dma_alloc_noncoherent(dev, dw, &pic->dw_p,
-> +							  DMA_FROM_DEVICE, GFP_KERNEL);
-> +		if (!pic->body_v || !pic->hdr_v || !pic->mv_v || (dw && !pic->dw_v)) {
-> +			h->body_size =3D body;
-> +			h->hdr_size =3D hdr;
-> +			h->mv_size =3D mv;
-> +			h->dw_size =3D dw;
-> +			h265_free_pics(h);
-> +			return -ENOMEM;
+> +		if (src[pos] & 0x04)		/* obu_extension_flag */
+> +			hdr_len =3D 2;
+> +		if (pos + hdr_len > len)
+> +			return -EINVAL;
+> +
+> +		if (src[pos] & 0x02) {
+> +			if (pos + hdr_len >=3D len)
+> +				return -EINVAL;
+> +			if (av1_read_leb128(src + pos + hdr_len,
+> +					    len - pos - hdr_len,
+> +					    &payload, &size_len))
+> +				return -EINVAL;
+> +			consumed =3D hdr_len + size_len;
+> +			total =3D consumed + payload;
+> +			if (pos + total > len)
+> +				return -EINVAL;
+
+[ ... ]
+
+> +static u8 av1_seq_obu[192];
+> +static size_t av1_seq_len;
+> +
+> +static void av1_cache_seq_header(const u8 *src, size_t len)
+> +{
+> +	size_t pos =3D 0;
+> +
+> +	while (pos < len) {
+> +		size_t hdr_len =3D 1, j;
+> +		u64 payload;
+> +		int type =3D (src[pos] >> 3) & 0xf;
+> +
+> +		if (src[pos] & 0x04)
+> +			hdr_len =3D 2;
+> +		if (!(src[pos] & 0x02)) {
+> +			/* no size field: this OBU runs to the end */
+> +			if (type =3D=3D 1 && len - pos <=3D sizeof(av1_seq_obu)) {
+> +				av1_seq_len =3D len - pos;
+> +				memcpy(av1_seq_obu, src + pos, av1_seq_len);
+> +			}
+> +			return;
 > +		}
-
-[Severity: High]
-When h265_alloc_pics() reallocates picture buffers on a resolution, bit-dep=
-th,
-or DPB size change, it first frees the existing buffers with h265_free_pics=
-(h).
-If one of the subsequent allocations fails and returns -ENOMEM,
-HEVCD_MPP_ANC2AXI_TBL_DATA is not cleared, and if a smaller body_size is
-allocated later, h265_fill_mmu_map() only overwrites the first pages entries
-of h->mmu_map, leaving stale PFNs from the freed buffers in the remaining
-entries.
-
-Furthermore, when h265_slice_header() returns a negative error in
-h265_irq_thread():
-
-		ret =3D h265_slice_header(h);
-		if (ret < 0) {
-			dev_err(hw->dev, "hevc: slice setup failed (%d)\n", ret);
-			h265_finish(h, VB2_BUF_STATE_ERROR);
-			return IRQ_HANDLED;
-		}
-
-neither HEVC_MPSR nor HEVC_CPSR is cleared to halt the AMRISC, and h->cur is
-not reset to -1 even if a slot was already claimed and marked valid and
-referenced in h265_slice_header().
-
-Could this leave the hardware running with stale physical addresses in
-HEVCD_MPP_ANC2AXI_TBL_DATA and h->mmu_map, or leak the claimed slot on slice
-setup errors?
-
-[ ... ]
-
-> +/* hevc_config_work_space_hw() */
-> +static void h265_config_workspace(struct aml_hevc_ctx *h)
-> +{
-> +	struct aml_vdec_hw *hw =3D h->hw;
+> +		if (pos + hdr_len >=3D len)
+> +			return -EINVAL;
+> +		j =3D pos + hdr_len;
+> +		if (av1_read_leb128(src + j, len - j, &payload, &hdr_len))
+> +			return;
+> +		j +=3D hdr_len;
+> +		if (j + payload > len)
+> +			return;
+> +		if (type =3D=3D 1 && j + payload - pos <=3D sizeof(av1_seq_obu)) {
+> +			av1_seq_len =3D j + payload - pos;
+> +			memcpy(av1_seq_obu, src + pos, av1_seq_len);
+> +			return;
+> +		}
+> +		pos =3D j + payload;
+> +	}
+> +}
 > +
-> +	wr(hw, HEVCD_IPP_LINEBUFF_BASE, h->ipp);
-> +	wr(hw, HEVC_RPM_BUFFER, h->rpm);
-> +	wr(hw, HEVC_SHORT_TERM_RPS, h->short_term_rps);
-> +	wr(hw, H265_VPS_BUFFER, h->vps);
-> +	wr(hw, H265_SPS_BUFFER, h->sps);
-> +	wr(hw, HEVC_PPS_BUFFER, h->pps);
-> +	wr(hw, H265_SAO_UP, h->sao_up);
-> +	wr(hw, HEVC_ASSIST_MMU_MAP_ADDR, h->mmu_map);
-> +	wr(hw, H265_SCALELUT, h->scalelut);
-> +	wr(hw, HEVC_DBLK_CFG3, 0x4010);	/* <=3D 4096x2304 */
-> +	wr(hw, HEVC_DBLK_CFG4, h->dblk_para);
-> +	wr(hw, HEVC_DBLK_CFG5, h->dblk_data);
-> +	wr(hw, HEVC_DBLK_CFGE, h->dblk_data2);
-> +	wr(hw, H265_LMEM_DUMP_ADR, h->lmem);
+> +static bool av1_has_seq_header(const u8 *src, size_t len)
+> +{
+> +	size_t pos =3D 0;
+> +
+> +	while (pos < len) {
+> +		size_t hdr_len =3D 1, j;
+> +		u64 payload;
+> +
+> +		if (((src[pos] >> 3) & 0xf) =3D=3D 1)
+> +			return true;
+> +		if (src[pos] & 0x04)
+> +			hdr_len =3D 2;
+> +		if (!(src[pos] & 0x02) || pos + hdr_len >=3D len)
+> +			return false;
+> +		j =3D pos + hdr_len;
+> +		if (av1_read_leb128(src + j, len - j, &payload, &hdr_len))
+> +			return false;
+> +		pos =3D j + hdr_len + payload;
+> +	}
+> +	return false;
 > +}
 
 [Severity: High]
-In h265_alloc_workspace(), h->swap_buf and h->swap_buf2 are carved out of t=
-he
-workspace allocation:
+Can a crafted LEB128 payload value cause size truncation or an infinite loop
+in av1_has_seq_header() and av1_reframe()?
 
-	h->swap_buf =3D h265_carve(&p, H265_SWAP_BUF_SIZE);
-	h->swap_buf2 =3D h265_carve(&p, H265_SWAP_BUF2_SIZE);
+av1_read_leb128() decodes up to 56 bits into u64 payload. In
+av1_has_seq_header(), pos =3D j + hdr_len + payload is updated without chec=
+king
+whether payload exceeds len - j - hdr_len. On 32-bit builds (allowed via
+COMPILE_TEST or 32-bit Meson), a payload such as 0x100000000ULL - (j + hdr_=
+len)
+wraps size_t pos back to its previous offset and loops forever.
 
-However, h265_config_workspace() never writes h->swap_buf or h->swap_buf2 to
-HEVC_STREAM_SWAP_BUFFER (HEVC_ASSIST_SCRATCH_7) and HEVC_STREAM_SWAP_BUFFER2
-(HEVC_ASSIST_SCRATCH_8), and those scratch registers are not cleared before
-starting the microcode.
+Similarly, in av1_reframe(), total =3D consumed + payload truncates the 64-=
+bit
+sum to size_t before checking pos + total > len, which can wrap total to 0 =
+on
+32-bit systems and repeatedly emit headers until dst_cap is exhausted. Even=
+ on
+64-bit systems, u32 obu_size =3D total + 4 and the 28-bit LEB128 encoding in
+h[16..19] will truncate if payload exceeds 28 bits.
 
-If the microcode accesses the stream swap buffers, will it DMA to address 0
-or to stale physical addresses left in the scratch registers by a previous
-VP9 or AV1 session?
+In addition, when src[pos] & 0x04 is set (hdr_len =3D 2) and !(src[pos] & 0=
+x02)
+on the final byte of the buffer (len - pos =3D=3D 1), av1_has_seq_header() =
+returns
+true and av1_cache_seq_header() copies a truncated 1-byte OBU into av1_seq_=
+obu
+without verifying pos + hdr_len <=3D len first.
+
+Should payload be validated against len - j - hdr_len (and capped to the
+28-bit AMLV limit) before adding it to size_t offsets, and should pos + hdr=
+_len
+<=3D len be checked before inspecting the OBU type?
 
 [ ... ]
 
-> +/* apply_ref_pic_set(): everything the current RPS does not name stops b=
-eing
-> + * a reference.
-> + */
-> +static void h265_apply_rps(struct aml_hevc_ctx *h)
+> +static void av1_apply_reference_ts(const struct v4l2_ctrl_av1_frame *f)
 > +{
-> +	int i, j;
+> +	int s, k;
 > +
-> +	for (i =3D 0; i < H265_SLOTS; i++) {
-> +		struct h265_pic *pic =3D &h->pic[i];
-> +		bool found =3D false;
+> +	for (s =3D 0; s < 8; s++) {
+> +		u64 ts =3D f->reference_frame_ts[s];
 > +
-> +		pic->long_term =3D false;
-> +		if (!pic->valid || !pic->referenced || pic->poc =3D=3D h->curr_poc)
+> +		if (!ts)
 > +			continue;
-> +		for (j =3D 0; j < 16; j++) {
-> +			int poc;
-> +			bool used, lt;
-> +
-> +			if (!h265_rps_poc(h, j, &poc, &used, &lt))
-> +				break;
-> +			if (poc =3D=3D pic->poc) {
-> +				pic->long_term =3D lt;
-> +				found =3D true;
+> +		for (k =3D 0; k < AV1_SLOTS; k++) {
+> +			if (av1_slots[k].ts =3D=3D ts) {
+> +				av1_ref_slot[s] =3D k;
 > +				break;
 > +			}
 > +		}
-> +		if (!found)
-> +			pic->referenced =3D false;
 > +	}
 > +}
 
-[Severity: High]
-In h265_slice_header(), h265_apply_rps(h) is called on a new picture before
-a slot is chosen and before h->cur is updated. When a new IDR picture arriv=
-es,
-h->curr_poc is set to 0 first:
+[Severity: Medium]
+Could av1_apply_reference_ts() miss a valid reference frame with timestamp 0
+or match a stale slot after a keyframe reset?
 
-	if (h->nal_type =3D=3D H265_NAL_IDR_W_RADL || h->nal_type =3D=3D H265_NAL_=
-IDR_N_LP) {
-		h->curr_poc =3D 0;
+In V4L2, 0 is a valid buffer timestamp (commonly used for the first frame i=
+n a
+stream), so skipping !ts ignores references to a frame whose OUTPUT buffer =
+had
+timestamp 0. Also, av1_slots[].ts is initialized to 0 and is not invalidated
+when a shown keyframe resets av1_cur_slot and av1_ref_slot[] in
+aml_av1_config_picture(), so unused or pre-reset slots still hold old
+timestamps.
 
-Because h265_apply_rps() skips any existing slot where pic->poc =3D=3D h->c=
-urr_poc,
-any picture from an earlier GOP that still has pic->poc =3D=3D 0 and
-pic->referenced =3D=3D true is skipped instead of having pic->referenced cl=
-eared.
-When subsequent frames in the new GOP reference POC 0 in their RPS, both the
-old POC 0 slot and the new IDR slot match poc =3D=3D pic->poc and remain ma=
-rked
-referenced.
-
-Across multiple IDR frames, doesn't this leak one DPB slot per IDR until all
-h->nslots slots remain referenced and h265_slice_header() fails with -ENOBU=
-FS?
+Would tracking a per-slot valid flag instead of treating ts =3D=3D 0 as emp=
+ty
+avoid this?
 
 [ ... ]
 
-> +static void h265_update_tiles(struct aml_hevc_ctx *h, int w_cu, int h_cu,
-> +			      int sao_mem_unit)
+> +int aml_av1_config_picture(struct aml_vdec_hw *hw)
 > +{
-> +	int sao_vb_size =3D (sao_mem_unit + (2 << 4)) * h_cu;
-> +	int sao_abv_size =3D sao_mem_unit * w_cu;
-> +	int i, j, x, y;
-> +	bool uniform;
-> +
-> +	h->tile_enabled =3D h->p[P_TILES_ENABLED_FLAG] & 1;
-> +	if (!h->tile_enabled) {
-> +		h->num_tile_col =3D 1;
-> +		h->num_tile_row =3D 1;
-> +		h->tile[0][0] =3D (struct h265_tile){ 0, 0, w_cu, h_cu,
-> +						    h->sao_vb, h->sao_abv };
-> +		return;
-> +	}
-> +	h->num_tile_col =3D h->p[P_NUM_TILE_COLUMNS_MINUS1] + 1;
-> +	h->num_tile_row =3D h->p[P_NUM_TILE_ROWS_MINUS1] + 1;
-> +	if (h->num_tile_col > H265_MAX_TILE_COLS || h->num_tile_col <=3D 0)
-> +		h->num_tile_col =3D 1;
-> +	if (h->num_tile_row > H265_MAX_TILE_ROWS || h->num_tile_row <=3D 0)
-> +		h->num_tile_row =3D 1;
-> +	uniform =3D h->p[P_TILES_ENABLED_FLAG] & 2;
-> +
-> +	y =3D 0;
-> +	for (i =3D 0; i < h->num_tile_row; i++) {
-> +		x =3D 0;
-> +		for (j =3D 0; j < h->num_tile_col; j++) {
-> +			struct h265_tile *t =3D &h->tile[i][j];
-> +
-> +			if (j =3D=3D h->num_tile_col - 1)
-> +				t->width =3D w_cu - x;
-> +			else
-> +				t->width =3D uniform ? w_cu / h->num_tile_col :
-> +						     h->p[P_TILE_WIDTH + j];
-> +			if (i =3D=3D h->num_tile_row - 1)
-> +				t->height =3D h_cu - y;
-> +			else
-> +				t->height =3D uniform ? h_cu / h->num_tile_row :
-> +						      h->p[P_TILE_HEIGHT + i];
-> +			t->start_cu_x =3D x;
-> +			t->start_cu_y =3D y;
-> +			t->sao_vb =3D h->sao_vb + j * sao_vb_size;
-> +			t->sao_abv =3D h->sao_abv + i * sao_abv_size;
-> +			x +=3D t->width;
-> +		}
-> +		y +=3D h->tile[i][0].height;
-> +	}
-> +}
-
-[Severity: High]
-In the RPM parameter layout enum, P_TILE_HEIGHT has 8 entries before
-P_MISC_FLAG0:
-
-	P_TILE_WIDTH,			/* 12 entries */
-	P_TILE_HEIGHT =3D P_TILE_WIDTH + 12,	/* 8 entries */
-	P_MISC_FLAG0 =3D P_TILE_HEIGHT + 8,
-
-However, H265_MAX_TILE_ROWS is 20, so when uniform is false and
-h->num_tile_row > 9, indexing h->p[P_TILE_HEIGHT + i] for i >=3D 8 reads pa=
-st
-P_TILE_HEIGHT into P_MISC_FLAG0 and subsequent RPM fields.
-
-Also, if non-uniform tile widths or heights in h->p[] sum to more than w_cu=
- or
-h_cu, w_cu - x or h_cu - y becomes negative, which passes the zero-only che=
-ck
-in h265_slice_header():
-
-	if (!h->tile_width_lcu || !h->tile_height_lcu)
-		return -EINVAL;
-
-and writes negative dimensions into the MPRED registers. Should
-h265_update_tiles() bound P_TILE_HEIGHT accesses to the RPM array size and
-reject non-positive tile widths and heights?
 
 [ ... ]
 
-> +static void h265_fill_mmu_map(struct aml_hevc_ctx *h)
-> +{
-> +	struct h265_pic *pic =3D &h->pic[h->cur];
-> +	u32 *map =3D h->side_v + (h->mmu_map - h->side_p);
-> +	u32 pages =3D h->body_size / PAGE_SIZE, first =3D pic->body_p >> PAGE_S=
-HIFT, i;
-> +
-> +	for (i =3D 0; i < pages && i < H265_MMU_MAP_SIZE / 4; i++)
-> +		map[i] =3D first + i;
-> +}
-
-[Severity: Critical]
-H265_MMU_MAP_SIZE is 0x1200 * 4 bytes (4,608 page entries), which matches t=
-he
-page count of a 4096x2304 10-bit compressed body. However, h265_slice_heade=
-r()
-accepts picture heights up to H265_MAX_DIM (4096):
-
-	if (p[P_PIC_WIDTH] < H265_MIN_DIM || p[P_PIC_HEIGHT] < H265_MIN_DIM ||
-	    p[P_PIC_WIDTH] > H265_MAX_DIM || p[P_PIC_HEIGHT] > H265_MAX_DIM) {
-
-For a 4096x4096 picture, h265_comp_body_size() is up to 8,192 pages, and
-h265_config_comp() programs that full length into HEVC_CM_BODY_LENGTH and
-HEVC_CM_HEADER_OFFSET while h265_fill_mmu_map() silently stops filling map[]
-at 4,608 entries.
-
-When the hardware writes beyond page 4,607, won't the MMU DMA engine read p=
-ast
-h->mmu_map into h->aux and DMA compressed frame data over unrelated physical
-memory (including page 0)?
-
-[ ... ]
-
-> +static int h265_slice_header(struct aml_hevc_ctx *h)
-> +{
-> +	struct aml_vdec_hw *hw =3D h->hw;
-> +	u16 *p =3D h->p;
-> +	int i, ret, col_ref;
-> +
-> +	h->temporal_id =3D p[P_TEMPORAL_ID];
-> +	h->nal_type =3D p[P_NAL_UNIT_TYPE];
-> +	h->misc_flag0 =3D p[P_MISC_FLAG0];
-> +
-> +	if (!p[P_FIRST_SLICE_SEGMENT_IN_PIC_FLAG]) {
-> +		h->slice_segment_addr =3D p[P_SLICE_SEGMENT_ADDRESS];
-> +		if (!p[P_DEPENDENT_SLICE_SEGMENT_FLAG])
-> +			h->slice_addr =3D h->slice_segment_addr;
-> +	} else {
-> +		h->slice_segment_addr =3D 0;
-> +		h->slice_addr =3D 0;
-> +	}
-> +	h->iprev_poc =3D h->curr_poc;
-> +	h->slice_type =3D p[P_SLICE_TYPE];
-> +	h->tmvp =3D p[P_SLICE_TEMPORAL_MVP_ENABLE_FLAG] & 1;
-> +	h->is_next_slice_segment =3D !!p[P_DEPENDENT_SLICE_SEGMENT_FLAG];
-
-[Severity: Critical]
-When p[P_FIRST_SLICE_SEGMENT_IN_PIC_FLAG] is set, h->slice_segment_addr is
-set to 0 above, but the rest of h265_slice_header() never reads
-h->slice_segment_addr and instead checks raw p[P_SLICE_SEGMENT_ADDRESS] and
-p[P_DEPENDENT_SLICE_SEGMENT_FLAG].
-
-On a non-first slice (p[P_SLICE_SEGMENT_ADDRESS] !=3D 0 with h->cur >=3D 0),
-h265_slice_header() also updates h->pic_w, h->pic_h, h->ten_bit, and
-h->lcu_size without reallocating picture buffers or verifying that they mat=
-ch
-h->alloc_w, h->alloc_h, and h->alloc_ten_bit, and it does not check that
-h->slice_addr < h->lcu_total before h265_config_mpred() computes:
-
-	dma_addr_t rd_ptr =3D rd_start + h->slice_addr * unit;
-	dma_addr_t wr_ptr =3D cur->mv_p + h->slice_addr * unit;
-
-Can a continuation slice with a larger SPS/PPS or an out-of-range
-slice_segment_address cause the hardware to DMA past the allocated MV, SAO,
-and picture buffers?
-
-[ ... ]
-
-> +	h->lcu_size =3D 1 << (p[P_LOG2_MIN_CB_SIZE_MINUS3] + 3 +
-> +			    p[P_LOG2_DIFF_MAX_MIN_CB_SIZE]);
-> +	if (h->lcu_size < 16 || h->lcu_size > 64)
+> +	width =3D pr[AV1_RPM_MAX_FRAME_WIDTH];
+> +	height =3D pr[AV1_RPM_MAX_FRAME_HEIGHT];
+> +	/*
+> +	 * Everything downstream sizes DMA from these: the MMU page table, the
+> +	 * compressed body, the picture slots.  If the microcode never saw a
+> +	 * sequence header they are whatever was left in the RPM, and building
+> +	 * a page table from that points the hardware at memory it does not
+> +	 * own - which resets the board outright, with no oops to read
+> +	 * afterwards.  Refuse instead.
+> +	 */
+> +	if (width < AV1_MIN_DIM || height < AV1_MIN_DIM ||
+> +	    width > AV1_MAX_DIM || height > AV1_MAX_DIM) {
+> +		dev_err(hw->dev, "av1: implausible picture size %ux%u, refusing\n",
+> +			width, height);
 > +		return -EINVAL;
-> +	h->lcu_size_log2 =3D ilog2(h->lcu_size);
-> +	h->lcu_x_num =3D DIV_ROUND_UP(h->pic_w, h->lcu_size);
-> +	h->lcu_y_num =3D DIV_ROUND_UP(h->pic_h, h->lcu_size);
-> +	h->lcu_total =3D h->lcu_x_num * h->lcu_y_num;
-> +
-> +	/* POC, 8.3.1 */
-> +	if (h->nal_type =3D=3D H265_NAL_IDR_W_RADL || h->nal_type =3D=3D H265_N=
-AL_IDR_N_LP) {
-> +		h->curr_poc =3D 0;
-> +		if (h->temporal_id - 1 =3D=3D 0)
-> +			h->prev_tid0_poc =3D h->curr_poc;
-> +	} else {
-> +		int max_lsb =3D 1 << (p[P_LOG2_MAX_POC_LSB_MINUS4] + 4);
-> +		int prev_lsb =3D h->prev_tid0_poc % max_lsb;
-> +		int prev_msb =3D h->prev_tid0_poc - prev_lsb;
-> +		int lsb =3D p[P_POC_LSB];
-> +		int msb;
-> +
-> +		if (lsb < prev_lsb && prev_lsb - lsb >=3D max_lsb / 2)
-> +			msb =3D prev_msb + max_lsb;
-> +		else if (lsb > prev_lsb && lsb - prev_lsb > max_lsb / 2)
-> +			msb =3D prev_msb - max_lsb;
-> +		else
-> +			msb =3D prev_msb;
-> +		if (h->nal_type =3D=3D H265_NAL_BLA_W_LP ||
-> +		    h->nal_type =3D=3D H265_NAL_BLA_W_RADL ||
-> +		    h->nal_type =3D=3D H265_NAL_BLA_N_LP)
-> +			msb =3D 0;
-> +		h->curr_poc =3D msb + lsb;
-> +		if (h->temporal_id - 1 =3D=3D 0)
-> +			h->prev_tid0_poc =3D h->curr_poc;
 > +	}
 
-[Severity: High]
-There appear to be three issues in the LCU and POC calculations here in
-h265_slice_header():
+[Severity: Critical]
+Can a stream with height between 2305 and 4096 overrun the workspace buffers
+in av1_ws?
 
-1. Both 1 << (p[P_LOG2_MIN_CB_SIZE_MINUS3] + 3 + p[P_LOG2_DIFF_MAX_MIN_CB_S=
-IZE])
-   and max_lsb =3D 1 << (p[P_LOG2_MAX_POC_LSB_MINUS4] + 4) shift a signed 3=
-2-bit
-   int by unvalidated u16 values from the RPM buffer. If
-   p[P_LOG2_MAX_POC_LSB_MINUS4] is corrupted (for example >=3D 27), max_lsb=
- can
-   overflow to INT_MIN or 0 and trigger a divide error in
-   h->prev_tid0_poc % max_lsb.
+The workspace sub-buffers allocated in av1_alloc() (such as AV1_SEG_MAP_SIZ=
+E,
+AV1_DBLK_PARA_SIZE, AV1_DBLK_DATA_SIZE, AV1_CDEF_DATA_SIZE, AV1_UPS_DATA_SI=
+ZE,
+and AV1_MMU_VBH_SIZE) are sized for 4096x2304, matching AML_VDEC_4K_MAX_W a=
+nd
+AML_VDEC_4K_MAX_H.
 
-2. When h->prev_tid0_poc is negative, h->prev_tid0_poc % max_lsb produces a
-   negative prev_lsb in C rather than h->prev_tid0_poc & (max_lsb - 1),
-   miscomputing prev_msb and h->curr_poc.
+However, aml_av1_config_picture() checks height against AV1_MAX_DIM (4096).=
+ A
+bitstream with height > 2304 and <=3D 4096 (for example 2048x4096 or 4096x2=
+880
+at 8-bit, where comp_body_size() also fits within AV1_MMU_MAP_SIZE) passes
+this check and lets the hardware write past the end of the height-dependent
+workspace buffers.
 
-3. Per ITU-T H.265 section 8.3.1, prevTid0Pic should only be updated when t=
-he
-   picture is not a RASL, RADL, or sub-layer non-reference picture, whereas
-   h->prev_tid0_poc is updated here for all pictures with temporal_id =3D=
-=3D 1
-   (even RASL pictures skipped immediately below).
-
-Should the shift exponents be bounds-checked first, prev_lsb masked with
-max_lsb - 1, and h->prev_tid0_poc restricted to non-RASL/RADL reference
-pictures?
+Should height be bounded by AML_VDEC_4K_MAX_H (2304) instead of AV1_MAX_DIM?
 
 [ ... ]
 
-> +	if (h->iprev_poc !=3D h->curr_poc) {
-> +		h->new_tile =3D true;
-> +		h->tile_x =3D 0;
-> +		h->tile_y =3D 0;
-> +	} else if (h->tile_enabled) {
-> +		int t =3D h265_tile_index(h, p[P_SLICE_SEGMENT_ADDRESS], h->lcu_x_num);
+> +	if (pr[AV1_RPM_SHOW_EXISTING_FRAME] & 1) {
+> +		u32 idx =3D pr[AV1_RPM_EXISTING_FRAME_IDX] & 7;
 > +
-> +		if (t !=3D -1 && t !=3D (h->tile_x | (h->tile_y << 8))) {
-> +			h->new_tile =3D true;
-> +			h->tile_x =3D t & 0xff;
-> +			h->tile_y =3D (t >> 8) & 0xff;
-> +		} else {
-> +			h->new_tile =3D false;
-> +		}
-> +	} else {
-> +		h->new_tile =3D false;
-> +	}
-> +	if (h->tile_x >=3D H265_MAX_TILE_COLS || h->tile_y >=3D H265_MAX_TILE_R=
-OWS)
-> +		h->new_tile =3D false;
-> +	if (h->new_tile) {
-> +		struct h265_tile *t =3D &h->tile[h->tile_y][h->tile_x];
-> +
-> +		h->tile_start_lcu_x =3D t->start_cu_x;
-> +		h->tile_start_lcu_y =3D t->start_cu_y;
-> +		h->tile_width_lcu =3D t->width;
-> +		h->tile_height_lcu =3D t->height;
+> +		av1_shown_slot =3D av1_ref_slot[idx];
+> +		av1_out_slot =3D av1_shown_slot;
+> +		if (av1_slots[av1_shown_slot].intra)
+> +			for (i =3D 0; i < 8; i++)
+> +				av1_ref_slot[i] =3D av1_shown_slot;
+> +		av1_pending_refresh =3D 0;
+> +		dev_dbg(hw->dev, "av1: show existing frame, slot %d\n",
+> +			av1_shown_slot);
+> +		return -EAGAIN;
 > +	}
 
 [Severity: Medium]
-If two consecutive pictures have the same POC (such as back-to-back IDR
-pictures with curr_poc =3D=3D 0, or an IDR picture following a skipped RASL
-picture whose curr_poc was 0), h->iprev_poc !=3D h->curr_poc is false on the
-first slice of the new picture.
+When show_existing_frame is set in aml_av1_config_picture(), does checking
+av1_slots[av1_shown_slot].intra reset the reference map on intra-only frames
+as well as keyframes?
 
-When that happens, h->new_tile is set to false and h->tile_width_lcu /
-h->tile_height_lcu are either left at 0 (failing the check below with -EINV=
-AL)
-or retain stale dimensions from the previous picture. Should this test
-h->new_pic instead of h->iprev_poc !=3D h->curr_poc?
+In aml_av1_config_picture(), slot.intra is set to !inter, which is true for
+both KEY_FRAME (0) and INTRA_ONLY_FRAME (2). Per the AV1 specification,
+show_existing_frame only refreshes all eight reference slots when the target
+frame's frame_type is KEY_FRAME (0). In addition, returning -EAGAIN here sk=
+ips
+aml_av1_frame_done(), so av1_config_next_ref_info() is not called to update
+the parser's reference table at 0x11a0 until the core is restarted.
+
+Should this check av1_slots[av1_shown_slot].frame_type =3D=3D 0 and call
+av1_config_next_ref_info() when the reference slots are updated?
+
+> +
+> +	frame_type =3D pr[AV1_RPM_FRAME_TYPE];
+> +	inter =3D (frame_type =3D=3D 1);
+
+[Severity: Medium]
+Does setting inter =3D (frame_type =3D=3D 1) in aml_av1_config_picture() mi=
+sclassify
+AV1 S-frames (SWITCH_FRAME, frame_type =3D=3D 3) as intra frames?
+
+In AV1, a SWITCH_FRAME is an inter-predicted frame that uses active referen=
+ce
+frames. With inter false for frame_type =3D=3D 3, aml_av1_config_picture() =
+points
+av1_frame_slot[1..7] at av1_cur_slot instead of the reference slots, clears
+av1_prev_valid, resets GMC to identity, and zeroes the motion prediction
+reference registers.
+
+Should inter be true for both frame_type =3D=3D 1 and frame_type =3D=3D 3?
 
 [ ... ]
 
-> +static void h265_copy_out(struct aml_hevc_ctx *h)
-> +{
-> +	struct aml_vdec_ctx *ctx =3D h->v4l2_ctx;
-> +	struct v4l2_pix_format_mplane *pf =3D &ctx->pix_fmt[AML_FMT_DST];
-> +	struct vb2_v4l2_buffer *dst =3D v4l2_m2m_next_dst_buf(ctx->m2m_ctx);
-> +	struct h265_pic *pic;
-> +	struct vb2_buffer *vb;
-> +	u32 stride, dst_h, row, w, ht;
-> +	u8 *y, *c;
-> +	const u8 *src;
+> +	base[0] =3D pr[AV1_RPM_LF_LEVEL_0];
+> +	base[1] =3D pr[AV1_RPM_LF_LEVEL_U];
+> +	base[2] =3D pr[AV1_RPM_LF_LEVEL_V];
 > +
-> +	if (!dst || h->cur < 0)
-> +		return;
-> +	vb =3D &dst->vb2_buf;
-> +	pic =3D &h->pic[h->cur];
-> +	stride =3D pf->plane_fmt[0].bytesperline ? : pic->width;
-> +	dst_h =3D pf->height ? : pic->height;
+> +	for (i =3D 0; i < 8; i++)
+> +		ref_deltas[i] =3D (s8)(i =3D=3D 0 ? 1 : (i =3D=3D 4 || i >=3D 6 ? -1 :=
+ 0));
+> +	mode_deltas[0] =3D 0;
+> +	mode_deltas[1] =3D 0;
 > +
-> +	if (!h->dw_target_y) {
-> +		src =3D pic->dw_v;
-> +		if (!src)
-> +			return;
-> +		dma_sync_single_for_cpu(h->hw->dev, pic->dw_p, h->dw_size, DMA_FROM_DE=
-VICE);
-> +		w =3D pic->width;
-> +		ht =3D pic->height;
-> +		y =3D vb2_plane_vaddr(vb, 0);
-> +		if (!y)
-> +			return;
-> +		c =3D vb->num_planes >=3D 2 ? vb2_plane_vaddr(vb, 1) : y + (size_t)str=
-ide * dst_h;
-> +		if (!c)
-> +			return;
-> +		for (row =3D 0; row < ht; row++)
-> +			memcpy(y + (size_t)row * stride, src + (size_t)row * w, w);
-> +		for (row =3D 0; row < ht / 2; row++)
-> +			memcpy(c + (size_t)row * stride, src + (size_t)(ht + row) * w, w);
-> +		aml_vdec_dst_cpu_written(h->hw->dev, vb);
+> +	/*
+> +	 * lfi->lvl[plane][seg][dir][ref][mode], flattened the way the hardware
+> +	 * wants it: 192 words, each packing the two directions and two modes f=
+or
+> +	 * one (plane, segment, ref).  Every block in a key frame is intra, so
+> +	 * only the INTRA_FRAME reference delta contributes.
+> +	 */
+> +	for (i =3D 0; i < 192; i++) {
+> +		u32 lvl;
+> +		int seg;
+> +		int ref =3D i & 7;
+> +		int scale, v;
+> +
+> +		plane =3D (i >> 6) & 3;
+> +		seg =3D (i >> 3) & 7;
+> +		(void)seg;
+> +
+> +		scale =3D 1 << (base[plane] >> 5);
+> +		v =3D av1_clamp_lvl(base[plane] + ref_deltas[ref] * scale);
+> +		lvl =3D ((v & 0x3f) << 24) | ((v & 0x3f) << 16) |
+> +		      ((v & 0x3f) << 8) | (v & 0x3f);
+> +		if (!pr[AV1_RPM_LF_LEVEL_0] && !pr[AV1_RPM_LF_LEVEL_1])
+> +			lvl =3D 0;
+> +		wr(hw, HEVC_DBLK_CFGA, lvl);
 > +	}
+
+[Severity: Medium]
+Are the loop filter levels in HEVC_DBLK_CFGA and HEVC_DBLK_DBLK1 programmed
+accurately when horizontal and vertical luma levels differ or when custom
+loop filter deltas are present?
+
+In aml_av1_config_picture(), all four bytes of each HEVC_DBLK_CFGA word (co=
+vering
+both directions and both modes) are computed from base[0] (AV1_RPM_LF_LEVEL=
+_0),
+ignoring AV1_RPM_LF_LEVEL_1 for the second luma direction. Also, ref_deltas=
+[]
+and mode_deltas[] are hardcoded to the default table rather than reading
+AV1_RPM_LF_REF_DELTAS_0 and AV1_RPM_LF_MODE_DELTAS_0 from the RPM buffer, a=
+nd
+ref_deltas[ref] * scale is applied even when AV1_RPM_LF_MODE_REF_DELTA is
+disabled or when base[plane] is 0.
+
+Should the loop filter table incorporate AV1_RPM_LF_LEVEL_1 and the parsed
+ref/mode deltas from the RPM buffer?
+
+[ ... ]
+
+> +int aml_av1_save_nv12(struct aml_vdec_hw *hw, const char *path, bool app=
+end)
+> +{
+> +	const u8 *y;
+> +	size_t i, nz =3D 0;
+> +	struct file *f;
+> +	loff_t pos =3D 0;
+> +	size_t len;
+> +
+> +	/* Only write a frame the stream actually asked to be displayed. */
+> +	if (av1_out_slot < 0)
+> +		return -EAGAIN;
+> +	y =3D av1_slots[av1_out_slot].dw_v;
+> +	dma_sync_single_for_cpu(hw->dev, av1_slots[av1_out_slot].dw_p,
+> +				av1_slot_dw_size, DMA_FROM_DEVICE);
+> +	av1_out_slot =3D -1;
+> +	if (!y)
+> +		return -ENODEV;
+> +
+> +	len =3D av1_ws.dw_width * av1_ws.dw_height * 3 / 2;
+> +	for (i =3D 0; i < len; i++)
+> +		if (y[i])
+> +			nz++;
+> +	dev_info(hw->dev, "av1: nv12 %zu/%zu non-zero, Y[0..15] %*ph\n",
+> +		 nz, len, 16, y);
+> +
+> +	f =3D filp_open(path, O_WRONLY | O_CREAT |
+> +		      (append ? O_APPEND : O_TRUNC), 0644);
+> +	if (IS_ERR(f))
+> +		return PTR_ERR(f);
+> +	if (append)
+> +		pos =3D i_size_read(file_inode(f));
+> +	kernel_write(f, y, len, &pos);
+> +	filp_close(f, NULL);
+> +	dev_info(hw->dev, "av1: wrote %zu bytes of NV12 to %s\n", len, path);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can the unused bring-up helpers and unused workspace carve-outs be removed?
+
+aml_av1_save_nv12() writes directly to a filesystem path using filp_open() =
+and
+kernel_write(), and along with aml_av1_feed(), aml_av1_dump_stream_state(),
+aml_av1_dump_ucode_output(), aml_av1_frame_type(), aml_av1_dump_params(), a=
+nd
+aml_av1_dump_output(), has no callers in the tree.
+
+Similarly, in av1_alloc(), side_vaddr allocates and carves out prob, count,=
+ mv,
+and cm_header[16] (~249 KiB of coherent DMA memory) which are never referen=
+ced
+once the per-slot allocations are used.
+
+[ ... ]
+
+> +static void av1_copy_out(struct aml_av1_ctx *av1, struct vb2_v4l2_buffer=
+ *dst)
+> +{
+> +	struct v4l2_pix_format_mplane *pf =3D
+> +		&av1->v4l2_ctx->pix_fmt[AML_FMT_DST];
+> +	struct vb2_buffer *vb =3D &dst->vb2_buf;
+> +	u32 w =3D av1_ws.dw_width, h =3D av1_ws.dw_height;
+> +	u32 dst_stride =3D pf->plane_fmt[0].bytesperline ? : w;
+> +	u32 dst_h =3D pf->height ? : h;
+> +	const u8 *src;
+> +	u8 *y, *c;
+> +	u32 row;
+> +	int slot =3D av1_out_slot;
+> +
+> +	if (slot < 0)
+> +		return;
+> +	src =3D av1_slots[slot].dw_v;
+> +	av1_out_slot =3D -1;
+> +
+> +	/*
+> +	 * Zero copy: the hardware already wrote this picture into the CAPTURE
+> +	 * buffer.  Nothing to move, only the payload to declare.
+> +	 */
+> +	if (av1_dw_target_y) {
+> +		if (vb->num_planes >=3D 2) {
+> +			vb2_set_plane_payload(vb, 0, dst_stride * dst_h);
+> +			vb2_set_plane_payload(vb, 1, dst_stride * dst_h / 2);
+> +		} else {
+> +			vb2_set_plane_payload(vb, 0, dst_stride * dst_h * 3 / 2);
+> +		}
+> +		av1->have_picture =3D true;
+> +		return;
+> +	}
+> +
+> +	dma_sync_single_for_cpu(av1->hw->dev, av1_slots[slot].dw_p,
+> +				av1_slot_dw_size, DMA_FROM_DEVICE);
+> +	if (!src)
+> +		return;
+> +
+> +	/*
+> +	 * The decoder writes a tightly packed w x h picture; the capture
+> +	 * buffer may be wider and taller, because the format is aligned up.
+> +	 * Copy row by row rather than assuming the two agree - they do not:
+> +	 * a 320x240 stream gets a 320x256 capture buffer, so chroma starts a
+> +	 * stride times 16 rows further in than the source has it.
+> +	 */
+> +	y =3D vb2_plane_vaddr(vb, 0);
+> +	c =3D vb->num_planes >=3D 2 ? vb2_plane_vaddr(vb, 1)
+> +				: y + dst_stride * dst_h;
+> +	if (!y || !c)
+> +		return;
+> +
+> +	for (row =3D 0; row < h; row++)
+> +		memcpy(y + row * dst_stride, src + row * w, w);
+> +	for (row =3D 0; row < h / 2; row++)
+> +		memcpy(c + row * dst_stride, src + w * h + row * w, w);
 
 [Severity: Critical]
-Can a bitstream with dimensions larger than the configured CAPTURE format
-overflow the CAPTURE buffer in both h265_config_sao() and h265_copy_out()?
+Does av1_copy_out() overflow the destination CAPTURE buffer when
+av1_dw_target_y is 0 and the stream dimensions exceed the negotiated CAPTURE
+format?
 
-In aml_hevc_dec_run(), the CAPTURE buffer size check runs before the hardwa=
-re
-parses the current access unit's SPS and slice header:
+When av1_dw_target_y is 0 (such as on the raw-OBU path or when direct
+double-write is not used), aml_av1_config_picture() does not check width and
+height against the CAPTURE buffer size. In av1_copy_out(), the loops copy h
+rows of w bytes into y and h / 2 rows of w bytes into c without verifying t=
+hat
+w <=3D dst_stride, h <=3D dst_h, or that vb2_plane_size() for each plane ca=
+n hold
+the data.
 
-	h265_set_dw_target(h);
-	if (h->dw_target_y && (size_t)h->alloc_w * h->alloc_h * 3 / 2 > h->dw_targ=
-et_size &&
-	    h->alloc_w) {
-		h->dw_target_y =3D 0;	/* stream outgrew the capture buffer */
-	}
+If userspace leaves the CAPTURE format at a smaller resolution (e.g. 64x64)=
+ and
+feeds a larger frame, will memcpy() write past the end of the CAPTURE buffe=
+r?
 
-On the first frame (where h->alloc_w is 0) or on a mid-stream resolution
-increase, h->dw_target_y stays non-zero even if the new h->pic_w and h->pic=
-_h
-exceed pf->width, pf->height, and h->dw_target_size. When h265_config_sao()
-then programs HEVC_SAO_Y_START_ADDR and HEVC_SAO_C_START_ADDR with
-h->dw_target_y and h->dw_target_c without checking h->pic_w and h->pic_h
-against pf->width and h->dw_target_size, the hardware double-write unit DMAs
-past the end of the CAPTURE buffer.
-
-Then, on the second frame, h->alloc_w is non-zero, so aml_hevc_dec_run() cl=
-ears
-h->dw_target_y to 0. That changes dw in h265_alloc_pics() from 0 to non-zer=
-o,
-which calls h265_free_pics(h) and wipes all decoded reference pictures in t=
-he
-DPB. Finally, in the fallback path in h265_copy_out() above, memcpy() copies
-ht rows of w bytes into y and c without verifying that w <=3D stride,
-ht <=3D dst_h, or that the destination planes are large enough.
-
+> +	aml_vdec_dst_cpu_written(av1->hw->dev, vb);
+> +
 > +	if (vb->num_planes >=3D 2) {
-> +		vb2_set_plane_payload(vb, 0, stride * dst_h);
-> +		vb2_set_plane_payload(vb, 1, stride * dst_h / 2);
+> +		vb2_set_plane_payload(vb, 0, dst_stride * dst_h);
+> +		vb2_set_plane_payload(vb, 1, dst_stride * dst_h / 2);
 > +	} else {
-> +		vb2_set_plane_payload(vb, 0, stride * dst_h * 3 / 2);
+> +		vb2_set_plane_payload(vb, 0, dst_stride * dst_h * 3 / 2);
 > +	}
-> +	h->have_picture =3D true;
+> +	av1->have_picture =3D true;
 > +}
 > +
-> +static void h265_finish(struct aml_hevc_ctx *h, enum vb2_buffer_state st=
+> +static void av1_finish(struct aml_av1_ctx *av1, enum vb2_buffer_state st=
 ate)
 > +{
-> +	struct aml_vdec_ctx *ctx =3D h->v4l2_ctx;
-> +	struct vb2_v4l2_buffer *buf;
+> +	struct aml_vdec_ctx *ctx =3D av1->v4l2_ctx;
+> +	struct vb2_v4l2_buffer *dst;
 > +	unsigned int i;
 > +
-> +	if (h->finished)
-> +		return;
-> +	h->finished =3D true;
-> +
-> +	if (!h->have_picture) {
-> +		buf =3D v4l2_m2m_next_dst_buf(ctx->m2m_ctx);
-> +		if (buf)
-> +			for (i =3D 0; i < buf->vb2_buf.num_planes; i++)
-> +				vb2_set_plane_payload(&buf->vb2_buf, i, 0);
+> +	/*
+> +	 * A buffer holding only a hidden frame decodes fine and produces
+> +	 * nothing to show.  Say so with a zero payload - otherwise the
+> +	 * capture buffer goes back to userspace still describing whatever it
+> +	 * held last time, which reads as a repeat of an older picture.
+> +	 */
+> +	if (!av1->have_picture) {
+> +		dst =3D v4l2_m2m_next_dst_buf(ctx->m2m_ctx);
+> +		if (dst)
+> +			for (i =3D 0; i < dst->vb2_buf.num_planes; i++)
+> +				vb2_set_plane_payload(&dst->vb2_buf, i, 0);
 > +	}
-> +	buf =3D v4l2_m2m_next_src_buf(ctx->m2m_ctx);
-> +	if (buf && buf->vb2_buf.req_obj.req)
-> +		v4l2_ctrl_request_complete(buf->vb2_buf.req_obj.req, &ctx->ctrl_handle=
-r);
+> +
+> +	/*
+> +	 * Complete the request before the buffer is handed back.  Doing it
+> +	 * afterwards - which is what device_run() would do, since run() only
+> +	 * returns once this has already finished the job - binds the control
+> +	 * objects to a request that has already completed, and the media
+> +	 * controller warns about it.
+> +	 */
+> +	dst =3D v4l2_m2m_next_src_buf(ctx->m2m_ctx);
+> +	if (dst && dst->vb2_buf.req_obj.req)
+> +		v4l2_ctrl_request_complete(dst->vb2_buf.req_obj.req,
+> +					   &ctx->ctrl_handler);
 > +
 > +	ctx->int_cond =3D 1;
 > +	ctx->job_finished =3D true;
-> +	v4l2_m2m_buf_done_and_job_finish(ctx->dev->m2m_dev_dec, ctx->m2m_ctx, s=
-tate);
+> +	v4l2_m2m_buf_done_and_job_finish(ctx->dev->m2m_dev_dec, ctx->m2m_ctx,
+> +					 state);
 > +	wake_up(&ctx->queue);
 > +}
 
 [Severity: High]
-h265_finish() runs in h265_irq_thread() and calls
-v4l2_m2m_buf_done_and_job_finish() before waking ctx->queue and before
-aml_hevc_dec_run() returns to m2mops_vdec_device_run() in
-drivers/media/platform/amlogic/vdec/aml_vdec.c:
+Does calling v4l2_m2m_buf_done_and_job_finish() inside av1_finish() return
+src_buf and dst_buf to userspace before m2mops_vdec_device_run() copies buf=
+fer
+metadata?
+
+In drivers/media/platform/amlogic/vdec/aml_vdec.c:m2mops_vdec_device_run():
 
 	ctx->job_finished =3D false;
 	ret =3D ctx->codec_ops->run(ctx);
 
 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
 
-Because v4l2_m2m_buf_done_and_job_finish() removes src_buf and dst_buf from
-their queues, returns them to userspace, and schedules the next M2M job
-immediately, doesn't this return the buffers to userspace before
-v4l2_m2m_buf_copy_metadata() has copied the timestamp and flags, and allow =
-the
-next M2M job (or a concurrent streamoff/close after v4l2_m2m_cancel_job()) =
-to
-race with the tail of h265_finish() and aml_hevc_dec_run()?
+While aml_av1_dec_run() waits on ctx->queue, av1_irq_thread() calls
+av1_finish(), which invokes v4l2_m2m_buf_done_and_job_finish(). That marks
+src_buf and dst_buf done (allowing userspace to dequeue dst_buf without its
+timestamp or flags copied) and finishes the M2M job before aml_av1_dec_run()
+returns to m2mops_vdec_device_run(), which then touches src_buf and dst_buf=
+ in
+v4l2_m2m_buf_copy_metadata().
 
 [ ... ]
 
-> +void aml_hevc_exit(void *priv)
+> +void aml_av1_exit(void *priv)
 > +{
 > +	struct aml_vdec_ctx *ctx =3D priv;
-> +	struct aml_hevc_ctx *h =3D ctx->codec_priv;
+> +	struct aml_av1_ctx *av1 =3D ctx->codec_priv;
 > +
-> +	if (!h)
+> +	if (!av1)
 > +		return;
-> +	h->hw->hevc_irq_thread_fn =3D NULL;
-> +	h->hw->hevc_priv =3D NULL;
-> +	if (h->started)
-> +		regmap_write(h->hw->map[DOS_BUS], HEVC_MPSR, 0);
-> +	h265_free(h);
-> +	kfree(h);
+> +
+> +	av1->hw->hevc_irq_thread_fn =3D NULL;
+> +	av1->hw->hevc_priv =3D NULL;
+> +	if (av1->started) {
+> +		regmap_write(av1->hw->map[DOS_BUS], HEVC_MPSR, 0);
+> +		aml_av1_teardown(av1->hw);
+> +		/*
+> +		 * Deliberately not hvdec_disable(): powering the HEVC core
+> +		 * down here leaves it in a state the next context's bring-up
+> +		 * does not recover from, and every frame of the *second*
+> +		 * decode session on this core then times out - whichever
+> +		 * codec it is.  The domain is left up until the module is
+> +		 * unloaded.
+> +		 */
+> +	}
+> +	kfree(av1);
 > +	ctx->codec_priv =3D NULL;
 > +}
 
 [Severity: Critical]
-In aml_hevc_exit(), h->hw->hevc_irq_thread_fn and h->hw->hevc_priv are clea=
-red
-before stopping HEVC_MPSR, HEVC_ASSIST_MBOX0_MASK is not cleared, and
-synchronize_irq(h->hw->hevc_irq) is never called before h265_free(h) and
-kfree(h).
+What prevents aml_av1_exit() from racing with hevc_irq_thread() and freeing
+av1, av1_ws, and av1_slots while av1_irq_thread() is running?
 
-In drivers/media/platform/amlogic/vdec/aml_vdec_hw.c, hevc_irq_thread()
-invokes the callback without locking:
-
-static irqreturn_t hevc_irq_thread(int irq, void *priv)
-{
-	struct aml_vdec_hw *hw =3D priv;
+In drivers/media/platform/amlogic/vdec/aml_vdec_hw.c:hevc_irq_thread():
 
 	if (hw->hevc_irq_thread_fn)
 		return hw->hevc_irq_thread_fn(irq, hw->hevc_priv);
 
-	return IRQ_HANDLED;
-}
+In aml_av1_exit(), hevc_irq_thread_fn and hevc_priv are cleared before halt=
+ing
+HEVC_MPSR or masking HEVC_ASSIST_MBOX0_MASK, and synchronize_irq(av1->hw->h=
+evc_irq)
+is never called.
 
-If hevc_irq_thread() is running or about to run when aml_hevc_exit() execut=
-es,
-can h265_irq_thread() be called with priv =3D=3D NULL or continue accessing=
- h and
-its DMA buffers after h265_free(h) and kfree(h) have freed them?
+If hevc_irq_thread() loads hw->hevc_irq_thread_fn just before it is cleared=
+ and
+then passes a NULL hw->hevc_priv to av1_irq_thread(), av1_irq_thread() will
+dereference NULL. Furthermore, if av1_irq_thread() is still executing (for
+example right after calling wake_up(&ctx->queue) in av1_finish(), or after a
+decode timeout), aml_av1_exit() can tear down all DMA buffers and kfree(av1)
+underneath the running IRQ thread.
+
+Should aml_av1_exit() halt the processor and mask the mailbox interrupt fir=
+st,
+call synchronize_irq(av1->hw->hevc_irq), and only then clear the IRQ callba=
+ck
+pointers and free the buffers?
 
 > +
-> +int aml_hevc_dec_run(void *priv)
+> +/*
+> + * Point the double-write unit at the CAPTURE buffer this frame will be =
+handed
+> + * back in.  Only safe when the buffer is laid out exactly the way the h=
+ardware
+> + * writes: stride equal to the picture width, chroma immediately after l=
+uma.
+> + * Anything else falls back to the slot buffer and the row-by-row copy.
+> + */
+> +static void av1_set_dw_target(struct aml_vdec_ctx *ctx)
 > +{
-> +	struct aml_vdec_ctx *ctx =3D priv;
-> +	struct aml_hevc_ctx *h =3D ctx->codec_priv;
-> +	struct aml_vdec_hw *hw =3D h->hw;
-
-[Severity: High]
-In drivers/media/platform/amlogic/vdec/aml_vdec.c, vb2ops_vdec_stop_streami=
-ng()
-calls aml_vdec_release_instance(ctx) -> aml_hevc_exit(ctx) (setting
-ctx->codec_priv =3D NULL) when either the OUTPUT or CAPTURE queue stops, wh=
-ereas
-vb2ops_vdec_start_streaming() only calls aml_vdec_init_dec_inst(ctx) when t=
-he
-OUTPUT queue starts.
-
-If userspace stops and restarts the CAPTURE queue while OUTPUT remains
-streaming, ctx->codec_priv is NULL when aml_hevc_dec_run() is called. Won't
-dereferencing h->hw here cause a NULL pointer dereference?
-
-[ ... ]
-
-> +	/* Uninterruptible on purpose - see aml_vp9_dec_run(). */
-> +	ret =3D wait_event_timeout(ctx->queue, ctx->int_cond,
-> +				 msecs_to_jiffies(H265_TIMEOUT_MS));
-> +	ctx->int_cond =3D 0;
-> +	if (!ret) {
-> +		dev_err(hw->dev, "hevc: decode timeout, status %02x pc %08x shift %08x=
-\n",
-> +			hw->hevc_irq_status, read_dos_reg(hw, HEVC_MPC_E),
-> +			read_dos_reg(hw, HEVC_SHIFT_BYTE_COUNT));
-> +		wr(hw, HEVC_MPSR, 0);
-> +		h->cur =3D -1;
-> +		hw->hevc_dirty =3D true;
-> +		return -ETIMEDOUT;
+> +	struct v4l2_pix_format_mplane *pf =3D &ctx->pix_fmt[AML_FMT_DST];
+> +	struct vb2_v4l2_buffer *dst =3D v4l2_m2m_next_dst_buf(ctx->m2m_ctx);
+> +	struct vb2_buffer *vb;
+> +
+> +	av1_dw_target_y =3D 0;
+> +	av1_dw_target_c =3D 0;
+> +	av1_dw_target_size =3D 0;
+> +	if (!dst)
+> +		return;
+> +	vb =3D &dst->vb2_buf;
+> +
+> +	if (pf->plane_fmt[0].bytesperline !=3D pf->width)
+> +		return;
+> +
+> +	av1_dw_target_y =3D vb2_dma_contig_plane_dma_addr(vb, 0);
+> +	if (!av1_dw_target_y)
+> +		return;
+> +	if (vb->num_planes >=3D 2) {
+> +		av1_dw_target_c =3D vb2_dma_contig_plane_dma_addr(vb, 1);
+> +		av1_dw_target_size =3D vb2_plane_size(vb, 0) +
+> +				     vb2_plane_size(vb, 1);
+> +		if (!av1_dw_target_c) {
+> +			av1_dw_target_y =3D 0;
+> +			return;
+> +		}
+> +	} else {
+> +		av1_dw_target_c =3D av1_dw_target_y +
+> +				  (dma_addr_t)pf->width * pf->height;
+> +		av1_dw_target_size =3D vb2_plane_size(vb, 0);
 > +	}
-> +	return 0;
 > +}
 
+[Severity: Critical]
+Are there three issues with the direct double-write path configured by
+av1_set_dw_target()?
+
+1. In aml_vdec.c:vdec_try_fmt_mp(), pf->width and pf->height are aligned up=
+ to
+64 before v4l2_fill_pixfmt_mp() sets pf->plane_fmt[0].bytesperline =3D pf->=
+width.
+Because pf->plane_fmt[0].bytesperline =3D=3D pf->width is always true,
+av1_set_dw_target() enables direct double-write even when the stream's actu=
+al
+width (e.g. 854x480 or 720x480) is not a multiple of 64. The hardware then
+writes tightly packed rows of width bytes into a CAPTURE buffer expecting a
+64-aligned stride, and av1_copy_out() skips the row-by-row stride conversio=
+n.
+
+2. For NV12M (vb->num_planes >=3D 2), av1_set_dw_target() sums the two plane
+sizes into a single av1_dw_target_size, and aml_av1_config_picture() only
+checks width * height * 3 / 2 <=3D av1_dw_target_size instead of checking e=
+ach
+plane's size individually. For single-plane NV12, av1_dw_target_c is placed=
+ at
+av1_dw_target_y + pf->width * pf->height without verifying in
+aml_av1_config_picture() that the parsed width and height match pf->width a=
+nd
+pf->height, so a height or width mismatch can cause luma DMA to overwrite
+chroma or chroma DMA to write past the end of the buffer.
+
+3. When aml_av1_config_picture() encounters show_existing_frame, it returns
+-EAGAIN without running a decode. Because av1_dw_target_y is non-zero,
+av1_alloc_slots() did not allocate per-slot dw_v buffers, and av1_copy_out()
+returns the untouched CAPTURE buffer to userspace as a valid frame.
+
+> +
+> +int aml_av1_dec_run(void *priv)
+> +{
+> +	struct aml_vdec_ctx *ctx =3D priv;
+> +	struct aml_av1_ctx *av1 =3D ctx->codec_priv;
+> +	struct aml_vdec_hw *hw =3D av1->hw;
+> +	struct vb2_v4l2_buffer *src;
+> +	struct vb2_buffer *vb;
+> +	struct v4l2_ctrl *seq_ctrl;
+> +	int ret;
+> +
+> +	src =3D v4l2_m2m_next_src_buf(ctx->m2m_ctx);
+> +	if (!src)
+> +		return -EINVAL;
+> +	vb =3D &src->vb2_buf;
+> +
+> +	ret =3D hvdec_enable(hw);
+> +	if (ret)
+> +		return ret;
+> +	dos_enable_hevc(hw);
+
 [Severity: High]
-When wait_event_timeout() times out here in aml_hevc_dec_run(), there appear
-to be two recovery issues:
+Does calling hvdec_enable(hw) on every frame in aml_av1_dec_run() leak the
+HVDEC power-domain reference count and clock?
 
-1. The timeout path sets h->cur =3D -1 and returns -ETIMEDOUT without maski=
-ng
-   HEVC_ASSIST_MBOX0_MASK, setting h->finished =3D true, or calling
-   synchronize_irq(hw->hevc_irq). If h265_irq_thread() is running concurren=
-tly
-   (for example sleeping in h265_alloc_pics() inside h265_slice_header()),
-   setting h->cur =3D -1 races with h265_fill_mmu_map(), h265_config_mpred(=
-),
-   and h265_config_sao() indexing h->pic[h->cur] (reading h->pic[-1] out of
-   bounds), and h265_finish() can race with err_cancel_job in
-   m2mops_vdec_device_run() to complete the request and M2M job twice.
+hvdec_enable() calls vdec_poweron(hw, HVDEC), which increments
+hw->pm->pd_data[HVDEC].ref_count on every invocation and enables the hevcf
+clock and runtime PM on the first call. However, hvdec_disable() is only
+called on the two early error paths in aml_av1_dec_run() when loading
+firmware or bringing up the workspace fails, and is never called when a fra=
+me
+finishes or in aml_av1_exit().
 
-2. Although hw->hevc_dirty is set to true on timeout, aml_hevc_dec_run() on=
-ly
-   calls hvdec_switch_codec() and hevc_load_fw() when !h->ucode_loaded:
+> +
+> +	if (!av1->ucode_loaded) {
+> +		/*
+> +		 * As for VP9: after a 10-bit stream the core decodes the next
+> +		 * 8-bit one to garbage until its memories are cycled.
+> +		 * av1_ten_bit still holds the last stream's depth here.
+> +		 */
+> +		if (av1_ten_bit)
+> +			hw->hevc_dirty =3D true;
+> +		av1_ten_bit =3D false;
+> +		hvdec_switch_codec(hw, CODEC_TYPE_AV1);
+> +
+> +		/*
+> +		 * Halts the AMRISC first: the other codec on this core may
+> +		 * still be running - VP9 and AV1 share it - and loading over a
+> +		 * running microcode leaves the core timing out every frame.
+> +		 */
+> +		ret =3D hevc_load_fw(hw, CODEC_TYPE_AV1, AV1_FW_FORMAT_MMU, AV1_FW_COR=
+E_HEVC, "av1");
+> +		if (ret) {
+> +			hvdec_disable(hw);
+> +			return ret;
+> +		}
+> +		av1->ucode_loaded =3D true;
+> +	}
+> +
+> +	if (!av1->started) {
+> +		ret =3D aml_av1_bringup(hw, ctx->pix_fmt[AML_FMT_SRC].width,
+> +				      ctx->pix_fmt[AML_FMT_SRC].height);
+> +		if (ret) {
+> +			hvdec_disable(hw);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * Two shapes of OUTPUT buffer have to work.
+> +	 *
+> +	 * The stateless API keeps the sequence in a control and hands over the
+> +	 * frame OBU's *payload*, header stripped - that is what GStreamer's
+> +	 * v4l2slav1dec sends.  Rebuild the sequence header from the control
+> +	 * and put the frame's OBU header back.
+> +	 *
+> +	 * Without that control the buffer is taken to be a plain OBU stream,
+> +	 * carrying its own sequence header, which is what a simple client
+> +	 * feeding temporal units does.  The microcode parses the bitstream
+> +	 * either way, so it has to end up with real OBUs.
+> +	 */
+> +	seq_ctrl =3D v4l2_ctrl_find(&ctx->ctrl_handler,
+> +				  V4L2_CID_STATELESS_AV1_SEQUENCE);
+> +	if (seq_ctrl && aml_av1_set_sequence(seq_ctrl->p_cur.p)) {
+> +		struct v4l2_ctrl *frame_ctrl =3D
+> +			v4l2_ctrl_find(&ctx->ctrl_handler,
+> +				       V4L2_CID_STATELESS_AV1_FRAME);
+> +
+> +		av1_cur_ts =3D vb->timestamp;
+> +		if (frame_ctrl)
+> +			av1_apply_reference_ts(frame_ctrl->p_cur.p);
+> +		av1_set_dw_target(ctx);
+> +		ret =3D aml_av1_feed_frame(hw, vb2_plane_vaddr(vb, 0),
+> +					 vb2_get_plane_payload(vb, 0));
+> +	} else {
+> +		av1_dw_target_y =3D 0;
+> +		av1_dw_target_c =3D 0;
+> +		av1_dw_target_size =3D 0;
+> +		if (!aml_av1_have_sequence() &&
+> +		    !av1_buf_has_sequence(vb2_plane_vaddr(vb, 0),
+> +					  vb2_get_plane_payload(vb, 0))) {
+> +			dev_err_once(hw->dev,
+> +				     "av1: no sequence header, and no usable sequence control\n");
+> +			return -EINVAL;
+> +		}
+> +		ret =3D aml_av1_feed_buf(hw, vb2_plane_vaddr(vb, 0),
+> +				       vb2_get_plane_payload(vb, 0),
+> +				       AOM_AV1_SEARCH_HEAD);
+> +	}
+> +	if (ret)
+> +		return ret;
 
-	if (!h->ucode_loaded) {
-		hvdec_switch_codec(hw, CODEC_TYPE_HEVC);
-		ret =3D hevc_load_fw(hw, CODEC_TYPE_HEVC, H265_FW_FORMAT_MMU,
-				   H265_FW_CORE_HEVC, "hevc");
+[Severity: High]
+If aml_av1_dec_run() returns an error here before av1->started is set to tr=
+ue,
+does it leak the coherent DMA buffers allocated in aml_av1_bringup() and
+av1_alloc_stream()?
 
-   Because h->ucode_loaded is not reset to false on timeout (and hw->hevc_d=
-irty
-   is not set when decoding 10-bit frames), won't subsequent frames in the
-   same context skip cycling the core memories and reloading the firmware?
+When !av1->started, aml_av1_bringup() allocates av1_ws.vaddr,
+av1_ws.side_vaddr, and av1_ws.guard_vaddr, and aml_av1_feed_frame() /
+aml_av1_feed_buf() allocates av1_ws.stream_vaddr. If feeding the buffer fai=
+ls
+(or returns -EINVAL when no sequence header is present), aml_av1_dec_run()
+returns while av1->started is still false. When the context is later closed,
+aml_av1_exit() only calls aml_av1_teardown() if (av1->started), leaving ~6 =
+MiB
+of coherent DMA allocations leaked.
+
+> +
+> +	av1->rounds =3D 0;
+> +	av1->have_picture =3D false;
+> +	ctx->int_cond =3D 0;
+> +	atomic_set(&hw->hevc_irq_count, 0);
+> +
+> +	/*
+> +	 * The microcode runs for the life of the stream: it is started once
+> +	 * and afterwards simply told to look for the next frame header.
+> +	 * Restarting it per buffer - or powering the core down between
+> +	 * buffers - loses its state, and every buffer after the first then
+> +	 * times out with the program counter parked at 1 or 2.
+> +	 */
+> +	if (av1->started) {
+> +		/*
+> +		 * The microcode reports NAL_DECODE_DONE when it runs out of
+> +		 * data and parks in its search loop; handing it another
+> +		 * SEARCH_HEAD there does not make it look at a refilled FIFO.
+> +		 * Restart it instead.  Everything that has to persist between
+> +		 * buffers - the picture slots, their compressed data, the CDF
+> +		 * contexts - lives in DRAM and is re-pointed for every
+> +		 * picture, so a restart costs only the parser's reference map.
+> +		 */
+> +		regmap_write(hw->map[DOS_BUS], HEVC_MPSR, 0);
+> +		regmap_write(hw->map[DOS_BUS], HEVC_CPSR, 0);
+> +	}
+
+[Severity: High]
+On frames after the first (when av1->started is true), is it safe to call
+aml_av1_feed_frame() or aml_av1_feed_buf() before halting HEVC_MPSR and
+resetting the core?
+
+While HEVC_MPSR and HEVC_STREAM_CONTROL bit 0 are still active from the
+previous frame, aml_av1_feed_frame() / aml_av1_feed_buf() can free and
+reallocate av1_ws.stream_vaddr in av1_alloc_stream(), zero the live stream
+buffer, rewrite the FIFO registers, and write AOM_AV1_SEARCH_HEAD to
+HEVC_DEC_STATUS_REG in av1_program_fifo() before aml_av1_dec_run() resets
+av1->rounds, av1->have_picture, ctx->int_cond, HEVC_MPSR, and DOS_SW_RESET3.
+
+Should the AMRISC halt (HEVC_MPSR =3D 0, HEVC_CPSR =3D 0) and state reset h=
+appen
+before modifying the stream buffer and programming the FIFO?
+
+> +	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET3, BIT(12) | BIT(11));
+> +	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET3, 0);
+> +	if (av1->started)
+> +		aml_av1_restore_refs(hw);
+> +	regmap_write(hw->map[DOS_BUS], HEVC_ASSIST_MBOX0_CLR_REG, 1);
+> +	regmap_write(hw->map[DOS_BUS], HEVC_DEC_STATUS_REG, AOM_AV1_SEARCH_HEAD=
+);
+> +	regmap_write(hw->map[DOS_BUS], HEVC_MPSR, 1);
+> +	av1->started =3D true;
+
+[Severity: High]
+Can setting av1->started =3D true after writing HEVC_MPSR =3D 1 race with t=
+he
+error path in av1_irq_thread()?
+
+Once HEVC_MPSR =3D 1 is written, the microcode starts immediately and can t=
+rigger
+an interrupt on another CPU before aml_av1_dec_run() executes
+av1->started =3D true. If aml_av1_config_picture() fails in av1_irq_thread(=
+):
+
+			regmap_write(hw->map[DOS_BUS], HEVC_MPSR, 0);
+			regmap_write(hw->map[DOS_BUS], HEVC_CPSR, 0);
+			aml_av1_teardown(hw);
+			av1->started =3D false;
+
+aml_av1_dec_run() can then overwrite av1->started back to true after
+aml_av1_teardown() has already freed all workspace buffers, causing the next
+frame to skip aml_av1_bringup() and DMA into freed memory.
+
+Should av1->started =3D true be set before writing HEVC_MPSR =3D 1?
+
+> +
+> +	/*
+> +	 * Uninterruptible on purpose: a signal must not abandon a decode the
+> +	 * hardware is still running - see the note in vp9.c.
+> +	 */
+> +	ret =3D wait_event_timeout(ctx->queue, ctx->int_cond,
+> +				 msecs_to_jiffies(AV1_TIMEOUT_MS));
+> +	if (!ret) {
+> +		/*
+> +		 * Report the failure and let device_run() cancel the job.
+> +		 * Finishing it here as well was a double completion: the
+> +		 * caller runs its own error path on a negative return, and
+> +		 * the media core warns about the second one.
+> +		 */
+> +		dev_err(hw->dev, "av1: decode timeout, status %02x pc %08x\n",
+> +			hw->hevc_irq_status,
+> +			read_dos_reg(hw, HEVC_MPC_E));
+> +		hw->hevc_dirty =3D true;
+> +		ret =3D -ETIMEDOUT;
+> +	} else {
+> +		ret =3D 0;
+> +	}
+> +	ctx->int_cond =3D 0;
+> +	return ret;
+> +}
+
+[Severity: Critical]
+When wait_event_timeout() times out here, isn't the hardware still running =
+and
+able to DMA into the CAPTURE buffer or fire av1_irq_thread() after the job =
+is
+cancelled?
+
+On timeout, aml_av1_dec_run() returns -ETIMEDOUT without halting HEVC_MPSR /
+HEVC_CPSR, resetting DOS_SW_RESET3, masking HEVC_ASSIST_MBOX0_MASK, or call=
+ing
+synchronize_irq(hw->hevc_irq). m2mops_vdec_device_run() then jumps to
+err_cancel_job and returns the CAPTURE buffer to userspace while the hardwa=
+re
+may still be DMA-writing into av1_dw_target_y / av1_dw_target_c.
+
+In addition:
+1. If av1_irq_thread() is currently running (for instance, blocked in
+dma_alloc_coherent() inside av1_alloc_slots()) or fires right after the
+timeout, it does not check whether the job was already cancelled and will c=
+all
+av1_finish(), completing the media request and M2M job a second time.
+2. In av1_irq_thread(), the runaway decode path (++av1->rounds > 256) also
+calls av1_finish() without halting HEVC_MPSR or masking the mailbox interru=
+pt.
+3. Setting hw->hevc_dirty =3D true on timeout does not cycle the core memor=
+ies on
+the next frame of the same context, because aml_av1_dec_run() only calls
+hvdec_switch_codec() and hevc_load_fw() when !av1->ucode_loaded.
+
+Should the timeout and runaway paths halt the AMRISC, reset the core, mask =
+the
+mailbox interrupt, synchronize the IRQ, and force microcode reload on the n=
+ext
+run?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025192507.2100=
-58-1-christian.koever-draxl@student.uibk.ac.at?part=3D9
+58-1-christian.koever-draxl@student.uibk.ac.at?part=3D7
