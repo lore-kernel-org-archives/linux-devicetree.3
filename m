@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792905494;
-	b=j+J+tjuOTEpzBZ0iVVbCOcUDtvHvU6fGy+Si6TmK216oFjCNpqbnsQmjnUoNWcCpQsVv
-	 P8IoQXCPRKa3vEswj5+4SM0hA88aA1hgHpk/nljykx+awP+B8yE87TkoM23AX4jdWctO1
-	 gf2gJjSw6jT+Zry9zgfOcZaIM9RXraEJj3IhtDOCFy4Wz9vDVN+rRXX1J7r14sL/mgrUM
-	 pwoYV9IX1On42RYqs+ZpM/qX16HmXu9ybKXywF+csXIYWYPgylKjxLtfdRfrf3yQwMjqd
-	 K0QSCZinOe/wsauJ/L/QUG71S5PB//2Gzry3ntIAeumpo9WN0WgKLbTVKeJC0vkDKLQ==
+	t=1792905497;
+	b=ExPuXJokCQ3ucYbKnjzo9SFnf9T9jQ8IHWGWXOD62sS+/stSz3XPqNV9pDjsVwbu2vtz
+	 5aXBxBstd/UcViEkkCSG9+074GR1Ko+3eRgVtVYHrBqG2sqVogmj/jVh1oa9H93O+Muw5
+	 BLkoErxBosJ4ENIQbSvCeLLXdNDQi+M3x8e/lfEN4l8Fka7Tf2aHf5860UV+bXOs8+CVd
+	 GSEVVFTepA2JkGRH2JcyuEdMjKSc93J6bumaMRmujOm/GhRpnspl5gSljJ3raLdL3Fqmg
+	 E9liQpxYV9XollgPvSkoMmlBp9xq1ATYoqKhHsqW3lriJFn5hlUZtEP66ssPz5VWTvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792905494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792905497;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
-	b=nZlFtEB6YrjHDONTfiOxzssfbzLpmn9VYpUMbWdEzZRP585S1o4YB/sqywGov1un3Llq
-	 UrINXXtzOZm6ismbbqbOnywghuADJ5PPCCNeWrfTix/n8xqKH5PEyF8b2dezO39NVSeJS
-	 eJL1B+QLvE+o9sExoLgfvPAhhqU0KEeNU06qKOloPkn17tUJUJNb0jfKtQRedAF57+txA
-	 0Ge64ZhGfeLZD+siDm8jNRM0SnANhPwSeNSBQ/jsIAPxY8idB1djis8/NryXLqlTXzOJ3
-	 U2ecv8cG8fdZdAoeZ8ZoS+fT8FqaQ6RhwvPAkCmZceEqIkfwc76i/94XWb7SUxrEHUA==
+	bh=Ao0LzEZOUNstisYoUSRpO7xtRQdZ2FfSYO9nengEgWU=;
+	b=Z59tA//zSdRPEllDqfXIDS1oPiP42f+Rdo7ilzAZAF3zQHN8tNy5cwJzWJBEuMdkcG8R
+	 28HA3eiBzI56fxJoSc2xjh+ELhV83MNp4MMxd4Lzn9cL4E2VHGb4XX7O0z4M6Vo8j5eE3
+	 v/o0gz1dIRTMmpb+5X8tS9efZciKyyIAuTFP6j7rmCFVFJ63CSLs/4LVfFFpTNhi8qdnI
+	 hnT+lR98XEQEWvFJqIEv2Q4WzRlPXOO9DqDEHBY+d7UEHp41nrV6q/GQ6/GtsCx0Rh9cl
+	 5DC2mJ4gjSrY2ijpR+3SvpZmEH20QZIMvIaMKXaxgNH8kU5pt2mABAQI0gSqx1BZNlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=drja54eF;
-	arc=none smtp.remote-ip=74.125.224.130
-Received: from mail-yx2-f2.google.com (mail-yx2-f2.google.com [74.125.224.130])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E2Y2mH3y;
+	arc=none smtp.remote-ip=74.125.224.133
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A221B606A31A
-	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 05:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A221B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDAC606A32F
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 05:18:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDAC606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=drja54eF
-Received: by mail-yx2-f2.google.com with SMTP id 956f58d0204a3-679e6ab647dso907974d50.0
-        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 22:18:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E2Y2mH3y
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-679b4ca950fso1216120d50.1
+        for <devicetree@vger.kernel.org>; Sat, 24 Oct 2026 22:18:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792905492; x=1793510292; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
-        b=drja54eFfOch0K2zQqZ+GcI5pRTkKIua+FkkXwTXsXLqxXMjggZrXYM4w7OdalIeQR
-         8hn11BPeNLyLW1EqGm3B7ceBn8cAKPebgrcDuIE9uOoQmTzoTCBa15gr5Vc/yo3qNN5i
-         LZcWIq9rLcstfAsz9YoOYcHF29T61rUHulmm9hxTJ6z+HIQ52MbbD1ug6AFryJY6QqOE
-         vYsXIBD34c99QGkEWeHfKib+YMI222btcaBuP/DHz+5CYukhAEorA7l9wxp0YXGlkjQB
-         MsNt9wn9QvDg7JNuQuAj9tAWqmS6y71dykTClSWk/O+LuJJPvx8wK+v++bPy2JVhaHqr
-         t4eA==
+        d=gmail.com; s=20251104; t=1792905495; x=1793510295; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ao0LzEZOUNstisYoUSRpO7xtRQdZ2FfSYO9nengEgWU=;
+        b=E2Y2mH3y9BR6KBrsEgj7Sna2sKPp9+kmOOJJM4cqS0AN88itfHUyGGAIFtcLfpKd70
+         0xfYWCBIxeB3ADWEVUvcXMz/u6JdJvcoYeZAWWrJUL7Qx/IMaTAINZn93dTnbpjszQUM
+         /9IiEjGy3jHj+qDM1OrSblWbhfSdliqBbpaDaqjA7pSM8yBYGBmSJfPPko53WsXhVRvP
+         Ohbj/7pm5tYKJE6OQslsfo5/82solLi/PhES9I4mniBLrWzN5/1fnvEoDHMBlnqVO8to
+         ahufBHThVj58T43LabKebXpghhYtEzLMpcW3GJNX7iKAlkcRc1+dVtUz+jrpSRXl1tQL
+         YXdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792905492; x=1793510292;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/W2ZST1PdRMiETuySk5iN0wTTyj64nbsfp3hS9oPgWA=;
-        b=kbkPAyaJml+JUbpzKbpJKuyYCIN0l5hpiS4vTRuZEpzoEqTF/vANJeB9Fz4ctiC8mc
-         RopHMH0jHt3Mrcdo+UNI/MM/4A6+7YTeeQW3FAryzEX+Eejxn1H0mkWnKLexElIAeaO0
-         kOK1YS3Nq5K1lmeKqOSQ2ItYEBniP1KH974H/If6J3GRJFmWvDQ80ihZndZs+fagS2vE
-         v8v4j7MXs8m/lYYiodUQcuXsNvqvdjeAiCNp4rZa+CaajWt5ftjHg3YEjMC69shWK7CC
-         dhaQM4W8sd6shwkmDjxgUiTuxGwmx7T+QGCK1DUDUeB75k3lBOPyXK1bwU0QWcm3kxLU
-         rEGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdhzUqdAaTOeBiWCJGliu+OFUCvbyBBwQfs99B1eTBaZD3EwhgkeU3rsG79forPhUSG4tQH/4tHq9w@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1nHucQbc6N1qaBoQVRcF5U8pqsRDUbznpRageVZGRJIkfnKsP
-	qzQpI06Yvo7gN6qkGDIucfsh5Ren7QdRsigo01xravuONs2/1UVCMWZ5
-X-Gm-Gg: AYBFou3EcAGjk+Rhq2d2LALoihmg+pe3fM7hRlBb+WZvWMzl2r0/lsujl4EQcvXiEkL
-	9ULQ9/DmtvGB+gXkZ4yuED1tyFZ1WlmvhEvs7EykN9heWRSgg/y6gFll/oIYuPJh68plkUML9py
-	YxL1RUEtSZ58oUoNY4HIguNNIQ6oMwop0UN/cw4B9txfQivqCCyV5haiMYzfqxqNxnINZ6955PS
-	MInAw1W11Z+bK7bewAu4ukjzLiINtU7fdY61RrM+WRRbXyes0dDYIBhGoRKszD6yKXPnqPHQqTi
-	pWx7stNSmXKpB3HJO79NKt9kanv+MgpUjVdHhJwJlzyM2pczfNTAQvhiAP0ytUKODgwqTn5Cz97
-	aq4OG8hJlSmjTvz4pzhjmJowSn67gvez1o/9Jeru8f5Z52V6oxTQ+OUEpU51g0wOL7dmK3bV5tq
-	ztfEwnuSnWzoVNnjuYqpKZj3HDB4h29i87NzAWFPyZS5yZ7wAPiN82nCBQPa/9BlNydy6oinYXg
-	F7ZtQlG+6GhIH9jRBnpO/A5QlTUlYqBjgFBWaObmLKzDQ==
-X-Received: by 2002:a05:690c:3141:b0:8b0:a01e:2ccd with SMTP id 00721157ae682-8b166c938afmr20299057b3.62.1792905492438;
-        Sat, 24 Oct 2026 22:18:12 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792905495; x=1793510295;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ao0LzEZOUNstisYoUSRpO7xtRQdZ2FfSYO9nengEgWU=;
+        b=iHLy2KCw4YOtDhgrzbUzPvbDPLWoxqqf1yo/0+e0fCCITv7wTSsEhLkWsuWVtt9FAV
+         I5h7h+RONNzVeyjrX+L5O9ALMSYgrLm2/Yr7qLjEFS3T76wUMz7Dh9MIk/aBUU+pUDai
+         UtHBrzXYJslnlEQodfSnWdxnZTWKEQM+5/T6ZIrVH6L+xZxj15AS+IOuC0ZR4XRs5tGu
+         5iDbucsBSniOdD8oROyLzpPzGq82UDcuRQsLfFGrgpgIv3ymoCE6WMs/+RhuMSk9LaBe
+         qGDD6K6UG21senz++C8TBHAnNbdaJH+PL+aAtTgyh8vEs/AReC0T+r12CQKBIb7ZvSqO
+         cHPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2iFlwEPmRLW25p65Jxkb9uM3e77ZvVgGVY9vYU9SXqPrxvWxDKVo3gIDlAO8U3pQD5+x0ZVh/uZ/c@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyKu2+y+b7GLyE/X2RHPT8n4VNNNx0EVFguefXyb0lIgotLRWq
+	Ptx8JPqKEUATMupUC0+kI+r3fygB9TfKGcxVNIRpb5NwFjBBALwpy3ww
+X-Gm-Gg: AYBFou2YBTjOWAdoGYyVufxuaGxnSauzNGtMUW390TB5tTT+1UHMwhVfN9uwna3QveM
+	okIgM5FbrBjT9thfpZRIMj/aJuSXzP4dsJaBVssS06t/lWrfY+tZsfZ5ZEIWL1oI5B1zdozhFTM
+	lSgaQMgKtRMfT7GQ5JzvIToajEV1IXNVk3rjDisM+5FbWRDTsQWZ8VDcCfCnInEwfhboAy4TRzt
+	vf4bxyfq6P1nOtgpMfB3aFwNKJSE0JLLmVwCJHlAUrSFcLLX5qGCL7BtJmryUWhK8WTcKtg4e2+
+	y1VZ3UuSFTCW2HxW5NfoXA1BLLvRpJi1qlyqRTAlWjOP8fI+dC8RCVb9vL4AlRbJBmdc2jostXg
+	wZeUlhQAN+PcFkswj+EQTdJMkkLWfXGK7k2HcQEVQ7x3FMlEhX721Uqq7OdsM9Dt1ezv+voemuy
+	rNywzX846erp6VLVuv33Qoi/2K7uYuaHIjEe3yMHMJMZ4EXLrbrJXSVrHMj9d9lZTZkIUFJ8z/Y
+	y9evMTx/kBhVzADJLN1wAdn7hiFoP+RoEKJuDI+obOyqQ==
+X-Received: by 2002:a05:690c:c4f9:b0:8a0:e27e:8e75 with SMTP id 00721157ae682-8b166c6f987mr22449797b3.82.1792905495289;
+        Sat, 24 Oct 2026 22:18:15 -0700 (PDT)
 Received: from [192.168.1.91] ([2600:1702:894b:4a00::12])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b166c5d605sm16477797b3.5.2026.10.24.22.18.09
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b166c5d605sm16477797b3.5.2026.10.24.22.18.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 22:18:11 -0700 (PDT)
+        Sat, 24 Oct 2026 22:18:14 -0700 (PDT)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH v5 0/2] iio: adc: add mt6397 PMIC AUXADC support
-Date: Sun, 25 Oct 2026 00:18:07 -0500
-Message-Id: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
+Date: Sun, 25 Oct 2026 00:18:08 -0500
+Subject: [PATCH v5 1/2] dt-bindings: iio: adc: mediatek,mt6359-auxadc: add
+ mt6397 PMIC AUXADC
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,12 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43NQW6DMBBA0atYXjPVMIMdwir3qLow9oRYKhDZg
- NJG3L0iUiXUbtj+xftPnSVFybpRT51kiTmOg26UKZT2Nzd0AjHoRmlCsnguK0htmgXyLN8w3/O
- UxPVx6KCfLJ9P4OaHCx6MlEQ1kvEGdaH0Pck1Pl6b949C6VvM05i+Xtel3OrvwBwbLCUgBDaBn
- Odgr3jpehc/3/zY622w0B49HURpQ1s2dU3OYv0P5R1KeBBlQPCIEpxvRWz1F632aH0QrQCB2DA
- 7DIzCe3Rd1x+DAIjN1wEAAA==
-X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+Message-Id: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-1-5c3c7a5a1851@gmail.com>
+References: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
+In-Reply-To: <20261025-rbrue-suez-upstreaming-mt6397-auxadc-v5-0-5c3c7a5a1851@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -112,205 +110,81 @@ Cc: Roman Vivchar <rva333@protonmail.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ryan Brue <ryanbrue.dev@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792905489; l=10472;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792905489; l=2798;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=hZ4ataN3TqF3XlcUTTlr0WAyyMp0HQO8iZw+M3vlDFw=;
- b=PGRd3RMljy/6mIRA8gGGOeRo7WduXda/Rryemi47hJYV3sSsq4sgHWrhfc4JzkvhM5IjreR0T
- CkV77HYcjVCDhu9OirSxZjs6ecT4tzXz5sn4coU1G5jEG5GuR5JXq9L
+ bh=JdiGQh0KVm70DbIkS0pQKFBLtV68drIsj5z75XBPwxA=;
+ b=YQht8FlXebiSXOai3WM/zuvpDL9fEatxuBpgvv5MqOVMjp8xIC+PbWFLP4Kp0ZyoptsaARv3W
+ OS3S7UU/Wv5DKYeQ8hVE8LNFldXHmNwewYh+zNK82rW2cP6MJ9/KpZd
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
-reach. On boards built around it that ADC is the only path to the battery:
-the SoC's AUXADC is wired to board thermistors, and the charger ICs these
-boards use have no ADC at all, so without it there is no pack voltage and
-no state of charge.
+The MediaTek mt6397 PMIC includes a 10-bit AUXADC used for battery voltage
+and battery temperature measurements. It is not register compatible with
+mt6359: a conversion is requested by writing a channel number to a select
+field and pulsing an edge triggered start bit rather than by setting the
+channel's bit in a request register, and the results live elsewhere.
+It therefore gets its own compatible rather than a fallback.
 
-Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
-the header naming the channels, patch 2 the driver. The MFD cell that
-instantiates it was patch 3 of v4, which Lee has applied [1].
+Add the binding and the header naming the channels a consumer puts in
+io-channels. The battery channel is named for the input it measures,
+ISENSE, which is what mt6323-auxadc calls the same input.
 
-The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
-two are not register compatible; patch 1 has the detail.
-
-Only the two channels a board needs for its pack are described, so patch 1
-ships a header naming them: a channel ID is an index into the driver's
-array and not the PMIC's channel number, as in mt6323-auxadc. The register
-sequences are the ones the vendor kernel's pmic_auxadc.c programs.
-
-Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
-channels are exercised: the battery channel by a fuel gauge, which reads
-817 counts, 3830 mV with the pack at rest, and the thermistor channel by an
-ntc-thermistor consuming it. The error paths are driven by injecting a
-regmap failure into each helper in turn. The read returns the injected
-error, and every bit is cleared again. The teardown writes were also made
-to fail, one at a time. When one write fails, the others still run, and
-only the failed write's bits are left set. The next read clears them
-anyway. Run the same way, v3 stopped at the first failed write and left the
-later bits set. v5 gives the same results as v4 in all of these. Loading
-the two modules alternately on the board, their readings differ by 0.3 LSB
-on the battery channel and 0.1 LSB on the thermistor, both inside the
-comparison's own noise.
-
-A new driver was created here, instead of modifying an existing driver such
-as mt6323-auxadc or mt6359-auxadc, for the following reasons:
-
- - Both mt6323-auxadc and mt6359-auxadc select channels through a request
-   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
-   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
-
- - For mt6323-auxadc, which is the closest I could find to the mt6397
-   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
-   It uses CON22 for its request register, and reads the result value
-   from the same register as the ready bit. We don't do that - the mt6397
-   has a factory-calibrated value for each channel at 0x16 higher than the
-   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
-   we have 1200 mV / 10 bits. We also have some per-channel preparation
-   that we have to do before the burst, that the mt6323 doesn't have to
-   do.
-
- - For mt6359-auxadc, it has a more generic framework for describing the
-   AUXADC, but it assumes requests are channel-per-bit, and so we would
-   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
-
- - We also have our own software sampling, which the vendor does too
-   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
-   sampling callback to do it.
-
-I have two things in the driver different from the vendor (Amazon
-Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
-per setting:
-
- - Leaving the ISENSE input enabled between reads, as the vendor does,
-   makes no difference to the value, so the driver switches it off again.
-   Both ADC input enables are clear when idle, unless a teardown write
-   itself fails: the rest of the teardown still runs, and the next read of
-   the channel clears whatever was left set.
-
- - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
-   samples and costs no measurable time, so it is left at one. Software
-   averaging helps, but only by about a quarter: in one interleaved run,
-   0.92 LSB standard deviation for one conversion against 0.67 for sixteen,
-   where independent samples would have given 0.23. Conversions in a burst
-   are correlated.
-
-The reading was checked against the charger, which regulates the pack to
-a programmed voltage in constant-voltage mode. Over twelve such voltages
-from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
-reading is a mean of 0.9 mV from the regulated value, well inside
-the charger's regulation tolerance. That also settles reading the chip's
-trimmed result register rather than the raw one - the raw register is
-20.7 mV low at every one of the twelve points.
-
-This series was developed with the help of an LLM coding assistant.
-
-[1] https://lore.kernel.org/all/179206667779.1910726.5341177428334836457.b4-ty@b4/
-
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Changes in v5:
-- Split the read into one helper per channel, each doing its own setup,
-  burst and teardown, and a caller that takes the lock and dispatches on
-  the channel. mt6397_auxadc_release() is gone. The register sequence is
-  unchanged on every path, including every failure path, and retested on
-  hardware. (Jonathan)
-- Keep Andy's Reviewed-by on patch 2, since the change is a restructure
-  that does not change behavior. If that's incorrect let me know.
-- Drop the MFD cell patch, applied by Lee from v4.
-- Rebase onto iio/testing. The MAINTAINERS entry now follows the MT6323
-  PMIC NVMEM one.
-- Drop the Assisted-by trailers per the new kernel guidance, and put the
-  disclosure in the cover letter.
-- Link to v4: https://patch.msgid.link/20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com
+ .../devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml      | 1 +
+ MAINTAINERS                                                      | 6 ++++++
+ include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h             | 9 +++++++++
+ 3 files changed, 16 insertions(+)
 
-Changes in v4:
-- Attempt every teardown write even if a previous one fails, so a failed
-  write doesn't leave the buffer, bias, or input powered. Reverses the v3
-  change. The teardown neither checks nor logs errors for failed writes,
-  similar to mt6358_stop_imp_conv(). The next read will rewrite those bits
-  anyway. (Angelo, sashiko-bot, Andy)
-- Move teardown into mt6397_auxadc_release(), keep error paths out of line
-  with goto, and use mutex_lock() / mutex_unlock() rather than guard().
-  (Jonathan)
-- Reword the comment above the BATSNS disable prior to ISENSE enable.
-  (Jonathan)
-- Collect tags.
-- Link to v3: https://patch.msgid.link/20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com
+diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
+index c2f7387e4bfc..2847bd5d5bc4 100644
+--- a/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml
+@@ -26,6 +26,7 @@ properties:
+           - mediatek,mt6359-auxadc
+           - mediatek,mt6363-auxadc
+           - mediatek,mt6373-auxadc
++          - mediatek,mt6397-auxadc
+       - items:
+           - enum:
+               - mediatek,mt6365-auxadc
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 02426f316faa..b5417c02eb01 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16780,6 +16780,12 @@ M:	Roman Vivchar <rva333@protonmail.com>
+ S:	Maintained
+ F:	drivers/nvmem/mt6323-efuse.c
+ 
++MEDIATEK MT6397 PMIC AUXADC DRIVER
++M:	Ryan Brue <ryanbrue.dev@gmail.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
++
+ MEDIATEK MT6735 CLOCK & RESET DRIVERS
+ M:	Yassine Oudjana <y.oudjana@protonmail.com>
+ L:	linux-clk@vger.kernel.org
+diff --git a/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h b/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
+new file mode 100644
+index 000000000000..b696c1cb5ebe
+--- /dev/null
++++ b/include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_MEDIATEK_MT6397_AUXADC_H
++#define _DT_BINDINGS_MEDIATEK_MT6397_AUXADC_H
++
++#define MT6397_AUXADC_ISENSE		0
++#define MT6397_AUXADC_BAT_TEMP		1
++
++#endif
 
-Changes in v3:
-- Move the sample loop into its own function, so read_channel() is setup,
-  then a conditional burst, then an unconditional teardown, with no goto
-  mixed with guard(). (Andy, sashiko-bot)
-- battemp_bias_off() and isense_disable() now return on the first failed
-  write, as mt6323_auxadc_release() does, and twelve other teardowns in
-  drivers/iio that I could find. A failed write can leave the later bits
-  set; the teardown runs at the end of every read, so the next read of that
-  channel clears them. (Andy)
-- Drop the "if (!ret) ret = err;" accumulators with it. A teardown failure
-  now goes to dev_err() rather than being returned, since the caller cannot
-  act on it, and read_channel() takes the iio_dev so no struct device * is
-  stored. (Andy)
-- Split battemp_bias(adc, bool on) into battemp_bias_on() and
-  battemp_bias_off(), and drop the bool. (Andy)
-- Make the SCALE case an if-else. (Andy)
-- Move the "why a new driver" rationale below the --- marker in patch 2,
-  out of the commit message. (Andy)
-- Reduce the CHSEL regmap_update_bits() call from four lines to two. (Andy)
-- Drop the comment above guard(mutex). (Andy)
-- Say in a comment why lowering START needs no settling delay. The ready
-  bit survives the fall and is cleared by the rise before the next
-  transaction on the PMIC wrapper can observe it. I measured this, and the
-  details are in the reply on 2/3. (Andy)
-- Cc Luca Leonardo Scorcia with a trailer rather than in prose. (Andy)
-- Link to v2: https://patch.msgid.link/20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com
-
-Changes in v2:
-- Add justification for this being a new driver rather than folded into
-  mt6323-auxadc.c or mt6359-auxadc.c, in the cover letter and patch 2.
-- Drop the "ret = ret ?: ..." chains, and let teardown fall through on
-  errors, allowing the chance for all bits to be properly torn down. The
-  errors are now held rather than discarded. (Andy and sashiko-bot)
-- Run teardown even when per-channel setup fails part-way through, so we
-  don't leave bits enabled that would have been cleared. (sashiko-bot)
-- Set ISENSE settle time to (1 * USEC_PER_MSEC). (Andy)
-- Write the two channel descriptors out instead of using a macro. Also
-  gets rid of the padded column. (Andy, Jonathan)
-- Move the MAINTAINERS entry for the dt-bindings header into patch 1, as
-  the mt6323 series does.
-- Declare the sample loop counter in the loop, instead of with sum, and
-  split the declaration of sample and ret. (Andy)
-- Keep the two CHR_CON16 ADCIN bits as BIT()s rather than turning them
-  into values of a GENMASK field. Fix OR operator on the bits, treat them
-  as mutually exclusive. (Jonathan)
-- The rest of Jonathan's v1 review: two-space indent separating a register's
-  fields from the register, a blank line before the settle times, a lock
-  comment that says why the lock is held, the two CON1 START writes on one
-  line each, the single-call init helper inlined into probe, and { } for the
-  of_device_id sentinel.
-- Add the additional three CHR_CON16 ADCIN defines that make up the 5
-  single-bit enables. These are currently unused.
-- Link to v1: https://patch.msgid.link/20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com
-
----
-Ryan Brue (2):
-      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
-      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
-
- .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
- MAINTAINERS                                        |   7 +
- drivers/iio/adc/Kconfig                            |  11 +
- drivers/iio/adc/Makefile                           |   1 +
- drivers/iio/adc/mt6397-auxadc.c                    | 394 +++++++++++++++++++++
- .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
- 6 files changed, 423 insertions(+)
----
-base-commit: c9dbe2a47f635465c9985b7af74d2ae310e98125
-change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
-
-Best regards,
 -- 
-Ryan Brue <ryanbrue.dev@gmail.com>
+2.55.0
 
