@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972600;
-	b=MbEOaFcpiTMKTR/jBr635W3icKJILhvkewSf0ddYQ/X8WHpW/2RxpRyxO2CnSip49DGl
-	 gKtJCxrgJxnbVi5oTM7PSSVjqpQvUVMo2zAXFrfWQwHPlGwH8nUE+sI1ibsBJRu1c6VGo
-	 TK4ygC2ENZITlIYk2/jUmLQKq20HDJtz6tPNArwtRWtJE4iKpoi3Aue2feqEG2ByIS7f5
-	 aRE5NlCh2xUb5dPKlWywxUlTyQz69ZEx8bQdbRicVxkY9MeKN1WMlIqeNv0b8diEul94t
-	 baWCy2eLjnx7AYGWiW7ihXUB7aE0XWoyBfI4Vo0iv4mzcuIlJNw55WMfWQ+kqk7BcaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972600;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=IfttFnFIG7HoZA/g9s8CpEWP9Egm/QlQ/rKRoYlIM6Y=;
-	b=JzPYqT8mlplUE6LtHGg3grnI9KHPewJiAIo3h+rbgmSKVrnVdyUimtYvycf5giNgNRUP
-	 y3214qfCebvFOXnQe6dtVkbk25T17BUOLY4g4OGTQ66hj6z0tiEhZgJMzl78GrhmnsYwA
-	 C/j7HzRfYzCISrVRhhPfbMxtX3FwAeizxT3nB/9++RyMJcE8PWIoAIx0Bo1iMLuTNog63
-	 YcuqqQK3uzVNyludINRFDqWlr6mL8FtBpebNGWQRcsB+iBu4fmo5Mx9nkxO8y6hhQqXeQ
-	 /iGkrt97XK/14lVwWbsEOWIW4eM8UHBb5lcbkCcMHU065P6fZI+BpUWehcoX1ekIlog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=Gu8ae8l9;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792972720;
+	b=YhNUvhSHQtj9f/tsi22HtWq7/UUn+OWrXq+GvjE+bLFwi0cZhSI0xhBfoQonwEfxMeVb
+	 UoonxWHIXMyUWiuTHVqwtEGi5WMdL+quvZQay+98PpUjH/opAV267lS3rxahVmagdasL/
+	 /EXeDqwr8z7vsx5/t87S9RBRU+/9hasZX6ZqKs2qszlzYWLDzOx3bXPp6zxJJR28WPI/d
+	 i0dIXh63/RQ1otAhq+oiS4pp6iVg+QNT3Zt/SB0MCYIwxpeuUyK2p5dw+I+M4KbP3k0XD
+	 E95YTC7KK2FSURuQ8B3MT8SMUhHNDGFKhhTl1rtK7QQsC6rsDX1APezFXbe5b03tbJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792972720;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ikb9/V5iAlmy8zH9iEswyqh7X1ACy082GM3v+SCnybM=;
+	b=h3N27lE95HLjZb5Fxce/vYXzhvRF2yQ7Rf1SjZn97vpAEcXX5W9jC+59ynqzREBzMePV
+	 B3FA0XLZUdLniUr104lhioc3rZ0FQ2OSveKQG2VQoh5F2mEfxPgXworo4qF+aRNlis5c2
+	 9a2j4odWtagmbiMAtjTybdiyMgJw99tDZPFcjTD/0H7i+x/tbJrcP+ezbYDpgCYtqErvf
+	 tSOQ7rBz+eE7y9olSKGhEO1YSsw0O28hkdz6aBPDbPmW8L5H9L4KvUlscw9gAiD36/SkR
+	 ZMjQzXjvqBr0ZDtn0pfPGwEXWuA8yVDk1aHLWAFle5roxq1NcVwT3xP4sNmToYYH9Zg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EDrhXzT7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72348606A31E;
-	Sun, 25 Oct 2026 23:56:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72348606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C84606A31D
+	for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4C84606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=Gu8ae8l9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792972596; x=1793231796;
-	bh=IfttFnFIG7HoZA/g9s8CpEWP9Egm/QlQ/rKRoYlIM6Y=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Gu8ae8l90NAoNZR9UU1hr/JwLJVuAlmhmL66yAiN1tRBAQ0Fd1wAxOc78aQ8ypaIX
-	 x2hgdpw5XK73VKUE2RnkqPBkV/vrYCu+SobzAG8XnnReMetor64VYFDFOudRVxZkB6
-	 FVGmuTGAScdZAmWPf7q11SfLryrRCjy4N4MoJdpelT5Ry48jRT6P+jla65kgE8LzEO
-	 4TFn1yBH9Hr+F/PPKhZ6c4j2JOqv/9zVltkVXWOOcuYbSsCOGngh9vVxMyJN67ZbCs
-	 ICvOQletdqi8BAZJFsMrTv5Gbv4dfNGH/DWJi8vwrx/6HoqQJ7a2VzOITtGKcQJUq/
-	 UwEZLUzWYhayA==
-X-Pm-Submission-Id: 4jCYZ81Stfz1DF5K
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Subject: [PATCH v7 0/3] (no cover subject)
-Date: Mon, 26 Oct 2026 00:56:22 +0100
-Message-Id: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EDrhXzT7
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so1617996e0c.3
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 16:58:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792972719; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q1KE4low3w4a+SXzDm8JtMcbpUcCqs3y5mFcizEjWdq73cZzl5OlnJU9ExbbEZqsYY
+         qLlo3qJXmNDPUex+gXoUm5/PbDvnH26RTRd5G2beGZENG8ie5FvusEJPS6dGWfgKEmQG
+         NO2r1THitX2CgSVkPohABfaNy52WX7dMsbbtkF0qhg/uTXhStjB2X3rwvgpupHbCpm47
+         hBCFz5hAEd1MXsRkk6L5KJ1q5+JI2sVM/wdMbRqjluDhSkpgvJetHo6UQdz7cOiWzC9Q
+         QlW4RM5CY2XiN2YpQZoCDkVz9U0va0Tf5sfXFvNcEgTAQejuMumxB+Z4+j6pAK/6PSBq
+         TqCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ikb9/V5iAlmy8zH9iEswyqh7X1ACy082GM3v+SCnybM=;
+        fh=mG6lCjwC2Ad5xe7yHa1qwEmBzhCvhkP3nQlU7nywd+I=;
+        b=AyYjxubQQzKS/avPZHBRz1YUka3GMe/b3PmDr2r2yq9P8zMMSSfC3VKqjGSc9i1D+r
+         OzTUiFMljxiWdEO+McGLOTNDpzZJ91FJ5LkSU3ag0up3e64xYW2gLlsg321jYji1PBdA
+         8AwvOI8SniPA/pXuZ0Y2dA5tmRtoVcJSPViJMDtbmkxml0XK7KR3gQaYt0kRmXfEiFES
+         AR40DwmjQHT/domZFo9iOJjVwjf2ltzSSw2KlIquTiPzwNGDoBKy7AYoXEnFyFrtOvi3
+         YugIPCYSnNfgnj3FKfjOriwkJX9dhqeosjw3zrixqB9KXNDwSE06OpA+COXUTvoyRMwj
+         JkDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792972719; x=1793577519; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ikb9/V5iAlmy8zH9iEswyqh7X1ACy082GM3v+SCnybM=;
+        b=EDrhXzT7KdENUM58hiSpxESTOCelFNMcfDPmHPHvjsV/L8svxWU/td3+1P5fh3FdBm
+         qzI8wgway/GaLAukbVs8tlOVnvmpEn3tVxGJISSyHYt3XkKMOSgjAneA0ts+Pwfr2jvI
+         W1yRLMsGoLCYuLPeeHOu7rluuE3KOHvcHczXbLtKGjki3FL4/tavIX4aIzmSYWw3/PDu
+         fhzmDPcotaJvE/CQDOVzBzFXc3asUE2V8xISf99v2LYU74eQOwVIYxLJ6G6qpUpkiK4+
+         c6Zh4V15hzt6+Wg7udzURAOK1CWXdAAgDnxBfLlGezdOvuVckN/MEkwKM2o2Nr2CJUaX
+         RciQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792972719; x=1793577519;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ikb9/V5iAlmy8zH9iEswyqh7X1ACy082GM3v+SCnybM=;
+        b=VTaJVwBAwoXcwuIpELhuf2mvyN7DZLnXJNB6sn++PglWNJ3ywcpD2FOrMGQqMI1F0f
+         IAqNL/R6RMmHAdgwX0tvfxsNWc1hc/k3i9VgEkGzgbWHQKLSuvrHHEGTXCOz/9X8Z+bx
+         5wiAAdaAFrals3P2hROcYqIqpVuJ1E3O+KyJwyExdjYlIh72FVWWjwySfJlZx5wEquBW
+         rV+6cTc/a9CSbcRMpGd3mpBlRjlOW/By3e2Hvnl6d9pFKWQOgugDOKkkpWUv8aAaMxh9
+         KAYb+Ocq0MgOIA7Bz3z/3mc/3bk1QnDhjk6H85UqhsJcuJn/pdnze467603lB9++Mvsu
+         d8CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQtj1PCaYhgasa8qpOGkaMwsEQfYv7y9B1sfzN1VQ7Obpz/pOI2S6rbpxS5pj7f8GJUu5f23WKny1N@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT85vtLskx+RJoCAx/TZgiOmDX88FmuHCVB8S9cTFNLp8ATCI8
+	TjcoksVZyEDxUm0rtyihLKRKrStAcd6hPAwX8nKxDxwdIXDgLXEWdUv3lUV4wCfPrE1fysGIedh
+	lnwkvNDYmfBei+5Ng3wHTnz8Atzuobkm7AQkd
+X-Gm-Gg: AYBFou0lgk2s5wRCqQJjSjvWFT1+rkprjYhWJyyokoXUGGUxlfD/8pcSX+HmA/QTC/o
+	u5aRGbwtWQue32j779l8PZqgdn70to5efBAkTpnG5rWnvrGroNu1D0UWWl1Lv+YLnxRuB4LroqQ
+	5n0UYUa1hLl0MJv1A1VfMiOjqVWXQXpNB8lV0DukVaEKKT9jyN3g8pnQToKnEEDrLgtnZdsoHyb
+	tMhJa9EdXVM4BzojBEOWua3xx4pfCdoRDgEVZy7E05TzELuUeYaHWdQA0UgiH2RooQCz7hMspbD
+	DXHpuct2dcXwrkhpbTnorVCYbJEbIWaSGavKVMZ+VFNADKfV0T6mf1i4uqKOF5wUWshgZcNvoM6
+	Q+4vBqBcmCYq8xir4YoOC85ch349PT04DxqlAwUih72ztfb5PE9Bk35mcZZg0SAWMESHE
+X-Received: by 2002:a05:6122:4b08:b0:5ea:ea07:b119 with SMTP id
+ 71dfb90a1353d-5ec232ecafcmr1748107e0c.16.1792972718622; Sun, 25 Oct 2026
+ 16:58:38 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,173 +104,216 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XSzWrDMAwH8FcpPs/D33F62nuMHWRbXs3apLWzk
- FH67nMT2Mow7Pi30U8C6UoK5oSF7HdXknFOJY1DDd3TjvgDDO9IU6iZCCYMk5LTgMcjXc6F9lJ
- pip6ijqoP3GE0nNSyc8aYlpV8fav5kMo05q+1w8zvrxumWAObOWUUImgPPqje4cucBsjlI5VnP
- 57IHZzFI6IaiKiI77vOSw9geWwh8hexzUlkRfqoXHAadIDQQtQj0jcQVRFrJTPBOd8BtBD9g3D
- GW5PoighwXGjrrPK8hZj/ELMixoA0KmLH/iK3bXUZL5/1CKZtf8RBQVr/T2na7wZcJrq1ELJW3
- L4Bn325uT4CAAA=
-X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- linux-hardening@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6645; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=Hxch++SqWJ2+B/BmAZlvxRxCYyX/DC8aRHmln5ToaOQ=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn3puv3Bx5wkvh8Tuuuk5FpoWjFBNUD8zS2//z//531o
- cPyS/Zs7yhlYRDjYpAVU2Tp/vM1rWvR3LUM1zW+wcxhZQIZwsDFKQATiX/NyLBxydmVk35dlLLd
- qmU5O2Ka5Lzy99lL3x54/kdPwXvFjqqXjAxTq6c026X5B2+RV2a7dF50cdW0P2WG6X59yQk373d
- FSzIDAA==
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
+References: <20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com>
+ <20261022-sunxi-orangepi-3-lts-v2-2-70b899252c6a@gmail.com> <sashiko-outbox-181088@kernel.org>
+In-Reply-To: <sashiko-outbox-181088@kernel.org>
+From: Cristian Filipescu <filipescu.cristian@gmail.com>
+Date: Sun, 25 Oct 2026 16:58:27 -0700
+X-Gm-Features: AclHuK8RB7C1lose4hGybdb-vlgT7R9BOK8Q4taPUha9OJ1M6_c3vVkZYCkcIoI
+Message-ID: <CAH87RzS2HTqRS=JjYiU=dRfvJp4nTiZCih-jy9CFyFB=ZnanYA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, 
+	conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gpg: Signature made Sun 25 Oct 2026 11:52:52 PM CET
-gpg:                using EDDSA key 8BFCF5668AA29DAD00D728F6EDAE71A20F500310
-gpg: Good signature from "Aleksandrs Vinarskis <alex@vinarskis.com>" [ultimate]
-gpg:                 aka "Aleksandrs Vinarskis <alex.vinarskis@gmail.com>" [ultimate]
-Introduce EC driver for Snapdragon X1E based Dell XPS 13 9345
+Thanks for the report. Both issues are addressed in my local v3 draft.
 
-This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
-While EC appears to control most of device's peripherals, particular
-driver addresses power and thermal managment issues. Key operational
-principle involves initial thermistor constants configuration followed
-by a periodic reporting of these onboard thermistor values from across
-the motherboard to the EC. The latter then handles fan ramp-up/
-ramp-down internally. Suspend/Resume must be likewise propagated to EC
-for power management.
+The LEDs now default to green power on and red status off. Both also
+use drive-strength 10, verified on the board.
 
-The driver was developed primarily by analyzing ACPI DSDT's _DSM and
-i2c dumps of communication between SoC and EC during various stages of
-operation (bootup, suspend, resume).
+PHY reset is now on the MDIO bus, with the explicit YT8531C PHY ID.
+Five interface down/up cycles and three MAC unbind/rebind cycles
+passed DHCP and ping, retaining the configured 125 MHz clock output.
 
-With EC driver in place, the following issues are addressed:
-1. Fans were not properly cooling the laptop, would kick in late and
-   spin lazily, resulting in heavy throttling. With EC driver fans
-   start sooner and hit high RPM under heavy load.
-2. Fans were not stopping once SoC temperature dropped, they would keep
-   slowly spinning irrespective of suspend and/or closed lid until the
-   next powercycle. With EC driver shortly after SoC temperature drops,
-   thermistors temperature drops, and fans ramp-down.
-3. Keyboard and touch row backlight were not turning off during
-   suspend - only lid close would power off the touch row. With EC
-   driver behavior matches that of Windows, suspending device with lid
-   open powers off the peripherals.
+I also tested 1.8 V eMMC DDR52 at 50 MHz and HS200 at 150 MHz.
+Repeated reads and patterned writes passed in both modes, with zero
+reported MMC errors and the original data restored and verified.
 
-As thermistor readout depends on pmic's ADCs, this series introduces
-EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
-adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
+I'll allow more time for review before posting v3.
 
-Additional findings:
-- Max fan speed depends on Dell's power mode settings, configurable in
-  BIOS or using Windows app (relies on ACPI-WMI). It appears best
-  cooling performance is achieved under 'Ultra Performance' profile.
-- When the said power mode is changed using Windows app, EC IRQ is
-  triggered. Windows performs what appears to be thermistor contants
-  readout, though its not obvious what it is used for.
-- Given similarities between Dell XPS 13 series (codename 'tributo')
-  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
-  EC address and response to suspend/resume command the EC driver can
-  be likely used for both, though in-depth testing on 'thena' is
-  required.
+Regards,
+Cristian Filipescu
+------------------------------------
 
-This series depends on QCOM SPMI PMIC5 Gen3 ADC [1], which was added to
-`linux-next` for v7.1, but must be picked if this series to be backported.
-
-[1] https://lore.kernel.org/all/20260209105438.596339-1-jishnu.prakash@oss.qualcomm.com/
-
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
-Changes in v7:
-- Rebase on latest linux-next
-- Fixed 1st, 2nd channels from AMUX3_GPIO, AMUX4_GPIO to AMUX1_GPIO,
-  AMUX2_GPIO as per Michael Burch, Liviu Nicoara.
-- Fixed sys_therm0..sys_therm6 to sys_therm1..sys_therm7. Initial
-  convention was picked based on schematics. It is now changed to match
-  most of the existing device-trees.
-- Fixed dt-bindings schema to not use arch specific imports as per
-  Rob Herring, sashiko.
-- Adjusted thermistor label as per additional findings from reverse
-  engineering investigation.
-- Link to v6: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com
-
-Changes in v6:
-- Fix dts mistake due to rebase
-- Link to v5: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com
-
-Changes in v5:
-- Rebase on latest linux-next
-- Re-schedule work if suspend fails as per Ilpo
-- Fix comments as per Ilpo
-- Link to v4: https://lore.kernel.org/r/20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com
-
-Changes in v4:
-- Change to .data struct provided via compatible, which contains expected
-  thermistor arrangement and magic init sequence to make it easier to
-  support new systems as per Bryan
-- Change milicelsius spelling, add newline, return as per Bryan
-- Link to v3: https://lore.kernel.org/r/20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com
-
-Changes in v3:
-- Rebase on latest linux-next
-- Add Neil, Stephan to CC, as they worked on ADC for PMK8550
-- Drop VADC for pmk8550 as it was already merged upstream
-- Rename PMK8550 registers to use newly upstreamed headers for ADC5_GEN3
-  in both dt-bindings, device-tree patches
-- Rename ADC labels to have meaningful for user names as per Bryan
-- Drop Dmitry's RB from last patch since it was almost completely changed
-  now
-- Link to v2: https://lore.kernel.org/r/20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com
-
-Changes in v2:
-- Update cover letter to indicate dependency on QCOM ADC series, only
-  relevant for backporting
-- Update description of dell_xps_ec_suspend: entering suspend does not
-  necessarily ramp down the fans, if thermistors still report high temps
-- Add die_temp/xo_therm to pmk8550 as per Konrad Dybcio
-- Add missing header imports as per Ilpo Järvinen
-- Add explanation for EC reset pin being reserved
-- Fix device-tree: minor issues as per Konrad Dybcio
-- Fix device-tree: alingment issues as per Konrad Dybcio
-- Fix driver: alingment issues as per Bjorn Andersson
-- Fix driver: handle temp value as 16bit register as per Ilpo Järvinen
-- Fix bindigs: description and example as per Krzysztof Kozlowski 
-- Link to v1: https://lore.kernel.org/r/20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com
-
----
-Aleksandrs Vinarskis (3):
-      dt-bindings: platform: introduce EC for Dell XPS 13 9345
-      platform: arm64: dell-xps-ec: new driver
-      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-
- .../embedded-controller/dell,xps13-9345-ec.yaml    |  90 ++++++
- MAINTAINERS                                        |   6 +
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  65 ++++-
- drivers/platform/arm64/Kconfig                     |  12 +
- drivers/platform/arm64/Makefile                    |   1 +
- drivers/platform/arm64/dell-xps-ec.c               | 308 +++++++++++++++++++++
- 6 files changed, 480 insertions(+), 2 deletions(-)
----
-base-commit: 77cb3534193b758eaecd662a610a3a1bffde43ed
-change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
-
-Best regards,
--- 
-Aleksandrs Vinarskis <alex@vinarskis.com>
-
+On Wed, Oct 21, 2026 at 11:21=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] arm64: dts: allwinner: per-PHY reset-gpios and c22 compatible br=
+eak YT8531C
+> - [Medium] arm64: dts: allwinner: orangepi-3-lts: swapped LED default-sta=
+te values
+> --
+>
+> commit e75611867d87d079b20765ad9c1ddf5482d2d71a
+> Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+>
+> arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+>
+> This commit adds a device tree for the Allwinner H6-based Orange Pi 3 LTS
+> board, describing its regulators, storage, wireless module, LEDs, USB por=
+ts,
+> HDMI, and Motorcomm YT8531C Gigabit Ethernet PHY.
+>
+> Link: https://lore.kernel.org/linux-sunxi/20250413134318.66681-3-jernej.s=
+krabec@gmail.com/
+>
+> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts=
+ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> > new file mode 100644
+> > index 0000000000000..e6aa0b2e17ebe
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3-lts.dts
+> [ ... ]
+> > +     leds {
+> > +             compatible =3D "gpio-leds";
+> > +
+> > +             led-0 {
+> > +                     function =3D LED_FUNCTION_STATUS;
+> > +                     color =3D <LED_COLOR_ID_RED>;
+> > +                     gpios =3D <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 *=
+/
+> > +                     default-state =3D "on";
+> > +             };
+> > +
+> > +             led-1 {
+> > +                     function =3D LED_FUNCTION_POWER;
+> > +                     color =3D <LED_COLOR_ID_GREEN>;
+> > +                     gpios =3D <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 *=
+/
+> > +                     default-state =3D "off";
+> > +             };
+> > +     };
+>
+> [Severity: Medium]
+> The commit message notes that the green PL7 LED is used as the power
+> indicator. When gpio_led_probe() -> create_gpio_led() in
+> drivers/leds/leds-gpio.c parses the leds node, led-0 (red PL4,
+> LED_FUNCTION_STATUS) is turned on and led-1 (green PL7, LED_FUNCTION_POWE=
+R)
+> is turned off.
+>
+> When the LED functions were swapped relative to sun50i-h6-orangepi-3.dts,
+> were the default-state values on led-0 and led-1 accidentally left unswap=
+ped?
+>
+> > +
+> > +     reg_gmac_3v3: gmac-3v3 {
+> > +             compatible =3D "regulator-fixed";
+> > +             regulator-name =3D "gmac-3v3";
+> > +             vin-supply =3D <&reg_vcc5v>;
+> > +             regulator-min-microvolt =3D <3300000>;
+> > +             regulator-max-microvolt =3D <3300000>;
+> > +             startup-delay-us =3D <150000>;
+> > +             enable-active-high;
+> > +             gpio =3D <&pio 3 6 GPIO_ACTIVE_HIGH>; /* PD6 */
+> > +     };
+> [ ... ]
+> > +&mdio {
+> > +     ext_rgmii_phy: ethernet-phy@1 {
+> > +             compatible =3D "ethernet-phy-ieee802.3-c22";
+> > +             reg =3D <1>;
+> > +
+> > +             motorcomm,clk-out-frequency-hz =3D <125000000>;
+> > +             rx-internal-delay-ps =3D <1950>;
+> > +             tx-internal-delay-ps =3D <1950>;
+> > +
+> > +             reset-gpios =3D <&pio 3 14 GPIO_ACTIVE_LOW>; /* PD14 */
+> > +             reset-assert-us =3D <15000>;
+> > +             reset-deassert-us =3D <100000>;
+> > +     };
+> > +};
+>
+> [Severity: High]
+> Will the YT8531C PHY fail to probe or lose its 125 MHz clock output with
+> compatible =3D "ethernet-phy-ieee802.3-c22" and reset-gpios placed on the
+> ethernet-phy@1 node?
+>
+> First, during MDIO bus registration:
+>
+>   sun8i_dwmac_init()
+>     regulator_enable(gmac->regulator) /* enables reg_gmac_3v3 (PD6) */
+>   stmmac_mdio_register()
+>     of_mdiobus_register()
+>       __of_mdiobus_parse_phys()
+>         fwnode_mdiobus_register_phy()
+>
+> In drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy():
+>
+>         is_c45 =3D fwnode_device_is_compatible(child, "ethernet-phy-ieee8=
+02.3-c45");
+>         if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+>                 phy =3D get_phy_device(bus, addr, is_c45);
+>         else
+>                 phy =3D phy_device_create(bus, addr, phy_id, 0, NULL);
+>         if (IS_ERR(phy)) {
+>                 rc =3D PTR_ERR(phy);
+>                 goto clean_mii_ts;
+>         }
+>         ...
+>         } else if (is_of_node(child)) {
+>                 rc =3D fwnode_mdiobus_phy_device_register(bus, phy, child=
+, addr);
+>
+> Because compatible is not "ethernet-phy-id4f51.e91b" (which is also requi=
+red
+> by Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml),
+> fwnode_get_phy_id() fails and get_phy_device() -> get_phy_c22_id() reads
+> MII_PHYSID1 and MII_PHYSID2 over MDIO before
+> fwnode_mdiobus_phy_device_register() -> phy_device_register() registers a=
+nd
+> deasserts the per-PHY reset-gpios (PD14):
+>
+>   phy_device_register()
+>     mdiobus_register_device()
+>       mdio_device_register_reset()
+>     phy_device_reset(phydev, 0)
+>
+> If PD14 is low when the kernel boots (for example, when U-Boot has not
+> initialized Ethernet) or on driver rebind after phy_device_remove() asser=
+ts
+> reset, the PHY is still held in reset during get_phy_c22_id(), causing MD=
+IO
+> reads to return 0xffff and PHY registration to fail with -ENODEV.
+>
+> Second, because reset-gpios is attached to the PHY node rather than the M=
+DIO
+> bus, bringing the network interface down calls:
+>
+>   stmmac_release()
+>     phylink_disconnect_phy()
+>       phy_disconnect()
+>         phy_detach()
+>           phy_device_reset(phydev, 1)
+>
+> This asserts hardware reset on PD14, resetting YTPHY_SYNCE_CFG_REG back t=
+o
+> its 25 MHz default. When the interface is brought back up via stmmac_open=
+()
+> -> stmmac_init_phy() -> phylink_fwnode_phy_connect() -> phy_attach_direct=
+()
+> -> phy_init_hw(), PD14 is deasserted and yt8531_config_init() runs, but
+> motorcomm,clk-out-frequency-hz is only applied once in yt8531_probe() in
+> drivers/net/phy/motorcomm.c:
+>
+>         if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz=
+", &freq))
+>                 freq =3D YTPHY_DTS_OUTPUT_CLK_DIS;
+>         ...
+>         return ytphy_modify_ext_with_lock(phydev, YTPHY_SYNCE_CFG_REG, ma=
+sk,
+>                                           val);
+>
+> Should ethernet-phy@1 use compatible =3D "ethernet-phy-id4f51.e91b" (or m=
+ove
+> the reset handling so the PHY is out of reset before ID reads and not har=
+d
+> reset across interface down/up cycles)?
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-sunxi-or=
+angepi-3-lts-v2-0-70b899252c6a@gmail.com?part=3D2
