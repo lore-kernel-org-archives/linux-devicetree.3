@@ -1,63 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042626;
-	b=AOuCL8/4d8I5pTihCv+3u8SzHnljriK1Xq1qEqXsNtak2z9xJahQSm38PZdXr7kv8oBc
-	 yWQvN7q5r8OgjPe++aVitbI/F+1jhAgCtZeCDGR3/ew1ZsJ4lf+2EIx3/eLLlGop1Yzdo
-	 /7ooP4OTRD79ovDdeNDFEbd12ZO4QZO/I+8b4Q3qkJv0S9G+Vvyr/fwpFZBZYCjBkpMLT
-	 zhc92XQD/pf3a1EsI3gH/QvZuh9U3gmFxQecWHjBkvf1WjRa0ABdoGKQe7MrHIKNBWR66
-	 fDrww9S4pGlBWQoVV+LY8X00Xj3X2NMop4XCJFQGxt0dZuNP06Ma585fSUOlTkHg8PA==
+	t=1793043865;
+	b=jZHlkqgMBVhBzUJkSAfA3QUe1raoz/ZURLt+jsrLpqr+u2l9KBQYlQkPelcYvizUDYoy
+	 QeBYUcg5amC1xVv6nDcD7P8ErjAjZWN7DJeKGR6rG74CAgKb50evMBN6+gOsVk0y0RAFg
+	 GF689EbaB7jlwjXrRTY0GvBUNuNW6DeBp8ZiMBM7+ah2qzwxGvEKInRt9E5C326H3uMmk
+	 NOTG3G9htDSwK+VqeXV08mbNZlXBnD+qa7dvp1zdvmuXxdfIXn+/NmdlKTg3kQ8DPHCti
+	 RzQYtZ8tFsw8B5MWhVTCWw9EoKreDCnd1awYW/Bv89O4pHdsLjTj9P7MGqbuvhZanHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042626;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=AqmwLYHoY3N3Jn3DcpK5O8ALTetD0GAKAIXiKMQdJkc=;
-	b=bQkeFwh+jdhXhOv9d4N+lk/h2ledtn4/ESTpE3YTXitKlkRviF6gj7bSpgMKughAIze6
-	 Fw3H2QVM9YrHg3ELFTpnj7ecXk5KXmKluwl+p/dOzHMGWClz9E4ndpuZ5oHKRtUwjxQ6e
-	 GRl/LBzrwa8cOVArwSdgzNvQXsQPbRVl6cj9LgwOjQyWhjk76UTv1/1hOieegb/ReUwuL
-	 f2sWcp1ofqww6VB0xzk6kKRqKos04da3W6iVh3720lzsZpsCBKMzm0r/RzL3YuZhsRvjq
-	 6OM97icnQtrO8okD3NIsyjs6o/PMXwExd595fNSKSof7Tul3qrxtEhgtghN3OBW0Rvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793043865;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=EnFV3b4kBOohLUYDrT2EqqoWC7vJoIJiTj7bdy7r6OI=;
+	b=Fejs33lx8Pf9Y4pJZ5KHls7x8rhj2FgwwBcaM0Fk7hbxcAHHeDRwKJMi0LCeQvUCVzCs
+	 kxBoeCQK2FsUmL/Nitddl1MoOdqWBx7cZpWI0GKx43+AhDmmq912BQQRmJnnKF4AjDDvV
+	 CveUZJ6LLDaZHAop9jcbiTcCHfiBvthOu3kxs09X1GDQTIQ0N0T8qATHxJ4jUNFies7xM
+	 K/8tvFeUWJD//wR+JQeTGJPx+bd2Akd9eGMf8sc37FCob12ndYsuxU8j6RLi3maceyH7J
+	 7sMuAzpXAqr7PDnavK+JbWf8v34IB9zS2hHJUrVIP9N1si27l7Bkqyo8Kys3C/yauGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ihzOWlko;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORXNjc6l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A82606A31A;
-	Mon, 26 Oct 2026 19:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61A82606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C9D606A31A;
+	Mon, 26 Oct 2026 19:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ihzOWlko
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=AqmwLYHoY3N3Jn3DcpK5O8ALTetD0GAKAIXiKMQdJkc=; b=ihzOWlkoMuN55i67fxYnH70IAf
-	1Dc7JL6ULToy5fPHNtBAS/64psDpQEAe8ggH9ISaZjAgFkHCLKWShulpdK256xKeDdUvQ2u06jj0/
-	KspCrAv42gs+pjoMqdUWXXhUsqu0ZlzneX4daVJOJL6bjU4iSflOAZehJ9whPgmfg0+ZaErEFnIYr
-	6Q2bee53ETm0trex+Xeq8JwATmWJxRY8uP5NaUfyKk9Jf1Q/4UL5xuLaQBWUY7eHb1XeuT540jDvb
-	P5CStcm65dlbdj04Jt3BtadMyua8Uv4fhz1Q7Gj2U6kdnh4x0Yjp1R0NPcW5t19Qfundl9zdXwzfd
-	uO5se/3A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: linux-pm@vger.kernel.org, Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- maccraft123mc@gmail.com, zhangqing@rock-chips.com, zyw@rock-chips.com,
- sre@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- lee@kernel.org, Chris Morgan <macromorgan@hotmail.com>,
- Zetarancio <zetarancio@users.noreply.github.com>
-Subject:
- Re: [PATCH 4/5] dt-bindings: power: supply: rk817-charger: Add
- rockchip,gate-function-disable
-Date: Mon, 26 Oct 2026 20:23:40 +0100
-Message-ID: <15875856.JCcGWNJJiE@diego>
-In-Reply-To: <20261026174834.1652309-5-macroalpha82@gmail.com>
-References:
- <20261026174834.1652309-1-macroalpha82@gmail.com>
- <20261026174834.1652309-5-macroalpha82@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORXNjc6l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6CE1F01828;
+	Mon, 26 Oct 2026 19:44:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793043864;
+	bh=EnFV3b4kBOohLUYDrT2EqqoWC7vJoIJiTj7bdy7r6OI=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ORXNjc6lV4OPB/JbeGos2UZgw/cJHmUDpVxWFIXeJ9IQc1OIbUO0GwHsSt+PYSBtF
+	 0c+bFq+C4t8uvAgxXtft9Qrilg9uZFSeIQWNo1tRBzMmGSfP4zboJpS4awNV5jnqTn
+	 sF4yIE+AS+NvvERIjFrHj32wwaxBM/jJj0yu6wL2H9fx4577Bc1r7DDgBZgK2sTW5s
+	 KFxAKu5vUEzq0Fl5b7iG3BDLNDDuQ7ucgNaLVKIB7MZuoiHY+/QFcf/m4Cqu2k0SZJ
+	 sEBMBktyAgstq+lAAeCm/sSGl1ZIl9FIxURJ6wIlBpQb6CU36g1MwtCN3lqepAt9rp
+	 e9K0DDBfzoVlg==
+Date: Mon, 26 Oct 2026 14:44:21 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,69 +51,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: iommu@lists.linux.dev, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Simona Vetter <simona@ffwll.ch>, Robin Murphy <robin.murphy@arm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ devicetree@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ linaro-mm-sig@lists.linaro.org, virtualization@lists.linux.dev, 
+ Jason Wang <jasowangio@gmail.com>, linux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-media@vger.kernel.org, 
+ Mahadevan P <mahap@oss.qualcomm.com>, freedreno@lists.freedesktop.org, 
+ "Michael S. Tsirkin" <mst@redhat.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Flemin Jose <flemin.jose@oss.qualcomm.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ dri-devel@lists.freedesktop.org, Abel Vesa <abelvesa@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Will Deacon <will@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+Message-Id: <179304379330.2965544.11793708430519844335.robh@kernel.org>
+Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
 
-Hi Chris,
 
-Am Montag, 26. Oktober 2026, 18:48:33 Mitteleurop=C3=A4ische Normalzeit sch=
-rieb Chris Morgan:
-> From: Chris Morgan <macromorgan@hotmail.com>
->=20
-> Add a boolean attribute for the rk817-charger to control whether or not
-> the system power is shutdown in battery off mode. The BSP kernel sets
-> this value unless a device-tree attribute is present, and this attribute
-> is to replicate that behavior.
-
-Devicetree is supposed to describe the hardware, so your description needs
-to describe the per-board property this represents.
-
-Just because it's in a vendor-BSP is generally not enough justification :-)=
- .
-
-This is especially true as you wrote in the cover-letter that no known
-board actually needs this right now.
-
-
-Heiko
-
-> Fixes: a592aa3a2a8c ("dt-bindings: mfd: Add Rockchip rk817 battery charge=
-r support")
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> Suggested-by: Zetarancio <zetarancio@users.noreply.github.com>
+On Mon, 26 Oct 2026 11:51:11 +0530, Jayant Shekhar wrote:
+> DCP platforms place the display pipeline under firmware control, so Linux
+> cannot discover display resources through direct register access. The DRM
+> driver therefore needs device-tree descriptions of the Qualcomm transport
+> wrapper, display topology, IOMMU contexts, and panel connections.
+> 
+> Add bindings for the Qualcomm DCP transport wrapper and VirtIO display
+> subsystem. Document the IPCC power-notify resources, transport and
+> framebuffer IOMMU contexts, firmware-visible IOVA range, INTF graph, and
+> DSI panel connections. The wrapper creates a standard VirtIO-MMIO child
+> after the IPCC power-notify sequence has completed.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml b/=
-Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
-> index 2cb6d176a84c..4cf987fe763b 100644
-> --- a/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/rockchip,rk817.yaml
-> @@ -148,6 +148,12 @@ properties:
->            Value in microamps of the sleep filter current for the charger.
->            Value is used by the driver to derive the sleep sample current.
-> =20
-> +      rockchip,gate-function-disable:
-> +        type: boolean
-> +        description:
-> +          Boolean value to prevent PMIC from turning off system voltage =
-when
-> +          battery voltage is shut down.
-> +
->      required:
->        - monitored-battery
->        - rockchip,resistor-sense-micro-ohms
-> @@ -381,6 +387,7 @@ examples:
-> =20
->              rk817_charger: charger {
->                  monitored-battery =3D <&battery>;
-> +                rockchip,gate-function-disable;
->                  rockchip,resistor-sense-micro-ohms =3D <10000>;
->                  rockchip,sleep-enter-current-microamp =3D <300000>;
->                  rockchip,sleep-filter-current-microamp =3D <100000>;
->=20
+>  .../bindings/display/msm/qcom,dcp-dsi.yaml         |  79 ++++++++++++
+>  .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 123 +++++++++++++++++++
+>  .../bindings/virtio/qcom,dcp-virtio.yaml           | 132 +++++++++++++++++++++
+>  3 files changed, 334 insertions(+)
+> 
 
+My bot found errors running 'make dt_binding_check' on your patch:
 
+yamllint warnings/errors:
 
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml: iommu-ranges: multiple incompatible types: uint32-array
+/usr/local/lib/python3.13/dist-packages/dtschema/schemas/iommu/iommu.yaml: iommu-ranges: multiple incompatible types: uint32-matrix
+Could not decode node virtio@9be8000 property iommu-ranges with value b'\x00\x00\x00\x00\x84\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00'
+
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 443, in main
+    dtb_diagnostics = sg.check_dtb(filename)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 331, in check_dtb
+    dt = self.validator.decode_dtb(f.read(), decode_errors)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/validator.py", line 631, in decode_dtb
+    return [dtschema.dtb.fdt_unflatten(self, dtb)]
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 591, in fdt_unflatten
+    dt = fdt_scan_node(validator, fdt, '/', offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 312, in fdt_scan_node
+    node_dict = node_props(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 258, in node_props
+    props_dict[p.name] = prop_value(validator, nodename, p)
+                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 185, in prop_value
+    if len(p) / type_format[fmt].size >= min_dim:
+                ~~~~~~~~~~~^^^^^
+KeyError: 'uint32-array'
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
