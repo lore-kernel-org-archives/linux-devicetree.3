@@ -1,47 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054357;
-	b=g3iVQrqSO2J50mhdhTVksU2mOUp5en9w1sygvtiOa46UnbNdO6f2tbYvspk0O1WE6xIJ
-	 hC3XExHoKiFdcJHcoov0wI6tptDB3do6iQJfbL8jDVBaStWX3grbEcYok1wiFyKiPURnc
-	 q6p2FIzKD0iBwa8d8x+syhxCQIj11QEUIpIEFb7OwaBy0MhU7zAsD8s+bCk6Eexw2RAc5
-	 bDR1FdUfrfKrlaHBktGDH+f6DXQaWLINz76qXf2XKhC9wdjYlJdgVNyDu3icRv92X8bq+
-	 XkZvtBgnvaSdXKPYoDzFYu+/WRoIZjYkOVq//jkQZrMJgwm4ybcAILv0Hkp5pwyvsjA==
+	t=1793054546;
+	b=dGrWbhTn8QMoCuWTlM9MkmoGxrqO6/Va3oi2XmAWICiU5bVKuwA8XHARxgxql8Ts0rPZ
+	 pQXEkwSea2B5S3zKoJ6LqYPktHzNU7o3M+Wfr/5uxwWC9RwSJNX71XWG9W1KAShkLZZsm
+	 Fb4UANjgapUDgQA/FOY7g5++psO+b8bKBtiVeM29/+nnusRN42qNXA5CWBUuE/ym/wXSz
+	 eDGY5HovgnYWjGNGHxS9YIl0m6Iz+68yfqmDWQmo/iiu1iLAwmtNlQhUzV9jqcJcp8Ho+
+	 +6wqzLN72HRR1olflkXk/QsIu0alcMWu+HJSlbc1ql6IVcEVjR/Dm0m+CsjL40Qr+OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054357;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
-	b=c076crNE2dkRpET8uaY+Q9FOQ6/XgYe00R/LGuncC6bt7+AIswTT+b8NsBbfx8HnAlbZ
-	 zDITcJHiJiP8FjETbya2bSle2/dpjgS0U76KZlpTAXfRQXJxn3QK/zJtBmjc5AnkupXEi
-	 bP3PcALXehql+v3Khh0zmXPes6NvhhcdK/gkc3obGai775HTd4AAygCbQer06fNZe36pR
-	 AGEplEf4j9XnxOAKrL3QnD7xD8r1FfnsjLYEiV3ukTud6ftR2mMKPcKjEGUlGMa6i3bbv
-	 yC+qjF22euwqM7qzCSla8XsFzk5L6nmLoyDJdun8kh7MdmH09LFCcoJvBgRbbiu2Wlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054546;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Xo61tsKLH784MqoqU8IXRPYPaaxHVovW0NiSgjsHO50=;
+	b=VT1sIcLBp3NfIN6zczvsN4hWzDoD/G3Pce0z5H58OfeO9+6QTBE/Ej9oWiTKHZQq7W0x
+	 FDD8DsRQ1nV2a2V5s0wdCaj8v7U0+JxEWH10oSgh7e5y/718BW6IhmGuSFdO/uVqVqiOR
+	 TzWsFBIkurxDHNk9De85FFFt1mehuJ7THHUzrjmnz9bztzMp83Fh0fsENuKqZJs06C697
+	 GevOM2rVEl/litxMDm9Wo1Bw34jk89TsxiQUyXPZ0aL7KI7gGvCLdQCoHXRxJmsQ4Xk6O
+	 v0WiXv/iUhlwgQC9lU/ZwBP54PmFWWrlCHn79cQsBaSbw38aftqwFoyOm7ZYY0N/8Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2zVTuOy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68F0606A31A;
-	Mon, 26 Oct 2026 22:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48272606A31B;
+	Mon, 26 Oct 2026 22:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC381F01829;
-	Mon, 26 Oct 2026 22:39:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2zVTuOy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256AE1F01825;
+	Mon, 26 Oct 2026 22:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793054356;
-	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PUX9S7YRj/qhqjUPrrVxXucchCSKzIfyOnLi1ZgqVBHqJy6FOi7Hqoa3/yAQK8BBY
-	 4+WXC61g5wYSclM1etoWPajx7FqMnH3i03PuFoOlxsa5dMSVPCbKm3ashx94dzCyHf
-	 4Id6H1oZBqwuxoeP2KEF3FKEkYTyALJtsB/io0r7dZZ/CC34RZcvHQtTG1JVOJLoev
-	 c/dNQsPnvd7CsFDLufIOITFCEIVy8+XwZHFxR0+FWgX8aNXXxBrs2pQOIDMzxpKhUn
-	 2y0q4fdvKHMz3oC3WMHMRiA/GcUHM8spzQSyejcwS4MgqGfQMQQTRC6OqC4qRoRzgT
-	 B69yH0CzYJlIQ==
-Message-ID: <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
-Date: Tue, 27 Oct 2026 00:38:57 +0200
+	s=k20260515; t=1793054545;
+	bh=Xo61tsKLH784MqoqU8IXRPYPaaxHVovW0NiSgjsHO50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j2zVTuOyrhrSdX1cpqD3VRrigqIVhxd33ay3rIpKmTicH4RrRR8lIFbnpFEnMf5x1
+	 A/3Rb+/5FWK3qsP8T18EePO/L7KaFQ8pmYXYJiqcOCU8sVXURC1d8kPjJFJUwVf4wf
+	 TFvNZwwQZ9U1QtLqScNA5FHMUMebpR5VUp5efN79MNuGD1GpbYQ3Xk41sm7GmFJbb/
+	 QKIY4HZbduYjqs4JiHmSOH9xE4gLT4E/bX2VKc9TNVg7Bdv0argSbc1pS6jk+kD88q
+	 jJ6BYcnN6ote+tl0eseIQbcyOeJZ6nON6ayWowqYZe7PSoWukZ+aLh8svJA54MzZpl
+	 6TkWm0IiLkF6g==
+Date: Mon, 26 Oct 2026 17:42:21 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
+Subject: Re: [PATCH] dt-bindings: remoteproc: ti,keystone-rproc: Convert to
+ DT schema
+Message-ID: <20261026224221.GA103164-robh@kernel.org>
+References: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,274 +62,189 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261023163057.775917-1-vz@kernel.org>
- <20261023163057.775917-5-vz@kernel.org>
- <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
 
-Hi Loic.
-
-On 10/26/26 18:32, Loic Poulain wrote:
-> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
->>
->> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
->> the CAMSS input ports are connected to output ports of CSIPHY devices.
->>
->> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
->> ---
->>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
->>   1 file changed, 167 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> index babf1a4196a1..7f5b0501a23e 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
->>                          };
->>                  };
->>
->> +               camss: isp@acb6000 {
->> +                       compatible = "qcom,waipio-camss";
->> +                       reg = <0 0xacb6000 0 0x1000>,
->> +                             <0 0xacb7000 0 0x1000>,
->> +                             <0 0xacb9000 0 0x1000>,
->> +                             <0 0xacbb000 0 0x1000>,
->> +                             <0 0xacc6000 0 0x1000>,
->> +                             <0 0xacca000 0 0x1000>,
->> +                             <0 0xacf6000 0 0x1000>,
->> +                             <0 0xacf7000 0 0x1000>,
->> +                             <0 0xacf8000 0 0x1000>,
->> +                             <0 0xac62000 0 0x3000>,
->> +                             <0 0xac71000 0 0x3000>,
->> +                             <0 0xac80000 0 0x3000>,
->> +                             <0 0xacc7000 0 0x2000>,
->> +                             <0 0xaccb000 0 0x2000>;
->> +                       reg-names = "csid_wrapper",
->> +                                   "csid0",
->> +                                   "csid1",
->> +                                   "csid2",
->> +                                   "csid_lite0",
->> +                                   "csid_lite1",
->> +                                   "tpg0",
->> +                                   "tpg1",
->> +                                   "tpg2",
->> +                                   "vfe0",
->> +                                   "vfe1",
->> +                                   "vfe2",
->> +                                   "vfe_lite0",
->> +                                   "vfe_lite1";
+On Tue, Oct 06, 2026 at 12:40:26AM +0530, Bhargav Joshi wrote:
+> Convert TI Keystone DSP remoteproc binding from legacy text format to DT
+> schema. No functional changes are introduced during conversion.
 > 
-> Is there a camss "top" register to describe here? e.g. to retrieve the
-> CAMSS hardware version.
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
+>  .../bindings/remoteproc/ti,keystone-rproc.yaml     | 140 ++++++++++++++++
+>  2 files changed, 140 insertions(+), 182 deletions(-)
 
-I'm not aware of anything like that. What is "CAMSS hardware version"?
 
-CAMSS embraces various blocks, there are CSID and VFE, full and lite
-IPs, and all these components do export their versions individually.
+> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+> new file mode 100644
+> index 0000000000000..3117cfb2b3e07
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+> @@ -0,0 +1,140 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI Keystone DSP devices
+> +
+> +maintainers:
+> +  - Suman Anna <s-anna@ti.com>
+> +
+> +description: >
+> +  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
+> +  Core sub-systems that are used to offload some of the processor-intensive
+> +  tasks or algorithms, for achieving various system level goals.
+> +
+> +  These processor sub-systems usually contain additional sub-modules like L1
+> +  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
+> +  controller, a dedicated local power/sleep controller etc. The DSP processor
+> +  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
+> +
+> +  Each DSP Core sub-system is represented as a single DT node, and should also
+> +  have an alias with the stem 'rproc' defined. Each node has a number of
+> +  required or optional properties that enable the OS running on the host
+> +  processor (ARM CorePac) to perform the device management of the remote
+> +  processor and to communicate with the remote processor.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,k2hk-dsp
+> +      - ti,k2l-dsp
+> +      - ti,k2e-dsp
+> +      - ti,k2g-dsp
+> +
+> +  reg:
+> +    minItems: 3
+> +    maxItems: 3
+> +
+> +  reg-names:
+> +    items:
+> +      - const: l2sram
+> +      - const: l1pram
+> +      - const: l1dram
+> +
+> +  interrupts:
+> +    minItems: 2
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: vring
+> +      - const: exception
+> +
+> +  ti,syscon-dev:
+> +    description: Phandle and offset to syscon device
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: Phandle to Keystone Device State Control node
+> +          - description: offset of the DSP boot address register
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description:
+> +      refer to either of the following reset bindings for the reset argument
+> +      specifier as per SoC,
+> +      Documentation/devicetree/bindings/reset/ti-syscon-reset.txt for
+> +      66AK2HK/66AK2L/66AK2E SoCs or,
+> +      Documentation/devicetree/bindings/reset/ti,sci-reset.yaml for 66AK2G SoCs
 
->> +                       clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
->> +                                <&camcc CAM_CC_CORE_AHB_CLK>,
->> +                                <&camcc CAM_CC_CPAS_AHB_CLK>,
->> +                                <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
->> +                                <&camcc CAM_CC_CPAS_IFE_0_CLK>,
->> +                                <&camcc CAM_CC_CPAS_IFE_1_CLK>,
->> +                                <&camcc CAM_CC_CPAS_IFE_2_CLK>,
->> +                                <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
->> +                                <&camcc CAM_CC_CSID_CLK>,
->> +                                <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
->> +                                <&gcc GCC_CAMERA_HF_AXI_CLK>,
->> +                                <&camcc CAM_CC_IFE_0_CLK>,
->> +                                <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
->> +                                <&camcc CAM_CC_IFE_1_CLK>,
->> +                                <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
->> +                                <&camcc CAM_CC_IFE_2_CLK>,
->> +                                <&camcc CAM_CC_IFE_2_FAST_AHB_CLK>,
->> +                                <&camcc CAM_CC_IFE_LITE_CLK>,
->> +                                <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
->> +                                <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
->> +                                <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
->> +                       clock-names = "camnoc_axi",
->> +                                     "core_ahb",
->> +                                     "cpas_ahb",
->> +                                     "cpas_fast_ahb",
->> +                                     "cpas_vfe0",
->> +                                     "cpas_vfe1",
->> +                                     "cpas_vfe2",
->> +                                     "cpas_vfe_lite",
->> +                                     "csid",
->> +                                     "csiphy_rx",
->> +                                     "gcc_hf_axi",
->> +                                     "vfe0",
->> +                                     "vfe0_fast_ahb",
->> +                                     "vfe1",
->> +                                     "vfe1_fast_ahb",
->> +                                     "vfe2",
->> +                                     "vfe2_fast_ahb",
->> +                                     "vfe_lite",
->> +                                     "vfe_lite_ahb",
->> +                                     "vfe_lite_cphy_rx",
->> +                                     "vfe_lite_csid";
->> +                       interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 640 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 641 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
->> +                                    <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
->> +                       interrupt-names = "csid0",
->> +                                         "csid1",
->> +                                         "csid2",
->> +                                         "csid_lite0",
->> +                                         "csid_lite1",
->> +                                         "vfe0",
->> +                                         "vfe1",
->> +                                         "vfe2",
->> +                                         "vfe_lite0",
->> +                                         "vfe_lite1";
->> +                       interconnects = <&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
->> +                                       <&mmss_noc MASTER_CAMNOC_HF 0 &mc_virt SLAVE_EBI1 0>;
->> +                       interconnect-names = "ahb",
->> +                                            "hf_mnoc";
->> +                       iommus = <&apps_smmu 0x800 0x460>;
->> +                       power-domains = <&camcc IFE_0_GDSC>,
->> +                                       <&camcc IFE_1_GDSC>,
->> +                                       <&camcc IFE_2_GDSC>,
->> +                                       <&camcc TITAN_TOP_GDSC>;
->> +                       power-domain-names = "ife0",
->> +                                            "ife1",
->> +                                            "ife2",
->> +                                            "top";
->> +                       status = "disabled";
->> +
->> +                       ports {
->> +                               #address-cells = <1>;
->> +                               #size-cells = <0>;
->> +
->> +                               port@0 {
->> +                                       reg = <0>;
->> +
->> +                                       camss_csiphy0_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy0_out_ep>;
->> +                                       };
->> +                               };
->> +
->> +                               port@1 {
->> +                                       reg = <1>;
->> +
->> +                                       camss_csiphy1_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy1_out_ep>;
->> +                                       };
->> +                               };
->> +
->> +                               port@2 {
->> +                                       reg = <2>;
->> +
->> +                                       camss_csiphy2_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy2_out_ep>;
->> +                                       };
->> +                               };
->> +
->> +                               port@3 {
->> +                                       reg = <3>;
->> +
->> +                                       camss_csiphy3_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy3_out_ep>;
->> +                                       };
->> +                               };
->> +
->> +                               port@4 {
->> +                                       reg = <4>;
->> +
->> +                                       camss_csiphy4_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy4_out_ep>;
->> +                                       };
->> +                               };
->> +
->> +                               port@5 {
->> +                                       reg = <5>;
->> +
->> +                                       camss_csiphy5_inep: endpoint {
->> +                                               remote-endpoint = <&csiphy5_out_ep>;
->> +                                       };
->> +                               };
->> +                       };
->> +               };
->> +
->>                  csiphy0: phy@ace4000 {
->>                          compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
->>                          reg = <0 0x0ace4000 0 0x2000>;
->> @@ -3349,6 +3510,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy0_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy0_inep>;
->>                                          };
->>                                  };
->>                          };
->> @@ -3393,6 +3555,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy1_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy1_inep>;
->>                                          };
->>                                  };
->>                          };
->> @@ -3437,6 +3600,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy2_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy2_inep>;
->>                                          };
->>                                  };
->>                          };
->> @@ -3481,6 +3645,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy3_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy3_inep>;
->>                                          };
->>                                  };
->>                          };
->> @@ -3525,6 +3690,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy4_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy4_inep>;
->>                                          };
->>                                  };
->>                          };
->> @@ -3569,6 +3735,7 @@ port@1 {
->>                                          reg = <1>;
->>
->>                                          csiphy5_out_ep: endpoint {
->> +                                               remote-endpoint = <&camss_csiphy5_inep>;
->>                                          };
->>                                  };
->>                          };
->> --
->> 2.53.0
->>
+Drop. The reset provider is outside the scope of this binding.
 
--- 
-Best wishes,
-Vladimir
+> +
+> +  kick-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO used by the virtio IPC stack to interrupt the remote processor. See
+> +      Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
+
+Drop the 2nd sentence.
+
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +    description:
+> +      Reserved memory node can be CMA memory node, and should be defined as per
+> +      Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
+
+Don't add references to .txt bindings. Drop.
+
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      Input clock (66AK2HK/66AK2L/66AK2E only), see
+> +      Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+
+Drop.
+
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +    description:
+> +      PM domain provider phandle and DSP device id (66AK2G only), see
+> +      Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
+
+Drop
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - ti,syscon-dev
+> +  - resets
+> +  - kick-gpios
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,k2g-dsp
+> +    then:
+> +      properties:
+> +        clocks: false
+> +      required:
+> +        - power-domains
+> +    else:
+> +      properties:
+> +        power-domains: false
+> +      required:
+> +        - clocks
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    dsp@10800000 {
+> +      compatible = "ti,k2g-dsp";
+> +      reg = <0x10800000 0x00100000>,
+> +            <0x10e00000 0x00008000>,
+> +            <0x10f00000 0x00008000>;
+> +      reg-names = "l2sram", "l1pram", "l1dram";
+> +      power-domains = <&k2g_pds 0x0046>;
+> +      ti,syscon-dev = <&devctrl 0x844>;
+> +      resets = <&k2g_reset 0x0046 0x1>;
+> +      interrupts = <0>, <8>;
+> +      interrupt-names = "vring", "exception";
+> +      kick-gpios = <&dspgpio0 27 0>;
+> +      memory-region = <&dsp_common_memory>;
+> +    };
+> 
+> ---
+> base-commit: 67f0943b394d920b6c142aad8c6af94340342ae7
+> change-id: 20261006-ti-keystone-rproc-4e3b8f328662
+> 
+> Best regards,
+> -- 
+> Bhargav
+> 
+> 
