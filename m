@@ -1,104 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792985899;
-	b=L/kjNLydCIV2sgWMaU/0ghwzCCpaZKdViNBmyPGiO4ZOg4UIPTJAZEA0L6069XNYb3Ka
-	 ucjf2qX5RrnDC555qH5rsr/9y1ws20iNSCsyCoEdYCKi0VYQBoMv7V+x0GEuNbWPmeEGy
-	 Vk3aQyS5zwxeXw4Y/FKxRRESq14GIkcPNAmlRix3MOMSCED5BCV5ErFuGnRNuSXDx5134
-	 eMWhcKaPduf9LyrNphW3mDFja1zhAY6tSJ5VDTapqtBemWJdZAFbVEgoAONG4ljnCuO7+
-	 77+cK1Tw0v5QZfqVoEILooJ5Lv9I3gEsAKmb2fJm6L3Wv2gZmBrBFrUDGKxaX9WTDfQ==
+	t=1792989095;
+	b=Y6HYLR64EI+9D0nSfMf3eE2Bh8uV69F83xaiXKSwEGfoMd0Zbjf8KVtFFGLkhSSCTPAq
+	 Vp04GrD/HhtVSu0Hx6fGRAK/Ou4ctu/kF9rjpqhXC2QdiQor6Dcad4cjFazpb46vJAnAd
+	 iBWKiFTiET9iUs03RjYS76th0ntSVhm02FmYZhrFpHvLVwuY7a3GR+VowRV7XLd8MzRUV
+	 H5KHvqOP/IOQJq+RF7NZoTI5/fIBSyhRS4vST/hHsVSw+YgwDiuJ7hFlxstv3rpUHxwW7
+	 XuyhNSVH0LKYJk09xMyQ7Hx1wrjXSP56PgCXH7tJKbvss8TAMY56bQKsuas0UualN8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792985899;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LJ/LLdUvbUXDscVG28+mEznHp6VW8smsqWPUjig3N5U=;
-	b=UCq7XseEQyizBKuThbz/tEgyUU5Ve5F7ohYjWAbrfRQsJIbmGpm6CAjBJ8zdbXWmp/qs
-	 Cize8adbNYps5OlzoAAJUfOTVdmBbGtY2bmgv5rDwSzS+vV+kPGbSo8RVWnFx30Oo2wKJ
-	 ntb6z5gSGbGCmRQ30qWOuXyAbo4K2e7RRd5qDpPE3YYCe6NtbbvDbJkcAZHN0gp4jgf4O
-	 eflzLfOcXCeMLDo7q35HK0l0W11DVxOKAdGvFVbdnyOk3I9CEE/ZF4XpDMiE5Rrx/LA6x
-	 PPTCd7x8BPXd2uSjmNwmrEvSwvD11Um4ynhvNb0C7uwyjTJSxb2NJURLZ+ZocZIH3kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989095;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=5AfIWjNSRqfmtJIhw7tDuUxfIA/f9Zyu9yDESLH9HVk=;
+	b=1viy8SgUzcftgU7x1seDby747POy4OcA/i/rHvYcdrur6SwAmk9qRC8rrWebUJFkXbb7
+	 Eew9zsOALB9DLa8JwgEJ/s6bO5E+5Jc0oiGdpJp6TumCnQMUF6gsaFuFLRRPfaaEG/etz
+	 YKOkKoBatGRX/R2JwQxTOUIrG0LjbWLUMrV8te9ySVfHOvc/i++t81TeNPqAGoa1p9Xc9
+	 6KdDolxukfw4fuXxysewuzG/kfFf7CCmoKd+nM2jZgEhpH6aF++QZzVQDMNSPTidrYEhP
+	 mWjLI1OkffQN7BoFWbAN1JrperWAXlGdKELAEMN5coMeHyiaYFicB5rvvo4DzLC/HGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Uweb9oov;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD29606A32D
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCD29606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Uweb9oov
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-89f85edd210so745498b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 20:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792985898; x=1793590698; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LJ/LLdUvbUXDscVG28+mEznHp6VW8smsqWPUjig3N5U=;
-        b=Uweb9oovCFOPVbjTBnMFzyJ1Nc7wOGjEHPhUf4YQFw3iAwtiQ0UEl4AoACdSZ1bmSq
-         ROocwGSExTI9NBgmdQuvQssZRafLezdMdfqAP4Bc03MOy2w5YNSaTn0sxwfedb1NcW3f
-         v2XQkWB6TJkPB21OOEjzj6pqK14i1QVE8j+6sSWqouxzgd8tmxwn2GrUWTjUlXpSIK/s
-         XofvlStI+fb1YhEEBiRbjVGazw5Qtm/l4YLoVzEKl49fJaVMIOBqXLYABdhr2/yTkSTj
-         w48O/b4PfACywXevHfM383vGzSscaEVm5wkNwNdF82MAEDlVwC7xw8RptDMWVK/gxrYe
-         fYbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792985898; x=1793590698;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LJ/LLdUvbUXDscVG28+mEznHp6VW8smsqWPUjig3N5U=;
-        b=diPFA7I8vwBpBziHbTjw3a8X8BZVHsKDhV221Wsq1CXKM4B7xbjRbNLY04lVTKIi4t
-         4eZ4v971dTZIgq6tQER4qdyvLV57A6QKbHVKXYDwUOlqIPuz3aV+tgUYMEFUvq4YOLSI
-         27OpKxV/SRJ2961IKN+/8AvJf8xjXes4e2g5jnobPdXCiNagrV8cUXZ+hyzhMgN7hudL
-         5Fm1sPaJdWXIbZNHkjwrJHzRcSSdEGNEqcb1sSkTVI4RCrBPlLte4py1tvVnzveVJpa7
-         1MEuj7c3YMqMjFo9Zvgr9mSs9/UoETJbTlRtFdzpZQkDOZwQ/46w4sJcGSON8qYEKRI/
-         N1rA==
-X-Forwarded-Encrypted: i=1; AKwUvByTKoBcHk7ZkAqtZjb1suuY+MTYpmoToHdAlFw/7jg1gpBePcDsJvtzWKQja8/xPE2F0e+hvKuy3FMc@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2JKAOO7XULhrA5bQfX5RTD1v7Xt4ZqiU7zEcqzePJNnTgGtls
-	8dUpzgvfTZgYsIhmsy65f8DJ9GR4jdB09L3pUtNh1mSUkxtYQEWO+hxZ
-X-Gm-Gg: AYBFou25uY+SP157O+Qy5aPtZEBXpxuL+fxMIx12fWFhZpEDcLpiKJrbqDdZBxrDOwY
-	+g+FJraxAW7oR6MIxwPEWGJXkwGC0oIBHF89qhC4mIj/YU4inHlCBUD4xK0gOze2Rm+0aTozO14
-	eWFkXt7hbJEAMnT9WspKilGbWCMjcwwZjIpK6sBhj+vbx4yoO4UqPlwNGrKT0vT+AQCDAYk4cUX
-	UoaypbP4JURCdr5MIpDK9TLy2Rw8tQcbiD2Dl8zldbEpNX4omPCvPM6UMK1LK/daLRF1Ato4g8R
-	u7FqmkcbEdyq7KiipxGbptH5mQwfrKN9X2/+bRCBvAC/McH/3pR8a5rHO68AgDL5iHSRr1POO5H
-	xylhLBM/oDAU/smaD7AE+Xp1WVhbFjSEAmv7mjBT6Mfup0RzGLe8TEHez+oXXWmlpqWiddbMP4j
-	bkZbmu2yvBLfWsYS7WEpUtze5Mrknj8Mzp66szuGLPawYiFAuVY/ALlcmaCuyGK89IOcO1wWux8
-	Dk/EFgHSHNsgMirYkhD4/VdU2u9QIi6FyZUD3lySg76fBbmlfLC8qLq9xHFSwQ/uoMMf9UqoOpC
-	9NGDTH0bX6eBfzsxrhBntmfp3g8EEw7NYW8eJU6PD9McdKmbn7YD42otHpNUAcm1omFkcDyIpPe
-	dS06pEz9DGE15Fy8FZhFule1/A0F7meyxpB5O2S6wI3AR+FSd5zJ/pALJ
-X-Received: by 2002:a05:6300:6bc9:b0:3e1:bd77:2c92 with SMTP id adf61e73a8af0-3e7cd4cbe1bmr3717741637.68.1792985898172;
-        Sun, 25 Oct 2026 20:38:18 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc21017sm989192a12.10.2026.10.25.20.38.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:38:17 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: E Shattow <e@freeshell.de>
-Cc: dlan@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FE4B606A31D;
+	Mon, 26 Oct 2026 04:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE4B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8CxKvCj195qcF0ZAA--.7991S3;
+	Mon, 26 Oct 2026 12:31:31 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJAxlMyh195qoTgwAA--.8141S3;
+	Mon, 26 Oct 2026 12:31:31 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] riscv: dts: spacemit: mark K1 boot nodes bootph-pre-ram
-Date: Mon, 26 Oct 2026 11:38:11 +0800
-Message-ID: <20261026033813.432250-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <813d3f4a-66a9-48df-b9de-6a46b9388d0a@freeshell.de>
-References: <20261024092558.143621-1-alan.tseng.cs@gmail.com> <813d3f4a-66a9-48df-b9de-6a46b9388d0a@freeshell.de>
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix cyclic residue wrap NULL dereference
+Date: Mon, 26 Oct 2026 12:31:20 +0800
+Message-ID: <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1792988985.git.zhoubinbin@loongson.cn>
+References: <cover.1792988985.git.zhoubinbin@loongson.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,37 +66,72 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxlMyh195qoTgwAA--.8141S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEMCGretPgwGAAAsU
+X-Coremail-Antispam: 1Uk129KBj93XoW7ur43Aw43Ww1DCryfuFWUZFc_yoW8tF48pF
+	W3Jan5KFyrG3yfuanxAry0qF15AFW5JFW2vay7W347Cr95W3W29w1fCF9YgFsrAr98ZF1j
+	qFWru39rGF4UG3XCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jOb18UUUUU=
 
-Hi E,
+loongson2_cmc_dma_desc_residue()'s cyclic wrap special case checks
+lchan->desc->cyclic instead of desc->cyclic.
 
-On 10/24/26 07:45, E Shattow wrote:
-> Split the patches in this series so we have a clearly defined initial
-> changeset that does "Extend the BootROM configured peripherals to device
-> tree bootph-pre-ram hints for any SPL loaded by that BootROM in SD,
-> eMMC, and SPI NOR boot modes".
+When tx_status() is called for a queued descriptor while no descriptor
+is active, it reaches the "else if (vdesc)" branch with lchan->desc ==
+NULL and passes the queued descriptor to this helper. The helper then
+dereferences lchan->desc->cyclic and oopses.
 
-Thanks, that makes sense. For v4 I plan this split:
+Even when lchan->desc is non-NULL, keying the check on lchan->desc is
+semantically wrong: the wrap decision belongs to the descriptor being
+queried, not to whatever descriptor happens to be active.
 
-1. BootROM: the fixed clocks, the clock and reset controllers, uart0,
-   sdhci0, emmc and qspi in k1.dtsi, and the SPI NOR flash@0 in the
-   board files.
+Use desc->cyclic. This fixes the NULL dereference and makes the helper
+self-contained.
 
-2. DRAM setup, as an add-on for Yixun to take or leave: i2c2 and i2c8
-   in k1.dtsi, and the EEPROM, the PMIC and its buck1, buck3 and aldo1
-   in the board files.
+Cc: stable@vger.kernel.org
+Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson Multi-Channel DMA controller")
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ drivers/dma/loongson/loongson2-apb-cmc-dma.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-> Capture all the BootROM SPL loader flows
-> that we can understand (USB missing currently? please add this)
+diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+index 2037120b23ca..f090fbe0b8a1 100644
+--- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
++++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+@@ -484,7 +484,19 @@ static size_t loongson2_cmc_dma_desc_residue(struct loongson2_cmc_dma_chan *lcha
+ 	ndtr = loongson2_cmc_dma_read(lddev, LOONGSON2_CMCDMA_CNDTR, lchan->id);
+ 	residue = ndtr << width;
+ 
+-	if (lchan->desc->cyclic && next_sg == 0)
++	/*
++	 * For a cyclic descriptor that has wrapped (next_sg == 0), the
++	 * current period only has the in-flight entry left; the entries
++	 * from sg[0] onwards belong to the next period. Adding them would
++	 * make residue exceed one period.
++	 *
++	 * Use desc->cyclic, not lchan->desc->cyclic: this helper is also
++	 * reachable with a descriptor that is not lchan->desc, and only
++	 * the active-descriptor branch passes lchan->desc today. Keying
++	 * the wrap decision on the descriptor being queried keeps the
++	 * result correct and avoids depending on lchan->desc being set.
++	 */
++	if (desc->cyclic && next_sg == 0)
+ 		return residue;
+ 
+ 	for (i = next_sg; i < desc->num_sgs; i++)
+-- 
+2.52.0
 
-USB download mode goes through the OTG port (FDL button, then
-"fastboot stage"), but mainline has no node for the USB2 OTG
-controller behind it yet. The DWC3 is a different controller. So there
-is nothing to tag for USB today, and I'd add it once that node lands.
-
-Yixun, could you confirm that the BootROM uses that OTG controller for
-USB download, and that it does not touch the DWC3?
-
-Does this split look right to you? I'll send v4 after the merge window.
-
-Thanks,
-Hung-Chun
