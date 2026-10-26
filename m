@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039456;
-	b=eTZhoeehBaa+NsFlyEaWU4ajBMQ/jb8iiAdSdiV2mgKlVtEhtgFJnOXM95u2MVaOPIxt
-	 xrsq7wnMRIZ63O9utBVRDUHl9Mj/OnZ0jG+vI6JlZDJ/OPWDrk2N+W01DTRgExvh/nByc
-	 p3xRZfa3k2NtcORA2AuvIEpmaKTrnNCOCDCSlvwBu4vR+Mvd5X8hxAakdPiz8G7n+AaHc
-	 qhYXD5+Lb5C6uP496cmVNSH4qo/INI0TExR3VQ2n/FcOTi1sJWS4jA0id1NXK7JnPMZwZ
-	 FnzW7ynZPnd56iu41Kca3wNbWXx67FuyhrDDKAmfi1O5TBbN+VHVQGcOw/cvj60TXBw==
+	t=1793040270;
+	b=U41ddSIaDn/5U2XCuPaBrjLrNeyttksADTNgdMMB7gWwRE3KvtdO10C3wD+5c3Nulk9x
+	 ApFI1d1xYsWRCLYq8rfuDHlLrWpUmGeEQMp2VLXHQFhKXEvcH9/w2NeYyfOAWwdoMkbCh
+	 BZnCJH5niAlhE0uMnG8w2rzzCwm2uWEFPP5IqFFYRpARNa3ItyysR0OHon9Ezu4M6fzMF
+	 96KF5Ru2QM8OorLpFQz4G/wQi/Ep1qcKEpFtvQg9sFjb7m2r8UP5BNDQ185xa/B/GICq4
+	 wv8RbzvX3J+EWuYSqZUiVXd/dDva/NzD/bSVYssd3c810Oq5KToWW9Zrhx6ZANovBNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039456;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
-	b=IjH00bDGNPAPtBoy4VwJhINaQF23y07joTEbuAXxLu4UsosJpffxfaG/oSdHZPaUlb7G
-	 2hWOpiKTT2MNeOvv4+AeXgk9mxhVSF90PanuJB4HSJyb7ABeIxQ2INiphDX6rlxegq4tK
-	 vCjEaUD3dCyQPhq2XoWWzYjkjgIw3UFK3NZ9xQNFtpN2rSObdUZouScOVLtF2bRtaAx0u
-	 gZFOsg89uYm6xdUvJX65PyE109abwbchAC3NzfRcQNHHy4xzVsyv8kDhl67qPitqdQ4g6
-	 /F83nMeiXBlhfkeeNXEh6AroE1bZtmMMx6i40qToqxlbm3rJrwdUao4S18SsFOYm7pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793040270;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=8lBuZXiGsime6GuAhFzW7wfLDSihPi0qas0TmbLPKXc=;
+	b=ObAwvn8lzPm1XxtgBU/ng+9UYHdZJCcRDnTTuwZ/AE1elV8bAUgKIG0aa1/o+ZGZF585
+	 yf5F96eXjEcEMzZtWLTvrV2YFP610ngys5JyCvF8XxARAVRHVz9sJZbEW8B4IDHS/0Sht
+	 PEJ+u1z/i6crOrDuxrceCVOZYIIDGfv7rf1I585VzJNnZON/qxuKAurUMJYOJ8NqHQZsi
+	 Koj3MyrxFQAMWOPskz8WQ0okyjqAhcwu2q96voodVO4uG+ULFppdh7o09/CpZsW0WkUqx
+	 5IVh0Rbo3itGwS8qRYpl38sk6+kYO9pu60GjG3AkA9C61IXP55ipnkH4jVcNjGcqxMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hTCoOzv6;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNyZOmP3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D15C606A31D
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 18:30:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D15C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE63606A31A;
+	Mon, 26 Oct 2026 18:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hTCoOzv6
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4956869750eso22312035e9.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:30:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793039454; x=1793644254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
-        b=hTCoOzv6rALa3SI75UoIcQNJiDrzj4LU5g1ioOom36WJpb3rXXX30L/+d9k5YUVEvS
-         f6UzIIeJoOFxbUKGn7CHBi0QAnYGCu85JJdzxSSGWVhAhrKaGoODydeHG+VE6H31y0ED
-         AX9/RPNCGDGW8woOzVjVFtfu85NyNfirf19YNhwciQnIAa7lxnkEbxVrd7JXUkaH1PsW
-         L4xS+4lhH1eHu5GUeFSGlR+VxwlxP3xH5y+xu50GMS0sQPUyqMucvN9z7m8vjVaylT0t
-         dTQgwioRIveCUytbOt371zDYV0d326BC3e8nMSqgWJ7VgwHpUZ3NyStTYJlwt27+owjh
-         V31w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039454; x=1793644254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
-        b=TxHU5njuG0ViTapY9Lba/SHfwj2HGtpHqYqhsVwgH2kYhsFyNjfwwAhSAnbOrl+Pj7
-         denEE4tj0bQrHDUkY4o0SBqq5zVNZW892Hwh9iSWF5ce0ITUBNg7x7KMER3BZomlbQyK
-         q92Ykn9VgtHBZPTcgh+5qZvNQ29vTu4amWf1r1Mc0BeDGwt5Ojqwl+akdiaOyScpkbbj
-         U996ckb9Kto8/+VM/vfTv+12N/FxlAqsxLlF65FM235MUjjZI/6FTOqGSrLCg5LrB69a
-         3pIsEDCs7a4uPQiZ7JL9/l/UkQmzleFmoVwC2eEpR0hYvE9g7M6CoW4efFdIsyAqLhYu
-         6EHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyMROEenH8CUmB7bwphCRnTc9+RmGjccfAXRbguHloKg4CcC4vobP78UOYDBK5hKNnKV78ynvdYKkd@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlM/QcsQ+nVWjPJaD6a5bvPerLrs9OlD+OC7xLilWxdmd/ebQV
-	pixWEcpgDfdRatbKbxXIs5IKVcqdXddxdYCX0Rr0ONNH5e9S3jzHXOOD
-X-Gm-Gg: AYBFou2c4GOvUbDyZFsh1Ym7gEijVPH1EOiPYpiM4GigyRPGz3cvpHxZ0ehji/hOAMF
-	J317vEeWe96Gw5Yx6jROwCgKYL/ock2AluYxEXoXNQQVXLL2GbgD1Xdv8r6bHUB5FJYWFJ40Ou5
-	ZD6HhY2vruq6N61yJZfji/y+SBmJU1q0Gcz8jH3GIoIykZqd7hnc+6SltgN5lFWd4dXyD6KtL0Q
-	ttPsjqESlHGhlC3g5bjuyhRIkYfudvnNABaSn9D4OumVVtBb2+2h4Lrxh3ZuC16FLh6lKAm7zOs
-	kjsnATwJJerg0UzZecsNMHl9m1ycws1/SMKNpS3DtQtSXtyOSSzG5N8b29jScPgfoKGH2OjAgfx
-	eN0lICkLrvIWyB3xBVMEbc/IOqDTmWkn2m/rGApu8Gxi6H/Mir7l5MrmH3KBEvK5DWp7PUENJ9g
-	7rQ8AIFziWUsyXTsMZjwudsmd1aYH9VkDajcfmiPNfnLofwDELdoV0XMiwxt+ZkBsddwSIBpKRJ
-	eZ8L709OatW4uyJgwckukrUNl8Xk6gP0w8g1oDvvEQaEqQ5FA2YYIgOCqOezJMadEQvAiprkUwa
-	S4iW4A==
-X-Received: by 2002:a05:600c:3486:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4a35ac95955mr122964795e9.15.1793039453713;
-        Mon, 26 Oct 2026 11:30:53 -0700 (PDT)
-Received: from SMW032656.wbi.nxp.com ([128.77.15.89])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm250727985e9.1.2026.10.26.11.30.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:30:53 -0700 (PDT)
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	elena.popa@nxp.com,
-	cosmin.stoica@nxp.com
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: imx95-navq: add USB1/USB2 nodes
-Date: Mon, 26 Oct 2026 20:21:50 +0200
-Message-ID: <20261026182150.11330-1-laurentiumihalcea111@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNyZOmP3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554381F031E1;
+	Mon, 26 Oct 2026 18:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793040269;
+	bh=8lBuZXiGsime6GuAhFzW7wfLDSihPi0qas0TmbLPKXc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JNyZOmP3oY5pDBUzc5GCo7UBV6y3RTl740kmlokpMPCxeE//bDUJnwUbkOL0biwAi
+	 pk/uYjAmKk2i2YvdXbo3Ud12cPCXX6KVobEfV5MTqAAS2MJBXltmMFlarMicUB1LVx
+	 u1NbCr6hf77hNFyNNlO2dPzpz/2/BQqe+3YrW7R05kM20UzdEr9onaszvklhBCPaj/
+	 hDigjOoHo0MmtRk3HDG8/bvtbWOeBlt46DTt2j8ii/AWXwyrw8pWgHQHNT2mgEKhGg
+	 MlBUPwVmPtWmKWC93G/VmjeP3YvbVclV0i2+A1cMdLE0xpdtw4cQac6nG2XkTrVKx/
+	 2Ye2FbI1IKV+w==
+Message-ID: <sashiko-outbox-185636@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: imx95-navq: add USB1/USB2 nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurentiu Mihalcea" <laurentiumihalcea111@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261026182150.11330-1-laurentiumihalcea111@gmail.com>
+References: <20261026182150.11330-1-laurentiumihalcea111@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 18:44:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,171 +58,119 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: imx95-navq: usb2 dr_mode =3D host breaks usb-role-sw=
+itch
+--
 
-Add and enable the DT nodes for USB1 and USB2.
+commit 7aa413a1299c4bee8b5a2613c0acf6256cd30c16
+Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx95-navq.dts | 121 +++++++++++++++++++
- 1 file changed, 121 insertions(+)
+arm64: dts: imx95-navq: add USB1/USB2 nodes
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-index 7860c113e9e0..5fe245b62306 100644
---- a/arch/arm64/boot/dts/freescale/imx95-navq.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-@@ -5,6 +5,8 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/usb/pd.h>
-+
- #include "imx95.dtsi"
- 
- / {
-@@ -80,6 +82,72 @@ i2c3_gpio_expander_21: gpio-expander@21 {
- 		pinctrl-0 = <&pinctrl_i2c3_gpio_expander_21>;
- 		pinctrl-names = "default";
- 	};
-+
-+	ptn5110_usb3: tcpc@50 {
-+		compatible = "nxp,ptn5110", "tcpci";
-+		reg = <0x50>;
-+		interrupt-parent = <&gpio4>;
-+		/* USB_PTN5110_ALERT_B - shared IRQ line with tcpc@51 */
-+		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&pinctrl_typec>;
-+		pinctrl-names = "default";
-+
-+		/* no SINK circuit (EN_SINK1 tied to TP32) */
-+		connector {
-+			compatible = "usb-c-connector";
-+			label = "USB1 3.0 Type C";
-+			data-role = "dual";
-+			power-role = "source";
-+			self-powered;
-+			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					typec1_con_hs: endpoint {
-+						remote-endpoint = <&usb3_data_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					typec1_con_ss: endpoint {
-+						remote-endpoint = <&usb3_data_ss>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	ptn5110_usb2: tcpc@51 {
-+		compatible = "nxp,ptn5110", "tcpci";
-+		reg = <0x51>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&pinctrl_typec>;
-+		pinctrl-names = "default";
-+
-+		/* no SINK circuit (EN_SINK1 tied to TP30) */
-+		connector {
-+			compatible = "usb-c-connector";
-+			label = "USB2 2.0 Type C";
-+			data-role = "dual";
-+			power-role = "source";
-+			self-powered;
-+			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+
-+			port {
-+				typec2_con_hs: endpoint {
-+					remote-endpoint = <&usb2_data_hs>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &lpuart1 {
-@@ -145,6 +213,10 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
- 		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e>;
- 	};
- 
-+	pinctrl_typec: typecgrp {
-+		fsl,pins = <IMX95_PAD_ENET2_RD1__GPIO4_IO_BIT25				0x31e>;
-+	};
-+
- 	pinctrl_uart1: uart1grp {
- 		bootph-pre-ram;
- 		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX			0x31e>,
-@@ -198,6 +270,55 @@ pinctrl_usdhc2: usdhc2grp {
- 	};
- };
- 
-+&usb2 {
-+	disable-over-current;
-+	dr_mode = "host";
-+	usb-role-switch;
-+
-+	status = "okay";
-+
-+	port {
-+		usb2_data_hs: endpoint {
-+			remote-endpoint = <&typec2_con_hs>;
-+		};
-+	};
-+};
-+
-+&usb3_dwc3 {
-+	adp-disable;
-+	dr_mode = "otg";
-+	hnp-disable;
-+	srp-disable;
-+	usb-role-switch;
-+	snps,dis-u1-entry-quirk;
-+	snps,dis-u2-entry-quirk;
-+
-+	status = "okay";
-+
-+	port {
-+		usb3_data_hs: endpoint {
-+			remote-endpoint = <&typec1_con_hs>;
-+		};
-+	};
-+};
-+
-+&usb3_phy {
-+	orientation-switch;
-+	fsl,phy-pcs-tx-deemph-3p5db-attenuation-db = <17>;
-+	fsl,phy-pcs-tx-swing-full-percent = <100>;
-+	fsl,phy-tx-preemp-amp-tune-microamp = <600>;
-+	fsl,phy-tx-vboost-level-microvolt = <1156>;
-+	fsl,phy-tx-vref-tune-percent = <100>;
-+
-+	status = "okay";
-+
-+	port {
-+		usb3_data_ss: endpoint {
-+			remote-endpoint = <&typec1_con_ss>;
-+		};
-+	};
-+};
-+
- &usdhc1 {
- 	bootph-pre-ram;
- 	bus-width = <8>;
--- 
-2.53.0
+This commit adds and enables the device tree nodes for the USB1 and USB2
+controllers and their Type-C port controllers on the imx95-navq board.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/bo=
+ot/dts/freescale/imx95-navq.dts
+> index 7860c113e9e02..5fe245b623068 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-navq.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+
+[ ... ]
+
+> @@ -80,6 +82,72 @@ i2c3_gpio_expander_21: gpio-expander@21 {
+
+[ ... ]
+
+> +	ptn5110_usb2: tcpc@51 {
+> +		compatible =3D "nxp,ptn5110", "tcpci";
+> +		reg =3D <0x51>;
+> +		interrupt-parent =3D <&gpio4>;
+> +		interrupts =3D <25 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-0 =3D <&pinctrl_typec>;
+> +		pinctrl-names =3D "default";
+> +
+> +		/* no SINK circuit (EN_SINK1 tied to TP30) */
+> +		connector {
+> +			compatible =3D "usb-c-connector";
+> +			label =3D "USB2 2.0 Type C";
+> +			data-role =3D "dual";
+> +			power-role =3D "source";
+> +			self-powered;
+> +			source-pdos =3D <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+> +
+> +			port {
+> +				typec2_con_hs: endpoint {
+> +					remote-endpoint =3D <&usb2_data_hs>;
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
+
+[ ... ]
+
+> @@ -198,6 +270,55 @@ pinctrl_usdhc2: usdhc2grp {
+>  	};
+>  };
+> =20
+> +&usb2 {
+> +	disable-over-current;
+> +	dr_mode =3D "host";
+> +	usb-role-switch;
+> +
+> +	status =3D "okay";
+> +
+> +	port {
+> +		usb2_data_hs: endpoint {
+> +			remote-endpoint =3D <&typec2_con_hs>;
+> +		};
+> +	};
+> +};
+
+[Severity: Medium]
+Should usb2 use dr_mode =3D "otg" here instead of "host" to match the
+usb-role-switch property and the connector's data-role =3D "dual" in
+ptn5110_usb2, or should ptn5110_usb2 use data-role =3D "host" without
+usb-role-switch on usb2?
+
+When dr_mode is set to "host", ci_hdrc_probe() in drivers/usb/chipidea/core=
+.c
+skips initializing the gadget role and OTG handling:
+
+	if (dr_mode =3D=3D USB_DR_MODE_OTG || dr_mode =3D=3D USB_DR_MODE_PERIPHERA=
+L) {
+		ret =3D ci_hdrc_gadget_init(ci);
+		...
+	}
+	...
+	if (ci->is_otg && ci->roles[CI_ROLE_GADGET]) {
+		ret =3D ci_hdrc_otg_init(ci);
+		...
+	}
+
+Because ci->roles[CI_ROLE_GADGET] remains NULL, ci_get_role() never enables
+OTGSC_IDIE:
+
+	if (ci->roles[CI_ROLE_HOST] && ci->roles[CI_ROLE_GADGET]) {
+		if (ci->is_otg) {
+			role =3D ci_otg_role(ci);
+			hw_write_otgsc(ci, OTGSC_IDIE, OTGSC_IDIE);
+		} else {
+
+As a result, id_extcon.enabled and vbus_extcon.enabled remain false. Althou=
+gh
+the Type-C port manager configures ptn5110_usb2 for dual-role data and acce=
+pts
+USB PD data role swaps, calls along usb_role_switch_set_role() ->
+ci_usb_role_switch_set() -> ci_irq() -> ci_irq_handler() will have OTGSC_ID=
+IE
+and OTGSC_BSVIE masked out by hw_read_otgsc(), leaving role switching
+non-functional and the controller permanently in host mode.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026182150.1133=
+0-1-laurentiumihalcea111@gmail.com?part=3D1
