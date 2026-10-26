@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008660;
-	b=DjEP71i+jNPaJmhQsO+opKnejATzsU47rnhvxbpLYU3xEkziELj35Wcv9r6CNrjU8zdd
-	 qHgwLTDA2nWtWBG0ZeEXRKKjDs7iw9XyOmYnB495KJsm3nSg6U3VkIFywJoXX9NVFvduN
-	 7RCsksCH/CyZbmwP2E/S5x2bwh4aV/BEyKbBVpwyfgIOIG+++udE7/NDGVe+lwfwhUd8G
-	 uRt4vc02lhU/tuLnS0cDktSBQZIkGnisTrHEwsLmQSUcLHQA4PWjuHiLRTqN3ooB9rTKp
-	 Pte43mVWEAGtvTPcCHhejCgHP6+zRB1jeeUPZYgScB1fp6aDLVDrdlr6DmrrDdIonEA==
+	t=1793008668;
+	b=PPBwR8eAudRb6aD7C4x3SrGMapY3ULTkAxIGkKi4l5v70p61mwEn5Pz5yOsQdU17zZfy
+	 +rGDnLnecU9VRiVQkoYUDdngq2isJ4sZ2cfnYWX5p9uXGycRgh/Rr/ZrpPaiiNMR+0ANN
+	 /isVmE9C1r+e/Cw/bSHd7+tN/TDjwbYiI6J21BieF/UOWv59KMKvu0WoTWtwKUr6m6vXD
+	 5RZkuJ23MZzqrOPR5teaOHE83hr0qGnPLLyNVIgfS22ZO039ukXD+vXII5V7eNM4FuZRo
+	 /oFprV+SWv+7/5g+pdPn+s+QRfB1xZDi7cMc728uI6RlwueHe8pMQPxzA2g8rRX/kMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008668;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MeBKTA0b9gdc1oZ9om4ZOcHEMZQgFvlj1R0DbKnQy1M=;
-	b=PH4z1Wh4z3+GNsU09Z7A224FJZGnTLlCKYVW8ZIQnEh78+Ec6kwUfwJDLdi5CN4OnUss
-	 NxwV3minxhJpTPT1t/tiNMyeJpXUJt8r2wi1VZy8v/3jeKuloscFJi5xVf3/PgtUxAHeP
-	 PdxwIYv+FhGrqn0ylF64T0NX3sjm+fk2acCI8j/Y9U2HPM1fObPpcZnh/8yvO2dXNtXjF
-	 JTeu3/dCq+PITRuMNsEoeRji2dnk4HuxPXo4CA4B3SaHfdNoSsU3DU2wNEyNHHr4/TVs4
-	 WjxaakrCRa7IxxAs2HpPSjc79uJ/BZTxkSU1TB32ji20Qq1+CLeRQkf0XKDe1YSpR2g==
+	bh=Tam/cbr1vHUveXOsMHSlkkyctApx/tKKf0dyw/DasX8=;
+	b=WvWlLnjxFP3IDYM46XU64mEpl2VAdhSkRc9uwdciCqN81GVNZQTkB+ZcgJnHdRHSSVVn
+	 Cu69otgdWPJeHMJ+3g+chrJZ2swyyTt4DWlA2Le0VtdSr0+gYG2f1FHf54PxuwyDZL5yD
+	 SUirAT5tmOmL4te473WVQGq5D+H2KPotvry8F3hC8l+mMu+CJ6hREdZ/Q/Z3YqXBn6vtC
+	 UjMaszUzrF/rNdZ8eNaaXezpZKIu53RRw95GHikC8jIBiM0HLIzKGgZfbimNK/M/o9FpB
+	 zxQViUWOacm4QT2B+t4pFKdTns25leizRRIVkBYJQZ/2S9no9Q65xea7Lh5s8GvlxeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ndry3W6r;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OqnNmal3;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495A360A381F
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:57:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 495A360A381F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE1D606A9E5
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:57:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE1D606A9E5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ndry3W6r
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso28501905e9.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:57:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OqnNmal3
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so17313125e9.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008659; x=1793613459; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793008666; x=1793613466; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=MeBKTA0b9gdc1oZ9om4ZOcHEMZQgFvlj1R0DbKnQy1M=;
-        b=Ndry3W6rJwlQkm0OpM5a/QSIBufZvzAVg356DA5dT3bB3SDog3rU27rIi79dUswBYY
-         ZOHDw1qGFiEjsuZtXrWeJzv0VmP8p7+SJ5GKVWy/2IM5UdKgrnrsZONBk3D63P0CWraf
-         FBWyQ6dM2I6wQM2VKd5Kq5eZlqaz5FyEot882pyNigZqekG8ZmoaPEEaUvxDgBMKI1IW
-         BzOcQaazPgjxhWeIk7Uyy7OmnNnnhM27DelsQjKL+e8NgA6vrxdJxV7apENKr3Af8Gsx
-         l3usrq/aU0sjTD/FGCrfICrm92C63XFL5C/mbSjtybRNxSLvakDqkLdxixxvYa/Lk5th
-         nG+w==
+        bh=Tam/cbr1vHUveXOsMHSlkkyctApx/tKKf0dyw/DasX8=;
+        b=OqnNmal3lUFLHEK4n11AkX/A2Qd+EJT35OamArxCZCjw9y+0SVslK95RqIwBkUf+Ko
+         O4/3mg5DlByHEW4PbdeW43Byujx9rI9gKpuKs+a1gh+TM3rq8KoAcdn9v/obuUPVlrD8
+         8j8dkInlj3zvUzojdNyo8mya+apraHLQhoh0bHiV9waVfmjgfEIxNnInNGuJ0fhaUoEt
+         +tD6QAi1Si1odmginspoE7MH/Sr6BpTuYTvJN6xBbswEVwYXRyiWnisciR0slcGEOYQy
+         pIDi09FgpzIQKJryngLtXdubBMWiAZN3RnPxhjWgbPr+QWnr0KcJds0wbx0AOYj0NXV1
+         kuAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008659; x=1793613459;
+        d=1e100.net; s=20260707; t=1793008666; x=1793613466;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=MeBKTA0b9gdc1oZ9om4ZOcHEMZQgFvlj1R0DbKnQy1M=;
-        b=nOkvGs2acVUyArqZxOqskMv6Jl7DagYVIFYD0ze8hvXls/0JjeAT/2OS0HZr6MKh/W
-         qwVizQWanXgjyQqwFJZa4i6ybeqXFLeKbMemFwjWH3ghNSjjYa8K0IBA3tMW3RzyaMx+
-         HClah5PfY8USPml5kYTAX7cpivuB1zAiBvD9kIFoPKlf0V4vjfU2H7jOn2YvkxvStiFr
-         Eyqylin8u/GSEy/OmG8XEsJtyQgFblXtRAuqGL6rK7giZ4L6VJguEH0tsn9DeejInzRm
-         SIQ5tADSXgTIDT2GWC6x/ngxpZypJnw/mVg+DFXgJvkaXyi6ZJJDH/ZRINGYBlDvEjAj
-         wXTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyJely/7U6h3ggU/5yp03Eoh4gd//TrTt0bNseffG3W4fWLRDEZvPOT0UrAmaxZRRSc9BAiSvPqIB/@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeJDqtf769sZMK7zVbuvH4/pEKX4nK1uWLmGbAdS0Qwp2rrhKv
-	e9QHf6oIVlICiFMTVI76kaVAe0vNiW6+IxUnZH+Tq8X89TwUTsqHmtKd
-X-Gm-Gg: AYBFou0ClUb+5iULaPDgefSBW+QYUEZwK7G0mA5RM2TqleVGNuTJurOk9uppAFooPVX
-	sYboAR/6eu2fKiTlq3xkzd7Xlo3xD3ov3wLC13h0/D6C6tmq+a5YW9ROuXveKvobN0kCaNPqKBD
-	FO7YyQ2sJLRJJgoLx4PgpXQMNarW2HQHbBAMK75cGzEtS5JFHTsuKUqDwVzJI1Mj4BHFxTt3S3k
-	tlXp72RLTv0yyL3unIJc8GuViOxgyPvK4/ceRMzgU9Ug9m47HDxby4p2Dd3eLBa01/tgxiVhCYu
-	nKPJ8Ab4EJYsC5bkiZQACT61HIJg8NcYJAHj7QsKRK5xmN9mC/gS6SaJveK6EQdUqjTsdVVv2Fj
-	kvwVJXancMwmv/+jLieLcpNYh7QbDjzKHE0pYjRTKxsTIhwrgm6QwqRiY4fWkU0oJEYgKXZ/cV+
-	Q7cQXjPreCjQZ7V1KtcFI+wYWJad8xlqauQm+QMcD/1lffbuY6QpvAX7C13c/EsgTgjbvUA4x6j
-	3dBOU8JI5n9ffMF6Q1MAYLIlvjhCXll9yAKHCV0oe9U1slnc0pXYX+eko07sFBHvlIRiw3h8yEV
-	OfE7PT+X9jSa2kqXRSVIogx84fXJl5MAGFvDwAmtn8CVxpnOyTUDg8BWu2Hjuo+yoYkagTA8qiS
-	EPuzpyQ==
-X-Received: by 2002:a05:600c:8184:b0:4a2:9cda:57b6 with SMTP id 5b1f17b1804b1-4a35aca71c3mr100497405e9.22.1793008658493;
-        Mon, 26 Oct 2026 02:57:38 -0700 (PDT)
+        bh=Tam/cbr1vHUveXOsMHSlkkyctApx/tKKf0dyw/DasX8=;
+        b=l4cxeh/T3umEtNaDj1zdh+JFm2ONxHbCI7Lr3G6FTZbuoe5GYuM8Kh6vM840h9sZOU
+         sEK1Z0jIAOdoWRgpHouFzBI+9nC/fjL0xjHESjNpLoPmNiX0EJEJsLvozEesIeTXIrPT
+         Sl36VKpCgLnVUZOFW8Z6qLAjQcwhcQ7Py1Qy5XTIPv+6ZFi0HNqPy26jhSgSaLycv+8o
+         qQtZ0oZU7ZWAA/sVBAyjSCUybc2vXHTwfubHwFaIkHDheu9XuannRXRPSOluzq5dRlvN
+         3t7LB4lWes7YQE+pjr+NLX2KK3f7+8IfIbNu+181hZU0ZwKB/zhHarECEFZNQHPXmLA3
+         9PyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlyzidLJOfjkEml/Bb2mRGL2DYofL6lcojEsQ+vjzIP5mQxEq5w6wkC0ev/GacjJqkc17yvf98BXcc@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP0I/ot28yI/6U3ZaQzvwDdbDsdZzy/kQtGmp+1fbVAm+Zf2zq
+	8Fp4y3VZmqWP5XAa9hya9zMp2w3BaoXlLy4q1l3wNB/Oda9OU6BZSF3R
+X-Gm-Gg: AYBFou06K9IBCK7HzxzZVGu/NC4pDAUau1kwMHt1A+/kKHgVtA3CuQ4tx0TQFqQBVv9
+	p0+lGjb1wpqZlF0MfyCLVd3SGoPAWOBhdZerZyuMpV4FsipPxsczK4W3PvvMj4KkaC/S9XkTu4u
+	lw+ouSY9uxBJqSe9Ws4gD0f7RrzRxutvTg6UvuP6SPg0VZRHKm9tkPLyxnlkaGDdGdQZkC3Yx/X
+	TaFz9V/UWkyB3s4PwSnal0iSdHUR/Bv1aMoXBSPpSc6CSdgdj1VLSRPNMKL0iIn8Fil2cfxC0GP
+	kXU60j1MaGVVQx0AK//H8OaO4qjWQ+0n93PMTXvg6wifq0tNd3Dm0bly4FxrKx4OVCjkrUpFCBe
+	sD1GWeqx+n7kSnLPd1jK2JKIt0TJMT96UNnsnLt7P/41BN/JSND3SCeVb64cF7XKX2540jn2A/Z
+	EAqCG5cep9JNK4VlkTW1gsocYXxGe//KA+eimQC2pxA2Zv3R0mWE6xLY0U/wiKftRx+LjQUdXE/
+	gNrv8nGXxnMQgtdF3MboQlU0YqaiyOzqd/g0QS0Kxqt+hd/5PWF5wXYEkUHfy5Uw00g4dK3MLTJ
+	/BoBM/+ndTmlunWD0YuLnuxq5ZV93DIl6A/JNU3xZiZNASNu/sjbgDX9+wSj
+X-Received: by 2002:a05:600d:8:b0:4a5:ef46:1603 with SMTP id 5b1f17b1804b1-4a5ef461bc1mr42902295e9.30.1793008666472;
+        Mon, 26 Oct 2026 02:57:46 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a35a0cc374sm190382825e9.9.2026.10.26.02.57.37
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a35a0cc374sm190382825e9.9.2026.10.26.02.57.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:57:38 -0700 (PDT)
+        Mon, 26 Oct 2026 02:57:45 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -90,9 +89,9 @@ To: Matthias Brugger <matthias.bgg@gmail.com>,
 	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/9] arm64: dts: airoha: en7581: add Chip-SCU accessor node
-Date: Mon, 26 Oct 2026 10:57:09 +0100
-Message-ID: <20261026095727.31708-4-ansuelsmth@gmail.com>
+Subject: [PATCH 9/9] arm64: dts: airoha: en7581: add integrated switch node
+Date: Mon, 26 Oct 2026 10:57:15 +0100
+Message-ID: <20261026095727.31708-10-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261026095727.31708-1-ansuelsmth@gmail.com>
 References: <20261026095727.31708-1-ansuelsmth@gmail.com>
@@ -107,30 +106,179 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Chip-SCU accessor node as a companion of the SCU node to permit
-additional configuration for clock, MUX and thermal related registers.
+Add the integrated switch node complete of the internal PHY with the PHY
+address and the supported leds attached.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- arch/arm64/boot/dts/airoha/en7581.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm64/boot/dts/airoha/en7581.dtsi | 147 +++++++++++++++++++++++++
+ 1 file changed, 147 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts/airoha/en7581.dtsi
-index c5a335086741..fbc5ee47523c 100644
+index f214fa3a3e2b..83ae41271f96 100644
 --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
 +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
-@@ -342,6 +342,11 @@ spi_nand: nand@0 {
+@@ -4,6 +4,7 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/clock/en7523-clk.h>
+ #include <dt-bindings/reset/airoha,en7581-reset.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/thermal/thermal.h>
+ 
+ / {
+@@ -470,6 +471,152 @@ fixed-link {
  			};
  		};
  
-+		chip_scu: syscon@1fa20000 {
-+			compatible = "airoha,en7581-chip-scu", "syscon";
-+			reg = <0x0 0x1fa20000 0x0 0x388>;
++		switch: switch@1fb58000 {
++			compatible = "airoha,en7581-switch";
++			reg = <0 0x1fb58000 0 0x8000>;
++			resets = <&scuclk EN7581_GSW_RST>;
++
++			interrupt-controller;
++			#interrupt-cells = <1>;
++			interrupt-parent = <&gic>;
++			interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++
++			status = "disabled";
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				gsw_port1: port@1 {
++					reg = <1>;
++					phy-mode = "internal";
++					phy-handle = <&gsw_phy1>;
++				};
++
++				gsw_port2: port@2 {
++					reg = <2>;
++					phy-mode = "internal";
++					phy-handle = <&gsw_phy2>;
++				};
++
++				gsw_port3: port@3 {
++					reg = <3>;
++					phy-mode = "internal";
++					phy-handle = <&gsw_phy3>;
++				};
++
++				gsw_port4: port@4 {
++					reg = <4>;
++					phy-mode = "internal";
++					phy-handle = <&gsw_phy4>;
++				};
++
++				port@6 {
++					reg = <6>;
++					ethernet = <&gdm1>;
++					phy-mode = "internal";
++
++					fixed-link {
++						speed = <10000>;
++						full-duplex;
++						pause;
++					};
++				};
++			};
++
++			mdio: mdio {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				gsw_phy1: ethernet-phy@9 {
++					compatible = "ethernet-phy-ieee802.3-c22";
++					reg = <9>;
++					phy-mode = "internal";
++
++					leds {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						gsw_phy1_led0: led@0 {
++							reg = <0>;
++							status = "disabled";
++						};
++
++						gsw_phy1_led1: led@1 {
++							reg = <1>;
++							status = "disabled";
++						};
++					};
++				};
++
++				gsw_phy2: ethernet-phy@a {
++					compatible = "ethernet-phy-ieee802.3-c22";
++					reg = <10>;
++					phy-mode = "internal";
++
++					leds {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						gsw_phy2_led0: led@0 {
++							reg = <0>;
++							status = "disabled";
++						};
++
++						gsw_phy2_led1: led@1 {
++							reg = <1>;
++							status = "disabled";
++						};
++					};
++				};
++
++				gsw_phy3: ethernet-phy@b {
++					compatible = "ethernet-phy-ieee802.3-c22";
++					reg = <11>;
++					phy-mode = "internal";
++
++					leds {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						gsw_phy3_led0: led@0 {
++							reg = <0>;
++							status = "disabled";
++						};
++
++						gsw_phy3_led1: led@1 {
++							reg = <1>;
++							status = "disabled";
++						};
++					};
++				};
++
++				gsw_phy4: ethernet-phy@c {
++					compatible = "ethernet-phy-ieee802.3-c22";
++					reg = <12>;
++					phy-mode = "internal";
++
++					leds {
++						#address-cells = <1>;
++						#size-cells = <0>;
++
++						gsw_phy4_led0: led@0 {
++							reg = <0>;
++							status = "disabled";
++						};
++
++						gsw_phy4_led1: led@1 {
++							reg = <1>;
++							status = "disabled";
++						};
++					};
++				};
++			};
 +		};
 +
- 		pciephy: phy@1fa5a000 {
- 			compatible = "airoha,en7581-pcie-phy";
- 			reg = <0x0 0x1fa5a000 0x0 0xfff>,
+ 		crypto@1fb70000 {
+ 			compatible = "airoha,en7581-eip93", "inside-secure,safexcel-eip93ies";
+ 			reg = <0x0 0x1fb70000 0x0 0x1000>;
 -- 
 2.55.0
 
