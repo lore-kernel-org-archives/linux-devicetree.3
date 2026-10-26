@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052628;
-	b=GyEBxCHXPAQfRoMX+im0umWBIS6DWsjS47tO5ANFEnBxu1WvtHVEDpJBn3//mWa68UO5
-	 V6f7NpLE0GILDqmj1UvaHoAcmWi2/AWkJ0AvtGhIyS+2p1txMMnjYX0sq9u3VH6SsIoS8
-	 Sy9PiWb4ngzuGFD/6mGAfT8XHQwHEM0OS4cQTjHphemOiq8jnjhS2IeXl2MXTx0cvcyYO
-	 hGIVoPGdxy/JwtomGEd5h0llLj1yvT1iL+H9bKGedofkxDxjSgIrRD2k57rQ8t31U9TVv
-	 ms5R9i22iUI+UyXfiL34BUt1oDXtLy14pKl7em9WOaGbQPcHQgDzVXvqMKoQV8tvNow==
+	t=1793052775;
+	b=wR7NzD9h5QvkHn2crBRK8LYwQB+gtad/E1Plo3nnxu+Vi08RuFl6VL0qgzi3/O4YjAd/
+	 0i0QxIp2KCXNQcOj9nmtlJryVr+EviuTZbkc8PQ0TnCfoBryvWIpZ4cPfv0bq6ElBGpgS
+	 2nnZ2GHkZ6DCja6kiC9IPinCWYKGaTNMTz0W18d2GAKFVwGeqzcTC48xtoaIuBXBt8ki/
+	 zpGeZja9jMW+BBruK464LHv9br+c/uPwaa0+1oswD7RYRI9+MnXuK4UjNPIcrfe55+Rjo
+	 X8L8UAjPuG/Vto4fr5ZfciAHfxIvEIXHUUqfFHGfkihO6/BbOxTOErIfRvt3ZRwuUXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052628;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
-	 Subject:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xQHquqb8tucALptUniqI688SJNdOnIsODYIm3mHTMxA=;
-	b=JHqWniBdcRuHR2dsXJct44qvt+cSC/89MQxDCDAA/Ius/VlKoEze4S30Zn6ZWJ9HMTlY
-	 NjPySMgFI4XmMKd/Kk4dt7nAdLFMXyXA0UculuQnrwQis3hPgI1/1X8owMT0Bss8CzDEO
-	 rSlRss5e/3syDNONQkT4tWxiH5yKVlW3A9+On8VlcK+wBWBPw4rvLrUu7RZrilU05p3xN
-	 HuYzrZrFLV+uKxvo5D0AgwrWJQAPpknHCEOzDsj6lh9agPWGh5pD77xJcXLWA9LdlWCuD
-	 +y7vetTqILX27K2lWfjBGhZiUCyQVAmZuo8/rJelYpJV6VzHwIS+Kx62aQyvFUH3z1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793052775;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=r+kxRt2F7dr17vhcy6Xq7mbad3R/ctX1xx02kP9+rH0=;
+	b=bSOgg6Ys65egja18q/AYrj6VYhEwx3mn7ncxLL4T0DE07xX0elbe2PlUS3qW/w6jEfkF
+	 MtwtJaiEc5L/4NzmGutVUT0PRLKyX8pbCy3/ScKLp0XD4SzFOfZgc+XOnE3R9wk1IIVGm
+	 2czpLyobhuvwy4wwsKGRqfLo3uSsfYmOAe4ygJJ2qovBJDKEUPDJCbkHgM2H1uMuSz7BR
+	 +B3vT6TKnjfwmO09XyKsiYj8/Yq6Rr0v9pGRU7nNqsTixj5lnwOnzmeVxTlY6LajPOIO8
+	 s5v8FwkPC+J0ZTjNFTqFfL9FOfmrxbOUPzxVbkINu0TtdGJJXw8sOq3fYhVVllWLy/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=xl3VvVB4;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qmc9hmUd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD23606A327;
-	Mon, 26 Oct 2026 22:10:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD23606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E94606A31A;
+	Mon, 26 Oct 2026 22:12:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=xl3VvVB4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1793052625; x=1793311825;
-	bh=xQHquqb8tucALptUniqI688SJNdOnIsODYIm3mHTMxA=;
-	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=xl3VvVB4m18YGNJ72kHt7F5ktkfo+xawsLAaIL7HBQPeQdiDEE5oNvtRcoOXMGXLB
-	 +cZpwGxjFQBM9GaoDMMKR8vPnYzWgxhxnr8+pccL65fldwYroXPA/UnU9WudEDuWPf
-	 pOBu6jxDlriaI2jk6SJJ2UnZjvMCpHi3osmXsk56D5qGskfnAkXiepzm0n5fElluNX
-	 AR1XxaBFvGbUPLDP6a+gbwTJTPSVE8QnERyzphnQqZRBJss7bkDyyiXuYoopa1svEK
-	 8d2gGBWIxtGkJQbKetnZ26U/onWRZmjYYZAvOPpomoywfj1Ff4i0H+xIUYPdUQH+Qq
-	 iNWfxMytaWAJg==
-X-Pm-Submission-Id: 4jD79C05RNz2ScX8
-From: Michael McAllister <me@michaelmcallister.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 26 Oct 2026 22:10:16 +0000
-Subject:
- [PATCH v3 0/3] arm64: dts: qcom: Add initial Motorola Moto G10 support
-Message-ID:
- <179305261663.94591.5491359960257085739.capri-dts-v3-0@michaelmcallister.org>
-In-Reply-To: <cover.1792840208.git.me@michaelmcallister.org>
-References: <cover.1792840208.git.me@michaelmcallister.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qmc9hmUd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C43B1F01825;
+	Mon, 26 Oct 2026 22:12:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793052774;
+	bh=r+kxRt2F7dr17vhcy6Xq7mbad3R/ctX1xx02kP9+rH0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qmc9hmUd9drSHLh4u3U5pgyDlQFvBhLc+9Nndml8xkkn9E6XOjJkBfCpqaNVhvO5e
+	 UzubR56p+SrmUuY89WfF84X92vRuSKhvud5+jbAMFY2q3WMdAMV0o3tdJomp+83M4f
+	 NoHH1MTPqMmTJcgIAvNzf80OX3drbMw7cj9oEMHPZJ/qBQ5ZFWfZgYicgItotVha4z
+	 6/1NWmXSrx6q+q8c+r34mLVHn6zjdtlaO4Z3DOyodsDuEi/H5g02fhZ7+NynfBCzsS
+	 Kk+hg0eIAUpdpD3qtgSgFoA+xKe00IQ8LoNqhQwAPhp7AqsiKk2scy0DFN7h/jtMqO
+	 V9QztRIE0yOUQ==
+Date: Mon, 26 Oct 2026 17:12:49 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
+	linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v1 1/1] dt-bindings: power: supply: maxim,max8903:
+ Document MAX8922L and RT9524
+Message-ID: <179305276926.4032096.5720095014424223708.robh@kernel.org>
+References: <20260930072450.61836-1-clamor95@gmail.com>
+ <20260930072450.61836-2-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,28 +60,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-Hi Konrad, all,
-
-I've removed the final paragraph from the idle-state commit message and
-added the review tags. The code is unchanged from v2.
-
-v2: https://lore.kernel.org/linux-arm-msm/cover.1792840208.git.me@michaelmcallister.org/
-v1: https://lore.kernel.org/linux-arm-msm/cover.1792703903.git.me@michaelmcallister.org/
-
-Michael McAllister (3):
-  arm64: dts: qcom: sm6115: Correct cluster idle state parameters
-  dt-bindings: arm: qcom: Add Motorola Moto G10
-  arm64: dts: qcom: Add Motorola Moto G10
-
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/sm4250-motorola-capri.dts   | 374 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/sm6115.dtsi          |   8 +-
- 4 files changed, 380 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm64/boot/dts/qcom/sm4250-motorola-capri.dts
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930072450.61836-2-clamor95@gmail.com>
 
 
-base-commit: d053e38e614fb2e383b298ce8fc308a780d7f209
--- 
-2.39.5
+On Wed, 30 Sep 2026 10:24:50 +0300, Svyatoslav Ryhel wrote:
+> Document MAX8922L and RT9524, which use a similar charging control pattern
+> to the MAX8903. The MAX8903 is set as a fallback for both chips. No driver
+> changes are required.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../bindings/power/supply/maxim,max8903.yaml           | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+
