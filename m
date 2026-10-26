@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793052775;
-	b=wR7NzD9h5QvkHn2crBRK8LYwQB+gtad/E1Plo3nnxu+Vi08RuFl6VL0qgzi3/O4YjAd/
-	 0i0QxIp2KCXNQcOj9nmtlJryVr+EviuTZbkc8PQ0TnCfoBryvWIpZ4cPfv0bq6ElBGpgS
-	 2nnZ2GHkZ6DCja6kiC9IPinCWYKGaTNMTz0W18d2GAKFVwGeqzcTC48xtoaIuBXBt8ki/
-	 zpGeZja9jMW+BBruK464LHv9br+c/uPwaa0+1oswD7RYRI9+MnXuK4UjNPIcrfe55+Rjo
-	 X8L8UAjPuG/Vto4fr5ZfciAHfxIvEIXHUUqfFHGfkihO6/BbOxTOErIfRvt3ZRwuUXQ==
+	t=1793053355;
+	b=a+pxmrPKTpK0EWAAWcaosFNURphS2/qlSPmb60DrnQZW3XSWHU7upIYe+mU2zwk/lOaD
+	 xklcUrI+sSfsGfXWqp72AxhIMqPSxr6BRYXKQXuG8aZ3JwFUFqMVgzD9JXQgER9X1Ksx1
+	 3JpRXM8YUSAGUyMvguffi43pbz44ah+w98CGKSefwCZY/8v9COWSgAxLvKnY3HqDxcKDr
+	 9qXHXbvB69Ka85WeEySarv7xR7jqREbL/fxL7kK+ccBOhtiLTpQxlvCFmPD4bdDAa+NTj
+	 iofvR7PTmAGk+vwDyFWN0lCPV3KLotF7D3CnKuLwFEPaLJQMNSpGDCIX4wS0UR7cEdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793052775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793053355;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=r+kxRt2F7dr17vhcy6Xq7mbad3R/ctX1xx02kP9+rH0=;
-	b=bSOgg6Ys65egja18q/AYrj6VYhEwx3mn7ncxLL4T0DE07xX0elbe2PlUS3qW/w6jEfkF
-	 MtwtJaiEc5L/4NzmGutVUT0PRLKyX8pbCy3/ScKLp0XD4SzFOfZgc+XOnE3R9wk1IIVGm
-	 2czpLyobhuvwy4wwsKGRqfLo3uSsfYmOAe4ygJJ2qovBJDKEUPDJCbkHgM2H1uMuSz7BR
-	 +B3vT6TKnjfwmO09XyKsiYj8/Yq6Rr0v9pGRU7nNqsTixj5lnwOnzmeVxTlY6LajPOIO8
-	 s5v8FwkPC+J0ZTjNFTqFfL9FOfmrxbOUPzxVbkINu0TtdGJJXw8sOq3fYhVVllWLy/g==
+	bh=i6HW3zbnjRX4aYliBu8BMrZerOu0EWZZVpljtZPpc3g=;
+	b=xAooJZOoBuDB10z81mMUVzPeAaW5ChrGlJ7YAb7E23tovq4PntZTqElUFnXhTMHTwm4C
+	 AK3aULO2d7YaTQ+f+7D0iy6KFC+wK/lRWbBl8IttYNNjx0mo0z/pWRp8cSjOsGtLw7FAc
+	 Ay2UzOPkUTMJAh8lADip4Q5we6Jkmw2mKJbqIdB1stdlPVJqwR0dIKt2IKJRvY44VMHnY
+	 e882c+27qg7YgxWoqVv4u/68zlv9AN7PpfLRx+V3z0jWlFjB3biIQ2eL/ralWw57KVjS+
+	 uxDkEvquwna8zQDkLo9pHmi89NWAbLrrJd/MTCYP1ZG8aCTJ1YKDHTGmBi+LGww4xHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qmc9hmUd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUX7JzE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E94606A31A;
-	Mon, 26 Oct 2026 22:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0C5606A324;
+	Mon, 26 Oct 2026 22:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qmc9hmUd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C43B1F01825;
-	Mon, 26 Oct 2026 22:12:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwUX7JzE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333F61F01825;
+	Mon, 26 Oct 2026 22:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793052774;
-	bh=r+kxRt2F7dr17vhcy6Xq7mbad3R/ctX1xx02kP9+rH0=;
+	s=k20260515; t=1793053354;
+	bh=i6HW3zbnjRX4aYliBu8BMrZerOu0EWZZVpljtZPpc3g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qmc9hmUd9drSHLh4u3U5pgyDlQFvBhLc+9Nndml8xkkn9E6XOjJkBfCpqaNVhvO5e
-	 UzubR56p+SrmUuY89WfF84X92vRuSKhvud5+jbAMFY2q3WMdAMV0o3tdJomp+83M4f
-	 NoHH1MTPqMmTJcgIAvNzf80OX3drbMw7cj9oEMHPZJ/qBQ5ZFWfZgYicgItotVha4z
-	 6/1NWmXSrx6q+q8c+r34mLVHn6zjdtlaO4Z3DOyodsDuEi/H5g02fhZ7+NynfBCzsS
-	 Kk+hg0eIAUpdpD3qtgSgFoA+xKe00IQ8LoNqhQwAPhp7AqsiKk2scy0DFN7h/jtMqO
-	 V9QztRIE0yOUQ==
-Date: Mon, 26 Oct 2026 17:12:49 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
-	linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v1 1/1] dt-bindings: power: supply: maxim,max8903:
- Document MAX8922L and RT9524
-Message-ID: <179305276926.4032096.5720095014424223708.robh@kernel.org>
-References: <20260930072450.61836-1-clamor95@gmail.com>
- <20260930072450.61836-2-clamor95@gmail.com>
+	b=nwUX7JzE20r8xsi2rqLDTLhctBiG66XbJI4XJgKncKEZG2FjwyDoVS1+2DvZUlSwZ
+	 FHrcrizOsiJspPhieZ1qowDTcCkzWTgljBgPpt/xSgQcS88Lny/qxeorwXhTit8gib
+	 K7r5uTQidQuYmIIWl7FIuUKh6MelrgK+Lt/GKcjPoXgPcsTiQk8rBchLwtfpS5/j8Z
+	 wfwYDswAFehF+ZeP66nwQKe7cYAT7Pr6MPX062kw1bmZBCe+bGPslhVYEpkKwq4Cg1
+	 yOIi7QgKhwPo1rb2OE4LRZfKroN1ALNSdzK48dkWbYkKdAHCRe77vN7xggIdMgu3a7
+	 DQCuGuMVjPoxw==
+Date: Mon, 26 Oct 2026 17:22:31 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Santosh Shilimkar <santosh.shilimkar@ti.com>,
+	Sricharan R <r.sricharan@ti.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
+Subject: Re: [PATCH] dt-bindings: arm: omap-l3-noc: Convert to DT schema
+Message-ID: <20261026222231.GA4050519-robh@kernel.org>
+References: <20261003-ti-l3-noc-v1-1-9bd18cac33e9@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,19 +62,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930072450.61836-2-clamor95@gmail.com>
+In-Reply-To: <20261003-ti-l3-noc-v1-1-9bd18cac33e9@gmail.com>
 
-
-On Wed, 30 Sep 2026 10:24:50 +0300, Svyatoslav Ryhel wrote:
-> Document MAX8922L and RT9524, which use a similar charging control pattern
-> to the MAX8903. The MAX8903 is set as a fallback for both chips. No driver
-> changes are required.
+On Sat, Oct 03, 2026 at 12:28:32AM +0530, Bhargav Joshi wrote:
+> Convert TI L3 NoC binding from text to DT schema format. Older OMAP3
+> uses the SMX variant which also acts as a bus parent with simple-bus
+> compatible so child nodes are allowed using patternproperties. Mark
+> ti,hwmods deprecated as it is no longer needed and only used by older
+> omap3-l3-smx.
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 > ---
->  .../bindings/power/supply/maxim,max8903.yaml           | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>  .../devicetree/bindings/arm/omap/l3-noc.txt        |  23 ----
+>  .../bindings/arm/omap/ti,omap-l3-noc.yaml          | 149 +++++++++++++++++++++
+
+This should move to bindings/soc/ti/ or bindings/bus/ perhaps.
+
+>  2 files changed, 149 insertions(+), 23 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt b/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
+> deleted file mode 100644
+> index 161448da959d2..0000000000000
+> --- a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
+> +++ /dev/null
+> @@ -1,23 +0,0 @@
+> -* TI - L3 Network On Chip (NoC)
+> -
+> -This version is an implementation of the generic NoC IP
+> -provided by Arteris.
+> -
+> -Required properties:
+> -- compatible : Should be "ti,omap3-l3-smx" for OMAP3 family
+> -               Should be "ti,omap4-l3-noc" for OMAP4 family
+> -               Should be "ti,omap5-l3-noc" for OMAP5 family
+> -	       Should be "ti,dra7-l3-noc" for DRA7 family
+> -               Should be "ti,am4372-l3-noc" for AM43 family
+> -- reg:	Contains L3 register address range for each noc domain.
+> -- ti,hwmods: "l3_main_1", ... One hwmod for each noc domain.
+> -
+> -Examples:
+> -
+> -ocp {
+> -	compatible = "ti,omap4-l3-noc", "simple-bus";
+> -	#address-cells = <1>;
+> -	#size-cells = <1>;
+> -	ranges;
+> -	ti,hwmods = "l3_main_1", "l3_main_2", "l3_main_3";
+> -};
+> diff --git a/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml b/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml
+> new file mode 100644
+> index 0000000000000..a72a0f4e64332
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml
+> @@ -0,0 +1,149 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/omap/ti,omap-l3-noc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI OMAP L3 Network On Chip (NoC) Interconnect
+> +
+> +maintainers:
+> +  - Santosh Shilimkar <santosh.shilimkar@ti.com>
+> +  - Sricharan R <r.sricharan@ti.com>
+> +
+> +description:
+> +  The L3 interconnect is an implementation of the generic NoC IP provided by
+> +  Arteris. OMAP3 uses the SMX variant while OMAP4/5, DRA7, and AM4372 use the
+> +  NoC variant.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: ti,omap3-l3-smx
+> +          - const: simple-bus
+> +      - enum:
+> +          - ti,omap4-l3-noc
+> +          - ti,omap5-l3-noc
+> +          - ti,dra7-l3-noc
+> +          - ti,am4372-l3-noc
+> +
+> +  reg:
+> +    minItems: 1
+> +    maxItems: 3
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Need to define what each region is.
 
+> +
+> +  interrupts:
+> +    minItems: 2
+> +    maxItems: 2
+
+Need to define what each interrupt is.
+
+> +
+> +  ti,hwmods:
+> +    description: hwmod names for each NoC domain.
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +    deprecated: true
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^(.*@[0-9a-fA-F]+|regulator-abb-mpu)$":
+
+I suspect that regulator-abb-mpu should be moved out of this node.
+
+A-F is generally not used for unit-addresses. Do we need it?
+
+Rob
