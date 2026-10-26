@@ -1,95 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974288;
-	b=q//wvs6oGLdvI2KokEcZlSd6i/O3wdQML6cbAcWfGqEG0QGN0oKcJZI/5IxqrDEopzrI
-	 pkCavSPCTOcSdOO9LtpAZDGUz544UPDc8Od2Tfna+5Iaz7J9msI6gulkGnkKvDdv1XJ7e
-	 xRELzGAEKBFcInEtGIJlDOo3K5xqYzjb3QvhWSLchjVoi9d8pD42ABB79+EvOj4hTDZ9p
-	 F2I2aDeipj3gLlIsfHk4E4uVDfjpLVinlbfbuu8EwxUdyXb7LKhTzRhRUEiAqH6+BpfcU
-	 FOdiav17d9EkL0TURucxMfcILIgx1BtuLJRhEV8uyZ0DVzXxUkJIvw23BV7BWs3GtRQ==
+	t=1792974556;
+	b=3FAfC0JstS5TpHOSObEqNRAHRIA+b5V7VwDWxyVXpRKSUpUftVDVPjCNnPqN9HzSTuUs
+	 /Zt5uWVZ0XzMyTi4bmrzYGOdBL0ydWSG/CRHmAPxvW7s3++ylCTgzRfipSHUuugQD8GNf
+	 SdoIibql1+P+35dyKE+0EGEj0ZioldqBRFxUrtwF3XNDWEhPzK33lUZXOucUgTZ9pW7F5
+	 ojmvrjNarGaJf424t3D5RgVqxctAxBVgDvv0SofbQPIkw0FrsXXk0yRLTqEHxNG226z9S
+	 ARteh689rOsro8tijv4nZy3MReJchcvBzP2tOjFEVukOOwzF9eEI+FY+lOjD8S+55LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974288;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HV83c2/+fbkcmd4e8V3tUmbhGiJJW07WJQ5LFrvg8bc=;
-	b=p6xU054cYvCj1J9ktrduxu46o85FGvu60oV7OAH+mdOjDcf9R3v+7MUdNOVF4X4UjU8K
-	 pmiswypwGGIzh6Ab7URH+hJXHuFK2GOFfAtjCyxT1fe1oMOH/oaP+2zcP36quaLZx1TA6
-	 J+TU6xCI5mKMhoCjlgA/MOYm9GjGkJzQn8FzhaSf3cT2UmHMS4U07Upr421Eipnf0I7GW
-	 P0MJ/Za6K9LTYGfvLps20oayN76zkN0osTdpelcIjWh20KWBIk6cC3IRA7L180DFiWX+u
-	 wwpwDls2JlZliSnBgQXkZ5jT45wwjS4mumyEcQ/vbs7ETZ5TlmBmr0ZYyHU78cfnCgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974556;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RsRol0iWX2LXNeTBSh9N+khn4xoIQfDoB/Tmxi/SoUE=;
+	b=sSsD+uLPTEbb03hoHeZkNdn25OR7jhCb5uoivhUNZcOipJVAPyYfOP03sFOndXVRpARp
+	 ePo3uoOsdXPzzOuzxvH6QyTuKvX0SB1Q2uU+OOGRi7BMaD10uMvn3czgWOcYqr3pwbHMx
+	 hcIWN5+erEmz/n352w2YGJM/eFVZ3N5s0ZCKJkp3OKL+7nz3pXbI8ThSgigBhGO6LTaaf
+	 p5w0kkHFaic81TwmqcOq8S01x1Qxt+LMV3HeMLM3MCOnEnh6sawWfjDufPe4JiTIDh65W
+	 pagr9DfeYWAgPlrgvrGJK8sPxsmUJ8v4y3/Wr/8gTDh0Fk9GdWcWb8qfDLhGSkhQg9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QMARMDKn;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1x2k5l3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DCF606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:24:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81DCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98916606A31E;
+	Mon, 26 Oct 2026 00:29:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QMARMDKn
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9e53d011eso17459725ad.1
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 17:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974288; x=1793579088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HV83c2/+fbkcmd4e8V3tUmbhGiJJW07WJQ5LFrvg8bc=;
-        b=QMARMDKnwV949KW4/7O7LSMd6V/YMqHz9ZlzpWPQ+s6TZykn3tcjCrDcHALhy1p1D9
-         zqqj/8P2iA+mT9qEVy+OTO4BJMmNn57xNgP9cUxA94uldrS4V3XktyXb2Npr40PtGPuy
-         km/P3oDXSbst12pKwgiayxeyY4umhESjvW8vcI/lsH8231KYo2AEuYpPYCEs9G9OqRi5
-         ILdIktl2YHjxn/ILB2eQPo/HJLGk1XEysxZ7njT+GgD1zhFE4eCvQVj3jq9AYneT4VqA
-         n4shNZ80DPL984vmHjsFDb6Jg3k0aVHR1+XFwi0SpyargLeisyh4sSxPIXy16x4yeHfU
-         TTEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974288; x=1793579088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HV83c2/+fbkcmd4e8V3tUmbhGiJJW07WJQ5LFrvg8bc=;
-        b=1pp2rKiigEG3FOZUqM1JsyIeqKhrcF2ZLOOoLHnWrt9xnRYrzk91RsDsF49n4O4Onp
-         iXWVUZJfwOQ2i+ru3Zg+0NsA3gC/qhG6zyFQpbMc69MRSudfEVt/TfhUpyQAW/xS6Y3N
-         WKohgr8nV2SqGQ8r8bglhCXTKc5wt5PzXZly4wXw4uCGSDLoSYZipDfWBJcnacj3B8WL
-         ytgOTm1D/GNtOQi7FcKgtRCy3MuVZSiaGrMoC2ykSRVWO7MX35AZZLt4bfr+M4EAoYQk
-         QYhVOugiSCYIKeMkJbtzw57NzCWVxJM16xa1bC7Z3LtRRfTTii0QhPN9fiu9s3nGn5P/
-         JMpw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5k1D90t2xFqPepZzKZ+CixXU3xyQmf33MrWQGd4S3i3n3heJ+HZQpz05ctee4XN0ia4td0MK8hzNb@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMzMVDWGs2p809aeo/6P54erVO/Z395y0xqNMyUv+Jk7yN1caX
-	h01bBM5I5sJGQ7a6oXnBOF3BtHmIpeVh0sYTei6LYtQv4ahQp9f1BIFhaexH0A==
-X-Gm-Gg: AYBFou2qcJ9rg2ES3Xo2EFfs0aLNJfCJ5+get9zdh1YUyhF5fwZUWglSc6gIWh95k1p
-	E6nAvBAmdiYmMge3dGJs823bF6VH+LL5TvfbqhqPg8dChn43Ut+4AAsirsj+xlc+HG/JVQzvYBu
-	kQTzW8sWDMeRx+Imn9wHhWjybbtGZWSguWYgTXj4GvxMnJlKb7gAVYEYSSFxhGHWZHym0dyhBwU
-	C18xXvxs9mPw/uxRwVhZkUtYP5EJ66VQxxDyAOclZawLCZS81hGWV1bp82g0uutvI5jatZcf08C
-	3BaFA6zng1aPapGiItlEgTub4VWnMpTWO5MD+sqIIVHNkWqDEfsKYigrE3ViiF1I0KKONjMoHJq
-	03Gk9qYQr/E1YCsLnzardcI0Xm5kXuhMjQS88klR/jzB/UvvWG55u1w51HRN0TkDxtX649IOQOq
-	JnBdwDIZTnOCu6DWPEAlOZXYasJrRm3OgteKsTs28bBrtPZHu484DEU3a4pysTJMYQgL5H1uT2W
-	aieEVtodJ6G4i0Qpzp9NO0r15UYbtw2gUYoIKKahY4HfS9jox66kE8mPnT4QyOAteiHNg==
-X-Received: by 2002:a17:902:f705:b0:2e2:c602:2072 with SMTP id d9443c01a7336-2ea9c6c3363mr43122285ad.36.1792974287852;
-        Sun, 25 Oct 2026 17:24:47 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b12104csm10407525ad.19.2026.10.25.17.24.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:24:47 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:24:45 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, jdelvare@suse.com,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] hwmon: (lm75) add MAX31875 support
-Message-ID: <9977952d-339c-4ca0-b11c-9df45b6c7b65@roeck-us.net>
-References: <20261023091550.1494-1-johnerasmusmari.geronimo@analog.com>
- <20261023091550.1494-4-johnerasmusmari.geronimo@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1x2k5l3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897A91F01825;
+	Mon, 26 Oct 2026 00:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792974555;
+	bh=RsRol0iWX2LXNeTBSh9N+khn4xoIQfDoB/Tmxi/SoUE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=l1x2k5l3o/vFjceSvPTGFp7SAXfiBSXZMvhaiyik25oOrSQlziDD6wuEkiZLLeCvh
+	 fr3WEKQ+/UoFUCag3zIVbJU9wkF6df7p8NWNdC4/V7Jd7QY+XyvT+YlptIWG5PZ0Uh
+	 vkYU5mZONB0NBqUym2fPUtvKrPMSGY89UqU/Ii/X88+5Pd9zyOHna4zJFw+tKDYeTs
+	 Z/tXp7L5/Yr0X2D5AuG9ES9NsHgJdXy5GxCW5NUfWpF1Ac6IX7psGHLheOKRvcnnPB
+	 0XmAsHGb0W/sesmA7RbEXNHy4ROvjrnPqv19tgqO0VYuwdUVhpwgH77jj0MRceTmA/
+	 euZip5289amVA==
+Date: Mon, 26 Oct 2026 00:29:06 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <ukleinek@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v2 06/10] iio: frequency: ad9910: add axi backend driver
+Message-ID: <20261026002906.2f9dd2a6@jic23-hlaptop>
+In-Reply-To: <20261022-ad9910-backend-support-v2-6-0ff7f0bff326@analog.com>
+References: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
+	<20261022-ad9910-backend-support-v2-6-0ff7f0bff326@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,25 +69,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023091550.1494-4-johnerasmusmari.geronimo@analog.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 05:15:50PM +0800, John Erasmus Mari Geronimo wrote:
-> Add support for the Maxim MAX31875 I2C temperature sensor by
-> extending the lm75 driver. The MAX31875 features a 16-bit
-> configuration register, configurable resolution (8, 9, 10, or
-> 12 bits), and selectable conversion rates (125ms, 250ms, 1s, 4s).
+On Thu, 22 Oct 2026 12:19:04 -0300
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> The MAX31875 has no alert polarity bit, and the bit the driver would
-> use for 16-bit chips is part of its conversion rate field, so skip
-> the polarity configuration for it. Also set the default resolution
-> and conversion rate at probe so the driver state matches the chip.
+> Add the driver for the AD9910 AXI backend IP core, which interfaces with
+> the data and control pins of the AD9910 DDS. It registers as an IIO
+> backend that provides:
 > 
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+> - a DMA output buffer that streams data into the parallel data port;
+> - the parallel data destination (F[1:0] pins) and data rate, derived
+>   from the PDCLK frequency;
+> - the PROFILE[2:0] pins control, through profile channel enables.
+> 
+> It also registers a PWM chip with a single output driving the DRCTL
+> pin, which the AD9910 driver uses to control the digital ramp generator
+> direction. The PWM implements the waveform callbacks, with period, duty
+> length and duty offset programmed in SYNC_CLK cycles. The duty offset
+> is realized by a delay applied once, before DRCTL starts toggling. The
+> waveform is reprogrammed when the SYNC_CLK rate changes, so that the PWM
+> output keeps its timing.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Applied.
+A few small things inline. In general I'll be looking for a
+tag from Nuno on this like most IIO backends.
 
-Thanks,
-Guenter
+Jonathan
+
+> diff --git a/drivers/iio/frequency/ad9910-axi-backend.c b/drivers/iio/frequency/ad9910-axi-backend.c
+> new file mode 100644
+> index 000000000000..f5374aeb2afe
+> --- /dev/null
+> +++ b/drivers/iio/frequency/ad9910-axi-backend.c
+
+> +static int ad9910_axi_drctl_write(struct ad9910_axi_state *st,
+> +				  const struct ad9910_axi_drctl_wfhw *wfhw)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * DRCTL toggling restarts, applying the delay, when enabled or when
+> +	 * its period or width changes. Changing the delay alone does not
+> +	 * restart it, so disable toggling while updating the waveform.
+> +	 */
+> +	ret = regmap_clear_bits(st->regmap, AD9910_AXI_REG_DRG,
+> +				AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
+> +	if (ret || !wfhw->period)
+
+Split conditions as one returns success and that's not obvious coded
+like this.  Add a comment there on why it is a success.
+
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_DELAY, wfhw->delay);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, wfhw->width);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, wfhw->period);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Register values reach the SYNC_CLK domain in snapshots, taken every
+> +	 * 64 AXI clock cycles. Make sure toggling being disabled is captured
+> +	 * by one of them before enabling it again.
+> +	 */
+> +	fsleep(2);
+> +
+> +	return regmap_set_bits(st->regmap, AD9910_AXI_REG_DRG,
+> +			       AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
+> +}
+> +
+> +static int ad9910_axi_chan_enable(struct iio_backend *back, unsigned int chan)
+> +{
+> +	struct ad9910_axi_state *st = iio_backend_get_priv(back);
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (chan) {
+> +	/*
+> +	 * Profiles are mutually exclusive, as the PROFILE[2:0] pins always
+> +	 * select one of them. Enabling a profile channel selects it, which
+> +	 * implicitly disables the previously selected one, hence there is
+> +	 * nothing to do when disabling a profile channel.
+> +	 */
+> +	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
+> +		chan -= AD9910_CHAN_IDX_PROFILE_0;
+> +		return regmap_update_bits(st->regmap, AD9910_AXI_REG_PROFILE,
+> +					  AD9910_AXI_REG_PROFILE_MSK,
+> +					  FIELD_PREP(AD9910_AXI_REG_PROFILE_MSK, chan));
+> +	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
+> +		/*
+> +		 * F[1:0] destination follows the parallel channel order:
+> +		 * amplitude, phase, frequency and polar.
+> +		 */
+> +		chan = min(chan - AD9910_CHAN_IDX_PARALLEL_AMP,
+> +			   FIELD_MAX(AD9910_AXI_REG_F_CFG_MSK));
+
+Why min() rather than a FIELD_FIT() and reject if it doesn't?
+Or just use FIELD_PREP below and paper over it as you are doing
+here.
+
+> +		ret = regmap_update_bits(st->regmap, AD9910_AXI_REG_F_CFG,
+> +					 AD9910_AXI_REG_F_CFG_MSK, chan);
+Not immediately obvious that the field starts at bit zero so even though it
+does I'd use a FIELD_PREP().
+
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
+> +				       AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
