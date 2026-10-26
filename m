@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003872;
-	b=OHo3/GUY8HBurcbaWirYnWoqpuBxmrccjVoUXz/Tqh0PhG3yqgRyCR9huzlEpxwSswIs
-	 bjtvR3eJ1rTyiF6mjCD7eZWCI5hqgl6e2kNlbAnRagqpNbkl1AB5PRWn0DfErxPp4Q1nT
-	 d6Tdx5ySgcmx+cQxq9DHfvPww2hi48i0pPw1L3cidzKOac47nAkAwqKwHkYvqtk8ahZ+c
-	 fEUnISztuhkW+tlr8RFgurCwArkaUYHbiHHl7TM+sei7tbtBCf3gNJeGihG+vDU3fnRAP
-	 Y0k0DMNn42dTYcWrqDkpJAafsFtZj1yzSSesTqifRWiTqg36WPv+tnNOzIWlEQfbURg==
+	t=1793003969;
+	b=YIDrTaOb3wiSj5SDF/5K9eQ8oXyMANKBtgaKow/hGBh8fTwFLWxFk7uUGOeLqRmpsr6c
+	 mcZ/kynJkO7p5sP4M9//4U+LzVEA/bSvqd2OtcUEouLiYGAKcXkDXL0wAvZ7B3bFuA87I
+	 1qdBVmUm4xJznPSF2+v7TD591tD8v8gaIstA+8uUbfycseI8BdeXZ3jdiGG7zix22BL/A
+	 asjr27MLx+Jq+8LuGX4KdFIdpwPOfMlv3IdGxeVrHysd9INe2mwB+MiH6BvaYN1Q+gQLL
+	 5BRlNg7hI2WgfVzLfe6zuSqejZ3/eTq6yEPXgHDZ3n/d5V96kO1zlrTsG+PsY/W8VUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003872;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003969;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1dMHnoYrpOJCUZtQtYBzlne3i7Y4za0lPIBg+FoEuVQ=;
-	b=ysIVelo4XBBwQjK9vj5rg3XJh9onNEeALgb1m1JawCuCxK5iqWq9eELrRGjt8jl/X+54
-	 I2XmnSSgbnvXaFdLXMjTFAV8f9fObzG2mTGDw4OVJxR8HSwcsYMyES52t1o1KTi7Ru94P
-	 SMHaBJuAkE18NWLLIw0DQ90iiaqxKUt7Jb0lSm90TAczQ2c+FvCZJ/StI1Uy39yLxFhx3
-	 T0vktEfQ+NJYSD15bYHnTMkWLumCqGftur5PVBb/JZdgBa7T+td2nGzWgQcR4UqT3OnLS
-	 bw1Qb1jCckf+94E+cmSdVsnNDRmylLpK5mhsHg6fGtQ9AfZKICJ3kgyfOa2U5EI46Ng==
+	bh=FNsk93EuVFBxLJj508WFUJM8x83vnwjCep0MYdpKjqI=;
+	b=iVERwHYmQ0eFadAQsCEe2auyEgOQbRGBdldXWlaWD9lLPgzCgqbJmP6D3Q6lVAs2dTtk
+	 DIsVIjjkGOco6e8YYg6z3hQMQYSXTn4tw5EsTP5k5KNAy5V+vX41G6UiENvKdlkPkWSCJ
+	 4RblYdnVAgd5sQBaOxXoVnc05M2yckrOguFHD4Rx7RSM4pQUKhs9CJXoxQfmd5keZVJtf
+	 mFrrG7PY2grV3A4RFgccRNqCvfvXiP3k2m/aguSeuG8LjRPO7p4grvNRRyrnaQWUE6lHi
+	 BN3i3/BOt27TNhaGI3/TezIUKMu39Mp/7Al8x7ehWsFe/jIfq0IzMQO4lkYf1AGnASw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=w1kfDYim;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rg1j5lHg;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32637606A333
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32637606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162E2606A321
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:39:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 162E2606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=w1kfDYim
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1122574f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:37:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=rg1j5lHg
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1330902f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:39:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1793003869; x=1793608669; darn=vger.kernel.org;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1793003967; x=1793608767; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1dMHnoYrpOJCUZtQtYBzlne3i7Y4za0lPIBg+FoEuVQ=;
-        b=w1kfDYimc7sMSghhxkHm1OeEZL2QG7FhBuxclUXvly7XL4GYwywLPooosdVaEMLtNA
-         +ug2r54beaS//VtbNfIUpDd0/o7m1DX3Xb26bQZ4eiz11L6KEJ+kmNBgdkpDfNnb0C/F
-         21HMrdXKHJcp0INKMaEGiUE+OTFNgHqYrAloNYKLk7aUMGKkicekN8eTYELWmbQsapqt
-         LKWxDBbIyldAK31/LLYWj+WjPknLhskb6mQqsbK7mzCEoqGNb2jkCy8lDmFUXoUO1QaV
-         pqxouAFy80ryVxSgDHRdNmzZuQMMQayIp8dGn06diEKAd3+RAFwx2CKJI7sehVEbQseM
-         T3xQ==
+        bh=FNsk93EuVFBxLJj508WFUJM8x83vnwjCep0MYdpKjqI=;
+        b=rg1j5lHgIKe2pYctEnUSlK2gfR/BB707z/jC+v7QfZhX6VzgxZxs5z0aKmRwx9kbZL
+         ixyd4iSTbbqPzYfy8XapAwDptOtJt+8GNnzD9HPmy/99EIf6ii3UmYFWTzXcPMNYNXXd
+         gujqsxf2RTyoezpIOyMzyNuZQ0JRiySvH6S1qTephY9OxOZoH0s4k/+72RJ6Ssy/5WhS
+         RzaAbPq87Rxhvn54uLbQm9t/kzWXMFupa5HSMYU1YVbMMn5MRih0CzP6FpM81bcM/o54
+         +cIQDQJIQos50HjcBcdryfXvAurhHjB0oBs5c+Z8L4eweKXt8qRL/dE5F3FRqidRWIYu
+         9hTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003869; x=1793608669;
+        d=1e100.net; s=20260707; t=1793003967; x=1793608767;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1dMHnoYrpOJCUZtQtYBzlne3i7Y4za0lPIBg+FoEuVQ=;
-        b=TRj93HuAMkAU8JTbwYJ7xJncvPUa6921Rz6DrTer1bmLgwI2l4+M7dp9+pDh3D4Ht4
-         Wt7J6eXb9V38sTqXZnG5ASqskqp+wrzomkqhyVKmBK7IhnMtBceUVLaIvy7Otig3Pd9q
-         68KPUV9+zVmC5i8pZrQWFHK+1VNXX6hElCv90+qG+Xt6aw//KihZtng0huaMQXPdvP68
-         BllMZ2MNXY3CmCh/VC5AaREctyZ0VgiN89oT7KDVUpVhCUw/hseE1ycyOy/Gh1KwweoY
-         Qfh77jVNCeZloDfIj9Z6DYXy4wvi3HZMCg33redoWbbAALW+TPsWj11bUQ7af4A89IAy
-         8HRg==
-X-Forwarded-Encrypted: i=1; AKwUvBx375K29hSipmAzG4BLSybVesFCm7JuM8+01jcHtt30Dc7yT/kj8j+D8zHzo0Qk7qasRI2/pA1leYWs@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRMEWErnBKDySVdkOcVRQPH2KOVfr0F+UECdExbTDmSADa4Enu
-	OggCtykWJuTw9mF4C0TKTzb4/zWrLjfSWyjYPlZUMyRckm0fRFKG9hJgtOuD+S/4sqQ=
-X-Gm-Gg: AYBFou1XoQdD4p2oscWtq2HuIZqmir3jgm/YNygsJ2pUvi2t+Vcz6ZAny5k52yWuIYa
-	Ej3X/3S6QMuLhnsDvLV/ss6te85ytlVYNSAxfr8oimHpkJkOGNzRLiwQxGUCTCpY2AMzwk4dz5g
-	6dc7JE5dZEA5PaYHbvmvgsqodpKXA0L0OJSDLYaEnRLCDr/PpcXDo/2iHhaULv/s0BmwPXHb5RZ
-	uRVAYPC6pzB4UYqfQX+4f/p/zNVwFaey0jBY3LzQniarSTZJ1OSL6HzqDoyO6Ys5pcpxca828PB
-	rGBROBDtJgF/okwgV6eb/SmwfMqPF7wKDnlpkLTFqjcc4I/nvNaDTQ9hk7gSyS2L51oNaKZmN6g
-	iH4cBKKmBuyYGybZdKkJLJVUWSPRRvvkVbNcoaVPotbS3xellqW81AoOaOkId8cyOcGp4km76YA
-	MfS7o5TZP9FF8RjA74ZA/GJxxt1McjBSrK/YmBV/wtFB/Q2fsoetFc3HaFPP5ikL1veU+2+Elb3
-	jDfGwoxr/7/42LjP+S1ZlxU5GGLA1SBUUb+5C/rwL8pM9dvx8GJk4kWfa6q78qy4XRsKhsM/SVo
-	TTJvm7BNyh3TwA==
-X-Received: by 2002:adf:e014:0:10b0:48e:740:c945 with SMTP id ffacd0b85a97d-48e3eb8afb8mr7036350f8f.32.1793003869476;
-        Mon, 26 Oct 2026 01:37:49 -0700 (PDT)
+        bh=FNsk93EuVFBxLJj508WFUJM8x83vnwjCep0MYdpKjqI=;
+        b=gtkngAGZqWDKWrV/bkZFiw1nV0MKOi2SX/DILlqwghPXkawTA6Nr9og2B8ALcK9CoC
+         8xisjYpFSC+NqxCpHHyX7s7Mx+XtF0WlRyeP9uY5TOQRQmF2NShdhmkInJnyZZkEZ+66
+         wg4LxmaCC1jpXBwQIf9EfyrJ6mcZAn3Jz/0OIb65LjFSLMGU1lIVJBZX+G/SAy/bjeCw
+         FLVTbFqo9lgKs7iTP4j6qACdbWfa2+jlBfqkrv4D+K6hz0Vec1sb5FoUz51pUB13NqJa
+         OblY8l4lC9CufGnOc22EQhUfgG8IlQDajDpos8jL0pQg4ssx2ddunHHP8YwvuLY7atGR
+         e8yg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMV46u5xd+jWFnXcC0byqMhaYEtxHrirL8E78EsthRVVcWQm3OEFr/Ds+BIijuY+UfdbH3Z5Lr9Jcw@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2P8NlTwWRtb7Rym2FyHepU+PL28Y25mADsi9H9z0sA6UuUQL+
+	Ns7gY2RBv6Ltym16QAf8HEHqEJ/9fpVfe/6YaZMYMmijr4I2v6ejsiVo3zbnM+WTKNQ=
+X-Gm-Gg: AYBFou2EpB33lzD5CzOikRlyKr5vGaT1Jj+HceuvhSy5Xt+gR0vlVMqTqSFyglrkroV
+	lnynM6mnoBZ2B1lZqUxT1qYxrZOmDKbuSYF8NFiFPiKcwaPf3TnqT+R2OU8CP8lJmpySriTOmt3
+	L8ywxPq6IvBZIU8Vl68gwy3PnTaXklcuI22SIDslvvzPFh3iKd4nJvDm68xVdd5u2MnM4jeh0sD
+	DQn23fuzup5lYqnihSmRw6sVBs7zM7USqQJwTVT3aydF1kHdVMS3STQhmFNZUstDqlHndWHHGdG
+	0BdfzARU9FzWTJvE9f/crL0KZ6XdS7IgAmrhcdKjiPGLSFJTD2lcyIRhQdg6iygfNSYZMg3/A+B
+	S0b4Mgm5S/Du63yOzs3kxpPeXaAgb5KkjuMVSO5tNuS7eyDlyyTkpDrMvQDl+hRFlgKi1lrTr0n
+	sGTAxk3empNcf9kouFNF4i/xX2XW+M7ZNPNHCbowBCVPLwanjqB7mpjxwF6CD4/yNlaudKbycLp
+	DQYD2CivBnZ26c1VpasM/7RMZ3y4F44LKl9Qbrpv6PmOALZ2KtfVQlL79SlZr7sHR4pxr4K7KCm
+	MXSPxCTNXTRqXQ==
+X-Received: by 2002:a05:6000:188b:b0:488:8bc1:a2eb with SMTP id ffacd0b85a97d-48e3eb98ee3mr11807123f8f.39.1793003967452;
+        Mon, 26 Oct 2026 01:39:27 -0700 (PDT)
 Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8dcfsm15091889f8f.50.2026.10.26.01.37.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f25fsm14673690f8f.2.2026.10.26.01.39.26
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 01:37:49 -0700 (PDT)
+        Mon, 26 Oct 2026 01:39:27 -0700 (PDT)
 From: Olivier Louvignes <olivier@mgcrea.io>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Paul Cercueil <paul@crapouillou.net>,
 	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	linux-iio@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v3 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Date: Mon, 26 Oct 2026 09:36:31 +0100
-Message-ID: <20261026083631.48406-3-olivier@mgcrea.io>
+Subject: Re: [PATCH RFC 0/2] mmc: jz4740: Use the integrated DMA controller on the X1600
+Date: Mon, 26 Oct 2026 09:38:11 +0100
+Message-ID: <20261026083811.67574-1-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026083631.48406-1-olivier@mgcrea.io>
-References: <20261026083631.48406-1-olivier@mgcrea.io>
+In-Reply-To: <20261025140325.73204-1-olivier@mgcrea.io>
+References: <20261025140325.73204-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,322 +107,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X1600's SAR ADC has four auxiliary channels, each with its own start
-bit, interrupt flag and 12-bit result, and none of the touchscreen or
-battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-driver that exposes the four channels as voltages against the 3.3 V
-reference.
+Hi Ulf,
 
-The registers are in chapter 19 of the X1600 programming manual. The
-ADC clock divider is even, as the manual has it (an odd value divides
-by one less); the vendor kernel writes the divider minus one, which
-gives a slightly faster clock than it asks for.
+Please drop this RFC, both its premise and its question turned out to
+be wrong.
 
-Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-behind adc-keys: all three read and report correctly.
+The X1600's MSCs do have request lines to the system DMA controller:
+the programming manual lists PDMA request types for both (0x34 to 0x37),
+and MSC_DMAC.DMASEL picks between the two DMA paths. With dmas in the
+device tree, the existing PDMA path works on the HiBy R1, card setup
+included, and reads as fast as the integrated DMA did (23.0 to 23.5 MB/s
+against 23.5 MB/s with dd, the CPU about 20% busy for both).
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- MAINTAINERS                         |   1 +
- drivers/iio/adc/Kconfig             |  10 ++
- drivers/iio/adc/Makefile            |   1 +
- drivers/iio/adc/ingenic-x1600-adc.c | 242 ++++++++++++++++++++++++++++
- 4 files changed, 254 insertions(+)
- create mode 100644 drivers/iio/adc/ingenic-x1600-adc.c
+And DMA_DATA_DONE does come. jz_mmc_irq() clears the flags of masked
+interrupts, DMA_DATA_DONE among them, and on the X1600 writing that bit
+also clears DATA_TRAN_DONE and DMAEND, which most likely is why reads
+looked unfinished.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fd4bb5c6bf16..d1472b569fc0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12929,6 +12929,7 @@ INGENIC X1600 ADC DRIVER
- M:	Olivier Louvignes <olivier@mgcrea.io>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-+F:	drivers/iio/adc/ingenic-x1600-adc.c
- 
- INJOINIC IP5xxx POWER BANK IC DRIVER
- M:	Samuel Holland <samuel@sholland.org>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..7b5c3d3fcfdb 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -881,6 +881,16 @@ config INGENIC_ADC
- 	  This driver can also be built as a module. If so, the module will be
- 	  called ingenic_adc.
- 
-+config INGENIC_X1600_ADC
-+	tristate "Ingenic X1600 ADC driver"
-+	depends on MIPS || COMPILE_TEST
-+	help
-+	  Say yes here to build support for the SAR ADC of the Ingenic X1600
-+	  SoC and its four auxiliary channels.
-+
-+	  This driver can also be built as a module. If so, the module will be
-+	  called ingenic-x1600-adc.
-+
- config INTEL_DC_TI_ADC
- 	tristate "Intel Bay Trail / Cherry Trail Dollar Cove TI ADC driver"
- 	depends on INTEL_SOC_PMIC_CHTDC_TI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 9e82c21dbd37..f76e62b0cd04 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -77,6 +77,7 @@ obj-$(CONFIG_IMX8QXP_ADC) += imx8qxp-adc.o
- obj-$(CONFIG_IMX93_ADC) += imx93_adc.o
- obj-$(CONFIG_INA2XX_ADC) += ina2xx-adc.o
- obj-$(CONFIG_INGENIC_ADC) += ingenic-adc.o
-+obj-$(CONFIG_INGENIC_X1600_ADC) += ingenic-x1600-adc.o
- obj-$(CONFIG_INTEL_DC_TI_ADC) += intel_dc_ti_adc.o
- obj-$(CONFIG_INTEL_MRFLD_ADC) += intel_mrfld_adc.o
- obj-$(CONFIG_LP8788_ADC) += lp8788_adc.o
-diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-new file mode 100644
-index 000000000000..236161cfedde
---- /dev/null
-+++ b/drivers/iio/adc/ingenic-x1600-adc.c
-@@ -0,0 +1,242 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * ADC driver for the Ingenic X1600 SoC
-+ *
-+ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
-+ *
-+ * The X1600's SAR ADC has four auxiliary channels, each with its own start
-+ * bit, interrupt and 12-bit result (X1600 programming manual, chapter 19).
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/iio/iio.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/math.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+
-+#define X1600_ADC_REG_ENABLE		0x00
-+#define X1600_ADC_REG_CTRL		0x08
-+#define X1600_ADC_REG_STATUS		0x0c
-+#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
-+#define X1600_ADC_REG_CLKDIV		0x20
-+#define X1600_ADC_REG_STABLE		0x24
-+
-+/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
-+#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
-+/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
-+#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
-+#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
-+/* CLKDIV: an even divider from the device clock; US and MS: for repeats. */
-+#define X1600_ADC_CLKDIV_CLKDIV		GENMASK(7, 0)
-+#define X1600_ADC_CLKDIV_US		GENMASK(15, 8)
-+#define X1600_ADC_CLKDIV_MS		GENMASK(31, 16)
-+#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
-+
-+#define X1600_ADC_NUM_CHANNELS		4
-+#define X1600_ADC_VREF_mV		3300
-+#define X1600_ADC_BITS			12
-+/* The ADC clock the vendor kernel runs at. */
-+#define X1600_ADC_CLK_RATE		1166667
-+#define X1600_ADC_TIMEOUT_MS		20
-+
-+struct x1600_adc {
-+	void __iomem *base;
-+	struct clk *clk;
-+	struct completion done;
-+	/* Serialises conversions: there is one completion for all channels. */
-+	struct mutex lock;
-+};
-+
-+static irqreturn_t x1600_adc_irq(int irq, void *data)
-+{
-+	struct x1600_adc *adc = data;
-+	u32 status;
-+
-+	status = readl(adc->base + X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
-+	if (!status)
-+		return IRQ_NONE;
-+
-+	writel(status, adc->base + X1600_ADC_REG_STATUS);
-+	complete(&adc->done);
-+	return IRQ_HANDLED;
-+}
-+
-+static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-+{
-+	int ret = 0;
-+	u32 data;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	reinit_completion(&adc->done);
-+	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
-+	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
-+	       adc->base + X1600_ADC_REG_ENABLE);
-+
-+	if (!wait_for_completion_timeout(&adc->done,
-+					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
-+		ret = -ETIMEDOUT;
-+
-+	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
-+	       adc->base + X1600_ADC_REG_ENABLE);
-+	if (ret)
-+		return ret;
-+
-+	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
-+	*val = field_get(X1600_ADC_DATA_MASK(ch), data);
-+	return 0;
-+}
-+
-+static int x1600_adc_read_raw(struct iio_dev *iio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int *val, int *val2, long mask)
-+{
-+	struct x1600_adc *adc = iio_priv(iio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = x1600_adc_read_raw_channel(adc, chan->channel, val);
-+		if (ret)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = X1600_ADC_VREF_mV;
-+		*val2 = X1600_ADC_BITS;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info x1600_adc_info = {
-+	.read_raw = x1600_adc_read_raw,
-+};
-+
-+#define X1600_ADC_CHANNEL(_ch) {				\
-+	.type = IIO_VOLTAGE,					\
-+	.indexed = 1,						\
-+	.channel = (_ch),					\
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-+}
-+
-+static const struct iio_chan_spec x1600_adc_channels[] = {
-+	X1600_ADC_CHANNEL(0),
-+	X1600_ADC_CHANNEL(1),
-+	X1600_ADC_CHANNEL(2),
-+	X1600_ADC_CHANNEL(3),
-+};
-+
-+static void x1600_adc_power_down(void *data)
-+{
-+	struct x1600_adc *adc = data;
-+
-+	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-+	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
-+}
-+
-+static int x1600_adc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct iio_dev *iio_dev;
-+	struct x1600_adc *adc;
-+	unsigned long rate;
-+	u32 div, reg;
-+	int irq, ret;
-+
-+	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-+	if (!iio_dev)
-+		return -ENOMEM;
-+
-+	adc = iio_priv(iio_dev);
-+	init_completion(&adc->done);
-+	ret = devm_mutex_init(dev, &adc->lock);
-+	if (ret)
-+		return ret;
-+
-+	adc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(adc->base))
-+		return PTR_ERR(adc->base);
-+
-+	adc->clk = devm_clk_get_enabled(dev, "adc");
-+	if (IS_ERR(adc->clk))
-+		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
-+
-+	/* Powered down, interrupts masked and cleared, as the vendor does. */
-+	writel(X1600_ADC_ENABLE_POWER_DOWN, adc->base + X1600_ADC_REG_ENABLE);
-+	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-+	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_STATUS);
-+
-+	rate = clk_get_rate(adc->clk);
-+	div = clamp(round_up(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 2), 2UL, 254UL);
-+	/* US and MS at their reset values: single conversions don't use them. */
-+	writel(FIELD_PREP(X1600_ADC_CLKDIV_CLKDIV, div) |
-+	       FIELD_PREP(X1600_ADC_CLKDIV_US, 16) |
-+	       FIELD_PREP(X1600_ADC_CLKDIV_MS, 4),
-+	       adc->base + X1600_ADC_REG_CLKDIV);
-+	reg = readl(adc->base + X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
-+	writel(reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1),
-+	       adc->base + X1600_ADC_REG_STABLE);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Left powered up: a typical use, such as buttons read through adc-keys,
-+	 * polls every few tens of milliseconds, and powering up takes 2 ms.
-+	 */
-+	writel(0, adc->base + X1600_ADC_REG_ENABLE);
-+	fsleep(2 * USEC_PER_MSEC);
-+	writel(0, adc->base + X1600_ADC_REG_CTRL);
-+
-+	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-+	if (ret)
-+		return ret;
-+
-+	iio_dev->name = "x1600-adc";
-+	iio_dev->modes = INDIO_DIRECT_MODE;
-+	iio_dev->channels = x1600_adc_channels;
-+	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
-+	iio_dev->info = &x1600_adc_info;
-+
-+	return devm_iio_device_register(dev, iio_dev);
-+}
-+
-+static const struct of_device_id x1600_adc_of_match[] = {
-+	{ .compatible = "ingenic,x1600-adc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, x1600_adc_of_match);
-+
-+static struct platform_driver x1600_adc_driver = {
-+	.driver = {
-+		.name = "ingenic-x1600-adc",
-+		.of_match_table = x1600_adc_of_match,
-+	},
-+	.probe = x1600_adc_probe,
-+};
-+module_platform_driver(x1600_adc_driver);
-+MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
-+MODULE_DESCRIPTION("ADC driver for the Ingenic X1600 SoC");
-+MODULE_LICENSE("GPL");
--- 
-2.39.5
+So the X1600 needs no driver change here, only dmas in its device tree
+like the other Ingenic SoCs.
 
+Sorry for the noise,
+Olivier
