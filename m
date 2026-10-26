@@ -1,124 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793049129;
-	b=Ag22oeasmh5PmqZrzl/3FSeP4ydotrSvcr0wNClXUr+ipombsn6Kh7qSBi62rHGKYJKu
-	 IW8VTiDtmKRuMuLanvo399ghfKenRtsRWTvO3Vsg48ESV0NXvQZMfy0z8E5u24SbnG3lR
-	 CCbAPYRLs7padj25ZAaJkPUdVSna+fBMv+gjUtN/TLgV/WBtKXX+oHEN7Cak3RELd/eKT
-	 UXJWVKjGEtudBPkVBf3OLJYOladbyOG02zdJihaXmCpNamUWVcZuzS33+LH1WCktVqsUX
-	 gMkazintdAnzCD3hfqYiX20UwCjZlcY+ipnzdupl14GVeZzrrYqlgyGi1MpgAtFMbOw==
+	t=1793049855;
+	b=g9Veor62zf5tdkdAzenhWPuuSM27pZEt3ug4n+hGGDfLa1nFnZ2LVl2YMH7VzJP0tcsF
+	 hBJ49sBXTQZZr641D3m9Z0ZH1LaTvE0RnTi4Ra/4rTNIGXfCcOIaZ3Vq+40t+9wTkXuOt
+	 imAFKELtGNhPiemKJ8OwLUqH2Rs/9rBP7hq85LHWffLv4utP0bjYuoEIM/9tbXi00xJQu
+	 5Rewnztgzws/6X7Hgd6dMhnz774LrVjQwKPTk3eL+HW6wBqqQsRo8SGVghZC2+bwlnRk8
+	 E5StfiXnmUuXMiJTdvYS0IZtkr+duK4a+3lbj2R+VwGDyYw595REEebhAe0cAsKeFbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793049129;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-	b=eCP6CbXiUFfhYmr+WzACnVtRNK+gmsTDz1RwD6pDHOdQ4BahJc1mTUgptkni8fBMtMBG
-	 dbIGiyyxXWxniujnQt/PlA52Sko4p0t1O1s0brz7n6bobfVRFbXx2eIhYS3iVXaz2KDqR
-	 XFO9DjrScRBtDmXhnvd5f0OnRusoFCILTM7fl7SUh+Q+LCJO25nVbwjutMwo9AU7tnUO4
-	 PNJXrUWUuXones5bXTn2tvwnFiMNE4R/fLJqJpmRk7YMBtUNtRa9vVKCVIS7VgvsrchRk
-	 ZYOOpFh+kSXvtB5ZQ7naE1KN6/mswsmAXdq1u+HrU1foFBL7zhE67uSclB+aGlLR05g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793049855;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=o7Gepuv8/10630mz1ZtWLjGNszx+xKG6LgJyBsloNDY=;
+	b=rYI+8Ohl8rb9ZZM7Gh/VF3NwKeoIbM8f1VdwO8O7825RguO3d6aIeZoNB8m/JRINPjtZ
+	 D6kj89pLUqrB77IAs2gmKuq8FC3eCg+gCyAhXDhDgbc0P4SxuU/BVtG7AKkAkuOwjcHvs
+	 LForTjouQqZy4kC2OudfzInZJmWta5aeqUOsl7sF8nH+YAg+9C3z4WIhRbKfYk7Z8cx7Q
+	 A57GK1mC0k7ibqPvG7+sjHw5lxkWazCySxZRimTdem5QSPh7a9gRbigfLIF4QJZuEiJBU
+	 stYo7Jr4vlEtkAW1ZZfoY3AO82W1b/LNCt3TUVXHs0CXJByb7JJInRP8J67SgjzyoaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PfhwGTgB;
-	arc=none smtp.remote-ip=209.85.210.100
-Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com [209.85.210.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqA8KLEA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A32606A32E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 21:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53A32606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A870606A31A;
+	Mon, 26 Oct 2026 21:24:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PfhwGTgB
-Received: by mail-ot1-f100.google.com with SMTP id 46e09a7af769-823e4047037so2759155a34.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:12:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793049128; x=1793653928;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-        b=sZwx9pJsKCvaCqNZz992HU907jdLencxYJ61IriiBmC6ZEcJBokhjQuKisOpWQqvZe
-         ewB0AdMqqsqU6k6r3Pc1MucOcIU0PWW9mcyBPTXLTnLUjGgp0dGCNNx8EejVaSeF/8aM
-         QyB8qFfhGztGDBiqK9PY5OPwae04t3G8Noc8hHPIYO3I+Na4ksq6UIANeptEPrZFvC31
-         UdWUkLCps/4rUQrtaVtyyNhqWHi6WnYIUlJfKjtVTUPb6AUn/J2JvACK/jR+hIkXeoNp
-         kTXRyliB4b+B4waj6FQ1imMqcrvKxUCZ6D5b3e7/2JuKCQgHK60IMg6+DjKjk/X6tnpY
-         Y+kw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXTahm2XjVVIdPrkhAcv2Aq/xEcNS6hCTmbQAcQfcSc3zYewc7NGbgQMTDrNEucfaUYsLaVePi/+Sa@vger.kernel.org
-X-Gm-Message-State: AFq9FYIV6FfoPdLXrjeuGkMAxTQDaQrkP4Ods68d4jeOoWbD3kmPgHZ0
-	t8I4MDR6EIHAt+slIMMm5m8RYVtHyzgL4up5w9ldunB47fuglaYTf++uQDTgcdEWGg7pbHfYba3
-	eBscC2hRTv9QuXgV7BHHGeUIenCRudVNMYW0aBUeeFAKeO/TthjH1pR8zOSo62QqHxdxp3u92BS
-	ipOuPR2Kfz4K3h1jsORpGHFfa2sN0N4UyKc1OocJkretuSBqAJ2PHzOasfD0XUmLCe6/GWsWKRb
-	b742EtWBlAZkKRifnnYQKjk
-X-Gm-Gg: AYBFou3BXqtsn9cEHTJARktWI8mXzhrKWJINeX7evHKYCek4Z3ooVxJpYXxHQ2Fraia
-	8XwGT5LpbOVsQEvBrh2FnqIhsSIoQn3QvRt+2XiggVtpLOdd2Ce5FkRqK7252s2fyP3s4U1nHIO
-	7IxZq9PdeFbLbwE6ZLQhR5ARMiMHbWdPPI9QrwbFAH8IE7BVng0LsZeCB+DP5XmzB88NUbiEJC6
-	MJKwpfm5pXRCHTa8mPrG9e6dK9WMKtKwsx6ka02QWpYh3/h/d49oMojstAag00Sj+l1Of33PstH
-	tmRtePds6wO1JxzdeNPrpZVhEe9Nr9Y2QktCWrT8b4eBXI+ffsB4aPp8rdR/X/kJ2dZMexer5BC
-	hxO51XJcFi/XeCDEubWllxWCCKWQNSFQoOFh21+zVjdcBUd1Nh5oBn9BikrdbWqBLFR8Tf98b2g
-	zZnytKHv+8110A41b3zw5ZBy8xMOWMGNVqJxSG2dqRnLQ=
-X-Received: by 2002:a05:6830:6512:b0:80c:d34f:5f63 with SMTP id 46e09a7af769-850ff587241mr6330225a34.28.1793049128186;
-        Mon, 26 Oct 2026 14:12:08 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 46e09a7af769-850faa931bdsm93542a34.9.2026.10.26.14.12.06
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 14:12:08 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso6416101eec.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:12:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793049126; x=1793653926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QkAGfe/UDsHGvMGKL2L3uZbprb9NTy21LdH6RR7axyA=;
-        b=PfhwGTgBUJ5zVQWhxz7I/MWHGTjwtEFi9lj8OhLboPwwYtWFCEHd6vrlAKSuoPTfNQ
-         PVmETTYCdSTnH2Kn5A2I15wJ80v5D5POqMQVujnoUbNWV+cplC0XsBh9VxycTzpjOeTd
-         7YXlmUeWiyFXpMMax+eVFNra0ZwM13Sq8eX9w=
-X-Forwarded-Encrypted: i=1; AKwUvBwwLZHKl9SHqL8G4biM2S7VojYdMFN8EI4MNJESpA1nEVMCCuT6KNYJ+iaJKhaRZVbKB4EV93Q2bTX4@vger.kernel.org
-X-Received: by 2002:a05:7022:eb50:10b0:191:a5b2:ef4a with SMTP id a92af1059eb24-1993677ac8fmr11277914c88.28.1793049125748;
-        Mon, 26 Oct 2026 14:12:05 -0700 (PDT)
-X-Received: by 2002:a05:7022:eb50:10b0:191:a5b2:ef4a with SMTP id a92af1059eb24-1993677ac8fmr11277868c88.28.1793049125085;
-        Mon, 26 Oct 2026 14:12:05 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0f81ea9sm31915678c88.11.2026.10.26.14.12.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 14:12:04 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Besar Wicaksono <bwicaksono@nvidia.com>,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-doc@vger.kernel.org (open list:DOCUMENTATION),
-	linux-perf-users@vger.kernel.org (open list:ARM PMU PROFILING AND DEBUGGING),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Subject: [PATCH 3/3] ARM: dts: BCM5301X: Enable AXI PMUs
-Date: Mon, 26 Oct 2026 14:11:51 -0700
-Message-ID: <20261026211151.3212237-4-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqA8KLEA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9DB1F01825;
+	Mon, 26 Oct 2026 21:24:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793049854;
+	bh=o7Gepuv8/10630mz1ZtWLjGNszx+xKG6LgJyBsloNDY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UqA8KLEAZZ9HDFlNe2yEjNimHXIy+wB/4isZAgPXUFyUxa26RqCKOBVUyZTWg9A59
+	 h8/p1F9uIzkxwv/AY5GbiqmzHM17UalngezMe7pSjYS7ZIw0cox6DZwNQ9VRQraZ6s
+	 DtvrzHTdAUfGwJsowoC/JLW+fEF8nRH6WG3BXQZfzZB+2rqWlB7FIXrHm17lGzdGIn
+	 fBlEGhJFIz5JdcKy8MjOgSdRjSi4V4y+qyHMtpFMA3m2uqeWwoTM8kfTRujYpl9zEW
+	 iYDujB/TX4MK0R21wqMJ/iJrwDw1M1M4ipQL8kseuNDRUuVjwiXP3SvSjZDWJhSHPX
+	 dzdyd3XdeLrow==
+Message-ID: <sashiko-outbox-185750@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] perf: Add Broadcom BCM5301X AXI Trace Module
+ counters
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Florian Fainelli" <florian.fainelli@broadcom.com>
+Cc: =?utf-8?b?b3BlbiBsaXN0OkFSTSBQTVUgUFJPRklMSU5HIEFORCBERUJVR0dJTkc=?= <linux-perf-users@vger.kernel.org>,
+ =?utf-8?b?b3BlbiBsaXN0Ok9QRU4gRklSTVdBUkUgQU5EIEZMQVRURU5FRCBERVZJQ0Ug?=
+ =?utf-8?b?VFJFRSBCSU5ESU5HUw==?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026211151.3212237-3-florian.fainelli@broadcom.com>
 References: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
+ <20261026211151.3212237-3-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 21:24:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,44 +62,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Describe the three BCM5301X AXI Trace Modules and enable them on the
-BCM5301X base DTS file.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] perf: bcm5301x_axi_event_init() calls for_each_sibling_event() wit=
+h NULL ctx
+- [Low] docs: perf: title underline too short in bcm5301x-axi-pmu.rst
+--
 
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
----
- arch/arm/boot/dts/broadcom/bcm5301x.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+commit 98ec05a97143b2d8c2fd04e15999d3fc2b116134
+Author: Florian Fainelli <florian.fainelli@broadcom.com>
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm5301x.dtsi b/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-index f06a178a9240..dcae7cba37c4 100644
---- a/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm5301x.dtsi
-@@ -10,6 +10,21 @@
- 
- / {
- 	mpcore-bus@19000000 {
-+		axi_pmu_m0: pmu@3000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x3000 0x1000>;
-+		};
-+
-+		axi_pmu_m1: pmu@4000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x4000 0x1000>;
-+		};
-+
-+		axi_pmu_acp: pmu@7000 {
-+			compatible = "brcm,bcm5301x-axi-pmu";
-+			reg = <0x7000 0x1000>;
-+		};
-+
- 		a9pll: arm_clk@0 {
- 			#clock-cells = <0>;
- 			compatible = "brcm,nsp-armpll";
--- 
-2.53.0
+perf: Add Broadcom BCM5301X AXI Trace Module counters
 
+This commit adds a PMU driver and documentation for the Broadcom BCM5301X
+AXI Trace Module counters, exposing 16 unfiltered fixed counters through
+system-wide perf events with hrtimer-based 32-bit delta accounting.
+
+> diff --git a/Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst b/Docume=
+ntation/admin-guide/perf/bcm5301x-axi-pmu.rst
+> new file mode 100644
+> index 0000000000000..720f042dfbd0b
+> --- /dev/null
+> +++ b/Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst
+> @@ -0,0 +1,92 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
+> +
+> +Broadcom BCM5301X AXI Trace Module PMU
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+[Severity: Low]
+In Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst, the title underline=
+ is
+36 characters while the title is 38 characters. Should the underline be
+extended by two characters so make htmldocs does not emit a title underline
+too short warning?
+
+[ ... ]
+
+> diff --git a/drivers/perf/bcm5301x_axi_pmu.c b/drivers/perf/bcm5301x_axi_=
+pmu.c
+> new file mode 100644
+> index 0000000000000..15da137a40859
+> --- /dev/null
+> +++ b/drivers/perf/bcm5301x_axi_pmu.c
+
+[ ... ]
+
+> +static int bcm5301x_axi_event_init(struct perf_event *event)
+> +{
+> +	struct bcm5301x_axi_pmu *axi =3D to_axi_pmu(event->pmu);
+> +	struct perf_event *sibling, *leader =3D event->group_leader;
+> +	unsigned long used =3D 0;
+> +
+> +	if (event->attr.type !=3D event->pmu->type)
+> +		return -ENOENT;
+> +	if (is_sampling_event(event) || event->attach_state & PERF_ATTACH_TASK =
+||
+> +	    event->cpu < 0)
+> +		return -EOPNOTSUPP;
+> +	if (event->attr.config >=3D ATM_NR_COUNTERS || event->attr.config1 ||
+> +	    event->attr.config2)
+> +		return -EINVAL;
+> +
+> +	/* A group cannot allocate the same fixed counter twice. */
+> +	if (!is_software_event(leader)) {
+> +		if (leader->pmu !=3D event->pmu)
+> +			return -EINVAL;
+> +		__set_bit(leader->attr.config, &used);
+> +	}
+> +	for_each_sibling_event(sibling, leader) {
+> +		if (is_software_event(sibling))
+> +			continue;
+> +		if (sibling->pmu !=3D event->pmu ||
+> +		    test_and_set_bit(sibling->attr.config, &used))
+> +			return -EINVAL;
+> +	}
+> +	if (event !=3D leader && test_bit(event->attr.config, &used))
+> +		return -EINVAL;
+
+[Severity: High]
+When userspace opens a standalone event or a group leader (where
+event =3D=3D leader), can calling for_each_sibling_event(sibling, leader) in
+bcm5301x_axi_event_init() in drivers/perf/bcm5301x_axi_pmu.c trigger a
+lockdep warning or dereference a near-NULL pointer?
+
+In the perf_event_alloc() -> perf_init_event() -> perf_try_init_event() path
+in kernel/events/core.c, leader->ctx->mutex is only locked when
+event->group_leader !=3D event:
+
+	if (event->group_leader !=3D event && pmu->task_ctx_nr !=3D perf_sw_contex=
+t) {
+		ctx =3D perf_event_ctx_lock_nested(event->group_leader,
+						 SINGLE_DEPTH_NESTING);
+		BUG_ON(!ctx);
+	}
+
+	event->pmu =3D pmu;
+	ret =3D pmu->event_init(event);
+
+When event =3D=3D leader, leader->ctx is still NULL (it is only assigned la=
+ter in
+perf_install_in_context()). Calling for_each_sibling_event(sibling, leader)=
+ in
+include/linux/perf_event.h expands to lockdep_assert_event_ctx(leader):
+
+#define lockdep_assert_event_ctx(event)			\
+	WARN_ON_ONCE(__lockdep_enabled &&			\
+		     (this_cpu_read(hardirqs_enabled) &&	\
+		      lockdep_is_held(&(event)->ctx->mutex) !=3D LOCK_STATE_HELD))
+
+With CONFIG_PROVE_LOCKING enabled, this passes &(leader)->ctx->mutex (an
+offset from NULL) to lockdep_is_held(), which triggers the WARN_ON_ONCE
+assertion and can fault in match_held_lock() if any held lock in
+current->held_locks has hlock->references !=3D 0.
+
+Should the group validation block in bcm5301x_axi_event_init() be guarded by
+if (event !=3D leader)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026211151.3212=
+237-1-florian.fainelli@broadcom.com?part=3D2
