@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006040;
-	b=v0N7YvePrceeWMUBG/l2F4tQ/Cl/VCUGnBjGF4lDGn6VzTJQJIWOgjyv+bAvKH8t3aHN
-	 29hOsInnZPhC6lDvajjRYbHVOkOPuJC0KCzhD4e++3gGkgTMvNhzsMLBbocRVDA3ZHi6R
-	 gTH5+hMqvyO3F64JYaqtBncMQQ9NlFoanY9h32aIKDigaatQ+i9KH38S+UkDvM7w5VyJk
-	 PaR5XyHfEmWbsZD2T5Ml2W+fBZ7hDs/pwONCnmONIE2KBTwgqoiPAxtKjBBDqZVyC1u6J
-	 G9R9Vw1ccgslyHLa9puLf6v1xOkGXIa4HsqIINDYx0B0KLrOHhuT6whUG/yGWNG4VqQ==
+	t=1793006239;
+	b=K5i3uDIpwN380/bgTABjisdV1aUWGDgAbPuznT1ylIDE+0OEYY/CsQC98lBrYh0X7Chy
+	 yZT512X8xPHWt86WaKhE+G0D/5/rjjU0d81tayaeP+RyQ0c2hEzRBAH12vL/FXN1LffBz
+	 YDihsOMQPKvLtJI5/j8aML3/d/Rmj5ldrvoq90xKQmcsSyitWzeaMAjZoZIgBxg8zNhQR
+	 AEACQ2PHLUQlksZkuaPEwCNYQz7BubnGIH3doudEGTqo7eoj4ogb3pyKLMztRaLvVpj2m
+	 4z2UHE9+sHR8ctTyQPPPfrIVoA6+QHkmnXxOwDSl1+vW6Nh9Q82Xcg6dhGgbLPEvqLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006040;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
-	b=t0Y19ZSZ2KGzxCphXPkOYjf+M/4yFkiJ/3jGDTqMzH9OrZsfdrKdMUk4bSQgnV8Gho10
-	 OXTtvI8X28Fi6O8yCImm1VKyIYdPMZdNpXLjHy2wbLMul7zxO5sIjBAwt2L/aK6W9gOGu
-	 uwbKVeNxZfzyisnelsvEa+4D1NIy5xe+nB7cDs/FnCYMcc+gIFKong4HMaViSsyxPeJUB
-	 MH45DIQHFdLWGPDqTDp98jHtroj6ZDT8oXCs5zFjYK5jecKlDXhH846e5+M7AUTKUaUTq
-	 ZW4wk4dY541h4IGmfLho886VIAOhCOe6UwVgJUV/IWn20xajaEfMxSWfPz822lyfoUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006239;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=EHH/3AkjxKMqnd16FVEmNpDkN6cA+wBLdKLRsE61fU0=;
+	b=tYCji7fbnHi4dff9F9RzUDKeJAxcs316C0b2dp627yoV4eXyBZ0zrJXduWhhwYO9yoyp
+	 /wpYBtuJFNwWxjOUPPO3YStXT+qHbMPU8Qg/jQ6Bw+aqw6FhV6SOg6ZY8CwHLn7RsvlK/
+	 H4kdvmA7Ygyq5VyKSOrIzNd0iCHRXnTlVC6ZSZReJVEr2ZyoEPlF6kcytPUfYRP+2wLGV
+	 ncuAD6p7v2JXTRjBC/40VuSFyFmzKvMo5fwtRR9QbMfGpZyz2zwZC8FPL1ak2+qutACT9
+	 eR/lrpr42vqbMQpF+hN9RrNth6/gYj5X3P8qv7pp22DeUriDpFQjMTHl+iu3ewU+GrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isBaxCDP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B71606A31F;
-	Mon, 26 Oct 2026 09:13:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05B71606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DD7606A31A;
+	Mon, 26 Oct 2026 09:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024;
-	Mon, 26 Oct 2026 09:13:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793006029;
-	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=uesWt4mf7L6uH2e2D0Uz0HVRucHuV8HZkP6w6G5X4a91jpvD/uKc3BJqBUmuRXjve
-	 GgrdbGaDFfjJl73WiJG4wPNL+OImYScLzZ5eCyyvPV3LlJUGczWGKuH07jKOHSZaRq
-	 J4j2ifjZbGqdQZI5IPmFXPvANcfdee4i8r50bnPI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9~iCXvH8nmx3193831938eucas1p1i;
-	Mon, 26 Oct 2026 09:13:48 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026091345eusmtip1dd488ccf4592aee32b30711c858f6c13~iCXsMa8873092630926eusmtip1x;
-	Mon, 26 Oct 2026 09:13:45 +0000 (GMT)
-Message-ID: <943aa2e7-3945-48f9-9a87-9c963f97099d@samsung.com>
-Date: Mon, 26 Oct 2026 10:13:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isBaxCDP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206071F01825;
+	Mon, 26 Oct 2026 09:17:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793006238;
+	bh=EHH/3AkjxKMqnd16FVEmNpDkN6cA+wBLdKLRsE61fU0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=isBaxCDPKmCJOXoAL/1UkzUnUkG3nCYKz8x4SbGXyrQusb5/Omrk+7jEp/K8BYGAc
+	 RZjpwDhQZ1fJmPXFneMBz1MfQa2jfe2QWN6KC8pjgbTUveYp+/Ww05CCU5Q/m+ZmSf
+	 i/MjRqeJ+PBUkgiWWpe3QtISMH3bvm1RCynROhcaAkqhp2FVFhyaNL/B7tHyzwpLwi
+	 iGCvetrqbSO4CyhJqTZCDPRlAd2YLNPXZqSlHBiWzm4GnpJIi3yXSX2a4XiVNL+LcI
+	 3iEzbWD8YQ83kWnB4gaCaozTP9ESYK0blhMYaDbheI0HNQE9UMVL8UOt5iroyyEKnK
+	 /qGmfblCoY2VQ==
+Message-ID: <sashiko-outbox-184754@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix
+ cyclic residue wrap NULL dereference
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>, dmaengine@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
+References: <cover.1792988985.git.zhoubinbin@loongson.cn>
+ <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 09:17:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,139 +60,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 16/20] phy: Add common Innosilicon HDMI PHY helpers
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <asEPmpQTwXYADwTk@parshuram>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8@eucas1p1.samsung.com>
-	<20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
-	<asEPmpQTwXYADwTk@parshuram>
 
-Hi Vinod,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dmaengine: loongson: wrong next_sg check in loongson2_cmc_dma_de=
+sc_residue()
+--
 
-On 10/3/26 16:22, Vinod Koul wrote:
-> On 15-09-26, 17:32, Michal Wilczynski wrote:
->> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
->> where the PHY register block sits in the register space and in which
->> pixel clocks they support, but the pre-PLL programming sequence and the
->> layout of its registers are the same.
->>
->> Add a small library holding that shared part: the pre-PLL configuration
->> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
->> and the pre-PLL register programming. Callers pass a regmap, a register
->> offset for the PHY block, and their own pixel clock table.
->>
->> No driver uses it yet; the users are converted separately.
-> 
-> Is there anything in phy patches here that has dependency with rest? If
-> not consider splitting it up...
+commit d1cdc3886ec73f6a09aef30478b0b2741d57690c
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
 
-The phy patches don't depend on anything else so they apply cleanly
-from this series alone. The helpers and the Rockchip conversion are
-self contained and the JH7110 phy driver only needs its parent at
-runtime not at build time.
+dmaengine: loongson: loongson2-apb-cmc-dma: Fix cyclic residue wrap NULL de=
+reference
 
-I kept everything in one series so a single posting applies and boots on
-its own. The patches already target three separate trees and everyone
-testing this has been applying the full set splitting would force them
-to assemble two postings in the correct order, given that the JH7110 phy
-driver build depends on the helpers. The v5 cover letter lists which
-tree each patch goes to.
+This commit updates loongson2_cmc_dma_desc_residue() to check desc->cyclic
+instead of lchan->desc->cyclic when next_sg =3D=3D 0, and adds a comment
+explaining the cyclic wrap behavior.
 
-That being said, the helpers and the Rockchip conversion are the two
-patches independent of the StarFive work - happy to send those as a
-separate series if you'd rather take them that way.
+> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/l=
+oongson/loongson2-apb-cmc-dma.c
+> index 2037120b23caa..f090fbe0b8a1e 100644
+> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> @@ -484,7 +484,19 @@ static size_t loongson2_cmc_dma_desc_residue(struct =
+loongson2_cmc_dma_chan *lcha
+>  	ndtr =3D loongson2_cmc_dma_read(lddev, LOONGSON2_CMCDMA_CNDTR, lchan->i=
+d);
+>  	residue =3D ndtr << width;
+> =20
+> -	if (lchan->desc->cyclic && next_sg =3D=3D 0)
+> +	/*
+> +	 * For a cyclic descriptor that has wrapped (next_sg =3D=3D 0), the
+> +	 * current period only has the in-flight entry left; the entries
+> +	 * from sg[0] onwards belong to the next period. Adding them would
+> +	 * make residue exceed one period.
+> +	 *
+> +	 * Use desc->cyclic, not lchan->desc->cyclic: this helper is also
+> +	 * reachable with a descriptor that is not lchan->desc, and only
+> +	 * the active-descriptor branch passes lchan->desc today. Keying
+> +	 * the wrap decision on the descriptor being queried keeps the
+> +	 * result correct and avoids depending on lchan->desc being set.
+> +	 */
+> +	if (desc->cyclic && next_sg =3D=3D 0)
+>  		return residue;
 
-> 
->> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
->> +{
->> +	unsigned int val;
->> +	int ret;
->> +
->> +	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
->> +	if (ret)
->> +		return 0;
->> +
->> +	return val;
-> 
-> why not just return regmap_read()
-> 
-> There is no logic here, nothing. This is really not ideal.
-> Also why add a wrapper and not use regmap directly?
+[Severity: Medium]
+Can an active cyclic descriptor ever reach loongson2_cmc_dma_desc_residue()
+in drivers/dma/loongson/loongson2-apb-cmc-dma.c with next_sg =3D=3D 0?
 
-The same IP block is used by both Rockchip and the JH7110 but on the
-JH7110 the registers sit at a 0x100 offset.That is what inno_reg() is
-for.
+When starting a transfer in loongson2_cmc_dma_start_transfer(), lchan->next=
+_sg
+is set to 0 before configuring sg_req[0] and immediately incremented to 1
+under lchan->vchan.lock:
 
-Dropping the error is wrong though - nd comes from one of those reads
-and then becomes the divisor in do_div(vco, nd * 5 ) so a failed read
-feeds in 0. I will make it return int and have recalc_rate check.
+    if (lchan->next_sg =3D=3D lchan->desc->num_sgs)
+        lchan->next_sg =3D 0;
 
-> 
->> +/**
->> + * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
->> + * @pll: pre-PLL instance
->> + * @req: rate request, updated with the rate the PHY would produce
->> + *
->> + * The PHY can only generate the pixel clocks described by its table, so a
->> + * request that does not appear there is rejected rather than rounded.
->> + *
->> + * Return: 0 on success, -EINVAL if the rate is not supported.
->> + */
->> +int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
->> +					 struct clk_rate_request *req)
->> +{
->> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
->> +	unsigned long rate = rounddown(req->rate, 1000);
->> +
->> +	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
-> 
-> Is there a chance of null/garbage if we reach end of table? You dont
-> know the size of table, and incrementing pointer without bounds does not
-> look good to me.
+    sg_req =3D &lchan->desc->sg_req[lchan->next_sg];
+    ...
+    lchan->next_sg++;
 
-Fair. For now both config tables end with a sentinel, so it cannot
-happen. I can add the count of the bounds though.
+Similarly, on cyclic period completion in loongson2_cmc_dma_handle_chan_don=
+e(),
+loongson2_cmc_dma_configure_next_sg() wraps lchan->next_sg from
+lchan->desc->num_sgs to 0 to program sg_req[0], and
+loongson2_cmc_dma_handle_chan_done() immediately increments lchan->next_sg =
+to
+1 under lchan->vchan.lock:
 
-> 
-> 
+    if (lchan->desc->cyclic) {
+        vchan_cyclic_callback(&lchan->desc->vdesc);
+        /* LOONGSON2_CMCDMA_CCR_CIRC mode don't need update register */
+        if (lchan->desc->num_sgs =3D=3D 1)
+            return;
+        loongson2_cmc_dma_configure_next_sg(lchan);
+        lchan->next_sg++;
+    }
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+While the final period sg_req[num_sgs - 1] is in flight, lchan->next_sg equ=
+als
+desc->num_sgs, so the loop
+
+    for (i =3D next_sg; i < desc->num_sgs; i++)
+        residue +=3D desc->sg_req[i].len;
+
+naturally executes zero iterations. Thus for an active descriptor,
+lchan->next_sg is always in [1, desc->num_sgs] when
+loongson2_cmc_dma_tx_status() queries it under lchan->vchan.lock.
+
+In this patch, the only caller that passes next_sg =3D=3D 0 to
+loongson2_cmc_dma_desc_residue() is the else if (vdesc) branch in
+loongson2_cmc_dma_tx_status() for an unstarted queued descriptor on
+vchan.desc_issued:
+
+    if (lchan->desc && cookie =3D=3D lchan->desc->vdesc.tx.cookie)
+        state->residue =3D loongson2_cmc_dma_desc_residue(lchan, lchan->des=
+c,
+                                                        lchan->next_sg);
+    else if (vdesc)
+        state->residue =3D loongson2_cmc_dma_desc_residue(lchan,
+                                                        to_lmdma_desc(vdesc=
+), 0);
+
+With desc->cyclic && next_sg =3D=3D 0, querying a queued cyclic descriptor =
+(while
+another descriptor is active) returns early before summing desc->sg_req[i].=
+len,
+reporting only the active transfer's ndtr << width.
+
+Even after the later commit in the series ("dmaengine: loongson:
+loongson2-apb-cmc-dma: Fix residue for queued descriptors") switches the
+else if (vdesc) branch to loongson2_cmc_dma_desc_total_len(),
+loongson2_cmc_dma_desc_residue() is only called for the active descriptor
+lchan->desc with lchan->next_sg in [1, desc->num_sgs]. Doesn't that leave t=
+he
+next_sg =3D=3D 0 check as dead code and the comment describing cyclic wrap =
+and
+non-active descriptors inaccurate?
+
+Also, regarding the commit message description of the NULL dereference when
+lchan->desc =3D=3D NULL: since vchan_find_desc() searches vchan.desc_issued=
+, and
+both loongson2_cmc_dma_issue_pending() and loongson2_cmc_dma_handle_chan_do=
+ne()
+immediately start the first descriptor from vchan.desc_issued under
+lchan->vchan.lock, can vchan.desc_issued ever be non-empty while lchan->desc
+is NULL? Should this check and its comment be removed altogether once queued
+descriptors use loongson2_cmc_dma_desc_total_len()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792988985.gi=
+t.zhoubinbin@loongson.cn?part=3D1
