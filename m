@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792992936;
-	b=RYDTD63Htv5gjh5Oc2QfgdjyadSgBiq1OZbBoykqcDnpROt0MdaO5FQ16EMUmAFfH+Wp
-	 8eQdD3MkE0cpDaxoXO3M9SG68qpE7tZvIgIrUNrv62S0cl5QRdN03w+Wn/WBXG9uH7dZ6
-	 HRN2TSrm/PfDwcXw+rlQgp5sbReJUM7My9dQp8kBxO17SBdMkBA/HTh0akyNpXzZm9G/G
-	 ndSqzPgEIUPKOOsMusZ30YQqdlmHLWdz/R3PoO7SzkvRDb+u32YMUyWNcMHxfI7l1iQQ3
-	 ZQnV30D+dOKh+jQMbsmBj5odqsdeva5AS92zk/ucLRo3Taqtyjdkim6Etkh4AoukjJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792992936;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=xK2Yoj5Thgad4mvdaQ+MAFsyfOOZz37JLZyMZhNEMzI=;
-	b=uhwVDjGRKG+1wdCSms+AJ/C1PCcHm7+4BNE6azez4MuQun+/WwUrby2EsJKo3y/HN+Tw
-	 685RwgLxXRyhnGZ9e5OQRfHZFAqecBICVHcmZo0dGhwi9oK9K5GedRX0Qp0j6Djraf4VU
-	 QLzNtgsl8/HDq+JFvYkBK3GceZPI43ntDa0k4Sdl1FJ1gkFAsul4bormdviCyXiqN6bY1
-	 9TfjtVVY1C7sU1DOh3vfkbiue651Fr1q15RH6E3B0vikw6eIcTEPABCQb4zwKeDzPZIvG
-	 EfrZYEhlWqJVNXfOAnfRPQsdifPt76yYis8yDr8mcIL1RPUjcw4M5IHw7FXWrks0Qew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=WURGT8vB;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792993135;
+	b=jRYF5RvPqTJzc5ATpG9eBvXcFIPBAhbHqgybl7TRscTgipuZgO5eTTZbBtDnfyD4dbzC
+	 N2pKkjkUx4oQ6fFWPGrnC+nI9UX1l9z7pc8aES78YsmO35n5PKIKn0/jIWhJXlgAZahXQ
+	 /TkGINjA5nS3uI8DvLsOuBRo9Cl53qbMqJDuPyO7XeqVb0yp7f3ePKnx4DnS3v6XT7mU+
+	 KxnZV89I25ih1gOIHt4jc+HoB1ehi6aMnYtOpvfHiESS9JmMsTFLuzzWCUTsiqnjsczXb
+	 ORxwSGPH4nDAo01rQL0gml86CkIlRmOcOR5v+PzKcVZsPAtnqrtWzzh5XvCWCkxuBDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792993135;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=KRC9z7Hf6UT0/DB2ko9R8MQynM5giNRybmjOpJEixmM=;
+	b=o3HNyGc3HZdNg+HPyVkSqOH4CPu7pRe2gBLkIXGFfX0ow0m4wd0SEm4xLUKNeSXb8JGb
+	 HAD9U5h885UBSt1Swy7kwuky5JgvapkrWCzROhDgtUSSk0vTZXIs49SU9YZkETF9oi8gH
+	 i/hfVehLjzp/V47c0hKOe4f/fJyd0K+7ABVyjs3n8o/9oviaScvpZ82XO99NmmvqmrasS
+	 Whhf+FxCM3Jnyst8aoO7pk4jwaDFSrKE3xEjsevb5IU2V8n9Wf35gSgLzRZDaMn/kuXtN
+	 VPkqtFAX6byRjM1S67xkiupceHXo842KIVzglzU2OFqh9cIO4VfTu2GhaQoaZn74L6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h8cwqi9W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AB3606A31D;
-	Mon, 26 Oct 2026 05:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09AB3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BF6606A32D
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 05:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6BF6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=WURGT8vB
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jCj5B3LFhzKn8w;
-	Mon, 26 Oct 2026 06:35:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792992926;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xK2Yoj5Thgad4mvdaQ+MAFsyfOOZz37JLZyMZhNEMzI=;
-	b=WURGT8vB+fqRYGWtm4M/rzXv0f/1gr3F1ko9okNFa0twOEjXi/WAhdb3AEKfHJJQ54RiEA
-	irQx8Qd+84rJ4oxWvS9Rfch3fYZeDQ2b7xvuBp4v0udh1ygfZ3WEQNjR4vrXa0BbwCeS+G
-	E9rtIWInb30xa5LmAJVUmOauW6JRFPpqp81ZtgLQPhYb38VpVPUvDDofxtmH6wQbFc+ned
-	kD/rW+2XmExHj3aV2bLBWyCBQY7zwmK8GywKRNZYuukCO0pX+utEEngeMICg5ImuqdUljW
-	d3ZrJ/JBP4cv52yNWcuQELz81UzbmO83QrLDKHtaiaDmn3BOr/YCA4OB+Zjmxw==
-Message-ID: <1d48649e-cf7d-421b-bcd9-3a896064375c@mailbox.org>
-Date: Mon, 26 Oct 2026 06:35:09 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h8cwqi9W
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so3376152a12.2
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 22:38:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792993133; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dlyVUlK+Jq3jZ3VKO00WbnD/qNNKryJTQe6SvfyvNnm9/dVnyTFcf7VeR2PdqaC1dE
+         KE6Q8bKBrV/tIMkiT9Tt4WQmTuoKJNTSxRu2yPNnjXFhBts3duN5i5aEF5j7/lL6wPpA
+         ZUcLjKlg83yzcX/qDQ6xS3/gaTmyP8NCaTiY6BOlF3eRc+RdvlSoe318wKY+PaMOgxe7
+         Mt7kPpWJmOvTI0WdE7pwfcqCtmBWJQkecC/Ayuofj0GJ8cH/8ZrGD/oReh3JMR7yJoq+
+         PPfuN4ghxllOvPUjg8b6PWa2Oqw3YUnGqIcDBDYPIo3v6Up9znzF9z/EVgJFfmFr/lMA
+         DpqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KRC9z7Hf6UT0/DB2ko9R8MQynM5giNRybmjOpJEixmM=;
+        fh=at5jQpaijociT0nku/icBpluzQM5/gOJPpOgY/Ct5L8=;
+        b=sbdUghu8K3H4uU6JkzUbA18WeF2zuVhjbCHzglJn9GFYbrn2aJT+2ElTHq2o8JkzU8
+         9el85hZ2w1gWS4IOWfU0ScFdEd/FURxfoPsRYxXtpGdSpriqxpuzM7k1/n0GzfZEsxQi
+         3yBeRe9LVWBk/7s68YK53CdDLkKhy+BMc5zu2ZBKbioyQNFYQNqoA1Ydc3T/I87HHVvW
+         FswHtGaX5604onJl9wdtzf6nI90hFVd2YHYfCUREcAwbHah3catDvuKziUG+7GMeeyMt
+         U4kZ3vn3GO/UQARkxDm464ovtpDDg8bEKj41A0uuUZt9XASM6PMG6EuiBhLFRlIi5Zju
+         Aq8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792993133; x=1793597933; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KRC9z7Hf6UT0/DB2ko9R8MQynM5giNRybmjOpJEixmM=;
+        b=h8cwqi9WjlJSAGSKlKfOTcAaAxe0tfDFqa0Gsvz/Ndbe1JCZRvUVXa5DCTLIQ9NurI
+         QsCFc2vC1jnTzzDdB70Ldr8nslkMRgebFxlEZUEi2B2fbFVEuR5T+HrDekjewqQ1YyDj
+         D+LspUaRacgvWOb5usMfUhg4cv1Q+abRzNv8AGeAa2qO/o5NR2nBLsZ+NYk1VCAueEU/
+         YXRzTQmtF4M5yTOLJM7VDQ9CPhz2/VB6830idnQg1ppI+QKcJ6IHU02BlOHuVG737+p+
+         gl3lGAkBUAblr6szfDi6RidfGiukhRUisqKezznLGez2ZRQ1+7U55BqvrjLj8quk+d4d
+         Gmng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792993133; x=1793597933;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KRC9z7Hf6UT0/DB2ko9R8MQynM5giNRybmjOpJEixmM=;
+        b=2yFPZFtcj4yzWO3qSX/TnviEu4z69j4JBEqDacXvsPeCGUQ9xEZUnWxgFnUnZVO0Gl
+         wiWQw3HFpW/MeX24UOOWit8b3ysaCTzVpoiNcNyESEfcEhfphnAiDtNy1+S6Yrku03Y3
+         qUt9uJ1tW/CQ8ZhwJT12jVs4T0fMvrq5ZRmUKfiAoheNupWZdpeqkIo4jQK6FCEtINTa
+         oFym6ydtXSDkL3M62O07yisMgfz2bn6IMqVI/80JxPexUbKZQiup5E0aU6DKyOU8yrqa
+         3yAG6mnwAukFZ59ffn0SwBnSdHe1ZXbm/gXNFqdT/mL30fqYMpLRsCLjX5HWzwT/yKCJ
+         nS9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxHhpQPUAPcyYdwxQ2XDszQywHRr1/8TgRlp0CNSmDsuk1hP9q816rmOiIMnXVsIslp/JJ0n7IgyPDU@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7GyL0CIXAaSLwZlxIfLfx99Bd1IQSn2vPQVzVize/UTf5nA2S
+	OQj5ELhXtTAiHP8pS7gm/kRLTCwhJBUslOQo8beHi6msbvMhospZsKzGO/rb/mPfMeIZh7TGj1Q
+	x7xveHgqFN1bXXGuoAWikdDrlgx9FOxs=
+X-Gm-Gg: AYBFou1/QvQotDxJ9FWmjVWrpPmM+hfKzzk23qGLUoMdOq363q7HNgb79fsn9ucTj7D
+	fpzVnKRQfiIsA/Jd7VsIzrSl/iX4YTEb4EHpqBL44xzWE+TnRw7cs9p6wCPGz6igeTM8oK0s03O
+	PaNEC9Yy6l5PkxxIdO3L4T3po54EdmWiUHVgor5DGPQ9AnhCY+9SmIb1U86ViIo5HP+FGtJ+gGk
+	s16SFBSVu8YcETC8ESE0S7GLD3NCupOjS9RUjEK+B483bubceMxYyAddDxdtIzenk2kDEB/6R3W
+	fPOlO/Qnb7kdmCb6U/MXDPs97pw9lRR9hOcJwsHCDvJM4ppJ+lit35fmjpKMfRYFYqQMtjjvGvi
+	SBQI2QfZUlp0JMhylbk6XgP9jWdCeGRm/6RQ=
+X-Received: by 2002:a05:6402:5630:b0:6aa:1112:62f2 with SMTP id
+ 4fb4d7f45d1cf-6b442fcb0b1mr5488509a12.15.1792993133095; Sun, 25 Oct 2026
+ 22:38:53 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,86 +103,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: renesas: spider: Add overlay for PCIe ch0
- endpoint mode
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022082113.3163666-1-den@valinux.co.jp>
- <4c0b2b15-7e5f-4dc1-bf49-c762de48853e@mailbox.org>
- <yxguu4obyspgkq5f2coa6kjrnxjeij3yduhwd4qd4gpamw25fp@quii5c75uxhn>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <yxguu4obyspgkq5f2coa6kjrnxjeij3yduhwd4qd4gpamw25fp@quii5c75uxhn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: bf3h9ei6sdootpihgza9o6h6rbt6p6u3
-X-MBO-RS-ID: ca93ed98a89a64c447c
+References: <20261024092558.143621-1-alan.tseng.cs@gmail.com>
+ <20261024092558.143621-2-alan.tseng.cs@gmail.com> <CANAwSgQ=Djw_o89MgvEsmKVxuNiE3Yuy=e0T5DcLfqCYy6eWMw@mail.gmail.com>
+ <20261025130206.187282-1-alan.tseng.cs@gmail.com>
+In-Reply-To: <20261025130206.187282-1-alan.tseng.cs@gmail.com>
+From: Anand Moon <linux.amoon@gmail.com>
+Date: Mon, 26 Oct 2026 11:08:36 +0530
+X-Gm-Features: AclHuK9RjSFEksyS7-_jnVXSvRIxT2GkoKRYV9Xd_PqlQ07C_F6NfX7RJdwzzV4
+Message-ID: <CANAwSgTiSiEfdLD7yUwcbFnXfRpnSNZu_GXLnQnXipc+ansnPQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC
+ nodes bootph-pre-ram
+To: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Cc: dlan@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	e@freeshell.de, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/26/26 4:08 AM, Koichiro Den wrote:
-> On Fri, Oct 23, 2026 at 02:58:38AM +0200, Marek Vasut wrote:
->> On 10/22/26 10:21 AM, Koichiro Den wrote:
->>
->> Hello Den-san,
->>
->> [...]
->>
->>> +++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
->>> @@ -0,0 +1,15 @@
->>> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
->>> +/*
->>> + * Copyright (C) 2026 Renesas Electronics Corp.
->>
->> Is this header correct ?
-> 
-> I checked with Renesas just in case, and confirmed it is fine.
+Hi Hung-Chun,
 
-Thank you for checking.
+On Sun, 25 Oct 2026 at 18:32, Hung-Chun Tseng <alan.tseng.cs@gmail.com> wrote:
+>
+> Hi Anand,
+>
+> On Sun, 25 Oct 2026 at 18:43, Anand Moon <linux.amoon@gmail.com> wrote:
+> > Could you update the pinctrl and GPIO configurations, including all
+> > necessary pin
+> > assignments, to bring up the SD card, PCIe, and Ethernet nodes?
+> >
+> > Please ensure that the required bootph-pre-ram properties are applied
+> > to the relevant
+> > pinctrl, GPIO, and other dependent nodes wherever necessary for SD card boot and
+> > SPL initialization.
+>
+> I'd like to keep this series to what is needed before DRAM is up.
+> PCIe and Ethernet are not used in that phase, and their pinctrl-0
+> entries are already in the board files.
+>
+> For the boot media, the BootROM has already set up the pins of the
+> device it loaded the SPL from. U-Boot's spacemit_k1_defconfig does
+> not enable SPL_PINCTRL or SPL_GPIO either, so the tags would have no
+> user today. SD boot on a Milk-V Jupiter works without them.
+>
+It is partially working, but the current approach is not ideal.
+I have made some driver and configuration changes to get it working on
+my Banana Pi BPI-F3.
 
->> Would it be possible to include a brief "example usage" comment in the
->> header ? An example of such a comment is available in e.g.
->> arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso "Example
->> usage:" . If this would be too complicated, then please ignore this request.
-> 
-> I would personally perfer to stay aligned with other in-tree PCIe endpoint
-> overlays (e.g. freescale/imx*, rockchip/*, ti/k3-*) rather than adding
-> fan/HAT-style examples here.
-> 
-> The typical (long-standing) usage would just be the standard configfs steps for
-> pci-epf-test (documented in Documentation/PCI/endpoint/pci-test-howto.rst)
+The main issue is that SPL_PINCTRL and SPL_GPIO support are required
+for board bring-up,
+but these options are currently missing from the U-Boot configuration.
 
-How about adding modified form of this ^ sentence into the header ?
-(please see below)
+Here is my u-boot logs with some debug prints.
 
-> , so I
-> suspect duplicating those generic instructions in this file might not add much
-> value.
-> 
-> That said, keeping the header completely bare might look too terse.
-> How about something like this:
-> 
->    // SPDX-License-Identifier: (GPL-2.0 OR MIT)
->    /*
->     * DT Overlay for enabling PCIe channel 0 in Endpoint Configuration with the
->     * R-Car S4-8 Spider board.
->     *
->     * Copyright (C) 2026 Renesas Electronics Corp.
+[1] https://gist.github.com/moonlinux/a491bf56bfa914e4bf5f661635eefe9c
 
-How about adding this here:
+> E also asked on the cover letter to keep the BootROM part and the DRAM
+> part apart, so I'd rather not widen it.
+>
+> > Additionally, could you update the regulator-name properties for
+> > vdd_core, vdd_1v8,
+> > and vdd_1v8_mmc?  On all the boards, the SPL code requires these regulator names
+> > to locate and enable the corresponding regulators during early boot.
+>
+> These names come from the U-Boot SPL code, not from the board
+> schematics, and U-Boot already sets them in
+> arch/riscv/dts/k1-bananapi-f3-u-boot.dtsi and k1-musepi-pro-u-boot.dtsi.
+> I think that is the right place for them.
+>
+I have made some changes while integrating this patch series into U-Boot.
+I am following the approach used in configs/starfive_visionfive2_defconfig
+to keep arch/riscv/dts/spacemit-k1-u-boot.dtsi as minimal and generic
+as possible,
+focusing only on the essential SPL bring-up requirements.
 
-*
-* Please follow the standard configfs steps for pci-epf-test documented in
-* Documentation/PCI/endpoint/pci-test-howto.rst to set the endpoint up.
+> > I am verifying the changes against the existing U-Boot board device
+> > tree and configuration to ensure
+> > that SD card, eMMC, PCIe, and Ethernet initialization work correctly.
+>
+> Thanks for testing. Please let me know how it goes.
 
-This would steer users toward the documentation. What do you think ?
+The goal is to move most board bring-up configuration into the
+upstream device tree,
+allowing each board to enable its peripherals using the existing
+upstream configuration.
+Once this patch series is merged into U-Boot's dts/upstream/, we can
+keep the board-specific
+configuration minimal, avoid duplication, and reduce the maintenance burden.
 
-[...]
+>
+> Thanks,
+> Hung-Chun
 
--- 
-Best regards,
-Marek Vasut
+Thanks
+-Anand
