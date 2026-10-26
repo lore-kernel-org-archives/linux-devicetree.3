@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023527;
-	b=kRHKvHgeo7elW17BSL3j0lbbJSMJM12D4VhO8xBvqLn+HXVtXDrL6VRuBGctKd70uhc9
-	 9sKYx66o/SLEGd9iT/DLjZdwQBLb0KxV+LRQkF2Rq7tzXNECfLBliF0rI1nerWQxYIo4e
-	 0j+VFfxdpqgXYPVJag/40furySZwwimHybHxh8jhhYWLJOXl+BzoVFNwYTQihLzyWg6bt
-	 0OAE96Xji4G0gdprGpcLHtctOjPOTHvneMP3wbUVGReyWfx0PV3Hzq0qIva6NJe6B0W13
-	 /cKx/kZ+gpKhrvIIunTvdUg6GoK20yqoVSNpjocSm1trTqlAfTC86sHUKN6R8RL7YmQ==
+	t=1793023765;
+	b=0opLJ4YyBk2VQCqc1yzEin48Hs+rsWZIuchfalytfTzRaBMaEM7KxCCLtj3gNAiCmM+h
+	 2JssgM+hMoXRygzLDoefimqzYSvnhu3VbskMuQuLS8Nac04t6QGqVPfQ+RKZBUHNk8SGD
+	 G6+PkPOksPdQhJ84hUSGJtvZzuQ0nWxqYOygODaSgy6DwYKtq4a0skkMGuV9lkHtggalL
+	 eiuUw5Q6ddg5wl55TKLF2DmQJtuSIX5sni8eocmPGDOrERSJJg6OV2a/T4A9n/7gagJk1
+	 Sw/koDj0fHj6lisvR2jVqR5oC8UjyILinordFzLxkqaMg9lC12kiXeJbsfEn0iXSZFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023527;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=E54yKKmVxhqcCEXeR1OMwWIKj2eo9rtcn6VKxqg8/dA=;
-	b=nLT5ckBMbTyLuczgGahpxRcoZ8wMqGd2WMwBa2a06/vypdDGnsVmBm7+wKx5octg9i6e
-	 9y4g1ZtZ7M6xog6y2q65WGAPbMqZF5kgUf6RC45tsVHx3tPK0C/mnCJxdpFMtPPHdogWK
-	 EDiwIyMqKwYiBJBIfEN7fVepcWWNCqPwVph6MMyGgbJ3mZiyR6ty0iaqt0jIj6uNvM2ux
-	 s2ZHpxiYG3zQOxn8IMbqlGbCOHa7tggwGA1kJcchCZvzTrW5CBmYWKFzjVirCN/ckn2A4
-	 Y952sHlVJxjUHeCXTG8iNeaAoXkJ70cBqU8WF3brBMdjFSJRY+yhGqsMdom8pLe8T0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023765;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+	b=LWEGQ99NUvNmu4RM71eD3kS5SPXdmfUS1e84f7HhzZdP4D6feFNzfO9qptbOEBuSW2Af
+	 m/kBe28Te45DfjU1mfZ0v6jV3yUC8irou3mvp6+Tl8xJVZWv0khQwP0sZKXRLFMo2zvO1
+	 6sBvVvnylE1zKTT6Ukl44VISnEL65PjKNWQGtQ5h8tgfpV33UsS6JoiwGqe8ek4mdTx5g
+	 xFXh2Q2CnE2Nk4WWi06mFe/gTtLo7H6FuAdN3K86gbomZvySWvt0NPob/Kt31M6+WeT1p
+	 y3x8oPG9S0brIyL3lHHBV6k9FeNWHotafrGcWLVHqNY/hF/jymVUoGMCnU/sblX3DVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REWNjJOw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aUcMW0tU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Owk7BbBn;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD08A606A31A;
-	Mon, 26 Oct 2026 14:05:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39025606A31B
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39025606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REWNjJOw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071411F01825;
-	Mon, 26 Oct 2026 14:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793023526;
-	bh=E54yKKmVxhqcCEXeR1OMwWIKj2eo9rtcn6VKxqg8/dA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=REWNjJOwGgm2w8vi2R0iHWV+GtU417WRHC0nPyjWwDityoGQ8r56bDIqzIwsWLXPW
-	 MvZ3H7tm4zx30b429wIUBN4YPE1B38aetylgNJhOLafm+3eSkFW0mU4Jv/Iwt48JiW
-	 0ucG149dS7+WK0dtAPx9qXgyUB72afnh0LkBYY2sYScxG3bQONsebYLHP9b4CHxEo/
-	 QtGkg1OjyzGLgJQwru+MjUP44H5wgYCl2llb6xUnUOjNsuWsS0+RnX7TCpbFJi6Ddj
-	 7cjKN+24m4CstBuE0bKLfskG6egRgVs7l9vavW7/UX5Z1oUB65LaHDhD8I8rGnobkz
-	 YdXniI1yjBlTg==
-Message-ID: <sashiko-outbox-185373@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 19/23] drm/msm/dcp: Add Qualcomm VirtIO transport
- wrapper
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 14:05:25 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aUcMW0tU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Owk7BbBn
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt2vJ2169214
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:09:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=; b=aUcMW0tUHWN8HD1W
+	dpe1Bn6fpeQNb3U7MLe1+zdH/rGccWVqU+ga8nwyjOnD4at0YsDtHtIOmGUdA29o
+	BUgmkfZ5bIn+xsqujuniL9U4ku9o2N+Z8u6HfFabm6Pa3f2AM05l+Q6fwvzFuAWf
+	ZeQTNutR++4ilP/3IBmIN56q/LKITodwHih4/EIpBjgsX9fo1XP/iwN/DCNndISE
+	M/JSu93FuyH7PQABjBC4beCuBMwVpvgSLFj3RZhFT1a8GHir6PNaqlKCjIkfdkO2
+	gYRanFWHxQyqe83KBybbi7vLKFruTs3vVulAfWfYi3rrPgiBTPbh8SiCAwPC5n5P
+	jqyCDA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u614dr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:09:23 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eaad898904so84965e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 07:09:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793023762; x=1793628562; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+        b=Owk7BbBnazj/kmdfpqpodZNHpb+hi5whsWKvGo384vGRXqp0Po4sVkSwDdGN8wUe2r
+         rMicgKiGMI4lHMM3fwEfg6+qMYyM+OnEd0QTnGEu77EtPIpQ3MMx/n0OmwcjT0ZlY2q4
+         7pemx4QjXR01qIWB15jyoZyKHTbGsETyXymF9qhpxrN9Z61x/D9g5GcTO/fMKRFgDlZ7
+         U9UdVZMMe4p5ugAXSJnaI25MGrV/C32ZMUa6xO1POug/uerYjM3CT1Dm0BXLDrOQ/ICh
+         31D4pPM62EHLhro36vJ0Mr3Ao8LQaP1E5n5Og19VPH79y8K3bE4JAgOq19bKeLQJ5xjT
+         FqCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793023762; x=1793628562;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+        b=0rfvlJNtkLwIVcr4TYjhONu77Mm1jDoZx2Sz7VmVRRgaT46dSvEn0ucnOSKeb+xoKr
+         UDKexrfFjph5i3WCzZQ3OLuxAara7/CB+WCfusDTFXM5iVpvgwNJeLffpt++UK6r7dQ8
+         itXNkLYNf+LBfvzUPqQ9csu62FUxj04AScxKGRKfBkQ3wHU5zSgfeXVphvWYJSwXoymU
+         4SECLF4rutmpY5GTOKrJiVLN76vTszqvCK8TmRfNK6PVvxtYjoi0uy+Axmq6mUcuuvKy
+         s3fMIrmDv+Gg2Un1Oh6Ye99bInOaSkDM22AGvfHPpML7/M6yZ3jgUkiZ9sXXUg92WEq+
+         8dNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzy/G8rdXbugzmQYLWbS/u2kFuamPQiu2zBu6Hmayao3wI2FUKUD1Ig02IeIc9peMT4CARUeD0hwoa2@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEePC9zHUrvs3SZE1ydwe+rXb7I7qk5bLQ039bLazh4tsGwhoO
+	Sg8LpZfusbnYeopHdkcihxAlypJ76U6hStoQOUxb16nNatLjMZv/1cRVTcINEaxSiA0ZVfPx4wY
+	0CNIy7iEEKsAOz32CQSLO2w7ttm8skBvFHftXU/dmyg6UPTZVmQIxLiuvqcGnVu/I
+X-Gm-Gg: AYBFou0u3u+s2aL11OodAo8/RuMZ7WHOYFH6rw2b93xnde4tYjCSTpvUtNFLCo9jnGd
+	pLLe6+1ei7svHME/4/ViGPFr59MVWrmOE6n3b5S3Ew+UaG4mYGHgS8kLRoMCAu/bnASoZmkB7eH
+	QPqjjrfEoI++0Fm6uq5AIVNH+UTcuXRYal/xzkOSFIwFryNG9EagkWenb2lL+8kSxTn7Ej0cS7s
+	1UV5PaPC7NdR3yvpNcRbWwAZR89iRclcwc+9p4enIJod8+LFSvvgf+EPXdP75XXO9yULnByQzxO
+	/JLjcNMyAqsywWBaiwiUCf9P7SBsNHQnCSxvCpVzJxzpRSjHXZsZts0u3Nr7IgSK57xd8Eyom75
+	A1ths9tfDK5RWHKoBv3Rmcw==
+X-Received: by 2002:ac5:c8af:0:b0:5e9:397d:b197 with SMTP id 71dfb90a1353d-5ec232688d9mr2052695e0c.3.1793023762329;
+        Mon, 26 Oct 2026 07:09:22 -0700 (PDT)
+X-Received: by 2002:ac5:c8af:0:b0:5e9:397d:b197 with SMTP id 71dfb90a1353d-5ec232688d9mr2052661e0c.3.1793023761845;
+        Mon, 26 Oct 2026 07:09:21 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7b5d54sm321487466b.86.2026.10.26.07.09.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 07:09:20 -0700 (PDT)
+Message-ID: <14fabb77-ab9e-454e-86fb-e5f8d0d686e6@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 15:09:17 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,260 +114,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] arm64: dts: qcom: sm8450: Add description of pins
+ with MCLK function
+To: Vladimir Zapolskiy <vz@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-6-vz@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023163057.775917-6-vz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: KREOlbSw1uJlrkHlMT9hA5wrB0GVS0QL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfX05ra1mq+3pRq
+ VTo7rROdIn2yHznVe5tLmKaFSJGnJ5H+iCo1mNmqgFJ6CL1psDJnuJMFx2EOZsMImc7HOSr8kHw
+ gMgcbpLYoX7iB/26Vv6go7diAm+RZ7qNPBobe2Fj8PcSImETXNUHVcEiUQBLIgI0r/6HcEVZ0Fx
+ Kq84nvom5iVZoq+zvrhqldQiV8K2WIpOrvROJqcGRiCMg3QEr19q9cCRLBROwAYN3ef33bo/Swv
+ CFspW6Cy1CpkF8/B3eMl3oMybhQ+Dgk4q9VjSN3qijZizWuT3rJvg7hlZhes70lSXhatQTzbvJ3
+ YJOeE4N2C/i4Y2C+iscppKHEIYNydSip+yyrjB5ZTTduTdiuPyHRyouhy8TfmGZiV6h1JFrp7PN
+ FLNSiNLrTa9w9aNt1eCvho6lBTcgj+BdtaczJziEK0m4ALb3iM5VRKdEN85Vr2D7G/JeckvtElk
+ vkrDGbnakLT+xf7FdZA==
+X-Proofpoint-ORIG-GUID: KREOlbSw1uJlrkHlMT9hA5wrB0GVS0QL
+X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf5f13 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=euT04gI7HyjAtzR6ms8A:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfX5ltzmnNj+yrc
+ hcomww7110iUy+iym5P8SO9WQ3VbVv7iB3fKcyL5nbkEc/4z/UW1Y9xbd+Rc2K3UQ1GruM6e6fm
+ 92Vh+X8f3JTUbbfCUP0awxxfsaCGBt8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260056
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/msm/dcp: use-after-free of vdev due to devm_kzalloc() and empt=
-y release
-- [High] drm/msm/dcp: broken virtqueue PM sequencing in suspend and resume
-- [Medium] drm/msm/dcp: unbalanced IRQ wake in dcp_virtio_transport_resume(=
-) on error
-- [Low] drm/msm/dcp: build failure in dcp_virtio_transport_suspend() when !=
-PM_SLEEP
---
+On 10/23/26 6:30 PM, Vladimir Zapolskiy wrote:
+> Qualcomm Waipio SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
+> add the correspondent default and sleep pin configurations.
+> 
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> ---
 
-commit 8e04d90ffae5a36ffd1db1c49707f1bc447c570d
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-drm/msm/dcp: Add Qualcomm VirtIO transport wrapper
-
-This commit adds the Qualcomm-specific VirtIO MMIO transport wrapper for DCP
-firmware, handling IPCC power notifications, virtqueue setup, interrupt
-handling, and system suspend/resume sequencing.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c b/drivers/gpu=
-/drm/msm/dcp/dcp_virtio_transport.c
-> new file mode 100644
-> index 0000000000000..02c0e2a9fafe9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
-[ ... ]
-> +struct dcp_virtio_transport {
-> +	struct virtio_device vdev;
-> +	struct platform_device *pdev;
-> +
-> +	void __iomem *base;
-> +	unsigned long version;
-> +
-> +	bool wake_irq_enabled;
-> +	struct dcp_ipcc ipcc;
-> +};
-[ ... ]
-> +static void dcp_virtio_release_dev(struct device *dev)
-> +{
-> +}
-> +
-> +struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev)
-> +{
-> +	return &to_dcp_virtio_transport(vdev)->ipcc;
-> +}
-> +
-> +static int dcp_virtio_transport_probe(struct platform_device *pdev)
-> +{
-> +	struct dcp_virtio_transport *transport;
-> +	unsigned long magic;
-> +	int ret;
-> +
-> +	transport =3D devm_kzalloc(&pdev->dev, sizeof(*transport), GFP_KERNEL);
-> +	if (!transport)
-> +		return -ENOMEM;
-> +
-> +	transport->pdev =3D pdev;
-> +	transport->vdev.dev.parent =3D &pdev->dev;
-> +	transport->vdev.dev.release =3D dcp_virtio_release_dev;
-> +	transport->vdev.config =3D &dcp_virtio_config_ops;
-> +	platform_set_drvdata(pdev, transport);
-[ ... ]
-> +	ret =3D register_virtio_device(&transport->vdev);
-> +	if (ret) {
-> +		put_device(&transport->vdev.dev);
-> +		dcp_ipcc_deinit(&transport->ipcc);
-> +		platform_set_drvdata(pdev, NULL);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_node:
-> +err_ipcc:
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +err_free:
-> +	platform_set_drvdata(pdev, NULL);
-> +	return ret;
-> +}
-> +
-> +static void dcp_virtio_transport_remove(struct platform_device *pdev)
-> +{
-> +	struct dcp_virtio_transport *transport =3D platform_get_drvdata(pdev);
-> +
-> +	unregister_virtio_device(&transport->vdev);
-> +	platform_set_drvdata(pdev, NULL);
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +}
-
-[Severity: High]
-struct dcp_virtio_transport embeds struct virtio_device vdev, which in turn
-embeds a reference-counted struct device dev. In dcp_virtio_transport_probe=
-(),
-transport is allocated with devm_kzalloc(&pdev->dev, ...) and
-transport->vdev.dev.release is set to the empty callback
-dcp_virtio_release_dev().
-
-Once register_virtio_device(&transport->vdev) calls
-device_initialize(&dev->dev), the lifetime of transport->vdev.dev is govern=
-ed
-by its reference count rather than the parent platform device's devres
-lifetime. When dcp_virtio_transport_remove() returns (or when
-register_virtio_device() fails), devres_release_all(&pdev->dev) immediately
-frees transport regardless of whether references to transport->vdev.dev are
-still held.
-
-Additionally, if transport is instead allocated with kzalloc() and freed in
-dcp_virtio_release_dev() (as in drivers/virtio/virtio_mmio.c), calling
-dcp_ipcc_deinit(&transport->ipcc) after put_device(&transport->vdev.dev) in
-dcp_virtio_transport_probe() or after unregister_virtio_device(&transport->=
-vdev)
-in dcp_virtio_transport_remove() would access transport->ipcc after the fin=
-al
-reference drops and frees transport.
-
-Can this cause a use-after-free of transport->vdev.dev and transport->ipcc?
-
-> +
-> +static int dcp_virtio_transport_suspend(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D virtio_device_freeze(&transport->vdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D dcp_ipcc_enable_irq_wake(&transport->ipcc);
-> +	if (ret)
-> +		goto err_restore;
-> +
-> +	ret =3D dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret) {
-> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +		goto err_restore;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_restore:
-> +	virtio_device_restore(&transport->vdev);
-> +	return ret;
-> +}
-> +
-> +static int dcp_virtio_transport_resume(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-During system suspend, dcp_virtio_transport_suspend() enables IRQ wake on
-transport->ipcc.power_notify_irq via dcp_ipcc_enable_irq_wake(&transport->i=
-pcc).
-
-During system resume, dcp_virtio_transport_resume() calls
-dcp_ipcc_send_power_notify(&transport->ipcc) before calling
-dcp_ipcc_disable_irq_wake(&transport->ipcc).
-
-If dcp_ipcc_send_power_notify() fails or times out, does returning early he=
-re
-leave wake_depth unbalanced on transport->ipcc.power_notify_irq?
-
-> +
-> +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +	if (transport->version =3D=3D 1)
-> +		writel(PAGE_SIZE,
-> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
-> +
-> +	return virtio_device_restore(&transport->vdev);
-> +}
-
-[Severity: High]
-In dcp_virtio_transport_suspend(), virtio_device_freeze(&transport->vdev) r=
-uns
-before dcp_ipcc_send_power_notify(&transport->ipcc), while
-transport->ipcc.resp_vq remains non-NULL because neither this function nor
-dcp_virtio_driver clears it during freeze. When the firmware acknowledges t=
-he
-power notification, dcp_ipcc_handle_rx() executes:
-
-drivers/gpu/drm/msm/dcp/dcp_ipcc.c:dcp_ipcc_handle_rx() {
-	...
-	complete(&ipcc->power_notify_done);
-	if (ipcc->resp_vq && virtqueue_kick_prepare(ipcc->resp_vq))
-		virtqueue_notify(ipcc->resp_vq);
-	...
-}
-
-Because VIRTIO_RING_F_EVENT_IDX is not negotiated, virtqueue_kick_prepare()
-returns true whenever VRING_USED_F_NO_NOTIFY is clear, writing to
-VIRTIO_MMIO_QUEUE_NOTIFY after the VirtIO device has already been frozen.
-
-Similarly, in dcp_virtio_transport_resume(), dcp_ipcc_send_power_notify() is
-called before virtio_device_restore(&transport->vdev), so the RX
-acknowledgment kicks ipcc->resp_vq before restore. Immediately after,
-virtio_device_restore() calls virtio_reset_device() -> dcp_virtio_reset(),
-which writes 0 to VIRTIO_MMIO_STATUS and resets the hardware virtqueue stat=
-e,
-and nothing in the restore path or dcp_virtio_driver reprograms the virtque=
-ue
-registers before setting VIRTIO_CONFIG_S_DRIVER_OK.
-
-Will this leave the virtqueues unconfigured in hardware and break the displ=
-ay
-transport across suspend and resume?
-
-> +
-> +static const struct dev_pm_ops dcp_virtio_transport_pm_ops =3D {
-> +	.suspend =3D dcp_virtio_transport_suspend,
-> +	.resume =3D dcp_virtio_transport_resume,
-> +};
-> +
-> +static const struct of_device_id dcp_virtio_transport_of_match[] =3D {
-> +	{ .compatible =3D "qcom,dcp-virtio" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
-> +
-> +static struct platform_driver dcp_virtio_transport_driver =3D {
-> +	.probe =3D dcp_virtio_transport_probe,
-> +	.remove =3D dcp_virtio_transport_remove,
-> +	.driver =3D {
-> +		.name =3D "qcom-dcp-virtio",
-> +		.of_match_table =3D dcp_virtio_transport_of_match,
-> +		.pm =3D &dcp_virtio_transport_pm_ops,
-> +	},
-> +};
-
-[Severity: Low]
-In include/linux/virtio.h, virtio_device_freeze() and virtio_device_restore=
-()
-are only declared under #ifdef CONFIG_PM_SLEEP:
-
-#ifdef CONFIG_PM_SLEEP
-int virtio_device_freeze(struct virtio_device *dev);
-int virtio_device_restore(struct virtio_device *dev);
-#endif
-
-Since CONFIG_DRM_MSM_DCP depends on CONFIG_DRM_MSM (which only depends on
-CONFIG_PM) and CONFIG_VIRTIO, this file can be built with CONFIG_PM=3Dy and
-CONFIG_PM_SLEEP=3Dn.
-
-Won't compiling dcp_virtio_transport_suspend() and
-dcp_virtio_transport_resume() unconditionally without #ifdef CONFIG_PM_SLEEP
-(and without pm_sleep_ptr() / pm_ptr() on dcp_virtio_transport_pm_ops) caus=
-e a
-build failure when CONFIG_PM_SLEEP is disabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D19
+Konrad
