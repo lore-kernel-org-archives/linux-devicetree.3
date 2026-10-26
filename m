@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793027345;
-	b=iKSD+Ssl9dispJBPM8uiJNkk4CglQvOIhiptO71opGmsXxsUmk6JMA37J1ie8T8LxfYd
-	 PHTR99ImgdfEe5YiYmSyB3o93ixKzwFjq52j4621DNxZDqJEfKxCvbnm0uhOAYm1WBgpy
-	 EfnzMEpc4L5bX2RzBMtWhZlNN5yS96EV1HWd7uVOe9KSeQBJTPZDXVs5ewbLw9PRggRW8
-	 3vVml+QPTBUDeui3D5UXpIetAcPClxyC0HajqSE2OY/Za1SgMxz4leyDaSTCMEZhgyHaY
-	 90P7Vn10JITYcnaDdEysWedEpzO1WWZxNpY0w/qKd0olrz5mQsLhbv1LDu5vtee7A7w==
+	t=1793027412;
+	b=ZNEOg6c7mhDQ7Q1H5MowTWQryj0TwusukpKNKftmcOjmc0es6SVu+7oIenajqUXs2h9f
+	 EnFQQPwVerFHDFyMAyNIfwTJR6kHf4oSeQyArJOKqa5XP6+N8+J8g9C6MXY7bTMGXuq0J
+	 8VlsSb9NIK04AS5UA0SXaAT/6qiIjmY101zOt083PlhbjDqFjvxl5Nn6OrmsOGWPLSbrm
+	 JEgZnI5UokM+UXptGQNsjJdTOwI2STe7vTirgxzwhaSxFxNBTBsCITfS/j9jTMHFFE7+n
+	 v42hSOgogpEsw6oEF4q7gZJfNT+lNq5HrRt4fO1uQA/o/uL6DFngqfc4vWNn2MSAb+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793027345;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=KWMNpUaY5pYPifFWu/XjdFpZWwWZTStRMKXLqRxU7fs=;
-	b=AjEJDJOFSx/uevhJsKyHzgWDubhafuBihPu1YuFGW1+AlMQmcz7gTdV3J264VxbByPax
-	 AEkDgkIVApj+qkYkf8cYnuSu2Vw7pqutNQ6Nr6QRVnTnTuCTISRLHBNKXBW3IryuLeEnJ
-	 YfHOa+//U08F86w9huWd5GJvl1RA3013qulE56JNt5kj4Gg+JN3tw38OugEpjeeYsofYG
-	 bVi98hMjQYFHmHF8eJdb4KyVB4mDNO4UK5fAr1z85kFQXWIZ7ybGadZ6kvvMotYqv8YIn
-	 VGgMcCPsmR9JFuExhlgytZ+JxeM9bZldN4QKdXDgvLielhwIWW3ggmgyMs6+/K+OCxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793027412;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2WRc+6jKb1+rLFwlm6EMxXrK00B3VaipSnTC3dwcXMM=;
+	b=nDrVFgcb0WMY7+U63CLAgToEHcWQEDYgCZOjbA14zaBCQeAqZqHoJ+FnRbRqU1yN9vON
+	 NEDA9R+dy33hdc+UtcELqkhbFdVYxe3NP4zljnmOFZOm34iPxkdjSljiakUOiLhqhxXDs
+	 opGOncapxht1SEFctzM1S8JtFuAEtQd7WqYj1qq6ZaNckejFaseoDVORwE8zbcSCrO4jG
+	 DT395U9BSbvDjXthkzjnpukM4GqKWXigYjHeGm/+wMXD+yr73FOWmmJoHQm2HzvEO4CMi
+	 nYF25uBwkyh7XQ/eWQlh3D0RL47HYIQPox0m8kH/MqM4UsSl3erQ9PUuHuH6YsF2sEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ihIRVT5v;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IuDxWcE3;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dchg4vGt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1787606A327
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:09:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1787606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B24A606A31E;
+	Mon, 26 Oct 2026 15:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ihIRVT5v;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IuDxWcE3
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvbjw3618576
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:09:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KWMNpUaY5pYPifFWu/XjdFpZWwWZTStRMKXLqRxU7fs=; b=ihIRVT5vmXCv1SWr
-	qXxBu0w5zJft9G1RPAp3A3HlGrvpZk/U8PBzPKBHZjWut7z3ELbI0NMoRCVUwd6v
-	+QHH7B8A8Zxc6umqNjqRedI+ryjeB7aYD0HFesQmuKMzYetpgTEe0J4qkAbZy8yB
-	fBSrPm3HglHIHR0Jo9MYBTtrVR+mUjLIm18bDUo/KMVdaXvBUljnQP+MXswXoXZF
-	pzrrMmW2PiyRnaUZMLG0/NVCvPxAwtxUhNliVRCbZ8jCY92V6p2wvpKA+G0Qf2/L
-	tyXCS+ERi5tb/b+Rn4a1BB9uXD8EKmAKaB0SyTsRiFOPfkQb2Wzm1oS6emdOmezL
-	y6+0BA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj79xrhjq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:09:04 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eae4d7ebd2so158017e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:09:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793027342; x=1793632142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KWMNpUaY5pYPifFWu/XjdFpZWwWZTStRMKXLqRxU7fs=;
-        b=IuDxWcE31f1sCReB/OsOLgJvAopz/3o52fw4rd7TUGs+fQnFo+o/pByTBJeh90kjt5
-         GcTINtGUDWO1sGhvnBuCrwxRaOtuUbJOGi3OvTXw+ccpP03odd6JCmaUxdhlPOUMY9Of
-         ivwOAvTjxtTrV9/1RDeFMc9h9Tkbm8I1MBtT9ceaAEriYQT8UYhd0IC/GcBASZKZXzTJ
-         6Cf2jn8wgVAuTBT0bod4P2GQX3MCaSa8yiO7NnZpx4lOxryd1CoFPo8auNlB405Z+ZDp
-         wLNDZl15mXDoYkM5b0fc/lJwqbKSnWkwF/1H/PW6gwjuWeYYdC0IvUKONlwbngfOGCD0
-         6Y/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793027342; x=1793632142;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KWMNpUaY5pYPifFWu/XjdFpZWwWZTStRMKXLqRxU7fs=;
-        b=Caiemb4YMON09W78h5jH86Sz9z/0kTL3G0meZlfzsbrnRGlyXmjNc3NSJkuZXpMrgn
-         DsuPBOBSBNXhTGzvYNVwgXNpuo4VeAN1SUShmtOsnTUIyh6cozc1C3CHFkI5b8palM0y
-         2tvDmLA+kgZLPNYn17aiMq3ukC7Nq5hR9rWGVxl6wz1ZKy0a94qJfChM/uSfAn6M9QVB
-         SViQdHWfv3zMCLxSi6M428a3RV3nrRVVBMFh2nRrXOSdZ2L3afB9CRyg199Qcnrl7rvU
-         ybKZjd/YzjiNQ0QslFdTeGzdQ+hRHAoLWjKtBzpLwo1Vxmb2XolDRP8xw5vbvE1GBXHo
-         sx5A==
-X-Forwarded-Encrypted: i=1; AKwUvBxIjwd7gfIR1gXrUTKlUMpu4+tdOqZiw+yzKEg3C62Lce2btRXx2tqoqujOBWeQ6BEegZ8wShwwCajQ@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa58TUw+RqsBtZLv7Wg4P08zfzQjXFz7xCzlbln7qCn7BsUN6T
-	B1MO9rULTqY92i3NzX8yOiJl3BscDhFbh7R0M+ZeoeKWzALs1AulyfHgFQbHih8rKYByJEsp7QU
-	QK8muB2OMf94g0Rz1tfLjPEXYOgh6SqF+0I0ZXJ9Bb+/JMJym8nhgnfkMZCw+KRJT
-X-Gm-Gg: AYBFou1Xk2mhOk/+OA/UK+wjieq0kADmOMqT296d6mLoNUPFMyZmMsdBp/WUnFFU5Z2
-	ls1zpg8+W6LkGXZkog+PLt8bBOoCFDr/PgubxeFAgfXM8BlgmUzgjBbwpQQsYCx1dQIXN0Rf03r
-	03C/IN3iOSaRg2kAfFC3LrvBCiKf2NYoCyKX02NZVdOLSrSxvcqFJlod45zUxqpcgY4TgYO0o1l
-	Vg/vr+lPuLZtv7v0DOGXkPki35VPetX7sM5J7rZF4d23/109ROXZk3lkEyPE6oRZ0DiFOVnVCWX
-	kH6K+4bja0t5xdHnDWSusLpAGAAjHmuJPZf0IMzCoDADrjI/AQ+O0Q0txWT+WSKSBag+MpG8LFt
-	J6J11ArKfXwDHqYQn2k/r3A==
-X-Received: by 2002:ac5:c00f:0:10b0:5ea:e18b:16a8 with SMTP id 71dfb90a1353d-5ec22ec8268mr2282418e0c.0.1793027342332;
-        Mon, 26 Oct 2026 08:09:02 -0700 (PDT)
-X-Received: by 2002:ac5:c00f:0:10b0:5ea:e18b:16a8 with SMTP id 71dfb90a1353d-5ec22ec8268mr2282365e0c.0.1793027341885;
-        Mon, 26 Oct 2026 08:09:01 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd798391sm332866066b.71.2026.10.26.08.08.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 08:09:00 -0700 (PDT)
-Message-ID: <93418e3d-c491-4724-adfc-21e31904e815@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 16:08:58 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dchg4vGt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948781F01825;
+	Mon, 26 Oct 2026 15:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793027412;
+	bh=2WRc+6jKb1+rLFwlm6EMxXrK00B3VaipSnTC3dwcXMM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dchg4vGtrpLM04uYvU6oR6FN93DNFhSnS0EKv0Uy5TG6P1YGMNO+EqEDcDB4njqOn
+	 Opk00KY0UqvphCpRURdUbZ51bZHL9mYKRTS49oyAg/T+qe9RHWiJhzta66V19b1fQH
+	 8sNKon6cZm0uKEVaNZW6Rk4UvCMwnzE9ASYsLBZRFpMVI24TWKmejq3NvTQc0WfOeS
+	 bNg66TkCUDCsvqbpB4UR9/Zr1l4Goyi8FyLF+KXpzrgOAlbWCU2WhL29QVoMv52wdQ
+	 Kp2ZbTdko6DCRKg4s7+4z2xO+NwTG2ZZtWMXonem0bosTtmgv4Un1XXp78eU658o1q
+	 d5U+KZxULb2Lw==
+Message-ID: <sashiko-outbox-185424@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 23/23] arm64: dts: qcom: hawi: Add DCP support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-23-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-23-7cf014efdee1@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 15:10:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,62 +60,258 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: qcs6490-rubikpi3: Keep WLAN firmware
- memory reserved
-To: Marek Szyprowski <m.szyprowski@samsung.com>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Roger Shimizu <rosh@debian.org>,
-        Hongyang Zhao <hongyang.zhao@thundersoft.com>,
-        Christopher Obbard <chris.obbard@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <CGME20261022085853eucas1p1204878da3c0f519bcb39bf11ad84bd97@eucas1p1.samsung.com>
- <20261022085844.768508-1-m.szyprowski@samsung.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261022085844.768508-1-m.szyprowski@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: egOJcQ92eTUPPip1T8nPWXmsiUyQ3RlO
-X-Proofpoint-GUID: egOJcQ92eTUPPip1T8nPWXmsiUyQ3RlO
-X-Authority-Analysis: v=2.4 cv=FPyOVOos c=1 sm=1 tr=0 ts=6adf6d10 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=o4Q9ZarbzXqV1QZr0XcA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MCBTYWx0ZWRfX06HmFYQ3CfqT
- 4lzO6cwOnrfmqzOoEeWw1RF6FgDv6LMS2l26/r2P5/yIUSfz9zkAp9i/XSGgkjHahCQhhTRBZaK
- vpY+bf8neWhbSw2SjgreTvBZxP2bHTHZoTBQvOv4Lk2wLveVAgdGR2x2Iik4/5vCjOIk8fouRkr
- H3FSBnL93SP0HWi4qfDVWuHNbNXB3aaECZAvxnkAQLQT3doQ5ue3LEFAkJyUirKSFdBObqornFl
- xoSEd99WdVdlN2BSjdD5XgrqC9YFJrXlHPlEkhNu42IacwSR1UqpZPSxrT7G4B4FAL01GdiJe7U
- 4A96FBiDDQRaJXg3cKlw2QFEGDDBOm1mvUdRbAVnXxqTiOz/cI1maNfpfeFj9oRSm2EY0kF3fjN
- vn9F8FRBtm5rWB1/jX2gcDEN04bPBDtf03II1Sz2ngdNv1mxEpYrWrL2GwAVfLCKKy6Egqc83YW
- dyf/h2cGPxZ6mxb0vhQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MCBTYWx0ZWRfXxifE8MucSJuq
- vzPJh211SwAkGGoDAWxIqALiAutZwK5+aUdSh2PsKNpY5jdwlQGIjtXxn0lYPJj16sutfpZgTQS
- jvKpA6Ovm9PsZORw4z++bdCcyrzkAwE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 suspectscore=0
- phishscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260060
 
-On 10/22/26 10:58 AM, Marek Szyprowski wrote:
-> The board dts deletes the wlan_fw_mem reserved-memory node inherited from
-> kodiak.dtsi, because RUBIK Pi 3 has no WPSS and uses an external WLAN
-> chip. However the firmware still keeps the 0x80c00000-0x817fffff carve-out
-> protected. Linux treats that range as ordinary System RAM and the first
-> access to any page from it triggers a synchronous external abort.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: hawi: dcp virtio node placed under root instead =
+of soc@0
+- [High] arm64: dts: qcom: hawi: panel reset-gpios pin 210 mismatches pinct=
+rl gpio211
+- [Medium] arm64: dts: qcom: hawi: dcp left enabled in dtsi with unconnecte=
+d endpoint
+- [Low] arm64: dts: qcom: hawi: sde_disp0_vdd_active violates qcom,pmic-gpi=
+o schema
+- [Low] arm64: dts: qcom: hawi: duplicate tlmm block and unsorted nodes in =
+hawi-mtp
+- [Low] arm64: dts: qcom: hawi: raw integer 13 used instead of IPCC_MPROC_D=
+CP macro
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 1a3114977b7eb966fe7d2b04c935e54daa02d988
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-Konrad
+arm64: dts: qcom: hawi: Add DCP support
+
+This commit adds device tree nodes for the Qualcomm DCP VirtIO display
+transport, subsystem, IOMMU mappings, and DSI endpoints in hawi.dtsi, and
+adds the DSI panel, regulator, and pinctrl configuration in hawi-mtp.dts.
+
+> diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/=
+qcom/hawi-mtp.dts
+> index c38e5fab7a2cb..a27003f69d024 100644
+> --- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+
+[ ... ]
+
+> @@ -995,3 +1008,119 @@ &usb_dp_qmpphy {
+>  &usb_dp_qmpphy_out {
+>  	remote-endpoint =3D <&pmic_glink_ss_in>;
+>  };
+> +
+> +&dcp_dsi0 {
+> +	panel@0 {
+> +		compatible =3D "novatek,nt37801";
+> +		reg =3D <0>;
+> +
+> +		pinctrl-0 =3D <&sde_dsi_active &sde_te_active &sde_esync0_suspend
+> +			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
+> +			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
+> +		pinctrl-1 =3D <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
+> +			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
+> +			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
+> +		pinctrl-names =3D "default", "sleep";
+> +
+> +		vddio-supply =3D <&vreg_l12b_1p8>;
+> +		vci-supply =3D <&vreg_l13b_3p0>;
+> +		vdd-supply =3D <&display_panel_vdd>;
+> +
+> +		reset-gpios =3D <&tlmm 210 GPIO_ACTIVE_LOW>;
+> +
+> +		port {
+> +			panel_dcp_in: endpoint {
+> +				remote-endpoint =3D <&dcp_intf0_out>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&dcp_intf0_out {
+> +	remote-endpoint =3D <&panel_dcp_in>;
+> +};
+> +
+> +&pmd8028_e1_gpios {
+> +	sde_disp0_vdd_active: sde_disp0_vdd_active {
+> +		pins =3D "gpio2";
+
+[Severity: Low]
+Does the child node name sde_disp0_vdd_active under &pmd8028_e1_gpios in
+arch/arm64/boot/dts/qcom/hawi-mtp.dts cause a dtbs_check failure?
+
+Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml sets
+additionalProperties: false and requires pin configuration child node names
+to match:
+
+patternProperties:
+  '-state$':
+    oneOf:
+      - $ref: '#/$defs/qcom-pmic-gpio-state'
+
+Should this node be named sde-disp0-vdd-active-state to match the schema and
+the other PMIC GPIO state nodes in this file?
+
+[ ... ]
+
+> +&tlmm {
+> +	sde_te_active: sde-te-active-state {
+
+[Severity: Low]
+This isn't a bug, but arch/arm64/boot/dts/qcom/hawi-mtp.dts already has a
+&tlmm block earlier in the file and keeps &label overrides sorted
+alphabetically. Should the new TLMM pin states be merged into the existing
+&tlmm node, and the new &dcp_dsi0, &dcp_intf0_out, &pmd8028_e1_gpios,
+&pmh0110_d_e0_gpios, and &pmh0110_f_e0_gpios nodes be placed in alphabetical
+order?
+
+[ ... ]
+
+> +	sde_dsi_active: sde-dsi-active-state {
+> +		pins =3D "gpio211";
+> +		function =3D "gpio";
+> +		drive-strength =3D <8>;
+> +		bias-disable;
+> +	};
+> +
+> +	sde_dsi_suspend: sde-dsi-suspend-state {
+> +		pins =3D "gpio211";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +	};
+> +};
+
+[Severity: High]
+Is there a pin number mismatch between reset-gpios in panel@0 and the
+sde_dsi_active / sde_dsi_suspend pinctrl states in
+arch/arm64/boot/dts/qcom/hawi-mtp.dts?
+
+When the novatek,nt37801 panel driver probes and transitions between default
+and sleep pinctrl states, panel@0 under &dcp_dsi0 requests pin 210 for rese=
+t:
+
+	reset-gpios =3D <&tlmm 210 GPIO_ACTIVE_LOW>;
+
+However, sde_dsi_active and sde_dsi_suspend under &tlmm configure "gpio211"
+instead of "gpio210". Since the Qualcomm TLMM controller uses 0-based pin
+numbering, does this leave pin 210 without its active/sleep drive-strength
+and pull-down settings while reconfiguring pin 211 instead, or should
+reset-gpios and the pinctrl states reference the same pin?
+
+> diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qco=
+m/hawi.dtsi
+> index 6b0a0ff0faa45..836970cdef718 100644
+> --- a/arch/arm64/boot/dts/qcom/hawi.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
+> @@ -6841,4 +6841,44 @@ timer {
+>  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+>  			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+>  	};
+> +
+> +	dcp: virtio@9be8000 {
+> +		compatible =3D "qcom,dcp-virtio";
+> +		reg =3D <0x0 0x09be8000 0x0 0x1000>;
+
+[Severity: High]
+Was dcp: virtio@9be8000 in arch/arm64/boot/dts/qcom/hawi.dtsi meant to be
+placed inside soc@0 rather than directly under the root node?
+
+In arch/arm64/boot/dts/qcom/hawi.dtsi, all SoC MMIO peripherals live under
+soc@0, which defines the bus ranges and 36-bit dma-ranges:
+
+	soc@0 {
+		compatible =3D "simple-bus";
+
+		#address-cells =3D <2>;
+		#size-cells =3D <2>;
+		dma-ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
+		ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
+
+Because dcp: virtio@9be8000 is added after timer directly under the root
+node, which has no ranges or dma-ranges properties, root-node schema
+validation fails and of_dma_configure_id()->of_dma_get_range() cannot find
+the SoC dma-ranges when configuring either the virtio@9be8000 transport
+device or the child dcp-subsystem device in
+drivers/gpu/drm/msm/dcp/dcp_drv.c:dcp_subsystem_dev_init():
+
+	ret =3D of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
+	if (ret) {
+		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
+		goto err_destroy;
+	}
+
+Should dcp: virtio@9be8000 be moved inside soc@0 (ordered by unit address
+between camcc: clock-controller@956d000 and usb_1: usb@a600000)?
+
+> +		interrupts-extended =3D <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
+> +		iommus =3D <&apps_smmu 0x15a3 0x0>;
+> +		iommu-ranges =3D <0x0 0x84000000 0x0 0x04000000>;
+> +		dma-coherent;
+> +		mboxes =3D <&ipcc 13 5>;
+
+[Severity: Low]
+This isn't a bug, but since arch/arm64/boot/dts/qcom/hawi.dtsi includes
+hawi-ipcc.h, could interrupts-extended and mboxes in dcp: virtio@9be8000 use
+the symbolic constant for client 13 (defined as IPCC_MPROC_DCP in
+hawi-ipcc.h) to match the other IPCC consumers in this file?
+
+> +		mbox-names =3D "dcp-power-tx";
+> +
+> +		dcp-subsystem {
+> +			compatible =3D "virtio,device34";
+> +
+> +			iommus =3D <&apps_smmu 0x400 0x2>;
+> +
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				port@0 {
+> +					reg =3D <0>;
+> +					dcp_intf0_out: endpoint {
+> +
+> +					};
+> +				};
+> +
+> +			};
+
+[Severity: Medium]
+Should dcp: virtio@9be8000 in arch/arm64/boot/dts/qcom/hawi.dtsi have
+status =3D "disabled"; by default, with arch/arm64/boot/dts/qcom/hawi-mtp.d=
+ts
+enabling &dcp?
+
+The commit message notes "Enable the DCP display device on the Hawi MTP
+platform", but dcp is left enabled in hawi.dtsi with an empty
+dcp_intf0_out: endpoint node that has no remote-endpoint property.
+
+In Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml, every port
+endpoint requires remote-endpoint:
+
+    patternProperties:
+      "^port@[0-9a-f]+$":
+        $ref: /schemas/graph.yaml#/$defs/port-base
+        unevaluatedProperties: false
+        properties:
+          endpoint:
+            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+            unevaluatedProperties: false
+            required:
+              - remote-endpoint
+
+In addition, on any Hawi board DTS that includes hawi.dtsi without attaching
+a panel to dcp_intf0_out and dcp_dsi0, leaving dcp enabled causes
+drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c:dcp_dpu_kms_init_dsi_bridges() to add
+dsi@0 to the DRM component match list even though no panel ever attaches to
+register the component:
+
+		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
+		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
+					   component_compare_of, dsi_np);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D23
