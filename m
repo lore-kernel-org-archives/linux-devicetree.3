@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974598;
-	b=ZEItgXfvrJ0IrKTuueIbYBgh0sAB9Xcw4oVFibZxYamSny6+fUHZ/zXSfP+ioX9DMqcI
-	 RWVTw+zyz3sr2zoAo8yQxn5SyU8fhea/PYd1LWdtUwRQtlLqp8zUVPgWfzhU/gcBh2WNU
-	 UJ1Strg1sl47Uj6ec67HWYEtFztefoN1D8jisjRGA7BehfuLidOgqk/O+TgmOAiJbQ+0j
-	 D56b2BoWOrsx791XdF6yM+c/g3ziK3YvrmziDyWrWw0dEIFhZVxLzvNBgQIDXY2PDJ8ba
-	 eGssKUZQA4N6DUmJTXen/FvQHXk51YmpOf8zEnIrORxo2KIBlKgD4SBFuNcNL8DnEAg==
+	t=1792974602;
+	b=rl95PDiP1DBVFtc5gQXOw3BCZPOIkhUvgNiohw7IdP4LaxeSRrRocMP+ZINFhANo7WuM
+	 PB+bfBSHF50TjbzS2dfoEY3Uq/mdg+CChgdzJidhaL+OdO1kslavM5AUkStkaeayzHjh0
+	 SOxKZWLjOmUXpbKj04h32XkvE4WpCKOpI9B7my/esCqZfxI9venOm+L7LTEAfa2kUdbNG
+	 S3ep+6lDVOcXjapWUZMKGrQzoxHynUot8Pjv3HA+2xGUZLMGGNK/AP3xh6bxQlJXqtGi3
+	 BEq0aGZXNxh8bq24tnr6fzNfsHUkBPqJ2OLOBtO78QRq34jK6mgbStCPvVsNc5/F+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974598;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974602;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=3kLZpiyAVInYzsnWS6FT3ErlcLNEMFglYc//NLf6F+U=;
-	b=X/aXXhirFGYTJm3AI+ScU3PoiEFkYjkwVWnN/Ew1shxvoyTL7lAQ/Eg7fu6FK1C52C4K
-	 4L2e8jV5ECDGnL57/c9yyUzNiWkWPIwV4atHl/TbBYh/1K1w08ip23CT5tWlYew9iFIld
-	 9vLp2l01tQSxDvGi9mxPNbcewB8gr/Zuj1EX/MPQmdxA8DpEKDWPSX2z0y+gNfvMw1Zxq
-	 2MElb6txl38As3+htvgEEqI8JN3o0l2kk8zkpssYsqRJCE12dwl7MUaWQJTXc9Dj3To67
-	 MDgLgtMvZfxbp+1AY9ua87K4dx7tK4IKD/SGhJmR/TciJX9ZQ6DTcGMJz1SugmtjIlQ==
+	bh=grEo01kQo66WHaUjHFxx2avn8S9t3Pe9iGjv32r3wtc=;
+	b=lCR7trDD2sgsEA5bDDBF+nXWFAMkCrv6GZZIO7n62NopWwu31SDkgK99FCMy+qUq9XH0
+	 CZESx5Op2hgGjjmitGGu1UFVo5TILTLOpMk8M8Y/g4kyfVWnU1bHpBdgnLabRsRKTGkor
+	 t0h4AXiJziiIV+7GMrY1zC7p337HEfcMZeOxFh69tJsibELfYmL/Ev9YDuSwE6WOR5DdE
+	 +3/o2hbOLTN+hQWKY7FUdnc25ObNY0NxAzxXdQ04WL+FzcngQTbsfZQgqh5uS76ZE2THF
+	 /db3weQoET7OtHDqS7AZZisuDTPV8SfwYalVkf0y9bw7S4vanABrBql/3WK2p/iq/6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vinarskis.com;
 	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d7u01atN;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=e7lb6UIK;
+	arc=none smtp.remote-ip=79.135.106.113
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444AE606A322;
-	Mon, 26 Oct 2026 00:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 444AE606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B318606A32D;
+	Mon, 26 Oct 2026 00:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B318606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d7u01atN
+	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=e7lb6UIK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792974594; x=1793233794;
-	bh=3kLZpiyAVInYzsnWS6FT3ErlcLNEMFglYc//NLf6F+U=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=d7u01atNDgXx99ZWqSSjdt2Deopk/U9voljOpKyHYQZFxYKy/hp8W1MwP8ac+IwZv
-	 Y6bQrcDLdlCB75D/yeEB4EHrM5NBmKiKaDSRg4NVa7BxYxacFKnFJaNgEAQoWqxj8p
-	 tslicZXyYrIoyYXIhxdSqFQZpDZWavxkdklZD3Yvkw1f6gGRE07bFq9oAuN3LssAZm
-	 /hqVw+VNuLDTVQXah6ceYpBqN2wwcYQUDuLLAzmvUtPMC/FEUJ4GhUhqQ1I/e1fp+2
-	 l7CwdIZmpnOYzsToPZEOpORwA+ujDepeW+m0VU5LWb+hUqgTPCq6vacFAb2DAemexY
-	 SgcXm3qgNfQDA==
-X-Pm-Submission-Id: 4jCZJc4KBmz1DFDy
+	s=protonmail3; t=1792974597; x=1793233797;
+	bh=grEo01kQo66WHaUjHFxx2avn8S9t3Pe9iGjv32r3wtc=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=e7lb6UIKD9dLsflH3N6v4erb+AIFCS/8QFU0nPsv+YuKuUni0wKb0ZZH0wWhOcsyJ
+	 ztH3X4X/wNLIz2RvifmKa1KRVTFEUyv7vGxQMfG7uHp8RFrCW19bOniGIaxYhaafqR
+	 /STWZkF7FpdxddmY8/wL/mgHDwBEqfOanlExZ1YDaXp/8Bu7uDMVmPHsrv2egySzpu
+	 VyW1wVInNgwNtd55kd7GfD6p0v2giCxLVsw/mxnq5tqRVnujxW1WKvcdvFNKjvFB6S
+	 j1FVbb715FNIBjLEItSbqzh9NagHIg16FgZROzsfd3MPmu52XTmeJwAT6TzP+RhPRH
+	 X8zoa1VYlth6Q==
+X-Pm-Submission-Id: 4jCZJd63CTz1DFSj
 From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Subject: [PATCH v8 0/3] Introduce EC driver for Snapdragon X1E based Dell
- XPS 13 9345
-Date: Mon, 26 Oct 2026 01:29:39 +0100
-Message-Id: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
+Date: Mon, 26 Oct 2026 01:29:40 +0100
+Subject: [PATCH v8 1/3] dt-bindings: platform: introduce EC for Dell XPS 13
+ 9345
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,14 +60,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XSzU4DIRAH8FfZcBbD90JPvofxMMBgie22wrqpa
- fru0q3RxpB4/EPmN0OYM6lYMlayGc6k4JJrPkwt2IeBhC1Mr0hzbJkIJgyTktOIux09HSt1Umm
- KgaJOykXuMRlOWtmxYMqnlXx+aXmb63won2uHhV9Pb5hiHWzhlFFIoAOEqJzHpyVPUOpbro/hs
- CdXcBH3iOogoiHBjWOQAcDy1EPkL2K7k8iGuKR89Bp0hNhD1D3iOohqiLWSmeh9GAF6iP5BOOO
- 9SXRDBHgutPVWBd5DzH+IWRFjQBqVcGQ9ZLxDhOkg4/U5wgaUjHsr3V/kcvv/gu8fbZPm2xIQD
- xVpu9/neTNMeJrpdwvZKi5f3wLNJIMCAAA=
-X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-dell-xps-9345-ec-v8-1-251c2cbfbc6c@vinarskis.com>
+References: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
+In-Reply-To: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,148 +79,141 @@ Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org,
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Stephan Gerhold <stephan.gerhold@linaro.org>, 
  linux-hardening@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6502; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=Gtlk7oWtkTWLZY1n1ZogGjUOQdSH0zFF9/uBFOODia0=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn35jMwmtUlbo95KaQYdudVY+ljPkmlK6EzzumuuGhpH
- mdq6P+to5SFQYyLQVZMkaX7z9e0rkVz1zJc1/gGM4eVCWQIAxenAEyEp4jhD282s7fW4f4lTx+1
- BJR/MCpt313+uNrM3H/+UwvHr8+VmRkZ+sNS1nPWcvFP/foigymN90hDVh3b5G515Y1nor8c05X
- iAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4342; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=mv5nMGhQJ4HJU+dLxlctLnk3H+irsCgi2Dl4/EuzfiE=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn35jOIyOrd/Xv29Ke/O+7ZLjjB/pVx4rnX730Nf6+6u
+ HrTk7yV/R2lLAxiXAyyYoos3X++pnUtmruW4brGN5g5rEwgQxi4OAVgImemMzLMWsix9nubTRTX
+ rFO6jsxqyqcK8pvVHxreKmRcNmPB9oIiRoYexwsWk3/dMA0xfSH8oXL3rLL2+QHp+usPPDO7+P3
+ zTxZOAA==
 X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
  fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
-While EC appears to control most of device's peripherals, particular
-driver addresses power and thermal managment issues. Key operational
-principle involves initial thermistor constants configuration followed
-by a periodic reporting of these onboard thermistor values from across
-the motherboard to the EC. The latter then handles fan ramp-up/
-ramp-down internally. Suspend/Resume must be likewise propagated to EC
-for power management.
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
 
-The driver was developed primarily by analyzing ACPI DSDT's _DSM and
-i2c dumps of communication between SoC and EC during various stages of
-operation (bootup, suspend, resume).
-
-With EC driver in place, the following issues are addressed:
-1. Fans were not properly cooling the laptop, would kick in late and
-   spin lazily, resulting in heavy throttling. With EC driver fans
-   start sooner and hit high RPM under heavy load.
-2. Fans were not stopping once SoC temperature dropped, they would keep
-   slowly spinning irrespective of suspend and/or closed lid until the
-   next powercycle. With EC driver shortly after SoC temperature drops,
-   thermistors temperature drops, and fans ramp-down.
-3. Keyboard and touch row backlight were not turning off during
-   suspend - only lid close would power off the touch row. With EC
-   driver behavior matches that of Windows, suspending device with lid
-   open powers off the peripherals.
-
-As thermistor readout depends on pmic's ADCs, this series introduces
-EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
-adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
-
-Additional findings:
-- Max fan speed depends on Dell's power mode settings, configurable in
-  BIOS or using Windows app (relies on ACPI-WMI). It appears best
-  cooling performance is achieved under 'Ultra Performance' profile.
-- When the said power mode is changed using Windows app, EC IRQ is
-  triggered. Windows performs what appears to be thermistor contants
-  readout, though its not obvious what it is used for.
-- Given similarities between Dell XPS 13 series (codename 'tributo')
-  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
-  EC address and response to suspend/resume command the EC driver can
-  be likely used for both, though in-depth testing on 'thena' is
-  required.
-
-This series depends on QCOM SPMI PMIC5 Gen3 ADC [1], which was added to
-`linux-next` for v7.1, but must be picked if this series to be backported.
-
-[1] https://lore.kernel.org/all/20260209105438.596339-1-jishnu.prakash@oss.qualcomm.com/
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
 ---
-Changes in v8:
-- Fixed missing semicolon, broken title. Apologies for the noise :(
-  Relevant changelog in v7 below.
-- Link to v7: https://lore.kernel.org/r/20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com
+ .../embedded-controller/dell,xps13-9345-ec.yaml    | 90 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 95 insertions(+)
 
-Changes in v7:
-- Rebase on latest linux-next
-- Fixed 1st, 2nd channels from AMUX3_GPIO, AMUX4_GPIO to AMUX1_GPIO,
-  AMUX2_GPIO as per Michael Burch, Liviu Nicoara.
-- Fixed sys_therm0..sys_therm6 to sys_therm1..sys_therm7. Initial
-  convention was picked based on schematics. It is now changed to match
-  most of the existing device-trees.
-- Fixed dt-bindings schema to not use arch specific imports as per
-  Rob Herring, sashiko.
-- Adjusted thermistor label as per additional findings from reverse
-  engineering investigation.
-- Link to v6: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com
+diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+new file mode 100644
+index 000000000000..33d59ad52f96
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dell XPS 13 9345 Embedded Controller
++
++maintainers:
++  - Aleksandrs Vinarskis <alex@vinarskis.com>
++
++description:
++  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal
++  and power management. It is communicating with SoC over multiple i2c busses.
++  Among other things, it handles fan speed control, thermal shutdown, peripheral
++  power supply including trackpad, touch-row, display. For these functions, it
++  requires frequently updated thermal readings from onboard thermistors.
++
++properties:
++  compatible:
++    const: dell,xps13-9345-ec
++
++  reg:
++    const: 0x3b
++
++  interrupts:
++    maxItems: 1
++
++  io-channels:
++    description:
++      ADC channels connected to the 7 onboard thermistors on PMK8550.
++      EC requires frequent thermal readings of these channels to perform
++      automated fan speed control.
++    items:
++      - description: ADC channel for sys_therm1
++      - description: ADC channel for sys_therm2
++      - description: ADC channel for sys_therm3
++      - description: ADC channel for sys_therm4
++      - description: ADC channel for sys_therm5
++      - description: ADC channel for sys_therm6
++      - description: ADC channel for sys_therm7
++
++  io-channel-names:
++    items:
++      - const: sys_therm1
++      - const: sys_therm2
++      - const: sys_therm3
++      - const: sys_therm4
++      - const: sys_therm5
++      - const: sys_therm6
++      - const: sys_therm7
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - io-channels
++  - io-channel-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@3b {
++            compatible = "dell,xps13-9345-ec";
++            reg = <0x3b>;
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++            io-channels = <&pmk8550_vadc 0x14a>,
++                          <&pmk8550_vadc 0x14b>,
++                          <&pmk8550_vadc 0x144>,
++                          <&pmk8550_vadc 0x145>,
++                          <&pmk8550_vadc 0x146>,
++                          <&pmk8550_vadc 0x147>,
++                          <&pmk8550_vadc 0x148>;
++            io-channel-names = "sys_therm1",
++                               "sys_therm2",
++                               "sys_therm3",
++                               "sys_therm4",
++                               "sys_therm5",
++                               "sys_therm6",
++                               "sys_therm7";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1e0d90fe2220..f20bb171e5ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7537,6 +7537,11 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-class-firmware-attributes
+ F:	drivers/platform/x86/dell/dell-wmi-sysman/
+ 
++DELL XPS EMBEDDED CONTROLLER DRIVER
++M:	Aleksandrs Vinarskis <alex@vinarskis.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
++
+ DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+ M:	Zev Weiss <zev@bewilderbeest.net>
+ L:	linux-hwmon@vger.kernel.org
 
-Changes in v6:
-- Fix dts mistake due to rebase
-- Link to v5: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com
-
-Changes in v5:
-- Rebase on latest linux-next
-- Re-schedule work if suspend fails as per Ilpo
-- Fix comments as per Ilpo
-- Link to v4: https://lore.kernel.org/r/20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com
-
-Changes in v4:
-- Change to .data struct provided via compatible, which contains expected
-  thermistor arrangement and magic init sequence to make it easier to
-  support new systems as per Bryan
-- Change milicelsius spelling, add newline, return as per Bryan
-- Link to v3: https://lore.kernel.org/r/20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com
-
-Changes in v3:
-- Rebase on latest linux-next
-- Add Neil, Stephan to CC, as they worked on ADC for PMK8550
-- Drop VADC for pmk8550 as it was already merged upstream
-- Rename PMK8550 registers to use newly upstreamed headers for ADC5_GEN3
-  in both dt-bindings, device-tree patches
-- Rename ADC labels to have meaningful for user names as per Bryan
-- Drop Dmitry's RB from last patch since it was almost completely changed
-  now
-- Link to v2: https://lore.kernel.org/r/20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com
-
-Changes in v2:
-- Update cover letter to indicate dependency on QCOM ADC series, only
-  relevant for backporting
-- Update description of dell_xps_ec_suspend: entering suspend does not
-  necessarily ramp down the fans, if thermistors still report high temps
-- Add die_temp/xo_therm to pmk8550 as per Konrad Dybcio
-- Add missing header imports as per Ilpo Järvinen
-- Add explanation for EC reset pin being reserved
-- Fix device-tree: minor issues as per Konrad Dybcio
-- Fix device-tree: alingment issues as per Konrad Dybcio
-- Fix driver: alingment issues as per Bjorn Andersson
-- Fix driver: handle temp value as 16bit register as per Ilpo Järvinen
-- Fix bindigs: description and example as per Krzysztof Kozlowski 
-- Link to v1: https://lore.kernel.org/r/20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com
-
----
-Aleksandrs Vinarskis (3):
-      dt-bindings: platform: introduce EC for Dell XPS 13 9345
-      platform: arm64: dell-xps-ec: new driver
-      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-
- .../embedded-controller/dell,xps13-9345-ec.yaml    |  90 ++++++
- MAINTAINERS                                        |   6 +
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  65 ++++-
- drivers/platform/arm64/Kconfig                     |  12 +
- drivers/platform/arm64/Makefile                    |   1 +
- drivers/platform/arm64/dell-xps-ec.c               | 308 +++++++++++++++++++++
- 6 files changed, 480 insertions(+), 2 deletions(-)
----
-base-commit: 77cb3534193b758eaecd662a610a3a1bffde43ed
-change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
-
-Best regards,
 -- 
-Aleksandrs Vinarskis <alex@vinarskis.com>
+2.54.0
 
