@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005046;
-	b=AUbbp3h7Qs3rNmwINA8ELt/xUu6Cfhg9uOxtmU0nOrBJpa2iHUPJvWhxTbl3Kxl9ZN+k
-	 7HFCmWnZygpjtzxVXSvUiSI/DVaHlOwjbh28wcGzyx7gRbKfC1tzLo5zlGYOj0Dtw6I+Y
-	 qH9yAEa9Y4UqsioYcUFhFMV/m7XDHGXyqu7LjkbgCparKKOMnoGOw+nak4hwcSxwSwseR
-	 RDZ9Tpgi0zPmJPga0nYEvSmLfz9ujCp8p//RK4jwizyVWc0q0fqV3Ej8GgleFbLct/Uyw
-	 Dk5fBQOvyx5+XOzY/0CMfhOP+z6aDc4xX/Jk4TiTbI6bu5UoAP09YTS2Nb/OJjl0Udw==
+	t=1793005188;
+	b=0BtCYvetx2Q9SwYEtuZLruOnRmth+IH+HZrYDZIhFGGxfmbIilH5dJeyZOBUo1/EJqNf
+	 pV2D24BeCQBDIMAbHCRsbDK9EOxb61ErrQc+3y1aoriFuI/S44SWTRLDZwi61kxTDQQgG
+	 0V2pS6CFPrKU3M3JM04+08vypEfJNgINKv/k2O4vb/h0kerInuGRugWDk3jYrL9jcpXSE
+	 HxhkAayDZiBWCfR0XkyRL5QW25/6d+9C1LOhKAwlTjJFpTLH4RCdpGkY/N05g0aX5iczT
+	 3MJNdMWhCwsDfiaCM9hFBL1OXh4fWZY25Gyr1X2gPDHvc063HdFBDMwxeko0LRe6uEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005188;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bI1K7WpjHruW52kJjg4X/MW1X2UQCXM+sxLT9XP/nlQ=;
-	b=WXr4H+C3C8dUyr7uXr2Cu4R2MOySmIF5LtKan9xZMOgq25mdpGOG3CaT64Sr8HZ7+LS5
-	 yVquk8TnHJeQ9bs2MwVLEVg0JzM0x0Bs4pUb88QcuDjbsjFnIF2VLm7RTSf9wVCqDH7SW
-	 i74vlNpqLBSypvN+kovy1ph6vYZQrOtz8icA5Q+rmGTvGgTcMpqKI5V/Cotb9qbGvJxKV
-	 uRuGIf1geAUbH8aNc1fUqdftN9wiekx+2zkm3owAJth4tKIUuNUyvunM+jXTxXumZDHq+
-	 Crzk2mg/ZgiV7qgMW9XgIb9r3nWKx1tmYfQF0gU6kNESnQscBCGvaICj22qo9hAqVDQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+	b=rYP4BpI+gJHeZxrQsF3vxxMKNxQg0p1qd4+okH1vOawRcSoCbxagRXSP8AfJpa+8FmII
+	 gDTNyEB7CYR1OXvoSE0fCxt3kHqFOEfc4xlTyiC5BEwvNDQyMaLmqnF+81MeowV3GIKAb
+	 5mZDAZkaYI3Uv+MkceW6jGoBr7GG7DcGdZk9pU8+2tBzrw/zp7F8AXg35j2B7KzVBWXAH
+	 VRcw+J9/DDYOwEhxv6ZGE13k86zuxzfNqmNqgWQ+siYh/WwrrE+jls+U7Fpz8ACsyqggd
+	 q5XgDRTakgNFtTe94tOlI/Lyf7c6I6GwkHTwM7t0dTNnQzjs7viSwutKvY9z0v85AcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nBILM34N;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7105606A31B
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:57:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7105606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B60606A31E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:59:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1B60606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nBILM34N
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214af2076so18663925e9.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:57:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3282db206d3so5433356eec.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:59:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793005043; x=1793609843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bI1K7WpjHruW52kJjg4X/MW1X2UQCXM+sxLT9XP/nlQ=;
-        b=nBILM34N+DQmcQaiOwhhjAIBvLE1X8GiwMvy8mC6GThNPWRS1nnLAFrtY3hnyPSVNE
-         Iw1wUC/FrAKhdk2E9Rv+/IZ3Uc/lKsrmo5Mo8o81Pcp3wYgTBWsY/iK1KyOY8+ku68Gr
-         tlMyY4cGuHGGSdUUxuJ7RZ3eZanC3KZDVNtmShz+O6nzvpD7y+1eqGYHNXl0RPRK9FO5
-         U1h5UehATB6b4SpLQbkpIAIfNmrGn2Y81XswDvMZerQClesyMtP3EptTEVYYe/0a2oLo
-         PM/pYmxmaKVN2IGHCumdecvCMaF1hsrQQpghaWKBGPX5Aozb9IqHi1j1Ihl8WKCh6LDx
-         cEiw==
+        d=linaro.org; s=google; t=1793005187; x=1793609987; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+        b=w0PcWQ7s1jwKnNUWE5T/YOshA42iaUDUUhGpDVV/1vK6RT9R1FUequz5lDy708udX6
+         XQ2CnxkMcFfd0QMdOLg791j212YiRJl1MqaUIm9FYOP4i82jHT14cg9eWj/f3JIHdbFw
+         ozqjcvK9xbUHL8sC/Te9aw7gwRzSCJQSglC44zBUvT74xxDkm7Uahb8MTZffFSaJEk9B
+         Ziz4jO9I0BbWb5DvKCz3n9NN/51UaFAuvppNPSCMbEYMLJpXoQ3CQfZA/FjpEz+yNRz8
+         THOHu1MVSkPKmIcLqxws1SuWjsSkZ2CihN1soh5iSuzcYy1g9h2P1FMFfLFHXw6t9vvV
+         fkzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005043; x=1793609843;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bI1K7WpjHruW52kJjg4X/MW1X2UQCXM+sxLT9XP/nlQ=;
-        b=T3qp3eapt2l5Mppnqqi+285sQzxVQdZJ8s5gcF20E10noBgeksLHwJtTYUYlewCr6U
-         9K0iywcJwYSleZ+Dms9G2LUWdWsTcE1CqzJqZZnb5UHMEwnQaHjQE1LT6M3Zj6cs7wEt
-         BmmqjRuoaZ6rR4HSuIdt6oj+x4BcgUEHCzI1CoMGLqB9c609xvn9oW31jdYAi8SsDdnX
-         gfhlyEnVXt/laztsUZgY/IoijbqXDeWL3VRoSDJMEVd6GnaJzFB883M/xX+tBvWz4+AF
-         y67n3FzQWq0ix1TVXr9Zhf9JmJkKnyfLqvlVYzQ3ZyW/Ubek7bdRnCSJBSOA+rUD8If6
-         V1fw==
-X-Forwarded-Encrypted: i=1; AKwUvByY+dzRh4p9ecypYymG7JZWju7d8ZNXqI0b2X5EMHbvFUsd/YyBpmd8p+FDqAK4DUrOcCgXe0ObFRn7@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/C0JdBSKltI85hLRVHehjdpEhTFq8Z3FaBrh/o2G8K7oqMtZd
-	nq8noG+PRtBROTV1i1tpDbpm5gm5g7f2nhjWfoTKOXshh8EEGRKbX8rx8Fu7shylagc=
-X-Gm-Gg: AYBFou3l/E0SiInCl1UDg8F7/x9ECQGkiykgU2nQBqXMWJTMZIcYRsGAzRwucDJR2LI
-	7McMkHBDQBMwaqBJRt/9bxRP8yV/kkr0LJXy8dUyzogJslETmQVuO5vCWjq/6l5qITbYmTReW6H
-	2yOCox4rI9qqRGOaNpu9MbBQ2WCBUo2JISQWFSaN3sBAuenkKFxiDf7nMbBKTZzMnhlIvJp6oym
-	KAJLYqW9MxKzhUCO1n3pM+Z38fQdly0BscZ3kVCQRxCllqOxQIXl64sP9LK1TobSaGVHIjYQX/p
-	AqUv+u+mfEQ+GjV/6J5WGD9xo0UDVwE5XubRB6hYfYqQUnflrdb9jOLuELAVHQu5D5Fjg1tJwyx
-	HEZCeuQnbfaCL9UU1VLE8n+uGsJ1zNCaQQumD8pVUhlqQw9QtTmKdzw8vLgdlMtuWUM8rNP3rz7
-	FDkvvbq0lHeGoWd6yGvciCmsx/QIJZ2ObGg6TkEwwHjJl8iVtVvdbrUSJErspDt/ZVi+iEwQmHM
-	SqnIxNuRPyDomNp0i1KsLzjDpL0BfeeuZZqRvsegqP1EUQ4BY3CpnKx4R5Xm25fbxiunrYxdR8=
-X-Received: by 2002:a05:600c:3b25:b0:4a2:1a:a128 with SMTP id 5b1f17b1804b1-4a35ac9f1ecmr118305925e9.19.1793005043279;
-        Mon, 26 Oct 2026 01:57:23 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a59d998sm187484365e9.15.2026.10.26.01.57.22
+        d=1e100.net; s=20260707; t=1793005187; x=1793609987;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
+        b=a6abFcbnLe0kcl9zdFdiS2lL7e7CFSOPKlGkflw1UaW/T6ZrTR5L9/X+gDvMUmhela
+         pmOzBs7lm4cJofQ/OUJAYOG6mlQdHR7yPaaJHEVub009P9HwV+uVZyMQqPaC8T9AG5er
+         KayAZUXpBNsE2E5ziM4mGZX23PIJ1tu2S2yRkskY6CyBvOaQxzTzr03ya5n2w5pwundR
+         TWQm89ryp0NUIYhaL0CwG0jQJTu4z49ZUiY5cXz3F4TmmCoU4xMRnJDBk7n2gcVz7ovK
+         aFl24i/U5hhSDPhIiIdAD2+46q3R8ABVKt2lq9hSlG1TZzwZ2U1e6ZfS+R51eEGmi22B
+         Jqfw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKihUeTTvgNrJCbIW8GqIIh8v400OBoMWnFY8kCsrvtW6EQqpvh1VtTlxVD9cLkFWkCsEFnAmGr/3/@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIUtp6Q5aHdmxk18n/gQeSjo8NVoL6qR1OND0zpfx0ktayYerN
+	4jXXS2xvcXPct68v30lW7y6g4FcUIPQQa1tIhwWwZf1MsV/htVeuw+d+26KWZ/YLaFI=
+X-Gm-Gg: AYBFou0ruXvW6xs9g+MvzG6x6bNYojUIVmvqvQeOKQsdoHHNbdyrvR7mBncPB1cIj6W
+	qRkdd7zNy+NF+Qj5TdeKZO9xw0fdij05ivWMw0qkrKRBA6aQk2yu1Dbd3xIHvnpSJ4EOOWOml5N
+	1jB7BYzi72i2aXWnCRDLPQIOqLUEEAra2o2QIrtEIgMTM1W2oqbei4gaeknILbUxfQBpSE/x/Sb
+	02GZL5u0LsCJggy9V2hQdVjh/SVwZgH9R3RrgLghbi3B0jJ6HLN3v1SjJzN7ZedE4n2dY08ElQm
+	Okc+BOZmBkZ/I9oUwQG+MCG97GvKtRLvDHMeYXbtigYKsFYrxry53e0vQr5VOS8VhMV0wjHYKM+
+	+yg7Hv7KQWpbQojG7ustXpEwXDpaQx4qyhk5DKjxaYZ5Pq+SGOwdQEWB6bCfE6czbx7qDDyzJiv
+	YUKK8gdrZHkNLNg/pO+UuvH2qJ/dh1uvNAjM4nuWFOWI+L9SHij0dXUcJB/yUDvPM5v9UIfHDQN
+	7QxjjTYwFb1xFX7ti+KRhTNvjXTiE7afk7PZfYOGKoWdJ9fWFnvq9P/HA==
+X-Received: by 2002:a05:693c:6017:b0:369:21a:dcca with SMTP id 5a478bee46e88-369e848a2d5mr8835197eec.10.1793005186447;
+        Mon, 26 Oct 2026 01:59:46 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a03bea5d4sm4608834eec.6.2026.10.26.01.59.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:57:22 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>,
- christian.koever-draxl@student.uibk.ac.at
-Cc: neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
- khilman@baylibre.com, martin.blumenstingl@googlemail.com,
- rafael@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4?=
- =?utf-8?B?bA==?=
- <ckoever@outlook.de>
+        Mon, 26 Oct 2026 01:59:44 -0700 (PDT)
+Date: Mon, 26 Oct 2026 14:29:41 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
+	sboyd@kernel.org, bmasney+clk@redhat.com, khilman@baylibre.com,
+	martin.blumenstingl@googlemail.com, rafael@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
 Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-In-Reply-To: <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+Message-ID: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
 References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
  <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
  <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
-Date: Mon, 26 Oct 2026 09:57:22 +0100
-Message-ID: <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,52 +105,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
 
-On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+On 26-10-26, 09:57, Jerome Brunet wrote:
+> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+> 
+> > On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+> >> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> >> 
+> >> Every S4 speed bin runs the same CPU frequencies but needs its own
+> >> voltage curve, and the bin can only be read through the secure monitor.
+> >> 
+> >> Read the bin from the firmware, select the matching
+> >> "opp-microvolt-speed<bin>" property for all CPUs, then register
+> >> cpufreq-dt. Bins outside the known range fall back to bin 0, which
+> >> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
+> >> on the SoC compatible and needs no node of its own, and S4 is added to
+> >> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
+> >> the bin has been applied.
+> >> 
+> >> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> >> ---
+> >>  MAINTAINERS                          |   1 +
+> >>  drivers/cpufreq/Kconfig.arm          |  14 ++
+> >>  drivers/cpufreq/Makefile             |   1 +
+> >>  drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
+> >>  drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
+> >>  5 files changed, 202 insertions(+)
+> >>  create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
+> >
+> > Is it safe to apply just this one ? I can take this via the PM tree then.
+> 
+> I would advise to wait a little for Amlogic to chime in.
 
-> On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
->> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->>=20
->> Every S4 speed bin runs the same CPU frequencies but needs its own
->> voltage curve, and the bin can only be read through the secure monitor.
->>=20
->> Read the bin from the firmware, select the matching
->> "opp-microvolt-speed<bin>" property for all CPUs, then register
->> cpufreq-dt. Bins outside the known range fall back to bin 0, which
->> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
->> on the SoC compatible and needs no node of its own, and S4 is added to
->> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
->> the bin has been applied.
->>=20
->> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.d=
-e>
->> ---
->>  MAINTAINERS                          |   1 +
->>  drivers/cpufreq/Kconfig.arm          |  14 ++
->>  drivers/cpufreq/Makefile             |   1 +
->>  drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
->>  drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
->>  5 files changed, 202 insertions(+)
->>  create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
->
-> Is it safe to apply just this one ? I can take this via the PM tree then.
+Sure, I wasn't going to wait for the maintainers to respond anyway.
 
-I would advise to wait a little for Amlogic to chime in.
-
-Patch 2 is something I already rejected back when S4 support was
-initially introduced. I suppose AI just unearthed it and did not bother
-to mention it.
-
-Amlogic was supposed to migrate to SCMI at that point, and possibly
-handle CPU frequency scaling through the secure fw entirely.
-
-They did on later SoCs, I don't know where their FW stands on the S4.
-
->
-> --=20
-> viresh
-
---=20
-Jerome
+-- 
+viresh
