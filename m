@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792989421;
-	b=ANRY+uJ6UMnJ+UJn4go8l0OXGyCarZBvaFeI3cq+4cXkkCYKD2jxywaxByqxFM6FTmSA
-	 sZHk7aLEAHObGBEgrnarJ/fCKRZGR18DebGIiAk64Ms8fhii/jnAf6S6UlWxbxY2lK6Oo
-	 SKOxpvJnbqNMi7UQw+bxgXg3aOSbmNO2nJX0IriMZNbdYKNkfwORtXwESPoBLTCoNt7Uz
-	 QpPAwSlR3QDB5UoK2wJYH1MqhSeCxxMZ/LfU/MBKtAqN6hvqB5hakr8pHJTbbOj6WAvXh
-	 o1A0WkwCVPx4FpSsCyxAxM3WV6b4uk8X85Z+HqBCid7bD7p59n0u4O9VCOj6iKIz65Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792989421;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
-	b=Opv46brnaTzqylPZ7pPwMQ8irvTyPZbgmcwFtbJs2r+DDNN6+LK0uRxlppKiB38kwN92
-	 nqgIe9luwMRgeK2a41/Il6YS3UZnj4e2YERuF1EXsXwjyiRoo4AJ4rPcDyYDMmZqIdfdB
-	 ar/j/JLKL2PYrhDXsw5qODBCD0esemeYMforpiiIobq9p3yIaSmUg8YxCR4HiKuBoA8oP
-	 Aht1d8KjTfFnQzafUi4xB1n3095KhDewAoIB+LFgqZjCINYBG8b5G8xyMQFFRXvVqUQhr
-	 NJijcmY8PSdmh6ENnVzGc1bgVCQ9FwpozGAFYe5z3ibnqWyvpQhy+6urWypx6ORcOgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkzC4rpU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792989982;
+	b=ax2jrzUbpMylzJIq/67I3n2j15LH/wTcOZ5d6AAayPOqNBwyxyfYpoyWQ4QtEHY/QKJa
+	 eM0gAeqOglYTtqIuqKj/UHWl1MEAeiz53FqfiyGbm8hqpEMxuoh6pwwOx93h8py8Du7RA
+	 D/VUjUWDid6bGBYnnqbhk1f8jJSRxUXe6Doo+HbjEILNyEklWk6jwFSgD/tC52k+9uzC0
+	 OaJ5hPbid7FT7x8YhnNRhn5l4bpLUsq40Qa7gy+Qh7WgtbN8AAyHhm/NIcaFJfcBjuBHn
+	 NZ5qL0e70mXycaagSu1ZHZvrzYBz2/kZh4wpKh3ARTV3A2Py9U6CyeC+L+1OthNhZAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792989982;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mOrTqyFuWDMhTrOz4qH+PVMDq3SnFizbYjluGLBXc3Q=;
+	b=cYBTntc8/mfqO9c25DmSV8kHr5xT9CRjRXzFUn7wJ5tYeG5HdS/vaPLemUuHaLg7m48d
+	 zUvqbJm7xklHxfngeH796V1lek3TjUW+2hRdCt+USRxDbLmob+j7I/1CQVJxHwsShjwfz
+	 tCRapcxKGLQdIyI0PVtXN4nYeyBtDGqU+PAruiRSxR5RFvgL0mGxH/GWsF5BzDQ/Lrajk
+	 562hHYSOS1ZVLdqIaID2KcIHTNSuizEDd5x/nwf5EYqo0WO8Infq9Dcb5VKKw+u5neHh7
+	 4hHZ9rTzFScfDLNh/Bzn5tyg/0UIqeEC+RpPq23Q5utlnFrLvDF/DA8ygNWYctNX02g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgNinzJd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BAB606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 04:37:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BAB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C257606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 04:46:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkzC4rpU
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c38ac078440so35284266b.3
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 21:37:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792989420; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PSwSAdivssfKOg2rNvuPirGvWs0GZKdi9j9HiH1Rt4GcHJiRIR5oWhZsS72dN9hBJv
-         33pf4bG9OZ875NJStrN9Vn8ENuvsbNsnz6gdgjJQ639+Zwn7KeoHjMIC0l2I2vtawQgt
-         H7bqn7P/2ZDF1ibBRXkjlYtUqyv4ulqAvN7Zq5U1priBvybcxp574ybsaRfhqZsns4Fk
-         A+x6K9mjMEjXNi4I27wPxGeJ60eshw5gXrmxQbK5PDm+5nHK0aX7uRDsUQO5v94CtbJw
-         6xqR35Yq2lWgZ0QUMWdEm0NXMlgPKnoOjVSQ/Cp1w11UrIQz91ZqJ58OH6EZKSwaWBuA
-         3vGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
-        fh=wJstLricolF8lX8YSYZvizcTdexL8M3T0yGN2rTlYJw=;
-        b=h0NuWuJ9htyMHylEi6fh62zJiHNsRLb6xyUF+v+KlNjKudFCeGtucsNnCdlwp2JgvJ
-         4dFpid+X7y2F0MpFb8D3hnyc2JBBC6DWHFx7UaqzQWSOEaRSA9AS33Tn0ziTLbyetT9Y
-         VPWC7v6hPm+ln4wc8wTBt6BfZNjvbLJbwHB3w4cMQM+XzPgdjJhcZVJxvKr4oiiNZfyI
-         mCH39YNRBGgMVGrsw9udgmDSVslV3NXvvWAyAebpF5ZvfdE4HDfYRk4bhMyQd1xRP6tK
-         LiXdjoEGz+Zux6hxk7uGIqJb3r5Slgnlcfu5WApZtb/bS224VvnkyDT+GpUQeOH1ShYi
-         GRFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792989420; x=1793594220; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
-        b=AkzC4rpUK3bYUZwJzVPhKqqrxL2zGqsAS8wRIrKEPZKO1wEZE8tk3kBYgfLw/u17zS
-         lHV2RvOEg1Q3ZCXERQPJjk19KgjJuiT7/oKdueeGVyF4uN4CZ1o5OFRhThBeRjwM4z4C
-         0YlmTlnWX64ZFMrstWYTl3JFqzM6+I5Z1PB2XYpZWWaN9KbFHtysFz4SyFawM06se4im
-         cA/v0zx8StaXlJxxcbjJH+Pte4EEvh4h6DtvgCVgN7U/MrxC/AIyXQUILYtB+/kdRzs6
-         7TBT7ZLETqzhcBtjWCZWlKML7+DPgyuWxlzEwxxq7P4/c+YOhNMt7FxQY4yQTX5SDr8d
-         DBjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792989420; x=1793594220;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N9wqBNwFeUJDyujtnIyKOyjh4O7kEuJC5I05KW0Mx10=;
-        b=yTn+pe62C7ebo0HCqbtjzTao3xCOnhKhQEux7A5+5N1Nhix0dVBPPbiKvCLPFmMKuf
-         CroJEJO/bKbAp+ezUvdo6SaJLb0AIeKwruYwaGq7uZA//1EGna/R/2Ry2YI7S1GqSfMw
-         R2Wd/yh3fGkhdpqUXZ5835HJSx9ioMwi3Nk3AXQnmKDggY89rRLQoB9vRHNkozSYigMt
-         JcuVA7XB4QHxhV3Io+MUY7CeKLYvZVx4bgnGr64uBh7W9uWGvuW0kn1ynFXf2vyELFqq
-         umKfs9IPNgqeibcEsQmeRPzj47Xhhm7XaxQXSdciyEfcFi7F33zwx2lJ5t5oGhq6UH4V
-         73wg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFLihktCZ43fQ5Z8SqxL82IRHG/9qLdxRLFaL+sghUttiDxPXboMw8sa8/nzilIZcq/aCetnze4NVO@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwqMFhwXAT4HNRNLqD4U+KPdsck1Wxp1uAykovsbZ6yrUUHAq3
-	T0XJUFGYJ9Oc17+9xskP55+npMiDOoZDjgiF8qdCxClQpegE8sSul2WzWPSFQ7HvWerpojlm81I
-	U3/R4IjTH+xvjfCyl0BP6AuEDDrXVAqiFQg4N6nf1qQ==
-X-Gm-Gg: AYBFou1Q0L6oMIcYSjnPl+U7Nv7yLaOtzglRTZwNyZ0i5tz0XfawCb1+kyrSVaLLxDS
-	s2fs1YKpiXeWwNfAIRV6xdMJygylJITnC1wQy5QizwDbUOxCxcej0oVlyHmD3mA4CqoKJZ/lq2y
-	TrmNim+pmLgHrGlgb4o0Jqy9KhV3e2MHb116AsN5daeMWStZH3IYtXjxKH2soU8Uw8F7Snsan2d
-	pR9Jildeu8CkwNHl+xVUxmi48C0FYld22pD8MWJi2WraLCwJeiiLpP+uXReEkeVM8vGWcVAYf8+
-	jHnhLn2TxBtE9Y/lVxXEfu9R21Ze9d00PX9W8KzTdR9Xi6K6wKEUqUr0KTf14GsjeRgvEGEJf4h
-	ay1uMEZgS5cHlZTrgsrxvXieqloSBpJt5NklP
-X-Received: by 2002:a17:906:100a:20b0:c25:3ec4:9e43 with SMTP id
- a640c23a62f3a-c46bd90669emr681750866b.0.1792989419265; Sun, 25 Oct 2026
- 21:36:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgNinzJd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D611F031E9
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 04:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792989981;
+	bh=mOrTqyFuWDMhTrOz4qH+PVMDq3SnFizbYjluGLBXc3Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JgNinzJddzXO4gVHgLL2xsH4hSXg8Q/MD7W0aKn37vi9Nm+U9kEj8fE8FODdzfLvf
+	 vvoSvxo8WKH3d6NwxlOSBO+PhjLD8/WdZRQnkX9MiiZpl3+5l0SMnLu1E1tJQtc6th
+	 M9oYuKzKY1TQt4TbOev36uZRtXZOOYhD1QUF7Ere0W2va5OUiHoxyZnrP0mbpqr/7F
+	 wTe1ZRW8hkL7S+k7m6M812EIJXOppQb7AtwcCesXC5wYgcCoSjTZoacYBwGQR+TpZ9
+	 KMmeCjcodArjOadcgXVOps3rzSo+x3S2FfsuMkGVEgTocwcByRU0PXujV5zPYjx7ov
+	 MIeJcSsPHb7JA==
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so4056385a12.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 21:46:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJFV3hM/KHoMIeaB+VnRlz5o3U8mX5GLl7U3G4NZIjl5tT5P6dDkbzlfBBKte3dsIh3Z9vXABrqMNS@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQ/X/vC/oWxwXUwRdfx+2OvgDQ8VT23GsKcZdJwXFEp7CjnJMZ
+	Y50QSGfUQxJ+KWvIyWLOtWQt3qdCE8Gzai40Yop7Ma0dTZnxTZenhQTvP1TXy5MYYM8X4f4eTrJ
+	oY670lCCiJqFNkHeenp0Uunh3pWMrOBw=
+X-Received: by 2002:a05:6402:e8d:b0:6ad:186a:fda9 with SMTP id
+ 4fb4d7f45d1cf-6b442db3ca4mr6960926a12.2.1792989980084; Sun, 25 Oct 2026
+ 21:46:20 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,47 +59,183 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <20261016-dcphy-rx-v1-v5-3-e63b49eabe2d@gmail.com> <f9b60989-e58b-4ac1-81ca-f0d37d4143b4@linaro.org>
-In-Reply-To: <f9b60989-e58b-4ac1-81ca-f0d37d4143b4@linaro.org>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Mon, 26 Oct 2026 12:38:40 +0800
-X-Gm-Features: AclHuK8vZ0KWZhabRgBdGgKek8QAVY3LLhkkHh4HIG41oJjGA-gl75AkOIcoHmw
-Message-ID: <CAPwA33LZRPs4O7ihinyorahAQiWY69C1pxWnhVE-gTUA556MYQ@mail.gmail.com>
-Subject: Re: [PATCH v5 3/8] phy: rockchip-samsung-dcphy: Move block-level
- setup to runtime resume
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Michael Riesch <michael.riesch@collabora.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com> <20261020-fw-devlink-nexus-ready-v3-2-fd6f1c17e16d@toradex.com>
+In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-2-fd6f1c17e16d@toradex.com>
+From: Saravana Kannan <saravanak@kernel.org>
+Date: Sun, 25 Oct 2026 21:46:07 -0700
+X-Gmail-Original-Message-ID: <CACRMN=fkhoaTLBrk-01yZBKirrSiND=zspBs=BAur+3CnKLU8w@mail.gmail.com>
+X-Gm-Features: AclHuK-OYUzzrtUJCFh4TFZ-yZrKNaI32savpoRnm_cngkmiLTtp5icSCjr4rXk
+Message-ID: <CACRMN=fkhoaTLBrk-01yZBKirrSiND=zspBs=BAur+3CnKLU8w@mail.gmail.com>
+Subject: Re: [PATCH v3 2/8] of: property: fw_devlink: Follow GPIO nexus maps
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Bryan,
-
-Sorry, I missed this one.
-
-> Would you not be better off scheduling a work job when you know both
-> blocks are out of suspend ?
+On Tue, Oct 20, 2026 at 6:00=E2=80=AFAM Ernest Van Hoecke
+<ernestvanhoecke@gmail.com> wrote:
 >
-> That way you always have a known sequence out of reset ?
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> GPIO consumers use of_parse_phandle_with_args_map() to resolve
+> specifiers through gpio-map properties. fw_devlink instead parses GPIO
+> properties as direct phandle references, so it records the nexus node as
+> the supplier rather than the mapped GPIO provider.
+>
+> A nexus is a translation node, not the GPIO provider, and need not be
+> populated as a device. The resulting fwnode link can therefore remain
+> unresolved and indefinitely defer the consumer while
+> device_links_check_suppliers() waits for the nexus.
+>
+> Use the map-aware parser for all supported GPIO property spellings. This
+> makes fw_devlink resolve the same provider as the GPIO consumer API.
+> Direct GPIO references continue to work because the map-aware parser
+> returns the original provider when no gpio-map property is present.
+>
+> Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt=
+-parent, dmas and -gpio(s)")
+> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4j=
+bauradujrre@gc5nbdhhixaf/
+> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+>  drivers/of/property.c | 38 ++++++++++++++++++++++++++++----------
+>  1 file changed, 28 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/of/property.c b/drivers/of/property.c
+> index 45e55f618488..aa65976739e1 100644
+> --- a/drivers/of/property.c
+> +++ b/drivers/of/property.c
+> @@ -1311,6 +1311,19 @@ static struct device_node *parse_prop_cells(struct=
+ device_node *np,
+>         return sup_args.np;
+>  }
+>
+> +static struct device_node *parse_nexus_prop(struct device_node *np,
+> +                                           const char *prop_name, int in=
+dex,
+> +                                           const char *stem_name)
+> +{
+> +       struct of_phandle_args sup_args;
+> +
+> +       if (of_parse_phandle_with_args_map(np, prop_name, stem_name, inde=
+x,
+> +                                          &sup_args))
+> +               return NULL;
+> +
+> +       return sup_args.np;
+> +}
+> +
+>  #define DEFINE_SIMPLE_PROP(fname, name, cells)                          =
+ \
+>  static struct device_node *parse_##fname(struct device_node *np,        =
+ \
+>                                         const char *prop_name, int index)=
+ \
+> @@ -1361,6 +1374,15 @@ static struct device_node *parse_##fname(struct de=
+vice_node *np,      \
+>         return parse_suffix_prop_cells(np, prop_name, index, suffix, cell=
+s); \
+>  }
+>
+> +#define DEFINE_SUFFIX_NEXUS_PROP(fname, suffix, stem)                   =
+    \
 
-The two PHYs share the BIAS block, but each can be used on its own.
-For example, while DSI is running, CSI can start and stop streaming at
-any time, so we cannot know when, or whether, both will be in use.
+It's the node that's called the nexus node. The properties themselves
+all have a "map" in their name.
 
-So the block-level setup is done in runtime resume. The runtime PM usage
-count makes it run only when the first user comes up, and a second PHY
-coming up does not reset the one that is already running. And in this way,
-I don't need to maintain a refcount in the driver.
+I'd prefer calling these DEFINE_SUFFIX_MAP_PROP() and the simple one
+as DEFINE_SIMPLE_MAP_PROP(). Similar fixes for the function names too.
 
-The order is also fixed: the phy core resumes the device before
-calling init or power_on of either PHY, so the block-level setup always
-runs before any per-PHY setup.
+I know it's a nit pick, but I think it makes sense.
 
-Best regards,
-Jason
+-Saravana
+
+> +static struct device_node *parse_##fname(struct device_node *np,        =
+    \
+> +                                       const char *prop_name, int index)=
+    \
+> +{                                                                       =
+    \
+> +       if (!strends(prop_name, suffix))                                 =
+    \
+> +               return NULL;                                             =
+    \
+> +       return parse_nexus_prop(np, prop_name, index, stem);             =
+    \
+> +}
+> +
+>  /**
+>   * struct supplier_bindings - Property parsing functions for suppliers
+>   *
+> @@ -1416,7 +1438,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
+>  DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
+>  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
+>  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
+> -DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
+> +DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
+>
+>  static struct device_node *parse_pinctrl_n(struct device_node *np,
+>                                            const char *prop_name, int ind=
+ex)
+> @@ -1436,8 +1458,10 @@ static struct device_node *parse_gpios(struct devi=
+ce_node *np,
+>         if (strends(prop_name, ",nr-gpios"))
+>                 return NULL;
+>
+> -       return parse_suffix_prop_cells(np, prop_name, index, "-gpios",
+> -                                      "#gpio-cells");
+> +       if (!strends(prop_name, "-gpios"))
+> +               return NULL;
+> +
+> +       return parse_nexus_prop(np, prop_name, index, "gpio");
+>  }
+>
+>  static struct device_node *parse_iommu_maps(struct device_node *np,
+> @@ -1452,8 +1476,6 @@ static struct device_node *parse_iommu_maps(struct =
+device_node *np,
+>  static struct device_node *parse_gpio_compat(struct device_node *np,
+>                                              const char *prop_name, int i=
+ndex)
+>  {
+> -       struct of_phandle_args sup_args;
+> -
+>         if (strcmp(prop_name, "gpio") && strcmp(prop_name, "gpios"))
+>                 return NULL;
+>
+> @@ -1464,11 +1486,7 @@ static struct device_node *parse_gpio_compat(struc=
+t device_node *np,
+>         if (of_property_read_bool(np, "gpio-hog"))
+>                 return NULL;
+>
+> -       if (of_parse_phandle_with_args(np, prop_name, "#gpio-cells", inde=
+x,
+> -                                      &sup_args))
+> -               return NULL;
+> -
+> -       return sup_args.np;
+> +       return parse_nexus_prop(np, prop_name, index, "gpio");
+>  }
+>
+>  static struct device_node *parse_i2c_parent(struct device_node *np,
+>
+> --
+> 2.43.0
+>
