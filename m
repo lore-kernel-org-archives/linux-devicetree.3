@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793028666;
-	b=YOYykGsUej4hxY9J0rysk0Glg1uOWphRvGH1gbtfWkiDVRYPP3QyJu8w3FtzjcJxqctJ
-	 ATVX226LTEKKuQmt/xtvaWr1crWRDNEV1JT4/Z+6xwGcwMXviaL2rBsiaHkTWKu82Dpc5
-	 0LMQuPzVVJhupzVxqHcMd/L2o7S1U2ulw8q0+naWXV0OY6jhHif5DOW0bxTU7Q1LZk8+c
-	 aSJns8WwZS2BlC+AntWVylSoQHv1S52wrEn6pDsVVVB2F1QgRXMVmUw7mdVoAgm2U5rUr
-	 gVT/1CwY4aX4n4JnCvYYxJQIs4VxmNORtzABEpHMpQbAQZvgZlwjsLioXP0PQOeXPcQ==
+	t=1793028670;
+	b=lnJ7zdxivZtanWg9ff5IhxnFTIV9k3zswGu+bASweOY7JtDruTtyoH4ZOY8rx1r9ZSVU
+	 z8Zt7J57DpHUS53uX1Hty02lnP22C3nhIaxX9i1nTOP7+0OGbJpC+ctoC2YvJnz+yKgTc
+	 UoNtNMEqMOxz50xsnV9hPhRn5lrhDwaqXO4cJp+a0k75vqFPxavPmRZUpYtIVCKuSQqTz
+	 ZslAZbRZH7JzZuGFf7TDXIrD/e97K9bbDAKzSLf4LQlbuvtBKKmYey6WktrXSLGwY9qXr
+	 I3anOfQxcmyrJB5bKFx26c1KoUCa5NgQsEObAtE2gxYH7zxNWn2eEO41i6DiNOHSU9g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028670;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=IpCrhhdrQggWiZdXpuqOx7Kbrnng8aqJZmk22MF4PNA=;
-	b=gw1dBCZGwYA8cIjmAhgNghbgttLZhSkXG2z2JSDRdrsNKiM5R/TAml5hm5RdRm4QUYFp
-	 FM8aoQIUhGWd7xgi4DDM5zDYDiA26/9a9Zl4B7uz0p/Vq0ZxH1TmhdfyjsZPExGg1TUw6
-	 +jK9oEaLIFO5q/5e0JP8PISeu+qqqRPJ51YaUGO6VjCZ1iI0Jy4R7/o1CzhQilSD56vDp
-	 aAqAqqRVxmD6Bfc7QyblimpwFjzhrOwFi7oczuDnJGv91rV0y5CylNZ2kXpEM3HMmtyJi
-	 CJwYncq+QUfrrjxk4jp3Y6/sgMpPps3DAxPuU5ccOUHzm23dBdYwNBaHFojdIffR0tA==
+	bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
+	b=4s00TXflrCHykZccexTtqp5sRjt6FKCTUG+2aiSFsWca9AbFIbUQKtcigakMHBnTY5iq
+	 Zyyhz++JehW696tL8Im+vtRMmzy9vBnF7kprjTQ0o7WJLQXUgJQHhQAfvtMXjoA2qRTuK
+	 ncdlCQzSPwJ0DzKhoUK9FAY0OmhWG3KY8t2Q9OArEhby0No0Bt5CjlPOT84oqiw9BRwTL
+	 nyDNCu+ocX/v83Et5n0SHrxaXz0NL7/dnsSnYMiFE3DBlLyLNs/jzQPmoaDqxaSudw5wm
+	 2vHPypSVd8wz0vxWvo8tc+jok72UT6HQdO14JygN8ygrX9LYv27MCZC8Wy49E0DoMCw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Za13/Bq8";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i34fDHbk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A380D606A324
-	for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:31:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A380D606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E88606A32D
+	for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E88606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Za13/Bq8
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so6188145a12.1
-        for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793028664; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i34fDHbk
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4557743a12.2
+        for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:31:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793028668; cv=none;
         d=google.com; s=arc-20260327;
-        b=KHbGnijjpE/KKs5tAwMyl15/K6m74uoeZLLu/wwSfzdSF4BjcmcpC8tTzmEhciK5Gn
-         DXqfldiPjM13kD99pGK1Sh4JZAeUtifOvKcj8fn/wOen3G39jzIw/h0bwCDVHQTNJJZB
-         pwbyS5xvIhMH7RnrI8qcE4fMovjbB/zEYe6NbhNzsXr55V+CfNWGF1PWRVFppfegEnPd
-         4NkRzG7DHUwFGwwuNrApyeDOGp3oCp8umlW00+3Bu1nsFPO7ikRC9waau62EbzJiNDCu
-         pCHEGv2ZfQzKs+u+h4xAOFE3sobWcf0MQgsIl/EtQGHdiEX55CutrnGAE/mOyPoyFeWv
-         za1g==
+        b=LwF2ZJw0JF+QtY1G4UuzqyhNxk8r1daf8lgAqs98Y33wzb1eX6zxYahcpqaZxpcOpm
+         +rmr4buUhpmUdGcJCG3dnVqPsnS99nM5nEt8gGDbDB/CDWUDf24tStw4pGh7KUDZrlb4
+         X7jN9MPqroOTCuof2dalNi2Fllcw4/Zjkp8cqxa9QSX93hCjRxk3AQGZYQf15NFitfBw
+         Zv0q26W6NoP0yeGXYj4wwKKLTzQyR/0GbfRgVywUv3btspB0LD3zlddHrPxmBLkflt6s
+         wEZchNHFMn4LkQf0w2wXASeAiUPG7pxsy+5bSaeFaegJcKyvFDntflVYME7B8+464oxl
+         zcVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:references:in-reply-to
          :mime-version:dkim-signature;
-        bh=IpCrhhdrQggWiZdXpuqOx7Kbrnng8aqJZmk22MF4PNA=;
-        fh=gEQiurBR4hXcqqMNhsLxtenRP+GlWRm72Or3g/mgZf8=;
-        b=GemWNwnSGPb/WZ8pwd0j76UUwypNY0rJgEUx2BteN5p4XmdMoMybODIT1hOmbgYZWg
-         nd17V2wsQHgkeEVnRFZcbNZyO0C3ODg6lrS9nq5a/OtWQF+fNnbax/BIo+LkazQcwZu6
-         Vl+OwCzACgPqKknXJxqrciWijNlCg+722PHgkWk0cRMpDFg0SJukys995OfU6vheL2Rd
-         ZwuOLSeNw89sidi9iNPlLiDvlL5mk8m7Xf9rbV3HIkZUomFxD5BYmfeh2iN8oFVM9V4y
-         9xaPwKA4Ym365kg2VJc6PuJAKLcRyPADTnLuUoZAYbWgVpLkQ/QO5LyiMB1muqSjUJ0u
-         dJag==;
+        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
+        fh=pkhdnnaF5ZbB7Jn7gQlLm5Kr9nMsNnjLvAkbvtNblKE=;
+        b=kgdEldFcCXHDlS+JQ/Van2zIY5HDqesjaJDS9KDdfQdAzGqyluM1/lxVrTAbTh3CWY
+         hfImTn2wyb1J11LfvgGBqIRVRdfcr3dNq57ppmcmzN9Y0V09E2CAev+Sox9XdGgeGyl1
+         WGqBbgyqR+fOD96LnK5NuPetPs04waq8RtDJ4L20pIFZU50/ykZ9POLuG+ofySvC9JCe
+         u4Mldt8OOv5PCAfURRJEfW2TaKeepKESN07plgFp32lRdkn0tjRa8vfAL80VRywoLkx1
+         gZxV4zrGYus91Gs9Z2Sxv4JkbDId2HYy7A3r1euzeT57c4UMJYCV+YOynfUfW77+F200
+         YkvQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793028664; x=1793633464; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793028668; x=1793633468; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=IpCrhhdrQggWiZdXpuqOx7Kbrnng8aqJZmk22MF4PNA=;
-        b=Za13/Bq8Yi/UnFcjNR5tbGFu6kj19LhC3A9gx1tmwCDExrLmn1zErs+eDYhHxp9+j5
-         3j5JlknAT+0EZg6ehVMZjvqzpyyq+PC3nAmWP4Ze3hXIDLwFkM6PwYR5T2jAAFq+tlNd
-         br/Buw7D5rWdgMJaHj1hlo4Y0RHJs1g224bkw=
+        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
+        b=i34fDHbksXBPhSy1Qhx49uDOu7YvsAAUs+Vx/eUgeWkTxWdpNpDGYUbQ196Eg+pygP
+         u0VFcXxm6B/Suu+/VqrGDMYtYD7FGEG+vU4m2RWmBqGAjJasMNcSo5eWT3d5zOxe1gcd
+         riQhyhnZAwL1Xi8ML74qobUivRjlg37e9Twbg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028664; x=1793633464;
+        d=1e100.net; s=20260707; t=1793028668; x=1793633468;
         h=content-type:cc:to:subject:message-id:date:from:references
          :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=IpCrhhdrQggWiZdXpuqOx7Kbrnng8aqJZmk22MF4PNA=;
-        b=xTr5LGRO67JLf/P/L5ttQKr/r+qyzyRyH+pFGLcW3HRYgx09Tw0B72UN9iAVfqFiVo
-         GlX6ZhJsr3PLUmqnoSaXotsBhcBO0/9jPaap+MgWM116Ni0aWStuDseTRsb37+OsOOhr
-         WeUKlnDXSZfGiTldxegvF4ZvB47PoeSJXRU6edgLH4WlUJ6qpcSlaxnCAIS3p+rFHrJA
-         aXyEUA7aFzZLlSjjgH2pxH2Jrapz+tRMxmMkz+nGUUXcu4f25UIqJR5G4JgnI9udO4ui
-         85xpYfdFHCZd5rhd0p57Sruk4N7/Tl9OMRiVn7vJoD1WExCqWydylNIqr4HIV/ugmhHl
-         IQwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxKafsFuIo8CgSV5RErSLSkXxiVPOGCfjbYHGRLKb+5jWVatGYMoxpWbA7i0JdPov+vAyCwm5f79uL@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOMIOBJibwMipJeX2ZHtHUtuUyKuBAOtbltDGskFJ7gLOWfJoL
-	1vIQGJ0F1ZEIURemm2SUBcqO1IY0VY3yY3e3/Wfy+h7NepblBnl8G4auEPRa3d7R6O5+FeEEIg3
-	j4fzuBwy4v6skesaINiS7sFGvhEY7I1+d0cfyPT6I
-X-Gm-Gg: AYBFou3hdyMfpzu/g4b5s58h9qBPTR1Z4vKePA01nNq0mm2pk11cj5xew3GtxBXwFya
-	7M5NKeFTRdbsRM9OVg+xOkLfiFei3hg2HXfGQU4A9tPi9Ac6QQfeqCafn0+yEoWGhW/RSQ5tMaX
-	IMBDuRjX2y7SDiqjzlBSL+SAgxLUc1ST0Qkz+z5JPPTLEcYuvsKMm/cowxSfLHqsopf0xmZAWwS
-	LvTbbWrV1W5yyvLgUzz7gZGykM3vUXOehZj0e+y76A1AaSTVs25bMNO5kcR9CjFgHppOyVQmRjy
-	jNs50Z99Q1TIavN9Qh7PJpva0Dw7bVR66ITZrYBLmfUIKKCMDrPzrbHmIILcSO1R1BQzTVmaehz
-	agUZCwaOPrG4bzJVSfViSkh97SJuAgZ+EOIQ=
-X-Received: by 2002:a05:6402:1356:b0:6b1:8316:ba32 with SMTP id
- 4fb4d7f45d1cf-6b442ff2d2bmr5868656a12.17.1793028664145; Mon, 26 Oct 2026
- 08:31:04 -0700 (PDT)
+        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
+        b=L6tjAUiyySX7cqI0lI4OUrcOB//PRcWUq7mpY0iQb2l1yAqkQs9Mfu68Wwu4Gb1mVu
+         hJrRuJrZhVy72kE2AILkTziDVco1CMEKb1+1TvoGkZ0ptGmWJOVYoBmQGWqiHe5GSPtB
+         GmMhUP1n3rmxXaUsiBAiasrrhom2JHQtpBY2msfqgPmanfuTDLjV722ZbI7WC98jsXat
+         4YjSEW78WBubRqxrlFtPj0Ih/luA4St7Hy3kizjheXq6fDKDHqet5BkeKV8aXXEq/mWI
+         TjWlE7qkIcFAWQAeIHjNjlVz05JiXtsB7JjulabQTAUIVqjpG14ZqkrFSN6i0Najz5z4
+         q4zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwoJaSJEwo5Dy9NA0YI4I2Nra8PLg4wmT0RpCU3GotCECQRBeyMlYcR1DAVjf15/o5vPLBe+7/2kD8l@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeB3s2RJESkq0Ku9QZEviVXreGvdz+eb6Psgqvit9UdQGIJCd1
+	Wf1IAM2LTPmO8frmSJhGSdwCbTTKVhIOmT4E2VKO/k6qDOqVdXmLhONqjj+FVDOuUwVPDTstaDh
+	JrZAErqTowWiil6tNUcUlLbvYhlX4bRUP9p8ijMPS
+X-Gm-Gg: AYBFou3gJPr11KkSa7AmdYLA643A2dODX8GTcjH67YUNwv/7yoalY8caZk5MD60Qp83
+	FdEGlXdF91YEH3nbsuwqTAEa3sOWGW1hnQu9GaE1Ho3dLmXvZcX9YyaZ/bVHr5DUeV0lNnn7kLK
+	AzNetBQTjQhDsKlCfpSgLI0ZZNASP+C/n42UL+hEKtbbzPUYOrJxFSjIImjAdEzzYY+KUcKln14
+	39lBgtUqqkn6IdPTOOCclMn7a2hORhPEHc7jzJaoJeNktzI+T9Ru3yzxkOYSpiQg3gV6L39SqFw
+	C2O47TgYbQpi6Wy5h91ldxMbmDqV4o/ODWLlerbxXINr5AoRaPmFYQ5a1Dw/aAg1I8kSe3nNRzG
+	za3+HUld2pptHeaKmJ3bQytLD0bNzsvavFtw=
+X-Received: by 2002:a05:6402:4021:b0:6b4:583b:daf5 with SMTP id
+ 4fb4d7f45d1cf-6b4583be5a2mr6346972a12.43.1793028668229; Mon, 26 Oct 2026
+ 08:31:08 -0700 (PDT)
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Oct 2026 08:31:01 -0700
+ HTTPREST; Mon, 26 Oct 2026 08:31:06 -0700
 Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Oct 2026 07:12:00 -0700
+ HTTPREST; Mon, 26 Oct 2026 08:30:42 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,13 +104,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261015182221.2931742-4-dianders@chromium.org>
-References: <20261015182221.2931742-1-dianders@chromium.org> <20261015182221.2931742-4-dianders@chromium.org>
+In-Reply-To: <20261015182221.2931742-5-dianders@chromium.org>
+References: <20261015182221.2931742-1-dianders@chromium.org> <20261015182221.2931742-5-dianders@chromium.org>
 From: Simon Glass <sjg@chromium.org>
-Date: Mon, 26 Oct 2026 08:31:01 -0700
-X-Gm-Features: AclHuK_hy_WTcUcfTQINhQj2aXPqXOcXmBmhHpzgXfBxsWcmA5gscgp9ZGWx9GE
-Message-ID: <CAFLszTi-j8HmVy8u3gtH-6YCigakX5CNeqZ9sVc5ksn7q3NxaQ@mail.gmail.com>
-Subject: Re: [PATCH 3/4] fdtfactor: Support compressed DTB inputs and outputs
+Date: Mon, 26 Oct 2026 08:31:06 -0700
+X-Gm-Features: AclHuK8AS3l64pCtBVyQ04xvPLa_xotvoD7mTGNS-Ci5w-XHpRDF-10--cetNjY
+Message-ID: <CAFLszThA+Fau4_0NEhXA3ntUmPB8wnuaabVvzNU=CMSpoQQgkA@mail.gmail.com>
+Subject: Re: [PATCH 4/4] fdtfactor: Add compiled FIT image factoring support
 To: dianders@chromium.org
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -125,71 +125,105 @@ Content-Type: text/plain; charset="UTF-8"
 Hi Doug,
 
 On 2026-10-15T18:21:33, Douglas Anderson <dianders@chromium.org> wrote:
-> fdtfactor: Support compressed DTB inputs and outputs
+> fdtfactor: Add compiled FIT image factoring support
 >
-> Firmware and FIT image build pipelines frequently store device tree
-> blobs compressed with LZ4, LZMA/XZ, or gzip (e.g., `.dtb.lz4`).
+> Bootloaders such as depthcharge on Chromebooks and U-Boot use Flattened
+> Image Tree (FIT) images to bundle a kernel image with multiple board FDT
+> blobs (`fdt-1`, `fdt-2`, ...) and per-board configuration nodes.
 >
-> Extend `fdtfactor` to detect compressed input blobs by magic bytes or
-> file extension, transparently decompress them before factoring, and
-> compress the resulting `.dtbo` and `base.dtb` outputs when appropriate:
+> Add `-f`/`--fit`, `-F`/`--fit-out`, and `--single-base-dtb` options to
+> `fdtfactor` to factor a compiled FIT image directly:
 >
-> - Support `.lz4` (via the `lz4` CLI), `.lzma`/`.xz` (via Python's
->   `lzma` module), and `.gz` (via Python's `gzip` module).
-> - Preserve the input compression format on generated `.dtbo` files and
->   compress `base.dtb` when its output path carries a compression suffix
->   (e.g., `-b base.dtb.lz4`).
-> - Report compressed size savings alongside uncompressed savings when
->   `-v`/`--verbose` is specified.
->
-> On the 47 Qualcomm SC7180 Trogdor Chromebook `.dtb.lz4` files,
-> `fdtfactor -S` reduces total LZ4-compressed size from 1.71 MB to 213 KB
-> (87.5% savings).
+> - Parse non-overlay `type = "flat_dt"` nodes under `/images`,
+>   decompressing their `data` blobs according to their `compression`
+>   property (`none`, `lz4`, `lzma`, `gzip`).
+> - Partition the `flat_dt` blobs into compatible factor groups (by
+>   compression, architecture, FDT header fields, and node-path overlap)
+>   so a single FIT image containing multiple board/SoC families produces
+>   a separate `fdt-base-1`, `fdt-base-2`, etc. for each family.
+> - Support `--single-base-dtb` to force all `flat_dt` blobs into a single
+>   base DTB regardless of node-path overlap, failing only if their FDT
+>   headers, architecture, or compression differ.
+> - Insert each `fdt-base-N` node into `/images`, replace each factored
 > [...]
 >
->  README.md            |  16 +--
->  fdtfactor            | 267 +++++++++++++++++++++++++++++++++++++++++++++------
->  tests/Makefile.tests |   5 +-
->  tests/run_tests.sh   |  34 ++++++-
->  4 files changed, 284 insertions(+), 38 deletions(-)
+>  README.md                  |  15 +
+>  fdtfactor                  | 726 +++++++++++++++++++++++++++++++++++++++++++--
+>  tests/Makefile.tests       |   2 +-
+>  tests/fdtfactor_other1.dts |  69 +++++
+>  tests/fdtfactor_other2.dts |  69 +++++
+>  tests/fdtfactor_test.its   | 109 +++++++
+>  tests/run_tests.sh         |  69 ++++-
+>  7 files changed, 1033 insertions(+), 26 deletions(-)
 
 David is leaving this patch until patch 2 has been reworked, so these
-are just two things to carry into the next version.
+are just things to carry into the next version.
 
 > diff --git a/fdtfactor b/fdtfactor
-> @@ -11,31 +11,195 @@ original device tree.
-> +LZ4_MAGIC = b'\x04\x22\x4d\x18'
-> +LZ4_LEGACY_MAGIC = b'\x02\x21\x4c\x18'
+> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
+> +    dtbo_comp_sizes = []
+> +    for entry, dtbo_blob in zip(entries, dtbo_blobs):
+> +        img_node = entry['node']
+> +        dtbo_comp_bytes = compress_blob(dtbo_blob, comp)
 
-Legacy lz4 input is detected here, but compress_blob() always runs
-'lz4 -12 -z', which writes the frame format. So a legacy-format
-board.dtb.lz4 comes out as a frame-format board.dtbo.lz4. I checked:
-'lz4 -l -9' output starts with 02 21 4c 18, while the compress_blob()
-command gives 04 22 4d 18. The kernel's cmd_lz4 uses 'lz4 -l', and
-lib/decompress_unlz4.c only accepts the legacy format. So a consumer
-that handles only one of the two formats cannot read the result. This
-doesn't match 'Preserve the input compression format' in the commit
-message. Please can you track legacy as its own compression type (and
-pass -l when compressing), or else reject legacy input?
+One thing I'd like to check, since the README says this targets
+U-Boot. In U-Boot, boot_get_fdt_fit() loads each overlay with
+FIT_LOAD_IGNORED, and decomp_image() skips decompression in that case.
+So a compressed overlay goes to fdt_open_into() as-is and fails, which
+means the lz4 FIT that the test produces would not boot with U-Boot. I
+suspect U-Boot should be fixed. Until then it would be worth having an
+option to leave the overlays uncompressed (they are small anyway), or
+at least a note in the README.
 
-> +def decompress_blob(raw_bytes, filename='', comp=None):
-...
-> +    if comp == 'lz4':
-> +        try:
-> +            res = subprocess.run(
-> +                ['lz4', '-d', '-q', '-c'],
-> +                input=raw_bytes,
-> +                capture_output=True,
-> +                check=False,
-> +            )
-> +        except FileNotFoundError as exc:
-> +            raise RuntimeError(
-> +                'lz4 command not found; install lz4 to process .lz4 files'
-> +            ) from exc
+> diff --git a/fdtfactor b/fdtfactor
+> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
+> +            for sub_name in list(conf_node.children):
+> +                if sub_name.startswith(('signature', 'hash')):
+> +                    print(
+> +                        f'Warning: Stripping invalidated {sub_name} subnode '
 
-compress_blob() repeats this block almost exactly, so it should be in
-a helper. If the helper takes the filename, compression errors can
-also say which file failed.
+This only strips signatures from the configurations that are changed.
+But the whole FIT is rewritten with FdtSw, which lays out the strings
+block in a different order from dtc. A configuration signature also
+covers the strings block (via 'hashed-strings'), so I believe
+signatures on untouched configurations break too. The user has to
+re-sign with mkimage after factoring anyway, so it might be simpler to
+fail when any signature node is present and say so. What do you think?
+
+> diff --git a/fdtfactor b/fdtfactor
+> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
+> +def _derive_base_dtb_description(entries, base_dtb_node_name, comp):
+> +    """Derive a `description` string for a factored base FDT image node.
+
+This is a lot of heuristics for a human-readable description, and the
+results are not obvious (e.g. ['sc7180-trogdor', 'sc7280-herobrine']
+gives 'sc-base.dtb'). It would be worth using something simple and
+predictable instead, such as 'fdt-base-1.dtb' or a description listing
+the images it serves. That would also simplify the tests.
+
+> diff --git a/fdtfactor b/fdtfactor
+> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
+> +        placed = False
+> +        for grp in groups:
+> +            if grp['key'] != header_key:
+> +                continue
+> +            ref_nodes = grp['ref_nodes']
+
+'ref_nodes' is only the node set of the first entry in each group, so
+the grouping depends on the order of the nodes in /images. For
+example, if the first board in a family has many extra nodes, its
+siblings can end up in a separate group. Comparing against the group's
+common node set (which is what ends up in the base) might be more
+robust. What do you think?
+
+For the argparse description, you really have two completely different
+cases...I suggest the FIT part of it should be worded differently so
+it is clear that the result is an update / new FIT.
+
+mkimage uses -F to indicate an inplace FIT - with -f used for the
+source .its file. It might be better for your tool to use -F instead
+of -f, and then -O (confusing for dtc?) or --outfile to specify
+writing a separate file.
 
 Regards,
 Simon
