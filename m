@@ -1,109 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793025782;
-	b=Y2sBqdOVaSfsrFxArMKYsyR/58vcn4wLgYOXV0sqNeaQE35l2lVAD/w/5/+6PkVgw+F3
-	 f4afR0HjwamUX7nUuQMDC4IlW5o2TelYuNxg/L6+6pzoAxaiaqp/5cMtdBktecxuCfJXq
-	 ukjMMNow+2trDam3i/hGqe4NJV9OPdcH87k6/dLk3w+pb9PUenNeQxonxIDsWDQktAf27
-	 FewRshE7O4ZbieEz8hCT0380dQWcK1LHwmm+G4CFrw7ZxjniLirgOYQ33TDy8QDXPFZdj
-	 ajgCXxBnGxYT0WWIgk27a2TOJWhnK89ocd4V1SlkodOcJXPGEQPYdHn5uxZaVWo5N8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793025782;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=09aJ8L1OVTrnJV751FfxeO3NQL3YOp8bQs333698z88=;
-	b=cesO499U0j8rmjxlklhHuWvWHSWqJYpNmjVrKLvss5wd7QwWM4DHiTDSgv/sZsV4gfpd
-	 2BBfuJMB3e9yyLCcmJ+gNo5pFm2J/EPLswXAvOuhr0MTsxKJEFM3+I4taFp/kpMVHo8r/
-	 922DDFfXQXcjZMP3BM1xqxvr8AhB5d2iF4HAVME8VPu3Ogd3QvDFRzToU8D/qB+pmIZSl
-	 P4LjEh/chVRMbGGCRQ8FPm4mvUxGukuMGhMza85h9VwjPLlcSb6XVAGB7lKm66k3j1piK
-	 kPtYSYGdYMX9/hNCi6wgj3DbJx3q30nWdFjATAQd5lqIdviBQoXZKLT5k5zKOtB+OOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j41cvNl6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L1JD3a9t;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793026449;
+	b=uqS19/wv+nq0+FBmj4ju+wLcZQqOVIvRqPtMzmFK40jkcRkcdEZU47qgQW1v7vW0fJTW
+	 xCM4fCGcN04O3m86556710ylC9KX7c2bPN6mokauvoo5kR0biX1nTapIHjTZIkyBSPq77
+	 eVDQQRNfYJ+LjrVO6eTmbeZ0geQlm6WvVvag+2Hcea11eGRoDO2TQEfe8Yqu9Uv5lo05b
+	 6fFhq1QqITKXNEITbs+wjzAC+Cd/xdH9xiwh5jkS5tf4R32a7p9ehkPeoB73D0LsZ78b1
+	 GyhJrlT7wHPYnIg3A7XI2OpeI/yX4SU4QsL3yIk0xCx6Bv+69d8wLO9B/4IJ3FgbbHw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793026449;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+	b=4o85Ptw0EssNlXd0ZVYPveKodVkJKI5E6T/tVBxOu5HuvGi4I9ruSCjZJ3/rWQv/ozvl
+	 abgEtrrbeVPt8kSojvW2FbRiQLpjqidPGN3Kh2V2DNFjr4058sIbYX9Q1xhYaIamjegEG
+	 zsre8ixLT9AixJ9KIjaDKPmoLVZTypc8QCtCj1ZboDkTs3xDhRg6Ot7cT7ItwyT+vtAy6
+	 C2T70ruPqc5AYcesyJWAIjcOKU0CbWOl46SmUbA9g+8DTWdeBnc+QKR/dZs+gQhnEQxKc
+	 pzISX+tfRFaLQZZN3B6kepfpCczhPrklHDthzRLEJMVhKXgNrWtewU2MU5b7R8LLx+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TLjPVf0P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.55
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176D7606A330
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 176D7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6A9606A31B;
+	Mon, 26 Oct 2026 14:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D6A9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j41cvNl6;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L1JD3a9t
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEb9Z22498299
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:43:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	09aJ8L1OVTrnJV751FfxeO3NQL3YOp8bQs333698z88=; b=j41cvNl6Ev3LOIQd
-	VY2aZwnEqjMO94P4Pa9oHxau/65Gs+fWNZLIUyQssZSpmfz5XFgdtwBtoaWCYxDq
-	HHkDdOMD34nsYGmDD2Zg2nBMnG8Cfuh0YS+lh3FWH+Re4qrWGWvjj9tnCee8P48u
-	5Bzt6xSuBoUs8VtNdNRyxQDynJ5JoXPfhPolr988NhF6TnvGhprGAIEZkhLZcbsv
-	xP3M+v/g4XxahE4Eu7OdU63/M9K2Ng6jS3d9+OxJ+R4imkD/DiYwgvAFOoNBc9yo
-	TOFkwxxQ2DkqETZ/IpdLXDz+amIcVheKWH8/a3zxm9I63vfhN/6qnHCbMIC/o+R7
-	dg+Xgg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj8smr0v1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 14:42:59 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f20addba1so610502685a.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 07:42:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793025779; x=1793630579; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=09aJ8L1OVTrnJV751FfxeO3NQL3YOp8bQs333698z88=;
-        b=L1JD3a9tVRxmii9q+j03ni9ZBWKYnbQcge4y6Mp45IloDa4saewkpDJ2og/nldnTby
-         WylTHEEKDtJ7iALCXMyJY7qVLqJwSBXH5XGmUj5NDs/I96eqeyOQoKnZ4ot2+F/LuV9O
-         R0ZkrjCUv7sUZ7TLSigcjI4r+7PAGhyZm2122rpxVtPCJCmDj4r2iBsFmMJx30fqaqUO
-         w3/4/ajLCIbe/rzkHw/965jH9bBdcfhoSXCEaQSRx7ChGt9Vx2UsNP8jFHe0FHTj6FoV
-         dT47z3PrSqVRGswoUv11YZc9pMCxt1I3bmXeMHjaMcJcZlKCRykvdDpMH7j3NJ51TNpZ
-         P8Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793025779; x=1793630579;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=09aJ8L1OVTrnJV751FfxeO3NQL3YOp8bQs333698z88=;
-        b=UY23+n0/e+Mqs4JMZ/8vvhKdDrOa6XBy9L37yEUnOCBIMznzA4nsFKyMFa75TiohnQ
-         dkv6HrzwUcXsprhrdz8mHNHHPtMQ0x1Kky/ueAJTs+uR7Lt0bYoDV8t4zAdPcRpVBOel
-         ZD5NitYjb+LrQ+tGTUdbZf1FfkXhwsq1KnJrrSy18p9YP1kJRvH66BflLrQTOcK1Yftl
-         I9FzBtqgyIZ0flMVK8UPJqx4DzccJxWMGUKw2K+mN8LDDYl9X33bGKNGZq/jifb1jFzA
-         QwGCdqTQT70Z/axgHZYPn+HnQW9w5O3+YxG3098ZM9QnJpa2YD/oAytNqzlR0mWSpwii
-         /9Xw==
-X-Forwarded-Encrypted: i=1; AKwUvByLQPAb0CoAWvCUeUlDCEn9wPsIw9IlTgulpT2esuUHzNAo2JNdVIM8LV7quJXXZaZ53vsK5/u0LZL6@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqOLMGE9HFIjx5R8n5j5rSJ8Z0/xrS4UHHOQeus2VIQAUt5qa+
-	Jtvbv5M/yZ4a48oInCrLeJf40M0wxSC+MtInKwt6TObPD8bNs2yI9BLINQRp7YXJ33nrk4kiMMP
-	kL8ML5aP+kW/e7nT3b3UnOoXkI4cvADQyaCYePUPygHoq2PV+4Y00pykbkm56Izsk
-X-Gm-Gg: AYBFou3i9vQ84wktOOfo7oaawK0xsVXQbpTh7i+VJrlY35wW59tFYdQq2omtgK4YZB1
-	0H7apllcLsCDIeuxIiOc6SPI4Irjf8A4bt4M3Ysxj7tSKm6cX9w0G8w9K3hnroAMcZyf4E1+cLw
-	cxgS9qZsCbKWcteft+fs+2CmzCDOMIZw5X7UZrfcy96f6VgJW5DSP/MtZh4MZC/MCnMLuTCkUNM
-	rn2UPCBLHLw9+DXEYAPR2jeQVt6Mrn8J+WcwsR0W4xpvo6Vlha4IFStuEsR29Q139/Ex/WnSZHP
-	eJrcvdVDAWXUzbdBA/pnT6HNdnNcupNuyl0YyGIG6KR4s7p2XWQFTV/sZNLWD8v8fS2nGncPFxH
-	OAdAEblRSHp+QMAlWX88=
-X-Received: by 2002:a05:620a:3184:b0:93f:1936:b1f2 with SMTP id af79cd13be357-940ef9ca117mr973042485a.81.1793025779239;
-        Mon, 26 Oct 2026 07:42:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:3184:b0:93f:1936:b1f2 with SMTP id af79cd13be357-940ef9ca117mr973036185a.81.1793025778673;
-        Mon, 26 Oct 2026 07:42:58 -0700 (PDT)
-Received: from [10.40.99.45] ([78.108.130.194])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd350706sm336512066b.3.2026.10.26.07.42.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 07:42:57 -0700 (PDT)
-Message-ID: <62db6c93-a8f1-42be-bc2f-6df46c470d96@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 15:42:56 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TLjPVf0P
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mzxeUN2DExM3/qSC3mwcSRIbtQ+C5JtvY4/7k2A1ByZAFAeJOi34R2J1LOlJqmx1IN8GF2MOFX9LOW/EOmhKfOehzhy1/A0lHM85TIsonADlFMmti9JvqYA94XOyra8LqUqTh8wv19fagEUSQ/BtQ98Ew9yrqR7Bp//lXvk9qCMhKGSycTGx7bBv0osh+xDykNaPhzskoslIJoZpzieppyFOqqUepgRMD2/x6GgJQuSfnA+vZf8Tim8B3DwcEvavKr1fiy1P7aheH72THCdkb/Elz8EuA2JSeTpTmS4a2ssZK/hdplStl09PUc8sSr8VNMCwRKgn8aamurR6809wCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+ b=cskT5l5cf497yCDxQ0IQjwvwvYxMUpVqgNdJjA9jTBbIQ2RxfEwFj8SMXecT/ILq7+MOFOXUi0l1Rq2pljg/m5exdeO3fYDqGTGCAAxfXRn4h13C0mSmF1mTu8qW48tkphRKXgYZVa8DOBBIRfkfgM1y8rvS1MXmjdDUD0WnGOy4edN7AGwOk9zfcdglhaTMXr5LVgMrYBYlgDoLtsk10NDc87R5RRwNfjcwWjGlJiypyKy2MqaCfezXYvGozGEe0L4DOC6FVdneLuWZUGtqTroMLY3iC78klQgo40tKyPZwbAi9ZbA5/FfSb5Vz7vbfZGgBVz0kzegX/KK0ajLDdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uB4hN/ju40U9NfHsoL2r3sOggHEF6GA4+yAwxRKbkbU=;
+ b=TLjPVf0PpxDtUL3Dyf9Jv6A1QSCMBYoSjy6D/z/2vBPWn+DxmxP6t+M60RaeYRPCw7S0v5j0v0cHxv3mP9u7t46N6g6aayik1+fBzJq0M/UcmJLzT31yYfhQ5BTAqgeHuHiZ5XV7AoNiAXMH+PmI8TC/eLrkCMUjU/bcUerSJmDbea+mhNNQ6uYOh4Cw8aiiKHFD4QPkv9tsIyb0Ms4p57ql9Z6IrzKGDGWgf3kTvU+vczKl1PoSXVWM6PmaKUTLi0teme6VXG40dAl5t6ORCV0a+PuuEd7tDWwo1yM4QOtTf8Q6Y+udLszP7IvPy2aCjhv5jq99wNNQ/6tH1oTRqA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by BR0PR04MB944139.eurprd04.prod.outlook.com (2603:10a6:2c8:46::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 14:54:05 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 14:54:05 +0000
+Date: Mon, 26 Oct 2026 09:53:54 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Leonardo Costa <leoreis.costa@gmail.com>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	francesco.dolcini@toradex.com, leonardo.costa@toradex.com,
+	hvilleneuve@dimonoff.com, marex@nabladev.com,
+	stefano.r@variscite.com, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch
+ Display 10.1" LVDS
+Message-ID: <at9pgvFmDPI9oLrS@SMW015318>
+References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
+ <20261001155412.3177428-4-leoreis.costa@gmail.com>
+ <ar6JnZp1jBvlc8bx@SMW015318>
+ <20261002081824.GA7222@francesco-nb>
+ <ar_bsQbD-IbvUf86@SMW015318>
+ <20261005075319.GA7692@francesco-nb>
+ <ateZGwrFGfD1j-i3@lizhi-Precision-Tower-5810>
+ <20261026111149.GA46946@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026111149.GA46946@francesco-nb>
+X-ClientProxiedBy: PH0PR07CA0012.namprd07.prod.outlook.com
+ (2603:10b6:510:5::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,271 +109,203 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH v11 5/9] media: Documentation: uapi: Add qcom-camss ISP
- params documentation
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org
-References: <20261023-camss-isp-ope-v11-0-0c2937195298@oss.qualcomm.com>
- <20261023-camss-isp-ope-v11-5-0c2937195298@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261023-camss-isp-ope-v11-5-0c2937195298@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 69Y7lY6qdcwwYIeS33zYIaeBmbgCMIeZ
-X-Authority-Analysis: v=2.4 cv=Sfti5fRu c=1 sm=1 tr=0 ts=6adf66f3 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=rrvG0T/C2D967D07Ol03YQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=5S4UquuD0OMwzOfU3tcA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 69Y7lY6qdcwwYIeS33zYIaeBmbgCMIeZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1OCBTYWx0ZWRfX6/VZUIjScONt
- HC26R3QlEwM2B7vh3WpE/COG3r3fcillGhvlzKJQcNUuzusBq77X2itRTOclLQ/Y1QSslnkfuqf
- v5BoZsKYtQCTvdC1+/LoDFY57F6jo4s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1OCBTYWx0ZWRfXxtfS6TM5nEXA
- Lw2Z/VAI3jSBCdpyElI3z1hAUknBlyFlH7vZtz4L+9BdEId7zn/ZL9C1gFxQXuJbOUvru9bBUnf
- LsoHGQ6Pp9Sxu/hAYoCXO0uaFtyj2mU6n4GvFLOj5BP0ZC8xkpQTVYR4MfZJcRpYthZDX7QTBtI
- qtbMU3TxcVAPzIberNfNhHJe6WgzNtmnB2oJF0IGWBZLDcSzV4ivLsmbecbWoV2+JuJsHPpVSOU
- rVogtgRjfJx+FMcU1ff6bFJ6XVqpZ+MS+NnYGGifR4E72bPEwIzLY+01kYyYvsTbh6aeqZP2sy6
- +P7IjVL8NjmD/s0/w0Ata6IK/Zcd6xVAxwNC6Q5fSoqMWubH0bRN9GIxO0d5ppQHgdJgPR5D62L
- 6BDyuuqA0/GY9k4Se8yj9ZkWp/NkPIDL9WLhV7s5tEVD3TE/FS8EnaLfATCpdfEc7wg6JS7R1SO
- WbivYoCIQv+WKpuicdw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260058
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB944139:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18e39276-fe45-4035-0a9d-08df3370fb39
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|7416014|376014|261009223027099003|261021123027099003|261021121427099003|261021135927099003|261022105027099003|261022075727099003|10067099003|56012099006|3023799007|18002099003|22082099003|11063799006|4143699003|261026140227099002|261026121527099002;
+X-Microsoft-Antispam-Message-Info:
+	gOgpMVAe5yWTOQOP+4lJagxfmbkd+M/Azxy8E988FMRJkXoUrvlNpuAqQeG/rs5FbLuGCTlanEU02IlRwOQKbobEoMic+pxn5R0KvS58DGJOIBEGLigaGWpOBSCokTQH4T/PdDFW5CH1q0WGg8jXlX75nQqAXsS+wVbe8jt8NX/+jHhLPzm/902SFYNbQLzXBmWMulebH5D/M8e8oqUE/rn5lyQAhwwGo3ktSKaNyBwB4hP4XVZmnOJaLIojZV6zKoMaC2S90DjxdiTfR6mNgX/Mk6L2CXX4Ih3H9QvkXu3lNdfDggN3a2XpOU3Bs/WLV56lGTlGHERuTr9khjPPZULG6ep6R6lZKZzMVPP3hePdxh5txrWZxZGP6/GIqa7i2xvPfBfw520lli5SkBhPM3AMIElnneZseax7BoyHuRNlvAIONwnTlgbK/G2hvvH7kQQyKln60ipvF6ocm8dUUPcauw1Dga0mWECIaX8aaRDPIHysCRPCc1EYa2Fz4q3LWjGPRVSi65+utcmxE+LdCKp/N1puvLAEiwcGCK5fOGjZQ0q8OBoJVKIxN7PUtFm0G4hrCZTwmVTTv8KyqPDigRua2sHBjMZE9n1Ie5qjjp52FiE420hY/YPOnGa8JRsO
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(7416014)(376014)(261009223027099003)(261021123027099003)(261021121427099003)(261021135927099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003)(261026140227099002)(261026121527099002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+E9KQusI5zDsyWKxC7KtAblRTJQczSaOgeAAGJ6ktoS++itv2MVdD81ku5/y?=
+ =?us-ascii?Q?bk5SHMLPdmeNKdkHqv+zruCh9fQBZzqTXTDsK0bohkmA+VOfJ7ux0IKDEjhm?=
+ =?us-ascii?Q?HFGi00vW3LH6FxiA9SCr7sjGBtI2SxiEIuT6oRZysySnbAyXcyhZTEBZ7/jp?=
+ =?us-ascii?Q?krQhX5urfqjgU81UZCixlVG9y51tcO11oOL1U90sdeHC7VZtX+1+tP0kk9/x?=
+ =?us-ascii?Q?aQGdccy7kEAqsHbSe0GLH2mmcVohqmU19SiiDvt9wCO8PCGG/1YY0OsJ5hZK?=
+ =?us-ascii?Q?H1eTJ3+pJVmP0lcS4nnKvQfUZA1Vql6APtGkWAcIl2UNDZdMZssH9eNL7meF?=
+ =?us-ascii?Q?cvcXl9YgHPqFRqJCINJBncQaf3ph00RoTH08gyxxFUjHOlsTR+Puk35/xMcG?=
+ =?us-ascii?Q?F2e2nyltzs3u9T1X4F7rm20XTeMkh9pPYZ90j98NWxOPJqnYGXjvR55HiME9?=
+ =?us-ascii?Q?3NPdIWJFRX6VFDWfqDDS/nRXHFvApax98DKFcLLn8prN33sDYV4B1Rey8nEi?=
+ =?us-ascii?Q?FDTD5kUeYoIKaMYm9kmqAaaffuOlYHyKab8tgKzJ8MVkP7XY+vNVxvS6ga8y?=
+ =?us-ascii?Q?Hdvw0rcpEnVjdehXW5W2SkEiaYW6ejjIQbH//xbZSTV5NzX+72wSsP5K3uCL?=
+ =?us-ascii?Q?YVaiK+h3DqYb15VQVsAiNrFgJoed35inbyrbzgSXJbGaELykelmDcNG/xJoU?=
+ =?us-ascii?Q?Tntopz9V/2ulNHhromOTz8eQrr7w6x0bmC/94Y16PVMqFiG2jIqr1fmlXo63?=
+ =?us-ascii?Q?QKyrQNAFQv3c3XuN+OHbA0h4Z4cu+bhdJ+qPoU8TWXlPiVSxLj5a7lUIvBYE?=
+ =?us-ascii?Q?3leD8+xPNYmqTpAQB8uRJwiWOQeJWKCSkBsXskHzY7hSued1E65PNoMtxSRp?=
+ =?us-ascii?Q?4qLoyNCxh9zLEPTJi1dHzcXG8YTDblIUVN3S8YAfg6lNJxT93255LB8aI0TZ?=
+ =?us-ascii?Q?aYvWxgsgK0CAHhhXwDnNH0EZYeyLRL7zTGy/S2V98flqr4AqMC/VHSYTk4bt?=
+ =?us-ascii?Q?B81CM8+5QlewkBn+GTFusd6fPx5DycCi+hy4/02Ma7/XBmJ30ET4axHyScIv?=
+ =?us-ascii?Q?ycvzWA7x6TWkJnCGbCud3FPMA3f1Es5HPIJWt0uw53CYDgZxg+csk6zD7Sy8?=
+ =?us-ascii?Q?awEX6Dyj1YPXZFbBMaOY0LRHYqA1CZtQthNLgGt6wWmxxwvWfMDFpNo08exv?=
+ =?us-ascii?Q?vOn6lUdu7GVfi8U7gDFI5upieE+dDA+7P8AlGHqtlCnaUDwmwEvFfecbU4Ys?=
+ =?us-ascii?Q?vQ4l4uSncDI42Wo9sJ2kUJVHlogeLKbV85oQf9TzdvX2UpWducllV9pXzNB3?=
+ =?us-ascii?Q?LBZgGZVVQMOyzHWHk6TNXSZuE8otUDV3GvKJF9Pqe9fLx2TuQDJ2MWTUzb6x?=
+ =?us-ascii?Q?Zt63RnraXNJS8hJ2Occ74QX113PhfpdOIeg/D82nFdRmNNr99QyVW11xb31W?=
+ =?us-ascii?Q?DrQjPPCc2AJIZEtQ0RiIpjVJ/XGusBk27YYx0B2ACHjmVYROvvXLeD4mvNMr?=
+ =?us-ascii?Q?/DEX9bIBINcEcRDKUGNW4rs3pN9uYpd7Cs+qlbbSDRrt8HvCwYc53JFsiPVw?=
+ =?us-ascii?Q?nwLgGgNQJ4T5/NWHcvO0hATAzEVdQm7s68w8Oyv6FrvyMjtiOA/XG9VbUzVa?=
+ =?us-ascii?Q?HRl/pIragJW3jhdY8jv5SvEJJd+N6Z/GUs90yhgmxwucKjKJknIwy77v5KhS?=
+ =?us-ascii?Q?WbedeA1ZcM4e5A4EzLbXus7JssUlxbm/aLabV4a8pN/veHEI3kinF4aswNsH?=
+ =?us-ascii?Q?b16Tl3szxNnzn70URHJOjj6JhKj1h6qCC7/nWjmy0D8svh40GhTX?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18e39276-fe45-4035-0a9d-08df3370fb39
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 14:54:05.6242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kQJ5MrsF5APFP0ooYC5kSN4Tv0HaM7Sgx7Jy5NCuwsW+F4pun0U2ESQZFmDXdtE7J7tlcm7hqhvyMdGhI6MEPdMh9uA+VFrJ7ciuyKSSNwktkCzsKQ7bAEvRlgvjfQEP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB944139
 
-On 23-Oct-26 5:09 PM, Loic Poulain wrote:
-> Add documentation for the Qualcomm CAMSS ISP parameters metadata format
-> (V4L2_META_FMT_QCOM_ISP_PARAMS). The format is built on the V4L2
-> extensible ISP parameters system, with per-block structs defined in the
-> qcom-camss-config.h uAPI header, and is designed to be shared by any
-> CAMSS ISP engine exposing a parameters metadata output video node. The
-> Offline Processing Engine (OPE) ope_params node is the first consumer,
-> with additional engines expected to add their own parameter blocks in
-> the future.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+On Mon, Oct 26, 2026 at 12:11:49PM +0100, Francesco Dolcini wrote:
+> Hello Frank,
+>
+> On Tue, Oct 20, 2026 at 12:38:51PM -0400, Frank Li wrote:
+> > On Mon, Oct 05, 2026 at 09:53:19AM +0200, Francesco Dolcini wrote:
+> > > Hello Frank,
+> > >
+> > > On Fri, Oct 02, 2026 at 11:28:33AM -0500, Frank Li wrote:
+> > > > On Fri, Oct 02, 2026 at 10:18:24AM +0200, Francesco Dolcini wrote:
+> > > > > On Thu, Oct 01, 2026 at 11:26:05AM -0500, Frank Li wrote:
+> > > > > > On Thu, Oct 01, 2026 at 12:52:53PM -0300, Leonardo Costa wrote:
+> > > > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > > >
+> > > > > > > Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+> > > > > > > LVDS connected via the Apalis iMX6 LDB.
+> > > > > > >
+> > > > > > > The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
+> > > > > > > touch input is provided by an Atmel MaxTouch capacitive touch
+> > > > > > > controller.
+> > > > > > >
+> > > > > > > Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
+> > > > > > > external component that does not exist at the SoM level.
+> > > > > > >
+> > > > > > > The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
+> > > > > > > Board V1.2 device tree to provide a ready-to-use DTB.
+> > > > > > >
+> > > > > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > > > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > > > > ---
+> > > > > > >  arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
+> > > > > > >  ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
+> > > > > > >  arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
+> > > > > > >  3 files changed, 59 insertions(+), 13 deletions(-)
+> > > > > > >  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+> > > > > >
+> > > > > > similar 7" case, add panel module name in file
+> > > > > >
+> > > > > > imx6q-apalis-lvds-panel-lt170410.dtso
+> > > > >
+> > > > > This does not work, sorry, the current name is the correct one, for
+> > > > > various reasons:
+> > > > >
+> > > > >  - the product is a display made with a specific connector, touch
+> > > > >    controller and display and more. The actual panel is just part of it
+> > > > >  - the current name wholly describe the product, it's a public product
+> > > > >    with an official name, all of that is clearly linked in the commit
+> > > > >    message and comments. there is no ambiguity.
+> > > > >  - the same toradex accessories are not module specific, they are used
+> > > > >    across multiple families/carrier board. It is a whole ecosystem that is
+> > > > >    building on top of standardized interfaces and connectors. The same
+> > > > >    overlay file is available for multiple boards and in multiple SoC
+> > > > >    vendor directory (as of now TI and NXP, soon we are going to have
+> > > > >    also QCOM). Having a consistent naming scheme is important, we cannot
+> > > > >    call the same things differently every time.
+> > > > >  - there was a situation in which we did a new product revision of a
+> > > > >    display, specifically the "Toradex Capacitive Touch Display 10.1"
+> > > > >    LVDS" there are two versions. The official product name is the same,
+> > > > >    apart an additional version number, one is version1, the other is
+> > > > >    version2. They have differences, and it's not just the panel, more
+> > > > >    stuff changed, so having the panel name in the filename will not
+> > > > >    help. v2 support is already in [1], for reference.
+> > > > >  - the toradex naming scheme is not encoding the actual part number used
+> > > > >    in the product name, for example we have apalis imx6 v1.2 that uses a
+> > > > >    different touch/adc than previous apalis imx v1.1. The product has a
+> > > > >    different schematics, different BoM and so on
+> > > >
+> > > > Do you have schematics number to identify it?
+> > >
+> > > Why do you ask specifically about schematics? We have schematics and we
+> > > have a way to identify a product to the related schematic. The way we
+> > > identify schematics, whatever is a number, a string, or anything else
+> > > seems not relevant to me.
+> > >
+> > > But yes, answering you question, we do have schematics and a unique
+> > > way to identify them, and it's not using "numbers".
+> > >
+> > > What matters here, is that Toradex products have a unique number,
+> > > and we have a way to trace product revisions.
+> > >
+> > > So, for each product we have
+> > >
+> > > <product name> <pid>
+> > >
+> > > and <pid> is 8 digits, the first 4 digits is the end customer product
+> > > definition, and it matches with the product name, and the last 4 digits
+> > > is the product revision.
+> > >
+> > > All of that is documented, see https://developer.toradex.com/hardware/hardware-resources/general-product-information/ordering-information-and-product-identification-pid-pid4-and-pid8/,
+> > > and this is what is used for any kind of product traceability.
+> > >
+> > > Staying on our LVDS 10inch panel example
+> > >
+> > > Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12121000 | (version 1)
+> > > Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12122000 | (version 2)
+> >
+> > include  12121000 in your file names.
+>
+> That would result in filenames such as:
+>
+>   imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-12121000.dtbo
+>   imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-12122000.dtbo
+>
+> While technically correct, this creates a usability problem. PID8
+> ("12121000" is what is called a PID8 in Toradex product naming/number
+> scheme) tracks hardware revisions, including changes that do not affect
+> the DT, such as passive components or mechanical changes.
+>
+> A user with PID8 12122001 would not know which overlay to use, and
+> duplicating identical overlays for every hardware revision makes no sense.
+>
+> I therefore propose:
+>
+> imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-v1.dtbo
+> imx6q-apalis-tdx-panel-cap-touch-10inch-lvds-v2.dtbo
 
-Thanks, patch looks good to me:
+It is okay.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-With the remark that this is quite OPE specific atm and we will likely
-need to split this into generic + ISP specific doc files later when
-we also add support for e.g. inline ISPs.
-
-It is probably best to figure out how to split the docs once we are
-landing a second ISP driver upstream though, so for now this is good
-as is.
-
-Regards,
-
-Hans
+> >
+...
+> > Ideally, rpi-display-2-7in.dtso should reused for all boards, which use
+> > rpi defined connectors. Now exsiting these combinations reason is current
+> > nexus node is not good enough. but we face to this directions.
+> >
+> > And anyway, rpi-display-2-7in is not good name because rpi many produce
+> > difference 2-7in panels in future.
+>
+> This is an existing upstream naming convention, already reviewed and
+> accepted by multiple maintainers.
 
 
+The existing doesn't means good enough. That's reason why there are hundreds
+patches each days.
 
+Our goal is making thing better.
 
-> ---
->  .../userspace-api/media/v4l/meta-formats.rst       |   1 +
->  .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 147 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  3 files changed, 149 insertions(+)
-> 
-> diff --git a/Documentation/userspace-api/media/v4l/meta-formats.rst b/Documentation/userspace-api/media/v4l/meta-formats.rst
-> index b5455229837e707c24e134438d5e2fd12cb3bf37..25b46af4d9f7faab37000076c530e9aad5b4a076 100644
-> --- a/Documentation/userspace-api/media/v4l/meta-formats.rst
-> +++ b/Documentation/userspace-api/media/v4l/meta-formats.rst
-> @@ -20,6 +20,7 @@ These formats are used for the :ref:`metadata` interface only.
->      metafmt-intel-ipu3
->      metafmt-pisp-be
->      metafmt-pisp-fe
-> +    metafmt-qcom-isp
->      metafmt-rkisp1
->      metafmt-rppx1
->      metafmt-uvc
-> diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..da0dd9b0884ea8b3c5fba7b5aa2eb1af80418cae
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> @@ -0,0 +1,147 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +.. c:namespace:: V4L
-> +
-> +.. _v4l2-meta-fmt-qcom-isp-params:
-> +
-> +**************************************
-> +V4L2_META_FMT_QCOM_ISP_PARAMS ('QCIP')
-> +**************************************
-> +
-> +Configuration Parameters
-> +========================
-> +
-> +The ``V4L2_META_FMT_QCOM_ISP_PARAMS`` format carries image processing
-> +configuration for the ISP engines found in the Qualcomm Camera Subsystem
-> +(CAMSS). It is passed to a metadata output video node using the
-> +:c:type:`v4l2_meta_format` interface.
-> +
-> +Rather than a single struct containing sub-structs for each configurable area
-> +of the ISP, parameters use the :ref:`v4l2-isp` parameters system, through which
-> +groups of parameters are defined as distinct structs or "blocks" which may be
-> +added to the data member of :c:type:`v4l2_isp_buffer`. Userspace is
-> +responsible for populating the data member with the blocks that need to be
-> +configured by the driver. Each block-specific struct embeds
-> +:c:type:`v4l2_isp_block_header` as its first member and userspace must
-> +populate the type member with a value from :c:type:`camss_params_block_type`.
-> +Populated blocks must be placed consecutively in the data member, and the
-> +combined size of all populated blocks must be set in the data_size member of
-> +:c:type:`v4l2_isp_buffer`.
-> +
-> +The set of supported blocks depends on the CAMSS engine consuming the buffer.
-> +The block definitions themselves are shared across CAMSS ISPs; currently the
-> +Offline Processing Engine (OPE) is the only engine consuming them, through its
-> +``ope_params`` metadata output video node. Additional engines and blocks may be
-> +added to this format in the future.
-> +
-> +A block carrying ``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE`` bypasses the
-> +corresponding hardware module. Any other block updates the module's
-> +configuration and leaves it enabled. Blocks omitted from a buffer keep their
-> +previously programmed configuration and enable state; until userspace submits
-> +a block for a given module, the driver's default configuration applies.
-> +
-> +OPE processing pipeline
-> +=======================
-> +
-> +The OPE is a memory-to-memory engine that reads a Bayer RAW frame from its
-> +``ope_input`` node and writes a YUV frame to its ``ope_disp_output`` node. The
-> +parameter blocks configure fixed-function hardware modules that the frame data
-> +passes through, in the following order:
-> +
-> +.. code-block:: none
-> +
-> +	 Bayer RAW in            RGB domain                      YUV domain      YUV out
-> +	 (8/10-bit)   +------+   +------+   +------+   +------+   +------+   +------+   (NV12/NV16/
-> +	  ----------> |  WB  |-->| DEMO |-->|  CC  |-->| GLUT |-->|CHROMA|-->| DSC  |----------->
-> +	              +------+   +------+   +------+   +------+   |ENHAN |   +------+    NV24/GREY)
-> +	                                                         +------+
-> +
-> +The stages, and the parameter block that configures each one, are:
-> +
-> +.. flat-table:: OPE pipeline stages
-> +    :header-rows: 1
-> +    :stub-columns: 0
-> +
-> +    * - Stage
-> +      - Module
-> +      - Parameter block
-> +      - Function
-> +    * - WB
-> +      - CLC_WB
-> +      - :c:type:`camss_params_wb_gain`
-> +      - Per-channel white balance gains and black-level / pedestal offsets,
-> +        applied to the raw Bayer data.
-> +    * - DEMO
-> +      - CLC_DEMO
-> +      - *(none)*
-> +      - Demosaic: reconstructs a full-resolution RGB image from the Bayer
-> +        mosaic. Always enabled; not configurable through this format.
-> +    * - CC
-> +      - CLC_CC
-> +      - :c:type:`camss_params_color_correct`
-> +      - Color correction matrix applied in the RGB domain.
-> +    * - GLUT
-> +      - CLC_GLUT
-> +      - :c:type:`camss_params_gamma`
-> +      - Per-channel gamma correction curves (256-entry LUTs).
-> +    * - CHROMA_ENHAN
-> +      - CLC_CHROMA_ENHAN
-> +      - :c:type:`camss_params_chroma_enhan`
-> +      - RGB to YUV color transfer matrix.
-> +    * - DSC
-> +      - Downscaler
-> +      - *(none)*
-> +      - Chroma (and, when required, luma) downscaling to produce the requested
-> +        YUV subsampling, e.g. YUV 4:4:4 to 4:2:2 (NV16) or 4:2:0 (NV12).
-> +
-> +The input node accepts 8-bit and 10-bit packed Bayer RAW formats (for example
-> +``V4L2_PIX_FMT_SRGGB8`` and ``V4L2_PIX_FMT_SRGGB10P``). The output node
-> +produces semi-planar YUV (``V4L2_PIX_FMT_NV12`` / ``NV21`` / ``NV16`` /
-> +``NV61`` / ``NV24`` / ``NV42``) or luma-only ``V4L2_PIX_FMT_GREY``. A
-> +configurable stage is bypassed while its block carries
-> +``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE``.
-> +
-> +The following example populates an OPE parameters buffer with a white balance
-> +and a gamma correction block:
-> +
-> +.. code-block:: c
-> +
-> +	struct v4l2_isp_buffer *params =
-> +		(struct v4l2_isp_buffer *)buffer;
-> +
-> +	params->version = V4L2_ISP_VERSION_V1;
-> +	params->data_size = sizeof(struct camss_params_wb_gain) +
-> +			    sizeof(struct camss_params_gamma);
-> +
-> +	__u8 *data = params->data;
-> +
-> +	struct camss_params_wb_gain *wb =
-> +		(struct camss_params_wb_gain *)data;
-> +
-> +	memset(wb, 0, sizeof(*wb));
-> +	wb->header.type = CAMSS_PARAMS_WB_GAIN;
-> +	wb->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-> +	wb->header.size = sizeof(struct camss_params_wb_gain);
-> +
-> +	/* Unity gain on all three channels (15uQ10, 1024 = 1.0) */
-> +	wb->g_gain = 1024;
-> +	wb->b_gain = 1024;
-> +	wb->r_gain = 1024;
-> +
-> +	data += sizeof(struct camss_params_wb_gain);
-> +
-> +	struct camss_params_gamma *gamma =
-> +		(struct camss_params_gamma *)data;
-> +
-> +	memset(gamma, 0, sizeof(*gamma));
-> +	gamma->header.type = CAMSS_PARAMS_GAMMA;
-> +	gamma->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-> +	gamma->header.size = sizeof(struct camss_params_gamma);
-> +
-> +	/* Identity curve (pass-through, gamma 1.0) */
-> +	for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
-> +		gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
-> +
-> +Qualcomm CAMSS ISP uAPI data types
-> +==================================
-> +
-> +.. kernel-doc:: include/uapi/linux/qcom-camss-config.h
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c103edaab227e7a21e50f6d9fd733..8d48a704e959dcabc8ff45f71f35b832afcf4971 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22376,6 +22376,7 @@ L:	linux-media@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/admin-guide/media/qcom_camss.rst
->  F:	Documentation/devicetree/bindings/media/qcom,*camss*
-> +F:	Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
->  F:	drivers/media/platform/qcom/camss/
->  
->  QUALCOMM CLOCK DRIVERS
-> 
+Frank
 
+>
+> Product naming and versioning are the responsibility of the manufacturer
+> (whatever is raspberrypi or toradex).  I do not think we should
+> second-guess those decisions without a concrete technical issue.
+>
+> Francesco
+>
