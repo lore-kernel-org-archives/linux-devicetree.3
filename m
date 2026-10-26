@@ -1,57 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008089;
-	b=DMnWWdery4AlgVueCweJkpgjD/o9PcmPTSBykVS6tx8TX6qelrQ8d6Y+JpsD3x4b2cU4
-	 1pHcG1akQkH28Mh3/5/k2oiL+oO44Y3yQMBBDojPauLBtT0lNqoOVd5Lje2nSl2xpqLBk
-	 ujrp8Uia1Wd5KuVT01Zg6EVSXUSWC/IALtds6eCUIi69jIpNZVPxgWQqrtCM9p0AN5SXf
-	 JaVgxBr1kh/wifIOYKUCZFMXISf2x8zB7wmG6DVni4b2GrNwrowpdDW/fR1kjQznO7Omo
-	 D1uVmM5tk8mW2AzB0byp5MagcDhwhFlBsN8FrBIH8+Krhl8osm5P70rgYfEVPTEPhpQ==
+	t=1793008222;
+	b=xs+qfq5qyUxQnyjo9ud3n5/C1f+3AJLygCkjFMlBvXf2r6rhmTy9aFFm9+lWZXBih0qg
+	 d7Pyad7pSKd3SMwK/ufeqdhepZJcfyxYXkeiXIp8782+W860PGlnlYV0yyykb/UjG5QEO
+	 he6Gks890lbfz1oCAJ6MRkKVLFP+U6M35aEpeGq2dbq1ZneBM/SjtOOGNmv92Aq8GR9Cx
+	 MjSobvETfdfqeKaVl0TCd+2yP0ZbL9ODxRefmcfgvr1v2Aw+CcYBiOx5IaSOnqDSIKrMJ
+	 nHPHHsJmjeZ5XFlXWdivBLxWM3cYnNGaiJcfy4iWzg/OUf0PmPFlVV/6E+PrMx0T3Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008089;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QNjun783pTdiQfTLrK5OlpyTvS0qYP5wBlMosU8czwU=;
-	b=Aih4frrwOgkTQRXjvdK2Vnkps/QeGVV93hPL6yLU3bisH+aBYqP0i0nUVvDGpb31+e1d
-	 /5/2sVWpxoVrq4FTTNQj/BQDl5uApv/+M/aNs+IfwAjkWmE/ZayO3cjaZZPHHHOY94+KQ
-	 DFwLJu6cem1e67hgbeIJELmrlrY2OfPPfYq4Nho4IBcBWhmsnYzbxFrD+vUEzYm5GCTEF
-	 g/P4QShGDvrHs26eOVXdGQzC0zFoQ5lKTrz6rQDV7O0MZREgQ3C1DRWqlBJFFte3GCSAp
-	 CuZJknZH6fC46gquLl/bJZVM2RST5DcbvL8UMgr9lpo77r3gDyw1BazQWC6LzT5cF9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008222;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+	b=nkSoEOgslbNqsIiLr1gUZJK4UGBoLcoT4j91EnfprWZH1e8doKCHZtcynwhY+7bTZvBJ
+	 jCjwbzuzhRVxwqDwKElXTsbNiqM5Pn4Yw3CIpO8AQpcafAG3DKICW+xjhQCK8KrI4GzOE
+	 phGC4Gn3q7Kc45uwOqGw5zWdjle+N9e7hRG1U5U5hH5HcHlvpwrmX4CGiZmh9ZZKb3eTZ
+	 iP5iVeU+IRVgjiF6cM884DcTGzVNmdNs84e3At6d3zjEoCfBzbFCDyqyWkPBe92F8uAl6
+	 OotUlWIaxQzn3kwXlfG3HOOr0kSPRp3qqDKM1wp48u8X2LbpiCe8XHtQEIocuZjN8Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRAZij1+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XRVXsrOk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JiX0fFzg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24756606A31A;
-	Mon, 26 Oct 2026 09:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC6D606A31E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBC6D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRAZij1+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46DE51F01825;
-	Mon, 26 Oct 2026 09:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793008088;
-	bh=QNjun783pTdiQfTLrK5OlpyTvS0qYP5wBlMosU8czwU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WRAZij1+fo95xgkPP6IeMvJXu04cno+M94OLhvwCJWahVV2HDahyQg+UaLuOONoDA
-	 v9EzPlyA/1VGve/xAg3e5pB762wjipFXQ79Nm1+wUpgNaYsSoGXjv8AfuXuDwObv+U
-	 ZnLHFR0gIL5s3batFhAHagCxSp8Z9RHPwm8NZxqsE3OaskCio0gmy9Zoy2qMVE12XY
-	 9MsgGyYNG97usTLazHC3RZKeKXI6xQ7NEaumt+d4YxHJiorJURsjOlaW/+hiEqzj7D
-	 /zKMpnmZu2g3Qo0HWLrj3Et+ooCE7dkQs80TkYZAFs1o9IhIQRfDajSoZ3Lz7nb2qK
-	 Chumyth2YaFVw==
-Message-ID: <sashiko-outbox-184837@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/23] drm/msm/dcp: Add HFI packet helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-2-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-2-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 09:48:07 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XRVXsrOk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JiX0fFzg
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4aqnj1181756
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:50:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70o
+	SnHfUUaU=; b=XRVXsrOkESbp/cCSaWJSpjFpCVV2NlaUh7gPe17KKmW3HKIpf0k
+	B68B2bms9+r2ilQzj1RjSNqPy87FrPtWESIpo43Xuyk7kZIxtrlgcllaxUQwEICh
+	yre5PFns5T/ny2mwDdCSbyFTr7b0hyX9/WtUdNsU4xpjDDQLclxAf9SNvgv3X5sS
+	7VaGsajlciZGW96Kgb+kMje1hkiqp6VclViG4zGGy9vf4t5rLFVOPsvOICioGx6/
+	8MUqCBcKLF/Hqe/pOg20CXjJhST6FuwVtjZWH/2Lv/LFACiyMM77idnqB2RBFXNM
+	Fnd1d9AoUqvydsk7QzBYav8NCmkEvYNdxhA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27wspa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:50:20 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f559420f3so262750185a.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:50:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793008220; x=1793613020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+        b=JiX0fFzgcgd7yk06M+3KTwENidi6pxln+1J8unjOw9BYLvBD+Ab6iuRQO0n87fV5Lu
+         P3HY0mkE2oxievv1ZRqfK+3wJDtY8Gt2a6qMeEyDrGg9Ivjn7gWEqKfhRXDQoflRs0wN
+         2P6c5+uhyjYdbp5soqad+SRRZpGvi6j1QkZNWLUcLBrik7J9xrY07u1ZW1LmD8j+oXbh
+         AhI/TLEAKdJY/FbEL13X8LvS66bUzJ3LSs3OFLIzhHdmTSBBeOt32FX+7IiIsroj5xWv
+         xhoRXPGZg2inW67tu3G5/1ouhUW1syGzSAzJcsaZ4Fmp99ffPc6gT6hxZeY2Xt0xJQ4a
+         JIQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793008220; x=1793613020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zKX1jeaJXKjVB7lhiiifJDbywGu1ddtc70oSnHfUUaU=;
+        b=1jKhO9mH4OHjEIRrgzdQTD7smlLuMBGVTm/STPNqu3l8P51bM8VmBwhjc55qRMba65
+         4Dep5/tMcDwbswCrSIQ4j9ZsRJ6izsdkx+7NbvcmH/7mepNkynE8XcI3TjuGmRvraWA5
+         uxNK3OeS6y/3QA2g+MeIUaqxJxpgo5j5CMDDBTygpXT3Zwl5Ua4B5L9JsBGeeHWBzh5y
+         NXaNj2QwcGNH2nVvR0hZmggLdhjUML5y/4r42y+G3y+Ywq5eh19xeSCGGjadljeyPbF0
+         UnVxq7Lc9hbM8zugGJW3e/rvVmb4PWoNJy2JytZMUVnci+ikxwJuKTJY1A9w/QR/g5oB
+         UizQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy1ySY5Jp4aETyjP7pHBsIougXvb6dYMiL9kZm2XWDnvjsle6xGuMZF6TSjNQy+31vbhEjcl9F11wyn@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzPAXCjC9pQSrj145OxOttUW8N1Tf1h9mszMnIvYl8U834fHT2
+	OvifH7fkDR1ifC4DrlyuOZgw5rr6VYF/9BCaZ5C+sQmvmO3YSVpnQ7h5Hq58pL549Jvfj7sXcJN
+	Hjv8n9vae8N8vBwa0Beh6hs+/oLorl2cHl1x63SJ0Lht35PQuGOf4lHEH2XAT8CUNZCZcPmsj
+X-Gm-Gg: AYBFou1f377JcYr80exRdYWAoIY6TmrJs6j1L1yKLujik7ugOpdLukcvtw6KTGXxoiC
+	8cWrI1eY2TzUK5abgucP+BJlGYsbxQX8L1nNiHBW5BTCkd4Jdi3w7iEVGnIRn3asLtPvdxyYMum
+	NRZ7v6DvF1R3vdX314XYbNgtG+cWnFrJkVpX3U3fI8+yxIAXqlWFLCKBZZ2WMF6WSkLriswNo/9
+	yFxxldE89MioHz3VJjhG4ufvGk/1T4dLsYWvc6TbrzTLLwSldf8R8nvibwsQ/IL1ycmyMjEIr2Z
+	fxhsEfatbCaytoG6keiavHyrEdo7muVf7ObPERfGZ7aaAs+czIXleq6/BipfWgy5qMFudLl71jo
+	phlvy0r79h6fWqWTQbsrGThrkjuc=
+X-Received: by 2002:a05:620a:4509:b0:93e:bbda:dd06 with SMTP id af79cd13be357-940ef682ec2mr945162785a.0.1793008220206;
+        Mon, 26 Oct 2026 02:50:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:4509:b0:93e:bbda:dd06 with SMTP id af79cd13be357-940ef682ec2mr945159985a.0.1793008219740;
+        Mon, 26 Oct 2026 02:50:19 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm15405472f8f.14.2026.10.26.02.50.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:50:19 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: daniel.lezcano@oss.qualcomm.com, robh@kernel.org, krzk+dt@kernel.org
+Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        linux-pm@vger.kernel.org (open list:THERMAL),
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dt-bindings: thermal: Drop thermal zone node name length limit
+Date: Mon, 26 Oct 2026 10:49:56 +0100
+Message-ID: <20261026094956.2323036-1-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,74 +121,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf225c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=F35qRUJZQmyXIphswqcA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 4P9PpnmclG6_AzwcsDj7zPC5M7XjfQLp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX6bsRSnbhiRtf
+ IyTSdtTFVIsa5U3ZZPrZK9n2LA+Nn2F5d5ir8YU4I8u8Ti49UGMhnown9FjKoL9ZVIcNNUR/IpJ
+ oht1rQKBRpDnuzwBvwifg707ZHRPInA=
+X-Proofpoint-GUID: 4P9PpnmclG6_AzwcsDj7zPC5M7XjfQLp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOSBTYWx0ZWRfX0VxngAu0Mgk4
+ SGLsVgYO7xU2nz7/BSBT19DLCc1B4oJ2Y5+QhsS61hoQ9mk+VwqvaZIprChqb5Pfr4smUbkHxvG
+ RRFQGj/7XBPtLMZ6BvR8rogdtVg4XoPdxl0xIDXONeye2t6kFFuPF+KuEpI3p+e88CjUWcLyXWJ
+ FDNZoronhPTF2LJMb8UHmG9o295oL8Jgl09KlF9iN3ucs2dA+ggSyR/+wgtlw0GPMVuQH7AOSR4
+ qH6d6T4ocN5V8Y1XqvlbAMZB1Wn/97kE0crmlmYZvFfyr2y1eoiFjED0/xmqxf2LdBV3kIJq06n
+ oZyW+Grf+KhFZWF8QQbWHOXqiMWeUM+9wvIKyuogBncIJaXlltztwo4k552+6Cw0pfOBy+1QZfY
+ y8GZQk7lfqlRqBek6u3sNaxwM3LYarcKjFwrPEsY1lqq/vaieCwVnFhGnlVlJsvfMbLKCxn/Y6d
+ U8Wd+aRXBZQCozlIM6w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260039
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] drm/msm/dcp: DRM_MSM_DCP bool dependency on tristate VIRTIO allows =
-DRM_MSM=3Dy with VIRTIO=3Dm
---
+Device Tree bindings describe hardware and must remain OS-agnostic.
+The thermal zone node name length limit is derived from Linux's
+THERMAL_NAME_LENGTH macro, which is an implementation detail rather
+than a hardware requirement.
 
-commit 29edd03d5dbd7916e10401025f35f2e578051ed0
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Remove the length restriction and its accompanying comment while
+preserving the thermal zone naming convention. Any OS-specific limits
+should be handled by the implementation rather than encoded in the
+Device Tree ABI.
 
-drm/msm/dcp: Add HFI packet helpers
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-This commit adds the HFI packet definitions, packing and unpacking helpers,
-and key-value parsing utilities for communicating with the Display
-Coprocessor (DCP) firmware, along with the DRM_MSM_DCP Kconfig symbol and
-Makefile rules.
+diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+index 999ad40a20d5..6091e886829d 100644
+--- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
++++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+@@ -49,10 +49,7 @@ properties:
+       to take when the temperature crosses those thresholds.
+ 
+ patternProperties:
+-  # Node name is limited in size due to Linux kernel requirements - 19
+-  # characters in total (see THERMAL_NAME_LENGTH, including terminating NUL
+-  # byte):
+-  "^[a-zA-Z][a-zA-Z0-9\\-]{1,10}-thermal$":
++  "^[a-zA-Z][a-zA-Z0-9\\-]*-thermal$":
+     type: object
+     description:
+       Each thermal zone node contains information about how frequently it
+-- 
+2.43.0
 
-> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-> index ed1c4775d1e92..a9f049271c251 100644
-> --- a/drivers/gpu/drm/msm/Kconfig
-> +++ b/drivers/gpu/drm/msm/Kconfig
-> @@ -114,6 +114,31 @@ config DRM_MSM_DPU
->  	  the MSM DRM driver. It is the display controller found in devices
->  	  using e.g. SDM845 and newer platforms.
-> =20
-> +config DRM_MSM_DCP
-> +	bool "Enable DCP firmware-delegated display support in MSM DRM driver"
-> +	depends on DRM_MSM
-> +	depends on VIRTIO
-> +	select DRM_MSM_KMS
-> +	select DRM_BRIDGE_CONNECTOR
-> +	select DRM_MIPI_DSI
-> +	select DRM_DISPLAY_DSC_HELPER
-> +	default y
-
-[Severity: Low]
-Can this Kconfig dependency allow CONFIG_DRM_MSM_DCP=3Dy when CONFIG_DRM_MS=
-M=3Dy
-and CONFIG_VIRTIO=3Dm?
-
-Both DRM_MSM and VIRTIO are tristate symbols, while DRM_MSM_DCP is a bool
-symbol whose objects in drivers/gpu/drm/msm/Makefile are linked directly
-into msm.o via msm-display-$(CONFIG_DRM_MSM_DCP) and
-msm-$(CONFIG_DRM_MSM_KMS) +=3D $(msm-display-y):
-
-drivers/gpu/drm/msm/Makefile:
-    msm-display-$(CONFIG_DRM_MSM_DCP) +=3D \
-            dcp/hfi/hfi_packer.o \
-            dcp/hfi/hfi_unpacker.o \
-            dcp/hfi/hfi_utils.o
-
-In Kconfig, a bool option with depends on DRM_MSM and depends on VIRTIO
-evaluates its upper bound as y even when CONFIG_DRM_MSM=3Dy and
-CONFIG_VIRTIO=3Dm. When the DCP VirtIO transport and driver objects are add=
-ed
-to msm-display-$(CONFIG_DRM_MSM_DCP) later in this series ("drm/msm/dcp: Add
-HFI VirtIO transport", "drm/msm/dcp: Add Qualcomm VirtIO transport wrapper",
-and "drm/msm/dcp: Add DCP VirtIO driver"), built-in msm.o calls VirtIO core
-and vring symbols such as register_virtio_driver(), register_virtio_device(=
-),
-virtio_find_vqs(), and vring_create_virtqueue() that live in loadable
-modules when CONFIG_VIRTIO=3Dm, resulting in a vmlinux link failure.
-
-Should DRM_MSM_DCP use depends on VIRTIO=3Dy || VIRTIO=3DDRM_MSM (or DRM_MS=
-M use
-depends on VIRTIO || !DRM_MSM_DCP) to prevent a built-in msm driver from
-linking against modular virtio?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D2
