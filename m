@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793028670;
-	b=lnJ7zdxivZtanWg9ff5IhxnFTIV9k3zswGu+bASweOY7JtDruTtyoH4ZOY8rx1r9ZSVU
-	 z8Zt7J57DpHUS53uX1Hty02lnP22C3nhIaxX9i1nTOP7+0OGbJpC+ctoC2YvJnz+yKgTc
-	 UoNtNMEqMOxz50xsnV9hPhRn5lrhDwaqXO4cJp+a0k75vqFPxavPmRZUpYtIVCKuSQqTz
-	 ZslAZbRZH7JzZuGFf7TDXIrD/e97K9bbDAKzSLf4LQlbuvtBKKmYey6WktrXSLGwY9qXr
-	 I3anOfQxcmyrJB5bKFx26c1KoUCa5NgQsEObAtE2gxYH7zxNWn2eEO41i6DiNOHSU9g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028670;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793029267;
+	b=R6mf/womazuuS6NUSRESSiefx4iWUsOo0hewioL0tjIs0PDkZ+/cvkmXT94w4RwXRT/b
+	 GaWH2CgXCFTNa1OTwcGHdK7yrAqvL3vSMl9Gw08qkufk14ScOa2hqFVIsYnRjEGQ5sCqv
+	 HxSGBwOQ14y9FowQioFf9c97dr3UzL0Vwgj8DgCHnvaERpNSXaRIQcVyqhW/l5hVftDAX
+	 L6LA8UbRb09zT3LSaUPlZmbPblkvLgmZlqRSgmxnw1TYS7NoNuCzkCc+29g3HrMQpf3Iw
+	 e33DIoKdiRO6goyspsRTu9wGc1ZRP0egWr4mZZqMIUfu1HilIfnDED26h2TSGUqqLlg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
-	b=4s00TXflrCHykZccexTtqp5sRjt6FKCTUG+2aiSFsWca9AbFIbUQKtcigakMHBnTY5iq
-	 Zyyhz++JehW696tL8Im+vtRMmzy9vBnF7kprjTQ0o7WJLQXUgJQHhQAfvtMXjoA2qRTuK
-	 ncdlCQzSPwJ0DzKhoUK9FAY0OmhWG3KY8t2Q9OArEhby0No0Bt5CjlPOT84oqiw9BRwTL
-	 nyDNCu+ocX/v83Et5n0SHrxaXz0NL7/dnsSnYMiFE3DBlLyLNs/jzQPmoaDqxaSudw5wm
-	 2vHPypSVd8wz0vxWvo8tc+jok72UT6HQdO14JygN8ygrX9LYv27MCZC8Wy49E0DoMCw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i34fDHbk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oXvlMSArAdPznEGPoRfsgQqM9zglSgDnbfxhA6Z+wyk=;
+	b=CZDMYZFtdj307oIWvRTqoNg0QhvUmq27he+J5E/SFTE/n7GIn7w9FsF+b0Bv38leeDeg
+	 pl3KDeYgoUG+b7t0NWkD775qXRHeKbXZGtS8KhHVRBpwL4e9na8ObcDC0UqmN1a+GI29K
+	 TJDKznASwq8BjT2Q117bmYRFnb35Z6YBer7AoAmN4iC9qz+9MhVrJCjaLHaDjkR05jdDz
+	 H838Ee6LlOY4pxH2z8zvLPQTMgYWldyYnpkqTk0VZqQraYsasRLdutzEFGnXnUHd5A6V1
+	 HEcttTgkWGPTMDcGwVHBb+TgWR+DLXb8xElnmq/FOid8883Kng6Za2sgDgCllRtEzEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kydrx5lC;
+	arc=none smtp.remote-ip=209.85.210.53
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E88606A32D
-	for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E88606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDA7606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:41:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDA7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i34fDHbk
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4557743a12.2
-        for <Devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:31:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793028668; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LwF2ZJw0JF+QtY1G4UuzqyhNxk8r1daf8lgAqs98Y33wzb1eX6zxYahcpqaZxpcOpm
-         +rmr4buUhpmUdGcJCG3dnVqPsnS99nM5nEt8gGDbDB/CDWUDf24tStw4pGh7KUDZrlb4
-         X7jN9MPqroOTCuof2dalNi2Fllcw4/Zjkp8cqxa9QSX93hCjRxk3AQGZYQf15NFitfBw
-         Zv0q26W6NoP0yeGXYj4wwKKLTzQyR/0GbfRgVywUv3btspB0LD3zlddHrPxmBLkflt6s
-         wEZchNHFMn4LkQf0w2wXASeAiUPG7pxsy+5bSaeFaegJcKyvFDntflVYME7B8+464oxl
-         zcVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
-        fh=pkhdnnaF5ZbB7Jn7gQlLm5Kr9nMsNnjLvAkbvtNblKE=;
-        b=kgdEldFcCXHDlS+JQ/Van2zIY5HDqesjaJDS9KDdfQdAzGqyluM1/lxVrTAbTh3CWY
-         hfImTn2wyb1J11LfvgGBqIRVRdfcr3dNq57ppmcmzN9Y0V09E2CAev+Sox9XdGgeGyl1
-         WGqBbgyqR+fOD96LnK5NuPetPs04waq8RtDJ4L20pIFZU50/ykZ9POLuG+ofySvC9JCe
-         u4Mldt8OOv5PCAfURRJEfW2TaKeepKESN07plgFp32lRdkn0tjRa8vfAL80VRywoLkx1
-         gZxV4zrGYus91Gs9Z2Sxv4JkbDId2HYy7A3r1euzeT57c4UMJYCV+YOynfUfW77+F200
-         YkvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kydrx5lC
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-843ea301d60so2348360a34.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:41:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793028668; x=1793633468; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
-        b=i34fDHbksXBPhSy1Qhx49uDOu7YvsAAUs+Vx/eUgeWkTxWdpNpDGYUbQ196Eg+pygP
-         u0VFcXxm6B/Suu+/VqrGDMYtYD7FGEG+vU4m2RWmBqGAjJasMNcSo5eWT3d5zOxe1gcd
-         riQhyhnZAwL1Xi8ML74qobUivRjlg37e9Twbg=
+        d=gmail.com; s=20251104; t=1793029266; x=1793634066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXvlMSArAdPznEGPoRfsgQqM9zglSgDnbfxhA6Z+wyk=;
+        b=kydrx5lCCIvCkSDYdmEzz5tuOnzwKKCEvi+/GimiJ/pbp4X7dtXpkSy8g0554b7Z3F
+         KssOxSNc1k65L2cdK/q63N9sp6BYHdDq52Z7aWfM7wZsEanX/yQODUNE09pOAPNfxTam
+         aUCI16NSHL1lClaLj0NoihkBAywcb2hm+C1rq6+Z3Sbsft6EdgGFNwr0JejGfBsEbFYG
+         k8x0MSSxYECwwLhYDP645aRZa705vFNVDuQlitov1vSoPWRDYR+JpMbJp4ZCLRiUiQIV
+         y0HSKCOE1k5rmgFXrBW7PFAT8P3sx0HXxi5CbSEyueJZ/UwTGNfqdFvYslHsEtODsfZd
+         Z/eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028668; x=1793633468;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ByfudzbZBmPdop+tQLUNKnJBViZnQ8X/fNaZs09u0EI=;
-        b=L6tjAUiyySX7cqI0lI4OUrcOB//PRcWUq7mpY0iQb2l1yAqkQs9Mfu68Wwu4Gb1mVu
-         hJrRuJrZhVy72kE2AILkTziDVco1CMEKb1+1TvoGkZ0ptGmWJOVYoBmQGWqiHe5GSPtB
-         GmMhUP1n3rmxXaUsiBAiasrrhom2JHQtpBY2msfqgPmanfuTDLjV722ZbI7WC98jsXat
-         4YjSEW78WBubRqxrlFtPj0Ih/luA4St7Hy3kizjheXq6fDKDHqet5BkeKV8aXXEq/mWI
-         TjWlE7qkIcFAWQAeIHjNjlVz05JiXtsB7JjulabQTAUIVqjpG14ZqkrFSN6i0Najz5z4
-         q4zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwoJaSJEwo5Dy9NA0YI4I2Nra8PLg4wmT0RpCU3GotCECQRBeyMlYcR1DAVjf15/o5vPLBe+7/2kD8l@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeB3s2RJESkq0Ku9QZEviVXreGvdz+eb6Psgqvit9UdQGIJCd1
-	Wf1IAM2LTPmO8frmSJhGSdwCbTTKVhIOmT4E2VKO/k6qDOqVdXmLhONqjj+FVDOuUwVPDTstaDh
-	JrZAErqTowWiil6tNUcUlLbvYhlX4bRUP9p8ijMPS
-X-Gm-Gg: AYBFou3gJPr11KkSa7AmdYLA643A2dODX8GTcjH67YUNwv/7yoalY8caZk5MD60Qp83
-	FdEGlXdF91YEH3nbsuwqTAEa3sOWGW1hnQu9GaE1Ho3dLmXvZcX9YyaZ/bVHr5DUeV0lNnn7kLK
-	AzNetBQTjQhDsKlCfpSgLI0ZZNASP+C/n42UL+hEKtbbzPUYOrJxFSjIImjAdEzzYY+KUcKln14
-	39lBgtUqqkn6IdPTOOCclMn7a2hORhPEHc7jzJaoJeNktzI+T9Ru3yzxkOYSpiQg3gV6L39SqFw
-	C2O47TgYbQpi6Wy5h91ldxMbmDqV4o/ODWLlerbxXINr5AoRaPmFYQ5a1Dw/aAg1I8kSe3nNRzG
-	za3+HUld2pptHeaKmJ3bQytLD0bNzsvavFtw=
-X-Received: by 2002:a05:6402:4021:b0:6b4:583b:daf5 with SMTP id
- 4fb4d7f45d1cf-6b4583be5a2mr6346972a12.43.1793028668229; Mon, 26 Oct 2026
- 08:31:08 -0700 (PDT)
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Oct 2026 08:31:06 -0700
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 26 Oct 2026 08:30:42 -0700
+        d=1e100.net; s=20260707; t=1793029266; x=1793634066;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXvlMSArAdPznEGPoRfsgQqM9zglSgDnbfxhA6Z+wyk=;
+        b=nElUU/FqyjxYtl7VCN2dpvrDkm8cTuneM1Gu2trnsQrr5BWdvZvNtB3nITzNoCLiOm
+         bt/X8rNTCsJ/nsjXuK43in85OPNmaZJGzc5ihwdaX/SPP7JTDfe7C0LsvscRVikWFMkd
+         rMz4313JhAFMmh4S4tvxVCKPRrfxs31V4UDTNXaEN1+/WDyFKYnR2yEh9OnTYM4UCTUR
+         qEB8kFAM+W3FEvB3BXtE590oB3KBSrNPftNko+Fw0/GREHMflyeqG9QThY4JwAxZqBqI
+         YCa7yo+9cxcmGCHXhUnjwp5X3jxJfPzhzr3Zy2n+P1MrSYiDso75HbO13cyZQYnruReu
+         C1+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwKxFUwCIGG6lvJH92H82/SOb3NVPXy3dm2cMoFxef3G2+dGPYX2u3RRLH2Geml5SA64ljVUtbUcFqI@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEWsDaEwukJ1p+7klsXZcpvBlr4JQHmboc8WM2oZPiy1hPwUBM
+	Zjw0vJSFK8Pggm9LWARU+IYqN49boU93sf0KAqQrytHnx8f9SdJFeZ6o
+X-Gm-Gg: AYBFou0Rl3D0ljRZI3vQ7lWAsb9eplUsNWTacvNr+qUxp7vrIHNuCZMj6XPaP4gnCf0
+	BzvUOunCL25wtMLcxFGCD7QBeV+Suh1JW1MGWNfZ+3fjCSUQREob5jezEcFb8MhxwrqekHvnWJA
+	xlSviTJYMKTKr2wlnWHo9QNupZKxgELQVd63h5n86cbGIW8Xv+6GA+MkPKD++iLAKmOCsc233eO
+	Yjbfy6q7fYuwUa5ye04gZEJLcKJv7/+zZdNSChQCuIKCDSiVr5hqLRH0bIFqwYfdrP+oDOdDn5q
+	etPyPuMxHDV0XLOa9kGXOw/t2yHNIcj3ELwerBn3oLsLcWLT3sRQsG2XVNOaE3EaiO067XFThO+
+	Vboizy9SA3L7vCoou3+2/f6KZT5yy/sU9yMLr+Zt/R6tEtLA602aRR+XZZN7xBYyOCBfYW5r9UU
+	Dx/gzKSCLsBKd6jfOwIL/2AQXle91Qsr9zeXU/MajG6OTKniVRFigPENmEoPfRFaarc1b9rcdwA
+	I5lbsp8tHX13NVeR9tp5meD7t9/qwvHDF210FCzNfpkGzSVoCqIzgqSrAzHIVgIuNPOF5It4amP
+	IQ5PJlZHDw==
+X-Received: by 2002:a05:6820:2203:b0:70b:afc3:25c6 with SMTP id 006d021491bc7-70bafc3263emr2251069eaf.83.1793029265744;
+        Mon, 26 Oct 2026 08:41:05 -0700 (PDT)
+Received: from jeffmr.mynetworksettings.com ([2600:1014:a112:1526:a95b:f8ab:d834:50c9])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a84315c0c9sm4746441fac.7.2026.10.26.08.41.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 08:41:05 -0700 (PDT)
+From: Jeff Roach <jeff.roach0@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] arm64: dts: qcom: Add HP OmniBook X 16-cp1
+Date: Mon, 26 Oct 2026 10:39:59 -0500
+Message-ID: <20261026154001.9323-1-jeff.roach0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,126 +100,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261015182221.2931742-5-dianders@chromium.org>
-References: <20261015182221.2931742-1-dianders@chromium.org> <20261015182221.2931742-5-dianders@chromium.org>
-From: Simon Glass <sjg@chromium.org>
-Date: Mon, 26 Oct 2026 08:31:06 -0700
-X-Gm-Features: AclHuK8AS3l64pCtBVyQ04xvPLa_xotvoD7mTGNS-Ci5w-XHpRDF-10--cetNjY
-Message-ID: <CAFLszThA+Fau4_0NEhXA3ntUmPB8wnuaabVvzNU=CMSpoQQgkA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] fdtfactor: Add compiled FIT image factoring support
-To: dianders@chromium.org
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	linux-kernel@vger.kernel.org, Devicetree@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Doug,
+This adds a device tree for the HP OmniBook X 16-cp1 (board 8F46), a 16"
+laptop with the 12-core Snapdragon X2 Elite (Mahua).
 
-On 2026-10-15T18:21:33, Douglas Anderson <dianders@chromium.org> wrote:
-> fdtfactor: Add compiled FIT image factoring support
->
-> Bootloaders such as depthcharge on Chromebooks and U-Boot use Flattened
-> Image Tree (FIT) images to bundle a kernel image with multiple board FDT
-> blobs (`fdt-1`, `fdt-2`, ...) and per-board configuration nodes.
->
-> Add `-f`/`--fit`, `-F`/`--fit-out`, and `--single-base-dtb` options to
-> `fdtfactor` to factor a compiled FIT image directly:
->
-> - Parse non-overlay `type = "flat_dt"` nodes under `/images`,
->   decompressing their `data` blobs according to their `compression`
->   property (`none`, `lz4`, `lzma`, `gzip`).
-> - Partition the `flat_dt` blobs into compatible factor groups (by
->   compression, architecture, FDT header fields, and node-path overlap)
->   so a single FIT image containing multiple board/SoC families produces
->   a separate `fdt-base-1`, `fdt-base-2`, etc. for each family.
-> - Support `--single-base-dtb` to force all `flat_dt` blobs into a single
->   base DTB regardless of node-path overlap, failing only if their FDT
->   headers, architecture, or compression differ.
-> - Insert each `fdt-base-N` node into `/images`, replace each factored
-> [...]
->
->  README.md                  |  15 +
->  fdtfactor                  | 726 +++++++++++++++++++++++++++++++++++++++++++--
->  tests/Makefile.tests       |   2 +-
->  tests/fdtfactor_other1.dts |  69 +++++
->  tests/fdtfactor_other2.dts |  69 +++++
->  tests/fdtfactor_test.its   | 109 +++++++
->  tests/run_tests.sh         |  69 ++++-
->  7 files changed, 1033 insertions(+), 26 deletions(-)
+Tested with Ubuntu's 7.3-based linux-qcom-x1e kernel. Everything listed
+in patch 2 works there, including suspend (s2idle).
 
-David is leaving this patch until patch 2 has been reworked, so these
-are just things to carry into the next version.
+Notes:
+- DisplayPort at HBR2 needs "phy: qualcomm: qmp-combo: update DP PHY PLL
+  programming on Glymur" v5 [1]. Without it the stream runs at half rate
+  and the monitor shows no picture. With it, about 1 in 4 plug-ins still
+  gives no picture; replugging fixes it.
+- The GPU is disabled. It works with "drm/msm: Mahua GPU support" [2]
+  applied; I'll send a follow-up to enable it once that lands.
+- Audio needs a topology and UCM config for the "HP-OmniBook-X16" model,
+  which are not upstream yet. The headphone jack (SDCA) is not described.
+- I hit one hard lockup while plugging USB-C devices during testing and
+  could not reproduce it in later plug/unplug cycles.
 
-> diff --git a/fdtfactor b/fdtfactor
-> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
-> +    dtbo_comp_sizes = []
-> +    for entry, dtbo_blob in zip(entries, dtbo_blobs):
-> +        img_node = entry['node']
-> +        dtbo_comp_bytes = compress_blob(dtbo_blob, comp)
+This series was written with the help of an AI coding assistant
+(Claude): the device tree started from glymur-hp-elitebook-x-g2q.dts and
+the laptop's ACPI tables. I reviewed it and tested it on the laptop.
 
-One thing I'd like to check, since the README says this targets
-U-Boot. In U-Boot, boot_get_fdt_fit() loads each overlay with
-FIT_LOAD_IGNORED, and decomp_image() skips decompression in that case.
-So a compressed overlay goes to fdt_open_into() as-is and fails, which
-means the lz4 FIT that the test produces would not boot with U-Boot. I
-suspect U-Boot should be fixed. Until then it would be worth having an
-option to leave the overlays uncompressed (they are small anyway), or
-at least a note in the README.
+Earlier bring-up report: [3]
 
-> diff --git a/fdtfactor b/fdtfactor
-> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
-> +            for sub_name in list(conf_node.children):
-> +                if sub_name.startswith(('signature', 'hash')):
-> +                    print(
-> +                        f'Warning: Stripping invalidated {sub_name} subnode '
+Changes in v2:
+- Add static data-lanes to usb_2_qmpphy so the PHY uses USB3-only mode
+  (reported by Sashiko)
+- Drop the Assisted-by tag, describe the tool use in the changelog
+  instead (Krzysztof)
+- Link to v1: https://lore.kernel.org/r/20261024044650.9936-1-jeff.roach0@gmail.com
 
-This only strips signatures from the configurations that are changed.
-But the whole FIT is rewritten with FdtSw, which lays out the strings
-block in a different order from dtc. A configuration signature also
-covers the strings block (via 'hashed-strings'), so I believe
-signatures on untouched configurations break too. The user has to
-re-sign with mkimage after factoring anyway, so it might be simpler to
-fail when any signature node is present and say so. What do you think?
+[1] https://lore.kernel.org/all/20261001-glymur-phy-v3-v5-0-3848c2615d5a@oss.qualcomm.com/
+[2] https://lore.kernel.org/all/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com/
+[3] https://lore.kernel.org/all/CAAnD8Rb4ZZrHFWMJayabioB_8bOHh1mqZ5LCXZz0jTNGMA7UZQ@mail.gmail.com/
 
-> diff --git a/fdtfactor b/fdtfactor
-> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
-> +def _derive_base_dtb_description(entries, base_dtb_node_name, comp):
-> +    """Derive a `description` string for a factored base FDT image node.
+Jeff Roach (2):
+  dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
+  arm64: dts: qcom: Add HP OmniBook X 16-cp1
 
-This is a lot of heuristics for a human-readable description, and the
-results are not obvious (e.g. ['sc7180-trogdor', 'sc7280-herobrine']
-gives 'sc-base.dtb'). It would be worth using something simple and
-predictable instead, such as 'fdt-base-1.dtb' or a description listing
-the images it serves. That would also simplify the tests.
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/mahua-hp-omnibook-x16.dts   | 855 ++++++++++++++++++
+ 3 files changed, 857 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/mahua-hp-omnibook-x16.dts
 
-> diff --git a/fdtfactor b/fdtfactor
-> @@ -1211,6 +1261,588 @@ def verify_recreated_dtb(orig_dtb, base_dtb_blob, dtbo_blob,
-> +        placed = False
-> +        for grp in groups:
-> +            if grp['key'] != header_key:
-> +                continue
-> +            ref_nodes = grp['ref_nodes']
 
-'ref_nodes' is only the node set of the first entry in each group, so
-the grouping depends on the order of the nodes in /images. For
-example, if the first board in a family has many extra nodes, its
-siblings can end up in a separate group. Comparing against the group's
-common node set (which is what ends up in the base) might be more
-robust. What do you think?
+base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
+-- 
+2.55.0
 
-For the argparse description, you really have two completely different
-cases...I suggest the FIT part of it should be worded differently so
-it is clear that the result is an update / new FIT.
-
-mkimage uses -F to indicate an inplace FIT - with -f used for the
-source .its file. It might be better for your tool to use -F instead
-of -f, and then -O (confusing for dtc?) or --outfile to specify
-writing a separate file.
-
-Regards,
-Simon
