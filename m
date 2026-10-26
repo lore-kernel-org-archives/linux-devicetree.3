@@ -1,57 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009275;
-	b=aZIui4RjCw1Cuo3wUkC/WOE0pzV3WQ2WLPdXdG53SnFPc1q2hy/wGmwHqiodVJdSA4VV
-	 +MoPjTunrzymod2OAarSIRBvjl6vuwTSQFJIWm8wlpe0laNaCIO248iOOhcWCiMBX5WqN
-	 bg2g2TDBvbICXvIYoopc8n3wrR6goK3NetUau8oXUUs3xsbzb7KBb0ws3c6v6jb4dukNo
-	 kaBb4WwFxs+lq6ruZuFOIW/SRja4i61V6NsFPa0nrSQE+97hbx4U7FW+XvarOBMoR15b9
-	 oGwAxmQjs+X2iQwO9hZhpzkJLs/Rq22Rk3ovFSK4MhvPghAZeCZQOrUcV3Zw6Sl9pXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009275;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qGhuJAQVJEBM4TXuDaLiV7OS+6IfjFMqlLL810xwEAQ=;
-	b=tM91Tk5GqLKPr6r226SGDE7bbqom2Im4EPKuGkt26A1Y3GJeUBaObnDU34A9PQscaGr+
-	 nqn8TE2YL0qHL/6K8yafU0nzT+BUvEIY8WoP4kRwRXzLtiFQdVcs+G7is8hKh3PUPmLYO
-	 PHJX1v61JPMpzFODi9qm23Qwd3HZ32dp6yhA1po+Etf2xzlqB8EhWnlY4pnZUQJzstw8m
-	 4ZLrbfQ80yoVT4SleKYPX/4Wxp1yPgHzl4V/C+SuDT6bFpGtdifr0yvAugbqlCwDRd7ai
-	 vLoeedMbfC6fRZmV9MwuL2bM6caubAccVVavObGrKYHxkE2rBWnTFtVko6CmKIUWQLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+z6IHjk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793009298;
+	b=dn8stK4O7U+Q/wszSaAfn76DZ6+LtIkwgqLUtcDJJ7Ga3DVstyphbrcgCpCRi4S2FaaT
+	 Gau0zFnhk/DcZQWejRAnu0xuKVnJv54FvTvrfU9w76Ov2DAwoTWIJjBhUaUsz/QumEAEX
+	 rbyLDNLga+pTz7k8QLkkAvqW+y32R/pjle8FWvAmgRmhtRhIAxYQKG6u7n7WARc8hRgCV
+	 u/tj42LIIjEcepRKjVrnQmwzFRT6h39gOIf6gp6ZxWq7YijbB8lHPDGCqFY22hd5cQmXH
+	 errSSoCRRxeTeWxOaPcxAYG9QOxPjxvHcYbbndFnx/Q8lKFzlJGCavaoM4pJiwfAllg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009298;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+	b=OxPIEbkLAz3eDrq26/FuVX+0hgucrop9NQa6yv/WOmGvRcPQ+NU5OasLuz4lYRuL4+G6
+	 qkiAC9Au+w3jwlCshz1suOhJEwbb4oCi3BgbYmO3bhafDglVPZL1tGK0jK9X0YsAT8Qhn
+	 CaAdMW+HO4aRZkan9pRIAB85+XbbH9P9gzPVtSDwQC2spHvSlEMK6WZAreHZoHGBUjXW4
+	 8jgEYNisi+c0JgDR6P8kl82RPPchmsF2rtS5Zwx2aqm0GGFpegYJ2u2aimLH1xNcydb2g
+	 VtWnMlfAKCaKfhaf6wxEO/j7E8XbNtLnDzpdeKenewmgka2TP2I0hGoaCFxYTw/Pq0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=outlook.de;
+	spf=pass smtp.mailfrom=outlook.de;
+	dkim=pass header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.35.73
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013073.outbound.protection.outlook.com [52.103.35.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EDD606A31A;
-	Mon, 26 Oct 2026 10:07:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266D4606A31B;
+	Mon, 26 Oct 2026 10:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266D4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+z6IHjk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBF61F01282;
-	Mon, 26 Oct 2026 10:07:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793009275;
-	bh=qGhuJAQVJEBM4TXuDaLiV7OS+6IfjFMqlLL810xwEAQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T+z6IHjkAf1u7DOIPbdEqKR7MU4bUIbyHNosP4henqyUpVRDkZ/Cdq5KyCTUJp1FS
-	 S18MULRcND2e5KTUl4wbZRCpBV/1TW+UWt1vtWp5mQOBm45vrDzSIMOTYaR6G53ctJ
-	 JZUMlLpgYvFC4oGQPoi0mAB3IIT6o6vnwSbCHKQeo+C5/CE0bGYZtWHHhp9jwexDpO
-	 Pr306dXexo7Kb2FK8+GcPPnfWnWtRfZ90D2KRQX8y8cTtZotp4ailgm7cP7OlK2/Jt
-	 B51uy32rVdbBGSeYHKz2AZzinEaldIidpZ75cHiwQpW5RIxmRG2J5OP2nRenk1tzyt
-	 6By9Zjq0VKEPg==
-Message-ID: <sashiko-outbox-184880@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/23] drm/msm/dcp: Add HFI VirtIO transport
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-6-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-6-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 10:07:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.a=rsa-sha256 header.s=selector1 header.b=RCBlX9sv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZN6ssiP/qpxt1+jIDBoBGBEH1kvjuj/vzLUqpbYawT1MxL9npes0JP4MkDoKXm+XHxS+arm3tUF06gQW7m1UPrrqM40HaLztDl7RXbITdbSrYAHsKWq4zLQjgNgm2qGO00nXxFa3OFdEIIKbFrokcv/DYQyJJsQPrdy7g2+Pvp8TGI+n5uxvELxQFoZDTBtDhyu16Gmg+9s17RztKVop69Hul5BNuuWslf/nGdnKuAE7KsG5x1Zujq0z0G5Ivt8rHqRxE/0Ykaezdi5LINMPh59Bg7cpziQivmGLTy3bjJvXa+fs322Z+gI+WRdc/69qaTCy6v/9kaeZS/4MJUHRKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+ b=K+Y+vGwW41SkWx7+9kawhKv/bOupNXj6Z6sVC+Vc8M5AR0nzMdGeUiO/Dk27/q7LTj6cPWv3KcCTBWAyxnJ5Z0oRzhwQnItIJSmCbncVZT7QzrzXhQgQV9G6ygG39USnpra1eEjfqDj9rd8WTxQA3rCAV6YHSs6Greqljjc1ZJPEhODc2BbPpK4RpgvXS5SCvy1ujEDGwxARkqCy0Ve6Wvre7vVlGBGrCE4lFwRUdjZvMVR7Y0o+4Grq41CUG3sVlWhdkugYQ89B6uTKt7PN/S8BbHlgwbuSYRIKfGpjv8IufxYmBJaarHwmJBw4BTvJ+s+okdvV9pZasFjoSPh+DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jh3gJDtE8sPEumE5jIP9Jhv1Exct2n9Bhk02xWe4QPY=;
+ b=RCBlX9svj7XWjVZdAkUUDAc/GIWKeCQY9rk43pZ81yZP1jSxtdnnrZg8lcGZnpCMGsDJPCtcWDgAVTRfvY+KmhpSjwt71zrUAIXWiWFUYJ8Gwx+3s0hVELfTs1YGNpjnP7pnpUC9Dnp4D234YkzD6a7RS+CbsGXuXez0/u2MruQ0DKmzCtboCVOdAMZmMwTWzdGHTqo+QFAo4pGGj7GFiCO+j43MWMfV56wEUtalcKDBiJBPMpJpMKx1xta2MtC8EKAg3mtZiXz+OZuNnbVZgVhfaALmpWT4pCpTQ7Nhw9VCwqinR9syRFyIWhVJ18ZO38Nzn35fr8mQBzEo5jgp5g==
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19) by AS8PR08MB9361.eurprd08.prod.outlook.com
+ (2603:10a6:20b:5a8::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Mon, 26 Oct
+ 2026 10:08:15 +0000
+Received: from MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5]) by MMZPR08MB549315.eurprd08.prod.outlook.com
+ ([fe80::21ab:3314:172:c7e5%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 10:08:15 +0000
+Message-ID:
+ <MMZPR08MB549315DB32DCE8589A27E461B5DF612@MMZPR08MB549315.eurprd08.prod.outlook.com>
+Date: Mon, 26 Oct 2026 11:08:04 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com,
+ khilman@baylibre.com, martin.blumenstingl@googlemail.com, rafael@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+Content-Language: en-US
+From: =?UTF-8?Q?Christain_Stefan_K=C3=B6ver-Draxl?= <ckoever@outlook.de>
+In-Reply-To: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0097.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::15) To MMZPR08MB549315.eurprd08.prod.outlook.com
+ (2603:10a6:190:28::19)
+X-Microsoft-Original-Message-ID:
+ <792d5a57-ba6f-4100-8145-7f863435a7c4@outlook.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,310 +105,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MMZPR08MB549315:EE_|AS8PR08MB9361:EE_
+X-MS-Office365-Filtering-Correlation-Id: da040348-fd84-4b6d-7fff-08df33490cfb
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|39105399006|22141099003|25010399006|4140399003|19110799012|23021999003|8060799015|5072599009|15080799012|19101099003|6090799003|41105399003|40105399003|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Qkt4NHhiRmlXeE10ZklNZGMrWGtNTEJPaGxDRUF6engrZ1YvaEprZFRDNkoy?=
+ =?utf-8?B?QW9UVWw4SnRKcjJJdjF3MUhOMGlDTFVlM2JZRGl5K3l3M2plY0pqU05qS2hq?=
+ =?utf-8?B?bGVoYUxaSzh1SzEyNkNhWHRzdWdwU0Zma2JLVzVuQUlybzNuajdmOEcrVHpJ?=
+ =?utf-8?B?bGdjSUxEREIwcUlzTXRWbkRuaUFZaUx4bnZ4NU81b0VUWkpYcFpRWG5oMyty?=
+ =?utf-8?B?RDVJMjZiVXYwUGw1aHRiNithWTV3WXZPNFhWcFJNMVR4Qi90bmlYRjBMTEsy?=
+ =?utf-8?B?aDFkK0t3b24wQ1NhUHRvbDUzQ05OcDNwZGhjb1ZnQWc5bXZtdnpEUkJEZVVW?=
+ =?utf-8?B?cEZRRmQ2MUlXTzZ2bUJGck5TeXE4TU96THpHbVpjSjZKSVNQLzRiT3QrbjhO?=
+ =?utf-8?B?RlFXNnQyZ0lHTjlDeDZ0SnZEVU1FQWtQdFA0Mmo1Z1MvNERneVpoeldNTnAx?=
+ =?utf-8?B?QXVyU0V1cWhZZ3UybTQrRUtkdFhpTDQ3Vlljb09pMFkwZ1JINlZQUU50TGZR?=
+ =?utf-8?B?M3BKU0ZObGk1dTRiS1lKRnE2MWh0V3NFdUdudmtjdVZZOXQyWDYxMzAwdHpk?=
+ =?utf-8?B?ZVNKM1dLWFFQSzZGK2ZvQWhDNTJKYnJlZC9mcmxxSG5NWmJXMDdwaXo5bFZR?=
+ =?utf-8?B?N2Q0Vzk5MUg1cjAwd01TKytLbG9KRVVvRU8xdWh3ZGxGOWY5OVB1N09UcTQ2?=
+ =?utf-8?B?SURwcFBEVEp3LzZjTWN6Z1pOT1Q0ZEtnejFmVzlsc2Z6NjF1MXJlcWtuY1cr?=
+ =?utf-8?B?OW1UN0R0OUlIZWQya0NrekdnaU5VZnJEdmdSSmRHd090MWc1RXhEbmxUc0tG?=
+ =?utf-8?B?WXdla0hUYkZIR2pobGtBdDhMN2ZiK0FNbWZqbEZTUTJRNXhwdyt2OGpFU3Nv?=
+ =?utf-8?B?dGVDTVFPL3kwaGRqU2NsRmx6WFNFMXA2RGRYV3lpeUNHZGdHcmJtaHNHdlgz?=
+ =?utf-8?B?aEQ3OCt3alllemJmNjNhdFFEU3ZqRVU5aTM5eDRNZ0M0Z2k2bkY3Yyt5MGw4?=
+ =?utf-8?B?eFQwQjhzWjBJUHR3TzBqWm9TaU51VXVwTXhrVUk0VXFyQzVqamJFd1c3b0Vr?=
+ =?utf-8?B?N2NoeGFqTmtjc25iSjFBM2ZZQTJKSG1zNDNXT1FNamlBVXhJUmhXWjFKNm1U?=
+ =?utf-8?B?RXVlMm1yTnhJVEN4a2ZtTkxYaU9yNTVhems1ME0zcFhrbnZXU1BoTWNiNnE0?=
+ =?utf-8?B?QkpRc1BuQk9nNnRJSFU4cWI1RFBDRTgwbmw1LzN2VEcwWmJuU1VGOTYzRnlC?=
+ =?utf-8?B?Uzk1UXBjd0hjNVBrcDQ5S29xVHl4WThGT3RMUkZ3cnpSbnZGZDcrazZkREZC?=
+ =?utf-8?B?RUl5UFFIRXFJc3ErYnFCaEpkalVCQVJRRVAvdkxoS0N5RTVLRmp3SzdFbXA3?=
+ =?utf-8?B?am5UU0IzTENVR1RIaG1ia1JOdDJ3aXgxM0lpd3RtRFhPeStsanozcjhwOVV6?=
+ =?utf-8?Q?cKdvhWTw?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkFBU3cxQVJvUlAzcnFxTEpEdUJycWpwNHNib3Fjem5rNmpKMSsxVmh5K3I5?=
+ =?utf-8?B?SmFmK0paTFM0Nm9sQmcrU2pHeXZCaDBPdnl1MmFEckx4NVAxbXRwVkpKM2pQ?=
+ =?utf-8?B?ejJpUUxnSVI3V0wzTWFsR01YZ2xNd1RiaFh0V1c5d0VCa25STW1tZnhWSy9h?=
+ =?utf-8?B?VktOSWxFU3YvMEpmR3dJT09YS2hkeGRFYmU2TjRlbjB1N043eDFzNmZoT1BR?=
+ =?utf-8?B?amt5N3hrbE1zTVBYQkU0cmhJbEpqeXhmOFdMekQxdUZ2cmpRZk5DaVFzWUhl?=
+ =?utf-8?B?czhmYzRJR3NzS1YwSGZMUElKOVZSdk9neiswVVN5TmFEQWFDNzZHdE91Qmdn?=
+ =?utf-8?B?eEVVVXpZMmxnb3d1cGtnQzFMK0p5Nit5K1VzUDFtL2g3Q2hkSCtzYkZxeVNt?=
+ =?utf-8?B?eFBZbFpkOUMxWWxOOWlraEVwZUFvOGlJaGIwbXZRWFhURUhPUnR0enYyUGo5?=
+ =?utf-8?B?bEdtY3dReDNocjhYMGxiMmZNUkNDUVYrL291R0kxVWl3dFNEZWdESU94VU1E?=
+ =?utf-8?B?LzlsTXdtKzJCQU5NMUZpY042VDFqTTVhQkQ5Q0xhWEJIK1ZTaVpndis0NkVr?=
+ =?utf-8?B?UzVWTFVhZkJsRmM0eEtLOVdleVVscnV1L2NTYW1mN0h3ekVqWEN5QzRWZ1l1?=
+ =?utf-8?B?US92N21uUnlqc3lCNmc0UnAyYTV1MlpMUk9Yb1daYiszc2xyRW1iZDNrdFdt?=
+ =?utf-8?B?bTBBWSt3L0lwZDRKalF5RVhWbTNLcS9EbXF5cFAwZ2ZwZ1JTRER0Sk1PSGN0?=
+ =?utf-8?B?dWxUendZWUFOZ0pvWm9QS1hyVHBMYi9EWDR4R3dwbHhuMVZqS2N4aVZIZ3E2?=
+ =?utf-8?B?WnFjeFB2WHlSSkxYcS9YMUM2VTg5L0RQK0JnSjQ1WXBuZDNxVTU2TzBpUjFp?=
+ =?utf-8?B?SVRySVNxb2dPNi9tUU5iRzgxWFJDbCtNNEFDeW5tbkE5RXdjbFdpNjRLLzIv?=
+ =?utf-8?B?UDQwR0t2L1RLWktUZmRKNDVGYlRjVFI3NDZtUHB2NTdvRnJWMXAzRmgyRWdT?=
+ =?utf-8?B?aTdmQzRsbXNNNHI2d25qcGV5Wm0vL2k1VllRaUJSNkQyVzJ4RVlhUFVzODBL?=
+ =?utf-8?B?dUMzYnRxR0NXbUVZd3RBUUpCVThUTCtYc1dSSkF1LzFpSDVjd2x6Q1k4bUc1?=
+ =?utf-8?B?cnpXcDJwZVRrSjNnNG9Ga0RjZ09pZXlGWmc2aFl5eTQvTHp4Um9HdjF2RUtX?=
+ =?utf-8?B?aDREN00vV0I4ak1velkzWHUrNnFWWVdWQ1ZDZzFGRkIwdmN4Q0dEUGw5Uzhx?=
+ =?utf-8?B?WGZtcnJReG55MGtXR0s0RjNoUllJUHpEdVhyZFlnVWNrU2RWeE15V3J5TW5R?=
+ =?utf-8?B?QmJIVTJMME15SDNrUkxyRmZhS1BvVmZlMjgwSlpnZC9iQy9Ca0NBZ0JYZHVt?=
+ =?utf-8?B?K2ZCZStseDFidHBmWEhuZDFsbVdMNzFKUit0dkV0cXZPSy95U1diYmIwZkpF?=
+ =?utf-8?B?NkNJOHdzU3didDRZOTd3SXM5YnpzMzNxTVQ4UFArcStoZ2piUVkyWGl5SlBw?=
+ =?utf-8?B?NjZzQi9CZWNJSTdzMHFOaXNTMytEbk9XdEJQRU0xbXJIOWlpNVlnMnQrU1dv?=
+ =?utf-8?B?cHQ5QTRFL1hzQ0ZjQ290a3VNa3NPbXFlSENqb2E4alNadE9Hd25TaTFwV0dp?=
+ =?utf-8?B?UHBKOHlUVVFkckJmYkZQZytxVjhSVThHdk9PMTdpM0xWdzBtN1o2bkZOYnBm?=
+ =?utf-8?B?OTR1cSsxQnpPSTNEcUJ2VXNlcVRla05wVk5oa0dhdEdFa09QaEhVVFczMW1G?=
+ =?utf-8?B?amhyMHMrb2NzMHBkdnBMRUdWaXZwdzVxRHZhZmxIQ2krYkF0YWJmTGNyNVNh?=
+ =?utf-8?B?YmtWZXZHWmQwUGp6TmdpajRvL3RQWUVSYmRGUStjNDdhMHUwSTZwS0h2bkJN?=
+ =?utf-8?Q?xIcN3KgFzrLsz?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-fbb9b.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: da040348-fd84-4b6d-7fff-08df33490cfb
+X-MS-Exchange-CrossTenant-AuthSource: MMZPR08MB549315.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:08:15.5305
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9361
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] drm/msm/dcp: stack use-after-free on timeout in dcp_hfi_send_s=
-ync_on_vq()
-- [High] drm/msm/dcp: unsynchronized virtqueue callbacks and work re-arming=
- on teardown
-- [Medium] drm/msm/dcp: double-fetch from shared DMA buffer in dcp_hfi_resp=
-_callback()
---
+Hi Viresh,
+Hi Jerome,
 
-commit 250b478306210e9e3849c522be712bc686a63c4b
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+On 10/26/26 09:59, Viresh Kumar wrote:
+> On 26-10-26, 09:57, Jerome Brunet wrote:
+>> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+>>
+>>> On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+>>>> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+>>>>
+>>>> Every S4 speed bin runs the same CPU frequencies but needs its own
+>>>> voltage curve, and the bin can only be read through the secure monitor.
+>>>>
+>>>> Read the bin from the firmware, select the matching
+>>>> "opp-microvolt-speed<bin>" property for all CPUs, then register
+>>>> cpufreq-dt. Bins outside the known range fall back to bin 0, which
+>>>> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
+>>>> on the SoC compatible and needs no node of its own, and S4 is added to
+>>>> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
+>>>> the bin has been applied.
+>>>>
+>>>> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+>>>> ---
+>>>>   MAINTAINERS                          |   1 +
+>>>>   drivers/cpufreq/Kconfig.arm          |  14 ++
+>>>>   drivers/cpufreq/Makefile             |   1 +
+>>>>   drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
+>>>>   drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
+>>>>   5 files changed, 202 insertions(+)
+>>>>   create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
+>>> Is it safe to apply just this one ? I can take this via the PM tree then.
+>> I would advise to wait a little for Amlogic to chime in.
 
-drm/msm/dcp: Add HFI VirtIO transport
+Viresh, thanks, but please don't apply it alone. It would need the 
+speed-bin call from patch 3 (meson_sm), and without the CPU clock from 
+patch 2 it has nothing to scale.
 
-This commit implements the HFI transport over VirtIO between Linux and the =
-DCP
-firmware, managing DMA command and response buffers, VirtIO queue callbacks,
-synchronous and asynchronous command submission, and teardown synchronizati=
-on.
+Best regards,
+Christian
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm=
-/dcp/dcp_hfi_core.c
-> new file mode 100644
-> index 0000000000000..9f7ac798e13c4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-
-[ ... ]
-
-> +void dcp_hfi_resp_callback(struct virtqueue *vq)
-> +{
-> +	struct dcp_drv *drv =3D vq->vdev->priv;
-> +	struct dcp_hfi *hfi =3D drv ? drv->hfi : NULL;
-> +	struct dcp_hfi_buf *buf;
-> +	unsigned int len;
-> +	unsigned long drain_flags;
-> +
-> +	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
-> +		return;
-> +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
-> +	virtqueue_disable_cb(vq);
-> +	for (;;) {
-> +		while ((buf =3D virtqueue_get_buf(vq, &len)) !=3D NULL) {
-> +			struct hfi_cmd_buff_hdl hdl;
-> +			struct hfi_header_info hdr_info;
-> +			struct hfi_packet_info pkt_info;
-> +			u32 pkt_num;
-> +			int rc;
-> +
-> +			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
-> +
-> +			if (unlikely(len < sizeof(struct hfi_header) ||
-> +				     len > DCP_HFI_BUF_SIZE)) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: short buffer len=3D%u (min=3D%zu) =E2=80=94 skippi=
-ng\n",
-> +						     len, sizeof(struct hfi_header));
-> +				goto repost;
-> +			}
-> +
-> +			hdl.cmd_buffer =3D buf->data;
-> +			hdl.size =3D (u32)len;
-> +			rc =3D hfi_unpacker_get_header_info(&hdl, &hdr_info);
-> +			if (rc) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: invalid header (rc=3D%d) len=3D%u\n",
-> +					     rc, len);
-> +				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
-> +					       DUMP_PREFIX_OFFSET, 16, 4,
-> +					       buf->data, min_t(u32, len, 64), false);
-> +				goto repost;
-> +			}
-> +
-> +			for (pkt_num =3D 1; pkt_num <=3D hdr_info.num_packets; pkt_num++) {
-> +				memset(&pkt_info, 0, sizeof(pkt_info));
-> +				rc =3D hfi_unpacker_get_packet_info(&hdl, pkt_num,
-> +								  &pkt_info);
-
-[Severity: Medium]
-Does unpacking directly from the coherent DMA buffer in
-dcp_hfi_resp_callback() expose the parser to a double-fetch if the firmware=
- or
-VirtIO backend modifies the shared buffer concurrently?
-
-In dcp_hfi_init(), the buffers in hfi->resp_pool are allocated with
-dma_alloc_coherent() and premapped into hfi->resp_vq, so buf->data remains =
-in
-shared DMA memory writable by the device.
-
-When hfi_unpacker_get_packet_info() runs on buf->data, it first validates t=
-he
-buffer through hfi_sanitize_cmd_buff(), and then re-reads packet->payload_i=
-nfo
-in hfi_packet_at() and GET_PACKET_SIZE(packet->payload_info):
-
-drivers/gpu/drm/msm/dcp/hfi/hfi_unpacker.c:hfi_unpacker_get_packet_info() {
-	hdr =3D cmd_buf_hdl->cmd_buffer;
-	if (GET_HEADER_SIZE(hdr->cmd_buff_info) > cmd_buf_hdl->size ||
-	    packet_num > hdr->num_packets || hfi_sanitize_cmd_buff(hdr))
-		return -EINVAL;
-
-	packet =3D hfi_packet_at(hdr, packet_num);
-	packet_size =3D GET_PACKET_SIZE(packet->payload_info);
-	...
-	packet_info->payload_size =3D packet_size - sizeof(*packet);
-	packet_info->payload_ptr =3D packet_info->payload_size ?
-		(void *)(packet + 1) : NULL;
-}
-
-If hdr->cmd_buff_info or packet->payload_info changes in shared memory after
-hfi_sanitize_cmd_buff() returns, hfi_packet_at() can walk past the buffer or
-packet_size can become smaller than sizeof(*packet) (underflowing
-packet_info->payload_size) before dcp_hfi_complete_pending() calls memcpy()=
- on
-pkt_info->payload_ptr.
-
-Should dcp_hfi_resp_callback() copy the received len bytes out of buf->data
-into a non-shared kernel buffer before validating and unpacking the packets?
-
-[ ... ]
-
-> +static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
-> +				   struct virtqueue *vq __maybe_unused,
-> +				   u32 cmd,
-> +				   enum hfi_cmd_buff_type cmd_type,
-> +				   u32 object_id,
-> +				   enum hfi_packet_payload_type payload_type,
-> +				   void *payload,
-> +				   u32 payload_size,
-> +				   u32 tx_flags,
-> +				   void *resp_data,
-> +				   size_t resp_len,
-> +				   unsigned int timeout_ms)
-> +{
-> +	struct dcp_hfi_buf *buf;
-> +	struct dcp_hfi_completion comp;
-
-[ ... ]
-
-> +	ret =3D dcp_hfi_send_cmd_async(hfi, buf,
-> +				     hfi_get_header_size(&hdl), &comp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_m=
-s))) {
-> +		dev_err(hfi->dev,
-> +			"HFI cmd=3D0x%x buf_type=3D%s object_id=3D%u timed out after %ums (pk=
-t_id=3D%u)\n",
-> +			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
-> +			timeout_ms, packet_id);
-> +		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +		dcp_hfi_pending_find(hfi, packet_id);
-> +		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	return comp.status;
-> +}
-
-[Severity: Critical]
-Can a timeout racing with response completion cause a stack use-after-free =
-of
-comp and the caller's resp_data buffer in dcp_hfi_send_sync_on_vq()?
-
-In dcp_hfi_resp_callback(), hfi->resp_drain_lock is dropped before unpacking
-the response and calling dcp_hfi_complete_pending():
-
-dcp_hfi_resp_callback()
-  spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
-  ...
-  dcp_hfi_complete_pending()
-    comp =3D dcp_hfi_pending_find(hfi, pkt_info->packet_id);
-      spin_lock_irqsave(&hfi->pending_lock, flags);
-      comp =3D xa_erase(&hfi->pending_xa, packet_id);
-      spin_unlock_irqrestore(&hfi->pending_lock, flags);
-    if (!status && comp->resp_data && comp->resp_len &&
-        pkt_info->payload_size) {
-        n =3D min_t(size_t, comp->resp_len, pkt_info->payload_size);
-        memcpy(comp->resp_data, pkt_info->payload_ptr, n);
-    }
-    comp->status =3D status;
-    complete(&comp->done);
-
-If wait_for_completion_timeout() expires right after dcp_hfi_pending_find()=
- in
-dcp_hfi_complete_pending() erases comp from hfi->pending_xa, acquiring
-hfi->resp_drain_lock on the timeout path does not wait for
-dcp_hfi_complete_pending() because neither resp_drain_lock nor pending_lock=
- is
-held during the memcpy(), status assignment, and complete() calls.
-
-The timeout path's dcp_hfi_pending_find(hfi, packet_id) then returns NULL, =
-and
-dcp_hfi_send_sync_on_vq() immediately returns -ETIMEDOUT while
-dcp_hfi_complete_pending() on the other CPU is still writing to the stack-
-allocated comp and comp->resp_data.
-
-Should the completion update be serialized under a lock held across the loo=
-kup
-and memcpy()/complete(), or should the timeout path wait on
-wait_for_completion(&comp.done) when dcp_hfi_pending_find() returns NULL?
-
-[ ... ]
-
-> +void dcp_hfi_stop(struct dcp_hfi *hfi)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&hfi->cmd_lock, flags);
-> +	atomic_set(&hfi->shutdown_in_progress, 1);
-> +	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
-> +
-> +	cancel_delayed_work_sync(&hfi->resp_repost_work);
-> +	dcp_hfi_cancel_pending(hfi, -ENODEV);
-> +}
-> +
-> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
-> +{
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +	if (hfi->cmd_vq)
-> +		virtqueue_disable_cb(hfi->cmd_vq);
-> +	if (hfi->resp_vq)
-> +		virtqueue_disable_cb(hfi->resp_vq);
-> +	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +
-> +	if (hfi->cmd_vq)
-> +		while (virtqueue_detach_unused_buf(hfi->cmd_vq))
-> +			;
-> +	if (hfi->resp_vq)
-> +		while (virtqueue_detach_unused_buf(hfi->resp_vq))
-> +			;
-> +}
-> +
-> +void dcp_hfi_deinit(struct dcp_hfi *hfi)
-> +{
-> +	xa_destroy(&hfi->pending_xa);
-> +
-> +	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
-> +	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
-> +}
-
-[Severity: High]
-How are in-flight dcp_hfi_resp_callback() and dcp_hfi_cmd_callback() calls
-synchronized with dcp_hfi_stop(), dcp_hfi_quiesce_queues(), and
-dcp_hfi_deinit() during teardown?
-
-In dcp_hfi_resp_callback(), hfi->shutdown_in_progress is only checked once =
-at
-entry before acquiring hfi->resp_drain_lock, and hfi->resp_drain_lock is
-released while unpacking each buffer before being re-acquired at repost:
-
-dcp_hfi_resp_callback() {
-	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
-		return;
-
-	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
-	...
-			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
-			...
-repost:
-			spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
-			dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
-			if (virtqueue_add_inbuf_premapped(vq, &buf->sg, 1, buf,
-							  NULL, GFP_ATOMIC)) {
-				list_add_tail(&buf->node, &hfi->resp_repost_list);
-				schedule_delayed_work(&hfi->resp_repost_work,
-						      msecs_to_jiffies(20));
-			}
-		}
-
-		if (virtqueue_kick_prepare(vq))
-			virtqueue_notify(vq);
-		if (virtqueue_enable_cb(vq))
-			break;
-}
-
-If dcp_hfi_stop() runs while dcp_hfi_resp_callback() has dropped
-hfi->resp_drain_lock, dcp_hfi_stop() sets shutdown_in_progress =3D 1 and ca=
-lls
-cancel_delayed_work_sync(&hfi->resp_repost_work), after which
-dcp_hfi_resp_callback() can reach repost:, re-add the buffer to vq, re-arm
-hfi->resp_repost_work, and call virtqueue_enable_cb(vq).
-
-Similarly, in dcp_hfi_cmd_callback(), shutdown_in_progress is checked before
-acquiring hfi->cmd_lock, and in dcp_hfi_quiesce_queues(),
-virtqueue_disable_cb(hfi->cmd_vq) is called under hfi->resp_drain_lock inst=
-ead
-of hfi->cmd_lock while virtqueue_detach_unused_buf() is called on both queu=
-es
-without holding cmd_lock or resp_drain_lock and without waiting for an
-in-flight dcp_hfi_resp_callback() to finish using buf->data before
-dcp_hfi_deinit() frees the pools.
-
-Should the callbacks re-check shutdown_in_progress under their respective
-locks, and should teardown synchronize with in-flight callbacks before
-canceling the delayed work, detaching virtqueue buffers, and freeing the DMA
-pools?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D6
+> Sure, I wasn't going to wait for the maintainers to respond anyway.
+>
