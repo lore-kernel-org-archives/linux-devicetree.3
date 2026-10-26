@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793008659;
-	b=xsnExGqxy73GLlwYHpESJ2M4dufS4KzlYzGr3AqvJfaTj8peXIN6FsKbkqw4khvBZYxy
-	 s7uyqEo74hzWD9KUPl4mJwqNhSE04zVrvoWE9TK16q/ig438mozGKJiQbTx11IZ0QfsRi
-	 sq1BZZBV12ch+l8WWnHP8/2EhM9yD4/u3Q37mUHJreHRYl0GnwwWVlN69R43gIRKdvNnD
-	 80T5J2Y6U0UOyt8EsOEvn40LCzKOhV2e8HPT6XY4zekU4w4FMG0RjTC9CcYXYMBffdMP3
-	 zyygtYXiq88ey0jgT7yxXLOyuiESYyGqK/hb6jEG0l4F25cqYTfsDx+mFycuIUbasmQ==
+	t=1793008661;
+	b=E5d3m2x1fn0+mZAfX5TCmPBQVeo2Z8fxHm2fubx7cG9BRz+wqNHU2Mwve1+qBOge97oS
+	 INu4jpBYACyckHvXSI1aOX6VR75D7eSVbwqbTB8exU10uLRKmqUsJCTkJkcjvuUdXKGjI
+	 BfBLRpasnQfF3NlDHxf4clBA1cx5zOHC0fy23RIO+ZFfai+U8nOywPdsZ5HIrY+uLUf0f
+	 x8fpeGOGV7jrsvjW47GKLXgm3tmiVwO3IhyYPuknhHu+kc0piNkRNMfmHxcULeIszYMww
+	 avI1ocWwxrtXHpOMpRLfYeyUCYQL0YIHrGRIfFYvVIffa1oPp5YNpePQX+X6KQCLiPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793008659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793008661;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=F5/whTPXJ4TwJiIzCOtu0fJEtFPssDni5EasuMfucqk=;
-	b=OelUbiqa/GjsbCstDuTCd/H+m4BgjlHFIGr6qxTKM5vWmQ50bzoy5+UiNzFR+k0gQc5d
-	 w5fgLiwCmgZKZ6wFOv3Oc2jSGqSBLSDKDwvTlbJ8WS9eUednYPgqnKgtTpS77tGelvV71
-	 OVG9RZIj714hLXZEEEzf4VRgdQezONIoQpVMqSprdMuNm5g1Re3t7RwSDgFDmdXMM6ikk
-	 2idIPJ2XiSpHK8+Hvn9LiQpQpJ/mcV6L2eBFusS7d52by/cl/o9m8L/3b5PjB16lqzsZW
-	 7bWzhPdtj2IBkijWIMIZH+ZTLwBKR4Cvj6PLyyyDs5wGZ6yzE/y10RR++AjnfbQaxew==
+	bh=ru9WJD/77wcdb27Qp7kbTXOCJ++kNaqReohvkAqpaW8=;
+	b=d7Ej/m5JcEaPGx8WbEzCQoxtur7HPKY/kIqYSWoOncu1HqxRQEN6WcDoqydWnCrs/sO+
+	 1tmyMZQmUjrVWebh1dHeHKcfMU5gqgiAF7lgGnjcmtPGL5K1UPF3cEziPxWR4xOP5+nA0
+	 /4cKfPHi0h9Lp7tvaJQFf1ZL47dsqFsCXg6vE7YAMYRMe7+FXaMKpFDumUvTIodVR+1uQ
+	 i7DnwyJtlgPFCdn8PQl7KglZIvgZ6n/O/iirLWjmUwYRrpsXRN9vW/L5SoNgB8vMuTT1U
+	 9LcoGVlbxGAqi0UhaxjLDv6zA3V8etgQtNQghacZZcm4IHzGsj7WVRFRYLOkIjSt2Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wh7ZW6Wu;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=smgC9F7n;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3891E60A3802
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3891E60A3802
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6370E60A5BC4
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6370E60A5BC4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wh7ZW6Wu
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so17311685e9.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:57:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=smgC9F7n
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso28502125e9.1
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:57:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793008657; x=1793613457; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793008660; x=1793613460; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=F5/whTPXJ4TwJiIzCOtu0fJEtFPssDni5EasuMfucqk=;
-        b=Wh7ZW6Wufbb9/HHgWXkto90YwrR72qh9cO6pZovp5WXkyrdt9oqM81y4MymKRy5Ekl
-         L5ZfvI8oq9QXBz/UFC3C7UaL5bW6nYN6/O3UlOgb7UwXkasDXPRt/KCcGHBCfww8zTpY
-         L4PXQz59K1WRtu43BCX8CJCU1RJAaGEN7iJwV4/Esn+E+6Fqr7NBOJ1zqOo0z/BuEzi8
-         EE2+ohgtyiVst5wWDO3npJiZ9VLcASo7NBi+UEMhdegKPEoNDF8i26c/3jiWpTKeYJW9
-         cVCo/JaDJUng843Kkz4s3Xy/Am8vYPigyvJVM55m8xfzK7etfGTnUmvpBPfDo9FO/ePL
-         izLg==
+        bh=ru9WJD/77wcdb27Qp7kbTXOCJ++kNaqReohvkAqpaW8=;
+        b=smgC9F7nTkXaaPUocsT+v+reAxp3hs8j5JZu5+RSkgmW2dWHf1fgCwGnZhW6DDs6zE
+         wczVWDSHjJE9yOSPEu2W+wYDXy+OaJR+uxuSBOjZ3GTbCBgzIvzZJtzuGDjJRsWWqjT6
+         DVOMKURdJo6v/lSeUX1X47C1YSLovqlUciBK684RaRI4KrRXo61RSWVLYPjbt8y0WgQg
+         LV168PQLMfUxCfj6ZJqhunnQSnkaqjHxNKjLzSABI28Jz0uD+XQLv7RbPAal9YCDpcxp
+         K9thwBZvYjusLjiHElWsAvlm1adqGemGr+bbmDy0chdxJvSrw5pf6FF44W8tPvcigjCt
+         iSdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793008657; x=1793613457;
+        d=1e100.net; s=20260707; t=1793008660; x=1793613460;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=F5/whTPXJ4TwJiIzCOtu0fJEtFPssDni5EasuMfucqk=;
-        b=QVO1G3AKDLdTH1EgAPGNP00tKFUhxP600Egj/4YkdJtAYTCHo4BrcLoflokAc9HcJg
-         V1mNThuxpJt41vl0tE3u/bw0IUZYwXTI4auTwuBsbUzOYmcHm0JhfDREnhsJKP3w/vGb
-         PIj2z1j36t0eGfiYGLZxrWvdyOt8nS0Z5YgNzsswCcWYzjCUjn8rH0iFQBs2eAfQ782H
-         duA3sYWs4yuR2v6vq/gwGmI1anL5tk8+njYIW3GJviJKHrsZ/A7dpWLz4/zpKiDbdXER
-         QZWAd/gCsdGDzdQVDXdeuCDZMFs0A5fyRklITo0cHXiBOIRoAWvAlzrDSo6DrV6l1eyk
-         ZSww==
-X-Forwarded-Encrypted: i=1; AKwUvBxO4FyNi/RT0MQr6wLTxx8hfSQU3C2BE3UJvPSjXKW/eoRf3HUnmM0gOpaE14l8csNh7XbgGDQHPckX@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcUSEaGcaMK32QRWa7LROwu5u6g7TuLsKVmzVLQU6zxH8XWo5k
-	7V0PBtZUWRlRwyYRD+rePvmHdyWocU88xaGpci36iKP64SNgMp25bSN5
-X-Gm-Gg: AYBFou0tZ9MjYsRJIPXKuK3q3B+Ji1iR/fDwKe1odLesYKDSxX69NQcaT9hAF8DTG/j
-	sTSOSTqIVeXJhNSllCPN17cpdfhYeWTnIRZWAsIoiK7zxvgFAeKw7Dabz2fbWzxTjZEZ/G+b1CE
-	2rz0iKnFOLh7YH46zOmPQPJAhle/p7vMtJYUk75kJIx/1vOSWlHE87fEaTX0PyroomgL8GC6gGd
-	hBWZUWPSnxo45xlmUf9aOoIZHDYbgS4hfwxPLYvBcV+4v4adGz/N5p7p4MoRvBbCnJqbScN9FKN
-	QBtDLCMg7mfWi9U8uyiRAJFFAAK0TF3RWrcwl/9an4XFlOQaS4Zx6a8561qwPE+vpJIQCKH6wY/
-	UfHvdSGsQQhSCyfa1gtj6eJnGnJGv1UNLGxvTU0Ci1mUUBmygthwSoLvPF2dA7zUOn0E8UEXbMG
-	M8dPYcLjGK+PlZUuPQfgd0c67JHbtDII16RZF7AeQOCxXaMib2JQG1ioN7yUQDWhAgn1zrX5yvx
-	n7LDts6GacKRNz3bJARQwwTwbHOtJZwiTfwKFDWygcMGBN/e2/nbYQEH9vJKW6gsCebKQ+WnFPW
-	cpPPrqCR3qhsHybnBUgJCR0Kw00GiMgfslBjIvut1hoBYLjehk60v89OPEMJ
-X-Received: by 2002:a05:600c:6095:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4a35ac8bf3amr98760375e9.11.1793008657479;
-        Mon, 26 Oct 2026 02:57:37 -0700 (PDT)
+        bh=ru9WJD/77wcdb27Qp7kbTXOCJ++kNaqReohvkAqpaW8=;
+        b=ez8DnJuiqAwx+0tTtsiG4fhryYn3eEhVK/mwj1Ls3N/vwzaS7H921SbYWLYlQGQNaV
+         5Xe4TWlhlVbEqBRmndEkY0ZhLVxouwZhvz66/x9bLBODniHBrVoCHX2MkWrpTkKnjbo7
+         4JcocESqEzan+e2LfXQWW4FRDULUDwD2iSYlK5R1kKXSacHR6167VysZXh6z/2GgYE/J
+         HkwM27hXXASFPxWJZyn6qMp5wbVtYYhUTbfAgiCMtoQaHuZG5n6SouAql0yzIMUtz5LL
+         b8/bCmO06wiGfuae+tLCWMrqqunJzK8CPE3PvmtMsNPckLmP4S9Rd5Vu1w1i4BjfjBSU
+         ttKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxIf1ZaPUwLNKYbZxQZomrHZUbmiNKsWim4+Gh/e+BmussWZg2g9mmje5G/rEHG2Eu6Vb+/vYQoPXN7@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPE8ROQOwMDwShx8A6VwiQfrZSnE2IcOda346+5cb+Fq1WAzj0
+	sj1mEl3llpfxBQVbb6IiyKyOdd4dVMwhtICHeaD4ZXY0uLwrJAJxjuxD
+X-Gm-Gg: AYBFou0rLVXlcqBDOsLbWeUIC7JJJcvJFSiDZKgk5LUzIJ/X53oEby00+jFUvd4iLEl
+	M7jq46T1o9k2njWx7bRWFm6DSAHPYU0j8JnbAN6EgxqZrw/RfotocfO1UQ8VmvMm+leYMMrN+4x
+	/TJDmXG97lHLr2ctHQtx/95oif9dAl0ssnq0Vgzul2Mmyqm/Ici7jA4+Le721IJcRBjZLxoxbb2
+	tptZDZrpLqCshJEVmdNImEff9LJ2fsurPTgjb2yH5Dg0hIF4yIW/Gsee9sr8nMiI8HxFAFvvczj
+	NDHygXTsdq8ybSQNc/XD9bSxhDflo0MOGUpx6BRGdOVk4LHa5VvZ/Ff0evEs33cQJHIO+F4vxm4
+	jLQwqaE5oIyWV/VxULIlIeh4gzlW3cyGMKnlHoGqK8kC34npMweCDnmrbgNR/PFGqB4+c4nb9KU
+	BFxgX/TMxN4NrotVp67u1Bo1SBeuq9bKv1dU2xIhqUrFqgU7LvzgoyqxLY5kegH6JglwFzUO6KW
+	kG/9UOE6m/BMyqMk3lTNFiaf5wO197MxlszhEhFqqFUiuY5TKphyp61H6vUq8qyodHDGfmJU7j2
+	ZwgbYCbp/zt1/EGrtE6NGHZyxFXcByeN6CIKMqFPcSkVtXfCA4tX9wM3z8jx
+X-Received: by 2002:a05:600c:3b93:b0:4a2:397:73fd with SMTP id 5b1f17b1804b1-4a35ac96004mr129196455e9.12.1793008659520;
+        Mon, 26 Oct 2026 02:57:39 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a35a0cc374sm190382825e9.9.2026.10.26.02.57.36
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a35a0cc374sm190382825e9.9.2026.10.26.02.57.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:57:36 -0700 (PDT)
+        Mon, 26 Oct 2026 02:57:39 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -89,9 +89,9 @@ To: Matthias Brugger <matthias.bgg@gmail.com>,
 	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/9] arm64: dts: airoha: en7581: add CPU OPP and scaling nodes
-Date: Mon, 26 Oct 2026 10:57:08 +0100
-Message-ID: <20261026095727.31708-3-ansuelsmth@gmail.com>
+Subject: [PATCH 4/9] arm64: dts: airoha: en7581: add thermal sensor nodes
+Date: Mon, 26 Oct 2026 10:57:10 +0100
+Message-ID: <20261026095727.31708-5-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261026095727.31708-1-ansuelsmth@gmail.com>
 References: <20261026095727.31708-1-ansuelsmth@gmail.com>
@@ -106,233 +106,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add required CPU OPP and PD nodes to support CPU frequency scaling.
+Add thermal sensor nodes and attach them to the CPU node to control passive
+throttle and define critical temperature of the SoC.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- arch/arm64/boot/dts/airoha/en7581.dtsi | 177 ++++++++++++++++++++++++-
- 1 file changed, 173 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/airoha/en7581.dtsi | 47 ++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts/airoha/en7581.dtsi
-index 83b30a340950..c5a335086741 100644
+index fbc5ee47523c..58bd8b318910 100644
 --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
 +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
-@@ -74,8 +74,12 @@ cpu0: cpu@0 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 			enable-method = "psci";
--			clock-frequency = <80000000>;
-+			clocks = <&cpufreq>;
-+			clock-names = "cpu";
-+			power-domains = <&cpufreq>;
-+			power-domain-names = "perf";
+@@ -4,6 +4,7 @@
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/clock/en7523-clk.h>
+ #include <dt-bindings/reset/airoha,en7581-reset.h>
++#include <dt-bindings/thermal/thermal.h>
+ 
+ / {
+ 	interrupt-parent = <&gic>;
+@@ -81,6 +82,7 @@ cpu0: cpu@0 {
+ 			power-domains = <&cpufreq>;
+ 			power-domain-names = "perf";
  			next-level-cache = <&l2>;
++			#cooling-cells = <2>;
  		};
  
-@@ -83,8 +87,12 @@ cpu1: cpu@1 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x1>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 			enable-method = "psci";
--			clock-frequency = <80000000>;
-+			clocks = <&cpufreq>;
-+			clock-names = "cpu";
-+			power-domains = <&cpufreq>;
-+			power-domain-names = "perf";
+ 		cpu1: cpu@1 {
+@@ -94,6 +96,7 @@ cpu1: cpu@1 {
+ 			power-domains = <&cpufreq>;
+ 			power-domain-names = "perf";
  			next-level-cache = <&l2>;
++			#cooling-cells = <2>;
  		};
  
-@@ -92,8 +100,12 @@ cpu2: cpu@2 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x2>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 			enable-method = "psci";
--			clock-frequency = <80000000>;
-+			clocks = <&cpufreq>;
-+			clock-names = "cpu";
-+			power-domains = <&cpufreq>;
-+			power-domain-names = "perf";
+ 		cpu2: cpu@2 {
+@@ -107,6 +110,7 @@ cpu2: cpu@2 {
+ 			power-domains = <&cpufreq>;
+ 			power-domain-names = "perf";
  			next-level-cache = <&l2>;
++			#cooling-cells = <2>;
  		};
  
-@@ -101,8 +113,12 @@ cpu3: cpu@3 {
- 			device_type = "cpu";
- 			compatible = "arm,cortex-a53";
- 			reg = <0x3>;
-+			operating-points-v2 = <&cpu_opp_table>;
- 			enable-method = "psci";
--			clock-frequency = <80000000>;
-+			clocks = <&cpufreq>;
-+			clock-names = "cpu";
-+			power-domains = <&cpufreq>;
-+			power-domain-names = "perf";
+ 		cpu3: cpu@3 {
+@@ -120,6 +124,7 @@ cpu3: cpu@3 {
+ 			power-domains = <&cpufreq>;
+ 			power-domain-names = "perf";
  			next-level-cache = <&l2>;
++			#cooling-cells = <2>;
  		};
  
-@@ -115,6 +131,159 @@ l2: l2-cache {
- 		};
+ 		l2: l2-cache {
+@@ -293,6 +298,39 @@ timer {
+ 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
  	};
  
-+	cpufreq: cpufreq {
-+		compatible = "airoha,en7581-cpufreq";
++	thermal-zones {
++		cpu_thermal: cpu-thermal {
++			polling-delay-passive = <0>;
++			polling-delay = <0>;
 +
-+		operating-points-v2 = <&cpu_smcc_opp_table>;
++			thermal-sensors = <&thermal 0>;
 +
-+		#power-domain-cells = <0>;
-+		#clock-cells = <0>;
-+	};
++			trips {
++				cpu_hot: cpu-hot {
++					temperature = <95000>;
++					hysteresis = <1000>;
++					type = "hot";
++				};
 +
-+	cpu_opp_table: opp-table {
-+		compatible = "operating-points-v2";
-+		opp-shared;
++				cpu-critical {
++					temperature = <120000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
 +
-+		opp-500000000 {
-+			opp-hz = /bits/ 64 <500000000>;
-+			required-opps = <&smcc_opp0>;
-+		};
-+
-+		opp-550000000 {
-+			opp-hz = /bits/ 64 <550000000>;
-+			required-opps = <&smcc_opp1>;
-+		};
-+
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			required-opps = <&smcc_opp2>;
-+		};
-+
-+		opp-650000000 {
-+			opp-hz = /bits/ 64 <650000000>;
-+			required-opps = <&smcc_opp3>;
-+		};
-+
-+		opp-700000000 {
-+			opp-hz = /bits/ 64 <700000000>;
-+			required-opps = <&smcc_opp4>;
-+		};
-+
-+		opp-750000000 {
-+			opp-hz = /bits/ 64 <750000000>;
-+			required-opps = <&smcc_opp5>;
-+		};
-+
-+		opp-800000000 {
-+			opp-hz = /bits/ 64 <800000000>;
-+			required-opps = <&smcc_opp6>;
-+		};
-+
-+		opp-850000000 {
-+			opp-hz = /bits/ 64 <850000000>;
-+			required-opps = <&smcc_opp7>;
-+		};
-+
-+		opp-900000000 {
-+			opp-hz = /bits/ 64 <900000000>;
-+			required-opps = <&smcc_opp8>;
-+		};
-+
-+		opp-950000000 {
-+			opp-hz = /bits/ 64 <950000000>;
-+			required-opps = <&smcc_opp9>;
-+		};
-+
-+		opp-1000000000 {
-+			opp-hz = /bits/ 64 <1000000000>;
-+			required-opps = <&smcc_opp10>;
-+		};
-+
-+		opp-1050000000 {
-+			opp-hz = /bits/ 64 <1050000000>;
-+			required-opps = <&smcc_opp11>;
-+		};
-+
-+		opp-1100000000 {
-+			opp-hz = /bits/ 64 <1100000000>;
-+			required-opps = <&smcc_opp12>;
-+		};
-+
-+		opp-1150000000 {
-+			opp-hz = /bits/ 64 <1150000000>;
-+			required-opps = <&smcc_opp13>;
-+		};
-+
-+		opp-1200000000 {
-+			opp-hz = /bits/ 64 <1200000000>;
-+			required-opps = <&smcc_opp14>;
++			cooling-maps {
++				map0 {
++					trip = <&cpu_hot>;
++					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
 +		};
 +	};
 +
-+	cpu_smcc_opp_table: opp-table-smcc {
-+		compatible = "operating-points-v2";
+ 	clk20m: clock-20000000 {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+@@ -319,6 +357,15 @@ gic: interrupt-controller@9000000 {
+ 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
+ 		};
+ 
++		thermal: thermal-sensor@1efbd000 {
++			compatible = "airoha,en7581-thermal";
++			reg = <0x0 0x1efbd000 0x0 0xd5c>;
++			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++			airoha,chip-scu = <&chip_scu>;
 +
-+		smcc_opp0: opp-0 {
-+			opp-level = <0>;
++			#thermal-sensor-cells = <0>;
 +		};
 +
-+		smcc_opp1: opp-1 {
-+			opp-level = <1>;
-+		};
-+
-+		smcc_opp2: opp-2 {
-+			opp-level = <2>;
-+		};
-+
-+		smcc_opp3: opp-3 {
-+			opp-level = <3>;
-+		};
-+
-+		smcc_opp4: opp-4 {
-+			opp-level = <4>;
-+		};
-+
-+		smcc_opp5: opp-5 {
-+			opp-level = <5>;
-+		};
-+
-+		smcc_opp6: opp-6 {
-+			opp-level = <6>;
-+		};
-+
-+		smcc_opp7: opp-7 {
-+			opp-level = <7>;
-+		};
-+
-+		smcc_opp8: opp-8 {
-+			opp-level = <8>;
-+		};
-+
-+		smcc_opp9: opp-9 {
-+			opp-level = <9>;
-+		};
-+
-+		smcc_opp10: opp-10 {
-+			opp-level = <10>;
-+		};
-+
-+		smcc_opp11: opp-11 {
-+			opp-level = <11>;
-+		};
-+
-+		smcc_opp12: opp-12 {
-+			opp-level = <12>;
-+		};
-+
-+		smcc_opp13: opp-13 {
-+			opp-level = <13>;
-+		};
-+
-+		smcc_opp14: opp-14 {
-+			opp-level = <14>;
-+		};
-+	};
-+
- 	timer {
- 		compatible = "arm,armv8-timer";
- 		interrupt-parent = <&gic>;
+ 		spi@1fa10000 {
+ 			compatible = "airoha,en7581-snand";
+ 			reg = <0x0 0x1fa10000 0x0 0x140>,
 -- 
 2.55.0
 
