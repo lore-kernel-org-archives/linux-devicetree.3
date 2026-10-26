@@ -1,65 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974556;
-	b=3FAfC0JstS5TpHOSObEqNRAHRIA+b5V7VwDWxyVXpRKSUpUftVDVPjCNnPqN9HzSTuUs
-	 /Zt5uWVZ0XzMyTi4bmrzYGOdBL0ydWSG/CRHmAPxvW7s3++ylCTgzRfipSHUuugQD8GNf
-	 SdoIibql1+P+35dyKE+0EGEj0ZioldqBRFxUrtwF3XNDWEhPzK33lUZXOucUgTZ9pW7F5
-	 ojmvrjNarGaJf424t3D5RgVqxctAxBVgDvv0SofbQPIkw0FrsXXk0yRLTqEHxNG226z9S
-	 ARteh689rOsro8tijv4nZy3MReJchcvBzP2tOjFEVukOOwzF9eEI+FY+lOjD8S+55LQ==
+	t=1792974598;
+	b=ZEItgXfvrJ0IrKTuueIbYBgh0sAB9Xcw4oVFibZxYamSny6+fUHZ/zXSfP+ioX9DMqcI
+	 RWVTw+zyz3sr2zoAo8yQxn5SyU8fhea/PYd1LWdtUwRQtlLqp8zUVPgWfzhU/gcBh2WNU
+	 UJ1Strg1sl47Uj6ec67HWYEtFztefoN1D8jisjRGA7BehfuLidOgqk/O+TgmOAiJbQ+0j
+	 D56b2BoWOrsx791XdF6yM+c/g3ziK3YvrmziDyWrWw0dEIFhZVxLzvNBgQIDXY2PDJ8ba
+	 eGssKUZQA4N6DUmJTXen/FvQHXk51YmpOf8zEnIrORxo2KIBlKgD4SBFuNcNL8DnEAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974556;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RsRol0iWX2LXNeTBSh9N+khn4xoIQfDoB/Tmxi/SoUE=;
-	b=sSsD+uLPTEbb03hoHeZkNdn25OR7jhCb5uoivhUNZcOipJVAPyYfOP03sFOndXVRpARp
-	 ePo3uoOsdXPzzOuzxvH6QyTuKvX0SB1Q2uU+OOGRi7BMaD10uMvn3czgWOcYqr3pwbHMx
-	 hcIWN5+erEmz/n352w2YGJM/eFVZ3N5s0ZCKJkp3OKL+7nz3pXbI8ThSgigBhGO6LTaaf
-	 p5w0kkHFaic81TwmqcOq8S01x1Qxt+LMV3HeMLM3MCOnEnh6sawWfjDufPe4JiTIDh65W
-	 pagr9DfeYWAgPlrgvrGJK8sPxsmUJ8v4y3/Wr/8gTDh0Fk9GdWcWb8qfDLhGSkhQg9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974598;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=3kLZpiyAVInYzsnWS6FT3ErlcLNEMFglYc//NLf6F+U=;
+	b=X/aXXhirFGYTJm3AI+ScU3PoiEFkYjkwVWnN/Ew1shxvoyTL7lAQ/Eg7fu6FK1C52C4K
+	 4L2e8jV5ECDGnL57/c9yyUzNiWkWPIwV4atHl/TbBYh/1K1w08ip23CT5tWlYew9iFIld
+	 9vLp2l01tQSxDvGi9mxPNbcewB8gr/Zuj1EX/MPQmdxA8DpEKDWPSX2z0y+gNfvMw1Zxq
+	 2MElb6txl38As3+htvgEEqI8JN3o0l2kk8zkpssYsqRJCE12dwl7MUaWQJTXc9Dj3To67
+	 MDgLgtMvZfxbp+1AY9ua87K4dx7tK4IKD/SGhJmR/TciJX9ZQ6DTcGMJz1SugmtjIlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1x2k5l3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=vinarskis.com;
+	spf=pass smtp.mailfrom=vinarskis.com;
+	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d7u01atN;
+	arc=none smtp.remote-ip=185.70.43.170
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98916606A31E;
-	Mon, 26 Oct 2026 00:29:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444AE606A322;
+	Mon, 26 Oct 2026 00:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 444AE606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1x2k5l3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897A91F01825;
-	Mon, 26 Oct 2026 00:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792974555;
-	bh=RsRol0iWX2LXNeTBSh9N+khn4xoIQfDoB/Tmxi/SoUE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l1x2k5l3o/vFjceSvPTGFp7SAXfiBSXZMvhaiyik25oOrSQlziDD6wuEkiZLLeCvh
-	 fr3WEKQ+/UoFUCag3zIVbJU9wkF6df7p8NWNdC4/V7Jd7QY+XyvT+YlptIWG5PZ0Uh
-	 vkYU5mZONB0NBqUym2fPUtvKrPMSGY89UqU/Ii/X88+5Pd9zyOHna4zJFw+tKDYeTs
-	 Z/tXp7L5/Yr0X2D5AuG9ES9NsHgJdXy5GxCW5NUfWpF1Ac6IX7psGHLheOKRvcnnPB
-	 0XmAsHGb0W/sesmA7RbEXNHy4ROvjrnPqv19tgqO0VYuwdUVhpwgH77jj0MRceTmA/
-	 euZip5289amVA==
-Date: Mon, 26 Oct 2026 00:29:06 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan
- <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2 06/10] iio: frequency: ad9910: add axi backend driver
-Message-ID: <20261026002906.2f9dd2a6@jic23-hlaptop>
-In-Reply-To: <20261022-ad9910-backend-support-v2-6-0ff7f0bff326@analog.com>
-References: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
-	<20261022-ad9910-backend-support-v2-6-0ff7f0bff326@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d7u01atN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1792974594; x=1793233794;
+	bh=3kLZpiyAVInYzsnWS6FT3ErlcLNEMFglYc//NLf6F+U=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=d7u01atNDgXx99ZWqSSjdt2Deopk/U9voljOpKyHYQZFxYKy/hp8W1MwP8ac+IwZv
+	 Y6bQrcDLdlCB75D/yeEB4EHrM5NBmKiKaDSRg4NVa7BxYxacFKnFJaNgEAQoWqxj8p
+	 tslicZXyYrIoyYXIhxdSqFQZpDZWavxkdklZD3Yvkw1f6gGRE07bFq9oAuN3LssAZm
+	 /hqVw+VNuLDTVQXah6ceYpBqN2wwcYQUDuLLAzmvUtPMC/FEUJ4GhUhqQ1I/e1fp+2
+	 l7CwdIZmpnOYzsToPZEOpORwA+ujDepeW+m0VU5LWb+hUqgTPCq6vacFAb2DAemexY
+	 SgcXm3qgNfQDA==
+X-Pm-Submission-Id: 4jCZJc4KBmz1DFDy
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Subject: [PATCH v8 0/3] Introduce EC driver for Snapdragon X1E based Dell
+ XPS 13 9345
+Date: Mon, 26 Oct 2026 01:29:39 +0100
+Message-Id: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,130 +60,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XSzU4DIRAH8FfZcBbD90JPvofxMMBgie22wrqpa
+ fru0q3RxpB4/EPmN0OYM6lYMlayGc6k4JJrPkwt2IeBhC1Mr0hzbJkIJgyTktOIux09HSt1Umm
+ KgaJOykXuMRlOWtmxYMqnlXx+aXmb63won2uHhV9Pb5hiHWzhlFFIoAOEqJzHpyVPUOpbro/hs
+ CdXcBH3iOogoiHBjWOQAcDy1EPkL2K7k8iGuKR89Bp0hNhD1D3iOohqiLWSmeh9GAF6iP5BOOO
+ 9SXRDBHgutPVWBd5DzH+IWRFjQBqVcGQ9ZLxDhOkg4/U5wgaUjHsr3V/kcvv/gu8fbZPm2xIQD
+ xVpu9/neTNMeJrpdwvZKi5f3wLNJIMCAAA=
+X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6502; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=Gtlk7oWtkTWLZY1n1ZogGjUOQdSH0zFF9/uBFOODia0=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn35jMwmtUlbo95KaQYdudVY+ljPkmlK6EzzumuuGhpH
+ mdq6P+to5SFQYyLQVZMkaX7z9e0rkVz1zJc1/gGM4eVCWQIAxenAEyEp4jhD282s7fW4f4lTx+1
+ BJR/MCpt313+uNrM3H/+UwvHr8+VmRkZ+sNS1nPWcvFP/foigymN90hDVh3b5G515Y1nor8c05X
+ iAQA=
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-On Thu, 22 Oct 2026 12:19:04 -0300
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
+While EC appears to control most of device's peripherals, particular
+driver addresses power and thermal managment issues. Key operational
+principle involves initial thermistor constants configuration followed
+by a periodic reporting of these onboard thermistor values from across
+the motherboard to the EC. The latter then handles fan ramp-up/
+ramp-down internally. Suspend/Resume must be likewise propagated to EC
+for power management.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Add the driver for the AD9910 AXI backend IP core, which interfaces with
-> the data and control pins of the AD9910 DDS. It registers as an IIO
-> backend that provides:
-> 
-> - a DMA output buffer that streams data into the parallel data port;
-> - the parallel data destination (F[1:0] pins) and data rate, derived
->   from the PDCLK frequency;
-> - the PROFILE[2:0] pins control, through profile channel enables.
-> 
-> It also registers a PWM chip with a single output driving the DRCTL
-> pin, which the AD9910 driver uses to control the digital ramp generator
-> direction. The PWM implements the waveform callbacks, with period, duty
-> length and duty offset programmed in SYNC_CLK cycles. The duty offset
-> is realized by a delay applied once, before DRCTL starts toggling. The
-> waveform is reprogrammed when the SYNC_CLK rate changes, so that the PWM
-> output keeps its timing.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+The driver was developed primarily by analyzing ACPI DSDT's _DSM and
+i2c dumps of communication between SoC and EC during various stages of
+operation (bootup, suspend, resume).
 
-A few small things inline. In general I'll be looking for a
-tag from Nuno on this like most IIO backends.
+With EC driver in place, the following issues are addressed:
+1. Fans were not properly cooling the laptop, would kick in late and
+   spin lazily, resulting in heavy throttling. With EC driver fans
+   start sooner and hit high RPM under heavy load.
+2. Fans were not stopping once SoC temperature dropped, they would keep
+   slowly spinning irrespective of suspend and/or closed lid until the
+   next powercycle. With EC driver shortly after SoC temperature drops,
+   thermistors temperature drops, and fans ramp-down.
+3. Keyboard and touch row backlight were not turning off during
+   suspend - only lid close would power off the touch row. With EC
+   driver behavior matches that of Windows, suspending device with lid
+   open powers off the peripherals.
 
-Jonathan
+As thermistor readout depends on pmic's ADCs, this series introduces
+EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
+adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
 
-> diff --git a/drivers/iio/frequency/ad9910-axi-backend.c b/drivers/iio/frequency/ad9910-axi-backend.c
-> new file mode 100644
-> index 000000000000..f5374aeb2afe
-> --- /dev/null
-> +++ b/drivers/iio/frequency/ad9910-axi-backend.c
+Additional findings:
+- Max fan speed depends on Dell's power mode settings, configurable in
+  BIOS or using Windows app (relies on ACPI-WMI). It appears best
+  cooling performance is achieved under 'Ultra Performance' profile.
+- When the said power mode is changed using Windows app, EC IRQ is
+  triggered. Windows performs what appears to be thermistor contants
+  readout, though its not obvious what it is used for.
+- Given similarities between Dell XPS 13 series (codename 'tributo')
+  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
+  EC address and response to suspend/resume command the EC driver can
+  be likely used for both, though in-depth testing on 'thena' is
+  required.
 
-> +static int ad9910_axi_drctl_write(struct ad9910_axi_state *st,
-> +				  const struct ad9910_axi_drctl_wfhw *wfhw)
-> +{
-> +	int ret;
-> +
-> +	/*
-> +	 * DRCTL toggling restarts, applying the delay, when enabled or when
-> +	 * its period or width changes. Changing the delay alone does not
-> +	 * restart it, so disable toggling while updating the waveform.
-> +	 */
-> +	ret = regmap_clear_bits(st->regmap, AD9910_AXI_REG_DRG,
-> +				AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-> +	if (ret || !wfhw->period)
+This series depends on QCOM SPMI PMIC5 Gen3 ADC [1], which was added to
+`linux-next` for v7.1, but must be picked if this series to be backported.
 
-Split conditions as one returns success and that's not obvious coded
-like this.  Add a comment there on why it is a success.
+[1] https://lore.kernel.org/all/20260209105438.596339-1-jishnu.prakash@oss.qualcomm.com/
 
-> +		return ret;
-> +
-> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_DELAY, wfhw->delay);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, wfhw->width);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, wfhw->period);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Register values reach the SYNC_CLK domain in snapshots, taken every
-> +	 * 64 AXI clock cycles. Make sure toggling being disabled is captured
-> +	 * by one of them before enabling it again.
-> +	 */
-> +	fsleep(2);
-> +
-> +	return regmap_set_bits(st->regmap, AD9910_AXI_REG_DRG,
-> +			       AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-> +}
-> +
-> +static int ad9910_axi_chan_enable(struct iio_backend *back, unsigned int chan)
-> +{
-> +	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (chan) {
-> +	/*
-> +	 * Profiles are mutually exclusive, as the PROFILE[2:0] pins always
-> +	 * select one of them. Enabling a profile channel selects it, which
-> +	 * implicitly disables the previously selected one, hence there is
-> +	 * nothing to do when disabling a profile channel.
-> +	 */
-> +	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
-> +		chan -= AD9910_CHAN_IDX_PROFILE_0;
-> +		return regmap_update_bits(st->regmap, AD9910_AXI_REG_PROFILE,
-> +					  AD9910_AXI_REG_PROFILE_MSK,
-> +					  FIELD_PREP(AD9910_AXI_REG_PROFILE_MSK, chan));
-> +	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-> +		/*
-> +		 * F[1:0] destination follows the parallel channel order:
-> +		 * amplitude, phase, frequency and polar.
-> +		 */
-> +		chan = min(chan - AD9910_CHAN_IDX_PARALLEL_AMP,
-> +			   FIELD_MAX(AD9910_AXI_REG_F_CFG_MSK));
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+Changes in v8:
+- Fixed missing semicolon, broken title. Apologies for the noise :(
+  Relevant changelog in v7 below.
+- Link to v7: https://lore.kernel.org/r/20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com
 
-Why min() rather than a FIELD_FIT() and reject if it doesn't?
-Or just use FIELD_PREP below and paper over it as you are doing
-here.
+Changes in v7:
+- Rebase on latest linux-next
+- Fixed 1st, 2nd channels from AMUX3_GPIO, AMUX4_GPIO to AMUX1_GPIO,
+  AMUX2_GPIO as per Michael Burch, Liviu Nicoara.
+- Fixed sys_therm0..sys_therm6 to sys_therm1..sys_therm7. Initial
+  convention was picked based on schematics. It is now changed to match
+  most of the existing device-trees.
+- Fixed dt-bindings schema to not use arch specific imports as per
+  Rob Herring, sashiko.
+- Adjusted thermistor label as per additional findings from reverse
+  engineering investigation.
+- Link to v6: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com
 
-> +		ret = regmap_update_bits(st->regmap, AD9910_AXI_REG_F_CFG,
-> +					 AD9910_AXI_REG_F_CFG_MSK, chan);
-Not immediately obvious that the field starts at bit zero so even though it
-does I'd use a FIELD_PREP().
+Changes in v6:
+- Fix dts mistake due to rebase
+- Link to v5: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com
 
+Changes in v5:
+- Rebase on latest linux-next
+- Re-schedule work if suspend fails as per Ilpo
+- Fix comments as per Ilpo
+- Link to v4: https://lore.kernel.org/r/20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com
 
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-> +				       AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
+Changes in v4:
+- Change to .data struct provided via compatible, which contains expected
+  thermistor arrangement and magic init sequence to make it easier to
+  support new systems as per Bryan
+- Change milicelsius spelling, add newline, return as per Bryan
+- Link to v3: https://lore.kernel.org/r/20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com
+
+Changes in v3:
+- Rebase on latest linux-next
+- Add Neil, Stephan to CC, as they worked on ADC for PMK8550
+- Drop VADC for pmk8550 as it was already merged upstream
+- Rename PMK8550 registers to use newly upstreamed headers for ADC5_GEN3
+  in both dt-bindings, device-tree patches
+- Rename ADC labels to have meaningful for user names as per Bryan
+- Drop Dmitry's RB from last patch since it was almost completely changed
+  now
+- Link to v2: https://lore.kernel.org/r/20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com
+
+Changes in v2:
+- Update cover letter to indicate dependency on QCOM ADC series, only
+  relevant for backporting
+- Update description of dell_xps_ec_suspend: entering suspend does not
+  necessarily ramp down the fans, if thermistors still report high temps
+- Add die_temp/xo_therm to pmk8550 as per Konrad Dybcio
+- Add missing header imports as per Ilpo Järvinen
+- Add explanation for EC reset pin being reserved
+- Fix device-tree: minor issues as per Konrad Dybcio
+- Fix device-tree: alingment issues as per Konrad Dybcio
+- Fix driver: alingment issues as per Bjorn Andersson
+- Fix driver: handle temp value as 16bit register as per Ilpo Järvinen
+- Fix bindigs: description and example as per Krzysztof Kozlowski 
+- Link to v1: https://lore.kernel.org/r/20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com
+
+---
+Aleksandrs Vinarskis (3):
+      dt-bindings: platform: introduce EC for Dell XPS 13 9345
+      platform: arm64: dell-xps-ec: new driver
+      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+
+ .../embedded-controller/dell,xps13-9345-ec.yaml    |  90 ++++++
+ MAINTAINERS                                        |   6 +
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  65 ++++-
+ drivers/platform/arm64/Kconfig                     |  12 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ drivers/platform/arm64/dell-xps-ec.c               | 308 +++++++++++++++++++++
+ 6 files changed, 480 insertions(+), 2 deletions(-)
+---
+base-commit: 77cb3534193b758eaecd662a610a3a1bffde43ed
+change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
+
+Best regards,
+-- 
+Aleksandrs Vinarskis <alex@vinarskis.com>
 
