@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055034;
-	b=JEuWar9j0tBCbzixlwxHNuy/0cQr0vjcEod7+czJWW4CLnwhIbP/XSJCHjytLyOyYXko
-	 r5iSlYZgjXNyUjUWcgzHD8xfFfzvWMN756l17M9jTno1a8kdW/sc3otxKU4Ie2IwnwnM0
-	 Xh2Heatn4N09AKcj4dqAO4dWQSjK33SuhBPcZuK+Sone2GWaTTtk/JOE4yN4/LhYa+ylI
-	 6R3MIZ6SnsCvE6eBKDJtIfqvpbn2jzvo9j+V3RorUF0MRmQ/Vfv3o5Vpoykpa8A7jJr73
-	 CtqPHZ64hjbtOnQzbMzhe7Ty/Pliid/R5AdPpZauvQT+qdJyu5pu7SFHXPgkPFF9vgg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055034;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3bdtNEp42571APEj35U1oavSEcPp9Du+9f+sh1xWMBU=;
-	b=ZQ7uxKQLC+zYSMS8qXI7FYNO+76mLSt4RaOXvXZW32eHgIrbH2xat+mR7sDrVa7VJ6sb
-	 wTyoqH041p/tWVGNFNo0h1QirpfbvvC8Q7WdnXBtWiDngnshO6w+zWIkkXsh8iTwFno/6
-	 Y7+zMGpQX0Qe0hHgf4Pv3Hw7BEH6Dlemm6Wmhk3G7Fz1Oz+reVTleMCnV7O4ZyTPaFp78
-	 hrnCBWhoKe3hopwIjX/BshuEDumqzqOLlPt4A1dvN1ymPVA3ZcwfU9v5tBs/q+W2CUgNl
-	 jpbt4icWY5nNFfataicmVCwgGQDlHYEBJoNBDio97RZX//v5QSWok0xyOm57qx8rjfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W913DyTI;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793057694;
+	b=r2Y2CALcM6f492Q6foSMgxSUuczoQl6EXysbKoeguMX1ezW6hC7FP9ESKIOj3DvhmQdl
+	 ajZtygsZq/pbSycLVLPWrxFN1y/2/44vHbUxbFt+vdPGaS9vVUNRhVfcKF26B/tQ1vkAu
+	 cVrwWwGyU1epsByQx/I9gPxxoMV8nBnAyEj4kplWFbbJyoHQTVr5FTMDMvJjYpjJfUPZS
+	 HZAsbx+Wuc5x497hFQw0QXsrRt6CS74p5vWYmEENnMLoTtwY0gu8s5h7raS71kDjPLMt/
+	 cBUPrPwK9JcXd6iYyafHItdomCazQ7tBijx+szYCQKm8PLIOlJ2gjWqmMl5s8slXWmw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793057694;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=/2cgRjyL1qs26LDTeo+YVxH0zaNcEFNZhUgI6fBXXXQ=;
+	b=IDxPVkqIaM8lq4+P22Khy9FMuR8P6cwH7/yEM7Ug+mmDRc76nw9NpM9Wqcm/7MHiWKNp
+	 hl1LTdtwAPWagkbTv56OPF3EJnG3kUi70RxZGe5WSd0O+evDMGQlmVgNrY7z5egQAUGK1
+	 7EWmtorD723GDNc43A0S4nLpxGhddRDSf1bavVqUx6Gd7Sd6sHvW8vnWq4OvJFo8LiYCe
+	 j9E5rTJ2EDR12c4l7hHg62OFeCN85NQyhZFY21oiq9lhXlW/VH+ZQQ9LHAx8RWsMIGoDK
+	 80hf3hYi1yD/nnRK+r4hxqT3VhVJWvmGBBaSeiDkqn3uSzTiy0vJvqqVyh/GzmBDaZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PIZn7VYO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A50F606A31A;
-	Mon, 26 Oct 2026 22:50:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AFE606A31E;
+	Mon, 26 Oct 2026 23:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W913DyTI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CC51F01825;
-	Mon, 26 Oct 2026 22:50:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PIZn7VYO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793057694;
+	b=PvUU9ZDf1Vunpmf1/0B4zMNRSRd5uG5DrWRreTWD8vgRvh0Ac4/bZMSFbOTThQ67jmHr
+	 2OWjvXVNH+I+0vPJZvlXj0Yr1dGUoctm8PXo8O8Y7j5pOrzjA5z7KMAUehLjHZZmsJhRA
+	 2VV8j6cNlKV75usI8nqKvN3Rxq14b95wz6bjkM98YFczb/KkI1mbwYgYV9NLenHXXu9i3
+	 iy2q7Uxu603FjnC5pYMbK5ky0H5gOOXpVg8wARi+oB91fPZdTrnSOj30E/NE1dhDvihJp
+	 pBz4knqbLU3IiItHULQyF9VJSpm0sib6JrFxI8JJOAZrKcQSXOdP+/ygqHIIOHiY3Ng==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793057694;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=/2cgRjyL1qs26LDTeo+YVxH0zaNcEFNZhUgI6fBXXXQ=;
+	b=eM9Bfq7XmG9OEAIMxaLSCnfX6/+HhE6s/U60EXWqlYtnDmIp4Kh8LT6+lz4StbtRJYIU
+	 y4JspTFn1wy4kiEuWUJ8Fk2o51qiODR0bIBCvzpG/iYfVSu2kyC9enXmY2y0To/uSNsGu
+	 nKO+KBvrbZCQEcKtr7JMGNKxkpmMTLo7c4CMni/7PbZgPO5ihPrc6W5uJhzlJBNU+WYIc
+	 s4vvIvMICM7ClEjWVQfZcULYTbtlSNvsed8Qd7nZYo/b1zJ0ymAGkDB4mqpup/+HtWgNz
+	 D2gdrUZUslyDv7nm684Ff712KIjH1G/a0iS6p9ox5SKajgVPERx7RcceaDz9hiZdf2Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 586BB1F01825;
+	Mon, 26 Oct 2026 23:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055034;
-	bh=3bdtNEp42571APEj35U1oavSEcPp9Du+9f+sh1xWMBU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W913DyTISHFqsIeOv8PPYYewH/5SmTAHmggUXp8BVT4wg4z72Ea/JMJV8lL52fMPg
-	 BfAoLJMJfZm8Zd4mGeO3KxmFlqzEX2jtg/CcVF63jF0JRIHkZSlaW4ldXy8SolPV78
-	 YGgVeHCzMOowi2NV2Mn6buoUZ6OWRyAAwCZSwn2i4EUd3OG/Y+iILLDMpVgZEgI/si
-	 e/+EwSBbnvJK05sK2HeZ7EVNt+zmACULdc+HRKyO0Cf8TuKK99Pt0D48cTCnrM8apZ
-	 GS0u+s/3EtI/HPpUcjZy3L211UvhGp3AxaGLOn+/YGhyyLw/5jXXE4uig5R99DYtzG
-	 uvhq6QyMhiXGQ==
-From: Vladimir Zapolskiy <vz@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v2 7/7] arm64: dts: qcom: sm8450: Add description of pins with MCLK function
-Date: Tue, 27 Oct 2026 00:49:57 +0200
-Message-ID: <20261026224957.1115370-8-vz@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261026224957.1115370-1-vz@kernel.org>
-References: <20261026224957.1115370-1-vz@kernel.org>
+	s=k20260515; t=1793057694;
+	bh=/2cgRjyL1qs26LDTeo+YVxH0zaNcEFNZhUgI6fBXXXQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=PIZn7VYOuBQ09ix3wSahm8GBjM4eC04AzsXuxYexaxXtp0kYdAYel8aLI05PdpPeE
+	 CGSrKU+LdogAKGEqrCpinzaZ7VCA0p344VesSytwSESUOR2+0JpyaKUVKQsjfxWW+D
+	 TTjpNOyObu7zmoNSt6XAQZHhi0ckf5ioWtjWTshzpIiSornWkh6bIMEj5iVliolBN1
+	 DzjPuFtUO4FQAKdXgpYEIGR5toyQy4E96JwO14gIMSXRgmMAjb3u+lixLQ/VvncmLV
+	 dK+7tmJabqTqw2+zVMm+S3Yp85Q9FJqQdoBl5iObykmfGia3ilL+Y303axUdyZ0U2Y
+	 0/15SA0oJuUUQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A3D2D44EEF;
+	Mon, 26 Oct 2026 23:34:52 +0000 (UTC)
+From: Cristian Filipescu via B4 Relay <devnull+filipescu.cristian.gmail.com@kernel.org>
+Subject: [PATCH v3 0/2] arm64: dts: allwinner: Support Orange Pi 3 LTS
+Date: Mon, 26 Oct 2026 23:30:59 +0000
+Message-Id: <20261026-sunxi-orangepi-3-lts-v3-0-98fef4f75184@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,140 +83,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALPi32oC/4WOQRKCMAxFr8J0bRwMiODKezgs2lIhDrRMAwwOw
+ 91t8QAu3//JSzbBxpNhcU824c1CTM4GyE6J0J20rQFqAgtMsbikiMCzXQmcj91IkEE/MeSZqhD
+ zQpamEWF19OZF66F91j/mWb2NnqIrTijJBlSw6C5GPdl5hRjGsiOenP8cTy0YJX/uLwgp3FJVV
+ hVeURfy0Q6S+rN2g6j3ff8C0SUoP+cAAAA=
+X-Change-ID: 20261022-sunxi-orangepi-3-lts-43b92246a8ed
+To: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>, linux-kernel@vger.kernel.org, 
+ Cristian Filipescu <filipescu.cristian@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793057459; l=1992;
+ i=filipescu.cristian@gmail.com; s=uboot-20261021;
+ h=from:subject:message-id;
+ bh=ssdCd+cOb3vtsGK2tRgFxcvft6R9+5/9qtV6Fbja4Yg=;
+ b=1vCFUDdeBnX3cdyq4w/VMNM8FHwVt4nneYPP6UQr+YeFjWhX4ilKTbVh8tBWcfLau/2MnN2YN
+ I//RPwFuqAFDGe6oRRlVHkYTp/Ryr8qdYsa/lzxqWCCsq9pbXb85ZqV
+X-Developer-Key: i=filipescu.cristian@gmail.com; a=ed25519;
+ pk=o7Ui0tU3x+X/6Pq6PZHmd2KFtOdPWttoPuNFOvdD8t0=
+X-Endpoint-Received: by B4 Relay for
+ filipescu.cristian@gmail.com/uboot-20261021 with auth_id=1255
+X-Original-From: Cristian Filipescu <filipescu.cristian@gmail.com>
+Reply-To: filipescu.cristian@gmail.com
 
-Qualcomm SM8450 SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
-add the correspondent default and sleep pin configurations.
+Continue Jernej Skrabec's April 2025 series, adding the board compatible
+and device tree for the Allwinner H6-based Orange Pi 3 LTS.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+Board testing passed SD/eMMC reads, both LEDs at drive strength 10,
+and five Ethernet interface cycles plus three MAC driver rebinds.
+Each network cycle reached 1 Gbps/full duplex, obtained DHCP and passed
+ping; PHY ID and 125 MHz clock-output configuration were read back.
+eMMC DDR52 at 50 MHz and HS200 at 150 MHz each passed 768 MiB of direct
+reads and 256 MiB of patterned writes with verified readbacks and data
+restoration. All reported MMC error counters were zero. Both board DTBs
+compile and pass schema checks.
+
+Codex assisted with DTS updates, review analysis and build checks;
+Cristian performed the board tests.
+
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 112 +++++++++++++++++++++++++++
- 1 file changed, 112 insertions(+)
+Changes in v3:
+- Keep green as power and red as status, matching Armbian LTS roles;
+  default green on and red off without a boot-stage sequence.
+- Select drive strength 10 on PL4 and PL7 with per-LED pinctrl states.
+- Move PHY reset to the MDIO bus, before discovery and outside detach.
+- Specify the YT8531C PHY ID; MAC rebind fails with early autodetection.
+- Enable 1.8 V eMMC DDR52 and HS200 after board testing; retain the
+  existing H6 maximum frequency of 150 MHz.
+- Shorten the descriptions and update validation status.
+- Link to v2: https://lore.kernel.org/all/20261022-sunxi-orangepi-3-lts-v2-0-70b899252c6a@gmail.com/
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index b4f7672cec94..c8e9af8eb66d 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -4292,6 +4292,118 @@ data-pins {
- 				};
- 			};
- 
-+			cam0_default: cam0-default-state {
-+				pins = "gpio100";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam0_sleep: cam0-sleep-state {
-+				pins = "gpio100";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam1_default: cam1-default-state {
-+				pins = "gpio101";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam1_sleep: cam1-sleep-state {
-+				pins = "gpio101";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam2_default: cam2-default-state {
-+				pins = "gpio102";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam2_sleep: cam2-sleep-state {
-+				pins = "gpio102";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam3_default: cam3-default-state {
-+				pins = "gpio103";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam3_sleep: cam3-sleep-state {
-+				pins = "gpio103";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam4_default: cam4-default-state {
-+				pins = "gpio104";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam4_sleep: cam4-sleep-state {
-+				pins = "gpio104";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam5_default: cam5-default-state {
-+				pins = "gpio105";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam5_sleep: cam5-sleep-state {
-+				pins = "gpio105";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam6_default: cam6-default-state {
-+				pins = "gpio106";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam6_sleep: cam6-sleep-state {
-+				pins = "gpio106";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			cam7_default: cam7-default-state {
-+				pins = "gpio107";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			cam7_sleep: cam7-sleep-state {
-+				pins = "gpio107";
-+				function = "cam_mclk";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
- 			cci0_default: cci0-default-state {
- 				/* SDA, SCL */
- 				pins = "gpio110", "gpio111";
--- 
-2.51.0
+---
+Jernej Skrabec (2):
+      dt-bindings: arm: sunxi: Add Orange Pi 3 LTS board
+      arm64: dts: allwinner: h6: Add Orange Pi 3 LTS
+
+ Documentation/devicetree/bindings/arm/sunxi.yaml   |   5 +
+ arch/arm64/boot/dts/allwinner/Makefile             |   1 +
+ .../dts/allwinner/sun50i-h6-orangepi-3-lts.dts     | 379 +++++++++++++++++++++
+ 3 files changed, 385 insertions(+)
+---
+base-commit: 4403278e4ea2f654f8130a5c03eb8b4516a0f201
+change-id: 20261022-sunxi-orangepi-3-lts-43b92246a8ed
+
+Best regards,
+--  
+Cristian Filipescu <filipescu.cristian@gmail.com>
+
 
