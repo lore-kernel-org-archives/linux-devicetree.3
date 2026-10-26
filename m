@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792973501;
-	b=VV3NxFkb7lOeviuGKkXzFQYvJ591L0HLgAezPEe5iaAS74tqE/efSqHts4oNjZoq0Da8
-	 m3nzP7akxpmx6TJLhLTjckzitfqCh6zBbPRmmloQfLpntAgSCLxjLnKH4w6rb+a1tlthG
-	 lByr5+aqpbt92+7m/oPbSDBvv8aoOVivvIIRtUr2/OOsKYhhm07xin2fNyTW429dzxF2F
-	 qDd2Y7mG4RE9wWqaXhqRYoKO2RixCd3acozPe+qACJ9wMisF6nw8y4M5x7DdIOnumLKDC
-	 vKY+IQCdisF6sr0OSr3qS/m9eQHIWatrzn+9NvwyYqKfq0O9A5VVmd5+m8OdyTH7zkg==
+	t=1792973555;
+	b=m65SkWKAblXBuTo5aBvzAQ4Usp0fa5eJ6ABBcwMOhxservPHlBGg+uV0YPvMcU+2K3U2
+	 KrQ6hUSsvpA+bk9u1vyr8OiOFKP/syA3sklRTDDLQvJO7fBKp0qZD1algSta7w2uVAcav
+	 oHPlU0QuX8dvDScY6vKdOenkvmDa8lF6GeWOG2I0WbkH0cDp8LtFWM6fic0cl8LlfHb/U
+	 L0DJ+3y3dSznt1+0TMGHuze1LBKfCTXRcaaKx5jSn3SzjhNWoOkcjqjy+o6YjP2r1S22S
+	 15zA6ij5QsIBaL4cT6K96SNy5VDWjYmC8aKY44+8yo7u/TrmZlXXPIEPKk0fiiBaoUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792973501;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rsqxAz7lqfB62WUBWW1eOoWDX04yDtpDlQeAS6FSONM=;
-	b=Mbhy1Yi2GXRJruJ19bCX9NcSmp2WJearCWwVgSCoNOdCZxH9q9WzS7v3vD6l6yHA8poR
-	 OUWi0QKaxM+yWfBJM/bMrjOWSrR8H/OWja3wXRFPwJMv2485ZLNc8E8yl1Xg4LhQpfjIk
-	 YabjxWzv5v4L3HIYTikYKMyso8KTFtA2qVbaKpHsohujxAAk0shM/nouQnxwPeXellg96
-	 +uFTkOYNGSX49mysJSuI5o9F4j0bvUR4ggpQ16JOMWx25jylmULwQcMjwn81C2jlFbpjo
-	 uuclYTP/YDt7ppYMJ0cHPAcrmMrJ9DDBRDJ2yAR7ESJIB8nfzwyAgiUn5DySf4k+wFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792973555;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sxqycRChkNWLhbotzMIZyBsfJgDD9+fF2xdg2Mah+Z0=;
+	b=PTGhrJ/tTqI0YF35iJQrYkk3wPqd89AlZQawcT+YNfnKrz+gwkYtkIOZ8njTcIUKxrc5
+	 M9TbhTQHaTl7s3fhy205lNxnC/7OBtG9B+PbJj2sL0u1rFc1djr8r5usYf5pq9eEHS/De
+	 mo3nYpoxwMoy21kXbynRebUaP7NmGBClxHzFWxaD9mx0GmTTR5HJy1ayQGFv63s7tE7qi
+	 +jk9EYo3beR7jTj1rqWNWbHKuSND0HzZH7XsAvfrhiQxaH0oRcIk6ks/DNVLMkZstQEXK
+	 RT5EOCnOsvLXRo3eACYBGzzaxaKo+NxyKViBSzWfAQbrAIbpM+x9WO8FPTpU+ShTeng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvwtPgnb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aLcBM/+6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5729E606A31A;
-	Mon, 26 Oct 2026 00:11:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA79606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvwtPgnb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAE2C1F01829;
-	Mon, 26 Oct 2026 00:11:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLcBM/+6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559C11F01825;
+	Mon, 26 Oct 2026 00:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792973501;
-	bh=rsqxAz7lqfB62WUBWW1eOoWDX04yDtpDlQeAS6FSONM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HvwtPgnbuwetsVWXXssnFHCP/M8UWpbIWGcioo2dwCtZlINpELRyJmXvs3oi7PHpj
-	 UUevTDDFYKfca3T0tpuGJzJgVhyTND8ZWdI3fqsyhxVn8LSdrJyjzPFLGFhdqDIMmw
-	 0eU9+8OBtPdQb52Q2hOsq5XRt/rupNLzMGn8hwnEco4ygUAIliaETqHYjwMqVlIgF7
-	 nkTC6+Vihl5L74ytuabu6BiNwRuqljtxkJJJ2IfYDmHuaozWsR0qvme3Zm9R1IyfKW
-	 Jn7GP8iwbsNnVydaJE7B9SdnE81PDZ/Fn76zEQU/1S98OfYrtHBDrCxNrugCL3VTXI
-	 u8u6cbts3vlXQ==
-Date: Mon, 26 Oct 2026 00:11:32 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v4 7/8] iio: imu: adis16607: Add external clock sync
- support
-Message-ID: <20261026001132.3c76529a@jic23-hlaptop>
-In-Reply-To: <20261023-adis16607-v4-7-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-7-a4d541ebfd13@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792973554;
+	bh=sxqycRChkNWLhbotzMIZyBsfJgDD9+fF2xdg2Mah+Z0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aLcBM/+63YzTJTpMvaDGTDAi7Mtuid5dQ+a5KNb553D6VITOCk+DlxsOfHkvXNyS+
+	 IPmXUKOTyKgHV+6l3O6217eoTVsvqCN/RLQ3wT3bV6hWsVOTHsg7TMjsTrMh5tiiSz
+	 NVDoeaDV8kIS8xI7LDk/yXwKR+uLLkHhKNVofkILdijOYvyY5n1r+mZOOEzSumAuMd
+	 g8f7guyqG188k4PzQArLY4SqMze3OJoRNxgsueUtDL6qoocpTLmjJqSaw1pQdUz9iO
+	 Me+Y0Tk36Aqnkr/vDuXV05oAtSv0T7hCEAwWZxXbxDHLogo4nxkVz1C9z6CPs7f8HC
+	 lT6gGSpi0zigA==
+Message-ID: <sashiko-outbox-184558@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
+ introduce EC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026-dell-xps-9345-ec-v7-3-828ce301b839@vinarskis.com>
+References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
+ <20261026-dell-xps-9345-ec-v7-3-828ce301b839@vinarskis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 00:12:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,129 +60,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 23 Oct 2026 12:30:24 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: level-low EC IRQ with stub dell_xps_ec_irq_handl=
+er()
+--
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add support for an optional external clock (clocks property),
-> selecting between SYNC_DIRECT and SYNC_SCALED modes depending on the
-> supplied frequency, with the internal 8 kHz clock used as the default
-> when no clock is provided.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-> ---
+commit bdc3996f914e2f3bd3df5f76f45237ab26fd449b
+Author: Aleksandrs Vinarskis <alex@vinarskis.com>
 
-> -/*
-> - * No external clock sync support yet: always run on the internal clock.
-> - * Default dec=0 after reset, so period = 1 / clk_freq_mhz.
-> - */
->  static int adis16607_config_clk(struct adis16607 *st)
->  {
-> -	st->clk_freq_mhz = st->info->int_clk_hz * MILLI;
-> -	st->sample_period_ns =
-> -		DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * MILLI, st->clk_freq_mhz);
-> +	struct device *dev = &st->adis.spi->dev;
-> +	const struct adis16607_sync *sync_mode_data = NULL;
-> +	unsigned long ext_clk_hz = 0;
-> +	u16 sync_scale = 0;
-> +	u16 dec;
-> +	struct clk *clk;
-> +	int ret, i;
+arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
 
-where there is no other particular reason for ordering, reverse xmas tree
-preferred.
+This commit enables i2c5 and adds the embedded controller node along with i=
+ts
+interrupt and thermal ADC channels for the Dell XPS 13 9345. It also adds
+labels for the known PMK8550 VADC thermal channels.
 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
+/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> index f48e6bc350063..3f0c17c845b3e 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> @@ -759,8 +759,32 @@ retimer_ss0_con_sbu_out: endpoint {
+> =20
+>  &i2c5 {
+>  	clock-frequency =3D <100000>;
+> -	status =3D "disabled";
+> -	/* EC @0x3b */
+> +	status =3D "okay";
+> +
+> +	embedded-controller@3b {
+> +		compatible =3D "dell,xps13-9345-ec";
+> +		reg =3D <0x3b>;
+> +
+> +		interrupts-extended =3D <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
 
-> +
-> +	clk = devm_clk_get_optional_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return PTR_ERR(clk);
-> +
-> +	if (clk) {
-> +		ext_clk_hz = clk_get_rate(clk);
+[Severity: High]
+Can configuring this interrupt as IRQ_TYPE_LEVEL_LOW cause an unrecoverable
+interrupt storm when the EC asserts gpio66 low (such as on lid close)?
 
-Hmm. What if it is a controllable clock?
+In drivers/platform/arm64/dell-xps-ec.c, dell_xps_ec_probe() requests and
+enables client->irq as a oneshot threaded interrupt:
 
-> +
-> +		for (i = 1; i < st->info->num_sync; i++) {
+drivers/platform/arm64/dell-xps-ec.c:dell_xps_ec_probe() {
+	...
+	/* Request IRQ for EC events */
+	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
+					dell_xps_ec_irq_handler,
+					IRQF_ONESHOT, dev_name(dev), ec);
+	if (ret)
+		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+}
 
-		for (unsigned int i = 1; ...
+However, dell_xps_ec_irq_handler() is currently a stub that logs a debug
+message and returns IRQ_HANDLED without performing an I2C read to acknowled=
+ge
+or clear the pending event on the EC:
 
-> +			if (ext_clk_hz >= st->info->sync_mode[i].min_rate &&
-> +			    ext_clk_hz <= st->info->sync_mode[i].max_rate) {
-> +				sync_mode_data = &st->info->sync_mode[i];
-> +				break;
-> +			}
-> +		}
-> +
-> +		if (!sync_mode_data)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "Clk rate: %lu not in a valid range\n",
-> +					     ext_clk_hz);
-> +
-> +		st->sync_mode = sync_mode_data->sync_mode;
-> +	} else {
-> +		st->sync_mode = ADIS16607_SYNC_DEFAULT;
-> +	}
-> +
-> +	/*
-> +	 * Write the full desired sync state explicitly for every mode,
-> +	 * rather than only when enabling non-default sync: USER_SYNC's
-> +	 * documented reset default (0x0000, direct mode / scale 0) means
-> +	 * this isn't fixing a known reset-state issue, but each mode
-> +	 * establishing its own complete state here, instead of only
-> +	 * touching bits conditionally, is simpler to reason about and
-> +	 * doesn't depend on that default holding true.
-> +	 */
-> +	ret = adis_update_bits_base(&st->adis, ADIS16607_REG_USER_GPIO_CFG,
-> +				    ADIS16607_SYNC_GPIO_MASK,
-> +				    FIELD_PREP(ADIS16607_SYNC_GPIO_MASK,
-> +					       st->sync_mode != ADIS16607_SYNC_DEFAULT), 2);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (st->sync_mode == ADIS16607_SYNC_SCALED)
-> +		sync_scale = DIV_ROUND_CLOSEST(st->info->int_clk_hz, ext_clk_hz);
-> +
-> +	ret = adis_write_reg_16(&st->adis, ADIS16607_REG_USER_SYNC,
-> +				(st->sync_mode == ADIS16607_SYNC_SCALED) ?
-> +				ADIS16607_SYNC_MODE_MASK | sync_scale : 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (st->sync_mode) {
-> +	case ADIS16607_SYNC_SCALED:
-> +		/*
-> +		 * sync_scale is a rounded integer, so the hardware's actual
-> +		 * effective rate is ext_clk_hz * sync_scale, not necessarily
-> +		 * int_clk_hz - use the real value here so sample_period_ns (and
-> +		 * therefore FIFO sample timestamps) don't drift from it.
-> +		 */
-> +		st->clk_freq_mhz = (unsigned long)ext_clk_hz * sync_scale * 1000;
-> +		break;
-> +	case ADIS16607_SYNC_DIRECT:
-> +		/* DIRECT: external clock is the effective internal rate */
-> +		st->clk_freq_mhz = ext_clk_hz * 1000;
-> +		break;
-> +	default:
-> +		st->clk_freq_mhz = (unsigned long)st->info->int_clk_hz * 1000;
-> +		break;
-> +	}
-> +
-> +	ret = adis_read_reg_16(&st->adis, ADIS16607_REG_DEC_RATE, &dec);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->sample_period_ns = DIV_ROUND_CLOSEST_ULL((u64)NSEC_PER_SEC * 1000ULL * (dec + 1),
-> +						     st->clk_freq_mhz);
-> +
->  	return 0;
->  }
->  
-> 
+drivers/platform/arm64/dell-xps-ec.c:dell_xps_ec_irq_handler() {
+	struct dell_xps_ec *ec =3D data;
 
+	/*
+	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
+	 *       the thermistor thresholds and potentially fan speeds.
+	 */
+	dev_dbg(ec->dev, "IRQ triggered (irq=3D%d)\n", irq);
+
+	return IRQ_HANDLED;
+}
+
+Because the interrupt is level-triggered (IRQ_TYPE_LEVEL_LOW) with
+IRQF_ONESHOT, irq_finalize_oneshot() unmasks the line as soon as
+dell_xps_ec_irq_handler() returns. If the EC continues holding gpio66 low
+because the event was not cleared over I2C, the interrupt will immediately
+re-fire in a tight loop.
+
+In addition, because dell_xps_ec_irq_handler() returns IRQ_HANDLED rather
+than IRQ_NONE, note_interrupt() in kernel/irq/spurious.c never increments
+desc->irqs_unhandled, preventing the spurious IRQ detector from disabling t=
+he
+interrupt line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-dell-xps-9=
+345-ec-v7-0-828ce301b839@vinarskis.com?part=3D3
