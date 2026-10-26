@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792973736;
-	b=zLTwW+VK/yTGAqS8MDoXv0syCCCZrblPkC5/syQUe5BOAlkDlrABTsRbeUQQYc7Asw7F
-	 RtFUFHEDolkNDoUQ3AumfxU+yzDQEvYusTIC5v1P15Aj1qVqtqORstG+iKy+e5pb5pioZ
-	 Cpji8nArIxeUKde+cFE6Zp3wpRmz5VTk5m51sISK4psWqG4QBKEWUIyw95mCxkZec/gS0
-	 dpVT/3v7aohMV9AIzyOXtcQen1X1Pogj3Pyom4LNGQaKlnBapR1tY9uxH/+tjnPkf/HvP
-	 bKrq3P0Mc8z/oAm3Heu7F4NUSscBVyzJ7EoBAqiH5520J4ixoSgYu0PiV5QpkqWsuLg==
+	t=1792974071;
+	b=eYgY68D1FnA+C/v9Rh7EPXpK1XFj6YZHUt7nTXt/oRER71WbLkTP1EznqVIkkP9Zgd9u
+	 4n9lC49eczRRuE7E5vjSz54kGrncoeP6TV8tZCIKrlZ4KVrZCJkdQ0Ab4aliKVyJOmNj8
+	 p97a0F78JBh2Zo/zgBOjXqLSPzrUJZekHxDB8WJm73Q0YORO9C/oXp3vbo/+IQJsXH1QF
+	 cKTcPuFdl81RAP7hRGM7dbbMCrNLlO+WPemN+2Al49WDuVefWiS8bKAmS5H16ZLo940cg
+	 WEHc1jqVFpesaSzYVvCdbEYTWTe4qoozosCprF7KINi2s/qPt0NjpFcfuceD7xpFU1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792973736;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4miLNdmTCLRRbyZStSHRrLrP4dgFhOGAixFj2EYVbOs=;
-	b=lNF1tPBG7GpDDQfFPwcnyrajAL3HYdSw1f4l4SxHunLeKDYDT3Oqc7uVHx+f8VIdW46f
-	 xoNYsJIs18adMqiLuT9Aql42MVeAJ40t5px/8UvzOcDIO87scmnZ0knHOBGOoTa6B68Ic
-	 UyQR7cINnmL0uixKBH8rv0u27P/5jCh8PwamM+8BS+d+S0w3KTISrs2a9vl1EzCvvIJwu
-	 gk/86NkN06hezqjzJqyRWv06rYw2AlG5XRXBJBs7Haf3v5Re5SscmAOHwirlNpUK0bf+J
-	 eXnKTirHi6/SyTrbt3mXxbWrsyx5hlqpmdbPF6EQXNF5uN7Xyd75iadKpLaMDu4soZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974071;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+	b=z9nCC2Z5qerem5KzO3y8LutP+bN4ofiWpxyUMcj37vT+LVx4Fc2Gx3fFyDIQiuwdUEw6
+	 yhvlcnMK1pzWcTkc8juXy3LPkknfwrLm6Vd6SUceOjLemhyb+dNZrIClYwdA8WXZpIUg+
+	 11mXG2lV87ZvaHWmFRIn0J67WjKEy4octeFF/CSmc1ypmXFgIuZ8YpaqHXb53ponGSZxW
+	 2SEldhROiCDcZ87XvcPGZK3WSaYv251l65H/0RD542++BVbtn9upa+cmi0ou0zlUGE50L
+	 x23tWweXN7+Q9o009mtYKAqIlNkfOWCAaDKtgRgdwTmS0Jv1x7bC7A3U2VIMGVdcbJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TRQ/3KML";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2384606A31A;
-	Mon, 26 Oct 2026 00:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54686606A31B
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:21:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54686606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRQ/3KML
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AE31F01825;
-	Mon, 26 Oct 2026 00:15:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792973735;
-	bh=4miLNdmTCLRRbyZStSHRrLrP4dgFhOGAixFj2EYVbOs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TRQ/3KML6Rh1/J4tthZlYjCZgRp7rCtxofShMv0RG6GKs8eqlzK5eVD7cwoF5CZWs
-	 XR19KreUETCf7SPTyIbLnVt4eiTkG0fkTE0iT7xZ9TyiIZp5IWwKOuSTn2gHsS3F1u
-	 8HrdOCpnYQqZe2TQck57bO80GLCrAU2ecvusuQgZIedA9CO/guX5XeLrZkfrfoYfVS
-	 ukQa+I/vQEcSDCIwspBR5UEqREld0AwOJeNM56ZUKgaQdJX0k4UgWBQURQai49M9Vc
-	 ZHIJhoZR0We4cIVHd9ft2UY7n5eBrp6V7+VnhgItFNLrWWG8idg5d6MJGh18VZgadV
-	 4UJEUd3JcN8tg==
-Date: Mon, 26 Oct 2026 00:15:27 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v4 8/8] iio: imu: adis16607: Add calibration bias
- support for gyro/accel
-Message-ID: <20261026001527.456f2472@jic23-hlaptop>
-In-Reply-To: <20261023-adis16607-v4-8-a4d541ebfd13@analog.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-8-a4d541ebfd13@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1797171a91.0
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 17:21:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792974071; x=1793578871; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+        b=lewLJdSSPjEPcv2HMEZBJkaENtQqv6hgCWl9ZeCBJhkMQbdq3AEyopJrdBPgiVhkMI
+         iSS9VI99Pp5a9R8/9v+yHAwrDFxVhH1eDv51PboYzZT5D0JliUYuXWXdKqAqBlqE/IxJ
+         6LPbDn5UbmPgQdPUzDwfgEl+q+FewgzwjypRp9zmJzzWW+i2+b4TamOKPWIXpqTQDZwH
+         pO8bAS8ru47TViuC3fY2qZVTwTqyHtdzJFuiiN7oJUcdY1lUMVDJU9pNG9el+aqrbw1x
+         7LBenTPDiHwnDZ1KbDUNAu/hzPPP2v146U7huSrULqS0OPt0aV5BwF0Vr9aVoVRHbT9n
+         jpZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792974071; x=1793578871;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
+        b=Eu8AQnECVZq3GexsJ4xw2BNVGetP1p6J9wF6DLBTWKA/TRZlmLq4KUf55cAgczUWC6
+         4VoZYeAQw4EXGtX/xiE7thH2DpGRku98NB060DePxtY/n+QKnsI+SXBtrJUOCC9TKRtU
+         s7eaebrqfhJmxlumDlKGHS9+eXQUql8DMBujWBcn+bqVPHC7AlDwReBAwGj/rlmU5T9D
+         OcZuVkLiA/oZ1S9y0H8YTrr1tuNfXmLAwffjJF48U5KBlWzxpe+F1k15cacB3eVY2nA2
+         zESZ50tuTtgh14WBwcJUqJiF798R6k0YxYlX03VyAI+ljStnAvJxGy2tJhFeIB1at2eP
+         9RnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw79zzB/AXYU0tUzLEm4jmejm60qDoQ5ILejBKFIKvgJ9ZaS65r3g/etb2b8xUNamcemywwZAnYyePH@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBlvFJymt4B8b2qwkX+sAg+NQtQ3DJHPdA9Epby1QwuRqvnIZ3
+	LNTig8wsjhxTi9c8v6g/XZart0lLPfrffSUTS4VRs7R16QQVPhpuOWtU
+X-Gm-Gg: AYBFou2WxW/0dDvAijQ1iIUmP0wMZtDpNhI3vtubz8lhaHnHsCNM0qRfHDCbb3XsKIt
+	4ei0o+mYPVr5zb/biJ3HkqN4oa0kuyOW/997SAvvVI/hyKh1koH+bmkSCe4i0OJEv99rnXx+IjT
+	MA2c/gJiS5PvMBUJQlzOUjb8DwdppE6aXtA5HAip5YLmovnndmL+gOekUCT5UyvJQmLF6ruHRxB
+	JxC7x8VHU+2mROUmnGnADsduyBZ6mF46ZmZdjbqIa8MauOmoKm8nxMnRl37P7q93qT+/TiAU6p3
+	Bs0y0cbPFQOaUMOHMHHWdRvdeYjUuvQHB8t5h/AcskfS884Np0VRGyS2f94uNLDT4u/NahXSv75
+	XrzbHhSfwA8LZeCymMnP9u8Nxol/4X5PEwqX7XFOG0e0tmSh6hVjAqngRLHF3bc6985lSE67aSy
+	4s6eC53AeouYp/uC9axl+Zwk93+qV0F0M3JHm5JAmyK6DGX3y/GzRPq4Zx3gfobKSxWuLASInzE
+	OddtrlD+SR+3OTKWLE/nrSEdANOPAhvcT63NJomhpg92KWrgXpX7bjiMxOLSIkKVtEhamk=
+X-Received: by 2002:a17:90b:3bc7:b0:3a4:ca46:8d44 with SMTP id 98e67ed59e1d1-3adead5841amr4344724a91.18.1792974070632;
+        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebacc885sm6073592a91.5.2026.10.25.17.21.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 25 Oct 2026 17:21:09 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: hsyemail2@gmail.com
+Cc: linux-hwmon@vger.kernel.org, Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
+Message-ID: <c7532675-6cec-4613-a3a7-4cda31bf16df@roeck-us.net>
+References: <20260918084042.19541-1-syhuang3@nuvoton.com>
+ <20260918084042.19541-2-syhuang3@nuvoton.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,95 +101,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918084042.19541-2-syhuang3@nuvoton.com>
 
-On Fri, 23 Oct 2026 12:30:25 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
-
-> From: Radu Sabau <radu.sabau@analog.com>
+On Fri, Sep 18, 2026 at 04:40:40PM +0800, hsyemail2@gmail.com wrote:
+> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 > 
-> Add IIO_CHAN_INFO_CALIBBIAS support for the gyroscope and
-> accelerometer axes, backed by the device's per-axis bias registers
-> (XA/YA/ZA_BIAS, XG/YG/ZG_BIAS).
+> Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
 > 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-I'd missed the use of scan_index in here.  That seems like very
-fragile coding to me. Moving over to address is going to require
-changes a few patches back.
-
-> +
->  /*
->   * SPI Half-Duplex read operation for ADIS16607.
->   * Protocol:
-> @@ -863,6 +878,7 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
->  			      int *val, int *val2, long info)
->  {
->  	struct adis16607 *st = iio_priv(indio_dev);
-> +	const int idx = chan->scan_index;
-
-As below. This to me is hurting readability a little.
-Using scan_index for this is a bit fragile anyway as those can
-be changed by people expecting them to only about buffered capture.
-This should be using address and that may well mean you need that
-to become a lookup into an array of multiple register addresses
-needed for a given channel rather than directly to one register as
-currently.
-
-
->  	int ret;
->  	u32 tmp;
->  
-> @@ -900,6 +916,16 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
->  		*val = 5000;
->  		return IIO_VAL_INT;
->  
-> +	case IIO_CHAN_INFO_CALIBBIAS: {
-> +		u16 tmp16;
-> +
-> +		ret = adis_read_reg_16(&st->adis, adis16607_calib_bias[idx], &tmp16);
-> +		if (ret)
-> +			return ret;
-> +		*val = sign_extend32(tmp16, 15);
-> +		return IIO_VAL_INT;
-> +	}
-> +
->  	case IIO_CHAN_INFO_SAMP_FREQ:
->  		ret = adis16607_get_freq(st, &tmp);
->  		if (ret)
-> @@ -918,6 +944,7 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
->  			       int val, int val2, long info)
->  {
->  	struct adis16607 *st = iio_priv(indio_dev);
-> +	const int idx = chan->scan_index;
-
-I'd just go long on the line that uses this or at least push declaring it
-down to the case statement that uses it.
-
->  	u32 tmp;
->  
->  	switch (info) {
-> @@ -925,6 +952,11 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
->  		tmp = val * 1000 + val2 / 1000;
->  		return adis16607_set_freq(st, tmp);
->  
-> +	case IIO_CHAN_INFO_CALIBBIAS:
-> +		if (val < S16_MIN || val > S16_MAX)
-> +			return -EINVAL;
-> +		return adis_write_reg_16(&st->adis, adis16607_calib_bias[idx], val);
-> +
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -934,7 +966,8 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
->  	.type = (_type), \
->  	.modified = 1, \
->  	.channel2 = (_mod), \
-> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | \
-> +			      BIT(IIO_CHAN_INFO_CALIBBIAS), \
->  	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
->  	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
->  	.address = (_address), \
+> The NCT7715 supports an ALERT output, so permit the optional
+> interrupts property for this compatible.
 > 
+> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
+Applied.
+
+Thanks,
+Guenter
