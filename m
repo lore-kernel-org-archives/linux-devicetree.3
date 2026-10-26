@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016576;
-	b=5aMPT9JueKis0Wv7mYXYBkR9JGRXFGl8MPpD37pLPuYmSpL6DEwR508IZqIRJxo7KKOn
-	 q0dDd47rj4EuPm7v6gY4RbBnSUhxYTxnamFemwagoRAM+G3MuDwcxJ816Ndso1iA9f43J
-	 Vqo1sIYggJEOdIzahFv3bjZI7MQ8Mxf2SpJHqiN4f2KENoYTDwMfRmcJNHI/OV2q7ovXs
-	 ahCptFyOv4yc5JeLMtmCvVgXNPoz8ly6pnJn/ZgZRWXEOTTOj8jfw0H9P6WMXHrNL471p
-	 +TInNFJ6qn+Cez77SiYtZO1wZpDgXfegCTbmF0D72kN+eFEjgEn7ROPDF3nPG9XXaIA==
+	t=1793016577;
+	b=gwlbouwEZXUy+cvKTsvswIG2nMksscmaCSIHguiGbzzDKsE+OqHVoEeC39vRZrHIXrS5
+	 aMhQWy9mmQmxoY221bY0JFOjnxjGvF2v3nZiih+CE0NZAdfFU5/N+y91YHHnyVXT+tZKB
+	 TOyHVakkOJglj8AP+cbtTAvFqkBZBZI/N3S3AJVsRbmnKBOKtF2OlZoOODTP9SqIM8Lfo
+	 YrpaV3llhGTAI1jDh78pbqwhnumZxaowFVotq7LbG9zR2u5e9lvNMDej7wB74zbPFAGFK
+	 Fv0JP5hxDyacs5CGMHYfEhwm0i/FgQlMFh0XXCF5exYJqoVc2bpKyvf873lPIQ+ywrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016577;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ldjmu4YxDeIPKd/4OJCM5t43rtkZTUWpd+k6Mdr7ueA=;
-	b=RnPCtfhfpNPecCGNxTN7bAlzrwL9QajWQgc5jaSJ1yg9ddyUTe/SrKNlaQfFwWx9PVMi
-	 mVjjTcqlKU9ravspkGgNufpJGpf++37C68/u1AovQlnDwRrujxdw04lhf5BeqGaoQvmJL
-	 ANsEQg9O8W0ullTs1Dr4cuTYoOGi9yfurP2ngkIJRt3FlftnI+vgXhpbVfr4rzGhFBD1v
-	 wgJ8H5vDNJ7xsSqAAToabr+tMc3OTWHe8yrOr87h91gosH+TJlOGc2FeIu4AF1aUkWTT2
-	 rVQc/eoJImpCTJspUscmeu6HkhKs2KQyUXgNJP+MUv6K1mEHrVJ+qyOoHi+NSZqtvlA==
+	bh=eRu2LVCDgubTg9L+en5PQ0GMG00gbHZnnd7yh4N4PMs=;
+	b=Rigk1XjRC9CP1D4YODKIzC0dXcTmNaKaxsyqVQ7aashpRJQAW+UoNcAbvyQ46F6eVzF4
+	 aM7HQ+YjzCucG9zM/AT8R+jHnsGCxnX/hP4CdnNuMhlHnUwdjG6Ie+/i1zmse5+7fqZjJ
+	 0xh25UmJZsL5KTIJwxcsK35kIiSOZcFR0PIU0oOJiXQdesaz1/1d98o7rVWu7q6eD56al
+	 YoHoWOFFj9Vp2RId5WPWe6RacwgaJ1QB8XyxBsCZj4XFVHxVZIZoiHWf3yFAskHspFgnv
+	 cMbKxe81n3jbKUG6gKxuUsoVPDZkVGK/7z8nscSypz/pgM6tTUmwW+rf8i34DsiZ9aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iIUte97a;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="IQs2v/0j";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1732606A323
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1732606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EBF606A33E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49EBF606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iIUte97a
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so27738365e9.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 05:09:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IQs2v/0j
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a214af2076so20400665e9.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 05:09:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793016574; x=1793621374; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793016576; x=1793621376; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ldjmu4YxDeIPKd/4OJCM5t43rtkZTUWpd+k6Mdr7ueA=;
-        b=iIUte97aZggi1ofFx441f7srimg+KRDXl/VmYiuWpcYhadX+Ovwfl4Rh6DwuiJo3Yr
-         B6X1SRL1QwmK1NMBD0B9Q443BGgzJTdLi+MZCawjeW8rN90arvLoMnrtTpJc7/mLluS4
-         TVxwb82PiDs7/jGS9D5e5z+nMd4j2zGYcmvtwiqzFC9q+AzKtbc0u3feJuOs9cjhQyDl
-         49qgIVHn1kly6YBjJCy9qpQpl8DOvzZFmpOBvIGdf5dbFTx4OKjtpmvG8CyNceLUNMSb
-         JWMhYaKHBzu1TsYp5uIqVXGuUTnWEgON/ZpQPtZ8AhZAE3spwZVntcErtvMPpPR9vwzm
-         fWmg==
+        bh=eRu2LVCDgubTg9L+en5PQ0GMG00gbHZnnd7yh4N4PMs=;
+        b=IQs2v/0jC8aDeoR5P+VbANJ7GL91aY0Nfs2pVHNy3kzjK3e0LNrpttJ2VkKaCz60JU
+         SJJu2wEmAqxG8I2srwK7U6Cvg2noGm2Yax8ylVX/AcOsQHasnUVzieRYN2P7l8ToyrgJ
+         zxLZN9DcYU7hQ6muYRJ4VTvNwJACEormO7ZV+tzApPKQ20xuYiEaqTudSHuxDqcktWN8
+         mCohN/TFVUZ0+c89kiIn6RgTL60cZ4EmzX4WMoDyBVVscwyrpkaTUYBf1BpwG5PtlNyZ
+         l4D0/bVzD1TNFNuOvmDNPE23gdPz58SGq6iMr3/hE1lYTiqX2URfk1wkIC+QNh9IcvtL
+         r76g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793016574; x=1793621374;
+        d=1e100.net; s=20260707; t=1793016576; x=1793621376;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ldjmu4YxDeIPKd/4OJCM5t43rtkZTUWpd+k6Mdr7ueA=;
-        b=gIWt30lIHpuu/rhBqDJeI542Ibd03CXM0rGLgvGzrU36reVm54cdqVfZegwEPb9Tsi
-         HEezg07tZXngIVxYthn5LqeumIo9nq08Fd8yXvGWrPEaAsR9fUVhp7ZW1sVUvJKyQGU4
-         MZLdaTg6HimQ3HnlP1WvNPWm/t7dpVv0rib1A7GU7CCaTGGXftHUhbBClmLfPzrvzpuy
-         ZY+xxfTRkpCQdc5GxbulpFOYGub9MCP/EO7c8/3tDfVu2ioZFjao08dFhEjydDi/MQsi
-         MWU0CtX114Mm0LylPQFP+0vOoNaAwESdcqLvH7HXeCiq7kcMun/QqeWt0uMVsxLaLoRW
-         RvUw==
-X-Forwarded-Encrypted: i=1; AKwUvBy31sa5S20Cm8yDksA51rlYRm67xdjYpA8fEUo2miHBnCWlog9iLGbks7h+ywLFKeVQ3dDmrgML4doj@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUnZdJh9f6A7ZhDn4mXDrD5C8lY1GI+5FhiNj0DLODR2xcwPDe
-	Y19/nEVqsn9HixZVQPswIhGihqlFoNmPdOFM3Ae09cR+TnbbWgihIMsZ
-X-Gm-Gg: AYBFou3BjtNYv+h01hRP46xu9y/11upY1yONfSUzcXAhIqup8GsNLKA3bh8hqou9fet
-	6FB22kd6NIqxy8z1Cm1+sqXC2qRoJmH8pzTCWxFJH7QQXMppJNxruz13DAXUok50WA0P+GQ6m/x
-	W9Sw3q4GgorSy13kkYM8kwsLOBJfVMeaGExL3EDxrsGvCiHxD5awWL3AEfO38mDjNSbQ3E779oF
-	j2GYhALC/n3nUX2JdHzQBzs1NHwzZGuZDIAlJtyE+Neu9kEMQEx56zyOX2FdLp0WqD03eqTGqVq
-	1y/y3yKFszj6uvy95gm5dCrudUaXGG45MYiWF1Fe9/luqyzBMf4QdLeSuCRttwBihz2FZlOSGLz
-	em4wjN9b/r1Pr9gk/9CDxjOonKooWFkzbqIvqw/ZIGbfL0eCo23pMtoAHwdg5B5Fn6igv/StcIo
-	GKfzjtAaVpov0t0lTuZ88LEbDNJ0Er5qUgPSmV+SHY3keDHA+ODY+EgyjteQlFL8YRSTMgnal+u
-	Ejo3FR0FBR+xPQcieIiA7tEOK4m4EFrGPeIRr/JZ3D1XZzh7GiLJ+GTAT47MQGiq0LIIK6+Wfbj
-	ZI43Q7fjQK04RzlHtWzIItyQtpVh7u7AtnUNAXG9wuni8XiBP6Q0XnY2dE8wuJW8w6mLGQ7R5wK
-	XFA8t
-X-Received: by 2002:a05:600c:1987:b0:4a1:db17:c7e6 with SMTP id 5b1f17b1804b1-4a35ac3a7b1mr111607605e9.2.1793016574151;
-        Mon, 26 Oct 2026 05:09:34 -0700 (PDT)
+        bh=eRu2LVCDgubTg9L+en5PQ0GMG00gbHZnnd7yh4N4PMs=;
+        b=BeknGCmbDLL9VEWJVRE222AzkC14AjqWcnNHuLNM1/PxhC6RQXQTEiwgefNrduhlSY
+         DyoJaL9Fu9VGXP0g3l4R5fu8lh+sUL1Wi0SmvKNtbbk63ZruWn93sC7NBzvRlyqt4aPu
+         TJAPogz8IqcWnIOKQvQLtBZJbR+1cDuKgoK8qCMqBb+zyRq1Kh77CFPo0I5oEM0oD/xi
+         cOXg35h5cVyhnqMV7zsPwLTh9xBvhF90je6WMDdvRIC1y0Bwm+DqFXSoHuzt9Uk2g6KI
+         28Tub6DTPup+XzI2/eoh2TqG3lD7bLxbf9VYkR21rW8WX9850ImphaROhi32AGbGUWFN
+         XXRw==
+X-Forwarded-Encrypted: i=1; AKwUvBys1iVGpx7msx92jmZMuhnOt7CdYJQOAO3UXTol77eXUtW02qzHNLw4Gm40fKh9OhF03btazJsOl6o8@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKPO7ijs0j4JtmPbmaaYVMF6WVILjCEV7OoUYXYUV8eihsamVX
+	kosTPAFXa6xyVf4fKr4U9mD/8XjJqQY6DEhagnCapbZkT2EK9rEE4kgA
+X-Gm-Gg: AYBFou1xKCF4E+KE9Mgxp1Cu/gLj8Jk5LhH5oWVRNtKGBmC9VgHQxjDZHBbedduBEox
+	LmEEA/UVxJK7ETeYv0rPcbm14qMPLan1/UH7KDWYfxa1t6WJKNmah05SKAUOqXB+pbV2pdRa6EJ
+	jgZnsB3Gpl1FrlHfsGXbHOALrM6+b0eud131S/320hmgekq1muPfzqCeEmgHSpfnLcSpgHaCNKf
+	CKV00DB8iY+4PsbTLjcenKzINjbtYkRP6iyaZlgfdXil+aHq4Jtud7ci7dynAOoKuqbwSSs92Pd
+	XKnPXk3rcY4sbPUsmFw2jKPZOPtk6l86+ZqkJ+7cRgy2o56Pc+UUoi3IFuBOH1VYB09wErzraxQ
+	rKxohkwvFdEbYb7LORXwFO9GfEht8TQk+T0w0Ltq52+FgoINWwGmMU9FK4kscxPvZ5QV4q3hlfU
+	vLWYdiJAT24s+PIUUUlAjkPialKGnKTE42jNsTlhuWZto/XUOUUT620xEugsNUIoewIlR8jvNvM
+	m2fgDrwXSUi8s299ruJD8ivue13I7IZ3A5l2HGhioDyEkRLI0FkKgPvzi2DzUmu6V+TPwA43BXk
+	JGoQ4uiPY7cWjPwHRrTjQT+r6JvUwsrgF4rN4M4BkSMWyA014Sc310Va/RkM7QPGmoRuUPYhGUv
+	tZOH+
+X-Received: by 2002:a05:600c:a012:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4a35ac95b2dmr110048655e9.16.1793016575542;
+        Mon, 26 Oct 2026 05:09:35 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-14-234.xnet.hr. [88.207.14.234])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm152200695e9.3.2026.10.26.05.09.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a00e1b0sm152200695e9.3.2026.10.26.05.09.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:09:33 -0700 (PDT)
+        Mon, 26 Oct 2026 05:09:35 -0700 (PDT)
 From: Robert Marko <robimarko@gmail.com>
 To: andersson@kernel.org,
 	abelvesa@kernel.org,
@@ -97,9 +97,9 @@ To: andersson@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Robert Marko <robimarko@gmail.com>
-Subject: [PATCH v2 3/4] clk: qcom: gcc-ipq8074: Align CMN PLL inputs with binding
-Date: Mon, 26 Oct 2026 13:08:14 +0100
-Message-ID: <20261026120920.1667982-3-robimarko@gmail.com>
+Subject: [PATCH v2 4/4] arm64: dts: qcom: ipq8074: Add CMN PLL
+Date: Mon, 26 Oct 2026 13:08:15 +0100
+Message-ID: <20261026120920.1667982-4-robimarko@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026120920.1667982-1-robimarko@gmail.com>
 References: <20261026120920.1667982-1-robimarko@gmail.com>
@@ -114,97 +114,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The GCC binding names the CMN PLL inputs bias_pll_cc and
-bias_pll_nss_noc. Use those names as fw_name so GCC resolves the
-clocks through DT references.
+Add the CMN PLL node, it will be used to feed the required fixed clocks
+to networking subsystem.
 
-Keep the existing .name values as fallbacks for older device trees
-without these optional inputs.
+CMN PLL provides bias_pll_cc and bias_pll_nss_noc to GCC.
 
 Signed-off-by: Robert Marko <robimarko@gmail.com>
 ---
 Changes in v2:
-- New patch to align GCC parent lookups with the binding input names.
+- Drop the _clk suffix from the GCC CMN PLL input names.
 
- drivers/clk/qcom/gcc-ipq8074.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ arch/arm64/boot/dts/qcom/ipq8074.dtsi | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/qcom/gcc-ipq8074.c b/drivers/clk/qcom/gcc-ipq8074.c
-index 1329ea28d703..68c080d49154 100644
---- a/drivers/clk/qcom/gcc-ipq8074.c
-+++ b/drivers/clk/qcom/gcc-ipq8074.c
-@@ -1132,7 +1132,7 @@ static const struct freq_tbl ftbl_nss_noc_bfdcd_clk_src[] = {
+diff --git a/arch/arm64/boot/dts/qcom/ipq8074.dtsi b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+index 75a5ae30d966..b08efc959379 100644
+--- a/arch/arm64/boot/dts/qcom/ipq8074.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
+@@ -5,6 +5,7 @@
  
- static const struct clk_parent_data gcc_xo_bias_pll_nss_noc_clk_gpll0_gpll2[] = {
- 	{ .fw_name = "xo", .name = "xo" },
--	{ .fw_name = "bias_pll_nss_noc_clk", .name = "bias_pll_nss_noc_clk" },
-+	{ .fw_name = "bias_pll_nss_noc", .name = "bias_pll_nss_noc_clk" },
- 	{ .hw = &gpll0.clkr.hw },
- 	{ .hw = &gpll2.clkr.hw },
- };
-@@ -1357,7 +1357,7 @@ static const struct freq_tbl ftbl_nss_ppe_clk_src[] = {
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/clock/qcom,gcc-ipq8074.h>
++#include <dt-bindings/clock/qcom,ipq8074-cmn-pll.h>
  
- static const struct clk_parent_data gcc_xo_bias_gpll0_gpll4_nss_ubi32[] = {
- 	{ .fw_name = "xo", .name = "xo" },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- 	{ .hw = &gpll0.clkr.hw },
- 	{ .hw = &gpll4.clkr.hw },
- 	{ .hw = &nss_crypto_pll.clkr.hw },
-@@ -1411,7 +1411,7 @@ static const struct clk_parent_data gcc_xo_uniphy0_rx_tx_ubi32_bias[] = {
- 	{ .fw_name = "uniphy0_gcc_rx_clk", .name = "uniphy0_gcc_rx_clk" },
- 	{ .fw_name = "uniphy0_gcc_tx_clk", .name = "uniphy0_gcc_tx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
+ / {
+ 	#address-cells = <2>;
+@@ -15,6 +16,12 @@ / {
+ 	interrupt-parent = <&intc>;
  
- static const struct parent_map gcc_xo_uniphy0_rx_tx_ubi32_bias_map[] = {
-@@ -1463,7 +1463,7 @@ static const struct clk_parent_data gcc_xo_uniphy0_tx_rx_ubi32_bias[] = {
- 	{ .fw_name = "uniphy0_gcc_tx_clk", .name = "uniphy0_gcc_tx_clk" },
- 	{ .fw_name = "uniphy0_gcc_rx_clk", .name = "uniphy0_gcc_rx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
+ 	clocks {
++		ref_48mhz_clk: ref-48mhz-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <48000000>;
++			#clock-cells = <0>;
++		};
++
+ 		sleep_clk: sleep_clk {
+ 			compatible = "fixed-clock";
+ 			clock-frequency = <32768>;
+@@ -257,6 +264,18 @@ mdio: mdio@90000 {
+ 			status = "disabled";
+ 		};
  
- static const struct parent_map gcc_xo_uniphy0_tx_rx_ubi32_bias_map[] = {
-@@ -1704,7 +1704,7 @@ static const struct clk_parent_data gcc_xo_uniphy0_rx_tx_uniphy1_rx_tx_ubi32_bia
- 	{ .fw_name = "uniphy1_gcc_rx_clk", .name = "uniphy1_gcc_rx_clk" },
- 	{ .fw_name = "uniphy1_gcc_tx_clk", .name = "uniphy1_gcc_tx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
- 
- static const struct parent_map
-@@ -1774,7 +1774,7 @@ static const struct clk_parent_data gcc_xo_uniphy0_tx_rx_uniphy1_tx_rx_ubi32_bia
- 	{ .fw_name = "uniphy1_gcc_tx_clk", .name = "uniphy1_gcc_tx_clk" },
- 	{ .fw_name = "uniphy1_gcc_rx_clk", .name = "uniphy1_gcc_rx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
- 
- static const struct parent_map
-@@ -1842,7 +1842,7 @@ static const struct clk_parent_data gcc_xo_uniphy2_rx_tx_ubi32_bias[] = {
- 	{ .fw_name = "uniphy2_gcc_rx_clk", .name = "uniphy2_gcc_rx_clk" },
- 	{ .fw_name = "uniphy2_gcc_tx_clk", .name = "uniphy2_gcc_tx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
- 
- static const struct parent_map gcc_xo_uniphy2_rx_tx_ubi32_bias_map[] = {
-@@ -1907,7 +1907,7 @@ static const struct clk_parent_data gcc_xo_uniphy2_tx_rx_ubi32_bias[] = {
- 	{ .fw_name = "uniphy2_gcc_tx_clk", .name = "uniphy2_gcc_tx_clk" },
- 	{ .fw_name = "uniphy2_gcc_rx_clk", .name = "uniphy2_gcc_rx_clk" },
- 	{ .hw = &ubi32_pll.clkr.hw },
--	{ .fw_name = "bias_pll_cc_clk", .name = "bias_pll_cc_clk" },
-+	{ .fw_name = "bias_pll_cc", .name = "bias_pll_cc_clk" },
- };
- 
- static const struct parent_map gcc_xo_uniphy2_tx_rx_ubi32_bias_map[] = {
++		cmn_pll: clock-controller@9b000 {
++			compatible = "qcom,ipq8074-cmn-pll";
++			reg = <0x0009b000 0x800>;
++			clocks = <&ref_48mhz_clk>,
++				 <&gcc GCC_CMN_12GPLL_AHB_CLK>,
++				 <&gcc GCC_CMN_12GPLL_SYS_CLK>;
++			clock-names = "ref", "ahb", "sys";
++			#clock-cells = <1>;
++			assigned-clocks = <&cmn_pll IPQ8074_CMN_PLL_CLK>;
++			assigned-clock-rates-u64 = /bits/ 64 <12000000000>;
++		};
++
+ 		qfprom: efuse@a4000 {
+ 			compatible = "qcom,ipq8074-qfprom", "qcom,qfprom";
+ 			reg = <0x000a4000 0x2000>;
+@@ -369,11 +388,15 @@ gcc: clock-controller@1800000 {
+ 			clocks = <&xo>,
+ 				 <&sleep_clk>,
+ 				 <&pcie_qmp0>,
+-				 <&pcie_qmp1>;
++				 <&pcie_qmp1>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_CC_CLK>,
++				 <&cmn_pll IPQ8074_BIAS_PLL_NSS_NOC_CLK>;
+ 			clock-names = "xo",
+ 				      "sleep_clk",
+ 				      "pcie0_pipe",
+-				      "pcie1_pipe";
++				      "pcie1_pipe",
++				      "bias_pll_cc",
++				      "bias_pll_nss_noc";
+ 			#clock-cells = <1>;
+ 			#power-domain-cells = <1>;
+ 			#reset-cells = <1>;
 -- 
 2.56.0
 
