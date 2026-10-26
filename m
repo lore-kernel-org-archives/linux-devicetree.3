@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792973555;
-	b=m65SkWKAblXBuTo5aBvzAQ4Usp0fa5eJ6ABBcwMOhxservPHlBGg+uV0YPvMcU+2K3U2
-	 KrQ6hUSsvpA+bk9u1vyr8OiOFKP/syA3sklRTDDLQvJO7fBKp0qZD1algSta7w2uVAcav
-	 oHPlU0QuX8dvDScY6vKdOenkvmDa8lF6GeWOG2I0WbkH0cDp8LtFWM6fic0cl8LlfHb/U
-	 L0DJ+3y3dSznt1+0TMGHuze1LBKfCTXRcaaKx5jSn3SzjhNWoOkcjqjy+o6YjP2r1S22S
-	 15zA6ij5QsIBaL4cT6K96SNy5VDWjYmC8aKY44+8yo7u/TrmZlXXPIEPKk0fiiBaoUA==
+	t=1792973736;
+	b=zLTwW+VK/yTGAqS8MDoXv0syCCCZrblPkC5/syQUe5BOAlkDlrABTsRbeUQQYc7Asw7F
+	 RtFUFHEDolkNDoUQ3AumfxU+yzDQEvYusTIC5v1P15Aj1qVqtqORstG+iKy+e5pb5pioZ
+	 Cpji8nArIxeUKde+cFE6Zp3wpRmz5VTk5m51sISK4psWqG4QBKEWUIyw95mCxkZec/gS0
+	 dpVT/3v7aohMV9AIzyOXtcQen1X1Pogj3Pyom4LNGQaKlnBapR1tY9uxH/+tjnPkf/HvP
+	 bKrq3P0Mc8z/oAm3Heu7F4NUSscBVyzJ7EoBAqiH5520J4ixoSgYu0PiV5QpkqWsuLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792973555;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sxqycRChkNWLhbotzMIZyBsfJgDD9+fF2xdg2Mah+Z0=;
-	b=PTGhrJ/tTqI0YF35iJQrYkk3wPqd89AlZQawcT+YNfnKrz+gwkYtkIOZ8njTcIUKxrc5
-	 M9TbhTQHaTl7s3fhy205lNxnC/7OBtG9B+PbJj2sL0u1rFc1djr8r5usYf5pq9eEHS/De
-	 mo3nYpoxwMoy21kXbynRebUaP7NmGBClxHzFWxaD9mx0GmTTR5HJy1ayQGFv63s7tE7qi
-	 +jk9EYo3beR7jTj1rqWNWbHKuSND0HzZH7XsAvfrhiQxaH0oRcIk6ks/DNVLMkZstQEXK
-	 RT5EOCnOsvLXRo3eACYBGzzaxaKo+NxyKViBSzWfAQbrAIbpM+x9WO8FPTpU+ShTeng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792973736;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4miLNdmTCLRRbyZStSHRrLrP4dgFhOGAixFj2EYVbOs=;
+	b=lNF1tPBG7GpDDQfFPwcnyrajAL3HYdSw1f4l4SxHunLeKDYDT3Oqc7uVHx+f8VIdW46f
+	 xoNYsJIs18adMqiLuT9Aql42MVeAJ40t5px/8UvzOcDIO87scmnZ0knHOBGOoTa6B68Ic
+	 UyQR7cINnmL0uixKBH8rv0u27P/5jCh8PwamM+8BS+d+S0w3KTISrs2a9vl1EzCvvIJwu
+	 gk/86NkN06hezqjzJqyRWv06rYw2AlG5XRXBJBs7Haf3v5Re5SscmAOHwirlNpUK0bf+J
+	 eXnKTirHi6/SyTrbt3mXxbWrsyx5hlqpmdbPF6EQXNF5uN7Xyd75iadKpLaMDu4soZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aLcBM/+6";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TRQ/3KML";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA79606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2384606A31A;
+	Mon, 26 Oct 2026 00:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aLcBM/+6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559C11F01825;
-	Mon, 26 Oct 2026 00:12:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRQ/3KML
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AE31F01825;
+	Mon, 26 Oct 2026 00:15:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792973554;
-	bh=sxqycRChkNWLhbotzMIZyBsfJgDD9+fF2xdg2Mah+Z0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aLcBM/+63YzTJTpMvaDGTDAi7Mtuid5dQ+a5KNb553D6VITOCk+DlxsOfHkvXNyS+
-	 IPmXUKOTyKgHV+6l3O6217eoTVsvqCN/RLQ3wT3bV6hWsVOTHsg7TMjsTrMh5tiiSz
-	 NVDoeaDV8kIS8xI7LDk/yXwKR+uLLkHhKNVofkILdijOYvyY5n1r+mZOOEzSumAuMd
-	 g8f7guyqG188k4PzQArLY4SqMze3OJoRNxgsueUtDL6qoocpTLmjJqSaw1pQdUz9iO
-	 Me+Y0Tk36Aqnkr/vDuXV05oAtSv0T7hCEAwWZxXbxDHLogo4nxkVz1C9z6CPs7f8HC
-	 lT6gGSpi0zigA==
-Message-ID: <sashiko-outbox-184558@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
- introduce EC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026-dell-xps-9345-ec-v7-3-828ce301b839@vinarskis.com>
-References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
- <20261026-dell-xps-9345-ec-v7-3-828ce301b839@vinarskis.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 00:12:33 +0000
+	s=k20260515; t=1792973735;
+	bh=4miLNdmTCLRRbyZStSHRrLrP4dgFhOGAixFj2EYVbOs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TRQ/3KML6Rh1/J4tthZlYjCZgRp7rCtxofShMv0RG6GKs8eqlzK5eVD7cwoF5CZWs
+	 XR19KreUETCf7SPTyIbLnVt4eiTkG0fkTE0iT7xZ9TyiIZp5IWwKOuSTn2gHsS3F1u
+	 8HrdOCpnYQqZe2TQck57bO80GLCrAU2ecvusuQgZIedA9CO/guX5XeLrZkfrfoYfVS
+	 ukQa+I/vQEcSDCIwspBR5UEqREld0AwOJeNM56ZUKgaQdJX0k4UgWBQURQai49M9Vc
+	 ZHIJhoZR0We4cIVHd9ft2UY7n5eBrp6V7+VnhgItFNLrWWG8idg5d6MJGh18VZgadV
+	 4UJEUd3JcN8tg==
+Date: Mon, 26 Oct 2026 00:15:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v4 8/8] iio: imu: adis16607: Add calibration bias
+ support for gyro/accel
+Message-ID: <20261026001527.456f2472@jic23-hlaptop>
+In-Reply-To: <20261023-adis16607-v4-8-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-8-a4d541ebfd13@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,88 +65,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: level-low EC IRQ with stub dell_xps_ec_irq_handl=
-er()
---
+On Fri, 23 Oct 2026 12:30:25 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-commit bdc3996f914e2f3bd3df5f76f45237ab26fd449b
-Author: Aleksandrs Vinarskis <alex@vinarskis.com>
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add IIO_CHAN_INFO_CALIBBIAS support for the gyroscope and
+> accelerometer axes, backed by the device's per-axis bias registers
+> (XA/YA/ZA_BIAS, XG/YG/ZG_BIAS).
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+I'd missed the use of scan_index in here.  That seems like very
+fragile coding to me. Moving over to address is going to require
+changes a few patches back.
 
-arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-
-This commit enables i2c5 and adds the embedded controller node along with i=
-ts
-interrupt and thermal ADC channels for the Dell XPS 13 9345. It also adds
-labels for the known PMK8550 VADC thermal channels.
-
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
-/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-> index f48e6bc350063..3f0c17c845b3e 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-> @@ -759,8 +759,32 @@ retimer_ss0_con_sbu_out: endpoint {
-> =20
->  &i2c5 {
->  	clock-frequency =3D <100000>;
-> -	status =3D "disabled";
-> -	/* EC @0x3b */
-> +	status =3D "okay";
 > +
-> +	embedded-controller@3b {
-> +		compatible =3D "dell,xps13-9345-ec";
-> +		reg =3D <0x3b>;
+>  /*
+>   * SPI Half-Duplex read operation for ADIS16607.
+>   * Protocol:
+> @@ -863,6 +878,7 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
+>  			      int *val, int *val2, long info)
+>  {
+>  	struct adis16607 *st = iio_priv(indio_dev);
+> +	const int idx = chan->scan_index;
+
+As below. This to me is hurting readability a little.
+Using scan_index for this is a bit fragile anyway as those can
+be changed by people expecting them to only about buffered capture.
+This should be using address and that may well mean you need that
+to become a lookup into an array of multiple register addresses
+needed for a given channel rather than directly to one register as
+currently.
+
+
+>  	int ret;
+>  	u32 tmp;
+>  
+> @@ -900,6 +916,16 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
+>  		*val = 5000;
+>  		return IIO_VAL_INT;
+>  
+> +	case IIO_CHAN_INFO_CALIBBIAS: {
+> +		u16 tmp16;
 > +
-> +		interrupts-extended =3D <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
+> +		ret = adis_read_reg_16(&st->adis, adis16607_calib_bias[idx], &tmp16);
+> +		if (ret)
+> +			return ret;
+> +		*val = sign_extend32(tmp16, 15);
+> +		return IIO_VAL_INT;
+> +	}
+> +
+>  	case IIO_CHAN_INFO_SAMP_FREQ:
+>  		ret = adis16607_get_freq(st, &tmp);
+>  		if (ret)
+> @@ -918,6 +944,7 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+>  			       int val, int val2, long info)
+>  {
+>  	struct adis16607 *st = iio_priv(indio_dev);
+> +	const int idx = chan->scan_index;
 
-[Severity: High]
-Can configuring this interrupt as IRQ_TYPE_LEVEL_LOW cause an unrecoverable
-interrupt storm when the EC asserts gpio66 low (such as on lid close)?
+I'd just go long on the line that uses this or at least push declaring it
+down to the case statement that uses it.
 
-In drivers/platform/arm64/dell-xps-ec.c, dell_xps_ec_probe() requests and
-enables client->irq as a oneshot threaded interrupt:
+>  	u32 tmp;
+>  
+>  	switch (info) {
+> @@ -925,6 +952,11 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+>  		tmp = val * 1000 + val2 / 1000;
+>  		return adis16607_set_freq(st, tmp);
+>  
+> +	case IIO_CHAN_INFO_CALIBBIAS:
+> +		if (val < S16_MIN || val > S16_MAX)
+> +			return -EINVAL;
+> +		return adis_write_reg_16(&st->adis, adis16607_calib_bias[idx], val);
+> +
+>  	default:
+>  		return -EINVAL;
+>  	}
+> @@ -934,7 +966,8 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+>  	.type = (_type), \
+>  	.modified = 1, \
+>  	.channel2 = (_mod), \
+> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | \
+> +			      BIT(IIO_CHAN_INFO_CALIBBIAS), \
+>  	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
+>  	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+>  	.address = (_address), \
+> 
 
-drivers/platform/arm64/dell-xps-ec.c:dell_xps_ec_probe() {
-	...
-	/* Request IRQ for EC events */
-	ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
-					dell_xps_ec_irq_handler,
-					IRQF_ONESHOT, dev_name(dev), ec);
-	if (ret)
-		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-}
-
-However, dell_xps_ec_irq_handler() is currently a stub that logs a debug
-message and returns IRQ_HANDLED without performing an I2C read to acknowled=
-ge
-or clear the pending event on the EC:
-
-drivers/platform/arm64/dell-xps-ec.c:dell_xps_ec_irq_handler() {
-	struct dell_xps_ec *ec =3D data;
-
-	/*
-	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
-	 *       the thermistor thresholds and potentially fan speeds.
-	 */
-	dev_dbg(ec->dev, "IRQ triggered (irq=3D%d)\n", irq);
-
-	return IRQ_HANDLED;
-}
-
-Because the interrupt is level-triggered (IRQ_TYPE_LEVEL_LOW) with
-IRQF_ONESHOT, irq_finalize_oneshot() unmasks the line as soon as
-dell_xps_ec_irq_handler() returns. If the EC continues holding gpio66 low
-because the event was not cleared over I2C, the interrupt will immediately
-re-fire in a tight loop.
-
-In addition, because dell_xps_ec_irq_handler() returns IRQ_HANDLED rather
-than IRQ_NONE, note_interrupt() in kernel/irq/spurious.c never increments
-desc->irqs_unhandled, preventing the spurious IRQ detector from disabling t=
-he
-interrupt line.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-dell-xps-9=
-345-ec-v7-0-828ce301b839@vinarskis.com?part=3D3
