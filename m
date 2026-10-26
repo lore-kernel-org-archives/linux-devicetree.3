@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012684;
-	b=ax2c9O/Hhh5KhtM66s2NJkjRXdyMKqPbnaUPqCkPxHYZ4oqocjG0emPG9lj4PjHcSavB
-	 MRCjmzj5fWuwJnx5mb2wlQNIw8mBHA87HBVLZVlccpBsFAdV/zjY/raQ2rx6gKukvHbCj
-	 rfQK2utC8jtxBHStXadG/4Lsb0gN34sBIvBx6oEt5QXE7QAYFQdBPMhsKTWMtv+gR7xYQ
-	 8G86x2Kq60MnX1jFrxJVd7GY0Sotym/VL7CdA8nDTmYsUTtPSYAwqyTQR7s63to9Nuzud
-	 LlpQGQFwLLsb3JKe+O+XC/6yIKS3YuJpowBvAxnhKCKsnhE2i7eBXwctPVSoMIrx5bw==
+	t=1793012814;
+	b=fmcHvdhIf3c4aCOQFXCrJ8peZL1/ZTKX3vtTbsNfRct0sXJCq++uLiXhI5dll781RmYH
+	 P/IqM+o/QThpz6iOXtMudlT4Yf1b37LKg0ZQztbM+o9fOpQG2fO1A3+DvjkD8eQmgm7Oz
+	 uQ22yJ/gwkyJGO1nIrEkgYUMhlHvpG9looRulhowsVfjhF4BJ7qpce2c2TpNTfRKTSLE/
+	 PQmiBGlrXOnHeuZK94GZaNHl0QW/2O3pxw+j8vgTZNLOHBZ9/newD2TI5ey047utoM7Zm
+	 2YYCjMhNFbkNcYzRnhWREPtGQqB62+TY3rzjeA/mEM1hS1XyEsG+9OlZPdRS1ySlvYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012814;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yOytjuxm2VPI6ZmRWHuHj5ozVw7qYmrrwuWxtBI4JfM=;
-	b=UMpUNViRVLFqsCALHJ/ODIeksOuKkuEuh2+U5h59CeeNuQQdV3vYshpVmepL/PrXz+gp
-	 rrYDr2+2CFy96Z9JP2M5hArhQgNC1hEqDHoogqwv+emutTjTnALGkIqoOFTaNDe9JTylC
-	 oq8Rq36hBKmuzf3jpxyOO34KFyBX3hEimqQwlfhPoWbVjBo06U9ovs8zSydTSRMBrCJvL
-	 lhpAHWBdLJt9Eef4MSvypfxSDv9K+udGy9jrnIMczP1MmEW4CNsWFXJRt+Njy+B+7xJPq
-	 JS7nUfIt/DXh8ItkjMbAXJoxgW2xjOY2nlUdIQEldiVV2tJZ0SpAqxWXrrmSx/6auCQ==
+	bh=7z2x+Q8UI2EsV80StMUfLN/2jNDgPp5ls+S79xTPpCw=;
+	b=p39amI3TN3L+fRfXlaPKGwQUCWsCXeLW8rfDfvnkwOcfQ7Ap4INL/jBcCEecaeyXYn3W
+	 8g7Nk5wGDncJuvSMOWxvbtZ22SLnEF2j2l6k4ZqQ/RHRqIZt0V9c9kOkA0+WGdSPTvcf1
+	 ysF6et2DMxJiHLawmbybueLhuNUgb/M6twxxp6EFYIcMz88+70hSZga8B6aWE7BIdzOjO
+	 ctajjoWMLa33XdU1uORlvXfqTyinY3dYnEIpD9RWN2xtul4q446T9vNPkZQXSBHtGiaIB
+	 L1oUaHJuUUnFqBrOb5BCGmrMCDHPxfyJVyevXvfNiuE1Z77TDVHB7KFpK1U9QzDjImw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3C7zhPx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLBDepiz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F154C606A31B
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5758606A320
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3C7zhPx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5269F1F01825;
-	Mon, 26 Oct 2026 11:04:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLBDepiz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088911F01825;
+	Mon, 26 Oct 2026 11:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793012683;
-	bh=yOytjuxm2VPI6ZmRWHuHj5ozVw7qYmrrwuWxtBI4JfM=;
+	s=k20260515; t=1793012813;
+	bh=7z2x+Q8UI2EsV80StMUfLN/2jNDgPp5ls+S79xTPpCw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m3C7zhPx4sAHjJuPJYewlSEhXLWdg632eqAP4AZdMsLaWBXiqnCbznRAEpORFdSBE
-	 vdklt96trB5dDEuKaoOPTaYCMiDcoRNoE/8chg4+bluOw6IqRdEAvqXUO0is7mwBN4
-	 NaG6ytj26dvk8bsVy1KsL1mL0oeWYhQf5pIbfh8hEJpnWwqLZ5CERHjvIgv6I6k7TM
-	 f39KLPlePLsWYiJlrFkTbYlLujVJlnQgNfrZ0ErigrAN72F1p0h+s4P8yskljZeRw7
-	 WEkbEOqarBHIhScDMF7cEbImImi8i2NEaQfIUTnkB9dTpmMA1tqAUtYjjZfU9f5aSp
-	 3vERxR13yOX4g==
-Message-ID: <sashiko-outbox-185048@kernel.org>
+	b=HLBDepizHkiQE4PM7nlLNcosMUXSwMv2Lr73qrtVt4FLVvu+0U/PJwgATNNO1JLxs
+	 G8Y8AzZ2gsD712PfH2MZSef5v9jUXYLZv8ljvSVFvbjgqQOEI83P4GHz1j4yKKVuU3
+	 zBtfaLiiyAmTrmBKKXYgw/P8QnitpufW1I4WTybLQ3YYfQ9vkDiZDh4IV/moFPEoEY
+	 SyzbYc5TrAGb1Qduw9qDW4FY5UVmqPF9DNSLqIceV+0LayvZ03oTDmEUnnwkDe543q
+	 hv5PHKvCru0fg1UyBSB3xcdqNW6prsBaqySOoClNf6MRlUlnXoWHVd/M6TguWDf6y/
+	 +LJ8jnMZeGwtw==
+Message-ID: <sashiko-outbox-185054@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO
- properties
+Subject: Re: [PATCH 4/9] arm64: dts: airoha: en7581: add thermal sensor
+ nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Szyprowski" <m.szyprowski@samsung.com>, devicetree@vger.kernel.org
+To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026102658.968138-1-m.szyprowski@samsung.com>
-References: <CGME20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0@eucas1p1.samsung.com>
- <20261026102658.968138-1-m.szyprowski@samsung.com>
+In-Reply-To: <20261026095727.31708-5-ansuelsmth@gmail.com>
+References: <20261026095727.31708-1-ansuelsmth@gmail.com>
+ <20261026095727.31708-5-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 11:04:42 +0000
+Date: Mon, 26 Oct 2026 11:06:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,111 +61,195 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: exynos: undocumented wlf,reset-gpios and wlf,ldoena-=
-gpios in tm2
+- [High] arm64: dts: airoha: en7581: cpu-hot trip type prevents passive CPU=
+ throttling
+- [Medium] arm64: dts: airoha: en7581: thermal-sensors cell count mismatch =
+in cpu-thermal
+- [Medium] arm64: dts: airoha: en7581: thermal-sensor reg size smaller than=
+ driver offsets
 --
 
-commit d7eced1233f0545ac05280c98b1abea17e17ed8c
-Author: Marek Szyprowski <m.szyprowski@samsung.com>
+commit 32580fdfac9a302b9b8e002dc32934288d0d3428
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
+arm64: dts: airoha: en7581: add thermal sensor nodes
 
-This commit renames the wlf,reset and wlf,ldoena properties in the wm5110
-audio-codec node of exynos5433-tm2-common.dtsi to wlf,reset-gpios and
-wlf,ldoena-gpios.
+This commit adds the thermal-sensor node and cpu-thermal zone to the Airoha
+EN7581 device tree and links the CPUs as cooling devices.
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi b/arch=
-/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-> index 0ad02a098765d..44e03e38c2c43 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-> @@ -1346,8 +1346,8 @@ wm5110: audio-codec@0 {
->  		wlf,gpsw =3D <0x1>;
->  		wlf,inmode =3D <2 0 2 0>;
+> diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts=
+/airoha/en7581.dtsi
+> index fbc5ee47523ca..58bd8b318910e 100644
+> --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
+> +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
+
+[ ... ]
+
+> @@ -293,6 +298,39 @@ timer {
+>  			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+>  	};
 > =20
-> -		wlf,reset =3D <&gpc0 7 GPIO_ACTIVE_HIGH>;
-> -		wlf,ldoena =3D <&gpf0 0 GPIO_ACTIVE_HIGH>;
-> +		wlf,reset-gpios =3D <&gpc0 7 GPIO_ACTIVE_HIGH>;
-> +		wlf,ldoena-gpios =3D <&gpf0 0 GPIO_ACTIVE_HIGH>;
+> +	thermal-zones {
+> +		cpu_thermal: cpu-thermal {
+> +			polling-delay-passive =3D <0>;
+> +			polling-delay =3D <0>;
+> +
+> +			thermal-sensors =3D <&thermal 0>;
 
 [Severity: Medium]
-Does renaming these properties to wlf,reset-gpios and wlf,ldoena-gpios cause
-a dtbs_check schema validation regression for exynos5433-tm2.dtb and
-exynos5433-tm2e.dtb?
+Should thermal-sensors in cpu_thermal be <&thermal> without the trailing 0
+cell?
 
-The wm5110 node (compatible =3D "wlf,wm5110") is validated against
-Documentation/devicetree/bindings/mfd/wlf,arizona.yaml, which references
-Documentation/devicetree/bindings/regulator/wlf,arizona.yaml and sets
-unevaluatedProperties: false.
+Below, the thermal node declares #thermal-sensor-cells =3D <0>, matching
+Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml:
 
-In Documentation/devicetree/bindings/mfd/wlf,arizona.yaml, the standard
-reset property is reset-gpios (without the vendor prefix), while wlf,reset
-is marked deprecated:
+  '#thermal-sensor-cells':
+    const: 0
 
-  reset-gpios:
-    maxItems: 1
+When of_thermal_zone_find() in drivers/thermal/thermal_of.c parses
+thermal-sensors =3D <&thermal 0> with #thermal-sensor-cells =3D <0>,
+of_count_phandle_with_args() consumes 0 argument cells for &thermal and
+treats the trailing 0 as a second phandle entry, returning count =3D 2:
 
-  wlf,reset:
-    description:
-      GPIO specifier for the GPIO controlling RESET
-    deprecated: true
-    $ref: /schemas/types.yaml#/definitions/phandle-array
-    maxItems: 1
+	count =3D of_count_phandle_with_args(child, "thermal-sensors",
+					   "#thermal-sensor-cells");
+	if (count <=3D 0) {
+		pr_err("%pOFP: missing thermal sensor\n", child);
+		return ERR_PTR(-EINVAL);
+	}
 
-Similarly, Documentation/devicetree/bindings/regulator/wlf,arizona.yaml only
-defines wlf,ldoena:
+	for (i =3D 0; i < count; i++) {
 
-  wlf,ldoena:
-    description:
-      GPIO specifier for the GPIO controlling LDOENA.
-    $ref: /schemas/types.yaml#/definitions/phandle-array
-    maxItems: 1
+		int ret;
 
-Neither schema defines wlf,reset-gpios or wlf,ldoena-gpios. In
-drivers/mfd/arizona-core.c, arizona_dev_init() requests "reset" for the
-standard reset-gpios binding:
+		ret =3D of_parse_phandle_with_args(child, "thermal-sensors",
+						 "#thermal-sensor-cells",
+						 i, &sensor_specs);
 
-	if (!arizona->pdata.reset) {
-		/* Start out with /RESET low to put the chip into reset */
-		arizona->pdata.reset =3D devm_gpiod_get(arizona->dev, "reset",
-						      GPIOD_OUT_LOW);
+This fails dtbs_check against thermal-zones.yaml (where thermal-sensors has
+maxItems: 1) as well as dtc's thermal_sensors_property check, and causes
+of_parse_phandle_with_args() at index 1 to return -ENOENT if
+of_thermal_zone_find() iterates past index 0.
 
-while arizona_of_get_core_pdata() only requests "wlf,reset" as a fallback f=
-or
-the old non-standard wlf,reset property via of_find_gpio_rename() in
-drivers/gpio/gpiolib-of.c.
+> +
+> +			trips {
+> +				cpu_hot: cpu-hot {
+> +					temperature =3D <95000>;
+> +					hysteresis =3D <1000>;
+> +					type =3D "hot";
+> +				};
+> +
+> +				cpu-critical {
+> +					temperature =3D <120000>;
+> +					hysteresis =3D <1000>;
+> +					type =3D "critical";
+> +				};
+> +			};
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu_hot>;
+> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
 
-Also, can the Kconfig mismatch described in the commit message actually
-occur? In drivers/gpio/gpiolib-of.c, of_find_gpio_rename() guards the
-"wlf,reset" and "wlf,ldoena" rename entries with:
+[Severity: High]
+With cpu_hot configured as type =3D "hot" and polling-delay-passive =3D <0>=
+, can
+passive CPU frequency throttling ever activate at 95 C?
 
-#if IS_ENABLED(CONFIG_MFD_ARIZONA)
-		{ "wlf,reset",	NULL,		NULL },
-#endif
+In drivers/thermal/thermal_core.c, thermal_trip_crossed() handles
+THERMAL_TRIP_HOT via handle_critical_trips() (which only calls tz->ops.hot()
+if implemented, whereas en7581_thdev_ops in drivers/thermal/airoha_thermal.c
+does not define .hot) without incrementing tz->passive, and
+thermal_governor_trip_crossed() returns early:
 
-and:
+	if (trip->type =3D=3D THERMAL_TRIP_HOT || trip->type =3D=3D THERMAL_TRIP_C=
+RITICAL)
+		return;
 
-#if IS_ENABLED(CONFIG_REGULATOR_ARIZONA_LDO1)
-		{ "wlf,ldoena",	NULL,		NULL },
-#endif
+All in-kernel thermal governors also skip THERMAL_TRIP_HOT trips, such as
+step_wise_manage() in drivers/thermal/gov_step_wise.c:
 
-The consumers in drivers/mfd/arizona-core.c and
-drivers/regulator/arizona-ldo1.c are built under the exact same Kconfig
-options in drivers/mfd/Makefile and drivers/regulator/Makefile:
+		if (trip->temperature =3D=3D THERMAL_TEMP_INVALID ||
+		    trip->type =3D=3D THERMAL_TRIP_CRITICAL ||
+		    trip->type =3D=3D THERMAL_TRIP_HOT)
+			continue;
 
-obj-$(CONFIG_MFD_ARIZONA)	+=3D arizona.o
-obj-$(CONFIG_REGULATOR_ARIZONA_LDO1) +=3D arizona-ldo1.o
+As a result, the cooling devices (&cpu0 through &cpu3) mapped to &cpu_hot in
+map0 are never throttled when the sensor crosses 95000 mC.
 
-When CONFIG_MFD_ARIZONA or CONFIG_REGULATOR_ARIZONA_LDO1 is disabled, the
-corresponding driver is not built at all, and when enabled (either built-in
-or as a module), IS_ENABLED() evaluates to true in gpiolib-of.c.
+In addition, even if cpu_hot is changed to type =3D "passive", setting
+polling-delay-passive =3D <0> leaves tz->passive_delay_jiffies at 0 in
+monitor_thermal_zone() in drivers/thermal/thermal_core.c:
 
-Should wlf,reset instead be replaced with the documented reset-gpios proper=
-ty
- while keeping wlf,ldoena matching the binding schema?
+static void monitor_thermal_zone(struct thermal_zone_device *tz)
+{
+	if (tz->passive > 0 && tz->passive_delay_jiffies)
+		thermal_zone_device_set_polling(tz, tz->passive_delay_jiffies);
+	else if (tz->polling_delay_jiffies)
+		thermal_zone_device_set_polling(tz, tz->polling_delay_jiffies);
+}
+
+Once the 95000 mC trip is crossed, en7581_thermal_set_trips() in
+drivers/thermal/airoha_thermal.c sets the hardware interrupt thresholds to
+low =3D 93999 mC and high =3D 120000 mC, so no further interrupts fire betw=
+een
+95 C and 120 C; without a non-zero polling-delay-passive, an incremental
+governor like step_wise will only step down by a single OPP upon crossing
+95 C and will not throttle further as temperature rises toward 120 C.
+
+Should cpu_hot use type =3D "passive" along with a non-zero
+polling-delay-passive?
+
+> +		};
+> +	};
+> +
+>  	clk20m: clock-20000000 {
+>  		compatible =3D "fixed-clock";
+>  		#clock-cells =3D <0>;
+> @@ -319,6 +357,15 @@ gic: interrupt-controller@9000000 {
+>  			interrupts =3D <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
+>  		};
+> =20
+> +		thermal: thermal-sensor@1efbd000 {
+> +			compatible =3D "airoha,en7581-thermal";
+> +			reg =3D <0x0 0x1efbd000 0x0 0xd5c>;
+
+[Severity: Medium]
+Is the reg size of 0xd5c large enough for all registers accessed by the
+airoha_thermal driver?
+
+In drivers/thermal/airoha_thermal.c, the driver defines calibration
+registers up to offset 0xf28:
+
+#define EN7581_EFUSE_TEMP_OFFSET_REG		0xf20 /* PTPSPARE0 */
+#define   EN7581_EFUSE_TEMP_OFFSET		GENMASK(31, 16)
+#define EN7581_PTPSPARE1			0xf24 /* PTPSPARE1 */
+#define EN7581_EFUSE_TEMP_CPU_SENSOR_REG	0xf28 /* PTPSPARE2 */
+
+During probe, en7581_thermal_probe() maps resource 0 via
+devm_platform_ioremap_resource(pdev, 0) and calls
+en7581_thermal_setup_adc_val(), which reads offsets 0xf20 and 0xf28 from
+priv->map:
+
+	regmap_read(priv->map, EN7581_EFUSE_TEMP_OFFSET_REG, &efuse_calib_info);
+	if (efuse_calib_info) {
+		priv->default_offset =3D FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse_calib_=
+info);
+		/* Different slope are applied if the sensor is used for CPU or for packa=
+ge */
+		regmap_read(priv->map, EN7581_EFUSE_TEMP_CPU_SENSOR_REG, &cpu_sensor);
+
+Since 0xf28..0xf2b lies beyond the declared 0xd5c region size, should reg
+have a size of at least 0xf2c (as in the binding example in
+Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026102658.9681=
-38-1-m.szyprowski@samsung.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026095727.3170=
+8-1-ansuelsmth@gmail.com?part=3D4
