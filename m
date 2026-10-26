@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792980977;
-	b=3g0VLWQNN6xvwyK1RsJQ57suqCQ14YzRq+kPHcgoUM0j/JYRx6datl94GrQop/XHSeui
-	 PxapqDmWVT2b0fIRALAcudkti4CNb/ycVYrRpqTvGqYSTZDMV2IxsDhkh+m9PKCcQKJs7
-	 ZdpQQlP+QIgkmM1CJY+kjN8gijOnBCgOvlIvQ1DYEayjw++/3Id2tb7t/nHrq5CX2N/He
-	 G5rzAXxZCz/vFterzRA5HAWQSUwuVznGS+P6SL3dh945K1c/hTbJUyem08CZapLVgFasd
-	 eHMMj35G6Y58jT14kpAmmiXuAdWXjzsuo75Eqv1LOZ90t/oo6LnjNs4mgLO2crZqfpQ==
+	t=1792981063;
+	b=wZFX70ENGe5IWPY10EJRAnyTeRnqaDLo1Q2c0toOyiLC2NQSbtKiU8MusO6riUmo2SzT
+	 1xHhZkQ/i4nMuXIEND3UYb3Hn8IeAbWbCyBZXRp7JsHPQG/1XTPC2RQhCZis3ZUIhqelO
+	 rs6jPUpt/Y1sLAGJWVImxSv8t0bycxfXB+x3djF8rmwGxyZAJkvKJaJRqPZMgnanZwJAp
+	 Q/dcXcbpJqbTr8OJOfdhakImzwoVvadQnXxvktwkuMPFMgSc40CLhHvcDhzmEIQi/0kpD
+	 Y1kLlwODbd3hGrCj7TIn2lEK7gi84OJj6KBdVc45Q34zhXS4eSXYu6PR5zJDF2sBVzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792980977;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=BkPz9xb8Q75g14OAt/OIFr5xinXkw2AsPNq+wkH3Hg0=;
-	b=fjemKuZG8dLEXmlsL1CvjUFboBeCZzMudub/FulG8Hg2IbZuOZ926GdfPN9vCUujHZ/3
-	 XPnqZR2YagWXsdB6+c9zwEdWIojrD14sag/phfEJ+9NiS7uLwACEGsdc9D0x8DMJQWYs0
-	 pyjChZihi0D9ipkHLD5MbqcxMBfQCLYvNNWYfWh0PiOdysACOC5/vDb0cLvtpFiLhQorS
-	 KgWxmCY9BYGnVNifxZcGDmWyeA6QIt6jjOhSvKoT5YPiyK+QulCanyUMYs36kfICAfN8q
-	 MvNIzo1aiSoNlcVeGQI3WiGk8yzDta7fdfTlzy8hDruwiRjNyjV9iuv8cxqxzc58Wvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792981063;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sj5VDmHeARycPVKAa2+uY840rbMDIPKBRKKT53IOukY=;
+	b=cmVSptSow/RtsB7D8B5hF4A5C7hz0bSLtWRCI3Llpsw0kKKU4G4aWXBrmO4D9xEO4Xxo
+	 PvU8WMEdQ4mOmSJgKZjbgy+Wepf+LaoERoobeMTBT8HNBtr9txkwKhVnSeoiRM+c4lMSq
+	 c9YXMmeUVs4n0xSdLeplkUVX59cxpMp3VvAfSzVP2lmeZgpcWBV+HvX4aiyLPWhymZUwb
+	 Cu+rqClX/a6gprPSvLtVlmNzoqvRz5rYKaZ/fNLziqq+amg57o/JTEy+QwC2HsLAyUBnZ
+	 y1gEWVLYRw3lJ0HwOTD1AxaVv08zJHklykw3qgA4edfq2rQVPcxckRyB6W5/+JZF5xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=pEC4r4tO;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkXApCO7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A1C606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A1C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D4A606A31A;
+	Mon, 26 Oct 2026 02:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=pEC4r4tO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792980971; bh=BkPz9xb8Q75g14OAt/OIFr5xinXkw2AsPNq+wkH3Hg0=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=pEC4r4tOA//D8o11twP/g/oLpzNIIeWGVVZbvwZ2W3CPe6hboP8NF4p5WhBS6ly/U
-	 YU9FWqJOomE6oJIWxx8BdGCju9XYsicfYoAomqZxh4Gg0rfzAFv8oOS9JtmwrKU6oP
-	 SGMXyLN06fdZmsXnvsjoS0MOMW6bEVi2xSSWPtaA=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-XMAILINFO: Nc5/rdswZ3xKtkFXBg/w+tTYaqoW3muN/KBx/2VjdMJXXRgezlnyGZjTBnikIy
-	 kQGOY6uyv+DDMqewotw2ng6wylWoOg45BnGTAoUi+apEnUdcVdhN7Oe0/pNcr5Mv7FnjWZf4Beryb
-	 dxXy9st8UxKMpU+LY4W0Fzm5XSi6Hk/9IdBha5O3Eb9QDfQVWOJ9PPln43Gp7m0VqGjQi8KiD1YeV
-	 8YiW9X20PPaMDcvXndGGxSMyJ4i3paUoX1f4zPhQrFMsrHv4Sh74oQVCUpN2dHfE5vQGDLyeaTuev
-	 P/oHARzaQrAAR2JlIqgaXvGKidhcxvGrcSOIi6GzvgL08hISwx5HnKZUR6wdD6P51letQfGcJqezb
-	 /6hPOd0clz24sEITmLgBl+AXeJvlgpccqg4aKHYRiqSidlmLbQKl/jL7qZg3nWvChh5TRKVyVYYSm
-	 CJceflNK8JDe6QL5Xf86WZpLbZ1oOzMeV9FRNhl/ZR6o5Rbh2hN+ULbcCLg2u9bakFSMR6PXpz04R
-	 kpKC5IpmWG/VV3Ruz0fNyOTTTVdMYNxfAXLOaOv1qa7PqMQb3qKWdGthCWtQZBukjDR5hYr6eZIQW
-	 YwtHvotTzYCMh2vcFyvMyWas/XZgTaC3XqTEXksi8cxe6xGbzrkCRsZyNPVGi+9agm+cd6qZQvpWY
-	 7lbINsi06J4Pzi73Zrfsyhoxsp1xal53nppwxgaZv+6TN8HeLkrwHFezAqh6oBIVSV6jrfWhwdC/Y
-	 GJc6SGh7PCVeYVyNRT2c+BlxlIQEeK6mWIwOSOG59wEnEQfBhI4qKg8vbVODtxIpMF4+sFQVqIlOR
-	 K/HaDxH73NpNbaOxa68/fFjEnmSrG7ItJwvVMMiaZh8de5EhEmRvgQfeLTifVeBk86Pt/bpi36SPJ
-	 P8ooFp3k3IM9dVp5+H3m3kVUvnOk05BNLXDx778N9R4DIy3GsMPNpFGxmXL3Ztgcdv1kNRnyPl7lJ
-	 OSVSLf4hC4BJygo9PKSzjZt/pZzjKxXHivoaWQ4FC3r4k8+2tcOgj7p518CoYj7QMX18MQQ6C3kB0
-	 T61ZE
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?c2FzaGlrby1yZXZpZXdz?=" <sashiko-reviews@lists.linux.dev>
-Cc: "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?cm9iaA==?=" <robh@kernel.org>, "=?utf-8?B?Y29ub3IrZHQ=?=" <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 2/2] pmdomain: rockchip: Add RK3572 boot peripheral domains
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkXApCO7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93711F01825;
+	Mon, 26 Oct 2026 02:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792981062;
+	bh=sj5VDmHeARycPVKAa2+uY840rbMDIPKBRKKT53IOukY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mkXApCO7UnufkYIsKM9EOU5PzB4B7eU5b1cdoS1PiQxXHWHQ0Fxp7zP2Qr689ioVk
+	 RjlbNEhJHnACGURYWbjDjIK6aH1VPyY1s7iiy4AzwpJlQS4hTk3QbG/0LwzwneW3qX
+	 n/u35mPzMNAy/ReY193Ub0GVDG1kJBkeMgnJXfmAQdtfVmdyVts53P4EXnv5nni6G6
+	 1l6f9dEgO819DUR6hlYOV9dLP1viOUAh59oGzNJWYk+ngagxUASCz5jl51gZAPk0xi
+	 5RYesp8Xx9+aqOKdkhpVZn3tfViGZie6ns/J5IFUa/+lVT9XpuYctRguVhKWn4TX6e
+	 sGx+seDqa65lA==
+Date: Mon, 26 Oct 2026 02:17:32 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jonathan Santos <Jonathan.Santos@analog.com>
+Cc: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux@analog.com>, <broonie@kernel.org>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <Michael.Hennerich@analog.com>, <nuno.sa@analog.com>,
+ <dlechner@baylibre.com>, <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v4 6/9] spi: introduce SPI ancillary device with lanes
+Message-ID: <20261026021732.31e510da@jic23-hlaptop>
+In-Reply-To: <21fb26ff0337f493643167f8c9dfae92d1b3b9a7.1792435248.git.Jonathan.Santos@analog.com>
+References: <cover.1792435248.git.Jonathan.Santos@analog.com>
+	<21fb26ff0337f493643167f8c9dfae92d1b3b9a7.1792435248.git.Jonathan.Santos@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,73 +63,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 26 Oct 2026 10:16:09 +0800
-X-Priority: 3
-Message-ID: <tencent_E5D3E8C95427388C2C077C213AF8D137810A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261023-add-board-ok3572-c-pmdomain-v2-0-79ddd42e92c1@qq.com>
- <20261023-add-board-ok3572-c-pmdomain-v2-2-79ddd42e92c1@qq.com>
-	<sashiko-outbox-182875@kernel.org>
-In-Reply-To: <sashiko-outbox-182875@kernel.org>
-X-QQ-mid: xmsezb41-0t1792980969t291znzck
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-SGksCgo+IFtIaWdoXSBwbWRvbWFpbjogcm9ja2NoaXA6IG1pc3Npbmcgc3RhdGUgdXBkYXRl
-IG9uIHNodXRkb3duIGluCj4gcm9ja2NoaXBfcGRfcG93ZXIoKQoKQ29uZmlybWVkLiBBIGZh
-aWxlZCBzaHV0ZG93biBkb2VzIG5vdCByZWNvcmQgaXRzIHByb2dyZXNzLCBzbyByZXRyaWVz
-IGNhbgpvdmVyd3JpdGUgdGhlIHNhdmVkIFFvUywgbGVhdmUgdGhlIE5JVSBpbiBpZGxlLCBv
-ciBza2lwIHRoZSBmaXJtd2FyZQpub3RpZmljYXRpb24uCgo+IFtIaWdoXSBwbWRvbWFpbjog
-cm9ja2NoaXA6IGJyb2tlbiBzdGF0ZSByb2xsYmFjayBpbiByb2NrY2hpcF9wZF9wb3dlcigp
-Cj4gLi4uCjEuwqBJZsKgcm9ja2NoaXBfcG11X2RvbWFpbl9tZW1fcmVzZXQocGQpwqBmYWls
-c8KgYWZ0ZXLCoHdyaXRpbmfCoG1lbV9wd3Jfb2Zmc2V0wqB0bwrCoMKgwqBnYXRlwqBtZW1v
-cnnCoG9mZizCoG1lbV9wd3Jfb2Zmc2V0wqBjb250aW51ZXPCoHRvwqBmb3JjZcKgbWVtb3J5
-wqBvZmYuwqBJZgrCoMKgwqByb2NrY2hpcF9wZF9wb3dlcihwZCzCoGZhbHNlKcKgaXPCoHRo
-ZW7CoGNhbGxlZCzCoGl0wqBkb2VzwqBub3TCoGNsZWFyCsKgwqDCoG1lbV9wd3Jfb2Zmc2V0
-LMKgeWV0wqB1bmNvbmRpdGlvbmFsbHnCoHJlc2V0c8KgcGQtPnBvd2VyX29uX3N0YXRlwqB0
-bwrCoMKgwqBST0NLQ0hJUF9QRF9PTl9JRExFwqBhbmTCoHBkLT5tZW1fcmVzZXRfcGVuZGlu
-Z8KgdG/CoGZhbHNlLsKgT27CoHRoZcKgbmV4dArCoMKgwqByb2NrY2hpcF9wZF9wb3dlcihw
-ZCzCoHRydWUpLMKgcm9ja2NoaXBfcG11X2RvbWFpbl9pc19tZW1fb24ocGQpwqByZWFkc8Kg
-ZmFsc2UsCsKgwqDCoHNvwqBwZC0+bWVtX3Jlc2V0X3BlbmRpbmfCoGlzwqBjb21wdXRlZMKg
-YXPCoGZhbHNlLMKgcm9ja2NoaXBfcG11X2RvbWFpbl9tZW1fcmVzZXQocGQpCsKgwqDCoGlz
-wqBza2lwcGVkLMKgYW5kwqBtZW1fcHdyX29mZnNldMKgaXPCoG5ldmVywqBjbGVhcmVkLMKg
-bGVhdmluZ8KgdGhlwqBkb21haW7CoG1lbW9yeQrCoMKgwqBwZXJtYW5lbnRsecKgZ2F0ZWTC
-oG9mZi4KCjIuwqBJZsKgcm9ja2NoaXBfZG9fcG11X3NldF9wb3dlcl9kb21haW4ocGQswqB0
-cnVlKcKgd3JvdGXCoHB3cl9vZmZzZXTCoHRvwqBwb3dlcsKgb24KwqDCoMKgdGhlwqBkb21h
-aW7CoGFuZMKgdGltZWTCoG91dMKgd2hpbGXCoHJvY2tjaGlwX3BtdV9kb21haW5faXNfb24o
-cGQpwqB3YXPCoHN0aWxsCsKgwqDCoGZhbHNlLMKgYcKgc3Vic2VxdWVudMKgcm9ja2NoaXBf
-cGRfcG93ZXIocGQswqBmYWxzZSnCoHNlZXPCoGlzX29uwqA9PcKgZmFsc2XCoGFuZArCoMKg
-wqBza2lwc8Kgcm9ja2NoaXBfZG9fcG11X3NldF9wb3dlcl9kb21haW4ocGQswqBmYWxzZSks
-wqBsZWF2aW5nwqB0aGXCoHBvd2VyLW9uCsKgwqDCoHdyaXRlwqBhY3RpdmXCoGluwqBwd3Jf
-b2Zmc2V0wqB3aGlsZcKgcmVzZXR0aW5nwqBwZC0+cG93ZXJfb25fc3RhdGXCoHRvCsKgwqDC
-oFJPQ0tDSElQX1BEX09OX0lETEUuwqBXaGVuwqB0aGXCoGhhcmR3YXJlwqB0cmFuc2l0aW9u
-wqBmaW5pc2hlc8KgYW5kwqBpc19vbgrCoMKgwqBiZWNvbWVzwqB0cnVlLMKgdGhlwqBuZXh0
-wqByb2NrY2hpcF9wZF9wb3dlcihwZCzCoHRydWUpwqByZXR1cm5zwqAwwqBlYXJsecKgd2l0
-aG91dArCoMKgwqB1bi1pZGxpbmfCoHRoZcKgTklVwqBidXMswqB3YWl0aW5nwqBmb3LCoHRo
-ZcKgZmlyZXdhbGwswqBvcsKgcmVzdG9yaW5nwqBRb1MuCgozLsKgQ29udmVyc2VseSzCoGlm
-wqB0aGXCoGRvbWFpbsKgYW5kwqBpdHPCoG1lbW9yecKgd2VyZcKgaW5pdGlhbGx5wqBvZmbC
-oChpc19tZW1fb27CoD09CsKgwqDCoGZhbHNlKcKgd2hlbsKgcm9ja2NoaXBfcGRfcG93ZXIo
-cGQswqB0cnVlKcKgZmlyc3TCoHJhbizCoHBkLT5tZW1fcmVzZXRfcGVuZGluZ8KgaXMKwqDC
-oMKgc2V0wqB0b8KgZmFsc2XCoGFuZMKgcGQtPnBvd2VyX29uX3N0YXRlwqBpc8Kgc2V0wqB0
-b8KgUk9DS0NISVBfUERfT05fSFcuwqBBZnRlcgrCoMKgwqByb2NrY2hpcF9kb19wbXVfc2V0
-X3Bvd2VyX2RvbWFpbihwZCzCoHRydWUpwqB3cml0ZXPCoHB3cl9vZmZzZXQswqBtZW1vcnnC
-oHBvd2VycwrCoMKgwqBvbsKgKHNvwqBpc19tZW1fb27CoGJlY29tZXPCoHRydWUpLMKgYW5k
-wqBpZsKgcG9sbGluZ8Kgcm9ja2NoaXBfcG11X2RvbWFpbl9pc19vbihwZCkKwqDCoMKgdGlt
-ZXPCoG91dCzCoGHCoGRpcmVjdMKgcmV0cnnCoG9mwqByb2NrY2hpcF9wZF9wb3dlcihwZCzC
-oHRydWUpwqBlbnRlcnPCoHdpdGgKwqDCoMKgcGQtPnBvd2VyX29uX3N0YXRlwqA9PcKgUk9D
-S0NISVBfUERfT05fSFcswqBza2lwc8KgcmUtZXZhbHVhdGluZwrCoMKgwqByb2NrY2hpcF9w
-bXVfZG9tYWluX2lzX21lbV9vbihwZCkswqBhbmTCoGNhbGxzCsKgwqDCoHJvY2tjaGlwX2Rv
-X3BtdV9zZXRfcG93ZXJfZG9tYWluKHBkLMKgdHJ1ZSnCoHdoaWxlwqBtZW1vcnnCoGlzwqBv
-bsKgd2l0aG91dArCoMKgwqBwZXJmb3JtaW5nwqB0aGXCoG1lbW9yecKgcmVzZXQuCgoKSXRl
-bXMgMSBhbmQgMiBhcmUgY29uZmlybWVkLiBTaHV0ZG93biBjYW4gbG9zZSBhIHBlbmRpbmcg
-bWVtb3J5IHJlc2V0IG9yCmxlYXZlIGFuIHVuZmluaXNoZWQgcG93ZXItb24gcmVxdWVzdCBh
-Y3RpdmUuIEl0ZW0gMyByZW1haW5zIHVuY29uZmlybWVkOgptZW1vcnkgYmVjb21pbmcgb24g
-ZHVyaW5nIHRoZSBzYW1lIHRyYW5zYWN0aW9uIGRvZXMgbm90IGJ5IGl0c2VsZiBtZWFuCnRo
-YXQgYW5vdGhlciByZXNldCBpcyBuZWVkZWQuCgpJIHdpbGwgZml4IHRoZSBjb25maXJtZWQg
-aXNzdWVzIGluIHRoZSBuZXh0IHZlcnNpb24uCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbwoKcHct
-Ym90OiBjcg==
+On Tue, 20 Oct 2026 22:58:01 -0300
+Jonathan Santos <Jonathan.Santos@analog.com> wrote:
+
+> The existing spi_new_ancillary_device() creates an ancillary SPI device
+> but does not consider the parent's lane map. In multi-device setups where
+> each sub-device's chip-select is bound to a dedicated data lane, there is
+> no way to bind an ancillary device to an arbitrary lane index.
+> 
+> Introduce spi_new_ancillary_device_with_lane() and
+> devm_spi_new_ancillary_device_with_lane(), which accept rx_lane_idx and
+> tx_lane_idx parameters to select a specific lane from the parent's
+> rx_lane_map and tx_lane_map respectively. The resulting ancillary device
+> is registered with a single RX and TX lane, keeping it independent from
+> the other sub-devices sharing the same controller.
+
+The multiple-data-lanes.rst doc doesn't me make it clear if for the 
+lanes are all one wide, or if it is fine to have 2 lanes each
+of width 4.  Either way I'd expect more parameters to be needed.
+The AD7786 has diagrams of two devices, bus width 2 for each.
+
+> 
+> While at it, fix the spi_new_ancillary_device() documentation, which
+> claimed it returns 0 on success instead of a pointer.
+> 
+> Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
+> ---
+> Changes in v4:
+> * Don't use extern for the new declarations of the ancillary functions from
+>   spi.h.
+> 
+> Changes in v3:
+> * Refactored code using helper function to reduce duplicated code.
+> 
+> Changes in v2:
+> * New patch.
+> ---
+>  drivers/spi/spi.c       | 116 +++++++++++++++++++++++++++++++++++-----
+>  include/linux/spi/spi.h |   8 +++
+>  2 files changed, 110 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index 53d6ab4ce8a3..30103bffad33 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -2918,20 +2918,12 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
+>  static void of_register_spi_devices(struct spi_controller *ctlr) { }
+>  #endif
+>  
+> -/**
+> - * spi_new_ancillary_device() - Register ancillary SPI device
+> - * @spi:         Pointer to the main SPI device registering the ancillary device
+> - * @chip_select: Chip Select of the ancillary device
+> - *
+> - * Register an ancillary SPI device; for example some chips have a chip-select
+> - * for normal device usage and another one for setup/firmware upload.
+> - *
+> - * This may only be called from main SPI device's probe routine.
+> - *
+> - * Return: 0 on success; negative errno on failure
+> - */
+> -struct spi_device *spi_new_ancillary_device(struct spi_device *spi,
+> -					     u8 chip_select)
+> +#define SPI_UNDEFINED_LANE	-1
+> +
+> +static struct spi_device *__spi_new_ancillary_device(struct spi_device *spi,
+> +						     u8 chip_select,
+> +						     int rx_lane_idx,
+> +						     int tx_lane_idx)
+>  {
+>  	struct spi_controller *ctlr = spi->controller;
+>  	struct spi_device *ancillary;
+> @@ -2958,6 +2950,21 @@ struct spi_device *spi_new_ancillary_device(struct spi_device *spi,
+>  	 */
+>  	ancillary->cs_index_mask = BIT(0);
+>  
+> +	if (rx_lane_idx >= spi->num_rx_lanes || tx_lane_idx >= spi->num_tx_lanes) {
+> +		rc = -EINVAL;
+> +		goto err_out;
+> +	}
+> +
+> +	if (rx_lane_idx != SPI_UNDEFINED_LANE) {
+> +		ancillary->rx_lane_map[0] = spi->rx_lane_map[rx_lane_idx];
+> +		ancillary->num_rx_lanes = 1;
+> +	}
+> +
+> +	if (tx_lane_idx != SPI_UNDEFINED_LANE) {
+> +		ancillary->tx_lane_map[0] = spi->tx_lane_map[tx_lane_idx];
+> +		ancillary->num_tx_lanes = 1;
+> +	}
+> +
+>  	WARN_ON(!mutex_is_locked(&ctlr->add_lock));
+>  
+>  	/* Register the new device, passing the parent to skip CS conflict check */
 
