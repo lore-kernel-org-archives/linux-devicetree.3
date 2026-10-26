@@ -1,144 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009264;
-	b=CFZYjj1c6RtxjxM7VChDedg236Be47zpzxNL8c8xZ742xUvilwUBjx0/oa9iudY1uxbW
-	 6zm2dkHIuRGIGIfZxZ7QPMaTqtklkmyEH5y5jLrdKff0XRzFIzWCNFVttkGI03YqozwJy
-	 n2H7e7RpBMUnmGYtzph5c7mgQngHbL5Hh240D2GDfcbEsuWw0ipSg55s43hOW9Z7SJ+bH
-	 moISHZrwWtE7IwKgGY2jwV0DsJR7ybIzicmpx+9MMULuKdCuoiaKww9p5U60t8FXaxBy0
-	 jZBqpMFpjOKMp5nRZJ8QyEVM0134EJbLYoq8Jwhk8HsP64Supey/NCW5itFfGcO7rGg==
+	t=1793009275;
+	b=aZIui4RjCw1Cuo3wUkC/WOE0pzV3WQ2WLPdXdG53SnFPc1q2hy/wGmwHqiodVJdSA4VV
+	 +MoPjTunrzymod2OAarSIRBvjl6vuwTSQFJIWm8wlpe0laNaCIO248iOOhcWCiMBX5WqN
+	 bg2g2TDBvbICXvIYoopc8n3wrR6goK3NetUau8oXUUs3xsbzb7KBb0ws3c6v6jb4dukNo
+	 kaBb4WwFxs+lq6ruZuFOIW/SRja4i61V6NsFPa0nrSQE+97hbx4U7FW+XvarOBMoR15b9
+	 oGwAxmQjs+X2iQwO9hZhpzkJLs/Rq22Rk3ovFSK4MhvPghAZeCZQOrUcV3Zw6Sl9pXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009264;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-	b=zXLuRKjN5Wc8PnZ1FpXeUqhBUFAo0gmoi1JIRkEXUCNdYmovPGxqdeC9QPPXYlvoN3BI
-	 7SJJTtRPWL//TQLmW9+lcH+6vXEEQ3FxDB227yX6/jZCg5/4cOh8Cjcwm7Z1ddgpS6BYG
-	 JpVS/h3jKObW7uXOqpRCOt5TxNHpf+hnY1R4iWc98bf7X9hwHfUExtO1yjSCPJXmRL/8a
-	 skGOEomb5zztMfpLM9wCXeOR10FLI1a0OQnfwE10/byfWQajgZjzTl/+jQvvubT2F12hi
-	 l90ZNgGtf9FXY+itz/myGYGKAKOQHwitf0lPSdTqNJIAl2i6k+S+0/3fBpl1NfqnxzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009275;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qGhuJAQVJEBM4TXuDaLiV7OS+6IfjFMqlLL810xwEAQ=;
+	b=tM91Tk5GqLKPr6r226SGDE7bbqom2Im4EPKuGkt26A1Y3GJeUBaObnDU34A9PQscaGr+
+	 nqn8TE2YL0qHL/6K8yafU0nzT+BUvEIY8WoP4kRwRXzLtiFQdVcs+G7is8hKh3PUPmLYO
+	 PHJX1v61JPMpzFODi9qm23Qwd3HZ32dp6yhA1po+Etf2xzlqB8EhWnlY4pnZUQJzstw8m
+	 4ZLrbfQ80yoVT4SleKYPX/4Wxp1yPgHzl4V/C+SuDT6bFpGtdifr0yvAugbqlCwDRd7ai
+	 vLoeedMbfC6fRZmV9MwuL2bM6caubAccVVavObGrKYHxkE2rBWnTFtVko6CmKIUWQLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RermaiNu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mvs0brTc;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+z6IHjk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D4E606A31B
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:07:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74D4E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EDD606A31A;
+	Mon, 26 Oct 2026 10:07:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RermaiNu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mvs0brTc
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4aPv02222515
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:07:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=GnGg3CwhR38uGbReDQYTDKY/
-	Dc4Njz+sxG9mC0bWH/s=; b=RermaiNumI6rQUJ4BUBComPJBEVniwoJh0VMlc6L
-	zi8lY4wo4UkHn1tu94EH1c2wE/7KGgmysAno4bo/lleCg63U8CmjHFLWK9QouH1O
-	YqwLJQKjvKHHKyn/QDBQvxD5RMNH0RRPk6f+b541i3J5cDRx23yunhFNdcOJHUUl
-	BhjjLC2wqsPkZ9lXYJ1SeV8LnyOWq1ZuuK7KZxf7xu6Qbq0HPN6yrB5I3LHs44Qs
-	WSwK9lOVPsbzYhLFRb50iRgeRrew+XmBUFPw5vrkxUpcwTSJD5B5l5qNHtlXx13d
-	GE4mUhKllt4PYqyf5veLfeemSRlQ7vWnM9rW8wlISiPNfA==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdd9kyd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:07:42 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-990835cec5aso2122567241.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793009262; x=1793614062; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-        b=Mvs0brTc2Om9zMc0haaxWbSyHQiaJzV5W0cTi5GIjVqDI0jHNEGdtJDd1JTedDvpv9
-         2gPzT6QkUeqDW3dcO/nWIE13LHtglL2bwg2uDGmq07hzDh0+uadTRhO81L4Ocd5p3wJm
-         Vpl0Bz9CnEUijlzh+8391R0X/7ZS/29j9fwLfBBoEbF6NxvO74qIPYCkSF7d1RahOfU3
-         J7ddSWmUCRCjOvOaw1ZI259y/FGAgh55loMC/PY+I89soHZPLKVEyEbhE2op0Kk2gwa3
-         IOf30PBt18fyBbaevO2OAVTZycUrNvJwWiCEgWO2taU82PHxgkLYl+z+e6m+OUAfiNxQ
-         0Pow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009262; x=1793614062;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
-        b=koxcXZF/U6kNXq7LmwD59erlQ3vxjrNJqFqrv/d9yCSzI9WyrIVt+Zt+FqUr6C2WYZ
-         TyBacKlGyun6fJqEQrcFJZmFm1YP8xDZIMvN09LRS1ao/7KRtaxmGGxZ3t2PlP22hNlt
-         D28n7A6pVkcvnPNIlBWsFx7YxeTSX+mm3N5mOU5R7l3pDzSb5NP+KE1P7jebpY+bjLPM
-         vKyUU96VvWPkOEq7tnwqeVjsK0kOA559g1yA9kCV6dbQWsRvn+6QF2HieOc7/Ex/MMfP
-         bVRHoCi927EAY6IaT4n+ZS7peXwkMr/Oc/gZIYsqtmu7A4eVb9PNFjp9S+gOHyqIFpFR
-         q6QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUpJhgpJpxFnlMtwZXCZvffO6F1jIdBF2nqVPzOijeWTi+rmCvOdmvvo5slq4uDxgYhZIGUxvT6foN@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdKLkx9y1Hst9VUr/ZUuc2OOWXY5JeYafzHitbjk9xis6VD3eE
-	LbUFoyUARmGfM8G/aMOCwMw7Ii5xfOlw+vgjM2R0Ddj93WU3TcC7WcX+0CoOIDK5Amis0AOhy8a
-	FEdkyw/Ilj8yDGwBfMw44emKdIA9t/7/YdwEE3WpN6UEkyzYPqerFHTIHq3hiQhpk
-X-Gm-Gg: AYBFou3nHs1Z8o4B8ZLPBfn7qdZb2bK3WMEyjEc8vs7Gh//TtFbcDkmktHEKTjN67aY
-	N5tBb0tyx80efk9JjT/vMCt7htCmRQ34QAIe17yjD0eqdf9wUtwQlLe6PnMhbX80ceb8xipl2TD
-	EkuX34T7WEK3FoGUCkNLo3vlvq4wgbxRle3pyjBWqL29qKZE3VUCv+iLdkjqBc5wgI9zm6Dm5I6
-	BdlKIFr/s0OSEm7NpIz1JDpxyPrDCBqcuxKh2P6gpx/hTIeS/m/fZCg8JsunCQxsbYOgmGIgX99
-	AXlbvsUYJnwd7BQ3no5XkQqnXTwCRjNfQ1/Z9uI7DHzQ05hW7+jS4XdSYm3zblPrNn/Aqbr8hAF
-	fMM66irmjz4FsMjb+MknMMPXaD9k7rRokl0b84kYfXw3HBR9yKOkgtCRnB6q7K5ApRdxdSkcI4W
-	0T+W/cbTF2qKWj
-X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id ada2fe7eead31-7ce5cd9e89cmr1435455137.26.1793009261582;
-        Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
-X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id ada2fe7eead31-7ce5cd9e89cmr1435438137.26.1793009261000;
-        Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a463f5sm16498211fa.36.2026.10.26.03.07.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:07:39 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:07:38 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 19/23] drm/msm/dcp: Add Qualcomm VirtIO transport
- wrapper
-Message-ID: <ib5ts37i4f7qx4wqoscawrwnpeld3pcnarb4w7y3z4b3kolgkf@5avoy2fyp22l>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+z6IHjk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBF61F01282;
+	Mon, 26 Oct 2026 10:07:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793009275;
+	bh=qGhuJAQVJEBM4TXuDaLiV7OS+6IfjFMqlLL810xwEAQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T+z6IHjkAf1u7DOIPbdEqKR7MU4bUIbyHNosP4henqyUpVRDkZ/Cdq5KyCTUJp1FS
+	 S18MULRcND2e5KTUl4wbZRCpBV/1TW+UWt1vtWp5mQOBm45vrDzSIMOTYaR6G53ctJ
+	 JZUMlLpgYvFC4oGQPoi0mAB3IIT6o6vnwSbCHKQeo+C5/CE0bGYZtWHHhp9jwexDpO
+	 Pr306dXexo7Kb2FK8+GcPPnfWnWtRfZ90D2KRQX8y8cTtZotp4ailgm7cP7OlK2/Jt
+	 B51uy32rVdbBGSeYHKz2AZzinEaldIidpZ75cHiwQpW5RIxmRG2J5OP2nRenk1tzyt
+	 6By9Zjq0VKEPg==
+Message-ID: <sashiko-outbox-184880@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 06/23] drm/msm/dcp: Add HFI VirtIO transport
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-6-7cf014efdee1@oss.qualcomm.com>
 References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-6-7cf014efdee1@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 10:07:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -147,334 +60,310 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: PxsmJI0J81uR_RnfJNhfcFDf86VOBOI1
-X-Proofpoint-GUID: PxsmJI0J81uR_RnfJNhfcFDf86VOBOI1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfXwP0WDNo3fJ7/
- maUUqpFJz54AJm4QZLRNwQJ15MS4YEgngDtOhtL5K+QyjSYySoAhuqfrYj2fv2c08B4c6dyftTS
- 2jYcLoSVN4CsovkWwFsJZKLqOxXOjLloAn95TTeW6W7jiNfNwb+HA67bLBsK4J2BIKcFkbbnLjM
- KiCG7QPDnKx30QC2C6I63eZsegSr/Bx/j68F7q13e0yE+KXocAcZYWa1SjKz7V14yoTnRNYLz/M
- M8R5sZjGsbaiE5Bi95gegazOzcvHZDtcBhT8EDrg1ORe7eobGSmuUMKDSidmM9h06yJCmKdAg1D
- INuhcvXyaYGGDScGSqnewZf0IguM8zR/n/VrV4Ophqmv3cp5o0p2Jd5DGjwX5Wg1C35Hs/08TQk
- k8uXWvVh/tDyOshiAOi5Uxq+M55FEbnBE+GpoDVA5QNN8PqFFvB8L5O1agBw+VjR5DrB/pyt6d6
- YoN7Ps9vCmAOH1Np78A==
-X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adf266e cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=zJVDlABOU36UOg3UFKQA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfX3ma2SrDHJH/d
- FxpdxE8VAtZHtouWZY8sw2dmXx9WiMq6YdPLcRkA1P/4ifF2yEh0KqZdxleoscsfIvTOz/0F0p6
- 2PnZtL52tzJUcmWfhNgZNHo5TSo0IV8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260040
 
-On Mon, Oct 26, 2026 at 11:51:29AM +0530, Jayant Shekhar wrote:
-> Add the Qualcomm-specific VirtIO transport required by DCP firmware.
-> 
-> The transport sends an IPCC power notification before accessing the
-> VirtIO MMIO registers, then registers a VirtIO device directly.
-> 
-> Implement MMIO configuration access, feature negotiation, virtqueue
-> setup, interrupt handling, reset, DMA setup, and suspend/resume
-> sequencing in the transport. Keep power-management ordering in the
-> transport so VirtIO queues are quiesced before DCP power changes.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/Makefile                   |   1 +
->  drivers/gpu/drm/msm/dcp/dcp_virtio.h           |  23 +
->  drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c | 643 +++++++++++++++++++++++++
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] drm/msm/dcp: stack use-after-free on timeout in dcp_hfi_send_s=
+ync_on_vq()
+- [High] drm/msm/dcp: unsynchronized virtqueue callbacks and work re-arming=
+ on teardown
+- [Medium] drm/msm/dcp: double-fetch from shared DMA buffer in dcp_hfi_resp=
+_callback()
+--
 
-This is a separate VirtIO host driver. Please move it to drivers/virtio
-like the rest of the VirtIO hosts. It has nothing to do with the drm
-subsystem now.
+commit 250b478306210e9e3849c522be712bc686a63c4b
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
->  3 files changed, 667 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 9f0a9bfeb2a7..e1a995a8c980 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -85,6 +85,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->  	dcp/dcp_hfi_plane.o \
->  	dcp/dcp_ipcc.o \
->  	dcp/dcp_encoder.o \
-> +	dcp/dcp_virtio_transport.o \
->  	dcp/hfi/hfi_packer.o \
->  	dcp/hfi/hfi_unpacker.o \
->  	dcp/hfi/hfi_utils.o
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
+drm/msm/dcp: Add HFI VirtIO transport
+
+This commit implements the HFI transport over VirtIO between Linux and the =
+DCP
+firmware, managing DMA command and response buffers, VirtIO queue callbacks,
+synchronous and asynchronous command submission, and teardown synchronizati=
+on.
+
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm=
+/dcp/dcp_hfi_core.c
 > new file mode 100644
-> index 000000000000..a9c3b9aff61d
+> index 0000000000000..9f7ac798e13c4
 > --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
-> @@ -0,0 +1,23 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef __DCP_VIRTIO_H__
-> +#define __DCP_VIRTIO_H__
-> +
-> +#include <linux/device.h>
-> +#include <linux/virtio.h>
-> +
-> +struct dcp_drv;
-> +struct dcp_ipcc;
-> +
-> +struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
 
-What is the use for it? The DCP driver should not communicate to the
-IPCC, it's a part of the underlying VirtIO mechanism. If we export DCP
-to the VM there will be no IPCC anymore.
+[ ... ]
 
-> +
-> +int dcp_virtio_transport_register(void);
-> +void dcp_virtio_transport_unregister(void);
-> +
-> +int dcp_virtio_register(void);
-> +void dcp_virtio_unregister(void);
-
-Unused, remove these two.
-
-> +
-> +#endif /* __DCP_VIRTIO_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
-> new file mode 100644
-> index 000000000000..02c0e2a9fafe
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
-> @@ -0,0 +1,643 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * Qualcomm DCP VirtIO transport.
-> + */
-> +
-> +#include <linux/acpi.h>
-> +#include <linux/delay.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/highmem.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/list.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm.h>
-> +#include <linux/slab.h>
-> +#include <linux/virtio.h>
-> +#include <linux/virtio_config.h>
-> +#include <uapi/linux/virtio_mmio.h>
-> +#include <linux/virtio_ring.h>
-> +
-> +#include "dcp_ipcc.h"
-> +#include "dcp_virtio.h"
-> +
-> +#define VIRTIO_MMIO_VRING_ALIGN		PAGE_SIZE
-> +
-> +#define to_dcp_virtio_transport(_plat_dev) \
-> +	container_of(_plat_dev, struct dcp_virtio_transport, vdev)
-> +
-> +struct dcp_virtio_transport {
-> +	struct virtio_device vdev;
-> +	struct platform_device *pdev;
-> +
-> +	void __iomem *base;
-> +	unsigned long version;
-> +
-> +	bool wake_irq_enabled;
-> +	struct dcp_ipcc ipcc;
-> +};
-> +
-> +static u64 dcp_virtio_get_features(struct virtio_device *vdev)
+> +void dcp_hfi_resp_callback(struct virtqueue *vq)
 > +{
-> +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(vdev);
-> +	u64 features;
+> +	struct dcp_drv *drv =3D vq->vdev->priv;
+> +	struct dcp_hfi *hfi =3D drv ? drv->hfi : NULL;
+> +	struct dcp_hfi_buf *buf;
+> +	unsigned int len;
+> +	unsigned long drain_flags;
 > +
-> +	writel(1, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
-> +	features = readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
-> +	features <<= 32;
+> +	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
+> +		return;
 > +
-> +	writel(0, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
-> +	features |= readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
+> +	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
+> +	virtqueue_disable_cb(vq);
+> +	for (;;) {
+> +		while ((buf =3D virtqueue_get_buf(vq, &len)) !=3D NULL) {
+> +			struct hfi_cmd_buff_hdl hdl;
+> +			struct hfi_header_info hdr_info;
+> +			struct hfi_packet_info pkt_info;
+> +			u32 pkt_num;
+> +			int rc;
+> +
+> +			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
+> +
+> +			if (unlikely(len < sizeof(struct hfi_header) ||
+> +				     len > DCP_HFI_BUF_SIZE)) {
+> +				dev_warn_ratelimited(hfi->dev,
+> +						     "HFI resp: short buffer len=3D%u (min=3D%zu) =E2=80=94 skippi=
+ng\n",
+> +						     len, sizeof(struct hfi_header));
+> +				goto repost;
+> +			}
+> +
+> +			hdl.cmd_buffer =3D buf->data;
+> +			hdl.size =3D (u32)len;
+> +			rc =3D hfi_unpacker_get_header_info(&hdl, &hdr_info);
+> +			if (rc) {
+> +				dev_warn_ratelimited(hfi->dev,
+> +						     "HFI resp: invalid header (rc=3D%d) len=3D%u\n",
+> +					     rc, len);
+> +				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
+> +					       DUMP_PREFIX_OFFSET, 16, 4,
+> +					       buf->data, min_t(u32, len, 64), false);
+> +				goto repost;
+> +			}
+> +
+> +			for (pkt_num =3D 1; pkt_num <=3D hdr_info.num_packets; pkt_num++) {
+> +				memset(&pkt_info, 0, sizeof(pkt_info));
+> +				rc =3D hfi_unpacker_get_packet_info(&hdl, pkt_num,
+> +								  &pkt_info);
 
-Can we turn virtio-mmio into the library code instead of copy-pasting
-everything here?
+[Severity: Medium]
+Does unpacking directly from the coherent DMA buffer in
+dcp_hfi_resp_callback() expose the parser to a double-fetch if the firmware=
+ or
+VirtIO backend modifies the shared buffer concurrently?
 
-> +
-> +	return features;
-> +}
-> +
+In dcp_hfi_init(), the buffers in hfi->resp_pool are allocated with
+dma_alloc_coherent() and premapped into hfi->resp_vq, so buf->data remains =
+in
+shared DMA memory writable by the device.
 
-[...]
+When hfi_unpacker_get_packet_info() runs on buf->data, it first validates t=
+he
+buffer through hfi_sanitize_cmd_buff(), and then re-reads packet->payload_i=
+nfo
+in hfi_packet_at() and GET_PACKET_SIZE(packet->payload_info):
 
-> +
-> +	magic = readl(transport->base + VIRTIO_MMIO_MAGIC_VALUE);
-> +	if (magic != ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
+drivers/gpu/drm/msm/dcp/hfi/hfi_unpacker.c:hfi_unpacker_get_packet_info() {
+	hdr =3D cmd_buf_hdl->cmd_buffer;
+	if (GET_HEADER_SIZE(hdr->cmd_buff_info) > cmd_buf_hdl->size ||
+	    packet_num > hdr->num_packets || hfi_sanitize_cmd_buff(hdr))
+		return -EINVAL;
 
-Is it really a correct magic here? should it be a different magic as you
-are not just a virtio-mmio?
+	packet =3D hfi_packet_at(hdr, packet_num);
+	packet_size =3D GET_PACKET_SIZE(packet->payload_info);
+	...
+	packet_info->payload_size =3D packet_size - sizeof(*packet);
+	packet_info->payload_ptr =3D packet_info->payload_size ?
+		(void *)(packet + 1) : NULL;
+}
 
-> +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
-> +		ret = -ENODEV;
-> +		goto err_node;
-> +	}
-> +
-> +	transport->version = readl(transport->base + VIRTIO_MMIO_VERSION);
-> +	if (transport->version < 1 || transport->version > 3) {
+If hdr->cmd_buff_info or packet->payload_info changes in shared memory after
+hfi_sanitize_cmd_buff() returns, hfi_packet_at() can walk past the buffer or
+packet_size can become smaller than sizeof(*packet) (underflowing
+packet_info->payload_size) before dcp_hfi_complete_pending() calls memcpy()=
+ on
+pkt_info->payload_ptr.
 
-Isn't transport version fixed for the DCP purposes? Why do we need to
-determine it again at the runtime?
+Should dcp_hfi_resp_callback() copy the received len bytes out of buf->data
+into a non-shared kernel buffer before validating and unpacking the packets?
 
-> +		dev_err(&pdev->dev, "Version %ld not supported!\n",
-> +			transport->version);
-> +		ret = -ENXIO;
-> +		goto err_node;
-> +	}
-> +
-> +	transport->vdev.id.device =
-> +		readl(transport->base + VIRTIO_MMIO_DEVICE_ID);
-> +	if (!transport->vdev.id.device) {
-> +		ret = -ENODEV;
-> +		goto err_node;
-> +	}
-> +	transport->vdev.id.vendor =
-> +		readl(transport->base + VIRTIO_MMIO_VENDOR_ID);
-> +
-> +	if (transport->version == 1) {
-> +		writel(PAGE_SIZE,
-> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
-> +		ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
-> +		if (!ret)
-> +			ret = dma_set_coherent_mask(&pdev->dev,
-> +						    DMA_BIT_MASK(32 + PAGE_SHIFT));
-> +	} else {
-> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
-> +	}
-> +	if (ret)
-> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> +	if (ret)
-> +		dev_warn(&pdev->dev,
-> +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this might not work.\n");
-> +
-> +	ret = register_virtio_device(&transport->vdev);
-> +	if (ret) {
-> +		put_device(&transport->vdev.dev);
-> +		dcp_ipcc_deinit(&transport->ipcc);
-> +		platform_set_drvdata(pdev, NULL);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_node:
-> +err_ipcc:
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +err_free:
-> +	platform_set_drvdata(pdev, NULL);
-> +	return ret;
-> +}
-> +
-> +static void dcp_virtio_transport_remove(struct platform_device *pdev)
+[ ... ]
+
+> +static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
+> +				   struct virtqueue *vq __maybe_unused,
+> +				   u32 cmd,
+> +				   enum hfi_cmd_buff_type cmd_type,
+> +				   u32 object_id,
+> +				   enum hfi_packet_payload_type payload_type,
+> +				   void *payload,
+> +				   u32 payload_size,
+> +				   u32 tx_flags,
+> +				   void *resp_data,
+> +				   size_t resp_len,
+> +				   unsigned int timeout_ms)
 > +{
-> +	struct dcp_virtio_transport *transport = platform_get_drvdata(pdev);
-> +
-> +	unregister_virtio_device(&transport->vdev);
-> +	platform_set_drvdata(pdev, NULL);
-> +	dcp_ipcc_deinit(&transport->ipcc);
-> +}
-> +
-> +static int dcp_virtio_transport_suspend(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = virtio_device_freeze(&transport->vdev);
+> +	struct dcp_hfi_buf *buf;
+> +	struct dcp_hfi_completion comp;
+
+[ ... ]
+
+> +	ret =3D dcp_hfi_send_cmd_async(hfi, buf,
+> +				     hfi_get_header_size(&hdl), &comp);
 > +	if (ret)
 > +		return ret;
 > +
-> +	ret = dcp_ipcc_enable_irq_wake(&transport->ipcc);
-> +	if (ret)
-> +		goto err_restore;
-> +
-> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret) {
-> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +		goto err_restore;
+> +	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_m=
+s))) {
+> +		dev_err(hfi->dev,
+> +			"HFI cmd=3D0x%x buf_type=3D%s object_id=3D%u timed out after %ums (pk=
+t_id=3D%u)\n",
+> +			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
+> +			timeout_ms, packet_id);
+> +		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
+> +		dcp_hfi_pending_find(hfi, packet_id);
+> +		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
+> +		return -ETIMEDOUT;
 > +	}
 > +
-> +	return 0;
-> +
-> +err_restore:
-> +	virtio_device_restore(&transport->vdev);
-> +	return ret;
-> +}
-> +
-> +static int dcp_virtio_transport_resume(struct device *dev)
-> +{
-> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
-> +	if (transport->version == 1)
-> +		writel(PAGE_SIZE,
-> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
-> +
-> +	return virtio_device_restore(&transport->vdev);
-> +}
-> +
-> +static const struct dev_pm_ops dcp_virtio_transport_pm_ops = {
-> +	.suspend = dcp_virtio_transport_suspend,
-> +	.resume = dcp_virtio_transport_resume,
-> +};
-> +
-> +static const struct of_device_id dcp_virtio_transport_of_match[] = {
-> +	{ .compatible = "qcom,dcp-virtio" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
-> +
-> +static struct platform_driver dcp_virtio_transport_driver = {
-> +	.probe = dcp_virtio_transport_probe,
-> +	.remove = dcp_virtio_transport_remove,
-> +	.driver = {
-> +		.name = "qcom-dcp-virtio",
-> +		.of_match_table = dcp_virtio_transport_of_match,
-> +		.pm = &dcp_virtio_transport_pm_ops,
-> +	},
-> +};
-> +
-> +int dcp_virtio_transport_register(void)
-> +{
-> +	return platform_driver_register(&dcp_virtio_transport_driver);
-> +}
-> +
-> +void dcp_virtio_transport_unregister(void)
-> +{
-> +	platform_driver_unregister(&dcp_virtio_transport_driver);
+> +	return comp.status;
 > +}
 
-Turn it into a separate driver, use module_platform_driver().
+[Severity: Critical]
+Can a timeout racing with response completion cause a stack use-after-free =
+of
+comp and the caller's resp_data buffer in dcp_hfi_send_sync_on_vq()?
 
--- 
-With best wishes
-Dmitry
+In dcp_hfi_resp_callback(), hfi->resp_drain_lock is dropped before unpacking
+the response and calling dcp_hfi_complete_pending():
+
+dcp_hfi_resp_callback()
+  spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
+  ...
+  dcp_hfi_complete_pending()
+    comp =3D dcp_hfi_pending_find(hfi, pkt_info->packet_id);
+      spin_lock_irqsave(&hfi->pending_lock, flags);
+      comp =3D xa_erase(&hfi->pending_xa, packet_id);
+      spin_unlock_irqrestore(&hfi->pending_lock, flags);
+    if (!status && comp->resp_data && comp->resp_len &&
+        pkt_info->payload_size) {
+        n =3D min_t(size_t, comp->resp_len, pkt_info->payload_size);
+        memcpy(comp->resp_data, pkt_info->payload_ptr, n);
+    }
+    comp->status =3D status;
+    complete(&comp->done);
+
+If wait_for_completion_timeout() expires right after dcp_hfi_pending_find()=
+ in
+dcp_hfi_complete_pending() erases comp from hfi->pending_xa, acquiring
+hfi->resp_drain_lock on the timeout path does not wait for
+dcp_hfi_complete_pending() because neither resp_drain_lock nor pending_lock=
+ is
+held during the memcpy(), status assignment, and complete() calls.
+
+The timeout path's dcp_hfi_pending_find(hfi, packet_id) then returns NULL, =
+and
+dcp_hfi_send_sync_on_vq() immediately returns -ETIMEDOUT while
+dcp_hfi_complete_pending() on the other CPU is still writing to the stack-
+allocated comp and comp->resp_data.
+
+Should the completion update be serialized under a lock held across the loo=
+kup
+and memcpy()/complete(), or should the timeout path wait on
+wait_for_completion(&comp.done) when dcp_hfi_pending_find() returns NULL?
+
+[ ... ]
+
+> +void dcp_hfi_stop(struct dcp_hfi *hfi)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&hfi->cmd_lock, flags);
+> +	atomic_set(&hfi->shutdown_in_progress, 1);
+> +	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+> +
+> +	cancel_delayed_work_sync(&hfi->resp_repost_work);
+> +	dcp_hfi_cancel_pending(hfi, -ENODEV);
+> +}
+> +
+> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
+> +{
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
+> +	if (hfi->cmd_vq)
+> +		virtqueue_disable_cb(hfi->cmd_vq);
+> +	if (hfi->resp_vq)
+> +		virtqueue_disable_cb(hfi->resp_vq);
+> +	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
+> +
+> +	if (hfi->cmd_vq)
+> +		while (virtqueue_detach_unused_buf(hfi->cmd_vq))
+> +			;
+> +	if (hfi->resp_vq)
+> +		while (virtqueue_detach_unused_buf(hfi->resp_vq))
+> +			;
+> +}
+> +
+> +void dcp_hfi_deinit(struct dcp_hfi *hfi)
+> +{
+> +	xa_destroy(&hfi->pending_xa);
+> +
+> +	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
+> +	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
+> +}
+
+[Severity: High]
+How are in-flight dcp_hfi_resp_callback() and dcp_hfi_cmd_callback() calls
+synchronized with dcp_hfi_stop(), dcp_hfi_quiesce_queues(), and
+dcp_hfi_deinit() during teardown?
+
+In dcp_hfi_resp_callback(), hfi->shutdown_in_progress is only checked once =
+at
+entry before acquiring hfi->resp_drain_lock, and hfi->resp_drain_lock is
+released while unpacking each buffer before being re-acquired at repost:
+
+dcp_hfi_resp_callback() {
+	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
+		return;
+
+	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
+	...
+			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
+			...
+repost:
+			spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
+			dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
+			if (virtqueue_add_inbuf_premapped(vq, &buf->sg, 1, buf,
+							  NULL, GFP_ATOMIC)) {
+				list_add_tail(&buf->node, &hfi->resp_repost_list);
+				schedule_delayed_work(&hfi->resp_repost_work,
+						      msecs_to_jiffies(20));
+			}
+		}
+
+		if (virtqueue_kick_prepare(vq))
+			virtqueue_notify(vq);
+		if (virtqueue_enable_cb(vq))
+			break;
+}
+
+If dcp_hfi_stop() runs while dcp_hfi_resp_callback() has dropped
+hfi->resp_drain_lock, dcp_hfi_stop() sets shutdown_in_progress =3D 1 and ca=
+lls
+cancel_delayed_work_sync(&hfi->resp_repost_work), after which
+dcp_hfi_resp_callback() can reach repost:, re-add the buffer to vq, re-arm
+hfi->resp_repost_work, and call virtqueue_enable_cb(vq).
+
+Similarly, in dcp_hfi_cmd_callback(), shutdown_in_progress is checked before
+acquiring hfi->cmd_lock, and in dcp_hfi_quiesce_queues(),
+virtqueue_disable_cb(hfi->cmd_vq) is called under hfi->resp_drain_lock inst=
+ead
+of hfi->cmd_lock while virtqueue_detach_unused_buf() is called on both queu=
+es
+without holding cmd_lock or resp_drain_lock and without waiting for an
+in-flight dcp_hfi_resp_callback() to finish using buf->data before
+dcp_hfi_deinit() frees the pools.
+
+Should the callbacks re-check shutdown_in_progress under their respective
+locks, and should teardown synchronize with in-flight callbacks before
+canceling the delayed work, detaching virtqueue buffers, and freeing the DMA
+pools?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D6
