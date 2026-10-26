@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020831;
-	b=YBBc7Ks7fSvsXSQxgY8XD3ePbflFb6e/3TqdqxcvOpe7q5XGZwe+6P7Y9mnRZY/pGvok
-	 H8AQ8aNslImH+izWITGPTQmXeWNrWnn4z263z+q5Y2hzeD/suNlkzY6FSd00FRSCjOKGR
-	 wxxPagubEjbTadDWm/HNom48G+VGIAvVFlG+PZ/huqaHUna/Rk/M6q+UId/PMHCzQ8fwQ
-	 AWW83gmxwKQsUnHNU3nfUpj6nI9Qajwpjfy6NHIkBEX0RAg1uOJqITtdxSZnwf2u7z+mH
-	 xDBo3zr5sgpKlEQUYuN77xSvdPOQAD9ojehwB4rTF25S3jL7ejZ5/+yEpy0kpxXFJPA==
+	t=1793021098;
+	b=M7W8XvY93WU7rZKMZsLSLMWT4pZtt/jQIjy2JHYmpCP6ng85n+hnrjGMUmAy6RtEqDDh
+	 vkm/bh+5mM8o9Nsnu4IsTMmNhd6KKWozJ5JubJsnn8ZH1tJPu0ptAXkwYYupirDdtswRt
+	 xrTyiO8LJAi/IuRyMSaZ2C2h36un2mBYAZuRdhHRVLQRGMiircp0TDBNlXG7A/OfmgOks
+	 Xh4y0oDwExN5NDTXAjYYbf/QDf82dbrJHJQu7mE7hHpdywmRjzh2tBM0lsB5W9+e5rSnr
+	 Acm4pox4YDiTeitTUiZMv3dt96Ktacn9zEnDJmmwClQRokauNEgRczoLLjDVhS6HnPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020831;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021098;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=yrxU/JJn2MA2oMFZ67k13g1KnGeI3lgz4FHH9M9yMXI=;
-	b=4BZD1c3RWQsxh/h92rO4V3GLyo1lxDON8DRzwKrn7XK6wb7Y+TcgZ+eI/fMoTOFHDyeG
-	 7T4ZiU5m6Z37eOLxwyjn+k1WcTmjikAolIjljZe3sgrwDPQF2eMCjCEfYTIohup0OiROU
-	 Z7zf3e7+lUD6HHAzm/tfVWO8vZZvwod0Ng61FwTV5WYbAvPGKgOixApx/pylZwIWmek6S
-	 7crtWe/CC4aKxonFxEJyOc3tBZaWIeJYEpa+ntb160C7YhVfGxrnWx63LhglmWXydqp5b
-	 iJ0SOSs0lNfOkWMq6hocVQnaNJE2L4dXwzPEZCYN2Xw0hQUMPdrIETKnnLqh7Yp5JEw==
+	bh=RAZuT03HTn/udnmMaEZSmIRI0nqa8DRHM5i7rHrvtU0=;
+	b=kKqiOWa/0a2+GKdLz2AN6/TJs2hJdjRqSlwlaoa5CP+vhoEsa/RE+iglFEF+A3HIIWwF
+	 08hwSsaNeGttdT6Kzr0/JcTskJWCVX6E2TcNyBNKwdbl+ttbdlift3vMR4TLCpnmj2vr3
+	 OCodAUGiID8BXf6HoNImWHlLlrkz/gJCRcP6L2Es2k/+GGVUATJ2VJXAqAa7669I3LbK9
+	 1YdgOC0/3a1Fu4ebv6fnxRA0dFIK9yn1h8u6tfWvKWmFqL2mJL96HALEOsElTcdzw9OFx
+	 JMXoXzSS55klJvCpUtTFztf25RAPJQzSik1RMiltjLP05IQzDPOb5mCFbj2un6mazfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsc7kGq4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgMNATh8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50921606A31B;
-	Mon, 26 Oct 2026 13:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E83606A31A;
+	Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsc7kGq4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61CD1F01825;
-	Mon, 26 Oct 2026 13:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgMNATh8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F99F1F01825;
+	Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793020831;
-	bh=yrxU/JJn2MA2oMFZ67k13g1KnGeI3lgz4FHH9M9yMXI=;
+	s=k20260515; t=1793021097;
+	bh=RAZuT03HTn/udnmMaEZSmIRI0nqa8DRHM5i7rHrvtU0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lsc7kGq45ESpG0qwmwtFlzhRFeEOakjT1DEvfGO1Oe7lzYbj5by4O1cs90CQFOVRq
-	 UT03uP2paeNKuGuQbWrXBkDW5fdtcy30NZtdwPVbi/1ZotttbUjP6m0AAXewbKS/jk
-	 4bTkMaKgLTEAcEtA72S+065yx4pW4UWK95LyIISFiM71/f7eUegHmTF8VZL95p1YLh
-	 wjpT+Kx98Q+kaZVJizUl5+RUXDalSHvsMWcYrblzY13e46zX3QYcWzoYXJqQNTlXX3
-	 SbZWKcsFtEAlciP7qilY/YSE/lmMtNw/mLwgzriCn8JBOvh4D51bFE37hcpuWXFry0
-	 hfqxQ0EL8yORw==
-Message-ID: <sashiko-outbox-185299@kernel.org>
+	b=QgMNATh8tg8wne169TeOtGhgKlrqzOlUn5Cvm/NGxS+UvbssCOVmtL2DDqdIgPhvO
+	 LrHEe4pPkrAuDhPmCCub6Z55oAVvUCsbSyBQ3QFATQDPztCH5YRkOyf9zojpLkyK86
+	 7QjLhjwbnTgnr6FlyK4eOAbba5EX1pd0TdpuJzT2D2QqGhvomVcGicX7agrO4dQHB7
+	 JqzDaErdCuy4JbgUtGMQGlbw27axYAm0rrQWLLbUYaz8kt9m5ULPg04P7fhkL7vB8q
+	 JDmMFjKBcQPCGC/Bt91EjgFJpaU6A8HjShWoGMXjoLOVxPXch+zdtQUbwJpQ/nVWGE
+	 fXzjPWJAQ99xQ==
+Message-ID: <sashiko-outbox-185304@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] usb: dwc3: support two connectors sharing one HS
- data bus
+Subject: Re: [PATCH v2 17/23] drm/msm/dcp: Register DCP display pipeline
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026123211.243224-4-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261026123211.243224-4-xiaqinghuan@mail.ustc.edu.cn>
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 13:20:30 +0000
+Date: Mon, 26 Oct 2026 13:24:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,451 +61,429 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] usb: dwc3: recursive spinlock deadlock on dwc->lock in dwc3_mux_ro=
-le_set()
-- [High] usb: dwc3: role mux unreachable without controller usb-role-switch=
- property
-- [High] usb: dwc3: init race and missing mode cleanup in dwc3_role_mux_ini=
-t()
-- [High] usb: dwc3: SUSPHY not cleared in dwc3_set_prtcap() on same-role mu=
-x switch
-- [High] usb: dwc3: dwc3_mux_role_get() hides pending role on inactive port
-- [Medium] usb: dwc3: fwnode_handle leak on error path in dwc3_role_mux_ini=
-t()
-- [Medium] usb: dwc3: broken and racy mux->error reporting in dwc3_mux_role=
-_set()
-- [Medium] usb: dwc3: missing dwc3_pre_set_role() call in dwc3_mux_role_set=
+- [High] drm/msm/dcp: dcp_dpu_kms_cleanup_bridges() called under component_=
+mutex
+- [High] drm/msm/dcp: missing remote port check and sequential bridge lookup
+- [High] drm/msm/dcp: race and runtime PM leak in dcp_dpu_kms_enable_commit=
 ()
+- [High] drm/msm/dcp: unbalanced msm_kms and runtime PM teardown in dcp_dpu=
+_kms_destroy()
+- [High] drm/msm/dcp: dangling CRTC and drm_device pointers in dcp_dpu_kms_=
+destroy()
+- [Medium] drm/msm/dcp: invalid possible_crtcs mask when max_crtc_count is =
+clamped
 --
 
-commit 39b70abd190f294a50ef9e95121a523aa5bca7ff
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+commit 5fc21d18f27dcbb7ac8d64f95bc52703e58d9984
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-usb: dwc3: support two connectors sharing one HS data bus
+drm/msm/dcp: Register DCP display pipeline
 
-This commit adds support for a single DWC3 controller servicing two
-connectors that share a muxed High Speed data bus via a port-select GPIO.
-It registers a separate usb_role_switch for each connector endpoint and
-serializes role and data-path transitions through __dwc3_set_mode().
+This commit registers the DCP display pipeline using firmware capabilities
+and the device-tree display graph, integrating runtime PM and IOMMU setup a=
+nd
+creating the DRM planes, CRTCs, encoders, bridges, and connectors.
 
-> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-> index fd5c2cd36c595..6607e65e8433d 100644
-> --- a/drivers/usb/dwc3/core.c
-> +++ b/drivers/usb/dwc3/core.c
-
-[ ... ]
-
-> @@ -184,7 +189,8 @@ static void __dwc3_set_mode(struct work_struct *work)
->  	if (!desired_dr_role)
->  		goto out;
-> =20
-> -	if (desired_dr_role =3D=3D dwc->current_dr_role)
-> +	if (desired_dr_role =3D=3D dwc->current_dr_role &&
-> +	    (!mux || mux_port =3D=3D mux->active_port))
->  		goto out;
-> =20
->  	if (desired_dr_role =3D=3D DWC3_GCTL_PRTCAP_OTG && dwc->edev)
-> @@ -233,6 +239,27 @@ static void __dwc3_set_mode(struct work_struct *work)
->  		dwc3_writel(dwc, DWC3_GCTL, reg);
->  	}
-> =20
-> +	/*
-> +	 * The previous host or gadget instance has been torn down above, so the
-> +	 * shared High Speed data path can now be moved to the requesting
-> +	 * connector.  A failure here must not abort the mode change half-way:
-> +	 * the controller would be left with a torn-down role and a stale
-> +	 * current_dr_role, which the next request would tear down a second tim=
-e.
-> +	 */
-> +	if (mux && mux_port !=3D mux->active_port) {
-> +		ret =3D gpiod_direction_output(mux->select, mux_port);
-> +		if (ret) {
-> +			WRITE_ONCE(mux->error, ret);
-> +			dev_err_ratelimited(dwc->dev,
-> +					    "failed to select USB port %d: %d\n",
-> +					    mux_port, ret);
-> +		} else {
-> +			spin_lock_irqsave(&dwc->lock, flags);
-> +			mux->active_port =3D mux_port;
-> +			spin_unlock_irqrestore(&dwc->lock, flags);
-> +		}
-> +	}
-> +
->  	spin_lock_irqsave(&dwc->lock, flags);
-> =20
->  	dwc3_set_prtcap(dwc, desired_dr_role, false);
-
-[Severity: High]
-When switching between the two mux ports while keeping the same DRD role
-(desired_dr_role =3D=3D dwc->current_dr_role and mux_port !=3D mux->active_=
-port),
-__dwc3_set_mode() tears down the previous role via dwc3_gadget_exit() or
-dwc3_host_exit(), both of which call dwc3_enable_susphy(dwc, true) to set
-GUSB3PIPECTL.SUSPENDENABLE and GUSB2PHYCFG.SUSPHY.
-
-However, dwc3_set_prtcap() only clears SUSPHY when the PRTCAP mode actually
-changes:
-
-drivers/usb/dwc3/core.c:dwc3_set_prtcap() {
-    ...
-	hw_mode =3D DWC3_GHWPARAMS0_MODE(dwc->hwparams.hwparams0);
-	if (hw_mode =3D=3D DWC3_GHWPARAMS0_MODE_DRD && !ignore_susphy) {
-		if (DWC3_GCTL_PRTCAP(reg) !=3D mode)
-			dwc3_enable_susphy(dwc, false);
-	}
-    ...
-}
-
-Because DWC3_GCTL_PRTCAP(reg) already equals mode during a same-role port
-switch, dwc3_enable_susphy(dwc, false) is skipped, and __dwc3_set_mode()
-proceeds to run dwc3_core_soft_reset() and dwc3_gadget_init() or
-dwc3_host_init() with PHY suspend still enabled.  Won't leaving SUSPHY
-enabled across soft reset and re-initialization cause PHY clock
-synchronization and DCTL.CSFTRST timeouts on same-role connector switches?
-
-> diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
-> index f3e37d383627a..20821d6505114 100644
-> --- a/drivers/usb/dwc3/drd.c
-> +++ b/drivers/usb/dwc3/drd.c
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/=
+dcp/dcp_dpu_kms.c
+> index 61a4d85653594..8a73a99b2c763 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
 
 [ ... ]
 
-> @@ -501,10 +502,219 @@ static enum usb_role dwc3_usb_role_switch_get(stru=
-ct usb_role_switch *sw)
-
-[ ... ]
-
-> +static int dwc3_mux_role_set(struct usb_role_switch *sw, enum usb_role r=
-ole)
+> @@ -59,3 +78,609 @@ bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dc=
+p_kms,
+> =20
+>  	return false;
+>  }
+> +
+> +void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms)
 > +{
-> +	struct dwc3_role_port *port =3D usb_role_switch_get_drvdata(sw);
-> +	struct dwc3 *dwc =3D port->dwc;
-> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
-> +	unsigned long flags;
-> +	enum usb_role selected_role;
-> +	int selected, ret;
+> +	u32 i;
 > +
-> +	if (role > USB_ROLE_DEVICE)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * The request order and the mode request it implies are decided under =
-one
-> +	 * lock, so a second connector cannot change desired_port between the
-> +	 * selection and the dwc3_set_mode() call that consumes it.
-> +	 */
-> +	mutex_lock(&mux->lock);
-> +	spin_lock_irqsave(&dwc->lock, flags);
-> +	/*
-> +	 * A role change between two non-NONE roles of the same connector must =
-not
-> +	 * give that connector a new request ticket: it would otherwise steal t=
-he
-> +	 * data path from the connector that asked first.
-> +	 */
-> +	if (port->role =3D=3D USB_ROLE_NONE && role !=3D USB_ROLE_NONE)
-> +		port->seq =3D ++mux->seq;
-> +	port->role =3D role;
-> +	selected =3D dwc3_role_mux_pick(mux);
-> +	mux->desired_port =3D selected;
-> +	selected_role =3D mux->ports[selected].role;
-> +	/*
-> +	 * Same asynchronous semantics as the single-connector role switch: the
-> +	 * data path and the controller are reprogrammed from __dwc3_set_mode().
-> +	 * dwc3_set_mode() only queues that work, so the mux lock may be held.
-> +	 */
-> +	dwc3_set_mode(dwc, dwc3_role_mux_mode(dwc, selected_role));
-
-[Severity: High]
-Doesn't calling dwc3_set_mode() while holding dwc->lock deadlock on the
-first role switch request?
-
-dwc3_mux_role_set() acquires spin_lock_irqsave(&dwc->lock, flags) above and
-then calls dwc3_set_mode(), which acquires dwc->lock again:
-
-drivers/usb/dwc3/core.c:dwc3_set_mode() {
-	unsigned long flags;
-
-	if (dwc->dr_mode !=3D USB_DR_MODE_OTG)
-		return;
-
-	spin_lock_irqsave(&dwc->lock, flags);
-	dwc->desired_dr_role =3D mode;
-	spin_unlock_irqrestore(&dwc->lock, flags);
-
-	queue_work(system_freezable_wq, &dwc->drd_work);
-}
-
-[Severity: Medium]
-Should dwc3_mux_role_set() also notify glue drivers via
-dwc3_pre_set_role(dwc, selected_role) before calling dwc3_set_mode(), just
-as dwc3_usb_role_switch_set() does?
-
-Without dwc3_pre_set_role(), glue drivers implementing glue_ops->pre_set_ro=
-le
-(such as dwc3-qcom, dwc3-imx, and dwc3-imx8mp) will not update their VBUS
-override or runtime PM autosuspend state when roles change through the mux.
-Note that dwc3_pre_set_role() must be called outside dwc->lock because
-dwc3_qcom_set_role_notifier() calls pm_runtime_resume_and_get().
-
-> +	ret =3D mux->error;
-> +	mux->error =3D 0;
-> +	spin_unlock_irqrestore(&dwc->lock, flags);
-> +	mutex_unlock(&mux->lock);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does returning a previous request's mux->error from dwc3_mux_role_set()
-work as expected with usb_role_switch_set_role()?
-
-In dwc3_mux_role_set(), port->role, mux->desired_port, and dwc3_set_mode()
-have already been updated and queued for the new request, but if mux->error
-was set by an earlier gpiod_direction_output() failure in __dwc3_set_mode(),
-returning that non-zero value causes usb_role_switch_set_role() to treat
-the newly queued transition as failed:
-
-drivers/usb/roles/class.c:usb_role_switch_set_role() {
-    ...
-	ret =3D sw->set(sw, role);
-	if (!ret) {
-		sw->role =3D role;
-		kobject_uevent(&sw->dev.kobj, KOBJ_CHANGE);
-	}
-    ...
-}
-
-In addition, because mux->error is a single field shared by both ports, an
-asynchronous GPIO failure caused by one port is reported back to whichever
-port happens to call usb_role_switch_set_role() next, and __dwc3_set_mode()
-writes mux->error without holding dwc->lock or mux->lock, which can race
-with the non-atomic read-and-clear here.
-
-> +
-> +static enum usb_role dwc3_mux_role_get(struct usb_role_switch *sw)
-> +{
-> +	struct dwc3_role_port *port =3D usb_role_switch_get_drvdata(sw);
-> +	struct dwc3 *dwc =3D port->dwc;
-> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
-> +	unsigned long flags;
-> +	enum usb_role role =3D USB_ROLE_NONE;
-> +
-> +	/*
-> +	 * A connector only reports its own role while it owns the shared data
-> +	 * path, so the connector drivers never fight over the controller.
-> +	 */
-> +	spin_lock_irqsave(&dwc->lock, flags);
-> +	if (mux->active_port =3D=3D port->state)
-> +		role =3D port->role;
-> +	spin_unlock_irqrestore(&dwc->lock, flags);
-> +
-> +	return role;
-> +}
-
-[Severity: High]
-What happens when a connector driver queries usb_role_switch_get_role() on
-disconnect while the other port owns the mux (or while __dwc3_set_mode() is
-still queued)?
-
-For example, if port 0 is active (mux->active_port =3D=3D 0) and port 1 con=
-nects
-and requests a role, dwc3_mux_role_set() records mux->ports[1].role and
-assigns mux->ports[1].seq while mux->active_port remains 0.  If port 1 is
-then unplugged before port 0, connector drivers that check the current role
-before clearing it=E2=80=94such as cd321x_update_work() in
-drivers/usb/typec/tipd/core.c:
-
-drivers/usb/typec/tipd/core.c:cd321x_update_work() {
-    ...
-	enum usb_role old_role =3D usb_role_switch_get_role(tps->role_sw);
-    ...
-	if (old_role !=3D USB_ROLE_NONE && (new_role !=3D old_role || was_disconne=
-cted))
-		usb_role_switch_set_role(tps->role_sw, USB_ROLE_NONE);
-    ...
-	if (!new_connected)
-		return;
-}
-
-will receive USB_ROLE_NONE from dwc3_mux_role_get() and skip calling
-usb_role_switch_set_role(sw, USB_ROLE_NONE).  Won't that leave
-mux->ports[1].role and mux->ports[1].seq permanently set to the unplugged
-request, causing dwc3_role_mux_pick() to switch to the disconnected port 1
-once port 0 disconnects and starve any subsequent connection on port 0?
-
-> +
-> +static void dwc3_role_mux_exit(struct dwc3 *dwc)
-> +{
-> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
-> +	unsigned int i;
-> +
-> +	if (!mux)
-> +		return;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(mux->ports); i++) {
-> +		if (mux->ports[i].sw)
-> +			usb_role_switch_unregister(mux->ports[i].sw);
-> +		mux->ports[i].sw =3D NULL;
-> +		fwnode_handle_put(mux->ports[i].fwnode);
-> +		mux->ports[i].fwnode =3D NULL;
-> +	}
-> +}
-> +
-> +/* Returns 1 when the optional two-connector mux has been set up. */
-> +static int dwc3_role_mux_init(struct dwc3 *dwc, u32 mode)
-> +{
-
-[ ... ]
-
-> +	fwnode_graph_for_each_endpoint(dev_fwnode(dwc->dev), ep) {
-> +		if (!fwnode_property_present(ep, "usb-role-switch"))
+> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
+> +		if (!dcp_kms->dsi_bridge[i])
 > +			continue;
 > +
-> +		ret =3D fwnode_property_read_u32(ep, "mux-state", &state);
-> +		if (ret || state >=3D ARRAY_SIZE(mux->ports)) {
-> +			ret =3D -EINVAL;
-> +			goto err_put_ep;
-> +		}
-> +		if (mux->ports[state].fwnode) {
-> +			ret =3D -EINVAL;
-> +			goto err_put_ep;
-> +		}
-> +
-> +		mux->ports[state].fwnode =3D fwnode_handle_get(ep);
-> +		mux->ports[state].state =3D state;
-> +		mux->ports[state].dwc =3D dwc;
+> +		dcp_dsi_bridge_cleanup(dcp_kms->dsi_bridge[i]);
+> +		dcp_kms->dsi_bridge[i] =3D NULL;
 > +	}
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(mux->ports); i++) {
-> +		if (!mux->ports[i].fwnode) {
-> +			ret =3D -EINVAL;
-> +			goto err;
-> +		}
-> +	}
-> +
-> +	dwc->role_mux =3D mux;
-
-[Severity: Medium]
-If the first endpoint succeeds and takes a reference via
-mux->ports[state].fwnode =3D fwnode_handle_get(ep), but a subsequent endpoi=
-nt
-fails validation (or one of the ports is missing) before dwc->role_mux =3D =
-mux
-is assigned here, doesn't jumping to err_put_ep or err leak
-mux->ports[state].fwnode because dwc3_role_mux_exit(dwc) sees
-dwc->role_mux =3D=3D NULL and returns early?
-
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(mux->ports); i++) {
-> +		snprintf(name, sizeof(name), "%s-port%u", dev_name(dwc->dev), i);
-> +		desc.name =3D name;
-> +		desc.fwnode =3D mux->ports[i].fwnode;
-> +		desc.set =3D dwc3_mux_role_set;
-> +		desc.get =3D dwc3_mux_role_get;
-> +		desc.driver_data =3D &mux->ports[i];
-> +		mux->ports[i].sw =3D usb_role_switch_register(dwc->dev, &desc);
-> +		if (IS_ERR(mux->ports[i].sw)) {
-> +			ret =3D PTR_ERR(mux->ports[i].sw);
-> +			mux->ports[i].sw =3D NULL;
-> +			goto err;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * The controller is only started in its default role once both switches
-> +	 * are registered: before that a connector driver cannot request a role,
-> +	 * so nothing can race with this initial mode request.
-> +	 */
-> +	dwc3_set_mode(dwc, mode);
-> +
-> +	return 1;
-> +
-> +err:
-> +	dwc3_role_mux_exit(dwc);
-> +	dwc->role_mux =3D NULL;
-> +	/* A mode request queued before the failure must not run on freed state=
-. */
-> +	cancel_work_sync(&dwc->drd_work);
-> +	return ret;
-> +err_put_ep:
-> +	fwnode_handle_put(ep);
-> +	goto err;
 > +}
 
 [Severity: High]
-Can a connector driver request a role as soon as usb_role_switch_register()
-publishes mux->ports[0].sw or mux->ports[1].sw, before dwc3_set_mode(dwc, m=
-ode)
-runs?
+Will calling dcp_dpu_kms_cleanup_bridges() from dcp_dpu_kms_setup_bridges(),
+dcp_dpu_setup_pipeline(), or dcp_dpu_kms_destroy() deadlock on
+component_mutex and break deferred probe retries?
 
-If a connector calls dwc3_mux_role_set() right after usb_role_switch_regist=
-er()
-returns, two problems can occur:
+Before registering the aggregate component master, dcp_component_register()
+calls dcp_dpu_kms_init_dsi_bridges() -> dcp_dsi_bridge_init(), which
+registers dsi_host_dev and mipi_dsi_host and adds each dsi_np to the
+component match list. When the DSI panel attaches, dcp_dsi_host_attach()
+calls component_add(&dsi_bridge->dsi_host_dev, &dcp_dsi_component_ops).
 
-1. On the normal path, the unlocked dwc3_set_mode(dwc, mode) call here can
-overwrite the connector's dwc->desired_dr_role back to the default mode whi=
-le
-port->role remains set to the connector's requested role.
+Once all components are added, drivers/base/component.c holds the non-
+recursive component_mutex across both aggregate bind and unbind:
 
-2. On the error path (if registering ports[0].sw succeeds, port 0 queues
-drd_work, and registering ports[1].sw fails), err sets dwc->role_mux =3D NU=
-LL
-before cancel_work_sync(&dwc->drd_work) (racing with __dwc3_set_mode()), and
-if __dwc3_set_mode() already ran and initialized host or gadget mode via
-dwc3_host_init() or dwc3_gadget_init(), dwc3_core_probe() jumps to
-err_exit_debugfs without calling dwc3_core_exit_mode(), leaving the xHCI
-device or gadget registered after probe fails.
+  try_to_bring_up_aggregate_device() [holds component_mutex]
+    -> msm_drm_bind()
+      -> msm_drm_init()
+        -> msm_drm_kms_init()
+          -> dcp_dpu_kms_hw_init()
+            -> dcp_dpu_drm_obj_init()
+              -> dcp_dpu_setup_pipeline()
+                -> dcp_dpu_kms_setup_bridges()
 
-> +
->  static int dwc3_setup_role_switch(struct dwc3 *dwc)
->  {
->  	struct usb_role_switch_desc dwc3_role_switch =3D {NULL};
->  	u32 mode;
+  take_down_aggregate_device() [holds component_mutex]
+    -> msm_drm_unbind()
+      -> msm_drm_uninit()
+        -> msm_drm_kms_uninit()
+          -> dcp_dpu_kms_destroy()
+
+When dcp_dpu_kms_cleanup_bridges() runs from any of those paths, it calls:
+
+  dcp_dsi_bridge_cleanup()
+    -> mipi_dsi_host_unregister()
+      -> mipi_dsi_remove_device_fn()
+        -> mipi_dsi_detach()
+          -> dcp_dsi_host_detach()
+            -> component_del(&dsi_bridge->dsi_host_dev, ...)
+
+which tries to acquire component_mutex while it is already held by the
+calling thread.
+
+In addition, in msm_drm_uninit(), msm_drm_kms_uninit() runs before
+component_unbind_all() and drm_dev_put(), so dcp_dpu_kms_destroy() tears do=
+wn
+the bridges and deletes dsi_host_dev while it is still bound as a component
+and attached to encoder->bridge_chain. Destroying and clearing
+dcp_kms->dsi_bridge[] on error or -EPROBE_DEFER in dcp_dpu_kms_setup_bridge=
+s()
+or dcp_dpu_setup_pipeline() also prevents any subsequent deferred probe ret=
+ry
+from succeeding because dcp_dpu_kms_init_dsi_bridges() only runs once before
+component_master_add_with_match().
+
+[ ... ]
+
+> +static void dcp_dpu_kms_enable_commit(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
 > +	int ret;
-> =20
->  	dwc->role_switch_default_mode =3D usb_get_role_switch_default_mode(dwc-=
->dev);
->  	if (dwc->role_switch_default_mode =3D=3D USB_DR_MODE_HOST) {
-> @@ -513,6 +723,11 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
->  		dwc->role_switch_default_mode =3D USB_DR_MODE_PERIPHERAL;
->  		mode =3D DWC3_GCTL_PRTCAP_DEVICE;
->  	}
 > +
-> +	ret =3D dwc3_role_mux_init(dwc, mode);
-> +	if (ret)
-> +		return ret < 0 ? ret : 0;
+> +	ret =3D pm_runtime_resume_and_get(dcp_kms->pm_dev);
+> +	if (ret < 0) {
+> +		dcp_kms->commit_pm_active =3D false;
+> +		drm_err_ratelimited(dcp_kms->dev,
+> +				    "pm_runtime_resume_and_get failed: %d\n",
+> +				    ret);
+> +		return;
+> +	}
+> +
+> +	dcp_kms->commit_pm_active =3D true;
+> +}
+> +
+> +static void dcp_dpu_kms_disable_commit(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	if (dcp_kms->commit_pm_active) {
+> +		pm_runtime_put_autosuspend(dcp_kms->pm_dev);
+> +		dcp_kms->commit_pm_active =3D false;
+> +	}
+> +}
 
 [Severity: High]
-How is dwc3_role_mux_init() reached when the Device Tree follows the
-two-connector binding?
+Can overlapping commits race on dcp_kms->commit_pm_active and leak a runtime
+PM reference on dcp_kms->pm_dev?
 
-In Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml (and as chec=
-ked
-in dwc3_role_mux_init() above), when port-select-gpios is present, the
-usb-role-switch property is placed on the child graph endpoints
-(ports/port@0/endpoint@0 and endpoint@1) rather than on the controller node.
+msm_atomic_commit_tail() calls kms->funcs->enable_commit(kms) before
+lock_crtcs(kms, crtc_mask) and calls kms->funcs->disable_commit(kms) after
+unlock_crtcs(kms, crtc_mask), while msm_atomic_async_commit() also calls
+enable_commit() and disable_commit() from per-CRTC worker threads, and
+commits on separate CRTCs execute concurrently.
 
-However, dwc3_setup_role_switch() is only called from dwc3_drd_init() when
-the controller node itself has the usb-role-switch property:
+If two commits overlap between dcp_dpu_kms_enable_commit() and
+dcp_dpu_kms_disable_commit():
 
-drivers/usb/dwc3/drd.c:dwc3_drd_init() {
-	if (ROLE_SWITCH &&
-	    device_property_read_bool(dwc->dev, "usb-role-switch"))
-		return dwc3_setup_role_switch(dwc);
-    ...
-}
+1. Both commits call pm_runtime_resume_and_get(dcp_kms->pm_dev) and set the
+   single shared boolean dcp_kms->commit_pm_active =3D true.
+2. When the first commit finishes and calls dcp_dpu_kms_disable_commit(), it
+   calls pm_runtime_put_autosuspend(dcp_kms->pm_dev) once and sets
+   dcp_kms->commit_pm_active =3D false.
+3. The second in-flight commit then sees !dcp_kms->commit_pm_active in
+   dcp_crtc_atomic_begin() (failing the commit with cstate->hfi_error =3D -=
+EIO),
+   and when it reaches dcp_dpu_kms_disable_commit() it sees
+   dcp_kms->commit_pm_active =3D=3D false and skips
+   pm_runtime_put_autosuspend(dcp_kms->pm_dev), leaking its runtime PM usage
+   count.
 
-And both dwc3_get_dr_mode() and dwc3_get_extcon() in drivers/usb/dwc3/core.c
-likewise only check device_property_read_bool(dwc->dev, "usb-role-switch")
-on the controller device (causing dwc3_get_dr_mode() to force dr_mode from
-USB_DR_MODE_OTG to USB_DR_MODE_PERIPHERAL on DWC_usb3 >=3D 3.30a and
-DWC_usb31/32).  Without top-level checks for port-select-gpios (or endpoint
-usb-role-switch properties), won't dwc3_role_mux_init() be unreachable on
-boards using a schema-compliant Device Tree?
+[ ... ]
+
+> +static void dcp_dpu_kms_destroy(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +
+> +	if (kms->vm) {
+> +		struct msm_gem_vm *msm_vm =3D to_msm_vm(kms->vm);
+> +
+> +		if (msm_vm->mmu && msm_vm->mmu->funcs->detach) {
+> +			drm_dbg_driver(dcp_kms->dev,
+> +				       "detaching IOMMU domain from dcp-dpus\n");
+> +			msm_vm->mmu->funcs->detach(msm_vm->mmu);
+> +		}
+> +
+> +		drm_gpuvm_put(kms->vm);
+> +		kms->vm =3D NULL;
+> +	}
+> +
+> +	if (dcp_kms->rpm_enabled) {
+> +		pm_runtime_disable(dcp_kms->pm_dev);
+> +		dcp_kms->rpm_enabled =3D false;
+> +	}
+> +
+> +	msm_kms_destroy(&dcp_kms->base);
+> +}
+
+[Severity: High]
+Is the teardown in dcp_dpu_kms_destroy() balanced with dcp_kms_init() across
+deferred probe or component rebind?
+
+In msm_drm_init(), msm_drm_kms_init() calls priv->kms_init(ddev)
+(dcp_kms_init()) and kms->funcs->hw_init(kms) (dcp_dpu_kms_hw_init()). If
+msm_drm_kms_init() fails (for instance with -EPROBE_DEFER when a panel is n=
+ot
+ready in dcp_dpu_kms_setup_bridges()) or when the aggregate device unbinds,
+msm_drm_uninit() calls msm_drm_kms_uninit(), which flushes kms->wq and calls
+dcp_dpu_kms_destroy().
+
+However, msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs) and
+pm_runtime_enable(&drv->dcp_subsystem_dev->dev) are only called once during
+virtio probe (in dcp_virtio_probe() and dcp_subsystem_dev_init()), not in
+dcp_kms_init(). When dcp_dpu_kms_destroy() runs:
+
+- pm_runtime_disable(dcp_kms->pm_dev) disables runtime PM on pm_dev (and on
+  driver removal, dcp_subsystem_dev_deinit() calls pm_runtime_disable() a
+  second time on the same device).
+- msm_kms_destroy(&dcp_kms->base) destroys kms->wq and kms->pending_timers[=
+],
+  leaving kms->wq as a dangling pointer that will be flushed and destroyed
+  again on a subsequent bind attempt or uninit.
+
+[Severity: High]
+Does dcp_dpu_kms_destroy() (and the error path in dcp_dpu_setup_pipeline())
+leave dangling CRTC and drm_device pointers reachable from HFI event
+callbacks?
+
+dcp_kms_init() sets dcp_kms->dev =3D ddev and drv->kms =3D dcp_kms, and
+dcp_dpu_setup_pipeline() populates dcp_kms->crtcs[] with CRTCs allocated via
+drmm_kzalloc(ddev, ...) in dcp_crtc_init() and increments dcp_kms->num_crtc=
+s.
+
+When msm_drm_uninit() runs on init failure, component unbind, or during
+dcp_virtio_remove() -> dcp_component_unregister() before
+dcp_virtio_hfi_cleanup() stops the VirtIO queues, drm_dev_put(ddev) frees
+ddev and all drmm-managed dcp_crtc instances while dcp_kms and drv remain
+allocated. Because neither dcp_dpu_kms_destroy() nor
+dcp_dpu_setup_pipeline()'s error path clears dcp_kms->num_crtcs,
+dcp_kms->crtcs[], dcp_kms->dev, or drv->kms, an incoming
+HFI_COMMAND_DISPLAY_EVENT_VSYNC or
+HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE message in
+dcp_hfi_resp_callback() will invoke dcp_crtc_hfi_vblank_cb() or
+dcp_crtc_hfi_frame_done_cb() and dereference the freed dcp_crtc or drm_devi=
+ce.
+
+[ ... ]
+
+> +int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
+> +				 struct component_match **matchptr)
+> +{
+> +	struct device_node *dpu_np =3D dcp_kms->dpus_np;
+> +	struct device_node *ep_np, *dsi_np, *child_np;
+> +	struct of_endpoint ep;
+> +	int ret;
+> +
+> +	for_each_of_graph_port(dpu_np, port_np) {
+> +		u32 dsi_idx, fw_display_id;
+> +		struct drm_bridge *bridge;
+> +
+> +		ep_np =3D of_get_next_child(port_np, NULL);
+> +		if (!ep_np)
+> +			continue;
+> +
+> +		ret =3D of_graph_parse_endpoint(ep_np, &ep);
+> +		of_node_put(ep_np);
+> +		if (ret)
+> +			continue;
+> +
+> +		dsi_idx =3D ep.port;
+> +		if (dsi_idx >=3D ARRAY_SIZE(dcp_kms->dsi_bridge))
+> +			return -E2BIG;
+> +
+> +		if (dcp_kms->dsi_bridge[dsi_idx])
+> +			continue;
+> +
+> +		dsi_np =3D NULL;
+> +		for_each_available_child_of_node(dpu_np, child_np) {
+> +			u32 reg;
+> +
+> +			if (!of_node_name_prefix(child_np, "dsi") ||
+> +			    of_property_read_u32(child_np, "reg", &reg) ||
+> +			    reg !=3D dsi_idx)
+> +				continue;
+> +
+> +			dsi_np =3D of_node_get(child_np);
+> +			break;
+> +		}
+> +		of_node_put(child_np);
+> +		if (!dsi_np)
+> +			return -ENODEV;
+> +
+> +		fw_display_id =3D
+> +			dcp_dpu_kms_resolve_fw_display_id(dcp_kms, dsi_idx);
+> +		if (fw_display_id =3D=3D U32_MAX) {
+> +			of_node_put(dsi_np);
+> +			return -EINVAL;
+> +		}
+> +
+> +		bridge =3D dcp_dsi_bridge_init(dcp_kms, dsi_np, dpu_np,
+> +					     ep.port, dsi_idx, fw_display_id);
+> +		if (IS_ERR(bridge)) {
+> +			ret =3D PTR_ERR(bridge);
+> +			of_node_put(dsi_np);
+> +			return ret;
+> +		}
+> +
+> +		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
+> +		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
+> +					   component_compare_of, dsi_np);
+> +		of_node_put(dsi_np);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int dcp_dpu_setup_pipeline(struct dcp_dpu_kms *dcp_kms,
+> +				  struct device_node *dpu_np)
+> +{
+
+[ ... ]
+
+> +	dcp_kms->num_crtcs =3D 0;
+> +	for (i =3D 0; i < max_crtc_count; i++) {
+> +		u32 display_id;
+> +
+> +		if (!dcp_kms->dsi_bridge[i]) {
+> +			drm_err(dev, "missing DSI bridge for CRTC%u\n", i);
+> +			ret =3D -ENODEV;
+> +			goto err_cleanup_bridges;
+> +		}
+> +
+> +		display_id =3D dcp_kms->dsi_bridge[i]->fw_display_id;
+
+[Severity: High]
+What happens if a DT graph port has no available remote panel or if port@0 =
+is
+omitted or disabled while port@1 is active?
+
+First, dcp_dpu_kms_setup_bridges() checks of_graph_get_remote_port_parent()
+and of_device_is_available(remote_np) and skips ports without an available
+panel, but dcp_dpu_kms_init_dsi_bridges() does not perform this check before
+creating dcp_kms->dsi_bridge[dsi_idx] and adding dsi_np to matchptr via
+drm_of_component_match_add(). Because component_add() is only called from
+dcp_dsi_host_attach() when a panel driver attaches to the DSI host, any
+unpopulated or disabled panel endpoint in DT will prevent the component
+master from ever binding.
+
+Second, both dcp_dpu_kms_init_dsi_bridges() and dcp_dpu_kms_setup_bridges()
+index dcp_kms->dsi_bridge[] by ep.port, whereas dcp_dpu_setup_pipeline()
+loops from i =3D 0 to max_crtc_count - 1 and looks up dcp_kms->dsi_bridge[i]
+using the sequential CRTC index i. If port@0 is absent or disabled and only
+port@1 is active, dcp_kms->dsi_bridge[1] holds the active bridge while
+max_crtc_count is 1, so dcp_dpu_setup_pipeline() checks
+dcp_kms->dsi_bridge[0] and either fails with -ENODEV or binds CRTC 0 to the
+wrong bridge's fw_display_id.
+
+> +		if (dcp_dpu_kms_get_crtc(dcp_kms, display_id)) {
+> +			drm_err(dev, "duplicate firmware display ID %u\n",
+> +				display_id);
+> +			ret =3D -EINVAL;
+> +			goto err_cleanup_bridges;
+> +		}
+> +
+> +		crtc =3D dcp_crtc_init(dcp_kms, primary_planes[i],
+> +				     display_id);
+> +		if (IS_ERR(crtc)) {
+> +			ret =3D PTR_ERR(crtc);
+> +			drm_err(dev, "CRTC init failed: %d\n", ret);
+> +			goto err_cleanup_bridges;
+> +		}
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs].crtc =3D crtc;
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs++].display_id =3D display_id;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup_bridges:
+> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +	return ret;
+> +}
+> +
+> +int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms)
+> +{
+> +	struct drm_device *dev =3D dcp_kms->dev;
+> +	struct device_node *dpus_np =3D dcp_kms->dpus_np;
+> +	struct drm_encoder *encoder;
+> +	int enc_idx =3D 0;
+> +	int ret;
+> +
+> +	if (!dpus_np) {
+> +		drm_err(dev, "no DCP subsystem node =E2=80=94 cannot create DRM object=
+s\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret =3D dcp_dpu_setup_pipeline(dcp_kms, dpus_np);
+> +	if (ret)
+> +		return dev_err_probe(dev->dev, ret, "pipeline setup failed\n");
+> +
+> +	/* v1 - Encoders map one-to-one to CRTCs; cloning is unsupported. */
+> +	drm_for_each_encoder(encoder, dev) {
+> +		encoder->possible_crtcs =3D BIT(enc_idx);
+> +		encoder->possible_clones =3D 0;
+> +		enc_idx++;
+> +	}
+
+[Severity: Medium]
+Can plane and encoder possible_crtcs masks reference non-existent CRTCs when
+max_crtc_count is clamped in dcp_dpu_setup_pipeline()?
+
+In dcp_dpu_setup_pipeline(), dcp_dpu_kms_setup_bridges() creates an encoder
+for each active DSI port before CRTC and plane limits are applied:
+
+  max_crtc_count =3D min(max_crtc_count, DCP_DPU_MAX_CRTCS);
+  max_crtc_count =3D min_t(int, max_crtc_count,
+                         dcp_kms->caps->num_displays);
+  max_crtc_count =3D min_t(int, max_crtc_count,
+                         ARRAY_SIZE(dcp_kms->dsi_bridge));
+
+Then, during plane creation, possible_crtcs is computed from max_crtc_count
+before max_crtc_count is clamped again to min(max_crtc_count, primary_idx).
+Finally, in dcp_dpu_drm_obj_init(), every created encoder is assigned
+encoder->possible_crtcs =3D BIT(enc_idx).
+
+If caps->num_displays or total_planes clamps the number of created CRTCs
+below the number of encoders, planes and encoders will have possible_crtcs
+bits set for CRTC indices that do not exist, triggering a WARN() in
+validate_encoder_possible_crtcs() during drm_mode_config_validate().
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026123211.2432=
-24-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D17
