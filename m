@@ -1,56 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793013108;
-	b=r/9fF2LECwzJdMq7SvSzS0wF/3VxjsJnuCUMjr25pxfvxuSiWO4kVuWkdzLQ6ajW16kE
-	 +IXurT6NIlCd91QzMSydRQJNKSbheEC8Zda37n3XdGphKPas0SAPWOi20gYtVoaCCrAPD
-	 vEIcJKpeZ4fd8Z8SYqUqv6O03Ll1GHenIvx+I6avX1GopBb4DJFaKA3IW+9JTSELB6iPg
-	 EAJE9tpVPn7U9klkRG/OWLQW17K3pe1xU5Pa6kO3KufIYqKRtjGfnhTmZotlcAEzloGLS
-	 OKOHAxxOB8znm7uUGxiYjHD2UJCyiyoH88KDSNubKULpXvJKOqHlxrqfJfSAgVJnKXQ==
+	b=ifYRuHGOtXRcncwEpE936SsvT0BmZtvpOVJ8IZg18sU1STv1iTi8dH8Ot5xVX4EumCr3
+	 EoeDDz/qNpfxkzvKWzM4D8R3xNjysJV80di6EfFojx17ZymErOH8nPjvZJkT3/0OUglky
+	 8cVXTdRti1fZ9/uOy/lNWfyVzTe8Y3x3DOZIK3AAXcu2LTCkS+8AZe06YzUH+zZ9nWM6I
+	 C+s3BCGnKDxL+qKFVDJWftJaAsFEGCBn5tXKRhCGZnLtFGWe6oYFMW7zQ2KyutaiBfl/+
+	 c2i26PGefSgJbIGyiWz+ApWPGSYwsGH/gpcIk/iu6xQfxo8joPOZWVJQ4VeGuGD030g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793013108;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6wABfdgJn9uXdChsaU3X547Znlis1fzmOShZNL8S5pg=;
-	b=JbXjelw1WkAhV7Rv+nctTOmvPmM5cGPbCF1qy+OCaIuNnI4m/1zw3tLwGTH4CXbusAgU
-	 AqqhzRX5ybgM45oGv7jOivHPeAr2py7jHm2+hfaXXj7nG5NNfNIIP3x1CfBtDui9VkiWV
-	 cJ4rBlBaAlIj9GWwBFxzLzxQqp9u6BZSFeZtT3KlBWjWUAIHGkn7dUi5j9hVUIeJCPz4G
-	 7MpJS/6fg5NW3QRGABkJIQzgfUBW3LGgOCk8uTERLLLNuTe/x1f0H2vTVDnZjbufDAGga
-	 sgFwyxPY6mRkwJoDcrN1yEE0p0k7VbO5Di1d8rMPjtDveGBRzfi71XbDaXYnf3Z0IeQ==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yd6kellBkouNmavPCTxgbbG4MTt15mCuT9lyTCHnvh4=;
+	b=XYcEB317XiqOU7ra/2Gh0ZLHsBwe029v2T/Wwe9cqfCQfqsXiNmXm45039IA9JLItFXa
+	 Oi65Vx2wlxy3JcKRYqriZA/vFlu9Kx1zYbMSY1bLx5HQKK5hTKEgcA7ruKr9nsCOGNHK1
+	 0mtwEbH5BgNNUrtYVB2wEMMMHL/pAq7QcpeB/FMiC1YbIjxJeDREaBHNq4L2n4RAVHx+b
+	 /h3z+l2UDZuHosZG1mMViYCYOzfzw6ozScK5DPUwD6sKTqTldEjt34WHP5sSvdmrYAEVJ
+	 VDVVdaNPhJrSfq1ljDLbe2OSTwa+RbRD0NVXY1yrSN5xYzzHpZocp+codf3BxZVCHjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z7JVWJBY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOl9N+s4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6686606A325
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AB5606A946;
+	Mon, 26 Oct 2026 11:11:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z7JVWJBY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C271F01343;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOl9N+s4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511A81F01342;
 	Mon, 26 Oct 2026 11:11:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793013107;
-	bh=6wABfdgJn9uXdChsaU3X547Znlis1fzmOShZNL8S5pg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z7JVWJBYeYdxzhC9LgVKm5DvX9PQERmTXLnyeuvmLEDZgEUlfHiRIOfWdsOGQPZNP
-	 wFnXgt2ZSCb8P7D83JctvZe3uzDpkSW4zxM8IxGOwkabD4iOLuiwgqAkymKFpte8Co
-	 ZGf81OOx2diA5Z1xPRep7nseDWe47Hwmt4lPO0bmezgeHUmXu8ae8xJZrk76DHwOXh
-	 C1LPabdgBxJtU8FnA1xgYWkML7RW6avqHMnm/b9hxIcC8caXuk0y3xsplBTgvlN9n9
-	 tXPCut3BqyI99fbM6UfsWXxDZmg8/nrFlchBjI7XiCojPpowD8viCo08wnk8WTU2z8
-	 VDLSfPx4gjfRg==
-Message-ID: <sashiko-outbox-185067@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/9] arm64: dts: airoha: en7581: add watchdog node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026095727.31708-6-ansuelsmth@gmail.com>
-References: <20261026095727.31708-1-ansuelsmth@gmail.com>
- <20261026095727.31708-6-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 11:11:46 +0000
+	s=k20260515; t=1793013108;
+	bh=Yd6kellBkouNmavPCTxgbbG4MTt15mCuT9lyTCHnvh4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WOl9N+s4DFgHhLromnYQt6oF5JKpkhFm1SXjKN2A6YDEmiC263KVR9PrIDCzSeJ7J
+	 LQlrtz1WSJpeA+WWyRc+Cx72IJNEtj/RGsdqEH0amOb3CmSxcRqdL3cR+JePbDdGP5
+	 4CjEp8+HWawtAAfMuDoOvJoFoX0+vcM126BGtjRlpYwSYDljQWebf3WO7w74Tad4wR
+	 PIeE9yTGoOPJXgFhK9jCqrzlk1j4MzcqXQKvaENqdzdiLFC/PvrpFF7/BwUAcelgKw
+	 jOQei9Tvju6qHw8Yj4XdijooVmJH7NVYvlUvMquQDLHUOBfItDp9HF+eEy3XSdnUhf
+	 4WWGxbr5IwPIQ==
+Date: Mon, 26 Oct 2026 12:11:45 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Ajay Neeli <ajay.neeli@amd.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Pedro Sousa <pedrom.sousa@synopsys.com>, 
+	Joao Pinto <Joao.Pinto@synopsys.com>, Hannes Reinicke <hare@suse.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, linux-scsi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, clizzi@redhat.com, 
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com, 
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 07/10] dt-bindings: ufs: Add NXP S32N79 UFS host
+ controller
+Message-ID: <20261026-beneficial-authentic-bonobo-a59b7c@quoll>
+References: <20261024122533.3609180-1-larisa.grigore@oss.nxp.com>
+ <20261024122533.3609180-8-larisa.grigore@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,65 +68,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261024122533.3609180-8-larisa.grigore@oss.nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: airoha: watchdog reg size 0x38 excludes WDT_RELOAD a=
-t 0x38
---
+On Sat, Oct 24, 2026 at 02:25:30PM +0200, Larisa Grigore wrote:
+> Document the UFS host controller on the NXP S32N79 SoC.
+> 
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-commit 285873958d4bd82b85e9f3812fdf852db2de2884
-Author: Christian Marangi <ansuelsmth@gmail.com>
+How this could appear in v1?
 
-arm64: dts: airoha: en7581: add watchdog node
+Also, your SoB is the last one.
 
-This commit adds the watchdog device tree node to en7581.dtsi to handle
-system stalls and reboots.
+> ---
+>  .../bindings/ufs/nxp,s32n79-ufshc.yaml        | 65 +++++++++++++++++++
+>  1 file changed, 65 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml b/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+> new file mode 100644
+> index 000000000000..14291c5506f1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ufs/nxp,s32n79-ufshc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP S32N79 Universal Flash Storage (UFS) Controller
+> +
+> +maintainers:
+> +  - Larisa Grigore <larisa.grigore@oss.nxp.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: nxp,s32n79-ufshc
+> +
+> +  reg:
+> +    items:
+> +      - description: UFS Host Controller registers
+> +      - description: System Control Module registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: ufshc
+> +      - const: scm
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - operating-points-v2
+> +
+> +allOf:
+> +  - $ref: ufs-common.yaml
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    ufshc@4ac80000 {
+> +        compatible = "nxp,s32n79-ufshc";
+> +        reg = <0x4ac80000 0x1000>, <0x4ac40000 0x1000>;
+> +        reg-names = "ufshc", "scm";
+> +        interrupt-parent = <&irqsteer_coss>;
+> +        interrupts = <211>;
+> +        clocks = <&clks 0x92>;
+> +        clock-names = "core";
+> +        operating-points-v2 = <&ufs_opp_table>;
+> +
+> +        ufs_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-0 {
+> +                opp-hz = /bits/ 64 <0>;
 
-> diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts=
-/airoha/en7581.dtsi
-> index 58bd8b318910e..3a4a4fb0eba9b 100644
-> --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
-> +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
-> @@ -484,6 +484,14 @@ uart1: serial@1fbf0000 {
->  			clock-frequency =3D <1843200>;
->  		};
-> =20
-> +		watchdog@1fbf0100 {
-> +			compatible =3D "airoha,en7581-wdt";
-> +			reg =3D <0x0 0x1fbf0100 0x0 0x38>;
+Why is this empty?
 
-[Severity: Medium]
-Should the reg size in watchdog@1fbf0100 be 0x3c instead of 0x38?
 
-In drivers/watchdog/airoha_wdt.c, WDT_RELOAD is defined at offset 0x38 and =
-is
-accessed as a 32-bit register in airoha_wdt_ping() when pinging or resuming
-the watchdog:
+Best regards,
+Krzysztof
 
-#define WDT_RELOAD			0x38
-#define   WDT_RLD			BIT(0)
-...
-static int airoha_wdt_ping(struct watchdog_device *wdd)
-{
-	struct airoha_wdt_desc *airoha_wdt =3D watchdog_get_drvdata(wdd);
-	u32 val;
-
-	val =3D readl(airoha_wdt->base + WDT_RELOAD);
-	val |=3D WDT_RLD;
-	writel(val, airoha_wdt->base + WDT_RELOAD);
-
-	return 0;
-}
-
-With a size of 0x38, the resource mapped via devm_platform_ioremap_resource=
-()
-in airoha_wdt_probe() only covers offsets 0x00 through 0x37, leaving the
-4-byte WDT_RELOAD register at 0x38..0x3b outside the declared MMIO resource
-region (and the binding example in
-Documentation/devicetree/bindings/watchdog/airoha,en7581-wdt.yaml also uses
-0x3c).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026095727.3170=
-8-1-ansuelsmth@gmail.com?part=3D5
