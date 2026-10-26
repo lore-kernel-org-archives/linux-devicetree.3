@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054723;
-	b=qlyrx831YGTZrf6kvOzFwO1w/MzeDlg/d1jaU8Ac0ta1tw8FsKW7+Q00OJMNMgsux+Nx
-	 kopGypgsJxPMs3rMwx33cYVZE1ZjGRf0EV/beEwmutGanIS54SMQbqmtMEACT4LVGFGXQ
-	 orFOlDwYeMBFbNv2aGMP2RgvwipbSC7EXFoVPO2SzalbjD12GweYfiy6Y0nIpInyjEvR2
-	 JZ+UeEmE4ibsI/VvBvNmcl3BPNheNL7wzkjZ08DA+6ZoMXLsKubRRd5gRAHwWqC2KFnlx
-	 xRC6i4p4SfSmbPrQ9t8yfgrvmIYZXfn9ljE5JJNEey3NE3yHRTOkz3wYZTrzhARRL8Q==
+	t=1793055004;
+	b=RlinG1ZAl3NjQ8wVfmka0PvVy8FN19sZ+RZfWY1++JGKecwYjz48s/bKFPVpdEzQiI7f
+	 FjIY6QDHuVEGvL5hzjKl/objg+HgiTzDGXfEUG7e+oiP3q6y5UA5iwjgrWSGOx7/rpNVH
+	 PYybuUk6JUdVjzOPkcDMwRGNlq7syAVhg3qfW0PlNsO0xivDhUbUaMT/aF3wdJ7plEd7P
+	 QMMewqTCF+B+AraocDbw1pnEvLAN8YwW/JYj1xBZbWXdFb9xWlox01TB1Qk/3WMMwkKqi
+	 RcFqzFom0EDc7t2mWcHg2DVOyeUHpTN/oW4KUI7xuzlogLlplM4q3N8I43u3AijBEoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054723;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=BY/SftwD8F8r8SqVpls6r5bnae+NUIq0aG4VMj423oo=;
-	b=LBMMFwqkUFZj5FaEOC3tSdVsCeuxUW8p1Ndn2weFUJULLwSM1ifQJiNo+dBfwgTem9Ho
-	 QGUvv3O2i22laxrk9f4uDueThOHXJzp+hfhInpIJMU4YXU+6x2IKsNiEfnvJrJ0gejMup
-	 xzSGS51YGEahrSHcqW57BRLtxYT6fj7iV2hbafJ9+vqdhfyLahcx+GhH2T6Ipk9k19wyy
-	 LaZ5iBPdQVWEAjAh8BXRm8ILBxnZbNzT28nLLY/DMTu5Vj6cszxT7n8Ij5ZShGdFAfAvc
-	 Q/4LiUFm4Ve+jsYBZ+dmsPyFDTIurPv8dDgn8L3iePjhTaodPfc2xQvfn1emFZH468A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055004;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
+	b=C+fTKfXSwQFjAeZ3xq/+zIPJXNvetYhj3IQnFPy0BKYzPhX9TugrcfLmALvTP83wwFMn
+	 nGqoVL5SMaz05pHhiYq3qlQ8XhJ9eQrq6FNkesEAQWm+lQMqrSlhfSmQ+w742yrONEcKM
+	 RG53wFMxam2vtd5RdLV6nnEOlg71VG6P4lp2iZ5CL+6rGyRflx8QQaTZl8ZT3ictx3NDl
+	 5cPAoYw3srWayhoAufKKWgqK07JpOcMoBtyEYVGakjirGihYnQTBQqtfEv4AF9NQzls3S
+	 3OJICgmKGhyDz50SpsufcZyktsUQIihkH37s1BtcPby1uMgmuF6zY7CocvIvPM3Cx1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=fLcRhtPM;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OdN/9mtj";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EB5606A321;
-	Mon, 26 Oct 2026 22:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8EB5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186EE606A31A;
+	Mon, 26 Oct 2026 22:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=fLcRhtPM
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jD7xW1Fy9zMlRG;
-	Mon, 26 Oct 2026 23:45:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793054719;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BY/SftwD8F8r8SqVpls6r5bnae+NUIq0aG4VMj423oo=;
-	b=fLcRhtPMw3ehyQSJ5ZnPRrN2RN8KDpYR9dsK4RIfrHbVzgpneqFPKSPZFNAt6cZSqM9tTe
-	ksqnx+9Hy0QQvLvRjaGHfHb4SK3yalhga2IF7kPaSgda9MPC2bM3Mc492wBmohVvUIWuGL
-	U+gammvm83CX77HFzgzXboG2ClVFDwOTaVlmksjeG93TRxfcmrxa7HhRnmGcyIETvAVM8Z
-	7OQzD6pKKVnkUCeqiQ3odBssH2fTuZSngnNMy2+qj3z+zGe/aBV5ZYHOcntBqAjiw+w413
-	Nl2GUWtaKPW5+lthFl6ge4zaxM93MJRLxNzvkMteuNjr5vIlGOyi4fBOggp3jg==
-Message-ID: <aad8d5cf-fc95-408f-b751-ef60c11fb263@mailbox.org>
-Date: Mon, 26 Oct 2026 23:45:17 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OdN/9mtj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7FF1F01825;
+	Mon, 26 Oct 2026 22:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793055003;
+	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
+	h=From:To:Cc:Subject:Date;
+	b=OdN/9mtjOk1dKJ6xkM1gNYxz2hYE+Sd1gZtHVyuGFOZ38XHV7tm187e5xxlR6Hmva
+	 a9fzW1SE4muojYgFTd9AecGrsycLE7bV1hEnFOSUOr6iG6JcnHDuoQElakfZZJ7iws
+	 VJxxi80KiVRpySfEYTrQJMqfpkfVNPYcrdM2o9xi0y6pJhFE2HG5A7MoD95/E6RYmq
+	 Av3c3Pdh0jPvhvb3xIvmg6dhz56YMs+yQm+JJXE+ZAg3DYGop0yUFedFuedTWrqXKM
+	 6jL4j1CX/7oTM5B8aNVy9vEBFVO7RMqQhCgbJ+qhIAtXGSWiqqm0fnln7qqs69wtYw
+	 WL9/3QR/rmNcg==
+From: Vladimir Zapolskiy <vz@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/7] media: qcom: camss: Add SM8450 CAMSS support
+Date: Tue, 27 Oct 2026 00:49:50 +0200
+Message-ID: <20261026224957.1115370-1-vz@kernel.org>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,73 +70,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ
- with AER IRQ on R-Car Gen5
-To: Rob Herring <robh@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261003215710.792518-1-marek.vasut+renesas@mailbox.org>
- <20261026222639.GA4182867-robh@kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261026222639.GA4182867-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: yi55dgncqht5af54s9ht6x88qffx8xj6
-X-MBO-RS-ID: 8cfcf687f93422cde01
 
-On 10/26/26 11:26 PM, Rob Herring wrote:
-> On Sat, Oct 03, 2026 at 11:57:04PM +0200, Marek Vasut wrote:
->> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
->> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
->> controller.
->>
->> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
->> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
->> an AER interrupt, but to retain binding backward compatibility, this
->> interrupt is kept optional and added in a separate patchset.
->>
->> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
->> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
->> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->> Cc: Koichiro Den <den@valinux.co.jp>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->> Cc: Manivannan Sadhasivam <mani@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-pci@vger.kernel.org
->> Cc: linux-renesas-soc@vger.kernel.org
->> ---
->> NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
->> ---
->>   .../bindings/pci/rcar-gen4-pci-host.yaml      | 21 ++++++++++++-------
->>   1 file changed, 14 insertions(+), 7 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->> index 362c43a1a15d0..083b77d4de8f7 100644
->> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
->> @@ -28,13 +28,6 @@ properties:
->>     interrupts:
->>       maxItems: 4
->>   
->> -  interrupt-names:
-> 
-> Keep with just 'maxItems: 4'.
-Fixed in V2, thanks!
+This series adds support of Qualcomm SM8450 Camera Subsystem.
+
+The CSIPHYs are described as separate CSIPHY devices compatible with
+X1E80100 ones, there is no legacy CSIPHY resource description in
+the CAMSS driver, and this option is not intended to be supported.
+
+The change can be immediately tested on any SM8450 powered board by
+running an image stream from TPG to CSIDs, CSIPHY IPs are equal to
+the ones found on Hamoa platform, and were tested on a private board.
+
+The series was based and tested on linux-next-20261023.
+
+Changes from v1 to v2:
+* renamed Waipio SoC name taken from downstream to SM8450 (Krzysztof),
+* pushed DTS patches to the end of the series (Krzysztof),
+* added Reviewed-by tags by Konrad and Bryan,
+* minor non-function commit message and blank space changes.
+
+Link to v1:
+* https://lore.kernel.org/linux-arm-msm/20261023163057.775917-1-vz@kernel.org/
+
+Vladimir Zapolskiy (7):
+  dt-bindings: phy: qcom,x1e80100-csi2-phy: Add SM8450 compatible
+  dt-bindings: media: Add Qualcomm SM8450 CAMSS
+  media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
+  media: qcom: camss: Add SM8450 CAMSS support
+  arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
+  arm64: dts: qcom: sm8450: Add CAMSS device tree node
+  arm64: dts: qcom: sm8450: Add description of pins with MCLK function
+
+ .../bindings/media/qcom,sm8450-camss.yaml     | 274 +++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml  |   4 +-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi          | 565 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csiphy.c  |  16 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
+ drivers/media/platform/qcom/camss/camss.c     | 244 +++++++-
+ drivers/media/platform/qcom/camss/camss.h     |   1 +
+ 7 files changed, 1100 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
+
+-- 
+2.51.0
+
