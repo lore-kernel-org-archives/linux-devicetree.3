@@ -1,84 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010716;
-	b=UMnzRqNxkC6AYGvk2hmxNw75q0Hm0FSazjL73/+ODswi7ylHfujLwqgQD3QqFCNJT670
-	 vy29xgIokVASDX+IY7EnxYHh6MJdOohgGwtJ85lqWnu4o714c0Qj0hZesDX1DpkXK1SvD
-	 J+2T7uE6mYyhYL+uMoGKeJivvlzXi9WNV87fzJOoU6951jUquOwGvP0+eFT88BB3iR3/w
-	 1NDOeC7of35bauWumcjiilSMl2SIWQh4/xyr42UhRG3yk0GimZX565yl8LeH2ZbrFA+Yr
-	 4xkxyqNy3gfC8ffjDpUfBzB9Mmu7r8cgByY6qZlafne4pGi1QepjN4CkNXtSH9rUNKA==
+	t=1793010752;
+	b=aIrP/2cpLxmfjrUP5SgYEmCLuG8IbD+ONsEzz2oRqKTnu7PwJZ0cDu1IfKqWNJ/AkWif
+	 WqbWZCjXsqqM62wUPKVEuRKfQMyxI9nk0XkxTicBiFz9opi6aQmI+HttXmOWrg73LIYA0
+	 FvynSznjpZwmjnIyk0OQnupCSwB/y4rRWPcNpdJ/+bvgUhGRKCReBlVCndAI5TChJs9Am
+	 NMVsReTNO/ut2qFCRNktsPu6T+ThnubFH6bKBWtxYqbbRZ3Rfru8/Ip1yfjkuXMWadC6L
+	 eBEmyUcIqgV9kBLlNkRgWZbMDtAUHLJVDPUDuAlE3aMsN02IKGxFxIST9lEqI/hrDYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010716;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=/HIhGXqA4xP0tvnc3uf9hmSWe+5xRVAu9Rr9DT23f/0=;
-	b=y92RVkMAq8apZHkGIOpRCYwHltEkHXLbDMYdeiK6M60YlvYjZOv8j1GPZ5vbTVk7xmhl
-	 Qmcde+03JUR4joqZnttLF9rJmBH8sN0OXHxUnjZCpUckn73SLGvXOXPpqV1SJX7zKUYro
-	 ag1zbsjF6l+TquFaig3D665HGrmEQ8qWLHcHGBqGTlGKGxly4n/8FWUrVTwVY54qgztkh
-	 uFfAKwdJ03OuMSZI9vZhvQB6vY5c8Ef+DDrZtgeVA6rWrF41woWwNBwj3v8q8knRlOr0u
-	 rvb7hyVBh/MTLi/Fd1Zf7RHyWRtn461MfrogCXJeTrep1K4sWoqddodnMem0KiyvMtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010752;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SqNVN0NTswa3cRcCZzARPyshpWFTY6ZijbCqSsQ91+0=;
+	b=NjKDlLMpWc+T5pFou13nW0CN/+JI0VNuL3h1RYfxTTxAyMxv//DZxFr1hluw6PMlvS/0
+	 H1fK5uKdrrDVdafqu6Y5FCPD9Q1shDG/nxRPTO/N3y7CC4LwOnimm39SAhj+f3xKsmPUZ
+	 BBGHacz6Hf6VhM6uVjd/amWfwxp19iSOoL8bq7p2YhUeh1A1wBHgdB+GhvUSyMCb8uCiT
+	 /LC/pfgGKSmXaGivyDZ7zNluV13xjtYxDSNvoReAnakpVefvwlv9A86OxD11kHDW4wQxD
+	 n/iL1UkAZ4lazCEixqTpnnxlG9dXpQKspSnaYd6IMdQSwjqkofKpisMalYAmD6rRq5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iFwI0wcZ;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YVLtPNNb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UXKDukfL;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE37606A31A;
-	Mon, 26 Oct 2026 10:31:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AE37606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793BD606A329
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 793BD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iFwI0wcZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793010716; x=1824546716;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1C5aiI1j1KZosMcIZTJUzOc6KzOLatfEvtaQlkoXwmA=;
-  b=iFwI0wcZb5LeHydO+IVO1QDMOZQNVpYF+TQA5eyitvWksfKzQmCUu5TY
-   +VEk0ovtZvh+LHfF6SjVL54tqpvmW+QIhALUfmuhuC01RB30pOzMROBNm
-   m+Sj4tlOox1ajFf/jhddisgNrWcDPjufiTE12SDO+yAmx139kpfBny86/
-   pGsul+nh5HT83JxbN6rrbvDpvKZTQFjB01psbHTmpqL8t/VltgjCA4+y6
-   Wtc30ocdWfhO0pqAMzpv9e0LUYzffvnKsx7qS3Kn7gLL5bIjuNtwpxcAz
-   Mc1Aj7nSCxCUtIppDw+6GHtajU5Mn5IzlfIZ7CukkmzLBX5ImLzDhCKQq
-   A==;
-X-CSE-ConnectionGUID: lFCqhDoESceBkIJEN7eh3w==
-X-CSE-MsgGUID: DZLvHfopQCqDehXqVHBKrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1686329"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1686329"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:31:55 -0700
-X-CSE-ConnectionGUID: wdgDOIzoQRavQaKAgncGkw==
-X-CSE-MsgGUID: NuIN92+jR3a4UmobLJdD7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6087780"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:31:51 -0700
-Date: Mon, 26 Oct 2026 12:31:49 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <at8sFe3BzYNTT1DL@ashevche-desk.local>
-References: <20261026083631.48406-1-olivier@mgcrea.io>
- <20261026083631.48406-3-olivier@mgcrea.io>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YVLtPNNb;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UXKDukfL
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4bYmK718651
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:32:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SqNVN0NTswa3cRcCZzARPyshpWFTY6ZijbCqSsQ91+0=; b=YVLtPNNbGlUHy94g
+	8RQOzlnrgJYZ/gT4incmst9z61tp0MdeHKIiAabef/e7CaVvis4Glct8lwcNBpEx
+	COWiE0w1D+JnRkGcZmlHY+dWLzIY++dpAX1/SF/Jdi0AONfeJQMy04DX6+xU3Y0Y
+	NMr8MLz7HvyiXvgYUim8jQ2XBBCHrNXkFlIXa4h9mQFQc6tSY8zkf0tr93Nf1y9L
+	XG7/cV9pk5AZhDG94FZeQO0a2aCX/zoafpB+R/8d5THjQqAWcuZxdIRReppRA0io
+	EdEXhiW1s0QSmkbtKQYZkON62/JTMoxEN1zP5O6u3r624dQCm2gm2GwYYYuIVzol
+	TIaUdQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsgst16s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:32:30 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93df7a9466bso28781185a.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:32:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793010750; x=1793615550; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SqNVN0NTswa3cRcCZzARPyshpWFTY6ZijbCqSsQ91+0=;
+        b=UXKDukfLjTCcofMm2X8rKFNah/UJKP0icz8aTqNyRf0t3UKa4Ib8J30QSNdXoZ4jmt
+         gOhW8I2HUArKfwca8pE5lcjD7um63XOIRTD/PLxdVoURHt/XVcvbf68XTHsrw4DST9fI
+         cAJk/NvaGCWoOS4Mavd+/dvz6Hw5Bx3jE1qhOFEd2Gu5P3AxwQydcD39pa9mjdhmkdjw
+         I9O1IuIK0v02ACbr1LVdSrw69Mkrt0PJwuC1Vj/s8uofxLgtfmCkQhSNlz8KGpBeaykX
+         BAsJb0sQnqjtxn7YWLklrDTbmd5XpKHr9vJYx5JYOKo8TFzbdS1kXxJ1IsRMDXkFyZGe
+         qyMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793010750; x=1793615550;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SqNVN0NTswa3cRcCZzARPyshpWFTY6ZijbCqSsQ91+0=;
+        b=gI0yNmg9aBwsm7uMw282Z5vSxWfwbpmOPNR27KKyJMaBDBD2GEdbIbQvMCkPX1g8DX
+         ceH/8V+wtDO397R5Y0p2BHo5WiXoJKimtJokPmmDTXKW1x1lCaCYgZ1r0QvdGKvevKVf
+         1ncckx927D0XkD7sEH/TFTfW6eDztRkRj4adsKKcFgmw0L53coPkAZVhuFTRJoGULzwW
+         RlzR50MII3KtDnpI6IguKxjsdVuES+hhF1oSaU0iSwliojlsDe6Ntn0WOzgZtcFQIfW9
+         PC7inKLOihYMcoHsSbTAx9LTg5mdQg9rWF1w4AcP2DTpdoZoOyQrwVvaLFQO3BbtFGzh
+         hfHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxa5UCW/klT5QQJA03+E0QMniRcMdoDX2FL3tNP3mJaOrMXuR1jAqlh+UZt0r99aROW7bXbgomp2AuT@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfIkyuzYznAKCrkchst7mITAeZCp/BpAfTg7bYjvk2G6F5M+h+
+	NP73yAchvqRisrpb47sWw2SkLumQBSInNvSxsPbPw1/MWhp2BgoyxOxdFQnfj7TPaPNW/Be3dq0
+	3Hx8ZveaTqU1oXwCOWFrxYTDTjk6DtmRy442ZOmtG6tOf/Udq82cMpJ4OPymhbc7m
+X-Gm-Gg: AYBFou2ICpXq3/xCtkIltb4vxu+THWK34i3z+Ar/+yqrkFTWwh1zMGR9h+G05w9h72S
+	DuczbcPvLpUIfyh6T2HTgkUtpGzIel+PAegnZM8fYLod6f1YqPs3u+lddRON8HtTOrhnsJrLP4d
+	nVzs6hrIv7Vnj4lvLqOMZT9PZCOALxBNEPBzuVs64msJVXpxqqoeg7X20QO8hoGMhdkIcAtlmuN
+	oGezzGZMW5dQCBlWJNiqsdGLVaFNvMpVdOEAA74qwjXN0ozTuIU9LBxR7dFZ7d794GDxax/Zw+o
+	JiIcWJxiROfqffoDLTNT7uWlmcsJ0RqGd0+TwWNYICHzo8Qz90ob4BSVBvOf+SjJx+7qL6YqzWQ
+	u8D4pgbbnbt4MJkN1mkBJgQ==
+X-Received: by 2002:a05:620a:8794:b0:93f:43a4:a48f with SMTP id af79cd13be357-940ef96b4d0mr925849485a.5.1793010749476;
+        Mon, 26 Oct 2026 03:32:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:8794:b0:93f:43a4:a48f with SMTP id af79cd13be357-940ef96b4d0mr925846285a.5.1793010748912;
+        Mon, 26 Oct 2026 03:32:28 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7984e9sm299947666b.74.2026.10.26.03.32.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 03:32:28 -0700 (PDT)
+Message-ID: <c25a9b96-dd9d-475a-aa4c-760b5ab1af7a@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 11:32:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,138 +115,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026083631.48406-3-olivier@mgcrea.io>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] arm64: dts: qcom: sm8250-hdk: Enable the sdhc_2 port
+To: ShiTou Hong <redstone.dcity@gmail.com>, andersson@kernel.org,
+        konradybcio@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        ShiTou Hong <dc_redstone@outlook.com>,
+        KancyJoe <kancy2333@outlook.com>
+References: <20261023072832.2642647-1-dc_redstone@outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023072832.2642647-1-dc_redstone@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfX/v1U3/CBU6C/
+ fKhAdpHO7SYxeR9DN6VIwHFvEX4Wl5k0iwj6PCHe/54vP+2DHoTJQazSv5o5vPa+brGx0f3DIiM
+ yXu862Acm0CtNxDS2YRDo9+NZz9M8Aw=
+X-Proofpoint-GUID: biKr4aImiJAdR9m61ceNR2ZAQ4dY-GzH
+X-Authority-Analysis: v=2.4 cv=c+8+0h9l c=1 sm=1 tr=0 ts=6adf2c3e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=UqCG9HQmAAAA:8 a=EHe6ishlvMgZby2v5DgA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: biKr4aImiJAdR9m61ceNR2ZAQ4dY-GzH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfXzI+ZDzHurx0q
+ EJm/O0rY98yfPOZj44+68j0tRsjhY0oOKXMb8GrviCRXEJacSTeGYGaAa4As18vS7+ULHs8y5T8
+ 6g2e53DyFAfiuFOgTmqhmkiLUVgDKtTTwUbX2jYU3VadazxF9zPw0RVBeI9h/m5w6Y1P63S/lvw
+ 6B2KwIVyV51iI/Y3KMZDspQJiZZvIyBeua5Y75jScA9FLi1KtzQ2ubJAUXlt41YhmYFwXLrUT18
+ J7eFb7h8fxXGwp+muQshETZohqhgrZju7ppeB8o69X9nG9zi4jeiJiEyE+6aB6V7tDkqnKQ8wuc
+ 9P/eGHf5fiyMEpujSb/EP5pwkMp8hYzBysBt0N4eCwnpUKSw+zgmTRNEZbgw4nIsUJNhDu5abDK
+ lpf7icuPGQIiMni64a2pO+UItdgfHRxJCi7oc5uR8k9jptrSAn4dD/MDRnsHHnqyncSdjwYLp9k
+ TOj+uKrwTy6MSQtJ6rw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260041
 
-On Mon, Oct 26, 2026 at 09:36:31AM +0100, Olivier Louvignes wrote:
-> The X1600's SAR ADC has four auxiliary channels, each with its own start
-> bit, interrupt flag and 12-bit result, and none of the touchscreen or
-> battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-> driver that exposes the four channels as voltages against the 3.3 V
-> reference.
+On 10/23/26 9:28 AM, ShiTou Hong wrote:
+> The sm8250-hdk has an on-board SD/UFS card slot,
+> but the SDHCI port hasn't been enabled in the dts,
+> so we can't use it after booting.
 > 
-> The registers are in chapter 19 of the X1600 programming manual. The
-> ADC clock divider is even, as the manual has it (an odd value divides
-> by one less); the vendor kernel writes the divider minus one, which
-> gives a slightly faster clock than it asks for.
+> Enable the dts node of SDHCI for the on-board SD card slot.
+> Add the pinctrl node of the SD card pins.
 > 
-> Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-> behind adc-keys: all three read and report correctly.
+> Co-developed-by: KancyJoe <kancy2333@outlook.com>
+> Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+> ---
 
-...
+[...]
 
-> +config INGENIC_X1600_ADC
-> +	tristate "Ingenic X1600 ADC driver"
-
-Make this text...
-
-> +	depends on MIPS || COMPILE_TEST
-> +	help
-> +	  Say yes here to build support for the SAR ADC of the Ingenic X1600
-> +	  SoC and its four auxiliary channels.
-
-...
-
-> +/*
-> + * ADC driver for the Ingenic X1600 SoC
-
-...and this comment along with the MODULE_DESCRIPTION() be the same.
-
-> + * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
-> + *
-> + * The X1600's SAR ADC has four auxiliary channels, each with its own start
-> + * bit, interrupt and 12-bit result (X1600 programming manual, chapter 19).
-> + */
-
-...
-
-> +#define X1600_ADC_REG_DATA(ch)		(0x10 + ((ch) / 2) * 4)
-
-> +#define X1600_ADC_DATA_MASK(ch)		(GENMASK(11, 0) << ((ch) % 2 * 16))
-
-Drop /2 and %2 here, see below why. This probably need to have ch be renamed to
-something else as it's like bank and shift.
-
-...
-
-> +#define X1600_ADC_CLK_RATE		1166667
-
-Is this in Hz?
-
-...
-
-> +static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-> +{
-> +	int ret = 0;
-> +	u32 data;
+> @@ -467,3 +493,16 @@ &usb_2_dwc3 {
+>  &venus {
+>  	status = "okay";
+>  };
 > +
-> +	guard(mutex)(&adc->lock);
+> +&sdhc_2 {
+
+Please keep label references sorted
+
+Konrad
+
+> +	status = "okay";
 > +
-> +	reinit_completion(&adc->done);
-> +	writel(BIT(ch), adc->base + X1600_ADC_REG_STATUS);
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) | BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
+> +	cd-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
 > +
-> +	if (!wait_for_completion_timeout(&adc->done,
-> +					 msecs_to_jiffies(X1600_ADC_TIMEOUT_MS)))
-> +		ret = -ETIMEDOUT;
+> +	vmmc-supply = <&vreg_l9c_2p96>;
+> +	vqmmc-supply = <&vreg_l6c_2p96>;
 > +
-> +	writel(readl(adc->base + X1600_ADC_REG_ENABLE) & ~BIT(ch),
-> +	       adc->base + X1600_ADC_REG_ENABLE);
-> +	if (ret)
-> +		return ret;
-
-> +	data = readl(adc->base + X1600_ADC_REG_DATA(ch));
-> +	*val = field_get(X1600_ADC_DATA_MASK(ch), data);
-
-This is the only case when these two macros are being used. While  / 2 and % 2
-are power-of-2 based calculations, it's still make sense to have temporary
-variable for both of them (see the proposed naming above) and use in a form
-
-	bank = ch / 2;
-	shift = ch % 2;
-
-this can be optimised on some architectures to a single assembly instruction
-(yes, both calculations). The problem is that they should be tighten to each
-other so compiler sees it. In the current code they are go via macros and
-compiler most likely can't deduce that.
-
-All the above is based on the real life example, see 9b3cd5c7099f ("regmap:
-place foo / 8 and foo % 8 closer to each other") for that.
-
-> +	return 0;
-> +}
-
-...
-
-> +	writel(X1600_ADC_CHANNELS_MASK, adc->base + X1600_ADC_REG_CTRL);
-
-It makes sense to have read and write wrappers that will add adc->base.
-
-static inline u32 void x1600_read(adc, unsigned int offset)
-{
-	return readl(adc->base + offset);
-}
-
-static inline void x1600_write(adc, unsigned int offset, u32 value)
-{
-	writel(value, adc->base + offset);
-}
-
-Also you may consider using regmap MMIO.
-
-...
-
-> +	rate = clk_get_rate(adc->clk);
-> +	div = clamp(round_up(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE), 2), 2UL, 254UL);
-
-Wouldn't it be better to clamp the rate first and then divide with rounding up?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&sdc2_default>, <&sd_ufs_cd_pins>;
+> +	pinctrl-1 = <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
+> +};
