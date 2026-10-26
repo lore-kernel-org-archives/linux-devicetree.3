@@ -1,83 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021266;
-	b=sxc7cdTCMuMqqEaE0HpeYipnHmbmSbDD9FfZGRKKSJ1rQ4A3lVybYE/B7hfTyjjRZMmk
-	 Qd/aMjVMZ4eCPkvcp8XZw8aPS57DZjInhgerW6VWh2ArBxGzTG8/OfNxmvNzCgciUdqcH
-	 uxG69fyYdf7XuCxA1Gdhch5y7NgidZfD7KD8HOqPFpVirAScfYbIUEZsKpGF4A99MsWge
-	 0NmrzehcgSNY27SLeWULvGl/jVb+dufWHrQl4mClnY91bGZjEdHPcS1TvvYJztQhAzwqd
-	 OQ9ZELUUFfP5jUjDuHWzBcUPXBEof0s/rNOn2gHGmCyJnNurjU/wqrJBudVAqEywrHw==
+	t=1793023076;
+	b=vqwCSpZNrzX48ElwfEDjOY2Qq+JGVeov+U3iNGTfSnpQ40LI9vKi07vrqoAy4coeEVb3
+	 9O3knceg5UbZpMQpjOMfLVYwLaRE1d3vQbxD0fD+tJNgrRjKUKFHkVJ+7slqYWNWTv6yW
+	 TlV4dY62h8o9B70pk/W0I0kWRn5EzVIkcmyNeNDUNYNEwc0z6ZfvZuicZrDgZU5DcyhI/
+	 uJlqVDdIpQEnKXzX6fhzvlFJ5sJzvtg1dgTQb9MWVLXX5276POeWkMQVLBfAU8zNzIGHN
+	 hJ9POK6QWHQg3z6l4QOlfkDzU4+a5yZsqK9nHIuh946sitfAkjmD2rI/7Ca7gCQ7/FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021266;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=rUCJmSkAQSE6h4s+zutWPJ/g313zVRHQcPsD4SLWs4Q=;
-	b=dyekA6ogRqf0kDHu6M/vAic5DZ8VFFplxXG9DWzV8uzu1rPvM9mPhXDfkqcSb66zo8K7
-	 JtV6AhZOEwRvN0dvtcXotAk3Z/xkYdggP8cLvWwpCyHDVjPZb9j9eop8wGzlbx5MhNbf7
-	 hVoazV/Bx2LygYuEdvLRrTDUNRvGteBNL04XZlImzS3vOHVZxFyfeF9OWzZ7y8Lf9KCCT
-	 IkQzjQF111RHayoErQOUzeITLVr9QKJXF9Ukx3jLIr+c6qKBxCWeCQvTbmT1Z/IeDAPDw
-	 4yAegb5kIYSZV2LDicy25zyC8Q9vypeVydUb0NyImgFbm/kyKRycBVIP2Xkky9ldxKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023076;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=JKdhQiOmdCsaaqBF8qWcsHGORlwa7z3ZiWBezdGBF/g=;
+	b=xCv0rme7LEn1LVlxRjXk/thP9RfxkYGlcSv+8R6aVg/jhBCZSCKSc8xkjFA2tfZ8qplE
+	 V/UORgJGrtNOqn/K9uG35myV769ssOS6B6lCttcvQhSGdw9zhmjgFvu6qTStsxKPEyV1v
+	 hK//K/OmUDj/Hx0CD8W/zRCKrByvui6SktHAIiY1IVe/z4uEmruzvvh/ARMzW5DK93LhC
+	 pRlP8auBkFNfhsF6EWZXsLGMbmveDEOBWfwitcMzhepfxYE5z41TPz0VaSAQ7xxFQ4Zbx
+	 nmtxqkE9ISEGPsJ4GZUHVHTyY2TIjvzSEtozlBIm9loA1dyw/B792AafzzNLadNwrMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YN8qnszA;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=aK60vapI;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36174606A31A;
-	Mon, 26 Oct 2026 13:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36174606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2548606A327
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 13:57:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2548606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YN8qnszA
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt7174126433;
-	Mon, 26 Oct 2026 13:27:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=rUCJmSkAQSE
-	6h4s+zutWPJ/g313zVRHQcPsD4SLWs4Q=; b=YN8qnszArhQPdW9A2hIJAvBRCor
-	HJM3wqGpQLYPvhNNFefXY5kGy4aYIUDlF59X52utQUxvR5fFB1f78rSAoFSfjyBm
-	IkJRm9Q6QR9zeH2gMm3Cue/diUM5IJ5FwkUN+iVzfbUr3A4YWbrPVAY4bB5XrZjW
-	UCnr/3cKgVjU6glHkaZJUbBnL8oe5oRBVXn/keH984j4oJ7EsOHsubepj3DJGxmw
-	ffVHXblz4TUoIUyp6BcqAlw9qVN6idPe0krxqNLUhrIAlKKzXe5LNS36yg3f0yy8
-	pB6DKwe3cfXpDNeFoS/zJSroFmBu1BC5grYk6pGaXkcH7ZXEp4kf9Ik0aYA==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhshptjxx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 13:27:43 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69QDPPfA1853381;
-	Mon, 26 Oct 2026 13:25:25 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69QDPPGF1853371
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 26 Oct 2026 13:25:25 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 2BB8C679; Mon, 26 Oct 2026 18:55:24 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>,
-        Kumar Anurag <kumar.singh@oss.qualcomm.com>
-Subject: [PATCH v2 3/3] arm64: dts: qcom: qcs6490-rb3gen2: kodiak: Enable DP audio
-Date: Mon, 26 Oct 2026 18:55:17 +0530
-Message-Id: <20261026132517.1133138-4-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026132517.1133138-1-karthik.s@oss.qualcomm.com>
-References: <20261026132517.1133138-1-karthik.s@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=aK60vapI
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261026135754epoutp02160ad7631fd8caec6cfc49a925d70cf0~iGPxpD37z2489524895epoutp02Q
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 13:57:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261026135754epoutp02160ad7631fd8caec6cfc49a925d70cf0~iGPxpD37z2489524895epoutp02Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793023074;
+	bh=JKdhQiOmdCsaaqBF8qWcsHGORlwa7z3ZiWBezdGBF/g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=aK60vapI0AWHbrOew2Lu7P1t9SC5KiJEgf1FvVsJD6wHezPXO9JXAuVRVXVsEDCjz
+	 cWjRuWCA/y+IjURe+kJ61GXAihngER1ycum1SXXn5vxjc2k0XmouIMeWiwvRmqy+1q
+	 n5MIxrNGmP22ed5jDB5He45tFTNoPnmTyF9eK1bc=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261026135753epcas5p45ab627f117aa3abac4e60a193f90fe66~iGPxKHSBs1250512505epcas5p4A;
+	Mon, 26 Oct 2026 13:57:53 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jCwDw3ttYz2SSKY; Mon, 26 Oct
+	2026 13:57:52 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261026135751epcas5p42c28c8315cd25554a11032714b85bbed~iGPvuSnZ41250512505epcas5p4-;
+	Mon, 26 Oct 2026 13:57:51 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261026135748epsmtip24fb2850f7c59f2c8e06a5ae1f9928f87~iGPs3FI2B1343713437epsmtip2x;
+	Mon, 26 Oct 2026 13:57:48 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: [PATCH v4 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
+ controller
+Date: Mon, 26 Oct 2026 19:27:14 +0530
+Message-Id: <20261026135715.33071-2-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261026135715.33071-1-selvarasu.g@samsung.com>
+X-CMS-MailID: 20261026135751epcas5p42c28c8315cd25554a11032714b85bbed
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261026135751epcas5p42c28c8315cd25554a11032714b85bbed
+References: <20261026135715.33071-1-selvarasu.g@samsung.com>
+	<CGME20261026135751epcas5p42c28c8315cd25554a11032714b85bbed@epcas5p4.samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,72 +92,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MyBTYWx0ZWRfXw2qVwI7CGFxV
- ZpfUA3knxphgmeut66bC7WgeNcuIeEoZO2tISVTLtGd4nc+Ry4T5AFP3SXAgemekiu/iHxrfH47
- Hros7YHL3YoTM0frcsBfTqWGJM/5YQA=
-X-Proofpoint-GUID: ecPAonc_78HzYNMUO_9gT9PUEusOI4Fs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MyBTYWx0ZWRfX0SnQRraesNWV
- 2XW1izZJwZlxO9ZlX6VPzAxaLZmWl6hhsU0caKzJ5VwnW1n2GCuIf84khQIOMTqnr6cggAMefIl
- loYW9OhThokTZnEBMPkTVJWmzK4ugceJq2iqz5Moc+hlhZi60lBXfYRBdVf0D3u6eTKHQ+FA+3g
- C5HX18XHS/GWe5gv/xdr6jFlSZVSlSKT07U6PkY3wIMNBWDW2kEqw4b1RAOmcXuIsRb+LoJmq+L
- tZmnu4FPpTa+TX2W+kVO46CzTcFeDeqn/JLXtJql1pi4CGhX/tYmMw/bz2xJfPslb/07EFoWR6m
- 4CCtqJ18Uq9ppQNQD9vc8gRRy77+H/OLj85e/dJ8yITNheVlrXtqGdKVIgjPyFxhYQ7Aksr2+yF
- ZYuD3TlHOHmRNzCqVUepzi0DS4vByPvLThuP/LSN1c9fj7sh9I3FgN45/e4BYcMIw5vl2uvwctb
- XH0FMQLhyxnAeGMiWGQ==
-X-Authority-Analysis: v=2.4 cv=HZWB3SE8 c=1 sm=1 tr=0 ts=6adf5550 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=R9G7c-vIJ9g11eUHkTsA:9
-X-Proofpoint-ORIG-GUID: ecPAonc_78HzYNMUO_9gT9PUEusOI4Fs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260053
 
-Add new dai link to enable audio over USB-C DisplayPort.
+Add the Samsung Exynos8855 DWC3 binding using a flattened node
+representation, where the DWC3 controller is directly addressable
+rather than nested as a child node of a glue layer.
 
-Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+This is the first Samsung Exynos binding using the flattened
+representation.
+
+Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
 ---
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index f9b28791226c..8aa91e96e44a 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -1197,6 +1197,22 @@ &sound {
- 			"VA DMIC2", "vdd-micb",
- 			"VA DMIC3", "vdd-micb";
- 
-+	dp-dai-link {
-+		link-name = "DisplayPort0 Playback";
+diff --git a/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+new file mode 100644
+index 000000000000..664c26c1a9ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/samsung,exynos8855-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		codec {
-+			sound-dai = <&mdss_dp>;
-+		};
++title: Samsung Exynos8855 DWC3 USB controller
 +
-+		cpu {
-+			sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
-+		};
++maintainers:
++  - Krzysztof Kozlowski <krzk@kernel.org>
++  - Selvarasu Ganesan <selvarasu.g@samsung.com>
 +
-+		platform {
-+			sound-dai = <&q6apm>;
-+		};
-+	};
++description:
++  Describes the DWC3 USB controller block implemented on the Samsung
++  Exynos8855 SoC.
 +
- 	mi2s1-playback-dai-link {
- 		link-name = "Secondary MI2S Playback";
- 
++properties:
++  compatible:
++    enum:
++      - samsung,exynos8855-dwc3
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Reference clock for SOF/ITP generation.
++      - description: Bus (APB) clock for register access.
++
++  clock-names:
++    items:
++      - const: ref
++      - const: bus
++
++  interrupts:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    usb@13200000 {
++        compatible = "samsung,exynos8855-dwc3";
++        reg = <0x13200000 0x10000>;
++        clocks = <&usb_clk 0>,
++                 <&usb_clk 1>;
++        clock-names = "ref", "bus";
++        interrupts = <GIC_SPI 436 IRQ_TYPE_LEVEL_HIGH>;
++        dr_mode = "peripheral";
++        phys = <&usbdrd_phy 0>;
++        phy-names = "usb2-phy";
++        snps,quirk-frame-length-adjustment = <0x20>;
++        snps,dis-u2-freeclk-exists-quirk;
++        snps,gfladj-refclk-lpm-sel-quirk;
++    };
++...
 -- 
-2.34.1
+2.17.1
 
