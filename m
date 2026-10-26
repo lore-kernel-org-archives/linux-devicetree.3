@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011950;
-	b=n8aZlS0P6A1CAkQfIcFtutcGQZKDpBvzD7vv/qjswPosM+9uQjgVhJ+uwIzh2nwfXC3/
-	 DnR7Z0OjAdzVXkgLTEavga3QLAIKe2g2Wcq0ZUAc1dWlB0QBU0KXEKuN+y7YjMSRFhl07
-	 yv3QfOAVVnYBqmnbZjELgzu8Iy5ZtN3jm0mkddUswqCZaAQHNCve/xedoKcMsJllY/CRW
-	 Ia1jhElBAX7vGqW1HVttFtTqwKuqQdsnErAtJPEtFImWOMzS9MocbSUC5rCZNOdr8I2Gg
-	 VPQu3ZVk/vAPMhFpO88jKzxbqm2aB1elRS+p5kuH/9BfWkVB91WXVeTL/bx7oNec5cA==
+	t=1793011976;
+	b=txpxdFpUF9HRs8ErJvshklf+uLRF3lLpRRk0/Itu5J6p24PbuM5yaeD9bM/et+P5Gbk1
+	 CHHoobrKQGrbihw+TKfa7gwjj33p8Gg9QlMQCBVKMUJaLxY1KPol4d17/LdahCvF4mOjK
+	 jXEag1A2MPyJEgR0Q1HQfxYgVXFwQOda4izGNPcuOxH7U+yusxqz1Cjb9X4AyLYQbjctE
+	 3bVg5avMmHWt2+SV8JIi1Hdcjz0JmpunkTg3lKdePCVxg7RaqMfoUHDSxQpc/UtJHTemS
+	 mC7rb0DK0i5nzpAsTuFofcPVeatifnAOMIQyUqFydOT0p80xeyx1c3ve+G9kfTaVzow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011976;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EdqkhNIUFcUZ/f+8a4VgxpZB0JrsLbGY0cktm4hV6vg=;
-	b=uPcm4CmAqXaNmw57Jm12wBQHRRqM7F8xJta8WGxdRr7g0xTCoDujSQPI033nibcPWhaK
-	 pEa0G7w1xaD0th0qDFRZU0xE+f0JjgRAYkmJ2hqUNegdB/976NuoInqyS9FMH4MU0OV/g
-	 qq6WG6V97M3JAePbcqPQaujvBZKHN9PSl4Hj8TxxvsQi+Hpycx8Q3fp3cpjO1824VOAHh
-	 VQtje14GgLT91BonwIPUMto6fK3kzwFPaau4YSqvZifanN8kUpB8MBzbxxHqjT7NsgdIR
-	 AA/AyA883Pz1ybuqBQuHQ6r7BKgatz+D/eHQVQPREN2iO/kc5GDia1GxI7664hvfAHg==
+	bh=zQURHhq9ZWhEvJJ14uZwYSAyydn02+qGomsj+76FuPI=;
+	b=hV1Lg8jq83OaMC7vTSESl+lLYMLKsLJ6cKWVN1XtXafp+sZAjOYfL3qDPrfJs1Mxms4l
+	 RL8eww7RoFI7cflgJMipNFv2tdmP0g+0tUw4kSDT6jJzDI6092x4UKnS8ShOMW3CoOcwL
+	 mXdT4643xads6ghT0EF8ATpx6+uz2SR8+aAmGcAHTal7pwWGHXalribrMN5ZnUgpHw/mX
+	 OsQ+hyQ3CZjeD9+WJ0qrt1YDlAhK8ob5DMYBXyGo+cGxe3A77CkHupzJZgDdowmGtzZet
+	 37cedihvvFGd9kpgm/AFEKjy+Z+ZPGMZKGyz8Ch18yuGcPmluPj3aV33dkDtgsgXOrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5A+Xg94;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxbvyhCL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1738B606A31A;
-	Mon, 26 Oct 2026 10:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12325606A322;
+	Mon, 26 Oct 2026 10:52:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5A+Xg94
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2031F01825;
-	Mon, 26 Oct 2026 10:52:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxbvyhCL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E181F01825;
+	Mon, 26 Oct 2026 10:52:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793011949;
-	bh=EdqkhNIUFcUZ/f+8a4VgxpZB0JrsLbGY0cktm4hV6vg=;
+	s=k20260515; t=1793011975;
+	bh=zQURHhq9ZWhEvJJ14uZwYSAyydn02+qGomsj+76FuPI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c5A+Xg94Z/YatAPN9sgq5wOtTrdhSaXJG4FpIGcxEQ/JpiG71f+waGtNVJ+Hm1LcQ
-	 Mosnxck+KDSxQm3mCFtLBN/gmM95IfdjJkfURQFqKjteQiCPhUBQ0IQiFpB1Lqz0ao
-	 SAQs4h40zPD/ghxGM7NnW22kg3syBEsNrL07RdCIqxrIv3dICyALo311OAnFJ+yARl
-	 LeRDc3fXO+OTER7+ltVUbZjD9oLeV05Mz3KXFPxOt13UCk0xCPk+HZegQ16PGyq/5v
-	 /vS3ZO/RbsohOgDy78Kq+5N8wlQ4ARhJP5quWI4J4FEMI8axVw87cwihri7gtHPiWD
-	 wjfw6+bxNeKZQ==
-Message-ID: <sashiko-outbox-185021@kernel.org>
+	b=bxbvyhCL8NlLwXUBl5UftlLxsHd9w8QIebou2Y++f0lBrbGSLFXhlkvoksTwb6g9r
+	 Q+XWzZIuZDPYsoq3HxS8cnYk5KGlcITP3Fnuwzdhsg38hFz7Tgs+b9i2Icr+S3+jrv
+	 zPtZLtbdWqpxxIdJ54GIApVchPu8j2Jzhq6n+S5m0tSvt+6uiMBLPMSXQ5h77dO7bc
+	 h0ZwM8qcEA6nMxRJzRp3gJa9fgbpFfwRMkgU9c02xdEPkf2FePfRyY78t0+6tvmV81
+	 9xh9FbrkCCrikp0muz25xM7A+X+DjAne+HvCaU6GuIRKWScCMsagCuZeIWQWasFzcV
+	 sWRVXG9D31i9Q==
+Message-ID: <sashiko-outbox-185022@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/5] rtc: pcf85363: add timestamp support with
- configurable timestamp mode
+Subject: Re: [PATCH v2 09/23] drm/msm/dcp: Add generic HFI display commands
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261026094712.205214-3-lakshay.piplani@nxp.com>
-References: <20261026094712.205214-1-lakshay.piplani@nxp.com>
- <20261026094712.205214-3-lakshay.piplani@nxp.com>
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-9-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-9-7cf014efdee1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 10:52:28 +0000
+Date: Mon, 26 Oct 2026 10:52:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,179 +63,273 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] rtc: pcf85363: lost event and swallowed read error in pcf85363_c=
-ollect_events()
-- [Medium] rtc: pcf85363: unmasked INT_BSIE and INT_TSRIE in pcf85363_probe=
-() when no IRQ
+- [High] drm/msm/dcp: completion corruption and unlocked caps_cache in dcp_=
+hfi_kms.c
+- [High] drm/msm/dcp: pipe count clobbering in dcp_hfi_parse_init_caps_kv()
 --
 
-commit f94f2e86fc8ade444598e079370c102ba8cc732b
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+commit 90bc8a62bf35e8d6f13a5451d4e21b3d608a5097
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-rtc: pcf85363: add timestamp support with configurable timestamp mode
+drm/msm/dcp: Add generic HFI display commands
 
-This commit adds timestamp capture register support for PCF85263/PCF85363,
-configuring the capture source via the nxp,timestamp-mode property and
-exposing captured timestamps via sysfs attributes.
+This commit adds generic HFI display command helpers and capability parsing
+for the firmware-owned DCP display pipeline, translating DRM state for
+resources, CRTCs, planes, bandwidth, and frame sequencing into HFI commands
+and properties.
 
-> diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-> index 00f37ffcca260..db832cad0b0b6 100644
-> --- a/drivers/rtc/rtc-pcf85363.c
-> +++ b/drivers/rtc/rtc-pcf85363.c
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c b/drivers/gpu/drm/msm/=
+dcp/dcp_hfi_kms.c
+> new file mode 100644
+> index 0000000000000..ac8000a8ee900
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c
+> @@ -0,0 +1,366 @@
+
 [ ... ]
-> @@ -306,23 +345,131 @@ static int pcf85363_rtc_set_alarm(struct device *d=
-ev, struct rtc_wkalrm *alrm)
+
+> +static void dcp_hfi_caps_cache_init(struct dcp_hfi_caps_cache *cache)
+> +{
+> +	init_completion(&cache->device_done);
+> +	init_completion(&cache->display_done);
+> +}
+> +
+> +static void dcp_hfi_caps_cache_start(struct dcp_hfi *hfi)
+> +{
+> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
+> +	dcp_hfi_caps_cache_init(&hfi->caps_cache);
+> +}
+> +
+> +static void dcp_hfi_caps_cache_stop(struct dcp_hfi *hfi)
+> +{
+> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
+> +}
+> +
+> +int dcp_hfi_send_device_init(struct dcp_hfi *hfi)
+> +{
+> +	int ret;
+> +
+> +	mutex_lock(&hfi->caps_cache_lock);
+> +	dcp_hfi_caps_cache_start(hfi);
+> +
+> +	/* Payload and flags follow the HFI device-command definition. */
+> +	dev_dbg(hfi->dev,
+> +		"HFI DEVICE_INIT cmd=3D0x%x flags=3D0x%x timeout=3D%ums\n",
+> +		HFI_COMMAND_DEVICE_INIT,
+> +		HFI_TX_FLAGS_RESPONSE_REQUIRED | HFI_TX_FLAGS_NON_DISCARDABLE,
+> +		DCP_HFI_TIMEOUT_INIT_MS);
+> +
+> +	ret =3D dcp_hfi_send_sync(hfi,
+> +				HFI_COMMAND_DEVICE_INIT,
+> +				HFI_CMD_BUFF_DEVICE, 0,
+> +				HFI_PAYLOAD_NONE, NULL, 0,
+> +				HFI_TX_FLAGS_RESPONSE_REQUIRED |
+> +				HFI_TX_FLAGS_NON_DISCARDABLE,
+> +				NULL, 0,
+> +				DCP_HFI_TIMEOUT_INIT_MS);
+> +	if (ret) {
+> +		dev_err(hfi->dev, "HFI DEVICE_INIT failed: %d\n", ret);
+> +		dcp_hfi_caps_cache_stop(hfi);
+> +	} else {
+> +		dev_dbg(hfi->dev, "HFI DEVICE_INIT succeeded\n");
+> +	}
+> +
+> +	mutex_unlock(&hfi->caps_cache_lock);
+> +	return ret;
+> +}
+> +
+> +static void dcp_hfi_parse_init_caps_kv(struct dcp_caps *caps,
+> +				       u32 prop_key,
+> +				       const u32 *payload,
+> +				       u32 max_words)
+> +{
+> +	u32 prop_id =3D HFI_PROP_ID(prop_key);
+> +	u32 count, i;
+> +
+> +	if (!payload || !max_words)
+> +		return;
+> +
+> +	switch (prop_id) {
+
 [ ... ]
->  /*
-> - * Latch a pending battery-switch event into the software cache. Runs fr=
-om
-> - * the IRQ handler and the RTC_VL_READ path, so it is seen with or witho=
-ut
-> - * an interrupt line. BSF is cached before it is cleared so it survives
-> - * re-arming. Caller must hold pcf85363->lock. Returns a negative errno =
-on
-> - * a register-access failure, otherwise the handled flag mask.
-> + * Latch pending events into the cache. First-event modes hold the value
-> + * until the flag is cleared, so cache before clearing; last-event modes
-> + * overwrite every event, so clear first then read until stable. Runs fr=
-om
-> + * the IRQ and sysfs paths; caller holds the lock. Returns a negative er=
-rno
-> + * on a register-access failure (including -EAGAIN for a torn last-event
-> + * read), otherwise the handled flag mask.
->   */
->  static int pcf85363_collect_events(struct pcf85363 *pcf85363)
->  {
->  	unsigned int flags;
->  	int handled =3D 0;
-> -	int ret;
-> +	int i, ret;
-> =20
->  	ret =3D regmap_read(pcf85363->regmap, CTRL_FLAGS, &flags);
->  	if (ret)
->  		return ret;
-> =20
-> +	for (i =3D 0; i < PCF85363_NUM_TS; i++) {
-> +		if (!(flags & pcf85363_ts_flag[i]))
-> +			continue;
+
+> +	case HFI_PROPERTY_DEVICE_INIT_VIG_INDICES:
+> +		if (max_words < 1)
+> +			break;
+> +		count =3D payload[0];
+> +		if (count > max_words - 1)
+> +			count =3D max_words - 1;
+> +		caps->num_vig_pipes =3D 0;
+> +		caps->virt_vig_count =3D 0;
+> +		for (i =3D 0; i < count; i++) {
+> +			u32 idx =3D payload[1 + i];
 > +
-> +		if (pcf85363->ts_last_event[i]) {
-> +			/*
-> +			 * Clearing the flag acknowledges the interrupt, so mark
-> +			 * the source handled as soon as the clear succeeds. A
-> +			 * later data-read failure is a data error, not an
-> +			 * acknowledgment failure: log it and move on to the
-> +			 * remaining flags instead of returning an error.
-> +			 */
-> +			ret =3D pcf85363_clear_flags(pcf85363,
-> +						   pcf85363_ts_flag[i]);
-> +			if (ret)
-> +				return ret;
-> +
-> +			handled |=3D pcf85363_ts_flag[i];
-> +
-> +			ret =3D pcf85363_read_ts_stable(pcf85363, i);
-> +			if (ret) {
-> +				dev_warn_ratelimited(&pcf85363->rtc->dev,
-> +						     "timestamp %d read failed: %d\n",
-> +						     i + 1, ret);
-> +				continue;
+> +			if (DCP_REC_ID(idx) =3D=3D 0) {
+> +				if (caps->num_vig_pipes < DCP_MAX_SSPP_COUNT)
+> +					caps->vig_pipe_ids[caps->num_vig_pipes++] =3D idx;
+> +			} else {
+> +				if (caps->virt_vig_count < DCP_MAX_SSPP_COUNT)
+> +					caps->vig_r1_indices[caps->virt_vig_count++] =3D idx;
 > +			}
-> +
-> +			pcf85363->ts[i].valid =3D true;
-
-[Severity: Medium]
-When a timestamp register uses a last-event mode (such as PCF85363_TSR1_LE,
-PCF85363_TSR2_LB, PCF85363_TSR2_LV, PCF85363_TSR2_LE, PCF85363_TSR3_LB, or
-PCF85363_TSR3_LV) and pcf85363_read_ts_stable() fails with -EAGAIN on a torn
-read or an I2C error from regmap_bulk_read(), does skipping the error via
-continue lose the event and hide the failure from sysfs callers?
-
-In pcf85363_timestamp_show():
-
-	ret =3D pcf85363_collect_events(pcf85363);
-	if (ret < 0)
-		return ret;
-
-	if (!pcf85363->ts[index].valid)
-		return sysfs_emit(buf, "00-00-00 00:00:00\n");
-
-	return pcf85363_format_timestamp(pcf85363->ts[index].regs, buf);
-
-Because pcf85363_collect_events() swallows the error from
-pcf85363_read_ts_stable() and returns the non-negative handled mask
-(contrary to the function comment above it), a sysfs read in
-pcf85363_timestamp_show() will not see a negative errno and will instead
-return "00-00-00 00:00:00" or stale cached data from an earlier event.
-
-Furthermore, because pcf85363_clear_flags() already cleared FLAGS_TSRnF in
-CTRL_FLAGS before pcf85363_read_ts_stable() failed, if no further hardware
-event arrives to re-assert FLAGS_TSRnF, subsequent calls to
-pcf85363_collect_events() will see !(flags & pcf85363_ts_flag[i]) and never
-retry reading DT_TIMESTAMPn, leaving the captured timestamp in hardware
-unreachable.
-
-[ ... ]
-> @@ -575,80 +856,118 @@ static int pcf85363_probe(struct i2c_client *clien=
-t)
-[ ... ]
->  	ret =3D regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN,
->  				 INT_WDIE | INT_A2IE | INT_OIE | INT_PIE | INT_ILP,
->  				 0);
->  	if (ret)
-> -		return dev_err_probe(&client->dev, ret,
-> -				     "Failed to mask unused INTA sources\n");
-> +		return dev_err_probe(dev, ret, "Failed to mask unused INTA sources\n");
-[ ... ]
-> -	if (client->irq > 0 || wakeup_source) {
-> -		device_init_wakeup(&client->dev, true);
-> +	if (irq_a > 0 || wakeup_source) {
-> +		/*
-> +		 * The alarm can be delivered either through our own IRQ line or
-> +		 * via an external wakeup path (INTA routed to a PMIC), so route
-> +		 * INTA to its interrupt output and keep the alarm feature in
-> +		 * both cases; rtcwake relies on it for wakeup-source-only boards.
-> +		 */
-> +		ret =3D regmap_update_bits(pcf85363->regmap, CTRL_PIN_IO,
-> +					 PIN_IO_INTAPM, PIN_IO_INTA_OUT);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to configure INTA pin\n");
-> +
-> +		if (irq_a > 0) {
-> +			u8 inta_en =3D INT_BSIE;
-> +
-> +			/*
-> +			 * Enable the timestamp interrupt only when a capture
-> +			 * mode is configured; always enable battery-switch.
-> +			 * Only relevant when we service the IRQ ourselves.
-> +			 */
-> +			if (ts_mode_configured)
-> +				inta_en |=3D INT_TSRIE;
-> +
-> +			ret =3D regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN,
-> +						 INT_BSIE | INT_TSRIE, inta_en);
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "Failed to enable INTA sources\n");
 > +		}
+> +		break;
+> +	case HFI_PROPERTY_DEVICE_INIT_DMA_INDICES:
+> +		if (max_words < 1)
+> +			break;
+> +		count =3D payload[0];
+> +		if (count > max_words - 1)
+> +			count =3D max_words - 1;
+> +		caps->num_dma_pipes =3D 0;
+> +		caps->virt_dma_count =3D 0;
+> +		for (i =3D 0; i < count; i++) {
+> +			u32 idx =3D payload[1 + i];
+> +
+> +			if (DCP_REC_ID(idx) =3D=3D 0) {
+> +				if (caps->num_dma_pipes < DCP_MAX_SSPP_COUNT)
+> +					caps->dma_pipe_ids[caps->num_dma_pipes++] =3D idx;
+> +			} else {
+> +				if (caps->virt_dma_count < DCP_MAX_SSPP_COUNT)
+> +					caps->dma_r1_indices[caps->virt_dma_count++] =3D idx;
+> +			}
+> +		}
+> +		break;
 
-[Severity: Medium]
-What happens in pcf85363_probe() when irq_a <=3D 0 (for example on a
-wakeup-source-only board where INTA is routed to a PMIC, or if
-devm_request_threaded_irq() fails with a non-deferral error) and the
-battery-backed CTRL_INTA_EN register already has INT_BSIE or INT_TSRIE set
-from firmware or a previous boot?
+[Severity: High]
+Won't resetting both the primary and rect-1 pipe counters here clobber the
+previously parsed pipe counts when dcp_hfi_get_capabilities() parses multip=
+le
+capability buffers into the same struct dcp_caps?
 
-The earlier CTRL_INTA_EN update only clears INT_WDIE | INT_A2IE | INT_OIE |
-INT_PIE | INT_ILP, leaving INT_BSIE and INT_TSRIE untouched, and the block
-above only updates INT_BSIE | INT_TSRIE when irq_a > 0. When wakeup_source
-is true and irq_a <=3D 0, CTRL_PIN_IO is configured to PIN_IO_INTA_OUT while
-stale INT_BSIE or INT_TSRIE bits remain enabled in CTRL_INTA_EN with no IRQ
-handler registered to service and clear them, which could leave the INTA
-wakeup line asserted if a battery switch-over or timestamp event occurs.
-Should INT_BSIE | INT_TSRIE be cleared when irq_a <=3D 0?
+In drivers/gpu/drm/msm/dcp/hfi/hfi_properties_device.h, both rect-0 pipes
+(DCP_REC_ID(idx) =3D=3D 0) and rect-1 multirect pipes (DCP_REC_ID(idx) !=3D=
+ 0) use
+HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and HFI_PROPERTY_DEVICE_INIT_DMA_INDIC=
+ES.
+
+dcp_hfi_get_capabilities() calls dcp_hfi_parse_kv_buf() sequentially on
+cache->device_buf, cache->display_buf, cache->vig_buf, cache->dma_buf,
+cache->vig_r1_buf, and cache->dma_r1_buf.
+
+When cache->vig_r1_buf and cache->dma_r1_buf are parsed after the primary
+pipe buffers, their HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and
+HFI_PROPERTY_DEVICE_INIT_DMA_INDICES properties contain only rect-1 indices,
+which unconditionally resets caps->num_vig_pipes and caps->num_dma_pipes ba=
+ck
+to 0. As a result, caps->max_planes evaluates to 0 and
+dcp_hfi_get_capabilities() fails with -EINVAL ("invalid DCP caps: no scanout
+pipes"). Conversely, if device_buf contains both rect-0 and rect-1 indices
+and vig_buf/dma_buf contain only rect-0 indices, parsing vig_buf/dma_buf
+resets caps->virt_vig_count and caps->virt_dma_count to 0.
+
+[ ... ]
+
+> +int dcp_hfi_get_capabilities(struct dcp_hfi *hfi, struct dcp_caps *caps)
+> +{
+> +	struct dcp_hfi_caps_cache *cache;
+> +	int ret =3D 0, opt_ret;
+> +
+> +	memset(caps, 0, sizeof(*caps));
+> +
+> +	mutex_lock(&hfi->caps_cache_lock);
+> +	cache =3D &hfi->caps_cache;
+> +
+> +	if (!wait_for_completion_timeout(&cache->device_done,
+> +					 msecs_to_jiffies(DCP_HFI_TIMEOUT_CAPS_MS))) {
+> +		dev_err(hfi->dev,
+> +			"DEVICE_INIT_DEVICE_CAPS timeout after %ums\n",
+> +			DCP_HFI_TIMEOUT_CAPS_MS);
+> +		ret =3D -ETIMEDOUT;
+> +		goto out_free_cache;
+> +	}
+> +
+> +	if (!cache->device_len) {
+> +		dev_err(hfi->dev, "DEVICE_INIT_DEVICE_CAPS: empty payload\n");
+> +		ret =3D -ENODATA;
+> +		goto out_free_cache;
+> +	}
+> +
+> +	ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->device_buf,
+> +				   cache->device_len);
+> +	if (ret)
+> +		goto out_free_cache;
+> +
+> +	if (!wait_for_completion_timeout(&cache->display_done,
+> +					 msecs_to_jiffies(DCP_HFI_TIMEOUT_CAPS_MS))) {
+> +		dev_warn(hfi->dev,
+> +			 "DEVICE_INIT_DISPLAY_CAPS not received\n");
+> +	} else if (cache->display_len > 0) {
+> +		opt_ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->display_buf,
+> +					       cache->display_len);
+> +		if (opt_ret) {
+> +			dev_warn(hfi->dev,
+> +				 "DISPLAY_CAPS parse failed: %d (non-fatal)\n",
+> +				 opt_ret);
+> +		}
+> +	}
+> +	if (cache->vig_len > 0) {
+> +		opt_ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->vig_buf,
+> +					       cache->vig_len);
+> +		if (opt_ret)
+> +			dev_warn(hfi->dev,
+> +				 "VIG_CAPS parse failed: %d (non-fatal)\n",
+> +				 opt_ret);
+> +		else
+> +			dcp_hfi_log_pipe_ids(hfi->dev, "VIG_CAPS",
+> +					     caps->vig_pipe_ids,
+> +					     caps->num_vig_pipes);
+> +	}
+
+[ ... ]
+
+> +out_free_cache:
+> +	dcp_hfi_caps_cache_stop(hfi);
+> +	mutex_unlock(&hfi->caps_cache_lock);
+> +	return ret;
+> +}
+
+[Severity: High]
+Can zeroing hfi->caps_cache in dcp_hfi_caps_cache_stop() corrupt
+device_done and display_done while capability events are still in flight, a=
+nd
+does caps_cache access here race with dcp_hfi_dispatch_event()?
+
+struct dcp_hfi_caps_cache embeds the device_done and display_done struct
+completion objects. Calling memset(&hfi->caps_cache, 0,
+sizeof(hfi->caps_cache)) in dcp_hfi_caps_cache_stop() (and in
+dcp_hfi_caps_cache_start() before dcp_hfi_caps_cache_init(), as well as pri=
+or
+to the first dcp_hfi_send_device_init() call after dcp_hfi_init() posts
+response buffers) zeroes wait.lock and sets wait.task_list.next and
+wait.task_list.prev to NULL.
+
+In dcp_hfi_get_capabilities(), a timeout on display_done is treated as a
+non-fatal warning and execution proceeds to out_free_cache, where
+dcp_hfi_caps_cache_stop() zeroes hfi->caps_cache. The same happens if
+device_done times out, if dcp_hfi_parse_kv_buf() fails on device_buf, or if
+dcp_hfi_send_sync() times out in dcp_hfi_send_device_init().
+
+If HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS or
+HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS then arrives in
+dcp_hfi_resp_callback()->dcp_hfi_dispatch_event()->dcp_hfi_store_caps_paylo=
+ad(),
+complete() calls swake_up_locked() on the zeroed completion. Because
+list_empty(&q->task_list) checks READ_ONCE(head->next) =3D=3D head, a NULL =
+next
+pointer evaluates as non-empty and causes a NULL pointer dereference in
+interrupt context (along with operating on a zeroed raw_spinlock_t).
+
+In addition, dcp_hfi_dispatch_event() in dcp_hfi_core.c protects writes to
+hfi->caps_cache with spin_lock_irqsave(&hfi->caps_lock, flags), whereas
+dcp_hfi_caps_cache_start(), dcp_hfi_caps_cache_stop(), and
+dcp_hfi_get_capabilities() only hold the mutex hfi->caps_cache_lock and nev=
+er
+acquire hfi->caps_lock. Because VIG_CAPS, DMA_CAPS, VIG_R1_CAPS, and
+DMA_R1_CAPS have no completion wait in dcp_hfi_get_capabilities(), reading
+cache->vig_buf, cache->dma_buf, cache->vig_r1_buf, and cache->dma_r1_buf (a=
+nd
+zeroing hfi->caps_cache at out_free_cache) can also race concurrently with
+dcp_hfi_store_caps_payload() on another CPU.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026094712.2052=
-14-1-lakshay.piplani@nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D9
