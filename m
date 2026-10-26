@@ -1,125 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793039380;
-	b=PcppZdlnTqJxaqhp8yl1G+zrpjOd09BiGsU7gpNk0EYlzMpkR0YMu8wmG8j1Nn0r1uK5
-	 2jZfZ0PTj1YgJuCe/ORhdrrf/w5Hf9BZkOJwE0Wh23OcwKlCSgPeQxwF0PWQiUvJx+LkM
-	 SrYC5yWJYjChj6F1uCb1IkLPhXVlfHS80n7P+BqTNEXCW9mMhkyrOo9UHYbnuEF+X/o3m
-	 INr9eXrMo8h8Kvd77mjsLSNymZfOFE9+fnF7bTfamkftmKo2a3woAWPxlOU0mWISe4KE7
-	 dGAFHFL3M3iO+wd9PJWa2go0clPVB6XxCJAElXrbaB3EVVJDH3yNp6P6YS7XbAx73OQ==
+	t=1793039456;
+	b=eTZhoeehBaa+NsFlyEaWU4ajBMQ/jb8iiAdSdiV2mgKlVtEhtgFJnOXM95u2MVaOPIxt
+	 xrsq7wnMRIZ63O9utBVRDUHl9Mj/OnZ0jG+vI6JlZDJ/OPWDrk2N+W01DTRgExvh/nByc
+	 p3xRZfa3k2NtcORA2AuvIEpmaKTrnNCOCDCSlvwBu4vR+Mvd5X8hxAakdPiz8G7n+AaHc
+	 qhYXD5+Lb5C6uP496cmVNSH4qo/INI0TExR3VQ2n/FcOTi1sJWS4jA0id1NXK7JnPMZwZ
+	 FnzW7ynZPnd56iu41Kca3wNbWXx67FuyhrDDKAmfi1O5TBbN+VHVQGcOw/cvj60TXBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039380;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
-	b=EyP9zLfkP80/cFLn3aPb1KCp6rFoymuxCLjqYSTY51nueKaeX06ZwwiY1QmXoCZewvIq
-	 ZGY9fxQguYySUXVAYGT856in9sFLqVr2y4AhXtuSbYHrMwwm2Qk6CF/Z9FJ0V6WEaXCVg
-	 tUSoPaBLll1iqez5IygxTz8vpboXoGvQrzy6by7oeUweZSqbKUyIZw/VnHTTMUbK8PJ1R
-	 YprbQ88QTRx89E/mD0r3TAwkIczoG+ZvX2N7ZzvqMVWgw9HMkXDz9Bchn6WOnuzcD6ifK
-	 j3i75VaxaV8NuPoxJXAGcwQgvo596QIbtMb48Y6NUcEMS3yRZAlZK3YVRFXm+SJYaiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793039456;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
+	b=IjH00bDGNPAPtBoy4VwJhINaQF23y07joTEbuAXxLu4UsosJpffxfaG/oSdHZPaUlb7G
+	 2hWOpiKTT2MNeOvv4+AeXgk9mxhVSF90PanuJB4HSJyb7ABeIxQ2INiphDX6rlxegq4tK
+	 vCjEaUD3dCyQPhq2XoWWzYjkjgIw3UFK3NZ9xQNFtpN2rSObdUZouScOVLtF2bRtaAx0u
+	 gZFOsg89uYm6xdUvJX65PyE109abwbchAC3NzfRcQNHHy4xzVsyv8kDhl67qPitqdQ4g6
+	 /F83nMeiXBlhfkeeNXEh6AroE1bZtmMMx6i40qToqxlbm3rJrwdUao4S18SsFOYm7pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WkWvrgmd;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hTCoOzv6;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F93A606A321
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 18:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F93A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D15C606A31D
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 18:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D15C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=WkWvrgmd
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so988517a12.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:29:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793039380; x=1793644180;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
-        b=hJERp60YCCWioyqBShDKHbhoKesav074mdIxNLJcgCjHVJzCFiHeSxy2lDpKaws40s
-         LiC1EJgixcz2USl9GLRnIoaPU1WixQn+vnVW+/vd1mYWiKd5JVMxdxxJJiGBrqWPY3Bm
-         qgQkUYRTBNPEcyHxxaunIZP8qsRgJoAfLDSL/hw1rs5FUHRc1Vw0cU5ppGNZr6vugBH+
-         CLL+9uNpOig78o2qcuwNomiknvb1nC73bGc7KjZB3kt7jzTCcldnjSBQSS6Z0kgHYwqU
-         YH3lQe3pWDvssAPNJ2mprrXfx+2ofCjMsRDRkBCa0Ls3jBYyz+aI/Jf98C/1bpUAOvEA
-         rPLw==
-X-Forwarded-Encrypted: i=1; AKwUvByClhzB3wzbuzzI+iiGrxfiyZpNqJuwZzQQmajONOOiXSsMysce/pyHt7zd3ALw7jfCxM9f1OBBKP7O@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ04YirKehr0y01qRKCfzcvYc1doZIkASfMa4zbxkNf4RJhDacR
-	OeK/n5MapEDJOYFsXNhaCkh5l1LYrNp/u9mu2OhkiXT8hytA/7dxfyoAva34aqB5+R5+aGaoFNe
-	xt/HmwkvYrSccXBb0DO8vCJL2UvsiI4U00Gx2OHmsmSXacs3ZWyB5ACOkG2jO/bFPdsJGLdDSRt
-	qQwg0iLcYkAsrT5GoRTXMtQj6+fthYW1kep3x5kW6AfRN16NLxvwM8xDvvIRpqSDMTYPC3oNyk8
-	YEDCX2lPEU0gN9bBQPQ67sA
-X-Gm-Gg: AYBFou0gW5ZUv9iUKikLinbkZWeOh/lQr2WVX2onwnQVXBIKDspHR9lU68sRvCb82DD
-	IuU3ageiSiFDY6l3GYmlWC2zpinmTdP79RWLzRZ/MxcmZDrzSp9NZGlBS2olZZnvalXCOvC9MnE
-	3LbIaNvIbn6r/F/aV4VQyIuLLNZxnQ/RXQWTaYQs7HXtv4k8FlMDfJ8NJdnL2WEI+rTk4RtfcQ9
-	sOjeQ9ZNw/ajP4JqUKJRXa0bn44G5WJHqUj+31hSEITNPiRwRo4J+CKvX1/aG0rAfy11KAWn4xT
-	ahXCW1MmfaaHZDZKLpL8qk0eNxCymC4vhLwF9FKG7oyOLuz6RDOASmxxxH1rigj+/qDcZ9zpnFl
-	SgXeOZ6J7LfihfBYMkP9Q6rJ6F5QRZlkw26gzkPWbPAYQ0yf1W+z7LKeet89Rj7Mnnv48L5jRH+
-	sL6z0VWMP3qr0c/F3QivxYH5UcxGOKb7ief5zkfKxnFz8=
-X-Received: by 2002:a17:90b:528c:b0:3ac:b08a:ed2c with SMTP id 98e67ed59e1d1-3adead49388mr6097538a91.40.1793039379646;
-        Mon, 26 Oct 2026 11:29:39 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae40619e2csm259519a91.6.2026.10.26.11.29.38
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:29:39 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so4801765eec.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:29:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hTCoOzv6
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4956869750eso22312035e9.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:30:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793039377; x=1793644177; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793039454; x=1793644254; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
+        b=hTCoOzv6rALa3SI75UoIcQNJiDrzj4LU5g1ioOom36WJpb3rXXX30L/+d9k5YUVEvS
+         f6UzIIeJoOFxbUKGn7CHBi0QAnYGCu85JJdzxSSGWVhAhrKaGoODydeHG+VE6H31y0ED
+         AX9/RPNCGDGW8woOzVjVFtfu85NyNfirf19YNhwciQnIAa7lxnkEbxVrd7JXUkaH1PsW
+         L4xS+4lhH1eHu5GUeFSGlR+VxwlxP3xH5y+xu50GMS0sQPUyqMucvN9z7m8vjVaylT0t
+         dTQgwioRIveCUytbOt371zDYV0d326BC3e8nMSqgWJ7VgwHpUZ3NyStTYJlwt27+owjh
+         V31w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793039454; x=1793644254;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p/JejeyXs+a2BV9S3GP+DdWRq7anNloDPZ8ebf8LoQg=;
-        b=WkWvrgmdvdVuovyLoQ3QJgYuz1ZkJj9eQ56bDBXGJlNmvDc5/db+VnWwVBgraYA3BX
-         5NqUKfVwLYOR5Uq5CWryYRJgPNXZ2AIdqgoaHz2WDjt3tA3B6N4nzczbwzWlzxEZFunG
-         U6FMoXcAUqSPRCdf0kOkcjTd9hVjcAYxjwkvM=
-X-Forwarded-Encrypted: i=1; AKwUvBw5BXfMgt1/uUFkf2gdqpk6RTPSGhfa0bPJiH77m2PpT4uOW6qsPhEv5uYDtBOOyAM2GQAUKzvTWgFG@vger.kernel.org
-X-Received: by 2002:a05:7301:b0b:b0:365:921:8ce with SMTP id 5a478bee46e88-369e84e8888mr9413481eec.32.1793039376876;
-        Mon, 26 Oct 2026 11:29:36 -0700 (PDT)
-X-Received: by 2002:a05:7301:b0b:b0:365:921:8ce with SMTP id 5a478bee46e88-369e84e8888mr9413439eec.32.1793039376159;
-        Mon, 26 Oct 2026 11:29:36 -0700 (PDT)
-Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a01fa4c58sm24657259eec.21.2026.10.26.11.29.34
+        bh=hDzwNGKF3X9STRFxmJBhcRpaL+ED6BGdlNgUocMroeE=;
+        b=TxHU5njuG0ViTapY9Lba/SHfwj2HGtpHqYqhsVwgH2kYhsFyNjfwwAhSAnbOrl+Pj7
+         denEE4tj0bQrHDUkY4o0SBqq5zVNZW892Hwh9iSWF5ce0ITUBNg7x7KMER3BZomlbQyK
+         q92Ykn9VgtHBZPTcgh+5qZvNQ29vTu4amWf1r1Mc0BeDGwt5Ojqwl+akdiaOyScpkbbj
+         U996ckb9Kto8/+VM/vfTv+12N/FxlAqsxLlF65FM235MUjjZI/6FTOqGSrLCg5LrB69a
+         3pIsEDCs7a4uPQiZ7JL9/l/UkQmzleFmoVwC2eEpR0hYvE9g7M6CoW4efFdIsyAqLhYu
+         6EHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyMROEenH8CUmB7bwphCRnTc9+RmGjccfAXRbguHloKg4CcC4vobP78UOYDBK5hKNnKV78ynvdYKkd@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlM/QcsQ+nVWjPJaD6a5bvPerLrs9OlD+OC7xLilWxdmd/ebQV
+	pixWEcpgDfdRatbKbxXIs5IKVcqdXddxdYCX0Rr0ONNH5e9S3jzHXOOD
+X-Gm-Gg: AYBFou2c4GOvUbDyZFsh1Ym7gEijVPH1EOiPYpiM4GigyRPGz3cvpHxZ0ehji/hOAMF
+	J317vEeWe96Gw5Yx6jROwCgKYL/ock2AluYxEXoXNQQVXLL2GbgD1Xdv8r6bHUB5FJYWFJ40Ou5
+	ZD6HhY2vruq6N61yJZfji/y+SBmJU1q0Gcz8jH3GIoIykZqd7hnc+6SltgN5lFWd4dXyD6KtL0Q
+	ttPsjqESlHGhlC3g5bjuyhRIkYfudvnNABaSn9D4OumVVtBb2+2h4Lrxh3ZuC16FLh6lKAm7zOs
+	kjsnATwJJerg0UzZecsNMHl9m1ycws1/SMKNpS3DtQtSXtyOSSzG5N8b29jScPgfoKGH2OjAgfx
+	eN0lICkLrvIWyB3xBVMEbc/IOqDTmWkn2m/rGApu8Gxi6H/Mir7l5MrmH3KBEvK5DWp7PUENJ9g
+	7rQ8AIFziWUsyXTsMZjwudsmd1aYH9VkDajcfmiPNfnLofwDELdoV0XMiwxt+ZkBsddwSIBpKRJ
+	eZ8L709OatW4uyJgwckukrUNl8Xk6gP0w8g1oDvvEQaEqQ5FA2YYIgOCqOezJMadEQvAiprkUwa
+	S4iW4A==
+X-Received: by 2002:a05:600c:3486:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4a35ac95955mr122964795e9.15.1793039453713;
+        Mon, 26 Oct 2026 11:30:53 -0700 (PDT)
+Received: from SMW032656.wbi.nxp.com ([128.77.15.89])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm250727985e9.1.2026.10.26.11.30.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 11:29:35 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: linux-kernel@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+        Mon, 26 Oct 2026 11:30:53 -0700 (PDT)
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	linux-ide@vger.kernel.org (open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-phy@lists.infradead.org (open list:GENERIC PHY FRAMEWORK)
-Subject: [PATCH v2 6/6] ARM: dts: broadcom: Enable SATA on BCM958625HR
-Date: Mon, 26 Oct 2026 11:28:56 -0700
-Message-ID: <20261026182856.3168686-7-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
-References: <20261026182856.3168686-1-florian.fainelli@broadcom.com>
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	elena.popa@nxp.com,
+	cosmin.stoica@nxp.com
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: imx95-navq: add USB1/USB2 nodes
+Date: Mon, 26 Oct 2026 20:21:50 +0200
+Message-ID: <20261026182150.11330-1-laurentiumihalcea111@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -130,33 +105,169 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Commit 77416ab35f57 ("ARM: dts: NSP: Disable AHCI controller for HR NSP
-boards") disabled AHCI after reports of boot hangs. Both SATA PHYs
-remain enabled, but the disabled controller leaves the eSATA ports
-unavailable.
+From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-With explicit IDM clock/reset setup and the corrected shared PHY
-register aperture in place, enable the controller on BCM958625HR.
+Add and enable the DT nodes for USB1 and USB2.
 
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 ---
- arch/arm/boot/dts/broadcom/bcm958625hr.dts | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/freescale/imx95-navq.dts | 121 +++++++++++++++++++
+ 1 file changed, 121 insertions(+)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm958625hr.dts b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-index 53acae385822..f6717ca76aef 100644
---- a/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
-@@ -184,6 +184,7 @@ partition@700000 {
+diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+index 7860c113e9e0..5fe245b62306 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-navq.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+@@ -5,6 +5,8 @@
  
- &sata {
- 	/delete-property/ dma-coherent;
-+	status = "okay";
+ /dts-v1/;
+ 
++#include <dt-bindings/usb/pd.h>
++
+ #include "imx95.dtsi"
+ 
+ / {
+@@ -80,6 +82,72 @@ i2c3_gpio_expander_21: gpio-expander@21 {
+ 		pinctrl-0 = <&pinctrl_i2c3_gpio_expander_21>;
+ 		pinctrl-names = "default";
+ 	};
++
++	ptn5110_usb3: tcpc@50 {
++		compatible = "nxp,ptn5110", "tcpci";
++		reg = <0x50>;
++		interrupt-parent = <&gpio4>;
++		/* USB_PTN5110_ALERT_B - shared IRQ line with tcpc@51 */
++		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&pinctrl_typec>;
++		pinctrl-names = "default";
++
++		/* no SINK circuit (EN_SINK1 tied to TP32) */
++		connector {
++			compatible = "usb-c-connector";
++			label = "USB1 3.0 Type C";
++			data-role = "dual";
++			power-role = "source";
++			self-powered;
++			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					typec1_con_hs: endpoint {
++						remote-endpoint = <&usb3_data_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					typec1_con_ss: endpoint {
++						remote-endpoint = <&usb3_data_ss>;
++					};
++				};
++			};
++		};
++	};
++
++	ptn5110_usb2: tcpc@51 {
++		compatible = "nxp,ptn5110", "tcpci";
++		reg = <0x51>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&pinctrl_typec>;
++		pinctrl-names = "default";
++
++		/* no SINK circuit (EN_SINK1 tied to TP30) */
++		connector {
++			compatible = "usb-c-connector";
++			label = "USB2 2.0 Type C";
++			data-role = "dual";
++			power-role = "source";
++			self-powered;
++			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++
++			port {
++				typec2_con_hs: endpoint {
++					remote-endpoint = <&usb2_data_hs>;
++				};
++			};
++		};
++	};
  };
  
- &sata_phy0 {
+ &lpuart1 {
+@@ -145,6 +213,10 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
+ 		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e>;
+ 	};
+ 
++	pinctrl_typec: typecgrp {
++		fsl,pins = <IMX95_PAD_ENET2_RD1__GPIO4_IO_BIT25				0x31e>;
++	};
++
+ 	pinctrl_uart1: uart1grp {
+ 		bootph-pre-ram;
+ 		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX			0x31e>,
+@@ -198,6 +270,55 @@ pinctrl_usdhc2: usdhc2grp {
+ 	};
+ };
+ 
++&usb2 {
++	disable-over-current;
++	dr_mode = "host";
++	usb-role-switch;
++
++	status = "okay";
++
++	port {
++		usb2_data_hs: endpoint {
++			remote-endpoint = <&typec2_con_hs>;
++		};
++	};
++};
++
++&usb3_dwc3 {
++	adp-disable;
++	dr_mode = "otg";
++	hnp-disable;
++	srp-disable;
++	usb-role-switch;
++	snps,dis-u1-entry-quirk;
++	snps,dis-u2-entry-quirk;
++
++	status = "okay";
++
++	port {
++		usb3_data_hs: endpoint {
++			remote-endpoint = <&typec1_con_hs>;
++		};
++	};
++};
++
++&usb3_phy {
++	orientation-switch;
++	fsl,phy-pcs-tx-deemph-3p5db-attenuation-db = <17>;
++	fsl,phy-pcs-tx-swing-full-percent = <100>;
++	fsl,phy-tx-preemp-amp-tune-microamp = <600>;
++	fsl,phy-tx-vboost-level-microvolt = <1156>;
++	fsl,phy-tx-vref-tune-percent = <100>;
++
++	status = "okay";
++
++	port {
++		usb3_data_ss: endpoint {
++			remote-endpoint = <&typec1_con_ss>;
++		};
++	};
++};
++
+ &usdhc1 {
+ 	bootph-pre-ram;
+ 	bus-width = <8>;
 -- 
 2.53.0
 
