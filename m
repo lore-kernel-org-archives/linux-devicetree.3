@@ -1,88 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005205;
-	b=oLoKniBF5nCYLgrpDe92Y4opP6E+foZhZdYqU4i5S7607tXmHOReGuqE5gygAEBnYqPL
-	 N9N1GXQUwaernZCGc6ocv2v8pxhIkzBwEhGTiO3yT9LmDBj7Ivc8gVvOZVbamB1ac50Q+
-	 MU8KZatDoOH8Xu2ox9CzDY0Rz1EDJDjV5Z71VZpDMR5d8cKIBiXn6FK/KEdb9h4pzr4vm
-	 H/mjkUPrYvd+wPHFtIIjM/zZy7xnHnW/uYeED55eJwUDkzhtSTcdyroG67ZhQWWuNzrT0
-	 x0I+sfC2cBpHVC3jbJELseqgQU3fTHPTrQwtvoJT0vxykxIy6idkLO6hqs0GklWwW2Q==
+	t=1793006040;
+	b=v0N7YvePrceeWMUBG/l2F4tQ/Cl/VCUGnBjGF4lDGn6VzTJQJIWOgjyv+bAvKH8t3aHN
+	 29hOsInnZPhC6lDvajjRYbHVOkOPuJC0KCzhD4e++3gGkgTMvNhzsMLBbocRVDA3ZHi6R
+	 gTH5+hMqvyO3F64JYaqtBncMQQ9NlFoanY9h32aIKDigaatQ+i9KH38S+UkDvM7w5VyJk
+	 PaR5XyHfEmWbsZD2T5Ml2W+fBZ7hDs/pwONCnmONIE2KBTwgqoiPAxtKjBBDqZVyC1u6J
+	 G9R9Vw1ccgslyHLa9puLf6v1xOkGXIa4HsqIINDYx0B0KLrOHhuT6whUG/yGWNG4VqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-	b=XNwSrCa24IoRNi1QhSNEjAHpPmT+duslHb8fzl1jKwmzZlZCuYHJ7Zgw/jfJqxgCn8en
-	 j9Hj3Excjz2aa0ySihndKANTvlOKAeskjieLIubvsMnORsitL3Nh8s9lOrqPHsDIH81JI
-	 J2mrfm1E3xjwNtlRyx071m0kosAeo/Kw0RAOeT2MxQsj9GNdN1JW1TLEQO2Hnt6tq69Fw
-	 MRsP4xaw2riwBpvKus9VHy6BEFGaIj31ZQWeTcybS8pkD7fVFJVkBJ9QbxcBlKsyohmBV
-	 6p7cYMW3UlSOhjIl1b3edgeHlhfLRCJHLbk64rqSM4fXOonhV7DG1dn3cAhNdba7ouA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006040;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
+	b=t0Y19ZSZ2KGzxCphXPkOYjf+M/4yFkiJ/3jGDTqMzH9OrZsfdrKdMUk4bSQgnV8Gho10
+	 OXTtvI8X28Fi6O8yCImm1VKyIYdPMZdNpXLjHy2wbLMul7zxO5sIjBAwt2L/aK6W9gOGu
+	 uwbKVeNxZfzyisnelsvEa+4D1NIy5xe+nB7cDs/FnCYMcc+gIFKong4HMaViSsyxPeJUB
+	 MH45DIQHFdLWGPDqTDp98jHtroj6ZDT8oXCs5zFjYK5jecKlDXhH846e5+M7AUTKUaUTq
+	 ZW4wk4dY541h4IGmfLho886VIAOhCOe6UwVgJUV/IWn20xajaEfMxSWfPz822lyfoUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47E0606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C47E0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B71606A31F;
+	Mon, 26 Oct 2026 09:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05B71606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so11057245e9.3
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:00:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793005203; x=1793610003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-        b=u6KM09xCqYJ8JXVzXTUiFQILmdo+65ZgWXoyzsVfvN1EZTv+Aexm7+OMZgSYI8gmNo
-         3cOhAcZEXlqppWqtQuejkeAWdltWe4/Wf2QoxrOht5Tc5GF1wywqMmrKE1zibdtjdNn0
-         OjRYHiMdLLnRvIUfwWkB6RCHCeK6xY4Uno7rj6iiAsjJ0lshXTncY1Rh2b4+n46xShZt
-         tqyfGKhjlg4HrEMD7Uq+PtwNOGpX3HFc82YpMZ7zmBV4pIUyaB1eqaz3BQgE0O6ntsUO
-         gUMy/lLCA4j8yJ2Ix5PbYqyF7raWJWoTmtw0cLLWPtoUH4YEXo4q5i+kmssr4ReZfiWW
-         nghA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005203; x=1793610003;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
-        b=13Dl6VcgdCSWVr+8qfUcfsmS5fCLutoKp8Gh6yFZpiA/quHpFKCGsZ+2h+Owj2ZEd2
-         ZYGmg8dR/khZaONykgw3j61mHjqZA07N5tbcyGOXNhDmZq6Er4Tva2OnHmr6jnxgDmOK
-         P+k4ivQ16UjbYee1aoWY1eNuoULW8G7/FH61Fy/xUIujrwNoM2oiEtkwB/WtEFH6yw15
-         kFftp6xtUvckUIlnMbNjO/TnuvcLkUK6JGDhhnhM5lm7rMqo+mTv9WHKJdcBYnBOC6Hn
-         XRE1KLI4znPFZ2aqmnK6x3CkveE3hu1RDIE2I5RcUIS4dDWmkKDtP66+x1Rk1wgkQMgN
-         FAiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy44r6Ebutdo9W8ahdInxEq9O/e3Rq8oexLhqhi04sz+YaJGKXpvxG9kIAHIKPism9OOOwXkXqVxE8+@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ++KBrL53AvLZcGYAwyWtI9+2ldcPSZGYNVPGet2v9s5YXmgk7
-	ch6TSBJiXHDqnligSPURtleiQNySTlUDBM0BWsLaySwO+2ISrqXANcgKkbLRxWmM71o=
-X-Gm-Gg: AYBFou1A+l4gkd5spe41aqIReKCvHsvBj5ZhH1IX72pmBha0MAG8+oAswMkLyEu1xwS
-	IpZdC1yGTwrr7pV4ByKIeiisvCUwaWy4MHuKoasPDVCHtVXsAhMH/GNq1mEmi+28Vnhxv7yu/FF
-	57oNfYUuJIDuvzPQqp78GbZ3AlfqnHagzX46nxmPCSv1KYVaZxJHwIpycHawHFYTpoL1dLmA+xk
-	fezQdBFV7VGprP/R/MCsFNyMvwGr+jbWv2j9XTa31/rhgHIUat6l2TVpCNWtmVciOdV32z8jHn4
-	y/lbwmcmkagazPsI6KeLDBO8OgcjSWbh09+q3/OHDUFYoALgZH9uo1UWqqpplkqqJO3btyZwjmZ
-	u2c81GCL9f3wNxqUrs4W4tmjA+2D5v/bpJQ7jXLHJu4gN/XJGbJAzxVxw2RLO/M7yc8/iH5V0dm
-	x9zfSAYZBFZJmsG2r2Ld0dxCAu3FXUCf9fB5F5BKxnb70k5UWb/B7lWM6ky7r3u8/xCpfhFkpiJ
-	Vn5uc7z4VpIeDsBISHh8FQ36h/83dJGKZGNhwbWoR8mxlnHDjXyn2wHpSXH4n7J5Q8UhQmiJM/E
-	fRdAkBG7Jdoh2quzKUqKz9q22yxzXr4dLMUP
-X-Received: by 2002:a05:600c:3e1a:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4a35aca6ae2mr113669665e9.17.1793005202672;
-        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm159395045e9.4.2026.10.26.02.00.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
-Message-ID: <7f04940f-df1c-41e0-ad51-d9dd9e6974c3@linaro.org>
-Date: Mon, 26 Oct 2026 10:00:01 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024;
+	Mon, 26 Oct 2026 09:13:49 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793006029;
+	bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=uesWt4mf7L6uH2e2D0Uz0HVRucHuV8HZkP6w6G5X4a91jpvD/uKc3BJqBUmuRXjve
+	 GgrdbGaDFfjJl73WiJG4wPNL+OImYScLzZ5eCyyvPV3LlJUGczWGKuH07jKOHSZaRq
+	 J4j2ifjZbGqdQZI5IPmFXPvANcfdee4i8r50bnPI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9~iCXvH8nmx3193831938eucas1p1i;
+	Mon, 26 Oct 2026 09:13:48 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261026091345eusmtip1dd488ccf4592aee32b30711c858f6c13~iCXsMa8873092630926eusmtip1x;
+	Mon, 26 Oct 2026 09:13:45 +0000 (GMT)
+Message-ID: <943aa2e7-3945-48f9-9a87-9c963f97099d@samsung.com>
+Date: Mon, 26 Oct 2026 10:13:45 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,72 +65,137 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to
- play audio via DisplayPort
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
- <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v4 16/20] phy: Add common Innosilicon HDMI PHY helpers
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <asEPmpQTwXYADwTk@parshuram>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<CGME20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8@eucas1p1.samsung.com>
+	<20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
+	<asEPmpQTwXYADwTk@parshuram>
 
-On 10/22/26 12:34, Dmitry Baryshkov wrote:
-> On Thu, Oct 22, 2026 at 11:36:20AM +0200, Neil Armstrong wrote:
->> Add the DAI link needed to enable audio playback over the DisplayPort altmode
->> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
-> 
-> Does this need an update of the AudioReach topology?
+Hi Vinod,
 
-Already done in https://github.com/linux-msm/audioreach-topology/commit/6040c950021b88c6db287cfffa17abbf917f56cf
-
-Need to add it to the SM8450-HDK
-
-When this is merged I'll update the topology in linux-firmware.
-
-Neil
-
-> 
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->> Neil Armstrong (5):
->>        arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
->>        arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
+On 10/3/26 16:22, Vinod Koul wrote:
+> On 15-09-26, 17:32, Michal Wilczynski wrote:
+>> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+>> where the PHY register block sits in the register space and in which
+>> pixel clocks they support, but the pre-PLL programming sequence and the
+>> layout of its registers are the same.
 >>
+>> Add a small library holding that shared part: the pre-PLL configuration
+>> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+>> and the pre-PLL register programming. Callers pass a regmap, a register
+>> offset for the PHY block, and their own pixel clock table.
+>>
+>> No driver uses it yet; the users are converted separately.
+> 
+> Is there anything in phy patches here that has dependency with rest? If
+> not consider splitting it up...
+
+The phy patches don't depend on anything else so they apply cleanly
+from this series alone. The helpers and the Rockchip conversion are
+self contained and the JH7110 phy driver only needs its parent at
+runtime not at build time.
+
+I kept everything in one series so a single posting applies and boots on
+its own. The patches already target three separate trees and everyone
+testing this has been applying the full set splitting would force them
+to assemble two postings in the correct order, given that the JH7110 phy
+driver build depends on the helpers. The v5 cover letter lists which
+tree each patch goes to.
+
+That being said, the helpers and the Rockchip conversion are the two
+patches independent of the StarFive work - happy to send those as a
+separate series if you'd rather take them that way.
+
+> 
+>> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
+>> +{
+>> +	unsigned int val;
+>> +	int ret;
+>> +
+>> +	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
+>> +	if (ret)
+>> +		return 0;
+>> +
+>> +	return val;
+> 
+> why not just return regmap_read()
+> 
+> There is no logic here, nothing. This is really not ideal.
+> Also why add a wrapper and not use regmap directly?
+
+The same IP block is used by both Rockchip and the JH7110 but on the
+JH7110 the registers sit at a 0x100 offset.That is what inno_reg() is
+for.
+
+Dropping the error is wrong though - nd comes from one of those reads
+and then becomes the divisor in do_div(vco, nd * 5 ) so a failed read
+feeds in 0. I will make it return int and have recalc_rate check.
+
+> 
+>> +/**
+>> + * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
+>> + * @pll: pre-PLL instance
+>> + * @req: rate request, updated with the rate the PHY would produce
+>> + *
+>> + * The PHY can only generate the pixel clocks described by its table, so a
+>> + * request that does not appear there is rejected rather than rounded.
+>> + *
+>> + * Return: 0 on success, -EINVAL if the rate is not supported.
+>> + */
+>> +int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
+>> +					 struct clk_rate_request *req)
+>> +{
+>> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
+>> +	unsigned long rate = rounddown(req->rate, 1000);
+>> +
+>> +	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
+> 
+> Is there a chance of null/garbage if we reach end of table? You dont
+> know the size of table, and incrementing pointer without bounds does not
+> look good to me.
+
+Fair. For now both config tables end with a sentinel, so it cannot
+happen. I can add the count of the bounds though.
+
+> 
 > 
 
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
