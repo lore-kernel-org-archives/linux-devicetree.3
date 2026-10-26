@@ -1,62 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793045548;
-	b=n/f83kc9HmtCbLovv0MY+obmeHI7qLK+hTYunAfSIGTwgxS8yKvrRVnlnhX2rFrdeP25
-	 k/QQTV6S2pAe+/oFU4dbe0vYePWoKKztVeoRW8T2BMm838mQkQyjzjSunETeTuGTDTBqm
-	 PfluEZ/hzwnPzplmRc+tIZid3UDWoCxU8MNC3qCdYx/tbXa5tFPBifvYfZ88H3fuy7Lbx
-	 TlBcKA6D6QgiG0KaMRgUxoaFA4fxYYYO4bVnwdSA7Xjzt57xV/NJO3YKn4D4NECsJyOLm
-	 Z/TrLc6nhSou3aEoGmqlU2azNzmgh+GkQ08Tv6JV5VVtwbc4cB66tag0HXWyv0I9gSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793045548;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=e+Bc8KHQE8rMEzWoywREWT5GUovCbYoRe672a/CVLd0=;
-	b=Z2Qg8NF9GqoDkaATLYNvgbyvGdHBHoKU6loG34k4W495lbtxN868H4OBmuYeCVWabTR7
-	 EDaPdG51zvQgGPWJIYZzpxIkwAaI2eTar1DwC+syLg2u5aV43TgTW4oqthyCfoiXTuaxX
-	 +G12dAkhEtPRRxuQ3Qo1VcelXKUf2vgW3wVMK6kPuggOIJxgdfdRg9OfjIajlk2dLfN/s
-	 lgxGxRa3ynSvSwKbIvWSTjvKl/tjltohBnIWm6WMVhJVYGUqcEH3swUxLpl763/i1BdNH
-	 gYYQYi3INkRMUq5BnhS5wm0Uhba29MdJCUDwhuZE3DN/biUeUM+69FyiLutIZHBSg+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnFKTJaL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793045601;
+	b=QtI6crz0znMtUqPlGuFvZkbIxacPhcPpqkBAqyjp4mie39fKT1qePOnMt6ZSa8GKpVkm
+	 coWRBND82BY0ugyFBeh+ZeHV+mDjPOBlMvp6Mte/93ice5aIQ1DLKDyleNDW8b5EQUwiU
+	 bbSnTHs5t+8cxwjTCXyWr1+Mtx4cxmqPpIWAewjiw3G3pgnGphgAM4Rwh43YHqmrhfjy4
+	 NDN/wB6dSzKBXQYB6SegbXjIjEPk2MCBc8Q8gr8FrZAuMIixT7lTYXP0USiBQA7eVDWqn
+	 Nl0pcGUqEBD5oxvk+ElPZfQ7e6cjgaVWPVFbhvoQJUmvVh/8F7pE0Xt0tu/36bJ7YVg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793045601;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
+	b=EHWUCbJemqWlOuwKy/Mgi9Ukmqev4E2WJpdV2935AfDUjNB5rfkXuphR4XvQqUfjjZ53
+	 +oQNbbMfq4Jn2x7xIQVBI/s16kdQ+TcMCfK+hr35bLQZgdoDP+QWeSQ0h8WQaMlsfliNm
+	 3YgXHwSjSp10fRGz6yIFddHT48unkfAtR0fDNWNBd4BGz4Jx5LQSHTT/6Bx4JSuOisk1y
+	 SKktshP6z27ZlMupNgfZx9M+MuYqRjO5g2fDbqo9CG2yAw9VOAIcLF470zduECbT3P1cs
+	 maUHK6w5rl4U+RMZQXsCfJtIGPyLHgXAaKh0aXxAY0Y9Vrxiko5ND/9eGg6fyhdLmVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZOQHymp5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.44
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013044.outbound.protection.outlook.com [52.101.83.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445E3606A31D;
-	Mon, 26 Oct 2026 20:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46F606A31B;
+	Mon, 26 Oct 2026 20:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D46F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnFKTJaL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B3E1F01825;
-	Mon, 26 Oct 2026 20:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793045548;
-	bh=e+Bc8KHQE8rMEzWoywREWT5GUovCbYoRe672a/CVLd0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bnFKTJaLJhEDWcrruV92tEkz3hw8S9A+ykr1J6QWA5CRPOntCzVsDg1q4bJtoCGgh
-	 TCVIv/G1L9mplQZYMhIBpiDf+aW/LpLX2q0fjKTeVh59cXMu3l7EJIZ6YcmrpnQahF
-	 jcfmZux6PH27mDW7qg8jLG2xve7AGrMIt9EJRuY2LXkR+Nh0GIE3hpvaiQh5d9X1cT
-	 ONXvuVdORAVH2LTUFK8CcoJhRRVzZ7t8oJvJOW48dy9pLvhufbkJVI5ZMxzyEQj+6W
-	 7kyxNDuI5L76AKXvGJgFi1g+nNBOu/FyQYVsDdz+0xqtTrA3Y2WOZug798eYTmZ5Rj
-	 hpd8XwRYjg75g==
-Message-ID: <sashiko-outbox-185704@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/5] crypto: cmh - add AES skcipher/aead/cmac
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Ousherovitch" <aousherovitch@rambus.com>, "Saravanakrishnan
- Krishnamoorthy" <skrishnamoorthy@rambus.com>, "Joel Wittenauer" <Joel.Wittenauer@cryptography.com>, "Thi
- Nguyen" <thin@rambus.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261026-cmh-b4-a-v7-v7-4-500a83faf500@rambus.com>
-References: <20261026-cmh-b4-a-v7-v7-0-500a83faf500@rambus.com>
- <20261026-cmh-b4-a-v7-v7-4-500a83faf500@rambus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 20:12:26 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZOQHymp5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iyk8UTLdl+tKpYTxhyAbc3/x0tmxOBhr8n1wZVvt+zJKkY+aIpUUEohL4deILncG5YoU7duM2v3PkZYGMiiN/0ALOCIqzPgieRAwjAa3HXOoLoN+bRB4VUXkydemqxa9sB5ioq6KAT30ME1+BEFFXF/BOYgW7gsnwpRRIhTBv+rBTfYFo6jbM0ms2qDRaacs5lnoYGfhkSmALvNiXK+rgvkFKEhJF9XDSAkMPM+fID7fdRDvyQXzQK/8CpFAG5TRwEi3YEbhovkZdJeuTFVZj2hvhcFCiVXZUkDgROiTkar/VX3EpTLWOnExWWbgTZ9YX62CQGCgzMgD6ef42Lr4Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
+ b=r1U+1ue1cyTw5zsalKhrKHdqnieJ7c9coxng1b+XYLPR5jGUbZOnumQzO/sv2c04jEqZi8LnuY1avScc0wZaOWChJ4qANB6EgZBDtsm5HDFsh31LeeQzLf8DpPuGvDaK+yjrswuIUntEPM/EzKinO+oV0pLaayaOtt9qyNhuOuzNBVHbrAicUx92JAIoWSXBYEJRPmll0o077FE3vCAUfqn0JuJ2/1o3Q3dq11wZEj70OevOly0d+S/xBCmD2CtBPr3foxlrYoUryeFap4UiATKsAmJMcpfNNwJhZRI7i9sQKoJPvH1CdFzhbtF7BeJwkWxBCc2kLUTMNYy2q6acSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DaSgS8wCbRMOgUD5eYeW1O5rgUz89ukPwkQe+2ssJlE=;
+ b=ZOQHymp5fErBdYBK2WUGc8/qBBatKi5HIFDLF59Qt1YChYK/kup838SIbEA29thVh+zT9slnwmfVsYB4oYA7xBXu17orfWQOLM5hxxhuU/dN+vTGMO7X7nETWGzVV66oYDvmNK3Vjs/Lz6BjHbhHBHBjsj3SfH/PLgnQas2ZxurX2DbX7sY5DHSoKQoiD0az9b1qZgQEoWM96MxJU7L/KXVz1+iX87Tx+P/wPmtPRu4qSs3P6y0xq8ThuHdlvzsb1X4Fdl7tr+1S4R744HgWofOrcleZOZe24IisNyZOTRzvCIbPQFNZ4ZpTwFZH3Jc27jA4YxkQYvDllhNKIMgigg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB8PR04MB7049.eurprd04.prod.outlook.com (2603:10a6:10:fc::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 20:13:18 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 20:13:17 +0000
+Date: Mon, 26 Oct 2026 15:13:08 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	linux-arm-kernel@lists.infradead.org,
+	Aswath Govindraju <a-govindraju@ti.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+Message-ID: <at-0VK3LQ5c7rVmF@SMW015318>
+References: <20260928204741.175754-1-marex@nabladev.com>
+ <20260928204741.175754-3-marex@nabladev.com>
+ <arvPDq8sjjv7na01@SMW015318>
+ <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
+ <20260930174413.GA2463938@francesco-nb>
+ <ar1bhpji35CbArtY@SMW015318>
+ <17f240e5-9c65-4562-ba51-535b0c69c5fd@nabladev.com>
+ <ar19W4wX07p8u3_5@lizhi-Precision-Tower-5810>
+ <4efdcea6-a099-46a6-8d07-dd5c583b962a@nabladev.com>
+ <eca44457-d3d3-4732-977d-d30a408b7b66@nabladev.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eca44457-d3d3-4732-977d-d30a408b7b66@nabladev.com>
+X-ClientProxiedBy: PH8P223CA0006.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,337 +112,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB8PR04MB7049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22ff2255-0842-47ea-2a90-08df339d92e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|7416014|376014|10067099003|56012099006|261026121527099003|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	iEtwddky9eZsMUmYMuolhKHOt5q9RH5u17bwcdWBNj0CNz6QQTq13ezVhe1HAAkRzYP0j+UKK6borgpEtQMRKkzmYa8TicezQV9WPCWRAVZ93NXzFGkKDlmIMEFv1xqd+eiRVzr7YqMUapF1VyoW2oU4H4ab2eQnbiaOkqIAAL3ZmaWJSdi41+v1ShxvOUBEHha30ytT0s2I3htpmeDGBfNQO1GmdUWNEZq/T2o4IyYgsVkxvh5Wq5MzYAjK6F0iUBJL1GvZrozzbXBY/tU8j9BR1m6/pErmqdIQfe/vVvupH+EHXEIt6CIPJRTnOGg7hLCVm+gHb+mBcytRI35BfKjE/Yiwqp3EtdpzZJ9jDR2urQ90Ke8D5Rsw/uxYJyKB4cfFtREblHKpsIwxxyl3AqNj8gSkb8PKviHAFWLtdHYJ2g2YieHQJBO8NlYd43SuUu3Ivdh5PgFLkZ4G7YyWJL9Px7d9wepEqdH2gc2p0xQucU/v8QxPwf0YJDX9j35+yfnSfey1sjg8Gkce8cY7hJJK/5i8JXLs2DciloW1z9kUmsdOlxf3bjCrQ91UHMu/fainIUCsC6pVGttszxlCyxrmW7oUHoBEyvCWTKlnyahVMo94btjY9NJ7a1OsTdrf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(7416014)(376014)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?a7dVEAll+q9MyUvxdWtgLr/kWtG02ULA2GQHoN1umPG43yQbiJsWAIqrHZog?=
+ =?us-ascii?Q?76//nZkE+0Pu+Q9ZDhBqlRwLvg9FrPOgiIOiWLAiv0nei/e+j1ux2pmpO9Jv?=
+ =?us-ascii?Q?GqSFLt9kGgrVu3lNRLrfzcvpnpSYU3l1V0R3X8Ut543gT97ghoB+E/LC6mxy?=
+ =?us-ascii?Q?exSD1kHK5m18MX0V4yHmfvsLQcI5dMeaEu+jx7sM73xAEeHGxi6sJrCiv7wd?=
+ =?us-ascii?Q?5M+zjz4SVuyPiGNimwZimmETLXunU7fyUkM+WVtTEmHlBS478oGVy5bEWQmn?=
+ =?us-ascii?Q?7LCwnC9ztlhkuAITsDCHzvzNiID78uaVU2lQ7Rpcr5M5iuiNqziv1936dYaf?=
+ =?us-ascii?Q?kXO2QvcFZHOIv3Gtv4widWo/+/HJj0qp1PJK3YBLZR40joi7FK44yrHp7IsI?=
+ =?us-ascii?Q?GgI4E4Zmg3OBdF0tPppBg5S3i6PVxPf33trtoQL1bGUwRRnvTtUcZybGL+AB?=
+ =?us-ascii?Q?gR2ANzfTXbqAHQFEY2xU9/IRi+cD3M5BCcM/xZiTf9rhiOpG1zmL5DUrdDBF?=
+ =?us-ascii?Q?ChCfnK+TOP73hhwmW+cjJUKvZWC6coYloYzsBT8MIeXArspKH6OM5kLddTuT?=
+ =?us-ascii?Q?FY/BN4it7BJKv6PaYu/zOL6gybvzgTYuY7rPhzQyv+MvsXfd/4CeEOlondbw?=
+ =?us-ascii?Q?nVUyzZ/mzP3Nu40cMSqWP/5PbAextD0vKSGX4VKskx4zbl+nhggl2V7mZzS4?=
+ =?us-ascii?Q?TzsWOmaNCNSE4Sz5fMb/DEcrtlHF0WVn3w6B88CjTCwaD3RgVjQ68WiLObn2?=
+ =?us-ascii?Q?7a/m+8AuRT1PMAiuRnVptHz0ua2Gu2ILp2Ky9YgkbSdFLpeau4sbqHNO7z8s?=
+ =?us-ascii?Q?YzEo6et+cQM8fWOA/tLNl4J2ClfUxYOvZT958CwAKCiRFPwcaeNnJWd0ROBo?=
+ =?us-ascii?Q?YbhGgqGSaD66UUQnjc280MPfshJUl6EcjqkLDUwPBkvLlnKD9k1WUneNvZAA?=
+ =?us-ascii?Q?ikHlOCXHSoie7LIG2235Sm1cdvVru0gwN7C4i7cOcDR6zMFILec4JfHu7EeC?=
+ =?us-ascii?Q?pIY9UnwZcQS25EW7swaBo6PBwMb0AmsCuAK8kQEQhLYgl/IAss3GaTGzRXQe?=
+ =?us-ascii?Q?TNwqLkoWG7e+00U05C9dxp4kRfdlM2YzCxGuOmEFk12ujLQona4vTdvK9Ih5?=
+ =?us-ascii?Q?zZBlSq/+kGJ7UrUfXIK+pO1ulq/oTBJkFCxrXIZQQI5vlKzYqPFoyCO1HkEa?=
+ =?us-ascii?Q?BBBLHN7C0KGkxcdJPXc/ItSQHf9RdeyF/UZMq1Szo28G0fJrJ72hiEvBe6yB?=
+ =?us-ascii?Q?XSlVJdjJS7QLNTuI4gd2z4SiqgVYUFI7z2qxZUSVqiawOPVmfEiU3Ok75u1o?=
+ =?us-ascii?Q?K63wK6a6qnl6C94tONxTBqUAwmfd2FHwnUuagdG+IGKO6cBH8PPxUTyD73Qi?=
+ =?us-ascii?Q?cXxy8RDv8Bant0mLHpsY3T2XTLpAWrGcibQqlfczerlgts6RnCGKkancVOZy?=
+ =?us-ascii?Q?mkG/8HcrwPtpP+RtN96wp3VzagcgPx1u0eq9aSTm9AHkMD0AnIy0L7OZmtQT?=
+ =?us-ascii?Q?eQDhrYS0B2Alj73lm7GCwCAOKzdm9Ujn1yX75hspzAwlyGpW2GjBdGANvNh3?=
+ =?us-ascii?Q?XXAqxtCUUvItUpke9pA7t4+GZKblkbtG91+o6w4pryd4raT4zSh+nmEpO2c8?=
+ =?us-ascii?Q?aqPD9MgOcv7DTn+SIW+4MG1sEu78x5ciodGdEy2PlsWGpY2NDU1+964ehEzN?=
+ =?us-ascii?Q?nK73Er8d0S4YYW86oUzYnvJNxZgwTX16RejddLZ/oWSisyWcG8G8LCeZ4EOj?=
+ =?us-ascii?Q?PjCP3gYLtIS5lCdEd2zhRj8kUPpweDySHJb1AxDdOZOsmhwOl18i?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22ff2255-0842-47ea-2a90-08df339d92e5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 20:13:17.9315
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S/WI3S9Sdm1B1eC5/r/yaTTChNBTUxmhJ/5AsdMM5sQ2QmYD5rw9/kb4lrLI3ACB0p9v0bbcKVM0wehZkUHV4EhQwiWdItweUSPe2EtzUQ+pmbHSvzA8y3/te2TohSOk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7049
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] crypto: cmh: stack overflow via missing tfm->fb in cmh_aes_cma=
-c_init_tfm()
-- [High] crypto: cmh: spurious -EINPROGRESS in cmh_aes_complete() for CTR c=
-hunk 2
-- [Medium] crypto: cmh - missing CCM payload length check for L=3D2 in cmh_=
-aes_aead_crypt()
---
+On Mon, Oct 26, 2026 at 04:04:02PM +0100, Marek Vasut wrote:
+> On 9/30/26 11:49 PM, Marek Vasut wrote:
+>
+> Hello Frank,
+>
+> > > > > So I suggest remove it now and add it when need.
+> > > > Can we please go with consistency between these boards from one vendor ?
+> > >
+> > > Yes, I am keeping consistency, then ask remove it. I applied alex's v2
+> > > version. I put v1 link to show krzy's concern.
+> > >
+> > > https://lore.kernel.org/imx/20260319125013.2421621-3-
+> > > alexander.stein@ew.tq-group.com/
+> > >
+> > > Changes in v2:
+> > > * Changed commit message to imperative form
+> > > * Remove (currently unused) display and backlight nodes
+> > I sent you a V6 with those nodes removed.
+>
+> Have you had a chance to handle the V6 ?
 
-commit c8ce92a98ef076c53f07cde35dc9d8f4e53da1f5
-Author: Alex Ousherovitch <aousherovitch@rambus.com>
+Does first patch picked by vnod?
+ dt-bindings: phy: ti,tcan104x-can: Document Microchip ATA6563
 
-crypto: cmh - add AES skcipher/aead/cmac
+Frank
 
-This commit registers AES skcipher (ECB, CBC, CTR, CFB, XTS), AEAD (GCM,
-CCM), and ahash (CMAC) algorithms using the CMH AES core, along with
-software fallbacks for unsupported hardware corner cases and incremental
-CMAC operations.
-
-> diff --git a/drivers/crypto/cmh/cmh_aes.c b/drivers/crypto/cmh/cmh_aes.c
-> new file mode 100644
-> index 0000000000000..d4352caf771f6
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes.c
-[ ... ]
-> +static int cmh_aes_ctr_submit_chunk2(struct skcipher_request *req)
-> +{
-> +	struct crypto_skcipher *tfm =3D crypto_skcipher_reqtfm(req);
-> +	struct cmh_aes_tfm_ctx *tctx =3D crypto_skcipher_ctx(tfm);
-> +	struct cmh_aes_reqctx *rctx =3D skcipher_request_ctx(req);
-> +	struct vcq_cmd cmds[CMH_AES_MAX_PAYLOAD];
-> +	u32 chunk1 =3D rctx->ctr_chunk1_len;
-> +	u32 chunk2 =3D rctx->cryptlen - chunk1;
-> +	u64 key_ref;
-> +	u32 keylen;
-> +	u32 idx =3D 0;
-> +
-> +	/* Clear split flag so next completion is final */
-> +	rctx->ctr_chunk1_len =3D 0;
-> +
-> +	vcq_add_sys_write(&cmds[idx++], SYS_REF_TEMP,
-> +			  (u64)rctx->key_dma, SYS_REF_NONE,
-> +			  tctx->key.raw.len,
-> +			  tctx->key.raw.sys_type);
-> +	key_ref =3D SYS_REF_TEMP;
-> +	keylen =3D tctx->key.raw.len;
-> +
-> +	vcq_add_aes_init(&cmds[idx++], rctx->core_id, key_ref,
-> +			 (u64)rctx->iv2_dma, keylen, rctx->ivsize,
-> +			 rctx->aes_mode, rctx->aes_op, 0);
-> +	vcq_add_aes_final(&cmds[idx++], rctx->core_id,
-> +			  (u64)(rctx->in_dma + chunk1),
-> +			  (u64)(rctx->out_dma + chunk1), chunk2);
-> +	vcq_add_flush(&cmds[idx++], rctx->core_id);
-> +
-> +	return cmh_vcq_pack_and_submit_async(cmds, idx, rctx->packed,
-> +					     CMH_AES_MAX_PACKED,
-> +					     rctx->target_mbx,
-> +					     cmh_aes_complete, req,
-> +					     !!(req->base.flags &
-> +						CRYPTO_TFM_REQ_MAY_BACKLOG),
-> +					     cmh_tm_async_timeout_jiffies());
-> +}
-> +
-> +/*
-> + * Async completion callback -- fires from RH threaded IRQ context.
-> + *
-> + * Unmaps DMA buffers, copies output to req->dst scatterlist,
-> + * updates the IV state, frees temporaries, and completes the request.
-> + *
-> + * For CTR counter-wrap splits, the first chunk completion chains
-> + * into a second VCQ submission rather than finalizing immediately.
-> + */
-> +static void cmh_aes_complete(void *data, int error)
-> +{
-> +	struct skcipher_request *req =3D data;
-> +	struct cmh_aes_reqctx *rctx =3D skcipher_request_ctx(req);
-> +
-> +	if (error =3D=3D -EINPROGRESS) {
-> +		cmh_complete(&req->base, error);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * CTR counter-wrap: first chunk completed, submit second.
-> +	 * DMA mappings remain valid (they cover the full buffer).
-> +	 *
-> +	 * Recursion depth bounded: chunk2 clears ctr_chunk1_len before
-> +	 * submission, so the second cmh_aes_complete invocation sees 0
-> +	 * and finalizes (max depth =3D 2).
-> +	 */
-> +	if (rctx->ctr_chunk1_len && !error) {
-> +		int ret;
-> +
-> +		ret =3D cmh_aes_ctr_submit_chunk2(req);
-> +
-> +		if (!ret || ret =3D=3D -EBUSY)
-> +			return;
-> +		/* Submission failed; clean up below */
-> +		error =3D ret;
-> +	}
-
-[Severity: High]
-Can this deliver a spurious or duplicate -EINPROGRESS notification to the
-outer skcipher_request caller when CTR chunk 2 is backlogged?
-
-When an AES-CTR request with CRYPTO_TFM_REQ_MAY_BACKLOG crosses the 64-bit
-counter wrap boundary in cmh_aes_crypt(), chunk 1 is submitted first. At
-that point, either cmh_aes_crypt() returned -EINPROGRESS directly, or chunk
-1 was backlogged (-EBUSY) and already triggered the single allowed
--EINPROGRESS callback when cmh_tm_thread() promoted it.
-
-When chunk 1 finishes in hardware, cmh_aes_complete() calls
-cmh_aes_ctr_submit_chunk2(), which submits chunk 2 with backlog_ok enabled
-and cmh_aes_complete as the callback. If tm.cmq is full when chunk 2 is
-submitted, cmh_tm_post_command() places chunk 2 on tm.backlog and returns
--EBUSY.
-
-When cmh_tm_thread() later promotes chunk 2 from tm.backlog to tm.cmq:
-
-drivers/crypto/cmh/cmh_txn.c:cmh_tm_thread() {
-    ...
-		if (bl_promoted && bl_promoted->complete)
-			bl_promoted->complete(bl_promoted->completion_data,
-					      -EINPROGRESS);
-    ...
-}
-
-cmh_aes_complete() receives -EINPROGRESS for chunk 2 and forwards it to
-cmh_complete(&req->base, -EINPROGRESS), invoking req->base.complete() with
--EINPROGRESS even though the initial submission returned -EINPROGRESS (or
-already fired -EINPROGRESS once for chunk 1).
-
-> diff --git a/drivers/crypto/cmh/cmh_aes_aead.c b/drivers/crypto/cmh/cmh_a=
-es_aead.c
-> new file mode 100644
-> index 0000000000000..ed2a0b9449bc0
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_aead.c
-[ ... ]
-> +static int cmh_aes_aead_crypt(struct aead_request *req, u32 aes_op)
-> +{
-[ ... ]
-> +	if (aes_op =3D=3D AES_OP_ENCRYPT) {
-> +		cryptlen =3D req->cryptlen;
-> +	} else {
-> +		if (req->cryptlen < authsize)
-> +			return -EINVAL;
-> +		cryptlen =3D req->cryptlen - authsize;
-> +	}
-> +
-> +	/*
-> +	 * Validate CCM IV format early -- the empty-input fallback and
-> +	 * nonce extraction both depend on iv[0] being in range [1,7].
-> +	 */
-> +	if (info->type =3D=3D CMH_AES_AEAD_CCM) {
-> +		if (req->iv[0] < 1 || req->iv[0] > 7)
-> +			return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * The CMH eSW rejects GCM/CCM when both aadlen and iolen are zero.
-> +	 * For GCM, the tag is simply E(K, J0) -- handle with ECB fallback.
-> +	 * For CCM, compute tag =3D E(K,B0) XOR E(K,A0) in software.
-> +	 */
-> +	if (cryptlen =3D=3D 0 && req->assoclen =3D=3D 0) {
-> +		if (info->type =3D=3D CMH_AES_AEAD_GCM)
-> +			return cmh_aes_gcm_empty(req, aes_op);
-> +		return cmh_aes_ccm_empty(req, aes_op);
-> +	}
-> +
-> +	/*
-> +	 * HW does not support authsize=3D10 for CCM.  Forward the entire
-> +	 * request to the generic CCM implementation.
-> +	 */
-> +	if (info->type =3D=3D CMH_AES_AEAD_CCM && authsize =3D=3D 10)
-> +		return cmh_aes_ccm_fallback(req, aes_op);
-> +
-> +	/*
-> +	 * HW uses a proprietary LLI scatter-gather format that is
-> +	 * incompatible with struct scatterlist, so the payload is
-> +	 * linearised into contiguous buffers for DMA.  Cap total
-> +	 * size to prevent excessive memory consumption.
-> +	 */
-> +	if ((u64)cryptlen + req->assoclen > SZ_1M)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Should cmh_aes_aead_crypt() check that cryptlen fits within L =3D req->iv[0=
-] + 1
-bytes for CCM, returning -EOVERFLOW when req->iv[0] =3D=3D 1 and cryptlen >=
- 0xffff?
-
-Per RFC 3610 section 2.1, when req->iv[0] =3D=3D 1 (L =3D 2, 13-byte nonce)=
-, the
-maximum representable payload length is 65535 bytes (as checked in
-crypto/ccm.c:set_msg_len() and lib/crypto/aes.c:aes_ccm_init()). Because
-cmh_aes_aead_crypt() allows cryptlen up to SZ_1M without checking whether it
-exceeds 0xffff for L =3D 2, an oversized L =3D 2 request is sent to the har=
-dware
-instead of failing with -EOVERFLOW.
-
-If the eSW rejects the command, cmh_aes_aead_complete() returns -EIO on
-encrypt and maps -EIO to -EBADMSG on decrypt instead of -EOVERFLOW; on 64K
-page systems with CONFIG_CRYPTO_MANAGER_EXTRA_TESTS enabled,
-test_aead_vs_generic_impl() generates vectors above 64 KiB and expects
--EOVERFLOW to match the generic CCM implementation.
-
-> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
-es_cmac.c
-> new file mode 100644
-> index 0000000000000..586150505d017
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
-[ ... ]
-> +/*
-> + * .digest() -- compute the CMAC over the whole message in a single
-> + * hardware transaction:
-> + *   SYS_CMD_WRITE(key) + AES_CMD_INIT(CMAC) + AES_CMD_AAD_FINAL_AUTH +
-> + *   FLUSH.
-> + * The message is linearised into one DMA-mapped buffer.  The crypto core
-> + * routes virtual-address requests to the software fallback before this
-> + * op runs, so req->src is an ordinary scatterlist here.
-> + */
-> +static int cmh_aes_cmac_digest(struct ahash_request *req)
-> +{
-[ ... ]
-> +	if (data_len) {
-> +		rctx->buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
-> +		if (!rctx->buf)
-> +			return -ENOMEM;
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(rctx->buf, req->svirt, data_len);
-> +		else
-> +			scatterwalk_map_and_copy(rctx->buf, req->src, 0,
-> +						 data_len, 0);
-> +		rctx->data_len =3D data_len;
-> +	}
-[ ... ]
-> +static int cmh_aes_cmac_init_tfm(struct crypto_ahash *tfm)
-> +{
-> +	struct cmh_aes_cmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct crypto_ahash *fb;
-> +
-> +	tctx->key.mode =3D CMH_KEY_NONE;
-> +
-> +	/*
-> +	 * The generic cmac(aes) shash has no export_core, so the crypto
-> +	 * core cannot wrap it as crypto_ahash_fb().  Allocate it here
-> +	 * instead; masking out CRYPTO_ALG_ASYNC excludes this (async)
-> +	 * driver so the allocator picks the generic, synchronous transform,
-> +	 * and its request is embedded after the reqctx.
-> +	 */
-> +	fb =3D crypto_alloc_ahash(crypto_ahash_alg_name(tfm), 0,
-> +				CRYPTO_ALG_ASYNC);
-> +	if (IS_ERR(fb))
-> +		return PTR_ERR(fb);
-> +	tctx->fb =3D fb;
-> +
-> +	crypto_ahash_set_reqsize(tfm,
-> +				 sizeof(struct cmh_aes_cmac_reqctx) +
-> +				 crypto_tfm_ctx_alignment() +
-> +				 sizeof(struct ahash_request) +
-> +				 crypto_ahash_reqsize(fb));
-> +	crypto_ahash_set_statesize(tfm, crypto_ahash_statesize(fb));
-> +	return 0;
-> +}
-
-[Severity: Critical]
-Does leaving tfm->fb pointing to the asynchronous CMH transform in
-cmh_aes_cmac_init_tfm() overflow the stack buffer in crypto_hash_digest()?
-
-In crypto_create_tfm_node(), tfm->fb is initialized to point to tfm itself.
-Because cmh_aes_cmac_alg sets CRYPTO_ALG_NO_FALLBACK, crypto_ahash_init_tfm=
-()
-does not allocate a fallback transform or update tfm->fb, and
-cmh_aes_cmac_init_tfm() stores the fallback only in tctx->fb while setting
-tfm's reqsize to:
-
-  sizeof(struct cmh_aes_cmac_reqctx) + crypto_tfm_ctx_alignment() +
-  sizeof(struct ahash_request) + crypto_ahash_reqsize(fb)
-
-Since crypto_ahash_init_tfm() raises crypto_ahash_reqsize(fb) to at least
-HASH_MAX_DESCSIZE, and MAX_SYNC_HASH_REQSIZE is sizeof(struct ahash_request=
-) +
-HASH_MAX_DESCSIZE, crypto_ahash_reqsize(tfm) exceeds MAX_SYNC_HASH_REQSIZE =
-by
-sizeof(struct cmh_aes_cmac_reqctx) + crypto_tfm_ctx_alignment() (over 560
-bytes).
-
-When a caller invokes crypto_hash_digest(tfm, data, len, out) (or uses
-HASH_FBREQ_ON_STACK() or HASH_REQUEST_CLONE() when falling back on allocati=
-on
-failure):
-
-crypto/ahash.c:crypto_hash_digest() {
-	HASH_REQUEST_ON_STACK(req, crypto_ahash_fb(tfm));
-	int err;
-
-	ahash_request_set_callback(req, 0, NULL, NULL);
-	ahash_request_set_virt(req, data, out, len);
-	err =3D crypto_ahash_digest(req);
-
-	ahash_request_zero(req);
-
-	return err;
-}
-
-HASH_REQUEST_ON_STACK() allocates __req_req on the stack with size
-sizeof(struct ahash_request) + MAX_SYNC_HASH_REQSIZE and binds req to
-crypto_ahash_fb(tfm), which is still the asynchronous CMH tfm.
-crypto_ahash_digest(req) then fails with -EAGAIN (because
-ahash_req_on_stack(req) && ahash_is_async(tfm) is true), and
-ahash_request_zero(req) zeroes sizeof(*req) + crypto_ahash_reqsize(tfm) byt=
-es,
-overwriting more than 560 bytes past the end of __req_req on the kernel sta=
-ck.
-
-Also, the commit message states that virtual-address (CRYPTO_AHASH_REQ_VIRT)
-paths are forwarded to the generic cmac(aes) transform, and the comment abo=
-ve
-cmh_aes_cmac_digest() notes that the crypto core routes virtual-address
-requests to the software fallback before .digest() runs. However, because
-cmh_aes_cmac_alg sets CRYPTO_ALG_REQ_VIRT, ahash_do_req_chain() calls
-cmh_aes_cmac_digest() directly for CRYPTO_AHASH_REQ_VIRT requests, which co=
-pies
-req->svirt and submits the request asynchronously to hardware instead of
-forwarding to tctx->fb.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-cmh-b4-a-v=
-7-v7-0-500a83faf500@rambus.com?part=3D4
+>
+> Thank you !
