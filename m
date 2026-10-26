@@ -1,47 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017922;
-	b=TCXj6uzqcNMIyQkgtIIok85QXRxTZgYbM2Y2c+uSZxCFmTRyGt11LTI2s61p/7KD/muT
-	 6B15U7aDIDu6jAQPUEPxz/UVv/d+d4fYhfLUZCOstN8PQvT5QtZwtRPFnW4u9KiDYQ734
-	 DgdsKsuFf1w+K4/n1Iy5zk8cp4dQg7NIf9t3fVUlXxvub7nchZoDqqFCo3IRox9lSX3ub
-	 tSXMJmQy6XNCstxIzZhC/AiBqqQgRQv+Jf6LDmmPpChBIcWAD7bFuLK79MaVyGPqrm6GB
-	 RB9BRSalBLmtZ37+T8pct+jh0VhQQExlUizD/OhCqsMuMB+PcD23b3Z9Tvj5WJIuSyg==
+	t=1793017942;
+	b=bq9tYZ0Vo2sm26ob4TOHQWqHF/8Ugo1zuE6rEJFcK+K6wvHSFAECYAWcI+BKNYvZBmTR
+	 7zknCAiY3me5r2AXXpd45oC7mBQgEanJt5Dk3+S8Gn/8JjIcTTxQvnZdJPJ+yTPQuqoSl
+	 V68CW1gcA6UCoe2yN77Rg+1wVu6I6KKbcl0xOVSQx0dEjGm4nhzL/o+/x0hx3rJA7SYm5
+	 yye129TY9kFWol0dGeXrAndmnbWPNww0no8aIyAgjP3z2NZt2+G264txUbppQMeKT3/0I
+	 idsvJyU4cqyQV9EyBsDuT2KyI/8Tc/3avQb7Ga9jt7s11QtUUqiQ/2SXWfxr5hvjDAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017922;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=n4vj9UdlQuQU69tpB4POuZ9TjkQJc+GCVbAWOXKkV58=;
-	b=wy+SppyjIpKl6Gzk0MuIHSkrRfd//JjnjAvYDCFtw88XkfdxdO2M3pcrT3qV6UPIwFlU
-	 6KcZWT1CFm1EPdW0kOYnLPm/ZIXOi7+U5KlreXsNwSpKa/TJm/V5eZPHLu3JNC+4Ni77v
-	 /mtCdCuTy/wQxS6rScKvy5G1RAzzOMJOlplcRqoAWxS8XaVVOCAn3l5jj8/RKQdBO/iEC
-	 fr3TFvDc3Pz8sQP2n/wNHMgxNwBejflTe3R2BS06IXj9c3Wz3Ey6Ci2Qb7eWf01aHbzGK
-	 ps4fcDa7JmFvZLlrQgMBZ/Xo4Nar+gH0V5eacZg5LclQvOdxd9SOWUldMZdz60YmXpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017942;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=YP6TS5doeKkZA3J1McevqiS1QfTiivf4o6F01McV3DE=;
+	b=E5+l5Kb7M0m0lXCKHcZiV0b1Idpga1n5Q/9a4kNd3+EbyYwrzP2bDRGbEPbOyxxdq0Hy
+	 x91tFh2UTxeBuBM5bDtVf5xjG3HLywNM+oHHsBReGy5rTklNTbmQpWdkBPyRqKn96nUw/
+	 t8CF3RcqPvZGZF94gutIynNJgqWxC/ikq3t07OBMArPm5nZPMtZhUfn4yplS8uNI+gM7H
+	 SAEoPH/V2HC7wyqKs3/4EQmGGRsmFn960KSJMVM3zXx0BIh0nD9QQoF0hTSbmsNE7Z2s/
+	 YGinWOfMqlaSH17cwZWaecafPs8owmlNGPlU17S96Aj4LH6qsYV1fxQvqKUmEb5Nv2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jyeat6lh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBF1606A31A;
-	Mon, 26 Oct 2026 12:32:02 +0000 (UTC)
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KjfPsXrq;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A876460A2608;
+	Mon, 26 Oct 2026 12:32:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A876460A2608
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jyeat6lh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81481F01825;
-	Mon, 26 Oct 2026 12:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793017922;
-	bh=n4vj9UdlQuQU69tpB4POuZ9TjkQJc+GCVbAWOXKkV58=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Jyeat6lhqqe4xqdQIZ3z3a/sfEVkaxlVl/e2kFlLiH4wex4RGU5whRzUe47cJrUTE
-	 STEOKuJe+HAgzzW8BJsdrzCU11+Lgmg4hN+V6358zhICg2sXdWIXJKEOOPt3zovTPS
-	 Ogs+dWmCIL0fWiS7N9gSwj3A+iABv5JfheXf1nox92bEhnxjB7x5F5XZ1AXnr0DO8i
-	 jGQyWH521Gn2sgPOnkrY3uISNZCGpG0QJWaiySRRo+VKLj4Pw92XvdAmar21H0Hx8X
-	 AuJnQIXgSIK8+Jxm+V+03EMid6bVGA37sTM3oRXoZVElylfH+Y1i+u+rMFrMTJYVjQ
-	 7psVVkI/iKFrQ==
-Message-ID: <ea527310-f173-4546-948a-d275ff40ade7@kernel.org>
-Date: Mon, 26 Oct 2026 12:31:55 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=KjfPsXrq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=YP6TS5doeKkZA3J1McevqiS1QfTiivf4o6
+	F01McV3DE=; b=KjfPsXrqNaSj4Vcy28dhyHq1iGnFj1L9Wn9ev7iedyOkKBp+ka
+	23TNA1Uosjx3JrIppoggJKLg5V2VEWAYsytkKgNi+1nCwnDqPb6QyxHJ3W6n80BG
+	nXecgJ/MRZbAIXOvyE5oDgzmig6t0wV6pex9xcXMjo36qMxgdKTaDldPM=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHATZLSN9qClRJAA--.2459S3;
+	Mon, 26 Oct 2026 20:32:13 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/3] dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
+Date: Mon, 26 Oct 2026 20:32:09 +0800
+Message-ID: <20261026123211.243224-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,129 +66,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges"
- on a device node
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
- <99a419c3-81a8-4b37-b9c7-2dd56978162d@linaro.org>
- <3_cePPPMBo_SOwJDa7jnPr3t5UWeJDb_FTzCsX8_RVql4u6ZrS-Aw_UCfhWYNllz4QZwHVwxm3dCG7UY3XZXnQ==@protonmail.internalid>
- <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgCHATZLSN9qClRJAA--.2459S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF48XFW7XF1ktF4fXryDtrb_yoWrWr4kpF
+	ZxtF48JrykKryfX3s7AF18uwn5K398ArnrJryUJryUZa98Jr1rXa13Kwn0qa47Cr92va4a
+	k34kWF1Yq3W7GF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
+	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
+	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgm9-UUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREMB2reWNVnoAALsu
 
-On 26/10/2026 12:08, Vikash Garodia wrote:
->> https://github.com/devicetree-org/dt-schema/pull/207
->>
->> Perhaps splitting this into two patches as an iommu-series would be best.
-> Intention was to keep the patch to add iommu-ranges property as part of
-> iris driver patches to show the usage of this new property.
-> 
-> I am fine either ways, whatever it takes for the maintainers of this
-> file to review.
-> 
-> Regards,
-> Vikash
-> 
->>>            end = maps + size / sizeof(__be32);
->>> @@ -258,6 +367,9 @@ void of_iommu_get_resv_regions(struct device *dev,
->>> struct list_head *list)
->>>                    }
->>>                    type = iommu_resv_region_get_type(dev, &phys, iova,
->>> length);
->>> +                if (type != IOMMU_RESV_DIRECT)
->>> +                    continue;
->>> +
->> If you look in iommu_resv_region_get_type() you can emit
->>
->>           dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap]
->> as reservation\n", phys,
->>                    &start, &end);
->>           return IOMMU_RESV_RESERVED;
->>
->> on a mismatch - which is not what the code will do now. Mismatch will
->> warn and then not map.
->>
->> So maybe dev_err() saying you won't map - in the new patch for reg.
->> Either way this isn't a change specific to iommu-ranges.
+Two connectors can share the High Speed D+/D- pair of a single DWC3
+controller, with a GPIO selecting which one is connected.  Super Speed
+lanes stay per connector.
 
-Sure the above needs to be addressed though because its not a straight 
-change.
+Describe that in snps,dwc3-common.yaml:
 
-Before if there was a mismatch it would sill be mapped - now we print a 
-warning and _don't_ map.
+  - port-select-gpios selects which connector drives the shared HS bus;
+  - the shared HS bus is port@0 with two numbered endpoints, endpoint@0
+    and endpoint@1, so that "ports" keeps describing the controller's own
+    buses as the graph bindings expect;
+  - each endpoint carries "mux-state", the port-select level of that
+    connector, and "usb-role-switch" to declare that this connector has
+    its own role switch input.
 
-I'm not sure that's really what you meant to do here but if it is it 
-should be stated in the git log and IMO it should be a follow on change 
-_after_ the initial addition (or before it) stating why mismatched will 
-no longer be mapped.
+When port-select-gpios is absent the endpoint properties are rejected,
+so existing single-connector descriptions are unaffected.  The two
+mux-state values are constrained to be complementary.
 
-Because add iommu-ranges != don't map mismatched, basically.
-
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
-bod
+ .../bindings/usb/snps,dwc3-common.yaml        | 109 +++++++++++++++++-
+ 1 file changed, 108 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+index 6c0b8b6..6b06b00 100644
+--- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
++++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+@@ -13,6 +13,38 @@ description:
+   Defines the properties of the DWC3 core as being embedded in either an
+   vendor-specific implementation or as a standalone component.
+ 
++$defs:
++  hs-endpoint:
++    $ref: /schemas/graph.yaml#/$defs/endpoint-base
++    unevaluatedProperties: false
++
++    properties:
++      usb-role-switch:
++        type: boolean
++        description:
++          This connector endpoint has its own USB role switch. The switch is
++          registered against this endpoint and looked up with
++          usb_role_switch_at_endpoint().
++
++      mux-state:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1]
++        description:
++          Logical level of the port-select GPIO which connects this
++          connector to the shared High Speed data bus.
++
++    dependentRequired:
++      usb-role-switch: [mux-state]
++      mux-state: [usb-role-switch]
++
++  hs-port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    patternProperties:
++      '^endpoint@[01]$':
++        $ref: '#/$defs/hs-endpoint'
++
+ allOf:
+   - $ref: usb-drd.yaml#
+   - if:
+@@ -26,8 +58,83 @@ allOf:
+       $ref: usb.yaml#
+     else:
+       $ref: usb-xhci.yaml#
++  - if:
++      required: [port-select-gpios]
++    then:
++      required: [dr_mode, ports]
++      properties:
++        dr_mode:
++          const: otg
++        ports:
++          required: [port@0]
++          properties:
++            port@0:
++              required: ['#address-cells', '#size-cells', endpoint@0, endpoint@1]
++              properties:
++                endpoint@0:
++                  required: [usb-role-switch, mux-state]
++                endpoint@1:
++                  required: [usb-role-switch, mux-state]
++    else:
++      properties:
++        ports:
++          properties:
++            port@0:
++              patternProperties:
++                '^endpoint@[01]$':
++                  properties:
++                    usb-role-switch: false
++                    mux-state: false
++  - if:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint@0:
++                  properties:
++                    mux-state:
++                      const: 0
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint@1:
++                  properties:
++                    mux-state:
++                      const: 1
++  - if:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint@1:
++                  properties:
++                    mux-state:
++                      const: 0
++    then:
++      properties:
++        ports:
++          properties:
++            port@0:
++              properties:
++                endpoint@0:
++                  properties:
++                    mux-state:
++                      const: 1
+ 
+ properties:
++  port-select-gpios:
++    maxItems: 1
++    description:
++      Selects which of the two connectors drives the controller's shared High
++      Speed data bus. Each connector is described by a numbered endpoint of
++      "port@0" that carries its own role-switch input and the "mux-state"
++      level selecting it.
++
+   extcon:
+     maxItems: 1
+     deprecated: true
+@@ -411,7 +518,7 @@ properties:
+ 
+     properties:
+       port@0:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: '#/$defs/hs-port'
+         description: High Speed (HS) data bus.
+ 
+       port@1:
+-- 
+2.53.0
+
