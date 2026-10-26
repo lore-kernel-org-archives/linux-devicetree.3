@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011976;
-	b=txpxdFpUF9HRs8ErJvshklf+uLRF3lLpRRk0/Itu5J6p24PbuM5yaeD9bM/et+P5Gbk1
-	 CHHoobrKQGrbihw+TKfa7gwjj33p8Gg9QlMQCBVKMUJaLxY1KPol4d17/LdahCvF4mOjK
-	 jXEag1A2MPyJEgR0Q1HQfxYgVXFwQOda4izGNPcuOxH7U+yusxqz1Cjb9X4AyLYQbjctE
-	 3bVg5avMmHWt2+SV8JIi1Hdcjz0JmpunkTg3lKdePCVxg7RaqMfoUHDSxQpc/UtJHTemS
-	 mC7rb0DK0i5nzpAsTuFofcPVeatifnAOMIQyUqFydOT0p80xeyx1c3ve+G9kfTaVzow==
+	t=1793012083;
+	b=Gy3ApHQ+nO0gDQ4j2YULRXKUmevXVxIJz/v8GVVOWU7N/K5z7HQCRs8JF4lKAF4dPgo2
+	 QKxYspPvi3oy44uUhDwnhjBUF8GUFEExE3FxlT+NUdOcIU+Gybqcf2TOfuyUOpPOofbaR
+	 1VLLI5dIZVgRxP6yNpXgz1nEYYYJ+GvSVXjsXb7xjpsw/ZReYIYpy9xvW38xJ3McA2SIV
+	 DXpXbaJzzDA8g7NRvYgRUUe84xr51hLIQxN7kUPgqYYQhOwFgBofLUxMapi4S/8sSPi/M
+	 kRVZnEWVYEIW7IYflc9o/q6XU3YvpdWpihoWyk2EcFgwJTQQQL6laZ7Rfr2bXG80rAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011976;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=zQURHhq9ZWhEvJJ14uZwYSAyydn02+qGomsj+76FuPI=;
-	b=hV1Lg8jq83OaMC7vTSESl+lLYMLKsLJ6cKWVN1XtXafp+sZAjOYfL3qDPrfJs1Mxms4l
-	 RL8eww7RoFI7cflgJMipNFv2tdmP0g+0tUw4kSDT6jJzDI6092x4UKnS8ShOMW3CoOcwL
-	 mXdT4643xads6ghT0EF8ATpx6+uz2SR8+aAmGcAHTal7pwWGHXalribrMN5ZnUgpHw/mX
-	 OsQ+hyQ3CZjeD9+WJ0qrt1YDlAhK8ob5DMYBXyGo+cGxe3A77CkHupzJZgDdowmGtzZet
-	 37cedihvvFGd9kpgm/AFEKjy+Z+ZPGMZKGyz8Ch18yuGcPmluPj3aV33dkDtgsgXOrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012083;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Oq0D2Ss++smLUiQ99vZjmEFsrbRIToYjC2WTlYiT258=;
+	b=I7EY2egU0HEOsV6pgrlpTY7tgQ11/07uuUzTAfJ8UOuQ5o/l0v95JTu+DKguODacIdL3
+	 /kqdzVXe/uoRbR4nBo+Y1rzLrB1YunmdVgr5sdn5CXeFXuTrzHwmO1Vmjdx55mbp40rpq
+	 DEZ+NpzyXHpPDFa3fh/b7e2xIMUTMUG7d7A4xntnjLia65ywS8QDnqTDZ4NB1Ztonwde9
+	 rHSIkwNjyC/RvMFPqNfAAtP2Z8vnoN+IrQdzUZ27SCLIP3lJHXEfYyAeO4FwEovdstPNX
+	 A74x2YbqnFy+2s4s3Y6LJS+vy3YIx7PXPYSrM8bolpw+9RDSgTvX+xMZfwsklijhElQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxbvyhCL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJT9wNFT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BPLFgbfK;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12325606A322;
-	Mon, 26 Oct 2026 10:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF8C606A31B
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:54:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF8C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxbvyhCL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E181F01825;
-	Mon, 26 Oct 2026 10:52:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793011975;
-	bh=zQURHhq9ZWhEvJJ14uZwYSAyydn02+qGomsj+76FuPI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bxbvyhCL8NlLwXUBl5UftlLxsHd9w8QIebou2Y++f0lBrbGSLFXhlkvoksTwb6g9r
-	 Q+XWzZIuZDPYsoq3HxS8cnYk5KGlcITP3Fnuwzdhsg38hFz7Tgs+b9i2Icr+S3+jrv
-	 zPtZLtbdWqpxxIdJ54GIApVchPu8j2Jzhq6n+S5m0tSvt+6uiMBLPMSXQ5h77dO7bc
-	 h0ZwM8qcEA6nMxRJzRp3gJa9fgbpFfwRMkgU9c02xdEPkf2FePfRyY78t0+6tvmV81
-	 9xh9FbrkCCrikp0muz25xM7A+X+DjAne+HvCaU6GuIRKWScCMsagCuZeIWQWasFzcV
-	 sWRVXG9D31i9Q==
-Message-ID: <sashiko-outbox-185022@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/23] drm/msm/dcp: Add generic HFI display commands
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-9-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-9-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 10:52:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJT9wNFT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BPLFgbfK
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QA55w13450937
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:54:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Oq0D2Ss++smLUiQ99vZjmEFsrbRIToYjC2WTlYiT258=; b=lJT9wNFTbz1ZUXG+
+	XfeeYnfmzm9oGbGmvPV15k8JJxKnXdpuw2EmtDm/+AFh8DMU8zKmbCRWj470EP1M
+	aRr8pH8TZ+8LA88ZAiCqHm9pvwMDMp/l/YNdfzAJ4w7XA7gIDu/C76G7Mtmw1+AQ
+	CcDONmFUrEZu6pOtryh7Rjy2mrdHDvyvdht0vMT7iZT0erTpnKOapU9op4yf5qiF
+	oJzKZxM6n/xz1Aqr6/iPXpl8fp9fBg2+JC/WA/8kKFvdO7pcXmKLWqvsmPiqK5Ar
+	px0YbOyRTdl7aOfoN6USMVGTgdZ+c+hmNSBQtMptbWZL0XleqVDoJckX6jqem2mN
+	i4iLog==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s9074h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:54:36 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-53635fe2335so3049961cf.3
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793012076; x=1793616876; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oq0D2Ss++smLUiQ99vZjmEFsrbRIToYjC2WTlYiT258=;
+        b=BPLFgbfKzu8Eb5D3Uh4oimWyGut4t2AP+Rlit6Nxvh2HN3ydtc5RD73mzISn+R8YZ3
+         +CwhOgALY2B0Hklulxb28RQoR44C7/Ybxnx+/JWtEqhsx7HfWbiL3Q035CyREtXLQDfm
+         48aUKvwLNJ03AUid1fXDip0t1xA58vEW4P4nkKF/ZY+l6pnclbQ0H2LVnU9Mqstl4zaD
+         GuIuciiGhH96p4ueQHj3TomNOhZ1ZuL22QK+u5k6aCsOGq1tkxN3xue62AgVHPIiUzsa
+         vrTCRNdJ1FDXpcLO5A1dNxmyiZPhuypI3N0/kGU5YsixQ1Rxh48DzqLK1rqFGzTeuayL
+         sm9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793012076; x=1793616876;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oq0D2Ss++smLUiQ99vZjmEFsrbRIToYjC2WTlYiT258=;
+        b=Xuq1KzfS+5vFhyodvDVWB/bixW1GcZ5vIwWNYXAJ3T6Tf1T+w4AUDQit9+v9u6CPmM
+         Kt5ydenyRBQvAlj/6E/FSBwE27+2WuHM+VLMgSXylQrDg3WosBlvbv4wA+ZUoclVqR1u
+         WcoglhKoU4yici0q7R2XI3CEPj30JnHCVK05ocoDbQTigvBy7HJ/cyLoVHXXsTJ5XF0c
+         ofcvapLk1V6yBthLFt8V/6cqo+vUGbd/6EK0P1AuVe9UPHuUKv62VgiwprdDD04HVnMH
+         GNKV3X2nSLowbyP137fleUB8PdQSFVqlXG1+X5sWjfp3OgYGLuA05Hbjd8LG3H9yiNFO
+         Psrg==
+X-Forwarded-Encrypted: i=1; AKwUvBweTyNLb8CbvJ6l6poGBRfd3jODCensqgnDOx7gWAbm1tOuimmkfEFdnlwJpFehO2HWs92RCU7mHwVi@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfeHVdwxJTqQgxc9erfpTlKqXRnTQOZzO8bjFDW7sWSd7Gk+Wy
+	Al3dMghcV+hvJext9x63nRXPl0gOsjJdpJ/Vd5/WkEeu6gQrLrjCxBDulhV/4oJOZmW7baFbvDf
+	hnc/oB/3mRokqM3fXMEeRaUxlfvWfkmjPiDh1p5Gfk3XCMgjR+aFF1YjqxrtQMf3S
+X-Gm-Gg: AYBFou3asnt8hIkbKxkUHhDyfEwwhxhkK1anyJ9RqChZgybej+l6X+3RDTrKCoho3ct
+	piniscXT2jItaH1r3l5NDKYSBwv7OLmK5jmD95N4XUyMVol3Koz5GlwgSn0rBTTaiZlomycu+XX
+	n3kdMtIxlUh4DVX1myPlm/xyEemZ9uraqIf6eOrHnXNamrzPyzkZhQbho3eRpMf7eeC9uymDYqA
+	z6Gcfr0nvisHMy3KFGqWNpuNm0L/iO6/UNcYxvA/o3EIBjyWXZGzY1d11z0a/GfUiqBLsbjgJZU
+	sjwmKKZrtanRYTtYfVzw6tuDWik5un9zyKmK1SeHr5CqYGFv0G6S+mwMODiSIad/OaA4NW49Spl
+	5KEyNk3E3FnC4/NIN5z+dPw==
+X-Received: by 2002:a05:620a:4e84:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-940ef9710femr1137088285a.6.1793012076196;
+        Mon, 26 Oct 2026 03:54:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:4e84:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-940ef9710femr1137085685a.6.1793012075783;
+        Mon, 26 Oct 2026 03:54:35 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4ea620sm305456166b.23.2026.10.26.03.54.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 03:54:34 -0700 (PDT)
+Message-ID: <7c287dda-9e81-4e98-8a8e-0984afa5507d@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 11:54:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,276 +114,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] arm64: dts: qcom: sm8250-hdk: Add support of QCA6390
+To: ShiTou Hong <redstone.dcity@gmail.com>, andersson@kernel.org,
+        konradybcio@kernel.org, conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        ShiTou Hong <dc_redstone@outlook.com>,
+        KancyJoe <kancy2333@outlook.com>
+References: <20261023072832.2642647-1-dc_redstone@outlook.com>
+ <20261023072832.2642647-5-dc_redstone@outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023072832.2642647-5-dc_redstone@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfX9qeNyFv85/EV
+ cnAV9qbp53r+3fzrLfbac/J04odpOX93ps8FnWsteLxD6xFGQ6oLc37LTBeDwwj4spJohhBtOBB
+ CQyUB1jfsn/v6KgWQMRXysnuvPBhUcFxOHOFraToEHzH49R8V47B57ZSL1yM+vrZslMoCt5yDuo
+ yfV5GSmcMGZu/9JnspbVPeXj1UdMyYUaPnzujkdyUbrmhre2gg2N6aD/QWf26dD2j/c9XcxIAqB
+ 8i4c/uPtEGlX3YUFUt2TRQDpvizFr4J1u+P+wrBLbwm+V/1QAeYNWG6k8zkikDbmP0IJ2M134F5
+ 9DV3acmosbHrwwuQNGz/AtQtefk2ZVUVCWEnjToreo5ky2GCkVhaDHQt4UHJi9/7YAMmDuybgPA
+ lO6wN3KYXcKTs+urBEnuhz/4rFRDvKTx08bmY1R6Ep9VwM3x7DLM0JrMlvGB3Qzpjm6wP0ZGAor
+ RnH8yqTb8ywDMxCOtyg==
+X-Proofpoint-ORIG-GUID: b_OokbfulaHZoQPeNS16Vd7-BIxPr-DH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MyBTYWx0ZWRfXzbMJlQYZduiD
+ WxUPKh2yK2lfyzMc6T9w55Yn6BR1g8T7LyuHx80EKDW7fpzAlY536tZxX3QOfXaEnVz5s1fPUC1
+ 0vwTCGP/C4Ls6W8v6xyV+m6TaXrdzug=
+X-Proofpoint-GUID: b_OokbfulaHZoQPeNS16Vd7-BIxPr-DH
+X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adf316c cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=WvK3DE_TvOQGC-msfrYA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260043
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/msm/dcp: completion corruption and unlocked caps_cache in dcp_=
-hfi_kms.c
-- [High] drm/msm/dcp: pipe count clobbering in dcp_hfi_parse_init_caps_kv()
---
+On 10/23/26 9:28 AM, ShiTou Hong wrote:
+> The sm8250-hdk has a QCA6390 WiFi/BT module which hasn't
+> been added in the dts file.
+> 
+> Enable the UART port of BT, add the bluetooth node.
+> Add the QCA6390 PMU node.
+> Add the wifi node of pcieport0.
+> Add the missing regulator node of PM8009 which is used by QCA6390.
+> Add the pinctrl of QCA6390 enable pins.
 
-commit 90bc8a62bf35e8d6f13a5451d4e21b3d608a5097
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Don't describe the diff, describe the problem
 
-drm/msm/dcp: Add generic HFI display commands
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
 
-This commit adds generic HFI display command helpers and capability parsing
-for the firmware-owned DCP display pipeline, translating DRM state for
-resources, CRTCs, planes, bandwidth, and frame sequencing into HFI commands
-and properties.
+[...]
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c b/drivers/gpu/drm/msm/=
-dcp/dcp_hfi_kms.c
-> new file mode 100644
-> index 0000000000000..ac8000a8ee900
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c
-> @@ -0,0 +1,366 @@
+> +	qca6390_pins: qca6390-default-state {
+> +		wlan-enable-pins {
+> +			pins = "gpio20";
+> +			function = "gpio";
+> +			drive-strength = <16>;
+> +			output-low;
 
-[ ... ]
+Drop output-foo, the driver will take care of that
 
-> +static void dcp_hfi_caps_cache_init(struct dcp_hfi_caps_cache *cache)
-> +{
-> +	init_completion(&cache->device_done);
-> +	init_completion(&cache->display_done);
-> +}
+> +			bias-pull-up;
+> +		};
 > +
-> +static void dcp_hfi_caps_cache_start(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +	dcp_hfi_caps_cache_init(&hfi->caps_cache);
-> +}
-> +
-> +static void dcp_hfi_caps_cache_stop(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +}
-> +
-> +int dcp_hfi_send_device_init(struct dcp_hfi *hfi)
-> +{
-> +	int ret;
-> +
-> +	mutex_lock(&hfi->caps_cache_lock);
-> +	dcp_hfi_caps_cache_start(hfi);
-> +
-> +	/* Payload and flags follow the HFI device-command definition. */
-> +	dev_dbg(hfi->dev,
-> +		"HFI DEVICE_INIT cmd=3D0x%x flags=3D0x%x timeout=3D%ums\n",
-> +		HFI_COMMAND_DEVICE_INIT,
-> +		HFI_TX_FLAGS_RESPONSE_REQUIRED | HFI_TX_FLAGS_NON_DISCARDABLE,
-> +		DCP_HFI_TIMEOUT_INIT_MS);
-> +
-> +	ret =3D dcp_hfi_send_sync(hfi,
-> +				HFI_COMMAND_DEVICE_INIT,
-> +				HFI_CMD_BUFF_DEVICE, 0,
-> +				HFI_PAYLOAD_NONE, NULL, 0,
-> +				HFI_TX_FLAGS_RESPONSE_REQUIRED |
-> +				HFI_TX_FLAGS_NON_DISCARDABLE,
-> +				NULL, 0,
-> +				DCP_HFI_TIMEOUT_INIT_MS);
-> +	if (ret) {
-> +		dev_err(hfi->dev, "HFI DEVICE_INIT failed: %d\n", ret);
-> +		dcp_hfi_caps_cache_stop(hfi);
-> +	} else {
-> +		dev_dbg(hfi->dev, "HFI DEVICE_INIT succeeded\n");
-> +	}
-> +
-> +	mutex_unlock(&hfi->caps_cache_lock);
-> +	return ret;
-> +}
-> +
-> +static void dcp_hfi_parse_init_caps_kv(struct dcp_caps *caps,
-> +				       u32 prop_key,
-> +				       const u32 *payload,
-> +				       u32 max_words)
-> +{
-> +	u32 prop_id =3D HFI_PROP_ID(prop_key);
-> +	u32 count, i;
-> +
-> +	if (!payload || !max_words)
-> +		return;
-> +
-> +	switch (prop_id) {
+> +		bt-enable-pins {
+> +			pins = "gpio21";
+> +			function = "gpio";
+> +			drive-strength = <16>;
+> +			output-low;
 
-[ ... ]
+likewise
 
-> +	case HFI_PROPERTY_DEVICE_INIT_VIG_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_vig_pipes =3D 0;
-> +		caps->virt_vig_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_vig_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_pipe_ids[caps->num_vig_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_vig_count < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_r1_indices[caps->virt_vig_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-> +	case HFI_PROPERTY_DEVICE_INIT_DMA_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_dma_pipes =3D 0;
-> +		caps->virt_dma_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_dma_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_pipe_ids[caps->num_dma_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_dma_count < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_r1_indices[caps->virt_dma_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-
-[Severity: High]
-Won't resetting both the primary and rect-1 pipe counters here clobber the
-previously parsed pipe counts when dcp_hfi_get_capabilities() parses multip=
-le
-capability buffers into the same struct dcp_caps?
-
-In drivers/gpu/drm/msm/dcp/hfi/hfi_properties_device.h, both rect-0 pipes
-(DCP_REC_ID(idx) =3D=3D 0) and rect-1 multirect pipes (DCP_REC_ID(idx) !=3D=
- 0) use
-HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and HFI_PROPERTY_DEVICE_INIT_DMA_INDIC=
-ES.
-
-dcp_hfi_get_capabilities() calls dcp_hfi_parse_kv_buf() sequentially on
-cache->device_buf, cache->display_buf, cache->vig_buf, cache->dma_buf,
-cache->vig_r1_buf, and cache->dma_r1_buf.
-
-When cache->vig_r1_buf and cache->dma_r1_buf are parsed after the primary
-pipe buffers, their HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and
-HFI_PROPERTY_DEVICE_INIT_DMA_INDICES properties contain only rect-1 indices,
-which unconditionally resets caps->num_vig_pipes and caps->num_dma_pipes ba=
-ck
-to 0. As a result, caps->max_planes evaluates to 0 and
-dcp_hfi_get_capabilities() fails with -EINVAL ("invalid DCP caps: no scanout
-pipes"). Conversely, if device_buf contains both rect-0 and rect-1 indices
-and vig_buf/dma_buf contain only rect-0 indices, parsing vig_buf/dma_buf
-resets caps->virt_vig_count and caps->virt_dma_count to 0.
-
-[ ... ]
-
-> +int dcp_hfi_get_capabilities(struct dcp_hfi *hfi, struct dcp_caps *caps)
-> +{
-> +	struct dcp_hfi_caps_cache *cache;
-> +	int ret =3D 0, opt_ret;
-> +
-> +	memset(caps, 0, sizeof(*caps));
-> +
-> +	mutex_lock(&hfi->caps_cache_lock);
-> +	cache =3D &hfi->caps_cache;
-> +
-> +	if (!wait_for_completion_timeout(&cache->device_done,
-> +					 msecs_to_jiffies(DCP_HFI_TIMEOUT_CAPS_MS))) {
-> +		dev_err(hfi->dev,
-> +			"DEVICE_INIT_DEVICE_CAPS timeout after %ums\n",
-> +			DCP_HFI_TIMEOUT_CAPS_MS);
-> +		ret =3D -ETIMEDOUT;
-> +		goto out_free_cache;
-> +	}
-> +
-> +	if (!cache->device_len) {
-> +		dev_err(hfi->dev, "DEVICE_INIT_DEVICE_CAPS: empty payload\n");
-> +		ret =3D -ENODATA;
-> +		goto out_free_cache;
-> +	}
-> +
-> +	ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->device_buf,
-> +				   cache->device_len);
-> +	if (ret)
-> +		goto out_free_cache;
-> +
-> +	if (!wait_for_completion_timeout(&cache->display_done,
-> +					 msecs_to_jiffies(DCP_HFI_TIMEOUT_CAPS_MS))) {
-> +		dev_warn(hfi->dev,
-> +			 "DEVICE_INIT_DISPLAY_CAPS not received\n");
-> +	} else if (cache->display_len > 0) {
-> +		opt_ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->display_buf,
-> +					       cache->display_len);
-> +		if (opt_ret) {
-> +			dev_warn(hfi->dev,
-> +				 "DISPLAY_CAPS parse failed: %d (non-fatal)\n",
-> +				 opt_ret);
-> +		}
-> +	}
-> +	if (cache->vig_len > 0) {
-> +		opt_ret =3D dcp_hfi_parse_kv_buf(hfi, caps, cache->vig_buf,
-> +					       cache->vig_len);
-> +		if (opt_ret)
-> +			dev_warn(hfi->dev,
-> +				 "VIG_CAPS parse failed: %d (non-fatal)\n",
-> +				 opt_ret);
-> +		else
-> +			dcp_hfi_log_pipe_ids(hfi->dev, "VIG_CAPS",
-> +					     caps->vig_pipe_ids,
-> +					     caps->num_vig_pipes);
-> +	}
-
-[ ... ]
-
-> +out_free_cache:
-> +	dcp_hfi_caps_cache_stop(hfi);
-> +	mutex_unlock(&hfi->caps_cache_lock);
-> +	return ret;
-> +}
-
-[Severity: High]
-Can zeroing hfi->caps_cache in dcp_hfi_caps_cache_stop() corrupt
-device_done and display_done while capability events are still in flight, a=
-nd
-does caps_cache access here race with dcp_hfi_dispatch_event()?
-
-struct dcp_hfi_caps_cache embeds the device_done and display_done struct
-completion objects. Calling memset(&hfi->caps_cache, 0,
-sizeof(hfi->caps_cache)) in dcp_hfi_caps_cache_stop() (and in
-dcp_hfi_caps_cache_start() before dcp_hfi_caps_cache_init(), as well as pri=
-or
-to the first dcp_hfi_send_device_init() call after dcp_hfi_init() posts
-response buffers) zeroes wait.lock and sets wait.task_list.next and
-wait.task_list.prev to NULL.
-
-In dcp_hfi_get_capabilities(), a timeout on display_done is treated as a
-non-fatal warning and execution proceeds to out_free_cache, where
-dcp_hfi_caps_cache_stop() zeroes hfi->caps_cache. The same happens if
-device_done times out, if dcp_hfi_parse_kv_buf() fails on device_buf, or if
-dcp_hfi_send_sync() times out in dcp_hfi_send_device_init().
-
-If HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS or
-HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS then arrives in
-dcp_hfi_resp_callback()->dcp_hfi_dispatch_event()->dcp_hfi_store_caps_paylo=
-ad(),
-complete() calls swake_up_locked() on the zeroed completion. Because
-list_empty(&q->task_list) checks READ_ONCE(head->next) =3D=3D head, a NULL =
-next
-pointer evaluates as non-empty and causes a NULL pointer dereference in
-interrupt context (along with operating on a zeroed raw_spinlock_t).
-
-In addition, dcp_hfi_dispatch_event() in dcp_hfi_core.c protects writes to
-hfi->caps_cache with spin_lock_irqsave(&hfi->caps_lock, flags), whereas
-dcp_hfi_caps_cache_start(), dcp_hfi_caps_cache_stop(), and
-dcp_hfi_get_capabilities() only hold the mutex hfi->caps_cache_lock and nev=
-er
-acquire hfi->caps_lock. Because VIG_CAPS, DMA_CAPS, VIG_R1_CAPS, and
-DMA_R1_CAPS have no completion wait in dcp_hfi_get_capabilities(), reading
-cache->vig_buf, cache->dma_buf, cache->vig_r1_buf, and cache->dma_r1_buf (a=
-nd
-zeroing hfi->caps_cache at out_free_cache) can also race concurrently with
-dcp_hfi_store_caps_payload() on another CPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D9
+Konrad
