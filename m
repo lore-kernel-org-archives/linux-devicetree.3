@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055004;
-	b=RlinG1ZAl3NjQ8wVfmka0PvVy8FN19sZ+RZfWY1++JGKecwYjz48s/bKFPVpdEzQiI7f
-	 FjIY6QDHuVEGvL5hzjKl/objg+HgiTzDGXfEUG7e+oiP3q6y5UA5iwjgrWSGOx7/rpNVH
-	 PYybuUk6JUdVjzOPkcDMwRGNlq7syAVhg3qfW0PlNsO0xivDhUbUaMT/aF3wdJ7plEd7P
-	 QMMewqTCF+B+AraocDbw1pnEvLAN8YwW/JYj1xBZbWXdFb9xWlox01TB1Qk/3WMMwkKqi
-	 RcFqzFom0EDc7t2mWcHg2DVOyeUHpTN/oW4KUI7xuzlogLlplM4q3N8I43u3AijBEoA==
+	t=1793055008;
+	b=q0VUgu8tt1U6VtEsrydzUELuVhipYacGLA+mluTPoEDNoWPKL9rIGRr33g+vwxYGj9Rg
+	 DLhSQmYx47/Rt9HpVHcKzTAfYAen4T9tbWCSDR4NxNJNcFo21Nqpj7pP9z9l0gGiPIDsu
+	 NELCozEXJsaEY7/pMPsiWbT4Fyvk0PnjpiLfUmMecDKxzvoQG3plUF14OVxnKj8gQt+F7
+	 hiiCNt7CKqWr8nWa+K94r+9zkzdVN4fjyn8xlmwJzivWZ0wR2VL/Wq1sS11PERc5iOyXy
+	 q5n+w6YFw+a3UxzOe+490VYy47T+8HqoYUq3YGwyqzOUbPDMyvWSIbV7p229YqoPstg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
-	b=C+fTKfXSwQFjAeZ3xq/+zIPJXNvetYhj3IQnFPy0BKYzPhX9TugrcfLmALvTP83wwFMn
-	 nGqoVL5SMaz05pHhiYq3qlQ8XhJ9eQrq6FNkesEAQWm+lQMqrSlhfSmQ+w742yrONEcKM
-	 RG53wFMxam2vtd5RdLV6nnEOlg71VG6P4lp2iZ5CL+6rGyRflx8QQaTZl8ZT3ictx3NDl
-	 5cPAoYw3srWayhoAufKKWgqK07JpOcMoBtyEYVGakjirGihYnQTBQqtfEv4AF9NQzls3S
-	 3OJICgmKGhyDz50SpsufcZyktsUQIihkH37s1BtcPby1uMgmuF6zY7CocvIvPM3Cx1A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=FuPl67ATWNuBxw9NLlKvBfFi5R/Tx8sEmX5gUZY6BF8=;
+	b=PNzLIsRjwIlk9yjFEbOuQlhkCDTeVHqx+sttinR6cZWKFG76f6Yf+uG6fivKLrjshLq9
+	 HDA+qTGpXAoNMVlW67KfSYW8n1vRhBljDAqH3jGZ3iiXOw0/NDDJNSfnLjoOVtJ3BpWIN
+	 zKLq/G1jYORHZOWw+tSPUu3sr2z60uOrPDoIN4yRR4uEfPzmE2y0qq84bWqlY7K90D/nC
+	 4dP2w2crwlY75X0A+pxHqs7OlE84MZTwJS1uTMpHKdAj7VeTPv83B56ZnXgbCV/9HRJEp
+	 uXcdrPEwsbvSrLy0BMXIYPvYNYFZUu+0m7FBjqlX/EgF8qbh06awXMec+Nkz9mlBGxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OdN/9mtj";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtjPIvzc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186EE606A31A;
-	Mon, 26 Oct 2026 22:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938DD606A320;
+	Mon, 26 Oct 2026 22:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OdN/9mtj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7FF1F01825;
-	Mon, 26 Oct 2026 22:49:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtjPIvzc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A361F01828;
+	Mon, 26 Oct 2026 22:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055003;
-	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
-	h=From:To:Cc:Subject:Date;
-	b=OdN/9mtjOk1dKJ6xkM1gNYxz2hYE+Sd1gZtHVyuGFOZ38XHV7tm187e5xxlR6Hmva
-	 a9fzW1SE4muojYgFTd9AecGrsycLE7bV1hEnFOSUOr6iG6JcnHDuoQElakfZZJ7iws
-	 VJxxi80KiVRpySfEYTrQJMqfpkfVNPYcrdM2o9xi0y6pJhFE2HG5A7MoD95/E6RYmq
-	 Av3c3Pdh0jPvhvb3xIvmg6dhz56YMs+yQm+JJXE+ZAg3DYGop0yUFedFuedTWrqXKM
-	 6jL4j1CX/7oTM5B8aNVy9vEBFVO7RMqQhCgbJ+qhIAtXGSWiqqm0fnln7qqs69wtYw
-	 WL9/3QR/rmNcg==
+	s=k20260515; t=1793055008;
+	bh=FuPl67ATWNuBxw9NLlKvBfFi5R/Tx8sEmX5gUZY6BF8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CtjPIvzch+/Rq5EWkM6mtFmmUwDKWTUURiesrmzrWTzXSNlw4bbfyL+C30M6VtUxo
+	 SyusC+83+cveMgU10tggNW2jzKmGuy0K/h/QToF1knmxodYkT9q3KA6hGCPzNyghdS
+	 1QPKn9Bkhrnco/iT/j+en1KB/g4oSWsyynOh3/+CsZ+wiesPoq+IEL5kwkcknK75St
+	 9ym2KgtRCAA3tZGuE3/9bjAwCUjFCMKT+jtgtmkv3De89WXzLI7sStil39fAQZKFH7
+	 YQGg152oiLq8jgglExpY1adWGarm1M8txCFAzTYyCVAGK4IP1BJIYv1WDgpcJ+0DIL
+	 b/m5r59rwxzUw==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -56,11 +56,14 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 0/7] media: qcom: camss: Add SM8450 CAMSS support
-Date: Tue, 27 Oct 2026 00:49:50 +0200
-Message-ID: <20261026224957.1115370-1-vz@kernel.org>
+	devicetree@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v2 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add SM8450 compatible
+Date: Tue, 27 Oct 2026 00:49:51 +0200
+Message-ID: <20261026224957.1115370-2-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261026224957.1115370-1-vz@kernel.org>
+References: <20261026224957.1115370-1-vz@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,46 +75,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support of Qualcomm SM8450 Camera Subsystem.
+Qualcomm SM8450 SoC has six CSIPHY IPs, which are compatible with Hamoa
+ones:
 
-The CSIPHYs are described as separate CSIPHY devices compatible with
-X1E80100 ones, there is no legacy CSIPHY resource description in
-the CAMSS driver, and this option is not intended to be supported.
+    qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
 
-The change can be immediately tested on any SM8450 powered board by
-running an image stream from TPG to CSIDs, CSIPHY IPs are equal to
-the ones found on Hamoa platform, and were tested on a private board.
+Hardware supports up to three different 0.9v level power supplies for
+CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
+power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
 
-The series was based and tested on linux-next-20261023.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+---
+ .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Changes from v1 to v2:
-* renamed Waipio SoC name taken from downstream to SM8450 (Krzysztof),
-* pushed DTS patches to the end of the series (Krzysztof),
-* added Reviewed-by tags by Konrad and Bryan,
-* minor non-function commit message and blank space changes.
-
-Link to v1:
-* https://lore.kernel.org/linux-arm-msm/20261023163057.775917-1-vz@kernel.org/
-
-Vladimir Zapolskiy (7):
-  dt-bindings: phy: qcom,x1e80100-csi2-phy: Add SM8450 compatible
-  dt-bindings: media: Add Qualcomm SM8450 CAMSS
-  media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
-  media: qcom: camss: Add SM8450 CAMSS support
-  arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
-  arm64: dts: qcom: sm8450: Add CAMSS device tree node
-  arm64: dts: qcom: sm8450: Add description of pins with MCLK function
-
- .../bindings/media/qcom,sm8450-camss.yaml     | 274 +++++++++
- .../bindings/phy/qcom,x1e80100-csi2-phy.yaml  |   4 +-
- arch/arm64/boot/dts/qcom/sm8450.dtsi          | 565 ++++++++++++++++++
- .../media/platform/qcom/camss/camss-csiphy.c  |  16 +-
- drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
- drivers/media/platform/qcom/camss/camss.c     | 244 +++++++-
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 7 files changed, 1100 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
-
+diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+index 1f1e2a4993b2..7c9015a019f4 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+@@ -19,7 +19,9 @@ properties:
+     oneOf:
+       - const: qcom,x1e80100-csi2-phy
+       - items:
+-          - const: qcom,glymur-csi2-phy
++          - enum:
++              - qcom,glymur-csi2-phy
++              - qcom,sm8450-csi2-phy
+           - const: qcom,x1e80100-csi2-phy
+ 
+   reg:
 -- 
 2.51.0
 
