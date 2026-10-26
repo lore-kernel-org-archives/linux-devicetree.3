@@ -1,85 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009671;
-	b=cejl0Ldh+69qc2WB5kwXCEtyvmTlGL+B6W6+CMDJqz/UrCM+Gz1Aq1wp1cQClRBTIpjP
-	 1V58JC4/sRHNCieFg7qXlTp0WTaIYtyiYUOD9uGTzZ8MqApHTsPw5Ad0OxOZl65B02iMj
-	 KvkN0RGaj5fXNiahfM+1dbpriOXbpPDHhYC/b4dNhmslAI2CM/NWQIJMS10eNIuHGRbgi
-	 d/8g19ldBO2inwFBSGZa7RMMPO32uH1oJqAuoG+3J8K6a+ZVv5HsIlKOT2zNLq5kSWNOM
-	 MwaaOWjInzU/z74nvpHcxHPXzYE/bWzOcDG6TnQOsBpzFBKVpIvGFQs25v7cBnzOVeg==
+	t=1793009710;
+	b=uIZJGSnrlV+i+cCxYqCqRiJ0lkqJpPmxtLGKfDqCXkX+5tC7Xep/YV4gJJba4uNJ6IND
+	 JuoNb1u7Ji4Fz+FGbW6xDC48lVksCV2DOVev+uuUlfsBKwjiDkztSN4/0lvCd6wSMW6nu
+	 U/A45li9UF0RO9jDz2I5iF3TPFhcVb4TccF9TRdQeEgQMpBh6xJPxZVJ+fn/yrnzyhWqs
+	 fZmtJnx3o76/0S0wshRIK8TT7Zi+wKVDeEGbQe2DCW0ZqtZ0FA9BWXVoPqtLaAna0r6Zp
+	 WCxrMs05tnauPSKduzLmDTsAfOsyVOM0ebA3bFMiFz1pcPNjwXP2CvLr32qfxhhS5FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LYT4qnsyxafx/l9LYQg7BsWMfeGrcGwjTkvojDxY8FU=;
-	b=GUQJBEPKfUhw5nEPQ7V+6S0DeQsWAVInDTQynZ3vIxM9Styw+ycM6dal+GjNPTrK97mS
-	 ljErm40APAKDCr2rY+FIm+KYwpgvdDAwnGwHqauuRu6x4+un9o55vehaw7o370cVVifE/
-	 EeT2Q1KEqnhpqV3lKauln8scNFIrcKFpr8TysHKEyehdhff8YhmIhWGwhMmBDzxwWBbpd
-	 QsODc4Uecw6FAvCuQO2CrLNIoB53LNgov3vZmxgCoWHwfPJuG3E5BLECx2JcuypuMxmEh
-	 KiW2WjfgjgrAM++QzWW07qwZDqKkZZjDBVGE5KpLFcBmVU9qq7xanIzy5cqhRGVNxwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009710;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=xvHDL7X7nDz4fdHlD/Zd2vVTXXgNDrA1NXktS57i7t4=;
+	b=X1JOwS8Md3oZrMlGx4cIh9hyo/p8fvgNbyzJD1BPNzN4x4E7EArrMv5zJOWEOcpRvM0+
+	 9/CQAURhw0BcUO4Rnl+SGeeidyVqBZUi+mu3bRp0ABOPi7qja3ZuGZAmI0R57pcoevMJw
+	 i07LFF0RXwvFa7Na/SmmhtNV8L9KRMMpf24iqs8ZAiz2N4TnnulY7Hv5TdGqbk+OjVESI
+	 4ht6iSl5kxDctuW3PJnNBrXlUbBDAOt+9e2ffLqdPFzTCP3kM1jYJUNX/35RAk5BxpLzV
+	 v7i94Bjn+TtY+cuDV3l+91S7SdNtJbEGX06diomGwie48TawXZ4hoDJ+xR9IL+8Qp3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=linux-m68k.org;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PcrotLfm;
-	arc=none smtp.remote-ip=209.85.222.53
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCC9606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:14:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECCC9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F04606A31F
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:15:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1F04606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PcrotLfm
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9907fa1d2d1so465950241.3
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:14:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793009670; x=1793614470; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LYT4qnsyxafx/l9LYQg7BsWMfeGrcGwjTkvojDxY8FU=;
-        b=PcrotLfmmTQi83Yv+4DhfZaNDxthKJ3KBbDTPCE29JQJmXyuuxwpHHlbgE3/mQBJIn
-         lMh7Aoaen0NCYH2LX0l5vheuBxkl6vt88c6iOogyj5+H6B5JnwKqlnaJC2cAsgivASkP
-         j7+iJXzGlooYIPmFSk+mRmoiDCsxs4vcgKPQ0DXkId39yc3rvkOX7djQLRRoW2bsGc0V
-         GjqDLgCPOeyg2xVxuTp7YW9LOqYOgS2pqasliy5Q07yqjEZTIVwFJh68WbIerCFkBWP8
-         QQMj2Foxwu+WVWz35aTtgZ7Y90v+m4yfwVFIKxcUpk59LQ660inTZxaQLF4tfbls34O5
-         xCyg==
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc7938c5e9so1190581137.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:15:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793009670; x=1793614470;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LYT4qnsyxafx/l9LYQg7BsWMfeGrcGwjTkvojDxY8FU=;
-        b=FsFIbgyImH5M9ylf2mzb82Of1gE0Gm3S04vYiYp0wwzzZpFp5xIb9s7SEWO5sCFc+2
-         6ZGDu8d7tEWIh2YMhsgNG98dsp5pZtDpg5TrgDMYQrALUAfZBm8CDUz1hNpi/bVM5ip0
-         iHsADxLPm2ima0BmKltyAQqIlL3Y0YXHVg12ERSV7dOm6ff1mM/FFpJMhphztNPYCELT
-         cf2TVEy/faGT7w16XEWJrg66ZUzXduEqaSEj7pJ3r0H2WQgXhkSFNqLP/rD+35v4YdC2
-         1LEZd6SUwnnQt1PK7KqadrMG1csIyly3Iu9A35wQjmW0OIHW4qJswXu2MoFOGIeZuXaC
-         nbCw==
-X-Gm-Message-State: AFq9FYLAZ9ZqRPQpZ+FxqO81dM5qx/aXdHxE7airIILT9CxbekMt81lV
-	vMJM8DN5QJKGdzKXfKBxb6ldBqNDnOQq4K0Td/aoQ3GtfJyDdHOJbnJK
-X-Gm-Gg: AYBFou2C+VJ4TLizTt0e7YxG2kKP0N+C1dz18XVvVZGOb2kZ3jQVkq4bFyX4pkjmqC/
-	jfsqReQgko6wkbO3Gi6Btm9HxXe4Ggs02TwZNZYtzZnQkfUxkLWGVOBYm3id1GAlCXFbmSeSF4x
-	zaG1EvPJULwClSfRl04tnR+7P9JsKGjR+UX6pohz1A/yLrsvW5/rW/hVCP0tdSXVnYTBfFXhSHZ
-	5Mlyrkxmv2vJG9xcqbAniQqAHVkO7UXR2dg+FMQmhcXSRevzE8JDSvONXr3xzwqBDBb9LO/TBsW
-	ymKxMW2MzaTdlk7QjAGieImXWOjVwFR1qCV1UGTg0KNUz50EYzG+kVcyVF3YY1vcqH33zvkimMY
-	SSz7yLWn8+nVXiWz3J9HEU03HyceUgKuunYqqcfPbdHQCuas4VEtofnrJZQnJFMUfspu9QDC4Mf
-	ZdPBcOXyRejS8+LmODfmytUZZYTj3VKNixSr51qLWCW6cmY0GaULGS5DUjmyAS0kpkZefDPqZd4
-	pL2YIxRFKDkIlwhp3cFBh2X2EukgU357Syn/EZGhik1bRppZwuryklfBy0r
-X-Received: by 2002:a05:6102:14a3:b0:7cc:28a6:ee1c with SMTP id ada2fe7eead31-7ce5ca1e4bbmr1849285137.2.1793009669485;
-        Mon, 26 Oct 2026 03:14:29 -0700 (PDT)
-Received: from [127.0.1.1] ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec234a940bsm7549112e0c.15.2026.10.26.03.14.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 03:14:28 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-Date: Mon, 26 Oct 2026 07:13:26 -0300
-Subject: [PATCH] arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex
- Capacitive Touch Display 10.1" LVDS V2
+        d=1e100.net; s=20260707; t=1793009709; x=1793614509;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xvHDL7X7nDz4fdHlD/Zd2vVTXXgNDrA1NXktS57i7t4=;
+        b=OvNh/KSi++fQeG0UdWMh1olkjlEyVRGRRH8ZrqTsiitFFx2MCOO1/5D/1pHFJKBGUa
+         o/Re/2sGCFs9RljO5itnvb+Fqe4ZIenrr5ZHOo2basCIhah0cUztCazLetexoUtP8bdn
+         Yu7VANMwmjjkjrdzgmDpU63uPdBpI7GwIiP4lhgw9lgHj3mzpwuo1GWX065VHy5mr+Z7
+         8wekVXLXE1sPJ/FjV9aXyMadWqzgsUnQsVzAa+4q0SFfTNqL8KHpTMSflRI1f9EZy2H1
+         AW5rN4UqaisBmnOtl6/G+MYn6qtLLFQsf7ww/fPmnjFKx63QmxQgrbp6biMg75zae2Yj
+         pMnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdBwpzFhwmjZUOeCwYEpPoGlXsP96VSPYJ74LVG/u3u6C4VkhpQxFduwC6RlBhFwKf3vKbvQvrs0IF@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6p86x0c1KEFLmNVeDH2SCq0RelM6UIg375OKcbzKjYBpTlI08
+	jiRpmekT82ebRnM4dbgz+959+QTemBRA9oOp3zLZAKWSASdwukV63AaD/E+KAHz5
+X-Gm-Gg: AYBFou08piOk3dujVFWSSDo44IwmqypjOdDCbz04IwTZJDEpWE77axcFtWAYekEc0Yw
+	MnGkA8y/4hNJVCFSrLVVvQ07DVAk5sTCH3GtkK7eJqxuOwXDar7rzkZ7pl8fPwCgwARoKvD+Nk3
+	fLJZF90gVr4/mAtc1dGvXHbLtb4lNpW/xg+an0nNhY7sjFq2cDGoj/0sSle/GbCm7NHs7TJRLFa
+	tAd5Rxlh6FZ8KnQjamOEsJlcjv0PTpqFTqnmkwod26slACrKIJambqZxr/0mVxGF/4ot7ykhnSN
+	eV4LBvo6sj0rxOPbVuM81LiennqHCHraWSkqZhQwRAy24/NtSqHHHZeOgV2yQXrU3xCzmJnldpX
+	PP4dFA1rGWm08mYQa3oDPIPKa6hkPpJ+PYzAUn9ZbydUK6K0Z77OhyMHXGQSkb2ETqdTbFxoM/L
+	C1YRBMrdtTx1BAehmaswYZxFD4A2uHr20J1hjXGx8SgC3xtNjxtgB0fK8h+kZhCaLIFaVwrjDB2
+	AYfZJpWEJysCdDn/SgCh+N0lWvMIR2ZuOJZoFeJQqOLpWxwgOuiAoMMrgxi5EUdFivi0Y9kDlOf
+	nRi277YI75fXoy7Zva2k2Q==
+X-Received: by 2002:a05:6102:54ab:b0:7cc:2a1:42ed with SMTP id ada2fe7eead31-7ce5ca1787emr1299243137.1.1793009708752;
+        Mon, 26 Oct 2026 03:15:08 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6749621137.11.2026.10.26.03.15.05
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 03:15:06 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so3370090e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 03:15:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz0fTdYDKMPByXha6ZeM08Gcz+//PB9L4g1e1b9j2as4fEJEzAmlURYsior2+7p0ZmGKlmSj5CdF53Z@vger.kernel.org
+X-Received: by 2002:a05:6102:6890:b0:7cc:ace:24ad with SMTP id
+ ada2fe7eead31-7ce5c6c0026mr1500062137.0.1793009705218; Mon, 26 Oct 2026
+ 03:15:05 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,190 +80,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-v1-arm-dts-freescale-imx8mp-toradex-smarc-add-lvds-displays-overlays-v1-1-9e8bef9b13ba@toradex.com>
-X-B4-Tracking: v=1; b=H4sIAMYn32oC/x2OywrDIBBFfyW47oBa6OtXSheDM7aCxjATxBDy7
- 5XszoED9+5GWRKreU27EW5JU52HuMtkwg/nL0Oi4cZbf3PWO2gOUArQqhCFWQPm0ZT+KAusVZC
- 4gxaUAEgEuZECJV0ybgq1sZyA/n7lp+UYiMyYWoRj6ueN9+c4/vIXLsyWAAAA
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Leonardo Costa <leonardo.costa@toradex.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793009661; l=6126;
- i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
- bh=u/Bc4IIPj0XbmMSFY+ai/Y9DOy3qq0yjkSExtBotmVo=;
- b=ngMwqUQ/9OTzcsZpCu5XUiDjMR13gCY0595b6OwqVq/NkcYBWAZmNTzQanHzpmbIfM0DI6wPU
- IKQK1q/A2iYC9tHaZUn4HP43EazzxqVp322urQ7zglp1IkpShilGAym
-X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
- pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
+References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <atyKo0pTYZyt5XJc@ashevche-desk.local>
+In-Reply-To: <atyKo0pTYZyt5XJc@ashevche-desk.local>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 26 Oct 2026 11:14:53 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
+X-Gm-Features: AclHuK_Zae-S6levySXX9MNUVg775ICficux5w8oZYwqHzeoFMa3QGI09OnmK_U
+Message-ID: <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
+Subject: Re: [PATCH v3 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Prabhakar <prabhakar.csengg@gmail.com>, 
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+Hi Andy,
 
-Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-V2 on the Toradex SMARC Development Board LVDS0 interface. The panel is
-an Opto Logic SCX1001511GGC49 10.1" WXGA TFT LCD and the touch input is
-provided by an ILITEK ILI251x capacitive touch controller.
+On Sat, 24 Oct 2026 at 12:38, Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+> On Fri, Oct 23, 2026 at 06:59:19PM +0100, Prabhakar wrote:
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which shares
+> > the RZ/T2H ADC IP but differs in channel count, sampling, calibration and
+> > resolution support.
+> >
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable
+> > 12-bit and 8-bit conversion resolution.
+> >
+> > Expose the fixed sampling frequency as a read-only attribute and allow
+> > the conversion resolution to be changed through the scale attribute.
+> > Use extended scan types so the reported scan type follows the selected
+> > resolution, and prevent resolution changes while buffered capture is
+> > active.
+>
+> ...
+>
+> > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> > +                              struct iio_chan_spec const *chan,
+> > +                              int val, int val2)
+> > +{
+> > +     struct rzt2h_adc *adc = iio_priv(indio_dev);
+> > +     u64 req_scale, scale;
+> > +     unsigned int i;
+> > +
+> > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> > +             return -EINVAL;
+> > +
+> > +     req_scale = mul_u32_u32(val, NANO) + val2;
+>
+> But what's wrong with the simple 1ULL * val * NANO?
 
-The overlay is also combined with the Toradex SMARC Development Board
-device tree to provide a ready-to-use DTB.
+IMO that looks like a useless multiplication, which will be removed
+again in some future "cleanup"...
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
----
-This change depends on other patch series, and should be applied after
-it:
+There is a reason the mul_u32_u32() helper exists...
 
-- https://lore.kernel.org/all/20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com/T/#u
+>
+> > +     for (i = 0; i < chan->num_ext_scan_type; i++) {
+> > +             scale = mul_u32_u32(RZT2H_ADC_VREF_mV, NANO) >>
+>
+> Similar Q.
 
-  Adds the other overlays for SMARC iMX8M Plus. This series is required
-  because it adds the 3.3V power regulator used in the panel node. It's
-  also needed for the patches to apply cleanly.
----
- arch/arm64/boot/dts/freescale/Makefile             |  4 +
- ...radex-smarc-panel-cap-touch-10inch-lvds-v2.dtso | 98 ++++++++++++++++++++++
- 2 files changed, 102 insertions(+)
+Gr{oetje,eeting}s,
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 1310b34178e5..94d39af8b8c9 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -715,9 +715,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-10inc
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-7inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds-v2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds-v2.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2.dtb
-@@ -729,6 +731,8 @@ imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-7inch-dsi-dtbs := imx8mp-torade
- imx8mp-toradex-smarc-dev-dsi-to-hdmi-dtbs := imx8mp-toradex-smarc-dev.dtb imx8mp-toradex-smarc-dsi-to-hdmi.dtbo
- imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds-dtbs := imx8mp-toradex-smarc-dev.dtb \
- 	imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds.dtbo
-+imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds-v2-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds-v2.dtbo
- 
- imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10-dtbs += imx8mp-tx8p-ml81-moduline-display-106.dtb \
- 	imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds-v2.dtso
-new file mode 100644
-index 000000000000..0235aa1acbac
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds-v2.dtso
-@@ -0,0 +1,98 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 10.1" V2 connected via Toradex SMARC
-+ * Development Board LVDS0. Connect the panel to J48 and the touch controller
-+ * to J49.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/imx8mp-clock.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	backlight_lcd0: backlight-lcd0 {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* SMARC LCD0_BKLT_EN (SMARC S127) */
-+		enable-gpios = <&som_gpio_expander 5 GPIO_ACTIVE_HIGH>;
-+		/* SMARC LCD0_BKLT_PWM (SMARC S141) */
-+		pwms = <&pwm2 0 6666667 0>;
-+	};
-+
-+	panel-lvds-native {
-+		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-+		backlight = <&backlight_lcd0>;
-+		power-supply = <&reg_carrier_3p3v>;
-+		data-mapping = "vesa-24";
-+		height-mm = <136>;
-+		width-mm = <217>;
-+
-+		panel-timing {
-+			clock-frequency = <64500000>;
-+			hactive = <1280>;
-+			hback-porch = <20>;
-+			hfront-porch = <20>;
-+			hsync-len = <2>;
-+			vactive = <800>;
-+			vback-porch = <5>;
-+			vfront-porch = <5>;
-+			vsync-len = <3>;
-+			de-active = <1>;
-+			hsync-active = <0>;
-+			vsync-active = <0>;
-+			pixelclk-active = <0>;
-+		};
-+
-+		port {
-+			panel_lvds_native_in: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+/* SMARC I2C_LCD */
-+&i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		/* SMARC GPIO6 (SMARC P114) - LVDS_TOUCH_INT# */
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <29 IRQ_TYPE_EDGE_RISING>;
-+		/* SMARC GPIO4 (SMARC P112) - LVDS_RST# */
-+		reset-gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&lcdif2 {
-+	status = "okay";
-+};
-+
-+&ldb_lvds_ch0 {
-+	remote-endpoint = <&panel_lvds_native_in>;
-+};
-+
-+&lvds_bridge {
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+			  <&clk IMX8MP_VIDEO_PLL1>;
-+	/*
-+	 * This display uses 64.5 MHz pixel clock, so IMX8MP_VIDEO_PLL1 needs
-+	 * to be 7 times 64.5MHz, or 451.5 MHz as the internal divider will
-+	 * always divide the output LVDS clock by 7.
-+	 */
-+	assigned-clock-rates = <0>, <451500000>;
-+
-+	status = "okay";
-+};
+                        Geert
 
----
-base-commit: 4aeb54e451181c68bb1135f761281b6391fcb5a5
-change-id: 20261021-v1-arm-dts-freescale-imx8mp-toradex-smarc-add-lvds-displays-overlays-a273e90efcdd
-
-Best regards,
 -- 
-Leonardo Costa <leonardo.costa@toradex.com>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
