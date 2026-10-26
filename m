@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018200;
-	b=gRjXHSCcygEaUoNHcQkDYAVp5czejRv0vuNYJSZFA2M/vYcmNtIwHY84rzO/frvyE26l
-	 qy4AYq1GqwHUYJFhvBgMUjGIr+xNsvniGxsSnX0CvNqDqujEKmhtFENdNocZc+1wURfIs
-	 xJ5CLIMOU2BCmiWnwySrj9gtkeSZmwFKh4R/WgdKzqNzxE8dFSJ9IqWbQkg7sGFWXWYSN
-	 koc6BK4XV/gH3S6lDdOFiTM+0xdhvs4pFZ7BSga65lo7QedD4I4uuSxG1mRDJzPPwEhGm
-	 STnnRkmRZm1u2NuPNZUwTqhHgGszEnywA7lK5Sx4mLcBk4FVxorW03o4LYjPIiWchlg==
+	t=1793018212;
+	b=zgKnFVvcJbtKl+Kk2/3H+rgAAzlkPkpfhBp6JztiYzdZC02Es2TL+ZvMVvyFNs3pFaTt
+	 t/J42Nncmg2PgMlAmTHkFPy5BbWTPawWNDK+AZzficcjAxPM4T3mqex6eRO2a6OxzYaCr
+	 EK99NQ4nD0mLXgkhec+zo4ZnVXUxABXL0/iKOmE7fN9PHI3l3rE0bq5K7Cf3qvUrcSUu3
+	 B6WdRCSd0WBKZJdqJOLekX+6IR+VH6RQrtiNe1AQ0zlpnFCHVElSgToTxwI9BmgZZpNwl
+	 tG6+HLUotVjw8+3q/rPA8Qh+TAIOPk8RAJ0fLYSdX2QdG6bU6/F6xCzQKQoH+FYw/vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018200;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=lIwfX39/1xU2NA1XZwUTvUajjOaDvuDKqu8wPxFYaZQ=;
-	b=TR63xcLBcV1MMwldYLxGbY2uSLekE0p9Wnf2FLHEiIULHv7awgcXqbAC04P4lXcB+Hpe
-	 xkw1bnSJxX9e3Q3NR+6ORonKNqpkbHXSqeWWOvE0+i4l+JZWHktCBYeGdD78B97laYYf2
-	 hcjtr7pfZK3/OeVQoi1ww4bW46JgVg1/ITcPtSWayxaVbo3ahIjvj4myou2C9q7wuW7n3
-	 KBL540tYyN5LETfJ8jpm+9Ns6NUx/49dJxi72G6p0qPSVdkl1OOTC2j6+jgH36N3/8q0b
-	 6RHZS7oTCUFqkdJju69bZZZVEPQLu7HmSnQMbwrs8FqUjlPOF7RDe3FgtAygwgDXbpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018212;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HICHL9vZkQCWXFVCM7oneoRD1DunhAvGDTsJhni/qVE=;
+	b=WLZylL3hriCvZE3yKRGEDgzfJj79CKnNJmc/t+vtvjks/EOqxJnWCNYWSbgHoBAPmR/R
+	 /+JhesrOFPnX3fU5rohmIrAPQNI7zC6Mu8G+SdQKCuxEmk+p4xm95WNAgNNl6qCVy0uMQ
+	 lkO9hfjq/YEUdCcA1zffx4jH4F8Guy8jOJ93nxPgmTxOUT5IdF3py1DnyJgnpuHbWHP7c
+	 pF+geR8Kxg+V/d1bH9VqmrepnTcpumPG6/v8Z9IwxBm2b8s9yDUl+SArdpfcBnz0Clmlf
+	 XLLfiuNGh6YQH+ok4WR/711pZmZ4cofnmqqq9pMhmg9f+RGs/Y92PMhCQ3H8dSqUExw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uBMeGJL4;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C503606A31E;
-	Mon, 26 Oct 2026 12:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C503606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uBMeGJL4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lIwfX39/1xU2NA1XZwUTvUajjOaDvuDKqu8wPxFYaZQ=; b=uBMeGJL4afAOvzwTx3cTjiA5jz
-	CzZF53gUcYSEEsWw8kW70v32vlp6yJ0uKq+n+GqqsntmJ3kvMuzA4FKG4UDJpifhPr7Qz/w7AqAvH
-	WVwgVz/OflNGm4uJ41Tfopvv6Neh/+bgDm7bC7GFhCw/CRcsqkmi5KYR8ve357yIMabI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLJwE-00CnRx-S5; Mon, 26 Oct 2026 13:36:30 +0100
-Date: Mon, 26 Oct 2026 13:36:30 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: KAVYA M M <kavyamadarsh@gmail.com>
-Cc: Prasanth <prasanth.padarthi10@gmail.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
-	joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v8 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <e33a471b-5f4f-492f-9656-e19e0dbfa1b7@lunn.ch>
-References: <20261002062933.26497-1-prasanth.padarthi10@gmail.com>
- <20261002062933.26497-3-prasanth.padarthi10@gmail.com>
- <CAMFFDGjmJTRR8GOX=S+kKnMA-bG+gbZP0sS8dG_d+taDPPRDZQ@mail.gmail.com>
- <CAD_a9mYKSYyP2TqeyjbQWYHdZgF3ggdrU6oTK6VWs2C2GSYMjQ@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87E9606A324
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D87E9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793018201; x=1793277401;
+	bh=HICHL9vZkQCWXFVCM7oneoRD1DunhAvGDTsJhni/qVE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FRE4tG1LnrwPMi1Cs6EYtxZmcPtPXX2/SE4okIEdW9rVrzobdakT2R0CKf5fvUEO0
+	 t+b2C6WctcLo25xN0blezizIBQ8tTHsebLDUTR22hRjDssJcZBzHNwJhxMYOpPeS5R
+	 MzenK5/ceoCP91tpKPETj17/y2UldqApEelbaDn9f6umXCZrYU7EvrR2i/GhmFzXo0
+	 04w6Hn9zZg1nVwENTV7ibIOUs9+HxT9EAmWz+AP1b+jJBGAKlijhjkQKgKEXouFtkT
+	 j+XmIZjV1bu41kGShv/ZA//Q1IE9RgHQkYSP8IAzxU6fWsqsV4r7HGYgnJ3GB3WeuD
+	 tAE1+HOiS5Y7A==
+Date: Mon, 26 Oct 2026 12:36:36 +0000
+To: Bryan O'Donoghue <bod@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Stephan Gerhold <stephan.gerhold@linaro.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
+From: Bryan O'Donoghue <bod@nxsw.ie>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges" on a device node
+Message-ID: <0b9fff7e-f284-4d46-a384-098bf90542aa@nxsw.ie>
+In-Reply-To: <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
+References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com> <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com> <99a419c3-81a8-4b37-b9c7-2dd56978162d@linaro.org> <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
+Feedback-ID: 54899767:user:proton
+X-Pm-Message-ID: 068be5f842ec7b780e5c7dece63d821971e308a8
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,21 +61,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD_a9mYKSYyP2TqeyjbQWYHdZgF3ggdrU6oTK6VWs2C2GSYMjQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 10:04:05AM +0530, KAVYA M M wrote:
-> Hello team,
-> I am new to OpenBMC. I want to development image for the machine using the
-> OpenBMC/Yocto build system, available firmware information, and readings from
-> the existing BMC.
+On 26/10/2026 12:31, Bryan O'Donoghue wrote:
+> On 26/10/2026 12:08, Vikash Garodia wrote:
+>>> https://github.com/devicetree-org/dt-schema/pull/207
+>>>
+>>> Perhaps splitting this into two patches as an iommu-series would be=20
+>>> best.
+>> Intention was to keep the patch to add iommu-ranges property as part of
+>> iris driver patches to show the usage of this new property.
+>>
+>> I am fine either ways, whatever it takes for the maintainers of this
+>> file to review.
+>>
+>> Regards,
+>> Vikash
+>>
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 end =3D m=
+aps + size / sizeof(__be32);
+>>>> @@ -258,6 +367,9 @@ void of_iommu_get_resv_regions(struct device *dev,
+>>>> struct list_head *list)
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 type =3D iommu_resv_region_get_t=
+ype(dev, &phys, iova,
+>>>> length);
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 if (type !=3D IOMMU_RESV_DIRECT)
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 continue;
+>>>> +
+>>> If you look in iommu_resv_region_get_type() you can emit
+>>>
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dev_warn(dev, "treati=
+ng non-direct mapping [%pr] -> [%pap-=20
+>>> %pap]
+>>> as reservation\n", phys,
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &start, &end);
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return IOMMU_RESV_RES=
+ERVED;
+>>>
+>>> on a mismatch - which is not what the code will do now. Mismatch will
+>>> warn and then not map.
+>>>
+>>> So maybe dev_err() saying you won't map - in the new patch for reg.
+>>> Either way this isn't a change specific to iommu-ranges.
+>=20
+> Sure the above needs to be addressed though because its not a straight=20
+> change.
+>=20
+> Before if there was a mismatch it would sill be mapped - now we print a=
+=20
+> warning and _don't_ map.
+>=20
+> I'm not sure that's really what you meant to do here but if it is it=20
+> should be stated in the git log and IMO it should be a follow on change=
+=20
+> _after_ the initial addition (or before it) stating why mismatched will=
+=20
+> no longer be mapped.
+>=20
+> Because add iommu-ranges !=3D don't map mismatched, basically.
+>=20
+> ---
+> bod
 
-FYI
+sic - "before it was reserved, now we will print a warning stating=20
+something we don't do and won't reserve it"
 
-It is considered bad practice to hijack some other thread for
-unrelated matters. Please start a new thread.
+---
+bod
 
-Also, don't top post. Netiquette rules apply to mailing lists.
-
-      Andrew
