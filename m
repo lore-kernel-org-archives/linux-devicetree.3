@@ -1,59 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793049855;
-	b=g9Veor62zf5tdkdAzenhWPuuSM27pZEt3ug4n+hGGDfLa1nFnZ2LVl2YMH7VzJP0tcsF
-	 hBJ49sBXTQZZr641D3m9Z0ZH1LaTvE0RnTi4Ra/4rTNIGXfCcOIaZ3Vq+40t+9wTkXuOt
-	 imAFKELtGNhPiemKJ8OwLUqH2Rs/9rBP7hq85LHWffLv4utP0bjYuoEIM/9tbXi00xJQu
-	 5Rewnztgzws/6X7Hgd6dMhnz774LrVjQwKPTk3eL+HW6wBqqQsRo8SGVghZC2+bwlnRk8
-	 E5StfiXnmUuXMiJTdvYS0IZtkr+duK4a+3lbj2R+VwGDyYw595REEebhAe0cAsKeFbQ==
+	t=1793050372;
+	b=0cfU6ztLw3Wt6Ik+7jzCx+Dj4yTYB7rwggE54ON85pXI1mIiR2J3dHmXQ6Nwdzu/3mKR
+	 /ADzwWDFfRYptgxG1nVgMeruplEeRaaFe1Gm+lDRHeBuvcam5DfqH5emwNP+KHV4B3Xjf
+	 RviV5tU661Zm1HuWJtSPfbmItCYab2iL9otR9wDB8MH0mOAHZlDX+4IJKXC1aE1Yz+1+N
+	 Oi1QjiQxe8MpRGAkAH82zSamqNiW1nuGpGFuIPzC8WGzz4x8Cfsgidd6UGDmd5GeGJ7Mo
+	 OokQokQ1FLgopeNbayG+GID9wkL49VZPPEQssZvCRdhauzR8NUakbNm5vi5C1I1lDAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793049855;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=o7Gepuv8/10630mz1ZtWLjGNszx+xKG6LgJyBsloNDY=;
-	b=rYI+8Ohl8rb9ZZM7Gh/VF3NwKeoIbM8f1VdwO8O7825RguO3d6aIeZoNB8m/JRINPjtZ
-	 D6kj89pLUqrB77IAs2gmKuq8FC3eCg+gCyAhXDhDgbc0P4SxuU/BVtG7AKkAkuOwjcHvs
-	 LForTjouQqZy4kC2OudfzInZJmWta5aeqUOsl7sF8nH+YAg+9C3z4WIhRbKfYk7Z8cx7Q
-	 A57GK1mC0k7ibqPvG7+sjHw5lxkWazCySxZRimTdem5QSPh7a9gRbigfLIF4QJZuEiJBU
-	 stYo7Jr4vlEtkAW1ZZfoY3AO82W1b/LNCt3TUVXHs0CXJByb7JJInRP8J67SgjzyoaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793050372;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=6UXRkofqIopc1VIlz2O51kfJ8AOtnEZxYiLwN12udko=;
+	b=a+y79iVBdRx0UfLVRYL0jWvI8f1fuM7XusTVjcGjJu5RmdUTsvgQHOtvr2fF63Iu1aQh
+	 L0XVeTDDsWdSA9+6qO+pnBohuzLyMfjWqcrNKKU8Gl+y65UrN0GDRh64ejK4cHKj/6+z2
+	 hID+1aHZjTVYayeOyLZYLIWHwFgCJR+3k2YrvQy8X33RjSdGRExPje/eEV5B6dZoqNo6r
+	 2PoDuBdmxulA1wnkU+55iiq7d810eA1DSh7VdgzgG5pTXz1b0az5bysGKR8KTMf7JIOi4
+	 5NLyx0y4QXajBZ2bkNj28+OfGZwsdWk7Tec14FGpiYNyh4yMFykoQeUhWHt62nZY9hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqA8KLEA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD+zDZ5M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A870606A31A;
-	Mon, 26 Oct 2026 21:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705BB606A31A;
+	Mon, 26 Oct 2026 21:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqA8KLEA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9DB1F01825;
-	Mon, 26 Oct 2026 21:24:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aD+zDZ5M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D627B1F01825;
+	Mon, 26 Oct 2026 21:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793049854;
-	bh=o7Gepuv8/10630mz1ZtWLjGNszx+xKG6LgJyBsloNDY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UqA8KLEAZZ9HDFlNe2yEjNimHXIy+wB/4isZAgPXUFyUxa26RqCKOBVUyZTWg9A59
-	 h8/p1F9uIzkxwv/AY5GbiqmzHM17UalngezMe7pSjYS7ZIw0cox6DZwNQ9VRQraZ6s
-	 DtvrzHTdAUfGwJsowoC/JLW+fEF8nRH6WG3BXQZfzZB+2rqWlB7FIXrHm17lGzdGIn
-	 fBlEGhJFIz5JdcKy8MjOgSdRjSi4V4y+qyHMtpFMA3m2uqeWwoTM8kfTRujYpl9zEW
-	 iYDujB/TX4MK0R21wqMJ/iJrwDw1M1M4ipQL8kseuNDRUuVjwiXP3SvSjZDWJhSHPX
-	 dzdyd3XdeLrow==
-Message-ID: <sashiko-outbox-185750@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] perf: Add Broadcom BCM5301X AXI Trace Module
- counters
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Florian Fainelli" <florian.fainelli@broadcom.com>
-Cc: =?utf-8?b?b3BlbiBsaXN0OkFSTSBQTVUgUFJPRklMSU5HIEFORCBERUJVR0dJTkc=?= <linux-perf-users@vger.kernel.org>,
- =?utf-8?b?b3BlbiBsaXN0Ok9QRU4gRklSTVdBUkUgQU5EIEZMQVRURU5FRCBERVZJQ0Ug?=
- =?utf-8?b?VFJFRSBCSU5ESU5HUw==?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026211151.3212237-3-florian.fainelli@broadcom.com>
-References: <20261026211151.3212237-1-florian.fainelli@broadcom.com>
- <20261026211151.3212237-3-florian.fainelli@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 21:24:14 +0000
+	s=k20260515; t=1793050372;
+	bh=6UXRkofqIopc1VIlz2O51kfJ8AOtnEZxYiLwN12udko=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aD+zDZ5MKeko/KtyWmyU0tJWGzehxKk8dqVx5bNemApyR0czWhDVPAZn70FNVhnbA
+	 crFhrdWAJNrwd4kUi73t4guNK5Y4I6AOIh5T5/PFPtpXiXQWh6uTMDR3IeqVStcGyz
+	 MkNOULRqjcrkeLR8/Y5UNQDFLKtlR1ohf27mFslfYJKfFumaXy0NTyCJgAMDWttmQU
+	 VkVsExzqu9kHsE/9OkzzIpQqh2Rk6KXmXSZrHaQ2PsMeZsVveWc1BWCqjcdHByyNAZ
+	 ZWa1X478duR3KSR7jr9ARz/G8esOFk43bqLgOJO4DCTwYg32U5EMAk6vNHMMs4Bwln
+	 BO9mTs4QFC8Qg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 387F81F4211F; Mon, 26 Oct 2026 21:32:39 +0000 (GMT)
+Date: Mon, 26 Oct 2026 21:32:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Karthik S <karthik.s@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/5] ASoC: qcom: Add Shikra IQS LT9611UXD EVK audio
+ support
+Message-ID: <at_G9w-g-f_x-49c@sirena.org.uk>
+References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,125 +66,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sLF79ND+0+YdUvNI"
+Content-Disposition: inline
+In-Reply-To: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] perf: bcm5301x_axi_event_init() calls for_each_sibling_event() wit=
-h NULL ctx
-- [Low] docs: perf: title underline too short in bcm5301x-axi-pmu.rst
---
 
-commit 98ec05a97143b2d8c2fd04e15999d3fc2b116134
-Author: Florian Fainelli <florian.fainelli@broadcom.com>
+--sLF79ND+0+YdUvNI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-perf: Add Broadcom BCM5301X AXI Trace Module counters
+On Thu, Oct 22, 2026 at 03:13:08PM +0530, Karthik S wrote:
+> This series adds audio support for the Shikra IQS EVK board variant
+> that uses the LT9611UXD HDMI bridge as an I2S audio codec instead of
+> the MAX98091 codec used on the base Shikra IQS EVK.
 
-This commit adds a PMU driver and documentation for the Broadcom BCM5301X
-AXI Trace Module counters, exposing 16 unfiltered fixed counters through
-system-wide perf events with hrtimer-based 32-bit delta accounting.
+This doesn't apply against current code, please check and resend.
 
-> diff --git a/Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst b/Docume=
-ntation/admin-guide/perf/bcm5301x-axi-pmu.rst
-> new file mode 100644
-> index 0000000000000..720f042dfbd0b
-> --- /dev/null
-> +++ b/Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst
-> @@ -0,0 +1,92 @@
-> +.. SPDX-License-Identifier: GPL-2.0-only
-> +
-> +Broadcom BCM5301X AXI Trace Module PMU
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+--sLF79ND+0+YdUvNI
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Low]
-In Documentation/admin-guide/perf/bcm5301x-axi-pmu.rst, the title underline=
- is
-36 characters while the title is 38 characters. Should the underline be
-extended by two characters so make htmldocs does not emit a title underline
-too short warning?
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCat/G9gAKCRAv73Ows9A4
+iS/pAP9L8xikTlyFwI312pIvQdu7ppiUpfFKf9aD9gkuha7PXQD9ETqUINmBzQCe
+NSSNDrMJJfSxpRnUpMP56Q46aULBEA4=
+=grle
+-----END PGP SIGNATURE-----
 
-> diff --git a/drivers/perf/bcm5301x_axi_pmu.c b/drivers/perf/bcm5301x_axi_=
-pmu.c
-> new file mode 100644
-> index 0000000000000..15da137a40859
-> --- /dev/null
-> +++ b/drivers/perf/bcm5301x_axi_pmu.c
-
-[ ... ]
-
-> +static int bcm5301x_axi_event_init(struct perf_event *event)
-> +{
-> +	struct bcm5301x_axi_pmu *axi =3D to_axi_pmu(event->pmu);
-> +	struct perf_event *sibling, *leader =3D event->group_leader;
-> +	unsigned long used =3D 0;
-> +
-> +	if (event->attr.type !=3D event->pmu->type)
-> +		return -ENOENT;
-> +	if (is_sampling_event(event) || event->attach_state & PERF_ATTACH_TASK =
-||
-> +	    event->cpu < 0)
-> +		return -EOPNOTSUPP;
-> +	if (event->attr.config >=3D ATM_NR_COUNTERS || event->attr.config1 ||
-> +	    event->attr.config2)
-> +		return -EINVAL;
-> +
-> +	/* A group cannot allocate the same fixed counter twice. */
-> +	if (!is_software_event(leader)) {
-> +		if (leader->pmu !=3D event->pmu)
-> +			return -EINVAL;
-> +		__set_bit(leader->attr.config, &used);
-> +	}
-> +	for_each_sibling_event(sibling, leader) {
-> +		if (is_software_event(sibling))
-> +			continue;
-> +		if (sibling->pmu !=3D event->pmu ||
-> +		    test_and_set_bit(sibling->attr.config, &used))
-> +			return -EINVAL;
-> +	}
-> +	if (event !=3D leader && test_bit(event->attr.config, &used))
-> +		return -EINVAL;
-
-[Severity: High]
-When userspace opens a standalone event or a group leader (where
-event =3D=3D leader), can calling for_each_sibling_event(sibling, leader) in
-bcm5301x_axi_event_init() in drivers/perf/bcm5301x_axi_pmu.c trigger a
-lockdep warning or dereference a near-NULL pointer?
-
-In the perf_event_alloc() -> perf_init_event() -> perf_try_init_event() path
-in kernel/events/core.c, leader->ctx->mutex is only locked when
-event->group_leader !=3D event:
-
-	if (event->group_leader !=3D event && pmu->task_ctx_nr !=3D perf_sw_contex=
-t) {
-		ctx =3D perf_event_ctx_lock_nested(event->group_leader,
-						 SINGLE_DEPTH_NESTING);
-		BUG_ON(!ctx);
-	}
-
-	event->pmu =3D pmu;
-	ret =3D pmu->event_init(event);
-
-When event =3D=3D leader, leader->ctx is still NULL (it is only assigned la=
-ter in
-perf_install_in_context()). Calling for_each_sibling_event(sibling, leader)=
- in
-include/linux/perf_event.h expands to lockdep_assert_event_ctx(leader):
-
-#define lockdep_assert_event_ctx(event)			\
-	WARN_ON_ONCE(__lockdep_enabled &&			\
-		     (this_cpu_read(hardirqs_enabled) &&	\
-		      lockdep_is_held(&(event)->ctx->mutex) !=3D LOCK_STATE_HELD))
-
-With CONFIG_PROVE_LOCKING enabled, this passes &(leader)->ctx->mutex (an
-offset from NULL) to lockdep_is_held(), which triggers the WARN_ON_ONCE
-assertion and can fault in match_held_lock() if any held lock in
-current->held_locks has hlock->references !=3D 0.
-
-Should the group validation block in bcm5301x_axi_event_init() be guarded by
-if (event !=3D leader)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026211151.3212=
-237-1-florian.fainelli@broadcom.com?part=3D2
+--sLF79ND+0+YdUvNI--
