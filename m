@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054546;
-	b=dGrWbhTn8QMoCuWTlM9MkmoGxrqO6/Va3oi2XmAWICiU5bVKuwA8XHARxgxql8Ts0rPZ
-	 pQXEkwSea2B5S3zKoJ6LqYPktHzNU7o3M+Wfr/5uxwWC9RwSJNX71XWG9W1KAShkLZZsm
-	 Fb4UANjgapUDgQA/FOY7g5++psO+b8bKBtiVeM29/+nnusRN42qNXA5CWBUuE/ym/wXSz
-	 eDGY5HovgnYWjGNGHxS9YIl0m6Iz+68yfqmDWQmo/iiu1iLAwmtNlQhUzV9jqcJcp8Ho+
-	 +6wqzLN72HRR1olflkXk/QsIu0alcMWu+HJSlbc1ql6IVcEVjR/Dm0m+CsjL40Qr+OA==
+	t=1793054695;
+	b=rG5YgQrocnZjCHrmzwHQ1OFDhPq4EMPEMJTk1UF4URPq9ISeUdrEezKfo2UT2D8VM/YY
+	 jVrjN6l8oUoSYYDTG6S+d36UQy5OPiByJif4W66DJTmbsG7QVZCN8+xVb/XrNCgBHAfs6
+	 tbqVJxrydf2JlNslf5TsVA8oDG/sbBWCTel0OdDnDIf8UYTUDAKKWesmxu5MI5k/MB9vV
+	 YwdodpZdzRze96jJNUvkthgdHW3jwcMeyB1W2ZNmLkQ5Gs0uO8Jz2OFi7tyb4W0QA65x6
+	 FA+PJpQ+0H4xsN+JDcfNSpQe/EGAOu4VLvsDIl5Dw1CarFKuXyezXG/9yzWO21jUm1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054546;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Xo61tsKLH784MqoqU8IXRPYPaaxHVovW0NiSgjsHO50=;
-	b=VT1sIcLBp3NfIN6zczvsN4hWzDoD/G3Pce0z5H58OfeO9+6QTBE/Ej9oWiTKHZQq7W0x
-	 FDD8DsRQ1nV2a2V5s0wdCaj8v7U0+JxEWH10oSgh7e5y/718BW6IhmGuSFdO/uVqVqiOR
-	 TzWsFBIkurxDHNk9De85FFFt1mehuJ7THHUzrjmnz9bztzMp83Fh0fsENuKqZJs06C697
-	 GevOM2rVEl/litxMDm9Wo1Bw34jk89TsxiQUyXPZ0aL7KI7gGvCLdQCoHXRxJmsQ4Xk6O
-	 v0WiXv/iUhlwgQC9lU/ZwBP54PmFWWrlCHn79cQsBaSbw38aftqwFoyOm7ZYY0N/8Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054695;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=TKjJU59VLbmz80enyrK6d4yqjtodvToxUdatHuFmmbA=;
+	b=nG5sl/mTEUjPiJe79lN5O3e0sF9GcgeW3TxrbJSlVJDsKD8JkanVjFeXP8vtSFreXLxD
+	 Zr55AHgX5/Q5ji3AqODnhWG7TvFmDNczI/j7mxW8CfMXcijuavgYoGpl74DMiv4PTnV5M
+	 ow6bIglA0ahLVrzGEUrrMtBIs/KvVsal8Uc9lU1OldNB2lXQB9m8wuKrA7Mc6QU+dKcv3
+	 M4yYgArThN/LapcI2WS5HfC1kNR/l/HLsNw+N0tjlTaat+mzymD1sPqhja30gNSu7tOrG
+	 qkLPdQOZtrRFt0vCqgoxZbb4xkZPSMRGvYwkURWFPyTtEaE8h9U7su41uTAugUiux9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2zVTuOy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GZFq9CT5;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48272606A31B;
-	Mon, 26 Oct 2026 22:42:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C92606A31A;
+	Mon, 26 Oct 2026 22:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C92606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2zVTuOy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256AE1F01825;
-	Mon, 26 Oct 2026 22:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793054545;
-	bh=Xo61tsKLH784MqoqU8IXRPYPaaxHVovW0NiSgjsHO50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j2zVTuOyrhrSdX1cpqD3VRrigqIVhxd33ay3rIpKmTicH4RrRR8lIFbnpFEnMf5x1
-	 A/3Rb+/5FWK3qsP8T18EePO/L7KaFQ8pmYXYJiqcOCU8sVXURC1d8kPjJFJUwVf4wf
-	 TFvNZwwQZ9U1QtLqScNA5FHMUMebpR5VUp5efN79MNuGD1GpbYQ3Xk41sm7GmFJbb/
-	 QKIY4HZbduYjqs4JiHmSOH9xE4gLT4E/bX2VKc9TNVg7Bdv0argSbc1pS6jk+kD88q
-	 jJ6BYcnN6ote+tl0eseIQbcyOeJZ6nON6ayWowqYZe7PSoWukZ+aLh8svJA54MzZpl
-	 6TkWm0IiLkF6g==
-Date: Mon, 26 Oct 2026 17:42:21 -0500
-From: Rob Herring <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GZFq9CT5
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jD7wx63dHzMld1;
+	Mon, 26 Oct 2026 23:44:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793054689;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=TKjJU59VLbmz80enyrK6d4yqjtodvToxUdatHuFmmbA=;
+	b=GZFq9CT5khfVXp2+X0DtbBXWPvNN00rkEaAe1sxFe0is1i4htgJk38Px79v+RPYFCt2Ie+
+	AbaUB2RHnH4/aiHMShPvSVc5zENjuGzCJtgCSuWoLZ8j8+62lhUehZuCSPUgmHqbxS7ddj
+	1cOzm4Y+ZLSDbHo86MP1pgLOgsuh2uyhThJJSVA4GTXZOBFYATYo4yox3dH+GvQDLvnphw
+	C0yRB2Cw3lIyms6XvOG9ZGdbhZF362U0fNVwSw/UWPBVuncdr6pBKg7A9eyDMAYFvNGK3l
+	7e9S8NAjVZAuGSHPq9Tj0sIKAiQPVlc0rS/I6QHr6qYWqN8aEvELi+COdXE0+Q==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Koichiro Den <den@valinux.co.jp>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, goledhruva@gmail.com,
-	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com
-Subject: Re: [PATCH] dt-bindings: remoteproc: ti,keystone-rproc: Convert to
- DT schema
-Message-ID: <20261026224221.GA103164-robh@kernel.org>
-References: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce IRQ with AER IRQ on R-Car Gen5
+Date: Mon, 26 Oct 2026 23:44:18 +0100
+Message-ID: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,189 +79,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 46x5mk985r4hwchc73p6xt3xwtiouxpw
+X-MBO-RS-ID: 0818fc22b777170631e
 
-On Tue, Oct 06, 2026 at 12:40:26AM +0530, Bhargav Joshi wrote:
-> Convert TI Keystone DSP remoteproc binding from legacy text format to DT
-> schema. No functional changes are introduced during conversion.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
->  .../bindings/remoteproc/ti,keystone-rproc.yaml     | 140 ++++++++++++++++
->  2 files changed, 140 insertions(+), 182 deletions(-)
+The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
+Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
+controller.
 
+The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
+include it from the beginning. R-Car Gen4 SoC PCIe controller also has
+an AER interrupt, but to retain binding backward compatibility, this
+interrupt is kept optional and added in a separate patchset.
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
-> new file mode 100644
-> index 0000000000000..3117cfb2b3e07
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
-> @@ -0,0 +1,140 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI Keystone DSP devices
-> +
-> +maintainers:
-> +  - Suman Anna <s-anna@ti.com>
-> +
-> +description: >
-> +  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
-> +  Core sub-systems that are used to offload some of the processor-intensive
-> +  tasks or algorithms, for achieving various system level goals.
-> +
-> +  These processor sub-systems usually contain additional sub-modules like L1
-> +  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
-> +  controller, a dedicated local power/sleep controller etc. The DSP processor
-> +  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
-> +
-> +  Each DSP Core sub-system is represented as a single DT node, and should also
-> +  have an alias with the stem 'rproc' defined. Each node has a number of
-> +  required or optional properties that enable the OS running on the host
-> +  processor (ARM CorePac) to perform the device management of the remote
-> +  processor and to communicate with the remote processor.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,k2hk-dsp
-> +      - ti,k2l-dsp
-> +      - ti,k2e-dsp
-> +      - ti,k2g-dsp
-> +
-> +  reg:
-> +    minItems: 3
-> +    maxItems: 3
-> +
-> +  reg-names:
-> +    items:
-> +      - const: l2sram
-> +      - const: l1pram
-> +      - const: l1dram
-> +
-> +  interrupts:
-> +    minItems: 2
-> +    maxItems: 2
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: vring
-> +      - const: exception
-> +
-> +  ti,syscon-dev:
-> +    description: Phandle and offset to syscon device
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: Phandle to Keystone Device State Control node
-> +          - description: offset of the DSP boot address register
-> +
-> +  resets:
-> +    maxItems: 1
-> +    description:
-> +      refer to either of the following reset bindings for the reset argument
-> +      specifier as per SoC,
-> +      Documentation/devicetree/bindings/reset/ti-syscon-reset.txt for
-> +      66AK2HK/66AK2L/66AK2E SoCs or,
-> +      Documentation/devicetree/bindings/reset/ti,sci-reset.yaml for 66AK2G SoCs
+Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+NOTE: Gen4 AER is added in https://lore.kernel.org/all/20260928165230.3397664-1-den@valinux.co.jp/
+---
+V2: Keep interrupt-names with maxItems: 4
+---
+ .../bindings/pci/rcar-gen4-pci-host.yaml      | 20 ++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-Drop. The reset provider is outside the scope of this binding.
+diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+index 362c43a1a15d0..a79780185d116 100644
+--- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
++++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+@@ -29,11 +29,7 @@ properties:
+     maxItems: 4
+ 
+   interrupt-names:
+-    items:
+-      - const: msi
+-      - const: dma
+-      - const: sft_ce
+-      - const: app
++    maxItems: 4
+ 
+   clocks:
+     maxItems: 2
+@@ -98,6 +94,13 @@ allOf:
+             - const: app
+             - const: phy
+             - const: config
++
++        interrupt-names:
++          items:
++            - const: msi
++            - const: dma
++            - const: sft_ce
++            - const: app
+   - if:
+       properties:
+         compatible:
+@@ -117,6 +120,13 @@ allOf:
+             - const: app
+             - const: config
+ 
++        interrupt-names:
++          items:
++            - const: msi
++            - const: dma
++            - const: app
++            - const: aer
++
+ unevaluatedProperties: false
+ 
+ examples:
+-- 
+2.53.0
 
-> +
-> +  kick-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO used by the virtio IPC stack to interrupt the remote processor. See
-> +      Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
-
-Drop the 2nd sentence.
-
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Reserved memory node can be CMA memory node, and should be defined as per
-> +      Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
-
-Don't add references to .txt bindings. Drop.
-
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      Input clock (66AK2HK/66AK2L/66AK2E only), see
-> +      Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
-
-Drop.
-
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +    description:
-> +      PM domain provider phandle and DSP device id (66AK2G only), see
-> +      Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
-
-Drop
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - ti,syscon-dev
-> +  - resets
-> +  - kick-gpios
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,k2g-dsp
-> +    then:
-> +      properties:
-> +        clocks: false
-> +      required:
-> +        - power-domains
-> +    else:
-> +      properties:
-> +        power-domains: false
-> +      required:
-> +        - clocks
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    dsp@10800000 {
-> +      compatible = "ti,k2g-dsp";
-> +      reg = <0x10800000 0x00100000>,
-> +            <0x10e00000 0x00008000>,
-> +            <0x10f00000 0x00008000>;
-> +      reg-names = "l2sram", "l1pram", "l1dram";
-> +      power-domains = <&k2g_pds 0x0046>;
-> +      ti,syscon-dev = <&devctrl 0x844>;
-> +      resets = <&k2g_reset 0x0046 0x1>;
-> +      interrupts = <0>, <8>;
-> +      interrupt-names = "vring", "exception";
-> +      kick-gpios = <&dspgpio0 27 0>;
-> +      memory-region = <&dsp_common_memory>;
-> +    };
-> 
-> ---
-> base-commit: 67f0943b394d920b6c142aad8c6af94340342ae7
-> change-id: 20261006-ti-keystone-rproc-4e3b8f328662
-> 
-> Best regards,
-> -- 
-> Bhargav
-> 
-> 
