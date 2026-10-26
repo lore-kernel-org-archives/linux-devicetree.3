@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792972971;
-	b=GCSqTuOthT+6xxcLioB5nuS3lwnF6hgR4awL2Nx0VPXBy7XhlQHXJuWmCzuFlz5qm83C
-	 H4aWQY5EO433YoZlOWXJAkUQDZb8k4CCza+D2XKu7VuJsfvEbRZUZ2Em7Xse9YY0Aqkrd
-	 ysIJqMCoxu09gG13hmIhpqXXvJYhjLR1CHM6ZUHPCn1bwMXqhMp4xZFyJiSpT1iHIs8N/
-	 Swxj7Hx7qKAAbACmbFumXB5zd+oIR57evcFSBMSjHVnJ2vncXIiZ8YFLp748XW9aCLWH1
-	 nEwoABW9RaaKeGWG3zCbGTRSlp610F6jvfYUA+tre9ZxK93SNX4q843T1plMfIZ3W9Q==
+	t=1792973359;
+	b=SgsXKBJmphy4KfFdGTFgdW4W0avBo7jPB39v7vJ4XZPsyuzQL5QqE4AjkLAA6B8eEZUt
+	 31SzMNSY8G1n+io3ZyHEC7OiX0GQYVkaZvWnkATTIW6CQShdOOltj9Jycw7RsFKZu6aZ7
+	 BlINFRSzxnFxVeSoqonwmrh4FEv5585B32qYMC+EQM4KY3aEuPhuZ3Sx2iDXkgPV473UL
+	 DvzadRpOW5cX8IKBBAi5JgvCbWBe2xAMvONxhQ+UwWe4uQK0UVHuacV+XKgKU3xa1I4Gi
+	 m6qffb3w6DjxCub6Kmh+suUg6UaMv+rPYVKLVgaJS43yehB4ZIdGd32u2czNDx+cwSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792972971;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Z+28+ZjUF/oTgy7GObUAo0loSd/iuprnCT52E30OBg8=;
-	b=ATWkFPHikkDGyqK4KAwL53rJsBSwl2srmodpcWq4bH13wB8L0qyTSuj8H8ic+N46jEst
-	 9P45NOhah+bE5U6uuPqkQshZG95d7+4cgVDsrxlgOxHz/0LMcjgq7pe4LDtWy+P54w2SL
-	 lf/mEIZv+1hnDgyDyy0hAV7iUc2eNGEddVPi6Rrn3fmMJIJByfnY6Pzl53IE3emy/UpVm
-	 R+GHuEO9aDm38KfIMvQVpo3TTCNAH4OPWjLa/r0ncNVC8Qga0mDbknkBA+J3kNKzAeRDW
-	 Y7ZXwATU6K3L/U/Mux4jRwtYblAncevrU2hbgPO0TDfi+R+00t23OzUEtZdSWEO8fXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792973359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QMeNs2DEy/MEHGHund85xZ1Yt4veb1UtyYvJc7x2dNo=;
+	b=Myp8sliR//v4y8k7PIwSjLKPDlcoRASpzu/P9ktqRoeWQDJC4gJMDBLEYsuvWnVJqOBl
+	 IhrSHJ4/SIEMvQpTrrOfl3IvBGMfhUwfBYe1ISVXIp0uk1T2/lWUwO53h/prp1+6dTjH+
+	 4/UDXfvBEG57vRBnsQ949wO8Ljnk8VK/TQfTonwVEAIq6UHR28oan/v5sWxcYZ1cM/Vxb
+	 ik6uOznvOpb0pKBmX57Lsj/IgyWQfPP563ouQ5pSICVjLUyrfehUEvVph6QCf4RKtxgeL
+	 DfrlXONUAfs1htWQQiK3ui2Gqpbm84tPi6qlWnB+uJjgZ5dK4RHX8Aq/r7svn7L7TGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j93zgCj3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e55oCv9U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC65606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44862606A31A;
+	Mon, 26 Oct 2026 00:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j93zgCj3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74A851F01825;
-	Mon, 26 Oct 2026 00:02:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e55oCv9U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61871F01825;
+	Mon, 26 Oct 2026 00:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792972970;
-	bh=Z+28+ZjUF/oTgy7GObUAo0loSd/iuprnCT52E30OBg8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j93zgCj30357Ju7TjICFSo6CWyrdVV8Cr5Gci9i8NZLybgpGIjAYwFb8LDiIACwAt
-	 j9TD/Wwl5El4sxWwIiTDVq2ZcGJhhcQaSyAHzHT6thO/f9y0FWKinPMefz7iBrFeFr
-	 jWmBTksCZpzBw4PVxvzBfmGp4ptpjlxHvI6VPBmFzSFwOjI3UXAfKtRdVafQfblERs
-	 4wdl191Amx3gg4YC7TP985nGoxTOg+SAwjvH0v5ImN7U9BkB1itZBK2IxPsgxvVpDs
-	 MSNvtH3aw7G9aIxghthGqQ/roMnFc7kHs6oVm40OtRmdxHJefrAk70P2vd3arH7KwE
-	 8tnjP5sM5Si/Q==
-Message-ID: <sashiko-outbox-184542@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] dt-bindings: platform: introduce EC for Dell XPS
- 13 9345
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026-dell-xps-9345-ec-v7-1-828ce301b839@vinarskis.com>
-References: <20261026-dell-xps-9345-ec-v7-0-828ce301b839@vinarskis.com>
- <20261026-dell-xps-9345-ec-v7-1-828ce301b839@vinarskis.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 00:02:49 +0000
+	s=k20260515; t=1792973358;
+	bh=QMeNs2DEy/MEHGHund85xZ1Yt4veb1UtyYvJc7x2dNo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=e55oCv9UC4XXxE7QpYtamcSCdTrgRR384vDO6/z+HZ6I739gZbI0X2J/PlE5+TIS3
+	 pCKAOD2U6xYDkwfAmD672wi0l4m9QLUtEm+P2hB23fdJqawdpLxjRDN7KONUVzQo31
+	 9G6EoGYbBTl38Xo2RJDvU4fXB5tjUqkEIg4UAH2ez7VPfYlA9ANBMZnUnNf+syCr7n
+	 j4eNPmYqKxCS4v8a/S0mO2P/OJIhOHgrcSBP4MWEPiBk1aI2si8mTTcmxIuOLr9PN+
+	 cPJUAVMcUSun0teRNyZ5jGSdDrVumZ8Cx6s6gwGGwR6d+4dM06yT+HsOuRrXZ7cscn
+	 YZ53P09omZuHQ==
+Date: Mon, 26 Oct 2026 00:09:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261026000910.328f6cd8@jic23-hlaptop>
+In-Reply-To: <20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +65,143 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: syntax error in dell,xps13-9345-ec.yaml example io-cha=
-nnels
---
+On Fri, 23 Oct 2026 12:30:23 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-commit 6b26d06321d0162521ee363bfa4a27b82eb6cc2e
-Author: Aleksandrs Vinarskis <alex@vinarskis.com>
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add buffered capture via the device's hardware FIFO - the only
+> capture mode this driver supports. Popping the FIFO uses a dedicated
+> command and payload format (FIFO_DATA_CMD, 52 bytes, no checksum),
+> handled directly rather than through adislib's generic burst-read
+> helpers, which assume one fixed-shape read per trigger rather than a
+> variable-count drain loop.
+> 
+> The watermark-met condition is signaled via DEV_NOK on the device's
+> one interrupt pin, which stays asserted (level-triggered) until
+> DIAG_STAT is read and cleared - matching adislib's has_fifo contract.
+> DEV_NOK fires on any DIAG_STAT flag, not just FIFO_THRESH_MET, so the
+> trigger handler checks that specific bit before popping anything.
+> DR_GPIO_MASK stays enabled unconditionally: DR pulses drive the FIFO
+> controller's internal sample enqueue, independent of pin routing.
+> 
+> Watermark is configurable via the standard hwfifo_set_watermark
+> callback and the usual hwfifo_* sysfs attributes.
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> ---
+>  drivers/iio/imu/adis16607.c | 349 +++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 346 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> index 2dda306d7b54..b1f3667d8ce3 100644
+> --- a/drivers/iio/imu/adis16607.c
+> +++ b/drivers/iio/imu/adis16607.c
 
-dt-bindings: platform: introduce EC for Dell XPS 13 9345
+>  /* Self-test registers and masks */
+>  #define ADIS16607_REG_SELF_TEST_DATA(x)	((x) + 0x23)
+>  #define ADIS16607_SNSR_SELF_TEST_MASK	BIT(6)
+> @@ -86,6 +110,11 @@ struct adis16607 {
+>  	const struct adis16607_chip_info *info;
+>  	unsigned long clk_freq_mhz;
+>  	u64 sample_period_ns;
+> +	u16 fifo_watermark;
+> +	/* Scratch buffer used for FIFO pop operations, see adis16607_fifo_pop() */
+> +	u8 fifo_buf[ADIS16607_BURST_CMD_SIZE + ADIS16607_FIFO_DATA_LEN] __aligned(IIO_DMA_MINALIGN);
+> +	/* IIO buffer for reordered data - sized for max channels */
 
-This commit adds Device Tree bindings for the Embedded Controller (EC) in
-the Dell XPS 13 9345 (platform codename tributo).
+That rather implies you never DMA into it.  If so just move it before
+the fifo_buf and no need to mark it IIO_DMA_MINALIGN.
+I'd also prefer that 64 was sized by maths, not a comment saying
+it is big enough. That may include use of IIO_DECLARE_BUFFER_WITH_TS()
+to ensure the timestamp spacing is there.
 
-> diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,x=
-ps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/d=
-ell,xps13-9345-ec.yaml
-> new file mode 100644
-> index 0000000000000..29cbb837a31b8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-93=
-45-ec.yaml
-> @@ -0,0 +1,90 @@
 
-[ ... ]
+> +	u8 data[64] __aligned(IIO_DMA_MINALIGN);
+>  };
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
+> +/*
+> + * Process a single FIFO sample and push to IIO buffer.
+> + * FIFO data format differs from regular burst - no DIAG_STAT, data starts immediately.
+> + *
+> + * FIFO data layout (52 bytes):
+> + *   Offset 0-3:   ACCEL_X (32-bit)
+> + *   Offset 4-7:   ACCEL_Y (32-bit)
+> + *   Offset 8-11:  ACCEL_Z (32-bit)
+> + *   Offset 12-15: GYRO_X (32-bit)
+> + *   Offset 16-19: GYRO_Y (32-bit)
+> + *   Offset 20-23: GYRO_Z (32-bit)
+> + *   Offset 24-27: DELTVEL_X (32-bit)
+> + *   Offset 28-31: DELTVEL_Y (32-bit)
+> + *   Offset 32-35: DELTVEL_Z (32-bit)
+> + *   Offset 36-39: DELTANG_X (32-bit)
+> + *   Offset 40-43: DELTANG_Y (32-bit)
+> + *   Offset 44-47: DELTANG_Z (32-bit)
+> + *   Offset 48-49: TEMP (16-bit)
+> + *   Offset 50-51: DATA_CNTR (16-bit)
+> + */
+> +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> +				       u8 *fifo_data, s64 timestamp)
+> +{
+> +	struct adis16607 *st = iio_priv(indio_dev);
+> +	u16 msw, lsw;
+> +	s32 val24;
+> +	int bit, offset = 0;
 > +
-> +        embedded-controller@3b {
-> +            compatible =3D "dell,xps13-9345-ec";
-> +            reg =3D <0x3b>;
-> +            interrupts-extended =3D <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
+> +	memset(st->data, 0, sizeof(st->data));
 > +
-> +            io-channels =3D <&pmk8550_vadc 0x14a>,
-> +                          <&pmk8550_vadc 0x14b>,
-> +                          <&pmk8550_vadc 0x144>,
-> +                          <&pmk8550_vadc 0x145>,
-> +                          <&pmk8550_vadc 0x146>,
-> +                          <&pmk8550_vadc 0x147>,
-> +                          <&pmk8550_vadc 0x148>,
-> +            io-channel-names =3D "sys_therm1",
+> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklength) {
+iio_for_each_active_channel()
 
-[Severity: Low]
-In the examples section of
-Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.ya=
-ml,
-the last entry of io-channels in embedded-controller@3b ends with a comma
-instead of a semicolon before io-channel-names.
+As sashiko notes, masklength is private.
 
-Should <&pmk8550_vadc 0x148>, end with a semicolon instead so that
-dt_binding_check does not fail with a dtc syntax error when compiling the
-example?
+There are a load of places we need to update to stop accessing these
+directly but please don't add another one.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-dell-xps-9=
-345-ec-v7-0-828ce301b839@vinarskis.com?part=3D1
+It's on my list to throw some LLM tokens ago once I get out from
+under review backlog.
+
+https://sashiko.dev/#/patchset/20261023-adis16607-v4-0-a4d541ebfd13%40analog.com
+Check everything else reported.
+
+FWIW there are also some nasty race conditions around active_scan_mask
+being available when the buffer is being torn down. You might
+want to close those off by claiming buffered mode to prevent
+such a transition.
+
+> +		u8 burst_off;
+> +
+> +		/* Skip the soft timestamp channel - it has no burst offset */
+> +		if (bit >= ARRAY_SIZE(adis16607_burst_offsets))
+> +			continue;
+> +
+> +		burst_off = adis16607_burst_offsets[bit];
+> +
+> +		if (bit == ADIS16607_SCAN_TEMP) {
+> +			/* TEMP is 16-bit */
+> +			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
+> +					   &st->data[offset]);
+> +			offset += 2;
+> +		} else {
+> +			/* All other channels are 24-bit stored as 32-bit */
+> +			msw = get_unaligned_be16(&fifo_data[burst_off]);
+> +			lsw = get_unaligned_be16(&fifo_data[burst_off + 2]);
+> +			val24 = sign_extend32(((u32)msw << 8) | (lsw >> 8), 23);
+> +			put_unaligned_be32(val24, &st->data[offset]);
+> +			offset += 4;
+> +		}
+> +	}
+> +
+> +	iio_push_to_buffers_with_timestamp(indio_dev, st->data, timestamp);
+Use iio_push_to_buffers_with_ts() as for once in an ADIS driver we actually
+have the size of data.  Note that fixing the whole adis library is something
+that needs doing though I took a look at it on Friday and decided to leave
+it for now!
+
+Jonathan
+
+> +}
