@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011859;
-	b=cIc3QQpTURMwTza+dorVtzECDp+9OHLlXZilVjJkSTP8K7gv0AfRY7Y4zlrZpej4Xg28
-	 SujzGTszxBbc+/dpYXcu/j4OKhP7oMBF6CDYc0rKAHy3HH0qZWmKqajittdGgHeLf5nwu
-	 ttBZtsYMWN3wgsbTRSE58e6SoLA1PTUajTxzV3yt+TYD5ykPTO0L9+4gAU/5l9vdOynXh
-	 e9BFcQ6LvFLXRyOuDJ3m3STC2aJPM2xgzgijv9Acp0w3bbBM4T2H6bRwIKz/rDFUKIgEJ
-	 cdC/i/pyPCr0BhRzr3gvJ88616zJQs85IxGFLYXjeMdhNjiXjo34Vf18QT3TGDzt7kQ==
+	t=1793011878;
+	b=MYUaf8i9zRgrJPIpdOvXZrExRUOH2YM9/xnTC6t6XGWDuImhN5hGX/fsGpLmDOIRhvP8
+	 d6zCwROKNuiIlIDZLEMemJXlfYxy9PjB6XsudzvmFSi/mZ2DguYRwg+3LabDGe1IzNEDY
+	 4jWHkvnAzf6JM1W0TNsvFzROrXzCNB21dPdX6AkgixUGTrQIgOBKh13BopYDmryl7XX8t
+	 Yx+FxE84W1ubqir2cxQA5zhtXLaqDFNVRqWIeRla97tRdcgmzvbF7Oa+9d3QDFZouGG+P
+	 Fh6CkNNphaBsN1K6KzRFSehtlIemeJvzCGjcjGfwODbMk6QGiu7HTnicL6VqIqFSZIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011859;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kmQEvKG4CMzbVMw4K/IBgEk1MXHDLqOQrYUZ7ewDtwU=;
-	b=FgbfooT9jFqbzv5tqRFqbyWBRA/n37nRNPzUQIrvAof8ML3lgTOaXtgzf+zJaXfoK2lV
-	 Vls1INoRek5bm79bBx3EPhOrsDT5F+pgOXMSs/CXfAOppfExRMF0lyY5IaKL2M0as0sfP
-	 Kl7qXg7ZyQ0RV1ZBuitB01DOFsNpFH3fQ23qVSwbVA30QpHco1kfm0dz/Spu18nmhcNCp
-	 lzVZ+Lpsi/HWKX3CFdMvO77RPOo75X4F1c5Kh54KXcg07cckt85q5UHEEY5W2LHQJjtQj
-	 quwQLVZgVvYhCd8eDE1c0o0qmQ0XYHMk5G3p2HZYBpT0Q+xPHylkLvlhYut5CffhKaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011878;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tltF2SuCaSeisXup2l5+o6rUHxfQNf/m/7mmr5H2TjA=;
+	b=py1Z0xuZUMq04H0dV1IcO+8guJJUErMKqhsXX5l6H3VuaXdnX4Pn/NPNI4b+iabJzD4B
+	 nZg/CdrIRfy7LhqtwOWkQn6xUFm+w/lCohn0mtbf83BHpKpkwKQk0ANacPQqajJ8847Ac
+	 onkeSueQHTtuK5j+6vtPdJCNK89phctUTNlJlmxs6E4G7jWaF9IgT0x3BkGhjvBKVeP33
+	 nnUI8FzjXfY3QxFSLBm2nu1MdQCKNHPGzMNzWi3AgeCbu8wJqGFH5CLHH/hX0g9YQyooJ
+	 nry+DfrRxT5N4gAEuBU1FkAzIhZd8/DZ+bt3ZcGrHyx6lJULIYuAbdJhuhcqjNnv5Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L8sFEwZY;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WA+xbKSn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A76606A33C;
-	Mon, 26 Oct 2026 10:50:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A76606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E09606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L8sFEwZY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793011858; x=1824547858;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=whmJtoIdcC46RFzy3YsAmoExsbtfQVq2H3BT00c+e84=;
-  b=L8sFEwZY92wlVs0U5wxQI1GmXXb28V0a+cXPmdR067RgTrWmR8p1Xkmp
-   76qu+jH71N1V2M4RQLL5lCbaL5jaGjSsFkskI6hh+Ftz6TjIqIti9srHI
-   eRNPKsTkdvYU004+13Q1x6254BlfTezESIgQKqwQZUUztcvtCIMFS5eeg
-   2IuXpXQZLIWioLD1DPiCOPoAh6wsCVG59m37wDDCKl+kfq+zreSvUhphV
-   1VmrjqhRPpl6jWWMr6YYD/KIVagj+9O0y5sP7LwC/DVXCmRGlZBRzUiM1
-   oZs9wLhBL3a9bZup+3JHKSToqW0hoNp8Mc4jpJ6Ewzd7RIiIfVrwTsi5z
-   A==;
-X-CSE-ConnectionGUID: Or5mGIjHRZ+9kzkNjTZFmQ==
-X-CSE-MsgGUID: TUuMVJtrRX6zkR2zvAH5sQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1550204"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1550204"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:50:57 -0700
-X-CSE-ConnectionGUID: 3c2W0tBMSlSqFshfQxFkAQ==
-X-CSE-MsgGUID: yU0X9AesT5uhy3M1keiRnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4738167"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:50:54 -0700
-Date: Mon, 26 Oct 2026 12:50:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Alexandru Ardelean <alexandru.ardelean@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	linux <linux@analog.com>
-Subject: Re: [PATCH v4 5/8] iio: imu: Add driver for the ADI ADIS16607
-Message-ID: <at8wi0tO7qR29i8E@ashevche-desk.local>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
- <20261023-adis16607-v4-5-a4d541ebfd13@analog.com>
- <ats2XBBnfGmusCI2@ashevche-desk.local>
- <LV9PR03MB841429F153BCF3BA9F18CC02F7612@LV9PR03MB8414.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WA+xbKSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736E71F01825;
+	Mon, 26 Oct 2026 10:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793011877;
+	bh=tltF2SuCaSeisXup2l5+o6rUHxfQNf/m/7mmr5H2TjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WA+xbKSnC/apPfocHnRNxD8ldH9D7iBR7Vkg8jYPC9BfPGLSFZek7X0lTGsO/9KI+
+	 UYVuG60+pM8ZnM0XprUyrG/MJ6I2hklSeeFZDYMspTqBNHw1jSUQ6HC3oAoyCrPINJ
+	 pLxccWxHuIzmVDwdfKYDACIc81I1YrUWfMm5zHlwJ0buvmRuYIsZ+tVMRZSUiYE7Sz
+	 kcha2b0M+OFP5EPdPUGPnNzZIZQvBlXyUXEguHG7fXdVdb8+valMmCS49iZAV19PqA
+	 r/oqVURG527Ggsoew9CMspfVpoJEiy39/4TkUVs9ax3y0OGyyyS+syS5GhZC76U884
+	 509NFBh2jDW7g==
+Message-ID: <sashiko-outbox-185019@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/9] arm64: dts: airoha: en7581: add CPU OPP and scaling
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026095727.31708-3-ansuelsmth@gmail.com>
+References: <20261026095727.31708-1-ansuelsmth@gmail.com>
+ <20261026095727.31708-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 10:51:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,66 +60,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <LV9PR03MB841429F153BCF3BA9F18CC02F7612@LV9PR03MB8414.namprd03.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 26, 2026 at 10:22:22AM +0000, Sabau, Radu bogdan wrote:
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Friday, October 23, 2026 1:27 PM
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] cpufreq: airoha: positive return from dev_pm_domain_attach_list() =
+mishandled
+- [Medium] arm64: dts: airoha: en7581: zero opp-level in smcc_opp0 conflict=
+s with genpd
+--
 
-...
+commit ade97d9a263f63e320dd00b49d71387b254adb06
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-> > > +static int adis16607_firmware_revision_show(struct seq_file *s, void *arg)
-> > > +{
-> > > +	struct adis16607 *st = s->private;
-> > > +	u16 rev;
-> > 
-> > Can this be
-> > 
-> > 	struct revision {
-> > 		u8 minor;
-> > 		u8 major;
-> > 	} rev;
-> > 
-> > ?
-> 
-> Although I like the idea, I have a question here.
-> If u16 rev would be replaced by the struct and the read was done
-> directly on the struct pointer, could it mess things up on big-endian
-> targets? A native 16-bit store would place the value's low byte at
-> the lower address on little-endian, but the high byte at the lower
-> address on big-endian - so minor (at the lower offset) would only
-> get the right byte on little-endian, and would actually get major's
-> byte on big-endian, right?
-> 
-> What about we declare this struct and also have a u16 tmp declared,
-> do the read on tmp, and then rev.minor/rev.major get assigned via
-> FIELD_GET() - keeping the readability improvement without that risk?
-> 
-> struct {
->         u8 minor;
->         u8 major;
-> } rev;
-> u16 tmp;
-> int ret;
-> 
-> ret = adis_read_reg_16(&st->adis, ADIS16607_REG_REV_ID, &tmp);
-> if (ret)
->         return ret;
-> 
-> rev.major = FIELD_GET(GENMASK(15, 8), tmp);
-> rev.minor = FIELD_GET(GENMASK(7, 0), tmp);
-> 
-> seq_printf(s, "%u.%u\n", rev.major, rev.minor);
+arm64: dts: airoha: en7581: add CPU OPP and scaling nodes
 
-Yes, this will work for me.
+This commit adds the cpufreq node, CPU OPP tables, and CPU clock and power
+domain references to arch/arm64/boot/dts/airoha/en7581.dtsi to enable CPU
+frequency scaling on Airoha EN7581.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts=
+/airoha/en7581.dtsi
+> index 83b30a340950f..c5a3350867410 100644
+> --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
+> +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
+> @@ -74,8 +74,12 @@ cpu0: cpu@0 {
+>  			device_type =3D "cpu";
+>  			compatible =3D "arm,cortex-a53";
+>  			reg =3D <0x0>;
+> +			operating-points-v2 =3D <&cpu_opp_table>;
+>  			enable-method =3D "psci";
+> -			clock-frequency =3D <80000000>;
+> +			clocks =3D <&cpufreq>;
+> +			clock-names =3D "cpu";
+> +			power-domains =3D <&cpufreq>;
+> +			power-domain-names =3D "perf";
+>  			next-level-cache =3D <&l2>;
+>  		};
 
+[Severity: High]
+Does adding the cpu clock and perf power domain to cpu0 cause
+airoha_cpufreq_probe() to fail and leak priv->pd_list on boot?
 
+Prior to this change, airoha_cpufreq_probe() in
+drivers/cpufreq/airoha-cpufreq.c returned early at dev_pm_opp_set_config()
+with -ENOENT because cpu0 did not have the clock and power domain propertie=
+s.
+With these properties now present, probe reaches dev_pm_domain_attach_list(=
+):
+
+drivers/cpufreq/airoha-cpufreq.c:airoha_cpufreq_probe() {
+	...
+	/* Attach PM for OPP */
+	ret =3D dev_pm_domain_attach_list(cpu_dev, &attach_data,
+					&priv->pd_list);
+	if (ret)
+		goto clear_opp_config;
+	...
+}
+
+In drivers/base/power/common.c, dev_pm_domain_attach_list() returns the
+positive number of attached power domains on success:
+
+drivers/base/power/common.c:dev_pm_domain_attach_list() {
+	...
+	pds->num_pds =3D num_pds;
+	*list =3D pds;
+	return num_pds;
+}
+
+When attaching the single perf domain succeeds, dev_pm_domain_attach_list()
+returns 1. Because airoha_cpufreq_probe() checks if (ret) rather than
+if (ret < 0), it treats the successful attach as an error, jumps to
+clear_opp_config without calling dev_pm_domain_detach_list(priv->pd_list),
+leaks priv->pd_list along with the virtual genpd device and device link, and
+returns 1 from probe so cpufreq-dt is never registered.
+
+[ ... ]
+
+> @@ -115,6 +131,159 @@ l2: l2-cache {
+>  		};
+>  	};
+> =20
+> +	cpufreq: cpufreq {
+> +		compatible =3D "airoha,en7581-cpufreq";
+> +
+> +		operating-points-v2 =3D <&cpu_smcc_opp_table>;
+> +
+> +		#power-domain-cells =3D <0>;
+> +		#clock-cells =3D <0>;
+> +	};
+> +
+> +	cpu_opp_table: opp-table {
+> +		compatible =3D "operating-points-v2";
+> +		opp-shared;
+> +
+> +		opp-500000000 {
+> +			opp-hz =3D /bits/ 64 <500000000>;
+> +			required-opps =3D <&smcc_opp0>;
+> +		};
+
+[ ... ]
+
+> +	cpu_smcc_opp_table: opp-table-smcc {
+> +		compatible =3D "operating-points-v2";
+> +
+> +		smcc_opp0: opp-0 {
+> +			opp-level =3D <0>;
+> +		};
+
+[Severity: Medium]
+Can setting opp-level =3D <0> in smcc_opp0 cause the first transition to
+500 MHz (opp-500000000) to be silently skipped by the generic PM domain cor=
+e?
+
+In drivers/pmdomain/core.c, performance state 0 represents the initial
+unconstrained state, and both gpd_data->performance_state and
+genpd->performance_state are zero-initialized when the domain is registered
+and attached.
+
+If the CPU boots at a frequency above 500 MHz and the first cpufreq
+transition targets opp-500000000, the call chain
+dev_pm_opp_set_rate() -> _set_opp() -> _set_required_opps() ->
+_set_opp_level() -> dev_pm_domain_set_performance_state() invokes
+genpd_set_performance_state() with state =3D 0:
+
+drivers/pmdomain/core.c:genpd_set_performance_state() {
+	...
+	prev_state =3D gpd_data->performance_state;
+	if (prev_state =3D=3D state)
+		return 0;
+	...
+}
+
+Because prev_state is already 0 (and genpd->performance_state in
+_genpd_set_performance_state() is also 0), genpd_set_performance_state()
+returns 0 immediately without calling
+airoha_cpu_pmdomain_set_performance_state() in
+drivers/pmdomain/mediatek/airoha-cpu-pmdomain.c, leaving the hardware at the
+boot frequency while cpufreq and OPP record 500 MHz as active.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026095727.3170=
+8-1-ansuelsmth@gmail.com?part=3D2
