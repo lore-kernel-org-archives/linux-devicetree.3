@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001108;
-	b=hIl9iYiSR7Jaas6UMvm2G+C0U7SaB5+kLtIlDs5KRb+6WbH6qoN4YSpkWgJbRg4c2tUc
-	 xHlrdZ9xI/RHtqBomoycxpxFbGt0qA+fcktXOj9+9uf3taHBnE0Ej9lhyq5m3w4197qLy
-	 gZwIrs8YKjoHEpv9TbApnVtWxkY9Ei+VY4hEJcjRxFrq/BvZsOczpXR33UxFvQiu+nqQd
-	 zlnv++0vz1NyeX84iznkk161roLOC+XSMduK/1UH0ouTEGZgMpAbIX+QB/X/vrt578oCK
-	 frx4X/XItDr42HZfAlTFI7em1/aSo7m0DtR/NwwQ3ZAffVTQkw1vYGkyNAs2Vu6cmXg==
+	t=1793001375;
+	b=HkznKSqTDWP9qTN84MELE8CeDHJKZYVb8Bvs04+R/SHtdPMV3R1Pl7tvXn+/zlC+OkYg
+	 GUCCTTZ3iVVDg1JBVm8oPY/a2jGF6cOOHGUDbRc8WIBI9LXcx1YmoHt/+7EeBjMD5fM9I
+	 jopxtdXqOdtSGvpWNds3AzZuFrNuorzeZq385mj8/XCHczTzy6luH9kqNw8kBfRArygMw
+	 XqONaOLq9e+q+sqSFD/MaHFjzHn4XpKjb8U4yNJjXRDop+rHm+CZEwP2/Qo/uNHwGG64b
+	 mkQCOoNw9Rjr/yjbcZOG5HLJ7v8vNpXJfFHnB636qKuP3pW4ddH0GJEfmUx+w55PECw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001108;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=+nE7HO3QFyRL2Ai8GdADlUMnKwk6M/Zzpg853YbKlk8=;
-	b=yrw1CYzGsIpfYcjTSkO6bo8uF2e2lU7etOeL6sMoVLU7ZFG31quwkCq/1QoXLYpz1hyC
-	 NiZG+W9ot/jZQjT6sOxNigf5P9iovdQhz92japDZ1UqEAyy31gsb+AwGAcSmDgWj548aQ
-	 zCVjsWQfLo5PF/n5jJ3GNbd8lc3/ewOQRMjUD7klrsSGMhed3UJwqm0auy5w1BgzzdNRN
-	 suWSQC4ILd4tFxdUA3J3Y7Db797Dc8ks+N34nZdvANXE3s4XP+MrQiXy0PlF1ID6I4HiQ
-	 E8xGfE3UWW98X3mQ14OG8d2piaTiSe6xndKPqqeARCEg0XAd02obIvVlURXbWssrueQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793001375;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=u3tZOGX5uvrdqoC7dUccuRlWsX5EhE7NoULiLf5ru0A=;
+	b=vozBjswFdxahyOsBeMDGu+nH5GoIF0C7gFnOE46QEMTqq1evxVnNVxbLXAeO6hhV/uFm
+	 oxOAlUzA7g+knlJBDmHV+PCAgszm+gayw79cAyAXZeo6pY+aPdxzneQ0b46Ze7fUb2s5V
+	 GBKOh/3Hlc/NkZfFMf9J6AbcZz5xQMZjqFTNxLP6ZvaVMRESrPuZTE8JpfHeyPdq3CxHc
+	 3gi9Rn/8/R1HfIvmPLXjzo8KS+UXLZTUtyxbmyD1Jky47ElOgZoMGVmF/Q3IY9axPemyU
+	 4lZvuxA9n21j+davTrXQLbmZW/hC6lyTzYkYuB4L9sAuZ+e5fetk5yFi9z0irugA9hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JLSXZWP6;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQUVWDd5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A25606A31F
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 07:51:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A25606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C012606A31A;
+	Mon, 26 Oct 2026 07:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JLSXZWP6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793001102; bh=+nE7HO3QFyRL2Ai8GdADlUMnKwk6M/Zzpg853YbKlk8=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=JLSXZWP6KWW+GlHF3YJRpnzX4kfrkKR9k87KrKARSbi79rfBdpIERkU/BFjADRuD6
-	 6PIvXf4Zx0SeR1b6z1Jim7RrdfRgmbuLyrKF6KUra1isNblzx8C+ymvT/qbgiuBkgE
-	 r1pwUeF4dAS3cc6Ud2b16pddUdpoZPyvuvgAM9/g=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-XMAILINFO: M+DG/l9YxNXY6gel2mm4emCwqjrguTLsCjqIzapjig9WrxrPVhvK0sVnBQjN22
-	 VfcOb9ose1fjG4kHPbGy5o5QJSojF9/vLemsLPOnZNYciEfQVVCAI6+Mm7y28MMwRLJvBrOzyS6qm
-	 9E6i0gbsib0YL4PFIwIPfnGKhNejU24E74tEbXW8Nj25/ERr95miiGszTkxhU2lVqtPzK4hBvg5Sx
-	 x0sqfduYcsclBz6xxfJgB0ScWg6odScp6Pcmez4HtGInSQPs75hfk2UeNJQQamvjCipKkT0YTG7KE
-	 iicVZ58nOPST6O8u3erBaLFeNaR6K8sJqSGFQiRa0hcR71E1uIMMykPn0+69qTIZir2skRFTwPgKT
-	 nHlgg21zJ1ghqGgr76Hmd60yDNuupbTiLW2y5AxXpO8xt8zq5Pul166G+IGrYfcL/q49mPxzlm6QX
-	 Ft0qiWlVr8iCLdZa1mzJp+lkB/QMGAVWjbWwd3GYPpgEh+lazBDYbkP9poVYqSYRf007QA4oI8shW
-	 ajeAwTcN5e4m9BzkGbX4K8MOE/hLQfl24rrrH1uc+6x09Owenk3mlgnYlxQYHr2HsYBuT/wWtw2Fc
-	 IsvYLwIN9BXHwk9f5LvLTioX62JF13VWDVFr2DynGgcbM+4eszjb+Sa03kK5LCSlKzXIh3QJlKdp3
-	 mlM+j1ql2W4J13g588rvcayrmR9N6X6pwMOtM91kmrDWVE5FVgIGg6TvH1F34VzsHZp1Cc0oyVbNS
-	 Sr6WaxeR2oanNdccn9cPrQ6+AVE1MUBvUwBoN8CEbuyQB6/4mD8PUx6aB6n/NNVwFfYaEY2+sRrCp
-	 Hw3Z+u9oYIqRbupfOQ4h8PoUX9XzSmE3T1QmOTaGM19mDWjIlSIwIUx4LHcEZO8tLK3KNw1CJwFfa
-	 rWj0Xf2TF0Rl1oBpepfgS6X8RdBx8OpY+oAHz0WN6O6E71opA+wwrFQtc8MyYViE1NmbxuzyIMYRB
-	 sq6LEX+SUzkgdSxyiVD4vbClIzNtI8HpmArr81jXLwHxH4yA6JE7N30wQJiDxRTgWDl7pnmIO+dau
-	 vXLyt6zHqF64fFVNFhBMclMjnaA==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?c2FzaGlrby1yZXZpZXdz?=" <sashiko-reviews@lists.linux.dev>
-Cc: "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?cm9iaA==?=" <robh@kernel.org>, "=?utf-8?B?Y29ub3IrZHQ=?=" <conor+dt@kernel.org>
-Subject: Re: [PATCH v3 2/2] pmdomain: rockchip: Add RK3572 boot peripheral domains
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQUVWDd5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AC01F01825;
+	Mon, 26 Oct 2026 07:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793001375;
+	bh=u3tZOGX5uvrdqoC7dUccuRlWsX5EhE7NoULiLf5ru0A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VQUVWDd59s5jjtL5p8mDbx1VUrYzprC/+uUjUstAhihGr55nocJ5j/zXgNlkf5gph
+	 fw5jWPzzIzUsf4qwQ/NCVugz0wVGoIo54jtUlItn7D2Nf2KyDHYPbNBAFf4tbzNhiG
+	 Fs5SUL69wN6PzRJIbtFyEgcSga75LrJvbF1K14PMVwHY85jW6LBigo1K5myaxp9afw
+	 3hg1GI5fLeit4iBdO9OtWLSwagdq4dCb3463OFu3B7jDVfpoKSSPdokIQxqKq+CsWD
+	 AwtGJKyj/5IJpr/qvOJ9BMXRK8Vrjn11/igaQildOkLc9w5pYOJFr2HVqFCE9twhdG
+	 axU1I2Ngn0G/w==
+Date: Mon, 26 Oct 2026 08:56:11 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ath12k@lists.infradead.org
+Subject: Re: [PATCH ath-next v3 01/17] dt-bindings: net: wireless: Add QCN6432
+Message-ID: <20261026-sticky-bumblebee-of-beauty-2e5ff9@quoll>
+References: <20261023-mpp-bringup-v3-0-19f3fcbf7b5f@oss.qualcomm.com>
+ <20261023-mpp-bringup-v3-1-19f3fcbf7b5f@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,30 +59,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Mon, 26 Oct 2026 15:51:41 +0800
-X-Priority: 3
-Message-ID: <tencent_3A91A40015443A3FDB26209A0119DC84C007@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261026-add-board-ok3572-c-pmdomain-v3-0-70d614d3d921@qq.com>
- <20261026-add-board-ok3572-c-pmdomain-v3-2-70d614d3d921@qq.com>
-	<sashiko-outbox-184654@kernel.org>
-In-Reply-To: <sashiko-outbox-184654@kernel.org>
-X-QQ-mid: xmsezb41-0t1793001101tf572a3g3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023-mpp-bringup-v3-1-19f3fcbf7b5f@oss.qualcomm.com>
 
-SGksCgo+IFtIaWdoXSBwbWRvbWFpbjogcm9ja2NoaXA6IHJvY2tjaGlwX3BkX3Bvd2VyKCkg
-cmVzZXRzIGFjdGl2ZSBtZW1vcnkgb24KPiBwb3dlci1vZmYgZXJyb3IKCkNvbmZpcm1lZC4g
-UmVjb3ZlcnkgY2FuIHJlc2V0IHRoZSBtZW1vcnkgb2YgYSBkb21haW4gdGhhdCBuZXZlciBw
-b3dlcmVkCm9mZi4gSSB3aWxsIGZpeCB0aGlzIGlzc3VlIGluIHY0LgoKPiBbTWVkaXVtXSBw
-bWRvbWFpbjogcm9ja2NoaXA6IGRvbWFpbiBsZWZ0IHBvd2VyZWQgb24gd2hlbgo+IHJvY2tj
-aGlwX3BkX3Bvd2VyX29uKCkgZmFpbHMKCkNvbmZpcm1lZC4gVGhlIGVycm9yIHBhdGggc2hv
-dWxkIGF0dGVtcHQgdG8gcG93ZXIgZG93biB0aGUgZG9tYWluIGJlZm9yZQpkaXNhYmxpbmcg
-aXRzIHN1cHBseSwgYW5kIHJldGFpbiB0aGUgc3VwcGx5IGlmIHJvbGxiYWNrIGZhaWxzLiBJ
-IHdpbGwgZml4CnRoaXMgaXNzdWUgaW4gdjQuCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQoK
-cHctYm90OiBjcgo=
+On Fri, Oct 23, 2026 at 12:31:04PM +0530, Aaradhana Sahu wrote:
+> Add Devicetree binding documentation for the Qualcomm QCN6432 IEEE 802.11be
+> wireless device.
+> 
+> QCN6432 is attached to the WCSS Q6 subsystem and is represented as an AHB
+> platform device, even though the Wi-Fi hardware interfaces over PCIe.
+> Document the compatible string and the resources, including the Q6 remote
+> processor phandle, MSI interrupts, SMEM states and memory regions.
+> 
+> Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+> ---
+>  .../bindings/net/wireless/qcom,qcn6432.yaml        | 149 +++++++++++++++++++++
+>  1 file changed, 149 insertions(+)
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
