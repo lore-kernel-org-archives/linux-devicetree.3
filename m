@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793028415;
-	b=eIL8LDdsWLxJp6TV0CzwYefCo6rm676ELBvT1VMW66KxrWH2G9FZhUaVfHPFIo2Pm2Pc
-	 8wUQl+DCdJCpy1xB35icgtqqtWVk8kZ2gzqxBcmZVfrzHbh8jxFMe5TFJ4/37bVbp0/Jd
-	 1k52ATpp1WCvgKqT7Cle0H3sg9L7P4gb1R3oydbKQxgXgQnsshOZ7kBW6pVQCkheGaF6B
-	 2zrRi+vLqZn83NhmIGn6hFlfBYm6jkC1FFc5JREx05UrqN+TABHOBUlBCnq2OO+/iof5q
-	 Q0QNziE2q2qhL/bVoLIuzVeyM/ScRMNlvuE+qW4GE1NfHn05Db3HuOyFVSxArMqWncw==
+	t=1793028513;
+	b=K5GYVnOR83GFwKKWM6mk4oLLWmqbpr8z25W2jVzF5vdeMEgyE1hgmcsCsr9l5fHk/zrh
+	 UufN7BrksrICZGO0ikK4HEjqh8CQaZkYXR0jbnQtsKhl2pWO/OIkyBUQlGetZH/bGhTgL
+	 +zIf+eJE9mn2Jhs1hHRZSQh+9YHtBTloCNfcDSEyaw8Ezgrdqm95rQAFaFvJ7ewlNbexE
+	 o9iYNGeSgb/xO1sLpc/EjxzvGio7gYo49+5zlIJIMbyH3rjkMl/IdnzGWzZ17ctTik273
+	 luY5vG1dg5yuqAo0xwWfMLyIiSpsSuG62ixMBZdpyrYkPqTNIYx5M6noeDQ15+rBxqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793028415;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=bME5B1SZGTcUgMRsuT3S3lxxmltA7QzLm9Ooi2WbeZg=;
-	b=yZw5+y5Sb00xGAOyM+g6ocri2Hlz/OeH3nmLMWCGdK1UYGH/KHdDx0talNon7Z4c0TWL
-	 wOesS1gW8eyY41I6PUq8pEak6IYdV1fiEhLmF7Pc2CUNdGDTeIr+iSKgPmeirsBCfaTig
-	 ZjX6P1JHvEIR8hslYJbmihkE00Ft2W2m7nA+3pkpgAFoTVb8Of9TUNiNY92QYHLvYP8DV
-	 4zGM+1yDxZVAzCVoAZ5wYIjRlbTw3W8Zdk5ej1zG+Dt/kXXBTBSEA9EBS/oXsQbVtuIg3
-	 T3qRi/y07xNsNZ+DKMzkFVqUOoo2hhvct0iXdeNYACS1JlYWB+1zq0ZWePjxoyQknCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793028513;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+	b=5cqAkwKp4GpMSCRCMzYYkBjIy+Xf06YXOuOYn2h45AtfY7uTn6K76klb2C3QcqCGOKZl
+	 B8qU43gA5JdLvKLb66op0VpyzhtGe3gPTkTdZfmGDTLUTVKIZF5RIzMpbZ4nofjD04SUT
+	 NTVQAdFShQHVWrxUGci+duUX1GlCKpEIUF5IBnKrjzGID2yuF/8ElMC4DDW3xR3dyZ4C5
+	 Y+5z+odh/PY01TDDFQ+xqNP90u8KZGKY3CtLkEKUTGubO0qkmYJiSX4NmqGLvrmA0d058
+	 TWKp/dtlEQtAO2fsTfBoAo2ryc0zxrxdoB5smziaSbazVaGW5J2qg+UKwDoYpXwCfcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="LJJ/Cj9c";
-	arc=none smtp.remote-ip=209.85.167.181
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MnoYhO3H;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fk21S328;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595A6606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 595A6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E40606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E40606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LJJ/Cj9c
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-539a57a0b1fso1167145b6e.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:26:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MnoYhO3H;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fk21S328
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QEvsBT3268516
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:28:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=; b=MnoYhO3Hq9ye7d3n
+	I70bVPkJMUXaLd4BchJS6wdZIeo5uumbSB7Ayb2MbMTuWjBKETyLP0iTxmEuvQs3
+	FUe9MEZHyQT6ySivib1zo5jcl/hpYCLLs5JpY2KLPXp3zsE7Zo2M1Tw/z/6ygo+b
+	RjuRgGr9HhstP9vEPnuVuXn4xG6FEZAsc6ALW/Bh2hQkDSRQDc0JfN/Fxbm/Tf7e
+	LXVAw9sjVBDhAjcy+gDYi84cpec+dvIe3fljak7hGhoyghbdMIEj1DAtaQxDbbVL
+	+tN5EnQNrdk86SG8RCYEU+14qxO2mUo/w6XmoBAGYPDbhjGRz9B2Oq0oFwydo2hg
+	d7+Bfw==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4cp9bkb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:28:32 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eabddbb650so65160e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:28:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793028414; x=1793633214; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bME5B1SZGTcUgMRsuT3S3lxxmltA7QzLm9Ooi2WbeZg=;
-        b=LJJ/Cj9c2TatSS8iFpIxd1CiCvosdLbySUQ+nrT8VCE1Bc9WT360oz8zrKU5HBClm1
-         f5zVLzb55CBYc8IDgJmBnpQ8BJdqPpBlqhmFjga3l8v5f7MCuu53zKL65xXq/6m9O3xc
-         aViZU9fATNgl4JTFvwIqgQb65uTXCzkjDAr42bw/LH87IquEbFKDLElDddNtssPblcf5
-         ri5debILSZAGH6laEV59X4rKQGDK3UYXBPJP3eZfpn9ptHmd2MrPBWni2t94ibVqkOGn
-         /2FByHp7fWSOvS/FAGao76RKr6nX7n+lEfhP7lhS/zFGTXkg/tJNirHm/W3K/Nf1aScf
-         IsFg==
+        d=oss.qualcomm.com; s=google; t=1793028511; x=1793633311; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+        b=fk21S328HViUZqIffDGbZjQ54kRTT/OM/R4uX9wXY6oTeE9si3orwptS2C7Qhq90gG
+         SU1y/IREdSnmJnmccxb9WZzrOOz6iTmgIbXSF+NnFbTEcX/vwpgQLSnyBzHeEQjw85PV
+         LDrwUPvoN37dNbo8BctMcFb5NTlrbzbxG9eIF6rfNHKVr+9YFwJr0Uh0Acuj32vBgZ6/
+         sA2ODRFc/a7+EbLiGxNTYAoatKcqoLKSP3KkrTo8luqDaQM0gpq/G3LY5xu/dYnGLKcd
+         6hdyzb0GC5q9dFjKm3J2ozBnpr80E4R0lcxjU+HBRPjuvJo2YkyPYPe7RGLel9HZDfZ8
+         Sbjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793028414; x=1793633214;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793028511; x=1793633311;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bME5B1SZGTcUgMRsuT3S3lxxmltA7QzLm9Ooi2WbeZg=;
-        b=NahcJKpPXtGzaoQ3L4Krv5NR/TOS6OlKm2pxjyduiBSul4rrYgBSL77hAqLi4q8Dp7
-         EWdE37gBzsiuJRbQwhYWTrA/4kmWfGi8GUcHsD4GdNcw55eAJrECaJNnhIvLv8SbLQhJ
-         tre4rliPMEB2jNKEaPV1I1cPjOzyXJJsFydX7VMSsDODwoESlpqOcfxs5LqWlDVfcd36
-         jlKbdoyulP5qgc6jWxiFA8l03e3clpHagtEOPzpwA94iXuAfezC4yy3JWdKQTINPhO5e
-         ar8aZRfYLBstFydcJklXUaxikJefZfJo8ER7H+vQHvdTMR/I4CbIT32v449WmzbZDHmD
-         yo/w==
-X-Gm-Message-State: AFq9FYJsN39yAjyKKQz0S9nPvDJixdz/LEh9c+J5MTgsrKX5FxxZxdTT
-	QnNCRuemw0+e+B4ZLWcGsrDK5h92qogNAKyVUlyi0nm6ogqVTnY4oRP1Bh/EUg==
-X-Gm-Gg: AYBFou3P8bMHvFuKPw47fEFydv9AQpN6OY5m1D8QeX9FaZB1dS8mG7TpE6IUoUTsolE
-	Lh6o/37a89mnYNbdhFdAYbTFUCG8CMIvRlPwrPXai0U7Mpq0i93Nkeagd5Pwf08nIo2Wwei1dX5
-	CC39bvr4Q6tXDztBaIOX4BnTXJ9xmF0IFRTFOYUAu7aydMnthQYbAIh9CEMltMoIPIPL5+QweM1
-	VrQHThVPloBi5g3rcU+fGRX2LddelJEKOwROhWTixoHMYN4Ul4zKdvhVeoyDA+C4e/Nk978RePA
-	O5cpA9Zb6A0z83V2eeHV8vNRW1e8X8b9WkYeQIxvRe2RtTzZe6LhCGo5PaSxrR7PJzp5gNbSLsa
-	W5A2p0ehEi40Cpyung/grdBPMTgdDtyFmy7wRiUFgDTOP4rW9Z7pxmDfFwA1kUrn7AB/RVj/BJN
-	v5krxtTbIRSYOCUZvHgBqWIG7eO8FXQ+PaFNiZN3q42YrWMZt5SumLGw+YN7uCDgpgjFpSG2Bjb
-	LJNgXk5PQi184jKCZiDfVbdkAkJTcCpelptpyX4iZdCT4C3ciYEcaMxlJnButQ1ptvIaMVd9aWv
-	qLkAmUDOVXvF+tOIIdUCFAiVXf9LeA==
-X-Received: by 2002:a05:6808:c3ea:b0:4b9:e5fa:8a17 with SMTP id 5614622812f47-55c002f98efmr4375364b6e.28.1793028413958;
-        Mon, 26 Oct 2026 08:26:53 -0700 (PDT)
-Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c0424973bsm5788711b6e.6.2026.10.26.08.26.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:26:52 -0700 (PDT)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: linux-rockchip@lists.infradead.org,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH] arm64: dts: rockchip: Add icm42607p IMU for RG-Vita-Pro
-Date: Mon, 26 Oct 2026 10:26:49 -0500
-Message-ID: <20261026152649.1576867-1-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=hXcHUx7gta3QYy8zKukEnpiFjOMOzlxILH6yhsvVS3k=;
+        b=pwmFHGwq2+eJrkLKm8dDMvq8uQg5Mc6A8CHZazdwStE6A/se8mf8U39OEHURj3CAF1
+         WSRA5/MZS+yLmSHCY8Zv1ICuUzHNp7KTeWQk0uNR7ZbnYkTm9X2PfIlJZzc0CMFcS2Zc
+         oSRvB6VzhaYvmJi2pqzKorS06wcYOGYJk0NRn5uxSL+OovIxFljuP/yxj9q976HOFAQp
+         cMDrlfS4RQWhODISe4Mw62hX4JhewPP8fc21DqB3fafctYei0ITbw2rX79sSuRJq1Rur
+         xcwUv+B3+qiqbWC9u9dd/fa4fx1iiQPiDiKfYuiHyHaqneNmr6HQLadyvjTiR7q13+iL
+         7C5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxAOsQxP/Ic5SqCTgdUUTnvjZqL8Krom4/MYFwMBRQnRyodVJ8rGNuPY18DB+7EZ/9DRtKlDB/7R+Xm@vger.kernel.org
+X-Gm-Message-State: AFq9FYLi8gShHez93MmerpT5sVNGzwgznHRexwCnX/ZpSIC7E91R1u7t
+	iRAIUMxQlepTF8b1k8OnpfYq92O05dfsuINxnUu9BsbM+UgKBeIpW3LajlrIW/AO5d+9qIriXLK
+	bpsdNUCLuarNoDaG5/Dy7kDlVLt+TiqgzGewNsw1P2k/O2KauiUm+NNkDxf7nW4FqQIhYzEyO
+X-Gm-Gg: AYBFou0NRqVEDJKB+ona+SQHurJfoKqknAlrsQE4P9Y3MhxZNNrJq33skpfn5AdBrD5
+	vI8unfcAfk1//AUzpG3r5cCX+NS34TB4luSdGlHjSt/EdlR3qx5qMRWGrn3/oyyQWqo6f2f0cYP
+	Ptc5aV5WD11eghm5XAwBGlLRClbSAaCZ5fvAD1XQOleYJEpYptWMCoNJ2wwPhqDihJUXOTsPB5I
+	fnKyxJ/oIr77g3Wr13E0O8l0ya+ZImHRuFvbCASDOfFFodQDZgH/Omy6FFv+xY+R+PTcQ1UAmK8
+	v9HSHDLIApRtZHSlY7QvSEW01bQWyPb92zA58Q14fOL6VEc5+PR8fbE/Rdyhi8Rgh9WJc01/C5E
+	Q7XKd+bziGvi9Bz6VhC0lKg==
+X-Received: by 2002:a05:6123:593:20b0:5ca:7731:d376 with SMTP id 71dfb90a1353d-5ec2332bf58mr2107147e0c.5.1793028511367;
+        Mon, 26 Oct 2026 08:28:31 -0700 (PDT)
+X-Received: by 2002:a05:6123:593:20b0:5ca:7731:d376 with SMTP id 71dfb90a1353d-5ec2332bf58mr2107120e0c.5.1793028510938;
+        Mon, 26 Oct 2026 08:28:30 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e9968sm334450866b.17.2026.10.26.08.28.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 08:28:29 -0700 (PDT)
+Message-ID: <652f45a3-8af3-4460-a081-30f67bee400a@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 16:28:27 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,44 +115,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: enlarge
+ reserved_mem1
+To: Roman Linev <admin@mswin.me>, andersson@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        barnabas.czeman@mainlining.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260821032541.1856299-1-admin@mswin.me>
+ <20260824155535.335494-1-admin@mswin.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260824155535.335494-1-admin@mswin.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX2TYURTVhl9oQ
+ Bphivg8r+eUHVg012Mi4s9+sacVvhoTgXW545m/pcmT72yHF6Zaz9k4BuQhu/yt0zGrAXgLo4WH
+ kA8sFDE9zn9S69FOUOnUXd6bSJwezAVThKcC4GAzk+m4Lt34n7+QcDhnA8FnSD0VZmNN/we4g/i
+ A57PANZ3iSleJiP0bx1r5RoC6kU6+TrbrVuPaq0Hx8QjiFnLucv1xbcXW62CChywBoDITjC6rnd
+ Glkqx7dhnTEMkFSdR/O8ss0hr1c+gRo9FgnPjba+w3QFOMup4sZ8/uslYN8qitYCxbsExjJrWEM
+ Gx5iQtRW3P8W6oqvH8px87Hk3d3OH5v/atFcE8vVVRpBm7urOICSo4Js0hDcpUh9dmgnd3tnlM3
+ pa/dKd2ZXn2rf0h4Xeeydv0LYiJjnhxu1QEubjJDzp4RELfrOtHMSUkCeEd0XkK2WbpnyLM6EcB
+ lGQvn/IoJDQwxTt2+DQ==
+X-Proofpoint-GUID: fRoByXk-IIykchqy8_g5TFKHqICMab1-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX1/ATOpr55yyd
+ UEQd7esALHKVVHKYi3Tlcw+XJgN1hQzWnDen80acZTi7x4UC66wMDQ9ZT0q6bm+Akok/vYOFdVM
+ 9nGdUbNa5U/mn0mxqeDQ4Xr2UmOUvrU=
+X-Proofpoint-ORIG-GUID: fRoByXk-IIykchqy8_g5TFKHqICMab1-
+X-Authority-Analysis: v=2.4 cv=TboDJhQh c=1 sm=1 tr=0 ts=6adf71a0 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=p94XzNcQMd10UbPFJ04A:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ spamscore=0 clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260061
 
-From: Chris Morgan <macromorgan@hotmail.com>
+On 8/24/26 5:55 PM, Roman Linev wrote:
+> sm6125.dtsi sizes reserved_mem1@46200000 at 0x2d00000 (45 MiB), so it
+> ends at 0x48f00000. On laurel-sprout the firmware owns more than that:
+> the downstream device tree describes the same base as
 
-Add the Invensense ICM42607P IMU for the Anbernic RG-DS. Mount-matrix
-was tested with iio-sensor-proxy and reports correct orientation.
-Orientation is relative to panel physical hardware which is rotated 270
-degrees in software.
+[...]
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- .../dts/rockchip/rk3576-anbernic-rg-vita-pro.dts    | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+> +/*
+> + * The firmware carveout at this base is larger on this device than the
+> + * SoC dtsi assumes: downstream laurel_sprout describes it as
+> + * removed_region@46200000 with a size of 0x4900000, ending exactly where
+> + * camera_mem begins. The 28 MiB past the dtsi's 0x2d00000 is not the
+> + * kernel's to allocate, and handing it to the buddy allocator wedges the
+> + * machine under memory pressure.
+> + */
+> +&reserved_mem1 {
+> +	reg = <0x0 0x46200000 0x0 0x4900000>;
+> +};
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-index 358dea43f9b6..15d724b72ba1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-@@ -819,7 +819,18 @@ regulator-state-mem {
- &i2c2 {
- 	status = "okay";
- 
--	/* inv,icm42607 IMU at 0x68 */
-+	/*
-+	 * Mount matrix relative to panel physical hardware which is
-+	 * rotated 270 degrees.
-+	 */
-+
-+	icm42607p: imu@68 {
-+		compatible = "invensense,icm42607p";
-+		reg = <0x68>;
-+		mount-matrix = "0", "1", "0",
-+			       "1", "0", "0",
-+			       "0", "0", "-1";
-+	};
- };
- 
- &i2c3 {
--- 
-2.53.0
+Please update the common DTSI, it matches the reference fw map
+and I'm very surprised the sony phone didn't crash without
+that reservation
 
+Konrad
