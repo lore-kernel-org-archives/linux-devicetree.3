@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793054340;
-	b=lr/6EjbrVRrXnh07f0brjnNE5GTwu11V3mtLgzAt1bOqEug0nxrkQ+2UGd/BXcI4fQo/
-	 gn0sx8akk0Fulp/4l2QTj3GdSqFHtEmmJURx1U3Aq9xTcgh+VzhXIxA2KjmEa1G8nain3
-	 eeDzC/TcB3zDAHnoONOrPSzx39mpvZOkMHZmfrBXR+rwXmy8CUndEatxvjkgFSy4G6U6o
-	 TdTGx7F36QVJa1sROXfTMJ0HCgcnZm9+NMq5kZlMTV6l7lGrYhgIY/OlBuqOfWjBrOgCo
-	 +1VvZbJfS2OnInBWamYQiEHVZx+fWRzHiRFK8F9J3WtGusRPeUJMW5+6Te+CRFsZKMA==
+	t=1793054357;
+	b=g3iVQrqSO2J50mhdhTVksU2mOUp5en9w1sygvtiOa46UnbNdO6f2tbYvspk0O1WE6xIJ
+	 hC3XExHoKiFdcJHcoov0wI6tptDB3do6iQJfbL8jDVBaStWX3grbEcYok1wiFyKiPURnc
+	 q6p2FIzKD0iBwa8d8x+syhxCQIj11QEUIpIEFb7OwaBy0MhU7zAsD8s+bCk6Eexw2RAc5
+	 bDR1FdUfrfKrlaHBktGDH+f6DXQaWLINz76qXf2XKhC9wdjYlJdgVNyDu3icRv92X8bq+
+	 XkZvtBgnvaSdXKPYoDzFYu+/WRoIZjYkOVq//jkQZrMJgwm4ybcAILv0Hkp5pwyvsjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793054340;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=FTKggi0RacZ9ZRgKp/gx5uvsP4Zzh5sa3f9zHGmidIc=;
-	b=MhiBcjI2SJpiZQWf7Zj3t7NlZw0tTnI+dK7iZ7p5lY5hTNyw0lfjzy3eUld+G143SUkn
-	 xhqZ0WP9aYWTMVPiMcjdMeek3RXROLvVTg2TKzXEgxFcqhDvGKvEcV2dNBvZpRU0R1PjM
-	 b/7K0qJWzI+AUQPxFHDdOaAnUWMCrH8zhHgPcvRQY4l+dcDM8RUklKmZiugOqojPVKtRN
-	 OeipsUJjei7Rb2IdcCaM7RVBgeM+aFGMzNHIJhRn6AfwBHjK1OTuvGhMZ89ykPTnr5Jae
-	 SewHSEpa4KcqsUoHBF5xCnDmBfYum35wDWp7Mt/3r9x2u8lYlPkTY1sMarggJgp9nvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054357;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
+	b=c076crNE2dkRpET8uaY+Q9FOQ6/XgYe00R/LGuncC6bt7+AIswTT+b8NsBbfx8HnAlbZ
+	 zDITcJHiJiP8FjETbya2bSle2/dpjgS0U76KZlpTAXfRQXJxn3QK/zJtBmjc5AnkupXEi
+	 bP3PcALXehql+v3Khh0zmXPes6NvhhcdK/gkc3obGai775HTd4AAygCbQer06fNZe36pR
+	 AGEplEf4j9XnxOAKrL3QnD7xD8r1FfnsjLYEiV3ukTud6ftR2mMKPcKjEGUlGMa6i3bbv
+	 yC+qjF22euwqM7qzCSla8XsFzk5L6nmLoyDJdun8kh7MdmH09LFCcoJvBgRbbiu2Wlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=MdY20Q+9;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC23606A31B;
-	Mon, 26 Oct 2026 22:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FC23606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68F0606A31A;
+	Mon, 26 Oct 2026 22:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=MdY20Q+9
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id LKuExB5Jfc3XsLTLHxaxYa; Mon, 26 Oct 2026 22:38:59 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LTLExgZ7GJ2XTLTLHxMNyn; Mon, 26 Oct 2026 22:38:59 +0000
-X-Authority-Analysis: v=2.4 cv=Lfg86ifi c=1 sm=1 tr=0 ts=6adfd683
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=V4Dx7h__d2wgc-tc1C8A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=FTKggi0RacZ9ZRgKp/gx5uvsP4Zzh5sa3f9zHGmidIc=; b=MdY20Q+9CL1J71KupKdI+SnPrO
-	SzurKl9K7p6xIIb2j8tDVeeMTLPjlzg9ZHcHj3YZD14A2BAaOidqgGpFHZN4IlCaox9NgtRhTLEz5
-	QAS5NQyAKWxPB2wiKQwm7JITkbU8yJ3UWWwk7J6Idro4ZBxxNHKWHnATJHQI3WStxNDlTZ/P9yBiU
-	gmH3UWPtZg2j59RUNXxSdI38O2RWW6aWyod/tle6r0rlIq5tmOpHHYHcmW9NmhjxjtTJYadCS9PLl
-	zRF46coEz/A1QguHCgBafIl3RmjYbmLljJ85WYXuRfwgOcn/AF1zVnlSj8t1vmEnHuBw6yAkQDRl0
-	4Rpnq8CQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48554 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLSrE-00000003s0a-248u;
-	Tue, 27 Oct 2026 03:37:56 +0530
-Date: Mon, 26 Oct 2026 15:07:55 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Robert Marko <robert.marko@sartura.hr>,
-	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
-Subject: Re: [PATCH 4/5] MIPS: Alchemy: Use the GPIO watchdog driver on MTX-1
-Message-ID: <25597f7a-2972-44bc-aec5-76e81519af31@roeck-us.net>
-References: <20261016221617.2223004-1-f.fainelli@gmail.com>
- <20261016221617.2223004-5-f.fainelli@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC381F01829;
+	Mon, 26 Oct 2026 22:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793054356;
+	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PUX9S7YRj/qhqjUPrrVxXucchCSKzIfyOnLi1ZgqVBHqJy6FOi7Hqoa3/yAQK8BBY
+	 4+WXC61g5wYSclM1etoWPajx7FqMnH3i03PuFoOlxsa5dMSVPCbKm3ashx94dzCyHf
+	 4Id6H1oZBqwuxoeP2KEF3FKEkYTyALJtsB/io0r7dZZ/CC34RZcvHQtTG1JVOJLoev
+	 c/dNQsPnvd7CsFDLufIOITFCEIVy8+XwZHFxR0+FWgX8aNXXxBrs2pQOIDMzxpKhUn
+	 2y0q4fdvKHMz3oC3WMHMRiA/GcUHM8spzQSyejcwS4MgqGfQMQQTRC6OqC4qRoRzgT
+	 B69yH0CzYJlIQ==
+Message-ID: <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
+Date: Tue, 27 Oct 2026 00:38:57 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,51 +51,274 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016221617.2223004-5-f.fainelli@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLSrE-00000003s0a-248u
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: sunilmehra.co.in:/public_html
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48554
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 69
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfKFbN81vSbxLh6oC/qCYGJglMTmON1XeSn2fiDHWrS1yBIvk6GUSIZxu0fSlTagph2YNwdsqM3JRqQUvacN3/x+bjf96Cvd/gsk0bLsOLT0uluT4mL1F
- WgWmp4LOSbTJH5bpvpFiTf+mh2FNvMTLUXXYCoufBKoedTPRqKRmoUVd1hEHHJQlbyICTZMOvUPKqOIpFRzblw6/TVM8x7Tfyj1Wbe1To4d0Eii3Ej1FVDRU
- V7jagT3jghQ6+s+9o+sbx2WwYyvTchs6J4GSjaZyQd+1W0uJo7wcHg7FIbA7wRGAg5YEH90JNACi3XCr7Q9FRg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-5-vz@kernel.org>
+ <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 03:16:16PM -0700, Florian Fainelli wrote:
-> The MTX-1 watchdog is serviced by toggling GPIO 215. Describe its toggle
-> algorithm and 1.6-second minimum interval through the existing software
-> node properties, and register gpio-wdt instead of mtx1-wdt.
-> 
-> The nominal 100-second circuit reset the test board about 82 seconds after
-> starting an unclean-close test over the serial console. Allow for circuit
-> tolerance and console transmission time with a conservative 70-second
-> hardware service margin. Keep a 100-second initial userspace timeout and
-> let the core schedule keepalives for the longer userspace timeout.
-> 
-> Mark the watchdog always-running so the core services it before userspace
-> opens the device and after a clean stop, without trying to disable the
-> hardware by tristating the GPIO. Enable GPIO_WATCHDOG in the MTX-1
-> defconfig.
-> 
-> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-> Acked-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Hi Loic.
 
-Applied.
+On 10/26/26 18:32, Loic Poulain wrote:
+> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>
+>> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
+>> the CAMSS input ports are connected to output ports of CSIPHY devices.
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
+>>   1 file changed, 167 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> index babf1a4196a1..7f5b0501a23e 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
+>>                          };
+>>                  };
+>>
+>> +               camss: isp@acb6000 {
+>> +                       compatible = "qcom,waipio-camss";
+>> +                       reg = <0 0xacb6000 0 0x1000>,
+>> +                             <0 0xacb7000 0 0x1000>,
+>> +                             <0 0xacb9000 0 0x1000>,
+>> +                             <0 0xacbb000 0 0x1000>,
+>> +                             <0 0xacc6000 0 0x1000>,
+>> +                             <0 0xacca000 0 0x1000>,
+>> +                             <0 0xacf6000 0 0x1000>,
+>> +                             <0 0xacf7000 0 0x1000>,
+>> +                             <0 0xacf8000 0 0x1000>,
+>> +                             <0 0xac62000 0 0x3000>,
+>> +                             <0 0xac71000 0 0x3000>,
+>> +                             <0 0xac80000 0 0x3000>,
+>> +                             <0 0xacc7000 0 0x2000>,
+>> +                             <0 0xaccb000 0 0x2000>;
+>> +                       reg-names = "csid_wrapper",
+>> +                                   "csid0",
+>> +                                   "csid1",
+>> +                                   "csid2",
+>> +                                   "csid_lite0",
+>> +                                   "csid_lite1",
+>> +                                   "tpg0",
+>> +                                   "tpg1",
+>> +                                   "tpg2",
+>> +                                   "vfe0",
+>> +                                   "vfe1",
+>> +                                   "vfe2",
+>> +                                   "vfe_lite0",
+>> +                                   "vfe_lite1";
+> 
+> Is there a camss "top" register to describe here? e.g. to retrieve the
+> CAMSS hardware version.
 
-Thanks,
-Guenter
+I'm not aware of anything like that. What is "CAMSS hardware version"?
+
+CAMSS embraces various blocks, there are CSID and VFE, full and lite
+IPs, and all these components do export their versions individually.
+
+>> +                       clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+>> +                                <&camcc CAM_CC_CORE_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_0_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_1_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_2_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
+>> +                                <&camcc CAM_CC_CSID_CLK>,
+>> +                                <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
+>> +                                <&gcc GCC_CAMERA_HF_AXI_CLK>,
+>> +                                <&camcc CAM_CC_IFE_0_CLK>,
+>> +                                <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_1_CLK>,
+>> +                                <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_2_CLK>,
+>> +                                <&camcc CAM_CC_IFE_2_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+>> +                       clock-names = "camnoc_axi",
+>> +                                     "core_ahb",
+>> +                                     "cpas_ahb",
+>> +                                     "cpas_fast_ahb",
+>> +                                     "cpas_vfe0",
+>> +                                     "cpas_vfe1",
+>> +                                     "cpas_vfe2",
+>> +                                     "cpas_vfe_lite",
+>> +                                     "csid",
+>> +                                     "csiphy_rx",
+>> +                                     "gcc_hf_axi",
+>> +                                     "vfe0",
+>> +                                     "vfe0_fast_ahb",
+>> +                                     "vfe1",
+>> +                                     "vfe1_fast_ahb",
+>> +                                     "vfe2",
+>> +                                     "vfe2_fast_ahb",
+>> +                                     "vfe_lite",
+>> +                                     "vfe_lite_ahb",
+>> +                                     "vfe_lite_cphy_rx",
+>> +                                     "vfe_lite_csid";
+>> +                       interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 640 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 641 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
+>> +                       interrupt-names = "csid0",
+>> +                                         "csid1",
+>> +                                         "csid2",
+>> +                                         "csid_lite0",
+>> +                                         "csid_lite1",
+>> +                                         "vfe0",
+>> +                                         "vfe1",
+>> +                                         "vfe2",
+>> +                                         "vfe_lite0",
+>> +                                         "vfe_lite1";
+>> +                       interconnects = <&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
+>> +                                       <&mmss_noc MASTER_CAMNOC_HF 0 &mc_virt SLAVE_EBI1 0>;
+>> +                       interconnect-names = "ahb",
+>> +                                            "hf_mnoc";
+>> +                       iommus = <&apps_smmu 0x800 0x460>;
+>> +                       power-domains = <&camcc IFE_0_GDSC>,
+>> +                                       <&camcc IFE_1_GDSC>,
+>> +                                       <&camcc IFE_2_GDSC>,
+>> +                                       <&camcc TITAN_TOP_GDSC>;
+>> +                       power-domain-names = "ife0",
+>> +                                            "ife1",
+>> +                                            "ife2",
+>> +                                            "top";
+>> +                       status = "disabled";
+>> +
+>> +                       ports {
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +
+>> +                               port@0 {
+>> +                                       reg = <0>;
+>> +
+>> +                                       camss_csiphy0_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy0_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@1 {
+>> +                                       reg = <1>;
+>> +
+>> +                                       camss_csiphy1_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy1_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@2 {
+>> +                                       reg = <2>;
+>> +
+>> +                                       camss_csiphy2_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy2_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@3 {
+>> +                                       reg = <3>;
+>> +
+>> +                                       camss_csiphy3_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy3_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@4 {
+>> +                                       reg = <4>;
+>> +
+>> +                                       camss_csiphy4_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy4_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@5 {
+>> +                                       reg = <5>;
+>> +
+>> +                                       camss_csiphy5_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy5_out_ep>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>>                  csiphy0: phy@ace4000 {
+>>                          compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
+>>                          reg = <0 0x0ace4000 0 0x2000>;
+>> @@ -3349,6 +3510,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy0_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy0_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3393,6 +3555,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy1_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy1_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3437,6 +3600,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy2_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy2_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3481,6 +3645,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy3_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy3_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3525,6 +3690,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy4_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy4_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3569,6 +3735,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy5_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy5_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> --
+>> 2.53.0
+>>
+
+-- 
+Best wishes,
+Vladimir
