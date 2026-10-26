@@ -1,93 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793011229;
-	b=BvDCqCdeKN8N6URYJ+As0F6P6P0QVK8qm6kWE+dC/StCQsG06TuRnpZvaWdbUR8e94KW
-	 8jzyWrghUztTZCGdkNqecrVPL88hMukDgSYtC/E6QNcmp9toR3V/z+TH3VqUTIMQx+wrQ
-	 R1kEXkw5HPBfi1LoH+xfF8CfPmCnD2Hg/3u7Goh4c5pSkoCXjigUR+VqJ9/dHdTKf9eNm
-	 uM7x2lEqUXTllOuqJOVQcJyE2Db9tYbNS4oyJVaSELghXZjHt/p1q7XXDQ6arbnPzYZms
-	 Ae4o94gfM0V9p2aj9vkaogqyv/ieNvcJs7bf+x4yryQh/08qIOeDyVp3vMxb30gFNtQ==
+	t=1793011313;
+	b=VJlWEIZ9xsf7xpMIhBerw6h7B108bMoh+Ome+jaCV8Lz8LbG9vjI3MOxGlATUAFv68Uo
+	 b/WdzqpdhKHAoTctNqtpVNkqoHFzdmSiyyiuV71lUqGz6ZSsG8aihl+wUW9xdTbxy+qS3
+	 XZY86UGRxCv6AfEvm1Gf2OdUx6DvlBjhie8y5gL3SP+fsJRLTnMXmZlfz0w4g2fj5eWTF
+	 QDkssHCY0iRxgJrMaI1lpMeUYIZimJpkgkErU05dLABZywURnMeHFCui5gg3NsuNsLyRg
+	 E3qCskbh1oAV8kpz1VwQDtSWPWAzV8xoNG4D2h1I4wHgfqVVwWKNAXSzrqMN36yp3Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793011229;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=cV0613HkIy6oDcHR5pHciUveYweuUKAGb8FXSxW3Ddk=;
-	b=UCfXo7TPsovEsjSBdTI5rH8FdWi/WFFYkH6of3r7u8JpgxzJQ1bRKqYY+ZMQNEJNmpkL
-	 7cBCx0NIQEng3iSPIjnJWVhMQ0lbYSkW81INvrfrQIkzlOkFIgZwQAjFr04TjmJrIseb+
-	 AH97x4Wrh4KMveFaGxWVNUnS965QcaIE+3ysZcDiGJw7xLkqBfy7hCF4pE2gN1EM7AMh4
-	 yHtRPZKqMYQfHTndULR16t9CdUx7jNMyL4A181NsYRCKQq+Mcrm9OBgrStty8tA3ld1Z4
-	 kamk5GW2o1hABEHwGaN4eKEKNik3utKtRRtB7Q2SH4ZEaglyqvgeNZcBQPPUfZJ7H2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793011313;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:Organization:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Virus-Scanned;
+	bh=KvDGt/SRGq4OwemsueeHKMWOsPxmzxj7gt+ZtB5TDoQ=;
+	b=A641kwNyWy+EbCKd11/8HxDaLk1UIRktW6it9tAXBrtFcS8gjVQjUIEZoJD5ZlrrCtbJ
+	 kB/luhBJ/7RIuDMKqmUiF+ds7Ejwvp9UvqXAeF4kpajc7EM48hGD2kP5jjVVgF6TjTXbL
+	 JICiqHD9pWlw8kqdl+8Fb8hqMXbysJtjkDUxe92F4H/eEzif1nXOKKDRaCzhYn2Z569Di
+	 3VzVQ+CfWATCJYySDdpIclYxcHQiRculSzf+9hPdw8k08HQOzUthHmktIyPVD6l4cNYx7
+	 N0vyqQ84W9BbwSZbSDYMH9suLlpoPT20npeya7AP77QPqrberKfjJyzO73x61JXkbIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OlxKvaFx;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ew.tq-group.com;
+	spf=pass smtp.mailfrom=ew.tq-group.com;
+	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=MFad3Qp5;
+	arc=none smtp.remote-ip=188.40.3.216
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033DE606A31A;
-	Mon, 26 Oct 2026 10:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 033DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE484606A31A;
+	Mon, 26 Oct 2026 10:41:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE484606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OlxKvaFx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793011228; x=1824547228;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0/Q8KSTo0adxm5V8+rvOuCbruYkK+f5oqI4EGetOZUs=;
-  b=OlxKvaFxaseF7IbyPAACeHlZln3IUETOIKKYPxuF5CfSh3Pw+WQV+eU5
-   1FjgRiGQ8tUfJwmEl4JETDjNg2Uxx8NLwVhtfx2Xz3kx3PeZ+0bOY6Jhp
-   82smqGvJvLQOflV/643Pqecr69/lsVSzpMMF18A7wBBCEsbl7ZHGFIK6O
-   a933mFZCszCF2JdmKg9h7jodrDsszN7BkKAUREFRnWJGKFNs+SPORWh5I
-   /zhzu4bgPuEu0kYAYrP/gLwhXxD03W0Vpl2R+yxhiaOInRSMBQYfC8i3S
-   GUTgTAa2y+FY9qCa/KTdPVHOiBFsFKqeUKXfzkmyiIR6mVKadkXWRKOVP
-   g==;
-X-CSE-ConnectionGUID: yOm/syLARwOOhgEkmkfsxA==
-X-CSE-MsgGUID: PCwhZI6tSaWNuXh3PMwg4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1564747"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1564747"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:40:27 -0700
-X-CSE-ConnectionGUID: uynkbYzyQsm+WZ1I78OQRA==
-X-CSE-MsgGUID: 2U+XNF39ROSidvrT8TCMtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6089682"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:40:23 -0700
-Date: Mon, 26 Oct 2026 12:40:20 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Prabhakar <prabhakar.csengg@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
-Message-ID: <at8uFFHk7DHH9e1l@ashevche-desk.local>
-References: <20261023175919.160103-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261023175919.160103-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <atyKo0pTYZyt5XJc@ashevche-desk.local>
- <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=MFad3Qp5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=KvDGt/SRGq4OwemsueeHKMWOsPxmzxj7gt+ZtB5TDoQ=; b=MFad3Qp5Vnc/Y/7ivVaTeBE+8W
+	eSSk8wtCZjsQ3SkjA+9L9KvlNjXIn6WVIuuMW+y+lp5DUXWKIQHfKXeBCjz60Y5jlH9S6zexKEVgp
+	N94EDEGiiu+GdpC4Ljwod3udKQaT+9a0AmYE5dNtuGmmFzqRtgawVfmVEjQs8aU2bA+scoQC/jVm8
+	/8SzWY7qcDG0KAWNjT7ubW7LKnueD/czINcbYiuqkWnErjt2+q+S2G+55Xp22GyduannGH+QGSdn1
+	fyvk3bRp4y6uHUa2i5QZytWla2lpU/WsLMA88VufRhZt2cHyPR4O/jXZMeURIPLrfojjqcWUw7lFO
+	77gqjGaw==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xLI94-000Jam-3A;
+	Mon, 26 Oct 2026 11:41:39 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xLI94-00053P-0p;
+	Mon, 26 Oct 2026 11:41:38 +0100
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+ Liu Ying <victor.liu@nxp.com>
+Subject: Re: [PATCH v7 10/15] drm/imx: dc-ed: Support getting source selection
+Date: Mon, 26 Oct 2026 11:41:36 +0100
+Message-ID: <2873454.mvXUDI8C0e@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-10-a0b50cc4fc65@nxp.com>
+References:
+ <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-10-a0b50cc4fc65@nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,49 +89,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdV8Q9UKrpoZuZfDUutrG=bOwcNWLnht1bufv0YVXJPNDw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Virus-Scanned: Clear (ClamAV 1.4.6/28165/Mon Oct 26 07:27:07 2026)
 
-On Mon, Oct 26, 2026 at 11:14:53AM +0100, Geert Uytterhoeven wrote:
-> On Sat, 24 Oct 2026 at 12:38, Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> > On Fri, Oct 23, 2026 at 06:59:19PM +0100, Prabhakar wrote:
+Hi,
 
-...
+thanks for the patch and adding me.
 
-> > > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
-> > > +                              struct iio_chan_spec const *chan,
-> > > +                              int val, int val2)
-> > > +{
-> > > +     struct rzt2h_adc *adc = iio_priv(indio_dev);
-> > > +     u64 req_scale, scale;
-> > > +     unsigned int i;
-> > > +
-> > > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
-> > > +             return -EINVAL;
-> > > +
-> > > +     req_scale = mul_u32_u32(val, NANO) + val2;
-> >
-> > But what's wrong with the simple 1ULL * val * NANO?
-> 
-> IMO that looks like a useless multiplication, which will be removed
-> again in some future "cleanup"...
-> 
-> There is a reason the mul_u32_u32() helper exists...
+Am Montag, 26. Oktober 2026, 11:05:15 Mitteleurop=C3=A4ische Normalzeit sch=
+rieb Liu Ying:
+> Add a helper to get ExtDst source selection.  This is needed by
+> disabling CRTC at boot in an upcoming commit which tries to get
+> the source selection.
+>=20
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> --
+> v7:
+> - Collect Maxime's A-b tag.
+> - Check regmap_read()'s return valure.  (Sashiko AI bot)
+>=20
+> v2:
+> - Collect Frank's R-b tag.
+> ---
+>  drivers/gpu/drm/imx/dc/dc-ed.c | 29 +++++++++++++++++++++++++++++
+>  drivers/gpu/drm/imx/dc/dc-pe.h |  1 +
+>  2 files changed, 30 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-e=
+d.c
+> index de1b71315eab..67163dca1363 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-ed.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-ed.c
+> @@ -149,6 +149,35 @@ void dc_ed_pec_src_sel(struct dc_ed *ed, enum dc_lin=
+k_id src)
+>  	}
+>  }
+> =20
+> +int dc_ed_pec_src_sel_get(struct dc_ed *ed, enum dc_link_id *src)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(ed->reg_pec, PIXENGCFG_DYNAMIC, &val);
+> +	if (ret)
+> +		return -EINVAL;
 
-I don't see that. The 9e3d6223d209 ("math64, timers: Fix 32bit
-mul_u64_u32_shr() and friends") tells a different story.
+Shouldn't you return ret here instead? With that fixed:
+Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 
-> > > +     for (i = 0; i < chan->num_ext_scan_type; i++) {
-> > > +             scale = mul_u32_u32(RZT2H_ADC_VREF_mV, NANO) >>
-> >
-> > Similar Q.
+Best regards
+Alexander
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +
+> +	switch (val) {
+> +	case LINK_ID_NONE:
+> +	case LINK_ID_CONSTFRAME0:
+> +	case LINK_ID_CONSTFRAME4:
+> +	case LINK_ID_CONSTFRAME1:
+> +	case LINK_ID_CONSTFRAME5:
+> +	case LINK_ID_FETCHWARP2:
+> +	case LINK_ID_FETCHLAYER0:
+> +	case LINK_ID_LAYERBLEND0:
+> +	case LINK_ID_LAYERBLEND1:
+> +	case LINK_ID_LAYERBLEND2:
+> +	case LINK_ID_LAYERBLEND3:
+> +		*src =3D val;
+> +		dev_dbg(ed->dev, "get source selection: 0x%02x\n", val);
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  void dc_ed_pec_sync_trigger(struct dc_ed *ed)
+>  {
+>  	regmap_write(ed->reg_pec, PIXENGCFG_TRIGGER, SYNC_TRIGGER);
+> diff --git a/drivers/gpu/drm/imx/dc/dc-pe.h b/drivers/gpu/drm/imx/dc/dc-p=
+e.h
+> index f5e01a6eb9e9..0b81dc6b251c 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-pe.h
+> +++ b/drivers/gpu/drm/imx/dc/dc-pe.h
+> @@ -85,6 +85,7 @@ void dc_cf_init(struct dc_cf *cf);
+> =20
+>  /* External Destination Unit */
+>  void dc_ed_pec_src_sel(struct dc_ed *ed, enum dc_link_id src);
+> +int dc_ed_pec_src_sel_get(struct dc_ed *ed, enum dc_link_id *src);
+>  void dc_ed_pec_sync_trigger(struct dc_ed *ed);
+>  void dc_ed_init(struct dc_ed *ed);
+> =20
+>=20
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+http://www.tq-group.com/
 
 
