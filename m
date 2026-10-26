@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793017532;
-	b=pyb0sYl98mUo1G6ZJ/irAn5r8BTQAgdW2joMBtdgdF6hiMNHIMaV+czHOLX6PoYgTv5R
-	 S4dT+vqaITnphJxtWL/1FX6uaLurvgr+9okRwNTPBpzl/rUFBax0c3BhWtzhxIjBcVT8d
-	 FgcnDSsAN26450u2/1Ik/kIsyCtmv1za0lMDAP3bYXd2exlgiVqtPfV3KXVwiZITrjuUl
-	 fhnc6ts4XHjyvm2SmGU+NZf62h0h6U5DbaslJbrdvfklt+8xZ5GhaTu8Hj/7dPYUF29oU
-	 5GOxOAG+ANbpt+1O9mNmnN/gOYH8VsCSc0yORg7un5WJ0VBScm6IaEqkwaKBwmLk6Vg==
+	t=1793017922;
+	b=TCXj6uzqcNMIyQkgtIIok85QXRxTZgYbM2Y2c+uSZxCFmTRyGt11LTI2s61p/7KD/muT
+	 6B15U7aDIDu6jAQPUEPxz/UVv/d+d4fYhfLUZCOstN8PQvT5QtZwtRPFnW4u9KiDYQ734
+	 DgdsKsuFf1w+K4/n1Iy5zk8cp4dQg7NIf9t3fVUlXxvub7nchZoDqqFCo3IRox9lSX3ub
+	 tSXMJmQy6XNCstxIzZhC/AiBqqQgRQv+Jf6LDmmPpChBIcWAD7bFuLK79MaVyGPqrm6GB
+	 RB9BRSalBLmtZ37+T8pct+jh0VhQQExlUizD/OhCqsMuMB+PcD23b3Z9Tvj5WJIuSyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793017532;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-	b=M6GsgHIG1hXNLAj8yPl/l2nSWrMaZ/QEDBxJstRUga0wYtRpt6ts8kUCledEL7u/9XqI
-	 nMA9VWZ9syHIDe7blQysqxJ2XcTCnTktm1ah5EkL48brwUA7LfH0bAsK+Wq3R2U9rQRVQ
-	 UwfbyD5L77/FiWCNy1NMSLF3Uy7qAXre79jaS3zVb0z+6hUVlUy2lkHrG+Euah+Kogcdg
-	 xVtZyMN/eJX55lZ3RqW7Ngw3MQuvh+x39hFF9EX5Kn1rkwKDHbaTeQK2fir/aLNAj1ks8
-	 BOIeCIE4Fm0l3Hop5gPbI0bMJEKnUF/uQNs7vd3gX2zaC5bclxFUrvZ5djydrieI+5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793017922;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=n4vj9UdlQuQU69tpB4POuZ9TjkQJc+GCVbAWOXKkV58=;
+	b=wy+SppyjIpKl6Gzk0MuIHSkrRfd//JjnjAvYDCFtw88XkfdxdO2M3pcrT3qV6UPIwFlU
+	 6KcZWT1CFm1EPdW0kOYnLPm/ZIXOi7+U5KlreXsNwSpKa/TJm/V5eZPHLu3JNC+4Ni77v
+	 /mtCdCuTy/wQxS6rScKvy5G1RAzzOMJOlplcRqoAWxS8XaVVOCAn3l5jj8/RKQdBO/iEC
+	 fr3TFvDc3Pz8sQP2n/wNHMgxNwBejflTe3R2BS06IXj9c3Wz3Ey6Ci2Qb7eWf01aHbzGK
+	 ps4fcDa7JmFvZLlrQgMBZ/Xo4Nar+gH0V5eacZg5LclQvOdxd9SOWUldMZdz60YmXpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G;
-	arc=none smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jyeat6lh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0298A606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0298A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBF1606A31A;
+	Mon, 26 Oct 2026 12:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WPjPMV2G
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so2138151241.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 05:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793017531; x=1793622331; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-        b=WPjPMV2GzhWEE5rB6rxz833ehsMAXDta3sOoZVRktCEdyknFwVsUHRtDGVizYRxiUF
-         A5aK+EQBPpgFkVgArRFSWn0A95GZvt2FzhgPqRdIUp2Ox1s9tJ6wVnGUjO0+IR3STb2G
-         oWcriSEJAIOUIoGa6UWmJJ5waV1c8RQ/ha7agfcknGH2LM2FJoa0fmpQaY8nNAVRystk
-         rECssJkyILd7Ze4hFYVNaD/uWDd0YbGMulbZN3CyIH+BWXWfaQcSpG2HtD6Huw7A14dP
-         u3Tp8g7XGn6Nhr3GiaXIhcrwkJttjeVmjSJxCITht07b4nxh9VScxAO/mbTQmLpJKGx+
-         z0UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793017531; x=1793622331;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uy/PqV0xn8AdfJOF2rmqxMZ7uFIic9NZvt40QP1514k=;
-        b=RPec1QGGvMgIgUW6ZPSMX9pWXp1VmzZzGEnqZsBGAWvr2R1GGGqzgv5o3IjXq/1HeH
-         RECJJuhZK+azvNSWlrGXZPlif5O8kYOOnat5yu6bW+iq5UEsFUz1BYWoC2Vvdjo18LDI
-         3ajNRB9GZkOADvtw0yiaCqAl+qei3xmJvKBeCMJWusReAtPrQ8BftFFfLNzskSC1bYWd
-         lwFn6Alz2zLqDEpFQjFw6J3ZJWIVLDsdhqlFMIGj22MOmem6vdn1GpGNryl2yb1YkPWy
-         /aI97WcmQdlYl4hJxFZFZG3CP1FysyVTXcpkzRHc6VmsiKyfth4MXUQS+x9XvY+jRaQS
-         EI9g==
-X-Forwarded-Encrypted: i=1; AKwUvBzqwRTw+ZUuODZLviiazDZdu1qcCjF8j3Rq8U3PX8AJtLH0pm9rXkQrgkO6nSIBjbbIiQbpZOlqVDS5@vger.kernel.org
-X-Gm-Message-State: AFq9FYJp3LeeidgaJAfQbTxG7hJejS+BcLTA2w5/cp4iGIydsIzY9Kfa
-	lD8HDG5Jzz32+D85j/Cj26srhb5KB1ta26OtmehviM5yq7F2qTgNYpFX
-X-Gm-Gg: AYBFou3HShiYdjGuoIW913mC1J8/QRpuBxEpPKOC16veYupab4JmDObNhs5hiJqwCVE
-	KAbKRDQkcDCQggjDiaCkxjrVOZfODZS2zBpBGO0SbParjFTJr2cWl+ZHcuBU79/By+nV5Otk3QL
-	XyhtjfkARfREfem9zVDvjTXygYOpb88Hrhddikx1QhOFFVjBxIFHmZT1+LEKfnILqAmI8XOY2D5
-	HFSq+8UezShbhP2DqRuW0TwuETnhvgAswz7w85u3glTr5+1MpoylXkOQs6yr/1dCAIEit55OjXZ
-	AiA6sKGpdAwjkD77ZZesoeiWTtEG+LqSHZxBijz3E6MxMCwerwMTL5hLUvZSrRosrrVYKbQNnDy
-	GKgnwx6Tg/EhoR55uhtGEbTjbM5mahVoC48VWzZWx0YAFBelDwD5w/4ij2qSZLj8n7mX8NWfgH+
-	UOZBgqu1mkKsosVJ6V6izQnYuf3wsYAyC1yJsCFnd2YYfG/XCJkU7r+DYqZ9AqIh9gaDaqHRx0Y
-	4eYhGqQNgd4dHBWOEPsPv93gE8J9oMndQ/NYb24GdwV2GwOHx9r9RVrCWFi4A==
-X-Received: by 2002:a05:6102:604e:b0:7cc:1b19:9258 with SMTP id ada2fe7eead31-7ce5ca1e48fmr1995133137.3.1793017530653;
-        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e7b7069sm8121766241.3.2026.10.26.05.25.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 05:25:30 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:25:20 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
- <ateQWqoTtXSBSBvm@SMW015318>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jyeat6lh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81481F01825;
+	Mon, 26 Oct 2026 12:31:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793017922;
+	bh=n4vj9UdlQuQU69tpB4POuZ9TjkQJc+GCVbAWOXKkV58=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Jyeat6lhqqe4xqdQIZ3z3a/sfEVkaxlVl/e2kFlLiH4wex4RGU5whRzUe47cJrUTE
+	 STEOKuJe+HAgzzW8BJsdrzCU11+Lgmg4hN+V6358zhICg2sXdWIXJKEOOPt3zovTPS
+	 Ogs+dWmCIL0fWiS7N9gSwj3A+iABv5JfheXf1nox92bEhnxjB7x5F5XZ1AXnr0DO8i
+	 jGQyWH521Gn2sgPOnkrY3uISNZCGpG0QJWaiySRRo+VKLj4Pw92XvdAmar21H0Hx8X
+	 AuJnQIXgSIK8+Jxm+V+03EMid6bVGA37sTM3oRXoZVElylfH+Y1i+u+rMFrMTJYVjQ
+	 7psVVkI/iKFrQ==
+Message-ID: <ea527310-f173-4546-948a-d275ff40ade7@kernel.org>
+Date: Mon, 26 Oct 2026 12:31:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,60 +51,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ateQWqoTtXSBSBvm@SMW015318>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges"
+ on a device node
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
+ <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
+ <99a419c3-81a8-4b37-b9c7-2dd56978162d@linaro.org>
+ <3_cePPPMBo_SOwJDa7jnPr3t5UWeJDb_FTzCsX8_RVql4u6ZrS-Aw_UCfhWYNllz4QZwHVwxm3dCG7UY3XZXnQ==@protonmail.internalid>
+ <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <a0ed3cf6-a58d-4a74-939d-62c9e6643b79@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
-
-On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
-> On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > >
-> > > > Add a device tree overlay for the VGA output available on the Apalis
-> > > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > > DDC I2C signals.
-> > > >
-> > > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > > an active-low data-enable signal.
-> > > >
-> > > > The overlay is also combined with the various Apalis Evaluation Board
-> > > > device trees to provide ready-to-use DTBs.
-> > > >
-> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > ---
-> > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> > >
-> > > what's difference with
-> > >
-> > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> > >
-> > > Is it possible share one dtso also?
-> > >
-> > > Frank
-> >
-> > Hi Frank,
-> >
-> > The Apalis iMX6 one needs to set up the connection between the IPU the
-> > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> > the bridge on the Colibri iMX6 doesn't have any control signals, while
-> > this one on the Apalis iMX6 has an active-low data-enable signal
+On 26/10/2026 12:08, Vikash Garodia wrote:
+>> https://github.com/devicetree-org/dt-schema/pull/207
+>>
+>> Perhaps splitting this into two patches as an iommu-series would be best.
+> Intention was to keep the patch to add iommu-ranges property as part of
+> iris driver patches to show the usage of this new property.
 > 
-> This make sense to use difference dtso to cover it. Is it use name
-> imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-> which can reuse for other similar hardware? Or we can rename it when reuse
-> happen.
+> I am fine either ways, whatever it takes for the maintainers of this
+> file to review.
+> 
+> Regards,
+> Vikash
+> 
+>>>            end = maps + size / sizeof(__be32);
+>>> @@ -258,6 +367,9 @@ void of_iommu_get_resv_regions(struct device *dev,
+>>> struct list_head *list)
+>>>                    }
+>>>                    type = iommu_resv_region_get_type(dev, &phys, iova,
+>>> length);
+>>> +                if (type != IOMMU_RESV_DIRECT)
+>>> +                    continue;
+>>> +
+>> If you look in iommu_resv_region_get_type() you can emit
+>>
+>>           dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap]
+>> as reservation\n", phys,
+>>                    &start, &end);
+>>           return IOMMU_RESV_RESERVED;
+>>
+>> on a mismatch - which is not what the code will do now. Mismatch will
+>> warn and then not map.
+>>
+>> So maybe dev_err() saying you won't map - in the new patch for reg.
+>> Either way this isn't a change specific to iommu-ranges.
 
-I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
-currently is, it's easy to identify the hardware it may be used with. If
-another board is added which uses the same interface in this same way,
-we can evaluate if it's adequate to change names for reusability.
+Sure the above needs to be addressed though because its not a straight 
+change.
 
-Best regards,
-Leonardo
+Before if there was a mismatch it would sill be mapped - now we print a 
+warning and _don't_ map.
+
+I'm not sure that's really what you meant to do here but if it is it 
+should be stated in the git log and IMO it should be a follow on change 
+_after_ the initial addition (or before it) stating why mismatched will 
+no longer be mapped.
+
+Because add iommu-ranges != don't map mismatched, basically.
+
+---
+bod
