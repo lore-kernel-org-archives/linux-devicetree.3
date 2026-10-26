@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005188;
-	b=0BtCYvetx2Q9SwYEtuZLruOnRmth+IH+HZrYDZIhFGGxfmbIilH5dJeyZOBUo1/EJqNf
-	 pV2D24BeCQBDIMAbHCRsbDK9EOxb61ErrQc+3y1aoriFuI/S44SWTRLDZwi61kxTDQQgG
-	 0V2pS6CFPrKU3M3JM04+08vypEfJNgINKv/k2O4vb/h0kerInuGRugWDk3jYrL9jcpXSE
-	 HxhkAayDZiBWCfR0XkyRL5QW25/6d+9C1LOhKAwlTjJFpTLH4RCdpGkY/N05g0aX5iczT
-	 3MJNdMWhCwsDfiaCM9hFBL1OXh4fWZY25Gyr1X2gPDHvc063HdFBDMwxeko0LRe6uEg==
+	t=1793005205;
+	b=oLoKniBF5nCYLgrpDe92Y4opP6E+foZhZdYqU4i5S7607tXmHOReGuqE5gygAEBnYqPL
+	 N9N1GXQUwaernZCGc6ocv2v8pxhIkzBwEhGTiO3yT9LmDBj7Ivc8gVvOZVbamB1ac50Q+
+	 MU8KZatDoOH8Xu2ox9CzDY0Rz1EDJDjV5Z71VZpDMR5d8cKIBiXn6FK/KEdb9h4pzr4vm
+	 H/mjkUPrYvd+wPHFtIIjM/zZy7xnHnW/uYeED55eJwUDkzhtSTcdyroG67ZhQWWuNzrT0
+	 x0I+sfC2cBpHVC3jbJELseqgQU3fTHPTrQwtvoJT0vxykxIy6idkLO6hqs0GklWwW2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005205;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
-	b=rYP4BpI+gJHeZxrQsF3vxxMKNxQg0p1qd4+okH1vOawRcSoCbxagRXSP8AfJpa+8FmII
-	 gDTNyEB7CYR1OXvoSE0fCxt3kHqFOEfc4xlTyiC5BEwvNDQyMaLmqnF+81MeowV3GIKAb
-	 5mZDAZkaYI3Uv+MkceW6jGoBr7GG7DcGdZk9pU8+2tBzrw/zp7F8AXg35j2B7KzVBWXAH
-	 VRcw+J9/DDYOwEhxv6ZGE13k86zuxzfNqmNqgWQ+siYh/WwrrE+jls+U7Fpz8ACsyqggd
-	 q5XgDRTakgNFtTe94tOlI/Lyf7c6I6GwkHTwM7t0dTNnQzjs7viSwutKvY9z0v85AcA==
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+	b=XNwSrCa24IoRNi1QhSNEjAHpPmT+duslHb8fzl1jKwmzZlZCuYHJ7Zgw/jfJqxgCn8en
+	 j9Hj3Excjz2aa0ySihndKANTvlOKAeskjieLIubvsMnORsitL3Nh8s9lOrqPHsDIH81JI
+	 J2mrfm1E3xjwNtlRyx071m0kosAeo/Kw0RAOeT2MxQsj9GNdN1JW1TLEQO2Hnt6tq69Fw
+	 MRsP4xaw2riwBpvKus9VHy6BEFGaIj31ZQWeTcybS8pkD7fVFJVkBJ9QbxcBlKsyohmBV
+	 6p7cYMW3UlSOhjIl1b3edgeHlhfLRCJHLbk64rqSM4fXOonhV7DG1dn3cAhNdba7ouA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B60606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:59:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1B60606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47E0606A31E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:00:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C47E0606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=w0PcWQ7s
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3282db206d3so5433356eec.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:59:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=u6KM09xC
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so11057245e9.3
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793005187; x=1793609987; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
-        b=w0PcWQ7s1jwKnNUWE5T/YOshA42iaUDUUhGpDVV/1vK6RT9R1FUequz5lDy708udX6
-         XQ2CnxkMcFfd0QMdOLg791j212YiRJl1MqaUIm9FYOP4i82jHT14cg9eWj/f3JIHdbFw
-         ozqjcvK9xbUHL8sC/Te9aw7gwRzSCJQSglC44zBUvT74xxDkm7Uahb8MTZffFSaJEk9B
-         Ziz4jO9I0BbWb5DvKCz3n9NN/51UaFAuvppNPSCMbEYMLJpXoQ3CQfZA/FjpEz+yNRz8
-         THOHu1MVSkPKmIcLqxws1SuWjsSkZ2CihN1soh5iSuzcYy1g9h2P1FMFfLFHXw6t9vvV
-         fkzw==
+        d=linaro.org; s=google; t=1793005203; x=1793610003; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+        b=u6KM09xCqYJ8JXVzXTUiFQILmdo+65ZgWXoyzsVfvN1EZTv+Aexm7+OMZgSYI8gmNo
+         3cOhAcZEXlqppWqtQuejkeAWdltWe4/Wf2QoxrOht5Tc5GF1wywqMmrKE1zibdtjdNn0
+         OjRYHiMdLLnRvIUfwWkB6RCHCeK6xY4Uno7rj6iiAsjJ0lshXTncY1Rh2b4+n46xShZt
+         tqyfGKhjlg4HrEMD7Uq+PtwNOGpX3HFc82YpMZ7zmBV4pIUyaB1eqaz3BQgE0O6ntsUO
+         gUMy/lLCA4j8yJ2Ix5PbYqyF7raWJWoTmtw0cLLWPtoUH4YEXo4q5i+kmssr4ReZfiWW
+         nghA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005187; x=1793609987;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=49/7WOJdVSLVzoq5oWG2Xe+wRQoxoxRWiSnOqn8O/K4=;
-        b=a6abFcbnLe0kcl9zdFdiS2lL7e7CFSOPKlGkflw1UaW/T6ZrTR5L9/X+gDvMUmhela
-         pmOzBs7lm4cJofQ/OUJAYOG6mlQdHR7yPaaJHEVub009P9HwV+uVZyMQqPaC8T9AG5er
-         KayAZUXpBNsE2E5ziM4mGZX23PIJ1tu2S2yRkskY6CyBvOaQxzTzr03ya5n2w5pwundR
-         TWQm89ryp0NUIYhaL0CwG0jQJTu4z49ZUiY5cXz3F4TmmCoU4xMRnJDBk7n2gcVz7ovK
-         aFl24i/U5hhSDPhIiIdAD2+46q3R8ABVKt2lq9hSlG1TZzwZ2U1e6ZfS+R51eEGmi22B
-         Jqfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKihUeTTvgNrJCbIW8GqIIh8v400OBoMWnFY8kCsrvtW6EQqpvh1VtTlxVD9cLkFWkCsEFnAmGr/3/@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIUtp6Q5aHdmxk18n/gQeSjo8NVoL6qR1OND0zpfx0ktayYerN
-	4jXXS2xvcXPct68v30lW7y6g4FcUIPQQa1tIhwWwZf1MsV/htVeuw+d+26KWZ/YLaFI=
-X-Gm-Gg: AYBFou0ruXvW6xs9g+MvzG6x6bNYojUIVmvqvQeOKQsdoHHNbdyrvR7mBncPB1cIj6W
-	qRkdd7zNy+NF+Qj5TdeKZO9xw0fdij05ivWMw0qkrKRBA6aQk2yu1Dbd3xIHvnpSJ4EOOWOml5N
-	1jB7BYzi72i2aXWnCRDLPQIOqLUEEAra2o2QIrtEIgMTM1W2oqbei4gaeknILbUxfQBpSE/x/Sb
-	02GZL5u0LsCJggy9V2hQdVjh/SVwZgH9R3RrgLghbi3B0jJ6HLN3v1SjJzN7ZedE4n2dY08ElQm
-	Okc+BOZmBkZ/I9oUwQG+MCG97GvKtRLvDHMeYXbtigYKsFYrxry53e0vQr5VOS8VhMV0wjHYKM+
-	+yg7Hv7KQWpbQojG7ustXpEwXDpaQx4qyhk5DKjxaYZ5Pq+SGOwdQEWB6bCfE6czbx7qDDyzJiv
-	YUKK8gdrZHkNLNg/pO+UuvH2qJ/dh1uvNAjM4nuWFOWI+L9SHij0dXUcJB/yUDvPM5v9UIfHDQN
-	7QxjjTYwFb1xFX7ti+KRhTNvjXTiE7afk7PZfYOGKoWdJ9fWFnvq9P/HA==
-X-Received: by 2002:a05:693c:6017:b0:369:21a:dcca with SMTP id 5a478bee46e88-369e848a2d5mr8835197eec.10.1793005186447;
-        Mon, 26 Oct 2026 01:59:46 -0700 (PDT)
-Received: from localhost ([122.172.82.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a03bea5d4sm4608834eec.6.2026.10.26.01.59.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:59:44 -0700 (PDT)
-Date: Mon, 26 Oct 2026 14:29:41 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
-	sboyd@kernel.org, bmasney+clk@redhat.com, khilman@baylibre.com,
-	martin.blumenstingl@googlemail.com, rafael@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-Message-ID: <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
- <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1793005203; x=1793610003;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pQgPzMtG93EgFqIKN+g+Ioi2l+YOrsAj4oztf0+jNvg=;
+        b=13Dl6VcgdCSWVr+8qfUcfsmS5fCLutoKp8Gh6yFZpiA/quHpFKCGsZ+2h+Owj2ZEd2
+         ZYGmg8dR/khZaONykgw3j61mHjqZA07N5tbcyGOXNhDmZq6Er4Tva2OnHmr6jnxgDmOK
+         P+k4ivQ16UjbYee1aoWY1eNuoULW8G7/FH61Fy/xUIujrwNoM2oiEtkwB/WtEFH6yw15
+         kFftp6xtUvckUIlnMbNjO/TnuvcLkUK6JGDhhnhM5lm7rMqo+mTv9WHKJdcBYnBOC6Hn
+         XRE1KLI4znPFZ2aqmnK6x3CkveE3hu1RDIE2I5RcUIS4dDWmkKDtP66+x1Rk1wgkQMgN
+         FAiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy44r6Ebutdo9W8ahdInxEq9O/e3Rq8oexLhqhi04sz+YaJGKXpvxG9kIAHIKPism9OOOwXkXqVxE8+@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ++KBrL53AvLZcGYAwyWtI9+2ldcPSZGYNVPGet2v9s5YXmgk7
+	ch6TSBJiXHDqnligSPURtleiQNySTlUDBM0BWsLaySwO+2ISrqXANcgKkbLRxWmM71o=
+X-Gm-Gg: AYBFou1A+l4gkd5spe41aqIReKCvHsvBj5ZhH1IX72pmBha0MAG8+oAswMkLyEu1xwS
+	IpZdC1yGTwrr7pV4ByKIeiisvCUwaWy4MHuKoasPDVCHtVXsAhMH/GNq1mEmi+28Vnhxv7yu/FF
+	57oNfYUuJIDuvzPQqp78GbZ3AlfqnHagzX46nxmPCSv1KYVaZxJHwIpycHawHFYTpoL1dLmA+xk
+	fezQdBFV7VGprP/R/MCsFNyMvwGr+jbWv2j9XTa31/rhgHIUat6l2TVpCNWtmVciOdV32z8jHn4
+	y/lbwmcmkagazPsI6KeLDBO8OgcjSWbh09+q3/OHDUFYoALgZH9uo1UWqqpplkqqJO3btyZwjmZ
+	u2c81GCL9f3wNxqUrs4W4tmjA+2D5v/bpJQ7jXLHJu4gN/XJGbJAzxVxw2RLO/M7yc8/iH5V0dm
+	x9zfSAYZBFZJmsG2r2Ld0dxCAu3FXUCf9fB5F5BKxnb70k5UWb/B7lWM6ky7r3u8/xCpfhFkpiJ
+	Vn5uc7z4VpIeDsBISHh8FQ36h/83dJGKZGNhwbWoR8mxlnHDjXyn2wHpSXH4n7J5Q8UhQmiJM/E
+	fRdAkBG7Jdoh2quzKUqKz9q22yxzXr4dLMUP
+X-Received: by 2002:a05:600c:3e1a:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4a35aca6ae2mr113669665e9.17.1793005202672;
+        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a029332sm159395045e9.4.2026.10.26.02.00.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 02:00:02 -0700 (PDT)
+Message-ID: <7f04940f-df1c-41e0-ad51-d9dd9e6974c3@linaro.org>
+Date: Mon, 26 Oct 2026 10:00:01 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,43 +92,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/5] arm64: dts: qcom: allow SM[456]50 HDK/QRD boards to
+ play audio via DisplayPort
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
+ <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <5a7wc4hqox6gbpdkttgbtwkk4rfohe23lajlnydk3sl3f756ax@ywultzk2f5xq>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26-10-26, 09:57, Jerome Brunet wrote:
-> On lun. 26 oct. 2026 at 11:00, Viresh Kumar <viresh.kumar@linaro.org> wrote:
+On 10/22/26 12:34, Dmitry Baryshkov wrote:
+> On Thu, Oct 22, 2026 at 11:36:20AM +0200, Neil Armstrong wrote:
+>> Add the DAI link needed to enable audio playback over the DisplayPort altmode
+>> outputs for the SM8450/SM8550/SM8650 HDK & QRD boards.
 > 
-> > On 25-10-26, 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
-> >> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
-> >> 
-> >> Every S4 speed bin runs the same CPU frequencies but needs its own
-> >> voltage curve, and the bin can only be read through the secure monitor.
-> >> 
-> >> Read the bin from the firmware, select the matching
-> >> "opp-microvolt-speed<bin>" property for all CPUs, then register
-> >> cpufreq-dt. Bins outside the known range fall back to bin 0, which
-> >> has the highest voltages. Like sun50i-cpufreq-nvmem, the driver binds
-> >> on the SoC compatible and needs no node of its own, and S4 is added to
-> >> the cpufreq-dt-platdev blocklist so cpufreq-dt is only created after
-> >> the bin has been applied.
-> >> 
-> >> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
-> >> ---
-> >>  MAINTAINERS                          |   1 +
-> >>  drivers/cpufreq/Kconfig.arm          |  14 ++
-> >>  drivers/cpufreq/Makefile             |   1 +
-> >>  drivers/cpufreq/amlogic-cpufreq.c    | 184 +++++++++++++++++++++++++++
-> >>  drivers/cpufreq/cpufreq-dt-platdev.c |   2 +
-> >>  5 files changed, 202 insertions(+)
-> >>  create mode 100644 drivers/cpufreq/amlogic-cpufreq.c
-> >
-> > Is it safe to apply just this one ? I can take this via the PM tree then.
+> Does this need an update of the AudioReach topology?
+
+Already done in https://github.com/linux-msm/audioreach-topology/commit/6040c950021b88c6db287cfffa17abbf917f56cf
+
+Need to add it to the SM8450-HDK
+
+When this is merged I'll update the topology in linux-firmware.
+
+Neil
+
 > 
-> I would advise to wait a little for Amlogic to chime in.
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>> Neil Armstrong (5):
+>>        arm64: dts: qcom: sm8450-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8550-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8550-qrd: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8650-hdk: add DisplayPort audio playback support
+>>        arm64: dts: qcom: sm8650-qrd: add DisplayPort audio playback support
+>>
+> 
 
-Sure, I wasn't going to wait for the maintainers to respond anyway.
-
--- 
-viresh
