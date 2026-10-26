@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012953;
-	b=OZeBGE1lQG7Oz838YTSg7nUN0lnUYFhvp34ZRfC24dzXRx3eAlwkPyWVAGrhlYQP1KoF
-	 vm2ud9cnC1w+vg6W5cvHD5CbWKE9GeLie1oP68QgH19hMnwzAbxOhkDouTrQHIPrYQHF7
-	 TVjZcCVLwghvrxLTtQjTcOJuQ7JGCutDsS3oYMFKKAXbIChEnqWmFVwzBCbQc7FmUefdC
-	 V5qB3ZC3R09xJgqgfbeISipridXeMMCa1Dpd8lVjX6FZU+b4KdzdJuk944O+OkLluHMZ9
-	 ojeIqYdX3Ua6sDx+HGWCptMVHF3SxAl9FuCmjQ0clEoq0r76q0MfTApq8T/mUxuYN8w==
+	t=1793012986;
+	b=ne0ComB6nMeIxxcRAczM9EG5AUoM/LugS5Di8fBRH3S3VVb3HnjHIIBbMTUCbYaqkuNj
+	 1bmLlRsbb6e+BxkcYoZIhQpKjB1I8wx8IxprGj5EvG8C2KMEPR3Xn4PHCTFR4AskRY8Wm
+	 Cd0s74IJFX3K1ge46ogmUpvLN8sFvFKILCsLCD0U8Epd/laSOIJuWpgshv7iCHAMEmKUw
+	 HTkzA8v57Zp6eTHelAOL1fJLu8D+edFqB0NtdMe7Sxke+XzdQ9kNS7KUJ7r0ARVWB9oSs
+	 tfUOv6OuHyBC0K2/KbQTf5M8FIuOaM87Vl3EuyPbkiTPY9jUVU1+4i915i4NglIjIcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012953;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8NovCQH940na+gosyoo7UWT5zfsY+yv5JWNQkZbmeL0=;
-	b=o4+vtXaOLCKBQglOHTODPc5Si6cVY60z54FY2HtnLjkewClucnBZfHXBnvBERTjJBjSS
-	 w0VhF0rxfM1Z+vJ5chPy57OqAkwj2g3BES6mRWJkuYDqlgp52P0poFR/pT4mS741ltOvG
-	 d1ABQV+amdHpjrW1tpWxJlRDCbVMiWBOT7bff9eXdkNp9vvrSpqJsHPJiU4qQOH9IwFi/
-	 Ak7MCLjcDj3+HgLBOhh9DEKiWuGIxTToWAXRHt5QC3+64OA9/WT+1yKDrOmpnC5/ZJm7D
-	 s1+cl5lFWyQB3juRMXyJozCA9aqAo6gXKScRW/UYiJC6M3J9JNznIXOlD8q0qehD36A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012986;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=g1aM7wiYf05GeMmErOn9gJUgMdfYPRR7Pr6pPLWq3hc=;
+	b=z2d90w/h8KKYy8m9uGsPJt2HgM3BzX3GqSc/o841pbjTY+qfOjneaU1z5X3PGdYkDVh6
+	 2BW9nwQlx/rQxRQUJZZlCctunMSsQ0iXnf6E/sXYgJMwnfr3ognCbhj1hKusEeuP0kpS3
+	 x6O2Uq4xjeM704SapdepiJOtPhQ1q0LxC1c4bTggpx6mPI8ABnnhkzhBpNYvtHYOW5d87
+	 bY3df25Hy/hqan3JB+f1ifhcA7RFkqukzzFp9xf9oIHZWEau4hep+Btg0KT8KpdstcU3z
+	 U2CEoJ7r6Bt1giWKlEcCb92HW6P8hYHf4oLfbX2zpvDyKPcP0JcBkR5X65a1i2D1Bfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CIIbWtkh;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b501FKTf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66013606A31A;
-	Mon, 26 Oct 2026 11:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66013606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3E0606A31A;
+	Mon, 26 Oct 2026 11:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CIIbWtkh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793012953; x=1824548953;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MlcDPbq8YL7OdWQu9xDbnnlqJLjzqxo74xBBo/QFseQ=;
-  b=CIIbWtkh9W1ZlA5E/XRxWLd/Lwxg5OmHHnuaRXqzjP0kIUhGpnPaLowy
-   yAXqF4iRl8NHbTeE2SnAcpu4WgLrB3MaTOKz4U+ZIKcuBarJV/gAgofa4
-   N3WKUHBZ6Lxdh1A/C1CRxBv/+pfECwYYS4a4T7+FPsCJPBN4lJ9wHhfAG
-   GX0BzAhEAhTRhCN3PCHPfZP6/Xj1i4lGWxawdCwHpfPJavWixJ3CRpn11
-   3MYjkjOyURlHCK4VoS0IsE38/rhOOeaMLtxff8OJK9g57wuiObHGBSlIf
-   ZrkTC7EpZ05D5J4/PDppoKaMVRoe/svQUxjmCvJH3HGN9/fzsw0ak1KJd
-   A==;
-X-CSE-ConnectionGUID: Lkr2tMdPQqWtonOz8NfV5A==
-X-CSE-MsgGUID: pLokmp6/TDSBkQq8F3z1OA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1567230"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1567230"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 04:09:12 -0700
-X-CSE-ConnectionGUID: Pji25Z/gSYWakq1dFtDIMA==
-X-CSE-MsgGUID: twf3KC97TzuRlYmB1RWPTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4637081"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 26 Oct 2026 04:09:09 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F178A99; Mon, 26 Oct 2026 12:09:07 +0100 (CET)
-Date: Mon, 26 Oct 2026 12:09:07 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Val Packett <val@packett.cool>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: typec: fsa4480: Report switch & mux events
- to codec
-Message-ID: <at800xHh8lvwsi-8@black.igk.intel.com>
-References: <20261020081343.1507986-1-val@packett.cool>
- <20261020081343.1507986-3-val@packett.cool>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b501FKTf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A351F031E0;
+	Mon, 26 Oct 2026 11:09:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793012986;
+	bh=g1aM7wiYf05GeMmErOn9gJUgMdfYPRR7Pr6pPLWq3hc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=b501FKTfHEoV7pO5pAg7zuCzuUtwq9zzFHgN51YK6e4ahHcDTJHZWBuj953yhfJut
+	 oJyG8Smg0oNL9biF1VF91sJXxiWmCHFHUqqCrGk4F+0Bmg44Lw5uHidT84v3plm+FP
+	 5ejko4yprdYWn6lovNsefUglV3Rbu2wlxdf085ZuDbJfAjsTeajQX1TxViJjAZ4KnI
+	 uJJyx7rYYJMIcQpUploWRTwIeVPI3RpXPy7oZHCMcYoKMKiiSfOH9aqNCgnfki/1my
+	 0cBZZINuZ3U2I5/7MTYISO+V+rbiy9HStAIdeYPlFK3xd5pIOVNGdh2tWEVJzLA7sb
+	 1L4BeZr1NNd8A==
+Message-ID: <sashiko-outbox-185064@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/5] rtc: pcf85363: add watchdog support with
+ configurable step size
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261026094712.205214-5-lakshay.piplani@nxp.com>
+References: <20261026094712.205214-1-lakshay.piplani@nxp.com>
+ <20261026094712.205214-5-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 11:09:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,153 +60,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020081343.1507986-3-val@packett.cool>
 
-On Tue, Oct 20, 2026 at 05:12:54AM -0300, Val Packett wrote:
-> From: Luca Weiss <luca.weiss@fairphone.com>
-> 
-> In the Type-C graph, the FSA4480 switch is in between the USB-C connector
-> and the audio codec, but the audio codec also needs to receive the
-> switch and mux events from the FSA4480.
-> 
-> Update the driver to get an Type-C mux on the next endpoint and
-> broadcast the recevied mux & switch state to it.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> [val: enable the SENSE/MIC bits; put the refs in fsa4480_remove]
-> Signed-off-by: Val Packett <val@packett.cool>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] rtc: pcf85363: spurious WDF handling in pcf85363_rtc_handle_irq()
+--
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+commit 16cc51c19e1316f4895386e586c6d2ab87d77232
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-> ---
->  drivers/usb/typec/mux/fsa4480.c | 57 +++++++++++++++++++++++++++++----
->  1 file changed, 50 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux/fsa4480.c b/drivers/usb/typec/mux/fsa4480.c
-> index bea0c1deec94..93faa81d0879 100644
-> --- a/drivers/usb/typec/mux/fsa4480.c
-> +++ b/drivers/usb/typec/mux/fsa4480.c
-> @@ -60,6 +60,9 @@ struct fsa4480 {
->  
->  	struct regmap *regmap;
->  
-> +	struct typec_mux *codec;
-> +	struct typec_switch *codec_switch;
-> +
->  	enum typec_orientation orientation;
->  	unsigned long mode;
->  	unsigned int svid;
-> @@ -115,7 +118,8 @@ static int fsa4480_set(struct fsa4480 *fsa)
+rtc: pcf85363: add watchdog support with configurable step size
+
+This commit adds alarm-only watchdog support to the PCF85263/PCF85363 RTC
+driver using the watchdog subsystem, with dynamic 1 Hz and 0.25 Hz step
+selection, interrupt handling via INTA, and suspend/resume support.
+
+> diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
+> index 71b82f92a0031..e5ebfad1a2cea 100644
+> --- a/drivers/rtc/rtc-pcf85363.c
+> +++ b/drivers/rtc/rtc-pcf85363.c
+
+[ ... ]
+
+> @@ -540,6 +572,21 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, =
+void *dev_id)
 >  		}
->  	} else if (fsa->mode == TYPEC_MODE_AUDIO) {
->  		/* Audio Accessory Mode, setup to auto Jack Detection */
-> -		enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_AGND;
-> +		enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_AGND |
-> +			 FSA4480_ENABLE_SENSE | FSA4480_ENABLE_MIC;
->  	} else
->  		return -EOPNOTSUPP;
->  
-> @@ -162,7 +166,11 @@ static int fsa4480_switch_set(struct typec_switch_dev *sw,
->  
->  	mutex_unlock(&fsa->lock);
->  
-> -	return ret;
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Report orientation to codec after switch has been done */
-> +	return typec_switch_set(fsa->codec_switch, orientation);
->  }
->  
->  static int fsa4480_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *state)
-> @@ -185,7 +193,11 @@ static int fsa4480_mux_set(struct typec_mux_dev *mux, struct typec_mux_state *st
->  
->  	mutex_unlock(&fsa->lock);
->  
-> -	return ret;
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Report event to codec after switch has been done */
-> +	return typec_mux_set(fsa->codec, state);
->  }
->  
->  enum {
-> @@ -287,6 +299,19 @@ static int fsa4480_probe(struct i2c_client *client)
->  		FIELD_GET(FSA4480_DEVICE_ID_REV_ID, val),
->  		FIELD_GET(FSA4480_DEVICE_ID_VENDOR_ID, val));
->  
-> +	/* Get Codec's MUX & Switch devices */
-> +	fsa->codec = fwnode_typec_mux_get(dev->fwnode);
-> +	if (IS_ERR(fsa->codec))
-> +		return dev_err_probe(dev, PTR_ERR(fsa->codec),
-> +				     "failed to acquire codec mode-switch\n");
-> +
-> +	fsa->codec_switch = fwnode_typec_switch_get(dev->fwnode);
-> +	if (IS_ERR(fsa->codec_switch)) {
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->codec_switch),
-> +				    "failed to acquire codec orientation-switch\n");
-> +		goto err_put_mux;
-> +	}
-> +
->  	/* Safe mode */
->  	fsa->cur_enable = FSA4480_ENABLE_DEVICE | FSA4480_ENABLE_USB;
->  	fsa->mode = TYPEC_STATE_SAFE;
-> @@ -310,8 +335,11 @@ static int fsa4480_probe(struct i2c_client *client)
->  	sw_desc.set = fsa4480_switch_set;
->  
->  	fsa->sw = typec_switch_register(dev, &sw_desc);
-> -	if (IS_ERR(fsa->sw))
-> -		return dev_err_probe(dev, PTR_ERR(fsa->sw), "failed to register typec switch\n");
-> +	if (IS_ERR(fsa->sw)) {
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->sw),
-> +				    "failed to register typec switch\n");
-> +		goto err_put_switch;
-> +	}
->  
->  	mux_desc.drvdata = fsa;
->  	mux_desc.fwnode = dev_fwnode(dev);
-> @@ -319,18 +347,33 @@ static int fsa4480_probe(struct i2c_client *client)
->  
->  	fsa->mux = typec_mux_register(dev, &mux_desc);
->  	if (IS_ERR(fsa->mux)) {
-> -		typec_switch_unregister(fsa->sw);
-> -		return dev_err_probe(dev, PTR_ERR(fsa->mux), "failed to register typec mux\n");
-> +		ret = dev_err_probe(dev, PTR_ERR(fsa->mux),
-> +				    "failed to register typec mux\n");
-> +		goto err_unregister_switch;
 >  	}
->  
->  	i2c_set_clientdata(client, fsa);
->  	return 0;
+> =20
+> +	if (flags & FLAGS_WDF) {
+> +		dev_warn_ratelimited(&pcf85363->rtc->dev,
+> +				     "watchdog timer expired\n");
 > +
-> +err_unregister_switch:
-> +	typec_switch_unregister(fsa->sw);
-> +
-> +err_put_switch:
-> +	typec_switch_put(fsa->codec_switch);
-> +
-> +err_put_mux:
-> +	typec_mux_put(fsa->codec);
-> +
-> +	return ret;
->  }
->  
->  static void fsa4480_remove(struct i2c_client *client)
->  {
->  	struct fsa4480 *fsa = i2c_get_clientdata(client);
->  
-> +	typec_mux_put(fsa->codec);
-> +	typec_switch_put(fsa->codec_switch);
-> +
->  	typec_mux_unregister(fsa->mux);
->  	typec_switch_unregister(fsa->sw);
->  }
-> -- 
-> 2.55.0
+> +		err =3D pcf85363_clear_flags(pcf85363, FLAGS_WDF);
+> +		if (err) {
+> +			dev_err_ratelimited(&pcf85363->rtc->dev,
+> +					    "failed to clear watchdog flag: %d\n",
+> +					    err);
+> +			ack_failed =3D true;
+> +		} else {
+> +			handled =3D true;
+> +		}
+> +	}
 
--- 
-heikki
+[Severity: Medium]
+Can pcf85363_rtc_handle_irq() in drivers/rtc/rtc-pcf85363.c log false
+"watchdog timer expired" warnings and return spurious IRQ_HANDLED on a
+shared interrupt line when FLAGS_WDF is latched in CTRL_FLAGS while
+INT_WDIE is masked in CTRL_INTA_EN?
+
+On PCF85263/PCF85363, CTRL_FLAGS latches FLAGS_WDF whenever the CTRL_WDOG
+counter reaches 0, regardless of whether INT_WDIE is set in CTRL_INTA_EN
+(which only controls routing of WDF to the INTA pin).
+
+In pcf85363_suspend(), INT_WDIE is masked while the CTRL_WDOG counter is
+left running in repeat mode:
+
+	/* Disconnect WDF from the wakeup-capable INTA line; keep counting. */
+	ret =3D regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN, INT_WDIE, 0);
+	if (ret)
+		return ret;
+
+	wd->suspended =3D true;
+
+During any system sleep longer than the watchdog timeout, the counter
+expires and latches FLAGS_WDF. On wakeup, resume_device_irqs() in
+dpm_resume_noirq() re-enables device interrupts before dpm_resume() runs
+pcf85363_resume(). If an RTC alarm (FLAGS_A1F), timestamp (FLAGS_TSR1F,
+FLAGS_TSR2F, FLAGS_TSR3F), battery switch-over (FLAGS_BSF), or another
+device on a shared IRQ line fires before pcf85363_resume() runs,
+pcf85363_rtc_handle_irq() executes while wd->suspended is still true and
+INT_WDIE is still masked, reporting a false watchdog expiry and setting
+handled =3D true.
+
+A similar state can also occur in two other paths:
+
+1. In pcf85363_probe(), INT_WDIE is masked and only FLAGS_A2F | FLAGS_PIF
+are cleared before devm_request_threaded_irq() is called. When
+CONFIG_WATCHDOG=3Dn, pcf85363_watchdog_init() returns early without clearing
+a stale FLAGS_WDF or halting a bootloader- or battery-backed CTRL_WDOG
+counter.
+
+2. In pcf85363_wdt_stop(), CTRL_WDOG is halted and INT_WDIE is masked
+without clearing any FLAGS_WDF that latched concurrently (or that latches
+later if writing CTRL_WDOG fails while masking INT_WDIE succeeds).
+
+Should pcf85363_rtc_handle_irq() ignore (or silently clear without setting
+handled =3D true or logging a warning) FLAGS_WDF when the watchdog interrupt
+is not armed, and should pcf85363_probe() and pcf85363_wdt_stop() also
+ensure FLAGS_WDF is cleared when masking INT_WDIE?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026094712.2052=
+14-1-lakshay.piplani@nxp.com?part=3D5
