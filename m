@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.123
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.128
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792994016;
-	b=oKM7WRg1f7r5CnjnpbzD/nhpl/newL0e4Yopz+psQRp5ZL1q+LGBF1nK+I4ENVpvSCU0
-	 QzpSmtvj+CVZxEyWI2ZK0arAIyIMyd/EAjyWA4bknKMeQFxFG5sSKBtr8uUyAJvAbm502
-	 8pZfCWyFxxjrXQkRZSChuSwTTAIE++b6P0gKRkK2jkWdSfXK2fw41wB/bde4CBvdrcEgk
-	 vWL6FRwV96grQONI/CY4402e+RT9BLvN9gQ4XBuOPVCIlBv+5elVFL6cJbLbZU3s7MbXw
-	 0xEpEHRCmFE2sltOJJq+yOVQiKTGW7YinspckkbAMMoZ4JTkVGCA0KP5LYPaf2VDKnw==
+	t=1792995418;
+	b=kMgS5nlYky6RPAikCeJt4dhiJwQNbl9A9vlvkR0RdUrttbmJwdOGD5UNRQ9/sjOn27Na
+	 vlOXKvrCoeoua3+VpvXxYEs2LNco+MEgvK2ixUkay3y0TB0jLnJNSY293nuC3UyvgFH6B
+	 6SGObqQO+FeSCCZuYeYvYSbydXFo3O/NPTP2fEpS6wZtsnr9PBYmr8d7XPItwNMlTXYmB
+	 DaTHYFBdBWm6xoD0F+IO1IG5wkzZLhHol6dFB1/zbb8yf0ulNADAnSv7RhZhljY9KzjTx
+	 5qFQx4jqwmkifjzpl70FRQJG4gNn9LBGEjLhspwGxkP8/1oi/3N5BxivLLoMjJGJHMQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792994016;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792995418;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,72 +24,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Z5FVt4xqD+pdPsjAlQ0ZBcUt6hZQ39nWY6pLr3MBpEw=;
-	b=ZxGjVWF7RqkWiIpvCr10v1RGoZYEFNRE2gjMqzuDxda8usgBqBg5/vQ/dIOwTGZGLJDV
-	 CBpDPtCE+EcTfu7m0vDwx0kx6sl2JGPBTdv3h+Rm4pJsk01ifcwiUNXL64AkH00/dq2OV
-	 hror/K7ccqRg1hVjEE5eB6ufKMJkKX16Z2/RJ7VP4sTZ0bc/xftAUu03ZC98cLSy04Cbu
-	 3BoUlXXb/Jp7d0vbRrp2dNonbgjH5W6zn88tbyU1H/sfXTGTtvvbmHONya/kuhuhU9kIP
-	 VLr8oDoaN+c86sqV013A8LLERBaH9LLz6DjQ6IRwVKvxmWrsPPjIgEkmGVcH9G4faiw==
+	bh=pjgQb2S+aqjZtk2bAEdTY3C6OMhGI7lONqKmsYCHhQY=;
+	b=ycEd+tvKGkUKmEucgSdqp1Jwx0rMypRswRkvdOicOBab5sbbSxRQgmMxPO+J6KNJGSlO
+	 ZJq01TbIELhuIEdQWaJpLBU/fJxtSRiIKuCJk49fiu+u1N4LqVPZdZ9S+jKFRfqjloMen
+	 BDuv+0wsmvdEmT0dZFrac0BgkNZ2HuAzp/TR0oRrLffdvfjpyfDRq2gpNmnwMrPdUJ/uh
+	 EVR8X5mnuQ355iqJ2pPS6I1vfocyODvR2/VUXKFJ5mawO61thAMyXsqjngq+c1gNjm0Pv
+	 aBvewQjesrM0Qmkn3xyq2mn3C/Cj6171y1kPKMnJnUpZtk70BKHSVTLKLF3RmviAHmA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=sMmwUuxX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.123
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023123.outbound.protection.outlook.com [52.101.127.123])
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=Go57Wi4U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.128
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020128.outbound.protection.outlook.com [52.101.228.128])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074FC606A323;
-	Mon, 26 Oct 2026 05:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 074FC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D06606A329;
+	Mon, 26 Oct 2026 06:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D06606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=sMmwUuxX
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=Go57Wi4U
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qktnJU+wJ7KRNejjJq1rLiWGnoo9O0VckRvvzv+JqImruWTq0J7ZVxSRkNmv2YRqa01AFO1N2RY7FoSXUeoc5LJVoKMrPjLCU0xvcVEw/hYdpEd2VuLNUhX5HGPSgck210Lyq9cxYHmIByRnmv4BgFyBhMhGgoOUoUVPROj9ZuHUqgie68aMvdf/Hta7yLG3CKVWsKYuK1Cyw2u5plCKcQdiwbj3Bn2EPKTAwnoCrFb3EFg2Tyt8YgpnhzgyXZkpJbQ64mi8NUbFyeToYID/QVXCV16BMKsUp/0RLMavmQRTJiEu7c0YgUApApaRV2E6XRjRfGWSqsaCu8Oac0cwBQ==
+ b=Bv3gxvAJIUxW0oMkdb6TQ4/9e9X71B960bUtMOQ85POIDmKnBLlbGJ6pn9VAMRO/wHg0sr50HtzhuLnvVt3/p6pWYzzU+GS4++x0CAD0uu328R5+1KMKLdwTC3VPWBIWZn32836Ukf7UzK+TdU0hurpSQM84P/o9DDx9hi54Jtbdl7e6deG3qzNvfk7SCNl7xabsL2uYQoNAZ+cN/LPpPpJeSFBajG40O3yANFv5IbYUn2rComAYLRRAybFDmEKLuLd4SzowIb0Hj1P5kalVImA6fQRu9qdW74NGoyFt1QrSw0VgwCLMfJhFLwGqN3tId70w1XEroCwInGPgyBjlUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z5FVt4xqD+pdPsjAlQ0ZBcUt6hZQ39nWY6pLr3MBpEw=;
- b=xAoJk1CvPnKq+mGQKbObSY5o0nujfr0gtvr1VauKQsC2lkTqiHQlCLOStcps4vXTqlVupXDWER/HdKGzRPqVlS4RbKAT6VGOdj2DFLFXF/9rsR0xSAjI7QlL7trGIxjbvxbyg0ZA2XWkmGum8J9B2UF03tgbCUW3FsdX9TVvXJA+oquXP/Ldu+Xa6gWNlW7Bm8J5Zo1/WRzrnsKMvTcPswxyerYjetwva0ZLR/ksYufnEn82ifNfrlEKp5rIiLQr5qvDSAT/cIcV2lhoBrPDjT/JogdcUh3l/Zq2EAcZgPhaJy3awzgnvw2MLLZqnDaQCg8LUHsymfJBowSPJ0/kIQ==
+ bh=pjgQb2S+aqjZtk2bAEdTY3C6OMhGI7lONqKmsYCHhQY=;
+ b=pNmLAIBF7UTwcEDXNmPNxvIxkHPTDaJRHmk8kziIFEnw/TL2s3YS04B7hE3vZTaHdLnzJ9gkglevJFdtwUpLSvORb3FIjlPuZ0yP96ZSuizwJW5soObUD/gVpXYl22mBC7irrT7GHA/puNaZ902iXy0yFGEtFoIbsMmjpWumx2OsK1WBia+2PWuVYFRQ851hAE76MNrLio1HH9FdZa4kwWobGt35//+Ttyv4yAatyvOAiyO1e0MKVN5UJ/Mgq+8ZyruMau7p0MvutH8pAAcNbCM/SEddqAXQW8YLn2wCC3RgF5IUUcKQu+Ab2LJ9QXwliJdJYfbHiXakx31+2ehZhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z5FVt4xqD+pdPsjAlQ0ZBcUt6hZQ39nWY6pLr3MBpEw=;
- b=sMmwUuxXKfAKBP+b+CdMFizxHRtcPXmGltkx244hhGTiGVoFahpWK4hL+VVXuKraVcytgL4NYk1FiM+1ZUYYUNuRvucrVC9Wg5wf4DEf2xii18+slcV+qPL+gLSBP0vwu6rfdn020yL9AupKeNj30v60KChABUYx1U/w2G8w9tM9r0urXbWNpc7H6ydfYjPilhZxc59DswEqI/OGKas6b/pt00KJk6s5nHJYb+2yFUsQQbUMcpO4KtKUCR4Jk/DBd1grisXZu3FEYHf7rHk8egnlh1WDPttRKCysN3oL7WfM0h3uVcnI6JTV5vilgbo47dal2GEV3YWGCSv/mIzjdA==
+ bh=pjgQb2S+aqjZtk2bAEdTY3C6OMhGI7lONqKmsYCHhQY=;
+ b=Go57Wi4UePTZqYXXX75hpKu9f1HrRyccNVB2VhO82uUYc/Ax/UuS1y9Wa2+kyCH5lTi9M7o51I0d4USWsXnHayacLidlcoOXFxOhk2u9LIAA7ETTgy4jpWEt+vXLxnTHj7zbKK8v5e3sc8wUOHmF6H8gQr8ljrp3TDsRWbiyL04=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SEZPR03MB6468.apcprd03.prod.outlook.com (2603:1096:101:47::9) with
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OSOP286MB7677.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:469::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:53:32 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:53:32 +0000
-Message-ID: <9d675b93-3829-42b2-b4b3-6ae24a4f3e7c@amlogic.com>
-Date: Mon, 26 Oct 2026 13:53:28 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/11] media: amlogic: vdec: S4 decoding beyond H.264
- Baseline
-To: christian.koever-draxl@student.uibk.ac.at, mchehab@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SL2P216CA0219.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:18::18) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+ 2026 06:16:54 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 06:16:53 +0000
+Date: Mon, 26 Oct 2026 15:16:53 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: renesas: spider: Add overlay for PCIe ch0
+ endpoint mode
+Message-ID: <egu73ymzk7spvoto3tooryzvsbn2pg542o6wpylqtlchjcvv7h@w4jsqg5ynydc>
+References: <20261022082113.3163666-1-den@valinux.co.jp>
+ <4c0b2b15-7e5f-4dc1-bf49-c762de48853e@mailbox.org>
+ <yxguu4obyspgkq5f2coa6kjrnxjeij3yduhwd4qd4gpamw25fp@quii5c75uxhn>
+ <1d48649e-cf7d-421b-bcd9-3a896064375c@mailbox.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1d48649e-cf7d-421b-bcd9-3a896064375c@mailbox.org>
+X-ClientProxiedBy: TYCP301CA0026.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::10) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,190 +103,130 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEZPR03MB6468:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4c72527-7919-4da3-cb5e-08df33257741
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSOP286MB7677:EE_
+X-MS-Office365-Filtering-Correlation-Id: 577adb40-7141-4348-5825-08df3328bae2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|11063799006|5023799004|56012099006|261009223027099003|261022105027099003|261022115727099003|261021123027099003|261021121427099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|376014|10070799003|23010399003|366016|1800799024|4143699003|56012099006|261021121427099003|261022105027099003|261021135927099003|261022075727099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	aW1mXUQx40TY4qM5s6ClD0JfEZvfGELwrReiHHSmGSwJI0AW7KJfvkRJMhcRNZVVZ0B2jrPdGRwECkw+FTlwpahYoaCwvR/tzUjv73bTB8Der4BeDWjPA1AY7fvNR6IT44oz6oxUijMztA/muaXpuSOUsX1nhI/WvlMT+xM2y0rmT+MZ7RuJzAL3sctQZrFSgO9uIWLDERKe4WDgec1ce3CsjuYgYpm4+EPWzI4nNuCGmtD2PV+pzQc4iKOPwXx3uyotv4r/czmoqBRx1xrcjdcRawe7593xxx7140kAObonvQ2H0rfyFh2hYcEGTDPjbal9Es4CVi9KhYIAnv01oyPAO2hOTZrw8QDF9vkHlGGSoeuvqOB5Ug9thul4qjYvFNgKo99AFR6EvUtTZn319sLWI2BlGun5C/FBoeaJ9JR1vWGkGx7glvHdIx9WXzpIEovVYGthS4K/zkcr6d6iXn4LGyYPq9IfwbAZAv/kMUdNzb9dctCLbiyU5niv95fcQMUSUQt45zte/0XBv36RzpyRal6EOnXz3i0K1drA0GvxGtnjnAFiHi7/FwWP2sh22u2d46+menYPCVCxfz1cpEfXMaTuoaz+KqwwEXpBh6POvR+mGQ17NZuFHjZhPZxH
+	jX+mmBuFEkUKPHttJEySW+hxaKJslBES9TXPsFzP/4ZgEihewa2U/5OiVLoC9FkhTd3t+FrW8lpCDWIkwxWNXMW3zNEx8LzCdjThkVUXLmiVtHAMMaocKnUXNeqKjRKRb/B+tZ96um+ut1EKaBxIDdZf36NaKAvqGA7PXIbLey3jMUHJV9OSxCIs4nG54uiA6Rlh7EepJqtITmnK/4/yYygJBTvlFjTNyic7h4Qs96CgQRiP98rxSL43npEbQHpUseonXVJjoTY2sxt9mP8qE+AoduDe4Okd4nS0QATLZTDSJy7qLk7VLI2eKp7fK3qVabu0oJmRbmgQEc6SRaPIPDX2SlgIdW/N7RsAQf799xU3cbAjGhKaJWEYkkmC18F+UwLSB7Nbp5/bJ9kxafbEyUy+fvb9YWmVk24KnJpw3oTpf6BiE61EuDtgZzeE7DG30LRG7yckWWsI/yW6HjWCNH1yrhf4um9+ErtYaiPMd5iJiOEiIcJepUY4XiWrdGPiWCF8Lo/JgxRFp82U4a7SOzgfPv+awPUbDQL6Ism4POJZBvIJH8HRybskJM89A0gWgOMOm+OVvv2vsqU/zRLDQgde0QQnq7CmRTDXvZL1msIvR6Lgtlk6rUI4xfCu+5pAUygR+WWhD0mHF082U3UPxxrwqmSnVy+3to27T5WJFFg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(5023799004)(56012099006)(261009223027099003)(261022105027099003)(261022115727099003)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261021135927099003)(261022075727099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bktEZ3RVYVNQRzg1dmtqSlNCbmJnTnpNaTFrZGE5aGlkMW1Ob3ZudVRIMzZK?=
- =?utf-8?B?VTNnRVduOW1xSXA5ZCtTczJITVh5ZkluWEIwNHZzbTU4OVdUSTJ0YlZ2T0xs?=
- =?utf-8?B?M1BkVFdJZlgyeW5xT1lmRW5xcDFnTFFtUnZxV2F0UDhSWk94YStINzN4Wjli?=
- =?utf-8?B?RFJLS1JLU1dGbXFUQXcrMENpc3hlcFNzL2tFdXZjNnNYYklPTFZsY1ZTcU14?=
- =?utf-8?B?Ukd3UnR6Q0MzVXptWlJkeGlqZHpBMjhpZzlhTTNoOUZNM3ZqWDVhcC9paGIx?=
- =?utf-8?B?RVJKTEdiUUFUUXo0c1plWjZ4K0tWbmhKR2dCQXc2OTBQSS90eE1LcXlnTUFR?=
- =?utf-8?B?SGpaSjR2K1lORVhGT2dYTlNDcml3ell0OFJrMTlXdVFDUkZrUTlrSFJQS0pN?=
- =?utf-8?B?U3UrM2VoVExvTXdWU3hoMmM2UC9vVitwV25mdldxNDZ5NGltNmpXZWNHVHFN?=
- =?utf-8?B?c2hIMk1haGt4aGVFVGhkTFR1SGNHUjhCNjVraUpCTFNSWjlxWng4dTY3U3lD?=
- =?utf-8?B?S1d4MHRXUG5kVVR1V3R4aFhjUHNEenI5OUJlVzJYeitFY2FDWkRFaXlhZWFX?=
- =?utf-8?B?b1YxMTFUOWhER3paQXo1cnhYSmRIUXROUjhEdlgvelVwNmZHL2wrbGpxWUNX?=
- =?utf-8?B?OHByRm83WGRDaTVyekJPZlllWmxnejlsUHFNL0FHL2NCVkJYejZpZW05WnRw?=
- =?utf-8?B?SU5RWWFxNUh2R0pZV25vbTdFRlRmVDZ5OEJIdEtiWUdORG1NTFIrL2Z4MjJx?=
- =?utf-8?B?Z0lTaXRRbm1zREJhdUpHSlZ1bEEzMWFjK0FIa1pTbXducmNkY0M5UThHY3hK?=
- =?utf-8?B?cm9xNG9xMER0OWRsb1RZQ09iT2IzMDdSOXRjUW9HQlVTeEhWeEVGUG1QVDdU?=
- =?utf-8?B?d2xIdStETjkwbGQyVzdHVkFJc3V2enVkTzY2SDRja2dWMUlrUWEra3dQblBE?=
- =?utf-8?B?azJzamlwMWs4TndmWTExSUNNQXlIUGh4V0s4TjlmVEM0R25qNm9uaUpUckNR?=
- =?utf-8?B?Snc2akxwL3Jaejk5UUE3bDQ1eXlxN2FhVTVVVXlwK1FWbVRsVlh1RTE3eTFm?=
- =?utf-8?B?cThKMFJCN21ZTWVrTUdEVlY3V0pld0k4NjYvbEczVEVBWGZTL3hDVUtDcGFm?=
- =?utf-8?B?eU1ZRGtJM1I3RC9jZTJzZmlXeW5SaEV6aEcyN3dKNVN2Vzg1QW4xeWxPYWMr?=
- =?utf-8?B?Y3J3TmNHanVEcjFmcFJ2QU9kdmhhQ0NnOGFyYmVGQ2N0czd1WlZhWVIwZi9L?=
- =?utf-8?B?VTZaUlZMQ3hwMkJyU1FOeWhGdmdxbVMycTlkQjJnQmJyMExJRTJSQWx3NXha?=
- =?utf-8?B?U0EvRXZDaE82NzQrSXdodnpXTS9qRENVOVlUWkdBQlB2Y2JLTnNSZHBwU0tx?=
- =?utf-8?B?ZXRIQzAwb3lUWC9uZCs1Q0NSWTZpY2NXRmhyTzAyMUJYZ1hDOVJEeWdqNU1a?=
- =?utf-8?B?WUVmdFBLbkV4QXpTVUtmMWlVUmJCZ2ZyMFhQb0k0WUdHa1RFWllpeTRjNUZ6?=
- =?utf-8?B?djhybXZWL1BkR011eGtpcjFmK3JzbmRNUno1andiVGY0bWpHRTBzYjJSczJl?=
- =?utf-8?B?RzJyS1ZuWHZMaFJRcTNha1Q2b2RRM1dkM1dkMXFJWFFrZFFGKzdIRS9SL2Zy?=
- =?utf-8?B?RnJtbkVvWGk4ZEFKMmNBZE9OV0pmZUxKK0ZBSmdNR0hhV3RFZmNHSHRyK0tS?=
- =?utf-8?B?K3JGbytqZUZOem5Gb3R3T3ZKM3lDWjcvRlBZT0RUVnhheXJlQm5ycCtrSFc3?=
- =?utf-8?B?MnVEcmxhRXc0NnNsRUI4UXRPZkRXZVFTVTRqTFdBUm9peU8zN0EyZHdPZ1FV?=
- =?utf-8?B?S2R0MGhVQmlhcUMvcWwvNFZNbzBzWWo1cW40RzFsNUFZVnI2ZmF4WUNaTkpD?=
- =?utf-8?B?SWxkZ1k3TlEzdDlveXhOVEtxbm1Ib1gzakV6b2VUNzR1V2tlbys1ZFg0OFU4?=
- =?utf-8?B?Qm9Sc1lvT00zN2ZXNEVUa1ByT1IwQkw1Vm5QQUY4N3hnb1dXdEhEdGs5T1Fz?=
- =?utf-8?B?S1NteHZFSlNYdjdyOXpxanlHNHdUTHdkK1RkMTIxWmI4eXB5RmE3clZ3cmZ5?=
- =?utf-8?B?aUZKemZpaUdjdmhYSWNNdGxLR0dMN1BxYi8zdTI2S0hSbE9ielZFaUlZRnls?=
- =?utf-8?B?WWFBcmJ0ZW5wdm14MHdKZ2NZMC9TcVp0WmdWcVVBdWJmRzdRTnJNSzdPYUxp?=
- =?utf-8?B?UzdiMGxFcitOTEh3Q1lnVkQ1N3FBNkVCdkVEQVZPdFFTaUFFcmlpaVJPbE4w?=
- =?utf-8?B?aHh5V1Vrb1h6QW5XWm5FdnkvUUJ4eHRzS2xCYVd1SFNTZzRYa2E3WDg5VVYr?=
- =?utf-8?B?alAyTnNTcjhYLzI4dTBSdFBKTmQxeTVxN3JjZXIwKzBTanBCOFRrQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4c72527-7919-4da3-cb5e-08df33257741
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+	=?us-ascii?Q?wBNGO5T8n7JQZWfVD1NiTC99seaI5ICFfIlfwHjRSpiD32gKgBoLd+JXmgNE?=
+ =?us-ascii?Q?EK1h4H4RX+BRK9pA90H/oTIXHwpmGVGXoZlahRahsZC7O6LMOm5w9JCO/kDE?=
+ =?us-ascii?Q?E7Y9JWp44dB4ciJhJ/cVjh4U4bz/e3kvXefzCjNmDqplh6ZS1MkERWr3zZI+?=
+ =?us-ascii?Q?BorA6iTGLbmS1pN09Ijpo0AdBEfIaOzBDMUi7E5FgdCH54WDBO8rSn9i1I2k?=
+ =?us-ascii?Q?vU6KiKBCDw/h6maXl801qCouZaTUZIMZD8+kVn6pOzNyGRAJkIbLWTzyKG3p?=
+ =?us-ascii?Q?2V5DyxvLlsFty0uZRyrZ5bnaK5wp+EwDUMCfXAbmGmcBy2sf4BoeF+CXcu7G?=
+ =?us-ascii?Q?wOxjrGbaNd9EXC6S6HqrXhJEqe1/EN2IuTO4zayPCIddEXlCKn0iWdJaGxMs?=
+ =?us-ascii?Q?mIRLqBJT4sNYr3lANDOtljgwfAlgvd7JWkTI8m1SYF05RLRKh3Db3PD8UEP6?=
+ =?us-ascii?Q?oBx/Hr937yKsz2yo5kGmx72qsCw93My0O+WQsSOWBgh9rSYiplOKo3nxUzdf?=
+ =?us-ascii?Q?1Z27PmGmGug+6LAqma7Wvd6oJUnAbPmCC/Nrsr3DV7sESBIszcxE+pMfwmTv?=
+ =?us-ascii?Q?QCFtWS86nTnSvuAWwNXx7dMWeHbu+zlKaFA0fFbpIqHpGm69cKsZB9BRclGT?=
+ =?us-ascii?Q?CB6/MQwZruvQiRDIF2el87iLIEYOc6oQVjG44QphY4xRiNLHZNjO2CmL5u1f?=
+ =?us-ascii?Q?Lzs18qCrJomyIvuIuh6gruA+AUUgLcxiStA0HUQWQ8fTalfZpqXXQa6NOIeh?=
+ =?us-ascii?Q?7GlfiCPZprqPppsSXYKOor2NyW2zYyvcqafA8KHZvnw1VS4k5RU8hGo7Wd81?=
+ =?us-ascii?Q?ROHwLOugOHuTLB92oQ7xhNHt2itVShna06mwiFay9UGnnSHNpbXjkgh8T7Q1?=
+ =?us-ascii?Q?6uQ3crNDk+kdL5KJ1SCSeST7GuSnI7qTq1GSM95RAnago6akB9u9is/zIegg?=
+ =?us-ascii?Q?5nG3cN40aS9QtenWBXEBCSO16ZE1xp3qbmj2bfr/3ImEhbejx7E7XSA4As3z?=
+ =?us-ascii?Q?EsDT7fYmyRjqgbT0OOUp77gi11npLaLszAomH+/MMtDTm9DAXTFwY3NI0WSD?=
+ =?us-ascii?Q?NkDbQkBjQ4T7tK1IVBYsLaAvt8K68hkrNHzDEAaiicyBZ6JAylNQpSsTypah?=
+ =?us-ascii?Q?u0K0Tkf80fPbFa3xgVtI60nX3VHJ+esD2Ta9yj3qZs1w8+0D5wqzW8WKND9X?=
+ =?us-ascii?Q?D/4F4i0yEvyE+A4O4LW35Fg2SPEkbgah+sVLhRmVy/6zLunG/nFvBBJ8OnyA?=
+ =?us-ascii?Q?Fd2RhEHPTGKYcvCdpcX3bYeW9WDZVZCJ9F1Vs8TUMujHubp1Qf6htmJnFZRn?=
+ =?us-ascii?Q?Nj3Ap4jWap/x6kjFV2swzgnYsqrGVbIjEsf71o31iIHxGFwtijcLNHMvXoZQ?=
+ =?us-ascii?Q?dCz3+goSE9J5c1P6qpF/0ytpA2FDWGbSKdF/zWsynT3sQZl0gPAH038xIh/V?=
+ =?us-ascii?Q?oCME5HMxmG8xYDI7vwPHJMophGAqmzTjrAOg9ukTHkxlaSPPwu8dyBkoSh/0?=
+ =?us-ascii?Q?aIaVgaO390aTdXhY7GEIPgbRx7BpQr6R40LMpKfRKPn5UnTenVL95QH6kDNn?=
+ =?us-ascii?Q?To4Ni90YI+DYDpTHfbNa3/CGE8tT4SlnRRNdz51TOGy6mz/tZrc1J/1vCO5Q?=
+ =?us-ascii?Q?AA4hqheXjYV0Bm2ACdwvbxvYu8iFli0bNLCGIOQW5vtjcdQEZIkgmQwW4c1J?=
+ =?us-ascii?Q?OW1pLLAXw5BFlhwik1Aj93rPB3kkSzuvZ2GuIfhn1l0ITJ6QsazWrQumeEWs?=
+ =?us-ascii?Q?9DB94977iVMRz2SaIOAjd/fr4Aimu9a/v03jBySMWSwxmkdfnE9Z?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 577adb40-7141-4348-5825-08df3328bae2
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:53:32.1679
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 06:16:53.8599
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c10w8jfbzp+hEKoqb/i69gdrtwQItWMbcsohCLUCoOWo/kWwDlLBhUxUAtWS12M8ZDs1kepfaqjTbzxcV1RwDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB6468
+X-MS-Exchange-CrossTenant-UserPrincipalName: i1YS2QIPOCKexlTZP0lsagswMec/hZsk3xRQ97y68snXHKhYrg0UyQC+afDWFwKzqUhxDUPTatrMfnG2osXifw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB7677
 
-Hi Christian,
+On Mon, Oct 26, 2026 at 06:35:09AM +0100, Marek Vasut wrote:
+> On 10/26/26 4:08 AM, Koichiro Den wrote:
+> > On Fri, Oct 23, 2026 at 02:58:38AM +0200, Marek Vasut wrote:
+> > > On 10/22/26 10:21 AM, Koichiro Den wrote:
+> > > 
+> > > Hello Den-san,
+> > > 
+> > > [...]
+> > > 
+> > > > +++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider-pcie0-ep.dtso
+> > > > @@ -0,0 +1,15 @@
+> > > > +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> > > > +/*
+> > > > + * Copyright (C) 2026 Renesas Electronics Corp.
+> > > 
+> > > Is this header correct ?
+> > 
+> > I checked with Renesas just in case, and confirmed it is fine.
+> 
+> Thank you for checking.
+> 
+> > > Would it be possible to include a brief "example usage" comment in the
+> > > header ? An example of such a comment is available in e.g.
+> > > arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-fan-argon40.dtso "Example
+> > > usage:" . If this would be too complicated, then please ignore this request.
+> > 
+> > I would personally perfer to stay aligned with other in-tree PCIe endpoint
+> > overlays (e.g. freescale/imx*, rockchip/*, ti/k3-*) rather than adding
+> > fan/HAT-style examples here.
+> > 
+> > The typical (long-standing) usage would just be the standard configfs steps for
+> > pci-epf-test (documented in Documentation/PCI/endpoint/pci-test-howto.rst)
+> 
+> How about adding modified form of this ^ sentence into the header ?
+> (please see below)
+> 
+> > , so I
+> > suspect duplicating those generic instructions in this file might not add much
+> > value.
+> > 
+> > That said, keeping the header completely bare might look too terse.
+> > How about something like this:
+> > 
+> >    // SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> >    /*
+> >     * DT Overlay for enabling PCIe channel 0 in Endpoint Configuration with the
+> >     * R-Car S4-8 Spider board.
+> >     *
+> >     * Copyright (C) 2026 Renesas Electronics Corp.
+> 
+> How about adding this here:
+> 
+> *
+> * Please follow the standard configfs steps for pci-epf-test documented in
+> * Documentation/PCI/endpoint/pci-test-howto.rst to set the endpoint up.
+> 
+> This would steer users toward the documentation. What do you think ?
 
-Very glad to see your contributions, I went through your patches this 
-morning, the way you added support for other codecs is almost exactly 
-what I had imagined. It seems that some of the code you added isn’t 
-actually necessary for a stateless decoder (like the H264_CONFIG_REQUEST 
-process in the h264 driver). You probably added it because you weren’t 
-sure how the firmware behaves and assumed it was required. I have some 
-feedback for you, hopefully I can get these ready this week.
+Fair enough. While I'd assume anyone enabling EP mode probably already knows
+what they're doing, having a pointer to the doc certainly doesn't hurt any could
+be a nice nudge for users. I have no objections at all.
 
-To sync with you:
+I'll send v2 shortly, thank you!
 
-1.The H264 Main & high profiles are supported, please see: 
-https://lore.kernel.org/linux-media/20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com/
+Best regards,
+Koichiro Den
 
-2. MAINTAINERS path was fixed in patch v8, please see: 
-https://lore.kernel.org/linux-media/20260831-b4-s4-vdec-upstream-v8-4-830195b9bd91@amlogic.com/
-
-Regards,
-
-Zhentao
-
-> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
->
-> This builds on Zhentao Guo's "[PATCH v6 0/4] Add Amlogic V4L2 stateless
-> decoder" and makes the S4 decoder usable for real streams:
->
->   1-2:  MAINTAINERS path fix, binding update for the second (HEVC) core;
->   3:    microcode loading that the secure world accepts, HEVC core setup;
->   4:    H.264 Main and High profile, bit-exact;
->   5-6:  MPEG-1/2 and MJPEG on the VDEC core;
->   7-9:  AV1, VP9 (profile 0 and 2) and HEVC (Main, Main 10) on the HEVC
->         core, up to 4K;
->   10:   MPEG-4 Part 2 SP/ASP;
->   11:   regmap naming.
->
-> Bit-exactness was checked against ffmpeg/libavcodec frame by frame for
-> H.264, VP9, AV1 and HEVC conformance and real-world streams; MPEG-2
-> differs by the hardware's IDCT rounding. Tested with GStreamer
-> v4l2sl*dec and a VA-API backend (Firefox) on an S905W2.
->
-> Depends on Zhentao's v6 series (not resent).
->
-> Tool use (Documentation/process/generated-content.rst):
-> This work was done with the help of an AI coding assistant, Claude
-> (Anthropic), used through Claude Code over many sessions. It did a large
-> part of the hands-on work: it read the vendor kernel and the firmware
-> interfaces, probed registers on the board, drafted the code and the
-> changelogs, and ran the builds, checkpatch, dt_binding_check and the
-> tests on the hardware. I directed the work, reviewed every change and
-> the final patches, and take responsibility for them. There is no single
-> prompt to quote; the sessions were of the form "find out why X fails on
-> this board, fix it, test it on the box".
->
-> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
->
-> Christian Stefan Kövér-Draxl (11):
->    MAINTAINERS: fix the Amlogic VDEC binding path
->    dt-bindings: media: amlogic,s4-vdec: describe both decoder cores
->    media: amlogic: vdec: fix the microcode loading and prepare the HEVC
->      core
->    media: amlogic: vdec: h264: decode Main and High profile bit-exact
->    media: amlogic: vdec: add MPEG-1/2 decoding
->    media: amlogic: vdec: add MJPEG decoding
->    media: amlogic: vdec: add AV1 decoding on the HEVC core
->    media: amlogic: vdec: add VP9 decoding on the HEVC core
->    media: amlogic: vdec: add HEVC decoding on the HEVC core
->    media: amlogic: vdec: add MPEG-4 Part 2 decoding
->    media: amlogic: vdec: give the regmaps their own names
->
->   .../bindings/media/amlogic,s4-vdec.yaml       |   24 +-
->   MAINTAINERS                                   |    2 +-
->   drivers/media/platform/amlogic/vdec/Kconfig   |    1 +
->   drivers/media/platform/amlogic/vdec/Makefile  |    2 +-
->   .../media/platform/amlogic/vdec/aml_vdec.c    |  157 +-
->   .../platform/amlogic/vdec/aml_vdec_drv.h      |   21 +
->   .../media/platform/amlogic/vdec/aml_vdec_hw.c |  178 +-
->   .../media/platform/amlogic/vdec/aml_vdec_hw.h |   64 +
->   .../platform/amlogic/vdec/aml_vdec_platform.c |  129 +-
->   .../platform/amlogic/vdec/aml_vdec_tee_fw.c   |  102 +-
->   drivers/media/platform/amlogic/vdec/av1.c     | 3140 +++++++++++++++++
->   drivers/media/platform/amlogic/vdec/av1.h     |  308 ++
->   drivers/media/platform/amlogic/vdec/h264.c    |  477 ++-
->   drivers/media/platform/amlogic/vdec/h264.h    |    7 +
->   .../platform/amlogic/vdec/h264_headers.c      |  249 ++
->   drivers/media/platform/amlogic/vdec/hevc.c    | 1728 +++++++++
->   drivers/media/platform/amlogic/vdec/hevc.h    |  125 +
->   drivers/media/platform/amlogic/vdec/mjpeg.c   |  471 +++
->   drivers/media/platform/amlogic/vdec/mjpeg.h   |   33 +
->   drivers/media/platform/amlogic/vdec/mpeg12.c  |  708 ++++
->   drivers/media/platform/amlogic/vdec/mpeg12.h  |   51 +
->   drivers/media/platform/amlogic/vdec/mpeg4.c   |  480 +++
->   drivers/media/platform/amlogic/vdec/mpeg4.h   |   52 +
->   .../media/platform/amlogic/vdec/reg_defines.h |   24 +
->   drivers/media/platform/amlogic/vdec/vp9.c     | 2004 +++++++++++
->   drivers/media/platform/amlogic/vdec/vp9.h     |  149 +
->   .../media/platform/amlogic/vdec/vp9_prob.c    |  213 ++
->   .../media/platform/amlogic/vdec/vp9_prob.h    |   32 +
->   28 files changed, 10847 insertions(+), 84 deletions(-)
->   create mode 100644 drivers/media/platform/amlogic/vdec/av1.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/av1.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/h264_headers.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/hevc.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/hevc.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/mjpeg.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/mjpeg.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/mpeg12.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/mpeg12.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/mpeg4.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/mpeg4.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/vp9.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/vp9.h
->   create mode 100644 drivers/media/platform/amlogic/vdec/vp9_prob.c
->   create mode 100644 drivers/media/platform/amlogic/vdec/vp9_prob.h
->
->
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
-> prerequisite-patch-id: 106aac9a55fa72f68fe458d405a69a66678c7040
-> prerequisite-patch-id: ed3f15728a5c616aca82b5086dc924adba315993
-> prerequisite-patch-id: 6845fd22135330ee201405f38d5c2a72bbe9d452
-> prerequisite-patch-id: 626eaa3d309664901ba13acc331d327a4ddc64c1
-> --
-> 2.56.0
+> 
+> [...]
+> 
+> -- 
+> Best regards,
+> Marek Vasut
