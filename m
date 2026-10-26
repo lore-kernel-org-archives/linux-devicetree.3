@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793018245;
-	b=OjpDhRQhlcWLNXpMsFSELKwP1quFWSnVLrAoFl8fFAjjfckjtaTexnPUgzVMN2ngghyl
-	 9cn5SGV7bJ2o7aqSipLhIEJntjT4ZFiR3Mywk5OHPnTE2InQW9g64GN4X1QZvwS4mimBU
-	 Y4aDunXGs2JDFb3nUAX2b80FFPgSgriQrsEEDPOLpBC6KpqNvbB31M5UL5zl3ardSIj8B
-	 Is8x0ISt0kHg0Zpk28KXItlo6lBjjLlbUZT0f4AHlFxA0wrR6OhjOG8bzVea1m5MnaOOw
-	 etmZU9dwXfmOgg0j6SYwDcuriqSnFO387X47lFMPexqVzdpbqLaF3JFBm8uz6v6dmsQ==
+	t=1793018366;
+	b=Je+KWPA0sy3oCGV6AZxOvPKix4cbrpZcftrFtIKD4XeRsMhR5rJ3z5BOzsTqmUXTcEXe
+	 ysiVpcW3GmDEgf1qb2vYhq3nOUinyqu6Ob4RePNDe7Tcy7R9rA591akhetyVJO3FU9OxX
+	 wHFNKH24F6djPioS6BT1hBg9oVg+MhN1tdjZuBmoFxRKDULjiuEgoHf7g95q5EFSpRCiB
+	 F8TSkLPHTPHIakiUX58JAhDs0LknmKIuWUy0875CkRUV/eiKFbn1104+r37iLuJNdEHqQ
+	 SpUyo5Oera2BzRGkLWGH0Ax5lTfrlV5tEv5yFySJarePZBozPXra/w0fEpx6PLo9iIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793018245;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xNgq6Dsm4/lWXxJQ7Wxik0MGI5HVe28AGH30Wx2BvvE=;
-	b=LS9RUzsBJ5VFg3bpFF8PF8pIltXhAwdp1vzzpOfUb5ZdNgVOPYD92qmrz2xhrhlYDzj5
-	 ejDl7T13sFEgLcmKmsv9ZMnBeJ/W+0II6mhytMiJKxpzSjIHhwQYY7ri+4bsYNj4MDbqu
-	 C0C8be1OuoyXQeYTD2tSEOEESTZcTeRD/WU+xD3+PEkM6mip8c884VEi08EkxMYkWWKeu
-	 VpTkotrlgyoDQ0XUaRGFj9HS0s8CMD+aDT0te2LqIPO97zrkte79Qw10xJeLJDnZ6GFft
-	 ByYrWSHs2Uj5TUkzC2nUfL1JjI3APVquJRPEYVFjaa2U3DzXucXTa7UNGFsTbcvy2Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793018366;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Bb598JIaq4miGwMJBaFa+6pT3HV69s7VbiuHdfyulYA=;
+	b=ls8SpbCErggw3dQIgOKLwlepvcDHGIfxMuZFzz0ZQbtx9owWhV+k6nqgjGOtQ1cqbCVL
+	 5mCAMU765v0DKcHYOR4J3FX9/ijqcTaT5SxFAhqT/Z7ysv9SdSAmlm88EokzVnE7pX7xw
+	 GQq0NmwFFXr82GXw/nbQdisdf18ycq+OYTniOQJ3DiZ9ax1YLBufAgRrCC7q57RbhHXKi
+	 M15yGPcyY+Q1wEhPUkoK+cwqdYV/xnc8GilVsusX5vmlXENjpXqdzLCNz4aYwgFxOg+WX
+	 kpKFqJWCxK1amDbeaeZ3X4Z1zu5QLDJFaPlsGt+bBMCtOTo63HLnIt4oE6/THPCoUPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKgdbjy+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WTzzFqLn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SpZzmsqg;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49267606A324;
-	Mon, 26 Oct 2026 12:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48030606A31B
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48030606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKgdbjy+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867041F01828;
-	Mon, 26 Oct 2026 12:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793018245;
-	bh=xNgq6Dsm4/lWXxJQ7Wxik0MGI5HVe28AGH30Wx2BvvE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YKgdbjy+CLs84ZuMiSmqalfmf9GZtJS6lAXprGDOiWRLU7+jqmvvFk3VKBlJaAKvi
-	 u0aUpHz4H4SxIbo73uyblvAkBIzYsC/83YFbgetCZLxOQU2VBdxFi+MFEGPevkgJKE
-	 v6pWMYopSCJxJg4pezmhrLwrefDivU+QNrc64tp+ojr/QMa7FLOYo3FgkWyIf/ww51
-	 qoBEAbmz2iCWMRiW6H4M5oasrosGnh9qELxX5sS1TgG0x52MzZtJHxIcFqymC5ykGa
-	 OWVQ6zW9yPRZFEovAEWlAxWDdIN6T20x6ia4mdNubWrn49bTLzdpsS8AkhDl04UlAZ
-	 EMz7dINzHfENw==
-Message-ID: <sashiko-outbox-185222@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/23] drm/msm/dcp: Add DCP DSI host and panel
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-15-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-15-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 12:37:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WTzzFqLn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SpZzmsqg
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt8rS4126450
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:39:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Bb598JIaq4miGwMJBaFa+6pT3HV69s7VbiuHdfyulYA=; b=WTzzFqLnwVYu4HrR
+	4MHLjMicCThMVoWiMc6rYZhLuGFM6mLBo9ddNlnWGsbyHybL0SbpP95E1mk7M5v1
+	fw4ZVK/BKbdUECrdmzG7FEA9dHYmmf85Sp4pAkjFwKZhHr9eE0w7ch40Ul2EezxG
+	8y77P2R0QL3rXTjrAfsm6OZuNIjzqDdoMo5nMMKyvU4H29+DJzxwF7vN/GwdtC/L
+	X01BZUf1AkZxpLKT622MCUmrZAFgFT/S4Hb48CVy/AQCAv/fih0hCLNRZhZqPUMa
+	WmKHjE2XY+Y2cEB5kAa2dZ1G6IYLxQaIRuoVb18OnE7vv5TY5XYj52fFuEiae7Hv
+	TH82qA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhshptd7s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:39:25 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ea8a9cfe6so88497085a.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 05:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793018364; x=1793623164; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bb598JIaq4miGwMJBaFa+6pT3HV69s7VbiuHdfyulYA=;
+        b=SpZzmsqg9YEJN01lH7OxCQK5ZAtZPjABZnB2VQRFv88LS9KMIFCX0abgwwCi4xSc+r
+         VuO10VENHsaRNe44178uj0ntScXSeqKJfTWEXj/Xo444hdgPHAKUN+yC3RjYd0QtMr2u
+         YlBEAygME3EOEItCpnrNSmtR/Y6QI6W6w4clsSHW/AP77LbHJBp3gUUiLrqK2ib46xOS
+         6if+PQ+e9x6FNLge1Q/aeMgOSMZrqzVgN7DEWATBmvPPv641WkEBHWwbWYeNZjlYOi0r
+         phWY+cti8mdlBHlCJanxv2V70ZM+4qo9nnjY1Csw41KQRPC+67gwwv/Qjj1w0iFt4MD+
+         JTjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793018364; x=1793623164;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bb598JIaq4miGwMJBaFa+6pT3HV69s7VbiuHdfyulYA=;
+        b=jLlZcM9ZhEMOr+PqX80sxO3FB0gy8T2kRgAoXKeIh/C51quAXADWiBH4VqR539tQyQ
+         lWQp//E0rDD+YalRdaadDVp4Ddu7kiWhFiwOBjSO38/dcMdqJsZlfnoDX3FIeZztWBS5
+         lCOqpzaQI7Atyhh+zedOiY5LOXDJmMc3pX3EU2Kz5j+/Fi888Z1a6U5AOJxAehG5bSf1
+         UC9iYzuxYMxeLvYvKGrR2DsW6PamXb4LRJ9c+y2dRex2OSio0E5QPyEoS4DYqiDZ+ckM
+         JKheCn7SN8v5Dm5aPaL5SlsFmMvzuuoJmY6mX3+SgX1A3XfBSJ8okMNjwsJT7Z8BYsyH
+         dXWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQZPsCmC6JTU5H8K1ZAjRqyNO3illLPBrc1k+zO3DfE8d6i4rl3GBfQjDnhLRsdJ4qmCzYjus54uyu@vger.kernel.org
+X-Gm-Message-State: AFq9FYJx8j7qslQJOLwYK2yrvCgBAji9XKRMgjncZKlj8olGz0SUBbtm
+	YEKJAifPNtGbRF77vSPQmhhfjF8V99oxEoGIQKAA7pnfkSSppaX8LdFgQxh1/Sz1RBqPICq/JiG
+	/H/BY5ihSc1IwRjaA0GtZ8/f0fqlAOx1jmUOX91pWQ3mZ09Eoq43V/1qdBuFGOJso
+X-Gm-Gg: AYBFou3U27topJgUsDfIXhxCJ78kbLQX/JemFEfPKpndmkcwCsrMbMMGJVDVfp3vB37
+	Zx571OkYJw3QKnVGuWFjNVOJ7Og+jSonwzi/sm30TgmGn5znIqpXgL2JgZF/PpYhQ8I8JiZAJiv
+	xT/W4pc9OvjrQkNVm8veCRLmirZYJJ/mORxltiUStd4qCLldiPsKrQx+AE08QuC/3AqkhUCwcOr
+	g9pXrNJF8LPTf7mt+XNRT8XxwKdsK/H8MBEmDt1vNU/NJe23AGPeAlFAzsBR9mIXBg7KvI1+CwS
+	2fR1+ZjYYkYIuraThHp+VdhpIgfl925MpU61+AEpc0tbIoSBpos2BnkfIYGenhx+fOUWSzGLCgE
+	cBztuS4z5rrqBV8Ddr23phw==
+X-Received: by 2002:a05:620a:8a87:b0:93e:571e:94f0 with SMTP id af79cd13be357-940ef8f51fdmr949470785a.3.1793018364169;
+        Mon, 26 Oct 2026 05:39:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:8a87:b0:93e:571e:94f0 with SMTP id af79cd13be357-940ef8f51fdmr949467785a.3.1793018363655;
+        Mon, 26 Oct 2026 05:39:23 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a9d459sm1530307e87.82.2026.10.26.05.39.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 05:39:22 -0700 (PDT)
+Message-ID: <2c20fe9f-c117-47de-aeca-2641abcb4b66@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 13:39:19 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,572 +114,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] drm/msm/dcp: off-by-one DSC chroma and color space enums in dcp_ds=
-i_host_attach()
-- [High] drm/msm/dcp: deadlock and unsafe teardown in dcp_dsi_bridge_cleanu=
-p()
-- [Medium] drm/msm/dcp: OF node leak of dcp_np on error in dcp_dsi_bridge_i=
-nit()
-- [Medium] drm/msm/dcp: dcp_dsi_bridge_setup_dsc() never sets dsc_rc_overri=
-de
-- [Medium] drm/msm/dcp: duplicate dsi_host_dev name in dcp_dsi_bridge_init()
-- [Medium] drm/msm/dcp: invalid session close and goto mixing in dcp_dsi_br=
-idge_prepare_session()
-- [Medium] drm/msm/dcp: missing session_lock in dcp_dsi_bridge_atomic_enabl=
-e()
-- [Medium] drm/msm/dcp: unsynchronized session_id and packet_id in power co=
-ntrol
-- [Medium] drm/msm/dcp: firmware session leak on dcp_hfi_display_close() ea=
-rly return
-- [Medium] drm/msm/dcp: wrong byte count returned for DSI reads in dcp_dsi_=
-host_transfer()
---
-
-commit 7535bc53c50473e4189f52c83b74358ab514c8d0
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-
-drm/msm/dcp: Add DCP DSI host and panel support
-
-This commit implements the MIPI DSI host, panel-device support, bridge
-state, DSC configuration, DCS transfers, and DSI buffer management for the
-DCP display path.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dsi_bridge.c b/drivers/gpu/drm/m=
-sm/dcp/dcp_dsi_bridge.c
-> new file mode 100644
-> index 0000000000000..b3e782b8f0470
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_dsi_bridge.c
-> @@ -0,0 +1,1110 @@
-
-[ ... ]
-
-> +static void dcp_dsi_power_control_work(struct work_struct *work)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge =3D
-> +		container_of(work, struct dcp_dsi_bridge, power_control_work);
-> +	struct dcp_dpu_kms *kms =3D dsi_bridge->kms;
-> +
-> +	dcp_hfi_display_power_control_ack(kms->hfi,
-> +					  dsi_bridge->session_id,
-> +					  dsi_bridge->power_packet_id);
-> +
-> +	complete(&dsi_bridge->power_done);
-> +}
-> +
-> +static void dcp_dsi_power_control_cb(void *priv, u32 display_id,
-> +				     u32 power_mask, bool enable,
-> +				     u32 packet_id)
-> +{
-> +	struct dcp_dpu_kms *kms =3D priv;
-> +	struct dcp_dsi_bridge *dsi_bridge =3D NULL;
-> +	int idx;
-> +
-> +	for (idx =3D 0; idx < ARRAY_SIZE(kms->dsi_bridge); idx++) {
-> +		struct dcp_dsi_bridge *b =3D kms->dsi_bridge[idx];
-> +
-> +		if (b && b->session_id =3D=3D display_id) {
-> +			dsi_bridge =3D b;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!dsi_bridge) {
-> +		dev_warn(kms->pm_dev,
-> +			 "DSI: power_control for unknown display_id=3D%u\n", display_id);
-> +		return;
-> +	}
-> +
-> +	dsi_bridge->power_packet_id =3D packet_id;
-> +	schedule_work(&dsi_bridge->power_control_work);
-> +}
-
-[Severity: Medium]
-Are dsi_bridge->session_id and dsi_bridge->power_packet_id synchronized and
-matched safely between dcp_dsi_power_control_cb() and
-dcp_dsi_power_control_work()?
-
-When dcp_hfi_dispatch_event() drops resp_drain_lock and invokes
-dcp_dsi_power_control_cb(), the loop checks b->session_id =3D=3D display_id
-without checking b->session_open or holding session_lock. Since closed
-bridges have session_id =3D=3D 0, an unopened bridge matches when
-display_id =3D=3D 0, whereas a temporary session opened in
-dcp_dsi_host_transfer() stores its session ID in a local variable and
-leaves dsi_bridge->session_id =3D=3D 0, failing to match a non-zero
-display_id.
-
-Furthermore, dcp_dsi_power_control_work() reads dsi_bridge->session_id and
-dsi_bridge->power_packet_id without locking while
-dcp_dsi_bridge_atomic_post_disable(), dcp_dsi_bridge_atomic_enable(), and
-dcp_dsi_bridge_prepare_session() reset dsi_bridge->session_id =3D 0 without
-flushing power_control_work. And in dcp_dsi_bridge_cleanup(),
-dcp_hfi_clear_power_control_cb() does not wait for an in-flight callback
-that already dropped resp_drain_lock, allowing
-schedule_work(&dsi_bridge->power_control_work) to run after
-cancel_work_sync().
-
-[ ... ]
-
-> +static int dcp_dsi_host_attach(struct mipi_dsi_host *host,
-> +			       struct mipi_dsi_device *dsi)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge =3D to_dcp_dsi_host(host);
-> +	struct dcp_dsi_hfi_panel_config *cfg =3D &dsi_bridge->hfi_panel_config;
-> +	int ret;
-
-[ ... ]
-
-> +	if (dsi->dsc) {
-> +		struct drm_dsc_config *dsc =3D dsi->dsc;
-> +		u32 chroma_format =3D 0;
-> +		u32 color_space =3D 0;
-> +
-> +		if (dsc->native_422)
-> +			chroma_format =3D 1;
-> +		else if (dsc->native_420)
-> +			chroma_format =3D 2;
-> +		if (dsc->native_422 || dsc->native_420)
-> +			color_space =3D 1;
-> +
-> +		cfg->dsc_enabled                 =3D true;
-> +		cfg->dsc_version_major           =3D dsc->dsc_version_major;
-> +		cfg->dsc_version_minor           =3D dsc->dsc_version_minor;
-> +		cfg->dsc_scr_version              =3D 0;
-> +		cfg->dsc_slice_height             =3D dsc->slice_height;
-> +		cfg->dsc_slice_width              =3D dsc->slice_width;
-> +		cfg->dsc_slices_per_pkt           =3D 1;
-> +		cfg->dsc_bits_per_component       =3D dsc->bits_per_component;
-> +		cfg->dsc_pps_delay_ms             =3D 0;
-> +		cfg->dsc_bits_per_pixel           =3D dsc->bits_per_pixel;
-> +		cfg->dsc_chroma_format            =3D chroma_format;
-> +		cfg->dsc_color_space              =3D color_space;
-
-[Severity: High]
-Are chroma_format and color_space off by one here?
-
-In drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h, the HFI protocol enums
-packed into HFI_PROPERTY_PANEL_COMPRESSION_DATA by dcp_hfi_panel_init() are
-1-based:
-
-enum hfi_panel_chroma_format_type {
-	HFI_PANEL_CHROMA_FORMAT_444     =3D 1,
-	HFI_PANEL_CHROMA_FORMAT_422     =3D 2,
-	HFI_PANEL_CHROMA_FORMAT_420     =3D 3,
-};
-
-enum hfi_panel_color_space_type {
-	HFI_PANEL_COLOR_SPACE_RGB     =3D 1,
-	HFI_PANEL_COLOR_SPACE_YUV     =3D 2,
-};
-
-Should dcp_dsi_host_attach() use the HFI_PANEL_CHROMA_FORMAT_* and
-HFI_PANEL_COLOR_SPACE_* constants instead of 0-based values?
-
-[ ... ]
-
-> +static ssize_t dcp_dsi_host_transfer(struct mipi_dsi_host *host,
-> +				     const struct mipi_dsi_msg *msg)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge =3D to_dcp_dsi_host(host);
-> +	struct dcp_dpu_kms *kms =3D dsi_bridge->kms;
-> +	u32 session_id;
-> +	bool temporary_session =3D false;
-> +	ssize_t ret;
-> +
-> +	guard(mutex)(&dsi_bridge->session_lock);
-> +	if (!dsi_bridge->dcs_tx_buf)
-> +		return -ENODEV;
-> +
-> +	/* Serialize DCS transfers */
-> +	guard(mutex)(&dsi_bridge->dcs_lock);
-> +
-> +	if (dsi_bridge->session_open) {
-> +		session_id =3D dsi_bridge->session_id;
-> +	} else {
-> +		/*
-> +		 * mipi_dsi_host_ops::transfer() may be called while the host is
-> +		 * disabled. Open a transaction-only DCP session in that case;
-> +		 * atomic_pre_enable() will create the full display session later.
-> +		 */
-> +		ret =3D dcp_hfi_display_enable(kms->hfi, dsi_bridge->intf_idx,
-> +					     dsi_bridge->fw_display_id,
-> +					     &session_id);
-> +		if (ret)
-> +			return ret;
-> +
-> +		temporary_session =3D true;
-> +	}
-> +
-> +	ret =3D dcp_hfi_dcs_transfer(kms->hfi, session_id, msg,
-> +				   dsi_bridge->dcs_tx_buf, dsi_bridge->dcs_tx_iova,
-> +				   dsi_bridge->dcs_rx_buf, dsi_bridge->dcs_rx_iova, 0,
-> +				   dsi_bridge->hfi_panel_config.ctrl_indices[0]);
-
-[Severity: Medium]
-Does dcp_dsi_host_transfer() return the wrong byte count for DSI read
-transfers and reject 0-parameter generic transfers?
-
-In drivers/gpu/drm/msm/dcp/dcp_hfi_dsi_panel.c, dcp_hfi_dcs_transfer() ends
-with:
-
-	if (msg->rx_len > 0)
-		memcpy(msg->rx_buf, rx_buf, msg->rx_len);
-
-	return msg->tx_len;
-
-and rejects msg->tx_len =3D=3D 0 at entry with -EINVAL.
-
-For mipi_dsi_host_ops::transfer(), callers such as mipi_dsi_dcs_read() and
-mipi_dsi_generic_read() expect the number of received bytes (msg->rx_len)
-on read transfers, and 0-parameter generic transfers
-(MIPI_DSI_GENERIC_SHORT_WRITE_0_PARAM and
-MIPI_DSI_GENERIC_READ_REQUEST_0_PARAM) have msg->tx_len =3D=3D 0.
-
-> +	if (temporary_session) {
-> +		int close_ret =3D dcp_hfi_display_close(kms->hfi, session_id);
-> +
-> +		if (ret >=3D 0 && close_ret)
-> +			ret =3D close_ret;
-> +	}
-
-[Severity: Medium]
-Can calling dcp_hfi_display_close() here (and on the err_close path in
-dcp_dsi_bridge_atomic_enable()) leak the firmware display session if
-DISPLAY_DISABLE or DISPLAY_POST_DISABLE fails?
-
-In drivers/gpu/drm/msm/dcp/dcp_hfi_dsi.c, dcp_hfi_display_close() returns
-early before sending HFI_COMMAND_DISPLAY_CLOSE if either
-dcp_hfi_display_disable() or dcp_hfi_display_post_disable() returns an
-error:
-
-int dcp_hfi_display_close(struct dcp_hfi *hfi, u32 session_id)
-{
-	int ret;
-
-	ret =3D dcp_hfi_display_disable(hfi, session_id);
-	if (ret) {
-		dev_warn(hfi->dev, "HFI DISPLAY_DISABLE failed: %d\n", ret);
-		return ret;
-	}
-
-	ret =3D dcp_hfi_display_post_disable(hfi, session_id);
-	if (ret) {
-		dev_warn(hfi->dev, "HFI DISPLAY_POST_DISABLE failed: %d\n", ret);
-		return ret;
-	}
-
-When closing a temporary session in dcp_dsi_host_transfer() (which only
-called dcp_hfi_display_enable() and never called
-dcp_hfi_display_post_enable()) or rolling back a partially enabled session
-in dcp_dsi_bridge_atomic_enable(), an error from DISPLAY_DISABLE or
-DISPLAY_POST_DISABLE skips HFI_COMMAND_DISPLAY_CLOSE while the driver drops
-session_id and marks session_open =3D false. In contrast,
-dcp_dsi_bridge_atomic_disable() and dcp_dsi_bridge_atomic_post_disable()
-still send HFI_COMMAND_DISPLAY_CLOSE even if the preceding disable commands
-warn.
-
-[ ... ]
-
-> +static int dcp_dsi_bridge_setup_dsc(struct dcp_dsi_bridge *dsi_bridge,
-> +				    struct dcp_dsi_hfi_panel_config *cfg,
-> +				    const struct drm_display_mode *mode)
-> +{
-
-[ ... ]
-
-> +	for (i =3D 0; i < ARRAY_SIZE(cfg->dsc_rc_min_qp); i++) {
-> +		cfg->dsc_rc_min_qp[i] =3D dsc->rc_range_params[i].range_min_qp;
-> +		cfg->dsc_rc_max_qp[i] =3D dsc->rc_range_params[i].range_max_qp;
-> +		cfg->dsc_rc_bpg_offsets[i] =3D dsc->rc_range_params[i].range_bpg_offse=
-t;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should dcp_dsi_bridge_setup_dsc() also set cfg->dsc_rc_override =3D true?
-
-dcp_dsi_host_attach() initializes cfg->dsc_rc_override =3D false, and
-dcp_dsi_bridge_prepare_session() passes a stack-local copy of cfg to
-dcp_dsi_bridge_setup_dsc() and then to dcp_hfi_panel_init(). In
-drivers/gpu/drm/msm/dcp/dcp_hfi_dsi_panel.c, dcp_hfi_panel_init() only packs
-HFI_PROPERTY_PANEL_COMPRESSION_RC_OVERRIDE when
-(cfg->dsc_enabled && cfg->dsc_rc_override) is true, so the rate-control
-parameters populated in cfg->dsc_rc_min_qp, cfg->dsc_rc_max_qp, and
-cfg->dsc_rc_bpg_offsets are never sent to the firmware.
-
-> +
-> +int dcp_dsi_bridge_prepare_session(struct dcp_dsi_bridge *dsi_bridge,
-> +				   const struct drm_display_mode *mode)
-> +{
-> +	struct dcp_dpu_kms *kms =3D dsi_bridge->kms;
-> +	struct dcp_dsi_bridge_state *state =3D dcp_dsi_bridge_get_state(dsi_bri=
-dge);
-> +	struct dcp_dsi_hfi_panel_config cfg;
-> +	int ret;
-> +	u32 opened_session_id;
-> +
-> +	if (!mode)
-> +		return -ENODEV;
-> +
-> +	guard(mutex)(&dsi_bridge->session_lock);
-> +	if (dsi_bridge->session_open)
-> +		return 0;
-> +
-> +	dsi_bridge->session_id =3D dsi_bridge->fw_display_id;
-> +
-> +	if (!dsi_bridge->dsi_device)
-> +		return -ENODEV;
-
-[ ... ]
-
-> +	ret =3D dcp_hfi_display_enable(kms->hfi,
-> +				     dsi_bridge->intf_idx,
-> +				     dsi_bridge->fw_display_id,
-> +				     &opened_session_id);
-> +	if (ret) {
-> +		drm_err(kms->dev, "DSI%u: HFI DISPLAY_ENABLE failed: %d\n",
-> +			dsi_bridge->intf_idx, ret);
-> +		goto err_close;
-> +	}
-> +	dsi_bridge->session_id   =3D opened_session_id;
-> +	dsi_bridge->session_open =3D true;
-> +	dcp_dsi_bridge_publish_session(dsi_bridge);
-> +
-> +	drm_dbg_driver(kms->dev, "DSI%u: session prepared (session_id=3D%u)\n",
-> +		       dsi_bridge->intf_idx, dsi_bridge->session_id);
-> +	return 0;
-> +
-> +err_close:
-> +	dcp_hfi_clear_power_control_cb(kms->hfi, kms);
-> +	dcp_hfi_display_close(kms->hfi, dsi_bridge->session_id);
-> +	dsi_bridge->session_id   =3D 0;
-> +	dsi_bridge->session_open =3D false;
-> +	dcp_dsi_bridge_clear_session(dsi_bridge);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-There appear to be several issues with error handling and cleanup in
-dcp_dsi_bridge_prepare_session():
-
-1. It mixes guard(mutex)(&dsi_bridge->session_lock) with goto err_close,
-   contrary to the cleanup.h guideline not to mix goto error paths and
-   scope-based cleanup helpers in the same function.
-
-2. If !dsi_bridge->dsi_device is true, returning -ENODEV early leaves
-   dsi_bridge->session_id set to dsi_bridge->fw_display_id while
-   session_open is false.
-
-3. Every goto err_close path triggers before dcp_hfi_display_enable() has
-   succeeded (even if dcp_dsi_bridge_setup_dsc() fails in software before
-   any HFI command is sent), yet err_close calls dcp_hfi_display_close() to
-   send DISPLAY_DISABLE, DISPLAY_POST_DISABLE, and DISPLAY_CLOSE for a
-   session that was never enabled.
-
-4. Calling dcp_hfi_clear_power_control_cb(kms->hfi, kms) in err_close clears
-   the single shared power control callback on kms->hfi for all DSI bridges
-   in kms->dsi_bridge[].
-
-> +
-> +static void dcp_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> +					     struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge =3D to_dcp_dsi_bridge(bridge);
-> +	int ret;
-> +
-> +	ret =3D dsi_bridge->session_open ? 0 : -ENODEV;
-> +	dcp_dsi_bridge_get_state(dsi_bridge)->prepare_error =3D ret;
-> +	if (ret)
-> +		drm_err(bridge->dev, "DSI%u: session prepare failed: %d\n",
-> +			dsi_bridge->intf_idx, ret);
-> +}
-> +
-> +static void dcp_dsi_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge =3D to_dcp_dsi_bridge(bridge);
-> +	struct dcp_dpu_kms *kms =3D dsi_bridge->kms;
-> +	bool scan_start_registered =3D false;
-> +	bool scan_complete_registered =3D false;
-> +	bool autorefresh_enabled =3D false;
-> +	int ret;
-> +
-> +	drm_dbg_driver(kms->dev,
-> +		       "DSI%u: bridge atomic_enable (session_id=3D%u)\n",
-> +		       dsi_bridge->intf_idx, dsi_bridge->session_id);
-> +
-> +	if (dcp_dsi_bridge_get_state(dsi_bridge)->prepare_error)
-> +		return;
-> +	if (!dsi_bridge->session_open)
-> +		return;
-> +
-> +	ret =3D dcp_hfi_display_post_enable(kms->hfi, dsi_bridge->session_id);
-
-[ ... ]
-
-> +err_close:
-> +	if (autorefresh_enabled)
-> +		dcp_hfi_crtc_set_autorefresh(kms->hfi, dsi_bridge->session_id,
-> +					     false, 0);
-> +	if (scan_complete_registered)
-> +		dcp_hfi_display_event_deregister(kms->hfi, dsi_bridge->session_id,
-> +						 HFI_EVENT_FRAME_SCAN_COMPLETE);
-> +	if (scan_start_registered)
-> +		dcp_hfi_display_event_deregister(kms->hfi, dsi_bridge->session_id,
-> +						 HFI_EVENT_FRAME_SCAN_START);
-> +	drm_err(bridge->dev,
-> +		"DSI%u: bridge enable failed; session closed\n",
-> +		dsi_bridge->intf_idx);
-> +	dcp_hfi_display_close(kms->hfi, dsi_bridge->session_id);
-> +	{
-> +		guard(mutex)(&dsi_bridge->session_lock);
-> +		dsi_bridge->session_id   =3D 0;
-> +		dsi_bridge->session_open =3D false;
-> +	}
-> +	dcp_dsi_bridge_clear_session(dsi_bridge);
-> +}
-
-[Severity: Medium]
-Should dcp_dsi_bridge_atomic_enable() (and dcp_dsi_bridge_atomic_pre_enable=
-())
-hold dsi_bridge->session_lock across the session operations rather than only
-around clearing session_id and session_open at the end of err_close?
-
-In addition to mixing goto err_close with guard(mutex), reading
-dsi_bridge->session_open and dsi_bridge->session_id and calling
-dcp_hfi_display_close() without holding session_lock allows a concurrent
-dcp_dsi_host_transfer() call to observe session_open =3D=3D true and send D=
-CS
-commands on a session ID that is actively being closed or has already been
-closed in firmware.
-
-[ ... ]
-
-> +struct drm_bridge *dcp_dsi_bridge_init(struct dcp_dpu_kms *kms,
-> +				       struct device_node *np,
-> +				       struct device_node *dcp_np,
-> +				       u32 dcp_port, u32 intf_idx,
-> +				       u32 fw_display_id)
-> +{
-> +	struct dcp_dsi_bridge *dsi_bridge;
-> +	struct dcp_dsi_hfi_panel_config *cfg;
-> +	struct device *dev =3D kms->pm_dev;
-> +	struct device *dma_dev =3D kms->hfi->dma_dev;
-> +	int ret;
-> +
-> +	dsi_bridge =3D devm_drm_bridge_alloc(dev, struct dcp_dsi_bridge,
-> +					   bridge, &dcp_dsi_bridge_funcs);
-> +	if (IS_ERR(dsi_bridge))
-> +		return ERR_CAST(dsi_bridge);
-> +
-> +	dsi_bridge->dcp_np        =3D of_node_get(dcp_np);
-
-[ ... ]
-
-> +	device_initialize(&dsi_bridge->dsi_host_dev);
-> +	dsi_bridge->dsi_host_dev.release =3D dcp_dsi_host_dev_release;
-> +	dsi_bridge->dsi_host_dev.parent  =3D dev;
-> +	dsi_bridge->dsi_host_dev.of_node =3D of_node_get(np);
-> +	dev_set_name(&dsi_bridge->dsi_host_dev, "%pOFn", np);
-> +	dsi_bridge->dsi_host.ops =3D &dcp_dsi_host_ops;
-> +	dsi_bridge->dsi_host.dev =3D &dsi_bridge->dsi_host_dev;
-> +
-> +	ret =3D device_add(&dsi_bridge->dsi_host_dev);
-
-[Severity: Medium]
-Won't dev_set_name(&dsi_bridge->dsi_host_dev, "%pOFn", np) cause a device
-name collision in device_add() when two DSI bridges are present?
-
-The %pOFn specifier strips the @unit-address suffix from the node name, so
-both dsi@0 and dsi@1 receive the name "dsi" under the same parent device
-(kms->pm_dev), causing the second device_add() to fail with -EEXIST.
-
-[ ... ]
-
-> +err_unwind_dma:
-> +	if (dsi_bridge->dcs_rx_buf) {
-> +		dma_free_coherent(dma_dev, DCP_DSI_DCS_RX_BUF_SIZE,
-> +				  dsi_bridge->dcs_rx_buf,
-> +				  dsi_bridge->dcs_rx_iova);
-> +	}
-> +	if (dsi_bridge->dcs_tx_buf) {
-> +		dma_free_coherent(dma_dev, DCP_DSI_DCS_TX_BUF_SIZE,
-> +				  dsi_bridge->dcs_tx_buf,
-> +				  dsi_bridge->dcs_tx_iova);
-> +	}
-> +	cancel_work_sync(&dsi_bridge->power_control_work);
-> +	mutex_destroy(&dsi_bridge->session_lock);
-> +	mutex_destroy(&dsi_bridge->dcs_lock);
-> +	return ERR_PTR(ret);
-> +}
-
-[Severity: Medium]
-Does the err_unwind_dma path in dcp_dsi_bridge_init() leak the
-dsi_bridge->dcp_np device_node reference acquired via of_node_get(dcp_np) if
-dma_alloc_coherent(), device_add(), or mipi_dsi_host_register() fails?
-
-[ ... ]
-
-> +void dcp_dsi_bridge_cleanup(struct dcp_dsi_bridge *dsi_bridge)
-> +{
-> +	struct device *dma_dev =3D dsi_bridge->kms->hfi->dma_dev;
-> +
-> +	dcp_hfi_clear_power_control_cb(dsi_bridge->kms->hfi, dsi_bridge->kms);
-> +	cancel_work_sync(&dsi_bridge->power_control_work);
-> +
-> +	drm_bridge_remove(&dsi_bridge->bridge);
-> +	of_node_put(dsi_bridge->bridge.of_node);
-> +	of_node_put(dsi_bridge->dcp_np);
-> +
-> +	mipi_dsi_host_unregister(&dsi_bridge->dsi_host);
-> +	device_del(&dsi_bridge->dsi_host_dev);
-> +	put_device(&dsi_bridge->dsi_host_dev);
-> +
-> +	dcp_dsi_bridge_unmap_buffers(dsi_bridge);
-> +	dma_free_coherent(dma_dev, DCP_DSI_DCS_TX_BUF_SIZE,
-> +			  dsi_bridge->dcs_tx_buf, dsi_bridge->dcs_tx_iova);
-> +
-> +	dma_free_coherent(dma_dev, DCP_DSI_DCS_RX_BUF_SIZE,
-> +			  dsi_bridge->dcs_rx_buf, dsi_bridge->dcs_rx_iova);
-> +
-> +	mutex_destroy(&dsi_bridge->session_lock);
-> +	mutex_destroy(&dsi_bridge->dcs_lock);
-> +}
-
-[Severity: High]
-Can calling mipi_dsi_host_unregister() from dcp_dsi_bridge_cleanup()
-deadlock on component_mutex and trigger use-after-free during teardown?
-
-1. When a DSI device is attached, mipi_dsi_host_unregister() removes the
-   child device and invokes:
-
-   mipi_dsi_remove_device_fn()
-     -> mipi_dsi_detach()
-       -> dcp_dsi_host_detach()
-         -> component_del(&dsi_bridge->dsi_host_dev, &dcp_dsi_component_ops)
-
-   component_del() acquires the global component_mutex. When
-   dcp_dsi_bridge_cleanup() is called from aggregate device bringup failure
-   or aggregate device takedown (for example via component_master_del() /
-   take_down_aggregate_device() -> msm_drm_unbind() -> msm_drm_uninit() ->
-   dcp_dpu_kms_destroy()), component_mutex is already held by the caller,
-   causing a recursive deadlock.
-
-2. struct dcp_dsi_bridge is allocated with devm_drm_bridge_alloc() on
-   kms->pm_dev and embeds struct device dsi_host_dev, which is refcounted
-   independently. Calling device_del() and put_device() on dsi_host_dev
-   during kms->destroy() happens before component_unbind_all() finishes
-   using component->dev (&dsi_bridge->dsi_host_dev). In addition,
-   dcs_tx_buf and dcs_rx_buf are freed without holding session_lock/dcs_lock
-   or clearing dsi_bridge->dcs_tx_buf to NULL, and session_lock and dcs_lock
-   are destroyed while the bridge object is still alive.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D15
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 2/2] arm64: dts: qcom: Add a minimal Xiaomi Warsaw
+ description
+To: Zhang Jiaxi <Z1529105815@outlook.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261016-b4-warsaw-minimal-usb2-v2-0-1b03496396b4@outlook.com>
+ <20261016-b4-warsaw-minimal-usb2-v2-2-1b03496396b4@outlook.com>
+ <d5d28d79-474a-40bf-b511-e20fb0897b91@oss.qualcomm.com>
+ <SY5PR01MB10600F961AC57A32262D99ECCA1662@SY5PR01MB10600.ausprd01.prod.outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <SY5PR01MB10600F961AC57A32262D99ECCA1662@SY5PR01MB10600.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX0SoJSVcQHKwP
+ bAWYjh+Gkof8dBuHZewQyp8eff+oyyKcaQmAK3gL4uzjqmwrKwLSyANEZO8GmAFW9CWTcP6LMQc
+ nVwXvNHJgSGZ67a9Gx3XxN96yykPDqY=
+X-Proofpoint-GUID: mXXdrJye1AN6U4iAoNk3HOV38bzcKFnI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MCBTYWx0ZWRfX7Ej9CVCEWO7w
+ g40Jv7W79p1n0YnOMfsH4JctuCq8i0sxaWwqskRhDC/eFuhnf7/XSVqsMPyF4Bp4h0pC/8axY9c
+ lKim0647ppxbTWNcX2T2ZDEK7n8UEu12vEFDEhtfD1ShzIJSLEbHCf5OJs4752cvjHygK7r5o/W
+ 5LLRLsipwRzq8h0sd4dSj6gszezqEBZH7BcozWcZfgSJNcD9zbrNjb7ySedl2MXI4nC3AF2gCet
+ DeJk6FSLmLZtE3BV+dPshe4hXjQtEBdJIeQ2/zBQyXMM2XBt8Prc8oaeeBv0nGMq50HLanodbip
+ urC7UmJJkB0x0zsV/qEWrXRrl4kqzsERokRTq3VTGutPsZdvIh0vsk0tYG9/aaaptYgf/pMFmtA
+ NbOlKlPRw6t2Aq17N/LVS71Qlcp2swD/w6TLxfcvyx8gV3knMCZAiTexqzolgHUkE4ikv9JdgVy
+ Riv10Cs7IqdraVG7m7A==
+X-Authority-Analysis: v=2.4 cv=HZWB3SE8 c=1 sm=1 tr=0 ts=6adf49fd cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=cNoKYFeJyS4W4/1HdvzxLidmn8o=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=UqCG9HQmAAAA:8
+ a=SGK8BKh5EnIYygesR2EA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: mXXdrJye1AN6U4iAoNk3HOV38bzcKFnI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260050
+
+On 10/21/26 2:52 PM, Zhang Jiaxi wrote:
+> Hi Konrad,
+> 
+> Thank you for reviewing v2. I have posted RFC v3:
+> https://lore.kernel.org/all/20261021-b4-warsaw-minimal-usb2-v3-0-9f4213ab83ef@outlook.com/
+> 
+> It updates the model name, node ordering, common PMIC include and GPIO
+> reservation comments. The cover describes the revised DT's bounded
+> native core/USB test and the Codex/LLM assistance used.
+> 
+> USB remains restricted to High-Speed peripheral mode in this RFC. The OEM
+> configuration retains OTG/UCSI role switching, so this is not a claim of
+> peripheral-only hardware. I would appreciate your guidance on whether
+> that explicit initial restriction is acceptable, or USB should remain
+> disabled until the dual-role board integration is included.
+
+It's fine
+
+Konrad
