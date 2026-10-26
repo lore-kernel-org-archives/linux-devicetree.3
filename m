@@ -1,44 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974834;
-	b=gPoIqpd2WwoSWImxQe36fJFezzL7BKWIaIoG8nGl08epu3NHUGkbp7KSL/sVqsmmAOw4
-	 6EFvusShtZclkGQQXe1F/aRrgCbO/G+KY5FHbHGNncdE3Nz5zYXK3Ln1cfO34sFBw+DIF
-	 amPZ2CxqZ+DHWTPRkE0amFSn35C0AJi8WTxnhuQICC44gcbzAmxcmQLOudNoG0aght124
-	 suTRN9EYDLECR+Ut8iW3sFlitg7SDCg55TdwwsTV86Wg9SMSytALsxda0200IKa0annrY
-	 5bQJvtqG1UCbFldg/+D3Uzgr8euHjg7DXIZFZQ3LtZevt4hivhvxNWJJS9y/s8RTmwQ==
+	t=1792974927;
+	b=KF9yGGT+7/f7bJ3gCISg38HHw+60XtRR04A21bmI8QSqZYg61Sk7Oww3BsJvsY1C4U6t
+	 XDYvekb0TrqF40NBGXUT4i20mk35Xifh3+solfQozKgnFe5EqxPQYB3jIyNaOrfLq/4Cx
+	 y6B+dIB67y79xdqJ3fNsv1cXVcujoeKM34wo8q8kycDTztwmKNchcTIT4ZAm6fwgjWrmS
+	 QLW7/2tHDOYysV0UIJDdNiPkwy73Jo581opRYlpMlJx2Cqe7KIrTjZT+tHo9tcBqOO8dR
+	 wpX9bhYJoKLjINckhclCcgnxYzf1/V2vPNKJYixOcMejfTB/4/UJjba6DZmMOzcY+LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974834;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
-	b=JF3Z9t4SWfT7LYCqU1giqFLVE++UBzko5p9dej9qyANJmbNPqmRlAjBEyiJ/g+qrEQ9y
-	 2BnSUDRdtom04v2gHTfHepJHs6NR2alf2ApiEw89GmjYBoSlWV1sF5BvNA9HCxPuX+uun
-	 rHsJS79SNIzv3xziYW0Zh2gfQ2iQyhSyS37j2064IcWHBDxr0fwyXQ0vAM3KL4qPXMhzx
-	 2CH/T1GRzam/vd8h2YKNJpqq9mVGuvDIHRzPqE2LruAeWWY15Jg8rs4fmF9py8fdoLccB
-	 vmFU9SGTT4+u58KFqSdQC1ObxUDBsYzlYbwQfTcygO9uY95f8dpzbE9h06iRVloJ2dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974927;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=biikjnXgtnu7sMIPqSuPM5THtJpQ0Ac/8rE+B20J8oQ=;
+	b=Sez2rkCQb73ORDjLNrmiPTrOnCDJXiFkO/CZgn5rWkPvYMbYUy+f3AjzMmrDbAYbpTmB
+	 FE3Y67qzRD9+dz/OBG0Rmz/tiP31vX+YR5oSH3ehNPS1bFst4dtQTdkEnIQhAf6BizvtP
+	 eop15aQhqZjWaEE7J11ztPcr+M94y+OU/BmHNH4onc+CGdZkBGUNJ/8+XCVggEDSa8llp
+	 mtbl/Qw6lLopE3K63PNGmeISZIowgrFqCdRkvb98afw44qzGYaqI2kD07I99vWYmtJabZ
+	 zfxo1uSafWsKr3omkCypzUX6zUAgwaylZDMj02i83aaQUOw7w4uRH1+EvWUpYgirZaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u;
-	arc=none smtp.remote-ip=156.224.81.108
-Received: from mail-m81108.xmail.ntesmail.com (mail-m81108.xmail.ntesmail.com [156.224.81.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=roeck-us.net;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=njplM3md;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF3D606A31A;
-	Mon, 26 Oct 2026 00:33:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF3D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E549F606A31E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:35:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E549F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52470fe96;
-	Mon, 26 Oct 2026 08:33:41 +0800 (GMT+08:00)
-Message-ID: <4b7bd146-93fd-41f8-ad3c-88333adc73b4@rock-chips.com>
-Date: Mon, 26 Oct 2026 08:33:41 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=njplM3md
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1468267a91.2
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 17:35:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792974926; x=1793579726; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=biikjnXgtnu7sMIPqSuPM5THtJpQ0Ac/8rE+B20J8oQ=;
+        b=njplM3mdJURiFtDubYKaOfdLnMma8l3vjNmOEFUeg+E2dIDMxZdZS5gPlHPm7CT2LI
+         xac35vlTXGv7kMrt2tYHiDLx24Bl6NaLQixMgWAjjjxZ2WyKjtcHlyLQZBBFTL+cu67g
+         HWYPLXAxjlJUxwQkeUtVknDJjLmJULxEarhr37O18hYhSaSf3RcaehcOjXX0ovgVFQo1
+         nGXhgTYRz7CBuL29RtbxRaaSUPHynQSGs7KBfnZ/a1K1n9kP9ugkfNb9iphT2mj9G2wH
+         KVr1QTQGiIi2GiYvm/b5+MXp2LJP/gHn+XJoXzzNNyNTfMMB0WMqLOXAISbxmNvFlqEr
+         kEqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792974926; x=1793579726;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=biikjnXgtnu7sMIPqSuPM5THtJpQ0Ac/8rE+B20J8oQ=;
+        b=NsgK/pOisLeNqpRyRJuuImtQxvb3Ll0rkBAqKmoiDxo67/BYDz8tr7vljaac2KEKwf
+         /ZUZHnHIxOCXkDgRe1v1nuhSmM4G3XzjyqQ98D9YIuq2CzHLNC8eX/MhNYam7K/LHupj
+         a0T5MPS78psNHRvo5OYA8/W8UxbeJDi9qYc22ZU85OFOArXLxJQ/04QucAgu2BNGp5SS
+         Oiil7gcwdPhmOW3FS7SjfqOUp1RIcVHS+Xbr4IiDo0LEHulaXdFU8e9OMsSngXjfFou5
+         oYpzhv/I6ZkNrhDrEZjyAyGqKLbeX3LLX43OcnJyXq+7hIx3eMA6cLjhx8iS8d3mt7e+
+         u23Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxcrrN5h+YwL7ugAuSRjIz4ncYxHU9l6iLNQ5gG1wDurv2rdlWrBpUzn/iwX/cjnGCKI/M5hY4m3s4h@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn8eE1AtVES6ebYeYARplT9DaJpZ3HxCFOIQ1CMTCUqNiXX7nW
+	SaDNx2PXgdMClyIwPuZ2I3Xqiasi2EvpQEPdtqhCtcmAoJ1axlGWQMw+
+X-Gm-Gg: AYBFou3TvxZ6sd7E9ODqYyCW5JF4Ko2bDIpHQjas819uaNkok5GsrsTWmtlGoeUnUfF
+	mbWROLX2nkd8tur7bPAI66DY4sCFd8XFLP5mSKQ2TGRwcwQSd6Ldj3RSVr2AzzsT+ZoNNo3Z8eu
+	SjUIba9SaggMnrdV4rrrAy7IPhUFmMPVlKDsymBN4f3NG/12OyaMjWMlmrsmQuO30g/O7z0jd3Q
+	yFqxAbVxg2/k+R5aGQ4HSayzSBxeLT3xGIr+sQr7FtDDGSQDBvUGtmHAqEMBiSQrSdCsXfZO2lk
+	B4iiqTYKeBKrSD21VLOTPwUVwK1rnxLbqqrEI+SuQ8uYSSRGMKGBUgkB6Kx8okJNE7vDAPh5TG5
+	1oYbwmvBQErsrJilLj4Exvd5tFTr+w+cRbENVED1KneIgwBJzQgB6FBt3iVb9eyGdh8YM9eY6bR
+	mAEla9oUP+1ASYvECIfNE5aCaE+Vf9eBNfPwVUGz1DXOTJJLJGlR69Yh/rIuccF2xW9xna28XfW
+	uw2eDZwS6aEyMf8GqwzhjCjT44sPKHdPK4KMoFp1yD8hdk0fWy8s+t6VoPVHjkxU11JIbCobxpY
+	+bkGrnp+z684uPc=
+X-Received: by 2002:a17:90a:e18c:b0:3ad:13fe:41ba with SMTP id 98e67ed59e1d1-3adeb11f8f5mr4322887a91.52.1792974926204;
+        Sun, 25 Oct 2026 17:35:26 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebe8f0a7sm6187626a91.9.2026.10.25.17.35.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 17:35:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 25 Oct 2026 17:35:24 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lars Petter Mostad <lars.petter.mostad@appear.net>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: vendor-prefixes: Add TDK Corporation
+Message-ID: <083d8718-bcda-47d8-83f6-6090b40689b6@roeck-us.net>
+References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
+ <20261020-hwmon-pmbus-fs1412-v4-1-27ece4e43d04@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,114 +105,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, heiko@sntech.de
-Subject: Re: [PATCH] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-To: Leonard Lausen <leonard@lausen.nl>
-References: <20261025205339.14539-2-leonard@lausen.nl>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261025205339.14539-2-leonard@lausen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa175a0986703a4kunm2868e8063c52c7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBhDVkwdSU4eGRhJQh9IHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=HhLY1O7uNKLtSMhQOf0XfdncyG4p3WeNQVKSDyPYpEqyPUruh0VpprvnPhn0gk4CXO3hcA3hJNw5rU38d0ohVwU3ZL0PS7eatueMYSoMngTL/INn+AyrJ7myT37A/c/CTUM8wcWx54/IIgwornfCtkF8mFvoqDfT1OCbAJS65DM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-1-27ece4e43d04@nexthop.ai>
 
-
-
-在 2026/10/26 星期一 4:52, Leonard Lausen 写道:
-> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
-> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
-> power sequence is not described, preventing the card from enumerating.
+On Tue, Oct 20, 2026 at 08:02:05PM -0700, Abdurrahman Hussain wrote:
+> Add the vendor prefix for TDK Corporation, the maker of the FS1412
+> point-of-load regulator.
 > 
-> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
-> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
-> 200 ms power-on delay used by the vendor device tree, and the external
-> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
-> suspend as required by the rtw88 SDIO driver.
-> 
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> ---
->   .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 34 +++++++++++++++++++
->   1 file changed, 34 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> index 3a305408fa16c..bfa18de1ae1af 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> @@ -23,6 +23,7 @@ aliases {
->   		ethernet0 = &gmac0;
->   		ethernet1 = &gmac1;
->   		mmc0 = &sdmmc;
-> +		mmc1 = &sdio;
->   	};
->   
->   	chosen {
-> @@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
->   		vin-supply = <&vcc_3v3_s3>;
->   	};
->   
-> +	sdio_pwrseq: sdio-pwrseq {
-> +		compatible = "mmc-pwrseq-simple";
-> +		clocks = <&hym8563>;
-> +		clock-names = "ext_clock";
-> +		pinctrl-0 = <&wifi_reg_on_h>;
-> +		pinctrl-names = "default";
-> +		post-power-on-delay-ms = <200>;
-> +		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
-> +	};
-> +
->   	sound {
->   		compatible = "simple-audio-card";
->   		pinctrl-names = "default";
-> @@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
->   		};
->   	};
->   
-> +	sdio-pwrseq {
-> +		wifi_reg_on_h: wifi-reg-on-h {
-> +			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +
->   	sdmmc {
->   		sdmmc0_pwren_h: sdmmc0-pwren-h {
->   			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
-> @@ -890,6 +907,23 @@ &saradc {
->   	status = "okay";
->   };
->   
-> +&sdio {
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	cap-sdio-irq;
-> +	disable-wp;
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-disable-wp is for sd cards, please drop it.
+Applied.
 
-> +	keep-power-in-suspend;
-> +	mmc-pwrseq = <&sdio_pwrseq>;
-> +	no-mmc;
-> +	no-sd;
-> +	non-removable;
-> +	sd-uhs-sdr104;
-> +	vmmc-supply = <&vcc_3v3_s3>;
-> +	vqmmc-supply = <&vcc_1v8_s3>;
-> +
-> +	status = "okay";
-> +};
-> +
->   &sdmmc {
->   	bus-width = <4>;
->   	cap-sd-highspeed;
-
+Thanks,
+Guenter
