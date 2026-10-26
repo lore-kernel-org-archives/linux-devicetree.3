@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014353;
-	b=YespZayIyI+jpi0Bwi64pXjMHuUP43MPyI9khcuSfjC6u8FpQ+uJ+QHz2R3U9rsTbQLf
-	 zdEWnZ1Tc4+NGOQ75XGy3wJwIJJGrPZIbiZ+VjpqT4+m2iA1Kr6cGFTZgADUPdC9tWb39
-	 IDPbbnh3YpoQUj65R1K00QfJVUl8pYIMHLoi19f/QMlrsfIV9V7AvIvsGtQ0f5zqAM5ZH
-	 F7DY2FbYUAqdN9nvKO1JokmrsiBzOJj5bmco1Srz6en1HjKeu8T+ql5Nmg4oTuplCRvpR
-	 dAuy8NNiflCVGDr3zRqG+rnkTN2aQlEmf0RAinYxpUDo+xJetrXC9/2daA/2k6dVnxA==
+	t=1793014379;
+	b=cGdYXuBXFVZR06/VMCHM8L0xBD5ff/P5WiU03NuLcPC6mKmfCQQ/7HUzt9oPkR/Spc8m
+	 5tL9S1SfhBh+x4/vaOvNyJYxSTZvmQpbj/allqSGdW/S1KbOfkColpFQ5Z0fQigKwkvT7
+	 wWO5a6AezNsTfibaCT2mJPPNE9UXw3GJODU94+lYHkRk/+GsTxOz+Pb7fUKQj+XXgmiCx
+	 lisukQ4tRZZV++6AWcGibzngQKCb9NwHigpEj+dDGakXCU71gEqkE6JLBn5k82u25QgPL
+	 wjTAhhpZ9cv06cA6RV1/3dgR71kgqvC+ZN2cn67Rq70O7RSetnt4y8yFOQ7DXiI+S9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014353;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014379;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=X4zJQKfHNJb3WKUmtI/VFAvfPiwg26ts+eWXqEEJD+Q=;
-	b=b/Qvylh0tPzbhIQE2xO1/GlBTZTk547c/++FY9bP46lY5gwH+9Ni+EadLmEwVynpE/NE
-	 IK78RNRiEd/Wp3Ql/iQ3B46tIf0Dy1VWPS+wamxVA6BVQ2c0dqoXqjqSFrwJtIvQDA2wk
-	 04FXeLJs607fYnGTG9VJIHFIRWA5g0BgEVKXqfZoTbFzdGsPmAVoMBX9ldF7MRN9dYCrH
-	 w/YfETBULFf4Adntr88aivK09qiSsJzj1GHbYKU0V+mhecHXYzZDVMjVQkyl7DpvAYNcJ
-	 FXCY10bIqrsVje7WNqjCRgF0Przzxj2e/7kLjvjT39ce8UlJcfIS6iKkvnm/ruSE99Q==
+	bh=595501fK6KaRLbAY25Tpz/FyibXvuOOrLKw5vBwcAdc=;
+	b=JOZl9ZcwsnsS80sbkDWCjqSwHVItzJfWBeTfCH68iri7+jpY7ihoYolSh7fYuZNTkGFB
+	 PLBTWZb9nHzQAh05BAHs1s6b4eh/FOQ2RS/rQa8+2oVgkCoxwQsSs76R2TlHwgNfwUCgn
+	 lmn0mwCEjxxiriCq9t2oZ5jYmtL1tgmmejra89xrnt8enLNGkS3tjTe9KMdtVQ5CEyWXi
+	 iKno1xd0GrlVQNdM51mlYqxae9IiM5iCwOT8T2CUEYQPvC4Aszzu3J8X+F5Oazji4EdHS
+	 9hBZVLLQelvwygL3QzMoM65M5IKcsajQRr+2vpInnvEiEe0a271ygTniDbfemhJJ/DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioW2gkQA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FBJ/JNcI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAFE606A31D;
-	Mon, 26 Oct 2026 11:32:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B5F606A31B
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:32:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioW2gkQA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667A11F01825;
-	Mon, 26 Oct 2026 11:32:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FBJ/JNcI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D8E1F01825;
+	Mon, 26 Oct 2026 11:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793014352;
-	bh=X4zJQKfHNJb3WKUmtI/VFAvfPiwg26ts+eWXqEEJD+Q=;
+	s=k20260515; t=1793014378;
+	bh=595501fK6KaRLbAY25Tpz/FyibXvuOOrLKw5vBwcAdc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ioW2gkQAXjeY5842F9NweSJQ48YEqcy3Fc9d1f5Cajr+1zgkNUDgaiivjK+J9RosS
-	 qFY1G2vgWbrZUn2YL/AjGo7BLYbjgBqF+ChkxXRkbfR6ptz8lTHHVT5l2u58N9Kmn2
-	 UHDQlYpfX1CPFAJqOj5J0e2oT53vDqIWZwwjBAJtsTZFn/rXhdtxRhJSLy7hXr9SyD
-	 THKH+xIi3ITkcU4CEdpw4CyN1qzGAPeKKmBIQuvq+vv+2bjPClBh8xHiR2l/sY82ff
-	 NIIcic7Gz3XnTN3/J57wN9Zahy8X74ZDQ6E1l2QQAzY/uKQKJYqWGXEysTV0LhOFLM
-	 YkK88NX8N86ng==
-Message-ID: <sashiko-outbox-185106@kernel.org>
+	b=FBJ/JNcIeTXLcz1ixx6t5D5p4tf44Qdg7mdcpJkozcrEokEz+KZrMlROUwoISefDH
+	 FdPvIw5KwZbhpbq9XOAGl49+4N3smjrzq7JX1jXBf3x2CG/+cxf6W/jn5/iSSGQ9YS
+	 rhsAXMpmAZJgNd5BjUO32nqXk3QQ782Yxm8d8tB75d4o/lHl/3vtMm7GLyfbZvQkqC
+	 ZviXH00/JD8X7hkOe+HSyT9cKhIU05i5eIJzgOTHArL0op6czqYGW3I4rIxULgesxq
+	 mP9zcGvrcEg+7RHmFTRkyXRi87mkBomJ4FcmCroXaomDGxfaGo3D96qkBGo/jBFjMI
+	 FRse0uUi/Y00A==
+Message-ID: <sashiko-outbox-185107@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
+Subject: Re: [PATCH 7/9] arm64: dts: airoha: en7581: add nodes for all
+ supported uart and hsuart
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Ying" <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026095727.31708-8-ansuelsmth@gmail.com>
+References: <20261026095727.31708-1-ansuelsmth@gmail.com>
+ <20261026095727.31708-8-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 11:32:32 +0000
+Date: Mon, 26 Oct 2026 11:32:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,176 +61,138 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/imx: dc-prg: unclocked MMIO and RPM underflow on dc_prg_config=
-ure() error
-- [Medium] drm/imx: dc: signed shift overflow in dc_prg_burst_size_fixup()
-- [Medium] drm/imx: dc-prg: unchecked device_link_add() in dc_prg_lookup_by=
-_phandle()
+- [High] arm64: dts: airoha: undocumented UART compatibles break serial con=
+sole
+- [Medium] arm64: dts: airoha: uart1 retains ns16550 workaround clock-frequ=
+ency
 --
 
-commit 7a29cff8d2e3466268f3191ce1679f0e57e395cf
-Author: Liu Ying <victor.liu@nxp.com>
+commit 6e4317a9ed5754fa0011125ce3517c077746d85a
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-drm/imx: dc: Add PRG support
+arm64: dts: airoha: en7581: add nodes for all supported uart and hsuart
 
-This commit adds a platform driver to support the Display Prefetch Resolve
-Gasket (PRG), which sits between a Display Prefetch Resolve Channel (DPRC)
-and a FetchUnit in the i.MX8 display controller prefetch engine.
+This commit adds Device Tree nodes for the HSUART and additional UART
+controllers on the Airoha EN7581 SoC, and updates the compatible string
+on the existing uart1 node from "ns16550" to "airoha,en7523-uart".
 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-=
-prg.c
-> new file mode 100644
-> index 0000000000000..43df5683b24d1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
-> @@ -0,0 +1,314 @@
-
-[ ... ]
-
-> +void dc_prg_enable(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL + CLR, BYPASS);
-> +}
+> diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts=
+/airoha/en7581.dtsi
+> index 760f0c3e60904..ee1633f01068e 100644
+> --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
+> +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
+> @@ -470,13 +470,24 @@ fixed-link {
+>  			};
+>  		};
+> =20
+> +		serial@1fbe1000 {
+> +			compatible =3D "airoha,an7581-hsuart";
+> +			reg =3D <0x0 0x1fbe1000 0x0 0x40>;
+> +			reg-io-width =3D <4>;
+> +			reg-shift =3D <2>;
+> +			interrupts =3D <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
+> +			clock-frequency =3D <7372800>;
 > +
-> +void dc_prg_disable(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> +			status =3D "disabled";
+> +		};
 > +
-> +	pm_runtime_put(prg->dev);
-> +}
-> +
-> +void dc_prg_disable_at_boot(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
-> +
-> +	clk_bulk_disable_unprepare(prg->num_clks, prg->clks);
-> +}
-> +
-> +static unsigned int dc_prg_burst_size_fixup(dma_addr_t baddr)
-> +{
-> +	unsigned int burst_size;
-> +
-> +	if (baddr =3D=3D 0)
-> +		return 128U;
-> +
-> +	burst_size =3D 1 << __ffs(baddr);
-> +	burst_size =3D round_up(burst_size, 8);
-> +	burst_size =3D min(burst_size, 128U);
-> +
-> +	return burst_size;
-> +}
-
-[Severity: Medium]
-Can shifting 1 by __ffs(baddr) in dc_prg_burst_size_fixup() overflow a 32-b=
-it
-signed int when baddr has a high power-of-two alignment?
-
-__ffs(baddr) takes an unsigned long and returns a bit index up to 63 on
-arm64, while 1 is a 32-bit signed int. On i.MX8QXP and i.MX8QM where system
-DRAM starts at 0x80000000, a framebuffer allocated at 0x80000000 (or any odd
-multiple of 2 GiB) gives __ffs(baddr) =3D=3D 31, causing 1 << 31 to overflo=
-w a
-signed 32-bit int.
-
-If baddr is 4 GiB-aligned (so its lower 32 bits are zero and __ffs(baddr) is
-32 or greater), shifting a 32-bit int by >=3D 32 is undefined behavior and =
-on
-arm64 wraps the shift count modulo 32, producing a smaller burst_size (such
-as 8 instead of 128U) before min(burst_size, 128U) runs.
-
-Since burst_size is capped at 128U, would it make sense to bound the bit
-search before shifting (for example, using 1U << __ffs(baddr | 128U) or
-checking !(baddr & 0x7f))?
-
-> +static unsigned int
-> +dc_prg_stride_fixup(unsigned int stride, unsigned int burst_size)
-> +{
-> +	return round_up(stride, burst_size);
-> +}
-> +
-> +void dc_prg_configure(struct dc_prg *prg,
-> +		      unsigned int width, unsigned int height,
-> +		      unsigned int stride, unsigned int bits_per_pixel,
-> +		      dma_addr_t baddr, bool start)
-> +{
-> +	struct device *dev =3D prg->dev;
-> +	unsigned int burst_size;
-> +	u32 val;
-> +	int ret;
-> +
-> +	if (start) {
-> +		ret =3D pm_runtime_resume_and_get(dev);
-> +		if (ret < 0) {
-> +			dev_err(dev, "failed to get RPM: %d\n", ret);
-> +			return;
-> +		}
-> +	}
+>  		pbus_csr: syscon@1fbe3400 {
+>  			compatible =3D "airoha,en7581-pbus-csr", "syscon";
+>  			reg =3D <0x0 0x1fbe3400 0x0 0xff>;
+>  		};
+> =20
+>  		uart1: serial@1fbf0000 {
+> -			compatible =3D "ns16550";
+> +			compatible =3D "airoha,en7523-uart";
+>  			reg =3D <0x0 0x1fbf0000 0x0 0x30>;
+>  			reg-io-width =3D <4>;
+>  			reg-shift =3D <2>;
 
 [Severity: High]
-What happens in the caller if pm_runtime_resume_and_get() fails here when
-start is true?
+Does replacing compatible =3D "ns16550" with "airoha,en7523-uart" on uart1
+(serial@1fbf0000) without a fallback compatible break earlycon and the
+serial console on EN7581 boards?
 
-Because dc_prg_configure() returns void, callers cannot tell that runtime
-resume failed and that PRG clocks remain disabled. When called from the DPR
-channel path on initial plane enablement, the caller immediately proceeds to
-call dc_prg_enable() and dc_prg_reg_update() (and later
-dc_prg_shadow_enable()), performing MMIO writes to PRG_CTRL and
-PRG_REG_UPDATE while the PRG clocks and power domain are off.
+In arch/arm64/boot/dts/airoha/en7581-evb.dts, uart1 is selected as the
+console via stdout-path:
 
-When the plane or CRTC is later disabled, dc_prg_disable() will also write
-PRG_CTRL while unclocked and call pm_runtime_put(prg->dev), underflowing the
-device runtime PM usage count.
+	aliases {
+		serial0 =3D &uart1;
+	};
 
-Should dc_prg_configure() return an error code or otherwise prevent
-subsequent register accesses and the unpaired pm_runtime_put()?
+	chosen {
+		stdout-path =3D "serial0:115200n8";
 
-[ ... ]
+Neither "airoha,en7523-uart" (used in uart1, serial@1fbf0300,
+serial@1fbf0600, and serial@1fbf0700) nor "airoha,an7581-hsuart" (used in
+serial@1fbe1000) is documented in Documentation/devicetree/bindings/serial/
+or matched by any driver in the tree, such as of_platform_serial_table in
+drivers/tty/serial/8250/8250_of.c:
 
-> +struct dc_prg *
-> +dc_prg_lookup_by_phandle(struct device *dev, const char *name, int index)
-> +{
-> +	struct device_node *prg_node __free(device_node) =3D
-> +				of_parse_phandle(dev->of_node, name, index);
-> +	struct dc_prg *prg;
+static const struct of_device_id of_platform_serial_table[] =3D {
+	{ .compatible =3D "ns8250",   .data =3D (void *)PORT_8250, },
+	{ .compatible =3D "ns16450",  .data =3D (void *)PORT_16450, },
+	{ .compatible =3D "ns16550a", .data =3D (void *)PORT_16550A, },
+	{ .compatible =3D "ns16550",  .data =3D (void *)PORT_16550, },
+
+Without corresponding binding schemas, driver support, or a fallback
+compatible on uart1, won't dtbs_check fail on all five serial nodes and
+leave uart1 unable to bind during early_init_dt_scan_chosen_stdout() and
+of_platform_serial_driver probing?
+
+> @@ -517,6 +528,39 @@ en7581_pwm: pwm {
+>  			};
+>  		};
+> =20
+> +		serial@1fbf0300 {
+> +			compatible =3D "airoha,en7523-uart";
+> +			reg =3D <0x0 0x1fbf0300 0x0 0x30>;
+> +			reg-io-width =3D <4>;
+> +			reg-shift =3D <2>;
+> +			interrupts =3D <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+> +			clock-frequency =3D <7372800>;
 > +
-> +	if (!prg_node)
-> +		return NULL;
-> +
-> +	guard(mutex)(&dc_prg_list_mutex);
-> +	list_for_each_entry(prg, &dc_prg_list, list) {
-> +		if (prg_node =3D=3D prg->dev->of_node) {
-> +			device_link_add(dev, prg->dev,
-> +					DL_FLAG_AUTOREMOVE_CONSUMER);
-> +			return prg;
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
+> +			status =3D "disabled";
+> +		};
 
 [Severity: Medium]
-Should dc_prg_lookup_by_phandle() check the return value of
-device_link_add()?
+Should uart1 (serial@1fbf0000) also have its clock-frequency updated to
+7372800 when switching its compatible to "airoha,en7523-uart"?
 
-If device_link_add() fails and returns NULL, dc_prg_lookup_by_phandle() sti=
-ll
-returns prg without establishing the DL_FLAG_AUTOREMOVE_CONSUMER link. If t=
-he
-PRG device is later unbound via dc_prg_remove():
+The three new "airoha,en7523-uart" nodes (serial@1fbf0300, serial@1fbf0600,
+and serial@1fbf0700) all use clock-frequency =3D <7372800>, whereas uart1 in
+arch/arm64/boot/dts/airoha/en7581.dtsi keeps clock-frequency =3D <1843200>:
 
-static void dc_prg_remove(struct platform_device *pdev)
-{
-	struct dc_prg *prg =3D dev_get_drvdata(&pdev->dev);
+		uart1: serial@1fbf0000 {
+			compatible =3D "airoha,en7523-uart";
+			reg =3D <0x0 0x1fbf0000 0x0 0x30>;
+			reg-io-width =3D <4>;
+			reg-shift =3D <2>;
+			interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+			clock-frequency =3D <1843200>;
+		};
 
-	guard(mutex)(&dc_prg_list_mutex);
-	list_del(&prg->list);
-}
+As noted in arch/mips/boot/dts/econet/en751221.dtsi for serial@1fbf0000,
+1843200 was a workaround for the generic "ns16550" driver to fix the port
+at 115200 baud:
 
-the consumer will not be unbound and can retain a dangling pointer to the
-devm-allocated struct dc_prg.
+	uart: serial@1fbf0000 {
+		compatible =3D "ns16550";
+		...
+		/*
+		 * Conversion of baud rate to clock frequency requires a
+		 * computation that is not in the ns16550 driver, so this
+		 * uart is fixed at 115200 baud.
+		 */
+		clock-frequency =3D <1843200>;
+	};
+
+If a driver matching "airoha,en7523-uart" computes baud-rate divisors from
+clock-frequency, won't keeping 1843200 on uart1 cause a 4x baud-rate
+mismatch compared to the other "airoha,en7523-uart" nodes?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-imx8-dc-pr=
-efetch-v7-0-a0b50cc4fc65@nxp.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026095727.3170=
+8-1-ansuelsmth@gmail.com?part=3D7
