@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793037682;
-	b=4UnI655sJTAz9fevGSYG/nZacJsAVB6OoAsDgsEaQ1+bmbSPJokk2z2H3eradF91ZUxv
-	 1nhoXmBe7qd+IOyuWCSbPo/3WBN396maCJUUVAzXpeuMjhNyFDEzzXzxXf01dbRVdGFfu
-	 wcsZcA4NyLxKMPGNoWgP3dL3Yem0gWfLndMLb5f+cxowpp1+MpkvqXbS4PXS141Lcqbtr
-	 hNmIF4gtZXpLfHm+nR+wp1TagY3i+PixR1PEgWCARX+F7Y4iUf5H5EXCwJgwpifReLPyt
-	 FTYP2ndekt52zTexQMr5Opta+MnMUFpVJWvdyV02TeAtiphKf3zNqhBAvCzZXKaQt6A==
+	t=1793038027;
+	b=e/MbdWv8n6gGuDEZVoqBggIisg7JzWnjZhZazMcp8/5lJjVdinbz/2uhrkB0X42hDe4D
+	 F4tYEM8PJI6Aon+N/9J+Bz/BYkiYXvxmP1cmW64VVmE4znAvQM+DfDmn4Azot4kUVT86p
+	 7h6t/U2Aw06K1ay7act7+QDYdqLytDzKW0dcjSrKx1V75OXfqCSUY4x+quOCXWcihZAGL
+	 9tb0hG46a/0nbqarW4lJaqOKoW+oAjW5yHtKuGh58BGUi4gvJ03MGGEVa1w+vkW3qDZ6x
+	 oEbecW8gfvU1Aho4Hij9vBdUpZnaRvAvM7JX14bmdN3PBd2BtY5tV4/JxzBHSMh1zVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793037682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793038027;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=TohlbKUJL5j2+/TZgljHWGwBPV7jvLBkm7KTJEvvm9Q=;
-	b=khULgK8mrWNnuj8Jpe0gOlgQoZ6XPLNMT5WHViWN0F9svdoSsAjHYM9nL9m1ck7+1iwM
-	 bCrCTNKwdhx4a60XiKCF6Bt15Z4FDvYTuoCkAV6G6WA0QG7fz3TgQk4XeAvTxbAUb7RF0
-	 eny81X8WRlD0Pkn8z0UauzgvS/ieFqlHVet3IIU128Z4GquKga3TYvu8w25b5dIoHFHrk
-	 aOiOELVOZLba8oi8OZHxmFj+PP81nw/HWCoN4GfIR+83077qERRvtmsySH/PGAfwAQOfz
-	 6/DvR8USc5tXPO3x8/c6/S1QYzbMoh8b/PJg7eHcua9lHlTbSby+jC+TuF7g7MaKdzg==
+	bh=2OVpNBFqCDz13rfCVj9HIRKW913UwTa1weD/J8uthNM=;
+	b=JT3Sxn3cM4GIsZIDRXBhHrcTx5xKNq/uYGye6FLiBq9uc1VACpksGDfBnjKBI2p0jIYC
+	 +jx+VLjFu9XB8T7Thnw5Lz24xd4CF8X2GPMQrjipvoQhCdXXX/3rntQayKOEhrM6LUW4h
+	 atS9BZgVbva3ZDw16qIG/zc6Vy7j/W2osixIoTvCiUSmSuzX3kkhe0UzF0vjhH8EdbjY5
+	 OV2JYSEDp2JFJPiYXIxVmlRka8rcEwviZYZd84rbvvxytf6t/7MP7XkxQ0AjUi6ORtJEe
+	 dquLNAO3FQL9XQ84xl/ZNYAcB5bcl06JYE6ZByXOx81CjQJn2TRo/9JqgTWcWn8eBGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmdoep7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaYkNVxs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8452C606A31A
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 18:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32E0606A31A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 18:07:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmdoep7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA361F01825;
-	Mon, 26 Oct 2026 18:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaYkNVxs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9211F01828;
+	Mon, 26 Oct 2026 18:07:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793037682;
-	bh=TohlbKUJL5j2+/TZgljHWGwBPV7jvLBkm7KTJEvvm9Q=;
+	s=k20260515; t=1793038026;
+	bh=2OVpNBFqCDz13rfCVj9HIRKW913UwTa1weD/J8uthNM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UTmdoep7jHM2WMB9ermguIG78FqJ3L8uE9GpGJMM8rgzdUSHwdepQIHB9zjgVQsal
-	 2btswcsnNhDK9s6piIkXGSKjzN9sfVaDt8ePb3J1B8wA9s16oFi0T7oUL4ZKCdYxjs
-	 BESzLGC0Nj11ds179jodcu3O79BKo4lLDgBvF7IEfRsK21U3RYJBJE93jEXuqhNPhL
-	 UU1ZM0LuzH5rMlnbvFQ0D/58ozxNDZmxyPzDBExRJjnwK4Z1EmTPO6jr3/9fXZIhFa
-	 aWlOADZGAeRgIvA08mmlNZJFqLuAnvvQ4yNtTzvQyzdd3MVzzAlvyIIa8ATneGhUdE
-	 UDI0mlm2WnW3A==
-Message-ID: <sashiko-outbox-185605@kernel.org>
+	b=BaYkNVxs0ejxJ/N7XM8YfnuVdkJS1Wa2WjFHEzLlMRm+w5sR1BZ/P+ye1W4ID8Dxw
+	 VXpMIV209M8eNYNrsFl0aJVbI56u2/CN69yKQt7/PK461jm6DUZp02cvECfLuzdATi
+	 5VuX/vGuyrTlSeAzK5OJyavtD7DicoX6dxdukU0LZlhh0eBhcgZNlaVDp792nyvr6q
+	 od40SSTHwCF+XQ8OgRJyPb2wUjFnVGFQtf33c/7V5HtONTHMINXC6vTbIMvtfVzECw
+	 hFDCDQnvU2r+Vy1tAFDyyhobh9ojXwF7I3HOxjgIxhEpl/dxOWJPfYRy0/iYzfhMh7
+	 tGFNGXN/HLCxQ==
+Message-ID: <sashiko-outbox-185607@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] power: supply: rk817-charger: Resolve boot state of
- charge from the coulomb counter
+Subject: Re: [PATCH 3/5] power: supply: rk817-charger: Correct the gauge
+ across system sleep
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026174834.1652309-3-macroalpha82@gmail.com>
+In-Reply-To: <20261026174834.1652309-4-macroalpha82@gmail.com>
 References: <20261026174834.1652309-1-macroalpha82@gmail.com>
- <20261026174834.1652309-3-macroalpha82@gmail.com>
+ <20261026174834.1652309-4-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 18:01:21 +0000
+Date: Mon, 26 Oct 2026 18:07:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,138 +61,230 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] power: supply: rk817-charger: flawed keep_saved check on unplugg=
-ed boot
+- [Medium] power: supply: rk817-charger: rk817_suspend() treats discharge c=
+urrent as charge
+- [Medium] power: supply: rk817-charger: uncalibrated hardware counter in r=
+k817_bat_sleep_adjust()
+- [Medium] power: supply: rk817-charger: stale charge_now_uah stamped into =
+slp_charge_uah
 --
 
-commit ca12b28c400d82b7a66e329e1e7db82f71128a48
+commit 90ab344fb97258fd37a11933de3725ce00041ea5
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-power: supply: rk817-charger: Resolve boot state of charge from the coulomb=
- counter
+power: supply: rk817-charger: Correct the gauge across system sleep
 
-This commit resolves the boot state of charge from the coulomb counter on
-non-first boots instead of relying on PWRON_VOL when OFF_CNT is three or
-more, and adds periodic recalibration against the relaxed open-circuit
-voltage pair. It also exposes POWER_SUPPLY_PROP_VOLTAGE_BOOT and
-POWER_SUPPLY_PROP_VOLTAGE_OCV.
+This commit adjusts the RK817 gas gauge across system sleep by stamping
+boottime, charge, current, and charging status at suspend, and then
+recalibrating on resume from either a latched relax voltage or an
+estimated constant-current charge delta.
 
 > diff --git a/drivers/power/supply/rk817_charger.c b/drivers/power/supply/=
 rk817_charger.c
-> index 86da0462fb594..50fbea298127f 100644
+> index 50fbea298127f..b6714d8e4fed9 100644
 > --- a/drivers/power/supply/rk817_charger.c
 > +++ b/drivers/power/supply/rk817_charger.c
 
 [ ... ]
 
-> @@ -803,39 +889,54 @@ rk817_read_or_set_full_charge_on_boot(struct rk817_=
-charger *charger,
->  		if (ret < 0)
->  			return ret;
+> @@ -1323,12 +1336,96 @@ static int rk817_charger_probe(struct platform_de=
+vice *pdev)
+>  	return 0;
+>  }
 > =20
-> +		/*
-> +		 * The coulomb counter keeps counting while the system is off,
-> +		 * so take it, capped at full, unless it reads invalid; the
-> +		 * saved soc is then at most one update interval old. A counter
-> +		 * that is merely wrong is corrected by the next rested relax
-> +		 * pair.
-> +		 */
->  		regmap_bulk_read(rk808->regmap, RK817_GAS_GAUGE_Q_PRES_H3,
->  				 bulk_reg, 4);
->  		tmp =3D get_unaligned_be32(bulk_reg);
-
-[ ... ]
-
-> +		regmap_read(rk808->regmap, RK817_GAS_GAUGE_OFF_CNT, &off_cnt);
-> +		bat_uv =3D rk817_bat_voltage_uv(charger, RK817_GAS_GAUGE_BAT_VOL_H);
-> +		dev_dbg(charger->dev,
-> +			"boot: counter %d uAh, saved soc %d, fcc %d mAh, battery %d uV, off_c=
-nt %d\n",
-> +			tmp > 0 ? ADC_TO_CHARGE_UAH(tmp, charger->res_div) : 0,
-> +			charger->soc, charger->fcc_mah, bat_uv, off_cnt);
-> +		if (tmp > 0) {
-> +			boot_charge_mah =3D ADC_TO_CHARGE_UAH(tmp,
-> +							    charger->res_div) / 1000;
-> +			if (boot_charge_mah > charger->fcc_mah)
-> +				boot_charge_mah =3D charger->fcc_mah;
-> +			boot_soc =3D boot_charge_mah * 100000 / charger->fcc_mah;
+> +/*
+> + * The coulomb counter is erratic while the system sleeps, and the signa=
+ls
+> + * that could correct it (a live relax status, a finished charge) are go=
+ne
+> + * before the monitor runs again. Correct from what persists instead, as
+> + * the BSP driver does.
+> + */
+> +static void rk817_bat_sleep_adjust(struct rk817_charger *charger)
+> +{
+> +	struct rk808 *rk808 =3D charger->rk808;
+> +	time64_t elapsed =3D ktime_get_boottime_seconds() - charger->slp_bootti=
+me;
+> +	int expected_uah, moved_uah, charge_uah, credit_uah, tmp;
+> +	unsigned int sts;
+> +	u8 bulk_reg[4];
 > +
-> +			/*
-> +			 * The gauge re-derives this count from its own ocv
-> +			 * model while the pack rests, so bound it with the ocv
-> +			 * table: under load the terminal voltage sits below the
-> +			 * open circuit voltage, making the table a floor, and
-> +			 * under charge above it, making it a ceiling on any
-> +			 * saved soc that would displace the counter.
-> +			 */
-> +			table_soc =3D power_supply_batinfo_ocv2cap(bat_info, bat_uv,
-> +								 20) * 1000;
-> +			if (charger->plugged_in)
-> +				keep_saved =3D boot_soc < charger->soc - 10000 &&
-> +					     charger->soc <=3D table_soc + 10000;
-> +			else
-> +				keep_saved =3D boot_soc < table_soc - 10000;
+> +	if (!charger->battery_present || elapsed <=3D 0)
+> +		return;
 > +
-> +			if (keep_saved)
-> +				dev_dbg(charger->dev,
-> +					"counter %d, voltage allows %d, keeping saved soc %d\n",
-> +					boot_soc, table_soc, charger->soc);
-> +			else
-> +				charger->soc =3D boot_soc;
+> +	regmap_read(rk808->regmap, RK817_SYS_STS, &sts);
+> +	charger->plugged_in =3D (sts & RK817_PLUG_IN_STS);
+> +
+> +	/* Start from what the counter did during sleep, not the pre-sleep soc.=
+ */
+> +	regmap_bulk_read(rk808->regmap, RK817_GAS_GAUGE_Q_PRES_H3,
+> +			 bulk_reg, 4);
+> +	tmp =3D get_unaligned_be32(bulk_reg);
+> +	charge_uah =3D tmp > 0 ? ADC_TO_CHARGE_UAH(tmp, charger->res_div) : 0;
+> +	if (charge_uah > charger->fcc_mah * 1000)
+> +		charge_uah =3D charger->fcc_mah * 1000;
+> +	charger->soc =3D div_s64((s64)charge_uah * 100, charger->fcc_mah);
+> +
+> +	/* Flags were cleared at suspend: any pair now is from this sleep. */
+> +	charger->relax_voltage_uv =3D rk817_bat_relax_voltage_uv(charger, false=
+);
+> +	dev_dbg(charger->dev,
+> +		"resume after %llds: counter %d uAh (%d at suspend), battery %d uV, re=
+lax %d uV\n",
+> +		elapsed, charge_uah, charger->slp_charge_uah,
+> +		rk817_bat_voltage_uv(charger, RK817_GAS_GAUGE_BAT_VOL_H),
+> +		charger->relax_voltage_uv);
+> +	if (charger->relax_voltage_uv) {
+> +		rk817_bat_ocv_recalibrate(charger);
+> +		return;
+> +	}
+> +
+> +	if (!charger->slp_charging || !charger->plugged_in)
+> +		return;
+> +
+> +	moved_uah =3D charge_uah - charger->slp_charge_uah;
+> +	expected_uah =3D div_s64((s64)charger->slp_cur_ua * elapsed, 3600);
+> +	credit_uah =3D expected_uah - moved_uah;
+> +
+> +	dev_info(charger->dev,
+> +		 "slept charging for %llds: counter moved %d of expected %d uAh\n",
+> +		 (long long)elapsed, moved_uah, expected_uah);
+> +
+> +	if (credit_uah <=3D 0)
+> +		return;
 
 [Severity: Medium]
-In rk817_read_or_set_full_charge_on_boot() in
-drivers/power/supply/rk817_charger.c, when !charger->plugged_in, keep_saved
-is set to:
+What happens to the hardware coulomb counter (RK817_GAS_GAUGE_Q_PRES_H3) wh=
+en
+it overshoots charger->fcc_mah * 1000 or underflows below 0 during sleep?
 
-	keep_saved =3D boot_soc < table_soc - 10000;
+In rk817_bat_sleep_adjust(), charge_uah and charger->soc are clamped in
+software to [0, charger->fcc_mah * 1000] without writing the clamped value
+back to RK817_GAS_GAUGE_Q_INIT_H3.
 
-without comparing charger->soc (from NVRAM) against either boot_soc or
-table_soc.
+If a relax voltage was latched during sleep (for example, after finishing
+charge and resting at 95%-100% OCV, or resting at 0%-5% OCV after counter
+underflow), rk817_bat_sleep_adjust() calls rk817_bat_ocv_recalibrate():
 
-Immediately after this branch, rk817_read_or_set_full_charge_on_boot() writ=
-es
-charger->soc back into the hardware coulomb counter:
+drivers/power/supply/rk817_charger.c:rk817_bat_ocv_recalibrate() {
+    ...
+	ocv_soc =3D power_supply_batinfo_ocv2cap(charger->bat_info,
+					       charger->relax_voltage_uv,
+					       20) * 1000;
+	if (ocv_soc < 0 || abs(ocv_soc - charger->soc) <=3D 5000)
+		return;
+    ...
+}
 
-	boot_charge_mah =3D charger->soc * charger->fcc_mah / 100 / 1000;
-	if (boot_charge_mah > charger->fcc_mah)
-		boot_charge_mah =3D charger->fcc_mah;
-	tmp =3D CHARGE_TO_ADC(boot_charge_mah, charger->res_div);
-	put_unaligned_be32(tmp, bulk_reg);
-	ret =3D regmap_bulk_write(rk808->regmap, RK817_GAS_GAUGE_Q_INIT_H3,
-			  bulk_reg, 4);
+Because charger->soc was already clamped to 100000 (or 0),
+abs(ocv_soc - charger->soc) <=3D 5000 holds and rk817_bat_ocv_recalibrate()
+returns without updating RK817_GAS_GAUGE_Q_INIT_H3.
 
-If a device is powered off at a low state of charge (for example,
-charger->soc =3D 15000), charged while powered off, and then unplugged befo=
-re
-booting (!charger->plugged_in), and the gauge's internal OCV model re-deriv=
-es
-boot_soc to more than 10% below table_soc (say, table_soc =3D 80000 and
-boot_soc =3D 65000), keep_saved evaluates to true. That discards boot_soc a=
-nd
-reinitializes RK817_GAS_GAUGE_Q_INIT_H3 with the stale pre-charge NVRAM
-charger->soc (15000), which is even further below the table_soc floor.
+Similarly, if no relax voltage was latched, rk817_bat_sleep_adjust() returns
+without writing RK817_GAS_GAUGE_Q_INIT_H3 whenever !charger->slp_charging,
+!charger->plugged_in, or credit_uah <=3D 0 (which happens whenever the coun=
+ter
+over-counted during sleep), and moved_uah =3D charge_uah - charger->slp_cha=
+rge_uah
+is computed from the clamped charge_uah rather than the actual counter delt=
+a.
 
-Conversely, if the device is powered off at a high state of charge (for
-example, charger->soc =3D 95000) and discharges while off to table_soc =3D =
-50000
-with boot_soc =3D 38000, keep_saved also evaluates to true and overwrites
-RK817_GAS_GAUGE_Q_INIT_H3 with the stale 95000 value.
+Since rk817_bat_calib_cap() only caps RK817_GAS_GAUGE_Q_PRES_H3 when
+charge_status =3D=3D CHARGE_FINISH && charger->soc_cal, won't the hardware
+accumulator retain the phantom excess above full capacity (or deficit below=
+ 0)
+and keep the reported SoC pinned after resume?
 
-In addition, both the commit message ("Keep the PWRON_VOL lookup for the
-first boot. Otherwise take the counter, capped at full, unless it reads zero
-or negative, in which case keep the saved soc...") and the comment above th=
-is
-block say that a positive coulomb counter is adopted on boot and corrected
-later by the next rested relax voltage pair.
+> +
+> +	/*
+> +	 * Credit the shortfall, saturating at full - covers a charge that
+> +	 * terminated during sleep. A constant-current estimate reads high
+> +	 * across a taper; the cap bounds it, the next rested pair corrects
+> +	 * the rest.
+> +	 */
+> +	charge_uah +=3D credit_uah;
+> +	if (charge_uah > charger->fcc_mah * 1000)
+> +		charge_uah =3D charger->fcc_mah * 1000;
+> +
+> +	charger->soc =3D div_s64((s64)charge_uah * 100, charger->fcc_mah);
+> +	tmp =3D CHARGE_TO_ADC(charge_uah / 1000, charger->res_div);
+> +	put_unaligned_be32(tmp, bulk_reg);
+> +	regmap_bulk_write(rk808->regmap, RK817_GAS_GAUGE_Q_INIT_H3,
+> +			  bulk_reg, 4);
+> +	rk817_record_battery_nvram_values(charger);
+> +}
+> +
+>  static int __maybe_unused rk817_suspend(struct device *dev)
+>  {
+>  	struct rk817_charger *charger =3D dev_get_drvdata(dev);
+> =20
+>  	cancel_delayed_work_sync(&charger->work);
+> =20
+> +	charger->slp_boottime =3D ktime_get_boottime_seconds();
+> +	charger->slp_charge_uah =3D charger->charge_now_uah;
 
-Should the !charger->plugged_in case also verify that charger->soc is a
-better estimate than boot_soc before keeping the saved value, or should
-rk817_read_or_set_full_charge_on_boot() unconditionally use boot_soc when
-tmp > 0 as described in the commit message?
+[Severity: Medium]
+Can charger->slp_charge_uah be stamped with a stale charger->charge_now_uah
+value here?
+
+In rk817_charging_monitor(), rk817_read_props() populates
+charger->charge_now_uah from RK817_GAS_GAUGE_Q_PRES_H3 before
+rk817_bat_calib_cap() and rk817_bat_ocv_recalibrate() run. When either of
+those functions rewrites RK817_GAS_GAUGE_Q_INIT_H3, charger->charge_now_uah=
+ is
+not updated until the next 8-second monitor cycle.
+
+Likewise, in rk817_resume(), rk817_bat_sleep_adjust() reads
+RK817_GAS_GAUGE_Q_PRES_H3 into a local charge_uah variable and either calls
+rk817_bat_ocv_recalibrate() or writes the credited charge to
+RK817_GAS_GAUGE_Q_INIT_H3 without updating charger->charge_now_uah.
+
+If the system suspends during the 8-second window after a recalibration, or
+after rk817_resume() before the queued charger->work executes (which
+cancel_delayed_work_sync(&charger->work) then cancels), wouldn't
+rk817_suspend() stamp the stale charger->charge_now_uah into
+charger->slp_charge_uah and skew moved_uah and credit_uah on the next resum=
+e?
+
+> +	charger->slp_cur_ua =3D abs(charger->cur_avg_ua);
+> +	charger->slp_charging =3D charger->plugged_in &&
+> +				(charger->charge_status =3D=3D CC_OR_CV_CHRG ||
+> +				 charger->charge_status =3D=3D TRICKLE_CHRG);
+
+[Severity: Medium]
+Could taking abs(charger->cur_avg_ua) in rk817_suspend() cause
+rk817_bat_sleep_adjust() to credit discharge current as charge?
+
+In rk817_read_props(), charger->cur_avg_ua is a signed value where negative
+readings indicate net battery discharge, which rk817_bat_get_prop() checks
+before inspecting charger->charge_status:
+
+drivers/power/supply/rk817_charger.c:rk817_bat_get_prop() {
+    ...
+	case POWER_SUPPLY_PROP_STATUS:
+		if (charger->cur_avg_ua < 0) {
+			val->intval =3D POWER_SUPPLY_STATUS_DISCHARGING;
+			break;
+		}
+    ...
+}
+
+If the system suspends while plugged in with charge_status =3D=3D CC_OR_CV_=
+CHRG or
+TRICKLE_CHRG while charger->cur_avg_ua < 0 (for instance, when pre-suspend
+system load exceeds the input current limit, or right after plug-in before =
+the
+average current register slews positive), rk817_suspend() sets
+charger->slp_charging =3D true and turns the negative current into a positi=
+ve
+charger->slp_cur_ua. On resume, wouldn't rk817_bat_sleep_adjust() then comp=
+ute
+a positive expected_uah from that discharge rate and credit phantom charge =
+to
+charger->soc, RK817_GAS_GAUGE_Q_INIT_H3, and NVRAM?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026174834.1652=
-309-1-macroalpha82@gmail.com?part=3D2
+309-1-macroalpha82@gmail.com?part=3D3
