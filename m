@@ -1,85 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004166;
-	b=kwMdnpVY3WA5tA8X8u8NqKsDsxo/0mutu2DbmQoAcHojx7FzZkkFH+rOBa+ZZFXdS/FR
-	 6k9HzNLbFkZAqfDtnFKrPh3OE1MNvkLFgsIGbNAS/X1TUMicVajMyi3lg26naTjq+SEWq
-	 Uc1Xm7ek6xLZMN495a1tl5Z9Xtcz+iLq4QZts8dac4x5c7hPJ1I0dhUA2Uf4hY8rNRTx5
-	 p/XKxLq7dNrGnorsHWH0Wb+QcoLwqmMSaql5tNfrrJtRdtSTWDOKq8OeRLzPaZfEelW7B
-	 gfKgkkRSqzuYjylJy5JRWWjrxlCB7+Evn8uXgmwR4cwOJg4xdA2hKq3GDpKNqTAWNKg==
+	t=1793004363;
+	b=XLUoQNFE5WruYZBokvaITyP6S4sU0NckdYlmLzpJfYwffpwV2E2gkzYCKAx0KrpHUcMg
+	 7DGi+6VqpqOHmNb1pgy0pFtkG5rAdAQrUk+xrpssK0wJdO2xOvNWfq+rZ5tsZqbblMu+r
+	 Hmy0k+aKk5BCtevwf/0t+HLsxPJmDro4uITo58QJ/RgQD3ZO0TZl/xh0+1mal22krjy0d
+	 9XLnOt9vvX22IS3CjwkR4CuvMeY3e8ZOtj63PavKxKitcoTEiiTUx5N+M6Ko3TAhlxNr2
+	 Z+J0bWT+UCtfH7Svg2uSIcriknKbCF/5HXs6UkMTGsadCdIchrnquKS1bXTHLfqlrHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004166;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=w9zDGsmD29DpZOULSKNvoWH8ekprdNM6cjnLINh6SXQ=;
-	b=RoaNbcXEPG12+iPhf3x6dqBaYIqgrlBQYuAWFTy2Z47DoWNZa/IUxzl4CYX0gS8DvejP
-	 obrRlN0GYv0XskC1EB5PB6UV7aRe1sE3ZSEWKMJxStkwOojmf0cFT/tZo8ESc83SUY0vX
-	 vKPhie5lSSS3YCqh2AWQcZTRVFt74gMIQTWiV6vC1Azof+GZ9uCZfpaMF6Plp62p4UlLo
-	 QEbhAwoL9zlUl1BTGiAcsDToOy32mj6H+17fJhpGcTwDIayHEWX4ZnZHQzRqg5XQDDaZS
-	 +Sraxgh3Ilirk3yKqAum/1WsdyOBqJZijmugEraU4Uq3+a+SMlvqWOG2CB0mJ1qmprA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004363;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Xx6QZm0MpIiWVJS1fPo0ifp1Q7/9tPC6QD5e4OqszSM=;
+	b=3yPaetwnv78pfc/xsaCQCvwXONm2pt0pbfbDDXTyh/Oy3pm9UkbLOMNBH+gBsgKaM/y8
+	 1mkN4ZcocQLX1QRYNpCF6UGO2/+wxTzvogwWxlO/ankUb675fn12s3TKmHm2EjpIFmsWf
+	 iZOnZnyZqpm4RNJgwdkMTuIOvLcSG98AmdDIFHOgamyxg2lbrtkYbuyi0Ii7HI+CmiBBj
+	 mEwtbuLi1o2Z2ecPP6SlGLjsjH3QLe80MYLYPb2uFvm/qBPNsyY11Q1MHR6XHegD7AXX/
+	 kFm7Hv5KANBp0GNsdnaCVhiVx37prWaoQ4i7rbLHsK7O/u9g8VgjOqz7iMa/mH76Cyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="R4k8f0v/";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kSwkDQQG;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CF5606A31B;
-	Mon, 26 Oct 2026 08:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2CF5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D201606A31D
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D201606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=R4k8f0v/
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1F09EC5147F;
-	Mon, 26 Oct 2026 08:43:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1151A60740;
-	Mon, 26 Oct 2026 08:42:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BEFE610329035;
-	Mon, 26 Oct 2026 09:42:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793004160; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=w9zDGsmD29DpZOULSKNvoWH8ekprdNM6cjnLINh6SXQ=;
-	b=R4k8f0v//nZLII4g+DasetLKKr6AMX9kxGJlap154f//cutqnRd2MirRqu96zkcfTrSKBB
-	5pXBkMpkb0ZEjXpW0tt5UL/tHNGZlNpP90vDih6Cf9gT7ByjPRKUoN51zvoUFW9pLa23P6
-	912JvNf9PwMuU81ybuZJWjQsEBU++ZrSPCPQ1l/RuQyo+z/qJRNgj9CJ9rbWNHZ5+YqNVj
-	S5dsUTyquAxqwwkWK1uJUpEWtLvBDcR2ojg4fDTdHnTu7vv8UkzUXbTIgUgbJ//TKTBqxo
-	Qfhb+GzHEv5o7QthTO6mAS2eUDhSLIdNY/CXxEa1c2RIByEGD8ScTiDy4OijzQ==
-Date: Mon, 26 Oct 2026 09:42:33 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261026094233.0f5f8270@bootlin.com>
-In-Reply-To: <at1lLjOGvo34dXZI@gractus.seuss>
-References: <as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-	<20261021172043.4bbd2bc5@bootlin.com>
-	<atmASGg1OZt9jfXI@gractus.seuss>
-	<20261022151454.67125e41@bootlin.com>
-	<atrNI_hqwxvfsRj7@gractus.seuss>
-	<20261023105511.3ad2bc4d@bootlin.com>
-	<at1lLjOGvo34dXZI@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kSwkDQQG
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso23897745e9.3
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:46:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793004361; x=1793609161; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xx6QZm0MpIiWVJS1fPo0ifp1Q7/9tPC6QD5e4OqszSM=;
+        b=kSwkDQQG6J9m1MVP/wzflb5lrl7K6VKY7a23yEUmCnjWffSoeDpmFKfnQLcEwnEfZK
+         XHIidVnJSdDcgPu49J/sawx8TsaGvcb8B/JodXa2r4yW7+9eEXCEOe5ezMFoGR52J3Oe
+         i8JpQzguhJvcyUqUBIFlcVV6rrxkRkyRE1/6VkzY0/iwWIFXyTxCPFpgvjaCYZg7niFz
+         STLxEn48HRcL0Ovleq57n9uBSjRdorLQQEypAZJ19FrrXtT3KGVkcj2bfm5rf8Z4qUTd
+         DbPALoOHwrZHJX+fpA1rnKklQLQbiLlpRua787b2xR046cnmte51Ti94grxiZ6Tx6DjP
+         +TTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793004361; x=1793609161;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xx6QZm0MpIiWVJS1fPo0ifp1Q7/9tPC6QD5e4OqszSM=;
+        b=luIwE36vLuv6HOGEuZxUao8SV6rWWyVToMsqFr3f5SSI8KH3aMNgMHJtx5u4hxzk+0
+         WpJCT1JWf6y8uwl1qQjcKEOUkuho6Fm44P5U2UpSPr55pBBulmvwA0ybUE0V3ZG/Etax
+         xkje8nHSTvz95zbHcKrQtmgmk4RD77VmTCa5+bJ8KZDeYMyf69ya8hjS+s9lnmqJZtJl
+         nBXqvHfBba+QWmVX7jfYbCKc14pvA//0Aq3iyQg2Vd8QlVXjLrIyvJ/lZ3Cx0NV4nKox
+         rragsNKoYKK6Xr8ki/zop3xLKP7ODRjezF3zFRuoRnVP1yeqkM5tdO82sHNumYKP/pKq
+         tNYg==
+X-Forwarded-Encrypted: i=1; AKwUvByAcruyw9SXfkrMX9RnnVGkBvtMxdf4jwVgpO+Csl0KYRMMXlfjs6hCEn/m1dpv6+xlibAjZh2+nJh3@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5GLZXqXHUM9ic7GtwMaKKqWOfIMmXTxADvDrPZ0sa/giE58Rx
+	0VS3D8OQcHAvh5k/+om3amv/X3MnCdTge59ehAjOeA2YhI9NJ3+UwUgHekkLV4CD8bw=
+X-Gm-Gg: AYBFou3ukYlxOsDSGFw6X3GzWYSu6CnEsJtgJq+8h9XQVMM2NnFH82e+geDakwVGSL0
+	E0/92Zwzc13NXyXBUfxwi8l5ey2129PUzM3I/9PB8XBlZM4QHWsKvvTugtA6rgo1OAkYZl1JpY+
+	zabwuqhaq/+CvItJRJQq/FLIqHXhJS/D90hXGtplrWnVBoNt4RENTcWh8BS/4UAxMY07QcigeZh
+	EFIHKwVrPIa+WAEBqM+f9QW86xAm1C1pP9ZBrCyOUio0042cvp9KMp0ZH5Sstpt20ib9SZ6zdQc
+	U3/sGVH4CzlsXxNMVXKbXToB/5RzPwMKCrmtPA7CXVDSOYDOK49NMOFzliDoVCuDLrzvQlcBsSr
+	aQ1gUiB+iNIzqW5E9F9YqKhCDuZbdzfxbbZDhU4mDrVSNWN7T7+FyHU/SfNV7o7Jc0k2/lRioM4
+	ytGIQ2lNwKjEiorpTB4zsl4iKUPRKqy1nbXVTTk+l/SVpNJyUOT1JLNAs5magXszphXMO4nWGYr
+	BTHBlh4i3JAZce2rTYyUtupLXqrl5sUVhEhLwGClNpixUJfAiCWNchD26Q2M+N7fLEGAQDYsuvA
+	SL39otDHaWUw/ZOX6c9IKnHo/ZKL7Ptk8WSSHUpHBftyuT0RuMXBIaxVug==
+X-Received: by 2002:a05:600d:8:b0:4a5:ef46:1603 with SMTP id 5b1f17b1804b1-4a5ef461bc1mr39933435e9.30.1793004361333;
+        Mon, 26 Oct 2026 01:46:01 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f25fsm14707652f8f.2.2026.10.26.01.46.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 01:46:00 -0700 (PDT)
+Message-ID: <151f4185-c7d6-4ccc-a320-7b77ff89b859@linaro.org>
+Date: Mon, 26 Oct 2026 09:46:03 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,297 +92,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] dt-bindings: media: amlogic,axg-ge2d: add S4 support
+To: christian.koever-draxl@student.uibk.ac.at, mchehab@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-media@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192302.209354-1-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261025192302.209354-1-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+On 10/25/26 20:23, christian.koever-draxl@student.uibk.ac.at wrote:
+> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> 
+> The S4 GE2D is compatible with the AXG one, but sits in a power domain
+> of its own. Add an S4 compatible with the AXG one as fallback, and
+> allow a power domain.
 
-On Sun, 25 Oct 2026 13:11:14 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+The AXG GE2D is a special version for AXG which doesn't use the Canvas
+to read and write buffers, so it may work on S4 but they are not stricly
+compatible.
 
-> On Fri, Oct 23, 2026 at 10:55:11AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Fri, 23 Oct 2026 13:57:54 +1100
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Thu, Oct 22, 2026 at 03:14:54PM +0200, Herve Codina wrote:  
-> > > > Hi David,
-> > > > 
-> > > > On Thu, 22 Oct 2026 14:17:38 +1100
-> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > >     
-> > > > > On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:    
-> > > > > > Hi David,
-> > > > > > 
-> > > > > > On Wed, 21 Oct 2026 13:26:49 +1100
-> > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > > > >       
-> > > > > > > > 
-> > > > > > > > Ok, my proposal seems to be a no-go and so I will follow your proposal given
-> > > > > > > > above.        
-> > > > > > > 
-> > > > > > > To be clear, I'm rejecting the original proposal because I think it's
-> > > > > > > internally inconsistent (if you follow the consequences of decisions
-> > > > > > > far enough).  I'm not necessarily opposed to something other than the
-> > > > > > > above, as long as the rules for when unknown tags must be invalidated
-> > > > > > > (and what that does to the version) are made very clear in the
-> > > > > > > structured tag spec.  e.g. see an alternative proposal below.      
-> > > > > > 
-> > > > > > No problem, I understand your point.
-> > > > > > 
-> > > > > > ...
-> > > > > >       
-> > > > > > > 
-> > > > > > > Essentially the theory of the proposal above is to be maximally
-> > > > > > > conservative: any write (adding, removing, changing, in-place,
-> > > > > > > whatever) will invalidate all unknown tags and downgrade the version.
-> > > > > > > 
-> > > > > > > 
-> > > > > > > But, here's an alternative proposal for invalidation/version semantics
-> > > > > > > that I think is consistent, while being a bit closer to your original
-> > > > > > > proposal.
-> > > > > > > 
-> > > > > > > 1. version and last_comp_version retain their meanings.  No new header
-> > > > > > >    version.      
-> > > > > > 
-> > > > > > Ok
-> > > > > >       
-> > > > > > > 2. If version >= 18 the tree may include any structured tags, even if
-> > > > > > >    they weren't defined as of v18.      
-> > > > > > 
-> > > > > > Ok
-> > > > > >       
-> > > > > > > 3. Some future version might _require_ certain structured tags to be
-> > > > > > >    present.  But a client must only rely on those tags if the version
-> > > > > > >    indicates it can.
-> > > > > > >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
-> > > > > > >        reading a v19 tree _might_ see some FDT_FOO tags (because of
-> > > > > > >        (2)), but cannot rely on them being present in all the places
-> > > > > > >        they should be.      
-> > > > > > 
-> > > > > > Ok, kind of degraded mode. Whether or not a v20 compatible client can continue
-> > > > > > or not will depend of each tags known by this v20 client. For some tags, having
-> > > > > > them removed will not be a problem whereas it will be a problem for some other.      
-> > > > > 
-> > > > > Exactly.
-> > > > >     
-> > > > > > Makes sense.
-> > > > > >       
-> > > > > > > 4. Any write to a property (including in place) invalidates all
-> > > > > > >    unknown tags on that property (they must be stripped)      
-> > > > > > 
-> > > > > > Ok
-> > > > > >       
-> > > > > > > 5. Any write to a property invalidates all unknown tags on that
-> > > > > > >    property's node      
-> > > > > > 
-> > > > > > Will see in the implementation. The offset of the written property will be
-> > > > > > incorrect after the write. Indeed, some tags (tags related to the node)
-> > > > > > available before the property can be removed. With splices instead of
-> > > > > > FDT_NOP, offsets change.      
-> > > > > 
-> > > > > Oh, good point, this rule doesn't work.  I think we still have a
-> > > > > consistent set of rules if property writes don't invalidate parent
-> > > > > node tags (subnode add/delete still would).  Of coutse, that does
-> > > > > further restrict what sorts of information you could safely put in
-> > > > > node tags under this scheme.
-> > > > >     
-> > > > > > This also brings a question. Are API functions such as fdt_get_property_by_offset_w()
-> > > > > > need to be deprecated?      
-> > > > > 
-> > > > > I think we can keep it - kind of like fdt_next_tag() this is a
-> > > > > low-level function.  If you use it, you're opting in to having to deal
-> > > > > with tag invalidation.
-> > > > >     
-> > > > > > Those kind of functions return a pointer to the data of a property for modification
-> > > > > > by the caller. We don't know if the caller will modify or not the property.
-> > > > > > 
-> > > > > > Without deprecated it we can change the function to
-> > > > > > ---- 8< ----
-> > > > > > struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
-> > > > > > 						  int offset,
-> > > > > > 						  int *lenp)
-> > > > > > {
-> > > > > > 	int new_offset;
-> > > > > > 
-> > > > > >         /*
-> > > > > >          * The modification is goind to be done out of libfdt.
-> > > > > >          * Unknown tags are removed (rules for modification when unknown tags
-> > > > > >          * are involved) but also known tags. Indeed, we cannot know if the
-> > > > > >          * modification will have impacts on known tags
-> > > > > >          */
-> > > > > > 	new_offset = fdt_remove_all_tags_due_to_property_modification(fdt, offset);
-> > > > > > 
-> > > > > > 	return (struct fdt_property *)(uintptr_t)
-> > > > > > 		fdt_get_property_by_offset(fdt, new_offset, lenp);
-> > > > > > }
-> > > > > > ---- 8< ----
-> > > > > > 
-> > > > > > The idea is to be conservative here also and consider that property data retrieved
-> > > > > > for writing will be modified by the caller.
-> > > > > > 
-> > > > > > Also, the offset used as parameter of fdt_get_property_by_offset_w() is no more
-> > > > > > valid after the call.
-> > > > > > 
-> > > > > > Last point to have in mind, getting the node offset from the property offset will
-> > > > > > need to walk the tree from the beginning. It can be costly.      
-> > > > > 
-> > > > > Right, that's what I was thinking of when I said this might not be
-> > > > > practical to implement.  It's doable in the common case where we alter
-> > > > > properties by node offset + property name, but not when we use a
-> > > > > property offset.  But the fact that this would change the offset of
-> > > > > the property in queestion is a much bigger showstopper.
-> > > > >     
-> > > > > > > 6. Adding or deleting a property on a node invalidates all unknown tags
-> > > > > > >    on the node      
-> > > > > > 
-> > > > > > Ok.
-> > > > > >       
-> > > > > > > 7. Adding or deleting a subnode invalidates all unknown tags on the
-> > > > > > >    node      
-> > > > > > 
-> > > > > > Ok.
-> > > > > >       
-> > > > > > > 8. Whenever a tag is invalidated and stripped, the overall version
-> > > > > > >    must be downgraded (to let clients know they can't count on tags
-> > > > > > >    being present)      
-> > > > > > 
-> > > > > > Ok.
-> > > > > >       
-> > > > > > > 
-> > > > > > > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
-> > > > > > > sure how feasible (6) is to implement.      
-> > > > > > 
-> > > > > > Well, this new proposal is more complex to implement than your first
-> > > > > > proposal but it has a finer grain to handle unknown tags on modification.      
-> > > > > 
-> > > > > Certainly - that's why I proposed the other one first :).
-> > > > >     
-> > > > > > I can try to implement something based on this new proposal.      
-> > > > > 
-> > > > > To be clear, I kind of prefer my first proposal still.  The question
-> > > > > is whether what the updated scheme buys (preserving more tags when a
-> > > > > bootloader makes minor writes) worth the added complexity of
-> > > > > implementation.  You're better placed to answer that question than I
-> > > > > am.    
-> > > > 
-> > > > I would like to avoid bootloaders being blocking points and so:
-> > > >  a) They should not failed if they encounter an unknown skippable tag.
-> > > >     We are in sync on this point.
-> > > > 
-> > > >  b) They should preserve tags as much as possible.
-> > > >     The goal is to allow following software components (probably the Kernel)
-> > > >     to handle new tags.
-> > > >     This is the point where the right balance has be found.    
-> > > 
-> > > Right.  I understand why these are both desirable.  However (b) is
-> > > pretty tricky, because of the question of invalidation.  It
-> > > necessarily involves a tradeoff between how much can be preserved
-> > > versus what sorts of information future tags can carry.
-> > >   
-> > > > Your first proposal is maybe too much aggressive on b). That's why, even it
-> > > > is more complex to implement I would prefer your last proposal (taking into
-> > > > account the property offset issue) which can be summarize with the following
-> > > > table:
-> > > > 
-> > > >                       | existing prop | existing node (1)   | Downgrade
-> > > >                       | unknown tag   | unknown tag         | version (2)
-> > > > ----------------------+---------------+---------------------+-----------
-> > > > Modify a property (5) |    Remove     | Keep (3) 	    | Yes
-> > > > Add a property        |    NA         | Remove              | Yes
-> > > > Delete a property     |    Remove     | Remove              | Yes (4)
-> > > > Add a sub-node        |    NA         | Remove              | Yes
-> > > > Delete a sub-node     |    NA         | Remove              | Yes
-> > > > ----------------------+---------------+---------------------+-----------    
-> > > 
-> > > Great summary, thanks.
-> > >   
-> > > > (1) The existing node is the node were the property or sub-node involved
-> > > >     are present. Not all nodes, not the parent node but the node directly
-> > > >     impacted by the modification.
-> > > > 
-> > > > (2) We downgrade the version only if tag are removed. If no unknown tags are
-> > > >     involved (and so not removed), the version will not be be downgraded.    
-> > > 
-> > > Sadly, that doesn't work.  We have to downgrade on property
-> > > modification for the same reason we must downgrade on adding a
-> > > property: it might be adding data that requires certain tags in the
-> > > later version.  
-> > 
-> > Oh yes, I missed that point.
-> > 
-> > (2) The version is always downgrade on any changes (modification, addition,
-> >     deletion of a property or a sub-node) even if no tags are removed.
-> >     Indeed the modification done (even a property or sub-node deletion) can
-> >     requires certain tags in the later version.
-> >     Downgrading the version on all changes is the way to state that the
-> >     resulting dtb may be no more compliant with the later version.  
-> 
-> Probably wants some editing for clarity in the final version, but
-> basically sounds good.
-> 
-> > > > (3) Removing unknown tags in the node when a property is modified will lead
-> > > >     to the property offset change. Prefer avoid the property offset change
-> > > >     and so keep node related unknown tags in that case.    
-> > > 
-> > > Right, if we did that it would basically mean totally (and
-> > > incompatibly) redesigning the libfdt interface.
-> > >   
-> > > > (4) The version is downgrade only if we remove some tags related to the
-> > > >     node. If we remove only tags related to the property we delete, there
-> > > >     is no reason to downgrade the version.    
-> > > 
-> > > Unlike (2), I'm not certain if this one is unsafe.  But I suspect it
-> > > might be, and having it behave differently from case (2) seems
-> > > confusing to me.  
-> > 
-> > Hum ok, let be conservative and remove the note (4).
-> > 
-> > The updated note (2) handles all modification. On any changes with and without
-> > tag removal, the version is downgraded.  
-> 
-> Ok.
-> 
-> > > > (5) All property modifications done outside libfdt using directly the
-> > > >     property data pointer will not lead to any unknown tag removal.
-> > > >     
-> > > >     This point is for the usage of fdt_get_property_by_offset_w(),
-> > > >     fdt_get_property_namelen_w(), fdt_get_property_w(),
-> > > >     fdt_getprop_by_offset_w(), fdt_getprop_namelen_w(), fdt_getprop_w() and
-> > > >     maybe other similar functions where the property is returned writable
-> > > >     for possible modification. 'modify a property' mentioned in the table
-> > > >     is related to modification done using fdt_setprop_*() and fdt_appendprop_*()
-> > > >     function families.    
-> > > 
-> > > Right.  "I know what I'm doing" is part of the implicit contract when
-> > > using those functions.  
-> > 
-> > Also this note (5) will be updated
-> > 
-> > (5) All property modifications done outside libfdt using directly the
-> >     property data pointer will not lead to any unknown tag removal nor
-> >     a version downgrade.  
-> 
-> The idea's right, though I don't think that expresses it particularly
-> well.  Not a priority right now, we can revise that later.
-> 
-> > > > On your side, is all of that conservative enough to be used when modification
-> > > > involved unknown tags?    
-> > > 
-> > > Not quite, as noted, but we might be able to get it there.  
-> > 
-> > Is it better?  
-> 
-> Yes, it is.
-> 
+So please add a separate compatible entry and drop the fallback.
 
-Ok, I think we've reached an agreement :)
+Neil
 
-We have a new set of rules for handling "unknwon" tags on modification.
-I will implement this set in the next iteration.
-
-Best regards,
-Hervé
+> 
+> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> ---
+> Tool use (Documentation/process/generated-content.rst):
+> This work was done with the help of an AI coding assistant, Claude
+> (Anthropic), used through Claude Code over many sessions. It did a large
+> part of the hands-on work: it read the vendor kernel and the firmware
+> interfaces, probed registers on the board, drafted the code and the
+> changelogs, and ran the builds, checkpatch, dt_binding_check and the
+> tests on the hardware. I directed the work, reviewed every change and
+> the final patches, and take responsibility for them. There is no single
+> prompt to quote; the sessions were of the form "find out why X fails on
+> this board, fix it, test it on the box".
+> 
+> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
+> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
+> 
+>   .../devicetree/bindings/media/amlogic,axg-ge2d.yaml    | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml b/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
+> index f23fa6d06ad0..22decb67879d 100644
+> --- a/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
+> +++ b/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
+> @@ -12,8 +12,11 @@ maintainers:
+>   
+>   properties:
+>     compatible:
+> -    enum:
+> -      - amlogic,axg-ge2d
+> +    oneOf:
+> +      - const: amlogic,axg-ge2d
+> +      - items:
+> +          - const: amlogic,s4-ge2d
+> +          - const: amlogic,axg-ge2d
+>   
+>     interrupts:
+>       minItems: 1
+> @@ -27,6 +30,9 @@ properties:
+>     clocks:
+>       minItems: 1
+>   
+> +  power-domains:
+> +    maxItems: 1
+> +
+>   required:
+>     - compatible
+>     - reg
+> 
+> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 
