@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793019016;
-	b=YSP7fHNPaA1+k4MIGONCe9WSKPW8IDEC0YIbmErESUZIi0xLRLnZwnk1AYMNAefFw3nn
-	 iBSgdruvMlwym5iini1/G2wfVhhKg2RwfCHNoiD5n9hd0z/JyisFzJh+cAz5ZobnmFU/V
-	 cMYGj313Wy9xgvRt6PcJ48kyHeob/DCFEKDgYUs2hWFtGFkyE6Qnpke+04ZI8a43d/NRM
-	 GZRzz9vYQ9DR6SmRGyyi2Kef5mGkJ+LWaGKvXEjaWuReeTtlC/YyiXXtH8Hu3LWj1l7Cq
-	 S2K8Oilq8jMe473ioxYA9TB+dve/5IWsMZwnsKO/N//W84tbnLEhIZBFywJKMcr663Q==
+	t=1793019132;
+	b=esvlvqvwCtDSI/QFzOEjY6skIyjIaRpE8YUzn5P3W5rqLYnYZzdQxSYLkYy0cAsZOEth
+	 LhXhwXiOkswoQYWOxpkMIppk9i5smcpf5dFzh+4qWSLnRz9h/Vf0/h8prpTVXAflwRRB9
+	 1SnE8yISe+J2ZfblYrGR9emqesLmGCck9VhDLd+RXbI85xBZlnw+gcPXm1UNwdX9yyuE/
+	 dX4q4AdYmOODiyffkess/UkUcp0K8SQ95xr/toyL53p+X3UKN+x5jm3a7YekiZmJ6o15v
+	 ey4vHsuEnpWVCMzABFPUyeDS6M/jdrvP5pT7LybhGtVYSxDCtgGZ318Se91g1UMlYkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793019016;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=jMgEBNPKmVCOot7xXoz/+CWsSkWb5gQVygyuTrxSDP4=;
-	b=KvaUdWBEJpGnwCcJJnrJHr+X3bjTHkARdJwU0ZDdTU5aCU+ZmuSF9cTdcISsKWYhNM+x
-	 Ae9e/DcJHwSFzVSJOOicu83JtmaUTbQtP3DXLZZXMkNBU36MfpnOcreO7RN0MJTiohU5/
-	 dXMn/D/RUD7hbrRhTa3njUk9C1o2SrQpIynl/NUeXX4jZhyXIgg1mrQomcHtlZPoR80wT
-	 r+s58InCLtEweP1Z0Yd0HG7FE7waC3yTVRv+jG88Cidie9djp8H515WfLzQpvYj63e+dX
-	 IhbcvTPSIFOu5WU8uSaU8/CpQqEi3jsULVIJulE2fT11DzU2tWobqOWbYl6WQk9lTdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793019132;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=ONPO9iv+gG/8/my8a4wsEXO1rhD3B0oGFhZA4jXD498=;
+	b=k6s8M7UV2a+eqyd8guivy84D2q2Koxn8hqA+dLjuSvW/DW8eH2tCN/i5IPquxN1FvWS5
+	 IzoO3zxb6djyVxvRYvF9Lm3kz61cpNDSeEpPU9a62dO4NMH6HlC+xudUubuI59yL/3uZN
+	 xNNWsRQ/6o3TOJ3skYOzRrSAbGx8CK8ujAG/DWz/U/XRQGivEK2bLR0U4tuYQ3IcJwicd
+	 JYFDto79PnXqNWn3ik93/O65lz1gm0s0uXBwPgo3hUeLk/LVMepVItK9PunCLcUlxDXiQ
+	 jFU9c1pXkHpoAVvRkq/wqEs5eprGG/HFs8FnmnmK5ccUv4J/8qJAHdPwvlF/qncoxfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKWelPNY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=eSWucYVB;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C46B606A31E;
-	Mon, 26 Oct 2026 12:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF17606A31A;
+	Mon, 26 Oct 2026 12:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AF17606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKWelPNY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF161F01825;
-	Mon, 26 Oct 2026 12:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793019015;
-	bh=jMgEBNPKmVCOot7xXoz/+CWsSkWb5gQVygyuTrxSDP4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GKWelPNYtZbU2UjArJlbPfvITv4C0VHkl/8rLtA2UiY4ELwIQNbvoGXIIHD3URISx
-	 kBw43A9KFmwuYGLqcQSTFZKHJlDfND+TNKTX35k7KbwmTOS1GFGuhobt6jGDxIfc2A
-	 C3tyvJPDsKWl0VIz9T2ik9C68HXybKfuQCc7n7HZlUZcEHIS5FuFI+JP/4lFYsFx73
-	 zBE/uFT2J/71Cx1emQwquabqg4H1J4GymPox3buUM+QVZBTfGJe/LtOnJ7jlGKuhbL
-	 a+FkLX7FTu+x+jZdd9Upz9KyiO9s4FiSgQuhoKxcTnAIoPb8CCAlzDIgeSXOmI8VeT
-	 npBJDCgEn7ZyQ==
-Message-ID: <sashiko-outbox-185247@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: usb: snps,dwc3: describe two
- connectors sharing one HS bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026123211.243224-2-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261026123211.243224-2-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 12:50:14 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=eSWucYVB
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2DD01108493;
+	Mon, 26 Oct 2026 13:52:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793019125; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=ONPO9iv+gG/8/my8a4wsEXO1rhD3B0oGFhZA4jXD498=;
+	b=eSWucYVBc5laiV8IH04jLFMhd1NqSSAgVFtoBYhzz8ofkfrMWNiTQScay55YlczBNsLLzJ
+	NkCDA6A6AMVK50wEPUP4VnM4TV5eiFVgienl86d5xGXbMlPjQyJETeSyc1CemKKD0GKRBb
+	f0wsWwV2mdC7KDSw5j7GEA93jiXGxlCU/7IBFGNTeHmBBprrVJUlMkWh9KL6Q/k5BMjcXN
+	iO057G9cQcL0Imoi+xSqROEys44E+lxaRiG6oYhOdD9AFgAdNrhLBQLQMw/v0Rq/6O5pV0
+	Wepe63+vL175llrR9nEo2NwiJxhDK6cdtWDq3OLmqfpQCnDw32O7HTanq2ZlKA==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] arm64: dts: st: Move Bluetooth to USART2 on STM32MP23xx DHCOS SoM
+Date: Mon, 26 Oct 2026 13:51:38 +0100
+Message-ID: <20261026125201.76716-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,226 +68,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: usb: snps,dwc3: mux-state if-then blocks allow dupl=
-icate 1
-- [Medium] dt-bindings: usb: snps,dwc3: missing endpoint validation in port=
-@0 hs-port
-- [Medium] dt-bindings: usb: snps,dwc3: custom mux properties and incomplet=
-e constraints
---
+The Bluetooth chip is connected to USART2 on STM32MP23xx DHCOS SoM,
+adjust the DT to match the schematic.
 
-commit e70c1a471784d9fdae4486ffe851b5db8bc8f0cf
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Fixes: 6642d6a47901 ("arm64: dts: st: Add support for DH electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC")
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ .../arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
+diff --git a/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi b/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
+index ffdcceb2fa237..5d4624c3200ad 100644
+--- a/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
+@@ -24,7 +24,6 @@ &rv3032 {
+ 	interrupts-extended = <&gpiod 10 IRQ_TYPE_EDGE_FALLING>;
+ };
+ 
+-/* Bluetooth */
+ &usart1 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&usart1_pins_a>;
+@@ -32,15 +31,9 @@ &usart1 {
+ 	pinctrl-2 = <&usart1_idle_pins_a>;
+ 	uart-has-rtscts;
+ 	status = "okay";
+-
+-	bluetooth {
+-		compatible = "infineon,cyw55572-bt";
+-		brcm,requires-autobaud-mode;
+-		max-speed = <3000000>;
+-		shutdown-gpios = <&ioexp 2 GPIO_ACTIVE_HIGH>;
+-	};
+ };
+ 
++/* Bluetooth */
+ &usart2 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&usart2_pins_b>;
+@@ -48,4 +41,11 @@ &usart2 {
+ 	pinctrl-2 = <&usart2_idle_pins_b>;
+ 	uart-has-rtscts;
+ 	status = "okay";
++
++	bluetooth {
++		compatible = "infineon,cyw55572-bt";
++		brcm,requires-autobaud-mode;
++		max-speed = <3000000>;
++		shutdown-gpios = <&ioexp 2 GPIO_ACTIVE_HIGH>;
++	};
+ };
+-- 
+2.53.0
 
-This commit updates Documentation/devicetree/bindings/usb/snps,dwc3-common.=
-yaml
-to describe two connectors sharing the High Speed D+/D- bus of a single DWC3
-controller via a GPIO selector. It adds port-select-gpios on the controller
-node and endpoint@0/endpoint@1 under port@0 with mux-state and
-usb-role-switch properties.
-
-> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml =
-b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> index 6c0b8b6538246..6b06b0027b393 100644
-> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> @@ -13,6 +13,38 @@ description:
->    Defines the properties of the DWC3 core as being embedded in either an
->    vendor-specific implementation or as a standalone component.
-> =20
-> +$defs:
-> +  hs-endpoint:
-> +    $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      usb-role-switch:
-> +        type: boolean
-> +        description:
-> +          This connector endpoint has its own USB role switch. The switc=
-h is
-> +          registered against this endpoint and looked up with
-> +          usb_role_switch_at_endpoint().
-> +
-> +      mux-state:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description:
-> +          Logical level of the port-select GPIO which connects this
-> +          connector to the shared High Speed data bus.
-> +
-> +    dependentRequired:
-> +      usb-role-switch: [mux-state]
-> +      mux-state: [usb-role-switch]
-> +
-> +  hs-port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
-> +
-> +    patternProperties:
-> +      '^endpoint@[01]$':
-> +        $ref: '#/$defs/hs-endpoint'
-
-[Severity: Medium]
-Does replacing /schemas/graph.yaml#/properties/port on properties/ports/por=
-t@0
-with #/$defs/hs-port drop unevaluatedProperties: false validation for
-unnumbered port@0/endpoint nodes and port@0/endpoint@[2-9a-f]+ nodes?
-
-Previously, port@0 referenced /schemas/graph.yaml#/properties/port, which
-applies /schemas/graph.yaml#/properties/endpoint (including
-unevaluatedProperties: false) to all child nodes matching
-^endpoint(@[0-9a-f]+)?$.
-
-Because /schemas/graph.yaml#/$defs/port-base only validates
-^endpoint(@[0-9a-f]+)?$ against /schemas/graph.yaml#/$defs/endpoint-base
-(which leaves unevaluatedProperties open for extension), and $defs/hs-port
-only applies #/$defs/hs-endpoint to ^endpoint@[01]$, any existing
-single-connector DWC3 node using an unnumbered port@0/endpoint node (or
-endpoint@2 and higher) will no longer have unevaluatedProperties: false
-enforced on that endpoint.
-
-In addition, in allOf below, the else branch when port-select-gpios is abse=
-nt
-only prohibits usb-role-switch and mux-state under patternProperties
-^endpoint@[01]$, so placing usb-role-switch, mux-state, or arbitrary
-undocumented properties inside an unnumbered port@0/endpoint node will
-silently pass schema validation.
-
->  allOf:
->    - $ref: usb-drd.yaml#
->    - if:
-> @@ -26,8 +58,83 @@ allOf:
->        $ref: usb.yaml#
->      else:
->        $ref: usb-xhci.yaml#
-> +  - if:
-> +      required: [port-select-gpios]
-> +    then:
-> +      required: [dr_mode, ports]
-> +      properties:
-> +        dr_mode:
-> +          const: otg
-> +        ports:
-> +          required: [port@0]
-> +          properties:
-> +            port@0:
-> +              required: ['#address-cells', '#size-cells', endpoint@0, en=
-dpoint@1]
-> +              properties:
-> +                endpoint@0:
-> +                  required: [usb-role-switch, mux-state]
-> +                endpoint@1:
-> +                  required: [usb-role-switch, mux-state]
-
-[Severity: Medium]
-When port-select-gpios is present in allOf, should the then branch also
-require top-level usb-role-switch on the controller node and disallow the
-mutually exclusive single-connector port and connector properties?
-
-In the DWC3 driver (even with the follow-up commit "usb: dwc3: support two
-connectors sharing one HS data bus"), role-switch initialization in
-dwc3_get_dr_mode(), dwc3_get_extcon(), and dwc3_drd_init() is gated on
-device_property_read_bool(dwc->dev, "usb-role-switch") on the controller no=
-de
-itself:
-
-  dwc3_drd_init()
-    if (device_property_read_bool(dwc->dev, "usb-role-switch"))
-      dwc3_setup_role_switch()
-        dwc3_role_mux_init()
-
-A device tree node that only specifies usb-role-switch inside endpoint@0 and
-endpoint@1 as required by this schema will pass validation, but
-dwc3_setup_role_switch() -> dwc3_role_mux_init() will never be called at
-runtime.
-
-Also, should this binding use the standard multiplexer consumer properties
-(mux-controls / mux-states from Documentation/devicetree/bindings/mux/mux-c=
-onsumer.yaml)
-instead of introducing custom unprefixed port-select-gpios and mux-state
-properties, and avoid referencing the Linux-specific helper
-usb_role_switch_at_endpoint() in $defs/hs-endpoint?
-
-> +    else:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              patternProperties:
-> +                '^endpoint@[01]$':
-> +                  properties:
-> +                    usb-role-switch: false
-> +                    mux-state: false
-> +  - if:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint@0:
-> +                  properties:
-> +                    mux-state:
-> +                      const: 0
-> +    then:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint@1:
-> +                  properties:
-> +                    mux-state:
-> +                      const: 1
-> +  - if:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint@1:
-> +                  properties:
-> +                    mux-state:
-> +                      const: 0
-> +    then:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint@0:
-> +                  properties:
-> +                    mux-state:
-> +                      const: 1
-
-[Severity: Medium]
-Can a device tree node set mux-state =3D <1> on both endpoint@0 and endpoin=
-t@1
-and still pass validation?
-
-Both if-then blocks in allOf check for const: 0 in their if condition:
-- if endpoint@0/mux-state is 0, then endpoint@1/mux-state must be 1
-- if endpoint@1/mux-state is 0, then endpoint@0/mux-state must be 1
-
-Over enum: [0, 1], the second rule is the contrapositive of the first, so
-both rules only reject the case where both endpoints set mux-state =3D <0>.
-When both endpoint@0 and endpoint@1 specify mux-state =3D <1>, both if clau=
-ses
-evaluate to false and the duplicate mux-state =3D <1> configuration passes
-dt_binding_check.
-
-Additionally, because these if schemas do not include required guards along
-the ports -> port@0 -> endpoint@0/1 -> mux-state path, an absent property
-causes the if block to match vacuously. Would checking endpoint@0 for
-const: 0 (requiring endpoint@1 const: 1) and const: 1 (requiring endpoint@1
-const: 0), or using oneOf under the port-select-gpios then block, avoid thi=
-s?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026123211.2432=
-24-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
