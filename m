@@ -1,111 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792995841;
-	b=DYvPoJdwbKFBTzfiUNDRIFiNaopDQSFW7er8WU+qrET5wpe986TVc32vDejRPTVEzcA6
-	 Z0/TExUxFRWWe5I3dBvFXA+D/Q5ikZRp33z9DZJXuSmVUnXWIksaDCUKwz50Y7fQwruU2
-	 gkCn7vFF1IyIzQrAIcI+umK+7kHpw+wvk5lzxqPVW2uB0va/qaHecGy+m1VozlGiUwhUv
-	 6Ns7K2O3gqnz9FqIM0k6r4ctqNc/UZjjYZpkxGjwbd1J2NezkW+8pi/JoqpzLArlx8sdc
-	 cfiB0k+WbiCPm8Zg32n3Oow7TVG3mPV4Ir1CZtxnwyiA8GxnmocS4R07r4whhOyPavw==
+	t=1792995852;
+	b=n45MnNIQ5ermAQJi+/6yNplnSNrTHbssxpGdzJ1WOzGtzRteCzP+EEuWsbmennEKmb3n
+	 HgYBzGQpxu/C1M8Ret57GVO74GrfIIRmKRBC4PqVnhomvVk1S9/OBITFUwdWTpFAkOOEa
+	 w3ACgADXRtTuOirTv3IBguA6oM8UMQtW4F1UvfVP3+RC839tr+EONuoRybcFQy5xoLjgm
+	 EZpvsrv5kuQ8LDsdLNM1HpnpmHQoIT886lyjyUbjpKoaEZukjDMhJtbN9ms/8bH/AKsEp
+	 /wDVNfdYBE39zEeKJhcfxv1iBBMGPwE98/GUrafY9KB5O5u3Rk5LH3yC8TpdD1uuo5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792995841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792995852;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=UOR+3mQqNWrrLiobLgmkq+PeJAutB1Cemy1/2B3AOYo=;
-	b=hg7ooPsGj/VgnITpHKYB12ZqlMCMPNopAqRWxzidGbvHs6G5BxRwKeKN0iP4cYnLda5I
-	 ELuMTPFxtdB39akGac2vkuSPDjVYjMrfJm/TKJ7lF4q2s0DFH0RHZuPNZbWuVEVDKRvEc
-	 6aybhdUbqvwkWsJFFHKzzoPPDLO1ffO87RY151Gg13v9SmlzCSRtnTh/SvVHqsI2Ynz7n
-	 vRGvRPYdmRnpq9tPNpSMesJTrk2TA18Gmt70es1/RYdO7C8CBus1ciHh3GK2VymsvdgdV
-	 rwa1r2E0kAgyq+C5GRJY/THC1LMfHXN7qHojf8dhDRoQxA8wAWAOjzrwLX/fvCPddrA==
+	bh=dbYNMN9z8CYSu3KpTs+t1qX2w1pkqwFymCUjX7ig2RA=;
+	b=V/npIihqMkVRorOHzgb7sFi/DjSER5hE0HIeFC3bjpMYAOrul35JFTL9wnKlq5MWjTBp
+	 wQc1m/ZuNQKApao61S6e22WMyPG+QE2YJpc6HGWshcl+fwinnbc/qA6gY4f/2mcfxquNR
+	 05S+BrrD18GauxUvvyJFI/CeCJEHds8WM61Ly5NlEQSNeihgnUBqtpxJUx2b7m8dtPlm9
+	 R+vzgjo4pzJBoVQX8dq9FG48R7PfM2eQ7eqm0XPBP4bZYcjPL7k+z8hkBJlSBBf9xnXjH
+	 ekxMy14ohIiUexToBs0Fgu/xIUwRUsiOZl6idCvnATgfugktzjP+3D34Bx/guzhLB5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dRS16m5m;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jd7fdwr4;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A2CpUTms;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Ft8d/0/n";
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945C9606A323
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:24:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 945C9606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D57606A31F
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:24:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D57606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dRS16m5m;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jd7fdwr4
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4axWK2727320
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:23:59 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A2CpUTms;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ft8d/0/n
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4aPDK2222520
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:24:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UOR+3mQqNWrrLiobLgmkq+PeJAutB1Cemy1/2B3AOYo=; b=dRS16m5ms665/YuJ
-	Br6BSa25BglOaVUYMDaXlJ/uSX/QpV0mpRKD61oClP+LUpAWEYxStU4EwUO7hnkJ
-	jxgYutwnPits5c143mX5LemV7XGVjloM3+tGUkMa0S+tttGEGrpl9b0Hmkw4B1x/
-	HanNbhsCSlJw1Dz0s6337gsZcwUhSYBISHXwmxkSyAIK1vX4ZmvtOt87m/f9Pn39
-	cQt2Zyszk5Up+EJ0jQX3eHeWNiY+7txu6jGXuvTAXvdpEbreH4HLdrMZExPIZGah
-	ICAmXeMImI+QRzO59OTo4WHTRxgArfTxwokNbh+7tN/i8mO1L6xLhj2+Ny887pCa
-	KRgLxg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6n63q-1
+	dbYNMN9z8CYSu3KpTs+t1qX2w1pkqwFymCUjX7ig2RA=; b=A2CpUTms71nD3qMT
+	L4/4i1Uxo6TbXp+ULA2JOUWJq2RPs5f7/Is5LQtEIqUBqSyJwG5yTytIEXmlYRnO
+	LlnaVPZUXEekEjDBabYAdzux3qlYkdyLq0g8l1+AvZZWmFLVO21gMmpWwEoVt1qj
+	YsSmT283eahVnjKt0dFeClSdA8tZQU6rF5Gn+syDn5y98A4CjtkOzmeVfWv1onop
+	UWGrWmNmrL5TfcN9N6C0sVttd2bdPucg+iCOMhT3yuWDzTo6Zlq0H9peHrL+DlC8
+	iPvSEXoDaHTUTjKzgijekV06B18x+lZcNECmkQ5j6TXlKExQXExoHjPWjGHppbzU
+	uXYOEg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdd8tvx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:23:59 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd6ba724b6fso1270950a12.0
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:23:59 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:24:10 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e80f7acc67so29784115ad.2
+        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 23:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792995839; x=1793600639; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792995849; x=1793600649; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UOR+3mQqNWrrLiobLgmkq+PeJAutB1Cemy1/2B3AOYo=;
-        b=jd7fdwr4zq2dKgjOFcpen3EGKG4ipx6aSXi61xRHmTxsPjXlVJ0Niy4ewmfSkpQMGR
-         rHZGs9C3s7qd/+qx0hAW7bV+3mbH1PDbBvLmE/Fw1U5BnHQBU/x3Wdhuc2r12gfEgUPg
-         imJUulfDPPJfhuUvgsvTJAmdZdgI6IWzShWYSCb/ZxZbrrakI2U5S0w5vtoHRKoW1F0P
-         SeC69H9lcJz3nXnupGnzgwm2N1MkowgM4LXrPQELU4ZakCR7vZfH3O7odl75UogpaWg/
-         cd3XYXFjI/tCpr+1WZkfLMH9yHfZdVKRJJ3FnYM5MuaBEbv+wxtkPkL4zgOO/VHX8RHP
-         H6gg==
+        bh=dbYNMN9z8CYSu3KpTs+t1qX2w1pkqwFymCUjX7ig2RA=;
+        b=Ft8d/0/newVC9d89LHXpmUPlohQNak9h4/+zpkjzEOmPHPMc7ZCaPMBylqHblASNi5
+         EHfoTRdFvm9RvSFQGyNEkuFq+UOn6OszCSWMTXpEIEPapVBhEhU5KKaYGCMmPMMhO6pN
+         fL9kdxfvqDDz4qdmmSvE0iEjM3D0rhpxBOog5OMDdENKeAXSw+PhvSwZ/QkyqtSYmxqg
+         84UccQcHaTPQ5eR88+maDpjvUCSz31QF67uHXUzKH5ZrHMonsh15QNnuzP6EksSvl3wA
+         QswzmzV+6QTEDyK7N7kC91ICJUADYvMyQxeAdHUucc6TQlSUlfJy7PkVNASF5waQktl+
+         E7aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792995839; x=1793600639;
+        d=1e100.net; s=20260707; t=1792995849; x=1793600649;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UOR+3mQqNWrrLiobLgmkq+PeJAutB1Cemy1/2B3AOYo=;
-        b=Z0W1EqanozzjQB3FzsGHXby2pIIVPwEMlcVuEA/zsPHXPFy6T4IX+VS1osp4KDXP5O
-         fEKGCE8dYI16OG2Hi2RK2PAR/qFJ8+j7c4By2XPkmhrR/DMDLlQePnfozTgEWMlPfHUt
-         yHS7XHjFF23W88PutHjT5Z1DhjNxTR0mz93WTU9cPINE3bew9qhD9y7jdoIU8EiOKymd
-         p5p9iQTKKB76DbsOmL+zR1f+lDw6S5X6uAg9X0TiNDLEh3Qf7JbZrw8p1V042uEwfhsq
-         LgCZQzH58oWh6oz4m/+bbBUBCp27dYNdfNjzYu9ZWDMrfUenHzlDFQSv0r/O7IA7NkoI
-         NEqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx3imDfIXmFSaGoGxyqNnTZWSUn71+ZGzqpThWUVCKQV4f1O9oTGtN23DozF9yGFkkSkOWJaY9ENe5r@vger.kernel.org
-X-Gm-Message-State: AFq9FYKryJoKilMTbJx8CRQ3i9yaw3u5tIsHpKa0p9VkYUreQnz9Agti
-	PpNWkvmkpAqE3WhEp1qHwnpADSeUsOvSst381FT2I4S4uLvOVhshsP86cypy0gDnTRgNtS3J1E9
-	PBgzAyni/Z0jlnM8N/o/oi11AQJRiWH1s7adUvsSpI/XfTwsMR3NuXZkCkUZNbkju
-X-Gm-Gg: AYBFou1/dRD0SqCERjTMtY7ntUoQIhEhfnf/gsEB2E6NH3dCW79gxBSHWQfmylKG1fq
-	Uit9cBwENDL+SWCoxCdgAwGbODJBrsKnBHHAVtayI/VClnLYixKFJiqe4ALGEr0rRkMbhtq7BQO
-	G134GzBcCr1iQaTQ5+HsZ6CzsTY/deLwoG6PFZ5jEK9s7lhUxXMDcb1frds3gAyLfvwLQuwK/zk
-	Saqur68bCePWxsgZ+Cu0wu/FRmRlFcfFb8ssouEkYJ+97FZn21Tf2TwzfRQU8M1EGKw6xcGIiaj
-	1Ub0Bmy904PWO/dq6CVw5SBUHxfDWo/zWljXdW41ggekCpg1udJpAyOwdDrO95hwaTmr7uxnpby
-	o4OJcunTbMFE09UKQWRY5EzYVAJQ8Eh0B1Q==
-X-Received: by 2002:a17:903:3c6e:b0:2e9:6645:e9ab with SMTP id d9443c01a7336-2ea9c6c246amr54738195ad.16.1792995838582;
-        Sun, 25 Oct 2026 23:23:58 -0700 (PDT)
-X-Received: by 2002:a17:903:3c6e:b0:2e9:6645:e9ab with SMTP id d9443c01a7336-2ea9c6c246amr54737865ad.16.1792995838107;
-        Sun, 25 Oct 2026 23:23:58 -0700 (PDT)
+        bh=dbYNMN9z8CYSu3KpTs+t1qX2w1pkqwFymCUjX7ig2RA=;
+        b=TrytFVoOHE1qYdQ4l+uPMNev2F8CTRCgVgKzJBCcQLZcW0Xi2jFjN1ISM+o22OwF/X
+         e0R/tzIj+HbDys4qgUm+CHX8/FWKWmUo3jxdQjVjjAnvcZDyLm3O05sQUeEJAbe9PHt4
+         /hpK1cTpzQWdV4VcpDpaNtyDVWOy2crVavFMs+4Wpy6fz6HotkzOtYdRRcXUEn+LhWEu
+         SO8l9f7LLs/20apI2wqwHufewXLKM0lnzQZ7ct6XRYOQ/Vq778LiAPh3unOtSAQh9z1C
+         kSAPRLnLxWAsfzxSa75SItiJfZ62hGwhSNTyJBHf6d6Z9IiNcFYijZVZ5P9nOqv5rGki
+         N9Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBzggIxwG/QfURtcyAU6nnHK2Ngvyh+fWRhCWw7tyadlAJI5TL4PHba7h6p+H1kiKZIEn2Sr1uIHjVfe@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBzzlHphDB9P/SoaOCsA+Ma4h5yr+tETtK8WjyCiBGrAQpHjVV
+	NM5Wl+7yp5kTYbZmXC2sgEYU9EPe9J0PQ5HDQb5UVNVwIqWPv2sGK/CDRbgDq0biHQ6nQ52exu2
+	zQeYVoCGYWsg5kztSqJ/C7Ncb8OOH1jvsAP9akUAmo22wOj+8xyFKUDFZP995DTdZ
+X-Gm-Gg: AYBFou2N8CbzrFWtooeqQrMwegdfNFk7x27TyXw3sKaNTwVJNp3gePInEAy9H3/6fHM
+	8Oj6sw4qjKmOR1w8kFXDzwLgpusUnt4b5sNXWHdwr0rwOZ8q8CH2eY94Nwy7/fhaPQO1U+44hN3
+	7pOKFhBgXwh6n/iptOPpuEpvChZeVC/ScFuXDdlDH+aLgolL1YaMZ6hqPgw5X1qNUysiDRQkkH0
+	YBXtlvyzSFjLa7E1BnP3kvzIRIoPmGZTZqlyw7kfbd3O7D/1wkrX/3ZfHYmglmAMk9OMe6O+/5H
+	m5BhmvQhnduXi8+heV9La9qrg46zxoZPMCAR56ZrW+NGYQhr70OCQvEMQnBBgt6fpSDAF1mfbpv
+	OzM+hh+m/ncpY0Y3jbinrzUXblCbgCHLU2A==
+X-Received: by 2002:a17:902:f60c:b0:2e7:12d5:cc3a with SMTP id d9443c01a7336-2ea9c63d377mr43098855ad.36.1792995849347;
+        Sun, 25 Oct 2026 23:24:09 -0700 (PDT)
+X-Received: by 2002:a17:902:f60c:b0:2e7:12d5:cc3a with SMTP id d9443c01a7336-2ea9c63d377mr43098645ad.36.1792995848887;
+        Sun, 25 Oct 2026 23:24:08 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.23.47
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.23.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 23:23:57 -0700 (PDT)
+        Sun, 25 Oct 2026 23:24:08 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 11:51:23 +0530
-Subject: [PATCH v2 13/23] drm/msm/dcp: Route HFI display events
+Date: Mon, 26 Oct 2026 11:51:24 +0530
+Subject: [PATCH v2 14/23] drm/msm/dcp: Add DCP encoder
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,7 +117,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-jshekhar-dcp-hlos-v2-13-7cf014efdee1@oss.qualcomm.com>
+Message-Id: <20261026-jshekhar-dcp-hlos-v2-14-7cf014efdee1@oss.qualcomm.com>
 References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -152,114 +152,126 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
         linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
         iommu@lists.linux.dev
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=2412;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=2736;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=BFTr4Q+ZfwwET6V0CyDqzPQcI8MwpqQ9e75s1Un7OM8=;
- b=SKN800pVbhcnvPWsUmrNznlIDbT64GT7gmpps6ZTh83CJvMF8drOdSRqgxsHIH2Rhkat9HE0L
- quOBQpd8NsHD9Z9IG6TzeX9xiSU8vrxzzp9OkSE6Nv19uQp+UAa/FHQ
+ bh=13ayK5iaWertmFXymKPgINfX7fwgPHD+tgYvEDAKLs8=;
+ b=zmwgbeRZoqTMrzpI8+a/t3MlIu3IDSlRDVgwwS54kYHPLh7/+sgEF+x7gACCHhdFfzZZj8Vly
+ V7W/Eljs9FoDWuakAW53sDKzOr21oUkTPeVA72jFeTstFMQfl57YL2J
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-ORIG-GUID: m9439LuTFknvTLAYm72-ZoqfVU3Y3t3J
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX2NJw1jGlbgS9
- m69XYpJ2nR8zU71AAu2X6RoegU4j+7uXSUUKnrYEaQvSjWnyMp9yYL0nBUcuh9oD8AdKSKBUwk3
- CnG8jmur1z1GFbHJMBqiVxXWGzVcKBo=
-X-Proofpoint-GUID: m9439LuTFknvTLAYm72-ZoqfVU3Y3t3J
-X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adef1ff cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: pNQioUl98uT4Tm4ZNlM-fw82-UY7OH6g
+X-Proofpoint-GUID: pNQioUl98uT4Tm4ZNlM-fw82-UY7OH6g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXwZDg3PkQYGOW
+ qeC/qdOLK2MffvOEGfrKwzJeNVdJ7KRZslss1dX/iO+gVB1HGSNyrz0nMIO0Nock0+DCCY7gCUj
+ lYTo1d0OsgnXnFe78DCmE25xyGuzuXatMR95F+9PEc37BWARieqxWaLJ8kf8MY2QQlq2VYtDZPJ
+ KEvbQ4dJZrAzo11DaIkVHcllE7qcPn6ngdDiwa/O2OHaBmKE/FTT1rKfXOVZRXBWrMN5HzGxGJO
+ ++dPncPOabZne75oFxKBroqFDZ/VaVZa7z2zMVq4Xt5mgUkq4lKJkGCYPmZ77pY/nAxhxmdBbRy
+ i55/rWe+++JoEyDmn2ogZ63BESjRLUlyFDC2+GQNxHU4avIvVO8mvRyGNO4HpqJAOw8Ev24NiO9
+ uNEVxhsTJKa7YR6KwRbBJZb+ahkhb/fSuqrrz/khPvxVRNE+qxHUOQMNRG8w0i4scWnHX8tcadJ
+ ppa2MNvDtjg33iFd4EQ==
+X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adef20a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=dkYgh42podB0RqWQ9ZQA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX3LYYGzey06dP
- en05saRT7ItchU4zsHUgm0sZ6b4FRi1ki1VDzGboa3FtWWi5MMF7q4zmCdL1GmZmVOtW1HtHD9F
- 5N9EV+pyKBUbfSjKcPsK52QKdrT+QRIxYclp5DN0TOgYRXQj8u4fsgctf2aefK1mFLG4M7+ATM4
- 3Lel6w72GfrSiyGWr2iLaqNxHb4BkxO6tqRsaP7bK26kLTqmJlheLhdtSIU4RWUlRRDlNn0Gmyq
- Dma/k2Or+WCJB/vFV2c/jNT9g7IthS/4MHk5WXNUMZR9DfA2dNOxwptqZgyR+latToy9pmMWE6F
- ZAdzhCRya8U/nalqeKxFSry+PASB6ryIJ88HrDZZ2euZkHIqvoMtI5hZIWTl+ROcpp0bxLPO/Zq
- Ib6lrnkbUrCD3ctRasFeBXcft+BUm9BZevQOUw5G5NEaee/YkP2KBtlfYiuULc1sVT56OAGi34k
- b1Q62DGFOI63kp0+HXQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=qqiwZq75wgHyRPlt0ZYA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXws+i4hZcx6Xl
+ pO4PtDIJAm0MiFNJZ8IIMrLXDNSnDEC8e8VczHdBr3SaiYUDTi3cfoU0JJj4J/mPQ0NhnhgQyct
+ s0C2Oy3NO0/ofSP9VhdTFG2UIxfmb60=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260025
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260025
 
-Route asynchronous display events from DCP firmware into the DRM CRTC
-objects. Without this mapping, VSYNC and frame-scan completion cannot
-drive DRM vblank and page-flip completion.
+Create the DRM encoder required to connect a DCP CRTC to its
+firmware-backed output bridge. The encoder must fit the existing MSM
+DRM object model while remaining independent of bridge discovery and
+KMS registration.
 
-Match firmware display events to the corresponding CRTC session and
-deliver VSYNC and frame-scan completion notifications through the
-MSM DRM callbacks.
+Implement the DCP encoder wrapper, allocation, and DRM object
+initialization.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dcp/dcp_hfi_core.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/gpu/drm/msm/Makefile          |  1 +
+ drivers/gpu/drm/msm/dcp/dcp_encoder.c | 29 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_encoder.h | 16 ++++++++++++++++
+ 3 files changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-index 774a5afac0f0..e54ccfafdae0 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-+++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-@@ -19,6 +19,7 @@
- #include "dcp_hfi.h"
- #include "dcp_hfi_priv.h"
- #include "dcp_drv.h"
-+#include "dcp_crtc.h"
- #include "hfi/hfi_packet.h"
- #include "hfi/hfi_packer.h"
- #include "hfi/hfi_unpacker.h"
-@@ -260,18 +261,35 @@ static void dcp_hfi_store_caps_payload(struct dcp_hfi *hfi,
- 	dev_dbg(hfi->dev, "%s: stored %u bytes\n", name, n);
- }
- 
-+static void dcp_hfi_dispatch_frame_done(struct dcp_hfi *hfi,
-+					const struct hfi_packet_info *pkt_info)
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index b425fefda890..4024f6b1e3cf 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -83,6 +83,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
+ 	dcp/dcp_hfi_kms.o \
+ 	dcp/dcp_hfi_plane.o \
+ 	dcp/dcp_ipcc.o \
++	dcp/dcp_encoder.o \
+ 	dcp/hfi/hfi_packer.o \
+ 	dcp/hfi/hfi_unpacker.o \
+ 	dcp/hfi/hfi_utils.o
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_encoder.c b/drivers/gpu/drm/msm/dcp/dcp_encoder.c
+new file mode 100644
+index 000000000000..e7a64c960bdc
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_encoder.c
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP encoder wrapper for the CRTC-to-bridge connection.
++ * Hardware programming and mode sequencing are handled by the bridge and HFI.
++ */
++
++#include <drm/drm_encoder.h>
++#include <drm/drm_managed.h>
++
++#include "dcp_encoder.h"
++
++struct drm_encoder *dcp_encoder_init(struct drm_device *dev, int enc_type)
 +{
-+	const struct hfi_display_frame_event_data *frame = NULL;
-+	u32 sequence_id = 0;
++	struct drm_encoder *encoder;
++	int ret;
 +
-+	if (pkt_info->payload_ptr &&
-+	    pkt_info->payload_size >= sizeof(*frame)) {
-+		frame = pkt_info->payload_ptr;
-+		sequence_id = frame->bufferflip_index;
-+	}
-+	dcp_crtc_hfi_frame_done_cb(hfi->drv, pkt_info->id & 0xFFFF,
-+				   sequence_id);
++	encoder = drmm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
++	if (!encoder)
++		return ERR_PTR(-ENOMEM);
++
++	ret = drmm_encoder_init(dev, encoder, NULL, enc_type, "encoder%d",
++				dev->mode_config.num_encoder);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return encoder;
 +}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_encoder.h b/drivers/gpu/drm/msm/dcp/dcp_encoder.h
+new file mode 100644
+index 000000000000..de40c9bca4bb
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_encoder.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP encoder interface between the CRTC and bridge chain.
++ * Hardware programming is delegated to DCP firmware.
++ */
 +
- /* Route asynchronous events and capability packets before flag handling. */
- static bool dcp_hfi_dispatch_event(struct dcp_hfi *hfi,
- 				   const struct hfi_packet_info *pkt_info)
- {
- 	switch (pkt_info->cmd) {
- 	case HFI_COMMAND_DISPLAY_EVENT_VSYNC:
-+		dcp_crtc_hfi_vblank_cb(hfi->drv, pkt_info->id & 0xFFFF);
- 		return true;
- 
- 	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_START:
- 		return true;
- 
- 	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE:
-+		dcp_hfi_dispatch_frame_done(hfi, pkt_info);
- 		return true;
- 
- 	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS:
-@@ -975,6 +993,9 @@ int dcp_hfi_init(struct dcp_drv *drv,
- 	struct dcp_hfi *hfi;
- 	int i, ret;
- 
-+	if (!dma_dev)
-+		return -ENODEV;
++#ifndef __DCP_ENCODER_H__
++#define __DCP_ENCODER_H__
 +
- 	hfi = devm_kzalloc(&vdev->dev, sizeof(*hfi), GFP_KERNEL);
- 	if (!hfi)
- 		return -ENOMEM;
++#include <drm/drm_encoder.h>
++
++struct drm_encoder *dcp_encoder_init(struct drm_device *dev, int enc_type);
++
++#endif /* __DCP_ENCODER_H__ */
 
 -- 
 2.43.0
