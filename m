@@ -1,98 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004388;
-	b=L6fvW0ki2VrQzsYwUadaASQo+w662XZaU+WjavNSzw5ojDc008g1CmhUsP2dVKXf7ifW
-	 /9MndhinyJRG+Q33EYDFmZ+Ge9o474IHEeQFfZQ7bN2wLOmPVcDUbJeyGS59bubooE5tN
-	 c6Pee2H/Ofq3pxphyty6qvfzSppcFytHalg7JeDSkt/A/AdkKfFCEXPNyBIo61q/ul+j4
-	 JsgheSTqQMMouRId/QW6OkPGKKcKykNvmd/KtTbic5JMgCpGj5IMnJ8A77cl2diQJPKPG
-	 3q5WG2UzFC1xqIm1dbzurNvwKDHDKIketOsziK2RPyVw0jmemLWlVNLXZmGYNKeTMRA==
+	t=1793004471;
+	b=wQthnhYvtygh59OAtogd5zV/adGstSDmLAtCfMCq76j/fHtKDoXYBzQMH+6Zc9706WNx
+	 a6PLFEzgBGLKY9NkIRKP7mNn6fSpkH2MMpprIZGW0+pTUcMMyPV+vCP6+4htVIk4lhzm5
+	 8oWH1q5z8pqoj77CKblNO6l71F0G3ydwh9s5Fm5DuTk5e3mQYG6GpKplDpQI+41FN2cXD
+	 XgWErVwNPasA8/1i8oQ0r2qv0m92Gm8SJ/CIbey2qJUbVQjf47PMg3quZC3r8rx80pkNF
+	 NyEnb7M4Ycxth5gZF4NMCImBBM7SOgFNsRvfEy2Ix5bswmR0wDDY7+k0eqkha6WEOVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793004471;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5I9G++sBFZBEvdUOgC96XBerDJBhmVoXeNlZeIKbjBA=;
-	b=SVw6Wg5455KRY+D/cIPL7xUpCC9X6OyzATCKJbPGluYioNdT1NAXsNFsxpJe6Eiw5uwu
-	 XZdKnr7zB3UAxRSVt3w5Ek5j2Ev3/PANG61zpYVc9v/qqcmuQzvlyFWjDmijTS6YcR4vG
-	 A29qQmyCBLFLXZsvBUB0uw61KG2Z3x/KZKnl+dZnK9m9J+Kpf8af7mMA/BHowoLfy3ygp
-	 f8fizak9SFZR5qIRhAN+gWRBtQOX4Og3LBya+SDkD1BOOcH/rn86+KRwHmoPNY1Ij4KJe
-	 p35nWPxhVPbtr8f2cNTNMeA25OACm8mburKmsK8A6NIB50BhCz8dxZp+6MRD1oM0Nkw==
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vNFCSReGDddi8uPRrxfpuCwFDb4KWoAVuKYCjqBpfo8=;
+	b=giQfwuJdDFdfnSjt27iGvFSr3ac7IPS6Bn4iuhiqzyaYk4mnQgvnVjqGbJXhUIOWQBGG
+	 zcxp+4ZzWrYrPILfafsyfljz32UOZu9FM9bSklZdjDXPSXkiX01kkQSy1ubkUu9gb9LEF
+	 4mfLGgcP6TUoycbV6h5qfZWJrlwjIG9BSVxe6yFu4zQX/zlaR7GAEqbtaDQV63JLlNnWB
+	 AA2LWOghgApOsTmf7oc61z4Ue78nx6/PnSvKO+JbqSbM0MAcYyeaji4RiynFzyDiYJeHT
+	 ttnuJ9IwBaHfuM8ObX1qe1TDW7ti3L2Ss6X7u13IsGLrItpWhX/uXrqVtDThDuoFTLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=KNGrYKqm;
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Fcik320u;
 	arc=none smtp.remote-ip=209.85.128.50
 Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE3B606A31B
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE3B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5452606A321
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5452606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=KNGrYKqm
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so25633725e9.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:46:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Fcik320u
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so7189505e9.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793004385; x=1793609185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1793004469; x=1793609269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5I9G++sBFZBEvdUOgC96XBerDJBhmVoXeNlZeIKbjBA=;
-        b=KNGrYKqmfIoQx7G26nK+hU0aEiCpetb+aODEa24JtTAW1UqmeHkN8uRhPqBtcvoyIl
-         OM+wsoA4rANZUWbhu+xg1RYG8r+spNwUHybHWEaYQS9F8skZl9NtRhDbMXaK6UpTAerh
-         oSIK44IDmEf33YtYLu/VRTt4bz0bXGJHlkCz0H2A/NeXdLB1vepv5ExBs21q5Nl81TV9
-         f3VGCHK7T5KM9xIe0O/ZkK0bqbaRq8Hj2wnqleQ9YPUnPXLuzQL4qXi/kEbypit6PmwG
-         yJoAYoNsqvjaUBDMf+QucyHqNwXJMlO6Bo8O1RR6yKHzWMOzLSpnF48RXrYKj++avAV/
-         uqAg==
+        bh=vNFCSReGDddi8uPRrxfpuCwFDb4KWoAVuKYCjqBpfo8=;
+        b=Fcik320uh35ifV8sTeLMXHhwLamo192JsaiTAcKLYZL60+Xi5keCuAB+mM/dKd99/b
+         99mixi2QXZlnSKcly3ViuJ0rhNIjclfFz82fqXbj95VGeLiCzUzEsRjWe0mOa+2gm2/1
+         6iymnIKiqDed546xIu91lGLwTY3Kxr+B7iY28kQLETer7MpnLwt3Z5U+jJ+nhzYqQ4Ht
+         m6CRB9BfIKhg6bGrrV8u6qzO0hcQkBlimBmRVjsnMubkVZ5b66YCFicr+z9osOcTesq/
+         soFSYnNm+PnYk1PkePrQ++/bmM/8IE07m/lLMJekroZ+0Mo/2dfagdYUjC2pNXH6aZAP
+         LzDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793004385; x=1793609185;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5I9G++sBFZBEvdUOgC96XBerDJBhmVoXeNlZeIKbjBA=;
-        b=uNREhjuxWkEfFolrt8kFghYvaDRUw+LrXH9QxtfPXkfImKu4CGIPiQNf6js19ZdnMl
-         NQMAaoldGv7/8hjLb+SloQme7CprAVJkAiDxwKCCoaZ2vBbIO65dJmY8IzzOtNCKl2HW
-         ODjoH+i+RC4y/PkGzM7UAAL9cxWy6ed/c/eY4nFfRiceSnwn9/iit35PE4tRNJ9sKof/
-         r38WhelrMwXB2s4crlT0leqTvT5M9pV4g5FmNMLSlCgYMuO2no55SfGajuBJO4AMwdUZ
-         hEU2Iidv/RVxp71QLNacP2rKzvJ7qHRZ1JBjFSL6fabSHrDH/gccHP1FYdrsi2c1ZgHL
-         jDmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTgWC5H5ZD2L4AJspooWVjIiEZUBhgNfFdt8bQZ/i7LHHOGK1Chfpq46Qx8bxTCjYjgQHOkzcw4cwR@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyCqbJwJPJ7BHtzn3E2XxYwEWt5gAu/bu6XSP7Y6fdKLrt4lj+
-	lOk9aHldtNAm1tG+rDBDvUjKWYgn86IleX3CKbw3o7XalJgnHrSLsyT1oFkDaILOakY=
-X-Gm-Gg: AYBFou1gSrNCtA5x56vo50fhYxfR/fW4wXVcvZyjJbjRwHtJQ/gXZOCY1o/Rf4rSP4a
-	J88snIyvGhPAal7YKeK0z38bmJ2PnGwci6d/Hp7EfyK6GOM4QtUu57XsfTVUmoBGC1dSGG8WIJ9
-	RdKrOfcoXq6Ki4UzonFzj2L+GFmyLBoksQa5uLu7vhnw/AJXQuAvh/u0B5cA5KroS1MDCCMPd0A
-	Tdajg6dFIlzPegBsGMf89vFT0ZEmw2BsmMPmydv+EZEiZw2sL8Sup5OyrUbyp1KVd5Nj4GEvT6B
-	Nyeo5ip89xKLrTcnwHQa3ks25S6h7R8UDRf2jcLKGYUnC3be5gkESkJBYzhSW04fBgHNt0abWmt
-	Zfub7qrNeSpQlCWMmMwYjOO8iDpHYKzPdP6eOlpy/tGN6viTGI0l+T0kili7NsiPBBQEuGLTALO
-	D1yQnNTdhMyKawlJVGs5RrbISYjEzpV8csBJV6lOU5jdbB5ovfg9/rfPDhsXRbXo4fjkZx8KoJ6
-	bjdDf0dIXxSuvdQ4i5N8mz23S9KpGGQsplVeJ3CCvjFYXC485OYGHQUOYDprDoVo79/Aa/1aNo=
-X-Received: by 2002:a05:600c:6384:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4a35ac3acb7mr105232365e9.3.1793004385073;
-        Mon, 26 Oct 2026 01:46:25 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a033702sm146277845e9.2.2026.10.26.01.46.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:46:23 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
- sboyd@kernel.org, bmasney+clk@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, lgirdwood@gmail.com,
- broonie@kernel.org, khilman@baylibre.com,
- martin.blumenstingl@googlemail.com, perex@perex.cz, tiwai@suse.com
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
-Subject: Re: [PATCH v7 0/7] Add support for S4 audio
-In-Reply-To: <20261025192404.209695-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20261025192404.209695-1-christian.koever-draxl@student.uibk.ac.at>
-Date: Mon, 26 Oct 2026 09:46:21 +0100
-Message-ID: <1jik2okfxe.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1793004469; x=1793609269;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vNFCSReGDddi8uPRrxfpuCwFDb4KWoAVuKYCjqBpfo8=;
+        b=c5C+Ry2EbL9AEjP3IzU43Q/ZaVuGBOb2pnhvceAMFQA9IJAaaVgZoiHjr3w0M8c3QN
+         rSKGkDLIAOjSL48BP6DXEKPUnIwscj0C4Hqcwa0PMe2ZrNe7uoxcMBTPr06GP0y+MvZQ
+         yMtxWxMHVhqaHNXWLFZuAjIvYD9YBgOEQCY1WTltRMgviWgNAg27/ilhJKyxAa8Q2nAi
+         xeTW/IINo3AQSV48Ic7RKCEdRZeUA3T8iA5a3uNLJkQ3YUullNjnxpEzwZ10E5VEw12R
+         upJpoTJ3ZtuittxZHyHf8FNELzLXnMUraQBc+/Pmminy5dS9FWFZIp9YdKxrwSjmsOQJ
+         TdaA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5yX56ArHudQL/teWfSWLZtWdU6RF/z3YDxHS4V7A+VdqEg1VbIYxlCktqVzQXhWc1+cqkMJFwtEOc@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMR3M5Z59BJFzLoIta6qxnQGVcNbCTMnqONrNlfpobBoroV66z
+	THOYawbbS4YlC4wyrImbNcMXbVI3rD1XF1D4JN60xElC6TDcJea4LDCckrzengaln7MHSuSbrdp
+	z5MME
+X-Gm-Gg: AYBFou1NSOHpazsqMOKDIRngYV9uUuocDra9+UAJ7R6x0/CW4H4Dbafixxc1gmg5COb
+	P6sd3m2G/chYETokEsz1vWYnmlxWpF/jr+uuOKuZlEVok60m3E1GhBZojzY3EM+6BplK7RhsnBc
+	eRSUFfK9Cm1JI+zcFQ04B17mbSNB9/Lh7FSewqHiwoZD/0v0Tgnr3p4q4Aw7KSdtqqSJphiRE1w
+	f0HOr/bjgm1W7hdEKQiFhlm0Na6AWcyv+jICbsxm6k1URDGimUmRUEXbKgF7BYMx46Lne065ilR
+	VFKbV7R1+EtB88p5omygI/LFWG8WDn8SQsrV9Brff8NBVGcvUzf6eFu4NCskrzEOHLM6BFdZmcO
+	yHWVJDZELsXXqqznSsBksPTl/rzoNdE9PX2mwLEtkrDswkW4Gbc/1dT78Q7bvkE4JumXN0GPNP8
+	rMXH/9ocTsShwYKdflalM3Z/zttA5c4dE/56tIRGgMHW52nlLimTqCKiIVutXwcbpUTyfs9MeSN
+	qH5nryGRgineCWmmu6jh0t4ZXnjWSVGW4UpUJq6aUNT9WVqjek12v1QZG5SR6KfVltTNS9BxnKM
+	VBWc4EV38ZR/tEOyDSXY3OrtsYhYUJVKkvOj
+X-Received: by 2002:a05:600c:3b2a:b0:4a1:f377:5c6c with SMTP id 5b1f17b1804b1-4a35ac99d0dmr99335295e9.10.1793004468879;
+        Mon, 26 Oct 2026 01:47:48 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:d07e:c128:5c21:78f2? ([2a01:e0a:106d:1080:d07e:c128:5c21:78f2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0aa097sm197353145e9.3.2026.10.26.01.47.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 01:47:48 -0700 (PDT)
+Message-ID: <7eddacd6-a394-4bd1-9d33-38e70e75e3b1@linaro.org>
+Date: Mon, 26 Oct 2026 09:47:50 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,80 +93,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 3/3] thermal/drivers/amlogic: do not log the secure
+ monitor deferral as an error
+To: christian.koever-draxl@student.uibk.ac.at, glaroque@baylibre.com,
+ rafael@kernel.org, daniel.lezcano@kernel.org, rui.zhang@intel.com,
+ lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192244.209256-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192244.209256-4-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261025192244.209256-4-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On dim. 25 oct. 2026 at 20:23, christian.koever-draxl@student.uibk.ac.at wr=
-ote:
+On 10/25/26 20:22, christian.koever-draxl@student.uibk.ac.at wrote:
+> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> 
+> The thermal sensor usually probes before the secure monitor, so the
+> first attempt always defers and logs "Failed to get secure monitor
+> firmware" as an error on every boot, although the second attempt
+> succeeds. Use dev_err_probe(), which records the reason for the
+> deferral instead of logging it.
+> 
+> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> ---
+>   drivers/thermal/amlogic_thermal.c | 7 +++----
+>   1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
+> index c58bac633bed..54e59f444d46 100644
+> --- a/drivers/thermal/amlogic_thermal.c
+> +++ b/drivers/thermal/amlogic_thermal.c
+> @@ -196,10 +196,9 @@ static int amlogic_thermal_probe_sm(struct platform_device *pdev,
+>   
+>   	pdata->sm_fw = meson_sm_get(ph_args.np);
+>   	of_node_put(ph_args.np);
+> -	if (!pdata->sm_fw) {
+> -		dev_err(dev, "Failed to get secure monitor firmware\n");
+> -		return -EPROBE_DEFER;
+> -	}
+> +	if (!pdata->sm_fw)
+> +		return dev_err_probe(dev, -EPROBE_DEFER,
+> +				     "Failed to get secure monitor firmware\n");
+>   
+>   	pdata->tsensor_id = ph_args.args[0];
+>   
 
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->
-> This picks up Jiebing Chen's "[PATCH v6 0/4] Add support for S4 audio"
-> (and the tohdmitx S4 patch) unchanged apart from rebasing, with
-> Jiebing's authorship kept, and adds one fix on top:
->
->  6: g12a-toacodec: fix the S4 source mux read-back. The S4 DAT_SEL
->     field moved, so the mux always read back as input A and DAPM never
->     powered the selected path.
->
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Jiebing has posted a v7 already.
-
-Using AI is certainly nice but I would advise that you slow down a
-little and get used to working with the mainling before sending 7 series
-in a matter of hours.
-
-> [ckoever: Jiebing, if you have a newer version or prefer to post this
-> yourself, I am happy to rebase the fix onto that instead.]
->
-
-For example, instead of this you could have tried to ping him privately
-before trying to takeover from him. He would probably have told you
-that he has already sent a v7 and (I suppose) is working on v8.
-
-So please be patient.
-
-> Tested: HDMI audio up to 192 kHz; the TDM-C to internal codec path
-> plays without errors at 44.1 to 192 kHz (not listened to).
->
-> Tool use (Documentation/process/generated-content.rst):
-> This work was done with the help of an AI coding assistant, Claude
-> (Anthropic), used through Claude Code over many sessions. It did a large
-> part of the hands-on work: it read the vendor kernel and the firmware
-> interfaces, probed registers on the board, drafted the code and the
-> changelogs, and ran the builds, checkpatch, dt_binding_check and the
-> tests on the hardware. I directed the work, reviewed every change and
-> the final patches, and take responsibility for them. There is no single
-> prompt to quote; the sessions were of the form "find out why X fails on
-> this board, fix it, test it on the box".
->
-> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
->
-> Christian Stefan K=C3=B6v=C3=A9r-Draxl (1):
->   ASoC: meson: g12a-toacodec: fix the S4 source mux read-back
->
-> Jiebing Chen (6):
->   dt-bindings: clock: meson: Add audio power domain for S4 soc
->   dt-bindings: Asoc: axg-audio: Add S4 audio tocodec
->   ASoC: meson: g12a-toacodec: Add S4 tocodec driver
->   clk: meson: axg_audio: add S4 support
->   ASoC: dt-bindings: amlogic,g12a-tohdmitx: add S4 compatible
->   ASoC: meson: g12a-tohdmitx: add S4 support
->
->  .../clock/amlogic,axg-audio-clkc.yaml         |  18 +-
->  .../bindings/sound/amlogic,g12a-toacodec.yaml |   1 +
->  .../bindings/sound/amlogic,g12a-tohdmitx.yaml |   1 +
->  drivers/clk/meson/axg-audio.c                 | 165 ++++++++++++++++++
->  sound/soc/meson/g12a-toacodec.c               |  51 ++++++
->  sound/soc/meson/g12a-tohdmitx.c               |  80 ++++++++-
->  6 files changed, 312 insertions(+), 4 deletions(-)
->
->
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
-> --=20
-> 2.56.0
->
-
---=20
-Jerome
+Thanks,
+Neil
