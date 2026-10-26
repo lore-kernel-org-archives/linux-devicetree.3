@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793010394;
-	b=Yz+D6i2/eJRwsUzF49eCEneRwiXhqdrD75kxzLW1FVBGV/rFjxORf6cidfl+aXl4iqwv
-	 GBW5YlgmcdOJcY0cfcN3sKaTmbIVd18EqgHNHKZ0TqyRqEb9JWqI4ZZxLOlsBLIuSlTuX
-	 yBzH5cpZzycPpfeBDJgYUi0aXBVaLpD0bPmmVCcy9B4PCvKboTArKYW96lvs7utQtNy9c
-	 t6SgAW0hJtQBDXIVdBPhjGoINVqzO58zGmQcYWPE0e5i+Px4eUUeFgt+jy+xpwiSt0iGx
-	 Mq58w1t/QiHxNiAFJIsa4Il6l+mRCp8DxCHxQG8tQuW6hfy6WAjyQ6oBzeJImMwcQPA==
+	t=1793010431;
+	b=Gwk9I2ng3pleea2Gs6XiPfkegpbk0PyOTBuz+sO06CMwSUvV2paqfH36qEI14IrB2bRy
+	 lU5AMH2Ydl35X1MuuiVpD7JKT3ZnG0cUGCcKhg4Jq5Cg0Ni4ORa4jhJR6Kgh59I2MewkT
+	 a4FZcxggMBrY3gslW8gX2cPxgeWsZ85jelmosBVlFi4U6rKlQdCm3l9bbWGfA+ZPPlJvi
+	 +gW2QQRU4FNrP7FGgj8mxiFQDClNkZiyvCqCWJGWXCvHkbJs8+4s5UnOOgoQWa2aKzoyj
+	 eyMTweijEpQ/sLw3JSTD8EhvF+6CPCkTsEVeFHulN335wfz0hobfLroRBcSKqoyKMyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793010394;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eHcMPsGRbqJbXvtG9Us6VT3nO3822zW0WZWA0+by0e8=;
-	b=Q1iN9X/v9zlOouokHFEgc3Excq6zfmpzccC9ojPbC0jvfJjjmmW5zuAUrBzt4ODW8t/Y
-	 CJ9jFLx0gU26ReuKAWCWcrh8H5J0PIngqJ5emQaukNaJxNN5txaQ5BKy6CHocf7S6iiyj
-	 Xbqx7bi/a5U4uR24xIetzBLYzv/a+pkeJWumY2WnjMcdKv6VzgMN+l2bpsEajr+ci20sR
-	 lLbnW+zEDEVq1kotQ6LrtQTca9fEPmdEqZNj5cn3nhD5syw+x+ny/VW8AZUrXfGcyGCyt
-	 /meTOCmiB1dJKlg1oBfJKko9M9WAjsoBRkFXtO0cQr4UtL5dTPPs2PYPUn0mxIKOlkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793010431;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=L3zCdzaFnqr92HqxOIhABiGtfnkKrxT8Qw7ZJF1heKw=;
+	b=m+cLrPGBnsY/KurTueXV+i8Ch4QCewyxd6SlJFfT4sfiXtMCFTI14/1n+c0OK2o+OTE5
+	 yDLgTZoJ2gzrAZTWmabXyA53UuSgxg48+jfEDepNJ8UNg/SWserdhMNdV5tULjUtWMq3U
+	 bST5FxAuWE7jCYFsi5FDJqd1NO/VibTiI/JTvrjKMkcpCF7mK6NhXRdGsXz/zZ5AIUjV1
+	 AQtiTIuhU+/NA/NezSZzW1JKZ1wTe/IVLSW7JOhNBABx27gYwaLTmUc8hPMBRVkBgcXtN
+	 F0nuK0nc+0X09bxHpnQF4428cNv/nkAqQNAEFEbn2JnAnMfxsg/WnHAsVo644+X0TVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PRdQQT3/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z1xHNKAB;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD796606A31A;
-	Mon, 26 Oct 2026 10:26:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A78606A31D
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:27:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A78606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRdQQT3/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB871F01825;
-	Mon, 26 Oct 2026 10:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793010393;
-	bh=eHcMPsGRbqJbXvtG9Us6VT3nO3822zW0WZWA0+by0e8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PRdQQT3/otIPoJ1Uzl1HCJ637GIeKYnkt2E4sfRnx/b/i2a6QvXc7Uz+RwIxdFMtp
-	 t2tJE7O4V7Eh3GmQ8jkHdvhyfsea/dJW7Hp1/kvVIAhxez8DRovHsvMA3F6UCjHpLL
-	 OJjrA8XL2JaWCcxh8U9XQp4ajtJeSocMadD6FMu4KYXNai+mTfXARmAOrflEYPXEZ7
-	 I3zWelFh4WjVf8em2jf+8ZIZnLO4BrbojDbkhaMTS+aLcTjdlDSQ7++IUK/usut3vS
-	 jQeWTZceMwLrscW612/f+3BH8PGs24ywgzec+RR/b8KG73s6evD6nqQI7adD2lVAB6
-	 czsszmTjJu1eQ==
-Date: Mon, 26 Oct 2026 11:26:30 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
- NoC bindings
-Message-ID: <20261026-cherry-muskrat-of-piety-4911ee@quoll>
-References: <20261024-icc-sm7250-v2-0-0e755894b188@brar.si>
- <20261024-icc-sm7250-v2-1-0e755894b188@brar.si>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z1xHNKAB
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261026102708euoutp02cf9af64aa5e8b928e2da402b67656895~iDXw9jdnQ1184111841euoutp02h
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 10:27:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261026102708euoutp02cf9af64aa5e8b928e2da402b67656895~iDXw9jdnQ1184111841euoutp02h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793010428;
+	bh=L3zCdzaFnqr92HqxOIhABiGtfnkKrxT8Qw7ZJF1heKw=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=Z1xHNKABldhF6JUPAGEqKDiHYHWJ4A5VbiX/p49L+F+TEGQVoq7kkseJ3BMkEDVVB
+	 dLRzNzkzeoJePwRjrpLqEviKF4aNVZX0/+SmFUQmWcMTjm9h3e96F/qX9rXHPq1hoT
+	 81EDkWRU5i8B0eRRvE75Gt2kb3uhG8lQlxAVUhfs=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0~iDXwqqTkk1006410064eucas1p1s;
+	Mon, 26 Oct 2026 10:27:08 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261026102708eusmtip1cf9e71e47f149c4cde88c1788875cc34~iDXwRgeER0779707797eusmtip1M;
+	Mon, 26 Oct 2026 10:27:08 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>
+Subject: [PATCH] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO
+ properties
+Date: Mon, 26 Oct 2026 11:26:56 +0100
+Message-ID: <20261026102658.968138-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,80 +72,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261024-icc-sm7250-v2-1-0e755894b188@brar.si>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0
+X-EPHeader: CA
+X-CMS-RootMailID: 20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0
+References: <CGME20261026102708eucas1p1dd4e054f4891f6ec94a16e9e53aa30b0@eucas1p1.samsung.com>
 
-On Sat, Oct 24, 2026 at 08:40:53AM +0530, Ishu Brar wrote:
-> Document the Network-On-Chip interconnect providers of the Qualcomm
-> SM7250 SoC (Snapdragon 765/765G/768G), which are controlled through RPMh
-> Bus Clock Managers, and add the header with the node and slave IDs.
+The wm5110 audio-codec node uses the legacy "wlf,reset" and
+"wlf,ldoena" property names without the standard "-gpios" suffix.
+gpiolib-of.c only recognizes these bare names as aliases for the
+correct "wlf,reset-gpios"/"wlf,ldoena-gpios" properties, and that
+alias support is compiled in only when CONFIG_MFD_ARIZONA and
+CONFIG_REGULATOR_ARIZONA_LDO1 are enabled. When those options are
+disabled, devm_gpiod_get() fails to find the GPIOs, leaving the
+codec without a working reset/LDO enable line.
 
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+Rename the properties to the proper "-gpios" suffixed form so the
+GPIOs are found unconditionally via the standard gpiolib lookup,
+matching what drivers/mfd/arizona-core.c and
+drivers/regulator/arizona-ldo1.c actually request.
 
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
->  .../bindings/interconnect/qcom,sm7250-rpmh.yaml    |  95 +++++++++++++
->  .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    | 148 +++++++++++++++++++++
->  2 files changed, 243 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-> new file mode 100644
-> index 000000000..f8891faa8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-> @@ -0,0 +1,95 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interconnect/qcom,sm7250-rpmh.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm RPMh Network-On-Chip Interconnect on SM7250
-> +
-> +maintainers:
-> +  - Ishu Brar <patches@brar.si>
-> +
-> +description: |
-> +  RPMh interconnect providers support system bandwidth requirements through
-> +  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
-> +  able to communicate with the BCM through the Resource State Coordinator (RSC)
-> +  associated with each execution environment. Provider nodes must point to at
-> +  least one RPMh device child node pertaining to their RSC and each provider
-> +  can map to multiple RPMh resources.
-> +
-> +  See also: include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sm7250-aggre1-noc
-> +      - qcom,sm7250-aggre2-noc
-> +      - qcom,sm7250-config-noc
-> +      - qcom,sm7250-dc-noc
-> +      - qcom,sm7250-gem-noc
-> +      - qcom,sm7250-mmss-noc
-> +      - qcom,sm7250-npu-noc
-> +      - qcom,sm7250-system-noc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +# Child node's properties
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+ arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Drop comment
-
-> +patternProperties:
-> +  '^interconnect-[a-z0-9\-]+$':
-
-Why this has to be a pattern, not 'interconnect'? And anyway, pattern is
-'^interconnect-[0-9]+$' if you have multiple children.
-
-
-Best regards,
-Krzysztof
+diff --git a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi b/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
+index 79eb47441819..e9ff42c4764c 100644
+--- a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
+@@ -1374,8 +1374,8 @@ wm5110: audio-codec@0 {
+ 		wlf,gpsw = <0x1>;
+ 		wlf,inmode = <2 0 2 0>;
+ 
+-		wlf,reset = <&gpc0 7 GPIO_ACTIVE_HIGH>;
+-		wlf,ldoena = <&gpf0 0 GPIO_ACTIVE_HIGH>;
++		wlf,reset-gpios = <&gpc0 7 GPIO_ACTIVE_HIGH>;
++		wlf,ldoena-gpios = <&gpf0 0 GPIO_ACTIVE_HIGH>;
+ 
+ 		/* core supplies */
+ 		AVDD-supply = <&ldo18_reg>;
+-- 
+2.43.0
 
