@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974071;
-	b=eYgY68D1FnA+C/v9Rh7EPXpK1XFj6YZHUt7nTXt/oRER71WbLkTP1EznqVIkkP9Zgd9u
-	 4n9lC49eczRRuE7E5vjSz54kGrncoeP6TV8tZCIKrlZ4KVrZCJkdQ0Ab4aliKVyJOmNj8
-	 p97a0F78JBh2Zo/zgBOjXqLSPzrUJZekHxDB8WJm73Q0YORO9C/oXp3vbo/+IQJsXH1QF
-	 cKTcPuFdl81RAP7hRGM7dbbMCrNLlO+WPemN+2Al49WDuVefWiS8bKAmS5H16ZLo940cg
-	 WEHc1jqVFpesaSzYVvCdbEYTWTe4qoozosCprF7KINi2s/qPt0NjpFcfuceD7xpFU1g==
+	t=1792974112;
+	b=pkp3yqwACG20zPp17iSlK/tNtoOz6N9vUIRkM5KQreiTa7jNvEKF7W2bPLDkE9fcWlOf
+	 rVLND9vCkwcuQFVSI6/U9xWC5hiCwU9YQVkzDC6rnT/VsUoIwuKuveKJZVI1WaOh8GjCb
+	 2v8Ejv+7VK3oXM4674tvts/wxJDe2NjDZB5iLRfpA/k4VgnO8M/W75wYndJVB+o0KdSy/
+	 svDidn3rWBHi2mtpLtSgD1DL1nvs0zFMwevbvQ5eVKOhQ1/tNItmQR0EhUIVdw29Umj6M
+	 Zu0WqrYhb8tg3BUm3y08TOW6UDhTH52GCObgcWdkLMWUOZAHhg88N6gh6zVcg0GnQ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974071;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
-	b=z9nCC2Z5qerem5KzO3y8LutP+bN4ofiWpxyUMcj37vT+LVx4Fc2Gx3fFyDIQiuwdUEw6
-	 yhvlcnMK1pzWcTkc8juXy3LPkknfwrLm6Vd6SUceOjLemhyb+dNZrIClYwdA8WXZpIUg+
-	 11mXG2lV87ZvaHWmFRIn0J67WjKEy4octeFF/CSmc1ypmXFgIuZ8YpaqHXb53ponGSZxW
-	 2SEldhROiCDcZ87XvcPGZK3WSaYv251l65H/0RD542++BVbtn9upa+cmi0ou0zlUGE50L
-	 x23tWweXN7+Q9o009mtYKAqIlNkfOWCAaDKtgRgdwTmS0Jv1x7bC7A3U2VIMGVdcbJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974112;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=Wr0kFOMxYl9pteGhZNqQSKrR/oMCTxgBwG40hen/ECY=;
+	b=xx1ZsBKgfsdHU8iLUXxzSkO+8l0C6OP6VgN+dyo2vRRrp94JTFxg0UVmeH7OflFKcYYB
+	 LFuw65mOP9vUiCOAqN1xEKTV738IsPh/FOjiUfIscvJ0ON1wTDnUXN2SkEptIiEdtfL0G
+	 hpknxMB3m+Dn60NZxs8efyjqp9ZES1hjeXil/P2WHP9LrPShGTKQX0h9D/KzZxwwu7f4Q
+	 vdlHwZA+mKPQsCJGd9RLuAQ8LEOjthKN9sV+p/iPDQDC4RJlIQoY1e1klX71NTbRYDCZV
+	 fz5hJag68vQ22MOOt1LUzXljgluDQ7yJ53iAafDieY3ZS89v4YzT+xB3rGw0Ndd0+dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=W0pjgows;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54686606A31B
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 00:21:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54686606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8FE606A329;
+	Mon, 26 Oct 2026 00:21:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD8FE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lewLJdSS
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1797171a91.0
-        for <devicetree@vger.kernel.org>; Sun, 25 Oct 2026 17:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792974071; x=1793578871; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
-        b=lewLJdSSPjEPcv2HMEZBJkaENtQqv6hgCWl9ZeCBJhkMQbdq3AEyopJrdBPgiVhkMI
-         iSS9VI99Pp5a9R8/9v+yHAwrDFxVhH1eDv51PboYzZT5D0JliUYuXWXdKqAqBlqE/IxJ
-         6LPbDn5UbmPgQdPUzDwfgEl+q+FewgzwjypRp9zmJzzWW+i2+b4TamOKPWIXpqTQDZwH
-         pO8bAS8ru47TViuC3fY2qZVTwTqyHtdzJFuiiN7oJUcdY1lUMVDJU9pNG9el+aqrbw1x
-         7LBenTPDiHwnDZ1KbDUNAu/hzPPP2v146U7huSrULqS0OPt0aV5BwF0Vr9aVoVRHbT9n
-         jpZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792974071; x=1793578871;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E5UQIZrsUjY0M8HBvkzofYrI4Utc73LHtISdy+Zvk0s=;
-        b=Eu8AQnECVZq3GexsJ4xw2BNVGetP1p6J9wF6DLBTWKA/TRZlmLq4KUf55cAgczUWC6
-         4VoZYeAQw4EXGtX/xiE7thH2DpGRku98NB060DePxtY/n+QKnsI+SXBtrJUOCC9TKRtU
-         s7eaebrqfhJmxlumDlKGHS9+eXQUql8DMBujWBcn+bqVPHC7AlDwReBAwGj/rlmU5T9D
-         OcZuVkLiA/oZ1S9y0H8YTrr1tuNfXmLAwffjJF48U5KBlWzxpe+F1k15cacB3eVY2nA2
-         zESZ50tuTtgh14WBwcJUqJiF798R6k0YxYlX03VyAI+ljStnAvJxGy2tJhFeIB1at2eP
-         9RnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw79zzB/AXYU0tUzLEm4jmejm60qDoQ5ILejBKFIKvgJ9ZaS65r3g/etb2b8xUNamcemywwZAnYyePH@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBlvFJymt4B8b2qwkX+sAg+NQtQ3DJHPdA9Epby1QwuRqvnIZ3
-	LNTig8wsjhxTi9c8v6g/XZart0lLPfrffSUTS4VRs7R16QQVPhpuOWtU
-X-Gm-Gg: AYBFou2WxW/0dDvAijQ1iIUmP0wMZtDpNhI3vtubz8lhaHnHsCNM0qRfHDCbb3XsKIt
-	4ei0o+mYPVr5zb/biJ3HkqN4oa0kuyOW/997SAvvVI/hyKh1koH+bmkSCe4i0OJEv99rnXx+IjT
-	MA2c/gJiS5PvMBUJQlzOUjb8DwdppE6aXtA5HAip5YLmovnndmL+gOekUCT5UyvJQmLF6ruHRxB
-	JxC7x8VHU+2mROUmnGnADsduyBZ6mF46ZmZdjbqIa8MauOmoKm8nxMnRl37P7q93qT+/TiAU6p3
-	Bs0y0cbPFQOaUMOHMHHWdRvdeYjUuvQHB8t5h/AcskfS884Np0VRGyS2f94uNLDT4u/NahXSv75
-	XrzbHhSfwA8LZeCymMnP9u8Nxol/4X5PEwqX7XFOG0e0tmSh6hVjAqngRLHF3bc6985lSE67aSy
-	4s6eC53AeouYp/uC9axl+Zwk93+qV0F0M3JHm5JAmyK6DGX3y/GzRPq4Zx3gfobKSxWuLASInzE
-	OddtrlD+SR+3OTKWLE/nrSEdANOPAhvcT63NJomhpg92KWrgXpX7bjiMxOLSIkKVtEhamk=
-X-Received: by 2002:a17:90b:3bc7:b0:3a4:ca46:8d44 with SMTP id 98e67ed59e1d1-3adead5841amr4344724a91.18.1792974070632;
-        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebacc885sm6073592a91.5.2026.10.25.17.21.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 17:21:10 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 25 Oct 2026 17:21:09 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: hsyemail2@gmail.com
-Cc: linux-hwmon@vger.kernel.org, Sheng-Yuan Huang <syhuang3@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
-Message-ID: <c7532675-6cec-4613-a3a7-4cda31bf16df@roeck-us.net>
-References: <20260918084042.19541-1-syhuang3@nuvoton.com>
- <20260918084042.19541-2-syhuang3@nuvoton.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=W0pjgows
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jCZ795nlXzMlLg;
+	Mon, 26 Oct 2026 01:21:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792974101;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Wr0kFOMxYl9pteGhZNqQSKrR/oMCTxgBwG40hen/ECY=;
+	b=W0pjgowsa19X+yxHDoKEjSezGjQsIi0oMxWMJvMU87WOwYrlD0u0aT4ji32aW8aRqll2Gc
+	OUhUFBufvWO0Owy0fPlMd9lh2c42Ni63JZ7Ciy1nmpHQLGtR/rBM7hh7ANfvIIWmMYsYPh
+	NfVJyMDK7rPEcVYbAGE4zd38pgQYCY7wRxqJpcECREZ1tYUI0VWes9gWJuEA3TLxA52TlZ
+	/YWGYyJiO8++utmS8YrmvRwA6BPJhKxhFuMRajG6UAPdexfZLsqQPkuxucO/SgGRz//LdD
+	IrlrWF5n1+SpXSebcSMBr194ijNKNBYwtwsbooZu3AXr/I6BGaOQ7InAKvHenw==
+Message-ID: <be205518-ba8d-486f-b603-1d52321edc1a@mailbox.org>
+Date: Mon, 26 Oct 2026 01:21:39 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,22 +62,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918084042.19541-2-syhuang3@nuvoton.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
+ Gen5 DWC3 xHCI USB controller glue
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ Thanh Quan <thanh.quan.xn@renesas.com>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+ <20260903213031.314473-2-marek.vasut+renesas@mailbox.org>
+ <aptP39nVZPFLgekY@vbox>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <aptP39nVZPFLgekY@vbox>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 52bd3d68fc0077169a6
+X-MBO-RS-META: 38abrunqgixa6dfgajjwr5tpxqwfm8xk
 
-On Fri, Sep 18, 2026 at 04:40:40PM +0800, hsyemail2@gmail.com wrote:
-> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
-> 
-> Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
-> 
-> The NCT7715 supports an ALERT output, so permit the optional
-> interrupts property for this compatible.
-> 
-> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+On 9/5/26 1:10 AM, Thinh Nguyen wrote:
+> On Thu, Sep 03, 2026, Marek Vasut wrote:
+>> From: Thanh Quan <thanh.quan.xn@renesas.com>
+>>
+>> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
+>> controller with glue logic wrapper around them. Extend the generic
+>> DWC3 platform driver with Renesas R-Car Gen5 glue logic specifics.
+>>
+>> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+>> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Applied.
+[...]
 
-Thanks,
-Guenter
+>>   static const struct of_device_id dwc3_generic_of_match[] = {
+>>   	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+>>   	{ .compatible = "spacemit,k3-dwc3", },
+>>   	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+>>   	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+>> +	{ .compatible = "renesas,rcar-gen5-dwc3", &renesas_rcar_gen5_dwc3},
+>>   	{ .compatible = "starfive,jhb100-dwc3", },
+>>   	{ /* sentinel */ }
+>>   };
+>> -- 
+>> 2.53.0
+>>
+> 
+> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Hello everyone,
+
+could these two patches possibly be picked up ? They should have all the 
+necessary RB tags for about a month now.
+
+Thank you !
+
+(yes, I know everyone is flooded by emails recently, I apologize for 
+making this worse for you)
