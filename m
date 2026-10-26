@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793016064;
-	b=cpH5BGs5LNYNvDNWF3XQbG/grU8jqk47Xhgdrukx5Lvb5/0e66cnccKqIQ7dT0fpVaba
-	 AD1yWgpsS5E97MP9rWM//PUQDxu+02XIEPvd5D4xLHG3e4oquBgVZa0khVk5G2w7xKKJ0
-	 iT4EJ1IF6N3uL6pUzLSbNSxVvOgkN8jiobCa/vysZF2Z56/INKKoFp6vRx39J3nKGuR3U
-	 ovmmzX5fc+qXkHz86gs3J86OqjZvb4USZE28FH45v6MJLGL/sedEXj2de0KVLqH9tV8y0
-	 zrJEQZKJBl4wXZkOqEwf4tgPnLG3PyOnWNIRVYEwguRGZqXxgvesdzrNFmsrQrralQQ==
+	t=1793016105;
+	b=GGzAoP+Dig+SHOgBWQOdC5FZPsKhwa3o0f9cbi2HrtkyWaLw/ZQqyx5VBz6UHus1UzAx
+	 ls8WUfx/hFJwkoyHpzQ/VYcvjVOB+r8I8pwsnNEh4KLyLI7HgVo+1A4BggPThsRYOsLDK
+	 I6tNwuX9qzItnpsct3FaX576DGJFfB6decfUU6IzMBjGLvp/35DjTZ0AlVQO9JA392HiL
+	 m57wiA1V0Myu5/kDe5JZcQsZ7Tri5ZcSEogUUCcUd8FZXfa4tvZoycMHPKkHEwpZJ00QA
+	 vcs/vAPxHCMe6TJnoQE6vZJx2y4Xh+rj1IPU+WDr6F9sBdUpzKSvZ2YGicLlV2V5C7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793016064;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=Eooql/PWw9JrcOSkmPC1JhQXpt0yj7tFL/LJ7TTte3w=;
-	b=c447qDgO3dTAKTeZqAN1pjD/R0XFXnkvb2OG4Nxk88LxYW/RUedEAiiyZPB/z77uqIwD
-	 CJQ/9lCgbyTz5GfBZr4cOoYiRbDzVOhswfLYdjkVhGhxwHMRd9fConNQjyrL1tsPV17ki
-	 JqU6Li55DTUutdahBa1re7DWcCBlHtghB7aY4hl0gYVJQE2fbvtUZ07yfbwiYS/2mnDEX
-	 ivsMUa0/h2YCzKjdUifqaSL1wnyt7N7S0zJeZR44rGe2u/EgAcih1lzgFWZ6/wPgxhg4A
-	 2ffvvHvylme2xjQf8bh56kt5DC58dneGffvGuorrVT1Ud/DRa+xZVbtDGWSh60g+GFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793016105;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YlzxsM+I5sjQdg8MF4q4GmHlBacz+7Wy/Xw5ZiK05NU=;
+	b=pZ5gx4/z0mOQz8sDiEUUcE5IH5u6AhGYi93+tJuZIOAT2/nDwDpEv/FWXZCIVWc2fQr5
+	 6I7i6NbLQWwPfSkIEhcb4LlMKWUN99j5gSG/4uyEwJH7V7CzAWEkiTR8lLCQP0U+Kik/c
+	 zxSUS93nCxVtZgPL0x6iJ+sxvYdUFt6kzypTFtMOfGjfsrPqkLht3dF6bCXQLFdto4qf6
+	 tzeNXZTp8tKAjmqXPp0H3iM19eWf1/JkKtaYgHV6IXt2s3XWVL4BxkxuOgjGxoH4FFtpg
+	 4iKQmHDtDBsLGuv10OqU3REhFNy1l1QYZcpFjfPEaj26stwMfcQT843IQkltor91iew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l3Ic3VYd;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h8Cdizn/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED70606A31E
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ED70606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A3D606A332;
+	Mon, 26 Oct 2026 12:01:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=l3Ic3VYd
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261026120100epoutp01d351ffee9d5413410622caa824c2a74b~iEpt33N-C0369903699epoutp01w
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 12:01:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261026120100epoutp01d351ffee9d5413410622caa824c2a74b~iEpt33N-C0369903699epoutp01w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793016060;
-	bh=Eooql/PWw9JrcOSkmPC1JhQXpt0yj7tFL/LJ7TTte3w=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=l3Ic3VYd+gMtyXg1JgRhU7okFwCOEiwEoqoWQDb8N1n2G+hoj2eoZZjWy6BNeiazL
-	 2DLAFM7Juqu38NPweXOp6vDulsFjwTCue8tgAufNaF3R6CYajbtnN7XuldaVgfYdFk
-	 vbHCxmFrIiDGFXUvx/j/FTwNZV5RKJvAZVG2sES0=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261026120059epcas5p1bdaf5a44a5c532174e91bbfd3d5400a6~iEptUuaTR0298902989epcas5p1a;
-	Mon, 26 Oct 2026 12:00:59 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jCsf26vfDz6B9m5; Mon, 26 Oct
-	2026 12:00:58 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261026120058epcas5p32b10714e9c7e86c757b03baf88c6b40b~iEpr3-hd61524215242epcas5p3M;
-	Mon, 26 Oct 2026 12:00:58 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261026120055epsmtip160f476325e622f7e86ea621ffb4427f6~iEppABK6U1282912829epsmtip1P;
-	Mon, 26 Oct 2026 12:00:55 +0000 (GMT)
-Message-ID: <c09bd0c9-5173-4cb8-a2c0-2b5008b63712@samsung.com>
-Date: Mon, 26 Oct 2026 17:30:54 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8Cdizn/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E411F01825;
+	Mon, 26 Oct 2026 12:01:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793016104;
+	bh=YlzxsM+I5sjQdg8MF4q4GmHlBacz+7Wy/Xw5ZiK05NU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h8Cdizn/0898e5pomPrkGCD1tDhufp7mFIvKa7zQaYM5xWS078DtKfd8+CpIBP8Sc
+	 sATPqyqGLL21Kp8z1PLDpcvgUJ4FePeryXN6/dbdJ6nuRXVvAZIidj++SnhFemNbs2
+	 p/2ZltpGBrk2cgySmXB4x7wXN+6WiL+tREKfaRpucnmAkitrVni4nnGkMm4EBNLbEw
+	 zl+qP8DE0xavCg8QavZjcxtt42yyr3MbyWEVNvTtaVMAPqQbQxQh5URp+BaHk/uA8/
+	 cSAKuPmsSXU/Qd/Jom3QpbZp5wFrnIwxbYBG7pgNyvuYQzw/w/sp0MtoZStt4PuF5V
+	 9TnQhhA53jgmg==
+Message-ID: <sashiko-outbox-185150@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 10/15] drm/imx: dc-ed: Support getting source
+ selection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-10-a0b50cc4fc65@nxp.com>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-10-a0b50cc4fc65@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 12:01:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,58 +60,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
- controller binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <20261026-attractive-puma-of-merriment-0dfbe4@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261026120058epcas5p32b10714e9c7e86c757b03baf88c6b40b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261023131545epcas5p1eff195129ccfb0fb476d3c78e6a507bc
-References: <20261023131501.3157463-1-selvarasu.g@samsung.com>
-	<CGME20261023131545epcas5p1eff195129ccfb0fb476d3c78e6a507bc@epcas5p1.samsung.com>
-	<20261023131501.3157463-2-selvarasu.g@samsung.com>
-	<20261026-attractive-puma-of-merriment-0dfbe4@quoll>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/imx: dc-ed: invalid link IDs accepted in dc_ed_pec_src_sel_g=
+et()
+--
 
-On 10/26/2026 3:14 PM, Krzysztof Kozlowski wrote:
-> On Fri, Oct 23, 2026 at 06:45:00PM +0530, Selvarasu Ganesan wrote:
->> Add the Samsung Exynos8855 DWC3 binding using a flattened node
->> representation, where the DWC3 controller is directly addressable
->> rather than nested as a child node of a glue layer.
->>
->> This is the first Samsung Exynos binding using the flattened
->> representation.
-> Ah and:
-> A nit, subject: drop second/last, redundant "binding". The
-> "dt-bindings" prefix is already stating that these are bindings.
-> See also:
-> https://protect2.fireeye.com/v1/url?k=f1571c7b-aecc251e-f1569734-000babff32e3-08400c25edf5bcfb&q=1&e=549cd4c8-34f1-4b98-afc6-3f62b054ef3c&u=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv7.1-rc7%2Fsource%2FDocumentation%2Fdevicetree%2Fbindings%2Fsubmitting-patches.rst%23L23
->
-> Best regards,
-> Krzysztof
+commit e94375137aef3b831a8ffe20e951e2c25abaed0f
+Author: Liu Ying <victor.liu@nxp.com>
 
+drm/imx: dc-ed: Support getting source selection
 
-Hi Krzysztof,
+This commit adds dc_ed_pec_src_sel_get() to read and validate the ExtDst
+source selection from PIXENGCFG_DYNAMIC.
 
-Thanks for pointing this out. Sure, will drop the redundant "binding" in 
-the next version.
+> diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-e=
+d.c
+> index de1b71315eabd..67163dca1363c 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-ed.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-ed.c
+> @@ -149,6 +149,35 @@ void dc_ed_pec_src_sel(struct dc_ed *ed, enum dc_lin=
+k_id src)
+>  	}
+>  }
+> =20
+> +int dc_ed_pec_src_sel_get(struct dc_ed *ed, enum dc_link_id *src)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(ed->reg_pec, PIXENGCFG_DYNAMIC, &val);
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	switch (val) {
+> +	case LINK_ID_NONE:
+> +	case LINK_ID_CONSTFRAME0:
+> +	case LINK_ID_CONSTFRAME4:
+> +	case LINK_ID_CONSTFRAME1:
+> +	case LINK_ID_CONSTFRAME5:
+> +	case LINK_ID_FETCHWARP2:
+> +	case LINK_ID_FETCHLAYER0:
+> +	case LINK_ID_LAYERBLEND0:
+> +	case LINK_ID_LAYERBLEND1:
+> +	case LINK_ID_LAYERBLEND2:
+> +	case LINK_ID_LAYERBLEND3:
+> +		*src =3D val;
+> +		dev_dbg(ed->dev, "get source selection: 0x%02x\n", val);
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
 
-Thanks,
-Selva
+[Severity: Medium]
+Should dc_ed_pec_src_sel_get() validate the value read from PIXENGCFG_DYNAM=
+IC
+against src_sels[] rather than accepting LINK_ID_FETCHWARP2 and
+LINK_ID_FETCHLAYER0?
+
+In drivers/gpu/drm/imx/dc/dc-ed.c, src_sels[] defines the valid source link
+IDs for the ExtDst unit and is used by dc_ed_pec_src_sel():
+
+static const enum dc_link_id src_sels[] =3D {
+	LINK_ID_NONE,
+	LINK_ID_CONSTFRAME0,
+	LINK_ID_CONSTFRAME1,
+	LINK_ID_CONSTFRAME4,
+	LINK_ID_CONSTFRAME5,
+	LINK_ID_LAYERBLEND3,
+	LINK_ID_LAYERBLEND2,
+	LINK_ID_LAYERBLEND1,
+	LINK_ID_LAYERBLEND0,
+};
+
+void dc_ed_pec_src_sel(struct dc_ed *ed, enum dc_link_id src)
+{
+	int i;
+
+	for (i =3D 0; i < ARRAY_SIZE(src_sels); i++) {
+		if (src_sels[i] =3D=3D src) {
+			regmap_write(ed->reg_pec, PIXENGCFG_DYNAMIC, src);
+			return;
+		}
+	}
+}
+
+Because fetch units only connect to LayerBlend secondary inputs (sec_sels[]=
+ in
+dc-lb.c), LINK_ID_FETCHWARP2 and LINK_ID_FETCHLAYER0 are rejected by
+dc_ed_pec_src_sel(). However, dc_ed_pec_src_sel_get() accepts them and retu=
+rns
+0 instead of -EINVAL, which could cause callers such as
+dc_crtc_disable_at_boot() to treat an invalid ExtDst source as an active
+pipeline.
+
+Would it be better to iterate over src_sels[] in dc_ed_pec_src_sel_get() ju=
+st
+like dc_ed_pec_src_sel() does?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-imx8-dc-pr=
+efetch-v7-0-a0b50cc4fc65@nxp.com?part=3D10
