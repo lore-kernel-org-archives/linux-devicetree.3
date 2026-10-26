@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012986;
-	b=ne0ComB6nMeIxxcRAczM9EG5AUoM/LugS5Di8fBRH3S3VVb3HnjHIIBbMTUCbYaqkuNj
-	 1bmLlRsbb6e+BxkcYoZIhQpKjB1I8wx8IxprGj5EvG8C2KMEPR3Xn4PHCTFR4AskRY8Wm
-	 Cd0s74IJFX3K1ge46ogmUpvLN8sFvFKILCsLCD0U8Epd/laSOIJuWpgshv7iCHAMEmKUw
-	 HTkzA8v57Zp6eTHelAOL1fJLu8D+edFqB0NtdMe7Sxke+XzdQ9kNS7KUJ7r0ARVWB9oSs
-	 tfUOv6OuHyBC0K2/KbQTf5M8FIuOaM87Vl3EuyPbkiTPY9jUVU1+4i915i4NglIjIcA==
+	t=1793013108;
+	b=r/9fF2LECwzJdMq7SvSzS0wF/3VxjsJnuCUMjr25pxfvxuSiWO4kVuWkdzLQ6ajW16kE
+	 +IXurT6NIlCd91QzMSydRQJNKSbheEC8Zda37n3XdGphKPas0SAPWOi20gYtVoaCCrAPD
+	 vEIcJKpeZ4fd8Z8SYqUqv6O03Ll1GHenIvx+I6avX1GopBb4DJFaKA3IW+9JTSELB6iPg
+	 EAJE9tpVPn7U9klkRG/OWLQW17K3pe1xU5Pa6kO3KufIYqKRtjGfnhTmZotlcAEzloGLS
+	 OKOHAxxOB8znm7uUGxiYjHD2UJCyiyoH88KDSNubKULpXvJKOqHlxrqfJfSAgVJnKXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013108;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=g1aM7wiYf05GeMmErOn9gJUgMdfYPRR7Pr6pPLWq3hc=;
-	b=z2d90w/h8KKYy8m9uGsPJt2HgM3BzX3GqSc/o841pbjTY+qfOjneaU1z5X3PGdYkDVh6
-	 2BW9nwQlx/rQxRQUJZZlCctunMSsQ0iXnf6E/sXYgJMwnfr3ognCbhj1hKusEeuP0kpS3
-	 x6O2Uq4xjeM704SapdepiJOtPhQ1q0LxC1c4bTggpx6mPI8ABnnhkzhBpNYvtHYOW5d87
-	 bY3df25Hy/hqan3JB+f1ifhcA7RFkqukzzFp9xf9oIHZWEau4hep+Btg0KT8KpdstcU3z
-	 U2CEoJ7r6Bt1giWKlEcCb92HW6P8hYHf4oLfbX2zpvDyKPcP0JcBkR5X65a1i2D1Bfw==
+	bh=6wABfdgJn9uXdChsaU3X547Znlis1fzmOShZNL8S5pg=;
+	b=JbXjelw1WkAhV7Rv+nctTOmvPmM5cGPbCF1qy+OCaIuNnI4m/1zw3tLwGTH4CXbusAgU
+	 AqqhzRX5ybgM45oGv7jOivHPeAr2py7jHm2+hfaXXj7nG5NNfNIIP3x1CfBtDui9VkiWV
+	 cJ4rBlBaAlIj9GWwBFxzLzxQqp9u6BZSFeZtT3KlBWjWUAIHGkn7dUi5j9hVUIeJCPz4G
+	 7MpJS/6fg5NW3QRGABkJIQzgfUBW3LGgOCk8uTERLLLNuTe/x1f0H2vTVDnZjbufDAGga
+	 sgFwyxPY6mRkwJoDcrN1yEE0p0k7VbO5Di1d8rMPjtDveGBRzfi71XbDaXYnf3Z0IeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b501FKTf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z7JVWJBY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3E0606A31A;
-	Mon, 26 Oct 2026 11:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6686606A325
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b501FKTf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A351F031E0;
-	Mon, 26 Oct 2026 11:09:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z7JVWJBY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C271F01343;
+	Mon, 26 Oct 2026 11:11:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793012986;
-	bh=g1aM7wiYf05GeMmErOn9gJUgMdfYPRR7Pr6pPLWq3hc=;
+	s=k20260515; t=1793013107;
+	bh=6wABfdgJn9uXdChsaU3X547Znlis1fzmOShZNL8S5pg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b501FKTfHEoV7pO5pAg7zuCzuUtwq9zzFHgN51YK6e4ahHcDTJHZWBuj953yhfJut
-	 oJyG8Smg0oNL9biF1VF91sJXxiWmCHFHUqqCrGk4F+0Bmg44Lw5uHidT84v3plm+FP
-	 5ejko4yprdYWn6lovNsefUglV3Rbu2wlxdf085ZuDbJfAjsTeajQX1TxViJjAZ4KnI
-	 uJJyx7rYYJMIcQpUploWRTwIeVPI3RpXPy7oZHCMcYoKMKiiSfOH9aqNCgnfki/1my
-	 0cBZZINuZ3U2I5/7MTYISO+V+rbiy9HStAIdeYPlFK3xd5pIOVNGdh2tWEVJzLA7sb
-	 1L4BeZr1NNd8A==
-Message-ID: <sashiko-outbox-185064@kernel.org>
+	b=Z7JVWJBYeYdxzhC9LgVKm5DvX9PQERmTXLnyeuvmLEDZgEUlfHiRIOfWdsOGQPZNP
+	 wFnXgt2ZSCb8P7D83JctvZe3uzDpkSW4zxM8IxGOwkabD4iOLuiwgqAkymKFpte8Co
+	 ZGf81OOx2diA5Z1xPRep7nseDWe47Hwmt4lPO0bmezgeHUmXu8ae8xJZrk76DHwOXh
+	 C1LPabdgBxJtU8FnA1xgYWkML7RW6avqHMnm/b9hxIcC8caXuk0y3xsplBTgvlN9n9
+	 tXPCut3BqyI99fbM6UfsWXxDZmg8/nrFlchBjI7XiCojPpowD8viCo08wnk8WTU2z8
+	 VDLSfPx4gjfRg==
+Message-ID: <sashiko-outbox-185067@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/5] rtc: pcf85363: add watchdog support with
- configurable step size
+Subject: Re: [PATCH 5/9] arm64: dts: airoha: en7581: add watchdog node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261026094712.205214-5-lakshay.piplani@nxp.com>
-References: <20261026094712.205214-1-lakshay.piplani@nxp.com>
- <20261026094712.205214-5-lakshay.piplani@nxp.com>
+To: "Christian Marangi" <ansuelsmth@gmail.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026095727.31708-6-ansuelsmth@gmail.com>
+References: <20261026095727.31708-1-ansuelsmth@gmail.com>
+ <20261026095727.31708-6-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 11:09:45 +0000
+Date: Mon, 26 Oct 2026 11:11:46 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,92 +62,62 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] rtc: pcf85363: spurious WDF handling in pcf85363_rtc_handle_irq()
+- [Medium] arm64: dts: airoha: watchdog reg size 0x38 excludes WDT_RELOAD a=
+t 0x38
 --
 
-commit 16cc51c19e1316f4895386e586c6d2ab87d77232
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+commit 285873958d4bd82b85e9f3812fdf852db2de2884
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-rtc: pcf85363: add watchdog support with configurable step size
+arm64: dts: airoha: en7581: add watchdog node
 
-This commit adds alarm-only watchdog support to the PCF85263/PCF85363 RTC
-driver using the watchdog subsystem, with dynamic 1 Hz and 0.25 Hz step
-selection, interrupt handling via INTA, and suspend/resume support.
+This commit adds the watchdog device tree node to en7581.dtsi to handle
+system stalls and reboots.
 
-> diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
-> index 71b82f92a0031..e5ebfad1a2cea 100644
-> --- a/drivers/rtc/rtc-pcf85363.c
-> +++ b/drivers/rtc/rtc-pcf85363.c
-
-[ ... ]
-
-> @@ -540,6 +572,21 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, =
-void *dev_id)
->  		}
->  	}
+> diff --git a/arch/arm64/boot/dts/airoha/en7581.dtsi b/arch/arm64/boot/dts=
+/airoha/en7581.dtsi
+> index 58bd8b318910e..3a4a4fb0eba9b 100644
+> --- a/arch/arm64/boot/dts/airoha/en7581.dtsi
+> +++ b/arch/arm64/boot/dts/airoha/en7581.dtsi
+> @@ -484,6 +484,14 @@ uart1: serial@1fbf0000 {
+>  			clock-frequency =3D <1843200>;
+>  		};
 > =20
-> +	if (flags & FLAGS_WDF) {
-> +		dev_warn_ratelimited(&pcf85363->rtc->dev,
-> +				     "watchdog timer expired\n");
-> +
-> +		err =3D pcf85363_clear_flags(pcf85363, FLAGS_WDF);
-> +		if (err) {
-> +			dev_err_ratelimited(&pcf85363->rtc->dev,
-> +					    "failed to clear watchdog flag: %d\n",
-> +					    err);
-> +			ack_failed =3D true;
-> +		} else {
-> +			handled =3D true;
-> +		}
-> +	}
+> +		watchdog@1fbf0100 {
+> +			compatible =3D "airoha,en7581-wdt";
+> +			reg =3D <0x0 0x1fbf0100 0x0 0x38>;
 
 [Severity: Medium]
-Can pcf85363_rtc_handle_irq() in drivers/rtc/rtc-pcf85363.c log false
-"watchdog timer expired" warnings and return spurious IRQ_HANDLED on a
-shared interrupt line when FLAGS_WDF is latched in CTRL_FLAGS while
-INT_WDIE is masked in CTRL_INTA_EN?
+Should the reg size in watchdog@1fbf0100 be 0x3c instead of 0x38?
 
-On PCF85263/PCF85363, CTRL_FLAGS latches FLAGS_WDF whenever the CTRL_WDOG
-counter reaches 0, regardless of whether INT_WDIE is set in CTRL_INTA_EN
-(which only controls routing of WDF to the INTA pin).
+In drivers/watchdog/airoha_wdt.c, WDT_RELOAD is defined at offset 0x38 and =
+is
+accessed as a 32-bit register in airoha_wdt_ping() when pinging or resuming
+the watchdog:
 
-In pcf85363_suspend(), INT_WDIE is masked while the CTRL_WDOG counter is
-left running in repeat mode:
+#define WDT_RELOAD			0x38
+#define   WDT_RLD			BIT(0)
+...
+static int airoha_wdt_ping(struct watchdog_device *wdd)
+{
+	struct airoha_wdt_desc *airoha_wdt =3D watchdog_get_drvdata(wdd);
+	u32 val;
 
-	/* Disconnect WDF from the wakeup-capable INTA line; keep counting. */
-	ret =3D regmap_update_bits(pcf85363->regmap, CTRL_INTA_EN, INT_WDIE, 0);
-	if (ret)
-		return ret;
+	val =3D readl(airoha_wdt->base + WDT_RELOAD);
+	val |=3D WDT_RLD;
+	writel(val, airoha_wdt->base + WDT_RELOAD);
 
-	wd->suspended =3D true;
+	return 0;
+}
 
-During any system sleep longer than the watchdog timeout, the counter
-expires and latches FLAGS_WDF. On wakeup, resume_device_irqs() in
-dpm_resume_noirq() re-enables device interrupts before dpm_resume() runs
-pcf85363_resume(). If an RTC alarm (FLAGS_A1F), timestamp (FLAGS_TSR1F,
-FLAGS_TSR2F, FLAGS_TSR3F), battery switch-over (FLAGS_BSF), or another
-device on a shared IRQ line fires before pcf85363_resume() runs,
-pcf85363_rtc_handle_irq() executes while wd->suspended is still true and
-INT_WDIE is still masked, reporting a false watchdog expiry and setting
-handled =3D true.
-
-A similar state can also occur in two other paths:
-
-1. In pcf85363_probe(), INT_WDIE is masked and only FLAGS_A2F | FLAGS_PIF
-are cleared before devm_request_threaded_irq() is called. When
-CONFIG_WATCHDOG=3Dn, pcf85363_watchdog_init() returns early without clearing
-a stale FLAGS_WDF or halting a bootloader- or battery-backed CTRL_WDOG
-counter.
-
-2. In pcf85363_wdt_stop(), CTRL_WDOG is halted and INT_WDIE is masked
-without clearing any FLAGS_WDF that latched concurrently (or that latches
-later if writing CTRL_WDOG fails while masking INT_WDIE succeeds).
-
-Should pcf85363_rtc_handle_irq() ignore (or silently clear without setting
-handled =3D true or logging a warning) FLAGS_WDF when the watchdog interrupt
-is not armed, and should pcf85363_probe() and pcf85363_wdt_stop() also
-ensure FLAGS_WDF is cleared when masking INT_WDIE?
+With a size of 0x38, the resource mapped via devm_platform_ioremap_resource=
+()
+in airoha_wdt_probe() only covers offsets 0x00 through 0x37, leaving the
+4-byte WDT_RELOAD register at 0x38..0x3b outside the declared MMIO resource
+region (and the binding example in
+Documentation/devicetree/bindings/watchdog/airoha,en7581-wdt.yaml also uses
+0x3c).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026094712.2052=
-14-1-lakshay.piplani@nxp.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026095727.3170=
+8-1-ansuelsmth@gmail.com?part=3D5
