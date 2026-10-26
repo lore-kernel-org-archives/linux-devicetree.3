@@ -1,103 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006951;
-	b=dvRewDTP43J6FWzY0HNEf7aMyPepSTfjglR1GFGd74yhQ2RPJJAh/yn5VVKt9az57Ad5
-	 U9iB6A5pBbz4nFgyNwDzWr726ZCL399E6gm26pr6w84Ta56R2G/FDIqej6nVlezt8GMvn
-	 AFF6jTRLRIa5Wxbx/QQlNZzXEQ2Q97IuZ0sXrW4IVJjBid9ZEBcN9Qjf7AZVl6Jsq90Ut
-	 WLNUKXQyA5PFmPq/RWLEgST72iBuCRMPb7RUuujsN+pnIL5J+GmM6WZYyp5ISCbGj8VhG
-	 l8o4o2H5jqUpRw90L1PXCw7psVxPEBEs8rOwIGy//LJLa0vmfR6vbC89IquqbBIFlqA==
+	t=1793007007;
+	b=mu5YOi5MvQ5Lry2aRD37s4gESbu8pMg7hQYBxhXDDmg7jxqcu00jFdJwzPCIK5T6V5Im
+	 Km9Nl3J/lfESxoNt1VVkmHQpYS+27T75adFRZ4sbN2IcbAlUq/U/Vt8FNTsrHaQ6aRmOk
+	 dS0YU8zVY0mFIxdX5fTPvF4QkZRxVFTWj3l5EuMygb3o/xq13alKukprKWfsj0z5sDTSW
+	 1CiRIa4LpXNrWWrNXQqxANjbubn48xl7z9YEZMy6/3IISwcVghNFin0+M38w7OCb2hOhW
+	 5wGY3Z7WZ2ZKFrTWXBJl50T05dDkNtCu0hj/9Pl05qE6apui6Ns7XbWEsETQapmg5tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006951;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-	b=OWRYgMwvLZlpYu7RA2VUHWJrdDgQ5NGKx4ruRgyjEXkJP9oJWpPBerA5DXfRLJljyXG7
-	 uYAd7ExyJBVZTZrFZ96OR9E65IVsegtuz4DpNtEewXWqb2JdzCY5Yt9c1UQ81ygd3z3lD
-	 a5YdjPHKquBnLnTxpAic6qDaY2Mh1taCzWWr+d2uamnNcovxSyMwzkKSDSbDv/GQHRP7Y
-	 K/vClAQLcl/FNRewCiDWw1TxMjotLStwqnMU6dhrDhmYwJK8qxR4r7NiEK9MewtRWM++l
-	 ubkpr8LMS8Fl1/+cZPl3j/QcinIyiIxw6FVNL4s3A2WLmHYRMmG0h8HpDH7l9epeYPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793007007;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FQtyCJ06lVsX0Nimye0bYWf0hXbKSfQwRhyJYFeu8uY=;
+	b=tg4SCO8QVIyuwzNZQb2W4YVq1U3Inxg47loJYd++DYGAEPwO3P5NFF5ejfjmyEeGllBG
+	 xfiudw4Jpe4oP4fXUn4qdnPuF8OYUmxYeb36o8p5Tf37ak/9PcS48dcd+HzV1RJuMKAJd
+	 dziidu6db0OOQuGas1K6kkWw6umzA4MuEIS4kzHiH6ZmTZh2heS6B2hSWiWlUu0VvPonq
+	 nqFEM3GiXOTv3V9MrqcOOxwegr7oR53sxigzEQN11KRt4JEqSpcCf42w/3m2aP8MrjKlY
+	 R5OOZsIOWQGvUZBLGBFrglLzCIWBtm4QSz4X9mjwFtKwsJT5KrAwFglBLWVSC3fy3PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTCqnJmZ;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmxzT+yZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFF0606A333
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 09:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EFF0606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2A6606A31D;
+	Mon, 26 Oct 2026 09:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fTCqnJmZ
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so7674275e9.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 02:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793006949; x=1793611749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-        b=fTCqnJmZsRBXplhYxFAOrUar5/9FwpEu+rdiQIigRVB4eQQKie4OHxu5TCFViIK4iz
-         ue6D5JQThOG585rYCKrUQVMR5qHWIptSC+SYYJuQ+pPMTOwyGLWkC1d0Jp5arloi2hTw
-         wcC209kO5rlY3dNSgI6lFVjvJxR/Gzj58rQo3ddtI3g/DBcfyjKrqckNPOMesd0VgJBv
-         X9CGPij/vQAgye8IP6aDhAG0TPkz37vjYJ2I/mtuasGA7hjNEomOXEX9tDcpoL65e9sF
-         fnGG5eAZ99kbgYRS10swnHx8QTEXG6xe8D5GuHwWi3weR4sgSF8dwYbnY/86hmhbaDRn
-         fbNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793006949; x=1793611749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iHJl2Qh8Tnlk572C5kNHQyc3XqOREsPzi1FpNma4L3I=;
-        b=Mf/4BhATTNoOQD26hP141izxM5GKaQpB7hnhJF+YR7gnsA1ly+7ZKMjT/Izyd6bKpM
-         U6JAXmQGsbnZJSgX7nc5aAxu5jJN8w458po5VUIIadM29Fv9GmKAEFod/Fw0f0n5VQKw
-         9xRvh9swF5rViQmWlIEe3NPkJLi+3IhwEYDbjXuGG6fYSkw1iMdphzEDPTvQtGy5XP3F
-         crumRjuIqZtnhfEM+jz5vhuv0BdbH56lwGSxhRNTQiBqvPGPLwMlo1amUU8hi5ama4tL
-         Rd8/6IlDFBPEEDxAon7mxlox/qNrFQXBbbl1i/O6fT5ZPoPTmVmsovA2HjVAceVEPqX7
-         vz6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxZvjYLZPI2l8acEDly3bmlzi0o2sOoq9b+3ggdEb/Y/ywv/Yr473XcNjWQ0KfQduTpL0jp36I7wXVI@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHjREmFZ5vwgPwBjO5beSVmcneffFR8vcfHDm4nECu0teMOE3G
-	SaI8yc3POkeId3JfIlDSpEfApZyB9j6o8Yfzzs++zeAN9P96qjYIkLHU3kXosUNU
-X-Gm-Gg: AYBFou2L0JuvIubpFmBGr1NtU+Wgv+rJlAm7gNqTv0f2Jt3c6gHfdn3CfCAs56tkeYb
-	rKUdOUjewoR+3cO/cA/nhkTeKe19e1Z+0sgd7ePSkq1UZzxPjMX+U+6x9sNlcoCaIP5fYWdRTOk
-	Jrbs8TZ7Bd7/QQqueTSMzJFsl35Qq294ScCVBEo2PCY8PdJ2F45nzgtxDufewKj0U3DcNd9fVQI
-	SdI6UzPhBbRI/55dSqpuwQwalixsB1WfPafuf0Lj+uOeRDJP0UNtwy4IYkRURWp1vu7TQ7ZiZmu
-	JulYJ0qhn61P8C+toOFpO8MSqR8FxrOQbqMJXx7uzZazQSMSDbug9pH+z+3XXoGMWAOHGUAmXNR
-	CgHY+c4DBbmcECw30iZcQuvGTVw7CeoMB4mMEWbEjVGldgAXPlu5k7NiyZEbg4gvozM8m3aQ3J5
-	WWlmfxMZ2pxiP9zVUwuSU0pgNXRbM20n9P7KEDEIxuKENPDH4cMjfU+Nm+qXH6fTauhDB2Jim2A
-	suUUKi2R/yQCDesNRxuEldqt75X4OnYhOx2dlAHKoQueEkU0kkSmcLrTpDk+RdXEQZo9qkY0/ZC
-	lWNs7iuOAnGY+tLeM4mbemxWdOBkgLHTaZHJOJS1Es+dw7P7VU5B6aSyFpRKa8SRg2NB2Abp2jo
-	=
-X-Received: by 2002:a05:600c:a04:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a7555d89c5mr4396695e9.12.1793006948732;
-        Mon, 26 Oct 2026 02:29:08 -0700 (PDT)
-Received: from GLaDOS.station ([187.13.216.220])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5822a7sm187356525e9.11.2026.10.26.02.29.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:29:08 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Luan Rafael Carneiro <luan.r@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: freescale: imx8mm-var-dart-sonata: Fix PCIe PHY init
-Date: Mon, 26 Oct 2026 10:28:58 +0100
-Message-ID: <20261026092858.10591-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmxzT+yZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A7F1F01825;
+	Mon, 26 Oct 2026 09:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793007006;
+	bh=FQtyCJ06lVsX0Nimye0bYWf0hXbKSfQwRhyJYFeu8uY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gmxzT+yZWP/TCog/AfOmQjD4WiAAh/14wAnScKSWzD1qdgnJBeELkmgV9V3RdIcw/
+	 rDp/0/J3AfKODNHQ9WVo7dG4cCd0yJA2gfHrLz+ERHJvi73WiZR8NoMoPnCoqMn7BV
+	 ERbpEeymCgt05LFpxFnHAGc0R5c4O4CJ+9/WUAfYlOso3wwUBp/KiALWJ4dZsE/1Gp
+	 M2ajiqaZgNOX4aS423q8zUObnFiLinbGcw57Ae2Xsjhu1Xyw8wyGrl4LxZ79JDs6lr
+	 /oW1KnLsGTYnXNKUQUYr/iHJi84c4Unm6JfWnMoQMac/mc05yW1wvPTA9V1pt2GLzw
+	 xqBcOivzpl8Wg==
+Date: Mon, 26 Oct 2026 10:30:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/7] dt-bindings: mfd: x-powers,axp152: Add the AXP2101
+Message-ID: <20261026-brawny-gleaming-grasshopper-813f7d@quoll>
+References: <20261023100401.67592-1-olivier@mgcrea.io>
+ <20261023100401.67592-2-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,37 +59,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023100401.67592-2-olivier@mgcrea.io>
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Fri, Oct 23, 2026 at 12:03:55PM +0200, Olivier Louvignes wrote:
+> The AXP2101's interrupt line is optional, as for the AXP313A and the
+> AXP15060: the driver then registers only the regulators. It has no DCDC
+> frequency setting.
+> 
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+>  Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> index 45f015d63df1..f5e2c8232581 100644
+> --- a/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/x-powers,axp152.yaml
+> @@ -68,6 +68,7 @@ allOf:
+>            compatible:
+>              contains:
+>                enum:
+> +                - x-powers,axp2101
 
-The PCIe PHY times out during initialization on the DART-MX8M Mini
-with the Sonata carrier, preventing PCIe device enumeration.
+Why breaking the order? Keep natural sorted.
 
-Add fsl,clkreq-unsupported to configure the PHY for operation without
-CLKREQ# support. This makes the PHY driver clear AUX_EN_OVERRIDE,
-allowing PHY initialization to complete.
+>                  - x-powers,axp15060
+>                  - x-powers,axp305
+>                  - x-powers,axp313a
+> @@ -84,6 +85,7 @@ allOf:
+>              enum:
+>                - x-powers,axp313a
+>                - x-powers,axp323
+> +              - x-powers,axp2101
 
-Fixes: 770aba46ea0f ("arm64: dts: imx8mm-var-dart: Add support for Variscite Sonata board")
-Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts | 1 +
- 1 file changed, 1 insertion(+)
+Sorting is broken in original code but you placed it completely odd.
+Neither keeping sorting of 3xx variants nor, between 15060 and 717.
+What's the logic?
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-index 57d29a5c3821..ccc81e5b3d36 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-var-dart-sonata.dts
-@@ -267,6 +267,7 @@ &pcie_phy {
- 	fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
- 	fsl,tx-deemph-gen1 = <0x2d>;
- 	fsl,tx-deemph-gen2 = <0xf>;
-+	fsl,clkreq-unsupported;
- 	clocks = <&pcie0_refclk>;
- 	status = "okay";
- };
--- 
-2.47.3
+>                - x-powers,axp15060
+>                - x-powers,axp717
+>  
+> @@ -108,6 +110,7 @@ properties:
+>            - x-powers,axp806
+>            - x-powers,axp809
+>            - x-powers,axp813
+> +          - x-powers,axp2101
 
+Placement of these entries makes no sense.
+
+>            - x-powers,axp15060
+>        - items:
+>            - const: x-powers,axp228
+> -- 
+> 2.39.5
+> 
