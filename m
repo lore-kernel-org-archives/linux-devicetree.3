@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793020661;
-	b=VrxIsjXZAGJWvOa2gsKTZ2d8uohxjId1WFSTi6YgKBLJXhlmDWMGuLptY8TXlZXxAbom
-	 Rh33lUOR1M/keiHa2tsxoWYQn9xMoQmOYBMGBZBgU3U46A2fr/JKjnwVeIGxbtF07rPtd
-	 jUnW0UeammoNNI++9M222yDGfY4gZUfFwiW7BXZwdHN5QlYff1VwBL1IihDbSTfX0tL+y
-	 59nnT3DDlMkHPgsKgWZxynU2BKUFvhTpPdsetIK8Q5kHXjPJyW/m1k13ZKwPSAWYW9lLi
-	 uKOzoZXit1tabhbxdrW5olqE9OR+NWcn+M1HUU8weImckoggXhjkF3+Uznd+kfVtqFQ==
+	t=1793020737;
+	b=pr4HctRqy3B25DP/VDrqu0riGFme++fagvBAmZhDcC7o+wBF7BlziltHabOxscApSajF
+	 vUMuHGtD+kHO9NXHcpZr2lazOnv0zUZ348kg5qt5JJmtx7Qa9wygAdI+SdEj71wwi6kox
+	 UPOqbrwDTanPEwI/WxozYlvqJlzOODf4qWN0QSbxb2UmYdN8teQn7e6ErUBhNNSfZ1MLw
+	 ukzXikykG2r7v8W7mOQ9XE5hJqsAcICnVSi37u54dLBccmIkLwx7tb0mDb6IrhOYW6T65
+	 /hiRORgSZ3fZx4RO60d5s0mpkKDUq+xE0/fUsJ8STTtFgzSutKOfkCuKP76Kv7PDvPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793020661;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=qnjBE2z1FbjBW+ryP7DY1DlhDRT6Z5ORG6OVSuUbzOg=;
-	b=Ux3N9fBAdlHRD9tC9fXJTZVE31KpdZtHVzscT7sNII/44qxAnVQF6OjyZF1b7T5Om9Gj
-	 RJHDB65hh8Z8mlNL2lGSvfUYAwNqnUK7Raft8Qw1b/+6Glq8hUHfbNthTWr5FFi8BulH+
-	 E3SMoG8TDdj4EvUpsBm/GJ3+Z1XFDrr8FtV4mW1amMp5TvFGh9cinsmWl9AegXDoinhkE
-	 jxOvKPfzAPH5Pt2Rw1dvxvQay8Q+qK/qFSybknY5u3jDX4IhzPSYFXeS0z+Cn1Ewy6oIU
-	 GPsDarex5qbLZc74Ijgs6guxzN787CtC058MX7pwIDNlJEaGXLX0fW0D7suM9mkRUkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793020737;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lMyf20BlZ1h0WZ9ePXYbEch50SKh1zOCdibpTfZjCDE=;
+	b=w6H1fJdT6T8wlBHkw7xasFVyq427g3uxMaDds0PVQZYbAswvXV0AhdNHDF9tDMn/Ta+t
+	 r0+t6nAJ7ugDXQM4wqbtHM8h3CTXZD25dZ9M2P0HA6Xq9lIbmTao9acbc39cItYfpSvFH
+	 w+hvXPFIMYEV0RLvEgQwTufvTa/iZjTcCGoy8SUpaB5CwhHpV8F/rC6YaIyFpKQlJwRVV
+	 jeX1pwOhyYpyFyjMSPp0YOUw6eVAOuC+7HFkbCIOp0w7iwoYBTn9h2r+8O1cVmd8Wx7HJ
+	 hjneUvLcy7NQy2hFpkZm1MkNVNM3BhEfipSFsw8sSkfpvFZF6D2qreIVD42+axd/4Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=FLGWP56T;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NGFEk8AC;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ajt8vyrW;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A647B606A31A;
-	Mon, 26 Oct 2026 13:17:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A647B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FDC606A32A
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 13:18:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7FDC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=FLGWP56T
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jCvLM1jNBzMlN7;
-	Mon, 26 Oct 2026 14:17:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793020651;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qnjBE2z1FbjBW+ryP7DY1DlhDRT6Z5ORG6OVSuUbzOg=;
-	b=FLGWP56TwhtGnowXm5K9Q0pt0SPR6cqDLc9Q+ohEn7JL7IJX7VhINEspi1cREtkURkNeoT
-	srY56kAleizrVrE5qQf6RVkVACmjWxIZVYYe90AxBNUiOGCoVXswzjQvOA5A6QJDkymACe
-	sZkZHZKC6BdFcEy34T+8JfA+9/kWpNAN7aDN/bajZIqExcn9FHQ/ZzBMRT5tsSWA7ERyxP
-	Tuk8KmwgaUZRrUvFm1KvdrVDH+N1fgTf094fM/2XsZE3fvNWfbxFq5a7NX0tuFmszdAJIH
-	79xruJOD/cOt+SLV6nedseN3dsbERz8iAhDKrk49IwvITNKWr33whWCaSQftcQ==
-Message-ID: <cda627c0-1b59-4772-937c-e5f8a18db3f6@mailbox.org>
-Date: Mon, 26 Oct 2026 14:17:30 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NGFEk8AC;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ajt8vyrW
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt2FH4131986
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 13:18:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lMyf20BlZ1h0WZ9ePXYbEch50SKh1zOCdibpTfZjCDE=; b=NGFEk8ACpJBSGqlN
+	l6Rk7apbp/vgUNssfJ0pPDQN1vPFwmiO+HNLvgIbC4ymQrEnhQLmHGTc8fh/lLZK
+	J4QgEVzB1cSkR1kPep3qiBeHAhx0Nc0SJJ99GDynyEl9JCJ1cEwHSrLh4g6MaE1X
+	9KMCRLDACZBmK4GVohrpX0Ud3OFIQzV8/2vEwstZ7qinPZ3WzSk4GEN2xbEXB/xs
+	Qi16szDSyqB3V6rKPiFt7GWbcHGt7MJ3blA7OwQ8zm+PsKYS/wa9q02Wt2aT0V+6
+	q6ukTSUQy73h8BIEuk964CYqjJe11YcEYBI4FKF36PmfcnSC3nMjr2MUwQ/q0Vv1
+	HN6G7A==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj53q0kk4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 13:18:56 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9833e1390beso46601241.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 06:18:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793020735; x=1793625535; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lMyf20BlZ1h0WZ9ePXYbEch50SKh1zOCdibpTfZjCDE=;
+        b=Ajt8vyrWCeNj/FHHFBZJ+bOvhLy0eg7Fa3Uy3Lb5bntMSIDcLjzGiJE1JcpJzejkat
+         4qJfEmy4KCK/dC0kZG8zEdORzC+wzTNWKVNAsbeT/kNr2xuOEKaNjRYECtR5MwdzMq/P
+         /e+p8+P6yGODPFdwVm6N/NSgv7egb7e9aWtql69th+G47Bc8DBkqEXQqozytAQDXA4ir
+         G6Oh6CeBkw4RDtJmK1SB6JV7HO74P+VhB5PrucHvvMVD5CoW86Ru+NSgQiW7gZPLpfin
+         cu56JO37EgaOSle+DRywBgnXE5wdw2H0IID4suu9NjLBS2Qcb+J6qm3O1hKp5LC35hC9
+         JEAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793020735; x=1793625535;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lMyf20BlZ1h0WZ9ePXYbEch50SKh1zOCdibpTfZjCDE=;
+        b=kGd+lCFAVk0rv1MrEPhbVeCjMYkTP/nlxN4C+J892YJnBeTuoyMMLAgHBuD5oLgYws
+         emcvP8jGCQIvWp/88Pn+g0ViSpe9HgMuEg7fIpRywhS0FQaA5m4iMh+ahde1Fllml3jG
+         z1O1VdHm7dOgw3nX0K8GIT5BzhG7gNU/6FC9Q52pmM/noP3Og6vdaR+40hb8NlYBB8ir
+         m2EPyTDIQ39WRVRRNj+T0aYD7OvjJDXHm/Yk22RZLLzRAeWyf8E3kfbnN82RJpRvIQw/
+         cQvi6YIhjrKdSpnH3zhj5hqSZgOAAXUU9r0Ufl8CkoHytGQ+VTA/XWLZKgkVfK47WSiz
+         iUyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOUgZjjAYGSw4q3CtDhIu7irKUziI7gdht4jyZOOWCs0nQQjobpU0hHN0Zc9yo+aBTtmpFZbDcCoiP@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHFt6YXD5lzEUkxrBs8URZ2P3b+ffluu78DDxA+innY9aIAxt/
+	h79fPrwDh1yRk/7RqPE/YDhyo1CCAP2/aiTVOiKMoaytx3c8Q1JLFjQEZcEohuZ3rCzX7Lr1rq4
+	A6EQsYqBon0o3JPAt4HET0gzdnlkUCzvxFL83kNECsxCRuPJLwA1sw5t1wCts1Nvu
+X-Gm-Gg: AYBFou1iEcjVZCjLZz3Pvb+68OoIx4W2oKep75V9HIRfsB60Mo4YumX4+AprYzIMap5
+	3aY8L5TXBPHO5ECf6VcSmlv4XedA0tzHMTNc8iMez+2x7SUW/UVfYyUiQRwJExMvZ/o106VI703
+	JFpYB71U4jr9VLsm07BIJfopVukbXHW738mhpJL1eQDi5KvwLU4+w5YzK2IqYNvEZEFu5zREnIV
+	IRwq2X71DpRfXB69x8Ju/P+yrAv/OEerVXgIftbEGHfsceU5S06vPWFVou4Y7da8DWSfLuwyWt9
+	6+ld58qqCd3aWkniMkrDGKtQni383LO0UZ66TLdW9h92+rGNBIRreA1FCm2NGphA65wdOBbRQoO
+	DqKZYXIrt8PetrPtBxyYM0g==
+X-Received: by 2002:a05:6102:8182:20b0:7ca:21e4:8e20 with SMTP id ada2fe7eead31-7ce5cc7fd58mr1562776137.2.1793020734839;
+        Mon, 26 Oct 2026 06:18:54 -0700 (PDT)
+X-Received: by 2002:a05:6102:8182:20b0:7ca:21e4:8e20 with SMTP id ada2fe7eead31-7ce5cc7fd58mr1562727137.2.1793020734298;
+        Mon, 26 Oct 2026 06:18:54 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445984c99sm3713290a12.28.2026.10.26.06.18.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 06:18:52 -0700 (PDT)
+Message-ID: <343a80e4-8880-4faa-a60b-e3025f2ed40f@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 14:18:50 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,47 +116,119 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: renesas: spider: Add overlay for PCIe ch0
- endpoint mode
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022082113.3163666-1-den@valinux.co.jp>
- <4c0b2b15-7e5f-4dc1-bf49-c762de48853e@mailbox.org>
- <yxguu4obyspgkq5f2coa6kjrnxjeij3yduhwd4qd4gpamw25fp@quii5c75uxhn>
- <1d48649e-cf7d-421b-bcd9-3a896064375c@mailbox.org>
- <egu73ymzk7spvoto3tooryzvsbn2pg542o6wpylqtlchjcvv7h@w4jsqg5ynydc>
+Subject: Re: [RFC PATCH 00/16] Centralize the ownership of power rail votes
+ for Qualcomm clocks
+To: Jerome Brunet <jbrunet@baylibre.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+ <179275170360.4070168.15401690927522463377.b4-review@b4>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <egu73ymzk7spvoto3tooryzvsbn2pg542o6wpylqtlchjcvv7h@w4jsqg5ynydc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <179275170360.4070168.15401690927522463377.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 6wisubc8r6d36ghf5hicfeemrbbe9cid
-X-MBO-RS-ID: 2b7fd241c941d265e08
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX5Z76Eqe8+qUc
+ 6ATzpHvYipL/2I/C0ChqVkeGV97drdKJ5afWqAT0P78xJkGeeCJ6Fa9AbdbeGQfCeSVj4QrPWWv
+ 28X9lEW0Wl69VjRFmNKUb4UE5Wua/2A=
+X-Proofpoint-ORIG-GUID: 4QvlvbJKlsOJyKCIUshvGDm5fnv_ffvU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX1XQZ8A477sf7
+ uKoiY+V9oiehN7XC1HuM6itULMn78hRPFVTkdX5VaxiiGHJHw9DNWfZ2JxboB4T0nKLlNiozpDJ
+ POlFfbqNfOgc46PyoKCpA4z8hgGAMUP4TCuiEqO7PT7g543GVmqs1xinAJ+gYVrHuf2rRwZomKA
+ OKY6QD7NS8lQzzqmx6BO4Y0n/80utQV946g+8nZQ12xiHORzd/T21CHomfqh7ai1jPd08pPye3u
+ M1X1iKcgCRrpzqvJSfdozrcUA7db5mFPrdEZCnbBKo5ZKhxeqhshiAjLKqStQNYSvpttztEQxaq
+ iIfA9thoaz686O2B4ntBEkoDBhLvcCOvqpTgCUutzzzF1NCl8a+JL3zmeORN568tkg7m/4e8bYq
+ XfGG4I8icrRT98QsWU/aYyg44TZfL7Y5RME2kI03Z/lxDKweqTGigscAhY7OX2hfbbwies5Uqsd
+ tq+UieVHuRlCPgUeXbQ==
+X-Authority-Analysis: v=2.4 cv=D93SufRj c=1 sm=1 tr=0 ts=6adf5340 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=m6TPRz_fCz5u_OYVIq4A:9 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: 4QvlvbJKlsOJyKCIUshvGDm5fnv_ffvU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0
+ phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260052
 
-On 10/26/26 7:16 AM, Koichiro Den wrote:
-
-[...]
-
->> How about adding this here:
+On 10/23/26 12:35 PM, Jerome Brunet wrote:
+>> On Qualcomm SoCs, both the PLLs and other types of clocks alike require
+>> specific voltage rail levels to operate in-spec, but through the
+>> separation and decentralization of clock and voltage votes, these
+>> requirements are often not met and are never explicitly stated.
+>> This results in clocks being undervolted, or at the very least a state
+>> we're unable to reason about.
 >>
->> *
->> * Please follow the standard configfs steps for pci-epf-test documented in
->> * Documentation/PCI/endpoint/pci-test-howto.rst to set the endpoint up.
+>> The devices consuming these clocks very rarely have their own
+>> requirements in that regard. (1)
 >>
->> This would steer users toward the documentation. What do you think ?
+>> This series moves the frequency-power_domain-perf_state mappings inside
+>> the clock drivers, ensuring a single, trusted source of truth is
+>> established and that the silicon is no longer driven at out-of-spec
+>> conditions.
+>>
+>> To illustrate the nuances involved, here's a couple examples of hidden
+>> dependencies, as found on SM8650:
+>> * video_cc_mvs0_clk requires LOW_SVS to run at 900 MHz, but the
+>>   PLL it sources the signal from requires SVS (higher corner) to
+>>   produce that frequency. Similarly, to produce 1140 MHz, the clock
+>>   requires SVS, but the PLL then requires SVS_L1.
+>>   Analogous story for mvs1_clk.
+>> * gpu_cc_gmu_clk requires MX to be at SVS to output 625 MHz, the PLL
+>>   requires SVS_L1 to produce that frequency.
+>> * A number of camera clocks follow the same pattern.
+>> * Additionally, some clocks like cam_cc_cci_{0,1,2}_clk require
+>>   MMCX to run at LOW_SVS, but the PLL has the additional requirement
+>>   of keeping MXC (a wholly different rail) at SVS_L1.
+>>
+>> There's a broad agreement that a consumer should only have to care
+>> about the clock it consumes, and that configuring its parents is the
+>> responsibility of the CCF. Requiring the consumers to care about the
+>> above cases (as is the expectation today) is a clear violation of
+>> that contract.
 > 
-> Fair enough. While I'd assume anyone enabling EP mode probably already knows
-> what they're doing, having a pointer to the doc certainly doesn't hurt any could
-> be a nice nudge for users. I have no objections at all.
+> This is a fairly bold statement. Yes, the CCF's task is to make it as
+> easy as possible for a consumer to enable, disable and set the rate of
+> a clock, and I agree a consumer should not have to know what the
+> parents of its clock need.
 > 
-> I'll send v2 shortly, thank you!
-Thank you !
+> That does not make the framework responsible for it. Taken that far,
+> the CCF would become a de facto platform coordinator, which it is not
+> meant to be. The clock driver knows what its clocks need; the framework
+> should give it the hooks to act at the right time, and stop there.
 
--- 
-Best regards,
-Marek Vasut
+I think we are more or less in agreement - especially since this
+paragraph of the cover letter is not really faithful to the 
+implementation (since the ACTUAL voting ends up in clk-dvfs.c, so
+essentially a driver and not the framework).
+
+> When coordination is needed across devices, there are dedicated
+> frameworks for it, like OPP and genpd.
+
+Right, in the specific Qualcomm case we heavily utilize all of them.
+For the problem I'm trying to solve, the clock controller is the
+"reason for the problems", so its driver gets to carry the heavy
+wait
+
+Konrad
