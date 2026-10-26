@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003825;
-	b=E5/nBETESXREyFzPTdr/gM6Mm4QDswPTvBMg4SVq38WNLC7KWDyKzdEznxOUph2kMend
-	 /YR/NFxb23pmM9HWeMrfxLQLzlyjUTaez9yGYyegOpJfaZ5N543JpTR9Ne0Kf1S+Es/bf
-	 qnvXP3vt7Egs5DCulYaUotYYkc7MoXdThSBXhyVt4XryO5V9sCihtz4+QeZbauU8aKsBj
-	 61OqZZuEDedbgk+GeIOjsKcMgUcSQEaTBFkVtLvmj7OY8CEGYxQ9/TlFVo0phnrd+i5W3
-	 VKXlqzuv5Jw4ZbH2+YJ6Sk/wBVEQWEeo0OyEaCctbA0Oi/y9nISCZAvtLOa8X0jys0Q==
+	t=1793003870;
+	b=kXAsiwAGlxP3voag/lQeHUWcFSULMF12obRv2iXf0zUJ6p7YAdoVE8eJ3kPH54vwzqcg
+	 NyZhRpbZLFais3dGTuw3C7JsX2+ljaLtEBLdOt4dotKnbuGyr/7vNbHSQbYa8A5R06R7G
+	 8vJ4AqKcvn+VobrJ+YQ2pY53ohQR9+bx1ZpUzYvsdWphClElx2+cvHFKOjgWTdjQ10EjU
+	 6Dx2gQE8BP89woXbBDURfBBzmkWEtuUTh9tYwl/NkKSycvMNAnHg9YFVOL6c+zYpSIuyk
+	 IQ4qBdXr20WT55sWocEHYEgONlPbPslIhcqz8Z2ulp0cujli4p3ZHO6L1z3lZJKhfHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003825;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
-	b=RUuLsl2EH/YESOjUQDPviL0uNsqakqq1WsjCHzgfuYIciFDyklJQGPucpTZl7NIR9ae2
-	 7XQlrVtfMRNiriX3Sg70/RXc0f4Q0wp99/3x06q2WESGdIwKRiWqPq3izyRoL+zAXTn9g
-	 dZGpKg4nFYqfAW7Wj7omkBfQu3R4Q6IcgVgYAWvokoEjakcPCkuI0Tq9YmimTF3LkN726
-	 L6b2gePHlM+wSdBcU+T7LqcySALgkinyxPZrfqxyc7jTSxdR43YnEvKeqwLYQBA05sPBE
-	 Oyjol40PiKCstTEigQlUxMphAzG+CflT+ruLkqvzfDPgWU9GVTtypfvdvapvONHyWYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003870;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oXR60LDsYky2VqOqQue7mRL+b3w0NTwVzf5xVpsjh8Q=;
+	b=RY/jmBVTPRfFSzSYaxG83XibHdHpm2qfFT0b4x488UqrfTmCnFP1XG0P8lzlub5vv9E5
+	 nF4Hk0zXCLfvVDeEivjwvCtEt42oHEglcVbSyyDVhu7wy+C2YKM73wDJvgKuuCOb6WhSf
+	 bxdoPMPn2EGWYvO3uqQ3k+7fX0rqyINsgiyaNRrHrdPrPFZ9zQtqonouqye1Xnsz19QcR
+	 t2ibAmzwD6A0TWbhNsjoaZBiDOcpQgK21xb/ot+51UmpANxU0pALphhrDBUAK7FPZ3KmM
+	 ZNX4mcFBL4JnqguY5Ro3O+iCuAPf56AiNtrHl1Uj2k32F/nxfyzpQ3aDvZRAD+dA4XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=qBsIi2dB;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6947B606A322;
-	Mon, 26 Oct 2026 08:37:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6947B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6476F606A31E
+	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6476F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kVwwLWcH
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id AF21B1A1339;
-	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7ACCD60740;
-	Mon, 26 Oct 2026 08:36:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5EA8E10328E76;
-	Mon, 26 Oct 2026 09:36:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793003812; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/tD+AdggQ8rn3t013FfJIhJkQ3UCqIWgHWwfFpeCerk=;
-	b=kVwwLWcHIhHeD43jHUzfytK0VC6XBUa76/BASP5MYWKmgkJg1swUYm6Nbcz0qa+xG5p/oL
-	pSeE11DF5ppRMuS7rksMeF66KVn11wWdOUivyfokhrKZ7xErbqn8fIEl1tJks0CHAZtthZ
-	cWhbZ6XN8mPWp5LHNKJV0xwp7XxAWQMkVja2480JdWKiGwSDfEDwbR0oEDdwIOvyhm0MUo
-	hNNJQLIFP5zJ8wQynpxgiIjyl1Y8iIjjX7Jb57RIAvdh7MSzFiMJg38wkp959gysNKqBVN
-	Cbu+QePb/Kdb07waujHNn0n5ZGQWS72h3IZcn3LWXr8X7jTHGp84GbdAD7WMdQ==
-Date: Mon, 26 Oct 2026 09:36:43 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 12/15] libfdt: Introduce fdt_getprop_offset_namelen()
-Message-ID: <20261026093643.15faf244@bootlin.com>
-In-Reply-To: <at1qO7oEdCyhX6k8@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-13-herve.codina@bootlin.com>
-	<arDJmHPwgvwwmITG@gractus.seuss>
-	<20260922182547.6cc7475c@bootlin.com>
-	<20261023092559.7608ff25@bootlin.com>
-	<at1qO7oEdCyhX6k8@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=qBsIi2dB
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b060ec084so1602702f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 01:37:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1793003868; x=1793608668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXR60LDsYky2VqOqQue7mRL+b3w0NTwVzf5xVpsjh8Q=;
+        b=qBsIi2dBdH7dA6rq5ePwsw1KhbbX7/GTANSCFjSkBKYprl0XlzFBnQ813b4EXpOedd
+         jHjGq2ZKDpPxVtnmckN1HCLMAVW0lbzGAjU6C74A2CGBHcA0wlKckkUo+FuA3jQ5uQh7
+         d0pf8I2mcBWArLgDtcf4wB66d6IQdntMYP5jEzquTSfY7FS9uh1MlN5nvY25hSczip5F
+         pZ53jHutnqOFMpQJ9niydqUe0V8uM63NCXf4pxUqo2TpyYa0dReoj301BixIa+tNg7yC
+         5bDIZtFeVIP9RJLhpL8FwqnMGa73Avd6xWvlNy3q5um49If4pY3KTri+EyHkDSZ/qhJg
+         VxPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793003868; x=1793608668;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXR60LDsYky2VqOqQue7mRL+b3w0NTwVzf5xVpsjh8Q=;
+        b=WVI8NNvu3fcXEUdR1Op1B/+k5YY3oQcr4LEhE+tCaj9/3dzyOFIPvckYS9qcg+VhTF
+         AW9S8gCfJ91So7AIWcASt58JX2+15w8iGZZ4VnRt4yVM2bLPTs4j3bbYzecMsanklHEd
+         fLrSy9fB2kVSyPxnrHoOYraTT/4NvwOtBkbBKKHRBAQzYSy1bKkn+Vl/v7eNTzS7SWfk
+         thc1tonEORz33Xnci8xoji0LSh0LYqTd3f2IqS5WTn+itSC4EnaX+W156I55U0NDQUaS
+         2Ym7i87waevjEY4rAM+DYmUS8p+IC1n+IxVUphBLJ3Y7DQdyzeg0SHBsPqr+uk0ZojzB
+         edaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByv0j+QZIbHM9DhiPOg3NaPeaUQ4hyZLET8+9fTxx57FGJf59N4ff9h2krVgvAqY9ffG9LFcO1LxKtU@vger.kernel.org
+X-Gm-Message-State: AFq9FYLY5tsXmTYxqWIJ5n4mG5OEF5ixaaA58K7u2KGj+kqY/d7rXjwy
+	p+4kXSWS2w68n2eszVcmrzFkkaYCe8n3PVC+bmwhZZuOM7O6+fyAmVOeg6+lTrkFPu4=
+X-Gm-Gg: AYBFou2HQhIE75yas7L/N9p+m738pmmwFavJLHkwwcxTrtnHxFr0mVAX/GHg3Tz7hst
+	x7ueLGuER8x7fcqXNTM16oKH/P34j/mYYrS/d1vlkLmdZuCjOqKCwXrnIofpw4wEgljqAL/jPCn
+	PxAaD3jz/lqONISHCk45N3azgLCFQ3AqtkpCZ9ZI15lD9ygimdCQxlnWeuBKN2EeDd5Kl4eqHhH
+	p7/pY+96qnHcdULa8DAVPXcpaU9nmNMPAqGjFYDb9r8dBtWHEsILXNk+x9yxCRb5RByLpTi5/Xa
+	ixmXXnOpXuusQ+zBY3KNltoH6gZVN6V2flzPYOe1lndGlKghCzvdPfbX2+CDLXogn0rag7m9wBN
+	50t8kGPSFG8p4bTv/5uGIUaJltW1XuMDMy/NrVZZtfvEgBm8quAmY6lcmv6f7+ohvojfeO+XKMe
+	XvyUgtAtm3Awm+VtVL9xyX/14PvSUJDy5OhKHdhVLlh6Yn9jqDKZiqiga6XS31p87xOKl4kvFOs
+	W47cyIeDoEJVVnlc242bcKOCxUkt3yi4QtRflavdbq+HdyrAu6YkfXbBblKU57Zfp0NyL+NrSoz
+	QjILHL+vcN+O3A==
+X-Received: by 2002:a05:600c:4f10:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4a35acaa4a8mr111672015e9.27.1793003867665;
+        Mon, 26 Oct 2026 01:37:47 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8dcfsm15091889f8f.50.2026.10.26.01.37.46
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 01:37:47 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v3 0/2] iio: adc: Add the Ingenic X1600 ADC
+Date: Mon, 26 Oct 2026 09:36:29 +0100
+Message-ID: <20261026083631.48406-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,119 +106,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+A driver for the SAR ADC of the Ingenic X1600: four auxiliary channels,
+12 bits, one interrupt per channel. Tested on a HiBy R1, whose keys are on
+channel 0 behind adc-keys.
 
-On Sun, 25 Oct 2026 13:32:41 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+By their programming manuals, the X1830 (3 channels, 10 bits) and the
+X2000 (5 channels, 10 bits, one more data register) have the same
+register layout, two results to a data register. As Jonathan said on v2,
+the X1600 name stays, and supporting them now is welcome but not
+required: I have neither to test on, so this version is X1600-only, and
+a chip_info with the channel count and the resolution can add them
+later. Nikolaus, if Letux has either at hand, adding them on top with a
+test would be welcome.
 
-> On Fri, Oct 23, 2026 at 09:25:59AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Tue, 22 Sep 2026 18:25:47 +0200
-> > Herve Codina <herve.codina@bootlin.com> wrote:
-> >   
-> > > On Mon, 21 Sep 2026 16:07:21 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >   
-> > > > On Wed, Aug 26, 2026 at 10:31:43AM +0200, Herve Codina wrote:    
-> > > > > Future operations, such as handling unknown tags on dtb modifications,
-> > > > > need to get an offset to a property based on the node offset and the
-> > > > > property name.
-> > > > > 
-> > > > > Several function exists to get a property based on the node offset
-> > > > > and the property name but none of them allows to get the property
-> > > > > offset.
-> > > > > 
-> > > > > Fill the lack and introduce fdt_getprop_offset_namelen() and its
-> > > > > simple variant fdt_getprop_offset().
-> > > > > 
-> > > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>      
-> > > > 
-> > > > This seems redundant with fdt_ptr_offset_(), which can trivially get
-> > > > this information when combined with fdt_get_property().    
-> > > 
-> > > Indeed, It should be ok using both functions you pointed out.
-> > > 
-> > > I will remove fdt_getprop_offset_namelen() introduced here and use directly 
-> > > functions mentionned in the next iteration without wrapping those calls in
-> > > a new function.   
-> > 
-> > I've started to replace fdt_getprop_offset_namelen() by the combination
-> > of fdt_ptr_offset_() and fdt_get_property_namelen().
-> > 
-> > As a reminder fdt_getprop_offset_namelen() I proposed was the following:
-> > --- 8< ---  
-> > > +int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
-> > > +			       const char *name, int namelen)
-> > > +{
-> > > +	const struct fdt_property *prop;
-> > > +	int lenp, offset;
-> > > +
-> > > +	prop = fdt_get_property_namelen_(fdt, nodeoffset, name, namelen,
-> > > +					 &lenp, &offset);
-> > > +	if (!prop)
-> > > +		return lenp;
-> > > +	return offset;
-> > > +}  
-> > --- 8< ---
-> > 
-> > fdt_get_property_namelen_() was called.
-> > 
-> > Switching to fdt_get_property_namelen() introduces a regression.
-> > 
-> > fdt_get_property_namelen() calls fdt_get_property_namelen() and this function
-> > (without the '_' suffix) performs a check on fdt_version() returning an error
-> > on version < 16.
-> > 
-> > Using it to replace my fdt_getprop_offset_namelen() function will break
-> > write-in-place setprop() for dtb version < 16. Indeed, it is used in [1]
-> > 
-> > [1]: https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/#Z31libfdt:fdt_wip.c
-> > 
-> > Now, several options:
-> > 
-> > a) No problem if we break dtb version < 16
-> >    Ok, I will use directly fdt_get_property_namelen() + fdt_ptr_offset_() to
-> >    get an offset and remove my fdt_getprop_offset_namelen() wrapper.  
-> 
-> So, practically speaking this is probably true.  Version before 16 are
-> truly ancient, and versions 1..3 were all before dtbs really caught
-> on.
-> 
-> > b) Keep my fdt_getprop_offset_namelen() function without any modification
-> >    We support version < 16, problem solved.  
-> 
-> Still don't like it.
-> 
-> > c) Keep my fdt_getprop_offset_namelen() but static inline in libfdt_internal.h
-> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it in the
-> >    static inline fdt_getprop_offset_namelen().
-> >    This implies that fdt_get_property_namelen_() will be no more static and
-> >    usable internally out of fdt_ro.c but only the fdt_getprop_offset_namelen()
-> >    wrapper should be used.  
-> 
-> Eh.
-> 
-> > d) Use directly fdt_get_property_namelen_()
-> >    Export fdt_get_property_namelen_() in libfdt_internal.h and use it
-> >    directly to get the offset.
-> >    I don't really like this solution. I would prefer to have a wrapper to
-> >    explicitly return the offset instead of exposing and using directly
-> >    fdt_get_property_namelen_().  
-> 
-> Hm, I think this is my preferred option.  libfdt_internal.h exists
-> precisely to "expose" things across modules internally, but without
-> exposing them to external users.  Maybe I'm missing something, I don't
-> really see why that's objectionable.
+Changes since v2:
+- Cover letter (Andy, Joshua).
+- MAINTAINERS: no list line; the binding's path in patch 1, the driver's
+  in patch 2 (Joshua).
+- Includes for what the driver uses, copyright line, MODULE_AUTHOR(),
+  reverse xmas tree, open-coded return, no message after
+  devm_request_irq(), a blank line (Joshua; Andy on the return).
+- fsleep(2 * USEC_PER_MSEC) (Andy).
+- The ADC clock divider is now even, as the X1600 programming manual
+  has it; v2 wrote the divider minus one, as the vendor kernel does. The
+  divider fields are named as in the manual, and the two clocks only
+  repeated sampling uses stay at their reset values.
+- The probe comment on staying powered up no longer names the keys
+  (Jonathan).
 
-Well, my first feeling was to avoid exposing this function and use a wrapper.
-I've looked again and indeed the wrapper isn't really worth it.
+v2: https://lore.kernel.org/all/20261024041357.34346-1-olivier@mgcrea.io/
 
-I will expose (internally) and use directly fdt_get_property_namelen_().
+Olivier Louvignes (2):
+  dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+  iio: adc: Add a driver for the Ingenic X1600 ADC
 
-Best regards,
-Hervé
+ .../bindings/iio/adc/ingenic,x1600-adc.yaml   |  60 +++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/adc/Kconfig                       |  10 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ingenic-x1600-adc.c           | 242 ++++++++++++++++++
+ 5 files changed, 319 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+ create mode 100644 drivers/iio/adc/ingenic-x1600-adc.c
+
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.39.5
+
