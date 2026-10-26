@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793032783;
-	b=KniiAfGWaxFLtf0lmQV4mW59jrjz8SDZPqseGqKp+ypOUp4X1bbT+N3oO7OZXoSahOve
-	 15TtGMKsgcXggPR8OAfbp2dCX/TTlgWu7ZuJ6TmsOuihF8JRMkWO9nb9UnImnJKtVAAjk
-	 CM3BhRF4bEpjbyGOMKmhGtBga7DTofj1y30cWPjh/7uDtJT1ZbCIr8OUWOYbitysgfoS4
-	 TgvhVVRJ1PxwWovVYRszB984ethMTquA0g6j79oUA8FV/ws04mAteF7ffUHfmhjqrFc8R
-	 GNotw13ROo/mfArUNSn+pTtsTEwPo54u7LF8l9XUjYTNroA7DmRF/sGEd0LzVare1ZA==
+	t=1793032845;
+	b=ryYmiOLUaUkq4co3lGJ4JBYF7uowp0wwHAy1Iopq1hXcfX85s+OvJ7i2RNabgrUuWqG7
+	 9DBO1P/W2SdK+h2mgIaQRv1EJ3Gpyjr1fWr5hUVgziZfwpBe/10tJc5woZmjz7Vem2CtS
+	 tjK0h/hJmsL5HdXMpe+G+vQeLddGBnvr0Qo41UCKrcbzU4rJjSXbiyjEDrIHG8sLpdyLk
+	 CaZM9wyWKfYGznSwxHZUc8AcI5eilkcu9ZuyiKqC1rNyfBTyxfRXJH+jzHfC9T+DFPdS4
+	 icn6YwlLitKtApOKgOfEmQttGVoPrb/7mfoFIxNW/Ity0NUsBPx5kZvk41PlAiPvUyQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032783;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IZNdmnCETWWbLP840lafAAK1/QLfwqzNO3C5jMzxOT0=;
-	b=w//cKDssNbKqDLMNmhasP9Y2KGI49/CuKcVIO/gC4cqznAZT7WvcWusqekM790ykAn9r
-	 m38Gz+i4dQwJeWyJz8znsQnxHpWnzZKkY3PRlpXlSPeqi7fCgx68sD+DSvZSrJPIbKFnq
-	 hM88cXKxNehFmbmJHdtVQLxMWetxflJW+i7mWr98S/qbVHKEhwVCREXXsJYgjF4ezugwA
-	 0oWLd82nawaqq+hBJFptTUYeGUMo+YXo0Q14p149zE53ibt+ADiBeGcQ3yRo3Yel27Z8C
-	 L/Azhm1dZOehTPf/Wkz5Co9f9BPqAMUELsxb2wUVsGUSdwN/JJHAzwEFitMl5RKjm1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793032845;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xD5jfpImKpfff0Y2W5dq/KCK6BOfTU6Bxtq5umiXNYs=;
+	b=3S3YCuZ3/ws93JsudXaIO+cn8+B6IJJsqD92Z3fGLPFmIeVJ7rcKQVkiUOPX96pEes6f
+	 CiH71HBQVuY4ergQku8bYD08riGDC31ymnFjIsX0q5Ug8t+wVHYT3KO1JY12+Iet0bnHV
+	 Aw3/K78w52bebBffYOV0zU1Y7V881vFFk9fLk/3Moz/Yh+SD2TYlxl0dyhrUUDJzZJ/VS
+	 fJMOUAgRV5oHDMQhv5zl2iL08lXfQ9H+hCUSwCcD2qG7kjrjT33Ow09e3KC32J99TuJt9
+	 w0KSEBCW8t0AO+YRK1/bxEPncFwvqO4icKgduQuBaTZpc3PtYwV6JSCN5G9862rwkTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZYVViIf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gtjAex5c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.42
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013042.outbound.protection.outlook.com [40.107.159.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E799606A324;
-	Mon, 26 Oct 2026 16:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32079606A31D;
+	Mon, 26 Oct 2026 16:40:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32079606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SZYVViIf
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793032782;
-	b=FKNqNOznIgwqVTKn08CUZWqkr9+6owvkgJHbnSs2Y2WNdWaEVGra9e/+hsb6rwUc1Wil
-	 xMsuPMqDH9GKQMZAiGe/60hVupsuTvbP6EIi0URuRn4BW8f+M1Xdwswz5bhDwVtZ0UYSM
-	 GozpZ7Rx/U/Gt13WF7agXNeJc/Fw1gZYJJWQ112vm0dcZvWJ6Fe1AvtC7GoysbTbQrr35
-	 IhcpKJrp8ElDaHP9TagW6QzpLrEcE3iT3mh1GotZ3J5Dt3dbPmyzGBb0UgcJX78GbFLqC
-	 rGRVVFqK4SHyxZxY+1/pj8Q0BeNe+slf6S+7tP/ff+gctisQDW/J+zwjeueChekXNiA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793032782;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IZNdmnCETWWbLP840lafAAK1/QLfwqzNO3C5jMzxOT0=;
-	b=mr3MDv1xwINBnQUjbNoAnM9MHS/fbf34GEgJX5ywtPT6dEF9okIH/IffoVK7VlLiq+pd
-	 H8AJ2Kc+IEXo8tlhzzRZM4uUcU94zaD1wW8Lc9TN9aB9TTGzddV6pVTqSHbg+gA++aoWD
-	 09vzdVsfv/L3FrX0w1LRKHZpAOSYDaS850jLZH1hAUb4Wx1ri0AqgPOLcqp3nRK8v7Zi9
-	 bSa4WuaSfp+WcSzUgHsMCB0E1EKCpmcOnaslYSYrDdG4UIaJJpM1JdsBuFb0u4oO36/4I
-	 YHCnoHvrYFJud8tb75XqzfFZGDznJ8kBQP1RuARzgN35wxR3XZ6YP0WIUFF/KOe+P6w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CAEC41F01828;
-	Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793032782;
-	bh=IZNdmnCETWWbLP840lafAAK1/QLfwqzNO3C5jMzxOT0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SZYVViIfY0dSZT8fYBnmtmMEDdMZoXqx0+a8N8xKkybSM2a+u+8xS54WuGK3kFFL9
-	 AkMiuCsgNKsnu2rrIm9Limic4Y1Iuy1JgItOgLn5qqY+i6qVEFnZGy3czImSHbRhHl
-	 7K9JergEURcAM6EfKfT3ZtEj13jbjF9nM0s8wXwf8VinLySf3Dx7Oz85zFNU6zPN1H
-	 uH2Zciu/HBXFMo8Z1+Cy/tJQm9yL0otukJt3qp652+LQxLmnIfN5xOieDd7Hw9vA32
-	 k0nFYklh0puzzeLWbXLszt6pxZ4ukNNM0apLDW3lFOHfnzJv6q0c4fxDshIY8ErkrS
-	 1WQnY01S5E6jQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4B72A44DBE;
-	Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Mon, 26 Oct 2026 22:09:33 +0530
-Subject: [PATCH v2 2/2] drm/panel: Add Samsung AMS644VK04 panel driver
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=gtjAex5c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rj1Lv7ixrw9xHKAtEQhalGHfg0Z9R52/cBpRlIkM9ZNpqbnG1sPkRzs9BNnJvz3LPywmaa2xmG8Sp1TE89BqKvkqx5/NC6W+x9pDukOgH/dPOQwDiAv4Qtrhe3VJBcM7WbaXZqy7FNsS12ZqdSy87p3klMPHl52KzaBd1AL4cMgGWiLIY8u4CdshkdOVQoAsWhOihxgRlxhtbe0hUA8a+n3LVpQXOe5j7y6m4c2rMQLyfuiMhn1FiM41kgNWg+pmy83/8aD0elTq9/dntbMO2g8sQUtn5HywC8vpXhDuVRxtSr9PvOGFbHXjcuNnfVe282QYYjaOZhMEqYyjCyQgrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xD5jfpImKpfff0Y2W5dq/KCK6BOfTU6Bxtq5umiXNYs=;
+ b=NAyUBwcad1dFUJqC1O8DHr+kioph8Eud7wv1NiOUQzuoX58uPvJMKnm9QZhdHWbrMq2rrMcu6zPtIqnE9wIRs0vU4vUfCpR2Yi8qbN/9Tju7V0K+JV3RNjGneU36VGp+oJD2uqC5fgGfEMjBZFXfb4tQA5/OH7CqEtZRcVnw7ZAExkyKl3bu04eVbCEjCVennDUe/DYBh/4nlRerHLF3UOSgbXlBV5JkUMdgekGeLZE0w00LhXwjAtADtDeVcYTfjXEv8OmQSvhOy4zQkwMMnEcaZ3Gth0lcV17n7tsD+l+lM+DP1PN7HP2PnwoBvH9SHbxMqMfnzsbVs8vgRGlEpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xD5jfpImKpfff0Y2W5dq/KCK6BOfTU6Bxtq5umiXNYs=;
+ b=gtjAex5cbrFilHAT+L6YJrZiLwqfm/zHQDrXW/w/36v++Sifmw7r3LWvU29ZzQSSBnQMQrGM7v75hS8nbFtRDVsQ7E6kTYLALi0pf/Ifeg1bWc4ySEPHr7MuWLBgpOfKkbPqBhZFoJ6hpWi9h7IpzaheBM6ia+2akMnlxyHuYOIN/bNJUDOYO6bqh8cmm7sGVMFdAtuQ+hTnwTt9dv0yLBIk1sIZqMgYm2mhjqgmehUdLz8vXKaKG9j4dHdEcpo1c9Q/oVWZ06QasyUXu/8oJPfDFIIknc+/Phr637nOB0zJ/WQr6H4F5F8aNbp/7XwQDnaRI8qM5edpHeCxmn4hVw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AMZPR04MB191951.eurprd04.prod.outlook.com (2603:10a6:20b:7c5::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 16:40:42 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 16:40:42 +0000
+Date: Mon, 26 Oct 2026 11:40:31 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: dma: Document DMA mux support for
+ Loongson-2K0300
+Message-ID: <at-Cf-bxYkBxMMEi@SMW015318>
+References: <cover.1792986696.git.zhoubinbin@loongson.cn>
+ <c4ae9695aa266bf714a53b5f46218645fc64347a.1792986696.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c4ae9695aa266bf714a53b5f46218645fc64347a.1792986696.git.zhoubinbin@loongson.cn>
+X-ClientProxiedBy: PH8P220CA0065.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,471 +104,237 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-panel-ams644vk04-v2-2-e88cafb3e577@brar.si>
-References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-In-Reply-To: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-To: Ishu Brar <patches@brar.si>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032778; l=15260;
- i=patches@brar.si; h=from:subject:message-id;
- bh=t3mBNh6rIPjSdrFr6bSY+pSa1ef2kkMEoH1YpnI3XHA=;
- b=6ubxb1VSYFO4SDgVNp5JkHDq2U0foqLxY1RNXPSpKw4jG53Nr0/hHRIns6hsvnzgnnvjXKigh
- Ae1llZtCCGwDzdSUNrh+fKTxZ6AbNsO1k/1YSkKZBALjBs4q8h5b66U
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AMZPR04MB191951:EE_
+X-MS-Office365-Filtering-Correlation-Id: beb5e150-67f9-44bf-0f50-08df337fdfe9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|19092799006|23010399003|261026140227099003|4143699003|261009221727099003|11063799006|56012099006|261009223027099003|261009221227099003|261009223327099003|261022105027099003|261022075727099003|261022113327099003|261009220027099003|10067099003|261021121427099003|261026121527099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	kbgzZBimWgILHKLiSEJc2P/v7ui7WTtjHcyCZ+ka4Gge/Gp01WHWk7fTfiWYoFsVt/FftB1ai59pD0skSHEjPg1KseX+YYea5qHZDsJx4T9PEK3Qnbw7Vxy4j9VbS8MoBVtjmycTersnQ2ixnj629gWGfG5obqFH+aAeMoO+8wzZ1PJcKUQqNOSvMqUlFXiGfW/wCs+9yEjBLNkTiu3VP80IGynt2pJ2X8W3sTyNpsTUn7wVtWi61H2u/JOBc7uli9sXM63JD1GQ9bIINd6kXsxidjqrMTm99nST4qpmwK+aEk9K9GV89MXUktEJsEYGcpbkuyHqnPV0riDxc9PgYnDDtOVccAYuIHglGUA2AP4ty9aFCHKSoDvLubJhexFfuFDtSCgsZV7RxpmBB7y92lnm8/QmZOTCFUL3Sf4JWzALwicx1b3A8Le0AVo9nsEHfVL6TWJJEatHg7o3L7mAw4Kyfll0d+CToRK+GIN1U5IUOELUcoMnKBvUVqytFb+xHuD6qTxvlDrYV/S6MpDLym+FbK+5/xauRor0j1sLI3FuC6SpsBJFWq1tqvV18z5v98ZKULlwNNH0CDCKglxxguMS2ImClP+gbmSfuBVTJjQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(19092799006)(23010399003)(261026140227099003)(4143699003)(261009221727099003)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(261009223327099003)(261022105027099003)(261022075727099003)(261022113327099003)(261009220027099003)(10067099003)(261021121427099003)(261026121527099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?KyO+EPp5jht7w7IVYb7uZ30qxOKPjnnl38Y/xUoXOgi0S1XEl8adtAWk6/wJ?=
+ =?us-ascii?Q?OvplpxQZO4wvnVpQCBblHlck7hfmQ10ZDL80rzZR9qaREJMdT/oj+g8ghIie?=
+ =?us-ascii?Q?LLDy7UoUYz6B6PmvO21vezSDWEn3vGfA1cFw/A/z5hoxEbDCdu42zhzPAJx+?=
+ =?us-ascii?Q?gpEtZHJT7U3uhICWxLJhlYL9djeiPDuu2FKF7pHVwIXEzhL9DCfsWa/mgsc9?=
+ =?us-ascii?Q?dTKglrSuwg9YvXOiGAvOnuTspfH7bLgc/VkEcrN3YCVqRxP3heqIjwEO297F?=
+ =?us-ascii?Q?/DgrU6xZEyBX5p87qJErGpbEyCXGYKYKn/9CvzbCk84mlNafSALMCvAajULk?=
+ =?us-ascii?Q?S0NTpNDgmjy0//i7px0jYuFuIMKEs8IPMocBTjluoJHEMeFMc/UZdWPfTSwr?=
+ =?us-ascii?Q?b7ulH1f2NiT1UHBo5ermvrL09nDqWCMAfJnxBDXIqnxX7grDmP3VAIMLX5kv?=
+ =?us-ascii?Q?5+6U7C1w15z0TKmylHQQOHSQPVduVdTWPknAXjsHVnY9MpWo9f5JikeuAEL3?=
+ =?us-ascii?Q?zEHBulfKdElvv3Y4v8hIMDwJwEoXaaFu3Zg16zcTYsyqvTwRMe/74mhMjB0c?=
+ =?us-ascii?Q?ujDJOFB1c6hKmEJtPPA4+h8TcE4FrRZrgOd9+iipL5KFDcDen547MB97r1rR?=
+ =?us-ascii?Q?N5qUdtwDm2K0nDECir2expDqs2Zusy0Oi13qcYvBMOOeNcpVQTVwwReCF15P?=
+ =?us-ascii?Q?L+9GypD2uCDmvhsycNunNog50kUuzp+99Y4vCcZMwdN0P+qHUgEcYdTdF07O?=
+ =?us-ascii?Q?B1lctfDJvKWHGMEzrWUXwBf8L7I3r+gzppOCHnDri9C1pazC3ojeVKbsGIj1?=
+ =?us-ascii?Q?IwqPeZXVSq90qDXdsuebliLat0w8/Sg5BwY8qF0YBTWrEJMmhAwovlJSCksv?=
+ =?us-ascii?Q?hbhzmVcFBjcxbK7OfuUwgpjKE1g4s2gULbRICT8JyB5n5yCX5LW42pKhhTAe?=
+ =?us-ascii?Q?TivgbL0epF8jNjcAJHkjCpoJOSE7+yFmNhVUsCjvWPPT90ybeVfRaPMNmmL/?=
+ =?us-ascii?Q?OFB8lLcLjAYqH2xkvT1kISOJ8skKNLcjahApNDa3mHI1dMW/t8k3vSRbAEmk?=
+ =?us-ascii?Q?gRnnbsYxNLQVsC1JmHZwP5obnXOv1FUuC/ya/24rru+NFkFVHJkKYaIgSTTC?=
+ =?us-ascii?Q?+rc++AnxIRN1TKyIeLhxo8X8Hpewq7BqQFtbtp93JjyI2TBuO9LwhHUO6X+b?=
+ =?us-ascii?Q?E+azPJBaUMf3bIylxbdd93rvFO/mKcDwU3XXa1IQZ3D24qGsiGdxmvuhHqPX?=
+ =?us-ascii?Q?ifSw5vwoCxOlUx3cyCGVFeBTlPULjGtYHiF7WTzPIY9YAgMUIRgui7FRQOVf?=
+ =?us-ascii?Q?W7GYDKsMi9Z4Eu0H2FhBZYzbS2fCLW/fiDLCXkjbR0mfAPPaLAefHWMfpvVD?=
+ =?us-ascii?Q?OkV3g+m45otpARbUlBSwApb1KwFyORhzffg5z2kdp2RIneAvsParf6r80Q2+?=
+ =?us-ascii?Q?Ew6B7U2sb8pbEgvIB/2AnSATn0oCDOE8ugc01UAiCfZmM8e4o5FcHBN8xdte?=
+ =?us-ascii?Q?uWgZc6SXjhTyYfRMNeuLn6FpH/cAr8MHQCQG7IQUZGDCW4aDZ0FXAhZd587L?=
+ =?us-ascii?Q?DTSLzhJzhUCEbd6et4HEOd/YfIGAxfYz+pj5ssXTgqFZVmdJmMaoMFYf6lty?=
+ =?us-ascii?Q?ROK2jog5ief47uMfg8gkzLUXMOZls2BhMIa+qOnjunwDueXfzfzt7vC7HHVb?=
+ =?us-ascii?Q?eUJOEHKSwCh4kzpCMBAmD/yTLQwMiHGNxZy3eV4/y4t/aPTfGd3QWXkxTE7g?=
+ =?us-ascii?Q?flDFyOg6OsaF99YvKnsVvH9jkQsxXpQo4F+sgG0myHSzSbBZ2oJz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: beb5e150-67f9-44bf-0f50-08df337fdfe9
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 16:40:42.2400
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qp9a3BnLgyYGXzr/r1WorqJ1Zz/IdCLrM1LJgYsftwy4oFmyuFADzoiZ+Gxanzq8lgo/r8MQWegJF9u7XSeTNZ4nAebPtaRpMz2AWgu5RGGZMe6krCwu9Voyx65BjvY7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMZPR04MB191951
 
-From: Ishu Brar <patches@brar.si>
+On Mon, Oct 26, 2026 at 12:33:05PM +0800, Binbin Zhou wrote:
+> The DMA mux on Loongson-2K0300 is not a standalone hardware block. It is
+> implemented as part of the chip configuration registers CHIP_CTRL13/14/15,
+> which route peripheral DMA requests to the physical channels of the CMC
+> DMA controller.
+>
+> Document this as a DMA router. The #dma-cells = <3> specifier contains
+> the peripheral request ID, the target CMC DMA channel, and channel
+> configuration flags forwarded to the parent DMA controller.
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
 
-Add a driver for the Samsung AMS644VK04, a 1080x2400 DSI command mode
-AMOLED panel with DSC found in the OnePlus Nord (SM7250). It uses four
-lanes and DSC 1.1 at 8 bits per pixel.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-The initialisation sequence comes from the downstream driver. The DSC
-picture parameter set is built with drm_dsc_pps_payload_pack() from the
-same drm_dsc_config the DSI host uses. Only the 90 Hz mode is described
-for now.
-
-Tested on a OnePlus Nord with the msm DSI host, including suspend and
-resume.
-
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- MAINTAINERS                                      |   1 +
- drivers/gpu/drm/panel/Kconfig                    |  17 ++
- drivers/gpu/drm/panel/Makefile                   |   1 +
- drivers/gpu/drm/panel/panel-samsung-ams644vk04.c | 356 +++++++++++++++++++++++
- 4 files changed, 375 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 19ec9f8b522f..b409a7f3985f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8466,6 +8466,7 @@ DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
- M:	Ishu Brar <patches@brar.si>
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
-+F:	drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
- 
- DRM DRIVER FOR SAMSUNG DB7430 PANELS
- M:	Linus Walleij <linusw@kernel.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7a520b4d60fe..7cb0ff13c037 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -956,6 +956,23 @@ config DRM_PANEL_SAMSUNG_AMS639RQ08
- 	  Say Y or M here if you want to enable support for the
- 	  Samsung AMS639RQ08 FHD Plus (2340x1080@60Hz) CMD mode panel.
- 
-+config DRM_PANEL_SAMSUNG_AMS644VK04
-+	tristate "Samsung AMS644VK04 panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on GPIOLIB
-+	depends on REGULATOR
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y or M here if you want to enable support for the
-+	  Samsung AMS644VK04 FHD Plus (1080x2400) DSC command mode AMOLED
-+	  panel, found in the OnePlus Nord.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called panel-samsung-ams644vk04.
-+
- config DRM_PANEL_SAMSUNG_S6E88A0_AMS427AP24
- 	tristate "Samsung AMS427AP24 panel with S6E88A0 controller"
- 	depends on GPIOLIB && OF && REGULATOR
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index da5175909d54..01c1ca740dac 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -92,6 +92,7 @@ obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
- obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS639RQ08) += panel-samsung-ams639rq08.o
-+obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS644VK04) += panel-samsung-ams644vk04.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_ATNA33XC20) += panel-samsung-atna33xc20.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_DB7430) += panel-samsung-db7430.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_LD9040) += panel-samsung-ld9040.o
-diff --git a/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c b/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
-new file mode 100644
-index 000000000000..3cbe1fd9aa01
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Samsung AMS644VK04 AMOLED DSI command mode panel driver (DSC)
-+ *
-+ * 1080x2400, 4 lanes, DSC 1.1 8 bpc -> 8 bpp, 90 Hz.
-+ * Found in the OnePlus Nord (avicii).
-+ *
-+ * The initialisation sequences were generated from the downstream panel
-+ * description ("samsung ams644vk04 fhd cmd mode dsc dsi panel").
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#define AMS644VK04_WIDTH		1080
-+#define AMS644VK04_HEIGHT		2400
-+
-+#define AMS644VK04_MAX_BRIGHTNESS	0x7ff
-+#define AMS644VK04_DEFAULT_BRIGHTNESS	0x140
-+
-+/* Power-on order and expected load as given by the downstream supply entries */
-+static const struct regulator_bulk_data ams644vk04_supplies[] = {
-+	{ .supply = "vddio", .init_load_uA = 62000 },
-+	{ .supply = "vout", .init_load_uA = 857000 },
-+	{ .supply = "vdd", .init_load_uA = 857000 },
-+};
-+
-+struct ams644vk04 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct drm_dsc_config dsc;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *supplies;
-+	bool prepared;
-+};
-+
-+static inline struct ams644vk04 *to_ams644vk04(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ams644vk04, panel);
-+}
-+
-+static void ams644vk04_send_on(struct mipi_dsi_multi_context *dsi_ctx,
-+			       const struct drm_dsc_config *dsc)
-+{
-+	struct drm_dsc_picture_parameter_set pps;
-+
-+	drm_dsc_pps_payload_pack(&pps, dsc);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x01);
-+	mipi_dsi_picture_parameter_set_multi(dsi_ctx, &pps);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_set_column_address_multi(dsi_ctx, 0, AMS644VK04_WIDTH - 1);
-+	mipi_dsi_dcs_set_page_address_multi(dsi_ctx, 0, AMS644VK04_HEIGHT - 1);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf5, 0x85);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0xc4);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0x41, 0x47, 0x11, 0xb8, 0xb8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0xcc);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf2, 0x82);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf5, 0x87);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_msleep(dsi_ctx, 110);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x01, 0x37);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbd, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+}
-+
-+static void ams644vk04_send_off(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 10);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 120);
-+}
-+
-+static void ams644vk04_reset(struct ams644vk04 *ctx)
-+{
-+	/* Same timing as downstream: 10 ms steps, the logical value 1 asserts reset */
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 10100);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 10100);
-+}
-+
-+static void ams644vk04_supplies_disable(struct ams644vk04 *ctx, int first)
-+{
-+	int i;
-+
-+	for (i = first; i >= 0; i--)
-+		regulator_disable(ctx->supplies[i].consumer);
-+}
-+
-+static int ams644vk04_supplies_enable(struct ams644vk04 *ctx)
-+{
-+	struct device *dev = &ctx->dsi->dev;
-+	int i, ret;
-+
-+	/* The rails come up one after the other, vddio and vout need time to settle */
-+	for (i = 0; i < ARRAY_SIZE(ams644vk04_supplies); i++) {
-+		ret = regulator_enable(ctx->supplies[i].consumer);
-+		if (ret) {
-+			dev_err(dev, "Failed to enable %s: %d\n",
-+				ams644vk04_supplies[i].supply, ret);
-+			ams644vk04_supplies_disable(ctx, i - 1);
-+			return ret;
-+		}
-+
-+		if (i < ARRAY_SIZE(ams644vk04_supplies) - 1)
-+			msleep(20);
-+	}
-+
-+	return 0;
-+}
-+
-+static int ams644vk04_prepare(struct drm_panel *panel)
-+{
-+	struct ams644vk04 *ctx = to_ams644vk04(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	int ret;
-+
-+	ret = ams644vk04_supplies_enable(ctx);
-+	if (ret)
-+		return ret;
-+
-+	ams644vk04_reset(ctx);
-+
-+	ams644vk04_send_on(&dsi_ctx, &ctx->dsc);
-+	if (dsi_ctx.accum_err) {
-+		ret = dsi_ctx.accum_err;
-+		dev_err(dev, "Failed to send on sequence: %d\n", ret);
-+		goto err_power_down;
-+	}
-+
-+	ctx->prepared = true;
-+
-+	return 0;
-+
-+err_power_down:
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	ams644vk04_supplies_disable(ctx, ARRAY_SIZE(ams644vk04_supplies) - 1);
-+
-+	return ret;
-+}
-+
-+static int ams644vk04_unprepare(struct drm_panel *panel)
-+{
-+	struct ams644vk04 *ctx = to_ams644vk04(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->prepared = false;
-+
-+	ams644vk04_send_off(&dsi_ctx);
-+	if (dsi_ctx.accum_err)
-+		dev_err(dev, "Failed to send off sequence: %d\n", dsi_ctx.accum_err);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	ams644vk04_supplies_disable(ctx, ARRAY_SIZE(ams644vk04_supplies) - 1);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Timings are the downstream ones.  The clock is htotal * vtotal * refresh:
-+ * the msm DSI host scales the pixel clock for DSC by itself, so the mode
-+ * describes the uncompressed picture.
-+ */
-+static const struct drm_display_mode ams644vk04_mode = {
-+	.clock = (1080 + 52 + 24 + 24) * (2400 + 4 + 4 + 8) * 90 / 1000,
-+	.hdisplay = 1080,
-+	.hsync_start = 1080 + 52,
-+	.hsync_end = 1080 + 52 + 24,
-+	.htotal = 1080 + 52 + 24 + 24,
-+	.vdisplay = 2400,
-+	.vsync_start = 2400 + 4,
-+	.vsync_end = 2400 + 4 + 4,
-+	.vtotal = 2400 + 4 + 4 + 8,
-+	.width_mm = 67,
-+	.height_mm = 149,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int ams644vk04_get_modes(struct drm_panel *panel,
-+				struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &ams644vk04_mode);
-+}
-+
-+static const struct drm_panel_funcs ams644vk04_panel_funcs = {
-+	.prepare = ams644vk04_prepare,
-+	.unprepare = ams644vk04_unprepare,
-+	.get_modes = ams644vk04_get_modes,
-+};
-+
-+static int ams644vk04_bl_update_status(struct backlight_device *bl)
-+{
-+	struct ams644vk04 *ctx = bl_get_data(bl);
-+
-+	if (!ctx->prepared)
-+		return 0;
-+
-+	/* The panel takes the 11 bit level most significant byte first */
-+	return mipi_dsi_dcs_set_display_brightness_large(ctx->dsi,
-+							 backlight_get_brightness(bl));
-+}
-+
-+static const struct backlight_ops ams644vk04_bl_ops = {
-+	.update_status = ams644vk04_bl_update_status,
-+};
-+
-+static int ams644vk04_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.brightness = AMS644VK04_DEFAULT_BRIGHTNESS,
-+		.max_brightness = AMS644VK04_MAX_BRIGHTNESS,
-+	};
-+	struct backlight_device *bl;
-+	struct ams644vk04 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct ams644vk04, panel,
-+				   &ams644vk04_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ams644vk04_supplies),
-+					    ams644vk04_supplies, &ctx->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS |
-+			  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
-+
-+	/*
-+	 * DSC 1.1, 8 bpc, 8 bpp (4 fractional bits), block prediction, two
-+	 * 540x48 slices per line, both in the same packet.  The DSI host
-+	 * derives the remaining rate control parameters from this.
-+	 */
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 1;
-+	ctx->dsc.slice_width = 540;
-+	ctx->dsc.slice_height = 48;
-+	ctx->dsc.slice_count = AMS644VK04_WIDTH / ctx->dsc.slice_width;
-+	ctx->dsc.bits_per_component = 8;
-+	ctx->dsc.bits_per_pixel = 8 << 4;
-+	ctx->dsc.block_pred_enable = true;
-+	dsi->dsc = &ctx->dsc;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
-+					    &ams644vk04_bl_ops, &props);
-+	if (IS_ERR(bl))
-+		return dev_err_probe(dev, PTR_ERR(bl), "Failed to register backlight\n");
-+	ctx->panel.backlight = bl;
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void ams644vk04_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct ams644vk04 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id ams644vk04_of_match[] = {
-+	{ .compatible = "samsung,ams644vk04" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ams644vk04_of_match);
-+
-+static struct mipi_dsi_driver ams644vk04_driver = {
-+	.probe = ams644vk04_probe,
-+	.remove = ams644vk04_remove,
-+	.driver = {
-+		.name = "panel-samsung-ams644vk04",
-+		.of_match_table = ams644vk04_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ams644vk04_driver);
-+
-+MODULE_DESCRIPTION("Panel driver for the Samsung AMS644VK04 AMOLED DSI panel");
-+MODULE_LICENSE("GPL");
-
--- 
-2.56.0
-
-
+>  .../dma/loongson,ls2k0300-dmamux.yaml         | 72 +++++++++++++++++++
+>  MAINTAINERS                                   |  2 +
+>  .../dt-bindings/dma/loongson,ls2k-dmamux.h    | 53 ++++++++++++++
+>  3 files changed, 127 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+>  create mode 100644 include/dt-bindings/dma/loongson,ls2k-dmamux.h
+>
+> diff --git a/Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml b/Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+> new file mode 100644
+> index 000000000000..df607d9ff599
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+> @@ -0,0 +1,72 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/dma/loongson,ls2k0300-dmamux.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Loongson-2 APB DMA MUX (DMA request router)
+> +
+> +maintainers:
+> +  - Binbin Zhou <zhoubinbin@loongson.cn>
+> +
+> +allOf:
+> +  - $ref: /schemas/dma/dma-router.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: loongson,ls2k0300-dmamux
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#dma-cells':
+> +    const: 3
+> +    description: |
+> +      Each cell represents the following:
+> +      1. Peripheral request ID: This describes the corresponding bit field
+> +         for that peripheral in the configuration register; see (
+> +         include/dt-bindings/dma/loongson,ls2k-dmamux.h) for details.
+> +      2. Physical DMA channel (0-7): This not only represents the DMA
+> +         channel used by the peripheral but is also converted into a value for
+> +         the corresponding bit field in the configuration register, indicating
+> +         the legitimacy of that peripheral using that channel.
+> +         Specifically:
+> +         - I2S/SPI/UART/I2C: Require adjacent channels in pairs; valid
+> +            values are 0/1, 2/3, 4/5, 6/7;
+> +         - SM3/SM4/DES/AES: Single channel; valid values are limited to 0/1;
+> +         - CAN/ADC: Single channel; valid values range from 0 to 7.
+> +      3. DMA Channel Configuration: A 32-bit mask used to specify
+> +         device-specific DMA channel configurations.
+> +         - Bit 6: Peripheral Address Increment Mode
+> +            0x0: Disabled
+> +            0x1: Enabled
+> +         - Bit 7: Memory Address Increment Mode
+> +            0x0: Disabled
+> +            0x1: Enabled
+> +         - Bits 12-13: Priority
+> +            0x0: Low
+> +            0x1: Medium
+> +            0x2: High
+> +            0x3: Very High
+> +
+> +  dma-requests:
+> +    const: 22
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - dma-requests
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/dma/loongson,ls2k-dmamux.h>
+> +    dma-router@16000134 {
+> +        compatible = "loongson,ls2k0300-dmamux";
+> +        reg = <0x16000134 0xc>;
+> +        #dma-cells = <3>;
+> +        dma-masters = <&dma>;
+> +        dma-requests = <22>;
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 42f5165019ee..78622b255f88 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15351,9 +15351,11 @@ M:	Binbin Zhou <zhoubinbin@loongson.cn>
+>  L:	dmaengine@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/dma/loongson,ls2k0300-dma.yaml
+> +F:	Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+>  F:	Documentation/devicetree/bindings/dma/loongson,ls2x-apbdma.yaml
+>  F:	drivers/dma/loongson/loongson2-apb-cmc-dma.c
+>  F:	drivers/dma/loongson/loongson2-apb-dma.c
+> +F:	include/dt-bindings/dma/loongson,ls2k-dmamux.h
+>
+>  LOONGSON LS2X I2C DRIVER
+>  M:	Binbin Zhou <zhoubinbin@loongson.cn>
+> diff --git a/include/dt-bindings/dma/loongson,ls2k-dmamux.h b/include/dt-bindings/dma/loongson,ls2k-dmamux.h
+> new file mode 100644
+> index 000000000000..1e2907ab069d
+> --- /dev/null
+> +++ b/include/dt-bindings/dma/loongson,ls2k-dmamux.h
+> @@ -0,0 +1,53 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Loongson-2 SoC DMA Mux dt-bindings
+> + *
+> + * DMA specifier format:
+> + *   dmas = <&dma_mux <request> <channel> <flags>>;
+> + *
+> + * The <channel> cell selects a physical CMC DMA channel (0-7)
+> + * For peripherals using channel pairs (UART, I2C, SPI2/3, I2S),
+> + * the channel number selects the pair: 0/1 -> pair 0, 2/3 -> pair 1,
+> + * 4/5 -> pair 2, 6/7 -> pair 3.
+> + *
+> + * Copyright (C) 2026 Loongson Technology Corporation Limited
+> + */
+> +
+> +#ifndef _DT_BINDINGS_DMA_LOONGSON_LS2K_DMAMUX_H
+> +#define _DT_BINDINGS_DMA_LOONGSON_LS2K_DMAMUX_H
+> +
+> +/* UART controllers */
+> +#define LS2K0300_DMA_UART0		0
+> +#define LS2K0300_DMA_UART1		1
+> +#define LS2K0300_DMA_UART2		2
+> +#define LS2K0300_DMA_UART3		3
+> +#define LS2K0300_DMA_UART4		4
+> +#define LS2K0300_DMA_UART5		5
+> +#define LS2K0300_DMA_UART6		6
+> +#define LS2K0300_DMA_UART7		7
+> +#define LS2K0300_DMA_UART8		8
+> +#define LS2K0300_DMA_UART9		9
+> +
+> +/* I2C controllers */
+> +#define LS2K0300_DMA_I2C0		10
+> +#define LS2K0300_DMA_I2C1		11
+> +#define LS2K0300_DMA_I2C2		12
+> +#define LS2K0300_DMA_I2C3		13
+> +
+> +/* SPI controllers (IO mode) */
+> +#define LS2K0300_DMA_SPI2		14
+> +#define LS2K0300_DMA_SPI3		15
+> +
+> +/* I2S controller */
+> +#define LS2K0300_DMA_I2S		16
+> +
+> +/* ADC controller */
+> +#define LS2K0300_DMA_ADC		17
+> +
+> +/* CAN-FD controllers */
+> +#define LS2K0300_DMA_CAN0		18
+> +#define LS2K0300_DMA_CAN1		19
+> +#define LS2K0300_DMA_CAN2		20
+> +#define LS2K0300_DMA_CAN3		21
+> +
+> +#endif /* _DT_BINDINGS_DMA_LOONGSON_LS2K_DMAMUX_H */
+> --
+> 2.52.0
+>
