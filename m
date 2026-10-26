@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793014279;
-	b=tG1zvMXE5uxaEwe+WVSHZyMCJD7RLr70iAqz4yCyqwKHHfPmHO36tYP7Lzj6fFL5Nv2g
-	 v0IBw5ZCIxIuEJ8XgbjmdKb7gdlXzdLJTzmE38EXc5htqfkn348KqjUlx5MF/P68GUsxZ
-	 Lyu2NbC+GAo8X3vxd3GnH3vyTIVlBSOXg7cD7GnlxiTLK7xiS+7pLJ+YC8jEW3XQMQJWu
-	 O0W6FiNAALFrE7h3TLW05LRz1eQGSj88GRB7HJ+PPDJlBMSVSntQAWIZAM45oTZNP9Btz
-	 H6eJ/6CqP8sLn3V9X1qx9Xmrwi6GRavFuWHSW6fIayj7TQhyVw3/A/egKkxXiSZFV4g==
+	t=1793014353;
+	b=YespZayIyI+jpi0Bwi64pXjMHuUP43MPyI9khcuSfjC6u8FpQ+uJ+QHz2R3U9rsTbQLf
+	 zdEWnZ1Tc4+NGOQ75XGy3wJwIJJGrPZIbiZ+VjpqT4+m2iA1Kr6cGFTZgADUPdC9tWb39
+	 IDPbbnh3YpoQUj65R1K00QfJVUl8pYIMHLoi19f/QMlrsfIV9V7AvIvsGtQ0f5zqAM5ZH
+	 F7DY2FbYUAqdN9nvKO1JokmrsiBzOJj5bmco1Srz6en1HjKeu8T+ql5Nmg4oTuplCRvpR
+	 dAuy8NNiflCVGDr3zRqG+rnkTN2aQlEmf0RAinYxpUDo+xJetrXC9/2daA/2k6dVnxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793014279;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=dfWAgnXg4OH5Clvj7K/B5nMB8xGrzGYP7GIzT3Cmmjo=;
-	b=W1fcS/u5cnbmWTkXmPvv9FAvFRkzLluERcy4UeVPBlTAcaEl2kKO76whWi4zJue5F4FO
-	 A8BjpEDHMXHjmlBrmUIdpurPQE60glG7vUVnxB6GhsR4+f2ybNFSwWX7qoJzKmsWTpVUL
-	 fhU8ixy3Lh4GQ6E+chBweOMow/2I9npKG/ljuhJqA8TisFGhmZCX0V3Qe8FNSZe+kkNyH
-	 iHRBzsLvJUmJPLaXdW49zsu5gGLk5E/PWn34QSy5jIGtnBoQb5mB4FwAY/p28pKn7mlVC
-	 D3sprQ2XTAGpIacDO9Fz2uTGtfwAvRkpRCHjDdZdURvY7unHuoTpSrThfETJq9EQesw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793014353;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=X4zJQKfHNJb3WKUmtI/VFAvfPiwg26ts+eWXqEEJD+Q=;
+	b=b/Qvylh0tPzbhIQE2xO1/GlBTZTk547c/++FY9bP46lY5gwH+9Ni+EadLmEwVynpE/NE
+	 IK78RNRiEd/Wp3Ql/iQ3B46tIf0Dy1VWPS+wamxVA6BVQ2c0dqoXqjqSFrwJtIvQDA2wk
+	 04FXeLJs607fYnGTG9VJIHFIRWA5g0BgEVKXqfZoTbFzdGsPmAVoMBX9ldF7MRN9dYCrH
+	 w/YfETBULFf4Adntr88aivK09qiSsJzj1GHbYKU0V+mhecHXYzZDVMjVQkyl7DpvAYNcJ
+	 FXCY10bIqrsVje7WNqjCRgF0Przzxj2e/7kLjvjT39ce8UlJcfIS6iKkvnm/ruSE99Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="CfQxc4C/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WkPpEYnF;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioW2gkQA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A6D6072C81
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25A6D6072C81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAFE606A31D;
+	Mon, 26 Oct 2026 11:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CfQxc4C/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WkPpEYnF
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtE7d3563059
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:31:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dfWAgnXg4OH5Clvj7K/B5nMB8xGrzGYP7GIzT3Cmmjo=; b=CfQxc4C/kewcTgE/
-	Qv1d7WZrlMrN1mNjVUYktg8rKXaO+MniuiEVjqBweZpG8m5lmPGysCoEkLmNV+xm
-	5/8fWVO2hq3iYArAubOuj2NJ4DP8N6zggHTeJPiz564yB4twCoJpxKE3NVqPcSut
-	fovHAokjYqlTt2EAyzcoeGufiXS+O4NPGJuop8gZp+Q71K0Vo0JOMIlYqXMKlWTa
-	nMDCnFFXK/28dbdEz/nS04MV8NkUiQipL9GMvo03JmqxCryK6+fw654eLK+Ua14u
-	uIVniQcEEs/oyCdPKXCyOvUZbBZRUEUB4TrnPL7u0o/niVqVN8EtK8u1DPwx3I39
-	m8PjcA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s90ba6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 11:31:18 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so4238660a91.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 04:31:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793014277; x=1793619077; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dfWAgnXg4OH5Clvj7K/B5nMB8xGrzGYP7GIzT3Cmmjo=;
-        b=WkPpEYnFcFNU7ej5dlx89hAl4uz+8lAS7V8S8D2nQmWY0vARSHfkmsuWkEAArwbN4I
-         uw0oH5av1brBVAp6o15XZnaJZ6tDC0JqnXTAyBLtfJq0PBSzdJyA5ZR8xxbe869LXJ8Y
-         0coZY/5zr/jLA+iIIsrencUxqFdj92fXTZsZeSf+I6t/6C20fzPd7jO71iYmeX4f7ifh
-         xsdV3Feilymx8fXwYH7Cr13jvhH4zHBIYQVM2CH7n77G1aFyfxpdAzTRLP1I3RKXMubo
-         ssFvf4klEuqmFlMa0nRCj7mVxA/fOOgAVYQeLqEj9PT+kooZY3r/i//K3X7aNVREEXmr
-         eG1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793014277; x=1793619077;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dfWAgnXg4OH5Clvj7K/B5nMB8xGrzGYP7GIzT3Cmmjo=;
-        b=1RdrsBlo3S0rJsrn4rjl4g2yN7yHEqEaEcrq8H4mK15zyj+dxD8Lda0kUnEJXapORC
-         e/jnPkyFSd6xkWItjrz/B8vh+uyI6NCihknYjT42WhkxWP/x8kTiLViXgoTASX7Q2INA
-         27r7uIPCqgk0iOFtcxF0uJZZOr2vdv9x+wVyHj9dZn3RQfMP6CtwGRt2jh+wQAZMs8Yt
-         QRxw5bHQo1iN7IQ9a83WN2+fc/B05EiAqV/Zastbw9/44qPfJHKRbjwas4KCmaWTerGG
-         iaedOrbN0IQx3YEsg++TMnRj8eNgq7Vr3y5l6QMXqyArEPyiw4o5W8DfYHwZClNBkAhZ
-         xbtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9BlFXBNmyFbqOFxlLTS/HW5/6OI+/GLvj675JjCTQFayaIp+i+ZW7PuX6Y+xnNweVf/iXKF4ak9mB@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtD4RI/D7bGJovRoaQdMASlsW6KJMlcqzMUgrxZXp7K6PZQ5Lu
-	+wx2H5t5qApEBu+yRFRKECRjXj06VFlY+zVwiOJWJE8XddZvzyyc6PduQ+yZCY3Kk5ndx3rZMH5
-	MTrM2ACeO02PqyNuYITIoUs237Ss4EVVamkj3a1EFgzjCjh7FaHIb8ysGKVop0h5AtQf7nRR3
-X-Gm-Gg: AYBFou1/+c0CWCNR3nu2dCHuhQJ7JQIqdzDcHv6rY1G/R+s2eJg/JGWaQLfAVfILMIn
-	HzT/Hae3CEoFF7SJx6RpWEn06yvDWqW0NHo3x2VAI4UZolCPIRM/S7QahWlJFdzx9GFvaxOmJ8L
-	3rwwFK/zOpT9x3ysfFOB8UP2C4Co6dMGd9YfBdvDyxcnZPFpGrSi5Ka6LVF0mXxFFvciYJg1ez7
-	nXvUyq0ia3uCmh9yaz3G5Q/+RTUmw8FOw/TW/ubxCuk2zL9LtGACwxYmNHZjsUOZ3Rt5alurZzB
-	C1FWvNuYVNyZ+DvjYUVSFYtC+XJouK8VfNzN//drbLQRcmDgdaQxPcFDLFAz5GAnTxTlJUgbnb+
-	t/WGBbHMkPPJhDYfRAOTBV9U=
-X-Received: by 2002:a17:90b:4d0b:b0:3ab:a3ee:33ad with SMTP id 98e67ed59e1d1-3adeac04b22mr5611294a91.22.1793014276947;
-        Mon, 26 Oct 2026 04:31:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0b:b0:3ab:a3ee:33ad with SMTP id 98e67ed59e1d1-3adeac04b22mr5611246a91.22.1793014276253;
-        Mon, 26 Oct 2026 04:31:16 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adec0bcb0asm8020388a91.17.2026.10.26.04.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:31:15 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 16:59:38 +0530
-Subject: [PATCH v2 12/12] arm64: dts: qcom: qcs615: Add GP M/N clock
- controller
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioW2gkQA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667A11F01825;
+	Mon, 26 Oct 2026 11:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793014352;
+	bh=X4zJQKfHNJb3WKUmtI/VFAvfPiwg26ts+eWXqEEJD+Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ioW2gkQAXjeY5842F9NweSJQ48YEqcy3Fc9d1f5Cajr+1zgkNUDgaiivjK+J9RosS
+	 qFY1G2vgWbrZUn2YL/AjGo7BLYbjgBqF+ChkxXRkbfR6ptz8lTHHVT5l2u58N9Kmn2
+	 UHDQlYpfX1CPFAJqOj5J0e2oT53vDqIWZwwjBAJtsTZFn/rXhdtxRhJSLy7hXr9SyD
+	 THKH+xIi3ITkcU4CEdpw4CyN1qzGAPeKKmBIQuvq+vv+2bjPClBh8xHiR2l/sY82ff
+	 NIIcic7Gz3XnTN3/J57wN9Zahy8X74ZDQ6E1l2QQAzY/uKQKJYqWGXEysTV0LhOFLM
+	 YkK88NX8N86ng==
+Message-ID: <sashiko-outbox-185106@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 11:32:32 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,107 +59,177 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-b4-pdm_clk_gp_mnd_v2-v2-12-ff8e4bc8d567@oss.qualcomm.com>
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NSBTYWx0ZWRfX8JTcduCO+zSF
- R64GOBdyPH69g/ypNrjfnmV7KJYybLyOoBQOBsGvWRJxX6tjhN8z+jTfrHQ1V1lJ6505C29/4/J
- xB8ycSt/BHP+lzXfmknlpC1CQeMPveLQKGYnHkOwGWhk7P8QIbnTBewEn3ivSX3w9Jcz/e7Ix14
- NA4CgD1RHu2BAtCBl9dmGOwLVqq8eaPPqg1YvSKoFfQGGnt0MbGPBQzRAdku181/I10q5uiNZpx
- pg6gfeXq0gwn7I2UBam7brSk2WOaAKKoY1prFpbPKgS6XaS97Ag1/oOOAH5mqYqcVvP5vhl45JZ
- aqy6/1JGOMGA5Ed9Nve7FnNHQH5/lhTJ2HxE+noNy9T5iUxuGqasAWGhitOPPIozGYcpgT2ZnjP
- eAHzL/0KjYgzzqGFiUPPWDeMwxIq5wEil5jLWAM/hv+tVhTc/3cJPMn9gjjEZUcFp7tFYkfEcvU
- GWp0FNSnuc7Hfr4o6cQ==
-X-Proofpoint-ORIG-GUID: 5FfgSg4VOv5SD9ycATofoRUp05UcAzub
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NSBTYWx0ZWRfX+nXsAY/ta7A/
- nQqnnRDzad3zwCpMIRBS/N8pE4eQubMpbbsNXYNlpcQLB10IpcUs1vBdrCqwQFdNA+2KNvF9n4t
- zKnYFkCF9Niw12rnmJS+AP/X9fzP3kI=
-X-Proofpoint-GUID: 5FfgSg4VOv5SD9ycATofoRUp05UcAzub
-X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adf3a06 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Sk_Ya6Pm9egUDeeQrokA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260045
 
-Add the GP M/N clock controller and its pin configuration for QCS615.
-The controller uses the PDM XO4 and AHB clocks from GCC and routes its
-output to gpio29.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/imx: dc-prg: unclocked MMIO and RPM underflow on dc_prg_config=
+ure() error
+- [Medium] drm/imx: dc: signed shift overflow in dc_prg_burst_size_fixup()
+- [Medium] drm/imx: dc-prg: unchecked device_link_add() in dc_prg_lookup_by=
+_phandle()
+--
 
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/talos.dtsi | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+commit 7a29cff8d2e3466268f3191ce1679f0e57e395cf
+Author: Liu Ying <victor.liu@nxp.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index 8ed6f2755705c38796698747dfe7bba1afd1859e..c415e782804ca8c9d09670cb8c8cd2353d796b23 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -1611,6 +1611,13 @@ cam_mclk1_default: cam-mclk1-default-state {
- 				bias-disable;
- 			};
- 
-+			gp_mn_active: gp-mn-active-state {
-+				pins = "gpio29";
-+				function = "gp_mn";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
- 			cam_mclk2_default: cam-mclk2-default-state {
- 				pins = "gpio30";
- 				function = "cam_mclk";
-@@ -4028,6 +4035,20 @@ opp-202000000 {
- 			};
- 		};
- 
-+		gp_mn: clock-controller@88d3000 {
-+			compatible = "qcom,qcs615-gp-mnd", "qcom,sc7280-gp-mnd";
-+			reg = <0x0 0x088d3000 0x0 0x1000>;
-+			clocks = <&gcc GCC_PDM_XO4_CLK>,
-+				 <&gcc GCC_PDM_AHB_CLK>;
-+			clock-names = "pdm_clk", "ahb_clk";
-+			#clock-cells = <0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&gp_mn_active>;
-+			assigned-clocks = <&gcc GCC_PDM_XO4_CLK>;
-+			assigned-clock-rates = <19200000>;
-+			status = "disabled";
-+		};
-+
- 		qspi: spi@88df000 {
- 			compatible = "qcom,qcs615-qspi",
- 				     "qcom,qspi-v1";
+drm/imx: dc: Add PRG support
 
--- 
-2.34.1
+This commit adds a platform driver to support the Display Prefetch Resolve
+Gasket (PRG), which sits between a Display Prefetch Resolve Channel (DPRC)
+and a FetchUnit in the i.MX8 display controller prefetch engine.
 
+> diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-=
+prg.c
+> new file mode 100644
+> index 0000000000000..43df5683b24d1
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
+> @@ -0,0 +1,314 @@
+
+[ ... ]
+
+> +void dc_prg_enable(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL + CLR, BYPASS);
+> +}
+> +
+> +void dc_prg_disable(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> +
+> +	pm_runtime_put(prg->dev);
+> +}
+> +
+> +void dc_prg_disable_at_boot(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> +
+> +	clk_bulk_disable_unprepare(prg->num_clks, prg->clks);
+> +}
+> +
+> +static unsigned int dc_prg_burst_size_fixup(dma_addr_t baddr)
+> +{
+> +	unsigned int burst_size;
+> +
+> +	if (baddr =3D=3D 0)
+> +		return 128U;
+> +
+> +	burst_size =3D 1 << __ffs(baddr);
+> +	burst_size =3D round_up(burst_size, 8);
+> +	burst_size =3D min(burst_size, 128U);
+> +
+> +	return burst_size;
+> +}
+
+[Severity: Medium]
+Can shifting 1 by __ffs(baddr) in dc_prg_burst_size_fixup() overflow a 32-b=
+it
+signed int when baddr has a high power-of-two alignment?
+
+__ffs(baddr) takes an unsigned long and returns a bit index up to 63 on
+arm64, while 1 is a 32-bit signed int. On i.MX8QXP and i.MX8QM where system
+DRAM starts at 0x80000000, a framebuffer allocated at 0x80000000 (or any odd
+multiple of 2 GiB) gives __ffs(baddr) =3D=3D 31, causing 1 << 31 to overflo=
+w a
+signed 32-bit int.
+
+If baddr is 4 GiB-aligned (so its lower 32 bits are zero and __ffs(baddr) is
+32 or greater), shifting a 32-bit int by >=3D 32 is undefined behavior and =
+on
+arm64 wraps the shift count modulo 32, producing a smaller burst_size (such
+as 8 instead of 128U) before min(burst_size, 128U) runs.
+
+Since burst_size is capped at 128U, would it make sense to bound the bit
+search before shifting (for example, using 1U << __ffs(baddr | 128U) or
+checking !(baddr & 0x7f))?
+
+> +static unsigned int
+> +dc_prg_stride_fixup(unsigned int stride, unsigned int burst_size)
+> +{
+> +	return round_up(stride, burst_size);
+> +}
+> +
+> +void dc_prg_configure(struct dc_prg *prg,
+> +		      unsigned int width, unsigned int height,
+> +		      unsigned int stride, unsigned int bits_per_pixel,
+> +		      dma_addr_t baddr, bool start)
+> +{
+> +	struct device *dev =3D prg->dev;
+> +	unsigned int burst_size;
+> +	u32 val;
+> +	int ret;
+> +
+> +	if (start) {
+> +		ret =3D pm_runtime_resume_and_get(dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "failed to get RPM: %d\n", ret);
+> +			return;
+> +		}
+> +	}
+
+[Severity: High]
+What happens in the caller if pm_runtime_resume_and_get() fails here when
+start is true?
+
+Because dc_prg_configure() returns void, callers cannot tell that runtime
+resume failed and that PRG clocks remain disabled. When called from the DPR
+channel path on initial plane enablement, the caller immediately proceeds to
+call dc_prg_enable() and dc_prg_reg_update() (and later
+dc_prg_shadow_enable()), performing MMIO writes to PRG_CTRL and
+PRG_REG_UPDATE while the PRG clocks and power domain are off.
+
+When the plane or CRTC is later disabled, dc_prg_disable() will also write
+PRG_CTRL while unclocked and call pm_runtime_put(prg->dev), underflowing the
+device runtime PM usage count.
+
+Should dc_prg_configure() return an error code or otherwise prevent
+subsequent register accesses and the unpaired pm_runtime_put()?
+
+[ ... ]
+
+> +struct dc_prg *
+> +dc_prg_lookup_by_phandle(struct device *dev, const char *name, int index)
+> +{
+> +	struct device_node *prg_node __free(device_node) =3D
+> +				of_parse_phandle(dev->of_node, name, index);
+> +	struct dc_prg *prg;
+> +
+> +	if (!prg_node)
+> +		return NULL;
+> +
+> +	guard(mutex)(&dc_prg_list_mutex);
+> +	list_for_each_entry(prg, &dc_prg_list, list) {
+> +		if (prg_node =3D=3D prg->dev->of_node) {
+> +			device_link_add(dev, prg->dev,
+> +					DL_FLAG_AUTOREMOVE_CONSUMER);
+> +			return prg;
+> +		}
+> +	}
+> +
+> +	return NULL;
+> +}
+
+[Severity: Medium]
+Should dc_prg_lookup_by_phandle() check the return value of
+device_link_add()?
+
+If device_link_add() fails and returns NULL, dc_prg_lookup_by_phandle() sti=
+ll
+returns prg without establishing the DL_FLAG_AUTOREMOVE_CONSUMER link. If t=
+he
+PRG device is later unbound via dc_prg_remove():
+
+static void dc_prg_remove(struct platform_device *pdev)
+{
+	struct dc_prg *prg =3D dev_get_drvdata(&pdev->dev);
+
+	guard(mutex)(&dc_prg_list_mutex);
+	list_del(&prg->list);
+}
+
+the consumer will not be unbound and can retain a dangling pointer to the
+devm-allocated struct dc_prg.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-imx8-dc-pr=
+efetch-v7-0-a0b50cc4fc65@nxp.com?part=3D7
