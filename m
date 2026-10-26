@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793032982;
-	b=cgTvCDrwqRn0c0Qz0X544AU30ONLl+5dzdLRZnAIZMwpLpitUYjBiEqe2D3zCGxnB3LJ
-	 mrg1QKqWYqjiQ2zeCEzH+IRo8maG/FoFXiyEACeAZFRHk9QDSqRTZd0m4BlOO7uEQxN5q
-	 mlGEMPvAm818shsp3GeqSnZCvmMpzwdA66eeDiA3KzaaKXHqEmpOl1UDH5O1pTm3XUJOX
-	 Yg98/zZCLmRLRVlaSKijq6eDnF0OjwwnK+3cG4RZlV6gJbDeXbKYx5Uodooju5j2axPoG
-	 j/lIdtjEAJkOCsFpg1G31xL88w55SvpZEfRxvvCVD1ZMeAhJhvz98a+jcaTisx5HDEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793032982;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=rl/sdudR8wX1+GEVh2fbN+8+vnr5jBWbAdmUCT1slSI=;
-	b=y540RNOkNPoJIS1Lczot1luO1+nJ4JSjeG4TEF6L0F63xUTPFeh4CQHVGrBr1C0txjRW
-	 eu6xUrRu5ROZQvhWwazWI0lrXr2h6Jysw9imb/KgRq82ZqjfheVC9NZK5J7jLtXc8+F1Q
-	 XkT5dtnPhu2ntz8L1L9HKEqqkyrx5ASnMHcDOXJnGLed87v+yfgFi4LRNpcFJ9J1kJIbo
-	 n7P7a4aC5ZQ7G8UAoUfJbqipknu1gLFwkeOpFJ2FHnNfiMBLMINrUjS4zfqTWlnxyL8FD
-	 Komn3SDsZNuL8SqUGUDDOUn3gYPZQ1iqVQ1MbZHEON5Sn8hppcJIBtqiERSebObrdAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 186EF606A31D;
-	Mon, 26 Oct 2026 16:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186EF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793033499;
+	b=qW/hxzB6rRn32IekDREa8wn6e6vXWi4nOy8v62LZMpC6TAfJWEwrDsyLvJg3wDRRq7v6
+	 eCz5HtQOuDgPiVgYP/cmLT8Ap3eZix7X2y3h8jFPYWzZi2LsLVB2MjGdHGn0zrPbvc/Qp
+	 1FVCyR9EjjPPzu2J5+ISgpOOzLoMd2TjvkuKMehVI8X0+7qLTx34mwjBAREZh81SjsqUt
+	 X5XF6aEgR8S6P3dnwc7MpYKKekfAB23TcyXXucldPhYdmeAXYTrFaFMOflsxDC42zOWR6
+	 uJmRTmShJ1mKc+cdbOynqqGlLDHStJvC/bN2oHjZ3qbsEAdloTcg2k1uVXW5NuLH16A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793033499;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+	b=mw2diroR2oOsjXLmYF/vvU9Pd+eIVJGQxWCeQS7aXT3uXglDydPxTyKKKu8DgqmHkoTV
+	 e74k0agnWi/ghgqK6NHULqsCQu5ySFMDj8MhvB7cgm6IYIA6BMseS8m2mugVcY5t2hFj2
+	 CElDNrLMm3p59r1fRhs+wU/cPcvP3KHhF4B7ZRJx8MCz6KafWzq0VQzhvPVIHGDW7DQMD
+	 EoJHTmAbdmoCjDtTkhEydS2Yna6+jCXLiGN9/V9RFFPtq9zZTgpBc5BBT0tNJhtIq84Az
+	 GzVwQOrK9tbQ2qjfvCaJHdtqf/mEHCoIAgo6q9ajhpsOs+UN969rHxSTPjxS669aKxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=jn3GZcEH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.16
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azolkn19012016.outbound.protection.outlook.com [52.103.10.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF2A606A323;
+	Mon, 26 Oct 2026 16:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BF2A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zr2s8SKr
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7295B1655;
-	Mon, 26 Oct 2026 09:42:51 -0700 (PDT)
-Received: from [10.57.60.72] (unknown [10.57.60.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86E553F7B4;
-	Mon, 26 Oct 2026 09:42:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793032974; bh=7rUQZLP+SlM7AbMLViF+r61zYKGh+vmGw1BuFhIyhSg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Zr2s8SKrmcvfq6RKvLPEXc/cBwYmoEbGNi0zUkO4kq9deWneGSqXYqSqpPzXzcjU/
-	 sWWP825ixEHEutVa39SjxwhGoWk6tT6A0FmdXnnTwxdvpiCOmVbWpd7InSXf/lA6+C
-	 37u2CmBH7DJr8wMcBe/V91TS/kWm57pehuEfkP0I=
-Message-ID: <474d4ed0-b011-49dd-853e-697448382a0e@arm.com>
-Date: Mon, 26 Oct 2026 17:42:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=jn3GZcEH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m2YISvo8LzmrNhjpLFLDsr8YV4af0WMS/46daSEi3kFuUYfatoYtrjLdmEXCqvWZI0EuSa1G8Aqv9YxEcxu1whsZgkhPHxwx6hLm3KM3sVckFQNv7bagnOE6AYByE7zWqMgsmsd9OXEbkr5f74gIbn+kuH88s1vmg6qVm2ngREb1Dbb6LAH0wf+9idZpJQP4ZYAIHBZec9YGq1yfZUMGbDqK0tpImt1zkLEIhQd+z8rSSnC81jr4CmsJjOaKgCe60zXPkE7a+rzhNJ4VpkXcFbAkDOzg8d4IVmx1VrXKB5qk/iJNz3v/YLnPE2SbMpAPK32UQMz3m9iEA8NKEi37gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+ b=X/ZW6U7TM9Cha76ZODw2lks1rTc+WDf9n/jCbtZL9AVe0DCI/vFueo6EfJv/uG1MePDpXGv9NvR32qI0sGFRMPvUI/zXtAbGq1FsDskVmgPsb2J1i7C+NhFcSLr8Co0VNk6LHsTE4M0KUSeLO8jk6e0UR9gafnkEILLkU5DqioFERFhsoaeDDAa0R+6TW8pYXvZwGkN2PWrfXmiE/O4WMx18f0hVPLqAiZ6aNvTPml4sHCpfa2AaQVOnlChlO2t31D9gMA0DNnQKl6x2MCoMw3hy6SjZFGi47188agxQhOz5jMMddM0XWHZBM2wbwl88hl8LcXWekX2zOtgcc8yw5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+ b=jn3GZcEHLBtbEgroyCToAaTgfCCHm8B0297+tNCeuLyFujdvwyoK0rq944l45qUl8xiCg9B0UqrwbW6VFAZRa/fPs+xvziG7ct5Jv3RFJUv1WhlMUyHl61/u4iIisUqwPUJ7gx3fBi9DJIxa3ogy9A4qElbpjvb06u1G+dXg2Ek1zSP+R9DFz2HVZWiWG5MAe8DKRHQMBz6xfieB28rQJX3aYbe8AQWqtivfH/a8gRjTAj63FVCQhFUobizaUCYSLk9D6Lk6koLZbEsMslhSAOFhvhlTqmHGUNJTVUEYUVlg8G2DMUWKTm4Flb+3woCeIRUk50OSA6A1X0rOGNSJdw==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by IA3PR12MB389676.namprd12.prod.outlook.com (2603:10b6:208:713::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 16:51:36 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 16:51:36 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 3/4] dt-bindings: iio: cdc: add Texas Instruments FDC1004
+Date: Mon, 26 Oct 2026 11:51:13 -0500
+Message-ID:
+ <SN1PR12MB252830BF288E61EBB262FD18A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS7P220CA0093.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:8:25a::17) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261026165124.119890-4-chernyakin.victor.j@outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,84 +105,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] pinctrl: sunxi: number the IRQ banks from the
- first one that has IRQs
-To: Pablo Mazzini <pmazzini@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev
-References: <20261025142412.112216-1-pmazzini@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261025142412.112216-1-pmazzini@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|IA3PR12MB389676:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0694f35f-fa54-430a-bab8-08df3381656e
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|20031999006|22091999003|23021999003|24071999003|15080799012|24121999003|39105399006|5072599009|41001999006|19110799012|8060799015|260925184616899003|4140399003|25010399006|3412199025|440099028|41105399003|40105399003|261007181701699018|26121999007|11120399003|261005200801699003|10035399007|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?kCTgsWo4+E02MRi0STORBeukY4vUOdyzTS+ga2IGy9BQ/ti4PpZgY/g2FOHZ?=
+ =?us-ascii?Q?sr3ikQ4ZvtuoyKbOBMSZGAGtoie50okFCQf6Cx15XE2NYWeHvBDeUbKLaRpu?=
+ =?us-ascii?Q?SkP8cw8pDs/q99GpHqlva+y7hOKui51JoJhEyOCxAgvoOp8JJvS5HP0eWGUj?=
+ =?us-ascii?Q?5h54juik0Ue1HgbC2nX9xHAMh4Zg58fOlOe4tGj5ZYDsFCGj3sPBILA/R1T7?=
+ =?us-ascii?Q?G6S/GSNRhV6nYKfsLsoUChkFqTdtyh0TVetDs3C6TumW/v3YXKInC2KsK0se?=
+ =?us-ascii?Q?95PMCGGH+oUxwYl0Vwm2h3kkpJAigl1JLTw56NuavTrjnidyQqFq8cGQlXzi?=
+ =?us-ascii?Q?hSy6oMReqEC6I4/XurH2ona2hPfBfMbf8eoxOMwSQGnfpK88hX0BJqelXgFE?=
+ =?us-ascii?Q?sB3m/xaIlx7e66nSVpPO1vcDUrQrbgWMU8CvR2EbtLAO1/BkUj9kIYbaH2EL?=
+ =?us-ascii?Q?XwQmYRqJWoNVG70gUbZGzU+3fpP67EaXjfHG5qsu30TYvWtsmy27YygJzo67?=
+ =?us-ascii?Q?4ln8V9lqI1vSlq7NkkgLQ4WuFUJRf7C4TTsq9henBXdNgvgJDsGmmuG8wd4b?=
+ =?us-ascii?Q?oD6X67SepeqPERc10MWOB3M3KbQ7MCyNsvNyIrmk1+y0TidbzE6NHwMeDhNd?=
+ =?us-ascii?Q?eKWQKYxv8SBn+ZkZQziGVKMuE0e2m0PCw8Y2IIyRkCdvfHWP+wGV3Kgk+jEQ?=
+ =?us-ascii?Q?oEzpk37y9F9QozWXLy6cfK3zwJGHiPABoeIrrh9zzXu/2QKyVFMFRFo623Ch?=
+ =?us-ascii?Q?VO9boR8dMyg+ss+2gBjI0tmaL3Xc6iSxI5f965E81mzVLh3oHdZb8N9inRff?=
+ =?us-ascii?Q?xCBpeOXz5g82fK9R/tARNelQxJfWXWITiQW1ExPSKIuncGmC8BwluOJVpNtM?=
+ =?us-ascii?Q?xxgleca4mQ9GU2hfNFVRZAzMS2syGPRwbRTN4bAUtczHtwkR+py/9Bf8qH35?=
+ =?us-ascii?Q?Nw/CtBYwwgLxTJb3PnsL12Ep/2lujhazjmvg0M79vs7eQggmGHErJaMZ4iH7?=
+ =?us-ascii?Q?7nJlyzMIhm1AvdE5As32hs/4+AajoLizzLi2oPeLRtF5AhBAto2AQf55xnUQ?=
+ =?us-ascii?Q?/T+oI7VXU68xPiFCdbj2anZlsaFqp4ZChg6i4gxN68+lqqvK6HPJENd7C/Hs?=
+ =?us-ascii?Q?IODWg88p5l4+vPJuwymEHY9q4ydeahbS4RfVoLdtWeEeyLwDFpW7QIGMZBGx?=
+ =?us-ascii?Q?jAQ4M9M5IU0dzf4neGILbHZigSjrOL8DKusd9w=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Efj080scUx1RjenXdN647n9AHJYfVU1F+GPB5D7nRqKOO9kfUpilcL867Iz5?=
+ =?us-ascii?Q?s/XRdItDjEDX2e9WcsUTKBpCAbKsnRu0hiXuu9LoByCPqPcc+wYnHS+9L00a?=
+ =?us-ascii?Q?n+wBnh5gl98H7g9ivijgs6eb1Cu5Q9QIltO8NN9VjofEL3nwdNoO0oHNln23?=
+ =?us-ascii?Q?iAjRSKuv67cyymD1fa5ty+7qqyh4zR8cltF6o+Aga2NoRszXHBTDU45/evp+?=
+ =?us-ascii?Q?dGMFei9ylyE5hxEhZRT/7XH/36dcpr8nvMPzz8SG6qGAFMicuQqKKu9NIhlv?=
+ =?us-ascii?Q?LUuSfyk9K1PKd4oqB8nDHN/0W97jPKbDKwOzq4HAFm3rdK4k0xWriPecHhNR?=
+ =?us-ascii?Q?PWxSBxoA1T0DEjk3DSOEuzwumtLS5TWvBnVCUTvgKDaMOmnkf/04d39LwOmt?=
+ =?us-ascii?Q?OMZtHN5CL0TI80OVC+yTXkopzVNs05bdL0GWsAjvrsDcyEVr6PBHpVd2YiTG?=
+ =?us-ascii?Q?NbYy8Uy1YvBlWoC7wtbchG5SzRDQgsgs74UfEZ/JUBf2RRRD1PFmpxcTcNrb?=
+ =?us-ascii?Q?2YDEbeUk7nbMXRTQ5q33qMcr/jVBUBPrbH586Upx1SlKkvfkArrxeIDmRmt7?=
+ =?us-ascii?Q?7R+0bjtXLqvRC1hb+dYvN7/hIvPJRDigtq/vh5Df/3SIjBl4Dm9k6tt8YTti?=
+ =?us-ascii?Q?ZPCB7WcCaXyfZUGpZo5Og/YwKpBqdlt5UnGD3H6/aRDpXeMrjiJ7ONqjnYFA?=
+ =?us-ascii?Q?QzspVEiVCqmiAS4lPqNPgvc4idhQUObgRPLe+wZ2RXqrX0qFNMFKFCyPLS2j?=
+ =?us-ascii?Q?byYKa1HMG6825m2kcFhHdsoG4IUqSMIFbGg+53GS7YT/rv7bn2gwNZAuXJ05?=
+ =?us-ascii?Q?WlTBHmuF+jS5hYYB/E6VCDOtIX1EZHA1FocIMC10jIYxaN9XirPiDvQGthNk?=
+ =?us-ascii?Q?GY7MqK1t3vc7LJy1urXIPz8aWb5WzmaWKHU5QhBhqoNvuX7f96mE5kGHME25?=
+ =?us-ascii?Q?NOm5YhxHVLbBDMWQagpxw9lTHv6TdyLntCAyqiAz54tvsI6BTSy3GDp9S6Nk?=
+ =?us-ascii?Q?Ts/ZqmdNa7P3jOHVYRV3IBj48t7OQdw+63NScFnujZINCZW+F2OSWRSN2qPK?=
+ =?us-ascii?Q?HOPSBcv1FOPf/A6h8SEUzxQY/kaZba/JPTTddnKzZDCfbOEmnl187C97KGN+?=
+ =?us-ascii?Q?nlj+PQWBQyFDwTrcCgCj/TQwU5h48WDwfmtNtfF5btFfqESdKOpr4cEbglBC?=
+ =?us-ascii?Q?CagBuPdrgDqBkISSSIBt66cDNvxXqiyJL3+MQFTkTXC/1nZnrUcbM2fSivL4?=
+ =?us-ascii?Q?B+JSMpCtuCVtcF9sT+QVUPwnIkqzIHvmke62mullE2f53hd1Ed1p6Ayr274r?=
+ =?us-ascii?Q?gjpCGO2dV0k3g0Q5qR/T6DJ2DmtJPUMPuWDz/VwV88oDvWUhmk7/qjwC4OHn?=
+ =?us-ascii?Q?oi5F5mM0+XB7dTkFz1TDnyHIIedFuSPGG5C6GscnEPLlLLlv8Q=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0694f35f-fa54-430a-bab8-08df3381656e
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 16:51:35.9306
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB389676
 
-Hi Pablo,
+Add device tree bindings for the Texas Instruments FDC1004
+capacitive sensor.
 
-just some heads up about process:
-- Please do not repost that quickly! The kernel doc says to wait at 
-least a day, but that's only the lower limit, in case the series is 
-almost ready and there were only minor comments from real(!) reviewers.
-I would wait for a couple of days, after you got some proper reviews.
-The reason is that reviews (by humans) take time, and it's not like 
-people are bored waiting for some patches to look at. So they might be 
-interrupted by something or need to do some checks and research. It's 
-pretty bad if their effort is ambushed by a new revision, which now 
-means they need to start over.
-- Please do not repost just because Sashiko said something. Wait for a 
-proper review. It's probably a good idea to acknowledge the comment, but 
-don't just re-post then.
-- Try to avoid posting inside the merge window. Depending on the 
-subsystem and maintainer, your posts might just be ignored, because they 
-might be busy fixing up conflicts. But more importantly: you are missing 
-the correct base: you should always base your patches on an -rc1, unless 
-being told otherwise explicitly. And since -rc1 won't be out till 
-Sunday, this is not a good timing.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+---
+ .../bindings/iio/cdc/ti,fdc1004.yaml          | 46 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 51 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
 
-I will comment on the patch set separately.
-
-Cheers,
-Andre
-
-
-On 10/25/26 15:24, Pablo Mazzini wrote:
-> The DT pinctrl helper numbers the IRQ banks from PA, even when PA has
-> none. The A523 got a DT interrupt for its unimplemented PA bank to work
-> around that, the A733 would need the same, and on both PK is written
-> past the end of irq_array.
-> 
-> Number the IRQ banks like the static drivers do, with irq_bank_map for
-> the A523 and A733, and drop the PA interrupt from the binding and the
-> A523 DT. The B288 (IRQ banks on PB, PD, PF and PG) then needs no
-> made-up interrupt.
-> 
-> v3:
-> - apply irq_bank_map to the A733 register layout too (Sashiko)
-> 
-> v2:
-> - give the A523 and A733 an irq_bank_map, and drop the PA interrupt
->    from the binding and the A523 DT
-> 
-> Pablo Mazzini (3):
->    pinctrl: sunxi: dt: number the IRQ banks from the first one that has
->      IRQs
->    dt-bindings: pinctrl: sun55i-a523: one interrupt per implemented bank
->    arm64: dts: allwinner: a523: drop the PA GPIO interrupt
-> 
->   .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml   | 8 ++++----
->   arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi            | 3 +--
->   drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c               | 2 +-
->   drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c               | 5 ++++-
->   drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c                  | 8 +++-----
->   drivers/pinctrl/sunxi/pinctrl-sunxi.h                     | 7 ++++---
->   6 files changed, 17 insertions(+), 16 deletions(-)
-> 
-> 
-> base-commit: 4f0dbdbdb3ad122e8bbfb1d722fd584bac7124db
+diff --git a/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml b/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
+new file mode 100644
+index 000000000000..8366afd025a6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/cdc/ti,fdc1004.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments FDC1004 capacitive sensor
++
++maintainers:
++  - Victor Chernyakin <chernyakin.victor.j@outlook.com>
++
++description: |
++  The FDC1004 is a high-resolution 4-channel capacitance to digital converter
++  that works over I2C.
++
++  https://www.ti.com/product/FDC1004
++
++properties:
++  compatible:
++    const: ti,fdc1004
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        cdc@50 {
++            compatible = "ti,fdc1004";
++            reg = <0x50>;
++            vdd-supply = <&vdd_3v3>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 360977678f70..69c23ae21016 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27388,6 +27388,11 @@ S:	Maintained
+ F:	drivers/net/ethernet/ti/cpsw*
+ F:	drivers/net/ethernet/ti/davinci*
+ 
++TI FDC1004 DRIVER
++M:	Victor Chernyakin <chernyakin.victor.j@outlook.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
++
+ TI FLASH MEDIA MEMORYSTICK/MMC DRIVERS
+ M:	Alex Dubov <oakad@yahoo.com>
+ S:	Maintained
+-- 
+2.53.0
 
