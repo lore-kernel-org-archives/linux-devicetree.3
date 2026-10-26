@@ -1,99 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793029272;
-	b=kMRFaWip7yJQM8J3DxA4c8Yt5Tyu7oap7WT05jSRRFkqxPUGSEPJASUr+SRtUqQtTcZU
-	 ne/ETMgPhsYRiFF16uvbKEUmSsnleEBeOkn4FLukVFB5ahjIDxqKMMwI3ZfmGZttRRBzr
-	 Nrehn/rmFMVM4mgwo3u8+TwAjXmvhjblJoc2RjpzxD1yJj/s4qg7kYh4qIi6Q9NXnEjXC
-	 cpobKAk56S8npPDjLTEpe1Svh1T0bG/gQM3rR+8IADxXSNRuOlwWcymvXIZa4PzTsPFnC
-	 5a6M2sujj3Jg7wi+hfK/hGlCskOA8H7iyXWCcCXOwSSvdgOagmT5eUkyXP3udx8HHBg==
+	t=1793029561;
+	b=4cZ42QsD3iWS/ptQoS3sajFmlf4/Hg0kHrxTfEHbMFtA6eSP04wj8JKPrmvIdhD6sO8s
+	 DpQzqG7OD/o/PVJCbibQBv9pgesmPzCtXT/kA6LEptr5gSJQFGRB3HY5gUFTo9uAyA6aU
+	 9gcmzkN4UUwBWF+8yFXIPO6EaGiDThJgZjKee20u+6quV/PVwzFhbB41hIT4ced3CGysV
+	 U8GSKOESle/jNDidOe8Czq4b+pVq+jFQpJfsMFU2/+/fRlT23+DjVS1w7oGaiJTjPaEt9
+	 2qggf9o+rFtC0hbeXMOVAOuDf+wXIyPv9E0Bg+JcSjaDtheHdoZHRYpP404zUcTXfHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793029272;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wa7jpdJ887MlxcgoqqazDZr2I8peh/arTuSgNh6Gg2Y=;
-	b=kURrupklxDkK1D0M7wvDIWN1lQcdZe04kSWVDesl0STdhzSIFmRiTx3UralP8qYd01dk
-	 3ddQxeB8XXaniM9ah4fWVzqFRnguV0sprFgSkUcp/DImjVu+OTNIdsYHhxzCwGwSULcGv
-	 n9LVrhuW55Vt6QHa4jpu6RCnrPofUyFe0azbb0um1YluN2RvEdEbnDXXPgg3J2q8pG6G3
-	 aH5Z/KcVZfk95SvkBFJccpAHRHpXOKhyd60Ob8srvIEmFqzj7clvdHgJEY0CxmRvTgQCM
-	 Te4K0BzbMRJzFnfOc6/q4djYpILENATNnMDd+3crOOai8bePx7qIHWrJKjXTLZfYelw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793029561;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
+	 Content-Transfer-Encoding;
+	bh=XPlIwY0S0sn4bBSh2Xil5xdrfx5N4jwTm973vijhd5g=;
+	b=HHmTuopQTaEXN8gB52QEAx6vkwEH6pJkm98y79X7vWIWKBnNC+n3ZaTxYX9LHFaTor+7
+	 oicjUrN2bgSONxntCubqpWIKANMj2o1aR1gIpEQpn30eT7zfRpRciJLHPZ3n9WLzN9Gut
+	 2DJHUooy53ckcjNvMDaGATGFHj5azQw7GCcYRDZKVr99nGlVERHaGTY879JV3LXkochXY
+	 i5iMsqMjqhRzUfmeKs6Vv9ZMRHqCTIaGiDDSVZsinDV+YkBVoau2ypSoeIZWqFpw5lST9
+	 yPjiJqQmO/xOcF4jYN/2I1dmP0tE6OKaw0gE22KCj+kub99WhwrqRe3Y8/GPddsBWGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cHSv23ao;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V28b+h7x;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23084606A31D
-	for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 15:41:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23084606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41D3606A31A;
+	Mon, 26 Oct 2026 15:46:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D41D3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cHSv23ao
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-55650fe1f0dso1721805b6e.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 08:41:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793029271; x=1793634071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wa7jpdJ887MlxcgoqqazDZr2I8peh/arTuSgNh6Gg2Y=;
-        b=cHSv23aoKBvmNZzrwMqxEQ8owFyPvY3MMf6al0nBxabp4LETXHemewHKhv7Q6xdcAl
-         PP/BiYXMxGMdvPNh9Jm99FqfF1st2GyowVSbDLa2gaQrPEeClPc03oCijVPXssWs3ThN
-         t5y8eV8XylNDdIX7Ar/4U3adMFLuWENGGr771idWkJx/FRH1q+DOcnKoCV/pnu+zyTrQ
-         ZvnCif6tg1QJH8KlBjDJ1LCSWPqSquzsPzb02HFJbUYBJrCiWsKOnNVL6bgx8rtLrzvR
-         utd60SPwNoJnG0zwcSxlX4PJ0H9zHCnCPPlVq5pZZ9yK4tr6dRnnOcnxAjEt3Yszd6X1
-         9Duw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793029271; x=1793634071;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wa7jpdJ887MlxcgoqqazDZr2I8peh/arTuSgNh6Gg2Y=;
-        b=ibx5VO7zXH/Y/F/rRHz503kUj/H+6+D9U+jtCLbXY9Z9DhmM1LvBmo55OgSVZVWQNk
-         nrnUCMzuybTB7m/LB2Sdot9UFxxJqkgsHkLHVhYHNSzRVCL3qFzGkiVG1iVeHRKVxZUS
-         ddG6O0vpdxz+S+Z9ZzVZ7hFKpkCLxWm5gMj1X2/vUHkzzl/iXmSGiQp1ip6R1r0/0Scz
-         s12oKgrjkdxCZBR+5CrHHVOeP9LsLUgpba6V54ozfWkKZ4AhdpxynYqLFaajgUIYzVby
-         0jvPRdM8Awxaxr0QTxh7G/mo/f8Jg8fPpPagN8b5CDXiERFRomB39bByGoV52k6Jv30r
-         MSFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKFuAZvf5hgtegjSY6sGi5ksCRCt+JmwAaDdi8Q9hKOB4rzBo5jt5poCu/r+QWWwPEh6bLyL1YgzvX@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/Nd3VgZzwc4QYEbVJS3mFd5EocR/hL8S4qdIEFXsZHyHPb0K2
-	MuEE0wiji9VG2XaJIXvsFlcGx8S7fsqEM1fIITKDADsEYfD2bV43iStm
-X-Gm-Gg: AYBFou3ESHJX+sQ3IFZMYC7mYdL+U4kpgD7hw16CvAud7CSyI+vB8b2DyQ9g+8GPfiA
-	knUSv9CcvCnEc2tjsk7JMqayXC922KMsj5QXPFGEvMQkP/ZFLMGZ8RP1m32F8ohQGXG0S4yQ5zc
-	M3A8RFqfEjqp5s/TtbSDqVtoBaqP5n6Gvos/a96TrK9nQGcG5UJ0TMr5pzmd2n+0vPqej6dZVXW
-	3RE0fDsZEaWb94NFicgBU94wvrs9lEfj207U5h883daOEM3aX5X8QHGiwRGF1vGXXUnuIE4xSqG
-	xIa9Azww6hus/lt85P4zn3MW1ft1CU6OmMmdLb2LwQRxZaZdThByGhmqlxWVrLOaQYNfniTs2pA
-	Bd8pXW1ZO9rYeBZi9mxSht6ZMKuiVXZb65J/X6iW8PfHKjY7p7OEXIFyFYBmrzg+rQSH0EUJjhw
-	QAeG1eFa2gKq4YrJpBP83MSFMaXRUGj9ZDEBO8MnOGd4yB1XWN+9IXoMjcz4EaOt7z19isgPFlS
-	eQM+8s5OG+5rKdN1CB6zFgXc8KoIfzR66GcmRRQfabBAn73ASYdj4r2HSeWk/IXtITBkvnZoe/K
-	qZRFJI2QYg==
-X-Received: by 2002:a05:6808:1202:b0:4d6:90d3:e185 with SMTP id 5614622812f47-55c002f9613mr4694800b6e.46.1793029270943;
-        Mon, 26 Oct 2026 08:41:10 -0700 (PDT)
-Received: from jeffmr.mynetworksettings.com ([2600:1014:a112:1526:a95b:f8ab:d834:50c9])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a84315c0c9sm4746441fac.7.2026.10.26.08.41.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 08:41:10 -0700 (PDT)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V28b+h7x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793029561; x=1824565561;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gr6yVywM7WwdkGlnhrf4VhiYPUPRKPdnfkDFTc5rT8Q=;
+  b=V28b+h7xZo4WzeWbr5cygBgLjVpXr18T4De1VL3gfDhG7rSQlDQxS7it
+   AySfBV+Yxzeb6nxjfvOFgJwTMMSB+ab8IZtTudOAKVfPl77cwD70RWjhZ
+   HnDXCseHPbDsv4oEGHww1UuoRxJczylgRzYK2adde+MQROi6MnJ9fATSm
+   RE0WyE/6x/eKS2hjK/BB7nK1J2bZVjp7yiib/h4nObFK7sRvMtrWrk7Kf
+   Ag4DVR13Mql8XO42HJJ7eQAFjDJDO5QG8fYxvABX6SCFuMNpEghmyq3cn
+   Yn/m5/Nb6ngMO57fdmx4G645ewMTh3MfpZft1zEmHQTHOKbnEel1BFFOQ
+   Q==;
+X-CSE-ConnectionGUID: AdKkajqKQ/yKD4nNMQXBKw==
+X-CSE-MsgGUID: q8wjWd7DQt6tMGqG59BGXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1730843"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1730843"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 08:46:00 -0700
+X-CSE-ConnectionGUID: iG/+IbbbQmmQmtRlk3ZqgA==
+X-CSE-MsgGUID: RX6t+cpLRXaHAx7WnzRzmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4369322"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 08:45:57 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
-Date: Mon, 26 Oct 2026 10:40:00 -0500
-Message-ID: <20261026154001.9323-2-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261026154001.9323-1-jeff.roach0@gmail.com>
-References: <20261026154001.9323-1-jeff.roach0@gmail.com>
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH v4 0/3] arm: dts: aspeed: add Intel AVCRP and JNCRP BMC platforms
+Date: Mon, 26 Oct 2026 17:40:27 +0100
+Message-ID: <cover.1792749922.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,28 +86,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-Document the HP OmniBook X 16-cp1 laptop, based on the Qualcomm Mahua
-(Snapdragon X2 Elite, 12 cores) SoC.
+This series adds initial upstream support for the Intel AVCRP and JNCRP
+BMC platforms based on the ASPEED AST2600.
 
-Signed-off-by: Jeff Roach <jeff.roach0@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+The first patch adds the board compatibles to the ASPEED binding. The
+remaining two patches add the board DTS files and register them in the
+ASPEED DTB build list.
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557ce..4dd57e8663 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -191,6 +191,7 @@ properties:
- 
-       - items:
-           - enum:
-+              - hp,omnibook-x16-cp1
-               - qcom,mahua-crd
-           - const: qcom,mahua
- 
+Changes in v4:
+  - Rebased onto aspeed/arm/dt of bmc/linux.git. No other changes.
+
+Dawid Glazik (3):
+  dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+  ARM: dts: aspeed: add Intel AVCRP BMC
+  ARM: dts: aspeed: add Intel JNCRP BMC
+
+ .../bindings/arm/aspeed/aspeed.yaml           |   2 +
+ arch/arm/boot/dts/aspeed/Makefile             |   2 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 322 ++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 276 +++++++++++++++
+ 4 files changed, 602 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+
+
+base-commit: 8db593481c8669eddb8b4e21ea44f3fa11d9f030
 -- 
-2.55.0
+2.43.0
 
