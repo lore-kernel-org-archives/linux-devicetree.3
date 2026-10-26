@@ -1,55 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792974602;
-	b=rBN6nwUmYeQTX9EbFx2L0mCxWH4T1DA+7Bjr098SGWqalldoVr8YTbfSJgVejvv1fMom
-	 hkBLl0MIk8QZ0ZC2IULBmYPbDRmDt9vSknIyW0ki0JaPtBKEwh+Eg8V51eFET1HX9g55s
-	 1WcqVUqs6fajtf/c31PNzQ37lPZTdLEWztpK2IzEFPnKCdymnWyuxpYJz6L+iO3RUuIRi
-	 2J4v+jQU9J2Vv2FKpEDx4MTcM/1I3b23fEpiTIzw3L3hU1RzVmMh+HaLGfBZi/gFnWXmO
-	 COdoHBBWgD5mRyR/5C6R1eR0ft4UOpcRj1KxieuaT32wT6DWSzeUK3F4I3f9THApowQ==
+	t=1792974834;
+	b=gPoIqpd2WwoSWImxQe36fJFezzL7BKWIaIoG8nGl08epu3NHUGkbp7KSL/sVqsmmAOw4
+	 6EFvusShtZclkGQQXe1F/aRrgCbO/G+KY5FHbHGNncdE3Nz5zYXK3Ln1cfO34sFBw+DIF
+	 amPZ2CxqZ+DHWTPRkE0amFSn35C0AJi8WTxnhuQICC44gcbzAmxcmQLOudNoG0aght124
+	 suTRN9EYDLECR+Ut8iW3sFlitg7SDCg55TdwwsTV86Wg9SMSytALsxda0200IKa0annrY
+	 5bQJvtqG1UCbFldg/+D3Uzgr8euHjg7DXIZFZQ3LtZevt4hivhvxNWJJS9y/s8RTmwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792974602;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=xJ6FY4Qdb47uak8OWZMc6ZVyTlTQEH16GVjCHyoaP2Q=;
-	b=Pd2FkW+Hrf80xKDpH+nJgSGvG7KAVDd3jd3e+VfOc5M67Z8qwkCwy7Nt/vr35ovz2Z/H
-	 EvjYb2jOQyy/0K5hdl69ieENp9UzWlrcRPPbTE4QWBvqhvuBg2DIhJBXfk2jfoyDOEqql
-	 tapMLgzeSRF+BuJbMD/2gWKuhT/Dy1LsUasf0r4jxFVePkuE3qkCKkWGoU7Lo1dw5XCWM
-	 f9ix8rMm6Jk524EfqrOF20odNq5zMphrtVm3tm+OErf7R+hBqdb+S5Hqe6BJVOo5jc51q
-	 CIoaSHYcDjilq0cN0IJCxudiduUEYMknChyXzwZ0w8p7nhTcdj7QJzDTqENPgmJzJzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792974834;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
+	b=JF3Z9t4SWfT7LYCqU1giqFLVE++UBzko5p9dej9qyANJmbNPqmRlAjBEyiJ/g+qrEQ9y
+	 2BnSUDRdtom04v2gHTfHepJHs6NR2alf2ApiEw89GmjYBoSlWV1sF5BvNA9HCxPuX+uun
+	 rHsJS79SNIzv3xziYW0Zh2gfQ2iQyhSyS37j2064IcWHBDxr0fwyXQ0vAM3KL4qPXMhzx
+	 2CH/T1GRzam/vd8h2YKNJpqq9mVGuvDIHRzPqE2LruAeWWY15Jg8rs4fmF9py8fdoLccB
+	 vmFU9SGTT4+u58KFqSdQC1ObxUDBsYzlYbwQfTcygO9uY95f8dpzbE9h06iRVloJ2dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d41uLzfS;
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u;
+	arc=none smtp.remote-ip=156.224.81.108
+Received: from mail-m81108.xmail.ntesmail.com (mail-m81108.xmail.ntesmail.com [156.224.81.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EAD606A32C;
-	Mon, 26 Oct 2026 00:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27EAD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF3D606A31A;
+	Mon, 26 Oct 2026 00:33:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF3D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=d41uLzfS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792974599; x=1793233799;
-	bh=xJ6FY4Qdb47uak8OWZMc6ZVyTlTQEH16GVjCHyoaP2Q=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=d41uLzfS1MPYFTi2OfyujG1gAowG2CJ5NFI+8Hg3gEFOhZLm9lLhUnClORzgVfLne
-	 IL0h77vN01oj23kKUDUkisZBHZ2KGlktwR7kFpBRLy0qctAN2EMtObQnWEhJCC+sXK
-	 NPuiO2lUxTJCNatdQagyiaagKbWE528YRZ9c1J0HfIICp4XRHzTqwBd0/GDuC6DK18
-	 BuGzWVAH2Ef5XftrK2+FHlNPjqXM0q0+hx+ZXX85Q9ecz6ZxpdxLnFp0fw5Ax2itky
-	 PgGCuAajb1lsO64WCd/invuRp4zs+BRMlLtXBgFhzr5ZXZY3i9ZCWbpdkRw17KSHKN
-	 JTR3L1bxcPIdA==
-X-Pm-Submission-Id: 4jCZJk0wDXz1DF5K
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Date: Mon, 26 Oct 2026 01:29:42 +0100
-Subject: [PATCH v8 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
- introduce EC
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HhLY1O7u
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52470fe96;
+	Mon, 26 Oct 2026 08:33:41 +0800 (GMT+08:00)
+Message-ID: <4b7bd146-93fd-41f8-ad3c-88333adc73b4@rock-chips.com>
+Date: Mon, 26 Oct 2026 08:33:41 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,140 +48,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-dell-xps-9345-ec-v8-3-251c2cbfbc6c@vinarskis.com>
-References: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
-In-Reply-To: <20261026-dell-xps-9345-ec-v8-0-251c2cbfbc6c@vinarskis.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- linux-hardening@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2697; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=TjL8tqeyObvnnmH2fSvubcRlGgOdAfNbx21FJciGlxM=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFn35jPYKN9LjlQ1e8f/udHF293nr9q9q0o6b/UzApttP
- 1xf2WPXUcrCIMbFICumyNL952ta16K5axmua3yDmcPKBDKEgYtTACbyzYDhv0/TkpvR5TP/J+td
- y7O78svLwiFNO3T54tBYt+mBAv5S/Ax/5SavNn68T7uzUOWCfnJx+7ZTH+q/XpQ/92PFvvsat6b
- WsQIA
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, heiko@sntech.de
+Subject: Re: [PATCH] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
+To: Leonard Lausen <leonard@lausen.nl>
+References: <20261025205339.14539-2-leonard@lausen.nl>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261025205339.14539-2-leonard@lausen.nl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa175a0986703a4kunm2868e8063c52c7
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBhDVkwdSU4eGRhJQh9IHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=HhLY1O7uNKLtSMhQOf0XfdncyG4p3WeNQVKSDyPYpEqyPUruh0VpprvnPhn0gk4CXO3hcA3hJNw5rU38d0ohVwU3ZL0PS7eatueMYSoMngTL/INn+AyrJ7myT37A/c/CTUM8wcWx54/IIgwornfCtkF8mFvoqDfT1OCbAJS65DM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=+9VnkTVZa5ILKHrRCMZEXP+36VdKYsWK9GWspe2p5rE=;
+	h=date:mime-version:subject:message-id:from;
 
-Describe embedded controller, its interrupt and required thermal zones.
-Add user-friendly labels for know thermal zones.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 65 +++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index f48e6bc35006..3f0c17c845b3 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -759,8 +759,32 @@ retimer_ss0_con_sbu_out: endpoint {
- 
- &i2c5 {
- 	clock-frequency = <100000>;
--	status = "disabled";
--	/* EC @0x3b */
-+	status = "okay";
-+
-+	embedded-controller@3b {
-+		compatible = "dell,xps13-9345-ec";
-+		reg = <0x3b>;
-+
-+		interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&ec_int_n_default>;
-+		pinctrl-names = "default";
-+
-+		io-channels = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		io-channel-names = "sys_therm1",
-+				   "sys_therm2",
-+				   "sys_therm3",
-+				   "sys_therm4",
-+				   "sys_therm5",
-+				   "sys_therm6",
-+				   "sys_therm7";
-+	};
- };
- 
- &i2c7 {
-@@ -1025,6 +1049,37 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
- 	};
- };
- 
-+&pmk8550_vadc {
-+	channel@144 {
-+		label = "vph_pwr_therm";
-+	};
-+
-+	channel@145 {
-+		label = "usb_charger_right_therm";
-+	};
-+
-+	channel@146 {
-+		label = "ssd_conn_therm";
-+	};
-+
-+	channel@147 {
-+		label = "vreg_rtmr0_1p8_therm";
-+	};
-+
-+	channel@148 {
-+		label = "keyboard_therm";
-+	};
-+
-+	channel@14a {
-+		label = "lpddr5_therm";
-+	};
-+
-+	/* Between Left USB charging controller and SSD connector */
-+	channel@14b {
-+		label = "sys_therm2";
-+	};
-+};
-+
- &qupv3_0 {
- 	status = "okay";
- };
-@@ -1103,6 +1158,12 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	ec_int_n_default: ec-int-n-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	edp_bl_en: edp-bl-en-state {
- 		pins = "gpio74";
- 		function = "gpio";
+在 2026/10/26 星期一 4:52, Leonard Lausen 写道:
+> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
+> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
+> power sequence is not described, preventing the card from enumerating.
+> 
+> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
+> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
+> 200 ms power-on delay used by the vendor device tree, and the external
+> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
+> suspend as required by the rtw88 SDIO driver.
+> 
+> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
+> ---
+>   .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 34 +++++++++++++++++++
+>   1 file changed, 34 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> index 3a305408fa16c..bfa18de1ae1af 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+> @@ -23,6 +23,7 @@ aliases {
+>   		ethernet0 = &gmac0;
+>   		ethernet1 = &gmac1;
+>   		mmc0 = &sdmmc;
+> +		mmc1 = &sdio;
+>   	};
+>   
+>   	chosen {
+> @@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
+>   		vin-supply = <&vcc_3v3_s3>;
+>   	};
+>   
+> +	sdio_pwrseq: sdio-pwrseq {
+> +		compatible = "mmc-pwrseq-simple";
+> +		clocks = <&hym8563>;
+> +		clock-names = "ext_clock";
+> +		pinctrl-0 = <&wifi_reg_on_h>;
+> +		pinctrl-names = "default";
+> +		post-power-on-delay-ms = <200>;
+> +		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+>   	sound {
+>   		compatible = "simple-audio-card";
+>   		pinctrl-names = "default";
+> @@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
+>   		};
+>   	};
+>   
+> +	sdio-pwrseq {
+> +		wifi_reg_on_h: wifi-reg-on-h {
+> +			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +
+>   	sdmmc {
+>   		sdmmc0_pwren_h: sdmmc0-pwren-h {
+>   			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
+> @@ -890,6 +907,23 @@ &saradc {
+>   	status = "okay";
+>   };
+>   
+> +&sdio {
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+> +	cap-sdio-irq;
+> +	disable-wp;
 
--- 
-2.54.0
+disable-wp is for sd cards, please drop it.
+
+> +	keep-power-in-suspend;
+> +	mmc-pwrseq = <&sdio_pwrseq>;
+> +	no-mmc;
+> +	no-sd;
+> +	non-removable;
+> +	sd-uhs-sdr104;
+> +	vmmc-supply = <&vcc_3v3_s3>;
+> +	vqmmc-supply = <&vcc_1v8_s3>;
+> +
+> +	status = "okay";
+> +};
+> +
+>   &sdmmc {
+>   	bus-width = <4>;
+>   	cap-sd-highspeed;
 
