@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084230;
-	b=zskAng6daAIDrTwylkx2liGPPwO0WQjiPkPmVs6ByMihTTxXzzKEltLOfTpU5rxGk0U9
-	 Rg22QqYCXQ7ZGmotmpgizdG3UgK1dPf52D2y1dqUgqHJX5oMhGg7+ASn/ZpjBOAcx5V+Y
-	 2A3e/UYcWY6HsznfPvWUIEQPZAmSef4YMDsjSa/GBdssH2PjT0TAJPiyMFwyPB0JXuuLE
-	 rLK2iGA+yLXeGKnQe/fmXe3R+WjqJ5JfMwA6DgwesZKZr6zLUWAxS6LnUynGd2pPniZKX
-	 q7LH+EaSjkAbHudfWo/jYlpyhoQq2A1+8OfxpDwmTANWk5Mn31Sat2+B1pEt/SK3uvg==
+	t=1793084396;
+	b=PKesHoALn4BFgLwftCsSd3Zi4s8WrIw4ABBtast36YHF5Tt0fmqMQjLMgHD9q+zkCF8c
+	 JdjJOaufkLU1eFacNnGmka7z+TZsU1D+ZEwIh6tKn4EYaW/+fiCuLsXHq4PcoHCVP3LPJ
+	 JyxcLackjlKyBWZFE3xF3quFfK2KhqOICj5ZJU5rfjJal3N6tj+D2WAwq08lGR4ztgiAU
+	 feXvi/9onsKCnu1GB3gtl7BTzn4uJihmdKO4q7PdUJ25ECEzmNBvU8C9QW5cUDRuX66UI
+	 4Sw+gaJrPFdA0IkfeIZNBD/l17Jm7dMQrg1MPsyrpgm1hOZ5rhlBrlZ5frrr/LeOdHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084230;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ovAq067dY7LLmpmjEWvt1XMlmDANlSaC85Wg4RXeSuI=;
-	b=F3sIqVt9VsrtAOl/I/VI2+4rKJC0hszmi3JvYrgjjtnKGyw0VVO/SRdlzvb5vwfHYiEV
-	 PitMr7fNMLQdVTiz1B0cJXcZy9UiDPTfimUm1aKYlgApfQBMENIrvSO3gfG3j1+UJkCMG
-	 noQBn5iU7JKxxLyKSzCVgPdDXQj+G1wKo2T4pjYjmLYwnZkOOFLsdyv1sqNHldT9m9KO8
-	 qQZDKP1xIgInpYN0HvS5w6+C4vmukg+ZG64W3vPFEDWoCZcSFC569ceS1vIueuXiGGsCC
-	 oXCMgow8092ojx1z9fT52RDMK4N0709N1031OqvqpjvZ8XxRBa59Mf6bB065AhFkgag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084396;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WNC12pOFow6vg7cxuHOJtzrj2t/7mEYl6Zadij4kSCU=;
+	b=cwLKuE8dRsWQmQeZZ4k1/LUR02Cz3I7NqvwTUwzOhq7Ld0Ss1vtWPKFM1NZdzWb4R/Zi
+	 pxBARoxyGPGLfyyWs6pbPqd2iF4odHQO8ti0Q/h+LqqrPBldWQBt61esTPgkIPdFkRgfD
+	 d5eGVk8rznJaPn09TX0/FUGZ5arKbLBTgpQAziP37OMD+on72m82EDOOj83WyQ3ZN/VLu
+	 HQBPNY5n4OEgYi4swU8nPbYiriHrtsCInU87enB8eqk5YLlcFAG8oU+OQXXdDlk6ksw87
+	 RQQwzw6t1HdIEzrylfswhtYDbLVyDsXUXKAAlxuBra0uoSkvWELmkt7WyfP4QX/SPlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=agzyeTnr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DAVRLh4P;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a4FzZZbs;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AA3606A31A;
-	Tue, 27 Oct 2026 06:57:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B431606A32D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:59:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B431606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=agzyeTnr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD551F031E0;
-	Tue, 27 Oct 2026 06:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793084229;
-	bh=ovAq067dY7LLmpmjEWvt1XMlmDANlSaC85Wg4RXeSuI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=agzyeTnrMRsIVkolvI24piingYTQw40hDLmg0LCC+P1WX/97aBekDNbhxMNZnMf+d
-	 4Bkf9XPocHtW6wD0fy9P+Yy1nfjVwk168UwlORguBXObdaKcePv/BGY8hhTbVoK97S
-	 0CnM/AVEyxnpsCe7stLGK2gpNFMkoGQ/IQAJ8dLTQzH6+UFvhujpBMB4h8KOSh6HRp
-	 DKoHmHUG6A737Qy/04XL5qRFHLFESu7tM0W5p7yDZQnIhSYToLHoywXK94gbfhvoU9
-	 7+eQ0ozjtXm9nE4Dc4lTMnp4T7QlMjlEpGEgnlmd85yDRQm5hwo6mTU0Sbjnv4iq30
-	 /HCxptIHiQX8g==
-Message-ID: <sashiko-outbox-186174@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] clk: rockchip: Add internal support for 24-bit
- fractional dividers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cunhao Lu" <1579567540@qq.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261026-add-board-ok3572-c-clk-v3-2-dbabfa39d692@qq.com>
-References: <20261026-add-board-ok3572-c-clk-v3-0-dbabfa39d692@qq.com>
- <20261026-add-board-ok3572-c-clk-v3-2-dbabfa39d692@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 06:57:08 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DAVRLh4P;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a4FzZZbs
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5ZPff1851020
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:59:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WNC12pOFow6vg7cxuHOJtzrj2t/7mEYl6Zadij4kSCU=; b=DAVRLh4PXOFgsY5n
+	NOwS1p564NkTFUyqLClL/gsUJR9wNX5qnJvEAmMt/meuWDxin3W026bwuMSDlGhi
+	DEYsNqPGlP4l+RtFRwlBt0s6Qa1zjvo6TOkLIZoI9chXqrOg0breRflgS8vHRRbX
+	IhssrvHg+ZcjAVcWw6fMnB+zThniQpDauTyBiYFCqg+PHGVjZV2m/B8OXFtwaeP1
+	i/dhAWkpoOaJ5YGykdTdAOWwY9onmx5ByNRJapV/HCIRBRKDonJkyHf7fasLii8s
+	4I7CHxuXfMPvQak69CmPD57UZpxpu0ldWgHGkvX4pa7Ki/xAQaH+mjDxp85hGiMT
+	9UtFXg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4sf46r1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:59:50 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so5495808a91.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 23:59:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793084389; x=1793689189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WNC12pOFow6vg7cxuHOJtzrj2t/7mEYl6Zadij4kSCU=;
+        b=a4FzZZbse2fbYo2HO+BOk2KVJIdehLeh5UPnmbx+/WyQxqXOJny0RNOup3jIQKEqGr
+         YV6OULdNCVz76M0XAD8WJtNAodcfA8FhmY50nyt1IbJvwXEZX8I6ZvpMSa09JOJmME3I
+         PvNCYTVBxfpUQRRmcR0UUiNyu8/lN8egY7Teoa3WbiiVRUPNGdtfOBjoLHiIv/G3B83B
+         8w9vvZMABVFRE+P1vTOAr3kgoFQb3w0r275RPVXc0223NIhAMh807wo0N9Pgjf62mYXD
+         5eummGTkmUuWaVLrCuj4nU2d8kUa6HAHBTpF7lOYg3PYzbBXhdebCnogRkFMAl7mvDiQ
+         V9Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793084389; x=1793689189;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WNC12pOFow6vg7cxuHOJtzrj2t/7mEYl6Zadij4kSCU=;
+        b=1EEDKCSAh8Pz+w9q8fk7gvmHLdNV44x1k4HpZngHWnyz8kFYqGFvMapzDwEi7+Un+U
+         gb6eiOqd5K8xeDnxA+gQwc/fAiEqLu4THri7zG6Gr+yNAyPE0X2NOEXUyPF1VYTycq6Q
+         fm40g9j2XGfkyffRdJDOFbjKOkf8go1x74gRaIk9N/aGVUxLKcdGTXXMIfjAWEZK6wB0
+         khBjUOdJCOykRHKLdbH4ziuuNgwyI7yGh3sUsDPdNI3B23vT3HUY88Pa6yGMP7teRbor
+         hpi3JM/cDh/XalVoszxsbXVA8k4p/u0Cr9DbEgMaKuqV4HdnPAUIZTsYJtFmdHt6fKev
+         MMEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDodOCASVdx96Cw8x82T5JeIdCxqHJv27Su7GsQcnqIxgv1g15/9iNAVDOq3uA9xXOHfdL8uMfEyVK@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUokhphDTR4DSjf1joRQFo/wlFJjvG8QmUX9Z3nBh5c+JttZT4
+	1xzMRpAjv3cnpYa4xmzc2RRqysiJ17GmYu60wYYB0z/fTIe56JzUSCI90jiHuKBP5dKFmldau14
+	aSv5NSnE9HUuzXcpo/RUqsj6d0t/ifHBBepSIKbAvVPq2Br/x5gstU0/gKITYzqJk
+X-Gm-Gg: AYBFou3QCd7YAx1GcaBHUpXajOwB7b4himxFkl7BzQ3ghCKYoEwr16NIfJN/6HYkvSL
+	KpxBaUjeI1NiRE7XxDs6dGYDAR3OEB9kDOlMG9is6CSlXxIOZ2erceiM4Yu6EIVoc2kCycoztXn
+	kP1a9oVpS3ZPv83gO6IQjceZb4yQsPIU1iJ3olKXzaxuVUJi4mZs5ZK0CMsjbjeA8WOmfseLcHj
+	8whmdYihs3ISddosEP88VLb3KSQpFQRhvsLqUZiCgrGMtLLxJAix2tuTctbzaAFBTVFvOj9c/qT
+	HgeYFaQPD6jPVKY0gmRh+tpkkkjBRjxxlYjDLSYzFnIF9ZgNqzhEC/2hwo/3VGuBueeR8Bp2+Fc
+	uSO76frOz90zXo4nq282vDr2VMUpj8kcefHA=
+X-Received: by 2002:a17:90b:5286:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3adead5c836mr7647140a91.30.1793084389113;
+        Mon, 26 Oct 2026 23:59:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:5286:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3adead5c836mr7647128a91.30.1793084388707;
+        Mon, 26 Oct 2026 23:59:48 -0700 (PDT)
+Received: from [10.218.35.238] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404730f1sm2350317a91.15.2026.10.26.23.59.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 23:59:48 -0700 (PDT)
+Message-ID: <8ec30a0f-2c9d-4011-8e26-9ec51c68681d@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 12:29:43 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,227 +114,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add LeMans Draco EVK board
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20261019-lemans-draco-final-changes-bringup-v1-0-dcabe94f1074@oss.qualcomm.com>
+ <20261019-lemans-draco-final-changes-bringup-v1-1-dcabe94f1074@oss.qualcomm.com>
+ <20261020-accelerated-husky-of-whirlwind-ce022c@quoll>
+Content-Language: en-US
+From: Gopikishan Thawre <gopikishan.thawre@oss.qualcomm.com>
+In-Reply-To: <20261020-accelerated-husky-of-whirlwind-ce022c@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAyNyBTYWx0ZWRfX4c3bXJJXs3NS
+ 59DRmGHP6IsdZr3rHYKyuefwlGxFqk9N3jkMXiYUxCm+UK+tjP2k99Bx1yttBV+qi37j1ApC8Aa
+ jZPSB+iP+S+za0z9NpFVD5rO4Y1ODXc=
+X-Authority-Analysis: v=2.4 cv=ZOdCCn7b c=1 sm=1 tr=0 ts=6ae04be6 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=Y71-Jxx4QiA4W6V5z98A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: F9EcA2NpkCidCQoTs8YsfcouK-bffdZo
+X-Proofpoint-ORIG-GUID: F9EcA2NpkCidCQoTs8YsfcouK-bffdZo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAyNyBTYWx0ZWRfX3BAYU2WN4Jwa
+ HZAIrXMxWIOnZI2aj7rNWML5QaS35yLb08AjgW0KecDl0ATrEmdCZX2XfAY8nvsOntfKfvsPrpn
+ UfpONfecMGWot2vLrYJMOPq1dZJNZAhPlHlaRc9hkqpKAzpbzmRH9hbyVxhbO3PmlihlF8/2e/G
+ fUWpbE0a+lznJldWt2lIPM5ai/blNBgjMF/Gk4oVp+ktWAXl8NCXy3LAzGMmZtPHxpeWFan9RCE
+ xeA6Bk9Stg/vuMsBG4t/dyTRl8a1GBiP35jzvjq+2aQPBdBwbsbnRPN2aDEjmzVskPA6GcKqxhk
+ eZAvfs6B2PNJre/WeWNuCf2s/3FUZ5Gy3WMpxOMY70wwQdV3yanzhHqPB5/9967MGrLozEAT4Yv
+ uUh2ZMCZMRJE4O0TWtcma9k4OR85C/hc8JPcup6894mNa5/9Fa/7LW1Pe+tMxsNL8A8lzXrRauh
+ mpNKld8adaFwq7UiC1w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 spamscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270027
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] clk: rockchip: wrong mask in clk_fd_v2_set_rate() and shift in r=
-ecalc_rate()
-- [Medium] clk: rockchip: broken zero-based compensation in clk_fd_v2_get_d=
-ivider()
---
+Hi Krzysztof Kozlowski,
 
-commit d65663131f525c31a7aee9ed1c977edb08e8fda0
-Author: Elaine Zhang <zhangqing@rock-chips.com>
+On 10/20/2026 1:21 PM, Krzysztof Kozlowski wrote:
+> On Mon, Oct 19, 2026 at 03:57:32PM +0530, Gopikishan Thawre wrote:
+>> Add the qcom,lemans-draco-evk compatible string for the LeMans Draco EVK
+>> board, which pairs the LeMans Draco EVK SoM with a common carrier board.
+> 
+> So here you explain any oddities, like why SoM has no dedicated
+> compatible and why common carrier board means it is not common but
+> SoM specific.
+> 
 
-clk: rockchip: Add internal support for 24-bit fractional dividers
+Thanks for review and suggestions.
+Agreed. The LeMans Draco SoM is the module itself, while the complete
+SoM and Draco carrier board combination is the LeMans Draco EVK. I will 
+update the commit message accordingly in v2.
 
-This commit adds an internal fractional-divider helper and clock branch type
-for Rockchip 24-bit fractional dividers that split the numerator and
-denominator across a low register and a high register.
+Best Regards,
+Gopikishan
 
-> diff --git a/drivers/clk/rockchip/clk-fractional-divider-v2.c b/drivers/c=
-lk/rockchip/clk-fractional-divider-v2.c
-> new file mode 100644
-> index 0000000000000..102e03f9d6e60
-> --- /dev/null
-> +++ b/drivers/clk/rockchip/clk-fractional-divider-v2.c
-> @@ -0,0 +1,354 @@
-
-[ ... ]
-
-> +static unsigned long clk_fd_v2_recalc_rate(struct clk_hw *hw,
-> +					   unsigned long parent_rate)
-> +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	unsigned long flags =3D 0;
-> +	unsigned long m_low, n_low, m_high, n_high, m, n;
-> +	u32 val_low, val_high;
-> +	u64 ret;
-> +
-> +	if (fd->lock)
-> +		spin_lock_irqsave(fd->lock, flags);
-> +	else
-> +		__acquire(fd->lock);
-> +
-> +	val_low =3D clk_fd_v2_readl(fd, fd->reg);
-> +	val_high =3D clk_fd_v2_readl(fd, fd->high_reg);
-> +
-> +	if (fd->lock)
-> +		spin_unlock_irqrestore(fd->lock, flags);
-> +	else
-> +		__release(fd->lock);
-> +
-> +	m_low =3D (val_low & fd->mmask) >> fd->mshift;
-> +	n_low =3D (val_low & fd->nmask) >> fd->nshift;
-> +	m_high =3D (val_high & fd->high_mmask) >> fd->high_mshift;
-> +	n_high =3D (val_high & fd->high_nmask) >> fd->high_nshift;
-> +	m =3D (m_high << 16) | m_low;
-> +	n =3D (n_high << 16) | n_low;
-> +
-> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-> +		m++;
-> +		n++;
-> +	}
-
-[ ... ]
-
-> +static int clk_fd_v2_get_divider(struct clk_hw *hw, unsigned long rate,
-> +				 unsigned long parent_rate,
-> +				 unsigned long *m, unsigned long *n)
-> +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	u32 factor;
-> +
-> +	rational_best_approximation(rate, parent_rate,
-> +				    GENMASK(fd->mwidth - 1, 0),
-> +				    GENMASK(fd->nwidth - 1, 0),
-> +				    m, n);
-> +
-> +	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-> +		(*m)--;
-> +		(*n)--;
-> +	}
-> +	/*
-> +	 * When compensation the fractional divider,
-> +	 * the [1:0] bits of the numerator register are omitted,
-> +	 * which will lead to a large deviation in the result.
-> +	 * Therefore, it is required that the numerator must
-> +	 * be at least 4.
-> +	 *
-> +	 * Note that there are some exceptions here:
-> +	 * If there is an even frac div, we need to keep the original
-> +	 * numerator(<4) and denominator. Otherwise, it may cause the
-> +	 * issue that the duty ratio is not 50%.
-> +	 */
-> +	if (*m < 4 && *m !=3D 0) {
-> +		if (*n % 2 =3D=3D 0)
-> +			factor =3D 1;
-> +		else
-> +			factor =3D DIV_ROUND_UP(4, *m);
-> +
-> +		if (*m > GENMASK(fd->mwidth - 1, 0) / factor ||
-> +		    *n > GENMASK(fd->nwidth - 1, 0) / factor)
-> +			return -EINVAL;
-> +
-> +		*n *=3D factor;
-> +		*m *=3D factor;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-When CLK_FRAC_DIVIDER_ZERO_BASED is set in fd->flags, does decrementing *m
-and *n before the low-numerator compensation block in clk_fd_v2_get_divider=
-()
-corrupt the divider ratio?
-
-In clk_fd_v2_recalc_rate(), the register values are incremented by 1 before
-calculating the rate:
-
-	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-		m++;
-		n++;
-	}
-
-However, clk_fd_v2_get_divider() decrements *m and *n right after
-rational_best_approximation(), and then runs the compensation logic on the
-decremented values:
-
-1. The parity check (*n % 2 =3D=3D 0) tests the decremented register value =
-(n - 1)
-   rather than the actual denominator n.
-2. When the approximated numerator m is 1, (*m)-- sets *m to 0, which skips
-   the (*m < 4 && *m !=3D 0) compensation entirely.
-3. For 1 < m <=3D 4, multiplying the already-decremented (m - 1) and (n - 1=
-) by
-   factor produces register values that hardware and clk_fd_v2_recalc_rate()
-   evaluate as ((m - 1) * factor + 1) / ((n - 1) * factor + 1) instead of
-   m / n.
-4. If rational_best_approximation() returns *m =3D=3D 0, (*m)-- underflows
-   unsigned long to ULONG_MAX, bypassing the *m < 4 check and writing all-o=
-nes
-   into the numerator register fields.
-
-Should the CLK_FRAC_DIVIDER_ZERO_BASED adjustment happen after the
-compensation multiplication (or should rational_best_approximation() bound
-the maximum numerator and denominator to 1 << width before decrementing)?
-
-[ ... ]
-
-> +static int clk_fd_v2_set_rate(struct clk_hw *hw, unsigned long rate,
-> +			      unsigned long parent_rate)
-> +{
-> +	struct clk_fractional_divider_v2 *fd =3D to_clk_fd_v2(hw);
-> +	unsigned long flags =3D 0;
-> +	unsigned long m, n, m_low, n_low, m_high, n_high;
-> +	u32 val, val_high;
-> +	int ret;
-> +
-> +	ret =3D clk_fd_v2_get_divider(hw, rate, parent_rate, &m, &n);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (fd->lock)
-> +		spin_lock_irqsave(fd->lock, flags);
-> +	else
-> +		__acquire(fd->lock);
-> +
-> +	m_low =3D m & fd->nmask;
-> +	n_low =3D n & fd->nmask;
-> +	m_high =3D (m & GENMASK(fd->mwidth - 1, (fd->mwidth - fd->high_mwidth))=
-) >>
-> +		 (fd->mwidth - fd->high_mwidth);
-> +	n_high =3D (n & GENMASK(fd->nwidth - 1, (fd->nwidth - fd->high_nwidth))=
-) >>
-> +		 (fd->nwidth - fd->high_nwidth);
-> +
-> +	val_high =3D clk_fd_v2_readl(fd, fd->high_reg);
-> +	val_high &=3D ~(fd->high_mmask | fd->high_nmask);
-> +	val_high |=3D (m_high << fd->high_mshift) | (n_high << fd->high_nshift);
-> +
-> +	clk_fd_v2_writel(fd, fd->high_reg, val_high);
-> +
-> +	val =3D clk_fd_v2_readl(fd, fd->reg);
-> +	val &=3D ~(fd->mmask | fd->nmask);
-> +	val |=3D (m_low << fd->mshift) | (n_low << fd->nshift);
-> +	clk_fd_v2_writel(fd, fd->reg, val);
-
-[Severity: Medium]
-In clk_fd_v2_set_rate(), m_low and n_low are both masked with fd->nmask
-before being shifted by fd->mshift and fd->nshift:
-
-	m_low =3D m & fd->nmask;
-	n_low =3D n & fd->nmask;
-	...
-	val |=3D (m_low << fd->mshift) | (n_low << fd->nshift);
-
-Looking at clk_hw_register_fractional_divider_v2(), fd->mmask and fd->nmask
-are initialized as pre-shifted register masks:
-
-	fd->mshift =3D mshift;
-	fd->mwidth =3D mwidth + high_mwidth;
-	fd->mmask =3D GENMASK(mwidth - 1, 0) << mshift;
-	fd->nshift =3D nshift;
-	fd->nwidth =3D nwidth + high_nwidth;
-	fd->nmask =3D GENMASK(nwidth - 1, 0) << nshift;
-
-Doesn't masking m with fd->nmask apply the denominator mask instead of the
-unshifted low-numerator mask (fd->mmask >> fd->mshift), and wouldn't any
-non-zero fd->nshift cause n_low to be masked with already-shifted bits and
-then shifted by fd->nshift a second time?
-
-Also, while clk_fd_v2_set_rate() splits the high bits at
-(fd->mwidth - fd->high_mwidth) and (fd->nwidth - fd->high_nwidth),
-clk_fd_v2_recalc_rate() hardcodes a shift of 16:
-
-	m =3D (m_high << 16) | m_low;
-	n =3D (n_high << 16) | n_low;
-
-Should clk_fd_v2_recalc_rate() shift m_high and n_high by
-(fd->mwidth - fd->high_mwidth) and (fd->nwidth - fd->high_nwidth) as well so
-both functions agree when the low field width is not 16?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-add-board-=
-ok3572-c-clk-v3-0-dbabfa39d692@qq.com?part=3D2
