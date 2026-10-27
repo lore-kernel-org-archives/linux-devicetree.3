@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101644;
-	b=MUWb/d3bixrMePZ/GS/Es3DsZDlOMkarMLz64gqoGqhy/bGgohdSZLy5xkgtFiO3ajhY
-	 6g37vGL1IUQf8MGgqwENRee8gCHz+HHX9v3jIpKcIiOmvrry1kamm/fC0yF7/ND+yH74H
-	 qA5N4YtMvMcyCB4GWvn2teB/R08MXQNOx6w/Kx4eUau7Jyh3VJm/3HdRKfd/sKCNliMpM
-	 ZQThC3q+2XO8cQG/hu1mR3bS41RY9cvNW2GGyuQnhVTH40EGoN+3s1NGqk+iPKZauTNtY
-	 /PxwlBvWqPncYXcbEm7IdPIc7rFWyXItibQF4ka7fmzZUyGG62wDaN4WYx+SS86fL2Q==
+	t=1793101725;
+	b=w+RO/TFt3U4/XqU0N75w+XRZofhmeRdgfkQSCbFFYsF1ZBCUMWiWFs586WejvXf22aE0
+	 +J7nvcqEFwV/HeeN0v0zY+ZED7V/HJEjgdRGH/Vmrdof7IDHwbf3U/Ad7om5TvnFi2suI
+	 8NF0F2gFDa0qeF3vLADDjEGD/oqlW4Cp+oRL41ZyPlAKen+29EpzVhK3GHJbcHXm1wO67
+	 0Ccdng6Wb26zGgBrDqV7HbRtkiJQVydO4U6fpHdwx56sLK/uWZgzRqPrXQSTN9D8dBLB4
+	 BCBDRd547tjiQ3LyYlr5E3fLJEGqwCd3x1ZaCpa2uDLNxGIGUF+mnv+U1ArwhyVQWaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101644;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EptGMtb74A/mYaHTnNKy7dyK7YA0M1mM22BC1gOfPjY=;
-	b=B7ZHv2M0fJqlM/Rc2gnMHcCGGJkxBIsIX53u3YbEcfFIoOJ8OiKTcMtdbczDzOsJl7cQ
-	 ac0FBT2x50qb1iu9ieioiqCZm/ehPkHsilnRahNVEnKzNheONDhUQIbexWeOXMpGAgLYu
-	 Z5IfpAzm98pC35haOR6zxPsqakg15ZCU7uatXSweUfELox/3P9X+1ifQ5hN/FQ0jEN4GH
-	 I68ZaRlO4ySb3akMFiKJtR70gscRWyJP/t+nVHme7nvwlRJQv8qfQO+H+7hYTMeq/8FME
-	 /Siv97LiNWbV777Vp1BwMnDXJM8W+/+ThbJJWrlFvMws8Mg3o2rjn3euy9XDztzOx0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101725;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XaamGF/GGz4XDjuYrUNOhO8jQRgUu6oLfrS4HDnhreY=;
+	b=m3dsWFbjAoMzwJ9l+NTzKrZrHJ2gfuHPS7lcg2Avui4CPtjiC81ieNmrDxe8VtsIg4HP
+	 zXxoucZ2eRLZNYm4aPDSRYB2aU98HRVEFbLxV5ekOFccmCYlN+NntpwqkIbVXb2rD2U4j
+	 dyMskCBUwu05rWy1HLhmShYzxI+cb+lF7CHR8RdpjE4QfcJnXPY5u9yNIq/l5SmjXbgkQ
+	 xLtMTbiNtKJcIZcByP4RW1T4t3V1Q+g/FjHiJ0tICsebelJemvNVUz87rBNPa7crPubkc
+	 +ACEpouKRpBTWKGXf9/AOKP9rZSKpJTuz3htLShZEcTK0N0ss2MnbWblMErebppFxkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncgCrpZp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqziiYPR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3577606A334;
-	Tue, 27 Oct 2026 11:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F2E606A333;
+	Tue, 27 Oct 2026 11:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ncgCrpZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00691F01825;
-	Tue, 27 Oct 2026 11:47:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqziiYPR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FBD1F031E2;
+	Tue, 27 Oct 2026 11:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793101643;
-	bh=EptGMtb74A/mYaHTnNKy7dyK7YA0M1mM22BC1gOfPjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ncgCrpZp7fwQ3+o++IJz3rT+lcoRvQuwzmO55Xn5vbSIOBcLOXm+Q8wO9nG0slP44
-	 j2TO5kax2aBNbEdK1LC+5ghdNWRLH7UEKgxqnAqfmES0YUuBK6Aor91wDJy0XhpWnT
-	 B9RwMJf9b3wuDKDQh1UEA5hP1oQSWo8wo7nLIPx5LxZWarPqUzp/64ZAzMeDUfHMle
-	 e+M1l9N6IJ4B0ujegFxD8utewhxQSp7VOIU4JBVLrS/C8Wnqf+dyZVmx6sZE/RwQay
-	 IHi1OD7Pgj1UC/k8w/iDZTzAFE4f5AeBKp7mYuyx+A0yHnIYo7NkrVDryhHLzbeaYO
-	 5dkuiSOwwiiUA==
-Date: Tue, 27 Oct 2026 06:47:18 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>
-Subject: Re: [PATCH] dt-bindings: arm: qcom: Fixup sorting of Eliza SoM
- entries
-Message-ID: <179310163840.1081237.17811742811124384240.robh@kernel.org>
-References: <20261012094843.66537-2-krzysztof.kozlowski@oss.qualcomm.com>
+	s=k20260515; t=1793101724;
+	bh=XaamGF/GGz4XDjuYrUNOhO8jQRgUu6oLfrS4HDnhreY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YqziiYPR+1XB7xs0I/bOe5KQ+TJuuoTuqREVEQY9pzjEnrFLUBOa6Mju8GBQGasg5
+	 wbybQaFOxQGA0qi3ppU15cAb+Gm0XURqd/16Oh0SBEnTgN4F+XcU+0RwKG6fEH1F8C
+	 jxwKqwOwmKdgENaISRBxuSL2zNK7qeBUHIIo1h98SDj2vQXM67bM6el2+Teh5oioZi
+	 by+kWo3rD/9UP3E72UnRxoeiDewk093eqTmJZI1pl7PRYhTkmaSxrX66oEFPz0Z95m
+	 ltP0P0jM4dPmMI03+y80OtgY8GAF+XhSJOmXffx7eBBCiMpyP12Pzf2B69oCIdMLgw
+	 S+x/9X7q7KX8A==
+Message-ID: <sashiko-outbox-186477@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] ASoC: codecs: Add support for Fortemedia FM34NE
+ DSP
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027113929.65102-3-clamor95@gmail.com>
+References: <20261027113929.65102-1-clamor95@gmail.com>
+ <20261027113929.65102-3-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 11:48:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,23 +60,152 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012094843.66537-2-krzysztof.kozlowski@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] ASoC: fm34ne-dsp: mixing guard() and goto cleanup in fm34ne_dsp_set=
+_config()
+--
 
-On Mon, 12 Oct 2026 11:48:44 +0200, Krzysztof Kozlowski wrote:
-> Commit be9222a4f92c ("dt-bindings: arm: qcom: Document Eliza CQS SoM and
-> its EVK board") when applying patch from the list, placed the entries
-> not in alphabetically sorted position of fallback entry (the list had
-> correct placement).  Fix sorting, so the code will be more readable.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
+commit 49a97b167b8daf22a65a613318793960938a84f4
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+ASoC: codecs: Add support for Fortemedia FM34NE DSP
 
+This commit adds an ASoC codec driver for the Fortemedia FM34NE digital sou=
+nd
+processing chip used for active noise suppression on ASUS Transformer
+devices.
+
+> diff --git a/sound/soc/codecs/fm34ne-dsp.c b/sound/soc/codecs/fm34ne-dsp.c
+> new file mode 100644
+> index 0000000000000..07f22507a53df
+> --- /dev/null
+> +++ b/sound/soc/codecs/fm34ne-dsp.c
+> @@ -0,0 +1,386 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <sound/core.h>
+> +#include <sound/soc.h>
+> +
+> +#include "fm34ne-dsp.h"
+> +
+> +struct fm34ne_dsp {
+> +	struct i2c_client *client;
+> +
+> +	struct gpio_desc *bypass_gpio;
+> +	struct gpio_desc *reset_gpio;
+> +
+> +	struct clk *dap_mclk;
+> +	struct regulator *vdd_supply;
+> +	struct mutex lock; /* prevent simultaneous parameter writing */
+> +
+> +	const struct fm34ne_dsp_info *info;
+> +};
+> +
+> +static int fm34ne_dsp_set_config(struct fm34ne_dsp *dsp, enum dsp_state =
+state)
+> +{
+> +	struct device *dev =3D &dsp->client->dev;
+> +	int ret;
+> +
+> +	guard(mutex)(&dsp->lock);
+> +
+> +	gpiod_set_value_cansleep(dsp->bypass_gpio, 1);
+> +	msleep(20);
+> +
+> +	switch (state) {
+> +	case FM34NE_NS_ENABLE:
+> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_parameter,
+> +				      dsp->info->enable_parameter_length);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to set DSP enable %d\n", ret);
+> +			goto exit;
+> +		}
+> +
+> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_noise_suppressi=
+on,
+> +				      dsp->info->enable_ns_length);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to enable DSP noise suppression %d\n", ret);
+> +			goto exit;
+> +		}
+> +
+> +		break;
+> +
+> +	case FM34NE_NS_DISABLE:
+> +		ret =3D i2c_master_send(dsp->client, dsp->info->enable_parameter,
+> +				      dsp->info->enable_parameter_length);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to set DSP enable with %d\n", ret);
+> +			goto exit;
+> +		}
+> +
+> +		ret =3D i2c_master_send(dsp->client, dsp->info->disable_noise_suppress=
+ion,
+> +				      dsp->info->disable_ns_length);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to disable DSP noise suppression with %d\n", ret=
+);
+> +			goto exit;
+> +		}
+> +
+> +		break;
+> +
+> +	case FM34NE_BYPASS:
+> +	default:
+> +		ret =3D i2c_master_send(dsp->client, bypass_parameter, sizeof(bypass_p=
+arameter));
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to set DSP bypass with %d\n", ret);
+> +			goto exit;
+> +		}
+> +
+> +		break;
+> +	}
+> +
+> +exit:
+> +	gpiod_set_value_cansleep(dsp->bypass_gpio, 0);
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+In fm34ne_dsp_set_config(), dsp->lock is acquired via guard(mutex)(&dsp->lo=
+ck)
+while i2c_master_send() failure paths jump to the exit label using goto exit
+to deassert dsp->bypass_gpio.
+
+The cleanup rules in include/linux/cleanup.h state that goto-based cleanup
+and scope-based cleanup helpers like guard() should not be mixed in the same
+function:
+
+ * Lastly, given that the benefit of cleanup helpers is removal of
+ * "goto", and that the "goto" statement can jump between scopes, the
+ * expectation is that usage of "goto" and cleanup helpers is never
+ * mixed in the same function. I.e. for a given routine, convert all
+ * resources that need a "goto" cleanup to scope-based cleanup, or
+ * convert none of them.
+
+Also, sound/soc/codecs/fm34ne-dsp.c uses guard(mutex) and struct mutex
+without explicitly including linux/cleanup.h and linux/mutex.h.
+
+Could fm34ne_dsp_set_config() avoid mixing guard(mutex) with goto exit
+(for example by using break from the switch statement or a helper function
+for the I2C transfers), and include linux/cleanup.h and linux/mutex.h
+explicitly?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027113929.6510=
+2-1-clamor95@gmail.com?part=3D2
