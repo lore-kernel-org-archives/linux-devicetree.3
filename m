@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087356;
-	b=izcbkKxN2KkmOu4kUiLZBcIpVCqNRuBcUEI/EcCWJ8qtvDX+InGgt6FJQhtZF4oms0RC
-	 e7qY4eXeE4LjtTdM9xW0TYiwOqtzDKN8FlaHDLAQlVPqbBvlIFhkp7Lxk6CO3kVdFz1Vr
-	 nf21bA/d1m8tX3Hyn47ts2TFsP4m4TCXM/g1/Nk3uTQcV8Sgl4dslrmLInIqQNndOproP
-	 tql0OekyKKeJ2R0FBKn4+Jh59LLzV4eYcue3pCTFdhmgzAzPfEc5rS7lk/RoCZTeiwpm2
-	 nRIWxMQ3tNZDtffSrpNdUEYLJ1MpyB0qb9cSrs8y/Zk4Vf7QOVH5uoyFoZeW8zOO5XA==
+	t=1793087505;
+	b=2Hf2Ji5MXCdj/kLr9XvlwPEQfzi/ibFvFaNs3hM9Hey8uoE8Y3Ng37rykka2ItQKNfVa
+	 yVs0bBVC+GiWU2XWSS0pvlERjz8KxQ8rkLrCESviLBnOXnOApx7DNbTUKcc4SrqKjf8rb
+	 phslrqbJhP6UHz+xSgMnMvT0ngn2RLaHmVBOSzihpR7PfgeMMq4+ENEsaSCZxI4Ro8HV/
+	 f2jHuvKxfVjlShyDU8KYT4hH2xU7jlKLXfaJDUT/6xJm8TaAcNYcW67VZGiV5tgN8eoLJ
+	 kdObBzeRIJiQHAEn3WHaSBTKdBi33GRDAXuP/Yvw93tEjp1JuazmzFcpSEgRNBeuR8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087356;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
-	b=L1xRioo1H0/zf7yaECpsLVZ49VPxPEJyCy4HlN7Bas4i13zupmyGd0Su4mGGCyDRfuVE
-	 bDUYwMIhUrNxDVGlYKV463vzN02rUXCj71Sc9Ta+BDPkr/M+JBnF07jK4Jy23JgJiKnRv
-	 3rrplOAcR0ujQTzyDyCtPNrqGMlnRdUXxUlIBifmDy9nB4Dgom3GZXRhMqb85hp5R5zQg
-	 HmtBr1goBN8jE8VNtaChhMWs04mLxx1vyyg2sswGa167tA+p+Oyh9RhvvVn+BguZg7+0a
-	 IUUrUPvUL6x8ZrPV+KRbQ80kUnZ3htY0/kra0bkQ5dZQyUAqe7fab5PDF0Jg2myrqnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087505;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=acnStiLnhMHoFtH9MxN6320P5itUUR4d4HGEJJqetkY=;
+	b=0qE7toxPGdxFb4mcR/9aLs/tgN8NhsNj9EsfmBLnUpDKy+qdyHqq+jRmZTuHhDRWMxKw
+	 OYj7rdXlAJ+3LGtzyzsGyJ8cCh5+GhfyuyvHihad9LwA/9bIdFx26PT0rZqrwfaR2Ze3M
+	 TJSpDWcVwGDOf4LaEc4ZDkaTi0ywxKfz7MvdlCjXngbhLdW0eDO/dtUUyxzTObfy0W6Pq
+	 LMEN6VC7rQBmFDdikoOdw110A1Eb88JUVLRd9cb0UkiE3XXWS3V125vO23nY1PosFtZ5I
+	 D2AXxL59oiL3Wi1orN+Qjn5v4cgekV9rnql6e3WKKt2lKlmvmwesOORrnVIwmfZ6o9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EsuF8IBF;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16E606A31D;
-	Tue, 27 Oct 2026 07:49:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26281606A31B
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 07:51:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26281606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB37C1F01825;
-	Tue, 27 Oct 2026 07:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793087356;
-	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iBCmDAOO67sb0Djvtmfo2ldqbCyvm8yU4IKQCZ0pEs1bcqtdhkQpD1mqApsbC459t
-	 Q58V4/XW1cdGmDbFH97Gm8uafVK1fo+0D6kn+l+acHSMgmgXQXx9o6AORojhYEhZcs
-	 vuZyxZWH1WvaWypWG99Hsf3xZTTHHhONQp11BRuIlwuAstD5fk+fkhmBRr3NNbmOyo
-	 K3gEn/Eta5KdV54q8nZl+AmZgggSDdD/FBqHQKO/SKgaSUUz0AncpaMg6gSIELsNnY
-	 jSFY5keXFW5mbplvc03P6LxKCcbA8PAG0APF7xsG0qaUeumkdD82i73H8We1al44k1
-	 TFcNJKYZGUBHQ==
-Date: Tue, 27 Oct 2026 08:49:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: samsung,usb3-drd-phy: Add
- Exynos5515 compatible
-Message-ID: <20261027-misty-artificial-nuthatch-9fd82b@quoll>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
- <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EsuF8IBF
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so2058330a91.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 00:51:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793087503; x=1793692303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=acnStiLnhMHoFtH9MxN6320P5itUUR4d4HGEJJqetkY=;
+        b=EsuF8IBFEyWcx92BGt0MefrirPegPiY5VvVfx0NRbT1NBCbqvuXxVtodUpzbjZ/OK8
+         CKVrL2M/UxNsGf9+j3FBShQCCgKymDyDn2TrlM4ZBGsvtLBmPKPlA5z2lr7xH5QHXYBi
+         FZEyuspH0U7Jph7qDwuf+M8lxutNE3bF7zqA7rJWOSoWerCgxAmdatquMPmsit+2A5U9
+         gIdnxXhwfjEG5KCSbiImFm+bpQk9zCld3WhSjM/WEdxzAL23vvz2InTpPRYXUmRLyN3B
+         Lr4T1wfVdvOnTcovr0hU8Lt2UeYWgfcKW2ZQx+TrA3lvwKF0AMzPPan8H4YCiglETX/A
+         4ZrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793087503; x=1793692303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=acnStiLnhMHoFtH9MxN6320P5itUUR4d4HGEJJqetkY=;
+        b=OiOeFzmlkscKIJGPZDK1zXHlCd3DTnaUHSwtAfYucYobc1oKb89HfbzPfPDc7M9WIe
+         iyWfk5JDbiieyQrPDTLtKStSjXwEVSyaI+g+nBOk7d54p/1WA1/WAH+wet3HMMvOXdCB
+         N4cc/cvg62muqbcuq4f7Wb7y67KMpCxckI4ndn0MnwmkpxKPh495/H/mNJr43dvmOxiV
+         8wT7HSsqiadzrSOW7w4aeoX+FzPZy025gC0OLE1OK3AVFp5fHUvFkOyJqtDdecWPmBFs
+         TxLiKKbceiuqZQrYr5GPIlilDcG5wnc54giLKhSLmBcgcC55nbwCkdjJsJaDqYSBoKlu
+         +Ihw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyc1CbWTDz2DMFMs8ku9lwAMcMI9dTBYvb5ECsefeQeIDUmVeLupSvfkKLdMT0Ls8xdEnq3hZ/xc/h@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdIuptHy3dkorsgMLRB1eeXIqc7hMnKJXTI+b2FHYvLOPhqB1z
+	tmeNHRS0t9/svvsQzpd6ZwzyY8SkWi2kTFIp0ultZmTxWdr3CNyMc2Ir
+X-Gm-Gg: AYBFou2sQthzUupazO4SadtWijfSs0m02USuVv2FrJfnG18Nv33tYkazb9GSS6P2oIj
+	5bKv7PUt3RUZpEsYR1Zh0kLnDEl52bqw7rqQJcW/I+iQrqg/KO4NFPGzz5sKYoh0CkpFN9M7bIF
+	cQsj2XrUaGgHKcGzedb4iNii5f/Oz7jFSmVIoEHgehaJIHZV7EdF5gNnkGc9j+yWHu34y2IevEC
+	tlndT7Wk3AYV8hmU45a/yf1rPD0+yJ0xQFTcdhlSh6g4tR3KJ4fSvP8shM9klylY7t9JGq74yR0
+	2AaizcGg2O+wEWBFiADvOLgd270ryML1tXEL5gxuTHZXahwbZdVOFn1V2shLK5jjbmxeuvyC3h4
+	pkl67u4N5q+ZlIJCoiU+q2IBTXZjLXZjpzzwF7xitAy3G18r3qet9Tbz4eAUZqf7SwycGx/cquA
+	zDetFjuFIdUeWqIFbf4zzV8WiEfhDIugmSDD8Crtj/zW7MHbzFSTZF8O0HnpO/yTtvu+B17W4wT
+	bQEtj3eEH9qaztgcA01p2vVIjHzDWBr/FRcCNbGAzkKovjU/YuTyBTLEaflDCFXQXfmKgfy3JPN
+	6SfH
+X-Received: by 2002:a17:90b:52c4:b0:3a4:8c41:fab6 with SMTP id 98e67ed59e1d1-3adead50adamr7301154a91.46.1793087503455;
+        Tue, 27 Oct 2026 00:51:43 -0700 (PDT)
+Received: from debian.lan ([121.101.131.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40614d7dsm2542311a91.3.2026.10.27.00.51.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:51:43 -0700 (PDT)
+From: Amir Hanip <killdeath104@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amir Hanip <killdeath104@gmail.com>
+Subject: [PATCH v1 0/2] arm64: dts: qcom: Add Xiaomi Poco M3 (citrus)
+Date: Tue, 27 Oct 2026 14:51:14 +0700
+Message-ID: <20261027075116.41673-1-killdeath104@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,22 +101,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 05:46:36PM +0100, Aiden Isik wrote:
-> Add the compatible string for exynos5515-usbdrd-phy. This PHY is
-> compatible with the Exynos5420 PHY when running in High-Speed mode,
-> in that it uses two clocks, phy and ref, so document it as such.
-> 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
-> ---
->  Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+This series adds initial support for the Xiaomi Poco M3 (codename
+citrus), a smartphone based on the Qualcomm Snapdragon 662 (SM6115).
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Currently working:
+- UFS and microSD
+- USB host (OTG), limited to high-speed (SuperSpeed is untested)
+- WiFi
+- Bluetooth
+- Remoteprocs (ADSP, CDSP and modem)
 
-Best regards,
-Krzysztof
+The memory map for the ADSP, CDSP, IPA and GPU regions differs from
+the SM6115 defaults and follows the layout of the stock firmware.
+
+Not included yet: the display panel, touchscreen and the GPU display
+pipeline, which depend on drivers that are not upstream. Until then
+the display is only available through simple-framebuffer. Audio is
+not included either.
+
+Firmware and userspace: WiFi, Bluetooth and the remoteprocs need
+device-specific firmware which is not part of this series. WiFi
+additionally needs qrtr, tqftpserv and rmtfs running in userspace,
+and the Bluetooth controller needs its BD address set from userspace.
+
+Tested on a Poco M3 booted from microSD with a v7.2-based kernel.
+The series is based on qcom/for-next and passes W=1 and
+CHECK_DTBS=y for qcom/sm6115-xiaomi-citrus.dtb.
+
+Amir Hanip (2):
+  dt-bindings: arm: qcom: Document Xiaomi Poco M3
+  arm64: dts: qcom: Add Xiaomi Poco M3
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm6115-xiaomi-citrus.dts    | 516 ++++++++++++++++++
+ 3 files changed, 518 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
+
+
+base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
+-- 
+2.47.3
 
