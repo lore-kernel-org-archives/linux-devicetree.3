@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109240;
-	b=fFb9SHRHtwz7rFAItAr1TwpTGYGv820q/BYm7sodauiAClG1H6hMsvepzokpdlBBVbLR
-	 7TVv8cT4+/oCGLWt5Dp6C724htWJ95GOfSpViWdalZITS2HdRMtHEWNduIqhNuNGSur5x
-	 nQ1H++xJ5iZ865EFBopUiHNMhvQnKNHVKkEGEYpLtlmxsuTWA2n6CMms6d3rRfyfn9Svb
-	 S5ahjgclSJ6jCc9977jFCMTMRcA7aHACD/dmxQ3zV0k96Gr/Hmb7L3vFlHP0pqtp3VNBK
-	 cEhOmzzXck+/Xr+8QnlK7ZvghAoE1kHtXT95xsFQOb7TdDm1QU20Efee2wozttUyftg==
+	t=1793109242;
+	b=HmorsACbifOF1quOjEuyxpBIwnamEjx3zuYcUiPlr1bh3F3gsWJ3iAvP4fki84UWboBw
+	 HroWT74mk/tEalV1RNaTF3F7mBfCLGWnTZc+Lf76LBqYL9Y10xhmpEt0TuNGcamJHdJR1
+	 1DIiYviujDHAWI5uQjcQhorcn6iEZ6frN9uRB0nuklcAvpV3bPr+fbLlDL/j/C922DTaf
+	 9b0M5YgpSXacvnqbm4dAw87y5PRsTIMTJ2XGAU1q/JUMGX9MqXQod1hOyrycc7jxqeKlW
+	 OzC8T6tnWyhTwc9pilNNvYkaWqh9SQLlVRyKWulIeg8yxcuPTWBOSS9ZwaAJZXyRqAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109242;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6FMp4bmsFYk3mzSCH1/ElOs2cwgfyNFSJhXfclhOUCc=;
-	b=KXCj03O4Q18U4Xj876ce73Pifg4z2KOd+M0k894DRrSz1vNwTln/9FdC0Abz8GcZDzPQ
-	 pFWkbDZ51CQe5EGY10FCSZwWhgHm9XgX8WFo03NyR1ct7b4FnuYREBsiGU5zQurDlUBRg
-	 MdqOVa0o+8fOylHAodckNeXbM0SBnF6GVFfjJilcqtELvFmo4Gr+zPtOGiMg0GBQ5lk8T
-	 dyd5hiSwydeYo2RzDSbNpDKeBTc16sVVlEeSV7tX4kPgtjCWYTor8LL6KOR5t6VQ0YKR/
-	 oCZtabahRwyION2AYNvBtbQsnrnVHzKnEEpp+1MJsK/qKDfLzZImOu366bAvJicHBRA==
+	bh=udMEtEpdximcj4tmN6XEoXZYcbf6JGtTIKRmg964qrM=;
+	b=5dZ60KJATZxm52XGrcwoHpiFub80FD7AMKbPXw8ZsGSntgvURIqDlciAsisN8+EEk/hj
+	 weqMji9bi8dv72Ov5f05UWMKYn3FNAxYR9aOS+W6+uOLcHdNs0uuA546xKy60Bnc8Ps/S
+	 lYnQcTSU8DLvD4LxrKOcjUJBx08xnKlKeIBWQEqeXTro8fX/AaEMwXtyn0cN0QqvzBLyN
+	 LWZ4Y37wSCWdSck9gPw/kJPQc5d6OEjg1sy/+OW8rRStYgVlKFu88B7IfmW24d+M6CefI
+	 ZaLE4aUMBrq5SJCv1uTPJ4GLkEqL2fIyJ11g4A8I2SoGKHBMZXSwFm97Yt2+nFEewGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EBF0TdNK;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oimiZnio;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF607606A339
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF607606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED1260A2639
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:54:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED1260A2639
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EBF0TdNK
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so24563925e9.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:53:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oimiZnio
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1990544f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:54:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793109238; x=1793714038; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793109240; x=1793714040; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6FMp4bmsFYk3mzSCH1/ElOs2cwgfyNFSJhXfclhOUCc=;
-        b=EBF0TdNKiZev92JTXZUKMNM+bikjTpnl6F+xtg1lO25YQMK6ahE6FtSlVFxjBHIfIJ
-         2tDrWqG50yvBgr1XKRETOm6kWMHgVeuJM7lBibOyLXXDYgMKX1OPJwSjhZhLALr5KYEc
-         Q1SCgLNw6BDYwmvXk5af0SJUgK8tAcDbAMVyUsW6eeK4lI9ZJ/zeaLnLSL3QXyaOHP9c
-         3LAIk0jo9oQzD/MXMTG9cVzn0VCwjdkQ/RQrhNaRSRhrf7RTxJJ4NNApmMPopv82MM0Q
-         ZP99MlLYSNoqXjI22Xh68F20Jf0avL8oolZjogdrqlkKurBxko1tjvuPerYh9ooefJAS
-         w38w==
+        bh=udMEtEpdximcj4tmN6XEoXZYcbf6JGtTIKRmg964qrM=;
+        b=oimiZnioitMUEnEBSrenFhRbAKwenXYmVyqgKmWsRYCXK/JKGbsa6e1hchO+K8E4AP
+         aKqtDi+/aJJxJ/ZpulCQo0A0FFLFB/P4ruAZvVuMg/2UK5Qi5nmFDuEhOUZtyGtwcLe2
+         Cy+j4nHDSbUeCVSFCVw+TcY43hi62SLj4fCqzF/nem7rtyWJ28BtO6lO/RiZua4Xss0f
+         IIxPsaHdtd5IKWoq+iFATJQSwz14z2HjyaC167tn5z93TbWRuy2QukEXN6vuiDh6h7kH
+         IjmyOEcbEQ6slNZxbs92lcTHtMkLRShklgeyiQ3bXndapKr3p3emUgxr1TirGAYeVUY0
+         6x/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793109238; x=1793714038;
+        d=1e100.net; s=20260707; t=1793109240; x=1793714040;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6FMp4bmsFYk3mzSCH1/ElOs2cwgfyNFSJhXfclhOUCc=;
-        b=drCluP5b5vTKlnLcBoMX9KcVGob2xPHpq4H3j2XQt33FkDWxLYARnntTbnRfIhqUVp
-         5BG88xW3wOhc3cXO/+p1B2MznQ87ZXir0mGDNATSL9wx0lE4koBEFvh1ptglBzA4j/HH
-         FnlNb5ZLkct6yt9KN/RMMC8pODpHvAhh6CWZiFrLh2yJhPBgP/Uohwy4cGAyREF19fKD
-         hap1t17YrZotPZ3x9Nb083YwT7n8LpyhOHpnezW0OQUkP2aTWBKmJHAiIUbplfjKJZ25
-         nHoI8qdGkBtSvnhdAcx7+lTu5lkmd+6iWrJUiEbLkVMlgiGpKUUFRoHU6zA48fGKM5Sh
-         1uWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwe462g2mcIUNTHCyGU2bj7ql+DLR6zyz0G0864ileq5DloRICQ9ienyd3TtlvJBvimngcmeR5MMm2m@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnEvwO7ogs8rJKpkcSSPNb1/mS1Ry7ZZtHYoS3DMt4//q5drm1
-	7BebIggTaKHqq/n9W0/rBzS8aVdRvFTeYe7sk5OCmbE4cZoMBDbHLpX4v2n5rH7N
-X-Gm-Gg: AYBFou034UegRs7Ql6Buz7xx+1gpGzGGyGn3G8DuL4p1xAPKZACbH+G/WlbCfhMkfZJ
-	ZgH11lDXfv5HewxLkeUBWrr0ddU74qlXjN1ZLXeDV1YIv1SedW5CVGD1qU2PJj8c8j7MvFVtAKr
-	4Ya+Qk1KlVResmgEGb8j7QvZC8sWEMxRKsUhs9HA/4pcvcMI3BoaZhlg8JGPLqtu/P/Nb8r1V0+
-	n8lAud/Xwm9jirD6QupyN9+BZEAaoLBDyASJquG7deiCmL7LekxUyCP6p3DgezoqjCqwmg5QLnP
-	S4gFEuSALbHhB1Hj/37FORJIiojUiLUPHIbPqyhhWGDGrYxzoNMMKmSxLsFGenGQS49WvCoOEYd
-	yZzq95eCTiW3tv4W8Qen8rRAMhM9hkU0syoJkNbWGkFlUW1jm9hkmoWLYyMbwBCT+jfOoIOpsWU
-	uucc4o54EO9TkYRnY3gHeURJx3HFmBinFx/Hu/+XpTxTHmgFGQwBz6TdfgM3ncO0UzR1TRTJg9k
-	tr5tJbn5xC7hTM3ggJQZZRhrqg1/2xhGFftAlDmXFgnqzMgGoucwzFUzmLyQ2buhfpenfxgkYAV
-	+bzHcxM=
-X-Received: by 2002:a05:600c:524c:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4a35ac8bdc6mr188823805e9.8.1793109237982;
-        Tue, 27 Oct 2026 06:53:57 -0700 (PDT)
+        bh=udMEtEpdximcj4tmN6XEoXZYcbf6JGtTIKRmg964qrM=;
+        b=FIICibGsbcoWy2SI2EdN79moxynwUBov7zAJYVOfAbDyLxESUHyJ9K3TNCbthXrF66
+         NsDKeNFU8vUt+Qw1OMfoT+bEPRQnL38tfDGTYiyPK89YmTJ3lzQKHIQ+JUK2KtpwkAdy
+         4AL07RbmsXD6lAFv7SW5RAZ+a7C8NNxvZmAvReuZ2pVX7i8gDErMYbXPyFvbI3CYibiy
+         rB52M1f5WFfo+iC7A0hxQxLRuyYqAfUHpy/s8lkvuRJz+DcqBLVnqScF5efMEMhhtY5o
+         HAUtYYSzcTa2kyb+GYhn1lU+9+t7vf/1VZra9L4OzIJGY00kQI2rKw3mJUxXp6HVE4g0
+         o8rw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWgGSc+muLKezoufLk3h92p7Yqtt50pM/E3dF9AZhQsWALTVzhoMgY+XTVb2GEJQev65vsEx3az0JJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW14VnXj4lSWwJMG5tT6q1kMEhflODIiXyJLh5RhF8vwZw87Ez
+	bwIdel9Z++LZp+4cgjHD2CsbyI9C1YkPHmvKYmMPF16NrKa0gPy8D9p0
+X-Gm-Gg: AYBFou1R19xp/+G/iAa8N419OHTch0JVgBlIHrwsFNag9hW5GbNRSmpETKIO/wlfxvm
+	T9Vk9NPRN6PsZR6CGfcNaxYiYt7/fi1x7tKKb5rDnXz40YQsLA5hi38u+zmEWK23IA0VZvO2pqb
+	xpKTbh4WzIzzvnjy5h8T0+1Cv7r45wIWZh5pBszNm56mrhkBNe5fsmS9UFOCQbWqbunNPRf5B7H
+	nXMdfEuK6/y1LmrsMcnBcJce4HIMHPgrVXP2fd/QuWVdYonoR7TiHH5uaWmodz74TrYhqt3TaW1
+	8hkXUa8xhcg4OuDG2UwSGzsjXI6w1sGUDAsm3KtMj4dH0AOpYK2AcSkvpunFDEV6h6EDZG7Zpl7
+	ujIHVcNyGHzrY/0TaT0mRpfSM2ljNIqhec+EIK2z/mAwIW868cEAQ3c+c4VWddSQmp/d3em2oB8
+	qzPdHC7W2uCCbwll3J2B03UpcdvCvgAZ4ghZ8Lwn1t6qplmovwfxP1fXi3IvvA/+JBj3LCRUMKh
+	0ScEKIiVJQG0l1aYHy1YYXhDxG5suJtxGqSVlcu4OluV1eTuX7vG1DkI+O4L6hy+C/rxh+gF2uY
+	OPLhi1Os+wXfL8JUzOWHiAZ9Kivj
+X-Received: by 2002:a5d:5e8a:0:b0:48d:f56d:be56 with SMTP id ffacd0b85a97d-48e3eb7642cmr19483905f8f.13.1793109240024;
+        Tue, 27 Oct 2026 06:54:00 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm23128058f8f.25.2026.10.27.06.53.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm23128058f8f.25.2026.10.27.06.53.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:53:57 -0700 (PDT)
+        Tue, 27 Oct 2026 06:53:59 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -108,9 +108,9 @@ Cc: Francesco Valla <francesco@valla.it>,
 	linux-doc@vger.kernel.org,
 	linux-embedded@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 05/15] MAINTAINERS: add entry for DRM splash client
-Date: Tue, 27 Oct 2026 14:53:32 +0100
-Message-Id: <20261027135342.2003632-6-maximpedraza@gmail.com>
+Subject: [PATCH v6 06/15] drm: docs: remove bootsplash from TODO
+Date: Tue, 27 Oct 2026 14:53:33 +0100
+Message-Id: <20261027135342.2003632-7-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261027135342.2003632-1-maximpedraza@gmail.com>
 References: <20261027135342.2003632-1-maximpedraza@gmail.com>
@@ -128,34 +128,43 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Valla <francesco@valla.it>
 
-Add myself as maintainer for the DRM splash client.
+Now that a splash client exists, remove the bootsplash task from the
+TODO list for the DRM subsystem.
 
 Signed-off-by: Francesco Valla <francesco@valla.it>
-[Màxim: add myself as co-maintainer]
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ Documentation/gpu/todo.rst | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a08087fb6e67..321ecb9f5b5b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9168,6 +9168,14 @@ F:	Documentation/gpu/drm-ras.rst
- F:	drivers/gpu/drm/drm_ras*
- F:	include/drm/drm_ras*
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index e6d36f8da086..5e987e18bfcd 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -756,23 +756,6 @@ See drivers/gpu/drm/amd/display/TODO for tasks.
  
-+DRM SPLASH
-+M:	Francesco Valla <francesco@valla.it>
-+M:	Màxim Pedraza Padilla <maximpedraza@gmail.com>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	drivers/gpu/drm/clients/drm_splash.c
-+
- DRM TTM SUBSYSTEM
- M:	Natalie Vock <nat@pixelcluster.dev>
- M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+ Contact: Harry Wentland, Alex Deucher
+ 
+-Bootsplash
+-==========
+-
+-There is support in place now for writing internal DRM clients making it
+-possible to pick up the bootsplash work that was rejected because it was written
+-for fbdev.
+-
+-- [v6,8/8] drm/client: Hack: Add bootsplash example
+-  https://patchwork.freedesktop.org/patch/306579/
+-
+-- [RFC PATCH v2 00/13] Kernel based bootsplash
+-  https://lore.kernel.org/r/20171213194755.3409-1-mstaudt@suse.de
+-
+-Contact: Sam Ravnborg
+-
+-Level: Advanced
+-
+ Brightness handling on devices with multiple internal panels
+ ============================================================
+ 
 -- 
 2.39.5
 
