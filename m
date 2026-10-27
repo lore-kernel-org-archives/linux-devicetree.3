@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125550;
-	b=JtBfgdudDwvhycIgHPCR3pRTYRcNwNwxdXoZt4Q4H0o2OiInzPfAXGTgNHD//FjBPdy7
-	 8ugQaBWf6qnkVb/1aZJMOhPzrL2JlL5erNpIGkkuioorBIpXThflxvwc1IbDHs8uRAdfQ
-	 kcIGM863Mw4r96F6k72a5KXk4kwmGEQXW0hsll+wtfUSorHRB/wNyBZAQaYy9raMbpkjw
-	 h7X8O5or95yKq8EPFFDzvByhY3FeTdOKkwTA82q5l66R0bjdhnpYY8BnRT3q69RhRW6qZ
-	 F0klQt1BmIcU2hbEV8tk8psr3U5GwQ3bU85+qNu+FhYRHf9zigabcjZlFbYc9FE0ynA==
+	t=1793125720;
+	b=W0Mm20OYiDNJQGh76wSogPsSrVprYyPOTTk47UL13MB4arnXkdCxJSb4ZgNKz//tYQBQ
+	 d5rtoyDN/TnWioyyJmp5PwH525bLSGu4jOVP5FQUg4xvw/w/SaDmgjR1dVUMxrWTXM8n/
+	 RdGmaGeMDAe+wc1XEftKCIWBsTBYqKpEqxE6+uUJrCNC5exby8xtLs+2U3TpHqIFRlwsk
+	 3a9AEexIQaCnn0+33O5EIBZJ8lNbX7w+ifaiVoK2n6QM2DuuD2cnOR94EaoWJfrN7waXg
+	 sGnbfZgkNcx1HvQ8daDixHOw/YyB8tRij7ZBXI4Xw3FJjkSLpMrREZ9REOeqEhee1NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125550;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=yYVnZVngw4wIyvUedHrp/RCi4DEk87r28LIRWXpCLH0=;
-	b=IGpo/a6CPh/DR9yf8XxmpBZcEfpCm40TihHImYcr4RFz/5uokfXraiJYVJV3Jrx2gA2L
-	 Fi60fXv6TExp/XP/FdYqn1LJ4L29xP/eDKW0L80bmtQE4PDw22F4WTMr1MKVrQ/I0p5F8
-	 vT1SMqly5mLZiGOIxhrCs4nXEu7eKnO/wzs2M8WxyyF52pzZAbRys40FBe4zLFMqNdGf5
-	 CmCMYi1U79OTFmStlZl4oCrvI1AycyDnjLV16/UKVyS3Sfzel3gSGWGeOumH0WTRhZZd6
-	 F51GztGowooNZqi+tmEhsXXNDKpztIELv/5T9zAassRANiw0ziWCI+N4hcv7L3PTtSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125720;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qmTkjhfRVZXBH3VauU4MsoTCHvTi7jHmC9yQvfjqtMk=;
+	b=lkDim+1s1fiXJVRH6ekxO7zbZ/58ZHENqpVWUrXnA2XmcFPZnWaODvgo2LbNDzlGQi/Z
+	 EGKTEzo/0TQczBNv50Ed5XL+cx7IjsoinDM7FhN1HN4/rJYb94MWKnPids6NaV6Jf0dcI
+	 vherwUiPwEL2HhB5uH5vQlW6EwHFGrxawQ/Iq55Id+WI2FpJs9T9JKzW/jk3LatvCG4tJ
+	 +bBUPKJe8xFFzkZJ9JFKFqpYOTeIGRI3pS5D9CZ2tloNHuogB85+9n64P4Wxp7gqsXhyq
+	 8nWaXw3CMIf1YX8GqIWhrbkQ7rI1U8xge4mpp0cBGMlzGGTrRlCxttgRCSadNtozYvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bCe0DApS;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJr+iHiI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CC3606A31D;
-	Tue, 27 Oct 2026 18:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CC3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339EB606A31A;
+	Tue, 27 Oct 2026 18:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bCe0DApS
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261027182540euoutp01808e2a0784b22e974d6c8ffe88c8195c~idi3U5q2O1070810708euoutp01J;
-	Tue, 27 Oct 2026 18:25:40 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261027182540euoutp01808e2a0784b22e974d6c8ffe88c8195c~idi3U5q2O1070810708euoutp01J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793125540;
-	bh=yYVnZVngw4wIyvUedHrp/RCi4DEk87r28LIRWXpCLH0=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=bCe0DApSTMa5hEEGgVvneqzfJYakD7qrG9r1rRA787dJcmFkxZeM041kJvQzf1sWi
-	 mFAb6eOSUU0Yw/Y6KAUriZpeXdgumQlCNkdGsLLdF/sfW7mYHnWBx2d7wOenrOEkLR
-	 zJJaDP1dZxSCFavYWwIcrbMKnu0ZvjvRL33YUuUE=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027182539eucas1p2af97fa5bad6b7de6ca761cb86172737b~idi2gJHhp1120011200eucas1p2b;
-	Tue, 27 Oct 2026 18:25:39 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027182538eusmtip2789b0e5587293524b9c364f453c89396~idi03PmTX1528615286eusmtip2f;
-	Tue, 27 Oct 2026 18:25:38 +0000 (GMT)
-Message-ID: <5fec923f-36bb-4dcc-bf3a-13be3eaa8f83@samsung.com>
-Date: Tue, 27 Oct 2026 19:25:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJr+iHiI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C201F01825;
+	Tue, 27 Oct 2026 18:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793125719;
+	bh=qmTkjhfRVZXBH3VauU4MsoTCHvTi7jHmC9yQvfjqtMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UJr+iHiIfOZ7o5mFrf4QdKdBqCq5SUsq48wJw1mpVi3v4Klbu5UKZiA2xajQRk610
+	 DUldXfqm5y5X6yLyvtKR9DpfkgrloEGtS7dJg9A1w3F21tCVlSg+BmL/ukkpVryAjM
+	 pOQotDbtzy1QPpPzAELFTsDFgo4Rt+FYW9LxuzykHOUKMUL7uZxnakMpp13+auwV5G
+	 cuNmxW9oN+KhuB+9d6OG5XLVEj901Vt75Gjjs8Ifuu9aLMCtvjFlfxdpoP5nGpgaFM
+	 u0dTgv0Bo+mv4ExDjGYgKRKkgTq8F9Fqhn89la/8sRA0dncqxwv2zmk8RCq5t5hGXd
+	 KyJhQYazeyN4w==
+Date: Tue, 27 Oct 2026 18:28:34 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Message-ID: <20261027-attic-collector-cb4ffdb5cf82@spud>
+References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,169 +65,252 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 19/20] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
-	Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen
-	<chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <b5eb69f3f41a98b5a98694435df25a632babf05a.camel@iscas.ac.cn>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261027182539eucas1p2af97fa5bad6b7de6ca761cb86172737b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-19-f0e4fd6f2cc8@samsung.com>
-	<b5eb69f3f41a98b5a98694435df25a632babf05a.camel@iscas.ac.cn>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kalH6PIzx3Y4bVJp"
+Content-Disposition: inline
+In-Reply-To: <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
+
+--kalH6PIzx3Y4bVJp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Oct 27, 2026 at 03:44:08PM +0200, Nicolae-Daniel Deaconescu wrote:
+> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+>=20
+> Add bindings for the LTC2387-16 and LTC2387-18, 15 Msps SAR ADCs with
+> an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
+> uModule ADCs, which pair an LTC2387 die with a fully differential
+> amplifier front end.
+>=20
+> Conversion start (CNV) and the gated LVDS clock are driven by two PWM
+> channels. Sample data is captured by an AXI ADC IP core, referenced
+> through io-backends. adi,use-two-lanes selects two-lane output, and
+> adi,gain-milli gives the front-end gain: fixed at 2 on the ADAQ23875,
+> set by pin strapping on the ADAQ23876 and ADAQ23878.
+>=20
+> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@ana=
+log.com>
+> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analo=
+g.com>
+> Assisted-by: Claude:claude-opus-5-5
+> ---
+>  .../bindings/iio/adc/lltc,ltc2387.yaml        | 138 ++++++++++++++++++
+>  MAINTAINERS                                   |   8 +
+>  2 files changed, 146 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/lltc,ltc238=
+7.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml =
+b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> new file mode 100644
+> index 000000000000..f912260c8f79
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> @@ -0,0 +1,138 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2022 Analog Devices Inc.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/lltc,ltc2387.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Linear Technology / Analog Devices LTC2387 ADC
+> +
+> +maintainers:
+> +  - Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> +  - Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> +
+> +description: |
+> +  The LTC2387-18 is a low noise, high speed, 18-bit 15Msps
+> +  successive approximation register (SAR) ADC ideally
+> +  suited for a wide range of applications.
+> +
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/23=
+8718fa.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/23=
+8716f.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,adaq23875
+> +      - adi,adaq23876
+> +      - adi,adaq23878
+> +      - lltc,ltc2387-16
+> +      - lltc,ltc2387-16-x4
+> +      - lltc,ltc2387-18
+> +      - lltc,ltc2387-18-x4
+
+Why are we getting new devices with linear vendor prefixes? My
+understanding was that new devices from ADI subsidiaries were to use the
+adi vendor prefix.
 
 
+> +
+> +  clocks:
+> +    description: Sampling clock
+> +    maxItems: 1
+> +
+> +  pwms:
+> +    maxItems: 2
+> +    description:
+> +      PWM signals used to synchronize the sampling procedure
+> +
+> +  pwm-names:
+> +    items:
+> +      - const: cnv
+> +      - const: clk_gate
 
-On 9/29/26 17:06, Icenowy Zheng wrote:
-> 在 2026-09-15二的 17:32 +0200，Michal Wilczynski写道：
->> Activate the display subsystem by describing the video output
->> subsystem,
->> which the documentation calls dom_vout_top, as a bus node covering
->> the
->> whole 0x29400000 region, with dc8200, the HDMI block, the video
->> output
->> system controller and voutcrg as its children.
->>
->> The subsystem node owns the resources its children share: the NoC
->> display
->> bus clock and reset that gate access to every register in the region,
->> and
->> the PD_VOUT power domain. Modelling it this way keeps a shared gate
->> owned
->> by the block that shares it rather than by whichever consumer happens
->> to
->> probe first, and lets dc8200 inherit dma-noncoherent for framebuffer
->> DMA
->> from the bus it sits on.
->>
->> The monolithic hdmi node is in turn modelled as a container with
->> hdmi_phy
->> and hdmi_controller children. This lets the PHY (clock provider,
->> depending only on xin24m) and the controller (clock consumer) probe
->> independently, breaking the circular clock dependency with voutcrg.
->>
->> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
->> the
->> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
->> MUXes.
->> The old, incorrect hdmitx0-pixel-clock fixed-clock node is removed.
->>
->> The HDMI controller gets a phandle to the video output system
->> controller,
->> which holds the mux selecting the DC8200 output that drives the HDMI
->> transmitter.
->>
->> CMA is enlarged and constrained to memory the display controller can
->> address, because the default pool is too small for its framebuffers.
->>
->> Co-developed-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> 
-> ```
-> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> But,
-> 
->> ---
->>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 121
->> +++++++++++++++++++++++-
->>  arch/riscv/boot/dts/starfive/jh7110.dtsi        | 105
->> ++++++++++++++++----
->>  2 files changed, 203 insertions(+), 23 deletions(-)
->>
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> index
->> a7a1c09a2c9075711f3a214a49618911fdc7b421..a4c3daf712a63b177f744e8c613
->> 416d22e0c9dbd 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> @@ -33,6 +33,27 @@ memory@40000000 {
->>  		bootph-pre-ram;
->>  	};
->>  
->> +	reserved-memory {
->> +		#address-cells = <2>;
->> +		#size-cells = <2>;
->> +		ranges;
->> +
->> +		/*
->> +		 * The display controller allocates its framebuffers
->> from CMA,
->> +		 * and the default pool is too small for them. Keep
->> the pool
->> +		 * inside the range the controller can address; it
->> fits in the
->> +		 * memory every VisionFive 2 variant has.
->> +		 */
->> +		linux,cma {
->> +			compatible = "shared-dma-pool";
->> +			reusable;
->> +			size = <0x0 0x20000000>;
->> +			alignment = <0x0 0x1000>;
->> +			alloc-ranges = <0x0 0x70000000 0x0
->> 0x20000000>;
->> +			linux,cma-default;
->> +		};
->> +	};
->> +
-> 
-> I don't know whether constraining the CMA pool in the DT is a good
-> idea.
-> 
-> Thanks,
-> Icenowy
->
+Hmm, ltc2387-16 does not appear to have these signals?
+Well, it has "cnv" but "cnv" has "sample clock" as the input name so is
+the clocks property above and pwm-clock can be used if the provider is a
+pwm?
 
-So I've tested the version without alloc-ranges and some of the modetest
-runs failed especially the higher resolutions. It seems this is because
-without alloc-ranges __reserved_mem_alloc_size() allocates top down with
-MEMBLOCK_ALLOC_ANYWHERE so the pool lands above 4 GB, which the DC8200
-cannot reach - vs_dc.c sets a 32-bit DMA mask.
+Either there's some mutual exclusion missing here or the modelling in
+incorrect.
 
-25 of the 42 advertised modes failed with "failed to create dumb buffer:
-Cannot allocate memory" - every 4K and 1080p mode, down to 1360x768.
-Only 1280x800 and below survive.
+"clk_gate" doesn't appear in either of the datasheets I looked at, what
+does that actually do?
 
-So the range seems to be a hardware limit which is why I think it
-belongs in the DT. I'd like to keep it in v6.
+pw-bot: changes-requested
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+> +
+> +  io-backends:
+> +    description:
+> +      The AXI ADC IP block (axi_ltc2387) that captures the LVDS data str=
+eam.
+> +    maxItems: 1
+> +
+> +  vref-supply:
+> +    description:
+> +      External voltage reference. When absent the device's internal 4.09=
+6 V
+> +      reference is assumed.
+> +
+> +  adi,use-two-lanes:
+> +    description: The device uses two lanes for data transfer
+> +    type: boolean
 
+Please explain how this is not determinable from the compatible.
+
+Cheers,
+Conor.
+
+> +
+> +  adi,gain-milli:
+> +    description:
+> +      Gain of the fully-differential amplifier that the ADAQ2387x modules
+> +      integrate ahead of the LTC2387 die, expressed as gain * 1000. It is
+> +      fixed on the ADAQ23875 and set by pin strapping on the ADAQ23876 a=
+nd
+> +      ADAQ23878, so it must match the board. The bare ltc2387-* parts ha=
+ve
+> +      no amplifier.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [370, 730, 870, 1380, 2000, 2250]
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - io-backends
+> +  - pwms
+> +  - pwm-names
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - lltc,ltc2387-16
+> +              - lltc,ltc2387-16-x4
+> +              - lltc,ltc2387-18
+> +              - lltc,ltc2387-18-x4
+> +    then:
+> +      properties:
+> +        adi,gain-milli: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: adi,adaq23875
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          const: 2000
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,adaq23876
+> +              - adi,adaq23878
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          enum: [370, 730, 870, 1380, 2250]
+> +      required:
+> +        - adi,gain-milli
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc {
+> +            compatible =3D "lltc,ltc2387-16";
+> +            clocks =3D <&clk 0>;
+> +            io-backends =3D <&axi_adc>;
+> +            pwms =3D <&pwm 0 0>, <&pwm 1 0>;
+> +            pwm-names =3D "cnv", "clk_gate";
+> +            vref-supply =3D <&vref>;
+> +    };
+> +  - |
+> +    adc {
+> +            compatible =3D "adi,adaq23878";
+> +            clocks =3D <&clk 0>;
+> +            io-backends =3D <&axi_adc>;
+> +            pwms =3D <&pwm 0 0>, <&pwm 1 0>;
+> +            pwm-names =3D "cnv", "clk_gate";
+> +            vref-supply =3D <&vref>;
+> +            adi,use-two-lanes;
+> +            adi,gain-milli =3D <870>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 52024397dc78..b871d7f25d76 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15529,6 +15529,14 @@ W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+>  F:	drivers/iio/adc/ltc2378.c
+> =20
+> +LTC2387 IIO ADC DRIVER
+> +M:	Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> +M:	Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> +
+>  LTC2664 IIO DAC DRIVER
+>  M:	Michael Hennerich <michael.hennerich@analog.com>
+>  M:	Kim Seer Paller <kimseer.paller@analog.com>
+> --=20
+> 2.34.1
+>=20
+
+--kalH6PIzx3Y4bVJp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauDtUgAKCRB4tDGHoIJi
+0mhqAP412YGM8tjEuoPHIpRc3MotpTsdTFAtTjKi6T98iyNx6QEAp/G1BrLrISod
+4STFsH+BlH9SpK8CcvKlU77TLfLSVgk=
+=TQny
+-----END PGP SIGNATURE-----
+
+--kalH6PIzx3Y4bVJp--
