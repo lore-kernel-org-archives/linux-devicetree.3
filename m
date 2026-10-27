@@ -1,65 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105614;
-	b=DDjENLFyJDM13K7t/wrUQMIZ8TyzdAqkMuM6fQvI+j/A+oPnctgQqThvVCrpy7u8jhSu
-	 +fhhY2to/TTkNmneu/Sp1Sh6YkvUuT4mA9yVt3+FxQe84Vdn8NikJAbaWopxrSOGgN4ls
-	 HUiKSwMrOV2ZN/JmRxjd85tLjNQlMuUS2BXsMEpScy3acY4Nt33F/OqIMd7xaVFHncgYZ
-	 2Y6T4/JhfhExRBg+U8R5X3dM4qmai3ksdlhQdrZ+xdm4xMRvo4hMi2lDYRB1EK/PaGR5M
-	 5B+GkMRbF7KAOpLX3N56BpxGDPFm2QJbtEnnPgfb2c0iSZ75nFalkHtd0+6NHbGvTzw==
+	t=1793105712;
+	b=et5R/XEDEyiK4p6OHtGmOeFKuMafE8qKRqCYGTHYGPoX1XQW33IAvrvtGIxPNDvmJpqo
+	 7eh9T4ASyWREt6I+AFSrTlnqOeOEHHvrmrw/zcDqvqTbg2RoHjJFlEjRd7uhUUZ9hk+A9
+	 xlnkj+IFWS6AvphaU0QikVSVhyPmEXOns9vKOrg2ZreyXh0seBRW8t1WFm/GilNyWLLRW
+	 WGKdkGaW9rgA0s8pRLwRTGfnDq/BGmUM4XxO61A5aHJ3JPyXgygTRNUTTMmu3/l60cyQe
+	 7jlx+BrfYGlNYRGg8TB+Ciz82/Rkg3cFR1qEOgcs/Ti5s9gqLCQT8FGT2BTbdUg6lYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105614;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=B3x+ve/3y8894hAz6Kf2M5B/2DKTWxmuPKSuFN/yyCo=;
-	b=j+NYJ2yGZQ2ho+8Lf0yu9CeTyB74QaAegQStsQg1X2dECepVOAv67hqCr0Lm7ouE4z78
-	 71rnuzWhtuXej6lQijCHpnbR+7ruax4tz1qKDVxtwHtxkWes1lzPQV/t9vOrH311/4eiP
-	 6IBa9qHqPGnYRvrgkLZPOvyw4D7o6/zBbiXOD/usHkvB/9yyqryv2qGCydajg82xYDNh+
-	 y0konz6W1EORvhL1UghpOSXSMjZhDq7q9UnLYOXZVgYQsIK+6NUl4u9Y/98W+P8S1ig0/
-	 5yBrr5nKwK0c/aR39dk48TTXBStKOLSGoyKr8DKsBmZyrWDl29FLm4XphWh00C51PzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105712;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=l8rtHrapaottmx9goZkL6akyA4nq8Ox0o4KHJkDcn9s=;
+	b=IkiOsnHsNZcW+kII5+JB2kTeZmyOqEk33Xc/eGu2b6OKFutC7r88qeQHYdPZcEI06Ytq
+	 ZwCFv7ttgGWCQVfDgl3mO4rFFDkPito4MIBbwgIK4XLi642jpdEZH2eIEH5/eXpteY8/2
+	 iyE/H94KqPMnZ+WmN2sfukmm8TjTjWyJnzT0pP/qRzcl/+RN41z6B22/NoLKkvtuSlApL
+	 16K0kzs5KEw5e1YiWR51qoTX2PBVep9dQOE3HBAj89qqpYZ+OA9liTgOz0IOuuf1nC8ND
+	 waSYs6y4a/gHb0woEpi33Gxi1qZYHyRlrNgAzUcHvcdgU/i5AMNaCz3iBF5usFq0sjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AFcHvXIh;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="jII/eFTh";
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BE1606A31A;
-	Tue, 27 Oct 2026 12:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48BE1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B13B606A31A;
+	Tue, 27 Oct 2026 12:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B13B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AFcHvXIh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=B3x+ve/3y8894hAz6Kf2M5B/2DKTWxmuPKSuFN/yyCo=; b=AFcHvXIhhGrKyfs9/MEEb2VHHP
-	lneMt/MX28F0QNNgpDxTH+e7aeEYK1POI8mqG8oTD43odd/FssBI+at/TdQ46iYEWIhqQ9yAPEbki
-	Zbv2J/jbVy0uXNymHAnB/CV1ql7+G7KKNLb+FM842Fs6NjFIVaUit6rp22B3MoT/ywKS60BfjzyP7
-	qh2V/aPdZo+EXMYESreOURbgACsTKgBGqaHXbLjlJMsEf1RGP2ktznToxAwVwAxP6bEWaCaqcc5qR
-	uBr8u2AlPqAx/n0iNfz29QRJgICC9ID81sbIPpdEJ4NARgRxkpmtgkY776RdUolbbVG5kL/UgIxZ5
-	zs+Hxbag==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Cunhao Lu <1579567540@qq.com>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: clock: rockchip: Add RK3572 CRU
-Date: Tue, 27 Oct 2026 13:53:18 +0100
-Message-ID: <22145329.0c2gjJ1VT2@diego>
-In-Reply-To: <c1fc1868-5583-420f-b945-2bf934873713@kernel.org>
-References:
- <20261026-add-board-ok3572-c-clk-v3-0-dbabfa39d692@qq.com>
- <3011736.yaVYbkx8dN@diego> <c1fc1868-5583-420f-b945-2bf934873713@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=jII/eFTh
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C792108A85;
+	Tue, 27 Oct 2026 13:55:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793105704;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=l8rtHrapaottmx9goZkL6akyA4nq8Ox0o4KHJkDcn9s=;
+	b=jII/eFThrQM6/pj3YkTAaPlhsi0wrkdNeuEsdMtU/Uat4y4xQGzuLa+oV6yo8SyFFP11Qj
+	rlLHD0YtGXY+6YYcTI2jglyRB/O9aBS0RrvvMKSu2z8Xoofsf039UFWAhnK2DPhpAyXIy6
+	nF0iKqVUtKzZKmdlBnJAqVa0jP93fkFwZqhXZdldyj+W2xSXLXGz1vGdNUn/H8xDw4UILp
+	VhH6wBCTqb/2t+UmMZJjZ3zmRrCkFjzONguTGW8o+VcyH5A5wk3f4HIEZ4VbN2XMU3wyXq
+	g5TVszijKlAw18o+ODALDahs0YQZOqRpGRBNoSA5D32e0PK++XkhuIA/7mqoYA==
+Message-ID: <b87fb6cb-e9c4-46c7-9306-fce90cbee6e0@nabladev.com>
+Date: Tue, 27 Oct 2026 13:31:01 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,67 +56,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB
+ number
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
+References: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
+ <20261027111201.20936-2-cniedermaier@dh-electronics.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261027111201.20936-2-cniedermaier@dh-electronics.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Am Dienstag, 27. Oktober 2026, 12:07:12 Mitteleurop=C3=A4ische Normalzeit s=
-chrieb Krzysztof Kozlowski:
-> On 27/10/2026 11:43, Heiko St=C3=BCbner wrote:
-> > Am Dienstag, 27. Oktober 2026, 11:17:08 Mitteleurop=C3=A4ische Normalze=
-it schrieb Krzysztof Kozlowski:
-> >=20
-> > With code originating in the vendor kernel, it is nice to know what cha=
-nged,
-> > but I guess there is a tradeoff between brevity and more details.
->=20
-> Honestly I disagree :). Vendor kernel commits and their messages are
-> irrelevant per se. They are only useful as source of knowledge, but what
-> was exactly written there does not matter. Quality is dubious, coding
-> practices are terrible. We want to extract the knowledge, the important
-> details, but not the exact commit. We do not care what changed from
-> downstream to upstream, because we know that downstream sucks so much
-> that we don't even want to touch it.
-
-Here I partially disagree :-) .
-
-We trained Rockchip somewhat well over the years in that for example
-the per-soc clock drivers fit quiet nicely into the upstream framework,
-as both sides follow the mainline driver structure I did in 2013
-(which is still surprising that that mostly holds).
-
-But you're right for other parts like the whole graphics stack, which
-diverted so much from mainline that things can't get transplanted at all.
-
-
-> > I guess this could be shorted to something less verbose, like
-> >=20
-> > +++++++++++++
-> > Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
-> > [adapted to mainline rockchip clock and reset handling (xin24m input,
-> >   don't introduce CLK_NR_CLKS, etc ]
-> > Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> > +++++++++++++
->=20
-> Yes, if this brings anything useful. For example removal of CLK_NR_CLKS
-> is completely pointless to mention. How does it explain the hardware or
-> design choices? How does it explain why this driver was written that or
-> other way?
->=20
-> Just take the authorship of downstream commits and send them as your
-> own. Both GPL and DCO allow this and if downstream did not bother to
-> upstream that stuff, they do not deserve credits.
-
-So personally I do believe in giving credit where credit is due and
-trying to make them better citizens instead of just telling the vendor
-"your code sucks" ;-) .
-
-
-The authorship question is likely not as relevant for the binding, but
-for example for the clock driver itself, where Elaine did most of the
-work matching the hardware- description to the clock structure, I  really
-believe that Elaine should get credit for that.
-
-
-Heiko
-
-
+On 10/27/26 12:12 PM, Christoph Niedermaier wrote:
+> The PCB number of the maveo box isn't 525. Change the
+> number to the correct number, 625.
+> 
+> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
+> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Reviewed-by: Marek Vasut <marex@nabladev.com>
