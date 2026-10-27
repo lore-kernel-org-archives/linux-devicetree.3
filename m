@@ -1,55 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101017;
-	b=UB+9ZKXMwgpCpuaIwF6FVkWFINoTp1Jqy7IjURkgYzdhbdR2sCZGM/Xnxkxn5HEpopxB
-	 4AqztBHnbhB1N47Epvmd2zjYtOnt48B6ckf5iLz1wygeWXOT3MaknxR82LUPc5en9NGSD
-	 hqI6xOoZSKHX3c4k7kAW4TTdWB4jokmdUV/+LBpxoMpPkXyZXc1YCtYVWOT4syUElf7Is
-	 rlewsJCcXB36ZuYYq8x9aDm0DWRsa4D72dpwgbi2DBGJp/aEFJf5NNv7w3nMDpoUF3Q0M
-	 MtlYdiGY1DUuB22hWWH/lwQYtypdo+IMemCF88N9HRQ7SI3x7mifZny/TcqLtgTrdZA==
+	t=1793101029;
+	b=e/o/cblPMvCNO/Yh75Qda2ePLImh7TteR0veeiC4in5xYUtXQtZUhfyeodiqPGPFs62L
+	 Z32dxOYixUPImvTOHMaqcKoyDU5OkXAuYzbvFCVAwZpvg9FtD6XGbmoj+/gtf3WLDBxBM
+	 ZH68nlimvo7ktw+8s6KcPu9v3N+wQ/F3J9DFVO+TUCGSWMCpY/FJ94uXsarJ7CIeAiVcM
+	 t8Ew+H3pMOQ/AW/hx1mzWTJGTjbNCc2e8dXsbO+36n4yex+NsB8TUP2FusAyWxfb84Ktn
+	 B52ORoij7DiTSCiZmSJi5aROanl8WYWMfkEMsMQzFqw2rlh42ERvcZXBPr6UIkeiuTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101017;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=K8XWHiZTo/rnPk/qmo2METIj0DAH3PZeMPGufOb8jOo=;
-	b=uXZ5yy6FXoyYLL0RJAkdp16DxmKOR49BFSvNGkw3qefvP/eZToR0Qu7orQoAXm9+cGxi
-	 nYgdVNb0RUmONOwnwijIAuSPF3uTyyLjBIOb0Ae1d/fZWZaCtqmiJFUkNhjRtQ4g0NH5Y
-	 0+2u6ceLn7CW0h5uwx7KCclU7LNdwSLtsZOSyQrxfwHy3eQTDv/gNwrSUeeC1e+841Pcb
-	 GtD4tHZ/s9bg4vyHS6iataFlAatecvjrem6dzu9xl7Bgc3BHfCBT6O2mSrsQbfvfgQ2tK
-	 JyZn+7n9g7byrNvISCJPyDxWU3k+uZ7dEXPk7+SM8IEm2f5CIXs7RAkn88jk7fucpnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101029;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=d9Gksr16Ym7a6rQh3BsSgLKtbW1PN6uAQD1PHStu3Cg=;
+	b=SDjjBuY2rcunERbDucls7v3rfiLb8/Xpp+bRQ+BgatMpOZqLDovg9lkWvV2joGRjM24C
+	 UbxBmBAUHehIT5jNqKtykTLU128i46M22WEvQQb+zhK8OoCuwrzvDE2H/1uFssAFF4IA1
+	 sp4QXXGCkBlA+ODOXrFkdVmFKlWuNflb+4qY4DGlQYUbeIXxi+GnLXk3V9nk9+rS4/BKe
+	 2xDpFMwnIKGW16clNF1/3RUkp3PEuhBhztYvHO3YS1tBD/++cUMLuCDjwZD9fEwZCNG4u
+	 WM7HR2IQCy6q9LFnRDT59P49mFytt33CSda2HEz5UCqKM/XhJjLoixwdgLqSDDNijtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="YOrQW02/";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="BYkqWIL/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MYiB3GTb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0A0606A31B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:36:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0A0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD500606A31B
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD500606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=YOrQW02/
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4CC974E41336
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:36:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 15371603BD;
-	Tue, 27 Oct 2026 11:36:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9A9AF10328A20;
-	Tue, 27 Oct 2026 12:36:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793101010; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=K8XWHiZTo/rnPk/qmo2METIj0DAH3PZeMPGufOb8jOo=;
-	b=YOrQW02/HjeWaxjxwTKHj6oIGJTkJqbBTPwsntykcEFbhgR0hGP9NGyVwMJ2J+BYxyusvb
-	Ab7RFYpeBkIjfY2vL77aaxy2mOHXlCTewQGGIyDp4AlNsCoMCJCKEpDR2MnDGrFd5pkC0K
-	ZOvLhI23rmVczti1jz4NzueMVFXPj3Y0OJ08IB3oW3h2weaR+6/OkILyhOfLqBnbiwIZmX
-	vbJQjxXwknkQrw45j1Q3OIsCFcWzQqhXbY/LrL8F+9MqD7qILvOcxOgSynZQzg885CYStN
-	OhZh1VAjw4yPH+nVkNp3v9QK5PC9COGu5TL7OrXNGZuQUUsGkEY/W06ySNlTHg==
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BYkqWIL/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MYiB3GTb
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe4HY894352
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:37:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=d9Gksr16Ym7a6rQh3BsSgLKt
+	bW1PN6uAQD1PHStu3Cg=; b=BYkqWIL/vT76gUwo2BPV8+qHrr6gTQHtEF/qsZzV
+	t9k7/HNQeqhwS+OHKqnDsMIWulbLG2pqkKIwvCy+qUpRSxC99/XxZBrYFP4cxZ7l
+	/Q5YOmpG3L271QH2G5vKyPoPM1U+Mq8rSMuRfxu5hdQR1Oyw80YcKP/fbSWdHayk
+	T1s4ECD6OiTjnRcPlz4xyWeEWk5/6k+IM1aG5CEfYWk//wv8JxvDfs9IpI340eXV
+	4UYya+dCPcGYNtZp5Y0LWnfYkoc75+7VeOWSCho+8Jf88hndccM3tEwzSWSew6Ic
+	bV2hVKl418/lToGDeg8NuPuK+BK//WEAdS2VFXbsnHzZsw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj8smv8t0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:37:07 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7bf08dc2fc8so981465137.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:37:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793101027; x=1793705827; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d9Gksr16Ym7a6rQh3BsSgLKtbW1PN6uAQD1PHStu3Cg=;
+        b=MYiB3GTb5L7ix1BI1N8Jpyt+VCP3d8sLmnAczb+NA8WC2GmILuLKf9Cgx0SCAHmdms
+         zX9H8/n1Et56I4rbUf8cCbhHU+hT2nrEf7Tq4uIdSInkvP0hTEJ62mMXnG1mxQl9B1qO
+         dSVnoP+GA/AziQHhuNimf7gTmptyGjzMhu/WV9btYfCUmjI3J/J6bBDDydotEi2jxtq7
+         zuQZG7kteIBHc2p3eZyKWgel5d0xnDFON7kqPb3Wy/ePe5k8YgYzvrJWljU20Qlz5Pyd
+         z6SybKf11ShDACw7I9Vfq0bc/1n/VXB8GFQV0AVdpgRc2eRq4tm2QQoNskU1y8ov27AP
+         ylow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101027; x=1793705827;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d9Gksr16Ym7a6rQh3BsSgLKtbW1PN6uAQD1PHStu3Cg=;
+        b=Hj4e09tJBfT9OxsKvQ2LaIfcss+EFWQKW7WwHxWH+/Om3z4YzRvQ/GC/0esahwnv89
+         CVeOPD9u2lsWRrI00GbFpuNqcadDhWbl76YeAEUJ7wxGi4BxYMIC0KhaH/f1cka7fmoR
+         SX/njCxW+xWTUT8KShUAMFSQYw9s7WnNQQH15XydOpfti6+xh4HoYwZ6EOhpbJrHmf/l
+         lTWF2euSt3qS9GWn5i8fHNK6AL9LGQfYcz122UE0BlpNlivBZ1Rv+dmTLh6KyuXt+aH8
+         PzdcK9I/qFJKOypiRUos+vRmuO370RFsfK5TzpWj0Z6bYqyVJRo+0jNbiCbVNZnw7i+A
+         6rEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDOcgcjnf/B/Qg4bxepsBHXRyhzN32m4kbiqqNEtsR2dy72r7YQlUAsVvwrSkZfvMGHfXvJWBZhMiI@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJycn7dzBUsT+cp8IRvsAW/XTZ4bECcXokBwVfvYsBUoGdsESL
+	tSsWmEXp1lUPBIxPO7SZZ60ghwsWjJB861tkuVypqLMfrnnwBecxV1e9CwuBs5/mXQY1fLKo0j5
+	jx1vpiDNgAEtpXgWdaULPR/+ZkwCo4mw2R46rSshlZv6kcazfDNM3HQybF0EkrCwc
+X-Gm-Gg: AYBFou0C1iSx2PPbH4BGTQ/PTNnzVLpC+vUxBnjxFJil5j1kXAufzBS3ih+WK1CoZ28
+	0ngeTGGAYZ2JQXBly/V8+Uvm6OYKvsO/hwQrFoUGIdyKsxepK4EWMBXgVg0CCTZx0YsBEz+OfJW
+	d6I3pjb/p6J5L5SEnfxOwdiVJOv1OLyw9/C5LYepIKeU0fFt5QCDjaDPgAlqZRV2GUvA6gNOCD+
+	mygbDnpOSDPv20ci3ieon0tAFQ7i425h1jN17bgNHnm0JEdZ/Y9S6g1F89Yk2lGyuVLIMDVQzir
+	wGU6a6C7UAfpraiqjc16VshnSQ1VhyoUVh7emWrUMuXjqv0z3euVU58ZeG4H/x0ZL2Zxy+Saokc
+	rQWLdD92lJYJgaUOVfUR3VlH0B4oHpj2emhtDThb2A7TbyKT3JQVmB/aNvQPS+gWnj+DDdbY8r1
+	Z+kJPSh9c3mB9Q
+X-Received: by 2002:a05:6102:644a:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7ce5ccaae68mr2852910137.7.1793101026932;
+        Tue, 27 Oct 2026 04:37:06 -0700 (PDT)
+X-Received: by 2002:a05:6102:644a:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7ce5ccaae68mr2852880137.7.1793101026222;
+        Tue, 27 Oct 2026 04:37:06 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a8930dsm2093206e87.46.2026.10.27.04.37.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:37:04 -0700 (PDT)
+Date: Tue, 27 Oct 2026 13:37:03 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang <jasowangio@gmail.com>,
+        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Flemin Jose <flemin.jose@oss.qualcomm.com>,
+        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 21/23] drm/msm: Support KMS backends without a display
+ IRQ
+Message-ID: <jmsh74ugfivd6ffwiqvofwnkkxnu5z67hqdei7jarhrftvkgac@hq2e5s2aj7fr>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-21-7cf014efdee1@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,495 +147,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 12:36:48 +0100
-Message-Id: <DMFL9BJQOD79.2Q2K2J8AFHV4A@bootlin.com>
-Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
-Subject: Re: [PATCH v2 4/4] regulator: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: <sashiko-reviews@lists.linux.dev>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
- <20261027-paul-lm51772-v2-4-b2a767e34722@bootlin.com>
- <sashiko-outbox-186345@kernel.org>
-In-Reply-To: <sashiko-outbox-186345@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-21-7cf014efdee1@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: _0vDk4IW3t7Q-9IH7z9njurDW3yDVnv0
+X-Authority-Analysis: v=2.4 cv=Sfti5fRu c=1 sm=1 tr=0 ts=6ae08ce3 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=auR94sGctrba0TjZuGkA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: _0vDk4IW3t7Q-9IH7z9njurDW3yDVnv0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NiBTYWx0ZWRfX0SeMV5JR9MCj
+ F4C212Z4kSNcAT6j9v8yr8r0favU3Bs9g1QRYgZRqJfucWb9Vik0Fi8ArcMPhFNDBfUZAPUHMao
+ FxtBgy4ry1GE+UPu7SzeYf9ef12FtxI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NiBTYWx0ZWRfX1dZE1bZduKke
+ 4oOJENnhitnNJgnefRqgnIPfgv6NMvhu9q3EZnkdHeRgOOrwRp0olMfACdcAawY+9u+ArEombop
+ RHeKG6JwmZrv2b9N4BoJsqSWNzgWdkYqiMV3K5ATyXiZCTHF+fL0jiOqSxc1hgVERBNYoUPTiqC
+ 2bodOvuL35eXlHrkIKxC1n9CA7/9a3aU+ClqHNCCxdeDZdtQzHIq360AetazJfwdlljLJHUSHv0
+ tNlN6/+iKrhwo1601/J0bdlmZHKToQqjPsGeSdzSuPCEthz8GcpqgMXRAXriaaGqcBGZnpEY+Io
+ x+BLSyMt+O+armIwNh0gMOIuIuMvimTfbDk+ANmWI3dLoHKPYl+QE1E/vWuwL9zIIALj55FofLI
+ KgAtaSsW7mU9iOK5R0nn7afklqmIrJ7USlPW7qeKJapnBIvSdkZt1g0g22FG1wJoGiWdgrGq3mJ
+ GtolIBQ4RMa24Wpvwsg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270046
 
-On Tue Oct 27, 2026 at 11:01 AM CET, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 7 potential issu=
-e(s) to consider:
-> - [High] regulator: lm51772: use logical AND in lm51772_get_conv_en()
-> - [High] regulator: lm51772: fix current limit bounds and max_uA check
-> - [High] regulator: lm51772: fix STAT_OFF and fault checks in IRQ callbac=
-ks
-> - [Medium] regulator: lm51772: fix cached errors and IRQ order in lm51772=
-_setup_irq()
-> - [Medium] regulator: lm51772: allow OVP limits below 4V in lm51772_set_o=
-v()
-> - [Medium] regulator: lm51772: OVP updated after voltage ramp-up trips fa=
-lse OVP fault
-> - [Medium] regulator: lm51772: state mismatch between priv->iset_pin and =
-hardware default
-> --
->
-> commit 85d9f9bf5e7e89e913ab51cc149fc605a17772db
-> Author: Paul Louvel <paul.louvel@bootlin.com>
->
-> regulator: Add TI LM51772 support
->
-> This commit adds a regulator driver for the TI LM51772 I2C buck-boost
-> voltage regulator and its auxiliary 5 V LDO output.
->
->> diff --git a/drivers/regulator/lm51772-regulator.c b/drivers/regulator/l=
-m51772-regulator.c
->> new file mode 100644
->> index 0000000000000..66f4541b50994
->> --- /dev/null
->> +++ b/drivers/regulator/lm51772-regulator.c
->
-> [ ... ]
->
->> +static int lm51772_set_conv_en(struct regmap *regmap, bool enable)
->> +{
->> +	int ret;
->> +
->> +	ret =3D regmap_update_bits(regmap, LM51772_REG_USB_PD_CONTROL_0, LM517=
-72_CONV_EN2,
->> +				 FIELD_PREP(LM51772_CONV_EN2, enable));
->> +	if (ret)
->> +		return ret;
->> +
->> +	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D0, LM51772=
-_CONV_EN,
->> +				  FIELD_PREP(LM51772_CONV_EN, enable));
->> +}
->> +
->> +static int lm51772_get_conv_en(struct regmap *regmap)
->> +{
->> +	unsigned int pd_ctrl, cfg0;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_USB_PD_CONTROL_0, &pd_ctrl);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_MFR_SPECIFIC_D0, &cfg0);
->> +	if (ret)
->> +		return ret;
->> +
->> +	return FIELD_GET(LM51772_CONV_EN2, pd_ctrl) || FIELD_GET(LM51772_CONV_=
-EN, cfg0);
->> +}
->
-> [Severity: High]
-> Should lm51772_get_conv_en() use && instead of || here?
->
-> In lm51772_reg_defaults (and at hardware reset), LM51772_REG_USB_PD_CONTR=
-OL_0
-> is 0x01 (so LM51772_CONV_EN2 is 1) while LM51772_REG_MFR_SPECIFIC_D0 is 0=
-x32
-> (so LM51772_CONV_EN is 0), and lm51772_set_conv_en() must set both bits t=
-o
-> enable the converter.
->
-> When a consumer calls regulator_enable() on vout for the first time:
->
->   _regulator_enable()
->     _regulator_is_enabled()
->       lm51772_regulator_is_enabled()
->         lm51772_get_conv_en()
->
-> Because lm51772_get_conv_en() uses ||, it returns 1 while LM51772_CONV_EN=
- is
-> still 0, causing _regulator_enable() to treat vout as already enabled and
-> skip calling _regulator_do_enable().
->
-> [ ... ]
->
+On Mon, Oct 26, 2026 at 11:51:31AM +0530, Jayant Shekhar wrote:
+> Some MSM KMS backends receive display events through firmware or
 
-No. It might need a comment in the code to clarify this.
-Both bits are internally OR'ed, so whenever one of them is set, the convert=
-er is
-enabled.
-When enabling / disabling, we update both bits, just to be consistent.
+Which ones?
 
->> +static int lm51772_set_ov(struct regulator_dev *rdev, int lim_uV)
->> +{
->> +	static const struct linear_range ovp_ranges[] =3D {
->> +		LINEAR_RANGE(4000000, 0, 0x18, 500000),
->> +		LINEAR_RANGE(16000000, 0x18, 0x3f, 1000000),
->> +	};
->> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
->> +	struct device *dev =3D rdev_get_dev(rdev);
->> +	unsigned int sel;
->> +	bool found;
->> +	int ret;
->> +
->> +	ret =3D linear_range_get_selector_high_array(ovp_ranges, ARRAY_SIZE(ov=
-p_ranges), lim_uV, &sel,
->> +						   &found);
->> +	if (ret || !found)
->> +		return -EINVAL;
->
-> [Severity: Medium]
-> Does checking !found in lm51772_set_ov() reject valid over-voltage protec=
-tion
-> thresholds when the target voltage plus lim_uV is below 4.0 V?
->
-> Because vout supports output voltages down to 1.0 V while ovp_ranges star=
-ts
-> at 4.0 V (4000000 uV), calling linear_range_get_selector_high_array() wit=
-h
-> lim_uV < 4000000 sets sel =3D 0 (4.0 V, the lowest available upper-bound =
-OVP
-> threshold), sets found =3D false, and returns 0.
->
-> Checking !found causes lm51772_set_ov() to return -EINVAL instead of
-> selecting 4.0 V, and since fixed_ovp is set on vout, _regulator_do_set_vo=
-ltage()
-> will also fail with -EINVAL whenever vout + lim_uV is under 4.0 V.
->
+> another transport and therefore have no host-visible display interrupt.
+> Rejecting such a backend during common KMS initialization prevents
+> it from using the MSM DRM framework.
+> 
+> Allow KMS backends to use IRQ_NOTCONNECTED. DCP receives VSYNC and
+> frame-scan completion as asynchronous HFI events over VirtIO; its IPCC
+> interrupt is reserved for power-notify acknowledgments. Existing
+> IRQ-backed KMS implementations retain their current request and
+> teardown flow.
 
-Yes, setting it to 4.0V should be the correct behavior.
+With the commit message fixed:
 
->> +
->> +	dev_dbg(dev, "OVP set to selector 0x%02x\n", sel);
->> +
->> +	return regmap_write(regmap, LM51772_REG_MFR_SPECIFIC_D5, sel);
->> +}
->> +
->> +static int lm51772_regulator_set_over_voltage_protection(struct regulat=
-or_dev *rdev, int lim_uV,
->> +							 int severity, bool enable)
->> +{
->> +	int ret;
->> +
->> +	if (!enable)
->> +		return -EOPNOTSUPP;
->> +
->> +	if (severity !=3D REGULATOR_SEVERITY_PROT)
->> +		return -EOPNOTSUPP;
->> +
->> +	/* Use default OVP threshold when no limit is requested. */
->> +	if (!lim_uV)
->> +		return regmap_write(rdev_get_regmap(rdev), LM51772_REG_MFR_SPECIFIC_D=
-5,
->> +				    LM51772_OVP_DEFAULT);
->> +
->> +	ret =3D regulator_get_voltage_rdev(rdev);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	return lm51772_set_ov(rdev, ret + lim_uV);
->> +}
->
-> [Severity: Medium]
-> When regulator-ov-protection-microvolt is configured and vout is raised t=
-o a
-> new voltage above the previous absolute OVP threshold, can this trip a fa=
-lse
-> hardware OVP fault during the voltage ramp?
->
-> With fixed_ovp enabled on vout in lm51772_regulator_descs,
-> _regulator_do_set_voltage() first writes the new voltage selector via
-> ops->set_voltage_sel() and sleeps for fsleep(delay) while the output slew=
-s,
-> and only afterwards invokes ops->set_over_voltage_protection():
->
->   _regulator_do_set_voltage()
->     ops->set_voltage_sel()
->     fsleep(delay)
->     handle_notify_limits(..., ops->set_over_voltage_protection, ...)
->       lm51772_regulator_set_over_voltage_protection()
->
-> When stepping vout up (for example from 5 V to 20 V with a 1 V OVP margin=
-,
-> where LM51772_REG_MFR_SPECIFIC_D5 is initially set to 6 V), the converter
-> ramps past 6 V during fsleep(delay) before LM51772_REG_MFR_SPECIFIC_D5 is
-> updated to 21 V. Should the OVP threshold be raised before increasing the
-> output voltage?
->
-> [ ... ]
->
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Described in last review.
 
->> +static int lm51772_regulator_set_current_limit(struct regulator_dev *rd=
-ev, int min_uA, int max_uA)
->> +{
->> +	struct lm51772_priv *priv =3D rdev_get_drvdata(rdev);
->> +	struct regmap *regmap =3D rdev_get_regmap(rdev);
->> +	unsigned int current_uA;
->> +	unsigned int sel;
->> +
->> +	if (priv->iset_pin)
->> +		return -EOPNOTSUPP;
->> +
->> +	if (min_uA > LM51772_ILIM_MAX_UA || max_uA < LM51772_ILIM_MIN_UA)
->> +		return -EINVAL;
->> +
->> +	if (max_uA > LM51772_ILIM_MAX_UA)
->> +		max_uA =3D LM51772_ILIM_MAX_UA;
->> +
->> +	sel =3D LM51772_UA_TO_ILIM_SEL(priv->sense_res_micro_ohms, max_uA);
->> +	sel =3D clamp_val(sel, LM51772_ILIM_THR_MIN, LM51772_ILIM_THR_MAX);
->> +
->> +	/* Check if the selected value is still within the allowed range after=
- computation. */\n> +	current_uA =3D LM51772_ILIM_SEL_TO_UA(priv->sense_res=
-_micro_ohms, sel);
->> +	if (current_uA < min_uA)
->> +		return -EINVAL;
->
-> [Severity: High]
-> Can clamping sel up to LM51772_ILIM_THR_MIN cause
-> lm51772_regulator_set_current_limit() to program a current limit higher t=
-han
-> max_uA when a smaller sense resistor is used?
->
-> For example, if shunt-resistor-micro-ohms is 5000 (where LM51772_ILIM_THR=
-_MIN
-> 0x0A corresponds to 1000000 uA) and the caller requests min_uA =3D 500000=
- and
-> max_uA =3D 600000, LM51772_UA_TO_ILIM_SEL() computes sel =3D 6, which cla=
-mp_val()
-> raises to 0x0A. Recomputing current_uA gives 1000000 uA, and because only
-> current_uA < min_uA is checked (without checking current_uA > max_uA), th=
-e
-> driver programs 1.0 A into LM51772_REG_ILIM_THRESHOLD, exceeding max_uA.
->
-> Also, LM51772_ILIM_MIN_UA and LM51772_ILIM_MAX_UA hardcode the current ra=
-nge
-> for a 10 mOhm resistor rather than scaling with priv->sense_res_micro_ohm=
-s,
-> which rejects valid selectors when a different sense resistor is configur=
-ed.
->
-> [ ... ]
->
+> Assisted-by: LLM
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/msm_kms.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-Yes. I should use a linear range array to describe which value this registe=
-r can
-take. Clamping was lazy and wrong.
-
->> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *ri=
-d, unsigned long *dev_mask)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int status, reg, errors;
->> +	bool dev_off;
->> +	size_t bit;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &status);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	errors =3D lm51772_status2err(status);
->> +	rid->opaque =3D status;
->> +
->> +	dev_off =3D (status & LM51772_STAT_OFF) !=3D 0;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	for (size_t i =3D 0; i < rid->num_states; i++) {
->> +		rid->states[i].errors =3D errors & rid->states[i].possible_errs;
->> +		rid->states[i].notifs =3D 0;
->> +
->> +		for_each_set_bit(bit, &rid->states[i].errors, BITS_PER_TYPE(rid->stat=
-es[i].errors))
->> +			rid->states[i].notifs |=3D regulator_err2notif(BIT(bit));
->> +
->> +		if (dev_off)
->> +			rid->states[i].notifs |=3D REGULATOR_EVENT_DISABLE;
->> +
->> +		if (rid->states[i].errors || dev_off)
->> +			*dev_mask |=3D BIT(i);
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int lm51772_irq_renable(struct regulator_irq_data *rid)
->> +{
->> +	struct regmap *regmap =3D rid->data;
->> +	unsigned int reg;
->> +	int ret;
->> +
->> +	ret =3D regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
->> +	if (ret)
->> +		return REGULATOR_FAILED_RETRY;
->> +
->> +	if (rid->opaque && rid->opaque =3D=3D reg) {
->> +		ret =3D regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
->> +		if (ret)
->> +			return REGULATOR_FAILED_RETRY;
->> +
->> +		return REGULATOR_ERROR_ON;
->> +	}
->> +
->> +	rid->opaque =3D 0;
->> +
->> +	return REGULATOR_ERROR_CLEARED;
->> +}
->
-> [Severity: High]
-> Are LM51772_STAT_OFF and rid->opaque handled as intended in
-> lm51772_irq_map_event() and lm51772_irq_renable()?
->
-> In lm51772_irq_map_event(), dev_off reflects LM51772_STAT_OFF for the mai=
-n
-> buck-boost converter (vout), including when vout is simply disabled in
-> software. However, the loop applies dev_off to all regulators in
-> rid->num_states, which sends REGULATOR_EVENT_DISABLE to the auxiliary vcc=
-1
-> LDO (and to vout on warning interrupts while vout is software-disabled).
->
-> In lm51772_irq_renable(), comparing the raw status byte with
-> rid->opaque =3D=3D reg has two issues:
->
-> 1. If an interrupt occurs when status is only LM51772_STAT_OFF (for examp=
-le,
-> an INPUT/VIN_UV event while vout is off), reading LM51772_REG_CLEAR_FAULT=
-S
-> does not clear LM51772_STAT_OFF, so rid->opaque =3D=3D reg stays true and
-> lm51772_irq_renable() returns REGULATOR_ERROR_ON in an infinite polling l=
-oop.
->
-
-This is the intended behavior.
-renable is only called when the pin act as nFLT. When the unit is off, the =
-OFF
-bit will be set, until the unit is enabled again.
-In the mean time, the IRQ have to be disabled, so REGULATOR_ERROR_ON must b=
-e
-returned. This is not an infinite loop if may be turned on again, otherwise=
-,
-this is a intended infinite loop.
-
-> 2. If multiple status bits were set and one bit changes while other fault
-> bits remain active in reg, rid->opaque =3D=3D reg evaluates to false, ski=
-pping
-> LM51772_REG_CLEAR_FAULTS and prematurely returning REGULATOR_ERROR_CLEARE=
-D.
->
-
-Yes and this is the intended behavior.
-If a bit change we want to have an irq and map event again.
-LM51772_REG_CLEAR_FAULTS will be called.
-
->> +
->> +static int lm51772_vout_of_parse(struct device_node *np, const struct r=
-egulator_desc *desc,
->> +				 struct regulator_config *cfg)
->> +{
->> +	u32 sense_res_micro_ohms, active_discharge_strength, pcm_window_low;
->> +	struct lm51772_priv *priv =3D cfg->driver_data;
->> +	int ret;
->
-> [ ... ]
->
->> +	priv->iset_pin =3D of_property_read_bool(np, "ti,iset-pin");
->
-> [Severity: Medium]
-> What happens to priv->iset_pin if the optional regulators/vout DT node is
-> absent?
->
-> In lm51772_reg_defaults, LM51772_REG_MFR_SPECIFIC_D9 defaults to 0x2C, wh=
-ich
-> has LM51772_SEL_ISET_PIN (BIT(5)) set to 1 (selecting the external ISET p=
-in).
-> However, priv->iset_pin is zero-initialized to false in lm51772_probe() a=
-nd
-> LM51772_SEL_ISET_PIN is only updated in lm51772_vout_of_parse().
->
-> If the vout child node is omitted (or on non-DT instantiation via
-> lm51772_id), regulator_of_get_init_data() does not invoke
-> lm51772_vout_of_parse(), leaving LM51772_SEL_ISET_PIN set to 1 in hardwar=
-e
-> while priv->iset_pin is false in software. As a result,
-> lm51772_regulator_get_current_limit() and
-> lm51772_regulator_set_current_limit() will read and write the inactive
-> LM51772_REG_ILIM_THRESHOLD register instead of returning -EOPNOTSUPP (or
-> clearing LM51772_SEL_ISET_PIN).
->
-> [ ... ]
->
-
-Yes.
-
->> +static int lm51772_setup_irq(struct device *dev, struct regmap *regmap,=
- int irq,
->> +			     struct regulator_dev *rdev[LM51772_N_REGS], bool nint)
->> +{
->> +	int common_errs =3D REGULATOR_ERROR_OVER_TEMP | REGULATOR_ERROR_OVER_T=
-EMP_WARN |
->> +			  REGULATOR_ERROR_FAIL;
->> +	int per_rdev_errs[] =3D {
->> +		REGULATOR_ERROR_OVER_CURRENT | REGULATOR_ERROR_OVER_VOLTAGE_WARN,
->> +		0,
->> +	};
->> +	struct regulator_irq_desc irq_desc =3D {
->> +		.name =3D "lm51772-irq",
->> +		.data =3D regmap,
->> +		.map_event =3D lm51772_irq_map_event,
->> +	};
->> +	void *retp;
->> +
->> +	if (!nint) {
->> +		irq_desc.renable =3D lm51772_irq_renable;
->> +		irq_desc.irq_off_ms =3D 1000;
->> +		irq_desc.reread_ms =3D 200;
->> +	}
->> +
->> +	retp =3D devm_regulator_irq_helper(dev, &irq_desc, irq, 0, common_errs=
-, per_rdev_errs, rdev,
->> +					 LM51772_N_REGS);
->> +	if (IS_ERR(retp))
->> +		return PTR_ERR(retp);
->> +
->> +	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D1, LM51772=
-_EN_NINT,
->> +				  FIELD_PREP(LM51772_EN_NINT, nint));
->> +}
->
-> [Severity: Medium]
-> When nint is true, how do cached error flags in rdev->cached_err get clea=
-red?
->
-> Because common_errs and per_rdev_errs are passed to
-> devm_regulator_irq_helper(), init_rdev_errors() sets rdev->use_cached_err=
- =3D
-> true, and regulator_notifier_isr() latches any reported errors via
-> rdev_flag_err(). However, rdev_clear_err() is only called from
-> regulator_notifier_isr_work(), which is only scheduled when
-> irq_desc.irq_off_ms is non-zero. With irq_off_ms left at 0 when nint is t=
-rue,
-> _regulator_get_error_flags() will permanently OR the latched rdev->cached=
-_err
-> flags into every subsequent regulator_get_error_flags() call even after t=
-he
-> fault clears.
->
-
-Will be fixed by keeping irq_off_ms, but set the renable callback to NULL w=
-hen
-nint is true.
-
-> Also, should LM51772_EN_NINT be configured via regmap_update_bits() befor=
-e
-> calling devm_regulator_irq_helper() so the IRQ handler is not active whil=
-e
-> the pin is still in its default nFLT mode?
-
-Would be better, yes.
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+-- 
+With best wishes
+Dmitry
