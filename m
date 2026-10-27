@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116613;
-	b=enxksDrTlBdrOLS2jGP0UYGX82CWM2QV2V4SM3qyPOvBZ/KN5OnTgglZyyQLIVgZ9vsY
-	 D6dLrOMaoZqTa0+IP5YZxVQJEWtx6fm+NHoiNcK8XScpSbNihN2FXxeuxS2TT1H4i+yPg
-	 tm4k9ycIkQVjR8zpbaKocJpAaXJPtd6JeufFmPst7bH60g/a9YX5Gtn6UXA/MUuGZdVi1
-	 cHDbard3vQrfVg401wGcAxZE+Jr6nkOHs7Ne/2EtGX2j+fikIbr8Fk8QRIH/+2XfRP0SX
-	 ziPq6+6XE5wlsue/LbX2T0x0+ayEu+3FXWNwa+IbasAaOEs7iHY0xFFg4ADhW5WXgsQ==
+	t=1793116637;
+	b=226wDvF/8N5DfSfrD435mhJ+PWow3OPVkFatGJyJC0Dcc3OEijijglp3OC9T/IUrJHk1
+	 CWUlfQXF142L08vjBUWa89Tk3LN1KG8CP2xgjhrpleRsrOpCiHi3PvJvRAhCxi41Y8Mp6
+	 KsuNirH35YmvHHkZiV3/u1jBTAN55osWwAYge9TCtec/qbD5nx2vs8VndjwTQlp59/Cmn
+	 /MvHG6HIKt41j388Uyvl2T1mKAouOpi5d0dSDG4Ftb+9wQgP4POw2GX6BvrA5LkCicTHm
+	 dqrVbYk/ePPme97YlDZHulMuJjiENB8p73LHpiajBgxIwoSTKQwJaNeBoqRG1BqskVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116613;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=/CdPFDOoxpgoh2yXSNqWXWRmNvIL8+vC07dIdltlu8k=;
-	b=KWo+LA2iWJgB8j7XLyE4RV8utjltofe/u48/u6iI2Fy3WonFuSuXXD0HLyAF8PkpYlX9
-	 KR7gOI+I3BnFLiBQNBLNnIF5b6eN1GTuJTZlACF/gFCLj2Bhul9cf8Rk5V2j3B9wKhPkZ
-	 ioNd/H4jWsiz1ThGMHIh49DCTi4uUmTZRYV2ZtNHhhDJ0OF60MdleIF5FP29ud8yvRRU/
-	 lGj6QZxD/iUs0VXKtkef7jgoPA5qk+cC09Cxts5vVywGGwwlg02+uFVvglpbEvQtKeUaW
-	 33BLXiXa+lDa6Hgzw2ILLeMT7IOtdRyejXQM60AJrZEXJUXIy6lEiJExFpFIEOsWLgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116637;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IT/YPbY1Zg8iM3T4dqpAupS8e72oCMI73jmy9cNsL14=;
+	b=RnJgcc7sJ8Xpz8bKWRsZenLnBoMKoJt9MO0zD9YYNg9fXLqPwBsrAgAWddntEyzhLRpZ
+	 fmsGFQBHqaGh42zkKEHqVS5BA/NFCuxZoqKR8b3JPD0itqu+5+L3bGSYD8lwFH0+lY0Rx
+	 h3Pnig8mnxdk222r7JMaG7VlsPfPbQ0AsWJJDIVBdSVTUAQG6aJ8cWq/jw0SCS9TpRdjz
+	 FlL4LUUGTb2T3atu4BbJhX5OdBB0NtuIEia35gK4lpG3fz2HQqrJ/PwN5ZoSkkelXqAn5
+	 hc9eFsBHk4ZRt3//Vkmc52AYTvxVTgxipU17DZTgvuEua6YXBWgklHCPxKx85hjH0xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WmAXM45m;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUsucV1b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38274606A31B;
-	Tue, 27 Oct 2026 15:56:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38274606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943D3606A336;
+	Tue, 27 Oct 2026 15:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WmAXM45m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793116611; x=1824652611;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SkBs68L4h4eRhe+r9S7dFAfJLJyj5ClSDPWOzR+e3Kk=;
-  b=WmAXM45mxeRCXvKmguoSh7o+MeV0Bj3h3sJzLmDhbqqSXWgDaHNaUtqC
-   04+2kQbc0kGEkp9kGSufIxDisA9IX/28/E0ak96K7OC9lzFwEnoGk7sJe
-   ndj7snELUgPVvd8lxzcxj2XwgP2z/lF53EfAe0Z1hqtW/XzTFt1bo6Tkt
-   HIOFp/Z1OO2gZh/k7wXyz5OUbXIFEUQMgt0EJNxzE/R6xWn+OcxHAPcLy
-   /SxZJqvwlKXkQ5Dzt7yqixvZjpbmr+KbQJTRBepBQu50EziItsd7D0SGH
-   dsVpcqFYpj+Voni1l6jrEdgUDfzTHtOkVMu01ggUMxBeXkxc0DC+YrIMS
-   A==;
-X-CSE-ConnectionGUID: 4N0lUIChTWipP+VPGH/YtQ==
-X-CSE-MsgGUID: qQVXpKHsThe5/heoMOiIYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1844674"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1844674"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:56:49 -0700
-X-CSE-ConnectionGUID: CGSCTBepT+23PrMwzs56OQ==
-X-CSE-MsgGUID: yGG9dL5gSK6Y0aqQEaodAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4650687"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:56:46 -0700
-Date: Tue, 27 Oct 2026 17:56:43 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
-Message-ID: <auDJu8u85flQ9bjo@ashevche-desk.local>
-References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUsucV1b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C771F01828;
+	Tue, 27 Oct 2026 15:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793116637;
+	bh=IT/YPbY1Zg8iM3T4dqpAupS8e72oCMI73jmy9cNsL14=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dUsucV1b9FEgI1P9D6FHO5lE2BX2PFzxzoJSg7zad1WNJ2FyJvyiTyLD3SGNigjqx
+	 aDb4vPFLpRrjUyo8+abEqMncRWxIeIVSDDOXKEu8xZMgb/eprBewRSAvhZmMqynNGP
+	 MhSNipR0RiOYTWZlc5PxOUvnqvJ1y0avybG0RjcIkKNytNFrj3r3xsqZVVnjdKxqex
+	 X7apL6CiXEsY1vY5K+PgJpbf1zWKoScGHTFU4G5yWLHqGda3uRZB8OU3SZHviNYqA+
+	 DsBegKInjK3io7h8syDXRbmQfmSqW7mN17ZotSBzzbuYHG/3tcBR+qy2W+2aJAumSM
+	 KPE3XgWpKWX8w==
+Message-ID: <83695285-207e-4d0f-ada0-2273953e2eb9@kernel.org>
+Date: Tue, 27 Oct 2026 16:57:12 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,36 +51,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: power: cw2015: add cw2215, cw2217, and
+ cw2218
+To: Chris Morgan <macroalpha82@gmail.com>, linux-pm@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ sre@kernel.org, t.schramm@manjaro.org, Chris Morgan <macromorgan@hotmail.com>
+References: <20261027131751.1724448-1-macroalpha82@gmail.com>
+ <20261027131751.1724448-2-macroalpha82@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027131751.1724448-2-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 03:44:07PM +0200, Nicolae-Daniel Deaconescu wrote:
-> This series adds a driver for the LTC2387-16/18, 15 Msps SAR ADCs with
-> an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
-> uModule ADCs, which pair an LTC2387 die with a fully differential
-> amplifier front end.
+On 27/10/2026 14:17, Chris Morgan wrote:
+>  
+> -allOf:
+> -  - $ref: power-supply.yaml#
+> -
+>  properties:
+>    compatible:
+> -    const: cellwise,cw2015
+> +    enum:
+> +      - cellwise,cw2015
+> +      - cellwise,cw2215
+> +      - cellwise,cw2217
+> +      - cellwise,cw2218
+>  
+>    reg:
+>      maxItems: 1
+> @@ -31,8 +32,6 @@ properties:
+>        it is to mail two batteries to a test facility of CellWise and receive
+>        back a test report with the binary blob.
+>      $ref: /schemas/types.yaml#/definitions/uint8-array
+> -    minItems: 64
+> -    maxItems: 64
 
-Why have you written a brand new driver?
+This needs min/maxItems constraints.
 
-> Conversion start (CNV) and the gated LVDS data clock are generated by
-> two channels of an AXI PWM generator. Sample data is captured by the
-> AXI ADC IP core and reached through the IIO backend framework. The
-> front-end gain of the ADAQ parts is described with adi,gain-milli
-> (fixed at 2 on the ADAQ23875, pin-strapped on the ADAQ23876/78) and
-> applied to in_voltage_scale.
-> 
-> Tested on an EV-ADAQ23875FMCZ on a ZedBoard running the adaq2387x HDL
-> project in two-lane, 16-bit mode: probe, in_voltage_scale,
-> sampling_frequency (writes, rounding and range checks), buffered
-> capture up to 1M samples, and unbind/rebind. The bare LTC2387
-> variants, one-lane mode and the -x4 variants were not tested on
-> hardware.
+>  
+>    cellwise,monitor-interval-ms:
+>      description:
+> @@ -41,7 +40,14 @@ properties:
+>  
+>    power-supplies:
+>      minItems: 1
+> -    maxItems: 8 # Should be enough
+> +    maxItems: 8  # Should be enough
 
--- 
-With Best Regards,
-Andy Shevchenko
+Why changing? yamllint complained?
+
+> +
+> +  shunt-resistor-micro-ohms:
+> +    description: |
+
+Do not need '|' unless you need to preserve formatting.
+
+> +      The value, in micro-ohms, of the shunt resistor used for sampling
+> +      the battery current.
+> +    minimum: 1000000
+> +    maximum: 50000000
+>  
+>    monitored-battery: true
+>  
+> @@ -49,6 +55,28 @@ required:
+>    - compatible
+>    - reg
+>  
+> +allOf:
+> +  - $ref: power-supply.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - cellwise,cw2015
+> +    then:
+> +      properties:
+> +        shunt-resistor-micro-ohms: false
+> +
+> +        cellwise,battery-profile:
+> +          minItems: 64
+> +          maxItems: 64
+> +
+> +    else:
+> +      properties:
+> +        cellwise,battery-profile:
+> +          minItems: 80
+> +          maxItems: 80
+
+default for shunt-resistor-micro-ohms? or is it required for new devices?
 
 
+Best regards,
+Krzysztof
