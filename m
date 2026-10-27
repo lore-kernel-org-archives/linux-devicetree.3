@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100684;
-	b=5Vjwzbl/TtX1l5ZG+DbEWAc/dvb3XjBfjx6GLBn0UlvcdOdD4AtF5VkPpJgv/3sNnkqI
-	 DqEisrjTLg76TxfHeTO7IWYIpfkYZb3P57QqBJn+kXJjgznQdNXA1cWrHm2I8N762j/c0
-	 KH9E1W/hXEoL+/5lWk900OmXG7wy5f6QAtrlom6OMAsIPEHwAWvNHl5GAUPbwdKgp/XcE
-	 LAEgY12Q1x6gbjrcxX6M4O9rSPdgORCPN8FR9BL+wsiy5sCL68YqAvunBTK25MF4f8PAE
-	 mC1uvW1ET/3YnrxzTp0eoNL9TPLWXSHucQV/e67RHrkRgORJAlvxKrfoZkXrnPHdIdw==
+	t=1793100682;
+	b=D3RyWF0L0dRtzR3csnWfr0HzCPuas4rYujqKfVntCEpqSDgVBZ605XZzrjTMvWMaRP3H
+	 xF5MlLOr+QV7ea/d3kCC7bQ2a6UHCTT6/btPZ+GUA7aZbrRFyKKvF+0VSDGtDONcsv9Hy
+	 gxCwnwe1OpKF53rXmLXm5SjcumppF0LJWg+iLmGB4ul1R8gLCClBQbRb3dcD7qOgJX588
+	 2tgOxXr4YFunQ6kubqJsIzxl+jE2LZXtOgAqpMiogQePaP0q0UoHujmn4U/Lem2BzWHIT
+	 48rZYHTnT1kSWbLbQ0QZcm71BzZ9t1E1uBV13zlr4owE6YKpxayUE7lqgnZOpjyNEhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100684;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=TE7fyLyp5nwgFIebrTzV81TEIbWOb6SkTODvFbXRBrY=;
-	b=YpeDHOIp5WBC3zmiM/Py5RVikx+5J8lbrFVPL+MJ/6u+xk0JBiJ+nkAXA9w3/x7QIy+r
-	 ni1rGdt77+bCNkW/NbZvlQVOd5UrZAx9tHGI3RWjEvvt7o1IOq+z0XxYZ7DEIl5baK9bS
-	 lbcIhZyYivBUcYPE5oqcrh4AoqwcXp7CmGvQppJIrM6vgOX/fifL7DuUNuIVYVZqFVcwj
-	 NHNGDzH0M3VUIDnBpxw57w59GJRFBH4aSK1TUiFeC7Vx37uqKxiT6uRDNh+MK9k9fvsDQ
-	 LvYM6tXRsUBtkzqnyqz3SucC0V2ARwGjdhCVANAF5959dMkjIqQPLJU/PV8l72B0FDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100682;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=G3LvWOxUnjLoQmRGKIBl8CxWX4qZcang/Y7IR5ca5Os=;
+	b=abhWQWSGnN4A/L/ZqIJrWOSnZUdLJpzmpSWdxtX9mevCNOvAZez8ksCOvrAKd8AqXRDH
+	 JbNbOCH4xdJtlDO1GX2t9UyxJlxk9btQt7GEWwCRFN2ByPfoBlKzCsNAkVJNo9UUChtvl
+	 +7d/Fnmku/p5CgR1Fnf1xuTbCadwUx9nHGsIagjjp1YGx3zbpgoQiADvLVwGWk4rgfWvR
+	 zoArGADxztYIeknuTZi551DY7BKpj4+sv8b8H7BVoj9H52e5LLQPlNSj3/728/GXR6HLW
+	 boa81SK2OFDuzCurJxikjlDeZYYRJvIk5/WFejEu6oL4c9J51RVhjHhX+cneHihSZCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qI0gnQQt;
-	arc=none smtp.remote-ip=203.205.221.245
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyNF11sY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6C4606A32D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368FD606A327;
 	Tue, 27 Oct 2026 11:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C6C4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=qI0gnQQt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793100674; bh=TE7fyLyp5nwgFIebrTzV81TEIbWOb6SkTODvFbXRBrY=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=qI0gnQQtN8qNK6+VaPty62V/kgunfQdGPhAjeFZPmu2e04szr5at8+OjdnzbOfVl8
-	 Biv/zIe8CBjAp+MWGE/LmlnAy9ZUzQwi3hqIbSd0Wx9z+FPUyVdIVlwQKKSdn70Irx
-	 Xrj/e9keqLO9MVp99+2N1ULS05JAn4om29n3QxM8=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-XMAILINFO: M070hzG9bpixdNYnLOYGQw/kRcHFlCK+icSEE8DKqa2kjogW5Vk/VQv6XckSlb
-	 e2RZdJiW6XiIRME8iqrro55sHekX7IIDgqzjy40owqLanriVM7wJJ79WQ74HJ/+wpSI2h2MhtRMYv
-	 WCUQknXTXsOsjborpTvw6xypbbDNhWR05QOJi3wOkE5mM5gXMNKagPaRK+N/LowN66Ez/IFQHIHmZ
-	 XFvG65C+Qde13cPB9AChkFv5KEKsAvRZHEKWzKhNcJUF77Y7XM9Zu+6vtfP6VEwRnKkv3PtejdIHS
-	 GVWP065NPXmdaLqmduajsd1EBSiVVox0R36tESQvTpTCA1dmD+KBQsvIJxk14a+W/PIofX3o/w/L5
-	 ahkZhBgQV8qaboQCS9HyWCiEJMwIE8gjGOr/IVD92hqZiCxhMVXrLSk6ln+XcoC3LQVU9Lh524ZS1
-	 R8pPay3RUJy/ACmSxZSdoHNIlTeTfdhntIqm/QjBh0JBOjQRHcwyCzC8hWMdgEbDR0IpwLI8YITjw
-	 OVPcEaFQcU0VxRJ4Rwqwn+bve7t59qp6OzmsMS4AqmZf4LUp89taQVfm/K8/WHWB+m94UtGcPqT83
-	 OCOVkXau6xL7jCWjKTMgecLQb9yzbcwhLDiHy+1YR2vWlMkW/Ygamrq/aekLEK6c+1qCDLW1ewlAj
-	 Q/f8KMfR8rssUg4NrBG4e3R0zjsj+zBr8NU7290h3S+QGcBGV1RNDnKQIf+pF8cP30vIge8W02C8Y
-	 fTUob0h6LSMFdew2kPhQqF7z7/pNHI/UtshggG6tsKan7m/zvuhjHV+Z2M1qtiE/sObP8mnCxpyCy
-	 0h+e7DnNeLFkH8ICQTQOf2h/0EJFf/SmxmTWSipCTIeE9vaIhYBaea+mnzrENOvbCqHhHroUP2+wo
-	 yLdEFxvMpeYAEip05g4ANuthGipK2qx7DRx//6UgODkvGfD12sSpOp4cPAUnTI5y/6wbcj2FRlQ02
-	 mUlKbIaajK3Y8EnD+G8ilL4/JvZQ8g3ftGGWXuc2lnk2hyP4r8EClMPflwj+IEshiIjo/+xpsXFlj
-	 eIW/BkXyXHjQO/y3q+2b9DxXtduLe+/FkugjDdmxKZdTyS4iywmkJrsGBISonIM5l/aaM29/nl+XE
-	 1HXNURw2i5hTe+Vg21ZxtGgvD7r0cZw7Dw9NhHvjK2WZmK/DmS6eUnV5DmdSoxHsKMM=
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?SGVpa28gU3TDvGJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?U2hhd24gTGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?QnJpYW4gTWFzbmV5?=" <bmasney+clk@redhat.com>, "=?utf-8?B?SmVyb21lIEJydW5ldA==?=" <jbrunet+clk@baylibre.com>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?UGhpbGlwcCBaYWJlbA==?=" <p.zabel@pengutronix.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?UmljaGFyZCBDb2NocmFu?=" <richardcochran@gmail.com>
-Cc: "=?utf-8?B?c2hhd24ubGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>
-Subject: Re: [PATCH v4 2/4] clk: rockchip: Add internal support for 24-bit fractional dividers
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyNF11sY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B503F1F031E1;
+	Tue, 27 Oct 2026 11:31:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793100682;
+	bh=G3LvWOxUnjLoQmRGKIBl8CxWX4qZcang/Y7IR5ca5Os=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dyNF11sYND05GG2QhcJAU53sXGgNA5IFOjHiABUfOcy40uVb3CqT22RQHfwb1E1rO
+	 ZnipXhkP6VsT5mjx4pOAjaGEW8BNTMXZw3pMM2rqYVZ1arxITzmwRs9MWCmxfcbeh4
+	 OUg3KtPOuf13NVRnnZLdzJlCQonMp1WwA0/rql3jZnbl1p3L6KtZkLFVijPQPeCee+
+	 DzZpNRbslDKuqe3MargxK7Z98GgZx8qj06pXHSBr7JBASC5XHNEqpcXZWK1wHjwiy9
+	 9HQjeyibPmCmqzm9VDGVhw/Ls3HKK5qTW129wPZ1/GtgBqomU+QAZ/WRXzhg3mFsMW
+	 K2uMrqdBaJqxA==
+Message-ID: <sashiko-outbox-186454@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/12] arm64: dts: qcom: qcs8300: Add GP M/N clock
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-9-ff8e4bc8d567@oss.qualcomm.com>
+References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
+ <20261026-b4-pdm_clk_gp_mnd_v2-v2-9-ff8e4bc8d567@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 11:31:21 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,38 +60,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 27 Oct 2026 19:31:11 +0800
-X-Priority: 3
-Message-ID: <tencent_3EE2905F5ED310CDBC0C74C2D0C842800B06@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261027-add-board-ok3572-c-clk-v4-0-d4152b4fedaa@qq.com>
- <f9068153-0d6c-471f-a08b-41cff51ff748@rock-chips.com>
- <tencent_AE0E51DA2FACC999E65D6631016044234005@qq.com>
-	<6321950.31tnzDBltd@diego>
-In-Reply-To: <6321950.31tnzDBltd@diego>
-X-QQ-mid: xmsezb41-0t1793100671tc1fp95h9
 
-SGkgaGVpa28sCgo+IGFuZMKgYXPCoEnCoHdyb3RlwqBpbsKgbXnCoHJlcGx5wqB0b8KgS3J6
-eXN6dG9mwqBzbGlnaHRseSzCoGxlc3PCoHZlcmJvc2l0ecKgaXMKPiB1c3VhbGx5wqBiZXR0
-ZXIuwqBJLmUuwqBhwqBzaG9ydMKgZGVzY3JpcHRpb27CoHdoYXTCoHlvdcKgZGlkLMKgbm90
-wqBhwqBkZXRhaWxlZAo+IGxpc3TCoGlzwqB1c3VhbGx5wqBuaWNlcizCoGkuZS7CoHNvbWV0
-aGluZ8KgbGlrZQo+Cj4gKysrKysrKysrKysrKwo+IFNpZ25lZC1vZmYtYnk6wqBFbGFpbmXC
-oFpoYW5nwqA8emhhbmdxaW5nQHJvY2stY2hpcHMuY29tPgo+IFthZGFwdGVkwqB0b8KgbWFp
-bmxpbmXCoHJvY2tjaGlwwqBjbG9ja8KgYW5kwqByZXNldMKgaGFuZGxpbmfCoCh4aW4yNG3C
-oGlucHV0LAo+IMKgwqBkb24ndMKgaW50cm9kdWNlwqBDTEtfTlJfQ0xLUyzCoGV0YynCoF0K
-PiBTaWduZWQtb2ZmLWJ5OsKgQ3VuaGFvwqBMdcKgPDE1Nzk1Njc1NDBAcXEuY29tPgo+ICsr
-KysrKysrKysrKysKCkknbGwgdXNlIHRoaXMgZm9ybWF0IGluIG15IG5leHQgcGF0Y2hlcywg
-bWVudGlvbmluZyBvbmx5IHNpZ25pZmljYW50CmNoYW5nZXMgYW5kIGxlYXZpbmcgb3V0IGZv
-cm1hdHRpbmcgYW5kIGNvbW1lbnQgdXBkYXRlcy4KCj4gQW5kIGFzIGZvciBzcGVlZCwgbWF5
-YmUgZ2l2ZSBpdCBhIGJpdCBtb3JlIHRpbWUgYmV0d2VlbiBpdGVyYXRpb25zLgo+IEEgdmVy
-c2lvbiBwZXIgZGF5IGlzIGEgYml0IGZhc3QsIGFzIGl0IGRvZXNuJ3QgZ2l2ZSBwZW9wbGUg
-dGltZSB0byBhY3R1YWxseQo+IHJlc3BvbmQuCgpVbmRlcnN0b29kLiBJIGNhbiBsZWF2ZSBt
-b3JlIHRpbWUgYmV0d2VlbiByZXZpc2lvbnMgYW5kIGZvY3VzIG9uIGltcHJvdmluZwp0aGUg
-cXVhbGl0eSBvZiBlYWNoIHN1Ym1pc3Npb24uCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQo=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] arm64: dts: qcom: monaco: undocumented gp_mn function fails dtbs_ch=
+eck
+--
 
+commit ec768e562985a95ab74c10638b6159100f9048cc
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
+
+arm64: dts: qcom: qcs8300: Add GP M/N clock controller
+
+This commit adds the GP M/N clock controller node and its pin configuration=
+ on
+gpio32 to arch/arm64/boot/dts/qcom/monaco.dtsi for QCS8300.
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
+com/monaco.dtsi
+> index 35fbee63d4c65..e122f70eaf20c 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+
+[ ... ]
+
+> @@ -6457,6 +6471,13 @@ dp_hot_plug_det: dp-hot-plug-det-state {
+>  				bias-disable;
+>  			};
+> =20
+> +			gp_mn_active: gp-mn-active-state {
+> +				pins =3D "gpio32";
+> +				function =3D "gp_mn";
+> +				drive-strength =3D <2>;
+> +				bias-disable;
+> +			};
+
+[Severity: Low]
+Will adding gp_mn_active with function =3D "gp_mn" under tlmm
+(compatible =3D "qcom,qcs8300-tlmm") cause dtbs_check regressions for device
+trees including arch/arm64/boot/dts/qcom/monaco.dtsi?
+
+While commit 70134b186a81 ("pinctrl: qcom: qcs8300: Add gp_mn mux function")
+added the gp_mn function to drivers/pinctrl/qcom/pinctrl-qcs8300.c, the sch=
+ema
+in Documentation/devicetree/bindings/pinctrl/qcom,qcs8300-tlmm.yaml does not
+list gp_mn in the function enum under $defs/qcom-qcs8300-tlmm-state:
+
+        enum: [ aoss_cti, atest_char, atest_usb2, audio_ref, cam_mclk,
+                cci_async, cci_i2c_scl, cci_i2c_sda, cci_timer, cri_trng,
+                dbg_out, ddr_bist, ddr_pxi0, ddr_pxi1, ddr_pxi2, ddr_pxi3,
+                edp0_hot, edp0_lcd, edp1_lcd, egpio, emac0_mcg0, emac0_mcg1,
+                emac0_mcg2, emac0_mcg3, emac0_mdc, emac0_mdio, emac0_ptp_au=
+x,
+                emac0_ptp_pps, gcc_gp1, gcc_gp2, gcc_gp3, gcc_gp4, gcc_gp5,
+                gpio, hs0_mi2s, hs1_mi2s, hs2_mi2s, ibi_i3c, jitter_bist,
+
+Should gp_mn also be added to the function enum in
+Documentation/devicetree/bindings/pinctrl/qcom,qcs8300-tlmm.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-b4-pdm_clk=
+_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com?part=3D9
