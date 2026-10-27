@@ -1,96 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108933;
-	b=ivEpC5pyiffhN0XYvpGgA/NF75eS/h904ubCSmumw2psBPmWI19Riw1VxNNurY8/FQeS
-	 V+FrZgfDbk9kOcCM2XWHy3bAnmi6C+XQjAZWi4tRyNY3HRsbSdPabtldIDGcTSk9c1aDn
-	 sbr21zSf1gLIdQIFOoZ4DHnSmsSF9acmqihG0eevQTj0PA9zmz4dSFN5/vWUTiHrsjk/l
-	 BuT6hKulYsFWhLxfiaKQ66dIB4OImJzRqwhgCe5ilOw+LQOOpiXL+Ddj4ML1RL/BRMt9+
-	 sadegAnPepj2DNWscEjn3xI/zQcsmluBvwhlZl/3iGrGeUdtEkHURUuZf/RoA7RDCBg==
+	t=1793109004;
+	b=ubDFHgIC44h7fkfZd5M2wxyvArYm/Y96PJYNEMU6/H4eXvOdyrc1uwxVPMGJRe3sUEYw
+	 A0LVTADqsekXR9XRFTAUymUVbbRw2bn8vhiIDrJsecLsCvVSdd1XSyFlUa0zITWhwFueX
+	 Xd9Fj82IWmwOU+EZKbSBiP6CmMDPU+l2rGczCENjCaHk/xN/8XUL3uHM8E2SMzi0lIHAJ
+	 GtWphN1NEqxuqsAhBcBiKPYwmRkJR9WCggu2bqph6iX2Cef2w4OZM3ZkIOr1Svb/ePSgy
+	 mmFgA3KKgktirYxzkAxf/l2uCZzlFfSuGiIG/z/mQFXj8k+6coO0HxKmETmBzCtL7gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108933;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:X-Source:
-	 X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=xnmTt7xAHrUILK2F5tw9jpxyescs2qacR8TokbmgBtk=;
-	b=XA89BmeffOUiUV9EZtVDj7uJEh6Ug7K6asT/m2q2WQC8Sq/hurOYtWp/qGz29Lzrlqtv
-	 Ta1EsmjLXR0wN8gxbkJ2aXaz6vzP/lXiS/SS0+Hm4VSkP4/6imYoYX6APuvyK6thd6GU+
-	 VBYzrWL0hsX1jb5gyevYpdPMdHT7M2GooxUPUJBfUQ2x0LgTKVUQEIHtdFYsdR6FebabC
-	 0qoH65b5ttw/afOTLX6q85dEkKa20+QzMEQX9MlsNkDltuETb2YtKWbxDTUTKi2mJDtRc
-	 iULoOOIWNI2mInYhZ4Zz06AXtegCcnO7y2Oe/IQuGGvNbFYbi4hQ7q3Y5sQQbp95XUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3fcJsJrwZVJpubHjDh5HTiiaoxTH17N3RP/rmPOz5xY=;
+	b=hIngoY5BiX9vCjHefOucw3lbnsnzEyXMk+Q/+pmGMEmVuZWql8ewDx6NexO+KczLtWYK
+	 HulZn9eouMO0h7Rj1u3cxh5Cf+UvHeeGVqwzR6HOdyVeK0blcvNOurggtanov+6fMpTLC
+	 52nVUPSdDj8d+VdNPvNFsNdwxyVZh3I8dVsKtBGVoDL2mM/7Y8H8faj2AhjMIiDa7KiNX
+	 lYIQF5QUkiizTiSK8nZYf1RWs6pmACdw78tZ8e0zkJv/vo1rzV4H3z4pNRfDPjQWdY4YK
+	 P6IlZBFxUO5kLoejoqHlBNUzA23fRoUpPPFiuFzZ/GTrQXPYyiW0cdEJqd30lZYYwoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SpXCwzbR;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gDTkuBxG;
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EFE606A31F
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76EFE606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281F1606A31D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:50:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 281F1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SpXCwzbR
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id LeuRxpsQIaC0ULhXjxfXO3; Tue, 27 Oct 2026 13:48:47 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LhXixssHY7CfWLhXixDzPm; Tue, 27 Oct 2026 13:48:47 +0000
-X-Authority-Analysis: v=2.4 cv=Z8HsHGRA c=1 sm=1 tr=0 ts=6ae0abbf
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=SGJkWrW82lNR26rtH8EA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=xnmTt7xAHrUILK2F5tw9jpxyescs2qacR8TokbmgBtk=; b=SpXCwzbRcHVw
-	N2YxxPeLLeWmEdPesF9F/Tvwg3/Ur+cwc0BNs5PkwRihIB8ZMpHxkfenhxHZpiilczHaa4BtNtJ1l
-	MQnh1TC5aAZMz+jcAA5b/5ruWpsHOZrFPKBcqgrpVB3caHvWBe1ZNul0by2cPjbo+g7bcc2QVh+57
-	V6+/SqH5BLHSkzcWPPnOglmu2ivP6fkSwwKLoaDhSDx727CnyZj1Tp4091tI/+Uj6SFEuba4GhaTl
-	igg3Fb3jjUNUqPtxHIgSUTYnREXjUpO4E5Wjps/Jf4KT2tqED6oeLR6WZpxmMaRsTbbMxiLK7yK0h
-	Q6z0bqsN0q8zSZQDFgNCgQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:34878 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLhXf-00000003hnK-28cN;
-	Tue, 27 Oct 2026 19:18:43 +0530
-Date: Tue, 27 Oct 2026 06:48:42 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gDTkuBxG
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f1cf92c9eso499841285a.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793109003; x=1793713803; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3fcJsJrwZVJpubHjDh5HTiiaoxTH17N3RP/rmPOz5xY=;
+        b=gDTkuBxG9wEyZA26EZszhG9Uh/3rX/19W0sqMYQTMrJDaJUmzcVQj8Q5vsjyJxkhrZ
+         ej191n5HdezQNZoWYNpWjnSH87R+ugN3VQYeIPp/zC32VuxNyAMnkNWAKDZgLSlOh8WE
+         RdAuF+Zg1uwYuVkS8mWy1z80DBLeT2FyCRuFH1gvw0MbLw1U4udivwWLPpPvGFR2Sn7G
+         NkXmzdCN/4KlmwzL0WafjR6fS4/vKwQlYLNnxgh5F4QV7qFrZioFlDVVQ2/1mLd/v99A
+         vLdxmNi1B8dVQTg+3RTCB2njXv82jd1gXawVzEov8pDFcu7Boxi03mj5uhtfxinaBtPu
+         kBZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793109003; x=1793713803;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3fcJsJrwZVJpubHjDh5HTiiaoxTH17N3RP/rmPOz5xY=;
+        b=jtYPzFeQJKmpd0HbWkLBMsuu4zwdwXZv6pJWFNnwozLqbUxY/s8RPktIGEj0EI889K
+         YXTQuBdaZxdxC5aEfWmXztxPfn5YwNkDU+Y9ELdAjNsopYFrdiv6weIvO5M5fY0o7CON
+         LtpmvpY9Pl96flFGyo/3bH2HnBDNMBVuaymhiN2+7hRBSwNpG0YQosjqX2TfIxM/X6p9
+         aIzQ5ThlwNBxlEnHkRdwT6e5fVp+T0sj/Udl5L0iyTlG4jpgYGvkwbpbPlpGa46aAe7i
+         WzUk7CtDagRV1mNgA5b1Ti13fb6Ia8Mr0IAU2YxakNjIe756LXJn36MRJeZwK6oo2liE
+         2efg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnj/siWgZVaNTBR/uvP1PDw4rIBK9regUUzohTJ807EbMTM1kYQQq40YsfaDGBrmnahY19Tu33P0Ej@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW2+hvqrCekmkXYnXVCweOQwPG62JofUKZkljGJz3yhihx8LXr
+	LcpSIlPMVPh5gDyjOsFjaBDC0PT86krjaTUt6zDhPza8oQdp/4BESg90
+X-Gm-Gg: AYBFou2IuMY7zLO2jZmUNTRA7YmUcfTaFRAfIGzK9Lw0TsVvyi5MaBsejSdL4wjDvBA
+	R5Sig46SBmvT5PZU1lCQqH7YCJcNTVFM7SxJ2DqUd2jUte2AURhGR5md/idysLT8zRRw8MNpqq6
+	C87AH+ns8MxpzseUE/e7AXTjVg/awrqbUoElpzLHraeQ16QHUe0Zy6eUYRxhg3/RR4IR4nl+Zkh
+	yD1eESVExC2XIHrpGbnrWN4TyllZxlHcvAjh4NVN9yayBo1HQrRFf8Meklu7LBrLkFIt0YkHFYK
+	YyR6ijsjZD/kmzscIbk/Jto3NElOQFVcO7uYcNMhyLDYCVfeGrhr2b/wFhk/TJHOglNMjnuTNHt
+	9ZahXOJqbTeIZ08UJi+W+MR4Re5VjdUIpwMm1IrSLC02M2k8YMamfLbPooCRfRLvT0BA1FW00DT
+	vsGCTVJbOut1PN16kJ3bzUKG+vgrCWnfKYoCLqNhy4VTZggGQmc7xgToEr895qvfqlMNXd7vzXa
+	BK3zZDwa4TYVxyjZiJsg1BnQg0EPb5ye+VFbzA2AvQnxbWXt2SJa0Mx3A==
+X-Received: by 2002:a05:620a:4152:b0:93f:565f:e40 with SMTP id af79cd13be357-940ef98bebbmr1567887685a.65.1793109002941;
+        Tue, 27 Oct 2026 06:50:02 -0700 (PDT)
+Received: from localhost ([141.117.117.39])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f05b1adbsm978781885a.4.2026.10.27.06.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:50:02 -0700 (PDT)
+Date: Tue, 27 Oct 2026 09:50:00 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Gregor Herburger <gregor.herburger@linutronix.de>,
-	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
-	Gary Guo <gary@garyguo.net>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-Message-ID: <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
- <auBzvB8TsvIK8Hik@apocalypse>
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2 07/11] arm64: dts: qcom: sdm670: add adsp
+Message-ID: <auCsCPL7gK2lIR5q@rdacayan>
+References: <20261003175659.23536-1-mailingradian@gmail.com>
+ <20261003175659.23536-8-mailingradian@gmail.com>
+ <ya7xujl563xnvdwznmr64j24q6vao5rqdbjac7tx2azbzoezon@b7677fmbytj3>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,126 +109,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auBzvB8TsvIK8Hik@apocalypse>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLhXf-00000003hnK-28cN
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:34878
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfI2olFRqGa4wX93N6LAo5k+Qcj51Bd1LjZIobt9cN4A/8a5P1bFCIrtlKcAwpk+DuKDPsAHNyTpheFWohoKMPNodngscsWLqW5OD/b5rure7L0gm0M5G
- DytlS86oQ7p1vl6uqPinATy8kcIOwRoe+c2tOYLCfJ3UWgbnwP1wTj2dNl77HZmHHoKIdJYNBYhx8ZYB7/zHf6+rPTRRTcA3hasLW3dahQlwsDsjari8pWLM
+In-Reply-To: <ya7xujl563xnvdwznmr64j24q6vao5rqdbjac7tx2azbzoezon@b7677fmbytj3>
 
-On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
-> Hi Guenter,
-> 
-> On 09:24 Mon 26 Oct     , Guenter Roeck wrote:
-> > On 10/23/26 03:15, Andrea della Porta wrote:
-> > > Hi,
-> > > 
-> > > This patch series adds fan tachometer / RPM monitoring support for the
-> > > Raspberry Pi RP1 southbridge found on the Raspberry Pi 5.
-> > > Please note that the patchset in [1] is a prerequisite for this one.
-> > > 
-> > > On the Raspberry Pi RP1, the active cooling fan speed is controlled via
-> > > the RP1 PWM controller. In addition to generating PWM signals, the RP1
-> > > monitors fan tachometer pulses. The pulse measurement and RPM calculation
-> > > are performed autonomously by the RP1's onboard Cortex-M microcontroller
-> > > core, which periodically writes the computed RPM value directly into
-> > > dedicated MMIO registers located within the RP1 PWM hardware block.
-> > > 
-> > > During earlier discussions, Uwe Kleine-König explicitly indicated a
-> > > preference to keep the core PWM controller driver (drivers/pwm/pwm-rp1.c)
-> > > focused strictly on PWM duties, rather than bloating it by registering an
-> > > hwmon device directly from within the PWM driver (see [2]).
-> > > 
-> > > Because the Linux PWM subsystem currently lacks a generic framework or
-> > > consumer API for reporting hardware-calculated tachometer readings, this
-> > > series implements a standalone hwmon driver (rp1-fan) using the following
-> > > structure:
-> > > 
-> > > -  The PWM driver exposes and exports rp1_pwm_read_tachometer() within a
-> > >     dedicated symbol namespace ('RP1_PWM') to read the RPM value from
-> > >     the MMIO block.
-> > > -  A companion DT binding (raspberrypi,rp1-fan.yaml) introduces a vendor
-> > >     property, 'raspberrypi,pwm-tachometer', to link the fan node to the
-> > >     PWM controller node without overloading or abusing the standard 'pwms'
-> > >     property.
-> > > -  The rp1-fan hwmon driver parses this phandle, establishes a device link
-> > >     for proper runtime and unbind dependency management, and registers the
-> > >     standard hwmon 'fan1_input' sysfs attribute.
-> > > 
-> > > An alternative architectural approach to the DT phandle + exported helper
-> > > method would be to model the tachometer as a child device using the
-> > > auxiliary bus framework (drivers/base/auxiliary.c). In that model, the RP1
-> > > PWM driver would instantiate an auxiliary device for the tachometer, and
-> > > the hwmon driver would bind to that auxiliary bus device without requiring
-> > > a separate DT node.
-> > > 
-> > > However, adopting the auxiliary bus would require a more significant
-> > > rework and refactoring of the existing RP1 PWM driver.
-> > > 
-> > > I'd appreciate any feedback on whether the current companion driver with
-> > > a dedicated DT property is acceptable, or if an auxiliary bus-based
-> > > refactoring of the PWM driver is the preferred upstream path.
-> > > 
-> > > Patch Breakdown
-> > > ---------------
-> > > Patch 1: pwm: rp1: Export helper to read fan tachometer RPM
-> > > Patch 2: dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
-> > > Patch 3: hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+On Tue, Oct 20, 2026 at 12:37:36AM +0300, Dmitry Baryshkov wrote:
+> On Sat, Oct 03, 2026 at 01:56:55PM -0400, Richard Acayan wrote:
+> > The Audio DSP (Digital Signal Processor) is responsible for audio and
+> > sensors on SDM670. Add this, along with the SMP2P nodes used to
+> > communicate with it.
 > > 
-> > This seems conceptually wrong.
+> > The sleep state is included to prevent the following crash:
 > > 
-> > Have you considered implementing the hwmon driver as auxiliary driver
-> > and accessing the register in question through regmap ?
+> >     qcom_q6v5_pas remoteproc-adsp: fatal error received: err_qdi.c:450:EF:sensor_process:1:sar.cc:27:chre_utils fatal
+> > 
+> > Otherwise, it is unused.
+> > 
+> > Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/sdm670.dtsi | 168 +++++++++++++++++++++++++++
+> >  1 file changed, 168 insertions(+)
+> > 
+> > @@ -2301,6 +2349,126 @@ cpufreq_hw: cpufreq@17d43000 {
+> >  			#freq-domain-cells = <1>;
+> >  		};
+> >  
+> > +		adsp_pas: remoteproc@62400000 {
+> > +			compatible = "qcom,sdm670-adsp-pas";
 > 
-> Yes, I also proposed that in the cover letter because auxbus seems also a viable
-> solution.
-> 
-> The current implementation is a consequence to the discussion about the companion
-> PWM driver, from here (and the revisions that followed):
-> 
-> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
-> 
-> To give a short and hopefully coherent view of the decisions, here's a breakdown:
-> 
-> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
-> 
-> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
->   dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
->   I moved from readl/writel to regmap + syscon.
-> 
-> - V8: Gary proposed to export a function to read the fan RPM as a viable
->   solution. As a result, the regmap/syscon was dropped as it was no longer needed
->   and the function has been exported from the PWM driver
-> 
-> - new patchset for fan driver: the now independent hwmon moodle just call the
->   exported function from thw PWM driver.
-> 
-> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
-> all aligned, as this would also require refactoring the PWM driver.
-> 
+> Looking at your DT schema... Can we use "qcom,sdm845-adsp-pas" as a
+> fallback here? Then you can drop a driver part.
 
-Let's say it that way: If you don't want to implement the auxiliary driver,
-and you insist using the exported function, I would prefer for you to go back
-to the first solution. The one thing I really dislike is conceptually broken
-code, and I consider the current approach broken. Your call, but the one thing
-I won't accept is the code with the exported function.
-
-Guenter
+Actually, looking at downstream, this should use the LCX power domain.
+Can power domains be omitted like on SDM845, or is LCX important enough?
