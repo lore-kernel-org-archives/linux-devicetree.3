@@ -1,98 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793116990;
-	b=dp64SIR5j0FMjCBXnVmEFcVBibofRnWkQnYpzxQDNzypSYyCPxM6c6tJavXadrjARLkl
-	 PUnSMAeXYKBlu+lxOJrgd+n92MXAXX0Fd+PPoyJ068bbA71T7lpaRsYI1lLKTFIroXby2
-	 K48KQw8EGCL9oaPgvkmmpdcni2Jk++HMSh7AZtC9glMatBU5rzg0gkV8kZ0SWPP48UB3R
-	 CcUg8UWYZYLpyI9a5tA7QgCAdAhxgUvFDIXyy7PphxxpApEKbtLkmvnhiA8TyEMVLX9Uf
-	 H47WZt1Xu1sACtdpigPFOPZx9nEgjKuFtFrFwUepitWqhYKD2IjeJCj8Fre9fS8rxqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116990;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dSMHWJB6pw+2WwOcuB3RDAjVlWA+AUyk6Pe74KflIfE=;
-	b=LQgkP+ouY7MI8V2kV6ECDZdTewQmollDFqqaUaKE6Uny4IUtDWMMZCa2dQYR6u6VSbhx
-	 GNzef4W8vYaKfMjRWk7voqjZR8c3+zNFfrjAAMnlqX7YLhSBKylHaZNP8/RzN1JVq3Xj9
-	 xJFGFh4MtX5N0apyl2eagxoVM6OrqWWjueCrG2EmU56eiOJCfHV2jc/sXR0ndl4vmVkr1
-	 xW5KHxJSsLlgqHuJkWRgSgYbE7y/ou+YfmZAjQFPMZJvtgMeR92xf3bJ6jmw3hyDXBD0A
-	 3ODs1I6PdgVgIeIr4JvBHsaFIlRVskPReqqrLtskGL3d/GluEybnEvq3igF2D+S4/0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherry.de;
-	spf=pass smtp.mailfrom=cherry.de;
-	dkim=pass header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=XQxO5+A+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.70
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013070.outbound.protection.outlook.com [52.101.83.70])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793117489;
+	b=IKy5m5fMnQxm154zbd/giXD5F8sG5eEIfu5VbsL69IH6g83KYPsX3VHTA+w+Q2RbR8c6
+	 EaOnnkERz0IoSA2/u7KWDjcmnZcPbISzIiBfyP5b/sH4tD2DYp3hmPAHd0KXMJdVE7Kbd
+	 J9zTVv98WpsUH+4Rl/gr9X/oF4JSjNxtkBH1EaLixthxdgzizrDAij4ALXs6LINe/VwjJ
+	 T2le8nKVF4RNSklYjXRx4lYKL2/74Dw+pMkMAGSRLZd0pFO7oj+97Wvb4mOeN7uUHD+5Q
+	 A23NqtqSeqixj1QwNZqhoFdwQSt/Nd+FCeVX/qtScANr5M8Tq5MWWuPvayNbEwt27JA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117489;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=D1rdsulDw7RWj1Ih/pNXLSB+0U2zWU4Psnbf9sp2cLk=;
+	b=rkXXnxyzwbUBRTZdZSbDMEdabxv1n3F+9awLfcR3J+wduKQiznsyYb+hZzcpH0PD9wN4
+	 jHuxkHxZOxxOY2ON/7tU8gaMwYmHZvEkdSEvCWv9cafFQVWO2eSZhAG0gPAILd2bs+jJv
+	 nq/Yyx9Fjo3TihpPzVdKbd7GyOyEUv405DmRtbJvL3mbefVO8kd6o0QUpHwRN1KqbPRvF
+	 eNAbEWi+pR68bEcIfjc2fyMiyUYl2whMSmKzvWBVtToeEBI5MRY6gPK+JzM85slzFls55
+	 JJL7ifgoUoy0bHYMjR0dsbg5GaD7rlZrVcx8WuaZf7ZyuQv1hpR56w/cAPrHSOiyrUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nom5AtKA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11BD606A31D;
-	Tue, 27 Oct 2026 16:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C11BD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB940606A31E;
+	Tue, 27 Oct 2026 16:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=XQxO5+A+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KGhsFkuyGU8m9NYAM/EcH/tal9/G9MAs5RcrvvpgJq9nXggC0WliqQ4MRL+qW/BRbhtwOyye6H+6N8GxvEf9wdVFsfaKxSGlLOtxeYkbsvW2YkeV67hBdZhrs1d9caN2RtxnFVmSofY05yVEMra5uU4JwKI3QOkpbEmsne4ou/cVz7415q2g5RtHZ+LXRBlkqUUokhUQgGjklwm6tH3WuuSA5FYq8UARvK9wpAMSBigu8wyvXB9lZdaRlGvi07jTmpQfchIJ8wkW/cASrBjGmtAR5QifwOuk056n2lFlpKzxI3z03wVmKu7u9isH1M32H5dYTKH5NycnurgMZ3YfTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dSMHWJB6pw+2WwOcuB3RDAjVlWA+AUyk6Pe74KflIfE=;
- b=CSTAwb6wq97ekvF9GRz32pOR070EVRGwwHNbGThr1TDCXqR9g7jPLSAEkhiUtI9iiM4QRpljtDdO7RWY8mJeNX/kOPes7OKT7/c5o07ZAn1zL9zxwTCbq49U4/tS7uuqtCSORHCoj+psqeBPs7iaajEdaFK43prMb564Lfn0Wxemf9zRXx07x12g0i+ta5HoSv+9HuNpsqnB1CQoJODP1XtK5O+NVQrLxMYqE9YFjBy0SbkdzE52kNpgfYYwIQL5XSs7p+Ow3INyoUVa6J8p794HEtrG+dIqoV83phXo+TkdajZt0jZG5ARXkrxjEaTnO0s3k3P57FWjzhFHMnqyTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dSMHWJB6pw+2WwOcuB3RDAjVlWA+AUyk6Pe74KflIfE=;
- b=XQxO5+A+9WswqMdaSB6yXtu+6QrGmXb2kk9rDjGC1XcGM6KYyrC5gx5XC6zolbHjlVvivvKeHQt6INXLwTL0uXSGC9A/yPOt6WGvp6g/el7QXiBho/V9J2bz2H39n8SM15exCTYTSmLfd3JWzRg9lTy6c5zOdOYTu3YuvZ3rko0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
- by AS5PR04MB10043.eurprd04.prod.outlook.com (2603:10a6:20b:67f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 16:03:04 +0000
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 16:03:04 +0000
-Message-ID: <2a1c33c9-8971-4054-a463-60f3ceddd627@cherry.de>
-Date: Tue, 27 Oct 2026 17:03:02 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-To: Jianfeng Liu <liujianfeng1994@gmail.com>, heiko@sntech.de
-Cc: HystericalDragons@proton.me, amadeus@jmu.edu.cn, conor+dt@kernel.org,
- devicetree@vger.kernel.org, hrushirajg23@gmail.com, krzk+dt@kernel.org,
- krzk@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- macromorgan@hotmail.com, michael.opdenacker@rootcommit.com, naoki@radxa.com,
- robh@kernel.org
-References: <5520293.6fTUFtlzNn@phil>
- <20261027022801.377819-1-liujianfeng1994@gmail.com>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <20261027022801.377819-1-liujianfeng1994@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VI1PR0202CA0020.eurprd02.prod.outlook.com
- (2603:10a6:803:14::33) To PA3PR04MB11153.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nom5AtKA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897E41F01828;
+	Tue, 27 Oct 2026 16:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793117488;
+	bh=D1rdsulDw7RWj1Ih/pNXLSB+0U2zWU4Psnbf9sp2cLk=;
+	h=From:Subject:Date:To:Cc;
+	b=nom5AtKA4ozXB6mQnpt9Hd+HDiB/WgtelIj2WEqoKRSZsTvgCCY8ipXH4CxncNHOI
+	 fc8z904CFETzH+v3wqex1xqXWYkHeVp28MWpf2aSlrSCzMkzWSX5Ae5GONKBEJR6rC
+	 Ql/Pi5turRrec/D0lSbLlp8OzQc94vf83jgucj52pYfbL7YigHvhfxRQQdVQe2GiqM
+	 +WCReKHyFqDuImoI3wlhShC7FfbW/xTgxWNg85LSQ2RLq8w3MMA/qI2FMSk+tXPJX7
+	 VxLNS9Lzg5Y4W4mAXA0UN9yrJ+cSafniiq8Kip01eVJFVX3STIt9qmImiglpJvXbOX
+	 PifJOMjsBGfJg==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v5 0/7] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
+ EVK
+Date: Tue, 27 Oct 2026 17:11:22 +0100
+Message-Id: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,130 +54,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|AS5PR04MB10043:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4214a192-0e26-4627-e7e4-08df3443c871
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|261026140227099003|5023799004|4143699003|11063799006|56012099006|261026121527099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	HMZYCkkkwOngZyM6M9qBjukMXNQeUSD4gKLSdNyIdVIWldgXia9ZIXbYpy4VIA6ifhAuwuzc9xpsZoGM7IVM8DngHDMiPXq5a+a6tlyzoqdQpxM4XmAyJYjmRDEt+lYWXpz+SwfB2sjsZ0gOfVDxserDa5HtY3oBgVd1t44JJ6yjAgmeIPQg4CtFvgg1tzP/HH0a1YCTP7vdT7qusegLMtDXAJ2435ggFq+7uZGjiTbs7mqCuaSIWlhmYG9qzNHcs63S3h8hNNmobZ0dDKEftkxcFPDMYVDKoM6GFK5cYQ1PGlimsbDxmMPWSyUv5MKx6KVzhOvZKetZdTZmAuiLpBTVB5AdoZ5cq5tm6P+/ugitZk/F8G54t/GNfD67P6p5CA9+5FCImi2j7hzVzdlUeEavAHkkTNU/qJstoK58+AqWKcxOXQosl3u9SYILnoROmN2YOzQbMcTtyEgdjGzU5F8G0Y5ejHsKBz/y4ygjMFfkIDf1+0vEkXOS+8Wnsy0qdEc2duDvELCz4pAPJdLc4kawvheQIGa380+psCyTkT0GyBqu2gPAZBRmXoEWbKhQRx/Bhgci6ibSd6yDLiNKdrNgRXRZop7A/pJK7INKXOiIcpngWh6v5DDhOBPyCRrz
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(261026140227099003)(5023799004)(4143699003)(11063799006)(56012099006)(261026121527099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MklXaVZQOTFXWkRDZk1FeVp6ZVNMUDF4amoyUEowc2NXS3BkYndUK2NseDdZ?=
- =?utf-8?B?MDRoR2dlV3cyYzZSTUNjaFNLQXpKc3RyTjFjS2VvTDRWcjlxV3dBUExVWm8w?=
- =?utf-8?B?bk9KZFhDaTM5NzU2cHJsZjFWeFFLN1NKaVRiSnFNc0pYc3l4UmhEcHZBM0U2?=
- =?utf-8?B?aEw0TGhpc2dxbyttOXlMUUZTUnF0VG1vRTlWQnZOVUFMOWhoSTFBNEY3b1lk?=
- =?utf-8?B?T1N5V1A5WWwwdjRFcE1PeXlpdzM1L1RGcG9HbmZWQ0w1L2VnN3AzOGkwUEh4?=
- =?utf-8?B?bWNtdzJjOExFMS9oNnVhd3d6ZENUSHUwVjdJeGhKd2ZJMjNMaXZhWUFUNEVo?=
- =?utf-8?B?WkNxSnFjV1ZIRG1zckdyV2U2dnRzb2J2bFdJT3FKd1piRll2ZGg4WDJTR2RX?=
- =?utf-8?B?dVhDZ3MxYklhcmE1aWZJajBXTGZwa3ZFRHFOVlo4SGpSeHFLZkxWSHdwRmdK?=
- =?utf-8?B?L3B6Z28zWXNBZ21hSVRCWjRnOXh6RDlzeUNkZWlMUDZHWmRnWUNXTDlLdGFl?=
- =?utf-8?B?MU1yWkU4N3FsOXQ2cVlVeFY5b3YvUzdvakVlMERPY3FWMUtnM3orQlo0UnVR?=
- =?utf-8?B?SG5FSTgvN1Exa05oSVMrY2tRTlhOVmh6QUN4ZisyT0hnU3RQTEsrT2RjeVJU?=
- =?utf-8?B?dHI3TDBUamJTdi9pbkpFQ1FqNlZlcHBlV3hZOGg0b3BGMVVYRFM5UmpQaThB?=
- =?utf-8?B?Sm5rd1BDQWxLTnljS0Q2eGlFaVgyMlZ5OUJzNStVRWt5L1k2M0d5Zmxydzlj?=
- =?utf-8?B?YWxlMUhLZGlyeDliWXZxenA3Mm43TDJCNmQ0MGhOWE5xZmVJZTA2R1NqS0VJ?=
- =?utf-8?B?YkgzT3BYSS80a0RtSWhSNjQ0bUFUOG9GVXlzNk1sQjBsVzZtbmZDamx0TGtt?=
- =?utf-8?B?WWYyQWdqVDhWdFJneEZ5dEpDQzBhdzdhOCs5b0ZQa2xoc2xhWkdUdDdXS2RI?=
- =?utf-8?B?K3hVTVFVL0VSUDVBaXUyOVZSdS96WS9QZy8wdjcwODNBZW8zeDFZdjF2Wmhi?=
- =?utf-8?B?d1Rvak82LzBBbGo3cFo3aDk5cFVaeGNkQzVXY0ZKQ0Z3c01KYlRzbEM4QTZN?=
- =?utf-8?B?cEdlL2NZOGFqNmZzcVpGWmtCVnZEZDV6TFRPVnI3cXc1TS9ra1poZkFLNzJo?=
- =?utf-8?B?a2FBUzlINkhyclZ5OUlWOTlxaEVNLzg1b2lDcGFzSE9Gczc3RnZSdkJ0NzNP?=
- =?utf-8?B?eXhwY1JrOHpUblZ4dkRhcHlsbFJ2RUVOYzFTb3dHbkU2WVppTDRqS1FDbDZQ?=
- =?utf-8?B?aG5wRGxxeFdGOVZmdWFhS3BBVXVkSmFlSVEzKzZhR1JtTzJvSGI3dUhQNkxE?=
- =?utf-8?B?L2Qzekd4QlBCYi9rMndVL0N5Q3oxYVM5bVdPeXN2YVJId3ZBaFl4bzhMSCtu?=
- =?utf-8?B?QjlGdE1wOHFMaEJMNitCQ2tOMDN3Rk5WQTZITWE2Y3h4VWVMM1orUEhTSzdx?=
- =?utf-8?B?ZUtSc3lyRTlOTlh1RTkwS1dKWVRNUlYyOTVrMVQrMEh4UVp4NXFBdGxKeFJB?=
- =?utf-8?B?MG1NMUpLdjRZdWtCU0RxOVBOcXliTmxPZ2p6Y29aOUJWQnkxcmFYdENla2tz?=
- =?utf-8?B?T0JLWDR6cmowNyt4RXpiWVZnRml4R0tiUy9YeEd6RjN2TlpOcUplWFc4SFN0?=
- =?utf-8?B?YUNYT1BFL053TXpGZXNsMEFuSElsS3V4TG00a1VRWHJ0KzNRcWY3QXE0NVRt?=
- =?utf-8?B?OEJmLy9WOGh0bmZNaTJBODV5M1UzZWJFYk45RXdXTkhTNXhmd0F1TXZKUHc4?=
- =?utf-8?B?a3JoNmhISlV4Y3Z3UXQvNUlnOWFaVkF3RGJJb2JPZ3phWVZEWmIzT3U4N0pI?=
- =?utf-8?B?OCtpSWRBQ2ExQnpEd0RiVTkyUjducHAwSWtRNGNFaG5vWUpsdXFOQ0ZTOGRN?=
- =?utf-8?B?UGxyQzlTSEU2RjZyNXZtTUxOVjI4VGNSNU5uYk5xTjUxYWRLdG1maVN4MFdV?=
- =?utf-8?B?RlZlWWFNdG1reVYxYmNxVi9KdVY3bk5IUzJaaldSNDZxK3dKY3htMklGUWFs?=
- =?utf-8?B?K0R5OFRkTXRBVlUzTHk2YSs3RHZuMFl0SUtzeE1FVWMyWFV4VUJxZFl3NnZK?=
- =?utf-8?B?WUY2NklUaWZMWHdrbDZJZU1VZDMybzltbDNzczNScTIyKzVmN3dJb2w0MjB5?=
- =?utf-8?B?ZWRzVmhYYkk1eFhScGJzaSt1NHpham9CYk1DNHRDTTJpc1pUNnNoMzhjZlBm?=
- =?utf-8?B?M2NXYWV0M1ExVkc1aS84WlJ0Wm11MjMwOE10MGVBNUpoc1hUWnZWZ0QyQ1VM?=
- =?utf-8?B?OUZadUYySnZKSlFTV2pJQitCUWpMZW5KdVUyS2FaZmZoVi8xUllDQVJLTEpB?=
- =?utf-8?B?TDByU1YzMHM1bzBWRlhLcmVnZThiNnpia0tIRXIyZVpUdWwxOGlVdz09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4214a192-0e26-4627-e7e4-08df3443c871
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:03:04.3106
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f6f2rbtw+emPb4m2goHDDomEL9l4CGDBMt2NxhUkOEvz/mKEPTaF7XHO3kC/T6uvq6qdqzmlopZ0wcCP/NDkonTFiKZTDuWLImGsjHvlJo8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB10043
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XP3YrCMBAF4FeRXG+WZJI0rVf7HuJFfiaaXW2Xp
+ BZF+u4mLogiZS8PnPkOcyUZU8RM1qsrSTjFHIe+BPWxIm5v+h3S6EsmwKBhHQA9mkOkTimasMd
+ sMvVjplp6qUEH1aEi5fQ3YYjnO7vZ/uV8st/oxmrVxj7mcUiX++7Ea++fiYlTRp1vhPNWcSbE1
+ w+mHg+fQ9qRujHBs6IWFChK0wUNrZFaGnhTxLPSLiiiKOCCRqtlg9a+KfKhcMaXPpL1I8kZQst
+ sAP+izPN8A8KOUZidAQAA
+X-Change-ID: 20260922-mali-c55-renesas-dts-74d4727f59e5
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: b4 0.16.0
 
-Hi Jianfeng Liu,
+Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
+interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
+video endpoints, and enable both blocks on the RZ/V2H EVK.
 
-On 10/27/26 3:28 AM, Jianfeng Liu wrote:
-> Hi Heiko,
-> 
-> On 2026-10-26 11:43 UTC, Heiko Stuebner wrote:
->>> I confirmed this with ArmSoM. They purchased the original CoolPi 4B
->>> hardware design from CoolPi and confirmed that no hardware design
->>> modifications were made for the Sige7s.
->>>
->>> So the Sige7s uses the same hardware design as the CoolPi 4B, rather
->>> than being independently designed.
->>
->> if it's the completely same board, just with a different print on
->> the board, why does it need an empty devicetree. When it's completely
->> unchanged, what's speaking against just re-using the original one?
-> 
-> The existing CoolPi 4B DTB does work on the Sige7s, and I agree that there
-> is no hardware difference requiring a separate device tree.
-> 
-> My main reason for adding a separate DTS is to preserve the Sige7s board
-> identity for long-term upstream support.
-> 
-> The CoolPi 4B appears to be discontinued and is no longer readily available
-> through the purchase channels listed on its official website
-> (https://www.cool-pi.com/buy/). In contrast, ArmSoM is actively selling the
-> Sige7s and has committed to producing it until at least January 2034.
-> 
-> I'm also planning to add mainline U-Boot support for the Sige7s and
-> integrate it with Stubble-based UEFI booting.
-> 
+Two additional RFC patches replace bulk clock and reset operations in
+the Mali-C55 driver with explicit sequences using named handles. They
+reproduce the driver call orders from the reporters' working DT swap
+while keeping the clock and reset assignments unchanged.
 
-I am not sure I want this in U-Boot. Why should we have add a defconfig 
-(and thus increase the CI build time) for a device that's already 
-entirely covered by another defconfig? I guess the Linux kernel doesn't 
-care about this so we don't need to discuss this here.
+The Device Tree does *not* guarantee any sequencing of resources,
+so these sequences must be handled in code.
 
-> While U-Boot could update the model and compatible properties before
-> booting Linux, Stubble may replace the firmware-provided DTB with one
-> bundled with the kernel. Having a Sige7s-specific DTB would preserve the
-> correct board identity throughout this process without requiring additional
-> distribution-specific modifications.
-> 
+Clocks are enabled hclk, aclk, vclk and disabled in reverse order.
+Resets are deasserted vresetn, aresetn, hresetn and asserted in reverse
+order. These are driver-only experiments: the CPG power domain can
+enable clocks in DT order before the callback, and IVC may already hold
+shared resources active. The physical transition order is not guaranteed.
+These RFC patches have not been tested on hardware.
 
- From U-Boot's perspective, I would have preferred there be a simple 
-difference we can detect at runtime and based on that decide which 
-device tree to load between coolpi-4b and armsom-sige7s.
+After these patches, and enabling the right Linux drivers, we get
+this in the console:
+mali-c55 16080000.isp: Detected Mali-C55 ISP 9000043.31032022.0
 
-> This would also avoid confusing users who purchase a Sige7s but find their
-> system identified as a CoolPi 4B.
-> > The shared dtsi ensures that we do not duplicate the hardware 
-description,
-> with the two board DTS files differing only in model and compatible.
-> 
+This was done in order to enable booting mainline with mainline
+device trees.
 
-I don't know Heiko's or Krzysztof's opinion here, but I think it would 
-better reflect the actual context to NOT use a dtsi and simply have 
-arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts include 
-arch/arm64/boot/dts/rockchip/rk3588s-coolpi-4b.dts and update the model 
-and compatible properties.
+The patches were authored with the assistance of an LLM.
 
-Cheers,
-Quentin
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v5:
+- Add two RFC driver patches for explicit clock and reset sequencing.
+- Match the call order from the reported DT swap using named handles.
+- Link to v4: https://patch.msgid.link/20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org
+
+Changes in v4:
+- Provide interrupt names in both bindings, their examples and SoC nodes.
+- Use Renesas RZ/V2H interrupt numbers in the binding examples.
+- Link to v3: https://patch.msgid.link/20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org
+
+Changes in v3:
+- Correct the ISP video and register clock/reset mappings by swapping
+  vclk/hclk and vresetn/hresetn.
+- Add an optional ISP power-domain binding and attach the RZ/V2H ISP
+  to the CPG power domain.
+- Link to v2: https://patch.msgid.link/20260925-mali-c55-renesas-dts-v2-0-69f728a474a2@kernel.org
+
+Changes in v2:
+- Add separate IVC and ISP binding patches describing the optional IVC
+  frame-start/frame-stop completion and ISP DMA line-tick IRQs.
+  Show all six IRQs in the examples using consecutive mock numbers.
+- Add the IVC frame-start/stop and ISP DMA line-tick interrupt lines
+  using the confirmed SPI assignments, addressing Geert's IRQ review.
+- Correct the IVC and ISP register sizes to 64 KiB and 512 KiB,
+  respectively, as requested by Geert. GPV_VIDEO0 is a separate bus
+  interconnect region.
+- Compact the clock and reset properties and remove blank lines between
+  properties, following Geert's review.
+- Link to v1: https://patch.msgid.link/20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org
+
+---
+Daniel Scally (2):
+      arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+      arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add ISP and IVC nodes
+
+Linus Walleij (5):
+      dt-bindings: media: renesas,r9a09g057-ivc: Describe additional interrupts
+      dt-bindings: media: arm,mali-c55: Describe DMA line-tick interrupts
+      dt-bindings: media: arm,mali-c55: Add power domain
+      [RFC] media: mali-c55: Sequence clocks explicitly
+      [RFC] media: mali-c55: Sequence resets explicitly
+
+ .../devicetree/bindings/media/arm,mali-c55.yaml    |  27 +++-
+ .../bindings/media/renesas,r9a09g057-ivc.yaml      |  22 +++-
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi         |  47 +++++++
+ .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts    |   8 ++
+ .../media/platform/arm/mali-c55/mali-c55-common.h  |  11 +-
+ .../media/platform/arm/mali-c55/mali-c55-core.c    | 136 +++++++++++++++------
+ 6 files changed, 205 insertions(+), 46 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260922-mali-c55-renesas-dts-74d4727f59e5
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
