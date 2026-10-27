@@ -1,84 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098260;
-	b=FswAzJ4izP8ckAPGlAIJWIQnTCtSnz418/6OcHCtfITw45MAFpzYrpwiKuhPEEA7j/Ai
-	 ptx+q5JsVSnN8x/5PieiLPMbalu6AyKGEmf3LEbbxH79QFN2aUWKTX4vbJbDCAXKmXlo5
-	 JU2M7KtecurpC/1wCzCM0b5c4rMp47MKjPnEw7Qghaf5/i2O5PIK0yds82CXhIiyuUBsU
-	 UiPmDNOjAOUqqIArfFbrI6WpUYTySjko3Mj3JZ7E+vRATFz557/ak6hFRclssYDb3KUqx
-	 WHHhXvFIZkcf1czJ6llmlljBP3iRlQ7ELC8j/M1NVFVYlbzcZytoRKFbprvRKcofk2g==
+	t=1793098269;
+	b=Cp0kRU2oRiLINI2iz/lpNveh+eDovPb39dB2Yj9Hco82pa6KMoxlq5ZYkJRhnyEO7pAT
+	 ZWLcOIzN/xJ5OuTbkjLM2/Llnf8JdRdJquz5yp1NNJx24YQMe18VqSmVNKJU8zXxsD2tU
+	 jAzNU8dvkvmVViRfn2fg3mzSOGSDhOWpsNK+W8/pP8T9uve89YN7dWBuW6zYCqJGqfR7P
+	 q15gDB2WUhSxpJqQicmM3bfSHskT8TGm/yWPUPkZzQwh7bj+wFQzXBtr6d+xPMSr5rIxR
+	 ycEt9XlrrKg7QHhJlmNMlylroX1y8zBpQ89JrCbPf687FB9i/pyOZUrU32j4m4D9VbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098260;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iXwCpHgCtD+mL+jAAnxmm63sYXCWuHM0daWYuNJz/gw=;
-	b=k4W54EZdwV9kD9P9tbTOKp8oudsWt66nifi2TfbsNmUHgT3fo2magWw3cpQz0/3K0cOD
-	 JOQXIra8Xy1LaGDZL1cjI9JzNiAjO/Dcz9UTU2Myg5w87LJWfgxR7m9gX3DZYAC9Ms8qo
-	 +D1YXH/8DHm6WK51slN4eRF4/CcTUj4fCw/gQJXEt5VIINtQg/lzCNpAPmh5Ie0875oL6
-	 Cb2klb0lcvjyLB1HIAsx2R3kbKHp8BAthWGuaQER1xbRyO3JtphDnVUchhrPYbThfgm3/
-	 OReK1uXFvp0XRBJNUoDfcW0Iovfn2nqk1XZpEKofcFhBchEE+3krH3XBSGyF3B7EkhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098269;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=Vli6xhlC+1tOZxNe6ZiuhYi3OuRNx6a1ew5ibReVdb0=;
+	b=btvf1TPP29Bo47ylyWKGOlbskYbdezmcLFdFLT12Jd/9FsGJJCuigWxC1SQCD6kROaH2
+	 jKrkM2Cj9J/3yIZGDhSw1iV/l0MASpWRNF3udhRuY6mlkDHmFaftZWvSxaeVR5P5rl2+o
+	 AMUDkWN38D1jZtAPTaJkAxDRqXl8qp+OAagkQfd+ZgY8Dbj1zmtw7xQDAPRxsClBnma5J
+	 7xBTx6DXjBkCkpzixTlII0mgusAArmTCK/6Tzr9ev4fnp3iAdh74gvsvSWT9iran6TMDY
+	 8P7poSAl3ExzYZKS17zcEYSqia3yctXnUYvTkfQLyqt/azs+3LknQQ7pX3bvC8Uivfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsH1KVsq;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=S4AnkzfZ;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C08606C26A;
-	Tue, 27 Oct 2026 10:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C08606C26A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BB2606E79D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 10:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74BB2606E79D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsH1KVsq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793098260; x=1824634260;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=d3FNV/vonboNOKnOS+u1QVjkWcvOuNKNT3TAowUMjxY=;
-  b=lsH1KVsq+bcERtEPXI7ByiaHZgpfIiRpkM14Qux3DOrfaXgA+1DhtdO1
-   bXOc1t2APzxshK4N6C9V8gxbRaQo42Vs74BXIxmLdSDXfCnPzJnyuZvTd
-   3B8LqSJi5CYxY/FTlryJgi2zBR6Q5AP5nOhsD08A1Sayheu/GNSis2nJv
-   y5HtMb/pG19oYmw9LckkdliXzIHmshsMnxpTQ9nObCUqxwuayBElsKMmL
-   u/d9Wru1Zjb41IBaArDfVvst6wsODqDdtPo/0tf0IlUACsYKdwNA4A+Jw
-   l8WEZAi75BGMDHQUo8aZGrYaPzKpT9UmlfrAzB5y/U5HKG7Qv+pD/NmEn
-   g==;
-X-CSE-ConnectionGUID: fmKumOm+SteCL/1MdS7nrw==
-X-CSE-MsgGUID: H+Y3lXn6QxasXw+l4qKuBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1703607"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1703607"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:59 -0700
-X-CSE-ConnectionGUID: 1/e5ZU2wRbKZUmry3qp3oQ==
-X-CSE-MsgGUID: d2sK+CFTQeaNW0FkfX64yQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4919378"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:56 -0700
-Date: Tue, 27 Oct 2026 12:50:53 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH v12 09/11] gpio: pl061: switch data path to
- gpio-regmap
-Message-ID: <auCCDWsCrmDtBdVd@ashevche-desk.local>
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
- <20261027-cv75-gpio-v12-9-c22555400e18@ambarella.com>
- <auBbdz_fBiKr1tJb@ashevche-desk.local>
- <68410604.9376.1a17ceac8d5.Coremail.zl020895@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=S4AnkzfZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793098263; bh=Vli6xhlC+1tOZxNe6ZiuhYi3OuRNx6a1ew5ibReVdb0=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=S4AnkzfZku23PdSmTG9Izg/xiFNGHIQMr0PN+fpullXpH2RZpxBrz4lSsPi2euNsJ
+	 dboYPfMCHbYuckAzsUsgIitUQVtAZ7rA7RKmWY5+6esOpxzV1bO55/CO89/Lj+NLtY
+	 YsHGDhQtael+DsgR8jg0FWC5dQiok9lC3ttDyzqA=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: OeJOoYd4plGbllljkz+rlLNlYfGojr+DRpXa6DK1UZUUeq0G1YqjFr1mfYZ6tA
+	 noFoR74yrCt9wMum5OZv3pqTnamcaj61G0mws81BlcNgHwy5gAjmA10sh12h8oGwEPHFYCaw6/NoB
+	 ScAjs94IUOYQmEDQkVlQgpNFcPPLKGxhHJSIujBa48NLo5FBhZM5w2Loq6/ViubVkQZ9mSn1EjvdN
+	 EDco+I2rB/MFfOQWAJSZM8N7zeXBenXSR74eskCcq6fhJ+HNWkvct0Qfq3lQy15FRYhRFdQFLZ77s
+	 KSFXfi9dTSoWcXpk+GPUZShWPEaJ+9Wg+Ym1PR1D+//x0lue0DGdhlguqkXC5NDYqoGN9oJCd/kq9
+	 wd1H4GZLI9mMwIfPZN/0oTdB1H3L9jxnHUGrzMUQuoRYM8HPzO8d4rcp+O9KFILn0ZuyYAkiVovFp
+	 81VnbQXu8J7qZj0c13Fw+UnkMdjYZfajU4iljjeY+PlCGGamWqOf6sPVqpX8HFwmefud3DRjrwYmC
+	 FdWfO7uw1XFGzW4t6mT4pCHR3nEkjkyq6MmPiaKKf+A0Zoi+X6ucWoQT5PpSkd4rbenb+a7CbCAhu
+	 NN/hhOgSazCSAhFaWMmn0iyU++kbe4ua7YhUhwpmnn2GRtN8i3MbkoH0Enaos+J7G4U/l6J5VWzpM
+	 c56cl42aRQIhbOz7EcQEeQkqbLlx6o7SVDC5tgox9+GEHup55Ntv/7mJ3aQhPi1p61pmR7EM/Lidi
+	 sjAjAcmm36RbC6nWBfe56gqF++IOcFwC+PNcngzGRiwgCsufUarVfd3JcpEiPoE4dHUMS+ZIoarCh
+	 2r4PRZk9vqng30BHvZ5no+fvzDw53GQdEWbAJ6KCu00JbR8N3WJ/Gd652wHsJQlCZDKyJ7Z8ux67M
+	 TlKHdHoFNWshL50mirk1dBJPKzTsgvJLx9jSGc8GRxwuFsQoM5p/JM8ZS/D+sYvN+YhcMcO3kGCir
+	 2l37IOxLr8pg7EzA90qIVTpImO6SXul3RZAucSXHdUTuvoVyDVYssGGV4RbqxKqiRmjRSmMAZyO97
+	 txGXWIuLUPWDddHYuKZo0M5d0tUWvXJOGjGMQmV0UPqZOfbXlUWOR7uXIlw==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk@kernel.org>
+Cc: "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?RmlubGV5IFhpYW8=?=" <finley.xiao@rock-chips.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: power: rockchip: Add RK3572 power domains
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,51 +67,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68410604.9376.1a17ceac8d5.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 27 Oct 2026 18:51:01 +0800
+X-Priority: 3
+Message-ID: <tencent_0F101DFCE09BB069F66456125E460602F809@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261026-add-board-ok3572-c-pmdomain-v3-0-70d614d3d921@qq.com>
+ <20261026-add-board-ok3572-c-pmdomain-v3-1-70d614d3d921@qq.com>
+	<20261027-uptight-stalwart-roadrunner-339a8f@quoll>
+In-Reply-To: <20261027-uptight-stalwart-roadrunner-339a8f@quoll>
+X-QQ-mid: xmsezb41-0t1793098261tcq9nsxxk
 
-On Tue, Oct 27, 2026 at 06:32:04PM +0800, zl020895 wrote:
-> At 2026-10-27 16:06:15, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
-> >On Tue, Oct 27, 2026 at 12:18:56PM +0800, Long Zhao via B4 Relay wrote:
-
-...
-
-> >> +	if (irq) {
-> >> +		irq_set_chained_handler_and_data(irq, pl061_irq_handler, pl061);
-> >
-> >> +		pl061->irq_handler_installed = true;
-> >
-> >Can't we remove the chained handler unconditionally?
-> >
-> >> +	}
-
-> On the chained-handler teardown: pl061_remove_irq() is registered
-> before devm_gpio_regmap_register(), so on unbind it runs after
-> gpiochip_remove(). gpiochip_free_remaining_irqs() therefore still
-> sees the irq domain and its mappings; the action then disposes
-> them. The chained handler is installed only after
-> devm_gpio_regmap_register() succeeds. If that call fails, the
-> action still runs although no handler was installed, which is
-> why irq_handler_installed exists.
-> 
-> Options for v13:
-> A) Keep irq_handler_installed and document this ordering.
-> B) Split into two devm actions. The early one, still registered
->    before the gpiochip, only calls irq_dispose_mapping(), so
->    unbind order is unchanged. A second action, registered right
->    after irq_set_chained_handler_and_data(), clears the handler
->    unconditionally, and the flag goes away.
-> 
-> Do you prefer A or B?
-
-Option B seems plausible.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+SGkgS3J6eXN6dG9mLAoKPiBTb21lIG1lc3MgaGVyZS4gSSBkb24ndCBnZXQgd2hhdCdzIGFi
+b3ZlLCBidXQgZG9lcyBub3QgZml0IGNvbW1pdCBtc2cuCj4gQWxzbyB0aGVyZSBhcmUgbm8g
+Y29tbWl0IG1zZyBiZXR3ZWVuIHRoZSB0YWdzLgoKSSdtIHZlcnkgc29ycnkgZm9yIHRoZSBt
+aXN0YWtlLiBJIHNob3VsZCBoYXZlIGtlcHQgb25seSB0aGUgc2lnbmlmaWNhbnQKY2hhbmdl
+cyBpbiB0aG9zZSBub3RlcyBhbmQgZW5jbG9zZWQgdGhlbSBpbiBzcXVhcmUgYnJhY2tldHMg
+W10uCgo+IFdoYXQgaXMgZmlyZXdhbGw/IElzIGl0IGZvciBhY2Nlc3MgY29udHJvbD8gSWYg
+c28sIHdlIGhhdmUKPiBhY2Nlc3MtY29udHJvbGxlcnMgcHJvcGVydGllcy4KClNvcnJ5IGFi
+b3V0IHRoaXMsIHRob3VnaCBJIGNvdWxkbid0IGhlbHAgbGF1Z2hpbmcgYXQgdGhlIG1pc3Rh
+a2UgOkQKV2hpbGUgZm9sbG93aW5nIG15IGluc3RydWN0aW9ucyB0byBjbGVhbiB1cCBuYW1p
+bmcgYW5kIGNvbW1lbnRzLCBteSBBSQphZ2VudCBpbmNvcnJlY3RseSBleHBhbmRlZCAiZnci
+IHRvICJmaXJld2FsbCIuIEkgY2F1Z2h0IGFuZCBjb3JyZWN0ZWQgc29tZQpvZiB0aGVzZSBk
+dXJpbmcgcmV2aWV3LCBidXQgYXBwYXJlbnRseSBtaXNzZWQgbWFueSBvdGhlcnMuCgpUaGF0
+J3MgbXkgcmV2aWV3IG92ZXJzaWdodCwgYW5kIEknbGwgY2hlY2sgdGhlIHJlbWFpbmluZyBv
+Y2N1cnJlbmNlcyBhbmQKZml4IHRoZSBkZXNjcmlwdGlvbi4KCkJlc3QgcmVnYXJkcywKQ3Vu
+aGFvIEx1Cgpwdy1ib3Q6IGNy
 
