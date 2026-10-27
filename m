@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093997;
-	b=YjFSIpNtVlkc0fuTqTF8fScNBcms60fWPoCBDAL0+Axk4cp1sohS+BVW6Im5IK9mylay
-	 FWXitXrNJqUTyKqqCqUvHtKuRe3SxJYOeh2u7VTlDB2DxKxoZNxR9ADfKvR3QZPIxXMCz
-	 e0bNq/T6fVOXGzf4diq1Z7aaOyYm1uJylMMYtVgvXjhSUW2dQfab4MdnHgkuUUzR2GaeE
-	 G8Jlx96cG1jWHwAOQb6/5UGHtfuSZXJuKlwg8KPKSMOIdG52TRXAjUSs8/AcrnDGJ8Q2E
-	 urYHX6sR6WFhkP9cRteXCKcv4VglAEmvmxuOcwlfePR1VwsRXsrsWtuH0co4UqFBLhg==
+	t=1793094003;
+	b=AqByJAyk1K/347cNSMOU1Zwysb9zaUtikgRZZtTx6/faFIE65wLxWlx8XSZ94WN09bTN
+	 BH1Mf15wTw1Co9Z1UD6bNREPh/APeKuXUhiWVHihWRWe6C//0+WJCunvJvmPxysVsAHNQ
+	 JwqeeG0vNZfsUxp50jHqRNSKWw/OnlFp2CgUXa2qRyP1yzwYtphbISk5CuEsth8+auV2T
+	 yWbSYnRQDvyzPpXz2GHjhE9mWuBpKEuHttlV2W13RyeVcBZCA/YD0Brs5iub68Zk/xSXx
+	 CsqtZRUv6RdlA30ISQ3RLiOhWjVEYKWI5HC9VIaCTGt5koXUmsplK3BtmdpRKumRI+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093997;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094003;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=HNOqKHaW5A2iClqqltqQ1v/OcF7NaXZNMryL+B0mlVI=;
-	b=rtz7IQvW70T2/oBtKfLntJfRnJHkVYSsxU8fziW6uV0un3RNxDLnUUsxQyMxg5RILzpL
-	 dDUSrtu1QfS2Q3+9n53+1WRnSBn9tf7xzgV8yrrxRrf2udDNyQfAVqX7DJuFKSJ1y9Rqs
-	 w3sYOUn64NHeolk4Hi5+bl99ovtuYOf/dQQmHYn2wYoVScQij4mAXmUOHsfFGjDrm9TTy
-	 sTnR/faiwgCgTDF9kvNijUJL513JckS5azBm5AQ3nweEwlyCb4UTZBzYggWKwDUTxbo8m
-	 Idq6U4Cg6lGpOJQWU6PbN2elkqRckvoTrLrXFQtYPyB3cAZe7MpKASd4aWbUqVKdG4Q==
+	bh=E3QBAxZHErsKnGrS7f2HqfF8NImuiViCsGhVZ6vh0S4=;
+	b=U82pQKPBPhYQMEAzpdF1Qqr6PnqKUOqMmnc3DHyNfS9E0rXE++CupCOZyd8iGRljrHg1
+	 Dklcc5TbvNZ7RSEPG9ckKy0mcDfDcnfSgtJkwkKKO3r7Aknwk3wOqbcI47WfksJEiEEw3
+	 C3FmqQKmO6bo7iH/L59p/ph0IU1bQZn0s6SBERUDoLiOrl4wHqeHVZrSyu0+jZtcvPNFF
+	 3iNsrfkjFCuyqMvksu0Ej6MBnPwPsan2ahxXLzMglUzNnX+pjtQV7B3idSuIpDTIqZLO2
+	 S8ly1pJSuF7M6CGJIBikbFMtUV3nWOgmkZeZIRJxqhPlewjd7BLXVgoMAYznfsycEww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H5OjzAwK;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oBufQpGr;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BC6606A326
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:39:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92BC6606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF4E606A323
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:40:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF4E606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H5OjzAwK
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oBufQpGr
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 47A514E412F9;
-	Tue, 27 Oct 2026 09:39:55 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 98301C79AAE;
+	Tue, 27 Oct 2026 09:41:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BB8A603BD;
-	Tue, 27 Oct 2026 09:39:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3944D10329081;
-	Tue, 27 Oct 2026 10:39:51 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C46C603BD;
+	Tue, 27 Oct 2026 09:40:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6C7A810329081;
+	Tue, 27 Oct 2026 10:39:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793093993; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793094000; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=HNOqKHaW5A2iClqqltqQ1v/OcF7NaXZNMryL+B0mlVI=;
-	b=H5OjzAwKmDYwkrKRCVof6ueHtrArl37MXhJl9V4EViws9xStWIo8MxZHLzHYwSvaMM98k8
-	JzwAtiADZiL4hMBfh+KhRXPw9SIzOVHDwq418iOhvPSEyp31TfKtzsjNbHnf3dJAHbplV1
-	mUNvpgQromLh9DpHHJc1y4v3jGq9ayesESo48uXeyE5YyJ1HHH8wCGncv6FmNrGvKQTRpy
-	/98ZHDRIRtgNiZuSc01lH8jZu1pLLtwm07AAlLruDv2FsMBE+V437BmlSyPDEV+tWC2cuk
-	213Og4Lcmg0oICZj73zpdaE79WK9Ls2QMf4DiNTPzIYPKiEGhec536lUhKwmfw==
+	bh=E3QBAxZHErsKnGrS7f2HqfF8NImuiViCsGhVZ6vh0S4=;
+	b=oBufQpGrAquPTzV8qdi9e9DJIqePZK056biwm4caDec09OMag3eepGYbaJ99L8OzQUH+NS
+	DPpdyQR+GsHsfacXS8iPvEd6NKWqa0l1XJWVD9nO8vVM5q//djpux4IUh4D8P8Ck1MO94/
+	uiXs7d2ydRmEZZN0DRxVOKlMwswdQFu+RtfnBc7Qh1Ew5Q1Oc7GcHY717hke9+XNCwS4xa
+	0r9MO+LTtqBlncXBhyQxvHScxcTkGCEFEw05vCapo9wWXAOBXITMsKg5B/V8jDRQaTTvT3
+	WZCLqR7zF/wnY7WMKG1r3jzENHpnutxDrTKZ9R9kPXpadRgzkcVNC19BfqVNLw==
 From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 27 Oct 2026 10:39:23 +0100
-Subject: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
+Date: Tue, 27 Oct 2026 10:39:25 +0100
+Subject: [PATCH v2 3/4] regulator: core: Call set_over_voltage_protection()
+ if OVP limit is fixed after setting new voltage
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,8 +65,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-paul-lm51772-v2-3-b2a767e34722@bootlin.com>
 References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
 In-Reply-To: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -77,278 +78,78 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Miquel Raynal <miquel.raynal@bootlin.com>, 
  Paul Louvel <paul.louvel@bootlin.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793093986; l=8577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793093986; l=2652;
  i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=Zkf95RR2AfAinvtNOofKYnygHe8dIOqOMvPT4CNSEHk=;
- b=uq/N2azOjuKtW53mm+DXvkLMSfOGz4cT2WKfZszEls/hAZYSy/Gw+s92Fiwcx45PfCyg6//TV
- M6bKE7n7F4nBwIic8lmq5TyADYx5lrzSKV2ZnsZnZnU59UvQIHQVLKQ
+ bh=3rfpxIiAJcTwkIUG89FV5MR0WYbhlzK9nKpVxjveJmk=;
+ b=wvx5D+BRDJwyjOlLxox9wiCM+IPlAmjnD5KpieLQaw8GXqF799v4UOsHRxtf/LNpFFUjJLps4
+ gu7QEUPiEd7BZO1+JYr2lsDzamT3ZK1FnyqJmQu9Xda5ZEvIbzdJvzs
 X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
  pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
 X-Last-TLS-Session-Version: TLSv1.3
 
-Add device tree binding for the TI LM51772 buck-boost voltage regulator,
-which consist of a primary VOUT output, and a fixed 5V LDO.
+The over-voltage protection limit is defined as a microvolt offset from
+the voltage configured on the regulator, and the hardware is programmed
+with this limit once, at regulator registration.
+
+Some devices cannot be configured with an offset because their OVP
+threshold is a fixed value. For such devices, the protection must be
+reprogrammed every time the output voltage changes.
+
+Introduce a new 'fixed_ovp' member in struct regulator_desc to tell the
+core that the registered regulator is such a device. The
+set_over_voltage_protection() callback is then called after the
+slew-rate delay, so that the protection is never programmed before the
+output voltage has settled.
 
 Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- .../devicetree/bindings/regulator/ti,lm51772.yaml  | 232 +++++++++++++++++++++
- MAINTAINERS                                        |   5 +
- 2 files changed, 237 insertions(+)
+ drivers/regulator/core.c         | 10 ++++++++++
+ include/linux/regulator/driver.h |  4 ++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
-new file mode 100644
-index 000000000000..ec6dd45e0c71
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
-@@ -0,0 +1,232 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/ti,lm51772.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI LM51772 buck-boost voltage regulator
-+
-+maintainers:
-+  - Paul Louvel <paul.louvel@bootlin.com>
-+
-+description: |
-+  The LM51772 is a buck-boost controller with I2C control, designed for
-+  USB Power Delivery applications. The output voltage is software
-+  configurable between 1V to 48V, with:
-+
-+    – 1V up to 24V in 10mV monotonous steps.
-+    – 3.3V up to 48V in 20mV monotonous steps.
-+
-+  The peak current limit threshold is programmed through software, between 0.5A
-+  to 7A.
-+  The LM51772 also provides an auxiliary fixed 5 V regulator output
-+  (VCC1).
-+
-+properties:
-+  compatible:
-+    const: ti,lm51772
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Fault / warning irq.
-+
-+  vin-supply:
-+    description: Regulator supply for the chip.
-+
-+  regulators:
-+    type: object
-+    description: List of regulators provided by this PMIC.
-+
-+    properties:
-+      vout:
-+        type: object
-+        $ref: regulator.yaml#
-+        description: Main output voltage.
-+
-+        properties:
-+          ti,active-discharge-strength-microamp:
-+            description: Discharge current for VOUT.
-+            multipleOf: 25000
-+            minimum: 25000
-+            maximum: 75000
-+            default: 25000
-+
-+          ti,iset-pin:
-+            description: |
-+              Select the ISET pin as the source of the current limit, instead of
-+              the ILIM DAC. When this property is present, the ISET pin is forced
-+              in its active configuration and the ILIM DAC is disabled, so the
-+              current limit can no longer be programmed through the
-+              dedicated register.
-+            type: boolean
-+
-+          ti,pcm-window-low-permille:
-+            description: |
-+              When VIN is inside a programmable window around VOUT, the PWM
-+              logic stops switching entirely and the regulator connect VIN to VOUT.
-+              This mode is called the Programmable Conduction Mode (PCM), and is an
-+              efficiency features allowing the unit to avoid unnecessary switching
-+              operation when VIN ≈ VOUT.
-+
-+              Lower threshold of the Programmable Conduction Mode (PCM)
-+              window, expressed in permille (1/1000) below VOUT target.
-+              If this property is zero, PCM is disabled.
-+            $ref: /schemas/types.yaml#/definitions/uint32
-+            multipleOf: 25
-+            minimum: 0
-+            maximum: 775
-+            default: 300
-+
-+          shunt-resistor-micro-ohms:
-+            description: |
-+              Value of the current sense resistor connected between the ISNSP
-+              and ISNSN pins, used to translate the ILIM threshold voltage into
-+              a current limit and vice versa.
-+              TI recommands a value of 10000.
-+            default: 10000
-+
-+          regulator-temp-warn-kelvin:
-+            enum: [0, 1, 368, 383, 398, 413]
-+
-+          regulator-ramp-delay:
-+            enum: [40000, 20000, 1000, 500]
-+
-+          regulator-min-microvolt:
-+            minimum: 1000000
-+            maximum: 48000000
-+
-+          regulator-max-microvolt:
-+            minimum: 1000000
-+            maximum: 48000000
-+
-+          regulator-min-microamp:
-+            minimum: 500000
-+            maximum: 7000000
-+
-+          regulator-max-microamp:
-+            minimum: 500000
-+            maximum: 7000000
-+
-+        unevaluatedProperties: false
-+
-+      vcc1:
-+        type: object
-+        $ref: regulator.yaml#
-+        description: |
-+          LDO regulator for auxiliary use.
-+          It can used to power, for example, a PD controller that will drive this PMIC.
-+
-+        properties:
-+          regulator-min-microvolt:
-+            minimum: 5000000
-+            maximum: 5000000
-+
-+          regulator-max-microvolt:
-+            minimum: 5000000
-+            maximum: 5000000
-+
-+        unevaluatedProperties: false
-+
-+    additionalProperties: false
-+
-+  ti,sync-pin:
-+    description: |
-+      Selects the function of the SYNC pin, used when several converters
-+      operate in parallel.
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum: [input-rising, input-falling, output-rising, output-falling]
-+    default: input-rising
-+
-+  ti,ivp-thres-microvolt:
-+    description: |
-+      Input Overvoltage Protection and Regulation Threshold.
-+      It shall avoid any damage to the device in case the current flows from the
-+      output to the input and the input source cannot sink current.
-+      This threshold is used for IVP (Input Voltage Protection) and IVR (Input
-+      Voltage Regulation).
-+    oneOf:
-+      - multipleOf: 125000
-+        minimum: 4750000
-+        maximum: 23250000
-+      - multipleOf: 250000
-+        minimum: 23500000
-+        maximum: 50000000
-+    default: 50000000
-+
-+  ti,ivp:
-+    description: Enable the IVP feature of the regulator.
-+    type: boolean
-+
-+  ti,ivr:
-+    description: Enable the IVR feature of the regulator.
-+    type: boolean
-+
-+  ti,nint:
-+    description: |
-+      Configures the nFLT/nINT pin to act as an interrupt pin.
-+
-+      nFLT mode: The pin remains low until the cause of the status change ceases.
-+      In this mode use an level irq trigger.
-+
-+      nINT mode: The pin is asserted low to signal a status change.
-+      In this mode use an edge irq trigger.
-+    type: boolean
-+
-+  ti,cable-drop-compensation:
-+    description: |
-+      The cable drop compensation feature helps to keep the output voltage at the
-+      nominal value over a wide range of load current without the need for
-+      additional remote sensing. The cable drop compensation measures the
-+      current and offsets the output voltage proportionally to the measured
-+      current.
-+    type: boolean
-+
-+dependencies:
-+  ti,ivr: ["ti,ivp"]
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@6a {
-+            compatible = "ti,lm51772";
-+            reg = <0x6a>;
-+            interrupt-parent = <&irqc>;
-+            interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
-+
-+            ti,nint;
-+
-+            regulators {
-+                vcc1 {
-+                    regulator-max-microvolt = <5000000>;
-+                    regulator-min-microvolt = <5000000>;
-+                    regulator-name = "vcc1";
-+                };
-+
-+                vout {
-+                    regulator-max-microamp = <5000000>;
-+                    regulator-max-microvolt = <20000000>;
-+                    regulator-min-microamp = <1000000>;
-+                    regulator-min-microvolt = <5000000>;
-+                    regulator-name = "vout";
-+                    regulator-ov-protection-microvolt = <1000000>;
-+                    regulator-temp-warn-kelvin = <368>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 57285ff29a16..c958e116cd66 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27461,6 +27461,11 @@ S:	Maintained
- F:	sound/soc/codecs/isabelle*
- F:	sound/soc/codecs/lm49453*
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 14422cfe80e2..b1cabe50ac25 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -4014,6 +4014,16 @@ static int _regulator_do_set_voltage(struct regulator_dev *rdev,
+ 				     (void *)data);
+ 	}
  
-+TI LM51772 BUCK-BOOST REGULATOR DRIVER
-+M:	Paul Louvel <paul.louvel@bootlin.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
++	if (old_uV != best_val) {
++		if (rdev->desc->fixed_ovp && ops->set_over_voltage_protection) {
++			ret = handle_notify_limits(
++				rdev, ops->set_over_voltage_protection,
++				&rdev->constraints->over_voltage_limits);
++			if (ret == -EOPNOTSUPP)
++				ret = 0;
++		}
++	}
 +
- TI LMP92064 ADC DRIVER
- M:	Leonard Göhrs <l.goehrs@pengutronix.de>
- R:	kernel@pengutronix.de
+ out:
+ 	trace_regulator_set_voltage_complete(rdev_get_name(rdev), best_val);
+ 
+diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
+index 8a0f3aebdade..248fd8565abc 100644
+--- a/include/linux/regulator/driver.h
++++ b/include/linux/regulator/driver.h
+@@ -311,6 +311,9 @@ enum regulator_type {
+  * @vsel_range_mask: Mask for register bitfield used for range selector
+  * @range_applied_by_vsel: A flag to indicate that changes to vsel_range_reg
+  *			   are only effective after vsel_reg is written
++ * @fixed_ovp: A flag to indicate that over voltage protection is set with
++ *		           hardcoded value, and need to be set each time
++ *		           when a new voltage is set.
+  * @vsel_reg: Register for selector when using ``regulator_map_*_voltage_*``
+  * @vsel_reg_oversize: Indicates that the vsel_reg spans on two registers
+  * @vsel_mask: Mask for register bitfield used for selector
+@@ -405,6 +408,7 @@ struct regulator_desc {
+ 	unsigned int vsel_range_reg;
+ 	unsigned int vsel_range_mask;
+ 	bool range_applied_by_vsel;
++	bool fixed_ovp;
+ 	unsigned int vsel_reg;
+ 	bool vsel_reg_oversize;
+ 	unsigned int vsel_mask;
 
 -- 
 2.56.0
