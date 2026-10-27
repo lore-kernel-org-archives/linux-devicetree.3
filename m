@@ -1,71 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098574;
-	b=065WZvUKVpX5vn1MyzsIeBoU2yY7a7/R+iXYZKTzr6RRlahM0Ldk8hASY/x6zqe96pwv
-	 HblW6vL4wTa03ix9Hy2X0SSZDHyLGg3RZYaJ7MY2LAbvdQrWJsmSdbSWrsGUv1T64sfZd
-	 UCS4wvRJnNnubJcUjPL/O1EP71LsArq//ft+GyIPLD5bIE1g+B04+MzTCvxrDQlQYBPEq
-	 cyvpX579HqNx2m6FEAS9Rejz4oMJahtJtZvBcn8p2PVvWHjm/o6bMXburrC1oHceAICOl
-	 hRP9DV7MLELCcTc7BMRxTW2NcDH9p6q+QXqUA3ZBaBQe6af13A+ZbyLSeTNu8uazpww==
+	t=1793098636;
+	b=W54fPKnin8J8xM3QKRt3Vti29Bw3YSwOQqPE+VPxHcAOEWgz3Vh17bp97+riccN4p1/M
+	 Y77f2mEZpXQkB15UkuHk7qNrVo3TcHzBQJahvFzZ/zfhT1O6/dWfO3jv9Nxu+c9f69uQJ
+	 rkD+gdTxSC0CC1A6kqjRXcMyzCpDJVxPBsfQGDe1Kj44o7ujSW3Kgk4t9Hunc3CGEii1g
+	 7scgbJnRZS7cysHULnyKd9xzyx+wPrB3txSkqNrYmBLPn38u34rH1Dak7ydQzUghfYAH2
+	 D9AYedJdVp4Yu6qq0KXw5GdpGjDeEO5YWU2As/69fsGeraaN7QHwg1sKbdZN/7pEdQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098574;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=iRDyXe44Y1voxIFFug2VYkvVa9+PxgdNI7cbcINaWFg=;
-	b=MJ+EhJplTBDW/uptdM46TKSKujO2IuidE7o34B/fYHG4NP4mv2Uhksr+UKZ4yUusF/bN
-	 Jm7H7hPecqOnyy+Y4pDVF6CZAtI5xxDI96z2vfp2QRmLYDtFJaUwmkdngLukYGfMWgMYr
-	 4IgUhfgoTxQfAA0ln5uB+HJehwUWUeS0g3KkwcnTFdgJO3ctqZuap/EV8v6e3tvtWQGiv
-	 ahuae+Dr8BF8NmH2GaDLpauQ3vSIs5/oCJIRElRN6PvWgP/ACLDMbyI1qa9hfZOFJjdGs
-	 KmnLmtsbrZXMxQXPsXse5YXobV8o46xntH2H9O1VIWLL9bIkwWpec1PgnmE1wZwZNkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098636;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6Xs7gTw0KvqYciU+Kau1HiI8SAmkgSoonHql5kcru7s=;
+	b=xSYaHGVnn3IQPhsIK2G9h4Th8dCEpnKlW7Y/zbOGDlGkRBfKUoa6Vu4ctkb/O2DcDEb5
+	 hlhVPAYjG18OoMyFKUcZfWR03/6eKGOjzjrqUGl76qd26fLQ/49+KqwOL086LRm2REvis
+	 J+XpnQf241FF/ZuN2cqtPAar2tjVRB8NGzjRBQHEjYmBJw/NxQpAkdzEC1HsdHyZDwJb3
+	 sZiu8x5jvmFHgCTpDwCrF4NfMHAwERjNpBZpPbYnV4nRYT3ctv4oQRA7Ys1WdAZKTyvKt
+	 L2WGd3NkBNqOHZa/LNOSO1Fti/eXSzDhETjBWeKPwlu+0XndVXYO0PJdQyxt2uXSiMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Jze5PRda;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="k1/6mUXN";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Le4gKRQS;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306C1606A31A;
-	Tue, 27 Oct 2026 10:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 306C1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA7F606A31F
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 10:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA7F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=Jze5PRda
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=iRDyXe44Y1voxIFFug2VYkvVa9+PxgdNI7cbcINaWFg=; b=Jze5PRdaRk9WLOOmvuXfp6Fv5c
-	z/BRwx79xy+Bac7g8xaYFbMgRA4ELz86k5d/AfFqTIsCADA3A2n7jTE1rVlWdtA8LyfiPMNtRztjW
-	G89mdyzGt4ka6hPAT9OfTAgv9SQ5F7GVD+6fzH8mVyZ5mmdTU0WnW7hR6nal9n+n4nN6yiCA72bd0
-	vB2K+U8dlcvPuTdD6n2V1vTmP0vNMlxw2E30WIlvyFeDb2Ag5vL9n8zR3tsN0RKSSgMfswC5cV25n
-	bHbArBhy9RoRocsNbMs4ITAUdGjm3CCNtkGdNgqPa9wiqau3Sasx4Yhx9+OzdVVAhYb9ncqx4nkX0
-	OH8DZpKQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Shawn Lin <shawn.lin@rock-chips.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Cochran <richardcochran@gmail.com>, Cunhao Lu <1579567540@qq.com>
-Cc: "shawn.lin" <shawn.lin@rock-chips.com>,
- linux-clk <linux-clk@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-rockchip <linux-rockchip@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>
-Subject:
- Re: [PATCH v4 2/4] clk: rockchip: Add internal support for 24-bit fractional
- dividers
-Date: Tue, 27 Oct 2026 11:56:01 +0100
-Message-ID: <6321950.31tnzDBltd@diego>
-In-Reply-To: <tencent_AE0E51DA2FACC999E65D6631016044234005@qq.com>
-References:
- <20261027-add-board-ok3572-c-clk-v4-0-d4152b4fedaa@qq.com>
- <f9068153-0d6c-471f-a08b-41cff51ff748@rock-chips.com>
- <tencent_AE0E51DA2FACC999E65D6631016044234005@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k1/6mUXN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Le4gKRQS
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdxwt2458143
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 10:57:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=6Xs7gTw0KvqYciU+Kau1HiI8
+	SAmkgSoonHql5kcru7s=; b=k1/6mUXNIgFhNYWqNZoqANg+0ig/u1xWRNSyuVej
+	XRQar8CaJAP3chXDH4ger/M175PrTQbAFr256q7GkNvpfPKxJChrwSkwzp5LbOre
+	dM2gZZaL7Fcoyfz5snUxxFYGRAIFH3R42Chio1Zan72Agh+9L7yIyaJhEc2GNHHT
+	fSVY1fArNbdhpdI1VeKWrCNmRICZzqSaohodEZOFwAlV/e/W7oOZ0L9buVdCZYOm
+	97EdESnmayAtt8801jagnQ7drcjxqyEZNKTwPVHBlxuJvY8uxSQ4QaxnzooghZ4N
+	dJGDoi9NTZ6jCYMNBlg6DCQFiz8JqNYYsznBsWNI+cPH+Q==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbt9w7r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 10:57:14 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89ff20e3eabso420508b3a.2
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 03:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793098634; x=1793703434; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6Xs7gTw0KvqYciU+Kau1HiI8SAmkgSoonHql5kcru7s=;
+        b=Le4gKRQSBUQNovSdMhiUYb/cQXUdOu6az5LxovQhe4/RG5JWqcr6+kelfTnsSlPSJO
+         rt+X/k4zpiUgUNyLFRPwiPeITbnDLT++rinblRQ3iAp2FZ8pNpeSzG67tQ7dcRvgIAIg
+         uUGTX0//91ksmuItHJWjc+gOmWm1GtQ+XPoG8i+jb1i1poxutOJrLS8EGP53zGEKutiR
+         xRhHlSZbtJJx1znYNXyofZZLedhPqrz8TQn7/Q5QnNZ72bca19DCu1LJy3DAz5V0Uz5t
+         f8aAtdL1YBEjs45FfB9HmLk8bG/jou3jf3MN3s3KehbOD9dVMhcFWJY84/N9q3nEwFCU
+         DYvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793098634; x=1793703434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Xs7gTw0KvqYciU+Kau1HiI8SAmkgSoonHql5kcru7s=;
+        b=j7lVBUDdzMFefzqvWtjHSesijAtUM6OUAsa6WrKBzMW2tl95Zh7iusSfa0Aruvo0KN
+         1qBHYdSY6VTipzSduOkLoa0RPhSs2kl21e1wDJpu5W1VRRCWFve8TKMAVQInL0wQpldh
+         FdJHXkhT+yUzHJQralk7/9XxDlo5XB6j+kSfliYur0o6xpx9hRou5Xcu+gKtQw/QaTjz
+         kT9J47MaF/uH2NlYzFjKpKlTWvchS6JD6eRh+HDsjSlSqUSpLfTodZNisI9pTBGd7MpL
+         o2nUjtq3pUQujAMHmmNtDMYp9TxVP1A42zUxi02zFLf5esxXF2zHv+QT+DrMOg66Jq8b
+         tAEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoua9+T9dU6JPomcezNf9/yBU0cW9+FrscNSOYq52ecGI9E2BPDXLvboC8l3jLmSVJqeVTV4EczvdR@vger.kernel.org
+X-Gm-Message-State: AFq9FYJstagIriVYtsDpaacRWrM66r+tuCdKjyVGM1GItAHbKRSaA42K
+	S/YQtXM/YeXR025qDxnbJFtyZ05DS8gWcmiBIEG0M/ciZEr9kgMUbUM9stqbI6LLbYAi0w63puN
+	NVR0oXQ5L2+GrxvFiyZjAZ6vAicSHbILDz/Xyri/GHBAdVbQxf+1OTNMC3zFy/vv0
+X-Gm-Gg: AYBFou1RdHoy+1PZV/ru2qAlQfBPC4IFmZKpxL01NQqVTAK6zo7c7bg8iKHjA3zfQTm
+	yhcW9wBy4RG18t8jcMFfT1LcKX2T0fG6zRl4TOwZpMDw6+zTGDpStDwf9qJGYHPJun5g7A3KnuC
+	Dw4e1X+MqW24rm3CD6LbhHstUhL21BrsEWMVlTNlMLyTrvBmgfQlVahvJqwVFRhb4aRb+Lz4EFA
+	sxmhcFojH3giX/Djvb2ALy2fYwbCiHv5CWZaRj+xlpG5SiC1DMbI7x8L0tQCgiAb871pi1sscId
+	vqHpRbVhlBGLnsJVH64CVY3TyKgFy9bVTj3rJU6m4MKw6KLb6cbLL4iddHtJo8cyye/IzMxD2ux
+	uZ+yVeAU1ygC3zzDQbKUQbj47ybVmUz0RSLI4EVk94qX2P6yIHERUpuCZa7ZcuzSWuZB6BmlEWX
+	Rs/SBUQIKl8SRHo/FZRPRMidr5xjufDhbedLN5JDjv8kct3Jv9SwcE
+X-Received: by 2002:a05:6a00:348d:b0:8a5:866d:d5b with SMTP id d2e1a72fcca58-8a5866d0dcamr9445082b3a.1.1793098633663;
+        Tue, 27 Oct 2026 03:57:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:348d:b0:8a5:866d:d5b with SMTP id d2e1a72fcca58-8a5866d0dcamr9445059b3a.1.1793098633216;
+        Tue, 27 Oct 2026 03:57:13 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36bf0f4dcsm2190344b3a.44.2026.10.27.03.57.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:57:12 -0700 (PDT)
+Date: Tue, 27 Oct 2026 16:27:05 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
+Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+Message-ID: <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
+References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+ <20261027-fantastic-benevolent-boobook-272a9a@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,35 +130,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fantastic-benevolent-boobook-272a9a@quoll>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX5wCwHkZBWWpc
+ vzNIZtzOENPxISs9e3WSfyoL/WjSEDZJG87EYzYl6H+jbeNkOxZQX636Zr3RMV0GQyQHgGOH79m
+ GxGOIZua/gM2lZI6aiyFlApKG3l0SWg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX/uTxqsb9RebL
+ TcHcn6Nj6KEqX/Z4b4ooDglvC+1v0ypu/feTZWHXE3KlpAXbiUW+GOdyKe/jRAIOCmZf+yXtvyc
+ Q5gmVd6wGZQf4E0o57be18pWmUEG6Jm6KY4Kg6PJsXp+zeBguzgc9NZPxBfrQnyrC3wgl2Z9kbi
+ bN8PUKLZTE2d/KH91V7M/TWFnQzUdqr4S3rT2+ElJefyOs5fcdDOR4dsetxshJOW+6qvLfxdTZq
+ xYxhaULb4DrXtHdUT0218QjFA7NYZ8dPcCdThHQhli3BfYeqzviG/h1h78SJ6vRIED2ctq28sWY
+ hpSa8kwr/NsYRi4pK0IeTIk3tRGIcxsx6Wt2amM7VymqX+J2H+nBlk77mic0fZrGipZXbLIFDe4
+ /4ccwwNMelAQgeTGKSL8yUWxCV3+0HRrGA1T0GXCa2X9F5AFAIAL1j6ykvHEf2x1I6I6+roPlLx
+ xbqXjgT5d9wqRGhoMeQ==
+X-Proofpoint-ORIG-GUID: gB8TFOiTd-WM94jZs6KKiiU9IgbdlgTf
+X-Proofpoint-GUID: gB8TFOiTd-WM94jZs6KKiiU9IgbdlgTf
+X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae0838a cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=a2tH-4IN5IZEDPfwvVoA:9 a=CjuIK1q_8ugA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270043
 
-Am Dienstag, 27. Oktober 2026, 11:41:25 Mitteleurop=C3=A4ische Normalzeit s=
-chrieb Cunhao Lu:
-> > I guess you are describing what you changed against the
-> > original patch from Elaine. But this is not how it works.
->=20
-> I'm very sorry for the mistake. After carefully reviewing the guidelines,
-> I understand that my notes about changes to Elaine's original patch should
-> have been enclosed in square brackets []. I will keep only the significant
-> changes in those notes and place them within square brackets.
->=20
-> Thank you again for pointing out my mistake. This reminds me that I still
-> have much to learn.
-
-and as I wrote in my reply to Krzysztof slightly, less verbosity is
-usually better. I.e. a short description what you did, not a detailed
-list is usually nicer, i.e. something like
-
-+++++++++++++
-Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
-[adapted to mainline rockchip clock and reset handling (xin24m input,
-  don't introduce CLK_NR_CLKS, etc) ]
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
-+++++++++++++
-
-And as for speed, maybe give it a bit more time between iterations.
-A version per day is a bit fast, as it doesn't give people time to actually
-respond.
-
-
+On Tue, Oct 27, 2026 at 09:12:27AM +0100, Krzysztof Kozlowski wrote:
+> On Sun, Oct 25, 2026 at 12:18:17PM +0530, Vishnu Saini wrote:
+> > The DLC0697 panel is lit by a separate backlight device, which is
+> > referenced from the panel node through the common 'backlight'
+> > property.
+> > 
+> > Declare 'backlight: true' so the property is explicitly allowed by the
+> > schema.
+> 
+> Why do you need to explicitly allow it? Since when?
+> 
+> I see no benefit of this patch and commit msg does not explain me what
+> that benefit would be.
+It is required for below DLC panel, when enabling backlight using gpio-backlight driver,
+Apologies, missed to add this in dependency there.
+https://lore.kernel.org/all/20261021-shikra_display_overlays-v1-2-adaea735999f@oss.qualcomm.com/
+> Best regards,
+> Krzysztof
+> 
