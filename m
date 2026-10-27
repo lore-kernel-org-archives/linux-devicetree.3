@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116245;
-	b=jqilsYp/XxcyFX1DU7bE591i46yLYXKNuvdH7iQyO50L+L3wYeR1A0sI8PBorzdCbZkh
-	 MvnjAZg/p+qAAzirpEu9aZHDMVUVCYanWBLKxNO3mlng/4anPaNZ0RucBeYFWaGPO9Rx/
-	 8siCr3X/uoPwuUqKajO4qki7EGWe1YHVfwGmc+6e53APSGF7t8MdlOKsrELDcEsi7st8t
-	 pSwdFnlZDyeqKmsyHUNSK3qCmgOeHN2hK6BcDQfr8m9/P6N9IPScIB4rS2mKTPdeZ/m3j
-	 4i4jcllx//eM+chdLj/i+s+Dzq38rYq9mh+a/wSX+zGaYKNH2DjoeUcgEfeFA7VAxcQ==
+	t=1793116263;
+	b=vBNu4Tp1qSi9DnqMkgdCIorqGFTkCC1xCMZ9Za2eymcxxdLkCQTBwf23SCmZRm1uKNtY
+	 jpcd0jOlwf3PTfMirRbtNyoo+5qcRgeHoDI14GRmELKJkiNz6nylprhaKNmu5Cz+iBApo
+	 r8a7QqdKndwKgC+MMwiUA+GaWPXahrrEcxK0vx2RQ876QvUPYkBQ8pOFZ9UdLp6547pQo
+	 CmMFJHk8hf4fTBUsdvMWQF43ZFZhj4UIj2wJn+aI3pPWf3viFeScurB67qr1Kj05oIdkg
+	 fvEvqelT37A46bdYbCxMV4ImhtiGoMriVUomKynqQ+rmhO/pSalnwzPv+yCHV42Pv7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116245;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=3EmMXFW21R4wDDI6QCAxEHbuFnBmRN+vpQa5TJPrlWU=;
-	b=rXFnm6eh+sT9DQzSk4bXp9mbnX957oAybkttBuyKelpuGvAWrm/FU9rZMdGWFdVCKd/y
-	 g4g/fd8Xadw8fgTBTOztRftB0kXh7GZC/aTos4ECC4pcNnfaslNg5aOaIg15kLeUdHnaJ
-	 6lP2c/cT5ISswP6qHtvNQx2gB1ul9/HU/CXhJnm2lYbfyY2gN6gURht10zz4kXG9EspJc
-	 iNnf7SFCetzLL8UFGr37EMK2gBXAQHW3cKt/5VJ09QtIXclDXlZRRLpQ3MRfNiKkD0xGF
-	 wfAzk1eRwX06A+pslAVlh6wvbI01pNP/D34NULrktxpWksWZ8A259Q1flf+v+S8D/IA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116263;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rHeOIS8bwAEDJwLYW34zKeTGLHcHsj1RaeiK++l1wWM=;
+	b=L651C0VQFapCRX+lIKGX8XFO4Pz9aKYMGlOKfoLYU9PyvbRH7bN2ocDkhfA2JP7rAE0I
+	 EW2tFRGnnh10p9obyVQTGIsSvbX+1CgEItKCTrnmLwpKF/ZA7nckzXYaeHUDUj1JqZJ/h
+	 bnf40ZodSsy1NnmKiloqReKlWeAvzetEzbGBwCqcZXn2GyjNE/gjSq6CLk/1LNQISCIb4
+	 Gy9IfPhqpwbqehDTELpdfUaIv1eFVwFKIWq9/DWLwLZBtM41E3XjMlWtEFwDQ9PkL4L1A
+	 02Mud+BfJ4/kZuO7hIrdePOu/0hJ0qUI320uGRlFR6irlKr8THOQFIMEZ4JWUBviIAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AsxhCWZq;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5o5t6R4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A243606A33A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:50:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A243606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C222A606A33B;
+	Tue, 27 Oct 2026 15:51:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AsxhCWZq
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06c60065fso63265b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:50:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793116244; x=1793721044; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3EmMXFW21R4wDDI6QCAxEHbuFnBmRN+vpQa5TJPrlWU=;
-        b=AsxhCWZq4ZpcjmjJGMxqpyEK2EsT/+re+Mm5/ZKOT+XhURYz/lucLDPINHDCt4pSHL
-         y8vMTuF0oIMUgaGtY7yiuudiOzaAgHrFgXCrk5P6NzZl3LzOLzqGTlOAIQ2+YnuJIQNc
-         Xp3e3MKxrOO60WCzQqu1OeIEx8gMlfyi6L5EK7Rpu/239CtGex8R+8WcFOEnHkpkMa6T
-         d3jaM76tPpdmntjDZw6fpUGWke91YLa8SkbG1jeIe2IrJHqqgwZwDc38NrBJETdlJfw+
-         OR8ISkqd9VP65z0a6z05FEJMEophVw1z/CA93fvhXE13Tch/CsLuM/djhuadgAj74nHt
-         iktw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793116244; x=1793721044;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3EmMXFW21R4wDDI6QCAxEHbuFnBmRN+vpQa5TJPrlWU=;
-        b=dt/rOJo6q0rBONetWdOHWiudhkTp+9488TnMzVn8kjE+r222A5CNQJkI8SyHkLO774
-         MWac29vtasBoEhEIEArsftZzVycRZeiOqKKOA609vqqwgOmh1YgIUt5iyf2scsNxS341
-         +OY2XTzMu6C1LxRoEXec3tUDSg0sgmbdwNbAQ2WbJH38SpBcgrnZJieF3WnbdK68lbYs
-         UxJkxwMKzC/OGoYVKo9ClxUM/vh2J5j6J9mq+6DyZ1CaLxrRs/0uEFskiXL24EpEviPR
-         0vGkw9GcuDZ/S6AyPwSDV0gHmhfs6RW+792ZHUFxY2fNoDbX9acYhNPthSjmh/nE294E
-         sBrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWg4iqOCLl/syaMF54N7W+WIzq1BQFd2DdZCMtr+IzT9VOf3WcUGCn7MRnkSvT0KpSpj+rGZ15CTZB@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUF+aGjiECboPgaulNV1xNpYY8O3TpqEzJpG4D5XycLohRZY/l
-	4z4F2XP2vNWOSn3J1qkLyc7g5A7SVI0ai8Z5a0yiOJVDzSx4UGbOti9aQIWJHeg+oOo=
-X-Gm-Gg: AYBFou1xVuTmtD1aQIHQRt/dDgsJuGpP1KmxelLksW0duQsQa+0iceo129qHznnxkWA
-	qajidqZsd05Qqqhhe/0udwrDMpDLeGDmEuRYz96Bxl8bNmnHCYjvip0Zb2jAgQYVQKUCsMJ3p12
-	nFUKjCdAmlPb0b+iF7afGsm+EBHhI9GfjbnWkMP5eiEKmjW+a44ENMD/SAh45IYntr/R1sqWbM9
-	5eOCYo9DakAiQwrZ0wrQyHr6YzvS4O4Z5FuoCD4VkUy6M2G4sGQOKsKk1GMrR9fJDbP/gL0pMvW
-	aQxdHmhas3SjUXg0a2Co8a9/It2jfs6GoF28pHgw+Iusj1CEAf7dBh2nhhLNZGKeie4Bd6m3Rda
-	/pIWZNyhOo6sHhyAoAaVcDp19QLgUuWDqCVf34lmAHXrhjZwOD9mTyXksTbpicJ+FeX9ZOeXgDz
-	2y69Vc8Ji7RKtBnFdGFBSCtRfDyvSpUmvLxpMO+papv29YlBYmgC/nESEjg5vt3U5uEwk1JglvH
-	IZmPDXsUjIZVKvWg2eohHNB3HRDa03mcZ9rhZ9yuzfehsBSi0o8DkvPEFs=
-X-Received: by 2002:a05:6300:6bc9:b0:3e1:bd77:2c92 with SMTP id adf61e73a8af0-3e7cd4cbe1bmr6742323637.68.1793116244485;
-        Tue, 27 Oct 2026 08:50:44 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:c0a5:5d28:58c5:eac9])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc666d1sm2943517a12.16.2026.10.27.08.50.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:50:43 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:50:41 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Frank.Li@oss.nxp.com
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Francesco Valla <francesco@valla.it>
-Subject: Re: [PATCH v9 0/2] remoteproc: imx_rpoc: use memory-region-names to
- avoid implicit ABI.
-Message-ID: <auDIUf6Vx3VdeXcz@p14s>
-References: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5o5t6R4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8E81F01241;
+	Tue, 27 Oct 2026 15:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793116262;
+	bh=rHeOIS8bwAEDJwLYW34zKeTGLHcHsj1RaeiK++l1wWM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=U5o5t6R48NyrjImXeQjBlas4cHG+SIQa5W8mA0uc5Ou6GyEAV38PAw3QFA8/7HbSi
+	 GHdgOdIv+8MnA0F/O3803Y8osJNCbG7L8VJKf72lwFHuhDIpYTjw3Q64jd4n7D0xzN
+	 SQprj1tn0HS5/AqtmfShSxztodRgG/nYOivNZwzXOyEkq3i7LP4NLzxzy88lmlOR5n
+	 9vTePrsXP3CWUsWUaMmh+n0Ev2S5heHwMVOA9/P7yFMFfg0kjUeAt2E3bbG7nL0hdX
+	 O7xRc26FbW7jLfYs/njqlucvbkGPcopeLHupBNoMpheFDh1mJC0PUxkuuZbMsKHMeU
+	 qkKcGWYD+qYfA==
+Message-ID: <cfc75bf5-eb1c-4433-a4d0-770c56778392@kernel.org>
+Date: Tue, 27 Oct 2026 16:50:56 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,107 +51,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: cpufreq: qcom-nvmem: Allow generic OPP
+ tables
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Ilia Lin <ilia.lin@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-opp-v1-1-f18fb6f9bae1@oss.qualcomm.com>
+ <20261017-calm-tangerine-marmot-2e8bfc@quoll>
+ <athPyI5nvYG4vmfl@hu-varada-blr.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <athPyI5nvYG4vmfl@hu-varada-blr.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-I will apply this patchset when 7.4-rc1 comes out.
+On 21/10/2026 07:38, Varadarajan Narayanan wrote:
+> On Sat, Oct 17, 2026 at 06:45:53PM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Oct 15, 2026 at 04:25:28PM +0530, Varadarajan Narayanan wrote:
+>>> The OPP table node-name pattern also matches peripheral OPP tables on
+>>> supported SoCs. However, it only handles Qualcomm CPU and level OPP
+>>> compatibles, causing unevaluatedProperties errors for generic
+>>> operating-points-v2 tables.
+>>
+>> But the select should not select them. How can I reproduce the issue?
+> 
+> Sorry for the delay, it was a long weekend here.
+> 
+> With the attached patch, I get the following error.
+> 
+> $ make LLVM=-18 ARCH=arm64 CHECK_DTBS=1 qcom/ipq5210-rdp504.dtb
 
-Thanks,
-Mathieu
+OK, I can reproduce. I wonder why do we need qcom-cpufreq-nvmem.yaml in
+the first place. It duplicates top level compatibles and opp
+compatibles. For qcom,qcs404 it does something useful - enforces cpu
+power supplies. But for others?
 
-On Fri, Oct 23, 2026 at 03:52:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> The driver currently derives the memory region type from the referenced
-> memory node name, creating a implicit DT ABI.
-> 
-> rsc_table: rsc-table@90000000
->            ^^^^^^^^
-> {	ret  = <0x90000000>;
-> 	no-map;
-> }
-> 
-> m4 {
-> 	...
-> 	memory-region = <&rsc_table>;
-> }
-> 
-> Current require node name have to be rsc-table, but no any binding doc
-> to restrict it.
-> 
-> Since memory node names are not constrained by the binding, incorrect names
-> can silently pass DT validation, as seen in examples using "vdevbuffer"
-> instead of "vdev0buffer" ([1] and [2]).
-> 
-> Add optional memory-region-names property to define such ABI. To keep
-> back compactiblity, use "optional".
-> 
-> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-> 
-> Prevous version
-> https://lore.kernel.org/imx/ail0sH1UhnQBPRkr@SMW015318/
-> 
-> ---
-> Changes in v9:
-> - s/hidden/implicit/g, sorry, missed at v8
-> - Link to v8: https://patch.msgid.link/20261022-memory-region-name-v8-0-ce5ce514a550@nxp.com
-> 
-> Changes in v8:
-> - remove dev_warning
-> - remove dts patches
-> - Link to v7: https://patch.msgid.link/20261020-memory-region-name-v7-0-1413d5928340@nxp.com
-> 
-> Changes in v7:
-> - move imx_rproc_rmem_to_resource() close to caller
-> - collect Francesco and peng fan's review tag
-> - Link to v6: https://patch.msgid.link/20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com
-> 
-> Changes in v6:
-> - collect rob's review-by tags for binding
-> - move imx_rproc_rmem_to_resource to c file
-> - dts move related memory region node into overlay file
-> - Link to v5: https://patch.msgid.link/20261015-memory-region-name-v5-0-abc358b39a96@nxp.com
-> 
-> Changes in v5:
-> - fix binding region-memory-names's pattern
-> - add vdev1vring0 and vdev1vring1 at dts
-> - collect pan peng's review by tags
-> - Link to v4: https://patch.msgid.link/20260917-memory-region-name-v4-0-260755920ebf@nxp.com
-> 
-> Change in v3
-> - rephrase commit message and cover letter to correct descritpion and
-> reasons.
-> 
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Mathieu Poirier <mathieu.poirier@linaro.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Sascha Hauer <s.hauer@pengutronix.de>
-> To: Pengutronix Kernel Team <kernel@pengutronix.de>
-> To: Fabio Estevam <festevam@gmail.com>
-> To: Peng Fan <peng.fan@nxp.com>
-> Cc: linux-remoteproc@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Laurentiu Mihalcea (2):
->       dt-bindings: remoteproc: imx_rproc: document memory-region-names to avoid implicit ABI
->       remoteproc: imx_rpoc: use memory-region-names to avoid implicit ABI
-> 
->  .../bindings/remoteproc/fsl,imx-rproc.yaml         | 11 ++++++++
->  drivers/remoteproc/imx_rproc.c                     | 29 ++++++++++++++++++++--
->  2 files changed, 38 insertions(+), 2 deletions(-)
-> ---
-> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-> change-id: 20260915-memory-region-name-f950eea2b78d
-> 
-> Best regards,
-> --  
-> Frank Li <Frank.Li@nxp.com>
-> 
+Best regards,
+Krzysztof
