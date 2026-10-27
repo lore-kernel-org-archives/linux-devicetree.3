@@ -1,120 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106478;
-	b=ysG6ZIzLmw3NlIepL4tNGHF2UFMPxHiHIixU0RNuo5hd/sT9+bXihQrPhsx3hRLAwEH6
-	 82htncCD0Bt4xHkAfpks/uva11hLIUmlQ0dsVYHqXF4x2FL6Kz/Zhk0ijjwfLH0wERfUK
-	 a9uzAd6cNncjwbwlp4SoE9Ltj2MkUyFC+YwnfMrEBkCGHNI9jvutggD3UZjC+KXP1mOhJ
-	 Lxy3arnZVJjGvU6dPNhYtsPCn60IjkBJa6vNIrj37hvpEpHsdLcPQuP8Vj2h68YcWoTrR
-	 fU+vnZUMcLiOzYeXL5E1TLjIls1tNiCIR4+B3Lg0Zd7ymbSC8nibhnGvVxAip2E3PaA==
+	t=1793106735;
+	b=JUzO4cKFbd1eDv512cCmCffjt/13T4bUy4laZstWKZe5fg+jtzt2mCyrjlXCogRXxxky
+	 wdS+mFgzzrGJCDZlmy9+IvGmxsHx8x0neI5/+ezOtAhy7ZhDF6GetW3WF6/Q89NygH3ZC
+	 2h9IYLYMky+GtGIjzEqiC4lCmRsKKS2xBUCNUSkWJUXBGdUHXQ1/94olNVgsho5YqzGIK
+	 xb72oUzEJG0bTx9f1EVehjjHjHSBuDdyVEYJ1oyik67U4GYUHMYBgPe5UZsLhoKRzFk1E
+	 XDzleo1Azy7plk+N1ihvucF+junefbN9BFRZfjfvIOMXmpVr+tMrXoRWFdxmvjJEPXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106478;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ATvxORBZny1s5fn8dz62jBylTwd8vo+fNFXQREv2wUs=;
-	b=VcAbFH56fXAn7H3YMh2+xnu1CyvbHNEk65oIVzP7aSKGjZadPTd1+6XDHh/WYDM8Np3w
-	 S4jaLcIhVaY5mrA7XOp4cTANybmSG8PwDy9AfecqtOLG1QTBrvPOG9aZcVzBCceq9j8Hq
-	 d++uBS9BaWkjex9HL6Hz2gmqH+1WSK5CBiyq/36zbpqE4imPMaTXKBr9T0Nu2EMjhd5gR
-	 pjZED1KaPGLyCPK4vwPhuXyt/Hp+FG+ufO26fJztNfy8fGTpgogXbM6rURhwz2EXoEsGS
-	 tC9WMjDIf/kp8cjLge51GCT8ZKJ4MxekPLn8XloO2Xy+nqDcYsD0yeVbnBXVPUFQyPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106735;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UapQjdPeDJO9VRKD4DDhYTxpcbEq19L9L6WakZY6BIU=;
+	b=oLXPuh4J+V284A9fd0QbNer+wOrfybpgC1d9Um/pkdaV3ccxgBHA1bO/9+sxS4q/AjMZ
+	 7vNzx5XDDHxepEEEWRjDQm+l3zKIhWRYQ5Zb1mQjW7w1S39AoSUF6ATcTjP3856d4IhMF
+	 P2qz5mnjvaRbB3i5eQOaUd/lwtSdqf6ThkJDk73oGZXpjKVKYbhxwsgINmSiyLSWb+4w1
+	 eeCkVdvNauASXqqiZE/v5ANFa8sPwSGgEl1GOwvwLHIUGnnaOPHwdRfzBScUxTimwqq55
+	 Zykyy0P+nx57rppDcsWqR8wkgcOBK+oOpGs3uONbZNej1d8zila2hlFAHCbirtwtaXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=M0w5XfPW;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LANo1yg2;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d0i6sBX9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AAw42nz6;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DFE606A31F
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42DFE606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FAD606A320
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57FAD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=M0w5XfPW;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LANo1yg2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793106476;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ATvxORBZny1s5fn8dz62jBylTwd8vo+fNFXQREv2wUs=;
-	b=M0w5XfPW+ZmTMhEPb6FCKQ1Q34kjll69ocHvw0cJuJzcvPS/IzctI2GCB05/6zytzd/doz
-	6taBV6gtqS4IyEJBDQGZsPTX5m/fLi/gbtkOErtG0U3Nx2BvN9puywL/con4MRCY4wTEbc
-	hkcO96m4sItxxnEcvChh6K9HkgQnUEA=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-455-YL37WQggO72rh8YoJ68nBg-1; Tue, 27 Oct 2026 09:07:54 -0400
-X-MC-Unique: YL37WQggO72rh8YoJ68nBg-1
-X-Mimecast-MFC-AGG-ID: YL37WQggO72rh8YoJ68nBg_1793106474
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a20fd059ddso29551365e9.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:07:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d0i6sBX9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AAw42nz6
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeCWL3026392
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:12:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UapQjdPeDJO9VRKD4DDhYTxpcbEq19L9L6WakZY6BIU=; b=d0i6sBX94Z5GJjN+
+	2clrqpaZZ7pFbAJQv+7lWo2nSHGqPVYiQlDEho073CkcRpPw9bdHwvp9GzRYLtVi
+	LHoXA1E0KX191jlWuNU3clKwM1s8GSCj/0KrC3sin4lRnMg2ZBvUULT3azjVPLXD
+	vl6SXZHU9lDtTsU+4Kxc1yaEB5KFYEWzbT8BvgexbhzqP1oP1qlaAs9Vu+I4VyOU
+	0KZ/nYyBoexKxMNakYR2K34ZA3pk8ksn2KXqrPZaohBG7HSjgUGW1jXFHt1Eb44v
+	icRpKvhrdWYKiE0ZrJsMTYSYW0eHb+mCRkeMv2w7xRr7cVjUwMHsYkHhniqbKULi
+	SdKubA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh91akvg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:12:14 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso8569390eec.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793106474; x=1793711274; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ATvxORBZny1s5fn8dz62jBylTwd8vo+fNFXQREv2wUs=;
-        b=LANo1yg2+kqDwVO2QrjBqa1bXwUljVKdcQ0SsPotJmiv5UM571h0XmW1XhvIOJqCWi
-         1b7f10smyRrz5UWopb7oRIiYzODSmpITIPSHMh/xFANsQgWiDgt8rqvzKpYKPxzgjQrq
-         o0ScmWx5Zom8lp2D7fH1M7ND07iD/ZJstYpnZESHAVf51cX7G0GsmICYprf4L0KBTq9A
-         G2VDsi/B9ujuu62hRRf6j8AD66XCUadV5dnheYDwLzT6e4ggmOD37RWywDfxPNI/JOW/
-         tpxTkGPBRaQvAG2KOovqMtR5ygCawdcnCXGjREM5+JrAC2hoC7EhH7h83APfkNZARquS
-         IUMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793106474; x=1793711274;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793106734; x=1793711534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ATvxORBZny1s5fn8dz62jBylTwd8vo+fNFXQREv2wUs=;
-        b=1ImZ5rNHZ1H52Aj7HGnXyoRmfhVkSfPATj60BLM9w0k0YHf24UzvOUH8KO/HtKg6Y0
-         jDN0vvBKE1sQCt9s+Voi3/6gajod9mBAoFrByP4Uk/RYTnLzutcqFYvWKDh1ntdTs1YW
-         G6zkIyEb5PLuEgpYoi+2KwAjqVfEbD5tPghzV382YEbi4W2lLYcpyp7ZHBXrGhgxsbvs
-         kosIlTKFRcVMWE2f0apxZPxn+onQKTRa3L//MELAdi3bk6lh6S8Zs9ous1s3RW1hseFD
-         POhGP/EUxzOA0e8fxzCRoX7wtRPm1/Jej8bAAYceotVbxEW07lcWzD0e+Vm7IftdQP4+
-         zuAQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEKAW4UZ4m+NpX9rcgT3NhiLl4YGsMq/mJXoKvy4EWEHEGCuTvLEo0UezUlUxgaxbRsuNnGoPKzJV6@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMRB7Jmi+Y2KFXGOdHIAWHAUaQM/+hZ7YThkn0cX3HTtNMWNgx
-	fTKj01aCos1A8zD1WyIW/k2AFOYgFr+FU6tu5XfzFYTeijyOQ1fsvCOC03p5uveiOi+WGrfW2zL
-	pwNFcn09xTNZnRDZOFJPuOEpV2fBSAB39ki7KocPS6ZSsKVURKKN3b4irnUBstpY=
-X-Gm-Gg: AYBFou15V2UJVEKeBrcPWNCnKEIq51hH8Q9B4NdiUA/re7J1KmHs94An2Hm9x25VGdK
-	W3CF0mI+owLYhgrXdgp9gzf9QhBypUwkVX6uUCNNZWtWzz56BkHJe4rvKKPGCWKPzdmVF6XOZzG
-	f5TYq6Zm/qXCGY0H48MH6TufY9o4CSHojOeM62Fo4sAXvaKIJJzO4UAv12D2PadfTBRcOxLUvDP
-	FMjpLF+0u28PDy3Nf/1jILASVyEHCl+nGoR97v0ZqigliNEGWlyRhjSVy1vkJzgjONPkusjd6E0
-	mnNW5lFFxmdoQCg2w2Zu4ht7PBbzwh8e8VY5bZD6du9gl7OLaghTUaiA2o9mVETL1XQ=
-X-Received: by 2002:a05:600c:6388:b0:4a1:e9c2:6c84 with SMTP id 5b1f17b1804b1-4a35acaed66mr171606585e9.18.1793106473528;
-        Tue, 27 Oct 2026 06:07:53 -0700 (PDT)
-X-Received: by 2002:a05:600c:6388:b0:4a1:e9c2:6c84 with SMTP id 5b1f17b1804b1-4a35acaed66mr171605725e9.18.1793106472915;
-        Tue, 27 Oct 2026 06:07:52 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm691723785e9.1.2026.10.27.06.07.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:07:51 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:07:47 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Francesco Valla <francesco@valla.it>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Haixu Cui <quic_haixcui@quicinc.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
-Message-ID: <20261027090324-mutt-send-email-mst@kernel.org>
-References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
- <20261027065001-mutt-send-email-mst@kernel.org>
- <auCb8_ROuyXdTkQ4@bywater>
+        bh=UapQjdPeDJO9VRKD4DDhYTxpcbEq19L9L6WakZY6BIU=;
+        b=AAw42nz65DBqkgcxnnscduH+TFqi5eW2svsImiffOsPl8VzpQMssa7Hm7c+YyL6UsC
+         wE1Axf/BgpxPAX9eiO/LbJmVDbmLaOAAkg4t/I7zAo+6lvcksa83LGW9NCy8TMHojFd3
+         aJhUijSq7BKh1PPZFoWb/Uyy9HI/9V/xBoOpzQ0tvXVuNWVuGQlfXHp5hzq5jziLB+t+
+         yfQSL6b+GjCabWizFv41qu8pU7b0WcJcqhXxOTgX16zRr+Dc+XTYawZs78hHpkkJDWxq
+         eqevOcyHKC1ysxWOFGzOvq708UqrA1ajEhyeHhLjkmgsd7Ss3nT0uUT/B/qsX9RBaFdP
+         kZ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793106734; x=1793711534;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UapQjdPeDJO9VRKD4DDhYTxpcbEq19L9L6WakZY6BIU=;
+        b=VVWhaJ9lJOBATCzYwjo2r1AIkKCt/Bej26yN6hKNLWCSHuK1n2MynbeFxd0DHgHPhi
+         +YYgLx2UDx2okazMMZoWor5FFHkgNGSVbxGc2aY9g5dVyV2wP80jCyqA3XTvueWj0CDw
+         ebSY5sx4MOkyniknrl9TqPCKJoqlf+/nOuJpT0RdyxUVJlWxMPkRBVhX91xaVXZ0G5ZC
+         BW8DYXoDSYI9lwqWdbSlqfc96QxtZW90lzNyPS1qj+55p/ii9CLfQ6d6NiBuhYyknhf/
+         ykkS9puBcgr9AOMPsH5hYg6qUdFT9Qx+Ap1pggl56P/ialPDfvW+uoX3WFbloQPOc/sd
+         S8ZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwn4/F3AiYrZ3Xo0mLtF4q56Zr1UnLMWQjKJHcCFH3iSMWCcH+2Zw7j5cSq6FSNu5vmNiQ4dVl0wCpR@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQ8E1MINjhV1N+HRYL+NRNW9VMx9oA4XQ2IT8GmNQ6wkeo7pZ5
+	KzMJqQm/DSJv5SvXS6Sa5vadXkTR69TtfwYAjtfwPvnBVP+OymmdgsTuE+8sVZNsJsD56h+J9nj
+	ALyGzQ0W5b0tIRAw7lPfsAB1sXwtfyF5gsx2cUV+QIrUWjJl45kUJOZ6mYW3kv3NS
+X-Gm-Gg: AYBFou38tis3/Kh3D/7yTEYi7bmDFOZ6CMXxkwAuWibmC6i7l5b+k+SNsadQyBzCWHi
+	HBXT/ZabAWCbaZOSeNAZWfT+E3ClqWs+aqlcgFv9lHow89mWQ706XZCm8Vy1rC8rqh2j9072SbB
+	7lZjrI0FhoshrVjYDfefyBAhTX34fEEuJFFa68sFyLC2w1pXdhaZdDlQBBXOprfyzpLjEhSY2+5
+	SEgTSLiDrDNdQ9Dy7ycUOWG98vxT6Eq8sC6hKc3Fyc0WZ/8NHZDeNwijkn0jwGwPUA2RyhXnlWn
+	SxV6fhMvCVsH0DFv769nfHN+vm8dpkwwL6l12YTNRDVJC1MBBW0IfcgQRxvGMFpit7V3OvSW0Lf
+	T3N3Gs4YKxLVCWLEHlGxNv76/gw==
+X-Received: by 2002:a05:693c:2807:b0:369:eec1:1d7e with SMTP id 5a478bee46e88-369eec12196mr12973447eec.11.1793106733541;
+        Tue, 27 Oct 2026 06:12:13 -0700 (PDT)
+X-Received: by 2002:a05:693c:2807:b0:369:eec1:1d7e with SMTP id 5a478bee46e88-369eec12196mr12973405eec.11.1793106732892;
+        Tue, 27 Oct 2026 06:12:12 -0700 (PDT)
+Received: from [10.218.2.197] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a14383b02sm7325798eec.14.2026.10.27.06.12.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 06:12:12 -0700 (PDT)
+Message-ID: <e2147521-c736-4cfa-b482-e534a2a11a72@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 18:42:04 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,107 +115,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auCb8_ROuyXdTkQ4@bywater>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/9] arm64: dts: qcom: sm6375: Do not mark MPM as a
+ power domain provider
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+ <20261015-b4-shikra_lpm_addition-v2-6-ac7f1a0d5638@oss.qualcomm.com>
+ <5ad62m2ix47ynkq2ikghkxdqpcyv2tjixtojdobpjpdwbkkab6@gjklpaosvpk7>
+ <114418ab-dab6-4772-994e-5babeed72b65@oss.qualcomm.com>
+ <junlahp3txwwj2bs6pi3lhlvidxcp3zgvszb74xbciv4n4ymvo@tfyhqi6tr7mz>
+Content-Language: en-US
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+In-Reply-To: <junlahp3txwwj2bs6pi3lhlvidxcp3zgvszb74xbciv4n4ymvo@tfyhqi6tr7mz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: _Vrk2fffWmAa-MtY_19VIIe1apNfweHc
+X-Proofpoint-GUID: _Vrk2fffWmAa-MtY_19VIIe1apNfweHc
+X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae0a32e cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=hn2XikViVj-BPx_B1YEA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MiBTYWx0ZWRfX9/Tz5nmr/UvE
+ 35HGVApGye1cKuQcnEQczKUHXD7N0809pZh3qfGFMpG4onHlLKzNcjLLFlor9O1YsQP1Z8jt8Xi
+ r3R5iBKuAEJ15z4EqwfYVOFl76vKAZe2N5NIpkHP0NYtNP+blS2F+a2W0xh28zO8FbXBG6LjK1v
+ WUxLhl8hwWMTQDMxu5hjrhFGEmVSk+xm94OJQex8R048KLDjxrmPUj+jXE6s8u4Pg3gVHDqltRY
+ n8KBMzHnuWgSebrIQ241qS8s/yNQ61bg7/fNlARjK6mTrRg2w144ry8a4nCNca4D4HMqngXhB1j
+ Dqv3ZLQ4CvuP4sfIRbTIDa3i+/VE5+7UoGlTttlFRBuc3LDDc0TMpz+0zdRWZIiTOQl5nWN6oiH
+ i7CGe8+54h9EqmkYEvWq41IYto6vYDaupe9QUsQDsNbZgtZ3r+KnNDpmsXylzHoZ/sCKeLivdQ4
+ c5hszyCusN6fW/uL++A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MiBTYWx0ZWRfX5LVry3ZL/ssC
+ 6pk4gdDxqFQVvMBtIQReYp/x+OAIyhDCZMEmhpHMD7mSANfDqZFtP6XlOxgCWvFVzGK0hWsTnkw
+ kRJeG5KzMvbYVgphR884hkscts9fQi4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270052
 
-On Tue, Oct 27, 2026 at 01:46:35PM +0100, Francesco Valla wrote:
-> Hello Michael,
+
+
+On 27-10-2026 16:29, Abel Vesa wrote:
+> On 26-10-27 11:23:25, Sneh Mankad wrote:
+>> On 20-10-2026 18:30, Abel Vesa wrote:
+>>> On 26-10-15 15:25:22, Sneh Mankad wrote:
+>>>> To make the MPM design more logical and avoid probe dependencies, the RPM
+>>>> notification is managed by registering for CPU_PM notifications.
+>>>>
+>>>> Remove #power-domain-cells property from MPM device.
+>>>
+>>> Can you elaborate a bit on how the two phrases above are related?
+>>
+>> The MPM driver now supports two ways to handle sending the RPM notification,
+>> either in the genPD's power_off callback as power domain provider, or within
+>> the CPU_PM notification framework. Removing #power-domain-cells instructs MPM
+>> driver to follow the latter path, which as explained in cover letter would
+>> help avoid probe dependencies.
 > 
-> On Tue, Oct 27, 2026 at 06:50:51AM -0400, Michael S. Tsirkin wrote:
-> > On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
-> > > When a virtio transport exposes a non-discoverable bus, the devicetree
-> > > can be used to declare its child devices (if any) and/or other
-> > > properties. To allow for that, the virtio framework searches for a node
-> > > with a suitable compatible in virtio_device_of_init() when registering
-> > > a device [1]; such compatible takes the form "virtio,deviceXX", where
-> > > XX is the hexadecimal representation of the virtio device ID as defined
-> > > by the virtio specification.
-> > > 
-> > > This patchset thus does not introduce a new functionality, but allows
-> > > proper validation of nodes tied to spi-virtio devices, aligning SPI to
-> > > what is already being done for e.g. I2C and GPIO virtio devices.
-> > > It was sent initially as part of a different patchset [2], but since it
-> > > complements a functionality that is de-facto already there and is useful
-> > > beyond that specific use case it was sent separately (also following the
-> > > maintainer's feedback there to separate it from remoteproc-specific
-> > > changes).
-> > > 
-> > > This was tested both with virtio-mmio using qemu-system-aarch64 and with
-> > > remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
-> > > parts still not not upstreamed - see [2]).
-> > > 
-> > > I added myself as reviewer for the spi-virtio driver to be CC'd on any
-> > > patch involving the new bindings.
-> > > 
-> > > Thank you!
-> > > 
-> > > Regards,
-> > > Francesco
-> > > 
-> > > [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
-> > > [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
-> > > 
-> > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > ---
-> > 
-> > I hope this can be merged through the devicetree maintainers,
-> > I have no idea.
-> > MAINTAINERS changes needs an ack from existing maintainers, of
-> > course.
-> > 
-> 
-> This might prove... difficult. My e-mails to the maintainer (Haixu Cui
-> @quicinc.com) continue to be bounced back by the Qualcomm postmaster
-> with a RecipientNotFound error. Maybe someone from Qualcomm can give me
-> a lead on how to contact them?
+> This should go into commit message, I think.
 
-Indeed, so it did for me.  Oh that's no good at all.
+Sure will include that in commit description.
 
-Mark, what's your take? The maintainer is MIA but we have a volunteer
-maintainer here.
-
-As far as I'm concerned
-
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-
-
-
-
-> > > Changes in v2:
-> > > - Expanded the commit message to better explain the functionality and
-> > >   the chosen compatible.
-> > > - Redundant pieces dropped from bindings.
-> > > - Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
-> > > 
-> > > To: Haixu Cui <quic_haixcui@quicinc.com>
-> > > To: Francesco Valla <francesco@valla.it>
-> > > To: Mark Brown <broonie@kernel.org>
-> > > To: Rob Herring <robh@kernel.org>
-> > > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > > To: Conor Dooley <conor+dt@kernel.org>
-> > > Cc: virtualization@lists.linux.dev
-> > > Cc: linux-spi@vger.kernel.org
-> > > Cc: devicetree@vger.kernel.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > 
-> > > ---
-> > > Francesco Valla (2):
-> > >       dt-bindings: spi: add spi-virtio
-> > >       MAINTAINERS: add Francesco as spi-virtio reviewer
-> > > 
-> > >  .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
-> > >  MAINTAINERS                                        |  2 +
-> > >  2 files changed, 48 insertions(+)
-> > > ---
-> > > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> > > change-id: 20260927-spi-virtio-bindings-f4e350b2709a
-> > > 
-> > > Best regards,
-> > > --  
-> > > Francesco Valla <francesco@valla.it>
-> > 
-> 
-> Regards,
-> Francesco
+Thanks,
+Sneh
 
