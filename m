@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094577;
-	b=zbAZVonNxL8Na/gl/D81QOFByaEyUj9EatJGVJJr0/nf4yRP6w+UoWEIgpyvA2KAkyuG
-	 YpovkMii59e4fn4ixaaG1w2INoO7KffCGcz45Y+DglqPleMxJP3rdyPKN0Zz6kZzF1/iP
-	 dZZ7OtiuCLyWbc1zGqkETiYvz5afouYXPJGuZeRil9mxZhU7296LcBzflOMSmONuKJQV9
-	 ugNibfxWGs97pYj/D4Y8vZKtAWtFH/L0HQzcLQYtxMC/22+z7g4XU1wnrx6Q66kLYslnR
-	 E/43QqwdHvHfZqcxM6qqmwoJDWV5CmD9LsH9KYOGpKAbddjAvoyLYibK0DE90Rzad7A==
+	t=1793094660;
+	b=n/U2pNkoAxD+XjvZ4YJ9patPXqQhqNVow/bMvE+ll7R3Z/h6P+CNlQClN9Qy8JSXHFes
+	 HCBEiHYtTo9ZdlyffMGpOtf8atU8pZPqSpCh9h/7d1RNSWEhE5afv0bY4NQ8Gz5NHzULd
+	 T6MiL35rqhx/mwuW1PbSc/dw0dXLpd+Iwx8+SOuiLoZo7OBtNnEDX2GMJPkl7nT69DTOM
+	 Sj69NAaHjdzDDgyA9hDl1jaJs6GiApawLSVzSkSvvF+7OK5uLHtnkFokhmv6aL5Od8lFK
+	 MMqZp5SStid84sHjqGA9jn8d7P3IU4bZ2LEDhb895C71h1/YuesTZsmyBaabIxdltvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094577;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Jt/QmsAqJV1uP8PozVMgbYsAMzltv04Ri/WJZgPNi+4=;
-	b=RMgKGHMuW+Aii/JhhGhqK2Ia1rWFaIdUkWnkHlp45MZaVqY/ODzzhmuoflWrEztPTnMa
-	 nNzfjScQ6eXdt+qfZgluurtHHsEh7tXdTuurLPHGeouYMFyMD2QvL5W1ppVQitK2lyP9W
-	 Ro9lAGQNFTiwYv729a7yNqf4XDLgK79O91FH2inQ74V3dGh+v1JWlN40Hfy+E/QiFo2/B
-	 FgSAPcuk4q23CsDoU0Y/ox8pKCpR0IGSVaY21J+rKMSRdU315M2tB2yKf1S8ttUcdnicU
-	 CuMtCA8jxMONoACGZT7zoT2lf3e0+qZTuNraJ/iLH2rlYeMutJxHzJfEo5sOqEATtxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094660;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=e8rvLK3sxNhdD6k4hguDcAfYpVGJN2notwti8R6gn/Y=;
+	b=xiJiFKSpA4Yf4CSQtnRAaXsVyu+3SOhZsJyOtbsqIGCauBfEgdomgnIOM150ZN5q8rwq
+	 FmTtwlMA9jc0OC1TkrqlBxCviWLDPLjT34iJFGEaUs6MxMQNzvfILd1hXUPkXS1TZH5SI
+	 2QEA9uRGtjRRrd6Xw/dV0fUFoTlCvKiUEg0shaRU02+mHPCjBjiEiiyCJlz4CoI9EoCoJ
+	 4txscwblT4Qhu9tDXuBMcxXjQ6jIbcoPlnc2dMygK1vb1MyFrhDUgiJZwpFsdrdnYI/GZ
+	 03lfxv3iaP5vocU4omO/FdoA+YBlg2A/ZvAENd+ZzWtVU7o5wpCWQsKY7Figb/w8emA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FP0sJ7tE;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hl6NNdQy;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oR4mxT1n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD11606A31D
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DD11606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88110606A31A
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FP0sJ7tE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hl6NNdQy
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8g6kh2761018
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:49:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Jt/QmsAqJV1uP8PozVMgbYsAMzltv04Ri/WJZgPNi+4=; b=FP0sJ7tE4x9HyrGl
-	jFkxQXdqYiFLQzzSGStG49wobrGZ7NF1p3Aba6esfC4PTOoKrQSeksTrz8pogcUc
-	MToInCj7y3yt7Xe8gYyPSBJKbII2eGYiaG69direbwkZWcdtSJvXYsRvw6J1Intd
-	87Buv7yDvfQnwlU6zi1sEo56b918cTiEvsRu5fI5p8/w2J3OV8Bqa8miV/LQWYad
-	LyuLM+zow5AupnviLSNuBIBLHv5IVh+7YamG0+d3wai3hpZbWCCcyMAP/LLkHDpJ
-	HLXwMcfsoFBUv5KZMZFNEgCNdJgRTq/lxY+kaeKXDkZCrME9qWfcF8R+gj3MRhGl
-	rOWZGA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh919u4m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:49:35 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso5780860b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 02:49:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793094575; x=1793699375; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jt/QmsAqJV1uP8PozVMgbYsAMzltv04Ri/WJZgPNi+4=;
-        b=Hl6NNdQyuH31wKXzChGGoe4LJOAFWnl88VpMkQE6yB1fNU+UZk+choE7EhbjIL3VO2
-         cwRI2gE354XDtJBbspbOdbe+xZ/Lox/8Dxwg/kOhvoNnxcW+KqS/pr1OZZN1xHXDDuZr
-         YJgZpGMM8Fc+5OoRGfWuISeX3DsqHTJi2XdM8nCJV7lpjyPibXrKLCmg1ZBQfdkujO2P
-         mXof4GFBMYTLwb7jyJuGSsgkuTxf1MkQP3kI4iiu4DKhq88D5RGyKttsjMTZoh0j4f5h
-         I86rTFbqfwNreZWFUT/kDcQ9rRpyAiFmntZNOZMa/PuK8DtmxO7NrYU+oedckilAo8I8
-         vHYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793094575; x=1793699375;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jt/QmsAqJV1uP8PozVMgbYsAMzltv04Ri/WJZgPNi+4=;
-        b=L8iV3s3lblPQML/T2SJNeVdC0P0gUNkgQexLs3S10YgxNeIaYcLA2mcm1vc2wnsc+q
-         1HyPa4VrcrOMe22DQs5SKI4p5mNuOtMwW8xhJPuieqh+0COPUYhELQvNqw3cuqJ9mvtk
-         AknLKvQnNqvgU7KDq/Np601Z3byeORcfI5GDy4ZAICH+Vq1jbiHyjM0uI2QGV79RrSsx
-         Jsmi9lYq5J4OJH7wjQGKwbe6YsiCqM8pta3R/h9XvfodVPt0o26MJrRwGvR1jwob/gYr
-         XlP6RNqK/QfAQfafxINjoPV+BJJSRuypHg9W+pQD99X3Wv9aA17D6aLn8ipqGUAqMnh9
-         T5aw==
-X-Forwarded-Encrypted: i=1; AKwUvBypTganXwCpXe0L70yWoN8V9rjb2B0EeQPJssWRTs0hNJZ6fE5g8Q29iDinznEoX6BNDiAIUhQng7E3@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+/pxhIa7W+DfjCf7rqQJ42MW1B/w3k/aGVTcL52PLvujGVon5
-	fCE4hztP7zCa9umcNsvemlIXQRnG0bOHw4ixZ0vjYO2GsTZZWR3aJ/g8slFrYFdfCRwmq79Vgp9
-	O2udSXsgHLI5Uj5n5++EO2J9sY5z6qX1Y/WJWMcNTRy41s3U2sB0QJk/5q6KG+zVi
-X-Gm-Gg: AYBFou07YPZC9C/BUS6nZSleS2SbIKAt7k6XHLYPytE2Q6W7Nzqf3C/8/ISzUVZ4Fb8
-	cPhoPuy0P1X3mLw18j9DevZTLKjckZh98kwlOF4k8y4lbISPI34bU2WfZLXWE1boBHmEYhETGw+
-	w4P8/loEpNdtW1DlWRzCnl8wBW65EmhRHoPKzDlEq3O7B1/A2W43z5P3RkQFS0p+zAs8mh9gBP6
-	hFq3smM/VgmQ4TwJSo+tD7rXtFysh6weQbSxD9MdfYYvexdtm495xx+yH3LITqdOLHA/g0NsuBL
-	0qV6v4MsldCu6SNNpmCCnMcWAKkWr8fKeV+Agg+jiAUuMgbvzw389COhbt4hhGtEHvDu0o2aGGI
-	mW7Y3qTrLgVYtrDBqcXyijk4Qd0HqDOrea/mos8jyZDl6yshJ4CrUeQfgUKAuue5EljuEct774f
-	E=
-X-Received: by 2002:a05:6a00:1382:b0:870:c2db:da2c with SMTP id d2e1a72fcca58-8a366f6724bmr7261011b3a.25.1793094575098;
-        Tue, 27 Oct 2026 02:49:35 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1382:b0:870:c2db:da2c with SMTP id d2e1a72fcca58-8a366f6724bmr7261001b3a.25.1793094574626;
-        Tue, 27 Oct 2026 02:49:34 -0700 (PDT)
-Received: from [10.217.216.29] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c0fdfefsm2076232b3a.50.2026.10.27.02.49.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 02:49:34 -0700 (PDT)
-Message-ID: <b63a7285-88cd-431c-9d66-98abd3ecad3c@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 15:19:26 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oR4mxT1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFE531F01825;
+	Tue, 27 Oct 2026 09:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793094660;
+	bh=e8rvLK3sxNhdD6k4hguDcAfYpVGJN2notwti8R6gn/Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oR4mxT1nx580n4iu8v9oyqSRTS0ymUcTYMD4HQWeN3Mhu8W2OxhYG0oHa/wT+8QAp
+	 plvmGwHe+H4P4QoQapsgS9muPClFZAiAXR886lQglb+f+Xg9nkgNCSjQ1ruwhfjXlt
+	 WhVomV+mH0hotIbsLfPSK6fmk451Zy/MXTgjAPgTmgewJVM9hFYgCTNyISytIo4uIz
+	 BGl3PYYCiQE5svQ3L2lkdhOMkRDjAZzq+m+pcvIyT/G0ufQSYNWRgELqppYLVA3pjx
+	 dpri69giyYqJQLdK83gTCo9vA0weugYbqhrxp2ITl73+LhRR8Tuxni5BYM3Da2/EGV
+	 66A0+TAXsUNBg==
+Message-ID: <sashiko-outbox-186338@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] regulator: core: Call
+ set_over_voltage_protection() if OVP limit is fixed after setting new
+ voltage
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Louvel" <paul.louvel@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027-paul-lm51772-v2-3-b2a767e34722@bootlin.com>
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+ <20261027-paul-lm51772-v2-3-b2a767e34722@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 09:50:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,85 +61,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] clk: qcom: dprxcc: Add Nord DPRX clock controller
- support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
- <7a6ef006-cb76-4e4b-bd31-886af708b375@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <7a6ef006-cb76-4e4b-bd31-886af708b375@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: i-1nxlZztc4Ydmg-mFgdsoDEfjfwdpDK
-X-Proofpoint-GUID: i-1nxlZztc4Ydmg-mFgdsoDEfjfwdpDK
-X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae073af cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=EDPTx0FvkmN4Oe4_Fv4A:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzOSBTYWx0ZWRfX0XF9JhVaNA/f
- j4gyiWwvINIej6eA2lXiSlPSUYFbiw2yEBrPEzooFgNBx6XyOKIWRu+yVVctQ4HY3z6YqRIS6VS
- P576S96PUAsF204NFp4XfDFu9tnCS4yNfdQtXkj9llHJryIKuPv0RrzKB8HW+r3lOoztB6CDq6E
- 04vk905kC4nzC00MoRjJWe1UAKCT6q/gy6g8cpZpkkr6RcTwLiAXqZ4RZhGWMSlKCA8lCw08JUI
- 8nW1o9zRpOxeKlHpP6mhGDSeZIH/BHmCCPeB45A1c9R+6jM0qMfRX2qzcAwJ5WxSK4i2P2SrxAj
- NlmOIjjLWxGY9qjElQHhPlSeM09tVi8zyyerJeyp8HbFPVrKDwkGuKJ/1EQ9yfEm3rEIhsksDWX
- cGIBjmMIwCSOqQcpIQJiHyqcYvswHiaBuxTYFtOjE2l/w1uMzsv73iDks00RMpCucMwIhuebJJC
- F6AKuMx4JMqn6wxSjyA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzOSBTYWx0ZWRfX8PtVARf/Wf3E
- z5YVKl6GypdEFNgTB2Li8uXzZxOBFb8yQ4pHjzWGcKSqQUoSPH561sXFObCHW5G4Y8ZbIFDIBFE
- ZRWQVyoKhNteLcrPURiSL+exMbf3xPQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270039
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] regulator: core: late fixed_ovp update in _regulator_do_set_voltag=
+e()
+- [Medium] regulator: core: state desync when set_over_voltage_protection()=
+ fails
+--
 
+commit 842d424c282842b568e77b33fac660e8e08d0998
+Author: Paul Louvel <paul.louvel@bootlin.com>
 
-On 10/15/2026 7:51 PM, Konrad Dybcio wrote:
->> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->> ---
-> [...]
-> 
->> +	/*
->> +	 * Configure cdiv 20 for core aud and 11 for core ahb clks of DPRX CC
->> +	 */
-> Nit: this fits in a /* single-line comment */
-> 
->> +	regmap_write(regmap, dprx_1_dprx_cc_core_aud_div_clk_src.reg, 0x13);
->> +	regmap_write(regmap, dprx_1_dprx_cc_core_ahb_div_clk_src.reg, 0x0A);
-> Hex should be lowercase, but preferably please define some sort of a bitfield
-> that this value is written into and run regmap_update_bits()
-> 
-> You should also set `.use_rpm = true`
+regulator: core: Call set_over_voltage_protection() if OVP limit is fixed a=
+fter setting new voltage
 
-Will fix in the next patch.
+This commit introduces a fixed_ovp flag in struct regulator_desc for
+regulators whose over-voltage protection threshold is programmed as an
+absolute value rather than an offset. When the output voltage changes in
+_regulator_do_set_voltage(), it calls set_over_voltage_protection() via
+handle_notify_limits() after the slew-rate delay.
 
--- 
-Thanks,
-Taniya Das
+> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+> index 14422cfe80e2d..b1cabe50ac256 100644
+> --- a/drivers/regulator/core.c
+> +++ b/drivers/regulator/core.c
+> @@ -4014,6 +4014,16 @@ static int _regulator_do_set_voltage(struct regula=
+tor_dev *rdev,
+>  				     (void *)data);
+>  	}
+> =20
+> +	if (old_uV !=3D best_val) {
+> +		if (rdev->desc->fixed_ovp && ops->set_over_voltage_protection) {
+> +			ret =3D handle_notify_limits(
+> +				rdev, ops->set_over_voltage_protection,
+> +				&rdev->constraints->over_voltage_limits);
+> +			if (ret =3D=3D -EOPNOTSUPP)
+> +				ret =3D 0;
+> +		}
+> +	}
 
+[Severity: High]
+When increasing the output voltage (best_val > old_uV) above the previous
+over-voltage protection threshold, won't reprogramming the OVP limit after
+the voltage write and slew-rate delay trigger a spurious hardware OVP fault?
+
+In _regulator_do_set_voltage(), the new target voltage best_val is written =
+to
+hardware first (via _regulator_call_set_voltage(),
+_regulator_set_voltage_sel_step(), or _regulator_call_set_voltage_sel()), a=
+nd
+then fsleep(delay) waits for the output voltage to slew to best_val before
+handle_notify_limits() is reached:
+
+drivers/regulator/core.c:_regulator_do_set_voltage() {
+	...
+	/* Insert any necessary delays */
+	fsleep(delay);
+
+	if (best_val >=3D 0) {
+		unsigned long data =3D best_val;
+
+		_notifier_call_chain(rdev, REGULATOR_EVENT_VOLTAGE_CHANGE,
+				     (void *)data);
+	}
+
+	if (old_uV !=3D best_val) {
+		if (rdev->desc->fixed_ovp && ops->set_over_voltage_protection) {
+			ret =3D handle_notify_limits(
+				rdev, ops->set_over_voltage_protection,
+				&rdev->constraints->over_voltage_limits);
+	...
+}
+
+Waiting until after the slew-rate delay is necessary when decreasing the
+voltage (best_val < old_uV) so the threshold is not lowered before the outp=
+ut
+has slewed down. However, when raising the voltage (best_val > old_uV) to a
+level above the old threshold (old_uV + lim_uV), the old lower OVP threshold
+remains active in hardware while the physical output slews upward during
+fsleep(delay), causing the rising output voltage to cross the old OVP limit
+before ops->set_over_voltage_protection() is called.
+
+Should _regulator_do_set_voltage() update the OVP threshold before raising
+the hardware voltage when best_val > old_uV, and after fsleep(delay) when
+best_val < old_uV? Note that because ops->set_over_voltage_protection() only
+receives the offset lim_uV and drivers may read back the current hardware
+voltage via regulator_get_voltage_rdev(), reprogramming OVP prior to raising
+the voltage may also require passing or exposing the target best_val.
+
+[Severity: Medium]
+What happens to the regulator state if handle_notify_limits() returns an
+error other than -EOPNOTSUPP here?
+
+At this point in _regulator_do_set_voltage(), the hardware voltage has
+already been changed to best_val and REGULATOR_EVENT_VOLTAGE_CHANGE has
+already been emitted. Overwriting ret with a negative error from
+handle_notify_limits() causes regulator_set_voltage_unlocked() ->
+regulator_balance_voltage() -> regulator_do_balance_voltage() ->
+regulator_set_voltage_rdev() -> _regulator_do_set_voltage() to fail without
+reverting the hardware voltage.
+
+In regulator_set_voltage_unlocked(), a negative return rolls back the
+consumer's requested voltage range to old_min_uV and old_max_uV even though
+the hardware remains at best_val:
+
+drivers/regulator/core.c:regulator_set_voltage_unlocked() {
+	...
+	/* for not coupled regulators this will just set the voltage */
+	ret =3D regulator_balance_voltage(rdev, state);
+	if (ret < 0) {
+		voltage->min_uV =3D old_min_uV;
+		voltage->max_uV =3D old_max_uV;
+	}
+	...
+}
+
+Because voltage->min_uV and voltage->max_uV are reset to old_min_uV and
+old_max_uV, a subsequent regulator_set_voltage() call attempting to restore
+old_min_uV and old_max_uV will hit the early no-op check:
+
+	if (voltage->min_uV =3D=3D min_uV && voltage->max_uV =3D=3D max_uV)
+		goto out;
+
+Additionally, in regulator_set_voltage_rdev(), a negative return from
+_regulator_do_set_voltage() jumps to out before lowering the parent supply
+voltage when supply_change_uV < 0:
+
+drivers/regulator/core.c:regulator_set_voltage_rdev() {
+	...
+	if (state =3D=3D PM_SUSPEND_ON)
+		ret =3D _regulator_do_set_voltage(rdev, min_uV, max_uV);
+	else
+		ret =3D _regulator_do_set_suspend_voltage(rdev, min_uV,
+							max_uV, state);
+	if (ret < 0)
+		goto out;
+
+	if (supply_change_uV < 0) {
+		ret =3D regulator_set_voltage_unlocked(rdev->supply,
+				best_supply_uV, INT_MAX, state);
+	...
+}
+
+Could this leave the software state and parent supply out of sync with the
+actual hardware voltage if ops->set_over_voltage_protection() fails (for
+example, due to an out-of-range OVP calculation or a register write error)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-paul-lm517=
+72-v2-0-b2a767e34722@bootlin.com?part=3D3
