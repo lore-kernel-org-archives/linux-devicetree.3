@@ -1,78 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793060443;
-	b=FC7hu1LiUvdjKVxjs0VzWaASJwwiAVfF4tqLCv7K8YujGhtbO502YBNUexV9ICBo6Ejs
-	 22XyzTu7Any06mIw1uGmATUGtHjV2C91jN/HBpIZAarsenhvbSUOneSj1G1ODrNg7JWq4
-	 84rl7ZN3fY32fygJJBltWddsIz7zF30kkXEcS+/I0K5AzE0nH7bB+HOq+VKIjiue4ythV
-	 omJ5Qe2N6NNvZxgUNOiNRnIHk4vxdzss/5CoBqpJh+kFQchVYTft+GG6781h26QTkfbvH
-	 +ypFovtKsZcwtyvfOmlKMh/B1KJxywZG4oEmJ9ZjLpDQKwHPVIjq3aTS2OYDSm2s5RQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060443;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IuMC/ItzG/Q2x0sIFmWFkQOqzTArFu2+LT0DtoyhLhs=;
-	b=fBluET6jNeTfEFnQTmsYSlK43zNamXoRV2mryrm0kEmgkT1Ro7HRszkK1WOSsxH5tSjT
-	 sDIY1RxRCks6qXzP4hW8XVJ2BOeew/U0L1yf7EmmbTvR51PqAEmCu804eSR12T6mwPZkT
-	 v0hRqNo5xIS5J1Tvhrq3clQRbOLkB8cZEMng1NEPMHrTl9pHcHRCBXrmDsVbOXQxw21q7
-	 xbQIMP0hAtHskrrEZg1DNR8h/Jdkyw4enaApcaLnZezcbtdAD9IGCUIj/SkgjQHhc8Dnd
-	 l61wAGpLYpH8JZy0WlkOJ9VxEv12UM3TYQJOjV7PonkjJLUzojxLUT+jgNW6ELt5V1A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJ8H00hp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95846606A31A;
-	Tue, 27 Oct 2026 00:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJ8H00hp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793060443;
-	b=RUElg6849JaUip0HaRuKn57fk4c8jLZ3H4mITajTe2nOXeguFiikSfYzDopB20bi+3kC
-	 4+aUoiWiJzaHXjAfo4rIMc2NkDZCy0hHzUAhNPIgwMgTJP+1QviGJA8pWL2hd8xnOFXGi
-	 FQkHv9iCBS0cmOXjaANeTI6YpiFM/h3QipPX0jL9aqTcCmbD6msSynaaytpjtoG3rFypG
-	 2nls33m7bLECiTTj3pVm8Xd6LFm81Y/UhiTWlZA6dpEfiUhmgQnyLJKAyqYO11uuXNSGL
-	 +jKqUk4EatYBmvyMEqhvIIsl2CiIyhmZAQGu234p0a2KPVV9xhhzcaZTQU7vmEGEmSg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793060443;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=IuMC/ItzG/Q2x0sIFmWFkQOqzTArFu2+LT0DtoyhLhs=;
-	b=itMPSyvxErzTUcXWGSB52bYunuOdH27PZVicC99i/01TjuXFLOTHqZOKujobKJ2tAzDo
-	 oY8UMULViarsFjFLKNUDqOOR8o94IVjpV36y1pebOTR5jyoZj4pP62F1OvDOii5UHuQON
-	 HyCnXpeigOmHKpIuF7yKK/XSA8aCjDRGYgZVEuIlF8GxM2KtY9/E2Fh+piOUFg/rZcap9
-	 ggr0t9LM8cyFspoTT5Bej2CF8k6aX40qNFnlH+gf/AXndbEvv/9p57udpkhfnCdkoHmsd
-	 Ul91CeUtT7yBaWUEqJHaYaCTsqKbYUDWRVuZw89RKrAWH9UyJbMvlTSO+k3FAWHHi+w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.90
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793062408;
+	b=2kPa5IRq7EJvdvjtPewsBKtrzZz6W/PIc41nKPpYlKgPJER8v0sEcGFOUub9YX1e4Elb
+	 necJqfG5Azj6x8h15DxvXe92yZq0HwpiHU6dV7xhSQfpt3MHuO8XxbdFx/lem/g7WLewc
+	 3fDtLj7ddzBJaUXESgaOJbYOC0DV2k8hfBXrU6HrFxbLTcJBJpkUt/nVnAYVQ/CJni777
+	 HPhpS/uf32WjXGktqfyMrTTI5LMEybV2UQmFeB8hDd1uotBQ5IQFFYvWo84eBh1kyakXj
+	 hcKepKE0CAfEPqhNDnwdPKWutXXD+kkMjHFioIRmLympDx01CG4F383Hgog/GIc07+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793062408;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=wghg31XooAJPKL/XTiGnCxCN5pFUy2mBUdUxi6yrLos=;
+	b=hsqc+Gv09Vibsh4zPxQF0+f1hqGEsB+xnje/B5sxXEBwklVJZTP/NAUzYwSpCEROr+kA
+	 3iOP+u1Ar1bp/EYH7+1ts8/IgloPHXyYKxP5LmSOY+1UjRC0lv+AE0F3KHlHz+n0W4Th2
+	 UjGXDRTKoIjqsU8xzcL257v5Zc4tmsGsdDsyVE+e8ivOJp9Mucud9fRZoGvL9iS60Wuwq
+	 Pxf5tFfwgM7LXxTU3EfHNOHRRVKoZ1kLOjPhNEF69gewYqa9hHjRwm6h8wAmTCJ1SbH7o
+	 OQHAVGtkWRjuoj2k2ZjA/VClm7DxoxVV2DogKQVaMmq7dFR1JJiTh3XNzJ9fIvYWD5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=IJsQys7w;
+	arc=none smtp.remote-ip=156.224.81.90
+Received: from mail-m8190.xmail.ntesmail.com (mail-m8190.xmail.ntesmail.com [156.224.81.90])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AF7841F01825;
-	Tue, 27 Oct 2026 00:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060443;
-	bh=IuMC/ItzG/Q2x0sIFmWFkQOqzTArFu2+LT0DtoyhLhs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EJ8H00hp5gx+7BMOKxFE3wfzhE+6IVGPv80Xc5H+f9ub637LBxOr9HmrFHnrfvST9
-	 eMkMEEB51CLZ0+MZHJfK8NQtEa0/Kt45GLNoZUVqJUH95+dR96uo+hZYxMnS45LqhN
-	 hBHhjJBbBd1/89rp0e2gGC6ImgcE3PRgxxOj76XARttZJum2OKem0sLZlT0f00lM1u
-	 plic+WHebZRsVK0x6zv3q3Ip0hb5JVoXV7hye2Q20fzj8d+VIjzs25mpKhhWQVzaQC
-	 j/nW+nuVhbBrS0IZnhLLLwskXD0ZaB6DXk3IgsB9qN4QsdkmgfshTbve+p7Ucf6voD
-	 tWZmK3hL0yxzA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3EEC144F11;
-	Tue, 27 Oct 2026 00:20:42 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Tue, 27 Oct 2026 02:20:40 +0200
-Subject: [PATCH] arm64: dts: rockchip: Add the watchdog reset to RK3399
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320C1606A31A;
+	Tue, 27 Oct 2026 00:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 320C1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=IJsQys7w
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 526e8ceb0;
+	Tue, 27 Oct 2026 08:53:12 +0800 (GMT+08:00)
+Message-ID: <bb38e2c8-1868-4a66-9e0d-78d9f68ab4be@rock-chips.com>
+Date: Tue, 27 Oct 2026 08:53:09 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,73 +48,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-rk3399-wdt-reset-v1-1-de9615abb0ec@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAFfu32oC/x3MSwqAMAwA0atI1gaaFj/1KuJCbNQgqKSignh3i
- 8u3mHkgsgpHaLIHlE+Jsq0JlGcwzP06MUpIBmtsScZWqItz3uMVDlSOfOBQ1MESUWl8gJTtyqP
- c/7Lt3vcDe+b2R2IAAAA=
-To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Artem Shimko <a.shimko.dev@gmail.com>, 
- Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1530; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=YfZXV/pwUDuzE4RfqVS8zgmubems4bbmhrrE9YcpAwk=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFn330We1c2qfCG7W7WJIXnL8s+XeMrZffpP7bbrWNY0u
- 6tuYqhfRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI9kyGv8K3etbdMbWcum1V
- 8P8zlvO3iarF3nyiIG22Q626KPLUd2eG/6UXO0sXHZkaOKPcrEHV3oWv98XP52uvr7+wyvlWyyr
- ZTwwA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-phy@lists.infradead.org,
+ linux-usb@vger.kernel.org
+Subject: Re: [PATCH 24/27] mmc: dw_mmc-rockchip: Keep RK3572 NVM domain
+ powered
+To: 1579567540@qq.com, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ David Wu <david.wu@rock-chips.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Jaehoon Chung <jh80.chung@samsung.com>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-24-0b0fd85a31ee@qq.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261022-add-board-ok3572-c-v1-24-0b0fd85a31ee@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa17ad8d47003a4kunm11e232fa473cda
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTh1CVh1KTR9CSE1LQx4fGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=IJsQys7w6ZxV+DGACFu7tp6IC2XPPwcJXSelxQSD1vTGjhE9PoZcuZz9xwdeWJyiMmawVu+MEW+G8WAm2iMk67hmhZOiMs56Iq7OGWJB2jXbZ7rtdDSqWunDi5ua9gLF9vWCsJIjLwel7Nty1TbOGwqxXT82cvpybuOOJTauLtE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=wghg31XooAJPKL/XTiGnCxCN5pFUy2mBUdUxi6yrLos=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Igor Velkov <iav@iav.lv>
+Hi Cunhao,
 
-The RK3399 watchdog at 0xff848000 is reset by SRST_P_WDT0 (bit 5 of
-CRU_SOFTRST_CON20), but its node has no resets property. Its clock is
-gated from SECURE_GRF_SOC_CON3[8], out of reach for Linux, so without
-the reset dw_wdt_stop() can only set WDOG_HW_RUNNING and the watchdog
-keeps counting through s2idle: on a Kobol Helios64 and a ROCK Pi 4A,
-s2idle longer than the watchdog timeout ends in a watchdog reset.
+在 2026/10/22 星期四 0:11, Cunhao Lu via B4 Relay 写道:
+> From: Cunhao Lu <1579567540@qq.com>
+> 
+> Power cycling the RK3572 NVM domain causes repeated SD recovery. Keep it
+> powered during runtime suspend without disabling controller runtime PM.
+> 
 
-With the reset line dw_wdt_stop() can stop the watchdog, and with
-"watchdog: dw_wdt: manage reset line during system suspend/resume" the
-driver holds it in reset while the system sleeps.
+Before your v2 about this path, I would like to ask why you need this?
+The dw_mmc-rockchip controller is always under A power domain on every
+SoC, none of the predecessors need this kind of change. If you see
+some errors during RPM, perhaps you should have a look[1] and check your
+DTS.
 
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-The dw_wdt side is applied in the watchdog tree:
-https://lore.kernel.org/r/20261024140854.25664-3-a.shimko.dev@gmail.com
----
- arch/arm64/boot/dts/rockchip/rk3399-base.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+[1] 
+https://lore.kernel.org/linux-mmc/1768524932-163929-1-git-send-email-shawn.lin@rock-chips.com/
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-index c46e58d4af0d..7b71b24c1f51 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-@@ -1748,6 +1748,7 @@ watchdog@ff848000 {
- 		reg = <0x0 0xff848000 0x0 0x100>;
- 		clocks = <&cru PCLK_WDT>;
- 		interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH 0>;
-+		resets = <&cru SRST_P_WDT0>;
- 	};
- 
- 	rktimer: rktimer@ff850000 {
-
----
-base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
-change-id: 20261027-rk3399-wdt-reset-c58d2111609d
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> ---
+>   drivers/mmc/host/dw_mmc-rockchip.c | 24 ++++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/mmc/host/dw_mmc-rockchip.c b/drivers/mmc/host/dw_mmc-rockchip.c
+> index 75c82ff20f177..8bc55d4b996c6 100644
+> --- a/drivers/mmc/host/dw_mmc-rockchip.c
+> +++ b/drivers/mmc/host/dw_mmc-rockchip.c
+> @@ -10,6 +10,7 @@
+>   #include <linux/mmc/host.h>
+>   #include <linux/of_address.h>
+>   #include <linux/mmc/slot-gpio.h>
+> +#include <linux/pm_domain.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/slab.h>
+>   
+> @@ -528,6 +529,19 @@ static int dw_mci_rockchip_init(struct dw_mci *host)
+>   	return 0;
+>   }
+>   
+> +static int dw_mci_rk3572_init(struct dw_mci *host)
+> +{
+> +	int ret;
+> +
+> +	/* Power cycling the NVM domain disrupts SDMMC recovery. */
+> +	ret = dev_pm_genpd_rpm_always_on(host->dev, true);
+> +	if (ret && ret != -EOPNOTSUPP)
+> +		dev_warn(host->dev, "failed to keep power domain on: %pe\n",
+> +			 ERR_PTR(ret));
+> +
+> +	return dw_mci_rockchip_init(host);
+> +}
+> +
+>   static const struct dw_mci_drv_data rk2928_drv_data = {
+>   	.init			= dw_mci_rockchip_init,
+>   	.parse_dt		= dw_mci_rk2928_parse_dt,
+> @@ -541,6 +555,14 @@ static const struct dw_mci_drv_data rk3288_drv_data = {
+>   	.init			= dw_mci_rockchip_init,
+>   };
+>   
+> +static const struct dw_mci_drv_data rk3572_drv_data = {
+> +	.common_caps		= MMC_CAP_CMD23,
+> +	.set_ios		= dw_mci_rk3288_set_ios,
+> +	.execute_tuning		= dw_mci_rk3288_execute_tuning,
+> +	.parse_dt		= dw_mci_rk3576_parse_dt,
+> +	.init			= dw_mci_rk3572_init,
+> +};
+> +
+>   static const struct dw_mci_drv_data rk3576_drv_data = {
+>   	.common_caps		= MMC_CAP_CMD23,
+>   	.set_ios		= dw_mci_rk3288_set_ios,
+> @@ -554,6 +576,8 @@ static const struct of_device_id dw_mci_rockchip_match[] = {
+>   		.data = &rk2928_drv_data },
+>   	{ .compatible = "rockchip,rk3288-dw-mshc",
+>   		.data = &rk3288_drv_data },
+> +	{ .compatible = "rockchip,rk3572-dw-mshc",
+> +		.data = &rk3572_drv_data },
+>   	{ .compatible = "rockchip,rk3576-dw-mshc",
+>   		.data = &rk3576_drv_data },
+>   	{},
+> 
 
