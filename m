@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109838;
-	b=pyYF44mY8RThDpqrqQJ97Ud8T8c0kF+G4gP78af0tUC3WTDQnsRsCp0GgIbK6QtfYKPe
-	 izULQ8JV5Yw56xNir0YODUskFhLAgWAioctk3JL99mQLGdE2VpTnK0el/4GEVl1ZCo4jp
-	 qhPGvV8m6gsKOgobqsPy5zyGCaJbi0EZ5a3c4fOx5HqjI7zDNTCfV7KIyMJNYRVC57GtY
-	 ZOFJMOPOMM3NchVZK/oEvnMTvFj7pML1G/BK5REuNrpf+UQ7IepZeLOkZVNLYPonjKrJv
-	 EwLfe88RMtmEhr1VphgSNz+AFWQTq60tgJtSWdfWu/Y2No2JSIsLd/xwkIRoYlqpLsg==
+	t=1793109976;
+	b=QkVMpm2nWhingBAI7ueg3w+d6d5DwgRW0C4I2tYj2H75AG2CCYL0AioonKNUUaDimFjW
+	 PIy9Q4AsTewTfCCuw9+Y6FAnpYyyaFHNoN6vAiB3mPWIhYjQYlZDc3uPWU76ETAiELMPb
+	 afpQvIItggJAXwhKT8SexzRAo0hx9N039Bb4caL0pavfqNh9i20bRGtjEUbITwXa0dJjN
+	 lNdl5NF9ZgAKBgKV8aQfIj+8584ryJwhmtYJb1Np+LH5xzAnx/dE54duOaS6dbP/8GGiA
+	 Mr0AsLNU9XPK+fm+9qoPdje/YMmw5wMQ6tO9alTuxBTeij4WksWaDy305OlzxSguF7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109838;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=z+zcjRUmFJarKKBVLCxCx+rQ5bd46t8d9JLDCiSJycA=;
-	b=U33IDmXisZ79HVeNfvd8YAENcnS+7A7+qulIunYSpW/qA4MJRY+0LxSzmDCodllaoqbh
-	 i/KCSC5XJ0NCuqU8oY+dBvFpoOQz7OboM4IwZO/UskZtX2fLlrIu6NoNcafsmAy3quLF/
-	 Lmr+U6iq2lY6mBq/xlsM/mMCUOLc5tSfQ8FZrh0EdwoqmCaP5qPsLRUq6ZImKOvyWTbv3
-	 u1S81K7zJTPCPUY69bZgRYo/hv7S+4KF1Bt33+MMO1M2H09rXNETD3YVhWbeGlkArvjKd
-	 Er5Fw6ag1PB0yJ05Jco3aiMCwsW6Zzd72N75VByaRJFKXi/933rwzAaFzNDPR8AxAsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109976;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZlQozj6iXl3747x9fGCiWvrUCugnY4R92Ds0x19iEwg=;
+	b=Bs5i8Ic2J/HU4FbWDmPFSE9q6Qa8FKqCyKBJTLyd8BZHBsSR+Ckx0zzpC3B681Le3vsV
+	 +9Bfh+4gF1i3caXrGZWEQznyVmtuEpMgY8lx1Wco4b1S5PDwROiNJ65tyyV++z0A5QnSX
+	 EwJgFENM86MHqRbI8sg6qXc6g/KtG2WLr8NJfvvqoxgiDj9q/tRjjkmm9iRdvyHyKpwMd
+	 EChJVz6Co3lHeSfVGSMpnFx02o/5WZNvG8zeDrWv2uKcJyA0dkMKidyydCoQCoFadbrLz
+	 0U/9oUMfkTfHP9xQ2hzCwoHHea9ISItSsB/Ijt7t1MuFlFAyWeHR/dZNpqgne3kk1vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UYdyAjbn;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UPRljlt7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="S35/rTB+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720AF606A31A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 14:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 720AF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBA5606A32E
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 14:06:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UYdyAjbn;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UPRljlt7
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoOB82397342
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 14:03:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z+zcjRUmFJarKKBVLCxCx+rQ5bd46t8d9JLDCiSJycA=; b=UYdyAjbnGesBz71W
-	iVQaXe8qeCZ0Rupd2jondt88J1qH9S1pOo/qi3Z4EuXB6lyNRXzynxQMQS4pVt4G
-	drLcMBce0anTIO5En/zvLs4tVGWXIY9NjPTFmWHu8yb9glvFqF0YdMZOwnIgjZDH
-	DnaTN2t1g6LOMH2FluAsLrZAnoaIHpG9eKxpD4z9ssZZU3FnmrnNXvmep2BSucZz
-	6OcrJGb6sN6X1W7IvC1hXQfjjmSU4f+5wjrtlddaZhSN5hBIRFRHqhgdxY868xvu
-	L6PsCLS0MF0BP6EyUJ59pD4i0tGfM60Kuc2nenyobOB/cR64DuliVsIpEm8lcVj3
-	I5tUTA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1gx60-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 14:03:57 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ccd1bc538abso317700a12.3
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 07:03:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793109837; x=1793714637; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z+zcjRUmFJarKKBVLCxCx+rQ5bd46t8d9JLDCiSJycA=;
-        b=UPRljlt7EyYoa+04TX97q9IZlsTHb6EV/0IkDooKwfJxL3PPxANG2ydSDh+sctpt5t
-         TDr6yZevQquyAtbwhkqW/BIqI0snRS2C93/hxopSFKsf325nJ3A37nlww5nviQVxWuNl
-         wV4YOkFvz5snBnTIz6JlslWkO2hHyIEzok2C7avVYh53TM6SKhv6Bj8Pj1kTrLSQ0e5f
-         pP9diZlTFzXvve2lQpndduUwNv16XcV9Gqh+U7vOspzbOGdFtNZBHhoslTS8C6uDD8gn
-         Np+1ZBxcv29Xl2EvUBfhl1sNccvQRc2lYTSz62QEMLFhMqpRA3OmGO+Tr7WXnO+5cxyt
-         hlSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793109837; x=1793714637;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z+zcjRUmFJarKKBVLCxCx+rQ5bd46t8d9JLDCiSJycA=;
-        b=hrBkr8Cg6bMk6H5UuqLIJNZeE9h4Lae0PwINGKRsZlx21YWm0V2N1HT+ApZUS9DbKU
-         5VagirSMEjuVfPTAzE/Ux2Mw5hbqLhuIBRINrkaLdU0wZff2UkKtKrT/GifKWIRKq7SG
-         ezr5EDNklg35brQO6VSJ5Is68SY5up6dUNmt24mR+ke+VXiZLxs0L/xrn49kuSuM8wME
-         p59pEHjwIHMC3hkk7e9EroUpgGdMbeHLA7P1r/HFb4V94GnZFsRsl2qSgjJj1T4GSbJ1
-         Qt2P4c7T+hQr7ESvKRzC03K701bppsc34YO2FVcuLLSZnR8QMD/b8eivNqZeVPSrDz1U
-         lJrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByh0I3zfbwFbrWa+0vfZPn6oxJ8cI/iw2ERKdbN7qaSyY4LW864ctFhZqBczvE+Rcdi+Jx7Qr4rQ3et@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKTvYIJTI47FIe/LdtKdTJLlNpUF0DOFNXqWpnQSPF1RPw3F5K
-	BgGT3zP5Z9ZzWiKaZYaF/MqZ7Rjv9IWAUqn4O78PuExmgcF4d0RF8BjudG16Ge0UfZywJb10PQT
-	5XxjXJnEaOdpJYfEov0dySuau8wT5iN1SSxQ7Eph9nCmEfg4w5WG6fm1fZVjtUOOO
-X-Gm-Gg: AYBFou3GyiEa86kQzbpLY8EP1HDTvBjHWgwVYgyyvT7GufK1CVH2NrjfhYYtxfc4fhA
-	zzngzRad2lZHlCfe5vmaf/orfHkK5mKQPKlg7mBMejw8P86GqTO1ukNDTjD3dHb1lgO7v0DhzzB
-	zniBLsHU4UOwdruiilNAucpuznkU+pIdAOnLkR5mBfrw0Jr/RbTbxdQTh45LSMHYX35CiX9QoKB
-	w0E/S8Es4/sWH08NNckVvLD5HBdXyZ+1Pyuezs+YAzanguhMsmpr3jW3gLWoRq6Jppr64K126eZ
-	Es4nZUrE35mCoWDMhxXIGu4cUKGFBs70cX+xUm1/4UcwmQ+S5BX/jGQWNcsPWShiyCTbQTwIi2U
-	TarmwHwNyhM+CdBPAs/5MnA==
-X-Received: by 2002:a17:903:1b23:b0:2df:8909:f719 with SMTP id d9443c01a7336-2ea9c64401bmr146875565ad.3.1793109836878;
-        Tue, 27 Oct 2026 07:03:56 -0700 (PDT)
-X-Received: by 2002:a17:903:1b23:b0:2df:8909:f719 with SMTP id d9443c01a7336-2ea9c64401bmr146874635ad.3.1793109836298;
-        Tue, 27 Oct 2026 07:03:56 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca563ca9sm28627e87.17.2026.10.27.07.03.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 07:03:55 -0700 (PDT)
-Message-ID: <b5f0ea6f-1048-48ed-8df7-2502e7b452f7@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 15:03:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S35/rTB+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF341F01828;
+	Tue, 27 Oct 2026 14:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793109976;
+	bh=ZlQozj6iXl3747x9fGCiWvrUCugnY4R92Ds0x19iEwg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S35/rTB+8f1nG9b4GoKtjZVIWBEOpSdbTGS+0JKTG+2dnIUgE3qDEaKXliSfgfnMH
+	 VJp1Av7iCFCuwT7pnLbVJv8jXyq97bHbG4gHbcUF6ye9nkqNVkisibHHqqJnj51DyE
+	 Br4hwC5VFK+zDsD98qeg6GYT/fsBvqALS/YAgYg0vObTDRNcgZmmtZhbUoY5i8bZR1
+	 NChnzmQHl0/wyu12lvGMqoGSxOX6ZurJoNO8t+Lqn1olohR3cVW3mlLS3CC7tI7Teh
+	 scRQd4vAqhrThoA/7oMRnvgR4NnqwpLc6cKWeXwQEwOtk8ZSnOFXT8AxGG+FGRoN2Q
+	 oTyxxXTi0CWAw==
+Message-ID: <sashiko-outbox-186694@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: add ltc2387 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nicolae-Daniel Deaconescu" <Nicolae-daniel.Deaconescu@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027134409.76824-3-Nicolae-daniel.Deaconescu@analog.com>
+References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261027134409.76824-3-Nicolae-daniel.Deaconescu@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 14:06:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,111 +59,317 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] arm64: dts: qcom: sdm670: add digital audio
- codec
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-sound@vger.kernel.org
-References: <20261003175659.23536-1-mailingradian@gmail.com>
- <20261003175659.23536-11-mailingradian@gmail.com>
- <87839ad6-c489-40b3-bfcc-60c436cd1a6f@oss.qualcomm.com>
- <atYtSXF6QeTkF6pr@rdacayan>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <atYtSXF6QeTkF6pr@rdacayan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae0af4d cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=Jm0Y9y7N4wH0DHTafQoA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: 4hNq5j1o2UbVrlsoAvwmXnwZfYZx5H5D
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NSBTYWx0ZWRfXwLmLh/XZ69XZ
- A5y4ZaQtXlCKuKxKWeW7nFmBYRsURhjqOS2xixK5R/njzn1z5CSWLuIPp82+BY89oC0beuCHxag
- ykX0cFiICn50orTXk8MQsOnmvXPNI6o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NSBTYWx0ZWRfX+Wc/poKXCScw
- jLf6huYoOxQThFPKOr00iq3IwdbTU7Ii9XzM33Af7ZywzR3t+u3ICqhpqdCJnQWbCW+zzgMwhPN
- pEdrXL2fbGNPxoDq7figgc/tTy7JgW3zUqfGzTJ0lOGn99LitGfomdmLgLAprQLu3MGCAqEo1BL
- +theAdpEEZYAeIECpT/74HwkdFdjF8qqMzL4lrC8IPRb+6wUyjXxY2OUsHoyF3tYUR2lfUXVbdT
- Zy2XFDUPSmlr+pZqnh9fAa5PuCr1BduProluwNHQ+CicMdz50TQauKhV0v+2vEWVnSZcuy2Hlwf
- dgRNvMmhfB91AF4rbNQKRBE5pVY9pkDvZjqeaaW9iD2YKZv6xJfonnjPPzLDFofizcKx/+LUPzs
- 4Y3i+tSXs9WBpjmQEv194RfhvmSeOnQEIMA932F11v5+5JqpNVRFtqtK2vVZ0UpDZQ7BYKY/3Y+
- lREyL/qLFnhJHc/gvdQ==
-X-Proofpoint-GUID: 4hNq5j1o2UbVrlsoAvwmXnwZfYZx5H5D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270055
 
-On 10/19/26 4:46 PM, Richard Acayan wrote:
-> On Fri, Oct 16, 2026 at 12:21:10PM +0200, Konrad Dybcio wrote:
->> On 10/3/26 7:56 PM, Richard Acayan wrote:
->>> Add the digital WCD audio codec to the SDM670 device tree.
->>>
->>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/sdm670.dtsi | 15 +++++++++++++++
->>>  1 file changed, 15 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
->>> index 038ef0f73ea9..91188acd16b1 100644
->>> --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
->>> @@ -21,6 +21,7 @@
->>>  #include <dt-bindings/power/qcom-rpmpd.h>
->>>  #include <dt-bindings/soc/qcom,apr.h>
->>>  #include <dt-bindings/soc/qcom,rpmh-rsc.h>
->>> +#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
->>>  
->>>  / {
->>>  	interrupt-parent = <&intc>;
->>> @@ -2541,5 +2542,19 @@ data2-pins {
->>>  				};
->>>  			};
->>>  		};
->>> +
->>> +		lpass_codec: audio-codec@62ec0000 {
->>> +			compatible = "qcom,sdm670-wcd-digital-codec",
->>> +				     "qcom,msm8916-wcd-digital-codec";
->>> +			reg = <0 0x62ec0000 0 0x400>;
->>> +
->>> +			clocks = <&q6afecc LPASS_CLK_ID_INT_MCLK_0 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
->>> +			clock-names = "mclk";
->>
->> This clock configuration is forbidden according to bindings
-> 
-> It is corrected in patch 11 which is why this isn't caught. I'll move
-> the fixed clock to sdm670.dtsi.
-> 
->> I'm not expert in audio, but an LLM points me towards
->> LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE
-> 
-> Does the LLM have access to schematics?
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] iio: adc: ltc2387: invalid scan_type and missing scan_masks on x4 =
+parts
+- [Medium] iio: adc: ltc2387: regulator enable leak in ltc2387_probe() on e=
+rror
+- [Medium] iio: adc: ltc2387: unsynchronized PWM updates in ltc2387_write_r=
+aw()
+- [Medium] iio: adc: ltc2387: wrong clk_gate duty and period clamp math
+- [Low] iio: adc: ltc2387: unused LTC2387_T_CNVH macro and test_pattern fie=
+ld
+--
 
-That LLM has access to more than just schematics..
+commit 1dc8bcd329957722e234d172e41e35994a926ade
+Author: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
 
-But at the end of the day it's just an LLM. I don't know for sure
-and that's why I wrote it that way.
+iio: adc: add ltc2387 driver
 
-Konrad
+This commit adds an IIO ADC driver for the Linear Technology LTC2387-16/18
+and Analog Devices ADAQ23875/23876/23878 SAR ADCs using two PWM channels and
+the IIO backend framework.
+
+> diff --git a/drivers/iio/adc/ltc2387.c b/drivers/iio/adc/ltc2387.c
+> new file mode 100644
+> index 0000000000000..c236b99baa4ab
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2387.c
+> @@ -0,0 +1,482 @@
+
+[ ... ]
+
+> +#define LTC2387_VREF		4096
+> +#define LTC2387_T_CNVH		8
+
+[ ... ]
+
+> +struct ltc2387_info {
+> +	const char *name;
+> +	struct iio_chan_spec channels[4];
+> +	unsigned int test_pattern[2];
+> +	int num_channels;
+> +	int resolution;
+> +	/* Gain * 1000 when adi,gain-milli is absent; unity for the bare parts.=
+ */
+> +	u32 default_gain_milli;
+> +};
+> +
+> +#define LTC2387_TEST_PATTERN_16 {					\
+> +	[ONE_LANE]  =3D 0b1010000001111111,				\
+> +	[TWO_LANES] =3D 0b1100110000111111,				\
+> +}
+> +
+> +#define LTC2387_TEST_PATTERN_18 {					\
+> +	[ONE_LANE]  =3D 0b101000000111111100,				\
+> +	[TWO_LANES] =3D 0b110011000011111100,				\
+> +}
+
+[Severity: Low]
+Are LTC2387_T_CNVH and the test_pattern field in struct ltc2387_info (along
+with LTC2387_TEST_PATTERN_16 and LTC2387_TEST_PATTERN_18) left over from an
+earlier version? They are populated across ltc2387_infos[] in
+drivers/iio/adc/ltc2387.c, but never read or referenced anywhere in the
+driver.
+
+> +
+> +static const struct ltc2387_info ltc2387_infos[] =3D {
+> +	[ID_LTC2387_16] =3D {
+> +		.name =3D "ltc2387-16",
+> +		.default_gain_milli =3D 1000,
+> +		.resolution =3D 16,
+> +		.test_pattern =3D LTC2387_TEST_PATTERN_16,
+> +		.channels =3D { LTC2378_CHAN(16, 16) },
+> +		.num_channels =3D 1,
+> +	},
+> +	[ID_LTC2387_16_X4] =3D {
+> +		.name =3D "ltc2387-16-x4",
+> +		.default_gain_milli =3D 1000,
+> +		.resolution =3D 16,
+> +		.test_pattern =3D LTC2387_TEST_PATTERN_16,
+> +		.channels =3D {
+> +			LTC2378_MULTIPLE_CHAN(0, 64, 16, 0),
+> +			LTC2378_MULTIPLE_CHAN(1, 64, 16, 16),
+> +			LTC2378_MULTIPLE_CHAN(2, 64, 16, 32),
+> +			LTC2378_MULTIPLE_CHAN(3, 64, 16, 48),
+> +		},
+> +		.num_channels =3D 4,
+> +	},
+> +	[ID_LTC2387_18] =3D {
+> +		.name =3D "ltc2387-18",
+> +		.default_gain_milli =3D 1000,
+> +		.resolution =3D 18,
+> +		.test_pattern =3D LTC2387_TEST_PATTERN_18,
+> +		.channels =3D { LTC2378_CHAN(18, 32) },
+> +		.num_channels =3D 1,
+> +	},
+> +	[ID_LTC2387_18_X4] =3D {
+> +		.name =3D "ltc2387-18-x4",
+> +		.default_gain_milli =3D 1000,
+> +		.resolution =3D 18,
+> +		.test_pattern =3D LTC2387_TEST_PATTERN_18,
+> +		.channels =3D {
+> +			LTC2378_MULTIPLE_CHAN(0, 128, 18, 0),
+> +			LTC2378_MULTIPLE_CHAN(1, 128, 18, 32),
+> +			LTC2378_MULTIPLE_CHAN(2, 128, 18, 64),
+> +			LTC2378_MULTIPLE_CHAN(3, 128, 18, 96),
+> +		},
+> +		.num_channels =3D 4,
+> +	},
+
+[Severity: High]
+How does buffered capture work for the 4-channel entries (ID_LTC2387_16_X4
+and ID_LTC2387_18_X4) in ltc2387_infos[]?
+
+In the IIO buffer core (iio_compute_scan_bytes() ->
+iio_storage_bytes_for_si()), each enabled scan_index is treated as a separa=
+te
+sequential scan element whose storagebits / 8 bytes are summed into the tot=
+al
+scan size.
+
+With each of the 4 channels specifying storagebits of 64 (or 128) and bit
+shifts of 0/16/32/48 (or 0/32/64/96), enabling all 4 channels causes
+iio_compute_scan_bytes() to compute 32 bytes (4 x 8) or 64 bytes (4 x 16) p=
+er
+scan instead of 8 or 16 bytes. Standard IIO userspace consumers step forward
+by storagebits / 8 bytes per channel, so they will read each channel from a
+different conversion sample and discard three quarters of the data (and
+128-bit storage words with shifts up to 96 are not supported by standard IIO
+tooling).
+
+Also, since ltc2387_probe() enables only a single backend capture channel
+(iio_backend_chan_enable(ltc->back, 0)) that transfers all 4 scan elements
+together in hardware DMA mode without per-channel hardware enablement or
+software demuxing, shouldn't the channels use per-channel storagebits (16 a=
+nd
+32 with shift 0) and set indio_dev->available_scan_masks to require all 4
+channels to be enabled together?
+
+[ ... ]
+
+> +static int ltc2387_set_sampling_freq(struct ltc2387_dev *ltc, int freq)
+> +{
+> +	unsigned long long ref_clk_period_ns;
+> +	struct pwm_waveform clk_gate_wf =3D { }, cnv_wf =3D { };
+> +	unsigned long long period_cycles;
+> +	int ret, clk_en_time;
+> +	u32 rem;
+> +
+> +	if (freq <=3D 0 || freq > ltc->ref_clk_rate)
+> +		return -EINVAL;
+> +
+> +	ref_clk_period_ns =3D DIV_ROUND_UP(NSEC_PER_SEC, ltc->ref_clk_rate);
+
+[ ... ]
+
+> +	/* Gate the active period of the clock (see page 10-13 for both LTC's) =
+*/
+> +	if (ltc->lane_mode =3D=3D TWO_LANES)
+> +		clk_en_time =3D DIV_ROUND_UP_ULL(ltc->device_info->resolution, 4);
+> +	else
+> +		clk_en_time =3D DIV_ROUND_UP_ULL(ltc->device_info->resolution, 2);
+> +
+> +	clk_gate_wf.duty_length_ns =3D ref_clk_period_ns * clk_en_time;
+> +	clk_gate_wf.duty_offset_ns =3D LTC2387_T_FIRSTCLK_NS;
+> +
+> +	if (cnv_wf.period_length_ns < clk_gate_wf.duty_length_ns)
+> +		cnv_wf.period_length_ns =3D clk_gate_wf.duty_length_ns + ref_clk_perio=
+d_ns;
+
+[Severity: Medium]
+Can the rounding and period clamp in ltc2387_set_sampling_freq() produce the
+wrong number of gated clock cycles or a 100% duty cycle clock?
+
+First, ref_clk_period_ns rounds a single reference clock cycle up to integer
+nanoseconds via DIV_ROUND_UP(NSEC_PER_SEC, ltc->ref_clk_rate), and
+clk_gate_wf.duty_length_ns multiplies that pre-rounded value by clk_en_time
+(up to 9 cycles). When the PWM driver converts nanoseconds back to clock
+cycles via floor(ns * R / NSEC_PER_SEC), the accumulated upward rounding
+error across clk_en_time cycles can add an extra clock cycle. For example, =
+on
+an 18-bit part in ONE_LANE mode (clk_en_time =3D 9) at ref_clk_rate =3D 160=
+ MHz
+(6.25 ns period), ref_clk_period_ns is 7 ns and duty_length_ns becomes 63 n=
+s,
+which rounds to floor(63 * 160e6 / 1e9) =3D 10 cycles instead of 9. Similar=
+ly,
+on a 16-bit part in ONE_LANE mode (clk_en_time =3D 8) at ref_clk_rate =3D 1=
+20 MHz
+and freq =3D 15 MHz, cnv_wf.period_length_ns is 67 ns (8 cycles) while
+duty_length_ns is 72 ns, unexpectedly triggering the period clamp to 81 ns
+(9 cycles, 13.33 MHz).
+
+Second, the clamp condition checks if cnv_wf.period_length_ns <
+clk_gate_wf.duty_length_ns, whereas the body sets cnv_wf.period_length_ns to
+clk_gate_wf.duty_length_ns + ref_clk_period_ns. If cnv_wf.period_length_ns =
+=3D=3D
+clk_gate_wf.duty_length_ns (for example, at ref_clk_rate =3D 100 MHz on an
+18-bit part in ONE_LANE mode when requesting 12 MHz, where both are 90 ns),
+the clamp is skipped, leaving clk_gate_wf with a 100% duty cycle and a
+shorter period at 12 MHz (90 ns) than at 15 MHz (clamped to 100 ns).
+
+> +
+> +	clk_gate_wf.period_length_ns =3D cnv_wf.period_length_ns;
+> +
+> +	if (clk_gate_wf.duty_offset_ns >=3D clk_gate_wf.period_length_ns)
+> +		div64_u64_rem(clk_gate_wf.duty_offset_ns,
+> +			      clk_gate_wf.period_length_ns,
+> +			      &clk_gate_wf.duty_offset_ns);
+> +
+> +	ret =3D pwm_set_waveform_might_sleep(ltc->cnv, &cnv_wf, false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret =3D pwm_set_waveform_might_sleep(ltc->clk_gate, &clk_gate_wf, false=
+);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	period_cycles =3D mul_u64_u32_div(cnv_wf.period_length_ns,
+> +					ltc->ref_clk_rate, NSEC_PER_SEC);
+> +	if (!period_cycles)
+> +		return -EINVAL;
+> +
+> +	ltc->sampling_freq =3D DIV_ROUND_CLOSEST_ULL(ltc->ref_clk_rate,
+> +						   period_cycles);
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int ltc2387_write_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int val, int val2, long info)
+> +{
+> +	struct ltc2387_dev *ltc =3D iio_priv(indio_dev);
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		return ltc2387_set_sampling_freq(ltc, val);
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+[Severity: Medium]
+What prevents concurrent or mid-capture updates to the PWM channels in
+ltc2387_write_raw() -> ltc2387_set_sampling_freq()?
+
+Because iio_write_channel_info() does not hold an IIO device lock and
+ltc2387_write_raw() neither claims direct mode (e.g., via
+iio_device_claim_direct()) nor acquires a driver mutex:
+
+1. Userspace can write to sampling_frequency while buffered capture is
+   active, reprogramming ltc->cnv and ltc->clk_gate non-atomically mid-stre=
+am.
+2. Concurrent writes across separate file descriptors can interleave the two
+   sleeping pwm_set_waveform_might_sleep() calls and the update to
+   ltc->sampling_freq.
+3. If pwm_set_waveform_might_sleep(ltc->cnv, ...) succeeds and
+   pwm_set_waveform_might_sleep(ltc->clk_gate, ...) fails, ltc->cnv is left
+   running at the new period while ltc->clk_gate and ltc->sampling_freq
+   remain at the old settings.
+
+[ ... ]
+
+> +static int ltc2387_probe(struct platform_device *pdev)
+> +{
+> +	struct iio_dev			*indio_dev;
+> +	struct ltc2387_dev		*ltc;
+> +	int				ret;
+> +
+> +	indio_dev =3D devm_iio_device_alloc(&pdev->dev, sizeof(*ltc));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	ltc =3D iio_priv(indio_dev);
+> +
+> +	ltc->vref =3D devm_regulator_get_optional(&pdev->dev, "vref");
+> +	if (!IS_ERR(ltc->vref)) {
+> +		ret =3D regulator_enable(ltc->vref);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "Can't enable vref regulator\n");
+> +			return ret;
+> +		}
+> +		ret =3D regulator_get_voltage(ltc->vref);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ltc->vref_mv =3D ret / 1000;
+> +		ret =3D devm_add_action_or_reset(&pdev->dev,
+> +					       ltc2387_regulator_disable,
+> +					       ltc->vref);
+> +		if (ret)
+> +			return ret;
+
+[Severity: Medium]
+Does ltc2387_probe() leak the regulator enable count on ltc->vref if
+regulator_get_voltage() fails?
+
+In ltc2387_probe(), regulator_enable(ltc->vref) is called before
+regulator_get_voltage(ltc->vref), while the devm_add_action_or_reset()
+registration for ltc2387_regulator_disable() happens after
+regulator_get_voltage(). If regulator_get_voltage() returns a negative erro=
+r,
+ltc2387_probe() returns early without disabling ltc->vref (or should this u=
+se
+devm_regulator_get_enable_read_voltage()?).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027134409.7682=
+4-1-Nicolae-daniel.Deaconescu@analog.com?part=3D2
