@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094882;
-	b=IwX2AbEmc3YTmxP5YACycq1lmMYMu5N2oufx03ODiy9Qs6ZDGHT/3AiarF0Nd7rOz7xO
-	 3n7hpd32y3RipNElxFK6DfWrqKN1UFNNg1dMfRU7DMxj2N+vWfri2szHYD8t9DH2Sq1K5
-	 3itn8637F5XxrrBWopsSe/3LgD5JR+oCPyQps/rbugYJT4dKaCkFZDiUpyIJDanXJ1Kbh
-	 gFvlIZNtdhTwah1bi4OzJsDjTJZGA4cWmUv470WvQc+KFiLPKLboQCNHYItZYVqi53RkH
-	 t/7iePT5T66zIPQTBMwz1s3Ptb8/N7GL/EiusW/JNrSnhD+wGUFqkzlqqgCOn8FmClQ==
+	t=1793094971;
+	b=CCmT4QKv5qRmdQ7RjSh090oQTKTuqhCBWfdopUcu/B49GCcxGTFKL1dRo4Ov2MzddQbr
+	 cbIIl1aox15ctfAQSIKYVvPLcqpI8uSUYrUJwJOSIdWqS+ens5AdC7b197zyiszEukim0
+	 BbpsqaE4Xs2vWXX2YPY9i5ozd7yyqmsWVN2PT40M6rAJs2fxTseEIUJa32TKKZGKcoG61
+	 rbMsyCtCA3EXl4JdGebAWRbI54rUfF3RSneNLIEyzznvY2xXyoUNIZqqgWi1IkMxgDo2W
+	 nmU+PA/MYu0Iw+nSpeSVqMrjDiQl7GR2EfY3uNlEYmAMDkSpcQMk/q9gDZc3V+j6zdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094971;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RC3LSUj/Y+l+ZeEFgu7Mk7yghLVJQ1fv0cPULmplmrs=;
-	b=msvjsoRA58TAlkkjgcZpVX6aw0ePA5z1xaz+Ap5bA72afxJ9kSorldIh9kWx7NvYK1iM
-	 uM94tPJO1vPFX/Vgpyj531shnW1Gl0+CJNOEbcPl/HeJvv96eHwJIMZxMw28Oc/YJhzV1
-	 z72UFeMKxTqYSljyqM2rb2ZgAGgA4G51UFDJ2ObvbuZRCKAO8J1Ole6Jwm3vsVWeYTTHU
-	 qu4HuMF4X7PR3dzMloj5LzxcFg5BzOAvo8ZuxpcnA/xDUFzhn2675QMHI3Of/vXN6RpP4
-	 97G05QYNV0pOO7kAEDMH1cx9txdStiER5Hct6MXLsiP46WsoxEk/PA0HxL6nITzXwhw==
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xG04b/pMlxUdyEELh4CAqRO0ERstFWipTHgPIUgZB3M=;
+	b=Ej9tUFFtVZ1zlAknVVj0NxvszAcDPKo/Z4R6Ubk0+7N7IysuY8tIZ9qXhr+mk/FEVuz3
+	 pgW07rk97B4p6B9l2QHR73DEKjie9D50MfDWZ2XXCAR3ZtHqGsXBpUNoHEosAEN4Acljs
+	 B/BYkVKNq2R1VQVv8PBKZhLQWn1Fi0QBGwWa9h0NJ+QR3DdXQ99f1iCUKW1KM/FrLi4Xe
+	 bUJUvgbQY22l7L6N8E6zPLAkz3nDziRfWWnaxZXEz+xXHecXQC4IEvnEGhmsLmqRJP/j/
+	 UVlnO/3Qq8yByCJ7h8AQk0I0GDvAxEA4VVceGeTtcI5T82OTgX9h/NEwpx1PxxJlmpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz6FXYNF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUAGOVkK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63086606A31D;
-	Tue, 27 Oct 2026 09:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79478606A31D;
+	Tue, 27 Oct 2026 09:56:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz6FXYNF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC17E1F01825;
-	Tue, 27 Oct 2026 09:54:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUAGOVkK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1F01F01825;
+	Tue, 27 Oct 2026 09:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793094882;
-	bh=RC3LSUj/Y+l+ZeEFgu7Mk7yghLVJQ1fv0cPULmplmrs=;
+	s=k20260515; t=1793094971;
+	bh=xG04b/pMlxUdyEELh4CAqRO0ERstFWipTHgPIUgZB3M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nz6FXYNF9tnhKYD9PyCm7v6VZQOj/GALYwmAKkx3L+/JLInlfcZ3cM3fZDEgu5Sk4
-	 pyH/Zjew3vKJ+/xZHyEbAz6XCyINKIs7EE7SA4dgnQPUkr0aJzB07EWJN0A6uq6JSZ
-	 inBBEfdX6cw5C0YYCNdyXRRA3yOpE+a2PTdLlaZKhpXknmEuQrtqdBubJjWSc/QJ7O
-	 rFBDaSDgIHxyqnD8WTKAouX2i9wQpEOOKenKfyMH89isbtDlaRE0ft4t13scKEOI0s
-	 qRXqWCo8G9c7MsUcqlqAIvhxlB+j/U3+Oaq2ANP8PnpCqVbAT9EkA8u5l/xEj6Kmr+
-	 bEJoYiLoIcxyA==
-Message-ID: <0d25a732-ccd5-4a7b-9809-93e67899b4e7@kernel.org>
-Date: Tue, 27 Oct 2026 11:54:36 +0200
+	b=FUAGOVkKXkI4UsW3wrFBYTCA0kqbRMh+Qb22fLxWLeyLXvR5AmqQ8iUsfC2KNhdKi
+	 GLER+hHxYpCkJx2sagTG7Qj29Vzo3XGG4xciuElBW1QgjfKfTr2djVEDdxCvQmjebW
+	 w5NFysCQvmFJMbNBCsnzIlls7keuOehiWC+eh3/jv2m2oL2LKe/aW5K2q6kR8Mf5JD
+	 8tKWjOm7ql6eWIQH12Vn0AHFuIm3ejrsiwqNyv+I6GwQe81PcbkeGJlsf/IRHunm9y
+	 NyxQ1fKER+4r5Ebr7izwizSYKQVHKF6Ogm7obIrwBEE9LBWflint7YM6VS1gi88i4L
+	 Lj+3CcR/62pWg==
+Message-ID: <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
+Date: Tue, 27 Oct 2026 10:56:02 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,131 +52,118 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261023163057.775917-1-vz@kernel.org>
- <20261023163057.775917-5-vz@kernel.org>
- <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
- <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
- <CAFEp6-3XTotgkOKRACGLT91wUw30CgFB=44RtHnXfA6cOF7bVA@mail.gmail.com>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <CAFEp6-3XTotgkOKRACGLT91wUw30CgFB=44RtHnXfA6cOF7bVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
+ Allwinner H616
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
+ <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
+ <20261027-nifty-reliable-octopus-6cbac5@quoll>
+ <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/27/26 11:07, Loic Poulain wrote:
-> On Mon, Oct 26, 2026 at 11:39 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+On 27/10/2026 10:39, James Hilliard wrote:
+> On Tue, Oct 27, 2026 at 2:02 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >>
->> Hi Loic.
->>
->> On 10/26/26 18:32, Loic Poulain wrote:
->>> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
->>>>
->>>> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
->>>> the CAMSS input ports are connected to output ports of CSIPHY devices.
->>>>
->>>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
->>>>    1 file changed, 167 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> index babf1a4196a1..7f5b0501a23e 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
->>>>                           };
->>>>                   };
->>>>
->>>> +               camss: isp@acb6000 {
->>>> +                       compatible = "qcom,waipio-camss";
->>>> +                       reg = <0 0xacb6000 0 0x1000>,
->>>> +                             <0 0xacb7000 0 0x1000>,
->>>> +                             <0 0xacb9000 0 0x1000>,
->>>> +                             <0 0xacbb000 0 0x1000>,
->>>> +                             <0 0xacc6000 0 0x1000>,
->>>> +                             <0 0xacca000 0 0x1000>,
->>>> +                             <0 0xacf6000 0 0x1000>,
->>>> +                             <0 0xacf7000 0 0x1000>,
->>>> +                             <0 0xacf8000 0 0x1000>,
->>>> +                             <0 0xac62000 0 0x3000>,
->>>> +                             <0 0xac71000 0 0x3000>,
->>>> +                             <0 0xac80000 0 0x3000>,
->>>> +                             <0 0xacc7000 0 0x2000>,
->>>> +                             <0 0xaccb000 0 0x2000>;
->>>> +                       reg-names = "csid_wrapper",
->>>> +                                   "csid0",
->>>> +                                   "csid1",
->>>> +                                   "csid2",
->>>> +                                   "csid_lite0",
->>>> +                                   "csid_lite1",
->>>> +                                   "tpg0",
->>>> +                                   "tpg1",
->>>> +                                   "tpg2",
->>>> +                                   "vfe0",
->>>> +                                   "vfe1",
->>>> +                                   "vfe2",
->>>> +                                   "vfe_lite0",
->>>> +                                   "vfe_lite1";
+>> On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
+>>> The H616 UART has 256-byte transmit and receive FIFOs, but its DesignWare
+>>> component parameter register does not report the FIFO depth. Its optional
+>>> register layout also differs from the generic DesignWare integration.
 >>>
->>> Is there a camss "top" register to describe here? e.g. to retrieve the
->>> CAMSS hardware version.
+>>> Add a specific compatible for the integration and allow the standard
+>>> fifo-size property to describe the capacity. Require the documented
+>>> 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
+>>>
+>>> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>>> ---
+>>>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++++++++++++
+>>>  1 file changed, 17 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+>>> index e2ca126d58ba..0f8fd0485879 100644
+>>> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+>>> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+>>> @@ -13,6 +13,18 @@ allOf:
+>>>    - $ref: serial.yaml#
+>>>    - $ref: rs485.yaml#
+>>>
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: allwinner,sun50i-h616-uart
+>>> +    then:
+>>> +      properties:
+>>> +        fifo-size:
+>>> +          const: 256
+>>> +      required:
+>>> +        - fifo-size
 >>
->> I'm not aware of anything like that. What is "CAMSS hardware version"?
->>
->> CAMSS embraces various blocks, there are CSID and VFE, full and lite
->> IPs, and all these components do export their versions individually.
+>> Why do you require fifo-size if is const? It is implied by the
+>> compatible.
 > 
-> I mean, CAMSS usually has a top-level register block (often top or
-> cpas_top) that contains the Titan/Spectra version information, along
-> with various global configuration and mux registers.
+> H616 has a fixed depth, but other sunxi integrations have different
+> depths between UART instances. For example, D1 has 64-byte FIFOs on
+> UART0 and 256-byte FIFOs on UART1–5.
+> 
+> Should I keep this explicit for consistency for all sunxi uarts?
 
-On SM8450 there is "cpas_top" register <0xac13000 0x1000> (not in the
-series), I believe you reference to it.
+I am confused, there are no other instances here.
 
-Is CPAS a natural part of CAMSS? Can it be modelled differently, e.g.
-as a separate device/driver, like it was done with JPEG or CSIPHY?
-
-I see that there are only SM6150 and SM6350 platforms mention this
-register, to capture and process frames on SM8450 there is no need
-to program CPAS.
-
-Note, that even SM6150 and SM6350 platforms do not use this register,
-it makes it redundant.
-
-> In particular, exposing this block could be useful for reporting the
-> Spectra version to userspace, for example through libcamera.
-
-It could be so, but adding dead code is an anti-pattern in software design.
-
-> Moreover, if the goal is to describe the CAMSS hardware exhaustively
-> in DT, this block should probably be represented as well. Whether it
-
-Here I oppose such a goal as impractical, the set goal is to get working
-camera on the platform with the minimum of irreversible changes. It was
-proven multiple times in the past, that "an exhaustive description"
-equals to "the totally broken description", and brings nothing valuable
-but irrecoverable ethernal problems to overcome.
-
-> belongs in this specific binding is open for discussion, but my
-> inclination is that it does.
-
-This register is not needed to get CAMSS up to the functionally
-working stage, which is represented by the series.
-
-I believe someone may create a new fancy CPAS device driver or so, and
-the new device driver will utilize the "cpas_top" register and other
-CPAS resources in a better way, the register shall not be nailed to
-the CAMSS preliminarly.
-
--- 
-Best wishes,
-Vladimir
+Best regards,
+Krzysztof
