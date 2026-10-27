@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093998;
-	b=jx/D3gXjAv71Oxk20IhCrsFCzYiy2wjp/AQYW85l5j6hXEWB2+8FqpdMtsX40YhhAHDW
-	 FnNivPUtWtuScjH7+jFsRx3acx+iqIAAzhwlcqPKQzqnqN5cpjgzpugJSO54aEW9mkv3Q
-	 A9DdUhMosmtlMwsUk+dKe8zk4cvDJxafKMB43X0VYP4n3TyJuevLpYZCnfWsHn0PfmS+w
-	 OwfMNJ0YgM+SlrFJ99glgMcySdAZh1CaA0SzEXVPeV93NImUPHaaqz02tOfjY4uQoE/tf
-	 BRwxh5+z3GDc713yAcn8yU5oe0+pkKLYLIDcXLxduUqEmhL7tyh6NaowFOgfIRuF5kA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093998;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4X+P1B6aE29va33Y1nOTBGckjA6+hBF4dxDZ8irecEY=;
-	b=jPICe8DWY7TY1McGmogKbHEcofIQIOdPI+aLQbKTZgwpWTFsHtNvazUfsn+UZlRplZuu
-	 vhVfvzon0pWo4kHGQVkb582EPt0ZX4tYPrqG4veyAVhOaif96eZFIA1h5ydxLyQc0eaH2
-	 hAL6wlkta8t4+8PTa7nZB6tYxQIB773UGnMZWFzOwW70Wu57sh8rXnO1PgcdulMBOK2n2
-	 9gIGSgCh6rBvCENv8Z6xggU0k9GYDbRAz/kX1fZur/wcXfJ3JKwpoSZrQWl/0yoSp96gj
-	 qHkHXtqyqI9sDdo/E14ttrvaRSH8eFdnb5DZF77baAVKvTuTchZhYNphZCod3CJbEKw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jbgipqXk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.52
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793094000;
+	b=AXkqHY7FNaZQ3geX+PmkNtOgDd1wP5ouZC40rwCisEnh+bfzYLfUkcYdRIQFIC5P/eWw
+	 xaM/sZpDypJ6jL2wkZiDNyn9IK6yfii/eNHVQGB+S/usURwoen0LObRFn3SdERLOepYKL
+	 Z0gJFvwvVTej8j9WBPczE38gSEsMWD7eLR85j5je03hCHJSqsDFW4klGf2//BjqhNDDNW
+	 3Qg7SJ/2bja7OGOpc7AHFOGrgGNQxu8GKy1jglpWQe2fo7s3x3RnlEbwz2eEXHFVK7IjO
+	 +wd4MtJyFiQHQGk6twTm6JKq1johPFx22JTP26k5m28iSxt5QC/5f91KHCBBL3r++kA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094000;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=+yoKdouCrd5jVAwfdWhplQhgtCfQb1PR8MjroevTOms=;
+	b=V4O9t2TKHJRaD1cWFMNL7maiEhRQtR99daSwpcQ5wSEh+GCkf6zjwG3VkiINkLQ4sDzq
+	 Zv/XgF/Sqi90bG5BI1PGTJtm0bWrnWHPQE3wrD6Rx7KErRvhlKFUAkM7p0d2n5lKMRKyT
+	 exKpYWX1ejK+vYAzF/kQf/dGOFfzmvwHYxpvw7whWX53XYl2yDONW6nmjAAsZPqHHjyF1
+	 R96rZrD4L9xyNEdPuZHQGP0FIyrw26NTrtnIKbp4fQQMNsBF2dGYO8ens1cF6ADfu+kL3
+	 NOadA1XgFeyeo1hSA+FPXH8zh4ryZnipCsabkjukluvVs+CYGND3opZEwQnCJDVEjTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H57+FXjl;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F99606A32A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:39:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43F99606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D224606A322;
+	Tue, 27 Oct 2026 09:39:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D224606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jbgipqXk
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7ccb2ffe333so2148372137.2
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 02:39:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793093997; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JGhEEbZW25XxJWpnZ6sw+lMzcbiWTmL5nzObZ14B55OBgHX/bEszDySDj+WPyibyFq
-         Zk4Y3tVmmOXGh8s4Ac3e/q29O4RWcnfMnP+OMDhcwJIQ7UkJegAZQ8vBujH8NUAVdWte
-         BdzwTRpRwEz2iiyyawn8zT5PFRUaOZoLiozJ6zXwsLnG1Cpsv+Jdj6C2G3o02GNGfdzi
-         ojiGfWOqYRye0tp21YmPX240jHy7gXB7G1JZVon6CnIYQ7ga4ZaywWfL51LmDGPG/ySv
-         74KGQvWKvcJtKHl3k0lNZUdqsxQcOIz5AaPyIfLjtLqt/ToyXg+DFdMcb6z95zNjaHnF
-         CgyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4X+P1B6aE29va33Y1nOTBGckjA6+hBF4dxDZ8irecEY=;
-        fh=YbJ+ysCiwNfhmnoBri2Pd1HAHx1IFfcguOv1hGKC8BM=;
-        b=V8LI3Paw+MQ+rCtaieW+fcrG1AdXBcNSN64MAyP+fkjqH0qhvSfImGmZzXlG3odMJ8
-         kFlE/J6Th5oXv+C70QfWRDNWZmYNKCNGfnu+JK9B+nQg5y+87WJbZSCOM6TTxnJfHGxU
-         2ElSsrlgb4G+2hc3GX9Nnn+t7y1DoV+WYBS9p63+z6L42Z/Q5LZOOHlCkPUo3rkrPccM
-         GuM/HnISNTWDi0kqeipHLEatjpfBr0o6NDr6WrBNRIKEFvHS4jmL3fddfraCn09pUwHz
-         JltHF1KA0PlAHqD0QCSs1UkiG1XrHRnzfZARb6Km/ql4hiST8+6FCDh4ASzURVv1mlpw
-         EygA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793093997; x=1793698797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4X+P1B6aE29va33Y1nOTBGckjA6+hBF4dxDZ8irecEY=;
-        b=jbgipqXk/6TNxEbvLlNc6gdZFS7gSzHiaIXUNfVVdN3q94F07nj9GzMabdiRQsRP+F
-         o/XOGFypEw+wijhGjN7sQwjWm4BFklcLI3EBtfWyHhpoHYyUZDxdDMQdWr4JXihw3R58
-         aHsrl0M0NfG9pSxGqRcD/Nj5Z+tc0m1rfTN0Y2sd+xO8Kck0FHRfCAXgRO8+J2Q0vNrS
-         2iExoS6IytX97KV5mB7bJwKQm8JXIZn1GzCAUfz82AMiashJtm976jYvCEHFiaX2Zinr
-         8VHyvlk4eUGocaj55+e67vOmZIT54wKJpIJJmqyE8/3zevjyHZDXFpv8mqRRBPiZ/LsY
-         +WKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793093997; x=1793698797;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4X+P1B6aE29va33Y1nOTBGckjA6+hBF4dxDZ8irecEY=;
-        b=lf4Ox3vZ2l1Ip5x3XpaZozYfm4LrwcBvhBeKe9FWt2Kz0hKoKJAx1Bw+gkHkkxxqtk
-         koCM40ibXn4SOLSq8FPMBFlDGQIGcbAOD0aVoISRdQDhzyGV2G1E/mZt7ErdGdjdV4Mo
-         rWflkuSnR+f9pg/WEEbSKbb7OUvbBLrN8ZD/Ojgn/ERQV9038/C4zJ/FbpUzvnCWn1yP
-         hjsO74ZsrPCyVqb28RkRf+igtnJMtHHyZ7pbpErT+n+9IVDwTSiXmWiOVX3xObIHRxF8
-         Hfyg7jqjvX5+MomUKVHpnKoeL3VYG/CsiSd7kfxXbIteuoLiSqEEwOKXRB/uhcxSYZof
-         Q2Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBz8uWaINuYEPaolS/M31DbZ7tXtXiBkgphs/ze0RO2SeGov2b4LMJcag6rH9V4W2+VIxjefEt2NOst7@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsJ7VbiX1FNd/WVBLA8UY+xsne3jt+nYQCGwo5ztKUlyZ0F3/k
-	b55s2TSxyY/rodBXu9OxcdnapnjX5m3O+z3ihNpXK/K3FUIbuKzFzbu48eQiPN4dUqlAE2dAfCM
-	z/q1YjAPCaIUA3qgVtMdXopGWZXTGg10=
-X-Gm-Gg: AYBFou38LGzNWg/Gd98eugLKA5UJr2gDI+WMtK1q6N9O8a3EKDAAwFq/H14cLSa2prN
-	lHdmS43SLdT92qHS0EVpCF8Y4oO+bUvmypdf8aN+ntfq5s8/ipwUgtCIbVC0EUVRZoonEE3v+1u
-	+4SkA6bCXIqIZeQJ6rYpuHuJ2mMvJbGPpRQw6yYCjE2c+5oTN0yawu0/5hefso+v6/5EdAmwS9h
-	AKcboctTZ79gk2rXP7fDAjGmAI0tfxHeduLvErHuJRMimqDmo0YPBFOb9G3nUZM9CjyuF8Bfugi
-	WEDxbRzuxBbveokwzcHlaa5qgiYaUgqPiEf+Nc2WoV+22zTgQy/EkUjc1dhXGn34L6w2pnQDjop
-	x8vrcVXH5pXZZ9tfOGdSxmd+9Uj7iq43UwVY5z7GJWp4pLMOC8jd/POkCeoRqMraZebQ5Ctbgfb
-	HRKt6DjbIdXkarSNgwE1/VyeyDAENjY3GeeiMjwOuj8uUZNBt8GS9r9GBBwoC6Jpz/+K0L5nXco
-	SK5/GLfgq9W+iYBvcAqiUkzPnmk4w==
-X-Received: by 2002:a05:6102:c8f:b0:7c0:4d52:8cc9 with SMTP id
- ada2fe7eead31-7ce5cc8d55dmr2986698137.14.1793093997186; Tue, 27 Oct 2026
- 02:39:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H57+FXjl
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1904B1A12CB;
+	Tue, 27 Oct 2026 09:39:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id DC1F7603BD;
+	Tue, 27 Oct 2026 09:39:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 99AB510329099;
+	Tue, 27 Oct 2026 10:39:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793093996; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+yoKdouCrd5jVAwfdWhplQhgtCfQb1PR8MjroevTOms=;
+	b=H57+FXjlVGuaDMNzPh1Z4GwL0D2uWJ34G0dQL+vkmDGuhXB4NfJT/X3cL2baHxLKjmXIAP
+	fzfw/2RrkopsGHoq5j18p+7E8PfrRrd0w01OLzZ73lnTjvSoio4osN3s33Px68wB3XoT43
+	y416VNNQg6CPnXpKJWas998G7EPrgphaYZE6M1raeMqWuhtcinhIvVGIlKZBdTv1Zcoq+p
+	vBUw6iwr3J9/AWWm7SZK4vsouG4KPaMvCmn/jNs8xcPEAHAtB8bj1CR3jG8FlkOu7PbCLC
+	qsGvjC3ZI30BotwyEf+tsjtAAgNQ8Ys39r2H2Gn5sZp+rtgVfoIEmHq1u4UGGw==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Tue, 27 Oct 2026 10:39:24 +0100
+Subject: [PATCH v2 2/4] regulator: Support regulators where the voltage
+ selector spans two registers
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,100 +64,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com> <20261027-nifty-reliable-octopus-6cbac5@quoll>
-In-Reply-To: <20261027-nifty-reliable-octopus-6cbac5@quoll>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 27 Oct 2026 03:39:45 -0600
-X-Gm-Features: AclHuK-P2vZ9SIQ1kD5xtHOmSa1lugBkFh7TQdGZgeHlLBc3Sp6mnxkEd0joV1c
-Message-ID: <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-paul-lm51772-v2-2-b2a767e34722@bootlin.com>
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+In-Reply-To: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793093986; l=6586;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=h9ganQLZkIz8s2+z96dcJeCDzA1lTe1BnL18lVGSgzs=;
+ b=4l6bhShMqsdwyIJD/v+xRYWrgszy3/hMhHmbrDULklexi20eiwHLpzXjGGYu4MDSTuwEVIsHr
+ rOn55/HPvfaAYKHUE7cldRane6MqkhbEVegbVJTsHu9GBoNQFQ+/ebR
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 27, 2026 at 2:02=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
-> > The H616 UART has 256-byte transmit and receive FIFOs, but its DesignWa=
-re
-> > component parameter register does not report the FIFO depth. Its option=
-al
-> > register layout also differs from the generic DesignWare integration.
-> >
-> > Add a specific compatible for the integration and allow the standard
-> > fifo-size property to describe the capacity. Require the documented
-> > 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
-> >
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > ---
-> >  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++++=
-++++++++
-> >  1 file changed, 17 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.=
-yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > index e2ca126d58ba..0f8fd0485879 100644
-> > --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > @@ -13,6 +13,18 @@ allOf:
-> >    - $ref: serial.yaml#
-> >    - $ref: rs485.yaml#
-> >
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: allwinner,sun50i-h616-uart
-> > +    then:
-> > +      properties:
-> > +        fifo-size:
-> > +          const: 256
-> > +      required:
-> > +        - fifo-size
->
-> Why do you require fifo-size if is const? It is implied by the
-> compatible.
+Some devices uses 8-bit registers to store the voltage selector across
+two registers: one for the least significant bits and one for the most
+significant bits.
 
-H616 has a fixed depth, but other sunxi integrations have different
-depths between UART instances. For example, D1 has 64-byte FIFOs on
-UART0 and 256-byte FIFOs on UART1=E2=80=935.
+Introduce vsel_reg_oversize to support voltage selectors that span two
+registers. Write the selector in bulk across both registers using
+little-endian encoding.
 
-Should I keep this explicit for consistency for all sunxi uarts?
+Assume that future hardware will require at most one additional register
+to store the voltage selector, and that only a device with 8-bit
+register will require such flag.
 
->
-> > +
-> >    - if:
-> >        properties:
-> >          compatible:
-> > @@ -60,6 +72,7 @@ properties:
-> >            - const: renesas,rzn1-uart
-> >        - items:
-> >            - enum:
-> > +              - allwinner,sun50i-h616-uart
-> >                - anlogic,dr1v90-uart
-> >                - brcm,bcm11351-dw-apb-uart
-> >                - brcm,bcm21664-dw-apb-uart
-> > @@ -120,6 +133,10 @@ properties:
-> >        - const: tx
-> >        - const: rx
-> >
-> > +  fifo-size:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description: Transmit and receive FIFO capacity in bytes.
->
-> Drop property, not used by any of the devices here.
->
-> Best regards,
-> Krzysztof
->
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+ drivers/regulator/helpers.c      | 87 +++++++++++++++++++++++++++++++++-------
+ include/linux/regulator/driver.h |  2 +
+ 2 files changed, 74 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/regulator/helpers.c b/drivers/regulator/helpers.c
+index 0def82eb8b46..d4b53803ae12 100644
+--- a/drivers/regulator/helpers.c
++++ b/drivers/regulator/helpers.c
+@@ -118,6 +118,35 @@ static int regulator_range_selector_to_index(struct regulator_dev *rdev,
+ 	return -EINVAL;
+ }
+ 
++static int get_voltage_sel_reg(struct regulator_dev *rdev, unsigned int *sel)
++{
++	unsigned int val;
++	__le16 buf;
++	int ret;
++
++	if (rdev->desc->vsel_reg_oversize) {
++		if (regmap_get_val_bytes(rdev->regmap) != 1)
++			return -EINVAL;
++
++		ret = regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
++		if (ret != 0)
++			return ret;
++
++		val = le16_to_cpu(buf);
++	} else {
++		ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++		if (ret != 0)
++			return ret;
++	}
++
++	val &= rdev->desc->vsel_mask;
++	val >>= ffs(rdev->desc->vsel_mask) - 1;
++
++	*sel = val;
++
++	return 0;
++}
++
+ /**
+  * regulator_get_voltage_sel_pickable_regmap - pickable range get_voltage_sel
+  *
+@@ -140,7 +169,7 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ 	if (!r)
+ 		return -EINVAL;
+ 
+-	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++	ret = get_voltage_sel_reg(rdev, &val);
+ 	if (ret != 0)
+ 		return ret;
+ 
+@@ -148,9 +177,6 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	val &= rdev->desc->vsel_mask;
+-	val >>= ffs(rdev->desc->vsel_mask) - 1;
+-
+ 	range = regulator_range_selector_to_index(rdev, r_val);
+ 	if (range < 0)
+ 		return -EINVAL;
+@@ -161,6 +187,29 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ }
+ EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_pickable_regmap);
+ 
++static int set_oversize_voltage_sel(struct regulator_dev *rdev,
++				    unsigned int sel)
++{
++	unsigned int mask = rdev->desc->vsel_mask;
++	__le16 buf;
++	u16 val;
++	int ret;
++
++	if (regmap_get_val_bytes(rdev->regmap) != 1)
++		return -EINVAL;
++
++	ret = regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
++	if (ret)
++		return ret;
++
++	val = le16_to_cpu(buf);
++	val = (val & ~mask) | (sel & mask);
++
++	buf = cpu_to_le16(val);
++
++	return regmap_bulk_write(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
++}
++
+ static int write_separate_vsel_and_range(struct regulator_dev *rdev,
+ 					 unsigned int sel, unsigned int range)
+ {
+@@ -173,15 +222,17 @@ static int write_separate_vsel_and_range(struct regulator_dev *rdev,
+ 	if (ret)
+ 		return ret;
+ 
++	if (rdev->desc->vsel_reg_oversize)
++		return set_oversize_voltage_sel(rdev, sel);
++
+ 	/*
+ 	 * Some PMICs treat the vsel_reg same as apply-bit. Force it to be
+ 	 * written if the range changed, even if the old selector was same as
+ 	 * the new one
+ 	 */
+ 	if (rdev->desc->range_applied_by_vsel && range_updated)
+-		return regmap_write_bits(rdev->regmap,
+-					rdev->desc->vsel_reg,
+-					rdev->desc->vsel_mask, sel);
++		return regmap_write_bits(rdev->regmap, rdev->desc->vsel_reg,
++					 rdev->desc->vsel_mask, sel);
+ 
+ 	return regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
+ 				  rdev->desc->vsel_mask, sel);
+@@ -225,12 +276,16 @@ int regulator_set_voltage_sel_pickable_regmap(struct regulator_dev *rdev,
+ 	range = rdev->desc->linear_range_selectors_bitfield[i];
+ 	range <<= ffs(rdev->desc->vsel_range_mask) - 1;
+ 
+-	if (rdev->desc->vsel_reg == rdev->desc->vsel_range_reg)
++	if (rdev->desc->vsel_reg == rdev->desc->vsel_range_reg) {
++		if (rdev->desc->vsel_reg_oversize)
++			return -EINVAL;
++
+ 		ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
+ 					 rdev->desc->vsel_range_mask |
+ 					 rdev->desc->vsel_mask, sel | range);
+-	else
++	} else {
+ 		ret = write_separate_vsel_and_range(rdev, sel, range);
++	}
+ 
+ 	if (ret)
+ 		return ret;
+@@ -257,17 +312,15 @@ int regulator_get_voltage_sel_regmap(struct regulator_dev *rdev)
+ 	unsigned int val;
+ 	int ret;
+ 
+-	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++	ret = get_voltage_sel_reg(rdev, &val);
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	val &= rdev->desc->vsel_mask;
+-	val >>= ffs(rdev->desc->vsel_mask) - 1;
+-
+ 	return val;
+ }
+ EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_regmap);
+ 
++
+ /**
+  * regulator_set_voltage_sel_regmap - standard set_voltage_sel for regmap users
+  *
+@@ -284,8 +337,12 @@ int regulator_set_voltage_sel_regmap(struct regulator_dev *rdev, unsigned sel)
+ 
+ 	sel <<= ffs(rdev->desc->vsel_mask) - 1;
+ 
+-	ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
+-				  rdev->desc->vsel_mask, sel);
++	if (rdev->desc->vsel_reg_oversize)
++		ret = set_oversize_voltage_sel(rdev, sel);
++	else
++		ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
++					 rdev->desc->vsel_mask, sel);
++
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
+index 55cc519103ed..8a0f3aebdade 100644
+--- a/include/linux/regulator/driver.h
++++ b/include/linux/regulator/driver.h
+@@ -312,6 +312,7 @@ enum regulator_type {
+  * @range_applied_by_vsel: A flag to indicate that changes to vsel_range_reg
+  *			   are only effective after vsel_reg is written
+  * @vsel_reg: Register for selector when using ``regulator_map_*_voltage_*``
++ * @vsel_reg_oversize: Indicates that the vsel_reg spans on two registers
+  * @vsel_mask: Mask for register bitfield used for selector
+  * @vsel_step: Specify the resolution of selector stepping when setting
+  *	       voltage. If 0, then no stepping is done (requested selector is
+@@ -405,6 +406,7 @@ struct regulator_desc {
+ 	unsigned int vsel_range_mask;
+ 	bool range_applied_by_vsel;
+ 	unsigned int vsel_reg;
++	bool vsel_reg_oversize;
+ 	unsigned int vsel_mask;
+ 	unsigned int vsel_step;
+ 	unsigned int csel_reg;
+
+-- 
+2.56.0
+
