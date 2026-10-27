@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117894;
-	b=UV3WCiU6w/rWrqqV1KaDswccwcnr5VcUlLDEuyYO7sd8QpGxIbMVOHbMLoRTK0ZQFx0Y
-	 QCoyJH6gNeFMtijJu/uACJcw5UKnlM1cPp2/sGardA6538+FRn9T2U2sKEcFKVkiZXCvO
-	 XQMgOxwz2M0K6HA1mSLshxJ0Z2sMbmk3jd+R9C2mWmhUxJ+OiW2hFy+M9ZUik/hy38v8b
-	 SUPJ33EDIJqMZn6dGry5R/SfInWVJm2v673jo2K78olpWMBmu9IERVXibrTLuAmU3+7vC
-	 tRlosYL8f9JlIYdg3NpAyKyu+aOrITervvBpc6yRquDNEzoQIC4hU2E2xHF3S/1BPZw==
+	t=1793118325;
+	b=DHT2ltnxu+eD1yAmKsEXzXbZ5ew3yEiMjyyht2q+/e4HsU0RcpdUXmmI4c33+YQCvK2y
+	 qAewQSzXcsjC4SjbMWJuwOqlPASwMRXH1vB9EvjB8kOdPvaQTTmsa0H3wkR8YldZ6aX/T
+	 oJzAoKUn4OIQKNB8cjuQkEXxWnS3ADOL1zFBg7CJq2HQ5m5sURlDfW6zfmCGpNSFmRDd5
+	 KmAA4xXUpjSEz5WXMItSkghSZYcSkEe3jJpJZi+RfB1GkTPb4OWvOtHn0l+5ggE6IkSJI
+	 uzZd/tmOhJWAvrLfbH6Wjl/1hKji3afAl44dfOuWjZtekS7Pe6IbjJUZ0rEEqEgn8KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117894;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
-	b=MEqwQsWqgTxDW/DP1o7vsFe3KykYE4hkr++BQFtxO10+RcV1Vs14hQ4OZvHc7PzWJTHU
-	 xw8NdI0TjWlxbQktoBumXNKAI4bgH+FpeZajmFnn+9foZjHQH06b4VhMnGds2J/w8u2UQ
-	 0BbGUxxPOf+5PQ3KeLTmaYsLwwwGw33iLC5hIjiRcFEmFt9c9kZRczzdHl1MGJk06CB6q
-	 8pppsUV7vHFu06zx9ND58zNwn5l4Sdxe7qDdeh7LQouQnpfcHc04nrqNYwWvS1VWr1YiL
-	 JKyMLM4KTqTVNhWuk8GNq5D4uWkAEdQfjWf5+gmW45fYeL2aTqrl8WIWn8kJ2IlcXXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118325;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
+	bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
+	b=YyD/ye8C1wx3auEZHaqQ1ALAzvbDe3RjxktPIFsDQ2X62zROj3CHCI4913/nNEMD9mRR
+	 T/lSjLoK0GmZ8eapUOa0yf/oOUmk4gXiiUOThiMkJGAsuAHKWp0Kybjb5Esr5uActEARn
+	 rGuxN6rkJdknGI3t9zSAqruudeTNMnT1ooSinH5MxyarhlJt3ABA5yVnbGCB7cjWeRuRF
+	 VG01/LoCfTciuB3zRSM3818yKxqeU6jRRxJIkyArTYdTXQMoT/Eyr0xOeH2qMd9nDTkEc
+	 U6uImdRCrbMDyyUNa8haRRQFA7tyI+6yGWvE5zmhWLrmQy0B5Wdtnw8LFLr46+NDj/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eaw/6xZS";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwAu8N4J;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B030D606A31B;
-	Tue, 27 Oct 2026 16:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318E7606A31B
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 16:25:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 318E7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaw/6xZS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17FA41F01825;
-	Tue, 27 Oct 2026 16:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117893;
-	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eaw/6xZSvd/iUmSOi8x3BJdGmmK2e2Au+98Gmi/jqPb/fsxjYFyg2asyyhJnch6aW
-	 wiiYi0eITIbZDq54HaW38SGswS0qGyltyrmNEvvLUgZrcg3MfWR9qehG4imuCVOpGL
-	 JLBJMFg4bFYLFuqGqIHPNPdaHWv4b1hxzIOgmIltqxGKohsv70X69oBDXW+gIkAM9P
-	 6ksq060/PG/zOz5Emn8kneLWdVFzz4b9Fry3mL204ZqJhnBuP6P3beekO0yFayQ3hq
-	 GdLB0wZ1l9tZcPdFY3Dx++WAI2wf8fFk1D10texSvMGm5UdAm082/dyBMfy0jfVO2w
-	 miwbGbIVbN6NA==
-Date: Tue, 27 Oct 2026 16:18:04 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Michal Simek <michal.simek@amd.com>
-Cc: gaohan@iscas.ac.cn, Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 01/18] firmware: arm_scmi: Allow SCMI transports on
- RISC-V
-Message-ID: <20261027-quaint-demonic-poodle-6c1e10@sudeepholla>
-References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
- <20261027-a210-scmi-v1-1-74d58ce85bd8@iscas.ac.cn>
- <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwAu8N4J
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso185455e9.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793118323; x=1793723123; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
+        b=IwAu8N4JddNQd27xVH+MgObMXFu+x6visCB8Q3rvbBvd+jTxrIuaDydaWyA/a1+/3P
+         VxxO98CMuvUBBmHXoYSUpPDR34n5dUFayARvwxZHVRNPHG5Orf16BOphQF+uorFdH9or
+         9uracTP7gHgQJ8cSZyGqZpkLCBvcWOxHV6OPtg7jLcr4G4hvoKSbNHlPjYHbrFSCPn8G
+         vpgOOLOGTd77c0PeNru6VyuH1Tpfd2srsJy57EjnEViF36/vWQW6k6c0D6bwTNO56zp8
+         1SkOW3DA6ICz5T8kPSScHnuVF9ZWwa2OahYWU0+B5if4itSkkEamX+dd+fF4AVZvtlvP
+         xSVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118323; x=1793723123;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
+        b=mYMwWPDgzcIL4nMWiXrOR2TigtQk97qbSN/SgR8LOHl9D/SjXS60B5cB1YgQ5gMFSq
+         CYultJtONTnZqaUyvYmN5YnV1HLwKYJtMwtF/ylCpaWUnO4y/FFAZCjLf6S5FkQtbDcV
+         1PYzitua/sImFIlRn+qHJbYk/L6yddO5VBn8ngtUwu/FtInHMzs3gZxre5VWwNzBF9oh
+         gJArVaPr4XAx2VcAK9QczL4Ac6CcgRUC+0nAnncYeqjQg1FYGAqyw/5D/JapVXesomKz
+         tML9MSPxRKYkNGzMNBKgpvxAUHwS/sgVyIvvfyIwbamKyIHzC+nC0iQ5gctep6Gyuy1I
+         YchQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrSZKQjL0+c+E/TK/KwUTgSl2sqijDOQsUGqUlYQmKDc70vqWIkBhq4dOUHoXjDYTuPVa+rcIeCE7/@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaw3bF/TmgpoehTNUfH1n+FMie92wgX0JvynqTaqMJY9TYczJp
+	46sYUzO69L1tn/OkTSHg6TGZN0p4tb3cKT8M6FaoKmlOiOgzc40lqjaWmSbZPFiNVsk=
+X-Gm-Gg: AYBFou1sCtk0IIAqUCKG/SmK0yLwwAYqRmIWJ82jdh2hKtd5uOBlH4i6G0M4WM9/j/q
+	a5lmeOcv4fdlDe6aj8kq+YIsmBJIQoQbu6AYDmkwHoOaKptCR9mNnQw062gB2bD6+NlCSSqFRbL
+	8QwkyXXJUk6JySQR4F+CjUFf18m39jWnaNXpJcWtICB08/Ir3716AqK1y9b8iWOZiC4jT2SbK3r
+	YzGYVckjAkBZ2p8twCH5M2ji0ErqqU6BegRKsXOYdBYf9u+uF4zPQmnXp4sYshI4Cc2JocZutUj
+	yRA3RNaOaBbLBHMNjPdJJQBvYXWIoIlsT1+8WdBMbX/pwLtU2WVmuyOJZP7AIZlkrDLd8oNQ/UD
+	anPXJxJ+LKjkZav9hedjbKi+aEEQR4WEkZMq6zqGJuz+H643MgdCw+Td+fNohCx7D9blSgeMB3D
+	XqzfPSS2fWoTFvKVCJsGnovCZsYwPQBX4I8Dov/7cstJfvuFfPNTI6a9wAYHPWcn85ddOSWkEJx
+	Ncq9yQWPIXKHlSMCju+TCj8Yjo0tnjh8F7jOQ3hesqYjG+w4+UPhxpl/qgKUaeSgdSp0gyyksMa
+	du0+8e66corw4M9TcgCxg2kwFc9c+PEEoYPaDaE6i0lXbsFhGFTqSQ2dST4zIBK82MN5
+X-Received: by 2002:a05:600c:1909:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4a35ac95fa0mr188333205e9.16.1793118322543;
+        Tue, 27 Oct 2026 09:25:22 -0700 (PDT)
+Received: from localhost ([151.40.161.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a931232e6esm80005e9.13.2026.10.27.09.25.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 09:25:21 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,45 +87,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 27 Oct 2026 17:25:21 +0100
+Message-Id: <DMFRE8PRV4MD.3DSSCQVOLZTIP@linaro.org>
+Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1:
+ Add PWM backlight
+From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
+To: =?utf-8?q?S=C3=A9rgio_Ferreira?= <ferreira@se-rg.io>, "Ettore Chimenti"
+ <ettore.chimenti@linaro.org>
+Cc: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Abel Vesa" <abelvesa@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Linux Arm Msm"
+ <linux-arm-msm@vger.kernel.org>, "Devicetree" <devicetree@vger.kernel.org>,
+ "Linux Kernel" <linux-kernel@vger.kernel.org>, "Georg Gottleuber"
+ <ggo@tuxedocomputers.com>, "Ettore Chimenti" <ek5.chimenti@gmail.com>,
+ "Jens Glathe" <jens.glathe@oldschoolsolutions.biz>, "Srinivas Kandagatla"
+ <srini@kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261025-medion-sprchrgd-14-backlight-v2-1-bf2979485ec2@se-rg.io> <DMEXOUF2X7O6.3W5B9URS8YOEF@linaro.org> <P4tSXlD--F-9@se-rg.io>
+In-Reply-To: <P4tSXlD--F-9@se-rg.io>
 
-On Tue, Oct 27, 2026 at 04:51:36PM +0100, Michal Simek wrote:
-> 
-> 
-> On 10/27/26 16:36, Han Gao via B4 Relay wrote:
-> > From: Han Gao <gaohan@iscas.ac.cn>
-> > 
-> > Mailbox and shared-memory SCMI transports do not require ARM execution.
-> > Allow RISC-V platforms to use the existing SCMI core and protocol drivers;
-> > architecture-specific transports retain their own dependencies.
-> > 
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > ---
-> >   drivers/firmware/arm_scmi/Kconfig | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/firmware/arm_scmi/Kconfig b/drivers/firmware/arm_scmi/Kconfig
-> > index 783c24a20e29..1cfe2b572d18 100644
-> > --- a/drivers/firmware/arm_scmi/Kconfig
-> > +++ b/drivers/firmware/arm_scmi/Kconfig
-> > @@ -3,7 +3,7 @@ menu "ARM System Control and Management Interface Protocol"
-> >   config ARM_SCMI_PROTOCOL
-> >   	tristate "ARM System Control and Management Interface (SCMI) Message Protocol"
-> > -	depends on ARM || ARM64 || COMPILE_TEST
-> > +	depends on ARM || ARM64 || RISCV || COMPILE_TEST
-> 
-> 
-> I would prefer to remove ARM || ARM64 dependencies completely that you don't
-> need to add RISCV there.
-> 
+Hi S=C3=A9rgio,
 
-Agreed. Before merging, we should trigger exploratory builds across multiple
-architectures. This will help us catch any hardware-specific dependencies,
-such as arch-exclusive IO accessors, that I might be overlooking right now.
+On Mon Oct 26, 2026 at 7:26 PM CET, S=C3=A9rgio Ferreira wrote:
+> Hi Ettore,
+>
+> thanks for testing.
+>
+> No, i can not reproduce the value inversion. A brightness of 1 equals ver=
+y dark while 4095 is maximum brightness. 0 is turning the screen off as exp=
+ected.
+>
+> Here is my edid:
+>
+> ```
+> edid-decode /sys/class/drm/card1-eDP-1/edid
+> edid-decode (hex):
+> ```
+[...]
 
--- 
-Regards,
-Sudeep
+I have the same EDID so the panel is the same. I guess my unit has a
+different circuit revision.=20
+
+>
+> I can confirm the PWM period value mapping is a bit off for the top-end v=
+alues, though I haven't noticed that in day-to-day use.
+
+I agree, not a big deal indeed, I see other laptops (e.g.
+x1p42100-lenovo-thinkbook-16.dts) using the same range.
+
+Tested-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+
+Thanks,
+Ettore
