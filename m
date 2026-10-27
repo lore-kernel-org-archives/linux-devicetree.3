@@ -1,118 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114761;
-	b=rF0WwqguSKoBeuD98EMu5td36VGWMt51BY76Tej97oNjH0Z/TdP3FC91QU53+N0VZzio
-	 Uno35TGIOwgQf4Wydi4JT23+77y/z38hXobNBaHlSYsGi58zSnRwWvAyAS3kCNaEtbwH5
-	 EmFlh6lXhq7fLTsF49PvJAwAP7sLg7vgPmYLavW1xn1ruoOns0ApcUOS8fBoyY412o6fq
-	 qr1EBsRzEAs+Bf0qvF7Vbu39UqxwHarjj70kdvJMGSwGuQ2r89uPEqa5T58sz+mABNd4F
-	 P9jzTmEqX15mKmgCIofdqQNMrLqh+MSxciTxAqXQ3Ul87FAgzrvDM/EJnivx5QFr9QQ==
+	t=1793114834;
+	b=4XpSeVDBlXZP9Rrt7OBaZzxsW5xNFQk3IhOuCuPjhcNmnGIWlJ1Cake5WIe9Rh/egwND
+	 80mDWWVMZlors5Yx5AHpqVkMiKCJpDZzmfjTGXFC9su5mQkVG1JglSqedltNAqWwNx8Xc
+	 QHf3iBF3qfsieqdMSdqHDgQkBDkII4C3Z/muFO88EDRpcPtUiH04rDoUHIx/kFld01w5w
+	 +bP2r7fIry0+gwt9eDFxeqEBC8D0yzEcws/z3avHZlPe0heZVkknu7xaazGINWstA7kfl
+	 8CZ40oJ6GQRIXVbiUqcXTQa4GrGdCUPU/a//vxfLafOBmDUXzdL0CWsvl1BJGpt/mCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114761;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3rkZRJrRIMFJtHN7Q3UeT/+V0Hg/1Tzp+aXrMpL9biQ=;
-	b=Gyq+29Pi/wNOauLDEt26/DLFBlDuyUB1pfmM6N6oQLelGOYliZQGrOh8XpzV9MUYOaCv
-	 7iwfLrEmyNaMqGoHU8+qsyWG8Omy5w0thq+NYXPB4bmhPVkPU/w8pAvCa0CPvqt4426Uk
-	 nB9vZfYA3dRSfWJ2dedDKiygLrgNYFdR6GiMOf4HN1UB7VfQaP8DS72sOPqfEzUuQ6LzK
-	 83xdRXS0C4WGFdkgJVk4U50O+yrMTZj7cpYCaxP2HGfgsS0T2FdvzBm4ScivW4qiUtCSZ
-	 olNMy2/T9ydUTBPLBAlC4njJwLTCyzEZQ0rZUjp3vxZwfyedo/MUC66HxmNmQN3OHAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114834;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=hcVetJ3j4Yw0L4vaeF4Sin3e+Kqt87+IIjhgJbDSvlc=;
+	b=rGVCl1GrMu6bWKisI4HLdJtQV2hDwPy6Vo2HuNz6mkdweqyVYnGvYADBVIuK+kcWUnOn
+	 v8RDil70SKcY+RcZvx7rvDT6S/HJOSM1FKF9I84l4Xp3wc/tPFNsJXlSSySDd1CPrwm86
+	 1xS9WU0L9iV42PR8T4cKEIYkz83ZDS/XC7MhFTnfcEYY4SXQxO6/97xVF6BhU6QfAmKYL
+	 BSxgIqvX5hG3xUxqGEh4muhvOJSeql09IhhsQutyGJyav9Gz2HkhHh64VLr4Jnx5tIs4m
+	 GYSZ9TY54W77zUTYcp5TLRAGwukR23QSyC7X09NX/PgO92nDnP9A81C8ghiPzgwIEVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IAaIK2LQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fkp4aW73;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FmxUwmAs;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60804606A31B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60804606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F52606A327
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0F52606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IAaIK2LQ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fkp4aW73
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL0o62054892
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:26:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3rkZRJrRIMFJtHN7Q3UeT/+V
-	0Hg/1Tzp+aXrMpL9biQ=; b=IAaIK2LQuupkR0d59j2dTJm+872fnmF8tN5tK2Xr
-	BfG2WDrLVt7h1AjTVsw1xQVvprY9JX1RxBF3ElYN468tPBgRK6zcxYQtFj5lgMl8
-	3dUrOhOiTkDdlkQpmwQh/b5iS0cxC04dBp+MBy58ne3n4e3P6IowIa0KYdh6A8oc
-	d7zvM3+ZDM7ogysqSNgiTc3CLjQ2gat742hsLgCBVZHzZnFJmcgcCiZvTX8BbRg/
-	WEj1P+vtl/uUWzjxmSK15CujJS0IOXjMkmxdT8C2zHmyTrCv++PfL9nM2jXFoguG
-	fdvbAekl7osBdnbF5Y/0x5OvwUVCpV97D+1zIBxMN4puXw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmcbwe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:26:00 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb71b1443so947847285a.2
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793114759; x=1793719559; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3rkZRJrRIMFJtHN7Q3UeT/+V0Hg/1Tzp+aXrMpL9biQ=;
-        b=Fkp4aW73Ic93TMynKTPrKZOWzU7Ez5GK/sQazFdXjao7jUGQR40JtbfiyZKrrh2Q1u
-         rlnTVyIb8zHJFPCbOZguIaXGBaZKoY6Mhy3UuAzKC02LZAj73/fGIQnskVvPkcpQI4Ot
-         hvi+hBK9QsPODoIBEwXK75rBjCpKvKPww69mJ0j+VgoDiToSYUEg5pybZgsmKg3+nT6E
-         boWfP63Yf6Ow2GGnpI9k8fbkRxWU4UuElMDVK43M8XdoxUHbZndvZJvgw/fuiPyAxfqP
-         1wj7JenIjl814XkGx+FS/RiPNDOq92R9/wZJphVOecoejXrtS2QMSQn6X4Sb3/XUPxKz
-         /xVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114759; x=1793719559;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3rkZRJrRIMFJtHN7Q3UeT/+V0Hg/1Tzp+aXrMpL9biQ=;
-        b=1JYEq1xtZjJm8QUopPMa9Tm9ISHCK6ulx3OFh6oQjO5rw+MKpzBdTNBQ3hERCppKNN
-         xTfbGD8p9HI3AORQFBVvRH/wkDUTqSmuO9cDrjzta/QlIHR4BoDBdzB2BUJsgD9Hb66K
-         1V51P+/x4kwYCd9/pFSWYmbRgwGUC6vLveOMrnP7yB7agDVxUFhoiovKjot3zD8fUsAM
-         uWpa8HGZZJD9KTGKVPqrAsE82vvUrUbeRbhe0YpiCueqtmDCNSCw16263KLFjE/YXHYJ
-         G+qJYnG5xkcu97G/HFyXctf1nZVg3ouITtlRBTtIZX/6XKhhWX+04jh8K22qBonS5wLq
-         38Sw==
-X-Forwarded-Encrypted: i=1; AKwUvByisbKJG+l0NGkMRPBgSUK3W4yGKvuw4pjqCMECeh7I/NvLSX8Nv8hGYfStefu+XTivSiUzeG+v1qT+@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM8LPKP1IUwOKLC/iEXUWch8EWE79sYVzoAF9lswHwKoWT7js1
-	LWZ1MqZP/0VkU7gBdnTtN4AKNkSYfUBoczz4nzhofmVcnO/Uor+OwPo+2GFaSNmIUFvL7/w1CnF
-	2LBZBd38yCe1QV8mT5oTkzs9BshwD4XgLJcPct/cPN5J3/G0Podg5bMd5RlRMg7Ji
-X-Gm-Gg: AYBFou0AyEbCUpBxkqUF3hwZ4V31JMHCTKsenKhUbbykqTpFrBR0mffmlThkQinTdGw
-	+TCiLJkv9w/0H/bwQ8M/Gij8180LFude7YFvXxzi7kMI54tyiQT8Q7vOWeLU78l/McPKkAB5JqC
-	LRix8/041fxZas7KHqz7Axcgbz//UUdbHN99BsEpIM6DkJm8t1wLdWF9lFornDdtU1xkjHY0XuO
-	P58ZFt/AEYA/+ABlm9El2RVdR/50vjt7+PTjM1K+UR31Q/zeqowQnCLki+NF1NJGIgShiNlB55d
-	clYEW+tk4bbwLjci3gc8ESvTF2Zs5QynUZ0Pn8gxeEYjDKfZ/ZqNfazqQsHjK8wi/ZqlqCUJLzp
-	LrGmV4VQBexhO+Rth
-X-Received: by 2002:a05:620a:29c8:b0:93a:17c8:a1e7 with SMTP id af79cd13be357-940ef8f0f5bmr1573173185a.44.1793114759005;
-        Tue, 27 Oct 2026 08:25:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:29c8:b0:93a:17c8:a1e7 with SMTP id af79cd13be357-940ef8f0f5bmr1573167785a.44.1793114758351;
-        Tue, 27 Oct 2026 08:25:58 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2ed5a2sm288934095e9.15.2026.10.27.08.25.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:25:57 -0700 (PDT)
-Date: Tue, 27 Oct 2026 17:25:56 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mani@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: glymur-crd: Move the PCIe slot
- supplies to the Port nodes
-Message-ID: <w5wuuxf7pkjp3lvlmxh2mek7k427pod2ldirs4fwcsivigngtk@aorbeshgymwg>
-References: <20261027122410.62219-1-manivannan.sadhasivam@oss.qualcomm.com>
- <20261027122410.62219-2-manivannan.sadhasivam@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FmxUwmAs
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id LhidxxkLFv0ndLj4zxL6EQ; Tue, 27 Oct 2026 15:27:13 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Lj4xx9JjPoYFCLj4yxWVpe; Tue, 27 Oct 2026 15:27:12 +0000
+X-Authority-Analysis: v=2.4 cv=b4Cy4sGx c=1 sm=1 tr=0 ts=6ae0c2d0
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=xkLUNt4dAAAA:8
+ a=zk4-lHRcAAAA:8 a=X3a0BiUdAAAA:8 a=_jlGtV7tAAAA:8 a=OpKgjLFNguK3uynLL7kA:9
+ a=CjuIK1q_8ugA:10 a=A2EApc-QTtVVSfvlwUcc:22 a=7cv85riZL9-k45RWW8P6:22
+ a=aWu3muFgq6otJbhCXpL5:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=hcVetJ3j4Yw0L4vaeF4Sin3e+Kqt87+IIjhgJbDSvlc=; b=FmxUwmAs7mF4dF4b3MQBl8bdVb
+	tiCn1dYzKJ0/5zMuy3Dkl5KtJ1CdWrSMhaagLq87Gx1uPeduOFJAZZReNPm7krFrp0E60KhUlLIDc
+	70bByHiXUwq6iK+SuZfP+qFgtQERObuDjcXRMpBCSrAB+a4BQNBCvwyL7kA0dqv78KyQ6qQWLmyRA
+	Hq42mLTB+P7mkwhAHTZEbxhOIJ8RQ+dr6VZLeMOToBzgTx990t+r2R8igmo3YeZYI720aXTIoEzEs
+	LnG2PVoLpX07aKgbwkJl8Q9l2uD8LdzNHoRsOylbfZGPe9Q4HIZozVgI9EWjY8N/Ouib2/Lj2x8ET
+	IhcPGRCw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41180 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLj4v-00000000Fjr-01VO;
+	Tue, 27 Oct 2026 20:57:09 +0530
+Date: Tue, 27 Oct 2026 08:27:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Primoz Fiser <primoz.fiser@norik.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, linux-watchdog@vger.kernel.org,
+	upstream@lists.phytec.de, andrej.picej@norik.com
+Subject: Re: [PATCH v2 3/4] watchdog: da9062: Add support for dlg,wdt-sd
+ property
+Message-ID: <2365680e-3319-4ee1-90f4-33041e8f701b@roeck-us.net>
+References: <20260924065044.368341-1-primoz.fiser@norik.com>
+ <20260924065044.368341-4-primoz.fiser@norik.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -124,39 +97,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027122410.62219-2-manivannan.sadhasivam@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX8MHAgs/kGvOc
- CohJND0BOsree0kammYeVEx/HhcbVX7RmjN2TF0I865xK3s06gH4BkzYC9midygJIfXM/hTINgc
- ac8aMKp7eHDEpMmiYmat2iHYEcK5DqI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX5L4Os/y2qcRl
- sJyQC2D2gyi6Te/LF1fiqeLWZKrLwilaPCzZe5O2OaEGo/aaIRAN2FsEwc4oywYxdwuda2Lt01I
- 9SwCA+giloG/iCJir0WZTW04KFAuWUjsXNOEZCjuFotefNiHopLOLaeynoEq1PrSSEkIvfVB9P+
- R8uzljTW9HnkDLaP2CA5IV6tDVbCeU2qgvlJ17w3kkw2XRgsUDAnCAq1GwSLHG8WIMmcISdkQVF
- y1vf5U5ihd5QOxgR8DMl+cH6Tl1LLld6TJDw4uoySIb8P6Ccxl6lANccTze4uFRZBETNqsIxgUd
- h7DWaVE7TKs4W8dOYw4K6WJsEZN0SnbH/gEMZKly53jTLCuuIteflmKNoiZhivpzJbIRITEDr5L
- t047APTWFk0AbO2b9v7+FfbBtvPnoB+jlc7umL4FwrJpT02pUJ61/OFtCTxGfqIFhiTJg5X+jL9
- TyVWsDiem5aqTmmF8tQ==
-X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae0c288 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Ibfqn94CS5QR_ObWptoA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: S5K0l_Iy7DIP8rAtCCFGocW5ciePYaDE
-X-Proofpoint-GUID: S5K0l_Iy7DIP8rAtCCFGocW5ciePYaDE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270061
+In-Reply-To: <20260924065044.368341-4-primoz.fiser@norik.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLj4v-00000000Fjr-01VO
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:41180
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 27
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEkkVS9OfH1zWDJt6QOuSjWVJTtM60zpg8pDbIncueAX3Cy+wux4W2UCtHkuPMdwCzW0CKrc9FrPkfHn0dgGB59Z2Wu3r8LNA+GhEVpfL/HJMVE/Yaqr
+ OVn+um1jieOEwY00FfLpQnruk6sH5YnqQy4NiADlw1TsbiH8RvYmOYr5k0WCAfDyLFVdnwnhzfBSKxJrUKOcMObfe3PbrxEOnRbQGrB0tPwdU0N6fs4m7bKL
 
-On 26-10-27 13:24:10, Manivannan Sadhasivam wrote:
-> Since all controller nodes have Root Port nodes, move the slot supplies to
-> the port nodes where they should belong to.
+On Thu, Sep 24, 2026 at 08:50:43AM +0200, Primoz Fiser wrote:
+> From: Andrej Picej <andrej.picej@norik.com>
 > 
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Implement a method to change watchdog timeout configuration based on the
+> "dlg,wdt-sd" devicetree property. Setting the WATCHDOG_SD bit enables
+> SHUTDOWN mode, and clearing it enables POWERDOWN mode on watchdog
+> timeout.
+> 
+> If no devicetree property is specified, the WATCHDOG_SD bit stays in the
+> default configuration, not breaking behaviour of devices which might
+> depend on default fuse configuration.
+> 
+> Signed-off-by: Andrej Picej <andrej.picej@norik.com>
+> Tested-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+> Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+> Acked-by: Guenter Roeck <linux@roeck-us.net>
+> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Applied.
+
+Note that this depends on the mfd patches making CONFIG_I writeable. Those
+patches have been accepted but are (as of this writing) not yet upstream.
+Assumption is that both this and the CONFIG_I patches will be applied
+with the 7.5 merge window.
+
+Thanks,
+Guenter
