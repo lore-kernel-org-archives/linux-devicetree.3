@@ -1,99 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117614;
-	b=Tt0dNdl/kH3TLml1FJ3epOV3y8sZ1FcMdPyVf0ZwvyyuniHi3Ht/U7aWfRzEM8KhpUaA
-	 95YVkCOoAtuSxYcpAEegVi3rS344JGf+SRlB4vGoVSyJesw0arWB+PTpx2O77FwTTHsFT
-	 6tiuWqH993bfX/DlGNDANmpG33JQTSqe0lceLLybhexVYdh3Q0ufjzp5IhnWjtACmtkR0
-	 8TzT00x+IWYBkcJIJVJ0gNnUsqx8djqJvg7zzrwzRqo/mFqB6Z9kdUS8ipAt778wKnCTq
-	 tLQPqEtacrOm5nAjAceLFxB2zNZ+fos8Tb9inLZ0YxLt6hC+dZREXmEF+bxT1RZno1w==
+	t=1793117894;
+	b=UV3WCiU6w/rWrqqV1KaDswccwcnr5VcUlLDEuyYO7sd8QpGxIbMVOHbMLoRTK0ZQFx0Y
+	 QCoyJH6gNeFMtijJu/uACJcw5UKnlM1cPp2/sGardA6538+FRn9T2U2sKEcFKVkiZXCvO
+	 XQMgOxwz2M0K6HA1mSLshxJ0Z2sMbmk3jd+R9C2mWmhUxJ+OiW2hFy+M9ZUik/hy38v8b
+	 SUPJ33EDIJqMZn6dGry5R/SfInWVJm2v673jo2K78olpWMBmu9IERVXibrTLuAmU3+7vC
+	 tRlosYL8f9JlIYdg3NpAyKyu+aOrITervvBpc6yRquDNEzoQIC4hU2E2xHF3S/1BPZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117614;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=5G3ZmT86d3fe1rJiM6b5mr2ay0ue+O83AEJqLc41Pes=;
-	b=brErd7lRUV6Egd+snAMiSJ0Fv/byn/uGT1bOrgeCstj2n+4yxC2Gm6LkC89u1DSRZdAU
-	 HI0o0dQ10sIP/hEGmtajHAh4nNOZYplte5ZwvcjsPc9HmALqZVmOHv9c13sT98vfFppob
-	 LD5korxUVyEvSNxUCbssUDmhMxmWm2GTzS8wkEisdGP/GlleWqTbshlW4aNq3EL0cHi/n
-	 f0BrMXp4nmxLe6hW+kh8gZARcfAtCGkeAR4wefY6fey8ZzuqUZ6zFX22zk4bmD0QG7L5a
-	 4CDdNCu454GtWomtKecKe6Sjj/zPOHLeoLCj0VtTmJEUv0lgvwRCVKfWXq5yC+y0U6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117894;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
+	b=MEqwQsWqgTxDW/DP1o7vsFe3KykYE4hkr++BQFtxO10+RcV1Vs14hQ4OZvHc7PzWJTHU
+	 xw8NdI0TjWlxbQktoBumXNKAI4bgH+FpeZajmFnn+9foZjHQH06b4VhMnGds2J/w8u2UQ
+	 0BbGUxxPOf+5PQ3KeLTmaYsLwwwGw33iLC5hIjiRcFEmFt9c9kZRczzdHl1MGJk06CB6q
+	 8pppsUV7vHFu06zx9ND58zNwn5l4Sdxe7qDdeh7LQouQnpfcHc04nrqNYwWvS1VWr1YiL
+	 JKyMLM4KTqTVNhWuk8GNq5D4uWkAEdQfjWf5+gmW45fYeL2aTqrl8WIWn8kJ2IlcXXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0bRG5pWu;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eaw/6xZS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889B5606A31B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 16:13:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 889B5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B030D606A31B;
+	Tue, 27 Oct 2026 16:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0bRG5pWu
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id LjV8xyH0iv0ndLjnqxLaVa; Tue, 27 Oct 2026 16:13:34 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LjnpxSDeRnXJHLjnqxJhaU; Tue, 27 Oct 2026 16:13:34 +0000
-X-Authority-Analysis: v=2.4 cv=JMM7s9Kb c=1 sm=1 tr=0 ts=6ae0cdae
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=lMUDpl8nYqh3M6R7ydkA:9 a=CjuIK1q_8ugA:10 a=LP3-5Lh9zdkA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=5G3ZmT86d3fe1rJiM6b5mr2ay0ue+O83AEJqLc41Pes=; b=0bRG5pWuLiZXHXqJQvNggCWlNQ
-	GbtulZEHDb8sReMmPpD9jeLOPqZQkvsmUB1QF/eaKJBgihsBywZ3ulNPnxshEjknN4c31xvSydrof
-	G8UKnkf5xfgnI69nY3a4sNA9bFAtUL8L0JA58uLhKUpMYHBBJ0OrdJplBMt99zyuCp21tdFaUrvXc
-	Rj/BTRRnkXIIxr7cfp1yIvTqmh6CwL7GsO4UOrGrFPKoB3lE61ZgXnJN1tKcwjo/RzpYUatrMH8pN
-	s0ztAID6NGI3HShJw5b84D//CWybXdMw56O+bg8PoNsDOWiW4Y6p1JVP8bF+MAB+WQBG2bEK7fw3K
-	OgN2UsKg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37196 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLjnm-00000000huz-1JIR;
-	Tue, 27 Oct 2026 21:43:30 +0530
-Date: Tue, 27 Oct 2026 09:13:29 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Gary Guo <gary@garyguo.net>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaw/6xZS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17FA41F01825;
+	Tue, 27 Oct 2026 16:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793117893;
+	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eaw/6xZSvd/iUmSOi8x3BJdGmmK2e2Au+98Gmi/jqPb/fsxjYFyg2asyyhJnch6aW
+	 wiiYi0eITIbZDq54HaW38SGswS0qGyltyrmNEvvLUgZrcg3MfWR9qehG4imuCVOpGL
+	 JLBJMFg4bFYLFuqGqIHPNPdaHWv4b1hxzIOgmIltqxGKohsv70X69oBDXW+gIkAM9P
+	 6ksq060/PG/zOz5Emn8kneLWdVFzz4b9Fry3mL204ZqJhnBuP6P3beekO0yFayQ3hq
+	 GdLB0wZ1l9tZcPdFY3Dx++WAI2wf8fFk1D10texSvMGm5UdAm082/dyBMfy0jfVO2w
+	 miwbGbIVbN6NA==
+Date: Tue, 27 Oct 2026 16:18:04 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: gaohan@iscas.ac.cn, Cristian Marussi <cristian.marussi@arm.com>,
 	Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Gregor Herburger <gregor.herburger@linutronix.de>,
-	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-Message-ID: <b02b4f0b-ad2c-453a-b69c-a0865a333d62@roeck-us.net>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
- <auBzvB8TsvIK8Hik@apocalypse>
- <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
- <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 01/18] firmware: arm_scmi: Allow SCMI transports on
+ RISC-V
+Message-ID: <20261027-quaint-demonic-poodle-6c1e10@sudeepholla>
+References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+ <20261027-a210-scmi-v1-1-74d58ce85bd8@iscas.ac.cn>
+ <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,89 +88,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLjnm-00000000huz-1JIR
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:37196
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 31
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNZcvPwA/5JpN6XTLsvGilIZPkBzagOaTvHORVn895ZhCchheC47W3V1rapbsyPpFy4pGEDvVcgV9CIk53X9P+8yNfVBQMqR6BgpcS508BPKoXIrTttH
- sCGmdoN9SIUpelFnZX43njt1rBFMo2ST4Wt189+UcgjgBrQk5yf0inePS7T/swFrZ7XZ4WV8JczZfu8yniZSieJpUzfKlllpMDJPM1YPLfhLd2/MXrb+LncC
+In-Reply-To: <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
 
-On Tue, Oct 27, 2026 at 10:51:15PM +0800, Gary Guo wrote:
-> On Tue Oct 27, 2026 at 9:48 PM CST, Guenter Roeck wrote:
-> > On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
-> >> Hi Guenter,
-> >> 
-> >> Yes, I also proposed that in the cover letter because auxbus seems also a viable
-> >> solution.
-> >> 
-> >> The current implementation is a consequence to the discussion about the companion
-> >> PWM driver, from here (and the revisions that followed):
-> >> 
-> >> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
-> >> 
-> >> To give a short and hopefully coherent view of the decisions, here's a breakdown:
-> >> 
-> >> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
-> >> 
-> >> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
-> >>   dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
-> >>   I moved from readl/writel to regmap + syscon.
-> >> 
-> >> - V8: Gary proposed to export a function to read the fan RPM as a viable
-> >>   solution. As a result, the regmap/syscon was dropped as it was no longer needed
-> >>   and the function has been exported from the PWM driver
-> >> 
-> >> - new patchset for fan driver: the now independent hwmon moodle just call the
-> >>   exported function from thw PWM driver.
-> >> 
-> >> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
-> >> all aligned, as this would also require refactoring the PWM driver.
-> >> 
-> >
-> > Let's say it that way: If you don't want to implement the auxiliary driver,
-> > and you insist using the exported function, I would prefer for you to go back
-> > to the first solution. The one thing I really dislike is conceptually broken
-> > code, and I consider the current approach broken. Your call, but the one thing
-> > I won't accept is the code with the exported function.
+On Tue, Oct 27, 2026 at 04:51:36PM +0100, Michal Simek wrote:
 > 
-> I agree on the auxiliary driver part. However, I don't think EXPORT_SYMBOL_NS is
-> an issue, and regmap is not the right fit here:
 > 
-> - Previous version of the PWM1 patch series publish regmap using
->   of_syscon_register_regmap, but this cannot be undone -- which needs to happen
->   on PWM device unbind (the RP1 PWM device is itself platform device, but RP1
->   chip itself is PCIe device which must be removable).
+> On 10/27/26 16:36, Han Gao via B4 Relay wrote:
+> > From: Han Gao <gaohan@iscas.ac.cn>
+> > 
+> > Mailbox and shared-memory SCMI transports do not require ARM execution.
+> > Allow RISC-V platforms to use the existing SCMI core and protocol drivers;
+> > architecture-specific transports retain their own dependencies.
+> > 
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > ---
+> >   drivers/firmware/arm_scmi/Kconfig | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/firmware/arm_scmi/Kconfig b/drivers/firmware/arm_scmi/Kconfig
+> > index 783c24a20e29..1cfe2b572d18 100644
+> > --- a/drivers/firmware/arm_scmi/Kconfig
+> > +++ b/drivers/firmware/arm_scmi/Kconfig
+> > @@ -3,7 +3,7 @@ menu "ARM System Control and Management Interface Protocol"
+> >   config ARM_SCMI_PROTOCOL
+> >   	tristate "ARM System Control and Management Interface (SCMI) Message Protocol"
+> > -	depends on ARM || ARM64 || COMPILE_TEST
+> > +	depends on ARM || ARM64 || RISCV || COMPILE_TEST
 > 
-> - The tachometer register is not its own separate register, but rather (re)using
->   the phase control register. The phase control is not implemented in the RP1
->   PWM driver on the list yet, so this is currently a simple register read -- I
->   can see that RP1 PWM driver need to take special care to about the tachometer
->   reading if the phase control is implemented.
 > 
->   For the two reasons above, I think the way that tachometer is read should
->   really be an implementation detail of the PWM driver and not for the hwmon
->   driver to worry about, so I suggested using EXPORT_SYMBOL_NS.
-> 
-> - EXPORT_SYMBOL_NS is the documented way for exposing functionality from parent
->   device to auxiliary drivers: https://docs.kernel.org/driver-api/auxiliary_bus.html
+> I would prefer to remove ARM || ARM64 dependencies completely that you don't
+> need to add RISCV there.
 > 
 
-Let's agree to disagree, and keep the code in the pwm subsystem.
+Agreed. Before merging, we should trigger exploratory builds across multiple
+architectures. This will help us catch any hardware-specific dependencies,
+such as arch-exclusive IO accessors, that I might be overlooking right now.
 
-Thanks,
-Guenter
+-- 
+Regards,
+Sudeep
