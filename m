@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793081773;
-	b=NAcx4tyTbg/WS9yE1p7sg9TzK8mhKuYyEYjZehwxYTc9nQK5P5a7mkycr4c+C6w91Pay
-	 16d/9tlvc+g1fswZDnZCsOixU48VSNjEQPH8dQv0a98lJ4iGucewpFFBrvNIXaH9psD3w
-	 6h4aExALSx54zfUdsDwtWKQ4ZMvF/ZPgNPGQlQ2zXMvNxdqhdELOUoBWYySx4HqxSVtxc
-	 S41E3KahSRjgninNQlgeV59MJEf3Zpb3LTx06uXzBNXycDkYaz3Myshu33DXKAFCVjBK2
-	 UVpw7W6ARfEn3Xn70s8+Ky/lniincxBxyWvUJ2BrggLQr3+wKr7QOSZupJhwCua7r5w==
+	t=1793082139;
+	b=MpgP0BhBsfetD6eNipXskHoqrnX3yhraPB8ouNcxM2pDeBFLkvkkndF1XAKVRq6SSZCM
+	 niPJzeaYGVYcJ5YgsXbtApbHTQ2OCv11YgzDy4DfDK0y0JVSKDBjp7JcfWRxbtVTnPtYL
+	 wA9wPPDaE54MI2xELPI3ElgXViJ15upPpczj4QbxrHp5qpJ+29CnDAzPd7V/pV9Gi5+GA
+	 udNxsvYZ85WPJsd21S22hLe8r5wfgT28DVGns9juiDJcrTlE8xlVEJ4lO6bDgxAHxKodG
+	 cfTzf8rgO+BkJc3n8pME0n3H/mIHl97tHIKXMyLo4Y+6xC8iDe2yN3gZOWufNtR9Lug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081773;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uvoFAdGfaZ4vmb8FThF11NeU4sr1Yi3mbqW/0R0Xc/4=;
-	b=tdo4Fn9dN8CSQe5tfs80oH2inW1e0XgHHk9Vyw0+ghQCuVgqy7DjOIbv2DUXkVXfrHWB
-	 /v1EIFg/PpoIGz8XFllJPkLXfwTrlSxHH876Gb8NXQX4iLaQKE7frclUh946a9X93UmA6
-	 7EeOzc7UWBu6NETswaf+SGbGaE7nscKKXMY91GqJ8yBiFpbqQ8h5T6Ndr7g2dCXq7QFVT
-	 Apfl4fpFvb6jgFJF4+8mXp8n28YV9RHoc6kZOErdSFkgTQg3hGUpw+Th70vGh0ozAvKr/
-	 gslTe7HY3hySn6jo4pF7g6mT9WnweBmDRa9XPItbBWTxkZzRvambag4iuUo2Ddyn4Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082139;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3DEgTjuDhhuEXL4TE31CFFCK17KZAnBoVPM6KBDmacw=;
+	b=G8NbVeiRd8p5hJYj2/eHuq28gq7lY3L3HpRyhHocOPY3xcpEJ8j+AekWwzcWHqwO9/NA
+	 H3Czvk+UaTomHjhre121pf3r5dkszVfmD1nX5q2ELWvqE6mcr2tshqUxpk1AiRFFxeRgb
+	 v92anDlgOSnN3jjw7uEZJLV4p8iPHQxpn/HsycaEVZxmOP1FEYhRjA0XfZIZXd53/CV37
+	 m89574XP4Rr9ow/j/KgX3AWujqIGBvOuUFoxaqxj9jQYTZDQI0c9vOndGRJLvj13pWIpM
+	 GgxYXKJFI0Q053XGxMzijDwRAbqG9MmAms3iJkg2R4yCUiVLW05xsc+fK3/cN2HMTBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNl64iyI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fo7AZp6f;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIG68irW;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA07606A31A;
-	Tue, 27 Oct 2026 06:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7034B606A31D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:22:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7034B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNl64iyI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1361F01825;
-	Tue, 27 Oct 2026 06:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793081772;
-	bh=uvoFAdGfaZ4vmb8FThF11NeU4sr1Yi3mbqW/0R0Xc/4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gNl64iyIyZ4W8GCcXum/V4JdJxjcGeaRNkWl7qKsaRp/BFaacPW33xuthTBsNIuYC
-	 NrhSYSSjYD4iOKkYysX4kfSyrQ+AbHDwYohMoK7vccm6mARdHkB9C5XM3pGSUpHSG2
-	 1CJpfcUzrsMbsSYE/53UAbKFFvbAITf3JlYdlo5xeFLH/N8hlVWz0eH/l/JgzvLVta
-	 T3/rBMXkprZ4qwOSnFmQzVABINNXqc4NIgitAENXIUbOnH7E3/DtQkzQ0Zu5t3Cf0K
-	 0tNREa0hYCgFMyXZE+oqEpjtP832mky/A7AbpGVTAZE0qtTRvEPUQ0XZWq9h0V+NKI
-	 miHlkUNqsHI8g==
-Message-ID: <66361595-cbda-413f-9559-9fae22001bbd@kernel.org>
-Date: Tue, 27 Oct 2026 07:16:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fo7AZp6f;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIG68irW
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5Z12p2349933
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:22:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3DEgTjuDhhuEXL4TE31CFFCK17KZAnBoVPM6KBDmacw=; b=fo7AZp6f3MxcfLqm
+	cmr8GEfUPncYo4l+FTY1si0CTrFwIxCyAIujaHf5lhwiBJvJ81GX5rKkSLxVliOb
+	c9DREBO2BLC7X15GM8aXZ0iGQ/m9VqEC+Tg7AxNdJXmewMFmvzKj0b9w66KI8Elp
+	ou86K86hBNNMTnrVDd/NoMbAUrn6Rwi0h/A5+ez7xAi8IcqldGnQ/WeF5RzPXTyr
+	uZTS0het8nc6cOgIonhhEJ4QxMx7U1Gx7KHb43mWKPqYGSizskB3b0qUVH0fwAW6
+	u9VAFchs28V6oHADq9cdZZjq0Pp49xohXNa58S1AZXGJBvvQ6LUDRfDuZRviF2L9
+	4C0ozg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh91926e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 06:22:18 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e869e00005so61798445ad.2
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 23:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793082138; x=1793686938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3DEgTjuDhhuEXL4TE31CFFCK17KZAnBoVPM6KBDmacw=;
+        b=OIG68irWumdoQjVhk0a2wDNij88TpZiTY4EI/MU9tLqDvuS0I6/q43D7OXY4aUXCth
+         GdZhwoWyARcBXIEodIdcEXuxbxgDTAjLYGBsGjp7BlfbjSYG6Au9PHa/blZXvz6MIhsH
+         ViOOMJvQw5cM9CbPFyAtzSYOOw5bfBjDUiMvczu+WFguRIlkLdr7xAj1cxCCCv1Hq8WQ
+         MrjlbKwi8ZUHo8anZqd7LuUSdr8YNALXZ2R2Ajn5vFlOx4iQ4jTqlTaYy8EnWYHivTd0
+         jpjkrOOivGNyx3W2qDBTVUPieIpR0NChp/ZihVpC2MGAwHzvRaQQ8X59mpxRAUmyB7ug
+         hkcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793082138; x=1793686938;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3DEgTjuDhhuEXL4TE31CFFCK17KZAnBoVPM6KBDmacw=;
+        b=rO8Ys7lvAoloiPYWumA52f8G4B0QogKJa0NeqBRPqDhrMManjgJcyLvh+K5JuQMSo7
+         NqK4Ecvlp22fGwogZlu6/EB8lsSP95oWzQbYCoh3gPEtBDIMbu4VUIg/Obpg7qwIoK5M
+         H5+DUU5CpmGO58xHbNnAxgpDV78c5r3RCAOB+Pg8tzr5ChmrlK0J7auebDyhyONzBwmW
+         WCWgqtIx3eP+iTce49Pj4xYzquUd67yEQ6WgjigHI9jDledvIJdMx5d+UVuIUsDLPpGF
+         anipRMEYEFxobEoPKuv+LUEgrG69arNDMPbV5uVpnqreSywHEMwneauuXUId/BwNvIOW
+         tdGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ybkAPdiY4u2xtfc+X7jH66H+PwUV950rV2RteQf8fg2LwLuwsj/GSpfOhzxDNbP7MHouJHEFByIA@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYFZRQv0IXhF3kOUf9lb/9rvgqAhbIk/3JEyrYpORu5vF9jxyj
+	yUtqXV/aVlMBXRQVa65Qm2HGUsEeshCWWMcQGlftxZoRr8UgsNKNNazIsKn1Jxl4kJEXefoM8Aw
+	V45s67m29cS9D612beEr1N9NkPUB10/U/WJhuIZXY3rE6V5XDCMVtNi9Gx4z9Axsj
+X-Gm-Gg: AYBFou1RTgQ+b1EKva4Eb+udhtJxR1+3Miz/pNQ7vHzHmpkI6FRIgQFyGtxOvBPAzMM
+	TeuH797D2CK1BbGpD4xbUmz+GOKT6axMKAJnBZ3V1ziUawDCNSKfJeHgiMBf//BajodxEX4bYy8
+	2CqGAQLBuf2j3fpDHnqPt1g+QE9u6zWzt+siSqt2b4UpVJwCDh/9pE/NSt7YcwMvCV4R14/Ci43
+	qV0vdejCv9kDQMHrOh9lHXNlTVH9QC2xjg4HoATp3xmE/4XXeOoZtz21aQjFIY23h4wqTn1sRcA
+	pZYGRVWPrfadQGmBMDmb4iQ2UqPGXKXgpJqu93yqPUL0xtejp/y2co+YpIHy+uFNNhOQHwOcTGM
+	JXDPCyxzv//2nZVxoiwDs9Hj1jIj1xsfs
+X-Received: by 2002:a17:902:f68d:b0:2e9:a090:dd80 with SMTP id d9443c01a7336-2ea9c69710dmr72075655ad.22.1793082137699;
+        Mon, 26 Oct 2026 23:22:17 -0700 (PDT)
+X-Received: by 2002:a17:902:f68d:b0:2e9:a090:dd80 with SMTP id d9443c01a7336-2ea9c69710dmr72075355ad.22.1793082137217;
+        Mon, 26 Oct 2026 23:22:17 -0700 (PDT)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b768ffsm4003565ad.24.2026.10.26.23.22.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 23:22:16 -0700 (PDT)
+Message-ID: <92dc14f4-edf3-4112-88d3-1b93aac677a8@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 11:52:11 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,154 +116,102 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] serial: 8250_dw: configure the Allwinner H616 UART
-To: James Hilliard <james.hilliard1@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: dma: qcom,bam-dma: Allow memory-region
+ property
+To: Rob Herring <robh@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com>
+ <20261022140139.GA952798-robh@kernel.org>
+ <adffece9-165b-4576-b111-6aa40a443734@oss.qualcomm.com>
+ <20261026130559.GB3598537-robh@kernel.org>
 Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
- rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
- rSD5CwQl19fm4AJCS6A9GJtOoiLpWn2/IbogPc71jQVrupZYYx51rAaHZ0D2KYK/uhfc6neJ
- i0WqPlbtIlIrpvWxckucNu6ZwXjFY0f3qIRg3Vqh5QxPkojGsq9tXVFVLEkSVz6FoqCHrUTx
- wr+aw6qqQVgvT/McQtsI0S66uIkQjzPUrgAEtWUv76rM4ekqL9stHyvTGw0Fjsualwb0Gwdx
- ReTZzMgheAyoy/umIOKrSEpWouVoBt5FFSZUyjuDdlPPYyPav+hpI6ggmCTld3u2hyiHji2H
- cDpcLM2LMhlHBipu80s9anNeZhCANDhbC5E+NZmuwgzHBcan8WC7xsPXPaiZSIm7TKaVoOcL
- 9tE5aN3jQmIlrT7ZUX52Ff/hSdx/JKDP3YMNtt4B0cH6ejIjtqTd+Ge8sSttsnNM0CQUkXps
- w98jwz+Lxw/bKMr3NSnnFpUZaxwji3BC9vYyxKMAwNelBCHEgS/OAa3EJoTfuYOK6wT6nadm
- YqYjwYbZE5V/SwzMbpWu7Jwlvuwyfo5mh7w5iMfnZE+vHFwp/wARAQABzSFKaXJpIFNsYWJ5
- IDxqaXJpc2xhYnlAa2VybmVsLm9yZz7CwXcEEwEIACEFAlW3RUwCGwMFCwkIBwIGFQgJCgsC
- BBYCAwECHgECF4AACgkQvSWxBAa0cEnVTg//TQpdIAr8Tn0VAeUjdVIH9XCFw+cPSU+zMSCH
- eCZoA/N6gitEcnvHoFVVM7b3hK2HgoFUNbmYC0RdcSc80pOF5gCnACSP9XWHGWzeKCARRcQR
- 4s5YD8I4VV5hqXcKo2DFAtIOVbHDW+0okOzcecdasCakUTr7s2fXz97uuoc2gIBB7bmHUGAH
- XQXHvdnCLjDjR+eJN+zrtbqZKYSfj89s/ZHn5Slug6w8qOPT1sVNGG+eWPlc5s7XYhT9z66E
- l5C0rG35JE4PhC+tl7BaE5IwjJlBMHf/cMJxNHAYoQ1hWQCKOfMDQ6bsEr++kGUCbHkrEFwD
- UVA72iLnnnlZCMevwE4hc0zVhseWhPc/KMYObU1sDGqaCesRLkE3tiE7X2cikmj/qH0CoMWe
- gjnwnQ2qVJcaPSzJ4QITvchEQ+tbuVAyvn9H+9MkdT7b7b2OaqYsUP8rn/2k1Td5zknUz7iF
- oJ0Z9wPTl6tDfF8phaMIPISYrhceVOIoL+rWfaikhBulZTIT5ihieY9nQOw6vhOfWkYvv0Dl
- o4GRnb2ybPQpfEs7WtetOsUgiUbfljTgILFw3CsPW8JESOGQc0Pv8ieznIighqPPFz9g+zSu
- Ss/rpcsqag5n9rQp/H3WW5zKUpeYcKGaPDp/vSUovMcjp8USIhzBBrmI7UWAtuedG9prjqfO
- wU0ETpLnhgEQAM+cDWLL+Wvc9cLhA2OXZ/gMmu7NbYKjfth1UyOuBd5emIO+d4RfFM02XFTI
- t4MxwhAryhsKQQcA4iQNldkbyeviYrPKWjLTjRXT5cD2lpWzr+Jx7mX7InV5JOz1Qq+P+nJW
- YIBjUKhI03ux89p58CYil24Zpyn2F5cX7U+inY8lJIBwLPBnc9Z0An/DVnUOD+0wIcYVnZAK
- DiIXODkGqTg3fhZwbbi+KAhtHPFM2fGw2VTUf62IHzV+eBSnamzPOBc1XsJYKRo3FHNeLuS8
- f4wUe7bWb9O66PPFK/RkeqNX6akkFBf9VfrZ1rTEKAyJ2uqf1EI1olYnENk4+00IBa+BavGQ
- 8UW9dGW3nbPrfuOV5UUvbnsSQwj67pSdrBQqilr5N/5H9z7VCDQ0dhuJNtvDSlTf2iUFBqgk
- 3smln31PUYiVPrMP0V4ja0i9qtO/TB01rTfTyXTRtqz53qO5dGsYiliJO5aUmh8swVpotgK4
- /57h3zGsaXO9PGgnnAdqeKVITaFTLY1ISg+Ptb4KoliiOjrBMmQUSJVtkUXMrCMCeuPDGHo7
- 39Xc75lcHlGuM3yEB//htKjyprbLeLf1y4xPyTeeF5zg/0ztRZNKZicgEmxyUNBHHnBKHQxz
- 1j+mzH0HjZZtXjGu2KLJ18G07q0fpz2ZPk2D53Ww39VNI/J9ABEBAAHCwV8EGAECAAkFAk6S
- 54YCGwwACgkQvSWxBAa0cEk3tRAAgO+DFpbyIa4RlnfpcW17AfnpZi9VR5+zr496n2jH/1ld
- wRO/S+QNSA8qdABqMb9WI4BNaoANgcg0AS429Mq0taaWKkAjkkGAT7mD1Q5PiLr06Y/+Kzdr
- 90eUVneqM2TUQQbK+Kh7JwmGVrRGNqQrDk+gRNvKnGwFNeTkTKtJ0P8jYd7P1gZb9Fwj9YLx
- jhn/sVIhNmEBLBoI7PL+9fbILqJPHgAwW35rpnq4f/EYTykbk1sa13Tav6btJ+4QOgbcezWI
- wZ5w/JVfEJW9JXp3BFAVzRQ5nVrrLDAJZ8Y5ioWcm99JtSIIxXxt9FJaGc1Bgsi5K/+dyTKL
- wLMJgiBzbVx8G+fCJJ9YtlNOPWhbKPlrQ8+AY52Aagi9WNhe6XfJdh5g6ptiOILm330mkR4g
- W6nEgZVyIyTq3ekOuruftWL99qpP5zi+eNrMmLRQx9iecDNgFr342R9bTDlb1TLuRb+/tJ98
- f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
- DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
- S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
-In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <20261026130559.GB3598537-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: A1vFrxhIue2bENC-bY35eK8Cglt8HBdH
+X-Proofpoint-GUID: A1vFrxhIue2bENC-bY35eK8Cglt8HBdH
+X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae0431a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=zuAiZn09hdMMTQJ27doA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAyNSBTYWx0ZWRfXz09VJk/u30J8
+ 2fH2ArVi7y3BRbuTfJVM6P9CLi/7lHjyDs6wRJQUtJEqgWAo1doT711HWYM+cAdBfccQDKl4rqb
+ fzNaBnKUmNxpBHAjE7eQeOXVF5PIT9ZRr10lO6ir1VH9T7K99objNVRPCNp1jw9gmCCNXgFYHSU
+ kZx7INX7BLJwVtiZGkYKcTCH5LdSxv6pNrL4lzRvGVUkklLMCvyAYLfaOuZ1b/XIG9sZpN3HQY2
+ rK7vL/m/97dgYNsQzOW2Zc5U0rPOGBJzPBBWgYxcZVM161quJM0fasgfp0nfQAxhhLEFFP/s0pe
+ a7BQlBSc9/ipLiN547AsmasMpINUpECwJssBc/EPcQNgzNHHToA/wQ3K7NjwZ9150Ajk3LXUJSf
+ Md8JVuzpzQn7o+0FnIJsMQ5rpC2S/UonCtR68UPQ0kXxUr0bVpwTZJ33VvXb7KtAeN8W8ZAfRK/
+ Zje4QfIUDvfZJvRwLrw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAyNSBTYWx0ZWRfX9moTtgl5Scnj
+ 6jx5c/TobXaTn4EPbB/QMHjCWrc7JfMt/fb76PfHzQ3gJxdK7xcyrKznX87YntmcUKJy2tITero
+ NZ/bD81UhsVlwfO+R4lMKcYCEnDf8is=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270025
 
-On 24. 10. 26, 22:22, James Hilliard wrote:
-> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
-> component parameter register reads as zero. Generic 16550 probing leaves
-> the port using the 16-byte FIFO configuration and its trigger-level table.
-> 
-> Keep PORT_16550A and preserve the FIFO size read from firmware by
-> uart_read_port_properties(). Use it for the transmit load and derive the
-> receive thresholds from the documented 1-byte, quarter-full, half-full
-> and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128 and 254
-> bytes; the normal 16550A half-full FCR setting selects 128 bytes.
-> 
-> Serialize trigger changes with termios and hold a runtime PM reference
-> while programming FCR, preserving the FIFO contents. Propagate runtime
-> resume errors before changing either the FCR shadow or the hardware.
-> 
-> Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
-> DesignWare termios path selects hardware CTS handling, so the capability
-> must be present for the corresponding hardware control to be enabled.
-> 
-> Select the fixed configuration through the platform setup callback.
-> H616 has debug-divisor and RS485 control registers at the offsets used to
-> detect DesignWare hardware RS485 and fractional-divisor support. Avoid
-> those probes and retain the BUSY-safe integer divisor hook and software
-> RS485 handling.
-> 
-> Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
-> termios changes. Its clock is a gate on the shared APB2 source, rather than
-> an independent baud-rate generator.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->   drivers/tty/serial/8250/8250_dw.c | 75 +++++++++++++++++++++++++++++++++++++++
->   1 file changed, 75 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 9c171c5775a6..557832254c37 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -19,6 +19,7 @@
->   #include <linux/io.h>
->   #include <linux/lockdep.h>
->   #include <linux/module.h>
-> +#include <linux/mutex.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/property.h>
-> @@ -648,6 +649,73 @@ static void dw8250_setup(struct uart_port *p)
->   	dw8250_setup_dma(p);
->   }
->   
-> +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
-> +{
-> +	switch (trigger) {
-> +	case 0:
-> +		return 1;
-> +	case 1:
-> +		return p->fifosize / 4;
-> +	case 2:
-> +		return p->fifosize / 2;
-> +	default:
-> +		return p->fifosize - 2;
 
-These constants are counterintuitive. Can you pass the fcr masked, 
-unshifted and do:
-case UART_FCR_TRIGGER_1:
-   ...
-case UART_FCR_TRIGGER_4:
-   ...
-...
-instead?
+On 26-10-2026 06:35 pm, Rob Herring wrote:
+> On Fri, Oct 23, 2026 at 12:05:50PM +0530, Vishnu Santhosh wrote:
+>> On 22-10-2026 07:31 pm, Rob Herring wrote:
+>>> On Wed, Oct 21, 2026 at 11:22:35AM +0530, Vishnu Santhosh wrote:
+>>>> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+>>>> domain, preventing it from accessing BAM descriptor FIFOs allocated from
+>>>> arbitrary host memory.
+>>>>
+>>>> Add an optional memory-region property to constrain DMA allocations made
+>>>> by the BAM DMA controller to a restricted DMA pool. Access permissions
+>>>> for the remote execution environment are managed separately.
+>>> dma-ranges is normally how address restrictions for a device are
+>>> defined. Why can't that be used here?
+>>>
+>>> Rob
+>> The constraint here is access permission, not addressing. The modem can
+>> only access a carve-out that is assigned to it through SCM.
+> The reason for the constraint doesn't really matter.
 
-> +	}
-> +}
-> +
-> +static int dw8250_sunxi_get_rxtrig(struct uart_port *p)
-> +{
-> +	struct uart_8250_port *up = up_to_u8250p(p);
-> +
-> +	guard(uart_port_lock_irqsave)(p);
-> +
-> +	return dw8250_sunxi_rxtrig_bytes(p, UART_FCR_R_TRIG_BITS(up->fcr));
+Ok, understood.
 
-Here:
-up->fcr & UART_FCR_TRIGGER_MASK
+>
+>> The soc bus on Shikra already has an identity dma-ranges covering
+>> 64GB [1], so there is no addressing limitation to describe. dma-ranges
+>> does not reserve memory, so allocations would still come from the
+>> general page allocator, outside the assigned carve-out, and modem
+>> accesses to them trigger an XPU violation. It also applies to every
+>> device on the bus.
+> It's a bit awkward that dma-ranges needs to be in a parent node. So you
+> would need to put the device in its own bus node. But if dma-ranges is
+> in place, DMA allocations will only come from within that range.
 
-thanks,
--- 
-js
-suse labs
+Thanks for the correction.
+
+>
+>
+>> The A2 BAM on Shikra is not behind an IOMMU. restricted-dma-pool
+>> provides a dedicated, per-device region, which is the setup it was
+>> introduced for no IOMMU, with firmware restricting device accesses to
+>> specific regions [2]. Stephan suggested this approach on v1 of the
+>> BAM-DMUX series [3]. The BAM DMA controller and BAM-DMUX reference the
+>> same pool, so a single assignment covers both the descriptor FIFOs and
+>> the data buffers.
+> I suppose that since the memory region is dynamic, 'memory-region' makes
+> sense here. If firmware determined the address of the region, I'd
+> probably feel differently.
+
+Yes, the region is dynamic. Thanks for the review.
+
+Vishnu
+
