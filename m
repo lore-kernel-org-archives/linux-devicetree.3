@@ -1,111 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124549;
-	b=VyoITeYbaDDpCLbop849GqiY3dIY4q0G5QGOVEbAdOo7Y9zTYcB6RFRzvxu+sVRi+vGu
-	 butNZmxsPUSCqVr6gB9JdrzhcvKQpav2EgWk4r3AlQP6kQtbb+bAWZaXIiuslbC0DFKnn
-	 TtKXt/CdWGWzPCgOd1F2UWcIQU0J8jCfkQaBVXjqAjHic0CVn9+fmChH5BBQiKJMWhfPr
-	 yo0UUQO/ORHIf7roVWK/66DqRK70gbN8AlrxZfn2A52pfpYO0O10HSjcCy8HXALfJ5Bff
-	 6gkLnErWNhmDexxk7XPCxdtNouMtyqJq1S9bNUgXrNjlZ8trCPmb4w8YSpintrzJogw==
+	t=1793125076;
+	b=iNvxSoFsjjq4R6tzklBWmuEzx6GJt8Q/N5dG0bXhSwfc1ss9/GdbsEB8BVtSNF6uvTyn
+	 R9uuObc+fH+9alI2MfmTDNj5Yk+QulgouvdqmcEp//wK9IOcZHTN+BKR84JALSRg3+Y+0
+	 LvdZ6WL5oaEGOEBuijFSR3IG7xppX4IR5R4nhlcTNjcr4ErR6SyR/zhEV3DlLIMUlgSE3
+	 Dw/egDzRajzqBTVjjtFOMpIXb2ZIfBQFPSJ8L/cZEhHBECCWZzq3wkt6fYLISVo12D2zI
+	 +Mpym2B9H3pym86aX+lGoj3MpdMiX2Qdtn4BI3nnfL6FzV3efiYC7fPXVduSaHI4H6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124549;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=TmJy02cqnM+rmzux4OYd7IScjFsAUBQzewxhIDA1j1A=;
-	b=x+xXMq2hTn9nUR1DlanTHc9ppY7+up2F6EVseYwXGOTdznCOB0WwRLxbdH6aLn87XzkB
-	 EkG2gjiTsgVAqoZw+pz9gyizMHSFybuCVjXvgRoQQSlwLB5QF4jyKLLWdOaOofhM0sk56
-	 XRkqg1jCgL7c/IT0yNW51VwM7AfMsU+aqGobBw85IN4vaJbG1IJVrRjJUvaNRApZVtuGf
-	 V+D3DDAGhlr9ZPYn2VRaulp1ztVJC2QROxGdyUjB5JlOCrdwrcH3wYApG8L7aNcTpgWIw
-	 mu8I4Sg3DwRX+AYULRyHvwgXzBqINoOMV1FRV6og/NiG+CvpqELgLYFkZuLEUdPHS9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nfV/S6ZwmWtNZwuWmh/T74T1NcuFLfcIht1ObLXQeHw=;
+	b=FRPu1C0OylQU3H4qTrCzTbuSSx8wSluEhWiUv27yajNG2yIr5/Dr+4wzGJTfcMoEsQLz
+	 MRr3w49DSyg4SiF/5H0/PAPoMsqEb0jegWUTgLVmzlTWLth/Y9W/+AZ17QgKV2Ih+u4Dm
+	 Q9Diz6u7o2bMivFA04Xub2pOIv8AVmivltq4gYmwbK1ZLvIZixX8HXBAnqoC/cfwUi9yv
+	 YLeF5Scpz7rIenbAqZpno+7yBJe3cdiOgTS87dEMW1G6K0nteUX2b+g1nh83J/cU27fbh
+	 98tcR9Sxs+7iLQU1x6tUWeMYcIyi4GP4l990KDy0NsEkX7Vf8Uzm6Ag+nj80RylwYTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WjXwCEym;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SlmjlIfG;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCH1OTqA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC00D606A31E
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 18:09:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC00D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D98606A31D;
+	Tue, 27 Oct 2026 18:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WjXwCEym;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SlmjlIfG
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RH01aV2772521
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 18:09:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TmJy02cqnM+rmzux4OYd7IScjFsAUBQzewxhIDA1j1A=; b=WjXwCEymnclF4A7d
-	6IADYkZjoJvPhenGq75xTH2FrZgRZE0PXozxkQZ0L7AHSr6pMuiwqYtx39vpeGZL
-	TuZwf5+V8Ta/5xbZYFG7oIMlnybK+0aQ3flLwvRdC7q6y+hNdzIZfv04tJ0T9I7w
-	XVoLAXdYJx5jhP/HBP50HiRbAQJAMwnvcnO0+16+NQurLJQdEtHWDMk+MUCDXTuy
-	eM+n7VLpeJDhn8I3N/IM31YL0hq8Fk4jxp8WpTQ5c1nHBMz4p3rrEkNO1ZjT3EAu
-	B6i7mKaXtg7gq8KwJRlYr162nl6md4ODs2bSb50ueWrlaqiJVwPvgoADv9qIHm3T
-	EWODHg==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjrq6acex-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 18:09:07 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so91693c88.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:09:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793124547; x=1793729347; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TmJy02cqnM+rmzux4OYd7IScjFsAUBQzewxhIDA1j1A=;
-        b=SlmjlIfGRckm8Tx3Zo5Z76PofwNLBwm2bqSujVrroAUcqkYaRF+B+HkHjBcup48M1F
-         LEaLNrJV0twPB15+g8EUTvMG1VspHHMA6YDJ7JGb2kTpJVP/ZDx1VhOmzGxEiNhHiRT2
-         vCwIxx6j6PE9gwFd3vrO6aHDaOZsrzxkiJXEtM2uSC7l9a0pW0XPETC+2PxlCaC6L1iG
-         BjX3L32lFxRUtRUZt94NIZldOMG56M4eAxJ8YU9Cg7KGVxq00c4tG5JKw9G2Y/x6mTv+
-         dDxfYs9BLZMW81Pe4QH4kaeXdlhmj2UQbqqK8G4Odi72yn8EyQ1OWFtgq9gO81pRbYtm
-         +kew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793124547; x=1793729347;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TmJy02cqnM+rmzux4OYd7IScjFsAUBQzewxhIDA1j1A=;
-        b=juODjjUBFeY9wotsAyuqf7xCZT8yl7ZFPvz/VQdjmxH+Il1DmCH5EmjYfD8UU0YZcu
-         lnG0xzljen5WkprHv3f1V+K4D3v2+BeYAGvbjfrfV4A0nbWrOmIxDTCyxuLz2FwwQRLK
-         RaWMyqFA6OiKeHKjrjlp5zB5ihF/7F2V8NC0EQxfnQAB1MNqoZcvMxlO9OytvVil3DeH
-         jmGtVRUOtRdQoPvLCzNnxsllmRGmEw3G/UG4LDSWB2tncRw+uNsonL6LZOsTo6AbJaxS
-         xRDKe6ZOjwzribLh2NcAtHfqkJpnzPUYzk5zoWnUJ7ilEE6LVKHoz0V1SF1LslF9PSbG
-         P7ew==
-X-Forwarded-Encrypted: i=1; AKwUvBwnghTnEEktjtDzCW2HMr7L5qDWFxjXj48YeOaZDRxvApvUdVxWNMdk/s5sIF7/hIyA3fAIGm2tibN8@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZiOuC8I8Hahu8zyFIJH6jxTyHqoTWpAYwAO41xwhlKLseFEZv
-	UZc8FhQX7g8DED7a91ULmhm1BgVtyNxlefTF5s3vYGeIBRso9P3ytiFFAYNx0sZx9rpucZH5BhO
-	51h/qWRBOXkSPGQX2cUu7zSAjEj78bsrNtwvrk21BO2/u6IQt7jqMwVFuCyMCGo9n
-X-Gm-Gg: AYBFou1KTvlkDQpWnFbRoWhjA/RzW7O/Gt7qDNh2NuLzlMZdhvGCWRQBT3yYBrAE51N
-	52VV7+THquKsn4boQrRsWYvEg/ssfIVlOYrhthO8k+HAbN7LLJw2ipYZszvMl1z7VYoTK9n+duT
-	kjtluWFU2ey2LjKXTUiEJrO5P7a3CWB+IPNJ6ZFHAZ/mgmSYUfDH5u/REX/7+SC0cKs8qUnPir0
-	J65jWMWIfuQZK2MR4/f7xhGMkGtLYwOTCJr+95sT/5XjCmIdpeHYyZJcN+MQ2C48qNCC/yEF0nD
-	RkEHC+ErH6o/J7tDLIc3zvWtUGFG5wr1vJCY7dqLe+VeE/7S9gV/clFYqjokD3bBNg7yZvEoOPg
-	qVl/UGbtHD1oF7/Jad+/y88ef
-X-Received: by 2002:a05:701b:21db:b0:181:7e1a:e3ad with SMTP id a92af1059eb24-1a6ce2ff0e2mr11785c88.38.1793124546125;
-        Tue, 27 Oct 2026 11:09:06 -0700 (PDT)
-X-Received: by 2002:a05:701b:21db:b0:181:7e1a:e3ad with SMTP id a92af1059eb24-1a6ce2ff0e2mr11728c88.38.1793124545182;
-        Tue, 27 Oct 2026 11:09:05 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a0d98660sm39144463c88.9.2026.10.27.11.08.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:09:04 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 23:38:29 +0530
-Subject: [PATCH v3 4/4] clk: qcom: dprxcc: Add Nord DPRX clock controller
- support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCH1OTqA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C15A1F031E2;
+	Tue, 27 Oct 2026 18:17:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793125075;
+	bh=nfV/S6ZwmWtNZwuWmh/T74T1NcuFLfcIht1ObLXQeHw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bCH1OTqAzL9dmzm6I8uZ52UowYU2/3TVuL06jub41yZWTF8PwHko1pmJX6VeLxJJo
+	 0mrjVn0kShRShtVp7ShvjN9qHL4wC4igbKQAD/fAl6aVZoHXKudwZL/3bsW3tXilVG
+	 dQH80Fsc3wd/Fnx/HYSCKDMWxM7W1D0WzcTYbz6348UvytYMDPqyXLA9IAqG+ugB1p
+	 thpxznbkMj4i6VuDSYvRAQZ3omCVXumSmrlZuGHIo9a9Nr6B7Qaa1qlJKY1lToMpxy
+	 RH1FPRcnMxu42QD3oWDHu/27k46rbWVHXYoPdfWuPZca0fipWVhWuKSR5eBLMZu7jG
+	 BukhMhiuO8XaQ==
+Date: Tue, 27 Oct 2026 18:17:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, hbarnor@chromium.org,
+	tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
+	Dmitry Antipov <dmanti@microsoft.com>,
+	Jarrett Schultz <jaschultz@microsoft.com>
+Subject: Re: [PATCH v7 08/11] dt-bindings: input: Document hid-over-spi DT
+ schema
+Message-ID: <20261027-silicon-unvented-a0c8dc394e87@spud>
+References: <20261024-send-upstream-v7-0-abad13174b43@chromium.org>
+ <20261024-send-upstream-v7-8-abad13174b43@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,1001 +71,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-nords_dprx-v3-4-5d98b2c6c263@oss.qualcomm.com>
-References: <20261027-nords_dprx-v3-0-5d98b2c6c263@oss.qualcomm.com>
-In-Reply-To: <20261027-nords_dprx-v3-0-5d98b2c6c263@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Satya Priya Kakitapalli <quic_skakitap@quicinc.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Authority-Analysis: v=2.4 cv=RYwFmFtv c=1 sm=1 tr=0 ts=6ae0e8c3 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=Pny_x_ucYqVPpLIU650A:9 a=QEXdDO2ut3YA:10
- a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-GUID: xhC9o2UplNAMJz_xAcR4IUgmlWjFkr2e
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA3MiBTYWx0ZWRfXwZasEfwvgl0w
- CQlyToiPgt0loUktTypuEGjCFO92enoezz6oGTo7EhXT/XEvoiMhRyK8C0cGhbTh4nS72AuyNBN
- js3As+9dkxUbSwXoFR6MOGVyhPD4nsQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA3MiBTYWx0ZWRfX2fS/jKTr/cH6
- QM4XC0nuA3V5uFZwTqYLDgKEUHST8uYPEAp1AD7sIWihvWatrZN4Y1O0752QLYuWLzk3giTY+sB
- AM7cb/QSIK1w7VLYl353pTTAp4d/oVxBAVq5hAQ/ROKd+U2aXD1zjZRXHa9pagXCKbReVPVL2Ni
- d7OB5x8NDxlcv5N55U5EnsLNWownXyGuG6SuZns+PuqjJfuNfJJCX3M073nooHGZ05K5qOGBs7v
- mwN3E87IdfZoesrQR9lo1uu04wdYUNCL+i5bDi1L/8LJRKtPxziaqD+jB6FO8Tjv3gq4w3+QNRh
- irvsxhgbwRzX/k/FfWR7ADahkNUaOY5qbx3ZGTrlNA3bKLta5Qm2lCxKNG6D61dVUkwtMxMVpjf
- G1ORcUcu4vqo0heChburl7MoOpxciwBlqjvTsHZzT/yoxJplzDD/2AjQjUvcW9/k6RGlsgyR0Ho
- kXM6ztHDUZ5Dwet7uXQ==
-X-Proofpoint-ORIG-GUID: xhC9o2UplNAMJz_xAcR4IUgmlWjFkr2e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270072
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8sC1crqEc4kNm6ti"
+Content-Disposition: inline
+In-Reply-To: <20261024-send-upstream-v7-8-abad13174b43@chromium.org>
 
-Add support for the DisplayPort Receiver (DPRX) clock controllers on
-Nord devices. There are two identical DPRX clock controller
-instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
-audio, AHB and video memory paths, along with core PLLs.
+--8sC1crqEc4kNm6ti
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- drivers/clk/qcom/Kconfig        |  11 +
- drivers/clk/qcom/Makefile       |   1 +
- drivers/clk/qcom/dprxcc0-nord.c | 441 ++++++++++++++++++++++++++++++++++++++++
- drivers/clk/qcom/dprxcc1-nord.c | 440 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 893 insertions(+)
+On Sat, Oct 24, 2026 at 12:51:42AM +0000, Jingyuan Liang wrote:
+> From: Dmitry Antipov <dmanti@microsoft.com>
+>=20
+> Documentation describes the required and optional properties for
+> implementing Device Tree for a Microsoft G6 Touch Digitizer that
+> supports HID over SPI Protocol 1.0 specification.
+>=20
+> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> Signed-off-by: Jarrett Schultz <jaschultz@microsoft.com>
+> Signed-off-by: Jingyuan Liang <jingyliang@chromium.org>
 
-diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-index 27d0ab24d50a4ca5587ed8d6085c4d6fcd57eb8c..a828e349fee98245b2cfabc43a1fd92b1936403d 100644
---- a/drivers/clk/qcom/Kconfig
-+++ b/drivers/clk/qcom/Kconfig
-@@ -255,6 +255,17 @@ config CLK_NORD_CAMCC
- 	  Say Y if you want to support camera devices and functionality such as
- 	  capturing pictures.
- 
-+config CLK_NORD_DPRXCC
-+	tristate "Nord DPRX Clock Controller"
-+	depends on ARM64 || COMPILE_TEST
-+	select CLK_NORD_GCC
-+	default m if ARCH_QCOM
-+	help
-+	  Support for the Display Port Receiver (DPRX) clock controller on
-+	  Nord devices. The DPRX clock controller provides clocks for the
-+	  DPRX core, audio, AHB and video memory paths.
-+	  Say Y if you want to support DPRX functionality.
-+
- config CLK_NORD_GCC
- 	tristate "Nord Global Clock Controller"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
-index 6affb5073f269d18f1b78d6c7f92e14baeade1e5..237e5d7ff5f30c38a5d3d303998d735afda0c89a 100644
---- a/drivers/clk/qcom/Makefile
-+++ b/drivers/clk/qcom/Makefile
-@@ -50,6 +50,7 @@ obj-$(CONFIG_CLK_KUNO_GCC) += gcc-kuno.o
- obj-$(CONFIG_CLK_MAILI_VIDEOCC) += videocc-maili.o
- obj-$(CONFIG_CLK_NORD_CAMCC) += camcc-nord.o
- obj-$(CONFIG_CLK_NORD_DISPCC) += dispcc0-nord.o dispcc1-nord.o
-+obj-$(CONFIG_CLK_NORD_DPRXCC) += dprxcc0-nord.o dprxcc1-nord.o
- obj-$(CONFIG_CLK_NORD_GCC) += gcc-nord.o negcc-nord.o nwgcc-nord.o segcc-nord.o
- obj-$(CONFIG_CLK_NORD_GPUCC) += gpucc-nord.o gpu2cc-nord.o
- obj-$(CONFIG_CLK_NORD_TCSRCC) += tcsrcc-nord.o
-diff --git a/drivers/clk/qcom/dprxcc0-nord.c b/drivers/clk/qcom/dprxcc0-nord.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..456666834a4f41eb9b6eaa99f57023b9a3567549
---- /dev/null
-+++ b/drivers/clk/qcom/dprxcc0-nord.c
-@@ -0,0 +1,441 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include <dt-bindings/clock/qcom,nord-dprxcc.h>
-+
-+#include "clk-alpha-pll.h"
-+#include "clk-branch.h"
-+#include "clk-rcg.h"
-+#include "clk-regmap.h"
-+#include "clk-regmap-divider.h"
-+#include "common.h"
-+#include "reset.h"
-+
-+enum {
-+	DT_BI_TCXO,
-+	DT_AHB_CLK,
-+	DT_SLEEP_CLK,
-+};
-+
-+enum {
-+	P_BI_TCXO,
-+	P_DPRX_0_DPRX_CC_PLL0_OUT_EVEN,
-+	P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN,
-+	P_DPRX_0_DPRX_CC_PLL0_OUT_ODD,
-+	P_DPRX_0_DPRX_CC_PLL1_OUT_EVEN,
-+	P_DPRX_0_DPRX_CC_PLL1_OUT_MAIN,
-+	P_SLEEP_CLK,
-+};
-+
-+#define DPRX_CC_CORE_AHB_DIV_CFG	0x80b0
-+#define DPRX_CC_CORE_AHB_DIV		GENMASK(3, 0)
-+#define DPRX_CC_CORE_AUD_DIV_CFG	0x80d0
-+#define DPRX_CC_CORE_AUD_DIV		GENMASK(8, 0)
-+
-+static const struct pll_vco lucid_ole_vco[] = {
-+	{ 249600000, 2300000000, 0 },
-+};
-+
-+static const struct pll_vco zonda_ole_vco[] = {
-+	{ 700000000, 3600000000, 0 },
-+};
-+
-+/* 550.0 MHz Configuration */
-+static const struct alpha_pll_config dprx_0_dprx_cc_pll0_config = {
-+	.l = 0x1c,
-+	.alpha = 0xa555,
-+	.config_ctl_val = 0x20485699,
-+	.config_ctl_hi_val = 0x00182261,
-+	.config_ctl_hi1_val = 0x82aa299c,
-+	.test_ctl_val = 0x00000000,
-+	.test_ctl_hi_val = 0x00000003,
-+	.test_ctl_hi1_val = 0x00009000,
-+	.test_ctl_hi2_val = 0x00000034,
-+	.user_ctl_val = 0x00000000,
-+	.user_ctl_hi_val = 0x00400005,
-+};
-+
-+static struct clk_alpha_pll dprx_0_dprx_cc_pll0 = {
-+	.offset = 0x0,
-+	.config = &dprx_0_dprx_cc_pll0_config,
-+	.vco_table = lucid_ole_vco,
-+	.num_vco = ARRAY_SIZE(lucid_ole_vco),
-+	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
-+	.clkr = {
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_pll0",
-+			.parent_data = &(const struct clk_parent_data) {
-+				.index = DT_BI_TCXO,
-+			},
-+			.num_parents = 1,
-+			.ops = &clk_alpha_pll_lucid_evo_ops,
-+		},
-+	},
-+};
-+
-+/* 1080.0 MHz Configuration */
-+static const struct alpha_pll_config dprx_0_dprx_cc_pll1_config = {
-+	.l = 0x38,
-+	.alpha = 0x4000000,
-+	.config_ctl_val = 0x08240800,
-+	.config_ctl_hi_val = 0x05008001,
-+	.config_ctl_hi1_val = 0x00000000,
-+	.config_ctl_hi2_val = 0x00000000,
-+	.user_ctl_val = 0x00000000,
-+	.user_ctl_hi_val = 0x02000080,
-+};
-+
-+static struct clk_alpha_pll dprx_0_dprx_cc_pll1 = {
-+	.offset = 0x1000,
-+	.alpha_width = 28,
-+	.config = &dprx_0_dprx_cc_pll1_config,
-+	.vco_table = zonda_ole_vco,
-+	.num_vco = ARRAY_SIZE(zonda_ole_vco),
-+	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA_OLE],
-+	.clkr = {
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_pll1",
-+			.parent_data = &(const struct clk_parent_data) {
-+				.index = DT_BI_TCXO,
-+			},
-+			.num_parents = 1,
-+			.ops = &clk_alpha_pll_zonda_ole_ops,
-+		},
-+	},
-+};
-+
-+static const struct parent_map dprx_cc_0_parent_map_0[] = {
-+	{ P_BI_TCXO, 0 },
-+	{ P_DPRX_0_DPRX_CC_PLL0_OUT_EVEN, 1 },
-+	{ P_DPRX_0_DPRX_CC_PLL0_OUT_ODD, 2 },
-+	{ P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 4 },
-+	{ P_SLEEP_CLK, 5 },
-+};
-+
-+static const struct clk_parent_data dprx_cc_0_parent_data_0[] = {
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &dprx_0_dprx_cc_pll0.clkr.hw },
-+	{ .hw = &dprx_0_dprx_cc_pll0.clkr.hw },
-+	{ .hw = &dprx_0_dprx_cc_pll0.clkr.hw },
-+	{ .index = DT_SLEEP_CLK },
-+};
-+
-+static const struct parent_map dprx_cc_0_parent_map_1[] = {
-+	{ P_BI_TCXO, 0 },
-+	{ P_DPRX_0_DPRX_CC_PLL1_OUT_EVEN, 3 },
-+	{ P_SLEEP_CLK, 5 },
-+	{ P_DPRX_0_DPRX_CC_PLL1_OUT_MAIN, 6 },
-+};
-+
-+static const struct clk_parent_data dprx_cc_0_parent_data_1[] = {
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &dprx_0_dprx_cc_pll1.clkr.hw },
-+	{ .index = DT_SLEEP_CLK },
-+	{ .hw = &dprx_0_dprx_cc_pll1.clkr.hw },
-+};
-+
-+static const struct freq_tbl ftbl_dprx_0_dprx_cc_audio_clk_src[] = {
-+	F(216000000, P_DPRX_0_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	F(300000000, P_DPRX_0_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	F(360000000, P_DPRX_0_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_0_dprx_cc_audio_clk_src = {
-+	.cmd_rcgr = 0x80c8,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_0_parent_map_1,
-+	.freq_tbl = ftbl_dprx_0_dprx_cc_audio_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_audio_clk_src",
-+		.parent_data = dprx_cc_0_parent_data_1,
-+		.num_parents = ARRAY_SIZE(dprx_cc_0_parent_data_1),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_0_dprx_cc_core_rcg0_clk_src[] = {
-+	F(220000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	F(440000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_0_dprx_cc_core_rcg0_clk_src = {
-+	.cmd_rcgr = 0x8004,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_0_parent_map_0,
-+	.freq_tbl = ftbl_dprx_0_dprx_cc_core_rcg0_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_core_rcg0_clk_src",
-+		.parent_data = dprx_cc_0_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_0_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_0_dprx_cc_core_rcg2_clk_src[] = {
-+	F(275000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	F(440000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	F(550000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_0_dprx_cc_core_rcg2_clk_src = {
-+	.cmd_rcgr = 0x8068,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_0_parent_map_0,
-+	.freq_tbl = ftbl_dprx_0_dprx_cc_core_rcg2_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_core_rcg2_clk_src",
-+		.parent_data = dprx_cc_0_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_0_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_0_dprx_cc_core_rcg3_clk_src[] = {
-+	F(275000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	F(550000000, P_DPRX_0_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_0_dprx_cc_core_rcg3_clk_src = {
-+	.cmd_rcgr = 0x8098,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_0_parent_map_0,
-+	.freq_tbl = ftbl_dprx_0_dprx_cc_core_rcg3_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_core_rcg3_clk_src",
-+		.parent_data = dprx_cc_0_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_0_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static struct clk_regmap_div dprx_0_dprx_cc_core_ahb_div_clk_src = {
-+	.reg = 0x80b0,
-+	.shift = 0,
-+	.width = 4,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_core_ahb_div_clk_src",
-+		.parent_hws = (const struct clk_hw*[]) {
-+			&dprx_0_dprx_cc_core_rcg3_clk_src.clkr.hw,
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_regmap_div_ro_ops,
-+	},
-+};
-+
-+static struct clk_regmap_div dprx_0_dprx_cc_core_aud_div_clk_src = {
-+	.reg = 0x80d0,
-+	.shift = 0,
-+	.width = 9,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_0_dprx_cc_core_aud_div_clk_src",
-+		.parent_hws = (const struct clk_hw*[]) {
-+			&dprx_0_dprx_cc_audio_clk_src.clkr.hw,
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_regmap_div_ro_ops,
-+	},
-+};
-+
-+static struct clk_branch dprx_0_dprx_cc_ahb_clk = {
-+	.halt_reg = 0x80b4,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80b4,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80b4,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_ahb_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_0_dprx_cc_core_ahb_div_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_0_dprx_cc_aud_clk = {
-+	.halt_reg = 0x80d4,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80d4,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80d4,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_aud_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_0_dprx_cc_core_aud_div_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_0_dprx_cc_mdp_mem_clk = {
-+	.halt_reg = 0x8088,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x8088,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x8088,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_mdp_mem_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_0_dprx_cc_core_rcg2_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_0_dprx_cc_mmcx_xo_clk = {
-+	.halt_reg = 0x80d8,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80d8,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80d8,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_mmcx_xo_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_0_dprx_cc_vid_mem_clk = {
-+	.halt_reg = 0x8028,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x8028,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x8028,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_0_dprx_cc_vid_mem_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_0_dprx_cc_core_rcg0_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_regmap *dprx_cc_0_nord_clocks[] = {
-+	[DPRX_CC_AHB_CLK] = &dprx_0_dprx_cc_ahb_clk.clkr,
-+	[DPRX_CC_AUD_CLK] = &dprx_0_dprx_cc_aud_clk.clkr,
-+	[DPRX_CC_AUDIO_CLK_SRC] = &dprx_0_dprx_cc_audio_clk_src.clkr,
-+	[DPRX_CC_CORE_AHB_DIV_CLK_SRC] = &dprx_0_dprx_cc_core_ahb_div_clk_src.clkr,
-+	[DPRX_CC_CORE_AUD_DIV_CLK_SRC] = &dprx_0_dprx_cc_core_aud_div_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG0_CLK_SRC] = &dprx_0_dprx_cc_core_rcg0_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG2_CLK_SRC] = &dprx_0_dprx_cc_core_rcg2_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG3_CLK_SRC] = &dprx_0_dprx_cc_core_rcg3_clk_src.clkr,
-+
-+	[DPRX_CC_MDP_MEM_CLK] = &dprx_0_dprx_cc_mdp_mem_clk.clkr,
-+	[DPRX_CC_MMCX_XO_CLK] = &dprx_0_dprx_cc_mmcx_xo_clk.clkr,
-+	[DPRX_CC_PLL0] = &dprx_0_dprx_cc_pll0.clkr,
-+	[DPRX_CC_PLL1] = &dprx_0_dprx_cc_pll1.clkr,
-+	[DPRX_CC_VID_MEM_CLK] = &dprx_0_dprx_cc_vid_mem_clk.clkr,
-+};
-+
-+static const struct qcom_reset_map dprx_cc_0_nord_resets[] = {
-+	[DPRX_CC_DPRX_BLK_BCR] = { 0x8000 },
-+};
-+
-+static struct clk_alpha_pll *dprx_cc_0_nord_plls[] = {
-+	&dprx_0_dprx_cc_pll0,
-+	&dprx_0_dprx_cc_pll1,
-+};
-+
-+static const struct regmap_config dprx_cc_0_nord_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.max_register = 0x8104,
-+	.fast_io = true,
-+};
-+
-+static void dprx_cc_0_nord_regs_configure(struct device *dev, struct regmap *regmap)
-+{
-+	/* Configure dividers for core audio and AHB clocks. */
-+	regmap_update_bits(regmap, DPRX_CC_CORE_AUD_DIV_CFG,
-+			   DPRX_CC_CORE_AUD_DIV, 0x13);
-+	regmap_update_bits(regmap, DPRX_CC_CORE_AHB_DIV_CFG,
-+			   DPRX_CC_CORE_AHB_DIV, 0x0a);
-+}
-+
-+static const struct qcom_cc_driver_data dprx_cc_0_nord_driver_data = {
-+	.alpha_plls = dprx_cc_0_nord_plls,
-+	.num_alpha_plls = ARRAY_SIZE(dprx_cc_0_nord_plls),
-+	.clk_regs_configure = dprx_cc_0_nord_regs_configure,
-+};
-+
-+static const struct qcom_cc_desc dprx_cc_0_nord_desc = {
-+	.config = &dprx_cc_0_nord_regmap_config,
-+	.clks = dprx_cc_0_nord_clocks,
-+	.num_clks = ARRAY_SIZE(dprx_cc_0_nord_clocks),
-+	.resets = dprx_cc_0_nord_resets,
-+	.num_resets = ARRAY_SIZE(dprx_cc_0_nord_resets),
-+	.use_rpm = true,
-+	.driver_data = &dprx_cc_0_nord_driver_data,
-+};
-+
-+static const struct of_device_id dprx_cc_0_nord_match_table[] = {
-+	{ .compatible = "qcom,nord-dprxcc0" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, dprx_cc_0_nord_match_table);
-+
-+static int dprx_cc_0_nord_probe(struct platform_device *pdev)
-+{
-+	return qcom_cc_probe(pdev, &dprx_cc_0_nord_desc);
-+}
-+
-+static struct platform_driver dprx_cc_0_nord_driver = {
-+	.probe = dprx_cc_0_nord_probe,
-+	.driver = {
-+		.name = "dprxcc0-nord",
-+		.of_match_table = dprx_cc_0_nord_match_table,
-+	},
-+};
-+
-+module_platform_driver(dprx_cc_0_nord_driver);
-+
-+MODULE_DESCRIPTION("QTI DPRXCC0 NORD Driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/clk/qcom/dprxcc1-nord.c b/drivers/clk/qcom/dprxcc1-nord.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..836ca7cc50d82be3973df8b5d1322fe2dd7cff6d
---- /dev/null
-+++ b/drivers/clk/qcom/dprxcc1-nord.c
-@@ -0,0 +1,440 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include <dt-bindings/clock/qcom,nord-dprxcc.h>
-+
-+#include "clk-alpha-pll.h"
-+#include "clk-branch.h"
-+#include "clk-rcg.h"
-+#include "clk-regmap.h"
-+#include "clk-regmap-divider.h"
-+#include "common.h"
-+#include "reset.h"
-+
-+enum {
-+	DT_BI_TCXO,
-+	DT_AHB_CLK,
-+	DT_SLEEP_CLK,
-+};
-+
-+enum {
-+	P_BI_TCXO,
-+	P_DPRX_1_DPRX_CC_PLL0_OUT_EVEN,
-+	P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN,
-+	P_DPRX_1_DPRX_CC_PLL0_OUT_ODD,
-+	P_DPRX_1_DPRX_CC_PLL1_OUT_EVEN,
-+	P_DPRX_1_DPRX_CC_PLL1_OUT_MAIN,
-+	P_SLEEP_CLK,
-+};
-+
-+#define DPRX_CC_CORE_AHB_DIV_CFG	0x80b0
-+#define DPRX_CC_CORE_AHB_DIV		GENMASK(3, 0)
-+#define DPRX_CC_CORE_AUD_DIV_CFG	0x80d0
-+#define DPRX_CC_CORE_AUD_DIV		GENMASK(8, 0)
-+
-+static const struct pll_vco lucid_ole_vco[] = {
-+	{ 249600000, 2300000000, 0 },
-+};
-+
-+static const struct pll_vco zonda_ole_vco[] = {
-+	{ 700000000, 3600000000, 0 },
-+};
-+
-+/* 550.0 MHz Configuration */
-+static const struct alpha_pll_config dprx_1_dprx_cc_pll0_config = {
-+	.l = 0x1c,
-+	.alpha = 0xa555,
-+	.config_ctl_val = 0x20485699,
-+	.config_ctl_hi_val = 0x00182261,
-+	.config_ctl_hi1_val = 0x82aa299c,
-+	.test_ctl_val = 0x00000000,
-+	.test_ctl_hi_val = 0x00000003,
-+	.test_ctl_hi1_val = 0x00009000,
-+	.test_ctl_hi2_val = 0x00000034,
-+	.user_ctl_val = 0x00000000,
-+	.user_ctl_hi_val = 0x00400005,
-+};
-+
-+static struct clk_alpha_pll dprx_1_dprx_cc_pll0 = {
-+	.offset = 0x0,
-+	.config = &dprx_1_dprx_cc_pll0_config,
-+	.vco_table = lucid_ole_vco,
-+	.num_vco = ARRAY_SIZE(lucid_ole_vco),
-+	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE],
-+	.clkr = {
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_pll0",
-+			.parent_data = &(const struct clk_parent_data) {
-+				.index = DT_BI_TCXO,
-+			},
-+			.num_parents = 1,
-+			.ops = &clk_alpha_pll_lucid_evo_ops,
-+		},
-+	},
-+};
-+
-+/* 1080.0 MHz Configuration */
-+static const struct alpha_pll_config dprx_1_dprx_cc_pll1_config = {
-+	.l = 0x38,
-+	.alpha = 0x4000000,
-+	.config_ctl_val = 0x08240800,
-+	.config_ctl_hi_val = 0x05008001,
-+	.config_ctl_hi1_val = 0x00000000,
-+	.config_ctl_hi2_val = 0x00000000,
-+	.user_ctl_val = 0x00000000,
-+	.user_ctl_hi_val = 0x02000080,
-+};
-+
-+static struct clk_alpha_pll dprx_1_dprx_cc_pll1 = {
-+	.offset = 0x1000,
-+	.alpha_width = 28,
-+	.config = &dprx_1_dprx_cc_pll1_config,
-+	.vco_table = zonda_ole_vco,
-+	.num_vco = ARRAY_SIZE(zonda_ole_vco),
-+	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA_OLE],
-+	.clkr = {
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_pll1",
-+			.parent_data = &(const struct clk_parent_data) {
-+				.index = DT_BI_TCXO,
-+			},
-+			.num_parents = 1,
-+			.ops = &clk_alpha_pll_zonda_ole_ops,
-+		},
-+	},
-+};
-+
-+static const struct parent_map dprx_cc_1_parent_map_0[] = {
-+	{ P_BI_TCXO, 0 },
-+	{ P_DPRX_1_DPRX_CC_PLL0_OUT_EVEN, 1 },
-+	{ P_DPRX_1_DPRX_CC_PLL0_OUT_ODD, 2 },
-+	{ P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 4 },
-+	{ P_SLEEP_CLK, 5 },
-+};
-+
-+static const struct clk_parent_data dprx_cc_1_parent_data_0[] = {
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &dprx_1_dprx_cc_pll0.clkr.hw },
-+	{ .hw = &dprx_1_dprx_cc_pll0.clkr.hw },
-+	{ .hw = &dprx_1_dprx_cc_pll0.clkr.hw },
-+	{ .index = DT_SLEEP_CLK },
-+};
-+
-+static const struct parent_map dprx_cc_1_parent_map_1[] = {
-+	{ P_BI_TCXO, 0 },
-+	{ P_DPRX_1_DPRX_CC_PLL1_OUT_EVEN, 3 },
-+	{ P_SLEEP_CLK, 5 },
-+	{ P_DPRX_1_DPRX_CC_PLL1_OUT_MAIN, 6 },
-+};
-+
-+static const struct clk_parent_data dprx_cc_1_parent_data_1[] = {
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &dprx_1_dprx_cc_pll1.clkr.hw },
-+	{ .index = DT_SLEEP_CLK },
-+	{ .hw = &dprx_1_dprx_cc_pll1.clkr.hw },
-+};
-+
-+static const struct freq_tbl ftbl_dprx_1_dprx_cc_audio_clk_src[] = {
-+	F(216000000, P_DPRX_1_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	F(300000000, P_DPRX_1_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	F(360000000, P_DPRX_1_DPRX_CC_PLL1_OUT_MAIN, 5, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_1_dprx_cc_audio_clk_src = {
-+	.cmd_rcgr = 0x80c8,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_1_parent_map_1,
-+	.freq_tbl = ftbl_dprx_1_dprx_cc_audio_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_audio_clk_src",
-+		.parent_data = dprx_cc_1_parent_data_1,
-+		.num_parents = ARRAY_SIZE(dprx_cc_1_parent_data_1),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_1_dprx_cc_core_rcg0_clk_src[] = {
-+	F(220000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	F(440000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_1_dprx_cc_core_rcg0_clk_src = {
-+	.cmd_rcgr = 0x8004,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_1_parent_map_0,
-+	.freq_tbl = ftbl_dprx_1_dprx_cc_core_rcg0_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_core_rcg0_clk_src",
-+		.parent_data = dprx_cc_1_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_1_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_1_dprx_cc_core_rcg2_clk_src[] = {
-+	F(275000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	F(440000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
-+	F(550000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_1_dprx_cc_core_rcg2_clk_src = {
-+	.cmd_rcgr = 0x8068,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_1_parent_map_0,
-+	.freq_tbl = ftbl_dprx_1_dprx_cc_core_rcg2_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_core_rcg2_clk_src",
-+		.parent_data = dprx_cc_1_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_1_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static const struct freq_tbl ftbl_dprx_1_dprx_cc_core_rcg3_clk_src[] = {
-+	F(275000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	F(550000000, P_DPRX_1_DPRX_CC_PLL0_OUT_MAIN, 2, 0, 0),
-+	{ }
-+};
-+
-+static struct clk_rcg2 dprx_1_dprx_cc_core_rcg3_clk_src = {
-+	.cmd_rcgr = 0x8098,
-+	.mnd_width = 0,
-+	.hid_width = 5,
-+	.parent_map = dprx_cc_1_parent_map_0,
-+	.freq_tbl = ftbl_dprx_1_dprx_cc_core_rcg3_clk_src,
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_core_rcg3_clk_src",
-+		.parent_data = dprx_cc_1_parent_data_0,
-+		.num_parents = ARRAY_SIZE(dprx_cc_1_parent_data_0),
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_rcg2_shared_ops,
-+	},
-+};
-+
-+static struct clk_regmap_div dprx_1_dprx_cc_core_ahb_div_clk_src = {
-+	.reg = 0x80b0,
-+	.shift = 0,
-+	.width = 4,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_core_ahb_div_clk_src",
-+		.parent_hws = (const struct clk_hw*[]) {
-+			&dprx_1_dprx_cc_core_rcg3_clk_src.clkr.hw,
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_regmap_div_ro_ops,
-+	},
-+};
-+
-+static struct clk_regmap_div dprx_1_dprx_cc_core_aud_div_clk_src = {
-+	.reg = 0x80d0,
-+	.shift = 0,
-+	.width = 9,
-+	.clkr.hw.init = &(const struct clk_init_data) {
-+		.name = "dprx_1_dprx_cc_core_aud_div_clk_src",
-+		.parent_hws = (const struct clk_hw*[]) {
-+			&dprx_1_dprx_cc_audio_clk_src.clkr.hw,
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+		.ops = &clk_regmap_div_ro_ops,
-+	},
-+};
-+
-+static struct clk_branch dprx_1_dprx_cc_ahb_clk = {
-+	.halt_reg = 0x80b4,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80b4,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80b4,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_ahb_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_1_dprx_cc_core_ahb_div_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_1_dprx_cc_aud_clk = {
-+	.halt_reg = 0x80d4,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80d4,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80d4,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_aud_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_1_dprx_cc_core_aud_div_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_1_dprx_cc_mdp_mem_clk = {
-+	.halt_reg = 0x8088,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x8088,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x8088,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_mdp_mem_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_1_dprx_cc_core_rcg2_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_1_dprx_cc_mmcx_xo_clk = {
-+	.halt_reg = 0x80d8,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x80d8,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x80d8,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_mmcx_xo_clk",
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_branch dprx_1_dprx_cc_vid_mem_clk = {
-+	.halt_reg = 0x8028,
-+	.halt_check = BRANCH_HALT_VOTED,
-+	.hwcg_reg = 0x8028,
-+	.hwcg_bit = 1,
-+	.clkr = {
-+		.enable_reg = 0x8028,
-+		.enable_mask = BIT(0),
-+		.hw.init = &(const struct clk_init_data) {
-+			.name = "dprx_1_dprx_cc_vid_mem_clk",
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&dprx_1_dprx_cc_core_rcg0_clk_src.clkr.hw,
-+			},
-+			.num_parents = 1,
-+			.flags = CLK_SET_RATE_PARENT,
-+			.ops = &clk_branch2_ops,
-+		},
-+	},
-+};
-+
-+static struct clk_regmap *dprx_cc_1_nord_clocks[] = {
-+	[DPRX_CC_AHB_CLK] = &dprx_1_dprx_cc_ahb_clk.clkr,
-+	[DPRX_CC_AUD_CLK] = &dprx_1_dprx_cc_aud_clk.clkr,
-+	[DPRX_CC_AUDIO_CLK_SRC] = &dprx_1_dprx_cc_audio_clk_src.clkr,
-+	[DPRX_CC_CORE_AHB_DIV_CLK_SRC] = &dprx_1_dprx_cc_core_ahb_div_clk_src.clkr,
-+	[DPRX_CC_CORE_AUD_DIV_CLK_SRC] = &dprx_1_dprx_cc_core_aud_div_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG0_CLK_SRC] = &dprx_1_dprx_cc_core_rcg0_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG2_CLK_SRC] = &dprx_1_dprx_cc_core_rcg2_clk_src.clkr,
-+	[DPRX_CC_CORE_RCG3_CLK_SRC] = &dprx_1_dprx_cc_core_rcg3_clk_src.clkr,
-+	[DPRX_CC_MDP_MEM_CLK] = &dprx_1_dprx_cc_mdp_mem_clk.clkr,
-+	[DPRX_CC_MMCX_XO_CLK] = &dprx_1_dprx_cc_mmcx_xo_clk.clkr,
-+	[DPRX_CC_PLL0] = &dprx_1_dprx_cc_pll0.clkr,
-+	[DPRX_CC_PLL1] = &dprx_1_dprx_cc_pll1.clkr,
-+	[DPRX_CC_VID_MEM_CLK] = &dprx_1_dprx_cc_vid_mem_clk.clkr,
-+};
-+
-+static const struct qcom_reset_map dprx_cc_1_nord_resets[] = {
-+	[DPRX_CC_DPRX_BLK_BCR] = { 0x8000 },
-+};
-+
-+static struct clk_alpha_pll *dprx_cc_1_nord_plls[] = {
-+	&dprx_1_dprx_cc_pll0,
-+	&dprx_1_dprx_cc_pll1,
-+};
-+
-+static const struct regmap_config dprx_cc_1_nord_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.max_register = 0x8104,
-+	.fast_io = true,
-+};
-+
-+static void dprx_cc_1_nord_regs_configure(struct device *dev, struct regmap *regmap)
-+{
-+	/* Configure dividers for core audio and AHB clocks. */
-+	regmap_update_bits(regmap, DPRX_CC_CORE_AUD_DIV_CFG,
-+			   DPRX_CC_CORE_AUD_DIV, 0x13);
-+	regmap_update_bits(regmap, DPRX_CC_CORE_AHB_DIV_CFG,
-+			   DPRX_CC_CORE_AHB_DIV, 0x0a);
-+}
-+
-+static const struct qcom_cc_driver_data dprx_cc_1_nord_driver_data = {
-+	.alpha_plls = dprx_cc_1_nord_plls,
-+	.num_alpha_plls = ARRAY_SIZE(dprx_cc_1_nord_plls),
-+	.clk_regs_configure = dprx_cc_1_nord_regs_configure,
-+};
-+
-+static const struct qcom_cc_desc dprx_cc_1_nord_desc = {
-+	.config = &dprx_cc_1_nord_regmap_config,
-+	.clks = dprx_cc_1_nord_clocks,
-+	.num_clks = ARRAY_SIZE(dprx_cc_1_nord_clocks),
-+	.resets = dprx_cc_1_nord_resets,
-+	.num_resets = ARRAY_SIZE(dprx_cc_1_nord_resets),
-+	.use_rpm = true,
-+	.driver_data = &dprx_cc_1_nord_driver_data,
-+};
-+
-+static const struct of_device_id dprx_cc_1_nord_match_table[] = {
-+	{ .compatible = "qcom,nord-dprxcc1" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, dprx_cc_1_nord_match_table);
-+
-+static int dprx_cc_1_nord_probe(struct platform_device *pdev)
-+{
-+	return qcom_cc_probe(pdev, &dprx_cc_1_nord_desc);
-+}
-+
-+static struct platform_driver dprx_cc_1_nord_driver = {
-+	.probe = dprx_cc_1_nord_probe,
-+	.driver = {
-+		.name = "dprxcc1-nord",
-+		.of_match_table = dprx_cc_1_nord_match_table,
-+	},
-+};
-+
-+module_platform_driver(dprx_cc_1_nord_driver);
-+
-+MODULE_DESCRIPTION("QTI DPRXCC1 NORD Driver");
-+MODULE_LICENSE("GPL");
+Personally I prefer how this is done now, but definitely worth those who
+approved the previous iteration taking a look at this because it has
+changed significantly and no longer contains any of the properties that
+cover the timings etc anymore.
 
--- 
-2.34.1
+Worth noting that this changed since the previous version after I
+pointed out that the second hid-over-spi device did not make use of them
+at all and needed specific handling in the driver.
 
+> ---
+>  .../devicetree/bindings/input/hid-over-spi.yaml    | 75 ++++++++++++++++=
+++++++
+>  1 file changed, 75 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/hid-over-spi.yaml b/=
+Documentation/devicetree/bindings/input/hid-over-spi.yaml
+
+Typically this would need to match a compatible, but I think this is okay
+provided other hid-over-spi devices actually get added here - the series
+adding the second hid-over-spi device didn't do so but should be able to
+I think?
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+
+Thanks,
+Conor.
+
+> new file mode 100644
+> index 000000000000..bed0746f004c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
+> @@ -0,0 +1,75 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/hid-over-spi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HID over SPI Devices
+> +
+> +maintainers:
+> +  - Benjamin Tissoires <bentiss@kernel.org>
+> +  - Jiri Kosina <jikos@kernel.org>
+> +  - Jingyuan Liang <jingyliang@chromium.org>
+> +
+> +description: |+
+> +  HID over SPI provides support for various Human Interface Devices over=
+ the
+> +  SPI bus. These devices can be for example touchpads, keyboards, touch =
+screens
+> +  or sensors.
+> +
+> +  The specification has been written by Microsoft and is currently avail=
+able
+> +  here: https://www.microsoft.com/en-us/download/details.aspx?id=3D103325
+> +
+> +allOf:
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - microsoft,g6-touch-digitizer
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO specifier for the device's reset line. The HID over SPI
+> +      specification requires a dedicated, host-driven, active-low reset
+> +      line. The line must be flagged with GPIO_ACTIVE_LOW.
+> +
+> +  vdd-supply:
+> +    description:
+> +      Regulator for the VDD supply voltage.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - reset-gpios
+> +  - vdd-supply
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    spi {
+> +      #address-cells =3D <1>;
+> +      #size-cells =3D <0>;
+> +
+> +      hid@0 {
+> +        compatible =3D "microsoft,g6-touch-digitizer";
+> +        reg =3D <0x0>;
+> +        interrupts-extended =3D <&gpio 42 IRQ_TYPE_EDGE_FALLING>;
+> +        reset-gpios =3D <&gpio 27 GPIO_ACTIVE_LOW>;
+> +        vdd-supply =3D <&pm8350c_l3>;
+> +        pinctrl-names =3D "default";
+> +        pinctrl-0 =3D <&ts_d6_int_bias>;
+> +      };
+> +    };
+>=20
+> --=20
+> 2.56.0.257.gf7497c7d27-goog
+>=20
+
+--8sC1crqEc4kNm6ti
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauDqzQAKCRB4tDGHoIJi
+0purAQCYkv7CUzklUUDgE+JeGoIkAHm0JC3f3mTJttH7XxBzAQEA7mawrnCg1cIq
+AdfoN1FM3DllFm3RVC+pmpw1NcGdYQA=
+=3dUb
+-----END PGP SIGNATURE-----
+
+--8sC1crqEc4kNm6ti--
