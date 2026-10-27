@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793075320;
-	b=Zi9MySZvIeYL61OR30o7xcA6IHySSj0kjBga+BhuUEx/FXr/9dHHhOBkGr7iibUXqC++
-	 siyo+SKc7iIhlTwUBm9amVeyUNm3EmvV/BnmuiFgKVscL2PVBXDcF30/80vKzFCiJso9p
-	 vBj/57twsvtim0lPhYw8Y5NfFw8UBoMbb1ovlGBhos6Yk6w+y5bIxfzZgwsnUuHOatlx6
-	 yS552Dm8aHmiE29XAJGcfDaC4fvNBXR3XqIZWnJEVVyC6PsTlu/cw+Fo+Uye5DBxp5TnF
-	 mZanUEupj/J4KLO8yCT1VhaFjYCyw0Buqnr7WWROA2ApEodYNUgqSB3EF5sn+IbXSkg==
+	t=1793075351;
+	b=5NC7ihGhmaxwAkb3fvpO0jAXoNOjfz8e1MNWZGvAanohOXWO/Cvh8R+a2xHEYwLGArye
+	 QiiQS5uv274k80Rhk1mHSFZBgqj8hmm5nfa8BsWRwDd5VY3PAVykb7c4eoDMT7OMRTMGu
+	 zdSyw04HrVZ16vWiW2Dp0eBjTgjSsj7dHaxWv9iB+4LDbVXdZvu9rCQWAy5K0mxWvVSB8
+	 IlBnAGDll1eRyyorL+0i+wehrqCL8Pvb91T3L041NHJOM18R1aXXjLwRWuxHQnFxu2fZM
+	 hP2p8s+NF1wJdYrKN8DkH5YAlLJSJ6alQ3dmUQ2U6CzuLU0O/cZZAUCxsSLJX64f7Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793075320;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793075351;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sMWvOVtBIa1tWsgDaO3oY3FEqsdd7thgwrS2v4FAZBc=;
-	b=qaG6WbNpGLgPxuNXcWqZx8F6dbR/FdyPEippGce17XpM95XJ4r0Mxgy62WdsJFiMtQIB
-	 SBJEariH/aPwR6SJLUu6Xk1glAHIP7iaUbvzULc/S7BBHhReWGZ3WLCWiN7IdSmgDYc1X
-	 XQBoc0H/wmQZmtFXaNRDnp9hA6zoa9csQZxwTPeDH5mokyH+ZFo952uA5hsRUN8evVTAS
-	 C7yruC2Tg9A17W4XLnvZWHq/OfrJUW1xj1jFRyKBd4/MjtnJbGFVJsnJx70LpVRcrG1or
-	 nPIdCOOG5NAsVLBBzDOH4QPDl2lZQa/f2SJLTuxibk8NB9mw2HmKdIzfy4BNwEGqPDQ==
+	bh=m/U77x0y3C+3jAaj8IPRauVnmRuyLier0Ew19PXQRGU=;
+	b=0OxZer4vsCgoxlP6BpB55UugS5Kyjg/IAecTo6EMciRMXm/qeDV9csSDiySHIHxJTPIx
+	 fwiLLtVchOGXrlUTHB3bkApu28gL13uiw7H3bUsEYfiLUyvp9Jb5yFhTsqedkXeWz5RtT
+	 nbwOH5XwFwV3h4Z59cD+oAr2Q/g8K7MJ3hsExtijVFIMgOZ2dc8WtOnfAcDHWdCBlsgjl
+	 O8Hxp4VTFzrAqTLQ3o4RJaT39yYUknH8m1OQbIJLB8WprjAfRYCIOFC7fzQVIY6+/I8TL
+	 jP2BmB1wMF0st1MxTb4ZN2nYK805uJPmeX+5PeIsv0eMm6XJr+y3nVt4tZjAgT+VElA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BlhdA/7d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtgKYxkN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7979D606A31E;
-	Tue, 27 Oct 2026 04:28:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B40606A31A
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlhdA/7d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B551F01825;
-	Tue, 27 Oct 2026 04:28:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtgKYxkN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B0B1F01825;
+	Tue, 27 Oct 2026 04:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793075320;
-	bh=sMWvOVtBIa1tWsgDaO3oY3FEqsdd7thgwrS2v4FAZBc=;
+	s=k20260515; t=1793075350;
+	bh=m/U77x0y3C+3jAaj8IPRauVnmRuyLier0Ew19PXQRGU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BlhdA/7dLhtBtFlBPilnPIKBpUqgOJWiUiWTtON/aZtmKfHkxLSVBOT+rMBR3VuFW
-	 ubKwPJYB4MdCKcTs4MlQWyOEYa20A33n0Sn02bhpWpjttuwcbka3rvwvXJZt2FslYe
-	 A380XGZBc2gR1Cl1uhw2tbeJdVndcsTjlxj2Y62NWOj39l1jKjyYkl3aKNbwL32msi
-	 IcXRJkD5dNkx50ylpgFNFHx52ZGJOpnszGr4Dii9D2LmuU4dk2ZBSH23fv9XfKFd/t
-	 EG7lTjBnnfCFJjuxXTKPadFXDTnUBUdC2ore+7QJ3ItGi8qqRqPwiSwMPxRktYSDVC
-	 Z59mafjCVU8Zg==
-Message-ID: <sashiko-outbox-186079@kernel.org>
+	b=BtgKYxkNMIIggx291ONFoJqoOOjVk9bBZPvj47Y2ZuF4tXMqfcUBf1xNTEYya6TSO
+	 dZm2oeWHQBOYcg0Pa5W9xDZWeIg4fDKe9uMXv6zP3jHgB4+irLomYY+UmkShf3Wc0M
+	 A1JY0ju1t9SLDVMKRi1VAr8AJ5cl9ya9wcV+TgSUhSAm/PNuKDIY/hVHAsh9L58XEK
+	 ah5EEmHON+L80NEDdhqb51vTTILPxPC/YUbLp7hPJw2l4dvkOTxzmh8Es5KMRDirLg
+	 VR88syygsstHoPy5aUKruypRnsnXa8eZ5A7g8bZHJtJ+6W7KyG3E3wKEa+GYXFkshp
+	 G5cQqaRkqydzA==
+Message-ID: <sashiko-outbox-186080@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 02/11] gpiolib: regmap: add
- GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+Subject: Re: [PATCH] arm64: dts: ti: k3-j722s-evm: Enable HDMI display
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
+To: "Mrigendra Chaubey" <mrigendra.chaubey@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261027-cv75-gpio-v12-2-c22555400e18@ambarella.com>
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
- <20261027-cv75-gpio-v12-2-c22555400e18@ambarella.com>
+In-Reply-To: <20261027042231.499107-1-mrigendra.chaubey@gmail.com>
+References: <20261027042231.499107-1-mrigendra.chaubey@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 04:28:38 +0000
+Date: Tue, 27 Oct 2026 04:29:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,74 +61,58 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] gpiolib: regmap: unchecked gpio_regmap_set() in gpio_regmap_dire=
-ction_output()
+- [Low] arm64: dts: ti: unresolved dss1 label reference in k3-j722s-evm.dts
 --
 
-commit 1a15997a522bf0a981af10f62271be5cd75e972d
-Author: Long Zhao <longzhao@ambarella.com>
+commit 91b798e074e4955950640ee6d66d8481cca226d2
+Author: Jayesh Choudhary <j-choudhary@ti.com>
 
-gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+arm64: dts: ti: k3-j722s-evm: Enable HDMI display
 
-This commit adds a quirk flag to allow writing the output value of a GPIO
-line after changing its direction to output for controllers that ignore
-output writes while the line is still configured as an input.
+This commit adds the TCA6416 I/O expander, SiI9022 HDMI bridge, HDMI
+connector, and DPI pinmux to k3-j722s-evm.dts, and enables the DSS1 node
+to drive HDMI output from VP0.
 
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> index 51b4d69b87403..0a44deae3d01e 100644
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
+> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dt=
+s/ti/k3-j722s-evm.dts
+> index e66330c71593a..bcf8088c9bf07 100644
+> --- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+
 [ ... ]
-> @@ -271,9 +272,17 @@ static int gpio_regmap_direction_output(struct gpio_=
-chip *chip,
->  			return ret;
->  	}
+
+> @@ -854,4 +991,39 @@ &mcu_i2c0 {
+>  	status =3D "okay";
+>  };
 > =20
-> -	gpio_regmap_set(chip, offset, value);
-> +	if (!(gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR))
-> +		gpio_regmap_set(chip, offset, value);
-> =20
-> -	return gpio_regmap_set_direction(chip, offset, true);
-> +	ret =3D gpio_regmap_set_direction(chip, offset, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR)
-> +		gpio_regmap_set(chip, offset, value);
-> +
-> +	return 0;
+> +&dss1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&dss1_pins_default>;
 
-[Severity: Medium]
-Should gpio_regmap_direction_output() in drivers/gpio/gpio-regmap.c check
-and propagate the return value of both gpio_regmap_set() calls?
+[Severity: Low]
+Does this break building k3-j722s-evm.dtb when CONFIG_ARCH_K3 is enabled in
+this tree?
 
-In drivers/gpio/gpio-regmap.c, gpio_regmap_set() returns a negative error
-code if reg_mask_xlate() or regmap_write_bits() / regmap_update_bits()
-fails:
+In arch/arm64/boot/dts/ti/Makefile, k3-j722s-evm.dtb is built unconditional=
+ly
+for CONFIG_ARCH_K3:
 
-drivers/gpio/gpio-regmap.c:gpio_regmap_set() {
-	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-	if (ret)
-		return ret;
-	...
-	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
-		ret =3D regmap_write_bits(gpio->regmap, reg, mask, mask_val);
-	else
-		ret =3D regmap_update_bits(gpio->regmap, reg, mask, mask_val);
+    dtb-$(CONFIG_ARCH_K3) +=3D k3-j722s-evm.dtb
 
-	return ret;
-}
+Although cbass_main in arch/arm64/boot/dts/ti/k3-j722s.dtsi maps the bus
+range for DSS1:
 
-When the quirk is not set and the initial gpio_regmap_set() fails (for
-example due to an I2C/SPI bus error or invalid register translation),
-ignoring the return value allows execution to proceed to
-gpio_regmap_set_direction(), enabling the output driver on the pin with a
-stale output value.
+    <0x00 0x30220000 0x00 0x30220000 0x00 0x00010000>, /* DSS1 */
 
-When the quirk is set and the post-direction gpio_regmap_set() fails,
-gpio_regmap_direction_output() discards the error and returns 0 to the
-caller even though setting the output value failed.
+none of the included .dtsi files (such as k3-am62p-j722s-common-main.dtsi or
+k3-j722s-main.dtsi) define the dss1 node or label yet, because the
+prerequisite AM62P/J722S DSS series noted in the patch commentary is not
+applied in this tree. As a result, referencing &dss1 here causes dtc to fail
+with an unresolved label error during a dtbs build.
+
+Should the prerequisite patch defining the dss1 node be applied before this
+change?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-cv75-gpio-=
-v12-0-c22555400e18@ambarella.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027042231.4991=
+07-1-mrigendra.chaubey@gmail.com?part=3D1
