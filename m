@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793095479;
-	b=DTEMdUlmF+A+ATmVkzICZ8GSS1Mca+0/B6tcLsnwAIb8u8hmk+UzQI0EVtcZF7mqDnvh
-	 fOTcgYh/lHac+JMvCahBwjFRmRQOWk6Kiolk2dlPRPHncL16gsK4s9oNFzCwoHUPbLxsD
-	 CF3XecA7v6yuXAqBij34vFYT8aTCFQcZdoLUxMLT21hbBUtY+je2urOOqqHQxNwSQG6eF
-	 GiiwYAERZFwYlWgu7TX9pVzgMxKf4Rce0qB7JvqFgU+Pz8huvb0dnFb/VIzZGZ1viroPN
-	 YnFiaWDxk+o7waBtICZ6c6pftjTfnL0+TP/Af7DjYqnStU+KyWbcdvrL5XX8kS4guFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095479;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Gs1wpzle11ZgyQDyfmwMYfbfO24DQi4MLxeofJbDPMk=;
-	b=YswpLFfXwApSfHP0ED2p6GgGbKv6Xml0e6XidR4KKv4GbOG2lgmXFat63QB2ikQzVIaB
-	 ubEfRXXZ6MMhLc9o+XxtYccei9Q5m0OWXeL2aKx9BIsuBHFr/3RKlXy8Gs1+6JblBCGHb
-	 AFjfWX/vleX7RfBG5/NGGG9ohWxWLM6apf+a9y4XVT4RCDk7CvuALpnJlP5cxXvo0lxL1
-	 p73jp+fpZrhbmaTNLyiRliH5Y8ksUIGmCYRzk7tprXnD+RGZDmzAbUfOa6UY+ms9XZJw2
-	 TRvs7X3H30TtK0dciozwtEiqI/HSq8Uh6f3qu+5aCCYJ14sCtmLwhW81ULKHtzMO4Kg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsyCRPuJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793095503;
+	b=DVoL5CEBWrP+9BLaZ2+u4bzC8gM/3ci+svf7JKW2PfcPpg2JxMJ7rg0BOdTjq2X3EX/M
+	 9n3N7qP5PlFJNo653p8ZgL14gOnqlBm9yqLb9v6SiT9r9wo1lfYQxkoxBpvmuZesVHGDE
+	 NZipkr4mAHkiz++6QpJCvy0awRzWuWI6cvwZlBVj8TcThMTic9fYKne8VmPJmAoiT8WWp
+	 ZOc3iwlxr5n4hoV08Wk1vz3pSL8PuoVGqTnmoHQ7ApwK0AfJAWsOZZzQtOUoQ7vFtLypu
+	 pi0Xvbrrk2NhtVctnDjVxK6HpnNJ/465CIilSwvrtkAsoTbmPraP8m6RhcWypRRMgIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095503;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NrlJ8g/naw6YUTj7FVrYJREvO50cm+kmdHJ2AhA6rYI=;
+	b=jKqnzMp+JvALduA0ArRXLxvkB6kzKUwKu9XMjN3NMvyNgojFVshnVgkqHwQv6PRcjBbZ
+	 2qZ0S97Xk3w42ptiSHFSE5d2oZkuYsUtP6AJj/avhH2GN3PWGKZruEPywDrRK8Vtngy4C
+	 8WvZfb/CcqrfuZjuBNmnupCF3iaMqqwDdAT8NJF5sg4gsLxAVx1oAjlzXgBLJTcSl2idr
+	 CZgnh/dbs9cHAv2hhRFQ0RPTgUdWc5qEWo3hyPFTFgEkR3N1r3Qmw0MyN0va9cd2uTE9H
+	 jLqaxgR+xpANqucu9auHbHi5Zq7U0Wvir8AN4aAKzNDNDT7wGaslfpQxZRssTkAS4VQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxUkj8uA;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9081E606A324;
-	Tue, 27 Oct 2026 10:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3805606A31B;
+	Tue, 27 Oct 2026 10:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsyCRPuJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793095478;
-	b=LqLBIYjPKrC+F8BePO9dfDjSVP+it8uUSnKZoXlmvYrDrDch9yoswwtRaBfFkFRh86oJ
-	 kFA3xtzadb5L4Nr/YdMouapaKti1KRjP9pFlqKeiUhmscqGJH3C0bnFjY0KDtvT7YjeVE
-	 LluettafzPO1thrtLeEQij0WkJueWHhZcAz7MjqW0Keah4RAr8+4HmJGtlbmah40aaHjY
-	 JaQArcbvlsekWjBi8BzOGNbGP/QXuDGvfDFPp7x+rLgHf5iPjPxCtFXZmmDycoi/18gfY
-	 hXPQKYacTNWl/VaIecisLHoGmyBmJwmBFBqmC/YebVG6DsYuaOjnVKzrwcH0iqTqVYQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793095478;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Gs1wpzle11ZgyQDyfmwMYfbfO24DQi4MLxeofJbDPMk=;
-	b=M/PNwuhw2J4k+1c5WSAtMSEtB7uts+CUS+xqeUoZrsj2BIfNksY5EpcknoGbvhGs1BJ3
-	 Q3mC5TZpMLJWuW1wQtIVtn8KgSWr/rMMzvSfPZ9AmIa4QatJie0Ohw4PPl4lFboUHKcVh
-	 0eCY/pMcG04g7ychoZDKwZbzDS9ACGXzw4veOJdH/qQuyz60wshH3HVHp1walGSLu0nLs
-	 XL10xG8RzfCnXGxR2Z5zRqF3pcA4JB8oRuysm8dVbE+c0DZyU3jIjq8/YUHuNuORr+dgR
-	 /oXOKsPjQnqgvAvr6VukN7LglmxptDltTQR3e5rPvIv6z9In/jj6L5z6KJ3OuF2+bqw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2D9CC1F031E0;
-	Tue, 27 Oct 2026 10:04:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxUkj8uA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09BE81F01825;
+	Tue, 27 Oct 2026 10:04:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793095478;
-	bh=Gs1wpzle11ZgyQDyfmwMYfbfO24DQi4MLxeofJbDPMk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JsyCRPuJ7s3+Io9amRV0PKSRBtiRKpdFClq/qPN8J6AVu6lJlchu6V11B4g00EZlV
-	 H9abEy9PXmzNUwjBkEYAs/69Y+nIrl3c89DZRQBwgdEQjq29hAPFPUJOiJb6SIJ+6e
-	 IQOP8qXEGpz9EIN+5QnH4AXBCs4ljz87MihXQbiNvigGAPokfUL8PTAmWZmnyma65e
-	 yR2tsTaXAceTTN1C/XrTra96pnCSynVT0aG8ES53GKjMkARcbF19CfrmfDTxSuWil3
-	 QgsXgWHs3LaovlV2How2BmTY0zG3xSPTYMp+dajFFgNbkfwA3Dxh19gpL0u+u1uQS1
-	 4iQyLeVc+iHOQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B3E6145078;
-	Tue, 27 Oct 2026 10:04:35 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Tue, 27 Oct 2026 18:04:29 +0800
-Subject: [PATCH v4 2/4] clk: rockchip: Add internal support for 24-bit
- fractional dividers
+	s=k20260515; t=1793095502;
+	bh=NrlJ8g/naw6YUTj7FVrYJREvO50cm+kmdHJ2AhA6rYI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZxUkj8uAvhzv90m/WWnpIaqo0j6dCrI7HVMlrI/byqOBbcUEmbZpoNst7etZ/dU50
+	 XM3owOGBPvGE8tHc25pzvvt2u/sM1WcaWnhe4MuJNAuLBsuohOurFdbnVHed5V1/nk
+	 Uhd2VM58ttpXiQhPIlyxmDc4YepI99UteM0fTdSY8JP5DJQSDGkUWNBSFQxK9TxfMF
+	 m1Am8YAytta0EdjpCsUKuoLoFSS21qoyzDuKDpdJgVgaVl77V8dKqQHfZ1Fv2LW+V7
+	 GUCd07qF+yWULKrqSHTISsFEKXrQBb37YwgoFM9j4kI+CFEozXXtU0JglTK0YqDmPc
+	 2yTYzv46OkgBA==
+Message-ID: <18f1e637-48de-4962-8a13-65f6597eb2dc@kernel.org>
+Date: Tue, 27 Oct 2026 11:04:54 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,510 +51,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-add-board-ok3572-c-clk-v4-2-d4152b4fedaa@qq.com>
-References: <20261027-add-board-ok3572-c-clk-v4-0-d4152b4fedaa@qq.com>
-In-Reply-To: <20261027-add-board-ok3572-c-clk-v4-0-d4152b4fedaa@qq.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Elaine Zhang <zhangqing@rock-chips.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793095473; l=14602;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=ZqzJUJ10Zi7hd4crYOXXytNWxgw9kpxrle17/5vCwU8=;
- b=H6pjxEUSSMzaB7kBZn6s4LLs0qwuBZlyTxxcc3oRjVlTvx5Vb6s6TSr/p25XhZn/Nl3eSrIWV
- QJ0h/2JqmdnBcQUM2cLPKyUcYM3HaGGOQbnD2RAN0Lu//CKDfI1bdex
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
+ Allwinner H616
+To: wens@kernel.org
+Cc: James Hilliard <james.hilliard1@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
+ <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
+ <20261027-nifty-reliable-octopus-6cbac5@quoll>
+ <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+ <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
+ <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Elaine Zhang <zhangqing@rock-chips.com>
+On 27/10/2026 11:02, Chen-Yu Tsai wrote:
+>>>>> +  - if:
+>>>>> +      properties:
+>>>>> +        compatible:
+>>>>> +          contains:
+>>>>> +            const: allwinner,sun50i-h616-uart
+>>>>> +    then:
+>>>>> +      properties:
+>>>>> +        fifo-size:
+>>>>> +          const: 256
+>>>>> +      required:
+>>>>> +        - fifo-size
+>>>>
+>>>> Why do you require fifo-size if is const? It is implied by the
+>>>> compatible.
+>>>
+>>> H616 has a fixed depth, but other sunxi integrations have different
+>>> depths between UART instances. For example, D1 has 64-byte FIFOs on
+>>> UART0 and 256-byte FIFOs on UART1–5.
+>>>
+>>> Should I keep this explicit for consistency for all sunxi uarts?
+>>
+>> I am confused, there are no other instances here.
+> 
+> I think the point is that it is going to be needed in the future when
+> we add the compatibles for the SoCs that do have UARTs with different
+> FIFO sizes.
 
-Some Rockchip clocks split each 24-bit numerator and denominator between
-a low register containing 16 bits of each value and a high register
-containing the remaining 8 bits.
+Then we add it. We don't create code which is not used.
 
-Add an internal Rockchip fractional-divider helper and clock branch type
-for this register layout. This provides the support needed by the RK3572
-audio fractional clocks.
-
-Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
-
-- Adapted the rate callback to determine_rate().
-- Made the registration interface internal to the Rockchip clock driver.
-- Rejected compensated ratios exceeding the field widths before
-  multiplication or register writes.
-
-Co-developed-by: Cunhao Lu <1579567540@qq.com>
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-Changes in v3:
-- Reject compensated ratios that exceed the actual field widths before
-  multiplication or register writes.
----
- drivers/clk/rockchip/Makefile                    |   1 +
- drivers/clk/rockchip/clk-fractional-divider-v2.c | 354 +++++++++++++++++++++++
- drivers/clk/rockchip/clk.c                       |  10 +
- drivers/clk/rockchip/clk.h                       |  25 ++
- 4 files changed, 390 insertions(+)
-
-diff --git a/drivers/clk/rockchip/Makefile b/drivers/clk/rockchip/Makefile
-index 554b7eb83dc91..91d4ea4837e3e 100644
---- a/drivers/clk/rockchip/Makefile
-+++ b/drivers/clk/rockchip/Makefile
-@@ -10,6 +10,7 @@ clk-rockchip-y += clk-pll.o
- clk-rockchip-y += clk-cpu.o
- clk-rockchip-y += clk-gate-grf.o
- clk-rockchip-y += clk-half-divider.o
-+clk-rockchip-y += clk-fractional-divider-v2.o
- clk-rockchip-y += clk-inverter.o
- clk-rockchip-y += clk-mmc-phase.o
- clk-rockchip-y += clk-muxgrf.o
-diff --git a/drivers/clk/rockchip/clk-fractional-divider-v2.c b/drivers/clk/rockchip/clk-fractional-divider-v2.c
-new file mode 100644
-index 0000000000000..102e03f9d6e60
---- /dev/null
-+++ b/drivers/clk/rockchip/clk-fractional-divider-v2.c
-@@ -0,0 +1,354 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2024 Rockchip Electronics Co., Ltd.
-+ *
-+ * Adjustable fractional divider clock implementation.
-+ * Uses rational best approximation algorithm.
-+ *
-+ * Output is calculated as
-+ *
-+ *	rate = (m / n) * parent_rate				(1)
-+ *
-+ * This is useful when we have a prescaler block which asks for
-+ * m (numerator) and n (denominator) values to be provided to satisfy
-+ * the (1) as much as possible.
-+ *
-+ * Since m and n have the limitation by a range, e.g.
-+ *
-+ *	n >= 1, n < N_width, where N_width = 2^nwidth		(2)
-+ *
-+ * for some cases the output may be saturated. Hence, from (1) and (2),
-+ * assuming the worst case when m = 1, the inequality
-+ *
-+ *	floor(log2(parent_rate / rate)) <= nwidth		(3)
-+ *
-+ * may be derived. Thus, in cases when
-+ *
-+ *	(parent_rate / rate) >> N_width				(4)
-+ *
-+ * we might scale up the rate by 2^scale (see the description of
-+ * CLK_FRAC_DIVIDER_POWER_OF_TWO_PS for additional information), where
-+ *
-+ *	scale = floor(log2(parent_rate / rate)) - nwidth	(5)
-+ *
-+ * and assume that the IP, that needs m and n, has also its own
-+ * prescaler, which is capable to divide by 2^scale. In this way
-+ * we get the denominator to satisfy the desired range (2) and
-+ * at the same time a much better result of m and n than simple
-+ * saturated values.
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/io.h>
-+#include <linux/device.h>
-+#include <linux/slab.h>
-+#include <linux/rational.h>
-+#include "clk.h"
-+
-+struct clk_fractional_divider_v2 {
-+	struct clk_hw	hw;
-+	void __iomem	*reg;
-+	void __iomem	*high_reg;
-+	u8		mshift;
-+	u8		mwidth;
-+	u32		mmask;
-+	u8		nshift;
-+	u8		nwidth;
-+	u32		nmask;
-+	u8		high_mshift;
-+	u8		high_mwidth;
-+	u32		high_mmask;
-+	u8		high_nshift;
-+	u8		high_nwidth;
-+	u32		high_nmask;
-+	u8		flags;
-+	void		(*approximation)(struct clk_hw *hw,
-+					 unsigned long rate,
-+					 unsigned long *parent_rate,
-+					 unsigned long *m, unsigned long *n);
-+	spinlock_t	*lock; /* Protects the low and high register pair. */
-+};
-+
-+#define to_clk_fd_v2(_hw) container_of(_hw, struct clk_fractional_divider_v2, hw)
-+
-+static inline u32 clk_fd_v2_readl(struct clk_fractional_divider_v2 *fd,
-+				  void __iomem *reg)
-+{
-+	return readl(reg);
-+}
-+
-+static inline void clk_fd_v2_writel(struct clk_fractional_divider_v2 *fd,
-+				    void __iomem *reg, u32 val)
-+{
-+	writel(val, reg);
-+}
-+
-+static unsigned long clk_fd_v2_recalc_rate(struct clk_hw *hw,
-+					   unsigned long parent_rate)
-+{
-+	struct clk_fractional_divider_v2 *fd = to_clk_fd_v2(hw);
-+	unsigned long flags = 0;
-+	unsigned long m_low, n_low, m_high, n_high, m, n;
-+	u32 val_low, val_high;
-+	u64 ret;
-+
-+	if (fd->lock)
-+		spin_lock_irqsave(fd->lock, flags);
-+	else
-+		__acquire(fd->lock);
-+
-+	val_low = clk_fd_v2_readl(fd, fd->reg);
-+	val_high = clk_fd_v2_readl(fd, fd->high_reg);
-+
-+	if (fd->lock)
-+		spin_unlock_irqrestore(fd->lock, flags);
-+	else
-+		__release(fd->lock);
-+
-+	m_low = (val_low & fd->mmask) >> fd->mshift;
-+	n_low = (val_low & fd->nmask) >> fd->nshift;
-+	m_high = (val_high & fd->high_mmask) >> fd->high_mshift;
-+	n_high = (val_high & fd->high_nmask) >> fd->high_nshift;
-+	m = (m_high << 16) | m_low;
-+	n = (n_high << 16) | n_low;
-+
-+	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-+		m++;
-+		n++;
-+	}
-+
-+	if (!n || !m)
-+		return parent_rate;
-+
-+	ret = (u64)parent_rate * m;
-+	do_div(ret, n);
-+
-+	return ret;
-+}
-+
-+static void clk_fractional_divider_general_approximation_v2(struct clk_hw *hw,
-+							    unsigned long rate,
-+							    unsigned long *parent_rate,
-+							    unsigned long *m, unsigned long *n)
-+{
-+	struct clk_fractional_divider_v2 *fd = to_clk_fd_v2(hw);
-+	unsigned long scale;
-+
-+	/*
-+	 * Get rate closer to *parent_rate to guarantee there is no overflow
-+	 * for m and n. In the result it will be the nearest rate left shifted
-+	 * by (scale - fd->nwidth) bits.
-+	 *
-+	 * For the detailed explanation see the top comment in this file.
-+	 */
-+	scale = fls_long(*parent_rate / rate - 1);
-+	if (scale > fd->nwidth)
-+		rate <<= scale - fd->nwidth;
-+
-+	rational_best_approximation(rate, *parent_rate,
-+				    GENMASK(fd->mwidth - 1, 0),
-+				    GENMASK(fd->nwidth - 1, 0),
-+				    m, n);
-+}
-+
-+static int clk_fd_v2_get_divider(struct clk_hw *hw, unsigned long rate,
-+				 unsigned long parent_rate,
-+				 unsigned long *m, unsigned long *n)
-+{
-+	struct clk_fractional_divider_v2 *fd = to_clk_fd_v2(hw);
-+	u32 factor;
-+
-+	rational_best_approximation(rate, parent_rate,
-+				    GENMASK(fd->mwidth - 1, 0),
-+				    GENMASK(fd->nwidth - 1, 0),
-+				    m, n);
-+
-+	if (fd->flags & CLK_FRAC_DIVIDER_ZERO_BASED) {
-+		(*m)--;
-+		(*n)--;
-+	}
-+	/*
-+	 * When compensation the fractional divider,
-+	 * the [1:0] bits of the numerator register are omitted,
-+	 * which will lead to a large deviation in the result.
-+	 * Therefore, it is required that the numerator must
-+	 * be at least 4.
-+	 *
-+	 * Note that there are some exceptions here:
-+	 * If there is an even frac div, we need to keep the original
-+	 * numerator(<4) and denominator. Otherwise, it may cause the
-+	 * issue that the duty ratio is not 50%.
-+	 */
-+	if (*m < 4 && *m != 0) {
-+		if (*n % 2 == 0)
-+			factor = 1;
-+		else
-+			factor = DIV_ROUND_UP(4, *m);
-+
-+		if (*m > GENMASK(fd->mwidth - 1, 0) / factor ||
-+		    *n > GENMASK(fd->nwidth - 1, 0) / factor)
-+			return -EINVAL;
-+
-+		*n *= factor;
-+		*m *= factor;
-+	}
-+
-+	return 0;
-+}
-+
-+static int clk_fd_v2_determine_rate(struct clk_hw *hw,
-+				    struct clk_rate_request *req)
-+{
-+	struct clk_fractional_divider_v2 *fd = to_clk_fd_v2(hw);
-+	unsigned long m, n;
-+	u64 ret;
-+
-+	if (!req->rate || req->rate >= req->best_parent_rate) {
-+		req->rate = req->best_parent_rate;
-+		return 0;
-+	}
-+
-+	if (fd->approximation)
-+		fd->approximation(hw, req->rate, &req->best_parent_rate, &m, &n);
-+	else
-+		clk_fractional_divider_general_approximation_v2(hw, req->rate,
-+								&req->best_parent_rate,
-+								&m, &n);
-+
-+	ret = (u64)req->best_parent_rate * m;
-+	do_div(ret, n);
-+	req->rate = ret;
-+
-+	/* Validate the rounded rate that set_rate() will receive. */
-+	return clk_fd_v2_get_divider(hw, req->rate, req->best_parent_rate, &m, &n);
-+}
-+
-+static int clk_fd_v2_set_rate(struct clk_hw *hw, unsigned long rate,
-+			      unsigned long parent_rate)
-+{
-+	struct clk_fractional_divider_v2 *fd = to_clk_fd_v2(hw);
-+	unsigned long flags = 0;
-+	unsigned long m, n, m_low, n_low, m_high, n_high;
-+	u32 val, val_high;
-+	int ret;
-+
-+	ret = clk_fd_v2_get_divider(hw, rate, parent_rate, &m, &n);
-+	if (ret)
-+		return ret;
-+
-+	if (fd->lock)
-+		spin_lock_irqsave(fd->lock, flags);
-+	else
-+		__acquire(fd->lock);
-+
-+	m_low = m & fd->nmask;
-+	n_low = n & fd->nmask;
-+	m_high = (m & GENMASK(fd->mwidth - 1, (fd->mwidth - fd->high_mwidth))) >>
-+		 (fd->mwidth - fd->high_mwidth);
-+	n_high = (n & GENMASK(fd->nwidth - 1, (fd->nwidth - fd->high_nwidth))) >>
-+		 (fd->nwidth - fd->high_nwidth);
-+
-+	val_high = clk_fd_v2_readl(fd, fd->high_reg);
-+	val_high &= ~(fd->high_mmask | fd->high_nmask);
-+	val_high |= (m_high << fd->high_mshift) | (n_high << fd->high_nshift);
-+
-+	clk_fd_v2_writel(fd, fd->high_reg, val_high);
-+
-+	val = clk_fd_v2_readl(fd, fd->reg);
-+	val &= ~(fd->mmask | fd->nmask);
-+	val |= (m_low << fd->mshift) | (n_low << fd->nshift);
-+	clk_fd_v2_writel(fd, fd->reg, val);
-+
-+	if (fd->lock)
-+		spin_unlock_irqrestore(fd->lock, flags);
-+	else
-+		__release(fd->lock);
-+
-+	return 0;
-+}
-+
-+static const struct clk_ops clk_fractional_divider_ops_v2 = {
-+	.recalc_rate = clk_fd_v2_recalc_rate,
-+	.determine_rate = clk_fd_v2_determine_rate,
-+	.set_rate = clk_fd_v2_set_rate,
-+};
-+
-+static struct clk_hw *clk_hw_register_fractional_divider_v2(struct device *dev,
-+							    const char *name,
-+							    const char *parent_name,
-+							    unsigned long flags,
-+							    void __iomem *reg,
-+							    u8 mshift, u8 mwidth,
-+							    u8 nshift, u8 nwidth,
-+							    void __iomem *high_reg,
-+							    u8 high_mshift, u8 high_mwidth,
-+							    u8 high_nshift, u8 high_nwidth,
-+							    u8 clk_divider_flags,
-+							    spinlock_t *lock)
-+{
-+	struct clk_fractional_divider_v2 *fd;
-+	struct clk_init_data init;
-+	struct clk_hw *hw;
-+	int ret;
-+
-+	fd = kzalloc_obj(*fd);
-+	if (!fd)
-+		return ERR_PTR(-ENOMEM);
-+
-+	init.name = name;
-+	init.ops = &clk_fractional_divider_ops_v2;
-+	init.flags = flags;
-+	init.parent_names = parent_name ? &parent_name : NULL;
-+	init.num_parents = parent_name ? 1 : 0;
-+
-+	fd->reg = reg;
-+	fd->mshift = mshift;
-+	fd->mwidth = mwidth + high_mwidth;
-+	fd->mmask = GENMASK(mwidth - 1, 0) << mshift;
-+	fd->nshift = nshift;
-+	fd->nwidth = nwidth + high_nwidth;
-+	fd->nmask = GENMASK(nwidth - 1, 0) << nshift;
-+	fd->high_reg = high_reg;
-+	fd->high_mshift = high_mshift;
-+	fd->high_mwidth = high_mwidth;
-+	fd->high_mmask = GENMASK(high_mwidth - 1, 0) << high_mshift;
-+	fd->high_nshift = high_nshift;
-+	fd->high_nwidth = high_nwidth;
-+	fd->high_nmask = GENMASK(high_nwidth - 1, 0) << high_nshift;
-+	fd->flags = clk_divider_flags;
-+	fd->lock = lock;
-+	fd->hw.init = &init;
-+
-+	hw = &fd->hw;
-+	ret = clk_hw_register(dev, hw);
-+	if (ret) {
-+		kfree(fd);
-+		hw = ERR_PTR(ret);
-+	}
-+
-+	return hw;
-+}
-+
-+struct clk *rockchip_clk_register_frac_v2(struct device *dev,
-+					  const char *name,
-+					  const char *parent_name,
-+					  unsigned long flags,
-+					  void __iomem *reg,
-+					  u8 mshift, u8 width,
-+					  void __iomem *high_reg,
-+					  u8 high_mshift, u8 high_width,
-+					  u8 clk_divider_flags,
-+					  spinlock_t *lock)
-+{
-+	struct clk_hw *hw;
-+
-+	hw = clk_hw_register_fractional_divider_v2(dev, name, parent_name, flags,
-+						   reg, mshift, width, 0, width,
-+						   high_reg, high_mshift, high_width,
-+						   0, high_width,
-+						   clk_divider_flags,
-+						   lock);
-+	if (IS_ERR(hw))
-+		return ERR_CAST(hw);
-+	return hw->clk;
-+}
-diff --git a/drivers/clk/rockchip/clk.c b/drivers/clk/rockchip/clk.c
-index ee8c79b938d3c..0646a2e6af0a8 100644
---- a/drivers/clk/rockchip/clk.c
-+++ b/drivers/clk/rockchip/clk.c
-@@ -589,6 +589,16 @@ void rockchip_clk_register_branches(struct rockchip_clk_provider *ctx,
- 				list->gate_flags, flags, list->child,
- 				&ctx->lock);
- 			break;
-+		case branch_fraction_divider_v2:
-+			clk = rockchip_clk_register_frac_v2(NULL, list->name,
-+							    list->parent_names[0], flags,
-+							    ctx->reg_base + list->muxdiv_offset,
-+							    list->mux_shift, list->mux_width,
-+							    ctx->reg_base + list->div_offset,
-+							    list->div_shift, list->div_width,
-+							    list->div_flags,
-+							    &ctx->lock);
-+			break;
- 		case branch_half_divider:
- 			clk = rockchip_clk_register_halfdiv(list->name,
- 				list->parent_names, list->num_parents,
-diff --git a/drivers/clk/rockchip/clk.h b/drivers/clk/rockchip/clk.h
-index 72b36bba31523..dce4db3f67b04 100644
---- a/drivers/clk/rockchip/clk.h
-+++ b/drivers/clk/rockchip/clk.h
-@@ -781,6 +781,13 @@ struct clk *rockchip_clk_register_ddrclk(const char *name, int flags,
- 					 int ddr_flags, void __iomem *reg_base,
- 					 spinlock_t *lock);
- 
-+struct clk *rockchip_clk_register_frac_v2(struct device *dev,
-+					  const char *name, const char *parent_name,
-+					  unsigned long flags, void __iomem *reg,
-+					  u8 mshift, u8 width,
-+					  void __iomem *high_reg, u8 high_mshift, u8 high_width,
-+					  u8 clk_divider_flags, spinlock_t *lock);
-+
- #define ROCKCHIP_INVERTER_HIWORD_MASK	BIT(0)
- 
- struct clk *rockchip_clk_register_inverter(const char *name,
-@@ -806,6 +813,7 @@ enum rockchip_clk_branch_type {
- 	branch_grf_mux,
- 	branch_divider,
- 	branch_fraction_divider,
-+	branch_fraction_divider_v2,
- 	branch_gate,
- 	branch_grf_gate,
- 	branch_linked_gate,
-@@ -1014,6 +1022,23 @@ struct rockchip_clk_branch {
- 		.child		= ch,				\
- 	}
- 
-+#define COMPOSITE_FRAC_V2(_id, cname, pname, f, mo, ms, mw, do, ds, dw, df)\
-+	{							\
-+		.id		= _id,				\
-+		.branch_type	= branch_fraction_divider_v2,	\
-+		.name		= cname,			\
-+		.parent_names	= (const char *[]){ pname },	\
-+		.num_parents	= 1,				\
-+		.flags		= f,				\
-+		.muxdiv_offset	= mo,				\
-+		.mux_shift	= ms,				\
-+		.mux_width	= mw,				\
-+		.div_offset	= do,				\
-+		.div_shift	= ds,				\
-+		.div_width	= dw,				\
-+		.div_flags	= df,				\
-+	}
-+
- #define COMPOSITE_FRACMUX_NOGATE(_id, cname, pname, f, mo, df, ch) \
- 	{							\
- 		.id		= _id,				\
-
--- 
-2.34.1
-
-
+Best regards,
+Krzysztof
