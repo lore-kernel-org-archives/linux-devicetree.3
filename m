@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105901;
-	b=y/ewMz/O2HiMQr27rMtjMkzHeVpfNwCMj8Wv33vnNN1TtKzjwwsXB3Rc2NLiTfhFT1XM
-	 8nSD2Ad5wUjH+/6BrmGwpLw/a35cJmNWuMRYzgCmpv+72Rz60c89wH3XtjIjawYggYk9z
-	 Xoio4FK76STiuHaw3SROJkOtTovzQFhHjThk1naVt9W3xF+28sJJs4cmfdh5j7QVBJksg
-	 kgXcBK8drxJhj4njVeqLubyEYgIgsbLr7fzqEvmKtLLkUghwXZrl5Yl+G89GBvJ9V6KAg
-	 OPyPkVjg+f8O8CTNylZhQ7N0DbH6bi3arO847JsiyztQAsBXUHTsJKRaV8ZrsyVlulA==
+	t=1793105971;
+	b=XA/Wozp1Simeq+kaQlAQ6DM7p24qQZGJQJTQBacNC2AvPxnj2id0fIOcm5ftq0YNjglt
+	 U7hPoHK/k3+f5my3rcM4QWwGLyFolwWwalsFlyci8X7esu5Xt7ea7AkXMSyR6W3FySxhN
+	 l5N/W89yxz1Fm0XMSyaCQNMhGAuC/Y8zx7EzhZ9Aa/z/55HrWYVxjEorv3z51Yveihb3R
+	 ySC980WrqWOOMfTprWzb7csdu8B6he0OSSqMYgeCJ3EfynEYMN6Cx4zWdaVuudBB9pup+
+	 dZ90Y0E3cfSw9D+AaUoey0VFM0U49fL7C0Op9Ees1mPIBPrhRt0Z4XTJ2SEXaRmyAIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105901;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=CDcWauauVFdyYyRf1FQoD1T3NLtmNQfmJmK7bqntZ+M=;
-	b=BmacydrEUIyUEKGQmP/1P8OdFHbIjaVgCxZln791Br5yKOKJzNzs7vTarO9okuMpM/RC
-	 P13N9sQKcEJOHQg05ciUrT96Qw4GOnu0USktskWZJLd5UeXJDXv8XewOrB6O2WO8g4SF8
-	 a3bvLW6/SaRAEPWC1AtW6ZmD5/wXVkKLW3JfbwIOi1+HCOawUdUsp2azvfx2UcXu1FnWC
-	 oFj0teE0pAzNjWgKVJz2uu79grPbDq3epalh9FgEPcnxWs4etinaKzVLWvI0iJI36zs4W
-	 609TSaQsJ8WAyryjMcSf6C0FkzisiDAwqwr0UDgTeI/45b2TM/c+nYVEiMCpF7nKJSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105971;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Vsl0HVbEuoM51i6BhyxMfLu4Q1ZoOEb60y6FW9JjSq4=;
+	b=WhNZjlXYUZmBFL05ozcML3529QAgvgJnd52T4m9f4aZMHZf1l0jrclUYWdMIP6J4QTcO
+	 s8avqluC6ZVPPdbdxiFXpjdbB9VLq40JE7b5/WSe1Uu7HiTF4Z19tGCr8O9jrgB32Y+iQ
+	 xwIe7f5NhLAdOxmLMMNXB6z9BxkWPkFjnKlYN7FZQadHCjLXIsVpARToPSJ0julWZ1K4G
+	 s+8J7M19PBwCSUiLLYew0/lRvkeFWronOk1rgK6EevHJb9OTBNXcO9fKEAunNxxF5jL66
+	 tSR66hSP0K1+TYzYD8vIjGrkl8Svm9SNDravOaNb2DGKeZVFBldKE+mLxab57zim32g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T7gNIin/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IruyvjM5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JJhqJsrX;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2771606A323
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DDB606A320
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:59:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2DDB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T7gNIin/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342341F01829;
-	Tue, 27 Oct 2026 12:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793105900;
-	bh=CDcWauauVFdyYyRf1FQoD1T3NLtmNQfmJmK7bqntZ+M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T7gNIin/jIMFXJMyilelDcaw6pRn/8Blu/EI9Z+UoYL3m4KFGiA/KXCLzLPwCAJOj
-	 EsTnTNCyQaPEPyeYAxoezbLcZ/Z5X+SNlpzrdLYqMfHPced52RCBbAwW7nHiuBTNh8
-	 aCHXz21QfTcXE7Hr8oZAVlRjTkI49Uz+4GjorzUBLoEVjAeA2LFL/ZOfg3k4crF1/9
-	 S80HdsNE32BJ1H63ITAAjiYFTIhKzXwzIG+OyKurVrubpqF8cGQ+6kh4GU+B/VIyck
-	 uOk86zSWSZLLZIA7VECPb5HThbJxAktReTrIg+aIGxoLSNOILblzFO7qn0eKFdpcFj
-	 /dUpaaaj85e8Q==
-Message-ID: <sashiko-outbox-186593@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] regulator: qcom-rpmh: Add debounce delay before
- disabling regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
- <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 12:58:19 +0000
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IruyvjM5;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JJhqJsrX
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeTal1428073
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:59:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Vsl0HVbEuoM51i6BhyxMfLu4Q1ZoOEb60y6FW9JjSq4=; b=IruyvjM5/aLrDMuW
+	5KVWVW2tcpRSZCiH34BEt6jagRX0sat0rKmCzk1TcpRNrs2ziG3qQoYIw9VRDHnC
+	bUEWdoXMy/GEel6T+h5B6nByfFUxDVQkunbk4aXPuP2A/MsZlyHb7EmrytuOBbbe
+	Y2LofxqRFRaa35TUaPPeQoY2ZKZthfjJb0uwn90uV2NO9GLEM0kV8SDeMeblyfXi
+	Wim4p14h+k1+jc5sgM6BJcTCfPQ6xl8os4N1nll6kIOrKWAKFpM7jbBDSh6kZudN
+	o7H0yuNneG5mFCmSsIWRl2ryA94CFTQ7l0AOTQ5lLWKcL4Q9zctu0oWBR9XFmfME
+	9x7eTw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmbp4f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:59:24 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c3c370b17so7083588eec.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:59:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793105964; x=1793710764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vsl0HVbEuoM51i6BhyxMfLu4Q1ZoOEb60y6FW9JjSq4=;
+        b=JJhqJsrX2oU34E6gMKvvyqkngUtNRYqLbqXehgsB3krNFSc75OR3zjMQss5LPn9Vyv
+         PS3/Qd18V/urRs/kZJcAfTK8bXfH8YjC43tEj4Nj7xHenV3+K/lACUpCsoOo0Laiafg8
+         p+IpS8Ka7mu7PjVWvfgoKqUTZu3mS+7iT7U9rXuIEhNUkvWFRVzOWzy8UPNoL/Yyaxmv
+         AyXc4fnQIM+IEW2X+r9NqWCdsUVAeJntop89Xebr3HIJyIAmJXY862tEhkuFa0324Bzi
+         tP6yU8z13DliSaKhud/3lXVRHLIpCGuh+lG8GZ1GuDSdZYL/RkvFW0OWmOAJGu026jfR
+         ya3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793105964; x=1793710764;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vsl0HVbEuoM51i6BhyxMfLu4Q1ZoOEb60y6FW9JjSq4=;
+        b=yuLBvxiy7Zipeyb+kJSsvz3L5LFIMiBvGWJB1PVTVMAkUfQBOt+Mol44rRA7eOq/9z
+         IC4Gy+WFE629IPztdV3OYNEzp/JY0HXFNwQYw+OQX9wMaIERTVXobPFSNxGEJiRLNa/V
+         cECGRsTEvwutttM+WUBZ5YfZyG1keZBLAJqserCUsIygLc2V48rgka6zOSU09HshnsnY
+         4Yy3MRy2YBYapQkd04tTy32wa04+VFw6/C26+SVbGkOHtyjxq4Q8ta8qPJ9Wzq91OPi5
+         PMQCygcUwMiM02CKYalOwuQTuIVjm+gp4yYjWlUuHZS/Q/hhcsfAqo8HFq/cODR1U+9T
+         HNvg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1tFzUzIedpIxc4KgBe9Y9E6i1uuQeE5bYAC8X1WEnEZbe5YD3d6WVovhnTmAaNTvc6akZlEoWYWKo@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPXX/Dx268Zg0uuJRLX+gGbWG/28+bj4RJE9H1UEPkiOX1+exg
+	uScA+xrWmT19ZzhWfDv87gCIf33tCqhM17cUGsdSHWV9CeH3yMa8QON7kkYPYYIO4mKhOGGQyaG
+	acYcb6Ar7pRsoqMODIzUBbwcpkn2vfYCyh1FTQd4fFuqZeVBXkx259+lNPghgkkq7A2oGi4yT
+X-Gm-Gg: AYBFou1rvxlDxLjArr8HLf6rctU8iED7AsDj4tRAM9rARLDW9Arg/GWqenrZQNMLJdp
+	fPdgKqLYdB4vAG77xIiChetz0qaScUDEwj0lSARXZQ1emHKQeUF3ENZADKbS64/BXKsQQhaPhRH
+	OvNw83cwEqmm0hl14i3z8gXfLezWoucefhx2WdXR3kq0pRTb8T+wvAGfrRVrQ25fV7VRszYzdL8
+	DSKC0Yxt6an/nGz8sMNv3pUED9W/g6CEZfYL0ijxTXe2p6RDN5WMKXXoVD98VigrFNKRe9Edhol
+	8f7KC+YX0FSxufA7m94n/UszyPD1RXhM0zVGhwRtssb49jppFIGVrKzPIv2GL45avffT5HsrEFd
+	cQisfaplC7ZIDjEBHEdHs1oaR4jw/
+X-Received: by 2002:a05:701b:204e:20b0:183:bebb:e93b with SMTP id a92af1059eb24-199292f43eamr13457141c88.6.1793105963979;
+        Tue, 27 Oct 2026 05:59:23 -0700 (PDT)
+X-Received: by 2002:a05:701b:204e:20b0:183:bebb:e93b with SMTP id a92af1059eb24-199292f43eamr13457100c88.6.1793105963185;
+        Tue, 27 Oct 2026 05:59:23 -0700 (PDT)
+Received: from [10.218.49.202] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a249c331sm70037137c88.17.2026.10.27.05.59.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:59:22 -0700 (PDT)
+Message-ID: <991e6b64-8741-4669-9bbf-e31eed788f42@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 18:29:13 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,257 +114,132 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] thermal: qcom: tsens: add hardware-bin trip-point
+ filtering
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+References: <20261002-thermal_bin-v1-0-5a29be7e8ec5@oss.qualcomm.com>
+ <20261002-thermal_bin-v1-4-5a29be7e8ec5@oss.qualcomm.com>
+ <7cd708de-a58e-47fd-acd4-0e37be77de92@oss.qualcomm.com>
+ <e832301a-6129-4697-a5e4-94671072622b@oss.qualcomm.com>
+ <e7788a12-3cad-4bd4-9f79-82cd118e0049@oss.qualcomm.com>
+Content-Language: en-US
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <e7788a12-3cad-4bd4-9f79-82cd118e0049@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MSBTYWx0ZWRfXyJ3F0vdDATqf
+ xOV1b9EPmZMk0aRDHT/G+7aCvgyXJ2qq6TK/rrwzbzHi7k8+3jEEplYiraeqiSIkBo0u8DME1t0
+ Um/LAqHwrrXhQaJfLr55nitp+Q6PgtU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MSBTYWx0ZWRfXyJv4muBq5Kjj
+ zdxP6bU9rb9nrsMxDPWWPuu9g4GA2RwKXbk0KeaGc7mbwhj9XYOA2ehPNEMJyiq8Om2QpZevICh
+ W/7Wa9N7L43zmA11qpDHGH7cLlLXoRngDPul3EE/Da6zsR4OILBy5c3WyFQVNazAWpCWXt88MeA
+ MiHcKY4dmaHN2NAUyaUvA8eyz40PIPUPvsKqFpO/mSpnQfiGhDRgkIA+r4GVYZrRxLlqpvMyPyq
+ 0oeh8/4onomYUCwh37p43wgptx43mpYq6GwzLAnw/1+b2K27cxi1KloG/En26+ljjrXDtettrGP
+ Cs+lIxETe7wYVbmSutg9a2qYCfUWRO0UEPsjr3Hl1Xf+qpaYjzS/IHVWpuPi7FGYKH3K1ubHPmA
+ wdFGlYSIByJyKvd69kRRmxuzOptN1Q7RoESFbdk97m2hR04jN3Cg6gOA34W60Z2XweKUGXMBuav
+ xXqkzAzlyiYgVPJFl1w==
+X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae0a02c cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=2QBr877Ud9-TTkl_dS0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: 66iCp5AaGIW_dY_6QIJkhn512elrGuM-
+X-Proofpoint-GUID: 66iCp5AaGIW_dY_6QIJkhn512elrGuM-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270051
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] regulator: qcom-rpmh: race between teardown and rpmh_regulator_ena=
-ble()
-- [Medium] regulator: qcom-rpmh: vreg->enabled left false when rpmh_delayed=
-_off_work() fails
-- [Medium] regulator: qcom-rpmh: premature parent supply disable during deb=
-ounce_delay
---
 
-commit 5538c8b7a418742a3928d43327d4d04c4bf72849
-Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-regulator: qcom-rpmh: Add debounce delay before disabling regulator
+On 10/26/2026 5:21 PM, Konrad Dybcio wrote:
+> On 10/23/26 12:01 PM, Gaurav Kohli wrote:
+>>
+>>
+>> On 10/22/2026 2:39 PM, Konrad Dybcio wrote:
+>>> On 10/2/26 12:46 PM, Gaurav Kohli wrote:
+>>>> From: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+>>>>
+>>>> Some Qualcomm SoCs are binned at manufacturing time and expose the bin
+>>>> in qfprom fuses.  The thermal core's supported_hw_bin mechanism filters
+>>>> trip points by hardware version; wire tsens up to feed it.
+>>>
+>>> [...]
+>>>
+>>>> +    /* Hardware-bin values for thermal-hw-bin matching in DT. */
+>>>> +    const u32 hw_bin_std = 0x1;
+>>>> +    const u32 hw_bin_elevated = 0x2;
+>>>> +
+>>>> +    /* Higher thermal profile identification for qcm6490/sc7280 bins. */
+>>>> +    const u32 tsens_chip_id0 = 0x197;
+>>>> +    const u32 tsens_chip_id1 = 0x198;
+>>>> +    const u32 tsens_chip_id2 = 0x20e;
+>>>> +    const u32 tsens_chip_id3 = 0x20f;
+>>>> +    const u8 tsens_feat_id2 = 0x2;
+>>>> +    const u8 tsens_feat_id3 = 0x3;
+>>>> +    const u8 tsens_feat_id4 = 0x4;
+>>>
+>>> Isn't that (also) exposed over SMEM?
+>>
+>> Thanks Konrad, for review.
+>>
+>> SMEM has related socinfo data, but there is no exported helper for the
+>> exact fields needed here, such as feat-id, which is also used as the bin
+>> value.
+> 
+> Is that different to qcom_smem_get_feature_code()?
 
-This commit adds support for the qcom,regulator-off-debounce-delay-us prope=
-rty
-to defer RPMh regulator disable requests via a cancelable delayed work item=
-. It
-also tracks off_on_delay locally when debounce_delay is configured so the m=
-inimum
-off time is measured from when the disable request reaches RPMh.
+Thanks for review.
+I am checking internally and will update with the exact difference from
+feat-id. My understanding is that qcom_smem_get_feature_code() returns
+the SMEM socinfo feature_code, while this code needs the QFPROM feat-id
+field from the JTAG ID fuse word.
 
-> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/=
-qcom-rpmh-regulator.c
-> index 25c14de3cd8b5..28060bcfe48f4 100644
-> --- a/drivers/regulator/qcom-rpmh-regulator.c
-> +++ b/drivers/regulator/qcom-rpmh-regulator.c
+For this series, would prefer to keep the fuse-based path. The same
+binding is also used by the generic i-temp fuse bit for Hamoa/future
+targets, while the jtag-id/feat-id decoding remains only the
+Kodiak/QCM6490-specific callback. Please let me know if you are fine 
+with this approach.
+> 
+>> This jtag-id/feat-id decoding is Kodiak/QCM6490-specific, and the
+>> thermal-bin mapping needs both values. Other/future targets are expected
+>> to use only the generic i-temp fuse bit, like Hamoa.
+> 
+> So there are variants of kodiak that ""incorrectly"" set the feat_id?
 
-[ ... ]
+No, Kodiak is not incorrectly setting it.
 
-> @@ -313,19 +354,76 @@ static int rpmh_regulator_set_enable_state(struct r=
-egulator_dev *rdev,
-> =20
->  	ret =3D rpmh_regulator_send_request(vreg, &cmd, enable);
->  	if (!ret)
-> -		vreg->enabled =3D enable;
-> +		WRITE_ONCE(vreg->enabled, enable);
-> =20
->  	return ret;
->  }
-> =20
-> +static void rpmh_delayed_off_work(struct work_struct *work)
-> +{
-> +	struct rpmh_vreg *vreg =3D container_of(work,
-> +					struct rpmh_vreg, delayed_off_work.work);
-> +
-> +	/*
-> +	 * No locking needed. cancel_delayed_work_sync() already guarantees
-> +	 * this work has either not started or has fully finished by the
-> +	 * time enable()/teardown proceed to touch shared state.
-> +	 */
-> +	if (!_rpmh_regulator_set_enable_state(vreg, READ_ONCE(vreg->rdev), fals=
-e))
-> +		vreg->last_off =3D ktime_get_boottime();
-> +}
+Kodiak/QCM6490 does not use the generic i-temp bit for this thermal
+profile selection, it is using feat id only for high TJ profile. The 
+i-temp path is for Hamoa/future targets where the thermal bin is exposed
+as single bit.
 
-[Severity: Medium]
-What happens to vreg->enabled if _rpmh_regulator_set_enable_state() fails in
-rpmh_delayed_off_work()?
+> 
+> Konrad
 
-When rpmh_regulator_disable() queues vreg->delayed_off_work, it sets
-vreg->enabled to false before the RPMh request is sent. When
-rpmh_delayed_off_work() later runs:
-
-rpmh_delayed_off_work()
-  _rpmh_regulator_set_enable_state(vreg, READ_ONCE(vreg->rdev), false)
-    rpmh_regulator_send_request(vreg, &cmd, false)
-
-If rpmh_write_async() fails with -ENOMEM or rpmh_write() fails with
--ETIMEDOUT (when vreg->always_wait_for_ack is set), vreg->last_off is not
-updated, but vreg->enabled remains false even though the hardware rail is
-still enabled and vreg->delayed_off_work is no longer pending.
-
-Could this leave vreg->enabled out of sync with the hardware state, causing
-rpmh_regulator_is_enabled() to report false for an enabled rail and causing
-regulator_late_cleanup() or subsequent voltage changes to treat the active
-rail as disabled?
-
-> +
->  static int rpmh_regulator_enable(struct regulator_dev *rdev)
->  {
-> -	return rpmh_regulator_set_enable_state(rdev, true);
-> +	struct rpmh_vreg *vreg =3D rdev_get_drvdata(rdev);
-> +	s64 remaining;
-> +
-> +	/* See struct rpmh_vreg's @lock for why no lock is needed here. */
-> +	if (cancel_delayed_work_sync(&vreg->delayed_off_work)) {
-> +		/* Queued disable never reached RPMh, so undo disable()'s flip. */
-> +		WRITE_ONCE(vreg->enabled, true);
-> +		return 0;
-> +	}
-> +
-> +	if (vreg->off_on_delay) {
-> +		remaining =3D ktime_us_delta(ktime_add_us(vreg->last_off,
-> +							vreg->off_on_delay),
-> +							ktime_get_boottime());
-> +		if (remaining > 0)
-> +			fsleep(remaining);
-> +	}
-> +
-> +	return _rpmh_regulator_set_enable_state(vreg, rdev, true);
->  }
-> =20
->  static int rpmh_regulator_disable(struct regulator_dev *rdev)
->  {
-> -	return rpmh_regulator_set_enable_state(rdev, false);
-> +	struct rpmh_vreg *vreg =3D rdev_get_drvdata(rdev);
-> +
-> +	guard(mutex)(&vreg->lock);
-> +
-> +	/*
-> +	 * vreg->rdev is also read by delayed_off_work without this lock
-> +	 * held, so READ_ONCE()/WRITE_ONCE() are used instead of locking
-> +	 * there too.
-> +	 */
-> +	WRITE_ONCE(vreg->rdev, rdev);
-> +
-> +	if (vreg->debounce_delay) {
-> +		/*
-> +		 * Flip the logical state now so is_enabled() does not keep
-> +		 * reporting "enabled" while the real RPMh disable is still
-> +		 * queued. Without this, a quick re-enable would see the stale
-> +		 * state and skip calling back into enable(), letting this
-> +		 * queued disable run regardless.
-> +		 */
-> +		WRITE_ONCE(vreg->enabled, false);
-> +		queue_delayed_work(system_percpu_wq, &vreg->delayed_off_work,
-> +				   usecs_to_jiffies(vreg->debounce_delay));
-> +		return 0;
-> +	}
-> +
-> +	return _rpmh_regulator_set_enable_state(vreg, rdev, false);
->  }
-
-[Severity: Medium]
-Can returning 0 immediately from rpmh_regulator_disable() while the child
-regulator is still enabled in RPMh cause a parent supply rail to be disabled
-prematurely?
-
-In rpmh_regulator_init_vreg(), vreg->rdesc.supply_name is populated from
-rpmh_data->supply_name (such as a parent SMPS or BOB rail supplying an LDO).
-When the last consumer disables the child regulator, _regulator_disable() in
-drivers/regulator/core.c runs:
-
-_regulator_disable()
-  _regulator_do_disable(rdev)
-    rpmh_regulator_disable(rdev) -> queues delayed_off_work and returns 0
-  _regulator_handle_consumer_disable(rdev)
-  if (ret =3D=3D 0 && rdev->use_count =3D=3D 0 && rdev->supply)
-    _regulator_disable(rdev->supply);
-
-Because rpmh_regulator_disable() returns 0 before vreg->delayed_off_work ru=
-ns,
-the regulator core immediately drops consumer load and disables rdev->supply
-while the child regulator remains enabled in hardware for vreg->debounce_de=
-lay
-microseconds. If a consumer quickly re-enables the child regulator within
-vreg->debounce_delay, rdev->supply has already been power-cycled.
-
-> @@ -481,6 +579,36 @@ static const struct regulator_ops rpmh_regulator_xob=
-_ops =3D {
->  	.is_enabled		=3D rpmh_regulator_is_enabled,
->  };
-> =20
-> +static void rpmh_regulator_cancel_delayed_off_work(void *data)
-> +{
-> +	struct rpmh_vreg *vreg =3D data;
-> +	bool pending;
-> +
-> +	/*
-> +	 * Mark the feature torn down so a disable() racing with this
-> +	 * teardown cannot queue delayed_off_work after the queue has
-> +	 * already been cleared.
-> +	 */
-> +	scoped_guard(mutex, &vreg->lock)
-> +		vreg->debounce_delay =3D 0;
-> +
-> +	/*
-> +	 * Lock is not held across this cancel_delayed_work_sync(): a running
-> +	 * instance may be waiting on an RPMh ACK, and the lock would needlessly
-> +	 * block disable() for that duration.
-> +	 */
-> +	pending =3D cancel_delayed_work_sync(&vreg->delayed_off_work);
-> +
-> +	/*
-> +	 * If a disable() was queued, run it to ensure regulator hardware
-> +	 * state is synced correctly with software state.
-> +	 */
-> +	scoped_guard(mutex, &vreg->lock) {
-> +		if (pending)
-> +			_rpmh_regulator_set_enable_state(vreg, vreg->rdev, false);
-> +	}
-> +}
-
-[Severity: High]
-Can rpmh_regulator_cancel_delayed_off_work() race with rpmh_regulator_enabl=
-e()
-and disable a regulator that a consumer just enabled?
-
-In rpmh_regulator_init_vreg(), devm_add_action_or_reset() registers
-rpmh_regulator_cancel_delayed_off_work() after devm_regulator_register():
-
-	rdev =3D devm_regulator_register(dev, &vreg->rdesc, &reg_config);
-	if (IS_ERR(rdev)) {
-		...
-	}
-
-	if (vreg->debounce_delay) {
-		ret =3D devm_add_action_or_reset(dev, rpmh_regulator_cancel_delayed_off_w=
-ork,
-					       vreg);
-
-Because devm actions run in reverse registration order during teardown (or =
-if
-a later regulator node fails in rpmh_regulator_probe()),
-rpmh_regulator_cancel_delayed_off_work() runs before regulator_unregister()
-while rdev is still registered and accessible to consumers.
-
-If a prior rpmh_regulator_disable() queued vreg->delayed_off_work, the
-following interleaving can occur:
-
-CPU0 (teardown)                         CPU1 (regulator_enable)
-rpmh_regulator_cancel_delayed_off_work()
-  vreg->debounce_delay =3D 0;
-  pending =3D cancel_delayed_work_sync()
-  (returns true)
-                                        rpmh_regulator_enable()
-                                          cancel_delayed_work_sync()
-                                          (returns false, already cancelled)
-                                          _rpmh_regulator_set_enable_state(=
-..., true)
-                                            vreg->enabled =3D true;
-  scoped_guard(mutex, &vreg->lock)
-    if (pending)
-      _rpmh_regulator_set_enable_state(..., false)
-        vreg->enabled =3D false;
-
-Because rpmh_regulator_enable() does not acquire vreg->lock and
-rpmh_regulator_cancel_delayed_off_work() does not hold rdev->mutex, CPU0's
-delayed disable overwrites CPU1's enable in both RPMh and vreg->enabled.
-
-Also, when _rpmh_regulator_set_enable_state(vreg, ..., false) runs from
-rpmh_regulator_cancel_delayed_off_work() (or from rpmh_regulator_disable()
-after vreg->debounce_delay is cleared to 0), vreg->last_off is not updated
-even though init_data->constraints.off_on_delay was cleared to 0 in
-rpmh_regulator_init_vreg(), so a subsequent rpmh_regulator_enable() would n=
-ot
-enforce vreg->off_on_delay.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-regulator-=
-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com?part=3D4
