@@ -1,106 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068091;
-	b=lzf9EO860+U4FPtTDe4SGb7T2jFzGUObamHMhJtA0KNK9nyKYosrKTBhh/VLDo3dltX1
-	 duoWKnQaFdieICczNIO1iCmvC5PpGSKI0Evdcm/FmJFE/SRujogy0h4iYKyNlMyKcYKb9
-	 IsieIimOri0N3kh51Ya8bJR2n4g0/9RHeoIAdb/zPE3AvcfPrJQ1SpU6crrTAg05WSviO
-	 1qe8/kw+whCUCtX9UGVxrQT9AKEgzIfb3bzjDo+ApeQO7aPsmU2lnk1RMfS2Sw3wkKC7g
-	 7cPXB98xu6DGuR1IhKU9nLDKXofEfwE7RftKXJ+WKHcXi/FDbTuLW9/xpAYtEdcotXA==
+	t=1793069977;
+	b=VIDLAzHGwrltQXXjd16raPjt/MIDIbcGN2YwAlYsLi7nX68nMu2M4j6Y6RZtz9hNyRZP
+	 4Ws+2aB1mVvznwYxMzfw2c2xnyldyOgP9fb+M0UucYncsCW1YKBeJjfLwQ5qZ7RKw6LXz
+	 2vDiVKXINEGMT9igPtEUAaDUEhfCw6zd3zlp3S7pdlkX4ASAtFsr+PdeNCPzwOqznmEP7
+	 vaj/ykLv2RtJAWXoL0JGBOpwKzEPQ/YDQWNuNoZtcMHGEc3fArjSRrqXPwg0HDSkRA1Jw
+	 V5uCOZEGUhTEIQ4qFduIjgnPgkqTgZJVIvWfWA7W0rutrAlt7q5OYh+g133NRYF/1ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069977;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-	b=lsAtEqlRtEsAgHmNI1KiPrc91PdVmN0/LzYj9KDdq8bgLtUBsLzGI1hawrvxYjNfblsX
-	 f7psH0BW4uwwk4LBuOX5jBMdPgbE2hGmahuXp+/LGoHzRVk8IBEUJ993PVvMrLYHRxvQV
-	 EfEulzEt0EuQcdy9e457jrDgFMyMi2m+wlC5yX8UgL4F6zqLRel6/+0z2hoeDZYNnbb3O
-	 0eNrIgsBl+9GP1/O3MaMuFrSSSzu8skJ4BIPHSw2iCk8XqTzj83NqDJtYRjXRqHLyGesY
-	 S8PMfCKEdjrBJFAY3DUeLY4PVa7byb2chwIZOXOEIxJUZ8dRTGGEOQWdz7wTjKTvtIw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+	b=Ivpxg7b7zwKHzmCu/MMPuswxsUeFMNg2Zzr5j+FpskQu5iYG7VgmkUffAyjzgs8fCy2u
+	 OGsQ7Wi1/zpm1ZHtsRU489nrT4Z0WTX2KftHc9t/xRLIQeAlUXH93lvAuOPC27oBTNUmM
+	 UnvndL0QpxjFRDEMvrPYa7AeSehJ22cI2bnu0apenDSvAVl62hsAKx/WyPiAm+sdm6ZCO
+	 sy4WGHBhU7VyDqpJzyX7GOSU6mNPYxE8o122/VBas/ggpPKhDE801AWObeN5pT1G1PIId
+	 ScTqLH4UbG7dULm/tuNPu2v0vSehh3CqGiOjlZxpmz/lN6McGNQZW2VqjsLiPgoXbdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FzL4qcf5;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CqPieSzT;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DC3606A31A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 02:28:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09DC3606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA9D606A32D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 02:59:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA9D606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FzL4qcf5
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso500606a91.2
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 19:28:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CqPieSzT
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso20253605ad.0
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 19:59:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793068090; x=1793672890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-        b=FzL4qcf5NctPk7sLx8O3gWaS1C9SHXiT1ufLwisUE9VwvAaArWAm5S689nOyuHSoNt
-         Ezz153Uml7Pmd/ZPe6/R6zHuNlce9cGwOkZNh7JZDwpU6nNmG/DcS32glxJXs+BoLnzg
-         XDiWdDPIkUGznzfOvEGnNE4+dWQEKQgpcQahgCp+bwIJrgWsDY2nkZZDtaI8UOVicr94
-         NA3tVmG/EBTT/qKCRlIMgKfkB2D4N6o+8S0fvuyVTV6DbgLW8624hHPafYudfg3Dr9z2
-         ucGU0eD0Vi/f2OtKbyfD8B0dAMkPtJcc5lOcuLJ743eWUQu3WDUoiPvsiuUF/UPhc4tE
-         kwLA==
+        d=gmail.com; s=20251104; t=1793069976; x=1793674776; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+        b=CqPieSzTRnCkJ8rM6iRBdGSlNKE/l4IOUn6nhqhCKR3eN5UyjZ4YejMK7uN59tO960
+         0yu/KRBg4FK9xogLSEnUuK8UuoDvXhLTaAYlp6EwjRsd+FiylLmYDYdtyIFvMYjqII4d
+         PrD8pzYLMxiCE0u+GZlurVLeHQabNRFGQBDzN160lLbae9otfAf69kqhEPC+kRVNo2MV
+         VbL+XM8AbqeOFxiCh6f+MPMEk3GynSem1BV/9x3DzYr2FpsSljxD/hMHwCpKZUlzQKYO
+         eG6vbr+4vbcsFrcNNwz+xlY2ensSLFllJFd8SEv56tKThwBAm877UqxcFeLxj25Gexb3
+         P9Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793068090; x=1793672890;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-        b=IS2mFjp/XCVaFj3pbOc2HWfRyqO3zga/67xrXbEH646gd2aFA8Wyh39balkSUQv5D2
-         j4Cf07p0a61B4bu3P8oR+k8/m2wD5stjyNj/vzqHHELRXQOWGWTMCZH320hyynd6gnIa
-         DDC24ZLOUpAwmN4GV02BUU3pctYaGKT74m7Y8lUPEM4uXEbe+T8READmAj9eA4sWewZd
-         IJdlIG7yVIsJ1s5CG+t7CwIBpSV1tQWzawKSFih9v7ZA7VmhoajxTjVYZTQMXNTrHp3I
-         4VKCAV2dy60ulaioOdQtqKyMLe3hK+3CQelWNKrQYi68+p2dt3AhK3ZbMwZsf40w0OF4
-         rqpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgfLRHLwNu/iVW+m1nkiViL0KkPY2fY2r6PrUrKkp7VNMoF9jlSbToA3qDbWaxFPbSyuJN+CbpDbxh@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKMjRugNAd0eLj0J4QCZFBkBLoNs41oCWX+EXvDeDM4ICAPjVd
-	nO1UKOM46K8CLY9wdRyRO3VYSY+VmQz2heuMvIqO4rPmKCvxnuFyME+O
-X-Gm-Gg: AYBFou2pXfqHsPet7lr1PF90PVuY51a5gUc8ou3RfEnvTzyfGxlrOhEjVix02pWziTP
-	1s2zgk9laB7rM0PC0gWGs8+HhG3oAultqCxaSRZ203T1Yl7Pdq0RsWQ+5mXIq0v0iM7PXMPHreS
-	ePpyUA+wngAnGCrAxaWoFzdktED7DFSjhec8xmQ3WQvleegEawdEpNBFS59nDizWL8zs7KDrz2C
-	itRTe7vaJ1/RO+01yK4fMCaIYWV9mj/6thUuiw9KSqB77b4mcG0+BITTMkN1aDKs7BlGKWf7Dpz
-	s6G8jB5uT1v3Nygjth+1xhpA3nR1oRiITM7sAV7BRVatesA/D0ZQrJl1fgCOPN7hAFCOvZzIQoY
-	EcyuOc89uy6BKVpP3QFw10SepJ4Gs/BeLbvB3QtWZwkDgfk3wZi7s+dyYQqRHpisfSPuF0lLJ5q
-	850AXXuGRO5uDIAMpzbXunQ653iGWnm8yFqnf/jYbtMqR+uJstodqEqGvAa24BTOltjOxkb/hYE
-	hgx4hNYdNjjGWHH53iiZP3AOFtAtUyTSWKMvxuwx1vPqIU/kUVNB48Vaw6EAXQt3sIBjfYPmZMa
-	z8URvJO5Ef1OB05EPvzp1qZg/87vvA05
-X-Received: by 2002:a17:90b:3dd0:b0:3ad:a84b:df1e with SMTP id 98e67ed59e1d1-3adea1af8bfmr12128791a91.1.1793068090331;
-        Mon, 26 Oct 2026 19:28:10 -0700 (PDT)
-Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm6823109a91.1.2026.10.26.19.28.05
+        d=1e100.net; s=20260707; t=1793069976; x=1793674776;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSnvvzDhM2uKqCBxyLgpEZ66FQuzFPilOEd8OHc2tQE=;
+        b=1KmFSWFxYT+rJuFc0UHBPMJU1J1sxYOc7OA+MJP4kuSWb1PlTZoyFc6UltWOYEcviG
+         2wsWIQkN5J3VMkMxL/EgOLcoKsjaFLGi4B+yPzsk3TpO7BswHOA8I74vM5QTigNWbuN5
+         xgOvVKlMeUXJl2VjHAYBDteR5/ip/+d8KI7Amkgb4yQsbiggEo7bLSNStlxludze91Cd
+         0SudyFMmNmqvBOdVOvLDZZNSvaNsowAdfXwA+zi/+KVyj4ldCnqzzk0GI/mx1GtN6w20
+         7Xs/p2R46YOu2mg5KLx41dKXT0vpspRP03t0GlE+Kr1tqzvmIV3uMfA1q1uA/u52oZSc
+         9JUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGZJE0U7QlKhHv3RRjUe3yQ4HeRhSYpWkfOtNbzhbNvaZg4mAu/V9idbww7PPR59oQwgakiIBYtqz1@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdUrwOOCoxgQScjP8i1nFR3MiKyOtCaxPWbEJY2uB3lywITZ20
+	ce8dd1E+ige7MhrDzAMdzBwNY7PuNgU/oSfUSlpauKFDoTgFXMZYrzGg
+X-Gm-Gg: AYBFou1WGlcvfJ2sJySqndthSWB8LY9Z8Q4vWF//8xQJtDV+olsGMlqTlHBqL3ADsfV
+	eomvdGKbjAI+AEq+P0O3/FO/b+pJgxD1C0kA0KgOEiqR0D2QraQWaOj0Q5ugiXmz0lbceIcVN21
+	gIUsIi64tgGW84ZDDnEscSCS44TTR6B3TwuxpdF/DjS/I7d0SwJkyrMJwCRBYyvD+3cbfWAkkml
+	7xdDAP/0CFiJDwEDCrKOS44lsVAVF8z6Xwih0FyXc56Z2Odz2feUW9iCM01NnnIPzBhr4ssn1qH
+	1muJZL4aYbzURPlg0KXFfWudAgiAR2hcCNaEAnUsbsoQcBroPoUq3WLQGpiRcThhqUe4j6il3PE
+	iS7dE09ufrNioT2LJfXvFV1tWxwaILVJJklM6OrBzO4P3pY7HNWxaosQyyFPTuIjEifgtT7lDpB
+	7wH/GACRdariog4weXj1t8K+z6FsKorFiz5CZRu8xH46BwrBSjuN+SU91BLN8ESrTGHIThZB+Z6
+	WDDbt1kXbRTnPCHxDSm0ZZshhcieIfFQflJahnSMN+IzwTPTZB25RfSmOrIND062bHL58tsqYFg
+	czkaspPvh9h6LxMuzRWQ
+X-Received: by 2002:a17:902:d48e:b0:2e9:5d1f:dffe with SMTP id d9443c01a7336-2ea9c9875fbmr71515405ad.57.1793069975922;
+        Mon, 26 Oct 2026 19:59:35 -0700 (PDT)
+Received: from [10.25.164.32] ([128.77.72.132])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c912f9sm2255465ad.60.2026.10.26.19.59.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:28:09 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: heiko@sntech.de
-Cc: HystericalDragons@proton.me,
-	amadeus@jmu.edu.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	hrushirajg23@gmail.com,
-	krzk+dt@kernel.org,
-	krzk@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	liujianfeng1994@gmail.com,
-	macromorgan@hotmail.com,
-	michael.opdenacker@rootcommit.com,
-	naoki@radxa.com,
-	robh@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-Date: Tue, 27 Oct 2026 10:28:01 +0800
-Message-ID: <20261027022801.377819-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <5520293.6fTUFtlzNn@phil>
-References: <5520293.6fTUFtlzNn@phil>
+        Mon, 26 Oct 2026 19:59:35 -0700 (PDT)
+Message-ID: <9b6c85f4-5881-46d8-b247-ae6bbfef8f91@gmail.com>
+Date: Tue, 27 Oct 2026 10:59:28 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,49 +91,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx952-frdm: support AONMIX MQS
+To: shengjiu.wang@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261026085352.4009534-1-shengjiu.wang@oss.nxp.com>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@gmail.com>
+In-Reply-To: <20261026085352.4009534-1-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Heiko,
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> Add support for AONMIX MQS (i.e. MQS1).
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  .../arm64/boot/dts/freescale/imx952-frdm.dtsi | 77 +++++++++++++++++++
+>  1 file changed, 77 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> index 7785eb1a68fc..750046e1a5c4 100644
+> --- a/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx952-frdm.dtsi
+> @@ -222,6 +222,12 @@ cpu {
+>  		};
+>  	};
+>  
+> +	sound-mqs {
+> +		compatible = "audio-graph-card2";
+> +		label = "mqs-audio";
+> +		links = <&sai1_port1>;
+> +	};
+> +
+>  	usdhc3_pwrseq: usdhc3-pwrseq {
+>  		compatible = "mmc-pwrseq-simple";
+>  		reset-gpios = <&pcal6416 8 GPIO_ACTIVE_LOW>;
+> @@ -390,6 +396,70 @@ &micfil {
+>  	status = "okay";
+>  };
+>  
+> +&mqs1 {
+> +	clocks = <&scmi_clk IMX952_CLK_SAI1>;
+> +	clock-names = "mclk";
+> +	#sound-dai-cells = <0>;
 
-On 2026-10-26 11:43 UTC, Heiko Stuebner wrote:
->> I confirmed this with ArmSoM. They purchased the original CoolPi 4B
->> hardware design from CoolPi and confirmed that no hardware design
->> modifications were made for the Sige7s.
->> 
->> So the Sige7s uses the same hardware design as the CoolPi 4B, rather
->> than being independently designed.
->
->if it's the completely same board, just with a different print on
->the board, why does it need an empty devicetree. When it's completely
->unchanged, what's speaking against just re-using the original one?
+Above 3 properties have been defined in dtsi node. No need to add again.
 
-The existing CoolPi 4B DTB does work on the Sige7s, and I agree that there
-is no hardware difference requiring a separate device tree.
+Regards,
+Chancel Liu
 
-My main reason for adding a separate DTS is to preserve the Sige7s board
-identity for long-term upstream support.
-
-The CoolPi 4B appears to be discontinued and is no longer readily available
-through the purchase channels listed on its official website
-(https://www.cool-pi.com/buy/). In contrast, ArmSoM is actively selling the
-Sige7s and has committed to producing it until at least January 2034.
-
-I'm also planning to add mainline U-Boot support for the Sige7s and
-integrate it with Stubble-based UEFI booting.
-
-While U-Boot could update the model and compatible properties before
-booting Linux, Stubble may replace the firmware-provided DTB with one
-bundled with the kernel. Having a Sige7s-specific DTB would preserve the
-correct board identity throughout this process without requiring additional
-distribution-specific modifications.
-
-This would also avoid confusing users who purchase a Sige7s but find their
-system identified as a CoolPi 4B.
-
-The shared dtsi ensures that we do not duplicate the hardware description,
-with the two board DTS files differing only in model and compatible.
-
-Would this be a reasonable justification for keeping a separate board DTS?
-
-Best regards,
-Jianfeng
