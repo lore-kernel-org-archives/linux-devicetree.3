@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088127;
-	b=TH5z0dgxTJtQL+5WV4KWrR6AhapLG7Cu21aABuFSWP9D/wSyMWVu5GN7vz0jKH1l+AET
-	 E1i1itDqnOO8sDbDKSO7zPICaAqI5MBb86QdbHm9+GvWbZk+SNQ3gEkljg1hO68Wd60Uz
-	 MCOI5CtDX8/DQ0BiPoLAIhx1gkGSdWSx4ekK91N3rWypTHkXnKLYx1rPB+irJgdzGKFh7
-	 HLq16sHjLeoVuOXK95V9inuIZoSIrDgQ0yGmSNEncZXtdl+8xJSAD7Eeall7S/UXlRgMO
-	 3Qpizd1pPIZr9HyU3azonfL6kDDUbMT8ukg+d+hcF7/GK42RKkA/u3Gmp2TVljLqHdA==
+	t=1793088219;
+	b=wW6YjG1ezq2Fz0mx5BYIx3lA78hLIT0YLqr7SHGCIjh5PXCzfK+YOynT03nfnYE22fLm
+	 ceP1oT96M8/DQ3K2JI+u9KlmmeO7oxIBr/Orwq1QEdalzKvRUQgS6BGonNi2giwlt1Aqi
+	 TCgjqPAoqHnrYI4SzxgtppkRU3X9vLOIRSZuJ/UU3eVqmpOaw2LIoxmQ2+2OvA+GAAzBd
+	 Y2A0C89pUnaU3wl1Tcvz8N3XbN3Uig0wZJP9wuCK+E+IXkfmuq6a4qSfFSzBlW/4YCXls
+	 5v72pVZA30+IsxNSs1QZLwHZA5fSQTBxa+2Ea2X9ToH/KkYl9feXqKI37ylxkmeZ2Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088127;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BsTtHMn7/Bq0A/1jvysGVk9cJngoUv9+EZ/xJZLo98o=;
-	b=zd1gj4PWJJJtAU3pHHPFStlLkqnhtvCzY6+++TiENWB+btwWcD0676HXoUHq3gBPbh3P
-	 xbSuiYFSNPkMs0TMyJg2QYmEyWLzIEaI+dYGl+UaO0h6gLomW/cy6mcxLmcZfsro5o8zQ
-	 zJ+TyH6yRZQgmRGNWYR6VXemiWFTn3yraZ4+dHmYiQ9GEF3+W6Vnx1oVDfEBDYmT5xHVe
-	 UbSI+EM3b2wQD3q3LW8yQHsUkE6swplyjI5cib0c1QF2WWPUXi7tXO/7tY17JFYIX0MRO
-	 it5+zN9BH7HIEH+fXYG7Vymvm7HRtR1bFGaYlF+9XmZuDyRPSlcX30umizJT+UcT6Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088219;
+	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc;
+	bh=M+T0hC9qrCnKMLXzTWrirmR4GKkGAo6lPil072JQfaQ=;
+	b=Yw/CFrLE8XcEhlQu9LAVK4f7cVGgcV4gaWXidnwm4RFQF9829p17VKYsoRdX7cwCCtZE
+	 c/l5BD2fuIwAdYXD9aSn34g/oGpIvtfOZVKCQCVllhfSL9qx/UvGkpWVH9ppAW9Xd6QOy
+	 7HNHcMuL7LwSzy3qg24QicSKE6sOFU0jQ6WlrGbEqUMluTCq4WQc1XQ57cijZVLmkQ0Yz
+	 YEl7gg08uhs49QOH0TOd8a+ZN83wluCs+QEldy9co3PeF4s7y3SB3DIlKwA+MwFPSBgv8
+	 pqoGefnwd9iyiMPDJRZjMi/qSt1LIDABajjWOc1f4ET6JWP3fZvXH5atGEDx4hkqiag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/p3r4pf";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cyberchaos.dev;
+	spf=pass smtp.mailfrom=cyberchaos.dev;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=hUihcgUI;
+	arc=none smtp.remote-ip=195.39.247.168
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA9E606A31B;
-	Tue, 27 Oct 2026 08:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3820E606A331;
+	Tue, 27 Oct 2026 08:03:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3820E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/p3r4pf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5531F01825;
-	Tue, 27 Oct 2026 08:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088127;
-	bh=BsTtHMn7/Bq0A/1jvysGVk9cJngoUv9+EZ/xJZLo98o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M/p3r4pfigJ7VF+xQ0guSGeBUGwLd64vkoeDEiXMbpltCsl9kIARqtyP5zs+5LJha
-	 Dwjr6VP1tBEIK1fHQCUZJO45RR3Iyf0I77avSMKMt+k9fvOm+SWpUQHql6Yy+dUK1r
-	 UxaLx9qeY9mxHdCigK8e7b2Z4a1x5qR+6UrVoEf/ni3psUBCTB7vx2Yl6842504Zh9
-	 0ySfbkpAJKZhQVDAw4qMMoHOByorG/qzjR4YV/ybSyoIbnm5d27zjGLKqrr0exTZMO
-	 koEuEpeep51+fCr+T6Kj2scDB2u/QEycVZ3blpmviHRc17/MwsmvyJNTtciBGiamsY
-	 zBpYxE8Ttyp7A==
-Date: Tue, 27 Oct 2026 09:02:03 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
-Message-ID: <20261027-nifty-reliable-octopus-6cbac5@quoll>
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=hUihcgUI
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1793088210;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M+T0hC9qrCnKMLXzTWrirmR4GKkGAo6lPil072JQfaQ=;
+	b=hUihcgUIKp90fzJfjXVAvgy/V68YRR/SF+h2npLlz0wwWPEhxScAYNZHaNmCEQ3flbPrfl
+	4GZGUZc3Fq//7lD/9M/p+C7/7y/vbHbEK4UGg43aqXpbEQt+sFaolNakwX8VlvnfnndNno
+	zf0pY+cd+sQd74ExgFg+kmYKH6c5Qvk=
+Date: Tue, 27 Oct 2026 09:03:22 +0100
+Subject: [PATCH 02/10] dt-bindings: interrupt-controller: apple,aic2: Add
+ t8142 compatible
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,69 +56,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-apple-m5-initial-devicetrees-v1-2-1356181bc50d@cyberchaos.dev>
+References: <20261027-apple-m5-initial-devicetrees-v1-0-1356181bc50d@cyberchaos.dev>
+In-Reply-To: <20261027-apple-m5-initial-devicetrees-v1-0-1356181bc50d@cyberchaos.dev>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hector Martin <marcan@marcan.st>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>
 
-On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
-> The H616 UART has 256-byte transmit and receive FIFOs, but its DesignWare
-> component parameter register does not report the FIFO depth. Its optional
-> register layout also differs from the generic DesignWare integration.
-> 
-> Add a specific compatible for the integration and allow the standard
-> fifo-size property to describe the capacity. Require the documented
-> 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> index e2ca126d58ba..0f8fd0485879 100644
-> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> @@ -13,6 +13,18 @@ allOf:
->    - $ref: serial.yaml#
->    - $ref: rs485.yaml#
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: allwinner,sun50i-h616-uart
-> +    then:
-> +      properties:
-> +        fifo-size:
-> +          const: 256
-> +      required:
-> +        - fifo-size
+The Apple t8142 (M5) SoC uses an AIC3 as interrupt controller, same as
+the M3-M4 SoCs.
 
-Why do you require fifo-size if is const? It is implied by the
-compatible.
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+ Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> +
->    - if:
->        properties:
->          compatible:
-> @@ -60,6 +72,7 @@ properties:
->            - const: renesas,rzn1-uart
->        - items:
->            - enum:
-> +              - allwinner,sun50i-h616-uart
->                - anlogic,dr1v90-uart
->                - brcm,bcm11351-dw-apb-uart
->                - brcm,bcm21664-dw-apb-uart
-> @@ -120,6 +133,10 @@ properties:
->        - const: tx
->        - const: rx
->  
-> +  fifo-size:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Transmit and receive FIFO capacity in bytes.
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+index 3c2b24be530e..b6ad9d9192a2 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+@@ -49,6 +49,7 @@ properties:
+               - apple,t6041-aic3
+               - apple,t8132-aic3
+               - apple,t8140-aic3
++              - apple,t8142-aic3
+           - const: apple,t8122-aic3
+       - const: apple,t8122-aic3
+ 
 
-Drop property, not used by any of the devices here.
-
-Best regards,
-Krzysztof
+-- 
+2.56.0
 
