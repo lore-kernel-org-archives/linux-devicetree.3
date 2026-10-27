@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107783;
-	b=ueAlUiD5KeGAAgXqHoxl/necaZ6poEkWPUbiykdUV9GQjh3lDPTZDgfgW8vbcg8A/5K4
-	 p1JtpIja3RJYN874hfS275yMlSO1Q4Yn3MQ1zMvqNeSWSTrHs7vFWTO+HwRIHI26HgfnE
-	 D+JCUsDnFCga4qCbSK5A/1uPcWXXd/5BpzEI7mM+5V984Xw7h3UQeujCnnUTvbwSBQLvs
-	 YVZUNNHMoIYCo/nCJMD+1k2VzO/G6YRlkQ68DJUryMPpII83ycdP44QZHRdOPff6mZ4N2
-	 F8r/hXGv5HUV9efSpcebvsOcwVoTTgqh97hniP9kLP14QZEb9mly953cTEvD42jRadg==
+	t=1793107862;
+	b=XdTOFVcwAq23T0348ut+tMmpDhyR+Q9r7GGEapWdbrwAc2/0G9kk5SBeSFD8+1Wlid4G
+	 ntlYOfpiGQAqg40zUJ/D4IkkCkVokMPH0v2Hia1p4OJGD2GUDJ+SQ8e6t+VAqYvd65zuC
+	 w4+WYsZGHo1AvCrGAFEMW+dxEA5PSHy+C2j8O2FK8YnNKa68DxwIJjwI+WflJz7PDXAAZ
+	 QnRy0OPARHRaZx3oWvp6OB75Izk6+1PBFVAuBs2dsOfZ5kFeWaYEngbfPRm3PO36g3r7d
+	 +Xsb+7JWN1d03DPG1x1GIeMGm3q24f5kR7qkC7FLW8wMelT3FUrDtMlbFFpkMmpplKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107783;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=r3LyntnGuJEGMdvW4ZYciCNy4SV0EklofYf997pOzkg=;
-	b=IyY0bGHsvL1Xf8vFuClXXi+jnGlZsrSBc5r4Gayrl2RCg0gQJCTxl8KsLcxuN+STg35V
-	 eipin8fT20nqMhcOOuE6R33VQHGSELf9j1wIdV1/0TCPSBItzYtyQxHXah/RdjAYCHcUB
-	 OAk8Ad5sMOqqaFun8YmrvwlI/4Ua9yJH05oV5vEKKxLB7TbF5jEsRGcgF87dOOBcdrYQd
-	 3bQhI/1nWSt09oX9KyWiwoJJ8jObjjX+rM5HNrZnNTBnHHN9HIMS3tjFom4hrDhbQskh4
-	 xoX9NaH8rlmSIKIlJ/WEf/WzmBK2217CCCpCv6wqR6NCCxrc5ccZFq/O18A5YJZyDuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107862;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Gx0bsJwBKLrCpnM6Tt+OF82XIc/SB1qX3GUma/BbS3M=;
+	b=mLJ8poEtGB38Yyenk1UMH/NlCI7gVIJePwf4oyHb7rR/QUAwaRO+JkUQ95Y7l2K8MrDx
+	 x1XXDyw69eJc7MPSIalNhHzL2TPMn/8d7/7Q6nPSDUFUToBhuo9Xp3WjH9PYGb0SYyBN5
+	 4HEzKhmZ1wGe8A5wWPxTWw5oliZegy+c6U5qIQEBJnb+2y3MRqvO+i4EL8Da4UwUe48up
+	 WGrqbqdGV1hGSd5xevm5vjqTtU4LP9OPf0lHOd680FFi7S+m1ITn0YYz8i4jlzvoStFBY
+	 t2pujD77uaEhYNMbcpw5K2K/7d1YB8PNDD0xVVpGTphu+Gvl4vnxVBD1V/WuOxCIdyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC726606A31A;
-	Tue, 27 Oct 2026 13:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC726606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=r3LyntnGuJEGMdvW4ZYciCNy4SV0EklofY
-	f997pOzkg=; b=tdIJeJ0OwjNPAEAUkxUSPj5UQ7GADEELAT3h27fX0HzJWLUD4c
-	98TL08UT86dBzG3ekptCsRtSVEueNNYbRAQKDnmNHsl3XPZnMMmqEoJ1cm55/Uui
-	ppOSCo2ei3rxVzNbOao21KCFdx9Hsicvh00YyjAYnpWVZGyP2RiujZEOs=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHhDg5p+BqGGxRAA--.1917S7;
-	Tue, 27 Oct 2026 21:29:32 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-input@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] Input: aw86927 - stop playback over suspend and on shutdown
-Date: Tue, 27 Oct 2026 21:29:29 +0800
-Message-ID: <20261027132929.242158-6-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GreYLC4L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED5F606A31A
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GreYLC4L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E35B1F01825;
+	Tue, 27 Oct 2026 13:31:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793107861;
+	bh=Gx0bsJwBKLrCpnM6Tt+OF82XIc/SB1qX3GUma/BbS3M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GreYLC4Li6eLSRjJ7gXLkw+ymjH55jLmO/Kc86fA/immfuVvFL+UZWOcIrIsThRgM
+	 kZDrtQR3eHNAfiNNg1YR3MlF/hzrl722Pg/vaQ6uWl/QviomgWQL6ArH1/mbBLILrC
+	 WsdlPJuWZbNO5Dwk8dMAZm+ofXDJH+zJ7rIetoMTRwsuxT6jr/RcPqq2ZZlSL2nPoH
+	 V+hShZ/D+9e+wUXpUV/cmABeJcRFWHn8cMzgU5D1sarmCIuA8t4GdR5w/iUn6CQwEj
+	 33AVs97P/Ce4Yb3sgSBsgA+n1NJNUTGZ3oyx0lxcV2aVg8ddX/zwqvQx5Pfmp5uDT4
+	 BtAgMEKoGEagA==
+Message-ID: <sashiko-outbox-186623@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] power: supply: cw2217: Add support for Cellwise
+ cw2217
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027131751.1724448-3-macroalpha82@gmail.com>
+References: <20261027131751.1724448-1-macroalpha82@gmail.com>
+ <20261027131751.1724448-3-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 13:31:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,196 +60,388 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAHhDg5p+BqGGxRAA--.1917S7
-X-Coremail-Antispam: 1UD129KBjvJXoWxKryDAw4Dtw47CF1xWFy8Krg_yoW7GFWkpa
-	98CryYyrWkXF42qwn0gr12v3W3Cwn7G3ZFyF9rua43tasrXw48KFn5tw4jyF15JrWkGa13
-	Ja1vqrWUur48AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
-	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
-	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
-	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
-	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
-	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42
-	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
-	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI4
-	8JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgT7NUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rfqlZqOAAusv
 
-The chip keeps playing whatever was programmed into it when the system
-suspends or reboots, so the actuator can still be buzzing after the screen
-is off.  Stop playback, drain the work item and park the part in reset on
-both paths.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] power: supply: cw2217: NULL dereference when battery-profile is om=
+itted
+- [Medium] power: supply: cw2217: cw2217_get_temp() reports whole degrees C
+- [Medium] power: supply: cw2217: wrong micro-ohm clamp and scale for user_=
+rsense
+- [Medium] power: supply: cw2217: cw2217_bat_suspend() uses async work canc=
+el
+- [Medium] power: supply: cw2217: missing psy_cfg.fwnode assignment in cw22=
+17_probe()
+- [Low] power: supply: cw2217: missing linux/bitfield.h include for FIELD_G=
+ET()
+--
 
-Suspending also has to stop the memless effect timer from queueing new
-work, otherwise a queued event re-arms playback after the stop.  Use a
-suspended flag protected by the input event lock for that, and take the
-input mutex around the whole sequence so that open()/close() cannot race
-the drain.  The magnitude is read once per work run, so a concurrent
-event cannot change it between the check and the register write.
+commit 68c62280ed8f695c082c0defbfb031a888057f82
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/input/misc/aw86927.c | 75 +++++++++++++++++++++++++++++++++---
- 1 file changed, 69 insertions(+), 6 deletions(-)
+power: supply: cw2217: Add support for Cellwise cw2217
 
-diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
-index e8fd880ac..6d45c310a 100644
---- a/drivers/input/misc/aw86927.c
-+++ b/drivers/input/misc/aw86927.c
-@@ -15,6 +15,7 @@
- #include <linux/interrupt.h>
- #include <linux/input.h>
- #include <linux/module.h>
-+#include <linux/pm.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/types.h>
-@@ -204,6 +205,7 @@ struct aw86927_data {
- 	struct i2c_client *client;
- 	struct regmap *regmap;
- 	struct gpio_desc *reset_gpio;
-+	bool suspended;
- 	u16 level;
- };
- 
-@@ -366,22 +368,26 @@ static int aw86927_haptics_play(struct input_dev *dev, void *data, struct ff_eff
- 	struct aw86927_data *haptics = input_get_drvdata(dev);
- 	int level;
- 
-+	/* The chip is powered down; a queued event would only fail. */
-+	if (haptics->suspended)
-+		return 0;
-+
- 	level = effect->u.rumble.strong_magnitude;
- 	if (!level)
- 		level = effect->u.rumble.weak_magnitude;
- 
- 	/* If level does not change, don't restart playback */
--	if (haptics->level == level)
-+	if (READ_ONCE(haptics->level) == level)
- 		return 0;
- 
--	haptics->level = level;
-+	WRITE_ONCE(haptics->level, level);
- 
- 	schedule_work(&haptics->play_work);
- 
- 	return 0;
- }
- 
--static int aw86927_play_sine(struct aw86927_data *haptics)
-+static int aw86927_play_sine(struct aw86927_data *haptics, u16 level)
- {
- 	int err;
- 
-@@ -426,7 +432,8 @@ static int aw86927_play_sine(struct aw86927_data *haptics)
- 	if (err)
- 		return err;
- 
--	err = regmap_write(haptics->regmap, AW86927_PLAYCFG2_REG, haptics->level * 0x80 / 0xffff);
-+	err = regmap_write(haptics->regmap, AW86927_PLAYCFG2_REG,
-+			   level * 0x80 / 0xffff);
- 	if (err)
- 		return err;
- 
-@@ -445,6 +452,7 @@ static void aw86927_close(struct input_dev *input)
- 	int err;
- 
- 	cancel_work_sync(&haptics->play_work);
-+	WRITE_ONCE(haptics->level, 0);
- 
- 	err = aw86927_stop(haptics);
- 	if (err)
-@@ -456,10 +464,11 @@ static void aw86927_haptics_play_work(struct work_struct *work)
- 	struct aw86927_data *haptics =
- 		container_of(work, struct aw86927_data, play_work);
- 	struct device *dev = &haptics->client->dev;
-+	u16 level = READ_ONCE(haptics->level);
- 	int err;
- 
--	if (haptics->level)
--		err = aw86927_play_sine(haptics);
-+	if (level)
-+		err = aw86927_play_sine(haptics, level);
- 	else
- 		err = aw86927_stop(haptics);
- 
-@@ -900,6 +909,58 @@ static int aw86927_probe(struct i2c_client *client)
- 	return 0;
- }
- 
-+static void aw86927_reset(void *data)
-+{
-+	struct aw86927_data *haptics = data;
-+
-+	gpiod_set_value_cansleep(haptics->reset_gpio, 1);
-+}
-+
-+static void aw86927_shutdown(struct i2c_client *client)
-+{
-+	struct aw86927_data *haptics = i2c_get_clientdata(client);
-+
-+	disable_work_sync(&haptics->play_work);
-+	aw86927_reset(haptics);
-+}
-+
-+static int aw86927_suspend(struct device *dev)
-+{
-+	struct aw86927_data *haptics = dev_get_drvdata(dev);
-+	int err;
-+
-+	guard(mutex)(&haptics->input_dev->mutex);
-+
-+	/* Block events from the memless effect timer before draining the work. */
-+	scoped_guard(spinlock_irq, &haptics->input_dev->event_lock)
-+		haptics->suspended = true;
-+
-+	cancel_work_sync(&haptics->play_work);
-+	err = aw86927_stop(haptics);
-+
-+	scoped_guard(spinlock_irq, &haptics->input_dev->event_lock) {
-+		if (err)
-+			haptics->suspended = false;
-+		else
-+			WRITE_ONCE(haptics->level, 0);
-+	}
-+
-+	return err;
-+}
-+
-+static int aw86927_resume(struct device *dev)
-+{
-+	struct aw86927_data *haptics = dev_get_drvdata(dev);
-+
-+	guard(mutex)(&haptics->input_dev->mutex);
-+	guard(spinlock_irq)(&haptics->input_dev->event_lock);
-+	haptics->suspended = false;
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(aw86927_pm_ops, aw86927_suspend, aw86927_resume);
-+
- static const struct of_device_id aw86927_of_id[] = {
- 	{ .compatible = "awinic,aw86927" },
- 	{ /* sentinel */ }
-@@ -911,8 +972,10 @@ static struct i2c_driver aw86927_driver = {
- 	.driver = {
- 		.name = "aw86927-haptics",
- 		.of_match_table = aw86927_of_id,
-+		.pm = pm_sleep_ptr(&aw86927_pm_ops),
- 	},
- 	.probe = aw86927_probe,
-+	.shutdown = aw86927_shutdown,
- };
- 
- module_i2c_driver(aw86927_driver);
--- 
-2.53.0
+This commit adds a power supply driver for the Cellwise CW2217, CW2215, and
+CW2218 I2C battery fuel gauges.
 
+> diff --git a/drivers/power/supply/cw2217_battery.c b/drivers/power/supply=
+/cw2217_battery.c
+> new file mode 100644
+> index 0000000000000..8b18db3d54db2
+> --- /dev/null
+> +++ b/drivers/power/supply/cw2217_battery.c
+> @@ -0,0 +1,818 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Chrager driver for cw2217
+> + *
+> + * Copyright (c) 2026 Rockchip Electronics Co., Ltd.
+> + *
+> + * Author: Xu Shengfei <xsf@rock-chips.com>
+> + */
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/devm-helpers.h>
+> +#include <linux/i2c.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/power_supply.h>
+> +#include <linux/regmap.h>
+> +#include <linux/workqueue.h>
+
+[Severity: Low]
+cw2217_get_current(), cw2217_update_config(), and cw2217_check_profile()
+call FIELD_GET(), which is defined in linux/bitfield.h.
+
+Since CONFIG_BATTERY_CW2217 only depends on I2C, should linux/bitfield.h
+be explicitly included here so the build does not fail with an implicit
+declaration of FIELD_GET() on architectures such as x86_64 that do not pull
+it in transitively?
+
+[ ... ]
+
+> +/* Default values from BSP driver */
+> +#define CW2217_USER_RSENSE		1500
+> +#define CW2217_DEFAULT_POLL_INTERVAL_MS	5000
+
+[ ... ]
+
+> +/*
+> + * The TEMP register is an UNSIGNED 8bit read only register.
+> + * It reports the real-time battery temperature
+> + * measured at TS pin. The scope is from -40 to 87.5 degrees Celsius,
+> + * LSB is 0.5 degree Celsius. TEMP(C) =3D - 40 + Value(0x06 Reg) / 2
+> + */
+> +static int cw2217_get_temp(struct cw2217_battery *cw_bat)
+> +{
+> +	u32 reg;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(cw_bat->regmap, CW2217_TEMP, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cw_bat->temp =3D ((int)reg / 2) - 40;
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does cw2217_get_temp() report the temperature in the wrong units for
+POWER_SUPPLY_PROP_TEMP?
+
+cw2217_battery_get_property() returns cw_bat->temp directly for
+POWER_SUPPLY_PROP_TEMP, which the power_supply ABI expects in tenths of a
+degree Celsius (0.1 C). Computing ((int)reg / 2) - 40 reports whole degrees
+Celsius (10x lower than expected) and truncates the 0.5 C LSB. Should this
+be (int)reg * 5 - 400 instead?
+
+> +
+> +/*
+> + * Current is a signed 16bit register (0x0E 0x0F) that reports current A=
+/D
+> + * converter result of the voltage across the current sense resistor,
+> + * 10mohm typical. The register value should be divided by the sense
+> + * resistance to convert to amperes. The value of the sense resistor
+> + * determines the resolution and the full-scale range of the current rea=
+dings.
+> + * The LSB of 0x0F is (52.4/32768)uV for CW2215 and CW2217. The LSB of 0=
+x0F is
+> + * (125/32768)uV for CW2218.
+> + */
+> +static int cw2217_get_current(struct cw2217_battery *cw_bat)
+> +{
+> +	s32 cw_current;
+> +	__be16 reg;
+> +	u8 fw_ver;
+> +	int ret;
+> +
+> +	if (cw_bat->fw_version =3D=3D 0) {
+> +		cw_bat->cw_current =3D 0;
+> +		dev_err(cw_bat->dev, "Error! CW2217 firmware read error!\n");
+> +		return -EIO;
+> +	}
+> +
+> +	ret =3D regmap_bulk_read(cw_bat->regmap, CW2217_CURRENT_H,
+> +			       &reg, sizeof(reg));
+> +	if (ret)
+> +		return ret;
+> +
+> +	cw_current =3D (s16)be16_to_cpu(reg);
+> +
+> +	fw_ver =3D FIELD_GET(CW2217_ID_MASK, cw_bat->fw_version);
+> +	switch (fw_ver) {
+> +	case CW2215_ID:
+> +	case CW2217_ID:
+> +		cw_current =3D (cw_current * 1600) / (cw_bat->user_rsense / 1000);
+> +		cw_bat->cw_current =3D cw_current * 1000;
+> +		break;
+> +	case CW2218_ID:
+> +		cw_current =3D (cw_current * 3815) / (cw_bat->user_rsense / 1000);
+> +		cw_bat->cw_current =3D cw_current * 1000;
+> +		break;
+> +	default:
+> +		cw_bat->cw_current =3D 0;
+> +		dev_err(cw_bat->dev, "Error! CW2217 firmware read error!\n");
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int cw2217_parse_properties(struct cw2217_battery *cw_bat)
+> +{
+> +	struct device *dev =3D cw_bat->dev;
+> +	int length;
+> +	int ret;
+> +
+> +	ret =3D device_property_read_u32(dev, "cellwise,monitor-interval-ms",
+> +				       &cw_bat->poll_interval_ms);
+> +	if (ret) {
+> +		dev_dbg(cw_bat->dev, "Using default poll interval\n");
+> +		cw_bat->poll_interval_ms =3D CW2217_DEFAULT_POLL_INTERVAL_MS;
+> +	}
+> +
+> +	/*
+> +	 * Datasheet only lists options of between 1M and 50M for resistor
+> +	 * values, so assuming that is all and clamping if out of range.
+> +	 */
+> +	ret =3D device_property_read_u32(dev,
+> +				       "shunt-resistor-micro-ohms",
+> +				       &cw_bat->user_rsense);
+> +	if (ret) {
+> +		cw_bat->user_rsense =3D CW2217_USER_RSENSE;
+> +		dev_warn(cw_bat->dev,
+> +			 "Using default resistor value, reported mA may be wrong\n");
+> +	}
+> +
+> +	/* Clamp, but also warn we're clamping due to out of range. */
+> +	if ((cw_bat->user_rsense < 1000000) || (cw_bat->user_rsense > 50000000)=
+) {
+> +		cw_bat->user_rsense =3D clamp(cw_bat->user_rsense, 1000000, 50000000);
+> +		dev_warn(cw_bat->dev, "Shunt resistor value out of range, setting to %=
+d",
+> +			 cw_bat->user_rsense);
+> +	}
+
+[Severity: Medium]
+Are the clamp bounds and scaling for cw_bat->user_rsense off by a factor of
+1000?
+
+A sense resistor between 1 mOhm and 50 mOhm corresponds to 1,000 to 50,000
+micro-ohms (matching CW2217_USER_RSENSE =3D 1500 for 1.5 mOhm), whereas
+1000000 to 50000000 micro-ohms is 1 Ohm to 50 Ohms.
+
+Because of this check, both CW2217_USER_RSENSE (1500) and any valid
+shunt-resistor-micro-ohms value in the 1-50 mOhm range get clamped up to
+1000000, and cw2217_get_current() then divides by (cw_bat->user_rsense /
+1000).
+
+> +
+> +	length =3D device_property_count_u8(dev, "cellwise,battery-profile");
+> +	if (length < 0) {
+> +		dev_warn(cw_bat->dev,
+> +			 "No battery-profile found, using current flash contents\n");
+> +	} else if (length !=3D CW2217_PROFILE_SZ) {
+> +		dev_err(cw_bat->dev, "battery-profile must be %d bytes\n",
+> +			CW2217_PROFILE_SZ);
+> +		return -EINVAL;
+> +	} else {
+> +		cw_bat->bat_profile =3D devm_kzalloc(dev, length, GFP_KERNEL);
+> +		if (!cw_bat->bat_profile)
+> +			return -ENOMEM;
+> +
+> +		ret =3D device_property_read_u8_array(dev,
+> +						    "cellwise,battery-profile",
+> +						    cw_bat->bat_profile,
+> +						    length);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/* Load a new battery profile provided from the device tree. */
+> +static int cw2217_update_config(struct cw2217_battery *cw_bat)
+> +{
+> +	u32 reg;
+> +	int ret;
+> +
+> +	/* Set the battery monitor state to shutdown. */
+> +	ret =3D cw2217_active(cw_bat, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* update new battery info */
+> +	ret =3D regmap_raw_write(cw_bat->regmap, CW2217_BAT_PROFILE,
+> +			       cw_bat->bat_profile, CW2217_PROFILE_SZ);
+
+[ ... ]
+
+> +/* Determine whether the battery profile needs to be updated. */
+> +static int cw2217_check_profile(struct cw2217_battery *cw_bat)
+> +{
+> +	u8 bat_info[CW2217_PROFILE_SZ];
+> +	int ret;
+> +	u32 reg;
+> +
+> +	cw_bat->update_profile =3D false;
+> +
+> +	ret =3D regmap_read(cw_bat->regmap, CW2217_CONFIG, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Active is 0x00, anything else is inactive */
+> +	if (FIELD_GET(CW2217_CONFIG_ACT_MSK, reg)) {
+> +		cw_bat->update_profile =3D true;
+> +		return 0;
+> +	}
+> +
+> +	ret =3D regmap_read(cw_bat->regmap, CW2217_SOC_ALERT, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(CW2217_SOC_UPDATE_FLG, reg) =3D=3D 0) {
+> +		cw_bat->update_profile =3D true;
+> +		return 0;
+> +	}
+> +
+> +	ret =3D regmap_raw_read(cw_bat->regmap, CW2217_BAT_PROFILE, bat_info, C=
+W2217_PROFILE_SZ);
+> +	if (ret) {
+> +		dev_err(cw_bat->dev, "Failed to read existing battery profile\n");
+> +		return ret;
+> +	}
+> +
+> +	if (memcmp(bat_info, cw_bat->bat_profile, CW2217_PROFILE_SZ)) {
+> +		dev_warn(cw_bat->dev, "Replacing stored battery profile\n");
+> +		cw_bat->update_profile =3D true;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int cw2217_init(struct cw2217_battery *cw_bat)
+> +{
+> +	int ret;
+> +
+> +	ret =3D cw2217_get_chip_id(cw_bat);
+> +	if (ret)
+> +		return dev_err_probe(cw_bat->dev, ret, "I2C read write error");
+> +
+> +	/*
+> +	 * All of the known Cellwise 221x chips set the ID bits to 0xa0. If it
+> +	 * doesn't match, we're trying to probe the wrong hardware.
+> +	 */
+> +	if (cw_bat->chip_id !=3D CW2217_CHIP_ID)
+> +		return dev_err_probe(cw_bat->dev, -ENODEV, "Not a cw221x\n");
+> +
+> +	ret =3D cw2217_check_profile(cw_bat);
+> +	if (ret) {
+> +		dev_err(cw_bat->dev, "i2c read write error");
+> +		return ret;
+> +	}
+> +
+> +	if (cw_bat->update_profile) {
+> +		ret =3D cw2217_update_config(cw_bat);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+What happens in cw2217_init() when the optional cellwise,battery-profile
+property is omitted?
+
+In cw2217_parse_properties(), a missing cellwise,battery-profile logs a
+warning and leaves cw_bat->bat_profile as NULL. cw2217_probe() then calls
+cw2217_init() -> cw2217_check_profile():
+
+- If the chip is already active and CW2217_SOC_UPDATE_FLG is set,
+  cw2217_check_profile() calls memcmp(bat_info, cw_bat->bat_profile,
+  CW2217_PROFILE_SZ), dereferencing NULL.
+- If the chip is inactive or CW2217_SOC_UPDATE_FLG is clear,
+  cw2217_check_profile() sets cw_bat->update_profile =3D true, and
+  cw2217_init() calls cw2217_update_config(), which passes
+  cw_bat->bat_profile (NULL) to regmap_raw_write().
+
+Should cw2217_init() or cw2217_check_profile() checkwhether
+cw_bat->bat_profile is non-NULL before comparing or uploading the profile?
+
+[ ... ]
+
+> +static int cw2217_probe(struct i2c_client *client)
+> +{
+> +	struct power_supply_config psy_cfg =3D { 0 };
+> +	struct cw2217_battery *cw_bat;
+> +	int ret;
+
+[ ... ]
+
+> +	psy_cfg.drv_data =3D cw_bat;
+> +	cw_bat->cw_bat =3D devm_power_supply_register(&client->dev,
+> +						    &cw2217_bat_desc, &psy_cfg);
+
+[Severity: Medium]
+Should cw2217_probe() also set psy_cfg.fwnode =3D dev_fwnode(cw_bat->dev)
+before calling devm_power_supply_register()?
+
+Without psy_cfg.fwnode set, __power_supply_register() does not attach the
+device's firmware node to the power_supply device, so properties parsed by
+the core such as power-supplies and monitored-battery are ignored.
+
+[ ... ]
+
+> +static int __maybe_unused cw2217_bat_suspend(struct device *dev)
+> +{
+> +	struct i2c_client *client =3D to_i2c_client(dev);
+> +	struct cw2217_battery *cw_bat =3D i2c_get_clientdata(client);
+> +
+> +	cancel_delayed_work(&cw_bat->battery_delay_work);
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can cw2217_bat_work() race with system suspend here?
+
+Because cw2217_bat_suspend() calls cancel_delayed_work() instead of
+cancel_delayed_work_sync(), an already-running cw2217_bat_work() instance
+is not waited on:
+
+cw2217_bat_work()
+  cw2217_update_data()
+  queue_delayed_work(cw_bat->battery_workqueue,
+                     &cw_bat->battery_delay_work, ...)
+
+It can continue performing I2C reads while the device and I2C adapter
+suspend, and then re-queue battery_delay_work at the end of the handler.
+Should cw2217_bat_suspend() use cancel_delayed_work_sync()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027131751.1724=
+448-1-macroalpha82@gmail.com?part=3D2
