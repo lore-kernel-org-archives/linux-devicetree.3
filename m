@@ -1,47 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793130651;
-	b=g3wfnXHJ619gZK8bLpvOVdDI2UD4sPgtjnnUydrDkdtZBFY8wJh2SDpvnJfTjxxwK2ne
-	 IadBqnzlFUoQR92zakt6TJp0OjoAFbILW4R/2Qr67sCYXal0jSBCheGdQZY504TzVOul0
-	 1p4023WYmHhvLT2PkLdMlmf8coSZyzKLO4b1S2Y002ZDYHnQ1cErmA9522GzFabVlGTTD
-	 hiHp5qsO8OoyOfYQa8ue1yfZj+I52797WERo58FzMqZq2FXBTGW7vfqwvWXmroOsFAMVr
-	 K4+jafhmf5bfQcdgg7FrNQVvCL2mrJCD2lpEoSIWe1w8SZ5aCJxQZJhJakBKxxwlDHw==
+	t=1793131830;
+	b=CzZ+JszjrbbSx4XR8oO65XQwTdLC+XixUwXXZQ7hnpHaGR4rgJq5RIEihZ5Olt0HLFpV
+	 RgiZrvQefIlF412M+9ThFLO/zO1DQdZn8Tau3K419vXSdCLEfibaAmvALqQRr1jXcLwI2
+	 f24p4GStdunvRba3c2944nh8zAY6D9hpGvlc1aghF0o4JbseSopQkEXEFrObWgA/Q2m16
+	 3wFNW6GH2f1EFRz28+dE2QntosGHjlveeLJ2ajNX6WzLlR7Omaq3+BjywIURSeIioiVpB
+	 glSyHIGcSArzvyWiwU5Mw3NMx/gVmtvKHmQvm5I1DPZmO5TSKarMza7jxTAwqJLzTHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793130651;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KvwhyTRyeiEfh+XmO19jNdxyQZ1p+B2iui3w4B1s3ow=;
-	b=EuSShhf5HMSg8j6UeDXMJiKQGFdxUXkuHmyWhT8oT+dJswJBnP3M35gZF3cnHreFk61o
-	 m2ywjdztIAFCbOLhe3A6pvZz/0x17Q7XQ0MvEeJfqckvOL/CtQJ8JCLDW8qanw2fge8w1
-	 P/aeSnqktLYsPsnmjy5DwtsK/tmJAUCuyzF8QTvFFPqlzdJ8cZR7ATQURWWbHykaT1JWm
-	 cwuT8Mhc0jlbU4m6kcfu+eZ5/ETgiH3L4RUnKE7iOSsAyLYtuX4F8P7Z7w3cdCVFJ5Wki
-	 oemB19rxluqXd/DYNMszuwIYXKVma6FTHVXsUZedzl9XF54zffhzyVDUFLa2ZW8PFTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793131830;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Zs8+7dqFRjW6RKjJ6/I76FxDxXQBC+jlTIwYBbsLR+M=;
+	b=CWzWTrFkSnHkiX3RDOUXN90DI1LvQD1BfvKTQlKcf1M6jfZqFWMfnV4X61ssM3rRPnN4
+	 OuM+b73So6xigCbR5yJdD5YSc3Rhkjnvo6Y4B9DsnDQSv2GWDQbYcdVGg0rL8oaWWv3Is
+	 swJgsCKVk32UziSb2OaNfGHzhiu9fbemZZHx9GISoVxgAdgT7K4bkfBHLbPNOB8E0ZUGB
+	 +oVflVY9gRbGLyFyPMH0QnJxGcI+E+uif/nDUpoWzU79VjAT/MVCq8jax3Iq6oNmnEO90
+	 5fcidXCGQ/UcJMV/jkLi8lGYJEZdg6eDtKp/3PI2v51PuGJDmj+v1Gos2k0dxwDZmIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxJ0OFAW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=AMSDWnv+;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FAD606A31A;
-	Tue, 27 Oct 2026 19:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2066606A31A;
+	Tue, 27 Oct 2026 20:10:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2066606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxJ0OFAW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0351F01825;
-	Tue, 27 Oct 2026 19:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793130651;
-	bh=KvwhyTRyeiEfh+XmO19jNdxyQZ1p+B2iui3w4B1s3ow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GxJ0OFAWVcoTVNBUGk/+220FuH71LHppdTDKU7TdLZB3YK/rBEdexDetOUkFVFgMp
-	 jrHZ1MkjAa7krzEOxdcHU6fkRakzvF+60ChCMzeaaKq90HzYrtYo2vFFaw/s3AREDB
-	 3JsjIYIrVj8ykbX5OQtPyEmgVGI5tbxABQLy4ha3yeNFjRgUwVzT7x2sM7wOuIAMa/
-	 ItMrQBUYAsorr7kwcg73+dTDAQSNhVL+IWcGqIhbrb9OgtEwO09ljE6Sin+nBjTDU+
-	 hvhvauiyjWlecLlWYxxQf4x7JaarJtdXh4pAqnaFDlO/mkzgxdtE4QEOoO+X+mTlma
-	 6KBPve2Og2c7g==
-Message-ID: <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-Date: Tue, 27 Oct 2026 20:50:42 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=AMSDWnv+
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 0F01A53401D6;
+	Tue, 27 Oct 2026 21:10:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1793131827;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Zs8+7dqFRjW6RKjJ6/I76FxDxXQBC+jlTIwYBbsLR+M=;
+	b=AMSDWnv+eT86kaPcLmdSSrGcPVkvj/ZcO4jb+7yLClOxs7tcuY9TQP2Ip6cowhu5cqsPG+
+	8TcIFM2qm3SNf2+p7C42SuA3rwNNL6QPqP5LqVRlccpUY1LuNGzaj60MvEARGysJbHme0+
+	tEOGW66lGAGo5gU4GW3ZeBn55pZ7rPw=
+Message-ID: <a60e8a48-9a02-404b-b4f4-8b8f0a4fec9b@ixit.cz>
+Date: Tue, 27 Oct 2026 21:10:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,85 +61,122 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-To: Paul Cercueil <paul@crapouillou.net>,
- Olivier Louvignes <olivier@mgcrea.io>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH RFC 00/12] Qualcomm Type-C support for 1st generation
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-3-olivier@mgcrea.io>
- <20261027-hospitable-apricot-scallop-166448@quoll>
- <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, mfd@lists.linux.dev
+References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
+ <voc4ie6fcegr3thk5n6dib4pkdxmracch4hhgjdih6pxrq2bfm@lq7mx4flowqk>
+ <f85cdfb7-b797-4b4b-9937-670c6dfe52c3@ixit.cz>
+ <zb3s4fmwx7vu3kcqigensacbgdqoaqnipfn4ntx4dh7ahrfr42@hvdw36dqb3qn>
+ <5c41ef43-a065-46e3-9522-faaf3884b487@linaro.org>
+ <eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf46ibp@jzcjmje4aqc3>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf46ibp@jzcjmje4aqc3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 20:04, Paul Cercueil wrote:
->>> +
->>> +  port:
->>> +    $ref: /schemas/graph.yaml#/properties/port
->>> +    description: The output, to the panel or bridge.
+On 19/10/2026 01:53, Dmitry Baryshkov wrote:
+> On Mon, Sep 28, 2026 at 04:54:08PM +0100, Bryan O'Donoghue wrote:
+>> On 27/09/2026 17:33, Dmitry Baryshkov wrote:
+>>>>> One major comment. As we see, on SMB2 PMICs parts of the Type-C
+>>>>> functionality are provided by the charger / FG device. I guess that on
+>>>>> SMB5 PMICs we will get the same problem once somebody tries to implement
+>>>>> additional charger features. Would it make sense to rework the PMIC TCPM
+>>>>> driver to be a composite driver, taking several components via the
+>>>>> existing Linux interface?
+>>>> As this gets decided from the QCOM side, I'm fine with whatever suits the
+>>>> hardware best.
+>>> Bryan, as you are a maintainer of the PMIC-TCPM? Would the use of
+>>> components be fine?
 >>
->> No port for IPU?
+>> I mean maybe. Would it not make more sense to land the TCPM functionality
+>> and then look into adding charging moving then ?
+>>
+>> i.e. finish off adding this piece first
 > 
-> No IPU on the X1600 - the display IP is completely different there
-> (hence the new binding).
+> The problem is that we already have SMB2 charger, which accesses the
+> same region. In theory it is possible to say that USB-C driver conflicts
+> with the charger "for now". In practice, I think, it might be better to
+> sort that out from the beginning. You didn't have this issue when
+> working on PM8150B support since we never needed charger for that PMIC
+> series.
 
-But even if it is different, don't you need to represent the datapath?
-Your LCD controller does not need IPU?
+I looked into the smbx vs Type-C overlaps.
 
-Best regards,
-Krzysztof
+I see that charger DCIN (0x1400) is mostly mirrors (both address and values) the 
+register set of USBIN (0x1300), thus I assume charger accessing these registers 
+is correct.
+
+Type-C driver accesses 0x1300 but mostly different registers (with some 
+exception of initialization and smbx.c 'FIXME: This will be handled by the 
+type-c driver').
+
+So that leads me to the conclusion that smbx should continue to access 0x1300 
+range, while Type-C must access the range. Only things which needs to be moved 
+from smbx to type-c is the type-c initialization.
+
+Do I get it correctly?
+
+Thanks
+David
+
+> 
+> But, then it's up to you and David.
+> 
+
