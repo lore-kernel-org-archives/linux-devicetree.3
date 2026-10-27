@@ -1,44 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109337;
-	b=2ot7M1Gwo1l9VBL8sDdsu4YXWCgJmIadcHs9Fa5HD1y5NeBz+8I/5B6b8q8s5vWc81K1
-	 aUaWdrIChldTSKt/sYT3/UDSX7sZgUGbFJQI+xy40Upf6FAJgKryhqQcMdOeW1qjq5pNp
-	 KEIKivleFz1ArtFKGNZ/s+Bbc3q16CYCWV+/Ev71L/17e+ypoXLVzBeVbZ5/+nOH33CQu
-	 cw1HUamrlHs32FVnCEot/YPanq065RhcwEMavgGnmYqtPg0i/VWtDrCqkuKsDChzXohrF
-	 PGSuv8plxjY9pJzRQ9QQvk5qwzLrhq17M/yvVVhIIhOC4EUNlrEUzyEYpCBdI7uNndA==
+	t=1793109347;
+	b=Rn8a9NqAvtfWT+RDeAgHoZyU3xl84hWKoPPUpzwk8TsVhAdhEG3dzwkLGso5+RRGvnkV
+	 7H/lxF+w2qM6tnzI56WXphXAsvsbJlp0vbJ5IwTlKZSZeZuc9Bgta47WdQ0HaJCjZ43+Z
+	 GRnQ9Q153ZL0VVAMrHH6kTERMQYogG5//5DIKPnbBluN16eAOmCJjLaKQf2IA0CQE3Gsk
+	 E/4PED42CB/X9fRCYDo0ga1uBCAFap/8U4lVN2Y62vUrG1YmVRSBhigJSKsF2Hmto4/mE
+	 OxJHaSBcD3ibnzJTzJqn/M6iBfauNXC2IWMDT1K3EmVsBafynLQRgwSnyQ99ZHX6O3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109337;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=sKuXSxiqi1dS1S7ydoFnufGpBsXCwFdivhOS6O9PI0Q=;
-	b=qXLnNYYb7fceAj14mNy/BN5KuP8IpgJJrKCcRdeQOgJ8czB7lq7igLiifKZg4Nsx0mik
-	 7Yty/9zGV2T7weu0BbyBosIxjozstCTKM3D+XLJ1JudlRI6JaVzFZ4TTVwjO+Lusbe7RH
-	 uZP9xVgghL9c2+ZbNRZHOHnt/E+R3KLWxuLvm6LK75+Pc6BOQn84ulHVgIdUmTeMG1l/Q
-	 9M7SmdoteR9bQyaX5U3vePgcLLd3L4zSjBBna9N0P1uvA196WbVOxblRoAFhqr8gMZp6g
-	 pR/yzUEYABfPKcO5+EwrIzTl7ZZ4omT9dBNk8Vr3TAHrlERfqXLU4l9z5NozO9T7/Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109347;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=DggvAPlwsoPiuWK26maVaGY+gu+kk9spfGM1nzTWWzA=;
+	b=IjN8AveyqajO5v/TWdfZn9p17MBHlRGlpWW9GwfisALx5Zy3o8OO0LYqrNaLaJSDiizm
+	 WoWVN0MMMC/w2k/B1g3q7vRxVLxUAEPpcMfD0htwibNcaI7XaYTgz37fBdnynaptgLj6S
+	 ytaJSjjDnaxEkVvPineRnL5ZVXNd0bObnUzDJ1CH+bgYBLABmsC6ivkc+0Xn5YO4r4wV6
+	 DbYl/VF4JviM1EwYP4GpBiJk+onB4ePoOWpFK686VOyt/twpjaS6WNdev7e1hwrFfSyVM
+	 gPBlrqSXKBwPSwX9nTPjTuRD0Dv3OP9oShgjFeW68yuCFvjl+zxRiDHUoe6X0H5DUmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=LlERGqcA;
-	arc=none smtp.remote-ip=154.81.10.221
-Received: from mail-m10221.netease.com (mail-m10221.netease.com [154.81.10.221])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7KPaZyC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680D2606A321;
-	Tue, 27 Oct 2026 13:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 680D2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C197D606A321;
+	Tue, 27 Oct 2026 13:55:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=LlERGqcA
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5287e03cc;
-	Tue, 27 Oct 2026 21:55:24 +0800 (GMT+08:00)
-Message-ID: <e028ba53-0c69-4ba6-9b16-8648b8a787b2@rock-chips.com>
-Date: Tue, 27 Oct 2026 21:55:22 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7KPaZyC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19ABD1F01825;
+	Tue, 27 Oct 2026 13:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793109346;
+	bh=DggvAPlwsoPiuWK26maVaGY+gu+kk9spfGM1nzTWWzA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k7KPaZyChka5175S9uZAuEhJyBFOnhNtv3xF80leP5kyiUt8Loo6DnodzSyhaH3vr
+	 VribtFhW4gFJ7YFd9FnhF21iFlcxGcFDuavJQi/AyZNNTgnxQvyGVbh16EGsAoKvwS
+	 23ocS/kP+4lwFdUZG9yhX9xt3rj6fcU8xMQic6T60DXQLboam+QF1wLb3YKJCfJpzs
+	 ZpXj8FGp0luY6pIxuBDvVl3Nd3QobSyM+nyLVur52GLnt7CdcQXQi1g0zeHfpoTxyb
+	 A3w8kgp/6SgHxlQHpeHU1VAHW7qnYCm4bdtdmIPiC/RpncKz6YvkkiicEydwFRRm0F
+	 V9SYzcDBIE71w==
+Message-ID: <sashiko-outbox-186676@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] Input: aw86927 - stop playback over suspend and on
+ shutdown
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-input@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261027132929.242158-6-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261027132929.242158-6-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 13:55:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,141 +60,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-To: Leonard Lausen <leonard@lausen.nl>, Heiko Stuebner <heiko@sntech.de>
-References: <20261025205339.14539-2-leonard@lausen.nl>
- <4b7bd146-93fd-41f8-ad3c-88333adc73b4@rock-chips.com>
- <20261026070821.324094-1-leonard@lausen.nl>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261026070821.324094-1-leonard@lausen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa17da4f44003a4kunm3406670ee05a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTU9DVk4YTBhKTkhJGU5NTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=LlERGqcAe2bas/HHj75UcJ6kYuXtp/j0l7/rh2iyqk7G2g1/8yVarOz7tD22gByc7xjkOtWLDDS+4EMGxkNI73csTgnliUtpV013dicn+DZ32rh6yHSS/g7GVzF9sGqKu77sBdOlG6MLZg6pxtcinaB3yD27pEXwyMmei+TYBBk=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=sKuXSxiqi1dS1S7ydoFnufGpBsXCwFdivhOS6O9PI0Q=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Leonard,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Input: aw86927: missing devm_add_action_or_reset() for aw86927_r=
+eset()
+--
 
-在 2026/10/26 星期一 15:06, Leonard Lausen 写道:
-> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
-> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
-> power sequence is not described, preventing the card from enumerating.
-> 
+commit becd63da0830df31ce436337adc571d6ea9ae15f
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-I suspect RTL8822CS doesn't work as-is, unless you need to apply it[1].
-Please double check it.
+Input: aw86927 - stop playback over suspend and on shutdown
 
-[1] 
-https://lore.kernel.org/linux-mmc/20261027122417.954133-1-rojer@rojer.me/T/#t
+This commit stops haptic playback, drains pending work, and parks the
+chip in reset on shutdown, while also adding suspend and resume handlers
+to prevent playback across system sleep.
 
-> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
-> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
-> 200 ms power-on delay used by the vendor device tree, and the external
-> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
-> suspend as required by the rtw88 SDIO driver.
-> 
-> The SDIO wiring and reset timing are based on FriendlyElec's NanoPi M5
-> vendor device tree by jensen <jensenhuang@friendlyarm.com>.
-> 
-> Link: https://github.com/friendlyarm/kernel-rockchip/commit/6f07f3e0b7ec54be90ae30f097d2a9d5aea80974
-> Assisted-by: LLM
-> Signed-off-by: Leonard Lausen <leonard@lausen.nl>
-> ---
-> Hi Shawn,
-> 
->> disable-wp is for sd cards, please drop it.
-> 
-> Thank you. Dropped it from the SDIO controller in v2.
-> This was mistakenly copied from vendor source.
-> 
-> Changes in v2:
-> - Drop disable-wp from the SDIO controller (Shawn Lin).
-> - Credit the original vendor source and document AI assistance.
-> 
-> AI assistance was used to inspect the vendor DTS and schematics, draft
-> the DTS changes and commit message, and run build/style checks.
-> 
->   .../boot/dts/rockchip/rk3576-nanopi-m5.dts    | 33 +++++++++++++++++++
->   1 file changed, 33 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> index 3a305408fa16c..baf1dea2cfa98 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-> @@ -23,6 +23,7 @@ aliases {
->   		ethernet0 = &gmac0;
->   		ethernet1 = &gmac1;
->   		mmc0 = &sdmmc;
-> +		mmc1 = &sdio;
->   	};
->   
->   	chosen {
-> @@ -212,6 +213,16 @@ vcc_3v3_s0: regulator-vcc-3v3-s0 {
->   		vin-supply = <&vcc_3v3_s3>;
->   	};
->   
-> +	sdio_pwrseq: sdio-pwrseq {
-> +		compatible = "mmc-pwrseq-simple";
-> +		clocks = <&hym8563>;
-> +		clock-names = "ext_clock";
-> +		pinctrl-0 = <&wifi_reg_on_h>;
-> +		pinctrl-names = "default";
-> +		post-power-on-delay-ms = <200>;
-> +		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
-> +	};
+> diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
+> index e8fd880ac1ded..6d45c310a73fd 100644
+> --- a/drivers/input/misc/aw86927.c
+> +++ b/drivers/input/misc/aw86927.c
+
+[ ... ]
+
+> @@ -900,6 +909,58 @@ static int aw86927_probe(struct i2c_client *client)
+>  	return 0;
+>  }
+> =20
+> +static void aw86927_reset(void *data)
+> +{
+> +	struct aw86927_data *haptics =3D data;
 > +
->   	sound {
->   		compatible = "simple-audio-card";
->   		pinctrl-names = "default";
-> @@ -855,6 +866,12 @@ pcie0_perstn: pcie0-perstn {
->   		};
->   	};
->   
-> +	sdio-pwrseq {
-> +		wifi_reg_on_h: wifi-reg-on-h {
-> +			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
+> +	gpiod_set_value_cansleep(haptics->reset_gpio, 1);
+> +}
 > +
->   	sdmmc {
->   		sdmmc0_pwren_h: sdmmc0-pwren-h {
->   			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
-> @@ -890,6 +907,22 @@ &saradc {
->   	status = "okay";
->   };
->   
-> +&sdio {
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	cap-sdio-irq;
-> +	keep-power-in-suspend;
-> +	mmc-pwrseq = <&sdio_pwrseq>;
-> +	no-mmc;
-> +	no-sd;
-> +	non-removable;
-> +	sd-uhs-sdr104;
-> +	vmmc-supply = <&vcc_3v3_s3>;
-> +	vqmmc-supply = <&vcc_1v8_s3>;
+> +static void aw86927_shutdown(struct i2c_client *client)
+> +{
+> +	struct aw86927_data *haptics =3D i2c_get_clientdata(client);
 > +
-> +	status = "okay";
-> +};
-> +
->   &sdmmc {
->   	bus-width = <4>;
->   	cap-sd-highspeed;
-> 
-> base-commit: ae965b9856f033145e292b0c29082a26bcc45efd
+> +	disable_work_sync(&haptics->play_work);
+> +	aw86927_reset(haptics);
+> +}
 
+[Severity: Medium]
+aw86927_reset() has the void (*)(void *) callback signature for
+devm_add_action_or_reset(), but it is only called from aw86927_shutdown().
+
+In aw86927_probe(), reset_gpio is acquired in the asserted state and then
+deasserted by aw86927_hw_reset():
+
+drivers/input/misc/aw86927.c:aw86927_probe() {
+	...
+	haptics->reset_gpio =3D devm_gpiod_get(haptics->dev, "reset", GPIOD_OUT_HI=
+GH);
+	if (IS_ERR(haptics->reset_gpio))
+		return dev_err_probe(haptics->dev, PTR_ERR(haptics->reset_gpio),
+				     "Failed to get reset gpio\n");
+
+	/* Hardware reset */
+	aw86927_hw_reset(haptics);
+	...
+}
+
+Should aw86927_reset() also be registered with devm_add_action_or_reset()
+after aw86927_hw_reset() in aw86927_probe() so that the chip is placed back
+into hardware reset if a subsequent step in aw86927_probe() fails or when
+the driver is unbound?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027132929.2421=
+58-1-xiaqinghuan@mail.ustc.edu.cn?part=3D5
