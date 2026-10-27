@@ -1,118 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115545;
-	b=OBAZw9NXwV10PTazOplWmgwwvsRtQeATz2fg0YF+5f0mgtbqFOKFMtYY2pCgCJYlVgqk
-	 Skn9FfmWrrEbEzMsGh1yyB/lx4zo6gXbepVq7lUPAQdwuc7XfY7iTP7aVa9SVhJorowwE
-	 /1m1B5LYuZEYBnCLJYNdDNzw/i9oMCw1iPhQ86k8uJzcPuG+GiVV1hpBKrf4k/oSLqZQE
-	 VOpoHLDH8tQV7kMarsn94e237Vudx8Qbl+GnN76iKuaB4GUnLnwLXJt6wvDUD2wApbMSJ
-	 MAOMRla21E3xhOE5jo3xydC6SURGTLfe5u0bAgxBDkr8Nr2NdwHe1xbjltDPc5pDkJA==
+	t=1793115916;
+	b=gw2kP7zjo1ux3tkvUOlbXN6neA7ST7SGxi4LVjD8UjAawVED0m3LlXK+lKG7g/EohqD7
+	 lcxIioAStgukUyxvmhKULpIn5OhDX/IZ/A4r8uSN8I4RuzgUTaZFvnKX+87N+NnwzWBIn
+	 UgFmZps1ibJTglcr6JeyMYGs1oGwuRviqnfrnk+QT/vBIUbKZMBnyEDcnG3DFZW3OZado
+	 emtzmqOuVxRTy6erj59/nvKhidO/hrDQxyp364YEy1UC4ktJLNlWW/I+gA0uzqbWocQQ1
+	 i+XdqK8ybjQrGw9TGwruaCxaj89YmRXseX3aI2bFlCZHptwOTd/jMWSI+DejtvFSdXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115545;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=cPUuvJa6t5ywKGHuerzirPTGKYB+uX1njxJG93Lbo7c=;
-	b=tTyc/7PtoB7BKvF1u68mGgcBc8RNFEqIqepUFot0jnIt89MiLwaQPLsdOwaO9IqBHNtk
-	 +eSMgXNwHk/Xc1WnD/PhVLKBt+tKzslu3z22pAYsaujabPRB7V7cPDrYjfqh2FPgMlqZF
-	 eu52q2SQMo0YZIyHXpjfQLoS4dm628QB8xA4XUIasvLB9g37zILBcq5Vh54GVjzFs5HVG
-	 Zs0dwW8EmqkrpjWc25QwL5xOE03mjp4v431lVWglpyYY7LdQp3ZlGBcOHoB2UlecC+GNb
-	 PPsorlAmypQB8MAULt7lDqG091PMC5M7G9Kfusc5T5zsrG/yAW7IzzNlu6qRqYUhv7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115916;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=UNQl46VMsStUFN+cofYraOxa7DqEK5OrJRlhwOKz1Gg=;
+	b=xnDIev2c5V+0FBZpkYrnzxplZcbpvNhDWt3Ei6zDFm5ixAA9svqE679U6tM3G2fI3B1A
+	 LuzprEyLHywK8k+JV8x9E/jDd9qLaH6t+GMISm8TWx6EYPCb6PTkxaFXiBpssxuMdzH9G
+	 0Wu/ssnr8c9RIvpiuypGpJMNJ/nsy8jI3liHWZzFyeoVkTL414Fp8GxG/miiXpo/aHvxW
+	 9y5zTZ8qUZQOQMcurOzrZ1ueHXYVzMa/yqwqGjmp2EIou4+SOmirdj9UTN5KbnHtTDbc4
+	 aB9vhMbowMI+8OOVnIMy9+LY+UoN57QeGoyWNg+QSDvvFVyJUIz03kNV8HmxdSdwYhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P8gFv7xz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cVyrVSjJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Os4o6LBB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BFE606AA2B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7BFE606AA2B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77124606D942;
+	Tue, 27 Oct 2026 15:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P8gFv7xz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cVyrVSjJ
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL9bi2549212
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:39:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=cPUuvJa6t5ywKGHuerzirPTG
-	KYB+uX1njxJG93Lbo7c=; b=P8gFv7xzUPPnaLk5NNPXANJeFnWlwmzQlk728piM
-	J5GWtWXRLSTZRCb+O4F/+8vMULH5fuAOwHn7Jz//o98PxjD70k0JwCKhWCPFVJUF
-	FUpVUa7MK/qvikQAOeqIT6zz3lwCnkyYvZtxvuuI0yjNSL+XS+NW0nfxIpYvFMX+
-	cbqepRAmlDOve2zgLPTHA75dPamdAWkqLddGYrkoudz/vfafr5RnlkuXHKN2i/D7
-	4HJaBt54EgiiUvcnkeYwl0wUM0paYBDJfO5L17St5sQ1D5/ywQs+FCqXvSSzDnE4
-	IAp+WQPvDth4/9l8cyXpzdXz94FpRhIPo304+k7Ab85c9g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjrq69p9a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 15:39:03 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2373e9b4so457318485a.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:39:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793115543; x=1793720343; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cPUuvJa6t5ywKGHuerzirPTGKYB+uX1njxJG93Lbo7c=;
-        b=cVyrVSjJg+ZyvVakVuyRFyV+fmKDb06I34uvSmYJmXvyB3ebXvpd3hxqLf5JSF24MQ
-         Aoa/EV4doK1C6vv+bZ7u35vPDt6G8MM9AwDkKWataaiScQUq84+s3/p1wrjLfmXRlqzW
-         3gCBW7br8e/ojPzXJBhWImZcxKBOCdP7A5UuNZtxNcn47BViTvHaRg8plhtnAghnhLiT
-         nNzLtiJjmBWVOtZNfDnKHtHoxhSgW9rhqo/Ek8bj8wrnfQ6ekalsqJh4IiJYEt8dENtT
-         3EMhW81z9T34hu4neq/WB5Rvtp8MJPleuKlWzNA88WjuUcu+FLD5fgrd8aQvPd9MKrp1
-         Z9Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793115543; x=1793720343;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cPUuvJa6t5ywKGHuerzirPTGKYB+uX1njxJG93Lbo7c=;
-        b=iVieYg8ZF5rrl0yIqkO7lPYKh0U+hIx+OeQNjzPScA2CR1dIsZ3ku+9J5tftHrqSQL
-         fyKv2DVfho111qwUtoVW9O3RjBi0ZJggDeI2YBGN8R1ltX7TYj900qKN7PihC3WPHCYu
-         sL2qFKIaECuFwwbnTtMd3vwsAlln0y8cl32iyV3IkAO2bVURAsXWSIs7zUU6gG2t94oE
-         WZG7mutYd3P+LYwN1SL1Oma0OmObvWxZTRVSnDV7VehLj6zV3BBZkKBThTQz1T0MANnG
-         AWAPKrij38856pwPPAS18cKY9X5LiepfybPtTaiVqShK8djdf8IuSefVWgeL09g8D2vS
-         /wEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzmxgvkX3xdygtiPQC/5HUcLB8a0pYTnwJR522YG1oD17zHCwXbRNWhp1VpSPVJp7PMMF6l+qwutLBi@vger.kernel.org
-X-Gm-Message-State: AFq9FYJm5zmHEAv9lW3gnPq5F/1GepXLtnN8MFcYaOaLsX5XwFNXGIei
-	t5wfJMh6Z8vKdAQ9fIWm5sgRCAg9ynY71kSsFlNu8a5HCYWCoC+N33reQlxNk00hH2j6/QE7w1M
-	3CZCUE0EDmpTkyfhWzzUvFG3zDgWawfJsJ1TQYpwZxUAMYhkw14aNedIN06X9v9ja
-X-Gm-Gg: AYBFou1HLb/wm85to+Q1DBnmnG8Ctd/ib3BfjoEN9Z/FHoK1+F4zFTkViYcZejF7Jtz
-	LqKUFHyHJ5Bcab81CxPEknE3CPMWTOluYRLHogKDNxokQXB8SIunTZMSbbL/3dJKjGTFhYeSdqq
-	ww4I25GUJ/b4NpojCmzUo2B6VeStHBmH+xdM8bWsBLf0Cu7TqDTnAPmfWi503CfpiyugkuIhbFk
-	2dfG0v0YXVoDmK/1DbF2IB+68ZFts+mzNj3P1mvNtV9tQnWnbcraZuzm2fLlSbBcjabnqYtI+6m
-	jcNq9wqCJmmkdWAKoA4Hc5SL/sUEtQyCF1VteTiTGvf1Y732h4Ow94IfZsLs3bwZ92AETdHxNZo
-	4+cPlptVkx5jNIga8
-X-Received: by 2002:a05:620a:4542:b0:93f:2bc8:283d with SMTP id af79cd13be357-940ef95fe8bmr1459354585a.47.1793115542425;
-        Tue, 27 Oct 2026 08:39:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:4542:b0:93f:2bc8:283d with SMTP id af79cd13be357-940ef95fe8bmr1459347385a.47.1793115541726;
-        Tue, 27 Oct 2026 08:39:01 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm23240126f8f.4.2026.10.27.08.38.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:39:00 -0700 (PDT)
-Date: Tue, 27 Oct 2026 17:38:58 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: Add Mahua QCB
-Message-ID: <gdo6dqplzniqwxpk5dlkghn5ha2vh7staziddoa7frxhxfqj3h@6urgosis4rgn>
-References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
- <20261027114955.1266499-5-sivansh.gupta@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Os4o6LBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA32A1F01825;
+	Tue, 27 Oct 2026 15:45:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793115916;
+	bh=UNQl46VMsStUFN+cofYraOxa7DqEK5OrJRlhwOKz1Gg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Os4o6LBBlz9jrvmLgc5vX2uUW82XtoT3JjD9MW1UWlLHudZkwMTorHDSj7jUC+seJ
+	 6oo7S1QMiSQDh5Hw1cDgLlezWVdZ0d2JZowyr8JgivCJ5eLzg06VlvyU++BJype0zR
+	 Tt/z4O9OTqnktDt/q+rMxD47NNoAQEVDT6b/yGzxFVs4RDOzKuBrtwUvHfF92KNgQ4
+	 YZ3eUrMJgltM0eVz2HOj8glHMtwYjBzl5aRb8fZzJH0qrTwecDx759/PSn1YlcFlsk
+	 qnilsN07uke2g1UGZUNhEvNxzs6Pc4n4t1f28YwcbWSv3UdUMogvwa2PNyNdvadKAC
+	 c7XiIE36jVf+w==
+Message-ID: <sashiko-outbox-186865@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 04/18] dt-bindings: mailbox: add the A210 AP to E902
+ doorbell
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Han Gao" <gaohan@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027-a210-scmi-v1-4-74d58ce85bd8@iscas.ac.cn>
+References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+ <20261027-a210-scmi-v1-4-74d58ce85bd8@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 15:45:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -121,53 +60,139 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027114955.1266499-5-sivansh.gupta@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=RYwFmFtv c=1 sm=1 tr=0 ts=6ae0c597 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=4MzwNv8qEO_iqFDzjXMA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: XzyGpTs5qjZ889uARw8qAx09mQiv8sQM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MiBTYWx0ZWRfXz9WDf/4pxe8L
- K7/2W39f37naitVArFW/6hpeXsLRaIt815o4BZSPmQMiWiw+w5jrZ3DfMTg+YB6rVsyuJjL8RzO
- QKvD3umYKYAFf9iOFTbnWmCh0gEepI8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MiBTYWx0ZWRfX/M4sBJ0DYRsw
- ZZM2J2dTjT7eT/62yMyLvSFqpU6xcgbG+HSA2Sbohzr9Po4WRkxtEg11L34xV+zEod/vI84PKYZ
- qrIy+4MjqbEyPw9DdoflxweiYMWy0sPbFtdq/im+lL3uoLDdrHGjbI5LoT1RKBvgvAT0ow836E+
- eHnjtANECfiluby4tFesAUQa7p1sfuUhiOmF5+F7tMks6fJjKrM3owSmqIs7HynMNXJdWoXHMdA
- a8TWqXYnJ9vooG6wrx1XxxpXZ7P51L+9L8Clgbok3TN3Ad8P4sWDHnOVy9mZjgfkXUca69DLCiH
- JNiVr+5xnrsoKqZvLkBMf7lrtxKaAh+xLkV1O8y57jr3RKhFqXk7Zz6vJ9Xr09Pu4eI7Q5qwNXY
- BDAWpLzkEHYjxMXhRQBKOx4L4J25YduPJ9cptmrKnly5+h8wpItSjD62mcQteK90PsQpUBjclq3
- 5HFAx9TW+HUxLgsnL4Q==
-X-Proofpoint-ORIG-GUID: XzyGpTs5qjZ889uARw8qAx09mQiv8sQM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270062
 
-On 26-10-27 17:19:55, Sivansh Gupta wrote:
-> Add initial device tree support for Mahua QCB. Mahua QCB is a variant
-> of Glymur QCB but using Mahua SoC instead of Glymur SoC.
-> Mahua is a 12 core derivative of Glymur SoC.
-> 
-> Unlike the CRD, the QCB is suitable for compute workloads, power
-> measurements and oscilloscope-based hardware validation.
-> 
-> Includes glymur-qcb.dtsi, adds Mahua QCB specific board compatible,
-> adds tcsr regulator-supply properties, removed cluster2 PMIC/thermal
-> nodes.
-> 
-> Co-developed-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: mailbox: zhihe,a210-ap-mailbox models software SCMI=
+ usage in DT
+--
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit e3663120f1bca9d6b72ccfedb9289dcb341101ef
+Author: Han Gao <gaohan@iscas.ac.cn>
+
+dt-bindings: mailbox: add the A210 AP to E902 doorbell
+
+This patch adds the Devicetree binding schema for the Zhihe A210 application
+processor to E902 doorbell mailbox controller.
+
+> diff --git a/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mail=
+box.yaml b/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mailbox.=
+yaml
+> new file mode 100644
+> index 0000000000000..4541750223eb2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mailbox/zhihe,a210-ap-mailbox.yaml
+> @@ -0,0 +1,76 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mailbox/zhihe,a210-ap-mailbox.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Zhihe A210 application processor to E902 doorbell
+> +
+> +maintainers:
+> +  - Han Gao <gaohan@iscas.ac.cn>
+> +
+> +description: |
+> +  The A210 exposes a bidirectional notification channel between the
+> +  application processors and E902 firmware. Payloads and transaction
+> +  completion are managed by the client using shared memory. The firmware
+> +  initializes the remote endpoint before the application processor binds.
+> +  When firmware manages the endpoint clocks and keeps them running, omit
+> +  clocks and clock-names to avoid a dependency on services using this ma=
+ilbox.
+> +
+> +properties:
+> +  compatible:
+> +    const: zhihe,a210-ap-mailbox
+> +  reg:
+> +    minItems: 2
+> +    items:
+> +      - description: Application processor interrupt status and control
+> +      - description: Remote E902 notification channel
+> +      - description:
+> +          E902 to application processor channel data, which identifies t=
+he
+> +          channel that raised the shared interrupt
+> +  reg-names:
+> +    minItems: 2
+> +    items:
+> +      - const: interrupt
+> +      - const: tx
+> +      - const: rx
+> +  interrupts:
+> +    maxItems: 1
+> +  clocks:
+> +    items:
+> +      - description: Application processor mailbox clock
+> +      - description: E902 mailbox clock
+> +  clock-names:
+> +    items:
+> +      - const: local
+> +      - const: remote
+> +  '#mbox-cells':
+> +    const: 1
+> +    description: |
+> +      Channel index. Channel 0 carries requests to E902 and their comple=
+tion.
+> +      Channel 1 receives E902 notifications and requires the rx region.
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    mailbox@321000 {
+> +        compatible =3D "zhihe,a210-ap-mailbox";
+> +        reg =3D <0x321000 0x1000>, <0x311000 0x1000>, <0x320000 0x1000>;
+> +        reg-names =3D "interrupt", "tx", "rx";
+
+[Severity: Medium]
+Does this binding model software-specific SCMI usage and driver probe
+workarounds rather than the physical A210 ICU mailbox hardware?
+
+Looking at the example and the corresponding driver in
+drivers/mailbox/mailbox-a210.c alongside drivers/mailbox/mailbox-th1520.c, =
+the
+A210 uses the ICU mailbox architecture where 0x320000 (size 0x1000, the rx
+INFO registers from E902) and 0x321000 (size 0x1000, the AP interrupt statu=
+s,
+clear, and mask registers) are adjacent 4 KiB slices of the same local AP
+mailbox peripheral starting at 0x320000, while 0x311000 (size 0x1000, tx) is
+the remote E902 ICU slice for the AP.
+
+By splitting the contiguous local AP mailbox region out of address order and
+placing 0x321000 first so that 0x320000 can be an optional third reg entry =
+via
+minItems: 2, the node unit-address becomes an interior offset (mailbox@3210=
+00
+instead of mailbox@320000), and a physically present hardware register bank
+(0x320000) is marked optional depending on whether a client uses channel 1.
+
+In addition, the description and #mbox-cells properties define the mailbox
+channels in terms of SCMI shared-memory protocol roles (channel 0 for reque=
+sts
+and completion, channel 1 for notifications requiring the rx region), and t=
+he
+description instructs DT authors to omit clocks and clock-names when firmwa=
+re
+keeps the clocks running to avoid a circular dependency on services using t=
+his
+mailbox.
+
+If those clocks are controlled via SCMI over this mailbox, referencing them
+from the mailbox node creates a circular dependency that cannot resolve bef=
+ore
+probe; if they are physical SoC clock inputs, they are fixed hardware
+connections that should not be conditionally omitted based on OS probe
+ordering.
+
+Should the binding instead describe the physical hardware layout (starting =
+at
+0x320000 with non-optional physical register regions) and hardware channel
+endpoints without encoding SCMI client protocol behavior or clock omission
+workarounds?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-a210-scmi-=
+v1-0-74d58ce85bd8@iscas.ac.cn?part=3D4
