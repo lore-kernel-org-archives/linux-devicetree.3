@@ -1,112 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793076860;
-	b=fCrr96n83hOM2dMlaRS+7U7PUO9ygcqI/7EPzU+DGZnWuKeKenzwII+Z4R9Wj/OGthld
-	 r0CghHe3xwuwFXfizvlddCCvhTgCMaH59wrqVAeAw0seY6n+sFh+xSY6IXGLv92C1a9Sv
-	 aciBlxzHMpMABxqRwjEyW7SqZsYK4A+WczD6PcrOtubtZYZVYr80a/pqtWPZmxtrPagBv
-	 btnJ+C/CXwufzOODHcP3wxnj9HvfZQgbxIfcYBPGCrm0rNGSgYG24/gaFBS0Rw6vqx6yS
-	 hSAoq3qtoZWl1v1ZdK95A6HbSh0WhRJC/R2z+Kgih3446FLonBfQaiKbMFVBU2lgGOQ==
+	t=1793077813;
+	b=oH43hLmA/CIUyOQndEuMNg+JchRgycpoldRitsReu9vb/T48Mv1quBEJv1IExeyXrZJ4
+	 1DOBjKqc5gAoliIB3CJUlOVMdJe6CinMgBuOZw6hxG3qGKhl+LPW8bbqFBkwd6NEYt62O
+	 l+usyGp6axVmeHtY4O1slL7S4FOSNVAL61AwasX7GNre9h+SA6OvKOqKuabkT3qw/3oZV
+	 waiZWe7UIjzpst/0Kql9h0YBkkLYLCqxsGcZXBFvkvE/w/uyAPhkWDiYUnu4Ds12apl9d
+	 hvbZ69+WrSPELe9LwbjKq8u983FgeNo9TAaK15NMidr2jUx0NOnnZ0OIEKgIoI4RF2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793076860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793077813;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-	b=WgxslU9pY2fKToOttMYeYiZk2pqLmU9BlASht0oXr6UXiToqRkeeH5hJLZrYAW/vE1JX
-	 P+Ma7BvFtLwYXAQwc0urGyich48sjH6x2gbyxbkRmxHectX2CiJpnDWqBqAsWH2a0Yuq6
-	 JdceXIANXfryDmVP2OJBey24Yw1ECca8YrMMQ8mkZENmc7BrcYvymL+O6tXNyfOKDIA7w
-	 3w8AaS5b92r6Rm0bR/dFUZVH4zQmLHHjsY3e9OGl+8QyPQlEPNYFSEfd6DF+LuiaAC2cO
-	 2HyK+AQ1lERYP1uAOnnhNntY9WPY9q5GRh7Y7/to4VUcQBegig96/g/0BeOVLKnBTLA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
+	b=D5c+KXE0hFTdu0JCJujGJQMWm7EWSuff0hqUlsKHzDWNwm6hjQhNGk0bl3BLppkkpnZ5
+	 7oT9QiiNr+7zyzodEZ++2X8Z/suNrsHw23/LXk/oj3tDD/StohAsSdvpTRDtsoOq3dcEU
+	 AHucWvb1CmwkEt/LblJ4qHAGDXFxUy8/MEGKeOqIEnFVAvdVi3KxvVSJHmmDLylUhmNqs
+	 dgrdAH9+6eo8Jgbd4eORicDKD7gWV7UDy/KclY4RGzE3GF93xdWBx2GG/XaYnMc+Pd29/
+	 9F/V9yN0/nZgA+psUYxr1Nb4Enn3KC3TM0Y24biPNF9i2zSj38CFKa7d2pc2/bJdsAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sifive.com;
-	spf=pass smtp.mailfrom=sifive.com;
-	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bvhShgG7;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10453606A31A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10453606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE71606A31D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE71606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-14fc585291cso1896846c88.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 21:54:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bvhShgG7
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1839435a91.1
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 22:10:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1793076858; x=1793681658; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-        b=Lp21g8nSCK7QvosLUNREqcWC3uyos4X3oHoczIC1sB36odhuo9n4pCe8YPnmB5icK4
-         tsEIkkkfyEBwv5PM3ac/hWzz3VP529DY8lQoffxIHhOKJAqL9qGUxAMBWQHZjNvdR3ux
-         ZtJdm/UwhGj7LsKso0qQeY3hEEl7BKYGYoRoxsZkFONNhAHuT+Odt4GSCJIdX3eTluFU
-         x38NK/3F6EMLrUDR+VIfwbooyVxHBwTQEzQX1ainRCSz8NV3uKmcTcfSOy4aOGa+1kxB
-         I7TSu4L86KZlIVfFKjfHQQsI4OaBE4hFAEtAYLCoV0ZkWr2NNAiHZV+ppCQxuoIFnoTi
-         mCUg==
+        d=gmail.com; s=20251104; t=1793077812; x=1793682612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
+        b=bvhShgG7D7zcmztInFea9OSn7D5JSB0D4i6yf2n+crTq7yi8sQ9L3LLKQSM8xXnhkp
+         AqbuI5FqtrdowocluYV2ukrP3D2+6rsKCdi1Z41pOP7b0xldyB01FWsU87xcrM1ltKwt
+         kcr3vYsZ4f88sTfTaGS/12FRaQs3mo6OTf+MfJiFNZx7PdYwgY7Y/5XkHklFZ3etM9nJ
+         RgVAgbYVxMhelPq7iSNSZhjFSWLaT1v5Vhtg/pvm67NtxQsd+f5YoS+gOBVzn176vHZz
+         MPR2DrAz13Zck1vA7Ep9FKsc3GjKSyDQCbtFP8lGYIvNws58FuwvoNcq4dC31tEtn1pQ
+         v3TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793076858; x=1793681658;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-        b=ELPVIL/l5C4qecBzaZLRiKvGuMfrY6WUemBIeY1SLjSQ+Hn7h0Umh8o5Jif6VIuOfO
-         3/7hGYA6uu2anPckC+Qy6rbzeYcUuOnxlk5VLCZF0u08i6LCjGu9a/LNl3/xK4AN8j8Y
-         wNRLINz0BCSGS0QyN5Jj2u2fcj5SuQbrxPDk6OvfkO830RA3PA+eZ2dqIf8EuryUB69N
-         LnzzbetYcgCiXgRagdJnzqnqYSghb2vjJl7R/7nQJF2P+1TxTUbxZ4aS7jbSidaY1TUl
-         qBEzDpVuytH0Z5SUsoTXu8P6jkf6Roh3WkJOtyLKazTVnKmZkAi6LJllHKk/tWx/tN8o
-         8HWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUW2qPiu46wbJ6bSgAtpWmJIwxayMlja8TCWJ2/VFF6K9NtcGpLCxkdUzOhTwIzQA8x1fGdeSRP+ez@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQG4YlsbK8y+5iqbwbFA/9hAaV02Ifp6d0TyVQVqYNVwxsK2Vc
-	LiYkLFytlkrM2d2VssvpEbb+9lHTzmUz0GNHqcbhM9LctCp9h02TBTDeetWp4Rkd2IM=
-X-Gm-Gg: AYBFou2V95OkLszZiG5M2kJHkDn0VDruC/wII3cZvscJEIEcURJaEcLgq2+2nvobO3E
-	+B77xffpuEWeTGnrA6sWmDe6a/JNrh5U0AoQnS3QOvNQdsQF4vSmkkSKMxb+q44vriYvcdJdVue
-	UhfG+BmoQ0StoSF2QH+dVOy+p6s8G8YCuXg4jqGkTTMrwNqRZTNEoqD8FgvnrVnBzElCXVg+g14
-	FbEy05lfDMkkcZ/JREX5i5psrDBSBu2V4cIK3BrgD+0/I7It4W+ksywc3M/eu+pmbleTCS+by2K
-	qmGdJeSSp5V2oiscgykYCfPYL+7TGsCc7wgpEG0kI72BJ9atCeNlL0jTE7+j9GKxlmD9r3cSUSY
-	6gHLdSaWg7DeQLq0SYZli+vMKfhRxwtLX4dvikTU+xoW1DkmeJqQCWZz4jkcfNMzdtN4r84945b
-	fYklPcQ+QsfhNew4pvMjWaiZ9lN1esxk1RUUi1+2CeUcVHzHuDOiYyY/fZSTdk3UcDPobP939qq
-	W1XibbbLHsObtIRm5mZQSCrEJlGGtcXLOMURnI9wiS6Her9pyJA+QBadqxJyxRx/mEGT8852zdu
-	GhBqL6OXRGTlB0n1K0S1dmrkPvB0H5j1fSLzaN1mdSRQwA==
-X-Received: by 2002:a05:7023:909:b0:144:eab0:9cbc with SMTP id a92af1059eb24-199376e0835mr15075491c88.37.1793076857722;
-        Mon, 26 Oct 2026 21:54:17 -0700 (PDT)
-Received: from lliang-1876.localdomain ([136.226.240.173])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm30437451c88.7.2026.10.26.21.54.08
+        d=1e100.net; s=20260707; t=1793077812; x=1793682612;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
+        b=vMP7xxeoswBdZTem4774Frlbpd5899hMvLYd0GxehNqjtMniZfCT3BppnJJMFOMlTF
+         pXjp5gyJTV/JoC3p8ltjKDHthKTgDtyOhkMihqiqitSkIVla8XvKQi0s/7w4M/+BUS6d
+         XrtR2DSaKdvNy+Rf0qxojvgIZX7IpoMkR34mdSAMCRoYPLpHR24dH5y3EL+IcsV3Uqez
+         M8aav2Agt8mcAJ9h3dom63cB3YLC/dIEVImSuFqm7SDnhZ+THWyThqG8r4DQjMxQhWWq
+         anMbv5I+CR6EnGAx29R8/pDrM2wuReKvNhNpBnx78ydTLCpyJKhWpInk52fsfUpHTSQo
+         DYuw==
+X-Forwarded-Encrypted: i=1; AKwUvBwgnOANVgqxu0TBICbKXxLxilYquk6W1VEUxhmhKKbFzjvi6nT48gIzJCw1mEuj4EDinfY2a2nUeXBH@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnmElUdKaMliIvmceBNIxRAGqxR0RK0YGtLPCc7KGLQ660VNe2
+	6DP+X2d/9OD61C9O/wYHo/QVQ81EdMAV8F4NJjrYQkAnvKJI/ZBMxju2
+X-Gm-Gg: AYBFou3NWTMYEScjP0omoBWquu1HBpxCEGg8xndN/ZIGERWaMwvm2HgjVQfG0Syy10R
+	EjiBp/q2g8gO4HHQFqTgq0zgyrnC15J8v4sYi5utG+hWq7aQLsr9lkrqNKKqDJFhAc7ZdX7lFnU
+	68PdgPjGkwPl/lC3e7KQRTdebraGzRS+EQt/pA3rb3wHLqZVN+masfbVNZ9i/+wFc0HdB3kyP1L
+	y4OaekLrqxvHMH+DIKcS7OLcinuxq6VisltzJN8mabF3sqg+7VtkFhrLOlwMGmn0+J3eVfwWHOQ
+	B9c/G7jJEU5dXegHMwZNXqkPCNZy/FWip9DaBS9A1zk61qjGPf21cROvX/QASy2ikjGqxFMKvGg
+	z62H9zRObqYPgJMZ0nlecWD/AsVzXngHRCfU1NZyGr8b+s4mj91zTEnnkxmR952MWt0J0LFV0kv
+	saXB3t8yrPe5xYjsyX4VqZHo3efj+GV5KKG67Yr76ORAPlRwkadrtJll5ADxnmrmWr7cCeWwcuh
+	7QlqpLyhyA2TYxqndBXx3hGvmMQOBylNKLGBg==
+X-Received: by 2002:a17:90b:3b45:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3ade9b2cff5mr8125294a91.1.1793077812053;
+        Mon, 26 Oct 2026 22:10:12 -0700 (PDT)
+Received: from plex ([2406:6d00:a27c:4200::7be])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404556fbsm1893858a91.11.2026.10.26.22.10.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:54:16 -0700 (PDT)
-Date: Tue, 27 Oct 2026 12:54:05 +0800
-From: Leo Liang <leo.liang@sifive.com>
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	Anup Patel <anup.patel@oss.qualcomm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mayuresh Chitale <mchitale@gmail.com>,
-	Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+        Mon, 26 Oct 2026 22:10:11 -0700 (PDT)
+From: Chris Scott <gilroyscott1970@gmail.com>
+To: lorenzo@kernel.org
+Cc: netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zane Leung <liangzhen@linux.spacemit.com>
-Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
- gtrace framework
-Message-ID: <auAubdjHl1V4h16N@lliang-1876.localdomain>
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
- <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	pawlik.dan@gmail.com,
+	zhengping.zhang@airoha.com
+Subject: Re: [RFC net-next 2/3] net: airoha: npu: attach a coherent pool in the NPU window
+Date: Tue, 27 Oct 2026 15:10:02 +1000
+Message-ID: <20261027051002.3360392-1-gilroyscott1970@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <at8FyOLeaMlpS7mR@lore-desk>
+References: <20261024154150.45733-1-gilroyscott1970@gmail.com> <20261024154150.45733-3-gilroyscott1970@gmail.com> <at8FyOLeaMlpS7mR@lore-desk>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,67 +111,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 10:52:14AM +0530, Mayuresh Chitale wrote:
-> From: Anup Patel <anup.patel@oss.qualcomm.com>
-> 
-> The RISC-V trace components defined by the RISC-V Trace Control Interface
-> Specification are memory mapped devices which are organized in a
-> graph-like topology and described in the device tree.
-> 
-> Add the RISC-V platform driver for the gtrace framework. The driver
-> parses the RISC-V component topology from the device tree, discovers the
-> type and version of each component from its IMPL register, provides the
-> RISC-V register level control ops and registers each component with the
-> gtrace core.
-> 
-> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-> Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-> ---
->  drivers/hwtracing/gtrace/Kconfig            |  15 ++
->  drivers/hwtracing/gtrace/Makefile           |   3 +
->  drivers/hwtracing/gtrace/gtrace-of.c        | 126 +++++++++++++
->  drivers/hwtracing/gtrace/rvtrace-platform.c | 186 ++++++++++++++++++++
->  drivers/hwtracing/gtrace/rvtrace.h          | 121 +++++++++++++
->  include/linux/gtrace.h                      |   3 +
->  6 files changed, 454 insertions(+)
->  create mode 100644 drivers/hwtracing/gtrace/gtrace-of.c
->  create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
->  create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
-> 
+On Mon, Oct 26, 2026, Lorenzo Bianconi wrote:
+> nit: what about creating a dedicated routine for both firmware and dma
+> memory regions. Something like:
 >
-> ...
->
-> +
-> +/*
-> + * Parse the "out-ports" graph of the component's device tree node and allocate
+> +static int airoha_npu_reserve_mem_region(struct device *dev,
+> +					 struct resource *res)
+[...]
 
-typo: "in-ports"
+Hi Lorenzo,
 
-> + * pdata->inconns.
-> + *
-> + * Return: 0 on success or when there are no input ports, -ENOMEM otherwise.
-> + */
-> +int gtrace_of_parse_inconns(struct gtrace_platform_data *pdata)
-> +{
-> +	struct device_node *parent;
-> +	int ret = 0;
-> +
-> +	parent = of_get_child_by_name(dev_of_node(pdata->dev), "in-ports");
-> +	if (!parent)
-> +		return 0;
-> +
-> +	pdata->nr_inconns = of_graph_get_endpoint_count(parent);
-> +	pdata->inconns = devm_kcalloc(pdata->dev, pdata->nr_inconns,
-> +				      sizeof(*pdata->inconns), GFP_KERNEL);
-> +	if (!pdata->inconns)
-> +		ret = -ENOMEM;
-> +
-> +	of_node_put(parent);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(gtrace_of_parse_inconns);
+Thanks for the review. Sure, I will move both into
+airoha_npu_reserve_mem_region() in v1. The pool attach then moves
+ahead of dma_set_mask_and_coherent(), which is fine since nothing
+allocates coherent memory in between.
+
+v1 will follow once net-next reopens, together with a binding fix
+from the Sashiko review of 1/3.
+
+Regards,
+Chris
