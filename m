@@ -1,84 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118325;
-	b=DHT2ltnxu+eD1yAmKsEXzXbZ5ew3yEiMjyyht2q+/e4HsU0RcpdUXmmI4c33+YQCvK2y
-	 qAewQSzXcsjC4SjbMWJuwOqlPASwMRXH1vB9EvjB8kOdPvaQTTmsa0H3wkR8YldZ6aX/T
-	 oJzAoKUn4OIQKNB8cjuQkEXxWnS3ADOL1zFBg7CJq2HQ5m5sURlDfW6zfmCGpNSFmRDd5
-	 KmAA4xXUpjSEz5WXMItSkghSZYcSkEe3jJpJZi+RfB1GkTPb4OWvOtHn0l+5ggE6IkSJI
-	 uzZd/tmOhJWAvrLfbH6Wjl/1hKji3afAl44dfOuWjZtekS7Pe6IbjJUZ0rEEqEgn8KA==
+	t=1793118743;
+	b=sN8Duze6fWAE5LW9QCsoyO/TbH8lDY1wavCKw1/S1B0mOwtcM+XQF1vhQa/jtpGeiTJy
+	 oSRUmNFXp4EjyHLe5+VPNMAF6dK7AXs7OmkUZHFEsJVhVYfza136Ek4rNiFMTJtWOuRUX
+	 kRSsPf8Mvtk2v/QerZ9aitQDe5UwdL4fVDz2c4j+BO1Bkmj4pfCQhIRLQlqVY5J3W3zpd
+	 5aryKxMbyOiCZUednbM0FaQWDgdOWhKa2m+58clpDAyZqkdgW4SehPlWGts5TCUIWQpEn
+	 fkXjo5n8Vj3MYdOZyjXckaRi8gNE6i6zUUzAStu09hAFluj2E6xe+znA+irOIngIBbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118325;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
-	bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
-	b=YyD/ye8C1wx3auEZHaqQ1ALAzvbDe3RjxktPIFsDQ2X62zROj3CHCI4913/nNEMD9mRR
-	 T/lSjLoK0GmZ8eapUOa0yf/oOUmk4gXiiUOThiMkJGAsuAHKWp0Kybjb5Esr5uActEARn
-	 rGuxN6rkJdknGI3t9zSAqruudeTNMnT1ooSinH5MxyarhlJt3ABA5yVnbGCB7cjWeRuRF
-	 VG01/LoCfTciuB3zRSM3818yKxqeU6jRRxJIkyArTYdTXQMoT/Eyr0xOeH2qMd9nDTkEc
-	 U6uImdRCrbMDyyUNa8haRRQFA7tyI+6yGWvE5zmhWLrmQy0B5Wdtnw8LFLr46+NDj/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118743;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kvHpdbzr181XbRpEgtV1R2oktcYB29tcS5XHBNv0lQ8=;
+	b=KoUOxH97hXzKH3k8C7fdKuyRm1h9OQTOxLTUJGF0Yt1Gll9NSlkeHgBvWDqvyPcHIYz1
+	 m6pJg6gFsn7SNl23L/S9k4iuYycLbSTLMeuq26pH1kjXqBD5cQH86MrAZ84IUmSQ9mXfq
+	 dBrqnl8LGG0wKYA9jNEx5JolBcXAnwYp217An3zciqu1r7p/eptaJkmnCzx9iHz+d9k00
+	 QqjXq4/OES2mt2G/GkjI/vtU8+DW/+513Ep+Rki9ZPhqxcyKWc4nXjciX4A9rCkmvTPU2
+	 JbFFRT6t/9fz6KW7N3colL/+VU/iA9usU82igHfM8Oa87tXdUNVxn3DXFvYM59fghaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwAu8N4J;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/9wjUU8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318E7606A31B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 16:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 318E7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 837CE606A31A;
+	Tue, 27 Oct 2026 16:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwAu8N4J
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso185455e9.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 09:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793118323; x=1793723123; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
-        b=IwAu8N4JddNQd27xVH+MgObMXFu+x6visCB8Q3rvbBvd+jTxrIuaDydaWyA/a1+/3P
-         VxxO98CMuvUBBmHXoYSUpPDR34n5dUFayARvwxZHVRNPHG5Orf16BOphQF+uorFdH9or
-         9uracTP7gHgQJ8cSZyGqZpkLCBvcWOxHV6OPtg7jLcr4G4hvoKSbNHlPjYHbrFSCPn8G
-         vpgOOLOGTd77c0PeNru6VyuH1Tpfd2srsJy57EjnEViF36/vWQW6k6c0D6bwTNO56zp8
-         1SkOW3DA6ICz5T8kPSScHnuVF9ZWwa2OahYWU0+B5if4itSkkEamX+dd+fF4AVZvtlvP
-         xSVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118323; x=1793723123;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/kfeTwXgqCxPdS8Y/UTZ2+F+St1gnOqgFCGoK1yJzcU=;
-        b=mYMwWPDgzcIL4nMWiXrOR2TigtQk97qbSN/SgR8LOHl9D/SjXS60B5cB1YgQ5gMFSq
-         CYultJtONTnZqaUyvYmN5YnV1HLwKYJtMwtF/ylCpaWUnO4y/FFAZCjLf6S5FkQtbDcV
-         1PYzitua/sImFIlRn+qHJbYk/L6yddO5VBn8ngtUwu/FtInHMzs3gZxre5VWwNzBF9oh
-         gJArVaPr4XAx2VcAK9QczL4Ac6CcgRUC+0nAnncYeqjQg1FYGAqyw/5D/JapVXesomKz
-         tML9MSPxRKYkNGzMNBKgpvxAUHwS/sgVyIvvfyIwbamKyIHzC+nC0iQ5gctep6Gyuy1I
-         YchQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrSZKQjL0+c+E/TK/KwUTgSl2sqijDOQsUGqUlYQmKDc70vqWIkBhq4dOUHoXjDYTuPVa+rcIeCE7/@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaw3bF/TmgpoehTNUfH1n+FMie92wgX0JvynqTaqMJY9TYczJp
-	46sYUzO69L1tn/OkTSHg6TGZN0p4tb3cKT8M6FaoKmlOiOgzc40lqjaWmSbZPFiNVsk=
-X-Gm-Gg: AYBFou1sCtk0IIAqUCKG/SmK0yLwwAYqRmIWJ82jdh2hKtd5uOBlH4i6G0M4WM9/j/q
-	a5lmeOcv4fdlDe6aj8kq+YIsmBJIQoQbu6AYDmkwHoOaKptCR9mNnQw062gB2bD6+NlCSSqFRbL
-	8QwkyXXJUk6JySQR4F+CjUFf18m39jWnaNXpJcWtICB08/Ir3716AqK1y9b8iWOZiC4jT2SbK3r
-	YzGYVckjAkBZ2p8twCH5M2ji0ErqqU6BegRKsXOYdBYf9u+uF4zPQmnXp4sYshI4Cc2JocZutUj
-	yRA3RNaOaBbLBHMNjPdJJQBvYXWIoIlsT1+8WdBMbX/pwLtU2WVmuyOJZP7AIZlkrDLd8oNQ/UD
-	anPXJxJ+LKjkZav9hedjbKi+aEEQR4WEkZMq6zqGJuz+H643MgdCw+Td+fNohCx7D9blSgeMB3D
-	XqzfPSS2fWoTFvKVCJsGnovCZsYwPQBX4I8Dov/7cstJfvuFfPNTI6a9wAYHPWcn85ddOSWkEJx
-	Ncq9yQWPIXKHlSMCju+TCj8Yjo0tnjh8F7jOQ3hesqYjG+w4+UPhxpl/qgKUaeSgdSp0gyyksMa
-	du0+8e66corw4M9TcgCxg2kwFc9c+PEEoYPaDaE6i0lXbsFhGFTqSQ2dST4zIBK82MN5
-X-Received: by 2002:a05:600c:1909:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4a35ac95fa0mr188333205e9.16.1793118322543;
-        Tue, 27 Oct 2026 09:25:22 -0700 (PDT)
-Received: from localhost ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a931232e6esm80005e9.13.2026.10.27.09.25.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 09:25:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/9wjUU8
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C18B21F01825;
+	Tue, 27 Oct 2026 16:32:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793118743;
+	bh=kvHpdbzr181XbRpEgtV1R2oktcYB29tcS5XHBNv0lQ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L/9wjUU8d3mrJwpelfh/WNYBeL7ClsTN5Z/FIX9bgBT1bfIhFUN3uaTN0CEBEiPwu
+	 QCRNL0gSXhd8ncuR9jPx5QFJNPcHNPAo2d3R8t7++MKn7Z48961Ce4h7KI5UDuxYl3
+	 07CrG3a8hujQ5s9l2pItC+VbFzItUn9n97KARlIuArpKZleglBPKNFp5J5a03ALXbf
+	 sg0amAQcUKZC/SyPFhVmBuCHVm0vaQpfcM88JU8TqsFkaVHbuf+VmMkShkS6NfPvvY
+	 oESgVQBE981tciY4ny4xpyD9tT8Ki/cRNVBY6Y4XeWq89PigUFKMseSmjmbEXl+SvT
+	 n34tFbBgT8Gow==
+Date: Tue, 27 Oct 2026 17:32:20 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Gregor Herburger <gregor.herburger@linutronix.de>, 
+	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	Gary Guo <gary@garyguo.net>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH RFC 3/4] hwmon: Add driver for Raspberry Pi RP1 fan
+ tachometer
+Message-ID: <auDRHk8eaYife2zH@monoceros>
+References: <cover.1792748690.git.andrea.porta@suse.com>
+ <0d2249a66732bfce38a2260bee08cd1ba4097e51.1792748690.git.andrea.porta@suse.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,59 +65,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wczsomz7ltpapr6j"
+Content-Disposition: inline
+In-Reply-To: <0d2249a66732bfce38a2260bee08cd1ba4097e51.1792748690.git.andrea.porta@suse.com>
+
+
+--wczsomz7ltpapr6j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 17:25:21 +0100
-Message-Id: <DMFRE8PRV4MD.3DSSCQVOLZTIP@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1:
- Add PWM backlight
-From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-To: =?utf-8?q?S=C3=A9rgio_Ferreira?= <ferreira@se-rg.io>, "Ettore Chimenti"
- <ettore.chimenti@linaro.org>
-Cc: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>, "Abel Vesa" <abelvesa@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Linux Arm Msm"
- <linux-arm-msm@vger.kernel.org>, "Devicetree" <devicetree@vger.kernel.org>,
- "Linux Kernel" <linux-kernel@vger.kernel.org>, "Georg Gottleuber"
- <ggo@tuxedocomputers.com>, "Ettore Chimenti" <ek5.chimenti@gmail.com>,
- "Jens Glathe" <jens.glathe@oldschoolsolutions.biz>, "Srinivas Kandagatla"
- <srini@kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261025-medion-sprchrgd-14-backlight-v2-1-bf2979485ec2@se-rg.io> <DMEXOUF2X7O6.3W5B9URS8YOEF@linaro.org> <P4tSXlD--F-9@se-rg.io>
-In-Reply-To: <P4tSXlD--F-9@se-rg.io>
+Subject: Re: [PATCH RFC 3/4] hwmon: Add driver for Raspberry Pi RP1 fan
+ tachometer
+MIME-Version: 1.0
 
-Hi S=C3=A9rgio,
+Hello,
 
-On Mon Oct 26, 2026 at 7:26 PM CET, S=C3=A9rgio Ferreira wrote:
-> Hi Ettore,
->
-> thanks for testing.
->
-> No, i can not reproduce the value inversion. A brightness of 1 equals ver=
-y dark while 4095 is maximum brightness. 0 is turning the screen off as exp=
-ected.
->
-> Here is my edid:
->
-> ```
-> edid-decode /sys/class/drm/card1-eDP-1/edid
-> edid-decode (hex):
-> ```
-[...]
+On Fri, Oct 23, 2026 at 12:15:56PM +0200, Andrea della Porta wrote:
+> Add a hardware monitoring driver to support the fan tachometer on the
+> Raspberry Pi RP1 southbridge, found on the Raspberry Pi 5.
+>=20
+> The RP1 PWM controller block contains specific MMIO registers that hold
+> the current fan speed in RPM. These registers are periodically updated by
+> the RP1 internal firmware based on the tachometer pulses.
+>=20
+> Since the Linux PWM subsystem does not currently offer a framework for
+> exposing integrated hardware tachometer readings, this driver is
+> implemented as a standalone hwmon device. It parses the
+> 'raspberrypi,pwm-tachometer' DT property to find the supplier PWM device,
+> establishes a device link to ensure proper lifecycle management, and uses
+> RP1-specific PWM functions to retrieve the RPM values.
 
-I have the same EDID so the panel is the same. I guess my unit has a
-different circuit revision.=20
+I wonder if the tachometer readout should be a counter driver? That
+would allow this driver to not be specific to the RP1 hardware.
 
->
-> I can confirm the PWM period value mapping is a bit off for the top-end v=
-alues, though I haven't noticed that in day-to-day use.
+Best regards
+Uwe
 
-I agree, not a big deal indeed, I see other laptops (e.g.
-x1p42100-lenovo-thinkbook-16.dts) using the same range.
+--wczsomz7ltpapr6j
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Tested-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Ettore
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrg0hIACgkQj4D7WH0S
+/k4tWgf/aBdc0sompTuoqGx4glA5Q7tPemfla+YycjTGdxt9ZwZgvezbioJbkniK
+oTXSogrYNoBat5wjHuBQluVrr7TxDUAYcPemNasPLXXw8YsFbuQ6VkxeNJxnoFLI
+efQX1S4xPFPOZogKw/pXdFopxrV3J+SGNyNzIKp5CLBHu+MipL78wMBX4W7j2IL8
+Fda5MbTg+pbz8BNA5NNmr1xbwLLt+hSSGommcetIOv16gzgyrKd0vZeEtFTsFQSS
+NQcPN9XQYOp9unKPk1L1FKip3M+uew5pmOyMYgGBhSoSVetzagYc7FF0YQwK6+Ai
+TrVi1WtPSfetPZ6w6o39mL5AThZ+Pg==
+=1ZwV
+-----END PGP SIGNATURE-----
+
+--wczsomz7ltpapr6j--
