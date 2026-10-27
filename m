@@ -1,81 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088538;
-	b=mDH69JEizg8q35XbYJqDPfLAJ0AYqwnYp2D7lat96CcQau8vlnKKXfD6HooEqPlWkzkS
-	 SntdrhGRceCrpo3YDzqd75ksKBb7Z/lZti4jEUUj1s3ygcc+3e49KdtBkYp2jVPkEPYtr
-	 p18VJtVHV3zoXIMAIX6c1PrY3hGJwQ23Pi3o/73p5DZfO21/lJennUCP6Pq8dqs0aPVlF
-	 Q+WROi5IpGvTj8u/5pqf2trLmHmYQEYX0Wy0Z83ITHDdD/1LwZ1x7Wyt+Mm7Rx8rD0O2F
-	 +/uU2SA8CToP4tUJBVp1KpgWov+sQvZliXiaeyO2THKhlS1ql0zcJhIL2bGZ0hRclOA==
+	t=1793088575;
+	b=VMPMMcLDM34zeRPBAR4vB3z86QwXcJgfqTz87FBx3w59Ii2qxJH9kw87ngulmBtzAr7g
+	 oGBLeLTWyq4FWGw+t8S17rT9f2RN3TGgkvc04jUHNLjBECVP5AH9Th9vfiz4e8XSQYDbD
+	 URehixf3RFWY4FXFwyHwKWEnTd0mEILuxJI/0QcNbX6LHrIvaZ0UFGcJvNvkOZY4wVZdg
+	 ZDi9eqfLwjw2URQ4LZ6iU8GjTyE0ZIuzlxQ7ERRUL+/ghpaFBHXlbV7uhkSHX+7MyBE/E
+	 YfmzzXcQw0gn4wsPgQOspdHlAQSBEGzhiOydfhRB92j8DzYsMP8GB12i+eaNjYrmPow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088538;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=tEFczFf5Eq9eoLVebiF+Xy46dzvCzgJ+AjU1Q2xK364=;
-	b=ewuvt75KFkv+rAUJTWSnViHxkyEMUDJRJGKjeceFnMK1l+S0PCfWtqvhtxR78AkvuOJs
-	 D/Q+xp44OtT1uXh2W5aYm0zmpMaO9aUmcdaYgVpKLva3GoQpyEHn0CA5eOgYX1UQdlW94
-	 lzdDMCR3jT5N/XLh3GdReOmTLaRoFA5YRCiq5qenf6g+kZ58pcF6zn3obcExExUyZs2Kd
-	 GZKe96UK+0TU18rtGWJe5MZSq+rqPzs2FF2p4Dpj7rAf54w6OVq2los4cYtdDEUhATwN7
-	 B0altgnpHRgRJDDuko1EuanrM/2o+km1G88bcG+ikRnsfF38Y6ep9u9+EPWGG4l1KTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088575;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yIlFDFOCLlOt1ZkFsp4BTd0cM3qgVmPIY+YJA6U1sSQ=;
+	b=j4DfRwUIt4K6XPGW9JbenaUzJfEnIZ2X5HT26YAE5jeT7mBlAp0bXw3C0PBJK7Rzs6kC
+	 DLyW9I1TAL5AhdjaqLoz83CcLOpgPAvnoCeurTeyxd38Dt4ZhU3yWmBaquasIcOYmNBKC
+	 pXklpAyLt6ndyi+rHnDdIJD5D0uzuAh23aKNbrOa6k6RZekRF69l+UXUsKNJfI9z+kiMr
+	 VEmDVEi0rm8zMdoRvAujvv5tXXxtkxbuV7qsny0S/hGN97O/NSsg7sHGO9LNbLzmI+Vzf
+	 nprPl8XSDVY3ztsoQ/E+bqmKdgy4NHEOw3LJsVB3zTwOqUWPqbz/dZCWrnguaq7E3Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoXhgzgN;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="A/DANsdY";
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D84606A31D;
-	Tue, 27 Oct 2026 08:08:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86D84606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43948606A31D
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:09:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43948606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WoXhgzgN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793088538; x=1824624538;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m5ahp8tDajbHjTEoIWuhcG89PAb01bbuXm2wLZ7zPiY=;
-  b=WoXhgzgNJ1YlOLZ/zZgWVLDZjJOT9WVAtm+KFdAO97xYmWFucdST/JU2
-   9z9dXiDFEGL0p/V1BKBFxr61t0v6BS1sXEGGIUCKqDDv9K6pnaf9X2zM0
-   pJ+8cIKQ0E2DAjjjiJ5U+L1gG0vJ2STsPvHb1sdCRgpD363i39Ul+2bD+
-   tdyCvz9DExcUaks54LPBRRGZgepFrWKfIrwwobKUFGl3PHlXLLj9FWZh7
-   wmN3XPjGUD11z8Sz168i0K8TCOt81gBrzqR7XePX4kNzgf40kF23l9iLj
-   mOX2OFieM+rWyqyAbKjBbh8j1nhWC6vgU12rFEFDAaNYLZvU1XHH/VtaW
-   A==;
-X-CSE-ConnectionGUID: bAX55zAkTR+a0tztdKKNRw==
-X-CSE-MsgGUID: T2CHzC82RomENgyGh8yOjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1771535"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1771535"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:08:57 -0700
-X-CSE-ConnectionGUID: gJQX6AUQT/KVkyvB5grScw==
-X-CSE-MsgGUID: 9Ynxc+BWS1KCgxL2VQVLXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4832386"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:08:54 -0700
-Date: Tue, 27 Oct 2026 10:08:52 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 11/11] gpio: pl061: tidy up IRQ trigger logging
-Message-ID: <auBcFLT1D4AR62mV@ashevche-desk.local>
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
- <20261027-cv75-gpio-v12-11-c22555400e18@ambarella.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A/DANsdY
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso1408698a12.3
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 01:09:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793088573; x=1793693373; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yIlFDFOCLlOt1ZkFsp4BTd0cM3qgVmPIY+YJA6U1sSQ=;
+        b=A/DANsdYOfMZdDcFo2VhxZS4HLmDEhEXfo+5iHr4cINMUqrSCsuSj03eR9mc0wM/Uv
+         rb3o4QNYpdlEbFwP0jlxP0rAbPOih3gJMmHdlz3riMA4GifVw0n4tYakhiA5aMz8sXvD
+         eP5j61jOAYuj0rXjJ6Uy+8nFlcE/iWV8H0GmNBya3NjBrPDdrx82tFjE26NGk3pavMYG
+         4vVLkccHH4u9JQ6vTw25myiGN+GbSslRyKOFctFqfz2Qor9BPtXqcynU06PF3MVD07js
+         vZXzYl+GVvVWtw5Y+eHAlpfGqebCu9TTlyoEiymQwGo8eahElkpax9V6EaJnKwVYEVAd
+         80/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793088573; x=1793693373;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yIlFDFOCLlOt1ZkFsp4BTd0cM3qgVmPIY+YJA6U1sSQ=;
+        b=fXkvKlggQPTY5a5srBjxNmt95urSQlK9dEo3D+X4VekH1K9EwUbQttrJwZQVj/Whtq
+         3kZOwY3ZjxsbCyrMKrJRRq831xtMH6BBJNHEOMWRYkvHQ6Ui3ustkrU8+VSPM8irxQPE
+         RlSVphlhaq9rlMszlCZeJJU25b/qcO8lYbpVkgXq/if1S8AeRDs5xlpt5/R4EBSHcbe7
+         GZyUXZ32PLDdRdo/LWm4nmtu4rD4tQFt56nt4quEL29BNwL0crAmZpDnxhG5FjdHuspa
+         FKZp9lQKUkih9Uy4SJzQLxsfKvs6efzJCmzrXgTUOnxzvKHiNXiuzC9fN/OrWOok6EpR
+         0cbg==
+X-Forwarded-Encrypted: i=1; AKwUvByckSaeEwJDdqZ6kvMValkhz7Ho8qxgMfMZo5vyMCtAPl8Xs1hPmvnv/ZQUF7eF6zWICkzyF7y8XZAu@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2ZPDoaOG8Yjgk/rzx/tFdvUiyJjmefoHbMngrASshBce0XS8q
+	zo1S8RBkeTipNu64tDh4R54QARq2CU6czfR7IKBrCmx6XkJFZCXZsxWb
+X-Gm-Gg: AYBFou2tMFmYyYeEsPerZMdnMlSzlZlJeRXVVBr8zCbc8K68HOtJQ8bJJ0mwD2/cZRE
+	xdpS8NldINOMPigAqy05j0W5L07hF4cEnY1+JqyFOnPj+6Y86+uaAMch1zliLNTV+mSjL7Hbu66
+	bwp0JVX7bVXWV7oxx8r+YAI/fROkvaLz98PqkzUFhlXGyBF3F6cVOn3LygEAxVIUX8DNn8Xn3cC
+	6jR0HJ0KOFsrMeb+Q26yzZAqyikzZd+1QT0xMncm8MFSMZKrvkwzPjGjn8CZU69QE/23BYZQFhq
+	F4E1qCD+u0M7LuQU9pNQEn9ksNWQBY7gnaz1R+wQJrDT7e4IJ1yXRJwDHx9MFxQS8P4bwqgK0Lu
+	gzXBAkME9U8aAGmYL06mCUdxAggnhTYZz6v2EjlEPDMZ3G61uVgl92lpxxQwhkfz0Y/1/79VaGI
+	jQm61PV9895lYwLTkBvz6bHJdH+RkXiO9Ksb8yh2CrBrxw9fMO6b7lmrR4gOyFqM8ZuxLiKeUHH
+	2fU8sEZM+7el2C8S1GUShVsnw2+/cUUmyqXHeDINDPtTChgkJ1vJ+MTksLpWKUv9mSTnetMFIAZ
+	VDTbHu/gOCq8+GrO6Jq/ltS5w/1aktlhjUr0xeVKe9tnZ6Q=
+X-Received: by 2002:a17:90b:134b:b0:3a4:6e84:e7d8 with SMTP id 98e67ed59e1d1-3adeb0ff8b8mr7038477a91.54.1793088573225;
+        Tue, 27 Oct 2026 01:09:33 -0700 (PDT)
+Received: from localhost.localdomain ([218.194.41.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae406361e2sm2592284a91.8.2026.10.27.01.09.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 01:09:32 -0700 (PDT)
+From: ShiTou Hong <redstone.dcity@gmail.com>
+X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	ShiTou Hong <dc_redstone@outlook.com>,
+	KancyJoe <kancy2333@outlook.com>
+Subject: [PATCH v2 1/6] arm64: dts: qcom: sm8250-hdk: Enable the sdhc_2 port
+Date: Tue, 27 Oct 2026 16:07:53 +0800
+Message-ID: <20261027080758.3990418-2-dc_redstone@outlook.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027080758.3990418-1-dc_redstone@outlook.com>
+References: <20261027080758.3990418-1-dc_redstone@outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,27 +102,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-cv75-gpio-v12-11-c22555400e18@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:18:58PM +0800, Long Zhao via B4 Relay wrote:
-> 
-> Join the level-and-edge dev_err() into one string literal so a grep
-> for "edge detection" finds it.
+The sm8250-hdk has an on-board SD/UFS card slot,
+but the SDHCI port hasn't been enabled in the dts,
+so we can't use it after booting.
 
-This is fine change.
+Enable the dts node of SDHCI for the on-board SD card slot.
+Add the pinctrl node of the SD card pins.
 
-> Use str_high_low() for the level debug line. str_rising_falling()
-> is not in linux-next, so the edge debug line keeps its own text.
+Co-developed-by: KancyJoe <kancy2333@outlook.com>
+Signed-off-by: KancyJoe <kancy2333@outlook.com>
+Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+---
+ arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 39 +++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-This should be a separate change and it requires to have str_raising_falling()
-to be added to string_choices.h for the consistency's sake.
-
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
+index c1c673086..ad60be5d5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
+@@ -396,8 +396,47 @@ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
++&sdhc_2 {
++	cd-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
++
++	vmmc-supply = <&vreg_l9c_2p96>;
++	vqmmc-supply = <&vreg_l6c_2p96>;
++
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sdc2_default>, <&sd_ufs_cd_pins>;
++	pinctrl-1 = <&sdc2_sleep_state>, <&sd_ufs_cd_pins>;
++
++	status = "okay";
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <28 4>, <40 4>;
++
++	sd_ufs_cd_pins: sd-ufs-cd-default-state {
++		pins = "gpio77";
++		function = "gpio";
++		bias-pull-up;
++	};
++
++	sdc2_default: sdc2-default-state {
++		cmd-pins {
++			pins = "sdc2_cmd";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		data-pins {
++			pins = "sdc2_data";
++			bias-pull-up;
++			drive-strength = <10>;
++		};
++
++		clk-pins {
++			pins = "sdc2_clk";
++			bias-disable;
++			drive-strength = <16>;
++		};
++	};
+ };
+ 
+ &uart12 {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
