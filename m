@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118763;
-	b=pSs1nzlxhen0b9Ve+3QH6uoO3ig3vzDLhVAOznjMrEnSMZbRC3ooStOUcW7WNAS7c1Fx
-	 QRIEmLXBJ+d5ggOXXpXGI6sCZYZrOuDX4Ux3ADBiGgzOkcDekGKvmuVUrX19GbbGtfGJU
-	 5sfWrM6hM2S5maa7eAlwFivoyA2yH97VDabl/DZJxC2yIOiVjQoEXcP+fI1iYMvRrO6RN
-	 2gZA1IrMixAiz42WX+3NQdTuGqpvD6BpxbfUqUDuDRiDeMekT/796/d3cYViMzM8gbGge
-	 xT3/T5bdBJAkwrR3xPtco34TEIfJv57o785U8l/WJIUgcs0ceAWxvkbac8n9Iovxq/w==
+	t=1793120447;
+	b=14Skn0wQBmW8P25tdCSdlTn1mQVjT4Z3c/rj0Q0ihRnthR47S+X9nfREdDuWxhaZ3IcZ
+	 z95iMbnEN+v/q1ffHFYYBtGh6h9eUnUr+ppdmywb+A4KdKvngNJ2m3Weu3XCJUVrH2Kcj
+	 lgJ/Ng+g1T/EyhmcEGMXgLwdmMWrv8uiDMVnViUCVTm9jp82VBDP0M/3en1eP69Fauonr
+	 rLTKZNHyI7E34Mf8/w4yPd5zCPHFORqYN9cb0YWBQrKpTXWSzMFo56KSyEdbyyKgu48U7
+	 0UcaD86zNwWFWnnz1mtTOgIdC+NJtbKZUs3b/u4uHUKBJMBnnsW9Vv2rr74HwhVGQgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118763;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=Y3XAQtLddDAhYd+riD51P6ZqyglOvncFYFffZW+ntOQ=;
-	b=whMTdKkMzDJM+9DVgBVKfrm1zUZkRb21fEIdBgedXUzUYTxWfBzw+AeIzUZV/SXQ2Kj9
-	 6wu3QmMjJn33a2xjEAkIWlJNukVBQAjGSxQWMSHqtnM+6JBiGERK1ZK3aufSe4l+NE9Zf
-	 Q3iDDiO378mr4LKoWfiDxCohrJVNu3aw4dMvgNzJ+H/M3GILsXF0SDBPmQGjcvvIsJMuc
-	 fPSxzCFsRGAN/YiTGkFYTPldElkdacZmdUvt882NyhTHNP7UsDWOjN3ch9n5ByOu7mnKS
-	 4+C8Nizz45sgsyptgN4IFOb1vGFCKbAWX9CsNEqgeVwZmBCy2cM2eLxuWCrWLV+gRYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120447;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MWogW9v4I9IYrvgTyhl6LKMKwTAkz80m1q6fFg2x4yc=;
+	b=TPnFYU9icEcx8EMfhMnMHPEwbkMigEKUU27exjz4V7d2nDL2IqzvjbYRca6+9WvTGdF1
+	 +ad2mNri+TTCtGGia2KUX3GNqCdmulpiNqMg0YZvlaTw18y0TTRT97zGOL6/8yBv1yE/s
+	 /nT4tCXP+4FsXOIdSX9F869R2fP/muLPVhQHzmo1KxHCjEYf4u9ROQwNpiLSSgPI3HuEI
+	 4zK/BZCESgpUCb8TM9FcHvRyiPlJIpVIDE1NpyfxqVPnKoJaHolFJJsHD4/Ohw7PXxDQS
+	 ip0SLI9SvnO+uym6+ZuOaLkuH6zCDfvWJFiAzUZN69GkrhcrNOz6N7ED7G6QT9xo3hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOTy+L7E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2Bt5010;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497B1606A321;
-	Tue, 27 Oct 2026 16:32:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B978606A31A;
+	Tue, 27 Oct 2026 17:00:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOTy+L7E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90F21F01828;
-	Tue, 27 Oct 2026 16:32:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2Bt5010
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392071F01825;
+	Tue, 27 Oct 2026 17:00:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793118762;
-	bh=Y3XAQtLddDAhYd+riD51P6ZqyglOvncFYFffZW+ntOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VOTy+L7EqN9ulmfjWpyNd5uIEjyLC5B/Qz7mmRkZBoL5C6+ShCBCl/vqckiHkUn9Z
-	 X5vc9pWyWEz11CNi8Ey98g+HmzyL/eBLFt09QLrgHKOpINar8daODoNc50mRTpIgLG
-	 4xdsP7FvG3d6L9zFJCzS1Eep271+fOYWq2zod/P9gGtiN1tawY/fs5t4ZKHaY4pNu+
-	 GuBdssoY27TkIinvmpyI8syIayu3ZJO/XeWSC3YdtDCI3pf7KMEiM9Lcbk2o0/+ze0
-	 +sqDxCG4sFwyZ4u3KBqDtzgAuMhxNJw63CtMJmM6SpgDEfq1zhHOsNtP1m3n7k21H3
-	 I9pHVd69c6J4Q==
-Date: Tue, 27 Oct 2026 16:32:38 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	lianfeng.ouyang@starfivetech.com
-Subject: Re: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
-Message-ID: <8e393ecc-9955-4686-8689-5c8e4a105a28@sirena.org.uk>
-References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
- <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+	s=k20260515; t=1793120447;
+	bh=MWogW9v4I9IYrvgTyhl6LKMKwTAkz80m1q6fFg2x4yc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f2Bt5010mode/v1AcQmeCHwLvfIEEb58IsTo5RDyviSkvUbpQOyn4kxx+WIau3jC3
+	 FlDRp6uO6LcGJIWb+uNgJ3VoAYew13QuiKEQnzwVPgXm7abXYgvgZCUohOWrHxn7Jn
+	 qIdxdsZN6qP/UnbT9VDtjzlsHiakVkLd4WZqc2fgabMLmAGc/iBQr9lkqUOD1SiZ9C
+	 bl4W6sX3zzh54Q5AM+WXpK0vs7QxVw1cgZxx1ygHX6Y4roF0HBjjMZLvRF2ZBY5O/j
+	 0ziVYaXLTobcTd+ShMtPC532EcR2DDQgrYlFtx6F9YZa6BPEccEOukxwXLise02bVd
+	 ll8LYZRsFP18w==
+Message-ID: <271ccc9b-ccf1-4254-9664-2f00b504a5a9@kernel.org>
+Date: Tue, 27 Oct 2026 19:00:41 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,96 +51,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SZlr0S9wj254kLdR"
-Content-Disposition: inline
-In-Reply-To: <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
-X-Cookie: Mother is the invention of necessity.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without
+ CSIPHY resources
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261026224957.1115370-1-vz@kernel.org>
+ <20261026224957.1115370-4-vz@kernel.org>
+ <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 10/27/26 12:52, Loic Poulain wrote:
+> Hi Vlad,
+> 
+> On Mon, Oct 26, 2026 at 11:50 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>
+>> If CAMSS CSIPHYs are supported by the stand-alone CSI2 PHY driver only,
+>> there is no need to provide description of legacy CSIPHY resources in
+>> the CAMSS driver, therefore if CSIPHY resources are not given for some
+>> supported platform, use CAMSS CSIPHY port numbers as CSIPHY identifiers.
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+>> ---
+>>   drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++++++++---
+>>   drivers/media/platform/qcom/camss/camss.c        |  8 ++++++--
+>>   2 files changed, 19 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> index f99eea2ef228..8ecd514451d2 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> @@ -799,6 +799,11 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
+>>          return ret;
+>>   }
+>>
+>> +/* Fallback to generic SDM845 compatible formats for non-legacy CSIPHYs */
+>> +static const struct csiphy_subdev_resources csiphy_res_phy = {
+>> +       .formats = &csiphy_formats_sdm845,
+>> +};
+>> +
+>>   /*
+>>    * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
+>>    * @camss: CAMSS structure
+>> @@ -808,7 +813,7 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
+>>    */
+>>   int msm_csiphy_subdev_init(struct camss *camss, u8 port)
+>>   {
+>> -       const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
+>> +       const struct camss_subdev_resources *res = camss->res->csiphy_res;
+>>          struct csiphy_device *csiphy = &camss->csiphy[port];
+>>          struct device *dev = camss->dev;
+>>          struct device_node *ep, *remote;
+>> @@ -836,8 +841,13 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
+>>          }
+>>
+>>          csiphy->camss = camss;
+>> -       csiphy->id = res->csiphy.id;
+>> -       csiphy->res = &res->csiphy;
+>> +       if (res) {
+>> +               csiphy->id = res[port].csiphy.id;
+>> +               csiphy->res = &res[port].csiphy;
+> 
+> So, can't we simply drop the above assignment and keep only the
+> port/csiphy_res_phy below? That would provide the same behavior for
+> all non-legacy PHY initializations, regardless of whether legacy
+> CSIPHY resources are described or not.
+> 
 
---SZlr0S9wj254kLdR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Please note that 'csiphy_res_phy' was introduced a few lines above
+by this change, it's only purpose is to provide the needed supported
+media formats, and this is unavoidable.
 
-On Tue, Oct 27, 2026 at 05:00:36PM +0530, Aniket Limaye wrote:
-> Add a new platform driver for the Synopsys Advanced I2C (DWC_i2c),
-> controller mode only.
+This change follows the assumption that pixel formats from all
+non-legacy PHYs are SDM845 compatible, that's true for this platform,
+it is expected to be true for the most of approaching non-legacy
+platforms, and on demand it may be changed later on.
 
-> The register offsets are defined with respect to header registers for
-> each block. These header registers are discovered at runtime by walking
-> the block header chain.
+The current form likely is the most compact and the least invasive
+change, which gets to the point of supporting CAMSS on platforms
+with no CSIPHY resources given in the CAMSS driver.
 
-This mostly makes sense to me, I've not tested yet and will dig in a bit
-more as part of that but a few minor comments below - I'll let you know
-how my testing goes hopefully later this week.
+For instance, note, the recently proposed Glymur CAMSS [1] references
+X1E CSIPHY resources, which is actually incorrect, since there is
+no "csiphyX" I/O resources anymore for Glymur. This change can be
+reused for Glymur as well, and its reference to X1E CSIPHYs can be
+dropped, but any better proposal or improvement are welcome.
 
-> +config I2C_DWC_ADV
-> +	tristate "Synopsys Advanced I2C (DWC_i2c) driver"
-> +	depends on ARCH_K3 || COMPILE_TEST
-> +	help
+>> +       } else {
+>> +               csiphy->id = port;
+>> +               csiphy->res = &csiphy_res_phy;
+>> +       }
+>>
+>>          snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+>> index c54185c93a8a..b0d60e70e4bb 100644
+>> --- a/drivers/media/platform/qcom/camss/camss.c
+>> +++ b/drivers/media/platform/qcom/camss/camss.c
+>> @@ -4796,7 +4796,10 @@ static void camss_detect_legacy_phy(struct camss *camss)
+>>          struct device_node *remote;
+>>          struct device_node *ep;
+>>
+>> -       camss->legacy_phy = true;
+>> +       /* Legacy CSIPHY description implies the provided CSIPHY resources */
+>> +       camss->legacy_phy = !!camss->res->csiphy_res;
+>> +       if (!camss->legacy_phy)
+>> +               goto done;
+>>
+>>          /* Find first remote-endpoint and determine if its a PHY */
+>>          for_each_endpoint_of_node(camss->dev->of_node, ep) {
+>> @@ -4810,6 +4813,7 @@ static void camss_detect_legacy_phy(struct camss *camss)
+>>                  break;
+>>          }
+>>
+>> +done:
+>>          dev_dbg(camss->dev, "legacy phy mode %s\n",
+>>                  camss->legacy_phy ? "true" : "false");
+>>   }
+>> @@ -4841,7 +4845,7 @@ static int camss_init_subdevices(struct camss *camss)
+>>
+>>                  if (ret < 0) {
+>>                          dev_err(camss->dev, "csiphy %d init fail\n",
+>> -                               res->csiphy_res[i].csiphy.id);
+>> +                               res->csiphy_res ? res->csiphy_res[i].csiphy.id : i);
+>>                          return ret;
+>>                  }
+>>          }
+>> --
+>> 2.51.0
+>>
 
-The dependency is there due to the whole sadness with being unable to
-discover the FIFO depths so not having a fallback, but as soon as we add
-ACPI bindings we'll have to either drop it or broaden it to be on
-CONFIG_ACPI which gets so broad as to be meaningless.  There's a
-reasonable chance the dependency list will end up unwieldy for the DT
-platforms too.
+[1] https://lore.kernel.org/linux-arm-msm/20261015-glymur_camss_dts-v2-0-e7b1f403146f@oss.qualcomm.com/
 
-Since I believe we're always working with configurable trigger levels
-for the FIFOs I think it might be better to have a fallback compatible
-that uses the IP minimum of two entries in each of the FIFOs, that ought
-to work even if the FIFOs are in reality bigger.  Performance would
-suffer but slow and functional beats not working at all.
-
-It's really unfortunate that we can't enumerate this from the IP
-directly.
-
-> +static void dwc_adv_i2c_read(struct dwc_adv_i2c_dev *dev)
-> +{
-
-> +			if (msgs[dev->msg_read_idx].flags & I2C_M_RECV_LEN) {
-> +				/*
-> +				 * STOP is only set after receiving the block
-> +				 * data response length. When that length is
-> +				 * invalid, read one more byte with STOP set to
-> +				 * complete the transaction.
-> +				 */
-> +				if (!data || data > I2C_SMBUS_BLOCK_MAX)
-> +					data = 1;
-> +
-> +				len = dwc_adv_i2c_recv_len(dev, data);
-> +			}
-
-It feels off to silently fix up an invalid length, but possibly that's
-the most sensible thing - I didn't cross check what's idiomatic for I2C
-in general.
-
-> +static irqreturn_t dwc_adv_i2c_handle_irq(struct dwc_adv_i2c_dev *dev)
-> +{
-> +	u32 enabled, stat;
-> +
-> +	enabled = dwc_adv_reg_read(dev, dev->regs.enable);
-> +	stat = dwc_adv_reg_read(dev, dev->regs.raw_intr_stat);
-> +
-> +	if (!enabled || !(stat & ~DWC_ADV_I2C_INTR_ACTIVITY))
-> +		return IRQ_NONE;
-
-Should we check for enabled before we read the status register
-(microoptimisation is fun!)?
-
---SZlr0S9wj254kLdR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrg0iUACgkQJNaLcl1U
-h9AVBgf+NZ9SzwHg3GyXk/xMPJ8XzCO9EiL2XBp6pi12ABojYnvJuhUGfAbDdbU5
-qUlzx3ykdIIe071iyQI8ThKgtgehnJ26lxEIAQoY/GvKI5VgYnhcvID69tQScE0t
-aQtmldYUE9DNzyMaCb7c3Ll8NDW5qAgayb9201X+LaLyHVpmds/L8+UOVmWOrWlM
-lGqYxZIBmg5izLyxfwU1c8DRNdxBD7GkcfMaDq4AkiOHLG03eD7/TtlJzO1N03Jt
-VRh6+u07uMW7WYpjVmxHc5/iQS7t+WHuw2ZHCPjTNSIcUEhUgWXoFFgE56wPEPW5
-im23ucSOWsCK+RtueRTkePvHCstCkQ==
-=FIvN
------END PGP SIGNATURE-----
-
---SZlr0S9wj254kLdR--
+-- 
+Best wishes,
+Vladimir
