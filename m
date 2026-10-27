@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793074769;
-	b=V0LkmzMXyjXxQjWGioGSeJ9eZ3JoMIiNLfzTKmYbCmCaP4UpOJ1F9UDgvQgE9JBEyhkO
-	 Y94xi5zaGnlyJnvExqTT+hPZFPen6+IPAZ07OnzA3IPL5UGgzyFuvNSqhNrFLWOqaSllU
-	 PtYbyr/r6urQnLskWbeLjYNnFhckEhVB1MtNLcZi/JDxVlHDztwoqf2lT0yyYeJA9DXH0
-	 ENyYv5JLU/8NnCiWrAfiD7mwoSC3AS/HzZAWQLrlDDg1YnEvbRy5QJeDDcC72I9ZEl6D0
-	 LzFa3PMPh+LDlnIf0UhuZXhBFDK4Wrg/husvCcMvckFFh5yivAvnVohNyouDtLsaIQw==
+	t=1793074771;
+	b=l6+HsLDdVymmrAmofpkCFowCH4r1nonUVL2kYuSQeIZ7G1WI3NYkmd7wPPeZ2dWIynN6
+	 f7IkZXapu/05hzOFl3kpQOLbPxjrM+SbKT2aoG14q3JDaO1gVnUn0NmKqEPnMid+BKXCb
+	 NYZpa97J6VWWGw4WfbEge+l1sMyBhzND5HKmPFd65HXnVQgrY8he090EMspD2tjaLEOxB
+	 AvH0bubGjeWnfY0zPZJZZHnLjQhQyLTIOP4L+SKnCShHZdUGA0nwWwrQHQkF/M/pyQuzR
+	 o3jXORRdd7j6GWYjrdhLFkijp8MiwXjM23GvXS8CSTfnrL7W/bAo6bOgRYFEu51t3AQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074771;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
-	b=z0QDX+Z/d6j7ilkIA9mb5oC6FXM6QNv/gaO3fd2wIH7kjb++cTX1LJsslzGGKCr5LwZA
-	 gT0cxkYXd/fDAnN54FJi9/4WDLH0C4BwsD0I7xhMZ+oMniiTJcpfwZQ06rks/yjJ1ZFY1
-	 +nJTtFjJ+j8qvIct5MFSrXcdOWhBP0u0j/H63EbTWeutbI+ZQNSc71HY1KQFyfmq93niP
-	 62Mp9fVengwcV//K3Ule/66EFJXaMP0u0nrBAnIzXA1GRRFVYx94MdZ4LYIYD6otUqzRf
-	 3UURnKrtcHy6l3eoBRIx9Mc/68a4Xf6swMaFr+jky7228OtNS2N8A212FSa/t/yGk7g==
+	bh=XKHFwgzqeHB+Y1YoBF6gmZQCA8PS+KoAGrOoZWFeiVM=;
+	b=qK/oA0PM6p4EMMFtO5KqaMhN5MXLQ/lFgwFyC5W1KBgCl0NOYq1FA/W0/rx+fdtmOeq5
+	 XvWDxzwLfMx8cOLfh9kc51ON5WHyNupyGPpw5C+OwnnmuyBUH0RTyWdeLqoFNvD+DcvUC
+	 Ghnyh1M1ymd4qtt1EHRnYojhtGRCXA2uM3PRzs4w9DG1QVorwCvYiOGIFr34ZLfcKqV9/
+	 tPuHuQHrGyuphDADy11Fcx+z25Ydtc2/7VPSoYZZIssOx7/Tmmp4GYHt+f9+fTgCslWw7
+	 Aatn9irxCSG+Js8Nw4I5AizWnVXvi92kLK7qaaePRMzhD1r5Es0DXoiMAmUFsx95toQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUuzFrKq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NG/R6eKm";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC946606A31D;
-	Tue, 27 Oct 2026 04:19:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F115C606A337;
+	Tue, 27 Oct 2026 04:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUuzFrKq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NG/R6eKm
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793074768;
-	b=TAjUHhA9WzHywGY3aZ5vtZHHXT/bymxOYkh/j5qhU6gx5VjuqO9mxQh+xJpwZWHsucxv
-	 GpwmtLU9fMnv2G8I3MkIyKPkhhYUnUCnlBdTwm/B0hET34lQdk0fkFLC+FjdKhT3LOWqA
-	 UzBQwwP/foj2TQwUAGwC3uVxgeEmnMuFFDVPQsuw06+sZ/76xkoi9ngmZT7I3q5SUmwfP
-	 R+O0kGhaytd/2kJnszVFkesgRhLUy9ffg/zdpTSkB/3YjxBrgf9f5CbvTOC/dGEySc285
-	 Uno0+6ms1R198hps5um9OOHMiIfiiPlR/+f1VuN+HzFd9U0qxAcr11ozHY5l6j4/2Kg==
+	t=1793074770;
+	b=zkp5b8BY44X1Vv8J6qQ/eP4Vqf87HArrNtEeWKt7tRVXc0hRTAuzmc3/dBqWTGwwNVTS
+	 mrsRTx+PxcCd8i9OTJrrgchBCu6951oRx1Or/hrTACYFwNCpwaSl5XfergWhJPiYXc/Ja
+	 lZ3Axt/vw8sLAz6TUCSYjbD2DGNR1TFflM4tU4OGz+N43WgMUDLbBA60moGvRHYainjVj
+	 mYWV1ZiQeOs9/GJUiNocDd/qTtx0gQYw8hrdDKXKXtO64ztQg2Sts25Q6BDXHrBMv15sD
+	 zaAiOEu+sgzqhmY2qUZBuIpKLSX7cC+oL240aunmiixt5PlGhgsLxIJKJBMtkitWc1g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793074768;
+	c=relaxed/relaxed; t=1793074770;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
-	b=AI8Jbkj+rCu3tmhEmAb7OMflTG6wgTpqcm49qzL5QhBtDbO1vuYSONMBL9SD+TIcFiSL
-	 UJ93ESZU2vZcRHlsjb81NQL6IWTDFSq0OBX5bjRlOood5QKq8syrF/6KqXSjyFYVItHkz
-	 AY2+7PkwuFxgKxF2uJuflUPFrcqy2el8u5qBM6h6BOMhtiPrjcNW2+rQaTG5oH+XP92UK
-	 lgzEQNR4i1WqoCbEPtbledEsX2HMLAt48nOsW8Z5VfoMvHhP5OgFlxc5zc83CZDUhZE6P
-	 rKoTANp4UPiNmdYkPaGwr1vS0G+MYstOwiy8pxJty27/Agfp/KPBte3MHzKR08uum4Q==
+	bh=XKHFwgzqeHB+Y1YoBF6gmZQCA8PS+KoAGrOoZWFeiVM=;
+	b=U8p0ppU405lKlsH/dGBaprVWXPUOB5n+4OrUFyIlUQ23+nbtNObzWsUNGyujhcd8Zd88
+	 HCdu5/ImvQPkQtvnUnFf8TDgN3ZSf7KEZ7QbmoYIUD4qFeL6/S0g5WfMf1Pswyb5X6Amd
+	 QqMzcfVLvCWLBM7E+86MYY3JVlo0yx3s+YgNDmzo3v9I3ExEIgZsbhw7JMFpNy2gKCxhS
+	 vZ63kifFwJ3Fq1j7Dqy0F7dKqj00Vf1f7Fy6NXVP9VW/pv5x5xJl2Nq3C6xLlMxoMMiv1
+	 wGU19isELQ4ideLr4x8CvWGIQSL/Rzhwfxeatm/YNfiEqll5mP7K6JJxhKzhZAPhjbA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 405A61F01825;
-	Tue, 27 Oct 2026 04:19:27 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 333111F01828;
+	Tue, 27 Oct 2026 04:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793074768;
-	bh=3GqzT7SXZUXUviYJRJR+eWJ2kJqwUKNfSUL8dK6KjqY=;
+	s=k20260515; t=1793074770;
+	bh=XKHFwgzqeHB+Y1YoBF6gmZQCA8PS+KoAGrOoZWFeiVM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cUuzFrKqo+ZsBil8nM55rtipbjriN689pGNea8iAsyFHso995pHSNb49P9KVuYG8o
-	 ucNex/14OEFuJ7Ny3fc/dgc5HRvza5xrfKOlmlDiGJCfsY2DJcJQRZaCABM4mEUGWQ
-	 ZDhe3pPoyY50x/pe6B71jbnMOi2Mz6CTCfsknKVYbB3kI0y/6sqh1MjzqyhGj4NvS3
-	 774eUDzoFKIihUOwVx0lJJoJmTBy51HOFN0vu8tl/RFg5bEf9lMSKXCI3FqmE6/fwi
-	 F79na6AG6rhPwD46IJLbznTTpCtuyMF6vD4ZrAwyI+CTbZV1xqiX9JLWs3tiSFDba5
-	 jX+HVHvQzOu9g==
+	b=NG/R6eKmYHmhfijtSv4XfYJ5sfqa0dLkZKuEnfbBGBYXodW7Ex6UJgEWxmc1eI5bi
+	 cSec12CVy2FNTEbaKSmRegkwDB05bZzYccgY+B4ZO1NQW07H2jlVQIYHdAFrGeJxNr
+	 FqMh9zbPrDTASwjZaWg9ZtCh71zgcgN/uR4YRY5v1gZmbbosHqbIfEte+zgT5HsH68
+	 ZBS58YCleqrlkjzfwJOQmeGKdHLTgRHAK2I009d2vekx7X5xLPOsb2EHrotIOylpGR
+	 c9tVSep0yWdSXNOnWy6kAQG2aNiIOjsS+0pD/+o8dmmW8UcO+Iac2jKpLOPyfhQdX0
+	 W5a6f2In+Mc4g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A403A44F4C;
+	by lkml.kernel.org (Postfix) with ESMTP id E265744F98;
 	Tue, 27 Oct 2026 04:19:26 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Tue, 27 Oct 2026 12:18:48 +0800
-Subject: [PATCH v12 01/11] dt-bindings: gpio: pl061: add Ambarella CV75
- variant
+Date: Tue, 27 Oct 2026 12:18:54 +0800
+Subject: [PATCH v12 07/11] gpio: pl061: keep the parent device in a local
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-cv75-gpio-v12-1-c22555400e18@ambarella.com>
+Message-Id: <20261027-cv75-gpio-v12-7-c22555400e18@ambarella.com>
 References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
 In-Reply-To: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
@@ -95,13 +94,13 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
  Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
- linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793074764; l=2175;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793074764; l=3221;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=ecrzSAMMaNZiFiJHNHyvnNwBNYVIUrMbREC+e46Wpqs=;
- b=I9dstgGUQsaWlKSGSNAkDoYNGw6w1YBLgLOAuxIyYXYTaLxJlD8mc7Ei1i6vOJvcZQZ+CeVKo
- wezLXGPRCv9B9+igTwealDLVbngOa3A5niTW/p7h79XmV6Iy8ZwKYN+
+ bh=WNqCHzH1dw3Ux1gcYHg/p4RW1NuZp0FcGl2iaex8mK0=;
+ b=lHyX26khjcb90kqudsuvFZ6peZRRFJl2UPSesizvlyStvg3mf8gOnA3lYrWbb6yoN8NRe7w/N
+ chgF3dCgNASCRfV2wSmA9C+5w6VsmAQXOiGpv0eiaXE9vrTtAhKtHcd
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -112,75 +111,85 @@ Content-Transfer-Encoding: 7bit
 
 From: Long Zhao <longzhao@ambarella.com>
 
-The CV75 GPIO is a modified PL061. The basic registers have the same
-names and roles (DAT/DIR/IS/IBE/IEV/IE/MIS/IC). Each bank is 32-bit
-and 32 lines and adds MASK and ENABLE, so it is not
-register-compatible with the ARM PL061 and arm,pl061 must not be
-used as a fallback.
+IRQ logging uses gc->parent. Keep that device in a local so the
+gpio-regmap switch can change where it comes from without rewriting
+every log line.
 
-The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
-compatible string. These blocks do not implement the standard PL061 ID
-(0x00041061) in the ID registers, so arm,primecell-periphid is required
-and is fixed to 0x000e8061; the driver uses that ID to select the
-Ambarella layout. gpio-ranges is required because each bank is a slice
-of the SoC pinctrl pin space.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 +++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ drivers/gpio/gpio-pl061.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-index 4d970e55104b..c22dd8a1d2c1 100644
---- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-@@ -15,7 +15,9 @@ select:
-   properties:
-     compatible:
-       contains:
--        const: arm,pl061
-+        enum:
-+          - arm,pl061
-+          - ambarella,cv75-gpio
-   required:
-     - compatible
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index a232b63fbc0b..f101f48ce68a 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -156,6 +156,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct device *parent = gc->parent;
+ 	int offset = irqd_to_hwirq(d);
+ 	unsigned int bit = BIT(offset);
+ 	unsigned int gpioiev = 0;
+@@ -166,7 +167,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		return -EINVAL;
  
-@@ -25,7 +27,9 @@ properties:
+ 	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+-		dev_err(gc->parent,
++		dev_err(parent,
+ 			"trying to configure line %d for both level and edge "
+ 			"detection, choose one!\n",
+ 			offset);
+@@ -192,7 +193,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		else
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_level_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on %s level\n",
++		dev_dbg(parent, "line %d: IRQ on %s level\n",
+ 			offset,
+ 			polarity ? "HIGH" : "LOW");
+ 	} else if ((trigger & IRQ_TYPE_EDGE_BOTH) == IRQ_TYPE_EDGE_BOTH) {
+@@ -201,7 +202,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		/* Select both edges, setting this makes GPIOEV be ignored */
+ 		gpioibe |= bit;
+ 		irq_set_handler_locked(d, handle_edge_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on both edges\n", offset);
++		dev_dbg(parent, "line %d: IRQ on both edges\n", offset);
+ 	} else if ((trigger & IRQ_TYPE_EDGE_RISING) ||
+ 		   (trigger & IRQ_TYPE_EDGE_FALLING)) {
+ 		bool rising = trigger & IRQ_TYPE_EDGE_RISING;
+@@ -216,7 +217,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		else
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_edge_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on %s edge\n",
++		dev_dbg(parent, "line %d: IRQ on %s edge\n",
+ 			offset,
+ 			rising ? "RISING" : "FALLING");
+ 	} else {
+@@ -225,7 +226,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		gpioibe &= ~bit;
+ 		gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_bad_irq);
+-		dev_warn(gc->parent, "no trigger selected for line %d\n",
++		dev_warn(parent, "no trigger selected for line %d\n",
+ 			 offset);
+ 	}
  
-   compatible:
-     items:
--      - const: arm,pl061
-+      - enum:
-+          - ambarella,cv75-gpio
-+          - arm,pl061
-       - const: arm,primecell
+@@ -307,8 +308,9 @@ static int pl061_irq_set_wake(struct irq_data *d, unsigned int state)
+ static void pl061_irq_print_chip(struct irq_data *data, struct seq_file *p)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
++	struct device *parent = gc->parent;
  
-   reg:
-@@ -64,6 +68,21 @@ required:
-   - "#gpio-cells"
-   - gpio-controller
+-	seq_puts(p, dev_name(gc->parent));
++	seq_puts(p, dev_name(parent));
+ }
  
--additionalProperties: false
-+allOf:
-+  - $ref: /schemas/arm/primecell.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ambarella,cv75-gpio
-+    then:
-+      properties:
-+        arm,primecell-periphid:
-+          const: 0x000e8061
-+      required:
-+        - arm,primecell-periphid
-+        - gpio-ranges
-+
-+unevaluatedProperties: false
- 
- ...
+ static const struct irq_chip pl061_irq_chip = {
 
 -- 
 2.34.1
