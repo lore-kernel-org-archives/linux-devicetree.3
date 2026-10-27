@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094971;
-	b=CCmT4QKv5qRmdQ7RjSh090oQTKTuqhCBWfdopUcu/B49GCcxGTFKL1dRo4Ov2MzddQbr
-	 cbIIl1aox15ctfAQSIKYVvPLcqpI8uSUYrUJwJOSIdWqS+ens5AdC7b197zyiszEukim0
-	 BbpsqaE4Xs2vWXX2YPY9i5ozd7yyqmsWVN2PT40M6rAJs2fxTseEIUJa32TKKZGKcoG61
-	 rbMsyCtCA3EXl4JdGebAWRbI54rUfF3RSneNLIEyzznvY2xXyoUNIZqqgWi1IkMxgDo2W
-	 nmU+PA/MYu0Iw+nSpeSVqMrjDiQl7GR2EfY3uNlEYmAMDkSpcQMk/q9gDZc3V+j6zdQ==
+	t=1793095013;
+	b=ATC8OV19q8nlcx7ZtkNgM12cgbuJbpyzDoPTghHY+vy+Q1LWLVCDcUje6pieT1mtMfiC
+	 EExLZWWGV/kT4VC/bqSeFMeWOsE6IKOS+/2oCLf62ygnCaTSeR/I64EMMn/unEIeGpFva
+	 08qMEAHcjAiqbWAfbcJHsQqa8CpDFSHe+ElNXtpLMj5Ldeymm3JrGO+6Q8ypsBuoVChBW
+	 7NZ1NWM+klpEVu5IFXYjXVpC6UgMXkFQ3CwDhMLdni9cPDePiWmBxoC+czIheBWkCkefp
+	 8oJ267NEK8lbS6nxATdLuzT3MPovlIJDfHg6Ziv2i19GhaNgHHut62Pw8ltK3Ge1JDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094971;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095013;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=xG04b/pMlxUdyEELh4CAqRO0ERstFWipTHgPIUgZB3M=;
-	b=Ej9tUFFtVZ1zlAknVVj0NxvszAcDPKo/Z4R6Ubk0+7N7IysuY8tIZ9qXhr+mk/FEVuz3
-	 pgW07rk97B4p6B9l2QHR73DEKjie9D50MfDWZ2XXCAR3ZtHqGsXBpUNoHEosAEN4Acljs
-	 B/BYkVKNq2R1VQVv8PBKZhLQWn1Fi0QBGwWa9h0NJ+QR3DdXQ99f1iCUKW1KM/FrLi4Xe
-	 bUJUvgbQY22l7L6N8E6zPLAkz3nDziRfWWnaxZXEz+xXHecXQC4IEvnEGhmsLmqRJP/j/
-	 UVlnO/3Qq8yByCJ7h8AQk0I0GDvAxEA4VVceGeTtcI5T82OTgX9h/NEwpx1PxxJlmpw==
+	bh=GP5oharGv0apk4U72jFVlwAbHHN87kFMPLSACqzLjUs=;
+	b=c5cs8JWqmG4Ivl4hp2YaARabynYjou7GG4ZpdOS5yA0EuQCoH5A/Mg1rWAe6Y5WoPlQJ
+	 /F9x6kuVyLxjrBwZIGowoUAm1O6NwPIU9qcfT/g8FRdm5qpd/b/9ikDTvgQtmqZhcBNEJ
+	 jSEjijvdog/ZfgddENzSd5wiSxMiZ1g6wywpI20JixYp8gEv+qIzG2Qu9ekECv86cazXF
+	 +CZEALlMQGfbuva/R3JEs09+gCF+EmqiGCReA+A9m+e+ezWH/yCSKuVc/F1mcM/PqykQn
+	 l6yIWwUNYutBy3efc/tQfxyekOPlKOiLu0smep4KY89gWfyKff1teZ5oO7hW9mqqaQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUAGOVkK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NT1znik9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79478606A31D;
-	Tue, 27 Oct 2026 09:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6773606A31A;
+	Tue, 27 Oct 2026 09:56:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUAGOVkK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1F01F01825;
-	Tue, 27 Oct 2026 09:56:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NT1znik9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1791F01825;
+	Tue, 27 Oct 2026 09:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793094971;
-	bh=xG04b/pMlxUdyEELh4CAqRO0ERstFWipTHgPIUgZB3M=;
+	s=k20260515; t=1793095012;
+	bh=GP5oharGv0apk4U72jFVlwAbHHN87kFMPLSACqzLjUs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FUAGOVkKXkI4UsW3wrFBYTCA0kqbRMh+Qb22fLxWLeyLXvR5AmqQ8iUsfC2KNhdKi
-	 GLER+hHxYpCkJx2sagTG7Qj29Vzo3XGG4xciuElBW1QgjfKfTr2djVEDdxCvQmjebW
-	 w5NFysCQvmFJMbNBCsnzIlls7keuOehiWC+eh3/jv2m2oL2LKe/aW5K2q6kR8Mf5JD
-	 8tKWjOm7ql6eWIQH12Vn0AHFuIm3ejrsiwqNyv+I6GwQe81PcbkeGJlsf/IRHunm9y
-	 NyxQ1fKER+4r5Ebr7izwizSYKQVHKF6Ogm7obIrwBEE9LBWflint7YM6VS1gi88i4L
-	 Lj+3CcR/62pWg==
-Message-ID: <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
-Date: Tue, 27 Oct 2026 10:56:02 +0100
+	b=NT1znik9uR+3gc3Tt3ZFxzdRSRBStmc3sLNfoepUakyw+eIZeOE1KrHR+tVHWUxYt
+	 noAz+K62TqwcKkFrDmnLeeMiv3sKZtc19JKRLql6TM/QtA06HkHJhL3JM7aikHo/76
+	 dcB1qRsVBsu24P7qgMKVEqJZFBpLEFp9k/rbhFqtxfraBT7OhZ3aXBwQmsqhc0qCl/
+	 2ck0cMkgJa6qxc/PPp2ctQfcHG7a+jBEm79C+T1dJPV/OJZIaZlLKViM/1WLTGHcWG
+	 StF0ItbyTTis5VD6Y7i1xChzfTMmo2Oig5gvA715s2a8tdrlLBUaI3y62ALm8LBZzj
+	 I+kzJhs3fATIQ==
+Message-ID: <7b993a3e-d2b4-417b-90a3-a41d1f454cda@kernel.org>
+Date: Tue, 27 Oct 2026 10:56:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,22 +52,16 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
- <20261027-nifty-reliable-octopus-6cbac5@quoll>
- <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+To: Jianfeng Liu <liujianfeng1994@gmail.com>
+Cc: HystericalDragons@proton.me, amadeus@jmu.edu.cn, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, heiko@sntech.de, hrushirajg23@gmail.com,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ macromorgan@hotmail.com, michael.opdenacker@rootcommit.com, naoki@radxa.com,
+ robh@kernel.org
+References: <20261027-angelic-caribou-of-wonder-02ccc8@quoll>
+ <20261027085634.380872-1-liujianfeng1994@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -113,57 +107,36 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+In-Reply-To: <20261027085634.380872-1-liujianfeng1994@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 10:39, James Hilliard wrote:
-> On Tue, Oct 27, 2026 at 2:02 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
->>> The H616 UART has 256-byte transmit and receive FIFOs, but its DesignWare
->>> component parameter register does not report the FIFO depth. Its optional
->>> register layout also differs from the generic DesignWare integration.
->>>
->>> Add a specific compatible for the integration and allow the standard
->>> fifo-size property to describe the capacity. Require the documented
->>> 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
->>>
->>> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->>> ---
->>>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++++++++++++
->>>  1 file changed, 17 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
->>> index e2ca126d58ba..0f8fd0485879 100644
->>> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
->>> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
->>> @@ -13,6 +13,18 @@ allOf:
->>>    - $ref: serial.yaml#
->>>    - $ref: rs485.yaml#
->>>
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: allwinner,sun50i-h616-uart
->>> +    then:
->>> +      properties:
->>> +        fifo-size:
->>> +          const: 256
->>> +      required:
->>> +        - fifo-size
->>
->> Why do you require fifo-size if is const? It is implied by the
->> compatible.
+On 27/10/2026 09:56, Jianfeng Liu wrote:
+> Hi Krzysztof,
 > 
-> H616 has a fixed depth, but other sunxi integrations have different
-> depths between UART instances. For example, D1 has 64-byte FIFOs on
-> UART0 and 256-byte FIFOs on UART1–5.
+> On 2026-10-27  7:48 UTC, Krzysztof wrote:
+>> Maybe just install the DTB under new name if they are identical?
 > 
-> Should I keep this explicit for consistency for all sunxi uarts?
+> Thanks for the suggestion.
+> 
+> Installing the existing CoolPi 4B DTB under a different filename would
+> solve the DTB naming issue, but the model and compatible properties would
+> still identify the device as a CoolPi 4B.
+> 
+> This is my main concern. Users running Linux on a Sige7s would still see
+> "RK3588S CoolPi 4 Model B" in /proc/device-tree/model, even though they
+> purchased an ArmSoM Sige7s.
+> 
+> I agree that we should avoid duplicating the hardware description, since
+> the boards are identical. However, I think preserving the correct board
+> identity in the device tree is useful, especially for a product that is
+> still being manufactured and will receive ongoing upstream support.
+> 
+> Would it be acceptable to share the entire hardware description while
+> keeping separate model and compatible properties for the two boards?
 
-I am confused, there are no other instances here.
+Yes, just be sure to capture this in commit msg and maybe Sige7s DTS
+comments.
 
 Best regards,
 Krzysztof
