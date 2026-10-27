@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102444;
-	b=zNNatmGUetJAvkiprxCWm5Iw+m7YF35MfO9w4Wbqx3KGwogGvSVcw1d+5zJ8dC9VF7BM
-	 z9PvLlF25b9azCNzB32VZcnQUUeobpnptMheE/T1YVhfWb0ThCfSj7QWpkZndjGKNXjvv
-	 oNSOeEx8O9/otrUoCbhpkDU8dxpt74OeopGAwGPBPJULmFNIMT4+5XpdL1Dgf1tcIrhwW
-	 0bfNyn6wRyBlC1x+zpez1W+s8FJIxe+0tvXDlUgKwU/3FgrXpurv6Cz8KlhoFugthvhud
-	 Y8tkCnai/rgN9S61pMSSe0B6qe3KxUQbR2Kv+1HOnk5u7/lWSR3kkKYc0urf/yLk4KQ==
+	t=1793102452;
+	b=uA9rIhqvBD/mZ+FTYmL7LBK2s4nhEr/7UW+kPGqkJRzFrpl75hTyEmhACaONfVCbeLCA
+	 s6atKsKrftbAPNZP3GNHvHQMqxxFdOoJamS11fa/6AYpoYJYJmNp1F2uY7fTrheiuKQJk
+	 /oXoxIHxUw+3K4hEHuD8bsaR6v8saYLKwcS/FyvvJclndTmR2dbFeKu3bcqgsMz7xq6WV
+	 5ElkexhiBLs2p33vajra7uCNIo609Fc8dBu7b07bn5LTBsoxmzvFI7GkUgbDqurQapse8
+	 4b6RUJMr/uhmSjzPyp8OWTx/Xq0QltOGg1BsaJFZaLBLaZxRk3IoDkTaXQ+cyXv9QLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102452;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4KBnKZ2ldhWTCS/0yCI6Y+UH0y9EQUDr5Imq5+wRBAk=;
-	b=whuerRZR3PD3A2p4Y/GPgJQlzBAs72K/DRPitceQMEnv8WeffJDc2+p/EyhxSDqIAP7b
-	 T+pL2/fgIopDtaQ5ihAJu7J2awoXJhHFfy9KAD69LXLs5jFqOI6s9qguPV4QiM+VL5NBJ
-	 XYXdD26kyGlifi5r7SDM0SNuucFQlWJPXh+z+InYiiOHtQcIeRVmnRo2YPfRSlMkrRUm+
-	 T0VqwMf8cy2QJ9uVVwpJ9GsWVIEQv1bGey0TFpy++/PNbyMqY92sZuvhAo2Uvt1HoCPI9
-	 mQyZ4hGZBXa/6vWzM7HrxbNZn8W3YaiDVXo09+zypvZfBfOsSN5hv9b8VFEC1APzqDQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NUqVSXLAstwlQX9p2ri4V0g23CqSWbBN5EVVq2UQPOA=;
+	b=5T9SybkWGm1LUpZp44khxGgG7+CmM/SDpUeWI52O/uFvt8wdWdUbUH3/w8S6+4jP/QHH
+	 bu8cFLqJIIWoAzAkqrZXIyS+hzGk/UwlWoZLwbZ8HzHdyCNBQ6JkRwiwV/V2ldr/Q+6Na
+	 QNvPZpthvL74Ifa+JPpQMz/QkE1zWdKal1EChM0UGp4gNVCrEijr7TarJY6Xc2RAdPG4m
+	 AqEHGrTINmZkH72BsRZFIhBBkn0gUTVoDqs+VZJ1S51wOrlSfWNPZpC5eR0a/heXcyQWs
+	 iU53MIbFc3Jspp7WbyX1UeFCJSEZNaJJRVUfPZu098v7FoVTfQI3ciy3QB2WM/bPXeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UBMmomfb;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ENAmsw4N;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23995606A31B
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:00:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23995606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4ED606A324
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:00:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E4ED606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UBMmomfb
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so6176884a12.3
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:00:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ENAmsw4N
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so5903914a12.2
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:00:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793102442; x=1793707242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4KBnKZ2ldhWTCS/0yCI6Y+UH0y9EQUDr5Imq5+wRBAk=;
-        b=UBMmomfbj2Z/DjSKvnujnL23eqaP+gUcQIKIHuZb2TRimkcNNzFUtX4uedUvg7v/UD
-         XE/n06vqJED+aa4VxKMc9zLcxSqlgFmpYhl7WWHaarYZpQIYo55qJ5WpZP4vRXubHNn6
-         +VIA1vOgufoGjryjPWh2UHMWrCMPZNgMOY6T9Q9b6QJ2LbBSdC0yHPAa36W9QD4MUFsF
-         fcjj++1d1mBqdo4lLIQVHrdb9YrVjJP6rjtRmydlhgaD4n4h6Itk3zBVtUjzBfGIWlRs
-         Uel4I0aabouVD9+O6DmFg8uWJW71hea87Y9SuQQvToogunsgIs0+POC08uZOoJDciL3p
-         PEHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102442; x=1793707242;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793102450; x=1793707250; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4KBnKZ2ldhWTCS/0yCI6Y+UH0y9EQUDr5Imq5+wRBAk=;
-        b=dZWXOBx4j2dJOg1FJFbEH39zjbVuVRtl36GANzbn/RJO+jNai7yd9tksQQSBoC2fvS
-         HcXX6OgFcbQGzRdRFw480tpAL4P9x0Z2bwD8K8yG7zM9KGn4E073T8WnRtKroME4iTEp
-         0cILejPpyaljbvfT5LsTpfATGkBlh7Qs3LUE9ZuNGuQMa31jeWLkHFfafOoYh7Yi1qXx
-         8Zlqp5HgRthe3plhDJueAh/m50SUikZbTZ976AIakPTGEmsN7AyMBG9fhNMqPfoefqEr
-         +FJCIKNuFv9RkMqk7CX9TIIHyPxRv02GZa5Jdn/m8PVzQX3le4WSEtEk42LGs7iTL+X8
-         3pfg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ4KfyKFae/QUOrlB9koBtFmqWR8AWe3TxVuk56yY4A3gJhR7r18wBhb8e9H99D3WSTes6cNFB5tsF@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrxknI8mqF/p362hd4urJNdWZg80R9qOO02lDVRJWYkdwHsOou
-	kqmbN/9bF+4RLjnyoD17OPoqUhbSn3bFcvIWIzXS7TwcltN54+ebzAEN
-X-Gm-Gg: AYBFou3+7q1ueigN2T39bRFUH+yQ6AbQraAu+ai3P3+XjalFWqI3mzwVeWlMAIvD3A2
-	KiDEX0MpYF1HKucm1iqMY5CMfzouaeQoUnupGhQmFyhkD6PCmWO5Wf2HPibN3CX0z1l13u19u0z
-	KF9dU10szc6LBjQJppK+pUKB17Y1sJEWWGdSc4upbS/rnhZwGAbX9e+n92qP86dnNfXXu0djqs9
-	JLbPJiSVttv6FV2G2GK2qK4Qet1xnDuKFmNnvcgb9NZkFZPbLfE446EHa5dglDBRNzjJFySzfKK
-	f4yRuQ7rPLyB2WW2vS0MP8FAm05SfTlVGUPsWdDv3We7jSccm5SVq68KtxG6n9HEPEFY1bg504C
-	98tqkMInXPiAlCjGxUyPFt97dpGn7tRFpidXmN12gJtBuqiB8XnflsgWLs9ygUftEm4I9Ud2Kvh
-	3IHDJw/0zGWa+8R2t1HI9Ur6WzBelLSlmmOkyMDz7gu8yyPdHfRhh+4MgYZVYTB/of+T/5BkpGx
-	IK6VctBQ32fh+WM2EzG7FuRiL/B0gBgzSeeiDqSFiYyJVhWOA1RPWDNtACmVF1hLKq0XDLnzqE9
-	W0HWW4e+fmOL8CYCdASEmg==
-X-Received: by 2002:a05:6402:c14b:b0:6b4:2d6:cbea with SMTP id 4fb4d7f45d1cf-6b442fcab59mr6665292a12.9.1793102442085;
-        Tue, 27 Oct 2026 05:00:42 -0700 (PDT)
+        bh=NUqVSXLAstwlQX9p2ri4V0g23CqSWbBN5EVVq2UQPOA=;
+        b=ENAmsw4Nw22yhGScbFjLDocGggraBRH99Rars+0xxe2Oj/WqHA5Lji1MtwB2XMePKU
+         0L5NRLesKErQISbxqHgyLlyfnbcDV+noK2ldPPhJ2VfxpDViDLvYCyBaj3SBy7NYTHb0
+         y4JzqR34d2BUAPCsGiW3+xm2787/IFgQ4vfATDc8Mu2HA+II+no/Z8hRt6X//uw+KVhX
+         HtPXnu1bjduugmphhrxFGxDNZnVLnQ8dvEkDxoLCDHwIC7X4qLN5MDl/aAAX87pJncAG
+         6qMWZjVQnanbI2LcQ8KSessBYQKaDIA3qUxUhBPVELSHctBBeuxe3Nc1VrDRRE90mKE2
+         K6PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793102450; x=1793707250;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NUqVSXLAstwlQX9p2ri4V0g23CqSWbBN5EVVq2UQPOA=;
+        b=Xoct/CrIhKK/jpiGXmdD9fh8pv5QUOJXJRtEBLrPTR//ahnisKUjgu0Ozo3Ph8hFLf
+         g60ggKZeRhhJa6D4uPGMxr1KUtT8UpiO0gaweKCzQk93RBBTyw0D1OmIv5nVMZpxHjAQ
+         nMbP10lguLaWV7OCOlEkIE4g7Lg4nz0pTmiJLUCQ8AcPMkTHBXNpdzrBgebQDLvbBu9/
+         4uo2E7SHqr5cIByagrIQRb1bmESWfwwdXRpSALKDCy7ExQkPdhiOzFblswZtaZ0KCtI5
+         uZ9DiwbU9SSWrHsL9UM+cJh+hPMtBjbdi8oqBi2H3mKqiSOZzaU6X//z1DETaphIT8MR
+         HClw==
+X-Forwarded-Encrypted: i=1; AKwUvByGiPEuXPwFCHB+VxzkwuDdENE+nIt852V0RlEfkyelcSHtZXEsnA/6RZ78ug6YqwOV4sW75uxpOb5f@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlOb1hn5PDfU82H/ZfL6rfN1QlrFItsgvB/930wNn15XMUUUFu
+	cx+PY20/2JnVNU1jd7BuayQApimM1QNrF8ODR76w4ZaD6O9OXWbe+fPn
+X-Gm-Gg: AYBFou3tiFKlrWYj9gn/2JsE3+ZU2B+vyZVdXBX1G07hK0lqes2+BROhoVY27DPV9vt
+	UQtQ06lGXNIQ7SZwvezAlP8CkNrX1Pe6Iybi3OUYPLtItjUcinfAQ6Xr0P4yzy/dvTUXNr8MRkN
+	YT9w35FHSRRdSmunCSOoAhr6eR8r+JNrcWUGktOOINDMZ33FDidrdHDnYYYqz4sROEGxixFuzwy
+	mzBLVUevMbir7y9dfz38VkFRxGgWkSfTAV0iulierLmTzFo4+IJM/rwfOsoVdfIZyJ7AcwyKA+P
+	C08oWeGBFrdfM2pdDDbtH9w5r53L/W5L/b9DocjVA4G5iLapNFGXr3uVSNCZVN3OjGgkS8ZlKJK
+	euuK5jeumw3QMoj3WVlL5qWa+VJM6IhiYJ/vyjOxU3SuSkK6Lv4Iq2+nNevyYcPRJw+On1UIajW
+	goD8oCt6nlqbGYrRnzBQLzP1K1MjszjujBaQkMKEFIChY0l7d+HTwYnxFazcg8FgSzfOjYtcQpE
+	pTrB1aocPsrs/0D25iIkrFYyVIcGO6uJrkInDYdalb++vsNPRL1Mh1Q7cfwbP/BDMzSsz4xhrji
+	Ts7do072LrB6yseYycxzVw==
+X-Received: by 2002:a05:6402:428c:b0:6b1:ef5a:6720 with SMTP id 4fb4d7f45d1cf-6b442fcfc70mr10159119a12.16.1793102449777;
+        Tue, 27 Oct 2026 05:00:49 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44598480dsm4717844a12.24.2026.10.27.05.00.28
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44598480dsm4717844a12.24.2026.10.27.05.00.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:00:32 -0700 (PDT)
+        Tue, 27 Oct 2026 05:00:43 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -95,10 +96,12 @@ Cc: patches@opensource.cirrus.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v1 0/7] ASoC: dt-bindings: Add/Update #sound-dai-cells to Tegra related codecs
-Date: Tue, 27 Oct 2026 14:00:12 +0200
-Message-ID: <20261027120019.93611-1-clamor95@gmail.com>
+Subject: [PATCH v1 1/7] ASoC: dt-bindings: maxim,max98088: Document #sound-dai-cells property
+Date: Tue, 27 Oct 2026 14:00:13 +0200
+Message-ID: <20261027120019.93611-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027120019.93611-1-clamor95@gmail.com>
+References: <20261027120019.93611-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,36 +113,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add/Update #sound-dai-cells to some codecs often used by Tegra devices.
-Document #sound-dai-cells property for i2s and ac97 nodes of Tegra20
-and Tegra30 devices since they all provide a single dai cell. Add these
-properties to SoC level Tegra audio-related nodes. This is required for
-creating more complex audio paths.
+The Maxim MAX98088 codec provides a single DAI cell.
 
-Svyatoslav Ryhel (7):
-  ASoC: dt-bindings: maxim,max98088: Document #sound-dai-cells property
-  ASoC: dt-bindings: realtek,alc5632: Document #sound-dai-cells property
-  ASoC: dt-bindings: realtek,rt5631: Document #sound-dai-cells property
-  ASoC: dt-bindings: wlf,wm8903: Document #sound-dai-cells property
-  ASoC: dt-bindings: wlf,wm8994: Update #sound-dai-cells property
-  ASoC: dt-bindings: nvidia,tegra20/tegra30: Document #sound-dai-cells
-    property
-  ARM: tegra: Add '#sound-dai-cells' property for audio-related nodes
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../devicetree/bindings/sound/maxim,max98088.yaml         | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- .../devicetree/bindings/sound/maxim,max98088.yaml      |  8 +++++++-
- .../devicetree/bindings/sound/nvidia,tegra20-ac97.yaml |  8 +++++++-
- .../devicetree/bindings/sound/nvidia,tegra20-i2s.yaml  |  8 +++++++-
- .../devicetree/bindings/sound/nvidia,tegra30-i2s.yaml  |  8 +++++++-
- .../devicetree/bindings/sound/realtek,alc5632.yaml     |  8 +++++++-
- .../devicetree/bindings/sound/realtek,rt5631.yaml      |  8 +++++++-
- .../devicetree/bindings/sound/wlf,wm8903.yaml          |  8 +++++++-
- .../devicetree/bindings/sound/wlf,wm8994.yaml          |  2 +-
- arch/arm/boot/dts/nvidia/tegra114.dtsi                 | 10 ++++++++++
- arch/arm/boot/dts/nvidia/tegra124.dtsi                 | 10 ++++++++++
- arch/arm/boot/dts/nvidia/tegra20.dtsi                  |  7 +++++++
- arch/arm/boot/dts/nvidia/tegra30.dtsi                  | 10 ++++++++++
- 12 files changed, 87 insertions(+), 8 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max98088.yaml b/Documentation/devicetree/bindings/sound/maxim,max98088.yaml
+index e4a2967e1e818..4d33fd705cf8e 100644
+--- a/Documentation/devicetree/bindings/sound/maxim,max98088.yaml
++++ b/Documentation/devicetree/bindings/sound/maxim,max98088.yaml
+@@ -9,6 +9,9 @@ title: MAX98088 audio CODEC
+ maintainers:
+   - Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>
+ 
++allOf:
++  - $ref: dai-common.yaml#
++
+ properties:
+   compatible:
+     enum:
+@@ -26,11 +29,14 @@ properties:
+     items:
+       - const: mclk
+ 
++  '#sound-dai-cells':
++    const: 1
++
+ required:
+   - compatible
+   - reg
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 -- 
 2.53.0
 
