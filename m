@@ -1,79 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793085284;
-	b=M/v6edm2UENViXOcvdI6oX0zQ/zYZLEvVNbsOMfhu5aVIReyND2rSeVEZhDIuW2ZTKJM
-	 dyJNmygy1CL7uPBc8TeMOBz+34udtDeNh/Fmw+lsVoIDr8I+Ahk4kr7bxOjewVqjtjjCl
-	 G/vfuJtX0B5isBndV3UmB3BHrc0nrio0zsbRUWvaVPAwaDSYZ7DFrWHwTkiulAlWZY72a
-	 SVloaJthTER+U67UeireAkuvqoLr33GBa5yukEjhaVrpSqb1+TKUKxXrUfS7SSFu1AROh
-	 TgoqCa2t+o100J0WKLQ+3Z8cv58lTY6lHpqW03CipTjmraohI6OcKixD4Mg0mafGZXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085284;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b1V2VzFhlnlIupXjxg0vSEazQECTmGActe0YWWB9C5Y=;
-	b=3cTI/vV7ef5r8hZon6fOQGuokkizOfBKuM9iREiSOqltcDVKp4LuO92GFxtt3mzT25Zi
-	 P3SFiMKS/46w92FLDElgZJ4rYSRcNCV/xhsxVxi/Lei5gDjKFFNIh/nyNwyjTYaZh11ix
-	 /b8Uj+Mjc1PutQFP5Ts2QVkTdp2qkhs2LMgJ+qUSChD8laTiLFmh3+W60eUC305rvzF0z
-	 yAo0UxacdqlbM8rUhqZLoqiLFRuZghWbucuZ0xc6cl4FXmmbBd2sZ/NMd9K9xre4mZIQ5
-	 fka4Kd39dftLZI3OIkNiDRtyig0Ej2zSl9Cb3LnMuCVjuk5Kjdjng5zJ0TVK8x2n9wQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzUw+ba2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793085718;
+	b=ghnHrGppFjuHpl6OgGflB1Zrtxya+wlfCxLVQlpN4joD4QvubeNlrZ6T+H0o2A6TvbNv
+	 v1MrItEu5Vd8P4vZe8dXwvXwCZh50fEGzN/yd0Wff7KX4kMywdTrEhhKkElryMxXsLO2I
+	 7tP9a1IHjL7h85JBK4xA8cuLJOX2RXO3BXI750aRLEX6u4VTJQbRFJG9OjXsRAJe7erUQ
+	 98F/nh/wC7TNmhW44eTKLOSDhuhWWZ/LKxQnjYaQCP4biLUJ/d70YqfTrWOfqMGd4aGbq
+	 Bt4bAUoqXOZwT8HH8qeqGs5Fjag6V2srb4sZnlxteYozRjXdF1jFLQH5/n4s+fpJgbw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085718;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=AVTyXl56KTAD9qthFvNCSvQI53NTnxNb8lASUJ9aXqI=;
+	b=lfWgGOwCD8qaqQyO9SxCqIPbd7VPJoqYkjwTFRzqczKJAO9DsOGl9bYEwWtp0bvoVQHT
+	 +AHEL4bN9HnMwbyXuCwGwMWkTDM7kiJH3IINmKkfyhEF0gInXUW5ueTfZn64KGddq31IU
+	 QQKaSlsbKnCVgZKSZcwozxMcGr8EBhGV5URNEor+Ierh8fxrAjMOTQvoZZ1q2K+KcGw+M
+	 LhALv846Suc35BoO49LXjGUEb/R8XVBvzix/2QdcTd2ZmjKwU8X9biE9kcF6dHaLzJxSC
+	 +3AzUyOVclJRf36+kx3QwrAXjpV35CHIophXbMw6L2y1xblv34AhCMtVYz23SvnMBrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yw7R9fEF;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F7B606A32C;
-	Tue, 27 Oct 2026 07:14:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD06606A31A;
+	Tue, 27 Oct 2026 07:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD06606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzUw+ba2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793085284;
-	b=jsKnL+b96c8M0k/WLa7cBwZM6/X1dQdJQeMRiE0DDWXFDRGlbniEhbFzmcjrSTjNxt6a
-	 odZCknnhPasLRtBM2oaAzpyszME2UTPwu3tt4D7LxEPEF4tySHzyfccCNrUoCGfxEoRMf
-	 wjKbjJwl+2VF2ywpKuTdHj0el1e4+92m2GyOht2Dxx82H6KOQqjEH8L1PuAyQ/G5e8eH3
-	 Bq7VOGPclsyTYqlI8cxzpWme3BWm1ZF9OOnNLZUPFJA6cO4EzzUP3EuVAJAqrfgo+eO93
-	 6s0qtIXd8qztsmLcY0cvXDeCobEGhMS2foy7QPTfH3HHs8iwTJbl/dQgC4CIPagI/mw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793085284;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b1V2VzFhlnlIupXjxg0vSEazQECTmGActe0YWWB9C5Y=;
-	b=E6w1GQ9Ge1EPIhSms/1OjP+P90E0bNBg3yma5kV/7DyQfMS0Eegd+FE8SkXAjN6oUNar
-	 6w5Zka8NGXDPB3+1qMLYV/18SHGqJZ0w29zyLMU9EJqfZZZYe6i2Omx4HXgSe90QAgc76
-	 5tGvk8U1O6RQiUdwmwc/xUmqmpxBZjBPwKeBo4N3UsRBrLUgZFGCGqlps50ulqwZnwxzg
-	 Y8ihC63E1ck+3Cq4hQLZtAjTqmc8qGv9eYrBXhqyD7iF51RfMexYPhx9r9l8+kp1c9VOx
-	 88b8UKzzIs3YkWvzsOjFN+X8EmxJqDlYcg7AIKLYDKG0DS1N2R/gfzn8c239187z86A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A53DD1F031E2;
-	Tue, 27 Oct 2026 07:14:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793085284;
-	bh=b1V2VzFhlnlIupXjxg0vSEazQECTmGActe0YWWB9C5Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OzUw+ba2kPWkFyNrijcHGIo3Bx971oRO/rsBx7evmF4gXeFzPTV5SNi4tAq4xwn2i
-	 zW45idQbo0XQvNRbAyvWm8Mcu68v5FuCmYxJdRM6eL+P7iX8tEcOmmMg0BC1P+0Hi5
-	 aukgNhk3/DgUT3EyDHpSRBS/175Djzl618OwjE4Q9trT+2ZcxmH7DgiPXFfdVo39vV
-	 C8hEOrcivd8ze7DFCPfwhRCfGq/pI0N/wkNMS8R8FkrI8ifXpV0MX+uubCPB7Zxabw
-	 xu63nVq8eWdXOQP5Jh/06ROfSUWtyFLqz6/rfcrAHgoPwN86APvUnAgoivJfWBvPMk
-	 c+mnNrcxQDFIA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3D7FC4501C;
-	Tue, 27 Oct 2026 07:14:42 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Tue, 27 Oct 2026 12:44:38 +0530
-Subject: [PATCH v4 5/5] drm/msm/a6xx: Protect the 0x1c800-0x1e7ff GMU range
- on A620 and A650
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yw7R9fEF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793085718; x=1824621718;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pTLEDAupRY2oWJwjRjfzsKaWR6SmrpHN+eBe2aIhJOs=;
+  b=Yw7R9fEFvAYKvCNJ8i+w8yVv44UPr8QA932xAPKrPbyVbFlvSKjBcvaP
+   rd5rzWT/qhvp+aVPOE+oeKeaiehzRavDckxb5+W8yYEslQxElfm5XJRP5
+   OU9eu5TNDs0QbWw/q3/u4bqwQIIKVHLKUlX6tSXvduDGnFrqJ36bYF+7c
+   OndVrhMmYFZMTsUAmYaQ846vWU8QYtLeqbaFAqDeepf4TY5kXYdqMFHi7
+   3/DOvX6riY7JTwzIXV2lglbov9OuJOCsGWb6VJSzleWLzacvswnwUfZPm
+   qzD5LL3AX1R0lnTAZe1ThDmVEcuv16E1VF8qK54RAQRWJcEZVlHY55klw
+   w==;
+X-CSE-ConnectionGUID: YLTvDJtMR8uJXlfsNgbdNQ==
+X-CSE-MsgGUID: prf++W+pQz6N3J170LvC7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1670531"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1670531"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:21:58 -0700
+X-CSE-ConnectionGUID: QQ7qj2MiSJqvvbsyjg+eug==
+X-CSE-MsgGUID: QbVb4ynrSgWUyDG3mhGFww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="6317598"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:21:54 -0700
+Date: Tue, 27 Oct 2026 09:21:51 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v3 3/4] serial: 8250_dw: configure the Allwinner H616 UART
+Message-ID: <auBRD7Ny6u_a9X7p@ashevche-desk.local>
+References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
+ <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,79 +87,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-adreno-a620-v4-5-b0095e028c76@brar.si>
-References: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
-In-Reply-To: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793085280; l=1823;
- i=patches@brar.si; h=from:subject:message-id;
- bh=uJTDKKOJDAvrd0WSzrpyyryyzrwcJ4u+PPWaRGHdnNY=;
- b=RcTOxjE8hhv0TGlBtQlkofh7TIPAqZnkl+CNmTWxi5zzD41biNM8KTI3r5WnPAN4CLoM6BcXM
- O2YShEc11EMAt9Rp7hIYhKRsIiTFZuI8E5/8GkKmDBH1DLPHiE8fdS5
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Ishu Brar <patches@brar.si>
+On Sat, Oct 24, 2026 at 02:22:25PM -0600, James Hilliard wrote:
+> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> component parameter register reads as zero. Generic 16550 probing leaves
+> the port using the 16-byte FIFO configuration and its trigger-level table.
+> 
+> Keep PORT_16550A and preserve the FIFO size read from firmware by
+> uart_read_port_properties(). Use it for the transmit load and derive the
+> receive thresholds from the documented 1-byte, quarter-full, half-full
+> and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128 and 254
+> bytes; the normal 16550A half-full FCR setting selects 128 bytes.
+> 
+> Serialize trigger changes with termios and hold a runtime PM reference
+> while programming FCR, preserving the FIFO contents. Propagate runtime
+> resume errors before changing either the FCR shadow or the hardware.
+> 
+> Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> DesignWare termios path selects hardware CTS handling, so the capability
+> must be present for the corresponding hardware control to be enabled.
+> 
+> Select the fixed configuration through the platform setup callback.
+> H616 has debug-divisor and RS485 control registers at the offsets used to
+> detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> those probes and retain the BUSY-safe integer divisor hook and software
+> RS485 handling.
+> 
+> Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
+> termios changes. Its clock is a gate on the shared APB2 source, rather than
+> an independent baud-rate generator.
 
-No protect entry covers the range from 0x1c800 to 0x1e7ff: the entry
-at 0x1a800 ends at 0x1c7ff and the next one starts at 0x1f400. The range
-holds GMU registers, among them GMU_NMI_CONTROL_STATUS (0x1cbf0),
-GMU_BOOT_SLUMBER_OPTION (0x1cbf8), the GX and MX vote indexes (0x1cbf9,
-0x1cbfa), the DCVS option, setting and return registers (0x1cbfc to
-0x1cbff) and GMU_CORE_FW_VERSION (0x1d3f8), see a6xx_gmu.xml.
+...
 
-Add the range as no read/write to the A650 protect list, which A620 and
-A650 share, so that these registers are reserved as well. This follows
-Konrad Dybcio's suggestion; the downstream kgsl protect table of the
-OnePlus Nord (a620_protected_regs) has no entry for this range, so there
-is no downstream reference for it.
+> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
+> +{
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	/* Use the nearest lower threshold, as the generic 8250 implementation does. */
+> +	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++)
+> +		if (bytes < dw8250_sunxi_rxtrig_bytes(p, i))
+> +			break;
 
-The list is also used by A621, A623, A702 and A704, which I could not
-test. Tested on A620 only (OnePlus Nord, a 7.3 based tree): a Vulkan
-workload ran across GPU frequency changes without protect, fault or GMU
-errors. A write into the range being rejected was not tested.
+Can we provide an array of the possible values and deduplicate this loop?
 
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 1 +
- 1 file changed, 1 insertion(+)
+drivers/tty/serial/8250/8250.h:
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 6cdc3f5a2583..c93de04bb187 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -576,6 +576,7 @@ static const u32 a650_protect_regs[] = {
- 	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
- 	A6XX_PROTECT_NORDWR(0x18400, 0x1fff),
- 	A6XX_PROTECT_NORDWR(0x1a800, 0x1fff),
-+	A6XX_PROTECT_NORDWR(0x1c800, 0x1fff),
- 	A6XX_PROTECT_NORDWR(0x1f400, 0x0443),
- 	A6XX_PROTECT_RDONLY(0x1f844, 0x007b),
- 	A6XX_PROTECT_NORDWR(0x1f887, 0x001b),
+static inline int serial8250_bytes_to_fcr(unsigned char *rxtrig_bytes, unsigned char bytes)
+{
+	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+		if (bytes < rxtrig_bytes[i])
+			/* Use the nearest lower value */
+			return (--i) << UART_FCR_R_TRIG_SHIFT;
+        }
+
+        return UART_FCR_R_TRIG_11;
+}
+
+drivers/tty/serial/8250/8250_port.c:
+
+static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
+{
+        const struct serial8250_config *conf_type = &uart_config[up->port.type];
+
+        if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+                return -EOPNOTSUPP;
+
+	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
+}
+
+(this split should be done in a separate preparatory change).
+
+And here
+
+	u32 fcr;
+	...
+	fcr = serial8250_bytes_to_fcr(...->rxtrig_bytes, bytes);
+
+> +	guard(mutex)(&p->state->port.mutex);
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
+
+> +	up->fcr |= (i - 1) << UART_FCR_R_TRIG_SHIFT;
+
+The right side is embedded in the above mentioned helper.
+
+> +	/* Changing the trigger alone preserves the FIFO contents. */
+> +	serial_port_out(p, UART_FCR, up->fcr);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static void dw8250_h616_setup(struct uart_port *p)
+> +{
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +
+> +	p->type = PORT_16550A;
+> +	p->flags |= UPF_FIXED_TYPE;
+
+> +	up->tx_loadsz = p->fifosize;
+
+So, here you can precalculate the array of possible FIFO thresholds.
+
+> +	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
+> +	p->get_rxtrig = dw8250_sunxi_get_rxtrig;
+> +	p->set_rxtrig = dw8250_sunxi_set_rxtrig;
+> +	p->rs485_config = serial8250_em485_config;
+> +	p->rs485_supported = serial8250_em485_supported;
+> +	up->rs485_start_tx = serial8250_em485_start_tx;
+> +	up->rs485_stop_tx = serial8250_em485_stop_tx;
+
+Please, add more new lines, so we see the groups of different callbacks and add
+comments on top of some to explain, like
+
+	/* Custom FIFO trigger thresholds since it differs to standard 16550A */
+
+> +}
 
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
 
 
