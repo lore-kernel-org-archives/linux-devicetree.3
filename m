@@ -1,68 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088856;
-	b=Tp5tkDFbXqOE1QKlRhUVbsc3UCs3dl934Rc1F3ljSC/ICIo8EcbYvpoiY/SKyWp7+v6I
-	 fL5z60VQp5GYVMFsaGkeDvmaTA1h/5YBNI8gCS5ouvbPZfiDjmRm3KVHlAJMA5o5KNefo
-	 Aq7FuJSYKmRcFtKasYGtxbqktRFN/2/9/o9ldvNfuPxeURntF3Mpt7A13Ubu9m0SJxRx+
-	 6UpCWhjI2Uczp/kCBldbOWuGYTHgOxXrRX1wEAQpdIPya+EHuJDJjmXusxVHqKpAWzgkH
-	 Tg7fFJyZGmCSC2HcDJ/hmC8kJONyXH+k/zXQ9KNj+vY3gCZhCXPZlAWNsnUD/2bUcmw==
+	t=1793088860;
+	b=KjYEd/HvOcL9dUAsa0jId4SdH9vohpYdV+AR+yffRz/em+JADAxbIP6dPtPBewXFe6SA
+	 jCJmPjkltDfCb1IvNH8SL4mFLHcwzLMe33A92dEWutwle9ETAkPp9IDunv7jvwi1P7rHA
+	 2KzcrbqWp4/Kc8ZSVCmmzC0SnPnBMF/LbNdUqahFiFbt4nrSXVH0otxnr/nntUycRGv7q
+	 NU6q4qBHdGuQdPaDWvUPTIlXIZpMt1FL1gu8CoZJFZUeg9jg4UfdBrgmV3CXdjZ8o6AcK
+	 tMnWD5wMTQEq4yoTeu3nOSelPRApzkd/sBVoqYOzyVla7TiVRljd8fFUtKsooHWUGug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088856;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=nGbu4upuJLgm2lXKD/Z91nFxrjKCKZHpwQrOt6s2bDY=;
-	b=fI6P/qH6I1Y7B9oJ6EPOUz3QYa2vIGj9BTYZXbpxAdaJk3X+j2kWbaVv0mLbSoxqEYFV
-	 BaDFrbuYDWbSh/YotcYxEcNA7+mUM/S+CX9G0VwN2nhkiCdErAKkI088J5VRJn50QJtk+
-	 mpbAlgsT34Wthe3Wgdq3028wGukC1a6yMHuwRggm7b8eE/E/KRv8EKfQAOVzCT15gTSp/
-	 Q/r5imqQ9reFs6lM9/TTtUxTh+g3hLLfesNtE6r4rLyvELYRHysSqc0DA6leNt+/MIuWh
-	 nnASAEXk1t0nM2zJR2WeZI1jYUBp2j6foruo6ivKtM0E4i4/mpN4vJv6FYTOpOFyvGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088860;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Virus-Scanned;
+	bh=hiF6cXI3agkYyku3rSyd2OOmEROL56RdvaFl7yHcXqU=;
+	b=XUBUyMYVWLn1H48i5I8uPTjriNK8EqH6cNAfPblqgG/HfqyKatLTz9IebbMEN6MNEDOI
+	 Te9pIqNfe+/KonzNlu7ucBiDMU4dipoauVIOnOpt2DUMZJNW+axPhQ1cU+XzlY6tURcc+
+	 qJz9zU6TySA4yCgcR8fnVd2b8+VLcgrGc5CP5pGTQO1xp1rAvTW5mendYPXE8He48iumd
+	 +W6x6owPcbNPGUWki5dWqwGXnCjei4rYlIQx3eKOAhqHVe/NxdbHsFdmC17OTEG21Up5n
+	 DC7cEesWO6m7bjrZ8NtbrMsXA2NN4VNSH0e18wPWyLMPM6IzR9z3zkPTnTSzO7jqWfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ZRB1vNch;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ew.tq-group.com;
+	spf=pass smtp.mailfrom=ew.tq-group.com;
+	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b="pCnc/ldS";
+	arc=none smtp.remote-ip=188.40.3.216
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF7A606A32C;
-	Tue, 27 Oct 2026 08:14:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF7A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED278606A324;
+	Tue, 27 Oct 2026 08:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED278606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ZRB1vNch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793088845; bh=nGbu4upuJLgm2lXKD/Z91nFxrjKCKZHpwQrOt6s2bDY=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=ZRB1vNchEBn1xTDidt7KlotYbtlRGWLoegdUkgm34YutKGqGFS1vndGuabXwuQZ90
-	 /f0QxD6nmcPMBlMpQq6BxhjlE6opBg1xCkYHbn2pqTPsi40cCO5nyYQN/e07PWbv1P
-	 526lVXWyA9AKXODNJhPhJr8lZw09DmYOIJjw38go=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-XMAILINFO: M/8oWtQ8RXooJTRnGxFYe36RnPXjfz6V34oARLY5ztdCgTVzwe4zrpt0OZIqiV
-	 6WOy1tfKUMOwIp89CO5v2jtf8fTEeOq5mi2JUzH4Nef7OjAKvx4xPiylH90reQ6IHIXTUg6D63e0T
-	 481ZvsLL6TnnEWH6cGafWPYXdPkOaWIDYmQaR1TyCkbo1JAipqPJjLWdkJ7c5f9Ntm6rE/Vc85MFA
-	 6/0Yv3GuE058KwOnH34QUKfrzxTwP4bBI/d4wotgx7yzEXWjSCUkxlS5SsVZOnxqFUStijqTic+NF
-	 aNvSUUJDUS18HxXkxELs9NR1BNaF9SEdq07pweT3dgStQMYxIOxFwsx6Ap79t3P7Wda50cBNlyUzK
-	 L0nGZYeXMmxra3ro1YB2pEadf81VxEf50WmhVY2f7ZPN8y/UM4PdbyPXVRvhxVv5nxNg2J/hfK3Kw
-	 pSUJyHx1xsdjaUc/Gnio/6cqfs97icdTwq6NCBZO/byU2hnjUaTaSt9AEwM87gAki9zbOe1yZScN+
-	 PYFSmvDn44vv/ex5eNUA78ks2mSVtzQxrO7o6vvSIaJ6tqOmxNsMswoV+th2FwjbUQUCw5dIurGYx
-	 UiC98zYj+8M80tQd0v5a55xNOCWrzJMcpL9u6ctYYBOGjDYnmGgQj5BgHu3DucOOtbhhIP6iVdcse
-	 NZTX916vUU0yg5PAavrQyQmT52VA/r5Xy6Ozbu+A1EzoVqgRPIIiO+pX5cRNy8l9R/uK/vKiFdjfS
-	 Ky3dE5tvMSNS1KhWn0R+OuSWPkiRCjFJy5irVQouqZ4/77IVsPighdskAl4O9q7fgA02C+iRFllws
-	 TrKDgHhDDjWkiTzDvbHNZ+Xui1Lnl5aLZBJ/0ZBY97G6jebO3CJGueOksuo4EaO36eMoHjNsEs7jF
-	 gP2WMOd83oGx+87D1EJrlBu4GKZGwED07/KKJKyeCzvvIAfQ9zrQH9ERkrMRJD8C0oXuiXNt8am21
-	 KQeoVpouoyLgDKb99Ev+/BEPpEcXH07BurkkWIUVwhaRz5pdTGd6RB/IhJuRgQajP6VGsNTm4Hw8p
-	 61dj2p8TsB+wovP+gd5bvf5tjSyip3s4Xa6VnLxgzG1xCV2ekXBbBh4XrhkKmA+tZOsI4QpyF03f0
-	 IPelgJyNvew7LQ==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?U2hhd24gTGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?QnJpYW4gTWFzbmV5?=" <bmasney+clk@redhat.com>, "=?utf-8?B?SmVyb21lIEJydW5ldA==?=" <jbrunet+clk@baylibre.com>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?UGhpbGlwcCBaYWJlbA==?=" <p.zabel@pengutronix.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?TGVlIEpvbmVz?=" <lee@kernel.org>, "=?utf-8?B?TGludXMgV2FsbGVpag==?=" <linusw@kernel.org>, "=?utf-8?B?QmFydG9zeiBHb2xhc3pld3NraQ==?=" <brgl@kernel.org>, "=?utf-8?B?UmljaGFyZCBDb2NocmFu?=" <richardcochran@gmail.com>, 
-	"=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, "=?utf-8?B?QW5kaSBTaHl0aQ==?=" <andi.shyti@kernel.org>, "=?utf-8?B?R3JlZyBLcm9haC1IYXJ0bWFu?=" <gregkh@linuxfoundation.org>, "=?utf-8?B?SmlyaSBTbGFieQ==?=" <jirislaby@kernel.org>, "=?utf-8?B?SmlzaGVuZyBaaGFuZw==?=" <jszhang@kernel.org>, "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?RGF2aWQgV3U=?=" <david.wu@rock-chips.com>, "=?utf-8?B?UmFmYWVsIEouIFd5c29ja2k=?=" <rafael@kernel.org>, "=?utf-8?B?RGFuaWVsIExlemNhbm8=?=" <daniel.lezcano@kernel.org>, "=?utf-8?B?WmhhbmcgUnVp?=" <rui.zhang@intel.com>, 
-	"=?utf-8?B?THVrYXN6IEx1YmE=?=" <lukasz.luba@arm.com>, "=?utf-8?B?TWF4aW1lIENoZXZhbGxpZXI=?=" <maxime.chevallier@bootlin.com>, "=?utf-8?B?TWF4aW1lIENvcXVlbGlu?=" <mcoquelin.stm32@gmail.com>, "=?utf-8?B?QWxleGFuZHJlIFRvcmd1ZQ==?=" <alexandre.torgue@foss.st.com>, "=?utf-8?B?Vmlub2QgS291bA==?=" <vkoul@kernel.org>, "=?utf-8?B?TmVpbCBBcm1zdHJvbmc=?=" <neil.armstrong@linaro.org>, "=?utf-8?B?TWFuaXZhbm5hbiBTYWRoYXNpdmFt?=" <mani@kernel.org>, "=?utf-8?B?VGhpbmggTmd1eWVu?=" <Thinh.Nguyen@synopsys.com>, "=?utf-8?B?SmFlaG9vbiBDaHVuZw==?=" <jh80.chung@samsung.com>
-Cc: "=?utf-8?B?c2hhd24ubGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 24/27] mmc: dw_mmc-rockchip: Keep RK3572 NVM domain powered
+	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=pCnc/ldS
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=hiF6cXI3agkYyku3rSyd2OOmEROL56RdvaFl7yHcXqU=; b=pCnc/ldScfXAZKsP43bxJVnw2K
+	7FwCJmgqQLQIraGdSvdNpkpIxa2Z97Tkc86YLGbMWqGAyjurCP6LtRK0cXJxPaUV06uvfKnDzJiRs
+	RwgUnQ8nIWaE0fyz2WURQWBq0Buy2jE1Mw1GhmMGR0gZJI8GkqPvkgwggck7h8yIfNge3/wWKucAw
+	UxxT2lBRex8/ivIlWFbn2aU1d9mUadq+yndE80ajagHRUIoIqXLeoEAwjTjWQ5cCQAFpnL5ARItMJ
+	rS0SHtNTqVhgmMHfaCyi0/ctfxd9AOosJRZv+GpoHIM4+reFNAoRmOwJrHnipAXpYCLTv9FfC9VLE
+	vsH7bqaw==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1xLcK0-000GVU-2B;
+	Tue, 27 Oct 2026 09:14:16 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1xLcJz-000P5W-2Z;
+	Tue, 27 Oct 2026 09:14:16 +0100
+Message-ID: <e1d1f2ba1c5191c93ed7c5ad737740780a506676.camel@ew.tq-group.com>
+Subject: Re: [PATCH v5 09/11] leds: pca995x: Add sysfs files for error
+ reporting
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Isai Gaspar	 <isaiezequiel.gaspar@nxp.com>, Marek
+ Vasut <marex@denx.de>, Pieterjan Camerlynck <pieterjanca@gmail.com>, Javier
+ Carrasco <javier.carrasco.cruz@gmail.com>, 	linux@ew.tq-group.com,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 27 Oct 2026 09:14:14 +0100
+In-Reply-To: <179198432570.839288.16507714780245784283@kernel.org>
+References: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
+	 <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
+	 <179198432570.839288.16507714780245784283@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,47 +84,253 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 27 Oct 2026 16:14:00 +0800
-X-Priority: 3
-Message-ID: <tencent_0431D34CCA9424908F2C068820D6F9C1370A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-24-0b0fd85a31ee@qq.com>
-	<bb38e2c8-1868-4a66-9e0d-78d9f68ab4be@rock-chips.com>
-In-Reply-To: <bb38e2c8-1868-4a66-9e0d-78d9f68ab4be@rock-chips.com>
-X-QQ-mid: xmsezb41-0t1793088840t5jwsbqnj
+MIME-Version: 1.0
+X-Virus-Scanned: Clear (ClamAV 1.4.6/28166/Tue Oct 27 07:24:12 2026)
 
-SGkgU2hhd24sCgo+IEJlZm9yZSB5b3VyIHYyIGFib3V0IHRoaXMgcGF0aCwgSSB3b3VsZCBs
-aWtlIHRvIGFzayB3aHkgeW91IG5lZWQgdGhpcz8KPiBUaGUgZHdfbW1jLXJvY2tjaGlwIGNv
-bnRyb2xsZXIgaXMgYWx3YXlzIHVuZGVyIEEgcG93ZXIgZG9tYWluIG9uIGV2ZXJ5Cj4gU29D
-LCBub25lIG9mIHRoZSBwcmVkZWNlc3NvcnMgbmVlZCB0aGlzIGtpbmQgb2YgY2hhbmdlLiBJ
-ZiB5b3Ugc2VlCj4gc29tZSBlcnJvcnMgZHVyaW5nIFJQTSwgcGVyaGFwcyB5b3Ugc2hvdWxk
-IGhhdmUgYSBsb29rWzFdIGFuZCBjaGVjayB5b3VyCj4gRFRTLgoKVGhhbmsgeW91IHZlcnkg
-bXVjaCBmb3IgcG9pbnRpbmcgb3V0IG15IG1pc3Rha2UuCgpJIHdyb3RlIHRoaXMgcGF0Y2gg
-YWZ0ZXIgb2JzZXJ2aW5nIHJlcGVhdGVkIFNEIGNhcmQgcmVzZXRzIGFuZCByZWNvdmVyeS4K
-QWZ0ZXIgc2V2ZXJhbCB0ZXN0cywgSSBmb3VuZCB0aGF0IGtlZXBpbmcgTlZNMSBwb3dlcmVk
-IHByZXZlbnRlZCB0aGUKcHJvYmxlbS4gSSBjaGVja2VkIHRoZSBTRCBzdXBwbHkgYW5kIHBp
-biBzZXR0aW5ncyBhZ2FpbnN0IEZvcmxpbngncwp2ZW5kb3IgRFRTLiBUaGUgc2V0dGluZ3Mg
-bWF0Y2hlZC4KCkkgdGhlbiBzZWFyY2hlZCB0aGUgbWFpbmxpbmUgaGlzdG9yeSBmb3IgUksz
-NTc2IGFuZCBmb3VuZCBpdHMgU0RIQ0kKd29ya2Fyb3VuZCB0aGF0IGtlZXBzIFBEX05WTSBw
-b3dlcmVkLiBJIHRoZXJlZm9yZSBhc3N1bWVkIHRoaXMgd2FzIGEKc2hhcmVkIGRlc2lnbiBp
-c3N1ZSBpbiB0aGUgUkszNTd4IGZhbWlseS4KCkFmdGVyIHlvdXIgZW1haWwsIEkgY2FyZWZ1
-bGx5IHJldmlld2VkIGFuZCBjb21wYXJlZCB0aGUgRm9ybGlueApPSzM1NzItQyBzY2hlbWF0
-aWMgYW5kIERUUy4KClRoZSBPSzM1NzItQ19MaW51eDYuMTIuNThfQWxwaGExIEJTUCBpbmNv
-cnJlY3RseSByZWZlcmVuY2VzIFJLODA2IFBMRE80CmFzIHRoZSBTRCBjYXJkIHN1cHBseS4g
-VGhlIGNhcmQgYWN0dWFsbHkgdXNlcyBhIHNlcGFyYXRlIDMuMyBWIHN1cHBseQp0aHJvdWdo
-IGEgc3dpdGNoIGNvbnRyb2xsZWQgYnkgR1BJTzBfQjYuIFRoZSBvcmlnaW5hbCBEVFMgdXNl
-cyBuYXRpdmUKUFdSRU4sIHdoaWNoIGxvc2VzIHRoZSBlbmFibGUgc3RhdGUgd2hlbiBOVk0x
-IHBvd2VycyBkb3duLgoKSSBpbmNvcnJlY3RseSBhc3N1bWVkIHRoYXQgRm9ybGlueCBoYWQg
-dmFsaWRhdGVkIGl0cyB2ZW5kb3Iga2VybmVsCmFuZCB0aGUgY29ycmVzcG9uZGluZyBkZXZp
-Y2UgdHJlZS4KSSBhbSB2ZXJ5IHNvcnJ5IGZvciB0aGlzIGluY29ycmVjdCBhc3N1bXB0aW9u
-LgoKSSB3aWxsIHJlcG9ydCB0aGlzIGlzc3VlIHRvIEZvcmxpbnggYW5kIHJlcGxhY2UgdGhp
-cyBwYXRjaCB3aXRoIHRoZSBEVFMKZml4IGluIHRoZSBuZXh0IHJldmlzaW9uLgoKQmVzdCBy
-ZWdhcmRzLApDdW5oYW8K
+On Thu, 2026-10-15 at 16:47 +0100, Lee Jones wrote:
+> On Mon, 05 Oct 2026, Nora Schiffer wrote:
+>=20
+> > The PCA9955B/PCA9956B have builtin failure detection. Provide sysfs fil=
+es
+> > for individual LED status (reporting "okay", "short-circuit" or
+> > "open-circuit") as well as a global "has_errors" flag. has_errors is
+> > sticky and must be cleared by writing "clear" to the sysfs file.
+> >=20
+> > Failure detection on the PCA9952/PCA9955 (without "B") works differentl=
+y
+> > and is currently unsupported.
+> >=20
+> > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+> > ---
+> >  drivers/leds/leds-pca995x.c | 112 ++++++++++++++++++++++++++++++++++--
+> >  1 file changed, 108 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> > index 3d6053625b1c9..359803d0030fb 100644
+> > --- a/drivers/leds/leds-pca995x.c
+> > +++ b/drivers/leds/leds-pca995x.c
+> > @@ -8,6 +8,7 @@
+> >   * Copyright 2023 Marek Vasut
+> >   */
+> >=20
+> > +#include <linux/bits.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/gpio/consumer.h>
+> >  #include <linux/i2c.h>
+> > @@ -24,6 +25,9 @@
+> >  /* Auto-increment disabled. Normal mode */
+> >  #define PCA995X_MODE1_CFG		0x00
+> >=20
+> > +#define PCA995X_MODE2_CLRERR		BIT(4)
+> > +#define PCA995X_MODE2_ERROR		BIT(6)
+> > +
+> >  /* LED select registers determine the source that drives LED outputs *=
+/
+> >  #define PCA995X_LED_OFF			0x0
+> >  #define PCA995X_LED_ON			0x1
+> > @@ -37,19 +41,37 @@
+> >  #define PCA995X_IREFALL_FULL_CFG	0xFF
+> >  #define PCA995X_IREFALL_HALF_CFG	(PCA995X_IREFALL_FULL_CFG / 2)
+> >=20
+> > +#define PCA995X_EFLAG_UNSUPPORTED	U8_MAX
+> > +
+> > +#define PCA995X_EFLAG_BITS		2
+> > +#define PCA995X_EFLAG_MASK		GENMASK(1, 0)
+> > +
+> >  #define ldev_to_led(c)	container_of(c, struct pca995x_led, ldev)
+> >=20
+> >  struct pca995x_chipdef {
+> >  	unsigned int num_leds;
+> >  	u8 pwm_base;
+> >  	u8 irefall;
+> > +	u8 eflag_base;
+> >  	u8 mode2_cfg;
+> > +	const struct attribute_group **attr_groups;
+> >  };
+> >=20
+> > +static ssize_t status_show(struct device *dev, struct device_attribute=
+ *attr, char *buf);
+>=20
+> Please avoid forward declaring functions.
+>=20
+> Shuffle things around so that it is not required.
 
+I found it a bit ugly to define status_show() above the pca995x_chipdef str=
+ucts,
+far away from all other function definitions, but if you prefer it that way=
+,
+I'll change it.
+
+>=20
+> > +
+> > +static DEVICE_ATTR_RO(status);
+> > +
+> > +static struct attribute *pca995x_led_error_attrs[] =3D {
+> > +	&dev_attr_status.attr,
+> > +	NULL,
+> > +};
+> > +ATTRIBUTE_GROUPS(pca995x_led_error);
+>=20
+> Are these documented as per the guidance?
+
+Ah, I forgot about that, will fix.
+
+>=20
+> > +
+> >  static const struct pca995x_chipdef pca9952_chipdef =3D {
+> >  	.num_leds	=3D 16,
+> >  	.pwm_base	=3D 0x0a,
+> >  	.irefall	=3D 0x43,
+> > +	.eflag_base	=3D PCA995X_EFLAG_UNSUPPORTED,
+> >  	/* Reset default */
+> >  	.mode2_cfg	=3D 0x05,
+> >  };
+> > @@ -58,16 +80,20 @@ static const struct pca995x_chipdef pca9955b_chipde=
+f =3D {
+> >  	.num_leds	=3D 16,
+> >  	.pwm_base	=3D 0x08,
+> >  	.irefall	=3D 0x45,
+> > -	/* Reset default */
+> > -	.mode2_cfg	=3D 0x01,
+> > +	.eflag_base	=3D 0x46,
+> > +	/* Reset default + clear errors on probe */
+> > +	.mode2_cfg	=3D 0x01 | PCA995X_MODE2_CLRERR,
+> > +	.attr_groups	=3D pca995x_led_error_groups,
+> >  };
+> >=20
+> >  static const struct pca995x_chipdef pca9956b_chipdef =3D {
+> >  	.num_leds	=3D 24,
+> >  	.pwm_base	=3D 0x0a,
+> >  	.irefall	=3D 0x40,
+> > -	/* Reset default */
+> > -	.mode2_cfg	=3D 0x05,
+> > +	.eflag_base	=3D 0x41,
+> > +	/* Reset default + clear errors on probe */
+> > +	.mode2_cfg	=3D 0x05 | PCA995X_MODE2_CLRERR,
+> > +	.attr_groups	=3D pca995x_led_error_groups,
+> >  };
+> >=20
+> >  struct pca995x_led {
+> > @@ -119,6 +145,77 @@ static int pca995x_brightness_set(struct led_class=
+dev *led_cdev,
+> >  	}
+> >  }
+> >=20
+> > +static ssize_t status_show(struct device *dev, struct device_attribute=
+ *attr, char *buf)
+> > +{
+> > +	struct led_classdev *led_cdev =3D dev_get_drvdata(dev);
+> > +	struct pca995x_led *led =3D ldev_to_led(led_cdev);
+> > +	struct pca995x_chip *chip =3D led->chip;
+> > +	const struct pca995x_chipdef *chipdef =3D chip->chipdef;
+> > +	const char *status =3D "unknown";
+> > +	unsigned int val;
+> > +	int shift, ret;
+> > +	u8 reg;
+> > +
+> > +	reg =3D chipdef->eflag_base + (led->led_no / PCA995X_OUTPUTS_PER_REG)=
+;
+> > +	shift =3D PCA995X_EFLAG_BITS * (led->led_no % PCA995X_OUTPUTS_PER_REG=
+);
+> > +
+> > +	ret =3D regmap_read(chip->regmap, reg, &val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	switch ((val >> shift) & PCA995X_EFLAG_MASK) {
+> > +	case 0:
+> > +		status =3D "okay";
+> > +		break;
+> > +	case 1:
+> > +		status =3D "short-circuit";
+> > +		break;
+> > +	case 2:
+> > +		status =3D "open-circuit";
+> > +	}
+> > +
+> > +	return sysfs_emit(buf, "%s\n", status);
+> > +}
+> > +
+> > +static ssize_t has_errors_show(struct device *dev, struct device_attri=
+bute *attr, char *buf)
+> > +{
+> > +	struct pca995x_chip *chip =3D dev_get_drvdata(dev);
+> > +	unsigned int val;
+> > +	int ret;
+> > +
+> > +	ret =3D regmap_read(chip->regmap, PCA995X_MODE2, &val);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return sysfs_emit(buf, "%d\n", !!(val & PCA995X_MODE2_ERROR));
+> > +}
+> > +
+> > +static ssize_t has_errors_store(struct device *dev, struct device_attr=
+ibute *attr,
+> > +				const char *buf, size_t count)
+> > +{
+> > +	struct pca995x_chip *chip =3D dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	if (!sysfs_streq(buf, "clear"))
+> > +		return -EINVAL;
+> > +
+> > +	ret =3D regmap_update_bits(chip->regmap, PCA995X_MODE2,
+> > +				 PCA995X_MODE2_CLRERR, PCA995X_MODE2_CLRERR);
+> > +
+> > +	return ret ?: count;
+> > +}
+> > +
+> > +static DEVICE_ATTR_RW(has_errors);
+> > +
+> > +static struct attribute *pca995x_error_attrs[] =3D {
+> > +	&dev_attr_has_errors.attr,
+> > +	NULL,
+> > +};
+> > +
+> > +static const struct attribute_group pca995x_error_group =3D {
+> > +	.attrs =3D pca995x_error_attrs,
+> > +};
+> > +
+> >  static const struct regmap_config pca995x_regmap =3D {
+> >  	.reg_bits =3D 8,
+> >  	.val_bits =3D 8,
+> > @@ -185,6 +282,7 @@ static int pca995x_probe(struct i2c_client *client)
+> >  		led->led_no =3D reg;
+> >  		led->ldev.brightness_set_blocking =3D pca995x_brightness_set;
+> >  		led->ldev.max_brightness =3D 255;
+> > +		led->ldev.groups =3D chipdef->attr_groups;
+> >  	}
+> >=20
+> >  	/* Disable LED all-call address and set normal mode */
+> > @@ -202,6 +300,12 @@ static int pca995x_probe(struct i2c_client *client=
+)
+> >  	if (ret)
+> >  		goto err_put_nodes;
+> >=20
+> > +	if (chipdef->eflag_base !=3D PCA995X_EFLAG_UNSUPPORTED) {
+> > +		ret =3D devm_device_add_group(dev, &pca995x_error_group);
+> > +		if (ret)
+> > +			goto err_put_nodes;
+> > +	}
+> > +
+> >  	for (i =3D 0; i < chipdef->num_leds; i++) {
+> >  		struct led_init_data init_data =3D {};
+> >=20
+> > --=20
+> > TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, =
+Germany
+> > Amtsgericht M=C3=BCnchen, HRB 105018
+> > Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan=
+ Schneider
+> > https://www.tq-group.com/
+> >=20
+> >=20
+
+--=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+https://www.tq-group.com/
