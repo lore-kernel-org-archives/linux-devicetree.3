@@ -1,124 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793074184;
-	b=yF+InwUCScbEb+ixlS39K16HESqxBMJh2Ooxe2LollUYdoHWHUkUx2yGkTQKWux1ktip
-	 pk75Oo4xPiBXAqM8SHRuTXJ8Hqp0OIspvoUWG7W8VbK+OIpcA4OS6ykURKQYaZN7e8MSV
-	 qHZ3jNG201b63Wsqd5bgD+1v2jbCN3nAMxyJbhlFC5sNJpNCx4TQQHrKhZYT1A8pwOmS+
-	 PxZOCM8q6WROwyCBkkgI7Hz5YG7YgTiFZTqh+wk+cUy+R3mysDXsHLCYKaY2MavlXdRgO
-	 y9ecccz/lvV4woxCzk3NcJn4l4OPw7ar4uYB3Ka1EMsfjnAuH13oqo5KatSTx7u5qqg==
+	t=1793074770;
+	b=3YCnCYnMYRYtKOnwFFShka6SsTXHxb4txhXNtO6X1KQbDtHFcYXiIibBpCZY1lkKWrQr
+	 5rHo7Mr1Tj+NHiZMxBNFftuORhzNhnait/AYNRmoWwcEjiUhXk+thIDLgidbXJsnFecP8
+	 zZdjpWvKRm8eNbR2u2/++uEmJYNDgM4v/TXxviWIzl50z9f9hO+iYkSibli/dgUiO/s4L
+	 e4KR0cPVdPt69wmglxpH7Pkki8c7bJSN/mvXWpK7hEvwwgi97fevuxUbvljHKau1w+id6
+	 lnc1IWj3ego0jc/IDPi/pFvc0ynduznOfor30LIdt9ly18GNyUm30GnEtbuQ9GwtoMA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074184;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vY8JNXJBEmY2//YzxHAKXEJvbfSWEbX5W88WIsAUIF4=;
-	b=IAVdj54W0lmMN8Z5hZgVXIqZoK52HTy+XSw1nVaAnIdpWb4jlHm9pLzMTfyldkL30jeT
-	 aa7UeOgdqPJEp64m1AUl3wwcLQBrY7mwTjVLLU5GjfcjKSbDfbJH3oO5MhFFv5M5ZiTdt
-	 VTzih/X06Ys5c+agwIHzwI78Z4yTliuESXOWsqSYVFm6bpWjFJOieyOMinzS0A2hCmE0A
-	 0gtefJjA5tLnowwTpapjU8qqq8v+uu1Xj3njHTrcPpxrNOc4iJ1IDqlpHXbRYZVDnCqP7
-	 xo90nucvVq4BcCSb/dvXLC+rNLng4MuL8h+jdyPbkLCX5Izqk7ipQqlzm18Lk8ClbnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074770;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=366VEW6ZdZXn8e5jx7sMNFHsYUOumtHmiOJYJWQ4+Wk=;
+	b=1bsMrWNlZV6GnXR5KE0hOKhuosqrxSTdZksQMHItZBliILY+qWu/QJ/eXx8/sx8DdQ/g
+	 tVJcOWgr2QhV42mtAxmSGzh7+ACOzNLGoR/7wB3RNqiqO+e+TDVqF4k/XwqnpCr4h64kl
+	 w4sITq9Ssvs3crhPlADcFGaw6YZszx3q2f5zQabdOl+XkZcHlXb6ycmPqiafhZbG1LATg
+	 ZzAeG76SwPlzc0BauEVKcREfQKsxA3ByAaHyZxLHE6WA5OrJDOZQZkIEul7yVZH39Mc/a
+	 RG7jzNJc1XQj4xwyLaxIPWr5fgJA9aJI3gJilfTVT6R76ApCJlIYssye/2is14fI0GQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jrp9PEbO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b30dbn0E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzweX0sK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A941C606A331;
+	Tue, 27 Oct 2026 04:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzweX0sK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793074769;
+	b=mkpbyKs92CbHeRALWKWVnlujgwHe7yhmHabDlUeh+4uiGjvyydc5A2ap5NETagJL7buX
+	 7jFAFVSWVXF+i6b4OtfLLIPa2dm6JPM1eBRCoEBxzubpqJtPRifgjX9VQGFNuKJxwaQ8d
+	 HR/11nQZh2OiUhRFqAccWkRCSsmuw83x8u4VJkYVgU7Qze1+FQoMxCdWJMnAigQ6eEbeE
+	 Hky2rI77GzM2k0EVVckwUVI5nJ3o3wu6ETgUESkTZ0yYzm2DFewDC+ifkwV2X+7S/zm86
+	 k+oSTi8SmZM5KT5ZUDmvVZcvug2nTtNDuDo4hysQQslOrFhwPTGqzrkyODtZ2s+6r3w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793074769;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=366VEW6ZdZXn8e5jx7sMNFHsYUOumtHmiOJYJWQ4+Wk=;
+	b=xTyHEEE04pgHqRfDi9PmBXcmL4FKTprbBtdHzJrN1HRNYZF6BwSqNUwYXAUGUPfSKSt7
+	 HfrzsLimCGA5l1uoPNPtaiIRig4nGl1LBfx2U/EGyk56X4IdbxGdm3SzQCGsL7ndUc9Z0
+	 i7qnje6nJxKaKO54ixcWGG/Sp564NxN63QcWkH/hjnGPfa1CKFRUa0yoLhHP+hI+1QeNF
+	 WzUXVVRN5fX9jfZFudh/HWlw4spAr6l616cCGPmbJ1bBLIyBupFICtOJ9x9P+EXRAOPF1
+	 Zw1Rp8bYGQ8AyxP79gK69xEKM+43ZMM09ZZyXW+Rp7LgfPf10ORWGHuUBmKLZmMqy5Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68692606A31E
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68692606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jrp9PEbO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b30dbn0E
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R2F1Mo3986836
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:09:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vY8JNXJBEmY2//YzxHAKXEJvbfSWEbX5W88WIsAUIF4=; b=Jrp9PEbO8E+rTtwv
-	XSkewXOHXjc+TWaVhnoZ6nf4ZFtVGFBK04sY3ZiyxEbIQRfaKny46gNp0YUwTvuu
-	NYUuzhAOIAxEngvKL/cB1c0SuThts2znYxF/8dAqY6NSmSTJV6RBC03UQzSi0oo+
-	xMVUhiq3Cedqt2kcG1gP3BlcqSwgeFlTTnr4zKbVuipNHQRqCCGI0fOptXrg1huv
-	syhhbPeratSZ+7dDB85YuLBtIRcQHMkmx/J3VNm/MFln9x4u5dr5Wo+/CRqiZCZq
-	dH6LHfqmNInKqB1LpQlk1BFlCd9rsMC7SD7fFeKyrJeEGLCdl5ch4ya/i0qt4C7X
-	Bh1ZPg==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj8smtp3a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:09:42 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eadfb67611so662594e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 21:09:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793074182; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jU1Cfs74OfacgHawV6bw6DdhmLZE+m+8wTP0DPNjjb7itjuDJcUwtdVFUGnBCvN4Vw
-         S+g3LSybMFTq6VHlUB8zwW1dmEpPO7+l+2UtWjhevwyyk54FzaNm+e5wAHIqCP2uOZ+e
-         spAECKmsrbq1GMnhEVTxv57m8aM4LFPWMSpgR8CY8tg4EtH9vcgZgnVqjX/23qKLaa28
-         x9CsoMTEFQfOaR/ZuMM2KZX1rwbeXNW1Ft95xRS04X/pGD386J5sqcYCcLxejcsJeh6u
-         rQJs8v2aMSXfibTPctVGsIKB+WxtqNUuCtI1IC3h02rL0z+sWuOo/HsLGBJuihoBPICt
-         aTFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vY8JNXJBEmY2//YzxHAKXEJvbfSWEbX5W88WIsAUIF4=;
-        fh=3yMfjFwmE/QdffVuZJGxJVmC0BGLpiR2MjaCPf2TPOU=;
-        b=GOlJOxQmpQS6eFH/Ax3g2EpMAESk+zQnwQRI5gDlUeEIO/DOx6e/CT4tzhEtwGhXLs
-         TlNe378YYdnwleATi3kHYsHtnis15uCvKbWvE3A64i8CFRzyXkFiLV5YDdKSPL1BWfUY
-         xiMmFW8nNxqh8dGVm8ZUSLD/MeRSAC6yuiAYuPXzEPRY3uAv7zWjNM+NI1QdNA9mglud
-         +iL8NHUBxE4Z1LtbYoJssuQLUaR0ALVC49ZZawA7rGCYXqMtxTYdx5H3VEmt1GQxz1e8
-         HXW49em7rPRD4gWj5Fg1RPUVOCD2679lP3GbIzb6Fq01etuFLV7AnVfX8Vh4FZoYRca7
-         DlMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793074182; x=1793678982; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vY8JNXJBEmY2//YzxHAKXEJvbfSWEbX5W88WIsAUIF4=;
-        b=b30dbn0E7eSYHbpwzUA+0uIauVn2Y3xZPyisawysax2bqq0jasQNx4r2MptFnybCM1
-         p0Qms1gMDsIyobp5o16PCJILzAR40S8zjx9XdCPKXxhvVtYufNxjEHPtThx4lNXVtcG7
-         quNV7MevjT0SJstZsPNyxgCyQ+qB3IuNrR1s42Jh4rWq/Dk57UwJPTdgf1O6DSv6tBjo
-         O9cCJmB7Oow9m8ziknLFJV22pPrscdgtauctwN+KMSDPDxUWOum+OpNCSBlXklnI9C7Y
-         feLrxB/TNZeYYbG5n8OnHBlLoWNTn4mjSeL6pvQVehKClw68iO5ddi5WBMp7Y82tLH8h
-         6NeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793074182; x=1793678982;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vY8JNXJBEmY2//YzxHAKXEJvbfSWEbX5W88WIsAUIF4=;
-        b=ubwWBEMoYaJWOp3TfVESQV5jFnh7/YrAwpriq0sUsKP+fx55DAo1ByODUvVCO4ZJnB
-         WT+9u96GGUS7mno5F1sapXVeKFAUonvNBPPB6L5okhE16tgwhh1rJD26RXYr+yHMePm0
-         JcH/4SJshbItxgybitTTFwY0srJSX4hH7p2VAGxkSvq44zeKRUCJ8nSGBhB1Gm9K+Y4n
-         u/LzvkJkMxn2jGqXOOm5b0elYHB8NRSdGSTK+qZ/npRIvqLDCuZoSFJeZKZb95IL/CIM
-         VPK7oAQQjFmqyPRanUq3qT2M9rZPnFR7x6nylElMjiqyf4PKs9fKE0YotaKxABGa710E
-         GqxA==
-X-Forwarded-Encrypted: i=1; AKwUvByg0ti7jHm6Vv9gzIJetUFFQI/t5+NmlmGXtt/9eTVa4UBl6PmYrhfW/HQn0R3eAMV397izktbCQ7i4@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbKAHbdYjtcYSjU4bK4G1tUNzVYTaJu2p+TuOUhpkPvBhhzhVv
-	BwqMboOHsgrayycxVBL0Wp2ffUH23wTMTF7ZkqyYlu8Vtg/43/yGV64nEtQfSMTjEz84v27e5pT
-	hHmB0X3swC1D6X4CgjEqjPUnBoj3CZQkNyZxQLmPfM8/xzfpWTwaApIvy9KX6yHSFDW1DvwtPaA
-	ttONWfvXujJJ7yxke4sPtDkYgM+4bGac1Gl8EaCxw=
-X-Gm-Gg: AYBFou0CSSX0j/7SSZf0ngYNednDWQ9Ak3HZtq3Eatm1+pacYtYO4ZwrD+MQDbMuVVV
-	7nafs3YGd17A4cZp/CQpyL24i+9AGrW2BDbVkboKEtAdzbvjII2/4ORAYk8PpNYsuu4Fndkm38A
-	amKRSAepgfEy5YTljWRbuzQog5N6dpyS7haRNJsSkmk1l7fX5oeLPM3QRtx0C2II2nbmT1EcnTs
-	upv1a/9PJy6s3D9dQ==
-X-Received: by 2002:a05:6122:d2a:b0:5ea:dbae:3cb1 with SMTP id 71dfb90a1353d-5ec232fd7e4mr3193904e0c.19.1793074181379;
-        Mon, 26 Oct 2026 21:09:41 -0700 (PDT)
-X-Received: by 2002:a05:6122:d2a:b0:5ea:dbae:3cb1 with SMTP id
- 71dfb90a1353d-5ec232fd7e4mr3193894e0c.19.1793074180884; Mon, 26 Oct 2026
- 21:09:40 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 41C551F031E0;
+	Tue, 27 Oct 2026 04:19:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793074769;
+	bh=366VEW6ZdZXn8e5jx7sMNFHsYUOumtHmiOJYJWQ4+Wk=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=XzweX0sKPZ0vbH49VpCgso7NNhfHv7R7B/3wUViYWO5aNZRVamXK0hlOtCrNAyGl7
+	 ad3+GNd5n1LFbYqpctkftjYOF6ZVF+KmOXQFdtcHbgCXXz5XBNu2vxEpqCBp4TJJuS
+	 5O2ZMuaJg9j3IdU+Ug9TKjTkYZr/gm+/swAL5c4bxZLRajZw1BAK6B+YFduX3WdNKx
+	 15Wcj33PijYmmTezlvLZCCvcvTLOZCLimvFuXjT6V+75g3u0IqVjMyWtaJxhpvoOxO
+	 2kZ3tqfCn4vdymQph2PhPC4HmKKgACzeaYo9J8OAIx8obj8MFQFs3qItBT/d23uTbK
+	 xd4syQVKRmBhQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8F6F644F80;
+	Tue, 27 Oct 2026 04:19:26 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Subject: [PATCH v12 00/11] gpio: add Ambarella CV75 PL061 support
+Date: Tue, 27 Oct 2026 12:18:47 +0800
+Message-Id: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -128,122 +83,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com>
- <20261024-kaanapali-camss-v22-12-7da3ea49c8a1@oss.qualcomm.com> <CAFEp6-22zEVoTQ8ewQN4CGW9GARZB84Mp_-SO7KrteYERSew2w@mail.gmail.com>
-In-Reply-To: <CAFEp6-22zEVoTQ8ewQN4CGW9GARZB84Mp_-SO7KrteYERSew2w@mail.gmail.com>
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 12:09:29 +0800
-X-Gm-Features: AclHuK9zQUYmMt2_uRNQKGHKLEw3Bs7CkPsj4KjP69u-e7zyINlKrBFyGote1T8
-Message-ID: <CACbMrhr3imVV6nNLisD+gh=wLPn8ziw8wRL0UW6e-6by2RufFg@mail.gmail.com>
-Subject: Re: [PATCH v22 12/14] arm64: dts: qcom: kaanapali: Add CCI controller nodes
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: LiEajS5EtRfBWfr1tAaUDQ86HttKuqr7
-X-Authority-Analysis: v=2.4 cv=Sfti5fRu c=1 sm=1 tr=0 ts=6ae02406 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=VpRCVQi9ATEJuri8zQAA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-GUID: LiEajS5EtRfBWfr1tAaUDQ86HttKuqr7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAxNiBTYWx0ZWRfX9AHx1aEZx4Xu
- UpjSRENafSphPsDgkUJLuAvCbzwlHxDPIwxnip0Rex6xQAt88X8I6z1dyh61C9ffVPKu4/xyyLt
- TJ+SGrv5gXWp3ZHdwqSIsUjjcqkNQpY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAxNiBTYWx0ZWRfX1Pm+KDuIgiyu
- mCFVsz4rccVbUFBTPdKMiCYNO6zQQTTKTr2AOOGAw51bzqzk5m2mE+gqq55vGPFcMOa8MH+1651
- BOUinuQACbiYtbajgPx1xKRuAkUAqYnyc4oVTuM8U3iWtuHXmiSAZ7WwMyOZ9cpHLNOCL2AEJlY
- mtSd0xT/VtTyYeDr0ZSdXwfCa+J4mc1IEH7aeg/iKykJL/Ua7HcnFZt1eKyC67th74UaI0dPx6h
- XVX6Fa5sGxUhuUQNMMRd2+4kLv1uAtkcgyWz4sIcDLLQYhu1il6SSZicP1+PLQMSW9+xOSoo3zq
- yex7f4Lx+8ZzwGjBFSfqe04Gqgwgh1NctYk0+PF9Nb/uzC1SElkceVueMmkyyt8n+8iWDZaxSC1
- eFwcmQ4AcnjQJWl4V1bgkuGZxczobAghd/3gsVq9l2N+kXpNReImi4TFlst9I2m6rAwfXhl/VXV
- ddrnaRKhStR3QK1jNxw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270016
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACgm4GoC/22OwQ7CIAyGX8VwFkNhDObJ9zAegHWKUWdgEs2yd
+ 5dtMZnGpJe2//e1PYkYPEayXfUkYPLRt7fcAF+viDuZ2xGpr/OAcMZLYExRl5Skx7tvqRCiVg7
+ qBgFIzt8DNv45yfaHuY8Pe0bXjYIxcfKxa8NrupaqMffxwuxNuSrKaKFL57iuTGH1zlytCXi5m
+ I1rr2Q0J2ALGOTiqbzKvGhQoBUgjZR/eVjwnH3xkHlkUluDUEkFv/wwDG8J9AvUNwEAAA==
+X-Change-ID: 20261007-cv75-gpio-333d7c1dfe11
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Chanho Min <chanho.min@lge.com>, Mika Westerberg <westeri@kernel.org>, 
+ linux-acpi@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793074764; l=7280;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=0Vn5YE5RTpq1wislFUO7xmSSDUKpa3lVZ0MPoFilmtU=;
+ b=s7I8jicPoyLtTHuSyKNV+f0J41pMCxLZ+ChxLtXsQadjOzgriZTg/aXTBu3IlG8Gr7eezMgPL
+ gt/5Er5SIbIAQD7jBR1ExVAQqkKYuwdEevBn2u+gJzhZY0j5kxWnYPb
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-On 10/26/2026 11:55 PM, Loic Poulain wrote:
-> On Sun, Oct 25, 2026 at 4:17=E2=80=AFAM Hangxiang Ma
-> <hangxiang.ma@oss.qualcomm.com> wrote:
->>
->> Add the three Camera Control Interface (CCI) controllers present on the
->> Kaanapali SoC. Each controller provides two I2C hosts used for camera
->> sensor control, so define the controller nodes and their pinctrl states.
-[...]>> @@ -4534,6 +4645,198 @@ tlmm: pinctrl@f100000 {
->>                          #interrupt-cells =3D <2>;
->>                          wakeup-parent =3D <&pdc>;
->>
->> +                       cci0_i2c0_default: cci0-i2c0-default-state {
->> +                               scl-pins {
->> +                                       pins =3D "gpio110";
->> +                                       function =3D "cci_i2c_scl";
->> +                                       drive-strength =3D <2>;
->> +                                       bias-disable;
->> +                               };
->> +
->> +                               sda-pins {
->> +                                       pins =3D "gpio109";
->> +                                       function =3D "cci_i2c_sda";
->> +                                       drive-strength =3D <2>;
->> +                                       bias-disable;
->> +                               };
->> +                       };
->> +
->> +                       cci0_i2c0_sleep: cci0-i2c0-sleep-state {
->> +                               scl-pins {
->> +                                       pins =3D "gpio110";
->> +                                       function =3D "cci_i2c_scl";
->> +                                       drive-strength =3D <2>;
->> +                                       bias-disable;
->> +                               };
->> +
->> +                               sda-pins {
->> +                                       pins =3D "gpio109";
->> +                                       function =3D "cci_i2c_sda";
->> +                                       drive-strength =3D <2>;
->> +                                       bias-disable;
->> +                               };
->
-> Why do we have a sleep state if it's identical to the default/active stat=
-e?
-> Do you want gpio with pull instead?
->
+The ambarella vendor prefix [1] is in linux-next (applied by Rob).
+The binding can be applied with this series.
 
-The sleep state is kept so that the CCI suspend path has an explicit
-pinctrl state to select.
+Please take this series through the GPIO tree. The quirk, the PL061
+conversion and the Ambarella layout belong together.
 
-As discussed in the v19 thread, SDA and SCL have external pull-up
-resistors on the board. Therefore, enabling the weak internal pulls is
-unnecessary.
+This is v12 of the GPIO patches from the combined CV75 series. The
+posting on Oct 9 numbered them v1 after the split. That was a
+mistake.
 
-However, I agree that keeping an identical sleep state is redundant. I
-will change the sleep state to GPIO function with bias disabled, while
-the external pull-up resistors keep both lines high during suspend.
+These patches convert the ARM PL061 data path to regmap, then add
+the CV75 layout. The series now carries a gpiolib patch that
+requests ACPI GPIO events for gpiochips using an external irq
+domain.
 
-Link:
-https://lore.kernel.org/all/d30d2b5b-0034-47f0-8e93-9abde4dad118@oss.qualco=
-mm.com/
+GPIO data path uses gpio-regmap with two layouts (ARM PrimeCell and
+Ambarella). ARM PL061 sets GPIO_REGMAP_QUIRK_SET_AFTER_DIR. IRQ stays
+a custom PL061 irqchip. The linear domain is instantiated with
+devm_irq_domain_instantiate() using the PL061 private data and
+attached by gpio-regmap. regmap-irq is not used.
 
+Tested with lockdep enabled on the CV75 EVK. The board boots.
+gpio-hammer toggles gpiochip0 line 26 ten times, and gpio-event-mon
+on line 27 records alternating rising and falling edges. unbind and
+bind work; the chip re-registers and both tools work again after
+the rebind.
+
+Changes in v12:
+- gpiolib: request ACPI GPIO events when a gpiochip gets an
+  external irq domain, matching gpiochip_add_irqchip(). A gpiochip
+  that gets its IRQ domain through gpiochip_irqchip_add_domain()
+  never went through that path, so _AEI events, such as the power
+  button on ARM64 ACPI platforms, were not requested (Sashiko).
+- switch: give the child IRQs their own lockdep classes (the gc->irq
+  keys stay NULL on the external irq_domain path), and clear the
+  chained handler only after it was installed. The previous mix-up
+  could leave a live IRQ with no chained handler after a failed
+  probe. Checked with lockdep on the CV75 board (Sashiko).
+- switch: keep not setting the gpiochip IRQ resource helpers. The
+  gpio_chip is not reachable through gpio-regmap's external
+  irq_domain path, so GPIOD_FLAG_USED_AS_IRQ is never tracked. This
+  matches the other users of that path (gpio-idio-16,
+  gpio-pcie-idio-24, gpio-104-idi-48) (Sashiko).
+- convert: put the locals in the blocks this patch touches into
+  reverse Christmas tree order, and keep regmap_assign_bits() in
+  pl061_set_value() like pl061_get_value() (Andy).
+- switch: leave the chained handler's regmap_read() unchecked.
+  mis stays 0 on failure, so the loop is already a no-op. Call
+  irq_dispose_mapping() directly (Andy).
+- pl061: join the split dev_err() string, and use str_high_low()
+  for the level debug line. str_rising_falling() is not in
+  linux-next, so the edge line is unchanged (Andy).
+- Link to v11: https://patch.msgid.link/20261020-cv75-gpio-v11-0-e058bae19571@ambarella.com
+
+Changes in v11 (from Andy's v10 review):
+- pending: keep generic_handle_domain_irq() on one line.
+- convert: fit regmap_test_bits() on two lines, return
+  regmap_assign_bits() directly, and put the new locals in
+  reverse Christmas tree order.
+- cleanup: fix the guard()() reference in the commit message and
+  use scoped_guard() in pl061_irq_mask()/unmask().
+- pl061: keep gc->parent in a local before the gpio-regmap switch,
+  so that patch does not rewrite every log line.
+- switch: keep the existing GPIO* register macros. Split
+  reg_mask_xlate, drop pl061->dev for regmap_get_device(), and
+  instantiate the IRQ domain with devm_irq_domain_instantiate().
+  The remove action is registered before the gpiochip so devres
+  unwinds it after gpiochip_remove() and before the domain removal.
+- Drop the flags variable left unused by the guard() conversion.
+- unbind/bind cycle tested on the CV75 EVK.
+- Link to v10: https://patch.msgid.link/20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com
+
+Changes since the combined v9 [2]:
+- dt-bindings: explain that CV75 is a modified PL061 (Conor).
+- gpio-regmap: move quirks after fixed_direction_output (Andy).
+- gpio: pl061: Andy's review on the regmap conversion and switch:
+  use regmap_test_bits()/clear_bits()/set_bits()/assign_bits(),
+  drop the redundant if (pending) and fast_io, introduce the ARM
+  regmap_config (including REGCACHE_FLAT_S) in the convert patch
+  and leave it there, blank line after guard() plus the blank-line
+  and reverse Christmas tree cleanups, and keep the upstream
+  pl061_irq_chip name and unsigned irq_type() trigger without
+  adding .name.
+- gpio: pl061: cache DAT (REGCACHE_FLAT_S, not volatile) so
+  gpio_set() does not read-modify-write the pin level (Sashiko).
+
+Changes since the Oct 9 GPIO posting [3]:
+- gpio: pl061: Andy's follow-ups since that posting: assign_bits
+  for DAT writes, drop fast_io, name the ARM regmap_config in the
+  convert patch, the guard()/blank-line/irq_type cleanups, and keep
+  the upstream pl061_irq_chip name and unsigned trigger without
+  adding .name.
+- gpiolib: regmap: add Michael Walle's Reviewed-by on
+  GPIO_REGMAP_QUIRK_SET_AFTER_DIR.
+- gpio: pl061: restore Andy's and Linus's Reviewed-by on the
+  Ambarella variant.
+
+[1] https://patch.msgid.link/20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com
+[2] https://patch.msgid.link/20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com
+[3] https://patch.msgid.link/20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com
+
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Michael Walle <mwalle@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: Long Zhao <longzhao@ambarella.com>
+Cc: Long Zhao <zl020895@163.com>
+Cc: linux-kernel@vger.kernel.org
+
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
+Long Zhao (11):
+      dt-bindings: gpio: pl061: add Ambarella CV75 variant
+      gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+      gpio: pl061: drop redundant pending check in the IRQ handler
+      gpio: pl061: convert register access to regmap
+      gpio: pl061: use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH
+      gpio: pl061: use cleanup helpers for locks
+      gpio: pl061: keep the parent device in a local
+      gpiolib: request ACPI GPIO events for external IRQ domains
+      gpio: pl061: switch data path to gpio-regmap
+      gpio: pl061: add Ambarella register-layout variant
+      gpio: pl061: tidy up IRQ trigger logging
+
+ .../devicetree/bindings/gpio/pl061-gpio.yaml       |  25 +-
+ drivers/gpio/Kconfig                               |   2 +
+ drivers/gpio/gpio-pl061.c                          | 543 ++++++++++++++-------
+ drivers/gpio/gpio-regmap.c                         |  15 +-
+ drivers/gpio/gpiolib.c                             |  10 +-
+ include/linux/amba/bus.h                           |   1 +
+ include/linux/gpio/regmap.h                        |  14 +
+ 7 files changed, 415 insertions(+), 195 deletions(-)
+---
+base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
+change-id: 20261007-cv75-gpio-333d7c1dfe11
+
 Best regards,
-Hangxiang
+--  
+Long Zhao <longzhao@ambarella.com>
+
+
