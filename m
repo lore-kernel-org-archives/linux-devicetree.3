@@ -1,81 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086939;
-	b=dhl8siROhXhDmY1C5jJXOU0xBNh4Wfi8uApDJUp69/LE6gpTmkGjKxarTDP59eT9l8uE
-	 H+n6cxP39k6ZBXKRDptwvZoKLes74Fm8bU/VpE9UyMM/zB5aBPfywUEccsRBYsgJSA1W8
-	 lcIJvF6IyNc0/ZjvIW8XUSGrKbIihR76KacqfQu7YlUcFfy0PNPW7qcAAaxI5IaOC4qvD
-	 XPlMDUNfGkX990StNkto2z3FmB1LeoDunh7cE7ZJx0s66ODIYz8pUv27k7POqsydmijYc
-	 6eSl3F6J6pgqrbCuL8ehXHQIF32L+/NzSkGIRkvzO0IwBZ+OUHFwb64QtWzy9WlwXfg==
+	t=1793086960;
+	b=K0s8FIOspQfR7Nn2Ij+NaA9jNubAytQQFlg+hD/17TjjT+4zZAnb27CVe+UFRVPUkIcV
+	 3a83ufknwl/rLDTbGnK8zOPxLNur6yu5xsOs/vaerP2wtFHj2zttgfp86y/L0kGKr7gjD
+	 abNpmM1RFGEJ6LBV5fxr1x00GPRaA/17ps4OLgQB+1V+RgF7D983fy/H/T2jmNGGn/iH/
+	 yecoUGN8wracr6NLuo4TC8Ba4+oQ1Q9X05Cacj9UWMEZQKDiGG6gUAwxpEVtCwdXVLhwV
+	 N5z4MtiweBRLqkEo/W7wA7RdWnrZz/61E/0G8xmcnpYvMJ5bKFNfWgjUi1sZhADzLUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086939;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=j2jvnq5LBuUdBxcMULF2dTy1RDa5fZBuXG3BJydri2s=;
-	b=b3T+iDIJ+bCz4Gg+ASk2gfGhGM2WzOSKr0OQaagLojoVanHWHE4KlnTaUqsF/OPNRj27
-	 zgF6F0XiTCe0yjvoBTvPBC2a8+OCg+465UWI8h/NNA3IlK+jGN0FetWXZWZxVq8b1Ns9Q
-	 bCNQw2J6N2lEyb5pAy3xBb+qiW36A9qJH2fzvasVWxeLXRF1R5QWbWNneCBgB/Ht7x2J+
-	 bI9aPE1eDZ3xWE5xj7k9AJ9UCg8wI4cBdmNx0Acif9w6JPKL9BsHpILxVU4fhx23oj+ah
-	 Ir90Fjzxh6ihLMuu0v6nMKBCcvFFVE2GezKuDX/gd4vkVDI/yp2h29u0wVhwwLbp85g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=m157EeAc5sLNKhs4hlgrRGXu0UKUNCa1GXuB3p4hzOY=;
+	b=XjHeJ23IbC38fX5urRHOlZRYIO4vKWjhqz20aOM2e3l3uBnZLY0umz1plYoWEeWtWPVG
+	 tH+a+Y17rgNmSJVH4TgjBRpPc2MXWmBQVGnPkCsvRmNenszbRznDgevAhjNSNtRCtYcTm
+	 p5Vn8+5KcULqRfUtHNbxBwt+u9VO/kMnMzsWUS2MTZZ0ahpcENrTaSen7jBid+t0rsAc6
+	 /KC3tAe6RxwOik+4ym3VUzijBWK0Xfe0aeygCnEt9MCEI3mRBD7VQqHenKBwHWDNyx1Z2
+	 MIgJCOXsrYJUTmJ6pwjxozY4GkjrrCyFbfZSeGNpjAjbdP89SEanjwkCfpmWDYfnD7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="G4KV7/h3";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bg0ZV5ty;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA40606A32A;
-	Tue, 27 Oct 2026 07:42:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA40606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEBA606A321
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 07:42:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FEBA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G4KV7/h3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793086939; x=1824622939;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pn1XPwnW5qbEYdycg//2X2b1luLlW5dMRLslulayEAA=;
-  b=G4KV7/h3kMq2aAuLu6MH1ngL8Fs5ZwTV9C4YlT1a5jH5EmX5vMrGhehy
-   T4SoNRc+9aF908YahibGAXQdCOE4RXqqgZja6p0elMgfmMsiIFNs2SKt5
-   cNCbBcKRQYj2BVhQ75NLKktbuqYJgven6hUyIL6XvlBq0WyFpNcWLtOuq
-   ZylBLT0mAJSDER9+m/ZblO68RcjPym4sha0ejb4bDBeNtR7dC06unBgea
-   PqGFFSAmB0JEstASyjgiJp+/zcllVqwpKkZ9dwtBez4hZ0QoKod7X7kNF
-   OHxv70gnEa/QIiYjkZVFGVIjfvXt1zA4D6scSGEXXBpu+HKX1mgaW+XzZ
-   Q==;
-X-CSE-ConnectionGUID: DpQfXUKYThieRUtQA4UKMg==
-X-CSE-MsgGUID: U0QKeUjASVeY/p/XPGTQSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1676337"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1676337"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:42:16 -0700
-X-CSE-ConnectionGUID: omhmNodsSJSg1YXWO+XiOA==
-X-CSE-MsgGUID: yI5dg7QyTh+i/8rkkHOfcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="6354734"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:42:13 -0700
-Date: Tue, 27 Oct 2026 09:42:11 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 07/11] gpio: pl061: keep the parent device in a local
-Message-ID: <auBV0591Hjnl5i60@ashevche-desk.local>
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
- <20261027-cv75-gpio-v12-7-c22555400e18@ambarella.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bg0ZV5ty
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc502d509c0so1150022a12.2
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 00:42:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793086959; x=1793691759; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m157EeAc5sLNKhs4hlgrRGXu0UKUNCa1GXuB3p4hzOY=;
+        b=bg0ZV5tyvKeUdgxNvo06M65SzckWh6FJ5biqZI3EyhgQPXrgz067S6DVryf/CgbT/X
+         Udq/oc1QO3G3n761M/eEQqtYlzWia5ls5dhvxtELQNkwCq5BIevV1DpDclRneTghEHKK
+         mC35/sUop7jSxGcZR4Z3oe4x6YhE3KiaRJfkqLBrdQpWASjO/pzMCUz0y6QM9W02cF19
+         pgEjTon3KVrB3JHUgEMHZd9VL+Opek5AhSS2pQQEw+3qy9Lo1/J3aFi5dTKdwoVnQoEp
+         pP82kTEotOUlzys239CkugFBuLaEG6Nr3TGzlzv9rodTzy21tmwVTZElMVzVU5HHgMfA
+         vQng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086959; x=1793691759;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m157EeAc5sLNKhs4hlgrRGXu0UKUNCa1GXuB3p4hzOY=;
+        b=f67msaCdJKMs9Mhn5rQKScFqaoMMxndVRJfXy2ePXr1pcnv7eFZZP5ai9MB01yLKJ7
+         JoCTWaRx0+/w1CW0dBJ3EIW1IQx+XFQNA2eJkI52fQQxDMsiqYEQHke8naBFeFPPQvnY
+         r/3dPb2DjfBQQ8nT9UiZm2Y5Qo1NdaVqhxM84MUCUeLf2m0xzEagHn4Bo5tT/jiYkuJU
+         2DNkwCLTbM6hbP5HfSQHiA/KIEG7BE1Vd+rDZ60ZcesuWOo9mEhhC8viJ9Hdc8/ZBJAT
+         B7t9H/Ze70ijMVr6gTl96MjvCnmDfK720HwFE9g1Ku5EKEFoqxEstj5Bmxe6JEhrg1Y3
+         rf6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwFCp/WKCjMWdGkovbpMhcM9ErDohH1LdmPnphCEQCEE5zXVltGcrBobBXf/f2x39Auy/1T/h24M2ES@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK5Oj7UCaOL091FXjMFx5rcjLpKBJwVo3XrmFtRZ3i9TpEDh2e
+	UPx/uaTR8CbsVFQVXf9rHyCYdNPXO3ij33XRclb87BW4Rmqm9SXXED8D
+X-Gm-Gg: AYBFou08snYqCjO8LcHOKxBHfQUzCJ3+GEBw7Baw6A0gTFPnS1huNXzY/sn8NjkSchi
+	K/LQamR4Rw2/ZduyPNEOOzIdbl44Fr+C4VTitm61d2C2u9zcdWd1oTE+NLwGtIFCicjJqbPGDgA
+	yGDRsaodcwTQ9BKVeMv4af0+QlUqv9xhQDS4H8tFUvrOk3uhbpdMobV3olGBgiRK9XRctkHiif+
+	+Y0YJcB1ZSAikpLoOwwx9r7Uiqoug8QWrsodPVi+DIpds7CMpoU80zyMQF6YxDwh3QqmfguR315
+	PwfxwsRcOdQxtReATaCr8liVTgCKMwd1YTxTU5xamvCabV4DcuMipSIvW7YrpMn9fpNmcE+scLV
+	lO6ZsbuYBgXf1rO30hqx+/6OvhMyiteJVeosALzMke1uQmLZRxtLO4r9/g+cSR4xFlYLD6hMSwg
+	1ryySp+sIJsCZ8fhpSt4Z+PxziKdTmJapGNoO5ZNqNukASVGFT6v24pYCF5K9LZdd4yWpSqWHUv
+	7I1SePtKC9CYejEbBcV2x69Ox4YwCs9QvAIUtl63DZHJfdc3a445MWTrxKENWPM88M9v2ym3vce
+	U5A5QRbUYwbcTMzrPXn7HIFJSIsjQu90NHWEfLs3dhvpn69PWI1kBXnZd6vH9Qvm7FHt/w==
+X-Received: by 2002:a17:90b:17c1:b0:3ac:8af9:4a77 with SMTP id 98e67ed59e1d1-3adea8952f8mr7118560a91.10.1793086958931;
+        Tue, 27 Oct 2026 00:42:38 -0700 (PDT)
+Received: from localhost.localdomain ([218.194.41.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4064f4bdsm2504189a91.11.2026.10.27.00.42.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:42:38 -0700 (PDT)
+From: ShiTou Hong <redstone.dcity@gmail.com>
+X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	ShiTou Hong <dc_redstone@outlook.com>
+Subject: [PATCH v2 0/6] arm64: dts: qcom: sm8250-hdk: Enable additional peripherals
+Date: Tue, 27 Oct 2026 15:41:40 +0800
+Message-ID: <20261027074146.3911012-1-dc_redstone@outlook.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,30 +98,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-cv75-gpio-v12-7-c22555400e18@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:18:54PM +0800, Long Zhao via B4 Relay wrote:
+This series enables additional peripherals on the Qualcomm SM8250 HDK.
 
-> IRQ logging uses gc->parent. Keep that device in a local so the
-> gpio-regmap switch can change where it comes from without rewriting
-> every log line.
+It wires up the SDHC2 controller, the LT9611UXC HDMI bridge, the FSA4480
+USB-C protocol chip, the PCIe ports, QCA6390 Wi-Fi/BT support, and the
+PM8150B LEDs in the SM8250 HDK device tree.
 
-...
+Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
+---
+Changes in v2:
+- Add a cover letter to the patch series.
+- Reordered nodes alphabetically
+- Drop `output-low` and `output-high` properties of the pinctrl nodes.
+- Move the `status` properties to the end of the nodes.
 
-> -		dev_warn(gc->parent, "no trigger selected for line %d\n",
-> +		dev_warn(parent, "no trigger selected for line %d\n",
->  			 offset);
+Link to v1: https://lore.kernel.org/all/20261023072832.2642647-6-dc_redstone@outlook.com/
+---
 
-Make it a single line now.
+ShiTou Hong (6):
+  arm64: dts: qcom: sm8250-hdk: Enable the sdhc_2 port
+  arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI bridge
+  arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip
+  arm64: dts: qcom: sm8250-hdk: Enable the PCIe ports
+  arm64: dts: qcom: sm8250-hdk: Add support of QCA6390
+  arm64: dts: qcom: sm8250-hdk: Add PM8150b LEDs
 
-		dev_warn(parent, "no trigger selected for line %d\n", offset);
+ arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 454 +++++++++++++++++++++++-
+ 1 file changed, 438 insertions(+), 16 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
 
+2.47.3
 
