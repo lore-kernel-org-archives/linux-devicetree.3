@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112012;
-	b=4h/S7KBowYp2gip1d8jreNHg+mNCkGvAVmBG0CUchV4+W55qTMcXqm3HM9ngPo2+up90
-	 6pNWwhKYX4j4JnizXT8to8UOFzSdIVVXpFALSm8i74XI/x1v6r3MwFMXIQzOLRpfPymcW
-	 zKARiriC9thjYdwVchjcSgj9Bc/NcxHTBJU6spKm6gVB39wbjA5FSte4NAw3FxigH3+g4
-	 veNcc6M+zL5jL+Bu6qjRmL05nhfEnNUvtZYRGoYWY3jqSuRuSNf7aHbgbyp9rYpHeNvEm
-	 o8GsEz3M3kiPDPbRTeYnfdMXwjA5nF5dmwnVRhb4TC4RgJ8n4bssD3N9aC8N2Sq93ow==
+	t=1793112013;
+	b=jdg1vzbyZyv2YELhxaUqxdgICXclps1EboOZlIEy8jRAe1MK/SJpRxtdLa+iQJfchyle
+	 YZwKfMkTaygTRcoYKIWb/Bv2iDe2H+RrmmQMO7CfwKxnDRFtfzbtz5stmGp3FWYwrYcn5
+	 nT9EVw8dTMGsNIvaHb9PqZfhJgueW6woh1qEadIneFvFBduFl2Sig5tsW+6UvfbOpKOT2
+	 8mZLY6+WRBLoAfXJzo7Mu3U0zWfa/4KT/TBQ0VcnxWadmUutWEKjzA/EHN2IX+5P/VR31
+	 3YaKr/Y6OuBjmuzDpO5QW5MGwXdFwJCY7orjX22UWNaJYyEew4choRPp1ZO6Qmn+8mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112013;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=f+FSGmmtRncCiBbsjEjoljPu87wlMKlOjOPIMoQyEbs=;
-	b=oA0xIZo1aFD2E1CBpP50tsejn9ENNw+9t3TFvdLRfoBpDQ25612NKNsIiM0h2Gj9kQRd
-	 Ols0RtAvSp5xMijhauVI4MVOmnGv0Ld2lYdEyH6ytEljn0G6N6kaGqd2DOyjcaqbNd0Ft
-	 ylcuzQkT8uHqZlHwLhC5jw5YeszxbkT5gMfXmJq1VRS2plyyjPsfSUh78JAmys5vyFuyV
-	 NFCC0PAbKYGSQuu4Hoes7tLDr2mshzd9+Ywj2i/Qfqk/ZcSq3+npL0IoZOZJKBgnSdUfd
-	 w6yOXMbXpzXaPTiUoOiGJtvDFZsSjgzw0dgyVezFEHfRw1ki1MdTHCQNXHP/2HmdHSw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ssGW1Dqn9NQO094E/8Ttr3abz77jsGgzbaDPU8z6CLQ=;
+	b=ohxMWSQTGcPx/enioOLPM573Ij3LUV7pyv8Upbg49gEz7gXFRp5LwyZnak13Q6k2Fk5e
+	 +ax7FVD5h2VBBgBjTBpMfJGza+Bntv0MCv/K4/XeAfNfgmkjUq52W80WcF9VP9+DVZ8s4
+	 XTLBzD/K1lvN9TL7wiGpMby+eUUScj8e422PXTWEFlERTLR/jf/yXH9ZmJ+xqAS6hh4M3
+	 o8zWNE9Mz6Mgx8Ejo9NVRNiFMJAd5CFHPT3Rp14T9AYjR4MsTu8JW6eNU2Xla95i+tffp
+	 33YVilgo8qnQmCccIyiXaX9JAmN9v/GPGeqJ5jTJZD4yNmAFeVAVH1NC4Q7umDc0NBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uQfYoMZM;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2VJm2rP;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29689606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B800606A326
 	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 14:40:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29689606A31A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B800606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uQfYoMZM
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2997403f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 07:40:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2VJm2rP
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e00eee27dso2762447f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 07:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793112010; x=1793716810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f+FSGmmtRncCiBbsjEjoljPu87wlMKlOjOPIMoQyEbs=;
-        b=uQfYoMZMNn1b1mHbh6BEdHCCn8DL5Aam6pau5FsCwoApvaqSWc6sLxG21oIz17BYzI
-         L0k2l7bv0VS+ZIGumi42bUm84ELP45TwdrWN3CGoU7IbX4XU9LVeg9ofwkfWCjDWWz1s
-         JNOzuoyKHh1F8uyfb3dhlzvQbJV/xEVomKgYc8DNOYZ3/WHWf95BJw1t7uF1D4XGgMWQ
-         sETGkTXXDsBUpc/3S+2vBdIWiMGUQKNj3B4bxzUjSfYAlbPnX6qrzBXFbEx42cfzsofz
-         Mi4j8QfggNhHyZhBbRiycvz1LOO+Hw7lrmym7Hv1C6DVZP7HCAQ9Ue1bh5z0yKowys24
-         SB2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112010; x=1793716810;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793112011; x=1793716811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f+FSGmmtRncCiBbsjEjoljPu87wlMKlOjOPIMoQyEbs=;
-        b=g+HqUNbRIcfrFmVP+stujEDGIeuHuR1Odap7XwvbGpm6bwP9LdF+co/uiX1jinagTc
-         JwECGhMDXw0LEfRCH9XLF1aXNc4b9lap3ks+LORAn+1WIs3ceDquCBnCM//UUCVVDNaN
-         VOd0s0NygC1VaXhhATHfigrS3DXyhneRf35vkCB7Jo9ViBBjdS2av2QghQYNRPdlAXu1
-         BfiZ9lEm/28/WNU6vCLWgoYVG0gNbn632cgGO6SXhjMQrcjgyJywkR6RdC/qQyD28TDW
-         7qHeZT6lSxFCnfqoc02ObF8He6aCSY1teJYruCM8U6brSntVyeph3GViwMSj4KdyS+1I
-         ROhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfozOOWWFBpBd8pGztyl+BryRz6cfGKnJJPie7lNUfxeLyGXhTpqYkMj2MrvrNZ7ydKivUR3XbLpCU@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvu7dveZwT1d2BrcIH6vR7nV+ikfVgPzKgxo/MOMlph2jBleI8
-	uvQopoRq4f7jlwICD89DWQl21PbDvYzfbDFVpCcXb+D0g+NDaR34fktk
-X-Gm-Gg: AYBFou0bYS29pAYaEk2yA/Aj0JaZ4N4bIzi1VVVRJDhTfR/Jyw1GynyZ+2QLOuklKTz
-	CxdAOKpBuUzt+GbOW0IPjuRrvIdiPNGEKWAPOmLI4s689XrGbioJhFoaciiPSksUjdTtkA7w3fL
-	iiyJNadSqdnG4E4zGhKO2LGY0JBcYIHYSfN75hXFuz75ME2s/wSwQmXOQWojS4+ebGcORSclSwj
-	dTh7QdNbnNglUi6XpkW77FXgGoYNgosG7Y1ywuvXMb1+DwBhhHlhkvpAYqsxT3beB72gFa3fNDi
-	UYSvgXXUbLQnfaR6tKaPL827M/fU2j1wNHI2vT+lKXH+a+iXnipF8i/gEXa0NEsxIrCjlH/eoXz
-	wRmrotbwkBzDggUvD6TLx8a885MbbcspAEqo89kc99qAh6kHnhF6yXlCiBKM8SUTS7z5DAve/xN
-	NVlaUELHNlTF1rz6cl8JuwotmMW3E0iAHb77kCAFSvBE5ptvvgukDEDtJUFn8HkrmBtXpz3witv
-	Sbelw3cRDf71HLC/Xii//ArkUNtgnG7IWWtwjQgpuVCaRsqYB9qGbdLPAAnu68e4MYhdxFlKlY6
-	nDZ9SaezuflSpB/7mRZ2g8IU+V5XANT/NGZZChFJwHmuxsTz9R+sstT/rvN0
-X-Received: by 2002:a05:6000:24c6:b0:48e:3cec:b852 with SMTP id ffacd0b85a97d-48e3ebb0fcdmr20256092f8f.40.1793112010059;
-        Tue, 27 Oct 2026 07:40:10 -0700 (PDT)
+        bh=ssGW1Dqn9NQO094E/8Ttr3abz77jsGgzbaDPU8z6CLQ=;
+        b=j2VJm2rPL8dKoGJ5IAD837xozfaN1bHUYYeUTo5hq2LnuJZrIJg+KJfxbTv/5cC0hT
+         QXcGC/xhuLi33OWTMbx1SrHFI69l2+Oypn8lTDoXNPcn3uzdDkcNDNbpZWA7SckTH98l
+         kxKwbPVOtsrU9Whq67KApMl5KY/aJiHpnL0XUY55LyPFxQBVzRMNNg7tQ7tUpeDqnh7q
+         9tzcEZ20wdy7TBHddU1djSbtqFou0GVBzzMBitqcWAjWcnx3FImJJs95qAXFO7l6eJvJ
+         9sgB1IWutAaejD9a9uLnhotVH3rU6RQJZTwg8pY5Ef3oWQCwCunmqjaM1sBEF6YO5ugv
+         shqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793112011; x=1793716811;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ssGW1Dqn9NQO094E/8Ttr3abz77jsGgzbaDPU8z6CLQ=;
+        b=CYWs2g0bkxP0ocsp2CBQczr51FSUzMu49b2NEp3C4uYybUGLX9R6xkmTrFtE5mQRAP
+         WF/JVmSm3Hllffpx592pIY5jRKyL5pI9uBHNVO2MafsUcKrw7w7n/P1NsE2l8AKt0o2w
+         LL1A+FAi28VkmHCdhwDCx+8PNY6cFbE4EUo8SOWsLxwrLQntdZ2Uxt6YpG5Bkqcc3a1e
+         jW0OmFcQjp/V66XFRvqUVccfhWcVCXvGc8AWGEaq2HfSAXGXpJumDD8UQpNlJvxpaHve
+         K+rv46CelbtY8MLRCLhbbbTt/knvK3kISrWkUO4B0lAawzHvJRPdPj+pqtRgel6xAbQn
+         Sd0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwCnesLO0YaTkZ9PWUXTC34+1FEdJlwqD1qrF8dHuqmhJwngW4tJ+0t2smR9Uo9CJmuh5poTWGUqatE@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSaIiBB8sBThJk4I+orxY9FZcvnk0wxcUCTsUUCTii2e/dh/FO
+	C8/NaDK4nSrMD/EdSYJlYWHMcIVAVOJAcrAJu3v+cqdevpPzAspFKTA3
+X-Gm-Gg: AYBFou3GFUXAfBIF/IQrhQ8m1gjQ7E0YoPiMis/II/FuEdiy4YTde7EeHUy6aqgMyYj
+	H7BvP5iYP5FdSgawxepdEMH9hQdRC1PtG+ou950HcmN6ixjYQsw+KEK6UuvfBBdsK6kPGhmddaR
+	3N3K3efwB7Ms2RgoTMQNEsht0RX1b+/aEHWoDPBnEOpXhpEPAuNHYX+Xe6mIewEe7VTxGs4xbOF
+	ZX3KV7xAc1KwESoYjLzrVuBn6AY4l50TUzGwwMhJhQnPEmBidpayGKMqaegBVkzyXwoXAQe/4Zr
+	XIK8wU2IHz6w6CrdSlVM2a7EZgmfADV8TSwSbF0KonuCWvxifxBzQvePKAuW1TXIru/3hVYA/sX
+	KCpKsVz7sugFnRaho7tsiC5+DDVUMDs3y0UmPD5l6UJhj4p4vcioiaEcYpxQ6TidprD+gQ5JJ6Z
+	hQmSoNX09dJ7qcM0Ntu2JFU/1vlBAn9ebSpzSYMyfpOaiuU0QNjurntEFsFaihi9a1G06pD9Ubn
+	vEVsiLbZMZGD6MXV71KMmZWktPVF7U7BxFYa7kEANZ0GkITvT9MbtaLjjX4QSfjVBDCKtj8QBRe
+	rcjseKGB0+80meOH/lD9S9c2MDGUInddSsUyegs9WGzFkjs4nu542yosS9DU
+X-Received: by 2002:a05:6000:26d0:b0:487:91e:d8ed with SMTP id ffacd0b85a97d-48e3eb2ceedmr18881590f8f.2.1793112011312;
+        Tue, 27 Oct 2026 07:40:11 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm23354151f8f.25.2026.10.27.07.40.08
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm23354151f8f.25.2026.10.27.07.40.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:40:09 -0700 (PDT)
+        Tue, 27 Oct 2026 07:40:10 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Chaotian Jing <chaotian.jing@mediatek.com>,
 	Ulf Hansson <ulfh@kernel.org>,
@@ -92,10 +93,12 @@ To: Chaotian Jing <chaotian.jing@mediatek.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v2 1/2] dt-bindings: mmc: mtk-sd: Document support for Airoha AN7581 SoC
-Date: Tue, 27 Oct 2026 15:40:00 +0100
-Message-ID: <20261027144002.10606-1-ansuelsmth@gmail.com>
+Subject: [PATCH v2 2/2] mmc: mtk-sd: Add Airoha AN7581 MMC compatible
+Date: Tue, 27 Oct 2026 15:40:01 +0100
+Message-ID: <20261027144002.10606-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261027144002.10606-1-ansuelsmth@gmail.com>
+References: <20261027144002.10606-1-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,48 +110,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add dedicated compatible for Airoha AN7581 SoC integrated MMC controller.
-The MMC controller is based on the MT7988 with the difference that it does
-have a single clock controlling it.
-
-Add the dedicated compatible to describe the 2 register requirement and
-permit to define only 2 clock (the main one and a fixed clock for HS)
+Add dedicated compatible for Airoha AN7581 SoC that implement a dedicated
+MMC controller based on MT7988 with the difference of having a single clock
+controlling it.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
-Changes v2:
-- Also add compatible to restrict clock-names for source and hclk
- Documentation/devicetree/bindings/mmc/mtk-sd.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mmc/host/mtk-sd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/mtk-sd.yaml b/Documentation/devicetree/bindings/mmc/mtk-sd.yaml
-index a4d032224dce..704d59360bcb 100644
---- a/Documentation/devicetree/bindings/mmc/mtk-sd.yaml
-+++ b/Documentation/devicetree/bindings/mmc/mtk-sd.yaml
-@@ -14,6 +14,7 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - airoha,an7581-mmc
-           - mediatek,mt2701-mmc
-           - mediatek,mt2712-mmc
-           - mediatek,mt6779-mmc
-@@ -182,6 +183,7 @@ allOf:
-       properties:
-         compatible:
-           enum:
-+            - airoha,an7581-mmc
-             - mediatek,mt2701-mmc
-             - mediatek,mt6779-mmc
-             - mediatek,mt6795-mmc
-@@ -238,6 +240,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - airoha,an7581-mmc
-               - mediatek,mt7986-mmc
-               - mediatek,mt7988-mmc
-               - mediatek,mt8183-mmc
+diff --git a/drivers/mmc/host/mtk-sd.c b/drivers/mmc/host/mtk-sd.c
+index 5b160fdad3f0..736cff2783e2 100644
+--- a/drivers/mmc/host/mtk-sd.c
++++ b/drivers/mmc/host/mtk-sd.c
+@@ -713,6 +713,7 @@ static const struct mtk_mmc_compatible mt8196_compat = {
+ };
+ 
+ static const struct of_device_id msdc_of_ids[] = {
++	{ .compatible = "airoha,an7581-mmc", .data = &mt7986_compat},
+ 	{ .compatible = "mediatek,mt2701-mmc", .data = &mt2701_compat},
+ 	{ .compatible = "mediatek,mt2712-mmc", .data = &mt2712_compat},
+ 	{ .compatible = "mediatek,mt6779-mmc", .data = &mt6779_compat},
 -- 
 2.55.0
 
