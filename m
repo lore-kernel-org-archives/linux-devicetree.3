@@ -1,88 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793074957;
-	b=zvjTbX+HDYPRLpRwZ9ymPDNSNYmzD98Vk0iLyeWbtoKJDMyxkJHjl82+LHQT2AXZFqd7
-	 e/KuCxRNrE0H6uqn5T642kS+8bb0DrBekw4KBXhh8fYy6fX2hF7ZcHoMrjBtMamrHj2Pt
-	 fPCz42QhLD5sECEyxiOynsib9qTgtkgvAjF5aNcVI3K1eALxXJeSgjBd9HJ/uMab+WDFl
-	 30/SiL100Q4c+jYdbHjohi/+99SLO4sAW+VqeG0Ri1fmVyNw9dBgkR0b79Zj7STGpQtUd
-	 igwrk9aSYwYi2QyCxr/Tlhfk1hWU494rz5O33XQZCaP5Arx1CfOKrOvm1a2wgJuf7cg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074957;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
-	b=2OIto17uD5yKXA7FNbuuYqUapbkNSRZWIJj9JUPsKkqna34Mz7tKBIFiG9PqtSrlwzni
-	 6YlKNxd1FsKAgVj9APriRjrUOZbMrvqxDZSev7LNl3q7lkk7pq+5YZgwyWPrm1prGwotK
-	 271T09mUDTjGjvtUWJNAYilmjKrLcE0xzbOSZfMzClaAFdZM1+mBhDNXvv7HyoB8GCO36
-	 zU5MFw69TzLT3LpRO4uMPMtX0XDrFmLqYSKuh/2zIIJal6xpbenwrbHD10uJ0JfJbbcfc
-	 qFbxuvOFzmOewPiz0dw4k3hJOdHdRoTY97xYDOc6YbG3C4vBm05KLayYE5Z0mfyufjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+wGxFL6;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793075217;
+	b=EdJGwpl+wnZpxWbEhl9y8+C101irH11QwB0MR1if4kqMUQRkWJ2o6OasDI9d2HLr106q
+	 kABn9MYlNLWeUVuk93vK0TvTetBsDsWWGgn2J6rxDtujp94jhBUqTFHMi3fPpkRtKLZCs
+	 ozJivuuPza9R/CqLFsTTqCSUxMRzRLn4HYfeIh9NLD9Eq331udYeOjubGaQfOwEtTu557
+	 AzD43iYHbVSgFf0RkqMArtUGD7WtrWTEA+NEUj/y501cqTnWlsXyVZ+/Lr8d6sMNOJW65
+	 x1Xo/rr9q/F14s3kqkG54jytO5xYnrEGYeUNNgXTVF+OJjrwyD2KvHfHn0EfPH/uk3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793075217;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qnmd60cdhtCtvxzhnPhgKIcxLf3UawWMBkYI+AE2XFM=;
+	b=FsjvN5vf6oHid2xjzIq6OSJIJ+5xfP+1IQw2Tm7ebaFxG5ZvAlo2Vn95whLixsibrUjN
+	 rekMueqeUlJxVLGRCoHY6yHyzTsWLgYnwNh3IxlZdnXrkHherY3x7GaFvf+PnPxVANcsB
+	 8O2YZydezGFT8o9vuD80D9k1IHXQJ1r+An+4Rmp6ttgQ6DStDN5MUc5vGC9CVgu0K1AxU
+	 L48Jpj/qMgfx/CZAWjfvmsj+Fq/RCldlYaN9QpN5AqCFXIg5fDFtQGjhl2lWYRL6vvw9/
+	 HOGMUcDcJZsy7o9fzoGAj1c5nEPEemP5fyzYq6HwmXs9NyIJWS825bH8xBc+PyodyHg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWdUgzXB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JguEorj1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CFA60A260D
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39CFA60A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE2C606A31E
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE2C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+wGxFL6
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1a2761c69fbso2274162c88.0
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 21:22:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWdUgzXB;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JguEorj1
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R2EuYk1348708
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:26:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qnmd60cdhtCtvxzhnPhgKIcxLf3UawWMBkYI+AE2XFM=; b=iWdUgzXBcnZtNJQ5
+	49eWB9KnM2mby/Ra9xncGXEAhRUpjwiKpTbXVN4ctA+nP7FNDaTqVB+Np5I/2CRQ
+	WWmtcC6JYZ6lSc1VeGB05ZZFQA4VkLoB4E8ZEbbIUUw+49EJbKMo8+ZB88dOHZap
+	m6xyC8m6Q30X7Ped2XD0S4+UChoAp8KswWK7hoPtMOxhghr29dJGOUxW8hcQ4XPO
+	KD7LerWeTdCw/0OYr0TUELNPzPhJiNUDBR4QqQkMuHpKSAkgIXyF2HGNlj9TCb7z
+	ra+MPyL9MOAnO+uz5QRgmWS0rYMtw+qj/2W30vw0J7el0k1I2ntiZ0vLATHtkOdw
+	Q2XysQ==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbt8g7n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:26:50 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5e96da6516bso3919328e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 21:26:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793075210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ILtOI07BJnjbnGrAI3NqY4oOAxVkH8QgxEhR3WKZ7LtekCd5XV0ixnaXL/x1XobZg4
+         1+KmQfAOByM2AHqCHieTdYfvOiEKUEJIPUjZUMMFqKPfG14saFpHS4Mt4j6nJkaC36EN
+         VAlS8wYtaAMNzYan98M1R3SzQMCektBWvOy9tfB/D5mXHGG9YPHV/EPgGmFhQkh1KSQ4
+         BExYT8O1bt8HQN0UtVrIrIyQ5G74GtMn1Zm6rLXWkHmCWg34xjERh6n6oOUq0eLJpQSM
+         /iP3/qycse4fcxc3In02BdOpGDnq4wsqn0ucXrmNFrsQNljY2s12JtNXu43jyukhyEL7
+         HqkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qnmd60cdhtCtvxzhnPhgKIcxLf3UawWMBkYI+AE2XFM=;
+        fh=i02eUjJhfOm4t22HBQ50wsMREmiKoyLFqjVl/QDa5Dw=;
+        b=L14E3IRGMyiAQ4roz7gxpN/hj++QSnL+DDZnIo8iAO4SMmanJw+zYYctiD0/Oz0Xy7
+         fi1p5PpFjn0lLDRGflmTDmEPiV41I/7mCQ3C0BoMoOQc8lnQHktKtzNaherbVL7vU6KU
+         H9Yc4AbTPCUlIEZUTR0qinEFK7pzUkNVORPXYq31sjwf0t7zM1LvWxLkoGDlfC6xyi2H
+         VvbJhlGi/8yWlsPciXJahXd7B7twiGoilTSUPEmrYdoJzLB7LdHVbVBsVrbnAaL2Fv3z
+         neyxuy/wOOdAXj+t+gU3JFJfZQS+vCmSDT6AvVq/gjni4x/CPexVDl7KZFPjjwDPBblL
+         j0Eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793074956; x=1793679756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
-        b=a+wGxFL6vPz0tnG4aLstR1Sq26EWr6OeWwfyyR+B3s7EKRImOBqVKYneGshHE7hBdI
-         WiO7OzK5q5e4hRb4/Ial5PuRZTJ02iTEAfp8oop8fbUybD+nR06tcM88nxUijMNcgNW+
-         NHthwmyQAopd3MzfgS69Mr24HMK8TLvNScZ79aLjrdNVhIJzq1/zRUvZgZ1EO6ULC8fi
-         D6pjKXER7cE5+FHbx34Ajlc4RU8Bd3+I8/UrG72742qxHu3vUTanKK9Z98vO0O+685ce
-         tiacj5nY/KAWZFMvFY4Cc8jLvsKh/EzGsVGLzCO3c/qfstw3nGh4VoH9zt9F5+HKgNTE
-         aCog==
+        d=oss.qualcomm.com; s=google; t=1793075210; x=1793680010; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qnmd60cdhtCtvxzhnPhgKIcxLf3UawWMBkYI+AE2XFM=;
+        b=JguEorj1DYC0ZHzRjcu+h6eEsL20UXSswiEk/FQVzneSKbaiVmZ606RHkmkMr6HQkh
+         xB67AKdZF7NaksJsaGwpF2ynbE7m7sfrtER0yPAhyWwUyJHNnha7wk55m1DaTqIqBLB3
+         ewmGD0O01E+6Lk9MiMtIc/x45erEfkogNGM4gMgoEdqfL4taCm2tBv34NuLuNWeDwHma
+         hNL41R4a1zG0XMhD4CkinKU238yCx27ff3TFWvLFtfrcrkVwE8f4O8vtQP5AeQXSuCWE
+         /fr0j47R1hnVyD0KaIWCVJmPSCR08uxyiIEfgZnprlO9P2KwCsNPH8Am1pOSAD/hP6Yo
+         ryBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793074956; x=1793679756;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
-        b=pAePnknFYzWmIi/acJlHnyh+8raLJLKltc5IRdQzdWnkBjH8M1kNPZWjIqTHo5iyt0
-         yfXc99cY7Wm+q2pRIp+WvBq8JCMlrOWPKUAukC9PYvD/Nf+FhFiWBEe+mmJbUPrga241
-         EXTzHjQduIjoEjivsjkADL7G7MvV5PMRohAlliPpSsXLAVY3doPrrJwXHSDOfiqz2Ule
-         lfIqbOCkGxd/5N4AilJxNbUHviftYOjg2eALqD/6zBko5oixZTsFrb5OAbgzvktEHK6X
-         Uad63b/Xh9fDTCIrGFJMavOH+Sf9rm04XlBhtcKH/gU0LjclEz5q3EEb5BCGjzi9o/k7
-         g6GQ==
-X-Gm-Message-State: AFq9FYL19KE5O+xVg0C5VaeJvFbPNyIPSgGL4I6xZ6VLvYnn1rJx/SqT
-	n4p0DbWwA8rQzjYos+JgDTLjNia4dI3zQCr7Vd3akRbE0Yd/5XLQGiUf
-X-Gm-Gg: AYBFou3Jdk4PRnTWCecilbvLXJ5FlfLX+9C4eI4PvxpaxgiG3pXDXO2b1AZWHhpQtgo
-	nP1c6EdFN5s+XcGxId1/evJvnACH2pBt9hjmf2DBaeKn+S6oLTBDlk1ck6wpxqFu1IPP83a6QwZ
-	MboWA8ylA9rhA90sDpx+S0XoA2cRlCWrUwT53J3qm9euXDaOVhnhiv4+uFB1om+rxOby6tEUTKN
-	4EqjfOfvwFsMFOX7HKIzHUiJCNVdcCofu1qE23KXoHkBrFwciEpXgQY6Gr5Dh1BtLWUIR/xvGh8
-	CAvyIZKI+d0qOZCtYP8jHE8Va6UIn2i9wwt4PEbO/7NRFmBN1qiekwkOLdWXcthmrFO0nXZvPE8
-	HbgAvR4Yt1G8K9HKqCRZPvec1/k3P8BJHIK+r57xz/mbT5y7diy+veSJ922r9fvSlMKUQDc78xm
-	qjSTy0lwRzzLi/LYDmay8LmZiDxSWCNePHP89bQRjTQ7dnG2Scl8Lym3MmS9jpyflXjPAp6wSmg
-	felLBUVAshMSLvypBkZgw6Y8PRM6DuJBR46sD1z7wqqfqOsawJe1fuluDTfzeSGrlcjNWA7rNGC
-	IXIN9uX6dx76kq04uLT81mKQ+4a+1IoiqUSTnVSJlGL9YNyCqjjjtJIW7iGkHxRF
-X-Received: by 2002:a05:701b:458e:10b0:195:c6c2:c6b with SMTP id a92af1059eb24-19937abc802mr11936974c88.35.1793074956099;
-        Mon, 26 Oct 2026 21:22:36 -0700 (PDT)
-Received: from m.tailc35649.ts.net ([2401:4900:1c0f:90b7:e702:7c19:441a:f9a5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm26568725c88.8.2026.10.26.21.22.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:22:35 -0700 (PDT)
-From: Mrigendra Chaubey <mrigendra.chaubey@gmail.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: ti: k3-j722s-evm: Enable HDMI display
-Date: Tue, 27 Oct 2026 09:52:31 +0530
-Message-ID: <20261027042231.499107-1-mrigendra.chaubey@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793075210; x=1793680010;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qnmd60cdhtCtvxzhnPhgKIcxLf3UawWMBkYI+AE2XFM=;
+        b=qAdruJxr074sSiA5g/FnWRlAO4eBR6PzcbcZeHNDBGmkPskN8YkJiiSfJw2RIACiDu
+         qqma3vxQp0mNHhRT+ZhGyv7+3DKHMWtIgwk2eBeA8Zz4Fa8ol+srSMF59ACAqGka6CcH
+         nelYiHVAwlPUtsqPylR/jZZClI3Wv1NApe+i+cK4b1J2yLKZalbMaPdDRx16nFyc0C+b
+         FAQ6NdOUYWhze0F6OzlOWVi2knPXgq6pq3ykZKb5b86DXnFkVJ0CuDDYTOV0G4bmgcUz
+         gmIBPtvgYEL2Wu4gMrX2a0Ky/Smb+gVf4zAWIG2TD1QgLch/pD+pQr11IorOkFaWEX1Y
+         E8GA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3B/tVK+li57JELtYIc3Y4c+KuC8/Z86qxxJA3JWwz0RBUrl/NXZRP8ncFvV/+CImJ/iMIz6uPx+ma@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRJBvGe8XNV5bH792Ia6xtbPfOe/Dz+4vhiFLRaZBO56DNSthK
+	L6BBhEPog34z6p3tku8h3XuPQwNrgLdr0CXVZsINdwiQVQGLI7YdoyA3efXheuHShzmQN+E7tm5
+	hZO1TBG6Gflhp7Dyr6Oh77VxQY+lZhGczvE++T9y5L+xbCW2tCTTQnA8roPLYJdmAq6JJrqvdBY
+	5BMPdLlb10HASThV5O79oKXCHpM0/JTxwyugqh3qU=
+X-Gm-Gg: AYBFou2yKu5kNs+HlJ57mdpr45zB9Y68mLp5jkKZ1mY4DEX6gErIRGW/2mNGcfMm1Xv
+	18uHlCFTYsZtcvm7t3SYo6IJshoTd61oZEVj13o9OJEEzPZLUAAzhmjCR7W90Xe/xt6kAhpwhyb
+	+0ZNTMaJwXWB+F60/pn5cNaPZaS9V7As1u9u1fOUOv422UFlnIRFzxCJAWZJZtkGQHaI/SKKCGz
+	b6ceZYweMFYrh6iyA==
+X-Received: by 2002:a05:6122:d1c:b0:5ec:a9e:d80f with SMTP id 71dfb90a1353d-5ec2323eb13mr3595409e0c.8.1793075209714;
+        Mon, 26 Oct 2026 21:26:49 -0700 (PDT)
+X-Received: by 2002:a05:6122:d1c:b0:5ec:a9e:d80f with SMTP id
+ 71dfb90a1353d-5ec2323eb13mr3595406e0c.8.1793075209303; Mon, 26 Oct 2026
+ 21:26:49 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,252 +128,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com>
+ <20261024-kaanapali-camss-v22-11-7da3ea49c8a1@oss.qualcomm.com> <CAFEp6-0b0+daADC6odCCgxgsBYEV6ZJx1eDUNHG=Vi60cA3ZFQ@mail.gmail.com>
+In-Reply-To: <CAFEp6-0b0+daADC6odCCgxgsBYEV6ZJx1eDUNHG=Vi60cA3ZFQ@mail.gmail.com>
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 12:26:37 +0800
+X-Gm-Features: AclHuK8va6xRV24M9rgTF_POC6JkORw-Ok48zk8PcpaxNQ1oNylaL8QpCWYsZNM
+Message-ID: <CACbMrhpYMs6CvAUzJbZDd4+JkpsUSoJaXHcF-A7a0wNoZQDhgQ@mail.gmail.com>
+Subject: Re: [PATCH v22 11/14] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAxNyBTYWx0ZWRfXwSunAwfYmobw
+ G6G2IcxArvLMIENWb6NnC4PxTTNnO3inxxUm9CcMnv0Dnjf0Eh5AX2AF802/7a3i+GQ/Kjo9aMi
+ wODcwRSQ/BfzGm3ypk8h8cCgPVS/Q40=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAxNyBTYWx0ZWRfXyyIzgIGvkt6T
+ hQslER7gIXJH0h96+pSHUsQqlXAvj0v6wQuu8Xpht5WC/RrymEmEarpEFQsMtIqubyQPvyduXmX
+ Qvn/o1ZQv0h+Uu4I9LUAszvT6yiRJNPz7l3F78BzWS9XSacH9DLRC3z4pD00BFRSgW8fShUVFBp
+ JUvK36KuUGUBvw6KuUNbu/iV+FBP9jvheScA0HREYl5U0Xn0UTRdwh9iF3tMulePNzucnp0ICm7
+ sV31iKfa/LDgVrfTVNClJjwUlXHvTXg9c8A0p9N8+IAXZUjmEZAH3WUx33tc3x6VgAlYpj3VMZ0
+ lLwWfc5N2SLfiVMjaETwE2tJoCX7dIfNPW7t0jTqzeuYgoBg2GVoW5qPZ6SXYMpOt+tH28GeGF3
+ uLcaLue2XBjazKrRGQJc60kEQkb8olwdQ/bTUzqOiRFpHjjqs2H9WdRVDPZxP5T4GlFCY5Cayjl
+ loh6x07zlfuEeAXeXhA==
+X-Proofpoint-ORIG-GUID: V21jpHCRWSVeFg7F8S4omoANNomtQ98G
+X-Proofpoint-GUID: V21jpHCRWSVeFg7F8S4omoANNomtQ98G
+X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae0280a cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=6iLt9ATBiMRDfCnMGdoA:9
+ a=QEXdDO2ut3YA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270017
 
-From: Jayesh Choudhary <j-choudhary@ti.com>
+On 10/27/2026 12:29 AM, Loic Poulain wrote:
+> On Sun, Oct 25, 2026 at 4:17=E2=80=AFAM Hangxiang Ma
+> <hangxiang.ma@oss.qualcomm.com> wrote:
+>>
+>> Describe the CAMSS and CSIPHY blocks on Kaanapali so that camera pipelin=
+es
+>> can be enabled by board device trees.
+>>
+[...]
+>> +               camss: isp@9253000 {
+>> +                       compatible =3D "qcom,kaanapali-camss";
+>> +
+>> +                       reg =3D <0x0 0x09253000 0x0 0x5e80>,
+>> +                             <0x0 0x09263000 0x0 0x5e80>,
+>> +                             <0x0 0x09273000 0x0 0x5e80>,
+>> +                             <0x0 0x092d3000 0x0 0x3880>,
+>> +                             <0x0 0x092e7000 0x0 0x3880>,
+>> +                             <0x0 0x093fd000 0x0 0x400>,
+>> +                             <0x0 0x093fe000 0x0 0x400>,
+>> +                             <0x0 0x093ff000 0x0 0x400>,
+>> +                             <0x0 0x09151000 0x0 0x20000>,
+>> +                             <0x0 0x09171000 0x0 0x20000>,
+>> +                             <0x0 0x09191000 0x0 0x20000>,
+>> +                             <0x0 0x092dc000 0x0 0x1300>,
+>> +                             <0x0 0x092f0000 0x0 0x1300>;
+>> +                       reg-names =3D "csid0",
+>> +                                   "csid1",
+>> +                                   "csid2",
+>> +                                   "csid_lite0",
+>> +                                   "csid_lite1",
+>> +                                   "csitpg0",
+>> +                                   "csitpg1",
+>> +                                   "csitpg2",
+>> +                                   "vfe0",
+>> +                                   "vfe1",
+>> +                                   "vfe2",
+>> +                                   "vfe_lite0",
+>> +                                   "vfe_lite1";
+>
+> I think we should probably start adding the CAMSS "top" register
+> region as well, to provide a more complete description of the CAMSS
+> hardware block. This register space contains, among other things, the
+> CAMSS hardware version information.
+>
 
-The EVM drives its HDMI port from DSS1 VP0 over DPI through a SiI9022
-bridge on MAIN I2C1. The bridge reset, its interrupt and the DDC/HPD
-level-shifter enable are lines of a TCA6416 expander on the same bus.
+Ack. I double-checked and found that Agatti, Shikra, and QCM2290 have
+already followed this newly introduced register layout. I'll update both
+the binding and DTSI accordingly in the next revision.
 
-Add the expander, the bridge, the HDMI connector and the DPI pinmux,
-and enable DSS1 with VP0 clocked directly from the HDMI PLL.
-
-Keep the bridge out of reset using a GPIO hog rather than reset-gpios:
-after a reset pulse the SiI9022 NAKs its first I2C transfer, so the 
-sii902x probe fails with -EREMOTEIO.
-
-Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-Signed-off-by: Yashas D <y-d@ti.com>
-[mrigendra.chaubey: squashed ti-linux-6.18.y commits 65b8b66908be and
- 589e383cef77; carried over the DSS1 ports node and dss1_pins_default
- from the AM62P DSS series; dropped the unused OLDI reset hog,
- EXTPCLKIN pin and bridge audio properties; added bus-width and
- documented the reset hog. Tested on J722SXH01EVM.]
-Signed-off-by: Mrigendra Chaubey <mrigendra.chaubey@gmail.com>
 ---
-Depends on patches 4, 5 and 14 of the AM62P display series v3:
-https://lore.kernel.org/all/20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com/
-
-Also depends on patches 1-3, reposted as patches 1-3 of:
-https://lore.kernel.org/all/20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com/
-
-Tested on J722SXH01EVM with Linux v6.18.58 and an HDMI display
-connected; sii902x and tidss probed successfully. Builds and passes
-dtbs_check on next-20261026 with the prerequisite patches applied.
-
- arch/arm64/boot/dts/ti/k3-j722s-evm.dts | 172 ++++++++++++++++++++++++
- 1 file changed, 172 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
-index c6486cf5a0..90c5151f52 100644
---- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
-+++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
-@@ -220,6 +220,18 @@ transceiver2: can-phy2 {
- 		standby-gpios = <&exp1 17 GPIO_ACTIVE_HIGH>;
- 	};
- 
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&sii9022_out>;
-+			};
-+		};
-+	};
-+
- 	csi01_mux: mux-controller-0 {
- 		compatible = "gpio-mux";
- 		#mux-state-cells = <1>;
-@@ -260,6 +272,14 @@ J722S_IOPAD(0x01e4, PIN_INPUT_PULLUP, 0) /* (B22) I2C0_SDA */
- 		bootph-all;
- 	};
- 
-+	main_i2c1_pins_default: main-i2c1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
-+			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
-+		>;
-+		bootph-all;
-+	};
-+
- 	main_i2c2_pins_default: main-i2c2-default-pins {
- 		pinctrl-single,pins = <
- 			J722S_IOPAD(0x00b0, PIN_INPUT_PULLUP, 1) /* (P22) GPMC0_CSn2.I2C2_SCL */
-@@ -366,6 +386,45 @@ J722S_IOPAD(0x030, PIN_INPUT, 7) /* (K23) GPIO0_12 */
- 		>;
- 	};
- 
-+	main_gpio0_ioexp_intr_pins_default: main-gpio0-ioexp-intr-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0110, PIN_INPUT, 7) /* (G27) MMC2_DAT1.GPIO0_67 */
-+		>;
-+	};
-+
-+	dss1_pins_default: dss1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
-+			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
-+			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
-+			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
-+			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
-+			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
-+			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
-+			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
-+			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
-+			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
-+			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
-+			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
-+			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
-+			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
-+			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
-+			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
-+			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
-+			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
-+			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
-+			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
-+			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (U27) GPMC0_AD8.VOUT0_DATA16 */
-+			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
-+			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
-+			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
-+			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
-+			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
-+			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
-+			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
-+		>;
-+	};
-+
- };
- 
- &cpsw3g {
-@@ -627,6 +686,84 @@ tlv320aic3106: audio-codec@1b {
- 	};
- };
- 
-+&main_i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c1_pins_default>;
-+	clock-frequency = <100000>;
-+	status = "okay";
-+
-+	exp2: gpio@20 {
-+		compatible = "ti,tca6416";
-+		reg = <0x20>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-line-names = "DSI_Mux_SEL_2", "GPIO_eDP_ENABLE",
-+				  "DP0_PWR_SW_EN", "GPIO_OLDI_RSTn",
-+				  "GPIO_HDMI_RSTn", "HDMI_LS_OE",
-+				  "", "",
-+				  "DSI_GPIO0", "DSI_GPIO1",
-+				  "DSI_EDID", "IO_eDP_IRQ",
-+				  "OLDI_INT#", "HDMI_INTn",
-+				  "", "";
-+		interrupt-parent = <&main_gpio0>;
-+		interrupts = <67 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&main_gpio0_ioexp_intr_pins_default>;
-+		bootph-all;
-+
-+		p04-hog {
-+			/*
-+			 * P04 - GPIO_HDMI_RSTn: keep the SiI9022 out of reset. Not
-+			 * reset-gpios: after a reset pulse the bridge NAKs its first
-+			 * I2C transfer, which fails the sii902x probe with -EREMOTEIO.
-+			 */
-+			gpio-hog;
-+			gpios = <4 GPIO_ACTIVE_LOW>;
-+			output-low;
-+			line-name = "GPIO_HDMI_RSTn";
-+		};
-+
-+		p05-hog {
-+			/* P05 - HDMI_LS_OE: enable the DDC/HPD level shifter */
-+			gpio-hog;
-+			gpios = <5 GPIO_ACTIVE_HIGH>;
-+			output-high;
-+			line-name = "HDMI_LS_OE";
-+		};
-+	};
-+
-+	sii9022: bridge-hdmi@3b {
-+		compatible = "sil,sii9022";
-+		reg = <0x3b>;
-+		interrupt-parent = <&exp2>;
-+		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				sii9022_in: endpoint {
-+					bus-width = <24>;
-+					remote-endpoint = <&dss1_dpi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				sii9022_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
- &main_i2c2 {
- 	status = "okay";
- 	pinctrl-names = "default";
-@@ -844,4 +981,39 @@ &mcu_i2c0 {
- 	status = "okay";
- };
- 
-+&dss1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dss1_pins_default>;
-+
-+	/*
-+	 * VP0 ("vp1" clock) drives DPI, not OLDI: take its pixel clock directly
-+	 * instead of through the SoC default OLDI /7 divider.
-+	 */
-+	clocks = <&k3_clks 232 8>,
-+		 <&k3_clks 232 0>,
-+		 <&k3_clks 232 4>;
-+
-+	assigned-clocks = <&k3_clks 241 0>,	/* DSS1-VP0 */
-+			  <&k3_clks 240 0>,	/* DSS1-VP1 */
-+			  <&k3_clks 245 0>;	/* DPI Output */
-+	assigned-clock-parents = <&k3_clks 241 2>,	/* PLL 17 HDMI */
-+				 <&k3_clks 240 1>,	/* PLL 18 DSI */
-+				 <&k3_clks 245 2>;	/* DSS1-DPI0 */
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		/* DSS1-VP0: DPI -> SiI9022 -> HDMI */
-+		port@0 {
-+			reg = <0>;
-+
-+			dss1_dpi0_out: endpoint {
-+				remote-endpoint = <&sii9022_in>;
-+			};
-+		};
-+	};
-+};
-+
- #include "k3-j722s-ti-ipc-firmware.dtsi"
--- 
-2.43.0
-
+Best Regards,
+Hangxiang
