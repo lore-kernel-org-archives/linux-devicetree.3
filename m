@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090773;
-	b=yfKj2jLv9ljt3/6pyUvRuwsZ59/uze6XVPoUAlo9z/knrBwCdN52GNmU3WZICDv78I4Z
-	 kn40ZsiFpkkoQFpvibNxDw1LDpMpi2DOSJj7hTaaKu1OGxTgpZRp5q9a92Qqn7PLgzNfB
-	 ExALJCbHsL37H7/VBMu89dIkf+0xlk0K72O4tTu23emKaIpqj10Fu6/ZBO3KS6kFHDzoX
-	 WrfERfo6madGTN5bdXCvBjgHbydeLJmSel/Bq0qGgYZWb1DjWDIMGskFczOymOoTMdc1D
-	 aQBwsb87D42tNK8HXfs20TrH+dMZ73NN+4h5xUlQ8n+e5kEbtaNH0pm+DyBc4vjXxPg==
+	t=1793091003;
+	b=1tzUmVLv4kpndG/0IsP4cLJB9I05unCQ8R7hN3xHXQ01/L2ML9VyloSVQlJls5377PNM
+	 v+JPalw0fnbNZ3O/J+9iM76ePtxNC4FScJ3B6JuV+vEFrv+7+i/VZNjD6zpPyUBBwTRuK
+	 kCv/hy+i81feqLQJRpdiaA5KYP1ELC9HvOJ5lkoVK/ERPnQqVwiVmbuqPNVVHC9OljZ/r
+	 f4JMMuw2pJeZiIiz5N0adBmWvLHPikfONy8eA5fh9T+e0GbxFlmUgNTdtKt97Ne7l41vj
+	 yszPH081ZL0DdKh9KKJR3vss3AnO6+C9or3FLUrjwsJZ1VDOxJSLHTr8FWR8Hiu36yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090773;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=CSDnY2+EpC0A6qfUh4OJfRDawLSOsU0FBryWMPhro+0=;
-	b=AzqptW0V/mSsFar24Rg/pOf80n2worwEPkOtBSqrsDllGqYzODhfbyY+8S56k3YL6v3p
-	 jmDpGQKZAg8MyVa1c4HczJB6VmHqDdfh4ykZdSv8iVSW2M8GIkORzhMWsknWzAL5MWx8o
-	 TJSReewpr7D6NsN5vfSiSyEoXeqwkGwKNWtK15fxskFX2UtXMLgaf4ZIfUG4XVaqICff5
-	 ij58GeLqOR89MAiibXD+Ei/urFjIDvheE3xiteWNF3wjfytRg+sXDv2qgLmEzxyOTuujR
-	 Eyizi2ajOOHf6xluHpbRfXLaq96bbkMpPR72b+kXVZDQowSsyWKcm0hgIWvek0rbOEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091003;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5EFAEjqalCpQmC13QtUMO0BxdXX+KAUF6W7F68d/WQw=;
+	b=LdcF4Ugk9S5ccuHRinWoAoYOKBb359rQRm2CKXdF+7s5+XcRnyht4fthFgCfOGNhfZ7f
+	 xQukOu6FvnsM7Uy6x7BHvsjlSKOV4IS/yYWzZPzLEiqbK5eGE8yfmZT0kMNjGRbN4saeQ
+	 lKsWNEHWsmNnS4K9XmKVxsYK/9PqsqbbDqPLC3j+GVS+EsZdw40GYKNLqyB7F27RJfYzN
+	 Rco1shtmDFdgvbdL4Pm0zB913BTtvBHIW6fz+9hQofNTj+YYm9n1WvfHM/cLGbz33mQyu
+	 PzzPViKyrjKZ3ZB3ySIrbYzxObfSNJ1UkC95cOoNFEoDchYmyJDZg/b9odNqCMD03Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="DYY7/zi9";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvZSwC0S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8EA606A31B;
-	Tue, 27 Oct 2026 08:46:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8EA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E759606A31B
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DYY7/zi9
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 84341C79AAE;
-	Tue, 27 Oct 2026 08:47:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 08AEA603BD;
-	Tue, 27 Oct 2026 08:46:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8809E10329093;
-	Tue, 27 Oct 2026 09:45:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793090761; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=CSDnY2+EpC0A6qfUh4OJfRDawLSOsU0FBryWMPhro+0=;
-	b=DYY7/zi9FjTqvNbno8coXmmIEmIhesBXCpG8qUPru3z5pRo5hRi1dUaJLen1HcpjdpMA1M
-	w8RKg8cdIdliJ/mhfVVwnmFj1wOqlnv2ImO+kQu1d/xi2nTnK9D51yIAEC0EDekKIOJsj8
-	FfSRtaMME+9eD+7Q0HpILdBuaPVOAQtPYd6Y5pTefrZHUzowe31/GDgVYck8FT18Olwu88
-	3hsR2BqT4AAwlzDfQRdlmggqn0beyfB3QeeUlH6jXprZEKGrxre79Qy6vqPgugAWIrbV20
-	G4hbikkfPlJYcDGCiJEuLs+F5W5iMwZmzRdIIslJI/wzm17/a04N0NV/h96cNw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Brian Masney <bmasney@redhat.com>,  Stephen Boyd <sboyd@kernel.org>,
-  Abel Vesa <abelvesa@kernel.org>,  Peng Fan <peng.fan@nxp.com>,  Frank Li
- <Frank.Li@nxp.com>,  Sascha Hauer <s.hauer@pengutronix.de>,  Pengutronix
- Kernel Team <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>,
-  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Ian Ray <ian.ray@gehealthcare.com>,
-  =?utf-8?Q?Herv=C3=A9?= Codina <herve.codina@bootlin.com>,  Luca Ceresoli
- <luca.ceresoli@bootlin.com>,  linux-clk@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  imx@lists.linux.dev,
-  linux-arm-kernel@lists.infradead.org,  devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/5] clk: Use v2 rate calculation on i.MX8MP
-In-Reply-To: <1j8q3kkd8t.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
-	message of "Mon, 26 Oct 2026 10:44:18 +0100")
-References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
-	<atjIIHkoNwBVDO5b@redhat.com>
-	<1jtsmch5id.fsf@starbuckisacylon.baylibre.com>
-	<87h5icnzs9.fsf@bootlin.com>
-	<1j8q3kkd8t.fsf@starbuckisacylon.baylibre.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 27 Oct 2026 09:45:55 +0100
-Message-ID: <87cxsvh6po.fsf@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvZSwC0S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86E91F01825;
+	Tue, 27 Oct 2026 08:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793091003;
+	bh=5EFAEjqalCpQmC13QtUMO0BxdXX+KAUF6W7F68d/WQw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TvZSwC0S+JnpMMcV4DQlOAjgChQi9Sd5Mjb/VMHjqQHaZogI1BqwobauaQXSI6dev
+	 MyFfWjPmGwObk8AT5v/Pmx3RJ/pbAWzXV0jucQZei+hSTDQIjhg2yUmfE5YPd4Ql+g
+	 10gzUePOt1Vk/ZPWQRLl45uR4/sUCHPf1Frrn8BOckOL3bimI1Qy+Qp7W0frK4ZSY5
+	 pyj9QuPc3QWkoHf2zC92XDPqaB7VzVutRfa4KdU6WvmlimO4ft3fHmD0UL44ov5+ev
+	 97318RYjGIUcYqSwlxjACOhDgBuSAsuvqRCQIzAl0Ks1jIxlg0Q8009Ju5kbwIl6FB
+	 IU7NLxjCdR5fQ==
+Message-ID: <sashiko-outbox-186303@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] soc: ti: Add TDA54 SCM configuration syscon
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Moteen Shah" <m-shah@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027083700.1964371-4-m-shah@ti.com>
+References: <20261027083700.1964371-1-m-shah@ti.com>
+ <20261027083700.1964371-4-m-shah@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 08:50:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,124 +60,123 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Jerome,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] soc: ti: use-after-free on module unload in tda54_scm_conf_probe()
+--
 
->>> For rate negotiation, my suggestion would be to reuse what the
->>> framework already has: clock ranges, and re-running .determine_rate()
->>> on the children being dragged along, with the common ancestor's rate
->>> pinned. When that rate does not suit a sibling's range, other ancestor
->>> rates can be tried within the constraints, rather than giving up.
->>>
->>> clk_set_rate() is a best effort function. It tries to get as close to
->>> the request as possible, honoring the ranges of every clock along the
->>> path, and it is up to the consumer to decide whether the result is
->>> good enough. That decision is lost if the framework recomputes the
->>> rates of a sibling branch on its own. Ranges could help it decide:
->>> either "I'm fine with the new rate", or -EBUSY.
->>
->> I see an upside with this approach: we could keep one single rate
->> negotiation logic. But it still requires modifications to be done on a
->> per user basis to be enabled (but that is needed from your perspective).
->>
->> While I fully understand all the concerns expressed above, there has
->> been one minor point that arose while working on your series: it's
->> very hard to determine the tolerance beyond which the clock rate shall
->> be refused. Expect bikeshedding on a per driver basis.
->
-> This is my point exactly. Each consumer is going to need to do its own
-> thing and it is why I would prefer if the decision was not a core or
-> a provider thing.
->
-> A decision must be made somewhere. I don't really see where else it
-> could be made than with the consumer. It is the only one which has
-> any idea what it is trying acheive.
+commit f2ead172cf9d7f3e5cd199e2a129679497527a10
+Author: Moteen Shah <m-shah@ti.com>
 
-I agree, the consumer must make that choice. But I just wanted to warn
-against the risk of endless discussions about what this tolerance should
-be in each and every user. Myself, I didn't know what tolerance would be
-fine for my own case. 1% seems ok, it leaves enough room for the CCF to
-find a working set of dividers without risking a breaking choice, but
-maybe some day someone will come with a panel that cannot be supported
-with this limit, and maybe 1.5 or 2% would have been okay for
-them. Since that's a very empirical limit, expect some back and forth on
-those. "Back and forth" also means "more load on clk maintainers".
+soc: ti: Add TDA54 SCM configuration syscon support
 
-> If the range is about HW capability (from the clock side I mean),
-> a range can be set from the provider. Some already do that and I
-> think it is fine for that purpose. In the experiment I've provided,
-> I did not enable the propagation logic in that case, on purpose.
-> It could constrain the clock tree for clock that are actually
-> unused. It still participate in the decision logic if a consumer
-> enable it however.
->
->>
->>> What I'm suggesting is to treat any clock with a range as one that
->>> needs updating. Its consumer cared enough to tell us what it can and
->>> cannot cope with. That removes the need for a specific flag, and puts
->>> the rate policy in the consumer, which is where I'd prefer use case
->>> choices to live, rather than in the provider or the core. It would
->>> also fix clocks being dragged out of their range during an update.
->>> Presumably, a clock without a range does not care enough to give us a
->>> decider, so the framework has no basis to act on its behalf and keeps
->>> today's behavior. I think this behavior will keep on being good enough
->>> for the vast majority clocks out there and it is a lot lighter
->>> on the math side (which is already quite severe as it is)
->>
->> Well, yeah, I see we share conclusions :-)
->>
->>> I've been checking whether the idea is remotely feasible. It involves
->>> multiple planning stages and multiple tops. It is still very rough,
->>> but there is the beginning of something:
->>>
->>> https://github.com/jbrun3t/linux/commits/clk/clk-rate-range-update/
->>>
->>> Miquel, if you fancy trying it, please let me know whether it works
->>> for you. All you should need is to set a range on the clocks you care
->>> about.
->>
->> I managed to pull most of the clock patches in your branch and apply
->> them to my 7.2 branch (with a couple of tweaks). I then made the changes
->> to request a tolerance as you hinted (available below) in the two
->> relevant drivers: it worked as expected!
->>
->> While doing so, I realized the whole operation (set rate, set rate
->> range, get rate and verify) needs to be repeated almost identically in
->> every user of the "tolerance composition" logic, which probably
->> indicates that a core helper would be relevant instead. I had in mind
->> something like ~clk_set_rate_and_tolerance() which would do the
->> equivalent of my fsl_ldb_link_rate_set() and lcdif_pixel_rate_set()
->> helpers.
->
-> Indeed, I suppose an helper could be introduced for that if we don't
-> already have one. It does not even depend on the experiment presented
-> here. As long as there is a user for it, it would be fine IMO.
->
-> Maybe something that takes a rate and a ratio, like the duty cycle API
-> ?
+This commit adds the TDA54 SCM configuration driver to provide regmap/syscon
+access to the SCM register space with proxy-based register claim/unlock
+handling, and registers TDA54 SoC identification info via k3-socinfo.
 
-Definitely.
+> diff --git a/drivers/soc/ti/tda54-mcu-sysconf.c b/drivers/soc/ti/tda54-mc=
+u-sysconf.c
+> new file mode 100644
+> index 0000000000000..3ef82e737d095
+> --- /dev/null
+> +++ b/drivers/soc/ti/tda54-mcu-sysconf.c
+[ ... ]
+> +static int tda54_scm_conf_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct tda54_scm_conf *scm;
+> +	struct regmap *regmap;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	scm =3D devm_kzalloc(dev, sizeof(*scm), GFP_KERNEL);
+> +	if (!scm)
+> +		return -ENOMEM;
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+[ ... ]
+> +	regmap =3D devm_regmap_init(dev, NULL, scm, &tda54_scm_conf_regmap_cfg);
+> +	if (IS_ERR(regmap))
+> +		return PTR_ERR(regmap);
+> +
+> +	writel(TDA54_SCM_CONF_LOCK_KICK0_UNLOCK_VAL, scm->base + scm->pdata->lo=
+ck_offset);
+> +	writel(TDA54_SCM_CONF_LOCK_KICK1_UNLOCK_VAL, scm->base + scm->pdata->lo=
+ck_offset + 4);
+> +
+> +	/*
+> +	 * There is no way to unregister a syscon regmap, so publish it only
+> +	 * once nothing else in probe can fail.
+> +	 */
+> +	ret =3D of_syscon_register_regmap(dev->of_node, regmap);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register syscon regmap\n");
+[ ... ]
+> +static struct platform_driver tda54_scm_conf_driver =3D {
+> +	.probe =3D tda54_scm_conf_probe,
+> +	.driver =3D {
+> +		.name =3D "k3-tda54-scm-conf",
+> +		.of_match_table =3D tda54_scm_conf_of_match,
+> +		.suppress_bind_attrs =3D true,
+> +	},
+> +};
+> +
+> +module_platform_driver(tda54_scm_conf_driver);
 
->>> Sorry for this rather long explanation.
->>>
->>> Brian, your series is what got this discussion going, I know a lot of
->>> efforts have gone into it already. I'd be glad to work on this together.
->>
->> In case that is relevant, here is below the code snippet which I used to
->> get my panels working after removing the assigned rates from the DTS on
->> i.MX8MP.
+[Severity: High]
+Can unloading this module cause a use-after-free when consumers access the
+syscon regmap?
 
-I'll let you two discuss about the direction you prefer taking. From my
-point of view there are good and bad sides on both, but they also both
-work in my case.
+TI_TDA54_MCU_SYSCONF is a tristate Kconfig option (defaulting to m on
+ARCH_K3), and module_platform_driver(tda54_scm_conf_driver) generates a
+module_exit callback that invokes platform_driver_unregister(). While
+.suppress_bind_attrs =3D true hides the sysfs bind/unbind attributes, it do=
+es
+not prevent unloading the module via rmmod or modprobe -r.
 
-Let me know once settled and I will post an adapted patch series on top
-of it to adopt the selected solution in the LDB and LCDIF cases (+ the
-core helper discussed above, if relevant).
+In tda54_scm_conf_probe(), scm, base, and regmap are allocated with devres
+(devm_kzalloc(), devm_platform_ioremap_resource(), and devm_regmap_init()),
+and regmap is then published globally via of_syscon_register_regmap():
 
-Thanks,
-Miqu=C3=A8l
+drivers/mfd/syscon.c:of_syscon_register_regmap() {
+    ...
+	list_for_each_entry(entry, &syscon_list, list)
+		if (entry->np =3D=3D np) {
+			ret =3D -EEXIST;
+			goto err_unlock;
+		}
+
+	syscon->regmap =3D regmap;
+	syscon->np =3D np;
+
+	/* register the regmap in syscon list */
+	list_add_tail(&syscon->list, &syscon_list);
+    ...
+}
+
+Because of_syscon_register_regmap() permanently stores the raw regmap point=
+er
+on syscon_list without taking a module reference or providing an
+unregistration path, unloading the module detaches the device and runs
+devres_release_all(), freeing regmap, unmapping base, freeing scm, and
+unmapping the module text (tda54_scm_conf_reg_read() and
+tda54_scm_conf_reg_write()) while syscon_list retains the dangling regmap
+pointer.
+
+Any subsequent or existing consumer using syscon_node_to_regmap() or
+syscon_regmap_lookup_by_phandle() will dereference the freed regmap and call
+into unmapped module text, and reloading the module will fail with -EEXIST =
+in
+of_syscon_register_regmap().
+
+Should TI_TDA54_MCU_SYSCONF be bool (using builtin_platform_driver()), or if
+it remains a module, avoid registering a module_exit callback so it cannot =
+be
+unloaded once registered with syscon?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027083700.1964=
+371-1-m-shah@ti.com?part=3D3
