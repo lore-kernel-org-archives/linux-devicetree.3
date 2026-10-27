@@ -1,143 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102332;
-	b=3EtkJDWmRdytvBl+AmEUI/qDVgzEP+aq0io+PouGgDJpP0DSXF5M7Y4fWNvKcUpdr6pJ
-	 5fFAwFdBClJU5KyPR1pbmTkyGrLkn4mKq7qKn07OyMLTeY19ZizIYiOMIDbrbzsD2LNY2
-	 g+AAIGtj9C1yfCnwq1ekI3UZnmQDgzCdIskny3sZnqTdIyJenLVjCQwOUq/qMrJn2OK0U
-	 MNeSZ10BKefTjKKakm2IzMtDn+xudX83B8hyxZGE3rWSmSgs8yF8lHxpv08Xe9j7EsfOE
-	 KMisZKz52BRfFfGloPpXFYyXe+WcU/TIh8bRPgyGHRKziLeN6Bm+LwvON6SGVUkJArw==
+	t=1793102408;
+	b=zft/v1euJlu9PO3+XvFMnUZtW5JrtnxAHo6Z7SptNkuWHB10Ie5L8XXsU4Tg4A1P4cbh
+	 cISOUHCPE4AS/0IOyyTwq2w/ly5t/V00yeQ1y1SIhXFaIM5YiIS8OT1sgNjsACdoLINtI
+	 AgLAuVX6dEkZ6OLzEP1LalNWh/2bUPx5lHj5ZONQHvAyb6qUvCBSbyeeHjc59F2rOKjsr
+	 VvP39ygu8GsVLr63o1uKJmWlhyfCTl1NzOf6hokSCgJttvWKvxwdMlLfJbITLG0hX8WJX
+	 eMeOXQ3okUUm3yaRQ/o+x8Pv0Sle5sFKDE9M0SIqa3GbE99WSJkiEhJTNNEWEy7fE1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102332;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
-	b=T0RdAPCyWWYzHIY64dPJ505R+6fIdQcfzqLl26+vxqiz0Iha+g0tqYTWgfxjHPTOHbqC
-	 LnFFn93uywdpoR0yYZwnAXohZLwjlKhH/ZIxjHC/DqRq5UJIyCUYVMelo+4egHfRnWj5D
-	 zd4Bje8KBtEn/NHPw031YOpbplHzBA2Jw6qeRHNTkxyYSIno/1Giq1sXGSUSK+CTc8B/H
-	 PC7mvrUloPFJ46JpsUbEAGuqWF4CrehiwmvwNhsl1JdiBYwW+NkqqgcFbyKC2+2zj+hwy
-	 OeeTyseA7eJFfV6Xe7U+9jd0vzq1ODIRgOojZDi9NUj6izxwKFY3k9RJLH9Nysm3RsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102408;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=6IUGVOTUcev13udqDXIfFvIWE6rI4hxIBib+NAbAhsE=;
+	b=ABudoL9NFR+/e6YfZzS9gNS2mTYYKl2a0FwCeps9T4MMM8TJvR1i107YO0H72Rd6ICaD
+	 bMA2x3+WDKAOgX1/xdgjRdvDSQGFrQONv4evhHXvo0AKJHEOmVIJhUgSkMQrPKZXXhcUq
+	 T2PQexJZMDiMveF0Q3wYfWq4HfZJDk4eo2ieu7JlbJEy9KgBd/gBVias9CTbNIkmVtyDd
+	 ShhAlWXqo9kunYVZ9OBVmoNkmFyTR3mg0sLVHe3p3AJO/b72avH60qYhpK15EUn2UFVso
+	 xf6GNxjvuawQluRJ4ai9HnYMMUfvw+eO6awVqDNSMQJP0jjYz6+4jYzch6iuR9CCtYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kBfSKDWU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YSMKRUSo;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwKLhqpT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D26606A31A
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:58:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D26606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2792606A322
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:00:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kBfSKDWU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YSMKRUSo
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe8oQ3026300
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:58:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=; b=kBfSKDWUMiXE2MWx
-	UfYT9MTCvVbTk9XVkED0JWhz24h90TOvx3quBRZyIGkuBmeOcLVAASYHkSPc5jd9
-	20OL1qOFckWZdVF22xCb4DHsImDKQJ+HY0gE9Puoq8vfCxMql1dRBYs6BmAlVWkH
-	RckL2BFQH4slxrpmXRzhtbMnE3opd90cHsq4rPjmX5givw+9B3vXRWeJObmuRz6N
-	eIczvP7UgFt+gMQysBziSYzWN+aCk2AJj+H9AcxTNT5TBbx8jcMrNpGfkkboZj58
-	MM8fBhuJ041bi8ILWgKK1X+7Svs5sFcPpxWAhjOsO50G+lKkwvnJnlDOD4CQpqOn
-	EscHRw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh91aap8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:58:50 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9907de400a6so564749241.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:58:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793102329; x=1793707129; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
-        b=YSMKRUSoTN6aZOeO30RSSBlTZlAakUihClrYYK2jR/b1TGQ++0B6/4BB+BruxdBJp0
-         rYf4Z322azPRXU+ydtKwBLhjblFlF0aceSBWUr3CcfKKmAOKahGk7HFUYSZrwYEbwcDY
-         CpWTPc3o1PKfLR5QbkU0TMHc0U9Vt/oAfYRWQmv7/SbdVzaGcj7RUcZz3Tek4Pde2BeJ
-         dRhNFA1RtKkCmXk+pOvDD7UDsPD98+pR7TEogjOGdnvOMmPd5W+E3K5QHvuy5FQX7h1/
-         Zkf2wU21333XEZf9UyUto5+2dC3Erl94Hbb2PqA7qSpWvjAl+OZqNwpO3SPKHVSovJx4
-         n31g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102329; x=1793707129;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
-        b=BN62k3tKT+5REnW8xB8em6gTfBxPOmzJ+K8ja+JCMKfx1OQ5326RoArwIiYUPZI2zX
-         tu9d+RgeInX55VZan4rYu7MpFA1SxU4atG0Lw0begd/bs7uOMgD2aiIqeIlL9a4qPZdi
-         4lmYK2VSNwUlagSFkAFg38MeMBBZhvvwbSKS41UBBAUGmP6xidEDsZAIM6DdDPIffE9g
-         dvfVjbuRVF+biiQ8ZipXN7VWxhJ21LD+QIctAPii1KXPr9s53FMgnrYUuM9ed3wst8t1
-         x+cY0rY2ETAPZUtdNBrriamAmK3ebj3DKuaAqrpS9B5lqxImig32So9+b0BhAr8Smznv
-         KGgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbfY1CQqWk3MiyjKg8Q6SmylfqmRJYIcHp5QcqXKfE75dvA07qNv28UG9ZtP4/Mp94m6zDixZ7NGvT@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOJRfLTftrkfSUf8IAHedCEzA0Oci+7i9lx2OzyFrUV8MnI/jB
-	HNjvsjMSviHWRYszbZswxe7Q1KuBvUCRnXaHodL5y2MKHsrJVIMx3tQIIBufDbYPe/6PG1YQ6Ts
-	hMnm4R8iZSvDQxChaiWSGrzw2hoSBgZDcZKyVgJi8VjNHWK1dUk2yYz77sX4F5caj
-X-Gm-Gg: AYBFou3ysLRAzGQVZQfNb1ceJmJqpitpbzlbGCEwXwrdtDyClT86DThqTnQkqTObru1
-	lkQg4cSckgxMhBQI3b8XpHpJ5K69gl67dUIe9XsuziG2VQxIVAhAbXJSm3LlzSuQptSF/+jBdEF
-	0g3vLAKBwKRvjjgKCJKFHSQtvvyLhY07Fji0tuPQe4V6GZX7NYznF08luHcy/ejAfdD6yuL90Rc
-	4rSyQDb9t/0KmIy6cy+ayz6aS0NOdb7XWJ+CS7fyloCEVWiuDby8i9yuB+3qZBtAdw3GhYk4vis
-	zIlnWmqiefyUCcZPHxvJ/cKWXlLhOavx2Zc0uMTJhT5HarO8RYAhho7dZUxbgYTt70aYPateqUo
-	6XylVZSke6BZPaYY51fGzjdl6jvQbym8UUGzPv5XN0xzzmIngXyFMoe27rZGNJwu3STJpxo7DMR
-	eigKQhULB6apNs
-X-Received: by 2002:a05:6102:2ad2:b0:7c3:875e:593b with SMTP id ada2fe7eead31-7ce5ce246dfmr3089892137.32.1793102329243;
-        Tue, 27 Oct 2026 04:58:49 -0700 (PDT)
-X-Received: by 2002:a05:6102:2ad2:b0:7c3:875e:593b with SMTP id ada2fe7eead31-7ce5ce246dfmr3089855137.32.1793102328285;
-        Tue, 27 Oct 2026 04:58:48 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6aca4sm2092776e87.15.2026.10.27.04.58.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:58:46 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:58:45 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 00/23] drm/msm/dcp: Add Qualcomm DCP display support
-Message-ID: <55uzx3sa4jor5p7i5erhyuangyfvc3ssp5rgelagk4ysply2ip@3x46t7swwj56>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwKLhqpT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE1D1F01825;
+	Tue, 27 Oct 2026 12:00:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102407;
+	bh=6IUGVOTUcev13udqDXIfFvIWE6rI4hxIBib+NAbAhsE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bwKLhqpTCypcLd6kbKIQuCJW1o73sl9DuWXaK4n6FTNqQSJRsAtBCgPDlXSHL84Rd
+	 Cfcw2V0ETb02HQ1ENCJAGUPCTslVyCJiupSGFwK0ZwL/WsftA5SuLEgRnypJjIv48K
+	 r3VzUMIlN9sulAhprI+dKA8nVbvqQp1AY9n2Kniog9HHbrEMOrTxEgeVuEl9pMpqcC
+	 esoByvjeEotGmUulQKNGlCVS+74UBqJy821OTdUXCcZMzC1OTjSTRZqhZuaMHQzOky
+	 kPIqbAtBj64vJI1gpaDGhCoKRxaPoe3Jk+wAei4cJCQ7gCt78MCXfdBErmFInXMrqM
+	 uw97PtD/XIrag==
+Message-ID: <sashiko-outbox-186492@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aniket Limaye" <a-limaye@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
+ <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 12:00:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -146,176 +59,440 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: QvrX4PpJ_FMT3_SUSo6rvF3VeAXml9LX
-X-Proofpoint-GUID: QvrX4PpJ_FMT3_SUSo6rvF3VeAXml9LX
-X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae091fa cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=sWvDS1lmqIG2hvCGZjwA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX1i53cILvrtBi
- HV44TKrVW1CWZnWea4s8Y/HVmUw17TxaQP3WaWYJZqg0q1lf1lGueIydTd5jTVQxYpsqutDIw+U
- ePJUU/0SjQxhksxQld2+E1MO1gbYSowl1tFpqcOIg4h2AkpcY/vAJl3UElaYvn7QBmGRv43YB5A
- ObWMBLK5UGNJLd4qb1TFn7+NWrj3kkTdob+DZuvxLT2meLaVoPzbGgsaInPnNNVvaO9lg4QlGG1
- myximoBP6EoXlSvoQr6lvnH6YPJCpnM5ImFhQblhd0CNa5fZzrBm1Ldjx/ggZ56NNW3fzwXeDEA
- 5xv397W6Z58MukFkiAXYVM8g6Tg9Fle4CCelFurvlVcckoRu1fxLj0Tw/Vr11RleTcjB2mjyBxg
- gJN5ZlqssHCYdQc4S9ZxOZgNqmtE8trO/1PSLT023+kk6tqI6FW94ZyUcSqkNhnTAkgN3N7EhCH
- 1hxcpqYmaZnyZu/q26g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX79eFHYQa6fRi
- o+mRXayWqAzj0Mk5kuz+P0uaSgyJx6K5ZQttWj1rhwQIW6J28qS9qVqx4OH3sMY5CaAxfZMrSdR
- kc/lCqmdEUDb7NQa0hoDBhULcA0Yp9c=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270047
 
-On Mon, Oct 26, 2026 at 11:51:10AM +0530, Jayant Shekhar wrote:
-> On Qualcomm platforms using the Display Co-Processor (DCP), the display
-> hardware is owned and programmed by firmware. Linux does not access the
-> display controller, DSI controller, DSI PHY, display clocks, or other
-> display pipeline registers.
-> 
-> The display pipeline must nevertheless be exposed through the DRM/KMS
-> interfaces so userspace can perform modesetting, framebuffer updates,
-> panel control, and page flips.
-> 
-> This series adds a DCP KMS backend to MSM DRM. It represents the
-> firmware-owned display pipeline and translates DRM operations into HFI
-> commands.
-> 
-> DCP communicates with Linux over VirtIO and uses the HFI protocol for
-> command and response handling, capability discovery, and display events.
-> 
-> This series adds:
-> 
-> - Device-tree bindings for the Qualcomm DCP VirtIO transport wrapper,
->   firmware-visible IOVA ranges, separate transport and framebuffer IOMMU
->   contexts, IPCC power notification, interrupts, and the external DSI
->   display graph.
-> 
-> - HFI protocol definitions and packet helpers for capability discovery,
->   modesetting, plane and CRTC configuration, DSI, and panel control.
-> 
-> - A Qualcomm DCP transport wrapper which initializes the IPCC channel,
->   sends the required power notification, and registers the DCP VirtIO
->   device directly. The wrapper also implements the MMIO transport and
->   keeps VirtIO queue activity ordered with DCP power transitions.
-> 
-> - VirtIO command and response queues. HFI command, response, and
->   capability buffers are allocated through the DMA API in the address
->   space visible to DCP firmware.
-> 
-> - Synchronous command tracking, asynchronous response dispatch, timeout
->   handling, and queue teardown synchronization for safe device removal.
-> 
-> - Capability discovery for displays, CRTCs, mixers, VIG and DMA pipes,
->   DSI interfaces, and panel resources.
-> 
-> - DRM planes and CRTCs using the standard atomic-state model. DRM state is
->   translated into HFI properties for layer configuration, mixer limits,
->   bandwidth and clock properties, frame sequencing, and triggering.
-> 
-> - An MSM KMS backend, DCP encoder, and DSI bridge. The backend reuses the
->   existing MSM DRM device, GEM and framebuffer handling, atomic commit
->   infrastructure, encoder, bridge, and connector support.
-> 
-> - Asynchronous VSYNC, frame-scan completion, and error events propagated to
->   DRM for vblank and page-flip completion.
-> 
-> - IPCC power notifications to wake DCP firmware and coordinate HFI queue
->   activity across firmware power transitions.
-> 
-> DCP is integrated as an MSM KMS backend rather than a separate DRM device.
-> This preserves the userspace-visible MSM DRM device and allows Linux to
-> retain normal DRM/KMS semantics while display hardware remains owned by
-> firmware.
-> 
-> The initial implementation supports the DSI output described below and
-> uses resources reported by firmware. Split-pipe, multirect, cursor-pipe,
-> partial-update, DisplayPort, and writeback support are deferred.
-> 
-> Tested on the Qualcomm Hawi MTP with an NT37801 DSC command-mode panel:
-> 
-> - Display console at 1440x3200.
-> - Panel initialization and DCS transfers complete successfully.
-> 
-> Device Tree Topology
-> ====================
-> 
->   qcom,dcp-virtio
->   ├── transport IOMMU context
->   ├── firmware-visible iommu-ranges
->   ├── VirtIO and power-notify interrupts
->   ├── dcp-power-tx mailbox
->   └── dcp-subsystem
->       ├── compatible = "virtio,device34"
->       ├── framebuffer IOMMU context
->       ├── port@0
->       │   └── endpoint ─────────────── panel endpoint
->       └── dsi@0
->           └── panel@0
-> 
-> The DCP INTF endpoint connects directly to the panel endpoint. Firmware
-> internal paths, including the INTF-to-DSI connection, are not described in
-> the device tree.
-> 
-> Runtime Architecture
-> ====================
-> 
->   Linux DRM/KMS
->   └── DCP MSM KMS backend
->       ├── planes, CRTCs, encoder, connector, and DSI bridge
->       └── DRM atomic state and commit handling
->                   │
->                   ▼
->       DCP VirtIO function driver
->                   │
->                   ▼
->               VirtIO core
->                   │
->                   ▼
->       qcom,dcp-virtio transport wrapper
->       ├── IPCC initialization and power notification
->       ├── MMIO register access
->       ├── VirtIO queue setup and interrupt handling
->       ├── VirtIO device registration
->       └── suspend/resume power sequencing
->                   │
->                   ▼
->               DCP firmware
->               ├── HFI command and response handling
->               ├── display pipeline and VIG/DMA pipes
->               ├── DSI PHY and controller
->               └── display clocks and resource handling
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] i2c: dwc-adv: IRQ storm and read deadlocks in dwc_adv_i2c_xfer_msg=
+()
+- [High] i2c: dwc-adv: lost repeated START on reads in dwc_adv_i2c_xfer_msg=
+()
+- [High] i2c: dwc-adv: false spurious STOP error in dwc_adv_i2c_process_tra=
+nsfer()
+- [High] i2c: dwc-adv: unclocked MMIO access in dwc_adv_i2c_isr() when PM d=
+isabled
+- [High] i2c: dwc-adv: unclocked MMIO access in dwc_adv_i2c_prepare_recover=
+y()
+--
 
-Going through the series, I have come with the quite generic comment.
-Please split the series into two independent parts:
-- Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
-  drivers/virtio/virtio_dcp_*.[ch]
+commit 65be539e602e2870e8d704876155ca1ec922d703
+Author: Aniket Limaye <a-limaye@ti.com>
 
-  Driver for the DCP + IPCC VirtIO host. The driver should not know
-  anything about the display interface.
+i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
 
-- Documentation/devicetree/bindings/display/msm
-  drivers/gpu/drm/msm/dcp
+This commit adds a new platform driver for the Synopsys Advanced I2C
+(DWC_i2c) controller in controller mode, discovering block register offsets
+at runtime by walking the block header chain.
 
-  The actual driver for the DCP display engines. It must not know or
-  care at all about the particular VirtIO host (or SoC FWIW). It should
-  not use IPCC. If we pass it through to the VM via virtio-mmio or
-  virtio-pci it must work as is.
+> diff --git a/drivers/i2c/busses/i2c-dwc-adv.c b/drivers/i2c/busses/i2c-dw=
+c-adv.c
+> new file mode 100644
+> index 0000000000000..1c5b7b154bed8
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-dwc-adv.c
+> @@ -0,0 +1,1333 @@
 
-Possibly submit those as two separate series.
+[ ... ]
 
+> +static void dwc_adv_i2c_init(struct dwc_adv_i2c_dev *dev)
+> +{
+> +	__dwc_adv_i2c_disable(dev);
+> +
+> +	dwc_adv_i2c_write_timings(dev);
+> +
+> +	if (dev->sda_hold_time)
+> +		dwc_adv_reg_write(dev, dev->regs.sda_hold, dev->sda_hold_time);
+> +
+> +	dwc_adv_reg_write(dev, dev->regs.tx_tl, dev->tx_fifo_depth / 2);
+> +	dwc_adv_reg_write(dev, dev->regs.rx_tl, 0);
+> +	dwc_adv_reg_write(dev, dev->regs.con, dev->ctrlr_cfg);
+> +}
 
--- 
-With best wishes
-Dmitry
+[ ... ]
+
+> +static void dwc_adv_i2c_xfer_msg(struct dwc_adv_i2c_dev *dev)
+> +{
+> +	struct i2c_msg *msgs =3D dev->msgs;
+> +	u32 intr_mask =3D DWC_ADV_I2C_CTRLR_INTR_MASK;
+> +	int tx_limit, rx_limit;
+> +	u32 buf_len =3D dev->tx_buf_len;
+> +	u8 *buf =3D dev->tx_buf;
+> +	u32 cmd;
+> +	int rx_tl;
+> +
+> +	for (; dev->msg_write_idx < dev->msgs_num; dev->msg_write_idx++) {
+> +		u32 flags =3D msgs[dev->msg_write_idx].flags;
+> +
+> +		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS)) {
+> +			buf =3D msgs[dev->msg_write_idx].buf;
+> +			buf_len =3D msgs[dev->msg_write_idx].len;
+> +		}
+> +
+> +		tx_limit =3D dev->tx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.txfl=
+r);
+> +		rx_limit =3D dev->rx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.rxfl=
+r);
+> +
+> +		while (buf_len > 0 && tx_limit > 0 && rx_limit > 0) {
+> +			cmd =3D 0;
+> +
+> +			/*
+> +			 * The bus is held while the TX FIFO is empty unless
+> +			 * STOP is requested in IC_DATA_CMD, so always set it
+> +			 * on the last byte of the last message.
+> +			 *
+> +			 * i2c-core always sets the buffer length of
+> +			 * I2C_FUNC_SMBUS_BLOCK_DATA to 1. The length will be
+> +			 * adjusted when receiving the first byte. Thus we
+> +			 * can't stop the transaction here.
+> +			 */
+> +			if (dev->msg_write_idx =3D=3D dev->msgs_num - 1 &&
+> +			    buf_len =3D=3D 1 && !(flags & I2C_M_RECV_LEN))
+> +				cmd |=3D DWC_ADV_I2C_DATA_CMD_STOP;
+> +
+> +			/*
+> +			 * A RESTART is only issued automatically when the
+> +			 * direction changes. Request it explicitly at the
+> +			 * start of each following message.
+> +			 */
+> +			if (dev->need_restart) {
+> +				cmd |=3D DWC_ADV_I2C_DATA_CMD_RESTART;
+> +				dev->need_restart =3D false;
+> +			}
+> +
+> +			if (msgs[dev->msg_write_idx].flags & I2C_M_RD) {
+> +				/* Avoid rx buffer overrun */
+> +				if (dev->rx_outstanding >=3D dev->rx_fifo_depth)
+> +					break;
+
+[Severity: High]
+Can dwc_adv_i2c_xfer_msg() lose the repeated start condition between
+consecutive I2C_M_RD messages when dev->rx_outstanding reaches
+dev->rx_fifo_depth?
+
+When a message finishes queueing (buf_len =3D=3D 0), dwc_adv_i2c_xfer_msg()
+sets dev->need_restart =3D true and advances dev->msg_write_idx to the next
+message. If the next message is an I2C_M_RD message and at least one
+previously queued command has been popped from the TX FIFO into the shift
+register (tx_limit > 0) while the RX FIFO is not yet full (rx_limit > 0),
+execution enters the inner while loop:
+
+    if (dev->need_restart) {
+        cmd |=3D DWC_ADV_I2C_DATA_CMD_RESTART;
+        dev->need_restart =3D false;
+    }
+
+    if (msgs[dev->msg_write_idx].flags & I2C_M_RD) {
+        /* Avoid rx buffer overrun */
+        if (dev->rx_outstanding >=3D dev->rx_fifo_depth)
+            break;
+
+If dev->rx_outstanding >=3D dev->rx_fifo_depth, the loop breaks before
+writing cmd to dev->regs.data_cmd, discarding cmd after dev->need_restart
+has already been cleared to false. When RX_FULL later drains the RX FIFO
+and dwc_adv_i2c_xfer_msg() resumes queueing the first byte of that read
+message, dev->need_restart is false, so DWC_ADV_I2C_DATA_CMD_RESTART is
+never issued on the bus.
+
+Should the dev->rx_outstanding >=3D dev->rx_fifo_depth check happen before
+consuming dev->need_restart?
+
+> +				dwc_adv_reg_write(dev, dev->regs.data_cmd,
+> +						  cmd | DWC_ADV_I2C_DATA_CMD_READ);
+> +				rx_limit--;
+> +				dev->rx_outstanding++;
+> +			} else {
+> +				dwc_adv_reg_write(dev, dev->regs.data_cmd, cmd | *buf++);
+> +			}
+> +			tx_limit--;
+> +			buf_len--;
+> +		}
+> +
+> +		dev->tx_buf =3D buf;
+> +		dev->tx_buf_len =3D buf_len;
+> +
+> +		/*
+> +		 * Because we don't know the buffer length in the
+> +		 * I2C_FUNC_SMBUS_BLOCK_DATA case, we can't stop the
+> +		 * transaction here. Also disable the TX_EMPTY IRQ while
+> +		 * waiting for the data length byte to avoid a flood of
+> +		 * bogus interrupts.
+> +		 */
+> +		if (flags & I2C_M_RECV_LEN) {
+> +			dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
+> +			intr_mask &=3D ~DWC_ADV_I2C_INTR_TX_EMPTY;
+> +			break;
+> +		}
+> +
+> +		if (buf_len > 0) {
+> +			dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
+> +			break;
+> +		}
+> +		dev->status &=3D ~DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
+> +		dev->need_restart =3D true;
+> +	}
+> +
+> +	/*
+> +	 * If i2c_msg index search is completed, we don't need TX_EMPTY
+> +	 * interrupt any more.
+> +	 */
+> +	if (dev->msg_write_idx =3D=3D dev->msgs_num)
+> +		intr_mask &=3D ~DWC_ADV_I2C_INTR_TX_EMPTY;
+> +
+> +	if (dev->msg_err)
+> +		intr_mask =3D 0;
+> +
+> +	/*
+> +	 * Size the RX FIFO threshold to the reads already queued, so the
+> +	 * controller raises one RX_FULL for the whole burst instead of one per
+> +	 * received byte. While messages remain to be queued, cap it so RX_FULL
+> +	 * still arrives in time to drain the FIFO and let the next TX_EMPTY
+> +	 * queue the rest.
+> +	 */
+> +	rx_tl =3D dev->rx_outstanding;
+> +	if (dev->msg_write_idx < dev->msgs_num)
+> +		rx_tl =3D min_t(int, rx_tl, dev->rx_fifo_depth / 2);
+> +	dwc_adv_reg_write(dev, dev->regs.rx_tl, rx_tl ? rx_tl - 1 : 0);
+> +
+> +	dwc_adv_reg_write(dev, dev->regs.intr_mask, intr_mask);
+> +}
+
+[Severity: High]
+Can the FIFO threshold and DWC_ADV_I2C_INTR_TX_EMPTY handling in
+dwc_adv_i2c_xfer_msg() and dwc_adv_i2c_read() cause a hardirq storm on
+reads larger than rx_fifo_depth, or a transfer timeout on I2C_M_RECV_LEN
+reads?
+
+There appear to be three related issues here:
+
+1. On a read transfer larger than dev->rx_fifo_depth (32 bytes on
+ti,tda54-i2c), dwc_adv_i2c_init() sets dev->regs.tx_tl to
+dev->tx_fifo_depth / 2 (16), so DWC_ADV_I2C_INTR_TX_EMPTY asserts whenever
+txflr <=3D 16. Meanwhile, while dev->msg_write_idx < dev->msgs_num,
+dwc_adv_i2c_xfer_msg() caps rx_tl to dev->rx_fifo_depth / 2 (16) and writes
+rx_tl - 1 (15) to dev->regs.rx_tl, so DWC_ADV_I2C_INTR_RX_FULL only asserts
+when rxflr >=3D 16.
+
+After the initial TX_EMPTY interrupt queues 32 read commands
+(dev->rx_outstanding =3D 32), the controller pops the 16th read command from
+the TX FIFO into the shift register at the start of clocking that byte on
+the bus. At that point txflr drops to 16 and asserts TX_EMPTY, while only
+15 bytes have arrived in the RX FIFO (rxflr =3D=3D 15, or fewer if write by=
+tes
+preceded the read), so RX_FULL is not set and dwc_adv_i2c_read() does not
+run. dwc_adv_i2c_xfer_msg() then sees dev->rx_outstanding >=3D
+dev->rx_fifo_depth, breaks out of the loop without writing to
+dev->regs.data_cmd, and leaves DWC_ADV_I2C_INTR_TX_EMPTY unmasked in
+dev->regs.intr_mask. Because txflr remains <=3D 16, the level-triggered
+TX_EMPTY interrupt will re-fire in a tight hardirq loop until the 16th byte
+finishes shifting in.
+
+2. In dwc_adv_i2c_xfer_msg(), flags & I2C_M_RECV_LEN is checked before
+buf_len > 0:
+
+    if (flags & I2C_M_RECV_LEN) {
+        dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
+        intr_mask &=3D ~DWC_ADV_I2C_INTR_TX_EMPTY;
+        break;
+    }
+
+    if (buf_len > 0) {
+        dev->status |=3D DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
+        break;
+    }
+
+If an I2C_M_RECV_LEN message is reached when tx_limit =3D=3D 0, rx_limit =
+=3D=3D 0,
+or dev->rx_outstanding >=3D dev->rx_fifo_depth (for example, after preceding
+messages filled the FIFO), the inner while loop does not execute and
+buf_len remains 1. Checking I2C_M_RECV_LEN before buf_len > 0 masks
+DWC_ADV_I2C_INTR_TX_EMPTY before the initial 1-byte length read command has
+even been queued into the TX FIFO, stalling the transfer until timeout.
+
+3. When an I2C_M_RECV_LEN message has its initial 1-byte read command
+queued after earlier read bytes such that dev->rx_outstanding > 16 (for
+example, a 20-byte read message followed by an I2C_M_RECV_LEN message,
+giving dev->rx_outstanding =3D=3D 21), dwc_adv_i2c_xfer_msg() masks
+DWC_ADV_I2C_INTR_TX_EMPTY and caps dev->regs.rx_tl to 15. When the first 16
+bytes arrive, RX_FULL fires and dwc_adv_i2c_read() drains 16 bytes,
+reducing dev->rx_outstanding to 5 and returning early because the first
+message still has 4 bytes remaining. Because TX_EMPTY is masked and
+dwc_adv_i2c_read() does not update dev->regs.rx_tl, dev->regs.rx_tl stays
+at 15 while only 5 bytes remain in flight, so RX_FULL never fires again to
+reach dwc_adv_i2c_recv_len() and re-enable TX_EMPTY.
+
+[ ... ]
+
+> +static u32 dwc_adv_i2c_read_clear_intrbits(struct dwc_adv_i2c_dev *dev)
+> +{
+> +	u32 stat =3D dwc_adv_reg_read(dev, dev->regs.intr_stat);
+> +
+
+[ ... ]
+
+> +	if (stat & DWC_ADV_I2C_INTR_STOP_DET &&
+> +	    (dev->rx_outstanding =3D=3D 0 || (stat & DWC_ADV_I2C_INTR_RX_FULL)))
+> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_STOP_DET);
+> +	if (stat & DWC_ADV_I2C_INTR_START_DET)
+> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_START_DET);
+> +	if (stat & DWC_ADV_I2C_INTR_GEN_CALL)
+> +		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_GEN_CALL);
+> +
+> +	return stat;
+> +}
+> +
+> +static void dwc_adv_i2c_process_transfer(struct dwc_adv_i2c_dev *dev, u3=
+2 stat)
+> +{
+> +	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
+> +		/* TX_ABRT flushes the TX/RX FIFOs, nothing left to process */
+> +		dev->cmd_err |=3D DWC_ADV_I2C_INTR_TX_ABRT;
+> +		dev->status &=3D ~DWC_ADV_I2C_STATUS_SW_MASK;
+> +		dev->rx_outstanding =3D 0;
+> +		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
+> +		goto tx_aborted;
+> +	}
+> +
+> +	if (stat & DWC_ADV_I2C_INTR_RX_FULL)
+> +		dwc_adv_i2c_read(dev);
+> +
+> +	if (stat & DWC_ADV_I2C_INTR_TX_EMPTY)
+> +		dwc_adv_i2c_xfer_msg(dev);
+> +
+> +	/* A STOP in the middle of a read or write is an error */
+> +	if ((stat & DWC_ADV_I2C_INTR_STOP_DET) &&
+> +	    (dev->status & (DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS |
+> +			     DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS))) {
+> +		dev_err(dev->dev, "spurious STOP, status 0x%x\n", dev->status);
+> +		dev->rx_outstanding =3D 0;
+> +		dev->msg_err =3D -EIO;
+> +	}
+
+[Severity: High]
+Won't dwc_adv_i2c_process_transfer() falsely abort valid multi-batch read
+transfers with -EIO when DWC_ADV_I2C_INTR_STOP_DET is raised before the
+final DWC_ADV_I2C_INTR_RX_FULL?
+
+In dwc_adv_i2c_read_clear_intrbits(), DWC_ADV_I2C_INTR_STOP_DET is kept
+pending in hardware when dev->rx_outstanding > 0 and
+DWC_ADV_I2C_INTR_RX_FULL is not set, because STOP_DET can assert at the end
+of a read transfer before the final byte triggers RX_FULL. However,
+dwc_adv_i2c_read_clear_intrbits() still returns stat with
+DWC_ADV_I2C_INTR_STOP_DET set.
+
+On a read transfer where an earlier partial RX FIFO drain in
+dwc_adv_i2c_read() set DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS in
+dev->status (such as a read larger than rx_fifo_depth / 2 or an
+I2C_M_RECV_LEN block read), if STOP_DET fires before RX_FULL is set in
+stat, dwc_adv_i2c_read() is not called, so
+DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS remains set.
+dwc_adv_i2c_process_transfer() then sees stat & DWC_ADV_I2C_INTR_STOP_DET
+with DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS set, logs "spurious STOP",
+sets dev->rx_outstanding =3D 0 and dev->msg_err =3D -EIO, and completes the
+transfer early with an error instead of waiting for RX_FULL to drain the
+remaining bytes.
+
+> +
+> +tx_aborted:
+> +	if (((stat & (DWC_ADV_I2C_INTR_TX_ABRT | DWC_ADV_I2C_INTR_STOP_DET)) ||
+> +	     dev->msg_err) && dev->rx_outstanding =3D=3D 0)
+> +		complete(&dev->cmd_complete);
+> +}
+
+[ ... ]
+
+> +static irqreturn_t dwc_adv_i2c_isr(int irq, void *dev_id)
+> +{
+> +	struct dwc_adv_i2c_dev *dev =3D dev_id;
+> +	irqreturn_t ret;
+> +	int pm;
+> +
+> +	pm =3D pm_runtime_get_if_active(dev->dev);
+> +	if (!pm)
+> +		return IRQ_NONE;
+> +
+> +	ret =3D dwc_adv_i2c_handle_irq(dev);
+> +
+> +	if (pm > 0)
+> +		pm_runtime_put_autosuspend(dev->dev);
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Should dwc_adv_i2c_isr() check if (pm <=3D 0) instead of if (!pm)?
+
+pm_runtime_get_if_active() returns -EINVAL when runtime PM is disabled
+(dev->power.disable_depth > 0). Because if (!pm) only checks for 0, a
+-EINVAL return falls through to dwc_adv_i2c_handle_irq(), which performs
+MMIO reads on dev->base while the clocks are disabled.
+
+This can happen during system suspend/resume between dwc_adv_i2c_suspend()
+(which runs in suspend_late and calls pm_runtime_force_suspend(), disabling
+runtime PM and gating pclk and clk) and noirq IRQ disable/enable, or during
+driver teardown because dwc_adv_i2c_probe() registers devm_request_irq()
+before devm_add_action_or_reset(..., dwc_adv_i2c_pm_teardown, ...), so
+pm_runtime_disable() runs before the IRQ is freed.
+
+[ ... ]
+
+> +static void dwc_adv_i2c_prepare_recovery(struct i2c_adapter *adap)
+> +{
+> +	struct dwc_adv_i2c_dev *dev =3D i2c_get_adapdata(adap);
+> +
+> +	__dwc_adv_i2c_disable(dev);
+> +	reset_control_assert(dev->rst);
+> +	dwc_adv_i2c_prepare_clk(dev, false);
+> +}
+> +
+> +static void dwc_adv_i2c_unprepare_recovery(struct i2c_adapter *adap)
+> +{
+> +	struct dwc_adv_i2c_dev *dev =3D i2c_get_adapdata(adap);
+> +	int ret;
+> +
+> +	ret =3D dwc_adv_i2c_prepare_clk(dev, true);
+> +	if (ret) {
+> +		dev_err(dev->dev, "failed to enable clock for recovery: %d\n", ret);
+> +		reset_control_deassert(dev->rst);
+> +		return;
+> +	}
+> +
+> +	reset_control_deassert(dev->rst);
+> +	dwc_adv_i2c_init(dev);
+> +}
+
+[Severity: High]
+Can I2C bus recovery trigger unclocked MMIO accesses in dwc_adv_i2c_isr()
+or in callers of i2c_recover_bus()?
+
+1. When i2c_recover_bus() is called from dwc_adv_i2c_wait_bus_not_busy() or
+dwc_adv_i2c_xfer_one_part(), the device is held in RPM_ACTIVE by
+dwc_adv_i2c_xfer(). dwc_adv_i2c_prepare_recovery() asserts dev->rst and
+disables dev->clk and dev->pclk, without masking interrupts in
+dev->regs.intr_mask or disabling the IRQ. Because the device remains
+RPM_ACTIVE throughout i2c_generic_scl_recovery(), pm_runtime_get_if_active()
+in dwc_adv_i2c_isr() returns 1, so any interrupt firing during recovery will
+call dwc_adv_i2c_handle_irq() and read MMIO registers while pclk is disabled
+and reset is asserted. (Similarly, in dwc_adv_i2c_probe(),
+devm_request_irq() is called before dwc_adv_i2c_init() disables the
+controller and while TX_EMPTY is unmasked at reset.)
+
+2. In dwc_adv_i2c_unprepare_recovery(), if dwc_adv_i2c_prepare_clk(dev, tru=
+e)
+fails, it returns early with dev->clk and dev->pclk disabled. However, both
+callers of i2c_recover_bus() immediately access MMIO registers afterwards:
+
+dwc_adv_i2c_wait_bus_not_busy():
+    i2c_recover_bus(&dev->adap);
+    status =3D dwc_adv_reg_read(dev, dev->regs.status);
+
+dwc_adv_i2c_xfer_one_part():
+    i2c_recover_bus(&dev->adap);
+    dwc_adv_i2c_init(dev);
+
+In addition, because the device is still marked RPM_ACTIVE, subsequent
+dwc_adv_i2c_runtime_suspend() will call dwc_adv_i2c_prepare_clk(dev, false)
+and unbalance the clock enable count.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-tda54-upst=
+ream-i2c-v4-1-ebeeaf87d181@ti.com?part=3D2
