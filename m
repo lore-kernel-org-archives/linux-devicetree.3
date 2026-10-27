@@ -1,129 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793090991;
-	b=glEyXk08m1GzD2l0yA0KAk6LklPholu/4oJRkl77BrA/g+oPIGFmAJ1DptMLoiUbGSQv
-	 CpBHdlU3q/uOqLK+o9TCdVggxl1T9Sw3PC7jB5lN6YcfVGiESNtSUBow8llDTUrRsquW6
-	 1K1ZbYSZ4EUYl5hm2e6tUklM+XYOnSa2lxiPuI37K8nwn3WKlWCmiftQxQPzAHmuP/C1r
-	 vBTfpbEgbnQd57oUI6On3TROOEwK110m9Ox3+QcgnRUOZTU1PWdMk9NSma5JS7+pki/5Q
-	 SlgEIVfiEEJyXrEDOeA6IY5ztZBQHxKfaPAkkoax1KdXPDr3YBrId5BBm9/9G9JEGOg==
+	t=1793091126;
+	b=Vlb/6AGhghW/oZBWOkdLRdNSxzMH0m9OBcgK91biR5myqouyb8boLRA6W3LaBWuIy/Ts
+	 zNxN0+6h6LfuG3kvMi4hPTSkG0L29z8Qmmm8e1ERSXRB4nyrzLYCXhxYSH4AdnismU/cW
+	 0IxGfK0ApbyCqUgFDmkX3exbDjVOcEn1PptKO2sP/X+fDJBQscrde/gke4oonG5JE+hCa
+	 2VjUX1wgkqyJPT5uhSD9Aeu7tT6JPhpT4hsapvxV7f/D/Hmzq9eRcZsbFt5cZIgHny+2I
+	 nSbvph9yFqq4vP5A7mVP+To7AvyGQHVQ0WJ4iZY55hYPks+vbzRnYRof1Zg78AT8aUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090991;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ai/rPj0k/dcF6qIR2ojbTz+PmJVaAiOnPaNdcLE5drE=;
-	b=1ufbd8XGS0OekQ7Ui+jAPhPv8llyDwBN3Ju8JM1bAlLMHJCCP7g/zJVkwaBU5ZjIJoOr
-	 auudR/SO3m9s9s4tJbTTcIcZInwmeYr/wVbofC8U8/f4YegXCF9kNEi1ch+QAbPphGCEU
-	 mQZzvxC4iycbKyuzzRcAqFxanzwFJQnTqTWXwLHAt/mi2gMBgBIUcsaW+IjnVYyxInxML
-	 Xkkk19Ll0Nuf/N3nFPuVKn4s8e1Nt/hSY2BORcvUOMoyH3TkLv6WK5AFv1HikEVOvdIqF
-	 byBx3yG+HoB6r3C+ZChiQRq7BHfnQ/azfdbIcZ9PqvcFxjcb0QxTbMQ9+DBCX85nzfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091126;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
+	b=Xz4ha8gSJsckfxBKIZlsekGHvh2cSr1QO3KPVGBt2fknNe/BVW1wqzo6S9TMRJXJ9n4c
+	 FMbs8vfKQlxpq2yJx+v54WYIeq6V6E8Qy9K4i/XXUL7VO7puAYuRQY81xD7KQD/Z8PHKQ
+	 AeRB0tDrPHpeLCGHrA9w5E0QwOuXjKK92i12bdNlGND3rSci355Vt0xea+OBkdtKNkX2b
+	 WAPHK3IJt0PxxYTs7e/ZgpyJxgkAyxtxcAHR93AWyCurUzNsfWFMj74gW04yk1bX4j45w
+	 jBYTryagwDmmtwu9TBHGp7bKWnFvvCUuWVPRne6K3LfmZ8FLsiUqBfA7sPZvEktA2Vg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n6xBxOTy;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=in72CcJb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUf0+7wZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A33606A31A;
-	Tue, 27 Oct 2026 08:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3A33606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31E1606A324
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 08:52:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31E1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=n6xBxOTy;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=in72CcJb
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5Y2ag4055693;
-	Tue, 27 Oct 2026 03:49:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=ai/rPj0k/dcF6qIR2ojbTz+PmJVaAiOnPaNdcLE5d
-	rE=; b=n6xBxOTysMMZYn/fVWb/cEWvE+GnMUUNhhPqts+HKKUjqDgJ6u+DbbIit
-	4SelxHBQ08UoEqy1ne2bMoY6QRBqtkwyMlwTQEqAApiTfcdXK6Ss0ftVL2DfVFq8
-	0LJbGBArFgTL44C2lZNplA5e/dA1SOwJ2ysSiaAOapBgkeMTtEB3HsF6pQP9P1rE
-	JuTs2W/oC9zkxd3Fn7vjNicB7pBfwcEe4zDg/dnsu5K/v2KggsC2jMOlP8ueIca/
-	HxIMK8cOozDmBMoIav62Pf6q//KpacucpNxlYakFmynWjuZxJKiYalGwNW5QDqOe
-	jmQcapr10xBgFkRJr+pqazmcLiopA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013007.outbound.protection.outlook.com [40.93.196.7])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hj9sgwaxe-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 03:49:44 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YTcRWqoNNRjfxnuRh58Jbyeuw2WNVK9DVQ8wk/GLxZH1woCgVy4EMLjzkwbwvCXMDhzXheY2QIpFrz1PBPggX1Patp4DG7YO5AC+ANksavim07EzLqx2v0Yx4y6qkOPM8mrGSFjdUqUAzqJ8fTcHSlOTLyW7W7kczEcJF6WwRLFDjccexMMi5YeG3Hqy0h4bM+8Vlw3tsyqoan43JxISvbAKKbyrVVXFimgVvv8+dPgaNxl1gWymA+MJdHPYwN2kBNmITv3CaUtA8qQ3HbEBSdUoM/WXy4CpcY/XY03Hgqm6GVgzrFjIsqyiP3m1Uk083NVwg1V/B9volnamLur1rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ai/rPj0k/dcF6qIR2ojbTz+PmJVaAiOnPaNdcLE5drE=;
- b=JOJten7MrDJjzsmhQ75czwy1si9UNDwCrQZH6TH5aEBYTTqKt8vVT3cKXex+8rUFcQHcHeSWLikS8P5npRqeRnqSch5ONxeKlJ5WitVOUQA69TACeM2OGKny3tlDHAuM7YJCWQaeQpI2w/WtOsb/yRGqA2m1RAcgP0DbarKAD/521VMF/JptPdRKUJwf4GjrW52LaAXI6Gu1aMbXMSgr4Mv6CmfmPN7mASZKb/t/xhSPvXQUBFZq87wrNJnYAClckO9uK8jX4wxP+mAVsvvRl754DGABSbf6WRylGozED6bgBSLW/nBws7nNSmfLCLVyPUu+JXUEguzGH8/84g56ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUf0+7wZ
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a1947498bso208777eec.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 01:52:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793091125; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VPDRv6ca+wi70sldtT93Wq1wbcUXbxR8ABIm05Wp7Er/rUdd4AoQIAr7NhaJCsPBsH
+         bEAGCROdUyKDHWf47DPkXGgGt8vCUi30sOMBzzqR+6N9N8Zah3pAmlt0WxmOuvUwLUpO
+         13qlazbcSlpx7FfJwmrWInQUGFHyhOvXdZ7AI6fzSDVKrnUdw3CXJcL1EaWGMhFNr/z/
+         S56hDRS6esRGCQq0DJlIoMIPzj89gsK2Y2ORsJ+i+EUFa4AMUBfPHZtq4JVgEJF4c/Dv
+         86lXscs/z5Yurm5Gwvw6hjViVwUiQ4ovS4mE42otv44ZpkxRyL73J+TT2Xfkcn+xxC7K
+         e7aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
+        fh=ZRe6QE16B7nY0pYF9c2A0SYee3Jtt1TX8yI98nSpt9M=;
+        b=LH/ALTsAcQsdBaUXjBFZzc/jSaKrY+cZkKyRX02xP4KJgea4d7m7Oe5vNstnKhkzMu
+         i+U5xkCuhQgPmtIQ/sJ1m8rwf7d0W3+B4ew8hsuFwxkHSx8Bleml4RWfWGbBzZIt5UtZ
+         bP4Z+W26Qyp+HKVAcQSS5pbSEkNbR/QlkkCSk3ZfvBFiiseQrqO8qemFSGlqZZ/Rz2YL
+         OaWp9iHToYBvwJWi4laFEPRckNgpFllcgGH5ltPpOoewp13X6/Eo73tIyFKi+uE06Zrn
+         H4BHKtNm7PisQPJIpPbJzcL8bwQjnen9Mx6KpRUbXaR58vtuZoxnliT9tFwncwE+uDG8
+         1ePA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ai/rPj0k/dcF6qIR2ojbTz+PmJVaAiOnPaNdcLE5drE=;
- b=in72CcJb9w/ABYsnzlxQ7G1fy1RmNeolqBXYOTNE2IuML1jlt9mDb6nxIy42OQ97D+FOrGvG12O3OGYPI6wfs6QhukSYU2MZSrGUrEFHJLz0SosFJ6Y+1v7E/Z187fBbPugaN1SzNvKc9hD5vdm+UHjIGWd/Xta9Yb/+P5oEQ4Y=
-Received: from CH2PR18CA0035.namprd18.prod.outlook.com (2603:10b6:610:55::15)
- by SA2PR10MB4537.namprd10.prod.outlook.com (2603:10b6:806:116::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 08:49:41 +0000
-Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
- (2603:10b6:610:55:cafe::3d) by CH2PR18CA0035.outlook.office365.com
- (2603:10b6:610:55::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Tue,
- 27 Oct 2026 08:49:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 08:49:41 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 03:49:29 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 03:49:28 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 27 Oct 2026 03:49:28 -0500
-Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69R8nN4g2530301;
-	Tue, 27 Oct 2026 03:49:25 -0500
-Message-ID: <6c2e06e2-95b8-4e19-b344-1010ac948c25@ti.com>
-Date: Tue, 27 Oct 2026 14:19:23 +0530
+        d=gmail.com; s=20251104; t=1793091125; x=1793695925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
+        b=pUf0+7wZWPc6vb08pmDR5P6yk7mSd0eNZggr2tJrJzBo7w39uEiKa1QXLZjKmWm7M2
+         lND4nL5vqeLmDtdnhvuFcc0vihOhPvYKaLsfE9Bm0ztBkLkB82jqwgxcK0mUGN5F4HT0
+         Yqab/3TcmGLFulnpxU5OwJi2wlujE4b54oEC7pPMBoxOyUitR1v8ONiQjoWzoRTs91Gz
+         ar2IIukgQB0zJMUt4nOtS62GihnblGXHDNbM7czAPOIgkpWaxrl2p4PVrut6ORDx+vpd
+         EhZZyqKNwyJxUGDJ/rfbjW5Bx0ZaZRG2zdnaTiXAaiQxEDeGAtFAkJxEEF4fgs774y7Q
+         jLpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793091125; x=1793695925;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
+        b=gwJy9kCiPObKYoiW7xxnAep3Ke0j2Esmt+dzOuUDVK8r9hFKHy9tzB2kMVIkaC8f4j
+         4SILHx93TQ9MMfTjKoSlaMZ568p3ieEH4Nl72VD4XA9909h6u/sL3tdYq7/4V0ugrOwf
+         830hZRpZaAdopXffGkE7FrOmNtU3cUdLOx1GxIhb9ONwXKnj2QQBe0wud4zuYLGrljGx
+         KGs2EPHF/+Vu6L8u3+x/n/10ZdI9A+BGWVkMDlahvQqH2efS9GmRT1OP4/8G6dDXGqLi
+         Q5wzERVRj3dphbCVpVJEYsPosP/V/79XYPA76Fd09dDaSJGkzz0lkWtIBbGuhx3Xlsxs
+         b2TA==
+X-Forwarded-Encrypted: i=1; AKwUvBytPtTXxtUCG8m3Pvua5KHzJpXYDm7zmqHQD5Hy6fudRSl3fMTasJ0XkI4mPkjygzSt4F+bKEWJ9X7j@vger.kernel.org
+X-Gm-Message-State: AFq9FYIA1KkFRzgtwgMX/3dhs6IYdIAPzPt484zIODqcWT6EpoDqCUYb
+	raY884Rd9LV7IEeuuk+6TKuTvv3eKo3zdeEr3+83gtE371fadI0T3a9J5HmDsaV+bw6ZHg1Tb2j
+	OcuKWGnwayq/GfMtGUViUjGGCSCvzMuU=
+X-Gm-Gg: AYBFou31p0eKZHuRhJ3SKe2GI1x7l3sQo0AGadxaSi5gL8Vdl3i4E1GBDgPMUZWenH3
+	0s9a9ABV2xqk17vI3J4Mf70T69tQNz8FvQ1l3bles/dnpv9WUPb2fjuhW6KLLXeLZQQQaZuaquC
+	DhgIlX0Yd6jp4iAhSKIV/Vg9me9qKTxmOb/o30+/u/nOYmBQJNQxP5wBXyxJI0tX0YWul/MTITo
+	ZY8xc+8NTtAzvxOh6qryBB84xmNhP+VnViqO9EIRMZ1jXjG05gvm1q+d4WQ4sLXcXvdC43shOyj
+	UtZJQvW1FSkq5LJNFEbvu//qRx6ajEveL6RIo0sxhTpg+svaFI8kPGBiLe51JMtVeJ8hoh296hP
+	ofJmK4X9h2bGZ8WfJqDcqUQ0hbTAOVS634UAqASVLNPB3N2iF56DEpO3TA1gVChLRRvcoBmdVHD
+	d1c3lk6kTzney3vX4=
+X-Received: by 2002:a05:693c:8110:b0:359:2edc:e1d8 with SMTP id
+ 5a478bee46e88-369e836b39bmr13749085eec.5.1793091124761; Tue, 27 Oct 2026
+ 01:52:04 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -133,298 +105,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: Add TI TDA54 pin controller
-To: Linus Walleij <linusw@kernel.org>
-CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <brgl@kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <afd@ti.com>, <u-kumar1@ti.com>
-References: <20260930092020.1047221-1-y-abhilashchandra@ti.com>
- <20260930092020.1047221-2-y-abhilashchandra@ti.com>
- <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-Content-Language: en-US
-From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-In-Reply-To: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|SA2PR10MB4537:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78641030-0e1b-48f9-12a4-08df34073d8e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|4143699003|56012099006|261021135927099003|261021123027099003|261021121427099003|261022115727099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	6XoqzhlLENP7Di6FrZ1xVVt+O64AsbJkZ2bsrx9soLB6iU7XAEHgiYX5XMsRCrrUCuyhziFeKZsLKhQlmZtRmq1d/17/kiGJJzARNE/LSwLYSlN3BZ/+Zp2Md8DpX5ERnQ68UbWcT67zp0tKSePqI8gkMgJaXRah2P2YE1cIfsDGNF/xAdfocQhpkcz37B/moigSoiPDGuoXC2ntoAY6vxbZB6IUfSO1/KKKQs2YXfehoF8mC2kDTYZVcLoBSAz9hvTuNFQ56+E2oWUUe+Rd9HXE14JfWcJ3y6PDIesmHwhSS9kNq2Wzs7Smef8GTeSdk+EMNn0P6dW4j0gKzl4sgZU+WStlXJ8Cg21PeZy8m6wpV010btKHbGlt6IvsvalPgbx0me3dScvvchdf+p/rIs33VnspmkYYicZ7HpMLOV8Gw55kECFxTAIx2UMnLUA4xxyrwl/OB8UKICxAu65qz5HSFqdPFBILtFR+t3wq/Bnn+uphxVr7MZCbT4QcBXlPhAVpmyzeHgMqeYIiabwxndRY5bXGUXOGWPXfRVyX8LYiZlF9yfgvfaGaXEha3N7F+hF9NRIz9/aGxRCHBfjKG13kVdEuWHFXVv4Y0dxuHTE7h/WkAaYhgTf7kU5gJfftGwbx+wTNgjasY+3O5uG8Vu7V532Fyab8qtakgcTIPPhcpOcbAbQvsyAQfYuwct9eXW92ypNPoV9ndIwBIYUAKw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(4143699003)(56012099006)(261021135927099003)(261021123027099003)(261021121427099003)(261022115727099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	T4qNOb3jQUqBDsumjyjrRim+Dps6iMIHQFEHu/GIZNdGx2yL0/c+dvvgDH9CU2wJXqRBoDC1DggmbFC8Es+eTxJJ5MA9heLtC4glDy026rups0w0CVMIYBox/BFNIWQtf6q1uNRuQKjd34v+4OGJyNgPnr8LXSDCRNBoI94aQJsc53aAKfSJFKIx73laKzw+np5YZpe5mivQyG6iuNlLfRGNS0uLDa/1VQo8SsDHK6K6PwrpyhDgubwfHbPuPViMR2htrung9aOItH9Pj0/1OjYa7miVjxVfUyGzqMfbW7Ed8WTTRUheeL8Xp7KLd4Fd1ge5RTCTONOFFGcQmiOXVjA3gqcfevDXcsoK9e6eLc6JKCg6u4JNRbYLeYtEPTVAk9eKQJOyUAHrGCT2cxmZYmfwndOKDsU5fsQyYoiwD+mLXSvG6w4vn4EiWIF2Apsf
-X-Exchange-RoutingPolicyChecked:
-	LueA/vm6Hh0HPB7yrkGrHdbv0NaUZ0/7PkhBk3Xj88VHgMNgOVKrBn3qLovG2jPyhnJKlJL0w96kYjCtdc6eOLVIoHZUnrRTwtWlxHSZQ9S+7ksyP+xbhEH2zoAsdoxnA37kh7K6s5hFt7C4Eg4NbH1vpflxeZJTr/rpNya/s2qNhwbntsz3xRpAvXu2Z9hMY/1kX3C029vLSYGyIt/0j809Ol2I8/JkvxXMRE5u8WxwuuRdYQz7XSmbq3936AokGVRH2DfPCS0GAoXc0EY/PQwmHmtQWxiXvlNg4b3cGBFuyYZ6NfoeDXKr9x72Kmi/aBKW7pnVX+BPXPATP5rJfw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 08:49:41.0834
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78641030-0e1b-48f9-12a4-08df34073d8e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0001854A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4537
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfX9uZ1+Oxci5CQ
- Y2rhRXEWdppFyNkytPT8M/RbG7wjFAEnaGmgAWTPHtwp590u3QQ3bs+uiqAzHCN0nFTNY9YfDsH
- 4eY128+YkCJUOQvGvXP2cj/w2n3Z6GY=
-X-Proofpoint-ORIG-GUID: T533jy8RFSPJesNxI9Rd2qKy0_89aSk5
-X-Authority-Analysis: v=2.4 cv=O5GsLx9W c=1 sm=1 tr=0 ts=6ae065a8 cx=c_pps
- a=B1kIKGfTVomdQYahC0fm5g==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
- a=MwKMck8DkIoZLm6_TacA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: T533jy8RFSPJesNxI9Rd2qKy0_89aSk5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfX5ANRpKGx7Gdx
- O2QMRHKMcmj6yZCYSiYvUTo5CvUwQVO2fHcXw1cqe8dSiRl3NoMLqCTMosSczsQI5tFemAg6zdi
- +BoXRgeAm3KVSQPjh2y0yIJ0+kLXcfZ00HJhvnxMGXr9mOI5sjQ/mc2v16oUmsNXtNwP5EXk9JJ
- cCVlHwgkHCwsiXXalBCz9tUzFRdjTwe5Zo7cE+xQ2oyvfwP6nuUA2NgShMBb6TQFPupIT7pRaST
- u/O5/zhV+2bsbsOnNKzR8toYFotyu2MLECSyR4+HMxtfoMvfLjsAmHza/JznZzHgo6dnBWJ0C5C
- xUJkz2TE6Mpu9pF1qDJlKDQncFuw6MXCKoYFQFBLlI0HsHW7reK9nzspNhWWKBb3v1tmFyzwGEC
- 9f6MPA46UozBrSN1K2wUpiktfdRCgzsvS0LiZ4KVpspbrgWrj+VL3LSblmDI1mpe6433ygJkU0R
- kaHaw5rPt6jNU/loyGg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 spamscore=0 clxscore=1015 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270034
+References: <20261004165204.205660-1-clamor95@gmail.com> <20261004165204.205660-2-clamor95@gmail.com>
+ <20261026222928.GA15139-robh@kernel.org>
+In-Reply-To: <20261026222928.GA15139-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 27 Oct 2026 10:51:52 +0200
+X-Gm-Features: AclHuK8LjCWDpNP4DuV4ZuevBx5z2yzl2RQeYjmP-HIeitxouPX3pu1AzADU8K4
+Message-ID: <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea USB
+ properties into a dedicated schema
+To: Rob Herring <robh@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Jordan Viknar <jordanviknar@gmail.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
-
-On 02/10/26 02:40, Linus Walleij wrote:
-> Hi Yemike,
-> 
-> thanks for your patch!
-> 
-
-Thank you for the review and apologies for the delay.
-
-> On Wed, Sep 30, 2026 at 11:21 AM Yemike Abhilash Chandra
-> <y-abhilashchandra@ti.com> wrote:
-> 
->> +      ti,debounce-select:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1, 2, 3, 4, 5, 6]
->> +        description:
->> +          Selects which DBOUNCE_CFGn period register in the control module
->> +          drives the debounce filter for this pad. 0 disables debouncing,
->> +          1 to 6 select DBOUNCE_CFG1 to DBOUNCE_CFG6.
-> 
-> What's wrong with the existing input-debounce property?
-> 
->    input-debounce:
->      $ref: /schemas/types.yaml#/definitions/uint32-array
->      description: Takes the debounce time in usec as argument or 0 to disable
->        debouncing
-> 
-> Just translate usec:s into your custom format in the code, problem solved.
-> 
-
-The pad register doesn't really store a debounce time. It just has a 0-6
-selector that points to one of six DBOUNCE_CFGn registers, and the actual
-periods are set in those registers, which sit in a separate control module,
-not in the pin controller.
-
-I did think about using input-debounce, but putting 1 to 6 in there to
-mean "use DBOUNCE_CFG1..6" felt like misusing a property that's meant
-to be in usec. That's why I went with a custom property.
-
-Happy to go either way though, let me know what you'd prefer.
-
->> +      ti,virt-gpio-instance:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1, 2, 3, 4, 5, 6, 7]
->> +        description:
->> +          Selects which virtual GPIO instance controls this pad, allowing
->> +          protection between multiple virtual views of the GPIO control
->> +          registers. Has no effect unless the pad is muxed to GPIO mode
->> +          (muxmode 7).
-> 
-> Wow crazy stuff. OK keep it :D
-> 
->> +      ti,wakeup:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1, 2, 3]
->> +        description: |
->> +          Wakeup event configuration for this pad.
->> +          0 - wakeup disabled
->> +          1 - wakeup triggered by any change of the pin input value
->> +          2 - wakeup triggered by a low value on the pin
->> +          3 - wakeup triggered by a high value on the pin
-> 
-> I just have the feeling this should be a generic property. It seems so useful.
-> 
-> Can you just add this as wakeup-mode = <custom value> in
-> Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
-> 
-
-Understood. As suggested, I'm adding a few of these as generic properties
-to the common bindings and the driver for v2.
-
->> +      ti,retention-bias:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1, 2]
->> +        description: |
->> +          Enables the internal I/O pullup/pulldown resistor when pin enters
->> +          TDA54 I/O retention mode, and configures the I/O pull resistor
->> +          direction.
->> +          0 - OFF mode pad pull resistor disable
->> +          1 - Select OFF mode pulldown resistor
->> +          2 - Select OFF mode pullup resistor
-> 
-> Use names inspired by the generic config types and flags instead
-> of enums.
-> 
-> ti,retention-bias-disable;
-> ti,retention-bias-pull-down;
-> ti,retention-bias-pull-up;
-> 
-
-I will do this change in v2 as generic retention bias settings.
-
->> +      ti,retention-offmode:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1]
->> +        description: |
->> +          I/O behaviour when retention mode is active.
->> +          0 - I/O maintains its previous state
->> +          1 - I/O state is forced to the OFF mode value
-> 
-> Behaviour of *what*?
-> 
-> The driver stage?
-> 
-
-Not just the driver stage, it's the whole pad. I checked this with our
-HW team. When this bit is set and I/O retention kicks in, the pad
-switches over to its retention settings (output driver, pull and the
-pad level). I will add this detail in the description in v2.
-
-> I suspect you should make two bool flags
-> ti,retention-output-hold;
-> ti,retention-output-disable;
-> 
-
-Since it isn't output specific, and retention-output-disable
-would clash with the retention output flags below, how about:
-
-   retention-hold-state;
-   retention-offmode-enable;
-
->> +      ti,retention-output:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1, 2]
->> +        description: |
->> +          Output driver behaviour while the pad is in retention mode.
->> +          0 - output driver disabled
->> +          1 - output driver enabled, pad driven low
->> +          2 - output driver enabled, pad driven high
-> 
-> Make three flags:
-> ti,retention-output-disable;
-> ti,retention-output-low;
-> ti,retention-output-high;
-> 
-
-Will do in v2.
-
->> +      ti,retention-force:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1]
->> +        description: |
->> +          I/O retention controls.
->> +          0 - gated by the Device Manager logic
->> +          1 - forced active, overriding the Device Manager gating logic
-> 
-> This is clearly a bool flag. It should contain device-manager as that
-> magic entity is involved.
-> 
-> ti,retention-device-manager-enable;
-> ti,retention-device-manager-forced-active;
-> 
-> Both seems to be related to the device manager whatever that is.
-> 
-
-I will switch to boolean properties in v2.
-
-
->> +      ti,isolation-bypass:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        enum: [0, 1]
->> +        description: |
->> +          I/O isolation for this pad.
->> +          0 - isolation preserved
->> +          1 - isolation bypassed
-> 
-> What does this even mean electronically speaking? Explain in a description:
-> statement.
+=D0=B2=D1=82, 27 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 00:2=
+9 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, Oct 04, 2026 at 07:52:03PM +0300, Svyatoslav Ryhel wrote:
+> > Move all Tegra-specific Chipidea devices and their properties into a
+> > dedicated schema file, by analogy with i.MX.
+>
+> I don't really see the point given it is only 2 deprecated properties.
+> Maybe those can be removed? Depends if they are deprecated and still
+> used or deprecated and removed from .dts files years ago.
 >
 
-When the SoC goes into low power, each pad is isolated, it latches its
-current settings and is cut off from the core, so it holds its state
-while the core supply is off. With bypass set, the pad skips this and
-keeps working normally, which needs the core to stay powered. I'll add
-this to the description in v2.
+The ci-hdrc-usb2.yaml schema contains properties that are not
+applicable to Tegra, and conversely, Tegra-specific properties are not
+applicable to qcom, nxp, nuvoton, etc.
 
-> ti,isolation-preserve;
-> ti.isolation-bypass-enable;
-> 
-> perhaps?
-> 
+The 'nvidia,needs-double-reset' property is required for Tegra20 and
+Tegra30, and it is still actively in use, as you can see here [1]. Its
+marked deprecated state appears to be incorrect, as it should simply
+be restricted to Tegra20 and Tegra30.
 
-I will switch to boolean properties in v2.
+The 'nvidia,phy' property is still used across all ARMv7 Tegra
+generations + Tegra210, as the Chipidea driver has not yet been
+converted to use the generic property. Therefore, while it is marked
+as deprecated, it remains in active use.
 
-> Some of the retention settings seem *very* generic, c.f. this
-> from include/dt-bindings/pinctrl/nomadik.h that has been
-> around forever:
-> 
-> #define SLPM_DISABLED           0
-> #define SLPM_ENABLED            1
-> #define SLPM_INPUT_NOPULL       0
-> #define SLPM_INPUT_PULLUP       1
-> #define SLPM_INPUT_PULLDOWN     2
-> #define SLPM_DIR_INPUT          3
-> #define SLPM_OUTPUT_LOW         0
-> #define SLPM_OUTPUT_HIGH        1
-> #define SLPM_DIR_OUTPUT         2
-> #define SLPM_WAKEUP_DISABLE     0
-> #define SLPM_WAKEUP_ENABLE      1
-> 
-> SLPM means "sleep mode", yeah pretty much retention...
-> 
-> I think the corresponding retention settings for things that are really
-> quite generic should just be added to the generic pin config bindings.
-> 
+The example I added is from Tegra30, which in the real devicetree uses
+both properties, so I've included them here as well. With your
+permission, I can remove the Tegra-specific parts from
+ci-hdrc-usb2.yaml and tailor the proposed schema to better fit the
+current state.
 
-Agreed. For v2 I plan to make wakeup-mode, retention-bias-*, 
-retention-output-*
-and the retention offmode generic, and keep isolation bypass and the 
-device manager
-force as ti, properties since those are TI specific. Let me know if you 
-have any
-other preferences.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tre=
+e/arch/arm/boot/dts/nvidia/tegra30.dtsi?h=3Dnext-20261026#n1146
 
-Thanks and Regards,
-Yemike Abhilash Chandra
-
-
-> Yours,
-> Linus Walleij
-
+> Rob
