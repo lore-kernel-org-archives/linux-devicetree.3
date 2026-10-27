@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105176;
-	b=EXqVLPFAMIb7uvUl4WiijURxNHruFzEPEIg3CzqtY6tjWQwSjfEgwk23WoM/1/OvDEa8
-	 hLs64CRjqG6Wm3z/nJ4FgYEw8jiS3QXnDJ4+BtxAT6xSXq0BxgOFcJlHfDV6SWGPnbqWw
-	 N53hoRPe1KIib4gnj70zfzynM+csogAC56S/l5+tDd5o/hg4eSesKZ74D/yGWaQUUK+7H
-	 wX1p69yiv2JYYBokGVX7dzffk4Gn3bA/TD849uPM3+LW3aGLnnH5ovd1Mj3Eg4e/IS6rp
-	 TBuQZgHf79OV7ta4ciemzyC364Fr7n175FnF54kfi/2ZqGX0f5KMnyi0uaUgZc+UWpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105176;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
-	b=cdoD4oitatdBrOGNUgQMC/JjvZAAZ5A+rILwSFQn0Go1nXSQCBc0FdF2OQ/bdyyQEkFx
-	 keaqz0fcoaQ0wBicd52TXye93i1+9/3dtvpKASwNdNucpzONV28lMCzGWcfO2Ec6n6A7I
-	 K8l4zyUT6GVxB8tx8CLraIMQHirYksIO4rPT4j93UXLYHxrJQyY/oBoZdsy6Oxhq6TfYr
-	 7+yugq5qgJnmxP+tPW34MQUBTx6/fz8kfXa6FZd+wTyXZ780oJIFK7ydj/h4nqMubuQzE
-	 KtLL5kJMttuVNn/jIyHKMvM8le2FHaTPJx2r9GFEMrf4ECxS9B6oOb/ZYkz/j6mWKvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793105226;
+	b=QllYwkvU6vGEVvYrl8g5anRAPdUkHJqGix7N7L8J28VumHv0GahIuWiiXCXyDyp6XPQh
+	 CQPDdmrJccDTDDvIa21NuaAI+IO6vZiMrzdirNo/AXXo8HJ52Hke1q1+jflBrkWJGVe4g
+	 THBnLex9riiJ2l5xXkTpMtuRinEEt3/DN3aIh0P0xan4oUvSz6KvJ8ak5nFB46rY8+hHG
+	 UlHBJQyB3JtIrmI2+gV6KLh2hP+VuBe9YoG6f+2N/ktFR5GERfjzDiO7WthdzHYpEZ7Fz
+	 eFagqhymSfZeQr2Hm1AezxXmxQ+owsd1xq+kBFPUM+VSImlqZbYB+gAMROQ7f7KpwjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105226;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=;
+	b=CSPW9GayfoyGB0R7NJCzflCqq+Ak0ptKqdJ+xibBGFXD6ocmbNDf9o5BJGJTDJgVJvkr
+	 Thy3Xb/O+nx4ke9LH2+pVpsahI4ziYxYQsgqLuySSxzppNL5MLAhO0hwMhYdbvNAXeMce
+	 hIkTvP3hyOMHgyAx/jgedh7SiUQwCxCf2iKVvVA/Pi/0Ods4lGGHdxa1PtqkkmrDZerfa
+	 CR7u4Cx6Hnfs2ETlmSgv8y4KdlZN6We0vc98MyojBJxAOUoIDgOhyO7dsTDeJCh88sB26
+	 eXxu/pnFgTkE7VlGUMHNDXLWjjhpo4g8Ljuxbrss5fpBBuFSVTWdsD+wvyU07SjqH3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Y1OyAXVh;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=uqG4Jxwk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE42606A31E;
-	Tue, 27 Oct 2026 12:46:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EA7606A32D;
+	Tue, 27 Oct 2026 12:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EA7606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAFF1F01825;
-	Tue, 27 Oct 2026 12:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793105176;
-	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
-	h=From:To:Cc:Subject:Date;
-	b=Vhbm56jrteQjTTsDguHLxGkwy0uhl30h+TeiYpBkTKwcKnWtgi5eXu6cJGSAGtVHN
-	 qnmYKadM/iQjZaXm5kN86nrNVfajeEwlKXp7XBhUAohzubxKZl88nJWvNZlkvibmUd
-	 pKvIXlhYJrDNj/NMg/dm6HOuw4npnMPGCjnrELNpq8Kx7YtCfLLDI0iXDagBpQxhAV
-	 1eFuMjWTWyQLfFoEQdftXK1zpkblWAD+MFmNPCfyiexQzfPQ6XABH3NcjvezNsmvAS
-	 CSzG0RIj2q8T89kJfzmx+n61e2E7BZ6BbwvvhQM5puqgznU2rZEuPeRUIJ0Mpt8T60
-	 ydBT7FGwORYLg==
-From: Joshua Crofts <crofts@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] iio: update email for Joshua Crofts
-Date: Tue, 27 Oct 2026 12:46:02 +0000
-Message-ID: <20261027124602.1533-1-crofts@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Y1OyAXVh;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=uqG4Jxwk
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793105224;
+	 b=bJetRKtUIA0DifBY3kJv1xWZsb2/HOu4nhvPXfjLF4i9WgLNmF45i/wCjOEPI0huKPB3pkGvzA
+	  ZUQRhpCsxOK+Bj9aOAswqWije0Y+SC5E0PluEqc12ALNUDlefrcjtf14gxJ+rpSIzfe+TyYmGI
+	  84AQfqvo2QHf/gsKPv2a8EWNFbT2SyS9BHEt/iqRWhX7Pjk78Sk+LlbnMxu6Hrfufsns8J3H3M
+	  gGtUpURqU4UduQASClK1sar+9UZQf+ksJXNaabC2NVzTcUsa01ALAtPqMq8EqMA7ISRf5EfaG6
+	  Told0CIEhY6BR1uGimNfSj7EJ5lGIR6Vo8udWYxgEyJPLQ==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793105224;
+	bh=LeQ+3UkITZwFZJh2nj89Q3CM/bUnqFi56QC8hkbo5dk=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=FZJPuN4Irw4uwauu0jHEsm8TILbH56h+IQbSGxXKxnUKIoI/vk3EMoTpISBK6lGc9VhrNgagwM
+	  n+L/lhHYSj5XCzJt1uh1UVE/fDalWrCcZ0aOzoJU16fdHpdGKo3JvtBrdBk5YDUZtoJAk8bevw
+	  ytSztH1Xu+mXUf9RiB8pjmLqv8zRdXJ/oP9pI7Kr0t0dMem+hI/qlG36g6R+NUqkudBs9gFrkF
+	  G0d3ybzMILlO9270X4GisYCGuwuzJFEpOeroHVM9VK2wv+92pc2FR+khhIP4bH5FNlU7hPDaJG
+	  uQbrtBMTJCASMW1clIoXV1Lyr1GEXOEH2dzsBnjkMHhocg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=; b=Y1OyAXVhEcNBtxy49BJZWgO0CY
+	J6a1fLy42b6YmNorIywCE99vGiQf+nDZ2QU15pBp/H1T91nhq+o4uwrDeH+l0rhW6/psoPkBL0+bo
+	YfA4cy6nzzw+6/RKFL6Ql5SkFqDFakIf7nbZpzenjWTEPnE6H+bp9O14ecys2EB5IGe0=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-l70q.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgZt-0000000Ccs3-04Iw;
+	Tue, 27 Oct 2026 12:46:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=; b=uqG4JxwkWwKujXNDCc08S2TlWU
+	XYWWXCxKHZVX1MgagD1Ltt+HzCm7j9R2Qo6uU0bdwRSNm1VjEL4Z4mAB/yb96W+5v3yaWpCYuP9P7
+	OiR3YYrQcp5JA51VP3xm3hxlZyAL2dAurV5KmLvJDwWfriU8gFoSD6oLYbuSm8P8gTS8=;
+Received: from [87.16.26.129] (port=63095 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgZY-0000000015e-3p8g;
+	Tue, 27 Oct 2026 12:46:36 +0000
+Date: Tue, 27 Oct 2026 13:46:35 +0100
+From: Francesco Valla <francesco@valla.it>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Haixu Cui <quic_haixcui@quicinc.com>, Jason Wang <jasowangio@gmail.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Message-ID: <auCb8_ROuyXdTkQ4@bywater>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027065001-mutt-send-email-mst@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,110 +106,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027065001-mutt-send-email-mst@kernel.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: b235b629c2303c70cc2b651a2410b50a
+X-AntiAbuse: ID - b235b629c2303c70cc2b651a2410b50a
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xLgZt-0000000Ccs3-04Iw-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-I'd like to use my kernel.org email going forward.
+Hello Michael,
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- .mailmap                                                      | 1 +
- .../devicetree/bindings/iio/dac/microchip,mcp47a1.yaml        | 2 +-
- MAINTAINERS                                                   | 4 ++--
- drivers/iio/dac/mcp47a1.c                                     | 4 ++--
- drivers/iio/light/veml3328.c                                  | 4 ++--
- 5 files changed, 8 insertions(+), 7 deletions(-)
+On Tue, Oct 27, 2026 at 06:50:51AM -0400, Michael S. Tsirkin wrote:
+> On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
+> > When a virtio transport exposes a non-discoverable bus, the devicetree
+> > can be used to declare its child devices (if any) and/or other
+> > properties. To allow for that, the virtio framework searches for a node
+> > with a suitable compatible in virtio_device_of_init() when registering
+> > a device [1]; such compatible takes the form "virtio,deviceXX", where
+> > XX is the hexadecimal representation of the virtio device ID as defined
+> > by the virtio specification.
+> > 
+> > This patchset thus does not introduce a new functionality, but allows
+> > proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> > what is already being done for e.g. I2C and GPIO virtio devices.
+> > It was sent initially as part of a different patchset [2], but since it
+> > complements a functionality that is de-facto already there and is useful
+> > beyond that specific use case it was sent separately (also following the
+> > maintainer's feedback there to separate it from remoteproc-specific
+> > changes).
+> > 
+> > This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> > remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> > parts still not not upstreamed - see [2]).
+> > 
+> > I added myself as reviewer for the spi-virtio driver to be CC'd on any
+> > patch involving the new bindings.
+> > 
+> > Thank you!
+> > 
+> > Regards,
+> > Francesco
+> > 
+> > [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> > [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > ---
+> 
+> I hope this can be merged through the devicetree maintainers,
+> I have no idea.
+> MAINTAINERS changes needs an ack from existing maintainers, of
+> course.
+> 
 
-diff --git a/.mailmap b/.mailmap
-index 1f5540bc33f1..07df296885ba 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -475,6 +475,7 @@ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com> <jorge.ramirez-ortiz@linaro
- <josh@joshtriplett.org> <josht@vnet.ibm.com>
- Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@redhat.com>
- Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@us.ibm.com>
-+Joshua Crofts <crofts@kernel.org> <joshua.crofts1@gmail.com>
- Jouni Malinen <quic_jouni@quicinc.com> <jouni@codeaurora.org>
- JP Kobryn <jp.kobryn@linux.dev> <inwardvessel@gmail.com>
- Juha Yrjola <at solidboot.com>
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-index b181fe73dce8..e8a8c7c88716 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-@@ -8,7 +8,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Microchip MCP47A1 DAC
- 
- maintainers:
--  - Joshua Crofts <joshua.crofts1@gmail.com>
-+  - Joshua Crofts <crofts@kernel.org>
- 
- description: |
-   The Microchip MCP47A1 is a 6-bit single output volatile DAC.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ecc22d1149d1..78a21782e153 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17912,7 +17912,7 @@ F:	Documentation/devicetree/bindings/iio/adc/microchip,mcp3911.yaml
- F:	drivers/iio/adc/mcp3911.c
- 
- MICROCHIP MCP47A1 DAC DRIVER
--M:	Joshua Crofts <joshua.crofts1@gmail.com>
-+M:	Joshua Crofts <crofts@kernel.org>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
- F:	drivers/iio/dac/mcp47a1.c
-@@ -29151,7 +29151,7 @@ F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
- F:	drivers/iio/light/veml3235.c
- 
- VISHAY VEML3328 RGB IR LIGHT SENSOR DRIVER
--M:	Joshua Crofts <joshua.crofts1@gmail.com>
-+M:	Joshua Crofts <crofts@kernel.org>
- S:	Maintained
- F:	drivers/iio/light/veml3328.c
- 
-diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-index 0bf994aa0e4f..2e2cf8f645fa 100644
---- a/drivers/iio/dac/mcp47a1.c
-+++ b/drivers/iio/dac/mcp47a1.c
-@@ -2,7 +2,7 @@
- /*
-  * Microchip MCP47A1 DAC driver
-  *
-- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-+ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
-  *
-  * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
-  */
-@@ -161,6 +161,6 @@ static struct i2c_driver mcp47a1_driver = {
- };
- module_i2c_driver(mcp47a1_driver);
- 
--MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-+MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
- MODULE_DESCRIPTION("Microchip MCP47A1 DAC Driver");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
-index df36c48204be..c49dd3ff432d 100644
---- a/drivers/iio/light/veml3328.c
-+++ b/drivers/iio/light/veml3328.c
-@@ -2,7 +2,7 @@
- /*
-  * Vishay VEML3328 RGBCIR light sensor driver
-  *
-- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-+ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
-  *
-  * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
-  */
-@@ -440,6 +440,6 @@ static struct i2c_driver veml3328_driver = {
- };
- module_i2c_driver(veml3328_driver);
- 
--MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-+MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
- MODULE_DESCRIPTION("VEML3328 RGBCIR Light Sensor");
- MODULE_LICENSE("GPL");
+This might prove... difficult. My e-mails to the maintainer (Haixu Cui
+@quicinc.com) continue to be bounced back by the Qualcomm postmaster
+with a RecipientNotFound error. Maybe someone from Qualcomm can give me
+a lead on how to contact them?
 
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
--- 
-2.47.3
+> > Changes in v2:
+> > - Expanded the commit message to better explain the functionality and
+> >   the chosen compatible.
+> > - Redundant pieces dropped from bindings.
+> > - Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
+> > 
+> > To: Haixu Cui <quic_haixcui@quicinc.com>
+> > To: Francesco Valla <francesco@valla.it>
+> > To: Mark Brown <broonie@kernel.org>
+> > To: Rob Herring <robh@kernel.org>
+> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > To: Conor Dooley <conor+dt@kernel.org>
+> > Cc: virtualization@lists.linux.dev
+> > Cc: linux-spi@vger.kernel.org
+> > Cc: devicetree@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > 
+> > ---
+> > Francesco Valla (2):
+> >       dt-bindings: spi: add spi-virtio
+> >       MAINTAINERS: add Francesco as spi-virtio reviewer
+> > 
+> >  .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  2 +
+> >  2 files changed, 48 insertions(+)
+> > ---
+> > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> > change-id: 20260927-spi-virtio-bindings-f4e350b2709a
+> > 
+> > Best regards,
+> > --  
+> > Francesco Valla <francesco@valla.it>
+> 
+
+Regards,
+Francesco
 
