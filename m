@@ -1,41 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.39.254
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099790;
-	b=ijh6aSGOJBOfj98AG9jm+uFSPFUscJvrWNJc6f6C4TAShRjQzirVBa6tOqTRN69sW2wa
-	 7j+zW3gnYXhLp7DCg8o8D97oJOmXNOPpjHZdgtmAme0QhZUReu4O6JutRJ+ucw2hzoGii
-	 uYe/oDGLebGuNh9z0DLo+bBVtAaSDi05ywDtOalNx5UdN5bl2WQyheQaifpnzPNE5c/hk
-	 tWNwSYTVYpcJNUZlh0CpK+K2bgohUYargi/bnIBfMDKNbW0XnRHKGHRO1cdSXhoh4BZPg
-	 Ogok+SPZnk1RPO8wk2kJfUZBZZxIDlKq2kSlzfR38u8ffmcKB1ccEoBCmi9vG2F6L4Q==
+	t=1793099850;
+	b=trkHeAEpG0wM+L3QbUA02fLX8Rh+Jeh+3M9uR0GRafKjULpyWTyVHgBG++/rXRhLQsqT
+	 mSl6TQXh8j5cUcK1sM90fTC5yXVUNZQHN7TGsp2NEkJlzk+PGvJ+W+rQ82lre/zu2e6+O
+	 gznmIJCkRmu8DcGQr4YWprQX4C71HccufxHSvFj4OFt/8n+ibAAU3OtxrfKZFND2eznzf
+	 9RSiVmJJ2iogfbeoOspMwBuzAbGYMbO9OFMNVv5EtmlrgaGiwqc98H2ihbzEZXNPGh+/d
+	 D1numJESrmY04WyMRDInKTGK1vbdVTQX9Tj51fDpo2dsyYa28QNJfocT5GGwJV8p9TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099790;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=vVtBkWkK7zs4jMXWSQ4xXM4N92+j1aNMfI0Zy/p0UKc=;
-	b=IUM8Oj6zDmJuzEuc/GHyg0tT/21I3mvUr7tOe6jFPFZXzZSEopHD+EZ6T0wwhXeaINZe
-	 BE3D8a/gk0WbKrmbT1qN4Krw1FduOUMJiwIEg1A2preOwjqvWkyCCNXiKhe2AmArnCc+p
-	 5sLY0ZpK7+LwtPSERFNt41AlCsgYS6uKujtHjc3o4Oasr1f53J8RVdtHK6LxaD2d/xd39
-	 WS4xxWx3k9khk347idOKCGsDVWrKOXTOiHNV0f+MMbXcJy6u9eR7GKIZjmZ6JnBdLh6Cv
-	 62Nup3C8ax3ze8de0qrUM5q7KOSOEtmnrCNeJXSttzbq7Jle8UmbVIKi5FOegjAw+HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099850;
+	h=DMARC-Filter:DKIM-Signature:X-secureTransport-forwarded:From:
+	 Complaints-To:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZjK1vgESlI4vCfs31jSZGTJa+4SaOMucEG4B3RP35Z0=;
+	b=w1icGPDX4VOXBIRiVSwvfUGX7kvizo7s1pUckJW0iPraygFH6UDgzBMNX0i85KjyUPyc
+	 SfR4ni4Be05S8MVp5pyKJs4GqMTFxlNg769BoqVp96Ba9ZAGsAnDt2kNMdgNezNaT3Apc
+	 m28y/yg3LZtPxHxfGSY5ggCTgz2IEm+228CkdUCryGdz94fuFoEZYNUA3RlLCVoqK/fUf
+	 0DI+KNJadydymwhIQkzANhb3NyAPSEhGicfGrge14ZqqlBVfdbjfRvWWyTdYaLjGJaddH
+	 Q/WL5yP8+r6zVla6AsVdcQK5tts9WPa1CnsY4Pe0O/7F43eC9RYIusQ5uCNg7M9Yr9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A05D606A31B;
-	Tue, 27 Oct 2026 11:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A05D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8DxTtMIiOBqbsoZAA--.8947S3;
-	Tue, 27 Oct 2026 19:16:24 +0800 (CST)
-Received: from [127.0.0.1] (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJAxmM0GiOBqWqYwAA--.35025S2;
-	Tue, 27 Oct 2026 19:16:23 +0800 (CST)
-Message-ID: <006f82c9-e689-4ca4-8a5e-cd4cc3e14225@loongson.cn>
-Date: Tue, 27 Oct 2026 19:16:20 +0800
+	dmarc=pass header.from=dh-electronics.com;
+	spf=pass smtp.mailfrom=dh-electronics.com;
+	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=V5dpu8An;
+	arc=none smtp.remote-ip=188.68.39.254
+Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8A8606A321;
+	Tue, 27 Oct 2026 11:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A8A8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=V5dpu8An
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+	s=dhelectronicscom; t=1793099796;
+	bh=ZjK1vgESlI4vCfs31jSZGTJa+4SaOMucEG4B3RP35Z0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=V5dpu8AnUorH811a5/mQlFL2sNkquv2ahWWbkvYMLoiZPwYpKN6R2qJSUsoIaZ99g
+	 C2hmuDjkfTgZ2alVLwGokB2HhWBveKSqB58N/Pe0OH2FYr2FV8LQO9GxBlacUgEYdn
+	 A+yzQiW3PVvZniIxBNVsbHZ01wYjUO9uHTj3BasKMfQ3VGD4UVgYwO3vv90zy5n2Ig
+	 NX/b55q3o4hVUgJ6e1enxtTDNv2PoIAbK7tAjZJz9gvChlAUAbFMa3E4MzYg/2GzDG
+	 BllIdjer4xJ8K7iphitrWZk4UcPFYK4/91WGkMg3Mn6Uf3FTTrYki5dSvYirBI5dwV
+	 yNBa4t8K4Fozg==
+X-secureTransport-forwarded: yes
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Complaints-To: abuse@cubewerk.de
+To: Marek Vasut <marex@nabladev.com>, Francesco Dolcini <francesco@dolcini.it>
+CC: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
+	<festevam@gmail.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	kernel <kernel@dh-electronics.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI
+ device
+Thread-Topic: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI
+ device
+Thread-Index: AQHdYWJZTE2xKAx+vUqMiv2pzw4VvLcIHF4AgAAVrACAAAUxgIABDqQA///kbACAADcugP//7M4AgAf3puA=
+Date: Tue, 27 Oct 2026 11:16:33 +0000
+Message-ID: <ba292bb3688545aab7cb46cca5d58fe6@dh-electronics.com>
+References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
+ <1073daf0-3676-4123-9ca4-c182ea5883a3@nabladev.com>
+ <20261021183704.GA1116319@francesco-nb>
+ <d4b9c444-a848-4b4f-9273-1c832db45fc8@nabladev.com>
+ <71d725ee47804205826bdda322fdfdb6@dh-electronics.com>
+ <20261022092536.GA232648@francesco-nb>
+ <794745ff1c484257bef4f17917f3cf0e@dh-electronics.com>
+ <948d901e-ee1c-45f3-9946-30cea28a6128@nabladev.com>
+In-Reply-To: <948d901e-ee1c-45f3-9946-30cea28a6128@nabladev.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -45,164 +89,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dmaengine: loongson: loongson2-apb-cmc-dma: Fix
- cyclic residue wrap NULL dereference
-To: sashiko-reviews@lists.linux.dev, dmaengine@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- vkoul@kernel.org, Frank.Li@kernel.org
-References: <cover.1792988985.git.zhoubinbin@loongson.cn>
- <e094c8dc1d01af2f296457f6c18b5d85ae76905f.1792988985.git.zhoubinbin@loongson.cn>
- <sashiko-outbox-184754@kernel.org>
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-In-Reply-To: <sashiko-outbox-184754@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJAxmM0GiOBqWqYwAA--.35025S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQENCGrgBnkJzgADs0
-X-Coremail-Antispam: 1Uk129KBj93XoW3Jr4kCr47tFy5CF4DAF17CFX_yoW7tr4xpF
-	y3Jwn5Wry5Jw4rZFs8ur1rXF1UAFWrJFZ2qw43WrnxWr98Xrn29r1fta1rXayUAr98ur1j
-	qrs5u397C3WUGacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64
-	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
-	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
 
-
-
-On 2026/10/26 17:17, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dmaengine: loongson: wrong next_sg check in loongson2_cmc_dma_desc_residue()
-> --
-> 
-> commit d1cdc3886ec73f6a09aef30478b0b2741d57690c
-> Author: Binbin Zhou <zhoubinbin@loongson.cn>
-> 
-> dmaengine: loongson: loongson2-apb-cmc-dma: Fix cyclic residue wrap NULL dereference
-> 
-> This commit updates loongson2_cmc_dma_desc_residue() to check desc->cyclic
-> instead of lchan->desc->cyclic when next_sg == 0, and adds a comment
-> explaining the cyclic wrap behavior.
-> 
->> diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
->> index 2037120b23caa..f090fbe0b8a1e 100644
->> --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
->> +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
->> @@ -484,7 +484,19 @@ static size_t loongson2_cmc_dma_desc_residue(struct loongson2_cmc_dma_chan *lcha
->>   	ndtr = loongson2_cmc_dma_read(lddev, LOONGSON2_CMCDMA_CNDTR, lchan->id);
->>   	residue = ndtr << width;
->>   
->> -	if (lchan->desc->cyclic && next_sg == 0)
->> +	/*
->> +	 * For a cyclic descriptor that has wrapped (next_sg == 0), the
->> +	 * current period only has the in-flight entry left; the entries
->> +	 * from sg[0] onwards belong to the next period. Adding them would
->> +	 * make residue exceed one period.
->> +	 *
->> +	 * Use desc->cyclic, not lchan->desc->cyclic: this helper is also
->> +	 * reachable with a descriptor that is not lchan->desc, and only
->> +	 * the active-descriptor branch passes lchan->desc today. Keying
->> +	 * the wrap decision on the descriptor being queried keeps the
->> +	 * result correct and avoids depending on lchan->desc being set.
->> +	 */
->> +	if (desc->cyclic && next_sg == 0)
->>   		return residue;
-> 
-> [Severity: Medium]
-> Can an active cyclic descriptor ever reach loongson2_cmc_dma_desc_residue()
-> in drivers/dma/loongson/loongson2-apb-cmc-dma.c with next_sg == 0?
-> 
-> When starting a transfer in loongson2_cmc_dma_start_transfer(), lchan->next_sg
-> is set to 0 before configuring sg_req[0] and immediately incremented to 1
-> under lchan->vchan.lock:
-> 
->      if (lchan->next_sg == lchan->desc->num_sgs)
->          lchan->next_sg = 0;
-> 
->      sg_req = &lchan->desc->sg_req[lchan->next_sg];
->      ...
->      lchan->next_sg++;
-> 
-> Similarly, on cyclic period completion in loongson2_cmc_dma_handle_chan_done(),
-> loongson2_cmc_dma_configure_next_sg() wraps lchan->next_sg from
-> lchan->desc->num_sgs to 0 to program sg_req[0], and
-> loongson2_cmc_dma_handle_chan_done() immediately increments lchan->next_sg to
-> 1 under lchan->vchan.lock:
-> 
->      if (lchan->desc->cyclic) {
->          vchan_cyclic_callback(&lchan->desc->vdesc);
->          /* LOONGSON2_CMCDMA_CCR_CIRC mode don't need update register */
->          if (lchan->desc->num_sgs == 1)
->              return;
->          loongson2_cmc_dma_configure_next_sg(lchan);
->          lchan->next_sg++;
->      }
-> 
-> While the final period sg_req[num_sgs - 1] is in flight, lchan->next_sg equals
-> desc->num_sgs, so the loop
-> 
->      for (i = next_sg; i < desc->num_sgs; i++)
->          residue += desc->sg_req[i].len;
-> 
-> naturally executes zero iterations. Thus for an active descriptor,
-> lchan->next_sg is always in [1, desc->num_sgs] when
-> loongson2_cmc_dma_tx_status() queries it under lchan->vchan.lock.
-> 
-> In this patch, the only caller that passes next_sg == 0 to
-> loongson2_cmc_dma_desc_residue() is the else if (vdesc) branch in
-> loongson2_cmc_dma_tx_status() for an unstarted queued descriptor on
-> vchan.desc_issued:
-> 
->      if (lchan->desc && cookie == lchan->desc->vdesc.tx.cookie)
->          state->residue = loongson2_cmc_dma_desc_residue(lchan, lchan->desc,
->                                                          lchan->next_sg);
->      else if (vdesc)
->          state->residue = loongson2_cmc_dma_desc_residue(lchan,
->                                                          to_lmdma_desc(vdesc), 0);
-> 
-> With desc->cyclic && next_sg == 0, querying a queued cyclic descriptor (while
-> another descriptor is active) returns early before summing desc->sg_req[i].len,
-> reporting only the active transfer's ndtr << width.
-> 
-> Even after the later commit in the series ("dmaengine: loongson:
-> loongson2-apb-cmc-dma: Fix residue for queued descriptors") switches the
-> else if (vdesc) branch to loongson2_cmc_dma_desc_total_len(),
-> loongson2_cmc_dma_desc_residue() is only called for the active descriptor
-> lchan->desc with lchan->next_sg in [1, desc->num_sgs]. Doesn't that leave the
-> next_sg == 0 check as dead code and the comment describing cyclic wrap and
-> non-active descriptors inaccurate?
-
-Yes, an active cyclic descriptor next_sg is never 0.
-loongson2_cmc_dma_start_transfer() sets next_sg to 0 and immediately
-increments it to 1 before programming sg_req[0], and
-loongson2_cmc_dma_configure_next_sg() does the same after wrapping. So
-the next_sg == 0 branch is dead code for the active path, and the
-existing loop already handles the last period correctly (next_sg ==
-num_sgs means zero iterations).
-
-I'm inclined to merge patch-1 and patch-2 because this section of code 
-needs to be removed in patch-2, so there's no point in fixing it first 
-and then deleting it.
-> 
-> Also, regarding the commit message description of the NULL dereference when
-> lchan->desc == NULL: since vchan_find_desc() searches vchan.desc_issued, and
-> both loongson2_cmc_dma_issue_pending() and loongson2_cmc_dma_handle_chan_done()
-> immediately start the first descriptor from vchan.desc_issued under
-> lchan->vchan.lock, can vchan.desc_issued ever be non-empty while lchan->desc
-> is NULL? Should this check and its comment be removed altogether once queued
-> descriptors use loongson2_cmc_dma_desc_total_len()?
-> 
-
--- 
-Thanks.
-Binbin
-
+RnJvbTogTWFyZWsgVmFzdXQgPG1hcmV4QG5hYmxhZGV2LmNvbT4NClNlbnQ6IFRodXJzZGF5LCBP
+Y3RvYmVyIDIyLCAyMDI2IDE6MzQgUE0NCj4gT24gMTAvMjIvMjYgMTI6NTggUE0sIENocmlzdG9w
+aCBOaWVkZXJtYWllciB3cm90ZToNCj4gDQo+IEhlbGxvIENocmlzdG9waCwNCj4gDQo+Pj4+Pj4+
+PiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZ1bGwtZGhjb3ItbWF2ZW8tYm94
+LmR0cw0KPj4+Pj4+Pj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2dWxsLWRo
+Y29yLW1hdmVvLWJveC5kdHMNCj4+Pj4+Pj4+IEBAIC02MCwxNCArNjAsNiBAQCAmZWNzcGk0IHsN
+Cj4+Pj4+Pj4+ICAgICAgcGluY3RybC0wID0gPCZwaW5jdHJsX2Vjc3BpND47DQo+Pj4+Pj4+PiAg
+ICAgIHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCI7DQo+Pj4+Pj4+PiAgICAgIHN0YXR1cyA9ICJv
+a2F5IjsNCj4+Pj4+Pj4NCj4+Pj4+Pj4gRHJvcCAic3RhdHVzID0gIm9rYXkiIiB0b28gLCBzaW5j
+ZSB0aGlzIGNvbnRyb2xsZXIgd2lsbCBiZSB1bnVzZWQgPw0KPj4+Pj4+DQo+Pj4+Pj4geW91IGNh
+biBpbnN0YW50aWF0ZSBhIG5ldyBkZXZpY2Ugb24gdGhlIFNQSSBidXMgZnJvbSB1c2Vyc3BhY2Uu
+IHVwIHRvDQo+Pj4+Pj4geW91LCBidXQgaWYgSSB3YXMgYSB1c2VyIEkgd291bGQgYXBwcmVjaWF0
+ZSB0byBoYXZlIGl0IGVuYWJsZWQuDQo+Pj4+PiBHb29kIHBvaW50IC0tIENocmlzdG9waCwgaXMg
+dGhpcyB0aGUgKHVzZSljYXNlIGhlcmUgLCBjYW4gdGhlIHVzZXIgZG8gdGhhdD8NCj4+Pj4NCj4+
+Pj4gSSBkb24ndCB0aGluayB0aGF0J3MgdGhlIGNhc2UsIHNpbmNlIHRoZXJlIGlzbid0IGN1cnJl
+bnRseSBhbiBTUEkgZGV2aWNlDQo+Pj4+IGNvbm5lY3RlZCB0byB0aGlzIGludGVyZmFjZS4gTmV2
+ZXJ0aGVsZXNzLCBJJ2QgYmUgaW50ZXJlc3RlZCB0byBrbm93IGhvdw0KPj4+PiB0byBpbnN0YW50
+aWF0ZSBhIG5ldyBkZXZpY2UgZnJvbSB1c2VyIHNwYWNlLg0KPj4+DQo+Pj4gRG9jdW1lbnRhdGlv
+bi9zcGkvaW5zdGFudGlhdGluZy1kZXZpY2VzLnJzdA0KPj4NCj4+IFRoaXMgaXMgYSByZWxhdGl2
+ZWx5IG5ldyBkb2N1bWVudCwgSSBoYXZlbid0IHNlZW4gaXQgeWV0LiBUaGFuayB5b3UgdmVyeSBt
+dWNoLg0KPj4NCj4+IEknbSBub3cgbGVhbmluZyB0b3dhcmQgbGVhdmluZyB0aGUgaW50ZXJmYWNl
+IHNldCB0byDigJxva2F54oCdIHNvIHRoYXQgdGhlIGV4aXN0aW5nDQo+PiBTUEkgcGlucyBvbiBY
+MTAgY29ubmVjdG9yIGNhbiBlYXNpbHkgYWNjZXNzZWQgaW4gdGhlIGZ1dHVyZS4NCj4gDQo+IElm
+IHlvdSBjb25uZWN0IGFueXRoaW5nIG1vcmUgY29tcGxleCB0aGFuIGEgc2ltcGxlIGRldmljZSwg
+eW91IHdvdWxkDQo+IGFueXdheSBuZWVkIGEgRFQgb3ZlcmxheSBmb3IgdGhpcy4NCj4gDQo+PiBA
+TWFyZWs6IElmIHlvdSBpbnNpc3QsIEkgY2FuIGFsc28gcmVtb3ZlIHRoZSBzdGF0dXMgbGluZS4N
+Cj4gRWl0aGVyIHdheSBpcyBmaW5lIGJ5IG1lLCBidXQgY29uc2lkZXIgdGhlIGFib3ZlLg0KDQpJ
+IHdpbGwgcmVtb3ZlIHRoZSBva2F5IHN0YXR1cyBpbiB2ZXJzaW9uIDIuDQoNClJlZ2FyZHMNCkNo
+cmlzdG9waA0K
