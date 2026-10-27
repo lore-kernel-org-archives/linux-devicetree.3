@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793126812;
-	b=xn+b2pL7aNlwfQTMX7S+xF0F2M+AA966CYjj3UJvG5DR98AUuJ5j8Dz/KSdrPs1TsGIP
-	 T6zHtzXr0YeNOglazRv0C6UUzX3wHnjglGayWn5f3ZLVxJ3mikOGkmXzHUFhZdauAn5sJ
-	 gO9DzAH7fG+ldKaTQa9rRoC5eCclAq3rzPwYKC7iU5LzL4wPGgih0RjsQLs+tiPTMpLUs
-	 2PW+yerj8lfhfd6BDXhfOiJVhr6G0PXgranrR9/9XZtHwNdkMy7TzwecRwDpVFpAes+21
-	 jo8FMqRI5fENV8XbnXY7EJR2vtLzw6uNwel3d9jrOJx3/K3tW3omI5ihI+nBU1PcuaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126812;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HSaqKS2TpQZW7IvyQZH6ojBdMfjkGdBoVNPM3GO8eCU=;
-	b=M6GhV83PyF9RglfvdoFPpxUbC47vLE20qJfCXs3RsmVTfyXN71OKLzg/UcgmX32vA5A6
-	 OyosXu/yHnkw8eNoJ1ZhNAs07XFSPaB4hKZpnbzqxef23/yBYO5IQT5O/kCLn2sITEnbF
-	 Hlwt5ZeBr3x8/sAXdIGo+mjTr1V1dKqeKc3OHARM4pZNnjMmkxQ0DxGS3UxU3DzR/KZz2
-	 tJdUSTvPUekEvFQhCQi9AnF8LCkCps1v0E5vACLFIAYNEz8uYLV94fMMlmZY1xTif3eKY
-	 LnCHlmg5HVoHzq4OCj/h1PIwtziB7fU5X6nKBF63uCsMCcSQlZWfKluQ0qhNdWKd+Hg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E2G7yvHa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793126863;
+	b=BMMRAmOGCF8J3jyuFJpIZ5QgWANKg4MWE+IZRTFUEnc3z4mHBX7YjZUbsQFQQwYYLkRU
+	 XvjimbWZcgtle1tqLbPUJV6woq3dBoxMBSoW9s2H8cT4Ak+EeS0iiHYAAczvDLNvnThM2
+	 GVKrAsTn+1vk8bfRYN/T87KFV3xjQawWSZ14UWfhXSRLQHAdGTfTmH5R5VuvicgEtwVXF
+	 zt423x1ATdyAaxQOStPPdjUZ6HN65oxFCCGof12A5XyBe0ObdooGbgLpdwXIIRmiaFYcg
+	 IOQY/fZGwsapy/qZgZWAwe9Z0f7+o5iyopfcNqaAdKevSu4ncGTuMyqdOR2rrnmUnig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126863;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0qhzg2EwORmkMVCDp5YuggGXSTQZPJfFE6qUzVOGdyU=;
+	b=XmtGhT7LnHBP2rdlW8VbUbbcYLgK9WbOHgESSGM8eZtgWHdsZer0/BUbzV6yOGvl5MMI
+	 qI2ysTXAX3Z9WA13Bhx6XEj1FRd+JQEYe0gBq6OCxcuacEN+nzpTCnN98UwspMKMlnIVA
+	 kIOH8Tgz3hSaNaY3wZ1r+euVFdNLS96GbYeTn2vqYdB5PeHpaTO2wTXjiOsW95EC1U9Oq
+	 nEaYqDH5VdAt/uP3MACr4c5+jjWc9oaqwQ0TLBCnouB7u9zdzBelmhpA/MPNm0ew8f0ua
+	 qOBUN0hqTu20Kp0OrO5jBxlYZK3AFBbIF6wI3qZaDx/nkGtVI+XWLut6SmW/nuIa+hg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojAow+ie;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D54606A320
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 18:46:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D54606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0662606A31A;
+	Tue, 27 Oct 2026 18:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E2G7yvHa
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so281830eec.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:46:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793126811; cv=none;
-        d=google.com; s=arc-20260327;
-        b=myFDrpn/mXmU117s9TTHR1m+tZCQmyLg26MhxK11VbpI29aZQ6TgpSYUAsnyXWrvk1
-         pUmD9nU5+sd3P3DC7P0pufKCE0uU/ccaktU/h+AjP0CnnpUCF+PgosIgwHZQlr8y3IQc
-         1sZaIl5r8t5deHn3nmTstbNsOZkNsTXqG6NVEYj9zpx9rNyMpMVHX60SoOiNqhmsJpJq
-         FzMcKeC+VHulJ5hPoc6L55YiImu7RsW8MjQC1NTE8Po8C6NEGvK+cXbywXTzagPY0Fuz
-         nc67hWMBt1EKUBQshJiw7O+5338o8clETsv5a0RruHbaSXhnksBt2uvFRXXH4vnBBJ5+
-         EBMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HSaqKS2TpQZW7IvyQZH6ojBdMfjkGdBoVNPM3GO8eCU=;
-        fh=gbbKHrgek+hu/tnAgUJ5T5g8PvtlpOQExg9C8fO6Ukw=;
-        b=oPaiB9Fl+RdcXgGMJR6x22NoqhsAvDppbtlv6V0LoU7W9IBUIeJGpHmYnP0pf1JQYT
-         me4J5v18E1RVBvxyEIZ3AK5M7j9m9Xyg3upgpsPDMbZWu35CtwNGWNZzwbI1hrGjOhCI
-         tnKIYbMkoJTcrteEteIKtfu9Q2IXDAmFXBvRuJKJyPvC/OXCFixAUh4t//dceOPn0iEG
-         S7HELdW8mSJ6n9svlhU9lBId1Wn2UGDPjzALEULROe3iXqhbzbXG0Vi7qi8cFlUcNmGa
-         GnZajpE8MXWWu54ADQkBugu9gubyzkHvgKoGW2YnOirM7f6MvfOQd7/WpZ42cxTgwiEx
-         NMLA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793126811; x=1793731611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HSaqKS2TpQZW7IvyQZH6ojBdMfjkGdBoVNPM3GO8eCU=;
-        b=E2G7yvHaNkRxyW5X1e82+KIGXM5YEJiStgrdWIvG/gYSSS7qOXXR28A0GU3fx4B9qv
-         39OttinzhaBsa0+GeHKfNbjNJIQz7h3J8bTmFKDp6du7ye2G+jDgrSN7sDv1jPFk/hE3
-         o1BW1kG2DpmC26MFXaXofLL6r0i2h+Fh3zXcVQSF6dgwT+0hK7V8lP3VO9F1uZcL04jv
-         WAOHHlYpkX56zN0B8hpKiKMIqT9WhrE9BOOBm6VyRUG+uOBWmVMkZeZOf17DJCocnc7D
-         FlaAutXsgGENcLxSOMGA3Q3USXx4TGloK5IfEhnjEjIogrCqfYWQq3Kw1XP+nA2Shun/
-         sIsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793126811; x=1793731611;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HSaqKS2TpQZW7IvyQZH6ojBdMfjkGdBoVNPM3GO8eCU=;
-        b=dNrYw+fAE+o/S5F2VTt1cwe/U4DHVZ8YU46uU/jLsX6wvMUzHuKPFb65DMdhQ60rhk
-         5t8vKJS2A2M9r6vJGrP2wmH/kabjMzUb0L1a6K+kVai2FbSR+pLi5GNNGikKtln4pK09
-         ku5+F1WS70cVmA868Pv8dqvToiQ4daHDgk35oiKX7oI3wZzv3I5cNqmPfZcrHcag7++u
-         b3K4mc4Bk09PdZ8D0UAsFHpjz3pIAPeWig0iRgOKY0a+uwbpiBqtdeyTL25fEA3ArW1e
-         KP0dImGim+P68t4wGDGJzxLPhbh46FKZdvX4ONS0ozkb8Ry7ZRjWf9jwSvO3kxLvnI4Q
-         rdsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwH1b1Zv4mKerlCUZ2hqBObCjc2FOxsPjmSgi9tiyZlQFHgcqHDfjhMXSLIfvPop0RAGUjoeYQcL1N@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1W9gx4TpHgCbgYpuj2NpaL+N138iKtUnGx//RdRyFEKXMUrtY
-	yoMRljf4d0Ixb9s5zxmZRetzvOH0ywJYOew2C1cJHw9Fw/ME/ArTCCdhw2UTOOXQW06e/U7NSl3
-	JD5rbW2bSW6/v50d2EaWTqLbHTBL4I+s=
-X-Gm-Gg: AYBFou1yL3fbOFJD0nUA2aTJkbk500bTSyaqQYvMuNe3n4aZHsvr8RhNfZXGTtvDO53
-	IJfELVj3fiho6yXQZj3ZJeUxfcYe93yu4Ow8bq3yXaRa4cj/txdb0t1hT3BVY8JX1JB9BIzQqjW
-	nYCcTAQ2plcIxNFwKFRwpoA5klX5qQq9WupEIpor0yQMzluCxCQZlFwbmZfg4L+TLgMgbnnIsDD
-	PoWzJSQCmodgTYnMIxSESoDcLVHGj8cbuY5evwGEklDSriz9I0eQfF8X/4KnVHuRxZX0qDhVsm3
-	F/su4aMtyDgBA6vllqnQXuO6eMQSX+3tTC3mnViDI93oe/aem95Vbqv0yuEfDqsPOPy2pFlz1DP
-	mqUz/+aqYk7UoWq7DasyrHbOefOmoJkJospCd0H0HtTZEj4GZzCTgmwmDUdGn/ni9GDmX4g==
-X-Received: by 2002:a05:693c:638c:10b0:369:d8e1:7bb6 with SMTP id
- 5a478bee46e88-36a203bc9dfmr355408eec.25.1793126811403; Tue, 27 Oct 2026
- 11:46:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojAow+ie
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B1B1F01825;
+	Tue, 27 Oct 2026 18:47:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793126862;
+	bh=0qhzg2EwORmkMVCDp5YuggGXSTQZPJfFE6qUzVOGdyU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ojAow+ieUh/EOpAg3bYdgQjiHFFB3Qxr6m6PsLche8O/YCbSm/53/GKM3HMZuaI9x
+	 Em3yk3GzQTeL1WGR/FoQfwQ49+TUqHSpD4woTE5INztRADnwNu12e1FgTwmC6bkq1w
+	 1tPtfE1L7nKhqK+cZlM6VPzVR+OeuQSVUTcDi26D38rDTHOauDmqo7JRU3UluWlo6I
+	 XzZWMcCI0M8j8qtel1MSkuO44ewrsjn0bAG2z360ZthvoFVdSUKOLFaAcGmYE1x2Cl
+	 tH40ofNtWkFz/3iRjGSXe5je0anY/dsvu1ib7saTEIvwT77nw74u32qGCdC0gsPPnY
+	 PRebnwj+FHp3A==
+Date: Tue, 27 Oct 2026 19:47:39 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 01/12] dt-bindings: clock: qcom: Add bindings for PDM
+ GP_MN clock divider
+Message-ID: <20261027-inescapable-rough-viper-6cd56d@quoll>
+References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
+ <20261026-b4-pdm_clk_gp_mnd_v2-v2-1-ff8e4bc8d567@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,43 +66,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027120019.93611-1-clamor95@gmail.com> <20261027120019.93611-2-clamor95@gmail.com>
- <179312433904.199157.11834547028241710753.b4-review@b4>
-In-Reply-To: <179312433904.199157.11834547028241710753.b4-review@b4>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 27 Oct 2026 20:46:40 +0200
-X-Gm-Features: AclHuK-EdXsdf9foYz2HdBUkkAOJoPmsThEgknyKq7DwRpVYxIMIaZENdpZib5o
-Message-ID: <CAPVz0n1be44e455tvaowB5H8mrYOyTyWof+PS-nmf7W5VyAtQA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/7] ASoC: dt-bindings: maxim,max98088: Document
- #sound-dai-cells property
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>, 
-	Leon Romanovsky <leon@kernel.org>, Animesh Agarwal <animeshagarwal28@gmail.com>, 
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-1-ff8e4bc8d567@oss.qualcomm.com>
 
-=D0=B2=D1=82, 27 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 20:0=
-5 Mark Brown <broonie@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> > The Maxim MAX98088 codec provides a single DAI cell.
->
-> The device has HiFi and Aux DAIs...
->
-> > +  '#sound-dai-cells':
-> > +    const: 1
->
-> This makes sense for the device.
->
+On Mon, Oct 26, 2026 at 04:59:27PM +0530, Taniya Das wrote:
+> Add device tree bindings for the Qualcomm Peripheral Web's PDM GP_MN
+> clock divider. The hardware generates a fractional output frequency
+> from a fixed input clock (typically TCXO4) using the relation
+> Fout = Fin * (M / N), with duty cycle controlled by a separate D
+> register. The clock output is routed over a gpio controlled pin.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/clock/qcom,clk-gp-mnd.yaml | 98 ++++++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,clk-gp-mnd.yaml b/Documentation/devicetree/bindings/clock/qcom,clk-gp-mnd.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..8141f392c5d70acfc42cf1ff4b1722e1eff23afa
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,clk-gp-mnd.yaml
 
-I must have set code correctly, but forgot to adjust the commit
-message. I will update commit message in v2. I have to adjust wm8994
-codec anyway.
+Use fallback as filename, so qcom,sc7280-gp-mnd.yaml
 
-> --
-> Mark Brown <broonie@kernel.org>
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,clk-gp-mnd.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Peripheral Web's PDM GP_MN Clock Divider
+> +
+> +maintainers:
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
+> +  The Peripheral Web's PDM GP_MN clock divider receives an input clock
+> +  (TCXO4) with frequency Fin and generates an output clock with
+> +  frequency Fout = Fin * (M / N) and a duty cycle controlled by D
+> +  and routed over a gpio pin.
+> +
+> +  The divider is configured using three registers:
+> +
+> +  - GP_MN_CLK_MDIV: holds the M value.
+> +  - GP_MN_CLK_NDIV: holds the ones complement of (N - M).
+> +  - GP_MN_CLK_DUTY: holds the D value.
+> +
+> +  For every N input clock cycles the GP_MN produces M output clock
+> +  cycles. D is the number of native clock cycles in which the GP_MN
+> +  output is low, counted over 2^13 native clock cycles.
+> +
+> +  Hardware constraints:
+> +
+> +    M <= 511
+> +    N <= 8191
+> +    N > 2 * M
+> +    M < D < (N - M)
+> +    M and N must be coprime (no common divisor)
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: qcom,sc7280-gp-mnd
+> +      - items:
+> +          - enum:
+> +              - qcom,sa8775p-gp-mnd
+> +              - qcom,qcs8300-gp-mnd
+> +              - qcom,qcs615-gp-mnd
+> +          - const: qcom,sc7280-gp-mnd
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: PDM XO4 source clock
+> +      - description: PDM AHB bus clock for register access
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pdm_clk
+
+pdm
+
+> +      - const: ahb_clk
+
+ahb
+
+> +
+> +  '#clock-cells':
+> +    const: 0
+> +
+> +  assigned-clocks:
+> +    maxItems: 1
+> +    description: Parent clock phandle used to set the input frequency.
+> +
+> +  assigned-clock-rates:
+> +    maxItems: 1
+> +    description: |
+> +      Rate for the parent clock in Hz.
+> +      Supported rates: 19200000, 9600000, 6400000, 4800000.
+
+Neither assigned-clocks nor assigned-clock-rates should be needed.
+Parent clock is outside of scope of this binding.
+
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - '#clock-cells'
+> +  - assigned-clocks
+> +  - assigned-clock-rates
+
+And these two should not be required, either.
+
+Best regards,
+Krzysztof
+
