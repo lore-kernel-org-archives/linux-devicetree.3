@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793134359;
-	b=unKzYOtZUMSPwpKh8D2kBbhTSg82bLlnXMD3BJWi/rsMHmlqs4tkJvezlKu495x7PSEW
-	 8RTp1mzBU4APHARHt3GPYyA1XK7TgfoOwMVUPQWeLO1z2dvV1wEQON1TLWMdXmKCik43I
-	 /ovohEJlpY7u4NleYnKEGJncpMmV4hAMq1erkTA6dqvFGmUiR+stMVGcL5LFWQhlyUg3f
-	 6B8PpM6x0NLRfSK2asUYBUyTcM4Huxq0DN6ToU0ECoTjSYUHn5yJFDSDfALGnMQMq15/X
-	 M76c7hUKbu8S6iL/CU06kNT7ocgjCiBB3rYNcxm3CO+3PpFbPnfNlYmeZcVpdjnxSjg==
+	t=1793134367;
+	b=exXnezp7FVgg67AJ85YnavqA1IANgmn4ZWRjHPMUkYhJ9o5ZZeWj/s9oe4GeVfhpw5eL
+	 g9YaRYhCjn3DizG1M3vtt4W0Ubih8pdFsmreBxUmGN3vubUHiXE4pBR1i3cwKJzW4Z2Q5
+	 ehWGZ+DKPYBqENewuECJ5rJeD9QVnnS3u/HiGcM8M8yW6EfGL8iMVnNXkf6eUsVqoYXLM
+	 8Z5vypacwrAoXLPiULvLDXpfVsnmqJuVKJ1STFMqb6nv11xH6o3qifh62oXB1DpGU7bnY
+	 hMzKvXm6JqCjW/xmXhZspUAOCtheNoQ9BRzBLle3TwTxAUmHzesTV/4aLulxGMVIMTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793134359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793134367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
-	b=zYx+L6Al1gi9QWCGwYnjvyBJ/4OSqLD/mePYNGHWXovydj/5o49P0m5zUZzr5c7shSTM
-	 Lq+Xc/rGWzbE1PLIr16Qvp4bRIJVYhB+2XQ2S60kdi223nKkhlamPJqknvTl6vnw8Av42
-	 0wCo3noaEM9BqsCYCEVwrLKvZj7k/FtQ2lyx/AkVWHF1MBFM9KE6NhrDNSKOkuVJpFIkD
-	 EK7gM8BYu5c3zGTQVwvJ9DPUGLpYOp+zjunxJzfPaxtzUDJrPSfSbozLNcvQRbP/T9gfI
-	 q43/y9vcIPBiAKqCQirNuDkU5jZv/i5YreDgPMMHWMzINJMQcsBA6I1AiLZOORg9ejw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+	b=ZHIzs9lepKCv/VLrKMtf4FgOTjsQ9NgYNXmYjckJ4kLjB8eqMdUWnrKebjzNd/l/oZM+
+	 Vd3LGAOHC6fmrX1ojPzwEYBnPQpPRSEd77oVgTWFRk5sKFwoq0Z1Efmax0ilcOLu/MRMI
+	 MbQlfA6WWfUcIEzARo9/W+FSFCB6O7OURIkUcrqNEeF9vkxoufOgzGxkaYpem9pD+6OVo
+	 UazhxSwo5eFs+PrcTgnfjrEs3DvvRMCulH5HhjWXa9ZzD0al4mfhwFZfNkEyDv7BhcbWT
+	 zFj01bRZcQTS3JY+Uwk8DYu6m7/3v6o37otDVpn5veFfFNB8fcxjpkD9J80/aKat/zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8+uIxak;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D1F606A320
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 20:52:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D1F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0224606A320
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 20:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0224606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8+uIxak
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae0852df46so255390a91.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:52:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so250587a91.2
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793134359; x=1793739159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
-        b=o8+uIxakmfDagDkZCK7+K6/vRP/IVouu2zhyMfMqSNNIX8uO4j7UOSdKzAnJG10Qgg
-         TcZ0qI6eEWtQfCuXaxmrArt6DgXQAISp1+BzCg4MmL3coNG2Oa081uRLgqaSMIiS4GiY
-         hOjBeH/qnW9dN5trvA9hGcQKE1N51RrJGgVg5nGhH1aMJTlPtf4NG9qZukH5OylYQPkh
-         4nWMF2UckyXkbGyijuyO761Z7iu51tD0qaP9PyluGQbBM3+qZOpULIXkqZAs6XsUCn2p
-         7MZ77ZoeliWVVsTIgmRDtzJCJrKJ+mOLIZRFOEfFmco7vZDadczAUbT/floDWB0ZAqqK
-         YTDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793134359; x=1793739159;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793134366; x=1793739166; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
-        b=wL63AHtV1JCUzIFoyZMdKNEVP20fFu5n2SfUyuanHfOVJPClCzgRUfF2cVGo6lXWmS
-         jnoXARQdNzVRaifCunZCg6NmOZQADe3gWv5a1Uvjg+yZ0GmQ2ejMdYBvOF6omkg9FAaw
-         /a8GdjoEM+1e+3/uFwNcNPKZeJCya27mjH9/7EZ3W1YSrMtUFxbZuWKlSOJ3BvhhG9mS
-         m8S9PRSjvhxC+zhJjWS/qCtjuNITcOjr4T3De3JGTQI0sVb/qFPRA/SN5YsIj00fcsa8
-         u06Zwy9w8frbP3gNeDTitIhaXouXGgUWF8at7p0m8dEQ7qkGuYL2tKrQwKe90dcoZX8F
-         PCrw==
-X-Forwarded-Encrypted: i=1; AKwUvBy46T5wNPVrHfmZfDaEB6l7XiqS6KqhoNEUGUngN4JqGBdx2QmT3hFm1tXg1/d4LyJzHWU3UawJbfkF@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBn6On1CetJXNcaRA5Nj4N2kzQna2io1P7xkf8VQgH2MhtHIWL
-	mAcWFMsKue/XZVGG2MpKzULiZlkK87XiSthFdN/Q8rCwrkIzm7qZ3Iip
-X-Gm-Gg: AYBFou0E2KgLFJj4+1lzE8wMCtRw2Ivd6XV6LfHMHcypJ63D4HVq9hXgWYbTJazEOL4
-	1dpH0roNvBgccPq1ejQBoWNEqVFTsCcSfcQ+5NauP8KMbQjBrfiNSa83epZl2by2aiiZdHXVm9P
-	WKkcudwsquIelvzFksJnUz34QqNpdQ/iQXJdGnrmumeW3RKnxXIejd4Lt4a1rkBdvZhNY0LthLe
-	Til7sfUtjE7tNQsreN4Z0k6QDdW6rn19yyjYuXChmI+Me7m+8XsMQmgJjuX4vXhU1VLxLOZVAah
-	gdn7FM5P59MK1JEZauvDdhoW2qZAHGF75ZzsMcrmy3q5tAd4AQePQMwE0U8gt+GQMzEGvNkZS5P
-	dtRm46UTR5/96ws5ZvtXjRdFRZaDKALsoSPXWUuuw+jvUhTMVfeHzrVupx8L46cBVIQJQanzaN4
-	m+qxN9bFZ3K84wSmfsCCWp2WTCWto0sgFWYmfy6RSWBmJM55yG390nvez2QvlB5PLWo3bwGRxks
-	NOkiNJi3O3CGWGD2N86OvuybLSzGmMu6mUGiwlxcGkLv56qXm9S4LGxToyhVp39XMDKz3Im48i8
-	JK07vvXgChuo5CIkvJyH0UuhV9rNCLZf
-X-Received: by 2002:a17:90b:1c0a:b0:3ae:3b3d:c617 with SMTP id 98e67ed59e1d1-3ae5812dd39mr123478a91.29.1793134358980;
-        Tue, 27 Oct 2026 13:52:38 -0700 (PDT)
+        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+        b=HlSdKImzgk2WYlBDUrX54M9HeRYTZ1bWEqP3eecZml5jDi+o3r/1CVeSCrqOsN73cX
+         uljc8zWNVW4z6CdvOkNgflBltbJ+Cj7ZZFWeoC1dl0U6pUat3okGPtO/K4CtLxHv78MT
+         hCI05ESMJDIuZPaUx0FGRDs5ikhkt6rSUR0DsRVLwQgivSQGa02wzeoOxw/qQ3m8PFCf
+         KrMkCNZscnGz3+4208YcWJ6ga63Fa30abhgnzrAaSXkPtzew3pROSDwpR0bk62jTEVZS
+         JtvVNBeSGjF2xFiRKVU58Foa5xhJS8atjbLcaX229j3AQVrDeWLYYDSXC6RhjARsgE0D
+         0t+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793134366; x=1793739166;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+        b=syTEg+QU9CgFDodUpk1qR4L5gEKioWpIdqx2BXoQ8VPVJx27j7I8K2io119zMONHVl
+         wIDbyRGsQWeV0m35FfcKbnF8amp2BInj6t67poselI3O5z2tL9KtBN2FPR2I85e4bebx
+         wOoALfoTKd6FRTK9c/jTNVScKWS5P78far0StKOU4XQli0ZKhrVMpq9rrlPdCB5QicyC
+         UB5Uj9uBwoVubFWunsKFaSoCfxuOmD+U2JaVKJZxCkuHdCw6yWTmiqhQ8VdF/i3Bjzx5
+         ApjcrDLForAJ1mOJbCBZavvxaHT3rvkvii8l+P9+9I/W4pSjcI5WVdUYhYH3XdCrEcr8
+         CR4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwgRvIN9CsFM9MDVcowAqJphZ+uZlMVZjWguCJdSZGuLbNbC3I0/KVtz7QqDGCHo8a/NB/hVGPNQrRI@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAKRTvA36TjRiUyBAGMQQqPOFygQ/dp+tfAI5gvX/mCOEB4E/P
+	fspL5goTSosmy6iN0JrKiqLMxdD3R7aEpxZqIHuwEky/g8bTIuZrqRxC
+X-Gm-Gg: AYBFou3QSI2EM4EejGEXcf/u1YHIy0bVG3noBZU7pMC036RThQCvCrm2eVqNZbn7SXM
+	Nu5Urtf+HoV9Yc0vEZplyiZDT441WaNpiA0HcElP1+ibHfh1ufeyCC3jj5zBK29mULshRF7g8ln
+	BMstbL6FpLPA2vrNOf9vmLHem4K3/59STkOzPLDIejGBHcdjk5YpnFGhoKTzbrZez6Lkq0pnp5g
+	8rrYFtswu541WeaFPwJlqjt3ifq/QZTizGSRFQbd1osYwqAZ8CxEv7yJiMRp8ia8qGOLAgGt3Fh
+	sasqX0vgLh2kQyBLqiUMS4VqaTUokTzS5LhHq/1sv7fDa6hOzHdRThIv3NihkJc5hIO93A35EYZ
+	yq3lB/tM8UBR/BEBw8SB/IiItwQjEQxHmKjO/fM8qYhyq4tEcfTc63spRKikZrANRo8BacjnRD1
+	9r+xazrAE/v6QwIHlYHFlaTPmCWQd3eY96yClrVaStNxROqcVc//XhoQgV3c5oXZfb08o6mbKJE
+	RmMrTRGMT9qKKqx4hNOklsE4JR09hlKwqYjUu5H3wQxC/Pk61obT1nkmaJInO3cISdPWQj2LTHg
+	CJx0AmIp+khutJ2Dl8F4aaW6Mc5Amku0vreng8kkX7a+5bzYTyzDQA==
+X-Received: by 2002:a17:90b:2543:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3ae581b5095mr169710a91.18.1793134366005;
+        Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
 Received: from debian.lan ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57bc67bbsm372192a91.3.2026.10.27.13.52.35
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57bc67bbsm372192a91.3.2026.10.27.13.52.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 13:52:38 -0700 (PDT)
+        Tue, 27 Oct 2026 13:52:45 -0700 (PDT)
 From: Amir Hanip <killdeath104@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -88,10 +89,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Amir Hanip <killdeath104@gmail.com>
-Subject: [PATCH v2 0/2] arm64: dts: qcom: Add Xiaomi Poco M3 (citrus)
-Date: Wed, 28 Oct 2026 03:51:44 +0700
-Message-ID: <20261027205146.16384-1-killdeath104@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
+Date: Wed, 28 Oct 2026 03:51:45 +0700
+Message-ID: <20261027205146.16384-2-killdeath104@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027205146.16384-1-killdeath104@gmail.com>
+References: <20261027205146.16384-1-killdeath104@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,57 +106,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for the Xiaomi Poco M3 (codename
-citrus), a smartphone based on the Qualcomm Snapdragon 662 (SM6115).
+Add compatible for Xiaomi Poco M3 codename citrus, which is
+based on Snapdragon 662 (SM6115) SoC.
 
-Currently working:
-- UFS and microSD
-- USB host (OTG), limited to high-speed (SuperSpeed is untested)
-- WiFi
-- Bluetooth
-- Remoteprocs (ADSP, CDSP and modem)
+Signed-off-by: Amir Hanip <killdeath104@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The memory map for the ADSP, CDSP, IPA and GPU regions differs from
-the SM6115 defaults and follows the layout of the stock firmware.
-
-Not included yet: the display panel, touchscreen and the GPU display
-pipeline, which depend on drivers that are not upstream. Until then
-the display is only available through simple-framebuffer. Audio is
-not included either.
-
-Firmware and userspace: WiFi, Bluetooth and the remoteprocs need
-device-specific firmware which is not part of this series. WiFi
-additionally needs qrtr, tqftpserv and rmtfs running in userspace,
-and the Bluetooth controller needs its BD address set from userspace.
-
-Tested on a Poco M3 booted from microSD with a v7.2-based kernel.
-The series is based on qcom/for-next, builds without new warnings
-with W=1 and passes CHECK_DTBS=y for
-qcom/sm6115-xiaomi-citrus.dtb. The existing dsi@5e94000 warning
-comes from sm6115.dtsi.
-
-Changes in v2:
-- Unrolled the wcn3950-pmu regulator scopes, used lowercase hex and
-  kept a blank line before 'status' (Konrad)
-- gpio-reserved-ranges: dropped <0 4>, the device boots fine without
-  it. Kept <14 4> (SE5 SPI), without it the device bootloops. Added
-  a comment (Konrad)
-- Kept citrus separate from lemon: reserved-memory, PM6125 regulators
-  and the wifi/bluetooth bits differ, and I can't test lemon (Konrad)
-- Patch 1/2: no changes
-
-Link to v1:
-https://lore.kernel.org/all/20261027075116.41673-1-killdeath104@gmail.com/
-
-Amir Hanip (2):
-  dt-bindings: arm: qcom: Document Xiaomi Poco M3
-  arm64: dts: qcom: Add Xiaomi Poco M3
-
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/sm6115-xiaomi-citrus.dts    | 538 ++++++++++++++++++
- 3 files changed, 540 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557c..8d2e4f0e3 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1068,6 +1068,7 @@ properties:
+       - items:
+           - enum:
+               - fxtec,pro1x
++              - xiaomi,citrus
+               - xiaomi,lemon
+           - const: qcom,sm6115
+ 
 -- 
 2.47.3
+
