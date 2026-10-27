@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135226;
-	b=ecFBWfBinUBcZZpqm+9n1TRzybevpHqAaYoUUelEqKfohIZgoHoKOWTXrqVkIODd5/fi
-	 W3dC0MOt9j0hDly2bdlU8qSu2RNvJ+e8NJMLBzaoezNfT7hI89ZNrh5z8/yLj7EbtO9Y2
-	 LMQIHN//Ga8zzv2vYpOW4IX+AOwuA4pyFNjs3HBkFNnGlmyS6VCQqj0nhyt5o0CWREJr/
-	 ElTccXTygwxftv8wIg6paKoM2htML0+UOv2YnZ/yCvRLbyYfSb5sRQ36LfI1y+xRy1uq9
-	 gv3FN0+tu8lzekCxy9BS4lUMSoVLgjs/fIiLHqhSZP9u4FYludKzkl/ic9S3Ej/3t1w==
+	t=1793136479;
+	b=w5W/ffHu7zXbdwbzFMs4JPqGBDPsOF+9bRc9xi7sE6D2Wizx+nF+TgFl2by1Imeg9ptT
+	 GGtXNyrsHUf71jkpioJYG0oDSCp8alFAU9jDNz7eeIAgP1dyVLXDSmtzPtEtBp9jXI4yh
+	 RjvUxxegsRKGCmkBpUmHqp/EqfCiD1+Dbhea3q/3XE62QELF9e1NnOIw9KZtYAuVMqLw4
+	 MLSEqmbC/dYu29ZvvXp5sIRP1JTuGsGSdH7Ok/aLL3GpjnWMYb8TNlQEpuqIGqcgWIjFA
+	 B2CzkE6J4iCvJft7nRSDQA4w3VD4542A2dJyktVIR4tlwQyUrHutWy6/zBQJN+oo8EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793136479;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dhiQkFXajssFfdQm0/XVZOyaTKHqLvZL8I8B+3smf8I=;
-	b=FZXWG6cOEpSHiNsTWT8KzisXUd8ap8lcc4EuG79Z4OUO0fFyk9ZnnZXPsPVYgsMMVnsy
-	 EAzAR4ZJJBh3KYu1NjfSphOCSb2TMw47dBU56DuUyH1HVjdsqQsBUSLGk1PYbtpGHlZ9/
-	 wBKW8t8s0PBxbwbBEpQRfJEh20N6GHp1ysAz1DKDk5OY+QsvAZsPRlS3slQsYdG+CboMM
-	 uaLxS8GwuW5KLUXeDxCCT2M8kWmcdR7/yj1t86Ly5AAbI0zeukEyJ/rviFkVRD8kaSG8y
-	 tXi6flaDJHYB7RliFm7gYtgwrlr+A3d2ORuAKAIQO3h+flAMjzj9wZUiM6AAal1Thhg==
+	bh=ZJHJDX+tYIUA8TS0+Bq9o54ynInCFB+BPhOqtDXik/E=;
+	b=Dm7TE83EGiDS/+SG1+s/A+JSB4yzPxamuXmFPC8zhuCj0mShdA2RpeeFbN7QICkQJnOG
+	 j/nDZw+qhXVIQuuK1TBok+cXHxadH7YMTOGPDgnTC9GRlM5ljb2dm6qvM3WD+z7TKbQEY
+	 JjmcVRlhbTnjl+kiqYToIjOI99CYLemz7mkI9kalFw5AHYuSn8lGzJyF+2W+cjGYb91Pz
+	 fImuJDZT0+9VK1LhfLzfE8clBH4VyOkk3Q79I6U4YS2SM6+2O4+h9KQjay74eLNeLCdy7
+	 McZBjKyJVWSQJINAbeBZtVOr0GOp8TrVREPRwRgBv0dgWqrVvA8Nvm0BsUPqkrkPVIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggcFAE+1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEIpHx0R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EBD606A31F;
-	Tue, 27 Oct 2026 21:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6434606A31D;
+	Tue, 27 Oct 2026 21:27:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggcFAE+1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84D71F01828;
-	Tue, 27 Oct 2026 21:07:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEIpHx0R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7641F01825;
+	Tue, 27 Oct 2026 21:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793135226;
-	bh=dhiQkFXajssFfdQm0/XVZOyaTKHqLvZL8I8B+3smf8I=;
+	s=k20260515; t=1793136479;
+	bh=ZJHJDX+tYIUA8TS0+Bq9o54ynInCFB+BPhOqtDXik/E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ggcFAE+1D+RSsplxMrMS76Sbh4+yrOX72umRosL+KKVrS/wlX5TU/oJg3TTlBuH+Y
-	 VGeQcDauUe4Yw7kK1twxV5Cna3gpWDuRHffkmswPkqD+fJwJ/KQftNRjyafciIJvzB
-	 0ynSl4kEgnA6tAWrpYMwwqVRzn6TcqiPILynqSS+IFdQHPu37QmqzNXgLkS2zoL5Li
-	 CxFZaJMfz38KwoKsAP7OAyLMOJBVZaSyYTFG4ZFxh7omeyoRfKVJM0SMxI2nZ2Iv+V
-	 DZpZEp3YUJcE5XDiUfxZbR1huCJauGytyeSeaTMbCqD1v571LDKgZ+vsu8IkCiS8ND
-	 CDg93Y0e2cqCQ==
-Date: Tue, 27 Oct 2026 16:07:02 -0500
-From: Rob Herring <robh@kernel.org>
-To: Greg Ungerer <gerg@linux-m68k.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-m68k@lists.linux-m68k.org, linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] dt-bindings: serial: create binding for mcf-uart
-Message-ID: <20261027210702.GA948124-robh@kernel.org>
-References: <20261013120831.1046590-1-gerg@linux-m68k.org>
- <20261013120831.1046590-5-gerg@linux-m68k.org>
- <20261014-expensive-shrewd-nautilus-abcab6@quoll>
- <d256f39c-6ed5-409a-a7ed-224165d00521@linux-m68k.org>
- <CAMuHMdUcGt7RBc0d1A-8O1Dt71RL=epPgmnetj_4NGCPvCj9LA@mail.gmail.com>
- <73a8df68-17da-4275-bb9d-8a6272b754e6@linux-m68k.org>
+	b=kEIpHx0RsCRowtnfMbIuCR2D+rIwqgRZBrybqAZ3FFR3/gWyqkvM4PcyYHX5VSNel
+	 b1hT62iCJRVS1pne62f6AsUDCQF0Gsf5KJy1/bimkmkNQvtExHykbI7aT9BzJ/lRW0
+	 44qF0vRl57Vt1OYfPnQAm3EbKfO++mJdECu+NoS+P+8UHcqVk453FNeR5UMjz+kZzM
+	 PDVfwhiKMl0qwgXfzLU1Tp6N4LeeKWUz/0ksmpsx8KuvAG1JvzRBhMbg1z2tffrYJg
+	 mgKcNj6xF12tUhLphUUMcF8CxatWM3NSwkfwIkVmn/HARq2b5LKrN5KYcIR3Vavp2O
+	 YzBOREJ/YZY3Q==
+Date: Tue, 27 Oct 2026 16:27:55 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Kees Cook <kees+treewide@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: leds: skyworks,aat1290: Document
+ AAT1270 Current Regulator for Flash LEDs
+Message-ID: <179313647382.1169325.8091091196008624804.robh@kernel.org>
+References: <20261013181803.496627-1-clamor95@gmail.com>
+ <20261013181803.496627-2-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,77 +64,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <73a8df68-17da-4275-bb9d-8a6272b754e6@linux-m68k.org>
+In-Reply-To: <20261013181803.496627-2-clamor95@gmail.com>
 
-On Thu, Oct 15, 2026 at 11:14:26PM +1000, Greg Ungerer wrote:
-> Hi Geert,
+
+On Tue, 13 Oct 2026 21:18:01 +0300, Svyatoslav Ryhel wrote:
+> The AAT1270 Current Regulator for Flash LEDs has a similar configuration
+> to the AAT1290, but it uses a different programming model and requires a
+> separate compatible.
 > 
-> On 15/10/26 19:19, Geert Uytterhoeven wrote:
-> > On Wed, 14 Oct 2026 at 14:56, Greg Ungerer <gerg@linux-m68k.org> wrote:
-> >> On 14/10/26 21:24, Krzysztof Kozlowski wrote:
-> >>> On Tue, Oct 13, 2026 at 10:07:02PM +1000, Greg Ungerer wrote:
-> >>>> Create documentation for a new binding to support the Freescale ColdFire
-> >>>> UART hardware block. This is found on pretty much all variants of the
-> >>>> M68K derived Freescale ColdFire family of System-on-Chip devices.
-> >>>>
-> >>>> It is not compatible with any other known UARTs.
-> >>>
-> >>> You never tested this, so limited review.
-> >>
-> >> It is tested. It is working and running on multiple ColdFire platforms.
-> >>
-> >>>> Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
-> > 
-> >>>> --- /dev/null
-> >>>> +++ b/Documentation/devicetree/bindings/serial/fsl,mcf-uart.yaml
-> > 
-> >>>> +properties:
-> >>>> +  compatible:
-> >>>> +    const: fsl,mcf-uart
-> >>>
-> >>> What is the SoC name? MCF? Compatibles must be specific (see writing
-> >>> bindings doc).
-> >>
-> >> Yes. MCF = "Motorola ColdFire". It is the SoC prefix used for naming of all
-> >> ColdFire parts (which is dozens of variants):
-> >>
-> >>    MCF5206
-> >>    MCF5208
-> >>    MCF5307
-> >>    MCF54415
-> >>    etc
-> >>
-> >> Even when Motorola became Freescale they stuck with MCF on all ColdFire parts.
-> > 
-> > I guess you want:
-> > 
-> >     items:
-> >       - enum:
-> >           - fsl,mcf5206
-> >           - fsl,mcf5208
-> >           - fsl,mcf5307
-> >             [...]
-> >       - const: fsl,mcf-uart
-> > 
-> > As no new (possibly incompatible) Coldfire parts will appear, a generic
-> > fallback looks reasonable to me.
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../devicetree/bindings/leds/skyworks,aat1290.yaml       | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 > 
-> It will be a long list of variants - thanks Freescale. Quite a few of the SoC
-> parts have sub-parts with different single digits, for example:
-> 
->     mcf54410, mcf54415, mcf54416, mcf54417, mcf54118
 
-I imagine all of those are just package or marketing differences. 
-Freescale did not have the money to tapeout 5 different parts. Just 
-using one compatible for all of them is fine. 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> At a quick count I can see about 42 variants. 
-> I don't mind adding the full list if that is preferred.
-
-Just add what you care about or know people use. I imagine that's a much 
-smaller subset.
-
-Probably not many users today of the 5272 I worked on which was designed 
-for ISDN modems.
-
-Rob
