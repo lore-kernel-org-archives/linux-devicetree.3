@@ -1,84 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793085959;
-	b=Oye1UzhGtQUhZ/BqYjI1j0uV02NP1eOtIZeJmO1G4aMu5YnY6VCYiSLwvIecA7Wrie1D
-	 u1tf0/H76Ml/JynGr7onmTVl5DLtkCkrgYkn4NWP1D6XdwjIAWNtRFjfvKwEAN85k3Wnd
-	 pySefbv6itc32FRoFjPjogWXuds/UjWfHikS2tAfAecAq24YdiOaXPv/sUTvQMC1RGb81
-	 2/JGuEtLx7zV0GuEAc7mqaXiBQ73oSIUlSVIyR9uqyHjC0+07NF+Kn6qxCJAGu8WZI0AS
-	 YGhzzYFsy5gPJqpfNMxDvtR5S61rPuvS2QFiQl1cJWEc6/bpn2WvRznC6al7fHQkZWA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085959;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Qd/5lb2CY+C9moNEfnfMYyvO1d2LW0AM03zWz1R1+xE=;
-	b=LIboGECGpeDAyD62945ZsI3GL7csHtbjhlU0zyp7c2mOBjNdBh2sEtyj2qCdk9j+47WX
-	 8iAIBC3HQW+quMXW2KFmIbXYvIO2IEssn22G1FX9PJ0DRCoscLh1e/Icz4cKNfETmivAD
-	 h0Ak2IaQGfvWm8JAOuBBexUXGjl6vgaNlreTePCsVy7Zd2asL5bxlz2eI5iY+PS+hoYWG
-	 BaEE1XhLck78mgZn8Gd7Nyw9QLvrPn/IsuX5q/TFiCmBc9UhMV+0dkqE382N4ghhQk72g
-	 /7q00x/i0oRi+zLKZg5XNbmut8li4htWcHmqujw0DDX0GKIw64I1O1qFOuiOx+mgtRA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aR058ypB;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793086022;
+	b=ZRxjR9Eldfk81DseNmTeIWKpGJ4m7AuyuL3VKOr5aK9e1b3OfBbGiSt1IWugA0Q7r0Y7
+	 b4d9A5Fnbww+bKM4yv0mXNwo+4XKO4JYijdz/0m3hDfNGFKKpC60U+EKCtXkbZpL81Pq3
+	 k+GWtjS/+aHoNNWxl1VpknvT39nQxvKqCDwssm+EHTSy/fhr0h3CKw1H+Ag94NdHaopsc
+	 BP2m0Ax1qbNH+KpPNrhr7IqKqZc4xmEvebiuMR24Fo1dzVLi0ayF2cWc5R9hNn8/FDrvJ
+	 Zces+NhPh2DlzAZ3r58STXf+EYhx5+l362+SHpigzdvTKy70BxHP/RqKeHi9jPoqa2A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086022;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
+	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
+	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=;
+	b=q3zIg2qkBrB+DesF0eZhJJtfrFjIyTTqIlQHoPk+/Xa5KlgUQ431YhaZ3TrKU3vKEL5g
+	 xUNk+bRGN9AYFL1Ig/0WgMmVYNZcT/oN+9tsofXmOR2iqJL/VbCDYzgG+T4L5II1Pmfm1
+	 P6/6obi8j5l0xB3iEWJr0fLVXmdfqEN6/dAGnZqQ+tL74EZ2Bb4Sfs55IXl3rW2i+YpZI
+	 Tl1rX+NMfh/FZ+J8PbdLYTUubi3T+7y067WYmcO0z3DnP7YfJktfN472L2KDvpUXML/bg
+	 l1OD4fwfXe5/4mOun2T90jpnkGcvjZ7sXAl8PSnaikvmWozzApSQrQaT86x4s7Q0awQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Lg97Q3Hs;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=THd7U1e8;
+	arc=fail smtp.remote-ip=185.56.87.6
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B104C606A31A;
-	Tue, 27 Oct 2026 07:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B104C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87298606A31A;
+	Tue, 27 Oct 2026 07:27:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87298606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aR058ypB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793085959; x=1824621959;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=r5hxiYwKE4osvI84HGJH8mSrHPipdV0Nlqi1ddY2Xq4=;
-  b=aR058ypBCFeh8Y2hYdevopotXh9BeaO7CAJwb+ox1lvMUr/vnbaIwsOu
-   iYk1Gi+w8PzJfMwPu8BguK0Te82XtD9QNoNiOA9N/kMSj5OYONqX6rJmS
-   +yM+gI9dMiHM/gbyoq73aAUkB69EfvoJ2vUxzufdQftheGvu3DnPCalJV
-   u6a/TB0wwZwIxEgdO73HxmFU0Uta76DGIrXiprRT1bNiXaKFxumpUNL5Q
-   zAdb+KYr0p+/z8vjcszZU11mZ0Y+J8Y6Fphr7+cpWinOPVRZFAAyKt6Rr
-   w9HtWpTmgjr9SNlzx2PJxrcA0jHg3gFHzREzixO1K/vZUW/1P2WmV+88u
-   A==;
-X-CSE-ConnectionGUID: SCifjgGpQdGTiupuGT5gNQ==
-X-CSE-MsgGUID: VSBFPnPpS56laz7k5uvVNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1674371"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1674371"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:25:58 -0700
-X-CSE-ConnectionGUID: Op8EKmWpTe2Dg6J55hx/ZQ==
-X-CSE-MsgGUID: PTuUsTGxS7CobRS55FyWEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4431277"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:25:54 -0700
-Date: Tue, 27 Oct 2026 09:25:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 3/4] serial: 8250_dw: configure the Allwinner H616 UART
-Message-ID: <auBR__5g021tMvQR@ashevche-desk.local>
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
- <auBRD7Ny6u_a9X7p@ashevche-desk.local>
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Lg97Q3Hs;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=THd7U1e8
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793086020;
+	 b=C1cik91F0FfZV8CNUfhhaBz3fhKiP5ZhWANElFQxbdnYlJUY3yH5hXSYY5yAMsyRPywWN2diKl
+	  qeBPzWlAS5/ID3RlHkS3zMgvIIAe+BAXemT9kYanDOPdL7NZyEh9KzlgGyIVmy9UxEJrjoz9nS
+	  Uxak1YAg3r7HEPDXgBcDWKl6fwtNRpK/cqRPCpHbx7oWsxOq5M7Io4LTIjwGqzZiiaN8WUHg1F
+	  BfomrCF66GkemB0dYO5ZXn33fLc5rU0iFZ3YtRrassYQeaJka2pBQlO1wzQKzFd/VmOLAHrHCZ
+	  tQTUEcr8QSd/bL5G7kGwQgofTEr7qDPSCL+sazydoTK+YQ==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793086020;
+	bh=QTK7KrPu2P6hFh9JC7pq1+BhiXAD6x7kBDIU1gAKmDw=;
+	h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:
+	  Subject:From:DKIM-Signature:DKIM-Signature;
+	b=VhHnxZ38G2mcyrZcjPYhlFtVtbd0+br56LpTXKzWzp+Ei5J/TazmMLXd1ffAGrReiTKmYpjsho
+	  qUObh411XtEBhIpF+oM5sjmgbFfyO/1qChmAWJW21K8CuiTDBDMni/fTqSfR4QdKOoFFURz+V0
+	  ce2PCsIHOea7mbFd3GqZ390tAxhj/iRFktkVtchJiDOT9I/+zRlOhFbQ7NImpWStasOJT1AIhe
+	  e/eIFwQ9bOie+cTKyT3csQf891tn1aqPjSN2vmbQP/BLtxME2clAmfhEd8VC/HDc6zc+50oXYz
+	  twg5dVCET626kVDcfKza0QXZbf8nL3FNOlu9fNGn/CorIg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:
+	Subject:From:Reply-To:List-Unsubscribe;
+	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=; b=Lg97Q3HsE3qpRwFiQvoCmw3Kgg
+	7+zBuU3qELG1tskBq2+4Myzj2esl7fXKEWz1NwS7yjUh7psRwdHjYBBPQuLOK3AEVlhxMB08h0ioL
+	VjUvvHkfTbM4iTZdrO9GLVpPOvzc2hMFvTMoc9DujOrkrRCbsBTqJMLUf/szURgWxSuE=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-l70q.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLbaD-00000006vEO-47s2;
+	Tue, 27 Oct 2026 07:26:58 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Date:Subject:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=YvrNepu80f9cFpozwNcGaYtrGlqF8wlvl1fpjkfzFEY=; b=THd7U1e8Ot2Xu0BT3NaiWJ9PWg
+	UGZKiEexHkquhH0KeMCA9TAHTvwte8KXijbw3h6xSZHrK4mCBS0ZTu4wtm1rq7eZqfdJlK66DHHvc
+	39ZBnCfc/fXUxzYV2atTaoEksrwFCtdMamVEaGMYyx+YZCjCp11IuQtLG950fyG1chbY=;
+Received: from [87.16.26.129] (port=61474 helo=[192.168.178.158])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLba4-00000000J9d-1J1C;
+	Tue, 27 Oct 2026 07:26:48 +0000
+From: Francesco Valla <francesco@valla.it>
+Subject: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Date: Tue, 27 Oct 2026 08:26:32 +0100
+Message-Id: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,61 +97,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auBRD7Ny6u_a9X7p@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr2Jm7ZjSKgRX3sOwaGGAMaSQTm00h
+ LsLGHcuX/L/ezMIBSaB62GGQImFR7+CPh6g7q3vCLlZGbTSuSp1gTIxJg6RR3TsG/adYHsmc1F
+ OF6q0sD6nQC2/duu9+rI83YPquKm2Rc8Sx/Desynbdr9C+beQMlSYW0XUGp0ZZ27JDoM9cYRqW
+ ZYPXbeTfccAAAA=
+X-Change-ID: 20260927-spi-virtio-bindings-f4e350b2709a
+To: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+ Jason Wang <jasowangio@gmail.com>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ virtualization@lists.linux.dev, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2664; i=francesco@valla.it;
+ h=from:subject:message-id; bh=QTK7KrPu2P6hFh9JC7pq1+BhiXAD6x7kBDIU1gAKmDw=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkPgrSOzmX4rOs6b6ukbtJFO4EHPVt3Nci9XLJsQ4UU8
+ +bnrUJJHaUsDGJcDLJiiiwh627c2zPX/FvaBsZHMHNYmUCGMHBxCsBE8mIZGU7npT3O3XY98IVi
+ 6PEDe1k89bb++dnV9Oma6PonzSKPbGcxMjSsv8M7uVni8vWF5/fw71uQeNh4A9s0GZE9DkkCtpc
+ 7P3IDAA==
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 1f2d376749ba976fb255cf91fd782c98
+X-AntiAbuse: ID - 1f2d376749ba976fb255cf91fd782c98
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xLbaD-00000006vEO-47s2-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Tue, Oct 27, 2026 at 09:21:57AM +0200, Andy Shevchenko wrote:
-> On Sat, Oct 24, 2026 at 02:22:25PM -0600, James Hilliard wrote:
+When a virtio transport exposes a non-discoverable bus, the devicetree
+can be used to declare its child devices (if any) and/or other
+properties. To allow for that, the virtio framework searches for a node
+with a suitable compatible in virtio_device_of_init() when registering
+a device [1]; such compatible takes the form "virtio,deviceXX", where
+XX is the hexadecimal representation of the virtio device ID as defined
+by the virtio specification.
 
-...
+This patchset thus does not introduce a new functionality, but allows
+proper validation of nodes tied to spi-virtio devices, aligning SPI to
+what is already being done for e.g. I2C and GPIO virtio devices.
+It was sent initially as part of a different patchset [2], but since it
+complements a functionality that is de-facto already there and is useful
+beyond that specific use case it was sent separately (also following the
+maintainer's feedback there to separate it from remoteproc-specific
+changes).
 
-> > +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
-> > +{
-> > +	struct uart_8250_port *up = up_to_u8250p(p);
-> > +	unsigned int i;
-> > +	int ret;
-> > +
-> > +	/* Use the nearest lower threshold, as the generic 8250 implementation does. */
-> > +	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++)
-> > +		if (bytes < dw8250_sunxi_rxtrig_bytes(p, i))
-> > +			break;
-> 
-> Can we provide an array of the possible values and deduplicate this loop?
-> 
-> drivers/tty/serial/8250/8250.h:
-> 
-> static inline int serial8250_bytes_to_fcr(unsigned char *rxtrig_bytes, unsigned char bytes)
-> {
-> 	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> 		if (bytes < rxtrig_bytes[i])
-> 			/* Use the nearest lower value */
-> 			return (--i) << UART_FCR_R_TRIG_SHIFT;
->         }
-> 
->         return UART_FCR_R_TRIG_11;
-> }
-> 
-> drivers/tty/serial/8250/8250_port.c:
-> 
-> static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
-> {
->         const struct serial8250_config *conf_type = &uart_config[up->port.type];
+This was tested both with virtio-mmio using qemu-system-aarch64 and with
+remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+parts still not not upstreamed - see [2]).
 
->         if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
->                 return -EOPNOTSUPP;
+I added myself as reviewer for the spi-virtio driver to be CC'd on any
+patch involving the new bindings.
 
-Even this probably should be moved above as well.
+Thank you!
 
-> 	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
-> }
+Regards,
+Francesco
 
-> (this split should be done in a separate preparatory change).
+[1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+[2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
 
--- 
-With Best Regards,
-Andy Shevchenko
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+Changes in v2:
+- Expanded the commit message to better explain the functionality and
+  the chosen compatible.
+- Redundant pieces dropped from bindings.
+- Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
 
+To: Haixu Cui <quic_haixcui@quicinc.com>
+To: Francesco Valla <francesco@valla.it>
+To: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: virtualization@lists.linux.dev
+Cc: linux-spi@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Francesco Valla (2):
+      dt-bindings: spi: add spi-virtio
+      MAINTAINERS: add Francesco as spi-virtio reviewer
+
+ .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
+ MAINTAINERS                                        |  2 +
+ 2 files changed, 48 insertions(+)
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20260927-spi-virtio-bindings-f4e350b2709a
+
+Best regards,
+--  
+Francesco Valla <francesco@valla.it>
 
