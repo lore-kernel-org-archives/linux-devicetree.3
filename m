@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101988;
-	b=n1oBFKMkBCLNV0lm/rXKCmm60i2KgRF5Ytj8gGHEcahCDV/TPgn5BdaUqpoLmUKxmPfQ
-	 ncvuiX9EWhqZzi4NFRwTKsjlTCDOZrhiafYt0L2ATxzDPdbq6RCudgrN91/XaJDybuDWs
-	 nhzq0teMkxpXk5V1FJcTiBOYJJeE8pMhr403u/1fUUSxJTzpRDGX5bRTjXdxCihtWa2W+
-	 kTIgYClIfMxkZ3p2XoJSkiudHHudRJcSsIl+FsUgSbkuvgUDThNfLybtDa/BKwMGSrOAO
-	 CG1Q51TkpMBkzIHDKBDvaPMTy7X7BcOADR9qz7pWW5n+ndOE8bRnc2LowEaP3wvBNGw==
+	t=1793102086;
+	b=shwoNUqr+JGYKyvz0OrAJzjylCXmHYJXsdg5O67/hUoIqjm32oWl4iVvympJBUNB8I5E
+	 53pE/r9tgFvW08N32FpGFxiy+ldsBfdJr6xj10NMdeNjqB3Zc16q1hseU9z6XUOleOdBO
+	 w4fA4eYAO+OmNgDV9J0Bw66ev+E6quDz0ziZW3yhV68Tx/R3I77LCWUxKiASSSjTx7RSW
+	 LJqWmW5+xwbAH0IIB7MRjBF9BOAnLEl2WAx25AswM/qWcqfdwAL6dIH7yqCe6/yhfriRd
+	 EbqRHbv7nUf/5leZGvzIh6PlZ9mgxPT9ZQsl3SlXrB9K6Z9HH7TD+1vp89ZjS5T7qIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102086;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HCZ//DNUxVf4aS4cm+C2gfkol2jWqhxy9JcY/HzW+Go=;
-	b=wAGjQCv8T1+F3HONQTEoyXNneC7Mv92Yi5V3QiSgjelAWNpwtS3XPw43B7XEp87wrsTm
-	 k9BQB3J+0ZKjAsAhJp+vOVlHj2GCHN90mVLVfYI7nMq9XbGKfh+scmwFmnlFqCvfBKDzt
-	 RmbTetwqtiLRmAaAAW9g7yA1dYCnRFzKjM97rrdap1ak9nE36pdJZtFvBxPsKUxSEVRkU
-	 Vso7/uWUnWEsc6UCGQ022Zm8BQ//8DtIIDtQDoHD5aRrdSy8nJ4Nz/Z9HXkDnLVjTvzmN
-	 kryxbutl15mIIdrsKpgzYqHebU/3z3kqRcsPXYNQKPpW+iypzr6z19++DCtqufHQzCg==
+	bh=Meqw/TKAdwfGEXIZnKIzyJqbm+wkOLMMm8kvKr4tD6M=;
+	b=arsqMhsbZPZhAoEFNdVh+Q+fg4B6qlXGxBIf+x+r/vnoAhDKXPixW/84xaWxdFuycA2y
+	 KZ2HaraapHu5UhYpUu0DJGqt29dxQufV+Mv4lRBqt4HRtHGFi3pmq1gjJ0Az8MC5dkyR0
+	 8+mYMzDwhtDzs5uzR+qr2qHg+o783nSunpcAYafqP5rJaMHVFs3pEtORVB9KdiH/oSsbB
+	 oEjevy3lFFXXBAhYYhz8C/RCeJioFFHWj5lU8YSIv6g0ioFDCUXVisb/YDnyQXkcq0X6w
+	 lz5up9woUauc73emvVLCKkCJXRJKLSCG1XHRr3ifbcRQwYiFiYBzhqFmCp5c6zKYRNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQHzcWTC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imwXxcGH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69FB0606A31D
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFE4606A31A;
+	Tue, 27 Oct 2026 11:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQHzcWTC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1471F01829;
-	Tue, 27 Oct 2026 11:53:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imwXxcGH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0EA1F01828;
+	Tue, 27 Oct 2026 11:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793101988;
-	bh=HCZ//DNUxVf4aS4cm+C2gfkol2jWqhxy9JcY/HzW+Go=;
+	s=k20260515; t=1793102086;
+	bh=Meqw/TKAdwfGEXIZnKIzyJqbm+wkOLMMm8kvKr4tD6M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hQHzcWTCD7R8PTR2S4mT8D6jDnkGomiIYSifW0r8JO9u5HV+oILmbnhxCsJsXImhv
-	 KodgR2CrKx/H6TCsJD0B4+KBTV4/jm9eWbW7JgbwRJfODK3h0LfdQnGiUg1h2sHZl4
-	 xSq3T86jI5lWU72WQOlEUirNL0pPdcqUV1CJdb6gnmZ2eSgCLBcmAAZtpYIvNpR5cE
-	 9akSan6PbNyXDjkKgu5Xq3lyGRC2MxToHE96cmH3FOD5Ou4G+8FhQI9XqA3ow4yBrH
-	 iW3cxcDUbDmB1kSTeiRT+MGyMAYPDiTxr4N/OpxSgM9Mb79ZVp27WGtkIUAYDVp2DO
-	 HG26iypbmQp7Q==
-Message-ID: <sashiko-outbox-186481@kernel.org>
+	b=imwXxcGHHmTMpmO/ZwbWqLevPFc0pAzmmvIjPeyfog6G14js+nzY/czGviadi1c3k
+	 wyob1h75J7pnC3t7/Uie7Kvub3YmoPaDzcNb0X3T1nvCwu0gVaWeaW2MSIZGh9E5zD
+	 URqm20aAWkUxwH+djlDvy3/x9nWZiM3bj5uRIAERHDFUxOpO7bjPzMFgFd9Wv/beHE
+	 W0tWDYIp41+ow1savgdhuTlbow11vedIkEwP0gBUTyFCE4ug6NPXI8NhnIf0fgnCgF
+	 EpcSxeT4RKko2Hlh/6fHEam61ymsqRYhDMPNRxNe4qZ23EO+XASnkgdRVlngJHvgDe
+	 4BgUnxaN7knjA==
+Message-ID: <sashiko-outbox-186485@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: talos: Add Talos Lyra EVK SoM
- platform
+Subject: Re: [PATCH v4 4/4] mfd: max8907: Convert to use device managed
+ poweroff handler
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ruchira Revdekar" <ruchira.revdekar@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261027-talos-lyra-evk-v2-v3-2-658fd5a7ec99@oss.qualcomm.com>
-References: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
- <20261027-talos-lyra-evk-v2-v3-2-658fd5a7ec99@oss.qualcomm.com>
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261027114634.79706-5-clamor95@gmail.com>
+References: <20261027114634.79706-1-clamor95@gmail.com>
+ <20261027114634.79706-5-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 11:53:07 +0000
+Date: Tue, 27 Oct 2026 11:54:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,98 +63,82 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: talos-lyra-evk-som: wrong vqmmc-supply on sdhc=
-_2 breaks 3.3V/UHS-I
+- [High] mfd: max8907: max8907_i2c_probe() drops maxim,system-power-control=
+ler check
 --
 
-commit 9f59ab084ac5176f461f2df3b23f3bc182845992
-Author: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+commit 5deb6448298f2829c11e1c8af86067bd08a79d7f
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-arm64: dts: qcom: talos: Add Talos Lyra EVK SoM platform
+mfd: max8907: Convert to use device managed poweroff handler
 
-This commit introduces the initial device tree for the QCS615-based Talos L=
-yra
-EVK SoM platform, including definitions for CPU, memory, PMIC regulators, U=
-FS
-and SD/MMC storage, QUPv3, remoteprocs, and GPU.
+This commit replaces the global pm_power_off assignment in the max8907
+MFD driver with devm_register_power_off_handler().
 
-> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm6=
-4/boot/dts/qcom/talos-lyra-evk-som.dtsi
-> new file mode 100644
-> index 0000000000000..7d9a084719067
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-> @@ -0,0 +1,281 @@
+> diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+> index 2a38e00a10c3b..e282dd82ece69 100644
+> --- a/drivers/mfd/max8907.c
+> +++ b/drivers/mfd/max8907.c
 
 [ ... ]
 
-> +&apps_rsc {
-> +	regulators-0 {
-> +		compatible =3D "qcom,pm8150-rpmh-regulators";
-> +		qcom,pmic-id =3D "a";
-> +
-> +		vreg_s4a: smps4 {
-> +			regulator-name =3D "vreg_s4a";
-> +			regulator-min-microvolt =3D <1800000>;
-> +			regulator-max-microvolt =3D <1829000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +		};
+> @@ -185,8 +192,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
+>  	struct device *dev =3D &i2c->dev;
+>  	struct max8907 *max8907;
+>  	int ret;
+> -	bool pm_off =3D of_property_read_bool(dev->of_node,
+> -					"maxim,system-power-controller");
+> =20
+>  	max8907 =3D devm_kzalloc(dev, sizeof(*max8907), GFP_KERNEL);
+>  	if (!max8907)
+> @@ -237,9 +242,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
+> =20
+> -	if (pm_off && !pm_power_off) {
+> -		max8907_pm_off =3D max8907;
+> -		pm_power_off =3D max8907_power_off;
+> +	if (of_device_is_system_power_controller(dev->of_node)) {
+> +		ret =3D devm_register_power_off_handler(dev, max8907_power_off, max890=
+7);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to register power-off handler\=
+n");
+>  	}
 
-[ ... ]
+[Severity: High]
+Does replacing the maxim,system-power-controller property check with only
+of_device_is_system_power_controller() break system power-off on existing
+DTBs?
 
-> +		vreg_l2a: ldo2 {
-> +			regulator-name =3D "vreg_l2a";
-> +			regulator-min-microvolt =3D <1650000>;
-> +			regulator-max-microvolt =3D <3100000>;
-> +			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
-> +			regulator-allow-set-load;
-> +			regulator-allowed-modes =3D <RPMH_REGULATOR_MODE_LPM
-> +						   RPMH_REGULATOR_MODE_HPM>;
-> +		};
+In include/linux/of.h, of_device_is_system_power_controller() only checks
+for the unprefixed property:
 
-[ ... ]
+static inline bool of_device_is_system_power_controller(const struct device=
+_node *np)
+{
+	return of_property_read_bool(np, "system-power-controller");
+}
 
-> +&sdhc_2 {
-> +	pinctrl-0 =3D <&sdc2_state_on>;
-> +	pinctrl-1 =3D <&sdc2_state_off>;
-> +	pinctrl-names =3D "default", "sleep";
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&tlmm 99 GPIO_ACTIVE_LOW>;
-> +	vmmc-supply =3D <&vreg_l10a>;
-> +	vqmmc-supply =3D <&vreg_s4a>;
+In Documentation/devicetree/bindings/regulator/maxim,max8907.yaml (added in
+commit c254fcc966ae), maxim,system-power-controller is still documented as a
+deprecated property for backward compatibility alongside
+system-power-controller:
 
-[Severity: Medium]
-Should sdhc_2 use vreg_l2a instead of vreg_s4a for vqmmc-supply?
+  maxim,system-power-controller:
+    type: boolean
+    deprecated: true
+    description:
+      Telling whether or not this PMIC is controlling the system power.
 
-Here, vreg_s4a is constrained to 1.8V-1.829V, while sdhc_2 is the removable=
- SD
-card controller. When sdhci_msm_set_regulator_caps() in
-drivers/mmc/host/sdhci-msm.c and sdhci_setup_host() in
-drivers/mmc/host/sdhci.c check vqmmc, they see that 2.7V-3.6V is unsupporte=
-d:
+  system-power-controller: true
 
-drivers/mmc/host/sdhci-msm.c:sdhci_msm_set_regulator_caps()
-	if (!IS_ERR(mmc->supply.vqmmc)) {
-		if (regulator_is_supported_voltage(supply, 1700000, 1950000))
-			caps |=3D CORE_1_8V_SUPPORT;
-		if (regulator_is_supported_voltage(supply, 2700000, 3600000))
-			caps |=3D CORE_3_0V_SUPPORT;
-
-drivers/mmc/host/sdhci.c:sdhci_setup_host()
-		if (!regulator_is_supported_voltage(mmc->supply.vqmmc, 2700000,
-						    3600000))
-			host->flags &=3D ~SDHCI_SIGNALING_330;
-
-Because CORE_3_0V_SUPPORT is not set and SDHCI_SIGNALING_330 is cleared,
-initial 3.3V SD signaling in mmc_power_up() ->
-mmc_set_initial_signal_voltage() -> sdhci_msm_start_signal_voltage_switch()
-fails with -EINVAL, breaking 3.3V initial I/O signaling and UHS-I voltage
-switching.
-
-Meanwhile, vreg_l2a (ldo2, 1.65V-3.1V) is defined in this file with no
-consumers, similar to the issue on QCS615 Ride fixed in commit 4614628bea86
-("arm64: dts: qcom: qcs615-ride: fix sdhc_2 vqmmc-supply for UHS-I mode").
+Should max8907_i2c_probe() check both
+of_device_is_system_power_controller(dev->of_node) and
+of_property_read_bool(dev->of_node, "maxim,system-power-controller") so
+existing DTBs using the vendor-prefixed property continue to register the
+power-off handler?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-talos-lyra=
--evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027114634.7970=
+6-1-clamor95@gmail.com?part=3D4
