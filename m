@@ -1,107 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793077813;
-	b=oH43hLmA/CIUyOQndEuMNg+JchRgycpoldRitsReu9vb/T48Mv1quBEJv1IExeyXrZJ4
-	 1DOBjKqc5gAoliIB3CJUlOVMdJe6CinMgBuOZw6hxG3qGKhl+LPW8bbqFBkwd6NEYt62O
-	 l+usyGp6axVmeHtY4O1slL7S4FOSNVAL61AwasX7GNre9h+SA6OvKOqKuabkT3qw/3oZV
-	 waiZWe7UIjzpst/0Kql9h0YBkkLYLCqxsGcZXBFvkvE/w/uyAPhkWDiYUnu4Ds12apl9d
-	 hvbZ69+WrSPELe9LwbjKq8u983FgeNo9TAaK15NMidr2jUx0NOnnZ0OIEKgIoI4RF2w==
+	t=1793077856;
+	b=fMrOhuQe7cgZezirFIj/TPoe7H6jN1cmseVcu7MGWL828QC6bvdymy0iYZTUvsCHWU5c
+	 qw7OPFJsRDUiz0As0ZiEl0n35DmYB6fRnt6N8ZUTwQBW8/p1+vjBlx7k7s8O0wTEP1oC8
+	 YmMGd+oNncOgy02ZauP7JZdkv8r/EciR+EJNVd9oTyiHnhOhqRp8ohjarLn6UP33qBq81
+	 SdYmJENIz9j6HO7iUWE6hv+TRd8hKmkv4zVQzp61uU4OwhsMsCE7UV8qxLRknXR5TsOfu
+	 4VQALJiYXTKooInLMZjLBkeo7wQQ2P3YnfiF20A7JJfFOoT9k9+Swdf/ZpNeXLcJApg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793077813;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
-	b=D5c+KXE0hFTdu0JCJujGJQMWm7EWSuff0hqUlsKHzDWNwm6hjQhNGk0bl3BLppkkpnZ5
-	 7oT9QiiNr+7zyzodEZ++2X8Z/suNrsHw23/LXk/oj3tDD/StohAsSdvpTRDtsoOq3dcEU
-	 AHucWvb1CmwkEt/LblJ4qHAGDXFxUy8/MEGKeOqIEnFVAvdVi3KxvVSJHmmDLylUhmNqs
-	 dgrdAH9+6eo8Jgbd4eORicDKD7gWV7UDy/KclY4RGzE3GF93xdWBx2GG/XaYnMc+Pd29/
-	 9F/V9yN0/nZgA+psUYxr1Nb4Enn3KC3TM0Y24biPNF9i2zSj38CFKa7d2pc2/bJdsAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793077856;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=bbdqEEaQcGA4CdapGgLo/j4LzMygWzqzaEGLrtubLq0=;
+	b=tcXK6t50nWCltacVcIA/5R0ctIYjtJXizepZM6F0mJ0UPB8kgcBedJqaegeUxi7cHoNy
+	 tUldiWMMT+IuOG7Ev3Kz1rkVuLZChxJZZD46+8sipBDqffT9ypIDanxIj3ewqu08rmDOG
+	 T1dC6UTRItXXW/PI3pHmY4ms97O8BshcJjBf0J+lYMv/4rhpH9Kg5B/5NI1DijG2k9A7Q
+	 1dYES7yaoAVxBoC9CpZ6cpdqHMWDzsHdMu/avsF1Rx675sANjFQmRfYCepUFnFXUGNOl3
+	 Pi8S2+jrcDStP9/oxxnjXX8Ivoep4A28wJMHMlgpRYpMZAC4VJrHp7RcdYoqAVb6MCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bvhShgG7;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE71606A31D
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:10:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE71606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=I5+EzhYI;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 939D3606A31E;
+	Tue, 27 Oct 2026 05:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 939D3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bvhShgG7
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1839435a91.1
-        for <devicetree@vger.kernel.org>; Mon, 26 Oct 2026 22:10:12 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=I5+EzhYI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793077812; x=1793682612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
-        b=bvhShgG7D7zcmztInFea9OSn7D5JSB0D4i6yf2n+crTq7yi8sQ9L3LLKQSM8xXnhkp
-         AqbuI5FqtrdowocluYV2ukrP3D2+6rsKCdi1Z41pOP7b0xldyB01FWsU87xcrM1ltKwt
-         kcr3vYsZ4f88sTfTaGS/12FRaQs3mo6OTf+MfJiFNZx7PdYwgY7Y/5XkHklFZ3etM9nJ
-         RgVAgbYVxMhelPq7iSNSZhjFSWLaT1v5Vhtg/pvm67NtxQsd+f5YoS+gOBVzn176vHZz
-         MPR2DrAz13Zck1vA7Ep9FKsc3GjKSyDQCbtFP8lGYIvNws58FuwvoNcq4dC31tEtn1pQ
-         v3TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793077812; x=1793682612;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EhQnVDe9USo4MEDAt10lIRyoDXqtd5qy3HB/D8OuXxY=;
-        b=vMP7xxeoswBdZTem4774Frlbpd5899hMvLYd0GxehNqjtMniZfCT3BppnJJMFOMlTF
-         pXjp5gyJTV/JoC3p8ltjKDHthKTgDtyOhkMihqiqitSkIVla8XvKQi0s/7w4M/+BUS6d
-         XrtR2DSaKdvNy+Rf0qxojvgIZX7IpoMkR34mdSAMCRoYPLpHR24dH5y3EL+IcsV3Uqez
-         M8aav2Agt8mcAJ9h3dom63cB3YLC/dIEVImSuFqm7SDnhZ+THWyThqG8r4DQjMxQhWWq
-         anMbv5I+CR6EnGAx29R8/pDrM2wuReKvNhNpBnx78ydTLCpyJKhWpInk52fsfUpHTSQo
-         DYuw==
-X-Forwarded-Encrypted: i=1; AKwUvBwgnOANVgqxu0TBICbKXxLxilYquk6W1VEUxhmhKKbFzjvi6nT48gIzJCw1mEuj4EDinfY2a2nUeXBH@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnmElUdKaMliIvmceBNIxRAGqxR0RK0YGtLPCc7KGLQ660VNe2
-	6DP+X2d/9OD61C9O/wYHo/QVQ81EdMAV8F4NJjrYQkAnvKJI/ZBMxju2
-X-Gm-Gg: AYBFou3NWTMYEScjP0omoBWquu1HBpxCEGg8xndN/ZIGERWaMwvm2HgjVQfG0Syy10R
-	EjiBp/q2g8gO4HHQFqTgq0zgyrnC15J8v4sYi5utG+hWq7aQLsr9lkrqNKKqDJFhAc7ZdX7lFnU
-	68PdgPjGkwPl/lC3e7KQRTdebraGzRS+EQt/pA3rb3wHLqZVN+masfbVNZ9i/+wFc0HdB3kyP1L
-	y4OaekLrqxvHMH+DIKcS7OLcinuxq6VisltzJN8mabF3sqg+7VtkFhrLOlwMGmn0+J3eVfwWHOQ
-	B9c/G7jJEU5dXegHMwZNXqkPCNZy/FWip9DaBS9A1zk61qjGPf21cROvX/QASy2ikjGqxFMKvGg
-	z62H9zRObqYPgJMZ0nlecWD/AsVzXngHRCfU1NZyGr8b+s4mj91zTEnnkxmR952MWt0J0LFV0kv
-	saXB3t8yrPe5xYjsyX4VqZHo3efj+GV5KKG67Yr76ORAPlRwkadrtJll5ADxnmrmWr7cCeWwcuh
-	7QlqpLyhyA2TYxqndBXx3hGvmMQOBylNKLGBg==
-X-Received: by 2002:a17:90b:3b45:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3ade9b2cff5mr8125294a91.1.1793077812053;
-        Mon, 26 Oct 2026 22:10:12 -0700 (PDT)
-Received: from plex ([2406:6d00:a27c:4200::7be])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404556fbsm1893858a91.11.2026.10.26.22.10.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:10:11 -0700 (PDT)
-From: Chris Scott <gilroyscott1970@gmail.com>
-To: lorenzo@kernel.org
-Cc: netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=bbdqEEaQcGA4CdapGgLo/j4LzMygWzqzaE
+	GLrtubLq0=; b=I5+EzhYIqqeMXVJVIoPXNffR3X5SmDgrkQ5fwQ9P5fvDIvrBo6
+	6YnRfuA0CxlPDhXc2POqbTGYzW+1zfm5F+zg3eFFB1iybEDXl2q6Bc0R/9JO9Oe+
+	a9rIJiFXP/plEwKrh81Pv96MwCrAND7MkYhQEwjIhiw5QRW93fWTV7GYU=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szdYMuBqJIhOAA--.1146S4;
+	Tue, 27 Oct 2026 13:10:50 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	pawlik.dan@gmail.com,
-	zhengping.zhang@airoha.com
-Subject: Re: [RFC net-next 2/3] net: airoha: npu: attach a coherent pool in the NPU window
-Date: Tue, 27 Oct 2026 15:10:02 +1000
-Message-ID: <20261027051002.3360392-1-gilroyscott1970@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] dt-bindings: media: i2c: add Samsung S5KJNS image sensor
+Date: Tue, 27 Oct 2026 13:10:48 +0800
+Message-ID: <20261027051048.213177-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <at8FyOLeaMlpS7mR@lore-desk>
-References: <20261024154150.45733-1-gilroyscott1970@gmail.com> <20261024154150.45733-3-gilroyscott1970@gmail.com> <at8FyOLeaMlpS7mR@lore-desk>
+In-Reply-To: <20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,24 +65,180 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgA3szdYMuBqJIhOAA--.1146S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxZF17CFW3Aw4kWr4rAFWkZwb_yoW5KFykp3
+	Z5GFZxKFWFgr13Wws3Gw18CF4fXa1vyFWUCr17Xw1Syrs5JF9avw4Yk3s8Zas8CF1kuayf
+	XF98Wry3Ga1S9w7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBab7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
+	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
+	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
+	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20x
+	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
+	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIx
+	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
+	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jVg4fUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rfqlYHDgA3st
 
-On Mon, Oct 26, 2026, Lorenzo Bianconi wrote:
-> nit: what about creating a dedicated routine for both firmware and dma
-> memory regions. Something like:
->
-> +static int airoha_npu_reserve_mem_region(struct device *dev,
-> +					 struct resource *res)
-[...]
+Add DT binding for the Samsung S5KJNS MIPI CSI-2 image sensor.
 
-Hi Lorenzo,
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+ MAINTAINERS                                        |    6 +
+ .../bindings/media/i2c/samsung,s5kjns.yaml         |  120 ++++++++++++++++++++
+ 2 files changed, 126 insertions(+)
+---
+ .../bindings/media/i2c/samsung,s5kjns.yaml    | 120 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5kjns.yaml
 
-Thanks for the review. Sure, I will move both into
-airoha_npu_reserve_mem_region() in v1. The pool attach then moves
-ahead of dma_set_mask_and_coherent(), which is fine since nothing
-allocates coherent memory in between.
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5kjns.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjns.yaml
+new file mode 100644
+index 000000000..6908c07c2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjns.yaml
+@@ -0,0 +1,120 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5kjns.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5KJNS image sensor
++
++maintainers:
++  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++
++description:
++  The s5kjns is a raw image sensor with an MIPI CSI-2 image data
++  interface and CCI (I2C compatible) control bus. The output format
++  is raw Bayer.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5kjns
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: 19.2 MHz input clock.
++
++  dovdd-supply: true
++
++  avdd-supply: true
++
++  dvdd-supply: true
++
++  lens-focus: true
++
++  flash-leds: true
++
++  power-domains:
++    maxItems: 1
++
++  reset-gpios:
++    description: Reference to the GPIO connected to the RESETB pin.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++    description:
++      Output port node, single endpoint describing the CSI-2 transmitter.
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++          link-frequencies:
++            items:
++              - const: 672000000
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - dovdd-supply
++  - avdd-supply
++  - dvdd-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        sensor@56 {
++            compatible = "samsung,s5kjns";
++            reg = <0x56>;
++
++            clocks = <&s5kjns_clk>;
++
++            reset-gpios = <&pio 19 GPIO_ACTIVE_LOW>;
++
++            avdd-supply = <&s5kjns_avdd>;
++            dovdd-supply = <&s5kjns_dovdd>;
++            dvdd-supply = <&s5kjns_dvdd>;
++
++            port {
++                sensor_out: endpoint {
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <672000000>;
++                    remote-endpoint = <&seninf_csi_port_0_in>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6872ad5fe..620fdef73 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24416,6 +24416,12 @@ T:	git git://linuxtv.org/media_tree.git
+ F:	Documentation/devicetree/bindings/media/i2c/samsung,s5kjn1.yaml
+ F:	drivers/media/i2c/s5kjn1.c
+ 
++SAMSUNG S5KJNS CAMERA DRIVER
++M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/samsung,s5kjns.yaml
++
+ SAMSUNG S5P Security SubSystem (SSS) DRIVER
+ M:	Krzysztof Kozlowski <krzk@kernel.org>
+ M:	Vladimir Zapolskiy <vz@mleia.com>
+-- 
+2.53.0
 
-v1 will follow once net-next reopens, together with a binding fix
-from the Sashiko review of 1/3.
-
-Regards,
-Chris
