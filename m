@@ -1,143 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101127;
-	b=UFE7JNAb4+cjhsTEGqldWyOsDq/ILAFXoSw+4nT3vct8xmPN2Ep8QnQYcLzhFdwz04eN
-	 PfnVfS2yz/xE+eRgEDfyDU7zKlLRAduTXNaJn2THNQz40lHOqAmWwJPq0o3wS3OdJJPqJ
-	 ghSi+uX9GNI+P9WmrlI9DDBls5FcvPaqysw16Mgv7srEDkaN//cWnqXamwxVaZOCORY6Q
-	 iTMRRHtXyFc4pQ3Bn/MFDhAWmyo0QedtxlcjVnIpeDdwFEf9WeI1tfgjDR6dYejHrsE3x
-	 eb2ZvFhY+TMEbWmOsn1OkfESwZigC/YnWDFxODC618ISr3nHj33NBtHrnjL0tHPgDsA==
+	t=1793101183;
+	b=EwQ9P2IEcEo/GkOQYAeHPZODl98eVdegvajIvzGV0Jx/9kZ+uXSOrpvz+ZLOrGktHB9A
+	 3rsSlqcjt5Jb0/3rvejmn/yIug+iK8d7zta1AVhM/D7OJNC7+thnznN7FjpJzJjuqcw26
+	 4tEocG4rMH6hhBZ0/GpIzZgKdLXzyu4E68FY9DkqDFck8TFz+2MpnBkAY2UcKzEVrgWeO
+	 hGPbDG7IfFADtzZ73v0AVHewj/DuoDueBeag7TFEGVH96n2qc1KmZVKRuM3AydpY69UJR
+	 DmOypY0rNSFz8F0HRIhnbs0uKxcXRIfZ9Nboj14Usb9NAmDFXNdyQRWxPqN7YE3JIFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101127;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=t8KeJqXYQPr8zutUgjnJ6yEQLnjHNNZkSiiSYzj+XfU=;
-	b=HA/HHGKyEEcTUuhNnVZM3g72DNZsF94Kg64MLI5zyVuz72q8bXNUl/BkQU1iY0KXG+qW
-	 V+A0VNvDqq9LL1XOtRV+KYEaRGQvpJTUlhrMz1k1Fzc+4oNEm5XH8M9cmj7AoceQBQwz8
-	 ntAaoYqOmRBdXKTocct5i2Zlj+oIGpQ4w93mD9bO4b/xMUp1cv4lnq72ipRxg57nYbhPc
-	 KkuQqyi+EBOPO94+B0Vqm14de3O2mUeIK6Rk6YU40tlQHEymEoclavgtjgrIJFNVsCG0g
-	 HIMWzRCONRaJ0H71EOQeOQjm73vlnRjq7HLAU5iFXkDSNAvu3Msq8v+83Ib/T4v8xVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+	b=w/dIMw8xh+N/dt9jowECt/XqlxPg/SEXl2OhBgM1dw3IBEPqEM9PBZuZyqV/nk7RC9ce
+	 KAtRTsTmFrEuPWMK8RTOwV8HFyjqJkyl19eNcWJGDdJPJ8s9djj4IHck3qrJ9HEGYMy+L
+	 56tHIwDcLHMP/mKL1CtjBjWRIllxOuTXS0fUhS3m+gS0Ap179tMV4d2jr/F2XIdWrEOUc
+	 BQQO4V15UVNE2kkVkihwrS/VNRNiYDjRyj6hZiNyvbHKcwZditBYN1OIcZEvHm+y/x0iX
+	 IvdbCamaff1cHuqNG+yKoyGTrBa/MMuqNyYFWumgpvN+LHrcKiIJ7glHT02u19Zh49w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="d8A1SGU/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z2l3y2gl;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKHD8slx;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB4760A3818
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:38:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FB4760A3818
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A383606AED4
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A383606AED4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d8A1SGU/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z2l3y2gl
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdwLv2458098
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:38:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=t8KeJqXYQPr8zutUgjnJ6yEQ
-	LnjHNNZkSiiSYzj+XfU=; b=d8A1SGU/3lNieXhNKzh78QX8sIvtyhoggCDvkjo2
-	ZooNqFjFtRxIPsA+xBHGhEwUfOys1kTG07Iff1x+bBTZFVWToPjzxT9N8EnOkrNx
-	IEGxQb2KI8RaKfi6IZ19cdymyNOTdoCHQeQYQLCMNTK9oZwDvYY148nlQMyElYrH
-	nDvOEUPoI5cM1gKNxhj7N7mZKOPMRLIrN6j0HBwaYQi86++6BI0mVQNoQLmdXzQ9
-	wKMW0uM4oJNn608zdT4wH+3YUkoQIer3xZf8YVZLZru2N3Hx6hdqAnijFoHnd9sT
-	w6PcNVLoGn9P/kyfRan8jZasQplHO5ZXeiRXOVeR9WFG9Q==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbta2f4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 11:38:45 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-98bcae867a1so1202811241.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:38:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKHD8slx
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c43373ae89aso609992066b.3
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 04:39:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793101125; x=1793705925; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1793101181; x=1793705981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t8KeJqXYQPr8zutUgjnJ6yEQLnjHNNZkSiiSYzj+XfU=;
-        b=Z2l3y2gl8efDAcKPmx9asGDaPwrkEVgMxaadFXzkcQ29PiAAQ33AYJIFNUpZ7pfna6
-         bPA7/SmpEQ6e5JgFXQVokPSAn72P4zixpAiV7eidruSoAyE32tFIqVU+2Q/KCwz7vryt
-         1KSe5VQxCrNDjMBU4GAYDIV5uq8V+0Lw6puWV9D4e7VCChWMPskJ1YrDEuS1UNt1RIf9
-         aUcpb7Sin+YwYVS4+/5Y3PkL68D4oyZMtM0C+DTT2TaPQhU2dk+lyN0FrB2EzLCoaHhn
-         bMAC+UCpC6E9CNRPStjZNGb2zkL/TcDwYczV0COzyn/9+/bEKQlzQCWLqYgqB0DPNUHx
-         JCzA==
+        bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+        b=jKHD8slxvdEgGMIPpyIp1f3/cw5FGjJQx2IA3ge/1E6WkyBl1FZShR1uzjyX8h99zd
+         d5o+Jk3wO4AzB67PRZ1SIEFznVW8CmRVa6w9VgjbRZ4xG0xWrtoxGUMf+58b51/wKAvu
+         nRuyAbPHkMnS4v6kTNDBV8ps7DHjBXgvvcEOAGEtAPbeuzD5ZmX3B7pC7U0GO7hE6i5P
+         kWEMTog2wx51xwicF1ifAEJu5PkDeKhpcgvHNBieLqWVjXpEptC8GScCyClnXjHzyr/t
+         suP7Npfl4hrOA6om3v6lJ08lc1C2R1tZeJbWJLFo3ez5eyeQkEcZ6LLjgegDgA1uXl9I
+         6BeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793101125; x=1793705925;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793101181; x=1793705981;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t8KeJqXYQPr8zutUgjnJ6yEQLnjHNNZkSiiSYzj+XfU=;
-        b=hZanpQoYGb8gi+a6cO/VFwqN5EzXysamS+uManHfIsKUVqxoR+19c+1D3fMq4ojEbZ
-         ZpD7S6Ni3B/m9fK2eoxM44s77Xzl0NxTlAXTiPtJRESrPtFSZCzZPV3M/Y2w64hAuUu4
-         KhcJRAlkgXB7twVKXVL7x5qJWY1zlQsCKY7XR+pln1hT9fCiTBf0nDIf8D82xdiEkJ3x
-         mK583GLtd+AS3j4da9u6rrDF2g0FlqtlkrDVRZlcVxst/4Di8EEBvRxU8Z0UR7Dgo57v
-         H1g7HDEDJoZKbj6D+6NgSwevWkg2OBGhfIbuS1MzQh2//6345CLZt2+f5KAHyEH6BtiD
-         viEw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7oF89fESQn0jWE4lb9XL9vZblCaMNGdOsiwbYgBuFiv0lYWsTEUY50vDXvgDtYbE0fBlj4sLQJxNw@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQMqdDDleyU4y0qwIEl17QYivtW7nE9N5DDSAvWR04i1ekqB+F
-	/nA2VmcbmkM4BFqydfPq0/5gJ/Ii64pASnfbniVu9G9x194vfgf1RKxgZRkWnXscGtQlbN18g9y
-	26UFq6Q/YDZegVzN3AQXwnTeKdWepgR2k9quPCY37lGEcXWHxjq2Ym+bKKxASwFBR
-X-Gm-Gg: AYBFou2sCWcSCkqG7j+Ptht2k5oqNmE50HdW6yjY5KtC+I7VXbOFE31HOGztf6cSmiQ
-	I0eU0T+y9mIiZtht13DRQrXDmXWUMr6HLTEHcn1z26Er6pfXFN6kMOiJfGlXJ7tv8WyO/AK2p4D
-	r2TKkPigBUDeUE33uQlcvCOK6bj/+1CX9q5Qu8XWMRjqkg/7XbNhcB2Vxi0ReIrdk8ZLF0CkAt6
-	4UWtIdvJ33T6p8rGUjwjaVKwxw2MOBAKiwbK5mn/G23KpN1imOAtWG/HFT1v04YSAjEQ2RTjscl
-	psUJTHaQzmfe45xQE4rWgJjUZ7wwt/x0hQEdcOdJkpuzJJH4d3t1Dirms6Gm0oqJ32jNmvLyxl5
-	XMcDVjwScEgzqeOw1QpWWZWkOkMtP+lCZHVEHbIPeb+wfh2SMDjPFXpHabCPJLjMnhKlsizHHkO
-	fyneFqDXjapAAh
-X-Received: by 2002:a05:6102:ca:b0:7ce:6474:7216 with SMTP id ada2fe7eead31-7ce647480demr2158214137.36.1793101124454;
-        Tue, 27 Oct 2026 04:38:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:ca:b0:7ce:6474:7216 with SMTP id ada2fe7eead31-7ce647480demr2158168137.36.1793101123899;
-        Tue, 27 Oct 2026 04:38:43 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70a27a03sm24389741fa.29.2026.10.27.04.38.41
+        bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+        b=R+o01i/mYXs397xC4Se+izZm0zj8X19l+KMCm/6Q2jlbnXqUtl104/zf7M+lKqxUBx
+         njkQjubwKLJZH1Kl6wnsI/Pkur4+Q2TM5yplEx97ChPwrAmZ9vO6mgi4D+IPD53rO1OZ
+         Y2d7+PY5tYfuDWLm76Toac1onozjOEt62Lbm9SJrU6s3Tp4S0ka8c7be/6pRS1R+kBSV
+         PTDTenZ9zZEwKVCV8tGVYy+Gb56w/VbZ3UQzK6cdHUi2jvAUUc+bQ1wMOfkRfWTsYhFm
+         XXqGyEYkruIvX6Bf8PPh/1TyB0iv0KrKNkZ1B/lQecGXIbHkmai69WRBehTnxq9OFRl0
+         2P5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwA7055OwD8pWRWWj6GX3gbqlzyDimWeuNnc6MqRTLwC/SEFM318rkKHWLOLMkP329N5eaP4LhQ1oYH@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8FrFaxmq4O3zSowYyNeCTLWkWviAjF4ySJUgmPKkiTMMuavWF
+	W4U9uZ5hyFlCEE+YxLOWibvFv+5U1WDUlTM8U0zJ/C3kL91f+3aHzd+b
+X-Gm-Gg: AYBFou0IDOBKm2G7JKIGJ71z5taxyY6rXn9NeYObTZAqYlX42h3JZPisj7KU1hM5JhQ
+	JX28LSzVIdbk8xaZPzRtabnQsmoGY3sbt/EugFdfuWKSWfResOrrSB+Hmjkxrr9zDJxxeqXgYjV
+	MhrvS424TPBJRpE7bGnjj7AP/nHKNYyTca4aZQkw1BnPWiVigjGhpjOGVUij+CKHM2fCZ8F7Dy/
+	AyhoKW8EKQy1CdrNtyyeCpv9e6xyTYJhAdTMnW5NeRD9/ZAsqVouByKw2K18n0k1imgQNRWDSSW
+	Tg2qtihHvcEFARiyxQQDBcqs5mNBvsh2vhG6nKjr7Uba5fR/rCXhBVYLMMA5q3ZnLJPJAAPYPT6
+	ABSe62dbni37vz34sWmRaVyTZc/iIav9cMgiPSLvz6mCjvI80TMYgx+ClLj+Jf+bGfBaF/5XS7p
+	UNlQl73Ctnq0GDdDwtdYFVo/PTV0xhrdzxOAq+W9ajPxS4GkfRvENRyAxR0zcwsEHYzFQq4CSQ0
+	6+F+zg6GWcALzjIwwYnCTzOB5YW/JRaF8aPmXZRAe8Sko2IqsDZEqLZrZwEtwVR7NfNjxtD0jv4
+	tA==
+X-Received: by 2002:a17:906:f585:b0:c46:88ef:2e46 with SMTP id a640c23a62f3a-c46bdac306bmr909348466b.1.1793101181423;
+        Tue, 27 Oct 2026 04:39:41 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7abf6asm430272466b.81.2026.10.27.04.39.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:38:41 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:38:40 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v2 22/23] drm/msm: Register the DCP backend
-Message-ID: <m7zuu3txmzw4xemqrdtemccmvc4g6l3fsqk6xyxz5zzdbltptd@oqubuxwbukeg>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-22-7cf014efdee1@oss.qualcomm.com>
+        Tue, 27 Oct 2026 04:39:40 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] ASoC: dt-bindings: Document FM34NE DSP
+Date: Tue, 27 Oct 2026 13:39:27 +0200
+Message-ID: <20261027113929.65102-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027113929.65102-1-clamor95@gmail.com>
+References: <20261027113929.65102-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -147,106 +106,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-22-7cf014efdee1@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NiBTYWx0ZWRfXz0wjMTm3dD4e
- oROBR7ksOxucDFch5RZtCdRqjYie2x5RypR2WDUwbLt15typiGbrY6xb8uv+d8CT6FCgHmyUXKe
- Us85Fzi+/2uc74ufN/axp/xh2ZY3cYY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NiBTYWx0ZWRfX9l1vpw8alp7b
- 8AFE498zW0bBXwITc0C0MCHhUiB6aVxMgcXBrlD7f5iCmEX5zluHVHLEmKdSE+MR0LnPC0WMWb4
- 7VveqROBwwJG/1NoELk0cAmQbZYlAP3gfa7orn7gDWlMY1LJUdFxd58eRoe2f4IyhFmylEIkeJc
- WHrxw9Fn1KzLCdiYCBaIP+Zu+TIIOsuX/dpcd8+wjrcmaTS6pA0bvLW5wt6p84n0Q4/Ts/QcKjJ
- yPEK+pscrZ/doch4XK91kAMBENA1U7XRcmJrx8e3bFgWZLa6FlR1LqHSpiAHmNWJerBuVTc4i8j
- blIKy/NDuR9KTzIniHY7HboQaJym6NL2VJK9A+sUUDAVJU2k4Ji0rBMgHzzYKbMPnZDJ+pWfLHs
- GIoOZbG9R8LWeLPo0ymX50RTLNqtXx3VF9RfXO4T2ezU9tz6H7n+nXR4VTyjKTKAt1Y2ylJUkvX
- se239uRNyyIozrZMWEg==
-X-Proofpoint-ORIG-GUID: l8QXUvJiiDOaXwnEw3DUL5iCWDir_XTV
-X-Proofpoint-GUID: l8QXUvJiiDOaXwnEw3DUL5iCWDir_XTV
-X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae08d45 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=5ffiRAJw0Nfj9fulafYA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270046
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 11:51:32AM +0530, Jayant Shekhar wrote:
-> The DCP platform driver provides an MSM KMS backend. Register it from the
-> MSM DRM driver init and exit paths so the VirtIO driver can use the backend
-> when the DCP function is discovered.
-> 
-> Add DCP registration hooks with no-op stubs when CONFIG_DRM_MSM_DCP is
-> disabled. This keeps backend registration consistent with the other MSM
-> display backends while allowing DCP support to remain optional.
+Document the FM34NE DSP based voice processor used in the ASUS Transformer
+devices.
 
-There is no need to describe patch contents. Please update the prompts
-you pass to your AI.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../bindings/dsp/asus,tf201-dsp.yaml          | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
 
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_drv.c | 2 ++
->  drivers/gpu/drm/msm/msm_drv.h | 8 ++++++++
->  2 files changed, 10 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index 5816c64d7ce7..d413c361c442 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -1208,6 +1208,7 @@ static int __init msm_drm_register(void)
->  	DBG("init");
->  	msm_mdp_register();
->  	msm_dpu_register();
-> +	msm_dcp_register();
->  	msm_dsi_register();
->  	msm_hdmi_register();
->  	msm_dp_register();
-> @@ -1229,6 +1230,7 @@ static void __exit msm_drm_unregister(void)
->  	msm_dsi_unregister();
->  	msm_mdp_unregister();
->  	msm_dpu_unregister();
-> +	msm_dcp_unregister();
->  }
->  
->  module_init(msm_drm_register);
-> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-> index aa5dfd82ac6f..befaa9f2cb5c 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.h
-> +++ b/drivers/gpu/drm/msm/msm_drv.h
-> @@ -417,6 +417,14 @@ static inline void msm_dpu_register(void) {}
->  static inline void msm_dpu_unregister(void) {}
->  #endif
->  
-> +#ifdef CONFIG_DRM_MSM_DCP
-> +void msm_dcp_register(void);
-> +void msm_dcp_unregister(void);
-
-This means that the earlier patches generate "function without
-prototype" warnings. Please fix that. The prototypes must come together
-with the function definition.
-
-> +#else
-> +static inline void msm_dcp_register(void) {}
-> +static inline void msm_dcp_unregister(void) {}
-> +#endif
-> +
->  #ifdef CONFIG_DRM_MSM_MDSS
->  void msm_mdss_register(void);
->  void msm_mdss_unregister(void);
-> 
-> -- 
-> 2.43.0
-> 
-
+diff --git a/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml b/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+new file mode 100644
+index 0000000000000..8b39089c99a9d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dsp/asus,tf201-dsp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Fortemedia FM34NE based voice processor
++
++description:
++  Fortemedia FM34NE is a hardware voice processor (DSP — Digital Signal
++  Processor) designed by Fortemedia. It specializes in real-time audio
++  processing, focusing on noise suppression and echo cancellation.
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - asus,sl101-dsp
++      - asus,tf101-dsp
++      - asus,tf201-dsp
++      - asus,tf300t-dsp
++      - asus,tf700t-dsp
++      - pegatron,chagall-dsp
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Master clock to the DSP
++
++  reset-gpios:
++    maxItems: 1
++
++  bypass-gpios:
++    maxItems: 1
++    description: Signal that switches DSP into programming mode.
++
++  vdd-supply: true
++
++  port:
++    $ref: /schemas/sound/audio-graph-port.yaml#
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - bypass-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        dsp@60 {
++            compatible = "asus,tf201-dsp";
++            reg = <0x60>;
++
++            clocks = <&fm34ne_clk>;
++
++            bypass-gpios = <&gpio 222 GPIO_ACTIVE_HIGH>;
++            reset-gpios = <&gpio 115 GPIO_ACTIVE_LOW>;
++
++            vdd-supply = <&vdd_1v8_dsp>;
++        };
++    };
++...
 -- 
-With best wishes
-Dmitry
+2.53.0
+
