@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142350;
-	b=kJEXQ01nU6iITzfDf7jNFUN4Mbv325VPB2PvokWG2bb+RnhcXoX8KFgCk7U7FYNvZi9y
-	 tRx+9LxU/Hf7g/2Wsf2WFHEPPxuuXmMsFHNjyuOOJRb7vLPxQ3vOCN8m3qmIpeI/2dQNr
-	 fyRghViid0acw8U29/BsQmYp3bol9jqyLep4K3RqQKIQPRLKMxiwm/6fuM+36hWHOgWkD
-	 T8HguSIsbwS5hqrB538jtqlkLUfD5dH0JRcA+Ql/nqEO0PEjYUjGUB0EIJJUqQ8eYd804
-	 zyQoc3FMcR3j7hhlNdAq7WpUVPCamIEHtMqAOyKO3y0RQXO6CMOvolLKEQKjHAtlU2w==
+	t=1793143327;
+	b=q/1d9UizVtASF5RFRGB72nMFzjDNthahs/29NubRJ+El1yyqLf9ArtKCIS1Sto3DPT4F
+	 MVwBSYbJdEp9EOlPlMcnhqlAl82e4OKCWFDfB2GePlg93iavfx67SagIwjUrEJeRrY7g/
+	 ETYAzoNVwJQjRPh7FTSwsiZ0w/UlI914uzN2XMQj5KuHghqCAjffAir4iC7UZI4S+Mgxz
+	 DL9HFC/4ZzgSn+V2F+Prtq9nc2de0A47IZw2Y55MDcuPekyBbj9GwBVA6hijy9MvkpdPU
+	 TbblbfmAyihZdD/iIO+AOn+L2BZLNVvIUttw0Vr2PUTCWAI7RSEls/DUpDPttYEKBlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793143327;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=EG6vB+d3AGeFZ6pBVrncqfS7pzggD8yTk6rsfUsHybg=;
-	b=W4TPe4t6INoVB7ns5eJ/NH5ugDb9duaqBGKPX6XB3HgcIJFofss6OAG+rfWAM0/x69Ts
-	 sOMB4kFh2pYZEGmrsRetcVGCAo9vE+KTJmOfl0t4n1M1kMjLqj6uxGLWcSh7WO2JmdnUE
-	 CnDGyvAA6P5YsW+G8BBJR5q1SbVDRu4fCRKAhB7jb+dqBMK8CdBvMHUwgtiiL9J8mb6Fa
-	 0gQkzy5N58/vr9gxcI06CvFyv5YzEvwckl625WyNI+7YPdg0rS/VXtNc0g4FyW6w/OQ4V
-	 NRWmXwRd+JjuEyRt/NnLOa6UZNbhkA7HbjJUlOJbgGBVcqtK15yV1bLzti6L4+MJB1w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YtzWIw2tmWzRFpwiGfEGzs4PBBxO5+sgv4xgYivcggQ=;
+	b=XXveuS5UIawTppNceeh31+8GQyAplO4L5QGO2BFDVJRbOVLVstLHc2LnBxXvnD7grwL5
+	 zgR1leCGOt2AolGSI/omF7Iu74f045Ob2v48d4zQFgNfedRvGh32aOf3pZXDQno1CjG2N
+	 4M0yvwIaTYMcnnUJXk1wF20YrDKTW7JWC/ak/y0/Md0e5xzdq0a5p9/yQkSTBlu89yxMz
+	 RB9qVT3rEamMnnkMcCx3MVwa+jr+4dxLmIqaz4XOw2yaVoCt+XwSX3PJxm4YNT4hgwTkv
+	 Br8D2rjKJW4zFHL3Z3PvdbhzcRDgXJ6gMniKqKspRDRmXZSlRtkfniLyTEqQMywrk8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KT/MDSGr";
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=cnpHGUZb;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28D2606A327
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 23:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F28D2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BEB606A322
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 23:22:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32BEB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KT/MDSGr
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-84a248254f4so241658a34.0
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 16:05:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=cnpHGUZb
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1931ff67a29so852625c88.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 16:22:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793142349; x=1793747149; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=nexthop.ai; s=google; t=1793143326; x=1793748126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EG6vB+d3AGeFZ6pBVrncqfS7pzggD8yTk6rsfUsHybg=;
-        b=KT/MDSGr0uiF36n1Qrx6rANybi1J/wRnns6SvuV0WRYq8HzMIRyyz4vdmpsUYZs+Yv
-         9IGrgHrXaM/XarQ992vpIS8+mgYqJy2bht2+DF1Rvv+bjFeCLY0njrYrBseRwTnEfaow
-         N++QR8p7TKYnPWFQC6IrtpLjL4lJxzeUmcWKgBiej1Eu8RMEZjtlEghRAFuw9++2i798
-         t+AFefaWtQ4FBhJpBl3xmicKecKCGVsTq4xShRjQ2k6pdI4+N0glUEc3bwkveLIrivEH
-         p8XL0deTfodNScRzHdgMmB+qY/D48qhU6t6jX1y5/F4No4hmKE8hNzIIxONybUrvKRhT
-         rIzA==
+        bh=YtzWIw2tmWzRFpwiGfEGzs4PBBxO5+sgv4xgYivcggQ=;
+        b=cnpHGUZbIKXsy7Jf8Ah8l/Y9ojHH0W/E2odwf9XisvJjDJI63dzMH3uQl4gs4gJ3zY
+         xhYKKpqUSuwcBBIh7xhZMANRcfsp+FfY4S38Hc4kh4FtJ2GLgyHF28dPPi44q1COF8sA
+         zcMhITryXJ0kjjf3S5BAUvlvehHxdXi0Y/2ipK8ASxMw5IqYCcNugp9iKd2sJMGxs6kE
+         lMVFRaQdI25EEajy5Ab/zvquzVQL264Nq6TdiuavjD/KbJkv/cXQrfhW1ZWEloSXP0SX
+         efAbTyBrke7ELIcdyFBRh+pzX7DvyVPJ+NdqDSc6RzNVirCSxg5pfATeR2I40+ii9OCA
+         yWxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793142349; x=1793747149;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EG6vB+d3AGeFZ6pBVrncqfS7pzggD8yTk6rsfUsHybg=;
-        b=wjksm8RzNH9KoaW6Pdtj3LCHp3v4D9Jh8Tu+4c6QcbJCbiDO+XaWrZwfzv3IMEkNab
-         ApK56Pfe5WBRAapw6NvP1stcwty+MOJevwb0q+aewoWKcS9JfPqLAzXInR+3ftm6ld36
-         2Uc8GErU722qJ85IJv4OPlohTM0dJt4k3rXWEw0cfinXtvahfSCE7sYxR/r2Shyvs1IW
-         2xPSp1Cj9ay5sITZyPO/bxrVryXB4IfpY/hxEgh8tme8xBByI7WVXDgSCB7ew//PiaKF
-         fomlt6ETrWcDVtzgLr5/ChdGjqK3vlW8S0B0FNDL5KGOJyoKuk/RaLk4XXxBaleBPEEa
-         jpWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3+/Uir58f7kIEKz9mhc/2DNh4BTlbA9q5dBjLgIdhyhfj5Z6zB4xT1fBLybnXBCYiIPc+6HuFa72M@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmbfQJb6GXkMcki8v5RB5LwNxhnRdx6DxuBywKf0gA2hCt6uzS
-	7TlvpXsoYPhhbq43BhFauabhE/OqDEdvCVomEUyYdOODIQIdrQnEZIDT
-X-Gm-Gg: AYBFou3arj5wt4i2gI57KKqoIenjp25UKgXT+Nb+l9LoCqY76EbssCJdENSAwckYtS1
-	wGCphryF1ExzpiEGdM4SRgHUtrZEVAJm3bVstgMFk4k7fYniNHJfzyURaM986tcIKEZQB2ucHll
-	dRWpPoPb+xBpSokvllQjcrHLR7rXfh8XxSfj2OTXbZxWD94VciiDyTzNoqFwvr4AN4SqpQLD1aS
-	K3xMyaRABZOSQCdXA6RWWEwPJIgA+u88dbXHooBZrThCTqFAJXDs8AJrzLCxCdEpsNX1e7MA2xu
-	NNxZ5qFvLpWD5X+t0yYRc038AEbrZ9YST/QJfqBK4t+qiZPFbhJl93Cf4sC2iEExl7x/S2gzVGx
-	Tu8WkHPdzozzFzmHCDSP1cXcwEUZwMkXIt5osgUR8Ds9lP9XLbuTIx06/lSm/GZG/tICXtwDEMj
-	AL+S5wKeQUTWrtv7sOIBUG97PYs6aKZLqH01KFaRmZUmBBU5d7KrB2IdLSaT43x7eJNS7jqdNCx
-	j/ywWXuO7T86bb0Sriz+g4XCMm71tFhGEueMcMdjkJrrJW1GHbuCyhDDpbIJU/8IxSNcKm7JmpQ
-	FmjG6YM9mD+OkAXUmM1LfQPWtDNCZ2dTPWLUbnQpmUdn378rQ9dHVIIZ2WPTCisY0omL5VguiZd
-	HxNVNSwofZ1UyRhHhT5WgDakkrVie+Ji1NkZmqE96gn0rlBUZmMeabjbi4CtX2Rx47DpeDWZrAI
-	e1iQ==
-X-Received: by 2002:a05:6830:4aca:b0:824:df9:971 with SMTP id 46e09a7af769-85abc7246ddmr898761a34.10.1793142348950;
-        Tue, 27 Oct 2026 16:05:48 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb0741c9sm12093328a34.10.2026.10.27.16.05.47
+        d=1e100.net; s=20260707; t=1793143326; x=1793748126;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YtzWIw2tmWzRFpwiGfEGzs4PBBxO5+sgv4xgYivcggQ=;
+        b=LoxAP8QSx3YqfeoJBl7y0ycKnVFcy0eKtnO9drFagqVrov8ioSNgBisLKJjHWVfSzE
+         557AmpRLb9BC4kp8uizs+St6+jUy7vroIgeCw8sIYIPmCRBjQgXp/WXqBc0Xki5ASu/s
+         Pnp3DPcU2F77OYhOMybLGxPs/hl2AfpgnJ7nti86jMorFpjdJTyvz0KT4MCx6Uh8GbBi
+         ghEhIxKjorPTL2yQeJ4beqjEbDtw4rFB8UvGz5xm/Ug7PxzQFZ9zz7cEjpiDeMbLWAnl
+         3JQKvNGiQeoeae0mdShZ3cY5C+3l9dCElV5ppm3fwD0CLeY4sgSbyhaExlxDODtzJFVF
+         9Qzg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2kGWfNmuoDmd+cHLxoTBs9oCOPiA8v9Ln/EyLzQmtO98FeKD6xnuAvuQBYuySQstJflWKmA9mkbKD@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDHNaKNcQtR2mwxvGogk37pcS2mkh+nK86uZzXMnfhyc8OmG0w
+	tBJibpIbEnxcJHIisaEZU6iGf9ImlzCGgdoeD5kV+bGvNkGzt7+tnQJfCQEgboMyR4Q=
+X-Gm-Gg: AYBFou2WB7W6xTie6Ugu4nfVJzMg461GjoDK2Ao9+C6iK0A9KB3hAmlBqqJDzdPuuuo
+	tVAQPPRMdeZ96RV/tYKIftZkSK2K3pV1VS11wsFvXibB8pHhbug1eQ4DyR7bEDuXotNdiRTXtaI
+	GR8KbcXuuoafSKqNk3nbQiHTxFXSkZKi4nYgsdtWrMEsRb7Z4kpL8v0R9pPY7KhNKLZL+tOS/kX
+	HWFRjpzNAOQOg9c1JVv72TKwDrnNE/8Aq4XpnTMcGKxRvS7EycGh8UZg+nczju9pDTGNk+4ry20
+	w0F6wzu/2sOw8cRqaZ4hrJ/BmqpQflAA/r5AaAAqTO/nrVg6HaW9k6zo3T4lka2ylTICmXgxP++
+	d/TRUTGvyuPclOPUXe5AFw26D/gQxmqZ9sj/YJIvro93oCvckX8wF5sotVh3FSm6AaC13pl/OSM
+	Bzx4l7R1u7nqaE81Jq8aZEsNfTgb9M5/Fk2lE10za2+R2m/BY24VXkf9Xzz/4/TXCKSkCCmJlq1
+	pT9w8pQUNGCAhTH+P9OCFR5f07957vwoT843LcpH+WNz7lt4I+C/XMIMrkxE0N51V+M+TZyIT88
+	LaDN9RbwaLQT15A=
+X-Received: by 2002:a05:693c:8946:10b0:369:f7d2:d7a0 with SMTP id 5a478bee46e88-36a20407ad2mr1240160eec.25.1793143326214;
+        Tue, 27 Oct 2026 16:22:06 -0700 (PDT)
+Received: from kevin.us-west-1.nexthop.ai ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238da3e1sm73101eec.8.2026.10.27.16.22.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 16:05:47 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 27 Oct 2026 17:05:31 -0600
-Subject: [PATCH v4 3/5] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
+        Tue, 27 Oct 2026 16:22:05 -0700 (PDT)
+From: Kevin Jia <kjia@nexthop.ai>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Abdurrahman Hussain <abdurrahman@nexthop.ai>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] hwmon: (fs1603) Add driver for TDK FS160x and FS1006 uPOL converters
+Date: Tue, 27 Oct 2026 23:21:57 +0000
+Message-ID: <20261027232157.3395142-1-kjia@nexthop.ai>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3735b504-30ba-4656-927c-d321248102e1@roeck-us.net>
+References: <20261020-fs1603-v2-3-0986107a5cd2@nexthop.ai> <3735b504-30ba-4656-927c-d321248102e1@roeck-us.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,49 +106,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-submit-h616-uart-fifo-v1-v4-3-d37e018fd0a6@gmail.com>
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
-In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The H616 UART has 256-byte transmit and receive FIFOs, but its DesignWare
-component parameter register does not report the FIFO depth. Its optional
-register layout also differs from the generic DesignWare integration.
+On Mon, Oct 26, 2026 at 03:04:45PM -0700, Guenter Roeck wrote:
+> > +static const struct of_device_id fs1603_of_match[] = {
+> > +	{ .compatible = "tdk,fs1603", .data = &fs1603_models[fs1603] },
+> > +	{ .compatible = "tdk,fs1604", .data = &fs1603_models[fs1604] },
+> > +	{ .compatible = "tdk,fs1606", .data = &fs1603_models[fs1606] },
+> > +	{ .compatible = "tdk,fs1606-0600",
+> > +	  .data = &fs1603_models[fs1606_0600] },
+> > +	{ .compatible = "tdk,fs1606-2500",
+> > +	  .data = &fs1603_models[fs1606_2500] },
+> > +	{ .compatible = "tdk,fs1006-5000",
+> > +	  .data = &fs1603_models[fs1006] },
+> > +	{ .compatible = "tdk,fs1006-3300",
+> > +	  .data = &fs1603_models[fs1006] },
+>
+> Why those extra compatibles ? I can see that -0600 and -2500 are
+> needed, but the others could just use tdk,fs1606.
 
-Add a specific compatible to identify this fixed configuration, retaining
-snps,dw-apb-uart as a fallback.
+The FS1606 reports in 10 mV steps from a 300 mV base, while the FS1603,
+FS1604 and FS1006 report in 20 mV steps from a 600 mV base, so they can't
+use tdk,fs1606. They do encode telemetry the same way as each other, as
+does the FS1606-2500.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+So for v3, I'd like to move the bindings to a dedicated tdk,fs1603.yaml,
+where the FS1604, FS1006-3300, FS1006-5000 and FS1606-2500 list
+tdk,fs1603 as a fallback. The driver would then only match tdk,fs1603,
+tdk,fs1606 and tdk,fs1606-0600, with three sets of model data. I'd also
+drop the OCSet check and patch 1/3.
 
-diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-index e2ca126d58ba..fc1289073241 100644
---- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-@@ -60,6 +60,7 @@ properties:
-           - const: renesas,rzn1-uart
-       - items:
-           - enum:
-+              - allwinner,sun50i-h616-uart
-               - anlogic,dr1v90-uart
-               - brcm,bcm11351-dw-apb-uart
-               - brcm,bcm21664-dw-apb-uart
+How does that sound? And is there anything else you'd like me to change
+before I send v3?
 
--- 
-2.53.0
-
+Thanks,
+Kevin
