@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104530;
-	b=ws/865Gczdws6DK5ZZiRYAwj9SugG6y9igpC9Fx5HuKdEitfXCMzLBl8S9HdHsOs0NAe
-	 P5wyIEd6flPcu3abAF+KT/R9Dhr0atrXFCXhdXZnYeMagPTJagKGXkVVI5WoUB/C+DOL0
-	 GoOcQMLz+OuhAN3Y7ODPQP1Enim7HdC1bWKE6peHiy3sdXAsNJfF6c1peOgN6z9VGwXom
-	 36o7IKwvloOcS697ZkFn4JIwMS6Vcxj2FCvJg/2N1JmNGAoyZjBhvaIFt5hZ0vnJtwUGo
-	 D22ZGfdSDcikCP4uTib5R7mZvXeXMocLeED/W9xU37LoJlIYq/3Dh7dyykRaXVpdkAA==
+	t=1793104535;
+	b=dYxAIRxLs3/vBzeGny+i53kzs5Lhe0Dim1OfoEhPuZ5cn4Q1K5TjErMRdH1YF9u+Qpol
+	 UrKSaRPr0JmQBhy5ZTUho7qVfQlTXZ5boynFfwkj3sjgDSRebkkYeAooY3nh781/8VuJU
+	 r33rY0kybdLk4VzSJnv4FIGgJHdlYvoazWT0pTjUuh3QGhBLiIGVKp0CqIPwtper3XgiP
+	 Fu2gq1lBy+0dOubq5CDcBIl5dP+sCzo57mAq6Is2dWtuKvqPaJbaSaQxBv24C1v1LAKE3
+	 rFDL1/5T8H8CO4XPKkiNL+0ZCuEgLieMjDWDE27vKj7eHhKcbq+RIeCKQp0isRFPgRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104535;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
@@ -17,96 +17,96 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=rmsSccCdCVqEkz9rVQlbpk23rbdxQICURfkwTyElrOE=;
-	b=tunEXVxVbiS6VDPTZA91CjzZ+yGOHe+/pwXcWrnyAPB+rGDhzVP8WXkqbRWrheclXNcc
-	 6PsW/5OkzFSukPS/xgEh0M9zXjG/kX4RG4xY8OXVvbhwVpEjp4QWRQAJekyl9eYZ9g2pL
-	 MZCk9wITlKVdjp/qlMQjlCsI4KLjMqOUhzYn2vraU8826YPAueyOBm6Z4WN0eALOAoA0w
-	 XnhwN0wq4rukZ8OzNa97bl4h38wPrUHRx3MetCTkHngUq8Yb6aVnx+wQHBoL/sfcs5sPM
-	 1BPi1AQ4l1WVmXpgP0N6ZeVZfFgM6OHC5Tf7C562vy4VYD7YThRgI+/aYuEVSBZ6sEQ==
+	bh=LNwvMt5gjfJinQ/wSInzrkxOYi6NIM+HIlhbrr/hDqk=;
+	b=5XGzvNy2pLFn5LJzNjtQWSf+8Yw92DOJU8lazH879vcF9jfEJEeqX25Reelkl4S7gIKf
+	 dac2ZMPBm77YvqA8NorRzCfxPaJCifu/ns9/SqaaNN+yibMYPJsYvS1g8uBR21KtebxOW
+	 MLikM0jA5aY0tFLS2WvExApmB2QV7R5nF3dUf5kTKBTnUCMhYmj4i1jWjDztKPPUEJbGc
+	 gF6UY5W5KzaOT08sx8vJrtaNLMniUK21ApuaQmu5SKqZSVLHfyYvjIe4K38hu6TWAdT0B
+	 NIQBKByA3MMnrvhyYA1G4E6x15kbDYRHSP/f8M2W3RySzzg4vgbtF42oyMubhnEg5wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SyFUWO2s;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iQeJFbPw;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="VX23Hm/A";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L3wWuJ1U;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE55606A322
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE55606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0F260A2626
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F0F260A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SyFUWO2s;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iQeJFbPw
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VX23Hm/A;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L3wWuJ1U
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeKAV1427433
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:29 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeKcj1427437
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rmsSccCdCVqEkz9rVQlbpk23rbdxQICURfkwTyElrOE=; b=SyFUWO2syPxPDET6
-	7LmY9HH6Hl3n5bBbrQpND3yp0XaCpbpAzaxrWqm/23YjGWZ+JuO52POoX6Kamu0v
-	nImeUsn/j3nYckOnrFBK0F7a2C9w5j2u0Ch88S/+K4nliaQM0I3Fj+1AcoVR1Yii
-	5i6W5RfI/EMv5O77RKFV36nnmAvYW4Vj8LIzFBZ1j37160A7bbPu2NydCzGL5ih8
-	Zs+BUrlfLyFsl2iOpgXXXn82ApBeFcDbtFieOiYD56QaXnwMpWQ5TGIbHm9DbErY
-	G8G6RWnRxx/urEJLSmKHD8zRpUKKtG7pcqQO2T8LBXaywV5ICgwKUYENWspmjNAD
-	PO4zdw==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmbkaj-1
+	LNwvMt5gjfJinQ/wSInzrkxOYi6NIM+HIlhbrr/hDqk=; b=VX23Hm/AGO4aelxK
+	IJMOWvVlw1Edx41mxYk780SdWu+DMYYv66O7Eho0dIwCf8Cu4ek0NcLgalu0j2yg
+	COYOL2RlvVR3SZJyniUqBgg2H/G2TYfZzQBHy1w1nSqKf0yc3S3RZAXYZF3cXyTy
+	GOJNIAQpIgqOtL0B3PF6ED+/fBnFVedu9/4IbAgvVfV55ZF5si5IZw+ohWkf9cDh
+	HOordz+58Q7EApi0Cjs/xv/UI+DgRwgZ43gdld+Idk7a0PEB5R/deATPMe0GGfUH
+	F0Sdl4ChByRs/1M7XKJKOCc4m/th9xMkXb8+qjQDNShPLDRr/04bHDm/FyDTfsMw
+	Sgr1Ng==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmbkap-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:29 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-836caf085e0so61705717b3.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:35:29 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 12:35:34 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67682d4d684so6968020d50.2
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 05:35:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793104528; x=1793709328; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793104533; x=1793709333; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rmsSccCdCVqEkz9rVQlbpk23rbdxQICURfkwTyElrOE=;
-        b=iQeJFbPwd0Dt8k3dSAR9fZHyu0W/oe9pjhhhzptg6Vh7Z7J850/xJpUEVOduIiIGT7
-         Z06MSZIgKe1S7t2g0q49aSjMBGfag4wez7d541WzpaI8Q2Do7m4MXwAdMA6BSRl8vs1y
-         9JOZtzxQVtGR+TVfAkvp277zvZbJ1GbmKSg2L/2YHDg63G81kHeygP1SfxUfegWKJCOT
-         Etz7PU2eesTRHfs8BK2+7i9U5Gwt2/YdqRDcIa7aRTB3k0LxKhwU2pI+jzdBXwE78XGv
-         QwwHjQybNNbpSAQXIRuIklCaZY4+FVXzOnS4ep05YUILaC3PNbUfSaic+1yf+Ine/1pu
-         T6uQ==
+        bh=LNwvMt5gjfJinQ/wSInzrkxOYi6NIM+HIlhbrr/hDqk=;
+        b=L3wWuJ1Uhnj6x2pKj4yaDgMSxS1pl0b399jLb1/t5PUnOlSqMI1NTHn5GBedAfnVUF
+         FKVD00MWhB+r9DyTB2H2HdJzfVPl7SqB5jNHRJo5ji0y6WgYkFh/Y2eA5RWgQKGLCYqY
+         nvnIzsXvdML/5GK/llioB8BPdKFKF7I9yvMx7DkYHB+WC2jo/VaSzXFm0QwrjpWg968Z
+         7uHFkHvw+e0nSQk5HgzsMVPx54MRbfEJKOODjK8m4ZL+aTDgYsF4E4JiRpW63W87hjgI
+         b1O68LNl/wkWIC9+qwtgsJG/6MaOlEXPpe4R17bkuUn3H8FcD8YgOOzhL0v3AnWCd11E
+         bH9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793104528; x=1793709328;
+        d=1e100.net; s=20260707; t=1793104533; x=1793709333;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rmsSccCdCVqEkz9rVQlbpk23rbdxQICURfkwTyElrOE=;
-        b=0z+TefMfrAeW9sSg0neyIHBh8EZbj1XMK5NX7ivLxd5bNcrN6aUo3YPMmeeYPRPmUE
-         9XWZ9xAsMntkXcbPE9XIHxlYsyAkn1Kso1M51RWzMpIANnSHL13BhIaGj/uWytH78kna
-         9V9ACZw3RcHaymtUaJsYQb1+G0PD7xMgO6XcE549Ho/cOWLbV+uTYMB+mlaQu2DaY/5R
-         aKUrccg52E1eXGRo0ZiFSG67+tzrw4S7ReH8DYFmxdzflpnc0nyAxeuvKJl7kigirq6E
-         h01SM5OnjKWpwecrW5x0g41QRrCdb+3uIFmDuZ9Ib2j8gDCLhUnD4r2hUEu3qfSehDkj
-         bWPA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6PzB2CU0TLNesdAGiLMlFbJT6AaWPkx2F2/gIEAtteIX0AQuJPQJmHJEqjVHLcpSGa0pBwxtCsYYg@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8a70ZEbLBo6G2WObWf2NoiB/52T7hKmyhkGvrnq0w8PqmLOKb
-	PdMZq2TVPB9FRE0jXTdym08g73t24JSEAQic+qw+jcvw6Dri2gnjKvMhCr7VwsfOJJo2NJIN17Q
-	PnQT8EP0eG6yJH7Z3FI/HO959ggVRyXCZT24XgbIXD0dEUNqr4extYJg1uD3dTzlM
-X-Gm-Gg: AYBFou0vOf19PVMCJa0jXvI/ZrZGyPDAMAPJoKnfeeIIZCUACOcNRdVmTdi4XApbPI4
-	EUYqOYt66AG80LZjPr2zLeFR5IP6B/YKriQarq9t/ETSKYsgC5iuGHF5D8Xmi4WFCl5AmDt/JG5
-	x4Sl3xeH2CUoiP5wtBNldEZgvEPsLlweOpXNVwBbtZS6sMM4xZH2ZDff7ndV9xRbewwrtxQDJzv
-	313835pyOy1ixOUfA7wjCkB66vCbzlC3y93Tz1DPsKCD+X+IF2AzJ6V3w1yoW+HyTIb+EkOoUYY
-	jC/IQwXfGDwcoFtyxnFiPU3o3y9AXv8XaPViQ7Bl+hnjFCNJaTnFVVqoNXz4TK+3OvJDym3mKjm
-	LC8fTbMTzOjAFmsiFVw==
-X-Received: by 2002:a05:690c:d85:b0:8b0:d4d8:e0d5 with SMTP id 00721157ae682-8b166ca3a17mr80538517b3.59.1793104528327;
-        Tue, 27 Oct 2026 05:35:28 -0700 (PDT)
-X-Received: by 2002:a05:690c:d85:b0:8b0:d4d8:e0d5 with SMTP id 00721157ae682-8b166ca3a17mr80538297b3.59.1793104527694;
-        Tue, 27 Oct 2026 05:35:27 -0700 (PDT)
+        bh=LNwvMt5gjfJinQ/wSInzrkxOYi6NIM+HIlhbrr/hDqk=;
+        b=DGyuJWW8dRnu/IiB6qisAKzobeLPdBa1z9q763Tjf1BvPIZ1rAhFAFJP5O9adg38Nc
+         7+Jz3oRNPsSH/wxfb5x2NDtHp5HyxCF7SygaUrtnNqTclADAKt3z8eX6e7fDhV9yVNKf
+         LR0ZaD+0tjsCj0hfI27yl5EKwgCvnnylUpP6ay4z0x08Mu1p0sEkWBrOIQOaOjEUzH3X
+         Yhh7W7A2FHSaCxhWtV/HL8tg7HOFSETWULTjJrMfCbV0ls9SLm+ntip41H87LmEUL5x3
+         ju3fEzG64MHdw2pFVtP5e9hep1UnAEJWPjiRzFjDRBsks0Z9XBdPQ9B82gN7d132U1jw
+         FGxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwetRoY/qtvQP/mrXFPt27Q3yii4GcJcGs8mWk1kfYaVc+7feejCJAeblsgjozSyHjeTPrNJ00r2Wwc@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4mm0ojkxPF8PkQKIEhFSvki32W8QoQ4agr/rmXZU2TaPoth48
+	BLvh12Jrt9klGg5UxjqzkNV1lo1H9egruK/k9V0RqNM0iazy6OEGr4WR5cQPHpfQCIYrqmnFZE/
+	8fg5XcBtkBo3+jtWErlSYoxRirK3HEdleIp7Tw6S7PDfxE3GzfFnoXErJBr8G+xW1
+X-Gm-Gg: AYBFou2KbDDGhFuNpGP38ZGTjSu5xF620AdaonjX9hxlZl28gwsJXVEhBFaBHH3bvfx
+	XkXFbtPTNHV+CXegBpeOA1o8Bzd2aXnuDGAEjyEZmznyG32j+L09UKDEX6TBamqzg98uF9e8P1J
+	4RftSbh6/wcq05YMmJpBMP88OI9WJSJQEQEvR930NepZi7wgEWpICp9LaoI51JQw8vInBLoC4zQ
+	yCGrfswjRK4c1iCFuUfzZJ/rCsg3YfwX96kAtmV76zHcDW5WpglmeTC0Bd2kQaTsZiP94hZFQlm
+	IUWhcSdTMKykBUV2w5tzpd6UZD+jslChaBG034PAErAi2210Go/10un6PI8jDqgAtmOnqrncade
+	8+pl9TTyaujSrFWRvoQ==
+X-Received: by 2002:a05:690c:e15a:20b0:8b0:b52d:4e0e with SMTP id 00721157ae682-8b166b69836mr43735337b3.28.1793104533314;
+        Tue, 27 Oct 2026 05:35:33 -0700 (PDT)
+X-Received: by 2002:a05:690c:e15a:20b0:8b0:b52d:4e0e with SMTP id 00721157ae682-8b166b69836mr43735187b3.28.1793104532917;
+        Tue, 27 Oct 2026 05:35:32 -0700 (PDT)
 Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e57d131sm10413507b3.20.2026.10.27.05.35.22
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e57d131sm10413507b3.20.2026.10.27.05.35.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:35:27 -0700 (PDT)
+        Tue, 27 Oct 2026 05:35:32 -0700 (PDT)
 From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 18:04:19 +0530
-Subject: [PATCH v5 2/4] regulator: core: Parse regulator-off-on-delay-us
- generically
+Date: Tue, 27 Oct 2026 18:04:20 +0530
+Subject: [PATCH v5 3/4] regulator: dt-bindings: qcom,rpmh-regulator: Add
+ debounce delay property
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-regulator-off-on-delay-v5-2-f9c3b128c6d0@oss.qualcomm.com>
+Message-Id: <20261027-regulator-off-on-delay-v5-3-f9c3b128c6d0@oss.qualcomm.com>
 References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
 In-Reply-To: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -132,32 +132,32 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         Saikiran <bjsaikiran@gmail.com>,
         Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793104512; l=5262;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793104512; l=2793;
  i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=Mb+M13JU33yRl5ikfmNSIlfE5FNtWfL/XYrlwXjHaO4=;
- b=phXB8dnkOoxUJ8v0LWqSSWOfE0HrIW6SKSKQDL8XhnEpNDY88R/Hd3QbR3qO4HDss9J+xbEnn
- fr4oPndo5wkAmScoja96va5CsjgBxqaCe6X0q4GPx/pqRZMyYjG85Sv
+ bh=SkU7A3R3m4sw8tWJhnTvVEYAWww3+TtNojEuitZAp4s=;
+ b=qJmtjaVNa8jv2KFepU0XpawCcRysOXv2cRSh64uRpTXnmJ+BmwrOq64bK4KncXlYiAxeP5i6Q
+ QK9IQSOkMxwARHafhkxG/xk1uJgr3ZNPIolDb9/5OSQykY3W2WbciTQ
 X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
  pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfXxSaTyohyVsxP
- Z/7V2oMcpFvCVOVCqNmNo7vCZDDr8/KsAM4+WZMe07S97a5BrqAEMgCTZims4bTOeKFtJv3ERI3
- KwPKOjHyfoJrak7dtKxzXU2g3oKmtL8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX76HU3N19+HHS
- Tozfo7wnK8i0zehbH8sXdsGkqopMz6xq64D3vUNwLgRvgPwOkN6HRewpqcqZpqGiPPSttxFOhIi
- hgksuejhQ960rFf7Mg/Mxl4660t8weikaMi8BCQugYGa5IGETQfhf3xEIWNTUKRlkXZx48tLp9X
- Z+0mqbQ7XdnECUflPL6C0MZXvbR5lKB1Jv5uFA4gmGAydoExOsXDUDq2gm1StPVPeAgJXP3vPEB
- 704GWWKQGzJCKX1C6L0l7Jse03r5poKnucYzizMjxxYgGhlT3+IDcGhyAYRBXqnFFihCIaJbmwu
- uNFCvNW+L3DO2b0USG6F5lKdFiL0RnTT5XYjqZ+mgzVWLq3Ozjql7QYfKGoSblJV3hzgVFGSJn7
- My4j5K8p1w19i3YJSNOCJcKJAhRnIS9GNMKzDOtZqpSRRayAt4NwlRWbSsMJyYLwJL4QLfSyksX
- xCRtp9FNEJXxInv6SxA==
-X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae09a91 cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX/7/J4d54QlwR
+ A0S/Jb3uZbkYSsAVAIq506qSsH8RBQay916kgjJGTwI+zfeMafSm/dQvooZLlM6ETH6SRjjJnHD
+ v/EpOlukDzrYZgWPPsRSBQxCguLeXqE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX683/7KdeQ108
+ s0enX9wdKfjRGo+aZHUxi9kFhzsNhOMEu5bo0StgA0Z3Kx1lFDz2IK+rysgsFSQfM+v5dGmBUsj
+ wzFxb5vdQmoyngQIGTN6h1XNc45EeA2yvX5kb5f0FK+NMMvM4R4R3frvdV8oAOr6spq+Qkt0bIK
+ 3+Tm+JwAyb5WWRn/eSoMvbzPwI/HwtUBgdoSp6B4sov0ucjfrPqiClDJyQCKuzKQcFKBLEcJrvp
+ SrUJNSZQR5L37+4kRdjjddsCaBli8aPOExNi3MOq9UJoHt1jPaVMot3D9+REvS17GB9eNH7ByB9
+ ot9Gt0gvSh8Ceu7rUCmfFHDUuqWnU9ZEUuSdqxzqMGM6xYhHQb6rgAzhyybio6kCMs2WIIwRyh4
+ r+98uwqKkXfPZjGtvw3M79t+QNPwgsUSw5FKTPx/761N4sTgmsW0XG85SSyYoxnGS6RLkauMDsY
+ LC8fgrcfbKvjM5cvXuw==
+X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae09a96 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=f4amEbVUL3UPIz_tOzEA:9 a=QEXdDO2ut3YA:10
- a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-ORIG-GUID: 2IUXhLbrzKiBtws8jfAKrwz6rcAeTS1G
-X-Proofpoint-GUID: 2IUXhLbrzKiBtws8jfAKrwz6rcAeTS1G
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fIv7m2FGvZx8uhHzWWEA:9 a=QEXdDO2ut3YA:10
+ a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-ORIG-GUID: tjbOw_TpbsiemnxXDAxpW_LuV5MpdliN
+X-Proofpoint-GUID: tjbOw_TpbsiemnxXDAxpW_LuV5MpdliN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
@@ -167,132 +167,62 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270050
 
-off_on_delay is normally fixed per regulator type in regulator_desc,
-e.g. hardcoded for every LDO a driver supports. But the delay a rail
-needs before it's safe to re-enable can depend on board-specific
-factors like attached bulk capacitance, not just the regulator type,
-so some individual regulators need a different value than their
-type's default.
+Add 'qcom,regulator-off-debounce-delay-us' to describe the time to wait
+for an enable vote after a disable vote, before actually sending the
+disable request to RPMh.
 
-Add an off_on_delay field to struct regulation_constraints, parse
-'regulator-off-on-delay-us' into it in of_get_regulation_constraints(),
-and add a _regulator_get_off_on_delay() helper, so a
-devicetree/board-constraint value takes precedence over the driver's
-static regulator_desc value. This lets drivers rely on the core to
-set this delay rather than parsing it themselves.
+Some consumers toggle a regulator off and back on in quick succession
+as part of their normal operation, a behavior this driver has no
+control over. The appropriate debounce window to absorb this varies by
+which consumer(s) are wired to a given rail and how they use it, so it
+is exposed as a per-regulator property rather than a fixed value.
 
-Suggested-by: Saikiran <bjsaikiran@gmail.com>
+It is placed in the qcom,rpmh-regulator binding and vendor-prefixed
+because the underlying deferred-disable mechanism is specific to this
+driver's RPMh command handling.
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 ---
- drivers/regulator/core.c          | 18 ++++++++++++++----
- drivers/regulator/of_regulator.c  |  4 ++++
- include/linux/regulator/machine.h |  4 ++++
- 3 files changed, 22 insertions(+), 4 deletions(-)
+ .../bindings/regulator/qcom,rpmh-regulator.yaml        | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 6a4008f387b5..537384c55d6f 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -1401,6 +1401,7 @@ static int machine_constraints_current(struct regulator_dev *rdev,
- }
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+index eed2ce7fa861..a028f1a9c194 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+@@ -135,6 +135,15 @@ properties:
+     $ref: regulator.yaml#
+     unevaluatedProperties: false
+     description: BOB regulator node.
++    properties:
++      qcom,regulator-off-debounce-delay-us:
++        description:
++          Time in microseconds to wait for an enable vote after a disable
++          vote, before actually disabling the regulator in hardware. This is
++          needed for consumers that may toggle a regulator off and back on
++          in quick succession as part of their normal operation, a behavior
++          this driver has no control over, so as to avoid needlessly
++          power-cycling the regulator in hardware.
+     dependencies:
+       regulator-allow-set-load: [ regulator-allowed-modes ]
  
- static int _regulator_do_enable(struct regulator_dev *rdev);
-+static unsigned int _regulator_get_off_on_delay(struct regulator_dev *rdev);
+@@ -144,6 +153,15 @@ patternProperties:
+     $ref: regulator.yaml#
+     unevaluatedProperties: false
+     description: smps/ldo regulator nodes(s).
++    properties:
++      qcom,regulator-off-debounce-delay-us:
++        description:
++          Time in microseconds to wait for an enable vote after a disable
++          vote, before actually disabling the regulator in hardware. This is
++          needed for consumers that may toggle a regulator off and back on
++          in quick succession as part of their normal operation, a behavior
++          this driver has no control over, so as to avoid needlessly
++          power-cycling the regulator in hardware.
+     dependencies:
+       regulator-allow-set-load: [ regulator-allowed-modes ]
  
- static int notif_set_limit(struct regulator_dev *rdev,
- 			   int (*set)(struct regulator_dev *, int, int, bool),
-@@ -1695,7 +1696,7 @@ static int set_machine_constraints(struct regulator_dev *rdev,
- 
- 		if (rdev->constraints->always_on)
- 			rdev->use_count++;
--	} else if (rdev->desc->off_on_delay) {
-+	} else if (_regulator_get_off_on_delay(rdev)) {
- 		rdev->last_off = ktime_get();
- 	}
- 
-@@ -2071,6 +2072,13 @@ static int _regulator_get_enable_time(struct regulator_dev *rdev)
- 	return rdev->desc->enable_time;
- }
- 
-+static unsigned int _regulator_get_off_on_delay(struct regulator_dev *rdev)
-+{
-+	if (rdev->constraints && rdev->constraints->off_on_delay)
-+		return rdev->constraints->off_on_delay;
-+	return rdev->desc->off_on_delay;
-+}
-+
- static struct regulator_supply_alias *regulator_find_supply_alias(
- 		struct device *dev, const char *supply)
- {
-@@ -2985,6 +2993,7 @@ static inline int _regulator_check_status_enabled(struct regulator_dev *rdev)
- static int _regulator_do_enable(struct regulator_dev *rdev)
- {
- 	int ret, delay;
-+	unsigned int off_on_delay;
- 
- 	/* Query before enabling in case configuration dependent.  */
- 	ret = _regulator_get_enable_time(rdev);
-@@ -2997,11 +3006,12 @@ static int _regulator_do_enable(struct regulator_dev *rdev)
- 
- 	trace_regulator_enable(rdev_get_name(rdev));
- 
--	if (rdev->desc->off_on_delay) {
-+	off_on_delay = _regulator_get_off_on_delay(rdev);
-+	if (off_on_delay) {
- 		/* if needed, keep a distance of off_on_delay from last time
- 		 * this regulator was disabled.
- 		 */
--		ktime_t end = ktime_add_us(rdev->last_off, rdev->desc->off_on_delay);
-+		ktime_t end = ktime_add_us(rdev->last_off, off_on_delay);
- 		s64 remaining = ktime_us_delta(end, ktime_get_boottime());
- 
- 		if (remaining > 0)
-@@ -3243,7 +3253,7 @@ static int _regulator_do_disable(struct regulator_dev *rdev)
- 			return ret;
- 	}
- 
--	if (rdev->desc->off_on_delay)
-+	if (_regulator_get_off_on_delay(rdev))
- 		rdev->last_off = ktime_get_boottime();
- 
- 	trace_regulator_disable_complete(rdev_get_name(rdev));
-diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-index 09e26febfc83..990946b27a7a 100644
---- a/drivers/regulator/of_regulator.c
-+++ b/drivers/regulator/of_regulator.c
-@@ -178,6 +178,10 @@ static int of_get_regulation_constraints(struct device *dev,
- 	if (!ret)
- 		constraints->enable_time = pval;
- 
-+	ret = of_property_read_u32(np, "regulator-off-on-delay-us", &pval);
-+	if (!ret)
-+		constraints->off_on_delay = pval;
-+
- 	ret = of_property_read_u32(np, "regulator-uv-less-critical-window-ms", &pval);
- 	if (!ret)
- 		constraints->uv_less_critical_window_ms = pval;
-diff --git a/include/linux/regulator/machine.h b/include/linux/regulator/machine.h
-index 1fc440c5c4c7..79b2d7cab934 100644
---- a/include/linux/regulator/machine.h
-+++ b/include/linux/regulator/machine.h
-@@ -163,6 +163,9 @@ struct notification_limit {
-  *		      regulator_active_discharge values are used for
-  *		      initialisation.
-  * @enable_time: Turn-on time of the rails (unit: microseconds)
-+ * @off_on_delay: Guard time (in uS), before re-enabling a regulator.  Takes
-+ *		  precedence over the regulator_desc field of the same name
-+ *		  when non-zero.
-  * @uv_less_critical_window_ms: Specifies the time window (in milliseconds)
-  *                              following a critical under-voltage (UV) event
-  *                              during which less critical actions can be
-@@ -222,6 +225,7 @@ struct regulation_constraints {
- 	unsigned int settling_time_up;
- 	unsigned int settling_time_down;
- 	unsigned int enable_time;
-+	unsigned int off_on_delay;
- 	unsigned int uv_less_critical_window_ms;
- 
- 	unsigned int active_discharge;
 
 -- 
 2.43.0
