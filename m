@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108247;
-	b=4gbvLxkxPw5EJNplHDegDYex3m4BsH8EjVoTo1jo8x0aKLf/xZCrjZCmPMISM8t6AL9/
-	 QXKZEiZD9E5xB3ZsTijmGVB/Gcx+DSeDED1AEGTVlqkit0UkSjfeptlPtx/pekqzIxNxC
-	 tocxXeR2UKu6YU1CKWuCSIeNyukMmG4KNC0uU6g81YwR2HKp7EHyJ7JgfREnoASNq+hx/
-	 hBKHA5bY5DmUnpNFaXbKSIN/BUTQ9fEJ9lyMkmKatLiF8d4jek+Taja3Wqfzx/EcLoysS
-	 sboGx2y/W/4Ay+ul8JBeRN4lvRP5WgFaO6LTPWRG6MqIr9/aSVbQwy83MIxK5xvx5Iw==
+	t=1793108308;
+	b=kMVHtw9iIFgesPR4YCSqHrP3sEiY8Qv6AIR/2k+UqcKJ6lEZBwvNDguKB12wURQ1FTfN
+	 xfRC6QGwHtROZXsxnuAsvqoydj3m1S1EAieTBdL1EYB38GlIbngzZLWyti0/4cGdsFYB1
+	 UXZoXxG+cq7IE0B7eJYWdwPWt8ua44i1ShrJji9FYW323Vy3TZSEw7izKjcHHp1TR3rXb
+	 R5tUpFTb6NNEkaZaLnClZQClA9AYCexwRb04gDTjhEBicroadHPznHBSlovfvL1ZSej3A
+	 ONtMlAhNs09wFbxoFYta8j3AVwKiFVoJXj4lwpcWAvmL17GBOeHpKl0/e/fpaf8CgrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108308;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Zno5VvMMG/oF44eLzQpcjMF1qT17JskbbSBTiHkfKOc=;
-	b=U4ky54yAOrcD2dSQZHD/ysfEoF1cJ9ewMUxINroVh3D+9rJ0medfOOX9lgz1FJJ7xJqu
-	 KQpFb7sZmHS+iIjsGedvWVyBfa39Yq4NRo+jNfTIEdamAM/BMsvu0qCQyLZdHdFislAvl
-	 x4dIHTUH1x5liNhlpd86HaE1YIbeWrw9UaHipTcScmZm0dQSmLhOBspQ0V9F63VvMi/B2
-	 dpzmLit1ZdVmDhaO9LhuH4eTq/ABOkB+I+UfBXV3OtNpzMXHpbTuNb+X88peRGd8dU004
-	 PaPAp4Gd/8K4cbIE7CT40GAA561LynJyPVgqxI9YWobLuQIaRgY4V1vMTjvwLBEKPsQ==
+	bh=y/n+SVRcGCIVq1grnDfeU7pYAqvyi2Iz3mQM8BARWJk=;
+	b=Y5CIBO0yIGU6vEBvg4zzkCoQYmqnn4nwh2UzPtewUH5skVLWSIhLxs/mLFLJfT3KB+F0
+	 TFTz2usL+N88y3kvdCBNJ9ObN9dk/6YFSFs5DAVF8zm23GgG8rK0lv4G9R+aj3vPFJu/C
+	 A01tgJksgq3HbgclP4PDo3vx+sxzZQ3BiGP2M62Les6HQNJd4jbN9AMuJg9JH3S96Ty8f
+	 u3ayOvgOCHeB3KagCmjwLEOpB8ySiPR+9vJ2mRx+vvBH1rz0aDbcx9ke5UJZQaHyX5xIJ
+	 M+SWePrKe6vjs96347x2thCHslXM1fifm7rHwHePfgdRe0sGex79PvB7+q6EBkhqcRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrmHozkH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irxjzqty;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DDB606A31A;
-	Tue, 27 Oct 2026 13:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22FD606A31B;
+	Tue, 27 Oct 2026 13:38:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrmHozkH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100771F031E4;
-	Tue, 27 Oct 2026 13:37:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irxjzqty
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADAF1F01825;
+	Tue, 27 Oct 2026 13:38:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793108246;
-	bh=Zno5VvMMG/oF44eLzQpcjMF1qT17JskbbSBTiHkfKOc=;
+	s=k20260515; t=1793108307;
+	bh=y/n+SVRcGCIVq1grnDfeU7pYAqvyi2Iz3mQM8BARWJk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UrmHozkHy7PovB0xG6swk6TdG3uzoqJAqi1RN6ugnc2kCKxVUuUYp6xsxu20JhPuT
-	 SdGXcKU9amNs1dOhgYYRohWOA5XVHlNN0ggE3F1Q3eEOBTh6dql4r9+ZKZqjdT57Ek
-	 NvltvimBqEFWpXAv8XStXJ3yXIp3HjEFsvZImBD3umBX9Sbr2yR/f+hoflN4vZctGA
-	 I5lqhdc2HMWJi+zz9gtLbmE6Qz90Mlfyml9TaW4tFGF5YJjq9eEZDahi2QwJoUqwWm
-	 X1i3l3qwvKLJjb0JCmm2plnaZNbZ2g6qcFqXmIzlyGApm+2x6UDL8W+TjnmUQPMI4d
-	 q4qoH139EBMJA==
-Message-ID: <sashiko-outbox-186657@kernel.org>
+	b=irxjzqtyhJ7sSySlz4JIUUrYlyKHsckrRU9FCjQeryxHlbgihbSeaodZkeZA4Y4CO
+	 KAhsl+UoPJFwMHtiFNijv6XEZp8p5v3R2kYSQEdf3fatS+uqefjfJ2Lw07/S6qF+zh
+	 ePgIadlS8A4mKqhEydWpqbxmzV8eaIYCto74nMd3bRfXNkCqNPZOU3TRDFy84ub78m
+	 GxnrjqintONU5lw5W0MvRyFYj+ohEaK7Oz+St36+lPnaRYnffusbo8X52Ht8J6zHYs
+	 ukSiXis48ls1ubShtUC1HHt6s+Qe/gN3ENOMRl+0ioSxe8+TNbokAVuQfyFRAYAThG
+	 Gkl2HmvQ6uSDQ==
+Message-ID: <sashiko-outbox-186658@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] Input: aw86927 - handle the AW8693X play and boost
- register layout
+Subject: Re: [PATCH v2] arm64: dts: imx95-navq: add USB1/USB2 nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-input@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261027132929.242158-5-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261027132929.242158-5-xiaqinghuan@mail.ustc.edu.cn>
+To: "Laurentiu Mihalcea" <laurentiumihalcea111@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261027131630.575-1-laurentiumihalcea111@gmail.com>
+References: <20261027131630.575-1-laurentiumihalcea111@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 13:37:25 +0000
+Date: Tue, 27 Oct 2026 13:38:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,63 +61,92 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Input: aw86927 - 1-bit AW86938_PLAYCFG1_BST_MODE_MASK in aw86927=
-_play_mode()
+- [Medium] arm64: dts: imx95-navq: missing OTG capability disables on usb2 =
+node
 --
 
-commit c20411cd705818dd58facc17d48437366131a42a
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+commit 1ff89e7196fb33692fe862b6274ad535b519c7f7
+Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-Input: aw86927 - handle the AW8693X play and boost register layout
+arm64: dts: imx95-navq: add USB1/USB2 nodes
 
-This commit updates the aw86927 driver to handle the play, boost, VBAT,
-and two-step stop register layout differences on AW86937 and AW86938
-devices.
+This commit adds and enables the device tree nodes for the USB1 and USB2
+controllers and their Type-C port controllers on the i.MX95 NavQ board.
 
-> diff --git a/drivers/input/misc/aw86927.c b/drivers/input/misc/aw86927.c
-> index 42eb531c7e3b3..e8fd880ac1ded 100644
-> --- a/drivers/input/misc/aw86927.c
-> +++ b/drivers/input/misc/aw86927.c
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/bo=
+ot/dts/freescale/imx95-navq.dts
+> index 7860c113e9e02..b668c752905bf 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-navq.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
 
 [ ... ]
 
-> @@ -291,9 +299,14 @@ static int aw86927_play_mode(struct aw86927_data *ha=
-ptics, u8 play_mode)
+> @@ -198,6 +270,55 @@ pinctrl_usdhc2: usdhc2grp {
+>  	};
+>  };
 > =20
->  		err =3D regmap_update_bits(haptics->regmap,
->  					 AW86927_PLAYCFG1_REG,
-> -					 AW86927_PLAYCFG1_BST_MODE_MASK,
-> +					 haptics->model =3D=3D AW86927 ?
-> +					 AW86927_PLAYCFG1_BST_MODE_MASK :
-> +					 AW86938_PLAYCFG1_BST_MODE_MASK,
-> +					 haptics->model =3D=3D AW86927 ?
->  					 FIELD_PREP(AW86927_PLAYCFG1_BST_MODE_MASK,
-> -						    AW86927_PLAYCFG1_BST_MODE_BYPASS));
-> +						    AW86927_PLAYCFG1_BST_MODE_BYPASS) :
-> +					 FIELD_PREP(AW86938_PLAYCFG1_BST_MODE_MASK,
-> +						    AW86938_PLAYCFG1_BST_MODE_BYPASS));
->  		if (err)
->  			return err;
+> +&usb2 {
+> +	disable-over-current;
+> +	dr_mode =3D "otg";
+> +	usb-role-switch;
+> +
+> +	status =3D "okay";
 
 [Severity: Medium]
-The commit description notes that on AW86937 and AW86938 "the boost mode in
-PLAYCFG1 is a two-bit field at bit 5 instead of bit 7", but
-AW86938_PLAYCFG1_BST_MODE_MASK in drivers/input/misc/aw86927.c is defined as
-a 1-bit mask:
+Should the &usb2 node also include adp-disable, hnp-disable, and
+srp-disable, matching &usb3_dwc3 below?
 
-#define AW86938_PLAYCFG1_REG			0x06
-#define AW86938_PLAYCFG1_BST_MODE_MASK		GENMASK(5, 5)
-#define AW86938_PLAYCFG1_BST_MODE_BYPASS	0
-#define AW86938_PLAYCFG1_BST_VOUT_VREFSET_MASK	GENMASK(4, 0)
+In drivers/usb/chipidea/core.c:ci_get_platdata(), when dr_mode is set to
+"otg", the ChipIdea driver enables hnp_support and srp_support by default
+before calling of_usb_update_otg_caps():
 
-When aw86927_play_sine() -> aw86927_play_mode(haptics, AW86927_RAM_MODE) ru=
-ns
-on AW86937 or AW86938, regmap_update_bits() only updates bit 5 of
-AW86927_PLAYCFG1_REG and leaves bit 6 untouched.
+	if (platdata->dr_mode =3D=3D USB_DR_MODE_OTG) {
+		/* We can support HNP and SRP of OTG 2.0 */
+		platdata->ci_otg_caps.otg_rev =3D 0x0200;
+		platdata->ci_otg_caps.hnp_support =3D true;
+		platdata->ci_otg_caps.srp_support =3D true;
 
-Should AW86938_PLAYCFG1_BST_MODE_MASK be defined as GENMASK(6, 5) so both
-bits of the boost mode field are masked when configuring bypass mode?
+		/* Update otg capabilities by DT properties */
+		ret =3D of_usb_update_otg_caps(dev->of_node,
+					&platdata->ci_otg_caps);
+		if (ret)
+			return ret;
+	}
+
+Without those disable properties in the device tree, hnp_support and
+srp_support remain true. In drivers/usb/chipidea/udc.c:udc_start(), this
+sets ci->gadget.is_otg =3D 1 on a Type-C port, and when CONFIG_USB_OTG_FSM =
+is
+enabled, drivers/usb/chipidea/ci.h:ci_otg_is_fsm_mode() evaluates to true:
+
+	return ci->is_otg && ci->roles[CI_ROLE_HOST] &&
+		ci->roles[CI_ROLE_GADGET] && (otg_caps->srp_support ||
+		otg_caps->hnp_support || otg_caps->adp_support);
+
+Entering OTG FSM mode routes role changes to ci_otg_fsm_irq() instead of
+ci_handle_id_switch() and ci_handle_vbus_change(). When TCPM calls
+ci_usb_role_switch_set(), both id_extcon.changed (OTGSC_IDIS) and
+vbus_extcon.changed (OTGSC_BSVIS) can be set together before invoking
+ci_irq(), but drivers/usb/chipidea/otg_fsm.c:ci_otg_fsm_irq() handles them
+in a mutually exclusive if / else if chain:
+
+	if (otg_int_src) {
+		if (otg_int_src & OTGSC_DPIS) {
+			hw_write_otgsc(ci, OTGSC_DPIS, OTGSC_DPIS);
+			fsm->a_srp_det =3D 1;
+			fsm->a_bus_drop =3D 0;
+		} else if (otg_int_src & OTGSC_IDIS) {
+			hw_write_otgsc(ci, OTGSC_IDIS, OTGSC_IDIS);
+			if (fsm->id =3D=3D 0) {
+				fsm->a_bus_drop =3D 0;
+				fsm->a_bus_req =3D 1;
+				ci->id_event =3D true;
+			}
+		} else if (otg_int_src & OTGSC_BSVIS) {
+
+Could this cause OTGSC_BSVIS to be dropped on role transitions and prevent
+software-driven host/device role switching from working properly on &usb2?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027132929.2421=
-58-1-xiaqinghuan@mail.ustc.edu.cn?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027131630.575-=
+1-laurentiumihalcea111@gmail.com?part=3D1
