@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793226269;
-	b=aghd4zOLCpL+5KyObj7YYAyIGnsoX0cFqUfewctqhnsCj1xaZg7/oVqBhb+aGhyhOtf9
-	 gJGNt73zPCgKXcoq4LGsQV0DRevb6jkqdcOR/HN7ArrbMxE6gzSXoJhmw05oC7ci+Kas2
-	 IS/X3huTCqN9qgSu60do5Hcu2uYhPhSW8PXsFDLw5CU+J0Lt9C2c25rnWZxbFTv06E4ub
-	 2HEMorPJVZrpt/cHxKZXsZvjQ5GbSyHI58Z1BLPPY3WMfiWpXL0ptUwlH/6Q4IL6B4ryY
-	 EWm+098by0m/Yr1Nnnmxu1/AmdWiwoeAyta78Nx2mpxc5zTjg0EYV91EuaQWkwN/deA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793226269;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jj8IIGFLEiUloe5ADfWrgSQMIReGe1WkFbLKic5cw30=;
-	b=DIc6wDXlRXkUaAtMqYn2G/0rrThQKYegBuMZ9py+NTIm9TRbxCHVdCXU1knKEz+kNAoO
-	 SeHFXfkkX32sNr+LWZFdmZxdj6+MfoH67ttB4zWRLblxrxpookbo4RJXOGfPstWRpXxcd
-	 0XptXfida6OI5Te5J74V+5FHWGVA2kGQaIe6cvdyYxQuwB4+OYsCgBoJGH35v9e1W0nFU
-	 per+7xaHtK7mk2AYg4CYN5BHNVfADWzyscdEum2F1BiZEDOKdmBNgLYU06+8hwOzfIyyj
-	 vaBzmxEMaya8wxE2M8GVYgFOh6gfeMJC0NhqrnowS8dfkSDxTEoJBRuhBQHZ9NX1xDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7xum04W;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F0A606A320;
-	Wed, 28 Oct 2026 22:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7xum04W
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793226268;
-	b=JboHPPhS/MGvtQBovEbiV0Gu82SEHOZvALA53C5sU00s59t3IsbXxB9Ft2ULdLnkp/40
-	 ihWuyRbzt7hFelF76VBbhH48ceA7YbHGCXxOiOcJDjCf69c2Xk9TXmfCzh4SRjNyvR7Cy
-	 NINpTeCr6PMtd5IeF2sp0IUEgSbGsqczltaGExMeXxmFeTL/pzRHVPikMan0Fazxsv9rY
-	 6EMk3C61kFjNfqqibkM0LT8KXg/Ad3C75sNDbYPgaE7visdaDR9ViTfu3rulv5YTgqa5u
-	 tBuCrJm6zGCPSjnbxThzN/AAaHk1pN98pozjjJlH/C6EUKVvQp0tm0gfl41pc/onbwA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793226268;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jj8IIGFLEiUloe5ADfWrgSQMIReGe1WkFbLKic5cw30=;
-	b=lYpiblZfvuyfn4sSjkUEjVe+7BDGoUIAw+smKoOtBa6N+b5x0nSdigC7Vnq4FQV7ivUM
-	 5YIFiclLTyf/pUV3JrkjWOb9XDmaY1pqDxQIs3jQE069krXRHMvvxlhTPXModv7PONxcx
-	 KNIcvH1cR+aRsg4mctExDCLL3NA4h8YzEUuVUMgkmGgLQGi0GEoycxN3eH6DoKX3n4tHh
-	 ScjYeJ4H/curkx2puhaV0GWYoP8Oq856/WK1D0RFVUPlDsI55zW3SqW8Fe+0yIP9m7nwa
-	 pvCKrQ0+zFju/r4EjFRjD6bw4elGqjpCGmXjz2cm3kvfNpcq7OH9bRwGddG8HS+un1A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793229459;
+	b=dbelpotjKKhRjfhLtS1bbeYjS5QrFbRaWKm30hz+lkWpNdA+3UYmx4V5J4Au+acJq0P2
+	 kaJWBjDLk4GQseX2buN7Xfkjw2xECRRQEKCt0uBoC5uVX6Lp03ZA289c0jO8jJosv/gyz
+	 KfOGlmdGoH+UJGLN2ZfmRY27epIZk8tRARNjqAWnmDK6ILp3AEQJRjfvxBvPZ2EJyJeuO
+	 fzjH8MKcGaLC1piyn/NeDCBaMOw7siNaVitCvbRoxieljAGf1iF8oPSshm1raOHit3xmw
+	 gUieYiBYURaArE6pW15twV6fPfsVSPMqkzFnEsv945F6bIbiEA9gezwsWC53Fuaj+8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793229459;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
+	b=j3oH29i9DVoNJrjjB16Rc+0E2HPTIVaAswlTfHq0/8Ck8wE96R+EVDw+2xapSU40NZTP
+	 iZ1DobiksvUnuYyMOovNKfaPM0WpEgwvI77KaGJdwQfTdCcIp51ljQu/pqJRTmmZHDMAH
+	 OPGteNnsQd5rZkifijMFboN6R8VUhU14eLBEZwNPt3D16TKWQ0c0vydqBJ74ER3Eg09lL
+	 gEKzdhzqD+njM+T8q4c8+yIEEuG+Vk8roYxXP00EPxblI29gaWfKfXH89+EZxfheT4Rux
+	 BAQExQ+wh1ghndOG4jZhuaUo0u25ETNJZPv938daN2gIfCvvF6H2dmZqGdvatVmBa5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Er1rSmb9;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2A8251F031E4;
-	Wed, 28 Oct 2026 22:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793226268;
-	bh=jj8IIGFLEiUloe5ADfWrgSQMIReGe1WkFbLKic5cw30=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=K7xum04W2mWSX8PtW5MtF2mW/Yb9uwhjysV/gfUCvwfjKiSvpqJiBP/lYV5CCmYEi
-	 zie383XY2vNgD3KtqTaOr8mMGyZWQhyBh8dy0LTjwFa3XumNQGV9XECGYJBIg0Emzw
-	 S/d6XhqrIZBt3kgEmajMtLJqC921inaI/GmvTdLoShH2NbO8bswvHCqoVCPKSjaD9X
-	 CNgYY5Sxory8AOEN3Upm05B8AvlZCP8Zqp5nIrNFnVQcu6LDmLNQs35jB/L1JQy8b9
-	 BCgCmcTNlugSDJfii5BYrQ8CGC6TVT7/m7pU9C2DJ2yUXPV7wN3lUAbpSV2JSGXeCv
-	 PomSHWjDRjonQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AB711455EE;
-	Wed, 28 Oct 2026 22:24:26 +0000 (UTC)
-From: Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel.org>
-Date: Thu, 29 Oct 2026 00:24:29 +0200
-Subject: [PATCH v3 4/4] iio: adc: ltc2497: add LTC2493 support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7273606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 23:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7273606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Er1rSmb9
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a0eecf73fso297801eec.3
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:17:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793229458; x=1793834258; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
+        b=Er1rSmb9hV5RHzMk6uqsX56Ecqt80LT/shM01RfTJ4SunBHAQEeqwhupK8StYUr2yO
+         LQ3Of4b+utOkkZoVdHDOu3oF3GOqkFPSlJ8S7ieZZnHSDcqGFU1AwIfPa1KM2xWoQG0o
+         ZH2ekBkXOY7KQu6YOrV+kjLw0LsA0TnnoMmTcEujRRzgpmvJEkjc7eKbwxRLIS0izYqD
+         jK7sQCh8ZxMcKjndvDrlnRudL0Nu2p4q/hW8+tQmYV+FsfktvKRWZlAyxP4aEhtSaNm1
+         FIKJE2afAkeXe2cmpAHZGv1XYSpuuo8nAyezomDuTk4N8KpRk5/a7juGzeLTzR/+7Ydb
+         NYLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793229458; x=1793834258;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
+        b=XnDu/iEMUu3Sk4RYye7cb204fJXYgzK/037mC1zdS1BueRE2ASDC2IGxRejYZ8ybZt
+         kZrl4dymQbzfHC8+3VgQx6vbzU1H5FrD1Fk39EFwzOktcqy+wxpSjGy2gF97gQkXuNXb
+         ZRIVTep/LM0KB87ciMZUGgKCvKiM0UCqZiEVI27zFf5fMt8hEBiAt88FMot1NzWtm9vm
+         gpVU9ApmC8Xw0sXVT/LLvkIoZcMsAP5+l+Z5Sbz1pLAMtYEIStCDPTuufSyfwCRwnOXP
+         xbMbEs11HucsLtmNX169lj3fu4UKiBDAhi+6PmtqJ7PWdfzzeXM8+k9HNmKbs/UbIjqr
+         H9aw==
+X-Forwarded-Encrypted: i=1; AKwUvBw6/Qgo1MeztaYDOyGI9on2B39gdmaOrWigLo/IpN0Zs4Ntr1fRICEk1wYVlzfJ1hk5xCL09pZBXP6L@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxYzpgd46sA00v26GNLPavWX8PAqiBbFBgmWDQ4rQBXhCQ0nNA
+	vntDa0pkQqL3t/NogozmXCEWxWJo8Gm3UiE6iQPGi6MyP+aQpTD5hTd+
+X-Gm-Gg: AYBFou181fB96A1DcUjDCwwtTPIrHD0x0ykLyBLUU0ZOGMivMRMGbA8T7Hjl7DQ6xhg
+	3R/b3bbdP81gZWO/RTa2cd7DlSUAjk70cu5UWWtg8A0bn7DqQQ5rhxh54pDzzU2jgR/umVeE1UI
+	f0JMDBrrz9yA3vhR2KQztcbJVf34SiJ0cn58EAt+if+qkjy0rdhhq23iJeh0OR1F33jxt3qf0ZD
+	rijNBLtll63SlVZyeXz0pHbs2rHywCMXUoh3KVgXRJXEpwTSesna9jGJsOFwTwwMTRuYFoOJ1io
+	0VnHotWgNft86oMq13D1/NTLo7R7LlqWRmGjkvlRuQCfGamKAmcv935PR+OAeum4+zYfCVQ+Rl1
+	JaLqx9czoqVD1/qFLPZFwjtJQggreiX7S3/EsoXEPIW1Pl5/B8h310zjojKmqwpiEdizGnrrHKn
+	NFFiZsYdAUGdAzMRpbzDWGyFpoou5MYbnleOprpidZv8WIy8Par4ecVbNEI1UeYn5dsrzvXOejn
+	QE2wXjPLbXV9yReNZsVDjr/q8/oRtX25MKdPJwwV/Kv6Fv5a+T7La81JuKwnX4Uhg0sAN0AoUCc
+	emlLfWh8r8lN9Can5RklJsU6nTe4xFWL4sfghc9PUxttgCGNRUDwAJPQIKMA
+X-Received: by 2002:a05:7301:1a8c:b0:369:ffc5:6767 with SMTP id 5a478bee46e88-36a1ffc100fmr7353441eec.2.1793229457569;
+        Wed, 28 Oct 2026 16:17:37 -0700 (PDT)
+Received: from [10.196.187.252] ([2409:40c2:501b:81ef:82e:fd67:dd84:8730])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23951e00sm13623767eec.20.2026.10.28.16.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 16:17:36 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Thu, 29 Oct 2026 04:47:18 +0530
+Subject: [PATCH v2] dt-bindings: remoteproc: ti,keystone-rproc: Convert to
+ DT schema
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,155 +93,368 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-submission-ltc2493-support-v1-v3-4-c7dd5f877c3b@analog.com>
-References: <20261029-submission-ltc2493-support-v1-v3-0-c7dd5f877c3b@analog.com>
-In-Reply-To: <20261029-submission-ltc2493-support-v1-v3-0-c7dd5f877c3b@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-ti-keystone-rproc-v2-1-7fac1d72f4b3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6DIBBFr2Jm3WkACZKueo/GhdpBJ61gwJAa4
+ 91LPUCX7+f/93dIFJkS3KodImVOHHwBdalgmDo/EvKzMCihjBTC4Mr4oi2twRPGJYYBNdW9dbW
+ yxigouyWS48/pfLSFJy7tuJ0XWf7Sf7YsUaKWrnGisb3WdB/njt/XIczQHsfxBZTLaJCyAAAA
+X-Change-ID: 20261006-ti-keystone-rproc-4e3b8f328662
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>, 
- Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Andrei Stancovici <andrei.stancovici@analog.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793226265; l=4895;
- i=andrei.stancovici@analog.com; s=20261009; h=from:subject:message-id;
- bh=HMOt8+O4iAcZt1O9Bo/3/1otGda9wp6zawFttSIvbBk=;
- b=KHB0M1q9DcYZ4AxeEKHIHs5tI5yISDR1/tozj+Xj20g2+1ZmupYvl4Jl8NgD4XcGcC6XHipLw
- QaZS66PuSQICVgArQiWLXObVmVuT1+cPrCGnlxvhZNYdA9hk/1QnGJO
-X-Developer-Key: i=andrei.stancovici@analog.com; a=ed25519;
- pk=wgT+au+blAhVYxhwNgdx0woNl/1p+OCG484rnTRFrsE=
-X-Endpoint-Received: by B4 Relay for andrei.stancovici@analog.com/20261009
- with auth_id=1140
-X-Original-From: Andrei Stancovici <andrei.stancovici@analog.com>
-Reply-To: andrei.stancovici@analog.com
-Content-Transfer-Encoding: 8bit
+ Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>
+Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793229448; l=11085;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=4k0RN6uzshq3dQzD1QtJrPYRGg2BlNEM35wW/D2mc1k=;
+ b=xXzjssFEYAt6XP9Umd77HsXpLlCNVVJ3q0tl2xQj9wSY/ybtJj6Av8opdS9IhHEQ3TSlhPvpG
+ 3d3tVUJm0RDB2yG9ytmEmmui0i3ZjyZ7GAQCbSCNz5uU/ot2DDK6TBe
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-From: Andrei Stancovici <andrei.stancovici@analog.com>
+Convert TI Keystone DSP remoteproc binding from legacy text format to DT
+schema. No functional changes are introduced during conversion.
 
-The LTC2493 is the 4-channel member of the LTC2499 family: 4 single-ended
-inputs or 2 differential pairs, 24-bit result, and the same command
-format, internal PTAT temperature sensor, 2x speed mode and line-frequency
-rejection as the LTC2499.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v2:
+- Removed unnecessary refferences.
+- Rebased to latest mainline.
+- Link to v1: https://lore.kernel.org/r/20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com
+---
+ .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
+ .../bindings/remoteproc/ti,keystone-rproc.yaml     | 126 ++++++++++++++
+ 2 files changed, 126 insertions(+), 182 deletions(-)
 
-Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/2493fe.pdf
-Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+deleted file mode 100644
+index 8475521336333..0000000000000
+--- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
++++ /dev/null
+@@ -1,182 +0,0 @@
+-TI Keystone DSP devices
+-=======================
+-
+-The TI Keystone 2 family of SoCs usually have one or more (upto 8) TI DSP Core
+-sub-systems that are used to offload some of the processor-intensive tasks or
+-algorithms, for achieving various system level goals.
+-
+-These processor sub-systems usually contain additional sub-modules like L1
+-and/or L2 caches/SRAMs, an Interrupt Controller, an external memory controller,
+-a dedicated local power/sleep controller etc. The DSP processor core in
+-Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
+-
+-DSP Device Node:
+-================
+-Each DSP Core sub-system is represented as a single DT node, and should also
+-have an alias with the stem 'rproc' defined. Each node has a number of required
+-or optional properties that enable the OS running on the host processor (ARM
+-CorePac) to perform the device management of the remote processor and to
+-communicate with the remote processor.
+-
+-Required properties:
+---------------------
+-The following are the mandatory properties:
+-
+-- compatible:		Should be one of the following,
+-			    "ti,k2hk-dsp" for DSPs on Keystone 2 66AK2H/K SoCs
+-			    "ti,k2l-dsp" for DSPs on Keystone 2 66AK2L SoCs
+-			    "ti,k2e-dsp" for DSPs on Keystone 2 66AK2E SoCs
+-			    "ti,k2g-dsp" for DSPs on Keystone 2 66AK2G SoCs
+-
+-- reg:			Should contain an entry for each value in 'reg-names'.
+-			Each entry should have the memory region's start address
+-			and the size of the region, the representation matching
+-			the parent node's '#address-cells' and '#size-cells' values.
+-
+-- reg-names:		Should contain strings with the following names, each
+-			representing a specific internal memory region, and
+-			should be defined in this order,
+-			     "l2sram", "l1pram", "l1dram"
+-
+-- ti,syscon-dev:	Should be a pair of the phandle to the Keystone Device
+-			State Control node, and the register offset of the DSP
+-			boot address register within that node's address space.
+-
+-- resets:		Should contain the phandle to the reset controller node
+-			managing the resets for this device, and a reset
+-			specifier. Please refer to either of the following reset
+-			bindings for the reset argument specifier as per SoC,
+-			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
+-			    for 66AK2HK/66AK2L/66AK2E SoCs or,
+-			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
+-			    for 66AK2G SoCs
+-
+-- interrupts: 		Should contain an entry for each value in 'interrupt-names'.
+-			Each entry should have the interrupt source number used by
+-			the remote processor to the host processor. The values should
+-			follow the interrupt-specifier format as dictated by the
+-			'interrupt-parent' node. The purpose of each is as per the
+-			description in the 'interrupt-names' property.
+-
+-- interrupt-names:	Should contain strings with the following names, each
+-			representing a specific interrupt,
+-			    "vring" - interrupt for virtio based IPC
+-			    "exception" - interrupt for exception notification
+-
+-- kick-gpios: 		Should specify the gpio device needed for the virtio IPC
+-			stack. This will be used to interrupt the remote processor.
+-			The gpio device to be used is as per the bindings in,
+-			Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
+-
+-SoC-specific Required properties:
+----------------------------------
+-The following are mandatory properties for Keystone 2 66AK2HK, 66AK2L and 66AK2E
+-SoCs only:
+-
+-- clocks: 		Should contain the device's input clock, and should be
+-			defined as per the bindings in,
+-			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+-
+-The following are mandatory properties for Keystone 2 66AK2G SoCs only:
+-
+-- power-domains:	Should contain a phandle to a PM domain provider node
+-			and an args specifier containing the DSP device id
+-			value. This property is as per the binding,
+-			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
+-
+-Optional properties:
+---------------------
+-
+-- memory-region:	phandle to the reserved memory node to be associated
+-			with the remoteproc device. The reserved memory node
+-			can be a CMA memory node, and should be defined as
+-			per the bindings in
+-			Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
+-
+-
+-Examples:
+----------
+-
+-1.
+-	/* 66AK2H/K DSP aliases */
+-	aliases {
+-		rproc0 = &dsp0;
+-		rproc1 = &dsp1;
+-		rproc2 = &dsp2;
+-		rproc3 = &dsp3;
+-		rproc4 = &dsp4;
+-		rproc5 = &dsp5;
+-		rproc6 = &dsp6;
+-		rproc7 = &dsp7;
+-	};
+-
+-	/* 66AK2H/K DSP memory node */
+-	reserved-memory {
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+-		ranges;
+-
+-		dsp_common_memory: dsp-common-memory@81f800000 {
+-			compatible = "shared-dma-pool";
+-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+-			reusable;
+-		};
+-	};
+-
+-	/* 66AK2H/K DSP node */
+-	soc {
+-		dsp0: dsp@10800000 {
+-			compatible = "ti,k2hk-dsp";
+-			reg = <0x10800000 0x00100000>,
+-			      <0x10e00000 0x00008000>,
+-			      <0x10f00000 0x00008000>;
+-			reg-names = "l2sram", "l1pram", "l1dram";
+-			clocks = <&clkgem0>;
+-			ti,syscon-dev = <&devctrl 0x40>;
+-			resets = <&pscrst 0>;
+-			interrupt-parent = <&kirq0>;
+-			interrupts = <0 8>;
+-			interrupt-names = "vring", "exception";
+-			kick-gpios = <&dspgpio0 27 0>;
+-			memory-region = <&dsp_common_memory>;
+-		};
+-
+-	};
+-
+-2.
+-	/* 66AK2G DSP alias */
+-	aliases {
+-		rproc0 = &dsp0;
+-	};
+-
+-	/* 66AK2G DSP memory node */
+-	reserved-memory {
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+-		ranges;
+-
+-		dsp_common_memory: dsp-common-memory@81f800000 {
+-			compatible = "shared-dma-pool";
+-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+-			reusable;
+-		};
+-	};
+-
+-	/* 66AK2G DSP node */
+-	soc {
+-		dsp0: dsp@10800000 {
+-			compatible = "ti,k2g-dsp";
+-			reg = <0x10800000 0x00100000>,
+-			      <0x10e00000 0x00008000>,
+-			      <0x10f00000 0x00008000>;
+-			reg-names = "l2sram", "l1pram", "l1dram";
+-			power-domains = <&k2g_pds 0x0046>;
+-			ti,syscon-dev = <&devctrl 0x40>;
+-			resets = <&k2g_reset 0x0046 0x1>;
+-			interrupt-parent = <&kirq0>;
+-			interrupts = <0 8>;
+-			interrupt-names = "vring", "exception";
+-			kick-gpios = <&dspgpio0 27 0>;
+-			memory-region = <&dsp_common_memory>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+new file mode 100644
+index 0000000000000..79510abae8ea7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+@@ -0,0 +1,126 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI Keystone DSP devices
++
++maintainers:
++  - Suman Anna <s-anna@ti.com>
++
++description: >
++  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
++  Core sub-systems that are used to offload some of the processor-intensive
++  tasks or algorithms, for achieving various system level goals.
++
++  These processor sub-systems usually contain additional sub-modules like L1
++  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
++  controller, a dedicated local power/sleep controller etc. The DSP processor
++  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
++
++  Each DSP Core sub-system is represented as a single DT node, and should also
++  have an alias with the stem 'rproc' defined. Each node has a number of
++  required or optional properties that enable the OS running on the host
++  processor (ARM CorePac) to perform the device management of the remote
++  processor and to communicate with the remote processor.
++
++properties:
++  compatible:
++    enum:
++      - ti,k2hk-dsp
++      - ti,k2l-dsp
++      - ti,k2e-dsp
++      - ti,k2g-dsp
++
++  reg:
++    minItems: 3
++    maxItems: 3
++
++  reg-names:
++    items:
++      - const: l2sram
++      - const: l1pram
++      - const: l1dram
++
++  interrupts:
++    minItems: 2
++    maxItems: 2
++
++  interrupt-names:
++    items:
++      - const: vring
++      - const: exception
++
++  ti,syscon-dev:
++    description: Phandle and offset to syscon device
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: Phandle to Keystone Device State Control node
++          - description: offset of the DSP boot address register
++
++  resets:
++    maxItems: 1
++
++  kick-gpios:
++    maxItems: 1
++    description:
++      GPIO used by the virtio IPC stack to interrupt the remote processor.
++
++  memory-region:
++    maxItems: 1
++    description:
++      Reserved memory node can be CMA memory node.
++
++  clocks:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-names
++  - ti,syscon-dev
++  - resets
++  - kick-gpios
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,k2g-dsp
++    then:
++      properties:
++        clocks: false
++      required:
++        - power-domains
++    else:
++      properties:
++        power-domains: false
++      required:
++        - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    dsp@10800000 {
++      compatible = "ti,k2g-dsp";
++      reg = <0x10800000 0x00100000>,
++            <0x10e00000 0x00008000>,
++            <0x10f00000 0x00008000>;
++      reg-names = "l2sram", "l1pram", "l1dram";
++      power-domains = <&k2g_pds 0x0046>;
++      ti,syscon-dev = <&devctrl 0x844>;
++      resets = <&k2g_reset 0x0046 0x1>;
++      interrupts = <0>, <8>;
++      interrupt-names = "vring", "exception";
++      kick-gpios = <&dspgpio0 27 0>;
++      memory-region = <&dsp_common_memory>;
++    };
 
 ---
-Changes in v3:
-- The channel-set mechanism moved to the preceding patch, so this one
-  adds only the LTC2493: its channel table and channel set, its
-  chip_info entry, and the I2C and OF identifiers. No chip_info entry of
-  an already supported part is touched (Nuno Sá).
-- The LTC2493 channel table is defined once, for the speed-mode layout
-  the part actually uses; v2 also generated a second variant that
-  nothing selected.
-- Revalidated on hardware with the full series applied: LTC2493 41/41,
-  LTC2499 36/36, LTC2497 24/24.
----
- drivers/iio/adc/ltc2497-core.c | 20 ++++++++++++++++++++
- drivers/iio/adc/ltc2497.c      | 11 +++++++++++
- drivers/iio/adc/ltc2497.h      |  1 +
- 3 files changed, 32 insertions(+)
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+change-id: 20261006-ti-keystone-rproc-4e3b8f328662
 
-diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-core.c
-index 576a7c0a0f9b..6659f848256c 100644
---- a/drivers/iio/adc/ltc2497-core.c
-+++ b/drivers/iio/adc/ltc2497-core.c
-@@ -420,6 +420,20 @@ static const struct iio_chan_spec _name[] = {                           \
- LTC2497_DEFINE_CHANNELS(ltc2497core_channel, 0);
- LTC2497_DEFINE_CHANNELS(ltc2497core_channel_samp_freq, BIT(IIO_CHAN_INFO_SAMP_FREQ));
- 
-+static const struct iio_chan_spec ltc2493_channel[] = {
-+	LTC2497_CHAN(0, LTC2497_SGL, "CH0", BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN(1, LTC2497_SGL, "CH1", BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN(2, LTC2497_SGL, "CH2", BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN(3, LTC2497_SGL, "CH3", BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN_DIFF(0, LTC2497_DIFF, BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN_DIFF(1, LTC2497_DIFF, BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN_DIFF(0, LTC2497_DIFF | LTC2497_SIGN,
-+			  BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_CHAN_DIFF(1, LTC2497_DIFF | LTC2497_SIGN,
-+			  BIT(IIO_CHAN_INFO_SAMP_FREQ)),
-+	LTC2497_TEMP_CHANNEL,
-+};
-+
- /*
-  * The temperature channel is the last entry of each table, so a part without
-  * the sensor stops one short of it.
-@@ -436,6 +450,12 @@ const struct ltc2497_channel_set ltc2497_chanset_ltc2499 = {
- };
- EXPORT_SYMBOL_NS_GPL(ltc2497_chanset_ltc2499, "LTC2497");
- 
-+const struct ltc2497_channel_set ltc2497_chanset_ltc2493 = {
-+	.channels	= ltc2493_channel,
-+	.num_channels	= ARRAY_SIZE(ltc2493_channel),
-+};
-+EXPORT_SYMBOL_NS_GPL(ltc2497_chanset_ltc2493, "LTC2497");
-+
- static const struct iio_info ltc2497core_info = {
- 	.read_raw = ltc2497core_read_raw,
- 	.read_avail = ltc2497core_read_avail,
-diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
-index 984f15eb06f6..3bbb6d91d41c 100644
---- a/drivers/iio/adc/ltc2497.c
-+++ b/drivers/iio/adc/ltc2497.c
-@@ -19,6 +19,7 @@
- #include "ltc2497.h"
- 
- enum ltc2497_chip_type {
-+	TYPE_LTC2493,
- 	TYPE_LTC2497,
- 	TYPE_LTC2499,
- };
-@@ -173,6 +174,14 @@ static void ltc2497_remove(struct i2c_client *client)
- }
- 
- static const struct ltc2497_chip_info ltc2497_info[] = {
-+	[TYPE_LTC2493] = {
-+		.resolution = 24,
-+		.name = "ltc2493",
-+		.channel_set = &ltc2497_chanset_ltc2493,
-+		.has_temp = true,
-+		.has_speed_mode = true,
-+		.has_rejection_mode = true,
-+	},
- 	[TYPE_LTC2497] = {
- 		.resolution = 16,
- 		.name = NULL,
-@@ -189,6 +198,7 @@ static const struct ltc2497_chip_info ltc2497_info[] = {
- };
- 
- static const struct i2c_device_id ltc2497_id[] = {
-+	{ .name = "ltc2493", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2493] },
- 	{ .name = "ltc2497", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2497] },
- 	{ .name = "ltc2499", .driver_data = (kernel_ulong_t)&ltc2497_info[TYPE_LTC2499] },
- 	{ }
-@@ -196,6 +206,7 @@ static const struct i2c_device_id ltc2497_id[] = {
- MODULE_DEVICE_TABLE(i2c, ltc2497_id);
- 
- static const struct of_device_id ltc2497_of_match[] = {
-+	{ .compatible = "lltc,ltc2493", .data = &ltc2497_info[TYPE_LTC2493] },
- 	{ .compatible = "lltc,ltc2497", .data = &ltc2497_info[TYPE_LTC2497] },
- 	{ .compatible = "lltc,ltc2499", .data = &ltc2497_info[TYPE_LTC2499] },
- 	{ }
-diff --git a/drivers/iio/adc/ltc2497.h b/drivers/iio/adc/ltc2497.h
-index 7335c6c0af84..8de35df74f28 100644
---- a/drivers/iio/adc/ltc2497.h
-+++ b/drivers/iio/adc/ltc2497.h
-@@ -55,6 +55,7 @@ struct ltc2497_channel_set {
- 
- extern const struct ltc2497_channel_set ltc2497_chanset_ltc2497;
- extern const struct ltc2497_channel_set ltc2497_chanset_ltc2499;
-+extern const struct ltc2497_channel_set ltc2497_chanset_ltc2493;
- 
- struct ltc2497_chip_info {
- 	const char *name;
-
+Best regards,
 -- 
-2.43.0
-
+Bhargav
 
