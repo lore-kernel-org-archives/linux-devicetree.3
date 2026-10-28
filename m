@@ -1,50 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182720;
-	b=g5S5mOc4LKX/TJvouGmSEIA5u79UfAhXK/UY2sxnPP4GbPGpEw1Wpc87dTBTGBWx5B66
-	 PD/knRwJLD5rDkwuIQ1YU0jhw4FYjSwppxL36HRO68ZqR1qn0UvHRKpbWtMHu7azgSXLU
-	 DZFOFsve/MDprrRT+OcZD5mapvw/BqweG4H+MLjCyrwXGX8Tcrr5gViqqXwFDNJXLE7GK
-	 zpJfbMzRAt1smXfidOgpbUiY/lulWxm4oub3Rnc95QcoPVCWa/fGCNaYE8UWBZ66v3R6j
-	 kGLcc1t2+kYKh0a+uSJFvVfR0VyG01gQHEioi63fCOV20yI1TzvzJhhS30dw7+7bn7A==
+	t=1793182952;
+	b=1S6WNbwNVk5x7y22sxdYiyq6nnMJhznTmUeQePAPzetm2U1w68BdRlFrjNB8/XoAnsc7
+	 G1TL/Pxow1br1ev5JwstmKBo0OwW4pcUUkZ5n9+45EIisK45NRCHhnb1XJRwqIBhg1SFv
+	 gWLYxvbWYcY00QK2WK7cBhG8kI2M5t/sWOiaA3d9rMLdPtJAu7qOBkqEw1zCa10js7qvX
+	 HsaZkO1Dg/NkGHhgk+UYW9z1wLBqAuqYJsIc/bJY3/sgvIcPbx8+srfq0O8pM9SnHk1mB
+	 EL6INUCzPoqn1FL1fOsrxW671j31n5KInCxd+yBvwwdQkNLQFy2sCpb9UEGxSFHDiyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182720;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=UQw5qJUT9+iBwJlEJ05epSxO/FEziuh16rKGXpLX7g8=;
-	b=OsCySW0kQWqpT3vdqDbXc/2jb5cUS0w3B5PRWVfmU0J0oCGimNc8d/ApAQdzA73Mz6bv
-	 USbacGtvU0L6af8g5RMRUILuVdFnfnys3JBo5DdmrmCiTLxPsuVrtHf+vaPlWRC9ytcul
-	 22KWWTCPE7u1nvvoZpffGzTPtD5Vs71HJXHiLikkd4QFYVox3Cj7qUz6o8Z5yVnNUFO92
-	 DBTH1aMgg1SJBsk7VwOpIexd8zY0mdKHbHuTdD0aCwqiHiGdEZLde9DxYGyXGo9psv1fi
-	 bLzv4UUJ0JId5+dYu4F5Ro8I2ygtuyhzf3f6UII7Zym+JswdQHsBsv1ugKomyqZB+Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793182952;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+	b=BFkuhVNB/mjCOqxsY4YLG5+cG/hz2Wh3ll5KlKC4zC34k2VQbsZFa87OJp8ijLb88tGt
+	 vkUXzX0QzFCnv1Pw3LzdVm4SGY0VVtAKxx4OwUGP1eWeMUs8s5S732OwPibUf3HDss0CS
+	 AH7uAirKMGVfUfg9a75/yVQ01ifViNN10r4GnuW9quPUcDo8uwCf/4D3sCPIlLPq+q1eW
+	 r6vhtZcqClWufrJLSp1YtejvIak5tZeI4wNNDny69qz8gpBd978RWYdAQQzAt3boc0YKg
+	 J4K/MQ3HREXOEcz6LMKw8rusnieaSYOinavWJDqTnM3sFP8vdo9Lne38Oc88QbQsA+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ANjga2rs;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oW4IAvxE;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF505606A31D
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:18:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF505606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76500606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76500606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ANjga2rs
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EAC0AB07;
-	Wed, 28 Oct 2026 11:16:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793182583;
-	bh=Jx3G4z0tE37Rt7w9cZg1TVUcSJUcHX/hWXfZzDV3b28=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ANjga2rsQRGfocUNCYbMy5sxWaghn1/a1dTUY6H9uh2LKH6GPKrVp3FrIv4SGAgra
-	 ZYkXn46xOSLE9t5MlfIJ1+CshfU5kDuihKXFovXq3X506UNm2fn4GATky9qVNirAZo
-	 H9tYKNWXCVmD0x/VZTN+uBfZi5QwfGSIxoILLeps=
-Message-ID: <170f1abb-68d4-4b62-bcb8-841b909bc0b4@ideasonboard.com>
-Date: Wed, 28 Oct 2026 12:18:32 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oW4IAvxE
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d870d54so505830f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 03:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793182951; x=1793787751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+        b=oW4IAvxEO6tFXQWgIF9jFVid2BAB4I2EHM9HMlsuzOKzojZhiaih3Fo2SLqFQUvGvV
+         qQ+zqPNSl7wHZpUvIHR9aPN7kSfZ1FTY87qM0WvYYd26zviY/LFu4GEwbiJhS0ADmyTW
+         pkRlaLHX0lJuUqhlkwTvo5uCzK5M/Bi9pAAm68gH2d2vQ+Dd06E/go2xH51iV08dERUJ
+         BBqWmJ5ScVNlRqFHV4OsevBi1whK+LbJgTZlzXYfg9dhoma/+H6UW0TsYnIS7pI+akJ2
+         4FngWclLa6yeP6WSQAsMxmT6dLOtN2AliV41188zEJ/hrg5UwuqtSb0LDt1rpvkbIeCp
+         FBQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793182951; x=1793787751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rza0kgIV8RKD+4VzREfwNDyHjukBXzxAznIzMlJT1PM=;
+        b=kyvwYbgu3MUU8azq/NhMtoIMHyEtRQk3ylZtRiQaIQEw3pMb+2KniTz9M/W2x2QLzL
+         4teC71MAytkI/gFPMmnkmvK71NXlo3Z6Rn3njsTK1szQdWSzRCbryqSdiEF8PpaCSl+x
+         xNbKZOKq6YfM3bs7oN3wpxUfM4oA+ZODCHTOQdIVRhWy9YwkK1dVyAeQvDrRBzezO97Z
+         O2QLkAE7ImUCIDGLhY1TMRcakXzUyhHGLv4IZv8DNjWebt3mvSe7n+xGLCw9qMqWGgSu
+         mcF4MIIxMot3EZZM2DPXUc0EcnI+NqG3P9niR5eyjRyqyf3EEnanpl7/+8iuBYJEygF+
+         farQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvjkjbOc4CdeHkdgBDqF7wxo3Tbvu7GXoF2wi5YgaG8zb5o9JSmTj4LO7gidef2Dv9sCzqZbfB/Eid@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNdGU2mypzcHqoxTylt7kbJwq//LPjwKePp9JnkOO4O0VIzn8I
+	UiyMRgwQ+JHNMqVNvaQL4fk0/KzpGn75TtE3Mpt2BMu7N62nRvyvDu8K
+X-Gm-Gg: AYBFou0Aer6r/clYTByxddI45eCO38eylRZfLSQXD3wFaef0saXVAm7Yeljv606GYgC
+	Fm+65IfsqSeLo1M7q6kqSFJEg2CAFM69aj5sXrHq5aA0sEq/Fr20Me20yJ8hc6O/+Ii5yelG5QJ
+	0VNRhzM3qKvhFmMcif50qzM6OjuEnHyGe/HVHK1FVBvnioE1VG8+T5Nx1XNjQghLklVrStXl1OA
+	BYQxwb668U+2j1T/B0/dQoTViXcgebHw7RJrnFRWd10pnsZn03+2vSTTNqony4oVokTspzDCkyT
+	h6iOGUmGaZJCI14hh6hirBBb7Xd+onCkmOD8l2lgI3euB7xthqddTB8sAoVoM2lNzXqL3/nVqcY
+	Eeew7JDwfhQOXbRLcIzElV0+fclHxVKxXWkr2n7Rcc7nc3dW5VBtlxGpvkE9dVDt6qmQJGP+5+d
+	N43P8XMXAkoMwruJQX9aJHWce4dRlSiug7IN9Yugg9dhZJYb+WVZDjWU7ux0OeHzzePf58YaA8Q
+	FPh/n48gkTkjdtaR50FgUXSoITK2sckp6qyHBokbjmrRdN3eOvlyKzJBB2OiUOUzqNafL6kv9Ab
+	Xe/A6R55N4Adb1Hj3H24yFmUVkuoaPc4gs1LoN+Rg0dFsOZ2snZSCEnvO77Z9pC5CH/fVvhZOVk
+	GbzheC07BJuXa3kWFs+YeNVot3YAY0sfoR6bJJPQGRVDUArVD/wBP2xlEQ2Id/BV4rj1Z/gGrCa
+	o1m3pD1ngArQ+8EJMbP8ippa8XReiraowka9HV
+X-Received: by 2002:a05:6000:2488:b0:486:f6dc:52c8 with SMTP id ffacd0b85a97d-48e5d5a4030mr4706468f8f.37.1793182950573;
+        Wed, 28 Oct 2026 03:22:30 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm27135788f8f.39.2026.10.28.03.22.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 03:22:30 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH] powerpc/dts: Add dts for WatchGuard Firebox T30
+Date: Wed, 28 Oct 2026 06:21:58 -0400
+Message-ID: <20261028102158.71032-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,389 +106,450 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm: Aggregating FPGA display pipelines into a single DRM
- device
-To: Vishal Sagar <vishal.sagar@amd.com>, dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Chen-Yu Tsai <wens@csie.org>, Anatoliy Klymenko <anatoliy.klymenko@amd.com>,
- varunkumar.allagadapa@amd.com, Michal Simek <michal.simek@amd.com>
-References: <20260925155658.3108388-1-vishal.sagar@amd.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260925155658.3108388-1-vishal.sagar@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Add device tree support for the WatchGuard Firebox T30 and T30-W.
 
-On 25/09/2026 18:56, Vishal Sagar wrote:
-> Hi all,
-> 
-> A display pipeline in a field-programmable gate array (FPGA) is built
-> from individual intellectual property (IP) cores.  The designer chooses
-> the blocks and their connections, so the pipeline can differ from one
-> bitstream to another.  Each block can have its own device tree node and
-> driver, while several blocks need to operate as one Direct Rendering
-> Manager (DRM) device.
-> 
-> We propose a parent device tree node to group the blocks that make up a
-> display subsystem.  A driver for that node would use the component
-> framework to assemble them into one DRM device.  This RFC asks whether
-> that is a suitable representation for upstream, and whether the driver
-> support could be shared beyond FPGA-based systems.
-> 
-> 
-> 1. Hardware blocks and interfaces
-> =================================
-> 
-> The examples use the following blocks.  AXI4S means AXI4-Stream, the
-> streaming interface. Native video carries pixels alongside
-> active-video and sync signals, with a video clock.  These are
-> different interfaces, so the chosen transmitter configuration matters.
-> 
->    VMIX      Video Mixer.  Blends video layers into an AXI4S output.
->              https://docs.amd.com/r/en-US/pg243-v-mix
->    FBRD      Video Frame Buffer Read.  Uses direct memory access (DMA)
->              to read frames from memory and produce AXI4S video.
->              https://docs.amd.com/r/en-US/pg278-v-frmbuf
->    TPG       Video Test Pattern Generator.  Produces AXI4S test video.
->              https://docs.amd.com/r/en-US/pg103-v-tpg
->    A2N       AXI4S to Native Video converter.  Documented as AXI4-Stream
->              to Video Out (PG044); combines stream pixels with timing.
->              https://docs.amd.com/r/en-US/pg044_v_axis_vid_out
->    VTC       Video Timing Controller.  Supplies the output video timing.
->              https://docs.amd.com/r/en-US/pg016_v_tc
->    CLK       Clocking Wizard.  Generates clocks for the illustrated
->              video path (PG065).
->              https://docs.amd.com/r/en-US/pg065-clk-wiz
->    DPTX      DisplayPort Transmitter Subsystem.
->              https://docs.amd.com/r/en-US/pg199-displayport-tx-subsystem
->    HDMITX    High-Definition Multimedia Interface (HDMI) Transmitter
->              Subsystem.  PG235 covers HDMI 1.4/2.0.
->              https://docs.amd.com/r/en-US/pg235-v-hdmi-tx-ss
->    SWITCH    AXI4-Stream Switch.  Routes streams between interfaces;
->              documented in the AXI4-Stream Infrastructure IP Suite
->              product guide (PG085).
->              https://docs.amd.com/r/en-US/pg085-axi4stream-infrastructure
-> 
-> These blocks can be instantiated separately.  The design determines
-> which are present and how they connect.  The aggregation question is
-> not specific to these IP cores or to one FPGA vendor.
-> 
-> 
-> 2. Example pipelines
-> ====================
-> 
-> VMIX, FBRD and TPG produce AXI4S video.  Transmitters can be configured
-> for AXI4S or native-video input.  The native paths illustrated here use
-> an A2N converter, timing from VTC and a clock from Clocking Wizard.
-> VTC supplies timing to the converter; it does not carry the video data.
-> Clock sources depend on the design and transmitter requirements.
-> 
-> The examples below distinguish these interfaces.  They illustrate
-> possible arrangements, not configurations supported by every IP version.
-> Reset and control connections are omitted.  A CRTC represents a timed
-> scanout pipeline, which may be implemented by several of these blocks.
-> 
-> (a) One scanout pipeline with a native-video transmitter input.
-> 
->                         VTC
->                          | timing
->                          v
->      FBRD --AXI4S--> [   A2N   ] --native--> DPTX --> display
->                          ^
->                          | video clock
->                         CLK
-> 
->      CLK also supplies the VTC video clock.  Clocking for the native
->      transmitter interface must match the configured video mode.
-> 
-> (b) Multiple layers blended by a mixer, with AXI4S throughout.
->      The HDMI transmitter is configured for AXI4S input.
-> 
->      FBRD_0 ----> +------+
->      FBRD_1 ----> | VMIX | --AXI4S--> HDMITX --> display
->      TPG    ----> +------+
->         AXI4S
-> 
-> (c) Two outputs intended to form one DRM device with two CRTCs.
->      One output uses native video; the other uses AXI4S directly.
-> 
->                             VTC
->                              | timing
->                              v
->      FBRD_0 --> VMIX_0 --> [ A2N ] --native--> DPTX --> display 0
->                              ^
->                              | video clock
->                             CLK
-> 
->      FBRD_1 --> VMIX_1 --------AXI4S---------> HDMITX --> display 1
-> 
->      All links before A2N are AXI4S.  CLK also clocks VTC as in (a).
->      These outputs need not have a video-data link between them.
-> 
-> (d) Separate AXI4S sources feeding separate stream inputs on a
->      DisplayPort transmitter configured for multi-stream transport.
-> 
->      TPG  --AXI4S--> +------------------+
->                     | DPTX stream 0/1  | --> display 0, display 1
->      FBRD --AXI4S--> +------------------+
-> 
-> (e) An AXI4S Switch selects routes to two AXI4S-input transmitters.
->      Routing can change at runtime if configured for register control.
-> 
->      FBRD_0 --> +------+
->      FBRD_1 --> | VMIX | --> +--------+ --> DPTX   --> display 0
->      TPG    --> +------+     | SWITCH |
->      FBRD_2 ---------------> +--------+ --> HDMITX --> display 1
-> 
->      All links into and out of SWITCH carry AXI4S video.  It selects
->      stream routes; it does not blend pixels as the mixer does.
-> 
-> The available planes, CRTCs and outputs differ between these designs.
-> The common requirement is to assemble the selected blocks into a DRM
-> device without assuming one fixed pipeline topology.
-> 
-> 
-> 3. Describing which devices belong together
-> ===========================================
-> 
-> The device tree graph describes connections between blocks.  A display
-> driver can walk those connections, but it still needs rules for where
-> its device starts and ends.  A link to an output bridge, for example,
-> does not mean that bridge must become a component-framework member.
-> 
-> Choosing one source as the master works for some pipelines.  With two
-> sources feeding a common transmitter, following only downstream links
-> from one source does not discover the other.  A broader traversal can
-> find both, but still needs to decide which blocks to include.  Separate
-> outputs, as in (c), may have no video link between them at all.
-> 
-> The proposal is to describe that grouping explicitly rather than make
-> it depend on which source the driver starts from.  The graph would
-> continue to describe the video connections, including bridge chains.
-> The grouping would identify the display subsystem to assemble.
-> 
-> 
-> 4. The proposal
-> ===============
-> 
-> A device tree node that groups the pipeline's IP nodes as its children:
-> 
->      display-pipeline {
->          compatible = "display-pipeline";
->          #address-cells = <2>;
->          #size-cells = <2>;
->          ranges;
-> 
->          fbrd0: dma@a0010000 {
->              compatible = "...,v-frmbuf-rd";
->              reg = <0x0 0xa0010000 0x0 0x10000>;
->              clocks = <&misc_clk 0>;
-> 
->              port {
->                  fbrd0_out: endpoint {
->                      remote-endpoint = <&vmix_in0>;
->                  };
->              };
->          };
-> 
->          vmix0: video-mixer@a0020000 {
->              compatible = "...,v-mix";
->              reg = <0x0 0xa0020000 0x0 0x10000>;
->              clocks = <&misc_clk 1>;
-> 
->              ports {
->                  #address-cells = <1>;
->                  #size-cells = <0>;
-> 
->                  port@0 {
->                      reg = <0>;
-> 
->                      vmix_in0: endpoint {
->                          remote-endpoint = <&fbrd0_out>;
->                      };
->                  };
-> 
->                  port@1 {
->                      reg = <1>;
-> 
->                      vmix_out: endpoint {
->                          remote-endpoint = <&dptx_in>;
->                      };
->                  };
->              };
->          };
-> 
->          dptx0: display@a0100000 {
->              compatible = "...,dp-tx-subsystem";
->              reg = <0x0 0xa0100000 0x0 0x40000>;
-> 
->              port {
->                  dptx_in: endpoint {
->                      remote-endpoint = <&vmix_out>;
->                  };
->              };
->          };
->      };
-> 
-> This is a structural sketch, not a complete binding example. The
-> compatible strings are placeholders, and per-IP properties are omitted.
-> The transmitter here uses AXI4S input, so there is no native-video
-> converter or external video timing controller in this example.
-> 
-> The parent would describe the display subsystem without a register
-> interface of its own.  Each child would follow its IP binding.
-> 
-> On probe, the aggregate driver would populate the children with
-> of_platform_populate(), build a match list for the supported display
-> components, then call component_master_add_with_match(). Its bind
-> callback would allocate the drm_device, call component_bind_all() and
-> register the assembled device, with corresponding cleanup on unbind.
-> 
-> Not every child needs to become a component-framework member. Clock
-> and reset providers would retain their normal interfaces, as would
-> output bridges used through the DRM bridge framework.  The match list
-> would distinguish those devices from the components being bound.
-> 
-> The graph endpoints would still describe connections. Aggregation
-> would not replace the individual drivers or the frameworks they use.
-> 
-> 
-> 5. The hardware boundary
-> ========================
-> 
-> The intended grouping comes from the FPGA design, not from the order in
-> which Linux probes the devices.  A designer can place the display blocks
-> in a hierarchy that represents the display subsystem.  The device tree
-> generation flow can preserve that boundary along with the individual
-> IP nodes.
-> 
-> Design hierarchy alone may not be sufficient grounds for a new device
-> tree node.  The question is whether this particular grouping describes
-> a meaningful hardware subsystem, and whether children or phandles are
-> the better way to represent it.
-> 
-> 
-> 6. Alternatives considered
-> ==========================
-> 
-> - A grouping node with phandles to the components.  This preserves
->    their placement under existing buses and can be generated from the
->    hardware design just as child nodes can.  Child nodes express the
->    hierarchy directly and provide address scoping through ranges, but
->    phandles remain an option where reparenting would be inappropriate.
-> 
-> - Discover components through the graph without a grouping node.
->    This works when a driver has known entry points and traversal rules.
->    The question is how to define those rules across different designs,
->    including disconnected outputs intended to share one DRM device.
-> 
-> - Use the auxiliary bus or device links.  The auxiliary bus supports
->    splitting a device into functions; device links and fw_devlink manage
->    dependencies.  Neither by itself defines the display grouping, though
->    dependency handling would still be needed alongside aggregation.
-> 
-> - Reuse FPGA region semantics.  The fpga-region.yaml binding under
->    Documentation/devicetree/bindings/fpga/ supports child devices and
->    address translation.  A region describes a fabric programming
->    boundary, however, and may contain several display pipelines and
->    unrelated devices.  That boundary need not match a display subsystem.
-> 
-> 
-> 7. Precedent
-> ============
-> 
-> Allwinner's display engine provides a relevant comparison.  The binding
-> under Documentation/devicetree/bindings/display/, named
-> allwinner,sun4i-a10-display-engine.yaml, states:
-> 
->      The display engine pipeline (and its entry point, since it can be
->      either directly the backend or the frontend) is represented as an
->      extra node.
-> 
-> That node has no register interface of its own.  Its allwinner,pipelines
-> property references frontend or mixer entry points, not every member of
-> an explicit component list.  It also uses phandles rather than placing
-> the components beneath the node.
-> 
-> This is precedent for a separate display-subsystem node, but not for the
-> exact parent-child arrangement proposed here.  The choice between
-> children and phandles is one of the points on which feedback is needed.
-> 
-> 
-> 8. A common approach for FPGA and SoC display drivers
-> =====================================================
-> 
-> It would be useful to make this approach available to system-on-chip
-> (SoC) display drivers as well.  Although their hardware blocks are fixed
-> in silicon, those blocks can also have separate drivers that need to be
-> assembled into one DRM device.  The component framework already supports
-> this kind of assembly; the aim is to build on it, not replace it.
-> 
-> A common helper could handle component matching, bind/unbind sequencing
-> and aggregate-device lifetime.  Hardware-specific drivers would still
-> provide the planes, display controllers and output handling.  Existing
-> DRM bridge drivers and clock providers would keep their normal roles.
-> 
-> Such a helper should not require an FPGA-specific device tree layout.
-> SoC drivers should be able to retain their existing bindings and supply
-> their component matches.  Feedback would help establish which parts are
-> worth sharing and which should remain in the individual display driver.
-> 
-> 
-> 9. Questions
-> ============
-> 
-> 1. Is a grouping node acceptable when it represents a display-subsystem
->     boundary in the FPGA design but has no registers of its own?
-> 
-> 2. Does the upstream community prefer child nodes or phandle references
->     for this grouping, particularly when components have existing bus
->     parents?
-> 
-> 3. Would the upstream community prefer a separate display binding, or
->     an approach based on FPGA regions where the boundaries coincide?
-> 
-> 4. What node name and compatible would best describe the hardware
->     subsystem without tying the binding to Linux driver organisation?
-> 
-> 5. Is matching child compatibles a suitable way to identify aggregate
->     components, or is another membership mechanism preferred?
-> 
-> 6. Would a common aggregation helper for FPGA and SoC display drivers
->     be useful?  Which responsibilities should it share beyond the
->     existing component framework, while retaining hardware-specific
->     bindings and driver behaviour?
-> 
-> Feedback on these points would help shape an upstream implementation.
-If the only purpose for the parent node is to group the child nodes 
-together, I think it's maybe better to do it without the parent node. 
-The DT media graph already connects all the nodes, so just finding a 
-single node in the pipeline via compatible allows you to find the rest, 
-thus creating the group at runtime.
+These devices are security appliances based on the Freescale P1020 SoC. They feature 5x Gigabit Ethernet ports, USB, and a serial console.
 
-Although "finding a single node" can be difficult too, if the user uses 
-his own IPs.
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ arch/powerpc/boot/dts/fsl/Makefile        |   1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts | 413 ++++++++++++++++++++++
+ 2 files changed, 414 insertions(+)
+ create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
 
-However, there is at least one thing the above doesn't solve: say, we 
-have two independent pipelines. Should they be considered as a single 
-"display subsystem" with two pipelines (thus, on Linux side, under a 
-single DRM device), or separate display subsystems, thus two DRM devices.
-
-There could be a xlnx property to help define the above, or perhaps the 
-aliases node could be used to define the order and number of display 
-subsystems. These would also help solving the problem of finding a 
-display pipeline when using custom IPs.
-
-Another question is that some of the IPs can also exist on the V4L2 side 
-(I guess in theory all of them could be used on V4L2 side, but in 
-practice that's perhaps rare). This is the old, unsolved, problem.
-
-  Tomi
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+index d2cc8e1f0..ebbf301e1 100644
+--- a/arch/powerpc/boot/dts/fsl/Makefile
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -3,6 +3,7 @@
+ dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(src)/%.dts,%.dtb, $(wildcard $(src)/*.dts))
+ 
+ # MPC85xx platforms
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+ dtb-$(CONFIG_BSC9131_RDB) += bsc9131rdb.dtb
+ dtb-$(CONFIG_BSC9132_QDS) += bsc9132qds.dtb
+ dtb-$(CONFIG_C293_PCIE) += c293pcie.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+new file mode 100644
+index 000000000..546e98938
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -0,0 +1,413 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "fsl/p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30";
++
++	chosen {
++		bootargs-override = "console=ttyS0,115200 rw root=/dev/mmcblk0p2 rootfstype=squashfs rootwait";
++	};
++
++	aliases {
++		label-mac-device = &enet0;
++		led-boot = &led0;
++		led-failsafe = &led1;
++		led-running = &led0;
++		led-upgrade = &led1;
++	};
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-property/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "tpm,tpm_i2c_atmel";
++				reg = <0x29>;
++			};
++		};
++
++		sdhc@2e000 {
++			compatible = "fsl,p1020-esdhc", "fsl,esdhc";
++			sdhci,auto-cmd12;
++			reg = <0x2e000 0x1000>;
++			interrupts = <0x48 0x2 0x0 0x0>;
++			interrupt-parent = <&mpic>;
++			fsl,sdhci-dma-broken;
++			fsl,sdhci-ahb2mag-irq-bypass;
++			fsl,sdhci-adjust-timeout;
++			clock-frequency = <0>;
++		};
++
++		spi0: spi@7000 {
++			compatible = "fsl,mpc8536-espi";
++			reg = <0x7000 0x1000>;
++			interrupts = <0x3b 0x2>;
++			interrupt-parent = <&mpic>;
++			fsl,espi-num-chipselects = <4>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			rx-internal-delay-ps = <2000>;
++			tx-internal-delay-ps = <2000>;
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++
++		gpio0: gpio-controller@fc00 {
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				#gpio-cells = <2>;
++				gpio-controller;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "fsl/p1020si-post.dtsi"
+-- 
+2.51.0
 
