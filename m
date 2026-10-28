@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195409;
-	b=IYgoSYKxDeNnkmSYWQVe+UT8BcK0REU2EjbaCGwv0FM7zOXS64k37wfShOigKqZ1Sb5p
-	 xJmWerukzxVpYz7/lWxpL7N6OitFeYkg38oYyASsybWFmugDVrJMUJfRIGocGfYSA4Fgd
-	 g/ik59ZiPaAqeaHMO7d6ybIEsJXGYu7eqlhK4XmTdYHhuqZHk+sZx+1AFudBDgKUd21Vc
-	 H/YkpSHci8XWJ3lR16w9ed0pbz2/kfSXTHdQXjMHeH8I9sl6mnD6P20pTcjHnEh7/Z4ac
-	 xeZpJ3m9v7eRReRPDyrbSjDgDFd4NB0pIVF8X8AEZVfrHgD8/uJfxhLWwSKK+bh/PjA==
+	t=1793195491;
+	b=cKT2HsJDbI5rDJcuCHBHXfrc6KUW58LvzsQcx5/7KehePP0rdBbxC7gh4Qiuny9UWZ2U
+	 n27lGbcGnYNAxq+4hkAdmuPA3GarxMU2c/qz9JIkE/kt4EvT0OzdYtDluWhb8GPVd+TrH
+	 VdekKwdmoLCEI8HVqztGf/o0Gx3c/idwPmbvBORl/vezAqbysmiH5mzJIBJR/d7g8OI0h
+	 9BiENZ8tSgjJHeVvryu/VyjuypMxo+InHfCOg7przCgTCPWJ9og0uawWuO+o9KySOazoA
+	 HoytUWOoAMwws+VofJ5xfT9SEEW4Fya2xn/agozJY6etJ5fTl3awBJbm4iaKylG11eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195491;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JdWNP8JpkypifgTIvG1V7ARGk/pgBkZ3PALw6mjNWMY=;
-	b=D+fhbubuw99jWVg8RY9CU7ggPFCtb1/VJpOcYBfppi2RoSZFUs65xQJOi83f4uQ5lviv
-	 fyNY/DxkzcmA59RiiQV7uwvZIjcmsvE5FMrWRBSoNJRDqYfRRH6NPlDVeUOivTTy/4HlR
-	 J4J+Uz7vtO4SyQeUCtFEGpkfuus7MOdEU+GogFi3GnFoOrXOM6OOiQzS5pnUU8Ycd3zcJ
-	 xWnhlE2j+9/vIEpwQma3bVh93EGLqQUvGG8C4U4g523qCjGA/wx+O7ZxHach5CyH2tktQ
-	 WK0/v72pAR5K4gEoTxtGh0y+VkJsPbhuyLI60Bh38sr2xZyE1A7TrZdRpJUh4Nra8Dw==
+	bh=4Y/rSr894qLRl2goj1baT6Zs2+/CgiEisoOorlNt+S4=;
+	b=R9ZqM/3/+AA2nQBDGYecP7DLllgWoKdU3Sf/CZ3MIHb19UFKyjvmhXu4V/F3W/gtL7qK
+	 pX6NV0/uB4UDLXHD3zJm4RlKMdXUcJMUxtY41fv6vWHEDCth8lqDoyOj3HuJy9HSFYwOO
+	 yyzCoSkG7T7jLHWUV/vgSeBfhh/8fNNonOaq5LfhywAgQ22KbeWmitfHoxh+Uir2wrl3C
+	 lqPEnj83g3j1CuCqpyHaLViZ5PRcXPNqi7uT2vR7CxuugNlqdDp0yypn4904Wk3rgPdM+
+	 tXRQPwa+cvvzLoGVU0xI/oRzMa+m8617UVXtjBYe/HR4E43/9/qa8+kh7aJcCoiQkfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfZBBmss;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhnyHoqC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D00606A31A;
-	Wed, 28 Oct 2026 13:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA083606A321;
+	Wed, 28 Oct 2026 13:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfZBBmss
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0F91F01825;
-	Wed, 28 Oct 2026 13:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhnyHoqC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29F51F01828;
+	Wed, 28 Oct 2026 13:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195408;
-	bh=JdWNP8JpkypifgTIvG1V7ARGk/pgBkZ3PALw6mjNWMY=;
+	s=k20260515; t=1793195490;
+	bh=4Y/rSr894qLRl2goj1baT6Zs2+/CgiEisoOorlNt+S4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lfZBBmssFuY5GIeH/+TA0vjEn/RvC3hK32p0OtU44e7VVztf2H/TVIKTl7n/IkTMP
-	 MIQNE9vhYFOibv8O6tYh3unfpZUeHugTk8zIEc1GmralXr6pPWl2kRV7TW7xNmqEXh
-	 zB/f4e3p4vhhrHu2xO3WuRwbqunNRYoBSNfuJ1DR8lZJnu3PnaM5khvwTgtOGGZWsr
-	 xMN8JKQi1KYSOAP3qYsHXLycqAylILTRm2jL+3Ak8Nu+5nP2QKgWOiNUJVVyfNtrpz
-	 dMspbLdB7bcQvrBg60cilk1c0xVCxYXtnckuDCs1rw5+nubANVKNVdx4ZO18l3MUzS
-	 jrxPdk/slN7yQ==
-Date: Wed, 28 Oct 2026 14:50:05 +0100
+	b=LhnyHoqCJuE9rE85usJCDB2h/oQDstnXf3hY6egJQRU3jUjwqVgpFTHL/lVw5jpdM
+	 WRT3XfE3/xqUB1VZjrEnk77Oh0a8byY71hpQ0D+5YJBG7izBPn1EgqB1VglrScq7MZ
+	 6UjbB1Z/Eekl1XxfKFbASJuwO+YAZvmFwkNc4XqL7BZUDjM77zF4zxeXaE9Jv11SfI
+	 P1Fie5Pqx+RVYy+l0PqpZn0zrmksrcUooQT82lE3gRDddLqnjJJPl0SEDYZo/JVdFC
+	 hUE+9IUxinOhU5erVPVBcJex328FUcPIoP0YMPR7/z1q1wUiLKE74pYRjz7vWMzmFC
+	 Lb2KHu7MxNQzw==
+Date: Wed, 28 Oct 2026 14:51:26 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
-	abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Subject: Re: [PATCH 1/4] dt-bindings: arm: qcom: Add Mahua QCB
-Message-ID: <20261028-satisfied-strange-bullfrog-f3c1fd@quoll>
-References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
- <20261027114955.1266499-2-sivansh.gupta@oss.qualcomm.com>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] iio: update email for Joshua Crofts
+Message-ID: <20261028-independent-cougar-of-hail-d2b21f@quoll>
+References: <20261027124602.1533-1-crofts@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,20 +61,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027114955.1266499-2-sivansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261027124602.1533-1-crofts@kernel.org>
 
-On Tue, Oct 27, 2026 at 05:19:52PM +0530, Sivansh Gupta wrote:
-> From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+On Tue, Oct 27, 2026 at 12:46:02PM +0000, Joshua Crofts wrote:
+> I'd like to use my kernel.org email going forward.
 > 
-> Document the Mahua QCB (Qualcomm Compute Board) board id, an open
-> form-factor Mahua board intended for compute bring-up and power/signal
-> measurement.
-> 
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .mailmap                                                      | 1 +
+>  .../devicetree/bindings/iio/dac/microchip,mcp47a1.yaml        | 2 +-
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
