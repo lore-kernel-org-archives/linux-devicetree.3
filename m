@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197133;
-	b=hnhkvUXUfexIZRzl2sC3gSfvkkrmuWTW5Whp9EacohKR/fhQ/VYpGUnqpkKsH1mKSpDQ
-	 oQvgQOuOig5Dxi/kY7rhV5kcvBTdniL7ATgNvbrm0ob7kKqik/hvGACuIqjXL+uSjj4AH
-	 R+8O2MMz2sLlM9VBfSqZdZiMappFzt6d9SNf07rdhr9i/W7yDEsVoNAknMA5zypnWx1A8
-	 XCZw71iAhZlxXBZdsU0t8FSHlXXgv4L0+lO2I4ERbccA5TSx7FhwvL68e5IaDnkT889sa
-	 NF/nRTIrJMjIq3/amKSukhFB1B1GL1wkXQLA608hsl9sdBzIIw9qlOzpd6hy9/z21kQ==
+	t=1793197163;
+	b=vHfNwX3dhCMIzNzXEkcO66kzwi3Qy+frvBcfaZyIiz1gahAswgfAwj4bUGmoZQeM3Fje
+	 BfpM3zJkJ6oUKvDAl+0/gLKEESM57B5D/FijQY5Mi4BmD1G1n4O1CLOJc3fI2MThBAY6V
+	 4Mzhr3qKj9+jnJ6L+adXPxvAvbQBu3oUPW+MaGs0Gw4C+HkC/Ent01MHDdEdVXhuoLjja
+	 oGm9tEed56pmYUsnp0Qd0TabVJDSO9DbF1QzkCzAV2b7uu5bGc6yOC49cs6PmJgqwz1be
+	 st2IQfzRm7Ta7Bajd3lsms66ZVdGM9D/OzJFW0r4Z2ZXwFMJx9LuBmFC1xY9mku2WnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197133;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197163;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=7zT6r2/0HYw2IYnOZSrhi4CsyKbR6spU4l7qokveRvw=;
-	b=gZFj5yKKPKWSKQeg5nDOv/6spvyv3GCmtmK0V/gMvJ4VLTTWLBKRHIXne3Y2uG0/sQcl
-	 jZOy8vB7Hy/IMOXViJ9XkENOmWeHy218AfmUb9a17RyRw76AKlthiSFuWCm4GMQZjx71s
-	 muDAZDS9frQPYoQasexRzJ4odlncsFCx0T8qI1g/Lg5lypaVUciNUuQ20B9RS0vmysY9v
-	 oRW9uFP53WFL6AjPhAcASnNFbk9MGzepwWmjPLTZDXQdTB0AcAnJQsBHsxoZOW/ZRxcxa
-	 FUof3aVKBL8t7NxCe3klpCwXGNyzjh8CcFQYs57CNYmmJBy7zsZk5AduGbsYK+5p+/A==
+	bh=uWR5yf0kmBZpNPUmleUCAEsXCaFGC757CJmaduMrwkU=;
+	b=ZueZ6eGB3tsfN+mgxOg9rmxpd6TuAiYwoH79RyQU10V1sUvVczsGh8Sr9OlFXZ4zAhU5
+	 TjWo6xKAJJ6pcl6U5ApDv4ANJ57BeRan1uGGjDbzvug0qvmS8DMJr/8EFe5m+uIasa8n1
+	 eE0rh+0mqJlD6YrXQO9JFdT6Bwm7lw6zbjMmhvQbPdrNIvVuuTaZloFmx0FexMtRjBF7f
+	 +Kvo6VXjXceeuv/hSYZS1B1/m571Z8EL1kwz+MKQq36geJYBORtJa1+O07hQ/JxVAI6bi
+	 aJQZBN/aO69/Hrf77xpzRCrXIottyu3U/tNbYrwBuzepQ9oHwwMUIGWsRVgEC3lDFmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aa+S8nAm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KB0Zm0TA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8C5606A31C;
-	Wed, 28 Oct 2026 14:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4111606A31C;
+	Wed, 28 Oct 2026 14:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aa+S8nAm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664341F031E3;
-	Wed, 28 Oct 2026 14:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KB0Zm0TA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB1B1F031E1;
+	Wed, 28 Oct 2026 14:19:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793197132;
-	bh=7zT6r2/0HYw2IYnOZSrhi4CsyKbR6spU4l7qokveRvw=;
+	s=k20260515; t=1793197162;
+	bh=uWR5yf0kmBZpNPUmleUCAEsXCaFGC757CJmaduMrwkU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Aa+S8nAmF6cp8cavrrgCbo21gFzv0UVHPltSxr6+6hXj+WM5yGotkbYMtsRGU4lEQ
-	 yJ8ECcaCEe8jMFn6xaiFy/42//6sVxf9mQXAYgOKJzzS7NROJtdeyF8pe72zj6+LeF
-	 E7d6DKhrLJWkOYUvDQFBYPdHfKKMFFABz9oCtpeZXX3v6pu/RyLbiRLO05h+ZqRISI
-	 4xJXtesI+3ItC68/+2DGEDSlXhC5JlO6Frmcicv7tblewnmRqxJKZpQrexlsckl8Rw
-	 NkVocWiBw+gzGd3WeAKWW+zNZl4vY1SIoBy35wOT12rGvH/mNVQogrxTN0pY/InwMq
-	 P1j0TnQ5jZeIA==
-Message-ID: <e562bc1a-4ca3-4f90-a95a-3f228abc28b5@kernel.org>
-Date: Wed, 28 Oct 2026 15:18:44 +0100
+	b=KB0Zm0TA4eti+wq98f13NCZMXClhnrJyGyFkNdOUiShldzYoHTpnpU5xhr4T2Jy8Z
+	 hc/ORlscok4upl26HqKUiA7GLvwei8IUezub7F60X3wzysUZVlrr1CARNIqghE73Dm
+	 3isUFZn0n+rFHpyCu+epMoZnphPFeE5GdkwNkVrCoEQm3kyMT/doA/oatlZA2S4M6s
+	 8zohH+A3+li5ijYX9q745SWEECHTiJQC0rQfjss6xfiZoc/tSECj1u6QP7R5q+ctN/
+	 FtkZ+jLy7rmWgTHy5YRaurRfrp7HzTRePiuhwwwe17XFTgpdoQgdS+cChMuvE/VeXi
+	 iQORtJ9ckyxSw==
+Message-ID: <c26c7e8d-f8bc-472f-bdd0-676fa33cfb04@kernel.org>
+Date: Wed, 28 Oct 2026 15:19:15 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,7 +60,8 @@ Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
  npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
  sshegde@linux.ibm.com, sashiko-bot@kernel.org
-References: <20261028141309.134256-1-lefteris.koutrakis@gmail.com>
+References: <20261028110951.101614-1-lefteris.koutrakis@gmail.com>
+ <20261028140556.130612-1-lefteris.koutrakis@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,22 +107,17 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261028141309.134256-1-lefteris.koutrakis@gmail.com>
+In-Reply-To: <20261028140556.130612-1-lefteris.koutrakis@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 15:13, Lefteris Koutrakis wrote:
-
-Please write commit messages.
-
+On 28/10/2026 15:05, Lefteris Koutrakis wrote:
 > ---
-
-And changelogs.
-
 >  arch/powerpc/boot/dts/fsl/Makefile        |  1 +
 >  arch/powerpc/boot/dts/fsl/firebox-t30.dts | 23 ++++-------------------
+>  2 files changed, 5 insertions(+), 19 deletions(-)
 
-You did not add any DTS here.
+Can you stop please? 5 pointless, duplicated emails.
 
 Best regards,
 Krzysztof
