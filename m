@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189555;
-	b=bg0LjtDf87/xNBVmPWYC7lqcQuLbn/sIRgE+ckE/1hHcNTvkNWKhkRz+IPdGn+bmod/X
-	 Mq+IW0Y4p6n402UT2i8LNT6b0DgNcAYQIb7MiJ9yfsTULnja9+QNwIASucxeTGFlNg78t
-	 ZDOSCbdoZqeloE2Y6URqBjfCfB2211pCaL1SCbhd3a5By65XBOSsPzCvKm/Gv0G1a+fjK
-	 es8cf8Un1CexhlAe2CxuPNs1tdlwfSeA6k00GEErfD5lk91/3D5bOyAX9UDdLvqntTZTz
-	 Z2IUlAOet821tvbR2sP+4AnxWlfMXjRiFv5BzsryZHHRhbTjn4uMAHaF9NK6K46jwkQ==
+	t=1793189776;
+	b=eUWLJvj6ekRY8qthppxkLi4NoOZKGLioYiJ78A9IWfeY/7a72LL6EPJ0FZ/7xNDLfqrL
+	 okDI9XzhibULxcOeFh/YGcp80uZ/6T52+6m4jpTe90SRQpRtB9c99MrRYwebcuoPrjKHF
+	 TUMvolrjvui6R/XjM72cN5UZIObKgqI5kPKUjIsNXkUemmykN4kTZ1NtpHUj+LzY6Mkqk
+	 3XCaNiMQo0R4+2h/aVVOAy77X+P212wZuRhgKZzC33eNabIM2XJfQvXJnD5Q5gdf/WwWf
+	 QnSva4hnrjaR9jjSLB9SJlKXH716DRtnjTmgJfNwkwDGExoIXxeVPUUXOTk6A9kN5SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189555;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hN4HbOsDQHi/NU8yy1iBJn/aHgqs4Mr+FW66cmSUjoY=;
-	b=BjcLKOKV/1TkcCQTUYtuUu+Q+J47Kkmrv1NWms3bMdnnXQkfjLRo7zuGafEnbD78MHWi
-	 RsdS9Ih636HdHZflQ+Pp5IOYOZwTTXa5+iIbVT8iTQJTREzoKdWepQKuSn5wmA2l8oln6
-	 JXAeJlk++1q3dxCYE8nAGgoaH5TkY+jD+7r2oR0pGNqzRiHoMf8PGhZQPwQv3urELcsUP
-	 i3Ocdh5Wz7b1J1ILpeLUYSTTB18sL2GUqDHPtOAQCqJWo1hKYm4NsIepbwRni63zy0bQL
-	 hBaKnU1LBBMaRDsxzfpm72T404VxeMcp5lCFoZAH8v1zB/UneqdBX1QYf8WrHhdO2Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189776;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
+	b=KklohdtvhxdoJfotqMP2WISzcNDKE7Ss9WfPG0N4cOsA9BwZJNkNZlfiitHQp/B5V1RG
+	 0U/eYHr+zj2mJytfpYEb9HX+FkhuevUyj9D/ZegI1fvybV6uekAc0jRorZf/dJh9+lz5O
+	 oxmxUImkcXF7DdU8fN6oRV2UD/VkVDWBBA5Icx5W1zXBxVbC7VQjvHdFtKM9iIIiOz0oG
+	 t7lnfO4HyKwZlXHPKf/0BfbW7lM9lQ5Frvw6G0pkuu0YRSmlCWu+uBK0/JqrkAGf2FbsE
+	 4WNPuU+3b5mNkh3hJPj2cuQuRxQ1o3yKWjcAAmCtga9i0a3wbw4dDsJxB78k/mw71lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnAr5C4v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="com/B+Qt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B04A606A31A;
-	Wed, 28 Oct 2026 12:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B907606A31A;
+	Wed, 28 Oct 2026 12:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnAr5C4v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076051F01825;
-	Wed, 28 Oct 2026 12:12:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=com/B+Qt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36841F01825;
+	Wed, 28 Oct 2026 12:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189554;
-	bh=hN4HbOsDQHi/NU8yy1iBJn/aHgqs4Mr+FW66cmSUjoY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gnAr5C4vUH8ajNAKoxqpSc8cDOibncHA3oc8uOBk/V5pflU14wbxqCanvd/iGg7v5
-	 9xTEoTSqWb4/q4k7W1E76VkWrDNt7GIAaBMLd7ZJPTPbXGFo91zk+pXtGvkMKqt197
-	 fQ31TpNhl7Jq7mxH97HT9d9V0iDjjm7CZ4DzWtbxZz7sreG/GUcAmnu2XFGq1g7Yjr
-	 zopiVv2xf9RkMGRqKqDHe6Bh69r9PpppsdbGzTrdMX5QAfJCV0xRvnLGbcXIcNuPTm
-	 SaN9duJIsHh1216g0ETh8wXfFTkbz9ZIYtVztfYN7mUpUzVhCl+swCLl7TXYVAYpBW
-	 5JSrrVYZRkyEQ==
-Message-ID: <0f60fcba-8f31-4b3d-a7d8-8dee548e0b41@kernel.org>
-Date: Wed, 28 Oct 2026 13:12:29 +0100
+	s=k20260515; t=1793189775;
+	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=com/B+QtHCvKrTu0jqM601D/1rwGYmdu4LUPo36GMx5NdNgRPtcCcKQAUK9bKxKA8
+	 JSgpvA8kip3US/shhLTkQWXMo8qTZJJjmo9pPeTH8+kMGJBkfRM9/TyWGwZb8eEf7D
+	 8xO99z+SulKuG2zHrIHyq0AWZ752mUqolZw6Kvc0T2zP8tkrAnV98AulEVSU4NoP3A
+	 4X2F+g2SoACFt0lJgdYeG1q8tj924bRg1xmj9ltD8of5kFZpoFuH/fQtyJw7bUaG5J
+	 BWzlCcsxvgD2RjImR5PikpR0M3gStdu7/CGUBa1P9JE28wODCNl+dVF9S/i7EBkmY7
+	 ASp2QErZIfoLQ==
+Date: Wed, 28 Oct 2026 13:16:11 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] dt-bindings: media: Add Qualcomm SM8450 CAMSS
+Message-ID: <20261028-spiked-musical-doberman-7d7fb1@quoll>
+References: <20261026224957.1115370-1-vz@kernel.org>
+ <20261026224957.1115370-3-vz@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,91 +63,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: regulator: add Will Semiconductor WL2868C
- PMIC
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
- <179312390429.199157.12016700546762955000.b4-review@b4>
- <20261028120432.99230-1-xiaqinghuan@mail.ustc.edu.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261028120432.99230-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026224957.1115370-3-vz@kernel.org>
 
-On 28/10/2026 13:04, Qianhui Xu wrote:
-> On Tue, Oct 27, 2026 at 05:58:24PM +0000, Mark Brown wrote:
->> Please submit patches using subject lines reflecting the style for the
->> subsystem, this makes it easier for people to identify relevant patches.
+On Tue, Oct 27, 2026 at 12:49:52AM +0200, Vladimir Zapolskiy wrote:
+> Add Qualcomm SM8450 CAMSS device tree binding, it contains
+> * three CSID and two CSID lite blocks,
+> * three VFE and two VFE lite blocks,
+> * three CSI test pattern generators,
 > 
-> Changed in v2 to:
+> Six CSIPHY blocks are described as separate CSIPHY devices connected
+> to CAMSS input ports.
 > 
->   regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-> 
-> which is the shape the regulator tree is using (e.g. "regulator:
-> dt-bindings: ti,lp872x: Document input supplies", "regulator:
-> dt-bindings: sy8827n: support standard properties").  The v1 prefix was
-> copied from the media-side bindings I was preparing in the same batch,
-> which was my mistake.
-> 
->>> +WILLSEMI WL2868C CAMERA PMIC DRIVER
->>
->> Please keep the file sorted.
-> 
-> Moved.  It was sitting after "VOLTAGE AND CURRENT REGULATOR FRAMEWORK",
-> which is the V section, while the entry name starts with W.  It is now
-> between "WIIMOTE HID DRIVER" and "WILOCITY WIL6210 WIRELESS DRIVER".
-> 
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> ---
+>  .../bindings/media/qcom,sm8450-camss.yaml     | 274 ++++++++++++++++++
+>  1 file changed, 274 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
 
-That's LLM output. Why do you paste it?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
+
