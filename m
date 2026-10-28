@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793201770;
-	b=d5KiT4i6j2tHgtimt4oWM1Atk7FGa/GUkR3hSCOtIlCrbqMZ5fFrXJed2KKhjZro9L6u
-	 nqXyqtApanPDIMlRiYV29tqLqcDwVtF5zQnstDvcXSlEnBNemUfDCqDoHWTOnqb8Pbi7I
-	 Bl93RB4wTbYbLdYAxIPhQ8VvmWwyBnMdjiUHp8qTeQxHcnMTm7RRgkN2yoP6UPW75Kxr2
-	 gQrcqBbX1VtbU6OK0MdsORVTxVKl43DCfK7/6p2VJL9Kq16ZW1sw1qC6SlFgpj4VSku96
-	 zGaD0vxm1fRLWYELKKSuc13kfLOY+rAPrMeBKgAFFLlico8mJBRxM6rfoz2DgTyoYzg==
+	t=1793201778;
+	b=x8Tl2ytXe51PF6L5p6mq2ksdnJL3cJbctb2eQf7X8/LpMtZDS6ReMChtssrLqVIqTaO9
+	 H+XOAEA5nuLqjxrqf+ea1ejNFa+HqS8Q1tiZBMwYwc401l+P1R8/TI1odUWq2RtsfN2zd
+	 TCo7a8AiLD80R2QVBV+EeET8CHIl07eF6i4y35g/B8kFeFVb8oGD4fOwgfcxEXj9KbKjJ
+	 xA2MM5Rk/K6v5+wT18s8QuYukYmllqmVENE12VjyFaGOIpxVsIbLpRfXJwwBUQa3L7tI9
+	 wekZqJFPYX+Nr8BM3nmhKMm9QPlpVPDpK7ArqAFcT42J4MV7TVwGjkgO4WPnKUMwdgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793201770;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-	b=OYJa51VW85Iuqbkng7ReuTa0u32tOb26/9N8kU/TEW2bKwBVqzqMjDqXuGUjMrS2KejF
-	 W/NbsTGymo8DDwfKWVbo7gWFLTrhhQfYnaNxVBulRRH17ZzJH49kk1gTrweYjxmi9zfs9
-	 XiyHMcCXLgH7VlMGYC68gBVaDGPVm/+uL9JrYfvzGGOGGmD2yx2dbYLLy9XLERM4yJZLk
-	 LABo15HQ7Zc6LFKblM9gjJzqqSPjqbzBAT265W3BXLwMwAjfl8iAJQutQ95hd4cVa9Yrn
-	 uKpehzkYvpoGikYKHYJFwYo37pZlWh9c17fvFhLhjUF8dkRHzO/bCe5W9ix88I0izwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793201778;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NcBMAsscOX++K8Pwqm1G7DDSp4gQMpAWt2lAFd4UW3U=;
+	b=ppJrjRWb1zbVmUktReEJAYUF1iePEjOQQq5wdCY+9yw63lqIBpVLAjRGki3TMHnHAHfn
+	 79utfN6gnvqo/LhqmuR+9S9PYSPwmbO/h2IhF/EiP88JCoKn+oHNf1wA8Q1ZQVhBUyhga
+	 6FwXSOrmd3QrwdowH63wRkBoQC6xebAb0jnk4KqLhYsJTIj+WSpCtiEUbfybMN3q0QT66
+	 0wFEf3LWr6HkK7f6heV79y24CIKfwHz7kzJQeRb0zl23VIxI/bcNOOJTFIv+no+Tnz9u2
+	 ElEKIEp2k1iV8oiOwNalHEJvBkv0Wudrkau5sXm1AVGOBaXf/VibOp7XjWERntayvgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UZ5vxgZU;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ENS9tKz/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC385606A31C
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC385606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF8960A2604
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UZ5vxgZU
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10157145e9.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:36:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793201768; x=1793806568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-        b=UZ5vxgZUunglt4G10pOQzIVVK9fHKqQKfOoFuVBy7okRyLDlBjGEnBOAeVPvW/aOMu
-         1wadd36u1eZDO9mNluALYMFMr2+yMlApFveU9bZa2AhqrkIBMH/ZGT2XzMH6Ip8dReJJ
-         aaKalseqlpgjcq1GqbUOS7FDjwY75yP2MlyOmAtKaBRs9Z9m+SAd4S/uYNDPG25kNINs
-         F2Xa+qviSLXUBhO+NSoVvdoqYgTbouK6lRfZEf9zuBTvBNF0FDMNl3Epf/CG6nwqcmeA
-         V3hZ7yHlmaIiiI71wRfyx3A5JlWFE1+dM8uK/o1xLtkwEzrLDHmo+8/AzAaLuXjZJ6K2
-         8mfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793201768; x=1793806568;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tnqJ5WEWuOH/sryca1mtSF1R/jE94CQ0TEC1LthA+kg=;
-        b=sje9uwD8fWkO7W79K1u5X2HPbnQMaO/074MQ452Q1Xa8X6P6h2Rq60T6tmcqHXW9Iw
-         JWR0KbDkHEzmx/z95r3T2WsE/W7LvoW+eo2xHo7hsjk1ohIOcdZHUxAfzA8Fga47Gx1d
-         pNlu/CCztUlijHiZlFQLPtiQmehvBrLPAzOVSCDJjqerU35u1LH51ZhGnUzZod5i0z37
-         EnbGEoOqofeUcX7fkL87irEbIYaK/vfNN7J3KJci/CagWtZyz2Lj2EYFAAzFLESLPzI1
-         u46fGzQA4jTezXpeAnb4L0dDxq6xQDVsPqvvhAkGbYGEBarcBaUUNzSO1xJeoisFFZtk
-         Ow+A==
-X-Forwarded-Encrypted: i=1; AKwUvByDhM903BQFA+l4k89N9BDDWXLcnobxAUn6H9bZoCqbZmJ7yQfE8YtnxDWwGmHd2OhAWiETdzUa8w+S@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVB/rLYS3ztK6AKCCxaMg5KfTEg7ex563PevriL2zD+8Cry8Bp
-	Zl6+1TH6KAqJMFgfAw6dlgMABwE84IDJbHBLMA0aL9WgM9HmIPQSBxHk18hF/crk0TE=
-X-Gm-Gg: AYBFou2amw26pE6iAgPljEAeC9JDGyrhhwbAVfmrHaoLM4aRVZqEpdTHZ5fLU8nyORV
-	M7foRsYz9XHWxw5MiYRDApsuPF2SbhvtpkqWO3eywCtSXXKtoVpHSyfsBa5CRY86AJ5r9W7J03l
-	bFIUws2eCxRJVZyUgYHJFSZFqiZ3gr2urVTjFaMj6mbKKrGKv0QsySL1yf2ii+Y1f5W6Z9eoeyr
-	LX4u1i3joLpmcfm0hLrIWGzivoRo1l2wwm2NjMfLOWXJi2v6Etx9Ttd7Y1lLRT7YWsF2yia2a+i
-	GuSxpozJ4hb7Kbg4OiradOZ3UHtY0aJqJKWy9YXA+pPOjOTNeo6y1X1gWXARqdt5rmD79TJh3SA
-	GqV+2yIBwPrUfTRkLXhBUW5qgAcu2vl8ArKpIx5dojOYIEBT4Eld/LQwaWe/r/+278Lw5BOan/Q
-	rC9DnC8TJ4oAvTXyFMzV4R566S0qmnQ0M3aCIgOuzNm/gSNOs5TAfiwqCUcn7MV4V76NLt70fPl
-	eXZ3alacJI+Tr/Enkj17TX4QMs9+9jKq5PFS2c4ZOTkmethpLlkC/jAy2e2foA6XqRFcl5QebOq
-	JYeaaHIdVQwq815ReX0V1gdLZiv3lhS3wAecedjtKw==
-X-Received: by 2002:a05:600c:154d:b0:4a3:5a42:b2a4 with SMTP id 5b1f17b1804b1-4a96720266bmr62849985e9.12.1793201768098;
-        Wed, 28 Oct 2026 08:36:08 -0700 (PDT)
-Received: from [192.168.0.167] ([109.79.76.222])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05f168sm41594465e9.4.2026.10.28.08.36.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 08:36:07 -0700 (PDT)
-Message-ID: <ba560f04-d817-4b01-a1c4-293165625f07@linaro.org>
-Date: Wed, 28 Oct 2026 15:36:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENS9tKz/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A14D1F01242;
+	Wed, 28 Oct 2026 15:36:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793201777;
+	bh=NcBMAsscOX++K8Pwqm1G7DDSp4gQMpAWt2lAFd4UW3U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ENS9tKz/j5zjSyLFESyOhELFO/mfE2g7oUwFcvJAANP9VQCBp5Lzz9xozhTOymmAS
+	 ywBrDUq8hEIxjJcy2oWiem72saWgu0XFUvzRh4eQEz/WSynXNRwqbu0AL0uLuG7k5d
+	 mJRmk+p9gn+nGxZt4KR7j0xrNis4WONi7IccBrP/Ia5rhR6M12vnaDWLjYOjeyewCI
+	 oIQTuoa1D+vvtY+ZfOxY+i/npzjeO1yTVCdiiF8qctzsYz6Fr9BA7C87u4Hp0ZwCm/
+	 z441abUJbh1OdHqlzTo1DGU8xW9ULPlQHe4ttqHNiHIl/8fTKVBuywlVWjCFntM2US
+	 bvx8AiUKSuDVg==
+Message-ID: <sashiko-outbox-188060@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v23 09/15] media: qcom: camss: csid: Add support for
+ CSID 1080
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261028-kaanapali-camss-v23-9-95f250b18612@oss.qualcomm.com>
+References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
+ <20261028-kaanapali-camss-v23-9-95f250b18612@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 15:36:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,43 +60,243 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 11/15] media: qcom: camss: tpg: Add support for v2.4.0
- TPG
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
- <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 15:20, Hangxiang Ma wrote:
-> Add support for the TPG found on Kaanapali. This TPG uses hardware
-> version 2.4.0, which drives test-enable and reset through the
-> TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
-> TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
-> CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
-> the data source when a test pattern is selected.
-> 
-> Add the TPG resources to the Kaanapali camss resources so that the TPG
-> subdevices are created on this SoC.
-> 
-> Signed-off-by: Hangxiang Ma<hangxiang.ma@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] media: qcom: camss: out-of-bounds fmt access in __csid_configure_r=
+di_stream()
+- [Medium] media: qcom: camss: csid-1080: race on addr_update and reg_updat=
+e bitmasks
+- [Low] media: qcom: camss: unused variable lane_cnt in __csid_configure_rd=
+i_stream()
+--
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+commit a4bf52311267182465594dfcec0df1e6e7980755
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+
+media: qcom: camss: csid: Add support for CSID 1080
+
+This commit adds hardware resource definitions and driver support for the
+CSID 1080 module on the Qualcomm Kaanapali SoC, including RUP/AUP register
+update handling, stream configuration, reset, and BUF_DONE interrupt
+handling.
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> new file mode 100644
+> index 0000000000000..3d90d31201fa5
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+
+[ ... ]
+
+> +#define MSM_CSID_MAX_SRC_STREAMS_1080		(csid_is_lite(csid) ? 4 : 5)
+
+[ ... ]
+
+> +static void __csid_addr_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->addr_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->addr_update, csid->base + CSID_AUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_addr_update_clear(struct csid_device *csid, int port_=
+id)
+> +{
+> +	csid->addr_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+> +
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->reg_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->reg_update, csid->base + CSID_RUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_reg_update_clear(struct csid_device *csid, int port_i=
+d)
+> +{
+> +	csid->reg_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+
+[ ... ]
+
+> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
+ble, u8 port, u8 vc)
+> +{
+> +	u8 lane_cnt =3D csid->phy.lane_cnt;
+> +	u32 val;
+> +
+> +	/* Source pads matching RDI channels on hardware.
+> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
+> +	 */
+> +	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIR=
+ST_SRC + port];
+> +	const struct csid_format_info *format =3D csid_get_fmt_entry(csid->res-=
+>formats->formats,
+> +								   csid->res->formats->nformats,
+> +								   input_format->code);
+> +
+> +	if (!lane_cnt)
+> +		lane_cnt =3D 4;
+
+[Severity: Low]
+In __csid_configure_rdi_stream(), lane_cnt is initialized and updated here
+but never read anywhere in the function. Will this trigger an
+-Wunused-but-set-variable warning?
+
+> +
+> +	val =3D RDI_CFG0_TIMESTAMP_EN;
+> +	val |=3D RDI_CFG0_TIMESTAMP_STB_SEL;
+> +	val |=3D RDI_CFG0_RETIME_BS;
+> +
+> +	/* note: for non-RDI path, this should be format->decode_format */
+> +	val |=3D DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+> +	val |=3D vc << RDI_CFG0_VC;
+> +	val |=3D format->data_type << RDI_CFG0_DT;
+> +	writel(val, csid->base + CSID_RDI_CFG0(port));
+> +
+> +	val =3D RDI_CFG1_PACKING_FORMAT_MIPI;
+> +	writel(val, csid->base + CSID_RDI_CFG1(port));
+> +
+> +	/* Configure pixel store using dedicated register in 1080 */
+> +	if (!csid_is_lite(csid))
+> +		__csid_configure_rdi_pix_store(csid, port);
+> +
+> +	val =3D 0;
+> +	writel(val, csid->base + CSID_RDI_CTRL(port));
+> +
+> +	val =3D readl(csid->base + CSID_RDI_CFG0(port));
+> +
+> +	if (enable)
+> +		val |=3D RDI_CFG0_EN;
+> +
+> +	writel(val, csid->base + CSID_RDI_CFG0(port));
+> +}
+> +
+> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
+> +{
+> +	u8 i, k;
+> +
+> +	__csid_configure_rx(csid, &csid->phy);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			__csid_configure_rdi_stream(csid, enable, i, 0);
+
+[Severity: High]
+Can this read past the end of csid->fmt[] on non-lite CSID 1080 instances?
+
+For non-lite instances (CSID0, CSID1, CSID2 in csid_res_kaanapali),
+MSM_CSID_MAX_SRC_STREAMS_1080 evaluates to 5, so csid_configure_stream()
+iterates i from 0 to 4 and passes port =3D 4 into
+__csid_configure_rdi_stream().
+
+Inside __csid_configure_rdi_stream(), input_format is computed as:
+
+	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIRST_=
+SRC + port];
+
+However, in drivers/media/platform/qcom/camss/camss-csid.h,
+MSM_CSID_PAD_FIRST_SRC is 1 and MSM_CSID_PADS_NUM is still 5:
+
+	#define MSM_CSID_PAD_SINK 0
+	#define MSM_CSID_PAD_FIRST_SRC 1
+	#define MSM_CSID_PADS_NUM 5
+	...
+	struct csid_device {
+		...
+		struct media_pad pads[MSM_CSID_PADS_NUM];
+		...
+		struct v4l2_mbus_framefmt fmt[MSM_CSID_PADS_NUM];
+
+When port is 4, MSM_CSID_PAD_FIRST_SRC + port is 5, which indexes one
+element past the end of csid->fmt[5] when reading input_format->code (and
+msm_csid_register_entity() only registers 4 source pads). Should
+MSM_CSID_PADS_NUM and MSM_CSID_MAX_SRC_STREAMS be updated to accommodate
+the 5th RDI stream, or should MSM_CSID_MAX_SRC_STREAMS_1080 be capped to
+the number of source pads?
+
+> +			__csid_configure_rx_vc(csid, 0);
+> +
+> +			for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
+> +				__csid_addr_update(csid, i);
+> +
+> +			__csid_reg_update(csid, i);
+> +
+> +			__csid_ctrl_rdi(csid, enable, i);
+> +		}
+> +	}
+> +}
+
+[ ... ]
+
+> +static irqreturn_t csid_isr(int irq, void *dev)
+> +{
+> +	struct csid_device *csid =3D dev;
+> +	u32 val, buf_done_val;
+> +	u8 reset_done;
+> +	int i;
+> +
+> +	val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
+> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +
+> +	reset_done =3D val & INFO_RST_DONE;
+> +
+> +	buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
+> +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
+> +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+> +
+> +			if (val & INFO_RUP_DONE) {
+> +				__csid_addr_update_clear(csid, i);
+> +				__csid_reg_update_clear(csid, i);
+> +			}
+> +
+> +			if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i))
+> +				camss_buf_done(csid->camss, csid->id, i);
+
+[Severity: Medium]
+Could the unlocked updates to csid->addr_update and csid->reg_update here
+race with vfe_queue_buffer_v2() and vfe_enable_output_v2(), or re-trigger
+updates for other RDI ports?
+
+In drivers/media/platform/qcom/camss/camss-vfe.c, vfe_queue_buffer_v2() and
+vfe_enable_output_v2() call ops->addr_update() and ops->reg_update() while
+holding vfe->output_lock:
+
+	vfe_queue_buffer_v2()
+	  spin_lock_irqsave(&vfe->output_lock, flags);
+	  ops->addr_update(vfe, line->id)
+	    -> csid_subdev_addr_update()
+	      -> __csid_addr_update()
+	  ops->reg_update(vfe, line->id)
+	    -> csid_subdev_reg_update()
+	      -> __csid_reg_update()
+
+In csid_isr(), __csid_addr_update_clear() and __csid_reg_update_clear()
+modify csid->addr_update and csid->reg_update without holding
+vfe->output_lock or a CSID spinlock. If csid_isr() runs on one CPU while
+vfe_queue_buffer_v2() or vfe_enable_output_v2() runs on another CPU, the
+read-modify-write on csid->addr_update and csid->reg_update can lose a
+newly set RDI bit or write a stale cleared bit back into CSID_AUP_CMD and
+CSID_RUP_CMD.
+
+Also, within this loop in csid_isr(), camss_buf_done() -> vfe_buf_done() is
+called for port i before INFO_RUP_DONE is checked and cleared for ports
+j > i. When vfe_buf_done() calls __csid_addr_update(csid, i), it writes the
+entire csid->addr_update bitmask to CSID_AUP_CMD while completed ports
+j > i still have their CSID_RUP_AUP_RDI(j) bits set. Should INFO_RUP_DONE
+be processed for all ports before invoking camss_buf_done(), or does
+CSID_AUP_CMD / CSID_RUP_CMD only need CSID_RUP_AUP_RDI(port_id) written
+directly?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-kaanapali-=
+camss-v23-0-95f250b18612@oss.qualcomm.com?part=3D9
