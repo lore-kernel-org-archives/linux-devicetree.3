@@ -1,128 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793182981;
-	b=NHZppaxHWM8A/EdIWydXju0/6Fwab429UZT2YI0CvEz88LNPzdNluzrZJe1YOn+JxPFG
-	 3WrobLc6TBNYjyRyDI29nUZqlpF0hs7UlInk+cgmeHn0o2ZRw0zOzNfLFeLJIdwMBo8ny
-	 BNqwBWUEWNqtLYy5XAXKqYXrjYQwea3vB1ImQE3F04RjBZ9VgZnWqeBN8gF0u1zX6QsrG
-	 4QK6ZGMy2rsmRc5EU3W+oSDLIkXQ622HcIB3AqlnjKyfuu7LaCRpnjAX+UFXJ1gsbeZDv
-	 kKBEAaVDOBRDx82FgF7dGkzZIomBdRSY2Wx5lygUkI88o/FVQtvYZBlpMqGOHus4xOg==
+	t=1793183824;
+	b=3wX0yBVqRUTv8hT6VDWrBh4Lya08xgAmckNXR8Z+N7R0SEPCbdMZEqn8Gs/RapxlM2V+
+	 5oeuTy0zEuR+A9/t3K5ek0TyBD8SK7oOtyVa+ZTbud0erB17yQikGqmzyDjshcRv88pzx
+	 I9l78Do5AQBvEP8mvxhdhILnA9tunPrUDzqTjo41WmI0ewMl+GXzrJzQfWdNqRaVghmgg
+	 1fYNRecauzeBELoM1IJ86kiQrpX640vZTKWFMaApCD5NqFgTGP+kT6gmn+GbzFiHL8kbr
+	 qo0kE5zAg2ghvkr0yXRBe39W1WtgUXk19T3lHYtzmHweRn0RtFkO5USMqXq+3D1T8eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793182981;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fJLqm9V4jsOFfA6wxHEcJun15GePDPlJxumBUvgqgGU=;
-	b=tYdQ/O7gvajjPjXtODxtDpx6Ao3ianLkylkIKPwXucghcaZNZhQv8GKAQWoHNEjUjjMx
-	 xPw4/4CpQYerbMQIAlF5RFWQl5VqsWwUd7KfHFGzerZY8TXpUNStDPTuHyecE8XQrDqsM
-	 NdPSgOB/RQgnaatDfaCfLIZcZ4v84R6ynfunc8zzkxHU0OLDvDBQoP2OFGmLR+i/rBAVw
-	 gpCxIww9SjiTpcrjnZx9VbU1rMKOuq2YypbKQ6J+HcwrjxsAA8tEriA1EkfX/GaMckgrm
-	 mv9ZVsIJHsahizbG+rEOlHHcb4Zgtn2yJoUEgIN8L2wxVBtrtrFXFU7B+RvUWbtGu1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793183824;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=IuFE1CbUXRrxgTIqORqp/7lidcp91eBTsRAkZ1mmYME=;
+	b=u+BU6w3XkPsJw+ff+N4q6cWtfjq/WtRU0G9iPiFDXX3fwQ0g0bNr+Kwl30rf4fdQ/RvU
+	 a/j/QS1oX+HT0GX1WprcaUkUX8MqPTFcPHdlKtjCLm+eBLTsG9G28nnEZuzwCedcZOXDf
+	 9Q5AiXxSHXrtyKIQwEQ8/y+7Cn/r9+ixbZJ83jjXnhTURk5Zs9uDrEjofHbtFyQ9WHwFx
+	 V+hoC1Kevmm2AaWbnqLUFoy+aLOo4Q4NZ2wignOmLEmeHuWelh1hZMSS29dZ1XWCdA6am
+	 6RPpYKp6LmcLSSSGOknO4sFWTKagOEcBbxhMO8ciOP4mTrMZPNHGuBpU3dhb9QbdoDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UqJ49b6j;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cEelwyrf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbQAknng;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852B4606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852B4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F1606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UqJ49b6j;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cEelwyrf
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8hA7Y3768092
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:22:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fJLqm9V4jsOFfA6wxHEcJun15GePDPlJxumBUvgqgGU=; b=UqJ49b6jcBEGRk4N
-	SMcg+4URhJJuhk3SeW8bv8F4v6ep04YNfItmRsT7kGdv+WqjQJKm8XECwY4SMr0l
-	Cw/OBTIt6b7DBmuLNZWP8tSDKfneEmZ9lmTLN4s83EFFQ2wUGYRQgdk3Qmsx/Sqw
-	HmjX8jCJG8Ku0powhzuVEZgUKBbyf+LRYDEpuzykx0+rHBLgnExjTCzLMLuaB5Nr
-	NXwXvgaq8a8hJvmaBjuRP02xX3M8WljiBZQ84/2smhW8KyRJ9piZfexGD740N+Dd
-	l3uF0WZOQ6TPpfwjtKiQUeG2pXrZB6HgovunNh649Zgzo8MWX738zXTzSIzmSdhS
-	B5MMcA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp0bta-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 10:22:59 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f6f4fe531so127536285a.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 03:22:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793182979; x=1793787779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fJLqm9V4jsOFfA6wxHEcJun15GePDPlJxumBUvgqgGU=;
-        b=cEelwyrfGfmlt35tTqod9Uw9EXTfW+0PqqluJChECzfmxHszHmi524Yrh/sCXh9AxM
-         sscjoDTAIjs8OQk7wTnXfZ7M5NlZeCrJpwDVRhAFMzml+X0uj2SZxOeeyS8lWbDlBZkd
-         RjuhhLSANG4wmC+5ZN1LDpJPsaPpAmv8WKwEN6W4w9YRnv8fWmErGzyLGahakNw+u/6o
-         VeqFM0/z0Xcrm2SHQhK4AuGpqs72lseYQJG8BQGDQ037Z11+GelEbTOBHx4Ehz8s0z6s
-         6tRg2HpqWbzFXgAEFE4Fh8CyUp/GseaYCuDT8LtUzYpggWrPYOwhv/lxpukkZc3md7r4
-         UJkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793182979; x=1793787779;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fJLqm9V4jsOFfA6wxHEcJun15GePDPlJxumBUvgqgGU=;
-        b=Y/Jo4F+7GJWb82CZbNO3GBSrTPONggGW9MJg6yrJkxWCjSyaGW7zIPiC9r9krtkB6y
-         Ui3w6ghdZU0puyD+qL1FhLN1rSrmfxwGs2C0qYQvGEt/DSVuhznaqhWWTCri1IGDB0Ky
-         oZoe06fLcwu14TsXhyfoBH0tCCZA+b85E8eZiMc8yn3I4e93Je5ZyAqY5Z+A/4D/M784
-         vwIothcVBaM2hS6XJ9BIjcq90zDFlvxH4Kbrp49i69cs2cMFvDFBvLdmi6pD1tk+WBPP
-         mvJHcAeoX6c7KyVmTJv9pETr6s282HvVvvYM16q28xS9cwj0XE/hUKw0hqN2Pck9lbwU
-         0ESg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6x4fnIWzwIUTC/YPqSOZ7VtmucmG9KNX+Yb/ctlqo51gQli+1ozbBTd2S02fn7Hto55J58ZrEOwQf@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL7xa61/DaeZHgfoOWt1P/YM6DatazIawsmo00iWhlzaykMAx+
-	kFhKyV9zlI3IopCrGeI0ybRgs2xcBo5C9iuYkxGiobCSTljWbWVHfnmnsIrgGQ9kt2txdjlPGWN
-	nMDQaZYH55iyADgbiCktFPVDIr8S6co6VR3DO/uMxjp/1R9obcXmA4l8ihmja4QYq
-X-Gm-Gg: AYBFou0aaAQm7DSJBGb01r3IlFxMDGMiRScBatmdjTKeCCV2ix6dio3J5Qh7n2SKxLM
-	HnWXEQLi786znwmtIgdylqkMxQADXJSw216Rxfe+qgDFoasjZMhuZNYo+mQGu9CoR9tUqs/VUqB
-	1Z1Sr7EOneF34XKTsar56AN9BRgDN321lwDL3Qtog4f8BafZaXdEjiBuFgS+xg2ohq29eRf7Okx
-	FlWB+WSszCnINyIc7GXlB7RMkryut3WjTuAxeDn2hLKBf64FYoDqGQmoSEDj4Qv0epnpakoBnC8
-	Iz3mHRr8XmnYF0AVcxwVLLdS4b015zC5+5MwTqqWCtMqZDQh54n2JPc1EajnngS6GxFrZWVRC7O
-	WBbUmGLp/XppZ03g5QrxU2hniFasyW9EYDsOUT+HTmKPG225LUQoSMQZX66Uickta0UGcfc9RMa
-	3r
-X-Received: by 2002:a05:620a:4008:b0:93c:7d49:7b69 with SMTP id af79cd13be357-94408d42e06mr227997185a.60.1793182978714;
-        Wed, 28 Oct 2026 03:22:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:4008:b0:93c:7d49:7b69 with SMTP id af79cd13be357-94408d42e06mr227994285a.60.1793182978265;
-        Wed, 28 Oct 2026 03:22:58 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a976010ca7sm36225665e9.1.2026.10.28.03.22.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 03:22:57 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-        Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-pm@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/7] arm64: renesas: r8a78000: Enable GPIO support
-Date: Wed, 28 Oct 2026 11:22:55 +0100
-Message-ID: <179318297302.16022.6984836476337905961.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1792776697.git.geert+renesas@glider.be>
-References: <cover.1792776697.git.geert+renesas@glider.be>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HbQAknng
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F521F01825;
+	Wed, 28 Oct 2026 10:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793183823;
+	bh=IuFE1CbUXRrxgTIqORqp/7lidcp91eBTsRAkZ1mmYME=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HbQAknngDAGtw7u6NEHWZlJOJer7XnZgj7gx3xKtFJFehk16NevtEAedR8omVMpKz
+	 p5+U3G8KRKvSPrqyBh8dx8HaQAqG1kYt2QmHSLBNPUfrLbn/fECpGBBGKuSdLXu9CK
+	 RkfpWYDitO5zG3Re7XdtvIbTkLbWMbtJpajkreSdLtuVqRvF9ydDohGUs6J+FPDOCd
+	 FFolxERZPeaj+MPIj/R9CmwM4c8LIGLojosCkBuyw+pLPI1qcA3o1A13FbwRCPy92H
+	 HLzjnNXdgcKrDK9g08WpWW1oX+Q9x9DtVPZwVDI8gna+HKBa93UDfEcKfXsekCXDFb
+	 pvgXDbI4SDyGQ==
+Message-ID: <sashiko-outbox-187752@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] powerpc/dts: Add dts for WatchGuard Firebox T30
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lefteris Koutrakis" <lefteris.koutrakis@gmail.com>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261028102158.71032-1-lefteris.koutrakis@gmail.com>
+References: <20261028102158.71032-1-lefteris.koutrakis@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 10:37:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -131,66 +58,189 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 9_WPHMMF7_npOezOwZVagd1qQlMTs6tP
-X-Proofpoint-ORIG-GUID: 9_WPHMMF7_npOezOwZVagd1qQlMTs6tP
-X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae1cd03 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=0_pEspLTn5AsfqPZqEwA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfX21eTG8EqvlVl
- 51ZtucV2gk882WZb4yTc3kKH/tmYusgbM51AQGs8ldCqdwc9iUEP244kGX06olQvDeFgTaNNREK
- QMdAZ/nWi8kLG/uO6zeCfwZHRVFX2cddR/UrxVhupi3OhpWspH5pzuUytbM/YYwbB8fMzUs0i1N
- s/dhnGAMiVAUAz3ZAXfpZMdCHJQnyIMikjdOGX8Sp51X4gfK7dU09Vkc3J60r94U+VNVeA85Qns
- rZ83m/b+SNGm/hmf/WeLI5d67Qe8MXlBvYWQUnxpV41tOIg3BMjGT4CfJHEC/Uakhote/SY/b3Z
- t96Yuebe+z4b/mYn1Fv6ckXPokv7ykZaClmq5njJwuqy4UgLi64VN+Yuu60L9atMOdwCzB2HPCy
- FzmhIjJYC4I2BVVHkor4F9jj80iGYkmyTVogeHLVI8rugjrl4QaMl/KTuFaKLHWReReaGwdJugS
- jEkJdO8syICP3CGHDgA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MSBTYWx0ZWRfX0g0j5OpBmdiO
- dPxf/cu7mGC1+cKDq7hvZf7WswpcVS3AWerGo/PTXTUj5jKO5KH4ai3xZy9jQasNYz7MKZ+2vj8
- UUNVIUabYCD9gYyTb0N6wLUY2husfnA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280041
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] powerpc/dts: missing machine descriptor for watchguard,firebox-t30=
+ hangs boot
+- [Medium] powerpc/dts: /delete-property/ used on CPU child node in firebox=
+-t30.dts
+- [Medium] powerpc/dts: out-of-tree DT properties and undocumented binding =
+in firebox-t30
+- [Low] powerpc/dts: invalid /include/ paths in firebox-t30.dts break dtc b=
+uild
+--
 
-On Fri, 23 Oct 2026 19:50:38 +0200, Geert Uytterhoeven wrote:
-> 	Hi all,
-> 
-> This patch series enables GPIO support for the Renesas R-Car X5H SoC, as
-> found on the Renesas Ironhide development board.  On this board, clocks,
-> power-domains, and resets must be accessed only through SCMI firmware.
-> 
-> The series is a bit special, in that most patches are not meant to be
-> applied upstream yet:
->   1. The first patch, targeting the GPIO tree, restores the abily to use
->      the R-Car GPIO driver on a system that does not have pin control
->      support yet (pin control is not yet supported by SCMI on Ironhide),
->   2. The second patch, targeting a shared DT bindings branch, adds GPIO
->      clock definitions,
->   3. The third patch, targeting renesas-devel, adds GPIO device nodes to
->      the R-Car X5H .dtsi file,
->   4. The remaining patches are marked RFC or DNI; the latter depend on
->      code or DTS that is not yet upstream.  More detail can be found in
->      the individual patches.
-> 
-> [...]
+commit 14186547f28b2b27ac2d22fcbaad845f34789ba3
+Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
 
-Applied, thanks!
+powerpc/dts: Add dts for WatchGuard Firebox T30
 
-[1/7] gpio: rcar: Convert to gpiochip_generic_{request,free}()
-      https://git.kernel.org/brgl/c/5e826d71d4839d8471784d968274823f1f492eb5
+This commit adds a device tree source file and Makefile entry for the
+WatchGuard Firebox T30 and T30-W security appliances based on the Freescale
+P1020 SoC.
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/f=
+sl/Makefile
+> index d2cc8e1f007ea..ebbf301e1a8fc 100644
+> --- a/arch/powerpc/boot/dts/fsl/Makefile
+> +++ b/arch/powerpc/boot/dts/fsl/Makefile
+> @@ -3,6 +3,7 @@
+>  dtb-$(CONFIG_OF_ALL_DTBS) :=3D $(patsubst $(src)/%.dts,%.dtb, $(wildcard=
+ $(src)/*.dts))
+> =20
+>  # MPC85xx platforms
+> +dtb-$(CONFIG_MPC85xx_RDB) +=3D firebox-t30.dtb
+>  dtb-$(CONFIG_BSC9131_RDB) +=3D bsc9131rdb.dtb
+>  dtb-$(CONFIG_BSC9132_QDS) +=3D bsc9132qds.dtb
+>  dtb-$(CONFIG_C293_PCIE) +=3D c293pcie.dtb
+> diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boo=
+t/dts/fsl/firebox-t30.dts
+> new file mode 100644
+> index 0000000000000..546e989384b76
+> --- /dev/null
+> +++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+> @@ -0,0 +1,413 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +
+> +/include/ "fsl/p1020si-pre.dtsi"
+
+[Severity: Low]
+Will dtc be able to resolve "fsl/p1020si-pre.dtsi" (and
+"fsl/p1020si-post.dtsi" at the bottom of the file) when building from
+arch/powerpc/boot/dts/fsl/?
+
+In scripts/Makefile.dtbs, cmd_dtc invokes dtc with -i $(dir $<) (which is
+arch/powerpc/boot/dts/fsl/) and -i scripts/dtc/include-prefixes:
+
+    $(DTC) -o $@ -b 0 $(addprefix -i,$(dir $<) $(DTC_INCLUDE)) \
+           $(DTC_FLAGS) -d $(depfile).dtc.tmp $(dtc-tmp) ; \
+
+When srcfile_relative_open() -> fopen_any_on_path() in scripts/dtc/srcpos.c
+resolves /include/ "fsl/p1020si-pre.dtsi" relative to
+arch/powerpc/boot/dts/fsl/, it looks for
+arch/powerpc/boot/dts/fsl/fsl/p1020si-pre.dtsi and fails the build when
+CONFIG_MPC85xx_RDB or CONFIG_OF_ALL_DTBS is enabled.
+
+Should both /include/ directives drop the "fsl/" prefix to match the other
+device trees in arch/powerpc/boot/dts/fsl/?
+
+> +
+> +/ {
+> +	model =3D "Watchguard Firebox T30";
+> +	compatible =3D "watchguard,firebox-t30";
+
+[Severity: High]
+How does the kernel match a PowerPC machine descriptor when booting with
+this device tree?
+
+The root node sets compatible =3D "watchguard,firebox-t30", and
+arch/powerpc/boot/dts/fsl/Makefile builds firebox-t30.dtb under
+CONFIG_MPC85xx_RDB. However, arch/powerpc/platforms/85xx/mpc85xx_rdb.c only
+defines machine descriptors for specific Freescale RDB compatible strings
+such as "fsl,P1020RDB":
+
+arch/powerpc/platforms/85xx/mpc85xx_rdb.c:
+    define_machine(p1020_rdb) {
+        .name           =3D "P1020 RDB",
+        .compatible     =3D "fsl,P1020RDB",
+        ...
+    };
+
+Without a matching define_machine() entry for "watchguard,firebox-t30" in
+arch/powerpc/platforms/85xx/, setup_arch() -> probe_machine() in
+arch/powerpc/kernel/setup-common.c reaches &__machine_desc_end and halts
+boot in an infinite loop:
+
+    if (machine_id >=3D &__machine_desc_end) {
+        pr_err("No suitable machine description found !\n");
+        for (;;);
+    }
+
+> +
+> +	chosen {
+> +		bootargs-override =3D "console=3DttyS0,115200 rw root=3D/dev/mmcblk0p2=
+ rootfstype=3Dsquashfs rootwait";
+> +	};
+> +
+> +	aliases {
+> +		label-mac-device =3D &enet0;
+> +		led-boot =3D &led0;
+> +		led-failsafe =3D &led1;
+> +		led-running =3D &led0;
+> +		led-upgrade =3D &led1;
+> +	};
+> +
+> +	memory {
+> +		device_type =3D "memory";
+> +	};
+> +
+> +	cpus {
+> +		/delete-property/ PowerPC,P1020@1;
+> +	};
+
+[Severity: Medium]
+Should this use /delete-node/ instead of /delete-property/ to remove
+PowerPC,P1020@1?
+
+In arch/powerpc/boot/dts/fsl/p1020si-pre.dtsi, PowerPC,P1020@1 is defined as
+a child node under /cpus rather than a property:
+
+    cpus {
+        ...
+        PowerPC,P1020@1 {
+            device_type =3D "cpu";
+            reg =3D <0x1>;
+            next-level-cache =3D <&L2>;
+        };
+    };
+
+In scripts/dtc/livetree.c, merge_nodes() handles /delete-property/ by
+calling delete_property_by_name(), which only walks node->proplist and
+leaves child nodes in node->children untouched. As a result, the second CPU
+node remains present in the compiled DTB.
+
+[ ... ]
+
+> +		sdhc@2e000 {
+> +			compatible =3D "fsl,p1020-esdhc", "fsl,esdhc";
+> +			sdhci,auto-cmd12;
+> +			reg =3D <0x2e000 0x1000>;
+> +			interrupts =3D <0x48 0x2 0x0 0x0>;
+> +			interrupt-parent =3D <&mpic>;
+> +			fsl,sdhci-dma-broken;
+> +			fsl,sdhci-ahb2mag-irq-bypass;
+> +			fsl,sdhci-adjust-timeout;
+> +			clock-frequency =3D <0>;
+> +		};
+
+[Severity: Medium]
+Are these downstream OpenWrt properties in /chosen, /aliases, and
+sdhc@2e000 intended for mainline?
+
+In /chosen, early_init_dt_scan_chosen() in drivers/of/fdt.c only reads
+"bootargs" and ignores "bootargs-override":
+
+    p =3D of_get_flat_dt_prop(node, "bootargs", &l);
+    if (p !=3D NULL && l > 0)
+        strscpy(cmdline, p, min(l, COMMAND_LINE_SIZE));
+
+In sdhc@2e000, the properties fsl,sdhci-dma-broken,
+fsl,sdhci-ahb2mag-irq-bypass, and fsl,sdhci-adjust-timeout are not parsed
+by drivers/mmc/host/sdhci-of-esdhc.c and are not permitted by
+Documentation/devicetree/bindings/mmc/fsl,esdhc.yaml (which sets
+unevaluatedProperties: false), while the standard properties in this node
+duplicate what p1020si-post.dtsi already includes via pq3-esdhc-0.dtsi.
+
+Similarly, the /aliases entries (label-mac-device, led-boot, led-failsafe,
+led-running, led-upgrade) and the root compatible string
+"watchguard,firebox-t30" are not documented under
+Documentation/devicetree/bindings/.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028102158.7103=
+2-1-lefteris.koutrakis@gmail.com?part=3D1
