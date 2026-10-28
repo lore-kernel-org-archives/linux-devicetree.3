@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181161;
-	b=cuwtuJuTK+4dT+YPXGZ29PMrQd1W3UCml+hFW87LWd9WNlXxhAlMURBSigQ5YEWkX5ZG
-	 YOBXxRsRa4Oq50mxJGPk2LXH6ZsvjzEfY7PF+aHwTzz6HOYQc15XYN3uuxi0+dRYXcjDx
-	 uH+4msjQpI8tBWztRPM2f8+kJX0gsw7l21vamYJQ+G6FYKdp8Hdr8z4uBWskITFLc3z4B
-	 R12ps9uLvJigYmHwgD7gebIAfZPwhHfW36neCnz/UnyMQcj+beSu2lBlRNKkT2G7cxXGa
-	 PygHERhWpiZuL02LbMbEC9Bb+zmAX5HBObHCvTiyUdfY6QJnDz9Kku3erSweYlJFalg==
+	t=1793181157;
+	b=QP5dbNWEePTIdaaoMuHFF9TPazC9xpyhyppfDLgge6gSCZTT2Ci33AUaRZ5zCym/2FEl
+	 0TlUDmEy7jdW+FjikAHhkMk8wAj2RKxTKS7c7N7XBp+HNiK3dMAOonu3EUD5hSWxZ+o3P
+	 exLbw2ECh1NeCz9uVBgyh7gRIbWTcs5+xRnm+wCQ9ukduadTIJ1U9LUVIiE7wYni+6pOk
+	 L/YflgdcrpzXe4LKwEnA5mo6ob6dVplXPbLdix6oicUL+0rQvEv05krhGZiZ9ZTGOc9T3
+	 PcggBy4/cwTgQkaIKpkML1FOWIzpxRK4XDeLsfsVtH97ad0fUM5ImeamIF0NOYj18/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181157;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HjrIAyJJFe+6a0dza+cAUoe0VKgjH+kUdZDN0GgbES8=;
-	b=OxkD2TL13hyomQywa3uZFeQCHNUrHyPG7ycKPREUwMYpfrtMCxdhFE2axL1yaiyTLuI/
-	 OJ3TWcRE8E3AeVzLN3IUHhMQQEFVYVRFdlZ1CSMZn8bzgwYAkg5Ok++dbGBpOlLshJfOQ
-	 vBZ/CdahMtvydHO9S2VBBfRfhyThpPyOJfAOtaAlktDmahq7blnglNYna2jIHEErZqXYx
-	 ojYyuqDNE4i+NOhgG2QWESVVCWYZ9XKcL5w7Ie+pmWGzlCRX60e71QYV6ITXI3TWuP7ww
-	 BQaAjq7mneVsSNCgTOv/+4QqLzWnNgloX1L9PlwNphu74Rzh+vAiK73D8wxvdyHyO8g==
+	bh=BMzeR5XwTVSEdnpmJzgxnKNf7Qx+ASdfSFIXqpGMQH8=;
+	b=enoGMk0uz7i6HEseVSpgufcxwX53UxBkHf7M7REMR9qm1ic5ALPsGenLogEVkz9un5bH
+	 0M4d0AJLaOghRiL1NaLpXsATetJbWv42Nhkm2SPfCGdN8ZbB19JvjJRFRR5r4MJAV7aLC
+	 ob/C+dQ2wZIsBr0d7XJffLm4CMDQtYUZLYegDdXEGEhyArelB72oI5jFwvzqKk2WEOmom
+	 eZSi0DTOhZ3/PlIX9mWuNgPhP/BqTs3/HcwzkbPV+PCVMYeKMyZuQOhvvz8FyLm3Ls90M
+	 Ng5NllB7n9r+oyhphom6PvLZa/hp3cDlFum2cIA3NO1W6fpYqJ4RV4j2AbNS7deehDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0gZ2rkh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lzvKirmt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F26606A320;
-	Wed, 28 Oct 2026 09:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0gZ2rkh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8562F1F01825;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574FD606A31D;
 	Wed, 28 Oct 2026 09:52:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lzvKirmt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74A491F031E0;
+	Wed, 28 Oct 2026 09:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181161;
-	bh=HjrIAyJJFe+6a0dza+cAUoe0VKgjH+kUdZDN0GgbES8=;
+	s=k20260515; t=1793181157;
+	bh=BMzeR5XwTVSEdnpmJzgxnKNf7Qx+ASdfSFIXqpGMQH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C0gZ2rkhtTRpPCHOsNuQz5RR/ra/DUYkw1wrPBdhtWrNz9gZPMPOewd0tBOo49TL6
-	 +ZZfaCIYI13zvh0OnjpoOCNoEKErT3YjKgPfUNAEmh5Z7IPpC1uX4vOGKvhRMxUeVj
-	 Ra6+Fgiz2dcFBBl0NNT8fDmPA1ADmBHRqzN0+hMhqmJX8EPUu0VTo5aJ8hrt7xvpJy
-	 ZV2tNX9RUDZG6WHMEFYcOFOi/nOZgc9m36s9gNOryYjROixGCfA0KxT9wIEC1S+jiG
-	 WGK+L3vZfn37D3PmnvtvGrSXRvy7LzwMisxqzjcRNbqEPJlI1rcEUGyFVyaWYWVSyz
-	 L71CFMZxKL4Cg==
+	b=lzvKirmtRNjU+bKWx/JjbWiTboBwrLo1f+UEZ0U1Ceukmth/Y9jIrmb2ffRlUt9xh
+	 SCGzVlYEhrLDkZYGL4P9BYOEAHw3zHqO1WdqV2u8s0yj5LppRaHM1WQesNbbtyr7+P
+	 jf2zp6bJLqqu0MGAlTPKKFiYcRCgURAQKA42zLxI4g5sGkgvrrRuLSdm3/NmkSzNr4
+	 kvN03KbY9TuGZaNeI3I+drmi8VYyhgrpUX9jveg+gQ/uuSUtO9gTIraoQfK+a5dydg
+	 pYyKu2lGj41BoFoZyMoL84uGzdJsVcoHjqefHcso6/OLRyDS126nNf2Q4/FWTUDRqH
+	 OzRRU7a8umyFw==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -57,9 +57,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 8/8] arm64: dts: qcom: qcm6490-idp: Describe the panel bias enable GPIO
-Date: Wed, 28 Oct 2026 11:51:51 +0200
-Message-ID: <20261028095151.1682096-9-vz@kernel.org>
+Subject: [PATCH 7/8] arm64: dts: qcom: sm8450-hdk: Add display card overlay
+Date: Wed, 28 Oct 2026 11:51:50 +0200
+Message-ID: <20261028095151.1682096-8-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261028095151.1682096-1-vz@kernel.org>
 References: <20261028095151.1682096-1-vz@kernel.org>
@@ -74,63 +74,198 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The positive and negative bias supplies of the NT36672E panel on the
-QCM6490 IDP board are switched on by the PM7250B GPIO2 bias enable
-signal, which is described as a single fixed regulator supplying both
-AVDD and AVEE bias supplies of the panel. The fixed regulator does not
-describe the hardware, it can not supply a positive and a negative
-voltage at the same time, and apparently bias supplies are generated
-right on the display panel module.
+The SM8450 HDK board can be connected to an external display card, which
+carries a 1080x2400 LCD panel module powered by the Novatek NT36672E
+display driver IC with an integrated touchscreen controller.
 
-Since the panel binding supports the bias enable GPIO, describe the
-signal as such, and remove the oddly described and used fixed regulator.
+The panel is connected to DSI0 over a 3-trio MIPI C-PHY link, power is
+supplied by VREG_L12C_1P8, the bias supplies are on the panel module,
+and they are enabled by signal PM8350 GPIO8 (LCD_BIAS_EN).
+
+The backlight is controlled by the PM8350 GPIO9 (LCD_WLED_EN) signal and
+the PM8350C LPG PWM on PM8350C GPIO8 (LCD_PWM).
+
+As documented in the panel binding, the reset GPIO is described as
+active high, although the panel reset signal is active low.
+
+The DSI0 output is shared with the on-board Lontium LT9611UXC HDMI
+bridge, thus disable the bridge and its power supplies in the overlay.
+
+The touchscreen controller is not described, since there is no binding
+or driver support for it yet.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/qcm6490-idp.dts | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+ arch/arm64/boot/dts/qcom/Makefile             |   4 +
+ .../dts/qcom/sm8450-hdk-display-card.dtso     | 144 ++++++++++++++++++
+ 2 files changed, 148 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-index af7821e02fdb..98bbe662bd3b 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-@@ -51,17 +51,6 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	lcd_disp_bias: regulator-lcd-disp-bias {
--		compatible = "regulator-fixed";
--		regulator-name = "lcd_disp_bias";
--		regulator-min-microvolt = <5500000>;
--		regulator-max-microvolt = <5500000>;
--		gpio = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
--		enable-active-high;
--		pinctrl-0 = <&lcd_disp_bias_en>;
--		pinctrl-names = "default";
--	};
--
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
-@@ -653,14 +642,16 @@ panel@0 {
- 		compatible = "novatek,nt36672e";
- 		reg = <0>;
- 
-+		enable-gpios = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
- 		reset-gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
- 
- 		vddi-supply = <&vreg_l8c_1p62>;
--		avdd-supply = <&lcd_disp_bias>;
--		avee-supply = <&lcd_disp_bias>;
- 
- 		backlight = <&pm8350c_pwm_backlight>;
- 
-+		pinctrl-0 = <&lcd_disp_bias_en>;
-+		pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..93abf21132c1 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -422,6 +422,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-microsoft-surface-duo2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-sony-xperia-sagami-pdx214.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-sony-xperia-sagami-pdx215.dtb
 +
- 		port {
- 			panel0_in: endpoint {
- 				remote-endpoint = <&mdss_dsi0_out>;
++sm8450-hdk-display-card-dtbs	:= sm8450-hdk.dtb sm8450-hdk-display-card.dtbo
++
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-hdk-display-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-samsung-r0q.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+new file mode 100644
+index 000000000000..0e7b48b8357a
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Linaro Limited
++ * Copyright (c) Vladimir Zapolskiy <vz@kernel.org>
++ */
++
++/*
++ * Display Card kit overlay
++ *
++ * S5702 switch 7 should be turned OFF to route DSI0 to the display panel
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/phy/phy.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	lcd_backlight: backlight {
++		compatible = "pwm-backlight";
++		pwms = <&pm8350c_pwm 3 65535>;
++		enable-gpios = <&pm8350_gpios 9 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&lcd_wled_en>;
++		pinctrl-names = "default";
++	};
++};
++
++/* Disable HDMI bridge related nodes (mutually exclusive with the display card) */
++
++&i2c9 {
++	status = "disabled";
++};
++
++&lt9611_1v2 {
++	status = "disabled";
++};
++
++&lt9611_3v3 {
++	status = "disabled";
++};
++
++&lt9611_codec {
++	status = "disabled";
++};
++
++&mdss_dsi0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	panel@0 {
++		compatible = "novatek,nt36672e";
++		reg = <0>;
++
++		enable-gpios = <&pm8350_gpios 8 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
++
++		vddi-supply = <&vreg_l12c_1p8>;
++
++		backlight = <&lcd_backlight>;
++
++		pinctrl-0 = <&disp0_reset_n_active>, <&mdp_vsync>, <&lcd_bias_en>;
++		pinctrl-1 = <&disp0_reset_n_suspend>, <&mdp_vsync>, <&lcd_bias_en>;
++		pinctrl-names = "default", "sleep";
++
++		port {
++			panel0_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel0_in>;
++	data-lanes = <0 1 2>;
++};
++
++&mdss_dsi0_phy {
++	phy-type = <PHY_TYPE_CPHY>;
++};
++
++&pm8350_gpios {
++	lcd_bias_en: lcd-bias-en-state {
++		pins = "gpio8";
++		function = "normal";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++
++	lcd_wled_en: lcd-wled-en-state {
++		pins = "gpio9";
++		function = "normal";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++};
++
++&pm8350c_gpios {
++	lcd_pwm: lcd-pwm-state {
++		pins = "gpio8";
++		function = "func1";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++};
++
++&pm8350c_pwm {
++	pinctrl-0 = <&lcd_pwm>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&tlmm {
++	disp0_reset_n_active: disp0-reset-n-active-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	mdp_vsync: mdp-vsync-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++};
 -- 
 2.51.0
 
