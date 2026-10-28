@@ -1,73 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204055;
-	b=1M97KpyYxASnn08E1FpfYY1mlfezznfVDXrd6HL6QYqzv12g6V+ngbabrExjbNOUuTVU
-	 MHEodtbU9BGDkcywfWe4462+MmB6aVbYJbdkUvg/GfDtEUd8yZQQzTAD5PNRzxBAS6n9E
-	 HcW0/PVcxx9iOlCHPjZQKIBZVDWgIDpt8xm9OTBGA/lBHZ1qr86C8kLDjHs99H+ve/Hi5
-	 EVf+FfwCVkgbQhDG7+NQVABrutS25sl3eKxUVdzb4MWVPv/5kBrxDqqqtqLLpAOJGlIvl
-	 cB5EmfBmMt9H2+oegHhMbcqMVT9F/J+hTZWGXno0IrXmLjI854i1ErrPM+8nMo50/YA==
+	t=1793204276;
+	b=fxD7pXfav+pqDnsLWFVqxJ7pUNZ6GcLq5hu/SzlfU+Od6Ubx0HmODI4XEUQbFOMjPXit
+	 vCPeLnax+F+7umq+Pu1bKjMeTmVjSCbbRDcqXrHKm+Y5R/o+yvAT/Hs1d1dXOLdnTurgT
+	 2MST9DTRSvXFgusvIs3XVUDoyYWUxns31lucKBq66EA2B8TRdD87NfuiQAqxpWSqofRZx
+	 CQiTKYNbwa+X4RIstYVJiU1ci20gRSeW4Vf/xpPxqM6PeDuljMxD97+NlwcMPzJuSjSJ2
+	 M17TaAUvpcJlOVnKF7vWqUkknpGCCMcCm+PS9dcj80vitDwS4V/KLcRh+Vi5+TFqQqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204055;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=WOVU8i6VSaQSMlgwSIaOiPPhD4QfVwgPNsYdPg6cYCU=;
-	b=xqoP/xnrUY+50PDvpQNxU4QKp7qoOru8U1CdbRKrG+1C0LDuRy112+ESOCXKFtMkGhLC
-	 dArqyrIdLwrxnpSJJwwjD2n35RvROOZV45olR5AMJl6V/1FDYOgkwOEcVItPUUR/XO8p/
-	 nP/ZuNkN0zjo8Usxm5whRQnVOV3D5ZvKc5tfntFt7NzdnH7cFghfkyxf3hWRa32TpvL4q
-	 CcU7N1h6aTovuicqQfnA07OhDetlIkfXSV8cFd4U6BcgdzYHHLoOq6YJS6Wb50PlZveJK
-	 b0Glg3cWYHdeapN8sqvpUrrxdcWg2YiZpWbTpj4p69OPI9Vh4gGR8uFw2rDNjPVoMFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204276;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2mGkvX8vQ36N89gfVD8zSD8X6Ou7+v1TIto3wuhSmHo=;
+	b=oFk0xLzq/fAoGAp1te+Ia61u5ZUypcl9DF+Cg21hWY5XeAO4kbcprtcpzgft2lRgHDV8
+	 SB1ZhFfOq/r/u2Jt+CUMCfy4hStZrxy6nGYPIbz3a7qCGGx+emb+uDh6ajbyhjNjBVkoN
+	 JHjjTHpeuP8tQDeNX+ZZFr2VHBqOVfB2UNi8uEmnIyuXmPuGudjd7VZ2n17YhB9AJ+pmo
+	 NWtikQCSUCSQed7gJBcOTA/yrbLt2PiGibTjHcBjxWzFME/8XYCKkTVvXav8CLGncaI2F
+	 lth0/dq9UAfpYUxe7BmI7qOwU10AhiNib9A7MCWw69QbkBaVOtFNU4IiEc9fG7QUriQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnWD0tqP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiLz1bnq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF068606A31E;
-	Wed, 28 Oct 2026 16:14:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9532606A31C
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnWD0tqP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FC21F01829;
-	Wed, 28 Oct 2026 16:14:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiLz1bnq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CE41F01825;
+	Wed, 28 Oct 2026 16:17:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793204054;
-	bh=WOVU8i6VSaQSMlgwSIaOiPPhD4QfVwgPNsYdPg6cYCU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=RnWD0tqP0Rx76Hd3Lt0R6BXS06e06K3a9AfaAYA1Mrj1Ce6ttkV/Z6/VIpHdWFOVb
-	 RE8ZRHhoI5GT8bvE3ZyuCDItxrEK8ooi3qnmQr1p0SnR2SzhMIbr7TqTxrQX8QITti
-	 /HQCuwxfiHOcWdksoGPI6nMLVsRh8Y8LXkoF9qHAsiiS+GPQq/XlrT7qQ7dwT8mg7T
-	 dHLgDs3KQ/Z+Rl7TB0oJskZRQhuplP1y5xZr+xh4X6POxL/m7b74SS3dp4jUGeliau
-	 GAaS2yxJH96rpsz+nVuQZJsWqWDie9HI0z50pjAPgiiMTBDRoFeE5zRy4yAcutqM4F
-	 mXB/xaDD8rOAg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id CF775198005A;
-	Wed, 28 Oct 2026 12:14:11 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 28 Oct 2026 12:14:11 -0400
-X-ME-Sender: <xms:UR_iar2J6I9p2Ig3QvaWcsNcwnVB6gNqitW2_cUp8h0_YIuJJ5uGzg>
-    <xme:UR_iak5Hje25aokA0qrV-XYpWJxNpK4-Ac47sZYXltw9zii6TjerO6O8V0yQqN69q
-    7LR-g9-4646Y7Fz2Rx0dNoyz82HeQfkzb5F2IajuUF1BNH-uHnqIWO_>
-X-ME-Proxy-Cause: dmFkZTGYb6kzeLfSbFhlwQe1a1zYe5/Mo+zrZNnKMGIQueQ1a7i4SRFPcAejSS2+Khllz0
-    xAoR1Qnia36Ov+e5UBqH1FPnGs6xHJZU+D7viG3zqmLxO8RwmIEGn7x/YYIGUdcoRE+v5i
-    3ZMJ41Y5OzQvRG5OMzvUv/h/TzDy4NKA6qOHtcUgsKK3ZR1rGlHfwRgO41EFTCw2xV6YFr
-    Dr0bypCtmpxUh+GMuNfthe+Des+PnVRHA4M8Lb3Wt7cw7aqGewD/Xz8mKSZHqQ9od1k1B4
-    yWGNOEeXLCcPAry7eMZmOyc2w4L8uH3eCvJ60b9Xbw7dix6QwzYHEqYBXa+DylEJzINeJb
-    dKxN2RLCm0WOzERroc3Y4XVCb1L212yfgSGn+psQOXSLLNNe2yGg1d+zkQraPWCx10Clw9
-    x/JdizrcTU2WGLgHCz15EB+M0bEBCkymtTSIGTvLne6uke7bOuYmtUO7Sok8Ct7rNVRaUP
-    HQvoayfFWbXln8ISiGT6hF0PcR6w9RKgMOx/IWm6AxtgefLR5+lHzdZNbfaMp4V6S9wip+
-    P8HSnqgk36yfhs7rVDrW0ufNSYyoFX8Zm4WF2ZLQgt3UKmssMTDgKOXymaCTWiDsri2JdQ
-    NPJYITZq3XGM6OkXqDTKTmTfQ52MfTJQtGxW6AbohZ7aODkxXrO9Gb3M3Nnw
-X-ME-Proxy: <xmx:Ux_iajBl35FxRc0NNVREa6rg_J7fcmXCV_oIJfizRMSzrhabBpF2Yw>
-    <xmx:Ux_iagyDvoCEhlOZaVtMGScMw6hYf4cav2BpGxM7NHpsjWoX69_4Ag>
-    <xmx:Ux_iapfbamI2AGk2KXXMbpUqzl2T4NkhabAS6cL9hCwU_WJeeK63hg>
-    <xmx:Ux_ialuxZ2mATC45EJrRC_J5F2S63LgXVqIW5m-hYtGIaCroSeDhog>
-    <xmx:Ux_iauCEgBI4aSOf_0NbqTfMiLFmK3Q__6DogFQRjbtyA4koUygkc-iH>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id CD7ADF80090; Wed, 28 Oct 2026 12:14:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1793204275;
+	bh=2mGkvX8vQ36N89gfVD8zSD8X6Ou7+v1TIto3wuhSmHo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oiLz1bnqZ4IeN2Wg5E8RBqiEpzs+iO6LiTCjKax4QDvgT31ZDyRHB/IyWt6d6pZ6u
+	 8FxXYBQJjjVlt5lgfbU7+H3BJuopoyovwa6yrAE5LeLcKXLNtnZEVNC2Mmc+weq12v
+	 mp5Fnxpv6o1mdeeAYFbMJCQrHv5eT0B+g9yI/a+EiOS5nWOva6xbvLUkEgITQuLcF0
+	 1EWw6Y0eLhsCpSOikrvWbdN71IlTeSbXPmZNC/QwytiboKRG4BtxRoFTz+D80WBsrI
+	 mIM1wfhOl49yvTvPFX16IR+AfvHUzzr/ZGp+ewYPxPMW1ZpdTMOzYoKOljqGF439zO
+	 13O2150ImBsuw==
+Message-ID: <sashiko-outbox-188151@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: interrupt-controller: add Mobileye
+ EyeQ5 PCIe MSI controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gregory CLEMENT" <gregory.clement@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
+References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
+ <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 16:17:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,69 +60,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Date: Wed, 28 Oct 2026 17:13:49 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Hans de Goede" <johannes.goede@oss.qualcomm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: "Srinivas Kandagatla" <srini@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Dmitry Baryshkov" <lumag@kernel.org>,
- "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>,
- "Abel Vesa" <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, "Linux ACPI" <linux-acpi@vger.kernel.org>
-Message-Id: <4b41b061-1c0a-4c00-8263-2e14076c0864@app.fastmail.com>
-In-Reply-To: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
-References: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-Hello Hans,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: interrupt-controller: invalid gic node in eyeq5-msi ex=
+ample
+--
 
-On Tue, 23 Jun 2026, at 16:52, Hans de Goede wrote:
-> Hi All,
->
-> Currently as soon as the kernel boots with a populated DT provided then
-> the arch/arm64 code sets acpi_disabled=1 and the complete ACPI subsystem
-> gets disabled. On WoA Snapdragon laptops where the factory Windows OS
-> actually boots using these tables this is not necessarily desirable.
->
-> It might still be interesting to at least parse the ACPI tables and make
-> the ACPI fwnodes available for device-drivers to use. I call this DT-ACPI
-> hybrid mode.
->
-> This mainly is an experiment for now and possibly a method for accelerating
-> the ongoing effort to run Linux on currently available Snapdragon laptops.
->
-> On current laptops Linux cannot boot using ACPI due to some information
-> missing from the ACPI tables. People are working on changing this so that
-> for future WoA Snapdragon laptops Linux can boot using ACPI only without
-> requiring Devicetree.
->
+commit 07c2faf713f271c288290325080b191a291097be
+Author: Gregory CLEMENT <gregory.clement@bootlin.com>
 
-I was present at your LPC presentation.
+dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
 
-I agree that exposing the firmware tables even when booting via DT
-is reasonable - it is conceptually similar to SMBIOS tables, which
-the arm64 kernel mostly ignores too (as opposed to x86, which relies
-on it heavily for quirks from very early in the boot)
+This commit adds the Device Tree binding schema for the Mobileye EyeQ5 PCIe
+MSI controller.
 
-The examples you provided are straight-forward enough: I2C devices with
-_STA methods that reflect whether the peripheral in question is present,
-and all actual I2C transaction handling taken care of by the native I2C
-host driver, which is exposed as an OpRegion.
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobil=
+eye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controller=
+/mobileye,eyeq5-msi.yaml
+> new file mode 100644
+> index 0000000000000..919af55fc8a60
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eye=
+q5-msi.yaml
+> @@ -0,0 +1,120 @@
 
-I suspect, though, that things get hairy really quickly when things like
-DMA, interrupts (both wired and MSI) and SMMUs enter the picture, and so
-the extent to which ACPI device descriptions can be used on a DT boot is
-rather limited.
+[ ... ]
 
-Do you see any use for this hybrid mode beyond I2C input devices etc?
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    / {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        gic: interrupt-controller {
+> +            compatible =3D "mti,cpu-interrupt-controller";
+> +            interrupt-controller;
+> +            #interrupt-cells =3D <3>;
+> +        };
 
--- 
-Ard.
+[Severity: Low]
+Does this gic node in examples cause dt_binding_check to fail against
+Documentation/devicetree/bindings/interrupt-controller/mti,cpu-interrupt-co=
+ntroller.yaml?
 
+In mti,cpu-interrupt-controller.yaml, nodes matching mti,cpu-interrupt-cont=
+roller
+are required to have #address-cells set to 0 and #interrupt-cells set to 1:
 
+  properties:
+    compatible:
+      const: mti,cpu-interrupt-controller
+
+    '#interrupt-cells':
+      const: 1
+
+    '#address-cells':
+      const: 0
+
+    interrupt-controller: true
+
+  additionalProperties: false
+
+  required:
+    - compatible
+    - '#interrupt-cells'
+    - '#address-cells'
+    - interrupt-controller
+
+Since msi0 uses a 3-cell MIPS GIC interrupt specifier
+(<GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>), should the dummy gic provider node and
+root wrapper be dropped from the example, or updated to match mti,gic.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-eyeq5_msi-=
+v1-0-c464752fb55f@bootlin.com?part=3D1
