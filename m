@@ -1,87 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793216667;
-	b=LeAcVCZDoSJIeJhBfJ8k44CQS7xvtx7Z9L7c1+2tIj2yKrRQuF7YpT/ADDToOg3rMOVT
-	 81LmS60HhAxiEfQ9XZWAGWM8SiwzaODNs/HAReo6w4fFUDtHc9Ot3Koyd/reYZiLblJOL
-	 AhRUKP+bpSEal+t7jiE3NLl+v87phkM9INjE50LW6RHO5//HwdbHeXMRADksfxoQAq3Wm
-	 djwWledwoGgqxkTGfVis1lseA9u3HFrs4NfG9pJtXp9VekEFtlYnQEhByiNbugkdpyNXe
-	 amZu1ii26iXPYURzfAZg26UHdjigHy5xuJqXIh1/yyE72zHURO86v/DcVYyOYkIU75Q==
+	t=1793217244;
+	b=5sUAlPGE5iOIjttUcChhJjnJlXWU1SWmUsN7/vHjogh7mNzsTS7M8xeXLNY/huW+mgSu
+	 re/+6GAZ9Nm9gM/eZBHtF/ohyxTSMDXoekfz3pMkdhuBOyfMf4NfT8779yFfUtxuuLBpf
+	 NqYTxg99NDjbaWavlkmtkJJ9M2PeaEgLSf/BRIqSYO5iUCKFRnYNk5d7pLZaNA5GYjnSz
+	 fAWdjpDTgepvJHS1s1wN8hqTCv6NtSjOxvm6MXaNPeOR9tNjtjyGLNv1wbqQeD7X/uPSV
+	 8lMY+q1mAROgCMHGJorWaf8YH8etMoOA4iG5wLsAod6ZJDUU13wtxt2x4iySMjPTf5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793216667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217244;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=AWPweQHpDk6gsD/jh1PHflXPo0KH1KSnlzsF/PJ0brU=;
-	b=y2fuy/0JuPzlQC/Vz2W7OUvW3LNRTlJ/IQDMsX5IB/wzxT1mMWgPiPTN4WYfGWo4uDAr
-	 N8mUot3ayKDU6j9FFS4pM+z862FRvShvhoYXZ5UvOMqw8To0FHEHSqHe8144i5MMU+n11
-	 ZBhTBlRkbCA2i1+ayrpFibPg9a3dLd6jnzny3GfEQiaKaBoPq06yPUF+3M295QEShUSzE
-	 70+EQZ67xokhasnJy9QfsXwVKRZp+vv61TdDVkJKsQ/2GKW1hCkW9wV3L01WAAnk9WjHZ
-	 Uvlipm9IaGn+X74C8e0lvdfbFAyyFC8SJ6YNw5stIR8X6SayRugfsZGVKiLZ/CmDlAg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+	b=CPFqAcQYACH5BXI/nUPKfnO3UrtIqIdHD73mkhbcBD3aphaj6LZV1Z2qcGA1/bito5rh
+	 Y29G8QZXTRVfOdRj5GLojWkltbXnL+/0rJ8ZEUILFc5+mU5lpOAZx0MOsgdm7XBIE4NT5
+	 N1itBOtWRmJ6X81DhXcF5+0CowexpCLN3nf9CMCLjenG3xWijOJffqpDjTOY3/N5kfixP
+	 7VcA5TpNW9laFgMe7AC/zwc9AkxaKw9mqKCWuD1GZ7uLr5ndm/WqkwcLi7VCf7VeExOB+
+	 nlv/Ltv2IkoGzbQD/J5V5PeljGMbg/RPBRGDaZA2EUIr00oH8WEDX0MczZXfVItXzcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=btdyUVxq;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gA8NHJ+U;
+	arc=none smtp.remote-ip=74.125.230.193
+Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DACC606A31D
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:44:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DACC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1868606A31C
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1868606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=btdyUVxq
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afbd2c386so866732f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:44:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gA8NHJ+U
+Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-5332a0f6dbbso17566671cf.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:53:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793216665; x=1793821465; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AWPweQHpDk6gsD/jh1PHflXPo0KH1KSnlzsF/PJ0brU=;
-        b=btdyUVxqGllsmx7PdfZtXJxg5O3lMYfsJNs0FsMva9iyMIKwhWLF/mve8ROoc9aubS
-         HPSX7T8xYnXaoPofPwwNAW44/cunAet2aDwX7SM0VEGxXtrJN1x2+EgduSKtRnZwiTvm
-         GbenWrTTk0hgZdetO8jMVCMjWQ3rmiIimiwl0DKuK1Nse7zgT/y+7K7trKPAUTvy5jzq
-         EnnMmalaJ4vmJgLQipA+aPnCDaMDtVB8DtzZzzzdolDCnhebzhqgAxyfZqGs4PqMRhRj
-         uYVZLCCVLDzK+Rt0U66Dfl55jjKJA3SVgR78XjFAxodwIn8eFeMUpjJNA+teyBJ450R7
-         W6Yg==
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793217238; x=1793822038; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+        b=gA8NHJ+UM409Pb2djn7TARhTXL8Cvgm60g/OVah6ioaVdFYAw9AWWw5+4lTvqA+/41
+         D3tAZxairdTiOAek/OnzQdDPfkMR9FgKyVvUYHpGhJp6RPvLJtc1YlXnynSwQomIktOa
+         2/KoZ9qgHe0ePSfxYWHcNRO73O0clP/E+3XMwoNncVn4ITtF+9xs85IqlW9JnMaFh2pb
+         6th30oqcaa3ixdINLDMT7JGLkuVhrjZBNBzF3bBY5a8W/rfDQnLmmmdQoEgIfxwMCqC1
+         3dOJw4ViPrqKVIBnJ6Il6g8D5HaIGG6V0NQ24WTI/Gwd7wxDdW5lMwPH9N+F2xDzO7Qa
+         2dmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793216665; x=1793821465;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AWPweQHpDk6gsD/jh1PHflXPo0KH1KSnlzsF/PJ0brU=;
-        b=QGIqqfE7ElcVyliEdxh1IG7WPC0BQK85W2KQO1YHduN85+IV2l/jftv4i2kgiu+y+w
-         XnnaPbkaV9pXAqD3H2I9+YAOPMJkW2Pujq6HDL/O+POX47yfoLW0bGUyVcrfUjPCbmy2
-         FICikWgPovtTeukr0GEuITBdoLXcvHOO+LIhmi712AERTQTd1mrGrE+dJN/RGVBKW5sW
-         R22W+cq5oZb0TQU9FVOmcCzjhuR+C0j+P1IOtzEG59yaC7pO589C5AsVSJAuaWsjXXo5
-         tIx43ANC4H/vH6mbTSzfeRkiPTNBF3Dkm48hQiV4j6BtvTYttDR5Hf3hdH+kwwJz1u1W
-         ToBQ==
-X-Gm-Message-State: AFq9FYLIgvitxynrP60+OGwk8brIrTH2ewLDef1+otf6V01J9PjYJ5mO
-	kkrdSICfuhwjN0e0aZEGh3eqyGJHeraWvcAt30VTghV+t8gl8gO3uP2Z
-X-Gm-Gg: AYBFou17rpj27prNfE5uIanqAwzDkRVmzmxkTw06DpLk6HPN+D5yIhu7b2pNf12l4Sc
-	99m5plIApmC176lgXrbHN/FwA6VHximw68ObWdp4vd5dYgY6tJJFL8cwh7ihPIsERdY5VG1J062
-	EqE6TMeBDf7CQqGOaN+zfcYuYaNE9Da3sIBAooW6BQO8s3tbY/Xv4F/Q4auj3feA/+fCRmONSby
-	F8MOS2WeIQ58m5Bst6oxavJNf95nQ/QySn24AVG8KR0kTLnvkkVSbrEbNXA8W4EYQORAj60zToc
-	EimxQ4KTioFkVICE1C2TRcukQtDwkXGaW+Ecy86mFXiq+8A3ZCzmPIj0qZQHFEkuHVm3esCBFVr
-	KPZPkcGKe/ZVU6WANXzDh3+OqYnPjCd/Sviw7r7VRnNzwSERGZdMmglMXoSpFq7wA5k3LXXRU/B
-	k6r87Su3tX3ELqJ5mycpQ5FRvirtc19bUVuCkit4SKZ1FdHydzG9di2cad+wjPcV2AdmhL5KH9z
-	D9dMA5m17/JoRKxxw6BhpSpaIyfxfn84D7E5RI4LZ5pVklvl6OP5U3yXRep4qj7e3/cxNa6TweD
-	SorzithY5uQ2KMZlxe0URlOixbbmTbiOgImdh95vXuVzHcaq1asJGVgV0hX1jMbJNtaI+BdCS61
-	2gU2gN+AWOrFptt9/dcgx5lLfDvYFZ10=
-X-Received: by 2002:adf:fc8b:0:b0:48d:ca32:e90f with SMTP id ffacd0b85a97d-48e5d5e0167mr6431684f8f.55.1793216665283;
-        Wed, 28 Oct 2026 12:44:25 -0700 (PDT)
-Received: from [192.168.68.70] (host-87-10-175-32.retail.telecomitalia.it. [87.10.175.32])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm27766389f8f.3.2026.10.28.12.44.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 12:44:24 -0700 (PDT)
-Message-ID: <b911ff91-ce7b-462e-a7fb-f8c6d682c85b@gmail.com>
-Date: Wed, 28 Oct 2026 20:44:21 +0100
+        d=1e100.net; s=20260707; t=1793217238; x=1793822038;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+        b=AR5VlJDO5HDkHd0gMD9COW9QIb1hpbPZ3QU7fJ8Vz8txQu1pFVpoZc2qqBgh9uq2pq
+         lxU9VZxUjtShzlsj6TV73d0eh8NgALKtIkWnSe68aAP1kc30PjjlPVA0FWyXKovkkW9Y
+         Gop5s4oDmU/kYOlE+irel0+8x8lYBzHJnBwiKsE+BsPnRLZ+wSHPx6/6CkF0dTJ13Rjm
+         i/DSZJhCi7i7DXycae5JP+djxLQSJcjFKR4GGzHbK3Xz3bHmLN5Sr+IpzVKz0aEdjYNw
+         dDSIUqigJ1NMdgiYHJyAsSaHjT15X+A0OtfgcaknYJZaw3ULsfeOmJKwcncV9Q/fl2xV
+         5sag==
+X-Forwarded-Encrypted: i=1; AKwUvByC3s4za889R1JzR0nXNf36bvDvEmezdlbyfh9/RNfrmVzG+pyVMA9gHqIoc5qz7zleW31Lb5C4EjnJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKtxyPQdk8eO8s6V7/4tzWCcdYn5+jxU7ZgW1hMeiPwAtnshhY
+	XEr4xUPm17553ddCog9YNxkMUlKkm6YWtwfCShSMgZRbelPh3lQ4cf0Dz1//ytpk4Cg=
+X-Gm-Gg: AYBFou1dwz4hpDWwq9f9flRwZmFqenUn6I9C91/jlUOQjVbofe+hen818xMtSfauIAt
+	4dOFouGqlD49buJ1aVQbeJsKBUrNo68du0B1LdAjBNNuK0/MCYorqcsbGhs3dB2waDb3/p+8H+C
+	NASn2EIRE1VAH5IuRcePNX8ymzoC8XyXzXo+K+una/2em+6WxUuZb7ibn1vfQdvP1n2iJppYjae
+	8agR+oSpadNXODVd/X6a6bHxou0PIhA2gpFVMgkfhmxYQ3PGY7uoToZ8MmL8tBKb5A6MUHljmbq
+	O2wJ8mLA9prub4x5h9jQrTzy+njcrR+pc3PZiCujwgV5IdVb2nDz8RRZut0cwZpxL7e6owYNxYG
+	VRsI/y//5swaCanPYQEfmWmvlJSfJdCu7XHBnWTx8fOOTE2VZ1+3+0LGPWRyDwB4a0qDlOlkDUi
+	yg4iw3g9P1+OKNUFlLAWtxRj6R6Zcut4ineOX8UkoA5Ion+5SB6ehh8WaFwGzI3WExQ6XkzHE2O
+	Hj9b+zzkgef/orB/gWXsFl4/6yIl4Dc+eDtoY1jA1pNV6JATOsefh/scul4ipZK32R6JRKbXRi6
+	onrDxLDc+eWBOJChvcTRsl4mwVtmBPLz0Gz9qFJ15lVmaeEL9VZ3oT6DTaArIEOLSCWy1EX6t6H
+	x
+X-Received: by 2002:ac8:5a50:0:b0:536:6abc:54b1 with SMTP id d75a77b69052e-53fcb509e99mr60729391cf.28.1793217237708;
+        Wed, 28 Oct 2026 12:53:57 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53838cf49c9sm113417671cf.3.2026.10.28.12.53.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 12:53:56 -0700 (PDT)
+Message-ID: <bfc4481a817e761ed9ccc265484dfbdfc1e59490.camel@ndufresne.ca>
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Torsten Duwe <duwe@lst.de>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Lucas Sinn <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
+	 <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 28 Oct 2026 15:53:53 -0400
+In-Reply-To: <20261022190026.6cb0a534@rocky.lan>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+		<20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+	 <20261022190026.6cb0a534@rocky.lan>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-vP+iZzvr5GpVmxFar41J"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,81 +121,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu
- information
-To: Frank.Li@oss.nxp.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Xu Yang <xu.yang_2@nxp.com>, Frank Li <Frank.Li@nxp.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Francesco Dolcini <francesco.dolcini@toradex.com>
-References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
- <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
-Content-Language: en-US
-From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-In-Reply-To: <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
 
+--=-vP+iZzvr5GpVmxFar41J
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/20/26 23:10, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Add usbotg3 iommu information.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi b/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
-> index ccf9f510e0f88..1370a571153a5 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8qm-ss-conn.dtsi
-> @@ -32,3 +32,7 @@ &usdhc3 {
->  	compatible = "fsl,imx8qm-usdhc", "fsl,imx8qxp-usdhc", "fsl,imx7d-usdhc";
->  	iommus = <&smmu 0x11 0x7f80>;
->  };
-> +
-> +&usbotg3_cdns3 {
-> +	iommus = <&smmu 0x4 0x7f80>;
-> +};
-> 
+Hi Torsten,
 
-Hello Frank,
+Le jeudi 22 octobre 2026 =C3=A0 19:00 +0200, Torsten Duwe a =C3=A9crit=C2=
+=A0:
+> Hi Sascha,
+>=20
+> first: thank you for driving this :)
+>=20
+> On Thu, 22 Oct 2026 13:06:40 +0200
+> Sascha Hauer <s.hauer@pengutronix.de> wrote:
+>=20
+> > Add a driver for the JPEG hardware decoder Rockchip integrates into a
+> > number of its SoCs.=20
+>=20
+> [...]
+>=20
+> > +static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
+> > +				    struct v4l2_fmtdesc *f)
+> > +{
+> > +	if (f->index)
+> > +		return -EINVAL;
+> > +
+> > +	f->pixelformat =3D V4L2_PIX_FMT_JPEG;
+> > +	f->flags |=3D V4L2_FMT_FLAG_DYN_RESOLUTION;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
+> > +				   struct v4l2_frmsizeenum *fsize)
+> > +{
+> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
+> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
+> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
+> > +		return -ENOTTY;
+> > +
+> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
+> > +		return -EINVAL;
+> > +
+> > +	if (fsize->index)
+> > +		return -EINVAL;
+> > +
+> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
+> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
+> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
+> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
+> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
+> > +
+> > +	return 0;
+> > +}
+>=20
+> Can it do JPEG, MJPEG or maybe both? AFAICT the difference is minimal,
+> so maybe try to be more permissive?
+>=20
+> [...]
+>=20
+> > +static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops =3D {
+> > +	.vidioc_querycap =3D rkjpegd_querycap,
+> > +	.vidioc_enum_framesizes =3D rkjpegd_enum_framesizes,
+> > +
+> > +	.vidioc_enum_fmt_vid_cap =3D rkjpegd_enum_fmt_vid_cap,
+> > +	.vidioc_g_fmt_vid_cap_mplane =3D rkjpegd_g_fmt_vid_cap,
+> > +	.vidioc_try_fmt_vid_cap_mplane =3D rkjpegd_try_fmt_vid_cap,
+> > +	.vidioc_s_fmt_vid_cap_mplane =3D rkjpegd_s_fmt_vid_cap,
+> > +
+> > +	.vidioc_enum_fmt_vid_out =3D rkjpegd_enum_fmt_vid_out,
+> > +	.vidioc_g_fmt_vid_out_mplane =3D rkjpegd_g_fmt_vid_out,
+> > +	.vidioc_try_fmt_vid_out_mplane =3D rkjpegd_try_fmt_vid_out,
+> > +	.vidioc_s_fmt_vid_out_mplane =3D rkjpegd_s_fmt_vid_out,
+> >=20
+>=20
+> You are populating only the *_out_mplane members and not the single
+> plane ones? So a greyscale JPEG needs to go _mplane with 1 plane?
 
-this patch, now in mainline as 73c3b40e536d, breaks USB 3.0 on Apalis iMX8QM
-(both on Ixora and on the Apalis Evaluation Board). Right after xHCI starts:
+Drivers only implement one queue type, MPLANE is the recommended one. There=
+ is
+pixel formats for single allocation and multi-allocation that userspace can=
+ pick
+from. So a driver can do MPLANE and support both NV12 and NV12M formats as =
+an
+example.
 
-  xhci-hcd xhci-hcd.1.auto: Host supports USB 3.0 SuperSpeed
-  xhci-hcd xhci-hcd.1.auto: WARNING: Host System Error
-  ...
-  xhci-hcd xhci-hcd.1.auto: xHCI host controller not responding, assume dead
-  xhci-hcd xhci-hcd.1.auto: HC died; cleaning up
+>=20
+> And for color, the colorspace on the decoded side should be
+> V4L2_COLORSPACE_JPEG, not sRGB, I think.
 
-SuperSpeed devices no longer enumerate, and no SMMU fault is reported.
-Reverting only this commit on top of current master fixes it. The other commit
-seems fine.
+Should actually match what the JPEG header says, RGB jpeg exist.
 
-Adding the same property to the parent as well, like the NXP downstream tree
-does, also fixes it:
+>=20
+> Would you mind to give a hint about your test setup?
 
-&usbotg3 {
-	iommus = <&smmu 0x4 0x7f80>;
-};
+I believe Sascha has been testing with GStreamer, the element is called
+v4l2jpegdec.
 
-With that, SuperSpeed devices enumerate again.
+Nicolas
 
-Could you please take care of a fix? Otherwise I think we should revert this
-patch.
+>=20
+> Thanks,
+> 	Torsten
+>=20
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
 
-#regzbot introduced: 73c3b40e536d
+--=-vP+iZzvr5GpVmxFar41J
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Thanks,
-Emanuele
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauJS0QAKCRDZQZRRKWBy
+9FbtAQDQq1LHLIEYGFdpJt3hiBBdUv17DM2qsOM4AzolcnZ4QQD/ber/FxSYvItX
+/Z3gWh4nz808VmJqoajvRuATRpq4NQo=
+=niJB
+-----END PGP SIGNATURE-----
+
+--=-vP+iZzvr5GpVmxFar41J--
