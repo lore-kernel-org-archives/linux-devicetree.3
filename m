@@ -1,106 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793205169;
-	b=YDuQtJzCyKTbg55EIe/e6EG7QEcbbqlFGMIjC/aTqgtj4e442J3AvMbhX+F4EYzMlZZ2
-	 HrN4Idot6T+0x6XTViUQ2J0dowL36tBeL14yZ7SlUmAe2m2C5zL70IL2WmtJ+gJRO5c25
-	 a/Lfy0ZbqgxUbh2+O9ZDt775jxD5spPhWxSQHwkx7RJTfjOzeOxJsK6tEG/jAIQuL7GrT
-	 p+hTJ/2sXH+6hV5zKFxKQHqKSMP0I4iZ4TiKXzrkZvuGUeoIEARwBNTjUjZKTXHrKFu+l
-	 gAVu1Hl5P3zfm2TQu2XzY5wg7e9pUXXEOl+QZO5A3zigW+R5vxvfIyvZSeyirwCjaVQ==
+	t=1793205210;
+	b=cArC1qmIzXZwwj7waPYAj2qlvm8DjSfueWe5+K8A7Nc39vdI6NgJzIG30trsN/pWaDID
+	 N0p2pQeGr88e8ykIRN65kVsp2OAQElKBZukqGRQ1OXiLJ03OLR3oDUjY0Y/tmjOsU8FPh
+	 ZzSKLH6gSV7GvTKQUYFImWYMQQtsXxX48z1uLCF9wbNQUJRvKlEE/MLBh5Y/UUWiUR6lT
+	 815pO/A9my1mPh0cHeEv5HQVvazpgskZjGiPS68zsA/wUHSZ2u3LZYUwL0ZZQQhrpwGGT
+	 8IfUcpMcheu0TgaqkzF2rM+4tUfOWEYPKXyr2k1esFrpr48Y+Qm75cyAo/FA8laSiwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793205169;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
-	b=dvj8AOHl9PGqmf2loHan60MV0ZcbA6RS6RgDGLhfvMX09oogpS6xTN1hUsI/yF0RNU5w
-	 VhY4nUZXhkt/LGvB6wErcUhm9oFkkbs/dsjq7iZxfddBwORcEvfUl9sQR3f0dBtKIdXvC
-	 57+vc439UYsq/U1ah+D5Ndcs2LRdwIPdsifKX92opNlkml22DpnM+7fv7i05aMl7VGY54
-	 wbRFmcbaAfYLDUsN28eQGX4Q7palLboyJOiOVyUmvTxE8JhlgjZoVchMR6hHHf4/9OxvF
-	 wOdzF9bRdKZiUq/LUQkl1UHTIk00VOH89Rtz0BW8N2cL2Peqpi0hzMx1wK6RnY66LJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205210;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=F0ZbMX9EeyLfy26pKyFOUMN1PmtyM/y56Mw7EBfzcA0=;
+	b=XmAumylBJUL8NKaP9wxgiBzLFjtXXUboy3ohe8mO7iJk21zxpubmUyib0ol49V/jLn69
+	 dqeKhxrkD94o00UWwJbeb1AWsgynJ5gDTqjXjpPbS2OhYKf1bB0k0WqcMliGek5BjJh9g
+	 VdhWUN1ea59+hFqHCR63te7mfTU9c1cPQKtWjo2amP4b5YtlZqaURbjLsf0b11WMSq2yU
+	 rOt46Mj48afeKZDW28ffT+py7vUBYxuFkfHeCdrCd6LPZyvuXvO68EhC0s5seqFT0Ab0I
+	 Qg4ShEZ1uB7kfaJnoMZ8DwP5i3t+pptHQHeEUNv+olo3n9m1ecuvvsodsnUm1mEWOXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fielding.dev;
-	spf=pass smtp.mailfrom=fieldingdsp.com;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=S4vN2VHf;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9699606A31D
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9699606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fielding.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fieldingdsp.com
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c315869241fso188828466b.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:32:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fieldingdsp-com.20260707.gappssmtp.com; s=20260707; t=1793205167; x=1793809967; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
-        b=eXbHX832eO7KCEIcf9QIePPynNTj3zpEb16xJdYbSQOpkoowvXm2FC7H6N9IvePrjc
-         NYQ2YsaKAWrn2bA552yqC0m4jx9nYIEsJ+kAosssFdnCwTnhd1wrP5purilJVqmg7IW/
-         9PyvNGGsC/J8INfibywsqgTj/qEsPfMTfKHOw4dM8efcKWBLZMUAodnHQ54JjxrTf6rN
-         cUXimDERsjEyUBueSdi1MiLTD5lh4jvrY5h0wazj9l3ROl/0fZ8OLDTM2Vd6t6/kkAK3
-         OMu88H+ojqLazQ53GiyqfkVyj8dVS6lmsTdc9R8SFLBxu3UN0Fq7XJUuj66hC7CQ5WNn
-         GpBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793205167; x=1793809967;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
-        b=seEy7C7eOFyy5NWc2nMtL87kRh39jxJMrtzhO/cle44OeJ5x5dRerEVBro50WqVlGx
-         EUZr+cxzYgD35nWYuQpwCaPunXoAugwDoyrKORNZnGwEwUvOMOuew8MVi5qMGgmQjbRk
-         dHSCv+lmGsBtwRcCSzJvMWsHQxw6wFxeNUPUCk8VBYmnKG7v2Dfw4gjhYIhx/sFoU5GM
-         qgQfEaa8fpNEZB2i4EhSWcMPwYYpQpQCC7i4SytESCVM2YtL/V+aEctQAd4YvZB0pXgA
-         X/OwxQ9AqtGfjp6riMwhZRz1kCGAU438xF19QfPmPfqrXUyMTB9+I1Nqg1YgZoWBVilY
-         S6YQ==
-X-Forwarded-Encrypted: i=1; AKwUvByc5Pf5gGR5LQbRwjL6r6TnR7rx6yovZar2RVJ538cB8bI9fH/MmfBfWfTUAdQMlDyMVTr17Q6ooGcG@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRXTZ01q5b6bPK7EUd6UO2RJJn+9vawwaA2ZgoILUuAwhOv9A/
-	YupTdjDj4X9PBBZjs9CN8KOSF+Aq0Bul1phKgm5O+LFJArWsxPkmWMJl6LrMfcYb958=
-X-Gm-Gg: AYBFou13tS5mvDEzAZBykXxoqtrYOqAT6EdFCj940VlF1XfCnzbn8dCGsb9we6o8SYR
-	ETlbBxq6ASwmV7tpSwAAVhW0Ly29Pt3fXw3FaKnlNK2hkbqvRdQj5xKPe8Nl6+djgXdfM6oEAXn
-	gvJDjkMkUVQV42w2R9eNwnY11JqKrtOcZiRR+C4Zt8BX7zfdqZgTI47e5uCIvG4wzklJ/OuatNM
-	wJtnRf5BvKwnfjye+byp0jAQYnCXVCZsBt0smP4QuaU7LM+LeftT+JVwDSGaPOo4xo1OZ800qtk
-	C5rjM9c+AncvFmWI//zMmFHXb45vQ22nCB76gzWcHiNvlBjb/wBhHFbTLWeh7nKkCWxJrDA7oHI
-	c95kPIAt+nMIYs5+hXqZpF7KTFEUm1dzZnUHGv8vLGFkOW10qiNRuLYZ5Xge78MxJmMKuwWFcW8
-	NFym8TKWaY9cRfkyflfLa7JC24e29ZqtHKtqgZxSDZxr7tB3ZCK6U8QffNA4Zc7N0FO9cG2Y3UL
-	xpZL8PNWRV8vAV9Aj4e1t7f/2eTHd5DzhashwQqCX/a/8v0OHvQuF2lz9G0EqicDKMqzJFxxw6G
-	41Rz6NrLzF38nD1QOVwfzQ1MR3f/66dutV2Z7nZaE0EOZH6lGopIMXHJrdGsYHoOrVGWrXKNuk4
-	QCCKWAdXPPkbaLjFXK8pVy69Ps69E
-X-Received: by 2002:a17:907:2d25:b0:c26:19de:9aec with SMTP id a640c23a62f3a-c49bdfd85b2mr258903766b.43.1793205166976;
-        Wed, 28 Oct 2026 09:32:46 -0700 (PDT)
-Received: from kneiselgnabe.duckdns.org (p5b03fe53.dip0.t-ipconnect.de. [91.3.254.83])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89cesm637108266b.13.2026.10.28.09.32.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:32:46 -0700 (PDT)
-From: Fabian Renn-Giles <fabian@fielding.dev>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Alexey Klimov <alexey.klimov@linaro.org>,
-	Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/23] ASoC: qcom: AudioReach Active speaker protection for WSA884x
-Date: Wed, 28 Oct 2026 17:31:52 +0100
-Message-ID: <20261028163152.26892-1-fabian@fielding.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC59606A31F;
+	Wed, 28 Oct 2026 16:33:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DC59606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=S4vN2VHf
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B7A2A167136;
+	Wed, 28 Oct 2026 17:33:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793205206; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=F0ZbMX9EeyLfy26pKyFOUMN1PmtyM/y56Mw7EBfzcA0=;
+	b=S4vN2VHfYH/567vYQXf/ucDXOnWMiJ814HImMPur7WVAj5dxDevqFvw2rsuChHsm9izAVd
+	DUbVFVZj7+uNVf+2gb/gRrTrMsbNDzVulLQz8KpmCsGB6xDV6Wx4uKhvgLE6xiZw0z1QI5
+	S5t2G08BYUDoSLTfZHkE74XBJkp0G0/2FEmJEGSSMYAPVXi+uN8UbvKFMcwLXX49Zqq4MJ
+	x9HxNYW/Zs3D0HILWMbXAb3BLQaWDx35BT3Un2+SRVji2hrZw56h/YACqwfBTln3un7jRj
+	OF2piLTzT/wYcYIFAL8IYDht5/iF3+0JKyZK1PiupBn9mjI5vvEiL4ExQB7Q8w==
+Message-ID: <c157df9e-b70e-4ba6-b808-5d13379b762e@cjdns.fr>
+Date: Wed, 28 Oct 2026 17:33:14 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,66 +55,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 0/7] net: dsa: mt7530: support EcoNet EN751221
+To: Cristian Papa <pcristian292@gmail.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
+ arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
+ sean.wang@mediatek.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028160353.4239-1-pcristian292@gmail.com>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20261028160353.4239-1-pcristian292@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Srinivas,
+Hello Christian,
 
-I tried this series on a Lenovo Yoga Slim 7x (X1E80100/Hamoa, 4x
-WSA8845, Linux 7.3.0 based tree). I found one bug and have one open
-problem.
 
-1. Over-read in audioreach_get_module_priv_data() (oops on topology load)
+Thank you for testing!
 
-The function allocates
-struct_size(pdata, data, le32_to_cpu(mod_array->size)) and then
-memcpy()s from the topology blob. It crashed on the first load of a
-topology containing the speaker protection module config blob. The
-cause is in the size computation. data[] is __le32, so struct_size()
-counts elements while mod_array->size is in bytes. The allocation is
-4x too large and the memcpy runs past the topology data. This is what
-I used instead:
 
-	size_t len = sizeof(*pdata) + le32_to_cpu(mod_array->size);
+On 28/10/2026 17:03, Cristian Papa wrote:
+> Hi Caleb,
+>
+> I tested v3 on a TP-Link Archer XR500v v1 (EN7526G: on-die switch plus the
+> MCM gigabit switch).
+>
+> Setup: OpenWrt with kernel 6.18.44. I took the four mt7530 files from
+> econet_eth at 3a8bcd2e6398 (they contain every line added by 1/7, 3/7,
+> 4/7, 5/7 and 7/7 of v3) and booted from RAM over TFTP, nothing written to
+> flash.
+>
+> With the DT from en751221g.dtsi in openwrt#25330 (MCM "econet,en751221",
+> no "mediatek,mcm", dsa,member <0 1> on the on-die switch and <0 0> on the
+> MCM):
+>
+> - 18/18 boots: all 10 TRGMII lanes found a window, no "calibration
+>    failed", "TRGMII inter-switch link initialized", DSA tree set up, ping
+>    over lan4.
+> - The chosen taps were stable across boots (+/-1): SoC->MCM 15-22,
+>    MCM->SoC 27-29. In the SoC->MCM direction the window always starts at
+>    tap 0.
+> - 6 of those boots ran iperf3 for 6 s each way through lan4: 0 RX CRC
+>    errors on on-die port 5 (~1.05M frames) and on MCM port 6 (~1.29M
+>    frames). In 4 of 10 boots MCM port 6 already had 1 CRC error before any
+>    traffic, probably from the calibration; it did not grow.
+>
+> Following the binding in 6/7, the MCM does not come up on this board:
+>
+> - "econet,en751221-gswitch": mt7530-mdio.c in 7/7 still matches
+>    "econet,en751221", so nothing probes the MCM and there are no LAN
+>    ports.
 
-	pdata = kzalloc(len, GFP_KERNEL);
-	if (!pdata)
-		return ERR_PTR(-ENOMEM);
 
-	memcpy(pdata, ((u8 *)private->data + sz), len);
-	return pdata;
+Whoops, I see I made an error on patch 7 and did not update the name to 
+"gswitch", I will send a v4 soon.
 
-2. Slim 7x bring-up: V/I feedback never reaches the DSP
 
-DT changes for the Slim 7x:
-- The WSA codec list is extended with the VISENSE ports
-  <&swr0 10>, <&swr0 11> on the left pair and the mirrored ports on
-  swr3. The speaker nodes get #sound-dai-cells = <1>.
-- The static port-mapping is <1 2 3 7 10 13> / <4 5 6 7 11 13>. On
-  Hamoa the din ports are 10 and 11, versus 12 and 13 on Glymur.
-- I cloned the CRD topology and UCM, using 4 speakers, with the
-  WSA_CODEC_DMA_TX_0 VI capture at S32_LE/8 kHz.
+> - "mediatek,mcm", which the binding requires for -gswitch: the probe
+>    fails with "Couldn't get our reset line", since nothing provides an
+>    "mcm" reset yet (the TODO in en751221g.dtsi).
 
-What works:
-- The card probes and the SP/VI controls appear.
-- Normal playback through the SP graph runs without errors.
 
-What doesn't:
-- Calibration (Operation Mode set to Calibration, then silence
-  played) times out waiting for V/I. R0/T0 stay 0.
-- I read back the SoundWire master and slave port registers, the WSA
-  macro SPKR_PROT TX path enables, and the DSP module config. They
-  all looked as intended.
-- With the SP graph active, the amp stays gated and playback is
-  silent. This matches the calibration never completing.
+Also expected as setting "mediatek,mcm" requires specifying the reset 
+line, and reset for the MCM is on its own unique register and is not yet 
+supported by en7523-clk.c reset controller. The OpenWrt implementation 
+is a bit cheating by not bumping the reset line at all right now but in 
+my testing it was not different when I manually bumped it so it seems 
+okay for now
 
-Question: is there anything Hamoa-specific on the VISENSE path (din
-port numbers or channel masks, the macro TX decimator routing,
-multi_direction_codecs handling) that I should check? I can run any
-debug patches you want on this machine.
 
-Unrelated noise: SoundWire parity errors/clash messages appear in the
-logs, but they also show up without the series applied, so I don't
-think they relate to it.
+>
+> So I think 7/7 should match the new compatible, and the binding should not
+> require "mediatek,mcm" while there is no "mcm" reset for the EN751221.
+>
+> Not covered yet: cold boots, and the other LAN ports beyond link-up on
+> lan3/lan4. I'm happy to give a Tested-by once the compatible strings line
+> up, and to rerun anything you'd like; the full boot logs are available.
 
-Regards,
-Fabian
+
+I'll send a v4 and I will synchronize the PR on OpenWrt to it so you can 
+test easily.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> Thanks,
+> Cristian
