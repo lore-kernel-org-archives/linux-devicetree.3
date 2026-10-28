@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199507;
-	b=1AVtqAD0M3BG1SnjraWz+YddDvwbDbWF4gihSDcj/7qb5KT4jzGBCyx1Bx7lY8g5G4OR
-	 d6raASjW98LqQq6mL9/7ZXrenJbkEZdNUmz0+pKtjOUHulllR6PmbAFQ+HZK9FJCaUyEk
-	 9S0YO7afZHe1pzKn1nMbYhOmh2tRwaNj2fFnJYF1AvpNQw+YwzCsAWQMQH1/WofQLdRZr
-	 PQw+K1bTVt5kR4nZ//Crr6gY9HLgqa8Tgzazt3sbe7oWM0g0yQF6ym6z5KM++aKPTdrVK
-	 j0m92RQGjSVksQWohKDD5hWv1xPZRyBoXtD/UqXVq3rrjEpHyUlav4Yu2HCOy/OPn9A==
+	t=1793199597;
+	b=xIki68awzPf1F3oUJbug6XBJ7VthI4L8ueb03JHAbky6XommYMgZB98CLlYSn0u1KcUY
+	 AtSqPiQoaVGzg0m1vsC0sZyshrKIbLzrqTAOrGQ+etdOIhFdJkVg8tGFq5tBFN+Ps1QTo
+	 /goHI3C8BSo9sHo7byD7c3MUA53Lfbg5Prw3oVLyQUUPVVaPcIdGtKqndMJiC2bZmrpmh
+	 Dv5yRsl+b9syKTKD1Ed9kE8IzWmQZdXB384d0vr2AVt2cfvNWjLNLidCdsENgGtIC4ooB
+	 284gDjR/ZHrh7D2E5QR3nyd+qGknRAMlko66SEnn+TGKBlsoJsojQdtBLU+b09ILTTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199507;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hJTPdQsfkBMS5hjQULz7ngcYeWbt5Jn5KRiZmkOAbIk=;
-	b=rBzaYMoGAWnSm/VrYe/fEn42BP+DksXHJUekSEukMeea2fBT4PQVc4SrjmsNHNdM3uTN
-	 81VbCmQu8eNN7Fh6s5YSwdJ38Z/Rl8xACRDrnJeRtZpB+Ma0J0mrb4qWjRoEDgkuwhirZ
-	 kxaxgCMMpAqgWtdEZdnrU3ogimvSPS4CR8DwEdgQ0Qz+mVix5NrZi+IHgv4UqwKe7uR1b
-	 TXbGG5QGGON9h4Gm/EnvAQ7i6ESvJrmnVpe1O8FTCx32EinrWbkj+V4aY/NV7j5BcPR4G
-	 6jeOylDuuCGM8jYf6Bz/fm6+T49uAAd77cgOQJEG1rAhKZyBghEqrZfEyDQqytsIAtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199597;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=NSb6a/pDw1kg0BISDKF7FpWlMPPEDSnf/hJXicQJYVw=;
+	b=nuhEo5+AXvHnlx3GoOFfPQQlo88/7xph/Y2fB+LMVtikGmj9zdlmu6hnP9ODrthdLznt
+	 nmW6dFHv79kEYKjZpFMI03NBStpEsrkipq7rh1Zmv/Q+5zFMH58r8fpdl+igULgFOXXOD
+	 k2KT+NTJDArMngE3D2mPAUJqyu1ZVjG7FpiwA4rUJdPdNWpNPxdDL0ufOZZnFURkFIpAh
+	 SU+W79635AMX84e+sxbpl7ba51SqXmf+ICcf1MKH/+5QHZmd7diV/bjzD4GF42Rr9qxj0
+	 YexAEcjd9nHIJ6lOormwHlEJw6wSwMyM9U379s67sEFQkQ3XdpGC2fiwGn9Ci63qOnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knwpcmch;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgUOXVxE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462AC606A31A;
-	Wed, 28 Oct 2026 14:58:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510A1606A31A;
+	Wed, 28 Oct 2026 14:59:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knwpcmch
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810C41F01828;
-	Wed, 28 Oct 2026 14:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgUOXVxE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FDD1F01828;
+	Wed, 28 Oct 2026 14:59:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199506;
-	bh=hJTPdQsfkBMS5hjQULz7ngcYeWbt5Jn5KRiZmkOAbIk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=knwpcmchCU3dSz9M/RFQ2iWxHWK9Uv7fU8p/QOtEysB8DKcC3dPaMkHQ2yJgUKunV
-	 P9Y3MYW7ssLFu99zyvopXcRrU2KkQZLB+1xLjIjjQolgC2b79EgHl8jslYBnns3Qkr
-	 Yg9wel9HFb9C5WqGMe3KgO3vufrzQ36COOdS4YFD2XIJWURYlhUbWM7rhZlgqk7TU2
-	 p3HkV6ue5v62TIJ+8J217ZRLl5ZObmofiPwLBXFdYxqIqNf/3Tk+DnzvKrz+mRe7jw
-	 9JOnQk8UQiwjLTARBZwSxJHeOJtOHEkBaRlYdEfexQHntQps2rgMa9kh8BqZGX40Co
-	 DDDKghy+CF34A==
-Message-ID: <20a5a90e-ee8e-41c2-83e9-5ff03bd0edab@kernel.org>
-Date: Wed, 28 Oct 2026 15:58:20 +0100
+	s=k20260515; t=1793199597;
+	bh=NSb6a/pDw1kg0BISDKF7FpWlMPPEDSnf/hJXicQJYVw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jgUOXVxES0RtRhBDD5vjPlJx8U4HEZ7aqAILOTNCPBEbA0FgKh+iooXbxMPg1Cq9R
+	 f3hVu1uOGjh9Ofeeph6srH+EuC+y9sIsXaYCQwPZ5NC7VoEqiyQ0jdQlrogzHZ68X4
+	 InAkxl/K94Aq+hAu+BKTAO5BsrnPfep3MJFBPxlildgaC/SzVfIaXRdpmyb6j2e6my
+	 7EoCnJwd7BO9KW5SmD1EMpig8TjfY+FAI3BMMf3mMFLU6ISeDPR9iC5e6p0PkyUbNc
+	 WUmJrXE+3GL2j/1feyPSiFNmUIAIV3+zy3dIx5FZn9EZ8Rj9AaezMHVZPa+Q+9HGRb
+	 o1oAR7x1gmj1Q==
+Date: Wed, 28 Oct 2026 14:59:53 +0000
+From: Lee Jones <lee@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 1/8] backlight: qcom-wled: fix string detection
+ brightness on WLED5
+Message-ID: <20261028145953.GD3605912@google.com>
+References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
+ <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
+ <sashiko-outbox-177041@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,118 +61,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] powerpc/dts: Add Device Tree for WatchGuard Firebox
- T30
-To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
- npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
- sshegde@linux.ibm.com, sashiko-bot@kernel.org
-References: <20261028143421.145290-1-lefteris.koutrakis@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261028143421.145290-1-lefteris.koutrakis@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-177041@kernel.org>
 
-On 28/10/2026 15:34, Lefteris Koutrakis wrote:
-> Add initial support for the WatchGuard Firebox T30 board based on the
-> PowerPC architecture, updating the fsl Makefile and adding the new DTS file.
+On Mon, 19 Oct 2026, sashiko-bot@kernel.org wrote:
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] backlight: qcom-wled: wled5_set_brightness() clamps 0 to low_limit on restore
 
-Missing DCO. Please read carefully submitting patches.
+This needs a response.
 
-
-> ---
->  arch/powerpc/boot/dts/fsl/Makefile        |   2 +
->  arch/powerpc/boot/dts/fsl/firebox-t30.dts | 398 ++++++++++++++++++++++
->  2 files changed, 400 insertions(+)
->  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+> --
 > 
-> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
-> index d2cc8e1f0..0a5c8b596 100644
-> --- a/arch/powerpc/boot/dts/fsl/Makefile
-> +++ b/arch/powerpc/boot/dts/fsl/Makefile
-> @@ -3,6 +3,7 @@
->  dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(src)/%.dts,%.dtb, $(wildcard $(src)/*.dts))
->  
->  # MPC85xx platforms
-> +dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
->  dtb-$(CONFIG_BSC9131_RDB) += bsc9131rdb.dtb
->  dtb-$(CONFIG_BSC9132_QDS) += bsc9132qds.dtb
->  dtb-$(CONFIG_C293_PCIE) += c293pcie.dtb
-> @@ -44,3 +45,4 @@ dtb-$(CONFIG_GEF_SBC310) += gef_sbc310.dtb
->  dtb-$(CONFIG_GEF_SBC610) += gef_sbc610.dtb
->  dtb-$(CONFIG_GEF_PPC9A) += gef_ppc9a.dtb
->  dtb-$(CONFIG_MVME7100) += mvme7100.dtb
-> +dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
-> diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-> new file mode 100644
-> index 000000000..6e9ec7f90
-> --- /dev/null
-> +++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-> @@ -0,0 +1,398 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +/include/ "p1020si-pre.dtsi"
-> +
-> +/ {
-> +	model = "Watchguard Firebox T30";
-> +	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
+> commit 1866e6688066844d34f7f3f1d2a0c521bb917107
+> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> 
+> backlight: qcom-wled: fix string detection brightness on WLED5
+> 
+> This commit updates wled_auto_string_detection() to use the per-version
+> wled_set_brightness() callback instead of hardcoding wled4_set_brightness(),
+> and moves the WLED5 module sync toggle into wled5_set_brightness().
+> 
+> > diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+> > index ca350f320e177..c5243a6d547e5 100644
+> > --- a/drivers/video/backlight/qcom-wled.c
+> > +++ b/drivers/video/backlight/qcom-wled.c
+> 
+> [ ... ]
+> 
+> > @@ -791,7 +783,7 @@ static void wled_auto_string_detection(struct wled *wled)
+> >  	}
+> >  
+> >  	/* Restore brightness */
+> > -	rc = wled4_set_brightness(wled, wled->brightness);
+> > +	rc = wled->wled_set_brightness(wled, wled->brightness);
+> >  	if (rc < 0) {
+> >  		dev_err(wled->dev, "Failed to set brightness after auto detection rc=%d\n",
+> >  			rc);
+> 
+> [Severity: Medium]
+> When wled_auto_string_detection() runs during probe via
+> wled_probe() -> wled5_setup() -> wled_auto_detection_at_init(),
+> wled_read_brightness() has not run yet, so wled->brightness is still 0.
+> 
+> Previously, wled4_set_brightness() only clamped non-zero brightness values:
+> 
+> 	/* WLED4's lower limit of operation is 0.4% */
+> 	if (brightness > 0 && brightness < low_limit)
+> 		brightness = low_limit;
+> 
+> However, wled5_set_brightness() unconditionally clamps brightness == 0 up to
+> low_limit (0.1% of max_brightness):
+> 
+> 	/* WLED5's lower limit is 0.1% */
+> 	if (brightness < low_limit)
+> 		brightness = low_limit;
+> 
+> With this change, restoring wled->brightness (0) at the end of
+> wled_auto_string_detection() on WLED5 writes and latches low_limit into the
+> modulator brightness register before enabling WLED3_CTRL_REG_MOD_EN.
+> 
+> When wled_probe() subsequently calls wled_read_brightness():
+> 
+> 	rc = wled_read_brightness(wled);
+> 	if (rc < 0)
+> 		return rc;
+> 
+> 	wled->brightness = rc;
+> 	...
+> 	props.brightness = wled->brightness ?: val;
+> 
+> will it read back low_limit instead of 0, leaving ovp_irq enabled in
+> wled_configure_ovp_irq() and initializing props.brightness to low_limit
+> instead of default-brightness?
+> 
+> Should wled5_set_brightness() check brightness > 0 && brightness < low_limit
+> like wled4_set_brightness() does?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com?part=1
 
-Missing bindings, but not sure if it matters for PowerPC at all.
-
-Best regards,
-Krzysztof
+-- 
+Lee Jones
