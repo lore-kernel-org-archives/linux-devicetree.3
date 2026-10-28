@@ -1,70 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199200;
-	b=NZ9phZjq71KVITBpnNy/qVuu1VRaWXkcyFkQGctL+zCZKFTpVQeY8XqSqwwOR+NAUhId
-	 4XoldvqH1Mr7g4/cSJcZqJIca8g6OaG22K0y69uVSAxT+5VLe5onbx08nzZWkdye9i24m
-	 ZrneRcMtgylovYc8urgA2XtyqTeLHRqQOLlOE/oGplIJBR59UJ7ZGXrE4rFsA8DQkBljk
-	 s5orh13BSy9kIIK6qsJZ+U+hx546lTdYvIQZ4g9pgG2KWhd8b6e6BZObUJKAeXXpbncGS
-	 1KxwyodPTt7d1Q3+qSQcFJet3io06wm9NDhxe5CSornZK47NAqsZcSiKGzxKh403+5g==
+	t=1793199416;
+	b=LWVAogIM4JKXWRDZAwtkiQydxeUpGHHMd0AsR44LHdWAjGGo7qFsgcu1M5LKHGY5tTtQ
+	 hALM5H0NYvrvqdpdAcLMN4g8OKP4g3Gci+l9KN+lJqALkapK+sXJCeRbuSeaJHEL6a7gu
+	 ROgHyQ1irQa05v2/0+fnI2gdDu4wb93WeNXa8IgINk+ZaNR7gaw0ahrdoYNR34FNt6/y1
+	 9b+/DCjFeqka8PtLxEd7y5R0MSUDfKGnWntF8p0Qovs8cVb2n/O2oH7n6mbJeP8stLArm
+	 jt1by/527B1+7e70TmGUM0Qc+JhMqc4kUCMYDv15Cv1laju4YQf89GMMtnBVQBN5WAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199200;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=w0XcyVuxu+AYup+CNvj4V5SJOuKSRNC3QzsPNAgpgU8=;
-	b=tCyq8eOtOT3Z/eampuamkKODmknkl1uJAbcJLeXd6cdUVBt1nR5DPXUolXrVLpRvoO0C
-	 zuO42gMFOQoxyhh6GlIRcTdg6Z31XHkVNYsCUQ1pMJSrIFdSpjLbFx1Ya1qnUdX1jaaUv
-	 Cs8mwvL6+iXOJbKNtoGdhXzJceWwp2yRtlUGKMsuaaW4ceBGU94xlRYil7F1dNU+UYtor
-	 5UUx2XTTyISInVBbkPtZGPgOkmmBmiVN3SToKTUn9FePmkPVi/lNfdvYq8SX84GKecgUe
-	 y7o/IyCv3Ju6ypheNLLYkMrXPWQeSg4FdNKiqg65HBBu5iw2azN/j9LEgoLXv/EeNmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199416;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=F7boTTUOUIPt+1we1rY2+5xkr9Y/R4tCTMv/ZzlovJc=;
+	b=BShC1Qha6EnBQsFU+++QAvA8vHSnQmbrxV5Vs9exb6JIeCdZtc1fI0Gz++xwaFCHNMgR
+	 IYqoCQ8Ti7DKiN6qAkSSHCTpnTKwyRCb21CsakYAHwe06uBmokh0Sp0qHEPIpFdqTnBeb
+	 2DNTp3qjZfjRbegl5pvrk1vAAii+M0CzW5OF9da2EzQ4C47YVvUGNRqVi4TqSE+YgRhaY
+	 lH6SSYhvIu6HvscCrrdDtJqNpEPKYD+4eD3RQYgtPCt9j7lQ8okPgc0XLy4812Jgi0cdy
+	 YYUWzHCmNERNDJlClmk3C/VvGFA7kApF93baNFvV5RiVnkMXPh0C0wx7makmIZ4at6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rlUpQot1;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASSC1kCK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6051F606A31C;
-	Wed, 28 Oct 2026 14:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6051F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A54606A324;
+	Wed, 28 Oct 2026 14:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rlUpQot1
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3D8384F1;
-	Wed, 28 Oct 2026 15:51:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793199064;
-	bh=azW8YPi+emTx4FgT7E7yfRZY1IuV97x3JqPiSHLS0rQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rlUpQot1XLCeJ4LMqTuTyNgNXRdJJDfVT1PNxwHpwGlwnKGsQOpC7YfVP9GlA9WQx
-	 F8JgpZ5o/hZkJ6EX33tW5OYxKeH7wFnIohvku/Gm44uhjaqKRSNh4J/vGnJK76QQ2B
-	 x0WwjNaoS4NL5yGvhFl2RWl2Z/BuYdVS+gQAKW3g=
-Date: Wed, 28 Oct 2026 15:53:13 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP
- nodes
-Message-ID: <auILoa4Tn2sgkC8P@zed>
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
- <asz8oEtow_lrUU7K@zed>
- <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
- <atXol9eFjLKxgTpg@zed>
- <CAD++jLm5iRKbb6=ZY0r1q_bb-zO3DAe3a7MxdDbpBT3ZU6_z_w@mail.gmail.com>
- <CAMuHMdWKH2pPR1-j-AxV2LVy5xeuoymYv4MnXw1KSvAu4F-brw@mail.gmail.com>
- <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com>
- <auG_dr3VFeWaBxKw@zed>
- <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASSC1kCK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA72F1F031E4;
+	Wed, 28 Oct 2026 14:56:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793199415;
+	bh=F7boTTUOUIPt+1we1rY2+5xkr9Y/R4tCTMv/ZzlovJc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ASSC1kCK23aEi5cQdP9zLIFHwlOVpSVfqVCZCjJrl0CQgE0+bsRSpLQ7CcH8l428j
+	 dZcelsEzcj0x/I09wMUUVdLDW1ismeo2j3D09oNo3rKpB46DOK51FFwK8pPNjTrPD6
+	 rBWyDEO51PIGqEWHLbI7VJPRKJ6r+FSWA2KhpbWz4OCvseGw+MCCf74RqgPmvkMlsi
+	 99FcWsfPvvKoNxL5vozdVcT8/BIeGRnPGczwIpd6jIYRPC0ZdGrbVrbxY+4da4H2nc
+	 jy91TdMKnYpZbiqGppIQjt4IkjzcLs85MCRYfWZ5VNyW20idYeNt0gma0evv+dCFSW
+	 Sem7bo/HXD1Jg==
+Message-ID: <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+Date: Wed, 28 Oct 2026 16:56:49 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,71 +51,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
+ Document the reset GPIO polarity
+To: Krzysztof Kozlowski <krzk@kernel.org>, Vladimir Zapolskiy <vz@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org
+References: <20261028095151.1682096-1-vz@kernel.org>
+ <20261028095151.1682096-2-vz@kernel.org>
+ <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 10:47:37AM +0100, Geert Uytterhoeven wrote:
-> Hi Jacopo,
->
-> On Wed, 28 Oct 2026 at 10:28, Jacopo Mondi
-> <jacopo.mondi@ideasonboard.com> wrote:
-> > On Wed, Oct 28, 2026 at 09:38:05AM +0100, Linus Walleij wrote:
-> > > On Tue, Oct 27, 2026 at 7:39 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > > > The driver uses Runtime PM, but I see no calls to
-> > > > pm_runtime_resume_and_get()?
-> > >
-> > > It gets grabbed in *params.c and *stats.c:
-> >
-> > pm_runtime_resume_and_get() is called in the .start_streaming handler
-> > for all video nodes (capture, params and stats)
->
-> OK, but not from .probe(), which does hardware initialization
-> before that?
+On 10/28/26 15:56, Krzysztof Kozlowski wrote:
+> On Wed, Oct 28, 2026 at 11:51:44AM +0200, Vladimir Zapolskiy wrote:
+>> The reset GPIO of NT36672E panels has been described as active high since
+>> the binding was added, also see the example and the QCM6490 IDP board
+>> device tree, however actually it serves as the active low signal, also
+>> panel-common.yaml expects active low reset GPIOs to be described as such.
+>>
+>> Document the active high description of the reset GPIO explicitly as
+>> the exceptional deviation from the actual signal polarity, any new devices
+>> will use it in the same way as the existing ones.
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+>> ---
+>>   .../bindings/display/panel/novatek,nt36672e.yaml         | 9 ++++++++-
+>>   1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
+>> index dc4672f3d01d..45743376995b 100644
+>> --- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
+>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
+>> @@ -24,7 +24,14 @@ properties:
+>>     avdd-supply: true
+>>     avee-supply: true
+>>     port: true
+>> -  reset-gpios: true
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +    description:
+>> +      GPIO connected to the reset pin of the panel. The GPIO must be described
+>> +      as active high (GPIO_ACTIVE_HIGH), the asserted state releases the panel
+> 
+> I disagree that it has to be active high, because, since we do not
+> represent pin inverters in DT, it depends on board layout. Wording would
+> need to be correct if this stays.
+> 
 
-The driver doesn't depend or select PM (to be honest, I don't see why
-we would run without PM these days, but that's how things are the
-moment).
+I'm all for a better wording.
 
-So the peripheral is manually powered up and pm_runtime enabled in
-'active' state
+The described display panel device operates (here resets) according to
+the active low signal RESET_N, the device driver is written to interpret
+the signal as active high. A signal inverter may be present on a board, but
+then the description of this board feature would belong to the board dts,
+e.g. in a form of a simple comment around the property.
 
-static int mali_c55_probe(struct platform_device *pdev)
-{
+>> +      from reset. Note that the RESET_N pin is in fact an active low signal,
+>> +      the inverted description is kept for compatibility with existing device
+>> +      trees, while it deviates from the convention of panel-common.yaml.
+> 
+> We might fix it at some point, so not sure if it is worth documenting in
+> the binding. And what about usage of this binding in other projects
+> which implement it correctly?
+> 
 
-	ret = __mali_c55_power_on(mali_c55);
-	if (ret)
-		return dev_err_probe(dev, ret, "failed to power on\n");
+In the upstream there is only one user qcm6490-idp.dts, and changing
+the polarity will be an ABI breaking change, unfortunately.
 
-	ret = mali_c55_check_hwcfg(mali_c55);
-	if (ret)
-		goto err_power_off;
+Here it's a similar story to another one about OV9282 reset-gpios polarity,
+it ended up in keeping the polarity of the signal to avoid ABI breakage:
 
-	ret = mali_c55_init_context(mali_c55, res);
-	if (ret)
-		goto err_power_off;
+   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtso#n45
 
-	mali_c55->media_dev.dev = dev;
+Probably the best way to operate here is to give a clear 'reset-gpios'
+property description in the OV9282 sensor or this NT36672E panel dt docs.
 
-	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-	pm_runtime_use_autosuspend(&pdev->dev);
-	pm_runtime_set_active(&pdev->dev);
-	pm_runtime_enable(&pdev->dev);
-
-If that wasn't the case, the driver would have failed to identify the
-peripheral and would have bailed out in mali_c55_check_hwcfg()
-
-
-
->
-> Gr{oetje,eeting}s,
->
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
->
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
+-- 
+Best wishes,
+Vladimir
