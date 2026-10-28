@@ -1,88 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793191896;
-	b=SvYNQLXdealjLgBF5ChScXh40N6mU548LJtxfQgjX8T0OFd5hVgTen/ytTW9gvrLLTNv
-	 DaVL81yIV9483mJWydr6rffQSBGIMhKV+itqDlGFPZCNGXZQvzy5cPnIBEXuTPzHkO6Dz
-	 7fNWKrbDpUI2Vi5Uj9GRgZZ4j1g2n65muxEmzKKQErlprV785bvYyItSqmgVgQPILUwMk
-	 reeVcx3edSR0ksJHbyi3L76iXQ2n50kqOxKZzE7P/smTXzd5I9GdV2jikHNgfG7LvW1eJ
-	 Pa5zQu4G/aNng63NV/p69ZtwGOHU+z2D9lVAMuH8BS4waAm9fr3qCUxnEAm7CyV1rVg==
+	t=1793191903;
+	b=XqScLrDgj8oQvZpH1VJgyoX5IsO7SFR7fYtLma9cmaDnneJsytQAdDZZLiV0h68lF5AY
+	 eY130njix6A/+hR08O6/cV6uYDqs/ri9xVhPfSVF8F/RBkStxxdAnf+0YiDw1+3C2qlcJ
+	 CDTL12NVOXFwNpPlYvUZcxnd9kqPqjYNaxiaq5w4pwPA9GZsqXDSXooBa06q4brfoBY4q
+	 y3zPPwgBY30liW1qcfh6D9e+m/hPkliA8G5TadLWWJHB7KOJ5H7z4Q99jkIayBrjoBopR
+	 tgB7k7TB71Um0kjm4rZtcatcrui9igVlNGhi1GhsxAL0lItdjWoEK+ScpFMR2a1qkng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793191896;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=+9gEFsebZgLIr1Qs7Kt62BKf8J/dbl0EPo1Fb2D9wrs=;
-	b=29Ia8MyfD/yPYc2G8SB23blrx/PAwEkAtZXj5mLNnQhwh8ZqTcXfTPibxCb+evrQ3OwR
-	 pqFoB8JU/ewCeOV2pfbuJW67YHvQbii2qC4WvALAjUho3rGai29rL3Eg9nrGMon/uAoFC
-	 QQKHpj8gFI6N06YbCoDsiyPlbzDITUqPYM0VpuqPJ95CnqM8pMijNEaVhbRb8VYCbuWLc
-	 FfVA/HO/ocBVqDR/JmwoEpf1REnYohYwM9+RQrkjuKCHds5BWW/DFSHlcR1qy8Ied0HB8
-	 DjsKMqBMrmmU2DuT5Ck9Skc6lYX3Wg0gbQZlEAFSDsrGH7XzmE+OqNV7CUsOju+z3NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793191903;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=EgIAfahGgFUgahc8hjQZncsgzkuThHDbRDjCxsznGZA=;
+	b=tkFL5oSZxs6nK7vrac2/9xqEFHyHwCoesY7sZThkrc/Lf4CIuGhranzPlhw8Jd3NgvCe
+	 PJ53gCYf47y5gQAs1ahNtizO9T/tLt76yKJYizELnlvH6smw3u9IfxX6uwl59X1IyF+8c
+	 0bIWwXX0tnkjnkyBwzDm4HevJJarw+PdWlKC+C35MTTdT0KGxPqRniR0+SG90c531fqA6
+	 XeCiYcTXKNpxf9rp3248OV7xI3W4vHHPc6e8GM/6jcMfErEqevQRsxw0ZdcGBzx4llFHH
+	 qDQvML92v78CxZH0vDBUDfEPUkhRfMHvAHzPDwvIG7ncGMKw6D0yzJ2cBaXS6rpLfSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NDPM2nlJ;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EhO6gJ0b;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="iJop/YcJ";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BA560A5BE8
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BA560A5BE8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61DA60A263A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:51:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E61DA60A263A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NDPM2nlJ
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso567086f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 05:51:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EhO6gJ0b;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iJop/YcJ
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe4FO4154783
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:51:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EgIAfahGgFUgahc8hjQZncsgzkuThHDbRDjCxsznGZA=; b=EhO6gJ0b7Fu/03c7
+	QiFvEyoo6+Db22HwYPHzd2kwr9wPbpDhZAKU/8MCPc1jj2bpbeuMXLLXY0AdN9mF
+	BwGtOHDebmwUpLBkXi9BgS1bBkKuiDAdfJjQ6idY6o0/P1tbpLnsJsz7o+RzPt4M
+	955j5OpYz/cyjUvh235ZXR6G3U2ycbjtt2V+zphuqp0F9HCdTx/uosTXDHiB4G9b
+	iL4BpaXwInr24motMXM31/m9wIE8J4ahWPzjdYmN0h/2sQgwjyVt4qCIGHn6B2bD
+	IvHvSsqH0tj76vvQ066MtkYsQARmhmngV0zmlLPXBxCn9PIi9juCC8pCkSezU/qQ
+	FLTUew==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp0uwr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:51:41 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3425098ae4bso2445266eec.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 05:51:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793191894; x=1793796694; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+9gEFsebZgLIr1Qs7Kt62BKf8J/dbl0EPo1Fb2D9wrs=;
-        b=NDPM2nlJTZPpMsFQ2IhFxFyuoUGdHlZvNEYlvFaqGheM+xWcg4eETZ1DGsdA1MIVzA
-         UkDuGgIwL7xN3J70FabPDr+VrHO8jScAd9ZtxgmgQnYxOH5JVrDIlvfMwWdN0AmXJSOA
-         sIq/KxS/elou3xMyTpXwwSXUBiOVdgFRtw+eZmkA4aRVsQJb6RsuXIb7IZxlkhZIovTP
-         fFk6oKPuhvh49LqqTMCv4Or9WoEkL5T4h0Um6KA4UNBQTmz/BoZUHiOE4vi0n7/FI4Or
-         a9sCoB/nvxZ4l3yiig8PuoqgVuHrswg3IGKgfnPJeDFW+glSUQ5RzQDHgwtrgvEgWWSz
-         Qn/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793191894; x=1793796694;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793191901; x=1793796701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+9gEFsebZgLIr1Qs7Kt62BKf8J/dbl0EPo1Fb2D9wrs=;
-        b=kfl2mZx677PI0KNCZcNtWz5WGQwrs0d1gRkkYHKjmMJMwqAV9q93qeF+rCqMp7VXYQ
-         Ylygv0Z8SZxXMfAW3g56IH+/1PSMrVNAJFhFcUzaGeDE1CS9z/j4zCu1PsUc9Nomg7Ql
-         ZrhVW0VpeohkdVUN43b/VMwMJdEtH3MB71WTFbQvfa0tVkIEeCFIUHRoYshzE+Zzg5c8
-         NoBVSh2XtPI1ZlIslISBFz1TzB1DEADtjtSEIOQ2BSx7i4xkO73Hw/SGiSozQUMz3boR
-         psKh1AT4pCjhB4Qnj5ZFvlGSlJb2ohogtBVOXT6ZlNlvQsfWKxWqN4FnL40VbTajjNSR
-         kp6w==
-X-Forwarded-Encrypted: i=1; AKwUvBysYghrSfrFZgcMIzVALnHtlJ9m0xtODPYJVkVOHXtf5Op4I2Rrat4rhz02goltn4bUefyttCkMvemI@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsKe2cBPi5UQndOwiBiE7wclmwU3joR7F+ANQfucSnu+8FcfLy
-	q1jjntgB/j298MEm64QJFaSYwiA40Sbjpbg1NgXO8B8RF4ms7tUb5A5C
-X-Gm-Gg: AYBFou1XRuDSsQK/m9etR8uhghW11qmFlNklG6R0Ke7Tfha46Rj2Sw//8/ECWTq5QwZ
-	H9d41mBGk6uq+0rDXVTxf5A/gdDybgGJa2eijubehxXJOsteJS28N+r8nQ/653FAg9aCFAubgA2
-	05+ttRF8vLlRwAz3U0G2aM+hnuSTLrkC+m04Z+DDorcTGq69nRIlu4XaruLZS/5+VKBh7SB4WWv
-	WYRSWwkqqtVnzZdVP1WsZkUEBnJq/H2enfiUiZvLjqd9tuGJ6xiXG4rPOusX6EZtk8LYEkxhtOG
-	Vz5XJ/DtmhOyWMs5JSxRlVX5CCiTUojS0PCT4XC/Gx8tjAAtwkJRs3OQoi310aoJkoeg0G6VnBe
-	TczUfrLOjqCibiGx5lS/uCud+4s+DlwlMvHA0HqqY3bviPKv9Zn2DMvRiByFw1jLyyqZElrMPLb
-	gi0L3gLkm4OFXYItclR2rdGwZTa6KtnO+k7lmM9thWLypTaDxm9RYRVOnTFqjyxMbiwPwhniCDb
-	TGcFWW6a28o5zx7Mt8xllzsISFvk10rTKz0zD7mR6c6AMXcFp8eqrtkywcUPekkqT436a5A55/t
-	qn7eMeTxFtPCpP8VU7IF+UPKvlWb2orA887l0aPPTccMCQ4ui7dD2QbCQ1bebY5WP4Y=
-X-Received: by 2002:a5d:452f:0:b0:487:40d:af29 with SMTP id ffacd0b85a97d-48e5d5c42bemr4021533f8f.36.1793191893408;
-        Wed, 28 Oct 2026 05:51:33 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:6bf5:6c0a:cf99:c9f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc39b3sm29275016f8f.10.2026.10.28.05.51.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 05:51:33 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 28 Oct 2026 12:51:28 +0000
-Subject: [PATCH v25 11/11] mmc: renesas_sdhi: Add RZ/G3L SDHI support
+        bh=EgIAfahGgFUgahc8hjQZncsgzkuThHDbRDjCxsznGZA=;
+        b=iJop/YcJgNYAcvki8Sy4PngnQ6VcBdDoihddMzawOZ1J/zYXGnsVKC36ds4SKUmUiW
+         jzxCziARLiyhlW6jxcPHvD+aS9JC2cOHQWDOHK2lHqOOKX64r3luwqwl0EgzUeLedeJ5
+         wcsVRn4Vs5kACqj41Vp/AMJQ9EuspNDHnPNxdgVWN4j/ME5KEJj7qMJiVvX74BPpYFaG
+         h+i2z91UcRCFEeiyUNhFtkkJQ2Y5ab61CbxTKILu8ZyKOa6dJ894TLp/dXkIba5ZqZhz
+         PIG5A0BIsd55JVS5ntWL8VrS2eRhVa+qS32fVA/r6TbfjnA7LrreKLnMzxYJqOlF4EeO
+         9xhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793191901; x=1793796701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EgIAfahGgFUgahc8hjQZncsgzkuThHDbRDjCxsznGZA=;
+        b=blS9MZIJws6nkcKjGoLf+5zypTsc4F2Qj4GuWiki7U/jAgXCPf2fS6VPWjqO+v8JS5
+         cjAx5blt4BzU6vUTRwCyDy10g0cAfDLPaADmuBv6UedcEP1nJF6LtWffrEpvo+4uvSmm
+         EoCownM4gOEFgm09SPhJFwVput5WRL98kayj6sfP+jl2N1uLn81jt/LiuYD4obznQpby
+         RJv/ZDDxluuHhYSxkxrd/t+vZezHrmAwMj7MZtUk12rPgA25OoL/bvvimCjCGTk8OOmW
+         1e4NG8Fo+Prp7UPDCMXyg9BVwSp05ClID6m91BtZzzF2SUG+999WSJTUMaHn9rxxE37r
+         hieg==
+X-Forwarded-Encrypted: i=1; AKwUvByY6NdSrUxE+45ZYGw2w77EYek10ZgmDfbzo6EWDf7dBzqE8I1sicMC+COWBZWyPvpbt6BP4E/Wi7yJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYInLa4cTMJ0MXwuEx0mr67lW/Kjk0PnBgyeEazjgjXuqVhsk2p+
+	sCbd4gQ5cvhkTdzXar9Z+jnk0Lz3Y8hm7etg/kAgM/xnzJwH7+nOkEJ5yYYaVb8jvuPsaVl5g6A
+	RPmgHvpnYDRJNteyMt/s6I1dO1mj4Q9DbtcJ5Ldrw/SinqIKRPXRXyZ7Io77ATixy
+X-Gm-Gg: AYBFou1wj30PVbavuwcpP7XqH1pYmccG9zLS/KdJsUJy+HPn0n668VgAcxLLn3HZZqG
+	UknDY8/U1qo1BSx1Le1hTIUFNkF5Ph2qwTyZnUwUKtEE5Jnm2qHz8mCdK8MSPEwH4ITRwtggaSU
+	Bn/dRVjUGhnXSjpO0OHIUZg+IEuXr07UxBmibh9p5hCHEJcnYCLdD6F20GEAhaQolAYkapWU1Ux
+	bodi98dP2vCsQS4B9SdDxO88oDTbSq1Epf1zK0B5vcSk2txwKSpaxBnRfgVKhKEB5wS2qP2bIdc
+	E102/CsAdrwp51UcpY/7zshIgTow+uyNOQuvxToMqyXn4KpU+tMNmf7VvstrN4Q87O9uqBco4mu
+	lJiExsOiEk+4uaJorr+W630UJSswNtHjgf6eMMYBbDOrN0ubTS7l/hwuW8PLowGWHyIBHpQeMm7
+	NKQh+cX1jN
+X-Received: by 2002:a05:693c:415a:20b0:369:e8a8:b9cf with SMTP id 5a478bee46e88-36a0f81976cmr8179283eec.11.1793191900656;
+        Wed, 28 Oct 2026 05:51:40 -0700 (PDT)
+X-Received: by 2002:a05:693c:415a:20b0:369:e8a8:b9cf with SMTP id 5a478bee46e88-36a0f81976cmr8179258eec.11.1793191900087;
+        Wed, 28 Oct 2026 05:51:40 -0700 (PDT)
+Received: from [192.168.0.104] ([124.123.197.72])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2392ecfdsm7277318eec.17.2026.10.28.05.51.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 05:51:39 -0700 (PDT)
+Message-ID: <57aef084-4328-4e4d-8ace-f0fc288e478d@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 18:21:33 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,425 +116,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] ASoC: dt-bindings: qcom,sm8250: add Shikra sound
+ card compatibles
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260910-shikra-machine-v2-v2-0-9bf6bad589d8@oss.qualcomm.com>
+ <20260910-shikra-machine-v2-v2-1-9bf6bad589d8@oss.qualcomm.com>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260910-shikra-machine-v2-v2-1-9bf6bad589d8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-rzg3l_sdhi-v25-11-57f16691c2ed@bp.renesas.com>
-References: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-In-Reply-To: <20261028-rzg3l_sdhi-v25-0-57f16691c2ed@bp.renesas.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793191879; l=15656;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=mUfywRPPsPBaEhPP7/YwCSkci7+86rydfvk3F/1/0Gs=;
- b=TbSkHK+mMd6XpXNTzpvK9izd3Y3AHk+fM6ZZ4B9UO1qaUIf6LMki+fyq/buCL/VYXU29eGvSA
- BYw8j9bth7BBbHyfBitNQaoJpOMFrpBZH6ZvTZWspKvsb5FbR7mhPgl
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+X-Proofpoint-GUID: iLErH4qnh8rGJ-hKVGNxieLzW8BLDdhz
+X-Proofpoint-ORIG-GUID: iLErH4qnh8rGJ-hKVGNxieLzW8BLDdhz
+X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae1efdd cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ud/Gc3SFmwde3Mv7YyqU3w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=iuzv4ofnY9mMQXrTmB8A:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfX2MbRpQInEuXe
+ 51LxFZR168Y+n1+xO0G35sMeXTNrfqH73xQe+JQac43h2yGHhQ1ONswpCTL1bW1IRkAA8VgAJAd
+ Re72RQDRoH/jIRvcyqukNmRoJNBsPHVwPZPlz0Nej7bRs6V/AueNWasOlRhFFSVDgaV6paHDKxx
+ STYUrNHfjkO2DOCzWaDdbkJUR/ROed/nppKWo+xd3qXugOfSOvxSCECyjDwLIsosCml7VfGMsLZ
+ C7Ew9XgY/0CMsZDErdmndKiC1P/Ti3lY76FtWWrQhS1+t9RM+U05a174w3bjWwt6tpkeN/wwtE+
+ eHKs2qQ9uDMo2d9YrLkIx0StH4zwC/zaVq7ZoZfPQ0wuyv6EYajBTl+Hofo3rKpHCJEuIzfryXz
+ QnB2cr9W3FkpCpCJeGZ4aaczAJtsGMchUWj7blPkQ/QqP2vpYCu3arcZkhyu+U3WlFKmR1Ddxk+
+ PVWUtEn9KHIB+qHYuMg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfXz1moerVheswb
+ z5mF6n7DWO6gdVY4ipZ5gTdurCwhKPrMMUXsyLSieH7zMJmZkdQuo1w/S+xEDF4GRERXFFpNtyb
+ UdPccAjgHVOHKNIAMOhTh50tX6Ko2wQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280051
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
 
-The RZ/G3L SDHI is close to existing variants but differs in three
-ways the driver can't handle today:
+On 9/10/2026 8:32 PM, Ajay Kumar Nandam wrote:
+> Add Shikra sound-card compatible strings to the Qualcomm sound card
+> binding so DT can describe board-specific audio topologies:
+>
+> - qcom,shikra-cqm-sndcard
+> - qcom,shikra-cqs-sndcard
+> - qcom,shikra-iqs-sndcard
+>
+> Shikra EVK variants use different codec/interface combinations and DSP
+> processing paths. Describing these variants explicitly in DT allows the
+> machine driver to select the correct DAPM routes, controls, and clocking
+> behavior for each board.
+>
+> Co-developed-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> ---
 
-- It has an 11-bit clock divider. The upper bits live in CLK_CTL
-  bits [17:16], so the register must be written with a 32-bit access
-  on this SoC.
-- Tuning needs a second HW adjustment register (HWADJ2), programmed
-  together with TMPPORT2.
-- HWADJ4 must be cleared when tuning starts.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v24->v25:
- * Updated commit description.
- * Added macros RZG3L_SDHI_SCC_HWADJ2_{1_8V,3_3V}
- * Replaced the quirks sdhi_quirks_rzg3l with sdhi_quirks_fixed_addr.
- * Added helper renesas_sdhi_sclken() to handle 16-bit and 32-bit access.
- * Updated renesas_sdhi_set_clock() with max_divider check for
-   TMIO_MMC_INTERNAL_DIVIDER instead of SDHI_MAX_DIVIDER_DEFAULT for
-   consistency with tmio_mmc_reset().
-v23->v24:
- * Replaced magic bits GENMASK(9, 8) and GENMASK(17, 16) with
-   RZG3L_CLK_CTL_DIV9_DIV8 and RZG3L_CLK_CTL_DIV9_DIV8_SRC.
-v22->v23:
- * Updated tmio_mmc_reset() to handle 32 bit divider register in RZ/G3L.
-v21->v22:
- * Updated commit description.
- * Added `clock &= ~GENMASK(9, 8)` to clear the divider mask bits in
-   the register value.
-v20->v21:
- * Added clk_div_mask to RZ/G3L of_data.
- * Restored actual_clk calculation in renesas_sdhi_set_clock().
-v19->v20:
- * Added bitfield.h header file.
- * Reworked on renesas_sdhi_set_clock() to handle the 11-bit divider
-   case and the 32-bit register write.
-v18->v19:
- * Update commit description.
- * Updated handling for clk divider.
- * Renamed TMIO_MMC_HWADJ2->TMIO_MMC_HWADJ to make it generic for
-   hardware tuning delays
- * Dropped duplicate SH_MOBILE_SDHI_SCC_TMPPORT2 macro
-v18:
- * New patch.
----
- drivers/mmc/host/renesas_sdhi_core.c          | 84 +++++++++++++++++++--------
- drivers/mmc/host/renesas_sdhi_internal_dmac.c | 34 +++++++++++
- drivers/mmc/host/tmio_mmc_core.c              | 16 ++++-
- include/linux/platform_data/tmio.h            |  3 +
- 4 files changed, 110 insertions(+), 27 deletions(-)
+Reviewed-by: Prasad Kumpatla<prasad.kumpatla@oss.qualcomm.com>
 
-diff --git a/drivers/mmc/host/renesas_sdhi_core.c b/drivers/mmc/host/renesas_sdhi_core.c
-index cb41f38ec80e..4b6c0dbd15e7 100644
---- a/drivers/mmc/host/renesas_sdhi_core.c
-+++ b/drivers/mmc/host/renesas_sdhi_core.c
-@@ -18,6 +18,7 @@
-  *
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/iopoll.h>
-@@ -60,9 +61,13 @@
- #define SDHI_VER_GEN2_SDR104	0xcb0d
- #define SDHI_VER_GEN3_SD	0xcc10
- #define SDHI_VER_GEN3_SDMMC	0xcd10
-+#define SDHI_VER_RZ_G3L_SDMMC	0xce10
- 
- #define SDHI_GEN3_MMC0_ADDR	0xee140000
- 
-+#define RZG3L_CLK_CTL_DIV9_DIV8		GENMASK(17, 16)
-+#define RZG3L_CLK_CTL_DIV9_DIV8_SRC	GENMASK(9, 8)
-+
- static void renesas_sdhi_sdbuf_width(struct tmio_mmc_host *host, int width)
- {
- 	u32 val;
-@@ -80,6 +85,7 @@ static void renesas_sdhi_sdbuf_width(struct tmio_mmc_host *host, int width)
- 		break;
- 	case SDHI_VER_GEN3_SD:
- 	case SDHI_VER_GEN3_SDMMC:
-+	case SDHI_VER_RZ_G3L_SDMMC:
- 		if (width == 64)
- 			val = HOST_MODE_GEN3_64BIT;
- 		else if (width == 32)
-@@ -205,14 +211,28 @@ static unsigned int renesas_sdhi_clk_update(struct tmio_mmc_host *host,
- 	return renesas_sdhi_clk_get_rate(host, priv->clk);
- }
- 
-+static void renesas_sdhi_sclken(struct tmio_mmc_host *host, bool enable)
-+{
-+	if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER) {
-+		u32 val = sd_ctrl_read32(host, CTL_SD_CARD_CLK_CTL);
-+
-+		val = enable ? val | CLK_CTL_SCLKEN : val & ~CLK_CTL_SCLKEN;
-+		sd_ctrl_write32(host, CTL_SD_CARD_CLK_CTL, val);
-+	} else {
-+		u16 val = sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL);
-+
-+		val = enable ? val | CLK_CTL_SCLKEN : val & ~CLK_CTL_SCLKEN;
-+		sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, val);
-+	}
-+}
-+
- static void renesas_sdhi_set_clock(struct tmio_mmc_host *host,
- 				   unsigned int new_clock)
- {
- 	unsigned int clk_margin;
- 	u64 clk = 0, clock;
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, ~CLK_CTL_SCLKEN &
--		sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, false);
- 
- 	if (new_clock == 0) {
- 		host->mmc->actual_clock = 0;
-@@ -243,12 +263,21 @@ static void renesas_sdhi_set_clock(struct tmio_mmc_host *host,
- 	if (clock != SDHI_SD_CLK_CTL_DIV1)
- 		host->mmc->actual_clock /= (1 << (ffs(clock) + 1));
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clock);
-+	if (host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER) {
-+		u64 tmp;
-+
-+		tmp = FIELD_GET(RZG3L_CLK_CTL_DIV9_DIV8_SRC, clk);
-+		clock |= FIELD_PREP(RZG3L_CLK_CTL_DIV9_DIV8, tmp);
-+		clock &= ~RZG3L_CLK_CTL_DIV9_DIV8_SRC;
-+		sd_ctrl_write32(host, CTL_SD_CARD_CLK_CTL, clock);
-+	} else {
-+		sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clock);
-+	}
-+
- 	if (!(host->pdata->flags & TMIO_MMC_MIN_RCAR2))
- 		usleep_range(10000, 11000);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, CLK_CTL_SCLKEN |
--		sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, true);
- 
- out:
- 	/* HW engineers overrode docs: no sleep needed on R-Car2+ */
-@@ -279,12 +308,14 @@ static int renesas_sdhi_card_busy(struct mmc_host *mmc)
- #define SH_MOBILE_SDHI_SCC_RVSCNTL	0x008
- #define SH_MOBILE_SDHI_SCC_RVSREQ	0x00A
- #define SH_MOBILE_SDHI_SCC_SMPCMP       0x00C
--#define SH_MOBILE_SDHI_SCC_TMPPORT2	0x00E
-+#define SH_MOBILE_SDHI_SCC_TMPPORT2	0x00E /* G3L: SDm_SCC_HS400MODE1 */
-+#define RZG3L_SDHI_SCC_HWADJ2		0x010
- #define SH_MOBILE_SDHI_SCC_TMPPORT3	0x014
- #define SH_MOBILE_SDHI_SCC_TMPPORT4	0x016
- #define SH_MOBILE_SDHI_SCC_TMPPORT5	0x018
- #define SH_MOBILE_SDHI_SCC_TMPPORT6	0x01A
- #define SH_MOBILE_SDHI_SCC_TMPPORT7	0x01C
-+#define RZG3L_SDHI_SCC_HWADJ4		0x022
- 
- #define SH_MOBILE_SDHI_SCC_DTCNTL_TAPEN		BIT(0)
- #define SH_MOBILE_SDHI_SCC_DTCNTL_TAPNUM_SHIFT	16
-@@ -305,6 +336,9 @@ static int renesas_sdhi_card_busy(struct mmc_host *mmc)
- #define SH_MOBILE_SDHI_SCC_TMPPORT2_HS400OSEL	BIT(4)
- #define SH_MOBILE_SDHI_SCC_TMPPORT2_HS400EN	BIT(31)
- 
-+#define RZG3L_SDHI_SCC_HWADJ2_1_8V	0xff
-+#define RZG3L_SDHI_SCC_HWADJ2_3_3V	0x3fff
-+
- /* Definitions for values the SH_MOBILE_SDHI_SCC_TMPPORT4 register */
- #define SH_MOBILE_SDHI_SCC_TMPPORT4_DLL_ACC_START	BIT(0)
- 
-@@ -335,14 +369,22 @@ static void renesas_sdhi_set_hw_adjustment_delay(struct tmio_mmc_host *host,
- 						 bool force_clear)
- {
- 	struct renesas_sdhi *priv = host_to_priv(host);
-+	bool hwadj2 = host->pdata->flags & TMIO_MMC_HWADJ;
- 
- 	if (!(host->pdata->flags & TMIO_MMC_TUNING_DELAY))
- 		return;
- 
--	if (host->mmc->ios.signal_voltage == MMC_SIGNAL_VOLTAGE_330 || force_clear)
-+	if (host->mmc->ios.signal_voltage == MMC_SIGNAL_VOLTAGE_330 || force_clear) {
- 		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x0);
--	else
-+		if (hwadj2)
-+			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2,
-+				       RZG3L_SDHI_SCC_HWADJ2_3_3V);
-+	} else {
- 		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x1);
-+		if (hwadj2)
-+			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2,
-+				       RZG3L_SDHI_SCC_HWADJ2_1_8V);
-+	}
- }
- 
- static int renesas_sdhi_start_signal_voltage_switch(struct mmc_host *mmc,
-@@ -390,8 +432,7 @@ static unsigned int renesas_sdhi_init_tuning(struct tmio_mmc_host *host)
- 	/* Initialize SCC */
- 	sd_ctrl_write32_as_16_and_16(host, CTL_STATUS, 0x0);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, ~CLK_CTL_SCLKEN &
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, false);
- 
- 	/* set sampling clock selection range */
- 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_DTCNTL,
-@@ -409,9 +450,10 @@ static unsigned int renesas_sdhi_init_tuning(struct tmio_mmc_host *host)
- 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_DT2FF, priv->scc_tappos);
- 
- 	renesas_sdhi_set_hw_adjustment_delay(host, false);
-+	if (host->pdata->flags & TMIO_MMC_HWADJ)
-+		sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ4, 0x0);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, CLK_CTL_SCLKEN |
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, true);
- 
- 	/* Read TAPNUM */
- 	return (sd_scc_read32(host, priv, SH_MOBILE_SDHI_SCC_DTCNTL) >>
-@@ -426,8 +468,7 @@ static void renesas_sdhi_hs400_complete(struct mmc_host *mmc)
- 	u32 bad_taps = priv->quirks ? priv->quirks->hs400_bad_taps : 0;
- 	bool use_4tap = sdhi_has_quirk(priv, hs400_4taps);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, ~CLK_CTL_SCLKEN &
--		sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, false);
- 
- 	/* Set HS400 mode */
- 	sd_ctrl_write16(host, CTL_SDIF_MODE, SDIF_MODE_HS400 |
-@@ -473,8 +514,7 @@ static void renesas_sdhi_hs400_complete(struct mmc_host *mmc)
- 		       SH_MOBILE_SDHI_SCC_CKSEL_DTSEL |
- 		       sd_scc_read32(host, priv, SH_MOBILE_SDHI_SCC_CKSEL));
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, CLK_CTL_SCLKEN |
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, true);
- 
- 	if (priv->adjust_hs400_calib_table)
- 		priv->needs_adjust_hs400 = true;
-@@ -485,8 +525,7 @@ static void renesas_sdhi_disable_scc(struct mmc_host *mmc)
- 	struct tmio_mmc_host *host = mmc_priv(mmc);
- 	struct renesas_sdhi *priv = host_to_priv(host);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, ~CLK_CTL_SCLKEN &
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, false);
- 
- 	sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_CKSEL,
- 		       ~SH_MOBILE_SDHI_SCC_CKSEL_DTSEL &
-@@ -498,8 +537,7 @@ static void renesas_sdhi_disable_scc(struct mmc_host *mmc)
- 		       sd_scc_read32(host, priv,
- 				     SH_MOBILE_SDHI_SCC_DTCNTL));
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, CLK_CTL_SCLKEN |
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, true);
- }
- 
- static u32 sd_scc_tmpport_read32(struct tmio_mmc_host *host,
-@@ -573,8 +611,7 @@ static void renesas_sdhi_adjust_hs400_mode_disable(struct tmio_mmc_host *host)
- static void renesas_sdhi_reset_hs400_mode(struct tmio_mmc_host *host,
- 					  struct renesas_sdhi *priv)
- {
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, ~CLK_CTL_SCLKEN &
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, false);
- 
- 	/* Reset HS400 mode */
- 	sd_ctrl_write16(host, CTL_SDIF_MODE, ~SDIF_MODE_HS400 &
-@@ -590,8 +627,7 @@ static void renesas_sdhi_reset_hs400_mode(struct tmio_mmc_host *host,
- 	if (sdhi_has_quirk(priv, hs400_calib_table) || sdhi_has_quirk(priv, hs400_bad_taps))
- 		renesas_sdhi_adjust_hs400_mode_disable(host);
- 
--	sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, CLK_CTL_SCLKEN |
--			sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL));
-+	renesas_sdhi_sclken(host, true);
- }
- 
- static int renesas_sdhi_prepare_hs400_tuning(struct mmc_host *mmc, struct mmc_ios *ios)
-diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-index e934b35fc205..eaf21f93f5d3 100644
---- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-+++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
-@@ -87,6 +87,13 @@ static struct renesas_sdhi_scc rcar_gen3_scc_taps[] = {
- 	},
- };
- 
-+static struct renesas_sdhi_scc rzg3l_scc_taps[] = {
-+	{
-+		.clk_rate = 0,
-+		.tap = 0x00000300,
-+	},
-+};
-+
- static const struct renesas_sdhi_of_data of_data_rza2 = {
- 	.tmio_flags	= TMIO_MMC_HAS_IDLE_WAIT | TMIO_MMC_CLK_ACTUAL |
- 			  TMIO_MMC_HAVE_CBSY,
-@@ -152,6 +159,27 @@ static const struct renesas_sdhi_of_data of_data_rz_g2l = {
- 	.sdhi_flags	= SDHI_FLAG_NEED_CLKH_FALLBACK,
- };
- 
-+static const struct renesas_sdhi_of_data of_data_rzg3l = {
-+	.tmio_flags	= TMIO_MMC_HAS_IDLE_WAIT | TMIO_MMC_CLK_ACTUAL |
-+			  TMIO_MMC_HAVE_CBSY | TMIO_MMC_MIN_RCAR2 |
-+			  TMIO_MMC_64BIT_DATA_PORT | TMIO_MMC_TUNING_DELAY |
-+			  TMIO_MMC_INTERNAL_DIVIDER | TMIO_MMC_HWADJ,
-+	.capabilities	= MMC_CAP_SD_HIGHSPEED | MMC_CAP_SDIO_IRQ |
-+			  MMC_CAP_CMD23 | MMC_CAP_WAIT_WHILE_BUSY,
-+	.capabilities2	= MMC_CAP2_NO_WRITE_PROTECT | MMC_CAP2_MERGE_CAPABLE,
-+	.bus_shift	= 2,
-+	.scc_offset	= 0x1000,
-+	.taps		= rzg3l_scc_taps,
-+	.taps_num	= ARRAY_SIZE(rzg3l_scc_taps),
-+	/* DMAC can handle 32bit blk count but only 1 segment */
-+	.max_blk_count	= UINT_MAX / TMIO_MAX_BLK_SIZE,
-+	.max_segs	= 1,
-+	.sdhi_flags	= SDHI_FLAG_NEED_CLKH_FALLBACK,
-+	.clk_mask	= 0x200000200,
-+	.max_divider	= 2048,
-+	.clk_div_mask	= GENMASK(9, 0),
-+};
-+
- static const u8 r8a7796_es13_calib_table[2][SDHI_CALIB_TABLE_MAX] = {
- 	{ 3,  3,  3,  3,  3,  3,  3,  4,  4,  5,  6,  7,  8,  9, 10, 15,
- 	 16, 16, 16, 16, 16, 16, 17, 18, 18, 19, 20, 21, 22, 23, 24, 25 },
-@@ -291,6 +319,11 @@ static const struct renesas_sdhi_of_data_with_quirks of_rza2_compatible = {
- 	.quirks = &sdhi_quirks_fixed_addr,
- };
- 
-+static const struct renesas_sdhi_of_data_with_quirks of_rzg3l_compatible = {
-+	.of_data = &of_data_rzg3l,
-+	.quirks = &sdhi_quirks_fixed_addr,
-+};
-+
- static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,sdhi-r7s9210", .data = &of_rza2_compatible, },
- 	{ .compatible = "renesas,sdhi-mmc-r8a77470", .data = &of_rcar_gen3_compatible, },
-@@ -304,6 +337,7 @@ static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
- 	{ .compatible = "renesas,sdhi-r8a77990", .data = &of_r8a77990_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a77995", .data = &of_rcar_gen3_nohs400_compatible, },
- 	{ .compatible = "renesas,sdhi-r8a779md", .data = &of_rcar_gen3_nohs400_compatible, },
-+	{ .compatible = "renesas,sdhi-r9a08g046", .data = &of_rzg3l_compatible, },
- 	{ .compatible = "renesas,sdhi-r9a09g011", .data = &of_rzg2l_compatible, },
- 	{ .compatible = "renesas,sdhi-r9a09g057", .data = &of_rzg2l_compatible, },
- 	{ .compatible = "renesas,rzg2l-sdhi", .data = &of_rzg2l_compatible, },
-diff --git a/drivers/mmc/host/tmio_mmc_core.c b/drivers/mmc/host/tmio_mmc_core.c
-index 4fe98b437121..d016306956f9 100644
---- a/drivers/mmc/host/tmio_mmc_core.c
-+++ b/drivers/mmc/host/tmio_mmc_core.c
-@@ -180,11 +180,17 @@ static void tmio_mmc_set_bus_width(struct tmio_mmc_host *host,
- 
- static void tmio_mmc_reset(struct tmio_mmc_host *host, bool preserve)
- {
--	u16 card_opt, clk_ctrl, sdif_mode;
-+	u16 card_opt, sdif_mode;
-+	u32 clk_ctrl;
-+	bool wide_clk = host->pdata->flags & TMIO_MMC_INTERNAL_DIVIDER;
- 
- 	if (preserve) {
- 		card_opt = sd_ctrl_read16(host, CTL_SD_MEM_CARD_OPT);
--		clk_ctrl = sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL);
-+		if (wide_clk)
-+			clk_ctrl = sd_ctrl_read32(host, CTL_SD_CARD_CLK_CTL);
-+		else
-+			clk_ctrl = sd_ctrl_read16(host, CTL_SD_CARD_CLK_CTL);
-+
- 		if (host->pdata->flags & TMIO_MMC_MIN_RCAR2)
- 			sdif_mode = sd_ctrl_read16(host, CTL_SDIF_MODE);
- 	}
-@@ -216,7 +222,11 @@ static void tmio_mmc_reset(struct tmio_mmc_host *host, bool preserve)
- 
- 	if (preserve) {
- 		sd_ctrl_write16(host, CTL_SD_MEM_CARD_OPT, card_opt);
--		sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clk_ctrl);
-+		if (wide_clk)
-+			sd_ctrl_write32(host, CTL_SD_CARD_CLK_CTL, clk_ctrl);
-+		else
-+			sd_ctrl_write16(host, CTL_SD_CARD_CLK_CTL, clk_ctrl);
-+
- 		if (host->pdata->flags & TMIO_MMC_MIN_RCAR2)
- 			sd_ctrl_write16(host, CTL_SDIF_MODE, sdif_mode);
- 	}
-diff --git a/include/linux/platform_data/tmio.h b/include/linux/platform_data/tmio.h
-index 09b3411a59c9..99b05c8c840a 100644
---- a/include/linux/platform_data/tmio.h
-+++ b/include/linux/platform_data/tmio.h
-@@ -56,6 +56,9 @@
- /* Some controllers have internal divider */
- #define TMIO_MMC_INTERNAL_DIVIDER	BIT(14)
- 
-+/* Some controllers have hw adjustment delay */
-+#define TMIO_MMC_HWADJ			BIT(15)
-+
- struct tmio_mmc_data {
- 	void				*chan_priv_tx;
- 	void				*chan_priv_rx;
-
--- 
-2.43.0
+Thanks,
+Prasad
 
