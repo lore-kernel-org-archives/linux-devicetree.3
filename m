@@ -1,56 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793188600;
-	b=VeUz6rlIEP7xHX0OfCYEVJDqQFpL6uYSHMTxfy74uhwZixaFCETIa+V/GFInmbKJRB7n
-	 CQ3YPF3MjdIHagdIyFpXfLcdc5aKQqo62hgWjbs5jMKqhoA5dOWG5JsnrLgA8vFUoXVvb
-	 7bWm3/NcGjUuRJJR5plyJQSPzqM1fYI/UOfX9WPlaAryqZICF2rpLLBTN8vI7pe9UVql7
-	 6ov3ozt2WV8ufGBrGqlfMFWmkgVuQ7DSoDi+NLom4ohYdqrZtmz4BWbLSBZ8Qu0tyFMLJ
-	 CoO2cOdIKrAnEi/L2n2tO0S84mrTzhzupn9Go+F+BUItHubT9N5OX7gaEBYEpfmV0aA==
+	t=1793188778;
+	b=kSc9KQEGnpKDeK1o/Sp/rsyTdTqUHlMLnIezULlg4tQlsKrq8UO9W4ZpEoAc3pIIhP7i
+	 KuYyeWhVLEX9yORpGxQXVoIDQMYUueDiJzK6z+F43I+y6iEZw0y2AU5J/fnAr50xrf5NR
+	 BhvP9UCQ7lMpwPVApcc6Ipdgm+7HMzY4xRA9NfCoiMiylVwH7GXFauhYtHjbXkwLfg544
+	 zYsUP4XPv0GwEYUj0aP4s4D1RaTFu10Wgaju030BWxd/7MbKWUlbNDDKby5ikjVEb3eE2
+	 /fbso1C3PDhcBf0mJ++6nnQrN3TrWE2L1Vf4vMJAXB2BYmJ+14C+Y+5Wz09DtkSeifQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793188600;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7xEzMT1Olr8qotGUAyhuPPY+TX2tt5njGGfyAG6m+aw=;
-	b=2UELqW+lUksL5ObS0eeRr5DmoKAHVY/K1z9MTv5/R1hs/zHRYPGH3IpmCVB5bcNDMniw
-	 UQxeO7RKxRPtxJovFPi44J3bZkEVQI/Y2L1YZWdZ++vzAHhduaKAcHO+3xNORruPkLQdC
-	 HzafXgA3ogz0oP+DmU+FYJZpg6n9/rcEHsOzRfAcBzOqym3PXcOKQr2RGnMU07u0a5bvT
-	 hlKlxeYyDWIkDXMcM5qG102NO1uvGHpfOsCLARXa8Fq9rWMMRQHy/GOhWV/utpDAM65Sv
-	 1/g5BZLLhf1yuewZxv/wGzrUiAksJXMO10XzwPx3ENRR4d6E4Mdhq5XgC3YGnoQWhGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188778;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=f5NboUzo78TSvbEnVlTQueU5GwrKHZYmgsrDTsu8dJU=;
+	b=eVC5Bt2hJZXgD7SZoYQ45x8al4SFdgmeG3uZUYzpZROEZEDqo9HdCDPUipl8GXHvOl5V
+	 lLlJJZXsEOjUZEdyIc/+HYQiIdw016s5S5+ybxFGf+AZ3/JhK79BRNL0/L30x3nYk7rPL
+	 frB4xs2P19UFpiQxFMmX/c9GH7J7GvSv4UTaP9rS9Z64W1bpY9+h/TdKxGl49K/J9sp7a
+	 5YQKeRSj17wYdmS2uDt65hmT69EhZNYKKMPxDSfOoiiv3VVfWAnexzRitYIWStOM2VFaM
+	 efukY7LKfSXvw1lQ4ZRF8Z9EcrZkQi+WArYqBi0MbmC61P161zqJrZS53JQLFka/gmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wc+Dh85y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=P4N3rUJS;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8BE606A31C
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6740B606A31A;
+	Wed, 28 Oct 2026 11:59:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6740B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wc+Dh85y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E93F1F01825;
-	Wed, 28 Oct 2026 11:56:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793188599;
-	bh=7xEzMT1Olr8qotGUAyhuPPY+TX2tt5njGGfyAG6m+aw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wc+Dh85y2QXvM4udGjM2QjuI5p42VeGI4hPobqaxURu0i2mHkXTLxmu4HDJuOPO54
-	 Y0E3M3x+TIBtGJZDaow78oT5ZpBAYe6pJEDVHiQaspZ2uTMwLn9dlCn0Yc3ch26zRg
-	 c94qALVPw0PQC82nTZlExKN7a+k4apmitcl+kNMAbmqdIVyiS1INJrEvnBTIkNGRbY
-	 DsSkYzGITjpoQOnDwUa2iecq4v87YOcKiIodQiu4nlDM41uKOIoPUt20wnyswpaKT/
-	 aFrji+kzSbugojFGMy5oVZ8gajMFuR9/ieyrKnfHgPCkR4CyZLDuKtl7S/+cQshd0g
-	 tnZK6qPYM4AsA==
-Message-ID: <sashiko-outbox-187851@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/6] dt-bindings: arm: Add MPAM MSC binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yin Li" <yin.li@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-3-bdda1e445cba@oss.qualcomm.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
- <20261028-mpam-resctrl-dt-knp-support-v4-3-bdda1e445cba@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 11:56:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=P4N3rUJS
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1914B15A2B6;
+	Wed, 28 Oct 2026 12:59:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793188773; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=f5NboUzo78TSvbEnVlTQueU5GwrKHZYmgsrDTsu8dJU=;
+	b=P4N3rUJSUM89fo9E2InG1shZOpy0XpXcOvgzNy28wcBa2dk4P+TiyEQhdoOKC2iZpyCfPD
+	3ki45bzf6FsuR4HE9CJkmwVihB614DfRgS/1XQ+uPFi+9AMFDG1fWWwXOt2dzfQQ40M3iM
+	yuGpbv53MOJ6vmorSa04cXulx/u/LT0azavSqBwvFsvyydeLefaE2bibPSsF3BgI2YyWkt
+	nM5O2J2kEHb7kt0fXTbIUXYuG0QbnJCJlBx0jM6KzRffivz4eEXivXbeeDL5mrVjpWuf0l
+	/kOdX6Q1O+75jHkfq5kQJjBmHJF9/NsjcJkyR2P/LWH3a4zE//wRaFyRRmisiQ==
+Message-ID: <acf55987-e96d-407f-a4a7-1c78178a0c7a@cjdns.fr>
+Date: Wed, 28 Oct 2026 12:59:23 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,124 +54,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 5/7] net: dsa: mediatek: support MDIO switch downstream
+ of MMIO switch
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-6-cjd@cjdns.fr>
+ <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] dt-bindings: arm: arm,mpam-msc: mismatched reg and ranges cell coun=
-ts in example
-- [Low] dt-bindings: arm: arm,mpam-msc: missing top-level required property=
- list
-- [Low] dt-bindings: arm: arm,mpam-msc: example violates dt-check-style rul=
-es
---
 
-commit f7533674b3629d7c4309338f82390e5f0a91878a
-Author: Rob Herring <robh@kernel.org>
+On 28/10/2026 03:20, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 01:13:15AM +0000, Caleb James DeLisle wrote:
+>> The MT7530 / MT7531 can connect via either MDIO or MMIO. In MMIO mode
+>> the switch provides its own MDIO bus which connects to its integrated
+>> PHYs, but also can be connected to other things, such as another
+>> switch.
+>>
+>> If the MDIO bus contains another switch, then the upstream switch
+>> will register but it will not setup the DSA tree because the
+>> downstream switch is missing. Without the complete DSA tree,
+>> mt753x_setup() will not be called on the switch and therefore
+>> mt7530_setup_mdio() is never called so the downstream switch never
+>> registers.
+>>
+>> Update mt7530_setup_mdio() so that it can be called multiple times,
+>> export the symbol, and call it again after dsa_register_switch()
+>> from mt7988_probe().
+> I would suggest just moving it to probe. Don't also have it in setup.
+> KISS.
 
-dt-bindings: arm: Add MPAM MSC binding
 
-This commit adds the devicetree binding schema for the Arm Memory System
-Resource Partitioning and Monitoring (MPAM) Memory System Component (MSC)
-using the arm,mpam-msc compatible string.
+I don't think there's a way to do that which will work. And I guess I 
+need to add a few comments to explain why. Basically 
+when dsa_register_switch() is called, one of three things can happen:
 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Do=
-cumentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> new file mode 100644
-> index 0000000000000..523978900d3de
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> @@ -0,0 +1,52 @@
+1. return error (often without calling mt753x_setup), typically this is 
+EPROBE_DEFER because the ethernet driver is not there yet.
 
-[ ... ]
+2. return 0 without calling mt753x_setup (because not all switches in 
+the tree are yet probed)
 
-> +properties:
-> +  compatible:
-> +    const: arm,mpam-msc
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: A memory region containing registers as defined in the =
-MPAM
-> +      specification.
-> +
-> +  arm,not-ready-us:
-> +    description: The maximum time in microseconds for monitoring data to=
- be
-> +      accurate after a settings change. For more information, see the
-> +      Not-Ready (NRDY) bit description in the MPAM specification.
-> +
-> +additionalProperties: false
+3. call mt753x_setup, complete setup, and return 0
 
-[Severity: Low]
-Should this schema include a top-level required block listing compatible and
-reg before additionalProperties: false?
 
-In drivers/resctrl/mpam_devices.c, do_mpam_msc_drv_probe() unconditionally
-maps MMIO resource 0 for these nodes:
+In case 1, mt7530_setup_mdio must not be called, because it would be 
+setting up an MDIO on a driver that's about to get deleted.
 
-    if (msc->iface =3D=3D MPAM_IFACE_MMIO) {
-        void __iomem *io;
+In case 2, we have to call mt7530_setup_mdio because otherwise we may 
+not discover downstream switches (this is the patch)
 
-        io =3D devm_platform_get_and_ioremap_resource(pdev, 0,
-                                                    &msc_res);
-        if (IS_ERR(io)) {
-            dev_err_once(dev, "Failed to map MSC base address\n");
-            return ERR_CAST(io);
-        }
+In case 3, mt7530_setup_mdio must be called before mt753x_setup returns 
+because after it returns, the DSA core synchronously enables ports and 
+it will expect PHYs to be operational.
 
-Without a required list in Documentation/devicetree/bindings/arm/arm,mpam-m=
-sc.yaml,
-devicetree nodes matching arm,mpam-msc that omit reg will pass dtbs_check
-validation and fail at runtime during probe.
 
-> +
-> +examples:
-> +  - |
-> +    L3: cache-controller@30000000 {
-> +        compatible =3D "foo,a-l3-cache", "cache";
-> +        cache-level =3D <3>;
-> +        cache-unified;
+Only the DSA core really knows what it's going to do, so I think the 
+only way to solve this without going inside of it is this patch where 
+calls are made from two sites.
 
-[Severity: Low]
-Does this example trigger check_property_order() and check_unused_labels()
-warnings when running scripts/dtc/dt-check-style --mode=3Dstrict on
-Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml?
 
-In cache-controller@30000000, the L3 label is never referenced in the examp=
-le
-(and uses uppercase characters), and cache-level and cache-unified are plac=
-ed
-before reg and ranges rather than after standard addressing properties.
+That said, I think it's pretty clear that I should put a couple lines of 
+comment in there so that nobody is tempted to "streamline" this code 
+into one of the things that doesn't work.
 
-> +        reg =3D <0x0 0x30000000 0x0 0x2000>;
-> +        ranges =3D <0x0 0x30000000 0x2000>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
 
-[Severity: Low]
-Are the cell counts in reg and ranges consistent with the default example b=
-us
-here?
+Thanks,
 
-When make dt_binding_check extracts the example in
-Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml, the surrounding
-example-0 parent node defaults to #address-cells =3D <1> and #size-cells =
-=3D <1>.
+Caleb
 
-In cache-controller@30000000, ranges =3D <0x0 0x30000000 0x2000> uses 3 cel=
-ls
-(1 child address cell, 1 parent address cell, and 1 child size cell), which
-matches a 1-cell parent bus. However, reg =3D <0x0 0x30000000 0x0 0x2000> u=
-ses
-4 cells as if the parent bus had #address-cells =3D <2> and #size-cells =3D=
- <2>,
-causing it to be decoded under the 1-cell parent as two separate 32-bit
-regions at base address 0x0 (<0x0 0x30000000> and <0x0 0x2000>) rather than=
- a
-single region at 0x30000000.
 
-Should reg be <0x30000000 0x2000> to match the 1-cell parent bus and ranges?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-mpam-resct=
-rl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com?part=3D3
+>
+> 	Andrew
