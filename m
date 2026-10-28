@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793160195;
-	b=dkC7W20p1lmU7QUt72+hU+43kOTATYZahdIokVqvs+NDTPjCtkPDwEzFjfb1wyfyC9yk
-	 3gXIMUx5PEL8lirbeaQA6n3NVhR71rSWBrP4bqF7z9FI7UGMV3wiX9vUK2SO2+y8//zhv
-	 st+D1NogZOTLxEr6cNJ3pRhadwNmjmhIdP1YBEb/jeh4seiDtijig2p9ZV0AIkoCoZIbd
-	 He3diPMMngU/5O4zwQX0EoE5uleWOw6gJSIubhh1MMZeDK+K/VpgaWSPFy57FggQyiXrV
-	 ANeh/2aP1iatMNRFj57uBIKAkdZEaZnRy3iospFnHCWnEEWZ6ufwxHFPdP4vXh+T8JA==
+	t=1793160372;
+	b=wAB2TFJX5YURI+Yg1HeYF7LJ6hW/N+gzlgWywdIG+DYwe8mDt/aJ7ZhJ45+df7hkyeR/
+	 B71glkUNhbbYRfyC7nArzmr0bg8u0XxObuMwokoxubm+FwBVdiJH+wnPwslg/yf/LcOFw
+	 lHKVsWgBl6+qmq0SmLzJwRwTE0cVoDMaSHLPp7FWNT9bTr176rx4r3XsvFTbgJ3qD6NWs
+	 bH8iOn1wjnxhR1B8JPGzSyFDGUQtFTkbZJVwku+GmdbsjEf7/04/SCyMswMf+Jv6MB/Io
+	 KbYk6m/EL2zUjAXhgD74n0/nWMqUiHRCsicwhxNEd465KE1ySCUChkAecGT1RkUCYqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793160195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793160372;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2mkUr2I8m61OwOPB4F77VdBMjpiZt1OCGnnp0mj1GaU=;
-	b=Po31ZoK8RPR228J2l2i2/GIUtBKqWi0j4iWaZs+MY6HHQvpQWHuopwpP2wlYwrD+NI6I
-	 tgwI/5+pbHPI+/g9Fjp8I4Kb3+3SmIyUYbWeaG5xH3PmtxEXhelmIdnDxQhewR67C0RKH
-	 NY5kk4EnejvpEO2lN/VtLSG5er/ksLcXlSm1WltBxnHIw1Z4ea7jmwDOOoz99ljXsM+EY
-	 9HpYHiZDuNh4Y6UobtXDgYztnxucwdZVxHRUadGYVlZcQ+/SVTLmP3mpMY8iqUQw8PnhA
-	 3yBicvRWRZYx0YGqYzKCIiUkSu9jhqr2EWcfp7Ua9J/zWjVEqfSKzA0OSFhrBQQkwLA==
+	bh=kmNU20myOQcf0B1PZVYl3V9QOp45aRf6TnyfacS9qUE=;
+	b=X+iJjW7c2O4Indy1I/x/c0fmQLilAC3YNTyN/XpSYYLxOnbAfgPfElLofLv/gS18LaJQ
+	 vvjTLDr7bSL0kj+6TicY8FIUCSvhKTeU7nEcHmZ8qytCIak7IpsZoXGQo9kNLO2KQ0WDD
+	 rY6XTba2SBuxa6nNV9Xrv5w5yt5mqxV6p8cihZYO8fyWhWS5p6A81yEi9JHL+Nev3UFya
+	 158OEcdc7Vn2M4P62MXiwla6tWm63jZYHa7hPFr/uRkfWAfqVr3pYH3X8u5YZ9VHmeJNE
+	 Sm8KNP1BWb3bFFOLas6F8Bv0DIzMczpW2Hjo2dOoQK7kW2oFk1QYRD7hrTaudavJKVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdeMgApz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHVm+MU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409F5606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:03:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B44606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdeMgApz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825E91F01825;
-	Wed, 28 Oct 2026 04:03:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHVm+MU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E474C1F01825;
+	Wed, 28 Oct 2026 04:06:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793160194;
-	bh=2mkUr2I8m61OwOPB4F77VdBMjpiZt1OCGnnp0mj1GaU=;
+	s=k20260515; t=1793160372;
+	bh=kmNU20myOQcf0B1PZVYl3V9QOp45aRf6TnyfacS9qUE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hdeMgApzW9qrZnnSPq85sOezBN7vRFyFV2/Zup2fKyFGfr2X+garIxo6N4z5Y+RMH
-	 q108yWHVw8GKDsaNJKvmiP/y+8tPBb8KEa8vLNCeYibUSptQNzva1248Hc1HcY3V3R
-	 v1LIJRvNOudvwlKZqIjCqUls3chEw8x2Dt07uPVWd2Gi+HjBxZkM3bc5Lbc65AnISw
-	 dHyh/yZhN++xZK/F8PvexfljCyuwHUwpRbeMX115pWhIArYuoGX2lFDLHlu3PDY9E7
-	 qWkI//gSURS2ByrmPI8wbS9xaj8sqqsWW2UpdS4/P6OrdjjHixTdObhPGav6rJHJic
-	 +P4pIgb59OhiQ==
-Message-ID: <sashiko-outbox-187460@kernel.org>
+	b=kvHVm+MUWFVNjN7kGTdGgXa+VUaVI4uO79HysIm0nnclNsl2ci3TzwMsR22gNFDof
+	 PGDOfzS8pDQIJZViFoEAdrXH554MZOS0dmgIg1Lg9KKRbMqiZZiXnJP6Ni3k6stzpk
+	 a3NpWsB7mi1+caEza4/oK21tLZnd0J4203fcJ0w6Yh6aHI1To052J4lbEBdC1sP4HJ
+	 bVZ+sIOGLrxyOXbdEExlMRFLcMvw7h6DxJz4EEVnlISvCC28PaCBBv9dtzn4jwk26l
+	 LRmSfrMbwzEfu9yPREdty4lODyqdfoar/48IGPpD5W2QDxJZry6xldDojc39OqMiIS
+	 IRDvLtA8FyCjQ==
+Message-ID: <sashiko-outbox-187462@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/9] media: camss: csid: add the 980 generation
+Subject: Re: [PATCH 9/9] arm64: dts: qcom: sm8750: add the camera subsystem
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
+ <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 04:03:14 +0000
+Date: Wed, 28 Oct 2026 04:06:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,195 +60,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] media: camss: csid: INFO_RUP_DONE left masked in csid_configure_st=
-ream()
-- [High] media: camss: csid: wrong dt_id in __csid_configure_rdi_stream()
-- [Medium] media: camss: csid-980: race on reg_update, rup_update, and aup_=
-update
+- [High] media: camss: csid_set_stream() skips configure_stream() on stop a=
+nd restart
 --
 
-commit 9e06166c718bdeac203de00c1a26a347c6114d7a
+commit d503f6b5ea6cdbb52ee98c8873d6ffd4c3dc7c21
 Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-media: camss: csid: add the 980 generation
+arm64: dts: qcom: sm8750: add the camera subsystem
 
-This commit adds support for the CSID 980 generation found on SM8750,
-including register maps for full and lite variants, split RUP and AUP
-register update commands, RDI stream configuration, and buffer-done
-interrupt handling.
+This commit adds the camera subsystem (camss) device tree node for the
+Qualcomm SM8750 SoC, describing the CSID, CSIPHY, and VFE instances along
+with their registers, clocks, interrupts, interconnects, and power domains.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-980.c b/drivers=
-/media/platform/qcom/camss/camss-csid-980.c
-> new file mode 100644
-> index 0000000000000..45f3b37867040
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-980.c
-
-[ ... ]
-
-> +static void __csid_aup_update(struct csid_device *csid, int port_id)
-> +{
-> +	if (csid_is_lite(csid)) {
-> +		/* CSID Lites in v980 follow the legacy way of a combined RUP
-> +		 * and AUP commands without an explicit SET register.
-> +		 */
-> +		csid->reg_update |=3D CSID_LITE_AUP_RDI(port_id);
-> +		writel(csid->reg_update, csid->base + CSID_LITE_RUP_AUP_CMD);
-> +	} else {
-> +		csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +		writel(csid->aup_update, csid->base + CSID_AUP_CMD);
-> +
-> +		/* CSID Fulls in v980 split AUP and RUP commands, which requires
-> +		 * additional SET operation to make registers modification take
-> +		 * effect.
-> +		 */
-> +		__csid_full_aup_rup_trigger(csid);
-> +	}
-> +}
-> +
-> +static void __csid_rup_update(struct csid_device *csid, int port_id)
-> +{
-> +	if (csid_is_lite(csid)) {
-> +		/* CSID Lites in v980 follow the legacy way of a combined RUP
-> +		 * and AUP commands without an explicit SET register.
-> +		 */
-> +		csid->reg_update |=3D CSID_LITE_RUP_RDI(port_id);
-> +		writel(csid->reg_update, csid->base + CSID_LITE_RUP_AUP_CMD);
-> +	} else {
-> +		csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +		writel(csid->rup_update, csid->base + CSID_RUP_CMD);
-> +
-> +		/* CSID Fulls in v980 split AUP and RUP commands, which requires
-> +		 * additional SET operation to make registers modification take
-> +		 * effect.
-> +		 */
-> +		__csid_full_aup_rup_trigger(csid);
-> +	}
-> +}
-> +
-> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
-> +{
-> +	/* Hardware clears the registers upon consuming the settings */
-> +	if (csid_is_lite(csid)) {
-> +		csid->reg_update &=3D ~CSID_LITE_RUP_RDI(port_id);
-> +		csid->reg_update &=3D ~CSID_LITE_AUP_RDI(port_id);
-> +	} else {
-> +		csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +		csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +	}
-> +}
-
-[Severity: Medium]
-Can concurrent updates to csid->reg_update, csid->rup_update, and
-csid->aup_update race with each other?
-
-In csid_isr(), when INFO_RUP_DONE is set, the interrupt handler calls
-csid_subdev_reg_update(csid, i, true) -> __csid_aup_rup_clear() in hardirq
-context without holding vfe->output_lock or any CSID lock:
-
-    if (val & INFO_RUP_DONE)
-        csid_subdev_reg_update(csid, i, true);
-
-Meanwhile, on another CPU, vfe_queue_buffer_v2() (holding only
-vfe->output_lock) or csid_configure_stream() (holding no spinlock while
-csid->irq is enabled) can call __csid_aup_update() or __csid_rup_update().
-
-Because both paths perform non-atomic read-modify-write operations on
-csid->reg_update, csid->aup_update, and csid->rup_update before writing the
-full mask to CSID_LITE_RUP_AUP_CMD, CSID_AUP_CMD, or CSID_RUP_CMD, could th=
-is
-clobber newly set update bits or re-write stale RDI bits to the command
-registers?
-
-[ ... ]
-
-> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
-ble, u8 port, u8 vc)
-> +{
-> +	u32 val;
-> +
-> +	/* Source pads matching RDI channels on hardware.
-> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
-> +	 */
-> +	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIR=
-ST_SRC + port];
-> +	const struct csid_format_info *format =3D csid_get_fmt_entry(csid->res-=
->formats->formats,
-> +								   csid->res->formats->nformats,
-> +								   input_format->code);
-> +
-> +	/*
-> +	 * DT_ID is a two bit bitfield that is concatenated with
-> +	 * the four least significant bits of the five bit VC
-> +	 * bitfield to generate an internal CID value.
-> +	 *
-> +	 * CSID_RDI_CFG0(vc)
-> +	 * DT_ID : 28:27
-> +	 * VC    : 26:22
-> +	 * DT    : 21:16
-> +	 *
-> +	 * CID   : VC 3:0 << 2 | DT_ID 1:0
-> +	 */
-> +	u8 dt_id =3D vc & 0x03;
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
+com/sm8750.dtsi
+> index dd738d13df8e0..12dcf2f33854a 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -3495,6 +3495,185 @@ dispcc: clock-controller@af00000 {
+>  			#power-domain-cells =3D <1>;
+>  		};
+> =20
+> +		camss: isp@ad27000 {
+> +			compatible =3D "qcom,sm8750-camss";
 
 [Severity: High]
-Should dt_id be computed as port & 0x03 instead of vc & 0x03 here?
+Can stopping a stream or unwinding a failed stream start on SM8750 leave the
+CSID RDI stream enabled with interrupts unmasked, and skip stream
+configuration on a subsequent start?
 
-In csid_configure_stream(), __csid_configure_rdi_stream(csid, enable, i, 0)
-is always called with vc =3D 0 for every port i. Calculating dt_id from vc
-programs dt_id =3D 0 and an identical internal CID =3D 0 in CSID_RDI_CFG0(p=
-ort)
-for all RDI ports (RDI0 through RDI3), which breaks streaming on non-zero R=
-DI
-ports just like the issue fixed for CSID gen3 in commit ad136e52634d ("medi=
-a:
-qcom: camss: Fix RDI streaming for CSID GEN3").
+In drivers/media/platform/qcom/camss/camss-csid.c, csid_set_stream() gates
+csid->res->hw_ops->configure_stream() on csid->phy.need_vc_update and clears
+that flag on the first call:
 
-[ ... ]
+drivers/media/platform/qcom/camss/camss-csid.c:csid_set_stream() {
+	...
+	if (csid->phy.need_vc_update) {
+		csid->res->hw_ops->configure_stream(csid, enable);
+		csid->phy.need_vc_update =3D false;
+	}
 
-> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
-> +{
-> +	u8 i, k;
-> +
-> +	__csid_configure_rx(csid, &csid->phy);
-> +
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			u32 mask =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
-> +
-> +			writel(mask, csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
+	return 0;
+}
 
-[Severity: High]
-Does csid_configure_stream() leave INFO_RUP_DONE masked in
-CSID_CSI2_RDIN_IRQ_MASK(i)?
+Because csid->phy.need_vc_update is only set in csid_set_power() (on power-=
+up)
+and csid_link_setup(), it is already false when streaming stops via
+video_stop_streaming() -> video_stop_subdevices() or when
+video_start_streaming() unwinds already-started subdevices on error:
 
-Here, CSID_CSI2_RDIN_IRQ_MASK(i) is read into mask and written back unchang=
-ed
-without setting INFO_RUP_DONE, and csid_reset() does not unmask INFO_RUP_DO=
-NE
-in CSID_CSI2_RDIN_IRQ_MASK(i) either (even after follow-up commit
-7457e598955f ("media: camss: csid: report frame starts from CSID"), which
-only adds INFO_CAMIF_SOF to mask).
+drivers/media/platform/qcom/camss/camss-video.c:video_start_streaming() {
+	...
+error:
+	video_stop_subdevices(video, entity);
+	video_device_pipeline_stop(vdev);
+	...
+}
 
-In csid_isr(), the handler checks for INFO_RUP_DONE to clear the software
-update state:
+When v4l2_subdev_call(subdev, video, s_stream, 0) invokes
+csid_set_stream(sd, 0), csid_configure_stream(csid, 0) in
+drivers/media/platform/qcom/camss/camss-csid-980.c is skipped:
 
-    val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
-    writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+drivers/media/platform/qcom/camss/camss-csid-980.c:csid_configure_stream() {
+	u8 i, k;
 
-    if (val & INFO_RUP_DONE)
-        csid_subdev_reg_update(csid, i, true);
+	__csid_configure_rx(csid, &csid->phy);
 
-Without INFO_RUP_DONE unmasked in CSID_CSI2_RDIN_IRQ_MASK(i), won't
-csid_subdev_reg_update(csid, i, true) never be called, leaving
-CSID_LITE_RUP_RDI(i) permanently set in csid->reg_update on CSID Lite (so
-every subsequent per-frame __csid_aup_update() call in vfe_buf_done()
-re-asserts RUP alongside AUP) and leaving stale bits set in csid->aup_updat=
-e,
-csid->rup_update, and csid->reg_update across streams?
+	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
+		if (csid->phy.en_vc & BIT(i)) {
+			u32 mask =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
+
+			writel(INFO_CAMIF_SOF, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+			mask =3D enable ? mask | INFO_CAMIF_SOF : mask & ~INFO_CAMIF_SOF;
+			writel(mask, csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
+			mask =3D readl(csid->base + CSID_TOP_IRQ_MASK);
+			mask =3D enable ? mask | CSID_RDI_TOP_IRQ(i) : mask & ~CSID_RDI_TOP_IRQ(=
+i);
+			writel(mask, csid->base + CSID_TOP_IRQ_MASK);
+			writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
+			__csid_configure_rdi_stream(csid, enable, i, 0);
+			__csid_configure_rx_vc(csid, 0);
+
+			for (k =3D 0; enable && k < CAMSS_INIT_BUF_COUNT; k++) {
+				__csid_aup_update(csid, i);
+				__csid_rup_update(csid, i);
+			}
+
+			__csid_ctrl_rdi(csid, enable, i);
+		}
+	}
+}
+
+As a result, INFO_CAMIF_SOF in CSID_CSI2_RDIN_IRQ_MASK(i) and
+CSID_RDI_TOP_IRQ(i) in CSID_TOP_IRQ_MASK are not masked, and
+__csid_ctrl_rdi(csid, 0, i) is never called to stop the RDI stream.
+
+In addition, if streaming is restarted without an intervening CSID power
+cycle or link change (for example, if video_start_streaming() fails in CSIP=
+HY
+or sensor s_stream(1) after CSID s_stream(1) has already run when
+VIDIOC_STREAMON was called before min_queued_buffers were queued and a later
+VIDIOC_QBUF triggered vb2_start_streaming(), or while another active VFE li=
+ne
+keeps the CSID entity powered), csid->phy.need_vc_update remains false.
+
+On that subsequent start attempt, vfe_enable_output_v2() in
+drivers/media/platform/qcom/camss/camss-vfe.c skips ops->reg_update() becau=
+se
+vfe->res->reg_update_after_csid_config is true on SM8750:
+
+drivers/media/platform/qcom/camss/camss-vfe.c:vfe_enable_output_v2() {
+	...
+		if (!vfe->res->reg_update_after_csid_config)
+			ops->reg_update(vfe, line->id);
+	}
+}
+
+And because csid_set_stream(sd, 1) also skips csid_configure_stream(csid, 1=
+),
+the initial CAMSS_INIT_BUF_COUNT calls to __csid_aup_update() and
+__csid_rup_update() are never issued, leaving the initial buffer addresses
+unlatched and stalling capture.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028034105.3265=
-35-1-xiaqinghuan@mail.ustc.edu.cn?part=3D4
+35-1-xiaqinghuan@mail.ustc.edu.cn?part=3D9
