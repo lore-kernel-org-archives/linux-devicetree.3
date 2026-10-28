@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793219261;
-	b=e45j5019Fx5ewqcrvNz6iff55XCaSbqpDGAku4rnQ2NcabCq0Piv6y97UqJ73he+zaZJ
-	 j5YMR+J7OnrchfJfM78mi/yfpjzYzXqEV+99QhR9arh6B7TzqpLnHodvhrQTUzh0uvh+0
-	 cfjYDIa6lWyRSBQlHjlL5IqbmW68FJv8tRB4hLxu9A6odpQP/s6qOfomt4ZS9Qg//FtDs
-	 7TKLHyMsMqme+0FDbTvGTAwoblpLJipLDedBwpNk/2S9euG7aFuyTL2JTSygJb99lbMzm
-	 PkIsoOwVzlDtWvCkWzmjD1kdvJaQe09l+yKPc59uL71X3UVK+3Jr+vwVRkHVoLtX0IQ==
+	t=1793219518;
+	b=hDbgO5HWjIGgXxjngSDDjwx2kgLsNkFkELJreIOOTK1OBS0Q4ZV3j1u+ooSxhhscUgSi
+	 M2cgmtMyduiJOr7B/pr95CdAZVVz/yyiyJ0RHK806LZQDCm0P0XL2FEL4UPTrE0+xffvQ
+	 arbFVfr3fiEbyOZwDT66umetL9f5Vp1JfQGFS8nUp/GzRpdzq1GjQDu+qKWOHtOri5GhN
+	 gO0Wdxi8C0qi17E0F10UWZJHp3Jv8fjsmU3a+xkr1/dstBK1ChCw8WNG9iLri8o+HsLNm
+	 2VaaW7+B8fSVNU9MK7G6LQRZr0RglePL1S2WLGE3q0iUfItohUsmNQhbxzfL2VsuN4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793219261;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rx9oUa//NkWEEfC3LpDAEDMmspM2Y7f77XuuxNJnUYY=;
-	b=gwaN62Ai7rP4t6v+E+05Ttq/jhIOP/2Sc5XSZHn/uRj00X6axJKrZy9DW4tNiEj4ucXU
-	 XtQBu6Dw1Exi1NQftd4RXg9G59lS/TuJL2fMP9K5fpB9jXmSlDiAufunoMywGP2UvOBsF
-	 RpSOIbVl+5Rc6+9tHmXoG5G6zCmdrmwoRUy5jEPLhLu/VYKj3S7GrCX9NhxvFztKT8Udw
-	 jiXqoJSq8QGKxNzvPw+09oijBNHKiucw2zKV/gdZrQDMMTnqleCV8l9m9VjIClsgt5y7Z
-	 pFI+wuVbLUZaDLmeP0HfS6DheLGrW90iD2vUXxDlCeIfHyG09I+ZSPPTPVzmb8NagMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219518;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=na0Oh3TAI0ex8L400Yz+9rIyulgdb+s9SFwVhlKcmfo=;
+	b=yearv3I3y7/r1Pe6iIgKkFRoFJd9QwZJ/3RuxOUkYkIKZrPuXgIVNuOYekNDD/zrAwJn
+	 mIqCBuXmZPzE39hYfLeDQhPck57SZz956MDCp6+R+KmQvlwzOjL/1PnBQit9k9XTVZjvz
+	 tNMbdmCbzGyJgn/wnHGOINILWJIZpZCGtSEzdhUFRpLnxw7qh08DLqHaiUBqSz7YGOCV0
+	 qAENkCAxSDm0xpSRj+aUt9zeGyohwx88dcMdIPMkUoxPr4y/kIpyAptO51j1cy7O2QS7A
+	 OewHkVIjO5itb2sNR+xSqvz9BsJu/FkjGaKHkGUIZi8T11JcAQiLYnA1ULt2yf10+LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrB8XHqr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=irl.hu;
+	spf=pass smtp.mailfrom=irl.hu;
+	arc=none smtp.remote-ip=95.85.9.111
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98040606A322;
-	Wed, 28 Oct 2026 20:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrB8XHqr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925FF1F01825;
-	Wed, 28 Oct 2026 20:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793219261;
-	bh=rx9oUa//NkWEEfC3LpDAEDMmspM2Y7f77XuuxNJnUYY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MrB8XHqr9e5crOcv43D6XAtsg0lB+GF5V1m5wADOIMtiXDhYIlcCS58gGXfy4c1kG
-	 Ks0dz1f681UTDLHfEOQ5e2+HmS2AuS6pIHYMyLe/3/BrMKgckRAmFfr/pyK+kUlG0t
-	 ZEUxzCJ7gLJ12LCEJoQ3e+K0EO7Ic4wefxhzJjqKEOso+J07Y2XqjU8nEOUX4DUjeC
-	 W5eMyj6LjSJk4Zou2RVG2jC4lW8CqfgOwM+C4yC7kywctbo5MamLMYULuPiE6KdUO/
-	 1WuzkBGUXdm5yti8SXd5s8ybZl5IowQp/YR7FlU0TVgNnZ2+dr+DMfH7udHojoXijj
-	 vBz0cM39x856Q==
-Message-ID: <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
-Date: Wed, 28 Oct 2026 22:27:35 +0200
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4644E606A31C;
+	Wed, 28 Oct 2026 20:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4644E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
+Received: from [192.168.2.4] (51b68114.dsl.pool.telekom.hu [::ffff:81.182.129.20])
+  (AUTH: CRAM-MD5 soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
+  by irl.hu with ESMTPSA
+  id 00000000000808F8.000000006AE25BBA.0003295D; Wed, 28 Oct 2026 21:31:54 +0100
+Message-ID: <7b293547b11817297f54ac36d3a441aa26e2eec3.camel@irl.hu>
+Subject: Re: [PATCH 1/3] dt-bindings: input: Add compatibility for Awinic
+ AW86224
+From: Gergo Koteles <soyer@irl.hu>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,
+  Bjorn Andersson <andersson@kernel.org>,
+  Konrad Dybcio <konradybcio@kernel.org>,
+  Arnd Bergmann <arnd@arndb.de>,
+  Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
+  Enrico Cic <enrico@privacyrequired.com>, linux-input@vger.kernel.org,
+  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+  ~postmarketos/upstreaming@lists.sr.ht
+Date: Wed, 28 Oct 2026 21:31:46 +0100
+In-Reply-To: <20261028-invisible-malachite-agouti-99fcf6@quoll>
+References: <cover.1793135056.git.soyer@irl.hu>
+	 <353fe3fa68e74c46b88df51b303a7d23235d5ea7.1793135056.git.soyer@irl.hu>
+	 <20261028-invisible-malachite-agouti-99fcf6@quoll>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,61 +68,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
- Document the reset GPIO polarity
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org
-References: <20261028095151.1682096-1-vz@kernel.org>
- <20261028095151.1682096-2-vz@kernel.org>
- <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
- <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
- <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/28/26 16:59, Krzysztof Kozlowski wrote:
-> On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
->>> We might fix it at some point, so not sure if it is worth documenting in
->>> the binding. And what about usage of this binding in other projects
->>> which implement it correctly?
->>>
->>
->> In the upstream there is only one user qcm6490-idp.dts, and changing
->> the polarity will be an ABI breaking change, unfortunately.
-> 
-> And all other projects?
-> 
+Hi Krzysztof,
 
-It might be a challenging task to check usage of "novatek,nt36672e"
-compatible display panels in all other projects. I've asked about it:
+On Wed, 2026-10-28 at 12:06 +0100, Krzysztof Kozlowski wrote:
+> On Tue, Oct 27, 2026 at 11:01:23PM +0100, Gergo Koteles wrote:
+> > Add the AW86224 haptic driver to the binding documentation for the
+> > AW86927 and AW86938, as this binding needs the same properties.
+> >=20
+> > They are not compatible though, because the chip identification works
+> > differently compared to the 86927/86938
+> >=20
+> > Signed-off-by: Gergo Koteles <soyer@irl.hu>
+> > ---
+> >  Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yam=
+l b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> > index bd74b81488f6..655633527c01 100644
+> > --- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> > +++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> > @@ -12,11 +12,9 @@ maintainers:
+> >  properties:
+> >    compatible:
+> >      oneOf:
+> > +      - const: awinic,aw86224
+> >        - const: awinic,aw86927
+> > -      - items:
+> > -          - enum:
+> > -              - awinic,aw86938
+> > -          - const: awinic,aw86927
+> > +      - const: awinic,aw86938
+>=20
+> I do not understand why you are changing this and commit msg is not
+> explaining that. You only say that new device is not compatible, but how
+> is that relevant for existing binding? Anyway, separate commits with
+> separate reasoning.
+>=20
 
-* https://chatgpt.com/uc/6ae25571-2ef0-83ea-81e5-2522e70c4a93
+Thanks for the review.
 
-The check gives this info:
+There was some confusion regarding this in my head, but I now
+understand that it validates the entire compatible array.
+I will add it accordingly in v2.
 
-1. Linux kernel - invalid GPIO polarity in the driver and qcm6490-idp.dts,
-2. Android - invalid GPIO polarity in the copied driver and qcm6490-idp.dts,
-3. FreeBSD - invalid GPIO polarity in the copied qcm6490-idp.dts, no driver.
-
-Please let me know, if there are other projects to check. To my
-understanding the RESET_N polarity cannot be corrected anymore,
-and the best option is to clearly document a difference between
-the device and its dt-binding documentation.
-
--- 
-Best wishes,
-Vladimir
+Best regards,
+Gergo
