@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793193553;
-	b=XG7nr4IiIxHI2+8F51NJGt+UhdWXmW9QWnyI+WziH46ufAcBpavSBEY5JylLgwEilhh1
-	 szJpELm8mFPQ2GQA+JGonCtcNQM5Qgv/DdkTvbOhtN1dCzgj9B1Ts3KS3FnppUNEZraH1
-	 /bmMF0ISxXWsRJ1sJ1oe6FeAn5BzfKRI0wH0ULI0d+jGGwC8qluIIY+bHbbxDJa6i3EUg
-	 DFEqdjncctMgvXlfamL/gtpFfIbrhJ1ZAdPN1OOMu6Ip0mMYROw95N0GK7ntkbrmkA7R+
-	 p54SGMMaMPtasiU9pvoZLJviZqQBP9FKxPY0sSlNDF96Lub+dPaVOn/62sfq4aTHLJQ==
+	t=1793193554;
+	b=u+fhrBHxjgvartcov5/ZilHr9VLQelkqMwqQGEjHEKYZhYTmbfLNNl4wiOKRj7i/PdqN
+	 ZSmOk3KOo0h9nJK3h/szDhiwc/rLh4jyUlE0apywv1EbLukkzLOdBdPN2wguCacegwEXy
+	 4EpfIqsVMp+5gpzuCW01XdITniEbFvE+Z638wQTyjHrwjOaE3OQSDZ5WqvmfthAFaIyIa
+	 VyDwrct4fUOuZuLVZQ6qNXIffLtWcVPt657g8uzU8YP4gxLceHP1ck0tIYp6UYjxm7gEP
+	 rt/1mNSgq3whj1066HZVBB57k4fjt4xjgG6sgjoqbPESelOvVsL+s1HovmfNK+PjorQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793193553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793193554;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
-	b=DFwfEp8VMOR9I7hFLl8b9EjxPg+p/eOiIZMAMtnqGQ1DvW/VbOl9G6ysEyzrISihTJ0+
-	 bTQsII+F7eprgxqw0m5/8RRexw0+k3mk9MVDQhABb/Y3InWADqfLbI0sQs1yz1eysbQGx
-	 cI2WW1HgezyXqBrvolNiiALlES2UUcxH94SBl++GJAtdbqP2aX/d7hEXqTQaPBgkLwb3Q
-	 M6Ig67cHnomt5iQZmTYkT1tW/wwCUKAvXCGg0czSAN80R+HEYywmIy8dWGAgvgdqeW/NJ
-	 rBHnZyJaZ1PHqhWL29ylMUuM67YlrVe9epCm6HYJ/P6pO05eiUXAN8d4V4Gqi8AgwQQ==
+	bh=9uAIb9ozMRkPqsmw9yBOOJKC9hD2HvYyYUjtqyKcWIA=;
+	b=Kn2QcbPG9llfPiYIjR6t6PUBM7sQhc/ehK2E5FhTnjD3Fm63Dh0iLY+Zvsiq4Pq066Bh
+	 bA4QHhyI+Y0Ju+hVGEG84POci42DeI3XLxqp60/ilLNHp2z/Qppc4P1SMQgtKiyrggRqF
+	 jCJvsqU7FalYTMh1/IgwgoD65+1WzMMi/KevzlT7F2GDD7UUwEl6g66ZTL8DtoTsn6wxQ
+	 kiaB33YF+CtPSzoZYsC2r0+OD4F9+NnTbiuFzn9icp/Nb2+V/Vao+aed2cZ+6rDyJtCjf
+	 JyW+BtCNREkfuL67FhgfiCN30A6mb0JciMbPidzpyBYhVNX0OZJJpYwgIJQi+6tVbhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HJc0yrtO;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iMXd1g2t;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67A6606A326
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 13:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D67A6606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDBD60A2600
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 13:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FDBD60A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HJc0yrtO
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so8329025e9.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 06:19:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iMXd1g2t
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso8526695e9.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 06:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793193551; x=1793798351; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793193553; x=1793798353; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
-        b=HJc0yrtOqjbAhVJPBUbe68xiHKHMVyPjwJWvrg+NEZOLFpaJeUngo/PBOA1K7ON2HG
-         oFPSx4moojlAeVt1txdMMJV6jLvVl505T46EqDmNVJsHNvxSjc+XOJwrIkjCe0lH6PjN
-         NU1CFiKsHXVeBgkhvGafZf4I9Bg0KJvUnHl9drGWppuWe/aQsRX0QOhSs0Lqm8umemQ9
-         l1qDgN24sBTzU/iji5UPLufHdNi/kX8RxXJMoxZlgjG/Y71WGMEuN+Tc5ldsVTV7hhqz
-         V0yEXHS+//ciVFEMAxArCIwvkxVxY/Rak1Z/WKBFXCORbY2Ige0jJ46gglet1WUX1Esn
-         xRrg==
+        bh=9uAIb9ozMRkPqsmw9yBOOJKC9hD2HvYyYUjtqyKcWIA=;
+        b=iMXd1g2tBYkihoc5u1/R6QT7SOmDZvI4CPOEn7qtT40TDcm13pH4/Pqg0nJ21lcYMN
+         gHz/cTy1n+cpf6zzGsmzUoPogBB8yDicYGgqgPh7uMeWP9l8uQSDqycV5BLDnXCJLg1+
+         I0d8K5BFFAgAx1QJp+E6GKeQMSCGfz8VxXILv5cYyOxpxmupe9jT1OY71A/0RQqHzG4x
+         CRJr7brk0pe2OwMXd/97r675ix8hGQ8rY4mkMWKXEmnur8BiURLbsvskC5+PWfHGYXKt
+         E0st/FZrILS+bsFXETdskOqMVnF/6/Dt5FYD5FcG45/PA8GV9Z0syqf8DDhZFXkMZZ1F
+         r+VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793193551; x=1793798351;
+        d=1e100.net; s=20260707; t=1793193553; x=1793798353;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d0Sz3wE6QuJRsVQAlMgQ2PeGgkq4aSJ2LFCV4qd304c=;
-        b=ji/XefE08Z8lQzZQP1Y/sDlBleZk7r/qNmX/onn4QW561QWGuLzWy/SWYwPHNvNT8k
-         AdKiw5XNaJ4l/yYZIqqOSdgBmMvtfDx9wVLKi4bCVHRm915FRwCXiQ7bQlKB/QAB2ZNm
-         MbGKa5mjk0i10eRbXDQS7hw3QnRaH57iX+WWiF471eKvJxW51eWlcRttDK5BLUxR51g2
-         X1oksDMlTQJ9uZpeu1k4SeAMazMwXL9TIGCiyEen3AU6ENKCk3LZbQ+m/CR70IvxnyA4
-         UDZuKgAjkUXfTG7T+qra8fckb4lhKyMPBlDeUpEyfSFraLuCLNjs41Q1ELVFpPwH3W8P
-         YABQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXO6BsRnV9F4YPckGiFQ7rlP6TswF5Go6LkMOzV+L46XI2Xjik3KZbLOjD1r87CSWDRLde6JGclI3O@vger.kernel.org
-X-Gm-Message-State: AFq9FYITWKH8AbHYp2Q8cv6ysPDv8qovlaECHOFssEQaxWvGVDjVvs/5
-	BbGwHGrXBskTf04gsZIwIN34Qz9JhiVZM52ZxwfprpJHUsP3UQ2v5ukCw1ngjt+OU7k=
-X-Gm-Gg: AYBFou1i9jcQNimoDXF6OSOzwy1KT1Hw01Wl0DeMQ0FjbGI8AavYvWknRpZ5V9TLP5w
-	todKkYp06u6fsQvH0vOKObTIvIOaxkIvaPMPAtXbxqJtwJq1fwVSFNx5OQ1/6WWdJetuj/iW+hx
-	WO/MyS9kVBwcx1rOuMD5ClaKfSOwuszOCoedtXvRx1CekgcwUOjHk5VwgAyV8JbJ84BXgjwpSH7
-	p4628QtOrA7GP3VvF2JISIQKEwvfTocoHGHqRJrexIQO85DzcDeUzCQ5qZQgHs4PQeNTFGVmUW4
-	xkqmQvV2cYdD3WZYFI4kK+30BXjq3fy1M/ajj8ZBes7VLTHwRRQQf7L0/986lwi5nMMUs/S59AF
-	kFM9NS5pAj9ijpHN6rsmpHSylEOm72275oiN1QO0PCxK6KkyjgD3rIFQEKZ9RRywf7fzA0ePlSX
-	oOVq2PRtg0xU2ZdnBnwTlPjtNIl/XkjOIK8q4wG8xnFMrcY/xX8fT8ngc3aTSai3KwPmSUbJ40X
-	nNgwCdeKjqOl0QZTzCHVDbl5HAJQMmtpNtVFLwCMCnv2DmgZfilxWt2xwPXLc6wqiDDVHbMzt73
-	2p2HVW9Jq964ns8+FpYF4p8UD0nffMDfXV2aNoWUH+t1Ko8njngVLui9iLzTOFNARw==
-X-Received: by 2002:a05:600c:870f:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4a967f84822mr55295305e9.30.1793193551156;
-        Wed, 28 Oct 2026 06:19:11 -0700 (PDT)
+        bh=9uAIb9ozMRkPqsmw9yBOOJKC9hD2HvYyYUjtqyKcWIA=;
+        b=gi5jQNuSV0OvBiqXnHba1YuMYAlwU8yWgu+/40Ll24IJHafIS5Hva6ROY7ImXufthd
+         wRC4mcM69Xc9FlioIsfst4Q/PaAk+GvuL6+2VN8koE8xzd4nSHDXKx/lXm7SUSrDFPD1
+         y5/syQA+Mru/Apc2qdT8R8ynP9kIKtVAS2XpiJQ/wvpZptmAmEAKg0gx1evTV8SusWOg
+         cH/bmLsZBRMP2Xgt7ZBDFTPtyYY7VobOEn6ZC4fj3w9I54ALGGwy5XbpkFZbbpH8nKrd
+         2smUm4BWSf3BbBVyCG0kU7/ztaXcb3UzY7/dkeL66bCz8f1zYzQ9xQGNmT2Uo9cCqBij
+         fnmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzDQxFaAdo5rfK0b4X/3ICoiV/mlqHojbHp3MyLQf62rXZaM2xMfv4QjQnucCZ10dMBvu1/76bVdwb@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJZaIIbPQZH23HX5aY/k54FpAd8SdUWYbK3EnZmrRmaP6Yvdcc
+	Dy3u5fLCJncVaZo8p3dg79zDeoxVC2J8QinbAE9H2ZJbf+NgWTndirvIxNA1N1BXctw=
+X-Gm-Gg: AYBFou336uMkCvKBqLFMwI4bx/MMaNiXj6zhzBJnjyNEreJX4yVa/mTkbgY+u9w2Ytv
+	rWcSDP7xgEPQ1OSn6VOS/Es1kn+Nu+bH4ywtNsZD2W4Bgl3qaCE9FE+h7b8TnjMy5lipO4yGBZF
+	KBVpYwAH9RNHPRjvEbJ6NVpDMfLqXxsLlHhg3WgRKVDXXUkEW0MEW4KjwU9lU/ZC+0a7YqDAYtk
+	dErYmZfg6IUkU0UFRagdht57Hw6ArUL4ZCOyL+TA2tgoj55KtV9s8mulHHzW2rMYeJxSGF0sfT8
+	vq7mSljrzIGZjDOHH1KlnNPb+n9Gk7dcdbabzJsD//J5MdIksdSXYrT8dkRsrloXszuf17SVO8z
+	kHP4MKAvM8oz4qQRyvhjBP3bKVWpSnqA+T9APrw4uXz4qDzjxvs66CG1tW566CmGoY2iXYQ8g5x
+	nd9Lys9LK6qXSMzmYqWyiDq+aIIhdaA0FqV89FM9XKdeLCu26BNKvwyke8ZSFTud8wtPFnSh7p5
+	hnP/m92BabDOHNF8RCSSUSPGYgYyu4vOHquIzZSt8SxKX6JSfVSVoOg4iv8RINSUe+46PqeoRau
+	Hgfk6b+bQsShklU+wqrm6E5fNWaBaEw8h2GOuTnklRc=
+X-Received: by 2002:a05:600c:b8a:b0:4a2:b89:b02 with SMTP id 5b1f17b1804b1-4a96667c848mr47048085e9.10.1793193552104;
+        Wed, 28 Oct 2026 06:19:12 -0700 (PDT)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a996aa0ff3sm19869395e9.1.2026.10.28.06.19.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a996aa0ff3sm19869395e9.1.2026.10.28.06.19.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 06:19:10 -0700 (PDT)
+        Wed, 28 Oct 2026 06:19:11 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 28 Oct 2026 14:19:04 +0100
-Subject: [PATCH v4 1/3] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
+Date: Wed, 28 Oct 2026 14:19:05 +0100
+Subject: [PATCH v4 2/3] unaligned: introduce be56 unaligned accessors
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-topic-sm8x50-iio-max34417-adc-v4-1-d4baaf3ee903@linaro.org>
+Message-Id: <20261028-topic-sm8x50-iio-max34417-adc-v4-2-d4baaf3ee903@linaro.org>
 References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
 In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -107,142 +106,74 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Michael Hennerich <Michael.Hennerich@analog.com>
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com
+ Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com, 
+ Marius Cristea <marius.cristea@microchip.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3235;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1443;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=HnCShVki22tZbqn46h/iPHVXxPadylCsM2+tjvBCgiQ=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq4fZKRr6JwY/iebIoucSTFldZ3DdxsAChjXroki8b
- gzEYQHWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauH2SgAKCRB33NvayMhJ0TI6D/
- 91xB3UKBAZq/XHax44a6GmhnSkgTvPW2KdvhExSgE3/JMSRo8U5cpfscUo4l7cZuc5gfJRnGy1Z2P6
- z53UJtXg7+yU4JRHSabvXrrqAniLrdpq0izvrGal37xWtMfJcY4eVWVKGeCnK/XzJo3ovwOZhwTUtY
- DGcA1NpxGls0xBEvUeC1uZ8Qd5dYHl/nNXmWWuIEqM02wZwyYa3F9dKcjFOy+83gG5fwU8Jj+qtaKp
- ZgkyDIZhWhsAi3EB4bpGu3PA7BFXlqMlJ4Hm9doyCTpWhWSBZj3R2SsbiK2p40x317cEymQl3tsx92
- OvumhoIMMPRcAQRqa7+udpdtvR9UuS6cKq80uKHcFVIvD4JjL/Xgk5NbmpN0XkLFc6sC7pJe10oShn
- hhDJAa+z3zJcRDj7zwf3Hu4LBoaCAqLDr/xueeWLx2SraAl6R8YL+J9I2HhrjiUS1cde7G8G1cjsxz
- PzaLr4rYcMThg2zcDVN3ICIG1j1NX7Y2gmh6A1wdRVCCKBUM+z9cgj6df9D2Lwu/BEOSwQKSidP7xg
- cLGvVRbJ8EF8gUPPQ3mBOal76wccdkeBLCppyMpQzvnAQK1WdYzRst0bPwLmKLhgw1/CyzHcFwebXp
- oq4xfz6w5POzO32DNiH2DBI8TSCVLAp3j58xeZmqgWBNwlh/krYrYnk7tBRw==
+ bh=qfQWKiFOPYNKQaFmvtbGsS16Zvd0DPHnTyBZWWyunTE=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq4fZLttrDpTiI9a7fF3u6Vq/mkfoNhMhsaRUKeks4
+ cPp7zECJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauH2SwAKCRB33NvayMhJ0Z6+EA
+ CKtHVa7jGBl285caxNm9xQSN4MTl330vhBNWXGFu5yC82S4NBo/cW0AGmnjb0hfLCbcQmTv14Qop90
+ Erqm6Sern9H7ljNz8gHZXmipoIlYUE3U5aAB3KSCJBau5tNqWrBrrI9FAaB6kX71wEFTiQNpubSz3A
+ ioNyLm6FRaoUTIdqQhuosHkJdM+inqv0Qtw7fwVESL7VjZGTSK5rSFE3WVyHPMW7HJYAVRZPY6ys3A
+ qRjQjGf8XCJxLTqAJ8vBAIkX3Ztc1m+7ry0unPW0MkPkTjY5ceJFo6XqRtufZRs+igf7B6BW7Vxfrl
+ qQBdJJkcCOixBr3gJqgm2iJM9oUvx7MIX2H8otzdtuowO2soismpKaLCzOV+QEd3P0joa538sKaOWd
+ QXeY1Kw/+qDruF3fCi2APWxGME/ksnylZ8+kwN05i5bPn1L831P6rx4GLDcdp+qHSUXGwpZ2cmqZj2
+ cyLqlu+TwNptFZbhj5eJS0bU+eQ3HarEwiH+y1s6eO0Gh3hr9XzL0iuDMT5yNizrlUOKZ6oPRnJ+R2
+ GlNxzjGsVUraP5xTi39msbI0AwN9+xl7TeW7rA6PN8CypMvq6Cw5u+Gb5EpTxqIt04ltktxPpK7ZdH
+ hO6qIAMtABkT3ACIed64a3INU5dZnqtgyfN15/EREM+0p31qcL/KrNppdoHw==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Document the Analog Devices MAX34417 Four-Channel High Dynamic Range Power
-Accumulator used to monitor power consumption of portable systems.
+From: Marius Cristea <marius.cristea@microchip.com>
 
+The MAX34417, IIO driver, is using some unaligned 56 bit registers.
+Provide some helper accessors in preparation for the new driver.
+
+Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+[narmstrong: update commit message and move to include/linux/unaligned.h]
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- .../devicetree/bindings/iio/adc/adi,max34417.yaml  | 103 +++++++++++++++++++++
- 1 file changed, 103 insertions(+)
+ include/linux/unaligned.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml b/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml
-new file mode 100644
-index 000000000000..700bc3ca7d7c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,max34417.yaml
-@@ -0,0 +1,103 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/adi,max34417.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/include/linux/unaligned.h b/include/linux/unaligned.h
+index 4a9651017e3c..2105743b1800 100644
+--- a/include/linux/unaligned.h
++++ b/include/linux/unaligned.h
+@@ -143,4 +143,31 @@ static inline u64 get_unaligned_be48(const void *p)
+ 	return __get_unaligned_be48(p);
+ }
+ 
++static inline void __put_unaligned_be56(const u64 val, u8 *p)
++{
++	*p++ = (val >> 48) & 0xff;
++	*p++ = (val >> 40) & 0xff;
++	*p++ = (val >> 32) & 0xff;
++	*p++ = (val >> 24) & 0xff;
++	*p++ = (val >> 16) & 0xff;
++	*p++ = (val >> 8) & 0xff;
++	*p++ = val & 0xff;
++}
 +
-+title: Analog Devices MAX34417 Four-Channel High Dynamic Range Power Accumulator
++static inline void put_unaligned_be56(const u64 val, void *p)
++{
++	__put_unaligned_be56(val, p);
++}
 +
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
++static inline u64 __get_unaligned_be56(const u8 *p)
++{
++	return (u64)p[0] << 48 | (u64)p[1] << 40 | (u64)p[2] << 32 |
++		(u64)p[3] << 24 | p[4] << 16 | p[5] << 8 | p[6];
++}
 +
-+description: |
-+  The MAX34417 is a specialized current and voltage monitor used to determine
-+  power consumption of portable systems. The device has a very wide dynamic
-+  range (20,000:1) that allows for the accurate measurement of power in such
-+  systems. The device is configured and monitored with a standard I2C/SMBus
-+  serial interface. The unidirectional current sensor offers precision
-+  high-side operation with a low full-scale sense voltage.
++static inline u64 get_unaligned_be56(const void *p)
++{
++	return __get_unaligned_be56(p);
++}
 +
-+  Specifications about the device can be found at:
-+  https://www.analog.com/media/en/technical-documentation/data-sheets/max34417.pdf
-+
-+properties:
-+  compatible:
-+    const: adi,max34417
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  vdd-supply: true
-+  vio-supply: true
-+
-+patternProperties:
-+  "^channel@[0-3]$":
-+    $ref: adc.yaml
-+    type: object
-+    description:
-+      Represents the internal channels of the sensor.
-+
-+    properties:
-+      reg:
-+        items:
-+          - minimum: 0
-+            maximum: 3
-+
-+      shunt-resistor-micro-ohms:
-+        description:
-+          Value in micro Ohms of the shunt resistor connected between the RS+ and RS- inputs.
-+        minimum: 1000
-+        maximum: 100000
-+        default: 1000
-+
-+    required:
-+      - reg
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vio-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        sensor@10 {
-+              compatible = "adi,max34417";
-+              reg = <0x10>;
-+
-+              vdd-supply = <&max34417_vdd>;
-+              vio-supply = <&max34417_vio>;
-+
-+              #address-cells = <1>;
-+              #size-cells = <0>;
-+
-+              channel@0 {
-+                  reg = <0>;
-+                  label = "ch0";
-+                  shunt-resistor-micro-ohms = <5000>;
-+              };
-+
-+              channel@1 {
-+                  reg = <1>;
-+                  label = "ch1";
-+             };
-+
-+              channel@2 {
-+                  reg = <2>;
-+             };
-+        };
-+    };
+ #endif /* __LINUX_UNALIGNED_H */
 
 -- 
 2.34.1
