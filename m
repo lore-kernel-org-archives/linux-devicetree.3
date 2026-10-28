@@ -1,58 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793195547;
-	b=OFl5EKUI5N6ZrtomXVjOsgndrQ25qB31SZY8KoGMfR17nWPzJlA/GiseJFTYtMA6GrtR
-	 qCYGBZtCeTYIIO7xbC3aWj3mA/ktBCKRSW4no1zjoaFmm2UGDoL5p3LXE5CDjR+1Np+X5
-	 YOypA3Ha6T+kgqiaoW1QC3Zj9+tLA6+9y123bZDOD1xiDDAb4EhMPY1QPdnoyNJZxwKx7
-	 SqtQbm8az77196jUIwoXa3d7ycKkMKFUL+kbMcgSVzcEe8j5PnJbdxVEiejR49h5mAhqz
-	 OWSV2q8I1tHDAenST3sdjb76DE1hMzhGk8G0JWcr9EmX+wqUtM9X8OrxvuYgRgfaTMg==
+	t=1793195578;
+	b=k9EFhSertI3Qe/eW4GpZqu8iYn2BXWlQ/557CJg8Y2gjP/kadbv+WhMSOdmv/LYOkMvs
+	 dIl907ay6X9PuaUGLP1Uk+twOobln18R+ifoXFxwxwutSSWnHwxqPtd7q/jA2THm1emSv
+	 I9WTXQYsJKlM9vjinZ09Q1Oo6+3jzNi3S88WnLEiYBYaWGMuAuAZZd+jKI0Zu2OlVCsQh
+	 Zpr1gea1eEAMo0eHm6pKM1XRSgq7zQSHW0kW29I9cW6diMQJHug0eSQaIPnoAipXwZ2Jg
+	 6LCPKf0XtAI834Zecs1DtCbKv2hmvZRYmdi4C7wquP2EHpv9RROvU1wpq+dR1wVPFOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793195547;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v+WG65pANaVwCNqbqLgEEHhTXKrwC0yMtmx16EDj1JI=;
-	b=OlGJTLKSMueUgcMOYcT9zVx9mzTP/CyRd5Up4BbgA/VPfWm8urnDP7z4rWgko3XhcG6i
-	 oXTFw2dFIbvXJ5KCR21x2sbdLejmCJJIvWgRHt6SWsB7ci00SOoRextZogzrCJXHyrrOh
-	 f70JWz6U+yk71jMi2W1rdgBp5smFx41E82E9RdK1YNck1rkkKB2b+iNH6pfGtAEwzPeEQ
-	 +skp9P2FpNPp33/Zdb0Mc2Mabu2Jc0Um9rW7t+hwjMv/je5a/M5W9gWSciDJ1cq+TRqmE
-	 LeE9Y6okYK+/KEw4kf5WJq5kpDo/bt8EfUNAkfvyRNqUKJv1ji8yCRy1HHKnbZlrPHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793195578;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
+	b=kPskJJ2cUXBE6Mn+/Km0Zxbxr9rsxs7kiW1QRwFIGQw3k+PNRq4ELRDfJ1buPWdvEsbS
+	 i9tHakRKLB7cbPUiyaTaq/Qall1XkxrTCDXcZTSiCUNT3vAHB4kC0SJX2mekvIrz63EGL
+	 +ngxcobcMipVUve16XoMs7F15RnHcteIJm8DPGUWKoTvU8acCihiLw+8CH+r1wFrG6NUA
+	 F9EsUWJj3F3JFrhIWzWXMhI9rXhxlOzATZf4Te4Sfpka2KeLesAtCB6GBExN5lvlAhgp6
+	 OtcoDRQk+2ELr95RIsHM5KBFzYDkfMfIaIALp0O7WoE5+CQ/3o/sdsUSh44uaDhoKeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIA2pec6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99659606A31C;
-	Wed, 28 Oct 2026 13:52:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3167606A33A;
+	Wed, 28 Oct 2026 13:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3167606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIA2pec6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77EB1F01825;
-	Wed, 28 Oct 2026 13:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793195547;
-	bh=v+WG65pANaVwCNqbqLgEEHhTXKrwC0yMtmx16EDj1JI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KIA2pec6cXMtBj9YkyCvNCZqBVcIswQX3vCvKJWnAU8c60i468rptoRcYRhjau0oy
-	 pUODume1dwssoa0tu0+asKKEb6CV4aslTSRw+/foFtSyOeE+E0y0W/sLqXfdbBj5qV
-	 fDlccuNes9tcy35Fk+tbhY7F8x/S38ZfZbcDhKIwC5VGy1yhRbKr5bYBLSOfEwc9cu
-	 upO72e3zUMlHxvg/vmL+FlRqc/siG3wZ+Z9RASgdbfY2X71Q0PzCYFU50/7sdEUmym
-	 ddgkAYpwQsUc6SUhP9qrHCqkQ+N5J7iOn8Du5BEAIEeXeDIeo22HzcaaTZ04ORa4kw
-	 4V33GcOxz8JAQ==
-Date: Wed, 28 Oct 2026 14:52:23 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Johnny Liu <johnliu@nvidia.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Douglas Anderson <dianders@chromium.org>, Aniruddha Rao <anrao@nvidia.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: clock: Add Tegra238 BPMP clock IDs
-Message-ID: <20261028-enlightened-khaki-leech-7a3fb6@quoll>
-References: <20261028084900.1047287-1-johnliu@nvidia.com>
- <20261028084900.1047287-2-johnliu@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=SAvQBHOm
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D80E215FD22;
+	Wed, 28 Oct 2026 14:52:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793195573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=sXikcPN/2u2jcqxK0ic3WXRLLLyeXrwW2xb+LwiQxXY=;
+	b=SAvQBHOmhiuyKvlXtM1AIKAj6CRqI92p5TarTfEUggze30z+GnbG565ZljxAgt9yHEC2dM
+	uD5iBoqtnOoZOkDKm2IGdLODqoyp/e0jfOhfmpnSaikTs7D6Lenc1O1BbWgh87s/ma/Nyv
+	vXgTMgY1W84l8PsDxj4I+9z1ztQDiCRxWVVACm3kSa6NgsrRAOPZ/Vhus041nsaRWalF1C
+	DoCc3UPTBDy+cs4xKDWnbbmOkb4G/zZCOhvIYOmx+6EyMWoAV+2XadysA9Wdy/uPflREyO
+	0119GI7xKpC5Bf/FgQbIOizvjAHIjyaiWdtPRb7F8nPbA73yEHVZi50bJKd6Xg==
+Message-ID: <c6154519-98f4-46a7-ac30-076ebf588bab@cjdns.fr>
+Date: Wed, 28 Oct 2026 14:52:44 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,18 +55,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261028084900.1047287-2-johnliu@nvidia.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 2/7] dt-bindings: net: dsa: mediatek,mt7530: add
+ passthrough mode
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-3-cjd@cjdns.fr>
+ <a031f089-0b96-4fc0-b878-6af13414524f@lunn.ch>
+ <521b930f-0bf9-4373-bfbf-3e2570661ec9@cjdns.fr>
+ <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 28, 2026 at 08:48:56AM +0000, Johnny Liu wrote:
-> Add the clock IDs exposed by the BPMP firmware on Tegra238.
-> 
-> Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 
-And the compatible is in the next patch? Then squash them. Bindings for
-a device is one patch.
+On 28/10/2026 13:28, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 12:27:18PM +0100, Caleb James DeLisle wrote:
+>> On 28/10/2026 03:04, Andrew Lunn wrote:
+>>> On Wed, Oct 28, 2026 at 01:13:12AM +0000, Caleb James DeLisle wrote:
+>>>> MT7530 switches can be configured to blindly pass packets between their
+>>>> CPU/upstream port and a downstream DSA port, in particular, without
+>>>> altering the MediaTek DSA Tag on the packets. This mode is used in some
+>>>> integrations where an SoC integrated switch exists, but a more capable
+>>>> MCM switch is added to effectively replace it.
+>>>>
+>>>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>>>> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+>>>> ---
+>>>>    .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml       | 7 +++++++
+>>>>    1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> index 90b3582b7619..e29fb8693498 100644
+>>>> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+>>>> @@ -73,6 +73,13 @@ description: |
+>>>>          Check out example 7.
+>>>> +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
+>>>> +  mode. In this mode, traffic is unconditionally passed between the CPU port
+>>>> +  and the DSA port which links to a second switch. To use passthrough mode, the
+>>>> +  upstream switch is configured with a DSA link to the downstream switch. In
+>>>> +  passthrough mode the upstream switch is restricted, with no other ports or
+>>>> +  switch configuration allowed.
+>>>> +
+>>>>    properties:
+>>>>      compatible:
+>>>>        oneOf:
+>>> Looking at just what is here, all i see is a comment. There is no new
+>>> property? Yet the subject is "add passthrough mode"?
+>>
+>> Indeed, I used "add" to mean "add documentation of". Per my reply on patch
+>> 3, I think we really prefer to avoid special properties and let this
+>> constitute (very) limited support for a switch hierarchy.
+>>
+>> If there's another verb you think makes a better commit line, I'd be happy
+>> to adjust.
+> [Goes and looks at mediatek,mt7530.yaml]
+>
+> So pass through is not an existing property. You are also not adding a
+> new property 'passthrough'.
+>
+> What you appear to be saying is that the MT7530 and MT7531 are hard
+> coded by the driver into pass through mode? So it is in effect a
+> property of the compatible? So maybe put this comment next to the
+> compatible? And make the subject/commit message talk about the
+> compatible being hard coded for pass through?
 
-Best regards,
-Krzysztof
 
+Perhaps I should rephrase as follows:
+
+
+"""
+
+The MT7530 and MT7531 switches do not support switch hierarchies except in
+the case that a switch is configured with only one CPU port and one DSA port
+that links to a downstream switch. In this configuration, the upstream switch
+acts as a blind pass-through to the downstream switch.
+"""
+
+
+> Looking forward, what happens when somebody wants to use the switch as
+> a switch? Or you figure out how to do proper D in DSA? It becomes
+> messy because you need to add a property indicating the compatible
+> should actually be a switch?
+
+
+Full hierarchy (using DSA tag) is impossible because of what seems to be 
+a hardware bug where switches don't distinguish themselves in the tag. 
+However it is possible (albeit ugly) to enable ports on both switches 
+providing the same numbered port isn't enabled on both switches.
+
+
+If somebody ever implements that, even if they remove this passthrough 
+support, users of the current passthrough capability will not notice a 
+difference because that will do the same as this.
+
+
+>
+> So maybe you really do need a property?
+>
+> But DT describes hardware, and pass through is configuration. So maybe
+> it should not be in DT at all, Maybe the driver needs to look at the
+> DT tree, figure out a port is used as a DSA port, and put the switch
+> into pass through all on its own? Once D in DSA is supported, the
+> addition ports become available, but no other changes are needed in
+> the DT blob?
+
+
+Previously there was no documentation regarding hierarchies, and any 
+hierarchy would fail at runtime. I think a brief note that this one case 
+of hierarchy is allowed is nice for the users, though it does bend the 
+definition of "describing the hardware" so it could also be excluded. I 
+may be persuaded either way.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> Sorry, going around in circles, but hopefully it helps you think about
+> the big picture.
+>
+> 	   Andrew
