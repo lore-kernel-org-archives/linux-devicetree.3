@@ -1,155 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793162889;
-	b=Q0IrYdAkjx4CjPMWzSTVPFOYF8vAol/coxvccbpG+ZMAChz1OFk45zX2OJ8FLBb+BRHr
-	 agRChZG7SS7gI3DIA8IUzFx4BsXi1qZUyCCQVMtqYduVsTgql+NiwVJmIpbBnDFFXXksS
-	 BG35W0iFfJ9jBAg58Q+x3ynmPwaww6JskPGbFIUkh7bLN7cRqFJ8ounBbR7bNNvQ4rXWr
-	 dN5doCvgI+ljFLZkoZ+nHfuybVNYEzenGdrnprepUXX6Lqiqh6DpZX78olWyLOEpUK+hd
-	 oWjDEFm7IqsZJQSR+jDvIjALz+PnCvJ3J4M5j7IeY6k2DVIGeUPdnanRzb8hlEFLcMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793162889;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=r14JYt9k/EKPWRcFMPrR2sEg6wFrz4r3mTyV0BKnPK8=;
-	b=tihJ60vIXBPoPbsLoQM16nz25wzpMF2xw7K9Dje5c7W2M9VUM+yzxlBQU1xmLpmftfmV
-	 VAmT7jMtHKdnQOsxl01WrarIFHcbOtwiGBQxiDegsc8lP7niEDD1RApBWrzaiqpp72uxD
-	 9g+oHcsABfqZ3OIIRBnDEBVGRif1a8BLuHLjbbep3QIveoId2CM5N5pPHVk6RjpI9C2hI
-	 zfPT9oYjtmsXMfc+gO26X2gUnDF5xRSHaiOwJVkbUGwurmVdVWm/jwwWl4XzCN8KWQKc5
-	 xQyrZGWG8mJqRuapoj5jd/pUuE+30fyRohJZ4zevUjvDqhIPkTWZCsxP4Fw8TyKbYUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Rok/R0MQ";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.49
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012049.outbound.protection.outlook.com [52.101.53.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793163301;
+	b=eN0BLyG7jnECoOo0SubtFr0feNfKI4WjSFzllYFREBNPdikU10Khlb5yY501cNDkn1h8
+	 1eB97DthUn/QFu9iTEaR1eAT7GMVEG2CskK6Kf5Lfs2S0foSIlVyrKbCUQbFFDa4lH18x
+	 oFYFqGKu7crIf+DF07GYuJ8IArh0mJWUTBxfuFcwa7G97e/PQwKgQ3yNnpV3+RTaiPFz0
+	 GI7WX5OkDoTYLCVviQTaVGoiX1209OPZC9pU3cmNKYveRPZv/7L6Bwb5Tk6BSeGoBABtJ
+	 TJU7MpLQ4NJ0Q0ZjzNn8Eyy2agef8WrjRiBGpQYx8NEIpkBehacmNCSVnL5AM4sjZuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163301;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=3ENjMukqGezBEqDx8E0hhaO96niseWqvsdOzSH3ZOCY=;
+	b=xwNLZQ0QSurF0hRAxsHaaXDXNiWOzt5Y6ZgVWVPgCF7xD8Ge5IXwYEhvOkvPo7czV68I
+	 bxLYTWLRKfeC0Vy2rdBrcoIiDXBCES4AB60PiXOR11FRN+av3Z6i9NXCDFqwtP0ygMa/J
+	 6gHHmdFw6gVKTtbiE9XYC7eWhHbimrwgaNvzBurChC10icz0xZHTmfA1Bw1w19CE3OU3A
+	 GckzDcEEJxz5s9gohVENyw4kZ6wYSEV6WSy0wFCcGanxEqKZpzDKchXgFY/u1txA+3PD6
+	 CQpMU33n8103FXQJp+Q7hSBNaccsZp3hbcdJ6ofZsbSlxLt0MD7J9gpv5lHLsKvQgkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mfxua5a9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LeOWFQYz;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D55E606A31A;
-	Wed, 28 Oct 2026 04:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D55E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50EC606A31E
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:55:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E50EC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Rok/R0MQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rrPfYb2936FHjLrCMjB/tTdTpeTPqtF2Sa3jmDthAR+NDf3eNncEzVgmrXuzKiD6iz3iZZmqU7vCJYy22MjbRymQhQxhk/ljwwOCk7QKge70MZlJd/7mEMpW2r01xEi8aEFuiLeYhlT7qD5lSPDC6eLvpYofhLluZ4fuDfaljAialbugzlWeGOXonAey1kGXEpM6yjXCjVbZrU4IBMlUbWCScEhEH+IlDN5aOSNfIUOUqqDzVZpLnxA9gOMMglYDMi8dV0K/1lrw3RrrTEwe2qymKREcDLK1suhyJJFtkpGiKRlgdvdRSzuFuu3TNRBrryBcWmtamxec2af3D4V2Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r14JYt9k/EKPWRcFMPrR2sEg6wFrz4r3mTyV0BKnPK8=;
- b=knzNEd3ZTSpadL3mzI5SE4taPt7carvCy1fEyIs5xU2fo775XMHJoBDxZ3kwSITS18gHVbn0bKvg3QbJbE41jG2Gb/99RHcjld9CFmE8Y/lYIP5n4UDql/gcH4JRYwZnZ3WNmCAwbs+CqwEX31dlK1/jrm4X3twgPERAQGXwcD0Hf+1puom3Sb6nU1rrouiTss3yfnpXhgg+eW3D0CdopobL0qRaHkqIL6o5DQmcCQEAwoiddv1DVQDeKMcjU3ddvnmgMwMtW92SCQfGWA1LpIV4OkghohmJ1rKyK9nvBKzNUlflFWQDp1MLDuesnaUKu/mMmGn6aiYiNHQLPu2J1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r14JYt9k/EKPWRcFMPrR2sEg6wFrz4r3mTyV0BKnPK8=;
- b=Rok/R0MQ3PutNIWotE22lXizdqE0KwwAVRcnu9ANEY4O/qaATio2w3p5HQVY7cQhQueH5gyX7hThseMnE3stcVzq8MBTY7h2EDnP3Kvf+Y14pRD9kjprxJLAI237UeZ1LcLkyDNsIc+LUeVoTuxC7wAIg/nuelpGMmzvNnfnVCs=
-Received: from PH0PR12MB8125.namprd12.prod.outlook.com (2603:10b6:510:293::6)
- by DSAPR12MB820198.namprd12.prod.outlook.com (2603:10b6:8:51d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 04:48:02 +0000
-Received: from PH0PR12MB8125.namprd12.prod.outlook.com
- ([fe80::7fc:980b:9891:6c43]) by PH0PR12MB8125.namprd12.prod.outlook.com
- ([fe80::7fc:980b:9891:6c43%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 04:48:02 +0000
-From: "Veggalam, Rama Devi" <rama.devi.veggalam@amd.com>
-To: "Ghannam, Yazen" <Yazen.Ghannam@amd.com>, Rob Herring <robh@kernel.org>
-CC: "bp@alien8.de" <bp@alien8.de>, "tony.luck@intel.com"
-	<tony.luck@intel.com>, "Simek, Michal" <michal.simek@amd.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"
-	<linux-edac@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "james.morse@arm.com" <james.morse@arm.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>, "rric@kernel.org"
-	<rric@kernel.org>, "git (AMD-Xilinx)" <git@amd.com>
-Subject: RE: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
- xlnx,versal-xilsem compatible
-Thread-Topic: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
- xlnx,versal-xilsem compatible
-Thread-Index: AQHdYVvK+AnpE6IiD0ifHuUGOb9kqrcJowQAgAauawCAAhpwUA==
-Date: Wed, 28 Oct 2026 04:48:02 +0000
-Message-ID:
- <PH0PR12MB8125B27A7814A3818739C4B9CE6F2@PH0PR12MB8125.namprd12.prod.outlook.com>
-References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
- <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
- <20261022143730.GA1287910-robh@kernel.org>
- <20261026203920.GA696395@yaz-khff2.amd.com>
-In-Reply-To: <20261026203920.GA696395@yaz-khff2.amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-28T04:46:28.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB8125:EE_|DSAPR12MB820198:EE_
-x-ms-office365-filtering-correlation-id: f5edd754-e3f5-4dcf-fa3a-08df34aea5f4
-x-ld-processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|261026140227099003|38070700021|11063799006|4143699003|56012099006|261026121527099003|261021121427099003|261022105027099003|261021123027099003|261022075727099003|261009223027099003|261009221227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-x-microsoft-antispam-message-info:
- iD9Jm4vo9eUh8lEC4gGy5tno02Y/IzA1FLynWbtgpKaPe1Y+obsFs28S+R9J4FvOfIfUYSYiJgbFcg3hT5umunFaYPf9PBblj/R+6SakhE9t8s4jZ9Cy9oJPI1PZWJvaL/mZyUVf4WEuGUho/HNqEsDkmGIYKMWq7Qt09iKO56YFeywaAHpLaHDlRqI7Qhg36LJRX1wPzczRJFGNFmabX+D02VeEHSfAeFiNQhGC+GQcRAjl3VLsgCRwgJD4jh2VFDbAxK6HpzrA2UJk0ivk7WI0o4frSHFAhc42nPR564BFi6tlT8piL8r7oBjsd3dBMGQgWWPWzAtX3hpeua3TDGmeDj53GB+G5NY9Bmqb/GPWHFV5dp45vo4YaT8A1HW+dEwBhbOEqdnvRdjEZda1XP5y3N+HIL0WJaht81qySKK60lo7XG5ud+tnSNGRR7I453ddsb9TRCCu2aXkTlaHc2LRst9ClQKqNJGm3At2ElgHkaZYsSuDOOnrBpNc1q1gKVR60sJ84Sh/5WZSKszG85oILB79X7yB0MKY1EMRqEhYrKVuQFChWuC3BDP+b/JBewmql3gn/C2Y58ynaDUPiX98KQWkpzxAFJ1JgHupnzO/e7RECqQPrFLieSzKIk7bIpejx/rOvblVEeXUWSCJ9W3hiF9DVaUKwjfMdq2AU+0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB8125.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(261026140227099003)(38070700021)(11063799006)(4143699003)(56012099006)(261026121527099003)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fi9NeAS0uAACQ8+PQJtIYcUj9YIvpM5AVC9wnLxn9vqYIrbhVBrQHHnFJNay?=
- =?us-ascii?Q?6GP+LmmXyOZirhhujLycNw/Xn1cYzzLvIbBOmYEdl3x1FXAnXRXyb5d2VORi?=
- =?us-ascii?Q?j/x0mvyOuYGEK1OF3co/n+1bDG6vFN2xkAskJ02Ngskh5ayxED9cEOxydDup?=
- =?us-ascii?Q?pmZi2nXmZPWplotAqBGQQi508CORm02K7sKDsLJNYWbnTtJ51u4/uqMCBm5c?=
- =?us-ascii?Q?+ziUhzRKlgy9KYAYZQHwhVu69zlBXc4Y/mEq12sLrLonx6r4c/POXn8rBJRh?=
- =?us-ascii?Q?05opzVL2Tk30DqYhr2VpyAebdhp0Kfck+IiZgklPegrWYkE3O8UKqJ4U6WCs?=
- =?us-ascii?Q?5Z7LE2zED/55mUbYAGcwWlka3pwv8B3JbikQ3cts3+7zZOe8IFJJi8E5x4Lk?=
- =?us-ascii?Q?GJxGmAMtUTz55oKfMoUqmbQ68A3RUVPlGPF+V2j1yuIiLza4CttIKs5uyB/J?=
- =?us-ascii?Q?eW78TppEcT1/F29MSpgP65n86ZdHRgDOmBgoOBm133bpPNsFJbubBfpY5c7k?=
- =?us-ascii?Q?0sYYhXnZgazIr8rrXRXKB3cbWJ45nIomGyq9x0ZIg3Y4g0PwIKSeDu13Ka/Q?=
- =?us-ascii?Q?AyKLSAw9aMyNErRUQwueIz5Gs4hB4p7ieB/UN0myy5AZ+e8DU6FpDIkCJzf8?=
- =?us-ascii?Q?WKaloi2vRR9aq0etQo+tcCxjdosTapaMOw2y13lYJzrR8maoZayV6xKwBdxM?=
- =?us-ascii?Q?gkqzi3vpffFxZiCh6dMg8O1yEs5muvImbyKUj0/zoElb9Uks4iGztZQjVB6n?=
- =?us-ascii?Q?HrP1RWvm3gA0ih3waoOaubGKzitXCEfRKTWR3vT1CH55wT4UM/RaASSnsykH?=
- =?us-ascii?Q?VhxJeENGxORD/TEzS12RMpDFMTh4dQ4VQ7nv6LY1BX8kt/oM9iZw+0d9nEcr?=
- =?us-ascii?Q?w7oFlAfJ5ZcqG4jkVfgVfdMPS9Z0RzVfchRvEyiLlRuEty7+aygvennjxAcp?=
- =?us-ascii?Q?SytRXqMSwIWRgaA/G7RmV3/buZ5kCoVOOxQRhpbgRBlTCn8Qv75Y1WOMkFb+?=
- =?us-ascii?Q?Zb4kbG9miHcka/3IdKIATHaf/nCeBeWrU66ZlvdpVQKb2TjuMrP8nx/H0jAL?=
- =?us-ascii?Q?9cUYGgF9EPkxkp5bilZLpiJGWUgwJXKUtDjG4q8YF2kY/G1/biEN42JriQBk?=
- =?us-ascii?Q?u2uqGHsZYqPUmOyDr7jfa+0PQT/7R24AIr/UXJMB/cEM4VrZC07ySLuodZ9Q?=
- =?us-ascii?Q?7M/ev1NrGThevi7gEsYzRcfiRKGYLkmnUCIHbHvLlIuoeldoLxfAf98UW2ZF?=
- =?us-ascii?Q?z8HfHKhFDqe1sQX6pseg7Rl87nyN1z+MnTdK4RcXnQtw8am60PEs/z0xVz2U?=
- =?us-ascii?Q?xbfgQ9h54TqtFVqEkc5Mz/oYYHkdvB4UXL8UOW4jSG+FNb7sPJbFI40VEorP?=
- =?us-ascii?Q?xhVhtJq3jCicV3Hi6jw5CvvtddrUsY8HFJC0g4UU5OGHx7l87KCikN0EIvkn?=
- =?us-ascii?Q?wlshqZeHk3HzxTjBfQnHive/nyWAxI+cB3R2kYBSczyue7wv7gqotWxH6pRN?=
- =?us-ascii?Q?yIpwjxWivWmiO0IwjUcs8IiSZELPaQy3lO5Ukwev94t1X8iPCmNNk2h7HsAM?=
- =?us-ascii?Q?Fk93WpSK7FDpEd91iFIAtyPOiWghj3uvdxFy0+YVu5YSyU9aLZkBc2YtNTQ/?=
- =?us-ascii?Q?x3xwdGOPsf78ZPQTtNmIMepRmVdy0/7F4sSbDg8gogXtWmKCed1i8tE9Vy9v?=
- =?us-ascii?Q?a7DKk1HNz2r/WIxDvPwM16BsLDsk8D9hwwLfHYq55vaZ7ioG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mfxua5a9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LeOWFQYz
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S4PaqO059319
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:55:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3ENjMukqGezBEqDx8E0hhaO96niseWqvsdOzSH3ZOCY=; b=Mfxua5a9zWi8i4sd
+	omurzAKhHvS0ndcgLcuCsn+7AevgJbXeRvR9pr+nsbFnJZd69SmM6uXk1JqkFdEw
+	Q6Lc9gkGtZVA45mKxjr30ejLfFdsDqPlBTX3E0VrEIN7S7Fb3spCPaMeyUFzTFA5
+	+2Yg2eDon8AGNuoiSdvCkKRJL0w4SdGBdOqnCzbxW+/G/4gfiW+ZReOtXdAgWYW1
+	75FpV7vDbmrcQTQhwg/B/9CNkSMcqaERx8JSs1mj0qKrrSuIUqvCJRerelrXEiJ5
+	v2h04vqGq2buw+t9lI/m78bo1l37+3QJcYJcoR2ZVbfPgNPCvPZ0oybPCK3g77sK
+	nrT0dw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy672h0f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:54:59 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3552883bd19so202915eec.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 21:54:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793163299; x=1793768099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3ENjMukqGezBEqDx8E0hhaO96niseWqvsdOzSH3ZOCY=;
+        b=LeOWFQYz8cyHJ6YKLhaetUejud4TD/ni93fFd/BPqF6t6jWwuo+cccvnUIEjDE7awA
+         YGcUeLpsU6afNGxan2+XwQDqp6pHOAorabUWVp7ygWClf3gxUyit5sFplJ2r/o3XDCi3
+         Wws5itQlav0Gxl8v5Qtnwa50ElGBgtB+eFXo5cmT8Yl62h9Am0bkEuHj1Oi3neGs/xfX
+         90Id+hzHlAmf158LFUTzVeBWX+0T7QYcSTkcqpjf5y1/mvlFsuWnhVi7BXGXpLrIMNkM
+         a1a9yOTrucZa4JzNI9huI/H77Srg7yv/rAAeSOLmh5ipVmOTf3/bI8pXt5DeEJFY0A1x
+         oXRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793163299; x=1793768099;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3ENjMukqGezBEqDx8E0hhaO96niseWqvsdOzSH3ZOCY=;
+        b=wKoqA+dFLvKPheRVszVJA+9SlqcE6+xVot53bfaTZ8BiIIl1NNA4ijQ5F691uBL9i2
+         zKgRXUW5/Js4bHcfKml1TyPADK19Av8TZqZ2TqY3Gggh19J5sOi8wdr7ANUfqB/4mdeU
+         H6IamydicrHYkvQ4RkzeP+maqryGhafei6ffjXy5JiUPn6HdEXE52zL2nzrICH1pKk5l
+         mMaZ1aqemk0Cn9mTnIUoeKW5Uy4gWWPmWxfeWyG/g8OKLc0k9lq1MFDcd/iVV+/m6uhr
+         /BkseS/fmOdL3C4teKfxBxbqohLCTpiIATwNXn7Y4JdGkg8s4q9gxCWFqxi0we72SL22
+         88Pw==
+X-Forwarded-Encrypted: i=1; AKwUvByX9NbvLviEDKID+PpZsx25nv/3db+M2zaMLWDXTVPFfmTSfitTAkQ9Rg7AnlQldBTVpmMAXmXbl4BB@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpgmWSzY9HcCV4ZDU6DtNsbbHlYT7xgt+u69GSGom9XmZC1KaB
+	8a/oV7XE5rqK+8UjsdJ+bkBIpn3+RZYrd1peS/7QWHL8iyhhAwc9678lBfVbbhOUEdYEn5k9eeC
+	5iBsyfkMnYTbHps/9Bx88B/g8XDGtpocoW1QUypEH+f4A5AYvOOW2ccCQRnclfDQk
+X-Gm-Gg: AYBFou12DUswl6M1iU39F/VFvQh2GXUT6BHOtpPPBdlfyRmhOMjThxHvgFzejrvSJqk
+	UupAlSXdrJ0B3BQelcO45nwAp2pKFVZ4wdpKTdR9WZuMTDKbsfmSCWENsIOMz6RgzglLFPpdZeo
+	Kw7cyaaVDs5WNss5quYPU4qwnWiPqrdbTvhywenUFPqLpIlGInCDzv1Bfuud0Wh8ov7lEbQ2/6F
+	FW+z8TjP5UPAJo6BfXNieyRuJE2SuTrmgrS/3mrOWKZotIj7/Oxa0pHCvG4DQIk3mgSyhEkXr9h
+	d1XuQILbZy/onYm7knwqGnSd28PT/affZE5inJhxKbi9HLKVlfMc7ZIEnhaJvMjIEInBFlWeI8x
+	AU7PklE9l58PzM8RqU0RNwbOoV1r8Q1V8upAJuPS2ORkle/nmXNs/zG3R9pVTEkeaMofCsEWK4U
+	o3
+X-Received: by 2002:a05:7301:f05:b0:369:f126:9ce2 with SMTP id 5a478bee46e88-36a204d6e15mr1983712eec.41.1793163298733;
+        Tue, 27 Oct 2026 21:54:58 -0700 (PDT)
+X-Received: by 2002:a05:7301:f05:b0:369:f126:9ce2 with SMTP id 5a478bee46e88-36a204d6e15mr1983670eec.41.1793163298111;
+        Tue, 27 Oct 2026 21:54:58 -0700 (PDT)
+Received: from [10.217.216.70] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2396276asm2031284eec.22.2026.10.27.21.54.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 21:54:57 -0700 (PDT)
+Message-ID: <cf069a42-4787-4704-8aa2-e2035d6bf593@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 10:24:38 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -159,194 +114,141 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB8125.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5edd754-e3f5-4dcf-fa3a-08df34aea5f4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 04:48:02.3007
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: isov17JpTu4kk4Y6h+Ixzsz0h4j8nFLyknRxMYwYfeEfBpJ1cDhmeDHgGKDztvTuB7LHb36skIy3weuY9s/JUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSAPR12MB820198
+User-Agent: Mozilla Thunderbird
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
+ Lemans and Monaco SoCs
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
+ <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
+ <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
+ <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
+ <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
+ <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
+ <aa76425c-0579-42c2-832d-cc767703f3f5@kernel.org>
+ <237b2f74-4a9b-4df2-a0fe-a7b783ed5267@oss.qualcomm.com>
+ <8fdc66b2-6047-4f3d-932f-1e6883e370bc@kernel.org>
+Content-Language: en-US
+In-Reply-To: <8fdc66b2-6047-4f3d-932f-1e6883e370bc@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: ELnDWQP9kIgkfJgAfNh_vPKSAfCA0Qbz
+X-Authority-Analysis: v=2.4 cv=QvfLTlyd c=1 sm=1 tr=0 ts=6ae18023 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bmQgafSgubap5fUq5zoA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAxOSBTYWx0ZWRfX8iPiNNe5I3k6
+ f/f0SWcy5A70E0ALBRe8V8+R/iqMWi613/bwodxQ9glKb8YL2hwVuj7wmtU9fdRNJUj5jsZjdhz
+ uADMsapzEfO6af7erXJPmky1cqlUwac=
+X-Proofpoint-GUID: ELnDWQP9kIgkfJgAfNh_vPKSAfCA0Qbz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAxOSBTYWx0ZWRfXwdpVn64NErOz
+ UGQqWtVFn9/Sd3Cd3taEI0LzGqIB6LFtjYtwmNgpv2Ia95efZngDKsb2tUJp8xBa2bBAgXz7uTf
+ I8cqKqEEI8ETKmDqf43yD//5imad9TFbLoCKNd193ZeVnW+S9w9058U4euWNUpR3SJrl2vML189
+ nxOMOlQB3WH74Qo7WPVQ71qmc7IWqc0pz+MV/Ii52YKkOdjsGGJUrGaPMOwZumWZMB9LJCSajrf
+ d6hHJVdqy3ZxGCbtNY7jZhae5HpYQyhc+VPXjXvhJLhQn+2odniYFXY9J4RAZMGEgWbBTaBklLv
+ CR69EN15+B4Gak6b7BHnJw/OLpRh1tIEonyQXksT/Ua96mz8uRkkDHLhnkb2P7V3iGBL+dx1Ih7
+ awb1JG1EjIb5w7RaOhr0J7hTL00Cwf8q59XTGn1WKJdbH4Ss2mx7nNNv21YSAMhtoyo0SoAeMzY
+ biVoeyMZDenRz8dLJtA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 impostorscore=0 clxscore=1015 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280019
 
-AMD General
 
-Hi Yazen,
 
-I am evaluating both approaches and will get back to you.
+On 27-10-2026 08:49 pm, Krzysztof Kozlowski wrote:
+> On 26/10/2026 13:55, Imran Shaik wrote:
+>>>
+>>>>
+>>>> On checking further, I found that our etu-slice sub node deviates from
+>>>> that example, since we don't have a compatible string for the sub node.
+>>>>
+>>>> Please let me know if we should move the pinctrl properties under the
+>>>> tscss node with per-slice names, or instead keep them under the
+>>>> etu-slice sub node and add a compatible there.
+>>>
+>>> etu-slice does not feel like device at all unfortunately. I see only
+>>> address space, so one resource, which might be enough but lack of
+>>> description for the subnode is not helping. I have doubts that separate
+>>> subnodes should be there in the first place, but if they stay, describe
+>>> the child node fully - what sort of device it is. Just because there is
+>>> independent timestamping counter does not make it separate device, just
+>>> like independent interrupt in GIC is not itself an independent device.
+>>>
+>>
+>> The ETU is an independent hardware block within TSCSS that captures/
+> 
+> How is it independent? I see no resources, except address space. A
+> channel of some device does not mean it is a separate device.
+> 
+
+Sure, got it.
+
+> 
+>> snapshots the TSC timestamp in response to an external hardware
+>> event trigger, for each slice individually. Hence the subnodes approach
+>> was followed and will capture these details in the description as well.
+>>
+>> If we drop the subnodes and add everything into the parent TSCSS node
+>> instead, then all the arrays here must stay index aligned as per slice
+>> mapping. Example DTS node looks like this (QDU1000, 3 slices):
+>>
+>> ptp@1da0000 {
+>> 	compatible = "qcom,qdu1000-tscss";
+>> 	reg = <0x0 0x01da0000 0x0 0x2000>,
+>> 	      <0x0 0x01db0000 0x0 0x10000>;
+>> 	reg-names = "tsc", "etu";
+>> 	
+>> 	...
+>>
+>> 	interrupts = <GIC_SPI 329 IRQ_TYPE_EDGE_RISING>,
+>> 		     <GIC_SPI 333 IRQ_TYPE_EDGE_RISING>,
+>> 		     <GIC_SPI 334 IRQ_TYPE_EDGE_RISING>;
+>> 	interrupt-names = "slice1", "slice5", "slice6";
+>> 	
+>> 	pinctrl-0 = <&tod_pps>;
+>> 	pinctrl-1 = <&gps_pps>;
+>> 	pinctrl-2 = <&hardsync_pps>;
+>> 	pinctrl-names = "slice1", "slice5", "slice6";
+>> 	
+>> 	qcom,etu-slice = <1 5 6>;
+>> 	qcom,etu-event-sel = <1 3 2>;
+> 
+> Why this is not continuous? The slices are all fixed in the hardware. I
+> don't get why do you list some of them.
+> 
+
+The slices are fixed and contiguous in hardware (e.g. QDU1000 has 16 ETU
+slices, 0-15), and accordingly will describe the bindings. But based on
+vendor/target board requirements, the slice configuration can use all 16
+or only a few, and might not be continuous.
+
+If the board requirement is to get the external hardware event sourced
+via certain GPIOs based on the availability, then accordingly, the ETU
+slice and respective event sel needs to be configured. In the example,
+slice 1, 5 and 6 are used to route TOD PPS, GPS PPS and hardsync PPS
+pins respectively on QDU1000 SoC, and the remaining slices are not used.
 
 Thanks,
-Rama
-
-> -----Original Message-----
-> From: Ghannam, Yazen <Yazen.Ghannam@amd.com>
-> Sent: Tuesday, October 27, 2026 2:09 AM
-> To: Rob Herring <robh@kernel.org>
-> Cc: Veggalam, Rama Devi <rama.devi.veggalam@amd.com>; bp@alien8.de;
-> tony.luck@intel.com; Simek, Michal <michal.simek@amd.com>;
-> krzk+dt@kernel.org; conor+dt@kernel.org; linux-kernel@vger.kernel.org; li=
-nux-
-> edac@vger.kernel.org; devicetree@vger.kernel.org; james.morse@arm.com;
-> mchehab@kernel.org; rric@kernel.org; git (AMD-Xilinx) <git@amd.com>
-> Subject: Re: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
-> xlnx,versal-xilsem compatible
->
-> On Thu, Oct 22, 2026 at 09:37:30AM -0500, Rob Herring wrote:
-> > On Wed, Oct 21, 2026 at 06:27:20PM +0530, Rama devi Veggalam wrote:
-> > > Add the "xlnx,versal-xilsem" compatible string for the Versal XilSEM
-> > > (Xilinx Soft Error Mitigation) hardware block.
-> > >
-> > > XilSEM runs as part of the Platform Loader and Manager (PLM) on the
-> > > PMC and detects (and optionally corrects) soft errors in Versal
-> > > Configuration Memory, notifying error events to user applications.
-> > >
-> > > The new compatible string only needs a single register region and
-> > > does not use reg-names or interrupts, so the schema gates these
-> > > requirements per compatible string.
-> > >
-> > > Signed-off-by: Rama devi Veggalam <rama.devi.veggalam@amd.com>
-> > > ---
-> > > Changes in v4:
-> > > - Added a new "xlnx,versal-xilsem" compatible string to the existing
-> > >   xlnx,versal-ddrmc-edac.yaml binding, gated via allOf/if-then so
-> > >   DDRMC and XilSEM requirements (reg, reg-names, interrupts) are
-> > >   validated independently per compatible string.
-> > >
-> > > Changes in v3:
-> > > - Merged XilSEM edac with Versal Edac
-> > >
-> > > Changes in v2:
-> > > - Changed "xlnx,versal-xilsem-edac" to constant
-> > > - Removed "compatible: in required section
-> > > - Removed "|" in description
-> > > - Removed "items" in compatible
-> > > - Fixed indentation in examples
-> > > - Updated title and description
-> > > ---
-> > >  .../memory-controllers/xlnx,versal-ddrmc-edac.yaml | 64
-> > > +++++++++++++++++++---
-> > >  1 file changed, 57 insertions(+), 7 deletions(-)
-> > >
-> > > diff --git
-> > > a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-d
-> > > drmc-edac.yaml
-> > > b/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-d
-> > > drmc-edac.yaml
-> > > index 12f8e9f..b5dc320 100644
-> > > ---
-> > > a/Documentation/devicetree/bindings/memory-controllers/xlnx,versal-d
-> > > drmc-edac.yaml
-> > > +++ b/Documentation/devicetree/bindings/memory-controllers/xlnx,vers
-> > > +++ al-ddrmc-edac.yaml
-> > > @@ -4,25 +4,35 @@
-> > >  $id:
-> > > http://devicetree.org/schemas/memory-controllers/xlnx,versal-ddrmc-e
-> > > dac.yaml#
-> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >
-> > > -title: Xilinx Versal DDRMC (Integrated DDR Memory Controller)
-> > > +title: Xilinx Versal DDRMC (Integrated DDR Memory Controller) and
-> > > +XilSEM EDAC
-> > >
-> > >  maintainers:
-> > >    - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-> > >    - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> > > +  - Rama Devi Veggalam <rama.devi.veggalam@amd.com>
-> > >
-> > >  description:
-> > >    The integrated DDR Memory Controllers (DDRMCs) support both DDR4
-> and LPDDR4/
-> > >    4X memory interfaces. Versal DDR memory controller has an optional=
- ECC
-> support
-> > >    which correct single bit ECC errors and detect double bit ECC erro=
-rs.
-> > >
-> > > +  Xilinx Versal Soft Error Mitigation (XilSEM) is part of the
-> > > + Platform Loader  and Manager (PLM) which is loaded into and runs
-> > > + on the Platform Management  Controller (PMC). XilSEM is
-> > > + responsible for detecting and optionally  correcting soft errors
-> > > + in Configuration Memory of Versal. Whenever an error  is detected,
-> > > + be it correctable or uncorrectable, XilSEM notifies the errors  to
-> > > + user applications via the firmware's event notification interface, =
- rather
-> than a devicetree-described interrupt.
-> > > +
-> > >  properties:
-> > >    compatible:
-> > > -    const: xlnx,versal-ddrmc
-> > > +    enum:
-> > > +      - xlnx,versal-ddrmc
-> > > +      - xlnx,versal-xilsem
-> > >
-> > >    reg:
-> > > -    items:
-> > > -      - description: DDR Memory Controller registers
-> > > -      - description: NOC registers corresponding to DDR Memory Contr=
-oller
-> > > +    minItems: 1
-> > > +    maxItems: 2
-> > >
-> > >    reg-names:
-> > >      items:
-> > > @@ -35,8 +45,39 @@ properties:
-> > >  required:
-> > >    - compatible
-> > >    - reg
-> > > -  - reg-names
-> > > -  - interrupts
-> > > +
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: xlnx,versal-ddrmc
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          items:
-> > > +            - description: DDR Memory Controller registers
-> > > +            - description: NOC registers corresponding to DDR Memory
-> Controller
-> > > +        reg-names:
-> > > +          items:
-> > > +            - const: base
-> > > +            - const: noc
-> > > +      required:
-> > > +        - reg-names
-> > > +        - interrupts
-> > > +
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: xlnx,versal-xilsem
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          items:
-> > > +            - description: XilSEM (Soft Error Mitigation) register r=
-egion
-> > > +        reg-names: false
-> > > +        interrupts: false
-> >
-> > These 2 devices have absolutely 0 properties in common. It makes no
-> > sense to share a binding doc.
-> >
->
-> Right, and maybe DT isn't needed at all?
->
-> One option in the Sashiko feedback is to use a platform driver.
->
-> IIUC, here's a summary:
-> 1) Drop this DT patch.
-> 2) Have ZYNQMP_FIRMWARE create a platform driver for XilSEM.
-> 3) Have the Versal EDAC module use the XilSEM platform driver.
->
-> Rama, what do you think?
->
-> Thanks,
-> Yazen
+Imran
