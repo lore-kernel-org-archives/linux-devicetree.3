@@ -1,104 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.4
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793177398;
-	b=H8SRr8WUWF910QuRgfUB6mMc4Wo+Q5KZaYt6rbVdXaPnG7YCFUuXZU4cG00CYoftBbK8
-	 L+Ysh4Q6srP7wYZjeFP4nT0IyISeyc/SGths7zLVmtCBVwzS6BtpYpE0LSl90UeFwXxrM
-	 deA1zt8wCekBEx0EM4tt+ED3wq4jxHm+kz8ZxktrFg7+AuQanzZKGdU8CVYKeeXap6jy0
-	 5gz0RpWVnruZ+YiOu6khq9dMm1sd+dAnp/TJ+jqRMAMZJhwZbXOYqA6m6iDgDmOQS5rjm
-	 y+97KbizUMfsIro5+O5AfS/RXW7pvG7aGdnzZTQL8K7GJaHt/PVP7ubTdo80aCHvN3w==
+	t=1793177601;
+	b=c4mbfXlOaiVMQ5xouyqoKdovZt47rmoWfOd4QbuzeGBaWAQjJPGDRaKPuThpIvKI41If
+	 QGXkqkwMUM5D+bvOY8dp+sZj0LmxqglMrE1+5u+qpIHaHdhJEuOBsidxxtq1PAkT5UeTH
+	 foojTAgYNqWSW2Q03engdGqDTK7Jo+3yz48a23Shi0P41dgBPsetFNpKuer1PJWKCTeYP
+	 FEsY5xH9FhCx7hhC7ncSOuUFdRPeAH1o0bNZuSEnYtmzR+fneM6NaR3ciVxzpvUjad49e
+	 f43OtEbvdw1nXHoNKGDkVNRZ5L8uAY40Mt/2Uq3AgZ4pf3x2/HUu3ezf6NZ5m4kg4nw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793177398;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6MGvXSXbpCjZ2LJJCfzgKocecungLghm1VuD7v3RxTc=;
-	b=Q/ZqPosxCGTYAslTbNtgBXi4jwzLqExJtpEyoldiUNWIWJvaxhXJDxWDXr2dTmUUy/62
-	 BGRpa+5LD6FCLIW+NH/mQMqdvWAAEtVoLgqPOCZY+Kcx3xEX5CvGfer3KyQ+9vFAKb80Q
-	 PqBMCTI83IziVjhYq3R+ubCacJtHMddIhMGq5mP998Z3w09Dgl1hCuUVyfKC7IT6Jb06k
-	 dhr6uVg2IHmmWDjemWbTCDs5KfnvY4BrPveaXtdQSnPMp1Z0J8baW1iJErXtUOLupXLL5
-	 XiuM+bCYJmgj+KnIyC24i7BBRf4TF4rR8TpFs2SQSX3bpe8YWW6B42vT3EOJzXWtniQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793177601;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FlHhSlz8HMhmsAgAah+96UUmNr3q3P/5A9H7JsgocBA=;
+	b=ShxOTQmMV5c+QUL2z/IN77FGwGzARKEySjKKzvpQWQASkCDLN/x49/2j1svurpuP4ClC
+	 IinhO1/SQCtxqQ9MwkXKzQO8UmdIjqwDTNlvdj8wz7Vr2l2uDQh1N+gArz6MW8+4dCvTs
+	 0YM3fMRUNOeglqo9aYM8tVpfELrEVHmFYqSYjc1UV6XLDB3dVp2rORP0wmIgT7KapSkyq
+	 e3dGIqOAbMC4rImqMVdByO1E33YiMY5bUx540p2pqJhcsZzAwwDjyhfjcXO4osB2u82jT
+	 Dzq0ceD/dFBv3q/WhWI4XnXRGVIosFEJ8xw1UGvWDP+KG7OXAW8f5P2qKQ5Lqg7VBHg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hz2SpUDM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.4
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011004.outbound.protection.outlook.com [40.107.130.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vGEmwoFg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD28606A31F;
-	Wed, 28 Oct 2026 08:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD28606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CD0606A31F
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:53:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50CD0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hz2SpUDM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rCt7atnGE8ZpE4JN/xBXyU0kiBeRTL/9F3cm5CJKW8G+Kbow8h9+5IGrb0rNYlqMwYWfaszenjEHI/EHPGCWIoRxmrutwKF0G90OoH02Mhl+EUpMhB9zChRMV1O1m/D4QnmAw4ILmlaenJAiXv3rtWAyaeMF1CQ6GIKNdiIV6gW9jU2/cQ665UIzdQT5fvfzgyV1p22Tc4tjsJLEAUgm++NncR7qn5N9mJwa2IqluOIQB2lc7gXd2GsWOm7RZtOZRzz69rRv7yq/N37NVsPKm5B+lS+OPRajLFyPRKw4nRU06ngs3IEM+YOtp0djvvKb0wxUCeYYIq7SDOCH7FRR4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6MGvXSXbpCjZ2LJJCfzgKocecungLghm1VuD7v3RxTc=;
- b=o6jNIU1gIDBHGb06h/v1aQ7Qx3eCxQAUrzY2DJmPD+okkie0Vmv3884Um7Nt9IMX5nAXvxl4xOFpebsbjjb8Xp4ERBnEvjF/rhlrRGGhf/AjFryLv6Ua/HXEjTE4sNTMRRixZEcHZn9PM8y/JYHbdGSayB1VY07aELlrsjzwFZ1l7tASn5JZFG4FIb06vL4HNDTeBuN8B7qEh7+3ab8XJLp+lXYYYnFLK4m7wYVLs586kw+S6qvce21jTIqvu6VhIKQ3F92N5R9pwUzfoDcbTGDOWBjct0GabvuyKK6Dkuehz9xlGp01vLPJSSvVcGZobaftq6o2TCYluX7gcn/CWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6MGvXSXbpCjZ2LJJCfzgKocecungLghm1VuD7v3RxTc=;
- b=hz2SpUDMwAacLEzA+av16tECvHWC8q1k8oBxUp6VeT9f+vHX+r01WPTvwYxEsDnV5XaIWIZvmuLMwJSuQjkZyuRed6Igs/yCgu3MkB/g1E7CCJYyzj2DOu9+FRdED4Qe9vneT6kvTGwlrI8KAOSRBYojQAca9nc5m3c6ncwuWyFkRq1G8Nw0KIFkixUw1QyT5ra0FTWAER0/7kmbX66beqRJWUVEX/8ZrYMoagif/1OT1kSOGUuSXSqOqaWpnYZj1iYfX39XYxxxGbLKKzJl7MkGHuUGWm7AIK1OGrDNQG5ok029DlKZYNW9Rvl6J6TakazLY0MVKcD3Y3fKgWC6oQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by DB9PR04MB8364.eurprd04.prod.outlook.com
- (2603:10a6:10:24c::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 08:49:53 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 08:49:53 +0000
-Date: Wed, 28 Oct 2026 10:49:48 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v5 5/7] arm64: dts: imx8dxl-evk: Add onboard GPIO mux
- controller
-Message-ID: <auG12nh5bsNQZzyW@vm>
-References: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
- <20261027-dxl_lcdif-v5-5-3a974e4b94b2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-dxl_lcdif-v5-5-3a974e4b94b2@nxp.com>
-X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::15) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vGEmwoFg
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eadef147ffso599181e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 01:53:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793177599; cv=none;
+        d=google.com; s=arc-20260327;
+        b=soHfjYKmoc2v0LRKIolqWPRQhja0M5xr0etsrgIify2HBJtYOyyZALwkDYrRIhtq6C
+         tadlarOFrTQxcHiImFxLtzG8ezxCFTSDk3Oh9VI9rGlkoFLQ5Zd1xJe6+7eB1RdLrGC7
+         UFWtNyUiwzXZIHCn9nLWv6+kYRgHP1l9IoWzp6unQjd4k7D2QZjd8BtmALLbzHoif6+7
+         kde0jYTKxv1gVUv2Bv36MGm7lvQQ1Yba5Rf0KR5jCRq3JRCl5oES98wokqxDvwlfb1N4
+         wgEEBv9O35WJRY7nhqr9rYtyW20tKyQ+zs8pUZEti1J/SPUUgwq/BCSPyGZLjGBiZSCz
+         ph8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FlHhSlz8HMhmsAgAah+96UUmNr3q3P/5A9H7JsgocBA=;
+        fh=18oTGj9SYDN49/ANVwc47c6vgITM094Pekt72tjSHQ0=;
+        b=sI1LauMpABqdmS0aM6PMAE2YfUchiI8n4RT7RlXufVKDfEF79qs5qb1fnSNn7Jsf8o
+         Qz74ngSPYazZo7nfP3YOTTHDi+qQfgKVV43468O+WHO2HKyN7CZw90vmFnGyzdEKIbv2
+         BhwtWYR/fT/pQcySz4RFSknLuJ+TDAPinBaTC6lU7346frfJku/iVZHfJZeMcnS9C5CE
+         Qm6zY4dcbpsSBMNCoVFmGheMZPNd/ryFEx1DtxteoGZ3Y2/gREqSfiUB2RtZ0Y9UObYd
+         Jb4KlPiL3GaiyLFd4Co2Yzv1OvwHCCYwmMm+/Q+n2nNzSA6IySa2rNcvXhnfEmqnbps7
+         52+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793177599; x=1793782399; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FlHhSlz8HMhmsAgAah+96UUmNr3q3P/5A9H7JsgocBA=;
+        b=vGEmwoFgFjN3MB70sRjXFNgu6IsMYvINUtKLGsqbJu9pJS3LhrjXT7SBpQONpVZZhB
+         woNMQFKe5c3T6aXPBB/iEZ4Dnd20ixw6foHpJFFLfMxZV7yHHnA+8gx1xF4oKIinhXJJ
+         Hjm4lQrwpmMW0jfyisZ8lidUsynUXFdxXUhfZqy9na09b7RusJHOCUJdkZ/4yUhJ/aAV
+         72UjNHVDkklfDNNJ6T4741SJSWggtEXNxGMOx4cLd2CkYn8uRKyLntAPEdha6zDqcFC4
+         0KpFtpknqblL0prH+nIEt/QbKEP7PxRnHyBKLR6YfegvtA24ZzaumRnTzkz8TS+ZQ13c
+         SOzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793177599; x=1793782399;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FlHhSlz8HMhmsAgAah+96UUmNr3q3P/5A9H7JsgocBA=;
+        b=WKMnSsW9LUqt1M+Za5Fm/HPMZ4CgSy17c1G82RF3SRkhWAiAF8kPGVuspi4reIHoG0
+         Ssm+ZkxoPN/SbcDPh+aHLtUmGNR98pO6EI94jiIS0UtxyaYrdT++e4bVZWBHA/R7aKRm
+         qY9lNXyBcPGaWWtNxOZS1cilb77Me1/lvPEWQgApz7DBnXm9woEcVCOpPuNsna0x/Uwb
+         H/TKQOASOVKr/26QcHXg+SyNiWO3T2wgn+uoSp/snpGuLDoYG7lJKoqsjXzYmOKdZt96
+         gk9SEg4aXKA0rvNiRb4zUA2K8gxO4NYngsNwSgs95TqIgDuh+Yyq01k2peFFvPLCl65K
+         rvjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZHE4P+73tcDVunUNsQfX9vix1TdKYx1tbB+uLZDANPHtTxXLd5Vi8MogwAUbsKM4HzkD6xZdDbR9T@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPujTxcGTyM2D3BG9ehMjY6x/uvHrckGOStKGSKqdLxaqflXOs
+	eMavhYnJc85yGUREOZcPlyt2LQLWCnPnbhc6WokRHa9R5tNdwGfvcCYP35CDemZVhNRmwzf8IB2
+	fPZzN2ZOnu/guUk79D5P2bnra7V2HqWw=
+X-Gm-Gg: AYBFou22E1CoVVkpt17SRR5YO6KFPCx8i4OvgwB8garuXotmY2DJGdW6VA+ghkZrv80
+	1wIkW8/i3V8FZfA5gB0dh07JRQncbJ+kA7ikeVMFhyYuyUnoUff6VENtBIO0IqNbHQOVH17LrXG
+	/o2VyN0lQCU8WTRd8cLMWYaxE176kD0l3/Cp4ka8We3F9lBqBWXkbscBw3SRqAY/kpQLLdYNB46
+	3Xyo80fs1LoKG3tj2SiTpboSoJKBuozAC2hSSxzpSmK5RwR90IIXZItZbchJIddcvAFm8GLtruv
+	JTOH1dsDnWE0W5y88a/5s2/O1Us25v0JOw0QqUnw39HI/I9FndfGvSkafT1iUMBw66AQjreomsq
+	FCm5kE8V5Jfh4Lch4KNzLcNOPDtvugkmGr4D50fVB18auSBg/ZsQsgQ7m1INiMQrOSjswWAB6+Y
+	F9q77y3WoGXOFFCRKiY48jtdBZ8asqnP9nD2dqoCNVNgOD0Ka5/yXqAG3D+7lLAHpw0mxwb1eDC
+	GON3MSn6mBNJiqpAzAEvPyWRU1ARP4=
+X-Received: by 2002:a05:6122:e22b:b0:5ea:df96:c394 with SMTP id
+ 71dfb90a1353d-5ec4cbc53dcmr735009e0c.5.1793177599205; Wed, 28 Oct 2026
+ 01:53:19 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,178 +106,261 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|DB9PR04MB8364:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00aab431-e421-4b73-150c-08df34d06f2f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|19092799006|261026140227099003|4143699003|10067099003|261009223027099003|11063799006|56012099006|261022105027099003|261021121427099003|261021123027099003|261022075727099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	VaX/Lg3WgRabxgEANrfnbLEpDWZNzJSUpHFjJ42WIqVo/D7edWwyzYEleC+GcwrcmziY1l51LnVgueGaD9wm9op1wn72+jxj3J17zARQodesPTizlLS0LPzHlDmtvwQl18czQDf72+vsxO6HRvK/JU2+4TjDQGM81EJtjhBIZ2GhlcbuUntwY0w/XSnoqUCi6kkulyTrsequUZq0uVYDMrgaq/NQEu6R054dfaC/xyIzsWy8yz12+BrF3JeJLLwOzgClxDZTtMja0iuGCuzx9FevIXmYdaLCkgiRAg3KlY8L16+FcD+y0WusU8BNLrl20hPbAFhDYSzAedNhePuXNqnaGEM4hbX08mXoI3pMko48NgTyO0l31CIuXcQ6mxrcH40boe6iUeKymCgbMANXXYmsZWHAtWsqpVx1zqTOlfwGCHOTR6L6ZIwaGNXKHlYeW1oPDbSlPtdRXqWz5JZwlMUtdIpN7cM2mrar8zfG2rhyWrGGOlZAYVKxsiHSA6QiBB0yLvUXTaZSC76xn+qvrruZGMHNlgVlyRsoiJINbgvrye/qZykWMlta2d2+WNj6/EDlPXOjq6zqClwtXyYZcRH4Y1nHnOEjdJB/gQhwakm9R4mHEkGJYhYil5LTR8PVQ5cAPsPRkEJp2XABAOvmGwu7fAebXiJDUbYWhN9hr3k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(19092799006)(261026140227099003)(4143699003)(10067099003)(261009223027099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7NiBu5tB5PTm4HfDTU/F/MzfQyBN9h4UTE9mVrx6CLXdIfmplTYPPmYj84aq?=
- =?us-ascii?Q?5MHvwtwXtO4IlB35+G2p3fAt2EyovU6TNeqNGFTr7EeuFpSAbc9ilM/n7qse?=
- =?us-ascii?Q?AsNlB/uuwGHlLNygPsYm/7CNtllynB4DxgwB6XAFMhQZmEZxsDsmHo5B/AOW?=
- =?us-ascii?Q?AvbDbfCPU9iQc7o27PWyH01x2PRbzr3tVYKTI0Ne1MDczWJSDq8n+vHO+6D3?=
- =?us-ascii?Q?YjxWOf+3QiGR5Sn6z/lHHvBxiURCbhtFsQ/1+r4dqgv9Gw2v2kcd18oZKEgA?=
- =?us-ascii?Q?RZ27Xgr7PrjS3L7Vvi80QuSUfeLRbF+mbiH8I3biisIqSCKgeR+fl09fu8Pk?=
- =?us-ascii?Q?pVVEuh1fDDNCErStZoZT8gQ7WYpPaCq/fSlqKoTqwnMrbp04oGJqi2gjgtk+?=
- =?us-ascii?Q?xaf/W6O+1p5yLB4dysBOBm0k049110sQzTxqmWH+WhrtCfjZQzok741D9/YX?=
- =?us-ascii?Q?9pFc3nvLg73+1AdS9UUztxgzKQ6hPfe/kwLRkHauVbgIphdXBkTirmSnVyv2?=
- =?us-ascii?Q?LXb78SM9bMfOEmAcvBmdAWRGjVm84RUOpkiDRWGNBuWskH4PwwspeOURsguY?=
- =?us-ascii?Q?Xi5L+wB//SXyYLjTgUtADm7n0eeQrCm9rmGfynuJjOFyI4dHUsByaKcKO4z9?=
- =?us-ascii?Q?WLUjIQWutkQlADlWuj/83lyQp3JenXBq7oImdWlg9enmeuKT3lQzNDiMQjBa?=
- =?us-ascii?Q?HXPoaaH3AN8SrGLe1HacE+Uv5G4slx1hAnAofe/ppm45MptW8BSXkoSdneFA?=
- =?us-ascii?Q?/IYFhBDLV3Y0PYPpDVFxRh9e5i218xnyfMLK3tTh5mSZVK3s1xZid5fg6Z8/?=
- =?us-ascii?Q?w48+s6sghIcrSktHxQdwwcgD7+SJmVMk2LnvcgLD74Eevd+5ipf6T/KtOGPH?=
- =?us-ascii?Q?ZWax51P7jdJVlF2I7HuADYSmuLWLNJ4b4Q4PzOaiYO6JXf2P6geW4+Fg0DR4?=
- =?us-ascii?Q?KczpAgmDoqzceD7aGKJgzHD5JL70Fd0DMnEODEZ8NYXIjuzw8sj12PBDpp+5?=
- =?us-ascii?Q?6G/E5AUSVpFPx82/XatapzFc/zJZXN8DaoWGlpQD4I8p8VSp2OI+DWkdjX5A?=
- =?us-ascii?Q?WYWdTu9tpWBl0BGd0mRIEhqsWPCcfIZocnE2FK+MBzOIfxiGRi2tOl2lY1bo?=
- =?us-ascii?Q?jkxS9OAesmPzpHqj666OMWltcRkb2LGbLlGOijdetjVfYOX70ZpOmYCmrCwb?=
- =?us-ascii?Q?GLveJvVt/8g4q7ryA5iM/why1n8MabC/Wg0O89IYTpATgTkA2Mlq25MUvJlB?=
- =?us-ascii?Q?27ODh4ET1BxGdgoiXGkePsHwDmcbd02r83eUU8gE7HUYq3nGSGzobfkifpc8?=
- =?us-ascii?Q?oLqBeZMhoGS8PzKBxsLv7cqmzCbCBZs3tWosYLl+Z5WScEke8qBMn+M+1SwF?=
- =?us-ascii?Q?FOesbxK3PP3bQa0VFEfrpl3j4zGKzw7ugKkkxtthGfBCUS+T/vAOcFvMNtRG?=
- =?us-ascii?Q?V0zIvATw8bRv71seeyeeexkhmcJ05KJJejakKFvjBEhZ/35cQfZ0Yi9dN837?=
- =?us-ascii?Q?YqTLzjYgrEKr3aNvmzzdDsdMv7xmOwSLvt2YCOZo4m+YC0u967eAfc4VpfD+?=
- =?us-ascii?Q?J6e0ZPSzW/n0s0opourtrrO7RycYmjL8+t2V3fSfBrcctuNBPEmo+t2bc4Cy?=
- =?us-ascii?Q?9A+lQ5tH7Z08ratF/xA5eld9657DofrLcpSK1lRpvOOvgfy4kiBIWlxI3POA?=
- =?us-ascii?Q?6rWfLm+qaij1adRqo28+8IULiwn3k/md9DNVkT1QXDyYhUCHBxRcA0+Fe/1B?=
- =?us-ascii?Q?QTSk6u6oQ9XIp1X7IB3vIzsgp4RNQzU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00aab431-e421-4b73-150c-08df34d06f2f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:49:53.5263
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cqd/ngDz4Fa8dsSfutKvwoSK3TKvwwfJP8waY2pBrhYowEFrDXB2njJFqeqnWtRPd0KpQV33oGYqXgye69JTQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8364
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
+ <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com> <c8668925-efec-da4c-193c-5e85c5bbcf15@linux.intel.com>
+In-Reply-To: <c8668925-efec-da4c-193c-5e85c5bbcf15@linux.intel.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 28 Oct 2026 02:53:07 -0600
+X-Gm-Features: AclHuK_mnaE8FYNJJORUUY4g9ttUI8htgnnSLpHl_6Eypp3F-37DUlSMbLaTo6U
+Message-ID: <CADvTj4pquJ=WV3UuQc1PxazSWh48cPi9jY5G7nNORgvyV0-Dww@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] serial: 8250_dw: configure the Allwinner H616 UART
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	LKML <linux-kernel@vger.kernel.org>, linux-serial <linux-serial@vger.kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 11:00:57AM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Add a GPIO mux controller to describe the onboard signal multiplexer.
-> Previously, the device tree relied on the hardware reset defaults to
-> select the mux state. Now that the kernel supports the pinctrl-multiplexer
-> framework, describe the onboard mux explicitly and let the kernel configure
-> the required routing.
-> 
-> Prepare for additional device tree overlays that require different mux
-> configurations.
-> 
-> Remove the regulator-m2uart1sel node, which incorrectly modeled the board
-> mux as a regulator.
-> 
-> There are no backward compatibility concerns, as the affected functions
-> (lpuart1 for Bluetooth, spi3, and m4_lpuart) are not used by existing other
-> users such as U-Boot.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> change in v4
-> - add idle-state = <1> (sashiko AI)
-> - ref to spi0_fun for sai0
-> ---
->  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 80 +++++++++++++++++++++++----
->  1 file changed, 68 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> index 71eff3efa6d32..f21ac208bf00e 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> @@ -97,14 +97,70 @@ vdev0buffer: vdev0buffer@90400000 {
->  		};
->  	};
->  
-> -	m2_uart1_sel: regulator-m2uart1sel {
-> -		compatible = "regulator-fixed";
-> -		regulator-min-microvolt = <3300000>;
-> -		regulator-max-microvolt = <3300000>;
-> -		regulator-name = "m2_uart1_sel";
-> -		gpio = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
-> -		enable-active-high;
-> -		regulator-always-on;
-> +	m4_debug_mux: mux-controller-0 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		idle-state = <1>;
-> +		mux-gpios = <&pca6416_1 3 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	spi3_mux: mux-controller-1 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		idle-state = <1>;
-> +		mux-gpios = <&pca6416_1 4 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	uart1_mux: mux-controller-2 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		mux-gpios = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	spi0_mux: mux-controller-3 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		mux-gpios = <&pca6416_1 7 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	pinctrl-gpiomux {
-> +		compatible = "pinctrl-multiplexer";
-> +
-> +		m4_debug_fun: cm4-uart-grp {
-> +			mux-states = <&m4_debug_mux 1>;
-> +		};
-> +
-> +		spi0_fun: spi0-grp {
-> +			mux-states = <&spi0_mux 1>;
-> +		};
-> +
-> +		spi3_fun: spi3-grp {
-> +			mux-states = <&spi3_mux 1>;
-> +		};
-> +
-> +		uart1_fun: uart1-grp {
-> +			mux-states = <&uart1_mux 1>;
-> +		};
-> +
-> +		lcd_0_fun: lcd0-grp {
-> +			mux-states = <&spi0_mux 0>;
-> +		};
-> +
-> +		lcd_1_fun: lcd1-grp {
-> +			mux-states = <&spi3_mux 0>;
-> +		};
-> +
-> +		lcd_2_fun: lcd2-grp {
-> +			mux-states = <&uart1_mux 0>;
-> +		};
-> +
-> +		lcd_3_fun: lcd3-grp {
-> +			mux-states = <&m4_debug_mux 0>;
-> +		};
+On Wed, Oct 28, 2026 at 2:39=E2=80=AFAM Ilpo J=C3=A4rvinen
+<ilpo.jarvinen@linux.intel.com> wrote:
+>
+> On Tue, 27 Oct 2026, James Hilliard wrote:
+>
+> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWa=
+re
+> > component parameter register reads as zero. Generic 16550 probing leave=
+s
+> > the port using the 16-byte FIFO configuration and its trigger-level tab=
+le.
+> >
+> > Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platf=
+orm
+> > data. Use common Allwinner setup helpers to configure the transmit load
+> > and receive trigger table from that depth.
+> >
+> > Derive the receive thresholds from the documented 1-byte, quarter-full,
+> > half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 12=
+8
+> > and 254 bytes; the normal 16550A half-full FCR setting selects 128 byte=
+s.
+> >
+> > Build the threshold table during setup and use the shared 8250 conversi=
+on
+> > helper to select the nearest lower threshold for sysfs writes.
+>
+> You do that, I can see from the patch, but I came to read this changelog
+> to understand "why"?? You provide zero reasoning for this design decision=
+.
+>
+> Since you fifosize is constant as well, so what benefit building it on th=
+e
+> fly servers?
 
-A lot of fun above! :) Joke aside, wouldn't it be more appropriate to replace
-'fun' with 'func' in those label suffixes above? 
+The intent is to keep the FIFO depth as the single platform-data input
+and derive the thresholds from the common Allwinner mapping. Other sunxi
+integrations using that mapping could then supply a different FIFO depth
+without duplicating the threshold table.
 
-Otherwise:
-Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Building the table once also lets get_rxtrig() and the shared
+bytes-to-FCR helper use the same derived values.
 
--- 
-Thanks,
-Laurentiu
+>
+> > Serialize trigger changes with termios and hold a runtime PM reference
+> > while programming FCR, preserving the FIFO contents. Propagate runtime
+> > resume errors before changing either the FCR shadow or the hardware.
+> >
+> > Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> > DesignWare termios path selects hardware CTS handling, so the capabilit=
+y
+> > must be present for the corresponding hardware control to be enabled.
+> >
+> > Select the fixed configuration through the platform setup callback.
+> > H616 has debug-divisor and RS485 control registers at the offsets used =
+to
+> > detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> > those probes and retain the BUSY-safe integer divisor hook and software
+> > RS485 handling.
+> >
+> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled dur=
+ing
+> > termios changes. Its clock is a gate on the shared APB2 source, rather =
+than
+> > an independent baud-rate generator.
+> >
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> > ---
+> >  drivers/tty/serial/8250/8250_dw.c | 94 +++++++++++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 94 insertions(+)
+> >
+> > diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/825=
+0/8250_dw.c
+> > index 1351523f0c47..2f156c01c5a1 100644
+> > --- a/drivers/tty/serial/8250/8250_dw.c
+> > +++ b/drivers/tty/serial/8250/8250_dw.c
+> > @@ -19,6 +19,7 @@
+> >  #include <linux/io.h>
+> >  #include <linux/lockdep.h>
+> >  #include <linux/module.h>
+> > +#include <linux/mutex.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/pm_runtime.h>
+> >  #include <linux/property.h>
+> > @@ -63,6 +64,7 @@
+> >  struct dw8250_platform_data {
+> >       u8 usr_reg;
+> >       u32 cpr_value;
+> > +     unsigned int fifo_size;
+> >       unsigned int quirks;
+> >       void (*setup)(struct uart_port *p);
+> >  };
+> > @@ -81,6 +83,7 @@ struct dw8250_data {
+> >       unsigned int            in_idle:1;
+> >
+> >       u8                      no_int_count;
+> > +     u8                      rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+> >  };
+> >
+> >  static inline struct dw8250_data *to_dw8250_data(struct dw8250_port_da=
+ta *data)
+> > @@ -657,6 +660,89 @@ static void dw8250_octeon_setup(struct uart_port *=
+p)
+> >       dw8250_setup_dma(p);
+> >  }
+> >
+> > +/* The trigger is the masked, unshifted FCR receive trigger field. */
+> > +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, uns=
+igned int trigger)
+> > +{
+> > +     switch (trigger) {
+> > +     case UART_FCR_TRIGGER_1:
+> > +             return 1;
+> > +     case UART_FCR_TRIGGER_4:
+> > +             return p->fifosize / 4;
+> > +     case UART_FCR_TRIGGER_8:
+> > +             return p->fifosize / 2;
+> > +     default:
+> > +             return p->fifosize - 2;
+> > +     }
+> > +}
+> > +
+> > +static int dw8250_sunxi_get_rxtrig(struct uart_port *p)
+> > +{
+> > +     struct dw8250_data *data =3D to_dw8250_data(p->private_data);
+> > +     struct uart_8250_port *up =3D up_to_u8250p(p);
+> > +
+> > +     guard(uart_port_lock_irqsave)(p);
+> > +
+> > +     return data->rxtrig_bytes[UART_FCR_R_TRIG_BITS(up->fcr)];
+> > +}
+> > +
+> > +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char =
+bytes)
+> > +{
+> > +     struct dw8250_data *data =3D to_dw8250_data(p->private_data);
+> > +     struct uart_8250_port *up =3D up_to_u8250p(p);
+> > +     int fcr, ret;
+> > +
+> > +     fcr =3D serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
+> > +     if (fcr < 0)
+> > +             return fcr;
+> > +
+> > +     guard(mutex)(&p->state->port.mutex);
+> > +
+> > +     PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> > +     ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     guard(uart_port_lock_irqsave)(p);
+> > +
+> > +     up->fcr &=3D ~UART_FCR_TRIGGER_MASK;
+> > +     up->fcr |=3D fcr;
+> > +     /* Changing the trigger alone preserves the FIFO contents. */
+> > +     serial_port_out(p, UART_FCR, up->fcr);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void dw8250_sunxi_setup_rxtrig(struct uart_port *p)
+> > +{
+> > +     struct dw8250_data *data =3D to_dw8250_data(p->private_data);
+> > +
+> > +     /* Allwinner RX thresholds differ from the standard 16550A table.=
+ */
+> > +     for (unsigned int i =3D 0; i < ARRAY_SIZE(data->rxtrig_bytes); i+=
++)
+> > +             data->rxtrig_bytes[i] =3D dw8250_sunxi_rxtrig_bytes(p, i =
+<< UART_FCR_R_TRIG_SHIFT);
+>
+> FIELD_PREP(UART_FCR_TRIGGER_MASK, i)
+>
+> For clarity, it might be useful to split it into two lines using an
+> intermediate variable.
+>
+> > +     p->get_rxtrig =3D dw8250_sunxi_get_rxtrig;
+> > +     p->set_rxtrig =3D dw8250_sunxi_set_rxtrig;
+> > +}
+> > +
+> > +static void dw8250_sunxi_setup(struct uart_port *p)
+> > +{
+> > +     struct dw8250_data *data =3D to_dw8250_data(p->private_data);
+> > +     struct uart_8250_port *up =3D up_to_u8250p(p);
+> > +
+> > +     p->type =3D PORT_16550A;
+> > +     p->flags |=3D UPF_FIXED_TYPE;
+> > +     p->fifosize =3D data->pdata->fifo_size;
+> > +     up->tx_loadsz =3D p->fifosize;
+> > +     up->capabilities =3D UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_A=
+FE;
+> > +
+> > +     dw8250_sunxi_setup_rxtrig(p);
+> > +
+> > +     /* Use software RS485 with the Allwinner register layout. */
+> > +     p->rs485_config =3D serial8250_em485_config;
+> > +     p->rs485_supported =3D serial8250_em485_supported;
+> > +     up->rs485_start_tx =3D serial8250_em485_start_tx;
+> > +     up->rs485_stop_tx =3D serial8250_em485_stop_tx;
+> > +}
+> > +
+> >  static int dw8250_probe(struct platform_device *pdev)
+> >  {
+> >       struct uart_8250_port uart =3D {}, *up =3D &uart;
+> > @@ -878,6 +964,13 @@ static const struct dw8250_platform_data dw8250_dw=
+_apb =3D {
+> >       .usr_reg =3D DW_UART_USR,
+> >  };
+> >
+> > +static const struct dw8250_platform_data dw8250_h616_data =3D {
+> > +     .usr_reg =3D DW_UART_USR,
+> > +     .fifo_size =3D 256,
+> > +     .quirks =3D DW_UART_QUIRK_SKIP_SET_RATE,
+> > +     .setup =3D dw8250_sunxi_setup,
+> > +};
+> > +
+> >  static const struct dw8250_platform_data dw8250_octeon_3860_data =3D {
+> >       .usr_reg =3D OCTEON_UART_USR,
+> >       .quirks =3D DW_UART_QUIRK_OCTEON,
+> > @@ -929,6 +1022,7 @@ static const struct dw8250_platform_data dw8250_td=
+a54 =3D {
+> >
+> >  static const struct of_device_id dw8250_of_match[] =3D {
+> >       { .compatible =3D "snps,dw-apb-uart", .data =3D &dw8250_dw_apb },
+> > +     { .compatible =3D "allwinner,sun50i-h616-uart", .data =3D &dw8250=
+_h616_data },
+> >       { .compatible =3D "cavium,octeon-3860-uart", .data =3D &dw8250_oc=
+teon_3860_data },
+> >       { .compatible =3D "marvell,armada-38x-uart", .data =3D &dw8250_ar=
+mada_38x_data },
+> >       { .compatible =3D "renesas,rzn1-uart", .data =3D &dw8250_renesas_=
+rzn1_data },
+> >
+> >
+>
+> --
+>  i.
+>
