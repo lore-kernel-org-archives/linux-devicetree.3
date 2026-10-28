@@ -1,105 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793200951;
-	b=BToWihwZPpM2LvEoNIZnEoLAuuOAYpE8IJH8guxfDuoH44NfWdqbiebrjHzwS2gXXPgH
-	 oDw3t6EEY/2bWFn/UGpR4baHXGntwGqezn5vDc8danVTKaLbSVcEkRABYqVklf/u+J+bN
-	 iXhOIRYfWgPm+vToD+OkjunVpxjuoKy39QpzsrLlANox7NUpp5/cKAi66K2X9VtZgpAdo
-	 BSrBa6fqsFbQeUC0txu4890ao8dMzLxBZQTLYASgc6HQjSwWGq1IW60Gz1mKprl9kGJyG
-	 qzGTj5luvxgl15xorJP9weCQx+kU+ruTU4F5v1BhfYa6bcE1ux+U1ekP9pNbgSlnZ5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200951;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ST25MXQDUN+WqHS62mjpogUkoRYT4IjlWOsqeqjRBjE=;
-	b=Vyb9ZHCQRXQntl1HrLFRggsnLqsG7lZK0rFLgsmQZWg5T4WS/JbKm0jOlt/L+EoqAM++
-	 mEZnp9v7jux2g5/0WRQltBghAqgRs6vh4RyxaVmo7sLD/4joTQfr8NiNnWFzlQ6MJeLrN
-	 NoDSr6B54cGNmQkUTKcj1FwWoEvdhU1uRQw2F84yWzkS77E7zzffTVvHv2zA2Lh69VrvU
-	 6sN9LcDGo6fLmEgWJB6bTWQcfw/n2IBtEc41DTUstCTDcIYi1qfiWRJLrByInT8PbyNi9
-	 yhNgb2G3kYPfAQv54h1R8z1E1Eh3NoDQbCTC4lBXE7ZyKvjZXyH0ZZw/MG5Gbi0g07g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=N+9liaJT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.57
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011057.outbound.protection.outlook.com [40.107.130.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793200952;
+	b=S0w40OzlVT5umTW1vRYqO5pPcdFkkq5X9wZQ/CNpGf1u+KGWfJEA14Ye9FXRdrMkFafN
+	 Wi6p6DFK4Y0RSMsqXSjeQvxHUh0TwHIhYFQbCuVbvX5m58Kbnxp2j9QM9TyLzYe85B29b
+	 2Z/ZH5CvpXBRowkmQp8uqBjkIRwV7nBqYeyEnTop5UvTkvu9tJEmIxjXpWkbdLcDpjXYa
+	 Nu07UD3V95xOmodCNlh/ZJxVLlVpDSKB07Z0jKJBDdYcba667Po80d4Mv1n8jtBkz66GB
+	 Ne2LkK0w4IdWwg3GNFuZr1RtheXLoiwHxp2kW6NQfoYwzdm8EZd/Snlgo+NqOe6b6qg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200952;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=Lphv0iOlH1BZ2T7unl+dBC9bPboucvJ/EUXIbjyRLUA=;
+	b=19Wrw5rK8Fn33ZxN18Ygpo0VPzlQpEXR/z8Hc0ktoJIp03oWVU1GtQqBi5ISV/a+yFe/
+	 n6hiUL9hLb5De3ZOTfrsQ6xWp3hNmaLAJQL+UxPRYhRhS15xVCum61YOsWUQfd1BfE8UE
+	 8bv6qx86Uy019G6dDM74On31lUTCy6FUd5de2PvDKFYtNw9qBuNUBF6gcQl460kl34ybm
+	 nxKKBMn3LuUMY4I+3ds76itmKHJUuvLkVC9eg1ILPnkAOMoQDH01DnudUA268DXWXF/nx
+	 525wvsgVcI2pSrCe7YDcjQ4HQK98FJBCYm0YazdVn1ccfiI3wJn6taav6W54E8GMXtA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=O5kSnDVR;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF8D60A2609;
-	Wed, 28 Oct 2026 15:22:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FF8D60A2609
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C32E60A260B
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:22:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C32E60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=N+9liaJT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QGuDR47QN/uxscA6TIr8jmSql6PgbpKIEDXlMZ/CCQBE96WoRHscmXCp1DFvb86NyxPN00ZpRAD7oc+KSaW+YqrCN5/E1HJfN7A184dGwjiKKe16U8vRCJddCX70RNe+u3SvAwYF/Ti8hd0UQrXVSFUsw2tsNXYin+sYoYBL8duZWZ0ZutoMfvsrbB1rY/DC0v3mimps57Nm3oM41kVuWWhxsQGeHJn5nwtvmUlIjmiw8fTICR63bRyeVYMHEfcUrezmeJftWSuIuz/CclnDrL/TosOUTA3B0SsY2glWOtASk3l7IgDUk9LVHsT/W0JIhtvUPGj7NfpgNbolXoSTOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ST25MXQDUN+WqHS62mjpogUkoRYT4IjlWOsqeqjRBjE=;
- b=zL2Uyk4DbBqwKm3e9uX2gcjtvEwGhFe/vsnf5sfD0HLHhTG1Y7vt4FnNQwp92PCi+wnFwtTzD/7XtfiFwx0xe6/0wuccwka4J7/qzZCZ+gmB0m08Cz96GBmBbOtZZnLDf/+m+ceTneHVTctkRzXgookhG/5Rw1WKJBaBlMCxkmMDN61Ctnpz2Ix0r7rShqKLLZSOlhslcEowkIabNyI8uYmprEQh+DKQ+iBCJyxTGzY2AMPXEOhpQgNfQwVYL/w1sZcpHegwrjZRBhuNRI2s2EY01uqO12dds4V8hwouJNWEoVsxadKC9cHYVV4wM3N4LhLD9hExjpOBXL/ad9UNOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ST25MXQDUN+WqHS62mjpogUkoRYT4IjlWOsqeqjRBjE=;
- b=N+9liaJTBNoRDKzvwXSukud73pupL0ajWICk2ThRW2gEo/XgwWLhTX9hdLuScfQPm/ybjTNayOadhNjSFELz5MYyi1CLZS5PdVnwDxWFyl2RJbFv2wSChAfA4ATp9g/j7jootx7Wnp6hGFutWgsGAtzn1Ttc8R+oZ5v7136IfU7FSPvJYK4ucKyxauCDAy1D9/z/Nt/hJqic++tiZnKxrKRcDumOPGqVZwF5LHuLuCt1DadPmgWqFiPooBqLL2fgD1lQ8MT2wW8f3UNAC9fALAa27y/xEASggaQz3gIbV4LD+Jy4UOBvLJnoCf2L6TisyafRFkmsYhGv8QJixz+PuA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU2PR04MB8584.eurprd04.prod.outlook.com (2603:10a6:10:2db::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 15:22:26 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 15:22:26 +0000
-Date: Wed, 28 Oct 2026 11:22:19 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices
- without CSIPHY resources
-Message-ID: <auITK_NmQYX6E6Vj@lizhi-Precision-Tower-5810>
-References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-4-vz@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026224957.1115370-4-vz@kernel.org>
-X-ClientProxiedBy: DS1PR05CA0007.namprd05.prod.outlook.com
- (2603:10b6:8:457::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=O5kSnDVR
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261028152229euoutp024bf17b71f5068443852f12e62978ca3d~iusNMgN1f1489814898euoutp02J
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:22:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261028152229euoutp024bf17b71f5068443852f12e62978ca3d~iusNMgN1f1489814898euoutp02J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793200949;
+	bh=Lphv0iOlH1BZ2T7unl+dBC9bPboucvJ/EUXIbjyRLUA=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=O5kSnDVRbNo6nbIHH/Vt1zeQj+xv9ANF9b7feWjeSiYln6LxMwha0V0Yjr4XkoYWq
+	 +Kr47ZvOCG+SNyAZZZCxmb4I0HqeagMkJ1FR7GQpwjheasKU++/UKktjru0klP0ipu
+	 gEzQzjdtqMBcwyKEKEvERp9SmDwqGQACD8fdPPQI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261028152228eucas1p23d9dcfc3ecb88236aa76f56b4d1dc8e4~iusMWvV0r3066330663eucas1p2t;
+	Wed, 28 Oct 2026 15:22:28 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261028152227eusmtip12a84e1e1420a8333b33e058139e02d10~iusLcDkX62111121111eusmtip1j;
+	Wed, 28 Oct 2026 15:22:27 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Wed, 28 Oct 2026 16:21:43 +0100
+Subject: [PATCH v6 3/5] phy: rockchip: inno-hdmi: Use the common Innosilicon
+ PHY helpers
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,150 +66,383 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU2PR04MB8584:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d8e9247-7cd5-4a12-1757-08df350745d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|19092799006|366016|261026140227099003|4143699003|11063799006|56012099006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|10067099003|18002099003|261026121527099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	BLQE+c6dZCOvYdFlvh8dyr8zVrOKLbfMa23P38FLkf+BMYgHsyflegQbF52GFPQXca2NirAD4onGkYDG8ixrQTZ4TPZNJiV210fXstXOIVaOtkk5D5Rjy5ce85VdYld0TyvNgHRxWOFQ8tsVFsX7M4q89wvL1X08ST8MQHH/drWVYT23RScrSCqe68LM2tjjA2DB01bjFdYewN0+kB9ZuuKuKMoPn/lX5Wy/FoTAshG/Tpne2pWXEXZskXxS1FOwxzGZ1pqg1MT+bVYderXtM3kaPTl2ZJkVIwVBgt8aIRmV1o8chVtcx+XY5ljx9kANIBBZ4dzpEW6M6nWFTyBV+j8DgfENdnzrBXF4naqRTT3XcV6qb5cRdaFUU2gzMaacKxqBhGrbE4mdNZk6h5KFU5T/sInaPErxK63ozJ4MpfJEmYCmyAmKh2jDAngk3hJhoPIZeqhEJ+qFcTV/mz2fgSQOkfFalZV7NbPbXLKvSyCvS6T9F6wzGAyR6Xd9yy9KqLKQV02iDQ2hpP1tZhvubTQr2hwUm43Owk6Ed16s0JGbXK0atMjxoSSfwMlxRPDGzWunItdz6UOlQjYvuTUGQG8NdblUsoS5XjGNTM95WkOBl/8rlRRv2oxKOREwmDR63U4SLfE6+e+E3lAVRsA9PQtCePNk9gM5ILgFeqptlTM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(19092799006)(366016)(261026140227099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(18002099003)(261026121527099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dYgRDyDDqYRNsaYBIoTrhiMfT5asJRGlNs9Z7e8IkK72jGzAD5WhWAWz4jD+?=
- =?us-ascii?Q?GSEDHs6ZazptEilWcvsRRF6EyORRa0PS+ltQgxDlCsnRs/Dj+pV42FVRCq3U?=
- =?us-ascii?Q?7bKvUl3ONatCDGEFxMvtFPfZl6ubCbO/QWHLEFZf57L8hvUnuJo4Lb7RiRVP?=
- =?us-ascii?Q?4Jod2EEb9fSZGrh7K7U163/5so0vXxDJOCPB1a/zquxNvOIWOnCwX0f7oDTt?=
- =?us-ascii?Q?b37ds3oOkWKA5qT/xgmEuTzRbWGP0/pxYy/TwNtMazXpL0u/+da3g7SQWrTm?=
- =?us-ascii?Q?IHUjUGLSfRUWix6y8OXGn3O65JHxw1fpVgnDX1jslX5w+9D7EtEGfL8Hr5UB?=
- =?us-ascii?Q?w0+GiqOF9cACkYviS4/d4C5zBk2By3zyrBzNC14UeNU0AtD8lCAX1lPWjDxy?=
- =?us-ascii?Q?boBw1hY1Ux+kA3k1ftFETPhvMKV4FYqKFttqSrc3UWUHeXVtx6vIiAOdr3vB?=
- =?us-ascii?Q?qylujJkjhn9VF1THEEjJk+Qu1tu32fkCFM0I1UNt9byAipaTrh1ufcrrS5si?=
- =?us-ascii?Q?cCot/udZf1fiyE0hdoISd0BbGVIpXN8Fe8zlwG5dIswZH07uos1Lgb1qLcz0?=
- =?us-ascii?Q?wdQ1/rGPCqwlK2Fh6XBfPzwf+D+reXBVtuWEWFSfPB4PzWsPcwMKNMNH6QQb?=
- =?us-ascii?Q?2FEw4zuyIR0WzEFnXOVOhNXlB1MAlTavnd/fOTLSDxA+5Phibf7VLcMPapL6?=
- =?us-ascii?Q?Bh1wbnjSxq4HHa/sCudGlqq6SXgFUIynWFYAvi2S6DaXum3Cc8MQEVkk+vdR?=
- =?us-ascii?Q?FuZL7XiFX/kme0h4tKWFCs90mBFHGkxbc3BeN+GSgnyOOG9bt4KyJ5NojW3a?=
- =?us-ascii?Q?tKhTXa0j/Z/u+SAbZ5RDWFyClV0rKF3gyJDEaJfpaYcpRtGu9GNkh8Ht34zG?=
- =?us-ascii?Q?4z7RAdPTMNtMUmKlLzhSWfHtfXN1wJoolUSdenWUNWbACmv/c/TYXTerL+JV?=
- =?us-ascii?Q?Ay8LOfP5FnY5f3PGqGcnqNG7w9q8JX1Z5jv+ESn/Df41pd+c1NTpbLSppDDd?=
- =?us-ascii?Q?36/raMg0d0scFq8jN2wKZ9telRR64TvrYtpR/TBFTzTfVyyQ0jbIDJxBB8pQ?=
- =?us-ascii?Q?FFPGX8UuiBp5dlFEHHjn0/Q8i6mB7DlnS1T3FrlLskARoA0rHFCoO/zIczDT?=
- =?us-ascii?Q?ZCNUpDFVbEGJZSqvB/b9iE4fZzoCdDPLWAdH16WE5Aa+5PS/JPpliFUckbQi?=
- =?us-ascii?Q?ONaMZzC9vdGTs5nPbz8fz4T1d6wH94Nod3vVsR/iE+gOrQ/1OE44vcNja68n?=
- =?us-ascii?Q?hLzLY/P+gLY/qxYqe4NusxWNoHe69lNMmj8rW31ASk55MkL/hR13NwCJi48R?=
- =?us-ascii?Q?ge81dfsDIc2hETep1ksjBfNweAEUwMZo+DRkoxZgiZ/tdrgv7kuUw1W5bKIa?=
- =?us-ascii?Q?YXFf11O+Rbg0zydrxvI/IbL5+AC0mOpVykgVULdRUm6vFZkEmP/xfrG0083g?=
- =?us-ascii?Q?qtdpRKK+MSKN1U9K2y39oidp1C2/MjkHuaItk3mDlaj6f9iGSIPA9jhNeZRp?=
- =?us-ascii?Q?SHgis2ffS9b1pC5UmEQd5QfY1t1CP7tAxutlw9vFsAtEEHrzITTtGEG/2HJU?=
- =?us-ascii?Q?l/C95Wwr2lBI5rf4BYkEwz7NbAKUBpTT/uhrJE3e5Aac7NR16o8FyuZngicM?=
- =?us-ascii?Q?ttbIO17ShvElk6QTvG3O7J9Bl6u5pQg071io6wwvXSuIqzJ+V6dK0IG5e7Ph?=
- =?us-ascii?Q?9+K7398AlXL9pjFmlPZAltpZg/RsLKdyKfKYn5EPcHajkK5ZPUBlNLTV6BZ5?=
- =?us-ascii?Q?9E9MZ8NoVynPa2s53Go06rbHH92klhEWrg1wuwd6f9HL+Hiluxmb?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8e9247-7cd5-4a12-1757-08df350745d2
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 15:22:26.3547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q5rELYXh6zH+kdNDG66yqUbh9E7bDw10S6g2igtjD0nenwo5eAH+KmMIblUHGGsJS/SxuittWerN1F10IMJ0rg6cFf3c3jKJJ9EQ8ODkp8Qze7m8cT8mabzUnqZobjyL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8584
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-jh7110-inno-hdmi-phy-v6-3-f3379684d97e@samsung.com>
+In-Reply-To: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
+To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
+	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
+	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
+	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
+	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
+	Andy Yan <andyshrk@163.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>, Byron Stanoszek <gandalf@winds.org>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13127;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=Pmg/TVJTephOzaL1HlBDtcGIt5ah1YEDtuV0LfwAY3g=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9Eja4wna0yTO5vDL05vzoWQe1G6w/qhz65Pl/0yJVZ
+	97MGYaXO0pZGMQ4GGTFFFnObow2kvzH8LT8+ONfMHNYmUCGMHBxCsBEAtMZGc4uYfp6yk+5Z1J1
+	t4F18E7H5W+4lHwzDn1ySpMy4eGc68TI0DvBJaviSG77R7WoGt59Dcy/F+UyfAqIdL+zKfhG1Ps
+	eDgA=
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261028152228eucas1p23d9dcfc3ecb88236aa76f56b4d1dc8e4
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261028152228eucas1p23d9dcfc3ecb88236aa76f56b4d1dc8e4
+X-EPHeader: CA
+X-CMS-RootMailID: 20261028152228eucas1p23d9dcfc3ecb88236aa76f56b4d1dc8e4
+References: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
+	<CGME20261028152228eucas1p23d9dcfc3ecb88236aa76f56b4d1dc8e4@eucas1p2.samsung.com>
 
-On Tue, Oct 27, 2026 at 12:49:53AM +0200, Vladimir Zapolskiy wrote:
-> If CAMSS CSIPHYs are supported by the stand-alone CSI2 PHY driver only,
-> there is no need to provide description of legacy CSIPHY resources in
-> the CAMSS driver, therefore if CSIPHY resources are not given for some
-> supported platform, use CAMSS CSIPHY port numbers as CSIPHY identifiers.
->
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
+The RK3328 pre-PLL programming, its table lookup and its recalc_rate and
+determine_rate implementations are the generic Innosilicon ones, so drop
+the local copies and use the shared helpers instead.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The RK3228 pre-PLL sits at different register addresses, so it keeps its
+own register level code and only shares the table lookup.
 
->  drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++++++++---
->  drivers/media/platform/qcom/camss/camss.c        |  8 ++++++--
->  2 files changed, 19 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> index f99eea2ef228..8ecd514451d2 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> @@ -799,6 +799,11 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
->  	return ret;
->  }
->
-> +/* Fallback to generic SDM845 compatible formats for non-legacy CSIPHYs */
-> +static const struct csiphy_subdev_resources csiphy_res_phy = {
-> +	.formats = &csiphy_formats_sdm845,
-> +};
-> +
->  /*
->   * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
->   * @camss: CAMSS structure
-> @@ -808,7 +813,7 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
->   */
->  int msm_csiphy_subdev_init(struct camss *camss, u8 port)
->  {
-> -	const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
-> +	const struct camss_subdev_resources *res = camss->res->csiphy_res;
->  	struct csiphy_device *csiphy = &camss->csiphy[port];
->  	struct device *dev = camss->dev;
->  	struct device_node *ep, *remote;
-> @@ -836,8 +841,13 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
->  	}
->
->  	csiphy->camss = camss;
-> -	csiphy->id = res->csiphy.id;
-> -	csiphy->res = &res->csiphy;
-> +	if (res) {
-> +		csiphy->id = res[port].csiphy.id;
-> +		csiphy->res = &res[port].csiphy;
-> +	} else {
-> +		csiphy->id = port;
-> +		csiphy->res = &csiphy_res_phy;
-> +	}
->
->  	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
->
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index c54185c93a8a..b0d60e70e4bb 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4796,7 +4796,10 @@ static void camss_detect_legacy_phy(struct camss *camss)
->  	struct device_node *remote;
->  	struct device_node *ep;
->
-> -	camss->legacy_phy = true;
-> +	/* Legacy CSIPHY description implies the provided CSIPHY resources */
-> +	camss->legacy_phy = !!camss->res->csiphy_res;
-> +	if (!camss->legacy_phy)
-> +		goto done;
->
->  	/* Find first remote-endpoint and determine if its a PHY */
->  	for_each_endpoint_of_node(camss->dev->of_node, ep) {
-> @@ -4810,6 +4813,7 @@ static void camss_detect_legacy_phy(struct camss *camss)
->  		break;
->  	}
->
-> +done:
->  	dev_dbg(camss->dev, "legacy phy mode %s\n",
->  		camss->legacy_phy ? "true" : "false");
->  }
-> @@ -4841,7 +4845,7 @@ static int camss_init_subdevices(struct camss *camss)
->
->  		if (ret < 0) {
->  			dev_err(camss->dev, "csiphy %d init fail\n",
-> -				res->csiphy_res[i].csiphy.id);
-> +				res->csiphy_res ? res->csiphy_res[i].csiphy.id : i);
->  			return ret;
->  		}
->  	}
-> --
-> 2.51.0
->
+The now unused RK3328 pre-PLL register macros go with it, as does the
+local pre-PLL config lookup wrapper; both call sites already have the
+TMDS clock to hand and call inno_hdmi_phy_pre_pll_lookup() directly.
+
+The RK3328 recalc_rate used to log the pre-PLL output as "vco". The
+shared helper logs it too, and reports the actual VCO frequency
+alongside the rate, which is the value with the 1.4-3.2 GHz constraint.
+
+The register writes, their order and the values written are unchanged.
+No functional change intended.
+
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/phy/rockchip/Kconfig                  |   1 +
+ drivers/phy/rockchip/phy-rockchip-inno-hdmi.c | 169 ++++----------------------
+ 2 files changed, 26 insertions(+), 144 deletions(-)
+
+diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+index 14698571b607590dc0e7a29f3b39eb9a5d4e3d25..9732c5be87717dc3ddbea1c60080952336a07af9 100644
+--- a/drivers/phy/rockchip/Kconfig
++++ b/drivers/phy/rockchip/Kconfig
+@@ -34,6 +34,7 @@ config PHY_ROCKCHIP_INNO_HDMI
+ 	depends on COMMON_CLK
+ 	depends on HAS_IOMEM
+ 	select GENERIC_PHY
++	select PHY_INNO_HDMI
+ 	help
+ 	  Enable this to support the Rockchip Innosilicon HDMI PHY.
+ 
+diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
+index c3d257a0f4a65b4c475ed7246568dd463b46ed86..809583a7030627832794ec0b08295549616f8f28 100644
+--- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
++++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
+@@ -17,6 +17,7 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
++#include <linux/phy/inno-hdmi-phy.h>
+ #include <linux/phy/phy.h>
+ #include <linux/slab.h>
+ 
+@@ -130,42 +131,14 @@
+ #define RK3328_INT_VSS_AGND_ESD_DET			BIT(1)
+ #define RK3328_INT_AGND_VSS_ESD_DET			BIT(0)
+ /* REG: 0xa0 */
+-#define RK3328_PCLK_VCO_DIV_5_MASK			BIT(1)
+-#define RK3328_PCLK_VCO_DIV_5(x)			UPDATE(x, 1, 1)
+ #define RK3328_PRE_PLL_POWER_DOWN			BIT(0)
+ /* REG: 0xa1 */
+-#define RK3328_PRE_PLL_PRE_DIV_MASK			GENMASK(5, 0)
+-#define RK3328_PRE_PLL_PRE_DIV(x)			UPDATE(x, 5, 0)
+ /* REG: 0xa2 */
+-/* unset means center spread */
+-#define RK3328_SPREAD_SPECTRUM_MOD_DOWN			BIT(7)
+-#define RK3328_SPREAD_SPECTRUM_MOD_DISABLE		BIT(6)
+-#define RK3328_PRE_PLL_FRAC_DIV_DISABLE			UPDATE(3, 5, 4)
+-#define RK3328_PRE_PLL_FB_DIV_11_8_MASK			GENMASK(3, 0)
+-#define RK3328_PRE_PLL_FB_DIV_11_8(x)			UPDATE((x) >> 8, 3, 0)
+ /* REG: 0xa3 */
+-#define RK3328_PRE_PLL_FB_DIV_7_0(x)			UPDATE(x, 7, 0)
+ /* REG: 0xa4*/
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_C_MASK		GENMASK(1, 0)
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_C(x)			UPDATE(x, 1, 0)
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_B_MASK		GENMASK(3, 2)
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_B(x)			UPDATE(x, 3, 2)
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_A_MASK		GENMASK(5, 4)
+-#define RK3328_PRE_PLL_TMDSCLK_DIV_A(x)			UPDATE(x, 5, 4)
+ /* REG: 0xa5 */
+-#define RK3328_PRE_PLL_PCLK_DIV_B_SHIFT			5
+-#define RK3328_PRE_PLL_PCLK_DIV_B_MASK			GENMASK(6, 5)
+-#define RK3328_PRE_PLL_PCLK_DIV_B(x)			UPDATE(x, 6, 5)
+-#define RK3328_PRE_PLL_PCLK_DIV_A_MASK			GENMASK(4, 0)
+-#define RK3328_PRE_PLL_PCLK_DIV_A(x)			UPDATE(x, 4, 0)
+ /* REG: 0xa6 */
+-#define RK3328_PRE_PLL_PCLK_DIV_C_SHIFT			5
+-#define RK3328_PRE_PLL_PCLK_DIV_C_MASK			GENMASK(6, 5)
+-#define RK3328_PRE_PLL_PCLK_DIV_C(x)			UPDATE(x, 6, 5)
+-#define RK3328_PRE_PLL_PCLK_DIV_D_MASK			GENMASK(4, 0)
+-#define RK3328_PRE_PLL_PCLK_DIV_D(x)			UPDATE(x, 4, 0)
+ /* REG: 0xa9 */
+-#define RK3328_PRE_PLL_LOCK_STATUS			BIT(0)
+ /* REG: 0xaa */
+ #define RK3328_POST_PLL_POST_DIV_ENABLE			GENMASK(3, 2)
+ #define RK3328_POST_PLL_REFCLK_SEL_TMDS			BIT(1)
+@@ -218,11 +191,8 @@
+ #define RK3328_TMDS_TERM_RESIST_1000			BIT(1)
+ #define RK3328_TMDS_TERM_RESIST_2000			BIT(0)
+ /* REG: 0xd1 */
+-#define RK3328_PRE_PLL_FRAC_DIV_23_16(x)		UPDATE((x) >> 16, 7, 0)
+ /* REG: 0xd2 */
+-#define RK3328_PRE_PLL_FRAC_DIV_15_8(x)			UPDATE((x) >> 8, 7, 0)
+ /* REG: 0xd3 */
+-#define RK3328_PRE_PLL_FRAC_DIV_7_0(x)			UPDATE(x, 7, 0)
+ 
+ struct inno_hdmi_phy_drv_data;
+ 
+@@ -240,6 +210,8 @@ struct inno_hdmi_phy {
+ 	const struct inno_hdmi_phy_drv_data *plat_data;
+ 	int chip_version;
+ 
++	struct inno_hdmi_phy_pre_pll pre_pll;
++
+ 	/* clk provider */
+ 	struct clk_hw hw;
+ 	struct clk *phyclk;
+@@ -248,21 +220,6 @@ struct inno_hdmi_phy {
+ 	unsigned long opts_tmds_char_rate;
+ };
+ 
+-struct pre_pll_config {
+-	unsigned long pixclock;
+-	unsigned long tmdsclock;
+-	u8 prediv;
+-	u16 fbdiv;
+-	u8 tmds_div_a;
+-	u8 tmds_div_b;
+-	u8 tmds_div_c;
+-	u8 pclk_div_a;
+-	u8 pclk_div_b;
+-	u8 pclk_div_c;
+-	u8 pclk_div_d;
+-	u8 vco_div_5_en;
+-	u32 fracdiv;
+-};
+ 
+ struct post_pll_config {
+ 	unsigned long tmdsclock;
+@@ -291,7 +248,7 @@ struct inno_hdmi_phy_drv_data {
+ 	const struct phy_config		*phy_cfg_table;
+ };
+ 
+-static const struct pre_pll_config pre_pll_cfg_table[] = {
++static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] = {
+ 	{ 25175000,  25175000,  3,  125, 3, 1, 1,  1, 3, 3,  4, 0, 0xe00000},
+ 	{ 25175000,  31468750,  1,   41, 0, 3, 3,  1, 3, 3,  4, 0, 0xf5554f},
+ 	{ 27000000,  27000000,  1,   36, 0, 3, 3,  1, 2, 3,  4, 0,      0x0},
+@@ -603,7 +560,7 @@ static irqreturn_t inno_hdmi_phy_rk3328_irq(int irq, void *dev_id)
+ static int inno_hdmi_phy_validate(struct phy *phy, enum phy_mode mode,
+ 				  int submode, union phy_configure_opts *opts)
+ {
+-	const struct pre_pll_config *cfg = pre_pll_cfg_table;
++	const struct inno_hdmi_phy_pre_pll_config *cfg = pre_pll_cfg_table;
+ 	unsigned long tmdsclock;
+ 
+ 	if (!(mode == PHY_MODE_HDMI && submode == PHY_HDMI_MODE_TMDS))
+@@ -717,23 +674,6 @@ static const struct phy_ops inno_hdmi_phy_ops = {
+ 	.validate = inno_hdmi_phy_validate,
+ };
+ 
+-static const
+-struct pre_pll_config *inno_hdmi_phy_get_pre_pll_cfg(struct inno_hdmi_phy *inno,
+-						     unsigned long rate)
+-{
+-	const struct pre_pll_config *cfg = pre_pll_cfg_table;
+-	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
+-
+-	for (; cfg->pixclock != 0; cfg++)
+-		if (cfg->pixclock == rate && cfg->tmdsclock == tmdsclock)
+-			break;
+-
+-	if (cfg->pixclock == 0)
+-		return ERR_PTR(-EINVAL);
+-
+-	return cfg;
+-}
+-
+ static int inno_hdmi_phy_rk3228_clk_is_prepared(struct clk_hw *hw)
+ {
+ 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
+@@ -797,7 +737,7 @@ unsigned long inno_hdmi_phy_rk3228_clk_recalc_rate(struct clk_hw *hw,
+ static int inno_hdmi_phy_rk3228_clk_determine_rate(struct clk_hw *hw,
+ 						   struct clk_rate_request *req)
+ {
+-	const struct pre_pll_config *cfg = pre_pll_cfg_table;
++	const struct inno_hdmi_phy_pre_pll_config *cfg = pre_pll_cfg_table;
+ 
+ 	req->rate = (req->rate / 1000) * 1000;
+ 
+@@ -818,7 +758,7 @@ static int inno_hdmi_phy_rk3228_clk_set_rate(struct clk_hw *hw,
+ 					     unsigned long parent_rate)
+ {
+ 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
+-	const struct pre_pll_config *cfg;
++	const struct inno_hdmi_phy_pre_pll_config *cfg;
+ 	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
+ 	u32 v;
+ 	int ret;
+@@ -829,7 +769,7 @@ static int inno_hdmi_phy_rk3228_clk_set_rate(struct clk_hw *hw,
+ 	if (inno->pixclock == rate && inno->tmdsclock == tmdsclock)
+ 		return 0;
+ 
+-	cfg = inno_hdmi_phy_get_pre_pll_cfg(inno, rate);
++	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, tmdsclock);
+ 	if (IS_ERR(cfg))
+ 		return PTR_ERR(cfg);
+ 
+@@ -915,39 +855,9 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
+ 						   unsigned long parent_rate)
+ {
+ 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
+-	unsigned long frac;
+-	u8 nd, no_a, no_b, no_d;
+-	u64 vco;
+-	u16 nf;
+-
+-	nd = inno_read(inno, 0xa1) & RK3328_PRE_PLL_PRE_DIV_MASK;
+-	nf = ((inno_read(inno, 0xa2) & RK3328_PRE_PLL_FB_DIV_11_8_MASK) << 8);
+-	nf |= inno_read(inno, 0xa3);
+-	vco = parent_rate * nf;
+-
+-	if (!(inno_read(inno, 0xa2) & RK3328_PRE_PLL_FRAC_DIV_DISABLE)) {
+-		frac = inno_read(inno, 0xd3) |
+-		       (inno_read(inno, 0xd2) << 8) |
+-		       (inno_read(inno, 0xd1) << 16);
+-		vco += DIV_ROUND_CLOSEST(parent_rate * frac, (1 << 24));
+-	}
+-
+-	if (inno_read(inno, 0xa0) & RK3328_PCLK_VCO_DIV_5_MASK) {
+-		do_div(vco, nd * 5);
+-	} else {
+-		no_a = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_A_MASK;
+-		no_b = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_B_MASK;
+-		no_b >>= RK3328_PRE_PLL_PCLK_DIV_B_SHIFT;
+-		no_b += 2;
+-		no_d = inno_read(inno, 0xa6) & RK3328_PRE_PLL_PCLK_DIV_D_MASK;
+-
+-		do_div(vco, (nd * (no_a == 1 ? no_b : no_a) * no_d * 2));
+-	}
+ 
+-	inno->pixclock = DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
+-
+-	dev_dbg(inno->dev, "%s rate %lu vco %llu\n",
+-		__func__, inno->pixclock, vco);
++	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
++							   parent_rate);
+ 
+ 	return inno->pixclock;
+ }
+@@ -955,20 +865,9 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
+ static int inno_hdmi_phy_rk3328_clk_determine_rate(struct clk_hw *hw,
+ 						   struct clk_rate_request *req)
+ {
+-	const struct pre_pll_config *cfg = pre_pll_cfg_table;
+-
+-	req->rate = (req->rate / 1000) * 1000;
+-
+-	for (; cfg->pixclock != 0; cfg++)
+-		if (cfg->pixclock == req->rate)
+-			break;
+-
+-	if (cfg->pixclock == 0)
+-		return -EINVAL;
+-
+-	req->rate = cfg->pixclock;
++	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
+ 
+-	return 0;
++	return inno_hdmi_phy_pre_pll_determine_rate(&inno->pre_pll, req);
+ }
+ 
+ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
+@@ -976,9 +875,8 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
+ 					     unsigned long parent_rate)
+ {
+ 	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
+-	const struct pre_pll_config *cfg;
++	const struct inno_hdmi_phy_pre_pll_config *cfg;
+ 	unsigned long tmdsclock = inno_hdmi_phy_get_tmdsclk(inno, rate);
+-	u32 val;
+ 	int ret;
+ 
+ 	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
+@@ -987,39 +885,15 @@ static int inno_hdmi_phy_rk3328_clk_set_rate(struct clk_hw *hw,
+ 	if (inno->pixclock == rate && inno->tmdsclock == tmdsclock)
+ 		return 0;
+ 
+-	cfg = inno_hdmi_phy_get_pre_pll_cfg(inno, rate);
++	cfg = inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, tmdsclock);
+ 	if (IS_ERR(cfg))
+ 		return PTR_ERR(cfg);
+ 
+-	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN,
+-			 RK3328_PRE_PLL_POWER_DOWN);
++	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
++	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
++	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
+ 
+-	/* Configure pre-pll */
+-	inno_update_bits(inno, 0xa0, RK3328_PCLK_VCO_DIV_5_MASK,
+-			 RK3328_PCLK_VCO_DIV_5(cfg->vco_div_5_en));
+-	inno_write(inno, 0xa1, RK3328_PRE_PLL_PRE_DIV(cfg->prediv));
+-
+-	val = RK3328_SPREAD_SPECTRUM_MOD_DISABLE;
+-	if (!cfg->fracdiv)
+-		val |= RK3328_PRE_PLL_FRAC_DIV_DISABLE;
+-	inno_write(inno, 0xa2, RK3328_PRE_PLL_FB_DIV_11_8(cfg->fbdiv) | val);
+-	inno_write(inno, 0xa3, RK3328_PRE_PLL_FB_DIV_7_0(cfg->fbdiv));
+-	inno_write(inno, 0xa5, RK3328_PRE_PLL_PCLK_DIV_A(cfg->pclk_div_a) |
+-		   RK3328_PRE_PLL_PCLK_DIV_B(cfg->pclk_div_b));
+-	inno_write(inno, 0xa6, RK3328_PRE_PLL_PCLK_DIV_C(cfg->pclk_div_c) |
+-		   RK3328_PRE_PLL_PCLK_DIV_D(cfg->pclk_div_d));
+-	inno_write(inno, 0xa4, RK3328_PRE_PLL_TMDSCLK_DIV_C(cfg->tmds_div_c) |
+-		   RK3328_PRE_PLL_TMDSCLK_DIV_A(cfg->tmds_div_a) |
+-		   RK3328_PRE_PLL_TMDSCLK_DIV_B(cfg->tmds_div_b));
+-	inno_write(inno, 0xd3, RK3328_PRE_PLL_FRAC_DIV_7_0(cfg->fracdiv));
+-	inno_write(inno, 0xd2, RK3328_PRE_PLL_FRAC_DIV_15_8(cfg->fracdiv));
+-	inno_write(inno, 0xd1, RK3328_PRE_PLL_FRAC_DIV_23_16(cfg->fracdiv));
+-
+-	inno_update_bits(inno, 0xa0, RK3328_PRE_PLL_POWER_DOWN, 0);
+-
+-	/* Wait for Pre-PLL lock */
+-	ret = inno_poll(inno, 0xa9, val, val & RK3328_PRE_PLL_LOCK_STATUS,
+-			1000, 10000);
++	ret = inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 10000);
+ 	if (ret) {
+ 		dev_err(inno->dev, "Pre-PLL locking failed\n");
+ 		return ret;
+@@ -1418,6 +1292,13 @@ static int inno_hdmi_phy_probe(struct platform_device *pdev)
+ 	if (IS_ERR(inno->regmap))
+ 		return PTR_ERR(inno->regmap);
+ 
++	/* The PHY block starts the register space on these SoCs. */
++	inno->pre_pll.dev = inno->dev;
++	inno->pre_pll.regmap = inno->regmap;
++	inno->pre_pll.offset = 0;
++	inno->pre_pll.table = pre_pll_cfg_table;
++	inno->pre_pll.table_size = ARRAY_SIZE(pre_pll_cfg_table);
++
+ 	/* only the newer rk3328 hdmiphy has an interrupt */
+ 	inno->irq = platform_get_irq(pdev, 0);
+ 	if (inno->irq > 0) {
+
+-- 
+2.34.1
+
