@@ -1,112 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793200889;
-	b=X1PCV4Bl1QseVF7IZb+P6wSDuvxjUc62ypLbNZca/34b0gUAidCOLgLJfkBVPIxgE/l1
-	 RF45QYQ9R+4PftJ2FeCpWCxjpRoouB4eKcg8Bab6lUS7Bje2x55sJud8tc4CBf1VT5vY0
-	 8Hb7gSYdpj8rNNAleOi82VwNUREshORs1jWJ22vOvOBUyLkbtIyupxnx0SBpxjSccburH
-	 THbINJNSNcxbWQPisaEuG8FwzIFagll+5iz9eojl1lqYqX4ufQBnE9tVR9Z1F3P5oIMDp
-	 tMYdZ9sJtsIeu4rvVr92EwzSvTrkH3HBT9MO2QYkK/rdzk6zZzzH6Jw8sLod3OWJ6HQ==
+	t=1793200891;
+	b=EjB6dEcz2mYGzpcu1Fl0VfJ6AOGeyjIbQQ5NXb5IzZ25hH2Fh1Gd21KMcxxt2qOoyAqo
+	 6W2pPecQuhR2hLL17yCCElvgsNivkq9ju4NsUDhCC5axqWAnC129O4OK5T9PBZ2kXxPtx
+	 kSg541iyshf+HUGwbI9tvC3OAEhEBVvOy9hC0M3KIATpCQ7E29dx5eBaPRFZu4R+8L+3U
+	 THYnkLGTRmTJjqC9dUkSKAuEflKus0tpqRve9vSK3LWOHOYJwMqHzwhwnQ1EDjirANDM6
+	 o0UEnJMLiO+MOumkMCYywEmTub/pHuZa6DAQBFd47pikG6Z+dUjriC4jtA51j/ArHzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793200889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200891;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=xDQYtF8k8ZaWbb7+5j3FW9elWsMzSAcqwviqB4BRnpg=;
-	b=GGiZb1JIj8yPUPT+OYKr3/KHxGYmK0QKNm9qlKyCOAw4nBEKG0qrvbC35VYW+1ia11cW
-	 RuiQY4OYZTEfXXdh/aC0sR2korV3Q9MGP7MGiOTq31w2yUvRZxDFrukAiBUKnKcfQiQLx
-	 hjmxLxJYma2/JTfPQcSmit7UueMyFGMHf4yxV3E/KQ/1/VS6/JWv5UXNWTqoIbyVLGj2j
-	 SFXz1kJ74Axj6COFy20Bbn6kUTpgqRdh1AQGLKwAuI/JKaoxw8iv9mHTfyPS6cPaFHsJp
-	 5P1/XkgmAJtaXQTFeL66h4Ci/7WVWhbKZvGvQ2ykto3WFTcxBG1oiZhhKvzUicYzQzQ==
+	bh=MLnULPo48uwhqbgr4/rooT9HX5/2KiIV1+6I9noIMQw=;
+	b=veSO75AGDiGw7SdAw+yV5FueOSyikM59CGo09DUOKmme8TlW2iMIXBkZUJNmMwpI+xwZ
+	 j9w1T8+qbDsUAKmVNgzfLmtXXwNm2QE54SRv6lckiqeGUruS49wBkTT5YuuMCjSxS9rRq
+	 8xditIF56NuiI+QlLjLzsvyIwDVkltrwBLzlm/oU0gMTnzdswVcRcP0kXqNE43LZChSKG
+	 OBo4YqKB0z9WLCp1UU4m3P+QASFGtXysYGaRpOe1oj+h42+GtttEFOGk9crmHwx7xPm+3
+	 TZkpBv6wIIebNmXfGJ/xxNdkveSo8bnDMkMZNNYktekOmQvPMeRbgHdgL1NTI2ghvCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="HuE/je94";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hFHBlnJx;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HdARy9Uw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZN+fyRe+;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652AD606A337
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 652AD606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B4D60A6F70
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5B4D60A6F70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HuE/je94;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hFHBlnJx
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFB5cw2070773
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:28 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HdARy9Uw;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZN+fyRe+
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFAXdl1153221
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xDQYtF8k8ZaWbb7+5j3FW9elWsMzSAcqwviqB4BRnpg=; b=HuE/je94ZcOYhWRc
-	ghkn/2Qmm/8QFtNHdl770cBwJlasdQH27/aw919vM/IrfvXWHt7bbiMi2Cr3l+5F
-	nqOgms7g1wpfHGJJpNNehwH+csbph54uH8aEO4nG4Ej1t/lS/Dq3UTfKa7hSl10z
-	dfiGUSHwtnfLw+yEC2QvGOnUTpbZjQVLO9dWD5gSSSvkRkCjabxm6E4lYSIHXpXL
-	14O3ZcYxOhwPZjVXualqXskPA2FfcfY3EiDrQrpFaWWAu8+Sm2y8bqAr0oIvVdZV
-	RnIpqY3U2lZv5EfW/caRhgX5l/Tflc+IfkdFhOpQ2dzD2c8X7U7FouPUMn9iqjUg
-	wWtGbg==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk7g7jvaq-1
+	MLnULPo48uwhqbgr4/rooT9HX5/2KiIV1+6I9noIMQw=; b=HdARy9UwzpMHKZrQ
+	mA33Z2n3RUX5ZSmvr73q2QWL4Jlwojbbb5Ialzz9hwWAtWvwIiGtbaakgFv5QUFs
+	rvVl/O1wiDxi/ATg3zAFOnbdPgeZdB6DnT1wPXb5rOCn0R6687KciqTYWspbDbYw
+	sn4WDImojNuMCtR74hvLiosaPfPCE2MByHEG++6iNpGitfccUjpMNqLkq88SXUeF
+	U7NPcb8N77t6FLlGXgC8N0zxPuADYT7MITm2EFw/bFf8sXFLYkVOgyboTZgZiGn5
+	yJnWmJ/DEOSYRJOpV8nPkm1hqAUmvGyMzGHGBvSXvkNeKNciFYS/9j1JhIG9X400
+	hagbEg==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk6be34s2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:28 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67686ccd1b6so45750d50.2
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:21:28 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:21:29 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-6755fef4f96so1755814d50.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793200888; x=1793805688; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793200889; x=1793805689; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xDQYtF8k8ZaWbb7+5j3FW9elWsMzSAcqwviqB4BRnpg=;
-        b=hFHBlnJxLJuofQKH7JwhJyBJS2gbVj9sZ1PfWKb3brbJGdXSRopYMr/oPXpl1WeCNK
-         XUYFMWaFwJH48dwzFV1CGxHKnIMJU9sy4bpmE4JZ45LQ7zNz0QEGBN/5QWAnTTBuwtxC
-         VWkZ2BDPO8lYSm3MZCpaiWBQgxUvfJm4iuYqexpjH9Day7neqLCfj3VuP5EQ8XeuwTsP
-         sBDIv6rRGpleWd122AB4DI5VC+FIrhYRV2LoebyAj9S/IUgG926pNipjD7ibHE40LGDy
-         ctde3VHh0xEUFK/g6wYRq/NZW2nxVl4/5SQrsZxI4oaazZj/8miO1BLd9G0HUqWMta+f
-         GUug==
+        bh=MLnULPo48uwhqbgr4/rooT9HX5/2KiIV1+6I9noIMQw=;
+        b=ZN+fyRe+j40BnrUTHaaV8loq6qSa/tvIgQWXMtOfOmP94bppFK1kS7UIzdeWfruuGY
+         ntqkxjTeUwKgx1eyPEKtehg1czd4SOUcT1Wvl6GyFt/mQ/uaUxulSgm3+/Y+q0uldstu
+         D8pjGvxH/go3f6PDq5onv+MEt3kDzvBiyslNKmPtGzRIV3MPIEzADMwKxs/RR5WchZIe
+         tw9hW5Ps/q3POJQUw/qv+XnIrFw9B+z4kjkthboIODttOBqsmt6nnINvSY9ALVRbBVjs
+         GGGLe3g5d3uh4UoqXfkeF+0++C/uIwkuOojDgDeuhRLJb7o19ZRIM71ECCYCWMU9IG8w
+         DMdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793200888; x=1793805688;
+        d=1e100.net; s=20260707; t=1793200889; x=1793805689;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xDQYtF8k8ZaWbb7+5j3FW9elWsMzSAcqwviqB4BRnpg=;
-        b=2UdGiunYyziqdgATU+rYcBZiXYla17iarjAPQDlEswb3mMQ9x5h0ueHrwkmkPkIhdG
-         F66yEylhSzqLnxr5k1SEiWyZDXVRxh8pRF450zM+AGT4P/gVtP9dJsZ5Ddg0EXway9YG
-         7HHQpbJK0T2NYt07CmDNiZ0gFuoAKZhGqhg37xWNF71oj1BYpeUSB49fnqAj6F3ywiDc
-         CaKlXeedZKVduqoe0z9GTcz5W/ry4+zu6X9zGI5XFecc/by09PZ9Le87OGbdopvL+WoS
-         AnKQzGe7JfzUz1juS/RndTxUffpnO4esxAi9q+pDq0QgcL7LldHDOc56nKChPwKH4kmJ
-         BK1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxrcb17Q55g49Nq+6rE6wuRgYNxyDFsDCsLqmVSUJtM+NgzjEIcvS09JHark/5APVpixrMqtlv5wZIu@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtoyu1Ae67bZN6cLFamohWnR0Sk3oqsfCz7QsbLTgODbn/xKLH
-	D70rm0NmOt+NnqUD/ZEqvWrZKos4dZMZ9nOfR+UyZ3nT/BxnRA0a6u5LWefoIFXqZqVfc7FqzP1
-	Vu2tFO+yD8K4p/oWRHTEZR+HsIIVBdq9L1fCFboR5j3Q+4v54M5rGOAeE72ksCEf8
-X-Gm-Gg: AYBFou2jyfHjysebJBdn1+z+XNoWAtFFAiAUczHbKoJut4FpUNGA+EsQtjhC5nla4XA
-	dV3BYPWoyDP/v3psq6LpiaqJ5QrFxg3YEvr7Iq0Mnx5DjjtIEJMl0cbksBqdlEOKGuCwD6+eMNK
-	w/s+RH1I2EZnBQwk4wPRWYITPHNItaorwAssyRIdGopmoHeW/RonxFiNuXmK/uiDccELCM+z8A6
-	r2U/61v4+fj3gCdsmJF8eJgXUXlCE3VixsiZGHVTBJk9aBzGqao2zW8YAeeb7zhsLv1DaHazmlA
-	BG2ceVa4VoTiWRpOjSQZlXdUcq0VYT/4pkO7FVCsUWb67H3FuEW1Bavr6aVkMixkXzhJEGyRzy3
-	MPdOS4IawoyasCrk7+nG4Jr0eW2Srhq2OtwuW3n8mvFr/fcP7LWEEFFoFqwhx6e0Byz397E/RZK
-	MOq7hTlHWApqjPQgaxuc1ny3blguzRBwAeOUOC4FbZGWj53SU0Lr3MRm//qsVh
-X-Received: by 2002:a53:d54b:0:b0:67a:551f:920c with SMTP id 956f58d0204a3-67a7bce22d5mr1623169d50.86.1793200887768;
-        Wed, 28 Oct 2026 08:21:27 -0700 (PDT)
-X-Received: by 2002:a53:d54b:0:b0:67a:551f:920c with SMTP id 956f58d0204a3-67a7bce22d5mr1623121d50.86.1793200887107;
-        Wed, 28 Oct 2026 08:21:27 -0700 (PDT)
+        bh=MLnULPo48uwhqbgr4/rooT9HX5/2KiIV1+6I9noIMQw=;
+        b=lboKe4X0s0/v5I+4RwUDmelD5cmVS0Tro2STh6cozBUsLzcXK+werzY1xKfFngoW29
+         IckNVwsqX4rp+mZhULrw2rMsLJyktM+3Yh6oLdAx48IWMJ/PmCvsEcKDRpc6NLpu+Bha
+         zkDYwoVNYhEmm98jhfpAX/HU+ryir889Ml2arns7MiuWwToxyKpU8+1LulEGXDkxizxZ
+         W984kB2tTu8v4xQAvbVVNsY+lvGsCkj1jGOBAWZLlCXD40PHY9bXi994buIEGK1HQfj0
+         q5fOiH2Xk1XcFqT7xjEhofqmMaDTloA5A7HIwqNfkIFjcHW0NUMJVvVPKiOW+GM3ZRQU
+         AklQ==
+X-Forwarded-Encrypted: i=1; AKwUvByX9Yx3ZqZV7FB5rWVxKHeMG/IVZgw6SgPihwb+hrfOShjW2YOv6GkwBhk8b9yKyN+KD4Y5cM+RdLPV@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjdkSLuqjyFjK8lqLv6Kd2BHy+7VeoziBua05DLfaafmJVhno7
+	WDbhssHTV+YR+k2Jjnc23/MsX8LyGlH/h5JxRrRhR4VSTpMFqrMXlKk2lALc/LKySaONhMVJMnv
+	He+hCbspqVCCXqhrgtmjt9ZIpZ5NP5czboexh16gpP1BTw7HIdueWfWicOzOdqlep
+X-Gm-Gg: AYBFou1HR2tk1SPQy75/hZ/zTedm71gcSuwZexy+Y+w/1RscnjO06cGQevsox+WeXXj
+	Ez61ePl5Uc1LAnS9ywnK1ef5BgXzQ2boJ/Xj+f6+LcBmkZ5sq5PE3/MZjFW2Hkkss3IOhU1HFJe
+	W5SUjHRGbdrShgAuWx9TJl3dI4DdDe62Q/OPnHYlF+4Kk/8ZI3Tq+r2HSXFawEwrwUSEbbMyx1G
+	RP1v3Ux9CPpxxiGPYWt3dd7d84Z3EaGr4M3n9BjM+ivsYGGLc0UpYGZoT2Rqt7YrtXROEHHf8x9
+	/hrAJs0FfVROIGYogIsK3VO05FvTG3ewT+/MK+2itxYLtOSIwQJUBLNyGe0ErvgY2SHWwhtfOOV
+	gR99F/v9WJc1txUZCd/6NX54a+XMSbgVfFN0vhSPh93h9WBAUGr5Lrlme7yxPxAswNIcI70St99
+	9TC2rXsWY524pjwg/kiaHvVtU8yy6NniBet5zUuUv8kYlTXFftVfK8FBZWtpI4
+X-Received: by 2002:a05:690e:1588:20b0:675:3ec2:dc10 with SMTP id 956f58d0204a3-67a7bcb7dabmr1282708d50.62.1793200885930;
+        Wed, 28 Oct 2026 08:21:25 -0700 (PDT)
+X-Received: by 2002:a05:690e:1588:20b0:675:3ec2:dc10 with SMTP id 956f58d0204a3-67a7bcb7dabmr1282638d50.62.1793200885052;
+        Wed, 28 Oct 2026 08:21:25 -0700 (PDT)
 Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a803cdd1asm1107541d50.4.2026.10.28.08.21.25
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a803cdd1asm1107541d50.4.2026.10.28.08.21.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 08:21:26 -0700 (PDT)
+        Wed, 28 Oct 2026 08:21:24 -0700 (PDT)
 From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 08:20:45 -0700
-Subject: [PATCH v23 11/15] media: qcom: camss: tpg: Add support for v2.4.0
- TPG
+Date: Wed, 28 Oct 2026 08:20:44 -0700
+Subject: [PATCH v23 10/15] media: qcom: camss: vfe: Add support for VFE
+ 1080
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
+Message-Id: <20261028-kaanapali-camss-v23-10-95f250b18612@oss.qualcomm.com>
 References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
 In-Reply-To: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
 To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
@@ -138,166 +138,478 @@ Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         jeyaprakash.soundrapandian@oss.qualcomm.com,
         Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Atiya Kailany <atiya.kailany@oss.qualcomm.com>
 X-Mailer: b4 0.16.1-dev-17221
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfX/gmCblMjm+zj
- vF55z2eh3ZKt+ZONb7vGAHJMM58CG4gVXffE3ZgmViNKhALdvOHDZwKTIYOq5Y35o5uudLgBs+d
- QIz7Ii5K6KiCuGHzIcdCiGyY8J9q3Ms=
-X-Authority-Analysis: v=2.4 cv=SoIFe/O0 c=1 sm=1 tr=0 ts=6ae212f8 cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-ORIG-GUID: jAfqmaU-JQFeumtjsOieCgxQUju5tY2K
+X-Authority-Analysis: v=2.4 cv=HeuB3SE8 c=1 sm=1 tr=0 ts=6ae212f9 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=1CCqUJFLb0VynuEnu9gA:9 a=QEXdDO2ut3YA:10
- a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-GUID: nW0DcY2vRGXOu46DAFSaNPuKOAWRITaY
-X-Proofpoint-ORIG-GUID: nW0DcY2vRGXOu46DAFSaNPuKOAWRITaY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfXzUWzkmAk14p+
- uLjHsvPap0AASfoZ6DzbggBu19pzgopACwfM+YW05N6bMQvAGUh+ChMsKe0L9bogz+nmd8TjBOB
- 7oNx2kHojPqsNYG9GAgZrp+XjwV68m7qup4Bm7bM1WJJGrDn5doMg6ek2O6bJx6x0TiemsTtTbh
- pMigEvenNpw3NeweMeNpMaMM2Oof5ZDS++r6WWSJatsws7MNxuaB7oI42DHvZSOiJWnbnE4HrSh
- /37iXTTY+SI4PCJJzUNObeB4fGdv+MiPzynzqHQDDJW2VbtaMd08uu2LwjYKjVElZPc8LYUkJDc
- H6SONTXlhejx7VLwx7Yswy1pBWfynhnfnosCLUWNavC6Yuz7ejNgBsiGObc5sc/IGT5s+83GCkq
- DIjeOiOah/Q18Zs4Zz9XOAdOB1zhTxUcUVCjC0xiMyZLU6+mkAsWqjDtrXfJkM+35qIJqqogUKT
- PgDqkFEMfVshWDKbEHQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=9CBi_IXu8HXpBCLcQ48A:9 a=QEXdDO2ut3YA:10
+ a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfXzU8TQTKV6Y43
+ 7KnOCGRF7eAgw+QPylnasOaTsBzQfuwzCOrC1qlZRJ97h65WWjZRywKJxrapnL6y1fcyJox39xd
+ zCheu1j72TMFVqZd+zIU9HhGvoSE4gw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfXzjsXtInSIgdb
+ fWX6hppzk3NowxDK5WYZSoHxCuAycPXZ0qVQaQG8CRj7YPPtCLiDjZOkAbc1Dlsn2sKn0nqwFq8
+ +GOiigobuJNi/HRBRR42HeOnpfq80bVhZotttUpJ3rMGVSOtSvoLzWzo2SOuqSenUt18e4THxyf
+ JcrUJaNjTqzEyPSho6aS1bkJdyrH+uCMP5Y+YUbHIS2CHm0O6NYqoBjFJ9CknnFlInpkAby2gAB
+ RBQH6ka4lg+9zy7aHfIGutRHp3WQrNubxAUm5N1UlfvKAeroUpqQzFNKJfCHtQrjz0B37TQSnJu
+ ijCBwRy1hCCYRez5oZZ62Y6vAAhA4w1EX49aAJpnGm7HTVoRXoTy1ysTuIe8emv78Y47N3GVLxg
+ 1jvFgV9lPq2U4LaGdzLloi4doafjzZ7vCEXx/LTpG6zbLVfLtsaKguhbRVlGar+fb8yrVXFJsQe
+ cFMQ0tq5ds1xOC3phgQ==
+X-Proofpoint-GUID: jAfqmaU-JQFeumtjsOieCgxQUju5tY2K
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280061
+ malwarescore=0 adultscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610280061
 
-Add support for the TPG found on Kaanapali. This TPG uses hardware
-version 2.4.0, which drives test-enable and reset through the
-TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
-TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
-CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
-the data source when a test pattern is selected.
+Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
 
-Add the TPG resources to the Kaanapali camss resources so that the TPG
-subdevices are created on this SoC.
+In the Kaanapali camera subsystem, the front-end blocks are referred to
+as TFEs (Thin Front Ends). This driver continues to use the VFE naming
+in some places to preserve consistency with the existing code and avoid
+unnecessary renaming. Support is currently limited to three output lines,
+matching the constraints of the CAMSS framework.
 
+Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
+CSID configuration has completed. In addition, the number of AUP_UPDATE
+requests must match the number of buffers queued to the write master
+while it is being enabled.
+
+Although real-time TFE traffic is routed through RT_CAMNOC, both
+camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
+that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
+reset in a fully idle state.
+
+Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
 Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 ---
- .../media/platform/qcom/camss/camss-csid-1080.c    | 15 ++++++++++++--
- drivers/media/platform/qcom/camss/camss-tpg-gen1.c | 23 ++++++++++++++++------
- drivers/media/platform/qcom/camss/camss.c          |  2 ++
- 3 files changed, 32 insertions(+), 8 deletions(-)
+ drivers/media/platform/qcom/camss/Makefile         |   1 +
+ drivers/media/platform/qcom/camss/camss-vfe-1080.c | 213 +++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+ drivers/media/platform/qcom/camss/camss-vfe.h      |   1 +
+ drivers/media/platform/qcom/camss/camss.c          | 126 ++++++++++++
+ 5 files changed, 343 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/drivers/media/platform/qcom/camss/camss-csid-1080.c
-index 3d90d31201fa..ec56ba85a0fa 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-1080.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
-@@ -64,6 +64,8 @@
- #define		CSI2_RX_CFG0_NUM_ACTIVE_LANES		0
- #define		CSI2_RX_CFG0_DL0_INPUT_SEL		4
- #define		CSI2_RX_CFG0_PHY_NUM_SEL		20
-+#define		CSI2_RX_CFG0_TPG_MUX_EN			BIT(27)
-+#define		CSI2_RX_CFG0_TPG_MUX_SEL		GENMASK(29, 28)
- #define		CSI2_RX_CFG0_PHY_SEL_BASE_IDX		1
- #define CSID_CSI2_RX_CFG1			0x884
- #define		CSI2_RX_CFG1_ECC_CORRECTION_EN		BIT(0)
-@@ -148,6 +150,7 @@ static void __csid_reg_update_clear(struct csid_device *csid, int port_id)
- static void __csid_configure_rx(struct csid_device *csid,
- 				struct csid_phy_config *phy)
- {
-+	struct camss *camss = csid->camss;
- 	u8 lane_cnt = phy->lane_cnt;
- 	int val;
- 
-@@ -156,8 +159,16 @@ static void __csid_configure_rx(struct csid_device *csid,
- 
- 	val = (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
- 	val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
--	val |= (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
--	       << CSI2_RX_CFG0_PHY_NUM_SEL;
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 218ba3a95939..42a14e8fe1b7 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -26,6 +26,7 @@ qcom-camss-objs += \
+ 		camss-vfe-340.o \
+ 		camss-vfe-480.o \
+ 		camss-vfe-680.o \
++		camss-vfe-1080.o \
+ 		camss-vfe-gen1.o \
+ 		camss-vfe-gen3.o \
+ 		camss-vfe-vbif.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
+new file mode 100644
+index 000000000000..68798f13fbea
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
+@@ -0,0 +1,213 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * camss-vfe-1080.c
++ *
++ * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 1080
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
 +
-+	if (camss->tpg && csid->tpg_linked &&
-+	    camss->tpg[phy->csiphy_id].testgen.mode != TPG_PAYLOAD_MODE_DISABLED) {
-+		val |= FIELD_PREP(CSI2_RX_CFG0_TPG_MUX_SEL, phy->csiphy_id + 1);
-+		val |= CSI2_RX_CFG0_TPG_MUX_EN;
-+	} else {
-+		val |= (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-+			<< CSI2_RX_CFG0_PHY_NUM_SEL;
++#include "camss.h"
++#include "camss-vfe.h"
++
++/* VFE-1080 Bus Register Base Addresses */
++#define BUS_REG_BASE				(vfe_is_lite(vfe) ? 0x800 : 0x1000)
++
++#define VFE_BUS_WM_CGC_OVERRIDE			(BUS_REG_BASE + 0x08)
++#define		WM_CGC_OVERRIDE_ALL			(0x7FFFFFF)
++
++#define VFE_BUS_WM_TEST_BUS_CTRL		(BUS_REG_BASE + 0x128)
++
++#define VFE_BUS_WM_CFG(n)			(BUS_REG_BASE + 0x500 + (n) * 0x100)
++#define		WM_CFG_EN				BIT(0)
++#define		WM_VIR_FRM_EN				BIT(1)
++#define		WM_CFG_MODE				BIT(16)
++#define VFE_BUS_WM_IMAGE_ADDR(n)		(BUS_REG_BASE + 0x504 + (n) * 0x100)
++#define VFE_BUS_WM_FRAME_INCR(n)		(BUS_REG_BASE + 0x508 + (n) * 0x100)
++#define VFE_BUS_WM_IMAGE_CFG_0(n)		(BUS_REG_BASE + 0x50C + (n) * 0x100)
++#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH		(0xFFFF)
++#define VFE_BUS_WM_IMAGE_CFG_2(n)		(BUS_REG_BASE + 0x514 + (n) * 0x100)
++#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE		(0xFFFF)
++#define VFE_BUS_WM_PACKER_CFG(n)		(BUS_REG_BASE + 0x518 + (n) * 0x100)
++
++#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x530 + (n) * 0x100)
++#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x534 + (n) * 0x100)
++
++/* VFE lite has no such registers */
++#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x538 + (n) * 0x100)
++#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x53C + (n) * 0x100)
++
++#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x560 + (n) * 0x100)
++#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x564 + (n) * 0x100)
++
++/*
++ * IFE write master client IDs
++ *
++ * VIDEO_FULL			0
++ * VIDEO_DC4_Y			1
++ * VIDEO_DC4_C			2
++ * VIDEO_DC16_Y			3
++ * VIDEO_DC16_C			4
++ * DISPLAY_DS2_Y		5
++ * DISPLAY_DS2_C		6
++ * FD_Y				7
++ * FD_C				8
++ * PIXEL_RAW			9
++ * STATS_AEC_BG			10
++ * STATS_AEC_BHIST		11
++ * STATS_TINTLESS_BG		12
++ * STATS_AWB_BG			13
++ * STATS_AWB_BFW		14
++ * STATS_AF_BHIST		15
++ * STATS_ALSC_BG		16
++ * STATS_FLICKER_BAYERRS	17
++ * STATS_TMC_BHIST		18
++ * PDAF_0			19
++ * PDAF_1			20
++ * PDAF_2			21
++ * PDAF_3			22
++ * RDI0				23
++ * RDI1				24
++ * RDI2				25
++ * RDI3				26
++ * RDI4				27
++ *
++ * IFE Lite write master client IDs
++ *
++ * RDI0			0
++ * RDI1			1
++ * RDI2			2
++ * RDI3			3
++ * GAMMA		4
++ * STATES_BE		5
++ */
++#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
++
++static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
++{
++	struct v4l2_pix_format_mplane *pix =
++		&line->video_out.active_fmt.fmt.pix_mp;
++
++	wm = RDI_WM(wm);
++
++	/* no clock gating at bus input */
++	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
++
++	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
++
++	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
++	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
++	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
++	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
++	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
++	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
++	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
++
++	/* no dropped frames, one irq per frame */
++	if (!vfe_is_lite(vfe)) {
++		writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
++		writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
 +	}
 +
- 	writel(val, csid->base + CSID_CSI2_RX_CFG0);
- 
- 	val = CSI2_RX_CFG1_ECC_CORRECTION_EN;
-diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-index d29de5f93c18..cabbb2638cf3 100644
---- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-+++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-@@ -22,6 +22,7 @@
- 
- #define TPG_HW_VER_2_0_0                TPG_HW_VER(2, 0, 0)
- #define TPG_HW_VER_2_1_0                TPG_HW_VER(2, 1, 0)
-+#define TPG_HW_VER_2_4_0                TPG_HW_VER(2, 4, 0)
- 
- #define TPG_HW_STATUS		0x4
- 
-@@ -33,7 +34,9 @@
- # define TPG_CTRL_OVERLAP_SHDR_EN	BIT(10)
- # define TPG_CTRL_NUM_ACTIVE_VC		GENMASK(31, 30)
- 
--#define TPG_CLEAR		0x1F4
-+#define TPG_CTRL_CMD		0x1F4
-+# define TPG_CTRL_CMD_TEST_EN		BIT(4)
-+# define TPG_CTRL_CMD_HW_RESET		BIT(0)
- 
- /* TPG VC-based registers */
- #define TPG_VC_n_GAIN_CFG(n)		(0x60 + (n) * 0x60)
-@@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
- 	}
- 
- 	/* Global TPG control */
--	val = FIELD_PREP(TPG_CTRL_TEST_EN, 1) |
--	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
-+	val = FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
- 	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_VC, last_vc);
--	writel(val, tpg->base + TPG_CTRL);
++	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
++	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
 +
-+	if (tpg->hw_version < TPG_HW_VER_2_4_0) {
-+		val |= FIELD_PREP(TPG_CTRL_TEST_EN, 1);
-+		writel(val, tpg->base + TPG_CTRL);
-+	} else {
-+		writel(val, tpg->base + TPG_CTRL);
-+		writel(TPG_CTRL_CMD_TEST_EN, tpg->base + TPG_CTRL_CMD);
-+	}
- 
- 	return 0;
- }
- 
- static int tpg_reset(struct tpg_device *tpg)
- {
--	writel(0, tpg->base + TPG_CTRL);
--	writel(1, tpg->base + TPG_CLEAR);
-+	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-+		writel(0, tpg->base + TPG_CTRL);
++	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
++	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
 +
-+	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
++	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
++}
++
++static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
++{
++	wm = RDI_WM(wm);
++	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
++}
++
++static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
++			  struct vfe_line *line)
++{
++	wm = RDI_WM(wm);
++	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
++
++	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n", wm, addr);
++}
++
++static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
++{
++	int port_id = line_id;
++
++	camss_reg_update(vfe->camss, vfe->id, port_id, false);
++}
++
++static void vfe_reg_update_clear(struct vfe_device *vfe,
++				 enum vfe_line_id line_id)
++{
++	int port_id = line_id;
++
++	camss_reg_update(vfe->camss, vfe->id, port_id, true);
++}
++
++static void vfe_addr_update(struct vfe_device *vfe, enum vfe_line_id line_id)
++{
++	int port_id = line_id;
++
++	camss_addr_update(vfe->camss, vfe->id, port_id, false);
++}
++
++static void vfe_addr_update_clear(struct vfe_device *vfe, enum vfe_line_id line_id)
++{
++	int port_id = line_id;
++
++	camss_addr_update(vfe->camss, vfe->id, port_id, true);
++}
++
++static const struct camss_video_ops vfe_video_ops_1080 = {
++	.queue_buffer = vfe_queue_buffer_v2,
++	.flush_buffers = vfe_flush_buffers,
++};
++
++static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
++{
++	vfe->video_ops = vfe_video_ops_1080;
++}
++
++static void vfe_global_reset(struct vfe_device *vfe)
++{
++	vfe_isr_reset_ack(vfe);
++}
++
++static irqreturn_t vfe_isr(int irq, void *dev)
++{
++	/* nop */
++	return IRQ_HANDLED;
++}
++
++static int vfe_halt(struct vfe_device *vfe)
++{
++	/* rely on vfe_disable_output() to stop the VFE */
++	return 0;
++}
++
++const struct vfe_hw_ops vfe_ops_1080 = {
++	.addr_update = vfe_addr_update,
++	.addr_update_clear = vfe_addr_update_clear,
++	.global_reset = vfe_global_reset,
++	.hw_version = vfe_hw_version,
++	.isr = vfe_isr,
++	.pm_domain_off = vfe_pm_domain_off,
++	.pm_domain_on = vfe_pm_domain_on,
++	.reg_update = vfe_reg_update,
++	.reg_update_clear = vfe_reg_update_clear,
++	.subdev_init = vfe_subdev_init,
++	.vfe_disable = vfe_disable,
++	.vfe_enable = vfe_enable_v2,
++	.vfe_halt = vfe_halt,
++	.vfe_wm_start = vfe_wm_start,
++	.vfe_wm_stop = vfe_wm_stop,
++	.vfe_buf_done = vfe_buf_done,
++	.vfe_wm_update = vfe_wm_update,
++};
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 4f8867daea4c..221abf7bfd47 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -353,6 +353,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 	case CAMSS_8550:
+ 	case CAMSS_8650:
+ 	case CAMSS_8775P:
++	case CAMSS_KAANAPALI:
+ 	case CAMSS_X1E80100:
+ 		switch (sink_code) {
+ 		case MEDIA_BUS_FMT_YUYV8_1X16:
+@@ -2020,6 +2021,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+ 	case CAMSS_8550:
+ 	case CAMSS_8650:
+ 	case CAMSS_8775P:
++	case CAMSS_KAANAPALI:
+ 	case CAMSS_X1E80100:
+ 		ret = 16;
+ 		break;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 8312e4c91e98..0a91440cfe43 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -251,6 +251,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
+ extern const struct vfe_hw_ops vfe_ops_340;
+ extern const struct vfe_hw_ops vfe_ops_480;
+ extern const struct vfe_hw_ops vfe_ops_680;
++extern const struct vfe_hw_ops vfe_ops_1080;
+ extern const struct vfe_hw_ops vfe_ops_gen3;
  
- 	return 0;
- }
+ int vfe_get(struct vfe_device *vfe);
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 6ff82dd2aeaf..df4b4cf30711 100644
+index 12dfe760fc54..6ff82dd2aeaf 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5850,11 +5850,13 @@ static const struct camss_resources kaanapali_resources = {
- 	.pd_name = "top",
+@@ -156,6 +156,130 @@ static const struct camss_subdev_resources csid_res_kaanapali[] = {
+ 	}
+ };
+ 
++/* In Kaanapali, CAMNOC requires all CPAS_TFEX clocks
++ * to operate on any TFE Full.
++ */
++static const struct camss_subdev_resources vfe_res_kaanapali[] = {
++	/* VFE0 - TFE Full */
++	{
++		.clock = { "vfe0_fast_ahb", "vfe0",
++			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
++			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
++		.clock_rate = { { 0 },
++				{ 360280000, 480000000, 630000000, 716000000,
++				  833000000 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 200000000, 300000000, 400000000, 480000000 },
++				{ 0 },
++				{ 0 } },
++		.reg = { "vfe0" },
++		.interrupt = { "vfe0" },
++		.vfe = {
++			.line_num = 3,
++			.is_lite = false,
++			.has_pd = true,
++			.pd_name = "ife0",
++			.hw_ops = &vfe_ops_1080,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++	/* VFE1 - TFE Full */
++	{
++		.clock = { "vfe1_fast_ahb", "vfe1",
++			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
++			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
++		.clock_rate = { { 0 },
++				{ 360280000, 480000000, 630000000, 716000000,
++				  833000000 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 200000000, 300000000, 400000000, 480000000 },
++				{ 0 },
++				{ 0 } },
++		.reg = { "vfe1" },
++		.interrupt = { "vfe1" },
++		.vfe = {
++			.line_num = 3,
++			.is_lite = false,
++			.has_pd = true,
++			.pd_name = "ife1",
++			.hw_ops = &vfe_ops_1080,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++	/* VFE2 - TFE Full */
++	{
++		.clock = { "vfe2_fast_ahb", "vfe2",
++			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
++			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
++		.clock_rate = { { 0 },
++				{ 360280000, 480000000, 630000000, 716000000,
++				  833000000 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 200000000, 300000000, 400000000, 480000000 },
++				{ 0 },
++				{ 0 } },
++		.reg = { "vfe2" },
++		.interrupt = { "vfe2" },
++		.vfe = {
++			.line_num = 3,
++			.is_lite = false,
++			.has_pd = true,
++			.pd_name = "ife2",
++			.hw_ops = &vfe_ops_1080,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++	/* VFE3 - IFE Lite */
++	{
++		.clock = { "vfe_lite_ahb", "vfe_lite", "cpas_vfe_lite",
++			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
++		.clock_rate = { { 0 },
++				{ 266666667, 400000000, 480000000 },
++				{ 0 },
++				{ 200000000, 300000000, 400000000, 480000000 },
++				{ 0 },
++				{ 0 } },
++		.reg = { "vfe_lite0" },
++		.interrupt = { "vfe_lite0" },
++		.vfe = {
++			.line_num = 3,
++			.is_lite = true,
++			.hw_ops = &vfe_ops_1080,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++	/* VFE4 - IFE Lite */
++	{
++		.clock = { "vfe_lite_ahb", "vfe_lite", "cpas_vfe_lite",
++			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
++		.clock_rate = { { 0 },
++				{ 266666667, 400000000, 480000000 },
++				{ 0 },
++				{ 200000000, 300000000, 400000000, 480000000 },
++				{ 0 },
++				{ 0 } },
++		.reg = { "vfe_lite1" },
++		.interrupt = { "vfe_lite1" },
++		.vfe = {
++			.line_num = 3,
++			.is_lite = true,
++			.hw_ops = &vfe_ops_1080,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++};
++
+ static const struct resources_icc icc_res_kaanapali[] = {
+ 	{
+ 		.name = "ahb",
+@@ -5727,10 +5851,12 @@ static const struct camss_resources kaanapali_resources = {
  	.pm_clks = { "cpas_fast_ahb", "cpas_ahb", "gcc_axi_hf" },
  	.csiphy_res = csiphy_res_kaanapali,
-+	.tpg_res = tpg_res_x1e80100,
  	.csid_res = csid_res_kaanapali,
- 	.vfe_res = vfe_res_kaanapali,
++	.vfe_res = vfe_res_kaanapali,
  	.icc_res = icc_res_kaanapali,
  	.icc_path_num = ARRAY_SIZE(icc_res_kaanapali),
  	.csiphy_num = ARRAY_SIZE(csiphy_res_kaanapali),
-+	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
  	.csid_num = ARRAY_SIZE(csid_res_kaanapali),
- 	.vfe_num = ARRAY_SIZE(vfe_res_kaanapali),
++	.vfe_num = ARRAY_SIZE(vfe_res_kaanapali),
  };
+ 
+ static const struct camss_resources msm8916_resources = {
 
 -- 
 2.34.1
