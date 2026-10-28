@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793229459;
-	b=dbelpotjKKhRjfhLtS1bbeYjS5QrFbRaWKm30hz+lkWpNdA+3UYmx4V5J4Au+acJq0P2
-	 kaJWBjDLk4GQseX2buN7Xfkjw2xECRRQEKCt0uBoC5uVX6Lp03ZA289c0jO8jJosv/gyz
-	 KfOGlmdGoH+UJGLN2ZfmRY27epIZk8tRARNjqAWnmDK6ILp3AEQJRjfvxBvPZ2EJyJeuO
-	 fzjH8MKcGaLC1piyn/NeDCBaMOw7siNaVitCvbRoxieljAGf1iF8oPSshm1raOHit3xmw
-	 gUieYiBYURaArE6pW15twV6fPfsVSPMqkzFnEsv945F6bIbiEA9gezwsWC53Fuaj+8g==
+	t=1793231232;
+	b=2PYZCg3mThLzezw1w8n3cKmfiXois7312sqxBrg6f75mQfDuzrQrbW/WZs7xuOcOUmc3
+	 rbvAyYsmgAxwb1liL0ds61kEzS0psOySjwAOK7dXCejsRXeZKbI9hw8qfkCSpGbJGl56c
+	 ZzliyZUGe4HuKOTQJu0idfUKx4qe7qVKIb9xhmoceGfN2sArbnVHqK/zEO/p+T21gKS1B
+	 SSOy32jI7FqP7nnvp7hFQC42b0O85ETPRx+PmLrdYsy8Rppmd4YAimx363Lpmsjqq2oTI
+	 gChxwBW+3ztxI7apDI31m2qn6BEoF4vOhCmCo2980ad7MfUvrudDgMzVPSpVvbIvFQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793229459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
-	b=j3oH29i9DVoNJrjjB16Rc+0E2HPTIVaAswlTfHq0/8Ck8wE96R+EVDw+2xapSU40NZTP
-	 iZ1DobiksvUnuYyMOovNKfaPM0WpEgwvI77KaGJdwQfTdCcIp51ljQu/pqJRTmmZHDMAH
-	 OPGteNnsQd5rZkifijMFboN6R8VUhU14eLBEZwNPt3D16TKWQ0c0vydqBJ74ER3Eg09lL
-	 gEKzdhzqD+njM+T8q4c8+yIEEuG+Vk8roYxXP00EPxblI29gaWfKfXH89+EZxfheT4Rux
-	 BAQExQ+wh1ghndOG4jZhuaUo0u25ETNJZPv938daN2gIfCvvF6H2dmZqGdvatVmBa5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793231232;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=neOivWsfnHbQR3N6AKh/3PoW3tIDMGi3k5qezfAAwY4=;
+	b=vbXkEV5Z5oBXMuPtH9KWc+F9vfTYPbVbrN5cEmremTKv0nHnm/7UM5fOrG9FrE/7JFUE
+	 ad/hpOcLIMtiGa8hw6thvz2TRO/TXIiLOQfSwYLm9b9ndsVh15iGYoACBqO1XTrnPy3g6
+	 QQ4S6jMU/Jj30PM5Wy4gVa5Q8w77jxf65ZhZ5aszGbjwECpywmB3psanHfgmuYMYLiy8v
+	 Uj51XEXBrGg6jmoheaGi51m/TnS2gMoZaCVLVsS7d2QJRAMyo2uISZcXupc8b4CenzMgk
+	 pW4XOb1uaxmdhfCTk+gJ42vG2R7sD1EKqH5oXwE9YZCBZdRyrmS7wx9X5XvRmlInZIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Er1rSmb9;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f/4cLrJ4";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7273606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 23:17:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7273606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746DF606A31A;
+	Wed, 28 Oct 2026 23:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Er1rSmb9
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a0eecf73fso297801eec.3
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:17:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793229458; x=1793834258; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
-        b=Er1rSmb9hV5RHzMk6uqsX56Ecqt80LT/shM01RfTJ4SunBHAQEeqwhupK8StYUr2yO
-         LQ3Of4b+utOkkZoVdHDOu3oF3GOqkFPSlJ8S7ieZZnHSDcqGFU1AwIfPa1KM2xWoQG0o
-         ZH2ekBkXOY7KQu6YOrV+kjLw0LsA0TnnoMmTcEujRRzgpmvJEkjc7eKbwxRLIS0izYqD
-         jK7sQCh8ZxMcKjndvDrlnRudL0Nu2p4q/hW8+tQmYV+FsfktvKRWZlAyxP4aEhtSaNm1
-         FIKJE2afAkeXe2cmpAHZGv1XYSpuuo8nAyezomDuTk4N8KpRk5/a7juGzeLTzR/+7Ydb
-         NYLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793229458; x=1793834258;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=VXy5sj4f8vnPOjseVBPgB1Ic7+Cmn98gAyTuIxfxXXw=;
-        b=XnDu/iEMUu3Sk4RYye7cb204fJXYgzK/037mC1zdS1BueRE2ASDC2IGxRejYZ8ybZt
-         kZrl4dymQbzfHC8+3VgQx6vbzU1H5FrD1Fk39EFwzOktcqy+wxpSjGy2gF97gQkXuNXb
-         ZRIVTep/LM0KB87ciMZUGgKCvKiM0UCqZiEVI27zFf5fMt8hEBiAt88FMot1NzWtm9vm
-         gpVU9ApmC8Xw0sXVT/LLvkIoZcMsAP5+l+Z5Sbz1pLAMtYEIStCDPTuufSyfwCRwnOXP
-         xbMbEs11HucsLtmNX169lj3fu4UKiBDAhi+6PmtqJ7PWdfzzeXM8+k9HNmKbs/UbIjqr
-         H9aw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6/Qgo1MeztaYDOyGI9on2B39gdmaOrWigLo/IpN0Zs4Ntr1fRICEk1wYVlzfJ1hk5xCL09pZBXP6L@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxYzpgd46sA00v26GNLPavWX8PAqiBbFBgmWDQ4rQBXhCQ0nNA
-	vntDa0pkQqL3t/NogozmXCEWxWJo8Gm3UiE6iQPGi6MyP+aQpTD5hTd+
-X-Gm-Gg: AYBFou181fB96A1DcUjDCwwtTPIrHD0x0ykLyBLUU0ZOGMivMRMGbA8T7Hjl7DQ6xhg
-	3R/b3bbdP81gZWO/RTa2cd7DlSUAjk70cu5UWWtg8A0bn7DqQQ5rhxh54pDzzU2jgR/umVeE1UI
-	f0JMDBrrz9yA3vhR2KQztcbJVf34SiJ0cn58EAt+if+qkjy0rdhhq23iJeh0OR1F33jxt3qf0ZD
-	rijNBLtll63SlVZyeXz0pHbs2rHywCMXUoh3KVgXRJXEpwTSesna9jGJsOFwTwwMTRuYFoOJ1io
-	0VnHotWgNft86oMq13D1/NTLo7R7LlqWRmGjkvlRuQCfGamKAmcv935PR+OAeum4+zYfCVQ+Rl1
-	JaLqx9czoqVD1/qFLPZFwjtJQggreiX7S3/EsoXEPIW1Pl5/B8h310zjojKmqwpiEdizGnrrHKn
-	NFFiZsYdAUGdAzMRpbzDWGyFpoou5MYbnleOprpidZv8WIy8Par4ecVbNEI1UeYn5dsrzvXOejn
-	QE2wXjPLbXV9yReNZsVDjr/q8/oRtX25MKdPJwwV/Kv6Fv5a+T7La81JuKwnX4Uhg0sAN0AoUCc
-	emlLfWh8r8lN9Can5RklJsU6nTe4xFWL4sfghc9PUxttgCGNRUDwAJPQIKMA
-X-Received: by 2002:a05:7301:1a8c:b0:369:ffc5:6767 with SMTP id 5a478bee46e88-36a1ffc100fmr7353441eec.2.1793229457569;
-        Wed, 28 Oct 2026 16:17:37 -0700 (PDT)
-Received: from [10.196.187.252] ([2409:40c2:501b:81ef:82e:fd67:dd84:8730])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23951e00sm13623767eec.20.2026.10.28.16.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 16:17:36 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Thu, 29 Oct 2026 04:47:18 +0530
-Subject: [PATCH v2] dt-bindings: remoteproc: ti,keystone-rproc: Convert to
- DT schema
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/4cLrJ4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF611F01825;
+	Wed, 28 Oct 2026 23:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793231232;
+	bh=neOivWsfnHbQR3N6AKh/3PoW3tIDMGi3k5qezfAAwY4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f/4cLrJ4TGztgvmr14VBy6t7mBV8AM+uDlLfYVyShzm7APQvQBIiI0EDLgRGe0v7z
+	 LrPP1CYrALPm5Q04g1ErXIwYEqxpncy7n/vcasP5VS7fxapXxWQMRvQ3eLtXYsxC4u
+	 pO80RH6CgwyVic6xTA3E8YyB/WqO22L05DI08uL25eIqchvragaWR3rowAwilUDAAt
+	 Xh6oVb4uczfsq1lW3toZ9+v63X4qnWgC+a2EdGz7QxrKclbDs6hRlAucgG9mlmv1zz
+	 0pRXR0bqvqejkSM04r2n2wZ9K5nHoWUM+gUptsMAuOcN5EfgGaQV+XNpzRAcoIe2zH
+	 rDwATDPNl5e/Q==
+Date: Wed, 28 Oct 2026 23:46:52 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Frank Li <Frank.Li@nxp.com>, Vinod Koul
+ <vkoul@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Tiffany Lin
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5?=
+ =?UTF-8?B?xYRza2k=?= <kwilczynski@kernel.org>, Manivannan Sadhasivam
+ <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Christian Marangi
+ <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, Aakarsh Jain
+ <aakarsh.jain@samsung.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
+ imx@lists.linux.dev, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
+Message-ID: <20261028234652.0d075035@jic23-hlaptop>
+In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+References: <20261028120216.2657397-1-robh@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,369 +96,236 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ti-keystone-rproc-v2-1-7fac1d72f4b3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6DIBBFr2Jm3WkACZKueo/GhdpBJ61gwJAa4
- 91LPUCX7+f/93dIFJkS3KodImVOHHwBdalgmDo/EvKzMCihjBTC4Mr4oi2twRPGJYYBNdW9dbW
- yxigouyWS48/pfLSFJy7tuJ0XWf7Sf7YsUaKWrnGisb3WdB/njt/XIczQHsfxBZTLaJCyAAAA
-X-Change-ID: 20261006-ti-keystone-rproc-4e3b8f328662
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793229448; l=11085;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=4k0RN6uzshq3dQzD1QtJrPYRGg2BlNEM35wW/D2mc1k=;
- b=xXzjssFEYAt6XP9Umd77HsXpLlCNVVJ3q0tl2xQj9wSY/ybtJj6Av8opdS9IhHEQ3TSlhPvpG
- 3d3tVUJm0RDB2yG9ytmEmmui0i3ZjyZ7GAQCbSCNz5uU/ot2DDK6TBe
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert TI Keystone DSP remoteproc binding from legacy text format to DT
-schema. No functional changes are introduced during conversion.
+On Wed, 28 Oct 2026 07:02:12 -0500
+"Rob Herring (Arm)" <robh@kernel.org> wrote:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- Removed unnecessary refferences.
-- Rebased to latest mainline.
-- Link to v1: https://lore.kernel.org/r/20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com
----
- .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
- .../bindings/remoteproc/ti,keystone-rproc.yaml     | 126 ++++++++++++++
- 2 files changed, 126 insertions(+), 182 deletions(-)
+> Property names within if/then schemas currently go unchecked whether
+> they have a type defined or match what's in the top-level schema. Adding
+> a check finds a number of instances of typos. The typos result in the
+> schema having no effect on constraints.
+> 
+> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
+> exposed by the name correction.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
+>  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
+>  .../bindings/display/msm/dp-controller.yaml          |  2 +-
+>  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
+>  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
+>  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+>  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-deleted file mode 100644
-index 8475521336333..0000000000000
---- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-+++ /dev/null
-@@ -1,182 +0,0 @@
--TI Keystone DSP devices
--=======================
--
--The TI Keystone 2 family of SoCs usually have one or more (upto 8) TI DSP Core
--sub-systems that are used to offload some of the processor-intensive tasks or
--algorithms, for achieving various system level goals.
--
--These processor sub-systems usually contain additional sub-modules like L1
--and/or L2 caches/SRAMs, an Interrupt Controller, an external memory controller,
--a dedicated local power/sleep controller etc. The DSP processor core in
--Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
--
--DSP Device Node:
--================
--Each DSP Core sub-system is represented as a single DT node, and should also
--have an alias with the stem 'rproc' defined. Each node has a number of required
--or optional properties that enable the OS running on the host processor (ARM
--CorePac) to perform the device management of the remote processor and to
--communicate with the remote processor.
--
--Required properties:
----------------------
--The following are the mandatory properties:
--
--- compatible:		Should be one of the following,
--			    "ti,k2hk-dsp" for DSPs on Keystone 2 66AK2H/K SoCs
--			    "ti,k2l-dsp" for DSPs on Keystone 2 66AK2L SoCs
--			    "ti,k2e-dsp" for DSPs on Keystone 2 66AK2E SoCs
--			    "ti,k2g-dsp" for DSPs on Keystone 2 66AK2G SoCs
--
--- reg:			Should contain an entry for each value in 'reg-names'.
--			Each entry should have the memory region's start address
--			and the size of the region, the representation matching
--			the parent node's '#address-cells' and '#size-cells' values.
--
--- reg-names:		Should contain strings with the following names, each
--			representing a specific internal memory region, and
--			should be defined in this order,
--			     "l2sram", "l1pram", "l1dram"
--
--- ti,syscon-dev:	Should be a pair of the phandle to the Keystone Device
--			State Control node, and the register offset of the DSP
--			boot address register within that node's address space.
--
--- resets:		Should contain the phandle to the reset controller node
--			managing the resets for this device, and a reset
--			specifier. Please refer to either of the following reset
--			bindings for the reset argument specifier as per SoC,
--			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
--			    for 66AK2HK/66AK2L/66AK2E SoCs or,
--			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
--			    for 66AK2G SoCs
--
--- interrupts: 		Should contain an entry for each value in 'interrupt-names'.
--			Each entry should have the interrupt source number used by
--			the remote processor to the host processor. The values should
--			follow the interrupt-specifier format as dictated by the
--			'interrupt-parent' node. The purpose of each is as per the
--			description in the 'interrupt-names' property.
--
--- interrupt-names:	Should contain strings with the following names, each
--			representing a specific interrupt,
--			    "vring" - interrupt for virtio based IPC
--			    "exception" - interrupt for exception notification
--
--- kick-gpios: 		Should specify the gpio device needed for the virtio IPC
--			stack. This will be used to interrupt the remote processor.
--			The gpio device to be used is as per the bindings in,
--			Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
--
--SoC-specific Required properties:
-----------------------------------
--The following are mandatory properties for Keystone 2 66AK2HK, 66AK2L and 66AK2E
--SoCs only:
--
--- clocks: 		Should contain the device's input clock, and should be
--			defined as per the bindings in,
--			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
--
--The following are mandatory properties for Keystone 2 66AK2G SoCs only:
--
--- power-domains:	Should contain a phandle to a PM domain provider node
--			and an args specifier containing the DSP device id
--			value. This property is as per the binding,
--			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
--
--Optional properties:
----------------------
--
--- memory-region:	phandle to the reserved memory node to be associated
--			with the remoteproc device. The reserved memory node
--			can be a CMA memory node, and should be defined as
--			per the bindings in
--			Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
--
--
--Examples:
-----------
--
--1.
--	/* 66AK2H/K DSP aliases */
--	aliases {
--		rproc0 = &dsp0;
--		rproc1 = &dsp1;
--		rproc2 = &dsp2;
--		rproc3 = &dsp3;
--		rproc4 = &dsp4;
--		rproc5 = &dsp5;
--		rproc6 = &dsp6;
--		rproc7 = &dsp7;
--	};
--
--	/* 66AK2H/K DSP memory node */
--	reserved-memory {
--		#address-cells = <2>;
--		#size-cells = <2>;
--		ranges;
--
--		dsp_common_memory: dsp-common-memory@81f800000 {
--			compatible = "shared-dma-pool";
--			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
--			reusable;
--		};
--	};
--
--	/* 66AK2H/K DSP node */
--	soc {
--		dsp0: dsp@10800000 {
--			compatible = "ti,k2hk-dsp";
--			reg = <0x10800000 0x00100000>,
--			      <0x10e00000 0x00008000>,
--			      <0x10f00000 0x00008000>;
--			reg-names = "l2sram", "l1pram", "l1dram";
--			clocks = <&clkgem0>;
--			ti,syscon-dev = <&devctrl 0x40>;
--			resets = <&pscrst 0>;
--			interrupt-parent = <&kirq0>;
--			interrupts = <0 8>;
--			interrupt-names = "vring", "exception";
--			kick-gpios = <&dspgpio0 27 0>;
--			memory-region = <&dsp_common_memory>;
--		};
--
--	};
--
--2.
--	/* 66AK2G DSP alias */
--	aliases {
--		rproc0 = &dsp0;
--	};
--
--	/* 66AK2G DSP memory node */
--	reserved-memory {
--		#address-cells = <2>;
--		#size-cells = <2>;
--		ranges;
--
--		dsp_common_memory: dsp-common-memory@81f800000 {
--			compatible = "shared-dma-pool";
--			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
--			reusable;
--		};
--	};
--
--	/* 66AK2G DSP node */
--	soc {
--		dsp0: dsp@10800000 {
--			compatible = "ti,k2g-dsp";
--			reg = <0x10800000 0x00100000>,
--			      <0x10e00000 0x00008000>,
--			      <0x10f00000 0x00008000>;
--			reg-names = "l2sram", "l1pram", "l1dram";
--			power-domains = <&k2g_pds 0x0046>;
--			ti,syscon-dev = <&devctrl 0x40>;
--			resets = <&k2g_reset 0x0046 0x1>;
--			interrupt-parent = <&kirq0>;
--			interrupts = <0 8>;
--			interrupt-names = "vring", "exception";
--			kick-gpios = <&dspgpio0 27 0>;
--			memory-region = <&dsp_common_memory>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
-new file mode 100644
-index 0000000000000..79510abae8ea7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
-@@ -0,0 +1,126 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI Keystone DSP devices
-+
-+maintainers:
-+  - Suman Anna <s-anna@ti.com>
-+
-+description: >
-+  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
-+  Core sub-systems that are used to offload some of the processor-intensive
-+  tasks or algorithms, for achieving various system level goals.
-+
-+  These processor sub-systems usually contain additional sub-modules like L1
-+  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
-+  controller, a dedicated local power/sleep controller etc. The DSP processor
-+  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
-+
-+  Each DSP Core sub-system is represented as a single DT node, and should also
-+  have an alias with the stem 'rproc' defined. Each node has a number of
-+  required or optional properties that enable the OS running on the host
-+  processor (ARM CorePac) to perform the device management of the remote
-+  processor and to communicate with the remote processor.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,k2hk-dsp
-+      - ti,k2l-dsp
-+      - ti,k2e-dsp
-+      - ti,k2g-dsp
-+
-+  reg:
-+    minItems: 3
-+    maxItems: 3
-+
-+  reg-names:
-+    items:
-+      - const: l2sram
-+      - const: l1pram
-+      - const: l1dram
-+
-+  interrupts:
-+    minItems: 2
-+    maxItems: 2
-+
-+  interrupt-names:
-+    items:
-+      - const: vring
-+      - const: exception
-+
-+  ti,syscon-dev:
-+    description: Phandle and offset to syscon device
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: Phandle to Keystone Device State Control node
-+          - description: offset of the DSP boot address register
-+
-+  resets:
-+    maxItems: 1
-+
-+  kick-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO used by the virtio IPC stack to interrupt the remote processor.
-+
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      Reserved memory node can be CMA memory node.
-+
-+  clocks:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - ti,syscon-dev
-+  - resets
-+  - kick-gpios
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,k2g-dsp
-+    then:
-+      properties:
-+        clocks: false
-+      required:
-+        - power-domains
-+    else:
-+      properties:
-+        power-domains: false
-+      required:
-+        - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dsp@10800000 {
-+      compatible = "ti,k2g-dsp";
-+      reg = <0x10800000 0x00100000>,
-+            <0x10e00000 0x00008000>,
-+            <0x10f00000 0x00008000>;
-+      reg-names = "l2sram", "l1pram", "l1dram";
-+      power-domains = <&k2g_pds 0x0046>;
-+      ti,syscon-dev = <&devctrl 0x844>;
-+      resets = <&k2g_reset 0x0046 0x1>;
-+      interrupts = <0>, <8>;
-+      interrupt-names = "vring", "exception";
-+      kick-gpios = <&dspgpio0 27 0>;
-+      memory-region = <&dsp_common_memory>;
-+    };
+For IIO
 
----
-base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-change-id: 20261006-ti-keystone-rproc-4e3b8f328662
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Best regards,
--- 
-Bhargav
+>  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
+>  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
+>  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
+>  10 files changed, 19 insertions(+), 23 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> index 88b7672123a0..ed347096df46 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> @@ -62,7 +62,7 @@ then:
+>      - '#clock-cells'
+>  else:
+>    properties:
+> -    clock: false
+> +    clocks: false
+>      clock-names: false
+>      '#clock-cells': false
+>  
+> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> index c1cefd547391..fd4d598f6ff8 100644
+> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> @@ -145,7 +145,7 @@ allOf:
+>              - description: CEC stuck at low interrupt
+>              - description: Hotplug connected interrupt
+>              - description: Hotplug removed interrupt
+> -        interrupts-names:
+> +        interrupt-names:
+>            items:
+>              - const: cec-tx
+>              - const: cec-rx
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 094a6383bb77..f72d1b354007 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -304,7 +304,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>            maxItems: 6
+> -        clocks-names:
+> +        clock-names:
+>            minItems: 6
+>            maxItems: 6
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> index dfec6c3480f3..02d27ccad024 100644
+> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> @@ -113,7 +113,7 @@ allOf:
+>              - const: core
+>              - const: master_iface
+>              - const: slave_iface
+> -        core-vcc-supplies: false
+> +        core-vcc-supply: false
+>  
+>    - if:
+>        properties:
+> @@ -136,7 +136,7 @@ allOf:
+>              - const: core
+>              - const: alt_iface
+>              - const: extp
+> -        hdmi-mux-supplies: false
+> +        hdmi-mux-supply: false
+>  
+>    - if:
+>        properties:
+> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> index f609038e35ae..0260d177c7d0 100644
+> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> @@ -172,7 +172,7 @@ allOf:
+>              const: fsl,imx7ulp-edma
+>      then:
+>        properties:
+> -        clock:
+> +        clocks:
+>            minItems: 2
+>            maxItems: 2
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> index 69852444df23..07c8b233c6bd 100644
+> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> @@ -80,7 +80,7 @@ allOf:
+>          - resets
+>      else:
+>        properties:
+> -        "#interrupts-cells": false
+> +        "#interrupt-cells": false
+>          interrupt-controller: false
+>          resets: false
+>  
+> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> index 70ab4e140e71..535213ba0c5e 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> @@ -92,7 +92,7 @@ allOf:
+>      else:
+>        properties:
+>          nvmem-cells: false
+> -        mvmem-cel-names: false
+> +        nvmem-cell-names: false
+>          clocks:
+>            minItems: 4
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> index 4505e66876a2..52f471a070d5 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> @@ -110,19 +110,15 @@ allOf:
+>  
+>      then:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_lt_sel
+>      else:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_sel
+> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> index b46cc780703c..4488d5ca9b9c 100644
+> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> @@ -174,7 +174,7 @@ allOf:
+>              - const: mfc
+>          iommus:
+>            maxItems: 2
+> -        iommus-names: false
+> +        iommu-names: false
+>  
+>  examples:
+>    - |
+> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> index c009a7a52bc6..7c40361f95ec 100644
+> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> @@ -127,7 +127,7 @@ allOf:
+>          phy-names:
+>            const: pcie-phy1
+>  
+> -        power-domain: false
+> +        power-domains: false
+>  
+>        required:
+>          - resets
+> @@ -150,7 +150,7 @@ allOf:
+>            minItems: 2
+>            maxItems: 2
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -171,7 +171,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -193,7 +193,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -215,7 +215,7 @@ allOf:
+>          clock-names:
+>            maxItems: 1
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -223,7 +223,7 @@ allOf:
+>  
+>          phy-names: false
+>  
+> -        power-domain: false
+> +        power-domains: false
+>  
+>          mediatek,pbus-csr: false
+>  
 
