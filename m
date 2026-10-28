@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204276;
-	b=fxD7pXfav+pqDnsLWFVqxJ7pUNZ6GcLq5hu/SzlfU+Od6Ubx0HmODI4XEUQbFOMjPXit
-	 vCPeLnax+F+7umq+Pu1bKjMeTmVjSCbbRDcqXrHKm+Y5R/o+yvAT/Hs1d1dXOLdnTurgT
-	 2MST9DTRSvXFgusvIs3XVUDoyYWUxns31lucKBq66EA2B8TRdD87NfuiQAqxpWSqofRZx
-	 CQiTKYNbwa+X4RIstYVJiU1ci20gRSeW4Vf/xpPxqM6PeDuljMxD97+NlwcMPzJuSjSJ2
-	 M17TaAUvpcJlOVnKF7vWqUkknpGCCMcCm+PS9dcj80vitDwS4V/KLcRh+Vi5+TFqQqw==
+	t=1793204357;
+	b=3bbc37vJpSuvQZRFF1JY34VUm5Hc8+ivbK3MGGkJLFiwdRQ0uT8LTsyOvS0ibDsa19Bg
+	 OlXqt3Vvh93tTl1HJc21AsPHwfvpA837FqRjjR8YwWKskiZny091tGVjWRK2R2TtxchBe
+	 4O67tTOJhlOVqp9Vo9XLsYx0s3Y5lNf/9MugZd1JIraSc6hWuVFrUYM/k65wRGCYqn5se
+	 D5vHvJLXHcdtwp4+6GSkwBZLN0wfjgtrz3gxr/Bota6/Ohi1PvEQ0NWEvNpKyPY8HTOe5
+	 IWlHpd+m0NWkp/B/wN8Y0NwOmUaO8/i9SFMVvvdmGHwIlDF8PRKaFFP6lyBvAHGoMFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204276;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793204357;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=2mGkvX8vQ36N89gfVD8zSD8X6Ou7+v1TIto3wuhSmHo=;
-	b=oFk0xLzq/fAoGAp1te+Ia61u5ZUypcl9DF+Cg21hWY5XeAO4kbcprtcpzgft2lRgHDV8
-	 SB1ZhFfOq/r/u2Jt+CUMCfy4hStZrxy6nGYPIbz3a7qCGGx+emb+uDh6ajbyhjNjBVkoN
-	 JHjjTHpeuP8tQDeNX+ZZFr2VHBqOVfB2UNi8uEmnIyuXmPuGudjd7VZ2n17YhB9AJ+pmo
-	 NWtikQCSUCSQed7gJBcOTA/yrbLt2PiGibTjHcBjxWzFME/8XYCKkTVvXav8CLGncaI2F
-	 lth0/dq9UAfpYUxe7BmI7qOwU10AhiNib9A7MCWw69QbkBaVOtFNU4IiEc9fG7QUriQ==
+	bh=nYbFEgyC/xqC3hKEfXtpRoaY23g6uKG+OjaK4ev9ZiQ=;
+	b=xGUsqdy3ufn8eYsSLDJuG9eGPOsYo1fjc8BIyiZhxg5Y/ertwWKjhR7WFbpLyaLpyPwu
+	 a5QlLMaLFBQIvAPEjq8lcYVwRzVyv2u03u7Dkh44ZxoLLIV9Mfzdeo2/nrkDMTIFtfCCr
+	 GAUgndsZJtT8tjOFF2pnjcnONR4NRyCVL87wtkJzRu76uT/0y6AuE277wc5aS2fQiIS3u
+	 ZRfDU9KD9vw1NPTHtOcjw0AA87OnM9AVBi8P2JOxE6whcjaL1FPoL+FFXBtp9JHmG0dRm
+	 pllxj3lpzmXYxGLoXUDjBmnbrKXZU6L6lqEoji250q5tM3FCJcJBXxzAqAWscUw6jBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiLz1bnq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL0g+dRL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9532606A31C
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:17:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C884E606A321
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:19:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiLz1bnq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CE41F01825;
-	Wed, 28 Oct 2026 16:17:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GL0g+dRL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DC41F01825;
+	Wed, 28 Oct 2026 16:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793204275;
-	bh=2mGkvX8vQ36N89gfVD8zSD8X6Ou7+v1TIto3wuhSmHo=;
+	s=k20260515; t=1793204356;
+	bh=nYbFEgyC/xqC3hKEfXtpRoaY23g6uKG+OjaK4ev9ZiQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oiLz1bnqZ4IeN2Wg5E8RBqiEpzs+iO6LiTCjKax4QDvgT31ZDyRHB/IyWt6d6pZ6u
-	 8FxXYBQJjjVlt5lgfbU7+H3BJuopoyovwa6yrAE5LeLcKXLNtnZEVNC2Mmc+weq12v
-	 mp5Fnxpv6o1mdeeAYFbMJCQrHv5eT0B+g9yI/a+EiOS5nWOva6xbvLUkEgITQuLcF0
-	 1EWw6Y0eLhsCpSOikrvWbdN71IlTeSbXPmZNC/QwytiboKRG4BtxRoFTz+D80WBsrI
-	 mIM1wfhOl49yvTvPFX16IR+AfvHUzzr/ZGp+ewYPxPMW1ZpdTMOzYoKOljqGF439zO
-	 13O2150ImBsuw==
-Message-ID: <sashiko-outbox-188151@kernel.org>
+	b=GL0g+dRLtcfXqNP2E0U0soxurK8ljfptbgtvtdt9icp14A/zeeLEok3KGKjnW6Lwc
+	 Fd7qmh5WqQw9Y2eONMOhNRRcYbJeTxPX2bdEj84WZ+aoDUSxiQVkCgtEYi0wQSUJP7
+	 rJyTgSi8cenbFYj6P+AhLzowK1PTcbLedp5BJ9qp4P7t/EsW1ZWWQwaf8DFmUNMFnD
+	 dM29aO4XI8zJk9yNTeKkvtCt1+VZp8+9G+mIxUQGNh+ic606NLXjKdEH3PMP61O/6s
+	 PzxBsxIiEFlBZ8+0d+yEI+jhm6D7tcCoJ979DvWVD99o8M/eptvWpwXQHlg/6z/o6Y
+	 GCLs4roiAMrAg==
+Message-ID: <sashiko-outbox-188154@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: interrupt-controller: add Mobileye
- EyeQ5 PCIe MSI controller
+Subject: Re: [PATCH v2 6/9] ARM: dts: omap: dm816x: Update USB node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregory CLEMENT" <gregory.clement@bootlin.com>
+To: "Ettore Chimenti" <ettore.chimenti@linaro.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
- <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
+In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-6-4544429251e2@linaro.org>
+References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+ <20261028-patch-ektor5-dm8168-dts-v2-6-4544429251e2@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 16:17:54 +0000
+Date: Wed, 28 Oct 2026 16:19:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,78 +62,93 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: interrupt-controller: invalid gic node in eyeq5-msi ex=
-ample
+- [Low] ARM: dts: omap: dm816x: usb0 and usb1 reg-names order violates DT b=
+inding
 --
 
-commit 07c2faf713f271c288290325080b191a291097be
-Author: Gregory CLEMENT <gregory.clement@bootlin.com>
+commit 35b005745f908eb885e6f38cec92f9ed09548b10
+Author: Andrew Goodbody <andrew.goodbody@linaro.org>
 
-dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
+ARM: dts: omap: dm816x: Update USB node
 
-This commit adds the Device Tree binding schema for the Mobileye EyeQ5 PCIe
-MSI controller.
+This commit updates the dm816x USB device tree node to use the ti,sysc
+interconnect target module wrapper and relative child register offsets so
+that USB works with DMA enabled.
 
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobil=
-eye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controller=
-/mobileye,eyeq5-msi.yaml
-> new file mode 100644
-> index 0000000000000..919af55fc8a60
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eye=
-q5-msi.yaml
-> @@ -0,0 +1,120 @@
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    / {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        gic: interrupt-controller {
-> +            compatible =3D "mti,cpu-interrupt-controller";
-> +            interrupt-controller;
-> +            #interrupt-cells =3D <3>;
-> +        };
+> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti=
+/omap/dm816x.dtsi
+> index e3d49651b44ee..b839ee29e9eb5 100644
+> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> @@ -574,19 +574,28 @@ uart3: serial@48024000 {
+>  		};
+> =20
+>  		/* NOTE: USB needs a transceiver driver for phys to work */
+> -		usb: usb_otg_hs@47401000 {
+> -			compatible =3D "ti,am33xx-usb";
+> -			reg =3D <0x47401000 0x400000>;
+> -			ranges;
+> +		usb: target-module@47400000 {
+> +			compatible =3D "ti,sysc-omap4", "ti,sysc";
+> +			ti,hwmods =3D "usb_otg_hs";
+> +			reg =3D <0x47400000 0x4>,
+> +			      <0x47400010 0x4>;
+> +			reg-names =3D "rev", "sysc";
+> +			ti,sysc-mask =3D <SYSC_OMAP4_SOFTRESET>;
+> +			ti,sysc-midle =3D <SYSC_IDLE_FORCE>,
+> +					<SYSC_IDLE_SMART>;
+> +			ti,sysc-sidle =3D <SYSC_IDLE_SMART>;
+> +			ti,sysc-delay-us =3D <2>;
+> +			clocks =3D <&default_clkctrl DM816_USB_OTG_HS_CLKCTRL 0>;
+> +			clock-names =3D "fck";
+>  			#address-cells =3D <1>;
+>  			#size-cells =3D <1>;
+> -			ti,hwmods =3D "usb_otg_hs";
+> +			ranges =3D <0x0 0x47400000 0x8000>;
+> =20
+> -			usb0: usb@47401000 {
+> +			usb0: usb@1000 {
+>  				compatible =3D "ti,musb-dm816";
+> -				reg =3D <0x47401400 0x400
+> -				       0x47401000 0x200>;
+> -				reg-names =3D "mc", "control";
+> +				reg =3D <0x1000 0x200>,
+> +				      <0x1400 0x400>;
+> +				reg-names =3D "control", "mc";
+>  				interrupts =3D <18>;
+>  				interrupt-names =3D "mc";
+>  				dr_mode =3D "host";
+> @@ -622,11 +631,11 @@ &cppi41dma 11 1 &cppi41dma 12 1
+>  					"tx14", "tx15";
+>  			};
+> =20
+> -			usb1: usb@47401800 {
+> +			usb1: usb@1800 {
+>  				compatible =3D "ti,musb-dm816";
+> -				reg =3D <0x47401c00 0x400
+> -				       0x47401800 0x200>;
+> -				reg-names =3D "mc", "control";
+> +				reg =3D <0x1800 0x200>,
+> +				      <0x1c00 0x400>;
+> +				reg-names =3D "control", "mc";
 
 [Severity: Low]
-Does this gic node in examples cause dt_binding_check to fail against
-Documentation/devicetree/bindings/interrupt-controller/mti,cpu-interrupt-co=
-ntroller.yaml?
+Should usb0 and usb1 keep their reg and reg-names entries ordered as "mc",
+"control"?
 
-In mti,cpu-interrupt-controller.yaml, nodes matching mti,cpu-interrupt-cont=
-roller
-are required to have #address-cells set to 0 and #interrupt-cells set to 1:
+In Documentation/devicetree/bindings/usb/ti,musb-am33xx.yaml, which covers
+compatible =3D "ti,musb-dm816", reg-names is defined with a fixed order:
 
-  properties:
-    compatible:
-      const: mti,cpu-interrupt-controller
+  reg-names:
+    items:
+      - const: mc
+      - const: control
 
-    '#interrupt-cells':
-      const: 1
-
-    '#address-cells':
-      const: 0
-
-    interrupt-controller: true
-
-  additionalProperties: false
-
-  required:
-    - compatible
-    - '#interrupt-cells'
-    - '#address-cells'
-    - interrupt-controller
-
-Since msi0 uses a 3-cell MIPS GIC interrupt specifier
-(<GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>), should the dummy gic provider node and
-root wrapper be dropped from the example, or updated to match mti,gic.yaml?
+Swapping the order to "control", "mc" in usb0 (usb@1000) and usb1
+(usb@1800) causes dtbs_check schema validation to fail on dm816x device
+trees (such as dm8168-evm.dtb), and differs from am33xx.dtsi and
+dm814x.dtsi.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-eyeq5_msi-=
-v1-0-c464752fb55f@bootlin.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-patch-ekto=
+r5-dm8168-dts-v2-0-4544429251e2@linaro.org?part=3D6
