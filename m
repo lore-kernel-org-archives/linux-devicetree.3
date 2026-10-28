@@ -1,98 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171766;
-	b=gEXGyn5tauAEiyqeGyVZll2c6FIif79MFSCKwFQKgIh1ELb7LnZ12MaLjcP8egzy2CIY
-	 EyQfTau93LyQM//diOM5JFemPOC1Kn/uF6A3Qm/q16+W3kwONKihULr52gHhfSE+6QAlZ
-	 gmdDkPkN/IPLtpIg+PAWGR3gqgCm6jmK/4/9bS/JQJcX5qvYzQKU1KO+yYR8w7jAaLc80
-	 cg8qqRuDYNQQXudGKUXcmmX75L3uz/WTqOCy/z3rg4DxjlDF8XEvPRfoBVGiXfrviywSF
-	 OYcqFXd+iNY5cNHKunLXxKK3LBWOL8dbIIEYUVtI4FwNH19ycft6mwwScBM75Vv9F3Q==
+	t=1793171861;
+	b=TQSHGq/DDJ+bJrYWkMvIbsrACH9GEo7siXEHIr1Tz9kVwFLSoE+iEOWB8qre7jIKNth1
+	 /C4WnHDNtiPYS8OSzZ6lzm4div6efFXkDkhrWkyOth0AjQO/17H91ROncENo+yTC1DQGf
+	 +Knb2GyLsSxhNp6kW9IGexe+1eK6UrwyCYljtk4IP1a5SB/KxHgX6kfauiOvCBfbA/A7t
+	 LD2oirdy6Pq7089N21Qia3sbDIvqzjzGqYXWUu+3facTDoQNJ9mkdp/sOH2DsonkbXruX
+	 x++6Zc3qwTwk6dOsD7tcmaVuZ4KcOUcKUMbJVrK6aydusU11PXbob72RucmD7sGyT6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171861;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
-	b=tDBSTVb4DZ8i9oDq4IuP2HkRpvVPdHZF6m+YhsMCwjZfH9SlSUTDJyhg9MD8MA7bUEXS
-	 K9dcGfO0OEBesgJ6YCjaR47kIva80kOnEuv/QZaQTi69QZbkt6q/0dN7FIk6lIOqV+Ztq
-	 4EwSFSUv/mHXm5Zcf9X0qLq/5v59KXWUpLAYSYvvTH1NQrpAO+Ui7WjCwcSD9gCVWtYSx
-	 gssEHTpS4IT6DZMg+4/lPVomS7IS+iDCFciXfmGBajodARNeDSq7NH8N1geiPf/rAIs2k
-	 bPgrfiu/eBdL9UfKXLvPPhRPb9YbrM6usWGPn5cuzefjx7olPsVkzFsK3fb1gBBnVyA==
+	bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
+	b=bpk86gy1BQ4RnrQxFVu4m4pnSgNg8ainq6AvcdGezS3p1pjuFsrPVf7bZ72Vb3ByrU5R
+	 NcuMXqCK9GOpuzUb+Bvxii/6K2eRX1B9ziX1YdZULQJ8ZkXSasPYCms8I1vsF6HXnSLPZ
+	 sewzXfZI9gFM/YJwxv7qp5NPfS/ip3uF1j6S1zYYGkOLv3Tm9ayxANa75vKfbpIQ/nxnP
+	 /7oedHrN/zL7wgB3lzqsGHl5hwzSAU0VzJynmSURSGfLnvmDq7j3VDpUr5so2U1RALFvU
+	 Dg+JaK9vZSghghkFY/csrqKQvq5hxhHid6TTkEyzsIGjXzN/7rW3myk7FMCuF9YfPFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bj1RDHAt;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mXYTeY1D;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EC5606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74EC5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057E4606A323
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:17:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057E4606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bj1RDHAt
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so4612995e9.2
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 00:16:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mXYTeY1D
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso3768005e9.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 00:17:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793171764; x=1793776564; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793171859; x=1793776659; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
-        b=bj1RDHAtB7vjolh/24QUvBkjTKpiQ4fB+9unIykEiiFy4aRwpzNeawm3XLokJFOah2
-         L7uL3NcV9qrvoRUqBUstYTl/vbX7YesKx4ZUfFicl7U0ZsfVEuiRMkTUPaMCfpZXAnxc
-         /JjgXahGqqSkk9nnUASL9ilmPxeG/bwigyi1WtMUZTIUPREvuPQt1BM5hJSRONfAHWEf
-         afYWiwnrkeiWB613fQ2NABYwf+OZPqsBHno58MpDGrmclIEV2sDw70ph5TLcdta7Hequ
-         EyLnEWnEbaAVFzWmaI/hvzq6EOv2s3YJ3knhw/Y/8s2NJDbalyD+DZeCRZSLIiJqsPYN
-         yC/g==
+        bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
+        b=mXYTeY1DFU0B3UNUDpGvH1++9XqRCHBN2c55fDs3gaMOQO47WsY0IeKIoXEOK7phre
+         qDRnMs8ytOMr0qtfMOSb8TiEdkTuTi3zrvIo29YjRcHCIyNVRu5jvmrnw+c/7+ZTnZdu
+         g+m+dlrewe4oGQ7cM44EPt9kdHQxTNGMX2vBj7nmA41j8BZlObfZrV/xzfLKEfzFF9JV
+         zX00cy7U2P/7MMHvf57mTP9FPWSpdqrAGPOP7VFbEtS+I5HsiFc5gBOTKp40co7SyViU
+         LmvhwSbNkcVsBfy3XytO1tE7SOLtX0a18awiJgg9Nhufe0Sw0QKxI65RIMv39zTiKOBc
+         rFDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793171764; x=1793776564;
+        d=1e100.net; s=20260707; t=1793171859; x=1793776659;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
-        b=CqR6/jL+7mLMmAXqpEOSHzLvAuWYdEfjPeyr8HPAds4OzRM76x/Lvv3xolxQfbbYlp
-         n0lQT1dfG9vz33Zw5sPb0MmhUbweM+QBaMx6k1aPuAyEB/3IG6G4rwmjR1wB5tg+1IZD
-         Tyj8KjpGO/Scd/giDf51DvXwNeT9wS8t5SWB68GfoWZcTW4QLTdPQ+9BGuv70uDSJvbe
-         AX55bQRNu/9CuFosTDuLVJjPyab4YuDMKmAJs6pAdKx4YXX4aeWtlV1TzvKt46G/2yv6
-         Z+pQHsVfFjMcVCa4xDTwyD7jIIU856ietEyvXYLrqizdbA7ZBYSdcHG9/mP/cRBlD0Nn
-         eX2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxlrPldFSioxZDU4q48ERFgQbFwZFYk2IHu+zC+u7kzAhl9AlpC5tt1q6AoUT8bC0nXXE6XjDwIW4e3@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPF38HqjajJbkML35MtGttD+l1y1hfvzPT7SzPHjEQzO5X0635
-	TncTj5Tkth997tJFtorxGTTJWNkBOK8xaOmyK9g5i88joiM8l0bdS9ppAPgBv5LF+bM=
-X-Gm-Gg: AYBFou2h9mQH9XvhMRO3ajpPEsT9jKjFFTBzAZ2h5DVMWjVxAQpPSg5CX1Sik0ru3PJ
-	Sq7gqERtEeeicY5nCdtdaoiuLldUaLZHVqlYxt5KL0ngQmCXStF5QaWsrX1Tb7L08vhy6OPg50e
-	lwg7/LSs+R2YfQtSIRTzZWK47AbMzfW9ldUJDZ2x+TPqJe1rxPI099hHn5C8BTVKVtMeuznWISS
-	N+15Igo+dGHjiv5B+OPPhKy7Hwdy6ge4ZMTV815m6b3tyckXCJQdJWUkNfNNz2BK5w0YyHV5MFl
-	g44pV95QPB6XExXyJoiB/Z7iJYex2jVxhrxV507v+q+kkRGhjTFN14HqUM+LwZca8l11iFzhiiy
-	8e9s89sl0MWnXvdDcsTUAPXVSABehOZwG5/nHd1aO5F4oZSEmU1ofd9Jo5UGWc9B055FT8RQ8La
-	H4ThvaJgqip/7PqZ6yebZTwk/9Y/DfuSJeCqf2xT5Oz3PqLTcMsPG6DQHKquK10Ex8P6gH3Aj50
-	5RBPtKh4ewMvjQGKvCjHXP+2MdTYcv8O+b1DRFlyLTMLJObUyLrr0qtjk0SfEJgyK6EcOidz8zp
-	nJD0gOWJhdTIRD4cB6C1sw5AdI6G6+jLgb1YCpOj0ATZvvUHun1XAoas0ilR6JfNWMuiDP6GqFq
-	k+CqQj1LNYIeJ7AM=
-X-Received: by 2002:a05:600c:6098:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4a9640f2328mr26189545e9.1.1793171763595;
-        Wed, 28 Oct 2026 00:16:03 -0700 (PDT)
+        bh=X3qKYmW+KpgKThN2slX/odFU810T68LPK+2Pye7ps2w=;
+        b=ttWxKuS7D1svuNvmBGp/8SRZN27Hi9TLatVuS1aM+R1IRnn8mxwsMWAAis4tsCN2qg
+         UItNL89waaFvXcaios3k3Rx3wRzK+5HtICgAjvcCPA4qpM8WL/4D1K5+plcYUfEJ1Le5
+         Lf9L4VPrtgltRmhRlYsgiJSS42FF7UMyEpAwTAPg/3bw9lsJH/AMSbPMLXCkbcnbrn7G
+         gRVOcssxwlgLPRHx/udWHnRzXu8XyjTSCTgP87CSnzKVkV+lUQ0E139fI6l5P1A5txO+
+         6QV2aPF7H9wKkN0c9FiLmyM1khqhBgO8Gy5pg2BaJachvxttzSCJpiaGOTZBAOkStW3s
+         nhCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMhzt/1NU1WUoufMB2ZFH/EIpzZHhJhK5weUGv4hf+NSe1ccq3+tsDz8V6ZIrm46CXsFuXU1VJ5ON9@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrFCcI5hyM/y1uB11Cl5HPfqjvV6ZpDE4gKKIWVhVSHT3OHCJc
+	zRPdZ+7bU8tPjWJxsQ6+etaPy4N/PdWtZhDwmC7GodwEJ4FdtJSkZdrXiEruBwy38lI=
+X-Gm-Gg: AYBFou1fZLKNSYD3BdCM7uWu3cfMoe36WvD3Y5NHQul2MFDlUfcegrbD+rHI9QNbjYI
+	nQONwaUhYTwQvjAUb3xHfc9/k6noFQiLQjzWuhcfBIDi4p5B3ws2XcWbNkt0hWbi0hJIxRUnhRn
+	MzsDYAOgUjbiX+YSeWKcJa2WtJAbbGzhjVDiv7P+17hbpKC/bDrfvNQFxu6uVnEZ/Ym5EzAP5o0
+	aK2JY5FTS7N12/NxgjM6BHU8mdE/LIbpV0S154/2B2ov26+1L6MlUcySqpJHDjYPuHMhDj0W1dB
+	W/KVRT/GtHTx7rkxWh9+FgYUlMzvhkMt9bgeJ6/Tt3vwTBkY7+2Y8bBq3WxYIXnvChtyB4HpB8i
+	/hDyA25+0vp+nVJYyaFrzpiEUYHhcosP4KzwLsPnY+wQPj2emjPPfCQcfb8fuder0g97aYMD04j
+	r8CPR6eIWwIVx4HLQahJwepjTYQ1fbZTdYiUwlBT1AiZHNyjevqRQJ0PU1N0zdvsZ+quWlYTelC
+	rtr6M5EUHq2o1ZWH1iAT4ItwyaLfInoe/Xdo5UFXPFCdBrsRmc7L5DeFtlvz5vyoG85ALyJD72w
+	7EcB+9imLWuwOW3utFh3omki6/KfGMa5Q2iOqnmpS0OQQelLXpkwyFSLortnZK8dMx/H/8G1GTG
+	SVi039jPzZcRP/OM=
+X-Received: by 2002:a05:600c:198e:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4a967ba8856mr25106675e9.33.1793171859280;
+        Wed, 28 Oct 2026 00:17:39 -0700 (PDT)
 Received: from localhost (p200300f65f19a904c16506b94501b867.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c165:6b9:4501:b867])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a930a63eb3sm26054795e9.1.2026.10.28.00.16.02
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a97bf5d7cdsm20719315e9.3.2026.10.28.00.17.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:16:02 -0700 (PDT)
-Date: Wed, 28 Oct 2026 08:16:01 +0100
+        Wed, 28 Oct 2026 00:17:38 -0700 (PDT)
+Date: Wed, 28 Oct 2026 08:17:37 +0100
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: gaohan@iscas.ac.cn
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Message-ID: <auGg1AwlHMTKYAL8@monoceros>
-References: <20261023204209.48556-1-olivier@mgcrea.io>
- <20261023204209.48556-2-olivier@mgcrea.io>
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, Jassi Brar <jassisinghbrar@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, 
+	Inochi Amaoto <inochiama@gmail.com>, Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 07/18] pinctrl: zhihe: add A210 support
+Message-ID: <auGhPHjanNTkkzG-@monoceros>
+References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+ <20261027-a210-scmi-v1-7-74d58ce85bd8@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,45 +115,44 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7kzx4bd5q3rwseko"
+	protocol="application/pgp-signature"; boundary="bf4vux6swhzzilrx"
 Content-Disposition: inline
-In-Reply-To: <20261023204209.48556-2-olivier@mgcrea.io>
+In-Reply-To: <20261027-a210-scmi-v1-7-74d58ce85bd8@iscas.ac.cn>
 
 
---7kzx4bd5q3rwseko
+--bf4vux6swhzzilrx
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Subject: Re: [PATCH RFC 07/18] pinctrl: zhihe: add A210 support
 MIME-Version: 1.0
 
 Hello,
 
-On Fri, Oct 23, 2026 at 10:42:09PM +0200, Olivier Louvignes wrote:
+On Tue, Oct 27, 2026 at 11:36:58PM +0800, Han Gao via B4 Relay wrote:
 > +#include <linux/mod_devicetable.h>
 > [...]
 > +#include <linux/platform_device.h>
 
-Please don't include <linux/mod_devicetable.h>,
-<linux/platform_device.h> already provides of_device_id without all the
-added build dependencies of <linux/mod_devicetable.h>. If you insist on
-full iwyu, use <linux/device-id/of.h> instead.
+Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h>
+already provides of_device_id without introducing a lot of unneeded
+build dependencies.
 
 Best regards
 Uwe
 
---7kzx4bd5q3rwseko
+--bf4vux6swhzzilrx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhoS4ACgkQj4D7WH0S
-/k4yYggApnKsIa+rCf3BFQJjly7WiAmxlAQR57PJQJaEPivBmt7SsrrspxVOOAum
-ZSo8hfftL2LyDHfMgYIzt3la64M0m9Ka5MNheXRDG3NuIFW78hiJY1uyy1Sy+fcU
-oPNpBjjLJWxzwjcGLUxIbM4kPqmIdsBamY7GrwDSB3BeNHFmOL2l6oLaF7QF22sC
-3rDO8bwez9gW80BWN7CJCjpw4ynQK6LaxRX+7fBFbX4fRvqIL3Onp3Nufmp4TVo5
-iXpJYlTPv3vt8tTP6rhxFh3R+9bmnzR2nc8MUCJJmAb7qRiaZSoQ3kz09LzpeVWt
-eAau0gujuBeEzy26ASfKDcl86MpIng==
-=0pQ9
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhoY0ACgkQj4D7WH0S
+/k4lEQf/aQompiZrE8lzHamk+WXWr2kv9iqPDmKByLu358ny9EKvV3eNOG0y3m2B
+hMQ9inmxBjyfz0TMb3NkQtmXVKnu41A8A6mcl3B97akrhcvKxPDgsn8FWhhNJiBs
+s0jrcYuMILEssk5h7k5Ah8fEdVAXbDTp88j/afUmb9QfOZxjaW+SXfLYigacUFT0
+U8Hy6rX3B+GESX5uvdxOY69bn4dHt7Qwr56FksGQtIi7Y9DbyRhhMRnwCy4pCLnw
+ZD9t3GwAHwOm1fdsdqP0zLsJPukoZPNmbT58FjRf45TfYHmOSulG5O3oszd4ElAw
+wrbitVSdlgy1G4VvYAZKJRQLV5gF2Q==
+=JnXH
 -----END PGP SIGNATURE-----
 
---7kzx4bd5q3rwseko--
+--bf4vux6swhzzilrx--
