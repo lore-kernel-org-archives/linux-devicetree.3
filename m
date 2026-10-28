@@ -1,104 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793154421;
-	b=3LQ4eBK4YQjm2618vO8xGf7dSaj+THGYIQ9P+6bG+YgsASPVF27/+HBOdwFjD0KsGk0g
-	 z7Hqyl3BoqQ0yHIHH8J2joh3aoaBTh9nKnrsqDAoWzPeUni84W+B/TWetOH1HskmqtuvA
-	 N8lyBm+bzXKrFUgSeFpMQH/wRE6SxS3wyHQdfh+addU2PbD9bzfW60RDXpBhFpjta6k3X
-	 c2FZyO5w0jSgeXTdutSx7xTST4ESz5obKwlUgQTBAIjse3Fzpeokdi6OIhrPv/dc8ZrS2
-	 TuHJJZDSOG1Mn7WxZ4zI7NIVeZWBfkFEPL83kKaO+CB/nfA3AkmD1O3sv851Aq2r1BQ==
+	t=1793154626;
+	b=SLLTCbYakyWZiUU96s+YYxRAnzQtRQ4ni+d8TjdmvnvG1bGClSTymCWkXAYATkS5jEoE
+	 2edMDcysPzWjJmCjW6q//cu32mkj1LOkDtUnhXT3+UoRhDPAKDamMQk2PFsooNdLfuxlg
+	 8pwBZOQ0DfwcaBWJpfJaGukz/gi4bny2x5LnVhb6kIR3Vs6F8+L5PswYdhR0s5JxX99RX
+	 fWRnS0dv1QT6fTP+mj91EIGQiOvdJ4W1EhO7RvFuFXf60Xbph6EziIGJ7HfSOxFhmDDOv
+	 z8GZVZ8ihM//H3MG/rnbaaHzabtPhFVZYENoatRToCgcIpS7DL3epleDHFipZvVOuBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793154421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793154626;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
-	b=DNZC9vomh13PwMuR/4a+s/YktIQkVBe/hX3/ZDI2nk3zRKXn/xg86LbZb/CD2XGyaZuO
-	 1sXYwjsn13N0Szu4d7KoYqGmiOee6x63YIleFnAkxclISKRP0cPpeJmlBwtc1638U34uY
-	 cz+6odZj1d1pHyn6NfXvOtzDCFDRHY1N2eV1//gcW+Lr8bIprYQ2KUyBRheR8kjYpXsTn
-	 abE3bPQdPtGtGOCenxUiOijPXH/3/BCvC6SzhHagKEueQ/1W17K5rrU6gerrBPW6K7Odc
-	 LnZj+ZMHQxOxbhtrfSgvD0MvruRKg/2ruu+DBizNUbcgWDqO1GwOHt80A5D44q2fqeA==
+	bh=H6njA8hThba7qi/jT4brciMNl8e/UmucJb9lemJ86+g=;
+	b=Zz7v/thqWGZQpBj1ehiAHTysHq/17DSSN3187iJvSMfrk+H9f3T/dw9siB1g7txpIqqF
+	 bk57CU+kjjDbs5GoKP4BlGEAXbxv/M1hcWvyYv0Trc3a0Wa36Qy/CUCz+kB++L0RRN+AF
+	 Hz1alWhJKU0Q8lhOw+QWYXV7MlBtYzUSIOi62JNIkZflC/YZn5D6U6E2kzzv+8rblUTBU
+	 sruBG9QVP8+FA90vgf7lFR7YwS5+oefa1iNQkFSQcnyA0FWdOpgujPd5YpMsSwwJmKXx1
+	 ziJ5hcAU73Jf65tMCqpxCr0+TMB1T+vcslTREWkzSO6aBf6UfWsqZaHITfg5ypm4Jkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6u4ASHA;
-	arc=none smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Z/FBcu0h";
+	arc=none smtp.remote-ip=209.85.217.47
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0157606A31E
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0157606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A372606A31E
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:30:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A372606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q6u4ASHA
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1224791137.1
-        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 19:27:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z/FBcu0h
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7a6e560f580so339897137.1
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 19:30:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793154420; x=1793759220; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793154624; x=1793759424; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
-        b=q6u4ASHAlu96sY2ofBItUFB1lKaUWqtlWcAjq1ouApqcY9t1yw/Wh4kibHPEDawxFh
-         VksZEMuoeQxaWyIEf9SyZnbklSAYVChDgCLG/EQLSM8ltiILoRoF26o4QlDAPXW1Vl5Y
-         ahbBNd2ed5e4dZ4wFAaoDVIOUJCVkV5M6rl2KuVq1HavhyAKFN7RdW0BaimAwmGBstIt
-         BgfJFswec0DhT2mz43ls7KM9phFFtq1ThmmvFaas6zEnLYqrz5TYaZhpWAOY4hdTsSke
-         ZTHX+2th4s8+FFHJOeX7b42JRpdmDBCW7gSVzBnSC+qqc4yLX/f27lS+9cYM0lomxpio
-         b5lg==
+        bh=H6njA8hThba7qi/jT4brciMNl8e/UmucJb9lemJ86+g=;
+        b=Z/FBcu0hjKcS82+4EvqpgC7rUp3tcRi9xHWrzEFKKFZMlEP6VGPNTRRZS+eyjZAaPJ
+         v95c4AuAnTD2Pn4KUoFrpZU1ckaS7AwDTAFi34N0a66y6w2RcDQJqzhMsheX75GmwVZG
+         2/ueA94G7C2g4RGeTVJ4fCrhXOVAxOwaitmimXXi0h5XuUk82+r6QQwIfrpGqkJkfSKg
+         lqhmWfOPP71lHiTvhP0ADYM67ltDOp7ERCid3VZXnav2mohlhSjNs2JSY4Io+LGTrfam
+         83BLBpkNAIonrmSUd2cqnnvK9yQuBKJXqHxTHtpQkL/HExV/glAbTExcoR7R6qdFKyOg
+         j9ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793154420; x=1793759220;
+        d=1e100.net; s=20260707; t=1793154624; x=1793759424;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dztU/TExvRdwdoHHA1pmOA03tC4CKeaHgrcXA1r9kN4=;
-        b=STXPc5QRKaYQDZK7fHeshYfKGh+1bzg+9r5F4nD8RVGvsxY4Cy3VwMhL1tU1B0VpZr
-         Q4ls0qDs+BbYOdiRFcN/i/eXhkFadaSrCPgCQ2fojnz122GZaPAtY4hxAcw0LSUzCsQN
-         wmVkdhLeWyF2kPZRw4P4NoDIP7940VSMFXKwdCRL2c2PPSFQaQ+d3xMTQ988YYv40LO+
-         LTUleT5zrzKu2an/c/P/spfNvkplbjYPtAT2w0Ixmouzwvls4IOfcFk1D0f5k7n6vRBV
-         j4lG39mJFzW+Rn8e79/J0v9XE3gIzu2k8QF1kqISKDFvHBSupVEpPGF7K/28OAPEiFXO
-         zA8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxGrwtSUem2izbPVsCjT5lrIQRrDO1uYRzj/Xzw+vPmcBx17Ji88Mi306C5FRZF4GxcfYQDVoXa+GeS@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiLNaQxuPriPAV8gubLNLcgx0Yd5D4x0SCzks2H4VZ7Q7k9X3D
-	bWsZfnya/pyGm+neSGInRj/KGPky1dHKwTR0rxfQ6k6bkJ7wbfYZY4nf
-X-Gm-Gg: AYBFou10QrJSyh1Tf1pY8XRm/gMM+t+fHQryShS99w1KzuGa2uwN+VBWtYSnXvq20U5
-	NVo63q8zJnLukLIfEXrq/hyPzrA2BdRqh82RRfY/QsAovp3G+9FMIy78ZxWHYcPyGWAelcyDdXz
-	8eThKDDZmkzvBs8q+IGRhjyhz+9yT3qoHVlFm8B6WdqJZF9Bpm+RsJGb/bt2u1Pzrxx6AHtyzKW
-	nc0vOLTjyNuJTlz+uim7WKxHq1aM7KJiCIvobXyYf33dr/LpDqfN1rjDCklsBZBIshGPnNfn1PZ
-	yz1lZE3DJdqTskO5A+WhUsex+DNr0NR22f0TOsukbbYdDcZK7xoXGHqNBi2y6Cye8YgYbyUdP4F
-	aGLAYmb6bSFkSE3RYWISwkMgIxOHaXVtr5x6ret2EI0IgwulQ+TdYBJIw7QvxRg/LuxTv79xbtG
-	T2vpiuMOLlbuqUfDYUuV+9k8iZcIrZLp26jR92Agy5Q7RF+Z1d1dgANK7TorJS8+/RZpa0Qp9oG
-	ymoub7D0Ezv8vTAKhxrLYebOAZf77qcW/aT7uKrsXwzGQ61GPHkPzkPluL8mn6eEdAYD5xJ/Or/
-	3TkTaCuhXxJYuTYu7Pl8AT5dr4qntKJ5u3gqre9Qt17whystY/pm
-X-Received: by 2002:a05:6102:41a3:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7d041913706mr48618137.6.1793154419656;
-        Tue, 27 Oct 2026 19:26:59 -0700 (PDT)
+        bh=H6njA8hThba7qi/jT4brciMNl8e/UmucJb9lemJ86+g=;
+        b=ScpND5dckxh4qu90rOUD89x7qem6T3rN26bqQTcQrk9iWfKULcwpC53AeF89S/1H9B
+         iWMZ0sRjowhmJTESyqQuGp+Tf+lc3VAAe6emzAaQjFdkNCJlCcG+we23LAii3xNDsgHc
+         /jhbyWjBUjIuIL/nGQiK5NvV1Z98V9mkCVyzigQcOhIenBozcjKOW/lNzQq9ksX1FjrK
+         9jQ8W3b2vp2n+R8JdMyFkeC6WSnmjan6Olh0vaROE3hdudRVxvzSeXz2bPIv6m8TGtLq
+         bxi3CePBMBHcS8WTWiQQDlq/jfO4NoSuXcySsO3MfHaP9XXd9vat2agae8Z0aMR5qbnz
+         3+sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxUuFVghXGP2poiTQ1LRrNDfUJdkc0wgEI0C86j5Dg378gsQ3SIwQXOJWQhW2fX5ngUbROtl70EplnV@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGK14VJKIYFpnYvu3hgse34aEt1395VUym0JB+3FSLYp4v3/dy
+	AGRME/nT/jbR9Zn+oFrR8HXRlt8tCzkdEUskBg99w/sJy2ETrMTE9F4G
+X-Gm-Gg: AYBFou3zLrB9KN8b2tUQ3LwHN39R9RGBKPMDqytraUi3iRg03PY8Ky9FFHzVOmBtwz5
+	wcHJCz7muMFoHX+a8vBgu34yH32fQpv1byiJvExaUaY+LGU15z+19eh8ye37svtnGqt9z5Fjp9f
+	7PI0bk48W/Kx7K/TPVgt5XKWhwi5KCqEuEoZrePIKis4YkPZrja0Y0Zm1J4CwVReYZJplSDkFzV
+	dRnsW3rG9gHjPtPSgD/asoBB/G7x66PdMeTNydG3+GkF/L5ykeX4RPJb9bnVR0etSDfaSCOGoBt
+	yrJSidu00wgfHN/ud20GCfNCC15amtvMQlp+KQ7HGbuXuPdzifR7dSEexJyRiYIJ4/0s5muKta0
+	UbCMJcZK1YpU3/R//Ut31bVDnvGY8XNOXkUbFynyYSuLgkl549J9d6LNBG1fucfq/DVwSLkcFsi
+	yPHSQcbbucwGha0U4tD/4jkG6tq2sPVxvZCUw77k1j7iwGrOsNlHi5OvPzuHIE/qi4edno9SGd2
+	0d+V5dG1gSVLSsc4QzfSx24FKDmbDum+wsn031AJYEwbnIEWsNi8gV7CMAX7fMUKy81HZYeuzYe
+	qWP+abNGUtIDOMrrVatjdTRZlAbZZNUeKNomvoiGaKUm7DJ7SZ+z
+X-Received: by 2002:a05:6102:3fa8:b0:7cc:776:6c5c with SMTP id ada2fe7eead31-7d03a4b9a28mr541141137.7.1793154624534;
+        Tue, 27 Oct 2026 19:30:24 -0700 (PDT)
 Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:4df:52dc:4559:394e])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3bc3824sm4456693137.4.2026.10.27.19.26.55
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f5cebbbsm486020e0c.0.2026.10.27.19.30.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 19:26:59 -0700 (PDT)
+        Tue, 27 Oct 2026 19:30:23 -0700 (PDT)
 From: Stephan Costa Barros <stephanbrrs8@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Mike Looijmans <mike.looijmans@topic.nl>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v2 6/6] iio: adc: ti-ads1298: add ADS1299 support
-Date: Tue, 27 Oct 2026 23:26:52 -0300
-Message-ID: <20261028022652.31121-1-stephanbrrs8@gmail.com>
+Date: Tue, 27 Oct 2026 23:30:14 -0300
+Message-ID: <20261028023015.31876-1-stephanbrrs8@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261025233429.23b02702@jic23-hlaptop>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com> <20261024231335.280955-7-stephanbrrs8@gmail.com> <20261025233429.23b02702@jic23-hlaptop>
+In-Reply-To: <at5nycDs6ImZV8X5@ashevche-desk.local>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com> <20261024231335.280955-7-stephanbrrs8@gmail.com> <at5nycDs6ImZV8X5@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,53 +110,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 23:34:29 +0000, Jonathan Cameron wrote:
-> A few things in here feel like they should be in precursor
-> patches because the implication is they apply just as much
-> to improving support for the ads1298 as they do for the
-> new device.
+On Sun, Oct 25, 2026 at 10:34:17PM +0200, Andy Shevchenko wrote:
+> Make this a list, see how other drivers (recently updated to support more HW)
+> do it.
 
-Agreed. DVDD and PWDN become ADS129x patches, binding and driver, before
-the ADS1299 ones.
+> Fix multi-line comment style, make the text of tristate in Kconfig, this one,
+> and in the MODULE_DESCRIPTION() the same.
 
-> > +	if (FIELD_GET(ADS1299_MASK_ID_DEVICE, id) != ADS1299_ID_DEVICE ||
-> > +	    nu_ch > 2)
-> > +		return dev_err_probe(dev, -ENODEV, "Unknown ID: 0x%x\n", id);
-> How do backwards compatible parts with fallback compatible of ads1299 work?
+Will do both.
+
+> > +	/* TI sells the 8-channel part as plain ADS1299 */
+> > +	if (indio_dev->num_channels == ADS1298_MAX_CHANNELS)
+> > +		indio_dev->name = "ads1299";
+> > +	else
+> > +		indio_dev->name = devm_kasprintf(dev, GFP_KERNEL, "ads1299-%u",
+> > +						 indio_dev->num_channels);
 >
-> Generally we don't reject on simply an who am I value mismatch.
-> Note the existing driver may need relaxing on that point - we used
-> to do this before DT maitainers pointed out what it broke!
+> Why do we need this? Can't we derive it from IIO ABI?
 
-Today that works only within a family: the channel count comes from the
-ID, so ti,ads1299 serves the -4 and -6, and ti,ads1298 the ADS1294/6
-and the R parts. A part with a new ID is refused, as the existing driver
-does too.
+To name the part, as the driver already does for the ADS129x: since
+ti,ads1298 was the only compatible, it builds the name from the ID
+("ads129%u%s", so ads1294, ads1296r, ...). The ADS1299-4 and -6 differ
+from the ADS1299 only in channel count, so the name follows the same
+rule. Userspace can count the channels, but "name" is documented as the
+physical chip. If you prefer "ads1299" for all three, I'll do that.
 
-For v3 I'd do, in a precursor patch for the existing driver: the
-compatible's chip info is what the driver trusts. If the ID is a known
-part of that family, it still gives the channel count and the name; if
-not (another family, or a reserved channel code), the driver warns and
-goes on with the compatible's chip info. The channel count from the ID
-has to stay, since ti,ads1298 has been the only compatible and existing
-boards with an ADS1294 or ADS1296 depend on it.
-
-Does that match what you have in mind?
-
-> > +	/* The ADS1299 comes out of reset with its inputs shorted */
->
-> What is the case for the ADS1298 - is this just harmless or does
-> that have similar behavior?
-
-Harmless. On the ADS129x CHnSET resets to 00h, normal electrode input,
-so the write changes nothing. On the ADS1299 it resets to 61h, input
-shorted, and without the write each channel reads its own shorted input.
-I'll make it ADS1299 only, through chip info, unless you prefer it
-unconditional.
-
-> > +	for (i = 0; i < indio_dev->num_channels; i++) {
->
-> 	for (unsigned int i = 0;...
+> It's not used outside of the loop, make it local to that for-loop.
 
 Will do.
 
