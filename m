@@ -1,58 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187690;
-	b=3BIOTfCoy7efCL2/dKeR8Ps++V9ZsBz7gQfVpmKgYnpT1YiSs18JBW2KbnozCAuuFyjQ
-	 1nomLhpD0oZ9aBhRVlrKzorSYUcnIPGYkOgVGHXow0JEunmnd+6QwbZs0vIS3PW04YhGS
-	 OXInTZDaoMZzVczPxPflvfgavinLVYi4/vC5gXqukwM+BZmnXx3J+/C0gaBl12j82dyv3
-	 SSYMwdHaVFOgVUdKv+CuoUAvngtuZxxzNT/xHUnQ7LWvfziSAaYui85Sg2buKiQVGC64e
-	 ysixqidZrg0Z9DxBd0B9A6JsL47gNNk4kmCNOjHEQHnEMvqdt01f+2dRzC2Pk+3nsxw==
+	t=1793188060;
+	b=sTBTtxI7tgs2/VbGWT5/mvq1GGBkip3meMPB/lCvx5tdHJs4WOv5oqrMrnPhnJYVZXYY
+	 778N82THouoJaWMghexNsXdjh7aZnJIcdfwKFRF2WpD3n5m/1nS6+kBX5QI6naHZLpwv6
+	 RWfkZIc04kS7bXnsRQL61EPTu1CqhpTyTGhwJQ/YDUTlCRWl+0sPOI+hprZ1lxb5neZpX
+	 4OUZQIWe22aiiE2I4oMwk9R4T+G42RmPsj1DbbYZrT4X83uBe/7pcb9Wgqz5bMyv50Aci
+	 YZAkYJHGCEJk/QlI579UiDlQCKTRHYqjNHJZX+EVRZ/QhPfqC3r2TzZlrdh76UDA/+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187690;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
-	b=sjPkBqBgZremlpqnqvd/9ecz6mhKIiMVQkgQdoZ77SlPaj/SRuXVCsGaew5ijvmYfcI9
-	 7r0lZ4XyquVYMq3e/IdE7hLVMpyvRZ+s+lUG7xHp2h7ZC32s49bR0KwZsFYnEq9lsvuBv
-	 iAxh0c3ijCS2/7bHUbEfzOPWruTogYpDC9yqcwq7vFmlf3kTHoemKxLBH0IZzzp+d8mzP
-	 4fBs2vmcq0hNmxhUS8PbGeAq1yVmLsqVdIsNmmshgEwaS1oRDUx38iCZ3igASxtxpigcq
-	 MFjDYdGNvJInSkbmcWxrgmg2t7CqbsU4VPrF1M8m8/579oyi3KidPuIY5kDJDFf2SSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793188060;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+	b=DZyj9NPGA/PwmwVnt43d35DdPly0UsJ1RUq3i2IINi2oeIRi60izbXpEPotT1tsaX7Wm
+	 AYJS3u2eMWtdleJL32c9zm6aBxzMIi44V25+Se7bdR2uwsjXY5tGrt755OOEF1ZGJyrVg
+	 JvyZUMIgym2cWpimg8T16t5SGCHL2sPKkN7HwvCp6JV8raOcRQMePHZ2W+iYclqLOjMRJ
+	 GDPoshraYBySW9doICT/kKRcyj0ginoH9qAtJ+B7324XjfRgdhAbTHnjtzaXn48AXcwvN
+	 yRDvWC1Z691nVh263/6ISJZPPYTggKAe+BccwnpZb06SoH5sidGjhkmjJYHmo2VDtzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oKTUYAx5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LsR0TUCq;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E21E606A31A;
-	Wed, 28 Oct 2026 11:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFEF606A332
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFEF606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hUWdC9ii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADB41F01825;
-	Wed, 28 Oct 2026 11:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793187689;
-	bh=qaNp73WDDT38C4QvIcC33K4u1Sk0ULpBkqftENWUDss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hUWdC9ii38YmtM4niQrcVuKM0MmLcS6Ymm/DpSbDM+uxAsUb9gym7iZ+LqjHT36YM
-	 uRRpINPqxTjQD1OYZX7hZdDA2FmQ01u1OGxpwXwGh62crNj8RdX31Y+QvcF+Qe3Bqm
-	 i3tx2Ar4D7q5eSfau6OEXjHP6DRwiRXMbcVo01NpfLhpqTM+HY4h4KST1dKFQrNQPo
-	 bLKfNqNrf+ETVHb0gT6RzsCE+qbBEZN9TLSn/4Mdo+daIGLKGYRlWVLgVVHsLZYpYW
-	 Wy9BAURW+S1OHFfq8kVrQchPE/H0KgLjNsKe9WV+MeBBjzXWWL47H58kNqZzsnWPdK
-	 I0stxpRbXUVEg==
-Date: Wed, 28 Oct 2026 12:41:25 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: PCI: rcar-gen4-pci-host: Replace sft_ce
- IRQ with AER IRQ on R-Car Gen5
-Message-ID: <20261028-valiant-boar-of-competence-febbdb@quoll>
-References: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oKTUYAx5;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LsR0TUCq
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe6fx1053356
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:47:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=oTRZog1W0kVUlnt0eMjHj8
+	jyDlXn7iZFi9ARBq8uKVw=; b=oKTUYAx5YsUyPWrcDOxB8VKpbu/Zdb/STd5uLP
+	poDAyMcuzJqWeHzTnKTJspnUGidC5pOUEqGa5gMMcJkFBP32BD4ZmmHFGfBK+YYI
+	ss23Oc2Ggzn/q79T6ZkpOFqAf0RSt5iha5Q7cF8l+EBxPh4juzlr8Ai4nLd1Tbbi
+	Efa8WcPZS+CyknuxfGGMsSRn3SJvo/8+HKptEzu3a6oIZLGAUIIco6uur7rZFy1e
+	jYmV0RWndXTkz6U75er8buEfKOIhqV9KcmRrpj6Yj4ekBkM5cnFmNVrAZdHY0Th9
+	6VDTJlHmksxqTfwHAsP76YArSLtUiN2v9RCQhYlQaoUJLHOA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhw973m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:47:38 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd8b7226694so463828a12.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:47:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793188058; x=1793792858; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+        b=LsR0TUCqLvtppQP/Iu7VxIQHMFmBvnEnNY4uUjMmJ+zo7F0ieR0hUPhciUcG/cLyev
+         52KTrFYDKdcjlovY3ZPP9EyG2DNEewj5Qtq1zCDj5mRUXDI0LzewGG+v0uejfSL0BL7F
+         +DJuS8zLlwJm7hSTLL5XPY+ZZcboy6RMn6YL65M7ZCtoqO+nVb9PudYNu0ZDI+z8zhyG
+         Qd370LCCyIFUQ1OeeEX0z99IpnYt0PwP1AiBcK5GLhVcr6RCOxGKFLHvglMYWjJIdvWU
+         KtybDH7Fwg0MUy3QRdhh/jnpHD9uggyGaPLQBjWo+Ac67/4y+0+L/NfqjYX50ikbOHp3
+         KZoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793188058; x=1793792858;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oTRZog1W0kVUlnt0eMjHj8jyDlXn7iZFi9ARBq8uKVw=;
+        b=CxnWgPxFMRlRE4Q96xxC/U2AFj1lvc0e0i/Ql1JSZxG/KASaXFpsNFwv6SngFSsWav
+         xtGSYdc5Ha1YVcPDFRks6Fu5aWTz0mQUCyEM3Y8IXph7ukAffcwO3D2OgoEqaoH8NzFZ
+         wdSL8LgM41/+wYfSZP4IWQDjGLlFjszDMP6jXQpG8MfUP55KgQUVcVToKrD49/mxi3AH
+         8Fl0R9GS+Cxhj+sn2pC98VRC+niyDNvKkRA+VkWkJr1Y+yVxeqo9n9cksfY9oMTmvLK6
+         OjRdh7iZKjDgIsh09b+reWtw+jJ5PkcKvmauOqQVRFb1VbeHMwdlv4BrfQH8T+gElIcW
+         7tuw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0nia480krBPFst/7IynOAFrm6kc+E0rkEjZOwro/SplpNEmOmo5mxSTCHC3EtX6QheN1ostq6lXUH@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0Kd5zJ/AkXy2KLAME5OFL5Wr1CKJd8i1Jxm2lc5VngEfbzh1B
+	MeuXdEpG/sm8XeyGrCTfO7S03bZVYLZdgb8Mqj3IOkpgGYk98tyT4n9M8VVGz/1poZhcHB01wNU
+	T/rdn9Ll3rE51T8Qhj6HNfe/0+UxOAqxIYBHvlF9Eoqo9DRUZygOEML0n0hmfc6XS
+X-Gm-Gg: AYBFou0SV9leg5kPBDCMiJtXXhv7zE2Ooj9+mUCMAMJTpFLEGxc8fuON0NWub9CyO7m
+	yObPKjThNmlxXlMZHdFjcfi/MXW5yckJnKPzWQH7Dj0DpLoCVNTv7DthSCX7373p2/H8kkJiD+a
+	YNBd3NiAM+jPXwX6rioWGkKuFX1fJ0pIpSrZ1t+1hJZTWNaPMgHI/av22n+hsP6zZTsDD+tVkf2
+	RurDTpE22EdOOBGVMk3mOUXXarH5RdLhCHuwkePOZDEE6LJ4GHPlj/9HkwJdZo2fKCMD7ksfTnf
+	w1wJSSGs/0dt+kaemIGfviesxiFhLsjiBV721NjeSu+34zZD9E4IvX67a2uPFSQytUQ1PlCcdxO
+	bJB4yXd8uFsf1bFH8uSLrUjdHK7hEkn9joh374w+VGeNVyKzbTkLCzmm5xOgvBEfU+NzPm/vV2/
+	L4bUk1wkAVnWAYq3a7PkiKl9O2P6EU
+X-Received: by 2002:a17:90b:46:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3ae5824195amr1544058a91.59.1793188057815;
+        Wed, 28 Oct 2026 04:47:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:46:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3ae5824195amr1544019a91.59.1793188057285;
+        Wed, 28 Oct 2026 04:47:37 -0700 (PDT)
+Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c37551sm21207715ad.51.2026.10.28.04.47.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:47:36 -0700 (PDT)
+From: Yin Li <yin.li@oss.qualcomm.com>
+Subject: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
+Date: Wed, 28 Oct 2026 19:45:40 +0800
+Message-Id: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,25 +115,211 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026224447.606715-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAG7g4WoC/33NTU7DMBCG4atUXuPK/41ZcQ/EwnYm1NDExuNEo
+ Cp3x2kl2EA2I33S6HmvBKFEQPJ4uJICS8SYpjbUw4GEs5tegca+bSKYMOwkOR2zG2kBDLVcaF/
+ p+5QpzjmnUmngug9BOuVsR5qQCwzx86Y/v9w3zv4NQt3I7eMcsabydcsvfPu7lzq+X1o4ZRSck
+ fbkwfXaPiXE48fsLiGN47EdsgUX8UtarvZJ0Ug/GKO092Iw+h9S/pCcsW6flI2UmlsThFfSD3+
+ Q67p+A5CpaoaFAQAA
+X-Change-ID: 20260731-mpam-resctrl-dt-knp-support-c15dcc3a4a98
+To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Ben Horgan <ben.horgan@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
+        Drew Fustini <fustini@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        ganapatrao.kulkarni@oss.qualcomm.com,
+        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org, kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793188042; l=6430;
+ i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
+ bh=gXJ2/d3OTcX+aSWArZnGPSQLM1rYFhxCK9CnoTgH7gM=;
+ b=iR4QarYGhjfQ3RvWKyd98W/aRgOpf+uRlESlrJKRESx/NzzxuHxqdS2xXLz64gm/T76FXFwzm
+ fD0w2wFvPYRB1RskulgaVc/9T/a/5RGppIHARSWAVfw9/maa0YBF3Hg
+X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
+ pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
+X-Proofpoint-GUID: 58RntWVKxsEu_Wq-EV6-Po-h6eLHUh0I
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfXyCUq2kQHJ5As
+ /Y7MkTHyMoKSLG6spvlYrbfu+zsVArVzTlQool+sKROdDtEg4FNyTF0BqYqHMTAF8MRw+qNcu1K
+ i72vefQYobJ5v5h3tnbM1acNNvllJjk=
+X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae1e0da cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=7CQSdrXTAAAA:8
+ a=Ikd4Dj_1AAAA:8 a=ag1SF4gXAAAA:8 a=QyXUC8HyAAAA:8 a=20KFwNOVAAAA:8
+ a=omOdbC7AAAAA:8 a=JfrnYn6hAAAA:8 a=663aHFS58uk1Hu7jYysA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=a-qgeE7W1pNrGK8U0ZQC:22 a=Yupwre4RP9_Eg_Bd0iYG:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: 58RntWVKxsEu_Wq-EV6-Po-h6eLHUh0I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0NiBTYWx0ZWRfXx+68PZTjVCAj
+ 53UZSTmOaV68QKQszl4ls/IgPmJG78xBx9hKVo/wzRl3kSYZYaCX+XiTVZ3pRzeows3Egp+SgK7
+ wNpETxcHgF7hS0RYc4dgpG5vsyiPwvDAZQQFfGeiW92N4544FzNXWgW2rPytwPoETRKoWlVuB4h
+ zCsma3RsJZWCr2XNrdwVlno7FrXINh5lFahrR3FgOvH/O10630LrYA4UO9bV7PrnTDOTGZ6xCxC
+ Anr9fAc5oO3yAwA/uew9z2DiVV0WJznamXBPVYCMkJjODUcGXAmGIZBcd2TngWG9XCCfOLFur1G
+ K2KauGKE4klHlH8vr13xq3Hc8FgMTB4ju3QNx9Bd+0j9obvi0nCbPhXygCKzJiLanJyO3Hl1a6S
+ rS4G4kFE5kPoP0d2q6V0iaeCnpVCmOm//KUO5JQpHXKsNbyN4mPeYzUPC37/EtS5vfaVKqKHTfd
+ E+ups1efCvYexzN9aNA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280046
 
-On Mon, Oct 26, 2026 at 11:44:18PM +0100, Marek Vasut wrote:
-> The R-Car Gen5 SoC PCIe4 controller does not have dedicated sft_ce IRQ.
-> Make that interrupt conditionally available only on R-Car Gen4 SoC PCIe
-> controller.
-> 
-> The R-Car Gen5 SoC PCIe4 controller does have dedicated AER interrupt,
-> include it from the beginning. R-Car Gen4 SoC PCIe controller also has
-> an AER interrupt, but to retain binding backward compatibility, this
-> interrupt is kept optional and added in a separate patchset.
-> 
-> Fixes: 5b555a496160 ("dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible")
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Arm Memory System Resource Partitioning and Monitoring (MPAM) with
+resctrl requires device tree (DT) support before it can be enabled on
+DT-based platforms. This series provides the foundational DT binding and
+parsing support for MPAM.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The patches are based on earlier work by James Morse and Rob Herring,
+with fixes and additions on top.
+
+Standalone fixes to existing mainline code (placed first, independent
+of the DT work):
+- arm_mpam: fix the RIS index range check
+- arm_mpam: fix the MSC MMIO window size (off-by-one)
+
+Inherited (authorship preserved, with fixes noted in each patch):
+- dt-bindings: MPAM MSC binding [1]
+- cacheinfo: expose cache-id generation from a device_node [2]
+- arm_mpam: device tree support for MSC probing [3]
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=b38bed339681
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=2af39084438c
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=a6ab8b6c77cb
+
+The Kaanapali DTS patch (marked DNM) is a local verification example
+only: production firmware does not expose MSC register access to the OS,
+so it is disabled by default and cannot be upstreamed as-is. The MSC
+register size is 0x2000, as the Kaanapali platform implements MPAM
+registers up to offset 0x1FFF (permitted when MPAMCFG_MBW_PBM is not
+implemented). It is included as a reference for other platform DT
+authors.
+
+Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+---
+Changes since RFC v2:
+  - Fold the binding schema/example fixes into the binding patch.
+  - Fold the foundling MSC fix into the DT support patch; remove the
+    unnecessary parent cache availability check from
+    mpam_dt_create_foundling_msc() to keep it consistent with
+    mpam_dt_count_msc().
+  - Remove the #ifdef CONFIG_OF guard around the cache_of_calculate_id()
+    prototype in cacheinfo.h.
+  - Remove the [Yin Li:] annotation from the cacheinfo patch.
+  - Rebase onto next-20260918.
+
+Changes since RFC v1:
+  - Fold fixes to inherited patches into their respective patches with
+    [Yin Li: ...] annotations, as requested by Ben and Andre.
+  - Move the RIS index range-check and MSC MMIO window size fixes to the
+    front as standalone fixes with Fixes: tags.
+  - MSC MMIO window size: genuine off-by-one fix; the ">" bounds checks
+    include the access width and are kept as-is.
+  - ris_idx: validate range after of_property_read_reg() and keep u8
+    downstream, instead of widening the call chain to u64.
+  - cache-id sentinel: keep ~0U notation, leave cacheinfo.c unchanged,
+    replace unsigned long with u32.
+  - Convert mpam_get_cpumask_from_cache_id() and the cache/component-id
+    variables from unsigned long to u32.
+  - Fold the device_node refcount fix (of_node_get()), reviewed by Andre
+    Przywara in RFC v1, into the DT support and memory-controller MSC
+    patches.
+  - Drop the "clear mask on error" patch.
+
+Previous versions (RFC):
+  v3: https://lore.kernel.org/all/20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com/
+  RFC v2: https://lore.kernel.org/all/20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com/
+  RFC v1: https://lore.kernel.org/all/20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com/
+
+To: James Morse <james.morse@arm.com>
+To: Rob Herring <robh@kernel.org>
+To: Shanker Donthineni <sdonthineni@nvidia.com>
+To: Ben Horgan <ben.horgan@arm.com>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+To: Reinette Chatre <reinette.chatre@intel.com>
+To: Fenghua Yu <fenghuay@nvidia.com>
+To: Jonathan Cameron <jic23@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Gavin Shan <gshan@redhat.com>
+Cc: Andre Przywara <andre.przywara@arm.com>
+Cc: Drew Fustini <fustini@kernel.org>
+Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+Cc: trilok.soni@oss.qualcomm.com
+Cc: aiqun.yu@oss.qualcomm.com
+Cc: ganapatrao.kulkarni@oss.qualcomm.com
+Cc: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+Cc: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: driver-core@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+
+---
+Changes in v4:
+  - Reduce binding to minimal set covering only properties in current
+    use: remove RIS child node support, memory controller support,
+    arm,mpam-device, cpus and interrupt-names.
+  - Drop memory controller MSC patch (no concrete platform user).
+  - Drop RIS accessibility patch (no concrete platform user).
+  - Update DNM Kaanapali DTS: fix node names, compatible, ranges/reg
+    format; use 0x2000 register size reflecting platform implementation.
+  - Rebase onto next-20261014.
+  - Link to v3: https://patch.msgid.link/20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com
+
+---
+James Morse (2):
+      cacheinfo: Expose the code to generate a cache-id from a device_node
+      arm_mpam: Add device tree support for MSC probing
+
+Rob Herring (1):
+      dt-bindings: arm: Add MPAM MSC binding
+
+Yin Li (3):
+      arm_mpam: Fix the RIS index range check in mpam_ris_create_locked
+      arm_mpam: Fix MSC MMIO window size off-by-one with resource_size()
+      [DNM] arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
+
+ .../devicetree/bindings/arm/arm,mpam-msc.yaml      |  52 +++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  52 ++++-
+ drivers/base/cacheinfo.c                           |  17 +-
+ drivers/resctrl/mpam_devices.c                     | 254 +++++++++++++++++++--
+ drivers/resctrl/mpam_internal.h                    |   2 +-
+ include/linux/cacheinfo.h                          |   1 +
+ 6 files changed, 341 insertions(+), 37 deletions(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20260731-mpam-resctrl-dt-knp-support-c15dcc3a4a98
 
 Best regards,
-Krzysztof
+--  
+Yin Li <yin.li@oss.qualcomm.com>
 
