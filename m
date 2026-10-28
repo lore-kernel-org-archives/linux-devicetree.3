@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179690;
-	b=icv54ZLwyvLjn24SNlFP6RSuE6ON3ie89qa3Dt0TtjKvyM1lsR6zMzJRgUaVuLYxBjA3
-	 sRaQ0qw7FR/MyDIg7QXGs7aCqyfVbC7VPJsd1em2gDW4nCAvwUyVQKUfpszi/zV0jf3NE
-	 5PuY/qqApgn5XN6PaxAwhtcRLuf9mfRa6ADJweybiNtUtZJJI/R0nrCsXebC64jrvGIbG
-	 xA4jgbdO0I3i/c3OvV748+zN4+hREYbAIq1ADIP+q+RPcIVgX0eWHCFKpEi2Hhy6gM/mB
-	 PcTpadEk0JAiuILq7lF/2Dqdisp0xubGdxjICg2H84jLrwI6crOnebS8TNFe195HNpg==
+	t=1793179824;
+	b=0ANU+9Pbm6vk+qplBCN6NMWGrw03UfoGWKRVujTyNLgFwZf8nnk+3eJQl7RBvomoze4B
+	 N4v8hshmUNfIw1jC+kautIHTbJhbqLH8Wr3Um3R745E8/v0iwwyhUPYQOZ4CoolMtEh8b
+	 4gTF5DEbNGMyjSVAMYIzUa8lFT1jg7YSY9t5vXDQPdWqcp/hr44fz9BtBlyOzhUvhTx14
+	 pljR45SbwBN8wG/jySDEX4F/Wvrqd87YrIO69L1Cq49lpaQeouId2Y3KaRmgJGxhCwBjb
+	 LhfSY9qpGzCdym7fjeLq7+dSmNMiiXkuz1wLkKOlXG7c+OW3EpPll/w6Cq5k+skONDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179690;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=heJQBjdNMVHY8jFC21zH/dY31roNirLhq7s7e8zFv2c=;
-	b=SZZd+dhGgYRLq7Fyiww8aTXsK6Ab0b5ftBDtM2ApSxYiRzEn991RiS40vra4dglN5gJ+
-	 SP9s2exI7uBuYeO0NTCJcGNSPDi5Ixe3blgcru00U2K0OWE+E8iNd2VVp3i5QjHxF+JDo
-	 ZlizwJg/5AlYl2CFXliq3olLW7sCskdkJdYylxdBsvrw34I3JkKrmlnOFVq5Nxpo1NHcy
-	 6yIJp/Z0OM18sJTSS0aDRL/UH5w8V0k9cm0Nz8BL+ioqGTwqCoiapzJGJibWhfYVH0hjk
-	 N3beHKbC5Y9bH7RDY4A5PPghxTucb13F5nmc4TmJTnsLqclzAaz8gCxYzO90XhairQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179824;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h+KEtTPrrU=;
+	b=oe83PDqGpgPYqzEovezufBe3OYVxnNenIM9h3TOhw58KsTUZLIjfLNNsDNbDzuy5enY+
+	 1DDWjcsMriNmWkFZ5IP2zwFS/I/7GhTnE03+e7CtsuwNshqbmAQAdXw/RjC6nlDZf1hYt
+	 HznAM2DEiwJCMdR4DpPh6mYysbeFnV2Mpq6jlXypjjCz0eQgPLMoclLNYG4Q/sCytXTwX
+	 atWjsZ9h08anDCwoQjpy3E9h3wJz//knwwSOWZzdHnroL9rhyPWOWNY9LkB+kS/dqik+o
+	 fpTZopHia+slEY0LLCSGpXQT8FoVlYvC1A/S1/Kgkmp9kPlMTq9GQ22Fa9OB/8WW2nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ArPOUS4k;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29AB606A31A;
-	Wed, 28 Oct 2026 09:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C29AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ArPOUS4k
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CD6704F1;
-	Wed, 28 Oct 2026 10:25:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793179554;
-	bh=OFRwpIQtIHI4KvTV61PRrFHEkZMPuSbgjsNLrjj6a34=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ArPOUS4kjM8uqCg5nhm4R3iUJoSn22aW2vfrzmYwZq+zNC1Uoz+xOul9hATF+Q425
-	 HbnMSt7vb4Vo8sc8tn+nz4ddRB87STWGrObomqDm2zUsssS7g/aYzDfk30qKCpqQle
-	 snV/4G8Kezgrywl/IYeYtaWkhzysJ/C6WWlWUpVA=
-Date: Wed, 28 Oct 2026 10:28:04 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP
- nodes
-Message-ID: <auG_dr3VFeWaBxKw@zed>
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
- <asz8oEtow_lrUU7K@zed>
- <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
- <atXol9eFjLKxgTpg@zed>
- <CAD++jLm5iRKbb6=ZY0r1q_bb-zO3DAe3a7MxdDbpBT3ZU6_z_w@mail.gmail.com>
- <CAMuHMdWKH2pPR1-j-AxV2LVy5xeuoymYv4MnXw1KSvAu4F-brw@mail.gmail.com>
- <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com>
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A2CFF606A323;
+	Wed, 28 Oct 2026 09:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2CFF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=iNT64UFrECXOpKzAsnWQFADTzrZ6WwoW3h
+	+KEtTPrrU=; b=faGn2ZP6j42UnHnpDklJ7CE/a5Q3J/Z2nijOX0NOxdMvejigPe
+	AGO2WkmoQ0tTYtglLciw3KKlgW86iXUVYz6vDvP3tyWPTeXiwMxwzECoX2p7j4jg
+	sxeCbRuxrNqO/ASeuvBKE99CW71ewK517hvplGkDedUVpVzXuJQ5XEdbE=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S5;
+	Wed, 28 Oct 2026 17:30:07 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/9] media: camss: csid: unwind the power-on path through a single error label
+Date: Wed, 28 Oct 2026 17:29:57 +0800
+Message-ID: <20261028093003.722745-4-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,63 +66,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com>
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxZFyDXr18ur18Gry7tF43Wrg_yoW5GF1kpr
+	W5JrW7Ar4FqF109rs2ya12qFy5GrZ5Wa47JF17Ca4Ivw1Fka4xtr48GryYgFykKrZ8Aa1a
+	vrZxtF4UZF1YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
+	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
+	YxBIdaVFxhVjvjDU0xZFpf9x07jr0eQUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBUsX
 
-On Wed, Oct 28, 2026 at 09:38:05AM +0100, Linus Walleij wrote:
-> On Tue, Oct 27, 2026 at 7:39 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
-> > The driver uses Runtime PM, but I see no calls to
-> > pm_runtime_resume_and_get()?
->
-> It gets grabbed in *params.c and *stats.c:
->
+csid_set_power() repeats the same cleanup sequence in every error branch
+and gets it wrong in the first one: when pm_runtime_resume_and_get()
+fails, the parent device reference taken by parent_dev_ops->get() is
+never dropped, so a failing power-on leaks it and the matching VFE stays
+powered.
 
-pm_runtime_resume_and_get() is called in the .start_streaming handler
-for all video nodes (capture, params and stats)
+Replace the four open-coded unwind blocks with gotos to a shared label
+chain and route the pm_runtime failure through the parent put as well.
+No functional change on the success path.
 
-> linux/drivers/media/platform/arm/mali-c55$ git grep pm_runtime*
-> mali-c55-capture.c:#include <linux/pm_runtime.h>
-> mali-c55-capture.c:     ret = pm_runtime_resume_and_get(mali_c55->dev);
-> mali-c55-capture.c:     pm_runtime_put_autosuspend(mali_c55->dev);
-> mali-c55-capture.c:     pm_runtime_put_autosuspend(mali_c55->dev);
-> mali-c55-core.c:#include <linux/pm_runtime.h>
-> mali-c55-core.c:        SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> mali-c55-core.c:                                pm_runtime_force_resume)
-> mali-c55-core.c:        pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-> mali-c55-core.c:        pm_runtime_use_autosuspend(&pdev->dev);
-> mali-c55-core.c:        pm_runtime_set_active(&pdev->dev);
-> mali-c55-core.c:        pm_runtime_enable(&pdev->dev);
-> mali-c55-core.c:                goto err_pm_runtime_disable;
-> mali-c55-core.c:        pm_runtime_idle(&pdev->dev);
-> mali-c55-core.c:err_pm_runtime_disable:
-> mali-c55-core.c:        pm_runtime_set_suspended(&pdev->dev);
-> mali-c55-core.c:        pm_runtime_disable(&pdev->dev);
-> mali-c55-core.c:        if (!pm_runtime_suspended(&pdev->dev)) {
-> mali-c55-core.c:                pm_runtime_set_suspended(&pdev->dev);
-> mali-c55-core.c:        pm_runtime_disable(&pdev->dev);
-> mali-c55-params.c:#include <linux/pm_runtime.h>
-> mali-c55-params.c:      ret = pm_runtime_resume_and_get(mali_c55->dev);
-> mali-c55-params.c:      pm_runtime_put_autosuspend(mali_c55->dev);
-> mali-c55-params.c:      pm_runtime_put_autosuspend(params->mali_c55->dev);
-> mali-c55-stats.c:#include <linux/pm_runtime.h>
-> mali-c55-stats.c:       ret = pm_runtime_resume_and_get(mali_c55->dev);
-> mali-c55-stats.c:       pm_runtime_put_autosuspend(mali_c55->dev);
-> mali-c55-stats.c:       pm_runtime_put_autosuspend(stats->mali_c55->dev);
-> mali-c55-tpg.c:#include <linux/pm_runtime.h>
-> mali-c55-tpg.c: if (!pm_runtime_get_if_in_use(mali_c55->dev))
-> mali-c55-tpg.c: pm_runtime_put_autosuspend(mali_c55->dev);
->
-> So are you saying these runpaths are not necessarily getting exercised,
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ .../media/platform/qcom/camss/camss-csid.c    | 45 +++++++++----------
+ 1 file changed, 20 insertions(+), 25 deletions(-)
 
-They are when you start streaming on those video devices, if I got
-what you mean here.
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 48459b46a..592c1dfc9 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 
+ 		ret = pm_runtime_resume_and_get(dev);
+ 		if (ret < 0)
+-			return ret;
++			goto put_parent;
+ 
+ 		ret = regulator_bulk_enable(csid->num_supplies,
+ 					    csid->supplies);
+-		if (ret < 0) {
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto put_pm;
+ 
+ 		ret = csid_set_clock_rates(csid);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_regulators;
+ 
+ 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_regulators;
+ 
+ 		csid->phy.need_vc_update = true;
+ 
+ 		enable_irq(csid->irq);
+ 
+ 		ret = csid->res->hw_ops->reset(csid);
+-		if (ret < 0) {
+-			disable_irq(csid->irq);
+-			camss_disable_clocks(csid->nclocks, csid->clock);
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto disable_clocks;
+ 
+ 		csid->res->hw_ops->hw_version(csid);
+ 	} else {
+@@ -746,6 +730,17 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 	}
+ 
+ 	return ret;
++
++disable_clocks:
++	disable_irq(csid->irq);
++	camss_disable_clocks(csid->nclocks, csid->clock);
++disable_regulators:
++	regulator_bulk_disable(csid->num_supplies, csid->supplies);
++put_pm:
++	pm_runtime_put_sync(dev);
++put_parent:
++	csid->res->parent_dev_ops->put(camss, csid->id);
++	return ret;
+ }
+ 
+ /*
 
-
-> so the reference doesn't go up on normal use cases?
->
-> Yours,
-> Linus Walleij
->
