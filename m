@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793197956;
-	b=wPdAPpeCcTF5CSSYRghnQ+lL12x22HylywnIvodoxYgBiS2Rbm4zFH5m0xer2JKaCi0p
-	 Xu0qjm6QKCBDVbCU61EPpf3D4gcp9bcShmVhtKIKC+QLqZv1J45qxt95Vks1DbBB1SbIT
-	 70N5/J6L1i1R4SKk5wUKZT05HCO2Sat6LfzYa9+2i47hBQuFuepJKr8Uh46FGuL02x14x
-	 zO3Tsl1Wg249m9r0WyNFmcUsE1voJfgytHWuxh3LtAZX7akWUztnIoC0GmvT4vVQizE1p
-	 beGiKgMbuKhvcqOeJPgg7CvqLEgWNuljOUrEtS5cPA2k9+Brif9zzpEjlPAedUjTN8A==
+	t=1793197970;
+	b=hR/IWx9oSOQ0IBQjKzrMiFrwW81Mt7asUyTjRl83Daj3QQObm2FWAxG/kgIWEX1grtsx
+	 vyNfp1NFdWR91CKDgN3PjR3n4SmPcA25l8DSEqyMPGu5rBFIYeu1lNgQ7rJl9EFMDQFb4
+	 TIDCB58bShhkZoMDe5uTGFCk4UiUp4tegkwkvq237Rg+Z8dYrbExj1Oiuih66ynLLkRkh
+	 7IhNiProgs2B6skqvkMYVSvnTONcLypSptxYemsVnj2ssD15EOK69sNtVu5o5qrU9tuMT
+	 6U+MvRFEVvik2Sl8T7cPzWTCgyQSZWv/K1h0LEsdozJGwocONQqSNXo7uNe5ZK5DGPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197956;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=+vj3JXaH73DAc9DdU35ASSRyg7WAvYyKv+vce4COULM=;
-	b=WV5XUeWHKVK32Zd+yB4Q41jtJ+phbKY6w7vNCX6M0vCjrKsrSypL6Y/PeSx1yS3Tl/7E
-	 6cOVlpNVUfgLErCht4AmaIGqSGCIuIQQDqnwNvCjInHGSzrdBnV3xJclY8kcRgmPr+i6s
-	 fvENngoyuN81g13fLMYzuyyjKsrRYJtuHMi3+kZMrft4OeSsB4OLBqB/N60b/LteVPSi3
-	 IVkpXF1qMyP2XdAZzVGPkgBlh609iPHr0p44Q9rdeLTqFNItVo23oTvlnLSJ0PsBwK5KB
-	 HhCy3Al5WS+Zq/+mWy0/VamAg703Sd2TY2ssuT1danSKM3nGZ/2B6Jl43o1a5u/ljSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197970;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Fed8MkOo/AUMYHL7M9hA3h9amz5BiCcPGnkNDv0PGkY=;
+	b=g3r/1B6aAkYdaKuAyIDdayAzhYSBTd+RD7z8zRv4Aeo+0jAhozQNytESPJyqba9vgDfm
+	 sD22CYrE/u17eOU0KMavJYYPFjzAi2SpX+tK7rTM7TsPnDsno6nQfng3n3EMlg9qb1777
+	 RgoL21xFrZ80fj/04O+MaTwDElpI22pzVB2VvIPG2jXYTisO7VbgqLfiAedSTUD+WGduM
+	 sR9+o4k5J3wz7U1nXAT8cW6PMeHyahDmDbrlT3LJe+7+k1TSzwxt1RkBzMmp8g8f+qwSm
+	 zWKoAMxUhmkl4vJYMZLuAyvUAOScw8lkvQnci1VIMfHiv2e6L5X0AQ9ABdF56dI12jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PrNxJIoI;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPv8Efms;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71255606A31A;
-	Wed, 28 Oct 2026 14:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71255606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C98606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PrNxJIoI
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8FD6C1A137B;
-	Wed, 28 Oct 2026 14:32:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F5B860769;
-	Wed, 28 Oct 2026 14:32:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C3E6B103290D1;
-	Wed, 28 Oct 2026 15:32:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793197945; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=+vj3JXaH73DAc9DdU35ASSRyg7WAvYyKv+vce4COULM=;
-	b=PrNxJIoIaUyhY8Zqt4SrJf4ec9/mtkg2tiyqW/XNHd1snpJ3Ho9quFY5u9M6HNrg3pe4DJ
-	rEoBT0F3Mq7YaJMxOzPhZiJ4KGmGoe9sjxvUOuV2n6qPLG2XzN05gBCubNZ1sHNqWnQBXl
-	LRmFcPNn37UP3qhOdV3tjyLwibLn8KorGjx5y5VWBzsoxMT0/oVLBKudz/EmG0A7o/PPWW
-	NCdUf//rOnMSiE3qewS9q2nksK0+jikBkQsq+OemhIk3kyGwTEiL22QBuFxNfXE8gQEKmN
-	rA5dGwbBYGMHOdRe/O2j379Co6IiS+ImdN4CA5Dgx96FKJwh3EawJv7Nihzgsw==
-Message-ID: <880e67e2-3f29-4dfd-84ee-09006dc86574@bootlin.com>
-Date: Wed, 28 Oct 2026 15:32:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPv8Efms
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4D41F01825;
+	Wed, 28 Oct 2026 14:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793197970;
+	bh=Fed8MkOo/AUMYHL7M9hA3h9amz5BiCcPGnkNDv0PGkY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YPv8Efmsay/H4PSDX7pE5jyN0r4YTQj1+KguLOVRPsM5v+LaH9G4eW5oHWHJMZ86X
+	 P7Lns8Dl93OGkOY8G8glHV9dmP1E7UgsUSfKS7TyrSgrgoNFr3kiEW+9P29QAJtJfs
+	 uoqJB05kDunVKN/QdVZPBpN82wxuPAzdVo24eBHVP1wjMqiH6QiS8RN9nRG03rAw54
+	 O2iZ1SQ3UiVHLrojOMgpRvRlhWw7WJNhO0FoaaGafWwG31khZAFa4l7dtKabepnG3K
+	 VgWjlQZsGSRw74JBQSMws/ihWqCv/tgfqXZj/GfyLjexqworpocXWPzbdL2qAEHVj2
+	 0zvm1EDt3hDPA==
+Message-ID: <sashiko-outbox-187990@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-monza-som: Add ADC thermal
+ channels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
+References: <20261028-monza-therm-v1-1-dfe4759c15bd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 14:32:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,347 +59,122 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/20] pinctrl: berlin: add optional pinconf support
-To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Andi Shyti
- <andi.shyti@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
- linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-13-jszhang@kernel.org>
-From: Richard GENOUD <richard.genoud@bootlin.com>
-Content-Language: en-US, fr
-Organization: Bootlin
-In-Reply-To: <20260929061417.20733-13-jszhang@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Le 29/09/2026 à 08:14, Jisheng Zhang a écrit :
-> Add pinconf support for newer Synaptics SoCs.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->   drivers/pinctrl/berlin/berlin.c | 232 +++++++++++++++++++++++++++++++-
->   1 file changed, 228 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pinctrl/berlin/berlin.c b/drivers/pinctrl/berlin/berlin.c
-> index 0c2179b98629..06c67f00c527 100644
-> --- a/drivers/pinctrl/berlin/berlin.c
-> +++ b/drivers/pinctrl/berlin/berlin.c
-> @@ -13,6 +13,8 @@
->   #include <linux/of.h>
->   #include <linux/of_address.h>
->   #include <linux/of_device.h>
-> +#include <linux/pinctrl/pinconf-generic.h>
-> +#include <linux/pinctrl/pinconf.h>
->   #include <linux/pinctrl/pinctrl.h>
->   #include <linux/pinctrl/pinmux.h>
->   #include <linux/platform_device.h>
-> @@ -20,9 +22,24 @@
->   #include <linux/slab.h>
->   
->   #include "../core.h"
-> +#include "../pinconf.h"
->   #include "../pinctrl-utils.h"
->   #include "berlin.h"
->   
-> +#define PINCFG_DS_10BIT		GENMASK(3, 0)
-> +#define PINCFG_IE_10BIT		BIT(4)
-> +#define PINCFG_PE_10BIT		BIT(5)
-> +#define PINCFG_PS_10BIT		BIT(6)
-> +#define PINCFG_SL_10BIT		BIT(7)
-> +#define PINCFG_SPU_10BIT	BIT(8)
-> +#define PINCFG_ST_10BIT		BIT(9)
-> +#define PINCFG_DS_8BIT		GENMASK(2, 0)
-> +#define PINCFG_IE_8BIT		BIT(3)
-> +#define PINCFG_PD_8BIT		BIT(4)
-> +#define PINCFG_PU_8BIT		BIT(5)
-> +#define PINCFG_SL_8BIT		BIT(6)
-> +#define PINCFG_ST_8BIT		BIT(7)
-> +
->   struct berlin_pinctrl {
->   	struct regmap *regmap;
->   	struct device *dev;
-> @@ -56,6 +73,8 @@ static int berlin_pinctrl_dt_node_to_map(struct pinctrl_dev *pctrl_dev,
->   	struct property *prop;
->   	const char *function_name, *group_name;
->   	unsigned reserved_maps = 0;
-> +	unsigned long *configs = NULL;
-> +	unsigned int num_configs = 0;
->   	int ret, ngroups;
->   
->   	*map = NULL;
-> @@ -75,11 +94,19 @@ static int berlin_pinctrl_dt_node_to_map(struct pinctrl_dev *pctrl_dev,
->   		return -EINVAL;
->   	}
->   
-> +	ret = pinconf_generic_parse_dt_config(node, pctrl_dev, &configs,
-> +					      &num_configs);
-> +	if (ret < 0) {
-> +		dev_err(pctrl->dev, "%s: could not parse node property\n",
-> +			node->name);
-> +		return ret;
-> +	}
-> +
->   	ret = pinctrl_utils_reserve_map(pctrl_dev, map, &reserved_maps,
-> -					num_maps, ngroups);
-> +					num_maps, ngroups * (num_configs + 1));
->   	if (ret) {
->   		dev_err(pctrl->dev, "can't reserve map: %d\n", ret);
-> -		return ret;
-> +		goto exit;
->   	}
->   
->   	of_property_for_each_string(node, "groups", prop, group_name) {
-> @@ -88,11 +115,22 @@ static int berlin_pinctrl_dt_node_to_map(struct pinctrl_dev *pctrl_dev,
->   						function_name);
->   		if (ret) {
->   			dev_err(pctrl->dev, "can't add map: %d\n", ret);
-> -			return ret;
-> +			goto exit;
-> +		}
-> +
-> +		if (num_configs) {
-> +			ret = pinctrl_utils_add_map_configs(pctrl_dev, map,
-> +					&reserved_maps, num_maps, group_name,
-> +					configs, num_configs,
-> +					PIN_MAP_TYPE_CONFIGS_GROUP);
-> +			if (ret < 0)
-> +				goto exit;
->   		}
->   	}
->   
-> -	return 0;
-> +exit:
-> +	kfree(configs);
-> +	return ret;
->   }
->   
->   static const struct pinctrl_ops berlin_pinctrl_ops = {
-> @@ -177,6 +215,191 @@ static const struct pinmux_ops berlin_pinmux_ops = {
->   	.set_mux		= &berlin_pinmux_set,
->   };
->   
-> +static int berlin_pinconf_group_get(struct pinctrl_dev *pctrl_dev,
-> +				    unsigned int group, unsigned long *configs)
-> +{
-> +	enum pin_config_param param = pinconf_to_config_param(*configs);
-> +	struct berlin_pinctrl *pctrl = pinctrl_dev_get_drvdata(pctrl_dev);
-> +	const struct berlin_desc_group *group_desc = pctrl->desc->groups + group;
-> +	bool enabled;
-> +	u32 val;
-> +	int ret;
-> +	u8 conf_bits = group_desc->conf_bits;
-> +
-> +	if (!conf_bits)
-> +		return -EOPNOTSUPP;
-> +
-> +	ret = regmap_read(pctrl->regmap, group_desc->conf_offset, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (param) {
-> +	case PIN_CONFIG_BIAS_DISABLE:
-> +		if (conf_bits == 10)
-> +			enabled = !(val & PINCFG_PE_10BIT);
-> +		else
-> +			enabled = !(val & (PINCFG_PD_8BIT | PINCFG_PU_8BIT));
-> +		val = 0;
-> +		break;
-> +	case PIN_CONFIG_BIAS_PULL_DOWN:
-> +		if (conf_bits == 10)
-> +			enabled = (val & (PINCFG_PE_10BIT | PINCFG_PS_10BIT)) == PINCFG_PE_10BIT;
-> +		else
-> +			enabled = val & PINCFG_PD_8BIT;
-> +		val = enabled ? 1 : 0;
-> +		break;
-> +	case PIN_CONFIG_BIAS_PULL_UP:
-> +		if (conf_bits == 10) {
-> +			if ((val & (PINCFG_PE_10BIT | PINCFG_PS_10BIT)) == (PINCFG_PE_10BIT | PINCFG_PS_10BIT)) {
-> +				enabled = true;
-> +				if (val & PINCFG_SPU_10BIT)
-> +					val = 2;
-> +				else
-> +					val = 1;
-> +			} else {
-> +				enabled = false;
-> +				val = 0;
-> +			}
-> +		} else {
-> +			enabled = val & PINCFG_PU_8BIT;
-> +			val = enabled ? 1 : 0;
-> +		}
-> +		break;
-> +	case PIN_CONFIG_DRIVE_STRENGTH:
-> +		enabled = true;
-> +		if (conf_bits == 10)
-> +			val = FIELD_GET(PINCFG_DS_10BIT, val);
-> +		else
-> +			val = FIELD_GET(PINCFG_DS_8BIT, val);
-> +		break;
-> +	case PIN_CONFIG_INPUT_ENABLE:
-> +		if (conf_bits == 10)
-> +			enabled = val & PINCFG_IE_10BIT;
-> +		else
-> +			enabled = val & PINCFG_IE_8BIT;
-> +		val = enabled ? 1 : 0;
-> +		break;
-> +	case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
-> +		if (conf_bits == 10)
-> +			enabled = val & PINCFG_ST_10BIT;
-> +		else
-> +			enabled = val & PINCFG_ST_8BIT;
-> +		val = enabled ? 1 : 0;
-> +		break;
-> +	case PIN_CONFIG_SLEW_RATE:
-> +		if (conf_bits == 10)
-> +			enabled = val & PINCFG_SL_10BIT;
-> +		else
-> +			enabled = val & PINCFG_SL_8BIT;
-> +		val = enabled ? 1 : 0;
-> +		break;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	*configs = pinconf_to_config_packed(param, val);
-> +	return enabled ? 0 : -EINVAL;
-> +}
-> +
-> +static int berlin_pinconf_group_set(struct pinctrl_dev *pctrl_dev,
-> +				    unsigned int group, unsigned long *configs,
-> +				    unsigned int nconfigs)
-> +{
-> +	struct berlin_pinctrl *pctrl = pinctrl_dev_get_drvdata(pctrl_dev);
-> +	const struct berlin_desc_group *group_desc = pctrl->desc->groups + group;
-> +	u8 conf_bits = group_desc->conf_bits;
-> +	u32 mask = 0, val = 0;
-> +	int i;
-> +
-> +	if (!conf_bits)
-> +		return -EOPNOTSUPP;
-> +
-> +	for (i = 0; i < nconfigs; i++) {
-> +		enum pin_config_param param =
-> +					pinconf_to_config_param(configs[i]);
-> +		u32 arg = pinconf_to_config_argument(configs[i]);
-> +
-> +		switch (param) {
-> +		case PIN_CONFIG_BIAS_DISABLE:
-> +			if (conf_bits == 10)
-> +				mask |= (PINCFG_PE_10BIT | PINCFG_PS_10BIT | PINCFG_SPU_10BIT);
-> +			else
-> +				mask |= (PINCFG_PU_8BIT | PINCFG_PD_8BIT);
-> +			break;
-> +		case PIN_CONFIG_BIAS_PULL_DOWN:
-> +			if (conf_bits == 10) {
-> +				mask |= (PINCFG_PE_10BIT | PINCFG_PS_10BIT | PINCFG_SPU_10BIT);
-> +				val |= PINCFG_PE_10BIT;
-> +			} else {
-> +				mask |= (PINCFG_PU_8BIT | PINCFG_PD_8BIT);
-> +				val |= PINCFG_PD_8BIT;
-> +			}
-> +			break;
-> +		case PIN_CONFIG_BIAS_PULL_UP:
-> +			if (conf_bits == 10) {
-> +				mask |= (PINCFG_PE_10BIT | PINCFG_PS_10BIT | PINCFG_SPU_10BIT);
-> +				val |= (PINCFG_PE_10BIT | PINCFG_PS_10BIT);
-> +				if (arg == 2)
-> +					val |= PINCFG_SPU_10BIT;
-The value 2 Ohms is hijacked to be used as strong pull up.
-The more I look at that, the more it feels hacky.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: monaco-monza-som: qcom,adc-tm channels lack th=
+ermal zones
+- [Low] arm64: dts: qcom: wrong PMIC prefix in pmm8650au_1_adc SDRAM therm =
+label
+--
 
-> +			} else {
-> +				mask |= (PINCFG_PU_8BIT | PINCFG_PD_8BIT);
-> +				val |= PINCFG_PU_8BIT;
-> +			}
-> +			break;
-> +		case PIN_CONFIG_DRIVE_STRENGTH:
-> +			if (conf_bits == 10)
-> +				mask |= PINCFG_DS_10BIT;
-> +			else
-> +				mask |= PINCFG_DS_8BIT;
-> +			val |= arg;
-The drive strength is assumed to be lsb (which is the case), but maybe 
-something like:
-	if (arg > FIELD_MAX(mask))
-		return -EINVAL;
-	val |= FIELD_PREP(mask, arg);
-would be more generic.
+commit 561733e4e2720685d27dd79350db7cc51662ba15
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-> +			break;
-> +		case PIN_CONFIG_INPUT_ENABLE:
-> +			if (conf_bits == 10) {
-> +				mask |= PINCFG_IE_10BIT;
-> +				if (arg)
-> +					val |= PINCFG_IE_10BIT;
-> +			} else {
-> +				mask |= PINCFG_IE_8BIT;
-> +				if (arg)
-> +					val |= PINCFG_IE_8BIT;
-> +			}
-> +			break;
-> +		case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
-> +			if (conf_bits == 10) {
-> +				mask |= PINCFG_ST_10BIT;
-> +				if (arg)
-> +					val |= PINCFG_ST_10BIT;
-> +			} else {
-> +				mask |= PINCFG_ST_8BIT;
-> +				if (arg)
-> +					val |= PINCFG_ST_8BIT;
-> +			}
-> +			break;
-> +		case PIN_CONFIG_SLEW_RATE:
-> +			if (conf_bits == 10) {
-> +				mask |= PINCFG_SL_10BIT;
-> +				if (arg)
-> +					val |= PINCFG_SL_10BIT;
-> +			} else {
-> +				mask |= PINCFG_SL_8BIT;
-> +				if (arg)
-> +					val |= PINCFG_SL_8BIT;
-> +			}
-> +			break;
-> +		default:
-> +			return -EOPNOTSUPP;
-> +		}
-> +	}
+arm64: dts: qcom: monaco-monza-som: Add ADC thermal channels
+
+This commit adds ADC5 GEN3 thermistor channels to the pmm8620au_0_adc and
+pmm8650au_1_adc nodes in monaco-monza-som.dtsi for thermal monitoring on
+the Monaco Monza SoM.
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi b/arch/arm64/=
+boot/dts/qcom/monaco-monza-som.dtsi
+> index 36af1ad2105d5..dc2ef7e5b0613 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi
+> @@ -227,6 +227,46 @@ &pcie1_phy {
+>  	status =3D "okay";
+>  };
+> =20
+> +&pmm8620au_0_adc {
+> +	channel@44 {
+> +		reg =3D <ADC5_GEN3_AMUX1_THM_100K_PU(0)>;
+> +		label =3D "pmm8620au_0_xo_therm";
+> +		qcom,ratiometric;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,pre-scaling =3D <1 1>;
+> +		qcom,adc-tm;
+> +	};
 > +
-> +	return regmap_update_bits(pctrl->regmap, group_desc->conf_offset, mask, val);
-> +}
+> +	channel@48 {
+> +		reg =3D <ADC5_GEN3_AMUX5_THM_100K_PU(0)>;
+> +		label =3D "pmm8620au_0_ufs_emmc_therm";
+> +		qcom,ratiometric;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,pre-scaling =3D <1 1>;
+> +		qcom,adc-tm;
+> +	};
 > +
-> +static const struct pinconf_ops berlin_confops = {
-> +	.is_generic = true,
-> +	.pin_config_group_get = berlin_pinconf_group_get,
-> +	.pin_config_group_set = berlin_pinconf_group_set,
+> +	channel@49 {
+> +		reg =3D <ADC5_GEN3_AMUX6_THM_100K_PU(0)>;
+> +		label =3D "pmm8620au_0_soc_therm";
+> +		qcom,ratiometric;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,pre-scaling =3D <1 1>;
+> +		qcom,adc-tm;
+> +	};
 > +};
 > +
->   static int berlin_pinctrl_add_function(struct berlin_pinctrl *pctrl,
->   				       const char *name)
->   {
-> @@ -287,6 +510,7 @@ static const struct pinctrl_desc berlin_pctrl_desc = {
->   	.name		= "berlin-pinctrl",
->   	.pctlops	= &berlin_pinctrl_ops,
->   	.pmxops		= &berlin_pinmux_ops,
-> +	.confops	= &berlin_confops,
->   	.owner		= THIS_MODULE,
->   };
->   
-Regards,
-Richard
+> +&pmm8650au_1_adc {
+> +	channel@249 {
+> +		reg =3D <ADC5_GEN3_AMUX6_THM_100K_PU(2)>;
+> +		label =3D "pmm8620au_1_sdram_therm";
+
+[Severity: Low]
+Should this label be "pmm8650au_1_sdram_therm" instead of
+"pmm8620au_1_sdram_therm" to match the parent &pmm8650au_1_adc node and the
+existing channels in arch/arm64/boot/dts/qcom/monaco-pmics.dtsi ("pmm8650au=
+_1_die_temp"
+and "pmm8650au_1_vph_pwr")?
+
+> +		qcom,ratiometric;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,pre-scaling =3D <1 1>;
+> +		qcom,adc-tm;
+> +	};
+> +};
+
+[Severity: Medium]
+All four channels set qcom,adc-tm, which causes adc5_gen3_probe() ->
+adc5_gen3_get_fw_channel_data() -> adc5_gen3_add_aux_tm_device() in
+drivers/iio/adc/qcom-spmi-adc5-gen3.c to instantiate the
+qcom_spmi_adc5_gen3.adc5_tm_gen3 auxiliary devices and register
+adctm5_gen3_isr() on SDAM0.
+
+When adc_tm5_probe() -> adc_tm5_register_tzd() in
+drivers/thermal/qcom/qcom-spmi-adc-tm5-gen3.c runs:
+
+	for (int i =3D 0; i < adc_tm5->nchannels; i++) {
+		channel =3D ADC5_GEN3_V_CHAN(adc_tm5->chan_props[i].common_props);
+		tzd =3D devm_thermal_of_zone_register(adc_tm5->dev, channel,
+						    &adc_tm5->chan_props[i],
+						    &adc_tm_ops);
+
+devm_thermal_of_zone_register() calls of_thermal_zone_find() in
+drivers/thermal/thermal_of.c:
+
+		count =3D of_count_phandle_with_args(child, "thermal-sensors",
+						   "#thermal-sensor-cells");
+		if (count <=3D 0) {
+			pr_err("%pOFP: missing thermal sensor\n", child);
+			return ERR_PTR(-EINVAL);
+		}
+
+However, neither pmm8620au_0_adc nor pmm8650au_1_adc in
+arch/arm64/boot/dts/qcom/monaco-pmics.dtsi or
+arch/arm64/boot/dts/qcom/monaco-monza-som.dtsi defines
+#thermal-sensor-cells =3D <1>, and no thermal-zones entries reference these
+ADC channels. As a result, devm_thermal_of_zone_register() returns -ENODEV
+for all four channels (or -EINVAL if a downstream board references the ADC
+nodes in thermal-sensors without #thermal-sensor-cells), leaving hardware
+threshold monitoring unconfigured while still running adctm5_gen3_isr() on
+SDAM0 interrupts.
+
+Should pmm8620au_0_adc and pmm8650au_1_adc define #thermal-sensor-cells =3D=
+ <1>
+along with corresponding thermal-zones entries, or should qcom,adc-tm be
+omitted until thermal zones are wired up?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-monza-ther=
+m-v1-1-dfe4759c15bd@oss.qualcomm.com?part=3D1
