@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180275;
-	b=IhRM7ref5U2bRBY6/reT2iYcXVeyD1qpz61BrMUclGqMHsQDQacynHwh308CA6PpCdte
-	 khy/vCaCjSdX2lzDLHZb0cZtq/IJXm4LtGVXxUqXSxbs8AOdrdrDmSjUNd9h3g+p2Sj0J
-	 NRraLBV+tKjIuSJjhL0PwCFdshsapVS9SjS1X69xtWjn7z8+RmNgh8E4Th62k+n3/OQHQ
-	 2aZt6xEHS8MZ8MBRmZAVx4ep4LMyFD0ItHpjZe0ikt09wEW1pKHFPwbiEmu6piOU9uucU
-	 AjoAZOXmDnKbo4uRrTUTLp6/UBXPgV6ZwRTLcdEjll0Td4fD63q/NcOY8ZuypHae98w==
+	t=1793180336;
+	b=0QlFYwh354Vsy/d7klSF2YtTPxlfKyWKmKy0g1rjLvvimJw62Gg/YhdmM6wIwqAoT1RY
+	 fILFxhkbpTozrdqLynmQniabVyGWC4qIqqvTUlTOigLbbhi2cqV7chb5ePTEOkeLQfaaJ
+	 cCMpJlyvLbsYREQsiGgPY1S5FvalvfQ5sTADMw+F25uV6irTnOlJz2io7LKopsZIYDK2t
+	 ZoXkt6i7sWikJI/NCFOCTFRDKSXy9ZK+Rf6vdXixKj4Fh4UOfeFyiNhTH3qQxV6tvyn17
+	 YqTRFwBFQ+azFxCfN0F3rbg4KwZA++Ercey3eh6RPETqr0I5g/Dw62o4/fyAnTOJI2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180275;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Sk1v7emottKiHY639PTpkQHWxfWEDahvOjKibc1TVo0=;
-	b=0thlV7FBx4agEh+Z0y3I/YlLdvnaWBxztP8z3xbSIv+zcqdeYRowMiKTq3Voc141Y9+v
-	 aj3x4oreesNOGLBG/RVbaRsgs4MGZ6Ma7xOW0KC7TDgkt8kH5slX27YiLari4YHfHrdgV
-	 m6ToJI9Z1wmqavO8heTPAU5E87Ni9ck9aeCf3iJn+LAFmkfvpgbv4WFElkoBgsyJ/dSQD
-	 OMs9r+S6n8mVTFPYp2HvW49KoBFnTcULL+apfHihgMPP0fQP7H1EXNejTvKXNkX/Z5zDM
-	 IouqHnWnuaw04ct7tPiEPKVoSu+beoaAJLRD0HfRhl3suJghUyT2C7RxHEtVKqRt7sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180336;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=4Opxk4J3P/lQRYSzRzcyGA3GhbNDdUkf3ywTfHyPD5I=;
+	b=bp9rdv20O+q4fxYZZDQCXva7JgUFyVzaGJ0YDc1OKTwuVA/wq9YTRvLgYK0SFApDM6HL
+	 /begwz/hND0czaPtk2i7iBoF7jI7cun/lFwhnll0z+ZEv7X3XDApdDpkdvrX3HEb8yxl3
+	 lvxcy4UT2+aiRtwvFXUjKDhS+kbPfIJgAhm1KqUi5Ka0d4bJ0Di6nJSIRzCbOlIu0vYl3
+	 UiVSomfC2mwGgnoa2i8Gttr8/XG1at9c5Wo4ZKWTvLkTxpLnYRv44nzLtXiLOWL9N5RJi
+	 YKYGYTQ/gUixgHNTMWSLeqLFnLmEm0VF5DTnQGp7OMbu6uzgHwPnhkB/UrIiuhFSn6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6c+q2M5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1POeTUT;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0889C606A326
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:37:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC18606A324;
+	Wed, 28 Oct 2026 09:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CC18606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6c+q2M5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CF91F031E2;
-	Wed, 28 Oct 2026 09:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793180274;
-	bh=Sk1v7emottKiHY639PTpkQHWxfWEDahvOjKibc1TVo0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y6c+q2M5W6xayuVMycfKjDHwfssPuoyFmPxF/5NJQcO/aNC2bRJLbbUtSPgujjESZ
-	 cR10Qv/FcQ2y5LpH1HqJ9oRLDAYRfZaoSN2oKMgNcTCKItqgKsjW2udF6GLj7MaSNI
-	 mUalab/J3uMRiJV+atF+tBCEFSWB3/yj9HQS8q/Z5vTlhECocLjKwvF0+UL4Snf/GP
-	 9Z1AzQmEV/XjiuJbjbYEfsMsSMx7Y687Qr1+F98XwWsv3ZBor7XiNy+lWjLdIadCvi
-	 G8kM4PfiktLdXuZoP+SjLUX0dWpq15sUq+A4K/1J6xyeGiJtw+wumppj08dPQuRUzg
-	 1epPHbji2VFRw==
-Message-ID: <sashiko-outbox-187685@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane
- settings for SM8750
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261028093003.722745-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261028093003.722745-3-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 09:37:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1POeTUT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793180336; x=1824716336;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=bypaJ8cdN/DdWj3569Ofb4Ox5IIISGZCyAhXfZcSDWs=;
+  b=l1POeTUT10RAH8l4x3l5iUUYlF9LFWlTO8F3N2HK6j5asWXWYrnc3tP9
+   yCtXgSujteg4xvKJQw/FR2hnIXepAzhnxhqKJ0o1639ySPPGLqbSYxFaV
+   gqbzD7tWtyNsIjvnt3CVRGiq7PN6gwbghg4QE8zgmYJeb1yVPrbEnhLoJ
+   WED5pHLMod9JRCMiF3ZBS6ph2E3g0x5H/FdE/VfhQO0R9Z09LrR+M7flu
+   TYqCap/48SYzP6DqtKw/Tg4ZShlvdDZXXJumFPUGcMURcU0zZRRpdWVv1
+   tqAAKLWCCYkIJU45VkmaiITQoQIw/Rzg/RNJHwrP0k0HOC2qGLc0NS8h+
+   w==;
+X-CSE-ConnectionGUID: HOM2rQfsRSqEzWLjC+hz6w==
+X-CSE-MsgGUID: /6qJXO0WRFyHTuN8Td8DkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1909713"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1909713"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:38:55 -0700
+X-CSE-ConnectionGUID: IcTlcG6QQJ2R3jBJHMmH1g==
+X-CSE-MsgGUID: ugfwFS9kTnCQm0j4AQ8Pbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4725820"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 02:38:52 -0700
+Date: Wed, 28 Oct 2026 11:38:49 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: James Hilliard <james.hilliard1@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v4 2/5] serial: 8250: share the RX trigger conversion
+ helper
+Message-ID: <auHCqZ8_SGSknC_n@ashevche-desk.local>
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
+ <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
+ <805ee11d-c385-f509-456a-35205d8963b4@linux.intel.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,170 +90,29 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <805ee11d-c385-f509-456a-35205d8963b4@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] media: camss: csiphy: SKEW_CAL value mismatch in lane_regs_sm8750
---
+On Wed, Oct 28, 2026 at 10:30:07AM +0200, Ilpo Järvinen wrote:
+> On Tue, 27 Oct 2026, James Hilliard wrote:
 
-commit d9b4ac81070d2e3ae2fc4404b18f6fc6946dfb72
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+...
 
-media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
+> > +static inline int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes,
+> 
+> This looks way to complicated to be inline function so I think it should
+> be kept in 8250_port and exported from there.
 
-This commit adds the CSIPHY 2.4.0 two-phase lane register table
-lane_regs_sm8750[] for SM8750, marks CAMSS_8750 as a generation-2 PHY in
-csiphy_is_gen2(), and configures the lane table and 0x138 common status
-offset in csiphy_init().
+Fine by me! James, my tags I gave in another reply stays if you move to
+exported function.
 
->     media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
->    =20
->     SM8750 uses the CSIPHY 2.4.0 CSI PHY.  The block keeps the register l=
-ayout
->     already handled by csiphy_ops_3ph_1_0 (four data lanes at a 0x400 str=
-ide,
->     clock lane at 0xc00, common block at +0x1000), so the generation-2 la=
-ne
->     programming sequence applies unchanged, but the per-lane values diffe=
-r from
->     the 2.3.0 block used on SM8550/SM8650:
->    =20
->       - the lane register 0x0000 default is 0x8c instead of 0x8e,
->       - every lane gains the four SKEW_CAL registers
->         (0x0094/0x005c/0x0060/0x0064),
->       - the common status block sits at 0x138 instead of 0xb0.
->    =20
->     Add lane_regs_sm8750[] with those values, report CAMSS_8750 as a
->     generation-2 PHY, and select the new table together with the 0x138
->     common status offset in csiphy_init().
->    =20
->     The register map is the one the CSIPHY 2.4.0 vendor driver uses for i=
-ts
->     two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask=
- and
->     parameter type are identical for all 103 entries, and the data byte is
->     identical for 99.  The four remaining entries are the SKEW_CAL data b=
-ytes
->     of the four lanes (0x005c and its per-lane copies), which are 0x00 he=
-re,
->     i.e. the vendor value.  This SoC wires the PHY in two-phase mode; the
->     three-phase variant of the same PHY (csiphy_3ph_v2_4_0_reg, 72 entrie=
-s)
->     uses a different address layout, so its table cannot be reused.  The
->     0x138 common status offset is where the vendor parameter block of this
->     generation points its status register window (0x1000 + 0x138).
->    =20
->     These settings are the ones the CSIPHY runs with on a Lenovo TB322FC
->     (SM8750), where both the rear s5kjns and the front gc08a8 sensor stre=
-am
->     at full resolution and 30 fps.  Enabling the SKEW_CAL data byte of the
->     four lanes (0x005c =3D 0x54) instead of leaving it at the vendor valu=
-e was
->     also measured on that device: 90 frames with each setting, no error
->     reported, 30.26 fps and 53.81 vs 53.78 frame time deviation, i.e. no
->     measurable difference, so the vendor value is kept.
->    =20
->     Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
->=20
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
-rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> index dac8d2ecf7995..9cf22ff17baef 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> @@ -804,6 +804,123 @@ csiphy_lane_regs lane_regs_sm8650[] =3D {
->  	{0x0c10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
->  };
-> =20
-> +/* GEN2 2.4.0 2PH 4 lane DPHY mode */
-> +static const struct
-> +csiphy_lane_regs lane_regs_sm8750[] =3D {
-> +	/* LN 0 */
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> +	{0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-> +
-> +	/* LN 2 */
-
-[ ... ]
-
-> +	{0x0494, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x045C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0460, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0464, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-> +
-> +	/* LN 4 */
-
-[ ... ]
-
-> +	{0x0894, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x085C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0860, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0864, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-> +
-> +	/* LN 6 */
-
-[ ... ]
-
-> +	{0x0C94, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0C5C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0C60, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-> +	{0x0C64, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-
-[Severity: Medium]
-Should the reg_data values for 0x005C, 0x045C, 0x085C, and 0x0C5C in
-lane_regs_sm8750[] in drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-=
-0.c
-be 0x00 instead of 0x54 in this commit?
-
-The commit message states that the SKEW_CAL data bytes of the four lanes
-(0x005c and its per-lane copies) are 0x00 to match the vendor value, and th=
-at
-the vendor value is kept after testing 0x54. However, lane_regs_sm8750[] se=
-ts
-reg_data to 0x54 for all four entries here, and a later commit in the serie=
-s,
-68a5dddeaab25 ("media: camss: csid: add the 980 generation"), changes these
-four entries in lane_regs_sm8750[] from 0x54 to 0x00.
-
-Also, when csiphy_init() selects lane_regs_sm8750[] for CAMSS_8750 and stre=
-am
-startup runs csiphy_lanes_enable() -> csiphy_gen2_config_lanes(), entries
-marked with CSIPHY_SKEW_CAL are currently skipped without writing to hardwa=
-re:
-
-drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c:csiphy_gen2_config=
-_lanes() {
-	for (i =3D 0; i < array_size; i++, r++) {
-		switch (r->csiphy_param_type) {
-		...
-		case CSIPHY_SKEW_CAL:
-			/* TODO: support application of skew from dt flag */
-			continue;
-		...
-		}
-		writel_relaxed(val, csiphy->base + r->reg_addr);
-}
-
-Because CSIPHY_SKEW_CAL entries hit continue before writel_relaxed(), chang=
-ing
-0x005c between 0x00 and 0x54 in lane_regs_sm8750[] is currently a no-op at
-runtime, and leaving 0x54 in the table would program the non-vendor value o=
-nce
-CSIPHY_SKEW_CAL handling is implemented.
-
-Additionally, the commit message mentions "four data lanes at a 0x400 strid=
-e,
-clock lane at 0xc00", whereas in lane_regs_sm8750[] the four data lanes (LN=
- 0,
-LN 2, LN 4, LN 6) are at 0x0000, 0x0400, 0x0800, and 0x0c00, and the clock
-lane (LN CLK) is at 0x0e00. Should the commit message and table values in t=
-his
-patch be updated to match?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028093003.7227=
-45-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
