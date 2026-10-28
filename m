@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793213430;
-	b=ttrZ2PwPzQ+SMjUjADK/2A5rgtVof34DXrNhRffumXV3TnKOAbJXDIGfiR4IWdz+T14N
-	 iLG7tCrWpJmCWrKCUd0+ztglDUTPuTm4hXHfh1bwEJr0qOm42/eOGiOrxvLee2B3Fyj7o
-	 hnPuuo3wj01kXGvrXc2rJBODYM+V13jlZgRbPkIVjJp3Jt4qnCBLJ7JiDfrgdd5LJz9h9
-	 bdnJhjbJYY358caXZH8sn8uqGcaOr0Eg/1s97+foYC+SxqPbJ6wlpEGBVstoAXSJLoERx
-	 DwAFa0Memlb5O7R/R2zlEtYBey2SRzt009X4tE1g1d9Oh9ehN/sql91SULLw6DM8+xQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213430;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wQC69tHW2ebHrN5t+L0bbZwYFEvRaf7gD+4+TQfEUjg=;
-	b=IKQbmIqdf4Zq5qlYhx7tGpAq00CbjKzRpRzNxDgaz1ifLveJk2wVt/DIICQ4/SVkrcY5
-	 U/VzDX9sJnST677nEZK+iDyzCR9jDkbdq9nD5u4W0hDTJUCNWUFmtM/LEQLeMRrUUyRt8
-	 tUUAFeB4RvnbiQnC2lFNW0x99F7a1C8rAvjZp8odMUn4PXQ10EeugTRIPowLzCppPLAS2
-	 5iLSIUkrZut7OXCUofxPRFDllpgnCxW3Kp53RpfXrPppmSKChqDPygqpGktKRRrsYYiPZ
-	 31KCwnNEGAve2rg9Kb6Tbc3OHwW6/HOyrH8gA3BMIDYii5q1nlhBNRBQSEzz/at+GsA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=XQ8VE8Bi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.33
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011033.outbound.protection.outlook.com [52.101.65.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793213654;
+	b=k1MzgtVi5Lol4pkklo0FzaRkExUT7xpPVsLEuT2MElQIHM8liZ9PJOBubeOBN7snRinz
+	 ++dvUrV3bb+iBY6M2PmEGvvhluiAr8PM/I4JAE3lmd0giM+1Wr54molzaRuZIMWi+AiZ+
+	 OjfJil5dY7I/5gLi0OM8gSuLCnU7qA+il2Jc8/suwjWyRl9ewij6Ruk38qoTc1pp5O1gO
+	 f5//FpXs7xSwzcCXvBV7hu1ZCeEVYqHoMR8XAjp6yO9lwsSbi+bQ0L4gXwX/wNYOX2cZr
+	 wlT/rFP0Q/QRUShasLPYI+0fTNOuYEgmhPTujCDPFvNrRHagZW0jDsCPq55eGVvVX9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793213654;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
+	b=ExcNMbC3KrEoCvpWEEHNHqQzPwsDsvNsyXZnj8V0tahz9DDCLAkOf4SlIrTYAqvZRlt4
+	 cQrIL6CSpedxtebd9ihBqjwlHTYVo5KUPVxzKxyM3U3WqH/zf2pB4mVm0bK5U/Z9T2Tso
+	 AYnWM4p9O35TkFM1d85fXpu6HFt48M+Gu0w2WKljTMPzjsElYU9rI7TY7dRI4V56lUL9/
+	 Bt4z+8zgJmKbCeK9JoSFdXueL8IA6kP/wO8MZWzdi8GC7/6mStu5F6ABs8XRTybn1npxz
+	 lrdj+6ACAb3T8JGJBIZoKiZtoJCQSYHVXzvdu6FN8sfnjt4fKTcjIXGzDhMfEmtbLWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPAmV54X;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7807B606A31A;
-	Wed, 28 Oct 2026 18:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7807B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1F3606A31E
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 18:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A1F3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=XQ8VE8Bi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vppkETLkd8QMs0XGk6KYJUOSFB6s5PurZPy69lYFybMLIBsJExt+Pm2tUnPcQgqT+XWMYyKWI/LxA6Id4jameCCt3FtndB9/Tyr1dgGbsRyxIPgkrPzf6xp70MjuUbwIviroROX4ahsR/yiXN+T5RSxfvwbudcGxeH4VlS7K9hhKmmUiitxSwSZhRr8VDvdcRk6nr+C7K0rQqGRlw98nyfe0MgMkis/nZ8nCufyT9FWyLemC8H/+sMw9ppnydR3H0QxOf/cLzc25rN6wg5cIrcBL90sN+fw4rP/zTKuEQyE+B174xl2ktWQED08v58ZrIi4jOAIJaSya9MnZvl/Njw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wQC69tHW2ebHrN5t+L0bbZwYFEvRaf7gD+4+TQfEUjg=;
- b=IggvYJEaBTSu1L7O4yYq/FgGZjhsDzTz+DBIO0PqD2FBvPZg7n6tYvaKIuGxc9HE/uUTUm5rkJYzw2YAn24U3+ByLvQWtpDX48cG6pVUEeayOTT6IrXUrJgQjaOBj1OgcNrgA1xnd6izo4REFbZGlmWwGzV+XJcjyfnmDcCDvYFyvSqIEjt/gAZsxKDTllB+hNtWfLbqR3VzcA4E3Zr3oTe2MN4oIVfHApieNfnznvIIeNcijuQkdNDVYHKD3tYQITvbH1pGgBqXMD4y2T/7zq/g9NgVzPRoAf60Ra5ggKUUFQ7sA7QVHtJEMq0pRxfqpFIU8WHswfQGNxBS18McqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQC69tHW2ebHrN5t+L0bbZwYFEvRaf7gD+4+TQfEUjg=;
- b=XQ8VE8BiPOfLP4VjjzfXdUk4EyBRqOv5cRJW57Oy1hU5GWl8cHqOMKxdVAbsVmGgumMG9O1EzWJ/ZdMejVw+XnwKYaUEYKX2f5ze7UUFHM4xOqfjfsGTteKgBrfOmNSZFvUths32tf0/57ywMhrxLboTYv1Al98Yl2Z0q7O7myOCLdtmONhzRbEbaKVAAttQUzjzU1K4wASxhxZH8ZSz5K9LlNJlg18hkP9yDWXWdEQi8SS2ayWOw5teVWpI20EAWqZPz9Z3rXVViDeOAyqCL2h75U1tgeMSQx3hnAPyqsbRQqEFbCDfc/oPwu2IDyHZCvFJnTqKVcoffHoBHwhNPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS8PR04MB8134.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 18:50:26 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 18:50:26 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"Joseph Guo (OSS)" <qijian.guo@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Guo <qijian.guo@nxp.com>
-Subject: Re: [PATCH] arm64: dts: imx95-19x19-frdm-pro: add boot phase properties
-Date: Wed, 28 Oct 2026 14:50:17 -0400
-Message-ID: <179321338729.1646969.1488310290125309307.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012-bootph-frdm-imx95-pro-v1-1-6757c5f04a17@nxp.com>
-References: <20261012-bootph-frdm-imx95-pro-v1-1-6757c5f04a17@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0073.namprd03.prod.outlook.com
- (2603:10b6:a03:331::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bPAmV54X
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so12064775e9.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:54:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793213653; x=1793818453; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
+        b=bPAmV54XKyghqYN6QVtvkyj1c09K2mFnMi0kR3DTUjccjBUg7vw1P/NFR1+fL4y1KK
+         sTTbH34nIO0Ufj8AggfEi6gbvucc7dX6X3Sc9PiEK3MLiKJsQLDJp1QfVns0dxJpTqqO
+         u4Mhol1bbIKPAEcabFycApwlGHCZYGKlhLPLtx0/fNw7a5zwHu8lp0ETMJHd9fmw8hMY
+         qWb+3izQE2yB3e+9PWacZRsuaj2swaSLBFDyW/8R05WervEr1ShfWbxEa3q/KNmDILwC
+         VwdX46nObglPMqPzLyqC2BG/B/xPEi9Otwq5t88Bc4WU8+CoYnmfxzNDzc/8NCUL5ySc
+         JABQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793213653; x=1793818453;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q5fF2hx6olz2rFBHGDuG2r9xOsD6VAnpq1WRECdo8IY=;
+        b=wFD+ZExcWH7xA74/6Fgk3s5kDNdmsvRCqxFNA7PjJl9JlvBAJIjtnvFG4XTfs0Uxvp
+         QbVge5yWr8hz4J1oBjLKKPBwUe9q7bjxA/bJ1PNY+mNjxesbwI43MvknXl5WY73ygjP3
+         Sj/jMrfkpzRmo6SW/Z/aju0iip5MxFnA9uOcOkbA+rV3nu8ehkLl0MNQnNyhooECBj6C
+         CWlKcBjx5m6wxqnw1J6wYikVKiJE+k203icMTsrQYL3SiutXJrTTMsnmGFUob2XCB2md
+         SAG/2iKGDgjk1nN0jKVincT/WMeW+CBVqbEtxUIpm3kTn9gmx/Pe70cEuzi5Rwj1Oa9z
+         YQ2g==
+X-Forwarded-Encrypted: i=1; AKwUvBwPJrduFkVb+ZtLT7veAbY1KKcqHnsjm486K4RExOAZRrE+i7PFpynUnNzoDnvqTErbuTGARth/o/LZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6VOR7ujSV1nh5hSjfESLarRA5axwGkmmbtdrDtviRIMOmHc58
+	F5DiRX6myATF4F+6NtXbnE//Ibi9C/X5FYbwAVN53YozP20+ady/FroS
+X-Gm-Gg: AYBFou2/7Nai1c5c+hnp+03LINKZdxn1HDlh1eDAiXCVaNPg/UOTEHEcnPKv1F1ZsSO
+	nVLXS4N1ue+jJzwG6l1CcsXiAqgb/9w00SOZm7R/tRWIOJikEUuZ86NdPhi73RLOdRaB7DG8xQm
+	ExcxiS0SXYYH5QM+nOsbHrsc0byXdTqLRUALtV8F7sWQoHPQPU7+bic2tQoV8Um+gLNsRfh9hWp
+	8yF3CmN+2QksljFrBaGW47brX7gHMwZ7Fik/wy07lsp0P7of1+PbVPSmrxnAwMZbq9yW2H75Tp0
+	SzQ+bK1YoOhQZHR3EQBH6zfM4ba9dYGO+FtuxMQf7Neyf+plk2eEf5rRdiyAYBifhq9aKWplhd4
+	wO31204pc9T1MrhiaSPHa6yjDveQoBQYqsBncC6lBIQr5dI01k4C8VMgSFgYM7miV1BfBftZH44
+	DhE6smAMv1VuuTF9wUS5zFYhBKcOthdOH8/N5JCEwaGrSPoG7993tCx/essBl50nxlsDfV3uJ37
+	HmAMesUzhaXT/ePFB9lxekH++5Nueq3fsBgJ8GH8CwjfW8OAJXZNTeS3hc8GUv+0jo/FRr/yoxD
+	MZEI8erdOp5cd67rdWSjGDRl/qSmW15IQI317KraseqEDTCq5oMHvKAHg+WjGX7g1FcKGV6LemV
+	yj3X5jn/CJe/thqp4Ch8F5fUVZdoS4l6LooXl0WaEoq9wXmws1Rs6uFoDBHtT19bSTr3Gmu37ZP
+	exw3D8c7US9rfEl8w=
+X-Received: by 2002:a05:600c:348f:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4a9678c68c3mr72504645e9.34.1793213652696;
+        Wed, 28 Oct 2026 11:54:12 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94eb8dc84sm25417365e9.2.2026.10.28.11.54.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 11:54:12 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH v5] powerpc/dts: Add Device Tree for WatchGuard Firebox T30 (v5)
+Date: Wed, 28 Oct 2026 14:54:06 -0400
+Message-ID: <20261028185407.26952-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,85 +107,410 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB8134:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ba9202e-5d50-4a0f-79d1-08df35245496
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|19092799006|56012099006|11063799006|261009223027099003|261022075727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	h8T8HgrVKamtqvO2sqw+IGh+P7X7otlHBvu2Dk34s8F89Zps6UxbKfsIbGh4gXsruBae6npVj8sTdGl8GfhUePSu9yYrX5Kz0B5A6mp2Mqg3gObKjQ8HxqUidJtBdgK7MolmM2x8pnxp87B4Aps9b9tgMRycRJnY+Kyfv1Uzr0OiV+x9HubrXCh+uIiFc1aybT1K9U7uXRySKOuQUYaPY+F6TccKNIZko1qb27/1IsXh8eyQ4vHQHaPXqQKI25cl2aSihwC7H1Uf5aevdp0lKUmsts/M04MGnupsF2YrI3aFRMK6RiykJs9SeQgZYALe3/7lIxgDuB0sAi4V3E1EwUJl6+PG1+2qkzYRhm9WxBwJzsBy1mz6+hFpVKD9owBVvw3tAPx82ubA8MdIuruHb6imBRezr/lRzzII3z1ZG1QpbgKbRNA/aF4NDWr57CH5+S/tmDpq6rL5Z6NAvDgQBxFCUm60q7bwyAy3vUngF8yCyPQ0njmNA+zbGrThyoR0WT5YUdfNr7jGWDg1e7DaYPZTJYKD0Wz4gwKcLf1z8rmXgJXjoe7IE+U0UU54etBAe5lW7EdXaKQIKWUtE6CZvEZmF2QtycNe7AjLsrGTxsBnHEyqVilweyR4EfBPTQ4hsBfjybyb4TDau8LWgui/Z9htBzyEAFH6Okn3KD6aadQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(19092799006)(56012099006)(11063799006)(261009223027099003)(261022075727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?djl6dHNvcU1MSXNveG1GbHpIMk01aXVqSUdiMkMzRXd2Nnl4ZXBpT3VveVNM?=
- =?utf-8?B?cHpKMUpDZlR0TmZjdDQzMnNZdE9IVTIrS3pXd2M0U1h2MCtOZGNEMXc3UWhV?=
- =?utf-8?B?d1R5ZXhpSkpvbmlpSU0wdjNwYlpXcjlNRFBGU2NXLzhxWDVYNEE5bWJTbUFM?=
- =?utf-8?B?QmpiU1NtVmpKWXhKejBhRHZNQ25WOUlHTTYxQ00zMkRpZGREOXc2cmdlYnVk?=
- =?utf-8?B?ZXEwMGhzd2gxdFRPbG9OMVF2YkppcjhQbUhNcFA0M244cmVtTi8vZzMrZm9S?=
- =?utf-8?B?dFMzSGg5M2RNYlJ3SnduS2crM3R0SXhtN05MZ29JSXFoRHNHdlJINW9WRW9K?=
- =?utf-8?B?MGpPZENKU2lDZ1VBUkZOQWJoVSs5SGRFcjFlRzI3eGFvdFdNOTJWTGl2aDBU?=
- =?utf-8?B?QXlLSEZjWEg0YXNSdGQ2dURmK21lb25vckN5RFBWRWZtamY4S2ZRZFNIdk93?=
- =?utf-8?B?Q2cxMGVhU25hQ2ZtdDE2NS9HTUpYamJHY0pOb1hrNGpHZnpxVmVBRStJd0Fs?=
- =?utf-8?B?TThxUGZqaDZUdk1nT1R1UUhvZlhhSlhFV1ljbHhGUnlVZjB3Z0NSUG5MRWRh?=
- =?utf-8?B?Y3NTS05WUGhXRk1MZjNCQ2RkUllmaGU3akw3eDdpYlZveEVEaVoxbmZEUFpq?=
- =?utf-8?B?OFJXc0FWU1R4cVc5a3RpOXZWU2RNemVzVUtCWVV1b2l2S0lkNnBJUEZTTDBP?=
- =?utf-8?B?NWhHa0RmM0QzZUhzemhwaE4yWmUwYkVoYVgrcGFrci9PeEF4alVSWFVyYmlm?=
- =?utf-8?B?NWwyWjFVRm9wRmQyU2JmK0dlbXlQc1hGM1JwaGhva3haeVBvNXRjNE5pMFpH?=
- =?utf-8?B?clNkZnJxRDNnR2pENmRxV3d4Wkh5bksvQ2Z2TVpJSU5TRU4rcmxHWFpVQ3JQ?=
- =?utf-8?B?YXQ5RjJjUWUzVFBLTVZEeDJPQmF1THN3bGc0U2QrUWI4Qks2NlJ1ck5Fb2NS?=
- =?utf-8?B?SVBnYU11TU1rajJzdjhrQ1BDS2tmQ21aQjZjbHBBN3R4OXh3bEwzL3Y2Q0Nq?=
- =?utf-8?B?OVcyUHkvTURTZ0FJa2dmUndVT2JBaWVQZnl0bVB1TWUwV1BHa2prWjVySDd4?=
- =?utf-8?B?OUwwMVRFcFgvMyt0V1BvMlN1QXU5K0U5MUhpekpKSS91cm9Yd3pyZzhUZTJ1?=
- =?utf-8?B?aVJJdWNhRVBZY1BxTnA2NkRGSThEK0JUQ0NJNnlYSUN2QXJOTGJTVG9IeUhF?=
- =?utf-8?B?eW1xcUczZlptUFNWZ242dXhuaUsrS2JiMEdYV2tzSFVBUWU2aWFFd0UrN1ds?=
- =?utf-8?B?N0dPa043ZUtEZHAxa3hwak16eVJTVWNjS2ltQ2k3MjF2eTlKdHpJUzFxeUI1?=
- =?utf-8?B?YVdVclJsdEg2dWlWTGtMb1ZscWYwbGU5N3VhcnY2N1M2V3N1VEVhVGdkR3RZ?=
- =?utf-8?B?d2lqWHBMa1lVUTVYdVJvS1RLRUlsWllRcmlmTHJsWmdoYlVHNjAvMHJVTFdZ?=
- =?utf-8?B?d3pIM2owY0dvTDJRaUZiaVh1aHlVN0pZQ2pOM3Njc1FXT0lRekRDUWd2WTFx?=
- =?utf-8?B?d01kaFJsNUVlL2xPNC9wSlR2K2ZGUnViU0ZsS0l6WFk1Zzd2QU5nNWV0WG1O?=
- =?utf-8?B?ZGM1bHVuTkxoUXRMcjRpbU5tYTNwcVM2NnN3cXhqUFhGYnRVNmtkN2pzQTd0?=
- =?utf-8?B?dHRObFBxYTZNQkNPaUZEOEFHSmM5UjFRV2tJd0grd3F1UlZMU3VacFY2VzB1?=
- =?utf-8?B?V21vQVd1aEVmRkhLNHhxL3pMKzlJOEZXNExjNVMraHJlY0xsQm1SY3VNNHdJ?=
- =?utf-8?B?blJSWnpJcElHUW5vT1JHR2loa1c1R1d2V1RQeXNiWEJYZXZsTGRzLzNvZHBh?=
- =?utf-8?B?dWN2N0FEdkVSYUphQ0JTUC9jM0hsaGszSCtMTldTbk9JdGVKcHM3Rm41cnFi?=
- =?utf-8?B?Ti8yaVViWTBHeGxnVm9IMnFTMVp5b1BjN2RCdENPdTE5dE5WRW9tN1pObHhE?=
- =?utf-8?B?RmdGMDl3UGFLL0VZc3UyNVcwRGFpZitTb2FnUllvYi9VR3N0aERwTWxiYm93?=
- =?utf-8?B?Q01OZHhSWnlTTUsxS1lPeXJDanlYWnliRzcwSjVDVGJSNlNBdXptVG41c1ZE?=
- =?utf-8?B?enQ0ZUJ6ZzFuOER6azV3RmQvZW9IZW00VDBnVHNuU1piMEJpa0lodk80QnBC?=
- =?utf-8?B?R3g1dnI0OXJhdmx1ZjRtRWhWU2JVM2VzY1U4Z1Y3TVhEOW13ZmFYbUtJVTRJ?=
- =?utf-8?B?TjZDRjJueW92a29EbUxOWnFoQUR2cVllMExDcCtWL1VMTjNnTFlLSXptVXZu?=
- =?utf-8?B?bWdNakRRa3loK1hGTTJsMHNHekRIVVF1MWRKQitTbU1CT3JhRDdZTFZKUWVY?=
- =?utf-8?B?cXVROXFEdXUrU3lxdHhFazFheFFhdGcwaWRuYnFGb29hdnNtZ1BlY252M0lD?=
- =?utf-8?Q?XNWgRs81zTsrwZy4=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba9202e-5d50-4a0f-79d1-08df35245496
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 18:50:26.5372
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ow3ZyPzxKom9HTn2+z7J3FftkXrg1pL+4Ag3QL6Sodv7OkDRXvFpuDGHf+KY1zjV6MDB4ubCDs2k/YFpnUClx6qY6aJaSsw2Tbjty6DnkbDgXbArLYeCN4KnvN3yWbR2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8134
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+This commit adds initial device tree support for the WatchGuard Firebox T30
+board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
+arch/powerpc/boot/dts/fsl/Makefile.
 
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
+ 1 file changed, 386 insertions(+)
+ create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
 
-On Mon, 12 Oct 2026 15:54:06 +0900, Joseph Guo (OSS) wrote:
-> Add boot phase properties to essential resources during boot phase.
->
-> FRDM-IMX95-PRO need UART, SD-Card, eMMC access during boot process.
+diff --git a/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+new file mode 100644
+index 0000000..ec6cf91
+--- /dev/null
++++ b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+@@ -0,0 +1,386 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Device Tree for WatchGuard Firebox T30
++ * Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-node/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		gpio0: gpio-controller@fc00 {
++			#gpio-cells = <2>;
++			compatible = "fsl,pq3-gpio";
++			reg = <0xfc00 0x100>;
++			interrupts = <47 0x2 0 0>;
++			gpio-controller;
++		};
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "atmel,at97sc3204t";
++				reg = <0x29>;
++			};
++		};
++
++		spi0: spi@7000 {
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "p1020si-post.dtsi"
+-- 
+2.53.0
 
-Applied to imx/dt64-intend, will see in linux-next after v7.4-rc1,
-thanks
-
-[1/1] arm64: dts: imx95-19x19-frdm-pro: add boot phase properties
-      commit: 68bc12a7621c32359d9085a271a8d078aeec89e0
-
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
