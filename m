@@ -1,80 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793184152;
-	b=Ubxq5pbzjaSssb6MzLG5bxW3z9Q4tcx+HqcLcWxYlNBf/+Z28VWlh8Zj9wdjkOl5g5qa
-	 AAmVRNOYXEQ31lTR/gonPcVZXjcnnS5LeKHI17BoA56Vvsa1YUAhsmBtPwnDxwAj3nE6S
-	 SPtCPeS9IHkClA4qIyHZ79vpMrIi4OrnFB8c/wzLPqhDUERNwwvcCdt6ztvERJeXr0tg/
-	 frkwvVmXpaZVfdf0UWKqJ1iq2xj1ugBK9dsedB5IKVeFKbmTgibJKXB9csIQz3lg5dEPR
-	 M5yxOv7/bx1u8efbLUgTW5uvCuUDc8Jm7e+icEDiE5LdbGHnNPOnXLBEBUcfBssMFyw==
+	t=1793184882;
+	b=Lk+6sOghtWBMhRfNJQ8hoh4nqXs1utT9ZF5d/Y4tcVuTqjCd4d0H3R16Kq9tICR7ktSb
+	 PNq1BnB3gWQwRXtBKPVc48sPpw/EorNDyFezfz5b9a+34glL2vMTmEUqXFYmAGb06EYMY
+	 el523D8SllFiN1qNr+HQfepUF7ETHA8POtC6l+M4EDq8dO45cPnQ/15zIPLeLqmVhbmop
+	 om9sjzYs/kKifjSD6Ku7WA26cZg9WL8UIPdv85fmGorVqbWiLRQuvELtK0hMdVnDzEJHZ
+	 kQTbLG6gH5E1OLQ3Pkm4yA8RUqgTiLLe1qBZ0KFt4m/92ifZZqHwoHcKZa2px1byY+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793184152;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Wr5H6194Ck7Knoj7DEU9DgmJ1Wo5pcWbmFkeajBfofU=;
-	b=j+b8ktbQ2EUPajQZVgJAF3WbpnndFCEXAi9SCw9DRUAgfPehOseOabPyqaXOuEMS5QhL
-	 L1kBAvM9Ln0zyse9vWE1qiAeecblPHXJCpQt1BMKwSuEmnLHJYD6d0LXiMsGGU2OTEEwa
-	 Z6F72XBQZL9RiJ57fEzWnRpppAgzFVYrTJ3olE2e2i5yllCGqrFGGo0KzskcvCkl0jW+0
-	 zYKQ2JVDYvVYdd1zafDk+5jlpEuQDUzdXFHDRl1yZtr4Ra50yfnZDd4lJnurnsDHrGh22
-	 HChwHV5s5eWmbGDronA9vsHUhg+02gUTx12JXPTJqCcg0vvvLkckbIwPpeRwjfl3g/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793184882;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=uoyhanJreUhzLPDA+ljmTZwIPetuIE1Ivz/9P3UXD3E=;
+	b=2A9YFwDouqXR3PAcwhWkymGiASN+mJkbjS6VtQlpYi2+VKz/cOCE1X469ZT2y+w1JhJV
+	 pP7WwsIqXLrMFWlC7okpe4avAdyhegXsKemxYMqdWaQqN4Lup6cGcqv8mPMZfiREAfacU
+	 fpqeax4DWyrigj3Ysux2dkvuS75Btj3tSSxRUCO6OmPtIIwt22QjSqgB8HL+WBxHuDHu0
+	 kv4jbL0DTy26nY577za/pk8aqdLlYvllQNPuasJj7rdx4nJ2Zd+jUkF9C04if9sfvY8lu
+	 liM2wpDLy+VNNABcIkBdcIMkZmjbAS14FDbie5R8rmLenYffIa9YkhwtFrKT5WJatTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgEV0PF7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iyYCa32g;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8193606A325;
-	Wed, 28 Oct 2026 10:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8193606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D03606A31A;
+	Wed, 28 Oct 2026 10:54:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99D03606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mgEV0PF7
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69S8KTWd3265161;
-	Wed, 28 Oct 2026 10:42:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Wr5H6194Ck7
-	Knoj7DEU9DgmJ1Wo5pcWbmFkeajBfofU=; b=mgEV0PF7YLHYrrSFJUzwQNWUXWy
-	5o4BIY7BwWtgjKnXWO8Ay2bzrwCZFmkNm81rZ/b/6zoNXfaQk1OT0uCuyXfFSw2n
-	JhBTPtR/LAH75easrUIY67Xa7AjRKqAjb5jDxWa3mz/jAXsGL40ptxrS1QFBcNFY
-	qNZATvNmyyrYnzKnM4EiWY1FXraeDJEOQ2LdxIvc8s5v1r9XjQRHgV873I6YmeJO
-	Onm9a5Qo6x6rvcJmLImHCmS9zMGd7qJ0bkioEQV6FTw+Urd7DiJNxq/8oYmhE/TR
-	LY1ogIG9R24L6m3MNt3jRHHDXthrHp8XE/U61WomkiEQehzucWB7kTM6+WA==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy713rxq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 28 Oct 2026 10:42:29 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69SAgRKd3208767;
-	Wed, 28 Oct 2026 10:42:27 GMT
-Received: from sdciot-sh07-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTP id 69SAgQXA3208758;
-	Wed, 28 Oct 2026 10:42:27 +0000 (GMT)
-From: Linghui Wu <linghui.wu@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Linghui Wu <linghui.wu@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: shikra: map WCSS firmware stream in EL2
-Date: Wed, 28 Oct 2026 18:42:26 +0800
-Message-ID: <20261028104226.1075335-1-linghui.wu@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
-References: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iyYCa32g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793184882; x=1824720882;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z3aNUzcd8LQRCPT46+lVga/502IGAQyJemLKQGD1rOQ=;
+  b=iyYCa32g6GAaHdc8hvExBOlmo2wYbFCBnrsPazv8w+QLO4hYRAbkfVM2
+   Odd9IlCgJFmf6TxAcz0Ukv/jAzeDlKaQQM7PCVYlQT3Z49zir/veI9wX1
+   6Uu24t7O50tB1T/HBvpNWh2owSeZnmiZmeWZuOaXH1u68yhDO3wiBCpVd
+   J6Yo7rRinfKa3AxVPrq8Z44B6k69HOYvOJiA39r5VgtCeM3ToTGBddO1i
+   xKm7mOoljopmCrwYfiTNcFrItuUbVvUxaLggRPrltnT4/sBPxeEA0wicu
+   EGQhRUhzjtyzMv+FFjxcatSAMZzeRvJM80F8MTFSZdB2y8fBIHlr0/Ash
+   g==;
+X-CSE-ConnectionGUID: GjaOzkquTdm3dm20YgECwg==
+X-CSE-MsgGUID: A5gwxbZET/6RWjHeAstxnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1891174"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1891174"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 03:54:41 -0700
+X-CSE-ConnectionGUID: gSq73B0+TAqXDZb1qQLHYg==
+X-CSE-MsgGUID: h2GJqdhjSLmk9ONPpyHirA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5153537"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 28 Oct 2026 03:54:38 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xM1Ig-00000000Ybs-3trJ;
+	Wed, 28 Oct 2026 10:54:34 +0000
+Date: Wed, 28 Oct 2026 18:53:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: christian.koever-draxl@student.uibk.ac.at, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+	khilman@baylibre.com, jbrunet@baylibre.com,
+	martin.blumenstingl@googlemail.com
+Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 2/2] firmware: meson: sm: make power-off work on S4
+Message-ID: <202610281810.Or8lhrj7-lkp@intel.com>
+References: <20261025192144.208954-3-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,71 +87,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfXwEpz8o9u3J+L
- ZKOlePpQHHFE/WOqKHH/366UuN6cYXorMe1db2pSjR5SUHiQZjS5BStAuwHG5VJHE9V+zLYXDvs
- UbCjGGpP7F1F809FT13DhTMpiKB+n9i+66XW5Q83ALdOZLqOwG/bRHM5iQFKF8cLShEJ+zj/0FE
- uPZSQLRJkb/OelEac0k6yQtrzzjnkd+dBw0ilJxpxwgQwHaHyrq9Tbtyd4ifaPFKsD6jahQAVJ0
- Pv3MvLaaGHPy887wR+AtkUOepcSUjTiYFeM1yQTIFTvkhh982cxgCIeyMo08DPS62pIKvXSpCIC
- AAolpOUqb7dcl3YT7B9Rks4Df88nIdJ2fbQGc74PsHMn2xD8Sv9Dz2oqrgLbw89MhgevW/8fbk7
- 2Yt0Bacy3FdDYf7zaxH7WCmuC4OFuPKpgW/rCRr4fiiKcRWHmUUcuFMxKrM1Jf7UNeBlmQpTFW9
- 3AJAo3LCxLChV8ojAFg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA0MiBTYWx0ZWRfX1OuKggLBIPTd
- qKlwG2LA/g/sSL032196/LpYvVRX/7IcOW574n/14QNmZ5HMaI4thmAGbs+dDmh3UhKFwFj6u+s
- Pf12zDLmliJ2G9c/O0yVcF53GOdQgWc=
-X-Authority-Analysis: v=2.4 cv=JspkP84C c=1 sm=1 tr=0 ts=6ae1d195 cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=_6-XGTQBvWoJhf-V3jsA:9
-X-Proofpoint-GUID: i3txTG8uyg-yl-_tiIFi1HPi-wLB1Fy8
-X-Proofpoint-ORIG-GUID: i3txTG8uyg-yl-_tiIFi1HPi-wLB1Fy8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280042
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025192144.208954-3-christian.koever-draxl@student.uibk.ac.at>
 
-When Shikra runs Linux directly at EL2, the hypervisor does not
-configure the IOMMU stream used by the WCSS firmware. Without a
-wifi-firmware child node, ath10k assumes that TrustZone manages this
-stream and skips creating the firmware IOMMU domain and identity
-mapping the WLAN MSA region.
+Hi,
 
-The resulting WCSS access to the WLAN MSA causes a non-secure SMMU
-global fault for stream ID 0x1a2, followed by a system NoC error and
-secure watchdog reset.
+kernel test robot noticed the following build errors:
 
-Describe the WCSS firmware stream so ath10k can attach it to a firmware
-IOMMU domain and map the WLAN MSA for firmware access.
+[auto build test ERROR on 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614]
 
-Tested on Shikra KVM/EL2. Wi-Fi initializes normally and the SMMU/NoC
-fault and secure watchdog reset are no longer observed.
+url:    https://github.com/intel-lab-lkp/linux/commits/christian-koever-draxl-student-uibk-ac-at/dt-bindings-firmware-amlogic-meson-gxbb-sm-add-amlogic-meson-s4-sm/20261025-202143
+base:   7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+patch link:    https://lore.kernel.org/r/20261025192144.208954-3-christian.koever-draxl%40student.uibk.ac.at
+patch subject: [PATCH 2/2] firmware: meson: sm: make power-off work on S4
+config: arm64-randconfig-1000-20261028 (https://download.01.org/0day-ci/archive/20261028/202610281810.Or8lhrj7-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261028/202610281810.Or8lhrj7-lkp@intel.com/reproduce)
 
-Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-el2.dtso | 6 ++++++
- 1 file changed, 6 insertions(+)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610281810.Or8lhrj7-lkp@intel.com/
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-el2.dtso b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-index d2f3186bd47d..a0f7c4a635ad 100644
---- a/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-+++ b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-@@ -21,3 +21,9 @@ &remoteproc_lpaicp {
- 		 <&apps_smmu 0x0366 0x0000>,
- 		 <&apps_smmu 0x00e7 0x0000>;
- };
-+
-+&wifi {
-+	wifi-firmware {
-+		iommus = <&apps_smmu 0x01a2 0x0001>;
-+	};
-+};
--- 
-2.43.0
+All errors (new ones prefixed by >>):
 
+   drivers/firmware/meson/meson_sm.c: In function 'meson_sm_power_off_prepare':
+>> drivers/firmware/meson/meson_sm.c:318:6: error: implicit declaration of function 'freeze_secondary_cpus'; did you mean 'thaw_secondary_cpus'? [-Werror=implicit-function-declaration]
+     if (freeze_secondary_cpus(0))
+         ^~~~~~~~~~~~~~~~~~~~~
+         thaw_secondary_cpus
+   cc1: some warnings being treated as errors
+
+
+vim +318 drivers/firmware/meson/meson_sm.c
+
+   308	
+   309	/*
+   310	 * The S4 firmware implements PSCI SYSTEM_OFF as DDR self-refresh: on the
+   311	 * power key it jumps back to the kernel instead of booting, which hangs the
+   312	 * board. Setting the shutdown flag first makes it cold-boot instead, and the
+   313	 * secondary CPUs must have been taken down through PSCI CPU_OFF beforehand,
+   314	 * otherwise the wake-up path hangs as well.
+   315	 */
+   316	static int meson_sm_power_off_prepare(struct sys_off_data *data)
+   317	{
+ > 318		if (freeze_secondary_cpus(0))
+   319			pr_warn("meson-sm: failed to stop secondary CPUs\n");
+   320	
+   321		return NOTIFY_DONE;
+   322	}
+   323	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
