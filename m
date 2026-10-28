@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793179824;
-	b=aWIWxjD0vXdzaMN9frS910qyOmrVfPN9nHKFc7djNWvFrKsx6dLn2GRYsfo3iuL+qsIp
-	 qAEiLe76AVMqWkmTNNOXaOtZIA8It36HeQaLoazlYbSUiBuY+E38B2THxlDSH2bxzV9mx
-	 ZBTwh6W2iId5wjpQfNmaEoEdtvzw/1hMxFXxfOdtXvb73u+8tO5tJFw495SGNRiQoqPxa
-	 SLIm9eyp8TIMrTvaqHizbDxL9RXtBzjlQoXMvINtpZhWn83sgCSP13DtD0htULXDgbVU/
-	 z7OnMq1gQB6qBWxF1rl9PqjgqcZxGDkx+bkAxLevagZ2eyWBz9ePiDpNzJ87imyf5OQ==
+	t=1793179825;
+	b=4B/wHofO7chiNEC5jEUrIXSeNSCGCP3sTX32kh9E+9DxvEddF3wSFBT5wT+n7khjPQy2
+	 v+M3MwfWIJjb/zxikOe9MUBnKjojMWh5FXASM6FJ88hDTHt5Y7xLo4PyReqrZB0g8NFU9
+	 sRaDo3Sp4BQNA6liEGjPpS5HzfMN+p2ZCLBmMVtdbS8lhtg9oOlAMaIYgslwMJlD5sqmH
+	 N/CuvoQvQRNaxC6uJGb/rjSPQNqe2pqlkgK5SdE7MyQtT6oOWtyYgQy6VcXGxqkIIIqo6
+	 +yErcAMnOFdsxzLke3Hztpx+sTL1I8Ke26nxfX4ZxGkLAzg9Vnl9/i38HfMFa6h9YVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793179824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793179825;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPYVKU2rOFlY=;
-	b=mZRXfFxjW1P7XdgpSyrkbqqDg7g3+0lTnXkS41KsxAIaV5fYeyb3qXqRQbx23mMvHQQU
-	 Kj8d9nrYrkzv4QU0X5ZQ+ThiFWk6OGGvHDviPD5uKAOfMi1S+kOI8HM9Zzqg8EjCNXwP9
-	 jFIdrPGh5kNhVvRiCs8e5SJj28Qx+q6PGVh157Tjlyatgtq18reHilqd8Za9kyCzULMkg
-	 r1ztSq4g6yV2mDrmWWMokS78/PaMDCwyuzCoQFB5fKD3qVEC2IffF2G2t1IpYMKYsIFX1
-	 lG78NtMjIyL3tWW+TeL5+3AVa4Vt6PcJbl1ohJy2AKI3Q3i3L1Ok5AZEg+qhZOTbvcg==
+	bh=3EXXyX5va3tHTtjCGa0DMtYwejMB9WIO3viEeD2GKho=;
+	b=G/VCoxBY+imFlOzGKsxewUNBezzExTfDEXGUkFsgbaVJIKT2QLv2Bk+SJD1UlbrroPR7
+	 nOxmuAEa0RzHanXRGBV1WSL7/mNnFty3MrJ0K0LzwzVvrliQyLbBWmG7+Ym0fFFE0Oaoz
+	 ARxdWBXH6QeXTQ8EMJtWnC3hXedDOH8YPi+mI/Ohv2oNmQVWdF4rCrEDGIaXbnKBsy1Rv
+	 iqkjRO0yYvaBCTe08sBYpnUeFTym4VAJafVuyDO9Gh/GiZ5SsdLaluPGkJZMyTjl8pq20
+	 1EdGCtXmnzuiUBKHzCJIrMJN3OC2+4VOvMKr3ZbLYUDt3oMy8V8MvGbShDZvJXyN6BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=AoBZDATp;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=gD0rzjlN;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71844606A32E;
-	Wed, 28 Oct 2026 09:30:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71844606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A99C6606A33D;
+	Wed, 28 Oct 2026 09:30:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99C6606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=AoBZDATp
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=gD0rzjlN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPY
-	VKU2rOFlY=; b=AoBZDATpQ7ICR5RCnmVdccKJ+RMGouxmhYT6CFwOt5+6o00M67
-	Hrx/0OtI+S8oh+/pRfyhA4mts8+R6rDqQRoHMvyOsGBZWaHSBhJdl/bwWoOGqUHn
-	OmCDBArDdxZW5t9IzQwNVtzFSBc3AFW6C4jhLbRqtA5F4PCW6VPVlezrs=
+	Content-Transfer-Encoding; bh=3EXXyX5va3tHTtjCGa0DMtYwejMB9WIO3v
+	iEeD2GKho=; b=gD0rzjlNf9x0iheCG8Efp4bK9+VCsgdNWXJpSwfrX72G3P1avr
+	/5Oo0DGXjS+4lVlJrz/FWooM/kWdc1cQ9x8jWH3EqOvMcVxLoiUR1TbpzSSjoO4Y
+	Zjc7ZcaTQ1lQgETm1yEx3XuJPMlXNY+A4Q/B6rwFRNxFmXG6tWC+K+dEo=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S8;
-	Wed, 28 Oct 2026 17:30:12 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgB36i6cwOFqbQZYAA--.619S9;
+	Wed, 28 Oct 2026 17:30:16 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -54,9 +54,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/9] media: camss: video: check that a buffer is DMA contiguous and add a prepare hook
-Date: Wed, 28 Oct 2026 17:30:00 +0800
-Message-ID: <20261028093003.722745-7-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v2 7/9] media: camss: video: stop the subdevices already started when a start fails
+Date: Wed, 28 Oct 2026 17:30:01 +0800
+Message-ID: <20261028093003.722745-8-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -70,11 +70,11 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S8
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DurWrurWrGF4rGr4rZrb_yoW5XFWkpF
-	WrKrW5GFW2qF4UAw4xJw4UuF4aywnYga4UGrW7Zw1Yk3Z5tr13ur45KFyayrW5JryxKF17
-	tr4jq3yfuF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmKb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgB36i6cwOFqbQZYAA--.619S9
+X-Coremail-Antispam: 1UD129KBjvJXoWxur48AFWDAFyftF1rCr15Jwb_yoWrJFy5pF
+	18tFyYgFWSgFyUKw47Ar45Ja43K3sYy34ftry3Cw1rAF15tr1YqFs3K34FyFW5C3yUA3W2
+	yrWjgrWUZr4rWFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
 	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
 	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
@@ -87,79 +87,119 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DurWrurWrGF4rGr4rZrb_yoW5XFWkpF
 	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
 	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7
 	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j
-	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU4sXoUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBXsU
+	6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUgi05DUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9YyDwBYsb
 
-The write master of the newer VFE generations can only be programmed with
-a buffer whose payload is physically contiguous, because the frame
-increment registers describe one linear address range.  Check that the DMA
-mapping of every plane is contiguous for at least sizeimage bytes and
-reject the buffer otherwise, instead of silently writing past the end of
-the first scatterlist entry.
+When one subdevice fails to start, the ones already started further up the
+pipeline were left streaming, and the next start would try to start them
+again.  Factor the teardown loop out of video_stop_streaming() into
+video_stop_subdevices() and run it from the error path, stopping at the
+subdevice that failed.
 
-Also let the SoC code add its own alignment requirements to a queued
-buffer through a new prepare_buffer() video operation, which runs after
-the generic checks.
+While at it, keep stopping the remaining subdevices when one of them fails
+to stop instead of returning early: the pipeline is being torn down, so a
+failure there must not leave the rest running.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../media/platform/qcom/camss/camss-video.c    | 18 +++++++++++++++++-
- .../media/platform/qcom/camss/camss-video.h    |  1 +
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ .../media/platform/qcom/camss/camss-video.c   | 60 +++++++++----------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 0852eb6f1..027cf024f 100644
+index 027cf024f..ee9ffd043 100644
 --- a/drivers/media/platform/qcom/camss/camss-video.c
 +++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -155,7 +155,10 @@ static int video_buf_init(struct vb2_buffer *vb)
- 	const struct v4l2_pix_format_mplane *format =
- 						&video->active_fmt.fmt.pix_mp;
- 	struct sg_table *sgt;
--	unsigned int i;
-+	struct scatterlist *sg;
-+	dma_addr_t end;
-+	unsigned int i, j;
-+	size_t contiguous;
- 
- 	for (i = 0; i < format->num_planes; i++) {
- 		sgt = vb2_dma_sg_plane_desc(vb, i);
-@@ -163,6 +166,16 @@ static int video_buf_init(struct vb2_buffer *vb)
- 			return -EFAULT;
- 
- 		buffer->addr[i] = sg_dma_address(sgt->sgl);
-+		end = buffer->addr[i];
-+		contiguous = 0;
-+		for_each_sgtable_dma_sg(sgt, sg, j) {
-+			if (sg_dma_address(sg) != end)
-+				break;
-+			contiguous += sg_dma_len(sg);
-+			end += sg_dma_len(sg);
-+		}
-+		if (contiguous < format->plane_fmt[i].sizeimage)
-+			return -EINVAL;
- 	}
- 
- 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
-@@ -193,6 +206,9 @@ static int video_buf_prepare(struct vb2_buffer *vb)
- 
- 	vbuf->field = V4L2_FIELD_NONE;
- 
-+	if (video->ops->prepare_buffer)
-+		return video->ops->prepare_buffer(video, vb);
-+
- 	return 0;
+@@ -265,11 +265,37 @@ static int video_prepare_streaming(struct vb2_queue *q)
+ 	return ret;
  }
  
-diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/media/platform/qcom/camss/camss-video.h
-index d3e56e240..af046ecb7 100644
---- a/drivers/media/platform/qcom/camss/camss-video.h
-+++ b/drivers/media/platform/qcom/camss/camss-video.h
-@@ -28,6 +28,7 @@ struct camss_buffer {
- struct camss_video;
++/* Stop the started subdevices, excluding the one that failed to start. */
++static void video_stop_subdevices(struct camss_video *video,
++				  struct media_entity *stop)
++{
++	struct media_entity *entity = &video->vdev.entity;
++	struct v4l2_subdev *subdev;
++	struct media_pad *pad;
++	int ret;
++
++	while (entity != stop) {
++		pad = &entity->pads[0];
++		if (!(pad->flags & MEDIA_PAD_FL_SINK))
++			break;
++		pad = media_pad_remote_pad_first(pad);
++		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
++			break;
++		entity = pad->entity;
++		if (entity == stop)
++			break;
++		subdev = media_entity_to_v4l2_subdev(entity);
++		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
++		if (ret && ret != -ENOIOCTLCMD)
++			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
++	}
++}
++
+ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ {
+ 	struct camss_video *video = vb2_get_drv_priv(q);
+ 	struct video_device *vdev = &video->vdev;
+-	struct media_entity *entity;
++	struct media_entity *entity = &vdev->entity;
+ 	struct media_pad *pad;
+ 	struct v4l2_subdev *subdev;
+ 	int ret;
+@@ -284,7 +310,6 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	if (ret < 0)
+ 		goto error;
  
- struct camss_video_ops {
-+	int (*prepare_buffer)(struct camss_video *vid, struct vb2_buffer *vb);
- 	int (*queue_buffer)(struct camss_video *vid, struct camss_buffer *buf);
- 	int (*flush_buffers)(struct camss_video *vid,
- 			     enum vb2_buffer_state state);
+-	entity = &vdev->entity;
+ 	while (1) {
+ 		pad = &entity->pads[0];
+ 		if (!(pad->flags & MEDIA_PAD_FL_SINK))
+@@ -305,6 +330,7 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	return 0;
+ 
+ error:
++	video_stop_subdevices(video, entity);
+ 	video_device_pipeline_stop(vdev);
+ 
+ flush_buffers:
+@@ -316,35 +342,9 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ static void video_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct camss_video *video = vb2_get_drv_priv(q);
+-	struct video_device *vdev = &video->vdev;
+-	struct media_entity *entity;
+-	struct media_pad *pad;
+-	struct v4l2_subdev *subdev;
+-	int ret;
+-
+-	entity = &vdev->entity;
+-	while (1) {
+-		pad = &entity->pads[0];
+-		if (!(pad->flags & MEDIA_PAD_FL_SINK))
+-			break;
+-
+-		pad = media_pad_remote_pad_first(pad);
+-		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
+-			break;
+-
+-		entity = pad->entity;
+-		subdev = media_entity_to_v4l2_subdev(entity);
+-
+-		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
+-
+-		if (ret) {
+-			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
+-			return;
+-		}
+-	}
+-
+-	video_device_pipeline_stop(vdev);
+ 
++	video_stop_subdevices(video, NULL);
++	video_device_pipeline_stop(&video->vdev);
+ 	video->ops->flush_buffers(video, VB2_BUF_STATE_ERROR);
+ }
+ 
 
