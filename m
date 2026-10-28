@@ -1,65 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793218995;
-	b=gsLisVcpF3jegK+baTtCNNt+wns3GHxwpkOjdxDm3x7gR0lwBXi3QGOWX9nPBvUMnRi3
-	 YZV2XWNfgZsib0WaNDjPq1E96IXqp+z0vMgxC510dLidmbLWwUH8erXBlbdbXBgW3Y5XJ
-	 vNmmDD09BhMIxHGWTuhUXxe1cwb05MHPmX5rqgDkrF7iqgvckln+aRdzIgkk3xg9F992B
-	 m72mRBBQmQCL+hYA39iHkjcOrsqyWi3ckHJPE1RnDEI0J772JWh8A3wPH1qZGoVvd03pW
-	 vek0xGev+cUyvl9BzD3EmdhqK0fTt5awLGZ0XtQxAxutXqDRg2+PxdvCLngoGJBgnQg==
+	t=1793219261;
+	b=e45j5019Fx5ewqcrvNz6iff55XCaSbqpDGAku4rnQ2NcabCq0Piv6y97UqJ73he+zaZJ
+	 j5YMR+J7OnrchfJfM78mi/yfpjzYzXqEV+99QhR9arh6B7TzqpLnHodvhrQTUzh0uvh+0
+	 cfjYDIa6lWyRSBQlHjlL5IqbmW68FJv8tRB4hLxu9A6odpQP/s6qOfomt4ZS9Qg//FtDs
+	 7TKLHyMsMqme+0FDbTvGTAwoblpLJipLDedBwpNk/2S9euG7aFuyTL2JTSygJb99lbMzm
+	 PkIsoOwVzlDtWvCkWzmjD1kdvJaQe09l+yKPc59uL71X3UVK+3Jr+vwVRkHVoLtX0IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218995;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=Ipgv8rmvtp6GT7cHXnZSnikAq5xmVO9Okns04bQSCyo=;
-	b=TRp8l0fed6D0X7EsxHdSkhsMQ/eBU5AIp1ehmDUDxivQeFdA0Bftb2LlfHIi913Hh/tt
-	 GLRbB/xFeUM29OpYcuCWXlpQOanR5A/ID5hEC7pf65AyzSfxRWkn8R2tfhSSjDQikYGb6
-	 UG9AYcFYj1EOLqN2JhzmthKfyyFFV+dYQeeIIgdrJ1k85iAWOVriShHWgcVvntOG0rVTx
-	 J4qrftq07Wfj9+Lm1kvK81tfEBmvHGdu98+VG345wXwHiojsKRFPdus68uxlNMfP1UX2T
-	 vsgG8EeVwl99SMndfSAga3AfnWYP5n2bRcRRiIyVYR2VyTCjy5IYtRMhm9xmqc/K1Fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793219261;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rx9oUa//NkWEEfC3LpDAEDMmspM2Y7f77XuuxNJnUYY=;
+	b=gwaN62Ai7rP4t6v+E+05Ttq/jhIOP/2Sc5XSZHn/uRj00X6axJKrZy9DW4tNiEj4ucXU
+	 XtQBu6Dw1Exi1NQftd4RXg9G59lS/TuJL2fMP9K5fpB9jXmSlDiAufunoMywGP2UvOBsF
+	 RpSOIbVl+5Rc6+9tHmXoG5G6zCmdrmwoRUy5jEPLhLu/VYKj3S7GrCX9NhxvFztKT8Udw
+	 jiXqoJSq8QGKxNzvPw+09oijBNHKiucw2zKV/gdZrQDMMTnqleCV8l9m9VjIClsgt5y7Z
+	 pFI+wuVbLUZaDLmeP0HfS6DheLGrW90iD2vUXxDlCeIfHyG09I+ZSPPTPVzmb8NagMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCQmoYvd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrB8XHqr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04667606A31D;
-	Wed, 28 Oct 2026 20:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98040606A322;
+	Wed, 28 Oct 2026 20:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCQmoYvd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F031F01825;
-	Wed, 28 Oct 2026 20:23:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MrB8XHqr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925FF1F01825;
+	Wed, 28 Oct 2026 20:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793218994;
-	bh=Ipgv8rmvtp6GT7cHXnZSnikAq5xmVO9Okns04bQSCyo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=BCQmoYvdPFuxDGcgYVXcoGOhBadVV29fjFGZ75cGAPdbuv881H+JoZIsjWI98RBdy
-	 EZpO5Bg7CzuM6KjGwPdiIQrP+aggCqbZCiBaDIN+xTeLl1z3CSg2kZeSpok4dh/W55
-	 mupIwGez6i0qGTQ86grpe47HS+EVB40GztDnXWZTjIcfOvm62QHxiJHIFlFs4wGTyM
-	 zOQDsvxFcz6zu9vooMLNgQGRbHlAzn3MnuzRvpQeDN0UnowD2n4k1eHEr8FmrpnGki
-	 nM0MJbuo8CjCa8jERdbOL1/dLoGelhl1NubL3PJ2YgCZyYVf+906HW/o6+mIrMvo3E
-	 Kx9l9WmQ64eYw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Brian Norris <briannorris@chromium.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf
- Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
- Tudor Ambarus <tudor.ambarus@linaro.org>, =?utf-8?Q?Andr=C3=A9?= Draszik
- <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Radu Rendec
- <radu@rendec.net>, linux-arm-kernel@lists.infradead.org, Mariano Marciello
- <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>,
- linux-clk@vger.kernel.org, Jakub =?utf-8?Q?G=C5=82owacki?=
- <jglow@google.com>, Brian Norris
- <briannorris@chromium.org>
-Subject: Re: [PATCH 7/9] irqchip/google-cpm: Add CPM IRQ driver
-In-Reply-To: <20261026144346.7.I41e14e9460b3add41e69dac97abf57a741e9c4c5@changeid>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.7.I41e14e9460b3add41e69dac97abf57a741e9c4c5@changeid>
-Date: Wed, 28 Oct 2026 21:23:11 +0100
-Message-ID: <87se1py3ps.ffs@fw13>
+	s=k20260515; t=1793219261;
+	bh=rx9oUa//NkWEEfC3LpDAEDMmspM2Y7f77XuuxNJnUYY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MrB8XHqr9e5crOcv43D6XAtsg0lB+GF5V1m5wADOIMtiXDhYIlcCS58gGXfy4c1kG
+	 Ks0dz1f681UTDLHfEOQ5e2+HmS2AuS6pIHYMyLe/3/BrMKgckRAmFfr/pyK+kUlG0t
+	 ZEUxzCJ7gLJ12LCEJoQ3e+K0EO7Ic4wefxhzJjqKEOso+J07Y2XqjU8nEOUX4DUjeC
+	 W5eMyj6LjSJk4Zou2RVG2jC4lW8CqfgOwM+C4yC7kywctbo5MamLMYULuPiE6KdUO/
+	 1WuzkBGUXdm5yti8SXd5s8ybZl5IowQp/YR7FlU0TVgNnZ2+dr+DMfH7udHojoXijj
+	 vBz0cM39x856Q==
+Message-ID: <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
+Date: Wed, 28 Oct 2026 22:27:35 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,88 +51,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
+ Document the reset GPIO polarity
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org
+References: <20261028095151.1682096-1-vz@kernel.org>
+ <20261028095151.1682096-2-vz@kernel.org>
+ <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+ <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+ <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26 2026 at 14:43, Brian Norris wrote:
-> +
-> +static void cpm_irq_process_irq_status(struct cpm_irq_info *info, u32 irq_number)
-> +{
-> +	int ret;
-> +
-> +	ret = generic_handle_domain_irq_safe(info->domain, irq_number);
+On 10/28/26 16:59, Krzysztof Kozlowski wrote:
+> On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
+>>> We might fix it at some point, so not sure if it is worth documenting in
+>>> the binding. And what about usage of this binding in other projects
+>>> which implement it correctly?
+>>>
+>>
+>> In the upstream there is only one user qcm6490-idp.dts, and changing
+>> the polarity will be an ABI breaking change, unfortunately.
+> 
+> And all other projects?
+> 
 
-  int ret = generic...();
+It might be a challenging task to check usage of "novatek,nt36672e"
+compatible display panels in all other projects. I've asked about it:
 
-> +	if (ret)
-> +		dev_err(info->dev, "Error handling IRQ %u, error code %d\n", irq_number, ret);
-> +}
-> +
+* https://chatgpt.com/uc/6ae25571-2ef0-83ea-81e5-2522e70c4a93
 
-> +static const struct irq_domain_ops cpm_irq_domain_ops = {
-> +	.map = cpm_irq_domain_map,
-> +	.xlate = irq_domain_xlate_onecell,
+The check gives this info:
 
-Tabular layout please
+1. Linux kernel - invalid GPIO polarity in the driver and qcm6490-idp.dts,
+2. Android - invalid GPIO polarity in the copied driver and qcm6490-idp.dts,
+3. FreeBSD - invalid GPIO polarity in the copied qcm6490-idp.dts, no driver.
 
-> +};
-> +
-> +static int cpm_irq_probe(struct auxiliary_device *adev, const struct auxiliary_device_id *id)
-> +{
-> +	struct device *dev = &adev->dev;
-> +	struct cpm_client *client;
-> +	struct cpm_irq_info *info;
-> +	int ret;
-> +
-> +	info = devm_kzalloc(dev, sizeof(*info), GFP_KERNEL);
-> +	if (!info)
-> +		return -ENOMEM;
-> +
-> +	info->dev = dev;
-> +	auxiliary_set_drvdata(adev, info);
-> +
-> +	info->domain = irq_domain_create_tree(dev_fwnode(dev), &cpm_irq_domain_ops, info);
-> +	if (!info->domain) {
-> +		dev_err(dev, "Unable to add irq domain\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, cpm_irq_domain_remove_action, info->domain);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to add irq domain removal action\n");
-> +		return ret;
-> +	}
-> +
-> +	client = devm_cpm_request_client(dev, CPM_AP_NS_IRQ_SERVICE,
-> +					 cpm_irq_rx_callback, info);
-> +	if (IS_ERR(client))
-> +		return dev_err_probe(dev, PTR_ERR(client),
-> +				     "Failed to request cpm client\n");
+Please let me know, if there are other projects to check. To my
+understanding the RESET_N polarity cannot be corrected anymore,
+and the best option is to clearly document a difference between
+the device and its dt-binding documentation.
 
-No line break required. You have 100 characters.
-
-> +static struct auxiliary_driver cpm_irq_driver = {
-> +	.probe = cpm_irq_probe,
-> +	.name = "cpm-irq-chip",
-> +	.id_table = cpm_irq_id_table,
-
-Tabular layout
-
-> +};
-> +
-
-Pointless new line.
-
-> +module_auxiliary_driver(cpm_irq_driver);
-
-Other than those nitpicks this looks reasonable.
-
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("Google CPM IRQ chip driver");
-> +MODULE_AUTHOR("Jim Wylder <jwylder@google.com>");
-
-This does not add up: I can't find Jim in the From/SOB tags of the mail.
-
-Thanks,
-
-        tglx
+-- 
+Best wishes,
+Vladimir
