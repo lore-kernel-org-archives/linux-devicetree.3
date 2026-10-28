@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189087;
-	b=HGnrO5+QHUbabymbWRlfl4vJoUtjngZQOALEP7hpDry8ql6bdi7j51+LIrxds60x8q+t
-	 GQ9IUdhDGYxxs1WkPeOKzgaf0CIhA2j9W08AdphTngH0e/Qr0VlSvSYA7mfuZsnPeqHYc
-	 v6jgRprxMN+tYswbX28An7tldKKw7SDeWUb4ZjXf8gXoZl41ZBef+4Y5uLkgC4sLXVhVa
-	 W3lgf4FVpq2gt9eGGm8pELBcOacPuL0QCVzWdGeo4Asyyn6aM0QLIds1fR6YlLzPVCCqZ
-	 mAXNuibLzyssO8jX4Oot5lMIxy9a8jH6L+7Mb8pWnJOQLOhCsTZq1LAAFQTYi9rhR6Q==
+	t=1793189106;
+	b=tqwsH/+EKvIAawVmnNi8koLgBGsKYpNHTfUxXOLKvoumvVFSoS+dlWkv/IHCKQmtifA5
+	 5ajmu4tRrncKUS30fpfIZEAYBi6K5h7JTqolcYUK6LgA/i3UrVKsCnLe8n/47BjbrNF7d
+	 cuN/v1nIVhy34Rpe+YEj7EVPmvEDYsdGK7RPAg8wlHcDyacuUo1B7Bo2AfevDZiD1NqbJ
+	 leSnkqTtu5K0yirib30cm2UB1pBYr+exaLjVNQ6t01HNYf+4CBx+q/lB7tMdbNTS4+KB5
+	 JuVGLHYjd84MmKg0htzA2jQRYcvac0J1Pyf69YypesuFuMrAdvMFi3Ho4rTyQlkuOEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189087;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=NpUDO29bN7DsBNoG1utxSe3fpPv2KWrE9Pv0OY5SUTY=;
-	b=KLhv3+Tv4T6PZORjw2vRiGjLLacLLRf8UciyOqbocFoxtkbv+aGfGCIHRpYeOctwnTbU
-	 m1MRXGHfnLbnIuTV4kLyMC0KLdac87kMkJZ72Lfu5VYRDzrnG5Wfyy7jtVUM0hjgCsys7
-	 ydcmYzIvEPbobn6dk0qg40nnH8XovoP321ivqgeI8AHlLFNeL3dQ8r+w7olC36nbXUiL3
-	 G6FZ6kG5ArT3Ws1L3mDq/ub+CONfVcQa0oDH+5/dRe+vK/xXo8J3bAm2gSCQiFAYJAT7P
-	 /muE21/mLFtCTz9DhanqEG2MsGkJvBTBY2d8LRX1Tqhze5cSVbbWf8n5lJTEvjgKR9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189106;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=eVRhrzpBmEJpLLRSFqkvooQy5r4v+2KqS/CoyMG19Uo=;
+	b=PaLjChh02Rl5thkEgYVD9GfDSLsx5xzO71RQNHgSneU8soD3yE90Q+RewBdGVh7HfDb4
+	 xDWSjY9VqoHRJImlfAPStJd+OqOM7CZWz7fdTcCV+7nyXDgy0uY3NUfYtn/uhCEJ7vx7O
+	 occLxJNqTQg3DGFoRrKFpz8sJf3DDMJPWZjnTgGnrz9DJarMAhpMxFIXPJ/e9rPrYbuTJ
+	 0M7ROXpPDxuywtWDcHla9V4RjxoUvOr3mOOvhS35SIeeDAJnPE2rakgtiEWC+niEzoY7o
+	 voCQF8fj2OqeZ5hCHoqLa1olWdq7IRu/TookpUU22Nhkrya2oE5HDtW51/mlAYnqhOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="axIcbnk/";
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52BF2606A325;
-	Wed, 28 Oct 2026 12:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52BF2606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPa1w7lv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC2606A31C
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:05:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=axIcbnk/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=NpUDO29bN7
-	DsBNoG1utxSe3fpPv2KWrE9Pv0OY5SUTY=; b=axIcbnk/WhemhkRq78pq8UnzpP
-	bq++u6npuhHLzEo7Efa3K+732h2a2DTHSN0MVagcFIsOI0ksmcdz8t0EufYp0B5O
-	TquaAoSAvjVHggNB2WJfqNwgTLMm3ozJ9AB9f144wH1Qf+yhNb0VeKKtPw7Ahxjt
-	HIQ3+f3VFlDMvS8g0=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn1ira5OFqM9dYAA--.3602S2;
-	Wed, 28 Oct 2026 20:04:42 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Wed, 28 Oct 2026 20:04:42 +0800
-Message-ID: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPa1w7lv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC9D1F01828;
+	Wed, 28 Oct 2026 12:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793189105;
+	bh=eVRhrzpBmEJpLLRSFqkvooQy5r4v+2KqS/CoyMG19Uo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QPa1w7lvRyXRYqYKae45CHCrc/c2MO+jHb5fadm83U9BvP70oTpRe0U0qg8gW7VtX
+	 uDDiZemIRZMVIwoKPezWgfyVnlYWHUhwd4lnKbn7ZrweydGxOsJAF52nHxvtVPLBDv
+	 EiXDGWr1sEf3YXShdOv2Txt/ppowuzkH4oW0WtfzRxzcFCAFawdbN4OJ4u8t5le33R
+	 vNeWtynQ0IexAGUfNfL6yQtFUWcrLcUGQ+tY2FJDcsXVc+cLvvOCSbPdw14w/9c0B7
+	 3t7/0ipjS5OKyHBtw0pkzi/phTZXG+5SR+DKIVBBBkqfweOkmLc6LrNS2j5v4/ywAA
+	 vq2EjaoZjHt/g==
+Message-ID: <sashiko-outbox-187856@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH DNM v4 6/6] arm64: dts: qcom: kaanapali: Add MPAM MSC
+ nodes for the L2 caches
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yin Li" <yin.li@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-6-bdda1e445cba@oss.qualcomm.com>
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+ <20261028-mpam-resctrl-dt-knp-support-v4-6-bdda1e445cba@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 12:05:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,168 +60,152 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn1ira5OFqM9dYAA--.3602S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF18tFy3KryDKFWxAFWfuFg_yoWrurWfpF
-	Z8ursFkryrKF1xG3yxGa4xZ3WY9as5Jwnayr12y34rKay5tFnYvwnIyw1Yv3WrAry8Gay2
-	yFyqkr42yF18Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxUgM7NUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZksQAKsh
 
-The WL2868C is a camera power management IC with seven programmable LDOs.
-LDO1 and LDO2 share the VIN12 input, LDO3 and LDO4 share VIN34, and LDO5 to
-LDO7 have one input each. LDO1 and LDO2 cover 0.496 V to 1.512 V, the other
-five cover 1.504 V to 3.544 V, all in 8 mV steps.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: kaanapali: undocumented qcom,kaanapali-l2-cach=
+e compatible
+- [Medium] arm64: dts: qcom: kaanapali: invalid root L2 cache MMIO nodes an=
+d compatibles
+--
 
-It is used on the Lenovo Legion Tab (TB322FC, SM8750), where the two camera
-sensors take their DVDD, AVDD and DOVDD rails from LDO1 to LDO5 and LDO7.
-Without this binding those supply references cannot be described, so the
-camera stack on that board cannot be brought up.
+commit b790aa2c6d3cc2130d835b988b9078c67a5328af
+Author: Yin Li <yin.li@oss.qualcomm.com>
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
-Changes in v2:
- - Regenerated with git format-patch from a real commit on pristine
-   7.3-rc7.  v1 was sent with a diffstat typed into the commit message, so
-   the mail carried two of them; that is what Krzysztof called a broken
-   patch.
- - Subject rewritten to the regulator tree style:
-   "regulator: dt-bindings: willsemi,wl2868c: ..." (was
-   "dt-bindings: regulator: ...").
- - MAINTAINERS: the entry was in the V section while its name starts with
-   W.  Moved between WIIMOTE and WILOCITY, and renamed from "WILLSEMI
-   WL2868C CAMERA PMIC DRIVER" to "WILLSEMI WL2868C CAMERA PMIC" since
-   there is no driver in this patch.
- - MAINTAINERS: dropped L: linux-media@vger.kernel.org, using
-   L: linux-kernel@vger.kernel.org like the other single-file regulator
-   bindings.  The device registers as a regulator, so the regulator tree
-   is where it belongs.
- - Commit message now says who uses the binding: the camera PMIC on the
-   Lenovo Legion Tab (TB322FC, SM8750), supplying DVDD/AVDD/DOVDD of both
-   camera sensors.
- - Binding: gave the five input supplies descriptions, grouped the
-   regulators patternProperties, used the real board voltage in the
-   example, and added the closing "..." marker.
- .../bindings/regulator/willsemi,wl2868c.yaml  | 79 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 85 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 000000000..7abbd53fd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description:
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: Input supply for LDO7.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-min-microvolt = <1128000>;
-+                    regulator-max-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8..632b17b3e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29413,6 +29413,12 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
- 
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
-2.53.0
+This commit moves the L2 cache nodes l2_0 and l2_1 from the CPU nodes to the
+root node in arch/arm64/boot/dts/qcom/kaanapali.dtsi and adds disabled child
+arm,mpam-msc nodes for each L2 cache.
 
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index e48a179d07220..10aee29a1ba8a 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+
+[ ... ]
+
+> @@ -532,6 +520,46 @@ soccp_smp2p_in: slave-kernel {
+>  		};
+>  	};
+> =20
+> +	l2_0: cache@19870000 {
+> +		compatible =3D "qcom,kaanapali-l2-cache", "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		reg =3D <0x0 0x19870000 0x0 0x2000>;
+> +		ranges =3D <0x0 0x0 0x19870000 0x2000>;
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		msc@0 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x2000>;
+> +			arm,not-ready-us =3D <1>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +	};
+
+[Severity: Medium]
+Does adding compatible =3D "qcom,kaanapali-l2-cache", "cache" to l2_0 and l=
+2_1
+in arch/arm64/boot/dts/qcom/kaanapali.dtsi cause dtbs_check and checkpatch.=
+pl
+regressions for kaanapali-mtp.dtb and kaanapali-qrd.dtb?
+
+The compatible string "qcom,kaanapali-l2-cache" does not appear to be
+documented in Documentation/devicetree/bindings/.
+
+Without a binding schema for "qcom,kaanapali-l2-cache" (and using the node
+name cache@... rather than cache-controller@... as shown in
+Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml), dtbs_check flags
+"qcom,kaanapali-l2-cache" as undocumented and validates l2_0 and l2_1 only
+against the generic "cache" schema, which rejects the unit-address on
+cache@19870000 and cache@1a870000 as well as the reg, ranges, #address-cell=
+s,
+#size-cells, and msc@0 properties.
+
+Should a DT binding schema be added for "qcom,kaanapali-l2-cache" (or an
+existing documented cache-controller binding be used) before using it in
+arch/arm64/boot/dts/qcom/kaanapali.dtsi?
+
+> +
+> +	l2_1: cache@1a870000 {
+> +		compatible =3D "qcom,kaanapali-l2-cache", "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		reg =3D <0x0 0x1a870000 0x0 0x2000>;
+> +		ranges =3D <0x0 0x0 0x1a870000 0x2000>;
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		msc@0 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x2000>;
+> +			arm,not-ready-us =3D <1>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +	};
+> +
+>  	soc: soc@0 {
+>  		compatible =3D "simple-bus";
+
+[Severity: Medium]
+Is it intentional to place the MMIO-mapped l2_0 (cache@19870000) and l2_1
+(cache@1a870000) nodes directly under the root node rather than under soc@0,
+and to assign the firmware-restricted 0x2000-byte MSC MMIO regions directly=
+ to
+the enabled parent cache nodes via reg?
+
+On Kaanapali, other MMIO devices in the 0x0..0x10_00000000 address range li=
+ve
+under soc@0:
+
+arch/arm64/boot/dts/qcom/kaanapali.dtsi:
+	soc: soc@0 {
+		compatible =3D "simple-bus";
+
+		#address-cells =3D <2>;
+		#size-cells =3D <2>;
+		dma-ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
+		ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
+
+Because l2_0 and l2_1 are placed directly under the root node and remain
+enabled while only their child msc@0 nodes are disabled,
+of_platform_default_populate() -> of_platform_device_create_pdata() will
+unconditionally instantiate platform devices (19870000.cache and
+1a870000.cache) claiming the restricted MSC MMIO resources on every boot.
+
+In addition, the commit message states:
+
+"Each MSC is nested directly under its L2 cache node so that the cache node
+is the MSC's parent device and its CPU affinity is derived from that cache."
+
+and:
+
+"This DTS is therefore only an example for other platform DT authors and is
+not intended to be merged."
+
+However, in drivers/resctrl/mpam_devices.c:mpam_dt_create_foundling_msc():
+
+			if (!of_platform_device_create(child, NULL, NULL))
+				pr_err("Failed to create MSC device for %pOF\n", child);
+
+NULL is passed as the parent struct device, so the L2 cache node is only the
+parent OF device_node rather than the MSC platform device's parent device.
+
+Should the cache nodes omit duplicating the child MSC reg window on the
+parent node (or remain under /cpus or /soc@0 as appropriate), and should th=
+is
+patch be marked with an RFC prefix if it is not intended to be merged?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-mpam-resct=
+rl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com?part=3D6
