@@ -1,61 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176191;
-	b=dlrI1AYzW1YlfkCmN8EAP1wpKLyWEcZv7FTgCYc3xatequrlmgad9RuNzpoiEhW+iGJ0
-	 5J8Z8Ka+gyzEFlSzmXGj7obCYGTQeQPn6OG0te4072OMQ+jBl5MRttcDDjP+JWJUETlNu
-	 kcPC8sBg4SuF7q78fv/KGV8tZI/0gyNNvTXjxOykcdQXMyfcomrDLjVkyiiUvDMupaEg8
-	 ER8zeTsTK2gdo1KKNt2+Xx9wu6DRQJsOl7Pa1ATmH/Fm9eCSQWhNI/w/CCUf87UCZzppw
-	 y1yT2VBxzHmYDstPfqjN0Twu6LCoVaTJ+7/XJuopgBLXhg/D2zeAwnlNQredfdXGfUw==
+	t=1793176218;
+	b=2haBvGSa784bN1j5MvMtESBkIeLX2cKyCzVYY7zYxvsHuaYxi+2z7ayrIfSgehfcu9CL
+	 zlMCDhOgA+vceI78T+N4ITkZR4emd2AC0soYG2mP35d9bYt23Jw53rLXdM3jpLV2dtiwC
+	 KEch0wEWVB9OamNtdhkoCU8x6XayxIkdwVK+hN9pH1O1Hz4b9FZ5ygVMqwVsr7RFhboFU
+	 hM/+tI8+AGHpzMkAPs6W1iV2pBHnzifNeHVXirIxaySOWP41wIB/io9vGJDXexz1HsPAn
+	 4TCoSp4hDNR//EDwtUaZmgJDH6F1jRXQAkucFhF4E9FWL22FMNFCXT1CXn3cw6zJt7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176191;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=tSsll3kKf/A5nOKxO5JS6a9ssNuy0Uui3cKpvaZxhZ0=;
-	b=NiVCNGg5WQyRg1h60vP08u0PhpRASWH33tIBvGEpjGenSGbelKMOovPkbl+RTcRKUADT
-	 9JJZp2JAIza+pMblunQaEhz5gpZ91UUfeyD85AtuJ36qnggjrj9oBdHlJxK4LL8NSiyax
-	 1gHfHg0w3IUYtRH+/j0f5T8oD+9rD3rumMnYjB23WTov20Ujaxx+uc2uc6lz+PVjCATPZ
-	 1T7CtyNtNUr/0OJTdkOxweVrTeTczkuX4RMoi9sqvrJ/LNxWB0RPB7nC1mNkSA0iHc8YK
-	 DSDzUGimgAEh3lMH8KWo2qQF7kRixcYagljXImvrCVzyAPsF4Rt2r6EbglrGllZJ+7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176218;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=tOHeyNRvmbXusJKMq6HVQABJtMt41LHGwmGBsrUeMzk=;
+	b=4i3a8w6D4wBUehCJIXufRutGVR0jbEu5yU4P5Rbe4aD416ZyF2iJhXHhLj/03gIvXsm3
+	 fbaOfAA6GUkVjEkAkWJ5796KV6iAwjRFRcSR+yr86jrbciyx10n7aeIkpWBhuGgr02IVu
+	 /8ePIFav8KtK9vJ09X1kbpdhxaCnlxyYG3VIuBauF/zNFHLphwKn5U3gngYSvWhrjGLfa
+	 0CIa5H/cl2tQihCBmQYu6s3tNhTlN4Ovs+thVpGHQ9H2LpuUqxKv167eD3zYsLb7FfwAA
+	 6B47RvnpPYg1Yof6ZdDUXHbKjtmmp4DXlyHyV4srX2hWP0uTZbExXqPwoOnzhzglrNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJ5Q5aLb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C694B606A31F
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:29:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF6A606A31D;
+	Wed, 28 Oct 2026 08:30:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF6A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJ5Q5aLb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702411F031EE
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:29:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793176190;
-	bh=tSsll3kKf/A5nOKxO5JS6a9ssNuy0Uui3cKpvaZxhZ0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eJ5Q5aLbqDPJ5gof5fltzVkIsyvjcisnT6uC7Ii6JTZqbS+D5XYGScuRWpa1tX2SF
-	 MVQZq27HUDKZzmlR5s4xpRjwQ/IS/jZDPXPityyrXnpDNVJhMVii6hBsp5K83mmYUe
-	 nMSJnU8mMA6Od/5vfvCI54TKcHyd/cLIN3y/U7+Y45y8qVycueSy+oqPYbpQwOXPDj
-	 kpQlh9ZUujRsVeCNaZfzS4TyDzpMPG4yoOa8BrV8BvXwHI5crpnGofzIP5SBfNCevQ
-	 r8UivzfCpUNJW8xmuZzi80gdrABlR7w9ZJdaIJAT+pa9QULQ2FjU+xSL7Y5Zu+yyqW
-	 Y8ZymlLzf8PTg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso820387e87.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 01:29:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByYdXl4038X0+oV0H4+R3XnFITf1l3vA46UuC5BcT5uEwgsn62zQ3l9XoD51NG2wPSfqgzXSae2cJOk@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1jXD3E65GCbc6LhMQQgKfOO6vWM1rb1ZBwDm3ArwmNKymI86i
-	htTpsqCwE8Wl/RTBiO6NnMp35fYgZZdNB0BVAFWS77sN8fYBUYQDNCvqL98gCWAayRzEk+xU9QK
-	G94COvUUnoLlcETwLF5wVeumkKYMPXu36HXMW82LW/g==
-X-Received: by 2002:a05:6512:39d4:b0:5be:4904:d2c4 with SMTP id
- 2adb3069b0e04-5bfcad7e51bmr690736e87.15.1793176189147; Wed, 28 Oct 2026
- 01:29:49 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 03:29:47 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 03:29:47 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <5114bca8-91bf-4db0-ae12-442d21ebad84@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793176217; x=1824712217;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=+VrEP1WtzBFvz1LUMzocRw+T/DgCiiZIdHezI1jy7fM=;
+  b=j1IsCY3koGy0dKjExUNFNfhBSRv1crBtnNHEd9RiX8Jn10ECHMZEBpiO
+   kizUVFjMfys1CpjNshw5rBnIl7WMhltlqMy1hmY/F8FsJyyLVpvbc4enm
+   pvNyVSlhoUil3iOIz77DODXXrULt7qzWhF2jgneITDc4Nkk8mVuo2M6Gi
+   j5RRyD3ceEkaC77eIP5/8qc08hVWfVwGJXRIuve3uWjxGmfY9GPch7k3K
+   J1FkD0wRzw0CcZ3ItJUEjbMSmMbpZx+GjoWqfkdhi/BwOexMVK/qYgJzx
+   iNCRyTAHO8IcdAT77nmJzAYWzNeL6DUXTC4bAtygbRqUwYVX1IYELmcv7
+   A==;
+X-CSE-ConnectionGUID: rj9FcSVzTKuOq8bCUToACw==
+X-CSE-MsgGUID: cEOa83v5QxCi326CZ+F75A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1911571"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1911571"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:16 -0700
+X-CSE-ConnectionGUID: DUrcjuXNSSKkOJTwbdT4hg==
+X-CSE-MsgGUID: JUePD06ET02YdR9Jmycmmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="6600853"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:10 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 28 Oct 2026 10:30:07 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v4 2/5] serial: 8250: share the RX trigger conversion
+ helper
+In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
+Message-ID: <805ee11d-c385-f509-456a-35205d8963b4@linux.intel.com>
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,67 +86,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023-sa8255p-emac-dts-v1-0-a34d778ce9ac@oss.qualcomm.com>
- <20261023-sa8255p-emac-dts-v1-3-a34d778ce9ac@oss.qualcomm.com> <5114bca8-91bf-4db0-ae12-442d21ebad84@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 03:29:47 -0500
-X-Gmail-Original-Message-ID: <CAMRc=McWSHn03C9DZ8ZohebfDA9z8L=xJ05KDOYEm6n3eHPArA@mail.gmail.com>
-X-Gm-Features: AclHuK9WkISxEdVMPKocpMJX1vIBeHnYYBYBtz3ekKYCE5vss8u7OwiUvounMh4
-Message-ID: <CAMRc=McWSHn03C9DZ8ZohebfDA9z8L=xJ05KDOYEm6n3eHPArA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: lemans-sa8255p: add ethernet nodes
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 23 Oct 2026 14:32:16 +0200, Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> said:
-> On 10/23/26 11:02 AM, Bartosz Golaszewski wrote:
->> Add the ethernet nodes along with their serdes PHY nodes for the gearvm
->> variant of the lemans ride board. Enable scmi7 and scmi8 to serve the
->> EMACs.
->>
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi      |  28 +++
->>  arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts | 213 +++++++++++++++++++++++
->>  2 files changed, 241 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> index 4c155cbc79754af632848cd55b738e3ef0511cb5..c64cfd279af458e24fb48083ae549c96cfc07485 100644
->> --- a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
->> @@ -58,6 +58,14 @@ &cpufreq_hw {
->>  	clock-names = "xo", "alternate";
->>  };
->>
+On Tue, 27 Oct 2026, James Hilliard wrote:
 
-...
+> Extract the receive-trigger threshold search into serial8250_bytes_to_fcr()
+> so drivers with per-port threshold tables can use the same conversion as
+> the generic 8250 implementation.
+> 
+> Include the unsupported-table check in the helper and preserve the existing
+> nearest-lower selection and highest-encoding fallback.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250.h      | 16 ++++++++++++++++
+>  drivers/tty/serial/8250/8250_port.c | 12 +-----------
+>  2 files changed, 17 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+> index 21ed9c41b751..195ed58a2231 100644
+> --- a/drivers/tty/serial/8250/8250.h
+> +++ b/drivers/tty/serial/8250/8250.h
+> @@ -8,6 +8,7 @@
+>   */
+>  
+>  #include <linux/bits.h>
+> +#include <linux/errno.h>
+>  #include <linux/serial_8250.h>
+>  #include <linux/serial_core.h>
+>  #include <linux/dmaengine.h>
+> @@ -73,6 +74,21 @@ struct serial8250_config {
+>  	unsigned int	flags;
+>  };
+>  
+> +static inline int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes,
 
->> +
->>  &firmware {
->>  	scm {
->>  		memory-region = <&tz_ffi_mem>;
->> @@ -3226,6 +3234,26 @@ cma: linux,cma {
->>  	};
->>  };
->>
->> +&soc {
->> +	serdes0: phy@8901000 {
->> +		compatible = "qcom,sa8255p-dwmac-sgmii-phy";
->
-> Hmm.. I was hoping Shawn's DT reshuffling would land first
->
+This looks way to complicated to be inline function so I think it should 
+be kept in 8250_port and exported from there.
 
-This series depends on Shawn's, I too hope it lands first. :)
+> +					  unsigned char bytes)
+> +{
+> +	if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+> +		return -EOPNOTSUPP;
+> +
+> +	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> +		if (bytes < rxtrig_bytes[i])
+> +			/* Use the nearest lower value */
+> +			return (i - 1) << UART_FCR_R_TRIG_SHIFT;
+> +	}
+> +
+> +	return UART_FCR_R_TRIG_11;
+> +}
+> +
+>  enum uart_port_type {
+>  	/* Internal 8250 only */
+>  	UART_PORT_AIROHA		= 124,
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+> index 36b2b0a2c05c..c332963dc2ed 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -3018,18 +3018,8 @@ static int fcr_get_rxtrig_bytes(struct uart_8250_port *up)
+>  static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
+>  {
+>  	const struct serial8250_config *conf_type = &uart_config[up->port.type];
+> -	int i;
+>  
+> -	if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+> -		return -EOPNOTSUPP;
+> -
+> -	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> -		if (bytes < conf_type->rxtrig_bytes[i])
+> -			/* Use the nearest lower value */
+> -			return (--i) << UART_FCR_R_TRIG_SHIFT;
+> -	}
+> -
+> -	return UART_FCR_R_TRIG_11;
+> +	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
+>  }
+>  
+>  static int do_get_rxtrig(struct tty_port *port)
+> 
+> 
 
-> Are the PHYs hardwired? If so, you can move the phys= reference
-> here
+-- 
+ i.
 
-Yes, they are and will do in v2.
-
-Bart
