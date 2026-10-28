@@ -1,57 +1,162 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793202361;
-	b=HtjueurNsd3x/g9RDzyzkjKc+2T1NTCIAhpqhTXvJeFTS5GOWNgH+YAdBuue5pRtFy63
-	 KoGUcESNFFWrhd24he/pOBqvUvkye0VSMhRSAn2M1/zRx2qxG+ON0YKxE/yS8dEsv1LFs
-	 G9pHGv2idUe8kqOAk7zfpX3C1MmsmKW0VLrrajUaYejJlAXhMYM/bJncUJ+UXDuYOI2F6
-	 sJ9z48w0cEkJ7K1tnl5GoVNzKDzaDWBk8mKUzBJbk/j7Hfns7rH7BUs3FM21KJ8UcB3cd
-	 pzn4spMjnhfR8bGNi0vYs6OcXM8Q3p5h+eySB+XiKSwYOhodXwqnktZc2KuMdJLNdRA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793202361;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HvHC2Ot2Ch3mXIf1DlX2QOM69UyxffuDNqpJNIhZ6TY=;
-	b=Nu2UDW6sSENua6POy4skcDQJ9dSyUCb7cTg+sthxoY+9wVHRT5Bw0eadQwYYq76A593b
-	 4hGbwOPXm3Sj+TdtQPy++2HBXXydDh8zRKyytO0xBmVprZEzgm+Rtniyoxh/drSy6WLn8
-	 Rdo7PSyXd+Fo+/H8CcYcmx269moF5umjJGJ2x1uPdplRWn6hea1ta9/QHo9QJIVWq1O91
-	 cnHfgGnBEYeKk6trvmxzTxDqWVZ2PWajOYPBqIoPG/Ko2v6jpz8oOqnfNfycnakzU4wIb
-	 bUAaGd7Ga1BJkZUEIHMNTwZLYmECxWDH4g1i9dUOcbYDe9+EcTUWYrV5fnAVMjmoIhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B1C/xRZl";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793202610;
+	b=W2Hz3X+AhBX/LlNjtiC3Ak2FUvd08O0avrG9dqdcd7AZ3LR/eBgYuEgNQO37LpF8MGTP
+	 EVY3LulMDj05ZolrNbOCa1a+gPdP/VuLYNWuY7+Df3WTvEjT1K3WPggfgxtOgzJRp9AH8
+	 Bg47bpdO3k9FYbVab1cPt7juiqmZXrNadOJR14LXdUgtCyXdaDSSFtnaB+D/Nt9qg6Y82
+	 XyEhZsnKT8vzJwELXeWzYzkRgW+aXQWI2UeqCatmClvvBxQo96fj4eZ1dDaOW48gM3HvB
+	 I7rZPNIVghgUaURllj6Grqp2dPYGRuWSlDX5bMftxAQy1LJf91k9zIgij/hbzPSyDfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793202610;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 dlp-product:dlp-version:dlp-reaction:x-ms-publictraffictype:
+	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KoXUPg2+11eZERZ8YLzuk9d7TXgpzSgDj3k8aRzXEL0=;
+	b=2a6EuyzkcJRLNAajCthzellQakkwLtx3mvnlm7DaSAVuNeq4LYcwhBws/TnuiayMOllu
+	 yLNaTalhgqU9s/RU47mo+p/HC2QKQJqMOjXNH6cHJkHP0XWLAi1ICerHdDHooOs5L5D1R
+	 xXl1teaZhqDzJofQ5M+cE14M5qJobcsumlLfojDfF9lHsI89OIHzhJjq/5GiWc6bZL33l
+	 YZhkj+GYy4RYs3ghe9XqkaTPYl1qhZBXat/rAI6rKxJSJx4piKrmT/FmCE//Gt7zWOGdi
+	 w04TX1GhOkLtrwSAyfC+D9XcdWAwFqn6h/5EVLMz6Px18dC932uUwWBxiimbcf4vJkA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rambus.com;
+	spf=fail smtp.mailfrom=rambus.com;
+	dkim=pass header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=P+3Svnca;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.124
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11022124.outbound.protection.outlook.com [40.107.200.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD07606A32C
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 15:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD58D606A31F;
+	Wed, 28 Oct 2026 15:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD58D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1C/xRZl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7D31F01828;
-	Wed, 28 Oct 2026 15:46:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793202360;
-	bh=HvHC2Ot2Ch3mXIf1DlX2QOM69UyxffuDNqpJNIhZ6TY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B1C/xRZljz/YnBrL3OzjwDSAWCJYD/pFXdS4MlTuqRmfLA+GfNZXkUBWE/EqKC14g
-	 t/XxH+9E3wPy1OXiYkjuHYXqbhY16MYE4GaI5nIEnDFiYSD3OK0oGxQK6q2goyGY0k
-	 WR5icFvWOF+TsgRKyqalVXKKolsnoZOxNG3JGd1FFbRaNu4Ihllko35iBdyg6FK+2h
-	 G13tZ7+fLwVh8Xa/mOZj5UZNKWOpMz+vSDwVtlf/qQJlUCJcWR9f6GKzmGaGKeuifv
-	 DeAq+i21Aakf1h5b12bKDEaohg2Bbjte/jGdw+FMTd8DtrGJNVsLUQuTtstXxIAi0E
-	 cC74vdi/0/I1w==
-Message-ID: <sashiko-outbox-188071@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/5] phy: starfive: Add jh7110-inno-hdmi-phy driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261028-jh7110-inno-hdmi-phy-v6-4-f3379684d97e@samsung.com>
-References: <20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com>
- <CGME20261028152230eucas1p20b3b47e178cb688903098eba0ec0a32b@eucas1p2.samsung.com>
- <20261028-jh7110-inno-hdmi-phy-v6-4-f3379684d97e@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 15:46:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=rambus.com header.i=@rambus.com header.a=rsa-sha256 header.s=selector1 header.b=P+3Svnca
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aYaDkQGm/sz3FTC8gXJJlF+jWSuhDGTPFjJ3f8lE7KYX3dIJxSgLST0dQhK9EXfu9KhENyn/EsIL6N3cKO5rgtPGK73tqJwgdcBPCxfqWxJLYM5VT5yl3sgxnSzymTKBInJVaOAGCJCmV4R0ogs4F9XJqbHxaixlYFiO+MTI0D6E4+jsq7kYJC9lZcHFaYPyuWA+oRzjDfEYDmg8xGjgm0eGkyRQlu5Wl5v8A7ckMxuExwkAWwA8Bq3SY5BeZN+sgCXAK7v2adPHeqR4PHqdH7qTopF7BprNkIO/LOp1PJSZQN1pWLKZXn1orOjQrmqjZWwz6loVm72o5/eWWW+NXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KoXUPg2+11eZERZ8YLzuk9d7TXgpzSgDj3k8aRzXEL0=;
+ b=qc1QK0RVZyqWO6dqdwSGJeEmn/0f8a3tBRpK+MzXy6TkqTgcsPAIggCcDbREJpshX0i2EB+ZVq1NSa6mK2NgHMFar20YIglfKagMSyCOTeplG1EUMXC0pGkScrmV4GesjiUgy/Uuzs9xgFodrDctriHGJJds7uisT4GdTDQO4Vk07+QWqCBHKS5EOaE1EHkBN0lQ4Bu1rTFMUzjehhUOWxGSID3xXcznM6uSkraXr9v1P0NW3nyovYmqWR++dg+aJEwL9GZnjDqA1J/1nDHs2SK36rKS0YV/1N1NV6BIvtG8zhwzrrn87s55yuIYfSf/qyidT/ywakzUD8QAOTXtWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KoXUPg2+11eZERZ8YLzuk9d7TXgpzSgDj3k8aRzXEL0=;
+ b=P+3SvncaK5eJkOSE9GpDB4tA87k8CgkiZmBfq7X5WqMpnzDdkAsxaJRzsZbOIHG5kCOiERAsCdCrk+S26f4T8cahQW+/5jzrR/P0sgFPso+mnDBYbkohn8Jwcf3L1SsturCs1fAvpKqljJk9NRO+FwXM8Zeewfh4UtrUIhZeVj+VpPbYbo3ct/25fUlsjTg7qz3uMdB8GDuyZvJ2c/1ZnELGa/xRhpcP1jBTjK/FBusJUKmBBzWrHM0pvK2tpQatMutB6SO8OiIm9xH/ba1suf0nUtExk4hQKasyWsHlpHG1kaKMCicKwQ0Z5Eb9dnI5q7ApP/ZYrlv2pJK16jDj9Q==
+Received: from SN4PR04MB8398.namprd04.prod.outlook.com (2603:10b6:806:201::22)
+ by SA3PR04MB8595.namprd04.prod.outlook.com (2603:10b6:806:2f5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 15:50:06 +0000
+Received: from SN4PR04MB8398.namprd04.prod.outlook.com
+ ([fe80::4939:9b85:fbf:521d]) by SN4PR04MB8398.namprd04.prod.outlook.com
+ ([fe80::4939:9b85:fbf:521d%5]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 15:50:06 +0000
+From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
+	<skrishnamoorthy@rambus.com>, "Wittenauer, Joel"
+	<Joel.Wittenauer@cryptography.com>, "Nguyen, Thi" <thin@rambus.com>, Herbert
+ Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+CC: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: RE: [PATCH v7 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
+Thread-Topic: [PATCH v7 1/5] dt-bindings: crypto: add Rambus CryptoManager Hub
+Thread-Index: AQHdZYKCcVew0gTTVUOktSq3CoygKLcTDH0AgAAQGTA=
+Date: Wed, 28 Oct 2026 15:50:06 +0000
+Message-ID:
+ <SN4PR04MB83989F3F40A0E03477CE9415D76F2@SN4PR04MB8398.namprd04.prod.outlook.com>
+References: <20261026-cmh-b4-a-v7-v7-0-500a83faf500@rambus.com>
+ <20261026-cmh-b4-a-v7-v7-1-500a83faf500@rambus.com>
+ <76e47b43-2f00-4b29-bf2b-afb6fa0387d7@kernel.org>
+In-Reply-To: <76e47b43-2f00-4b29-bf2b-afb6fa0387d7@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+dlp-product: dlpe-windows
+dlp-version: 11.14.0.414
+dlp-reaction: no-action
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN4PR04MB8398:EE_|SA3PR04MB8595:EE_
+x-ms-office365-filtering-correlation-id: 8b4c17b6-397e-43ce-b5b7-08df350b2326
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|261026121527099003|921020|38070700021|4143699003|11063799006|56012099006|261021123027099003|261022075727099003|261021121427099003|261022113327099003|261022105027099003|261009223027099003|10067099003|261028144727099003|18002099003|22082099003|6133799003|261026140227099003;
+x-microsoft-antispam-message-info:
+ earq1nRbbmV6lZFstPGnu+JmukR6g0snxq9s6iBwUV0BbT1VQNlZFmUvRCfIHEKMpS5Qt8voONTUxlXt1po6P48eeE5GRLA1k3mP2PiNpuiZm1QvUz+eGlnjKJq8f29LfpYuAzIHwLEHNVIqnNOOj5bfumJExBiIlAwqmSk5WFgfzJtZaQ8jcC3jwyeiChjW/3+DKBIFOHgrVM+QDL9nPcnTfo07jaV37bTmvNXITySZLSGY5Cycgge81ZUKlBjEsZXV5hep3Btzy2OILunyU8biznlrLWU7yyyoYkkFnQBJbt9HzqrV+tGxeQ1kxiLgywEKa3X/MXPm+joF3M29f5UuMEMGbRosaTbUXXjvTX8aafwwbSE40OjvGGTMIeDDPzc+27TS3DXDOeC39/n/29oPVhDvpM7DmPugIuynxkDqBh2XGdDW8VfL8vGMTYH1Kc6CBRPf9tEelk5hoMpvb7eAaiKw1o3qhPZkZBO9ZQuixB4EmaAJbgSA7KfYVw1MdLm9oRzE0b15iE+h9IcfLkwrQ8GWiY5dxFUulsumIJrDuJA4Z0ncL04cXFeRNl0rRO1bFT94VMafNSoLPo0MM9fPEjEbwKIHUs0Pv09pvQpXbWsYorzmuKIV2MqUIoWV6Fmb6dLjHNTPKmF7uYm8ltMzxF5VCUfMk0DnJLAYnkCiBEbbJvTBzoQjMnHtgsLP4fqKqpYcKOdsNuOuWIXRrFo33OkgQgcQfqFaYgv9izE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN4PR04MB8398.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(261026121527099003)(921020)(38070700021)(4143699003)(11063799006)(56012099006)(261021123027099003)(261022075727099003)(261021121427099003)(261022113327099003)(261022105027099003)(261009223027099003)(10067099003)(261028144727099003)(18002099003)(22082099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?V1hDT1QzVmZSb0JlVkR2Mlc1cndQdXJpcjFoU0J5NVYwcUJZdFNEcWRVM2Uw?=
+ =?utf-8?B?TS9XQmNSYnZ5VCs2anZjU2lNSlFNaG15NENZMXdQTmdFVmF1b3lsNEp4UkMv?=
+ =?utf-8?B?b25NN2pqdmdRMmNhSjFQd2UyZnozWG1CcGxONUxiVUozTE1hdHN1UHgwYmFL?=
+ =?utf-8?B?ckJtN04zNHhickJqTVM1UG5ONE1xNEE3YS93VnVDanIyK00vV2tkN0tQVkU2?=
+ =?utf-8?B?bHgyZjNOaVRLdnBEU3NNWkllOW5XbVhiU0UwSVNycmY0alExNnB6TFU1WCtJ?=
+ =?utf-8?B?bW85NG8wLzBMUHpPY1lER09BT2txK3puVklqVjJDRFd5c1NpZ29oTWpZYW9P?=
+ =?utf-8?B?WFNpZGtqQURuYWw3VVNNWU12cVJOZDhwcEpnbXZVUENLNXI0aFRtd2theEFi?=
+ =?utf-8?B?MER6UDc0SUV1Q01FS090aytMV2tvMzdCSHBzaTBsb3JoRlIxTnQxQzNzblZP?=
+ =?utf-8?B?aDYwK2VPMnNWWDJHaEgwVHpENm9mcXA0c0FSOXhkS1Btc2JuNnQ2ZDJCSTgr?=
+ =?utf-8?B?ckZ0MTBjYkhUc1VjYnh0OHVSMEU1U1kyenJDOUE3UjZGbUU0Y1dGYVkvMmxw?=
+ =?utf-8?B?d3MycHV1VGdsOVRWVWJtbjhiSW5xczRITEdxa09BU2JpcHI0SW1RT0RZSWZy?=
+ =?utf-8?B?ci9ETkJXOTJmZ1dnRUNRWGd1dlFVMEVpOVZVMTMwbmo0eU1uM09hRjJDMHY2?=
+ =?utf-8?B?OEZpMXhXUmRHQVFwckxrcUxPQXA4STNqYVVoZEZKVENBZExCUWhWR1RUMEZX?=
+ =?utf-8?B?VVhGdUVyRkMwWEJsdHhWUTg5Skl6WTV0amNvUEt1UFREZms5YktsQUpDZXd4?=
+ =?utf-8?B?YXhodkU2Z3ZrS2V0VmVlekVvU0lnSnRsbkptVW1pdjNsTk1QaWVYRkEyTWp2?=
+ =?utf-8?B?dlhidW9RNmxPWW51MWo1dE5EcUlERGVjZkppRTFKOTJkdVhpcVdJam1OY0Fr?=
+ =?utf-8?B?dktNU3JySTFGZUpkcHY3VVJGblo2L1Y3ME9yUGZJZEhINWJkWU0ybzhtcldw?=
+ =?utf-8?B?V2k3SWZpQU1DNGtmTGZsVWxTVXAwTmo2bXV1aTRrNFlmZTJkUmE3bW9EQ0lF?=
+ =?utf-8?B?eUZyWm1ucG53dFc2QWo1NWR2N2xFVVI3ZDNtbXZXZDhnRnBTTDJPV0R5YWNQ?=
+ =?utf-8?B?S3FvS1o3Tllxc1ZFWmpKZEt0MG9mUnQ2VHBoM3l5OTEvMDJjMDI2MEFFaFEw?=
+ =?utf-8?B?WWNFeEpCbWpENlhqUUwwRHVNU1I3Z2Jaa0FXVDVhd0hmOEZMMlJtK3cxMm0v?=
+ =?utf-8?B?MUZzZjdXWnd2cWxwcGZqUnBRaXpvTmwvTDdsak83RkMvNjBvYVhlZW9lRVZR?=
+ =?utf-8?B?OHZ0Qm9hd0N5YW0zL01HclNnSzQyVElYM2o3T1RudTY1bzdHTUZIbCtGbE13?=
+ =?utf-8?B?WnhiVk9BSFN3dTRuV0srNmR6Nko0ekpTc25KOXo1SWl2MHl6d0hTWEt3Z05u?=
+ =?utf-8?B?aGdNVUVYNnl6Z3A1VzVqcGswYmhEMjR3WlZzNHJ5WS9rUUc5ekpJNFBuY1ds?=
+ =?utf-8?B?bEV5L016V2VsL2cyS0NtNk51aDBtcklFa0FUVE5jSWI2ZnZ5S1hmanlEL2p3?=
+ =?utf-8?B?ZFFlUGtlbGN1MTB5aWRHeVdQS0hXOStPeTV0djJsUXl5c2JEb0FTZmxaN3ZV?=
+ =?utf-8?B?cUNaZXg3TGF1SEE2b2F1dElkT3RMZ01GWkRJY0tDVi9OY1hwNENLTDAwRll5?=
+ =?utf-8?B?MzJaUFZaMmlnajZwYXYzc2IxazZQMDJPeFc5Um82UGZSSnBReWFKY214QTMw?=
+ =?utf-8?B?RTFxaG4xbDlQUEpiK1l4UHFMeVRnT0gycmpLSVZOY21Xc3R2Nnc1OXY4bWpE?=
+ =?utf-8?B?UDNIRVBaVkdwWU9FUS9NZFlmV1pyYUJISnR2Y1I4OE8vS3hONTYvYTA2ZzBp?=
+ =?utf-8?B?cWEwYUx0MFBmc0pwRWZTQ2p2akR3VUxTQWd0cUUwbStqMHNLMm1saWJEYWRn?=
+ =?utf-8?B?ZW11VUdzK0w2T0IxNko0dzZDWm5vWWxZd0wvY2dWNFBiU3R6eXZHRlR5Y01G?=
+ =?utf-8?B?WXpyQmdiRzI4YXpXQ090NzBxdXorZHdDRmxuMVYxc1ZZZXkzYUxoQkhWSE5t?=
+ =?utf-8?B?aWJyYXVOKzlSYks2S1U1SEg4V1J2V3pabGRDNUp1Q1A1SEdyK3ZhazVpdFZk?=
+ =?utf-8?B?Ti9sSjN6Z0tnblVzd1FrSDdHM1FESXJaUTdQRlR6bzk2WU1ldzdpMjJTQ2lr?=
+ =?utf-8?B?b3krbnNkUVpCWk1NdzdYUTVwMll3QU5CQkVZU1YzWWJZWklsQS9DdHBOclVP?=
+ =?utf-8?B?RlpBamdrOFdQZ004dFZCZXdpekY5bkgwM0s4eHdZV1BwUUpyTUk3c2ZMK1hL?=
+ =?utf-8?B?WVN1OTNraUpXWmxGQWVaVnUvanB6Sm1DRWhocFB5akpXaXlRU2Y4dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,323 +165,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN4PR04MB8398.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b4c17b6-397e-43ce-b5b7-08df350b2326
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 15:50:06.0524
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8QYyYvlEQ4y2X08snHZKHEdxhkCgcHt8ohk3ljxNIdn12/Jp9GI1Hto5dvEbgduL8TsOrxXJFrqStRe6o24Hr6P6IXAJ5LK7gVkAqJNe258=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR04MB8595
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] phy: starfive: hdmi: fix rate cache and BIAS/RX state across disab=
-le/enable
-- [High] phy: starfive: jh7110-inno-hdmi: invalid pre_pll_cfg_table divider=
- values
-- [Medium] phy: starfive: jh7110-inno-hdmi: broken Pre-PLL power and lock s=
-equencing in clk_ops
-- [Low] phy: starfive: unused inno_read() helper and register macros in hdm=
-i phy
---
-
-commit de90e248a2b1a2d110bed58fd3d5de2e75a01d3d
-Author: Michal Wilczynski <m.wilczynski@samsung.com>
-
-phy: starfive: Add jh7110-inno-hdmi-phy driver
-
-This commit adds the Innosilicon HDMI PHY driver for the StarFive JH7110 So=
-C.
-The driver acts as both a clock provider for the variable pixel clock via t=
-he
-Pre-PLL and a PHY provider configuring the Post-PLL and analog blocks.
-
-> diff --git a/drivers/phy/starfive/phy-jh7110-inno-hdmi.c b/drivers/phy/st=
-arfive/phy-jh7110-inno-hdmi.c
-> new file mode 100644
-> index 0000000000000..ebda363e50a3e
-> --- /dev/null
-> +++ b/drivers/phy/starfive/phy-jh7110-inno-hdmi.c
-[ ... ]
-> +/* REG: 0x1aa */
-> +#define STF_INNO_POST_PLL_DIV_1		0x1aa
-> +#define STF_INNO_POST_PLL_POST_DIV_ENABLE	GENMASK(3, 2)
-> +#define STF_INNO_POST_PLL_REFCLK_SEL_TMDS	BIT(1)
-> +#define STF_INNO_POST_PLL_POWER_DOWN		BIT(0)
-> +
-> +/* REG: 0x1ab */
-> +#define STF_INNO_POST_PLL_DIV_2		0x1ab
-> +#define STF_INNO_POST_PLL_PRE_DIV(x)		FIELD_PREP(GENMASK(5, 0), x)
-> +#define STF_INNO_POST_PLL_FB_DIV_8(x)		FIELD_PREP(BIT(7), (x) >> 8)
-> +
-> +/* REG: 0x1ac */
-> +#define STF_INNO_POST_PLL_DIV_3		0x1ac
-> +#define STF_INNO_POST_PLL_FB_DIV_7_0(x)	FIELD_PREP(GENMASK(7, 0), x)
-> +
-> +/* REG: 0x1ad */
-> +#define STF_INNO_POST_PLL_DIV_4		0x1ad
-> +#define STF_INNO_POST_PLL_POST_DIV_MASK	GENMASK(1, 0)
-> +
-> +/* REG: 0x1af */
-> +#define STF_INNO_POST_PLL_LOCK_STATUS		0x1af
-> +#define STF_INNO_POST_PLL_LOCK		BIT(0)
-> +
-> +/* REG: 0x1b0 */
-> +#define STF_INNO_BIAS_CONTROL			0x1b0
-> +#define STF_INNO_BIAS_ENABLE			BIT(2)
-> +
-> +/* REG: 0x1b2 */
-> +#define STF_INNO_TMDS_CONTROL			0x1b2
-> +#define STF_INNO_TMDS_CLK_DRIVER_EN		BIT(3)
-> +#define STF_INNO_TMDS_D2_DRIVER_EN		BIT(2)
-> +#define STF_INNO_TMDS_D1_DRIVER_EN		BIT(1)
-> +#define STF_INNO_TMDS_D0_DRIVER_EN		BIT(0)
-> +#define STF_INNO_TMDS_DRIVER_ENABLE		(STF_INNO_TMDS_CLK_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D2_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D1_DRIVER_EN | \
-> +						 STF_INNO_TMDS_D0_DRIVER_EN)
-[ ... ]
-> +static const struct inno_hdmi_phy_pre_pll_config pre_pll_cfg_table[] =3D=
- {
-> +	{ 25175000, 25175000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0xf55555 },
-> +	{ 25200000, 25200000, 1, 100, 2, 3, 3, 12, 3, 3, 4, 0, 0 },
-> +	{ 27000000, 27000000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0 },
-> +	{ 27027000, 27027000, 1, 90, 3, 2, 2, 10, 3, 3, 4, 0, 0x170a3d },
-> +	{ 28320000, 28320000, 1, 28, 2, 1, 1, 3, 0, 3, 4, 0, 0x51eb85 },
-> +	{ 30240000, 30240000, 1, 30, 2, 1, 1, 3, 0, 3, 4, 0, 0x3d70a3 },
-> +	{ 31500000, 31500000, 1, 31, 2, 1, 1, 3, 0, 3, 4, 0, 0x7fffff },
-> +	{ 33750000, 33750000, 1, 33, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-[ ... ]
-> +	{ 78750000, 78750000, 1, 78, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-[ ... ]
-> +	{ 85750000, 85750000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-> +	{ 85800000, 85800000, 1, 85, 2, 1, 1, 3, 0, 3, 4, 0, 0xcccccc },
-> +	{ 88750000, 88750000, 1, 88, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-[ ... ]
-> +	{ 136750000, 136750000, 1, 136, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-[ ... ]
-> +	{ 262750000, 262750000, 1, 262, 2, 1, 1, 3, 0, 3, 4, 0, 0xcfffff },
-
-[Severity: High]
-Do these eight entries in pre_pll_cfg_table generate the wrong pixel clock
-and cause starfive_hdmi_phy_power_on() to fail with -EINVAL?
-
-With the 24 MHz reference clock:
-- 25175000 has div =3D 1 * 12 * 4 * 2 =3D 96, so 24 MHz * (100 + 0xf55555 /=
- 2^24)
-  / 96 yields 25,239,583 Hz, which inno_hdmi_phy_pre_pll_recalc_rate()
-  recalculates as 25240000 Hz.
-- 25200000 has div =3D 96 and fracdiv =3D 0, so 24 MHz * 100 / 96 yields
-  25000000 Hz.
-- 33750000, 78750000, 85750000, 88750000, 136750000, and 262750000 have
-  div =3D 1 * 3 * 4 * 2 =3D 24 and fracdiv =3D 0xcfffff (~0.8125 instead of
-  0xc00000 =3D 0.75), which adds 812.5 kHz instead of 750 kHz and recalcula=
-tes
-  to 33812000, 78812000, 85812000, 88812000, 136812000, and 262812000 Hz.
-
-When hdmi_pclk is prepared and starfive_hdmi_phy_clk_recalc_rate() runs:
-
-    clk_change_rate()
-      clk_recalc()
-        starfive_hdmi_phy_clk_recalc_rate()
-          inno_hdmi_phy_pre_pll_recalc_rate()
-
-the clock framework caches the recalculated rate in core->rate. When
-starfive_hdmi_phy_power_on() then calls:
-
-    tmdsclock =3D clk_get_rate(inno->phyclk);
-    pre_cfg =3D inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, tmdsclock,
-                                           tmdsclock);
-
-inno_hdmi_phy_pre_pll_lookup() requires an exact match against
-cfg->pixclock in pre_pll_cfg_table, which fails with -EINVAL for all eight
-modes.
-
-[ ... ]
-> +static inline void inno_write(struct starfive_hdmi_phy *inno, u32 reg, u=
-8 val)
-> +{
-> +	regmap_write(inno->regmap, reg * 4, val);
-> +}
-> +
-> +static inline u8 inno_read(struct starfive_hdmi_phy *inno, u32 reg)
-> +{
-> +	u32 val;
-> +
-> +	regmap_read(inno->regmap, reg * 4, &val);
-> +	return val;
-> +}
-
-[Severity: Low]
-Is inno_read() needed here? It is never called in this file, and the
-register bit macros STF_INNO_POST_PLL_POST_DIV_ENABLE,
-STF_INNO_POST_PLL_REFCLK_SEL_TMDS, STF_INNO_POST_PLL_FB_DIV_8,
-STF_INNO_POST_PLL_FB_DIV_7_0, STF_INNO_POST_PLL_POST_DIV_MASK, and
-STF_INNO_TMDS_DRIVER_ENABLE defined at the top of the file are also unused
-(while starfive_hdmi_phy_power_on() open-codes 0x0e, 0x02, cfg->fbdiv & 0xf=
-f,
-and 0x8f), which triggers compiler warnings under W=3D2 builds.
-
-[ ... ]
-> +static int starfive_hdmi_phy_clk_prepare(struct clk_hw *hw)
-> +{
-> +	struct starfive_hdmi_phy *inno =3D to_starfive_hdmi_phy(hw);
-> +	int ret;
-> +
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-> +
-> +	if (inno_hdmi_phy_pre_pll_is_locked(&inno->pre_pll))
-> +		return 0;
-> +
-> +	ret =3D inno_hdmi_phy_pre_pll_wait_locked(&inno->pre_pll, 100000);
-> +	if (ret) {
-> +		dev_err(inno->dev, "Timeout waiting for pre-PLL lock\n");
-> +		inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void starfive_hdmi_phy_clk_unprepare(struct clk_hw *hw)
-> +{
-> +	struct starfive_hdmi_phy *inno =3D to_starfive_hdmi_phy(hw);
-> +
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-> +	inno->pixclock =3D 0; /* Invalidate cached rate */
-> +}
-> +
-> +static unsigned long starfive_hdmi_phy_clk_recalc_rate(struct clk_hw *hw,
-> +						       unsigned long parent_rate)
-> +{
-> +	struct starfive_hdmi_phy *inno =3D to_starfive_hdmi_phy(hw);
-> +
-> +	/*
-> +	 * Reading the PLL back requires the HDMI controller's system clock,
-> +	 * which the sibling controller driver holds and this driver cannot
-> +	 * request without creating a probe cycle with voutcrg. The clock
-> +	 * framework walks every registered clock regardless of which drivers
-> +	 * have bound, so fall back to the cached rate whenever this clock is
-> +	 * not prepared; an unclocked access to the shared register window
-> +	 * wedges the bus hard enough that the CPU stops taking NMIs.
-> +	 */
-> +	if (!clk_hw_is_prepared(hw))
-> +		return inno->pixclock;
-> +
-> +	inno->pixclock =3D inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
-> +							   parent_rate);
-> +
-> +	return inno->pixclock;
-> +}
-[ ... ]
-> +static int starfive_hdmi_phy_clk_set_rate(struct clk_hw *hw, unsigned lo=
-ng rate,
-> +					  unsigned long parent_rate)
-> +{
-> +	struct starfive_hdmi_phy *inno =3D to_starfive_hdmi_phy(hw);
-> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
-> +
-> +	/*
-> +	 * The JH7110 only drives 8bpc, so the TMDS clock always matches the
-> +	 * pixel clock.
-> +	 */
-> +	cfg =3D inno_hdmi_phy_pre_pll_lookup(&inno->pre_pll, rate, rate);
-> +	if (IS_ERR(cfg))
-> +		return PTR_ERR(cfg);
-> +
-> +	dev_dbg(inno->dev, "%s rate %lu tmdsclk %lu\n",
-> +		__func__, rate, cfg->tmdsclock);
-> +
-> +	if (inno->pixclock =3D=3D rate && inno->tmdsclock =3D=3D cfg->tmdsclock)
-> +		return 0;
-> +
-> +	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-> +			 STF_INNO_BIAS_ENABLE, STF_INNO_BIAS_ENABLE);
-> +	inno_write(inno, STF_INNO_RX_CONTROL, STF_INNO_RX_ENABLE);
-> +
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, true);
-> +	inno_hdmi_phy_pre_pll_configure(&inno->pre_pll, cfg);
-> +	inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false);
-> +
-> +	inno->pixclock =3D rate;
-> +	inno->tmdsclock =3D cfg->tmdsclock;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should starfive_hdmi_phy_clk_set_rate() wait for the Pre-PLL to lock or keep
-it powered down when the clock is unprepared?
-
-In starfive_hdmi_phy_clk_set_rate(), the driver powers down the Pre-PLL,
-configures it, and powers it back up via
-inno_hdmi_phy_pre_pll_power_down(&inno->pre_pll, false), returning 0 without
-calling inno_hdmi_phy_pre_pll_wait_locked().
-
-If clk_set_rate() is called while hdmi_pclk is already prepared,
-starfive_hdmi_phy_clk_prepare() is not called again because prepare_count is
-already non-zero, so nothing waits for the Pre-PLL to lock before
-starfive_hdmi_phy_power_on() configures and enables the Post-PLL (which uses
-the Pre-PLL TMDS clock as its reference).
-
-Conversely, if clk_set_rate() is called while hdmi_pclk is unprepared,
-starfive_hdmi_phy_clk_set_rate() leaves the Pre-PLL, STF_INNO_BIAS_ENABLE,
-and STF_INNO_RX_ENABLE powered on in hardware while prepare_count is 0.
-
-> +
-> +static const struct clk_ops starfive_hdmi_phy_clk_ops =3D {
-> +	.prepare =3D starfive_hdmi_phy_clk_prepare,
-> +	.unprepare =3D starfive_hdmi_phy_clk_unprepare,
-> +	.recalc_rate =3D starfive_hdmi_phy_clk_recalc_rate,
-> +	.determine_rate =3D starfive_hdmi_phy_clk_determine_rate,
-> +	.set_rate =3D starfive_hdmi_phy_clk_set_rate,
-> +};
-> +
-> +static void starfive_hdmi_phy_power_down(struct starfive_hdmi_phy *inno)
-> +{
-> +	inno_write(inno, STF_INNO_TMDS_CONTROL, 0x00);
-> +	inno_write(inno, STF_INNO_SERIALIER_CONTROL, 0x00);
-> +	inno_write(inno, STF_INNO_LDO_CONTROL, 0x00);
-> +	inno_update_bits(inno, STF_INNO_BIAS_CONTROL,
-> +			 STF_INNO_BIAS_ENABLE, 0x00);
-> +	inno_write(inno, STF_INNO_RX_CONTROL, 0x00);
-> +
-> +	/* Power down Post-PLL */
-> +	inno_update_bits(inno, STF_INNO_POST_PLL_DIV_1,
-> +			 STF_INNO_POST_PLL_POWER_DOWN,
-> +			 STF_INNO_POST_PLL_POWER_DOWN);
-> +
-> +	inno->tmdsclock =3D 0;
-> +	inno->pixclock =3D 0;
-> +}
-
-[Severity: High]
-What happens when HDMI output is disabled and then re-enabled at the same
-pixel clock rate?
-
-When the display is disabled:
-1. starfive_hdmi_phy_power_off() -> starfive_hdmi_phy_power_down() clears
-   STF_INNO_BIAS_ENABLE and STF_INNO_RX_CONTROL to 0, and sets
-   inno->tmdsclock =3D 0 and inno->pixclock =3D 0.
-2. clk_disable_unprepare() -> starfive_hdmi_phy_clk_unprepare() powers down
-   the Pre-PLL and sets inno->pixclock =3D 0.
-
-However, clk_core_unprepare() in the clock framework does not clear
-core->rate, so the clock framework still caches the previous rate R.
-
-When the display is re-enabled at the same rate R:
-1. clk_set_rate(phyclk, R) sees rate =3D=3D clk_core_get_rate_nolock(core) =
-in
-   clk_core_set_rate_nolock() and returns 0 early without calling
-   starfive_hdmi_phy_clk_set_rate().
-2. clk_prepare_enable(phyclk) calls starfive_hdmi_phy_clk_prepare() before
-   phy_power_on(), powering up the Pre-PLL and polling
-   inno_hdmi_phy_pre_pll_wait_locked() while STF_INNO_BIAS_ENABLE and
-   STF_INNO_RX_ENABLE are still disabled at 0 (and without reprogramming the
-   Pre-PLL if the shared register block was reset).
-
-Additionally, if a clock tree walk invokes starfive_hdmi_phy_clk_recalc_rat=
-e()
-while phyclk is unprepared after inno->pixclock was zeroed, it returns 0 and
-overwrites core->rate with 0. If the display is then re-enabled without a n=
-ew
-clk_set_rate() call, clk_get_rate(inno->phyclk) in
-starfive_hdmi_phy_power_on() returns 0 and fails
-inno_hdmi_phy_pre_pll_lookup() with -EINVAL.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-jh7110-inn=
-o-hdmi-phy-v6-0-f3379684d97e@samsung.com?part=3D4
+T24gMjgvMTAvMjAyNiAxNTo1MSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToNCj4gV2h5IGlz
+IHRoaXMgc2VudCBtdWx0aXBsZSB0aW1lcz8NCi4uLg0KPiBBbmQgYm90aCB2YXJpYW50cyBhcmUg
+cHJlc2VudCBpbiBQYXRjaHdvcmssIHNvIG5vdCBzdXJlIHdoYXQgeW91IHdhbnQNCj4gdXMgdG8g
+ZG8gaGVyZS4NCg0KQXBvbG9naWVzIGZvciB0aGUgZHVwbGljYXRlIC0gaXQncyBhIG1haWwtZGVs
+aXZlcnkgYXJ0aWZhY3QsIG5vdCB0d28NCnN1Ym1pc3Npb25zLg0KDQpBbiBpbml0aWFsIHNlbmQg
+b2YgdGhpcyB2NyAoMjMgT2N0KSB3ZW50IG91dCB0aHJvdWdoIG91ciBjb3Jwb3JhdGUNClNNVFAs
+IHdoaWNoIHRoZSBsaXN0cycgRE1BUkMgY2hlY2sgcGFydGlhbGx5IHJlamVjdGVkOiB0aGUgb3V0
+Ym91bmQNCmZpbHRlciBhbHRlcmVkIHNvbWUgbWVzc2FnZXMgYWZ0ZXIgdGhleSB3ZXJlIERLSU0t
+c2lnbmVkLCBzbyB0aGUgY292ZXINCmxldHRlciBhbmQgdGhlIE1BSU5UQUlORVJTIHBhdGNoIHdl
+cmUgZHJvcHBlZCB3aGlsZSBwYXRjaGVzIDEtNCBzdGlsbA0KcmVhY2hlZCB0aGUgbGlzdC4gSSBy
+ZXNlbnQgdGhlIGlkZW50aWNhbCB2NyAoMjYgT2N0KSB0aHJvdWdoIHRoZQ0KYjQva2VybmVsLm9y
+ZyByZWxheSAtIHRoaXMgdGhyZWFkIC0gd2l0aCB0aGUgZnVsbCBjb3ZlciBsZXR0ZXIsIGFsbA0K
+Zml2ZSBwYXRjaGVzIGFuZCBhIGJhc2UtY29tbWl0LiBObyBjb2RlIGNoYW5nZWQgYmV0d2VlbiB0
+aGUgdHdvLg0KDQpTbyB0aGUgYXV0aG9yaXRhdGl2ZSBzZXJpZXMgaXMgdGhlIDI2IE9jdCBvbmUN
+CigyMDI2MTAyNi1jbWgtYjQtYS12Ny12Ny0wLTUwMGE4M2ZhZjUwMEByYW1idXMuY29tKS4gSSd2
+ZSBtYXJrZWQgdGhlDQoyMyBPY3QgY29waWVzIChwYXRjaGVzIDEtNCkgU3VwZXJzZWRlZCBpbiBQ
+YXRjaHdvcmssIHNvIG9ubHkgdGhlIDI2IE9jdA0Kc2VyaWVzIHJlbWFpbnMgYWN0aXZlLiBGdXR1
+cmUgcmVyb2xscyB3aWxsIGdvIG91dCBvbmx5IHZpYSB0aGUgYjQNCnJlbGF5LCBzbyB0aGlzIHdv
+bid0IHJlY3VyLg0KDQpTb3JyeSBmb3IgdGhlIG5vaXNlLg0KDQpBbGV4DQo=
