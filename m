@@ -1,103 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793198068;
-	b=dhKh27O7bPTLr8Z3OqrSftKrMVjc+GHXEaHK+fRI9D4eLfdn7zUARNP0kdDytrA03Dui
-	 k6CN9CO3rujwBNARr602ES/2hdBw5eCoxTJg3Enpj75braBeAsEnfTZkra6T5DXTqOjEh
-	 vNmoqX0Ezi6lLdEq/bKE/eHeOZHCYK6OvRGJGnTNeYZLoqvCsPLJQTJslLYrVDkAWIgVa
-	 iKZZXl2kH4pOaXtgNxjSD38y7gwLhxfM4o+imZTa0FzdMjTvLSmfFLZvMgFoJrlDUMe05
-	 bhf9cuZgnLogx1EnKRrxhYsA85jifZ2/nBvPSlSdhRrDiAOirPHZ1l/orOfiEr8u18w==
+	t=1793198260;
+	b=PO8qb/nE/im34060moyWcXOZpQ2cF+3jyq64TsJH3U8C/2BuTBmjOO8exzaGYY0JWIJP
+	 5TtknFNUiVlHqGaiJnTGh3CZFzqavZN8Ty2BEi9AWDIBJh4iiWZDYmurWeBhl7NCZqIT0
+	 8oI8ke+123rG14PB+PktfDQ/HDZmEUbDT5WUOPZ7bX2TPUfpI8SkGvsTJ8303m8n95K1U
+	 sHL5VgPojJ3jE+wIHD9tx8L4yxGA5BhM/6J3cfBK8i2j/VKvmnG3f0UjsJk0ocxr4a62s
+	 r55Vz9gH+cHJmHhVoH0yLi5DRdIobm41e1YULa8r2ghBTHzQxlplqrqq1qjX5Hrn1lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793198068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vyhcMfYicvnsGtBj/rE9dxPeB2D14M/Y5t9f3Exa9/8=;
-	b=BOqbMjbd92wS140u/qgasM9AwziI6SfSiv7b71zIkI6RiUq5QZgA4l1cFgL6ouk6JglI
-	 bZCvJHu98B1/JYluL7cXp7189OkDhgyWBFH3QLPVXTWlufgtImxjfkHqbprl6604LCN9T
-	 9j8Qy9tNisRY4Tlwd3AXSJiXzj3827yZVvol4MnZuTFM3F3i/O4srzS8rfe44n5FOH4NW
-	 0Qm0AEf8bOV8H8qfzeEX9UlutZO+afSfarZcqi1BGybBh+PUQNlv2sCrDUBZVmfw5Tpoz
-	 lzExA2QZ3d9RC4vF9ow3IaTGoIILmbWH+DLjXB+zgwveA4T9P4H50DH3VGzqE7q7kVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793198260;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vlUL5txdhxREUhLW9UqljJ3TVJiPo++T56X6t/sEh0w=;
+	b=j23AUbyFoSjENBsT4zHNkSf2iBH24BXc5Rzbo5l/rxDnr4zlm76oi379+DRMpKlAKfCz
+	 iiw+crZJmundTrZGQ9AMkWyakXbWXe0wzcHTYWW9fOxtVizTNGWV83hyE94++6lStESXt
+	 OqFsJuuho3WKqiSIyQShv2KK25ojrQ11zf7DDTCMwmD39zVi9Ew5e49kJnYlCYU9ZREja
+	 jgBsk9bvkxQClNzR35OOj2MDICoxra9Qajxk/mLc0SReIVQ+reS2q06JxIwg4D2DBfmT+
+	 6PSktpFw9Ri9jfcE6XMR4eZRraOZkQzSf4RU2kK28PJ8Y1AdGjlANwAEere12+pvKzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sqUHWjsF;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mo8QKtvX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jSRi4VZw;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221F7606A31D
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221F7606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53517606A32D
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53517606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sqUHWjsF
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso681791f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:34:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mo8QKtvX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jSRi4VZw
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBe8tg994806
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:37:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vlUL5txdhxREUhLW9UqljJ3TVJiPo++T56X6t/sEh0w=; b=Mo8QKtvXUgWtezBo
+	IWgLCX97eCdpRf5KvhLLQgXyUGqqhu4USHlsr9os0vzPZT4yazTxQkpCPbBXc3PL
+	+IeVjF6rfpTjbph9MvQS6o2bFOp7JI9lmzmxuX2iCSdvFwKWpGSe02i7zpekDkUb
+	Mr5/FkhfryENrc3GUBVX6Z0Zg3O5olNzQNB0YotlvbJSIoln9HY+icD+C6wMSrwn
+	tuRz5oDtr8JqFoAM47eQPOycMCBHYVyhjYUfu5JEYV1uNAW/5nRGn1IcuUT2KgLD
+	Zu1E3Jkty88q23e7qqqh+3tCyRtBNZcMASHztOD1vPT5lgJI69/wwZh16cA+VnrU
+	xyVMMQ==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk82ttj38-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:37:38 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-988b530df14so72432241.3
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:37:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793198066; x=1793802866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vyhcMfYicvnsGtBj/rE9dxPeB2D14M/Y5t9f3Exa9/8=;
-        b=sqUHWjsF1p5Bff1KonFfHb6b5/wqg0Lpky0oQ6lb9xwn76xce0uZul2YvadWm25c3E
-         cJTE6l5G2+ydmeV7PA76X8meSPOza/SdrC/LiO6hR7Tbs0y3N0NWacVG7PLht7J7JwTF
-         JEum6Qc6Uy+Y4tczWInfdyE5ZU+ttHRivO9m2bcZcu430ONomzOZJk2jbK6xAYEmQZuk
-         8c7EHuhQwulY92kojaeUwzigncpxiUf/Q1GpBfMpMGTTl+U8Xba9HvxzsXL6624Qkszj
-         1BY8Xq9xUlvkgL5w/y7ONAlXnVY4nFlYSZ8XANhDtMcth2hUjKmVhYC/mdhdC3kLMgVV
-         QCBw==
+        d=oss.qualcomm.com; s=google; t=1793198258; x=1793803058; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vlUL5txdhxREUhLW9UqljJ3TVJiPo++T56X6t/sEh0w=;
+        b=jSRi4VZwxdiPC0jX6q2M1vB6Jx1DdXXVvJq8v/REQfZTaqLt8U3INZtJJNfWhfxx3G
+         d9psk0y9LdossAWeJcbtX1QBVCXDushdwRdLfB1CuicJLBXiWcGdsgCbH33AzSjl4kYA
+         0fNkuunZ/d4jePLjQw5pgDYTvqtUm1l34HvuutNp8O7DjhwZPf3Mxzv/kbIDL0M9cCK3
+         i1cXnohSnayOaahvI4+ZBputULwPXVYnG4SP6yJPIUPQifYso3PE61UDNL3Z1tdl+9w+
+         bDu6spJ0Ox8a6vTtWh2mCtGrzgS2UEzhpHTGLldDHsRlYEkC/Mn+becUCjWYqrgtXUye
+         Z3Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793198066; x=1793802866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793198258; x=1793803058;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vyhcMfYicvnsGtBj/rE9dxPeB2D14M/Y5t9f3Exa9/8=;
-        b=uglZKN7H9XbuHb+r5xMTFxiDb5uGZbrzd1FCXhU7R24JQkuUjVfXiWmYz2EcaYI9ez
-         +XZbiuFmfPixxJXddk4kuMgqDVe1nZ3D/N0qN+t8Xk7DfDWlCRBFnRkws+xX2OeSF2p2
-         CrW+GVJD8KwNlXwqt+UBXFWe8Jhxhi9zGvbQ9BkY4cgiXYfDaGEX3VTRVmWPpl6l9DwI
-         WjVV6IyHcGKgHPV94IXsZ5j8TrnRkl4Kjfhcnli+xNhLrKq+rlVNQYnZwFZkwQ0l5OYv
-         Of0O+TODc4qWdXfC0Xyq5cx89EhUesFebiVNI4DQqHEHNHs8uGde4ctU4oSf/G4RuitO
-         XYUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHMtP+7/A4sSdlnBCt/C3cSfzXPDQX1sLaGB6YgTYUn98soQu0Nki2/+VGQZsWGiY78vkqszMPJjy9@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVY8WQ6fUOxahm4jFvNlDp96jv/8BErDK+pbdOalT1remTmaGv
-	XzqHTOSpJon349ODcayKuLv0wufHKc7KFaeXuiAKO+QsRpg6Od/SaWkM
-X-Gm-Gg: AYBFou0fHft1OK+G4UKj/u1TqXYPP2DVo1g+QOJGSPmdDhFM9nZys+/6L4ttq/AYsXJ
-	VTj+JYkrEBZCq2iVXbgnu32QToft+EKWjEVQ2N+GtH6HKWjnWWLQXPQxMlXbz/vdL1pDsYdepsS
-	gl88/uBTuEjJGtD4LuklVRKX3kH2C6cThPjISnIzleTLCznk9mySM8YJXgqTQ6RemsBbfEclnRf
-	F58MQiDHtVhTPQerp+0tYemTPZcK2djM7z1pjkAEMc7U34QBndY8wWdAj5olN/IJzcNer+vgkrV
-	osraPfBWuxKMAbkS8Y4SZzHAnsrOcGzd1knS557ahmB/3ieE2mHms4a4oTVf+Sm+MBXiAxaswTP
-	7+zqfslQ6VJBBonIE+GD6sJhNuxGxd2Vveaa9GHCaOsOvRaJn7iZzXs7bwxwvIZrIAPjiTXz1fj
-	SuadT8569e3++tlKK20kvb8IGj3TPUDEqrJ/0BQNH22udgb0TxX9aNMUqNM3pmeaPbUt3Tn8i4a
-	Z8a7lkrtqN8FYOw7k1ENBJpX8SHeKkg2IuBNPyfdMaC/bmfFeqLzjcBIfZjeUU946TUjNkOkpzS
-	VALaTPUu1aQUjjq+UdqHtD5ZngakrIahTyuSbqk/McbfLnS50KXzHeIYBUgzhlQN+icHj2a+EWd
-	JxFQ2rgPshOYYFy2zDntwr8oX1n+LZyLqumVNa9g7IsPSTskJUJEFXRS4sHAKVZGyKfzMs86HAW
-	KHjh6OUNtGQDWUOF0=
-X-Received: by 2002:a05:6000:2006:b0:48d:faa4:5b66 with SMTP id ffacd0b85a97d-48e5d2f95cbmr6601405f8f.36.1793198066354;
-        Wed, 28 Oct 2026 07:34:26 -0700 (PDT)
-Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd35c2sm28289924f8f.39.2026.10.28.07.34.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 07:34:25 -0700 (PDT)
-From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org,
-	devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	maddy@linux.ibm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	sashiko-bot@kernel.org,
-	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-Subject: [PATCH v3] powerpc/dts: Add Device Tree for WatchGuard Firebox T30
-Date: Wed, 28 Oct 2026 10:34:21 -0400
-Message-ID: <20261028143421.145290-1-lefteris.koutrakis@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=vlUL5txdhxREUhLW9UqljJ3TVJiPo++T56X6t/sEh0w=;
+        b=EM93/ofJMS6/4AsEkT1f2dQ2S/zk2yzpq2+F+oqf2Q1zKVGAmvlzCDiZsktlGBEbOz
+         a2QqTbKhiEm2VCLaf3xhUYE5/u9sFjsGcpGnG4gI1nbYBCkijqycp6gh3JtcwZfNU6lA
+         yY0Ish87XDFaubF7ljv+jkvl2iY1c8W4LCFkWYwsc99TOH5ztv0rx9ZuYgJJa8dQCEas
+         rDIZpxjFfYxkNCrJGPFQ6/WpfV57iG1ZW2aJpIvqswlg39VNFJG++vIUQfU7H+Jm2dg7
+         D8WoBlLA7UGisf6KQz6RwcsYenhP02bxxPiFKerb4nrRRkAflefOsR6wgYnLjN7fmYU/
+         dvpg==
+X-Forwarded-Encrypted: i=1; AKwUvByK31aXaLi8dTExnOP1BDUUKQDZeL4iPEhiwn2kQU39bS2f26Mk5hZm6bsEJS0azFIySDPfKlUIW9kK@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeu0tbq/uTDFv0uT6eIsgH/7SYl1l5pZkhuY9OohcjC2Z1SE32
+	/wEmb67qMT/L3HaDCDO/qTwJq4HL3CGusBjSqQuwfVSVNVKt9+BB9gsjcNn0mIoFjhFlwCVTHjK
+	ukL8yV4YmoYhOVODSm/7DJt0Pa/7yL/r312gM7zcic7XpnsYgfb3LCMgepBWTIz7N
+X-Gm-Gg: AYBFou1hb9CGwNVsx7f20/4NqaCXBPE47838fOx0lYqpYnTuWXt/d5oe6pEsl36yZNC
+	brudmPjsXCrMSH0OHNfIAevwyMDQDwzThD/E/aWCJqMJjoiNKOwVnmXFeV0ShSraIz1DahFVTj8
+	hlBbjN+Nl45lmfSRKFlyUsTTybNoYxYpDzD6DCX86b9ZOdyYNJqzY9j9FTnhX7MlHeqiFuNvF9N
+	v3zTBM0XS8BMVLlvasNdFZ5fNQtewvPtp7OAPGkKirXUWqIzPR9iQq0Xbm/+bZ0a5WZBberdKIt
+	s7re+AoWrNH9oi45r/qEfbOOUXz3LfhrLVX98sxzuleRevP7o6Ic2PmwPZ/TQAEl6ANzaymyaEu
+	wTW+SLZvekfkVxA6MxZ+HNwaT3uD0v7RWus2r7baf0LYJ/aOSQP+2bQ0fWUeLsUU4NlIQcsI=
+X-Received: by 2002:a05:6122:3b06:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ec4cca1106mr1415598e0c.4.1793198257507;
+        Wed, 28 Oct 2026 07:37:37 -0700 (PDT)
+X-Received: by 2002:a05:6122:3b06:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ec4cca1106mr1415554e0c.4.1793198257053;
+        Wed, 28 Oct 2026 07:37:37 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e784esm601408766b.19.2026.10.28.07.37.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 07:37:36 -0700 (PDT)
+Message-ID: <5b27776f-cef4-4963-85d4-6d2f970c8484@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 15:37:33 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,437 +115,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
+ vdda-refgen and refgen supply properties
+To: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>, Vinod Koul
+ <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
+ <20260916102023.2054761-2-ziyue.zhang@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260916102023.2054761-2-ziyue.zhang@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 0guLxzz9JEeoCbr952WrsVYD50HIN_lE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfXxXWFbBKdxsCU
+ ly4S2Yz5bCBkr/5XQoUtnkhP1oqjM+bpZDnEHA2nxzBmiCtewz54YxBNzJnsZ3EPKvxcfEbJSIG
+ eBmngsJJtgy/eP4VWA2V/tjf3sH9xc8=
+X-Authority-Analysis: v=2.4 cv=Tr1zFzXh c=1 sm=1 tr=0 ts=6ae208b2 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=PuOz1RSaosiZ807nmPEA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: 0guLxzz9JEeoCbr952WrsVYD50HIN_lE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfX39wQmkoME8Q+
+ LYiN09NktCH05+aoBGM+Fv0cssuMgrs0H6boLQtyF6kkL7WPKE4rgbIpKPYyeIPu7EHJ4CYDjK4
+ 6nmJoGuhBXFxuTyX/xGbtIhenBdUOxKxo410KNBaKds5Qn3TDPXslfjargCAPVqFPtQm9GReWdK
+ Sy7jfpbN1kSbEOBWdTUOGGLm3pXS1IPifR4LZr3RcKKYw+We8lvpH0xfKGoUWDsI0/vboMX2mPm
+ B+ItixcrRQ5jb+q7FIJNVzKKkxl2T3SlzM9OwNiwZxY6PzkO3dRvVt2sYNfMMwKE6+aESJ70UD0
+ MyXnxAUSXEM3wUkYh/NCaovQzZdSAbLN2DWdZa++BRZn2oHGjPNtm9HpDTCYFURZf7I0fKhDwGQ
+ fY9ZH13psdKC3OP5GQnLMc/0ufV32JRiuMQyIEGrjeDZArIa/259Cy4TuJUT+wqog0UHaAnwR4t
+ XCbBw6PvjqXNDi+Cvtg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1015 phishscore=0
+ impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280058
 
-Add initial support for the WatchGuard Firebox T30 board based on the
-PowerPC architecture, updating the fsl Makefile and adding the new DTS file.
----
- arch/powerpc/boot/dts/fsl/Makefile        |   2 +
- arch/powerpc/boot/dts/fsl/firebox-t30.dts | 398 ++++++++++++++++++++++
- 2 files changed, 400 insertions(+)
- create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+On 9/16/26 12:20 PM, Ziyue Zhang wrote:
+> QCS8300 and SA8775p PCIe PHYs require dedicated vdda-refgen and refgen
+> LDO supplies for QREF to provide a stable reference clock. Without these
+> supplies, the PCIe PHYs cannot work properly. Mark them as required for
+> the affected compatibles even though it breaks ABI.
+> 
+> vdda-refgen-supply is required for all three QCS8300 and SA8775p PHY
+> compatibles. refgen-supply is required for QCS8300 only, as a workaround
+> for a hardware issue where QREF actually depends on refgen3 rather than
+> refgen2 as documented, so the PHY driver votes for refgen3 directly via
+> this supply.
+> 
+> Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../phy/qcom,sc8280xp-qmp-pcie-phy.yaml       | 27 +++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> index b353b7bfb839..bd4c98784142 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
+> @@ -94,6 +94,11 @@ properties:
+>  
+>    vdda-qref-supply: true
+>  
+> +  vdda-refgen-supply: true
 
-diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
-index d2cc8e1f0..0a5c8b596 100644
---- a/arch/powerpc/boot/dts/fsl/Makefile
-+++ b/arch/powerpc/boot/dts/fsl/Makefile
-@@ -3,6 +3,7 @@
- dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(src)/%.dts,%.dtb, $(wildcard $(src)/*.dts))
- 
- # MPC85xx platforms
-+dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
- dtb-$(CONFIG_BSC9131_RDB) += bsc9131rdb.dtb
- dtb-$(CONFIG_BSC9132_QDS) += bsc9132qds.dtb
- dtb-$(CONFIG_C293_PCIE) += c293pcie.dtb
-@@ -44,3 +45,4 @@ dtb-$(CONFIG_GEF_SBC310) += gef_sbc310.dtb
- dtb-$(CONFIG_GEF_SBC610) += gef_sbc610.dtb
- dtb-$(CONFIG_GEF_PPC9A) += gef_ppc9a.dtb
- dtb-$(CONFIG_MVME7100) += mvme7100.dtb
-+dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
-diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-new file mode 100644
-index 000000000..6e9ec7f90
---- /dev/null
-+++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
-@@ -0,0 +1,398 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/include/ "p1020si-pre.dtsi"
-+
-+/ {
-+	model = "Watchguard Firebox T30";
-+	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
-+
-+	memory {
-+		device_type = "memory";
-+	};
-+
-+	cpus {
-+		/delete-node/ PowerPC,P1020@1;
-+	};
-+
-+	lbc: localbus@ffe05000 {
-+		reg = <0 0xffe05000 0 0x1000>;
-+		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
-+
-+		nor@0 {
-+			compatible = "cfi-flash";
-+			reg = <0x0 0x0 0x400000>;
-+			bank-width = <2>;
-+			device-width = <1>;
-+
-+			partitions {
-+				compatible = "fixed-partitions";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				partition@0 {
-+					reg = <0x0 0x20000>;
-+					label = "nor-cfg0";
-+
-+					nvmem-layout {
-+						compatible = "fixed-layout";
-+						#address-cells = <1>;
-+						#size-cells = <1>;
-+
-+						macaddr_nor_cfg0_1830: mac-address@1830 {
-+							compatible = "mac-base";
-+							reg = <0x1830 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1844: mac-address@1844 {
-+							compatible = "mac-base";
-+							reg = <0x1844 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1858: mac-address@1858 {
-+							compatible = "mac-base";
-+							reg = <0x1858 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_186c: mac-address@186c {
-+							compatible = "mac-base";
-+							reg = <0x186c 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1880: mac-address@1880 {
-+							compatible = "mac-base";
-+							reg = <0x1880 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+
-+						macaddr_nor_cfg0_1894: mac-address@1894 {
-+							compatible = "mac-base";
-+							reg = <0x1894 0x11>;
-+							#nvmem-cell-cells = <1>;
-+						};
-+					};
-+				};
-+
-+				partition@20000 {
-+					reg = <0x20000 0x10000>;
-+					label = "nor-cfg1";
-+				};
-+
-+				partition@30000 {
-+					reg = <0x30000 0x20000>;
-+					label = "nor-mfg";
-+				};
-+
-+				partition@50000 {
-+					reg = <0x50000 0xc0000>;
-+					label = "nor-bootopt";
-+				};
-+
-+				partition@110000 {
-+					reg = <0x110000 0xc0000>;
-+					label = "nor-extra1";
-+				};
-+
-+				partition@1d0000 {
-+					reg = <0x1d0000 0xc0000>;
-+					label = "nor-extra2";
-+				};
-+
-+				partition@290000 {
-+					reg = <0x290000 0xe0000>;
-+					label = "nor-backup";
-+				};
-+
-+				partition@370000 {
-+					reg = <0x370000 0x10000>;
-+					label = "nor-ubootenv";
-+				};
-+
-+				partition@380000 {
-+					reg = <0x380000 0x80000>;
-+					label = "nor-uboot";
-+				};
-+			};
-+		};
-+	};
-+
-+	soc: soc@ffe00000 {
-+		ranges = <0x0 0x0 0xffe00000 0x100000>;
-+
-+		i2c@3000 {
-+			rtc@30 {
-+				compatible = "sii,s35390a";
-+				reg = <0x30>;
-+			};
-+		};
-+
-+		i2c@3100 {
-+			tpm@29 {
-+				compatible = "tpm,tpm_i2c_atmel";
-+				reg = <0x29>;
-+			};
-+		};
-+
-+		sdhc@2e000 {
-+			compatible = "fsl,p1020-esdhc", "fsl,esdhc";
-+			sdhci,auto-cmd12;
-+			reg = <0x2e000 0x1000>;
-+			interrupts = <0x48 0x2 0x0 0x0>;
-+			interrupt-parent = <&mpic>;
-+			clock-frequency = <0>;
-+		};
-+
-+		spi0: spi@7000 {
-+			compatible = "fsl,mpc8536-espi";
-+			reg = <0x7000 0x1000>;
-+			interrupts = <0x3b 0x2>;
-+			interrupt-parent = <&mpic>;
-+			fsl,espi-num-chipselects = <4>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			flash@0 {
-+				compatible = "everspin,mr25h256", "jedec,spi-nor";
-+				reg = <0>;
-+				spi-max-frequency = <40000000>;
-+				m25p,fast-read;
-+
-+				partitions {
-+					compatible = "fixed-partitions";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+
-+					partition@0 {
-+						reg = <0x0 0x8000>;
-+						label = "spi_mtd_0";
-+					};
-+				};
-+			};
-+
-+			slic@1 {
-+				compatible = "zarlink,le88266";
-+				reg = <1>;
-+				spi-max-frequency = <500000>;
-+			};
-+		};
-+
-+		usb@22000 {
-+			phy_type = "ulpi";
-+			dr_mode = "host";
-+		};
-+
-+		mdio@24000 {
-+			switch0: switch@10 {
-+				compatible = "marvell,mv88e6085";
-+				reg = <0x10>;
-+
-+				mdio {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					switch0phy0: ethernet-phy@0 {
-+						reg = <0>;
-+					};
-+
-+					switch0phy1: ethernet-phy@1 {
-+						reg = <1>;
-+					};
-+
-+					switch0phy2: ethernet-phy@2 {
-+						reg = <2>;
-+					};
-+
-+					switch0phy3: ethernet-phy@3 {
-+						reg = <3>;
-+					};
-+
-+					switch0phy4: ethernet-phy@4 {
-+						reg = <4>;
-+					};
-+				};
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						label = "wan";
-+						phy-handle = <&switch0phy0>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						label = "lan1";
-+						phy-handle = <&switch0phy1>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@2 {
-+						reg = <2>;
-+						label = "lan2";
-+						phy-handle = <&switch0phy2>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@3 {
-+						reg = <3>;
-+						label = "lan3";
-+						phy-handle = <&switch0phy3>;
-+						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@4 {
-+						reg = <4>;
-+						label = "lan4";
-+						phy-handle = <&switch0phy4>;
-+						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
-+						nvmem-cell-names = "mac-address";
-+					};
-+
-+					port@6 {
-+						reg = <6>;
-+						label = "cpu";
-+						ethernet = <&enet0>;
-+						phy-mode = "rgmii-id";
-+
-+						fixed-link {
-+							speed = <1000>;
-+							full-duplex;
-+						};
-+					};
-+				};
-+			};
-+		};
-+
-+		mdio@25000 {
-+			status = "disabled";
-+		};
-+
-+		mdio@26000 {
-+			status = "disabled";
-+		};
-+
-+		enet0: ethernet@b0000 {
-+			phy-connection-type = "rgmii-id";
-+			rx-internal-delay-ps = <2000>;
-+			tx-internal-delay-ps = <2000>;
-+			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
-+			nvmem-cell-names = "mac-address";
-+
-+			fixed-link {
-+				speed = <1000>;
-+				full-duplex;
-+			};
-+		};
-+
-+		enet1: ethernet@b1000 {
-+			status = "disabled";
-+		};
-+
-+		enet2: ethernet@b2000 {
-+			status = "disabled";
-+		};
-+
-+		gpio0: gpio-controller@fc00 {
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led0: led-0 {
-+			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_ORANGE>;
-+			function = LED_FUNCTION_STATUS;
-+		};
-+
-+		led1: led-1 {
-+			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_STATUS;
-+		};
-+
-+		led2: led-2 {
-+			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_USB;
-+		};
-+
-+		led3: led-3 {
-+			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_WLAN_5GHZ;
-+			default-state = "keep";
-+		};
-+
-+		led4: led-4 {
-+			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-+			color = <LED_COLOR_ID_ORANGE>;
-+			function = LED_FUNCTION_WLAN_2GHZ;
-+			default-state = "keep";
-+		};
-+
-+		led5: led-5 {
-+			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_POWER;
-+			default-state = "on";
-+		};
-+	};
-+
-+	pci0: pcie@ffe09000 {
-+		reg = <0 0xffe09000 0 0x1000>;
-+		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
-+			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
-+		status = "disabled";
-+
-+		pcie@0 {
-+			ranges = <0x2000000 0x0 0xa0000000
-+				  0x2000000 0x0 0xa0000000
-+				  0x0 0x20000000
-+
-+				  0x1000000 0x0 0x0
-+				  0x1000000 0x0 0x0
-+				  0x0 0x100000>;
-+		};
-+	};
-+
-+	pci1: pcie@ffe0a000 {
-+		reg = <0 0xffe0a000 0 0x1000>;
-+		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
-+			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
-+
-+		pcie@0 {
-+			ranges = <0x2000000 0x0 0x80000000
-+				  0x2000000 0x0 0x80000000
-+				  0x0 0x20000000
-+
-+				  0x1000000 0x0 0x0
-+				  0x1000000 0x0 0x0
-+				  0x0 0x100000>;
-+
-+			ath10k: wifi@0,0 {
-+				reg = <0x0000 0 0 0 0>;
-+				#gpio-cells = <2>;
-+				gpio-controller;
-+				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
-+				nvmem-cell-names = "mac-address";
-+			};
-+		};
-+	};
-+};
-+
-+/include/ "p1020si-post.dtsi"
--- 
-2.53.0
+There's 2 REFGEN supplies (0p9, 1p2) and the sister Glymur patchset
+defines both.
 
+Konrad
