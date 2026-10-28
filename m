@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793174368;
-	b=YELndh6lAUZoT1NFwtH8zGVXmH8OIgERJvTBvEf893FJUT19zpoL06GXrzjObJYsI0YM
-	 T1z7RKn4JlrulgIK0Zz/uWHsZRZgEvACiFxaxXtyvkA095LIx86fjXKZtC/UfbYL65/t2
-	 KFzgIX6lBeBkLJ1RZDfJxgg3ZY/75SFSeqZiQsafRCQR3EjgTWu5EBnT8+ZuKDFPalMgf
-	 9xLJHrzOBIBLvLaY3Z3tOgEuBnOCPO+OreFC0zEIFTOykSOO2dQHyw6twZLVs6CLQyUEv
-	 DHetNBE+IkYdvnFrZJarNqjjbZ1AViba4qICt1CEwDBflChqP59jKCzHzVKICa5Pw7g==
+	t=1793174652;
+	b=1egjW2hWQwTstfuImybo+NA49S1MAtGmq30GtzRTcDkEXIw8R5E9DvKy+iihnaa6wW/k
+	 zlqZSEI4YiuBYl463fyiR74qzVV6Xuq3K62GTtjdXFWUkLzfC68pvjoPZT+YIBpRURT9O
+	 OWgOIBxRIUatxeXV+oSexUU7GPouucfgVtVJQy+pHGJG8Je0y/YeuWUxZpDzORywo08js
+	 INvrGMsQcVqhFEV1ZYbQiVTFAwqkgFSgQAApngfPjqDv5oK1etZLz15B9nBNpHPF14riq
+	 +9MaSGYr5I1mTqyAblAg+ZyB2Th/suIoG5/o0q1B0qQVyqU6rcbyxMqaSbw0lwiL6lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793174368;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ekqXR/ezjwIhn6QWPuXucxfhVEWQ+CFyrjhl++9kcH4=;
-	b=R3HiZseOSer1Tjso4KoFL6oa2dzepiH7B0SBe5dhNyOsIxT9fG2SUEbpboB8bMOZuG1N
-	 DmDTxwFWWFX1LJraLRvZZRw5TKoWjkg0dj34Q0zJVq7rYm9U5cBXBPKVZsKbptCtH0UJ6
-	 jYTJeR1WGoifwTjxh5SSRtAmIA7U3QST9wr4DhGR8zyBHCOwRizYRBjqMOER7cXTNz1ES
-	 J0whf1/APppRoecI3Tw8PdGEA0i44smgZazzK4wWrl7CyD02USt4c7Q9ZOGSTq6QpCbzA
-	 mGGkih2lwqPDiccNnGb9sjV9dX2E6/UvU9tNp1VAHWWUJ6kbrMQqDRVL3Ob6Mfv7jVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793174652;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yz0Rbraeb3gb3Sw23oRUj2qTMtNx+kpn/7fPhBN3VHM=;
+	b=xzO6ffDwk0v9hw/yPh4ua+MYD6MjFmA8px81rHjcWrVwtsV/uXQ0ntEBXtmTSXMSRjSw
+	 V142jhVPQ3/95x/IxfDI2f7yypCYum8Or98TsvWPQBOe780tMWdxuDgNaYW8DiRduCFZQ
+	 FJDIWUP3ORDziZP7CesMQbYmbUh8z6vb9dxgfMjR9jrj/CyQJi/IuEAZhEvTnyeHbk6WD
+	 q2D42aNbcSdAJgFoVhd+AIFxEEvntiPBoMvNysRHp2qqvSPNrLou5AZKEpS64ZU7uGn3s
+	 wE/cCTlXHU4zfICortnZPQbe5wQEmp6Nk2awIowvD64EOqIvdxFpOBUBMMezx749YJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMly7bgE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lejVNVrV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65331606A31E;
-	Wed, 28 Oct 2026 07:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D4606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 08:04:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMly7bgE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A801F01825;
-	Wed, 28 Oct 2026 07:59:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lejVNVrV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7FB1F01825;
+	Wed, 28 Oct 2026 08:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793174368;
-	bh=ekqXR/ezjwIhn6QWPuXucxfhVEWQ+CFyrjhl++9kcH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oMly7bgEdst89yXG5H5qp+z0eVdUxhFCOzUrDLjd32CQlRxQseiYxdycE6BwJ0RFM
-	 wFxdC9tay2opS/NbFjIXOnayE7nZtw7w/XqwFV8qiAfqoKQBuqqf8bcW+Ef2r3QW+S
-	 FiDIMLqEG1W/a/jsXTuVw4teU7e3nX1eU7CralA/3MW6ibKXYWsveXUCyPrMUlXD/Z
-	 CmWq6hYaYVVNSen4Rh1smOdI/KHcpaJr8xZPbO4AzRwvd0kPrisOoi6OZarO2aDgLW
-	 pWryvvve3iP0HjZYXmXuw5nEnhuRD/jMX2H1lyAwHY3aIP1tehX5Q+vKnfoGPDefdQ
-	 3MQMZj4UTO//w==
-Date: Wed, 28 Oct 2026 08:59:24 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	konradybcio@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
- NoC
-Message-ID: <20261028-classic-sloppy-harrier-72dfcf@quoll>
-References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
- <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
+	s=k20260515; t=1793174651;
+	bh=yz0Rbraeb3gb3Sw23oRUj2qTMtNx+kpn/7fPhBN3VHM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lejVNVrV0LR65ZPQj0HTuM4cSh8XDpEg9n8cPX/Ha+ozuLFOOB/DkIL2zl48A/Lxs
+	 uBcchI4G82JweZaNGJzYR+lywqC0kkpEHlCyk0WC5q5qahT8B5GR0kHKh/u2Noj4dO
+	 GKqmfgBKdnfCbIt4lOlEHQ+a0qcLerMRbcMSvjLNV47Pt4jMgLvxuDjN/naCRwoZ9e
+	 EdB7mYGQBmdazsEUWUXdVDELQMpIbA21XBQDR0ub8xgyBCforprVBihseBhiUdZm0P
+	 shALr5rDMgFp68/ndrrQK8uEMvYrOt2LwthKjlIR4SjFiI98LPSrSNji0xsEN9ReKL
+	 2winHnwuxmnrw==
+Message-ID: <sashiko-outbox-187606@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 2/2] arm64: dts: qcom: nord: add CoreSight debug
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261028075044.431228-3-shengchao.guo@oss.qualcomm.com>
+References: <20261028075044.431228-1-shengchao.guo@oss.qualcomm.com>
+ <20261028075044.431228-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 08:04:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,99 +60,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
 
-On Tue, Oct 27, 2026 at 12:42:21PM +0000, Ishu Brar wrote:
-> Document the Network-On-Chip interconnect providers of the Qualcomm
-> SM7250 SoC (Snapdragon 765/765G/768G), which are controlled through RPMh
-> Bus Clock Managers, and add the header with the node and slave IDs.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
->  .../bindings/interconnect/qcom,sm7250-rpmh.yaml    | 105 +++++++++++++++
->  .../dt-bindings/interconnect/qcom,sm7250-rpmh.h    | 148 +++++++++++++++++++++
->  2 files changed, 253 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-> new file mode 100644
-> index 000000000000..1ae1ebfc27e3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,sm7250-rpmh.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/interconnect/qcom,sm7250-rpmh.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm RPMh Network-On-Chip Interconnect on SM7250
-> +
-> +maintainers:
-> +  - Ishu Brar <patches@brar.si>
-> +
-> +description: |
-> +  RPMh interconnect providers support system bandwidth requirements through
-> +  RPMh hardware accelerators known as Bus Clock Manager (BCM). The provider is
-> +  able to communicate with the BCM through the Resource State Coordinator (RSC)
-> +  associated with each execution environment. Provider nodes must point to at
-> +  least one RPMh device child node pertaining to their RSC and each provider
-> +  can map to multiple RPMh resources.
-> +
-> +  See also: include/dt-bindings/interconnect/qcom,sm7250-rpmh.h
-> +
-> +allOf:
-> +  - $ref: qcom,rpmh-common.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sm7250-aggre1-noc
-> +    then:
-> +      required:
-> +        - clocks
-> +    else:
-> +      properties:
-> +        clocks: false
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: nord: missing arm,primecell compatible on tn@1=
+15bc000
+--
 
-Entire allOf goes to the end, before unevaluatedProperties.
+commit 6b616ed8e06fef392cdf185844645dfbf1ca57e8
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sm7250-aggre1-noc
-> +      - qcom,sm7250-aggre2-noc
-> +      - qcom,sm7250-config-noc
-> +      - qcom,sm7250-dc-noc
-> +      - qcom,sm7250-gem-noc
-> +      - qcom,sm7250-mmss-noc
-> +      - qcom,sm7250-npu-noc
-> +      - qcom,sm7250-system-noc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: aggre UFS PHY AXI clock
-> +      - description: aggre USB3 PRIM AXI clock
-> +
-> +patternProperties:
-> +  '^interconnect-[0-9]+$':
+arm64: dts: qcom: nord: add CoreSight debug nodes
 
-We actually do not need to enforce -0: '^interconnect(-[0-9]+)?$'
+This commit adds the CoreSight trace topology nodes for the Qualcomm Nord
+SoC, including CTCU, STM, TPDM/TPDA sources and aggregators, funnels,
+replicators, TMC ETR/ETF sinks, TNoC/ITNoC nodes, and per-subsystem CTIs.
 
-> +    type: object
-> +    description:
-> +      The interconnect providers do not have a separate QoS register space,
-> +      but share parent's space.
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index fdbe290350ddd..b03a33d99a1b7 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+[ ... ]
+> @@ -1654,239 +1680,3181 @@ tlmm: pinctrl@f100000 {
+[ ... ]
+> +		tn@115bc000 {
+> +			compatible =3D "qcom,coresight-tnoc";
+> +			reg =3D <0x0 0x115bc000 0x0 0x3c00>;
 > +
-> +    allOf:
-> +      - $ref: qcom,rpmh-common.yaml#
+> +			clocks =3D <&aoss_qmp>;
+> +			clock-names =3D "apb_pclk";
 
-Best regards,
-Krzysztof
+[Severity: Medium]
+Should the compatible property on tn@115bc000 also include "arm,primecell"?
 
+In Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml, the
+binding requires both strings:
+
+  compatible:
+    items:
+      - const: qcom,coresight-tnoc
+      - const: arm,primecell
+
+During bus population in drivers/of/platform.c:of_platform_bus_create(), the
+kernel checks of_device_is_compatible(bus, "arm,primecell") to decide wheth=
+er
+to instantiate an amba_device via of_amba_device_create().
+
+Without "arm,primecell", tn@115bc000 is created as a platform_device instead
+of an amba_device. In drivers/hwtracing/coresight/coresight-tnoc.c, the
+platform_driver (itnoc_driver) only matches "qcom,coresight-itnoc", while
+aggregator TNoC instances are matched exclusively by the amba_driver
+(trace_noc_driver).
+
+Will omitting "arm,primecell" cause dtbs_check to fail and prevent
+tn@115bc000 from probing and registering as a CoreSight link device, breaki=
+ng
+all trace paths routed through tn_ag?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028075044.4312=
+28-1-shengchao.guo@oss.qualcomm.com?part=3D2
