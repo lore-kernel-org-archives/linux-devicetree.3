@@ -1,110 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224569;
-	b=u1ykDp/I7SOVahCKpVAbTvch2goP2ce5csHq4z9C+ScBFWaJ4n31z9CoGal1N/W643Ih
-	 POfXwswdaHDsNvRMhqfDOjiw6gX9hkxi7Z2FadudycJ8dnBhIbMeeqTUGj/fLhf3lZ6RM
-	 b0bSNEt1/dmIFWxexwuGO+Ak1qQDKxBiXp/9o5mm8/U7R7ZH+94J7zr8BloEF/UrpEi7R
-	 wY7OOUURGGrVkLYszeSRSFV1leIPLmOdX5mILQvyzdT6l6ugn/4dF0ycnV0BHzOjGlE2+
-	 897cau6ee2G8PStcPh+uyda4Wl6sGhLPBg42PUMoV4Kp4kvw7Z1LcIlMOq13inhBeFg==
+	t=1793224588;
+	b=Mqdpq6YYTXJM+5vjTlOwNUUrH+o5vXpWSCMuTb28VpJgX1bzLNmuOe5GaQ7tZV59G/W/
+	 i29qcA+adkXQ2Qjak64O8Kl/JrlBB9+2FwQ6NXlBfLmcxACzCxMHAERKrmc9m8rUxHylP
+	 RPzXW6oJe1ZUZHeOgS+yEclJnFqiR5kyVYrL1zowMAI7xplIgRC7c75LwEfkYuz4Miwq3
+	 b+9ktdmHDquRBt7NrU0pShYJl+RYdBt+tjAFghIYeW/8K3JqCpG2Ykd2DXjedqO/8guM8
+	 CwRlC74UK2emYpcOBKAB0i4IUrK6BX50nmHvRt470557h5dUQNym+vDLGKAAgkI/+2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224569;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-	b=HOGVn3Vz8mNlmNsYiUjkg5vQvYx4NxWn2XzpnHNignj3eZ8iOiuKZXe3jSC8k4F1O+oQ
-	 1zahgjAHsQmM7VXPMuTBbqF93myAOCFt5Rirfh9d/KFYgyi0mD+orJaSdTDJND76cPeI8
-	 X/Rw6zfkm8jmDFjfxLc0Hu2oB7rkfNZjYUSLhpdYxVqIaqeUvnnCNMEJe+i+7LVscXYw8
-	 0rVFTpZkxuStC/wlW1Kg0Ryiw4MWWQHQ7ITpv4Sp4vn7bQI8eq+f8lIB3M3fp4EFA7BQh
-	 iSya65F8viw6LR6E0wlRUb/r2vZ6fK5bk/nBGxBx86R2ClyXRHuhm2JExJ6f8MUNtLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224588;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+	b=W6ao0Wxa2L21I4Ek3Yd7aBYJ/eOhuu4/ykEO7V25ilWuFN5Z+cJMaqqJJZ/MwoiV5yMc
+	 wclwimypackS2W4LmJvB+kldJEaUo8/8MbeFx21d6bMtDiNUaFJD7HvqaogLOYBDoUhlq
+	 W75I0+pgPnaFRfRoCP5j0IikWsQ0cdAvn0k8zTWS5g5fBoM+KLQa/vWWxbK1CxrWyg3rZ
+	 zEqUZpOncKXjsk5/W4eTiSYBCra8PaSLo3pTJjnEcsY0C+4zcGU3zEouoe7ZdW9SuQgAw
+	 OKaLVU76lYtavg/M4IWmCe6mBkWalRTTMglpngGD0b90l6MWswH536tE/oXh/6P0Tjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I6+V08SU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Kb/ZgqIM";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F46B606A31E
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F46B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194DB60A2607
+	for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 194DB60A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I6+V08SU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Kb/ZgqIM
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SIPcGq1580024
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:56:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=; b=I6+V08SUWFn8OrJj
-	/oc980yhRpnBQ54mN3PIWbEuO1FUMEMdNjS6wI+GTpHqI+3erfHUvhl4JPKS6Kyh
-	XhsHfvUi5kNq0lg81sAV56Z83lgeiT6GEiSbLDaybfRwh2ryNGLSRimZuF6aWlY2
-	A8iBxYUtmYNACwXeCfNOvdcfUEbrXlzoMkHPcPfWRF7RSGM/Pw12Y1dKtxkzhtSf
-	6uzsI+/W2xjo7qSi0D6IrzX4P5rMmEcCnlFmWAJ9BbPMRp/bNoUwMiCPC7vBnuzC
-	Nyks3CrstZZZvoWl9+kootfOwOkFWsXcXPAgWGuU41nAKgyxrbu2S62G6VbDT98N
-	NquHDw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkp8vwh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:56:08 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so266736885a.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:56:07 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Dam7nWgr
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a17a332ecso2050067eec.1
+        for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793224567; x=1793829367; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-        b=Kb/ZgqIMOFbmJghMIz5wr8TduAUH94lPMO3jGQ4yYylSWZL8hAUUtRhUtyBAuUGAUr
-         BlhK/fzmMHeTt84cIDpNadXx3BXzNZ2vguZhyjJ5eQqVAMJf25ZFm/0JHhKfESsnbwQu
-         HZ5RO6bzBck9XbD2G3gbfMlIzeWPKkp/hVf8o95i1djCkge/Xn/EdPJRx9N8UAtHu05G
-         r9MYyWJKENOjVvGrVm6QiPxiq0yKkJhZ8izo0zqia1d1nNcesbw3kbnOo3sq7KFGAe3O
-         2iBAv9UZsnki9296U93dO167MA3OkrV8VZhzCOPZdZfspRNKssTrLYa+ar9UuJZQ8mlq
-         lGsA==
+        d=chromium.org; s=google; t=1793224587; x=1793829387; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+        b=Dam7nWgrXb7+KZguosSLcJIwgRURctcRj9WnpX4bkBxB1Ar/mIxd6vrzjvqFMun7F6
+         7GHpXOlrzYP6rs3eplIgnny4CLTWS8rRVWLP06F71rdP8syr+EVZ6LJm0luVzagNjbGy
+         xmzexiLS9ysGJ1l2/yiVsqqB0CoElpoLWuTcM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224567; x=1793829367;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vlZeBbTn4X9bi4Ynurx+tgcFaDtcBUgNgkgkjVTl578=;
-        b=r68+774FTDzMdxH7jrbLnPWlBc7FOR1P5dz6y/tD8CHLrt7JSkg3rHXN0d8NmDuAub
-         hnT9fmmkwyQp72c+Jx2FkOfyJiyFAzGzbt7sgpUFCF8MKNh1y1yi2d/qB7xCzHlMlL9h
-         n3zYt00b5gvuLF2Ipi5cAO06ZEeT3m6oreCW2c+IjeSBQzuTLJTCjMuf4P4KLn2QaCXE
-         XK4cSyG89UxACgg/QyEcQ5Di0xpRO9LwgBwtn3uNSp2N/ZC50csdtYgLTXGVFGxIeEnf
-         liITgf9D/jc9+4+i45dvu0Tgpb2abuBSMEUJdYOnoVKofBEaWW71DEBSygbAG+u8aM7T
-         Pt1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBysBWBmffC5H2K+/I6ghgRa6OeRr0FajGv1Rtmbhmb0QE/JiNRePOOK/DMzqyqQxVDZITQhJ1NFSR/m@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjshy7PDA3em9KoSlqOq0nRQ0cmLoW4bjd9eeMwBieB/lhhyxf
-	0P7lE0CYf3rGfCYEs1u7437mAndsHZYdnZWfdum159aMJ9DdP3qT/vNbw8NICdD2fyuJJ9uBf2P
-	S3x8z3vS/je9hxfdvqVNUbKFyj4TpKTfIcSya0z7x+YlXrxR3U/+Mg6i7sXGP44G6
-X-Gm-Gg: AYBFou0a79tlJijH1zt03OiL7XPYeLbkMyX7StVyHyjPX06Yu1BNzM/H5kvyjrjqwYh
-	mpsxvyLNzLH+vc17AVLVCf+z60HrJbxrPAKZbG+MxpB0zZR6HlJGhG8Rj3kx8PaSk3G/vt6UcG6
-	VBypbHW9FD8iweOkgejsgaXX/l7cGIxHrsxfTF1QhCP15idJYvAo9dzYqz+BajS3J0DDnT+fYQ6
-	TIoKu5kK5FgnaAfEfcGx1lunWbNxR+VvE/D9SvvUXYLTXvtykbjoYPTCBm58qrH/2f7wxqMZOAt
-	wiqQ+rzpLWfSEjbgVwHe5+k3qXMV3cGcmM6fi5w/FVbt6SnXNWs4xUV0gzGeiHT6CLNExqm5hF0
-	5ZDYNADlCDBcBMkQfwR0g/w+JDoHY4j0T2Tfx5cVvzwcjJLMxZq5QDBGO9p8cKbpvI5sJBtWXlg
-	8=
-X-Received: by 2002:a05:620a:6f03:b0:93c:29b3:3525 with SMTP id af79cd13be357-94408a94fe3mr548789785a.36.1793224567380;
-        Wed, 28 Oct 2026 14:56:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f03:b0:93c:29b3:3525 with SMTP id af79cd13be357-94408a94fe3mr548785385a.36.1793224566702;
-        Wed, 28 Oct 2026 14:56:06 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e64ccc693sm1283103f8f.5.2026.10.28.14.56.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:56:05 -0700 (PDT)
-Message-ID: <110e1d54-347f-4186-bbe1-6aa03aa8ff3f@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 21:56:04 +0000
+        d=1e100.net; s=20260707; t=1793224587; x=1793829387;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7kkNpYHoAXd6IrwvX2fEmvIFuXohpJX1+/fOXYZcgTE=;
+        b=ZJzzQbNHVpHcT/lKILAMrKf0gZgvIwm+pnm7MVPgPkBJjxliCRVaUfJntF3essXmRI
+         Z+VNuBvv2yGdeRFQaHhHAqFAi9VbsbHzh0bt3pq1q+IVcl/9X7UWK9Hra92xmK7S7Zc9
+         +WaUpzNf9YXzjHNK0nEO1NnObu4v08nVmiNAEpNOATjEdFWVEAd9AXaNEYJ5GLrZwEv/
+         58Syos56xcN2RnTWICSuvtFBgHQHPxwvFsBTx+KRGAdlqo6wiAMxJ9NkHL7his85k/xJ
+         iuaq9Lt+VjhD2UvhXENCyqpGv/BrcJwRUTYINdFZxSV3KoCXTnT4ODtKdy5jDQP3zIPP
+         QuXA==
+X-Forwarded-Encrypted: i=1; AKwUvBytuTiK0R7ajSVT/Wz4HUgAl144NIqJelBzGqSR5AuE/dIG2UFuIPKt3I6nh8KN6jSQMSl3Q8sL8UxC@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0++2t5EbrAeZiSzmk7r/Chv1yI2UAYe/YfVCfDeT7KKo8UmkT
+	sALbxaMgAS0TunRljSLwXRyx/Vc9o2ofI2Lfx/Jt8ieP5dw8OoDBQmxL9r8u9boGzQ==
+X-Gm-Gg: AYBFou2/gtJVuRN5An6KcIx/NIWHItQvAyCgQ85KZwmgSNz96ILGdToP0Tt+fX0KYdH
+	fD661oZll4dLS4K6H8HvZnCH6oLdNXacdgUPULQXngyQAWDixNPGLe0wlCz69oqL3GUQU4jm2rx
+	pbEjFohsh4GPjWqEwPyZftZcaS6zobkmnetgMnTYFdH2Op61rP9lzavcBEtkYJLEjoSBPlFlYjw
+	H1ducFutI2Atvcpa8LHWSKjtPOpZhBK6BqQtVGs7Ncfa3Hv31tzZJBW/ROao1jfl6ee70203qoG
+	gFw6iUDm63ci/G9ULcHPN3fMUp8hzxC1ZkNFXNH2JavHZHTCgHZC1FWTScafwLJLoG0BCwe2Yoc
+	P1rkzU/eTAov/SyWgRKLDyi9fd+6s2oMsRWKxVNIgILvsVW4ZyDnsg1Z39oxwqNi08r1+P7TGMC
+	dgRObjII165wO3tRfVU3KoWALytQ1xyhsykewLZc5kCWxa2rVXmmxiTKbA+d3g+/BNGfG9YKTnT
+	b4L6o9Fh3bafpzMcOth1LT6LRugSoQBAVsuap+pNZ3u614N1+IFkCaXiJcl58PRVIduOr7v3UlK
+	c3MQud5vvg34S8LGD6wI7CLbu0Y729CCvQM011KE+ukPl+lsaN8NTicii+TYh4qjENCUPJ/gDWj
+	rbcYaoaeH/Cj1
+X-Received: by 2002:a05:7300:8aa0:b0:36a:168a:96c4 with SMTP id 5a478bee46e88-36a1ffc56efmr5102572eec.1.1793224587050;
+        Wed, 28 Oct 2026 14:56:27 -0700 (PDT)
+Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:19e7:c87:2527:4e12])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2393cc86sm8845224eec.19.2026.10.28.14.56.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 14:56:26 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Brian Norris <briannorris@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+	Devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Douglas Anderson <dianders@chromium.org>
+Subject: [PATCH v2 00/10] fdtfactor: Introduce fdtfactor to auto-factor overlays
+Date: Wed, 28 Oct 2026 14:46:49 -0700
+Message-ID: <20261028215600.1713475-1-dianders@chromium.org>
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,145 +107,223 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/23] ASoC: qcom: AudioReach Active speaker
- protection for WSA884x
-To: Fabian Renn-Giles <fabian@fielding.dev>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261028163152.26892-1-fabian@fielding.dev>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261028163152.26892-1-fabian@fielding.dev>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae26f78 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=mQyjg09NGKRehI6BM-EA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: ewZopqBNNeXddEDDdHXGHpzNncJa6XOU
-X-Proofpoint-GUID: ewZopqBNNeXddEDDdHXGHpzNncJa6XOU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA4NyBTYWx0ZWRfXz7naVL0/D9Uf
- Zd9lGG3KIbmT87Ma23xQN/YuzPcj++QWSqwSvSiuxjO3b80x8DpYEkD+GPdaFJE6NVtl+GvJjZP
- gDCI2yJzWw6nABdg1kTiDyPlhGYuxwg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA4NyBTYWx0ZWRfX9OGush3w9Ae0
- PSkdsWUDPcqHRujB75Xf7FjlorBZRtT9aqOaxJskojJBh1XwmiAOnd48rxMeoeViCXezMS/0y2V
- 7FdUZvZQzWp11gv9QifUBl24RkiiEnBcnglol0zsxdYyMXzcgcZbWe619XNIBCNLmMd3q3zwv/I
- qH7Ho2QxAB5wGm46ULZZvbcun98uIaasZ5WRA9VAr3w8iWrViRA5fH7tCgfR7LKDvmKwdXI24LI
- TzPelSavQjYqtwtDp1u5jji+P+/FjFbemvyZEk2feB7rCeB1xbY2QVSr/nmsVqEq+GoNgsfuSo0
- PHUoNjWpuuLJFn6GtvDCncSQl0+9rIsgFtaGfLPT5Omh778BjFJ5OtK4eimAd3UF2LGHsP5EfXu
- VFazKmcI8zWPnuZpDqsTuGtS0c8VsucPXPQ/VPgaDB3XyEYjn8dnfmurIQ6wl98HZtCJCUDUC5m
- 4KbbDvSoJuGRelKKAfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610280087
-
-Hi Fabian,
-Thanks for trying this out,
+Content-Transfer-Encoding: 8bit
 
 
-On 10/28/26 4:31 PM, Fabian Renn-Giles wrote:
-> Hi Srinivas,
-> 
-> I tried this series on a Lenovo Yoga Slim 7x (X1E80100/Hamoa, 4x
-> WSA8845, Linux 7.3.0 based tree). I found one bug and have one open
-> problem.
-> 
-> 1. Over-read in audioreach_get_module_priv_data() (oops on topology load)
-> 
-Have you looked at
-https://lore.kernel.org/all/20261023171316.819857-1-srinivas.kandagatla@oss.qualcomm.com/
+Devicetree overlays exist at both the source level (via `/include/` and
+`.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
+applied to a "base" `.dtb` at runtime to add or modify nodes).
 
-this has fix for the exact issue, along with the VI fixes in codec,
-please pick them up.
+Binary `.dtbo` overlays were created by transcribing source-level
+overlay semantics to `.dtb` blobs to serve two main use cases:
 
-My Next target is X1 T14s Gen6 platform, I have not tried it yet, but am
-hoping that it should work.
+1. Supporting add-on boards (like "hats" on a dev board), where a base
+   board's `.dtb` is combined with an add-on board's `.dtbo` at boot or
+   runtime (a use case that Hervé Codina's upcoming "addons" work aims
+   to model more cleanly).
 
-I will keep you posted.
+2. Allowing constrained bootloaders or firmware images to support a
+   "family" of similar boards in a space-efficient way without shipping
+   a full `.dtb` for every variant. In upstream Linux, for example,
+   there are 47 distinct sc7180-trogdor boards supported. At the source
+   level these boards share common `.dtsi` files, but we still compile
+   (and ship) 47 separate full `.dtb` blobs. Binary devicetree overlays
+   can make this much more efficient by factoring the common bits into a
+   single base `.dtb` and representing each of the 47 boards as a small
+   `.dtbo` overlay.
 
-> The function allocates
-> struct_size(pdata, data, le32_to_cpu(mod_array->size)) and then
-> memcpy()s from the topology blob. It crashed on the first load of a
-> topology containing the speaker protection module config blob. The
-> cause is in the size computation. data[] is __le32, so struct_size()
-> counts elements while mod_array->size is in bytes. The allocation is
-> 4x too large and the memcpy runs past the topology data. This is what
-> I used instead:
-> 
-> 	size_t len = sizeof(*pdata) + le32_to_cpu(mod_array->size);
-> 
-> 	pdata = kzalloc(len, GFP_KERNEL);
-> 	if (!pdata)
-> 		return ERR_PTR(-ENOMEM);
-> 
-> 	memcpy(pdata, ((u8 *)private->data + sz), len);
-> 	return pdata;
-> 
-> 2. Slim 7x bring-up: V/I feedback never reaches the DSP
-> 
-> DT changes for the Slim 7x:
-> - The WSA codec list is extended with the VISENSE ports
->   <&swr0 10>, <&swr0 11> on the left pair and the mirrored ports on
->   swr3. The speaker nodes get #sound-dai-cells = <1>.
-> - The static port-mapping is <1 2 3 7 10 13> / <4 5 6 7 11 13>. On
->   Hamoa the din ports are 10 and 11, versus 12 and 13 on Glymur.
-> - I cloned the CRD topology and UCM, using 4 speakers, with the
->   WSA_CODEC_DMA_TX_0 VI capture at S32_LE/8 kHz.
-> 
-Speaker tuning data might be different, but overall it should work.
+Even though `.dtbo` overlay semantics are a natural fit for case #2
+(since they derive from source-level `.dts` overlays, which were
+designed for board/SoC families), upstream Linux has mostly reserved
+compiled `.dtso` -> `.dtbo` overlays for case #1. Many Android phones
+attempt to use `.dtso` overlays for case #2 by describing the SoC as the
+base devicetree and describing boards in `.dtso` overlays, but forcing
+the binary base/overlay split into the source files has drawbacks: there
+is still lots of duplication between board overlays, and upstream
+reception towards structuring board source files this way has been
+lukewarm [1].
 
-I will have to recheck on the port-mapping.
+This patch series introduces a tool to decouple binary `.dtbo`
+generation from `.dts` source structure. The idea (suggested by Konrad
+Dybcio at LPC) is to continue to represent all the boards in a family as
+normal standalone device trees in source code (using `.dtsi` includes as
+makes sense for human readability). Then, after building the full `.dtb`
+blobs, `fdtfactor` automatically factors them into a common base `.dtb`
+and a set of per-board `.dtbo` overlays.
 
-> What works:
-> - The card probes and the SP/VI controls appear.
-> - Normal playback through the SP graph runs without errors.
-> 
-> What doesn't:
-> - Calibration (Operation Mode set to Calibration, then silence
->   played) times out waiting for V/I. R0/T0 stay 0.
-> - I read back the SoundWire master and slave port registers, the WSA
->   macro SPKR_PROT TX path enables, and the DSP module config. They
->   all looked as intended.
-> - With the SP graph active, the amp stays gated and playback is
->   silent. This matches the calibration never completing.
-> 
-> Question: is there anything Hamoa-specific on the VISENSE path (din
-> port numbers or channel masks, the macro TX decimator routing,
-> multi_direction_codecs handling) that I should check? I can run any
-> debug patches you want on this machine.
-> 
-> Unrelated noise: SoundWire parity errors/clash messages appear in the
-> logs, but they also show up without the series applied, so I don't
-> think they relate to it.
+This tool has quite a few advantages over other solutions:
+1. No change to the way device trees are stored / arranged upstream.
+2. No need to deal with some of the awkwardness / limitations of
+   overlays.
+3. Better savings than just a simple partitioning, like between SoC and
+   boards.
 
-I did hit some soundwire issue related to runtime pm, which was
-triggering the timeout too, Can you try to disable runtime pm and give
-it a spin.
+I've used this tool to reduce sc7180-trogdor device tree files (which
+are stored lz4 compressed) from 1.71 MB to 213 KB, an 87.5% savings.
 
+To compare against the manual SoC-base + board-overlay split used by
+downstream Android kernels, I also tested `fdtfactor -S` on the
+downstream Pixel 10 family device trees (29 physical hardware board
+variants: 27 phone variants across Pixel 10, Pixel 10 Pro, and Pixel 10
+Pro XL plus 2 socketed dev board variants) by combining the downstream
+base + overlays into full board DTBs and re-factoring them with
+`fdtfactor -S`:
 
---srini
+* Just B0 silicon (29 boards):
+  - Full unfactored DTBs (29 `.dtb`s): 26.30 MB uncompressed (5.28 MB
+    lz4)
+  - Downstream manual SoC base (`lga-b0.dtb`) + 29 board `.dtbo`s:
+    8.06 MB uncompressed (1.66 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 `base.dtb` + 29 `.dtbo`s):
+    3.27 MB uncompressed (668 KB lz4) -- 2.48x smaller than the manual
+    SoC split (and 3.68x smaller across the 27 phone boards alone, where
+    average overlay size drops from 252 KB to 44 KB uncompressed, or
+    52 KB to 9.1 KB lz4).
 
-> 
-> Regards,
-> Fabian
+* Both A0 and B0 SoC steppings:
+  In practice, phone Proto boards (8 variants) only ever use A0 silicon,
+  phone EVT1.1+ boards (15 variants) only ever use B0 silicon, and only
+  phone EVT1 boards (4 variants) and the socketed dev boards (2
+  variants) can have either A0 or B0 silicon -- giving 35 realistic
+  (board, stepping) combinations (14 A0 + 21 B0), compared to 58 for a
+  naive 29 x 2 cross-product:
+  - Full unfactored DTBs (35 `.dtb`s): 31.71 MB uncompressed (6.37 MB
+    lz4)
+  - Downstream manual split (2 SoC bases `lga-a0.dtb` + `lga-b0.dtb` +
+    29 board `.dtbo`s): 8.78 MB uncompressed (1.79 MB lz4)
+  - Auto-factored with `fdtfactor -S` (1 shared `base.dtb` + 35
+    `.dtbo`s): 4.00 MB uncompressed (855 KB lz4). This could likely be
+    improved more with multiple levels of overlays, but we're already
+    2x smaller than what downstream is doing today.
+
+NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
+an optimization. On Android phones like Pixel 10, the bootloader logic
+bakes in the need for overlays. Specifically, if we want to be able to
+build a single image that supports multiple boards and have the
+bootloader auto-construct the right devicetree, we need the boards to be
+represented by overlays. This fdtfactor tool can make that a reality.
+
+The fdtfactor tool can either work directly on a set of compiled
+devicetree files or it can work on a FIT (flattened image tree) file.
+The idea is that you'd create the FIT file containing all of the
+duplicated devicetree files and then fdtfactor would "optimize" them.
+
+Before introducing `fdtfactor` itself, the series starts with a few
+preparatory patches: adding Python iterators and a `NodeTree` live-tree
+abstraction to `pylibfdt`, and teaching `libfdt`'s `fdt_overlay_apply()`
+to update `/__local_fixups__` on the base tree so overlays can be
+applied in multiple stages.
+
+I'll freely admit that the patches in this series were pretty heavily
+vibe coded. I'll not pretend that I have a deep understanding of the
+intricacies of how overlays are implemented. That being said:
+* I've spent quite a bit of time reviewing the code from a high-level
+  perspective: confirming that functions are well documented, well
+  structured, and make sense.
+* I believe that what the tool is doing and how the tool is used make
+  sense.
+* I have had quite a number of internal "the AI reviews the AI" rounds
+  to the point of diminishing returns.
+At this point, I'm not embarrassed to put my name behind this. While I
+won't promise that there are zero cases of the AI doing something really
+stupid, I'd be willing to bet that the end result is better (and cleaner
+/ better structured) than what I would have coded up if I had spent a
+few weeks doing this on my own.
+
+[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
+
+v1: https://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
+
+Changes in v2:
+- New patch fixing FdtSw.as_fdt() buffer resize when < 4 bytes remain
+- New patch adding FdtRo.subnodes(), FdtRo.properties(), and
+  FdtRo.get_mem_rsv_list()
+- Split NodeTree live tree representation out of fdtfactor into
+  pylibfdt (David Gibson)
+- New patch factoring out overlay_parse_fixup_entry() and
+  overlay_split_fragment_path() helpers in libfdt/fdt_overlay.c
+- New patch tightening fixup offset parsing and generalizing
+  overlay_split_fragment_path() for non-NUL-terminated paths in
+  libfdt/fdt_overlay.c
+- New patch updating base /__local_fixups__ in libfdt
+  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
+  (David Gibson)
+- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
+- Store parsed trees directly in NodeTree with node.phandle and
+  node.fixups attributes instead of parallel dicts (David Gibson)
+- Extract phandles in a separate pass after unflattening and reject
+  legacy linux,phandle properties (David Gibson)
+- Exclude non-root common phandle nodes lacking a common symbol from
+  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
+  Gibson)
+- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
+  a dedicated fdtfactor test suite (David Gibson)
+- Split -S/--strip-local-fixups into a separate opt-in patch (David
+  Gibson)
+- Add --base-compression to explicitly control base.dtb compression
+  while documenting auto-detection from --base-dtb's filename suffix
+  (David Gibson)
+- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
+  (Simon Glass)
+- Drop "tests: Fix Python test environment setup in meson.build"
+  (applied upstream by David Gibson)
+- Clarify source-level (.dts/.dtsi) vs. binary-level (.dtb/.dtbo)
+  overlay history in cover letter (David Gibson)
+- Add Pixel 10 (Tensor G5) base + overlay comparison numbers to cover
+  letter (Simon Glass)
+- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
+  FIT mode in the --help description (David Gibson, Simon Glass)
+- Reject signed FIT images with signature* subnodes (Simon Glass)
+- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
+  common-prefix heuristics (Simon Glass)
+- Compare FIT group node overlap against the group's common node set
+  instead of only the first entry (Simon Glass)
+- Document in README.md that U-Boot's boot_get_fdt_fit() currently
+  requires FIT overlays to be uncompressed (Simon Glass)
+
+Douglas Anderson (10):
+  pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full
+  pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
+  pylibfdt: Add NodeTree live tree representation
+  libfdt: overlay: Factor out fixup and fragment path parsing helpers
+  libfdt: overlay: Prepare fixup and fragment path helpers for reuse
+  libfdt: overlay: Update base /__local_fixups__ on apply
+  fdtfactor: Add tool to split DTBs into a base DTB and overlays
+  fdtfactor: Add -S/--strip-local-fixups option
+  fdtfactor: Support compressed DTB inputs and outputs
+  fdtfactor: Add compiled FIT image factoring support
+
+ Makefile                           |    2 +-
+ README.md                          |   74 ++
+ fdtfactor                          | 1626 ++++++++++++++++++++++++++++
+ libfdt/fdt_overlay.c               |  847 +++++++++++++--
+ meson.build                        |    1 +
+ pylibfdt/libfdt.i                  |  310 +++++-
+ tests/Makefile.tests               |    7 +-
+ tests/fdtfactor_board1.dts         |   38 +
+ tests/fdtfactor_board2.dts         |   36 +
+ tests/fdtfactor_board3.dts         |   34 +
+ tests/fdtfactor_board3_shifted.dts |   34 +
+ tests/fdtfactor_lz4.its            |  109 ++
+ tests/fdtfactor_other1.dts         |   33 +
+ tests/fdtfactor_other2.dts         |   33 +
+ tests/fdtfactor_test.its           |  109 ++
+ tests/meson.build                  |    2 +-
+ tests/pylibfdt_tests.py            |   80 ++
+ tests/run_tests.sh                 |  337 +++++-
+ tests/testutils.sh                 |    1 +
+ 19 files changed, 3629 insertions(+), 84 deletions(-)
+ create mode 100755 fdtfactor
+ create mode 100644 tests/fdtfactor_board1.dts
+ create mode 100644 tests/fdtfactor_board2.dts
+ create mode 100644 tests/fdtfactor_board3.dts
+ create mode 100644 tests/fdtfactor_board3_shifted.dts
+ create mode 100644 tests/fdtfactor_lz4.its
+ create mode 100644 tests/fdtfactor_other1.dts
+ create mode 100644 tests/fdtfactor_other2.dts
+ create mode 100644 tests/fdtfactor_test.its
+
+-- 
+2.56.0.313.g2479322e68-goog
 
