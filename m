@@ -1,68 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793153778;
-	b=sK8mK9o36Cc5I0SsHXIPqu+RRQY1gGknRczJtDLR/UVTpvTUtd10evuuZ1QSM4WY53bd
-	 WVqiqF9jixNNFxe3qPHNRcz1qp9Y39LAA6LJfPAdKs5iN5821cdcuvcl/3pSSenLdYIBm
-	 nsAF91thc9heQhgRFeuCuXRPaa4Sagq4s8RqGrsxi/7ydKvSFsze+PjqmYsTXo9UDg6YL
-	 7mDGLSnRrOiYq32UFKwNYYQI9y0FmH9WZPZxt3kpjU4M/6o7TJDQYSP85Y9hNmWwd4Xc2
-	 SVgxs2/mVyhaQEn+6bSUtrwT08sefvbazZXagXNmC/ZCd7zrz2pDQIjrCOmG8MQ+W8Q==
+	t=1793153974;
+	b=hDN2eeSh/w2RV01YJOufWsrnMbQkpfRQ+JRroxrTNwrZ6hy8t4aDLzInyTJpBKpAmGNp
+	 jq8bqd6oCW6m/Jz68NrPlBPZPKZoXWjwWEjKLj8JJ4u2oFpXv5hXDWb9Ocij2zfMk+0sX
+	 xjRqfzsCb2HoYm6Jyq1R6XUpJjsfEHVJePZmnJWZJ+B7S7BluJ5Tc4k/0lc0lNgcNbaTF
+	 cDWFAkGHo0aGIqZttJug4G/862fL0Jzb8YZcwh6ail61+4P+FHELeX2I5pOxdS5KXRHHH
+	 l+/+ARXt5FgAbCs5pop3NckDHrV2unP65xbt+t8DTJgs++PDQFDOR6Uca8ZBemOKMsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793153778;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=S0yM+Za6i75m67uWOOTgt8atqe/7TENA3+sFmUmADnw=;
-	b=JWCuBntVaQ5oFeC1BzQR3Y5MwdC5rVz8CPRzWuIB+gwX1zlMwIXkO3Fqg9LTiA2pVvkd
-	 q9nKQsBdLJP9YaONRzpaTRwTpwocjjp6WlxmD7qAYa1QnCqnXre6IfSmy7rOKxwDk2M+l
-	 /Vu5QEj5LCQx4+tEc98+/JkSrDqXEJsYVwH/ZoJfhHuIq+XVNs3UqCOIkIIKbc5TVS2Kq
-	 RoWPXJiy7HUdUF9a+Ghh2xihxWMrHMsxKQNJPd1l2CeqKuVLgi99+UdEaSWpYWgQDox9p
-	 fuO/bZlB2cFY7+kUuo/6VOCaYi5kbY+64Uw9hMun8utZjDfZYKAm3ElFL25YiLVrDcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793153974;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d1zxzlRIebjyBsptrZ+JHLQ00yEGCQvdNik5g5EMBYk=;
+	b=RIyg9ywjf6h1yA25UASsy7F26mdtr7xWCg1ZhEP6OaP/xLGKisi2Z0eX5HsbcskBsrGC
+	 6+KWpTsRMXcatRym+6UxjslgtFInm2o+qK42wVAlGZWtjXM0GWyTv6V6/tT/ZRDOa1bwq
+	 fPBM+2X/d+9rnNFrko3Q/nD+r7wpkXFmMW5Dw97VERKqLeVLl5mzWLRyJXRT/C2cHNsMN
+	 xcnxgFrZjlpyoM0+H2+Qct8u5QDmr+mbjOOao404AMFjo3NG3qbiI969Huxs4t0WSBeUW
+	 NlmHWyZRqgXJwEHKIvbEBERyBYp/Nycr36kpGHdGpXD8n5WplEnd9xgaEbCTuHdzTwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=E3j3F7Y+;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4SMamLo;
+	arc=none smtp.remote-ip=209.85.221.172
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19C4606A31A;
-	Wed, 28 Oct 2026 02:16:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D19C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00AF606A31E
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:19:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A00AF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=E3j3F7Y+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=S0yM+Za6i75m67uWOOTgt8atqe/7TENA3+sFmUmADnw=; b=E3j3F7Y+u/kGXbJaO3M9WgbuEH
-	w8vTnDWs03s3uQEcnY6GlWG6WNhfro/6yV0Ngud7HTlLGWFvp9FYHTF6Hp0IFmB/28PDpPdSB4NQs
-	1HezBmIZWGKMi9mCnPMzSIuS6M0GllBwq36s+ZIMF+kcOGhlMwlURjT/ufM5LMDRuF64=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLtCp-00D2nO-NZ; Wed, 28 Oct 2026 03:15:59 +0100
-Date: Wed, 28 Oct 2026 03:15:59 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com, daniel@makrotopia.org,
-	linux@armlinux.org.uk, arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v3 3/7] net: dsa: mediatek: add support for passthrough
- mode
-Message-ID: <734d4f06-26af-4bea-9c83-eb92c1b3b894@lunn.ch>
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-4-cjd@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4SMamLo
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5e9528732b4so476491e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 27 Oct 2026 19:19:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793153972; x=1793758772; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d1zxzlRIebjyBsptrZ+JHLQ00yEGCQvdNik5g5EMBYk=;
+        b=n4SMamLoTIFOHnFw0lvHy0iwz/3qHhNxe1RiXPeL9oaFo5riHEeGD9b6Dn999/2hZF
+         B7S20IjNaxsr6nSAkCJxbcrnA5WXYvXGVJd0AjIt6igDi7LDiBQAOwqbxqTYL0B8VnKI
+         r36iFO9+J4hwSgO+Tjz3UGUiVYFJmBsf47LcTszJOv5OtTbaqMyNkoKLjp3wMcRFB7FX
+         QY+hYL7ZfBNzIX9rmBFFuK1NHTULFCCQF9MqEV7J8Dxyh+a3ZRusedAg2aUnXxCMcuhz
+         BO130H2o5A2kV6cSpYLyy7XFxRB48zLJXYlNrYc/HcOtajxsyr6Zgsd2rVi2Pg0Edz5x
+         gwGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793153972; x=1793758772;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d1zxzlRIebjyBsptrZ+JHLQ00yEGCQvdNik5g5EMBYk=;
+        b=1FvZURsMOh/Q0LHMgqNmisUDfvehjT68gKFWazIGGVH7evwTz+dBVHorGBtOT5XbNR
+         rMX+STpGCVOpKQlR07MFJ6U8zjhigm0NS1L14AR0CDQb7Z8iUS5zxRiq8VWG+JwHwxs1
+         WXhEwnyg/a8/2+GP/Q2bQDvhiPUNzHN38+KvhZQHSLnev8UeryFx5ArKOLn+YQF25jGj
+         erTevhcnSJQgDo+qbPI6Myn/TJdfvhIZIgw9X0GOkguj1VSzfKAogTs5ZrTND/AqbtUa
+         j3ilj6oR0jm1RyyGTS5JaXTlLY+UKpbfDK+4SDri0Uy5Mu0xUGZltLuLYHeSqN+wqYf3
+         GZFg==
+X-Forwarded-Encrypted: i=1; AKwUvByk0AcM7SrcA9+V6lpSvLRcnaU5xTGeXt0IwY2kLw9sKbddzvSuqOC6EwzGa+g6oVKPr+lSZExs1lqG@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJ22gwvoWCkPtW5abBWfbGnv+NVpf7AdoNZNScL8Qjd3dmOWFb
+	Q+rlovFzR+hcaeU/TS1ABIXV1q9HKEXIbXJuohE+46XP30SqAdXv7rr2
+X-Gm-Gg: AYBFou3tOiNLZJWqzRvP2TcHNJD0qSijkTkULbLmNXIy9XxBHLi9vtOTEDDNL3reYYM
+	bznaatp5W+ktaKk0FUQ5En5o0mFSRtVF/u4iV/Yfm3EsR8VWLcbQ2vBl/8NaqVgSssiTTuSpM5/
+	GCcq8fSSGi1pEmIVwY8Q34sAUg2kKfws1PKW5WfyysKssXHaZwjsKknJsqLZuwzxDpKhNV8+EDB
+	xTUoQFAWKMvxLuxr81PQQMt2eH2fvIySr54wb/oDzc3sOUJD3ZUsyleoow7ZZmF6vxoVUWj1xML
+	SKXLralF71TF2l68wliU0Y2dZ3VtNiPjyqo4fIrfSjlV2bsUULJQWZSMy5PxPqmP5KRvp6Dl3EU
+	425C9K1z2ZGAVwt/5TZyMjIc1uHsV5OG/h8tii8wHo60AuzJJIiN2Ir06jFRMcxULRYSA/vYUZQ
+	byJwa5rz4pBLoEKzdwasZBGlhVrGu0AJzQ+B6uTeu9swQbfZIGIuzqPYoxeI0UITVRJ+HkQVMcH
+	78WHE7qLT+Q9lrb1Fd4HEeDzsSj/msq61GdK7HkH+nOkS9p2R/BVdN1oEWMDCrSMHTRoxGeluwJ
+	GsEX
+X-Received: by 2002:a05:6122:328b:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5ec4cbc5ab1mr563052e0c.4.1793153972570;
+        Tue, 27 Oct 2026 19:19:32 -0700 (PDT)
+Received: from stephan-Inspiron-15-3520.. ([2804:5d20:6009:6701:4df:52dc:4559:394e])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f9210c3sm403450e0c.8.2026.10.27.19.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 19:19:31 -0700 (PDT)
+From: Stephan Costa Barros <stephanbrrs8@gmail.com>
+To: Mike Looijmans <mike.looijmans@topic.nl>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] iio: adc: ti-ads1298: fix power-up and clock handling
+Date: Tue, 27 Oct 2026 23:19:15 -0300
+Message-ID: <20261028021915.29695-1-stephanbrrs8@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <184780c8-6d87-4983-8399-6e509a250cfc@topic.nl>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com> <20261024231335.280955-3-stephanbrrs8@gmail.com> <184780c8-6d87-4983-8399-6e509a250cfc@topic.nl>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,41 +108,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028011317.1557238-4-cjd@cjdns.fr>
+Content-Transfer-Encoding: 8bit
 
-> @@ -199,6 +199,9 @@ static void mt7530_port_fast_age(struct dsa_switch *ds, int port)
->  	u32 val;
->  	int ret;
->  
-> +	if (priv->is_passthrough)
-> +		return;
-> +
->  	mutex_lock(&priv->reg_mutex);
->  
->  	/* Flush all non-static MAC address entries */
-> @@ -970,6 +973,9 @@ mt7530_set_ageing_time(struct dsa_switch *ds, unsigned int msecs)
->  	unsigned int age_count;
->  	unsigned int age_unit;
->  
-> +	if (priv->is_passthrough)
-> +		return 0;
-> +
-> @@ -1386,11 +1446,14 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
->  	int length;
->  	u32 val;
->  
-> +	if (priv->is_passthrough)
-> +		return 0;
-> +
+Hi Mike,
 
-What is actually left?
+On Mon, Oct 26, 2026 at 07:27:22AM +0100, Mike Looijmans wrote:
+> On 25-10-2026 01:13, Stephan Costa Barros wrote:
+> > - The datasheet powers up the supplies first, then the clock, then
+> >    waits t_POR = 2^18 clock cycles (128 ms at 2.048 MHz) before the
+> >    reset. The driver enabled an external clock and the vref supply
+> >    before AVDD, reset right away, and did not wait for the 150 ms
+> >    start-up of the internal reference. Follow the datasheet. Probe takes
+> >    about 280 ms longer.
+>
+> The driver followed the correct procedure: Keep reset asserted until the
+> power is enabled.
+>
+> We've seen the chips misbehave when the power supplies ramp up
+> erratically. Keeping them in reset until the power supplies are stable
+> solves that issue, if a reset signal is available. The driver is based
+> on real experience with these chips.
 
-Is there sufficient code reuse that this makes sense?
+Thanks, that experience is what I lack here.
 
-Would it be simpler to have a much simpler DSA driver just for pass
-through? Or the mt7530 driver has a second dsa_switch_ops instance
-with all these functions set to NULL?
+The patch keeps that: RESET is still requested asserted before anything
+is enabled, and released only after AVDD, VREF and the clock are on.
+What changes is that AVDD now comes before the clock and VREF, and that
+the driver waits t_POR before releasing RESET. "reset right away" meant
+releasing it without that wait; I'll reword it.
 
-     Andrew
+Is AVDD before the clock fine with you? Section 11.1 asks to keep all
+digital inputs, CLK included, low until the supplies are stable.
+
+> There is no need to wait for the internal reference startup. The
+> internal reference only affects the ADC performance, it isn't required
+> for digital communication. By the time userspace gets to use the driver,
+> those 150 ms will have passed already.
+
+Agreed, I'll drop that wait.
+
+> We actually have 8 (or more) of these chips on a single board. If it
+> takes 8x 280 ms extra to boot such a board, it will fail to meet medical
+> specs (reboot in 5 seconds).
+
+Understood. Without the reference wait it is t_POR alone, 128 ms per
+chip at 2.048 MHz, still about 1 s for 8 chips probed one after another.
+
+> The ADS1298 datasheet says "18" clock cycles, not "2^18". Quite a
+> difference. We would definitely have noticed if the reset timeout was
+> that far off.
+
+I read 2^18 in the current revision, SBAS459K (August 2015), Table 38:
+"t_POR, Wait after power up until reset, MIN 2^18 t_CLK", with the note
+"When using an external clock, t_POR timing does not start until CLK is
+valid". Its revision history lists "Changed power-up reset wait time in
+Table 38", so older revisions may differ. The 18 t_CLK in Figure 105 is
+the wait after the reset pulse, which the driver already does. The
+ADS1299 datasheet (SBAS499C, Table 30) gives 2^18 t_CLK as well.
+
+That said, I have not seen the missing wait cause a failure on hardware.
+On my board the supplies are up long before the driver probes, so t_POR
+has passed by then, and that may be the case on yours too. Does the
+driver switch the supplies on your boards, or are they on from boot?
+
+In v3 the supply order, the t_POR wait and the clock rate become
+separate patches, as Jonathan asked, so each can be judged on its own.
+
+Regards,
+Stephan
