@@ -1,51 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199862;
-	b=JhMzo8uD0L5RFbHx/SwkMhGrjB/wZ22SfdmMtHrREsNLsg3ymch9k9R4ujCD7off2p97
-	 54R/uUTVHphS86enCb/d5KI3wsUs3VjMtOT8RAxbHKEVSa8Y96+1bpF2fnz0FbzF5vfjZ
-	 Xyn9nP+8uH2aoTspSSP6Q6mcGdNU4ESiIP54MRfutmeZ5VrT1UgVTkT12i4CmmDq3NAcy
-	 Q7i5wSNXpXFLGXfxZ2BEwXwOw4UOqEbMyBlI/4KZD6wBW08WF0ojBfBJIvun9zmaUUPyz
-	 rqIJdjXDunAaZGDbvUcirGv1o4PKA0d001mMBMFD8pGluW2hz4lkbhTXj7Mvnx7h84A==
+	t=1793200006;
+	b=YCzdDVW6yHpuMOYF80LdkVXWYnvN7EGdBHoUJ8wAsBYy95Z2A2e+BQ01cGNcsUCzFJM3
+	 Uokr6mjcHbTBDPWgLpep35qDTk4gQzUktui2V+i1mKN8e0AUSQTx4XYgkRvIliYO3tO/e
+	 Kpx8Rl/pwdqEdv6AaU8nHHrvWEa9uoK03w0G1ha73k0hT/1N7vm8e4LYS1rUkhBis8YcQ
+	 NFxmqLvT9odFsXraoPHPv9u7prdm5MBY+amE59XNVOx9Mfusui/T9S7mYve8pp/x1dXKI
+	 Su6/qQUbAXS2hFrT+Ry4GyzOAtnEazXJ7noc8wIbguE6+5HpsO2nhoMdbdmYI4z/FcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199862;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=2Pak5tnRuTRRR5lgI3SQ+wNVW+vIb8vrbTpuoRT98Po=;
-	b=w6jtuHqfLfsg9fDUdl8VdiRdWCuoma0hqst9lSC9oRiT4Xl4fKx4UKamMKDJDCt/1XxL
-	 m1/G0BUs1oNHaSk2r9HxcYm//tge2mcY4qfPQ+ECgRNf9/1tAdUI6nDZSfGpZmCwZDs6y
-	 AYPzOCEanmTc3zCVpuYzh7fIvWJ1+dWO0q1Qs4u5P8bn0rmXUAdZQnAq9eLouX8YHxhkc
-	 TnWJXvQbDEEqBl5+ThGIWwoC1EtVWgmNbWPbirkYIZkCQosanzU/AT0AUyZXGlbkJ5k8D
-	 4Qj/cHVOugAyqwZAuQ78iGkEC/fxAMaU1P1tohESwngm/Wg+WqkidiXJQeVY5ZBls2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793200006;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=uiKZSIRSJQHNOWvR2widT0bS7uJgKV2tb0eLJFvK53A=;
+	b=zojsEJEwHmPF5eS+JQiNw+PCMBz4hDdAZDhHyMDaDsVSxu89yOXqH+rWY/Xch4PxHN+S
+	 LLA8J5kYn0PjOOz/RA+viN5+H7Vh9akQZedAMRCFPLBPhRntX7zV+LPEdanqJ6ytIIarX
+	 5BLZSN+pdu59BFsf+7aMRXDvryzOSjV8IJweAFLi8WJFbCp6bvCa98OMTX1QmrvZ0kOnT
+	 SvpTwzh0rxCYxvXswFV5fU20x7qcAtiVAxsAfNxp7g/yFeTRXs1gr+OiuUXHv9DL5f9yY
+	 OVoF218NqEsZEfTFYv4dRq5fDsFuOWlZJ4gA+NQVx/UscbK/zE4APORYUoF4hUnzxVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=sYN7Wb4W;
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XAFXYumc;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AFD60A261B;
-	Wed, 28 Oct 2026 15:04:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39AFD60A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61163606A324;
+	Wed, 28 Oct 2026 15:06:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61163606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=sYN7Wb4W
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 923E7161DCC;
-	Wed, 28 Oct 2026 16:04:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793199857; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=2Pak5tnRuTRRR5lgI3SQ+wNVW+vIb8vrbTpuoRT98Po=;
-	b=sYN7Wb4W+yUTIRGpnInR+C9sIBvUi21SE2TULkltVcRLjMFYLQChN1xOKUe5DSzQ9aQP8p
-	sqwWe+gBK2LjIM+o4yq4j44QgOpPnHtC6f49TkFrnJEdPTSF1ON/dUUrdgKy+nMSgmSB6L
-	lLC48jrjJFDPSDjIUyU9it2XAwOMFVX2PXRDUIcC2TTJNqfljXiAzlicnGLPj0T5OdO8eS
-	VOtmeUnKaajXekF9RTwjMyY9d7BOpOv4N73nSAY/1L/xfgwVQk8HkWBwzD9tPS/g181uRr
-	QYBOMqLrqZ+0EWyMkCXKyMjtAI+AQ0cTRl/dZ8K3w5INT2SeLIwi5XbBQ5dT4A==
-Message-ID: <8ebdebe0-a8a2-4e35-9ef6-41999547e2aa@cjdns.fr>
-Date: Wed, 28 Oct 2026 16:04:06 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XAFXYumc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793200006; x=1824736006;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=naqtRwRoGxWxoGIhlK1a+9b9wgqXNXI30ZCs1V+Zn5Y=;
+  b=XAFXYumc4C8aiRXRfFpYG/ftR6t0E9/tQUt4qjLvvtOzcUmTuproTli5
+   5UX/V5GbnS+k/eWjfPdpvp+ELZssRQXFCGDFXJNJ6G6QTRxg8bKiq/CXe
+   6yj7JluUA+ewhCEOer9Lt+XcjHFYxEjHjqkRLVVD8+XvNujlDcCPIxOOF
+   j/7EB6XqnCz/ilN4ywPs/kQnuU9GswXb5MEA5DRnUPE+phfQ5vYhxezG5
+   sTE26Jp6cfED/ekNfKIMFIlpew6fqXOhwgWZSKSVRlvaOs2JJtioO6zey
+   AeIFLOmUBpYmnKKyL0O0a7Y9GlE+nUJTlv2engU5Mtz3/UOlpxBnjgVQZ
+   g==;
+X-CSE-ConnectionGUID: 2rF8vrreQ3Sw0GX/9sdN7A==
+X-CSE-MsgGUID: /LoDobtzSR+thEVNaeTifw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1804390"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1804390"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 08:06:45 -0700
+X-CSE-ConnectionGUID: OJt4tI4USrKqWLznSqxlAA==
+X-CSE-MsgGUID: Bfc+8r4kQzWFjDJBoAZGGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4852135"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 08:06:41 -0700
+Date: Wed, 28 Oct 2026 17:06:39 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <auIPfwQII72aqyWA@ashevche-desk.local>
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
+ <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,115 +88,278 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3 5/7] net: dsa: mediatek: support MDIO switch downstream
- of MMIO switch
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
- Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- naseefkm@gmail.com, b.larsson@gmx.com
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-6-cjd@cjdns.fr>
- <f6fe9c7a-5617-475b-babe-da24cda815cc@lunn.ch>
- <acf55987-e96d-407f-a4a7-1c78178a0c7a@cjdns.fr>
- <bdde8389-008a-430a-8d0d-14edcb4050b4@lunn.ch>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <bdde8389-008a-430a-8d0d-14edcb4050b4@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, Oct 28, 2026 at 02:19:06PM +0100, Neil Armstrong wrote:
+> The MAX34417 is a specialized current and voltage monitor used to
+> determine power consumption of portable systems. The driver support
+> getting the channels voltage, average power, accumulated average
+> power and energy over an I2C/SMBUS serial interface.
+> 
+> The MAX34417 datasheet only specified on how to calculate the
+> accumulated average power, but with the Sample Per Second rate
+> we can easily get accumulated Energy in mJ.
+> 
+> By default the IIO driver only supports single-shot Voltage
+> and Power sensing, but the accumulation can be enabled by
+> enabling the Energy IIO channel which then enables the
+> Continuous Accumulation Mode.
+> 
+> The counter is common to all channels, so when reading a single
+> channel we will copy all accumulators to registers, so in order
+> to permit reading individual channels we must accumulate the
+> other channels in the driver when Continuous Accumulation Mode
+> is enabled.
+
+...
+
+> +#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
+> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
+> +#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
+
+Add unit suffix. The comment versus MILLI multiplier is quite confusing.
+What I read, it's milli-Ohms by value.
+
+...
+
+> +struct max34417_data {
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+> +	struct mutex lock;
+> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
+> +	const char *input_label[MAX34417_CHANNEL_COUNT];
+> +	bool cam_mode;
+
+Don't you have 4-byte gap here in some cases? Can you confirm the layout
+with `pahole`? On top you can check binary size by running `bloat-o-meter`.
+
+> +	u64 acc_power[MAX34417_CHANNEL_COUNT];
+> +	u64 acc_count[MAX34417_CHANNEL_COUNT];
+> +};
+
+...
+
+> +static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case MAX34417_DID_REG:
+> +		return false;
+> +	default:
+> +	/* MAX34417_CONTROL_REG field OVF is volatile */
+
+Why not add a case instead of a comment?
+
+> +		return true;
+> +	}
+> +}
+
+...
+
+> +static int max34417_reset_smm(struct max34417_data *max34417)
+> +{
+> +	int rc;
+> +
+> +	/* Set SMM=0 to re-init the SMM mode */
+> +	rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> +			       MAX34417_CONTROL_SMM);
+
+With
+
+	struct regmap *map = max34417->regmap;
+
+this becomes a single line
+
+	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_SMM);
+
+Use this trick elsewhere where appropriate.
+
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Reset accumulators after setting SMM=0 */
+> +	return regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +}
+
+...
+
+> +	*val = lower_32_bits(power);
+> +	*val2 = upper_32_bits(power);
+
+Have you included wordpart.h?
+
+...
+
+> +static int max34417_read_label(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       char *label)
+> +{
+> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+> +	const char *input_label = max34417->input_label[chan->channel];
+> +
+> +	if (input_label) {
+> +		switch (chan->type) {
+> +		case IIO_VOLTAGE:
+> +			return sysfs_emit(label, "%s-voltage\n", input_label);
+
+sysfs.h for sysfs_emit().
+
+> +		case IIO_POWER:
+> +			return sysfs_emit(label, "%s-power\n", input_label);
+> +		case IIO_ENERGY:
+> +			return sysfs_emit(label, "%s-energy\n", input_label);
+> +		default:
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	switch (chan->type) {
+> +	case IIO_VOLTAGE:
+> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
+> +	case IIO_POWER:
+> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
+> +	case IIO_ENERGY:
+> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
+> +	default:
+> +		return 0;
+> +	}
+> +}
+
+...
+
+> +static unsigned int max34417_calc_input_correction(u32 rsense_microOhm)
+
+rsense_uOhm is shorter
+
+> +{
+> +	/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
+
+Comment in this form is almost useless. Rather explain that we except
+the result in the certain units or something like this.
+
+> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_microOhm;
+> +}
+
+...
+
+> +static int max34417_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct max34417_data *max34417;
+> +	struct iio_dev *indio_dev;
+> +	struct regmap *regmap;
+
+*map is shorter
+
+> +	int rc;
+> +
+> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	rc = devm_regulator_get_enable(dev, "vdd");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+> +
+> +	rc = devm_regulator_get_enable(dev, "vio");
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+> +
+> +	max34417 = iio_priv(indio_dev);
+> +	max34417->regmap = regmap;
+> +	max34417->indio_dev = indio_dev;
+> +
+> +	rc = devm_mutex_init(dev, &max34417->lock);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Set default input correction for all channels */
+> +	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
+> +		max34417->input_correction[i] =
+> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
+> +
+> +	device_for_each_child_node_scoped(dev, node) {
+> +		u32 rsense_microOhm, index;
+
+rsense_uOhm
+
+> +		rc = fwnode_property_read_u32(node, "reg", &index);
+> +		if (rc)
+> +			return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+> +					     node);
+> +
+> +		if (index >= MAX34417_CHANNEL_COUNT)
+> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
+
+-ECHRNG
+
+> +					     index, node);
+> +
+> +		if (fwnode_property_present(node, "label")) {
+> +			rc = fwnode_property_read_string(node, "label",
+> +							 &max34417->input_label[index]);
+> +			if (rc)
+> +				return dev_err_probe(dev, rc,
+> +						"failure reading label property of %pfwP\n",
+> +						node);
+> +		}
+> +
+> +		if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+> +			rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+> +						      &rsense_microOhm);
+> +			if (rc)
+> +				return dev_err_probe(dev, rc,
+> +						"failure reading shunt property of %pfwP\n",
+> +						node);
+> +
+> +			if (rsense_microOhm < MAX34417_MIN_RSENSE ||
+> +			    rsense_microOhm > MAX34417_MAX_RSENSE)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "invalid shunt value %d of %pfwP\n",
+> +						     rsense_microOhm, node);
+> +
+> +			max34417->input_correction[index] =
+> +				max34417_calc_input_correction(rsense_microOhm);
+> +		}
+> +	}
+> +
+> +	indio_dev->channels = max34417_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
+> +	indio_dev->name = "max34417";
+> +	indio_dev->info = &max34417_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	/*
+> +	 * Reset mode and set accumulator width to Wide
+> +	 *
+> +	 * The MAX34407 variant could be supported by setting the
+> +	 * MAX34417_CONTROL_MODE field to 0 and handling a smaller
+> +	 * accumulator width.
+> +	 */
+> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
+
+You have local variable for regmap, use it.
+
+> +	if (rc)
+> +		return dev_err_probe(dev, rc, "Error writing control register\n");
+> +
+> +	/* Reset the accumulators */
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 28/10/2026 13:50, Andrew Lunn wrote:
-> On Wed, Oct 28, 2026 at 12:59:23PM +0100, Caleb James DeLisle wrote:
->> On 28/10/2026 03:20, Andrew Lunn wrote:
->>> On Wed, Oct 28, 2026 at 01:13:15AM +0000, Caleb James DeLisle wrote:
->>>> The MT7530 / MT7531 can connect via either MDIO or MMIO. In MMIO mode
->>>> the switch provides its own MDIO bus which connects to its integrated
->>>> PHYs, but also can be connected to other things, such as another
->>>> switch.
->>>>
->>>> If the MDIO bus contains another switch, then the upstream switch
->>>> will register but it will not setup the DSA tree because the
->>>> downstream switch is missing. Without the complete DSA tree,
->>>> mt753x_setup() will not be called on the switch and therefore
->>>> mt7530_setup_mdio() is never called so the downstream switch never
->>>> registers.
->>>>
->>>> Update mt7530_setup_mdio() so that it can be called multiple times,
->>>> export the symbol, and call it again after dsa_register_switch()
->>>> from mt7988_probe().
->>> I would suggest just moving it to probe. Don't also have it in setup.
->>> KISS.
->>
->> I don't think there's a way to do that which will work. And I guess I need
->> to add a few comments to explain why. Basically when dsa_register_switch()
->> is called, one of three things can happen:
->>
->> 1. return error (often without calling mt753x_setup), typically this is
->> EPROBE_DEFER because the ethernet driver is not there yet.
->>
->> 2. return 0 without calling mt753x_setup (because not all switches in the
->> tree are yet probed)
->>
->> 3. call mt753x_setup, complete setup, and return 0
->>
->>
->> In case 1, mt7530_setup_mdio must not be called, because it would be setting
->> up an MDIO on a driver that's about to get deleted.
-> Which is fine, because when the probe fails, you unregister the MDIO
-> bus. That should work. The second time around, you do have the netdev,
-> and it should work.
-
-
-When I tried doing this it did not work. The first issue is that 
-mt7530_setup_mdio() uses a static int and increments it to make its ID. 
-And normally this would create higher numbered busses but still work, 
-however from what I remember there's something (not mt7530) that 
-searches for mt7530-0 anyway and is unable to find it. I don't remember 
-now what was doing it but I remember thinking I would need a global ID 
-generator with reuse of released IDs.
-
-
-Furthermore, I think I'd have to test all of the PHYs that are 
-downstream of this switch because this is the first time we would 
-actually be asking them actually register and unregister multiple times 
-each startup, so if there are bugs, then they're kinda my bugs.
-
-
-So if this is a requirement, then I think this patchset will need to go 
-on the back burner and that support would probably be its own 
-patch/patchset. So please let me know how you're feeling on this because 
-I don't want to put too much time into the rest of this patchset if it 
-is going to have to get shelved for a while anyway.
-
-
-Thanks,
-
-Caleb
-
-
->
-> It is not great, you are doing extra work, but many DSA drivers are
-> structured like this, the MDIO bus is registered in probe. The bus is
-> scanned, PHY are found, and then the probe fails, and the PHYs are all
-> thrown away etc.
->
-> Hanging one switch off another switch like this using MDIO, kind of
-> pushes you in this direction. Typical DSA setups don't do this, there
-> is one MDIO bus which all switches hang off, sometimes with a
-> multiplexor to make one MDIO bus act like many.
->
-> Something to look at which might be interesting, Vladimir had some
-> patches which allowed for partial switch topologies, where you could
-> take a switch in a DSA setup off line. Maybe there is something in
-> those patches which help, you can bring the switches up independently?
->
-> 	    Andrew
