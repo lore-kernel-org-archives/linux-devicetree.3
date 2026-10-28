@@ -1,57 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793204552;
-	b=ZAESxKKSmppgo0t6HCgNadaCk+gV5vsLA/nsGekkPsHIygs75fp3sBudpahgV4Q4drvS
-	 oHmRGcqviq0m+ehQEQoYWxYU1UXtAtHJN1AHIMKJ2pPJuGyGUV82j56lVVAyqGHbCTm4m
-	 Bm4CFJ0mh06+5JQZCpyv0h9cNDPj0CIFsQibCvP2rmiVPwoYmBQj87SItf52uNexaZ6Rm
-	 xmAI9yEi6hfTN//RPw11RbKYZXueCH3r95SsP3iNXkZ5bcdpgmuX9q5p0yQN8rYj4GwpK
-	 qCkJlQTKmrjY4G42KCddPKGF3rbD5iLdZkiEXlsEVEdaqXh/iuhC07VMFujYoz4FrKw==
+	t=1793205169;
+	b=YDuQtJzCyKTbg55EIe/e6EG7QEcbbqlFGMIjC/aTqgtj4e442J3AvMbhX+F4EYzMlZZ2
+	 HrN4Idot6T+0x6XTViUQ2J0dowL36tBeL14yZ7SlUmAe2m2C5zL70IL2WmtJ+gJRO5c25
+	 a/Lfy0ZbqgxUbh2+O9ZDt775jxD5spPhWxSQHwkx7RJTfjOzeOxJsK6tEG/jAIQuL7GrT
+	 p+hTJ/2sXH+6hV5zKFxKQHqKSMP0I4iZ4TiKXzrkZvuGUeoIEARwBNTjUjZKTXHrKFu+l
+	 gAVu1Hl5P3zfm2TQu2XzY5wg7e9pUXXEOl+QZO5A3zigW+R5vxvfIyvZSeyirwCjaVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793204552;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rCUFNrmLjL5v7vgCgquImBDIg3i3ca/i9ZYGxGfePyw=;
-	b=fXWpqm71akWWsiIpFmUeoFdFLeO/WsyrmGpb//qwESRESZUuTNJW4bp/dx/RFYNX6tP/
-	 73ZPj7ZU4M4VdCBy6nYqSHBwZa4qPzqwgBW4yA25rsGz6DEaFCaGUYxyEURt+C6x7D7jm
-	 kPCcO1fSnl+Q3bFvYY+CcFeLRIF4N5MMho2EtpE1d7lYKki7xeJduzBrFu41Krbuz1djU
-	 twC0Wj5Wr44s6k7RMbcHS/0VuO7KTwskW4j9ODUD4MWrXx+T4tqWhiyqszjm48xcf2AUN
-	 czWzE1BQa2c1HYP0EPYwCszzMdRhNmReN2IdppB1j4AmznHCpelZrF5h5jBdV238/3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205169;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
+	b=dvj8AOHl9PGqmf2loHan60MV0ZcbA6RS6RgDGLhfvMX09oogpS6xTN1hUsI/yF0RNU5w
+	 VhY4nUZXhkt/LGvB6wErcUhm9oFkkbs/dsjq7iZxfddBwORcEvfUl9sQR3f0dBtKIdXvC
+	 57+vc439UYsq/U1ah+D5Ndcs2LRdwIPdsifKX92opNlkml22DpnM+7fv7i05aMl7VGY54
+	 wbRFmcbaAfYLDUsN28eQGX4Q7palLboyJOiOVyUmvTxE8JhlgjZoVchMR6hHHf4/9OxvF
+	 wOdzF9bRdKZiUq/LUQkl1UHTIk00VOH89Rtz0BW8N2cL2Peqpi0hzMx1wK6RnY66LJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpUzNkob;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=fielding.dev;
+	spf=pass smtp.mailfrom=fieldingdsp.com;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB5F606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpUzNkob
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A98C1F01825;
-	Wed, 28 Oct 2026 16:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793204551;
-	bh=rCUFNrmLjL5v7vgCgquImBDIg3i3ca/i9ZYGxGfePyw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mpUzNkobnEJCtj914LgTDu3GvEbLN2Qd7OiGiXQjbij8q67fgiFwaQjz30AA13OiD
-	 5uzQZWqaKge62rGFno2fAwJqj3mvZMoolxAPzOXA0aWIBTb+0cRfl7WgYY7kDrnNSY
-	 9HUaP4afN253n7Mmv3zVTOFhqmWbd/PwM3Khb+P8+R5wTBwL0BnciNwZMuzf/DhnjZ
-	 i5BSGokW5T5lne+odFigeHWMUMOGu2FHZXQAIXOtI/ZFsA6TJ4KiH6indK6qbeaYhq
-	 UQH9qPEkFIlaXnDV0N5PqnW0nHEaiuaJGTzq4Xp7aNC5lwL9p5yCQsX5qGAR6YBTpW
-	 uXy3RGMS4wxpg==
-Message-ID: <sashiko-outbox-188159@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregory CLEMENT" <gregory.clement@bootlin.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
- <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 16:22:30 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9699606A31D
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 16:32:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9699606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fielding.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fieldingdsp.com
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c315869241fso188828466b.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fieldingdsp-com.20260707.gappssmtp.com; s=20260707; t=1793205167; x=1793809967; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
+        b=eXbHX832eO7KCEIcf9QIePPynNTj3zpEb16xJdYbSQOpkoowvXm2FC7H6N9IvePrjc
+         NYQ2YsaKAWrn2bA552yqC0m4jx9nYIEsJ+kAosssFdnCwTnhd1wrP5purilJVqmg7IW/
+         9PyvNGGsC/J8INfibywsqgTj/qEsPfMTfKHOw4dM8efcKWBLZMUAodnHQ54JjxrTf6rN
+         cUXimDERsjEyUBueSdi1MiLTD5lh4jvrY5h0wazj9l3ROl/0fZ8OLDTM2Vd6t6/kkAK3
+         OMu88H+ojqLazQ53GiyqfkVyj8dVS6lmsTdc9R8SFLBxu3UN0Fq7XJUuj66hC7CQ5WNn
+         GpBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793205167; x=1793809967;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R00ordqkFY/Q4J67BElD5gXinfK7jxEiPvEKeWad1ok=;
+        b=seEy7C7eOFyy5NWc2nMtL87kRh39jxJMrtzhO/cle44OeJ5x5dRerEVBro50WqVlGx
+         EUZr+cxzYgD35nWYuQpwCaPunXoAugwDoyrKORNZnGwEwUvOMOuew8MVi5qMGgmQjbRk
+         dHSCv+lmGsBtwRcCSzJvMWsHQxw6wFxeNUPUCk8VBYmnKG7v2Dfw4gjhYIhx/sFoU5GM
+         qgQfEaa8fpNEZB2i4EhSWcMPwYYpQpQCC7i4SytESCVM2YtL/V+aEctQAd4YvZB0pXgA
+         X/OwxQ9AqtGfjp6riMwhZRz1kCGAU438xF19QfPmPfqrXUyMTB9+I1Nqg1YgZoWBVilY
+         S6YQ==
+X-Forwarded-Encrypted: i=1; AKwUvByc5Pf5gGR5LQbRwjL6r6TnR7rx6yovZar2RVJ538cB8bI9fH/MmfBfWfTUAdQMlDyMVTr17Q6ooGcG@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRXTZ01q5b6bPK7EUd6UO2RJJn+9vawwaA2ZgoILUuAwhOv9A/
+	YupTdjDj4X9PBBZjs9CN8KOSF+Aq0Bul1phKgm5O+LFJArWsxPkmWMJl6LrMfcYb958=
+X-Gm-Gg: AYBFou13tS5mvDEzAZBykXxoqtrYOqAT6EdFCj940VlF1XfCnzbn8dCGsb9we6o8SYR
+	ETlbBxq6ASwmV7tpSwAAVhW0Ly29Pt3fXw3FaKnlNK2hkbqvRdQj5xKPe8Nl6+djgXdfM6oEAXn
+	gvJDjkMkUVQV42w2R9eNwnY11JqKrtOcZiRR+C4Zt8BX7zfdqZgTI47e5uCIvG4wzklJ/OuatNM
+	wJtnRf5BvKwnfjye+byp0jAQYnCXVCZsBt0smP4QuaU7LM+LeftT+JVwDSGaPOo4xo1OZ800qtk
+	C5rjM9c+AncvFmWI//zMmFHXb45vQ22nCB76gzWcHiNvlBjb/wBhHFbTLWeh7nKkCWxJrDA7oHI
+	c95kPIAt+nMIYs5+hXqZpF7KTFEUm1dzZnUHGv8vLGFkOW10qiNRuLYZ5Xge78MxJmMKuwWFcW8
+	NFym8TKWaY9cRfkyflfLa7JC24e29ZqtHKtqgZxSDZxr7tB3ZCK6U8QffNA4Zc7N0FO9cG2Y3UL
+	xpZL8PNWRV8vAV9Aj4e1t7f/2eTHd5DzhashwQqCX/a/8v0OHvQuF2lz9G0EqicDKMqzJFxxw6G
+	41Rz6NrLzF38nD1QOVwfzQ1MR3f/66dutV2Z7nZaE0EOZH6lGopIMXHJrdGsYHoOrVGWrXKNuk4
+	QCCKWAdXPPkbaLjFXK8pVy69Ps69E
+X-Received: by 2002:a17:907:2d25:b0:c26:19de:9aec with SMTP id a640c23a62f3a-c49bdfd85b2mr258903766b.43.1793205166976;
+        Wed, 28 Oct 2026 09:32:46 -0700 (PDT)
+Received: from kneiselgnabe.duckdns.org (p5b03fe53.dip0.t-ipconnect.de. [91.3.254.83])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89cesm637108266b.13.2026.10.28.09.32.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 09:32:46 -0700 (PDT)
+From: Fabian Renn-Giles <fabian@fielding.dev>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 00/23] ASoC: qcom: AudioReach Active speaker protection for WSA884x
+Date: Wed, 28 Oct 2026 17:31:52 +0100
+Message-ID: <20261028163152.26892-1-fabian@fielding.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,227 +109,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] irqchip/eyeq5-msi: drop incompatible MSI_FLAG_MULTI_PCI_MSI suppor=
-t flag
-- [High] irqchip/eyeq5-msi: fix parent MSI masking and premature alloc unma=
-sking
-- [Medium] irqchip/eyeq5-msi: handle of_irq_get() returning 0 in eyeq_msi_o=
-f_init()
---
+Hi Srinivas,
 
-commit 7c85e9bc1468e131430bc5eb933cf75febaa03f7
-Author: Gregory CLEMENT <gregory.clement@bootlin.com>
+I tried this series on a Lenovo Yoga Slim 7x (X1E80100/Hamoa, 4x
+WSA8845, Linux 7.3.0 based tree). I found one bug and have one open
+problem.
 
-irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI controller driver
+1. Over-read in audioreach_get_module_priv_data() (oops on topology load)
 
-This commit adds an irqchip driver for the Mobileye EyeQ5 PCIe MSI snooper
-controller, supporting up to 4 vectors per port in both root complex mode
-(as a PCI MSI parent) and endpoint mode (as a platform MSI parent).
+The function allocates
+struct_size(pdata, data, le32_to_cpu(mod_array->size)) and then
+memcpy()s from the topology blob. It crashed on the first load of a
+topology containing the speaker protection module config blob. The
+cause is in the size computation. data[] is __le32, so struct_size()
+counts elements while mod_array->size is in bytes. The allocation is
+4x too large and the memcpy runs past the topology data. This is what
+I used instead:
 
-> diff --git a/drivers/irqchip/irq-eyeq5-msi.c b/drivers/irqchip/irq-eyeq5-=
-msi.c
-> new file mode 100644
-> index 0000000000000..883b6d63c9882
-> --- /dev/null
-> +++ b/drivers/irqchip/irq-eyeq5-msi.c
-> @@ -0,0 +1,474 @@
+	size_t len = sizeof(*pdata) + le32_to_cpu(mod_array->size);
 
-[ ... ]
+	pdata = kzalloc(len, GFP_KERNEL);
+	if (!pdata)
+		return ERR_PTR(-ENOMEM);
 
-> +static void eyeq_msi_compose_msg(struct irq_data *data, struct msi_msg *=
-msg)
-> +{
-> +	struct eyeq_msi *msi =3D irq_data_get_irq_chip_data(data);
-> +	phys_addr_t address;
-> +
-> +	memset(msg, 0, sizeof(*msg));
-> +
-> +	address =3D msi->vector_phys + data->hwirq * EYEQ_MSI_VECTOR_STRIDE;
-> +
-> +	msg->address_lo =3D lower_32_bits(address);
-> +	msg->address_hi =3D upper_32_bits(address);
-> +	msg->data =3D data->hwirq;
-> +}
-> +
-> +static struct irq_chip eyeq_msi_irq_chip =3D {
-> +	.name			=3D "EyeQ5-MSI",
-> +	.irq_mask		=3D eyeq_msi_mask_irq,
-> +	.irq_unmask		=3D eyeq_msi_unmask_irq,
-> +	.irq_compose_msi_msg	=3D eyeq_msi_compose_msg,
-> +};
+	memcpy(pdata, ((u8 *)private->data + sz), len);
+	return pdata;
 
-[ ... ]
+2. Slim 7x bring-up: V/I feedback never reaches the DSP
 
-> +static int eyeq_msi_domain_alloc(struct irq_domain *domain,
-> +				 unsigned int virq,
-> +				 unsigned int nr_irqs,
-> +				 void *args)
-> +{
-> +	struct eyeq_msi *msi =3D domain->host_data;
-> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
-> +	unsigned long bit =3D 0;
-> +	unsigned int i;
-> +
-> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
-> +
-> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
-> +		for (i =3D 0; i < nr_irqs; i++) {
-> +			bit =3D find_next_zero_bit(msi->used, msi->num_vectors, bit);
-> +			if (bit >=3D msi->num_vectors) {
-> +				/*
-> +				 * Roll back this call's allocations: on error the
-> +				 * core does not call .free().
-> +				 */
-> +				for_each_set_bit(bit, reserved,
-> +						 EYEQ_MSI_MAX_VECTORS) {
-> +					clear_bit(bit, msi->used);
-> +					__eyeq_msi_mask_irq(msi, bit);
-> +				}
-> +
-> +				return -ENOSPC;
-> +			}
-> +
-> +			set_bit(bit, msi->used);
-> +			__eyeq_msi_unmask_irq(msi, bit);
-> +			set_bit(bit, reserved);
-> +			bit++;
-> +		}
-> +	}
-> +
-> +	i =3D 0;
-> +	for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS)
-> +		irq_domain_set_info(domain, virq + i++, bit,
-> +				    &eyeq_msi_irq_chip, msi,
-> +				    handle_simple_irq, NULL, NULL);
-> +
-> +	return 0;
-> +}
+DT changes for the Slim 7x:
+- The WSA codec list is extended with the VISENSE ports
+  <&swr0 10>, <&swr0 11> on the left pair and the mirrored ports on
+  swr3. The speaker nodes get #sound-dai-cells = <1>.
+- The static port-mapping is <1 2 3 7 10 13> / <4 5 6 7 11 13>. On
+  Hamoa the din ports are 10 and 11, versus 12 and 13 on Glymur.
+- I cloned the CRD topology and UCM, using 4 speakers, with the
+  WSA_CODEC_DMA_TX_0 VI capture at S32_LE/8 kHz.
 
-[ ... ]
+What works:
+- The card probes and the SP/VI controls appear.
+- Normal playback through the SP graph runs without errors.
 
-> +#define EYEQ_MSI_FLAGS_REQUIRED			\
-> +	(MSI_FLAG_USE_DEF_DOM_OPS |		\
-> +	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
-> +	 MSI_FLAG_NO_AFFINITY)
+What doesn't:
+- Calibration (Operation Mode set to Calibration, then silence
+  played) times out waiting for V/I. R0/T0 stay 0.
+- I read back the SoundWire master and slave port registers, the WSA
+  macro SPKR_PROT TX path enables, and the DSP module config. They
+  all looked as intended.
+- With the SP graph active, the amp stays gated and playback is
+  silent. This matches the calibration never completing.
 
-[Severity: High]
-Should EYEQ_MSI_FLAGS_REQUIRED include MSI_FLAG_PCI_MSI_MASK_PARENT, and
-should GCSR_IRQMASK be managed by the irq_chip mask/unmask callbacks rather
-than unmasking inside eyeq_msi_domain_alloc()?
+Question: is there anything Hamoa-specific on the VISENSE path (din
+port numbers or channel masks, the macro TX decimator routing,
+multi_direction_codecs handling) that I should check? I can run any
+debug patches you want on this machine.
 
-In msi_lib_init_dev_msi_info(), the child PCI MSI and MSI-X irq_chip only
-wires irq_mask and irq_unmask (as well as cond_startup_parent() and
-cond_shutdown_parent()) to the parent domain when
-MSI_FLAG_PCI_MSI_MASK_PARENT is set:
+Unrelated noise: SoundWire parity errors/clash messages appear in the
+logs, but they also show up without the series applied, so I don't
+think they relate to it.
 
-drivers/irqchip/irq-msi-lib.c:msi_lib_init_dev_msi_info() {
-    ...
-	if (info->flags & MSI_FLAG_PCI_MSI_MASK_PARENT) {
-		chip->irq_mask		=3D irq_chip_mask_parent;
-		chip->irq_unmask	=3D irq_chip_unmask_parent;
-	}
-    ...
-}
-
-Without MSI_FLAG_PCI_MSI_MASK_PARENT in EYEQ_MSI_FLAGS_REQUIRED,
-eyeq_msi_mask_irq() and eyeq_msi_unmask_irq() are never called in root
-complex mode, so disable_irq() and free_irq() cannot mask the interrupt in
-GCSR_IRQMASK when a PCI device does not support optional per-vector MSI
-masking in PCI config space. (Note that msi_lib_init_dev_msi_info()
-automatically strips MSI_FLAG_PCI_MSI_MASK_PARENT for DOMAIN_BUS_DEVICE_MSI
-in endpoint mode.)
-
-In addition, calling __eyeq_msi_unmask_irq(msi, bit) inside
-eyeq_msi_domain_alloc() unmasks the vector in GCSR_IRQMASK before
-irq_domain_set_info() configures the virq, before irq_domain_insert_irq()
-populates msi->msi_domain->revmap, and before request_irq() is called.
-Similarly, eyeq_msi_program_hardware() does not initialize GCSR_IRQMASK to
-mask all vectors or clear stale pending bits in GCSR_IRQSTATUS before
-eyeq_msi_of_init() installs eyeq_msi_isr(), allowing interrupts that arrive
-before revmap insertion (or after revmap removal in irq_domain_free_irqs())
-to be dropped as unmapped.
-
-> +
-> +#define EYEQ_MSI_FLAGS_SUPPORTED		\
-> +	(MSI_FLAG_MULTI_PCI_MSI |		\
-> +	 MSI_FLAG_PCI_MSIX |			\
-> +	 MSI_GENERIC_FLAGS_MASK)
-
-[Severity: High]
-Can this controller support MSI_FLAG_MULTI_PCI_MSI when the snooper decodes
-the vector number from TLP address bits [4:3]?
-
-In eyeq_msi_compose_msg(), each vector hwirq requires a distinct doorbell
-address:
-
-	address =3D msi->vector_phys + data->hwirq * EYEQ_MSI_VECTOR_STRIDE;
-
-However, a PCI device using Multi-MSI (as opposed to MSI-X) has only a
-single MSI Message Address register in its PCI MSI capability structure and
-writes all vectors to that one address, varying only the low-order bits of
-Message Data. Correspondingly, pci_msi_domain_write_msg() only writes the
-first vector's composed message to the device:
-
-drivers/pci/msi/irqdomain.c:pci_msi_domain_write_msg() {
-	...
-	/*
-	 * For MSI-X desc->irq is always equal to irq_data->irq. For
-	 * MSI only the first interrupt of MULTI MSI passes the test.
-	 */
-	if (desc->irq =3D=3D irq_data->irq)
-		__pci_write_msi_msg(desc, msg);
-}
-
-When a PCI device requests multiple MSI vectors in root complex mode,
-advertising MSI_FLAG_MULTI_PCI_MSI allows Multi-MSI to be enabled, but all
-MSI writes from the device will target the first vector's doorbell address
-and trigger only the first allocated vector while the remaining vectors
-never fire. Should MSI_FLAG_MULTI_PCI_MSI be dropped from
-EYEQ_MSI_FLAGS_SUPPORTED?
-
-[ ... ]
-
-> +static int __init eyeq_msi_of_init(struct device_node *node,
-> +				   struct device_node *parent)
-> +{
-
-[ ... ]
-
-> +	ret =3D eyeq_msi_parse_dt(msi, node);
-> +	if (ret)
-> +		goto err_unmap_msi;
-> +
-> +	msi->irq =3D of_irq_get(node, 0);
-> +	if (msi->irq < 0) {
-> +		ret =3D msi->irq;
-> +		pr_err("failed to obtain parent IRQ: %d\n", ret);
-> +		goto err_unmap_msi;
-> +	}
-
-[Severity: Medium]
-What happens if of_irq_get() returns 0 when irq_create_of_mapping() fails?
-
-In of_irq_get(), a failure in irq_create_of_mapping() returns 0 rather than
-a negative error code:
-
-drivers/of/irq.c:of_irq_get() {
-    ...
-	rc =3D irq_create_of_mapping(&oirq);
-out:
-	of_node_put(oirq.np);
-
-	return rc;
-}
-
-Checking only msi->irq < 0 lets a 0 return value proceed, skipping the
-err_unmap_msi cleanup of msi->msi_base, msi->gcsr_base, and msi and passing
-IRQ 0 to irq_set_chained_handler_and_data(). Should this check msi->irq <=
-=3D 0
-(and set ret =3D msi->irq ?: -EINVAL)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-eyeq5_msi-=
-v1-0-c464752fb55f@bootlin.com?part=3D2
+Regards,
+Fabian
