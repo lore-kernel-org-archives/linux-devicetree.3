@@ -1,56 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793160372;
-	b=wAB2TFJX5YURI+Yg1HeYF7LJ6hW/N+gzlgWywdIG+DYwe8mDt/aJ7ZhJ45+df7hkyeR/
-	 B71glkUNhbbYRfyC7nArzmr0bg8u0XxObuMwokoxubm+FwBVdiJH+wnPwslg/yf/LcOFw
-	 lHKVsWgBl6+qmq0SmLzJwRwTE0cVoDMaSHLPp7FWNT9bTr176rx4r3XsvFTbgJ3qD6NWs
-	 bH8iOn1wjnxhR1B8JPGzSyFDGUQtFTkbZJVwku+GmdbsjEf7/04/SCyMswMf+Jv6MB/Io
-	 KbYk6m/EL2zUjAXhgD74n0/nWMqUiHRCsicwhxNEd465KE1ySCUChkAecGT1RkUCYqQ==
+	t=1793162656;
+	b=eAr+2qsEh0B45xRE5LDkWzHQVGgrKupNn9wOO3a1IrbynkGa4LJHhJ/mIOpsDWwLCNgT
+	 mkGEQYOaET8EMtWlS2sV+Ec5e8V6sf/DQF8HdMBzGAWt6qPm662Tt3XwkAYRsZtL4YK8+
+	 32MlOH3IWv4cLc5NZTBt9zDw5gj7PgQQP+NMclW8DlJXWHbBKKrWuRIWgsQLdhQfDKfc3
+	 7hT1STxeB4Kpr1S70QlDcxRvGW/GQK3b8OEshkudEcUaO61lPjAsAajhZEnlIpU8v2AAT
+	 ZcaA0OwqxSCjWzW+QYSG2swBOl0ubCfviKSGplIhZFmTCt4vNLcecz0Cu/BlybQVn1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793160372;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=kmNU20myOQcf0B1PZVYl3V9QOp45aRf6TnyfacS9qUE=;
-	b=X+iJjW7c2O4Indy1I/x/c0fmQLilAC3YNTyN/XpSYYLxOnbAfgPfElLofLv/gS18LaJQ
-	 vvjTLDr7bSL0kj+6TicY8FIUCSvhKTeU7nEcHmZ8qytCIak7IpsZoXGQo9kNLO2KQ0WDD
-	 rY6XTba2SBuxa6nNV9Xrv5w5yt5mqxV6p8cihZYO8fyWhWS5p6A81yEi9JHL+Nev3UFya
-	 158OEcdc7Vn2M4P62MXiwla6tWm63jZYHa7hPFr/uRkfWAfqVr3pYH3X8u5YZ9VHmeJNE
-	 Sm8KNP1BWb3bFFOLas6F8Bv0DIzMczpW2Hjo2dOoQK7kW2oFk1QYRD7hrTaudavJKVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793162656;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
+	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
+	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
+	b=mvhoHqeQyYxxAWVyRPD8PmAoZOCe67AQOm9oLxW3+Sc8SoyE1Etm0msuvVSmpzItmScH
+	 OhiJfocOGDy6E/JQu+vW/XVs16ObX3E/XTmSbPVlu/J8JhXTSpiXUg0F69nJqR0nO3Zpu
+	 sNptAT+o9MiwtuWDdc6qzyqKPJJAEx4VUR911bRnRrEDWz9RtL4FDU4HI/1nZAstBnDsM
+	 qTnRWLOApoS4Nw29KYk83x/0UkftUeCweT7njVFQG7pFp+l2Laa58aUS1v+E7oww4vLuh
+	 z8z+eI3ZombC3lqnKXi1Kw+4w0poxCx4I6EJy3gAk9Wb8BQtVd+2Oooc79O6q7kQX6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHVm+MU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=brar.si;
+	spf=pass smtp.mailfrom=rsend.brar.si;
+	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=kdC6GVlt;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Y5Zbddrt;
+	arc=none smtp.remote-ip=23.251.234.61
+Received: from e234-61.smtp-out.ap-northeast-1.amazonses.com (e234-61.smtp-out.ap-northeast-1.amazonses.com [23.251.234.61])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B44606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB2D606A31A;
+	Wed, 28 Oct 2026 04:44:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB2D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHVm+MU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E474C1F01825;
-	Wed, 28 Oct 2026 04:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793160372;
-	bh=kmNU20myOQcf0B1PZVYl3V9QOp45aRf6TnyfacS9qUE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kvHVm+MUWFVNjN7kGTdGgXa+VUaVI4uO79HysIm0nnclNsl2ci3TzwMsR22gNFDof
-	 PGDOfzS8pDQIJZViFoEAdrXH554MZOS0dmgIg1Lg9KKRbMqiZZiXnJP6Ni3k6stzpk
-	 a3NpWsB7mi1+caEza4/oK21tLZnd0J4203fcJ0w6Yh6aHI1To052J4lbEBdC1sP4HJ
-	 bVZ+sIOGLrxyOXbdEExlMRFLcMvw7h6DxJz4EEVnlISvCC28PaCBBv9dtzn4jwk26l
-	 LRmSfrMbwzEfu9yPREdty4lODyqdfoar/48IGPpD5W2QDxJZry6xldDojc39OqMiIS
-	 IRDvLtA8FyCjQ==
-Message-ID: <sashiko-outbox-187462@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 9/9] arm64: dts: qcom: sm8750: add the camera subsystem
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=kdC6GVlt;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Y5Zbddrt
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=brar.si; t=1793162654;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
+	b=kdC6GVltO0nKqK9WNToOI59+phheT2qf31oTxyPe9/yShX0T3czUTGutpRmTRyj3
+	2qtnhxptuoSE0U7otke1HU/8h5jmpDLjIOwUvo8OmWwIEZsVCQboqsLVxC1f3QJOheq
+	hMynls/hwirpmfqEtatDmfGflhmZBHJ0GT/QmC7s=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793162654;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=INKO3SiRV2KiLXLhHOgnnW2mnAbTSrFHoaWGvNMg/W8=;
+	b=Y5Zbddrts3lZilrY6mM/RRQjDXJSu8Y9pEvK1NUrKbOteS/ZahGFoWmNDKrO6bXR
+	GICpEbXEpYfqmEkL1TS+3GDVM3UXptas2aBumK0hCfKUP5yETddW3pJ1Rk4+Jt+t4tN
+	ip07nTauKwTYHHf4ljtSeDtp8wZFLJe0T1xFCdxU=
+In-Reply-To: <20261027-married-jasmine-hummingbird-dadc1d@quoll>
+Message-ID: <010601a180d2b177-f7b0d42f-908c-4d36-8aab-bdabb6a2a1b9-000000@ap-northeast-1.amazonses.com>
+References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
+ <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
+ <20261027-married-jasmine-hummingbird-dadc1d@quoll>
+X-Pmail-ID: <1793162653048.f55bc3470704@brar.si>
+From: Ishu Brar <patches@brar.si>
+To: krzk@kernel.org
+Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org, konradybcio@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250
+ RPMh NoC
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 04:06:11 +0000
+Date: Wed, 28 Oct 2026 04:44:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,132 +73,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
+X-SES-Outgoing: 2026.10.28-23.251.234.61
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] media: camss: csid_set_stream() skips configure_stream() on stop a=
-nd restart
---
+On Tue, 27 Oct 2026 19:38:34 +0100, Krzysztof Kozlowski wrote:
+To: krzk@kernel.org
+Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.=
+org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.=
+kernel.org, konradybcio@kernel.org, devicetree@vger.kernel.org, =
+linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: =
+interconnect: qcom: Add SM7250 RPMh NoC
 
-commit d503f6b5ea6cdbb52ee98c8873d6ffd4c3dc7c21
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+On Tue, 27 Oct 2026 19:38:34 +0100=
+, Krzysztof Kozlowski wrote:
+> Cover letter is missing,
 
-arm64: dts: qcom: sm8750: add the camera subsystem
+Sorry, my mail setup rewrote the Message-IDs, so the patches lost the
+link to the cover. I will fix that and resend.
 
-This commit adds the camera subsystem (camss) device tree node for the
-Qualcomm SM8750 SoC, describing the CSID, CSIPHY, and VFE instances along
-with their registers, clocks, interrupts, interconnects, and power domains.
+> but you also never =
+responded what is the actual hardware here - why
+> sometimes you have =
+children, sometimes not. How is it supposed to work?
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index dd738d13df8e0..12dcf2f33854a 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -3495,6 +3495,185 @@ dispcc: clock-controller@af00000 {
->  			#power-domain-cells =3D <1>;
->  		};
-> =20
-> +		camss: isp@ad27000 {
-> +			compatible =3D "qcom,sm8750-camss";
+compute-noc has no register block of its own: its QoS registers sit
+inside the aggre2 NoC region (0x1700000, at offset 0x9000). mc-virt
+and qup-virt are virtual providers with no registers at all, only BCM
+votes; they belong to gem-noc and system-noc. So all three depend on
+the parent's register space, which is why they are child nodes.
+v1 and v2 had them as children; v3 flattened them because I misread
+your comment, and v4 restores that.
 
-[Severity: High]
-Can stopping a stream or unwinding a failed stream start on SM8750 leave the
-CSID RDI stream enabled with interrupts unmasked, and skip stream
-configuration on a subsequent start?
-
-In drivers/media/platform/qcom/camss/camss-csid.c, csid_set_stream() gates
-csid->res->hw_ops->configure_stream() on csid->phy.need_vc_update and clears
-that flag on the first call:
-
-drivers/media/platform/qcom/camss/camss-csid.c:csid_set_stream() {
-	...
-	if (csid->phy.need_vc_update) {
-		csid->res->hw_ops->configure_stream(csid, enable);
-		csid->phy.need_vc_update =3D false;
-	}
-
-	return 0;
-}
-
-Because csid->phy.need_vc_update is only set in csid_set_power() (on power-=
-up)
-and csid_link_setup(), it is already false when streaming stops via
-video_stop_streaming() -> video_stop_subdevices() or when
-video_start_streaming() unwinds already-started subdevices on error:
-
-drivers/media/platform/qcom/camss/camss-video.c:video_start_streaming() {
-	...
-error:
-	video_stop_subdevices(video, entity);
-	video_device_pipeline_stop(vdev);
-	...
-}
-
-When v4l2_subdev_call(subdev, video, s_stream, 0) invokes
-csid_set_stream(sd, 0), csid_configure_stream(csid, 0) in
-drivers/media/platform/qcom/camss/camss-csid-980.c is skipped:
-
-drivers/media/platform/qcom/camss/camss-csid-980.c:csid_configure_stream() {
-	u8 i, k;
-
-	__csid_configure_rx(csid, &csid->phy);
-
-	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_980; i++) {
-		if (csid->phy.en_vc & BIT(i)) {
-			u32 mask =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
-
-			writel(INFO_CAMIF_SOF, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
-			mask =3D enable ? mask | INFO_CAMIF_SOF : mask & ~INFO_CAMIF_SOF;
-			writel(mask, csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
-			mask =3D readl(csid->base + CSID_TOP_IRQ_MASK);
-			mask =3D enable ? mask | CSID_RDI_TOP_IRQ(i) : mask & ~CSID_RDI_TOP_IRQ(=
-i);
-			writel(mask, csid->base + CSID_TOP_IRQ_MASK);
-			writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
-			__csid_configure_rdi_stream(csid, enable, i, 0);
-			__csid_configure_rx_vc(csid, 0);
-
-			for (k =3D 0; enable && k < CAMSS_INIT_BUF_COUNT; k++) {
-				__csid_aup_update(csid, i);
-				__csid_rup_update(csid, i);
-			}
-
-			__csid_ctrl_rdi(csid, enable, i);
-		}
-	}
-}
-
-As a result, INFO_CAMIF_SOF in CSID_CSI2_RDIN_IRQ_MASK(i) and
-CSID_RDI_TOP_IRQ(i) in CSID_TOP_IRQ_MASK are not masked, and
-__csid_ctrl_rdi(csid, 0, i) is never called to stop the RDI stream.
-
-In addition, if streaming is restarted without an intervening CSID power
-cycle or link change (for example, if video_start_streaming() fails in CSIP=
-HY
-or sensor s_stream(1) after CSID s_stream(1) has already run when
-VIDIOC_STREAMON was called before min_queued_buffers were queued and a later
-VIDIOC_QBUF triggered vb2_start_streaming(), or while another active VFE li=
-ne
-keeps the CSID entity powered), csid->phy.need_vc_update remains false.
-
-On that subsequent start attempt, vfe_enable_output_v2() in
-drivers/media/platform/qcom/camss/camss-vfe.c skips ops->reg_update() becau=
-se
-vfe->res->reg_update_after_csid_config is true on SM8750:
-
-drivers/media/platform/qcom/camss/camss-vfe.c:vfe_enable_output_v2() {
-	...
-		if (!vfe->res->reg_update_after_csid_config)
-			ops->reg_update(vfe, line->id);
-	}
-}
-
-And because csid_set_stream(sd, 1) also skips csid_configure_stream(csid, 1=
-),
-the initial CAMSS_INIT_BUF_COUNT calls to __csid_aup_update() and
-__csid_rup_update() are never issued, leaving the initial buffer addresses
-unlatched and stalling capture.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028034105.3265=
-35-1-xiaqinghuan@mail.ustc.edu.cn?part=3D9
+Ishu Brar
