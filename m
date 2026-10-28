@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186732;
-	b=t9G/fZJq9Idy/ddEn5Zg+ONBGIOHtxsvUo/ab87UIThbxtbFs3e3YE+RjVJJHrkTOVaO
-	 SgGRiCgWckYgMInIEb9k2yYjLUlMUVCOqbhiCB/E6hPz7CG9C/YloxvNDHSlc149B4Wtd
-	 gkv+DhFh9H/q7/v0os3pp8880AyrjqqT2WKs+6VA+mJ9IxUacJM//xoDbC3+RyN9m/HEP
-	 28L8smra6I9SfkyQ1hJcrHOBx4WLygoOB2YVi0OHAQnrQv3/1K+UHMgnfr4PHEQF8N8aZ
-	 BL3sTJWDePCPCM0Z7pgpPkCg48aqiNwY8Se8mDC7qzQ8NJfKX7KpySx2ZFI/xIm694w==
+	t=1793186784;
+	b=NqM+43uuiE3LVJBSK9ZhMgDIWNIM3yGMaYW8RIv4aII5ZUn79pXb4q8QvE6ydSr/pL2D
+	 KrTdntA0aOpz7KqCChQuXQt1pH1lZ1nX3JBReA2cgYHiCV4FWPDNjD1/hOTNa3li8dDy1
+	 zRCqMUYfGhbjiQWYxItRd0yQDw1l4yrhgk0s1HvZyM7J1LdhMJgEWCvb4CgTo8BiFJLTD
+	 zXP6WVkmG5uNaOy33ZtJJNO7vVrzQxC4jqs5gntB50o3vXE8S1za6PkH2TjmwLCIzBZMp
+	 7m3WucpcPZlzamjjtvhU+tONfNRLLUNqWcV8u6IoaLjr4GwEehTuRIrnxUuQI6QTebg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186732;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=sIP4HizADUQp5dZZfZ/mDh2cOwoaCQuZ6cGfVUzEBfM=;
-	b=Nor71Jtp+0+Ew591YtpeVxP1KfnjeCYgmVxsjW7IsghdRk4c3NRrMYj0LKwBBZKB+9WY
-	 VyLRma9zsGxpM9pwhLNOSn2xStjGdYA6MtQ/FzyEuz7o46nIPggvnQsZVh4E+yGBFxeeA
-	 NeKjaEhKrzX3es0H3IrJ9sTxKOPMbT06UgzRcg2KhmxzGWb4Zl91xL32NVudgf/oylb00
-	 DB13WvTw+MueAJ8GpR/31AWcwZjyjGBoYAJh3+us8bgpoy9ILT6VWTSV+hYOBshmfUQ/W
-	 e2Q+wkdYgYkVzos0z7NnhgBCquRJ6r1jQYanzTqZp8Op9+u7ohc+O+rb5kZciRt0xNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186784;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=K8hugQRBJFCRqRVR9TtuMv4qNp8j1eR3GJhYgLoZmRM=;
+	b=y8P86I2dPk3S+WRWohlmpkCYltWvenC1uvvK3CSdlBfZOgxpAnIpROihXdi0Y16lOenD
+	 6BUI0mPmLwxLX/PkTpsO0pTIW0u4jRXl+28rJb7cvVDzzVk0Imj1ZcJAgQbbYbV8Ea935
+	 Cy1cYHtzLST8n5JQS+KfER/2NxH5VFUaErFAU0HkRpBsjU/IfTNDxAf41F+X5EX8AHWJx
+	 ryulBQp+A9OKXOd+PHWW1MFKzLTCBVPU8gcDRR2QUaK6xBWsvxiO5nYYK+ExzVK0h8+Fb
+	 2ua6FIJ624WCbKP/COwa5rK4CE8PFPQHNJ1DyE/M45VR4GEp56g6/EHwLymrV6M9F2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csBdua7Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=H5TKogQR;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F52F606A31C;
-	Wed, 28 Oct 2026 11:25:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C97606A31D;
+	Wed, 28 Oct 2026 11:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C97606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csBdua7Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622691F01825;
-	Wed, 28 Oct 2026 11:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186731;
-	bh=sIP4HizADUQp5dZZfZ/mDh2cOwoaCQuZ6cGfVUzEBfM=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=csBdua7QDh0f5708Sb34ryrwkeoiVvb7GxsUPhRkcikoK1qr1G9lxaF/qRCS4u3yA
-	 nra/viznw7db+LzgqZ0mjXbsAsl0zO5HaSl74nEYwLHHb0JHIcLuzS2agR0mCuGKX7
-	 ZWXL2vPD1zbAnd3nJp11zyWvNqrkf8Xf+86r2EmgbwLXXu9+im0MciSaP7wVIc6amW
-	 fk0IgdZPTHxJ4BdL66JfMahN7VbrZRxoclIxvurqrvfaevytppmgslDCLK5DYfLPSa
-	 KWwYZdPidABo5GToBskNfRkRXO5ztysCoCij6rIJKrAypoiZ2B5mt0WICmE/14Qsp2
-	 QAkkSCIUODreQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E178C1FF1F31;
-	Wed, 28 Oct 2026 11:25:27 +0000 (GMT)
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=H5TKogQR
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id AFD7853409F8;
+	Wed, 28 Oct 2026 12:26:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1793186780;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=K8hugQRBJFCRqRVR9TtuMv4qNp8j1eR3GJhYgLoZmRM=;
+	b=H5TKogQRjlf3dxbaISyp8kV1lyi5ZG9jIPOMGbL6HYGzWOpLO4EhJwXiCqCJ7z8T30/Iuq
+	lr4rRonUxbMU2w1okoTP3SjZfuIqI67ng213rYUYVkyDVubMvOHTb9KuTDqn/6UPOi6SzA
+	ibqL2t7FrFqixgO4yQvZlYmpIyoEDWg=
+Message-ID: <80f088f1-a11d-4129-bf26-f8224c94b534@ixit.cz>
+Date: Wed, 28 Oct 2026 12:26:19 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,484 +60,152 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
+To: Robin Snyders <robin@snyders.xyz>
+Cc: Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+ <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
+ <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
+ <468873b2-d154-4793-93b1-82816a00e580@mail.infomaniak.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <468873b2-d154-4793-93b1-82816a00e580@mail.infomaniak.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/2] ASoC: codecs: Add driver for Iron Device MA5311
-From: Mark Brown <broonie@kernel.org>
-To: Hyunuk Son <hyunuk.son@irondevice.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Kiseok Jo <kiseok.jo@irondevice.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027093232.859755-3-hyunuk.son@irondevice.com>
-References: <20261027093232.859755-1-hyunuk.son@irondevice.com>
- <20261027093232.859755-3-hyunuk.son@irondevice.com>
-Date: Wed, 28 Oct 2026 11:25:20 +0000
-Message-Id: <179318672062.199157.7461931531075403104.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12547; i=broonie@kernel.org;
- h=from:subject:message-id; bh=zG96ojq6OG7jpjRT4PXfMCqDeNyy7o/ntfsc/B43qNc=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIe3l64yru33PmMVUvGUr8znpv3NfMvbhXvnnna5Ulls
- jVfJ8+bjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkaTQjQ/8yhYalW+b+PZuw
- 6sitr3suTZV4tnbbnXMHrXu/yd5QSpFk+J90X32xF8PPFOPvJp/W+uWdfnn+0azFTFWnhKWPl3w
- OmMcEAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> Add an ASoC codec driver for the Iron Device MA5311.
+On 28/10/2026 08:42, Robin Snyders wrote:
+> On 27/10/2026 18:19, David Heidelberg wrote:
+>> On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
+>>> +enum smb_generation {
+>>> +	SMB2,
+>>> +	SMB5,
+>>> +};
+>>> +
+>>> +#define SMB_REG_OFFSET(smb) ((smb)->gen == SMB2 ? 0x600 : 0x100)
+>>> +
+>>
+>> More and more as I look at it, this shouldn't be here, but within the device-tree as
+>> charger@1000 {
+>>      reg = <0x1000>, <0x1600>;  # SMB2, or
+>>      reg = <0x1000>, <0x1100>;  # SMB5
+>> };
+>>
+>> But see also:
+>> https://lore.kernel.org/all/eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf46ibp@jzcjmje4aqc3/
+>>
+>> I'll try to do some basic separation so we know what bits belongs into which blog, keep you in CC.
 > 
-> The driver supports audio playback and capture through I2S
-> and TDM interfaces. It provides ALSA mixer controls for audio
-> configuration and uses regmap for register access.
+> Hi David,
+> 
+> Thanks for looking at this.
 
-> +static const struct reg_default ma5311_ctrl_reg_def[] = {
-> +	{ 0x00, 0x88 },
-> +	{ 0x01, 0x00 },
-> +	{ 0x02, 0x00 },
-> +	{ 0x03, 0x01 },
-> +	{ 0x04, 0x17 },
-> +	{ 0x05, 0x01 },
-> +	{ 0x09, 0x00 },
-> +	{ 0x0A, 0x30 },
-> +	{ 0x0B, 0x30 },
-> +	{ 0x0E, 0xAF },
-> +	{ 0x0F, 0x0F },
-> +	{ 0x10, 0x0C },
-> +	{ 0x11, 0x00 },
-> +	{ 0x12, 0x01 },
-> +	{ 0x14, 0x5B },
-> +	{ 0x15, 0x01 },
-> +	{ 0x16, 0x0F },
-> +	{ 0x17, 0x0F },
-> +	{ 0x18, 0x0F },
-> +	{ 0x19, 0x00 },
-> +	{ 0x1A, 0x00 },
-> +	{ 0x1B, 0x00 },
-> +	{ 0x23, 0x01 },
-> +	{ 0x24, 0x00 },
-> +	{ 0x25, 0x00 },
-> +	{ 0x26, 0x00 },
-> +	{ 0x2B, 0x07 },
-> +	{ 0x2C, 0x0C },
-> +	{ 0x2D, 0x0C },
-> +	{ 0x2E, 0x0C },
-> +	{ 0x2F, 0x0C },
-> +	{ 0x30, 0x0C },
-> +	{ 0x33, 0x00 },
-> +	{ 0x34, 0x00 },
-> +	{ 0x35, 0x00 },
-> +	{ 0x36, 0x92 },
-> +	{ 0x37, 0x40 },
-> +	{ 0x38, 0xFF },
-> +	{ 0x39, 0x00 },
-> +	{ 0x3A, 0x00 },
-> +	{ 0x3B, 0x00 },
-> +	{ 0x3C, 0x00 },
-> +	{ 0x3D, 0x00 },
-> +	{ 0x40, 0x00 },
-> +	{ 0x41, 0x00 },
-> +	{ 0x42, 0x00 },
-> +	{ 0x43, 0x00 },
-> +	{ 0x44, 0x00 },
-> +	{ 0x45, 0x00 },
-> +	{ 0x46, 0x20 },
-> +	{ 0x47, 0x00 },
-> +	{ 0x48, 0x00 },
-> +	{ 0x49, 0x00 },
-> +	{ 0x4A, 0x00 },
-> +	{ 0x4B, 0x00 },
-> +	{ 0x4C, 0x00 },
-> +	{ 0x4D, 0x00 },
-> +	{ 0x4E, 0x00 },
-> +	{ 0x4F, 0x00 },
-> +	{ 0x50, 0x00 },
-> +	{ 0x51, 0x00 },
-> +	{ 0x52, 0x00 },
-> +	{ 0x53, 0x00 },
-> +	{ 0x54, 0x00 },
-> +	{ 0x55, 0x20 },
-> +	{ 0x56, 0x00 },
-> +	{ 0x57, 0x00 },
-> +	{ 0x58, 0x00 },
-> +	{ 0x59, 0x00 },
-> +	{ 0x5A, 0x00 },
-> +	{ 0x5B, 0x00 },
-> +	{ 0x5C, 0x00 },
-> +	{ 0x5D, 0x00 },
-> +	{ 0x5E, 0x00 },
-> +	{ 0x5F, 0x00 },
-> +	{ 0x60, 0x00 },
-> +	{ 0x61, 0x00 },
-> +	{ 0x62, 0x00 },
-> +	{ 0x63, 0x00 },
-> +	{ 0x64, 0x20 },
-> +	{ 0x65, 0x00 },
-> +	{ 0x66, 0x00 },
-> +	{ 0x67, 0x00 },
-> +	{ 0x68, 0x00 },
-> +	{ 0x69, 0x00 },
-> +	{ 0x6A, 0x00 },
-> +	{ 0x6B, 0x00 },
-> +	{ 0x6C, 0x00 },
-> +	{ 0x6D, 0x00 },
-> +	{ 0x6E, 0x00 },
-> +	{ 0x6F, 0x00 },
-> +	{ 0x70, 0x00 },
-> +	{ 0x71, 0x00 },
-> +	{ 0x72, 0x00 },
-> +	{ 0x73, 0x20 },
-> +	{ 0x74, 0x00 },
-> +	{ 0x75, 0x00 },
-> +	{ 0x76, 0x00 },
-> +	{ 0x77, 0x00 },
-> +	{ 0x78, 0x00 },
-> +	{ 0x79, 0x00 },
-> +	{ 0x7A, 0x00 },
-> +	{ 0x7B, 0x00 },
-> +	{ 0x7C, 0x00 },
-> +	{ 0x7D, 0x00 },
-> +	{ 0x7E, 0x00 },
-> +	{ 0x7F, 0x00 },
-> +	{ 0x80, 0x00 },
-> +	{ 0x81, 0x00 },
-> +	{ 0x82, 0x20 },
-> +	{ 0x83, 0x00 },
-> +	{ 0x84, 0x00 },
-> +	{ 0x85, 0x00 },
-> +	{ 0x86, 0x00 },
-> +	{ 0x87, 0x00 },
-> +	{ 0x88, 0x00 },
-> +	{ 0x89, 0x00 },
-> +	{ 0x91, 0x00 },
-> +	{ 0x8A, 0x00 },
-> +	{ 0x8B, 0x07 },
-> +	{ 0x8C, 0x70 },
-> +	{ 0x8D, 0x00 },
-> +	{ 0x8E, 0x00 },
-> +	{ 0x8F, 0x02 },
-> +	{ 0xA1, 0x40 },
-> +	{ 0xA2, 0x08 },
-> +	{ 0xA3, 0x20 },
-> +	{ 0xA4, 0x00 },
-> +	{ 0xA5, 0x1A },
-> +	{ 0xA6, 0x52 },
-> +	{ 0xA7, 0x00 },
-> +	{ 0xA8, 0x28 },
-> +	{ 0xA9, 0x25 },
-> +	{ 0xAA, 0x44 },
-> +	{ 0xAB, 0x62 },
-> +	{ 0xAC, 0x04 },
-> +	{ 0xAD, 0x00 },
-> +	{ 0xAE, 0x00 },
-> +	{ 0xAF, 0x00 },
-> +	{ 0xB0, 0x00 },
-> +	{ 0xB1, 0x00 },
-> +	{ 0xB2, 0x00 },
-> +	{ 0xB3, 0x04 },
-> +	{ 0xB4, 0x00 },
-> +	{ 0xB5, 0x00 },
-> +	{ 0xB7, 0x20 },
-> +	{ 0xB8, 0x7C },
-> +	{ 0xB9, 0x0B },
-> +	{ 0xBB, 0x42 },
-> +	{ 0xBC, 0x42 },
-> +	{ 0xBD, 0x61 },
-> +	{ 0xBE, 0x67 },
-> +	{ 0xBF, 0x02 },
-> +};
-> +
-> +static const struct reg_default ma5311_adc_reg_def[] = {
-> +	{ 0x00, 0xA5 },
-> +	{ 0x01, 0x6C },
-> +	{ 0x02, 0x07 },
-> +	{ 0x03, 0x00 },
-> +	{ 0x04, 0xFF },
-> +	{ 0x05, 0xFF },
-> +	{ 0x06, 0x00 },
-> +	{ 0x07, 0xC0 },
-> +	{ 0x08, 0xC0 },
-> +	{ 0x09, 0x10 },
-> +	{ 0x0A, 0x10 },
-> +	{ 0x0B, 0xFF },
-> +	{ 0x0C, 0x6C },
-> +	{ 0x0D, 0x6C },
-> +	{ 0x0E, 0x00 },
-> +	{ 0x0F, 0x02 },
-> +	{ 0x10, 0xA5 },
-> +	{ 0x11, 0x6C },
-> +	{ 0x12, 0x07 },
-> +	{ 0x13, 0x00 },
-> +	{ 0x14, 0xFF },
-> +	{ 0x15, 0xFF },
-> +	{ 0x16, 0x00 },
-> +	{ 0x17, 0xC0 },
-> +	{ 0x18, 0xC0 },
-> +	{ 0x19, 0x10 },
-> +	{ 0x1A, 0x10 },
-> +	{ 0x1B, 0xFF },
-> +	{ 0x1C, 0x6C },
-> +	{ 0x1D, 0x6C },
-> +	{ 0x1E, 0x00 },
-> +	{ 0x1F, 0x02 },
-> +	{ 0x20, 0xA5 },
-> +	{ 0x21, 0x6C },
-> +	{ 0x22, 0x07 },
-> +	{ 0x23, 0x00 },
-> +	{ 0x24, 0xFF },
-> +	{ 0x25, 0xFF },
-> +	{ 0x26, 0x00 },
-> +	{ 0x27, 0xC0 },
-> +	{ 0x28, 0xC0 },
-> +	{ 0x29, 0x10 },
-> +	{ 0x2A, 0x10 },
-> +	{ 0x2B, 0xFF },
-> +	{ 0x2C, 0x6C },
-> +	{ 0x2D, 0x6C },
-> +	{ 0x2E, 0x00 },
-> +	{ 0x2F, 0x02 },
-> +	{ 0x30, 0xA5 },
-> +	{ 0x31, 0x6C },
-> +	{ 0x32, 0x07 },
-> +	{ 0x33, 0x00 },
-> +	{ 0x34, 0xFF },
-> +	{ 0x35, 0xFF },
-> +	{ 0x36, 0x00 },
-> +	{ 0x37, 0xC0 },
-> +	{ 0x38, 0xC0 },
-> +	{ 0x39, 0x10 },
-> +	{ 0x3A, 0x10 },
-> +	{ 0x3B, 0xFF },
-> +	{ 0x3C, 0x6C },
-> +	{ 0x3D, 0x6C },
-> +	{ 0x3E, 0x00 },
-> +	{ 0x3F, 0x02 },
-> +};
+Hi Robin
 
-> +static bool ma5311_adc_volatile_register(struct device *dev, unsigned int reg)
-> +{
-> +	return false;
-> +}
+btw. since I'm working on the type-c + vbus (which originally clankers put into 
+smbx), I noticed that there is existing vbus driver which can be used.
 
-Like I said on v1 this is the default so the function can be dropped.
+This implies removing OTG (0x1100 block) from the smbx driver.
 
-> +static int ma5311_reset(struct snd_soc_component *component)
-> +{
+Thus series needs more testing (charge/otg/DP, etc.), I have it at
 
-> +	ma5311->adc1_vol_left = 0xc0;
-> +	ma5311->adc1_vol_right = 0xc0;
-> +	ma5311->adc2_vol_left = 0xc0;
-> +	ma5311->adc2_vol_right = 0xc0;
-> +	ma5311->adc3_vol_left = 0xc0;
-> +	ma5311->adc3_vol_right = 0xc0;
-> +	ma5311->adc4_vol_left = 0xc0;
-> +	ma5311->adc4_vol_right = 0xc0;
-> +	ma5311->adc1_pga_left = 0x10;
-> +	ma5311->adc1_pga_right = 0x10;
-> +	ma5311->adc2_pga_left = 0x10;
-> +	ma5311->adc2_pga_right = 0x10;
-> +	ma5311->adc3_pga_left = 0x10;
-> +	ma5311->adc3_pga_right = 0x10;
-> +	ma5311->adc4_pga_left = 0x10;
-> +	ma5311->adc4_pga_right = 0x10;
+https://codeberg.org/sdm845/linux/commits/branch/b4/pmi8998-vbus
 
-Like I said on v1 we usually leave the device with the hardware defaults
-to avoid having to decide on a specific use case in the kernel -
-presumably the defaults in the hardware were chosen for a reason.
+see the commit touching smbx, as you can omit changing this part, which going to 
+be removed in favor 'qcom_usb_vbus-regulator.c' (there was small conflict with 
+SMB5 due to defines renaming).
 
-> +	ma5311->capture_mode = I2S_ADC1;
+I'll keep the rest of proposed changes to be commented by maintainers/qcom folks :)
 
-What about playback_mode and dapm_aif_in?
+Thank you
+David
 
-> +static int ma5311_adc_volume_control_get(struct snd_kcontrol *kcontrol,
-> +					 struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +	const struct soc_mixer_control *mc =
-> +		(const struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int *cache = ma5311_adc_volume_control_cache(ma5311, mc->reg);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	if (!cache)
-> +		return -EINVAL;
-> +
-> +	ret = regmap_read(ma5311->adc_regmap, mc->reg, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ucontrol->value.integer.value[0] = val & MA5311_ADC_VOL_CTRL_MASK;
-> +	*cache = ucontrol->value.integer.value[0];
-> +
-> +	return 0;
-> +}
+> 
+> Agreed. Describing the second register block explicitly in the charger's
+> reg property (0x1600 on SMB2, 0x1100 on SMB5) is cleaner than deriving
+> its base address from the hardware generation.
+> 
+> For v5, I plan to extend qcom,pmi8998-charger.yaml with a second reg
+> entry and use that base for both the power-path status and the
+> effective ICL status accesses, keeping their generation-specific
+> register offsets.
+> 
+> I'd retain a driver fallback for existing PMI8998/PM660 DTBs that only
+> have one reg entry. The binding could still require both entries for new
+> SMB5 descriptions. If you or Sebastian prefer a different compatibility
+> approach, I'm happy to adjust.
+> 
+> Given Dmitry's concern about shared charger/Type-C register ownership on
+> SMB2 in the gen1 Type-C RFC, I'd like to coordinate v5 with your block
+> split so that we don't introduce conflicting register descriptions.
+> Please keep me in Cc.
+> 
+> For reference, I also audited the current v4 SMB5 accesses on PM8150B.
+> They are confined to the charger core (0x10xx), the DCDC status
+> registers (reads of 0x1108 and 0x110b), the USB input/BC1.2 registers
+> (0x1340-0x1380) and the watchdog/AICL registers (0x1651-0x1661).
+> 
+> In particular, USBIN_TYPE_C_CFG at 0x1358 is part of the USB-input
+> peripheral, not the dedicated Type-C port register at 0x1544. The
+> current SMB5 accesses do not overlap with the dedicated Type-C port
+> (0x1500) or PD PHY (0x1700) register accesses. The DCDC peripheral is
+> also used by the VBUS regulator, so this is a register-level
+> observation rather than a claim of exclusive peripheral ownership.
+> 
+> I'll update the public register-ownership note to reflect the exact v4
+> access paths.
+> 
+> Thanks,
+> Robin
 
-I still don't understand why we have these open coded caches rather than
-just using a regmap cache and the standard helpers, it'd be a lot less
-code.
-
-> +static int ma5311_playback_mode_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +	unsigned int val = ucontrol->value.enumerated.item[0];
-> +
-> +	if (val >= ARRAY_SIZE(ma5311_playback_mode_text)) {
-> +		dev_err(ma5311->dev, "%s: Out of range\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (ma5311->playback_mode == val)
-> +		return 0;
-> +
-> +	switch (val) {
-> +	case TDM01:
-> +	case TDM23:
-> +	case TDM45:
-> +	case TDM67:
-> +	}
-> +
-> +	ma5311->playback_mode = val;
-
-This doesn't handle the I2S option so we won't reset if the user flips
-back to that.  More generally this feels like it ought to just be a
-set_tdm_slot() operation?
-
-> +static int ma5311_reset_control_get(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +
-> +	if (!ma5311->reset_gpio)
-> +		return -ENODEV;
-
-As I said on v1 it'd be better to just not register this control if we
-don't have the GPIO.
-
-> +static int ma5311_reset_control_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-
-> +	ret = ma5311_reset(component);
-
-This might break the machine driver if it's relying on setting the DAI
-up during probe()...
-
-> +static int ma5311_dapm_aif_in_put(struct snd_kcontrol *kcontrol,
-> +				  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm =
-> +		snd_soc_dapm_kcontrol_to_dapm(kcontrol);
-> +	struct snd_soc_component *component = snd_soc_dapm_to_component(dapm);
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +	unsigned int val = ucontrol->value.enumerated.item[0];
-> +	unsigned int old_val = ma5311->dapm_aif_in;
-> +	int ret;
-> +
-> +	if (val >= ARRAY_SIZE(ma5311_aif_in_source_text)) {
-> +		dev_err(ma5311->dev, "%s: Out of range\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (ma5311->dapm_aif_in == val)
-> +		return 0;
-> +
-> +	ma5311->dapm_aif_in = val;
-
-DAPM is already storing the value - you could just read it with
-dapm_kcontrol_get_value().
-
-> +static int ma5311_adc_event(struct snd_soc_dapm_widget *w,
-> +			    struct snd_kcontrol *kcontrol, int event)
-> +{
-> +	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +	unsigned int mux = ma5311->capture_mode;
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		regmap_update_bits(ma5311->ctrl_regmap, MA5311_DAC_A2_TOP_MAN2,
-> +				   MA5311_PLL_MASK, MA5311_PLL_ON);
-> +
-> +		regmap_update_bits(ma5311->ctrl_regmap,
-> +				   MA5311_DAC_00_SYSTEM_CTRL1,
-> +				   MA5311_POWER_MASK, MA5311_POWER_ON);
-> +
-> +		switch (mux) {
-> +		case I2S_ADC1:
-> +			regmap_update_bits(ma5311->adc_regmap,
-> +					   MA5311_ADC_CH1_00_GENERAL_SETTING,
-> +					   MA5311_ADC_POWER_MASK,
-> +					   MA5311_ADC_POWER_ON);
-> +			regmap_update_bits(ma5311->adc_regmap,
-> +					   MA5311_ADC_CH1_0E_MUTE_DATA_FLOW,
-> +					   MA5311_ADC_MUTE_BOTH_MASK,
-> +					   MA5311_ADC_BOTH_DEMUTE);
-> +			break;
-> +		case I2S_ADC2:
-> +			regmap_update_bits(ma5311->adc_regmap,
-> +					   MA5311_ADC_CH1_00_GENERAL_SETTING,
-> +					   MA5311_ADC_POWER_MASK,
-> +					   MA5311_ADC_POWER_ON);
-> +			regmap_update_bits(ma5311->adc_regmap,
-> +					   MA5311_ADC_CH1_0E_MUTE_DATA_FLOW,
-> +					   MA5311_ADC_MUTE_BOTH_MASK,
-> +					   MA5311_ADC_BOTH_DEMUTE);
-
-Could use a comment about ADC2 enabling ADC1 as well (similarly for ADC4
-and ADC3).
-
-> +	SND_SOC_DAPM_OUT_DRV_E("AMP Power", SND_SOC_NOPM, 0, 0, NULL, 0,
-> +			       ma5311_power_event,
-> +			       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_PRE_PMD |
-> +			       SND_SOC_DAPM_POST_PMU),
-
-The function doesn't need all the events?
-
-> +static const struct regmap_config ma5311_ctrl_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +
-> +	.max_register = MA5311_DAC_FF_VERSION,
-> +	.readable_reg = ma5311_ctrl_readable_register,
-> +	.writeable_reg = ma5311_ctrl_writeable_register,
-> +	.volatile_reg = ma5311_ctrl_volatile_register,
-> +
-> +	.cache_type = REGCACHE_NONE,
-
-As I said above and on v1 you should probably enable caches here, it'd
-simplify the rest of the code.
-
-> +		dev_dbg(component->dev, "Estimated TDM BCLK: %u Hz\n", bclk);
-> +	} else if (ma5311->format == SND_SOC_DAIFMT_I2S) {
-> +		bclk = params_rate(params) * params_physical_width(params) *
-> +		       params_channels(params);
-
-Note that I2S always needs to clock two channels even for mono streams.
-
-> +static int ma5311_dai_set_tdm_slot(struct snd_soc_dai *dai,
-> +				   unsigned int tx_mask, unsigned int rx_mask,
-> +				   int slots, int slot_width)
-> +{
-
-rx_mask should be what the playback mode is doing I think.
-
-> +static int ma5311_dai_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct ma5311_priv *ma5311 = snd_soc_component_get_drvdata(component);
-> +	unsigned int val;
-> +
-> +	if (stream == SNDRV_PCM_STREAM_CAPTURE)
-> +		return 0;
-> +
-> +	if (mute || ma5311->force_mute_status) {
-
-Does anything set force_mute_status?
-
--- 
-Mark Brown <broonie@kernel.org>
