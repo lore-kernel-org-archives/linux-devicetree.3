@@ -1,82 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793176218;
-	b=2haBvGSa784bN1j5MvMtESBkIeLX2cKyCzVYY7zYxvsHuaYxi+2z7ayrIfSgehfcu9CL
-	 zlMCDhOgA+vceI78T+N4ITkZR4emd2AC0soYG2mP35d9bYt23Jw53rLXdM3jpLV2dtiwC
-	 KEch0wEWVB9OamNtdhkoCU8x6XayxIkdwVK+hN9pH1O1Hz4b9FZ5ygVMqwVsr7RFhboFU
-	 hM/+tI8+AGHpzMkAPs6W1iV2pBHnzifNeHVXirIxaySOWP41wIB/io9vGJDXexz1HsPAn
-	 4TCoSp4hDNR//EDwtUaZmgJDH6F1jRXQAkucFhF4E9FWL22FMNFCXT1CXn3cw6zJt7A==
+	t=1793176250;
+	b=dQa+T0fVGtVJCySOP9dbgSY6CsN1FrHl3WJuEMvSJEIl3DuOAdGdDnxiLDY+E3mliPH5
+	 Rl2kKXnZo5t/fU9f8oewmYswqqMrzi7zobQKIzmE6Mycr0VkHmNTea2dZVWCQ7OpjVQL5
+	 NNEOQ73iVKNQSro2pu1BC3ZQMn22dG/F8noqbfQdKvcUcpGEXh0eiuSqolUWHw/XAq+MI
+	 jIlfAI2Q2GVjYOnpx6pQrwx6UXMGUw9hBMfFzzelfJfmT/e1c5y8G2Wsg3UyZleUCMfo+
+	 c+FF/CgRGnR/fM777hgKxTEzc29UNz8XrsyHK41PX7kLPwlKU1OsJn5hZLNhuEyL6xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793176218;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=tOHeyNRvmbXusJKMq6HVQABJtMt41LHGwmGBsrUeMzk=;
-	b=4i3a8w6D4wBUehCJIXufRutGVR0jbEu5yU4P5Rbe4aD416ZyF2iJhXHhLj/03gIvXsm3
-	 fbaOfAA6GUkVjEkAkWJ5796KV6iAwjRFRcSR+yr86jrbciyx10n7aeIkpWBhuGgr02IVu
-	 /8ePIFav8KtK9vJ09X1kbpdhxaCnlxyYG3VIuBauF/zNFHLphwKn5U3gngYSvWhrjGLfa
-	 0CIa5H/cl2tQihCBmQYu6s3tNhTlN4Ovs+thVpGHQ9H2LpuUqxKv167eD3zYsLb7FfwAA
-	 6B47RvnpPYg1Yof6ZdDUXHbKjtmmp4DXlyHyV4srX2hWP0uTZbExXqPwoOnzhzglrNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176250;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=deVCSELJSTG0pd+EM+rjRQ7hOaUOrSc78SkOky98FUc=;
+	b=fGnku3jvzzeENEJ16vSyKptwHpJoEW+FSX5yHx+NOLf9D3qRr7lu0AqBi5Wl6Cr7PfdK
+	 w0AHw0CiM7zbTH2IC26I1PPhp0H8ubz8xDBQzy4x/P3lJ1NkuSIR3fK0CFycNZd5Of1Tv
+	 gdeNezTvnxy1P2V/SlRLxAVk1SCVcTyXnIdtS7eHnvg/qvp77kOHHKX0SpO927BXh3bPc
+	 CJnZ7ZC8uLRQfh2c+nQ9DabEOxF/5xh49+2Hd59O5etgBe9SAY9tOI4jffQp9RdeVN1H4
+	 EBF/yuSEAuQjwzxz8kwoWuz6fmsKOdoX7wiBN0Z7K+qfgPGCiiGfj9kDT7thMZ6ALYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNjTyPJg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF6A606A31D;
-	Wed, 28 Oct 2026 08:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BF6A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02498606A322;
+	Wed, 28 Oct 2026 08:30:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j1IsCY3k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793176217; x=1824712217;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=+VrEP1WtzBFvz1LUMzocRw+T/DgCiiZIdHezI1jy7fM=;
-  b=j1IsCY3koGy0dKjExUNFNfhBSRv1crBtnNHEd9RiX8Jn10ECHMZEBpiO
-   kizUVFjMfys1CpjNshw5rBnIl7WMhltlqMy1hmY/F8FsJyyLVpvbc4enm
-   pvNyVSlhoUil3iOIz77DODXXrULt7qzWhF2jgneITDc4Nkk8mVuo2M6Gi
-   j5RRyD3ceEkaC77eIP5/8qc08hVWfVwGJXRIuve3uWjxGmfY9GPch7k3K
-   J1FkD0wRzw0CcZ3ItJUEjbMSmMbpZx+GjoWqfkdhi/BwOexMVK/qYgJzx
-   iNCRyTAHO8IcdAT77nmJzAYWzNeL6DUXTC4bAtygbRqUwYVX1IYELmcv7
-   A==;
-X-CSE-ConnectionGUID: rj9FcSVzTKuOq8bCUToACw==
-X-CSE-MsgGUID: cEOa83v5QxCi326CZ+F75A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1911571"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1911571"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:16 -0700
-X-CSE-ConnectionGUID: DUrcjuXNSSKkOJTwbdT4hg==
-X-CSE-MsgGUID: JUePD06ET02YdR9Jmycmmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6600853"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.156])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 01:30:10 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 28 Oct 2026 10:30:07 +0200 (EET)
-To: James Hilliard <james.hilliard1@gmail.com>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v4 2/5] serial: 8250: share the RX trigger conversion
- helper
-In-Reply-To: <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
-Message-ID: <805ee11d-c385-f509-456a-35205d8963b4@linux.intel.com>
-References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-2-d37e018fd0a6@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNjTyPJg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F001F01828;
+	Wed, 28 Oct 2026 08:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793176249;
+	bh=deVCSELJSTG0pd+EM+rjRQ7hOaUOrSc78SkOky98FUc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TNjTyPJg3lci+OUjJyMViGgrE20q+380VaIi/CjYpQC5o1z374RZYPIPJ2yqfkmlc
+	 wd/5pegliCO7WJEuzx92GR+l88DrtSYp2dHqxji4fSBDa2DOPlIVoYfkdFljJsGsGj
+	 RauydhoVuFTnr+U8undTXnS4ooc7PY3Y4V2QKYYb1Km7ZBiEu/3KILlqZXx8h9SBUa
+	 wqncL/Ifbwn8+UH6GK6tJZT4Y5ykMs96wfQ5GziCl9AQh8mD82ULk1rdaeiBezH82v
+	 ajMWCuPnQgnTkxrFULW89bBYV6JBAMb3m5I8Gn/Gstgx/2ZralIoODEG18z5Mnbes5
+	 j7dlsBVrO1IfQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xLz3X-0000000827d-0FRF;
+	Wed, 28 Oct 2026 08:30:47 +0000
+Date: Wed, 28 Oct 2026 08:30:46 +0000
+Message-ID: <86pkwuxm4p.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Tim Pambor <timpambor@gmail.com>
+Cc: Frank.Li@nxp.com,
+	afaerber@suse.de,
+	alim.akhtar@samsung.com,
+	andersson@kernel.org,
+	angelogioacchino.delregno@collabora.com,
+	baolin.wang@linux.alibaba.com,
+	bst-upstream@bstai.top,
+	catalin.marinas@arm.com,
+	conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
+	devicetree@vger.kernel.org,
+	dinguyen@kernel.org,
+	eleanor.lin@realtek.com,
+	festevam@gmail.com,
+	gordon.ge@bst.ai,
+	guohanjun@huawei.com,
+	heiko@sntech.de,
+	ivo.ivanov.ivanov1@gmail.com,
+	jbrunet@baylibre.com,
+	jernej.skrabec@gmail.com,
+	jesper.nilsson@axis.com,
+	jonathanh@nvidia.com,
+	kernel@pengutronix.de,
+	khilman@baylibre.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	lars.persson@axis.com,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lpieralisi@kernel.org,
+	mark.rutland@arm.com,
+	martin.blumenstingl@googlemail.com,
+	matthias.bgg@gmail.com,
+	michal.simek@amd.com,
+	neil.armstrong@linaro.org,
+	orsonzhai@gmail.com,
+	rafael@kernel.org,
+	robh@kernel.org,
+	s.hauer@pengutronix.de,
+	samuel@sholland.org,
+	shawn.lin@rock-chips.com,
+	sudeep.holla@kernel.org,
+	tglx@kernel.org,
+	thierry.reding@kernel.org,
+	wens@kernel.org,
+	will@kernel.org
+Subject: Re: [PATCH v3 11/17] arm64: dts: mediatek: Add EL2 virtual timer interrupt
+In-Reply-To: <20261028081716.75598-1-timpambor@gmail.com>
+References: <20260523140242.586031-12-maz@kernel.org>
+	<20261028081716.75598-1-timpambor@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,89 +113,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: timpambor@gmail.com, Frank.Li@nxp.com, afaerber@suse.de, alim.akhtar@samsung.com, andersson@kernel.org, angelogioacchino.delregno@collabora.com, baolin.wang@linux.alibaba.com, bst-upstream@bstai.top, catalin.marinas@arm.com, conor+dt@kernel.org, daniel.lezcano@kernel.org, devicetree@vger.kernel.org, dinguyen@kernel.org, eleanor.lin@realtek.com, festevam@gmail.com, gordon.ge@bst.ai, guohanjun@huawei.com, heiko@sntech.de, ivo.ivanov.ivanov1@gmail.com, jbrunet@baylibre.com, jernej.skrabec@gmail.com, jesper.nilsson@axis.com, jonathanh@nvidia.com, kernel@pengutronix.de, khilman@baylibre.com, konradybcio@kernel.org, krzk+dt@kernel.org, lars.persson@axis.com, linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, lpieralisi@kernel.org, mark.rutland@arm.com, martin.blumenstingl@googlemail.com, matthias.bgg@gmail.com, michal.simek@amd.com, neil.armstrong@linaro.org, orsonzhai@gmail.com, rafael@kernel.org, robh@kernel.org, s.hauer@pen
+ gutronix.de, samuel@sholland.org, shawn.lin@rock-chips.com, sudeep.holla@kernel.org, tglx@kernel.org, thierry.reding@kernel.org, wens@kernel.org, will@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, 27 Oct 2026, James Hilliard wrote:
+On Wed, 28 Oct 2026 08:17:16 +0000,
+Tim Pambor <timpambor@gmail.com> wrote:
+> 
+> On Sat, 23 May 2026 15:02:36 +0100, Marc Zyngier wrote:
+> > The ARMv8.1+ based CPUs used in a number of Mediatek SoCs are missing
+> > the EL2 virtual timer interrupt. Add it.
+> 
+> This patch doesn't seem to have been applied along with the rest of
+> the series.
 
-> Extract the receive-trigger threshold search into serial8250_bytes_to_fcr()
-> so drivers with per-port threshold tables can use the same conversion as
-> the generic 8250 implementation.
-> 
-> Include the unsupported-table check in the helper and preserve the existing
-> nearest-lower selection and highest-encoding fallback.
-> 
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250.h      | 16 ++++++++++++++++
->  drivers/tty/serial/8250/8250_port.c | 12 +-----------
->  2 files changed, 17 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-> index 21ed9c41b751..195ed58a2231 100644
-> --- a/drivers/tty/serial/8250/8250.h
-> +++ b/drivers/tty/serial/8250/8250.h
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/bits.h>
-> +#include <linux/errno.h>
->  #include <linux/serial_8250.h>
->  #include <linux/serial_core.h>
->  #include <linux/dmaengine.h>
-> @@ -73,6 +74,21 @@ struct serial8250_config {
->  	unsigned int	flags;
->  };
->  
-> +static inline int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes,
+That's the SoC maintainers' responsibility. I only look after the
+driver code, and rely on people spotting the warning! ;-) The fact
+that this has been there for two kernel releases show you how deeply
+these maintainers care.
 
-This looks way to complicated to be inline function so I think it should 
-be kept in 8250_port and exported from there.
+> After updating to v7.2.11 on an MT8195 board I see:
+> 
+>   arch_timer: [Firmware Bug]: VHE-capable CPU without EL2 virtual timer interrupt
+> 
+> With this patch applied, the warning is gone and the EL2 virtual timer
+> is used as expected:
+> 
+>   arch_timer: cp15 timer running at 13.00MHz (hyp-virt).
+> 
+> Reviewed-by: Tim Pambor <timpambor@gmail.com>
+> Tested-by: Tim Pambor <timpambor@gmail.com>
 
-> +					  unsigned char bytes)
-> +{
-> +	if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
-> +		return -EOPNOTSUPP;
-> +
-> +	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> +		if (bytes < rxtrig_bytes[i])
-> +			/* Use the nearest lower value */
-> +			return (i - 1) << UART_FCR_R_TRIG_SHIFT;
-> +	}
-> +
-> +	return UART_FCR_R_TRIG_11;
-> +}
-> +
->  enum uart_port_type {
->  	/* Internal 8250 only */
->  	UART_PORT_AIROHA		= 124,
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-> index 36b2b0a2c05c..c332963dc2ed 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -3018,18 +3018,8 @@ static int fcr_get_rxtrig_bytes(struct uart_8250_port *up)
->  static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
->  {
->  	const struct serial8250_config *conf_type = &uart_config[up->port.type];
-> -	int i;
->  
-> -	if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
-> -		return -EOPNOTSUPP;
-> -
-> -	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> -		if (bytes < conf_type->rxtrig_bytes[i])
-> -			/* Use the nearest lower value */
-> -			return (--i) << UART_FCR_R_TRIG_SHIFT;
-> -	}
-> -
-> -	return UART_FCR_R_TRIG_11;
-> +	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
->  }
->  
->  static int do_get_rxtrig(struct tty_port *port)
-> 
-> 
+Thanks!
+
+	M.
 
 -- 
- i.
-
+Without deviation from the norm, progress is not possible.
