@@ -1,79 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793186360;
-	b=tSQMX/uvRzAXTIv0Ml2aEyheLo4Htbd6l7omjjiLoS0ukM4K1MxqJ8QR0i+lnq92trB3
-	 FSqveOBUZfM+8WYnxr7j5U9ZY852JXqPQ2hVVKHcjgrOZeMOy+I2bb2sfQMxK5eGnuIxQ
-	 v8gLWiiT1bNOacsmiM4yc/OiqpSHVlUmOkGwSj91ksBHDYJJhvjZwmYSZ59WChSQtQKGP
-	 9uuqggALoUpkmneuD8fnSdK8uJe44FjbUhhbEIAUELsc7w7M+nLzwk9/EB5iNZyHlIOaI
-	 afq91C89SbD3/m5rdkbTVJ2N054LYG4aJkxw3K60UaDvZbtqc4I6puyTSX7PFvEubzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186360;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
-	b=p2B4u4OqMMTfFjQLcO5uJhDqPzZ7DJc4+t4eywQxRDVJuji1+SEEuRsDEzv/xXmlPtCT
-	 EUZHTuZmUVH00Fr2bWheetcSVUjTlMjbfJ5aqYk/8FgBmjFD5rkUWZUeVzTe4rHQvqcEH
-	 n15Q4tZl2r0xgFJqQmfi0zXqSU9yT7jrq87i1YBJrGKdqgkxCvlDdgfqhE/r2rfKcctAH
-	 Nbj0u5MQeJGUCiyVm9UjjznRvwPzB3J94tMMyJCZkHY03j4574HCa6sCNAf25YPvSvouO
-	 13kZ/fDRP6yOlGqr09IzgtCEkJCCBNp1HVXueD8o6mXcpPb5nUZVzptjDLor4Y2TEug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FGONao/g";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793186367;
+	b=frYRwo2yQOzjfJPFRPWEfHQOdanXOGODGphb7OzMEqGi3DV5BULOwAAVxHqtvb88Smv4
+	 PDslsGCVOxQQ/aJke9o9HUtpod1xlJ8Q36K3KaOLLWIiw/w9RmmuymUiy/n78hVrYjjSu
+	 djje0qEBatFQgGl0MHmSvHjI45/9xl6Rl3NzDZ2FYOWWHIriPVDZ/fvDJ1+CQ4ahtmxgB
+	 IBwRactkxiwSoxXRiyUKw+iXxY5/A4l9xK6gFwEEgmTIpdFrGmQuxjG8GYkPYzYcn+Elt
+	 Ez5j+1eGo30dYm9KwbHkSnUgf+X6ScnJjZS8h+UyUlTMNeuyItZfulZP3oIkylyfsNA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186367;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=yKdfPzMRS/kwPXscycDGzlcjovJBQwAGTa4z13VzbQI=;
+	b=gb18WHlUyTcaEASgInkQYeid7hs3g1PZ4sBiHa5woG37JvM7UIHbCT/z3eleVH92/OWQ
+	 gIDi6bRB2h9meY4qHvJ5N/LYFqwfkRTVFR11xNl3agB1PEJ/1uDbqiPHRjMaJ4bBICa2m
+	 NLB59PB2l5aElSSiwElF09EBG2CVCua/1odjc2GMrwXYY5qEwxqJ1PxxclhFFoxaWxE/6
+	 ZLuWl/Gkyp938LrRi6eFX+zJF+UKYxfr2CrAczlCVqYNpH0Cte16qq8ffTjOn94aHj3n4
+	 1feNyrvzJrwlFjRPZK0fLeYg+M+rRE2t3Rr3vgawVrHx7WnKDjTidenqeC3nEk7w1wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cjdns.fr;
+	spf=none smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=m59PuZSH;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97A0606A31A;
-	Wed, 28 Oct 2026 11:19:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8B16073210;
+	Wed, 28 Oct 2026 11:19:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B8B16073210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGONao/g
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793186354;
-	b=anz4XldHoeB51+tOfy5fluDuSJOWdTplG0Zl0HsDpSto5gB9FfOQiSS/qQkUhaVjoG6X
-	 KfuqiFCYJ96p5wOs2lX3r37+6YfOx1oJbEgXEo35TJWPMRmksqN9K4Tcgt7cSrQjRLwzA
-	 P7ackGVsReNq4HPrDHq7pKBtP/8ufBkCgR/5+1MpwoiaA9tEGDZKIC99N3nwfxk3OQSk1
-	 T8EkaZIcsCgIzGunxq5l5m5X150tdh9qbjaobLgkgnn1fY9LTEpeocKwiGwtrIWVjpecJ
-	 eHgx+jtsxqKwOKA4nnPzFSn2SW++kBgdjW1a/kfOrRLQD3eR9TqTDsbtZ0d/euNVHeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793186354;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
-	b=V0tc0mKh6lKLqpjXNOI8uRN7yy2wIRJokY/Vo9HdtzFYMySCsb8Cn2NpTz1O5/UohUub
-	 MKUQOOGzE9AVERKhFTHtmC/aQa254OLQWKF8ucHx7MwP30NPL+SeNQ33zQAknaIp2f8WR
-	 p9aAn5ZfM7xnO6cIxBajShSx5DkTjr5H0o/AgWRk49IfLp2k0LMkUMyK8MWRSqxLpJtIr
-	 5Q175GPrwup+ppMQcG/TcAwBULsJNKw+wlE4YI+4AE7bl8QYH29nso2DZFmdr3glc8ENL
-	 CaNw64rWPA6kPMxCB7nGJ/jG+PrOycyyKs/TT+oJXXuDAguqV6cMMvtL/QRF+zNunhA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3D4AE1F031E5;
-	Wed, 28 Oct 2026 11:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793186354;
-	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FGONao/g0p5nzye2j6WJZMCtB8JgFMzcVHtayJcNUJPMV92iF0Usxg8JPmZYeOkRC
-	 Te1PgPiYISAri44X+U76PvqfP2Z2pltj/EkaMvNX8wzfWQ0ulm/WLnbflMOqQSpS5h
-	 XO9B4h45rb4JTFBoB7eCGkaTPy8gdJIuns152Y9XOMK60NluV3bnFJLqkDds03jHlR
-	 Hju9hm+d84ZlEhJFBg8fZw8T+tP7/sG25MiHe3P4Q87w679CiQITMhSRcvAWT1BI8k
-	 xWl1SEc7azZr280RPDKnuV1a4f1pvub/caZNwp0+jDpIm94a0T/Jpx6S+1BealjVnh
-	 t/ehYBbvKHyBw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BA8EF4541B;
-	Wed, 28 Oct 2026 11:19:12 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 28 Oct 2026 14:17:22 +0300
-Subject: [PATCH v6 03/11] dt-bindings: watchdog: qcom-wdt: Document MSM8952
- watchdog
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=m59PuZSH
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 17AC6159721;
+	Wed, 28 Oct 2026 12:19:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793186363; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=yKdfPzMRS/kwPXscycDGzlcjovJBQwAGTa4z13VzbQI=;
+	b=m59PuZSH0wQWRO9g5AKyqgoruvEOgJ05UH1RBowvozLh4c0D7H8AJ26PyakRtlinOM4ufv
+	BTYUDPZuRQL2RTJvtudK5LoGl/TCl+D+p7e1SElHrXce5jiI/Ap3RBqGKeLpcyfGv6yM+Z
+	4NOK5BYdKEedmrwXMu0mAqNrwh816Z1vAQcsx0AiClAsXSR2HZvwo19wH2W55PMhrMoHm3
+	t7esB+H7DBXHwd1LbsRPKBQgsumglcmvEXC+N/j2xIC/XOZuLqCSvTfLP8xsds7ksQwIB+
+	GfgzQ4/LhBGLAc6F2Y0MOb9RTuW3q2rQn9dmNu6phmmMY/4L5i3yCc1ml8MQGw==
+Message-ID: <9f955484-1ca4-44a4-84a9-cc1d062efcf0@cjdns.fr>
+Date: Wed, 28 Oct 2026 12:19:16 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,80 +55,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-msm8952-initial-support-v6-3-e07ddd8bcf4c@mainlining.org>
-References: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
-In-Reply-To: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Rajendra Nayak <quic_rjendra@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793186351; l=832;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=6oZOV+Mf0e2Xnm4F17qb2OJyHhIjSjwRgWv2fbhA1PA=;
- b=/LAAnAOrVpwOOgRezY78N0yMI7KJQY//B7hj3n1Cd4TXoQKy6YnY36h5aDZ+hTD7vhw9Aowwf
- UXs4hdvKYtcB4EweLSUH3Ktyc4lTRj8YFkDa3lK3/R7Vyxu0jKQ4sps
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3 6/7] dt-bindings: net: dsa: mediatek,mt7530: add
+ econet,en751221
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261028011317.1557238-1-cjd@cjdns.fr>
+ <20261028011317.1557238-7-cjd@cjdns.fr>
+ <f9249c6d-ef72-4723-a3b5-8d5375e53744@lunn.ch>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <f9249c6d-ef72-4723-a3b5-8d5375e53744@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-
-Document the watchdog found on MSM8952.
-
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
----
- Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-index 4ff61102e407..38f86ccd1ffd 100644
---- a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
-@@ -29,6 +29,7 @@ properties:
-               - qcom,apss-wdt-kaanapali
-               - qcom,apss-wdt-maili
-               - qcom,apss-wdt-msm8226
-+              - qcom,apss-wdt-msm8952
-               - qcom,apss-wdt-msm8974
-               - qcom,apss-wdt-msm8994
-               - qcom,apss-wdt-nord
-
--- 
-2.55.0
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+On 28/10/2026 03:26, Andrew Lunn wrote:
+> On Wed, Oct 28, 2026 at 01:13:16AM +0000, Caleb James DeLisle wrote:
+>> The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
+>> in the SoC register space. It is similar to the econet,en7528-switch
+>> except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
+>> port 5 has no PHY, but is in some implementations connected to a
+>> downstream MT7530 multi-chip module via a TRGMII link.
+>>
+>> The downstream MT7530 is similar to the MT7621 multi-chip module and
+>> has all gigabit ports.
+>>
+>> Add the econet,en751221-switch compatible with the same constraints as
+>> the other built-in switches and also add the econet,en751221-gswitch
+>> multi-chip-module switch whose port 6 is configured as a DSA link port.
+> Is there a use case of the econet,en751221-switch not in pass through
+> mode? This is where you could have a different dsa_switch_ops
+> structure, which probably makes the changes less invasive.
+>
+> Even if there is a use case for not pass through, you can still look
+> for the property in probe, and decide which of two different
+> dsa_switch_ops to pass to dsa_register_switch.
+
+
+I think this was pretty much answered in my reply to your patch 3 
+review. Without insider knowledge, my understanding is EN751221 is a 
+common die, and it's packaged in a variety of different EN751x (DSL) and 
+EN752x (Fiber) chip modules. The die has a switch with 3x 10/100 ports 
+and 1x gigabit port. Chips with a 'G' in the name (EN7513G, EN7526G that 
+I know) have the MCM switch and use the on-die switch as a passthrough. 
+So yes, in short there are real (and quite popular) devices with both 
+MCM and non-MCM implementations.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> 	   Andrew
