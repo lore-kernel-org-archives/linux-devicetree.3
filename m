@@ -1,60 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793185718;
-	b=NlgAq9hf/HA2UGha0H79rChR75VwLKD8qh0qfSY1qCEz50cSLT84uziHyh0t8zdoiu+d
-	 PXzYkl6/Qtycjq4lPZyVwayh20tEdjwQMmkY9P3pN4Prgi0PLfgZTuA08qhMgpDjnOBrL
-	 Bw9hvtZ4f+m8nBKvgCZbsQi3PspbxuQY7qXYSgw1CbmvclzG7fEi3rSdpVVKlq/94NaLh
-	 ibpnVEGizEu4oK3igR/Mm53avMrMdLZU89DDEKmh6x+RvdOCBKg7wBBu98G9sKIYdvv4Q
-	 zfKy2MZRKhYYkW/HtkDQzvTrsHKxnwLOOR6Sa6ETflBYcvwilbItJwohITGHWvCFNsg==
+	t=1793185803;
+	b=hUX1P4bdi8ZjgjVtSn53bf5Jv3rp2CL/94KVeFGaK94iJYHj9GoUF5nehIJ8PE9mFR93
+	 wk0GdIp7Vovfcc9ICV0tJxvHdiDlttg1FKV1/WKwAai3S49VL+9Q/RG/RVtEdSE+kzFCQ
+	 aETcwh9vmq6vCulaYXbVbvvv+ACkFovhNlwhLalU+h5h0KXJa8vyUGFMJgy4s9JKX97E4
+	 Y49e3DZ9h4HVNgAQBT3NkotKUasbZ6pxvvei943dCyPdcM0ICjuW7HZrsT6DEuqTk5a8N
+	 f/ZEhjuycNnfvNATNwFpwTgiy5Z6/QJN+c3cn6FYxofclOMbn5vJdscohzOU3lcEWyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793185718;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BPvFudkVHX8n8Xz0tY/evgQIfyTSEMNdwfTdWs5pWeY=;
-	b=2EFohgwbd9qOzBHYX1QXPzK8m6olM64gGCKZw9JnV3kuS2+UsbDycVPFVYyJoaHjxWkA
-	 nTKwMqqn/5Xd1uaJ5xIzNaFTnJVdjiIrIn++DGgWSa1xh4oNHHZow6GB14q1qMrnv6xh8
-	 pZBu2Gjb76L8OCefRF3zSJgzLAnwWPT0ORcrOXCthogD6n3G9iIx5rWsllYubmO1b8+Qp
-	 Lj3eryOmM0Dnz3qakKhXMwHaO0bjzj+dBIrwO1FC7spJr/YMUVsXCAZMrsPV3rm7QBrfI
-	 32RQUgYYnl8Z8uBkaSMzPBV75TpEjszzM6Nimk1MXbQx7KwqWqy9eHKrdOiXcKh+oXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793185803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
+	b=qhwZOnH70K3u344I7mLqaiZNr3yaNMfy8ki9tyru0GbFZSCR4mHlZ6Mrr/n+SX6m/bUw
+	 TgwZLB06Q1LYrO1F5NBaLw1AslgT3Aaf/a799LE3wKVnKjrPKVMpnICE9u2GWSUJe8+S1
+	 r/JjakOtUWb4fCOR1s5WHnmZjlhNYrkP2vIS3eAmwtI8Ic9/6wwsqbCVFpccnbBHBnE8k
+	 oaMgwcUwMFbOPndCcTaR1x1WejKQxMgcm+YoQO1x0j0pe+pYaSg33aUldRyYi4sb5PpyG
+	 3HSATcXZJZk53hPsNwna/Patx9BmBNoAr7eJqNORa1AIxIPL41d+OrRkz4WgtKcZepQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtTiG6by;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPj49Iuz;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95E3606A31C;
-	Wed, 28 Oct 2026 11:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6386606A31D
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:10:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6386606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtTiG6by
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D641F01825;
-	Wed, 28 Oct 2026 11:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793185717;
-	bh=BPvFudkVHX8n8Xz0tY/evgQIfyTSEMNdwfTdWs5pWeY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZtTiG6byUrcmhfvzzZDpCrtyDNs0wNwEkgWPN/MP1yz1eTVX3iH8p0r3iMeSB8RS9
-	 RReBMTb1NI/fnkYvc5qFCugmY0Ig+ps7a19GDbm6dK+jzD0CaG7Dvbbxg0yw/Gs9cP
-	 Mr2qVchIewxuVR2pQTqcEbRESlbDJKu6wQ3QpzuLnreDmfrjiOmXVErZBpfcMpJcM6
-	 +UeN8a0UGfre9DZQFpsUp9NdyR+AVIgNQ2YrqqDhRnFCrDOCOmIb4ZcjGjaDxx94U1
-	 YVy3ybCc9UsNHolL528RgRdqeEDSAXfQ1P2+vEVwfnPjIKJl61lSo/xt6QeNvW6Ay/
-	 +ByUfVU1QN5JQ==
-Date: Wed, 28 Oct 2026 12:08:34 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gergo Koteles <soyer@irl.hu>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, Enrico Cic <enrico@privacyrequired.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7325-motorola-dubai: Add
- vibrator support
-Message-ID: <20261028-thick-gainful-pegasus-e1b430@quoll>
-References: <cover.1793135056.git.soyer@irl.hu>
- <8717c3739be282747cbef611d242acfc5a40656b.1793135056.git.soyer@irl.hu>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xPj49Iuz
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so694903f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793185801; x=1793790601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
+        b=xPj49IuzuZ1wi/oN8i5dMxmTGVoRVIXeRSPoIADYD0M2mQ2Aww3v2ag3C1IsfgcqzB
+         cJjAxwHLh1ALNoimrVgexgVW5M4Di0vy2bWet40KIAVfZMRResj12+ytwvGRx/xMQ+tJ
+         CEEbBUxgPKpLAvE//+2z8yyPz/O+YqCZpkGCAwuJ9J+0B0ZgFWZmdZ51Ckpw7dL2AgHK
+         xK06TcNgvCq94dYq2OFd5EURo7pd/4RShU2MPeekiKacRKCCKmL+zXpPXuozNMo4rkKz
+         BPTDtNaI/MID6Fx+2V2hu3ehUyMmvsrv28jUf7upwQJ1Vi7PJeen6hxxF/l9tIqRLK8f
+         p7kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793185801; x=1793790601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1oInV8X/kpsTReR0GbICzmQIbB4dJNZpXCGXqUrcWEM=;
+        b=IL40nfCxsaj4LFa301T2yUP+mUU9fS5TAkuH90109T4RrVMEmd18Ag7Wd6rwTGRcyD
+         ZR9sM07hVeTEGJzxf+jqFGqU1yc6juu8XE0EgGEMNIc+W4qbEr50knMwfX/daSYfZNX3
+         MDWcCGXBaVOw6wkcRCi5Rl8JanGNNS3RPqkGXj7qg40ucO7QhWlOyK2WBKsb3CbNm5Uf
+         hbHgjac5y2Cn1JxEn+oVd23RBfMimpgK2Yx3mqjeHKzOc6jJ+AVAC4DN0+EbkpJNm+/u
+         qR7lpx8nlQUsmwqVqNQBzYJELaHoKpjJf8LO/HF71hRlS6enJoFyJHSVjb6AIwC/dfka
+         DJzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzocobAvoTzTmMOkksALtTAjvCZ9DMoELCrTuCCX1xg4AuupCOJ04vQwyPk1JQIOO5BeC8o0hP+wiFf@vger.kernel.org
+X-Gm-Message-State: AFq9FYKY4VjLjGxNsddq6/sUzAFFu8RWjd75GidXdzpqBsV7CEGlGsWR
+	V2kFJf427AtB1YTwBIrI/jZuP5llSdP1uniG/fePnzBVAufrY2jfXAhP
+X-Gm-Gg: AYBFou2+IGcszL2+JtCN/1enSCHJp27VQM1VSW0W9Q10VvgOUVgC86eSxMcBWXVWXsz
+	J1My6+cQHo+WaDzlGLV/sOZniZVcY1j2HbedIQvTQVcej3JyGdMXmsSEVDeMyQI13e8fhgM9g5A
+	Ql3kdoYKZY8gCqLOF2/fP5nGuoB9tZt1kJh4joty0Eb5oR0wKWHazGuTmhBGw0hQIxYdTuTsRI9
+	PnKLrwy475B5xty3wbpekn3GcWgn2S8rJirwejLuV0BP6rkEEoRCsMYC/EkGgdVwh0AaA+b28F+
+	d0evnG/6LkvCNvWpjDwxn8WLY9TN9gRFgQAZsW0x0y2KJtiNg8c/SdiD4x66Ear2LnmfL00sv9v
+	Do3jDIiKQGwCIu8bCejvmFdYTS6jWGCoF8KNLcRXbLBiHMVc5VQhCBjCMXQ/FZpojG9sNnc2Zc8
+	n12wG4twN+EiGC25ce1LZw4Sn9pRNNkChciRBGAfJsY9sLYA8+HYogrXRYWgO2rb+Lz5AGB/il4
+	lvQ54S+3jYke9KHbqxs5gsaNEN1piTLopZyqNazLuKZ2gaUwADQP5IgZZCA1vr0qxpEkA2ZJ6aC
+	JPRZZMpPyIyUkyPWc3A5o7ChMjwigyCDr22ZEeD1z9S1FLt84z4qBdR+RT4EvGqDGmVIVbMP3Eg
+	xv3Ge5eawo20PV7mVtnxFebK2u/KCffcxNyQWRgDlSj1jDpCECraBHHNgy0aDcSxKv9qGa4BqR4
+	7uj5DXcUCdMXBIwVE=
+X-Received: by 2002:adf:e009:0:20b0:48e:5550:c64c with SMTP id ffacd0b85a97d-48e5d44e556mr3706276f8f.14.1793185800762;
+        Wed, 28 Oct 2026 04:10:00 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm27760519f8f.4.2026.10.28.04.09.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 04:10:00 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH v2] powerpc/dts: Add Device Tree for WatchGuard Firebox T30
+Date: Wed, 28 Oct 2026 07:09:51 -0400
+Message-ID: <20261028110951.101614-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,43 +107,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8717c3739be282747cbef611d242acfc5a40656b.1793135056.git.soyer@irl.hu>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 11:01:25PM +0100, Gergo Koteles wrote:
-> Add the required node for haptic playback (Awinic AW86224).
-> 
-> Signed-off-by: Gergo Koteles <soyer@irl.hu>
-> ---
->  .../boot/dts/qcom/sm7325-motorola-dubai-common.dtsi   | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-> index ef91986a1fb9..434846be51d9 100644
-> --- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-> @@ -924,6 +924,17 @@ &i2c4 {
->  
->  	status = "okay";
->  
-> +	vibrator@58 {
-> +		compatible = "awinic,aw86224";
-> +		reg = <0x58>;
-> +
-> +		interrupts-extended = <&tlmm 47 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
-> +
-> +		pinctrl-0 = <&aw86224_int_default>;
-> +		pinctrl-names = "default";
-> +	};
-> +
->  	wl2864c@29 {
+---
+ arch/powerpc/boot/dts/fsl/Makefile        |  1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts | 23 ++++-------------------
+ 2 files changed, 5 insertions(+), 19 deletions(-)
 
-There is no such code.
-
-Please work on mainline, not some fork.
-
-Best regards,
-Krzysztof
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+index ebbf301e1..0a5c8b596 100644
+--- a/arch/powerpc/boot/dts/fsl/Makefile
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -45,3 +45,4 @@ dtb-$(CONFIG_GEF_SBC310) += gef_sbc310.dtb
+ dtb-$(CONFIG_GEF_SBC610) += gef_sbc610.dtb
+ dtb-$(CONFIG_GEF_PPC9A) += gef_ppc9a.dtb
+ dtb-$(CONFIG_MVME7100) += mvme7100.dtb
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+index 546e98938..6e9ec7f90 100644
+--- a/arch/powerpc/boot/dts/fsl/firebox-t30.dts
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -4,30 +4,18 @@
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+ 
+-/include/ "fsl/p1020si-pre.dtsi"
++/include/ "p1020si-pre.dtsi"
+ 
+ / {
+ 	model = "Watchguard Firebox T30";
+-	compatible = "watchguard,firebox-t30";
+-
+-	chosen {
+-		bootargs-override = "console=ttyS0,115200 rw root=/dev/mmcblk0p2 rootfstype=squashfs rootwait";
+-	};
+-
+-	aliases {
+-		label-mac-device = &enet0;
+-		led-boot = &led0;
+-		led-failsafe = &led1;
+-		led-running = &led0;
+-		led-upgrade = &led1;
+-	};
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
+ 
+ 	memory {
+ 		device_type = "memory";
+ 	};
+ 
+ 	cpus {
+-		/delete-property/ PowerPC,P1020@1;
++		/delete-node/ PowerPC,P1020@1;
+ 	};
+ 
+ 	lbc: localbus@ffe05000 {
+@@ -158,9 +146,6 @@ sdhc@2e000 {
+ 			reg = <0x2e000 0x1000>;
+ 			interrupts = <0x48 0x2 0x0 0x0>;
+ 			interrupt-parent = <&mpic>;
+-			fsl,sdhci-dma-broken;
+-			fsl,sdhci-ahb2mag-irq-bypass;
+-			fsl,sdhci-adjust-timeout;
+ 			clock-frequency = <0>;
+ 		};
+ 
+@@ -410,4 +395,4 @@ ath10k: wifi@0,0 {
+ 	};
+ };
+ 
+-/include/ "fsl/p1020si-post.dtsi"
++/include/ "p1020si-post.dtsi"
+-- 
+2.53.0
 
