@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793171659;
-	b=MFeb369j75C1TLktpQbvrpKpA+AQjGwsuIeufRaDfk3uU8YSgVkttnmKjEK6cJwlgnkS
-	 GamQjlMuwEKV07Pa6HyTeNfjUt91V1Xh0LElgtBe7Qt6iEftWZi5us1POEaj+dkjOxDt4
-	 Q/UDjhK2iG1QE3VES4e+Q0RzKGKDJ4xioBcpg2do8oCcnEBQgYs2Gon/yQb5aO4N1NRFe
-	 PcIbN0XUFMcPag1UvfQr/sx+TWZ2YY2/fi4sw1snqt85zYbSLhnsu8ajrlGCnd5/qwpUv
-	 T6T/HELA3wDWi4jLeAyYagg8DQoCZEfD1WXNFeb6A9a8TWlwIdsNN+bUlFZHtpslYZg==
+	t=1793171766;
+	b=gEXGyn5tauAEiyqeGyVZll2c6FIif79MFSCKwFQKgIh1ELb7LnZ12MaLjcP8egzy2CIY
+	 EyQfTau93LyQM//diOM5JFemPOC1Kn/uF6A3Qm/q16+W3kwONKihULr52gHhfSE+6QAlZ
+	 gmdDkPkN/IPLtpIg+PAWGR3gqgCm6jmK/4/9bS/JQJcX5qvYzQKU1KO+yYR8w7jAaLc80
+	 cg8qqRuDYNQQXudGKUXcmmX75L3uz/WTqOCy/z3rg4DxjlDF8XEvPRfoBVGiXfrviywSF
+	 OYcqFXd+iNY5cNHKunLXxKK3LBWOL8dbIIEYUVtI4FwNH19ycft6mwwScBM75Vv9F3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793171659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793171766;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BKa12JHLTaIrkAY7wHaBaCVm5O2tQjU5ZN+Qd4lZVHk=;
-	b=K0xQHSVnWaJIhMOD+7N/QVmJIoxVoUVGTbcaWKFtWb2Q4OThQ4UjPn3AUpzDE0nj7UWu
-	 YhVaQCAdgwEuKizFVbbh/aFJ867+rNILKGq0mb2O6knQz3qHz0SHkQCAgR2Qfhs9fLm2y
-	 oCfewL2Z+iYogd7EekT0Mg4TtYymhgsXWCOvBxDYx8ZnKdKY8sFzO+3QKJnZn11qRwf8g
-	 uj+WGYWAf/mE60WofuzxrZwo5NIuiTXsn2FtdeN1yph53Chx/6IhSn/O1pjBch0jFQOQT
-	 TZqKUY6rHuoh/RbyyZZGVMY7xTVYCx4X6qXkfFfTKEi4OsCARmS4m02YrjIRn0yQuiA==
+	bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
+	b=tDBSTVb4DZ8i9oDq4IuP2HkRpvVPdHZF6m+YhsMCwjZfH9SlSUTDJyhg9MD8MA7bUEXS
+	 K9dcGfO0OEBesgJ6YCjaR47kIva80kOnEuv/QZaQTi69QZbkt6q/0dN7FIk6lIOqV+Ztq
+	 4EwSFSUv/mHXm5Zcf9X0qLq/5v59KXWUpLAYSYvvTH1NQrpAO+Ui7WjCwcSD9gCVWtYSx
+	 gssEHTpS4IT6DZMg+4/lPVomS7IS+iDCFciXfmGBajodARNeDSq7NH8N1geiPf/rAIs2k
+	 bPgrfiu/eBdL9UfKXLvPPhRPb9YbrM6usWGPn5cuzefjx7olPsVkzFsK3fb1gBBnVyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DNo5vidD;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bj1RDHAt;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86073606A320
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:14:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86073606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EC5606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74EC5606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=DNo5vidD
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c5358fc28so481904f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 00:14:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bj1RDHAt
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so4612995e9.2
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 00:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793171657; x=1793776457; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793171764; x=1793776564; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=BKa12JHLTaIrkAY7wHaBaCVm5O2tQjU5ZN+Qd4lZVHk=;
-        b=DNo5vidDAbaZyqt5DqOmh3lLhzHdSiDXFx9EpEXiGF5MxBHB80PQg6WPFPAu4m+3MQ
-         G9uIzH2aNzbQXmQoY4eHF7uBgoZ9PnrPQ0C6WnniZ2JKW26vz195fWYBG0ylIyFc05LQ
-         LaaM6Af+PKwaLf64NW/ZRalX92SvnOShO0UE2srbrHovIwi3VCioanRkbRZ3lUDeT61T
-         5gFKraEKB1Qgi+bCL1dzaz9USpJW1jqR5rk2zwoPZ15oZpTF5JuPCslVlykXJcSbTkN/
-         oCvLJ+lx6L46bR+wJ3TVoudqfgzZaI8xOc7/1tV4J3BiDlcfagt6qyJeB+wICmFIAIO0
-         73dQ==
+        bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
+        b=bj1RDHAtB7vjolh/24QUvBkjTKpiQ4fB+9unIykEiiFy4aRwpzNeawm3XLokJFOah2
+         L7uL3NcV9qrvoRUqBUstYTl/vbX7YesKx4ZUfFicl7U0ZsfVEuiRMkTUPaMCfpZXAnxc
+         /JjgXahGqqSkk9nnUASL9ilmPxeG/bwigyi1WtMUZTIUPREvuPQt1BM5hJSRONfAHWEf
+         afYWiwnrkeiWB613fQ2NABYwf+OZPqsBHno58MpDGrmclIEV2sDw70ph5TLcdta7Hequ
+         EyLnEWnEbaAVFzWmaI/hvzq6EOv2s3YJ3knhw/Y/8s2NJDbalyD+DZeCRZSLIiJqsPYN
+         yC/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793171657; x=1793776457;
+        d=1e100.net; s=20260707; t=1793171764; x=1793776564;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BKa12JHLTaIrkAY7wHaBaCVm5O2tQjU5ZN+Qd4lZVHk=;
-        b=Qe1aKWb4kps7K3R+ARHcN8wJZTDoajAcDFZFBZY5ZDwwlw42OlyI7Gn2XyBxnfWGYy
-         p75RyWZrT1HRXDRLjlB9gpnk7TR54L5dvxreFpHqO4eTTpvEbJpSJAx3NV1R4fAwMw2w
-         KD1xaI3JT6DbyQAx0ekYoc+MAVgPKuOcDfDTv/X1EfFGvsBwK8lUqlk7jwcgcgSsV0dJ
-         jjzgaQqbt8nXeBxjc7TX8sxGCjybLVV2AmXPOTBowsx1ba1WsPLllEB3Sl8fUMtuVvIs
-         mDtbLKsbHTBAAVOe6kQSsSKl8RF2iIKTwTiUCwl5aevC+eW/SMBNGXhov8nU7RKPDVRO
-         GaNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRk+TdmTijHVEo+TkfsDwGzzoAdqq0KbAvV8CZigKdnEKLOhDL+TUFZrlXNXAxFZeLQvDWdCO2wS/Q@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVIYkgxNx/vDyUBGvncaZPkphhwYOV2cDwngFE0Zj/vGPqEfTr
-	RR8ifxdW1s0VN1V6IBF78yRB21asyr/KtDEwxRbuQLeslkLZ+4mbqxovZvG51XnRM2c=
-X-Gm-Gg: AYBFou0VqN/sw4qKMS1NYpuJVsfO1/bGdHVXH6/wd5EyQfr/1A1QPw+UmaAPIvcTyqE
-	1fZgaCHgc/YmLMCPwDLnr1lKaWMxT+Jyp+K/caBm3GrMuYRpqwUQ3wChU+xsiXT1250CqYtJBpS
-	bDQHuVDW0180V+vjJ9WKH5n5lblTVl6tMmj654ZkoRv1xkTwa/BEz2vF7bUoIEJ5wxJGTINKgzm
-	ThnfcjYRguNcFmd8sQrloQIfUBZcJhW0kFzF2UVcxAbbdiYreDOF1qPoigAi6o29QNNxgfiRd0/
-	vBwWUjiqCKvnOlpuCkX8chwOUJXVaqicS/MG+jfjGLzvi0pQgdOj4hhxdoQAQNgSagsPhcecJdm
-	yZ3cR/X2ObMyRaWxnV2512UxLDZIoAeKu8DS48J4wv/GwvFBk+/tODn8yP64D6a2mbx0wPpknGz
-	J5Rrt6SCrW9pJuRPnRSIx5hYFV/I81rhRkGsIiSKB+mLA3pJuWqZqchSNR31dGMPyAt/wgRVUQI
-	5+sPSrFN5cK+hK3XF1yCD9NGJY1DAnWg14uflBjLLF4FJyNYTfRPMTIG59XmAH6QxQYeB2g5NcK
-	LmL0Psvp6jOQU5HE6vgvW1YurvQeeaczvRG5ImvGOovwYWjR0JDpZM8IFetsbVB6ksjy2PyUh2S
-	pzSJw4mcEPJmt8Y8EhGqbJf4eooMMgga8Lg1M
-X-Received: by 2002:a5d:5d0c:0:b0:48e:4300:c70e with SMTP id ffacd0b85a97d-48e5d5ae171mr3363614f8f.46.1793171656743;
-        Wed, 28 Oct 2026 00:14:16 -0700 (PDT)
+        bh=emtegajvD2PHGqYHH217zdcmL1omyniO8biT/+kuRok=;
+        b=CqR6/jL+7mLMmAXqpEOSHzLvAuWYdEfjPeyr8HPAds4OzRM76x/Lvv3xolxQfbbYlp
+         n0lQT1dfG9vz33Zw5sPb0MmhUbweM+QBaMx6k1aPuAyEB/3IG6G4rwmjR1wB5tg+1IZD
+         Tyj8KjpGO/Scd/giDf51DvXwNeT9wS8t5SWB68GfoWZcTW4QLTdPQ+9BGuv70uDSJvbe
+         AX55bQRNu/9CuFosTDuLVJjPyab4YuDMKmAJs6pAdKx4YXX4aeWtlV1TzvKt46G/2yv6
+         Z+pQHsVfFjMcVCa4xDTwyD7jIIU856ietEyvXYLrqizdbA7ZBYSdcHG9/mP/cRBlD0Nn
+         eX2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxlrPldFSioxZDU4q48ERFgQbFwZFYk2IHu+zC+u7kzAhl9AlpC5tt1q6AoUT8bC0nXXE6XjDwIW4e3@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPF38HqjajJbkML35MtGttD+l1y1hfvzPT7SzPHjEQzO5X0635
+	TncTj5Tkth997tJFtorxGTTJWNkBOK8xaOmyK9g5i88joiM8l0bdS9ppAPgBv5LF+bM=
+X-Gm-Gg: AYBFou2h9mQH9XvhMRO3ajpPEsT9jKjFFTBzAZ2h5DVMWjVxAQpPSg5CX1Sik0ru3PJ
+	Sq7gqERtEeeicY5nCdtdaoiuLldUaLZHVqlYxt5KL0ngQmCXStF5QaWsrX1Tb7L08vhy6OPg50e
+	lwg7/LSs+R2YfQtSIRTzZWK47AbMzfW9ldUJDZ2x+TPqJe1rxPI099hHn5C8BTVKVtMeuznWISS
+	N+15Igo+dGHjiv5B+OPPhKy7Hwdy6ge4ZMTV815m6b3tyckXCJQdJWUkNfNNz2BK5w0YyHV5MFl
+	g44pV95QPB6XExXyJoiB/Z7iJYex2jVxhrxV507v+q+kkRGhjTFN14HqUM+LwZca8l11iFzhiiy
+	8e9s89sl0MWnXvdDcsTUAPXVSABehOZwG5/nHd1aO5F4oZSEmU1ofd9Jo5UGWc9B055FT8RQ8La
+	H4ThvaJgqip/7PqZ6yebZTwk/9Y/DfuSJeCqf2xT5Oz3PqLTcMsPG6DQHKquK10Ex8P6gH3Aj50
+	5RBPtKh4ewMvjQGKvCjHXP+2MdTYcv8O+b1DRFlyLTMLJObUyLrr0qtjk0SfEJgyK6EcOidz8zp
+	nJD0gOWJhdTIRD4cB6C1sw5AdI6G6+jLgb1YCpOj0ATZvvUHun1XAoas0ilR6JfNWMuiDP6GqFq
+	k+CqQj1LNYIeJ7AM=
+X-Received: by 2002:a05:600c:6098:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4a9640f2328mr26189545e9.1.1793171763595;
+        Wed, 28 Oct 2026 00:16:03 -0700 (PDT)
 Received: from localhost (p200300f65f19a904c16506b94501b867.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c165:6b9:4501:b867])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ebcb958sm26969844f8f.21.2026.10.28.00.14.15
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a930a63eb3sm26054795e9.1.2026.10.28.00.16.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 00:14:15 -0700 (PDT)
-Date: Wed, 28 Oct 2026 08:14:14 +0100
+        Wed, 28 Oct 2026 00:16:02 -0700 (PDT)
+Date: Wed, 28 Oct 2026 08:16:01 +0100
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, lianfeng.ouyang@starfivetech.com
-Subject: Re: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
-Message-ID: <auGgVBEHvowseCt0@monoceros>
-References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
- <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+	Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
+Message-ID: <auGg1AwlHMTKYAL8@monoceros>
+References: <20261023204209.48556-1-olivier@mgcrea.io>
+ <20261023204209.48556-2-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,45 +103,45 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nb47bxu4r7dlod4p"
+	protocol="application/pgp-signature"; boundary="7kzx4bd5q3rwseko"
 Content-Disposition: inline
-In-Reply-To: <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+In-Reply-To: <20261023204209.48556-2-olivier@mgcrea.io>
 
 
---nb47bxu4r7dlod4p
+--7kzx4bd5q3rwseko
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
+Subject: Re: [PATCH 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
 MIME-Version: 1.0
 
 Hello,
 
-On Tue, Oct 27, 2026 at 05:00:36PM +0530, Aniket Limaye wrote:
+On Fri, Oct 23, 2026 at 10:42:09PM +0200, Olivier Louvignes wrote:
 > +#include <linux/mod_devicetable.h>
 > [...]
 > +#include <linux/platform_device.h>
 
-Please don't include <linux/mod_devicetable.h>.
-<linux/platform_device.h> already gives you everything you'd expect from
-<linux/mod_devicetable.h> without introducing a bunch of unneeded build
-dependencies.
+Please don't include <linux/mod_devicetable.h>,
+<linux/platform_device.h> already provides of_device_id without all the
+added build dependencies of <linux/mod_devicetable.h>. If you insist on
+full iwyu, use <linux/device-id/of.h> instead.
 
 Best regards
 Uwe
 
---nb47bxu4r7dlod4p
+--7kzx4bd5q3rwseko
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhoMIACgkQj4D7WH0S
-/k7H8wgAnGAwJoL+e+Le96yU8hRX+LS1mxggdmfwSPFllT2XuqUDX0fD2CksmHRN
-8v/0LTJOU6dCoaLDgXojtyhjWD6aQ9eIBohBG9Ednr/skIStvCz9/G5CZOvayK5p
-Bz4o9cdfMzCYj7hMfRMEhckEaE7stpZsqAI6PyOLDlPN2VEsTTO2eNWqQQOST685
-hoxWdnS1aI3LOPzUubb0vITD+l10XFzqGI5Bbq0KmjyRy7i/AOYXUCw5GVPiDQPm
-Dwqtw53FNFvSZP0fhpGHmzAU7GydBWg1NbRITN6AqYzvI6ONc0k2u9fA8GEUqWf7
-R51YEtnYj75xSueedmapu+p+CeOHHQ==
-=1P7c
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrhoS4ACgkQj4D7WH0S
+/k4yYggApnKsIa+rCf3BFQJjly7WiAmxlAQR57PJQJaEPivBmt7SsrrspxVOOAum
+ZSo8hfftL2LyDHfMgYIzt3la64M0m9Ka5MNheXRDG3NuIFW78hiJY1uyy1Sy+fcU
+oPNpBjjLJWxzwjcGLUxIbM4kPqmIdsBamY7GrwDSB3BeNHFmOL2l6oLaF7QF22sC
+3rDO8bwez9gW80BWN7CJCjpw4ynQK6LaxRX+7fBFbX4fRvqIL3Onp3Nufmp4TVo5
+iXpJYlTPv3vt8tTP6rhxFh3R+9bmnzR2nc8MUCJJmAb7qRiaZSoQ3kz09LzpeVWt
+eAau0gujuBeEzy26ASfKDcl86MpIng==
+=0pQ9
 -----END PGP SIGNATURE-----
 
---nb47bxu4r7dlod4p--
+--7kzx4bd5q3rwseko--
