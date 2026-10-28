@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190403;
-	b=xqNFHRBgNTUg/ZAOC+fDeer+HUrYe2upIMj1JVRQhOLh3Kik9EBb239Md5LU6zn6/fTL
-	 6rpUUCuL2uTulR43tEkHCKhtI/VFYPh8T0ZqYlkcTm1V+D9qMecbfCJytuDSdXaN6cve3
-	 jTxsiYwk9NM6qI/ZapFRe17x4xEpYYa5QQ89KimuvGier/tMOhvp2Bln7X7W1MoQSCWmV
-	 LBPG0kSYOrdRdwsOhca3NKc+UmexURd57A2AfIneaK4gyjzcCMIdAaTpdfA/c/tbUtxSe
-	 ONbFsIUi+5KsQSDmCh0Btmwl8P8oCJUs4t9R3ow3rva01/QsaW0uiOI1tbFKdh23bZA==
+	t=1793190458;
+	b=wOSO8fmg1UqwzJumpIGpzu6Z7zVIl9xCnUxdh0JHWswLsmjZeEW594qnv/NcpZlOmyM+
+	 Lf8svkWWZYPKDtMO+bE4bSj3/unFgtCEWTGQKV1fn6J7HvtL0D5o22NXo55bZbwJg45x4
+	 bGNRgInLWhtqwa3l9gutwvOiTH2BXGoav7DsHNwPsFvEtmva5kPGmm7vDYsyJxGUhzzVA
+	 pCkxKRKJkygYEArDY5zHi8qprP6GKw/nPJeK1/QLfOOalCACfsmyT3J9Zt/8Hbu0n3TiZ
+	 1MvrSnqA5KSChlodQ1+ZUM2mfxFM29PrFuwZhDFfQTSoauqOj3k/Ug2z+L1pbVQPlKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190458;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Nl+iYw0LPM2qJU28izRxAhKGykaUojGg+hrj05SQt9U=;
-	b=dgEWJla22Bq0FSrHucd0QogxCqT+Kefm0PXL0Ow9cCgQGRiynTJYU+qK4J5lLpwLW9Ik
-	 iLgFbF23Qr/yBrU1oE8AlbmpDeCFlDdLBxsMvJJzEAD5/3cBi5CVjVJTElGGPEylWNArZ
-	 2MSp4AKgGIzLN0frPQXjVzWJ3P9Fj+0cAqUCP2fcWVcVqb3XOA5keQEj9FgZWq9VuzmUJ
-	 3X6VUbGgdqfrD9Dk07Yq5VjCZnaOkM8vP6260B1hDlQOH+j3OMT4/hVeQPnlFAL3yYQYT
-	 vQiJhYZGWVLTzCKkcLhYaCFv9k+LHU/dX73SXzVhr6hm6Ii4j62Ea3b73GNkMYVvSIQ==
+	bh=adm3/MIJo3E7WXMIbe6tHjeBdjkUPTriM2gda+HcP44=;
+	b=xiLhC7QRL4GyEZnqOhQ+7P7l+ajOqu60v/ugJ3hzRs2gAXL/DEawb0IOLeturYOaYXnj
+	 irZQDSzr3R38azSPr0NO9QL1AFjplu24tKEHs6W50bcfsQS79W21/M9S8GgsrlI7IU3YV
+	 r0OabBiejUZppt9wvK8uaOwrHP38WYo1a8BqPZ89KK6e5hUX7vJqU63FUqfuQLMlBakG9
+	 KNUqpJ0VntaTu/I/+wZeCahJC3mWyl6A0HiMnVsBnAw8OMIRzKw30XBEEUsMwSDtGfPSL
+	 FkRfMbGcr/xo7ra8shtr368Hn2WXOLSgNq4QG29EAmOiTSsSPdGYxNhduFdG3EprTFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLeQxq3E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMvkuXyN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70695606A31A;
-	Wed, 28 Oct 2026 12:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D68606A320;
+	Wed, 28 Oct 2026 12:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLeQxq3E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600051F01825;
-	Wed, 28 Oct 2026 12:26:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMvkuXyN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3541F01828;
+	Wed, 28 Oct 2026 12:27:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190403;
-	bh=Nl+iYw0LPM2qJU28izRxAhKGykaUojGg+hrj05SQt9U=;
+	s=k20260515; t=1793190457;
+	bh=adm3/MIJo3E7WXMIbe6tHjeBdjkUPTriM2gda+HcP44=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=jLeQxq3EqmL+ZNsfmLuHMmsN1JuAX12s1hPnPIUtQPcCE/fgCvuenF1ixwFcE+Z4+
-	 ho986GAYvR5HYnui7EsPuaop4EYy7FXD9fbuGUhFnmgwXb79WhF8M5MoPPwGAfjEab
-	 JJZLw65nAx+t1cvn5ehxXwua9GuxwV+/IZkv+D4wgY30mrflPkVr6vwxruMH2RRynl
-	 8ZjlNVCy98eeVGXU6CrTwnMH6XqTNWEnyAmYVQgMhF/h9H44Y7HTQukupl/tqpnqa8
-	 83zYBr4+HShtJvHctnPg4G2eF+usYH2Fi1eHl/UwTep5IFDLtIJ14q+6hL2O6MZPq2
-	 STMM6eWnOjTTQ==
+	b=PMvkuXyN2zRu1HA8JBneaxhXnjx0oT8RzIoiYhv9sdNE4/hTDnTUlFU0UKyQKTJ15
+	 Dyyn1pNk5bjeW9vTvr+iC114w+3FpqT9xPePDPjlZuQblqqGaE0zMWrmSbHFWJMto9
+	 ChlntmpfAc3ZQXUq+Eb1ObX79UxoDV4uIT7aUr8KsJbh6oxa7jqVWGyvQeyLT46LMd
+	 +efaKFiHbyMcxHsVNJaO/6EroPR58qKDIBkUF/Lu13ZXUSflavDEu7HVJyhf9XhA5A
+	 ApVQx+0OJKd3AYHugxzi+zQ621dhFzihEvjxgD+WTOnF/A5g33bSebysuQ+hAAPaGB
+	 SWHXiFLcZKe5A==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,8 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v14 3/3] phy: airoha: Add support for Airoha AN7581 USB
- PHY
+Subject: Re: [PATCH v14 0/3] airoha: an7581: USB support
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Christian Marangi <ansuelsmth@gmail.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -62,41 +61,45 @@ Cc: Vinod Koul <vkoul@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
  linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261006102937.10972-4-ansuelsmth@gmail.com>
+In-Reply-To: <20261006102937.10972-1-ansuelsmth@gmail.com>
 References: <20261006102937.10972-1-ansuelsmth@gmail.com>
- <20261006102937.10972-4-ansuelsmth@gmail.com>
-Date: Wed, 28 Oct 2026 17:56:33 +0530
-Message-Id: <179319039371.10280.14715290131373013201.b4-reply@b4>
+Date: Wed, 28 Oct 2026 17:57:29 +0530
+Message-Id: <179319044944.10280.12083829801747357670.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=780; i=mani@kernel.org;
- h=from:subject:message-id; bh=RUJq/WI6WEMNCXi6b5aa8T8284lY0i6iVNFgZaShnUQ=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4en9+TkdSNjyln2O384bRQmrJFULwYzDcjb20
- syO+Oz4QhWJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHp/QAKCRBVnxHm/pHO
- 9ee0B/9ssp1IgWidAezyFy5oARkD3AhbfTvj4WeKvbmmWjFl2883kCyz7dufYdcl9YSsF1/xrPZ
- i6t5SXL9Ziyg6jkBUQr3LcaQJe82BYH+yBd6LjVnW8BG9O0NOp0uPMOoQJpBK97+N33ogZ/QP32
- PAaV1jtopZ4bdgfHFAM98LeB4D3fWYOTUVpjdWPBjyyWgMMAnx+0VTYi/jimn2iknJb4XaWgwFx
- huUEBKS2JhVloYMWRoVOi8XM5I+kAMsq5goQpHhjky5K4h4CL9XWP2/PLkyRMFtUk2Ep9zolHdv
- qLeYqhC2vtCrZkV7pY5khjwILt2ZnWLKp/sucJO7enlzidj3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=973; i=mani@kernel.org;
+ h=from:subject:message-id; bh=OwSPiTEyrIyRUc9GwTlmqHlcVXTglC/I/83i2IzbsUU=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4eo0hk2YgvBuZ7r5ewC9IOk/KJFTqel46Jp9j
+ Y00DFtI0EeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauHqNAAKCRBVnxHm/pHO
+ 9ThPB/9IjRUjU9za8K+ZBZR+lsZVoZ8zp7laAPEbp5mr16oITGXuX6aps2NOkgAs3TngET/JqLi
+ pY7JCeCyJ7NL8LJp9CgKpoUN3JoLoqieEfAjvMSbykamjXqEcSzsNplI4XEO5FO+UguLlEWl/P7
+ puslg1vGSCnJUwnvQooSeH8wNewfckkn/+0++bnegV5EPw1Ms76RKOVD+8HpkEIy+dI69UgrN++
+ xNAx4KZfP2gYmNHz21rtsE9Y+s8odddJgBt80yDJdoFHTs8J4DTZ2aE7tMBQiTpkWKQkTSPqIj5
+ b4q5+r1/Jbe3z4z5KUsIdElHz+AXVU+Z8aKKffHop8B51qIb
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
 On 2026-10-06 12:29 +0200, Christian Marangi wrote:
-> Add support for Airoha AN7581 USB PHY driver. AN7581 supports up to 2
-> USB port with USB 2.0 mode always supported and USB 3.0 mode available
-> only if the Serdes port is correctly configured for USB 3.0.
+> This is a major rework of the old v2 series.
 > 
-> If the USB 3.0 mode is not configured, the modes needs to be also
-> disabled in the xHCI node or the driver will report unsable clock and
-> fail probe.
+> The SoC always support USB 2.0 but for USB 3.0 it needs additional
+> configuration for the Serdes port. Such port can be either configured
+> for USB usage or for PCIe lines or HSGMII and these are configured
+> in the SCU space.
 > 
-> For USB 2.0 Slew Rate calibration, airoha,usb2-monitor-clk-sel is
-> mandatory and is used to select the monitor clock for calibration.
+> The previous implementation of a dedicated SSR driver was too
+> complex and fragile for the simple task of configuring a register
+> hence it was dropped and the handling is entirely in the PHY driver.
 > 
-> Normally it's 1 for USB port 1 and 2 for USB port 2.
+> Everything was reducted to the dt-bindings to describe the Serdes line.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Also the property for the PHY are renamed to a more suitable name and
+> everything is now mandatory to simplify the implementation.
+> (the PHY are always present and active on the SoC)
+> 
+> Also other unrelated patch are dropped from this series.
+> 
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Please rebase this series on top of 7.4-rc1 once released and resend.
 
 - Mani
 
