@@ -1,96 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793215130;
-	b=3oHABAt4Y8Qh2ZEVwvOy/q6B2CPdyfMPJmWNhcTx14uteZFvNpAV8BThVYBbIORaG/lL
-	 sGhZvlWkJ/wtr0xpQv7mf6h6NDpoFEzE8BysGHlAiYRfo4CEDaqxp5Qsyj2erN/Y61QoG
-	 UMk9q/dYekPTbRjnv+vDq0wLaKP+YnjbVcLT9KCs9/TcWtlHVC07ShigxtQyeJCaQj7X+
-	 GUiwlzTbEIH4bcBbD2foID13cUsTD33knMfkcOL87rdCLyEbqLZUmNRVefB2/rwuQn5VH
-	 5sJRzEcYItlVpMtEYe1rNVNd42TquksyIFwRKwvVnlYN92QxIFsaWl0bGqtYggWFaSQ==
+	t=1793216456;
+	b=csZ0lyxx/3ZNfiNyGvsc29MvUtx5e+EdMbgR/13nNIvcifdJMGJmfg78V7Dj+tQ+WlDk
+	 LTxN5+n541QYT9ybFkA1s68cAWonqJTB0DgAHmMJ+mmhdT1gL13ptJ2TbKG+HbtpXqIXR
+	 CX7PR+jiMslkVBP2Fwf7jX/6I/FaBTBzbxKP0j/li5cwtKJJhZpKYYz1jYs8lRM28L6rM
+	 avfUkudhxZSO8R4KOjjbPFYtm4xbBAjnS5o5+kfdkF6h7oUPewMs8lJpMR14ExRXVrHB1
+	 sGTpW2jnzGri52poGbSVVIvmGm/UZ6CjUEe114ScqJlBsNg3v14IJLUZu0HyGtlW3Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793215130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793216456;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=O1G5M1f9Y/OD8XK4DhamsKx4jsdaVOstj5LTRN/WC9Q=;
-	b=4cQxh1SitSC2g6KtiOO62egWfD4zT5ijfjG4T7UswZMoUqBlPnfG4IbP2PsSKyhMiLc/
-	 HLWglEeTFm7nbCyjBEB2mCeZn9bSoO2XjEU9kFYRoeutpIX2UuXD+ENgVAUYx2cK6ocFM
-	 Df0EZ5pc+VJ0CipwC9OD9sPXjQX6CvDVa+9miMYpA2Y+/0/2G4i1NQ21AT7QriKbS3H8A
-	 WxZSFEdgrD2z7r2dK9PcTiiC1NPsVlmk1K4WYhBlMiOOvnR7sdKYSCjKmkO+5Xej8MhY1
-	 rTRB7oK+uR1hWfyHU3SusohaHi8vTJxOoGHqGXnnESBNMd+LMg9hAvY7DXGh4CcEm+Q==
+	bh=7dvo8bieHzmwzx1ILxcGi7eElVQz8CuPEsV6GptGxqw=;
+	b=qlKvSqEFJNYg0HmQS/e6D+dNr+Jbf1394xaCh34Gkz1CP295pBgkJysJ0udtlsT/kTYJ
+	 /778sIlhCcpwKwa+zjCEm0ONJOG05yhIkquWwpyy6jO+Nc74cTKoyiqQ0Vu9Oqn+uem4A
+	 TKhGLxjN4B8Sn09/9ZEVUpfwNksaWqbgs8HA5qk/Uq1Pk1jsRG6Z83mByNR3gPxEQnFUj
+	 S+ryPMEk8P2GyfeqJt6DwfwMO6dE+qWAFWgXa5JG72SmSTaso5kMm3uLF4vJYrf8Q0IDA
+	 LzdpfxuK1nu5rr+Vvd3iH6dEQJzZcZBP7Y1f+8Zm505kEVowvQDeGCj2+CYyKHr1Lgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=poYg7JtD;
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nxQpAUwA;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28536606A321
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28536606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA79606A33F
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA79606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=poYg7JtD
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-43bf9548df4so1148575fac.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nxQpAUwA
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so303235e9.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 12:40:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793215129; x=1793819929; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793216454; x=1793821254; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O1G5M1f9Y/OD8XK4DhamsKx4jsdaVOstj5LTRN/WC9Q=;
-        b=poYg7JtDStt715lgpaSNPRhqcRR/NCASHkbcxI2Vh3WH2m/+ObY04VAI5Z4kMq00Xf
-         aOwkqLh2V8bQ5JwX/uKoAmPenhlTKmqwzs+xLW3WJlma2HME4vwPyG1bFOa+HmC9Lk1X
-         ronkRHLgtqngw5ofLvaduIOv2lH/58Ljm7LV+eGbqq5z5j9WjZYutZ4atQiahIllJSSz
-         ZH+FdBpfgetva2PC/KgR5P5L+X7/dW/Td8nbwT9jP9VlVyZps4ePAwX9ksPgpBJMz4od
-         8lXmG5M8XBXTzFPMleYn2OrdsIeq/ipbW8fmobG44F0scnJsrxuAHRJcuPDTPtB/caT8
-         SDwg==
+        bh=7dvo8bieHzmwzx1ILxcGi7eElVQz8CuPEsV6GptGxqw=;
+        b=nxQpAUwALk6/aAK8nr7uqkVJQCBdoSi/w12fDlgbNtviCiM0CYCDWLkCuIMrmTadQ0
+         LQwXb0d7ox0JtUNklbqIxrNpbEdtQVlcvDSF0glzi455Jhu7P0g05H3WIOH2IbnhKR8m
+         vIexmK0zMPXQ97FmpwyDMaiM6nOHxm9RIfo/7+sPi9rTrFujGudvgkR243XNec8t2edJ
+         tYzoAhKm0BPNVm76H0IlhA/54k9s0+vl7ee9uzl/22DHIIb+CV6n2YoVIVzCC7tBDdv+
+         yseo+mwy+6+eejN4g0ptEnVVMPTFI2i3UU4IbujuKYNtQF/862BxwADITuhimN34xmkA
+         cvcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793215129; x=1793819929;
+        d=1e100.net; s=20260707; t=1793216454; x=1793821254;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O1G5M1f9Y/OD8XK4DhamsKx4jsdaVOstj5LTRN/WC9Q=;
-        b=nws2NKUUkq1MnfiB0OCrjEHwVS1mMKKLp/aVmv44mqUQwI0Fb4rs0okCSla3wdH7XZ
-         75de0CGt4t8JMPTABbhgQ341dHh6Co3JP2Yj+K1fRS3xNM3e+L6SeYE6PqVxFVgrAa85
-         lfC6g3UOnov/kvilkhRYfRs3uWxKGA2dXCZAKsN9HgG503xGThe1jDR8hQjVFHT9hLTd
-         xJOk2jpTSh5uJzC3h25ojvCDa+MuB8xN2jiRpNpdcsYvOnFPla6RyOS4ZXyhHHPdGBXv
-         dxWEKBJZeQzdEk2k50cb41FseONzmYjoabpBslpjUcytju3RgGPb6CAluwte0uyWyaZR
-         UCgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxbnlC+iP0snpDx4e+eDDgs7+fjgBjiNboVuhHHegRFq7mp2LQswuhLGbefR/63G7+eyzj2FjfinwcG@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQw92hWCe2W5RMpjnQoCooC8dKO4EBesHZTkbrN8NXGz5I1GfW
-	fzdYfrTMUUqYDyGOaXolk2/+vQnnd8tTKnrYL9Haq/XsG/1SHw93+cjf
-X-Gm-Gg: AYBFou17UuY+aTrcb+w1P6+WkoZ8bv8bcDIi0IQ1JsSTdLKb6xev+50CpwzaqohkGpf
-	TrQWZun2A7aVu7lfyajshQqYuDDpPSWgzxQw+pokbNZgVVLlkiUryb6cpjcu3171l/CAW583esB
-	5D5xAK1ndam4D5atYKvzeoTELgTD7F1+pUBx6jfweTnl5l7HVQMsyAGKk839u6Bl6Ls8r5XHvVa
-	bawm/MkLlCwRdTnzSHMQJwnxxAiXeOuWPGYYVAyTu2dRMMGWcIMEwJAXmO3UEcc/OyAT/gF+5d+
-	l4GL6YOMZWDOtvZFVEUPp9I7OmvH5Lmm98ndsmQix/pJTgMtF9mAz4l5s9XM5fF9iZdtE9CdZ8k
-	1ghRWJFBqWosPBAb4ooz9I103rvO1dPnswsIdxOy/dzbvM1eG6hZU0vGgIBnpP6ntEQyi8NNDaT
-	qtLFWVFTSv4nmYzBSJc3ym5Ey2PAoVkcSOTdJ3oDdhnQ0VUzo7NQekMdeuiCInt20tixQUEqrOi
-	90oAUxhRw6PzaVfpUD3C50o53RPTBlko+WnSRjd/zoRJLRr4raPwMaYoMMTaZSzcFOJjAm5h7Da
-	GiDr6Fe/h/ombGqS+BoEoWoDjTsgvQ9WgmM17T1xTafCqjgpHka7i9+Uvg==
-X-Received: by 2002:a05:6870:569e:b0:49d:cac9:28ca with SMTP id 586e51a60fabf-4a8bb21d55fmr2619589fac.2.1793215128834;
-        Wed, 28 Oct 2026 12:18:48 -0700 (PDT)
-Received: from jeffmr.mynetworksettings.com ([2600:1014:a112:1526:f26:718f:8dc1:b185])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b785d108sm3092916fac.9.2026.10.28.12.18.47
+        bh=7dvo8bieHzmwzx1ILxcGi7eElVQz8CuPEsV6GptGxqw=;
+        b=TuLBHMFCaaUFY7qmuxVFtWyDUxKdJp9fbsVLcO3Llm5KvlKzVOlsx8QTeUcl6nPJjo
+         7OxE+k6LlQpVSq7E4VdDSmsmxQhPY7eCTdVRmJeXFDJv78iDSEolg3pQ/09IHcXTEL5q
+         b+XzuY/32fsDpuhr+VyNfg+WE1gs3KYVH7UkSHmxyiKXaMZyatYwUKjsqBGn1LF6JEm/
+         mfMjF2lx6Xo5Pi9KTxRCPxiPEWEUSuEakcB7G12Mzei+3Z3CQb4Gv/5+WGWHpJAP46l8
+         HVSjuh8PrSDdXM9sNR2KO0bMg13igHp2D6bloaV2nOD2Ztc10SDKl1hTnqrBj7UOGoHS
+         FvRQ==
+X-Forwarded-Encrypted: i=1; AKwUvByF/5jtfw8j8CJiLDWoJt4lO01lyC6dDO0ZsjdStLT9TV7z+35xFpdoZ7T5wR1do6H24QbO/w42wPRy@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWZy8mxY4wAqqqdGz/W5bxnPrRENmOLH0p7zSEjvtrnpFQWNUL
+	9R9EBvia6SiBuPRmj0DMBR/4M1GvBhlGKVWTEDt1PeE6xC3OdPOWpx2G
+X-Gm-Gg: AYBFou1WamO7y5gpn5advqtvw8yNYhN7y+a1EhaKnAHbHxdWx2tBbIhsA8RJoSJ3eZE
+	z5+A4P9zj0IiqVjXhm0AHej2mr2iALgIXUxT/lBO7aSGBfr6N0QX995Dkj3JIPs2AlyeKye9Ey/
+	t3d0PIdQr2apWYdHKVXubv0HHE5FcBZcyyNkoWrbdsoWrg35uwAVFLqRqqGmG7SazXmRSmFBbVZ
+	t4VuicAkRi9i2hBSc88TBv1WrDdtC7elnOBtW2XrfZot+FIb9foWBTOD19d2vaXRwgTP2pFzTlN
+	CrEqa1nAJPW724oPEfSr0HEUHz9VV+ombM7RPW1BpugwzGFHppe1jBzb8aRflJqFw7TEcRYWSG6
+	08HLxqv/g1Hd3EhQfAHS7GIbrZQdDkYadLy0Q54qlD6ZqAb7/nnYfRZE41ZOU+MCeUVzogsyrZp
+	opj3YSmdz5l95pbr9R9cXVokM7JbLwWtCTFiYWido58qoZzIZPDmwpXg9i4Rwk693OyjrNSNzCK
+	QBzo3+991de/8dRZDh11vGzrFfXOleqF2sf8CEMtsgjuAUNXGE/jfFo7Ryrd79HktRihiR6HLys
+	rSI2px3pACR5KhGy4glpvR/pwadmr+UEJuXIX+RAmZqtVWqmtljU243AoQs3bveViqQR4pzWBpB
+	+Lkmes2HtVmzQ3Im5YBjf2bA2wUr+7OGkM4GX61MXE90Smm7ucY/wGiPlGqJNCRjM1DufjRTGbX
+	3sP9j+o0FDkfxo2ig=
+X-Received: by 2002:a05:600c:a47:b0:4a2:180a:3417 with SMTP id 5b1f17b1804b1-4aa86a424f7mr15025645e9.1.1793216453896;
+        Wed, 28 Oct 2026 12:40:53 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb958sm30200465f8f.21.2026.10.28.12.40.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 12:18:48 -0700 (PDT)
-From: Jeff Roach <jeff.roach0@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] arm64: dts: qcom: Add HP OmniBook X 16-cp1
-Date: Wed, 28 Oct 2026 14:17:58 -0500
-Message-ID: <20261028191800.27829-1-jeff.roach0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Wed, 28 Oct 2026 12:40:53 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH v6] powerpc/dts: Add Device Tree for WatchGuard Firebox T30 (v6)
+Date: Wed, 28 Oct 2026 15:40:45 -0400
+Message-ID: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,61 +109,822 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This adds a device tree for the HP OmniBook X 16-cp1 (board 8F46), a 16"
-laptop with the 12-core Snapdragon X2 Elite (Mahua).
+This commit adds initial device tree support for the WatchGuard Firebox T30
+board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
+arch/powerpc/boot/dts/fsl/Makefile. It also documents the watchguard vendor
+prefix in vendor-prefixes.yaml.
 
-Tested with Ubuntu's 7.3-based linux-qcom-x1e kernel. Everything listed
-in patch 2 works there, including suspend (s2idle).
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+ .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
+ 4 files changed, 775 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/vendor-prefixes.yaml
+ create mode 100644 arch/powerpc/boot/dts/fsl/Makefile
+ create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+ create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
 
-Notes:
-- DisplayPort at HBR2 needs "phy: qualcomm: qmp-combo: update DP PHY PLL
-  programming on Glymur" v6 [1] (tested with v5). Without it the stream
-  runs at half rate and the monitor shows no picture. With it, about 1 in
-  4 plug-ins still gives no picture; replugging fixes it.
-- The GPU is disabled. It works with "drm/msm: Mahua GPU support" [2]
-  applied; I'll send a follow-up to enable it once that lands.
-- Audio needs a topology and UCM config for the "HP-OmniBook-X16" model,
-  which are not upstream yet. The headphone jack (SDCA) is not described.
-- I hit one hard lockup while plugging USB-C devices during testing and
-  could not reproduce it in later plug/unplug cycles.
-
-This series was written with the help of an AI coding assistant
-(Claude): the device tree started from glymur-hp-elitebook-x-g2q.dts and
-the laptop's ACPI tables. I went through the regulators against the
-ACPI power votes for v3. I reviewed it and tested it on the laptop.
-
-Earlier bring-up report: [3]
-
-Changes in v3:
-- Set vreg_l1f_e1 to 904 mV (was 880 mV, copied from the EliteBook) to
-  match the ACPI power votes on this laptop, rename it to
-  vreg_l1f_e1_0p9 (Konrad)
-- Add Acked-by to patch 1 (Krzysztof)
-- Link to v2: https://lore.kernel.org/r/20261026154001.9323-1-jeff.roach0@gmail.com
-
-Changes in v2:
-- Add static data-lanes to usb_2_qmpphy so the PHY uses USB3-only mode
-  (reported by Sashiko)
-- Drop the Assisted-by tag, describe the tool use in the changelog
-  instead (Krzysztof)
-- Link to v1: https://lore.kernel.org/r/20261024044650.9936-1-jeff.roach0@gmail.com
-
-[1] https://lore.kernel.org/all/20261028-glymur-phy-v3-v6-0-1f1d2e565a66@oss.qualcomm.com/
-[2] https://lore.kernel.org/all/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/CAAnD8Rb4ZZrHFWMJayabioB_8bOHh1mqZ5LCXZz0jTNGMA7UZQ@mail.gmail.com/
-
-Jeff Roach (2):
-  dt-bindings: arm: qcom: Add HP OmniBook X 16-cp1
-  arm64: dts: qcom: Add HP OmniBook X 16-cp1
-
- .../devicetree/bindings/arm/qcom.yaml         |   1 +
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../boot/dts/qcom/mahua-hp-omnibook-x16.dts   | 855 ++++++++++++++++++
- 3 files changed, 857 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/mahua-hp-omnibook-x16.dts
-
-
-base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+new file mode 100644
+index 0000000..c78a53f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -0,0 +1,2 @@
++  "watchguard,":
++    description: WatchGuard Technologies, Inc.
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+new file mode 100644
+index 0000000..60caf36
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -0,0 +1 @@
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+new file mode 100644
+index 0000000..ec6cf91
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -0,0 +1,386 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Device Tree for WatchGuard Firebox T30
++ * Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-node/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		gpio0: gpio-controller@fc00 {
++			#gpio-cells = <2>;
++			compatible = "fsl,pq3-gpio";
++			reg = <0xfc00 0x100>;
++			interrupts = <47 0x2 0 0>;
++			gpio-controller;
++		};
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "atmel,at97sc3204t";
++				reg = <0x29>;
++			};
++		};
++
++		spi0: spi@7000 {
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "p1020si-post.dtsi"
+diff --git a/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+new file mode 100644
+index 0000000..ec6cf91
+--- /dev/null
++++ b/target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+@@ -0,0 +1,386 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Device Tree for WatchGuard Firebox T30
++ * Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-node/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		gpio0: gpio-controller@fc00 {
++			#gpio-cells = <2>;
++			compatible = "fsl,pq3-gpio";
++			reg = <0xfc00 0x100>;
++			interrupts = <47 0x2 0 0>;
++			gpio-controller;
++		};
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "atmel,at97sc3204t";
++				reg = <0x29>;
++			};
++		};
++
++		spi0: spi@7000 {
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "p1020si-post.dtsi"
 -- 
-2.55.0
+2.53.0
 
