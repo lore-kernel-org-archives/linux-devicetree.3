@@ -1,49 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793217871;
-	b=R26ch6cCVi92Uffp9J0YFKajG6cVqka1xUvKuubKEbOe+8sDAh5GTN05kwcxaPUMyyoP
-	 EQWD4AYJo6PPz3aZc7xvLqEgnxZuVK6EfViAjZlnV3OJPvNFjfivRsdlvC6YTlh0/kCde
-	 1HWzo1hkHkUkfxkcGrtFoeOBF9QCy3pEYZ2g1boK48l979yW1CHnshHfI1KU+v5LWhQd7
-	 oxRhV4Ir45e8KeaRKasDsQ3mH+NzzI7OjwtRnK6W0zL0/EoQ3z+hqQHiMuC3/4HqzL12V
-	 BwG072TXu7JCYcowngYSXEmYZKIV4L3ze2tbCFzbw1mngunK+chSTmatu3ZiSrYD8Pg==
+	t=1793217909;
+	b=F2lM43tk1lbJ+7en6x/QzT//5h2w1F1YbFt0fgYBUYxHqPzPmB1I8AQ+phW1NnmCuTZ+
+	 /2T5WCkntPZNvaMMn0Kku91UxvFDhVLXHwvIIePdVxjAsYHCUa/0ghVVEsB/PpAsugO0c
+	 wG3Z4E6f5aiAyh/hIzSMI+N9l+8+meIBUo0J5JFbDoCIq9ObI1Q/446/iV+I64plmZ+8S
+	 aN4h8nRihyOTmLY/Hr1WbnvNfBe2hhj4A7FiiidwJHpkSH/C7VMDpo/xNlATEBf/rOp9H
+	 wGbeGT+uSzp8FAiG1aIZxddu35RKwrKvTljsYAxpBBI/2UIWN6SfctWGYVg6AUvejbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793217871;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SGDetuO0OqcT+HQCVV6xC4DqA2UxKjLBOtzXYJVxwnU=;
-	b=vLSTn3rSvDDlOY2z/RtghRVmcohXkx6/Km/mqwYyMe7MVVkb+zJ/bkCa4Q0jKtpVpcyi
-	 QjhAYlyH2+5dblUfJSGcgbHOojJIxLTMxQz5Jz6jcYATNPIuyD/eDAFvjF8vADQD2FpI+
-	 /sQst6KNK3IyA8Y/dUi+SZEp9HwoQKe8keFmjE1RT1hr8ApoGuGuBBPlbHv29Xlq6yr8g
-	 F53xrc96TWwoR+rzIyeQqlIwxN00wwhh5Vt65ukaB9aWVgzmdXfP+XgYX08noBFF9pvj1
-	 IZGUS7Ecv5aTgNdrICWBTl1Ch2A5rLR232dTAOAabsN1zv0YjBR2Xxs3MUoOgEBaGmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217909;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=o49wDZezadbzzhjMZXVo1RNTg8xkSKbSUV93QZ7B39c=;
+	b=aM0qXwvTYBZhnsFz7UHhbYQ4iYPTu4BEIHm6wAwMqTAQ3EC0SePyK0biy4oYssB5am3Y
+	 xD+7wwnMEC17UIg5yGdkG5oTgoxLDBf/mf4TNYpxWuE7pieHkoE6S/Rj84Na8qV+/qo50
+	 C+DWH716dSe0UWjohmymokWVGXP5s0VcAjlZV+Nex0iNyINdTwBBILXk3t9yZ+MocUjYS
+	 oJ0GcxDOlMDJWG1wzN29NC78CqkCL140yPnI6Bux7wRPvJWRPYbA0AEia1LRIiqteXy8h
+	 wEnwJY6QkIPA7Mzmur1HMw9RVdtcy4pF5mGAExeJ8yx0bu0NAVOrgGFU4xkcB2kl+uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LSKW56r2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdwFqAwu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2287E606A31A;
-	Wed, 28 Oct 2026 20:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF68606A32C;
+	Wed, 28 Oct 2026 20:05:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LSKW56r2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85171F01825;
-	Wed, 28 Oct 2026 20:04:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdwFqAwu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE27D1F01828;
+	Wed, 28 Oct 2026 20:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793217870;
-	bh=SGDetuO0OqcT+HQCVV6xC4DqA2UxKjLBOtzXYJVxwnU=;
-	h=From:Subject:Date:To:Cc;
-	b=LSKW56r2ShHKsKPldipIjerdg9/d/CpJ/e4r+9XMCehFR03z/G6mJpbpiELVqSnl7
-	 lGcRaV3KKLGKOu6egbGikHRvN3r+3VEy3oUMmIdyiQmy1nkyyvcdPqPVlUZ/xOxyr3
-	 7YqQUNCcFRb0ksRgQVfHFWD8Zquc5bhOtuKuT2AKX3tqI34QrVoWoeDcN+u/OZVPiC
-	 riCWYLiJiW1RHMAYzZv9p+GLPPxJ4LCGdPiOi6zk4v0T4VLrC+0QkyhKgvESgkoS49
-	 /5uk+/a0OrQ6WO5/GyUAEE0bnrjNUbaIuUhQDuYfebayPLzXarL9Xx2m3exoPVJCd6
-	 dUmx8AoUNoJgQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Subject: [PATCH 0/3] Commonize Glymur regulator settings for fixed rails
-Date: Wed, 28 Oct 2026 21:04:23 +0100
-Message-Id: <20261028-topic-sip_cob-v1-0-80ab6704aca3@oss.qualcomm.com>
+	s=k20260515; t=1793217908;
+	bh=o49wDZezadbzzhjMZXVo1RNTg8xkSKbSUV93QZ7B39c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=IdwFqAwutRj3c1H1zBUuYH5f2PLuZAa4ubgYBNMRF+S8wFRIeffvXolezNulLDtjf
+	 pzlBElszJZLBSSsRp/cgyXFf9qw47M66RpV1bz4KiGp2u30MXodtYZJpYCxgInxOEb
+	 jrhgAtKrcTMHPUxO61lVycnaZsxoLqwbO6Gg5AGQ1rxLKf6viCjsU8trmYrUrknNWK
+	 f/gtEuZ3a8mMME7Ifd9ijXhB7qJ+b841AVZ3flk4XDcxOW3xKWt8Oxp/oCMdQDPe7j
+	 8yZ0l3+CUBtqTFpwkBSdW21JnWjQFfV3UIBJI7c8vivLj0UMEyfZmzzL9CH2Xvv2Iy
+	 5SOfGfP2V3EEA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Gregory CLEMENT <gregory.clement@bootlin.com>, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
+ <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
+ <theo.lebrun@bootlin.com>, Radu
+ Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
+Subject: Re: [PATCH 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+ controller driver
+In-Reply-To: <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
+References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
+ <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com>
+Date: Wed, 28 Oct 2026 21:05:05 +0100
+Message-ID: <87v76ly4jy.ffs@fw13>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,63 +66,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVhGiKuIiK0g7HQpoNIxN0Vy
- 7f4/wKhwCRQJxcEOljYrRF5moCZ+3UixTYaMMMyz7BSm/NslLDvjBtUWdhRayzIYgWx8YFGPr9
- f0/6WfVjIbO8E7vsBbiO5y3EAAAA=
-X-Change-ID: 20261028-topic-sip_cob-65df3325ed28
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793217867; l=1660;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=H2f1uYZOwceNe+Djv3FtY7/UU9dMEtaQ3u9+gl9bQ54=;
- b=zElpayfqVAu9w9IoXLCbJ5o5+PqHhXRbQQ6ho2whxW3wSY+lNWSzJWYSH6ReWDAJ7msxnsnkP
- fy7nzz2DZhFDAR7G4HBbQ+ccJO7NlLPSWTFRElg2QWsx2r3jTZzSyWG
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain
 
-Certain rails are predefined and will ALWAYS have to be the same for a
-given PMIC configuration (due to electrical and other requirements).
-Factor these out to remove a layer of pain when creating DTs and let
-one have a better way to reason about the settings across the platform.
+On Wed, Oct 28 2026 at 16:58, Gregory CLEMENT wrote:
+> +/*
+> + * The caller must hold msi->lock.
 
-Glymur-SiP will be the next target after/if this is accepted
+Instead of a non-enforcable comment can you please put a
+lockdep_assert_held() into the code.
 
-Compile-tested only
+> + */
+> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
+> +{
+> +	u16 value;
+> +
+> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
+> +	value &= ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
+> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
+> +}
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Konrad Dybcio (3):
-      arm64: dts: qcom: Unify Glymur/Mahua regulator handles
-      arm64: dts: qcom: Consolidate Glymur CoB power grid
-      arm64: dts: qcom: glymur-crd: Drop L4F0
+> +static struct irq_chip eyeq_msi_irq_chip = {
+> +	.name			= "EyeQ5-MSI",
+> +	.irq_mask		= eyeq_msi_mask_irq,
+> +	.irq_unmask		= eyeq_msi_unmask_irq,
+> +	.irq_compose_msi_msg	= eyeq_msi_compose_msg,
+> +};
+> +
+> +static void eyeq_msi_isr(struct irq_desc *desc)
+> +{
+> +	struct irq_chip *parent_chip = irq_desc_get_chip(desc);
+> +	struct eyeq_msi *msi = irq_desc_get_handler_data(desc);
+> +	void __iomem *status_reg;
+> +	unsigned long pending;
+> +	unsigned int bit;
+> +	int ret;
+> +
+> +	chained_irq_enter(parent_chip, desc);
+> +
+> +	status_reg = msi->gcsr_base + GCSR_IRQSTATUS;
+> +
+> +	while (true) {
+> +		pending = FIELD_GET(GCSR_IRQSTATUS_MASK,
+> +				    readw(status_reg));
+> +		if (!pending)
+> +			break;
+> +
+> +		/*
+> +		 * Write-one-to-clear status register.
+> +		 */
+> +		writew(FIELD_PREP(GCSR_IRQSTATUS_MASK, pending),
+> +		       status_reg);
+> +
+> +		for_each_set_bit(bit, &pending, msi->num_vectors) {
+> +			ret = generic_handle_domain_irq(msi->msi_domain, bit);
 
- .../dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts  | 235 +-----------
- .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  | 232 ++++++------
- arch/arm64/boot/dts/qcom/glymur-cob.dtsi           | 310 ++++++++++++++++
- arch/arm64/boot/dts/qcom/glymur-crd.dts            |  29 +-
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi           | 395 +++++---------------
- .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 224 +----------
- .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 333 +++--------------
- arch/arm64/boot/dts/qcom/glymur-qcb.dts            | 330 +++--------------
- arch/arm64/boot/dts/qcom/mahua-crd.dts             |  29 +-
- .../qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 408 ++++-----------------
- arch/arm64/boot/dts/qcom/mahua.dtsi                |   2 +-
- 11 files changed, 740 insertions(+), 1787 deletions(-)
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20261028-topic-sip_cob-65df3325ed28
+You want to look at generic_handle_demux_domain_irq() and related
+functionality so you can actually provide a irq_set_affinity() callback
+for these demultiplexed interrupts. 
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> +			if (ret)
+> +				pr_err_ratelimited("unmapped MSI interrupt %u\n",
+> +						   bit);
 
+No line break required. You have 100 characters. Otherwise this needs
+curly brackets around the "two-liner".
+
+> +		}
+> +	}
+> +
+> +	chained_irq_exit(parent_chip, desc);
+> +}
+> +
+> +static int eyeq_msi_domain_alloc(struct irq_domain *domain,
+> +				 unsigned int virq,
+> +				 unsigned int nr_irqs,
+> +				 void *args)
+
+100 characters... All over the place
+
+> +{
+> +	struct eyeq_msi *msi = domain->host_data;
+> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
+> +	unsigned long bit = 0;
+> +	unsigned int i;
+> +
+> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
+> +
+> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
+> +		for (i = 0; i < nr_irqs; i++) {
+> +			bit = find_next_zero_bit(msi->used, msi->num_vectors, bit);
+> +			if (bit >= msi->num_vectors) {
+> +				/*
+> +				 * Roll back this call's allocations: on error the
+> +				 * core does not call .free().
+> +				 */
+> +				for_each_set_bit(bit, reserved,
+> +						 EYEQ_MSI_MAX_VECTORS) {
+> +					clear_bit(bit, msi->used);
+> +					__eyeq_msi_mask_irq(msi, bit);
+> +				}
+> +
+> +				return -ENOSPC;
+> +			}
+> +
+> +			set_bit(bit, msi->used);
+> +			__eyeq_msi_unmask_irq(msi, bit);
+> +			set_bit(bit, reserved);
+> +			bit++;
+> +		}
+> +	}
+> +
+> +	i = 0;
+> +	for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS)
+
+  for....() {
+
+> +		irq_domain_set_info(domain, virq + i++, bit,
+> +				    &eyeq_msi_irq_chip, msi,
+> +				    handle_simple_irq, NULL, NULL);
+> +
+
+  }
+
+See documentation.
+
+> +	return 0;
+> +}
+> +
+> +static void eyeq_msi_domain_free(struct irq_domain *domain,
+> +				 unsigned int virq,
+> +				 unsigned int nr_irqs)
+
+....
+
+> +{
+> +	struct irq_data *data;
+> +	struct eyeq_msi *msi;
+> +	irq_hw_number_t hwirq;
+
+Reverse fir tree ordering please. See documentation. And please move
+these declarations into the scope where they are used.
+
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < nr_irqs; i++) {
+
+  for (unsigned int i = 0; ...)
+
+> +		data = irq_domain_get_irq_data(domain, virq + i);
+> +		if (WARN_ON_ONCE(!data))
+> +			continue;
+> +
+
+
+> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi,
+> +			     struct device_node *node)
+> +{
+> +	int ret;
+> +
+> +	ret = of_property_read_u32(node, "num-vectors",
+> +				   &msi->num_vectors);
+
+        int ret = of....();
+
+> +	if (ret) {
+> +		pr_err("missing or invalid num-vectors property\n");
+> +		return ret;
+> +	}
+> +
+
+Thanks,
+
+        tglx
