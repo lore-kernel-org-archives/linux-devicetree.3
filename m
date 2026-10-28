@@ -1,61 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180837;
-	b=UuleOA9ncBhqN8uDfc6gTwW1oOe127o4BlQR2TxIn8k0TkY1os/Mn70pb0APCFgDooU8
-	 yHBRSNNxATJZpvAUCjUo4L41/kSRuqnfgUh3dUSCLW/fUUgl6J5CLXmuHETEhBv+E/ZtZ
-	 rZc9DAM2LvvT8ZADU/pzBkvcQnH7CQwlhWuKmXmXu8KUJMttUvQEfY6csnq0mKF28/7L6
-	 2LEiswziBQRr4x/Sf9bV/MPY5hUYE1BpE+/93MqeljVM6XVh46mDTal5ZGOOu+VkecC6y
-	 ksyhTw2eDLpsC/fu7o0NkAeRXJp3mEpAJfolvj+QT9FHEGHtvE7SjTkfvuX2Xr5s7ew==
+	t=1793180873;
+	b=xOVSajTWwbBa9tYOhnqPdbyVb2fcVnIkm6SRnYnIqEFFdbqq74aW1cAl7ldATrxC17a0
+	 WO9Kixr3YtAtB5vWAe4ODkNQkf5kVmTdbZZvjv3wk6yjaGl+IGKkuQd7uei3WRiW27iuJ
+	 nZITHjbg8vVat5EpQTvkDN6S4Yc8DgWnA0N2u6nchCLG3zLCf5GUlvfZR2Yl5LIGgNfXG
+	 eGW4+yOysv8eMrYorb6FAiND4DE7wneVNOM+g1aM1C6ezleBwN6t2benJW392dqQmIPN0
+	 BYOfXaPOstA5XTM/5sZQ8DWHuf4p2tCGukHg21Cf8YkwsfFzy5fswWMRUy8gwwzzRgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180837;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=WusbLHVsIxfQC7Yt912VgHXMTR66ioRkw44xspu0Cqw=;
-	b=OW1cJuNSX1bKexoOnEO6e64g+ctNe54R1zh1EEOGVd8UPZigL6o+9sdoYkn7qPKxl3J0
-	 zN4FrRz+y7+zDhvJjF442sPxB8MPxCwDKfjGoWgp+lg+gA/3FNXPW5qLC4Jksd7cqKrbM
-	 0na2MSNgv1B5FIxS08nH7yln7G5Luk+06fNXCZGGCFjLup5XqGkgocWr9U7hgnA3NGlmy
-	 0EI5w2LuAica3C5VQglFxdEFR0Uy0l4XMF2ERmLHFNGX7ArGKgt3/KEVCuOUqENdN9hCd
-	 v1/8ynZkYGu060w0zM9ollKNR1B3ngONqNIE/RMvE3tW4LcRRMTLPDG5yPsnIChJIqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180873;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=i6WwPrncRptE8GYzBIDI4FfU9ppzTybRR7dkLJbVscM=;
+	b=X3sVxfOyJ6GA6rDvq+xlxN/lt3qXGgbq3HkolQlSn1f0vjUxUmXZPiq5FMLifnt384jk
+	 LpEjiE0tgHgJsuXYvcaBlJFHfFLu+U7K/ymu6hz1mtlBDTKQnxQSgSyQn35hRYt/uZ4to
+	 S9Zoyzt4tRXF2ACICF2oYnailRb/kGlkQS30CWeng3J8zwFc8LSQYWQ9KCuqgYorgoBh0
+	 yvjnCi30DE88aWOLNO+go2EgcW37aV9sqw24r/bNhFxQiIRBhXWRVHctLvEL/o+vAAQNz
+	 3L7szRaXvw38K2Gm6XW49XFztbX0rdAboo+iqBlo4jUv3XRs/rx9XXAagPMXSPgmLkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EaQ/uJCb";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.45
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AE9606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EaQ/uJCb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FED1F031E1
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793180836;
-	bh=WusbLHVsIxfQC7Yt912VgHXMTR66ioRkw44xspu0Cqw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=EaQ/uJCbnWPXlHtr5OchiT406Hq3ckTH12cvHcaO0eg76LUu6zZYqp2I+ZblwuK4G
-	 2y9GB87LiAGcjLyDz+TAXxojKPvNn5cDnX7AX2KtBg/52nk5plIi3MZbZSNZaqzdgl
-	 hwDgZtycuoKdchx4iyzhEccJvEpOXakE/BG6yAH/P160raDXwi35gICZofQ12jklux
-	 DvT3GhUW2o4PI8rImduLewy47S8RuBZJRK2O9JWLVli3KMV1c+64q9bhsc0pP0NxSs
-	 S2SL6kIjUXCPkKwg6yLinabNr0PR4vgOsQ/eyT/5tVkecqDyEe559M1V/3/3l2W8PD
-	 IOZ3Lk20BwfNQ==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3ab30b3212aso5808601fa.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:47:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzLMe8Z50+Lfk8kcJKabLQQR92oVtg0Tqs4sQcU2MDeTehWKxpG5m+aCIizyrBsoRQRWQS4fCwZYHCK@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvllE/hxvdCOIHBP7oNd9Ywelz7ZaBULcf7at3adnfQ0nH5Ece
-	BWHbCKSn5s+La4XX6ee/lvLRycFMkHG5wGDKiaOUeqZ7+IkBLX3z8cloBe2bhxHUPabvaPKaLPi
-	JXwGIiv7W7t2FleXkqJBIzRlXzPq3V1+zgSHU2GlJ6w==
-X-Received: by 2002:a05:651c:210e:b0:3a7:69bd:80ad with SMTP id
- 38308e7fff4ca-3ac9cf74f2bmr4236611fa.6.1793180835578; Wed, 28 Oct 2026
- 02:47:15 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 02:47:13 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 02:47:13 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <528b079a19bd4043754bfb56db8e5950bdda62f6.1792776697.git.geert+renesas@glider.be>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BAD606A327
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0BAD606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9909e82513fso574011241.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:47:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793180872; x=1793785672;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i6WwPrncRptE8GYzBIDI4FfU9ppzTybRR7dkLJbVscM=;
+        b=nMwjUdDkqqPnC1tfefZ39PEM059jAESz31tnw54vU9O+wrci3WBfmK4ywuaQbT+w1+
+         O0rP57L8U4SjMJSuHJVXUl/yn+hq01QXf7848qjhDFSRd/YgMvE4aZUyfzf3tn6a8Nne
+         vErFRE8nh+J2ZRagyIuRItGSZZFzOJuZjQmQWhNdpWhZeQ1P58kxPQW+wx12Bw/+lN8+
+         yi2/AS5QPSLjz7Gbry1wo3eB04hN5LFdmeCV3AiE9bB8lS7mFcTa1hCy67EaUF0zOIZK
+         91GRC6JmMrZnCX0jQd9v4tEONuS2CwMtHntHAoR5U4ufzpNL/N+NYwcGFC5MI90i9tMq
+         WUIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQtrV8m/hEqU6VVUJBGyPS1TcLi1iCmFSMAZDW9APofWU3X6MPCjd3hI73BJF9X3rLYEJQB/g6nRMj@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjxEUSCOqFCsA1MGF10vJC+YFxJ4ka7udGFT4wzv32+LyT6XeS
+	0gnfafLUFZ004mUb//BGGMQChpC4C4F1mlssUZt7aHUWDdXDusFd3gIvrECbyaPV
+X-Gm-Gg: AYBFou3jdww69+vCG9cOaRTY5x5xS3eH8sylqhrlS0j1r+rzxIMCQAftrBMJL+wSUp6
+	v8iJAMXZgyqnNWcb6WQWWsl33zfmgyUyhbVxlaM9s6Qx4vhqs3xMvkuYL1U3VpssPgGPquqrz1/
+	q992NEriN4534fEo/g7VsmIl3aekiTZxNvaR9cqHS6gFVQacgXbfzTR/K2o74BR83ndy6B5kO6Z
+	ItF4obso8otrnMTWXjUjFCSVy9LMUxKMPXA/VQTU4UYAiFjgMfG7gHMyLRF4wfkpDlkTJi+qsiA
+	U4IHxnZhkZbcMoNsvcYqM02lDxn69u3Qapr2CoEaTBdxIWelob3UY/uWVSzcs2kUn73LuCIaS4x
+	45qiR7hHS+VHyYPf9UiYIuy3+hCtr/BlNvSKOyQqWVZ9XXu0poxDpGZ5Hcp7WCv45Yb610zn8GR
+	M+rOSl3p/YZMcV8R2QS5cOeCx6ZwNJFOcC2uNSpF3J5z20GVSHnzYFvPOYFONMn2pWNFfNQ+MBA
+	OM8e/3uROj0jZc2jrODDE34j9TU/XYYKVFxAiJSye7V7S5AjMaS/v3P7UNSWSiJnvyIXWNz6RtT
+	O4KIj6aDeBNTKhQ/Ciqq4+bScNAntzwJXt9blISJ8CIOIx4a68aOLoM/MixGDOZYRDc=
+X-Received: by 2002:a05:6102:390b:b0:7ca:7226:b414 with SMTP id ada2fe7eead31-7cea14f35f2mr1781190137.19.1793180871787;
+        Wed, 28 Oct 2026 02:47:51 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259eb01asm5432963241.8.2026.10.28.02.47.50
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 02:47:51 -0700 (PDT)
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1407061137.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:47:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz/1HhyFxbjUURxfCK5nk29nvQYL68GZSMe1/ydf60gBgGgRpGGy/qfkXpJmcPgwCqWe4qY3w6rKONr@vger.kernel.org
+X-Received: by 2002:a05:6102:a4a:b0:7ce:645a:139e with SMTP id
+ ada2fe7eead31-7cea1529d88mr1771764137.23.1793180870303; Wed, 28 Oct 2026
+ 02:47:50 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,35 +81,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792776697.git.geert+renesas@glider.be> <528b079a19bd4043754bfb56db8e5950bdda62f6.1792776697.git.geert+renesas@glider.be>
-Date: Wed, 28 Oct 2026 02:47:13 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdH37DhKMtagN3Ua1doY7ZgD3f+ok3V+h86kb4J8-dtQQ@mail.gmail.com>
-X-Gm-Features: AclHuK_iGosVAQO6GwGuzhCeB4_YYSDAdlMHAhkY-OLVFYNCMrxDS4lJ3KzFIGQ
-Message-ID: <CAMRc=MdH37DhKMtagN3Ua1doY7ZgD3f+ok3V+h86kb4J8-dtQQ@mail.gmail.com>
-Subject: Re: [PATCH 1/7] gpio: rcar: Convert to gpiochip_generic_{request,free}()
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
+ <asz8oEtow_lrUU7K@zed> <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+ <atXol9eFjLKxgTpg@zed> <CAD++jLm5iRKbb6=ZY0r1q_bb-zO3DAe3a7MxdDbpBT3ZU6_z_w@mail.gmail.com>
+ <CAMuHMdWKH2pPR1-j-AxV2LVy5xeuoymYv4MnXw1KSvAu4F-brw@mail.gmail.com>
+ <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com> <auG_dr3VFeWaBxKw@zed>
+In-Reply-To: <auG_dr3VFeWaBxKw@zed>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 28 Oct 2026 10:47:37 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+X-Gm-Features: AclHuK89t2jEOgptSQIEsLA7Aen2x9jD1gfdTZXyhURhxZaUPJB2xF4KJi3cnsI
+Message-ID: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Magnus Damm <magnus.damm@gmail.com>, 
-	Ulf Hansson <ulfh@kernel.org>
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 23 Oct 2026 19:50:39 +0200, Geert Uytterhoeven
-<geert+renesas@glider.be> said:
-> When a gpio device node has no gpio-ranges property,
-> pinctrl_gpio_request() returns -EPROBE_DEFER and its GPIOs are unusable.
+Hi Jacopo,
+
+On Wed, 28 Oct 2026 at 10:28, Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
+> On Wed, Oct 28, 2026 at 09:38:05AM +0100, Linus Walleij wrote:
+> > On Tue, Oct 27, 2026 at 7:39=E2=80=AFPM Geert Uytterhoeven <geert@linux=
+-m68k.org> wrote:
+> > > The driver uses Runtime PM, but I see no calls to
+> > > pm_runtime_resume_and_get()?
+> >
+> > It gets grabbed in *params.c and *stats.c:
 >
-> Restore the ability to use GPIOs before pin control support is added by
-> using the gpiolib helpers instead, which cater for this use case.
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
+> pm_runtime_resume_and_get() is called in the .start_streaming handler
+> for all video nodes (capture, params and stats)
 
-This sound like a fix? Can you add the Fixes tag? Is this patch independent
-from the rest?
+OK, but not from .probe(), which does hardware initialization
+before that?
 
-Bart
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
