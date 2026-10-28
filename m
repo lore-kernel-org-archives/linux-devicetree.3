@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793178300;
-	b=nVrIfmXyOKN4Pxnh2CNxj8duPeFKb5Tvd148hpV+yqKGvZeAR7QdOqgCi15SQFDb9gz/
-	 gx2n700UvW1guw/980zhqfi9JwtsCrvXIW0G+2gjSrasK05LMWiabYB5DIcqwdKWr0P4T
-	 OZi+PbT0X6GgcgIwPv7dDN50/sy2YRmkn0x3nwjcZW93PVhBaAA6NAdYt+rs1az86owNt
-	 Va/TcoOSxtlM6NzFzK9sz1PbaJzfjsqDBEVpZ74/1k92X7dDvpzi+FKPwNCom8Bkg4NMD
-	 js5nXutG8fJcWKTS0shXUDaa1zXwALQF7q8idvC1PDZ1MqDADCQuc3vYoHeL729OTiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793178300;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793178310;
+	b=4WpREEIbhkZIDGMXKEZvLFzGu+5F5875sW4GgvQ/J8dy4WBlm45cm/+c3x8JWM01mtwV
+	 26rfkHENp0VTRh0I7/dOkbcyhqzwoy+oYknT62HwncPhzpGvyMCbvkP0PIUG9izALue6c
+	 K1xVO4JBVn0aki1nCXttyx01Q+8NF9pW6bz6TWWOvzHe56f9Kuf5ws20aWbnXCb/XtO1m
+	 hL6uuiMSTJukL7yh3ockV7vwR1Im2J+bFM+a38PY6gNYNFah+42U5hdpqo2cIKNYlREEF
+	 dNFHc27FVtwnlNnkpa/lBZad8Fn0Ruy6zINsddWy6UASVillBbC/PFA/XUk4M/cJing==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793178310;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YMPvQ0y2/UErW4qcLjewTviEOS5UzV5x/LnfQYGS5D0=;
-	b=vCHJGHlTw6bC5y5T7BtdHcVvlL4RCEBiNI0cLYa6l60J9fHntgt7NtbGj+YKz7yTWReF
-	 odR1kC3SbjZuYPdK9LHEZt/PfzeLRFgyOWxj3ZL6NwGRNgrzZsHY050xFnhZwivXn8Yai
-	 ZY04AbTCvO7dHoHM7ARlcj4+sktjCQmq6RpniQJf8mRm/G8At5HEl1EGry1ENcPEPO9g4
-	 nJFerXKQ5+OCGDsiaI4PMiZGxl0vQK2DGQEQ77S9BnakEHGPnkIS5cFUVaefqaXlY2mlt
-	 NcpZzKhKV2TIq4jRBCQc7IM+ZBg1gmAOxYo9ERtOyF9fliqqvViYPp/L5PJgCskjk8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Zv/eaVA6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	bh=MOEsOf2p6LR2nFykkNW/dnLN5llbjLNzghL1+OY+PII=;
+	b=MJ22nC7Cfbel1yvdGH6q2JIPNn+gGWASeeIQ5Xl4I7SPK3QHdWzB9VLQ9R65GGpwDKOd
+	 l0W15rb4OlfcwwVUcrR6HPXQj0AgbX7yyLd0eixE2SMahH/Ap4rEh7on3O4ucweXh6VBL
+	 H7Nx7IBTBJgPUsT7SJ/bV966OBkBdGbMAEKevoRmd1R1rG0y2zOXMZg91hxAnokCu437Y
+	 QBnJpd+ZqpKfbrlCQHfS/La/ksOKL9GTYPVynW4xfvdYF2/lsssIgSrJUhTJmJE0KZB0q
+	 CvzVfT9ekn/VhtR3hNUwsQ0X26dfRGTm0EjBHapVwCuHpprUVrCzGRmHZZw3sFda51Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+lQYAJf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D27F606A31F
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D27F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476ED606A329
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zv/eaVA6
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so1751306e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:05:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793178299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HWd5SKKfTqS1+G4gvcq3ufi6e0vUuno6JehFpI/WW4v1sDQyC5PMsVWmgP+R1MOfOb
-         q7DdogRq5/YclGqrqupsZy+JXVAWzWDmAAXd1EH82tkx1etnx7CzSCmqZFwmi4H3NhyD
-         ZXUM249sTDtjrbYSokubXIzWlF1e6k31dn9QyyI3vs1Y/0XdsXAQtryaYCdUSlI4fqpc
-         NHck/lLj47qQOk5w6o15p/DXp21wxup/w6ww5aDfm/pkcyfu3XNIDIRY/xIwQw6l/tL9
-         TjzXfBCPXvng9k/8jzlbmNAxB+D2pdyacVOj6x3ir+7bWVpMErAI0huKLQpago64Vo+c
-         dkeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YMPvQ0y2/UErW4qcLjewTviEOS5UzV5x/LnfQYGS5D0=;
-        fh=KBKMf04Axk8/RroupJqBEfiLeZYUNd6XbvjGifkaQqo=;
-        b=dzzYixur/RyZVtSH0zqUa27H1b1yzdrzpVk30kHnx4skb2SDM3oC6Be6EfmfY+lvHq
-         d+MR3XEwuDUObP5Ej/kMCkTZAaGkyZrjmX+syQMaKDnRdMMWK3eaF+c10nRbglaA2cKA
-         bigZD/ODTeoj9t8FVyVOkfumgFUgyalXyPkhhDQYY7ut/FodH++5NE4EpFg/eD77VRu4
-         KgEZg8uoBiHTnDEEsrEeRjqNdQTRnMDuRbHtqbTfOr2DigxlR2VUVOwrQUhIRtndgX5r
-         FL5t9eg4C676yOiPDVk3x7AeOkrgbqwUsxh2NnAVIo2AFZlghBhKxz7nj3+kzvZIixRD
-         sTDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793178299; x=1793783099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YMPvQ0y2/UErW4qcLjewTviEOS5UzV5x/LnfQYGS5D0=;
-        b=Zv/eaVA6lrScHL0q/Ho4LyoktOdLdPByjB2bkcl06fB/h4jrdPpHRQn4RynI0+1vbm
-         D608JUJSXkkjPmHjkN3xUz/Qkn9L7ybWzyU1M7GphHIut/eiffBKweAlIujSMiMXcl0Q
-         kshmlA/BuKTG0gjOgHX22dv12nDGGvfGWLpoqTECiH7jFdZ7zNrCM6eLeGBJmO/XIthK
-         QuaImLqrlR1dzi5MSG26GJXW8YTU829VLyctOC52BFf2xgZm/o/mFR/JpzebWFU64weD
-         MZMgys49V0tVh2K+uzJphy1r1Gtxc9ufNvmdUP4mrgiph/INC6Ft/KLMMJ19EA7gY0UB
-         f6Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793178299; x=1793783099;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YMPvQ0y2/UErW4qcLjewTviEOS5UzV5x/LnfQYGS5D0=;
-        b=xBhFmpJh1tc4OnSWQV9r/g8+X7Y3/u3IaJpYOtzoFxPxvsaeTZi95jc5dM5d1UamDp
-         WfjuGXcSleWti2muR1mmCugJn7+ftX1uonPpiGhxis+wJZivwxyUalNlPozWwGVfqrT6
-         P0dbf/kesuQfknx8Ou7buwUgZSE4Go3+0xsDEjmGo96ksQF8jGl68RWQkxIRA8fGT+zJ
-         R86bLtp+vqpIOj2tlEnz7uYlsSbsl4l1cO77+Lep1xbt6v8LMaqbMqWlLlkdfurGFu7i
-         +vnb35ZtuhKErquFTOoP7n1Pp83+mBsEo8VJzw/FNYJlISp6OhE1XaGMWTCQQoecFpNA
-         ZD/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwUmvj4bAyzR1KYjh+ZHSYf4QheYPvSgf0SWlHXPDIZMlJ6N2u9bIXzC8lg1taaYVuqd9YvqHl6WosU@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg34IpnyDpL9p0ahY4uJVYzP2c4sx1iSoWx+VXfL9TH0Q66vEW
-	h0Yf/JgQRyGan9+W8Lk77oGUMzagkl5+gBs5nXH02/N27KhncwfbhH+oTxOXg5sOo51DDE0fc9Y
-	AsFRSVS3Xgn7pmG4ruHZX8yUcUeiXauQ=
-X-Gm-Gg: AYBFou2L5gNtlhiiXDcuXKm7mzFJ3oNUXxCrrizvREeo33iE5LryuDn4MHm6DULPWyd
-	wjBhvd8+ANsacCXVKm+89qSoX5fUpEHOB3z0nADq9x5Sm19ET3r9NkOTshsxop76+SDtO5M7XRD
-	k5o0PHjcv58rk69he9kIUiG7+mPfTiiD+45BqPKwpKmIMLSHcVsRmzHCD9v1NdkDzAC+z218cWF
-	/prp5kq60iFNAFdy8Mr8FIa4XDFzV2uJV8wf+ZbmjEg4kuSIuTQrWnrhmPnz4OFy2VATtWapVRL
-	QjRPDbpjFD9x9vZOdo60vOmL5WhwIyDEgVdGEE0q6F/ojYUQ55Ryv1J5GjyueO0+qzgJDusjjd9
-	5nOglFKVM4iIWfk1sTRvFZkdokoBUNrdR31CA3tPoqXrTdiQ/liUPX7NV+gXLI+oA8doGBCCQkC
-	Nx9gtLQK8P1EvGfaPJJbRuVwsV31qRvaZSi191A9CPq8BsokmWH/a4u8c8969U6HlG7kFWUGcHN
-	NuY7UBoYdzZGliQqfnTGyetznbr3w==
-X-Received: by 2002:a05:6122:3a11:b0:5e9:5e79:aa5 with SMTP id
- 71dfb90a1353d-5ec4fffa0b3mr263672e0c.7.1793178299127; Wed, 28 Oct 2026
- 02:04:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+lQYAJf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF6C1F031EA
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 09:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793178309;
+	bh=MOEsOf2p6LR2nFykkNW/dnLN5llbjLNzghL1+OY+PII=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=k+lQYAJf1Qg4tKaonG4UfWENXxXXIZ2kL+2wz3fpX2MIY09vU/KYaOEDXvxWiFqDv
+	 Jms6MNwha+9eRRSRLKWVcmJ8u0UBJH13lzPDRWIerbkoBnSws05tInCMdpsIWxgCMN
+	 +YkkVXOWiUuOXQlP+NGWDxnliw5IUopbmxeeCScbh/2EpWt3vQLDyOXki9hSBlQx7n
+	 0P22zC2CAlp63Hx5wM2QxAwnH5aZ7Dve2b1ku55FBRYAGkplPq6EO4s6ESjC4aEKG9
+	 E73odE3Pqev97SKBVHKQdqh5oCAfGEt/PsCvGGCxfFvCXr7byiuxSgL1562AEL4e7P
+	 sgoO7B44k6L1A==
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4f48d91ba7dso438297b6e.2
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 02:05:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwNFKexstQH0cIkuzXKI3U2YPIzqxD2hRubdRWMLJt0Kz7sunzUl9yexIupgNsiqP3YdibtuyYs6vxh@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaabEYt3Kd3AElKrnuROF5q1SuMCsJWa8i6aonLJKX1zmBqlWt
+	O1yQtZ798m3GqtvFl1GbeLgWC5LMX6rMEbA2/pJqUFsDtgY18MDYExvTokAWONJUyKjVSx3n7F7
+	HuB3rDuDaeEev5wYwO4YK0E8shr8H/Es=
+X-Received: by 2002:a05:6808:2390:b0:4e9:a959:7a4c with SMTP id
+ 5614622812f47-5638338a185mr1142374b6e.24.1793178308774; Wed, 28 Oct 2026
+ 02:05:08 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,24 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <10f350ff-8f82-4a3c-beea-4a02d0d179f9@arm.com>
 In-Reply-To: <10f350ff-8f82-4a3c-beea-4a02d0d179f9@arm.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 28 Oct 2026 03:04:48 -0600
-X-Gm-Features: AclHuK-gFIc4OLdQpz2xuDakOfWjCmV7F0pKVxznmCh4UQXGFX7ZPx8S3KT4ikY
-Message-ID: <CADvTj4oSo7gXsqoLndTChgC0oaUGB9SB-4B4a1gEkx6XDFD7Tg@mail.gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 28 Oct 2026 17:04:51 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67MRKm0D58K2eqW9_UhUTPjDxLgi=G9t4ZOzUDtc7Go=A@mail.gmail.com>
+X-Gm-Features: AclHuK9Y_PMME9iLYw0A4PafbTKmym5jHGhgwh9-hPi_6sdvWuMlMccImK6vpm8
+Message-ID: <CAGb2v67MRKm0D58K2eqW9_UhUTPjDxLgi=G9t4ZOzUDtc7Go=A@mail.gmail.com>
 Subject: Re: [PATCH v4 0/5] serial: 8250_dw: describe the Allwinner H616 UART configuration
 To: Andre Przywara <andre.przywara@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+Cc: James Hilliard <james.hilliard1@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
 	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 2:57=E2=80=AFAM Andre Przywara <andre.przywara@arm.=
+On Wed, Oct 28, 2026 at 4:57=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
 com> wrote:
 >
 > Hi,
@@ -139,20 +95,19 @@ es.
 >
 > that affects almost all Allwinner SoCs, not just the H616, so should be
 > solved universally, not just for one SoC.
-
-Some Allwinner SoC's can read fifo size from a non-standard
-register from the looks of it.
-
-This approach at least allows for just adding SoC appropriate
-compatibles with their fifo-size tied to the compatible. Or the
-fifo-size can be pulled via that FCC register on the fly and
-reuse the code paths here probably by tying that logic to
-the compatibles as well.
-
 >
 > IIUC Chen-Yu has a patch to attribute the right FIFO size, in each
 > .dtsi, which I consider the best solution to this problem.
->
+
+It only covers the recent ones, and Krzysztof didn't seem to like adding
+the fifo-size property when it could be inferred from the compatible
+string.
+
+Otherwise, it is probably time to go through all the main SoCs we support
+and check the differences :/
+
+ChenYu
+
 > I'd say we wait for -rc1 and then work on top of his patch.
 >
 > Cheers,
@@ -287,4 +242,5 @@ v1-v1-0-e4a3bae2eba8@gmail.com
 > > Best regards,
 > > --
 > > James Hilliard <james.hilliard1@gmail.com>
+>
 >
