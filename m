@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793224680;
-	b=NevRpAo4MC9BQ6n3qwagKXKEMFRSZfOMqSGc+kkyvlU072VZ1kC4Kz21adzCHhXFR1oP
-	 F1t4w7QFbkXgh8GFoe7HfDzhd56WoPCH8oOaYuNRS4BBhe0SAd3McwFUjO2YSJL1+roqL
-	 OvbNYK0bTc3Hu5ITxQ/TyiWv9Sz8XyQNj/yiHkm86p1vHN9HnPTNYs8x6L+Xi13GNIWP9
-	 wlbuL8lRvoHcGhcf5KPqOHbtPRJqRCGOperHVabJ4cxkITRxGQeGKXRjgrboYb1I7nrpg
-	 7yEBF4NmhnPIKWp5TK1OD7/EQ4M9D0yea+8pJNIfQDnqVkszBHlrWp0DzfAnA+YDLOw==
+	t=1793224687;
+	b=s9kA4OpiiJkPxnaf8Ilyv++CdHyZus5n/sMIZ9hRFoREkkfOiIzsNNpQrmKn9DXZLQEu
+	 gDhMCoARM7mxt8EHFwChw2xhM+dGEnVFal+SC3oz8dD2eABe/dyNh169bq6aN0gte6CSv
+	 yaHKyd7Ng3Kb8s05Fa23QhOQVPCLR9Mu/0Ti7y3Les8rCvJeFtgpVtG0uEU8+5GwZNmAM
+	 zriT52JBmcJwMvX+qjXHJ8nujBnKBCPnVe41TL2k/aRJm6xI51BtVG1LvuHT9bKgvjHB8
+	 2lLmposeumnN3OQjjEqbfKBSg9ebrBV6MRTUIp7XZgj6QCAswdH6v+BV+CmyXs0KP+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793224680;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793224687;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=legyr4eReh00y7yB0m88WdLEBCW7tMuEVnlufYw/5eE=;
-	b=NmgEFFuc6+fo44nf9Bi+BvL9bavmtxba+QJP0iGEjBgSRcnQkFL6ydH1PZnJ0dXl1vCg
-	 ataI0z5PyeN+5ZXOlMIufaqgBq2+m6W7jV7B2/b6+7sov5oopvkRiabcyyPa3trXHjgqt
-	 eDAs8oTKCGXH8zxYDQSLMpkJMKPla8PUUB5sy9o+nwFUYb0zuG4aHyH0GC7IX0fTJRqQz
-	 mB1lzMEm8jcH325xCBjIEVrtcQzgWEI8SvOHYx28gOp2g30ydSaU4rOJ0+SiL8XvO+5y1
-	 igOqtcD39FpW1rP96KasqzbZCg8am9Sz7xO/W06E5Tv+NJagDs8xHGVJJFDAGiaLH8Q==
+	bh=5KUup1S6jfXthQOLcmrn062DCX5s5HStbBOjiPo2qx8=;
+	b=giG3vS4lB6uvZVON0EJLR5Y+vsip1hGGMAfwzlLUYe0pI6EB6bSVszw7l5b+b44+sgkD
+	 6dQZ2sjn02DngRHN7GXseFx8PiNTQO4+tAwGQGixp6Hn4n+fI1H1HGTLPOUUBMxlFsrWK
+	 uz9H1sD3JeRkkuVDrs8cXmTmmDEotUwbEI8ZR3Zj6i2uv92IGG2ml9Xy9hqkIGyrbgttM
+	 3y1HEshVE3f0cY7I41KJ6F9xI4pPApOURiqI1c1HCNAYMUsBdRFutgYUdDJa0WnO5KjGz
+	 +yz5APi3KlweG45L3A5PgmWK9VgmyydTOmV+sjOW7h00wKrv6l1YGODc1sF4LQ/ln8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TJXw9nVM;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H3sqqk4v;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D189606A31D
-	for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:58:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D189606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192FA606A32E
+	for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 21:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 192FA606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TJXw9nVM
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c315869241fso235648966b.0
-        for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:57:59 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H3sqqk4v
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so2793425a12.0
+        for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:58:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793224678; x=1793829478; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793224685; x=1793829485; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=legyr4eReh00y7yB0m88WdLEBCW7tMuEVnlufYw/5eE=;
-        b=TJXw9nVMV5ca1wWRJJeuCJoMXbnxon42gon35HdaUzr9aUucl7s+jlFN+fja76/h2M
-         x3b2DKzjWBc8kitVg6xOLO7UKPYt4NIC+gO8euGjmAXmRCgQl05kkfhiUr45Lfm7o6Gg
-         O488ZVeHhHa7/coQFY2SiSsU1W0QSJvULRJZo=
+        bh=5KUup1S6jfXthQOLcmrn062DCX5s5HStbBOjiPo2qx8=;
+        b=H3sqqk4vdHkGRmEmezK6mmqFXgIIfGKs9G6aUqLscb2kJjXMmMOIJpD/6WGHvMGHDe
+         7cyWQDG3oUkG0Ne8Tg7ycN4rLAarxghHY7ehjVRUbbqhZKqD9pP8mJqD+k+Mcw8o3ZGr
+         OhLeNILNcO//am7w3Y4lki/jEmpGTKFyoulMw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793224678; x=1793829478;
+        d=1e100.net; s=20260707; t=1793224685; x=1793829485;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=legyr4eReh00y7yB0m88WdLEBCW7tMuEVnlufYw/5eE=;
-        b=m/eEiMIRpxragRRa538xPT2sZnoH7jIku6X3dUM+7hZMs36kL9miEio64wcsrPu65+
-         0GMfrAQK+zIMcA3BHpfM3hZLLD8iASZ8Cuo6JtzXAReJ9ZsOfKefGTQI+XEqjI5QubZC
-         tuf4gSXD2AtYFo2KwVKsGOjEvnHU0Vtx8jG+QjMQ954L+dtPXUvSBPY7LpCnZJtXsV7U
-         EtyCVs9o8cRVRDRnYQkNX6F3Gw+omcAWsGZlcpHWrMlxa5ZxN/RETnCuiNoeDIqztohy
-         du2e8Gq2C2J3yZw8MiyKOIrrsdVnr9i1YX+AUKndeT4mPthQ4d0UOb0rkXDCjljc1Wix
-         tTfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxTAUVMUjiRg7+Z5f5O3KS4t8/IxjuIYqC8yDRUgN2gAHsmKrnPdF5oxq/bMiE3n/wGqzaawQ/j9f+8@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAEXxvRr70XNGOnQxDRukTh+OFChjYikQxCJ4gBL8dd51DdGqe
-	Mp4+tgDoUBgzewEmunG7rVloU+WI0g/t8NEE3rGXE+kK0S1hLcHtegzLwZAsPVYvEA93/30+fkI
-	/uFB1ZhX6
-X-Gm-Gg: AYBFou1gPSwDULFRGFdHPSiNyJA1ofoh2RND95s54bpD3D54ARolIJvcNW7BzhItMHh
-	mnspJ2gUc7k8DQXEpgR0HGxPgk4TK0gWUqA1JhoLjconPfli5NTMAfpYVTwlpbdH3UufBrGSvri
-	Eb0ZUof1alUiJdMfrxzLxgBY1bBCVH4nRSlfjAZSWQ6zTsG88+hH5dB2VjrX7QAGDiu/7PAbROc
-	bPUFn8MnsM0Rocl5Y4N6zezOAgF8RoEIctuuU8jrr9SCNW7L1pvk/MglBABWbz/OZPTs7FZOM9s
-	W+Axt6CQpA0Rzh2Q3VpqKxrqMHSj3BWTdApOtDId1wqwFxRcpj27Dt9NfcBYLssIl7eiO4hNqoR
-	J5kAp0Ytzg6LOEg0hV6y/i0iIlCdPzYL0GcU8ZQ2Wbm+sh1/mWhGWI82ort58aw/4EHbix7o3OA
-	gkrultytqwEs4YYp1UiA+Kgi03vR2JfQvt2YiOLpuxnqDpKL87kEUWDEaX1up9C4DE1EuxMRk4+
-	fmWqLj+dNOKH7i/ug+NfgtmPGFZlwi4ilW10lltYZVzhuMcN+UnBGkTuCNeGQD5P/uy7cw2mWnj
-	HrYdvwHjWhp3d/6VlntWpa3m7y+7PWRCsq12Ra0d+c3aoVr4hkE/yVTuoG7qs5Ozs1f2
-X-Received: by 2002:a17:907:6e8c:b0:c29:5172:6151 with SMTP id a640c23a62f3a-c49bdfdf3d0mr325270766b.45.1793224678594;
-        Wed, 28 Oct 2026 14:57:58 -0700 (PDT)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com. [209.85.221.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c49a530f520sm332921866b.23.2026.10.28.14.57.55
+        bh=5KUup1S6jfXthQOLcmrn062DCX5s5HStbBOjiPo2qx8=;
+        b=gyEgEWLzz+d+9spT4XOoCxlzr6uUi6gU971jJYGXQQH2AePGIPEmMJElbpXPLigTho
+         HDbZkErDIVyqf9GZ2epoV1rGv7r1I6HwHnUJ2p+FSFroaHT4J8D0ULJMvXzy2oyxAoOV
+         lV7ps7IMG9JCB5i3eGRGo3z2pFCHr+cunrleZ97TeYxiNAZLwIZy/o6znWtEnT4V1y93
+         zg3nt8OyH+5Lr8Hjgbi0JjaPt9eXnI5YHekp0FMtBXfyzL5fXSUZVCIshJ7DmvWdDhmz
+         FYFHH4OdSHw05JGk02rnszBfJ4qvLhYM+rZh8GhkQr3rFeuxGGAaKrTfj2y+MLl8zczc
+         pa5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxYTA7wt2790nxxJ9ZTMtsEifrIPnd+w+6KArHy7HtTUeSQ3QkM5NJ2WMQFCdi4ASQNYE5KY0HlR7su@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGi1LKrm+BjFJtcw+KohBPHzRabtI01uSz9TVbAQV7yDiIeiGG
+	iaPfElMK5l6mKBLZAJLn5hpPn9HFBKjQiM4CvGwT5bhp7ZdUxNULqxJCNtMEdEgmlwhShnstVDv
+	1fu+YdjkN
+X-Gm-Gg: AYBFou1XMCiRsVimVersWxmYIHxtp7vASWNJ3T/J4n8zLDaQWTHq0prIs1OpcnwnvMq
+	53V6crK9S+OfpyruhMd4qBJLxp35fQullA2pT78Hv680GiIssk4pSgf48o6FONt/mk8ujz5zoLv
+	LNaccifgkepiFoePn3JkbZMJX+JqyhWuleIx2y9XAdSZhPTavn7cC2PvyK0KHytyifnGdUko6Cr
+	J4yDNZaE5M0lMih3/hOnROGZOeeKmt0JdTkHKHsCK6ZP9mytwdA2VWQVB6tMg8Q7SORN0cwh1dG
+	O9CgbAisL6Jr2TzmXRTEf0EcBsTPysdr8AQiBigFucS1Deuo17hwD6wHb+nl1emU3Eeu6oQZk81
+	5tIV+OgGS/qLg3FPL5Xe0ksrSOb1fozHf8gfeVqqHZrsCZ0GLMIkGxfNkL4cCmfFnOajCdzsi1I
+	2FdOEWHcq91P5aMhiFiGyKLP1OskS2GHMQx76n6adAcpJly9fCW1eCdUEnm2pVBV6AQHSoNhn5V
+	AQuZ7lwyMA5B1zAfGdsS+wbTizCH6jiupm+u1GKN7rH7HCTPxPQnhB9uoxKcx8aZTeyfHlv8fsy
+	qGzSVmSI0ym539AMdubThcfaXWQ8OXDn/+UFaeyXrz5eVX1j1DhPP1tiWxqldaxdyx2o
+X-Received: by 2002:a05:6402:4011:b0:6ac:c1fc:8a98 with SMTP id 4fb4d7f45d1cf-6b49cb9a086mr2653357a12.42.1793224685595;
+        Wed, 28 Oct 2026 14:58:05 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com. [209.85.221.43])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b497ff5fddsm1857832a12.2.2026.10.28.14.58.04
         for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 14:57:56 -0700 (PDT)
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b001cd92bso790309f8f.2
-        for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:57:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLNqTQkiKVVws6GKk/XHEkqd+7OZDAQgxdl5PMpLbgUufsIYerjZvI4u4EY1Jq0418UhlUulXMOVKG@vger.kernel.org
-X-Received: by 2002:a05:6000:438a:b0:48e:5d63:a4e5 with SMTP id
- ffacd0b85a97d-48e5d63a673mr7516209f8f.0.1793224674740; Wed, 28 Oct 2026
- 14:57:54 -0700 (PDT)
+        Wed, 28 Oct 2026 14:58:04 -0700 (PDT)
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48b042c0728so493620f8f.1
+        for <Devicetree@vger.kernel.org>; Wed, 28 Oct 2026 14:58:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz0NNQwi554fAG/A8AyJSBo3r54scjZrlblRCsr6h7k2xuxB4BX028QldGnqCgQymf3Se3vR3uiZVSe@vger.kernel.org
+X-Received: by 2002:a05:6000:4912:b0:48e:c0:9441 with SMTP id
+ ffacd0b85a97d-48e5d5988bemr9046706f8f.29.1793224683163; Wed, 28 Oct 2026
+ 14:58:03 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,14 +95,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261015182221.2931742-1-dianders@chromium.org>
- <20261015182221.2931742-3-dianders@chromium.org> <CAFLszTiCTnpbmcGcjE2oWsY1UpyXd=8QFm+uuVBQTLw3-u_pFQ@mail.gmail.com>
-In-Reply-To: <CAFLszTiCTnpbmcGcjE2oWsY1UpyXd=8QFm+uuVBQTLw3-u_pFQ@mail.gmail.com>
+ <20261015182221.2931742-4-dianders@chromium.org> <CAFLszTi-j8HmVy8u3gtH-6YCigakX5CNeqZ9sVc5ksn7q3NxaQ@mail.gmail.com>
+In-Reply-To: <CAFLszTi-j8HmVy8u3gtH-6YCigakX5CNeqZ9sVc5ksn7q3NxaQ@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 28 Oct 2026 14:57:42 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XQcsTe1jS4FakyFGwPLpxXxwXbNzsHxOsZqHOa_HqwPQ@mail.gmail.com>
-X-Gm-Features: AclHuK9SPdgtx9SZKlcuIND28eXBX-71-arKGnifL9h09UJM3B-5CnKYQnrW6-4
-Message-ID: <CAD=FV=XQcsTe1jS4FakyFGwPLpxXxwXbNzsHxOsZqHOa_HqwPQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] fdtfactor: Add tool to split DTBs into a base DTB and overlays
+Date: Wed, 28 Oct 2026 14:57:51 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Vroh_fcqxaOi2s8mBS7Ki2fQ79iagnLkTK_FxUFk1bWQ@mail.gmail.com>
+X-Gm-Features: AclHuK9avb8muZ-xZs_aIYuQFeaeI3fXfNjJMJPbBXHmJks29iEzgyPnCpdYzXk
+Message-ID: <CAD=FV=Vroh_fcqxaOi2s8mBS7Ki2fQ79iagnLkTK_FxUFk1bWQ@mail.gmail.com>
+Subject: Re: [PATCH 3/4] fdtfactor: Support compressed DTB inputs and outputs
 To: Simon Glass <sjg@chromium.org>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -122,47 +122,41 @@ e:
 >
 > > diff --git a/fdtfactor b/fdtfactor
 > > @@ -11,31 +11,195 @@ original device tree.
-> > +    if comp =3D=3D 'xz':
-> > +        return lzma.compress(raw_bytes, format=3Dlzma.FORMAT_XZ)
+> > +LZ4_MAGIC =3D b'\x04\x22\x4d\x18'
+> > +LZ4_LEGACY_MAGIC =3D b'\x02\x21\x4c\x18'
 >
-> Python's default integrity check for FORMAT_XZ is CRC64, but embedded
-> xz decoders often support only CRC32. The kernel's lib/xz is one of
-> them, which is why scripts/xz_wrap.sh passes --check=3Dcrc32 to xz. So a
-> firmware-friendly .dtb.xz input could produce a .dtbo.xz that the same
-> firmware cannot read. Please can you pass check=3Dlzma.CHECK_CRC32 here?
+> Legacy lz4 input is detected here, but compress_blob() always runs
+> 'lz4 -12 -z', which writes the frame format. So a legacy-format
+> board.dtb.lz4 comes out as a frame-format board.dtbo.lz4. I checked:
+> 'lz4 -l -9' output starts with 02 21 4c 18, while the compress_blob()
+> command gives 04 22 4d 18. The kernel's cmd_lz4 uses 'lz4 -l', and
+> lib/decompress_unlz4.c only accepts the legacy format. So a consumer
+> that handles only one of the two formats cannot read the result. This
+> doesn't match 'Preserve the input compression format' in the commit
+> message. Please can you track legacy as its own compression type (and
+> pass -l when compressing), or else reject legacy input?
 
-Done. compress_blob() now passes check=3Dlzma.CHECK_CRC32 for FORMAT_XZ.
+Done.
 
 
-> > diff --git a/fdtfactor b/fdtfactor
-> > @@ -1167,20 +1349,24 @@ def factor_dtb_files(args):
-> >                  d, base_dtb_blob, dtbo_blob, args.strip_local_fixups
-> >              )
-> >
-> > +    base_dtb_file_bytes =3D compress_blob(base_dtb_blob, base_dtb_comp=
-)
+> > +def decompress_blob(raw_bytes, filename=3D'', comp=3DNone):
+> ...
+> > +    if comp =3D=3D 'lz4':
+> > +        try:
+> > +            res =3D subprocess.run(
+> > +                ['lz4', '-d', '-q', '-c'],
+> > +                input=3Draw_bytes,
+> > +                capture_output=3DTrue,
+> > +                check=3DFalse,
+> > +            )
+> > +        except FileNotFoundError as exc:
+> > +            raise RuntimeError(
+> > +                'lz4 command not found; install lz4 to process .lz4 fi=
+les'
+> > +            ) from exc
 >
-> If you keep --verify in the tool (David suggests it belongs in the
-> test suite), it would be worth running the compressed bytes back
-> through decompress_blob() and comparing them, since at present only
-> the uncompressed blobs are checked. That is cheap and would catch a
-> problem with the lz4 command or the compression options.
+> compress_blob() repeats this block almost exactly, so it should be in
+> a helper. If the helper takes the filename, compression errors can
+> also say which file failed.
 
-I removed the --verify and made sure things were well-tested in
-the test suites.
-
-
-> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > @@ -1147,6 +1147,36 @@ fdtoverlay_tests() {
-> > +         run_wrap_test $PYTHON "$FDTFACTOR" -v --verify \
-> > +             -b "fdtfactor_base.test.dtb.$ext" \
->
-> In these tests the base output always uses the same compression as the
-> inputs, and the input extension always matches the file contents. Two
-> extra cases would be good, perhaps as a follow-up: a compressed blob
-> in a plain '.dtb' file (to exercise the magic-byte detection) and, if
-> -b stays, an uncompressed -b alongside compressed inputs.
-
-Done. Added a test case in tests/run_tests.sh that passes a gzip-compressed
-blob with a plain '.dtb' extension alongside '.dtb.gz' inputs and writes an
-uncompressed '-b' output (plus another test exercising --base-compression).
+Done.
