@@ -1,74 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793173350;
-	b=Hhc6n+DPvGsUwMJttIoiEQuJO2QRJMHM76IWwPvpRRe+YC83GE1SBiQx1BhFlmzqKI9u
-	 vc7sVIynj4EkOfgCLc60Ik46SGZUDXwltfPxohSVJ8+jAj9Gd6+IjSDJ61zKlPB7DytUz
-	 pG+7CHUOxYRvvUVt2Kc5DgWhD/suFdKzlw4N0r6+Lf9gkW+1Vc8QbpqtHIqVauuw592xw
-	 SbyO1sc7BMpL2ggxF4HVcdKs8PiDPuqp7m/INRvTz4+Zqz205U5BA5eQ7WNwbtfOD9c7c
-	 1zHePiyF6pRw6ZhJP1q/o84MSQ4aR9tZ0S0hlth4SpOGI7EaBF+nWGg3TE//rsBH53g==
+	t=1793173482;
+	b=3jzLJFBxuRzJPV2zeyQMYoX7pIpGm+3k2mWMHx8qBOEgjZ5l1kX/Eh4JZ7RPwvOiaFef
+	 QObiclpq2iA4bKtZTN+yxF3WIK5+JeWblRTbVkpkD15gjqAP6lKZhKNRTcWmkYObPHnNX
+	 e4LIBcoPKA/Sb58zBDWnVfPr+UTzulfL4PRHOoph8WkWwRhxJoeOG3IdUW3hyPM5jO5+Y
+	 EURTC5M9+nplO1Uzsq987cSOPqECJKR3CNqsCudJZC3xmD1JHZL10lERh8VWPa26k7olr
+	 u3JqzUP1DfUz4EnBMxn739+vw58pBmKmdOdFo3apecMrjDWr9YDACO9/9AcZzTKbL7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793173350;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Subject:Message-ID:
-	 Date:From:To:Cc:Reply-To:X-WS-Location:References:In-Reply-To:
-	 X-Mailer:X-WS-User-Origin:X-WS-User-Mbox:X-WS-LOCALE:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
-	b=naLZUThkmzoLw4kdWPsCv46Oj6gID8kGe9Nqf6tDzQVsXeU2Doxv+AiFxQWvoqTtzOG9
-	 6jTwA0igJyXTPyJFvDBw+gB77UcZtXuR9nIbfhN2YlDXKmaNT8NWCzTKnx4LlKOdfrmTi
-	 TLAEMz8mOWsuUjpiBxplkqxrVESqvKy5EE4HJOKtYVYVnQ63QLsdVKRHx15FVIgu8/J+Q
-	 3UzQNeCTQGwgDtiOEKZzBmKC+eIC5vYjGCBV1crTwhCCcJsAVGutXaducSnFMNq5k+HdO
-	 GwXbfJrpXbbgow+wB1rCdTipfbV0Nf6J7f40qNYclpjgHdUN3C2Xy1nRo7wMfIsJWlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793173482;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9PPD/mUgGF3odbO9HUc+ZEDM/rOsDf1Ah7YKLsgVXgQ=;
+	b=qunS3czfWPkU+4FNI+eTECoUdC1PsBIp7KeRvWEF8O1laMHJu7/QtmisXmumYQo9WwPh
+	 QyiPF+4VTIFGl4IChNv+Svl0wFfxrJW2SJw3whbkMrbJZOds/2EpnJn7HAsB/i3M9JU4k
+	 Fm0os7UHN4vAQhg/L9PdCL+IYpQ46UuQABzUU/DNdYIPpScFRytfMZKSHSvNeQ72cjdfX
+	 2oRoBL0l3BoB2E1IjYU0knqjXexUOyIfLCS93WCkVPP9Yt14F4AUR0v9PgYcj1vpGHwuS
+	 x/FQhciWP2DvrkGce2r2SyLrSRIOlUTQaMC/rj2aFXFol5tF8lXkRWr2E6DbIBO+Vvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=snyders.xyz;
-	spf=pass smtp.mailfrom=snyders.xyz;
-	arc=none smtp.remote-ip=45.157.188.8
-Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=amarulasolutions.com;
+	spf=pass smtp.mailfrom=amarulasolutions.com;
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=o+dQgdtT;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01ED606A31E
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:42:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01ED606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snyders.xyz
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jDzpj0jrKz2Fwk;
-	Wed, 28 Oct 2026 08:42:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=snyders.xyz;
-	s=20251118; t=1793173340;
-	bh=9DmLOImqHJ02dJMHrQj26fly35gJLOiNr9yA4dJIozA=;
-	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
-	b=nlXH7SRt4ZBw6LmlvyA5iRDdpgSbMG4/Z1G1ZSmxl7+38UqbjSSic2fgRgpC3dYTI
-	 /0HQDyPN71qYfVY4D36WBLZ5Y4Pm4JKvtOC0jjZoKccW2ibbN2kIWjLiPHYXhhcZNq
-	 3t8un0nZq9sowt7DiNHI3LAeh0SyzMREDsyyOIYBxcJOWzQQq1jCh3iHn/qz2epPRL
-	 DXFpnyP3EtBii+ZyIIibsFounlcLcySKPSyLe6UOZWCLnnAaAMAI3wVSZLGUBic+C+
-	 TsImNd2JIfQtOXqxQZTTziuC2mIXKNAy8JdKk9wv42f228AtHaqj94w6ZEbPNPGnlQ
-	 rGgqt5X0oBBaQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jDzph0qM7z87K;
-	Wed, 28 Oct 2026 08:42:20 +0100 (CET)
-Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
-Message-ID: <468873b2-d154-4793-93b1-82816a00e580@mail.infomaniak.com>
-Date: Wed, 28 Oct 2026 08:42:19 +0100
-From: Robin Snyders <robin@snyders.xyz>
-To: David Heidelberg <david@ixit.cz>
-Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel
- <sre@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, Joel Selvaraj <foss@joelselvaraj.com>
-Reply-To: Robin Snyders <robin@snyders.xyz>
-X-WS-Location: eJxzKUpMKykGAAfpAmU-
-References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
- <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
- <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
-In-Reply-To: <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
-X-Mailer: Infomaniak Workspace (1.3.1384)
-X-WS-User-Origin: eyJpdiI6IjhEbFU5d2JqV1RlQmJSZytpdnY1clE9PSIsInZhbHVlIjoiZENrbS9COXVReW9IT1hMaUlNS2t0UT09IiwibWFjIjoiODRmNjcwMmIxZGY5ZjVjMmEzY2M5Njc0MTAyNThmMTg5N2JjZDliMmQ5ZTZkMzk5Zjg2NTUyMzcwZjcwY2JkMCIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6IjVoNy9NZDhqdlZKYXBlS0VCRWYxSGc9PSIsInZhbHVlIjoiWGozSTVHUUNvUDdHa0xsME9FaEVkQT09IiwibWFjIjoiOTY3ZThjMTU1Y2E0NzAyNDE2ZTc3Yjk1YTViODg0MjY1N2UxOGQ5ODU3ODJjZDJjNjk3Y2M3NzkxMjQ1ZWE1MSIsInRhZyI6IiJ9
-X-WS-LOCALE: fr_FR
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAD8606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 07:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCAD8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=o+dQgdtT
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so4030375e9.2
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 00:44:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1793173480; x=1793778280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9PPD/mUgGF3odbO9HUc+ZEDM/rOsDf1Ah7YKLsgVXgQ=;
+        b=o+dQgdtTPUArIk8G4DW9Oqsp764+f8J6aW0ayYaDCegAjgvjAOMBnfqzTJSmDzmm9n
+         i+NZAC2XlxKHwZKwEPJ1B5aeJF5Pg1JAVxDHGVWJXAXwG7tAR4hxMgaOdwgppP/CRpck
+         ruDoRW+vGo3C1vOq0mA/5x9Lp++jUhBtyGI18=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793173480; x=1793778280;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9PPD/mUgGF3odbO9HUc+ZEDM/rOsDf1Ah7YKLsgVXgQ=;
+        b=G1hQL/dLJQGFUEqhBOnjgGZ78HNpo2kyRNKAitsf5d7KZMlNQvyXiIMJa780FU5Hm+
+         jwAzWxoiSZpN0x9ofZFIWkWC10o49tCW1hOyVTyTiNMQi+/6e22GIlJMgqHDa+rTT2cP
+         6C121wAlODzxWngnOYcB573riOIXiJ03YKrmOqUD2qxJLsa7zJ1xE8CPBvtjuiMydV9n
+         jr/1Rz7XDGY0OVuPBE5G2N2bro+TiRgNm9NFULZLpr6YI8c0Qy72fj863erN+0TucgcX
+         N3g8bSBDPzDtw2pX4sPbKFhiKY8+xY22k1RdNNZdUC7Y54qjbhipqZ3fY0ABbdPpCcRh
+         v7bg==
+X-Forwarded-Encrypted: i=1; AKwUvBznd4lnvjb1aVCLXYnI4AexFUevQ2BYVu/YddrkFVBKa0yW8SIazdGekBGSuJhBAqJg9/+6fad2cFob@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAfx7brv0qVR8cMnDbVV2Jg2tyj5xHwIrRXA+lWtAKaF/9xhbu
+	kysWiz1YINkQbSz2Lliipr+fNNtQ9dnYunS7aGmAcNf3UPckGSyFVlarziEKXwZENeM=
+X-Gm-Gg: AYBFou1GaKU34BWusCM7l7eVZBltDw7QV1Lp02uQ5X+UkzmK2d8HXOSFBwWWKu/mMou
+	HGmrfjlvmhjg7rS43wiIMKxxQMI0IDh6UBdTncbI56drcNVT02d/7x+1+073fSrucsV2s7THDNq
+	I1q5q8t3h9G5x5ocRgHxYzXjnQY1jWvM7trHvwO9c0k58Kt8b5KNcfayu3kKlcf6B12AhsBSrtW
+	ZZaogFe0D4GPGZmOACmOxL6BS4yI2xqSVyM5J+LDMF1NhyO44AcnbDq9snD8R8WoLqLwClmjffA
+	p9fr+s5GrUu5Ti4vnS5J/FXq3rT+NzyLIhg0FnsHkiyk9TmKoHfS3j5LNwkUGkEvs6h3BapHeAN
+	nnbTNTotF0boxVRJjTSXFSFLpdU+sfh14Q1uJ9pGVY+VPxrjP820NBQl3VgGE7qFnz4KBUYRYrI
+	CNTOqxKCToiMgnF4jHw4Rp7otzwpQdZ2tSRxOkxf0TzKNgbTLVa6x7qygSrSEosLGexaIROg4V3
+	Bj60M31hYSQNQlPaamlQPoU5nCByyayGf8jtAZltxT5+z5jFiurOIitQmer2zpjV+EEFZinOgOu
+	taDgSdEcfEFdv5+OiOwcp1R3OxtR0D+3ghGOuaHoEyeIf0pHh3RuOGNvdpXGFst4TSPdmGXSWQL
+	5dgN6GHUUN6/oW/GqiGW4Qe976Dec79LY8k1Wg/Gouz5pNhp2hm5G+L9mLvfyR09q6LjvAY/xpn
+	S+Mum99HI41183x9BgTAjoP51MOeVbr1VvA8jGvJur4N+D6ho=
+X-Received: by 2002:a05:600c:608c:b0:4a1:dadf:9876 with SMTP id 5b1f17b1804b1-4a967016833mr27902555e9.23.1793173480359;
+        Wed, 28 Oct 2026 00:44:40 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e412cc164sm25324882f8f.7.2026.10.28.00.44.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 00:44:39 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Tero Kristo <kristo@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-omap@vger.kernel.org
+Subject: [PATCH v3 0/3] clk: ti: dpll: switch spread spectrum to the generic framework
+Date: Wed, 28 Oct 2026 08:44:06 +0100
+Message-ID: <20261028074436.1958132-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,71 +104,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
 
-On 27/10/2026 18:19, David Heidelberg wrote:
-> On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
->> +enum smb_generation {
->> +=09SMB2,
->> +=09SMB5,
->> +};
->> +
->> +#define SMB_REG_OFFSET(smb) ((smb)->gen =3D=3D SMB2 ? 0x600 : 0x100)
->> +
->
-> More and more as I look at it, this shouldn't be here, but within the dev=
-ice-tree as
-> charger@1000 {
->     reg =3D <0x1000>, <0x1600>;  # SMB2, or
->     reg =3D <0x1000>, <0x1100>;  # SMB5
-> };
->
-> But see also:
-> https://lore.kernel.org/all/eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf=
-46ibp@jzcjmje4aqc3/
->
-> I'll try to do some basic separation so we know what bits belongs into wh=
-ich blog, keep you in CC.
+The am33xx/am43xx DPLL spread spectrum clocking (SSC) is configured
+through vendor specific DT properties. Since 7.3 the clock framework
+provides a generic API and the assigned-clock-sscs DT property for it,
+so the series moves the TI DPLL to the generic configuration and
+deprecates the vendor specific properties.
 
-Hi David,
+The last patch applies the configuration right away, as the clock
+core skips set_rate() when the requested rate is already the current
+one, e.g. when the bootloader has set it up.
 
-Thanks for looking at this.
+Tested on a BeagleBone Black with equivalent parameters, set through
+the deprecated properties, assigned-clock-sscs or both. The dpll_disp_ck
+SSC registers are programmed with the same values as before the series.
 
-Agreed. Describing the second register block explicitly in the charger's
-reg property (0x1600 on SMB2, 0x1100 on SMB5) is cleaner than deriving
-its base address from the hardware generation.
+Changes in v3:
+- Deprecate the properties instead of dropping them
+- Keep parsing the deprecated vendor specific properties
+- Skip reprogramming only if the configuration is already applied
+  to the hardware
 
-For v5, I plan to extend qcom,pmi8998-charger.yaml with a second reg
-entry and use that base for both the power-path status and the
-effective ICL status accesses, keeping their generation-specific
-register offsets.
+Changes in v2:
+- Check the DPLL lock state instead of its parent, as the reference
+  and bypass clocks can be the same clock
 
-I'd retain a driver fallback for existing PMI8998/PM660 DTBs that only
-have one reg entry. The binding could still require both entries for new
-SMB5 descriptions. If you or Sebastian prefer a different compatibility
-approach, I'm happy to adjust.
+Dario Binacchi (3):
+  dt-bindings: clock: ti: dpll: deprecate the ti,ssc-* properties
+  clk: ti: dpll: use the generic spread spectrum configuration
+  clk: ti: dpll: apply the spread spectrum configuration right away
 
-Given Dmitry's concern about shared charger/Type-C register ownership on
-SMB2 in the gen1 Type-C RFC, I'd like to coordinate v5 with your block
-split so that we don't introduce conflicting register descriptions.
-Please keep me in Cc.
+ .../devicetree/bindings/clock/ti/dpll.txt     |  9 +-
+ drivers/clk/ti/clock.h                        |  2 +
+ drivers/clk/ti/dpll.c                         | 20 +++-
+ drivers/clk/ti/dpll3xxx.c                     | 98 +++++++++++++++++--
+ include/linux/clk/ti.h                        |  9 +-
+ 5 files changed, 113 insertions(+), 25 deletions(-)
 
-For reference, I also audited the current v4 SMB5 accesses on PM8150B.
-They are confined to the charger core (0x10xx), the DCDC status
-registers (reads of 0x1108 and 0x110b), the USB input/BC1.2 registers
-(0x1340-0x1380) and the watchdog/AICL registers (0x1651-0x1661).
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+branch: am33xx-assigned-clock-sscs
 
-In particular, USBIN_TYPE_C_CFG at 0x1358 is part of the USB-input
-peripheral, not the dedicated Type-C port register at 0x1544. The
-current SMB5 accesses do not overlap with the dedicated Type-C port
-(0x1500) or PD PHY (0x1700) register accesses. The DCDC peripheral is
-also used by the VBUS regulator, so this is a register-level
-observation rather than a claim of exclusive peripheral ownership.
+-- 
+2.43.0
 
-I'll update the public register-ownership note to reflect the exact v4
-access paths.
-
-Thanks,
-Robin
