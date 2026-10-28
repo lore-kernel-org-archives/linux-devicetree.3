@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793159523;
-	b=PbOR7Ma3WHs+L71kmKkzDdtxIYcF2E27vjXpW7X/oPTHH4yxaCp7FfHhgZkQIF1UTLFY
-	 8UXLHBUnJMl9mcrFkHVHog0CQdtvjVE7D1q3ESUEwePJiJ4AuOGeH4OTug15nZjAZrex/
-	 MJxKKnLIx6t9gxs0LKUrxNlSJOy4IHedqTv3N2NNd7yVCHpaekx9BCBOAS1J63sMmmtUO
-	 DM6zy98yYYqKRCv+2v7/jgattPmX2eeR8zfJBXC+ZCY9i/2da7jw3rRn5LPQvQgAxDSZY
-	 +NnnYHYO5JGZLZy81lmL1FZrG79adu8iHCYLNtQiOFzFtYoJmGQVpqdHoBe+CruBruA==
+	t=1793160003;
+	b=MZEPKbWqeFgNjAhl3Dxqp4jse01lDJHwCgGGHWpcxXHyKDxYzsNTYcRM8FQiVoioN2I7
+	 AlQikNr0NSLww9q4hgxpYyPuGb89pNc8jgXi9zyjoLfH/bkA5ndIpZmjBxyeejx8PBEdf
+	 nchm7epLBtzngEaDeNJWskrrUv0EQ6AHB0ScAy4+fSRKKjPk/22q/sx7cYIhhK/MeBAI7
+	 6ws1zouQ3Vhu8flC1v/k7kUu3PpsW/DCDCMV7rJqoObBMWOv/cAFlO+xeeLfd2MYujQ0h
+	 KJbCU3YW2yfgERbY/GOsIv9zNdjMGElwe5y8AcFmSpdHoAiECLTMlG9C2X544YPAPHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793159523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793160003;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7wtuZhBNcMYe7ybbs3CpLBn0qcqYKZfyh7TOLggOERs=;
-	b=3xUkR4NNzknp3P7EpUQcprRZ4ED6wJDyudaRg2QLOMoLVBfCbdqq2rRkwSMeYM0O/IJr
-	 Shyu71gRnm9U7pRI3i2k6jQiqwmTQ2rp9c/ZMwjkhaPNrZic/E6SgR6/OcsbThkegYn6O
-	 C9wD5ef2EbYs82Pcz4UxMleTLpMH8KuatHuFMloTqmSR29+oVQE7N2szS7YywAIGgJoCD
-	 skzUmvk+W7E+lVS73oeck1nIKyN4+oIfL9F47+I3E3lmbdbs+mV39romkbuaZuQUqipQv
-	 NOT/ZR3OXN6knj26x+dNeqqFLWxAWi32ib7a20eeUbHcg8RuLAN/oaxc6yIW7oKBqkg==
+	bh=ohxrZYxVCrvMJGZ9UcOCwhERY76/6TPJb7ZmWENb3zc=;
+	b=AYyQtm+/FkR5tqun/vwHV6PLUECrj9cXv2FVp3o1VzhD41Vtj+cBee1UXyLyP8WwE+0K
+	 a1U8CgWvmyvjC36mKa9id04qp/CFeWrIA2Apl0y6/470YBqzc5JxJEMLDv2IE27GZFr9Y
+	 IcJ5wGAoRGVOsiz946DO53i47jMbAP6TViTkPVyZZocNMjFOYWoabsTc/D+5KS0rx2vXp
+	 dRMywCmU4xDT04EgZCX4Yus5USeX6HYDHJ6vWq99ISQcWH9ZCqsVUl5YWvaI5aBb5mjyt
+	 R/FVrbYDzhRB7DTN2zTuQ9YIENwBa2gikbxfpNdyiNsn4tS93eF705BlZK5M6GCmyyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d19YMJ8C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsMuo9xN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E70606A31A
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 03:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE6F606A31A
+	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 04:00:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d19YMJ8C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723EF1F01825;
-	Wed, 28 Oct 2026 03:52:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsMuo9xN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 995621F01825;
+	Wed, 28 Oct 2026 04:00:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793159522;
-	bh=7wtuZhBNcMYe7ybbs3CpLBn0qcqYKZfyh7TOLggOERs=;
+	s=k20260515; t=1793160003;
+	bh=ohxrZYxVCrvMJGZ9UcOCwhERY76/6TPJb7ZmWENb3zc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d19YMJ8C2zybUTGC7w6sXd7i+SFMPgvKtDeNdRYpjprOv0Z5V9RHZurEo7JH+m7Hk
-	 a+ssGtDdcaXk4Ti3v6mUUagf5aHnalUQ1CSq1ePPgXX3LQSOy76z3vWf3q4TSQtzDE
-	 lyLSPYm2+OWEK+h7OSj6dMy6BHoPMmz8/uHy2fCr0dBDrclO2bW4kUh2i7VBfZcfpY
-	 WiplMmvfDJhbrNgqbRWJgoAE+lhIaYm9uH/NL8EnmPwkk6gahR2FBabH2iQja5yizx
-	 Xc/upsS5zH3QIyTNOTgiw7ErjTmNrjeNS/j0/mEMQrAq6xjzeCsOPHUG0xodn/RKuw
-	 /I2muCvEzypjQ==
-Message-ID: <sashiko-outbox-187448@kernel.org>
+	b=XsMuo9xNdqrPYcIUOpb9dal2e5LrZKnS775MecrE+Pr3OaMAUQfCqUV+EqWkFLmJT
+	 i9uEOKqyw+2UQbukfRJ75tHi+EoGT3/T8pecd5NtBBMwFUInV3htkdrc5pW9TTOGo8
+	 gPSUcI9NIXmnl0sR1+pi7bp8mRq16+wdBy85RBIvXYM/IhtYRwRHjDWljC/NrWHKqt
+	 fpnjEay3ECqxFrtJUBlnSIOergla54OElBJm4wSdPwpk+tlURFdPS8xxAyA+8Z8Knh
+	 OP761iP/BzMHJsQ0H3GPjhJrL5WN+1ROXEe2kHIL8LfYcq3uuBTEtLfaLpZxScSUvx
+	 qZIpeGS1Ftu/Q==
+Message-ID: <sashiko-outbox-187458@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/9] dt-bindings: media: add the Qualcomm SM8750 camera
- subsystem
+Subject: Re: [PATCH 8/9] media: camss: vfe: add the gen4 block and SM8750
+ camera subsystem
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261028034105.326535-2-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261028034105.326535-2-xiaqinghuan@mail.ustc.edu.cn>
+ <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 03:52:02 +0000
+Date: Wed, 28 Oct 2026 04:00:01 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,83 +63,100 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: media: commit message sub-block counts mismatch bin=
-ding schema
+- [Medium] media: camss: race on CSID reg_update state between vfe_reg_upda=
+te() and csid_isr()
 --
 
-commit 73bfcb41d44e2c6c144a357d1065fa300a499b3f
+commit 9a87e4e329c131d366318a8a449031db90e2ea2c
 Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-dt-bindings: media: add the Qualcomm SM8750 camera subsystem
+media: camss: vfe: add the gen4 block and SM8750 camera subsystem
 
-This commit adds the device tree binding schema for the Qualcomm SM8750
-camera subsystem (CAMSS).
+This commit adds support for the gen4 VFE block, where buffer done, register
+update completion, and start of frame events come from the 980 CSID, and
+requires 256-byte alignment for DMA addresses and frame sizes. It also
+instantiates the CSIPHY, CSID, VFE, interconnect, and top-level resources f=
+or
+SM8750.
 
->     dt-bindings: media: add the Qualcomm SM8750 camera subsystem
->    =20
->     SM8750 has six CSIPHY instances, two full and two lite CSIDs, and two
->     full plus one lite VFEs behind one camera subsystem.  Document the no=
-de
->     with the register ranges, clocks, interconnects, power domains and the
->     sub-block layout of that SoC.
->    =20
->     Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
->=20
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8750-camss.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen4.c b/drivers=
+/media/platform/qcom/camss/camss-vfe-gen4.c
 > new file mode 100644
-> index 0000000000000..e0e0722a838c5
+> index 0000000000000..2ee82898f37dc
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
-> @@ -0,0 +1,435 @@
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+> @@ -0,0 +1,212 @@
 
 [ ... ]
 
-> +  reg:
-> +    maxItems: 19
+> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
+_id)
+> +{
+> +	int port_id =3D line_id;
 > +
-> +  reg-names:
-> +    items:
-> +      - const: csid0
-> +      - const: csid1
-> +      - const: csid2
-> +      - const: csid_lite0
-> +      - const: csid_lite1
-> +      - const: csiphy0
-> +      - const: csiphy1
-> +      - const: csiphy2
-> +      - const: csiphy3
-> +      - const: csiphy4
-> +      - const: csiphy5
-> +      - const: csitpg0
-> +      - const: csitpg1
-> +      - const: csitpg2
-> +      - const: vfe0
-> +      - const: vfe1
-> +      - const: vfe2
-> +      - const: vfe_lite0
-> +      - const: vfe_lite1
+> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
+> +}
+> +
+> +static inline void vfe_reg_update_clear(struct vfe_device *vfe,
+> +					enum vfe_line_id line_id)
+> +{
+> +	int port_id =3D line_id;
+> +
+> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
+> +}
 
 [Severity: Medium]
-Are the sub-block instance counts in the commit message accurate?
+Can vfe_reg_update() race with csid_isr() on csid->aup_update,
+csid->rup_update, and csid->reg_update?
 
-The commit message describes SM8750 as having "two full and two lite
-CSIDs, and two full plus one lite VFEs".
+When an active stream has fewer than two buffers in hardware
+(output->gen2.active_num < 2) and userspace queues a buffer via VIDIOC_QBUF,
+vfe_queue_buffer_v2() acquires vfe->output_lock and calls into CSID 980:
 
-However, the binding schema in
-Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml defines
-and requires:
-- three full CSIDs (csid0, csid1, csid2) and two lite CSIDs (csid_lite0,
-  csid_lite1) in reg-names and interrupt-names
-- three full VFEs (vfe0, vfe1, vfe2) and two lite VFEs (vfe_lite0,
-  vfe_lite1) across reg-names, clock-names (cpas_vfe0..2, vfe0..2, and
-  vfe0..2_fast_ahb), interrupt-names, power-domains, and
-  power-domain-names (ife0..2)
-- three CSITPG instances (csitpg0, csitpg1, csitpg2) in reg-names
+vfe_queue_buffer_v2()
+  vfe_reg_update()
+    camss_reg_update(..., false)
+      csid_subdev_reg_update(..., false)
+        __csid_aup_update()
 
-Should the commit message be updated to match the three full CSIDs and
-three full plus two lite VFEs defined in the schema?
+In drivers/media/platform/qcom/camss/camss-csid-980.c, __csid_aup_update()
+modifies csid->reg_update or csid->aup_update and then re-reads the field to
+write the command register:
+
+	if (csid_is_lite(csid)) {
+		csid->reg_update |=3D CSID_LITE_AUP_RDI(port_id);
+		writel(csid->reg_update, csid->base + CSID_LITE_RUP_AUP_CMD);
+	} else {
+		csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+		writel(csid->aup_update, csid->base + CSID_AUP_CMD);
+		__csid_full_aup_rup_trigger(csid);
+	}
+
+Concurrently on another CPU, csid_isr() in camss-csid-980.c handles
+INFO_RUP_DONE without holding vfe->output_lock or any CSID lock:
+
+csid_isr()
+  if (val & INFO_RUP_DONE)
+    csid_subdev_reg_update(csid, i, true)
+      __csid_aup_rup_clear()
+
+where __csid_aup_rup_clear() performs a non-atomic read-modify-write:
+
+	if (csid_is_lite(csid)) {
+		csid->reg_update &=3D ~CSID_LITE_RUP_RDI(port_id);
+		csid->reg_update &=3D ~CSID_LITE_AUP_RDI(port_id);
+	} else {
+		csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+		csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+	}
+
+If __csid_aup_rup_clear() clears the bit between the |=3D and the writel() =
+in
+__csid_aup_update() (or races across RDI ports on the same CSID when
+vfe_enable_output_v2() or vfe_queue_buffer_v2() updates one RDI line while
+csid_isr() clears another), won't the writel() drop the pending AUP command
+or write a stale RDI port update bit, stalling frame capture on that stream?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028034105.3265=
-35-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
+35-1-xiaqinghuan@mail.ustc.edu.cn?part=3D8
