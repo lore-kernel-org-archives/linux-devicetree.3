@@ -1,128 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793211052;
-	b=qmz1CdKmrh4ZzTAA1FoaptWLPGnYftHYNUns4nQ5n6LirXWt9kfr+sP28VGKpt2tA0f6
-	 /yfYZINfIOr2ERHHytN68PwDuFPbDn4Tm9KlT7MfKgqqKXq2nSnoozuj7B8NrpCpc/QOf
-	 qlTJ9jQBZIX/ZykLMNaiBxeCPGtLEgACjk1DV+ejSr6oumjfqOY7eNtKuAqqHHGEyMh0T
-	 gn+AJL6jrHohzv0xp7ZlHtHDK7SjN/BwG9MqGqLADs+22yFF4jKq7V+PFQZpFL83qAkS7
-	 ygSUDlXDtH+b6ZPkNWxtGCjU5y352BhodT37auHwdYNILpl7Bmvlg7PQC8+A9bBp06w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793211052;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-	b=4waikqW0FgkTnHDCYEmvGVLHFDpzwkjeyNAavhfK/dLg60Rbdo8PuEeypALVvrzkKHEY
-	 G7TJpOknHSdpkR9BETAMghvdrKlZqieJdzr+oPRuuk3jd2U9b7+ZLzneITUIsTxmyokiD
-	 sFG0YKfIO12w1Jmj3tedcqkB+s/D9pj+S0TK1OEMSQ+xwzk/koBKxUJiZ31rA0hpXiUp+
-	 ACqntAZ/PL1iG5DYMoPWWguxzCXvNUidg/4vyxPtvswpGi/9duLkIwHvI5vJYaBzUP482
-	 bfKByTngG6r10OoTnPbUJM+jyoJYoETCFjmseHltc2u9D5u6LLQYzKu/QfCFu/ElKLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ArxIu4Pw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NyILZ4yb;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793211183;
+	b=0vmNGxzDvjP30K3lTm6MWixUb6C+2uN6uFpGVoX1sxcr4xCkZASskEvK0I9H+RkZoRVx
+	 3wvJ/FlBiYTwZfnfWwV/uphlPX6s52Kl1vCRFKui8McEhLmmqFCOPcV3x1Wi69d3p0vQN
+	 lBjHlqi3yvWqYXPr6RaOHbZqnULBPJh0b73nbZhjAgo0MRt9OjAcI2D/WPaYxwpIFgK29
+	 VMhL21D0X0mstMzTpPfkwPAwoFlQ1RSD7cqgECkfNzNzYSM08Y0aDwcxMOIjArAaLLd22
+	 JfxP+NoP8xtzqjUz+hsxpvPvgKejjocsNTj/KKLquaOU2PCImwvhcZt5kgFaEzqu74g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793211183;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kJhqntduoIHNkU1QLC+pcaGdHQW6TVMEffZhvLoja1M=;
+	b=Ex04OANuF0LT3AoJOK7iZa2RsyE8di6on28Znn0BrLsCuqZnfuCdRj072AOosYTmIIuK
+	 SfoYeVRfnTaYHsMOnoouJ2VuXbD3sc/DtYfOn/tKehceqVixZgORwZX2DQHQtktaombXs
+	 WGbUL9voyNbvKwDiyiHxV+jvDhF9YSxxhFcPSkxmwIqb8U+rFnDBE69cK9Ai3c1Cs1KhS
+	 vxejIEXieZq05/Ri+fJcx3s6MNcBjgW9fEgATyv4HvJk6XNmbBOvYSH9j74IihNrQqInN
+	 EbiXtZxQOBMpExKQDhzpG+LndQXeYxPu4c5qUUtgS0rq+/3c5QXg3DreLD6ib0lig0Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=QQeKPz8G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.10.54
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azolkn19012054.outbound.protection.outlook.com [52.103.10.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50FA60A6F4C
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 18:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D50FA60A6F4C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D683860A5BCC;
+	Wed, 28 Oct 2026 18:13:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D683860A5BCC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ArxIu4Pw;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NyILZ4yb
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFB5S62070783
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 18:10:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=6u3zqcJQ01s
-	SMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=; b=ArxIu4PwtAhxXYrlBnwxbsMSKn9
-	Sa9Yu3eWK/NuQ/ZMmyh2bEcFsDg5zgE14xK3YIx/VdViTFPR3PupnD7+J0OoH33e
-	piHVmnpn/wgAh27ZLAZOHD2qz3bymru9azMuhO7PU4r9+DZUoxeiMsSlk694qaUC
-	QSDaY7qi4Gi7w5Xr24b0cZNDdJOSINYnZTEaLUgSv0aSS229Q7K2rCwC4TzP+btd
-	46fuPGkeqY2H+Sw+r/pD55YlUR7rReFFEdb0XldyUsZkAJUGxWzpY0jDP3yphaP7
-	TkI3fsZxELPFB05xHviqgvdAVD2dK6kwOYnb/Bd0TJtI8ay8Jv1RJVshkkg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk7g7kn3s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 18:10:45 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c70349f65so29053316d6.3
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 11:10:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793211045; x=1793815845; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-        b=NyILZ4ybfIWMNXTIxPdmD98k45qlob8L3xmgmoH/y8/bsrzCr4DKiuBKHr0yjtlRYy
-         N5UzUTuJeyDhEaP64mTsOyDy3pozCrcFvU15WqH48tOK+3rc8zatPzOqHULHCqVP25JO
-         h6PKnNMEnBHUsAlJutFu1k+7chgkPb53HOwNsQl18v6Gdp5DDD73Aswgg5nE4+dCZs65
-         0gXopaUm27EGIiwNNFerGiJPn9ZT+C0HXBETmPxewupaNCUut8q4ohOeG7awLpyi8TjZ
-         4UQf/v3j0bSeX+tTIMilHex2Zyud4cZLYUAi8TYq/13G4rT8d2lRPGE5WlxaPAYzysXA
-         5eIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793211045; x=1793815845;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6u3zqcJQ01sSMu+qm6L7bE2aybaQhlU8iBaL9JFnZjM=;
-        b=JI+KDMfg+FtthIA7UPwssyovkXezfNHTvdAptpUT2dMd9AV6Jji4IG7bT+xOllrGLc
-         S1yBnEU9k2Zo0U2Pa//F4h/Iljcoc9Gjaev84DVy3szZsWrV93slBMqOX7wyt5PvL/Dt
-         CyAHJgMTMmg4hIyYvIls/kyUt08dhfWL8ttLs+xejPSLdQZKHO0CZ9lfxK+yK04pTp9e
-         I1kt03n0Ew7X9sK0s0aGh7wPLsWL8tUy14Wu/Gp0mo4HcMKHNkxGFILuZFL+8mnHfPel
-         cndPHm1FgJUHTLFIcjyCV+uuk25fRrCkizzQeAcleB+jYP95TDrW5bLFxRiHYs5OWn2z
-         3A2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxr2ngkuXOL80aJmMm89317zGrH6iJwmGBMsM3VTWFS05npB6qhqX2iOnN1nVTwwgKaSPLZoBDY9VVT@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVc2Hsd0VhR7vjkNg7IjwCNWZ+zE4alIYSHgeZZ0Cl8NL+YrEa
-	Lc3DzW97tTz921jvoAcn/lY6ZCk1PENxBntvjGmrekq1kz3G9scjx7r1rBqdk9PHazNUioIICEf
-	BaZJP2ePiaeSPS+scu0xgBRcgdgBcg89dxEHb01i9ofp4sCD80Zh9jgGyHyqL1pgy
-X-Gm-Gg: AYBFou3Dz0aEEZaFE2R8IT3MmSHwD6v0vbB9jNSF2z3jD4HBF3HxMwGGf0oWJNMO4KU
-	Iis9Ixehd5FaoF2qN7odf1ipPlp9rJagLmOYRE5zFc/INUOVZB5wHey9qG7n15mMiFn1JrmzCKm
-	bu9iPr9z/7+Jg7ms6oyS+LJyTk5aP59AOGIkt/iudnWgE16EoSsIXpTP5pKF5v5RivTVraXulQ9
-	+GvfjiFC9Cgya+obrBWRHN3M80166sfT5KJqjzEGClWTw6206IHxE0/IoSFIuJClYi8WjEYjqCP
-	ODRAsakLHAWn2U3cWiSabHSsLBeGh/xrB06Cz0JfrgRZp+yytTGqNeqYoVpBxgyDbZp+n2aj7Wp
-	njbw7YouBekx6YR7gOjAd83/1CwKBSz6KyErqrMmYEnCDJH/wPyRupQ7fNIlOHJmSxKYHJ5lSkQ
-	==
-X-Received: by 2002:a05:620a:6493:b0:93f:2ff0:87ef with SMTP id af79cd13be357-94408a728bamr431339085a.15.1793211044828;
-        Wed, 28 Oct 2026 11:10:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:6493:b0:93f:2ff0:87ef with SMTP id af79cd13be357-94408a728bamr431333885a.15.1793211044276;
-        Wed, 28 Oct 2026 11:10:44 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa82516a45sm9801595e9.15.2026.10.28.11.10.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:10:42 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: atanas.filipov@oss.qualcomm.com, Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: clock: qcom,camcc-sm8250: add interconnect provider
-Date: Wed, 28 Oct 2026 20:10:40 +0200
-Message-Id: <20261028181040.3515955-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <7ca815b3-4712-42e4-996d-4a1e53cad492@oss.qualcomm.com>
-References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com> <20261016170701.1504338-2-atanas.filipov@oss.qualcomm.com> <20261020-bloodhound-of-remarkable-debate-11afe3@quoll> <7ca815b3-4712-42e4-996d-4a1e53cad492@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=QQeKPz8G
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ptVq6JDkKbc3VhB+FY3baZNmz5n+bJvXBLNqIrdrealKRKofHcP0YMWgOIzYrAGDvk5zkcH+H71xinbxfo1u0yn/LBX+tPIfvIynFmLrEk+MbLqaXT7RYIIhWOSs6o80XJZY6fbYwK4xKVMMfdx6TyZq4KX0V1suDc2KbHzuAPMHDZbQs8XQg9mHjmtbt6ry2dTb2III1hJw8MhRfCp0v7NNkmWkbXnppZXdFJ5wewcVUOf9TgchmK+BIbXZB7jegLovVzEyqfXb+7gPx/WSrFboNjhFyoCj40uLWdOmNgehLzU4y/AbgQfP+IYewOl9x3m8SE4LLnhM5VdGKpRh+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kJhqntduoIHNkU1QLC+pcaGdHQW6TVMEffZhvLoja1M=;
+ b=w8LjABCgG2CLVQFWGUzXvulv+SzxEy+f1hX54xMqcd6r0JpRpSIjsPTl0K2x7qvhKYFAiJDZQuN16pOZZZFYSTXjHLNfX7qU5TYc3oSehXapIcC+QSLQskqClRcgGNot4apE6tC3GSe3Q/tFlNa9A53UnLuAQEdfAhv2N/p3g+5AFYtpRTHVil1MdFzBaC0IZO1uFUpeiPHVcugt4p4/WF9eVRFOJZf0IsX35T/JpXwjxq9iLyRJrhQqLxaGdObtNi34N3cKVhJBlnFGGTkdf2sd6yWlxhMmb8MR03YKXhaO/wiiBUe0OzApvbMC4JhC+gMCcNB4cLRDV/ZpQ2XFew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kJhqntduoIHNkU1QLC+pcaGdHQW6TVMEffZhvLoja1M=;
+ b=QQeKPz8Grvxc+g6Q7fwJ1u+GN709dwQ5SuY/CDoV5o6tn1R7jujgcgTkSijudMEb3GRff2gpuiXjfQJAIiUsHVUM9d0r34wNkGzp6u4lXYibq7Bw/NGz9STvGF4paOSqJ1uLKB4wilmihO19AMHgWBt+VtdzP2fZJmxJLAovWHD7dVaQ088sY2tFV1HUg+KXBAoBh9v1ij7b5BApakoEcUNtDMyIGmgMcForzhcTaZVqvR/2wz+iljvB6oV1daZufYpapVmZD8GGEnI1q5eE0RnLXpWf7C2XuF0XfhJa64qdUXpxdeUTB6uzo2+AvrAmb0IQ8mvD+ilfHUx4hJU+OA==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by SJ2PR12MB8111.namprd12.prod.outlook.com (2603:10b6:a03:4fe::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 18:12:58 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 18:12:57 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: neil.armstrong@linaro.org
+Cc: Michael.Hennerich@analog.com,
+	andy@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	krzk+dt@kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux@analog.com,
+	nuno.sa@analog.com,
+	robh@kernel.org,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+Date: Wed, 28 Oct 2026 13:12:40 -0500
+Message-ID:
+ <SN1PR12MB25286BDD49B0947AC40257D1A56F2@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS1PR06CA0021.namprd06.prod.outlook.com
+ (2603:10b6:8:23e::6) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261028181240.228334-1-chernyakin.victor.j@outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -132,75 +108,423 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA3MiBTYWx0ZWRfX5ivexLe7Sf/G
- wijPjX14Xz6Aoyw2QhPmy6PyT1F5TipITJpx4jkfC4ztXZl6uEoo9mj4MditOKM54NkCBRwBOOm
- NZ+iarHnFAINFW+HdfiepiPek/oymrc=
-X-Authority-Analysis: v=2.4 cv=SoIFe/O0 c=1 sm=1 tr=0 ts=6ae23aa5 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=SLSU3p2cmSaEdqdVgzYA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: bR58Pxqv95v4CTONW2kjbI5AAWKefB_f
-X-Proofpoint-ORIG-GUID: bR58Pxqv95v4CTONW2kjbI5AAWKefB_f
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA3MiBTYWx0ZWRfX+4YK1ETghR4F
- N1q79xIKn7lDh2piYB/gqmxn/OLQSBsZGwNk9gaAvtZP0GVnyo7GTrQmgrDgdKfiYl7PAtzix8S
- 7kDmtA8iK8QhSu3s+Kb6/9DvrWiJws20LAC4eXa0gp2x7/fERzsavn90/Sc6v85GCP2mFJrujl3
- f5H9juJSy9LZ3pCIKwE37ejY0lVu4WKhhjLjGKZUngZae96vSpYhzRAAQaB6LgO8kswB7DkQuC5
- XEYmAxUuk1X+ZZoRy1wSbe2USyBDtj4PxyGReS/jNODJDKrznoRym432mLK62xBuIBNyJ+25nfj
- MN6Lq+l046oPBrwwr2gmB+6vYHY6lbsxozp+dk9Ez4gH6H9qqQiYHXBYUFfK/tOtu+vU4BY/Px3
- m4CzlEUR0BBUgbTvfRjrGunJJ3zLhebCA3+dSq8B4wxIwFRFnpQcWEE6+pjawAMKxxZL88fDXXf
- RvWbsyiEr2Z21POSUuA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280072
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|SJ2PR12MB8111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59a1d7fb-bcf1-48c8-647e-08df351f177e
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|19110799012|12121999013|8060799015|260925184616899003|4140399003|25010399006|24021099003|24071999003|5072599009|15080799012|22091999003|39105399006|20031999006|24121999003|41001999006|23021999003|12091999003|40105399003|41105399003|26121999007|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?GQ1kOS8Ds9hBcxhppdWKvYxOUcSP1dWUHKuhWGfDKJC0rSlm45r2+RZBwfRw?=
+ =?us-ascii?Q?b4EECU8dCrGCQxF0zIyM5KJ9LBQ1XFnVgYFGe+HZZMZbX0k0eyQSIuktTquo?=
+ =?us-ascii?Q?z722xAZZoTrKGkMfx1Sm33ZzF7D8baR+YYyWWsyOG8+stJQHTuv8zLIYZSJt?=
+ =?us-ascii?Q?cSVFQNY8xA1zmqqhfGrv1ph5lkT4gAgWGUPsdw9/a9g5BTGRar+w3kyYEAKH?=
+ =?us-ascii?Q?Dp+1HYO161/p2xhwBGX0k36movpFi2yCbpV5gGgrM8e7fTBHGhrT4bKgcdaR?=
+ =?us-ascii?Q?DELDbD0e2mXBAucmGF1jZLUj/Uyst4HYo8JSMYOcQu+ZZoi2pZWunNC0STrG?=
+ =?us-ascii?Q?wX46N5MN8WArSf3sl2SM8oC5kNqU9cuNlbuqZPGpobmj7IaY42dFKOQImyaQ?=
+ =?us-ascii?Q?KRJvF8yL2csreVUKk9E+EiFPpDfL9ePBk1bqhMdKNRkkAnIFc2ob0Cvp5Gtw?=
+ =?us-ascii?Q?qdf37A9vWmsj0Ibut4rvYF4QIDvTs+Lz1HYYbIrQCUwOAR84HiFZ8vRmpX2G?=
+ =?us-ascii?Q?uZ2A/eX4UQFCBxMFvUtljjrnAxD/0Mwjeje9eX8CeVQSTywxzqQzZHAiAtGK?=
+ =?us-ascii?Q?B9a1whmYMRJs64WOqEz7USyN/8VVkbpIqObVTficMSHDYFKzmNwc9XtYPo3x?=
+ =?us-ascii?Q?jAaFarQVonypeDA6X8sMQHw4jafmQpGBZenHfJ0HEiR94J24o17g3SzPiIq0?=
+ =?us-ascii?Q?PAbLB5uFVVhSkINxjLDqWhrahkE8JG/VOPHGeLp5zQzSD5fAKQu23MrLgZrG?=
+ =?us-ascii?Q?S9AEHhG2W/I/ynzlr9JOtwf1tp9l1vT5qUxFkp9jqYZc5UxOLONgOORMPH7j?=
+ =?us-ascii?Q?HftRD1Z1jlPKvHtkOeaqWby/OJMV1ZLA4Ypcs9+aIhG3dSWBOX/qIQy51E2e?=
+ =?us-ascii?Q?7I0hkPGJdhbZxaPhZg2mf/7KErihcxFbD0dEfGZN4KwlSlbD4RQYw844Eysk?=
+ =?us-ascii?Q?XqtbXLVbArNne2N8f1cFjX4tBTn9NoqIoQKo4sw3vaVUoZ5msfgS0cIxkTlv?=
+ =?us-ascii?Q?PEK0QNDwZHqLxAU3/m8jELoYlfM3C1cZyXtki0NNuj1paqgZxWlxj/CFo2CV?=
+ =?us-ascii?Q?8h4rItpEXKayPC9rGS3ZoO+Agb7Nz5odPMyPs+4S48VtRTAsNHzsabl2prmn?=
+ =?us-ascii?Q?fw0gitue2JLTNReCHAVgpt8U8X4PkklF7xaUiFcWJUS+1Wihk1T75rEFc3Ad?=
+ =?us-ascii?Q?Zd1//u+uIAQ2TL/MQ/wgC43MoZjgIxgEJXOqXYZnIHIwEq323p0fI4o2vBsS?=
+ =?us-ascii?Q?eiUi9dIIk+K2p0+6LR6I?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?WcE20bZURI5YikPJa+1FlH55qdprjWe/WHorixHs0C5NC70As1ZUE4BYQ+4a?=
+ =?us-ascii?Q?tadvuFeb8F286zEl6tEjvultZV9nzjM9B8foUC5mhPqCXnyFbyC3sdyUHDdP?=
+ =?us-ascii?Q?pbcvnkcKZQBzZr3BeO8CBTocL+DYF3NdUfuKa2S6wf0jruHUO6IE7spbYLAF?=
+ =?us-ascii?Q?5bwkJFVl/UcmVJa/3ntmbekNddhEADh2cubllFXbBbqDrGC6a73M+QfYzB6N?=
+ =?us-ascii?Q?VILpXBUCIuWjap3OqgCo2cqCusgFFMyWq8iE9xqMM7sLbw8xTJJf5HC79KTI?=
+ =?us-ascii?Q?YENketK/5LIbi/jBU4uryLC248xORubP/HkE+iwitlkyCxDH8R6PpU+JMQ7Y?=
+ =?us-ascii?Q?kRvlMXLMYz7ouWt8drh4HeMPus3g+tqKKloNeUGLZ7MC486cAaEtD37p1CRX?=
+ =?us-ascii?Q?IAFhbq75TeB9vOdukvnIQmVGSVuyW1khF07GDOnOxwfVmchhWPAwPHQ2/vq+?=
+ =?us-ascii?Q?gZWX6hglF+IOEJ3BIDNd/WSJhG3MxqT5H4tvRtM5yMCgE7U9Fh8UkGEVd0Sj?=
+ =?us-ascii?Q?YgEkPtYju2mRja9eW0USU2aNMqUKgN5GPKC5R3KIMJbQFC+z3Stq38ACoOnp?=
+ =?us-ascii?Q?mYodt48lIONKt2ARLylsIYLJ+90o/3SGpiFcgjsjimeb4daVUDU1uYaDGcEp?=
+ =?us-ascii?Q?Jm4RF1Rc9i056YVslHr/3sSh59OVlqki2OWiR9W+K2nugDz9MtqT/XSNblro?=
+ =?us-ascii?Q?ZnteABk4XY/j2tQ8vxTiE1bwBhL09tYrpmq5GdZ84N9Q4QYO5o3Cw6+m4Tfx?=
+ =?us-ascii?Q?7GfzVzCa20zm4klDNCEWdXQPTw626T2ptOReXIngn6/tx7HrRs1sk06qnt7h?=
+ =?us-ascii?Q?ucpUdY3N8vJuHTCQU5aFfG8vnTp8hooP/JerRvRzX6xgUkmrhpb13Dk8aKDK?=
+ =?us-ascii?Q?tnMmwpWq5cGv4uHk4itUJaR1FBkQNz1ad20IooQBiKlRMSQYFquTjMykH+r7?=
+ =?us-ascii?Q?kbxAfO4kO2yWRi7+fpK1goopHAkCcUnciM4I2zFYZGhBRoZ19uPoqrOzBAwY?=
+ =?us-ascii?Q?1AfHH9DRfkQgs4P0bo/CUj5QYuOHX2p5byB8wgo6HtCGAX5vn6WsHVVo7BQF?=
+ =?us-ascii?Q?ws3oETDG8JsnU103VLt45nYSt8DYpCzfWa7H6FSAjED3roJBRPWrViwxsivz?=
+ =?us-ascii?Q?RR4qn2oywH1BVv9/Ti1CQ5aI2/bjf7g1Td8Vt6eUrhdrwulNc5bVfrwl7P3o?=
+ =?us-ascii?Q?Nijz/szAbEeW0kh0XtFRb3bbeBGirEqg5j4jz2Vx+sHUX4vkqmRn+5KPT3lo?=
+ =?us-ascii?Q?dSyNfAuAMb+THCsEfLMAQ533HJuWz0oc/sqdfpjlOPPbbTuQHs2kN65YdOPm?=
+ =?us-ascii?Q?q/Y0fEIQFfsCsgD/3Fj1bw1emCeeo9f1sXaL6na6mYC3FV3YFBOuh5hFEmEa?=
+ =?us-ascii?Q?8G3OnG7HIUMs5u8zfkj62YHc8TeouT9wOd9M6ArqTwDSCcTrMA=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59a1d7fb-bcf1-48c8-647e-08df351f177e
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 18:12:57.2299
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8111
 
-On 10/20/2026 3:44 PM, Atanas Filipov wrote:
-> On Tue, Oct 20, 2026 at 09:12:03AM +0200, Krzysztof Kozlowski wrote:
->> If you only need to solve "last writer" problem, why not fixing the
->> clock framework to accept the votes? Otherwise this should have
->> description why it is an interconnect.
+> +/**
+> + * struct max34417_data - MAX34417 specific data.
+> + * @indio_dev:  IIO Device.
+> + * @regmap:	Device register map.
+> + * @lock:	Lock for protecting access to device hardware registers, mostly
+> + *		for reading common accumulator count and control register.
+> + * @input_correction:	Correction based on the Rsense value from channel nodes.
+> + * @input_label:	Channel label from channel nodes.
+> + * @cam_mode:		State of the Continuous Accumulate Mode feature
+> + * @acc_power:		Saved power accumulator for each channel when in CAM mode
+> + * @acc_count:		Saved counter for each channel when in CAM mode
+> + */
 
-A follow-up on the second part, since the problem turned out to be
-more than the last writer.
+All the sentences should have periods at the end
 
-The last-writer problem between the CAMSS VFEs is now handled in CAMSS
-itself, in the direction you and Bryan suggested: each VFE sets a
-clk_set_rate_range() floor, and on power off drops it and sets the
-lowest rate explicitly, so the clock no longer stays high:
+> +static int max34417_check_ovf(struct max34417_data *max34417)
+> +{
+> +	u32 control;
+> +	int rc;
+> +
+> +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (control & MAX34417_CONTROL_OVF) {
+> +		rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> +				       MAX34417_CONTROL_OVF);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	return 0;
+> +}
 
-https://lore.kernel.org/all/20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com/
+Up to you, but could reduce indentation here:
 
-What clock votes cannot express is why I think the camera NoC is an
-interconnect:
+	if (!(control & MAX34417_CONTROL_OVF))
+		return 0;
 
- - The camera NoC is a bus with several independent masters: the VFE
-   write ports, JPEG and OPE. They share it on the way to the MMSS NoC,
-   and the camnoc AXI clock sets its throughput.
- - The consumers know their bandwidth, not the NoC rate that serves it.
-   Converting one to the other depends on the NoC width, which is a
-   property of the bus, not of each consumer.
- - Masters running at the same time load the NoC by the sum of their
-   traffic. Clock rate requests can only be aggregated by maximum; a
-   sum of rates has no meaning, a sum of bandwidth does.
- - The rest of the camera DMA path, from the MMSS NoC to DDR, is
-   already described with interconnects, and CAMSS votes bandwidth on
-   it. The camera NoC is its first hop.
+	rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+			       MAX34417_CONTROL_OVF);
+	if (rc)
+		return rc;
 
-The interconnect core already sums the average bandwidth of all
-requests. icc-clk currently derives the rate from the aggregated peak
-only, so it does not use that sum yet; that is a limitation of the
-icc-clk translation, not of describing the camera NoC as an
-interconnect. It can be addressed in icc-clk by taking the average
-into account together with the bus width.
+	return regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
 
-Is this a valid reason to describe the camera NoC as an interconnect?
 
---
-Best regards,
-Atanas
+> +static int max34417_read_power(struct max34417_data *max34417,
+> +			       const struct iio_chan_spec *chan,
+> +			       int *val, int *val2)
+> +{
+> +	u64 power;
+> +	int rc;
+> +
+> +	/* In SMM mode, trigger a measurement cycle manually */
+> +	if (!max34417->cam_mode) {
+> +		rc = max34417_trigger_smm(max34417);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	/*
+> +	 * Move the new UPDATE data into the SMBus read registers.
+> +	 * In CAM mode this will also reset the accumulators, returning
+> +	 * the power accumulated since the last UPDATE.
+> +	 */
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/*
+> +	 * Only get the accumulator counter in CAM mode, in SMM mode
+> +	 * we only accumulate only once, so the counter is 1
+> +	 */
+
+"only" is duplicated
+
+> +	if (max34417->cam_mode) {
+> +		u64 acc_count;
+> +		u64 acc_power;
+> +
+> +		/* Retrieve all channels to avoid missing data for other channels */
+> +		rc = max34417_save_accumulators(max34417);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Get current channel power, counter and reset them */
+> +		acc_power = max34417->acc_power[chan->channel];
+> +		acc_count = max34417->acc_count[chan->channel];
+> +		max34417->acc_power[chan->channel] = 0;
+> +		max34417->acc_count[chan->channel] = 0;
+> +
+> +		if (acc_count == 0) {
+> +			dev_warn_ratelimited(&max34417->indio_dev->dev,
+> +					     "unexpected zero accumulator count\n");
+> +
+> +			*val = 0;
+> +			*val2 = 0;
+> +
+> +			return IIO_VAL_INT_64;
+> +		}
+> +
+> +		power = div64_u64(acc_power, acc_count);
+
+Shorter and makes the branches more symmetrical:
+
+	if (acc_count == 0) {
+		dev_warn_ratelimited(&max34417->indio_dev->dev,
+				     "unexpected zero accumulator count\n");
+
+		power = 0;
+	} else {
+		power = div64_u64(acc_power, acc_count);
+	}
+
+
+> +	} else {
+> +		rc = max34417_read_acc_power(max34417, chan->address, &power);
+> +		if (rc)
+> +			return rc;
+> +
+> +		rc = max34417_reset_smm(max34417);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	*val = lower_32_bits(power);
+> +	*val2 = upper_32_bits(power);
+
+iio_val_s64_decompose(power, val, val2)?
+
+> +
+> +	return IIO_VAL_INT_64;
+> +}
+> +
+> +static int max34417_read_energy(struct max34417_data *max34417,
+> +			       const struct iio_chan_spec *chan,
+> +			       int *val, int *val2)
+> +{
+> +	u64 acc_power;
+> +	int rc;
+> +
+> +	/* Move the data to the SMBus registers */
+> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Retrieve all channels to avoid missing data for other channels */
+> +	rc = max34417_save_accumulators(max34417);
+> +	if (rc)
+> +		return rc;
+> +
+> +	/* Get current channel power and reset them */
+> +	acc_power = max34417->acc_power[chan->channel];
+> +	max34417->acc_power[chan->channel] = 0;
+> +	max34417->acc_count[chan->channel] = 0;
+> +
+> +	*val = lower_32_bits(acc_power);
+> +	*val2 = upper_32_bits(acc_power);
+
+ditto, iio_val_s64_decompose(acc_power, val, val2)?
+
+> +
+> +	return IIO_VAL_INT_64;
+> +}
+> +
+> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int val)
+> +{
+> +	int rc;
+> +
+> +	if (max34417->cam_mode && !val) {
+> +		rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> +				       MAX34417_CONTROL_CAM | MAX34417_CONTROL_SMM);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/*
+> +		 * If CAM mode must be set, the Control byte must be set to
+> +		 * desired values with CAM = 0, then followed by an UPDATE
+> +		 */
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +	} else if (!max34417->cam_mode && val) {
+> +		/*
+> +		 * After this, the CAM mode bit can be set and another
+> +		 * UPDATE must be sent.
+> +		 */
+> +		rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> +				       MAX34417_CONTROL_SMM);
+> +		if (rc)
+> +			return rc;
+> +		rc = regmap_set_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> +				     MAX34417_CONTROL_CAM);
+> +		if (rc)
+> +			return rc;
+> +
+
+Can the regmap_clear_bits() and regmap_set_bits() calls be
+merged into one regmap_update_bits()?
+
+> +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> +		if (rc)
+> +			return rc;
+> +
+> +		/* Reset counters and accumulators */
+> +		for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++) {
+> +			max34417->acc_power[i] = 0;
+> +			max34417->acc_count[i] = 0;
+> +		}
+> +	}
+> +
+> +	max34417->cam_mode = val;
+> +
+> +	return 0;
+> +}
+> +
+> +static int max34417_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&max34417->lock);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		switch (chan->type) {
+> +		case IIO_VOLTAGE:
+> +			return max34417_read_voltage(max34417, chan, val);
+> +		case IIO_POWER:
+> +			/* In default mode, we return a single measurement */
+> +			if (max34417->cam_mode)
+> +				return -EINVAL;
+> +
+> +			return max34417_read_power(max34417, chan, val, val2);
+> +		case IIO_ENERGY:
+> +			if (!max34417->cam_mode)
+> +				return -EINVAL;
+> +
+> +			return max34417_read_energy(max34417, chan, val, val2);
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	case IIO_CHAN_INFO_AVERAGE_RAW:
+> +		if (chan->type != IIO_POWER)
+> +			return -EINVAL;
+> +
+> +		/* In CAM mode, we return an average measurement */
+> +		if (!max34417->cam_mode)
+> +			return -EINVAL;
+> +
+> +		return max34417_read_power(max34417, chan, val, val2);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type == IIO_VOLTAGE) {
+> +			/* Scale to mV */
+> +			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
+> +			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		} else if (chan->type == IIO_POWER) {
+> +			/*
+> +			 * Scale to mW
+> +			 * (1000 * (Power Accumulation / Counter) * Correction) / 2^30
+> +			 */
+> +			*val = max34417->input_correction[chan->channel] * MILLIWATT_PER_WATT;
+> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		} else if (chan->type == IIO_ENERGY) {
+> +			/*
+> +			 * Scale to mJ
+> +			 * P=(1000 * (Power Accumulation / Counter) * Correction) / 2^30
+> +			 * t=(Counter / Samples per Second)
+> +			 * E=(P * t)
+> +			 * Can be simplified to:
+> +			 * (1000 * Power Accumulation * Correction) / (2^30 * SPS)
+> +			 * The denominator doesn't fit in 32bit so scale down both terms.
+> +			 */
+> +			*val = max34417->input_correction[chan->channel];
+> +			*val2 = div_u64(BIT_ULL(MAX34417_PWR_AVG_FULL_SCALE_BITS) *
+> +					MAX34417_FAST_SPS_CAM, MILLI);
+> +
+> +			return IIO_VAL_FRACTIONAL;
+> +		}
+> +
+> +		return -EINVAL;
+
+Maybe make this a switch instead of an if-chain?
+
+> +	case IIO_CHAN_INFO_ENABLE:
+> +		*val = max34417->cam_mode;
+> +
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +static int max34417_read_label(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       char *label)
+> +{
+> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+> +	const char *input_label = max34417->input_label[chan->channel];
+> +
+> +	if (input_label) {
+> +		switch (chan->type) {
+> +		case IIO_VOLTAGE:
+> +			return sysfs_emit(label, "%s-voltage\n", input_label);
+> +		case IIO_POWER:
+> +			return sysfs_emit(label, "%s-power\n", input_label);
+> +		case IIO_ENERGY:
+> +			return sysfs_emit(label, "%s-energy\n", input_label);
+> +		default:
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	switch (chan->type) {
+> +	case IIO_VOLTAGE:
+> +		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
+> +	case IIO_POWER:
+> +		return sysfs_emit(label, "channel%d-power\n", chan->channel);
+> +	case IIO_ENERGY:
+> +		return sysfs_emit(label, "channel%d-energy\n", chan->channel);
+> +	default:
+> +		return 0;
+> +	}
+> +}
+
+Up to you if you prefer it, but an alternative to duplicating this switch
+is to add the following near the start of max34417_probe():
+
+max34417->input_label[0] = "channel0";
+max34417->input_label[1] = "channel1";
+max34417->input_label[2] = "channel2";
+max34417->input_label[3] = "channel3";
+
+> +
+> +static const struct iio_info max34417_info = {
+> +	.read_raw	= max34417_read_raw,
+> +	.write_raw	= max34417_write_raw,
+> +	.read_label	= max34417_read_label,
+> +};
+> +
+> +static unsigned int max34417_calc_input_correction(u32 rsense_microOhm)
+
+Spell the return type as u32, to match the parameter
