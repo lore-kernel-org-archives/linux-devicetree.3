@@ -1,70 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190558;
-	b=V9Ijy1qMkTozQfbUmTsV0Rm/+3j9YHd+NBNQEjoqcdLY/6PEYTRV5aD0dF1/oMXGNghH
-	 OQ0Tj2iV6ZpouKg7o+8U16BlM/Wgf9p6k/pyCfMs7x5Art+CPWQpIsEffhioS633Voibp
-	 asjKfTg2e7o3i+1glBptc/PFzST72et1lAUKq80KzIn+RCWizJwIZH/R7/UdQjVhM5IMB
-	 c3kebRNkdGrERvSPg/LOzl/bX8zWVgMCRErmrnPpa0O78l9iWUVnEGrXCql/PZ2EKjmdf
-	 fqmdSRoKaBPPFs0aavQlxkrHvtN7EDQ1YIpASQhUUrv7gEQv8HJwb/62/ug+Kh53VSw==
+	t=1793190620;
+	b=wB7kO72h2LEN5S53+5mNe50utPBmz8TsQiv7zq9kF8DM1gSZWLpqMNYUQf5K2rgWaQ/4
+	 Uoj6MF3FbOHiFHybH3XacC1wm8VBCkKP4wvV3w+mpeb2FSpEEmiw6QlsWD8YLdexWbtCY
+	 bp/SkT69X/yWh4CQgu4ZoSyUeoVPH/TP8OYbvqDtFYUKm5QHfPun2OpV4bNP6ZjWyW6MV
+	 6MKCjdt8vD1yMjmVQ/6SQY/Irqmh2JIUS5en+WfhYgLLWTxQKpH6uE+OsQDFj1u4DcGu7
+	 bSC60yHfFxuoXGJHnNkG4TXztgIJujy+4eSSSY2W/fRVYaH7pFhko+lHcucFLet9ZRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190558;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=sum+6SOo6fPr4wojZMJ/HsdG/QxP8iiWGofKkRuMS1M=;
-	b=M6S0nHD5SxmWh5ipx/Q2ksDTGKqxoGJ3auH06HA5lTy3eFECPcKisT8IdUslqbtMT/Gz
-	 zhK+z3uUETbYKHjuKNOed5kTUafl0PG5Vw0JYjz0r08MwIq/NT3kTmu+DE1ff/D7WtwQp
-	 BIZZCPiC67LIj/o87QRKgKLajivlwExrfYrDNFx9DEtySIEryIkfj75SUuj2sR8ApQtYU
-	 uaWZBNf8OPYrqG0fv9/aBGCcJOg8LKYvC7epPv8Q2/sn0DjBF4AW1jHgonWcDeI/y1gJj
-	 ofXQ6tvxDod5dVvRtpHjEuslqFHybdsLTQYeV+gLScxTwRz92BB/dB7j1EDb0cosQOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190620;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
+	b=A1QzaYi2h25qSUu1QnuTvP/ircrKd+bu2KcbXPzA5TT0o6TH/hF6/zB6Xr2NomWSV+n7
+	 ldxGQ8YUGMLjNbpNfqfsCKcaJaU1+FHuaxb2dqJkqACJ8mPVrwkfJH4nqMPsM3y5C5cPy
+	 lvSF/VRZHR0p6LLbbbgUcuQe+HOywPm0qmySM31qda5AHTws7G3hf2fk8k9RPUPIUjmsw
+	 M7f0N4BhuINaTZ6ckFb0uvBOeHVFHUbGaP2KSk4eZ0qsK+rX6jpyQWFlY3xMYknRU6PL9
+	 smnMFlqZxJ0spnMBPx7wQjYPvFhv0MpeLO2cL0f/9dqXNOhkUs7KsRmSCLzEWblQtwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=OIeTSxkE;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B91606A31A;
-	Wed, 28 Oct 2026 12:29:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4B91606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF9A606A31D;
+	Wed, 28 Oct 2026 12:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=OIeTSxkE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=sum+6SOo6fPr4wojZMJ/HsdG/QxP8iiWGofKkRuMS1M=; b=OIeTSxkEVEyNnKkle53WGtuvkZ
-	4QPsQXrPuG3ysSTXNKb1A9KeiGyBKadA1zp93MsEorhYJ12wPx7/9ZK7/WAHrYWRF+gV/pYRWsCC5
-	YGvVChI+oL7M5/9vB/XnbuhBGquvyooySQ/6nwz/2UKrj9OU6DG9a/TRn2xVJ3KAVzl0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xM2lx-00D6fN-W5; Wed, 28 Oct 2026 13:28:53 +0100
-Date: Wed, 28 Oct 2026 13:28:53 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, olteanv@gmail.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com, daniel@makrotopia.org,
-	linux@armlinux.org.uk, arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v3 2/7] dt-bindings: net: dsa: mediatek,mt7530: add
- passthrough mode
-Message-ID: <a566aad7-754c-4960-b018-4471a0068344@lunn.ch>
-References: <20261028011317.1557238-1-cjd@cjdns.fr>
- <20261028011317.1557238-3-cjd@cjdns.fr>
- <a031f089-0b96-4fc0-b878-6af13414524f@lunn.ch>
- <521b930f-0bf9-4373-bfbf-3e2570661ec9@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35CE1F01828;
+	Wed, 28 Oct 2026 12:30:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793190620;
+	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lrLtIEJO3aOGm+W9qfoKDCPM9nPAzl/qXGkuhBCK92zhO1UZpUVyqigvG89qeGKAl
+	 8N7lguTVXGt3ulzhaC1QedPuNmbzKcNAxfrXMdPCdolHWPdOK+MHPAYkmiFbVvGWXV
+	 SVClED3CJ0j6ivz7aVab+2gqaUj9yVe7jWU8ATQ+o6mImw5+qkzcajfIZG3qVUbgIU
+	 gvKt3FHubrJsE0PVxmXacPn1C9vgHDQSgTRXfWLTi9hTs8XKge8xnzPFVFWkcC4U9Y
+	 YOrQrjchDlF0FIfNDwpuJ8i2MIS+8ngAjo79y7WFouwlBVM1fA69Tb3GCiWvOqUprg
+	 Zg8hhrc0fj2EQ==
+Message-ID: <84bc6332-1db6-4c9c-a956-51b76f96352a@kernel.org>
+Date: Wed, 28 Oct 2026 12:30:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,79 +51,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <521b930f-0bf9-4373-bfbf-3e2570661ec9@cjdns.fr>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/9] media: camss: csid: report frame starts from CSID
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+ 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+ <k2dZHJ94733JT5DJusl2nP9NvOh_j_-E6u4zAseXkHe8U1G3fkMGJbK6ZAN6r_hynH5O4Zsu20d0-0e69jXARA==@protonmail.internalid>
+ <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 12:27:18PM +0100, Caleb James DeLisle wrote:
-> 
-> On 28/10/2026 03:04, Andrew Lunn wrote:
-> > On Wed, Oct 28, 2026 at 01:13:12AM +0000, Caleb James DeLisle wrote:
-> > > MT7530 switches can be configured to blindly pass packets between their
-> > > CPU/upstream port and a downstream DSA port, in particular, without
-> > > altering the MediaTek DSA Tag on the packets. This mode is used in some
-> > > integrations where an SoC integrated switch exists, but a more capable
-> > > MCM switch is added to effectively replace it.
-> > > 
-> > > Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> > > Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> > > ---
-> > >   .../devicetree/bindings/net/dsa/mediatek,mt7530.yaml       | 7 +++++++
-> > >   1 file changed, 7 insertions(+)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > > index 90b3582b7619..e29fb8693498 100644
-> > > --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > > +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > > @@ -73,6 +73,13 @@ description: |
-> > >         Check out example 7.
-> > > +  The MT7530 and MT7531 switches are capable of being operated in "passthrough"
-> > > +  mode. In this mode, traffic is unconditionally passed between the CPU port
-> > > +  and the DSA port which links to a second switch. To use passthrough mode, the
-> > > +  upstream switch is configured with a DSA link to the downstream switch. In
-> > > +  passthrough mode the upstream switch is restricted, with no other ports or
-> > > +  switch configuration allowed.
-> > > +
-> > >   properties:
-> > >     compatible:
-> > >       oneOf:
-> > Looking at just what is here, all i see is a comment. There is no new
-> > property? Yet the subject is "add passthrough mode"?
-> 
-> 
-> Indeed, I used "add" to mean "add documentation of". Per my reply on patch
-> 3, I think we really prefer to avoid special properties and let this
-> constitute (very) limited support for a switch hierarchy.
-> 
-> If there's another verb you think makes a better commit line, I'd be happy
-> to adjust.
+On 28/10/2026 09:29, Qianhui Xu wrote:
+> +			if (val & INFO_CAMIF_SOF) {
+> +				/* A new SOF may follow an as-yet unhandled completion. */
+> +				if (done && csid_read_timestamp(csid, CSID_RDI_EOF_TS(i)) <
+> +				    csid_read_timestamp(csid, CSID_RDI_SOF_TS(i))) {
+> +					camss_buf_done(csid->camss, csid->id, i);
 
-[Goes and looks at mediatek,mt7530.yaml]
+SOF and buf done need not happen in the same interrupt and quite likely 
+won't.
 
-So pass through is not an existing property. You are also not adding a
-new property 'passthrough'.
+This logic can't hold over idle entry/exit scenarios.
 
-What you appear to be saying is that the MT7530 and MT7531 are hard
-coded by the driver into pass through mode? So it is in effect a
-property of the compatible? So maybe put this comment next to the
-compatible? And make the subject/commit message talk about the
-compatible being hard coded for pass through?
+Also I think we need a different approach to latching qtime regs, generally.
 
-Looking forward, what happens when somebody wants to use the switch as
-a switch? Or you figure out how to do proper D in DSA? It becomes
-messy because you need to add a property indicating the compatible
-should actually be a switch?
+In fact let me follow up this email with a series to enable 
+V4L2_EVENT_FRAME_SYNC which is the right way IMO to latch SOF.
 
-So maybe you really do need a property?
-
-But DT describes hardware, and pass through is configuration. So maybe
-it should not be in DT at all, Maybe the driver needs to look at the
-DT tree, figure out a port is used as a DSA port, and put the switch
-into pass through all on its own? Once D in DSA is supported, the
-addition ports become available, but no other changes are needed in
-the DT blob?
-
-Sorry, going around in circles, but hopefully it helps you think about
-the big picture.
-
-	   Andrew
+---
+bod
