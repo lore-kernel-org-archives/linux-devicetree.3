@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181137;
-	b=1ijJmfEVk9snl2YrE2AJtFd/TF8urnjVEUCCulo+b9Jucuykzy9v1VuOV056R9DKVJhT
-	 FRTFvK6K7BX2NtzrBunStkPH1BAvZDsngB5kZKEoHaExUz6I35kN3gF6hpH2jCozGAAWd
-	 202JYzPfmzRGk5e9imPsX1uHZgjj83nJph5oCI0rd5gB5iamEZXbyWHBQ8CDR/1CVNjAS
-	 TyL3RegahcrrZFwdedDywucQUmoMBNnO1PEEcqsuu3d0FoxqurPjbKjjl7AL9Y76pWThO
-	 SLJJbZWNN5wwqfBkVIhRi5SA6Ga2Ax/Iz/7lPjqsCxxpQxBaerbQbj9DkU3eQZNpNjA==
+	t=1793181141;
+	b=MMmpvg9X/im1grOW+7Llwd1wzo9ggKmSPSzzM0vRaWsd2Bnmnm9yXYnulkC73ZjY7imm
+	 V2qx9wSx5VQhPpEubfkbofBePj9nVt8ZN6yO14cn3/uxPv8qv7FPRE1PbVY1fc3wci8ka
+	 Qr2vJO77IrV4csYwraY/+8XhHK91THG/L9Tw2MfUOstEz42ypjkJJZw0iaqvOgkfmXTqG
+	 r8g0ziF33C7hAQ3IuZcm0+CUKeEv3wWo2Gt/YYzd3jOf5aZWP9hpgJwi8XYakFgwraWX4
+	 2dny6rwluFelRwCj+R4CIA87MkjtREaH2K+So3wCk6GioSZImCNYu6a+owPpkI/S4Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IFX2JtlTbr+jLq9ZrOSyQEw1TGAYJjhnYQnxGuQNP6A=;
-	b=dUckM38gvmlfzJMbqLfWz+qY/OSgb2/JzTUp6oQgdGldD2ijS1PP8Ab1WtMKw0/AX8jZ
-	 rH2BtAtmT4DlFoaDASh4VQDt+ayvUilm8igmJeiLx5YQOwin3Jd6k1t5ciWmg4FMaWT/7
-	 QOnenmVUBM3RIoAreQ1Wp2bAczrqzo99bWhYMh7wmRNWIQTuoOHfLyYjuoxqIrGwfbxIo
-	 369pCP69LOPuih5zaVikE/RjJKF+KRXH/6TQJyDUGTSNwLFTl3K5y/gKU/yv6+ym477gD
-	 Yxn/79ZLdGVy2CqsujXTsF9R7HiyF5+P/zefhs8kbnhdS2gHO5qHjVtc37265+REl+g==
+	bh=Ujhza5d/TXdxWStAAmiobZSug+sQnRFnUtKXmDKdOmg=;
+	b=yMl6j+tq1GgQv/Kh2b/sOZojyLGg1oNDoB2PHaH13+Dl9CC7s8bAy/0c+g5ctVL1Cs44
+	 J75BOCGcrKCY4BDxN4Veqmnvtt4/JIW5pzI6mNtHhkbnoYTfpm39YLz/j4510khrHSpLp
+	 xnh8araXf92ltWBMMm02UxGU/SL0xbXQp7/Bz6WIKR++MrHezWa/3Ws9u/9evxnVEfSuh
+	 M4FZfgi752oYE621PJEA9a4n/dTmiFH4HscT6VuAZhkVuYysnfyl/1DgwBMjr0+/XHaij
+	 jS1vgJYbyckP0CzJR4NHWzsH8AE34tcdUo0xOJUdOJb3JdCAnQBM9SpntKBPKWky5dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8+cI6Z9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fQVCgB/n";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD15606A331;
-	Wed, 28 Oct 2026 09:52:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF71D606A320;
+	Wed, 28 Oct 2026 09:52:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8+cI6Z9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B581F031E1;
-	Wed, 28 Oct 2026 09:52:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQVCgB/n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B501F031E6;
+	Wed, 28 Oct 2026 09:52:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181136;
-	bh=IFX2JtlTbr+jLq9ZrOSyQEw1TGAYJjhnYQnxGuQNP6A=;
+	s=k20260515; t=1793181140;
+	bh=Ujhza5d/TXdxWStAAmiobZSug+sQnRFnUtKXmDKdOmg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I8+cI6Z9tvUCK+VC9D/wPLlgU/dA/XjAIQGbntm02RKhQxJJwK/2E3DhdKqIKlKiz
-	 gk5pII3D6mwzsdoNk2JWFPDR5lWrDNZAC0B8pCVuV6TEl5pdQYNSotIslNJ3Aq2A5e
-	 3pXYysmDTT3yqnfp45UWqmEbiO0f9g+BXgooKKNsfDqiyKLsWWtcjTxI2RBgmY8Puk
-	 SO1fm+Ad6O+Dxz+2htVryuxykye6eZ8ix7He+UUYvLa8ytIiD5SqdpfDjBtdDRa6W0
-	 hydg3enDVyVP+G6Ybn1Eb13VbdX+hy8FGvbH2QU9bEv18yCF5oTTMMwRwFTW7x9vOg
-	 Jh+GVs0wGbb6g==
+	b=fQVCgB/n7BDbNgTK6UE9BR7LsWOIJeOfoQyQI6fMqMFXffZsQVh9x8rApMUSGOOuV
+	 8JHWktjoTAbFA+31pCxPH7VGPMsQoptsM63TXL4wLXxSvX0ciZcAPMOxMN3jkeswfv
+	 xznzKkArZ+0UY3Ufa5LYFNJrzQLnRFJSRnTvt2YFX23O4LT55ZmGr7RKkyzN2I63Kn
+	 yX6fzM0ppe6wI96PfQG5kmVekAGfuGdK7n/HD0Cu6ieK6HJTbhawOEcTvwY46p9KVK
+	 gkqYyFgsTNdKlEAst7DQE7qQRNkd1EA+pEg0XqpYhnHq1wTBUo8hEBmj0HbC5zS1AO
+	 loGKLqBW/35ow==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -57,9 +57,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 2/8] dt-bindings: display: panel: novatek,nt36672e: Add bias enable GPIO
-Date: Wed, 28 Oct 2026 11:51:45 +0200
-Message-ID: <20261028095151.1682096-3-vz@kernel.org>
+Subject: [PATCH 3/8] drm/panel: novatek-nt36672e: Make the AVDD and AVEE supplies optional
+Date: Wed, 28 Oct 2026 11:51:46 +0200
+Message-ID: <20261028095151.1682096-4-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261028095151.1682096-1-vz@kernel.org>
 References: <20261028095151.1682096-1-vz@kernel.org>
@@ -74,91 +74,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The pair of positive and negative bias supplies of an NT36672E panel,
-AVDD and AVEE, also known as VSP and VSN, are either provided by the host,
-or generated on the panel module itself. In the latter case the module
-exposes only a bias enable signal with no need to describe the supplies.
+The positive and negative bias supplies of an NT36672E panel, AVDD and
+AVEE, are not exposed by the panel modules, which generate the bias on
+the module itself.
 
-Make the AVDD and AVEE supplies optional, but require them to be
-described together as the indivisible pair, and add an optional enable
-GPIO for the bias enable signal of the panel module, which excludes
-the bias supplies, if present in the actual device tree node.
+Split the supplies into the required VDDI supply and the pair of AVDD
+and AVEE bias supplies, which are either both described or both absent,
+and get the bias supplies only if they are described.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../display/panel/novatek,nt36672e.yaml       | 32 +++++++++++++++----
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ .../gpu/drm/panel/panel-novatek-nt36672e.c    | 69 +++++++++++++------
+ 1 file changed, 49 insertions(+), 20 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-index 45743376995b..daf2f96b8ed4 100644
---- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-@@ -11,6 +11,13 @@ maintainers:
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+index c5e00eb55722..80934c6bf250 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+@@ -13,16 +13,13 @@
  
- allOf:
-   - $ref: panel-common.yaml#
-+  - if:
-+      required:
-+        - enable-gpios
-+    then:
-+      properties:
-+        avdd-supply: false
-+        avee-supply: false
+ #include <video/mipi_display.h>
  
- properties:
-   compatible:
-@@ -21,8 +28,20 @@ properties:
-     description: DSI virtual channel
+-static const char * const regulator_names[] = {
+-	"vddi",
+-	"avdd",
+-	"avee",
++static const struct regulator_bulk_data nt36672e_supplies[] = {
++	{ .supply = "vddi", .init_load_uA = 62000 },
+ };
  
-   vddi-supply: true
--  avdd-supply: true
--  avee-supply: true
+-static const unsigned long regulator_enable_loads[] = {
+-	62000,
+-	100000,
+-	100000,
++static const struct regulator_bulk_data nt36672e_bias_supplies[] = {
++	{ .supply = "avdd", .init_load_uA = 100000 },
++	{ .supply = "avee", .init_load_uA = 100000 },
+ };
+ 
+ struct panel_desc {
+@@ -40,7 +37,8 @@ struct nt36672e_panel {
+ 	struct drm_panel panel;
+ 	struct mipi_dsi_device *dsi;
+ 	struct gpio_desc *reset_gpio;
+-	struct regulator_bulk_data supplies[3];
++	struct regulator_bulk_data *supplies;
++	struct regulator_bulk_data *bias_supplies;
+ 	const struct panel_desc *desc;
+ };
+ 
+@@ -362,12 +360,23 @@ static int nt36672e_power_on(struct nt36672e_panel *ctx)
+ 	struct mipi_dsi_device *dsi = ctx->dsi;
+ 	int ret;
+ 
+-	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
+ 	if (ret < 0) {
+ 		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
+ 		return ret;
+ 	}
+ 
++	if (ctx->bias_supplies) {
++		ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_bias_supplies),
++					    ctx->bias_supplies);
++		if (ret < 0) {
++			dev_err(&dsi->dev, "bias regulator enable failed: %d\n", ret);
++			regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies),
++					       ctx->supplies);
++			return ret;
++		}
++	}
 +
-+  avdd-supply:
-+    description: Positive bias supply of the panel
+ 	/*
+ 	 * Reset sequence of nt36672e panel requires the panel to be out of reset
+ 	 * for 10ms, followed by being held in reset for 10ms and then out again.
+@@ -389,7 +398,14 @@ static int nt36672e_power_off(struct nt36672e_panel *ctx)
+ 
+ 	gpiod_set_value(ctx->reset_gpio, 0);
+ 
+-	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	if (ctx->bias_supplies) {
++		ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_bias_supplies),
++					     ctx->bias_supplies);
++		if (ret)
++			dev_err(&dsi->dev, "bias regulator disable failed: %d\n", ret);
++	}
 +
-+  avee-supply:
-+    description: Negative bias supply of the panel
++	ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
+ 	if (ret)
+ 		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
+ 
+@@ -520,7 +536,8 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ {
+ 	struct device *dev = &dsi->dev;
+ 	struct nt36672e_panel *ctx;
+-	int i, ret = 0;
++	bool avdd, avee;
++	int ret = 0;
+ 
+ 	ctx = devm_drm_panel_alloc(dev, struct nt36672e_panel, panel,
+ 				   &nt36672e_drm_funcs,
+@@ -534,15 +551,27 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ 		return -ENODEV;
+ 	}
+ 
+-	for (i = 0; i < ARRAY_SIZE(ctx->supplies); i++) {
+-		ctx->supplies[i].supply = regulator_names[i];
+-		ctx->supplies[i].init_load_uA = regulator_enable_loads[i];
+-	}
+-
+-	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
+-			ctx->supplies);
++	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(nt36672e_supplies),
++					    nt36672e_supplies, &ctx->supplies);
+ 	if (ret < 0)
+-		return ret;
++		return dev_err_probe(dev, ret, "Failed to get regulators\n");
 +
-+  enable-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the bias enable signal of the panel module, which
-+      switches on the positive and negative bias supplies generated on the
-+      module. The signal is active high.
++	/* The bias supplies are either both described or generated on the module */
++	avdd = of_property_present(dev->of_node, "avdd-supply");
++	avee = of_property_present(dev->of_node, "avee-supply");
++	if (avdd != avee)
++		return dev_err_probe(dev, -EINVAL,
++				     "avdd and avee supplies must be described together\n");
 +
-   port: true
-   reset-gpios:
-     maxItems: 1
-@@ -38,11 +57,13 @@ required:
-   - compatible
-   - reg
-   - vddi-supply
--  - avdd-supply
--  - avee-supply
-   - reset-gpios
-   - port
++	if (avdd) {
++		ret = devm_regulator_bulk_get_const(dev,
++						    ARRAY_SIZE(nt36672e_bias_supplies),
++						    nt36672e_bias_supplies,
++						    &ctx->bias_supplies);
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "Failed to get bias regulators\n");
++	}
  
-+dependentRequired:
-+  avdd-supply: [avee-supply]
-+  avee-supply: [avdd-supply]
-+
- additionalProperties: false
- 
- examples:
-@@ -55,11 +76,10 @@ examples:
-             compatible = "novatek,nt36672e";
-             reg = <0>;
- 
-+            enable-gpios = <&pmic_gpios 8 GPIO_ACTIVE_HIGH>;
-             reset-gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
- 
-             vddi-supply = <&vreg_l8c_1p8>;
--            avdd-supply = <&disp_avdd>;
--            avee-supply = <&disp_avee>;
- 
-             backlight = <&pwm_backlight>;
- 
+ 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+ 	if (IS_ERR(ctx->reset_gpio))
 -- 
 2.51.0
 
