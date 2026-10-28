@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199597;
-	b=xIki68awzPf1F3oUJbug6XBJ7VthI4L8ueb03JHAbky6XommYMgZB98CLlYSn0u1KcUY
-	 AtSqPiQoaVGzg0m1vsC0sZyshrKIbLzrqTAOrGQ+etdOIhFdJkVg8tGFq5tBFN+Ps1QTo
-	 /goHI3C8BSo9sHo7byD7c3MUA53Lfbg5Prw3oVLyQUUPVVaPcIdGtKqndMJiC2bZmrpmh
-	 Dv5yRsl+b9syKTKD1Ed9kE8IzWmQZdXB384d0vr2AVt2cfvNWjLNLidCdsENgGtIC4ooB
-	 284gDjR/ZHrh7D2E5QR3nyd+qGknRAMlko66SEnn+TGKBlsoJsojQdtBLU+b09ILTTA==
+	t=1793199598;
+	b=t2ObgwVdxUy57ajMytbn8vR2wZsVS+c09o1X7QO+WehtJAkX3LmhT3BL91fsGknSr88l
+	 uy5FoS/LxY9ZTzX/eWynFdEc/VZOAwVt793Y9DFgLTv3zi8vWeOQUAsPka7fqyL/QKOZJ
+	 8bCqFb6DkMPNRBJpGVudOIP3THkEfVBceCjoWVC0FmTvk8B/6gRBKNa0Xh30xw9W5FjPQ
+	 QT1z5H1EPkWtmsoGsa2b7hlBZVOMXjmz6DSh6J25Aq03P4Dr10JI0+n/fViZvx269NVDw
+	 8Dc5lpTR6NBaE12bJb9Ap0NrWKBUTjWDyLSoQnCheFdvcQQGtESzxx0radn9WcSkPYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199597;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=NSb6a/pDw1kg0BISDKF7FpWlMPPEDSnf/hJXicQJYVw=;
-	b=nuhEo5+AXvHnlx3GoOFfPQQlo88/7xph/Y2fB+LMVtikGmj9zdlmu6hnP9ODrthdLznt
-	 nmW6dFHv79kEYKjZpFMI03NBStpEsrkipq7rh1Zmv/Q+5zFMH58r8fpdl+igULgFOXXOD
-	 k2KT+NTJDArMngE3D2mPAUJqyu1ZVjG7FpiwA4rUJdPdNWpNPxdDL0ufOZZnFURkFIpAh
-	 SU+W79635AMX84e+sxbpl7ba51SqXmf+ICcf1MKH/+5QHZmd7diV/bjzD4GF42Rr9qxj0
-	 YexAEcjd9nHIJ6lOormwHlEJw6wSwMyM9U379s67sEFQkQ3XdpGC2fiwGn9Ci63qOnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199598;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WFTqzUK0OWmVn8nB7SkFv0+d/gKCQFWVCVhmjuDOVS4=;
+	b=yJ1WX0OqF/IaBLr44bkQ/1irSaqWjEFJao8VWmFKylRBsGEbgEhLke3TpqZxLEfCyGuU
+	 pTbuQUB1KZDY9hEf41TopNp1qGO0u8KLJ7znQnj3Ku/n/qNTtWqlZBp/4DScvx6z5TuQB
+	 NSyLtsTqMyorIEB83dxpKyOQuMJ+Q62UNmnWgqJ0lHWRoLf62UyCT4lZloq6hewq6xsAX
+	 3HzVFksYvuGbjg15a3tttiyKYEldU+r7j5qqHXIcfJcC6wgX/NXponyqx1CERGr6T58uy
+	 CHLnXEoENwR7ZOEGscauMoXxJjuLuK3HCo832+awlSAl/gjN+/+hbTTAEBusjY07L3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgUOXVxE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SSO/NeTj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510A1606A31A;
-	Wed, 28 Oct 2026 14:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62598606A31A;
+	Wed, 28 Oct 2026 14:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgUOXVxE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FDD1F01828;
-	Wed, 28 Oct 2026 14:59:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSO/NeTj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACB41F01825;
+	Wed, 28 Oct 2026 14:59:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199597;
-	bh=NSb6a/pDw1kg0BISDKF7FpWlMPPEDSnf/hJXicQJYVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jgUOXVxES0RtRhBDD5vjPlJx8U4HEZ7aqAILOTNCPBEbA0FgKh+iooXbxMPg1Cq9R
-	 f3hVu1uOGjh9Ofeeph6srH+EuC+y9sIsXaYCQwPZ5NC7VoEqiyQ0jdQlrogzHZ68X4
-	 InAkxl/K94Aq+hAu+BKTAO5BsrnPfep3MJFBPxlildgaC/SzVfIaXRdpmyb6j2e6my
-	 7EoCnJwd7BO9KW5SmD1EMpig8TjfY+FAI3BMMf3mMFLU6ISeDPR9iC5e6p0PkyUbNc
-	 WUmJrXE+3GL2j/1feyPSiFNmUIAIV3+zy3dIx5FZn9EZ8Rj9AaezMHVZPa+Q+9HGRb
-	 o1oAR7x1gmj1Q==
-Date: Wed, 28 Oct 2026 14:59:53 +0000
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/8] backlight: qcom-wled: fix string detection
- brightness on WLED5
-Message-ID: <20261028145953.GD3605912@google.com>
-References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
- <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
- <sashiko-outbox-177041@kernel.org>
+	s=k20260515; t=1793199598;
+	bh=WFTqzUK0OWmVn8nB7SkFv0+d/gKCQFWVCVhmjuDOVS4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SSO/NeTjaHXBJjSMGrmb7GMppclwzJEz8GUIyIjbZHI6v6VABub4pEUZhF7zYLaFJ
+	 sGQgjJQX9hWSxhj1lW6Q/U763CTnC1oCuOHMN1lzv7MLHpJoOnDO8zI4tm+tQ+Jd7l
+	 l4VqdreTrhKQ10G3WtZwYYYqdjfUaNCM0ZMUck/viPfy8IsXtGKAmDvEYHqmUMzCWT
+	 cVisKinmsblznKFNhoTzXfel5a/zO9sIbs0aYAMvKR4J+lsNb9dPqrNauQNmG8G18G
+	 ojHgDvv7W652GbnYKEvm/mHXK6q371TN88E0EQuNdyPulHus15U9m9ARazfOMur46r
+	 2s7Sc7VYnEatg==
+Message-ID: <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
+Date: Wed, 28 Oct 2026 15:59:49 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,87 +51,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-177041@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
+ Document the reset GPIO polarity
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org
+References: <20261028095151.1682096-1-vz@kernel.org>
+ <20261028095151.1682096-2-vz@kernel.org>
+ <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+ <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026, sashiko-bot@kernel.org wrote:
+On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
+>> We might fix it at some point, so not sure if it is worth documenting in
+>> the binding. And what about usage of this binding in other projects
+>> which implement it correctly?
+>>
+> 
+> In the upstream there is only one user qcm6490-idp.dts, and changing
+> the polarity will be an ABI breaking change, unfortunately.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] backlight: qcom-wled: wled5_set_brightness() clamps 0 to low_limit on restore
+And all other projects?
 
-This needs a response.
-
-> --
-> 
-> commit 1866e6688066844d34f7f3f1d2a0c521bb917107
-> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> 
-> backlight: qcom-wled: fix string detection brightness on WLED5
-> 
-> This commit updates wled_auto_string_detection() to use the per-version
-> wled_set_brightness() callback instead of hardcoding wled4_set_brightness(),
-> and moves the WLED5 module sync toggle into wled5_set_brightness().
-> 
-> > diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-> > index ca350f320e177..c5243a6d547e5 100644
-> > --- a/drivers/video/backlight/qcom-wled.c
-> > +++ b/drivers/video/backlight/qcom-wled.c
-> 
-> [ ... ]
-> 
-> > @@ -791,7 +783,7 @@ static void wled_auto_string_detection(struct wled *wled)
-> >  	}
-> >  
-> >  	/* Restore brightness */
-> > -	rc = wled4_set_brightness(wled, wled->brightness);
-> > +	rc = wled->wled_set_brightness(wled, wled->brightness);
-> >  	if (rc < 0) {
-> >  		dev_err(wled->dev, "Failed to set brightness after auto detection rc=%d\n",
-> >  			rc);
-> 
-> [Severity: Medium]
-> When wled_auto_string_detection() runs during probe via
-> wled_probe() -> wled5_setup() -> wled_auto_detection_at_init(),
-> wled_read_brightness() has not run yet, so wled->brightness is still 0.
-> 
-> Previously, wled4_set_brightness() only clamped non-zero brightness values:
-> 
-> 	/* WLED4's lower limit of operation is 0.4% */
-> 	if (brightness > 0 && brightness < low_limit)
-> 		brightness = low_limit;
-> 
-> However, wled5_set_brightness() unconditionally clamps brightness == 0 up to
-> low_limit (0.1% of max_brightness):
-> 
-> 	/* WLED5's lower limit is 0.1% */
-> 	if (brightness < low_limit)
-> 		brightness = low_limit;
-> 
-> With this change, restoring wled->brightness (0) at the end of
-> wled_auto_string_detection() on WLED5 writes and latches low_limit into the
-> modulator brightness register before enabling WLED3_CTRL_REG_MOD_EN.
-> 
-> When wled_probe() subsequently calls wled_read_brightness():
-> 
-> 	rc = wled_read_brightness(wled);
-> 	if (rc < 0)
-> 		return rc;
-> 
-> 	wled->brightness = rc;
-> 	...
-> 	props.brightness = wled->brightness ?: val;
-> 
-> will it read back low_limit instead of 0, leaving ovp_irq enabled in
-> wled_configure_ovp_irq() and initializing props.brightness to low_limit
-> instead of default-brightness?
-> 
-> Should wled5_set_brightness() check brightness > 0 && brightness < low_limit
-> like wled4_set_brightness() does?
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com?part=1
-
--- 
-Lee Jones
+Best regards,
+Krzysztof
