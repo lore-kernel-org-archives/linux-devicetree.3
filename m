@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268422;
-	b=HNIGrfHLUC+vUAZYUXQWUfeGEZv9aShu9Yx+0nbK3mdioGy3mfK7oqtvdM6hFOPBJeLF
-	 nlgfQjCyHt1razE/JWFhMJnsN3W/ivXIS2344sRqHunA24E2TUl/4/yfeqTFbo/oMdJNm
-	 3C7pdIzwqQpgO5JExlz0NcXaVxKUc3gra/5vyLfDpyLKaLjDlOxsryedtLpe2Omg9TAZq
-	 OsCNtzxfwcAd5u/MDibVyujaBFz95JSUuMBg+zdZWQ7N5t95OLw8JQ0WAwn6TgPLMvgqO
-	 a+ugymK3hTTjqU0VnOMt7uk7cqv+veZsbNC32KAWvApV6C8AOF9zuYqmlS7ABx/anvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=0SbZPVThhtjU5v2CJr4ClagjjvnIt2bp8J9XxZctWA4=;
-	b=rUfk8S2Eejs8EobLrws6BSmUCtZEYNPAKGgG7ZyLRLY1srcVQQ5/Kw95fVzFKOncJSD5
-	 A1LZTQihJ986lv8kal6YvjHjO4SKDGgoTLSHjMaVUSE76oEyELZavC8cpMrHrvXGoUCCr
-	 XP0vx4qhXQEqRMHYU9CQjg7gy6OD3qkQHBF6tppontGN1gSbnvcFJPUzAh3mizsZvXiZO
-	 TisTA8B1mxzYewkNONkivQYWYs2oVre11ZiX7pOw/CuI7xDBZtz8DY/XquLZP0xj5O23X
-	 8VxPpRd31Ub3VoICA8jr06IHy92t07n4n/sCOfYZ7RYpij0iw0a97O460DuSLpSJp8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lAFFjDnK;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793268767;
+	b=WPWZHaO3MfZVyp71LFEa76bUPJIo8pXISfbiW1HExoCXTBiasQ0LIIfgRsh1KSMaLfyw
+	 JK8LNQ6039zrsS0Eygl6Z2q0mhjDOeOwsoI7FmIeiqS+JRN4p2SfEin//ryAnx/3vxG+P
+	 yMCr0VdQYCeDm+2NsuNB9s42WIY7sMx4vEg5kulFnPkbW9a2sOXHLOahU60QVviZd9/qs
+	 YMjCMaIV13n9v43x9cCyFlk/OJ5GE+NlZtjW11TAMt+c8RwI/W2DnyZ8bNeH+F6hE6ynF
+	 swYWD1/wLom94rkZaU73Phl4sfqmyh1TuKgmQYEJgdbd2C/6131Zroxz0IPeA8EhQeg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268767;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	b=NM3xb7OalLT+4uU4/iFpAChb0lRLmYfThwl8R7dl4weoqxrJIZSe4CGMaJesIYS8kwGa
+	 AKdKLNV+92UrLVTwl9CepSvcagk3Loj2O6LNWM2qZPU8hO4HHlRe4U4DfwJJ/IvUk97NP
+	 O9HgAf2Oqf4suUDWCEHNlf0d4NHvoLYjCoOVXvBeRAbjgVk1GGuc8CqIUbA5mPa/I0M/c
+	 YPpi/N9T2gPH+xVhFn2rX2nFBznkVrxbbZgkJNNCeur37Z93fHs2MRD2diUXFXTON3+hk
+	 W34EuEPdDaORLLOl4bgq96wpZj3Ravyp0c2pETMyf7eRg9+xgL6qZ6X0fuiUTiSZiZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euhgcILv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336CA606A31D;
+	Thu, 29 Oct 2026 10:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euhgcILv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793268767;
+	b=rGQ0goCapDTfH8Haii1ElvwwyaTdexGpzSdYTyM5YDdNzMDxd/dLWN6WgJJlKZBG+f6V
+	 7LoH79KY8gHKio4hhDDGRvC4TEW90VSUwzrBJRk3ygwfNcAFRF3XIHeNd7zpyMkkp/n3B
+	 ERjaVAsJ9C0HEyXmC+hWtimyDZ+V+a4OeRRvce1lsIziGZ02XXi+3N+D4NTW+GXNSzq0b
+	 MO+3PL31mFq/WhHnDnsLQH+c+Hq/Bini17piBk4i8RXHmI75X24zYtjxxfk2/fanS1hpi
+	 R4b1DXbVeqiH6xnWgePBR4hC8igi6xzwr9Kymaq2KXCbzJsxxky53s8TWBJTK9TqiGA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793268767;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	b=U8wKkgr9XdDlkoFpdi17E01HIedb6gomYk0KDMkllfyzcIJ1adtd+GPZz1UhUPjXs88J
+	 RDpP1bfy3Flgu3+XQoSft2y0VIe8GkR8pZ9b17uAq1MqFBhL0a4Dzq+VSgbRXAOAlr2g3
+	 mVdHvnTgv3J70YqpZDt7QTn+adsl6BNy9uexq6aNbg3l8Rr+qBBmUt4qYtKX/wqVBF/q2
+	 Ou2V+iSkkjs9OzznUlwlUgFUY4LKIyzpgX7BqyE/PF/KlywcZNAnPWMNfOOEL2VnLWv8w
+	 sEY7TZFzS5g4MrOmwav+D6JRqWUCVRF63Xzu+wRG7X8fhdD0u/rahi1I/BARiEjoScQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054B860A260C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 054B860A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lAFFjDnK
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so14811515e9.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793268412; x=1793873212; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0SbZPVThhtjU5v2CJr4ClagjjvnIt2bp8J9XxZctWA4=;
-        b=lAFFjDnKXk3yH9RHcKlULdwN/XxVDGn0oMA8mXORaKO4pb2jDfGpEFQuvU2GdRYBrp
-         odpaKHZhwiUMxt/EhkksTRDQKBX23YlXeGuXC0spnbFsv4oV/poSijzq+2qP/JhgEc/d
-         kU8NIECqSVobeduQxcoT20A1EpeYj4nSO/JzjAojX4gqStiVhWoMojgLLiSH2fpGShX+
-         K3p3JmvcAFy+T7yFWuGZT4Gj5Xow/XlQl/KVGMKiReFsU0RZOR2bCKv7Pki2IukrhFwv
-         2paWFfgdWETuDBSmNXXM/GNoRDbiJtDQ8mQXuUJ9ku/CPcKcrrg1Cdb/NOBB0OYvmTVA
-         Y5uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793268412; x=1793873212;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0SbZPVThhtjU5v2CJr4ClagjjvnIt2bp8J9XxZctWA4=;
-        b=MOiDU4Yu/0wTODLQNnbwhxuc5lw3LJic+HDM0b/gyfYFhvdRiFBFLimLpiRZDlM42L
-         EIy6FCMdKQ0xvgMNJu/qE0MN71xPrHke3bXeXe851H59cyEujWshWxKUCZHzGF+lF0AB
-         xrRWkRapmb1wEBkD3kRZ9UWaQBw0U85xefFspxxS5JW/h5gASmS9T6SaAn8qm/GuCsFL
-         S+dlNkk2nWqvqPv5WNZQn2uH3/hJm30V6A6QyHTxK2WkvlZpFvMjZMzXQAYSxPwy6ZPT
-         CtTxFsLcitrwkiSeBUEJCRFcxefeqXzkx1oC5Klxk8xcMiDggbNGUFIO3RkwAsI6dbIC
-         d+gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdpQoPumpzgJwLcCYcy2yi1FyNS7fwc99Lx6ZTW+SNAGd4ZHRvPyj3w8Rc7idgqvsDjB18BSLLEsI/@vger.kernel.org
-X-Gm-Message-State: AFq9FYIspmaVS0GDDT0v+0YpsUMihUh8p5XwpVy96YHpgeqCpRaR+1SI
-	04IXsE6CsKrPzw7N01U8uWykvb09/rkE9ONEt9Xb5FJ/aEaPhSGi0J0l
-X-Gm-Gg: AYBFou0GqQwMwwtJMkrE1VnrqWKq+V8jvfZ/NgGUvQkPtjzeSYxI8aHcrtA4Tc1vytU
-	OftUOVW29nVJEBhggKUUY0QOKtF4ID0PiEK5RZ9Ew/Y+bnDVoFy6fwS8/U3EF4X+O+5FHa2/n/r
-	QI82tCak//FWKq395JEnHTRPDv79c0bMjrl8JQN2JiVa5Lw7vl3uT0ZV/7Ww4S8Tf8K1xh9m7Le
-	c6ShSxHLIKOxNiLbQw7SGMnNcCLzkSA9zDVdzGvkkM1S8JGl3NnTUGxng0NYqsSxu6IR7f7mMcC
-	/B4mfPk2Zzo1NqD8LYwoyGkSzUS0xZ9xinob10eIzSYheKDPezTEa4t0FjRyIio/htt2OLd7+LL
-	jYUtCAzuPlj4O63rg1R7hzIsa1GG2mHQy3aCULxUumblsgHYnLz3kJEP1XoWwfq5BVtJuitkpI8
-	ciDjshLMR+T/7tVfZPitfdauuN2hxEJqkY1RIAmg7Ls6kndlAuXk96UaB888onreG0GbfzaM5q7
-	4Xz97rGgqrvH1wg3S+q2IsqSoBR55PUVMpR/evHzviaafWlh9LLv1F3Sm81NNj8FUEE2rkbuYHm
-	YD3bc7Qayoa/3g6S4dYtRme0sfVEyYci99RsZVhpGYmunwVAokXO9OnsiiQVUXy2b9IGRbwBnUm
-	DHbmDdZJd
-X-Received: by 2002:a05:600c:4ec7:b0:4a2:a9:ed5a with SMTP id 5b1f17b1804b1-4a9660b5041mr117976975e9.8.1793268412452;
-        Thu, 29 Oct 2026 03:06:52 -0700 (PDT)
-Received: from [127.0.1.1] (ip092042140082.rev.nessus.at. [92.42.140.82])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm53082825e9.11.2026.10.29.03.06.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:06:51 -0700 (PDT)
-From: Jakob Unterwurzacher <jakobunt@gmail.com>
-Date: Thu, 29 Oct 2026 11:06:26 +0100
-Subject: [PATCH 4/4] arm64: dts: rockchip: put the PMIC into sleep mode in
- suspend on RK3588 Tiger
+	by smtp.kernel.org (Postfix) with ESMTPS id 16DCB1F01825;
+	Thu, 29 Oct 2026 10:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793268766;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=euhgcILvEgkmtdh2gbzdamosIfydabEEZd3wHU+SKyPFVhyLYPcYRizSxwZ1r+7w0
+	 GhOVXEnKZ0HAC/K1yYs6GGLkXVIN84c7nE3UvEtmqvPc4+ngLv9EB+nrR740hzmLVJ
+	 I9XIl3MSrwQ6gqnP7OY1NtV9USR8kJm4X0fQVruCqtifNcjGtOLb6UWmHTaqTYNaGj
+	 w096xJo5lNKrMVvQDoR6Hnik/TQpZN8GFIfO2XFmYUBmqcqC2jHSanSm2++Wrk0dFV
+	 y/5YJo2zHKDTaGSt5Ukmzt6QHADPO9Y+4IhlXkgCR4S/MLfgjjnBgAu6DOLQaO4TYf
+	 d63eE0W3cliqA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6B8CE457ED;
+	Thu, 29 Oct 2026 10:12:45 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v5 0/2] Add ITE IT6162 MIPI DSI to HDMI bridge driver
+Date: Thu, 29 Oct 2026 18:12:29 +0800
+Message-Id: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,74 +85,219 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-4-cb12621c1fb4@cherry.de>
-References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
-In-Reply-To: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Joseph Chen <chenjh@rock-chips.com>, Lee Jones <lee@kernel.org>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
+X-B4-Tracking: v=1; b=H4sIAA0c42oC/3XNyw7CIBAF0F9pWIvhJaAr/8O4KMNgWWgbwKox/
+ XfRjY/G5Z3MufdOMqaImWyaO0k4xhz7Uw2rRUOga08HpNHXTAQTmgkh6XnIJWF7pJprQaVZcTT
+ WB2g9qWZIGOL11bfb19zFXPp0e9WP/Hn91zRyyig6AK0BHA+4jQWX0B+X5UKeVaN4c8nWv1xU7
+ tF5p8Ha+jDj8oPz2bqs3Kq1Cc6AUkzPuPrks3VVuRHaKisxMOm/+DRNDyZnrXxoAQAA
+X-Change-ID: 20260223-upstream-6162-3751e78dfcad
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, 
- Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268406; l=1641;
- i=jakob.unterwurzacher@cherry.de; s=20261029; h=from:subject:message-id;
- bh=SDfGdhdTbDViPNWR7gWVkSFVjA2d78IFMYAVeDi6pgc=;
- b=+lV6mFqZezu/+F0xruZF+cG3BHg9hNr6TFfbzH6ls2C4+aEQv2qB9TmeiX4sbnF59e3EHmvUT
- spRbBmKPD3LBiX00XMbFZ9MHPNkvGrR2KGQSbwdMr2iUT+IH87yeXEr
-X-Developer-Key: i=jakob.unterwurzacher@cherry.de; a=ed25519;
- pk=0v1L7pjG4d7PcaYPMOmzP4SjaRtnB+8bMzZLZCRzB8I=
+ Conor Dooley <conor+dt@kernel.org>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
+ Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268764; l=9031;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=yJH7FtZvNZDml9iZjLPMB66iKpCXjr37vKQnfvmPxm0=;
+ b=cEFrgiTBsiD4urhm7tMVF2pJWZY/84/LmAsL+GrmMUQiea9wZoU3LXFqMPj+HLiffxkMuG1kD
+ 4EqewlACKUMDaixfZj2Qx9FgveHaKw6eMnqXhObybtff8RSnjSrP/GA
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-From: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+This patch series adds support for the ITE IT6162 MIPI DSI to HDMI
+bridge chip. The IT6162 is an I2C-controlled bridge that receives MIPI
+DSI input and outputs HDMI signals.
 
-The RK806's PWRCTRL1 pin is connected to the SoC's pmic_sleep1 output,
-which the firmware (TF-A) asserts when the SoC enters suspend-to-ram.
-It is configured for no function, though, so the PMIC ignores it: all
-regulators stay on in suspend and the regulator-state-mem settings have
-no effect.
+The device supports the following configurations:
+  - Single MIPI DSI input: up to 4K @ 30Hz
+  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
 
-Configure the pin for the sleep function instead, like other RK806
-boards do.
+This series introduces:
+  - dt-bindings: Add YAML binding document for ITE IT6162
+  - drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
 
-Measured on RK3588 Tiger on Haikou, suspend-to-ram with the logic
-domain powered off by the firmware, module supply current (5 V):
-
-  PMIC pin with no function: 0.218 A (1.09 W)
-  PMIC pin with sleep function: 0.086 A (0.43 W)
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Changes in v5:
+- Move per-patch changelogs into the cover letter
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi
-index 161c89c62bcda..592a2d11b36b9 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi
-@@ -471,7 +471,7 @@ pmic@0 {
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 		pinctrl-names = "default";
--		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
-+		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_slp>,
- 			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
- 		spi-max-frequency = <1000000>;
- 		system-power-controller;
-@@ -492,9 +492,9 @@ pmic@0 {
- 		vcca-supply = <&vcc5v0_sys>;
- 		rockchip,reset-mode = <RK806_RESTART>;
- 
--		rk806_dvs1_null: dvs1-null-pins {
-+		rk806_dvs1_slp: dvs1-slp-pins {
- 			pins = "gpio_pwrctrl1";
--			function = "pin_fun0";
-+			function = "pin_fun1";
- 		};
- 
- 		rk806_dvs2_null: dvs2-null-pins {
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Use 1-based data-lanes numbering as lane 0 is the D-PHY clock lane,
+    revert example to <1 2 3 4>
+  * Constrain data-lanes to in-order lanes or full reversal <4 3 2 1>
+  * Document port@1 as the preferred port for a single MIPI DSI input
+  * Keep port@0 and port@3 optional: a single MIPI DSI input uses port@1,
+    and the HDMI connector is created for the bridge without a port@3
+    link
+  * Keep a single endpoint node per MIPI DSI port, as other bridge
+    bindings based on port-base do
+  * Drop Reviewed-by tag due to above changes
 
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Detect lane reversal from 1-based data-lanes (data_lanes[0] == 4)
+  * Rebase on drm-misc-next: use struct drm_atomic_commit in
+    atomic_enable/atomic_disable, replace .atomic_reset with
+    .atomic_create_state, pass DRM_OUTPUT_COLOR_FORMAT_RGB444 to
+    drm_hdmi_compute_mode_clock()
+  * Take the colorspace sent to firmware from the AVI infoframe instead of
+    conn_state->hdmi.output_format, which is no longer enum hdmi_colorspace
+  * Enable the supplies once, while detecting the chip, and disable them
+    through devres on removal and on every probe failure; unwind a
+    partially failed enable in the power-down order; propagate
+    it6162_poweron() errors and drop the unused it6162_poweroff()
+  * Power up ivdd, wait at least 1 ms, then ovdd1833 and ovdd, and power
+    down in the reverse order with the same wait before ivdd
+  * Rename it6162_poweron() to it6162_hw_start() and the power_on flag to
+    hw_ready, as the function no longer enables the supplies: it resets
+    and configures the chip, then enables the interrupt and connector
+    status reporting
+  * Order teardown with devres: initialise the (devm managed) mutex, wait
+    queue and HDCP work first, and register the bridge before the HDCP
+    work cancel action and the IRQ, so the IRQ is freed and the work
+    cancelled before the bridge is removed; drop .remove()
+  * Hold it6162->lock while writing or clearing an infoframe through the
+    data buffer
+  * Update the HDCP content protection property from a dedicated work
+    holding connection_mutex, and drop updates for an HDCP session that
+    has already ended
+  * Zero-initialise the video settings and set the HSync/VSync polarity
+    and scan mode bits as the programming guide defines them, which also
+    fixes the inverted VSync polarity
+  * Check regmap read results before using the data read
+  * Name the chip ID and version register offsets as in the programming
+    guide (register 0x00 is the most significant ID byte); the ID check
+    is unchanged
+  * Document that the firmware is given the HDMI output timing from the
+    requested mode, not the MIPI input timing in adjusted_mode
+  * Drop the endpoint node reference on the data-lanes error path
+  * Get the chip info with i2c_get_match_data(), add it to the I2C ID
+    table and fail probe if it is missing
+  * Honour the requested length when reading an EDID block
+  * Leave the cached HPD state to the IRQ thread instead of updating it
+    from detect
+  * Drop Reviewed-by tag due to above changes
+
+- Link to v4: https://lore.kernel.org/r/20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw
+
+Changes in v4:
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Drop ite,support-hdcp
+  * Drop endpoint properties already in video-interfaces.yaml
+  * Fix data-lanes in example with <0 1 2 3>
+  * Add blanking line in example before endpoint subnode starts
+  * Add reset-gpio and power controls to required
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Drop struc it6162_audio
+  * Add HDCP_AUTO in enum hdcp_ver{}, FW enable HDCP by sink capability.
+  * Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe()
+    in it6162_bridge_hdmi_audio_shutdown()
+  * Drop it6162_bridge_hdmi_audio_startup()
+  * Add hdmi_clear_hdmi_infoframe and hdmi_write_hdmi_infoframe
+  * Drop it6162_parse_dt() due to "ite,support-hdcp" is removed from DT.
+  * add DRM_BRIDGE_OP_HDMI to it6162->bridge.ops
+
+- Link to v3: https://lore.kernel.org/r/20260313-upstream-6162-v3-0-8497fb7c4406@ite.com.tw
+
+Changes in v3:
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
+  * Improve ite,support-hdcp description to clarify FW-based HDCP behavior
+  * Remove descriptions repeating schema constraints
+  * Remove stray comment in ports required section
+  * Fix data-lanes spacing in example: <1 2 3 4>
+  * Add missing newline at end of file
+  * Add missing change log  that Reviewed-by tag was removed when V1->V2
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Fix OFFSET_VERSION_H register offset from 0x03 to 0x05
+  * Add MIPI_PORT_EN_MASK macro combining MIPI_PORT1_EN_MASK and MIPI_PORT0_EN_MASK
+  * Rename HDCP enums: NO_HDCP -> HDCP_DISABLE, NO_HDCP_STATE -> HDCP_STATE_IDLE,
+    AUTH_DONE -> HDCP_STATE_AUTH_DONE, AUTH_FAIL -> HDCP_STATE_AUTH_FAIL
+  * Rename it6162_infoblock_complete() to it6162_wait_command_complete()
+  * Rename it6162_infoblock_host_set() to it6162_infoblock_trigger()
+  * Remove it6162_infoblock_mipi_config() and it6162_infoblock_write_msg()
+    wrappers, inline into it6162_reset_init() and
+    it6162_mipi_set_video_timing() respectively
+  * Remove it6162_set_default_config() wrapper, inline into
+    it6162_reset_init()
+  * Fix typo: hdcp_encyption -> hdcp_encryption
+  * Fix typo: it6162_hdcp_read_infomation -> it6162_hdcp_read_information
+  * Remove dev_err_probe() usage outside of probe path
+  * Remove verbose success-path dev_info/dev_dbg logging throughout
+  * Replace __func__ usage in error messages with descriptive strings
+  * Fix double error printing in probe for it6162_init_pdata failure path
+  * Fix uninitialized variable warning: initialize cp_status to
+    DRM_MODE_CONTENT_PROTECTION_DESIRED at declaration; move
+    drm_hdcp_update_content_protection() inside the state-change block
+  * Fix audio sample width mapping: case 20 now maps to WORD_LENGTH_20BIT,
+    case 24 to WORD_LENGTH_24BIT
+  * Remove stray drm_dbg("it6162_bridge_atomic_disable") call
+  * Remove drm_dbg() calls from it6162_display_mode_to_settings()
+  * Drop unused struct it6162 * parameter from it6162_avi_to_video_setting()
+    and it6162_display_mode_to_settings()
+  * Fold it6162_set_default_config() body directly into it6162_reset_init(),
+    removing the wrapper
+  * it6162_infoblock_request_data(): split command complete polling and
+    buffer status check into two steps; use wait_event_timeout() for
+    data_buf_sts since it is updated asynchronously by the interrupt
+    handler; add wait_queue_head_t data_buf_wait to struct it6162 and
+    wake_up() in interrupt handler
+
+- Link to v2: https://lore.kernel.org/r/20260309-upstream-6162-v2-0-debdb6c88030@ite.com.tw
+
+Changes in v2:
+- dt-bindings:
+  * Drop Reviewed-by tag due to below changes
+  * Add property "ite,spport-hdcp" to enable HDCP
+  * Add property "lane-polarities" and "clock-noncontinuous" for DSI
+    setting
+
+- drm/bridge:
+  * Drop unused element in struct it6162
+  * Remove regmap wrappers
+  * Use FIELD_PREP for bitfield operations
+  * Update HDCP status with drm_hdcp_update_content_protection()
+  * Add AVI, AUDIO, and SPD infoframe control
+  * Remove conversion from drm_display_mode to videomode
+  * Fix regulator/gpio error handling in it6162_init_pdata() to return proper error codes
+
+- MAINTAINERS
+  * squash to driver patch
+
+- Link to v1: https://lore.kernel.org/r/20260223-upstream-6162-v1-0-ebcc66ccb1fe@ite.com.tw
+
+---
+Hermes Wu (2):
+      dt-bindings: display: bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
+
+ .../bindings/display/bridge/ite,it6162.yaml        |  205 +++
+ MAINTAINERS                                        |    7 +
+ drivers/gpu/drm/bridge/Kconfig                     |   17 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/ite-it6162.c                | 1764 ++++++++++++++++++++
+ 5 files changed, 1994 insertions(+)
+---
+base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
+change-id: 20260223-upstream-6162-3751e78dfcad
+
+Best regards,
 -- 
-2.47.3
+Hermes Wu <Hermes.wu@ite.com.tw>
+
 
