@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287775;
-	b=Hie7X7qsENUnjUP9eOL9PtwuRgrC76765KwVEgSnsi0OsBGVh9tXXPSrlUeJUf6tmmgL
-	 NYOnoEF/8MrV6JuMVEY/A5lkTMpm4BbxUPqYgE66GxDOx5Hpbh484SpA9H6ddIjc8/3cO
-	 j+3h3vpzAhUaPkZJwRPW1WoBgS/s29rKWOc4H6r739MxnSUgd6tjucYrkigvpPZPBAE06
-	 crUUQmpBEb9YJYTdYA5kZAVxIoIzitRX6CdoX1uag0QAO7yJNBMs887y05SFfuA8O/q4g
-	 ueMRf1T9e/viYEw01ew2OkhuEvy3QX2pvtZaX8RHykag21HmliE/5kBcJUGXNw+ci5A==
+	t=1793287779;
+	b=g9TnjrR9tBslpLHllV6ZTnTVASuZtRm0t63gbuGOYVtir/gsUnkiF7chpKWo556BsIlR
+	 jMGu9fIGluj4gTLOMKlUNa+Tz8djTUuVSyvvEkmMbT7ldUU3zJolSMqwPX7UaGX86VVST
+	 H7TMFItXeLUwm2dXPhbBLu5bercoOM2+WBgRLpFJOnTKa5z2R+dsNWlSUAPMg3nwZe1sv
+	 hooadNuvD9RO3YiFRoFW07AQyLgbY282xHXuIN6n19iig7hRbqlxfdG66QtZUMfhFNkNj
+	 y2MNVwaHfnwIPGYn+4xl2S3tzGM9tFHK4996Y68xf6VDYiHgAV2ritraVTL/CpkO3Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287779;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=5p+lvZSKx4OvMfgb3ZIACVMr3fIQoua1cT9i4xAtcVo=;
-	b=iekvsO7qLlfMKT0TJOGzZMPUnk0JbxfVr8fPxd2d+746HmJ9J+UW3BYu/tG7f75cThcl
-	 b+bIsCjhsdgr2apu434rkutIbfHChiOslJT3D+elmZD5G3SrKA2tx8gwj8Vaihv5uwBP5
-	 K4tzd8vw0r/pA9w+3PvS93jub2lw2IdSfj7bQDpYH2uOG4WSLzybZ5tiodL67v8A+VWrI
-	 0z8JtzZL6s/8Fpml7om+4BykQ+YgSh2Wst5YAp4d+HVIHn66urkrlCWR5P2sNh0LVh8V8
-	 ZP7GRr8JptEOvs9mxnDmc6V4SKJrLSQ+bnUp+SY1QHjquC9y018PzoxuxGbOZT9OgqQ==
+	bh=AKlnNUPAZYqn7bdU1beV1huh2DASjeUZeMyqIT8C+UA=;
+	b=bAUp+AWJStf8i7ng3KG1lldvJJVERY/9jaI+X6eG0KNuQlMfx6GDM1LUZgDpIXb43Jj9
+	 5QiiD/s0x0rhHRfzikqNKSq4gfUzyjal04SCMOrcxtvcfSFEFOHVmf5NsjrhtaEchpDvx
+	 bNtVpVp/r8mzNy3pEQ6LCLC8hnsWv9xjMU+NCav/QS9Yrnp2LSNjPsx3k722C5sJu4v3M
+	 fC3g45ozSGpi1yYxxECfosVvO3aaNtbFWYWEnFNCVd+hwL6KL3wDVxPROhjbpoirM91vj
+	 SI0JzEvMwc/0rBGVIq6XHf0GU5YbGavx5cfnRHqOa0NPhHuqL+UMqflSwrWxAgb1eQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k0Wh9hkm;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s/iGFxHK";
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D20606A31F
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 15:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00D20606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AEA606A336
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 15:29:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50AEA606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k0Wh9hkm
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c418e215671so301740566b.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:29:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s/iGFxHK
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1441425a12.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:29:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793287773; x=1793892573; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793287777; x=1793892577; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5p+lvZSKx4OvMfgb3ZIACVMr3fIQoua1cT9i4xAtcVo=;
-        b=k0Wh9hkm+iPlSOI3nIHN7Dd1ogP4BU2u2QdOsBmV1G0NuYZs2q48Iag90UG0ZpXoRe
-         9z+e2zcR92d0hsG7mfpqHBOfvLucAYNesMPwpLzqABvvUtzOLZklzaA7+v9QfDbIBAe+
-         oWcTgGPhfhT+/SNzl/HGudvS/+224+U1ue0ILggh8/pZy0C7s5OijWTEkpaINDg0ZgWA
-         3o6GRZiaUUhU5lhZI04StywuFvVQzR80D2BBMluAqS07cw25ThQUev09a3ZDtJPaj8HM
-         jQ4SG1oKo0OjEEJGtSJXUtCEJy8pSLshvrcYLIZFNkprybARq2llL0CwctoHH7hMo3ol
-         YmJw==
+        bh=AKlnNUPAZYqn7bdU1beV1huh2DASjeUZeMyqIT8C+UA=;
+        b=s/iGFxHK9NC2DxZTBNiiMRquVUfTd9KD5ThMd4/6IS8a7gbj+VVj3A4hdmtJUFtq9v
+         hC36AcrfLT5rriJ/qQOxtcYVo9syg1B4TkJmOYTBjZG06/bABEQA1SM9IZeu1VRgaMUV
+         D2Gdec216cezCEvUl2Jyd82uNKcZHWHth1xmkgC9sszY72XMX8Apvm7h4D3+F3WBhc0z
+         dW5KkqZahneAOSQcMzJlQgln9XFsiYKAlQ/ZlWj6mQ1dr+iHAFLBLuqDDFjts1UjM9pb
+         SWNeUjAce+QCwV4ujkqKaz6uV07/jxxgiVfSjrgO7kD/Bs2MHb67TE6rb16eJ2/GggPq
+         WINg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287773; x=1793892573;
+        d=1e100.net; s=20260707; t=1793287777; x=1793892577;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5p+lvZSKx4OvMfgb3ZIACVMr3fIQoua1cT9i4xAtcVo=;
-        b=WSrT0hjlybyAwu6KcBrUa0vhvfq82Fvw3lsrTOw26qqPCNI9NfhQnw4NpLQF/Aqalf
-         sTrz+RL/pJfmXTMq3VtBfi7srCd3HhxqktTxStxRWjcVrJxIfaO5srDOI0/UFjf0LusJ
-         e2IVbVHVpaEgN0aHj6OXfcabkEabhrabouHlTdlORPbFB2moOjaQl31O930Tb9o/XyXy
-         Zcmsw4bp20nqm5+PpU/NMaSX9icVCR8pdi3ZUNxZ3YU8rPzJwW9lm35tWYrkvUV5Fa5V
-         ZWq40kYQXv1KJrI7zRYMdkKIIIWobE0M46wiHkcKdHpj90oIH9FV1jQ2ss6YX+MdwlVD
-         N9ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzMo5L0qx7D/05dDcUVwqSgOTQBrxffYuQsS184sHPJRclQNdGGAYMh+ykQfDfMMzBz7l6dyenFtzZ7@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgUTOC7aItcm8lBd3VypZq9xbDO/TEFUGpqQ1QMoN2K3DVYs4n
-	jr06V5MhNLJcU6zhinWatIqxFD+nPmEAGHcZ9wRT5+1BACc64/8NmHZI
-X-Gm-Gg: AYBFou2ei7N73TZgpq6vw4iTJDSJETL2Jd6S5maKvQYMdZ/wLrCpFhDF0qaUTvxCHti
-	8UpNsFp1fSK7aS++SynqHvPihMArg0F1bXwrMOmKxGfI0GgtO/Gg+YGqliplizzSwjv37kOwjwG
-	JMNFQJoWlYa43unjmuqpzuS3cfIsA4U5LKMAlY9fqiG+BT5Y0hcUBpBfkp5yVlJXMBrDoXzAT7J
-	jL2648Jd44ebt1SUk0XMmNQ2yuuAe998FRPAMzv+reiwX+gp9t2O+ynvItQ971hWOC7tu3A/sCs
-	lAi23Aca+hrOsRqfAJCzA6+/Cv0qG49uWXichmMHVCFYKkA4j28CDAsItzHPAj8n2YTin61QhNE
-	kYhBHaQfHraZLI/MypIZHxLjfdekW4BY81q5RYSCd+yYtVZVhMDLp9JemijpxsDx6uSK68iEB5+
-	bi4b6GriZbcxsn49I73Ms1VGlpgGG8K1CCshppvm0lnAEQKhxu3oHeB4bm/8SImNheiKETTFLu2
-	N4bGohnCF1YemJ9V8uge98mJnoeBjhAAm9mFjFut3gLJEyZqOjrmnVDVwNuwM4gwdmTK4y+MXZe
-	2c7+aJwpEJ51uo3NhV6kgo3KP+sNhpkWl2UBbydURW7AG2p9ig==
-X-Received: by 2002:a17:907:1b15:b0:c37:c0dd:6642 with SMTP id a640c23a62f3a-c49bdf39b8emr489279566b.37.1793287773105;
-        Thu, 29 Oct 2026 08:29:33 -0700 (PDT)
+        bh=AKlnNUPAZYqn7bdU1beV1huh2DASjeUZeMyqIT8C+UA=;
+        b=iKGYHPuAHIkM2+HSXfC31Keh924b2uTUhbYy0edN0hsNdlawRGI/IzAh9B+OB+VYCu
+         ZMnUZUKKQ9HqtCEYMoNBrpz9gjpFI+XDwvPLxBhx+HhjwEH9BXMq/dY439c3SnNSbKmE
+         dsAj26WJTGxHgwHAV1BcvQ+pI7aPbybyv4WLqpCN1FK7UuR0qlGShcZ0psEvyonsk5hE
+         T5UnAJGnLmRaccm3OQxq8tGQv7L6EVqirPZK1Eq2ixksVP1xgIPtEo7aXv9nv5Q1Too7
+         1UF15XR3CUj+/iWMiuUEbKCB76GXvd/YRr7lh2VazwIDJu6p6H9lF8g0MiepU94DVFBL
+         iHLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfwo2KTZn4jNlgyHjAOBZUEYPCsVXG9f/v35Kbuge0aQ07RHTa10SgbgGQxJ7pq7JQb75y9IvT+9hj@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKv6hcp/J7jqYzDcSyU1Xjg9nT4XF2CMM/Z73FUmlw6cwjs7iZ
+	ECnmGhTO21VB/XEy6wpgPFiys6KdO8IsiKGVqqZUpTAxUcTw1nEBAf1cxpj0SA==
+X-Gm-Gg: AYBFou3DvU+HlSzyLPicNM/OPWmK/8kmf4IQ/XnP+uhzvVwFTzrg9uJxy8aY3JzP3sS
+	yEkVs4ja43N6iHBqUkY4HJHMGmH2ltYLBa6wpL46XuymMproR+wPyJoXa+ySrTduZmFTCZ4S6iT
+	gqgMTeA4ehhLVLAcGzxh4sRV8Zue8+mrGqnrzyObY6Zly+uZuqXCvyX9FUskxPUWG5crG7jfU/1
+	/kgVACeJwvRS/SIjlr2sYIF/V0ADowOWkAh2l2hi4tRpJ27+/xBhqrMqiM02fvyzKzYOT5UheBw
+	Nu3UpewZGq0ZoUYYKbY+jV6U5/YiRMW8QmeHdnKnv4aL/S/iGoCXUFPy0WBn8Plh10k/WEK+MNN
+	cwaI1IfJzmxSUoqsiWOvDQnszAd4Vg9fIwzcVTCdNmibPn0+oD2R2Ip2SeQmoEBVuKM3V8ZVUn2
+	unfnXE7V0zJ9eVeeBHgOEFJotVO+2vS7y048xno2mdmEnYU9iAn61qBYOVmm8WZB2Vcbie1y5H8
+	Covqj6WgegOS4j93OAFvOHt6dzzCRAUFTtzwLXAuQqwiHtKb9iBbKMDuotyoWzq9oYCUzULpz+B
+	EgabbAe38F0EX3z/R8gmmgluwe8ee9rHp71NO9Yw9rftTYcGIv6ytIGcd72U1slPbvm5PNY=
+X-Received: by 2002:a17:907:3faa:b0:c21:5cd6:3e49 with SMTP id a640c23a62f3a-c49d11364c7mr261281866b.9.1793287776394;
+        Thu, 29 Oct 2026 08:29:36 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.31
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:29:32 -0700 (PDT)
+        Thu, 29 Oct 2026 08:29:35 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -97,9 +97,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-Date: Thu, 29 Oct 2026 17:28:59 +0200
-Message-ID: <20261029152909.234584-2-clamor95@gmail.com>
+Subject: [PATCH v5 03/11] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+Date: Thu, 29 Oct 2026 17:29:01 +0200
+Message-ID: <20261029152909.234584-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029152909.234584-1-clamor95@gmail.com>
 References: <20261029152909.234584-1-clamor95@gmail.com>
@@ -114,389 +114,354 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikko Perttunen <mperttunen@nvidia.com>
+Add a driver for panel used in LG Optimus 2X P990. Panel is 4" WVGA MIPI
+DBI Type B linked to DRM encoder via RGB to DBI bridge.
 
-The MIPI DBI bus allows modeling DBI hosts and peripherals using the Linux
-driver model. DBI hosts are registered by their respective drivers. During
-registration, DBI peripherals are created from the device tree nodes
-provided by the host.
-
-DBI hosts expose operations that can be used by peripheral drivers to
-access associated devices.
-
-The original code was authored by Mikko Perttunen; I have aligned it with
-the existing MIPI DSI implementation.
-
-Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/Makefile           |   2 +-
- drivers/gpu/drm/drm_mipi_dbi_bus.c | 232 +++++++++++++++++++++++++++++
- include/drm/drm_mipi_dbi_bus.h     | 103 +++++++++++++
- 3 files changed, 336 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/drm_mipi_dbi_bus.c
- create mode 100644 include/drm/drm_mipi_dbi_bus.h
+ drivers/gpu/drm/panel/Kconfig                 |  14 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 294 ++++++++++++++++++
+ 3 files changed, 309 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 2c6bc093a923a..880f0dc930b85 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -166,7 +166,7 @@ obj-$(CONFIG_DRM_KMS_HELPER) += drm_kms_helper.o
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7a520b4d60fef..0e86628bcdb80 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -274,6 +274,20 @@ config DRM_PANEL_HIMAX_HX8394
  
- obj-y			+= tests/
+ 	  If M is selected the module will be called panel-himax-hx8394.
  
--obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o
-+obj-$(CONFIG_DRM_MIPI_DBI) += drm_mipi_dbi.o drm_mipi_dbi_bus.o
- obj-$(CONFIG_DRM_MIPI_DSI) += drm_mipi_dsi.o
- obj-y			+= arm/
- obj-y			+= clients/
-diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm_mipi_dbi_bus.c
-new file mode 100644
-index 0000000000000..afad1f1508064
---- /dev/null
-+++ b/drivers/gpu/drm/drm_mipi_dbi_bus.c
-@@ -0,0 +1,232 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * MIPI DBI devices with command transport through parallel interface
-+ *
-+ * Copyright 2026 Mikko Perttunen <mperttunen@nvidia.com>
-+ * Copyright 2026 Svyatoslav Ryhel <clamor95@gmail.com>
-+ */
++config DRM_PANEL_HITACHI_TX10D07VM0BAA
++	tristate "Hitachi TX10D07VM0BAA MIPI DBI Type B panel"
++	depends on OF
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_MIPI_DBI
++	select VIDEOMODE_HELPERS
++	help
++	  Say Y here if you want to enable support for the HITACHI
++	  TX10D07VM0BAA MIPI DBI Type B panel found in the LG Optimus 2X
++	  P990 smartphone.
 +
++	  To compile this driver as a module, choose M here: the module will
++	  be called panel-hitachi-tx10d07vm0baa.
++
+ config DRM_PANEL_HYDIS_HV101HD1
+ 	tristate "Hydis HV101HD1 panel"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index da5175909d540..2f57e350311f3 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -27,6 +27,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
++obj-$(CONFIG_DRM_PANEL_HITACHI_TX10D07VM0BAA) += panel-hitachi-tx10d07vm0baa.o
+ obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7836A) += panel-ilitek-ili7836a.o
+diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+new file mode 100644
+index 0000000000000..5ccc8d4725bc6
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+@@ -0,0 +1,294 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/array_size.h>
++#include <linux/delay.h>
 +#include <linux/err.h>
-+#include <linux/init.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/slab.h>
++#include <linux/gpio/consumer.h>
++#include <linux/media-bus-format.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
 +
 +#include <drm/drm_mipi_dbi.h>
 +#include <drm/drm_mipi_dbi_bus.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_of.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
 +
-+static int mipi_dbi_match(struct device *dev, const struct device_driver *driver)
-+{
-+	return of_driver_match_device(dev, driver);
-+}
-+
-+static int mipi_dbi_uevent(const struct device *dev, struct kobj_uevent_env *env)
-+{
-+	return of_device_uevent_modalias(dev, env);
-+}
-+
-+static const struct dev_pm_ops mipi_dbi_device_pm_ops = {
-+	.runtime_suspend = pm_generic_runtime_suspend,
-+	.runtime_resume = pm_generic_runtime_resume,
-+	.suspend = pm_generic_suspend,
-+	.resume = pm_generic_resume,
-+	.freeze = pm_generic_freeze,
-+	.thaw = pm_generic_thaw,
-+	.poweroff = pm_generic_poweroff,
-+	.restore = pm_generic_restore,
++static const struct regulator_bulk_data hitachi_tx10d07vm0baa_supplies[] = {
++	{ .supply = "avci" }, { .supply = "iovcc" },
 +};
 +
-+static const struct bus_type mipi_dbi_bus_type = {
-+	.name = "mipi-dbi",
-+	.match = mipi_dbi_match,
-+	.uevent = mipi_dbi_uevent,
-+	.pm = &mipi_dbi_device_pm_ops,
++struct hitachi_tx10d07vm0baa {
++	struct drm_panel panel;
++	struct mipi_dbi_device *dbi;
++
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
 +};
 +
-+static void mipi_dbi_device_release(struct device *dev)
++static inline struct hitachi_tx10d07vm0baa *to_hitachi_tx10d07vm0baa(struct drm_panel *panel)
 +{
-+	of_node_put(dev->of_node);
-+	kfree(to_mipi_dbi_device(dev));
++	return container_of(panel, struct hitachi_tx10d07vm0baa, panel);
 +}
 +
-+static void mipi_dbi_device_unregister(void *data)
-+{
-+	struct device *dev = data;
++#define panel_dbi_command(dbidev, cmd, seq...) \
++({ \
++	const u8 d[] = { seq }; \
++	struct device *dev = &(dbidev)->dev; \
++	int ret; \
++	ret = mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d)); \
++	if (ret) \
++		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
++	ret; \
++})
 +
-+	of_node_clear_flag(dev->of_node, OF_POPULATED);
-+	device_unregister(dev);
-+}
-+
-+/**
-+ * devm_mipi_dbi_device_register() - create a managed MIPI DBI device
-+ * @dev: device to tie the MIPI-DBI device lifetime to
-+ * @host: DBI host to which this device is connected
-+ * @np: device tree node associated with the panel MIPI DBI device
-+ *
-+ * This function is called by DBI host driver to create panel device.
-+ * It automatically calls mipi_dbi_device_unregister() when @dev is
-+ * unbound. It does not automatically free passed device node pointer,
-+ * it must be put manually.
-+ *
-+ * Returns:
-+ * A pointer to the newly created MIPI DBI device, or, a pointer encoded
-+ * with an error.
-+ */
-+struct mipi_dbi_device *
-+devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host *host,
-+			      struct device_node *np)
++static int hitachi_tx10d07vm0baa_prepare(struct drm_panel *panel)
 +{
-+	struct mipi_dbi_device *dbidev;
++	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
++	struct device *dev = panel->dev;
 +	int ret;
 +
-+	if (!host || !host->dev || !host->dbi || !host->dbi->command ||
-+	    !host->ops || !host->ops->attach || !host->ops->detach || !np)
-+		return ERR_PTR(-EINVAL);
++	gpiod_set_value_cansleep(priv->reset_gpio, 1);
 +
-+	if (!of_device_is_available(np))
-+		return ERR_PTR(-ENODEV);
-+
-+	dbidev = kzalloc_obj(*dbidev);
-+	if (!dbidev)
-+		return ERR_PTR(-ENOMEM);
-+
-+	if (of_node_test_and_set_flag(np, OF_POPULATED)) {
-+		kfree(dbidev);
-+		return ERR_PTR(-EBUSY);
++	ret = regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies), priv->supplies);
++	if (ret) {
++		dev_err(dev, "failed to enable power supplies: %d\n", ret);
++		return ret;
 +	}
 +
-+	dbidev->host = host;
-+	dbidev->dbi = host->dbi;
-+	device_initialize(&dbidev->dev);
-+	dbidev->dev.parent = host->dev;
-+	dbidev->dev.bus = &mipi_dbi_bus_type;
-+	dbidev->dev.release = mipi_dbi_device_release;
-+	device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np)));
++	usleep_range(1000, 2000);
 +
-+	ret = dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev), np->full_name);
-+	if (ret)
-+		goto put_device;
++	gpiod_set_value_cansleep(priv->reset_gpio, 0);
 +
-+	ret = device_add(&dbidev->dev);
-+	if (ret)
-+		goto put_device;
++	usleep_range(10000, 11000);
 +
-+	ret = devm_add_action_or_reset(dev, mipi_dbi_device_unregister,
-+				       &dbidev->dev);
-+	if (ret)
-+		return ERR_PTR(ret);
++	return 0;
++};
 +
-+	return dbidev;
-+
-+put_device:
-+	of_node_clear_flag(np, OF_POPULATED);
-+	put_device(&dbidev->dev);
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
-+
-+static void mipi_dbi_detach(void *data)
++static int hitachi_tx10d07vm0baa_enable(struct drm_panel *panel)
 +{
-+	struct mipi_dbi_device *dbidev = data;
++	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
 +
-+	dbidev->host->ops->detach(dbidev->host, dbidev);
-+	dbidev->attached = false;
-+}
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x03, 0x1f);
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x03, 0x20,
++			  0x00, 0x00);
 +
-+/**
-+ * devm_mipi_dbi_attach() - managed attach of DBI device to its DBI host
-+ * @dev: device to tie the MIPI-DBI device lifetime to
-+ * @dbidev: DBI peripheral
-+ */
-+int devm_mipi_dbi_attach(struct device *dev, struct mipi_dbi_device *dbidev)
-+{
-+	int ret;
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_ADDRESS_MODE, 0x0a);
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_SCROLL_START, 0x00, 0x00);
 +
-+	if (dbidev->attached)
-+		return -EBUSY;
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT);
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_TEAR_SCANLINE, 0x00, 0x00);
 +
-+	ret = dbidev->host->ops->attach(dbidev->host, dbidev);
-+	if (ret)
-+		return ret;
++	panel_dbi_command(priv->dbi, 0x71, 0x00);		/* Ex_Vsync_en */
 +
-+	dbidev->attached = true;
-+	return devm_add_action_or_reset(dev, mipi_dbi_detach, dbidev);
-+}
-+EXPORT_SYMBOL_GPL(devm_mipi_dbi_attach);
++	panel_dbi_command(priv->dbi, 0xb2, 0x00);		/* VCSEL */
++	panel_dbi_command(priv->dbi, 0xb4, 0xaa);		/* setvgmpm */
++	panel_dbi_command(priv->dbi, 0xb5, 0x33);		/* rbias1 */
++	panel_dbi_command(priv->dbi, 0xb6, 0x03);		/* rbias2 */
 +
-+static int mipi_dbi_drv_probe(struct device *dev)
-+{
-+	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
-+	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++	panel_dbi_command(priv->dbi, 0xb7, 0x1a, 0x33, 0x03, 0x03,
++			  0x03, 0x00, 0x00, 0x01, 0x02, 0x00,
++			  0x00, 0x04, 0x00, 0x01, 0x01, 0x01);	/* set_ddvdhp */
++	panel_dbi_command(priv->dbi, 0xb8, 0x1c, 0x53, 0x03, 0x03,
++			  0x00, 0x01, 0x02, 0x00, 0x00, 0x04,
++			  0x00, 0x01, 0x01);			/* set_ddvdhm */
 +
-+	return drv->probe(dbidev);
-+}
++	panel_dbi_command(priv->dbi, 0xb9, 0x0a, 0x01, 0x01, 0x00,
++			  0x00, 0x00, 0x02, 0x00, 0x02, 0x01);	/* set_vgh */
++	panel_dbi_command(priv->dbi, 0xba, 0x0f, 0x01, 0x01, 0x00,
++			  0x00, 0x00, 0x02, 0x00, 0x02, 0x01);	/* set_vgl */
++	panel_dbi_command(priv->dbi, 0xbb, 0x00, 0x00, 0x00, 0x00,
++			  0x01, 0x02, 0x01);			/* set_vcl */
 +
-+static int mipi_dbi_drv_remove(struct device *dev)
-+{
-+	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
-+	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++	panel_dbi_command(priv->dbi, 0xc1, 0x01);		/* number of lines */
++	panel_dbi_command(priv->dbi, 0xc2, 0x08);		/* number of fp lines */
++	panel_dbi_command(priv->dbi, 0xc3, 0x04);		/* gateset(1) */
++	panel_dbi_command(priv->dbi, 0xc4, 0x4c);		/* 1h period */
++	panel_dbi_command(priv->dbi, 0xc5, 0x03);		/* source precharge */
++	panel_dbi_command(priv->dbi, 0xc6, 0xc4, 0x04);	/* source precharge timing */
++	panel_dbi_command(priv->dbi, 0xc7, 0x00);		/* source level */
++	panel_dbi_command(priv->dbi, 0xc8, 0x02);		/* number of bp lines */
++	panel_dbi_command(priv->dbi, 0xc9, 0x10);		/* gateset(2) */
++	panel_dbi_command(priv->dbi, 0xca, 0x04, 0x04);	/* gateset(3) */
++	panel_dbi_command(priv->dbi, 0xcb, 0x03);		/* gateset(4) */
++	panel_dbi_command(priv->dbi, 0xcc, 0x12);		/* gateset(5) */
++	panel_dbi_command(priv->dbi, 0xcd, 0x12);		/* gateset(6) */
++	panel_dbi_command(priv->dbi, 0xce, 0x30);		/* gateset(7) */
++	panel_dbi_command(priv->dbi, 0xcf, 0x30);		/* gateset(8) */
++	panel_dbi_command(priv->dbi, 0xd0, 0x40);		/* gateset(9) */
++	panel_dbi_command(priv->dbi, 0xd1, 0x22);		/* flhw */
++	panel_dbi_command(priv->dbi, 0xd2, 0x22);		/* vckhw */
++	panel_dbi_command(priv->dbi, 0xd3, 0x04);		/* flt */
++	panel_dbi_command(priv->dbi, 0xd4, 0x14);		/* tctrl */
++	panel_dbi_command(priv->dbi, 0xd6, 0x02);		/* dotinv */
++	panel_dbi_command(priv->dbi, 0xd7, 0x00);		/* on/off sequence period */
 +
-+	drv->remove(dbidev);
++	panel_dbi_command(priv->dbi, 0xd8, 0x01, 0x05, 0x06, 0x0d,
++			  0x18, 0x09, 0x22, 0x23, 0x00);		/* ponseqa */
++	panel_dbi_command(priv->dbi, 0xd9, 0x24, 0x01);			/* ponseqb */
++	panel_dbi_command(priv->dbi, 0xde, 0x09, 0x0f, 0x21, 0x12,
++			  0x04);					/* ponseqc */
++
++	panel_dbi_command(priv->dbi, 0xdf, 0x02, 0x06, 0x06, 0x06,
++			  0x06, 0x00);					/* pofseqa */
++	panel_dbi_command(priv->dbi, 0xe0, 0x01);				/* pofseqb */
++
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0xff);
++	panel_dbi_command(priv->dbi, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x40);
++
++	panel_dbi_command(priv->dbi, 0xe2, 0x00, 0x00);		/* cabc pwm */
++	panel_dbi_command(priv->dbi, 0xe3, 0x03);			/* cabc */
++	panel_dbi_command(priv->dbi, 0xe4, 0x66, 0x7b, 0x90, 0xa5,
++			  0xbb, 0xc7, 0xe1, 0xe5);		/* cabc brightness */
++	panel_dbi_command(priv->dbi, 0xe5, 0xc5, 0xc5, 0xc9, 0xc9,
++			  0xd1, 0xe1, 0xf1, 0xfe);		/* cabc brightness */
++	panel_dbi_command(priv->dbi, 0xe7, 0x2a);			/* cabc */
++	panel_dbi_command(priv->dbi, 0xe8, 0x00);			/* brt_rev */
++	panel_dbi_command(priv->dbi, 0xe9, 0x00);			/* tefreq */
++
++	panel_dbi_command(priv->dbi, 0xea, 0x01);			/* high speed ram */
++
++	panel_dbi_command(priv->dbi, 0xeb, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting r pos */
++	panel_dbi_command(priv->dbi, 0xec, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting r neg */
++	panel_dbi_command(priv->dbi, 0xed, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting g pos */
++	panel_dbi_command(priv->dbi, 0xee, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting g neg */
++	panel_dbi_command(priv->dbi, 0xef, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting b pos */
++	panel_dbi_command(priv->dbi, 0xf0, 0x00, 0x33, 0x0e, 0x15,
++			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting b neg */
++
++	panel_dbi_command(priv->dbi, MIPI_DCS_EXIT_SLEEP_MODE);
++	msleep(110);
++
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_DISPLAY_ON);
 +
 +	return 0;
 +}
 +
-+static void mipi_dbi_drv_shutdown(struct device *dev)
++static int hitachi_tx10d07vm0baa_disable(struct drm_panel *panel)
 +{
-+	struct mipi_dbi_driver *drv = to_mipi_dbi_driver(dev->driver);
-+	struct mipi_dbi_device *dbidev = to_mipi_dbi_device(dev);
++	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
 +
-+	drv->shutdown(dbidev);
++	panel_dbi_command(priv->dbi, MIPI_DCS_SET_DISPLAY_OFF);
++	msleep(35);
++
++	panel_dbi_command(priv->dbi, MIPI_DCS_ENTER_SLEEP_MODE);
++	msleep(50);
++
++	return 0;
 +}
 +
-+/**
-+ * __mipi_dbi_driver_register() - register a driver for DBI devices
-+ * @drv: DBI driver structure
-+ * @owner: owner module
-+ *
-+ * Return: 0 on success or a negative error code on failure.
-+ */
-+int __mipi_dbi_driver_register(struct mipi_dbi_driver *drv, struct module *owner)
++static int hitachi_tx10d07vm0baa_unprepare(struct drm_panel *panel)
 +{
-+	drv->driver.bus = &mipi_dbi_bus_type;
-+	drv->driver.owner = owner;
++	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
 +
-+	if (drv->probe)
-+		drv->driver.probe = mipi_dbi_drv_probe;
-+	if (drv->remove)
-+		drv->driver.remove = mipi_dbi_drv_remove;
-+	if (drv->shutdown)
-+		drv->driver.shutdown = mipi_dbi_drv_shutdown;
++	gpiod_set_value_cansleep(priv->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies), priv->supplies);
 +
-+	return driver_register(&drv->driver);
++	msleep(50);
++
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(__mipi_dbi_driver_register);
 +
-+/**
-+ * mipi_dbi_driver_unregister() - unregister a driver for DBI devices
-+ * @drv: DBI driver structure
-+ *
-+ * Return: 0 on success or a negative error code on failure.
-+ */
-+void mipi_dbi_driver_unregister(struct mipi_dbi_driver *drv)
++static const struct drm_display_mode hitachi_tx10d07vm0baa_mode = {
++	.clock = (480 + 10 + 10 + 10) * (800 + 4 + 4 + 4) * 60 / 1000,
++	.hdisplay = 480,
++	.hsync_start = 480 + 10,
++	.hsync_end = 480 + 10 + 10,
++	.htotal = 480 + 10 + 10 + 10,
++	.vdisplay = 800,
++	.vsync_start = 800 + 4,
++	.vsync_end = 800 + 4 + 4,
++	.vtotal = 800 + 4 + 4 + 4,
++	.width_mm = 52,
++	.height_mm = 86,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static int hitachi_tx10d07vm0baa_get_modes(struct drm_panel *panel,
++					   struct drm_connector *connector)
 +{
-+	driver_unregister(&drv->driver);
-+}
-+EXPORT_SYMBOL_GPL(mipi_dbi_driver_unregister);
++	u32 bus_format = MEDIA_BUS_FMT_RGB888_1X24;
 +
-+static int __init mipi_dbi_bus_init(void)
++	drm_display_info_set_bus_formats(&connector->display_info,
++					 &bus_format, 1);
++
++	connector->display_info.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++					    DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
++					    DRM_BUS_FLAG_DE_HIGH |
++					    DRM_BUS_FLAG_DATA_LSB_TO_MSB;
++
++	return drm_connector_helper_get_modes_fixed(connector, &hitachi_tx10d07vm0baa_mode);
++}
++
++static const struct drm_panel_funcs hitachi_tx10d07vm0baa_panel_funcs = {
++	.prepare = hitachi_tx10d07vm0baa_prepare,
++	.enable = hitachi_tx10d07vm0baa_enable,
++	.disable = hitachi_tx10d07vm0baa_disable,
++	.unprepare = hitachi_tx10d07vm0baa_unprepare,
++	.get_modes = hitachi_tx10d07vm0baa_get_modes,
++};
++
++static int hitachi_tx10d07vm0baa_probe(struct mipi_dbi_device *dbi)
 +{
-+	return bus_register(&mipi_dbi_bus_type);
-+}
-+subsys_initcall(mipi_dbi_bus_init);
++	struct hitachi_tx10d07vm0baa *priv;
++	struct device *dev = &dbi->dev;
++	int ret;
 +
-+static void __exit mipi_dbi_bus_exit(void)
-+{
-+	bus_unregister(&mipi_dbi_bus_type);
-+}
-+module_exit(mipi_dbi_bus_exit);
++	priv = devm_drm_panel_alloc(dev, struct hitachi_tx10d07vm0baa, panel,
++				    &hitachi_tx10d07vm0baa_panel_funcs, DRM_MODE_CONNECTOR_DPI);
++	if (IS_ERR(priv))
++		return PTR_ERR(priv);
 +
-+MODULE_DESCRIPTION("MIPI DBI devices with command transport through parallel interface");
++	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies),
++					    hitachi_tx10d07vm0baa_supplies, &priv->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get supplies\n");
++
++	priv->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
++				     "Failed to get reset gpio\n");
++
++	priv->dbi = dbi;
++	mipi_dbi_set_drvdata(dbi, priv);
++
++	ret = drm_panel_of_backlight(&priv->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get backlight\n");
++
++	ret = devm_drm_panel_add(dev, &priv->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add panel\n");
++
++	return devm_mipi_dbi_attach(dev, dbi);
++}
++
++static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] = {
++	{ .compatible = "hit,tx10d07vm0baa" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
++
++static struct mipi_dbi_driver hitachi_tx10d07vm0baa_driver = {
++	.driver = {
++		.name = "panel-hitachi-tx10d07vm0baa",
++		.of_match_table = hitachi_tx10d07vm0baa_of_match,
++	},
++	.probe = hitachi_tx10d07vm0baa_probe,
++};
++module_mipi_dbi_driver(hitachi_tx10d07vm0baa_driver);
++
++MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
++MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driver");
 +MODULE_LICENSE("GPL");
-diff --git a/include/drm/drm_mipi_dbi_bus.h b/include/drm/drm_mipi_dbi_bus.h
-new file mode 100644
-index 0000000000000..2b8b59bffd0b8
---- /dev/null
-+++ b/include/drm/drm_mipi_dbi_bus.h
-@@ -0,0 +1,103 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * MIPI DBI devices with command transport through parallel interface
-+ *
-+ * Copyright 2026 Mikko Perttunen <mperttunen@nvidia.com>
-+ * Copyright 2026 Svyatoslav Ryhel <clamor95@gmail.com>
-+ */
-+
-+#ifndef __DRM_MIPI_DBI_BUS_H__
-+#define __DRM_MIPI_DBI_BUS_H__
-+
-+#include <linux/device.h>
-+#include <linux/module.h>
-+
-+struct device_node;
-+struct mipi_dbi;
-+struct mipi_dbi_device;
-+struct mipi_dbi_host;
-+
-+/**
-+ * struct mipi_dbi_host_ops - DBI bus operations
-+ * @attach: attach DBI device to DBI host
-+ * @detach: detach DBI device from DBI host
-+ */
-+struct mipi_dbi_host_ops {
-+	int (*attach)(struct mipi_dbi_host *host, struct mipi_dbi_device *dev);
-+	void (*detach)(struct mipi_dbi_host *host, struct mipi_dbi_device *dev);
-+};
-+
-+/**
-+ * struct mipi_dbi_host - DBI host device
-+ * @dev: driver model device node for this DBI host
-+ * @dbi: MIPI DBI interface
-+ * @ops: DBI host operations
-+ */
-+struct mipi_dbi_host {
-+	struct device *dev;
-+	struct mipi_dbi *dbi;
-+	const struct mipi_dbi_host_ops *ops;
-+};
-+
-+/**
-+ * struct mipi_dbi_device - DBI peripheral device
-+ * @dev: driver model device node for this peripheral
-+ * @dbi: MIPI DBI interface
-+ * @host: DBI host for this peripheral
-+ * @attached: the DBI device has been successfully attached
-+ */
-+struct mipi_dbi_device {
-+	struct device dev;
-+	struct mipi_dbi *dbi;
-+	struct mipi_dbi_host *host;
-+	bool attached;
-+};
-+
-+#define to_mipi_dbi_device(__dev)	container_of_const(__dev, struct mipi_dbi_device, dev)
-+
-+struct mipi_dbi_device *
-+devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host *host,
-+			      struct device_node *np);
-+int devm_mipi_dbi_attach(struct device *dev, struct mipi_dbi_device *dbidev);
-+
-+/**
-+ * struct mipi_dbi_driver - DBI driver
-+ * @driver: device driver model driver
-+ * @probe: callback for device binding
-+ * @remove: callback for device unbinding
-+ * @shutdown: called at shutdown time to quiesce the device
-+ */
-+struct mipi_dbi_driver {
-+	struct device_driver driver;
-+	int (*probe)(struct mipi_dbi_device *dbi);
-+	void (*remove)(struct mipi_dbi_device *dbi);
-+	void (*shutdown)(struct mipi_dbi_device *dbi);
-+};
-+
-+static inline struct mipi_dbi_driver *
-+to_mipi_dbi_driver(struct device_driver *driver)
-+{
-+	return container_of(driver, struct mipi_dbi_driver, driver);
-+}
-+
-+static inline void *mipi_dbi_get_drvdata(const struct mipi_dbi_device *dbi)
-+{
-+	return dev_get_drvdata(&dbi->dev);
-+}
-+
-+static inline void mipi_dbi_set_drvdata(struct mipi_dbi_device *dbi, void *data)
-+{
-+	dev_set_drvdata(&dbi->dev, data);
-+}
-+
-+int __mipi_dbi_driver_register(struct mipi_dbi_driver *drv, struct module *owner);
-+void mipi_dbi_driver_unregister(struct mipi_dbi_driver *drv);
-+
-+#define mipi_dbi_driver_register(driver) \
-+	__mipi_dbi_driver_register(driver, THIS_MODULE)
-+
-+#define module_mipi_dbi_driver(__mipi_dbi_driver) \
-+	module_driver(__mipi_dbi_driver, mipi_dbi_driver_register, \
-+			mipi_dbi_driver_unregister)
-+
-+#endif /* __DRM_MIPI_DBI_BUS__ */
 -- 
 2.53.0
 
