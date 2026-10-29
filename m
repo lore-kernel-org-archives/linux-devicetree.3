@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307572;
-	b=3wEGSEgEqCHW3rW08V1osXHp6DiLGHiwsuuf141tMbxk3V/3fGtSJO3aGTBspNFnDnxH
-	 49eg8kpwbSKpwfaasECD00KqmREZSKYLm6VHTq1eMCnnNkdqGU8JtzdjRZhfoPL1gBxDd
-	 oUOluroXCur4n0Rkzhkr9Xyo5F79opI5I8nL6HjaVaLEBhPp80ryT/EBfpt2i2vz/UhXE
-	 M7chNt7lYto3FmPg500UZQtoV4Yy+Mwnw+PkyCuJIhJFHBE/JsmK9PCQ4Ht+rh7XDJU1V
-	 HCdoK64KoQsl689HIkPtBhVImmKZC4R7hkenj08DIWISZ9Osp+jUNBroCQq08jwMpCQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307572;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hpVaakSFJ8J6aOpJxgRujrYu+K0/hJbr4eZQmRroI9c=;
-	b=Oug808zHpy7Ix0mISSRiOB4sUZ5IDCSy3y5u+UYG/IwUsKKCQyeDspwj6BkO/sbq4Plj
-	 0/axaWerw3I7AcbybOxRFTGL+rkmacIrH/hCQF4HLLZ5n66MgK9ZS+y12Gv40Yvn9WXkP
-	 BUXLzrmmGtgZWpgjZRec5IMzbNsksSFLdusx8qChn5lZRX5o6ipS6X+afBcNmrPZV4Ts/
-	 X2TOyUtuawGSLjrPrI8gBnBIRA+FnUB7wco/ScsC0mKRwkRWzmrgLOsRy+5VdI0MSR8r5
-	 Z0P1QKN0E7OS7Qmm2eAm7DEIaQzcXANF79mArFoM0SPeT+0+GL6qF8jODiMxGu9d72A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GoGN0NSu;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793307760;
+	b=WYmMZDfKaZMhKR5uIQ0tMEY5Ny7yH/BxBbGQN8e22FeU+Ohg9mB/8AR5KPr8gHRPRF+K
+	 Tb07osPUfRAJR8+Zq2gR3D8NFWWN3pDdGswOE1tkRJRcK7/Vve4CNBBy/zI5JdAY/J76i
+	 /2mf9zmCAx19uyNQfeItR10ju2U7myN7qx8bsbP6/9XZ6iz0MnqPWlFAkJr/immc+U9f2
+	 QsPPJbSJm//dpoXLVeSdzD1MocgFDivuppMxtkkP8ZOq8vrzdf62RxbpjgorNa13AAvYs
+	 q/ntkyvFPlp8LdaAwwDcV7CWfd5A6NCzH8Bj6DYcGgUFG+yv+r33KzyY649Mdex97nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307760;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	b=jJAO1DGSwxoSx9J0SDMQLBXv4wVDWH14Fxv1j4MTP1Mzf71HIgngF/5M3SFRyVbFApH3
+	 vmVluZy5komCZGw7gIobfYXef2Vc9XeuLg8F3S8b1RKHryQUEJzWUQe0UvdCNnvxlztf9
+	 aDkqYcELBntqMQ9qNm+rqZ7eGbvc8Xnl2eIEemFnaffFcKnvSGjS35FB0tAief3yJmdOt
+	 CoJPd3hTnu6K90oKt7A3AI8HkrZrA09CRqEqF096drFQGzYonf+OWRurf/e7aP2BUfAR8
+	 Nxv4fRmDJVB3l9LUttkkNGb4YDF6d94n2S30pbzT3QLjJDsNnAR18qkp6wmO84stmrg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjlju18q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C70606A31C;
+	Thu, 29 Oct 2026 21:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjlju18q
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793307759;
+	b=hASBgIInuQM6YooXOJlBl7dT/zkAL0iTs4yz+czTndoO0rB4OC/0qdoFZRxb/CZ00vHs
+	 OgeX9btFg2GIZplj7Td8q3kMCYtLtsQDtFvznfAkVTZ4hNs038mbqmYJ7drIsxm/29Ehg
+	 4bP8lNYKwdurt8uY3EaF6D1Ov4ZAzbueiDRiCPqMam2ZNjwFIMkOf/lq5ZL2s4Pn2uIi8
+	 /YSZnSIt9bQoxVjXZatLRPRITjZ2YHfjSMNhtU/kjtKEFakmhosiOD9/HQd9NLbAQhVOp
+	 0/HUNl3Xs9WeDHYrNcW5Fe2VClMPzjPn5hiQS1VsLy0wvzeEpyHHSuFC5kBR4Tdjyug==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793307759;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	b=Ac29jV1/TZJAZfsKpdW94E/hlcup3ebDz30BZXNlasoKUgoXzqRtquGPC8ML2cpXsXs0
+	 /Bi7kVFMiYfOm1Bs7lZ9Z0C95FU2RSXR97HwtvD6xRKf7t7WinkTsoxGK73ib9/HjiRGJ
+	 PK60Js9YSuH/APINoWf1nUEvCHeLwByFGBTB+kmRuxPrENuc3JGyH0EwqY6jrGCws+RE/
+	 VWmLhDYDPISES5t8vXoRvwJyX76r9rmIXKCT28SqyuIWml2/HBZS1Dpw4Z3e5GktnJyFX
+	 ITzl3rU1y2R+TsXPsEQRTF4trBamunfwbn0kNyDy9XNzXdgqnUKPObMJb9Zk5DGOiaA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75310606A31C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 20:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75310606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GoGN0NSu
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so35434f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793307571; x=1793912371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hpVaakSFJ8J6aOpJxgRujrYu+K0/hJbr4eZQmRroI9c=;
-        b=GoGN0NSuGzvhsqjKjV6E5CoaLk9pA1N/4XXrZ9Cr5cu8nKVZhXSK/n7ffPdoh73w8t
-         QkqpgFbbYedLP+PYFJB5dbtvk0YRSoHqThZA2K3YbAoujDMojTOdr2q3V5QeSnwInxhP
-         sNgau1sJ31wc4/I/h18T18iLcZvmXGG9wGmy1iefz7jvo4MwrVQEjGIjS+ECxb5+ghWM
-         OyRFtwpbD8ocS++S2kWWIzjNj3UnDGGIoQVjvhXGKRjO+Ntmo7YfL8tiklNuhvi/44we
-         TcJHFv5lVRzAuqOZBY9/2R7eVNsBudMFy63P9hWHAoUyRiYUznMEydXiwjDHoUgfwM6D
-         MLlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793307571; x=1793912371;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hpVaakSFJ8J6aOpJxgRujrYu+K0/hJbr4eZQmRroI9c=;
-        b=f1cprD+bAhujWwzbt39go5SvqZXv/qeN+26FCqYBtpKJskUpZ970smne1uaEQhXaD+
-         w6w/eJxtznSb6tloe6RYnEX+M5tPCUtN7WMATcP89PdqeVCDFtdcPW8GKWuw0uNg9JMX
-         NEZKl7GsrlAJ3aFhSYIneL2DjXQkqXgv9OGuolltwFKk3415JzWKlvxSyNOdLVAUEuiM
-         gRM3kxEXkFqsWQG/ab7udtA3T8Rn1NfmFEFqS2YhBMi+Mlt2xexTfxN2u4+UzLJDrFy8
-         SGdDKglz9/MEtexPPFGv5nQwxiHaky94buu2ssuc2/XP6nNyhV0pw4//MASTageD5Mv8
-         C4gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9bmGWhvj4RDBxSoactRe7KStmc7Qzrv/S9x5U0RhNagAbxJO2AIlJW1H95Tx7gHqNrVHkI57sefi9@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoPNcsLIPdKF8RSc9uw4eZIT38hZtSlpRz6l7mseCc0MuxZsX1
-	AKVG/+OlAa3ceMWqrWGJpvwC63t1SoE4nFKgzmTYoGXmvhJq2cNTvExw
-X-Gm-Gg: AYBFou1c7R1vAJo/s0qOjAVoVvD5lb8LgxukhSFqXhrRrOrlkoGi+u8x2N31LNXbyqj
-	kX5dLE+cizHKnnNyJfxxnGhRO33wOH+WYrPs+S5//ayGVjn/HB0xXOiOVSUwY245HMfAxYFHXY6
-	+9SzrXiooSJNXTxkj6ylQGVOJ7tuVPT13l0cmIZ7WfpPODQQm441RJrUSATRdQVd/TQQVRTgu8z
-	VWH7DzQKFuXaIB1PsZ6LialuqB7CYigDPdNlpIFhDIpJniC1gdh4y5mXz29/+wMeQ9rrjWH/zhS
-	d0VEnbwMEO5BwSUFR/ScS/6YBlgvOiwM8Y8gCNmI/TDhbuuf2h/vhO1cwpoAcSbZPrTKwQBtazm
-	UjfYZweUQ19Z987rcgn9nc/gCzXReTJuwjBTW/vTxtZngYMkkC+Ly6yGVU5HBm6euFjHH3PpcpG
-	tvdP84xLJLfM03JIMvww1MWELinNp1WLhXf2H8FP+9QVyXC5f/qfkpw/ejfDbRPspa1GARKMlr5
-	CYqDbTQP79XHBJZqsASztgQGYdNrIJ5Cz/+93jBO6Ka0zjbA+yUwgsQrY9ENGYNTutQ27E0d1Z5
-	08maE/xVwSOGM4WTnQUrECCCjr1FvTACKVFkt5fBfG7CbQ==
-X-Received: by 2002:a05:6000:4a19:b0:48e:55c3:efe8 with SMTP id ffacd0b85a97d-48e649ad4cfmr9818193f8f.8.1793307570500;
-        Thu, 29 Oct 2026 13:59:30 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6eb9774dsm730998f8f.44.2026.10.29.13.59.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 13:59:30 -0700 (PDT)
-Message-ID: <102aa257-9816-4e56-ab90-f3edc2a725c5@gmail.com>
-Date: Thu, 29 Oct 2026 21:59:28 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 3AFA81F01828;
+	Thu, 29 Oct 2026 21:02:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793307759;
+	bh=fLxcuXmvvWbcMDhadAHY0ieF3XzHcf5W7cJn0XjKsvk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mjlju18qpKWd2lqnAu07CmtqoPBCQ+/F/EEm8wjbFukHw0G1nosnnT10yUJLIjFVf
+	 4CIHhiuY/Ut7kSTKPxP7J+s1bcRemgKJ2YJeWqjk5GCXlQ1LL9Z+PWu6bVisroRCAx
+	 DyIV3PQa/uOmlJsXmobbaEw3cG/ruMotXfdNq5iKnBQq0OrNVeivq8cz4Qy015+IeN
+	 uNRtubtfJ4iCp4ylDdlrx2bXFr211ltfoUdRcHnr7u39JXIbGYet6Ocs5Rg4lXZhQB
+	 tQ4ss0Yul7VxoPDj75+T8Qss/eLCC37sqBl/6Qx6yG7FxJhy2Lqm1/F9NjNjjTq7Ji
+	 Ckg92yttWoUuw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B9956459C2;
+	Thu, 29 Oct 2026 21:02:37 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Fri, 30 Oct 2026 00:02:34 +0300
+Subject: [PATCH v7 03/11] dt-bindings: watchdog: qcom-wdt: Document MSM8952
+ watchdog
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,91 +83,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>,
- Shi Hao <i.shihao.999@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20261029074851.216029-1-marcus.yu.56@gmail.com>
- <20261029074851.216029-3-marcus.yu.56@gmail.com>
- <533bca43-8de5-4295-b226-5ea3742871de@gmail.com>
- <auN2jwQVr-GSnZvF@zephyrus-g14.localdomain>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <auN2jwQVr-GSnZvF@zephyrus-g14.localdomain>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+In-Reply-To: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793307755; l=832;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6oZOV+Mf0e2Xnm4F17qb2OJyHhIjSjwRgWv2fbhA1PA=;
+ b=KuBHI6HUk4j9F5IWlHJCGnRDPyZqMkHNXhEm+21/P9kib1tjoSezmTXLRE6gje86e6WtkzEK3
+ UtX5Sho3g8nDy6gCXuluYoHXS9F4mk3LEV68/NUCKb09hPnEMDVCWc5
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 Content-Transfer-Encoding: 7bit
 
-On 10/29/26 5:38 PM, Chang Yu wrote:
-> On Thu, Oct 29, 2026 at 12:20:24PM +0100, Jose A. Perez de Azpillaga wrote:
->> On 10/29/26 8:48 AM, Chang Yu wrote:
->>> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
->>>
->>> The AS7343 is a 14-channel spectral sensor featuring 11 visible
->>> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
->>> flicker detection channel.
->>>
->>> The driver exposes 12 spectral channels (11 visible light and 1
->>> near-infrared) via sysfs. Runtime PM is implemented to stop
->>> measurements and enter SLEEP state when the device is suspended
->>> or torn down.
->>>
->>> Future patches will add configurable gain and integration time,
->>> interrupt support, buffered reads, VIS channel, and flicker
->>> detection.
->>>
->>> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
->>> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
->>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
->>> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
->>
->>
->> [snip]
->>
->>> +		/* Check for digital saturation. */
->>> +		if (status & AS7343_ASTATUS_ASAT_STATUS) {
->>> +			/*
->>> +			 * Per the datasheet, ASTATUS is self-clearing: writing
->>> +			 * the value back clears the entire register.
->>> +			 */
->>> +			ret = regmap_write(map, AS7343_ASTATUS_REG, status);
->>
->>
->> isn't that the STATUS (0x93) text? the datasheet says ASTATUS is read
->> only and ASAT_STATUS clears on access, so the write shouldn't be needed.
->> it also covers analog saturation, not only digital
->>
-> Aw man, how did I not notice that?
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-easy to mix up, STATUS and ASTATUS are one letter apart :)
+Document the watchdog found on MSM8952.
 
-> 
->>> +			return ret ? ret : -EIO;
->>
->> -EIO reads like a bus error. as73211 returns -EOVERFLOW for this,
->> wouldn't that fit better?
-> 
-> Sounds good to me. Jonathan, if v7 goes in, can you replace this if
-> block with:
-> 
-> 		/* Check for saturation. */
-> 		if (status & AS7343_ASTATUS_ASAT_STATUS)
-> 			return -EOVERFLOW;
-> 
-> I've tested the change on hardware and everything works fine. Or do you
-> prefer me sending over a v8 instead?
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-with that fixup, LGTM so:
-
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+diff --git a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+index 4ff61102e407..38f86ccd1ffd 100644
+--- a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+@@ -29,6 +29,7 @@ properties:
+               - qcom,apss-wdt-kaanapali
+               - qcom,apss-wdt-maili
+               - qcom,apss-wdt-msm8226
++              - qcom,apss-wdt-msm8952
+               - qcom,apss-wdt-msm8974
+               - qcom,apss-wdt-msm8994
+               - qcom,apss-wdt-nord
 
 -- 
-cheers,
-jose a. p-a
+2.55.0
+
+
