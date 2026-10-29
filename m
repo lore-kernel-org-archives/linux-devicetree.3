@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793307767;
-	b=LvmxhgcYVnSDuhHvtaJulYDNCBTeqMlA62s9i1v8CVVKq0cGukG2pBtpKC8B5e4TEQBs
-	 EfXCRC9ytuxGJz53wc92oFXI7StX8eE03Yss8yFvDs68aoiObsKZkeFhrsNAN3R4Zwxzh
-	 SGaM2t4p7JgV3Sk4FDEgG/x5CbF6CfaNZ/JReFccFwc+ngR7xzfySWeL7OuDZtIweJ2ma
-	 vaWR5kH/TLeFDZL0y3zWJv8OPBxTF08zaCnUiDYGr6S63C8bvmv2OL8y+ovIEkXyKVPFL
-	 cHcoUx6DQ1f3Jnb8aOUJzbWMbE5Tjg5QJZ1s0wf2kilHJKc3fMvYqCZPku11HonIrNg==
+	t=1793307759;
+	b=vDtnvJxUa1+QAumo5OMvvpn1UIqQAszFsULEEkmVC5tXB6fHKs5ketBJju4M1EQLeBOL
+	 FruaCXWf3BFvQ1U6rWoDWxpgWKK74AP1a4q/u5nHM8nDrsgre2yTEDxVJrbwXhRxPdSxI
+	 DSpQ7niznzg9xla58h26ahJxERpxL8r6fUMmGhVfhQG2vxo1SGRGh1kxuXn1eCzeVOoMr
+	 W348KYIAM8fHxUlwVe7+BvvfwjA397dxWTsiUswuVb5mQbmLumMdk4Td1NwTA1VhDpvT9
+	 882OHBsKh35A7Szhl7Hr4LRrubeiCW3KKfkltW2C0HiqDe0dVlRVos24wEr83/TROzQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307759;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=5ZSKgxWJsnkI7jhGQnihxDquCX52XWGTjLz7v3Fw+2uvQLYixYylRnvvPvJnqiwUhJfK
-	 ZMQ7fG/bHv8JabsAJtFN1Z/x+2AmIO+7zt7p5Kxj/DetJ3coIl/tvLA3sshnjB5HUnbWJ
-	 CqAY6oN/T37klTnAyTGPzviX/aDgSqIrjhjveP1Sm1YN+gHPlbm7gwWWodc4XZDXI2hob
-	 Ys4MjGiV3/LTQc37k4PZORephgeDJBeqV4DUxuP6vIt/+xbnF/4nx2paFos2fRDKGqAoT
-	 7GpMKSVAJ65e+K5aYct7OgQ2wREz06MUvzMDqeJBIBG830oN1r8wLtzsMVMFwlx+Vgg==
+	bh=J1+OrXgrK2+f4Fq1WvJ/kjh6om47z7wamLYA4BYVuWc=;
+	b=klVFUBlI4wlLi6fsTV67LRFhzaoiwPUs27AUhOL7dk4rPI4icVvVeO8W+Ek0X+uGq2F7
+	 JEavwPhFVrkrT87J1YursyI/1IV3q4Dt0Jyl1YNqkJIgNbFTWrsfxg3tFqLezG2dS7oMK
+	 RGE7vu9yJU/i7WlQIwh46Fw7K9c6UfzD+sfGMQyFSwBHlJ4aOgMzPb6ZwLtF3da3Tju53
+	 R3md705vPt1IZNwbr3DxU4sg9EAu9dkrZlHQI1Fb14ndEi3Rolsp307l55u7JkhDjJ432
+	 vNp4Zz1QJVY7LsAF2R9SRPM4bTWaJ+Ke21+pN9nXs2J+uEeo/eslbG5e/n8T2kUjsxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOAcI3j7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50D60A260B;
-	Thu, 29 Oct 2026 21:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C93606A31F;
+	Thu, 29 Oct 2026 21:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOAcI3j7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793307762;
-	b=CrEiYe9583yQZ6g8kWuM6h4hLnWw6W6h7FKk+UrKR24EiuHTM+tIAwMoTfHFK9ZkfhQz
-	 xhV6PJvNOkb73MDxoORr/EowHvBAKoHmsZpDGbPYsLxu8hH9F8ZHflnoefMqu+kjblcB4
-	 ICRaq+LQH0fmMlpnaXnlYMJz5j9xZjSIccErlVY9/yzJgs1MaUk0jbw1IBN9ojXwYychx
-	 pJ+6h3AkJcypR3U/+KCRtSygUX5IGxlIqe9icEEVoXVgST3ft5dAKstJdx63u+mjiPluJ
-	 02R9ik8LVs1qkGz33VVZKEsuV3EnuAgAVRV1yO8FC9YgWnJVf5TX+ftEPUnKzGL0b+g==
+	t=1793307759;
+	b=gHsC2U1FimaqU7VFBPyHatux/oE4jGHuJeEKwpsmJtci1PXfMFHnpZSMo5HjWNVjHNNa
+	 rvLW1q2Ka+qZLLPKMCaY6hOCriuVhm7cZOBQ7ez/2TyFuESWLqSUVBBQDnGhDvapF9m8i
+	 ycOxTkCoazdLT4ipVNRWCRcmV20Z+q5w6vL2xTcmfxwQtH5dWnU3MjC7prSQydD5bJtRm
+	 7SMIY+aH4XEKahNomYUEX7ieNoWJayjdxwvT8AR3WHbwup83DjgXcBDb3vGKuGgyhZ7hY
+	 XGDCQ8Z4QqSfGL9CvC9aV/3A0LqX8q5aX75pzFhXhd/CeKTBmChLIvvRq1gvm6Kfk+w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793307762;
+	c=relaxed/relaxed; t=1793307759;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=uK+gEhU37dZ3t9Q6XSA/Xzw8ZBVYF0P++6rb6iLBBKlDNuwCn2vikPgzLxD7ev/BoS63
-	 WHxjVDpolGeb9mG4+xYkMHAOQ3eRh+cI82EIZQ414AT5k5RguU66JSsgu/bT6H1+0JAqe
-	 R7SNYjyz2f1VHHIk2TI4w/iyk8DVKUd/Hwzfn2njNfTB+T8a04z9TnwKWLkarRCnAhfQl
-	 fLY/vULIv9AMXOFdHFJK+7YPrjXXyEsDQoUVGT7MmMHa7CvQiiD+5EFdglaG1Wp3YZjGV
-	 DiRpRAEESulv9JPku3iLovynnZGyCmGeapys0hHvECOYLeusvTuduS9qYSO+F6xfA5g==
+	bh=J1+OrXgrK2+f4Fq1WvJ/kjh6om47z7wamLYA4BYVuWc=;
+	b=KH79yAZWGaJ8JWB6UtVs1r6w4D8LG9RqGdi34uafO45t3AgHmsRBpEbxtIl0IIsrmFDk
+	 YJqtO+TpGtdPo2I2ViGmdHXgGvCc66syMXpmQR63Gz70DI0OIdTXkRyhGeaTzEYFOrv5B
+	 MRVU0V1uR83RX30WCZnL6o0SNx4jTt86uRi02EKtFLxWixclLQCIkoCOP9Bs82WPWU5x/
+	 O2wEapq78tqR3bTzQlGM1lujZSr9cy3QkRJzCggu3iUmmVK21GbjENEhUJzQUEIJ+rHK+
+	 FSMuQcr9LL4x2r7BEyl824XELImaDaPLIaehLT0ZWa8TY0ei66SQ/PcbdlytcamXAfg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2C06A1F031E2;
-	Thu, 29 Oct 2026 21:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793307762;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Orrk8FxCJocyKLi8FRsai06fgyaLKlitCXzV0JGryyWT6TuXkz5dgoa5dhKvX8BRG
-	 b7EDSaqIbSfYIcKQuj28bEknENtOwdhZ9iMTyDMYa2M7TK8ACosB129NwY2mJQG5Gj
-	 YGxKKPGWn2r4xWuDJgj539wHN/cJBpnWx5Kb3HcwSIXKisQh79FMKsRoDluwoNLYPg
-	 RlA3jNgMgnFcLUEXeTdbeHHQ3/6zmY+QmC9yqMJpu87QgfmNoovw1g8RMAKBeuWfXz
-	 l+zv8gpUmwH4y8C3Zn1YsleWoRnF55QauqQGUKPkIQ/q7gbfiYNVSwa0I1ln6MQK1L
-	 S052DhEksGIWw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3836E459DE;
+	by smtp.kernel.org (Postfix) with ESMTPS id 347C51F01825;
 	Thu, 29 Oct 2026 21:02:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793307759;
+	bh=J1+OrXgrK2+f4Fq1WvJ/kjh6om47z7wamLYA4BYVuWc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=NOAcI3j7Pjd6CqCeeEek8By8XRTez2mvUqu+LEx8iL+G7ZC6h9z4nOiEvoYJLMsop
+	 eY33qzxM5pVJA41cNp8NU/qWaLFtso+QzoqrJqObyKiClso+r4ks3lOOkq4nGDyf2q
+	 Eq7RU7CwPpccjcJV16pxh6COuDBJ7VlKQQw+RzyVwKScHds8PE1VPGhFunkQyIITqT
+	 LhYEyBN4G8T99FfLaBeSy4N35+iUGTRLBhY3LgsEB5lqyek5EynVcJ/Y4b8zJ1qYW/
+	 nqGmv5w+vZeSBWwy4WCBq+djwdov7Utm7Q8FmrHpdzRsD+WJwPE06oaOAgT3FlfgcD
+	 8DlEv01nFwz2w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9C87A45986;
+	Thu, 29 Oct 2026 21:02:37 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Fri, 30 Oct 2026 00:02:41 +0300
-Subject: [PATCH v7 10/11] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+Date: Fri, 30 Oct 2026 00:02:32 +0300
+Subject: [PATCH v7 01/11] dt-bindings: nvmem: Add compatible for MSM8952
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-msm8952-initial-support-v7-10-ad748ace375d@mainlining.org>
+Message-Id: <20261030-msm8952-initial-support-v7-1-ad748ace375d@mainlining.org>
 References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
 In-Reply-To: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -122,11 +121,11 @@ Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
  Muzaffer Kadir <muzafferkadir@mainlining.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793307755; l=1656;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793307755; l=867;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=WcI6NF2jH7/1jsgO/qq/6GfopHH27DV/LBlXLYlg2yo=;
- b=KaVq6JMZuo3i7wkTjbLJsHd9Jmfne5+q+ucL4Yn9K7uwr8fdG/0pQ6H8NdBv0fDg2nySA2G7s
- XCRYwH3A72GAEr18ksMnVvsYSFPJtptrjY7nrZRMU5r8xHer6DbMIDY
+ bh=6JMvRgvxX2he4PG9Fo4mqxxQVXCwNkBZtmdxWuS+a1o=;
+ b=Ho5sN1dY1oUffDS6VQODMFlBjBFh3wgB50BCyY6vcZPV2AsevVqMFA8lPuOFykbPm18FX2kev
+ yeCggMCpEKICCAmefW194BWAcmjpSfDIiZ46pImTu1Wm8CZEqdvP0GA
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -137,61 +136,26 @@ Content-Transfer-Encoding: 7bit
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+Document the QFPROM block found on MSM8952.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
- 
-   reg:
-     enum: [ 0x5d, 0x14 ]
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 566304ed4c78..646f2e8dcf4d 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,msm8916-qfprom
+           - qcom,msm8917-qfprom
+           - qcom,msm8937-qfprom
++          - qcom,msm8952-qfprom
+           - qcom,msm8960-qfprom
+           - qcom,msm8974-qfprom
+           - qcom,msm8976-qfprom
 
 -- 
 2.55.0
