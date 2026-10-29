@@ -1,88 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300313;
-	b=MVgcicW0ONZnhQoXu1S8GDx0nkNSi/1Y0TO/Qq1Z53kP0VH2d+uQT4JMcV5pIigPzjC1
-	 euHJNM8jR1oTFm2R/XcokjuI3c4dKN2CzQwif7wq1QE0iOwsNm1eI6GJdnA0mEWTyWKqU
-	 jsko79NEm3a9ESmcwt1roC4l4eXtut0X1c69ZvOYFKqrZc4RgmfY1dbb5en+5cY8HO8EO
-	 zgUJhyeGpM+TKxkdAy4CYjLTRYYsC+xvPhMLfwood79nautSICqyEEbQH7RQJyKEuzvWt
-	 TXqMwZ8FZGPpOsPcr9szssY3xHHahwG8tVaJKEFO2GaYrJ0BeSt+O5N+WpSMO8qgaLA==
+	t=1793300330;
+	b=NUVjjlUIyB3Z7Z5qZjtVtcEsLyMdNRnbvP+NbMLxP6N934SBmRReARTUkDhVWAX8pViF
+	 CQvB2wt5jLvH7mSLYi1Yrww8jTrAoC6PLVzZAcZdMIBhZk0ZyU+r79vaF3kcNHJ9RQ4cx
+	 fjHBjI16mNC9kaZ7RXg3d652D8V0E5K0hTsLiPcveVHnBaSnbwSgxyfAAMXkafkUARZef
+	 YAfAIYL/CE6wzZ2ZonqhxVVeJ/j52aip8VZpL9EuWf5LdPp0iwWiRGeYNKCIyf/m4+ppm
+	 1PBNZbrbGWPNIJgyi6nae5ixTgB8xN2qItejg+CbsuDajtWDhvYO0NalW54hNriuvEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300313;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=M+wiJCV1x+v0QDGzccqhRocm82FSe8QlrnpPbyiwKCc=;
-	b=4KITydoizFfnuBBcGxuupCunaR6EBXpbfMeY8D21n31CMnzHItbyX+g0/lfp1C+XZIhD
-	 uedz9zZ7aDz0s/YqZgxJfLeplT5lCha3QJlun7U0C1MmK9hE4Y+VWqbz1NWvHpuYNVB9b
-	 ztS9zUot16M2RtDiobpZQKwCHA6amGas7JowzN7byYLIXmHc1ixAah5Kj9B/G9f9QKXRB
-	 PLPAJbAOrvBZJ1aWI5zkb2obeuxnx1xqUC6gToST+CHeTe+w7XAlnAsKixoUPw6YeCD5l
-	 mLVdyGutrYyCu0dShYUOnnSGLDi6N63Vs9XvRLMRYQHizql9vBnbs6heXB7mWC4lFRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300330;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KHONBBdjh7iQh0mapfdJy3cnY06ZDJP4tujkx2v2Pl4=;
+	b=CgXWs0zks73ZCePPazNoDGcCh49JjoKSWKrww8hvnB3u6LNFPizLEl1o0rmq5sl+WELN
+	 lf0HkhisjabFTDgt6JO0gEpXVyUkoP4na4IURFINdzf9rXG1mMQPGFHofhoSgdlw5VBUw
+	 Rqawnr/IZCrh9SO0hmG4s4FHa6wPTN2G9DYfvQEb/WZxkJxx3aroDU1bqEXO5+deIxPPd
+	 O1niC6CfGywGnk8kqk3BmEHDQzfLP+WdfGsbRCwwdS2qLSFgEqMKB7S9P3zCZBHQzNsjV
+	 O+BsYw2Qavt5TpFE0tiZZv2p1LaYFfzG4sqEO/IkQ2CPtR9E3Bkhy+aSwb0CqvboOFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VXzQ5glI;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD1wJEbK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8D760A260E
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8D760A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394F4606A31A;
+	Thu, 29 Oct 2026 18:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VXzQ5glI
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so30139345e9.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 11:58:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793300311; x=1793905111; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M+wiJCV1x+v0QDGzccqhRocm82FSe8QlrnpPbyiwKCc=;
-        b=VXzQ5glI2g226G8b5VF+cTmQTh/85ZGlxiS7ucb5EfghgRH6byHCQ2JFXewEOMGGkR
-         xvB2Xk83WOrI/yEk7ie0ofB1myI3FzH8Try9ktOLhQcQohcgPLgreNYYh0cVQ3l9i09y
-         LHsvB/oX99fwEIHBzlcEUrsj+T8t4B5csE8JT9JRhYawCD3fmZWODODuErpndfSral2W
-         wjcmDLd3yPkBqYp3cGzSqRneAyIVzfVJqc8doXb1I7nJ6UGXAWJNFA6ca32TEWMqQkDo
-         YnOEitvHqiNWPh6XM5+jSasZFUQwWaz6TB+KuRLRSrXHA+rVn5RfP3htjNbuAUACpvx1
-         n9Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793300311; x=1793905111;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M+wiJCV1x+v0QDGzccqhRocm82FSe8QlrnpPbyiwKCc=;
-        b=sWclfjVAuejIF1Jfmeq16s8IyWYqEOOQUUHx/v7akw2BxrpuQ+iIuO2HfkVaFdeBfH
-         +uAHeVW0xpxnO5S9mxlzcPpBklFHVv09sbkhNSwJS6YiRO85O2WncDwcWJBWcjlB1oWR
-         PXNLvVvaFvd7ft5mvRhJ+WWpZm9ft7/z1LErGhIqMP6xTGWVypvTFCcXQO40C4tktvS9
-         ObQT9lic/KWzR6s2AhM7QD8jChl+BqircOBoXNVW0+R4anvlyQdauiWA4t03v+IVEDCT
-         76QFZ7DQQWVV4CaGWbWQDaqk88/aK24i6xwWIQpdpCSpDrJ7t5tKQTI3KRkHsiOUiLnK
-         /SFw==
-X-Forwarded-Encrypted: i=1; AKwUvBznUWxCLp72w4CHno+VBPvrzeKPMVa40ILW11WCWRvvbMoOK+EQ7HxUpZlFKrMuiioJjFRghi1v2d9e@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD+OqPYCcQi+TGYIE5XDxaTE6KxobG2QrvdnowSA7kQENXo6Od
-	d39frGn/0DeeHd3D81U5RkmtQEa1qtBw2/hjcz77P6/49tBCrk3gQaFr
-X-Gm-Gg: AYBFou3XhVU4/2nBjaYrEZKIgRzzu0FYk32rZOAWWr1m8bTiyuHUkdhf3oSav/2/9bK
-	dC1E4tOT5ztdBy3wodZW1PfSCcRMnLR+MEB0S00t6w5DMTvOTReeMwHiW/jc6ZK/DYN6hTK5q+Z
-	A1+9XNIyANBORkxiZyhoGb1Y2XfO8bZ4mej0fOn2taONKjr56hSNnVCg1W7RPbn6+3cWznVZDAp
-	0gJuVW3EpuvMaxt5yAROp6WPInd/eMgK9otWKMHb6FYOwcMN+SbOQo0h1T9YXBla+3WleOSBPKS
-	4QzU8mdrr0OE8KqBIYklUQTrBaxiC6ju0o+wpDqanSBo6XK0qA9UMC7UXWq6JL96PANIdg3m3hY
-	eaFgSL70woxUsgrp1NJnR3uBq9ik7BtcPTpi3984bu9rqMYduUrX/EXmHeNrATGI4aJ7BoJfq0N
-	3GEIBaKsEMJLf2a66pLmGlmcFTHfXShuDyF8UT+0BtSN0lOYmEtxi3Z5X/cqT55NUAEpEMHYoUb
-	r7SUWzCTOaDebqHweWMcI56D8jsK0Oz7ArItK1A6Rv6iv2I2WZd/1BCUft1YPLS/dfQ5H/SzNq4
-	g+RHqe0lZAV3sulwXrgfYK2Z7Hj3mIdglVj6blTR4uHELzrYcsAioauToBYq4+VE5g==
-X-Received: by 2002:a05:600c:4454:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4a96720213bmr149370545e9.28.1793300311428;
-        Thu, 29 Oct 2026 11:58:31 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:eafc:6fb2:6c68:5ae0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm94291535e9.10.2026.10.29.11.58.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:58:31 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Thu, 29 Oct 2026 18:58:27 +0000
-Subject: [PATCH v9 6/7] dt-bindings: pwm: Document RZ/G3E GPT support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD1wJEbK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDA51F01300;
+	Thu, 29 Oct 2026 18:58:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793300329;
+	bh=KHONBBdjh7iQh0mapfdJy3cnY06ZDJP4tujkx2v2Pl4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KD1wJEbKIuWT4XOC8ifnI/94JBSzXbzTjHdfbSPYxot9vTldReA0Qgz8lBQYeUvb7
+	 LskigVpp9/BJotoFwQWnCc7p6Qq0AuSfzVWr/4CuGKDg5Z60HOZf864RjkLRy0YC/Y
+	 tYdvmLF6KkManvmNbqWJ6c5kyZUf6QOaZNTSftjTiDHcpCXPKPGSpjK5OPVbgktAnM
+	 NQL75YZUQPanIt1Le4tXrnNgdy/clqaa06SMG4He+ms6Gy6HInIpaipN/i30VANb84
+	 acKccbgk/3BtPJtoyHLvY8KgotLiBR7og+PkZ3nw4y3EZWctu3Y3gooBOrxpkroLXS
+	 pCzj+mcF+5OGw==
+Date: Thu, 29 Oct 2026 18:58:41 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 08/12] riscv: Add Bouffalo Lab SoC selection
+Message-ID: <20261029-urging-dimly-3747c8bb9b1f@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-8-b736ee920078@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,394 +79,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-gpt_rzg3e-v9-6-f3a5520388d3@bp.renesas.com>
-References: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-In-Reply-To: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793300303; l=16225;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=ajKn7hvIy5GiG/SotjMvlQ2ODed/m6ZTDXrq3AaLMew=;
- b=QBLtRgtkCczzdIXH7F3K2GamCvorbbju+PdWS5tLABxBwS/PSPzlp39kRJA41YCeCrwo5c4bd
- R3dizUDNpNpBSnC5yDdRKhLW6QA08+/UwQyfTz5QyYLLExNjgG8vXJX
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TJwnwN6dd3J6z/rc"
+Content-Disposition: inline
+In-Reply-To: <20261029-rust-bl808-console-v1-8-b736ee920078@gmail.com>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+--TJwnwN6dd3J6z/rc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Document support for the GPT found on the Renesas RZ/G3E (R9A09G047)
-SoC.
+On Thu, Oct 29, 2026 at 01:05:49AM -0400, Kwanghoon Son wrote:
+> Add a platform selection for the BL808 64-bit D0 processor, including
+> the T-HEAD errata and common clock framework used by its UART.
+>=20
+> Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> ---
+>  arch/riscv/Kconfig.socs | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+> index cecbce0c498384d3283ed23cbf2514391eee361d..ea4667da7716a9a8d2ae156c4=
+22b277064b42530 100644
+> --- a/arch/riscv/Kconfig.socs
+> +++ b/arch/riscv/Kconfig.socs
+> @@ -12,6 +12,14 @@ config ARCH_ANLOGIC
+>  	help
+>  	  This enables support for Anlogic SoC platform hardware.
+> =20
+> +config ARCH_BOUFFALOLAB
+> +	bool "Bouffalo Lab BL808 SoC"
 
-The GPT is a 32-bit timer with 16 hardware channels (GPT0: 8 channels
-and GPT1: 8 channels). The hardware supports simultaneous control of
-all channels. PWM waveforms can be generated by controlling the
-up-counter, downcounter, or up- and down-counter.
+Ideally, this should be more generic because it would eventually include
+other bouffalo devices.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v8->v9:
- * Updated commit description channel->channels and '8channels' to
-   '8 channels'
- * Retain the tag as the change is trivial.
-v7->v8:
- * No change.
-v6->v7:
- * No change.
-v5->v6:
- * No change.
-v4->v5:
- * No change.
-v3->v4:
- * No change.
-v2->v3:
- * Added Rb tag from Rob.
-v1->v2:
- * Created separate document for RZ/G3E GPT.
- * Updated commit header and description.
----
- .../devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml | 323 +++++++++++++++++++++
- 1 file changed, 323 insertions(+)
+> +	depends on 64BIT && MMU
+> +	select ERRATA_THEAD
 
-diff --git a/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml b/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
-new file mode 100644
-index 000000000000..cb4ffab5f47f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml
-@@ -0,0 +1,323 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/renesas,rzg3e-gpt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Renesas RZ/G3E General PWM Timer (GPT)
-+
-+maintainers:
-+  - Biju Das <biju.das.jz@bp.renesas.com>
-+
-+description: |
-+  RZ/G3E General PWM Timer (GPT) composed of 16 channels with 32-bit
-+  timer. It supports the following functions
-+  * 32 bits x 16 channels.
-+  * Up-counting or down-counting (saw waves) or up/down-counting
-+    (triangle waves) for each counter.
-+  * Clock sources independently selectable for each channel.
-+  * Four I/O pins per channel.
-+  * Two output compare/input capture registers per channel.
-+  * For the two output compare/input capture registers of each channel,
-+    four registers are provided as buffer registers and are capable of
-+    operating as comparison registers when buffering is not in use.
-+  * In output compare operation, buffer switching can be at crests or
-+    troughs, enabling the generation of laterally asymmetric PWM waveforms.
-+  * Registers for setting up frame cycles in each channel (with capability
-+    for generating interrupts at overflow or underflow)
-+  * Generation of dead times in PWM operation.
-+  * Synchronous starting, stopping and clearing counters for arbitrary
-+    channels.
-+  * Count start, count stop, count clear, up-count, down-count, or input
-+    capture operation in response to a maximum of 8 ELC events.
-+  * Count start, count stop, count clear, up-count, down-count, or input
-+    capture operation in response to the status of two input pins.
-+  * Starting, clearing, stopping and up/down counters in response to a
-+    maximum of four external triggers.
-+  * Output pin disable function by detected short-circuits between output
-+    pins.
-+  * A/D converter start triggers can be generated.
-+  * Compare match A to F event and overflow/underflow event can be output
-+    to the ELC.
-+  * Enables the noise filter for input capture.
-+  * Logical operation between the channel output.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a09g047-gpt  # RZ/G3E
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#pwm-cells':
-+    const: 3
-+
-+  interrupts:
-+    items:
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.0
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.0
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.0
-+      - description: A and B both high interrupt for channel GPT{0,1}.0
-+      - description: A and B both low interrupt for channel GPT{0,1}.0
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.1
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.1
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.1
-+      - description: A and B both high interrupt for channel GPT{0,1}.1
-+      - description: A and B both low interrupt for channel GPT{0,1}.1
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.2
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.2
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.2
-+      - description: A and B both high interrupt for channel GPT{0,1}.2
-+      - description: A and B both low interrupt for channel GPT{0,1}.2
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.3
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.3
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.3
-+      - description: A and B both high interrupt for channel GPT{0,1}.3
-+      - description: A and B both low interrupt for channel GPT{0,1}.3
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.4
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.4
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.4
-+      - description: A and B both high interrupt for channel GPT{0,1}.4
-+      - description: A and B both low interrupt for channel GPT{0,1}.4
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.5
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.5
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.5
-+      - description: A and B both high interrupt for channel GPT{0,1}.5
-+      - description: A and B both low interrupt for channel GPT{0,1}.5
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.6
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.6
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.6
-+      - description: A and B both high interrupt for channel GPT{0,1}.6
-+      - description: A and B both low interrupt for channel GPT{0,1}.6
-+      - description: Input capture/compare match of the GTCCRA for channel GPT{0,1}.7
-+      - description: Input capture/compare match of the GTCCRB for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRC for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRD for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRE for channel GPT{0,1}.7
-+      - description: Compare match with the GTCCRF for channel GPT{0,1}.7
-+      - description: A and B both high interrupt for channel GPT{0,1}.7
-+      - description: A and B both low interrupt for channel GPT{0,1}.7
-+
-+  interrupt-names:
-+    items:
-+      - const: gtcia0
-+      - const: gtcib0
-+      - const: gtcic0
-+      - const: gtcid0
-+      - const: gtcie0
-+      - const: gtcif0
-+      - const: gtcih0
-+      - const: gtcil0
-+      - const: gtcia1
-+      - const: gtcib1
-+      - const: gtcic1
-+      - const: gtcid1
-+      - const: gtcie1
-+      - const: gtcif1
-+      - const: gtcih1
-+      - const: gtcil1
-+      - const: gtcia2
-+      - const: gtcib2
-+      - const: gtcic2
-+      - const: gtcid2
-+      - const: gtcie2
-+      - const: gtcif2
-+      - const: gtcih2
-+      - const: gtcil2
-+      - const: gtcia3
-+      - const: gtcib3
-+      - const: gtcic3
-+      - const: gtcid3
-+      - const: gtcie3
-+      - const: gtcif3
-+      - const: gtcih3
-+      - const: gtcil3
-+      - const: gtcia4
-+      - const: gtcib4
-+      - const: gtcic4
-+      - const: gtcid4
-+      - const: gtcie4
-+      - const: gtcif4
-+      - const: gtcih4
-+      - const: gtcil4
-+      - const: gtcia5
-+      - const: gtcib5
-+      - const: gtcic5
-+      - const: gtcid5
-+      - const: gtcie5
-+      - const: gtcif5
-+      - const: gtcih5
-+      - const: gtcil5
-+      - const: gtcia6
-+      - const: gtcib6
-+      - const: gtcic6
-+      - const: gtcid6
-+      - const: gtcie6
-+      - const: gtcif6
-+      - const: gtcih6
-+      - const: gtcil6
-+      - const: gtcia7
-+      - const: gtcib7
-+      - const: gtcic7
-+      - const: gtcid7
-+      - const: gtcie7
-+      - const: gtcif7
-+      - const: gtcih7
-+      - const: gtcil7
-+
-+  clocks:
-+    items:
-+      - description: Core clock (PCLKD)
-+      - description: Bus clock (PCLKA)
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: bus
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  resets:
-+    items:
-+      - description: Reset for bus clock (PCLKA/PCLKD)
-+      - description: Reset for core clock (PCLKD)
-+
-+  reset-names:
-+    items:
-+      - const: rst_p
-+      - const: rst_s
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - resets
-+  - reset-names
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/renesas,r9a09g047-cpg.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    pwm@13010000 {
-+        compatible = "renesas,r9a09g047-gpt";
-+        reg = <0x13010000 0x10000>;
-+        interrupts = <GIC_SPI 538 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 546 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 554 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 562 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 570 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 578 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 586 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 594 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 539 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 547 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 555 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 563 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 571 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 579 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 587 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 595 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 540 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 548 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 556 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 564 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 572 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 580 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 588 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 596 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 541 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 549 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 557 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 565 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 573 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 581 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 589 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 597 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 542 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 550 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 558 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 566 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 574 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 582 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 590 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 598 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 543 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 551 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 559 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 567 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 575 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 583 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 591 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 599 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 544 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 552 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 560 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 568 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 576 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 584 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 592 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 600 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 545 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 553 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 561 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 569 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 577 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 585 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 593 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>;
-+        interrupt-names = "gtcia0", "gtcib0", "gtcic0", "gtcid0",
-+                          "gtcie0", "gtcif0", "gtcih0", "gtcil0",
-+                          "gtcia1", "gtcib1", "gtcic1", "gtcid1",
-+                          "gtcie1", "gtcif1", "gtcih1", "gtcil1",
-+                          "gtcia2", "gtcib2", "gtcic2", "gtcid2",
-+                          "gtcie2", "gtcif2", "gtcih2", "gtcil2",
-+                          "gtcia3", "gtcib3", "gtcic3", "gtcid3",
-+                          "gtcie3", "gtcif3", "gtcih3", "gtcil3",
-+                          "gtcia4", "gtcib4", "gtcic4", "gtcid4",
-+                          "gtcie4", "gtcif4", "gtcih4", "gtcil4",
-+                          "gtcia5", "gtcib5", "gtcic5", "gtcid5",
-+                          "gtcie5", "gtcif5", "gtcih5", "gtcil5",
-+                          "gtcia6", "gtcib6", "gtcic6", "gtcid6",
-+                          "gtcie6", "gtcif6", "gtcih6", "gtcil6",
-+                          "gtcia7", "gtcib7", "gtcic7", "gtcid7",
-+                          "gtcie7", "gtcif7", "gtcih7", "gtcil7";
-+        clocks = <&cpg CPG_MOD 0x31>, <&cpg CPG_MOD 0x31>;
-+        clock-names = "core", "bus";
-+        power-domains = <&cpg>;
-+        resets = <&cpg 0x59>, <&cpg 0x5a>;
-+        reset-names = "rst_p", "rst_s";
-+        #pwm-cells = <3>;
-+    };
+> +	select COMMON_CLK
 
--- 
-2.43.0
+This is not needed, there's a select of COMMON_CLK at the arch level.
 
+> +	help
+> +	  This enables support for Bouffalo Lab SoC platform hardware.
+> +
+>  config ARCH_ESWIN
+>  	bool "ESWIN SoCs"
+>  	help
+>=20
+> --=20
+> 2.47.3
+>=20
+
+--TJwnwN6dd3J6z/rc
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOXYQAKCRB4tDGHoIJi
+0m4+APwLLXxq0bZ7C1Uz5V8JPQ30iBNkzxhYIBytaujWnKP6mQEAjbdFyjoBSugn
+VC4kWUeUZlKq+dktIimVpN1lv8AjaAE=
+=5lfT
+-----END PGP SIGNATURE-----
+
+--TJwnwN6dd3J6z/rc--
