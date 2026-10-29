@@ -1,108 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296630;
-	b=R1iybz/GwbodVGxCncG7Zvo3h39Dd7gk5BJh/emJbaZLOvg2ybc+KH3ul/NG3AaDADgB
-	 4gsfRmZSqDjuaKmAjqSl8gEi6j/BqG3fBsZquzY6b71fQoexqTn3KYzYBdO/WghukT5uY
-	 qXPxXEYcoOqkEV/x5SPn5VtLCnxh89ix32xIVHJucyU+EHYEjRZrvd3nF9ZQ82eDjmvaY
-	 +LNrLz3+UQ2ElQ3eZHH1VtJbTo0g/6KAlICKEn+hol+kH2uDCT9Ml+oME95bDBi25jpOA
-	 BX+gf8J7uKrFeeMiAuDELhHfNKSbpnI30dJ2MU0jUrg0zXRzyMY8KQqcUjAdvc0NvwQ==
+	t=1793297180;
+	b=UoNs+Cfvbsj+njBkjWhLEPTaXvpEonocKZhRLOFeiiXlxtVnVVe4LNlRjx4twW3cKCun
+	 JrWyKjH+BWj6XRXGF6v/JhQQB+bLW5p5LwSm878NztT6ck837TWrxUCNuDUhPNZfmqAhn
+	 9yZRIpUNb0SPmK72aKTVaZrqzUcrYSl2jsF0p89PcJ4wNVzUs24I4bqypBaew6HzSM+DP
+	 +xouzoVN9aOQngAt/5fhIeuhyrJgd1nFFs/Zx3ckWyfbI+sNno8EPuo/MqtkKOfl5Ezwu
+	 7nbnbVdCkdloC6XRw43qDu1DdoW3D/qoaCGnZfSo7qjt/gJnF1V0p3iZXDUmtad4lAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296630;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=nDX2rRdVV3QP/6Ts1rsElxSn3+3Z1o4ammOugDPSu3s=;
-	b=VEmEjogldz9ET5NcFTRC7HEBzhx3GVHg5bLMO9PQ7eES8xU/jliIDskysrlYhvzsZISe
-	 +n1PzDbOUXgeETjxxcDCgLoPVFxazDYmeMl9xS/TbZdwYEkVEBz+vuf66LE1plawZO8YO
-	 4bhDykXSfuXLZ61+HBpsIT1AOrEy0tf2+FIVlgtUCTfAooXv5r1bYj4MgvGTZhonUmtdP
-	 dZAIku6A/035IZlYIvF7YHnYDMlaMPirEISjK/LlxsHWfWY/b7JEYJBnVFy1bof47z2Cz
-	 MAS992x4dfHrdJoyOyNY3iS99TrcAbh/apoACOCCINgBdECk8bBTGKMdXL8ZSPGVMPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297180;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=+BGd71qzsHDL6uZ0se5mkr5mWrtxgAnTbyOWuD93Dpw=;
+	b=4fuv3SioW2ngl0UueHkEajkLMF1s4BmaWknF2PU6MAiOJ+ExFVNtQZwnQGKIN7Di3BY0
+	 7O0//kvnPBb5oMNM3qlW1GSMtNp2cWtheOlPVDD4BC9/8soXgfIuWQkOLwiaPH9JJysUL
+	 D0e6X2cN1B2zP25Vyalu0ZWGC+QOs9u2AWhcNnqaX0Mdvvb/JNRYs5VlMfyn9/AYoXq8j
+	 f33sEwvdaZzke4m33BLMerhHCTclRB5nnluWxPXSJFeFaD/tnp3cOH5OxduYy5CCun7p9
+	 6gUnmbVCC29CyTsc4US/QxSVJ1vVNqJQlL2eNVbLwDEXJCPjrjkm70w2o8ol9X1o0/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar-com.20260707.gappssmtp.com header.i=@riscstar-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OuMj7yiH;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nUU/779G";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9931C606A31E
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 17:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9931C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFA8606A31D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20260707.gappssmtp.com header.i=@riscstar-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OuMj7yiH
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so25006825e9.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:57:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20260707.gappssmtp.com; s=20260707; t=1793296628; x=1793901428; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nDX2rRdVV3QP/6Ts1rsElxSn3+3Z1o4ammOugDPSu3s=;
-        b=OuMj7yiH2IUcS/V2lonve3C2cgsJev9+d9Lw5c07BZ0N97vBRbsJ3mlh4k2Hsem+Qx
-         p4dlaCcs+orJo59rVWBjRW5C2zlJ8GXCX/Kvlg0c7di8WixC+DOTwDPl3ohB7LF8xfNW
-         uKlZ8HVgPSjsIqLCbAcufrbNKP146EJMzE+8O+CN/8MOKJR7hzceqXqLQwbkFE0muZzy
-         G/nMTGRQ3gzTqfOWu0mUbNTzobadpkE3P9s1GVm7jeGxxFalFcaTJlSK3NnxvWZJu+f4
-         2oxNnPst5u0+bLae1a6HqTxZ+oZerGvP2spqxEnnlxdcSnWymtgL6UR1GGR+yp9l+MBT
-         H5lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793296628; x=1793901428;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nDX2rRdVV3QP/6Ts1rsElxSn3+3Z1o4ammOugDPSu3s=;
-        b=LBO9LM//+1TsvjsVARH7Lt0cjyz3e5vghP/TP/qyxPa7ddNuCsaIFT1+zY1uE956dY
-         ZPYUI7Bm8l8+WWLa3F/fo8CPvQ7Es7iAICz3Cv0U+2jfmJzqrTc9Aw2/YM+2b+QPLg0Q
-         pJ1bOqy+w8gb4IEZDhSzkR6iJQvKmatADTNJjIy5DaeEB3JtvYZn+VQHVq343+MsnVrF
-         /vaO9yGmSUaYZQmf3M490Vg2De+VcGVnJjGf8SDCAtfng8WJBqxEjkbGZ38ztXokY8fP
-         lV+T6qj+o4pmjMl9igRtTPZg3IweL6p1e/Csw7XwxcTJdnZ95CDbtZ5IuqAkAAC5etVC
-         80Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8pZvJLZxKUQmJDpDfuCp/mJfcc/M+D/oqJIDnpG8C7hZZUhOZzsuJWheJn2KfgomBuvibHVMuYA1v@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZcAI0j2eP6xd+18unqlQ61OIQZ/GgfT/hkFTIZwMuL/cqiBaF
-	Gpqi+5keCoQbyRn/2wNrIaRtpLMfkwMnVATcR14wev0wphiuFam3Ju+ILmK8olxmovE=
-X-Gm-Gg: AYBFou2WDCRgC/43A2OH2e4b23V41h/IIkAlg0E64Pnpjn9gWLc3MuNQV8o/1Mojt1w
-	xbPrfHUAu1tUXXXGg6O18GMOJenjaOIWaZDc5+CT/lerD1IYccI9ALds26WitM6kObd9FxOLDzR
-	KKYpLEwUd4t3g2rJWW0IYpvwAQIwxkR48R+Tl+/HmnmtwPtlu8+clg+IbF247eFCWfX8WsMQE7+
-	NnjEWm7Vc7j8YTu3l5mr297/PZSvLy8ncMzGl4tcHtq8ylqy0TDUHUAzqpXD6DOfQSfA1escNY8
-	c54gm7zu88eDlNZs7QZLJPrK9At49miPHUPiEPPsbr/o7BiNdn9CGrOdgIIZTfPSoqiGQIUVwDq
-	rlDshMbSAOcufQ1zuKNSD07R4fYM9OObLlX274D7tuSa4CcfPFaUdVqe4Hsz6VinNYU5Dvuincm
-	ORq88jwsPkn25Qk/60AtEo8keGHW2PGmOBg7kIWVUbH5oE7esWn9F7QM6914/FLMVx4gdh3+o1+
-	4rPaaYbqq2IVLMz93Y6The6azLskPJQCrQ86t6F3FQ3LPNJJ5Juh7NjbL8nZMRD/LFcMKhDnf8H
-	2cnYRCFRYBc6hAV6gahZONO0j5ogfKel5kNz5Qs50QD4NAU8Op4uOXg2rKWLqFtl/yfWO3jUNWW
-	ZQLoMZBdF8yC/4WDKv9Pgp8u5GYcLDR6Lky263tWx19mXexoF06C1mEVAYxrTG54dG36Rs8e+5V
-	zCL4tF2xxI44DMug==
-X-Received: by 2002:a05:600d:16:b0:4a7:669c:c988 with SMTP id 5b1f17b1804b1-4a9672f7512mr121511495e9.23.1793296627848;
-        Thu, 29 Oct 2026 10:57:07 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm80168055e9.14.2026.10.29.10.57.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 10:57:06 -0700 (PDT)
-Date: Thu, 29 Oct 2026 17:57:04 +0000
-From: Daniel Thompson <daniel@riscstar.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alex Elder <elder@riscstar.com>, robh@kernel.org, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-	krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-	kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
-Message-ID: <auOI8LbZNWbNGJuN@aspen.lan>
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-2-elder@riscstar.com>
- <20260920-fiery-fanatic-manticore-6abf0a@quoll>
- <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
- <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
- <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
- <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
- <e3c9087e-fea5-4ec6-852a-a0e0e33ce461@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUU/779G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248B31F01816;
+	Thu, 29 Oct 2026 18:06:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793297179;
+	bh=+BGd71qzsHDL6uZ0se5mkr5mWrtxgAnTbyOWuD93Dpw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nUU/779GivLuu0PMnr+BsiDPH/KrYRZixO1xFQkbCUp/BshXKA0caKdr44dH172gD
+	 Nfgsj8DS+GJSIYgmm4fWrYsRdzvuAkOBOGlKk3u8UUiO7yR/Uzi6AJkyoyzX1gkYyX
+	 L4PqUCoro1EDVFC3vz6cdG7jCOHSZQXN8v6iEePHBwkHbWsbp+ww63WNRVKIxMCS8/
+	 LVrfCY+huQRhadW73qocsCcZebQHZnPoLhXAotx05gS7LDIXxZnH6HUV0UCew/k4Wl
+	 I7s/jd6LT33KAS/pqs9Xo4GvpPj/6ov+YsOy7GMOHzEMiPbYwnJxy0wBJ7t2mPuV/6
+	 bNFZu4hrlSS1A==
+Message-ID: <sashiko-outbox-189760@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 2/3] power: supply: add read-only CW2017 battery
+ monitor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kupreenko Danila" <keckerz@yandex.ru>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <179329639684.489944.17646031923456877930.cw2017-first-public-rfc-2@yandex.ru>
+References: <179329639684.489944.6322623410181934358.cw2017-first-public-rfc@yandex.ru>
+ <179329639684.489944.17646031923456877930.cw2017-first-public-rfc-2@yandex.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 18:06:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,172 +60,135 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e3c9087e-fea5-4ec6-852a-a0e0e33ce461@kernel.org>
 
-On Thu, Oct 29, 2026 at 02:54:35PM +0100, Krzysztof Kozlowski wrote:
-> On 28/09/2026 16:52, Alex Elder wrote:
-> > On 9/23/26 2:25 AM, Krzysztof Kozlowski wrote:
-> > I believe the TC9564 *is* such a "complex" SoC.  And in any case,
-> > anywhere pci-ep-bus is used, it implies that some chip internals
-> > would be described using devicetree.
-> >
-> > Would incorporating the chip internals in a devicetree *overlay*
-> > have any effect on your opinion on this?  I.e., the "main"
-> > devicetree nodes would simply define the PCI device hierarchy,
-> > but anything behind an endpoint would be described in an overlay.
-> > This way, pci-ep-bus on a PCI endpoint just provides an external
-> > interface onto which a very complex device could be "mounted"
-> > (and described in an overlay).
-> >
-> > I'd like to continue to move ahead with upstreaming support for
-> > this SoC, but to me it seems you have basic doubts about
-> > pci-ep-bus and I'd like to get past that.
->
-> Well, Rob might understand this better, so maybe review from him will
-> solve these questions.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] power: supply: cw2017: broken sample.error tracking in cw2017_su=
+spend()
+--
 
-To aid whichever of the DT maintainers can help with review, I'd
-like to offer a little more background on the "TC9564 is a complex
-device" thread.
+commit 2974e2dfc1b0336eb1b26f72d45d626971f0a216
+Author: Kupreenko Danila <keckerz@yandex.ru>
 
-Hopefully it doesn't contradict what you've been discussing with Alex,
-but it will perhaps give a different perspective.
+power: supply: add read-only CW2017 battery monitor
 
-My thoughts neatly divide into three parts:
+This patch adds a read-only power_supply driver for firmware-initialized
+CellWise CW2017 battery fuel gauges over I2C, polling voltage, state of
+charge, and temperature with exponential backoff on read errors.
 
-1. The TC956x-series form a complex enough family of multi-function
-   devices. We will need some way to describe it's structure (both
-   external *and* internal).
+> diff --git a/drivers/power/supply/cw2017_battery.c b/drivers/power/supply=
+/cw2017_battery.c
+> new file mode 100644
+> index 0000000000000..86323849a813a
+> --- /dev/null
+> +++ b/drivers/power/supply/cw2017_battery.c
+> @@ -0,0 +1,370 @@
 
-2. There are multiple ways to describe a device's connectivity but
-   devicetree is great for this job making it an excellent technical
-   solution.
+[ ... ]
 
-3. We have done sufficient thought experiments (and real-world
-   experiments) to be confident that our solution is not in conflict
-   with treating the QPS615 as a regular PCIe card.
+> +static void cw2017_poll(struct work_struct *work)
+> +{
+> +	struct cw2017 *cw =3D container_of(to_delayed_work(work), struct cw2017=
+, work);
+> +	struct cw2017_sample sample =3D { };
+> +	bool changed;
+> +
+> +	sample.error =3D cw2017_read_sample(cw, &sample);
+> +	if (sample.error)
+> +		dev_dbg_ratelimited(cw->dev, "Measurements unavailable (%d)\n",
+> +				    sample.error);
+> +
+> +	mutex_lock(&cw->lock);
+> +	changed =3D !cw->sample.error !=3D !sample.error ||
+> +		  (!sample.error &&
+> +		   (cw->sample.capacity !=3D sample.capacity ||
+> +		    cw->sample.voltage_uv !=3D sample.voltage_uv ||
+> +		    cw->sample.temp !=3D sample.temp));
+> +	cw->sample =3D sample;
+> +	mutex_unlock(&cw->lock);
+> +
+> +	if (changed)
+> +		power_supply_changed(cw->psy);
+> +
+> +	if (sample.error)
+> +		cw->poll_interval_ms =3D min(cw->poll_interval_ms * 2,
+> +					   CW2017_MAX_POLL_INTERVAL_MS);
+> +	else
+> +		cw->poll_interval_ms =3D CW2017_POLL_INTERVAL_MS;
+> +
+> +	queue_delayed_work(system_freezable_wq, &cw->work,
+> +			   round_jiffies_relative(msecs_to_jiffies(cw->poll_interval_ms)));
+> +}
 
-Having offered the summary above because I now need to spend a lot of
-words to back up the above. I'm afraid I have to go a long way past
-the syscon bindings perimeter!
+[ ... ]
 
-## Why I think the QPS615 is "complex"
+> +static int cw2017_suspend(struct device *dev)
+> +{
+> +	struct cw2017 *cw =3D dev_get_drvdata(dev);
+> +
+> +	cancel_delayed_work_sync(&cw->work);
+> +	mutex_lock(&cw->lock);
+> +	cw->sample.error =3D -ENODATA;
+> +	mutex_unlock(&cw->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int cw2017_resume(struct device *dev)
+> +{
+> +	struct cw2017 *cw =3D dev_get_drvdata(dev);
+> +
+> +	cw->poll_interval_ms =3D CW2017_POLL_INTERVAL_MS;
+> +	queue_delayed_work(system_freezable_wq, &cw->work, 0);
+> +
+> +	return 0;
+> +}
 
-I hope I don't have to rehash the multi-function part too much. The TC9564
-included comms peripherals (UART, I2C, SPI, GPIO), some very common SoC-ish
-management peripherals (reset, clock, interrupt controller), a Cortex-M3
-controller (with access to pretty much everything) and some licensed
-peripherals with well established devicetree bindings (2x Designware XGMAC).
+[Severity: Medium]
+Does setting cw->sample.error to -ENODATA in cw2017_suspend() without
+emitting a notification break the validity-transition tracking in
+cw2017_poll() across suspend and resume?
 
-It should be noted that TC9564 does also include a PCIe switch. However the
-switch is *upstream* of the PCIe endpoint we use to control most of the other
-TC9564 peripherals so you won't see it any any bindings that have come from
-Alex and me.
+In cw2017_poll(), validity transitions are detected by comparing the cached
+error state against the new sample error state:
 
-Another factor that makes describing TC9564 complex is the presence or
-absence of side channels that give the host SoC mechanisms to communicate with
-the TC9564 without using PCIe.
+	changed =3D !cw->sample.error !=3D !sample.error ||
+		  (!sample.error &&
+		   (cw->sample.capacity !=3D sample.capacity ||
+		    cw->sample.voltage_uv !=3D sample.voltage_uv ||
+		    cw->sample.temp !=3D sample.temp));
 
- * On RB3gen2 there are host GPIOs that control TC9564 peripherals such as the
-   ethernet phys (used for power control). Additionally there is an I2C side
-   channel that is used to control the TC9564 GPIOs. This is needed
-   to solve a chicken-and-egg problem related to the PCIe #PERST signals
-   in the PCIe switch but also ends up being used to reset the ethernet phys.
+Because cw2017_suspend() overwrites cw->sample.error with -ENODATA without
+calling power_supply_changed(cw->psy), two notification issues arise when
+cw2017_poll() runs after resume:
 
- * On a real PCIe card there will be no side channels, which means the TC9564
-   GPIO peripheral would suddenly become `status = "okay"` on the PCIe bus
-   instead of the I2C bus (in this case we know that there is no
-   chicken-and-egg... if there were then the card won't work electrically).
+1. If measurements were valid before suspend (cw->sample.error =3D=3D 0) and
+   cw2017_read_sample() fails after resume (for example, if the gauge lost
+   its profile or readiness across suspend or an I2C error occurs), both
+   cw->sample.error and sample.error are non-zero. As a result, changed
+   evaluates to false and power_supply_changed(cw->psy) is never called,
+   leaving consumers with stale pre-suspend values.
 
-Thus, even with one part number, we already have some fairly significant
-connectivity difference depending on the board design.
+2. If measurements were valid before suspend and remain valid and unchanged
+   after resume (sample.error =3D=3D 0), !cw->sample.error !=3D !sample.err=
+or
+   evaluates to true solely because cw2017_suspend() forced cw->sample.error
+   to -ENODATA, triggering an unconditional power_supply_changed(cw->psy)
+   uevent on every resume.
 
-Finally, the TC956x is a family and we'd like to reuse as much as possible
-across the part numbers that will come. Having a convenient way to
-reuse common subsystems is is very valuable.
+In addition, cw2017_resume() queues cw->work on system_freezable_wq, which
+remains frozen until suspend_thaw_processes() runs after dpm_complete().
+When dpm_complete() -> thermal_pm_complete() schedules
+thermal_zone_device_resume() on the non-freezable thermal_wq (registered
+for POWER_SUPPLY_PROP_TEMP via __power_supply_register() ->
+psy_register_thermal()), cw2017_get_property() will see cw->sample.error =
+=3D=3D
+-ENODATA and fail thermal zone resume before the post-resume poll work has a
+chance to run.
 
-## Why devicetree is a great technical solution
+Would it be better to preserve cw->sample across suspend so cw2017_poll()
+can compare the post-resume reading against the last reported state?
 
-Clearly we *could* rely on a big pile of what is essentially platform
-bus code in the PCIe driver to describe the connectivity and familial
-difference. Renaming it to auxiliary bus code doesn't stop the results
-from feeling like fifteen-year old platform bus code.
-
-For that reason we view devicetree as a better solution to model the
-hardware. DT already has idiomatic ways to describe the connectivity of
-the device.
-
-Most of the non-discoverable baseboard <-> TC9564 connections are for the
-MAC and using devicetree simplifies the binding there since we add only a
-few essentials over the existing stmmac bindings (there are existing
-stmmac PCIe cards but I believe many are for MACs with a smaller
-feature set than TC9564 which makes things easier).
-
-You are correct that for several other peripherals we only describe
-internal connectivity. Ultimately we are copying prior art from the
-Raspberry Pi RP1. RP1 is also a complex MFD that exposes its functions
-in a similar way to what we propose for TC9564 (and on Raspberry Pi 5
-is it soldered down just like it is on RB3gen2). FWIW I'd note that I
-think the RP1 bindings describe peripherals with no external
-connectivity.
-
-So, it's not that the card can't come alive if we use open-coded C to
-describe the connectivity. It can. We've been there and done it. Instead
-the argument is that *not* using DT to describe TC956x family parts in
-their various baseboards is a missed opportunity!
-
-## Using TC9564 as a PCIe card
-
-Currently our work only supports QPS615 soldered onto an RB3gen2 with all it's
-sidebands. Here we settled on a static devicetree (no overlay) similar to
-Raspberry Pi RP1. We tried overlays, the resulting DTs were fragmented and hard
-to read. Ultimately we felt embedded developers would find working with a static
-DT easier.
-
-If you feel super strongly that the syscon bindings (which is what this
-thread is about) should not appear in a static device tree, we maybe we
-could discuss overlaying the discoverable-from-PID-VID parts as an
-"embedded TC9564" overlay. Personally I really dislike this approach
-because it's hard to read. Also it wouldn't actually impact the DT
-bindings so perhaps isn't in scope yet anyway!
-
-For real PCIe cards I definitely think DT overlay is the answer. Here
-there are no sidebands meaning there will be no phandles linking the
-overlay to the base DT (if there is one). That resolved the concerns
-about readability of the overlay. If we actually had a PCIe card today
-then I'm confident we'd be able to reuse almost all the driver work
-Alex has posted so far and that we'd be able to run it on a system
-using ACPI as its primary hardware model.
-
-There are still some warts related to PCIe card identification but they are
-unrelated to the DT bindings. TC9564 has a fixed VID/PID so, when there
-is no static DT to help us, we must dynamically interrogate the card
-from the pcie driver to discover what it actually is and figure out *which*
-overlay to load. This is another reason I view devicetree as
-an excellent technical solution. Having an easy way to describe each PCIe
-card form its schematic is a great property to have.
-
-In short, the TC9564 on a real removable PCIe card has been an
-important thought experiment for me throughout this work. It's also
-been a real experiment: we did implement dynamic overlay for RB3gen2
-and have it working. The thing that moved us back to static DT
-for this board was the sidebands and these don't exist for a real PCIe
-card.
-
-## That's all folks!
-
-In short, for zany embedded designs with nasty (and mandatory) side
-channels, we'd like to use the DT bindings we have proposed from static DT.
-This should be comfortable and ergonomic for embedded developers who
-are accustomed to slinging DTs around.
-
-For sensible grown up designs that need to cooperate with both DT and
-ACPI, we'd like to use DT overlay. This essentially makes the use of DT
-an implementation detail that reduces maintenance by avoiding reinvention.
-
-
-
-Daniel.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179329639684.489944=
+.6322623410181934358.cw2017-first-public-rfc@yandex.ru?part=3D2
