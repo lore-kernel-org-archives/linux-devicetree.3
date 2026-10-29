@@ -1,83 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260457;
-	b=2QIpeVwW3wIiWO6+8B2dyG2j1uz7Yj13ZCSifoxhBc4eT1ViREKwbm5FBbNtbLKo3tKG
-	 +eMtf+4Kgvs6wtnJLJFqREUN8uhGGVEvSHqkt8LswLpe7igmtrJ4D5TCqELGz92m79KWB
-	 k6Dx/1R8z/y+Mij2K2xUkANG/2W4Z13oNGdp9Cj/pZECOSRNabKKcmuxArljIMUTu7AT5
-	 tXZm/ug4JOKBHUyuIdCmUuL+eeiIzj2NAwOWuMyRabHLTP8PUJkyaIETDSsjq9E66iVjs
-	 8jBuDWwKoXnLLDWwjcXSwXcsqAN2nemgsKatR3Y/5ki90pn6bcy8jx5nWWkbQsq0OAg==
+	t=1793260463;
+	b=3a1rmy+Tatr+HMOhP0nKimhaPOrWk74K3Nh/xpAszCcSK2dR955yfHWj9YfDXmq5dA04
+	 V/XWZ255XceuAGSqu96W9YQ2qaFNimMJ68nrY+UD7fQuNEtrWpamXJNlKhbvlUyf5bVSa
+	 CxVG4Pi5Yt12xcdN8hrWATO2NwncdSnb4r2LLicevpG0+4nKefHFm2dQrcqY3lrknbbNP
+	 ifhAKavnMtt7M6gahsb6FC71Dqbe+NzEaJA/hUOmgvxXEW5sSgXDmXWJCzCKp4/ldexFa
+	 Eb58ryYFodC4Jd/cY6qnQl1lvBCc84Z3drUaxusGjBZJDfDVvusYa8lUw3PQ1TOooyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260457;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
-	b=fCJ1YMUXb3GulejkHb1aKEIg+QHx02SbaWUv70hpDP+r4ii0ylfQLTqRsjDzEUji7ZRg
-	 B5qGEes3mhSpsh5MpnynpEt2GxukW5V3pw1301LzZOjyK5Ra6Kvqi5ywn2eCn78zP7uEF
-	 SCG70R0Ldu0AcVaka8qS99iEV6k/roHiAzXh8r01Oxw8fuI0vfKVqN2jGxOaJf6SKpFR6
-	 GLtyxgcN3TIM0jWeaneuyjWNiZUgnZYJYC4tkV5C7e6tIVaby1kmS5/h5ZdMPtbzTz/KF
-	 rw5n5pqEEQ0dFhrWF8Nyjv/9sJdBsdaSD5ZJNbYRQq2Au8uC+fRDwxOQwVWolVaQG4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260463;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
+	b=fFJYdOv4mEP53fO9SL/xd+3/rY/HQyK6SD4PaMYB5wErICt9NefBlIi9fN5F6iSABZ9W
+	 +/wuZ/zrs26BdOaNPMxrAnv3JHFPlP9pGeCoQ//K/G+ja+/C+Lx2tT1NntvYgPuG8QyoL
+	 XbTv5LtmWMmNcbDY72HtYrco9On5Gcx/H197XFHtgLPyRDbSIBiWv6vSaUQVi27xc6Itp
+	 WwnBYuN7JHUb+ivUwrsR25lwRpbKVjg3NW6Bs8/rfD0fFefcqO+VdStc4RyR0nxjciBfp
+	 su3ktn+ompPWhHaD+BtTTrivnffA6RfJbwKAMH4/oJ93UOO3ZDXssPjOLi5TCEld3nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T;
-	arc=none smtp.remote-ip=203.205.221.209
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3030860A5BCC;
-	Thu, 29 Oct 2026 07:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3030860A5BCC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501BF60A380C;
+	Thu, 29 Oct 2026 07:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501BF60A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260448; bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W3Z6vY6TZfHAy4Y+vPcSyooBMikEHi52D0m+7YuCYNRgfX6FlWK6muPjrXxx64N+U
-	 A6sc6wJoYN7Q4nUK+ZH10BMkTh7q/UoanX50F6UcqH73jn21/8QlTAeabUpo+4pAio
-	 RkeGaSWY1zAt5bG6AfXcVywiHcGkgREymcxSbXAU=
-Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id D859381F; Thu, 29 Oct 2026 15:54:05 +0800
-X-QQ-mid: xmsmtpt1793260445teksvypk4
-Message-ID: <tencent_3B08CBAEFC7B931B6E90D8D8C4BF3BB1B406@qq.com>
-X-QQ-XMAILINFO: Nm45YswcjhU8BGGHyu3meqLQYIY8JWZJk2uFMM7hVoKjeFDhPGQ5iaBRydXQlX
-	 6ysxzfp8GF9U0uLGslMwuDHRF8YCzqmyEX6yRa098A90l59tqR69MUJmgLNU2l3HRSFBT4fOLBTV
-	 kL5M8C6qLfPVUwCayo3/PXhtatIymY/WMLyQRHjQBMucJO5A3SoV6RGPcgpYGAIb/37AR95sXZ7R
-	 +fgERJ6QDkMBqBSBbvBawh4aX4JPNC8ovL13Nri6vcDkTwijbDLPYmKoNPHa+1GMceo9bD+lCB/t
-	 99cJP4dItZKTLUOMa3r1D/JbGorFwpe6668ty3iA2jJEYG45ED+ys9/hrzzfsFu28nxZLj0FuKGb
-	 MAEfcIAqG6LBSyaEKsgYV7pmcq2dbaeNDTZJPepVRLcls8FHDQv0p8kb0PvssRJPhS7mD1q2+W9v
-	 8tCuVNkEfuIWMQMr7FUg/hmxQ6vFToQeHMzl59eaLcc3fl6uonguJlDTQOYuMW3jDXCeuPzDPGyE
-	 DhetIZeLXUBDK8OVvTWg5hZoL7IF48UnzcHrTId32ELzKy3EO/bVHyhb3HkNuWCRMYctxyWrJAQx
-	 Z47oP6my2qKajZbGXgePtnctxBeJ+C00h3jhTMlyU/HBMaHTRj/JmTMyvXG/MbNyhYlXV2n74IMx
-	 luI5FcueViqws2SQXx7OgwiViqz/j+n2GaIt2Zp8pN7InI3FP54mmJB9FyASV4INW+ox6K+WMbTF
-	 mkTd+SO27OAjNdrNTgJzZTkkNxKlw7wELSRWSANSDYd6OYy0w2vSHdmUtEmFr/0Lyza2W/8xouaY
-	 p8wjruLLucmoAD1pP4A4PT5N+7dFHz3e9DJcyRjMb9qdM6Gl+JTcAKemc6rUPPCUUknvtA98k8Yv
-	 LpXlD1dhmRwkYSGFu99gwNvIuunT4W7+5RJJfg+8Hb5cN576dtFGY08tUDycD9ov1146p3LcvPyT
-	 kEtHK2S9yOE3qYmVRjpbuXBcImtcRgqi+GXRupr84rKVnYzxm9fDN3F2gkT7J6Tph4aOFo1Z7gOK
-	 p/JNEYxhvBK6e1E0ZyBR1F0EUeF0GRmem5uQOk2KQIAc8kqE9WK69bM4Cxc3GcNQXZ2FmEJGIKai
-	 h6BIb3SVOI5MZjwBcPvze8a4RC8xb5u2fc0RIFbWntUuExUxQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Cc: Shuai Liu <847807867@qq.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/9] media: camss: vfe: add the gen4 block and SM8750 camera subsystem
-Date: Thu, 29 Oct 2026 15:54:05 +0800
-X-OQ-MSGID: <20261029075405.2907239-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z;
+	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793260460;
+	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=N+SKx5BwjunrV7kw+IhsfW8ovLcClXj2JNOdD5PyfyWnWpdhXP3I3mguKWsIMXTIU
+	 n4mtJNKsp0yC+wxAWZhUqWakKvquOamPl5LViedj/9EEtc/Kk+iIHdmjGJkr1fdde+
+	 wkTGksPgVIg8mv1A9qavQ6hSi0vb/LiHct8IhEvQ=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433~i8OM3pb5X1652316523eucas1p1e;
+	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075417eusmtip1d035b14233a285bf044081cf69bb5d35~i8OKCRqt71493914939eusmtip1a;
+	Thu, 29 Oct 2026 07:54:17 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Thu, 29 Oct 2026 08:53:49 +0100
+Subject: [PATCH v6 15/18] soc: starfive: Add jh7110-vout-subsystem driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,60 +65,200 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-jh7110-clean-send-v6-15-759594e43acf@samsung.com>
+In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
+	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
+	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
+	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
+	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
+	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
+	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
+	OOHehir <oo.hehir@gmail.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5573;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=DsbatnDU6gGFABaruczZr34WTtjEI8r2rbI74wlszvs=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t2jYBB47zev0cz9bVydS6y3Mc549N47QPZXqUuWT
+	P0njj3yHaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAi290ZGbbYLL9kee11WusJ
+	F3+tp3brPxnP3pLKtz7+7ofkc317E6Yz/OFub2rnEWwxbHWu1NjLNMPC4pD3M9dnJ0yLOXce/h8
+	rxwEA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-RootMTR: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<CGME20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433@eucas1p1.samsung.com>
 
-Hi Qianhui,
+Nothing in the video output subsystem can reach its own registers until
+the NoC display bus clock and reset are up and PD_VOUT is powered, and
+those are shared by every device in the region. Leaving them to whichever
+consumer probes first works by accident and stops working as soon as the
+probe order changes.
 
-The gen4 write master programming itself matches the gen3 conventions
-(the FRAME_INCR >> 8 formula, the 256-byte unit addressing, RDI_WM()
-offsets), so only three things stand out:
+Add a driver for the subsystem node that takes the bus clock and reset,
+holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
+populates its children. All three are released only once the last child
+is gone.
 
-1. The interconnect table does not match the binding
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+Tested-by: OOHehir <oo.hehir@gmail.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/soc/starfive/Kconfig                 | 15 +++++
+ drivers/soc/starfive/Makefile                |  1 +
+ drivers/soc/starfive/jh7110-vout-subsystem.c | 82 ++++++++++++++++++++++++++++
+ 3 files changed, 98 insertions(+)
 
-The binding in patch 1 and the DT in patch 9 declare four interconnect
-paths for sm8750-camss:
+diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
+index 8cdcfc6f7848d2dd40b57afa101edcffc3f263a6..643d384c10b094d5633b5e31c3a67f5b9432c6d1 100644
+--- a/drivers/soc/starfive/Kconfig
++++ b/drivers/soc/starfive/Kconfig
+@@ -6,6 +6,21 @@
+ if ARCH_STARFIVE || COMPILE_TEST
+ menu "Starfive SoC drivers"
+ 
++config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
++	tristate "StarFive JH7110 video output subsystem driver"
++	depends on OF
++	select PM
++	help
++	  This option enables the parent driver for the StarFive JH7110
++	  video output subsystem, which the documentation calls dom_vout_top.
++
++	  The subsystem covers the DC8200 display controller, the HDMI
++	  transmitter, the video output clock generator and the video output
++	  system controller. They share one NoC port whose clock and reset
++	  gate access to the whole register region, and the region sits in
++	  the PD_VOUT power domain. This driver owns those resources and
++	  holds them for as long as any of its children exist.
++
+ config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
+ 	tristate "StarFive JH7110 HDMI subsystem driver"
+ 	depends on OF
+diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
+index be89d8119212b7a7038817c2f0e8eac1984ada88..6c229020c1e563b37df43f6ac1665465a11333cc 100644
+--- a/drivers/soc/starfive/Makefile
++++ b/drivers/soc/starfive/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
++obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) += jh7110-vout-subsystem.o
+diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c b/drivers/soc/starfive/jh7110-vout-subsystem.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a299b170ad1b7104
+--- /dev/null
++++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for the StarFive JH7110 video output subsystem
++ *
++ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
++ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
++ *
++ * The display hardware sits behind a single NoC port whose clock and reset
++ * gate access to every register in the region, inside the PD_VOUT power
++ * domain. Nothing below this node can reach its own registers until all three
++ * are up, so bring them up here and hold them for as long as any child device
++ * exists, rather than leaving them to whichever consumer happens to probe
++ * first.
++ */
++
++#include <linux/clk.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++
++static void jh7110_vout_subsys_pm_put(void *data)
++{
++	pm_runtime_put_sync(data);
++}
++
++static int jh7110_vout_subsys_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct reset_control *bus_rst;
++	struct clk *bus_clk;
++	int ret;
++
++	/*
++	 * Take a runtime PM reference for the lifetime of this device. genpd
++	 * only keeps PD_VOUT powered while something actually holds it, and
++	 * an unclocked or unpowered access to this region wedges the bus.
++	 */
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to power on PD_VOUT\n");
++
++	ret = devm_add_action_or_reset(dev, jh7110_vout_subsys_pm_put, dev);
++	if (ret)
++		return ret;
++
++	bus_clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(bus_clk))
++		return dev_err_probe(dev, PTR_ERR(bus_clk),
++				     "Failed to enable NoC bus clock\n");
++
++	bus_rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(bus_rst))
++		return dev_err_probe(dev, PTR_ERR(bus_rst),
++				     "Failed to deassert NoC bus reset\n");
++
++	return devm_of_platform_populate(dev);
++}
++
++static const struct of_device_id jh7110_vout_subsys_of_match[] = {
++	{ .compatible = "starfive,jh7110-vout-subsystem", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
++
++static struct platform_driver jh7110_vout_subsys_driver = {
++	.probe = jh7110_vout_subsys_probe,
++	.driver = {
++		.name = "jh7110-vout-subsystem",
++		.of_match_table = jh7110_vout_subsys_of_match,
++	},
++};
++module_platform_driver(jh7110_vout_subsys_driver);
++
++MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
++MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
++MODULE_LICENSE("GPL");
 
-  ahb, hf_mnoc, sf_mnoc, sf_icp_mnoc
-
-but icc_res_sm8750[] only contains two entries (ahb, hf_mnoc), and
-camss requests paths by the names in this table, so the sf_mnoc and
-sf_icp_mnoc paths never receive any bandwidth vote.  For reference,
-sm8650 keeps the binding and the driver in sync: both declare exactly
-ahb and hf_mnoc.
-
-Please either add the missing entries with real bandwidth numbers, or
-reduce the binding and DTS to the two paths the driver actually votes
-on.  As posted, the extra DT paths are dead weight and the bandwidth
-they are supposed to guarantee is never requested.
-
-2. The commit message miscounts the instances
-
-The message says "two full and two lite CSIDs" and "two full and one
-lite VFEs", but the binding, the DTS and this patch's own resource
-tables all describe three full CSIDs (csid0/1/2) plus two lite
-(csid_lite0/1), and three full VFEs (vfe0/1/2) plus two lite
-(vfe_lite0/1).  Patch 1/9's message has the same numbers.  Please fix
-the commit messages.
-
-3. vfe_prepare_buffer() rejects formats at buffer-queue time
-
-The 256-byte alignment of pix->plane_fmt[0].bytesperline * pix->height
-is a property of the negotiated format, not of a particular buffer.
-Format negotiation does not guarantee it: camss_format aligns
-bytesperline per format (5 bytes for RAW10) and height is not aligned
-at all, so plenty of resolutions pass try_fmt/s_fmt and then fail every
-QBUF with -EINVAL and no explanation.
-
-Suggest enforcing the constraint where the format is chosen: either
-round bytesperline up to a 256-byte alignment for gen4 (which makes the
-payload 256-aligned for any height), or reject unaligned formats in
-try_fmt/s_fmt with a clear message, and keep only the per-buffer
-address alignment check in prepare_buffer().
-
-Thanks,
-Shuai Liu
-
-(This review was prepared with the assistance of an AI coding tool;
-all findings were verified against the patched source.)
+-- 
+2.34.1
 
