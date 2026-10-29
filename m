@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278746;
-	b=SFYnKByPGyrqtX7hUOn7+dYKljtKZ8WNA76ZLcevahSV16AbAOYR26bY82ux+nNSY8TH
-	 C3F3ey1MoxIFFXKh8kXIDP1DCOgB2F4IxF1pgoPFapvAXMI9yWNmZtR/kJuvVT0+Feohr
-	 ZcZacUhvWkwH8ZnIem3S6w11DJ+z7CQEq/xU7VGoDmiZlUvKdpEiqjrPn78JACUYZ4BJ+
-	 6OehRj6JsEg+YUpJIQ3TvyZvlk3OLaK/KuS1tPJT6vhnrnwkg8mw6/ZX1z/ERsYzYj2nf
-	 m5YD+IFNd3cnm+P+JxyavQTUNaFcsbbX3FRQO6DcU+yT7LEvIgwsYp9Rfwgo34WWLSg==
+	t=1793278836;
+	b=a6k+Zw+wANPrtGxSOaO8vQIb2IEzIpXxJg8wUbh4loc71ZrrpHWaGU9Yt0SAbTL4Ey9o
+	 z7pqsKGglquQ81u+d2aIvNJV2oMXkKCFPNvfcq3g8i21SNOD/Yi/RgkY2AuSRjQOHZIl6
+	 RcrW3RG5UUUQpgEXZYoUFVWXERnyMad2d3+pZfEmY94mCb/QJSZF0aILUEqZQ8b/i9mOZ
+	 ASeTIGhSeyk6i24H7c5lUPAjl/KoBwCb0WzX2WJCxi+wj2oOPwyUQFXZ3XtqICdAD6zgP
+	 GDAthGN4mDXG54xNcZ689GPwO4Lu91u7jWA7TjVv4qWJGn3ImBLNcKicIlahrOsOkPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278746;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=53kh1jzqgst4C7GMrt2nlms5x3GRLs7CUdsfirKiIAU=;
-	b=GCzfcERSwJ8fFz5VMfEBbMh4CK7qyy4i/ikK3PhWat7n4UJdBLYv7bVgBQKmSQoGmC38
-	 E6Cy+P54w4yWk9q9mAh7qo/lbgqF19ou5JrH1I4RGCYxsWLygkB3hHQa3WKKARIgpfBf/
-	 qViiL/KW2CGlHhhROlAMZibPMGmANsh9atI03Nmz0k6Wlipqdtuxrc0E/SaWYESkp+LgF
-	 KPKk7Uz2i1vdGoDofE/F8lP3u0tdIT434yM2TaILeezjzI8WMdlg5Mu4CICqnBf13o79o
-	 WFVbZUI7xcbKynynRAW5IYCcyzdEdM/GsvfDqHFhBMHthBNvwYjIkfmL35WDS0U6B+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278836;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XwD3tkQ64aRCla1mgFI5NO1jCorsIdlneIFywgKjYxI=;
+	b=U9XMntzicLOn2ZSYHp0xLUZexgAIHHKRKG7kEWrs6kvzmoRQMvUsQZtQSRa5CSPoZ7Tn
+	 fKzJ0xpyZjMoBDLk6laui4lRHTS+Um82/RiGTf/yU8wni4VWJsbmDiX3vKZDSiHkL4QZN
+	 LpjiKNswnRru0zYXgE+RSA7zaFil4Puh8ojJD9FEWpS+ZC0sfpZrZGHJjLDXbSfa9p5nc
+	 dnVrSf15nowtq5DdwI111+vx7VYCg1Z6R1NGHASaJXARMobRWn98h6Jgd7IJMVw/UbGyj
+	 uVoK/V9qo4Xs0jrDF5PCpiHieO5FOHiJj+67xxs54NMS7J2G0Rh0C/fnbKy6OBzNnlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMSYRC50;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/CeT8Be";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E12F606A31A;
-	Thu, 29 Oct 2026 12:59:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E12F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8443F606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:00:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMSYRC50
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793278743; x=1824814743;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=etVGe+d7u+6Nv9Ztfov9yJUfiPZViljR0oxwR4I/XcM=;
-  b=iMSYRC50g1/r+iSOJKAWIfIfksnnJZMh9UTn7WPuLzpVvjhutvgZt6q5
-   thdK/E7iqJj+vT2gUrdqOiBAZ/Wlb537CK08Lq9O67DHkhPdKsMEZr2Qx
-   OZSqbxkh67a9YH8EW5vAUHd6xMAGoxAQMkhVjKmVDwxmnavdYL6gq718b
-   lC2pDYBWQpTvb+xp614i1V4eXobIKXnBixl7oKaC0nk+Pz/rVobQ+T2YQ
-   E7J5Qqw63i+bvrXQe+uefYDEf5nPr9BlmScno94Jq52K723QYqmSe36Wy
-   u+bPjQP9LMxxpZ0eiw56JOLREwwPyLd9veDoW9NrLQwh3cKbTqTIIZzey
-   Q==;
-X-CSE-ConnectionGUID: 7557HJU3QpeQHmKqQE+bqw==
-X-CSE-MsgGUID: aYQdXZ4YS4mC5tzv0aGVBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2017216"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2017216"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:59:03 -0700
-X-CSE-ConnectionGUID: awUjsFGATXGR3LpaXrm0Cw==
-X-CSE-MsgGUID: HMIFTgzBQ5qfE8yEzVwm0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5231919"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:58:59 -0700
-Date: Thu, 29 Oct 2026 14:58:57 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com
-Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <auNDEQXkQ89RHjc4@ashevche-desk.local>
-References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
- <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
- <auIPfwQII72aqyWA@ashevche-desk.local>
- <d2e93ac7-1689-4e06-a694-d0a95d05a400@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/CeT8Be
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8191F031E6
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:00:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793278836;
+	bh=XwD3tkQ64aRCla1mgFI5NO1jCorsIdlneIFywgKjYxI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=m/CeT8BextZ+AOu0A4DyEnCBIXB2uclRB8PLGsguu6ixuUnsS0MbiREFuPrWUH5wD
+	 Fvb8fCpAHq/5KFuKMcmimhbwUcqB+JGOriRLmUgzd4I8ewdC6YN3qGBcebd0/1QOap
+	 bGKiRxYbkCq0aCVnIPRxI+SBRRJkNticYiFKx8ymy5oeD59cQjR14mW30Z8OXgDgTW
+	 2J9OHrfCM8O6gS62mTwoHMU92ZIZBwgN9Z6Ux1MaolFkr6EKlEFFCLQssiaobW/0kg
+	 yAfwZyOHY9YQ6zTZ4kyLHNBkiP+7ontIyL7mARcnrFVdKI7wUs0sFM9KDYl253mnsC
+	 vRldpRLjz/qiw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be4fea434bso207907e87.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:00:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwB06tyGOcjdrIHdhp260yLuyBE3XSplODXG2k0287XY/vPEhJc7sjBqnnr2xd8XPuyDFdwnUDLvbfg@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMdW+RctgJwTu5KbwGVWtqN8S4P+q6Wg76wt8HgwVA1A26X1h4
+	SCrTD91A8/kjzcaAWyK+0cRONn4rGkb6oS/9eZ0iFFCt441g/FEobAhCj98WHFCzAAhUiuAoVfr
+	v1dTb1d4s+O04/m2cRv6TNY8SeLF5Ahk=
+X-Received: by 2002:a05:6512:2159:b0:5bf:d29e:f7eb with SMTP id
+ 2adb3069b0e04-5bfd29efb06mr357760e87.14.1793278834801; Thu, 29 Oct 2026
+ 06:00:34 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,39 +59,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d2e93ac7-1689-4e06-a694-d0a95d05a400@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261017052534.115203-1-changhuang.liang@starfivetech.com> <20261017052534.115203-7-changhuang.liang@starfivetech.com>
+In-Reply-To: <20261017052534.115203-7-changhuang.liang@starfivetech.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 29 Oct 2026 14:00:21 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmtOcNMZsXWgH5Q1fHk1A3vAZx3OnX3=RDvOjKpcefCcA@mail.gmail.com>
+X-Gm-Features: AclHuK-ur4YmhzooEcJhKo5CJnhDEqWcuLqSNOXf9L0w0FIc9PDWosppkFp5N90
+Message-ID: <CAD++jLmtOcNMZsXWgH5Q1fHk1A3vAZx3OnX3=RDvOjKpcefCcA@mail.gmail.com>
+Subject: Re: [PATCH v1 6/8] pinctrl: starfive: Add StarFive JHB100 emmc
+ controller driver
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 04:26:01PM +0100, Neil Armstrong wrote:
-> On 10/28/26 16:06, Andy Shevchenko wrote:
-> > On Wed, Oct 28, 2026 at 02:19:06PM +0100, Neil Armstrong wrote:
+On Sat, Oct 17, 2026 at 7:26=E2=80=AFAM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
 
-...
+> Add pinctrl driver for StarFive JHB100 SoC eMMC(emmc) pinctrl
+> controller.
+>
+> Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Alex Soo <yuklin.soo@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-> > > +static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
-> > > +{
-> > > +	switch (reg) {
-> > > +	case MAX34417_DID_REG:
-> > > +		return false;
-> > > +	default:
-> > > +	/* MAX34417_CONTROL_REG field OVF is volatile */
-> > 
-> > Why not add a case instead of a comment?
-> 
-> The case is handled by the default, the comment is here to
-> explain why MAX34417_CONTROL_REG is considered as volatile.
+Overall LGTM
+Will you resend the patch series after v7.4-rc1?
 
-Still, having an explicit case is better, just add a comment about the field.
-
-> > > +		return true;
-> > > +	}
-> > > +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Yours,
+Linus Walleij
