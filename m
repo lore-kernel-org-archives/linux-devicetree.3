@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793309544;
-	b=B9sqv/9ITU/xFjsxHu10S77Y238VdcTADjbTVcKsKPJgvn/BYIfdnDJLSXEnUpeYG2fM
-	 8/sgBvdrb04+HBPqQUuuubX4bkyHGTKuMMdiGkHhBtM3Q9k2Fgu2mwM4Fv7GDp3WF1JkJ
-	 K3XSLyNxmaUYthTtmIg8z6ETMciospEWCbJVIkmTjQAy9aaFbD6jFS7mMeJ4f8u/8cYa4
-	 PDznMn4WDLGdkUwGLMl6IArIoXXuc4zFdCH+4Yu56/3zTuDw3+9v2GvqpbJkJjlIwHLz6
-	 YSIjn2FwTZRuyYfYh6ZjVKjRYsbyfz3AqpGgyZLswTH1TvGPOUnZegLQJOFRo0CgwzQ==
+	b=OUr4VFHMY8X/mbq5Y/Ceh3LLXu6X7gMn1ZqHm1nEWEKFHMmvtEl3XvJwmIQx95PuDHCF
+	 c9n9AX7wijC/w5gX8yy6guBfBN6z+3IMEVSPZdzEHkeAV5gbesMv8BdxCkFWCQpyvOLSv
+	 Y7C9VeniN6lEjmMu/wrIbe1VVlAAPW7hAQMMnHuO8xWlfIEGaBsl47kyHSecLravGcfss
+	 Bn2BzcdXyO4tWpOiztU3LZGvJYCBkn8yTk1xUj6TpcP1gk//i5cluzaSAkj02d+QOneGn
+	 bc6PDrbPPztWbPcwwjERuVY0Z5gWcdiU9ZOYqxTuN43AXlaUbsLmDq3zL/rMntZo3Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793309544;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=px9tbpypANZPryk6tr7xmZkE0M/XEzzIsLPl8mxkXJE=;
-	b=PLJX09TF4DNrUGa43QvpuqRAm6j8YKiMT97Lsm1owKZpEcjxiWiU2vZo6bfoK8gUoUAi
-	 HCnTcIzxNfWDu4eDGkQ6oeoS+gDXmMaegrlWeY+39Ex0/DSt/IFdhFUUZ8MBm1yvy4D/8
-	 QB0qeczUdsVzhAxsD42xx0zl+3MGLOF7/Blb4W5yuZe1LZyxmmNjbTuZ+7mGXHvGfFozj
-	 g4Vblw+QiYJUHB5mfpSvW2RhGYW+OkwTz0LJAwgNI7j++xp4UQ/5TByUqABIbkyCx9tn0
-	 13yAGvDPZTX1jigGgkkfaVjOOPbDjtF1q6cR7oTthfzq4WyTigCskPh8SAu/RPTx06g==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6h5Z0pmpZmadH2xXHKdbXgxhuaXKIuJvu1pxPeN27ko=;
+	b=HkhiuvFbDSZDyjt2agvOgm3xfaICRqbIfV+aJmgSvvughIh2dJwEBZmzfMvTvJQz/K2S
+	 GOwvuJIbwJ+czo/MOdcn8i2IGppRY5aZss2Nc7ayHYSgwx2xOhSp+U2PJ+zd3BIxkwREm
+	 IAXpU9vjAGPanXt95zmxBrIaAvOmkzafzgXAeUnXGvhOi6txmh0lcu869DMcFYE3TEt+D
+	 vuTWHp8p14vfxqGWKkdofWB4xxTsfOVB64fXJKJXKDdxO9mLaA9kf1zLYKDXo2tNgZAwe
+	 5YtzJTNec9TWlQcnIXAzSAl0+QC8g7ih8KSJ2hKG5NXemAIRKZK9nlXjn5eRWVQ/CNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W67ewno9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRpj2Qwy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A4A606A31A
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:32:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778B1606A31D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:32:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W67ewno9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306991F01816;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRpj2Qwy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D2D1F01824;
 	Thu, 29 Oct 2026 21:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793309543;
-	bh=px9tbpypANZPryk6tr7xmZkE0M/XEzzIsLPl8mxkXJE=;
-	h=From:To:Cc:Subject:Date;
-	b=W67ewno9Li7vAcYBwgWqfaiXElS0bUW+9va+OKDlzG8oNP9/r7gLms2pyRSrtDDA5
-	 iioCY28svmcMZGGAMNwcsB4ULDd75rE2JHvQyit62K0ylzQ04AIhkT0+43EF8xwMo4
-	 DvtKXE2h/XcTGVqBa+w/ELO3rDXIOGbEcHBzMYBi2iHtnIfEqHUuGWnVSaeD4fxCPj
-	 o8ZzKQfpO2L1R0NPTtDdlTCzYMd7XYkwqWPZk4tCEpeBwlk2fDaqgv78LJHL6/pqg5
-	 8T9rLSw/MXWQgqScS9FM5qILvoHtWvjsbCxxGT0YSBMlUz58CZ4taAIdAqjElfQFhW
-	 HVSNmGdDe0eCA==
+	s=k20260515; t=1793309544;
+	bh=6h5Z0pmpZmadH2xXHKdbXgxhuaXKIuJvu1pxPeN27ko=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GRpj2QwyqRDVRE9hoA4pgZUDuDB3Prwab8pPYG3dDlD3c/cvKU2wfrdTyD7mDpKLV
+	 Qup/NYif/6qZZKHvV9MUc5qKBHTH0zY6yMFgmCvi0o0cGG+drnZIFnwyl859cqblM5
+	 4EFW22lp4vA+Fqrdtfry1hiMaIUtis+oxc29ul2xHyfbMlpwbyW2Nf+Xhdn0GgdQYr
+	 JiGHLqhpDPdzK+r9dF37i8ganXwwTxgnoO3vonZU3MMHEVI+pk/KzR8czB/yDWmJLy
+	 1zDd5eYFYVoSg3vqmdIggSX7ZV74GznT7T258SqnpYQwm6SbILFIS8OrMCB18NpP0f
+	 uZtuF4h87AQcg==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
 Cc: dinguyen@kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 1/3] arm64: dts: socfpga: agilex5: add the pinctrl node
-Date: Thu, 29 Oct 2026 16:31:59 -0500
-Message-ID: <20261029213201.718625-1-dinguyen@kernel.org>
+Subject: [PATCH 2/3] arm64: dts: agilex5: define the i2c0 pins for pinctrl
+Date: Thu, 29 Oct 2026 16:32:00 -0500
+Message-ID: <20261029213201.718625-2-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+In-Reply-To: <20261029213201.718625-1-dinguyen@kernel.org>
+References: <20261029213201.718625-1-dinguyen@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,33 +62,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Agilex5 also has a pinctrl module that does the pinmuxing for the
-various pins on the platform.
+Add the I2C pins definition to the Agilex5 SoCDK NAND daughter card. This
+allows the I2C driver to use pinctrl on the pins to perform I2C recovery.
 
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../dts/altera/socfpga_agilex5_socdk_nand.dts | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-index 0c501a93a8127..161f3d4bbefe8 100644
---- a/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/altera/socfpga_agilex5.dtsi
-@@ -446,6 +446,14 @@ spi1: spi@10da5000 {
- 			status = "disabled";
- 		};
+diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts b/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
+index 81443096cf991..346a4ee22f95b 100644
+--- a/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
++++ b/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
+@@ -39,6 +39,22 @@ memory@80000000 {
+ 	};
+ };
  
-+		pinctrl0: pinctrl@10d13000 {
-+			compatible = "pinctrl-single";
-+			#pinctrl-cells = <1>;
-+			reg = <0x10d13000 0x120>;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x0000000f>;
-+		};
++&pinctrl0 {
++	i2c0_pmx_func: i2c0-pmx-func-pins {
++		pinctrl-single,pins = <
++			0x10   0x4   /* I2C0_SDA (IOA4) PIN4SEL) */
++			0x14   0x4   /* I2C0_SCL (IOA5) PIN5SEL */
++		>;
++	};
 +
- 		sysmgr: sysmgr@10d12000 {
- 			compatible = "altr,sys-mgr-s10","altr,sys-mgr";
- 			reg = <0x10d12000 0x500>;
++	i2c0_pmx_func_gpio: i2c0-pmx-func-gpio-pins {
++		pinctrl-single,pins = <
++			0x10   0x8   /* I2C0_SDA (IOA4) PIN4SEL) */
++			0x14   0x8   /* I2C0_SCL (IOA5) PIN5SEL */
++		>;
++	};
++};
++
+ &gmac0 {
+ 	status = "okay";
+ 	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
+@@ -66,6 +82,10 @@ &gpio1 {
+ 
+ &i2c0 {
+ 	status = "okay";
++
++	pinctrl-names = "default", "gpio";
++	pinctrl-0 = <&i2c0_pmx_func>;
++	pinctrl-1 = <&i2c0_pmx_func_gpio>;
+ };
+ 
+ &i3c0 {
 -- 
 2.42.0.411.g813d9a9188
 
