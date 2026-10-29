@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296413;
-	b=BTpPEyjJcyFaCkF+oi0Ce/H3P8Y6YJT8PfYBmVM1svXnvcu0S4hS8JaWim2FcAFb7CqK
-	 QQWkWXhkZUmZaXt2o612X/vrFfD7ZXEKeRwsFcZDPAqhL+id6vytfJ1L6r1agv0SW0Z42
-	 Imxe2/Fp06lnIYKaFfTOGTha+N9jRbvofaET6+D0+ImSqdQhWb59jE/+HVG974GIpDV68
-	 /BJS2bZHqkn7IXmJGhv/j1bp7vaNO6ZMbzGjWnkRaeJxi4Myos1fGY64W3ak/1Sk6yeg/
-	 JSr/7cCXhVsN9UyQyO5M8Zf703woWpZiOy8g7VNERQZtKenmNwPgEbLSPMUwL+ZwEXQ==
+	t=1793296573;
+	b=1ci69roGo597Yass4E0LvuCgNW5oNkGxC9vyGkL1ZyvNFlY0yu5BL/k1Y57wB71Z+bWL
+	 CaRioR8UpPjoiJI4mTRWB1k3BY/LNIOSAAX6OCZJUh6rFictq8pete/W0k/F+0YDjAcUD
+	 T2+6ngmGrDX3H004b3iMu6dfJW/M3sxD2UnA1QnVhMondts5KN3qCX+e5x2TGGw+BvRrn
+	 6z5mD5v1ccpz1At6BG8YBA7rdP3I4CHvxKP+ev3dv7Y4r9zGJzNKM5xtnfpDFMjAbl0tX
+	 +ffckcKFyuHPCkAJAGyJfnFsnI6iKXeW0BqRDhGiz9jJoWRyxC7NEUBpNHYEMLDSl0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296413;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
-	b=U80fJiOWkBEjpBKMTHb4VTP4gABeQjKIoJ48WuTmodAdh0t4BN70G9rjAkuwU/i5zqsv
-	 Dvo7ektQnmkrGrIal6Wd5RPlIQ9k9jE/14h1sAefL6+M5CelCE7o1hQNU4YamUGwOYcUJ
-	 GP71y1Smynq6/jxG1MbvMp/3z5dqavnkfGPs9InlY2eaausBeXrM39msxGo6nioj22a8Q
-	 0T9UNZQqx1OZ6HbcOr8Lr9x7GMLqgKPsmBgMY+bXaVjanbEfuGAvV8M1hQ+s5FBtQjYru
-	 GKKKsBmVp9+PqnHqnffa/w8Ecie5XUC5uA0APwake0lRSIwkZa2zPm1etdiz4IzEMtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296573;
+	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
+	 Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=ByFsVBFGXW7Uh7hGswMOP8zgyfk05mbsoHtbkfCSmjU=;
+	b=n2VtFr4x4bvNAw/FZmJ+d/vE0DOJGb/oS0qWBm1pJFFbqbHtwE5zg0Gdt7Oe9j7NBopm
+	 gmHVFm48N5qLBsvvWHVj2Ye2C3LCtpXYerFLq3iho52iyJm/M15IgWDRtLIMDMVDgr8BT
+	 iBUP9bMX5PsZZzoDRIvgdKM3plC/koWOWws2UZGGYCluOmwDnnz2pcY8y0fZfSgdXi1ez
+	 YOOAMWUpeHBCc0kLZXgTvKuL57nVtJs8yZi9Tiqev9hpL8tgUTrqJpclkb2QOBqMUIHP4
+	 a9Cmm8K4qvAESXblioDpPvayncgrEayp9Q606xoeyRNylQFc48+nzsCTThNGGG2rkww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=yandex.ru;
+	spf=pass smtp.mailfrom=yandex.ru;
+	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=Pou2b3it;
+	arc=none smtp.remote-ip=51.250.60.164
+Received: from forward104d.mail.yandex.net (forward104d.mail.yandex.net [51.250.60.164])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02471606A31C;
-	Thu, 29 Oct 2026 17:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02471606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C49606A31A;
+	Thu, 29 Oct 2026 17:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08C49606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L;
-	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793296409;
-	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=YdoWYHPwmJN/KFk1TlDkNYhFdqmZj/+KS3IoG8aUG8OuAgV1ZKqmChA8RwrBrtk63
-	 2EJ8N/oXBcYm8Rwj8dyL2ZcdLI4kx5PA50P7t8b4ByliK/9E9X0wVJGo4OfCo34HTT
-	 H6cNO/1oBoDGGt1dGhGX7IqLdqiGAWce09a+/23o=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa~jEZUAr23j0643406434eucas1p2V;
-	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261029175326eusmtip1da81d3d531e57fbb55db47bb699094a6~jEZR9_Q1X3030430304eusmtip1N;
-	Thu, 29 Oct 2026 17:53:26 +0000 (GMT)
-Message-ID: <777c7a8c-de7c-4f0c-9c9c-d5b78a5595d8@samsung.com>
-Date: Thu, 29 Oct 2026 18:53:25 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=Pou2b3it
+Received: from mail-nwsmtp-smtp-production-main-38 (mail-nwsmtp-smtp-production-main-38.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:4d01:0:640:e9ac:0])
+	by forward104d.mail.yandex.net (postfix) with ESMTPS id 3FE7EC0032;
+	Thu, 29 Oct 2026 20:56:02 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-38 with ESMTPSA id itnBq5Sg9Sw0-pdXvF8P8;
+	Thu, 29 Oct 2026 20:56:00 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1793296561; bh=ByFsVBFGXW7Uh7hGswMOP8zgyfk05mbsoHtbkfCSmjU=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=Pou2b3it8KLqKo9UkaIRTDbfqE3BEeO16dEcjjGqqMOySAVyN5zIMA8sgyufBmVVX
+	 OrTCuNi7V/GhEDr7Q2GXF6d++hQhEp2cfCLRuCXolteqVBvNQFV0t95Hklp3Na4vne
+	 ERoMFFdyB7ae5+SQ34C6Hk6iMRSoyOa3Bu+v/p8A=
+Authentication-Results: mail-nwsmtp-smtp-production-main-38; dkim=pass header.i=@yandex.ru
+From: Kupreenko Danila <keckerz@yandex.ru>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] power: supply: read-only CellWise CW2017 monitor for Redmi Go
+Date: Thu, 29 Oct 2026 20:53:16 +0300
+Message-ID: <179329639684.489944.6322623410181934358.cw2017-first-public-rfc@yandex.ru>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,93 +61,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/18] dt-bindings: soc: starfive: Add
- starfive,jh7110-hdmi-subsystem
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-rockchip@lists.infradead.org, Simona Vetter <simona@ffwll.ch>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, William Qiu
-	<william.qiu@starfivetech.com>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, Andy Yan <andyshrk@163.com>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Dominique Belhachemi <db@domibel.de>, Maud
-	Spierings <maud_spierings@murena.io>, Joshua Peisach <jpeisach@ubuntu.com>,
-	David Airlie <airlied@gmail.com>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robert Foss <rfoss@kernel.org>, Sandy Huang
-	<hjc@rock-chips.com>, Paul Walmsley <pjw@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Heiko
-	Stuebner <heiko@sntech.de>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Conor Dooley <conor@kernel.org>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Yakir Yang <kuankuan.y@gmail.com>, Emil
-	Renner Berthing <kernel@esmil.dk>, Manivannan Sadhasivam <mani@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>, Hal Feng <hal.feng@starfivetech.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>, Palmer Dabbelt <palmer@dabbelt.com>,
-	dri-devel@lists.freedesktop.org, Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Jonas Karlman <jonas@kwiboo.se>, Graham
-	Markall <hello@big-grey.co.uk>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, linux-riscv@lists.infradead.org,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <179329528881.3539981.14637229355908751610.robh@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-	<CGME20261029075358eucas1p111293c602fc3aac9c6a044fc41488919@eucas1p1.samsung.com>
-	<20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
-	<179329528881.3539981.14637229355908751610.robh@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-Mailer: CW2017 public RFC via Python smtplib
 
+Add a read-only power_supply driver for the CellWise CW2017 fuel gauge,
+its Devicetree binding, and the Xiaomi Redmi Go (tiare) I2C node.
 
+Unlike CW2015, CW2017 has a different register map and battery profile
+protocol. The driver requires a gauge already initialized with a valid
+battery profile; it reads voltage, integer SOC and temperature but never
+writes CONFIG, changes the battery profile or resets the chip. Charging
+status is unknown; presence is not inferred.
 
-On 10/29/26 18:38, Rob Herring (Arm) wrote:
-> 
-> On Thu, 29 Oct 2026 08:53:38 +0100, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
->>
->> The JH7110 HDMI IP is a monolithic block containing both the digital
->> controller and analog PHY in a single register space. This binding
->> defines the parent device, which holds the shared register map, and its
->> two children: the PHY and the controller.
->>
->> The two have separate resources. The PHY takes the 24 MHz reference
->> clock and provides both the pixel clock, which the VOUT clock generator
->> routes on to the display controller, and the phy the controller uses.
->> The controller takes its clocks from the VOUT clock generator. What
->> they share is the register space, which the parent maps.
->>
->> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
->>  1 file changed, 95 insertions(+)
->>
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml: Unresolvable reference: /schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
-> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: hdmi@29590000 (starfive,jh7110-hdmi-subsystem): phy: False schema does not allow {'compatible': ['starfive,jh7110-inno-hdmi-phy'], '#clock-cells': 0, 'clocks': [[4294967295]], '#phy-cells': 0, 'phandle': 2}
-> 	from schema $id: https://protect2.fireeye.com/v1/url?k=e93a78e1-88b16dd1-e93bf3ae-000babffaa23-e7f80dd3ed8ff65f&q=1&e=27d4095f-5012-49f1-94e3-a63fd9693348&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fsoc%2Fstarfive%2Fstarfive%2Cjh7110-hdmi-subsystem.yaml
-> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: /example-0/soc/hdmi@29590000/phy: failed to match any schema with compatible: ['starfive,jh7110-inno-hdmi-phy']
-> 
+The CW2017 source is an independent implementation assisted by Codex
+(GPT-6). Firefly was consulted later as a behavioral reference, not as
+a source of copied code. AI assistance is disclosed in commit trailers.
 
-This patch depends on the JH7110 HDMI PHY series which adds
-starfive,jh7110-inno-hdmi-phy.yaml [1].
+Hardware testing on Xiaomi Redmi Go (tiare), postmarketOS, Linux
+7.1.3-msm89x7 with a module built from the same RFC driver source (R5):
+  - module auto-loaded and bound to I2C device 2-0063;
+  - running srcversion matched the locally built R5 module;
+  - capacity, voltage and temperature appeared in power_supply sysfs;
+  - three consecutive measurements remained accessible;
+  - udevadm monitor observed kernel power_supply change events, including
+    changes in voltage and temperature, with roughly 30-second cadence.
 
-With that series applied dt_binding_check is clean.
+Mainline 7.3 ARM64 build/MODPOST, targeted DT/schema validation, sparse
+and host mock regressions with sanitizers passed. The mainline kernel
+itself has NOT been booted on Redmi Go. Hardware PM/unbind, power cost,
+calibration, temperature-source provenance and induced I2C error recovery
+remain untested. The source operates as a monitor, not a safety controller.
 
-[1] - https://lore.kernel.org/all/20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com/
+Open review questions include policy for already-initialized gauges,
+3-attempt probe retries, nominal 30-second polling and up to 300-second
+backoff after failures, and event frequency with small voltage changes.
 
-Best regards,
+This is the first PUBLIC RFC; preceding revisions remained local.
+
+Kupreenko Danila (3):
+  dt-bindings: power: supply: add CellWise CW2017 fuel gauge
+  power: supply: add read-only CW2017 battery monitor
+  arm64: dts: qcom: tiare: describe CW2017 fuel gauge
+
+ .../power/supply/cellwise,cw2017.yaml         |  52 +++
+ MAINTAINERS                                   |   7 +
+ .../boot/dts/qcom/msm8917-xiaomi-tiare.dts    |   9 +
+ drivers/power/supply/Kconfig                  |  14 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/cw2017_battery.c         | 370 ++++++++++++++++++
+ 6 files changed, 453 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/cellwise,cw2017.yaml
+ create mode 100644 drivers/power/supply/cw2017_battery.c
+
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.56.0
