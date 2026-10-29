@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793310404;
-	b=PSgtkGvCyLq5hjopSokZOcEqK3hhnd6Rh4/DtBIEFr+4e+36NE6qqC1dZf9Dh23hUnL+
-	 QXUteiJJ30A4mJHlAUAhSyP9L/5hd6s3XJvQUtG3onrsaOQu6LoDGawvpfxr6AjJKYoQi
-	 mQIG7U/kDVL5JmRaIOPh0lGWiZklchvZKQAfbC1GxoKoYBk3+JRrI0Cc4dbusfxBQNemt
-	 +mmHLjP/aikWCi8LjNNO9B9dEpVL0WvN5CbnQzUQBrc6ObNNiROXqJVZPE46gkqE/dLsA
-	 hS7xTplN2jXdOVH1xgZ7uL/XrUNMqH/rHkc1mE2RmUHE1hM0MeW/L9rYKPAQZtIN5yQ==
+	t=1793310630;
+	b=RU2jxgACZimj1kqKwZe9A/6lXJVbXfJKc0g92lABgN+L72Y+GgQFDyswy2ATnN2doA+b
+	 IxUskI3vAGktYjBVXY6acJBEWJ0CJ5ykZEgGOc+flzaMIDbMya367isx3TDKeaBcrXtIm
+	 cwm1085pxJXYBqtN6TCKBQli+FHo1AwpNyhzg1zfQ5kkhbPKir+oVH12Zzhny8RBEFpOv
+	 FNEE9+g+LANxWbQR7+9GufzJTlzT1f0YiNKUR+pwcK4huXoji9pH5tC8wIGBARbEfWy61
+	 kMoFraWqkVruN3+b9zHGNw/L/DOGFlX+oq+iHMcQu1uecQmbVgwBThS2IJblxeFjncg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793310404;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mime-Autoconverted;
-	bh=nokvmFdO/lMAIkL8CGtuOjag9qyiXJpuOJ3k1GovAAg=;
-	b=vDHjLEiXDCFYjUNAkHDa8CsauMqn9+PD2GLP6pMMlX1kJpJguUJpRh7ZQtuPufrGyOXf
-	 hw6B3MLPJbK8WZbV1JC9VAe6Jzenm4AuICnGV+uNj8+C525eHaLVP4vC2+8d24gHFOCmP
-	 iduk5Zxn9/nS3wPeXZmkc3FSobg7nNeaaKr38wpZZaFXFWBSAmpgQLZM7R8j3BMt4ipUf
-	 mwx/AFQNH3sYnp4K3bCboQ+2Md2OxNEoaFDyAXkjaieOsNq1KRISah46G+QqmGt8F7lch
-	 igCuGKKSh1/HbYFdPF9pOtkakzXGrFwGz54NhWSNVXFUD/l0SHD//+XnCaNf1Q7KP/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793310630;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=uDk4Z8lFqYD30ZIxyxuqF5DHZBdgzdmy455ICB6vjZs=;
+	b=fqRbwXA4w7WXxi6JBwGtIRXBzTQM0t2GiDXz3SLIf5S+34cPuKSL8W8Y0aMsXuUessZ4
+	 bWBppxTfjZO3s/mddlJfbiPZfgtKsNmN6ShzdQRr/B9xsjyWJp26qCuX8Il4MCTvjOoor
+	 03T/QDb60IoSF++KR2CT0hYe3coKFFCLzz8mIZ0/2eUVJgJB8OW4fDtSoblAKt/MAYY+H
+	 oBwS2mYzZ3o4rT1V963BMARnlsJ+5NPycXEhUBSVGFOrXoJUid9AQMfBEHA+AUChBJTBn
+	 FgDWZq48CoyupyDpGEmFKAJDD/740Ij6WcTFEqlX7l17WQWLgscxbpc8JJqGhOZQS/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=irl.hu;
-	spf=pass smtp.mailfrom=irl.hu;
-	arc=none smtp.remote-ip=95.85.9.111
-Received: from irl.hu (irl.hu [95.85.9.111])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfC61l0T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 38E03606A31A;
-	Thu, 29 Oct 2026 21:46:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E03606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from fedori.lan (51b69268.dsl.pool.telekom.hu [::ffff:81.182.146.104])
-  (AUTH: PLAIN soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
-  by irl.hu with ESMTPSA
-  id 0000000000080988.000000006AE3BEC3.000368A5; Thu, 29 Oct 2026 22:46:37 +0100
-From: Gergo Koteles <soyer@irl.hu>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,
-  Bjorn Andersson <andersson@kernel.org>,
-  Konrad Dybcio <konradybcio@kernel.org>,
-  Arnd Bergmann <arnd@arndb.de>, Gergo Koteles <soyer@irl.hu>,
-  Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-  phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm7325-motorola-dubai: Add vibrator support
-Date: Thu, 29 Oct 2026 22:46:10 +0100
-Message-ID: <ca2fd61b3b0fdf6551cdf6900dd9115a8c31a0fd.1793308351.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1793308351.git.soyer@irl.hu>
-References: <cover.1793308351.git.soyer@irl.hu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D49606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfC61l0T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6141F01816;
+	Thu, 29 Oct 2026 21:50:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793310630;
+	bh=uDk4Z8lFqYD30ZIxyxuqF5DHZBdgzdmy455ICB6vjZs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kfC61l0Tidh4XftuKmkUM/IbPpit8/mUKSNx0ojwtVGRSBL2OXjk2/HyXwJjwr4nv
+	 ykvYYptj52O55nrfwwHDqycY464r/2BTMJ7Q3bZpUpAkj7i4houc+qC9x1Nflz4tyO
+	 s4Yd2BI7br258BnbKSUCgRZLTMnet0UJBe/nK587Yk0uQ3qwHa7Anqd/S3yCpqRExB
+	 DcLxU2Wd9/rjuF7M/mkKHMrBAJVGp3P2QvrNJrbH1v0qNFVvv+MyKYikpXFPa56XHi
+	 rnSWMBcLvE07QnUz2l4uw5N30ykFeMo+Gjszs6J55Mj7yMpr0ixpJaZiV9P/2Sbwki
+	 RbM/A56gzfJEw==
+Message-ID: <sashiko-outbox-190019@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: agilex5: define the i2c0 pins for
+ pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029213201.718625-2-dinguyen@kernel.org>
+References: <20261029213201.718625-1-dinguyen@kernel.org>
+ <20261029213201.718625-2-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 21:50:29 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,49 +60,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
 
-Add the required node for haptic playback (Awinic AW86224).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: agilex5: missing scl-gpios and sda-gpios on i2c0 pre=
+vents recovery
+--
 
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Changes in v3:
- - add &aw86224_reset_default to pinctrl-0 (sashiko)
+commit 4fe1ecb21c260e09211a4f5ec837b9b80b38c36d
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-Changes in v2:
- - rebased on mainline (Krzysztof)
- - order by address (Konrad)
+arm64: dts: agilex5: define the i2c0 pins for pinctrl
 
----
- .../boot/dts/qcom/sm7325-motorola-dubai-common.dtsi   | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+This commit adds pinctrl definitions for i2c0 default and gpio states on the
+Agilex5 SoCDK NAND daughter card to support I2C bus recovery.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-index 3860ab8508a0..a90407a40451 100644
---- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
-@@ -721,6 +721,17 @@ fsa4480_sbu_mux: endpoint {
- 			};
- 		};
- 	};
-+
-+	vibrator@58 {
-+		compatible = "awinic,aw86224";
-+		reg = <0x58>;
-+
-+		interrupts-extended = <&tlmm 47 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&aw86224_int_default>, <&aw86224_reset_default>;
-+		pinctrl-names = "default";
-+	};
- };
- 
- &ipa {
--- 
-2.56.0
+> diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts b/=
+arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
+> index 81443096cf991..346a4ee22f95b 100644
+> --- a/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
+> +++ b/arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_nand.dts
+> @@ -39,6 +39,22 @@ memory@80000000 {
+>  	};
+>  };
+> =20
+> +&pinctrl0 {
+> +	i2c0_pmx_func: i2c0-pmx-func-pins {
+> +		pinctrl-single,pins =3D <
+> +			0x10   0x4   /* I2C0_SDA (IOA4) PIN4SEL) */
+> +			0x14   0x4   /* I2C0_SCL (IOA5) PIN5SEL */
+> +		>;
+> +	};
+> +
+> +	i2c0_pmx_func_gpio: i2c0-pmx-func-gpio-pins {
+> +		pinctrl-single,pins =3D <
+> +			0x10   0x8   /* I2C0_SDA (IOA4) PIN4SEL) */
+> +			0x14   0x8   /* I2C0_SCL (IOA5) PIN5SEL */
+> +		>;
+> +	};
+> +};
+> +
+>  &gmac0 {
+>  	status =3D "okay";
+>  	phy-mode =3D "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O har=
+dware */
+> @@ -66,6 +82,10 @@ &gpio1 {
+> =20
+>  &i2c0 {
+>  	status =3D "okay";
+> +
+> +	pinctrl-names =3D "default", "gpio";
+> +	pinctrl-0 =3D <&i2c0_pmx_func>;
+> +	pinctrl-1 =3D <&i2c0_pmx_func_gpio>;
+>  };
 
+[Severity: Medium]
+Does i2c0 also need scl-gpios and sda-gpios properties for I2C recovery to
+work?
+
+When probing i2c0, i2c_dw_probe_master() calls i2c_dw_init_recovery_info() =
+in
+drivers/i2c/busses/i2c-designware-master.c:
+
+	gpio =3D devm_gpiod_get_optional(dev->dev, "scl", GPIOD_OUT_HIGH);
+	if (IS_ERR_OR_NULL(gpio))
+		return PTR_ERR_OR_ZERO(gpio);
+
+	rinfo->scl_gpiod =3D gpio;
+
+Without scl-gpios in the i2c0 node, devm_gpiod_get_optional() returns NULL =
+and
+i2c_dw_init_recovery_info() returns early before calling devm_pinctrl_get()=
+ or
+populating adap->bus_recovery_info.
+
+Consequently, i2c_init_recovery() in drivers/i2c/i2c-core-base.c sees
+adap->bus_recovery_info as NULL and skips i2c_gpio_init_recovery(), leaving
+the gpio pinctrl state unused and bus recovery disabled.
+
+In arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts, the pinctrl stat=
+es
+are paired with the GPIO descriptors:
+
+	pinctrl-names =3D "default", "gpio";
+	pinctrl-0 =3D <&i2c1_pmx_func>;
+	pinctrl-1 =3D <&i2c1_pmx_func_gpio>;
+
+	scl-gpios =3D <&portb 6 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+	sda-gpios =3D <&portb 7 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+
+Should i2c0 here also specify scl-gpios and sda-gpios (for example on &port=
+a 5
+and &porta 4 for IOA5 and IOA4)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029213201.7186=
+25-1-dinguyen@kernel.org?part=3D2
