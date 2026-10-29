@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283174;
-	b=yX5ofdnHvwj31byeZwIROMBerDXqqktHQQL2dVfC+miV51x/TG+F8EwDMXgtPljWKVG8
-	 Ek9tgN9ALIsoEn7KE0kylB4wiLVbq23xJQQZBc0uzzlafrdVXJ+Ahp4nOWj+xWHFyiJp6
-	 wbTRBbUvIUljiwMl0MLmrUcL4NWg9RcgHhrAdA75rHitwUuGMca3Ausgn0LsaS8IfmOzS
-	 kh8A+bVh/dl5M1c6PT0xnepFDpLi5zYZZC4d66t+sga7aq74LFXjJGF6ataKFt4rZLwvW
-	 PlZXVIzcLuQoqTqEwkL4sug/0/zZi3hJsABNcjdoxP1Yk6BHd3T+i7eQSZob9+Jb9Pw==
+	t=1793283197;
+	b=qcL8WC9ErnGaMRj4HA0CAV8OQoc5FE8pdpl+iwbeeGk3QqGFd+y1qe/xlBg3a80zzPEm
+	 q7IUZS+ohERQm/aAO0+Rzz3u3SdFtSCchqC7kbsSN/sqGQq9BoWvYwKCeEboc1QG1WWPC
+	 qAVpFLOrVZ9TG9r/6PTOHb9V7fZoJcdQRYSgVGjfDGFVgZzKxXRZiCxyN5+UzNhwlnCcx
+	 FeAS8nTElt0eBRWUlM6ziOUXCbAQX8yftij1nYpgpyBeuNAQtE0wSXhhmFVbVbP/U5mAk
+	 ZnUttbbV1AU/yOikD4bFbEjMrelTZNdS5vHSusoBKoJmU5Ku6yewHl06fuHsBc/tx1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283174;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Qmg4zrdF8bequSMPzwwa/iaU8oZp9d1Z9AVgl7+Se14=;
-	b=LOCDSTpCjDbS1MCM3vgXr27RmXVSq+aqvF7ALp0QNmErmyRobRjJ6ZRSbwQRrud86jkD
-	 h3r8OqqKvq7ct+aVg0kFkUNuN7/4E+BUk8uLdqcjsCR09j3wuJenpgyzYf1WryfC9GLz0
-	 qDfqyJ5nkonv4X/n+7JMzte37fIv8PCwTwT2FiMQ4EjS49RQi0CVb/G43aG1OZDHbZrHW
-	 shx06JU+WDgrOwentg8/mS/OnlmBp7vJVSpA9k38svcWfZlqUt1b/eq0vOuMye2bqyqbH
-	 bojCftmDpkboE25HSQBuCiuP89LSxalSY6/dH7+47jjs1r1b5ZNhv/XVxsVfzlkhqfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283197;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
+	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
+	b=qtUFfpWgGHFGjhaPkvb5bWor1V/5gKvqq/s+DDvMa14XSA1SRKz8EQHpYcnbggFwLgK1
+	 oTLpwEQshbJSk1oe6J3UX7iAW+osMNmuDjv/y7PsvOODrytjQ+IYbxJcnpIcoR2cO54va
+	 nEOEVqGAA9BHCB88uPWguAASJWlNYWIMVKTX/o6y9orwHgDa+J+y37EK6FYS1G86Vr72K
+	 PBpzGUbLCsldnMC3dw8DzwBGOQNTqLhx1Lz5o9/F4Ery/xLriE5AiHZms1NUA6tZPXeud
+	 ZC8zZbk49s76+lbPM25bj9jnLf+LFX5bmSNJD5FORpTKzEVRV1NnoXk4RroCL1vZRMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt3sCk4c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A2C606A31E
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEC6606A326
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:13:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FEC6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zt3sCk4c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5161F01829;
-	Thu, 29 Oct 2026 14:12:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283174;
-	bh=Qmg4zrdF8bequSMPzwwa/iaU8oZp9d1Z9AVgl7+Se14=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zt3sCk4cAI2PFIHoMmy3nimvyDJolUtPBrs5+IyNYkMViK6tFv8xSjV1jAuh/EzH9
-	 TeFtMmXCmNRa9uPhAHYTgLTF8yW4SXPqlURsfSzzaWhyFa9EZbcXEPjJatEvPTc5Va
-	 HZny+mWtAsTVfFJ+ztnbLcOzGpys2UFwE96f6yrIYkINXk9yDVrYkw6FFzF67xbsbF
-	 Z39Y+QXV4z+x5OGjRqU299XctZ22qgodd98LfzkluTBCOasrCbPuUIvltpS3QzgpgD
-	 dsg4XMxUVEsvt2vOvYumwL9sd7WIWVXk9FCdP8vhvMobbEExFSziHbCIAMVDfYRyuA
-	 yXOTPrgxpG2Kw==
-Message-ID: <sashiko-outbox-189485@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 02/14] drm/msm: add support for lpac_domain in
- msm_mmu
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-2-a21a5c850961@gmail.com>
-References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
- <20261029-descriptive-name-lpac-upstream-v2-2-a21a5c850961@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:12:53 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8C7D14E41393;
+	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 46C5C60360;
+	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C8C1103287D5;
+	Thu, 29 Oct 2026 15:13:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793283193; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
+	b=AihZAXH9+98sBSigsaRLjEm2rl2KxNsvqwbAyAnd17LltXefyuQSlUU69Mgb2/Hpw5Fkan
+	Vt/EufyJcGdmT5wH3gVFrOn7mlh1NJOvc0RgrVQOtnXZ4CX+WF+nnFGh/BKwi/BDMpLGli
+	1u9cRnhl5xY/S0QFABSjPHPwtnDwSHTN/f9c82pbqaGdM+48Fy8C/7gKEY4vqLujg0wS1B
+	tPlh0kBbP4vhO6MVBRNRbF6ywgJSgYZaRdUFhqMVNUplzcvFGKb4CAM3klz/sgz0q7UsoK
+	2NHMuWuMaTul4hqOo4xvlp1UMpGJmFmEXjQhNnaPiBJjEZGkfxHrKPBE8m/RhA==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,299 +58,129 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Oct 2026 15:13:09 +0100
+Message-Id: <DMHDU487Z307.JDRRJ5K8E53A@bootlin.com>
+Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
+ <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+ <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+ <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+ <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
+ <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
+In-Reply-To: <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/msm: wrong device passed to runtime PM in msm_iommu_tlb_flush_=
-all()
-- [High] drm/msm: missing TTBR0 rollback and NULL tlb deref in msm_iommu_pa=
-getable_create()
-- [High] drm/msm: missing iommu->domain unmap on error in msm_iommu_map()
-- [Medium] drm/msm: race on fault_coredump_done between gpu and lpac fault =
-handlers
---
+On Thu Oct 29, 2026 at 1:42 PM CET, Krzysztof Kozlowski wrote:
+> On 29/10/2026 10:05, Paul Louvel wrote:
+>> Hi Krzysztof,
+>>=20
+>> On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
+>>> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
+>>>> +          regulator-temp-warn-kelvin:
+>>>> +            enum: [0, 1, 368, 383, 398, 413]
+>>>> +
+>>>> +          regulator-ramp-delay:
+>>>> +            enum: [40000, 20000, 1000, 500]
+>>>> +
+>>>> +          regulator-min-microvolt:
+>>>> +            minimum: 1000000
+>>>> +            maximum: 48000000
+>>>> +
+>>>> +          regulator-max-microvolt:
+>>>> +            minimum: 1000000
+>>>> +            maximum: 48000000
+>>>> +
+>>>> +          regulator-min-microamp:
+>>>> +            minimum: 500000
+>>>> +            maximum: 7000000
+>>>> +
+>>>> +          regulator-max-microamp:
+>>>> +            minimum: 500000
+>>>> +            maximum: 7000000
+>>>> +
+>>>> +        unevaluatedProperties: false
+>>>
+>>> Place this line after description, that's the convention for child node=
+s
+>>> for readability.
+>>>
+>>>> +
+>>>> +      vcc1:
+>>>> +        type: object
+>>>> +        $ref: regulator.yaml#
+>>>> +        description: |
+>>>> +          LDO regulator for auxiliary use.
+>>>> +          It can used to power, for example, a PD controller that wil=
+l drive this PMIC.
+>>>> +
+>>>> +        properties:
+>>>> +          regulator-min-microvolt:
+>>>> +            minimum: 5000000
+>>>> +            maximum: 5000000
+>>>> +
+>>>> +          regulator-max-microvolt:
+>>>> +            minimum: 5000000
+>>>> +            maximum: 5000000
+>>>> +
+>>>> +        unevaluatedProperties: false
+>>>
+>>> Place this line after description, that's the convention for child node=
+s
+>>> for readability.
+>>>
+>>>> +
+>>>> +    additionalProperties: false
+>>>
+>>> Place this line after description (for relevant block), that's the
+>>> convention for child nodes for readability.
+>>>
+>>>> +
+>>>> +  ti,sync-pin:
+>>>> +    description: |
+>>>> +      Selects the function of the SYNC pin, used when several convert=
+ers
+>>>> +      operate in parallel.
+>>>> +    $ref: /schemas/types.yaml#/definitions/string
+>>>> +    enum: [input-rising, input-falling, output-rising, output-falling=
+]
+>>>> +    default: input-rising
+>>>> +
+>>>> +  ti,ivp-thres-microvolt:
+>>>
+>>> Use either existing over-voltage-threshold-microvolt from battery schem=
+a
+>>> or ti,ovp-microvolt from the other TI binding.
+>>=20
+>> IVP is not the same as OVP.
+>
+> ... because? OVP is overv-oltage protection, so ivp is not input
+> over-voltage protection?
 
-commit 77527d316e1a6de39276075ddde03245b58f889d
-Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Sorry, for me, OVP in this context was output voltage protection, and IVP i=
+nput
+voltage protection. I prefer 'ti,ovp-microvolt' but it does not really stat=
+e
+that this protection is for input voltage.
 
-drm/msm: add support for lpac_domain in msm_mmu
+>
+> Best regards,
+> Krzysztof
 
-This commit adds support for a separate LPAC (Low Priority Async Compute)
-iommu_domain in msm_mmu and keeps its mappings, TTBR0 configuration, fault
-handling, and TLB invalidations synchronized with the main domain.
-
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
-mmu.c
-> index 058c71c82cf54..0e770ec91a83a 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-
-[ ... ]
-
-> @@ -450,14 +460,22 @@ static void msm_iommu_tlb_flush_all(void *cookie)
->  	struct msm_iommu_pagetable *pagetable =3D cookie;
->  	struct adreno_smmu_priv *adreno_smmu;
-> =20
-> -	if (!pm_runtime_get_if_in_use(pagetable->iommu_dev))
-> -		return;
-> +	if (pm_runtime_get_if_in_use(pagetable->iommu_dev)) {
-> +		adreno_smmu =3D dev_get_drvdata(pagetable->parent->dev);
-> +
-> +		pagetable->tlb->tlb_flush_all((void *)adreno_smmu->cookie);
-> +
-> +		pm_runtime_put_autosuspend(pagetable->iommu_dev);
-> +	}
-> =20
-> -	adreno_smmu =3D dev_get_drvdata(pagetable->parent->dev);
-> +	if (pagetable->parent->lpac_dev &&
-> +	    pm_runtime_get_if_in_use(pagetable->parent->lpac_dev)) {
-> +		adreno_smmu =3D dev_get_drvdata(pagetable->parent->lpac_dev);
-> =20
-> -	pagetable->tlb->tlb_flush_all((void *)adreno_smmu->cookie);
-> +		pagetable->tlb->tlb_flush_all((void *)adreno_smmu->cookie);
-> =20
-> -	pm_runtime_put_autosuspend(pagetable->iommu_dev);
-> +		pm_runtime_put_autosuspend(pagetable->parent->lpac_dev);
-> +	}
->  }
-> =20
->  static void msm_iommu_tlb_flush_walk(unsigned long iova, size_t size,
-> @@ -466,14 +484,23 @@ static void msm_iommu_tlb_flush_walk(unsigned long =
-iova, size_t size,
->  	struct msm_iommu_pagetable *pagetable =3D cookie;
->  	struct adreno_smmu_priv *adreno_smmu;
-> =20
-> -	if (!pm_runtime_get_if_in_use(pagetable->iommu_dev))
-> -		return;
-> =20
-> -	adreno_smmu =3D dev_get_drvdata(pagetable->parent->dev);
-> +	if (pm_runtime_get_if_in_use(pagetable->iommu_dev)) {
-> +		adreno_smmu =3D dev_get_drvdata(pagetable->parent->dev);
-> +
-> +		pagetable->tlb->tlb_flush_walk(iova, size, granule, (void *)adreno_smm=
-u->cookie);
-> =20
-> -	pagetable->tlb->tlb_flush_walk(iova, size, granule, (void *)adreno_smmu=
-->cookie);
-> +		pm_runtime_put_autosuspend(pagetable->iommu_dev);
-> +	}
-> +
-> +	if (pagetable->parent->lpac_dev &&
-> +	    pm_runtime_get_if_in_use(pagetable->parent->lpac_dev)) {
-> +		adreno_smmu =3D dev_get_drvdata(pagetable->parent->lpac_dev);
-> =20
-> -	pm_runtime_put_autosuspend(pagetable->iommu_dev);
-> +		pagetable->tlb->tlb_flush_walk(iova, size, granule, (void *)adreno_smm=
-u->cookie);
-> +
-> +		pm_runtime_put_autosuspend(pagetable->parent->lpac_dev);
-> +	}
->  }
-
-[Severity: High]
-Should msm_iommu_tlb_flush_all() and msm_iommu_tlb_flush_walk() keep the
-runtime PM reference on pagetable->iommu_dev across both context bank flush=
-es
-instead of calling pm_runtime_get_if_in_use() and
-pm_runtime_put_autosuspend() on pagetable->parent->lpac_dev?
-
-In msm_iommu_pagetable_create(), pagetable->iommu_dev is initialized from
-ttbr1_cfg->iommu_dev (the SMMU controller device), whereas
-pagetable->parent->dev and pagetable->parent->lpac_dev are the GPU and LPAC
-client devices. Both adreno_smmu->cookie and lpac_adreno_smmu->cookie access
-context banks on that SMMU controller device.
-
-When runtime PM is disabled on pagetable->parent->lpac_dev,
-pm_runtime_get_if_in_use(pagetable->parent->lpac_dev) returns -EINVAL, which
-evaluates as true in the if condition without incrementing usage_count. Aft=
-er
-pm_runtime_put_autosuspend(pagetable->iommu_dev) drops the SMMU reference at
-the end of the primary flush block, the LPAC block can access unclocked SMMU
-registers while pagetable->iommu_dev is suspended and then underflow the
-runtime PM usage count on pagetable->parent->lpac_dev. Conversely, if runti=
-me
-PM is enabled on lpac_dev with a zero usage count while pagetable->iommu_dev
-is active, pm_runtime_get_if_in_use(pagetable->parent->lpac_dev) returns 0
-and skips the LPAC TLB flush.
-
-[ ... ]
-
-> @@ -588,6 +621,17 @@ struct msm_mmu *msm_iommu_pagetable_create(struct ms=
-m_mmu *parent, bool kernel_m
->  			return ERR_PTR(ret);
->  		}
-> =20
-> +		if (lpac_adreno_smmu) {
-> +			ret =3D lpac_adreno_smmu->set_ttbr0_cfg(lpac_adreno_smmu->cookie, &tt=
-br0_cfg);
-> +			if (ret) {
-> +				iommu->pagetables--;
-> +				mutex_unlock(&iommu->init_lock);
-> +				free_io_pgtable_ops(pagetable->pgtbl_ops);
-> +				kfree(pagetable);
-> +				return ERR_PTR(ret);
-> +			}
-> +		}
-> +
->  		BUG_ON(iommu->prr_page);
->  		if (adreno_smmu->set_prr_bit) {
->  			/*
-> @@ -606,11 +650,16 @@ struct msm_mmu *msm_iommu_pagetable_create(struct m=
-sm_mmu *parent, bool kernel_m
->  						  page_to_phys(iommu->prr_page));
->  			adreno_smmu->set_prr_bit(adreno_smmu->cookie, true);
->  		}
-> +
-> +		if (iommu->prr_page && lpac_adreno_smmu && lpac_adreno_smmu->set_prr_b=
-it) {
-> +			lpac_adreno_smmu->set_prr_addr(lpac_adreno_smmu->cookie,
-> +						       page_to_phys(iommu->prr_page));
-> +			lpac_adreno_smmu->set_prr_bit(lpac_adreno_smmu->cookie, true);
-> +		}
->  	}
->  	mutex_unlock(&iommu->init_lock);
-> =20
->  	/* Needed later for TLB flush */
-> -	pagetable->parent =3D parent;
->  	pagetable->tlb =3D ttbr1_cfg->tlb;
->  	pagetable->pgsize_bitmap =3D ttbr0_cfg.pgsize_bitmap;
->  	pagetable->ttbr =3D ttbr0_cfg.arm_lpae_s1_cfg.ttbr;
-
-[Severity: High]
-What happens in msm_iommu_pagetable_create() if
-lpac_adreno_smmu->set_ttbr0_cfg() fails after adreno_smmu->set_ttbr0_cfg()
-has already succeeded?
-
-Because the error path does not call
-adreno_smmu->set_ttbr0_cfg(adreno_smmu->cookie, NULL) before freeing
-pagetable->pgtbl_ops, the primary context bank's TTBR0 remains enabled and
-pointed at the freed root page table physical address, and subsequent calls
-to msm_iommu_pagetable_create() will fail in qcom_adreno_smmu_set_ttbr0_cfg=
-()
-because ARM_SMMU_TCR_EPD0 is already cleared.
-
-In addition, while pagetable->parent =3D parent was moved before
-alloc_io_pgtable_ops(), pagetable->tlb =3D ttbr1_cfg->tlb is still assigned
-after the init_lock block:
-
-drivers/gpu/drm/msm/msm_iommu.c:msm_iommu_pagetable_create() {
-    ...
-	if (iommu->pagetables++ =3D=3D 0) {
-		...
-		if (lpac_adreno_smmu) {
-			ret =3D lpac_adreno_smmu->set_ttbr0_cfg(...);
-			if (ret) {
-				...
-				free_io_pgtable_ops(pagetable->pgtbl_ops);
-				...
-			}
-		}
-	}
-	mutex_unlock(&iommu->init_lock);
-
-	/* Needed later for TLB flush */
-	pagetable->tlb =3D ttbr1_cfg->tlb;
-}
-
-When free_io_pgtable_ops() runs on either set_ttbr0_cfg() error path, it
-calls io_pgtable_tlb_flush_all() -> msm_iommu_tlb_flush_all(), which
-dereferences pagetable->tlb while it is still NULL. Should pagetable->tlb be
-initialized before alloc_io_pgtable_ops(), and should the LPAC error path r=
-oll
-back adreno_smmu->set_ttbr0_cfg(adreno_smmu->cookie, NULL)?
-
-> @@ -646,6 +695,26 @@ static int msm_gpu_fault_handler(struct iommu_domain=
- *domain, struct device *dev
->  	return 0;
->  }
-> =20
-> +static int msm_lpac_fault_handler(struct iommu_domain *domain, struct de=
-vice *dev,
-> +		unsigned long iova, int flags, void *arg)
-> +{
-> +	struct msm_iommu *iommu =3D arg;
-> +	struct adreno_smmu_priv *adreno_smmu =3D dev_get_drvdata(iommu->base.lp=
-ac_dev);
-> +	struct adreno_smmu_fault_info info, *ptr =3D NULL;
-> +
-> +	if (adreno_smmu->get_fault_info) {
-> +		adreno_smmu->get_fault_info(adreno_smmu->cookie, &info);
-> +		ptr =3D &info;
-> +	}
-> +
-> +	if (iommu->base.handler)
-> +		return iommu->base.handler(iommu->base.arg, iova, flags, ptr);
-> +
-> +	pr_warn_ratelimited("*** lpac fault: iova=3D%16lx, flags=3D%d\n", iova,=
- flags);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can msm_lpac_fault_handler() and msm_gpu_fault_handler() race on
-adreno_gpu->fault_coredump_done when both context banks fault concurrently?
-
-Because iommu->domain and iommu->lpac_domain use separate SMMU context banks
-with separate threaded fault IRQs, both handlers can invoke
-iommu->base.handler (a6xx_fault_handler() -> adreno_fault_handler()) at the
-same time. In adreno_fault_handler(), do_devcoredump is evaluated before
-gpu->lock is taken in msm_gpu_fault_crashstate_capture(), and
-reinit_completion() and complete_all() on adreno_gpu->fault_coredump_done r=
-un
-outside gpu->lock:
-
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_fault_handler() {
-    ...
-	do_devcoredump =3D info && (info->fsr & ARM_SMMU_FSR_SS) &&
-		!gpu->crashstate && !READ_ONCE(priv->disable_devcoredump);
-    ...
-	if (do_devcoredump) {
-		...
-		reinit_completion(&adreno_gpu->fault_coredump_done);
-		...
-		msm_gpu_fault_crashstate_capture(gpu, &fault_info);
-
-		complete_all(&adreno_gpu->fault_coredump_done);
-	}
-}
-
-If both context banks stall on a fault while gpu->crashstate is still NULL,
-can one handler call reinit_completion() or complete_all() while the other
-context bank is still stalled in the SMMU, causing concurrent GMU waits on
-adreno_gpu->fault_coredump_done to wake prematurely or race on the
-completion?
-
-[ ... ]
-
-> @@ -689,6 +768,15 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint64=
-_t iova,
->  	if (ret < 0)
->  		return ret;
-> =20
-> +	if (ret !=3D len)
-> +		return -EINVAL;
-> +
-> +	if (iommu->lpac_domain) {
-> +		ret =3D iommu_map_sgtable(iommu->lpac_domain, iova, sgt, prot);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
->  	return (ret =3D=3D len) ? 0 : -EINVAL;
->  }
-
-[Severity: High]
-If mapping into iommu->lpac_domain fails or maps fewer than len bytes in
-msm_iommu_map(), does this leave the [iova, iova + len) mapping leaked in
-iommu->domain?
-
-When msm_iommu_map() returns an error to msm_gem_vma_map(), msm_vma->mapped
-remains false, so msm_gem_vma_unmap() will not be called to clean up the
-primary domain mapping. Should msm_iommu_map() call
-iommu_unmap(iommu->domain, iova, len) when the iommu->lpac_domain mapping
-fails?
-
+Best regards,
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
-e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D2
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
