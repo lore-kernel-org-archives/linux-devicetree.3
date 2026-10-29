@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250918;
-	b=bTAEprLoOfVPWS2lV1Py101GK1S/LHBcAX03b9A/lJdWR9u209Pw68TkgOIjYh2ibseO
-	 Q1qx5cbVcqYVP5yOYaJ8ht7GeVQsgOs5XtdpWDz1KCw0Z8SQzS24xPa+Ph7YJ//ccq+8b
-	 E+DTUhR9Nouny7U0V+fypw+3OM/8dSpnMV3rp8MF+BbgOhcHp34bVzIEtGBTtUFuOOBWh
-	 Shzai077nDCKpik0b8WDNKrkkSFIV3F+uz35La6n+IRBqBFMcGm4PuIDVtXKN7Z3Rjvk0
-	 Mj9CRvtivPOSoW5lKxwW+wxLpNwsBxwULAz7coiYVmJLbUyZZxUYW2WKL4PTz7/6gcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250918;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bzpZXYV5Y+s9QuvDS8yWpiGVzX4IZyPP+trA01Cvxs0=;
-	b=C+QoHbnDgNMsrIGhmvBaSWfBAlns/SoaRM4DTsBUjik8+J+hyFdp7q/rPlyrBWPE1CJV
-	 d2HRikmOrCFa9xCuy/mC9HWxU+I1vDhO+/Sfi3waCIQQLAujH7spyt8hf7Pvho9iC4oh7
-	 7dOeItiN+3tdqOZQysLyBxk938KDxrKOv5GyFZ3Yl441GlCY3P8w+W+Ie4OkPlLCaOnmB
-	 2pybHDFEDc+2tL8c5GizTQ02A1Ga2Jqv0SKysCEtGNZI4iPcq4WMT4G4R1L1UuRakj+r5
-	 1WWI1jo0n9exeVNwct0rjY+7NSWsIWufCdbqjbraB72SL0+NHx/F8GHxAozxQPVCLbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rmdctj8c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.89
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793251124;
+	b=aNCP18B7A9Lgc4xnvaz+f0Fq6Z4fb4Akd9ku3Ehrs9KVdInEH93wTzafDbXJvaShlMdX
+	 nE34C1JkZx6/QKMHsY1W7Rramw6Ok+en6FZ/NIWgSYBpsiEuEAFYuidOKK7L0+e0IbVaB
+	 Soev523OV5k+XIYl36aruGGZ7qQUAaO3AKp0io89lcX+6jB72Od0nhrlkn5kRTU8I/crV
+	 BkCE01R62BS53CY98XooGgDrdCqTOFaBPA0lbA7iraB1WROStnQq9PJ8H+oj4gMdOlf+c
+	 F+mWxnhWM/JxDlaepLwZl95kqnpNk20U+eCDyhH4AXevUBtfLEcUMRmPYkXa9HYVZtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793251124;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=nN2H5DGgqfsM6LhOOow1rNzEnF6r4+OX8KtRg8lWZs8=;
+	b=rpTxhdtVDp3hcuVTO00/InCFdVNdVeF2INEoXo2eF3Jvn98eh+OZLqf8AYjl9i1ePOwd
+	 XUVV8+LNT/SlwivjSBpbzz8Nf3RbtDqV01SDogDR1xtTDcXrAI9JjObG1kEhgqwyNkRh0
+	 4P+cx8aq5ZMXLL6whUMpCvxtC6yEhbTwkxxyvWY0qdB79mjvZT+ZSdTnTyJhStGyAfqVE
+	 6DtsgL8Xbb///CSCZ5bTKp4zWOE4ydyjEKQjuohDjCXnCDaBfHlyk1lfCWH7DVq7DPSqi
+	 iD1gFcNfaaKKL/f30POxlPKqqrW2ri8KqCvyqRq3Aburi1hqWWUZziukrT3fLufymXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.89
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022089.outbound.protection.outlook.com [52.101.126.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98859606A31A;
-	Thu, 29 Oct 2026 05:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rmdctj8c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BCB1F01825;
-	Thu, 29 Oct 2026 05:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793250918;
-	bh=bzpZXYV5Y+s9QuvDS8yWpiGVzX4IZyPP+trA01Cvxs0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rmdctj8cJp2xOATIxhQ5PjhECk1b+7wDoSpKy9yv4MRV4W50EnClK+lt4J3EBn6Ac
-	 QUW/+3fRGpIc99RM5clufflTqkGv3Ljy2b0MtHh4LlIiyWQGtMcRAv1s9do2UkU5Xj
-	 sGF1Rf4TCZZ5ugVMl0Jqknw3mNtNsQ/0evjHG115iREQLvq7YMg7Zu71PMfo2COS9U
-	 VSpbccbCEhyCemgKcrLADTPU4LM+XqdXuY4UwPSaN5wLbv4e2mn2U35dFPQb9zuTf3
-	 Uh7aFZJbwJaWBPHA3XUo0moG6TfnWZ9MCRSok3t5fgxehUe0ebEE5Q+SevxTA369C4
-	 wQgf2giM2BjNg==
-Message-ID: <sashiko-outbox-188747@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 05/12] dt-bindings: serial: Add BL808 UART
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kwanghoon Son" <asdfkwang@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 05:15:17 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23ABB606A31A;
+	Thu, 29 Oct 2026 05:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23ABB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GvXOUxVetVzXyIrygtiMXbzV3o5kOmMQDIgsqsA28E5LW/VjUg7STzF+/khO6ZmZJ2mUNk9vTuNr/EmkyQFLCqxYt5unmsXa6F5SOexNQWj48q8ZY8leeWICczb27IMJ2iV3YCwKqfW8dKWXRU+1rrGvAnVzm6a+A8U5WhwemaXNdhUfd+flGE9b5SK7z9pt5K5oj5sU+ufCydG+F5RzkfhCdsUmvg4/pYBHqUQldsWnAouasN5AUvgp3srIpjCQEbsrYlecjKJbf+qpotMuH5KxA7vjXs1PqKkCppgPcyHvnOaKYfIu2Y5sCMGK7TJWX5odkFjTqs/h2sTfwqr+Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nN2H5DGgqfsM6LhOOow1rNzEnF6r4+OX8KtRg8lWZs8=;
+ b=ZEq7dNx3TfmAwyWqgSYuqjahSoXjf3dn+Inx1XlcXJCcs0uShEjaHkyye4xnUUlRm68cRgZwLpeT6LRw8jAAVewv7pJeZrt23X07YyOvdiifZ7X+ZFNXZERv5tj8NTKl1gj38xKXkWwnhNyv2RaaJ4I2vH3QVK7rtJQ2OhVpjscYFZr9aM+B8RUaXRhRsuhFU8a7YkTzDxU4kFoTcYXUDFPC66lLUcsjyhhk158pp1Jg99ai3Ye99vwsPklEAvISnyIA7rZN8BpGfr1RZPAFvAdtfKz1hIarek8Nqz0Uag+73qnk+HhwD0XJBTVd8Kdtmyxg88pXMTchyOVVNiZ9/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from OS3PR01CA0003.jpnprd01.prod.outlook.com (2603:1096:604:dc::8)
+ by OSQPR06MB7183.apcprd06.prod.outlook.com (2603:1096:604:295::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 05:18:38 +0000
+Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
+ (2603:1096:604:dc:cafe::4a) by OS3PR01CA0003.outlook.office365.com
+ (2603:1096:604:dc::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Thu,
+ 29 Oct 2026 05:18:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 05:18:37 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C744D4102B51;
+	Thu, 29 Oct 2026 13:18:35 +0800 (CST)
+Date: Thu, 29 Oct 2026 13:18:34 +0800
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v1 4/5] dmaengine: arm-dma350: Honour dma-channel-mask
+Message-ID: <auLXKpDj9xBTKC04@ubuntu>
+References: <20261023093045.3248630-1-Jelly.Jia@cixtech.com>
+ <20261023093045.3248630-5-Jelly.Jia@cixtech.com>
+ <auInKn0Z7TUP8yl7@lizhi-Precision-Tower-5810>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,102 +101,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auInKn0Z7TUP8yl7@lizhi-Precision-Tower-5810>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|OSQPR06MB7183:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f236fd3-481d-4f28-4a9c-08df357c1660
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|18002099003|22082099003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	s7obFAYCo7GQTs/nObuqL3QMRKZlChBSVRPxKJl37BjEaxubzXxnnMw0hwSKzNd5JvYoOTq6CXkuj9j8s64bX0aLdHAW3EQESKSJUI2NCXdzwPWHmUtIKR4xaofQSxI/CnGIwNcQnmuTN/9xyy63uagf2A1Jg79Jqt80mTyOj2ugYbdceqXzFlrXar9fB4JUH6y3PdpGSSBAfKebph8ZJRczBa2W/O/NBCXbpoSS+BZh5vKaG6MMc0Wb5BPwmo1SnSGQJ98JTsL5raAkSQEcrVnGjutRf2jqMLROWcBOXUDHLTqqyLcdi+ZKf/LJDebDNuM0DBC/jOpv3Tv6S0zvavydpCMhlya0JYU5m4FHE5D1t+xjIPCTBhXNLXxAGJeMwu3ZNeoqa1MVz9ksWtUYoWe0IzR+ZnXvm/WphOLhIZgQLdDQ0Qiq34UJNNiyEgnUTBiFLq9smh5qPXd1AthU468N5SxWH3pbseD4Let/njhH0bpBJEqCyya51a4qszRc8A7wWIvJ9YgIB+DKHPGjQTAXPbQ4HCf0NmclPeexiKwnHZqRR9/xYDkx0kwkxsFgoDIXk4/WvZf06UbNgRvqlFsG8SM3eIbG3z33DjRuA9Edmh0UFiV/BGu/oFqJmjwhK8wnzl3wIiVJkzBn/uuZ3+LzA0l7WaCCOEglDsge3JbpNqa7o+Ao46EosbbejFgcyd2cSLjPFUVtoviaX2dwjw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(18002099003)(22082099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ypBSLJAiRVpI1920V7IyiGKDWuxWrPlCZG5lqGEoKtYCJIev0CYWtUxhDCmoP9N/0BC4oJO5Ai3FKJ+9qZiZH4EWWJUpT4Xg2mIdZ2hC4ChveXTendFUQB9RYAHFYEddu5Yeot0iBsKRvB+d4vj9whsLQlDTYVJWi9GMxTniVWR+HYW/xHk2Q1A04SXCKBSm8p3PyRGui9kbDx4827+LaRaW2szB9Fu+3hg4m4jSdZIGI/rUjiIhU7mXaGerYfpnFBSKq+cjTLqL79gL6F5sOtjY29kxBUndORBE/NeBUTx3Vc8uG7MgQT6o6B7YAvUVRtxhTUHZ0Rh5xUU0BkLpdUNpOrlyO6Flg0XDsgAu0WQlR/4Imaba9Axna452kpCd9NipG2mUFCJNWLuTIjI3CHJ8/tM8Hwy6CS9lZk9K+btHWX67rYDw36USkprL63Im
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 05:18:37.1797
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f236fd3-481d-4f28-4a9c-08df357c1660
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CA.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR06MB7183
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: serial: missing SoC-specific compatible in bflb,uar=
-t.yaml
-- [Low] dt-bindings: serial: unused label in bflb,uart.yaml example
---
+Hi Frank,
 
-commit 1bdd5b51639067c3a28b1a40beeb8fbfbbc65a65
-Author: Kwanghoon Son <asdfkwang@gmail.com>
+On Wed, Oct 28, 2026 at 12:47:38PM -0400, Frank Li wrote:
+> dma-channel-mask is u32 array. If nchan >= 32, you should check
+> dma-channel-mask[1].
 
-dt-bindings: serial: Add BL808 UART
+Thanks for reviewing. Yes, the common property is a u32 array.
+For DMA-350, however, the TRM specifies:
+"Number of DMA channels between 1 and 8 (NUM_CHANNELS)".
 
-This commit adds the Device Tree binding schema for the Bouffalo Lab UART
-controller, describing its register range, interrupt, and baud clock input.
+A single u32 therefore covers all supported channels, and patch 3/5
+also restricts dma-channel-mask to maxItems: 1.
 
-Link: https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial/b=
-flb,uart.html
-
-> diff --git a/Documentation/devicetree/bindings/serial/bflb,uart.yaml b/Do=
-cumentation/devicetree/bindings/serial/bflb,uart.yaml
-> new file mode 100644
-> index 0000000000000..df29d258f0a1c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/bflb,uart.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/serial/bflb,uart.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Bouffalo Lab UART Controller
-> +
-> +description: |
-> +  UART IP used by Bouffalo Lab SoCs. Initial Linux support covers the
-> +  BL808 controller with a 32-byte FIFO. The compatible follows Zephyr.
-> +
-> +maintainers:
-> +  - Kwanghoon Son <asdfkwang@gmail.com>
-> +
-> +allOf:
-> +  - $ref: serial.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: bflb,uart
-
-[Severity: Medium]
-Should the compatible property in Documentation/devicetree/bindings/serial/=
-bflb,uart.yaml
-include a SoC-specific compatible string such as bflb,bl808-uart (either
-alone or with bflb,uart as a fallback), and should the description section
-describe the hardware rather than what Linux currently supports?
-
-Documentation/devicetree/bindings/writing-bindings.rst requires SoC-specific
-compatible strings for SoC devices rather than generic vendor-wide names, a=
-nd
-notes that bindings should describe the hardware rather than what an OS or
-driver currently supports.
-
-In the accompanying driver (drivers/tty/serial/bflb_uart.rs), tx_empty()
-relies on a hardcoded 32-byte FIFO depth to check whether all TX FIFO slots
-are free:
-
-    const FIFO_DEPTH: u32 =3D 32;
-    ...
-    fn tx_empty(&self) -> bool {
-        self.read::<FIFO_CONFIG1>() & TX_FIFO_CNT_MASK =3D=3D FIFO_DEPTH
-    }
-
-Without a SoC-specific compatible string like bflb,bl808-uart, Device Trees
-using only bflb,uart cannot distinguish the BL808 UART from other Bouffalo =
-Lab
-SoCs with different FIFO depths or hardware capabilities without breaking t=
-he
-DT ABI.
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    uart3: serial@30002000 {
-> +        compatible =3D "bflb,uart";
-
-[Severity: Low]
-Can the unused uart3 label be dropped from the serial@30002000 node in the
-examples section of Documentation/devicetree/bindings/serial/bflb,uart.yaml?
-
-Because uart3 is never referenced by a phandle in the example, running
-scripts/dtc/dt-check-style --mode=3Dstrict reports an unused-labels warning=
- in
-check_unused_labels().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-rust-bl808=
--console-v1-0-b736ee920078@gmail.com?part=3D5
+Best regards,
+Jelly
