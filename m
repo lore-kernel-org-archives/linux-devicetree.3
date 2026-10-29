@@ -1,128 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260239;
-	b=e81crjoZNt1nu/PPAuF5U/L/qPZgBhJKy1xNYImzjui6yNEgFbXZnrjBCuSO7+7gXkmx
-	 S/tnuGlq+sNnuWcwIiGnikVtnrc2wdXeh+kaorbLYGYZOsGxGLKzSWEToDw78Wf268WZa
-	 ifGjRXcYkjbhalJLj67are4TZCfsdDxtNeSP7/UfvBCPXf+MRO/07dS2T1ZhO/Csf2ppS
-	 JT8BwCMRrDmK4h5eoaTTFSpx98jVBIDmLSkMEr78nfmo/n+CSZEeqb+eE9YNx+6/vObib
-	 puuNYLEAPoM4VLAzqW5EZ0HVrxT6YRz2Rteq/J64YFtC572sNh6td/uGfBoVX1cQ/xg==
+	t=1793260327;
+	b=djps0CbTD6jDWBqNqQloUkwOv7Lv0H81TGdnG2iCGGdt3/iC2i6UNZox14B/11M7C4lc
+	 vQaYKYdhRsVeRj/qt0mnJ5SzEhpEWJTWrEvwLMnEf/754gTjbo/wJNipz73QcGRkxLRPE
+	 oS1ndZPJhKtOPOjS7EJfhlQnv4emrMpYMw1edo+M01IOPl6QHqK5EGiC3YX96KTV0diXP
+	 l2mjmxjN8pwx94zXm0IfW6uKqYJL58rRTwx8I5uzD5vqhvHNCpWcTxW5OT/6MN9o1P/y2
+	 qctThlsqa7Qt5bDktqP3X9o+JCi70rP9x5YRNRg1alZ152z5gYemyqBhGJtVmK70aOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260239;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
-	b=sVMI1EBDG9tltaVJTJUPUBdb8jTYA/giMQprtvhgKPfU/dvK7haDYcjlbovR+1z9hGjn
-	 ALBbQ92amUAPyiof3WVvUASLYHTq1NTHEP8p/tx1qKCoOebOjVP1Sc9knExFKuGGgyyD5
-	 RgjgP2lypyQgtvp2NZfSAfDDaBSr7k27bHpkSpGkTKxs18bBAmrD9XmOcKmfNednJUCz1
-	 rFM2Am2AkPuNyPp0Vy32Y4kLmgYQkUERXorx3gxKnPL/XWgy0RVjRhXgjK964QTkEgnRx
-	 FNfzHwQMyg+q9iYoCMUs1nsuLy4XuMcLzNdULodUfZookQtN/K5mzCcQQCxyvHet4TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260327;
+	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=sqagyVcKqIAinu4JxuHIZSAS6rRzPNadzZhNbuXuo+w=;
+	b=zcUDTXgWTNFPqXPEi7JbBEW4PViHgWvxhVdb1+ZnOiHJNzH2v3d/IDL6RL9+HOXB19m9
+	 u1rxZNJ2EHChEv0ZpnQsrdJ1IfidlUcyHUiuvO+21Glg/HcGh9nkhoAvRrk9mvXaD0gr/
+	 QJiqywfPd4p5gzpDG7AI2L+kv7uEkzRlcWA/RXYiusFI0InQqasDwW1zHqLlv1URFRH6K
+	 WbYaAg3JPlM2uI5bA6MXghG5xu1b0++TDHRalf8EpvqTVmYEfJKlG8hMWpNSxFu0XPMSE
+	 eP7fwo0sD/MG/wdQI/j0dQ7Plf6ikvahunLmiVoDPHxgBQ8kQOFiPtjwt4XfgaSzetQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H9GB5CwF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Dq/YHesS";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	arc=none smtp.remote-ip=211.20.114.72
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4F6606A322
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E4F6606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H9GB5CwF;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Dq/YHesS
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5Gvax2974015
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:50:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=NRjITIPkdmW
-	IGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=; b=H9GB5CwFLiO5T00Hz8eY6N8cqBf
-	Zq+34UgfeztZ0VA5dItQCf+rQHeTHWp4qsFS7FsHIA1W/jF1/zKydiN+bhS8FEHw
-	9wZ0ClUjLSKCVL+GCkPWz72HdTm0QR2lpn5xFlAkLAyX8szPqIwGXiEUuw+hkffM
-	lR8JKMn2WfihnSjWhSbggLU/wVTK88GhfY3ovaLXwBETgVmyqyAgejiIGu8Jqm2O
-	fQ2UAEFHVpQZ4eMMVbpS+Biw4F/HrBHnOZfMCzJ7fdqQzlmUQNZjPI6dReVW7Uar
-	c3LUVr0pG8nmulbfCrc/VR4AZcavxUO970pMTxs8QKMCjmtMU1r96gZKrHg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkpasbb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:50:37 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f322ef7d3so375392985a.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 00:50:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793260237; x=1793865037; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
-        b=Dq/YHesSlruM8oYYOdePIQ3WMvkiITNBWS5lRuDNeNWeKahCRRZDk77HfhE2qz5Zvc
-         +EEYnH9gPOlRSASOcK2yh+4yuQxOmXmSXXWRKPh1RD4WSrApyXEDUgWPRJmk/m6kUqVE
-         vQwIcaUt65MKuagLCfhuRD1tS7giY4rtAXeBLuzsh7SCucVehqXKNn9CMjRHpDDBRSsm
-         kgbglsVbuMT/IDJh7eMazhIHBwCOigvlORjC/O1arU8FrmxyyhkLJurLNop7HKOfrvqJ
-         UebP70DSVlvQ82XGkpyjiVPjy8qitbahkeLCyJayfpTrm22pyhC58b0uxfxrflQzzsiZ
-         4x0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793260237; x=1793865037;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
-        b=GiXXJloMNTVgkAawO3QrkZXQ11vv+w5TpkE0YT8BffA2m+yyNgZMiICxqAF0t++H3a
-         GdPTt4PcJ01EePtAxOQC0HZtEFyIXxP2S1kpelpnS4t8R+rHijs+Y/w+ApjI2kkZNDNr
-         V5Vd/ulhTipzw2HbRc+r7UsXiPN+2La0RTypsrxnSYS05kUqPdQg1bUFAkpBPv1hrurr
-         vzFw1wgX6I/joeduKOeogj0pCXS8Tq7zGA/xxymM+5g5YxTrNVLhrC1zSttL3at94jeO
-         mJIjpz4dEgRSlB9Rs7eowYxP7K6aErBZQ2KGBuvQ6VrmA/pHB/oFKiBu/1kCvkVpbwcj
-         h6AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfM63qBV9sMIhwcVOlQ2LzpZ+bcWri3jaOEXTB0SZMRO0lDp5Xpl3OXbkkyNouZtKt8p2ZWpfXQkd3@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuWoKQwC4HYFrx0G6qSQxd5dOmLvRc1KC5xoca2O80c+BxdasL
-	c47L/DiuLFN7rHbciB7lPdc54nFvnSfOKQb/ajvOJ6LXSNX+tyYXSDvTMtxQeX9gwd31FxhRG36
-	UMtIYC5Lg7yyCn77v0uzcmvSFfHlUjVoSalm7ON5nC4MUlWMifQo0rsGqjE7uzn/c
-X-Gm-Gg: AYBFou05yjYd7zwZgA2Ash6gSdkg1rWi92bRPcP3vVLjQEPL5rGxCq9rQPp4HAqi2O3
-	oYu3H8pOqLi4J8/pJmiT5x0Bdpd+g0wsN/wPH8xubnQuDCx9JsPSVJMJbI2qZg9nFY0ys9Yp9xx
-	NbPXfJmVhEQrUTrstVpjjTXZpirhyUz1v/kAs/Mtrpxh9qdb3Hc90benpWf0wdnhtGzD8COs59/
-	60qqZIKdYEsefePrmuHz7+BvJgcxSE2+cz3ikDmCBK9z+JXvJ51P1E3WlKJnA1RCMzX93xle0ib
-	DWjJW6coJCYxPnnh4A9eLsyPJNuZ0xr8v8wucpFU+RO5XHLx73RFP4piuCJsulZOSMEe/TEh2v6
-	egCjpLKj+EzLldhxUT5cIO3xoAR+pRiQ9XRflMEyCYZ454STcvAUKq3gvGzbJuYbm2aiA1PPs8w
-	==
-X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id af79cd13be357-94408cf77dbmr715123585a.58.1793260236712;
-        Thu, 29 Oct 2026 00:50:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id af79cd13be357-94408cf77dbmr715122585a.58.1793260236287;
-        Thu, 29 Oct 2026 00:50:36 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm31876763f8f.14.2026.10.29.00.50.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:50:35 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: atanas.filipov@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect cells
-Date: Thu, 29 Oct 2026 09:50:33 +0200
-Message-Id: <20261029075033.3558229-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <6ivurpkaxe7rs5lxpbyahpst2bqzpkcb67whcymoopdgo6sjvq@xd2otcdpe6gg>
-References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com> <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com> <usade5zkrncpry4ufbdtaahoa2zyd5hx7tjgfvzfte2aqbkgs7@t3mej4maj6za> <3e5b7781-20ef-4e84-bb62-29a081c26d8f@oss.qualcomm.com> <x5x4av76vm3swozvwe46uq5vz2ys7bvo4bducpp7flnmhykg65@pvr3znxyktje> <a01d8d86-740e-4a25-96a4-d4dfd664af5e@oss.qualcomm.com> <20261028174523.3514860-1-atanas.filipov@oss.qualcomm.com> <6ivurpkaxe7rs5lxpbyahpst2bqzpkcb67whcymoopdgo6sjvq@xd2otcdpe6gg>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2146E606A31A;
+	Thu, 29 Oct 2026 07:52:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2146E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
+ 2026 15:52:03 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Thu, 29 Oct 2026 15:52:03 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Date: Thu, 29 Oct 2026 15:51:54 +0800
+Subject: [PATCH] arm64: dts: aspeed: ast2700-evb: Reserve coprocessor, IPC
+ and VBIOS memory
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -132,54 +49,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae2facd cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=tiiBXXJjtJp2WioFvjMA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: H7hPzQ9nL4xE2emtW2dqbFbGkjx5PbqG
-X-Proofpoint-GUID: H7hPzQ9nL4xE2emtW2dqbFbGkjx5PbqG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMCBTYWx0ZWRfX/BQKxhqTeFt/
- qUA78LcJaWvSBeTKKYXjRstej2/JhASnRrbiKXK0YNik+vCCUOgiIaAx4CEkH9HC8roI2F6sn8Z
- LzpL2QdKI5oRPd4uTUogC5CkjViiWdk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMCBTYWx0ZWRfX2Gx69tuwitny
- dNa04mOTdE1cnItbsc3bFhmKZFfIW43rJTkaprP46ombRVmwHvPaZuCJOkPw/IGPGdNAqV2qc2L
- jYrn05Inw6fIqrPVE4uPe4k9QSLquiMhtf+5XK9tC/zpDG4PgfkoACAJQvaTJHYcLaGDWMshVRY
- N9bL2efEiC2s9sCE4ZhRJYVvah3EsYQM3voWndn47lb5KdU7tmKu8pih2AFM6OQGWmF/xINwdkH
- jW4ddEJ8qw6hoZnI1iMfSDRywOZEs66S1Q6kqvO6nov5d2qa1JUBS2J/6IyVSQD0N5Hq+Cc7Xvk
- 1mj4B4YRgPB4Pfbm32p6P1z2Wz6Hz0aRXXHaQQnd34aHPQIc8Ljr+7H2y7z62/XfDVzJdpCwwPs
- PD/qd6PKEZiIAGaP/F9hVXLv/mRjse56Yz94E8xpz5TG6BhK15gTM6OCV+g50AG2JvvvAyrHIPj
- 4/x3mUqMPSeb11/HneA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290030
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261029-ast2700-evb-reserved-memory-v1-1-ca1360d585d9@aspeedtech.com>
+X-B4-Tracking: v=1; b=H4sIABr74moC/x3MQQqDMBBG4avIrB1IImjaqxQX0fzaWahlUoIi3
+ t3g8lu8d1KCChK9q5MUWZJsa4GtKxq/YZ3BEovJGdda4zyH9HedMYw8sKLUGZEXLJsejMYPU4i
+ +ta9A5fBTTLI/909/XTeUBCUAbQAAAA==
+X-Change-ID: 20261028-ast2700-evb-reserved-memory-e38bfad8619a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Arnd Bergmann <arnd@arndb.de>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
+	<billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793260323; l=2191;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=XeDRHsPi2k+CJeY1+La1RVHwRDnYoS77GIz9W0YvdBE=;
+ b=A0sObIioWr33st/x7XXxLcltHvLkUZzDkbvHk3dGjV8HJbQuNdyuI1n81g6fNqzcC8W15IXAZ
+ GpOGCylX8nDCD/IE+z2YAh4Dl5Wy2FoUN1ZNH6GP4CPCIwjwocgp9wv
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-On 10/29/2026 3:41 AM, Dmitry Baryshkov wrote:
-> On Wed, Oct 28, 2026 at 07:45:23PM +0200, Atanas Filipov wrote:
->> 			power-domains = <&camcc IFE_0_GDSC>,
->> 					<&rpmhpd RPMHPD_MMCX>;
->> 			power-domain-names = "ife", "mmcx";
->
-> If IFE_0_GDSC is an (indirect) child of MMCX, this is an overkill. You
-> should not need to cast votes on MMCX, IFE -> TITAN_TOP -> MMCX will
-> work for you.
+On the AST2700 EVB, the boot firmware places the SSP and TSP
+coprocessor firmware in 0x42c000000-0x42fffffff, the IPC shared memory
+in 0x431080000-0x431b2ffff and two VBIOS regions in
+0x431bb0000-0x431bcffff, and locks these ranges so that accesses from
+the Cortex-A35 are blocked. U-Boot does not add reserved-memory nodes
+for these ranges to the DT it passes to Linux, and they are inside the
+memory node, so the kernel uses them as ordinary RAM and the EVB fails
+to boot once it touches them.
 
-Agreed, IFE_0_GDSC is a subdomain of TITAN_TOP_GDSC, which is a
-subdomain of MMCX. I will keep only the IFE GDSC in the VFE node.
+Reserve the regions with no-map so the kernel neither allocates them
+nor keeps them in the linear map.
 
->> Does this match what you had in mind?
->
-> Yes
+Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Assisted-by: LLM
+---
+ arch/arm64/boot/dts/aspeed/ast2700-evb.dts | 36 ++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-Thanks.
+diff --git a/arch/arm64/boot/dts/aspeed/ast2700-evb.dts b/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
+index fe8f0b80fb2c..795284253ea5 100644
+--- a/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
++++ b/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
+@@ -24,6 +24,42 @@ memory@400000000 {
+ 		device_type = "memory";
+ 		reg = <0x4 0x00000000 0x0 0x40000000>;
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		ssp_memory: ssp-memory@42c000000 {
++			reg = <0x4 0x2c000000 0x0 0x2000000>;
++			no-map;
++		};
++
++		tsp_memory: tsp-memory@42e000000 {
++			reg = <0x4 0x2e000000 0x0 0x2000000>;
++			no-map;
++		};
++
++		ipc_ssp_share: ipc-ssp-share@431080000 {
++			reg = <0x4 0x31080000 0x0 0x800000>;
++			no-map;
++		};
++
++		ipc_bootmcu_share: ipc-bootmcu-share@431880000 {
++			reg = <0x4 0x31880000 0x0 0x2b0000>;
++			no-map;
++		};
++
++		vbios_base0: vbios-base0@431bb0000 {
++			reg = <0x4 0x31bb0000 0x0 0x10000>;
++			no-map;
++		};
++
++		vbios_base1: vbios-base1@431bc0000 {
++			reg = <0x4 0x31bc0000 0x0 0x10000>;
++			no-map;
++		};
++	};
+ };
+ 
+ &fmc {
 
---
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20261028-ast2700-evb-reserved-memory-e38bfad8619a
+
 Best regards,
-Atanas
+-- 
+Billy Tsai <billy_tsai@aspeedtech.com>
+
