@@ -1,57 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269283;
-	b=GFFlUG8fPcWF5zeoIHsmBu059yIIOuLuE0Y4BVPxqXNc11d5XHcSQJRRE3Hf/B4WgCT5
-	 ojhrPrrU3trB1g1EgHuy2WgZkX3A4olHB1N1z0mjJw4V+5WrQouzvFisviJ6i8Minh13V
-	 wo/4hS+ei65bU4t0gee3z6+AbY9dTDN2g+tanxPPX4a8YrZs3gKjm/d9Ei7PH+UNJhmHB
-	 JPp7lzkdQ7luTc+lNbbV9eYag9B7izXspY+z/SqGpzhtwB9aOT0Ml7RwqSDyNXOPWyoRe
-	 S7bD/a8zYIpC/LXLLcx6qjxsdcnPMsxct6hIU1+jyIeafxta+GSbe4BuRsc/ZMvoQqQ==
+	t=1793269405;
+	b=Sge2pIC8OFA+HWWdPvsYUgrwa7qV5deCdlh/D62Avxaj6xA4ffIhaJ+6R+qXGAzAHs4D
+	 Xb2cDyBSXXZuRUfypmkURbLR6otY9etOuh51lkodv6c9wKizibnJCfso/E2aDOu4nomCu
+	 R0dV+yY1P/gP/Z96eCIdsGBRHLaVCut5edYX8jHEZLKJ8X4b59bKgp3M9JP3MuRn0086l
+	 ODOFZn91dsS16SWvSZgyObG2IfB6Jmusk0Ng6TyCcYJNmnYiKRpj8RS1KwDcDrm7Q3M72
+	 r7S+At/hLRsWSG2SW4WfaiDlDXe++RCXA7UUU9UTI11/S+1g5SvH5FhaDjqM3hJuy3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269283;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5YOfeKqsJ6UIlUZa8Twb8YE/HvF3w/5fU5ttJFp47WM=;
-	b=L24BrlBsZo0mXAG+tMKmx/vM3bBkevH2BeQb24BK96V1dNkD4gc/26HDvqLNoke6tTXN
-	 0ivQVHBgrIFuClyTe7pk3AuTfHhb6wVD4xoDGPuKAljd/DBGZnETKncfr/5l4DHmuOX03
-	 SgdffqOypP+5wXNMHD+/E/77BWv7vDI4IoTpsh01psgAobYOG4sV6TwB9pcSc8mBpURie
-	 eEXh6cRvX1WBPNJ7AXkGDQS1r7sVXpe6NEA+eP7kyFVwFnQ2I8pU4BplpsSOTqgAkyg4D
-	 efA9V2rsxiqroHg5HJCWcn2w/78g/Hw3Hf+rXJMG3GAcTIHrbUaBpWnog59EKvQbg5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269405;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ha3fj/COMHQz5CNWaubKxJEoCG8ElfvHahMKU0w0GYA=;
+	b=e/AoglAQWOzVgauyyL9iA/MEU4FdZeBBVBDSV3pCbLwuc543BGmy7Jdbrz/I9Dtb9NDB
+	 Jt0e/WVN+Xo92kgjDiO1CNpiQiFKYyBo5P5lOHPxwJOdURegSef9FuCtQQbaXomboC8g5
+	 8WkLWWYtHH1k8VnSfumxHGk6OAt5dycmd2YID/2djNde392T3MCIteg9KZZdfXSEU9uBs
+	 xjgbMY/7enJi5poCdMm456LhU6gfdGBNLYF3nb3iBYt0xEQm4Hu9PC+4i4DB8ZyUlf4T1
+	 coJ89wukqaIfavEffjruyChdtTeEha2CUCPueCRkrcFecYsAgVOV6pONuCvPjk4uw4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0u4s8L1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zm32Ublw;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YGMZJ8OU;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D38606A31D;
-	Thu, 29 Oct 2026 10:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1507606A31E
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1507606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0u4s8L1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905161F031E1;
-	Thu, 29 Oct 2026 10:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793269282;
-	bh=5YOfeKqsJ6UIlUZa8Twb8YE/HvF3w/5fU5ttJFp47WM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n0u4s8L16SC1PjNUFpJnMxDjH+6Sh39L1ogHY5kH350k35lmuJstRncWI/ZmveCnJ
-	 EbrcjaSnC0hFZODjmHTtNEPaXVN8LOrOlCTUkS2JOoXdXzHTe16/5cA8MsFFBleVJq
-	 bUQVMpU9x7AzUxseOsaCeSSehpT5RsS+XFAhAgRI0pv2Mhr0zSIc1BcV6P/ooWo23Z
-	 lrYtDR7kmAXV8NR//c8mw3JIPV2azRP0MaRTRFXm6VIsL5j9AY1Xl7IteIwinzvc6v
-	 5Pjrhei3bwedCY1Sq27V+r+rRM9BgDZwSGigIMZnfDyU6GkReoJgHOvZpm1q+buI4B
-	 ZvZMWQ6RVYU8g==
-Message-ID: <sashiko-outbox-189114@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] mfd: rk8xx-core: keep the PMIC interrupt disabled
- during system suspend
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakob Unterwurzacher" <jakobunt@gmail.com>
-Cc: linux-input@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org
-In-Reply-To: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-2-cb12621c1fb4@cherry.de>
-References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
- <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-2-cb12621c1fb4@cherry.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 10:21:22 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Zm32Ublw;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YGMZJ8OU
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vEA93765947
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:23:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Ha3fj/COMHQz5CNWaubKxJEo
+	CG8ElfvHahMKU0w0GYA=; b=Zm32UblwrpFNdJzdB69DOZIKQdTau7hMM+lmAp8N
+	cJqczZeK3MXWDjsMs/sjcArdqDErxtMVpFRxP+RvIb8k/EwuKejzg1JVOM66N0nj
+	cbnGQqPEh6cTy3RutZq3HJdxyd+Z6MyB0+C5FirG89nUuSym1y8msLtvUFlKnr27
+	kaVSncyxq4GMcY6K+Qyw4PXer81E7AMnLo5sMM2e4XYzGAbKm1TlYqCJbUr0v6MJ
+	pIK48p5sEVR+Q67V2+qmy2uEC0m+JQwe9lHbm7E5AnReEJugdazjtXaUgkLyYtpE
+	9E1oZWtf/KqWF6O30IIaDZyh4q0snx72PcIhxhE4IUbvzw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkpgpu4c9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:23:23 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9441113670dso186243385a.0
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:23:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793269403; x=1793874203; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ha3fj/COMHQz5CNWaubKxJEoCG8ElfvHahMKU0w0GYA=;
+        b=YGMZJ8OUFPxKCWqSPM0Oyxm9UjjArWy63XAPVkrOzX4bSG8GiVGSbw7ebueswqP0xG
+         yHVUv4zlCrVaPZ7ke/uTcBzS6/5g3ww3Z4vbx4u4cdrV7dE2/fdDd3l6ZlT3l14gkfZi
+         IZqAuo9Vmao1eN2zdiFJlO49qjV3G8szocpTzRqrmlhgZGvGhmpJ6yrABHLQbYWQpFPw
+         BtHUV5GvWXhYe1JEvzH+obREWd9X9UD8b+D2VLK9PF3pIzieVDipY8DeCglLRWGVKOig
+         tlBS851tPk4E76f9TyXbYNkOqtxGePGqmVqpPPq2uisBUM62F37ePQKQ9ueA8AA/IxRi
+         lQYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793269403; x=1793874203;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ha3fj/COMHQz5CNWaubKxJEoCG8ElfvHahMKU0w0GYA=;
+        b=q3wZUcvLExHKhJYYUcwKuy7WexLF3oKHw2OsxYVrT4MgOufaTWVI1v2qaeFZZM5Ja8
+         aGEb9fQi/dvcpXfNFKhNHagNa6OPIp+Cjs2m7hAbWe2fHtcY0voGGlSuOOWe0qgUwumf
+         NxaNCARurHAeWNoW+BGvbJ1c0GmVc6mGnZWx5m4a0ClIuRh7fiGhAJpB9usr5SYCcBvM
+         HeDzTCSNsWa94yQpC/fp8Z9jmun5vtkC7coVZMsGx6cQ6iEHc3n57X6wwQ03YbnkZoUW
+         tsb80BjPt2heqqaP6XlYeeb86pBFcJjDIKh5JwsjhOHO3cX2vUaD5NTWtjhn/gNOm4Uz
+         xHWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwMHBHWECOMF0VG/YQCTzoRC37R2UaCwpSVS46ITo/pENVqOj0I3BBOW9cdL3FspmrHwc3Smw10N1gG@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1I3DExreoZgzUqxhI/5YEPf6L2x4VBLUYwR1OJauvkmLtuZsh
+	FaISD+UeA0ylRU+KuN0uJ/QNNKwHa1vQujOar5vECliPTQA8MAybk8YvebXhw8tJMeD4OLtw/Jn
+	E57l7JBi8Pm0WmQu4kZ8T9k1OVHf/spasEPF/8zkEGM2wo11FeqR27GCMbDeyAkCf
+X-Gm-Gg: AYBFou0f7ycFAP5T3BM5MRfEhH9qxn4n1sBvrqC+rDLGI2Rpz3G29RUDIZUYJ/FS1ss
+	/x4mYuS5lqqsjR0lXpli9ONsdE3LKC98o1qyAaqBApzoZI47MHaFzN2BVjVCSNgpyDAzkl6khU3
+	8N7hvCRWDpG/qQjiL8ibIizq0x7UdZbVYh2a6ulj8zKOAVUJUZz66DZ3g0OzwluiKu3cBx6e140
+	WZK3r+OaMMv5dumbxs7OAqSdbOsL/c10hhEkJD4AT4vSOhX5yn+KS5UueRMF9xlsTprjs8LJsoD
+	q/uYvkiObXiQGA/y5ZkBxI0Qs7xLJKu6JvyP0QPl5bBkOBOzlNPxJJjIfzj2B+tfpAaAGvQrKqr
+	Psq5gHnWfz/QJQzFbjou40MTuHPWayqUl3OPejrZ+4CmRqukSYODdzLCNmmsiEjWY
+X-Received: by 2002:a05:620a:2616:b0:93f:23ef:d6ad with SMTP id af79cd13be357-94408899f84mr736629785a.0.1793269402893;
+        Thu, 29 Oct 2026 03:23:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:2616:b0:93f:23ef:d6ad with SMTP id af79cd13be357-94408899f84mr736624485a.0.1793269402246;
+        Thu, 29 Oct 2026 03:23:22 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfb8esm33494130f8f.54.2026.10.29.03.23.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:23:21 -0700 (PDT)
+Date: Thu, 29 Oct 2026 12:23:18 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v27 07/10] arm64: dts: qcom: Add psci reboot-modes for
+ kodiak boards
+Message-ID: <sh3b7m43aw5wtrolooxsib3rus6br4rao6wtnc267rczqysyis@75voym3v7emf>
+References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
+ <20261029-arm-psci-system_reset2-vendor-reboots-v27-7-fa4b3ff1359b@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,107 +146,50 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-7-fa4b3ff1359b@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0MCBTYWx0ZWRfX+15xFUuO1b6N
+ r8cbFlz5H6rINvFZfKthPThtzHlJ3Ab1JzNMllYwAzUdpjS3gvNimT+Yt9FHGfxd77ctMHjB0EJ
+ jcdP0WN5qk64LcqB//Kg1gyo8cLKIkOkUbHXLJQxU+PUWXjSqUI491+tQXbc1c2w/Ps2+AQ5VtF
+ OlHIenSUpzJF+T1SzYZfvh8KNFU20o35mq3K0RMD8jhrad7xQbkAqIGuotqE6/OVbdVVG05VpSt
+ ggFnYSRiy3O62UKkSwiJvPQJ9j9n+KHelvRmwZVFF8LMvPBFmn4m33f9H4u/BGzSHYqeZxTtNds
+ iq0ledCrk/ILr2MI3mDRKuzupDGIwWpd3lX+aMe9SFSkI9jy3iQzJluNZLMiRbpXgrqoXtaleJo
+ Pik0QOuaeHBOod9lB8oGRiwx1PCZUwWgrgh5lxrq3qfxTl0C/ZrFxAM3IKnqUEiy0LnvFiBiDuQ
+ brGuSF9PTtCWtJ47nfQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0MCBTYWx0ZWRfX+ZqW6Yr5GX3C
+ yPWHBUP77Ad3szehzzuxiHLk9zMCzjAeFDE5JsamFbJiOMd/Hn19YVmikYUPQDTVI+8UipxbQjR
+ dmE4C1l2eySnhVXpnGdI+/0TRkZogmw=
+X-Proofpoint-ORIG-GUID: 5Au-_V-1sQc6umSdjDrjVY7z_kfLZZtC
+X-Proofpoint-GUID: 5Au-_V-1sQc6umSdjDrjVY7z_kfLZZtC
+X-Authority-Analysis: v=2.4 cv=T4oZ3PKQ c=1 sm=1 tr=0 ts=6ae31e9b cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=XpayGGiaTZdiRO3YngYA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290040
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mfd: rk8xx-core: disable_irq() in rk8xx_suspend() breaks s2idle wa=
-keup
---
+On 26-10-29 14:31:01, Shivendra Pratap wrote:
+> Add PSCI SYSTEM_RESET2 reboot-modes for qcm6490-idp and qcs6490-rb3gen2
+> for use by the psci-reboot-mode driver.
+> The following modes are defined:
+> - bootloader: reboot into fastboot mode for fastboot flashing.
+> - edl: reboot into emergency download mode for image loading via
+>   the Firehose protocol.
+> 
+> Support for these modes is firmware dependent and not available across
+> all kodiak based boards.
+> 
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 
-commit 1642fdff105aee2817fbf318588a972d4d3d49a4
-Author: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
-
-mfd: rk8xx-core: keep the PMIC interrupt disabled during system suspend
-
-This commit disables the PMIC interrupt at the end of rk8xx_suspend() and
-re-enables it at the start of rk8xx_resume() so that wakeup interrupts are
-not handled before the parent bus controller has resumed.
-
-> diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
-> index 3dcf6abfda74f..3a68a7974ed06 100644
-> --- a/drivers/mfd/rk8xx-core.c
-> +++ b/drivers/mfd/rk8xx-core.c
-
-[ ... ]
-
-> @@ -929,7 +931,20 @@ int rk8xx_suspend(struct device *dev)
->  		break;
->  	}
-> =20
-> -	return ret;
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Keep the interrupt disabled while the bus to the PMIC may be
-> +	 * suspended: otherwise a wakeup event (e.g. the power key) is handled
-> +	 * as soon as interrupts are re-enabled on resume, before the bus has
-> +	 * resumed, and reading/acking the interrupt status fails. If the
-> +	 * interrupt is a wakeup source, it stays armed, and the pending event
-> +	 * is replayed by enable_irq() on resume.
-> +	 */
-> +	disable_irq(rk808->irq);
-
-[Severity: High]
-Does calling disable_irq(rk808->irq) in rk8xx_suspend() break wakeup from
-suspend-to-idle (s2idle) on Rockchip platforms?
-
-On Rockchip SoCs, the PMIC interrupt parent is the Rockchip GPIO irqchip in
-drivers/gpio/gpio-rockchip.c, which implements rockchip_irq_disable() to ma=
-sk
-the pin in hardware and does not set the irqchip wakeup-on-suspend flag:
-
-drivers/gpio/gpio-rockchip.c:rockchip_irq_disable() {
-	irq_gc_mask_set_bit(d);
-}
-
-When disable_irq(rk808->irq) runs during dpm_suspend() -> rk8xx_suspend(),
-it invokes __disable_irq() -> irq_disable() -> __irq_disable() ->
-rockchip_irq_disable(), masking the interrupt line in the GPIO int_mask
-register and marking the descriptor disabled.
-
-Later in dpm_suspend_noirq() -> suspend_device_irqs(),
-kernel/irq/pm.c:suspend_device_irq() only re-enables a disabled wakeup
-interrupt in the irqchip if that flag is set on the chip:
-
-kernel/irq/pm.c:suspend_device_irq() {
-	if (irqd_is_wakeup_set(irqd)) {
-		irqd_set(irqd, IRQD_WAKEUP_ARMED);
-
-		if ((chipflags & IRQCHIP_ENABLE_WAKEUP_ON_SUSPEND) &&
-		     irqd_irq_disabled(irqd)) {
-			__enable_irq(desc);
-			irqd_set(irqd, IRQD_IRQ_ENABLED_ON_SUSPEND);
-		}
-}
-
-During suspend-to-RAM, syscore_suspend() subsequently runs irq_gc_suspend()=
- ->
-rockchip_irq_suspend(), which writes ~gc->wake_active to int_mask:
-
-drivers/gpio/gpio-rockchip.c:rockchip_irq_suspend() {
-	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
-	struct rockchip_pin_bank *bank =3D gc->private;
-
-	bank->saved_masks =3D irq_reg_readl(gc, bank->gpio_regs->int_mask);
-	irq_reg_writel(gc, ~gc->wake_active, bank->gpio_regs->int_mask);
-}
-
-However, during suspend-to-idle, kernel/power/suspend.c:suspend_enter() ent=
-ers
-s2idle_loop() and jumps to Platform_wake without calling syscore_suspend():
-
-kernel/power/suspend.c:suspend_enter() {
-	if (state =3D=3D PM_SUSPEND_TO_IDLE) {
-		s2idle_loop();
-		goto Platform_wake;
-	}
-}
-
-Wouldn't that leave rk808->irq masked in the GPIO hardware throughout
-s2idle_loop(), preventing the PMIC power key or RTC alarm from waking the
-system from s2idle?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-dev-tiger-=
-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de?part=3D2
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
