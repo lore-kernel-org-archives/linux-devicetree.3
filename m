@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793284982;
-	b=ie+umrorataXAsJTxli8PwV+sqo8WF3hQFP4ie8up/gNAYeuZMXnXcfopn4DfBAawpIV
-	 DDIo8VnG7g2LdVxsz7E07pjANv6u6qZ00MWi/pX3Htl+IMnx4XiEX9not/YI2kyhlMoi9
-	 1QQ1KtwPO9nzZqexATWyXJfzY4AFtEI46ZCKyElvICstQ4xL23e6Y3mS2TOEb5/j48w3a
-	 cSC3Nvi+072CYpZvLkJJR2qAxkiyzlDEHf9C+Vs3EHe/DLeQJmO4VMEnq8Q8kaJ1CFqga
-	 dFtmcGiVJhE4TPBruVswEmMXA6lHax+cmMCkI09Hoxc5WRX4uKOeUS3J36lFkcCwWfA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284982;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=b0GNJbbv02z1poibxXcHAUWs3HQDdbjz3OuoC327GVY=;
-	b=fMhAcleFLw/7E/xu8Afz89aYPvPKzhySPewvBtgd5TpVAfHvDOAYVwjfSuLlOoEr556c
-	 8LHynCF14PsUYr9GqJweXOEKmUEowKtK4rrp20FgzWKVcQ3t8tUHvkAhZHK9UQh9XMdJH
-	 PU++Wh2zxg63RRIHDFM8/Hho3fgWmPVesRN7JtOyFA3mqe6HqylP5ihNstjIzKpTSZ1bb
-	 j6g69XJzq0Wu+ScXPqmzEfMeB27mNY8vW3ZK60gL74L78/d4KpcNwL2THlGReTRln8k3y
-	 iGIx2hAuJmOI4pWZoBgrHrwsLhDKbF9X1JKvPisnV6b/Sn6TcNygM51Qf7Lgi5T66Vw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0stL60wK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793285146;
+	b=KrKVTMGGcZs6cSovfeFrG4n0sTpH1HqypzIqD6gLwrUabsKREplVJyRcaJpHuYwrQRKd
+	 dL/cLila8aSuORaFXhNX/qI89ZQ7xw6BTU5+kaDyOCoeYwI4WhVY6TJkf19lzBv7OHAXn
+	 nOGI7yR6SgutEZgBjtCHikxHq0bElGi6iNYRs9gmSialA0793/dk0TNVpaPTmKgvkvaDV
+	 QVsSw/0X9wRb5PDUsubi2RrMmCZc1CVBk5IsYprA6DcNpBCbH2ZClFbePk3/4fWJqnr2T
+	 yjzoZotmy7xCj0Ge0hnmv0JAogyyndRwrogN0oq2QmBjApM3/RDlh6khv10L//kA/Ig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285146;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=81x5aK74MMU6tNiEEvQe7CPsj4CjFBEjZosxKN9Bl+o=;
+	b=Y24LtMd5HJcZS32xeLcEz/nlCZ2aOK0oQIM9LWHj88aL/lZ2Z1c1po5P1g7LeokCLBuA
+	 0NfoGhYnuy4E7/vMr8UmXjmnF/8Y3xbXL8P4Li57Wuq/pN9jdjWvMSgzjxjntuH9CxZW6
+	 GDm6LcRzE/0b34+ao4477xoC6SREHxW4XSSHK33xHIOJhpK0mGedQeQxh9hIqkxGYE/zZ
+	 1Tgte2HdTruurfKke9Hrz3ckGoNfQ4shG1xliduHOfICRK4lht2lXfbpEu2scxe56DPW8
+	 Iil0FGnrPdtdCrQ4okf7uTOplGbBzf3Y/72yEUWJMTdb5CzZjZKfkiwQgSYwF0onmBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQYNAnJY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D709F606A321
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D709F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE1D606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0stL60wK
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso371305866b.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:43:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793284980; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BEyc3gOg0A6lHWm1SlDrrAzYtpQw1+m0oZ8MNrJyD+Fdc4dmo08VuxLAVWs1vjA3dr
-         2KoBBDqwmSji4gzd+MOHpvFmNh3R9m5APBOyf8zXGsX4SbN61ga9SKyqsBoXuuljcAvd
-         yHttLyZb8bwZLTMXwWNCOD0RTnVCouJwkwyaIREzJgN0/AfvftB1cOmsdly8ctviRU/A
-         KqXUK8pANdW8TeTNBR7SVo6LbV1PfbevYcM4JCCEWfoJNaZp6C7eXCR2jUD9WMw1Mye1
-         WAH2wXfcbBLu5ZDaJ4jhcr5CG1l5/70FRdsPsxGO0ykWp54Bm5vK2zTCn5SUjwHSxecM
-         yJfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=b0GNJbbv02z1poibxXcHAUWs3HQDdbjz3OuoC327GVY=;
-        fh=zx52vMyOMsDp6ZGx9X8bYL4gZDqWrsbumaoKiFZqcPM=;
-        b=U0zPpvFg1s8/o4MdxbQuaUrWabxrB/eJfORXag7DLbsL80hAbLePlDGnfO6M2rBXJB
-         UZCu8X23KMG5wV0Prn/MXaC+kL3Vb56dLfsAX1PTc9/1ks8WBvgVYDTPDRx6Wm+lJeD8
-         +i3wp8R1wL0Oe1oMrtZUbUjsnYKWwucnJOWunvdRgz+8X9LC3TuErwFdTzjXVqkyQ72K
-         JiQ4p3cgNHBX0hYveO0D05wAIQhvWaSqw2H8zhJsX3z3KyznO5ffHg4xmxec7lC72deH
-         2AY8fMNaPshpHdrdJXMAUMOCpRcwfHfAtrkcE4PtLDHEOGN57kFpOdN77rSgfPO9BNg2
-         zEaw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793284980; x=1793889780; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b0GNJbbv02z1poibxXcHAUWs3HQDdbjz3OuoC327GVY=;
-        b=0stL60wKxdKw/s6tHgGvZR0/rzg5KWUL5YTsT+3DjIAzJ+OcSQOZaaHNrT9ZWZ/zh+
-         +Xl8MeNrwF56V5jPtuB+LEMmCPk+nSFiqX8R0KfIboElVJg6LAtPXEveGIDUH1rDFZYf
-         Jmjb8UCIUbLQfpI/mRHamUeswF/G5myPdqNeQWkjb3AnBw8XGqeD+C6LDc0eV6chfVgH
-         O1Fikbjje6CXtZlmMNNthSiVQwxiIecjd1ZpEPoT+i63vefU1BGoUZQVkj4vteNlPh+A
-         Ur/oomBPTRABHVKfjTSPzVsPnwk2Y+j1aWLVGn3iltW52D0RxfB2lNY7MgEyo+J+4ssu
-         /N/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793284980; x=1793889780;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b0GNJbbv02z1poibxXcHAUWs3HQDdbjz3OuoC327GVY=;
-        b=Uzp7DVLTCmADhFC3xqzi4Vm1QcOtsdV9teEOBRtMbtByX72SVqYgF/MJqlRwd7zzIi
-         byc25NXxziyK+7JbtpEUE2iX3DdbJAmPsfI07Q7hIss/tEcLOOcHDvhSXIiF1+P1kLrL
-         mnwRA2xzf21fnRd7VIRA33lC3+2aEC0nLlTn7/dVr5i5bmhVN2FuOPPOQdZyATbYkp7a
-         jAzx3pNcGNHW0DGuDRxuLnP8iNSRNJaKrQGHp35uyRgZOtPvQzT8gck3uTevom7sQqHs
-         VzyMjLiEEHeTGZC6trKIOiz6vGf7/0pvsFSWN3D64xXL/+uUVxRL6flsJc82TGSS0bfx
-         5TKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbrBjURxm/TVrF+MsdyS9nRyj9WvxvhGZNi8382R/xkhww6XFjNz3tTtVXK4kdarbm6qBC/lgRYFaW@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/TBJCYlw0O2ruvQg3nQznF+z9YnJxN01MH3UdbWEXwrIvFtaD
-	Yw8hatBTryiifvOR5CvxvoLr2ObBmB/T8JoacT7JhAkJYtBCoutpC17mdasAMD9enxeSphCAp8C
-	V6RbD2jfHze5DZh0YZic0Dvg6PNOUvuk=
-X-Gm-Gg: AYBFou0rrz1PlBRpjqprUb8Ed+CohbqPv0jyjadJY6l2tFx9g76LSRsU44YNP7mWW5F
-	wgBUZpDuzPqVS4bo2qlod8Ok4jFFDoAAjU6VMMzeREKTWBRZluu4z9ENWBpDM3v3hO7NvWpmS7q
-	jRgXyLN3tR+LA1HoMqTXClNyINMPMOZ3L93wb4DKqV/Rfsxr9ZfZPgbIPH1POGmwcahIlwM7/l/
-	/Osc9cLwPrf6uNpZaw4AFjy8o7A43uQ4IEoPI9dMO1CqtFwy37+RV8enXpbCWuKC+lCF+Ziv5db
-	Z/piSYNJUFVlvfG0QzXo46TNmxIWwZRgBkJWJrBAEqUG+ldSWHz3EJieQoIDjf+bkE2sLKcV5St
-	uBE1JS0PpxKZuSqqKPqNtPc2++3ecRO8idH4PyY8GzrB95BJ8LS+nDOm6siMGFC6b4AO1lRONlU
-	KHk6wSI0NpoMxkNXLMjyleEgUnvKmtBrpz2WeObWVp6CNrYUz1n5k=
-X-Received: by 2002:a17:907:94c9:b0:c3e:34fa:611d with SMTP id
- a640c23a62f3a-c49be00bf6fmr469836966b.35.1793284980100; Thu, 29 Oct 2026
- 07:43:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQYNAnJY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C257F1F01825;
+	Thu, 29 Oct 2026 14:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793285146;
+	bh=81x5aK74MMU6tNiEEvQe7CPsj4CjFBEjZosxKN9Bl+o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oQYNAnJYhj3UAsVTFrBnqld9blKPnE7WVbuat56mvI9UoVMgNEnxayZnLJ8IYMkz7
+	 oAJZMVcc15o1+vIgbfL8SIpSGCMQjynNfaDtNMMSOlfoZUBGQweEj/UIiC32rpmcT5
+	 rANKsXfC/H3LqX3qgdPG4bAMCQWGa+TiqxgI3joY6+mr/wDwboFCpfIfF+LHqeufjq
+	 993I04sVsG4IrJmYVhxqvIdaQgulGcfsGC2GCJnrzr54rW+Y7M0J0Q7znBh5soLSTN
+	 SjTwvBhKcZm/csSFe1nmz7VADCpmREee9h70dSMAf2HgJ9xvYMHGwGPMePDIzF1C7A
+	 Ci2Jwk/ybGe2Q==
+Message-ID: <sashiko-outbox-189545@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 14/14] drm/msm: enable LPAC on gen70900
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 14:45:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,33 +59,317 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261029-gpio-vf610-fixes-v1-0-45b484b4c434@nxp.com> <20261029-gpio-vf610-fixes-v1-3-45b484b4c434@nxp.com>
-In-Reply-To: <20261029-gpio-vf610-fixes-v1-3-45b484b4c434@nxp.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 29 Oct 2026 16:46:28 +0200
-X-Gm-Features: AclHuK-5fF5L0EppdkS4D8ZIoBbTyK3ZL1smqB5yKpnauEf7H2xoksPh6zRmaVc
-Message-ID: <CAEnQRZBsKsDGhABri5MwiPSL1EGC=a5=GfK9H_OX1jXcYnerFw@mail.gmail.com>
-Subject: Re: [PATCH 03/11] gpio: vf610: simplify with irq_set_irq_wake
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 3:51=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
->
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace the manual enable/disable irq wake logic with a single call to
-> irq_set_irq_wake() to simplify code.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] drm/msm: LPAC enabled on gen70900 without checking lpac_pdev or SW=
+ fuse
+- [High] drm/msm: a6xx_active_ring() and suspend ignore lpac_rb when LPAC i=
+s enabled
+- [High] drm/msm: wrong runtime PM device checked for LPAC in msm_iommu_tlb=
+_flush_all()
+- [High] drm/msm: failed parent-to-child device link skips LPAC SMMU TLB fl=
+ushes
+- [Medium] drm/msm: LPAC not enabled on gen70900 due to enable_lpac default=
+ing to 0
+- [Medium] drm/msm: mismatched always-on counter reads for LPAC in a7xx_sub=
+mit()
+- [Medium] drm/msm/adreno: missing LPAC GX registers in A750 IFPC restore l=
+ists
+--
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+commit 80cc6b84cce3401809bd7592d96a060ab6cb7da3
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+
+drm/msm: enable LPAC on gen70900
+
+This commit adds ADRENO_QUIRK_LPAC to the gen70900 (Adreno 750) GPU entry in
+a7xx_gpus[] so that LPAC is enabled on targets known to support it.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a6xx_catalog.c
+> index 5ee00eead14c8..cd1bdb54429d3 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1591,7 +1591,8 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>  		.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
+>  			  ADRENO_QUIRK_HAS_HW_APRIV |
+>  			  ADRENO_QUIRK_PREEMPTION |
+> -			  ADRENO_QUIRK_IFPC,
+> +			  ADRENO_QUIRK_IFPC |
+> +			  ADRENO_QUIRK_LPAC,
+
+[Severity: Medium]
+Does setting ADRENO_QUIRK_LPAC here actually enable LPAC by default on
+gen70900 when enable_lpac is not explicitly passed by the user?
+
+In drivers/gpu/drm/msm/adreno/adreno_device.c, enable_lpac is initialized to
+0 instead of -1:
+
+    int enable_lpac =3D 0;
+    MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=3Don , 0=3Dd=
+isable, -1=3Dauto (default))");
+    module_param(enable_lpac, int, 0600);
+
+When adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c sets:
+
+    adreno_gpu_config.has_lpac =3D !!(config->info->quirks & ADRENO_QUIRK_L=
+PAC);
+
+msm_gpu_init() in drivers/gpu/drm/msm/msm_gpu.c allocates an extra
+msm_rbmemptrs slot for config->has_lpac, but then skips creating
+gpu->lpac_rb because enable_lpac is 0:
+
+    if (config->has_lpac && enable_lpac !=3D 0) {
+        gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs=
+_iova);
+
+Meanwhile, adreno_hw_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c only
+checks the quirk rather than gpu->lpac_rb:
+
+    if (info->quirks & ADRENO_QUIRK_LPAC) {
+        ret =3D qcom_scm_set_gpu_smmu_lpac_aperture(1);
+
+so qcom_scm_set_gpu_smmu_lpac_aperture(1) is still called during hardware
+initialization even when LPAC is disabled. Additionally, because
+config->has_lpac only checks ADRENO_QUIRK_LPAC, passing enable_lpac=3D1 can=
+not
+force-enable LPAC on A7xx+ targets that do not set the quirk.
+
+Should enable_lpac be initialized to -1, and should adreno_hw_init() check
+gpu->lpac_rb instead of ADRENO_QUIRK_LPAC?
+
+[Severity: High]
+What happens when booting a kernel with ADRENO_QUIRK_LPAC enabled on an
+older SM8650 (gen70900) device tree that lacks the qcom,lpac child node, or
+on a device where firmware fuses off LPAC?
+
+In adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c,
+gpu->lpac_pdev is looked up via of_get_compatible_child(pdev->dev.of_node,
+"qcom,lpac"). On an older DTB without that child node, gpu->lpac_pdev is
+NULL, and adreno_iommu_create_vm() passes NULL for lpac_dev:
+
+    mmu =3D msm_iommu_gpu_new(&pdev->dev,
+                gpu->lpac_pdev ? &gpu->lpac_pdev->dev : NULL,
+                gpu, quirks);
+
+so iommu->lpac_domain (context bank 1) is never allocated and SID 1 remains
+attached to context bank 0.
+
+However, adreno_gpu_init() sets adreno_gpu_config.has_lpac solely from
+ADRENO_QUIRK_LPAC without checking gpu->lpac_pdev, and adreno_hw_init()
+unconditionally calls qcom_scm_set_gpu_smmu_lpac_aperture(1). When
+gpu->lpac_rb is created and userspace submits to MSM_SUBMITQUEUE_LPAC,
+a7xx_submit() -> a6xx_set_pagetable() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c executes:
+
+    /* qcom-arm-smmu always maps asid and ctxbank 1:1 */
+    ctxbank =3D asid =3D is_lpac;
+
+and emits CP_SMMU_TABLE_UPDATE targeting uninitialized context bank 1 while
+SID 1 still translates through context bank 0.
+
+Similarly, in a6xx_gmu_secure_init() in
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c, REG_A7XX_CX_MISC_SW_FUSE_VALUE is
+read after qcom_scm_gpu_init_regs() to check
+A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING, but A7XX_CX_MISC_SW_FUSE_VALUE_LPAC
+is not checked before hw_init() writes REG_A6XX_CP_LPAC_SQE_CNTL and runs
+lpac_cp_init(), which can trigger a7xx_sw_fuse_violation_irq() if firmware
+disables the LPAC software fuse.
+
+Should LPAC enablement verify both that gpu->lpac_pdev is present and that
+A7XX_CX_MISC_SW_FUSE_VALUE_LPAC is set?
+
+[Severity: High]
+With ADRENO_QUIRK_LPAC enabled on gen70900 and gpu->lpac_rb exposed to
+userspace, how do hangcheck, fault recovery, and suspend handle the LPAC
+ring?
+
+In drivers/gpu/drm/msm/adreno/a6xx_gpu.c, a6xx_active_ring() always returns
+a6xx_gpu->cur_ring (one of gpu->rb[0..gpu->nr_rings - 1]) and never returns
+gpu->lpac_rb:
+
+    static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
+    {
+        struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+        struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+
+        return a6xx_gpu->cur_ring;
+    }
+
+In drivers/gpu/drm/msm/msm_gpu.c, hangcheck_handler() only checks
+gpu->funcs->active_ring(gpu) for fence progress, so a hung submission on
+gpu->lpac_rb while the GFX rings are idle will not be detected by software
+hangcheck.
+
+Furthermore, if hardware fault detection (a6xx_fault_detect_irq()) or
+a7xx_sw_fuse_violation_irq() triggers on an LPAC job, a6xx_fault_detect_irq=
+()
+deletes gpu->hangcheck_timer, masks all GPU interrupts by writing 0 to
+REG_A6XX_RBBM_INT_0_MASK, and queues gpu->recover_work. In recover_worker()
+in drivers/gpu/drm/msm/msm_gpu.c:
+
+    struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
+    ...
+    submit =3D find_submit(cur_ring, cur_ring->memptrs->fence + 1);
+
+    if (!submit)
+        goto out_unlock;
+
+If cur_ring is idle when LPAC faults, recover_worker() exits to out_unlock
+without calling gpu->funcs->recover(gpu) or restoring
+REG_A6XX_RBBM_INT_0_MASK, leaving GPU interrupts masked and the GPU wedged.
+If cur_ring has a concurrent GFX submission, recover_worker() blames that
+GFX submit, marks its VM unusable, advances cur_ring->memptrs->fence while
+leaving gpu->lpac_rb->memptrs->fence unadvanced:
+
+    for (i =3D 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
+        struct msm_ringbuffer *ring =3D i < gpu->nr_rings ? gpu->rb[i] : gp=
+u->lpac_rb;
+
+        uint32_t fence =3D ring->memptrs->fence;
+
+        if (ring =3D=3D cur_ring)
+            ring->memptrs->fence =3D ++fence;
+
+        msm_update_fence(ring->fctx, fence);
+    }
+
+and then replays the hung LPAC submission.
+
+Also, in a6xx_gmu_pm_suspend() and a6xx_pm_suspend() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c, the loop clearing a6xx_gpu->shadow[]
+only iterates up to gpu->nr_rings:
+
+    if (a6xx_gpu->shadow_bo)
+        for (i =3D 0; i < gpu->nr_rings; i++)
+            a6xx_gpu->shadow[i] =3D 0;
+
+leaving a6xx_gpu->shadow[gpu->nr_rings] for gpu->lpac_rb stale across
+suspend.
+
+Could hangcheck_handler(), recover_worker(), and the suspend shadow-clearing
+loops be updated to account for gpu->lpac_rb?
+
+[Severity: High]
+When LPAC submissions on gen70900 switch context bank 1 (ASID 1) to
+per-process TTBR0 pagetables via a6xx_set_pagetable(), will TLB invalidatio=
+ns
+on context bank 1 be skipped when those pagetables are unmapped or destroye=
+d?
+
+In msm_iommu_tlb_flush_all() and msm_iommu_tlb_flush_walk() in
+drivers/gpu/drm/msm/msm_iommu.c, the primary context bank flushes check
+pm_runtime_get_if_in_use(pagetable->iommu_dev), whereas the LPAC flushes
+check pagetable->parent->lpac_dev:
+
+    if (pagetable->parent->lpac_dev &&
+        pm_runtime_get_if_in_use(pagetable->parent->lpac_dev)) {
+        adreno_smmu =3D dev_get_drvdata(pagetable->parent->lpac_dev);
+
+        pagetable->tlb->tlb_flush_all((void *)adreno_smmu->cookie);
+
+        pm_runtime_put_autosuspend(pagetable->parent->lpac_dev);
+    }
+
+However, in adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c:
+
+    if (gpu->lpac_pdev) {
+        pm_runtime_enable(&gpu->lpac_pdev->dev);
+        if (!device_link_add(&pdev->dev, &gpu->lpac_pdev->dev,
+                     DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER))
+            dev_err(&gpu->lpac_pdev->dev, "failed to link to lpac device\n"=
+);
+    }
+
+Because gpu->lpac_pdev is populated from the child node under the GPU node =
+in
+arch/arm64/boot/dts/qcom/sm8650.dtsi via of_platform_populate(...,
+&pdev->dev), &pdev->dev is the parent of &gpu->lpac_pdev->dev. Calling
+device_link_add() with the parent (&pdev->dev) as consumer and its child
+(&gpu->lpac_pdev->dev) as supplier fails in device_is_dependent() because
+device_is_ancestor(consumer, supplier) is true.
+
+As a result, lpac_dev has no runtime PM link, no bound driver, and no
+autosuspend configuration, so it remains permanently in RPM_SUSPENDED with
+usage_count =3D=3D 0. Even if lpac_dev were suspended while pagetable->iomm=
+u_dev
+is active, the SMMU hardware still retains cached TLB entries for context
+bank 1. Because pm_runtime_get_if_in_use(pagetable->parent->lpac_dev) always
+returns 0, tlb_flush_all() and tlb_flush_walk() are never called for context
+bank 1 before page table pages are freed in msm_iommu_pagetable_destroy() or
+__arm_lpae_unmap().
+
+Should msm_iommu_tlb_flush_all() and msm_iommu_tlb_flush_walk() check
+pagetable->iommu_dev (or shouldn't the runtime PM handling for lpac_dev be
+fixed so context bank 1 TLBs are invalidated before freeing page tables)?
+
+[Severity: Medium]
+When LPAC is enabled on gen70900 alongside ADRENO_QUIRK_IFPC, are the LPAC =
+GX
+registers restored after an Inter-Frame Power Collapse (IFPC) cycle?
+
+During hw_init() in drivers/gpu/drm/msm/adreno/a6xx_gpu.c, when gpu->lpac_rb
+is present, the driver programs several GX-domain registers:
+
+    if (gpu->lpac_rb)
+        gpu_rmw(gpu, REG_A6XX_UCHE_DEBUG_CNTL_1, BIT(30), BIT(30));
+    ...
+    if (gpu->lpac_rb) {
+        gpu_write(gpu, REG_A7XX_CP_LPAC_CHICKEN_DBG, 0x1);
+
+        gpu_write(gpu, REG_A7XX_SP_CHICKEN_BITS_2, BIT(4));
+        gpu_write(gpu, REG_A7XX_SP_LPAC_CHICKEN_BITS_2, BIT(4));
+    }
+
+In drivers/gpu/drm/msm/adreno/a6xx_catalog.c, a750_ifpc_reglist_regs includ=
+es
+REG_A6XX_CP_LPAC_PROTECT_CNTL, but REG_A6XX_UCHE_DEBUG_CNTL_1,
+REG_A7XX_CP_LPAC_CHICKEN_DBG, REG_A7XX_SP_CHICKEN_BITS_2, and
+REG_A7XX_SP_LPAC_CHICKEN_BITS_2 are absent from both a750_ifpc_reglist_regs
+and a7xx_pwrup_reglist_regs, so their values will be lost when the GX domain
+collapses during IFPC.
+
+Should those four registers be added to the A750 IFPC / power-up register
+lists?
+
+>  		.funcs =3D &a7xx_gpu_funcs,
+
+[Severity: Medium]
+When gen70900 uses a7xx_gpu_funcs and submits LPAC jobs through
+a7xx_submit() in drivers/gpu/drm/msm/adreno/a6xx_gpu.c, does alwayson_end
+read from the wrong counter for LPAC?
+
+At the start of a7xx_submit(), alwayson_start is sampled from
+cp_always_on_counter when is_lpac is true:
+
+    if (is_lpac)
+        get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, =
+index, alwayson_start));
+    else
+        get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, =
+index, alwayson_start));
+
+However, at the end of a7xx_submit(), alwayson_end is unconditionally
+sampled from cp_always_on_context:
+
+    get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
+pcycles_end));
+    get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
+x, alwayson_end));
+
+When retire_submit() in drivers/gpu/drm/msm/msm_gpu.c computes:
+
+    elapsed =3D (stats->alwayson_end - stats->alwayson_start) * 10000;
+
+it subtracts CP_ALWAYS_ON_COUNTER from CP_ALWAYS_ON_CONTEXT, corrupting the
+elapsed time, clock estimation, trace_msm_gpu_submit_retired(), and
+ctx->elapsed_ns for LPAC submissions (note also that a7xx_submit() has an
+unused local variable timestamp_iova).
+
+Should the alwayson_end sample in a7xx_submit() also branch on is_lpac to
+read cp_always_on_counter?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D14
