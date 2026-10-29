@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269154;
-	b=HuC8us3pBaRAibgZhK+Iq/8RHkp+ECpTAxbOEeVXJRdauaPEM/e5I6+0tw/E7rdgycLn
-	 6BVQjJYlzAOU87rf0jvHzhYseLcdn08KBl0477ProA5Bcl66VFT+u//3jfF3AgwqIIyoG
-	 69O2LVYN9jVwZ25NQpAOfjIFusfNGkqP3F+77HjIKjPp7PQ4f2qB10tJiZbeNSTaREJKx
-	 Itox1/j1chkRmc1WzcID+p8Jti3s3EOiKTdPn/K25ORAbEo7WN4se5Cb7CuFVsAv1AvSf
-	 cFf5E3jYYU6G3aDoqWa5oXDopQvUPPxi4duWteN57q6dzodcUMVyyuikYomlEvSK0iQ==
+	t=1793269155;
+	b=RsINXk1Fc34usHAO4i54VwngfzL0ALaDpHXidI7Az+Q25cRut9j30kdEx50x3JQfiffO
+	 RVkbmAZ755VkcNEAAmGLjr5EQPh4J4ilVzoanyrvrBp0iBSi5Pg08MjhGAu5/Xs/XZ1h7
+	 DbMKNCv1/vyt6FxumhwWYKa0qWABkfn2T5v7gZJLednSwvLv5V2WwFoRidoOf5I9HHlPg
+	 t2ewTBZvaV7DC8cC7Wssi+dax7bDdxvfiB0XyRiHIYHW1CYyQhmPxUU209uy20IfpK/LB
+	 hmOye6VgJJ2JlfvxZklUPnb26kktj5pGhn0ZS6t3PXE70yIsZcSQbNHL2+ixjZGwR2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269155;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=DBvMxZ6LslwRYIA/ymXxr6ThNgTHCwGvp5ermnf1upA=;
-	b=jBtL8ECtWRdgmgNyHlwd2Zw4pOdXGD0zjT+CoIAHpIwHoWn9rtFZmQH0clbDFs69+CeN
-	 UPRdVAk+YpPoUxox/dDiuBJELKD4uaofexJU9VwzwcuJIFDBCTeH9Pw06FOWtxucIdBQZ
-	 kxFZ6TZOcCGLyTwfCOwMEJvCfQ9C4TVU+f8hzZXA5a1k+rUPULuDJqcpjg8X7vFDonQGc
-	 wz/DlX7jHSkyHvwJFvAv9c3kf6zBCNKyO1n2J+cuaLBYo0bJ75eo6rLAqy8C8Y6YCz2XK
-	 9ekfxnvAo0C1I3fK1EzQ5Zg0nyh5902Yu/ojYhhaX9t1SsRc78A18b7lgkvh5Lp1PLQ==
+	bh=wi22ZUlQhK6uLRjmKgHQVyO5nztOuEF+4DU2hP7IztM=;
+	b=KcOpRM6Bo2NyIJHz5VZM242b+O0ZfbR7tUFAI3Wu6n5OVLYW8EMin1BWybj4ae7RblHD
+	 u4Cy4+gxpsuBe2tm/1hCUfs65T70QtI7mC/FFvE0syP8e9RRVMCQ+BusmHe7652fVaGMx
+	 7/d1WPWCDj5tH1sy5vL54+O0p00MAOx9WT9XlWz66DxZfSYmOsG65JLGV9Uk2ecqD5Jdm
+	 3djy93Cd4xtN6G4XaFDaEzGuBU6J30X4dwXw8hLiPGKNw6i5NNvbhcmYQ5S887quoYqxF
+	 0rcJHUEv4fQ02t0yV/2SuT5dwRR7J+qoMq8vQ9tfCI9qsbcY0hYJXbNwvqKub9ksDHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ujm4a+vS;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PjBK1IWl;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC679606A31D;
-	Thu, 29 Oct 2026 10:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC679606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B29606A32C;
+	Thu, 29 Oct 2026 10:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57B29606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ujm4a+vS
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PjBK1IWl
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A6B9802;
-	Thu, 29 Oct 2026 11:16:56 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A3C83929;
+	Thu, 29 Oct 2026 11:16:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793269017;
-	bh=TEC0Tn18n1HeiWmbxdsliGWYWPY+kfyznyDz8yGCKEY=;
+	s=mail; t=1793269018;
+	bh=YhUarWvkFmo5BAU7y6W2c0/rlDRAPf7YwZkgeidtnY0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ujm4a+vSrr7c8O/XChUC+V8GfxvXO71koRNk1MSqf6zyXeWFZQpHwTS4fR4B4on+R
-	 +XnuXXSEone8MNfomMQdbQucTTPRyvF4iM1mQYJiRWVZ0/jMktXbuoE2SNhaXsPML0
-	 /vDjtX91fIBY0VeDLuc2u3kO8l6rEd/QpknWCe2U=
+	b=PjBK1IWlqxPl565SY8k/Fk6uWiGjuOHjYOxbz8dQNajdIJy1qOQMghOyvrSP1SjD8
+	 aH6MWMdQlwcL+HXuH7fv38pwh6uQkPDvwgQAgwh/JSOUcWzOGjJqYa5hhwO46qywVT
+	 XMZd9J5TYRAXaQWiA2Hmigxn3ZF5LYUzjVc0kxo0=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:48 +0200
-Subject: [PATCH v4 02/14] drm/tidss: Add helper to identify the AM65x OLDI
- video port
+Date: Thu, 29 Oct 2026 12:18:49 +0200
+Subject: [PATCH v4 03/14] drm/tidss: Stop using vp_bus_type for directly
+ connected panels
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-2-dc7f2b532478@ideasonboard.com>
+Message-Id: <20261029-beagley-ai-display-v4-3-dc7f2b532478@ideasonboard.com>
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,113 +74,64 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3801;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1460;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=TEC0Tn18n1HeiWmbxdsliGWYWPY+kfyznyDz8yGCKEY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2V/6l7VZLSSsmY02UwsTXwLCCdLd6CO0x9d
- oZDJN8j1XqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlQAKCRD6PaqMvJYe
- 9WF9D/wJllN06e4ZQGxe4UcmfdlPI8/Timg3XLNgFCCS1VCU3zdpEQiYpCnFMHTf79p+UtQMR0y
- 2xoZ6+GwZmvkean5cQeVZDZTwU+tjmroukxQnegVKE46u+dptfS/2Gt7Pu5odnV8/QEFZaUKEsO
- cbXucskd/keBs1+1SP+dKoWi8mAXPlMoLRohngd8DVhPKZr7FI7l7lRcsvNQBlhmN4gBox7Gl4+
- 1OhHGYEMF6GEjL5ldcaSIfM1bBqBVuaDk4EYPE7pjXAXM2HOOnvdkxdcoqyjhpZYZNHWo8GKK1Q
- XlTbIA+IahUXCDnT19MPFy9rrhAVGS8y94g6RwB50AnQfqVLpE9aSLtz2CaauR2zR5Wvu5QLgJI
- ecxqAlPHlX+SEBIMuVlMTNFu2ezJ/y3KdcUm4ZeK+f89S+7bQ2N3Tl7ggEPco3W+gVYM/6PjK6z
- TWWpZZ+bVRvc2KSC9eYQYmCEdCVXWKrm8aAKpjfV+chq2O085jAQPpMGiz6iAK/S+Kq8KNmXVPl
- XPwFhHf1gttdDvNFJ6OLkL6vBKMf777lTTj9aelclF7xSldQKmukHXWXLoWwnot9BnAZLAnq/p4
- JJfOoYR43aael56tiQhCyA3L53emTXfbLnDb0bAsEV6VR3CD3e/lK/2NmChtdRGngLq1FDplme6
- +anfnc8WZtuFXYQ==
+ bh=YhUarWvkFmo5BAU7y6W2c0/rlDRAPf7YwZkgeidtnY0=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2WAngQ2+yyxc+nNGt0VaMvb+tX9kwxHQ4m7
+ 6QU5zeNBdmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlgAKCRD6PaqMvJYe
+ 9ZUbEACczkH4P+K0PGpZmASXOjmy5o8O68zj7a6M5err0YVTSGPXA+tq8V2B25nnliuigC4Dn1E
+ u8Zfez5MdSd9wJg8T46y0uTaMz6M8+M4RtCBIZDDAxOSEIaE96KUkUEH+UBjsGCv4+HEtEZSXUO
+ qlppx04cTv0FOVNzf6+sFrJKbDCaGrNtKYUJDy5R8tlMBhUcQfiFyhEP78WZ1E/IOwwKApEGw9e
+ oD++x9/CD46C4qS4sbwWZE9jxPTAkjXeUHIBRZkVeFkS70sfJWJmUroRHTYSTyZiiZPRmPpFheH
+ nhQXt34mv8RuR3/8E2r70IoFhVgOxHgtM+4fenTa/+a0U1qgNyGaroH/dZkYVF6C9BfWPuHCN0C
+ WACYj53lAyvUY3nYqRiO5xhy1FjiYNsUgE9wg1mJ6MpKEeudbpNiA42ezr7keh1cZvJfZ9/XsSa
+ QwUtPGTTZsbZErs/4xQ30tDh5sWUfVv7kxAcg16AWncKu9ZuGnKBQK6TsUQ9u1Qxyh9qPn+amM3
+ lGFlEPgQX9mGWAv3I00EtU3lqfQt7VQk8EvEu5BptpkUJsgRYXApLSGhZIw97P4DJisNYIy6RQF
+ Z6GXvyqLbF/mDrl0judW/UF6x7ZrtzIVzrsySFJ0D/raPKpfvb6g5aFKe46Fpj2nNQF97u/QJ5y
+ ASrP7p7hHOKEfRQ==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On AM65x the OLDI TX is modeled as a part of the DSS, not as a separate
-bridge as the newer SoCs do, and is fed by the first video port. To
-handle the AM65x OLDI, we check for it in multiple places using the
-feat's vp_bus_type.
+When a panel is connected directly to a video port,
+tidss_dispc_modeset_init() sets the encoder and connector types using
+the 'vp_bus_type' feat. DISPC_VP_DPI selects DPI and DISPC_VP_OLDI_AM65X
+selects LVDS. Any other type triggers a WARN and fails the probe.
 
-However, vp_bus_type is problematic concept and should be removed, so
-this commit adds a helper function to check for the AM65x OLDI by
-looking at the DSS subrevision and videoport number.
-
-No functional change.
+vp_bus_type is problematic and is going to be removed. Change
+tidss_dispc_modeset_init() to use dispc_vp_is_am65x_oldi() for detecting
+the OLDI case, and default to DPI.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 8 ++++----
- drivers/gpu/drm/tidss/tidss_dispc.h | 7 +++++++
- drivers/gpu/drm/tidss/tidss_kms.c   | 2 +-
- 3 files changed, 12 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tidss/tidss_kms.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index e516f493d6d9..efdabf046d64 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -1034,7 +1034,7 @@ int dispc_vp_bus_check(struct dispc_device *dispc, u32 hw_videoport,
- 		return -EINVAL;
- 	}
- 
--	if (dispc->feat->vp_bus_type[hw_videoport] != DISPC_VP_OLDI_AM65X &&
-+	if (!dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport) &&
- 	    fmt->is_oldi_fmt) {
- 		drm_dbg(dev, "%s: %s is not OLDI-port\n",
- 			__func__, dispc->feat->vp_name[hw_videoport]);
-@@ -1143,7 +1143,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 	if (WARN_ON(!fmt))
- 		return;
- 
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
- 		dispc_am65x_oldi_tx_power(dispc, true);
- 
- 		dispc_enable_am65x_oldi(dispc, hw_videoport, fmt);
-@@ -1186,7 +1186,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 	align = true;
- 
- 	/* always use DE_HIGH for OLDI */
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X)
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport))
- 		ieo = false;
- 
- 	dispc_vp_write(dispc, hw_videoport, DISPC_VP_POL_FREQ,
-@@ -1229,7 +1229,7 @@ void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
- 		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
- 			       DISPC_VP_CONTROL_DPIENABLE_MASK);
- 
--	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
-+	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
- 		dispc_vp_write(dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
- 
- 		dispc_am65x_oldi_tx_power(dispc, false);
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index df3daccf3f31..3dff391d3fec 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -96,6 +96,13 @@ struct dispc_features {
- 	bool has_vp_control_dpienable;
- };
- 
-+/* On AM65x the OLDI TX is a part of the DSS, on the first video port */
-+static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
-+					  u32 hw_videoport)
-+{
-+	return feat->subrev == DISPC_AM65X && hw_videoport == 0;
-+}
-+
- extern const struct dispc_features dispc_k2g_feats;
- extern const struct dispc_features dispc_am625_feats;
- extern const struct dispc_features dispc_am62a7_feats;
 diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index eefe2221bdde..e55e7532e2f7 100644
+index e55e7532e2f7..8b9c5fa96e47 100644
 --- a/drivers/gpu/drm/tidss/tidss_kms.c
 +++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -175,7 +175,7 @@ static bool tidss_is_dpi_output(struct tidss_device *tidss, u32 hw_videoport,
- 	 * for the OLDI TX on AM65x, we cannot detect this from the DT data, and
- 	 * have to special-case it here.
- 	 */
--	if (tidss->feat->subrev == DISPC_AM65X && hw_videoport == 0)
-+	if (dispc_vp_is_am65x_oldi(tidss->feat, hw_videoport))
- 		return false;
+@@ -232,19 +232,12 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
  
- 	if (!bridge)
+ 			dev_dbg(dev, "Setting up panel for port %d\n", i);
+ 
+-			switch (feat->vp_bus_type[i]) {
+-			case DISPC_VP_OLDI_AM65X:
++			if (dispc_vp_is_am65x_oldi(feat, i)) {
+ 				enc_type = DRM_MODE_ENCODER_LVDS;
+ 				conn_type = DRM_MODE_CONNECTOR_LVDS;
+-				break;
+-			case DISPC_VP_DPI:
++			} else {
+ 				enc_type = DRM_MODE_ENCODER_DPI;
+ 				conn_type = DRM_MODE_CONNECTOR_DPI;
+-				break;
+-			default:
+-				WARN_ON(1);
+-				ret = -EINVAL;
+-				goto put_panel;
+ 			}
+ 
+ 			if (panel->connector_type != conn_type) {
 
 -- 
 2.43.0
