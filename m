@@ -1,57 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263721;
-	b=BDDx/XG5mQgzWZmsML4Rj9C2M2MYY+zNq5a/3GtfDqJbvjExvNJGhnY5tf769tXfBLMm
-	 K9FxvVcni6/tC7DxBjr6LTkCqK/CBCLPW0BpucJITrcmE5mKW+Ac2ijGYrcpomD5dPbQb
-	 6O/3TEBu/aCRuE9xqBGDmXxy0xhGQJfoiTNb73hEqVHct5jeS61UZyFqE0Nd3mKnlvW8q
-	 H1n/LGvZBgXuKzOOA/tqDtxDO2IZAcEl2xyw3ZzJ7c952GiOefd7hJ0UOVZZHbQePRqax
-	 MTvoPCUCzhtl/a2Uk5owljUPG+0/JnmlkHttSl8UQo1iSQUDh63q2Q4aEw8W1q+VCqQ==
+	t=1793263923;
+	b=Od80Tcpj5x7P3htnp97arp05eDGfG+S9cL17Y8/+XAtup899WssVTUH+jyMOabbAh4W+
+	 /q/ZXhsTC4z0obpF5/hi58vnfjORM0YooDGRXfECIXmyrh3iwwVKF3RWIH2NjLWyHLGCJ
+	 jmS7dzb+fj9GbwkMlCGA7neEGzrskUTqy8XVdOK1FKg3KUnZitQboWeQnmccF+QdJxNid
+	 Q5/g/wbnN5zqjjt6/TzgsteCKNjy8iXKoF4+T5P4tjMGb3Iuw/m3YBi3KLqqEcgM7Lp71
+	 HOSHTu3kTg+5Zqv7IOlSdkeGFMqwJaHTge1p+OHQMXEoQcxchwZIaKDXFRcjAr73nFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263721;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=tnI2nqom7NcJjHr4dUpVUoHtjdV7J91r0Zc2bMV/RrM=;
-	b=VpZePNm0epJoXCCGcWvwKkPafk252jVEdTBSUetgmLb5BYzt21Xm0YW5kSgcK8Df11E4
-	 0tCHyWUKfHjLv8OBFty5i/Ux9fwXGYUpXNa153OfyN83R3hsGAfsPq65pjTf/2h6SFuud
-	 SnPN3x38cU1DeB/ZyXtZFYpDoz7rwzeMB4bJApkIZ0PuLf7dwnUPP3zAGre5vVzLbzK0d
-	 lXKhSh2Ueo1cZWUifFOeQ4qmfuz0BBIazVQNnZLqXMCsIbn5M76a2ybEpWpQUw1Q2uvq0
-	 +JUF9EpN4c6HbRLiqvbD3EPvTZJYTbbIJ+/UcBn2DZ8B22lRWYYJDNWa9eKUXBJK6cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263923;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4X4any+tpNBwR1eQM52jJjIuQZyhJ8gQ4zFYTx06K2Q=;
+	b=PLgk1YsbS/67pLQQfyeGrDkStAUNrT6Av6eBNXK5IC5Oe4Yvv2bY3A5NA69AaJWl5nM5
+	 HvYbPyyzhuPaFQJRQ+nzIZsgpvRtE2iPNC7smG/HStd+xrvJRn2MBeOho6u/fvZhpEwM3
+	 ACBrDhszevqT0L0KIo9NIQHq2pVde6ffuHXq++EB/TdXfvJUioa/pwgDz51YQH8Mj/Lws
+	 fInyv13XSUj07/z/fdRQrFC+cjVBdbxyFIMwf5AlF89fCsSB2kMeTD3DKb1mesCQWdNse
+	 e1LaNKqvcuOgbh5PVO5K9GXUpE+qD6+ulXjloCSMgmGcvYlzx750Ho+txuPriHSinyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wc5LYktJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TCPGIrKz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LstxmWn+;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6BA606A322
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:48:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61B5606A322
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A61B5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wc5LYktJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1811F031E3;
-	Thu, 29 Oct 2026 08:48:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793263720;
-	bh=tnI2nqom7NcJjHr4dUpVUoHtjdV7J91r0Zc2bMV/RrM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wc5LYktJ+gtmmg9F1tdB29IpMF69ceBJuyKHCstmhe+558HRe3B6taAopBN0eBYd6
-	 5k/N5hwlu0lPFPu/tWFZ//Q7LXKLKrjL1tKvpU++NOwtBxBVKzz9nhQXRDK+1TfXbE
-	 NI9dzVTgKFUy9tWw8x5p0hUSYkLNpDn6w4a+u1NqNl3As+xieH68FSZUPhHS3w6xnz
-	 eBgUign4HgvOoUdWQbXBdzZEhDv3hN4czCC0h7wLZMUKrmcMjBQX9L/zd42vg2cxq5
-	 O8AG47aX22fOC7vrlbPxcAGvTjNf9RXx2alCYS1Ju7WSIqn1750RJdeJeevYwuXoBR
-	 qSEKtRnr+Pn0A==
-Message-ID: <sashiko-outbox-188989@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261029-a9-i2c-v3-2-7b30ccc00533@amlogic.com>
-References: <20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com>
- <20261029-a9-i2c-v3-2-7b30ccc00533@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 08:48:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TCPGIrKz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LstxmWn+
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5H3NG2974835
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:52:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=4X4any+tpNBwR1eQM52jJjIu
+	QZyhJ8gQ4zFYTx06K2Q=; b=TCPGIrKzjCSWP3h5PJlMJg5RBYB55gPdGRqJ+6rK
+	JCzGa73VdvDYoNmf8/WtblZLsYUTjLU1uTpg8CT80KJAgCsGVuoG3iT1g35ZN+Au
+	VcSYPBtXSRPpZp3Xf2BYsFeQNhQ66BXjAD4DDF9iJwTy65j/qKLnx6mmxd42zJzA
+	L6usUXi7VLUmHRMj6HZ4J7rigQwKOORvcAT2vu2kwW+s82au8TY6yd1v4aKzeZb7
+	QN23g+Du/zYQaJFMjuD84r2P20tzZjRdty8qB95hIoUif8sPtoMcsg6GLD2cIRPK
+	g2B7H/48QlIhQwLSga2MElGZQicnIFNjJrBQjdb94taKGw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkpb0yf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:52:01 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-944138ed63fso113694185a.3
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 01:52:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793263921; x=1793868721; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4X4any+tpNBwR1eQM52jJjIuQZyhJ8gQ4zFYTx06K2Q=;
+        b=LstxmWn+3iJSyqQtakDQ9UBEPK0rNZwr9PI4Run997dr45KdW5Jl7z5vXC0Z2vg1FX
+         bRcm0CNf1/Y9nJYjYCIDOXTfuHcTB5BdzhQcGrI9XuWfPnHLQiNGvYaYYFBcmgC+TnmB
+         olE/YuLnDPKOiQ9nBYbMxNg5OC9l+ZTvwKtDLMwAU0CZMLbRxKAGUwdm2CtlSXlKHTnr
+         NFtlnQq4Tm+JLoMzae6OY4peHatlonJ0Sowa8ZtdKAkMuwr+QZGSqDvcCiqr1NlR0n30
+         Tb9WRsBF14lc7cWD7XXOGssi2NIVdbT5etHf8bABjjT4JrgAMnvhs2LQU35ci3TguEd9
+         ISTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793263921; x=1793868721;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4X4any+tpNBwR1eQM52jJjIuQZyhJ8gQ4zFYTx06K2Q=;
+        b=FpSWLIVXi/slpvCcNWqACMtPZ+/9CbO26//tbOHakcrwhfGe+IP6XHZChag4O7tNCN
+         oZFiRQrISWweMjplyEYn8k/OqtIEtHbjTKoRnRO9XHXGS0tokQ/+yUukuP/NzkjRBWOU
+         jg14IyytPLPxXEXaq3QsIyRjpCYCy2Xmiub85efzcz3JPMmwvB+hn6XaGBzrY+gH/ddy
+         wyuK6twM2ASuFtBOdFYzQcjUePjqgENVFLPObxiip5Pm+xyglqBVZauiu4sZSch3iPst
+         cZctpccM7B0N9tphPWYxrBfcFgQbK893KBI08Rk8ErLSQZ9/p/4BqNlPUmTQeBOPLu9R
+         ECfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwH0tFQPJnPRAaEItn5i6szF+oawMYt3N7ensOJZA3pi5Ib0bZnTw/vkN2TL36QKL++NWSb862GjgD7@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/2S02kJ6avbIPq8B2+G88puTZeRtM2Lq2ix3MP7JobrnOB+yv
+	M4aUGUSsrr9xcAHa8zt/CILT40kBvMxz4rFjEvVxSGqU5NTCRionBwEsz3pdvMUfhnWxhMn9lbk
+	3BEcjptyLBDO5QXbzHXyFWB7vR6vdMWBYzkaYqSG5nWPpv50oIpmDkPEfL1RRfl7D
+X-Gm-Gg: AYBFou0057pPOIyV/BBsA3sRKYXdUxsp8wG5uWvhOkq8qfwXGvPFVAaTMdrpE//rpFU
+	yYpZsl0WI6amHdKwFkh++X3rw1BTRDiYtRcNAtQeLpQhlj22h+r/8GO1pH7mj2+Sv+O3k6XGEEm
+	td++g08ZRJo67QN0ZVE2kBMuCNei59avYoErIiWHu75QF/uAZyUHWuDvZBIM4a+HObREFNqbFqx
+	Ze9xVvnikMsvl07EhTNWFIs83p2ZERSstJ5UZ1Xzluj6KiHpZoeBleW8oZXQm1FIMI6yL6hLWJn
+	/OiieSItJaSYKh4fLj2rdOFixhlbGvSkW4PEQ/KG9Pw9MLGw4iSVCYW/0gQ3DNNQpT39vHtKQl6
+	FdomYtWM7MZD/5YTrVp+uGyCyxLT6wmInUeWYDgWFmqIYL6Qdyni5mmgPzosiycrI
+X-Received: by 2002:a05:620a:1b95:b0:93e:722b:1f79 with SMTP id af79cd13be357-94408ce05d8mr692530585a.53.1793263920625;
+        Thu, 29 Oct 2026 01:52:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b95:b0:93e:722b:1f79 with SMTP id af79cd13be357-94408ce05d8mr692527485a.53.1793263920071;
+        Thu, 29 Oct 2026 01:52:00 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm32973063f8f.6.2026.10.29.01.51.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 01:51:59 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:51:57 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Consolidate Glymur CoB power grid
+Message-ID: <wnfymou72wbsew2krp6ub4z3j5om47fz5aexoyiqllri75rqgp@dt6g2lyrarx2>
+References: <20261028-topic-sip_cob-v1-0-80ab6704aca3@oss.qualcomm.com>
+ <20261028-topic-sip_cob-v1-2-80ab6704aca3@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,201 +125,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-topic-sip_cob-v1-2-80ab6704aca3@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae30931 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=WbsCytHUCBBKkCb54EYA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: afGXxKHMXMVv2Xc-YZ5hHHAT1A9IKdZ0
+X-Proofpoint-GUID: afGXxKHMXMVv2Xc-YZ5hHHAT1A9IKdZ0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX3/e5gcGUDFL9
+ zB/u8fbQm8FFIhMRcs7tb+5HSV+ZQe4OQu8isrTvx79sJ4F1eZxzWjQPY7IgJdQTf8aIEFnoeYO
+ HmwCGY5oq7bOH0VErzNSezuF9BNsfL4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX+0JWgP/vNgum
+ pkRJB+LNItnqsJL5VVbAAsUEIQsoq3byKTqbR+Jm2Am2KovLVCOQWZgRSHnQDDDqo7tZE9XCj71
+ pp56Hcq518nVzXVWWg2BCbEe0F88gA+dq4FB4JbcPWkcL/YRJKEPnGK6cE9clT8t05TVtvXWR9T
+ R2Zl1+SZfy38BYGAURB2ZKCDPZjfLpvJnfHuJUqUWmpYajiNgg8EG22Q3oeosAl2/xIpbgQGiog
+ zDHQTuioipe9Boet4u0Am+ilZWyneeTHNHRIqPKkD8GPpTooHUFaQmuJJMg32qajMAD+oZgDqw+
+ nt34G4nENUQ3EoKmo41IPRxSmk9mCyUmHhVGd6w4P2qESecdatnavKjJzLwIzrrqax6koQQqk4D
+ Zgtig8cAUDc4QNSE6QAqPUnEY1aR3pCMdBm/qAflN5Xa9ZJJyZw1B7R+URyRWOso078RUk1xU+L
+ AyZS9qlqwIcTeTFSlPA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290034
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] i2c: amlogic-a9: missing threshold IRQ disable on timeout in aml_i=
-2c_xfer_msg()
-- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in aml_i2c_do=
-_start()
-- [Medium] i2c: amlogic-a9: spurious TX FIFO write on completion in aml_i2c=
-_irq()
---
+On 26-10-28 21:04:25, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> The power grid is partly defined by connections to the on-SoC
+> peripherals, which (due to various reasons, electrical and practical)
+> are well-defined for each PMIC configuration. Factor out the common
+> bits for Glymur CoB devices.
+> 
+> Because some DTs (mostly the CRD) disagreed about certain values, I
+> made sure to look up the desired one for each of these common rails,
+> they are now set as expected.
+> 
+> This enables one to take care of most required vreg settings with a
+> single #include.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-commit ab8bf627f35c4931f8163555b700d4cca01277db
-Author: Junyi Zhao <junyi.zhao@amlogic.com>
+With the concerns from sashiko addressed, this looks good to me, so:
 
-i2c: amlogic: Add Amlogic A9 I2C controller driver
-
-This commit adds an I2C controller driver for Amlogic A9 SoCs, along with
-corresponding Kconfig, Makefile, and MAINTAINERS entries.
-
-> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
--amlogic-a9.c
-> new file mode 100644
-> index 0000000000000..503511734fe26
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-[ ... ]
-> +static void aml_i2c_put_data(struct aml_i2c *i2c, u8 *buf, int len)
-> +{
-> +	int i;
-> +
-> +	/* When this I2C module transfers 0 bytes, it must still send at least =
-1 byte. */
-> +	if (!i2c->msg->len) {
-> +		writel(0x00, i2c->regs + REG_CFG_TX);
-> +		return;
-> +	}
-> +
-> +	for (i =3D 0; i < len; i++, buf++)
-> +		writel(*buf, i2c->regs + REG_CFG_TX);
-> +}
-> +
-> +static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mod=
-e mode)
-> +{
-> +	bool write =3D !(i2c->msg->flags & I2C_M_RD);
-> +
-> +	if (!write)
-> +		return;
-> +
-> +	i2c->count =3D min(i2c->msg->len - i2c->pos,
-> +			 mode =3D=3D A9_FIFO_FILL_FULL ? A9_I2C_FIFO_DEPTH : A9_I2C_HALF_FIFO=
-);
-> +	aml_i2c_put_data(i2c, i2c->msg->buf + i2c->pos, i2c->count);
-> +}
-> +
-> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-> +{
-[ ... ]
-> +	switch (i2c->state) {
-> +	case A9_STATE_READ:
-> +		buf =3D i2c->msg->buf;
-> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-> +		for (i =3D 0; i < rd_len; i++) {
-> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
-> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
-> +		}
-> +		/* Rx must clear thresh after read fifo */
-> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
-> +		break;
-> +	case A9_STATE_WRITE:
-> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
-> +		if ((i2c->pos + A9_I2C_HALF_FIFO) >=3D i2c->msg->len)
-> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
-> +		i2c->pos +=3D i2c->count;
-> +		/* Tx must clear thresh after write fifo */
-> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
-> +		break;
-
-[Severity: Medium]
-When a zero-length write message (i2c->msg->len =3D=3D 0) is submitted via
-aml_i2c_xfer() -> aml_i2c_xfer_msg(), aml_i2c_prepare_xfer() calls
-aml_i2c_put_data() and writes 0x00 to REG_CFG_TX before starting the
-transfer.
-
-When the transfer finishes and A9_PHY_DONE triggers aml_i2c_irq(), the
-A9_STATE_WRITE case runs unconditionally without checking if bytes remain to
-be written or if A9_TX_THRESH_WRITE is set. Because i2c->msg->len is still =
-0,
-aml_i2c_prepare_xfer() -> aml_i2c_put_data() writes a second dummy 0x00 byte
-to REG_CFG_TX during completion.
-
-Also, given the comment in aml_i2c_put_data() noting that the hardware must
-send at least 1 byte when transferring 0 bytes, does a 0-byte transfer
-actually transmit a data byte on the bus? If the controller cannot perform
-true zero-length transfers, should aml_i2c_quirks set I2C_AQ_NO_ZERO_LEN
-since aml_i2c_func() advertises I2C_FUNC_SMBUS_EMUL (which includes SMBus
-Quick commands)?
-
-> +	default:
-> +		break;
-> +	}
-> +
-> +	if (!(irq_state & A9_TRANS_DONE) ||
-> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len))
-> +		goto irq_trans_out;
-> +
-> +complete_irq_out:
-> +	i2c->state =3D A9_STATE_IDLE;
-> +	reset_fifo_pos(i2c);
-> +	complete(&i2c->done);
-> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
-ESH_WRITE, 0);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +irq_trans_out:
-> +	spin_unlock(&i2c->lock);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
-> +{
-> +	unsigned int reg_val;
-> +	unsigned int trans_len;
-> +
-> +	trans_len =3D msg->len;
-> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
-> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
-> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
-> +	aml_i2c_set_mask(i2c, REG_CFG_START,
-> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +	/* enable thresh mode */
-> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
-> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
-_WRITE;
-> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-> +	}
-> +}
-
-[Severity: Medium]
-In aml_i2c_do_start(), START_START is written to REG_CFG_START before
-clear_irq_status(i2c, IRQ_ALL_MASK) is called and before the threshold
-interrupts are enabled in REG_CFG_IRQ_ENABLE.
-
-If execution is delayed between writing REG_CFG_START and clearing
-REG_CFG_IRQ_STATE (for instance on PREEMPT_RT where spin_lock_irqsave() does
-not disable preemption, or due to an NMI or hypervisor preemption), can the
-hardware assert A9_NCK_ERROR or A9_PHY_DONE for the new transfer only for
-clear_irq_status(i2c, IRQ_ALL_MASK) to immediately wipe it out, causing
-aml_i2c_irq() to miss A9_TRANS_DONE and wait_for_completion_timeout() in
-aml_i2c_xfer_msg() to time out?
-
-> +
-> +static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bo=
-ol last)
-> +{
-[ ... ]
-> +	if (!time_left) {
-> +		spin_lock_irqsave(&i2c->lock, flags);
-> +		i2c->state =3D A9_STATE_IDLE;
-> +		clear_irq_status(i2c, IRQ_ALL_MASK);
-> +		reset_fifo_pos(i2c);
-> +		spin_unlock_irqrestore(&i2c->lock, flags);
-> +		return -ETIMEDOUT;
-> +	}
-
-[Severity: High]
-When a transfer with msg->len > A9_I2C_FIFO_DEPTH (32 bytes) is started,
-aml_i2c_do_start() enables A9_RX_THRESH_READ or A9_TX_THRESH_WRITE in
-REG_CFG_IRQ_ENABLE.
-
-If that transfer times out in aml_i2c_xfer_msg(), this timeout path resets
-i2c->state, clears REG_CFG_IRQ_STATE, and resets the FIFO pointers, but
-unlike complete_irq_out in aml_i2c_irq(), it does not disable
-A9_RX_THRESH_READ | A9_TX_THRESH_WRITE in REG_CFG_IRQ_ENABLE, nor does it
-clear START_START in REG_CFG_START to halt the controller.
-
-When a subsequent transfer with msg->len <=3D A9_I2C_FIFO_DEPTH runs,
-aml_i2c_do_start() skips updating REG_CFG_IRQ_ENABLE:
-
-	if (trans_len > A9_I2C_FIFO_DEPTH) {
-		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH_WR=
-ITE;
-		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-	}
-
-Because aml_i2c_irq() dispatches strictly on i2c->state without checking
-which bit in irq_state triggered the interrupt, won't a stale
-A9_TX_THRESH_WRITE interrupt left enabled from a timed-out write fire during
-a subsequent <=3D 32-byte read (i2c->state =3D=3D A9_STATE_READ), causing
-aml_i2c_irq() to read from an empty REG_CFG_RX FIFO into i2c->msg->buf while
-leaving A9_TX_THRESH_WRITE uncleared?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-a9-i2c-v3-=
-0-7b30ccc00533@amlogic.com?part=3D2
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
