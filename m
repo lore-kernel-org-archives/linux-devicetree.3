@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283197;
-	b=qcL8WC9ErnGaMRj4HA0CAV8OQoc5FE8pdpl+iwbeeGk3QqGFd+y1qe/xlBg3a80zzPEm
-	 q7IUZS+ohERQm/aAO0+Rzz3u3SdFtSCchqC7kbsSN/sqGQq9BoWvYwKCeEboc1QG1WWPC
-	 qAVpFLOrVZ9TG9r/6PTOHb9V7fZoJcdQRYSgVGjfDGFVgZzKxXRZiCxyN5+UzNhwlnCcx
-	 FeAS8nTElt0eBRWUlM6ziOUXCbAQX8yftij1nYpgpyBeuNAQtE0wSXhhmFVbVbP/U5mAk
-	 ZnUttbbV1AU/yOikD4bFbEjMrelTZNdS5vHSusoBKoJmU5Ku6yewHl06fuHsBc/tx1Q==
+	t=1793283215;
+	b=r4ael1UTZ9A2+TF34K33nggVSXbCskX6ubeFducZmjfPGc0+KXVgQAi1z0aBPhY87XNt
+	 g1CFY/zZy+Q9bSuoUy3ckNZskDh+FzNG7K/KoSHQMd4/iHF89h7Jr91YtUc6wsaECINK5
+	 QnkBLyw0Lf/KOctgi5s5h6vg3L19/NvybcGiSseBvgBpgxyEvxAhltQw/my51y0r87XDm
+	 lJwgZapEBwWCIr9f/u/vWlqmrH2eEeRrXyVK8CEInNVKP7VXo0P+mebvag/ZPiKnOGoo5
+	 Ix/Bs7yyLJlocKMLejEcDoDQsalUHdhlBF17oG1QCUplqlmXv1bh+fCCBcKiiVDXJLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283197;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
-	b=qtUFfpWgGHFGjhaPkvb5bWor1V/5gKvqq/s+DDvMa14XSA1SRKz8EQHpYcnbggFwLgK1
-	 oTLpwEQshbJSk1oe6J3UX7iAW+osMNmuDjv/y7PsvOODrytjQ+IYbxJcnpIcoR2cO54va
-	 nEOEVqGAA9BHCB88uPWguAASJWlNYWIMVKTX/o6y9orwHgDa+J+y37EK6FYS1G86Vr72K
-	 PBpzGUbLCsldnMC3dw8DzwBGOQNTqLhx1Lz5o9/F4Ery/xLriE5AiHZms1NUA6tZPXeud
-	 ZC8zZbk49s76+lbPM25bj9jnLf+LFX5bmSNJD5FORpTKzEVRV1NnoXk4RroCL1vZRMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283215;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=M1aQfGDZ7Vb2nGSxetYuQ+UQaxnvNayTxfDWRbGrr0g=;
+	b=yJMCXyBhNrY8k+0FgK6YlG5KCnO269zpjL/GqghWh4cf9tIQwl0uufKd3RsNH3uE6rtL
+	 07OPnYT3iPJ5z00ORhAuTbkiawTvtv4r7rOfXE7Tut9jXsNoAZbIC3t34LBiZYG4+FNcv
+	 EprUqNcTC0hXu8r46jF62AdPXq5+oo2CFDbONS9F+WQLIkhneMhkGgU3MJ8nLmHl4xql9
+	 8uHpoJMRnqoNMETfmN4rud/XFR4xDX1yiJSyECvWPFaUPHr0PFKcKV7z6wIiMwyQ/mpbC
+	 wbXOzvSzGjSeMpeiDVTddvweuk6Q6gkW3aEetOwK+PVasfpI49v/T7NPR3gJdt2KyGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lglaOQhg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEC6606A326
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FEC6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E56606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 8C7D14E41393;
-	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46C5C60360;
-	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C8C1103287D5;
-	Thu, 29 Oct 2026 15:13:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793283193; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
-	b=AihZAXH9+98sBSigsaRLjEm2rl2KxNsvqwbAyAnd17LltXefyuQSlUU69Mgb2/Hpw5Fkan
-	Vt/EufyJcGdmT5wH3gVFrOn7mlh1NJOvc0RgrVQOtnXZ4CX+WF+nnFGh/BKwi/BDMpLGli
-	1u9cRnhl5xY/S0QFABSjPHPwtnDwSHTN/f9c82pbqaGdM+48Fy8C/7gKEY4vqLujg0wS1B
-	tPlh0kBbP4vhO6MVBRNRbF6ywgJSgYZaRdUFhqMVNUplzcvFGKb4CAM3klz/sgz0q7UsoK
-	2NHMuWuMaTul4hqOo4xvlp1UMpGJmFmEXjQhNnaPiBJjEZGkfxHrKPBE8m/RhA==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lglaOQhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884891F01825;
+	Thu, 29 Oct 2026 14:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793283214;
+	bh=M1aQfGDZ7Vb2nGSxetYuQ+UQaxnvNayTxfDWRbGrr0g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lglaOQhgNX70H03nnqzFN8KoOikJZ8/sJ6xJW/X1r7zuRk5OxCPbgE2d1fpfUCCL7
+	 VulQhXF1NlSLFFSosKROt9x+0TGwKFIXGF7Rq49aOyOT1eI3AkJnl2Ws/fNIvAlWeZ
+	 QFZnONQ3uilq+DVqxFdDCJkeBpnwPrG059oCk7KymZR64fcQu6CO/9fiXhHkVoorAm
+	 6FwzZRZgyLjYpCre05wF19ydlyBcgZunx7kSa3ZPv0LM2C2BgeGWUpkS6rpj9Zt/bH
+	 /L303SeaoJGMPwxcQ73zPl8ujUkfnPv9Lm2uU3R4alT0lLk+8HiywTQ1WG9Q6wFPS2
+	 W+POYnDTqvgPw==
+Message-ID: <sashiko-outbox-189486@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 08/14] temp: add LPAC regs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-8-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-8-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 14:13:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,129 +59,137 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 15:13:09 +0100
-Message-Id: <DMHDU487Z307.JDRRJ5K8E53A@bootlin.com>
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
- <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
- <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
- <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
- <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
-In-Reply-To: <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu Oct 29, 2026 at 1:42 PM CET, Krzysztof Kozlowski wrote:
-> On 29/10/2026 10:05, Paul Louvel wrote:
->> Hi Krzysztof,
->>=20
->> On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
->>> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
->>>> +          regulator-temp-warn-kelvin:
->>>> +            enum: [0, 1, 368, 383, 398, 413]
->>>> +
->>>> +          regulator-ramp-delay:
->>>> +            enum: [40000, 20000, 1000, 500]
->>>> +
->>>> +          regulator-min-microvolt:
->>>> +            minimum: 1000000
->>>> +            maximum: 48000000
->>>> +
->>>> +          regulator-max-microvolt:
->>>> +            minimum: 1000000
->>>> +            maximum: 48000000
->>>> +
->>>> +          regulator-min-microamp:
->>>> +            minimum: 500000
->>>> +            maximum: 7000000
->>>> +
->>>> +          regulator-max-microamp:
->>>> +            minimum: 500000
->>>> +            maximum: 7000000
->>>> +
->>>> +        unevaluatedProperties: false
->>>
->>> Place this line after description, that's the convention for child node=
-s
->>> for readability.
->>>
->>>> +
->>>> +      vcc1:
->>>> +        type: object
->>>> +        $ref: regulator.yaml#
->>>> +        description: |
->>>> +          LDO regulator for auxiliary use.
->>>> +          It can used to power, for example, a PD controller that wil=
-l drive this PMIC.
->>>> +
->>>> +        properties:
->>>> +          regulator-min-microvolt:
->>>> +            minimum: 5000000
->>>> +            maximum: 5000000
->>>> +
->>>> +          regulator-max-microvolt:
->>>> +            minimum: 5000000
->>>> +            maximum: 5000000
->>>> +
->>>> +        unevaluatedProperties: false
->>>
->>> Place this line after description, that's the convention for child node=
-s
->>> for readability.
->>>
->>>> +
->>>> +    additionalProperties: false
->>>
->>> Place this line after description (for relevant block), that's the
->>> convention for child nodes for readability.
->>>
->>>> +
->>>> +  ti,sync-pin:
->>>> +    description: |
->>>> +      Selects the function of the SYNC pin, used when several convert=
-ers
->>>> +      operate in parallel.
->>>> +    $ref: /schemas/types.yaml#/definitions/string
->>>> +    enum: [input-rising, input-falling, output-rising, output-falling=
-]
->>>> +    default: input-rising
->>>> +
->>>> +  ti,ivp-thres-microvolt:
->>>
->>> Use either existing over-voltage-threshold-microvolt from battery schem=
-a
->>> or ti,ovp-microvolt from the other TI binding.
->>=20
->> IVP is not the same as OVP.
->
-> ... because? OVP is overv-oltage protection, so ivp is not input
-> over-voltage protection?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/msm: conflicting offsets and variants for LPAC regs in a6xx.=
+xml
+--
 
-Sorry, for me, OVP in this context was output voltage protection, and IVP i=
-nput
-voltage protection. I prefer 'ti,ovp-microvolt' but it does not really stat=
-e
-that this protection is for input voltage.
+commit cffea449b0ea5b2e3282237ed9e0160eef7997c8
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
->
-> Best regards,
-> Krzysztof
+temp: add LPAC regs
 
-Best regards,
+This commit adds LPAC and UCHE register definitions to the Adreno a6xx XML
+register database.
+
+> diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/=
+drm/msm/registers/adreno/a6xx.xml
+> index 3349c01646e12..bb49f6a61a9af 100644
+> --- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> @@ -276,6 +276,11 @@ by a particular renderpass/blit.
+>  		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
+>  		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
+>  	</bitset>
+> +	<reg32 offset=3D"0x0B09" name=3D"CP_LPAC_PROTECT_CNTL">
+> +		<bitfield pos=3D"3" name=3D"LAST_SPAN_INF_RANGE" type=3D"boolean"/>
+> +		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
+> +		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
+> +	</reg32>
+> =20
+>  	<reg32 offset=3D"0x084f" name=3D"CP_PROTECT_CNTL" type=3D"a6xx_cp_prote=
+ct_cntl" variants=3D"A6XX-A7XX"/>
+>  	<bitset name=3D"a8xx_cp_protect_cntl" inline=3D"yes">
+> @@ -333,6 +338,11 @@ by a particular renderpass/blit.
+>  	<reg32 offset=3D"0x0845" name=3D"CP_CRASH_DUMP_STATUS" variants=3D"A8XX=
+-"/>
+>  	<reg32 offset=3D"0x0908" name=3D"CP_SQE_STAT_ADDR" variants=3D"A6XX-A7X=
+X"/>
+>  	<reg32 offset=3D"0x0909" name=3D"CP_SQE_STAT_DATA" variants=3D"A6XX-A7X=
+X"/>
+> +	<reg64 offset=3D"0x0b00" name=3D"CP_LPAC_RB_BASE" variants=3D"A7XX-"/>
+> +	<reg32 offset=3D"0x0b02" name=3D"CP_LPAC_RB_CNTL" variants=3D"A7XX-"/>
+> +	<reg64 offset=3D"0x0b04" name=3D"CP_LPAC_RB_RPTR_ADDR" variants=3D"A7XX=
+-"/>
+> +	<reg32 offset=3D"0x0b06" name=3D"CP_LPAC_RB_RPTR" variants=3D"A7XX-"/>
+> +	<reg32 offset=3D"0x0b07" name=3D"CP_LPAC_RB_WPTR" variants=3D"A7XX-"/>
+>  	<reg32 offset=3D"0x090a" name=3D"CP_DRAW_STATE_ADDR" variants=3D"A6XX-A=
+7XX"/>
+>  	<reg32 offset=3D"0x090b" name=3D"CP_DRAW_STATE_DATA" variants=3D"A6XX-A=
+7XX"/>
+>  	<reg32 offset=3D"0x090c" name=3D"CP_ROQ_DBG_ADDR" variants=3D"A6XX-A7XX=
+"/>
+> @@ -521,6 +531,7 @@ by a particular renderpass/blit.
+>  	<reg32 offset=3D"0x0b29" name=3D"CP_SQE_AC_STAT_ADDR" variants=3D"A7XX"=
+/>
+>  	<reg32 offset=3D"0x0b2a" name=3D"CP_SQE_AC_STAT_DATA" variants=3D"A7XX"=
+/>
+> =20
+> +	<reg32 offset=3D"0x0b30" name=3D"CP_LPAC_CHICKEN_DBG" variants=3D"A7XX-=
+"/>
+>  	<reg32 offset=3D"0x0b31" name=3D"CP_LPAC_APRIV_CNTL" variants=3D"A7XX"/>
+>  	<reg32 offset=3D"0x0b34" name=3D"CP_LPAC_PROG_FIFO_SIZE" variants=3D"A7=
+XX"/>
+>  	<reg32 offset=3D"0x0b35" name=3D"CP_LPAC_ROQ_DBG_DATA" variants=3D"A7XX=
+"/>
+> @@ -1207,6 +1218,7 @@ by a particular renderpass/blit.
+>  	<reg64 offset=3D"0x0E08" name=3D"UCHE_TRAP_BASE" variants=3D"A8XX-"/>
+>  	<reg64 offset=3D"0x0E0B" name=3D"UCHE_GMEM_RANGE_MIN" variants=3D"A6XX-=
+A7XX"/>
+>  	<reg64 offset=3D"0x0E0D" name=3D"UCHE_GMEM_RANGE_MAX" variants=3D"A6XX-=
+A7XX"/>
+> +	<reg32 offset=3D"0x0E12" name=3D"UCHE_DEBUG_CNTL_1" usage=3D"cmd"/>
+
+[Severity: Medium]
+Should these new register definitions specify narrower hardware variants to
+avoid colliding with existing A6XX, A7XX, and A8XX registers during header
+generation in drivers/gpu/drm/msm/registers/gen_header.py?
+
+First, UCHE_DEBUG_CNTL_1 is added at offset 0x0E12 with usage=3D"cmd" and no
+variants attribute, while leaving the existing definition for 0x0e12 on
+A6XX-A7XX in place and overlapping with UCHE_GBIF_GX_CONFIG on A8XX-:
+
+	<reg32 offset=3D"0x0e3a" name=3D"UCHE_GBIF_GX_CONFIG" variants=3D"A6XX-A7X=
+X"/>
+	<reg32 offset=3D"0x0e12" name=3D"UCHE_GBIF_GX_CONFIG" variants=3D"A8XX-"/>
+	...
+	<!-- always 0x03200000 ? -->
+	<reg32 offset=3D"0x0e12" name=3D"UCHE_UNKNOWN_0E12" variants=3D"A6XX-A7XX"=
+ usage=3D"init"/>
+
+Because UCHE_DEBUG_CNTL_1 has no variants restriction, dump_reg_usages() in
+gen_header.py emits 0x0e12 into CMD_REGS<A8XX> where that offset is
+UCHE_GBIF_GX_CONFIG, and leaves duplicate definitions for 0x0e12 on
+A6XX-A7XX.
+
+Second, CP_LPAC_RB_BASE (0x0b00), CP_LPAC_RB_CNTL (0x0b02),
+CP_LPAC_RB_RPTR_ADDR (0x0b04), CP_LPAC_RB_RPTR (0x0b06), CP_LPAC_RB_WPTR
+(0x0b07), and CP_LPAC_CHICKEN_DBG (0x0b30) use open-ended variants=3D"A7XX-=
+",
+which includes A8XX. However, on A8XX- the LPAC ringbuffer registers are at
+0x080b-0x0812 and offsets 0x0b00-0x0b01 are reassigned:
+
+	<reg64 offset=3D"0x080b" name=3D"CP_RB_BASE_LPAC" variants=3D"A8XX-"/>
+	<reg32 offset=3D"0x080d" name=3D"CP_RB_CNTL_LPAC" variants=3D"A8XX-"/>
+	<reg32 offset=3D"0x080e" name=3D"CP_RB_RPTR_WR_LPAC" variants=3D"A8XX-"/>
+	<reg64 offset=3D"0x080f" name=3D"CP_RB_RPTR_ADDR_LPAC" variants=3D"A8XX-"/>
+	<reg32 offset=3D"0x0811" name=3D"CP_RB_RPTR_LPAC" variants=3D"A8XX-"/>
+	<reg32 offset=3D"0x0812" name=3D"CP_RB_WPTR_LPAC" variants=3D"A8XX-"/>
+	...
+	<reg32 offset=3D"0x0b00" name=3D"CP_SLICE_MEM_POOL_DBG_ADDR_PIPE" variants=
+=3D"A8XX-"/>
+	<reg32 offset=3D"0x0b01" name=3D"CP_SLICE_MEM_POOL_DBG_DATA_PIPE" variants=
+=3D"A8XX-"/>
+
+Other A7XX LPAC registers in the 0x0b0a-0x0b40 range use variants=3D"A7XX" =
+or
+variants=3D"A6XX-A7XX".
+
+Finally, CP_LPAC_PROTECT_CNTL at offset 0x0B09 omits a variants attribute
+(exposing it on A8XX) and duplicates the bitfields inline instead of using
+type=3D"a6xx_cp_protect_cntl" defined immediately above it:
+
+	<bitset name=3D"a6xx_cp_protect_cntl" inline=3D"yes">
+		<bitfield pos=3D"3" name=3D"LAST_SPAN_INF_RANGE" type=3D"boolean"/>
+		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
+		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
+	</bitset>
+
+	<reg32 offset=3D"0x084f" name=3D"CP_PROTECT_CNTL" type=3D"a6xx_cp_protect_=
+cntl" variants=3D"A6XX-A7XX"/>
+
 --=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D8
