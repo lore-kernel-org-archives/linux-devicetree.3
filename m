@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313248;
-	b=0rxW963X7Xm1vlllalHEUWJwZI9nU40WdUTz79zPyV4Mm62WaJsgMPmMEW8HO0MaiWfC
-	 aJv5tv+JxkGLbFY5HT+kyA2/f3PEDX0d3Nm3IMhpRAeU3KZWH63dISo0m6pl/SJs2rHCy
-	 ZYqa7XPh0CPz7dXuCZTKekeXENUvGj4evNuHCXJzDbHYxcDLudPY71z/1TGQ/RShA2bt5
-	 GJ4tz9rlBAjf2NhbVhEDKKhWftXk+5BtfSgoS2c67Ws0uwb1aC72pybRfQGwh5X62cacE
-	 DZylsNb1gb9i1Yi2yfY9H74UfwmalIjh/1rBMQNHXfhI/kKSQsXB+r9vqIJ1s0GJS/A==
+	t=1793314131;
+	b=iF80jKNQ1El03CqPk1+wnT1xl9YE0aGPWifprnpvDDraGxCcdpkdkbsr7gWvFoTQN1Az
+	 GV9HtaHehDmm5fN+3kJk6eeiQAiFE/T2XrxPdN95nq84NuG3YI9TXSzzMxAA8xN0rGoy2
+	 39E8QtyzRMphPG+8jMzNkZQ1zXlPr+eM/rJ6cToFl0d5vFIluw3woQx/LrH5+hknRrXZb
+	 IKynE59uWa6RwcJmnCnpcxG5nOctoct+SrxbEfmsZfD5JGJdm5+Y3VAmgtcxWN7pDe2ac
+	 2izHkRIPzIJJqYQpIEXtx/cmjZjhhceI/e69vBLTmgv5AHUpJEoANHKxdd9G8aC5aDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313248;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WASSA4Njt5c594yDZYU85Ex9NsemwZ3Jk+8pja+CF3k=;
-	b=M4XU2RrGv7Eo5GTI1bWQ8ogDxDH6OCfyCyfpiPHjeWndyipQswINXzVt+pShsC58+dQf
-	 CV7jvghxijtbqEZyKnLm9Bd+La1sqmkXncBNFU/IHO76AYfA6LjT7V141eqi+0CD7NkcB
-	 7zQSXXBPmT/L7AM/E3SHn85GeUGaUgS+dOWLFOWIbFN8wcQ9SzqS3xKxOlxLYXN3ppuki
-	 LMtcCHg3dFl3zdTReS/KREdR9q2LFRg2stNLhXjzu4KmxrPeP/0sIDFaXmOdHzek6y0lM
-	 Jvu5S0PIgFCae5NM2SXCiR0ixiNT3PJ+P9d/0vcqCzdQm3v4U3YIBwfFK3I2ltRoJhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793314131;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/7wmfqpqBqHZu2/Loju2AE5ZUskXeCIDwEQSBEfIOLM=;
+	b=rnRYny/sA/sBu7fhwrJwpxrqjTmaAtOs6ZTDh+1uvYBStYnnR62IJv/3l9NQdcG18Khq
+	 y18OW1mzchAh5dzzZas6BgSmGkMqBxqx/hNXm7d57Ac1y99Ct9j0HnLuSMV23GZ18IyiR
+	 L3Bd624jJf52oGK5PmYJ8bNas8xFfmpFVLASAi1ESUKtGF2neSXACuyQey4EoiIKMbNXE
+	 TI1O01Xfr4xFEADM3fF1gq9BXeoYLRm4e52FttEdXORNQQELFs2azQcBY+dqD5TUWBsSI
+	 CPI1Wk+4czxsOnRnDqEVO2yzLMpwLhyq8cfIJmvZKxHPJ6PFphTPOzSdKs7c9E1bjEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Sq3DbXyV;
-	arc=none smtp.remote-ip=79.135.106.28
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCU+PYJW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC93160A2629
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 22:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC93160A2629
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC944606A31A;
+	Thu, 29 Oct 2026 22:48:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Sq3DbXyV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793313245; x=1793572445;
-	bh=WASSA4Njt5c594yDZYU85Ex9NsemwZ3Jk+8pja+CF3k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Sq3DbXyVdwU5PksddanUig6uCq6omy4KV3tYUjQ3hQb0W38SJxPj/HNkyE++EnOrl
-	 H4qwIoTophmQLpxp122AVJAy53r/rnsQYAD6S8NCwVX4RQ92mGRLEygj0jUkF3WJHq
-	 nQlSt5cfBKmQ97Y7gBFDQ0L84QEzw7hxOBPg/RrJdG1MXi7ThTYwj7HMviS85Mqmnr
-	 VY2fQ6++10hNGD+6yQnGjijyPqOxFg9Rhl6Ej4gXVSpueYyDNi3P6IUNCDSIYFp8xC
-	 3lvwasCZvnjpJiQ2F8T6ZMQId5bi0BEb7RZgMHE9SYZ7miTqwp+r/4LDlUDsVgvo5M
-	 8iCyWOQLh2U6g==
-Date: Thu, 29 Oct 2026 22:34:00 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 5/5] arm64: dts: qcom: milos-nothing-asteroids: Enable panel
-Message-ID: <20261029-asteroids-dts-updates-v1-5-79351337d681@pm.me>
-In-Reply-To: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
-References: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: a4d7f84c97b0931c526bcae9372aa0694dfad82f
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCU+PYJW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE6B1F01816;
+	Thu, 29 Oct 2026 22:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793314130;
+	bh=/7wmfqpqBqHZu2/Loju2AE5ZUskXeCIDwEQSBEfIOLM=;
+	h=From:To:Cc:Subject:Date;
+	b=QCU+PYJWBFNLD308NFlV7u9k/uhO7+uOVMsU9Swgf/wecGr0yqxoDtrKBKx+9Ff5I
+	 gSbu4Aiwr3LqsDq0ffDAPpv5bOBPwdqi50CrM9Fn6FJ50fLyeJROfPv2/i9fsI4xpi
+	 tkm08ww1RaK2SckVV+LzKnrpo3KhUWhzS9zJKwp8G0DZeaHB0SzHHO1kPc/MMZufla
+	 UcM2DShax4maF/nEmK4gA/5nX4OGfdCUHpxo3zOmKPBvhzYcKUD5smdFAGbVAh5MEA
+	 /8ZjJ14eoc95gi/vLTHi2l4zhf0d7F+rfUKIBSikIPA2UnesXzOxV4DSj+bZdXa+Rq
+	 uz5pC+Kn6ID3g==
+From: Danilo Krummrich <dakr@kernel.org>
+To: robh@kernel.org,
+	saravanak@kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH] of: unittest: Require BUG_ON_DATA_CORRUPTION to be disabled
+Date: Thu, 29 Oct 2026 23:44:24 +0100
+Message-ID: <20261029224843.1155201-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,116 +58,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Configure and enable the node for the BOE BF068MWM-TD0 display panel on
-the Nothing Phone (3a).
+With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
+machine no longer boots after commit 5b5224220747 ("refcount: Use
+CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
 
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+of_unittest_lifecycle() deliberately calls of_node_put() after the
+node's reference count has reached zero. The test expects a warning and
+continues to check that a subsequent put does not produce another
+warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
+triggers BUG() instead. This panics the kernel during boot:
+
+	kernel BUG at lib/refcount.c:37!
+	Oops: invalid opcode: 0000 [#1] SMP NOPTI
+	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
+	RIP: 0010:refcount_warn_saturate+0x89/0x90
+	Call Trace:
+	 of_unittest_lifecycle+0x158/0x310
+	 of_unittest+0x105/0x130
+	 do_one_initcall+0x127/0x350
+	 do_initcall_level+0x7c/0xe0
+	 do_initcalls+0x59/0xa0
+	 kernel_init_freeable+0x118/0x1a0
+	 kernel_init+0x1f/0x140
+	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+
+Make OF_UNITTEST depend on !BUG_ON_DATA_CORRUPTION and explain the
+restriction in its help text.
+
+Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- .../boot/dts/qcom/milos-nothing-asteroids.dts      | 70 ++++++++++++++++++=
-++++
- 1 file changed, 70 insertions(+)
+Alternatively, we could also just remove the refcount underflow tests. It seems
+they are not really testing anything OF specific, but rather test the refcount
+implementation.
+---
+ drivers/of/Kconfig | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts b/arch/ar=
-m64/boot/dts/qcom/milos-nothing-asteroids.dts
-index af115295a20d..e1edbb603e98 100644
---- a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
-@@ -86,6 +86,20 @@ pmic_glink_sbu: endpoint {
- =09=09};
- =09};
-=20
-+=09vreg_oled_dvdd_1p8: regulator-oled-dvdd-1p8 {
-+=09=09compatible =3D "regulator-fixed";
-+=09=09regulator-name =3D "oled_dvdd_1p8";
-+=09=09regulator-min-microvolt =3D <1800000>;
-+=09=09regulator-max-microvolt =3D <1800000>;
-+
-+=09=09gpio =3D <&tlmm 109 GPIO_ACTIVE_HIGH>;
-+=09=09enable-active-high;
-+
-+=09=09vin-supply =3D <&vph_pwr>;
-+
-+=09=09regulator-boot-on;
-+=09};
-+
- =09vreg_s1j: regulator-pm3001a-s1j {
- =09=09compatible =3D "regulator-fixed";
- =09=09regulator-name =3D "pm3001a_s1j";
-@@ -889,6 +903,48 @@ &ipa {
- =09status =3D "okay";
- };
-=20
-+&mdss {
-+=09status =3D "okay";
-+};
-+
-+&mdss_dsi0 {
-+=09vdda-supply =3D <&vreg_l4b>;
-+
-+=09status =3D "okay";
-+
-+=09panel@0 {
-+=09=09compatible =3D "boe,bf068mwm-td0", "raydium,rm69220";
-+=09=09reg =3D <0>;
-+
-+=09=09reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
-+
-+=09=09dvdd-supply =3D <&vreg_oled_dvdd_1p8>;
-+=09=09vci-supply =3D <&vreg_l19b>;
-+=09=09vddio-supply =3D <&vreg_l9b>;
-+
-+=09=09pinctrl-0 =3D <&disp_reset_n_active>;
-+=09=09pinctrl-1 =3D <&disp_reset_n_suspend>;
-+=09=09pinctrl-names =3D "default", "sleep";
-+
-+=09=09port {
-+=09=09=09panel_in: endpoint {
-+=09=09=09=09remote-endpoint =3D <&mdss_dsi0_out>;
-+=09=09=09};
-+=09=09};
-+=09};
-+};
-+
-+&mdss_dsi0_out {
-+=09data-lanes =3D <0 1 2 3>;
-+=09remote-endpoint =3D <&panel_in>;
-+};
-+
-+&mdss_dsi0_phy {
-+=09vdds-supply =3D <&vreg_l2b>;
-+
-+=09status =3D "okay";
-+};
-+
- &pm7550_flash {
- =09status =3D "okay";
-=20
-@@ -1027,6 +1083,20 @@ &tlmm {
- =09gpio-reserved-ranges =3D <13 1>, /* Display */
- =09=09=09       <63 2>; /* WLAN UART */
-=20
-+=09disp_reset_n_active: disp-reset-n-active-state {
-+=09=09pins =3D "gpio12";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <8>;
-+=09=09bias-disable;
-+=09};
-+
-+=09disp_reset_n_suspend: disp-reset-n-suspend-state {
-+=09=09pins =3D "gpio12";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-pull-down;
-+=09};
-+
- =09qup_uart11_sleep_cts: qup-uart11-sleep-cts-state {
- =09=09pins =3D "gpio48";
- =09=09function =3D "gpio";
+diff --git a/drivers/of/Kconfig b/drivers/of/Kconfig
+index 50697cc3b07e..316e32b35b17 100644
+--- a/drivers/of/Kconfig
++++ b/drivers/of/Kconfig
+@@ -21,6 +21,7 @@ if OF
+ config OF_UNITTEST
+ 	bool "Device Tree runtime unit tests"
+ 	depends on OF_EARLY_FLATTREE
++	depends on !BUG_ON_DATA_CORRUPTION
+ 	select IRQ_DOMAIN
+ 	select OF_RESOLVE
+ 	help
+@@ -32,7 +33,9 @@ config OF_UNITTEST
+ 	  will taint the kernel with TAINT_TEST. The tests will cause ERROR and
+ 	  WARNING messages to print on the console. The tests will cause stack
+ 	  traces to print on the console.  It is possible that the tests will
+-	  leave the devicetree in a corrupted state.
++	  leave the devicetree in a corrupted state.  BUG_ON_DATA_CORRUPTION
++	  must be disabled because the tests deliberately trigger refcount
++	  underflows and expect execution to continue.
+ 
+ 	  The unittest output will be verbose.  Copy the output to a file
+ 	  via capturing the console output or via the dmesg command.  Process
 
---=20
-2.55.0
-
+base-commit: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
+-- 
+2.56.0
 
