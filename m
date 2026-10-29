@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267271;
-	b=zAMfmdHyYDCaqGvwLPxieDG5tQmsz6xM9Mk6UsgqzX0gweuxA3U6tuUXF3QD9IeCXq7I
-	 kjpv/Lp/Xr3mMk94HJAcgNOcR3ZP6iM8tGQaM2j4ZFxMKtrk1jxnPWkERopCUMHZBzIAb
-	 G6tjfNzIvEOofSoZpVaZs3mm1uEf5O4kaScSsYuKKwvLoHbZMm46BiGsJ0oupwdEvIJM5
-	 J+uT2b2dpfHvnlXb6LiRSSy3/O/9Ux3b3HRU+Y7smlB55pWdq+OE3EZPXMQRD7enXvVka
-	 Qm/oUay1NB4mhQS6tG5oYA5b8IEDFcbX8P66Pnd30TVifLx0Qmzfkjr55+vTz11ejtQ==
+	t=1793267276;
+	b=wkn0Gzq7heUfaxn7HBHZ6ck/toqROMvOTedV0vb1Z5HLLRNKZHJHFAv2YvFHQbQ42hCK
+	 y0gOVzaF6Ic6UUrC25oSPu8J3K0z8cARJAAwRj5CZjY7ElXBgAzhRYXULCfG2hWTOtpiG
+	 KLSG/XeKaMrIRm5AjtrkHwUKogrRk2bodWF/NUaEWlfdDFJtu1UVQQFhuLTfbs0hCQjqs
+	 J9tIut1FmDLCSDvsypZVR4nd7VwIUlGO1uaii7uJ7pnzbxblZcpczVHMVlj4vNjuuLIay
+	 5n8TrkKGM+Z+Nc1dlnoeCSwYg99smy0crloSltHVXrq1KXbW8bvEFxiBnZHklqXmuIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267271;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JLznhEesXud6u4BhPm2aVn2jx6Uyq7IzPp7BgTwUqZA=;
-	b=l3/R25hAahaChuDYFLF9g8nbRW6U1D6SPCDx8h0tNXWo1uie+XFpjgcguqnUynOoWzmr
-	 kSC6xTq6FXKHkhYCgYg1LPz/AyjplqJLZgZJXlpyYeSwxKQVjiw3t+QfdvAXVuhKohIq+
-	 kFT0V1/hauAu1xoFYd6A0LCEoQjeKZq7R5JO7JLp4LOaLnJa6x8XIvxFXD6kUV3b1WiJN
-	 nr/gBhdcBe6RUCpf9wCXDb16+IoNmlnOYzFhBdoCbIPvZRkQplnKpwQjMMqO+pANZwbZm
-	 VPqwh+ObFVvfvBAKdz01xNdkwiOWmEYe1Lc2fRBoOrWKc3fJKSrTW0+1jjNRKBuEZ8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267276;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/mskCAFxLZ+COhVPqAHcLrZn7vGJxbkrJ1/AStDRBmw=;
+	b=E7arY4q8c3wcUCXtL3eQyu0wpft4CF48scNb0imFBwt4JQWngZDpjByVEejlhdkfSd4r
+	 dNXPZG7x3+seKg9AcW8AAr14T1PTtQtpjU/uXstlwAzFwSdmCDg7J3ZT4sOAHv6YUgkmB
+	 Qh8nzXTTsPcf6n8cnphvXmWOdmtnAic7oQxXe5Ad8wYDWWiPHjLvaM7hyaZRDtAbyGK0t
+	 gbdzOzxQ0kfwM4jucuRWQMS4cIk57PTrt0MyQijNxvrn6VHJTMiRNTu1F+Pf3RLmZvurY
+	 mfpPU6pNGtoCHlIv4FZLd4eZIkVPMxsTquxn1JwHNFve0H+KSmCBJjcBkJCtUIKKKyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RkNO3YA/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVJLq56d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60273606A31C;
-	Thu, 29 Oct 2026 09:47:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBF5606A31E;
+	Thu, 29 Oct 2026 09:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkNO3YA/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D321F01825;
-	Thu, 29 Oct 2026 09:47:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVJLq56d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422AC1F01825;
+	Thu, 29 Oct 2026 09:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793267271;
-	bh=JLznhEesXud6u4BhPm2aVn2jx6Uyq7IzPp7BgTwUqZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RkNO3YA/U3bdXgOGg3qaT6s0CRkCmGtMa3IPUXdj7t1NrzXf1n+M7826uasZ34CtD
-	 u3n2IDEKU+VDxWzJTSD4Gesei7glRO5XZhVaxNZcIzYIGR+0DWWHBkrxWdM4jQaPLQ
-	 hpBpcNZ45+GtMjBm6XWjvunXCMZEZLpo88tml1ZGSidQQfWIwSv0FQMMdLQ6Xz0pms
-	 ZEnxxO8bG+Y1txS8gMu+zcnUsVhVW3OYtZKgCH4TIb/kMTkpucUlJdhKWU3ru7sgOn
-	 9SmAB+10cMQVk35G3nN98jR+qkGY/Jl5lxBNWTeRgarb8xaZhLJlHaUbYkZ4UpUwXG
-	 p3AdtdwGwIh1g==
-Date: Thu, 29 Oct 2026 10:47:47 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
-Message-ID: <20261029-rustling-scrupulous-peacock-5e6b03@quoll>
-References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
+	s=k20260515; t=1793267275;
+	bh=/mskCAFxLZ+COhVPqAHcLrZn7vGJxbkrJ1/AStDRBmw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QVJLq56d9MLEwEOOO8aOB2B3vUo+cAT20hqEu4xUTfdLWYcWAWL8xxDlMKuLbqQIX
+	 D+Fqpg3ldBdejPJJm0OE5uLglHjha+aYpC8EvscVLebx9hp5zhG/ib12dQJH6sDCP3
+	 Uh5oE1MWxsEhuAhfuHvJTxXLG3OBnKc+f7o0tEPd8r3B8YPLstPPSdeVFW24qsYfSL
+	 J9P8L6dxccbLCPKWwpx+f9/k3ViEwtVfC/BzVENXsCBYPUdMtHRiuBc5JzxqixJMKq
+	 BCIiClSP8NSKDxqzxxme8GEE/q2nVTgiSUSJBhd0xX1Twd7zOtXsLkw1mZqAMJrOIz
+	 goWlzVij2nRfQ==
+Message-ID: <sashiko-outbox-189068@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC RFT v2 2/3] clk: divider: add
+ CLK_DIVIDER_INVALID_ZERO flag
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jian Hu" <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261029-meson_refactor_n-v2-2-ff4ac74e527b@amlogic.com>
+References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+ <20261029-meson_refactor_n-v2-2-ff4ac74e527b@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 09:47:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,177 +60,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
 
-On Tue, Oct 27, 2026 at 03:44:08PM +0200, Nicolae-Daniel Deaconescu wrote:
-> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> 
-> Add bindings for the LTC2387-16 and LTC2387-18, 15 Msps SAR ADCs with
-> an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
-> uModule ADCs, which pair an LTC2387 die with a fully differential
-> amplifier front end.
-> 
-> Conversion start (CNV) and the gated LVDS clock are driven by two PWM
-> channels. Sample data is captured by an AXI ADC IP core, referenced
-> through io-backends. adi,use-two-lanes selects two-lane output, and
-> adi,gain-milli gives the front-end gain: fixed at 2 on the ADAQ23875,
-> set by pin strapping on the ADAQ23876 and ADAQ23878.
-> 
-> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-> Assisted-by: Claude:claude-opus-5-5
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] clk: divider: unhandled zero divisor in divider_ro_determine_rate()
+--
 
-Drop tag. Not correct value for some time and recently checkpatch
-complains. Anyway, your tag is the last one.
+commit 5ec3118aee2f03855552c58a4a8533e035b565bc
+Author: Jian Hu <jian.hu@amlogic.com>
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+clk: divider: add CLK_DIVIDER_INVALID_ZERO flag
 
-> ---
->  .../bindings/iio/adc/lltc,ltc2387.yaml        | 138 ++++++++++++++++++
->  MAINTAINERS                                   |   8 +
->  2 files changed, 146 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
-> new file mode 100644
-> index 000000000000..f912260c8f79
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
-> @@ -0,0 +1,138 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright 2022 Analog Devices Inc.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/lltc,ltc2387.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Linear Technology / Analog Devices LTC2387 ADC
-> +
-> +maintainers:
-> +  - Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> +  - Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-> +
-> +description: |
-> +  The LTC2387-18 is a low noise, high speed, 18-bit 15Msps
-> +  successive approximation register (SAR) ADC ideally
-> +  suited for a wide range of applications.
-> +
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/238718fa.pdf
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/238716f.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,adaq23875
-> +      - adi,adaq23876
-> +      - adi,adaq23878
-> +      - lltc,ltc2387-16
-> +      - lltc,ltc2387-16-x4
-> +      - lltc,ltc2387-18
-> +      - lltc,ltc2387-18-x4
-> +
-> +  clocks:
-> +    description: Sampling clock
-> +    maxItems: 1
-> +
-> +  pwms:
-> +    maxItems: 2
-> +    description:
-> +      PWM signals used to synchronize the sampling procedure
-> +
-> +  pwm-names:
-> +    items:
-> +      - const: cnv
-> +      - const: clk_gate
-> +
-> +  io-backends:
-> +    description:
-> +      The AXI ADC IP block (axi_ltc2387) that captures the LVDS data stream.
-> +    maxItems: 1
-> +
-> +  vref-supply:
-> +    description:
-> +      External voltage reference. When absent the device's internal 4.096 V
-> +      reference is assumed.
-> +
-> +  adi,use-two-lanes:
-> +    description: The device uses two lanes for data transfer
-> +    type: boolean
-> +
-> +  adi,gain-milli:
-> +    description:
-> +      Gain of the fully-differential amplifier that the ADAQ2387x modules
-> +      integrate ahead of the LTC2387 die, expressed as gain * 1000. It is
-> +      fixed on the ADAQ23875 and set by pin strapping on the ADAQ23876 and
-> +      ADAQ23878, so it must match the board. The bare ltc2387-* parts have
-> +      no amplifier.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [370, 730, 870, 1380, 2000, 2250]
-> +
-> +required:
-> +  - compatible
-> +  - clocks
-> +  - io-backends
-> +  - pwms
-> +  - pwm-names
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - lltc,ltc2387-16
-> +              - lltc,ltc2387-16-x4
-> +              - lltc,ltc2387-18
-> +              - lltc,ltc2387-18-x4
-> +    then:
-> +      properties:
-> +        adi,gain-milli: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: adi,adaq23875
-> +    then:
-> +      properties:
-> +        adi,gain-milli:
-> +          const: 2000
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,adaq23876
-> +              - adi,adaq23878
-> +    then:
-> +      properties:
-> +        adi,gain-milli:
-> +          enum: [370, 730, 870, 1380, 2250]
-> +      required:
-> +        - adi,gain-milli
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    adc {
-> +            compatible = "lltc,ltc2387-16";
+This commit introduces the CLK_DIVIDER_INVALID_ZERO flag for dividers where
+a zero divisor value represents an invalid hardware state rather than a
+pass-through. When this flag is set and the divisor evaluates to zero,
+divider_recalc_rate() returns 0 without emitting a warning.
 
-Use 4 spaces for example indentation.
+> diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
+> index f68216c65d3df..6c1523d22477c 100644
+> --- a/drivers/clk/clk-divider.c
+> +++ b/drivers/clk/clk-divider.c
+> @@ -143,6 +143,9 @@ unsigned long divider_recalc_rate(struct clk_hw *hw, =
+unsigned long parent_rate,
+> =20
+>  	div =3D _get_div(table, val, flags, width);
+>  	if (!div) {
+> +		if (flags & CLK_DIVIDER_INVALID_ZERO)
+> +			return 0;
 
-Please run dt-check-style.
+[Severity: High]
+Should divider_ro_determine_rate() in drivers/clk/clk-divider.c also handle
+a zero divisor when CLK_DIVIDER_INVALID_ZERO or CLK_DIVIDER_ALLOW_ZERO is
+set?
 
-Best regards,
-Krzysztof
+When a read-only divider has a register value val that maps to div =3D=3D 0=
+ via
+_get_div() (for example, when CLK_DIVIDER_INVALID_ZERO is combined with
+CLK_DIVIDER_ONE_BASED or an unmapped table entry alongside
+CLK_DIVIDER_READ_ONLY), calling clk_round_rate() or clk_set_rate() invokes
+clk_divider_determine_rate()->divider_ro_determine_rate():
 
+drivers/clk/clk-divider.c:divider_ro_determine_rate() {
+	int div;
+
+	div =3D _get_div(table, val, flags, width);
+
+	/* Even a read-only clock can propagate a rate change */
+	if (clk_hw_get_flags(hw) & CLK_SET_RATE_PARENT) {
+		if (!req->best_parent_hw)
+			return -EINVAL;
+
+		req->best_parent_rate =3D clk_hw_round_rate(req->best_parent_hw,
+							  req->rate * div);
+	}
+
+	req->rate =3D DIV_ROUND_UP_ULL((u64)req->best_parent_rate, div);
+
+	return 0;
+}
+
+Unlike divider_recalc_rate(), divider_ro_determine_rate() does not check for
+!div before calling DIV_ROUND_UP_ULL(), which will trigger a division by ze=
+ro
+in the kernel when div is 0.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-meson_refa=
+ctor_n-v2-0-ff4ac74e527b@amlogic.com?part=3D2
