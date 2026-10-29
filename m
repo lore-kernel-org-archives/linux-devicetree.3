@@ -1,82 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260443;
-	b=vI2tgdNZ2A807yyDHAbWuCCtd5PLlTswX7yG5fH6Glnb+zG3A1ERDBM4tKSOGHP9Kmtf
-	 6b3JBgmWvjpUq+SFlTzJtyg/4ctaGUV9Y6juyZxG6pqalPSvoAF4uclHcHPeAgFD3L7sg
-	 BoneI1TEHcKFLzfo2Ov9ThSHXSlfqBu1jMtr4wkkCA9POX3T4RTdEGSitNLNS2VvIhopQ
-	 G9+KkRDuXUQc7Bt2pzlJLD61GcQq35SMfcH2bNDhnPS7VlnEAr34wT+uQyokv0tMwVyh6
-	 AkuxSeaNSz68xw4oiuAWsCaTCovCdeWw9T1PsF5Nd4mCiT+YZn1AJrk+Kj8FuzEd9WQ==
+	t=1793260455;
+	b=dbIaJrrqF/hmG92Za/6rUXje0mM7pKjyeKYzcMkhocgYWQ6lBSeiGMpKW55OZlSMDV60
+	 1oc5GvVMPPfE3b3rf0XNuutWhV7XyrpUnYzM4hsC+ATDxS31Y60vO5UfdQu3zAWh9Ga6G
+	 WI0dp5MS28n08TlwTVST8yI6SndQ/6rD1+6znuC/NXknCwdEBDH0qF8+O4EgstTj6NrLk
+	 p7T0HxkOAGIAsVFbpVzrTndxOsT9zYFk4ZSJ1cLFLC7MPq032fWyJO//YzXX8vvbNlpXj
+	 h+NjhEfrsBOxWSmJxQ0caJ3uD4TVApMwEVDkvM4lGgXRYl3jM+KMbxr1NZailfuH+EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260443;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
-	b=BHmIueVmW37jt6FsJFkJ6WhroaRc+vpX2S1eiLZuYJNJXifdrHyQwYxrS467h0U80+w5
-	 aGYdy9keqtUDT4n4aTfWVqaWcK37Z0HioBd15DXbBkmXGKsDauzIMfdH2Viv526R9AjbV
-	 D/ZcztBGNxC91lXQizByQ6ZbDekaikqhTg1YN2XjiSJm1NArBjJjKTRp+CtjGg7wfEi2t
-	 Hg7QE47fgKj0h4dvYZxwMUqALPk0B9TC8EsBoua0EcbtskZqWeSltyy3q6lUdhPW7twd0
-	 Oo2NXBBE0/pZ/6t3AJzOS8sKrQa4GoK9vCG4JB6qprFx5LX7FEVbGoGR/YeHio8kDkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260455;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=Jb5gzKvfaqELUfJ8ZBrUbnjyGYZVgSoriC0f7YhiiAM=;
+	b=uomB5MFtDA1VdwpJ4/aa7SEzQa7poKqTdf33PuhqJFyGa52hV9uRS0BNR5V6w4y7T53V
+	 uePCF8pTGw1vBkvXfkJHCyx+B+6OB2bKq4g+YBV+oj6FqmunSEH6rIfFrZle+MBBMQ9NL
+	 SOfAHy2ohVKQk9gSsk1nkcACTce34P1Ft8QO+AKZmrnu6CrN9WxdrWmi8iE9jLwVHGuGy
+	 4yTURiQn9EmpSnyVRKSc4fROE7GwEexuv49zeskMHWCSErWr/2jOzDYmCPd6RYLlpmHis
+	 uA2KNP6Ryt2r9P59bX8VtyM45T3vmo8kQB4pzk53AuXud+6YdEmtmncSMoqJEhq1wkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9;
-	arc=none smtp.remote-ip=203.205.221.153
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=poEQRPzf;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4880606A33F;
-	Thu, 29 Oct 2026 07:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4880606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD20606A33D;
+	Thu, 29 Oct 2026 07:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD20606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260433; bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BxTwrrB9g8/9sBfNrbRXqDcKxrMtT41fqwENdllmX3Jt1sSD1lTh/5sz8qcpCbAfP
-	 LfTFZAW9EFlkdpRo8uJ4nIUQUjVPwwBv/hwwMjWBRgduwr9uAzAI1/xL5y1JrxuVEx
-	 rbrHkhHxsdmvaBkGVoHDB4p0c2MWwU7yJdBEqUF4=
-Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id D72B54D1; Thu, 29 Oct 2026 15:53:50 +0800
-X-QQ-mid: xmsmtpt1793260430t668yju5m
-Message-ID: <tencent_D8BA93484FB26CC87737CDE3FA8A814DE00A@qq.com>
-X-QQ-XMAILINFO: MMvVzQSdFuTppOYJSOTANJnlYcIIuqSwAik6qc77uSYXBNxBn+cQDC22xPvHA0
-	 6mwN9fAA0iA/MQv9LfptzLzuPZe9+ZXM21R8b6xlBmDRnvnGu+hrAX2kZrgNuxPo1h/Wq4ypvsxz
-	 QtYrDbPa404AGgIBHZzme7qZyu81Vo6E8kM9z1bZ4pyeBotICQXWEM05JnM/S780wE4HGxwlg/Fj
-	 gULymvHaCp+pxej43G3X2vX8z9PFJD6MJ7/bhaNBZIFzCx50m96RU20eTXAoTCAiD2iopv6QsPZ+
-	 emGKD8eyKAhTHcIhbpH8TerZkEvZ3Gce6jBrS5bZcxuBN9eQf0r98J0ws3h5NNogBO6iNm1/b51D
-	 frQceaHJrdRZTrSMDYY7a479F2nvcKBLv5S/CLJ2TSyiA78am/btU62phfY6Vrp787/7gfMILVEK
-	 b4oBWu8JCLTkd+XSgGQ4pLVUKg3ts9T3aEFrXjdbfrw9rq40WjuFXTYtRM8IzQNn5VQdR1wTXfeU
-	 AOf36qnBehLMhpW568sYAd5jj5NwlnThdO2DEtzS2y37Gj7Up4XhWn74hws4VcZHM65Ifrmm9MbB
-	 8mG2HfNZODjOjA9Dg5id3W36cfPiMpFbBXCHGlE3fJc3LIpUvrov+X02cGXE0EXxxfQ2M8CJVgrZ
-	 TirV+OWGCjX/elxXbGFjSt8uRmLoxnIKnNtm8nmJ1t3eP8RJuJKc38t2gKKWpQGioocrcrCg2FNt
-	 6xEJHLPIEMQTJba21+nOUDfD1Qhv7f67IQQbwl0XP6a2is/QxiRBKc6yfmQmuE53G1WEiJhDfu4S
-	 vSF36DL8gkeo/HCGfWaAvLPMlFOuIexcpopjaF/V9NhwH7kS1CgqJyDlsF/ISirXh3L2Aq42P047
-	 9Uqebvx781xiS9KthQI2Z2odFVhm3s0a/LzwrdMeGe0SDhWXbeE7HEpDS7mvXZbBOYJMsfh+a53i
-	 yBMGhXsv5UBJpac0jo7lukuD9SXL0Z7NvFUfbHdoNS/2Gi8x7qirlBCQpYfmvW88rOZczv2Dv86V
-	 FMF+a2SqL0R7ZywjmdO6sPZ/03ar3wDC6IgCqUnh5KFtp14NeQYzR/c4iHSvA=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Cc: Shuai Liu <847807867@qq.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Thu, 29 Oct 2026 15:53:50 +0800
-X-OQ-MSGID: <20261029075350.2906476-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=poEQRPzf
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029075413euoutp018fc5cb093a6b5f3b7ba7f502cf7623e1~i8OGt0YvC1093810938euoutp016;
+	Thu, 29 Oct 2026 07:54:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029075413euoutp018fc5cb093a6b5f3b7ba7f502cf7623e1~i8OGt0YvC1093810938euoutp016
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793260453;
+	bh=Jb5gzKvfaqELUfJ8ZBrUbnjyGYZVgSoriC0f7YhiiAM=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=poEQRPzfLOSd7Xp2ioQZWQ9lRWljuXBq2QjpvHpAIjwo87X57o5ZFVXrpvRL7mrSB
+	 baqs0O2z/DBj0TmWQdbFKBYrU0co0lwMP8r3RmOc1WcgCTcttNwFRg3XDXvi9EVVCl
+	 V0VTkO0AzOWAqwQ3iDc+m6Scst17qfsOp+IYKUyk=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075413eucas1p2ec058fc0817ba072b3b69b31da65dad2~i8OGc-ZpY1580015800eucas1p2U;
+	Thu, 29 Oct 2026 07:54:13 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075411eusmtip1df0bce1b085a210ce9f7ec3031f39621~i8OExAJ7y1410414104eusmtip11;
+	Thu, 29 Oct 2026 07:54:11 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Thu, 29 Oct 2026 08:53:46 +0100
+Subject: [PATCH v6 12/18] drm/bridge: inno-hdmi: Make the PHY configuration
+ table optional
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,45 +66,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-jh7110-clean-send-v6-12-759594e43acf@samsung.com>
+In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
+	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
+	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
+	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
+	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
+	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
+	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
+	OOHehir <oo.hehir@gmail.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2974;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=0FI6kzvgDGYvY6JCfVptDxGuAVLX6ZmyOl4pD7GAlRs=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t1z6J+lfr7fjE0bEmTnnnwgVdTo/KkkUeR7fbXSs
+	tOHPNztOkpZGMQ4GGTFFFnObow2kvzH8LT8+ONfMHNYmUCGMHBxCsBEPmUzMuwzigza3nKD6cKL
+	68JSZasXcOQvO5I2+eLLdKbY0/9L7N8y/OF72SjnJZysW3tyauC+/FUBXE7Ls9UmWkYd54mUWjH
+	fhAMA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261029075413eucas1p2ec058fc0817ba072b3b69b31da65dad2
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-RootMTR: 20261029075413eucas1p2ec058fc0817ba072b3b69b31da65dad2
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029075413eucas1p2ec058fc0817ba072b3b69b31da65dad2
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<CGME20261029075413eucas1p2ec058fc0817ba072b3b69b31da65dad2@eucas1p2.samsung.com>
 
-Hi Qianhui,
+The pre-emphasis and drive-strength values in inno_hdmi_phy_config, and
+the registers they are written to, belong to the PHY integrated into the
+controller. A platform whose PHY is a separate device has neither, and
+its own .mode_valid already validates the pixel clock against the real
+PHY, so the table only bounds the generic check.
 
-Reviewing the series (built for x86_64 with COMPILE_TEST, checkpatch
-clean, no functional testing - no hardware here).
+Let such a platform omit the table: skip the integrated-PHY register
+writes in the power-up path and the table lookup in .mode_valid when it
+is absent. Platforms that supply one are unaffected.
 
-> The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-> two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask
-> and parameter type are identical for all 103 entries, and the data byte
-> is identical for 99.  The four remaining entries are the SKEW_CAL data
-> bytes of the four lanes (0x005c and its per-lane copies), which are
-> 0x00 here, i.e. the vendor value.
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+Tested-by: OOHehir <oo.hehir@gmail.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/gpu/drm/bridge/inno-hdmi.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-The commit message and the table contradict each other.  The four
-SKEW_CAL entries added by this patch program 0x54:
+diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+index 2684a3cc5667ce133357dccb8d214806db27f863..42a3cd450e0f56a0b06d187645522624feb8918d 100644
+--- a/drivers/gpu/drm/bridge/inno-hdmi.c
++++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+@@ -538,8 +538,14 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
+ 			       unsigned long mpixelclock)
+ {
+ 	struct inno_hdmi_phy_config *phy_config;
+-	int ret = inno_hdmi_find_phy_config(hdmi, mpixelclock);
++	int ret;
++
++	inno_hdmi_sys_power(hdmi, false);
++
++	if (!hdmi->plat_data->phy_configs)
++		goto out;
+ 
++	ret = inno_hdmi_find_phy_config(hdmi, mpixelclock);
+ 	if (ret < 0) {
+ 		phy_config = hdmi->plat_data->default_phy_config;
+ 		DRM_DEV_ERROR(hdmi->dev,
+@@ -549,8 +555,6 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
+ 		phy_config = &hdmi->plat_data->phy_configs[ret];
+ 	}
+ 
+-	inno_hdmi_sys_power(hdmi, false);
+-
+ 	hdmi_writeb(hdmi, HDMI_PHY_PRE_EMPHASIS, phy_config->pre_emphasis);
+ 	hdmi_writeb(hdmi, HDMI_PHY_DRIVER, phy_config->voltage_level_control);
+ 	hdmi_writeb(hdmi, HDMI_PHY_SYS_CTL, 0x15);
+@@ -560,6 +564,7 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdmi,
+ 	hdmi_writeb(hdmi, HDMI_PHY_SYNC, 0x00);
+ 	hdmi_writeb(hdmi, HDMI_PHY_SYNC, 0x01);
+ 
++out:
+ 	inno_hdmi_sys_power(hdmi, true);
+ };
+ 
+@@ -836,7 +841,8 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ 	if (mpixelclk < HDMI_TMDS_CHAR_RATE_MIN_HZ)
+ 		return MODE_CLOCK_LOW;
+ 
+-	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
++	if (hdmi->plat_data->phy_configs &&
++	    inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
+ 		return MODE_CLOCK_HIGH;
+ 
+ 	if (plat_ops && plat_ops->mode_valid) {
+@@ -1117,11 +1123,6 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
+ 	int irq;
+ 	int ret;
+ 
+-	if (!plat_data->phy_configs || !plat_data->default_phy_config) {
+-		dev_err(dev, "Missing platform PHY ops\n");
+-		return ERR_PTR(-ENODEV);
+-	}
+-
+ 	hdmi = devm_drm_bridge_alloc(dev, struct inno_hdmi, bridge, &inno_hdmi_bridge_funcs);
+ 	if (IS_ERR(hdmi))
+ 		return ERR_CAST(hdmi);
 
-  {0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-  {0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-  {0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-  {0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-
-while the commit message states twice that the 0x005c data byte is
-"0x00 here, i.e. the vendor value" and that "the vendor value is kept".
-
-As posted the correction does exist, but it is buried in patch 4/9,
-which flips exactly these four entries back to 0x00 - so the final tree
-matches the prose, but patch 2 as applied does not, and readers of
-patch 2 alone cannot tell which value is intended.
-
-Please make patch 2 self-consistent: if the vendor value (0x00) is what
-ships, program it directly here; if 0x54 is intended, fix the commit
-message instead.  Either way the csiphy hunk in patch 4/9 should go
-away (see my reply there).
-
-Thanks,
-Shuai Liu
-
-(This review was prepared with the assistance of an AI coding tool;
-all findings were verified against the patched source.)
+-- 
+2.34.1
 
