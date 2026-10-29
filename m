@@ -1,113 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264580;
-	b=PvHFEFCG3Mt411GiOE3Xjn0dj+5l4sshb/F9jkLHDit/9znF3NGkSUUw3zwMRvmAkulO
-	 g9+KMMFHtl2YxBSEtFpRIWv7x03+ElHuNbud/XLwfxIDBL5MSVU4PbLiPw06d5CKBlwQE
-	 A7fdNmwFDE3g2N48pFSxvvmfglhHS9d+z6zPFiql6p08AQs982xZAexbUg0BuNeWSF40I
-	 BrQ7CzBZskQRf6fgFhzgV/EbBC1/7PfRZSQRyBW7UwlMpTZLv8vLpSoUNbcAyhY1u7dAN
-	 bW6W1fTFNXu/URr/2yKkxjNsnCADDmnpGrX7nnXrmd16cU2zHH9IDGdEhbhJgtYvkBA==
+	t=1793264748;
+	b=TVW53/w1w9uXKXNQF96JT0mgk7Y+APgPPXoqvp6FOv7Yf7EYMfVB0L4xgKAxMODHwq0p
+	 MoiuNrpOEj55tIziBZEGCNeNNot8Mz2cs/sUKIHK/EfeVIIo2greA9HuaO9r4gNv9lZYI
+	 FXGCtkyumQ3zDUJjlvyl7w47nnVBXI+bqrBodjwarRA30qPdk9BWzunpJyu2n3pcmoPBo
+	 VjIv6ZT/3x9lSFxI/r9wZZ8pwmCk5+iQ0KJZOiFSIafb4PM/+Q4rQI/Sx2eFmB/Y50HFP
+	 Uat1Rxk+xpIuOd4L08OtyN70ygfj9aqmHeytvirRyAPw2m5zpwiOJ6VJgoP+pIaQUxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264580;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=W0iJhYwYFHxApioBxjUjHv9EZd+NjU0umTau3U6H/X4=;
-	b=hbxITfib9u+Pkzb3svPGnWIaCBdD+DvpEVFDPAbazk3372ooqyx/fZ7jOKrDqugpI0gZ
-	 kc2vLdOC3VtQZhPFYNRjU9PGCsMqrHtujKUQJT/8OSLYE02bvsUEcpsFIpmuc93eV5KUC
-	 IpFBVGEFPufoEB2Cb/Savu311QLCoflu1hfDB0u44y98DBxLerzAr9ZBPFh4bKwu/4vvd
-	 UDc93Oi8YV7XyjaWMhVb4D3r39i+xupGsLUbU98UeuXcF8pfESW+n3fHPS+i2RvtPCx5/
-	 tx3lHEJ0T5xcHXSxTyeiA/mGkK2lmKwA1ZBOAnsoL+rPKZo1NYDQF2oaZ9/w90OSnfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264748;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
+	b=FVtgz99irxnSR4jIbCTR6ho43wGZw7TTXPXeP19a0ya6ZhCD4N0hWVXKw1VNZxfHH/Rn
+	 7A+bFf3t65qXOOizk2a+V9q4USErjENCOkgehUg0xVBpGiCGJ5yWWQEXIBEJ8Z9UymOpl
+	 Q5tLKUHyGk7Iu5SF1DEiJBPnKjjzDNYAtL1yV6SNRquejkKxDaRu5YtGjGmfaPrHQJUUD
+	 0Xw8dIs6t6Y1nPEqKss1UzG1PY3UqSJukT/0qrh44BPMn/lX4E0PrBrNZ/YxmsP2Yi1EC
+	 SVc04Ud/Q6TbX4/TNBIbiVolUzucM/TohJOE4OAOSqrRgxGwPI+ebnrNadScvLsO0RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="UGzuI/fB";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AxBYIiiW;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8195606A326
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8195606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CE4606A32F
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:05:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CE4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UGzuI/fB;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AxBYIiiW
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vNkl2273446
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:02:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	W0iJhYwYFHxApioBxjUjHv9EZd+NjU0umTau3U6H/X4=; b=UGzuI/fBbzLudgIS
-	gXr14iwDFjdzVTsZFGYigdgyuhuNl4dIWN4tkZxbHkqFlOdGYV5FD/wfbGCsLe8m
-	5LbnXlm+FB9lTB4HzzK+MWPVUnvRybey86pXLOvGcM0Nu1RY5Rz11JBe7zUaGgOH
-	FdX36c48cKPgTzqhwC3NR+TlESLZ/CNMZxHKc39P3KzUF9LE4wLBq7o5l4/NE2sU
-	qF1luJhDxxIIZzKWk8s/DKfK6sbDO0PhVT6l0fy72a5J30ErkNG3/vlguxL7Axse
-	m7PifjR8kQ2+P73kPBopA+kO5+x7eYyJG5dz0YrGkL6PpfVSBsNu5RD5wFRKLlAw
-	fgWg/A==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm31b01fx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:02:58 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so1088518a12.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793264578; x=1793869378; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0iJhYwYFHxApioBxjUjHv9EZd+NjU0umTau3U6H/X4=;
-        b=AxBYIiiWtexYPCSJmTsUVTiKGpCgiY3fVJI/dI/nAQPXqm1ZRymFmF05oKATeW9867
-         v0iN3y9tBEhW2WwAHaSJfxl6GXnrm6Qk79QlPQUD+CVIcgIMsSntlF5MjgYZmI9zQftr
-         tC5qVJzqvQAFctsmjqKBcGCDCY31vKYhV4pHviyx3mTvqQBJXPp8qyLiScnb+Ea6Lst/
-         K4FEh0pnmJihrTBgO1JZRZocwmdTqUCJp4pjn3QNVAUwBvGhhclp676+hvVWoJ1fT294
-         6U5NEpvGEzGAlOdqupyetu30uJhhUvWudFzVTCbXuKK95IPPJ9G2suI7cA7E2ZnaoBLA
-         KeLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264578; x=1793869378;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W0iJhYwYFHxApioBxjUjHv9EZd+NjU0umTau3U6H/X4=;
-        b=tRng/6j6JTbnIuiAs+IT1HqnQatuudxIkQZc/oaKgXVaC7QPM7MrFhWJ5YA/5IEC43
-         M7CNcUgKDTkSzHLTUfNb2jLHlC/oaQTM4ZdjnvHipq9R/0qwmnR6nfDMSApBGV2H9mQw
-         9vGIOg1Cwd+tgab7D+8BGuLd5OGDwtY34t1tOgCpP1PXnwsP6zc4zcqWrOxi9jHyH/py
-         ZkJuOnAslF7iaotXmo5NVPcN+Qv8oB0JDjxptwUqYPTlzOuNK4Qfvj9HnO5g0wF/3iQh
-         RAl+iU4oyi1/nuT5jAnSIUO8jt/8C3h1n3yH9Bh+hlTxu59TyglXQGknszmKx0/O2cSb
-         TTyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1zATsCwR3A/kdzqPpWDlY5WD8JSuBogPSsxuvVGu8bcQpAhnH78aKlOqLm2Z6zFFYfFeuzeUa7JZE@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6uUjxRe1o1VsGeMboRP1deaoClUnyfjfDj8C9jG7lUeqax5fw
-	zbho1EALujyE1p6x8MJCb3sMAkf7ds46KgGL+XcxbYO1tC3IUQlRnKTJ65BPjwL06gmnGdgXXOy
-	o609GgOqRagbNgZrtTy6ZzfkhBYJ1q47Rc8sACdF+W9wrpqIV36wxSLbD3cX79k4S
-X-Gm-Gg: AYBFou0/y+P93jlVP7jTwGrDdE8jlNBD9QGL+ehHizE5FQ3aqC1Z5HiuynY1Zs9Wvgg
-	RkTP6gQRSFjIj8zUOLhjp5qBgABjKMiJqPSTKXRw0QAch3I2TY6lLvGBFgeuMzznQtgBC96G4CF
-	dS6ZvfreyyefdZeON3rrhgNbPxS9nx3iYXVOU91SFB1oe3jzX9wMnHpsaIvf3MYherGVSL36x1A
-	etCOst42k3QZdyn5iST3RtxElm0zQpqGs/sKF2/5rPw5bfyk5D10+h5tMRYJF8BT1m86Pq07/6B
-	VbZX/lXKhk0/wpt4OQK8ksTFfVuNmM7CaPtGzmnrNlYpOHJ5NipncJ/FxPO//E8Q74ek8qzfBB9
-	3sxL21Gbo9sp41FlA9pHRO0vKcWLmxEjiyWnSKnd82GGd1qupPxUHYxj3ehvmVv8RS30ydwzcEU
-	Fz1P6/RH8Y
-X-Received: by 2002:a17:90b:46:b0:3aa:548f:eb77 with SMTP id 98e67ed59e1d1-3ae5823c672mr3892933a91.56.1793264578089;
-        Thu, 29 Oct 2026 02:02:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:46:b0:3aa:548f:eb77 with SMTP id 98e67ed59e1d1-3ae5823c672mr3892899a91.56.1793264577591;
-        Thu, 29 Oct 2026 02:02:57 -0700 (PDT)
-Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7ad710sm3197385a91.3.2026.10.29.02.02.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:02:57 -0700 (PDT)
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 14:31:04 +0530
-Subject: [PATCH v27 10/10] arm64: dts: qcom: Add psci reboot-modes for
- talos boards
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C5599C4CBC7;
+	Thu, 29 Oct 2026 09:06:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 76A1960360;
+	Thu, 29 Oct 2026 09:05:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6393103290F5;
+	Thu, 29 Oct 2026 10:05:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793264742; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
+	b=MOTF+iFkZ6s2UwV3iPDaAGhZFPho5OGAvuN0nmUbFwsQljFaJZTf25sMEdS+a3oEyHrWwF
+	5MBvPJMJjf4CuQmN+2PO08mrSgwtD+mmoeA6eSN2QYjNI2ALupe9+CdiBWKoeZ2msbNO/n
+	KcnVtbkKVcMV79IowIVESZDAEf0x1HERcDqP378mHNOT9k+uFnacXqMJNKDfzRGOosLzis
+	+Rcmqw6svdkBuDU9GorhRb73v+5qrKiiHQigWV3xyWEAxQL2FvSmzPklnEUO7fesRoSLmp
+	rXVPtvJcE0pwE0idrKdwSHwfWEbgXi/AEmidMYyC1aitTwUpbdwW1DnZEJ1XOQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,131 +58,191 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-arm-psci-system_reset2-vendor-reboots-v27-10-fa4b3ff1359b@oss.qualcomm.com>
-References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
-In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>,
-        Ulf Hansson <ulfh@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Song Xue <quic_songxue@quicinc.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793264459; l=1558;
- i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=WI51nMUK6qgMXe/JMYvx21HtG2tpC5q/6iKj1pJYETw=;
- b=gGvS3BpXvoO4+rAnmMB8gWe5F/jUrTtj0OtL+qKpMHz1TeSAYRy3TL5xGqfr7v91arFxZBUnY
- IUqkMdrzwNlAtyHZYqier3l3JTqGKtZc+5XnqRKZZeif4m/l9NQFXFW
-X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
- pk=ssWsJFX3OM9pkdoe4+guOfGPaulHOFt0GVnVlB6on+s=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfXzfvC81LzKxGI
- t0z4YeawkAkYPHpEeHKnOby9h09YSk1WfkRG8E7bUY2d4QCt3pP/zLmwq4+yx6VjwRCw9Z2Z+Sc
- pxkLhTnnVOIbfzkFi5SChNg+bOewKCg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX+bnhoWudmVFN
- 45SZikV1DcoolNWngebO5b/iDVevhdYxIDViydqY5Zk32+wmokpLU0PJK4s13l9ho3Ze75wLXhB
- T58YuRA35AszqRuKwWmnPXFBiSSFp4j8+NVh+PVRcAmu4dm424Q+b8jEohtRVALUf13SHU7iJwk
- J3yuW7cUGGxdQ5U4PRKpJcjYho5ooDCKDpyDRj8NPSixG7eKZ+E5S70h6eRs2qzF9vIPRhqMa0i
- igcsL1Povi4pR36oaE0iv2AAZ8j4UqOZQWQ3mbjXfB879Pudz7qgAxCJPlU4bRspw7nNuoPTytL
- k14OzAkj5rEO/IVUSBJXJOZpeL64W3FIsGTBSFLctYDjJsVnHAMxPvme8u9dIfcXzmDJwP8trXU
- mXXodl7yGPLVlX4lN1Ff+qK8iXfwkVuC8InJblUIGa4bk+AmXAMMnUi8QV/Hw5UD3LDzwo2i3PP
- sIhEGiZUI5HDvhIZqwA==
-X-Authority-Analysis: v=2.4 cv=A8T5rKWG c=1 sm=1 tr=0 ts=6ae30bc2 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=bjH5yOvFM8yfI_BY5k4A:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: MyRPXD_cJsbZuESLA2CAeH4lPi87Ud1Y
-X-Proofpoint-ORIG-GUID: MyRPXD_cJsbZuESLA2CAeH4lPi87Ud1Y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290034
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Oct 2026 10:05:38 +0100
+Message-Id: <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
+ <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
+ <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+ <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+ <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+In-Reply-To: <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add PSCI SYSTEM_RESET2 reboot-modes for qcs615-ride, for use by the
-psci-reboot-mode driver.
+Hi Krzysztof,
 
-The following modes are defined:
-- bootloader: reboot into fastboot mode for fastboot flashing.
-- edl: reboot into emergency download mode for image loading via the
-  Firehose protocol.
+On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
+> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
+>> +          regulator-temp-warn-kelvin:
+>> +            enum: [0, 1, 368, 383, 398, 413]
+>> +
+>> +          regulator-ramp-delay:
+>> +            enum: [40000, 20000, 1000, 500]
+>> +
+>> +          regulator-min-microvolt:
+>> +            minimum: 1000000
+>> +            maximum: 48000000
+>> +
+>> +          regulator-max-microvolt:
+>> +            minimum: 1000000
+>> +            maximum: 48000000
+>> +
+>> +          regulator-min-microamp:
+>> +            minimum: 500000
+>> +            maximum: 7000000
+>> +
+>> +          regulator-max-microamp:
+>> +            minimum: 500000
+>> +            maximum: 7000000
+>> +
+>> +        unevaluatedProperties: false
+>
+> Place this line after description, that's the convention for child nodes
+> for readability.
+>
+>> +
+>> +      vcc1:
+>> +        type: object
+>> +        $ref: regulator.yaml#
+>> +        description: |
+>> +          LDO regulator for auxiliary use.
+>> +          It can used to power, for example, a PD controller that will =
+drive this PMIC.
+>> +
+>> +        properties:
+>> +          regulator-min-microvolt:
+>> +            minimum: 5000000
+>> +            maximum: 5000000
+>> +
+>> +          regulator-max-microvolt:
+>> +            minimum: 5000000
+>> +            maximum: 5000000
+>> +
+>> +        unevaluatedProperties: false
+>
+> Place this line after description, that's the convention for child nodes
+> for readability.
+>
+>> +
+>> +    additionalProperties: false
+>
+> Place this line after description (for relevant block), that's the
+> convention for child nodes for readability.
+>
+>> +
+>> +  ti,sync-pin:
+>> +    description: |
+>> +      Selects the function of the SYNC pin, used when several converter=
+s
+>> +      operate in parallel.
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    enum: [input-rising, input-falling, output-rising, output-falling]
+>> +    default: input-rising
+>> +
+>> +  ti,ivp-thres-microvolt:
+>
+> Use either existing over-voltage-threshold-microvolt from battery schema
+> or ti,ovp-microvolt from the other TI binding.
 
-  Support for these modes is firmware dependent.
+IVP is not the same as OVP.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Song Xue <quic_songxue@quicinc.com>
-Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs615-ride.dts | 7 +++++++
- arch/arm64/boot/dts/qcom/talos.dtsi      | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+>
+>> +    description: |
+>> +      Input Overvoltage Protection and Regulation Threshold.
+>> +      It shall avoid any damage to the device in case the current flows=
+ from the
+>> +      output to the input and the input source cannot sink current.
+>> +      This threshold is used for IVP (Input Voltage Protection) and IVR=
+ (Input
+>> +      Voltage Regulation).
+>> +    oneOf:
+>> +      - multipleOf: 125000
+>> +        minimum: 4750000
+>> +        maximum: 23250000
+>> +      - multipleOf: 250000
+>> +        minimum: 23500000
+>> +        maximum: 50000000
+>> +    default: 50000000
+>> +
+>> +  ti,ivp:
+>> +    description: Enable the IVP feature of the regulator.
+>> +    type: boolean
+>> +
+>> +  ti,ivr:
+>> +    description: Enable the IVR feature of the regulator.
+>> +    type: boolean
+>
+> Why wouldn't you want to enable these two always?
+>
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-index 142dafb04324..30e4cb642473 100644
---- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-@@ -497,6 +497,13 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&psci {
-+	reboot-mode {
-+		mode-bootloader = <0x80010001 0x2>;
-+		mode-edl = <0x80000000 0x1>;
-+	};
-+};
-+
- &qspi {
- 	status = "okay";
- 
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index 8ed6f2755705..03da6400c5f2 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -581,7 +581,7 @@ pmu-a76 {
- 		interrupts = <GIC_PPI 5 IRQ_TYPE_LEVEL_HIGH &ppi_cluster1>;
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 
+By default, these are off when the device is powered on and these features =
+exist
+only for reverse-current situation.
 
--- 
-2.34.1
+Also if IVP and IVR is on, only the regulation feature is enabled, not the
+protection feature. This is a requirement from the datasheet. It is not ide=
+al
+and I should not reflect that requirement in the DT.
+It should be ti,ivp or ti,ivr but not both because it is confusing.
+
+Or:
+
+ti,input-voltage-mode:
+  enum: [protection, regulation]
+  ...
+
+>> +
+>> +  ti,nint:
+>> +    description: |
+>> +      Configures the nFLT/nINT pin to act as an interrupt pin.
+>> +
+>> +      nFLT mode: The pin remains low until the cause of the status chan=
+ge ceases.
+>> +      In this mode use an level irq trigger.
+>> +
+>> +      nINT mode: The pin is asserted low to signal a status change.
+>> +      In this mode use an edge irq trigger.
+>> +    type: boolean
+>> +
+>> +  ti,cable-drop-compensation:
+>> +    description: |
+>> +      The cable drop compensation feature helps to keep the output volt=
+age at the
+>> +      nominal value over a wide range of load current without the need =
+for
+>> +      additional remote sensing. The cable drop compensation measures t=
+he
+>> +      current and offsets the output voltage proportionally to the meas=
+ured
+>> +      current.
+>> +    type: boolean
+>> +
+>> +dependencies:
+>> +  ti,ivr: ["ti,ivp"]
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>
+> Best regards,
+> Krzysztof
+
+Thanks.
+Best regards,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
