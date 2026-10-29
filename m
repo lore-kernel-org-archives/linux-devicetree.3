@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283916;
-	b=dOIfW+TMLkdUHgmMaYLEYdV3akrqc8nEWRFV/o9n9ykS3UVOJ1Wez6b4lfs8sIKugpnM
-	 rLAQJJR18yiXfwnG3LjnkAhiWPxdmQ/Mk0tJ/SX3iVoSPFBw7DXfLJZvdZBnCC7OzUDj3
-	 YdWxC4+7qjch+vi8ZbqjuQfbB+aes6Xk25tvXunxOm8a5A8RF2PqcBSpARHrI47LceVBZ
-	 FZcn4OgmpfD4bVKL99gVmjb6vCTNnfrExgy1TQlfu/VZ9SAMSW3+u/NE0DGi3U3btRm1G
-	 d6dsRdw4wPQbtbBx1VsVfWIbNxCF6HVi6cbEyVWyRF0//agW8F1xPoNOZFErqGyGkMw==
+	t=1793284038;
+	b=0cJmfPcaXz7pMl6+NMl1YGQu2pfBssMYpNpQgMM9C3E06kjx29/gM1K9f6K9QwXrAjdQ
+	 8DGrYL1ywrgJqYLlikVueaGB0IIXBKSfK2nvpd7HmOgCDF9j9QDOrUd/bmx89iORZKWx+
+	 5A2NvQFfGUL16TboHUud4rok1wOdq2Xk78Q8f3plysjsZP7JRv2CE8XMYslEuZcuCTSRy
+	 642WIxqk3aZUjmN8z9yPJB94Pe5QBqy0YevZZeSLAunwtMlR11vVDrpz803CPXlNnAYx8
+	 i84ghcMY3UM5/TAerB35fDSFapWu3x/EPddYqCUm+7lH230hFYHKLZ0CSajQlbUdBSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284038;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7xhPuH0RIwbK9c9aflak+/btPEP3Gf0e4n3aG4R6W2w=;
-	b=STPeVV+5blye1fL2zHKEP7wHB/mlEvx0vrK8fyUCPIViWc/MQ/hfpSM3aiGAar9aj1yM
-	 4EgpBjkwnqt8QYniJEwu61SrmkW8gPgMp6IMvMgDTwvVERRhS7wiXzNr9bOmX8D9+/P28
-	 Ge/VOBT+mPQXX8JC4ProWvmywWZfxW4gmctJ4eQizgR0aw0nTTOkFjdWURW6cTl1e7/h7
-	 uDhYzNrK2LlLIbAiyeWZL+YXzjrbJwBCHAgfL6lBvDnCDHUMHgca8JdO6f5gFa1/DaRw/
-	 ELuCoyzk9oU0F7Hd0rC1xSF4clTJXA3mcaXwcvpvl5y7iq3SBYxPYkv31Mhe2wvF2qw==
+	bh=C42BufVBeEFXvCw5kXleBXxSFgzzMkCMeHsQQo2Gpwo=;
+	b=Pfi0FKFzjttORz8ta0QV1mxaix6rrSrPz8yUhtrJmASQUDcgkNTez5o7mn/0xvEnvJYz
+	 QKPC4ibt5qg4soixxuEkMgNUtpkfhUoPr5cOMCQxkq7hE5utrzX+JGzmFhGdQxOmChyL5
+	 QMon/LfJKgdpAFP6VkX6m6HhnE0ECwN47aV2YHdRpcTxWxAvEpblB3oIQgVkrAh+U+c/K
+	 FcHm9pkBlhDPRfX2CnXTUa+saBfy+hAOeKVCDHYhJQcny3CaB1xj6cKtCH6Ef/a5SLjLy
+	 JGrhNTe/IaHz92rd/6pz0P4DX/Fe1Vy/77YCu57xP1PwgOJaSWJw7I9+tuPD3oaNe1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTvZkA38;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JlbClg69;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79B6606A31A
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7808E606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTvZkA38
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E431F01825;
-	Thu, 29 Oct 2026 14:25:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JlbClg69
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B879A1F01825;
+	Thu, 29 Oct 2026 14:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283915;
-	bh=7xhPuH0RIwbK9c9aflak+/btPEP3Gf0e4n3aG4R6W2w=;
+	s=k20260515; t=1793284038;
+	bh=C42BufVBeEFXvCw5kXleBXxSFgzzMkCMeHsQQo2Gpwo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WTvZkA38ip5BV5HMgXNUd4kIvrMs3V1f+C5dKjB/zI4W898P5WeOYqQhBtGHf2Pw1
-	 WaQwCrFpE+BeIhYoeay6vsqmDKpbI6QcjEEAeVMbHFxGmIfESuZnYh/sl1HFJ9pAwc
-	 Hqj+YwfM0oyGoc5c1VSqHc4AH4FmcsFNC59N4ptjgH41GksgW9B9CReDZ6uM+Qt6Zg
-	 Dgi9OteiL7KxO8aESLQku+U0aTLmu7Eo0Zi4Jnh2gkx0L0LWu0GPDzYnuwNjBE7PF9
-	 ZMztvgb4wTF3rRUV5VeBwElmQ/Hevj+mO/5L+gGTAXwpZQmQfyzLt8reKIonfqEFt1
-	 +ZLP1EFd1nJgA==
-Message-ID: <sashiko-outbox-189510@kernel.org>
+	b=JlbClg69sSh0sVz1lHJ/QkX2oznvj2uvy0kb9Go7qdWUwIrJVfIixSAsWF6cMk1Y4
+	 U+V61mROaIfkUZtECAQw/pmBTPYipUX3zApbJdl4n74QHQEpRTMSUCOaZQR3bN8KkC
+	 yzlVKbEPMCg7piIzod65nerJ+ZB8Ymm3uijYMfTrgNGe6Pa0LHgHKZuWNcbMD1tgkA
+	 lLAf+v+pgoiPvVISgr+4WDHoURKTnAFFHKoAlHywm5hBJpS/Cq9MqT03LAt5kbX+Bg
+	 tDMguI7ExpnyoAvTD74Fv/Tb0Hmemy8E0vPLEAOrMU/jKstc+Nd2yUli/S/SYccopE
+	 +2gEWltz2K+Aw==
+Message-ID: <sashiko-outbox-189515@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 10/14] drm/msm: Add LPAC submitqueue
+Subject: Re: [PATCH RFC v2 13/14] drm/msm: gate lpac behind modparam
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-10-a21a5c850961@gmail.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-13-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
- <20261029-descriptive-name-lpac-upstream-v2-10-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-13-a21a5c850961@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:25:14 +0000
+Date: Thu, 29 Oct 2026 14:27:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,208 +60,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/msm: memory leak of queue in msm_submitqueue_create() when rin=
-g is NULL
-- [High] drm/msm: broken GPU hang recovery and hangcheck for LPAC ring
-- [Medium] drm/msm/a6xx: mismatched always-on counter for LPAC in a7xx_subm=
+- [High] drm/msm: broken enable_lpac default and gating logic in msm_gpu_in=
 it()
-- [Low] drm/msm/a6xx: unused variable timestamp_iova in a7xx_submit()
+- [High] drm/msm: unfreed queue in msm_submitqueue_create() when lpac_rb is=
+ NULL
+- [Low] drm/msm: missing kernel-parameters.txt documentation for enable_lpac
 --
 
-commit b513ca2d3a9d2c681ec6e6cf4dcbe0f4500714aa
+commit 1335ae6013ec105c8c18047306da8e49457285e5
 Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-drm/msm: Add LPAC submitqueue
+drm/msm: gate lpac behind modparam
 
-This commit adds the MSM_SUBMITQUEUE_LPAC UAPI flag and driver support
-for creating LPAC submitqueues and dispatching submissions to the LPAC
-ringbuffer.
+This commit adds the enable_lpac module parameter in adreno_device.c and
+checks it in msm_gpu_init() before creating the LPAC ringbuffer.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index e7bc12de650ca..e82d0c0bc10ff 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-[ ... ]
-> @@ -493,7 +498,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struct =
-msm_gem_submit *submit)
->  	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
->  	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
->  	struct msm_ringbuffer *ring =3D submit->ring;
-> -	u32 rbbm_perfctr_cp0, cp_always_on_context;
-> +	u32 rbbm_perfctr_cp0, cp_always_on_context,
-> +	    cp_always_on_counter;
-> +	bool is_lpac =3D ring =3D=3D gpu->lpac_rb;
-> +	u64 timestamp_iova;
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm=
+/msm/adreno/adreno_device.c
+> index 6e2333466d7f1..51781a2e8a00e 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+> @@ -30,6 +30,10 @@ static bool skip_gpu;
+>  MODULE_PARM_DESC(no_gpu, "Disable GPU driver register (0=3Denable GPU dr=
+iver register (default), 1=3Dskip GPU driver register");
+>  module_param(skip_gpu, bool, 0400);
+> =20
+> +int enable_lpac =3D 0;
+> +MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=3Don , 0=3Ddi=
+sable, -1=3Dauto (default))");
+> +module_param(enable_lpac, int, 0600);
 
 [Severity: Low]
-Is timestamp_iova needed in a7xx_submit()? It appears to be unused, which
-triggers an unused-variable warning at build time (and breaks the build
-when CONFIG_WERROR is enabled).
-
->  	unsigned int i, ibs =3D 0;
-> =20
->  	adreno_check_and_reenable_stall(adreno_gpu);
-> @@ -511,19 +519,24 @@ static void a7xx_submit(struct msm_gpu *gpu, struct=
- msm_gem_submit *submit)
->  	 * If preemption is enabled, then set the pseudo register for the save
->  	 * sequence
->  	 */
-> -	if (gpu->nr_rings > 1)
-> +	if (gpu->nr_rings > 1 && !is_lpac)
->  		a6xx_emit_set_pseudo_reg(ring, a6xx_gpu, submit->queue);
-> =20
->  	if (adreno_is_a8xx(adreno_gpu)) {
->  		rbbm_perfctr_cp0 =3D REG_A8XX_RBBM_PERFCTR_CP(0);
->  		cp_always_on_context =3D REG_A8XX_CP_ALWAYS_ON_CONTEXT;
-> +		cp_always_on_counter =3D REG_A8XX_CP_ALWAYS_ON_COUNTER;
->  	} else {
->  		rbbm_perfctr_cp0 =3D REG_A7XX_RBBM_PERFCTR_CP(0);
->  		cp_always_on_context =3D REG_A6XX_CP_ALWAYS_ON_CONTEXT;
-> +		cp_always_on_counter =3D REG_A6XX_CP_ALWAYS_ON_COUNTER;
->  	}
-> =20
->  	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
-pcycles_start));
-> -	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
-x, alwayson_start));
-> +	if (is_lpac)
-> +		get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-> +	else
-> +		get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, ind=
-ex, alwayson_start));
-
-[Severity: Medium]
-Should the corresponding alwayson_end sample in a7xx_submit() also use
-cp_always_on_counter when is_lpac is true?
-
-After emitting the IB commands, a7xx_submit() still unconditionally
-reads cp_always_on_context:
-
-    get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
-pcycles_end));
-    get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
-x, alwayson_end));
-
-When retire_submit() later computes:
-
-    elapsed =3D (stats->alwayson_end - stats->alwayson_start) * 10000;
-
-for an LPAC submission, it will subtract CP_ALWAYS_ON_COUNTER from
-CP_ALWAYS_ON_CONTEXT, corrupting the per-submit elapsed time,
-ctx->elapsed_ns, and frequency statistics.
+Should this new module parameter also be documented in
+Documentation/admin-guide/kernel-parameters.txt?
 
 [ ... ]
+
 > diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index aa3d6ff456fda..4244d9324cda7 100644
+> index 4244d9324cda7..f6927c797fa5c 100644
 > --- a/drivers/gpu/drm/msm/msm_gpu.c
 > +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -537,8 +537,8 @@ static void recover_worker(struct kthread_work *work)
->  	 * needs to happen after msm_rd_dump_submit() to ensure that the
->  	 * bo's referenced by the offending submit are still around.
->  	 */
-> -	for (i =3D 0; i < gpu->nr_rings; i++) {
-> -		struct msm_ringbuffer *ring =3D gpu->rb[i];
-> +	for (i =3D 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
-> +		struct msm_ringbuffer *ring =3D i < gpu->nr_rings ? gpu->rb[i] : gpu->=
-lpac_rb;
-> =20
->  		uint32_t fence =3D ring->memptrs->fence;
-> =20
-> @@ -561,8 +561,8 @@ static void recover_worker(struct kthread_work *work)
->  	 * Replay all remaining submits starting with highest priority
->  	 * ring
->  	 */
-> -	for (i =3D 0; i < gpu->nr_rings; i++) {
-> -		struct msm_ringbuffer *ring =3D gpu->rb[i];
-> +	for (i =3D 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
-> +		struct msm_ringbuffer *ring =3D i < gpu->nr_rings ? gpu->rb[i] : gpu->=
-lpac_rb;
->  		unsigned long flags;
-> =20
->  		spin_lock_irqsave(&ring->submit_lock, flags);
 
-[Severity: High]
-How does recover_worker() handle a hang or fault originating on
-gpu->lpac_rb?
-
-At the start of recover_worker(), cur_ring is looked up via
-gpu->funcs->active_ring(gpu) (a6xx_active_ring()), which returns
-a6xx_gpu->cur_ring:
-
-    struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
-    ...
-    submit =3D find_submit(cur_ring, cur_ring->memptrs->fence + 1);
-    if (!submit)
-        goto out_unlock;
-
-Because a6xx_gpu->cur_ring only tracks the 3D rings (gpu->rb[]) and is
-never set to gpu->lpac_rb, two things can go wrong when an LPAC
-submission triggers a6xx_fault_detect_irq() or a7xx_sw_fuse_violation_irq():
-
-1. If cur_ring is idle, find_submit(cur_ring, ...) returns NULL and
-recover_worker() bails out via goto out_unlock without running
-gpu->funcs->recover(gpu), after a6xx_fault_detect_irq() has already
-written 0 to REG_A6XX_RBBM_INT_0_MASK, leaving GPU interrupts disabled.
-
-2. If cur_ring has an unrelated 3D submit in flight, recover_worker()
-attributes the fault to that 3D submit, marks its VM unusable, and in
-the fence update loop:
-
-    if (ring =3D=3D cur_ring)
-        ring->memptrs->fence =3D ++fence;
-
-advances cur_ring->memptrs->fence while leaving
-gpu->lpac_rb->memptrs->fence unadvanced, so the replay loop re-submits
-the hung LPAC job.
-
-Similarly, hangcheck_handler() only checks gpu->funcs->active_ring(gpu),
-and in a6xx_irq():
-
-    if (priv->disable_err_irq)
-        status &=3D A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS;
-
-A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS_LPAC is masked out when
-disable_err_irq is set, dropping LPAC completion interrupts.
-
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index 1a5a77b280163..a0249430bd005 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
 [ ... ]
-> @@ -209,6 +210,16 @@ int msm_submitqueue_create(struct drm_device *drm, s=
-truct msm_context *ctx,
->  			return ret;
-> =20
->  		queue =3D kzalloc_obj(*queue);
-> +
-> +		if (flags & MSM_SUBMITQUEUE_LPAC) {
-> +			ring_nr =3D priv->gpu->nr_rings;
-> +			ring =3D priv->gpu->lpac_rb;
-> +		} else {
-> +			ring =3D priv->gpu->rb[ring_nr];
-> +		}
-> +
-> +		if (!ring)
-> +			return -EINVAL;
+
+> @@ -1012,7 +1013,7 @@ int msm_gpu_init(struct drm_device *drm, struct pla=
+tform_device *pdev,
+>  		memptrs_iova +=3D sizeof(struct msm_rbmemptrs);
 >  	}
+> =20
+> -	if (config->has_lpac) {
+> +	if (config->has_lpac && enable_lpac !=3D 0) {
 
 [Severity: High]
-Does msm_submitqueue_create() leak queue when ring is NULL?
+Does the default value and tri-state logic for enable_lpac match the
+documented behavior?
 
-In the non-MSM_SUBMITQUEUE_VM_BIND path (reachable from userspace via
-DRM_IOCTL_MSM_SUBMITQUEUE_NEW -> msm_ioctl_submitqueue_new()), queue is
-allocated with kzalloc_obj(*queue) before checking whether ring is
-non-NULL. If userspace passes MSM_SUBMITQUEUE_LPAC on a GPU where
-priv->gpu->lpac_rb is NULL, returning -EINVAL here leaks queue (and if
-kzalloc_obj() also returned NULL, checking !ring before !queue returns
--EINVAL instead of -ENOMEM). Should the ring lookup and !ring check happen
-before allocating queue?
+In drivers/gpu/drm/msm/adreno/adreno_device.c, enable_lpac is initialized
+to 0, whereas MODULE_PARM_DESC() documents -1 (auto) as the default:
+
+    int enable_lpac =3D 0;
+    MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=3Don , 0=3Dd=
+isable, -1=3Dauto (default))");
+
+Because enable_lpac defaults to 0 instead of -1, LPAC remains disabled by
+default even on targets that set ADRENO_QUIRK_LPAC (such as gen70900 in
+the subsequent patch "drm/msm: enable LPAC on gen70900").
+
+In addition, adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c
+computes has_lpac solely from ADRENO_QUIRK_LPAC:
+
+    adreno_gpu_config.has_lpac =3D !!(config->info->quirks & ADRENO_QUIRK_L=
+PAC);
+
+and msm_gpu_init() requires both config->has_lpac and enable_lpac !=3D 0.
+Unlike enable_preemption in a6xx_gpu_init(), this does not distinguish
+between 1 (force on) and -1 (auto based on ADRENO_QUIRK_LPAC), so passing
+msm.enable_lpac=3D1 cannot enable LPAC on an A7xx+ GPU unless
+ADRENO_QUIRK_LPAC is already set in the catalog.
+
+Furthermore, because enable_lpac is only checked when creating
+gpu->lpac_rb in msm_gpu_init(), other LPAC paths remain out of sync with
+the parameter:
+
+1. msm_gpu_init() still allocates memptrs using config->has_lpac:
+
+    memptrs =3D msm_gem_kernel_new(drm,
+        sizeof(struct msm_rbmemptrs) * (nr_rings + config->has_lpac),
+
+2. adreno_hw_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c still
+configures the LPAC SMMU aperture based on ADRENO_QUIRK_LPAC rather than
+whether LPAC is enabled:
+
+    if (info->quirks & ADRENO_QUIRK_LPAC) {
+        ret =3D qcom_scm_set_gpu_smmu_lpac_aperture(1);
+        if (ret)
+            DRM_DEV_ERROR(gpu->dev->dev, "unable to set lpac SMMU aperture:=
+ %d\n", ret);
+    }
+
+Should enable_lpac be initialized to -1 and evaluated when setting
+config->has_lpac (and checked consistently in adreno_hw_init())?
+
+>  		gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_io=
+va);
+
+[Severity: High]
+When enable_lpac is 0, msm_gpu_init() leaves gpu->lpac_rb as NULL. Can
+this cause msm_submitqueue_create() to leak the queue allocation when
+userspace requests an LPAC submitqueue?
+
+In drivers/gpu/drm/msm/msm_submitqueue.c, msm_ioctl_submitqueue_new() ->
+msm_submitqueue_create() allocates queue before checking whether ring
+(priv->gpu->lpac_rb) is NULL:
+
+    queue =3D kzalloc_obj(*queue);
+
+    if (flags & MSM_SUBMITQUEUE_LPAC) {
+        ring_nr =3D priv->gpu->nr_rings;
+        ring =3D priv->gpu->lpac_rb;
+    } else {
+        ring =3D priv->gpu->rb[ring_nr];
+    }
+
+    if (!ring)
+        return -EINVAL;
+
+When priv->gpu->lpac_rb is NULL and userspace passes MSM_SUBMITQUEUE_LPAC
+to DRM_IOCTL_MSM_SUBMITQUEUE_NEW, msm_submitqueue_create() returns -EINVAL
+without freeing queue.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
-e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D10
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D13
