@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282017;
-	b=ADwnkar4oFz/dC/A28lAhCR0T7NsHHdiVVhqtLiG/zTuHAyt3F6VAPsMmhRBzN7P9iNF
-	 0ZWEovLBZpllwK6NzfghnEH5VGVtumNxQzQi6YpADYxMpvIUUZvQasEF7faDUC0vwSG+4
-	 FILP0wmcUpDfoFVWitYcT2nOKST9WlyAq2G12sEOHZcibyGcyN1wEIAsRb67MK9MunyZd
-	 muHWWNuFqq/jSlwwhXXlESn75kKYWR+v8OBmW40E3rGtDG+t802qjsT3YGlZ11ohomqYb
-	 Ww1eKrzNryAqhlvN+WFURCBllSB5fC2+4wKzgjM0Q6Oa01QKLX+ZXra1mRjNxRnlZiA==
+	t=1793282086;
+	b=0s65U9C0fOkXIzqpMuikctlyijt9bK5axAL++aaikatacGLiHELhGI/KROr/7ktBmlRE
+	 1AvFcZPo95pGVIDZw7bZYsxGMOsEeVDKXQPhF06dEnaX7MUdOA7B+ahKoDmlbLNJTks3o
+	 SZavwXpSmpp5RSkzgkLy6pRRHcNtE12rsChA2WkcSTSC3XZwQUUe4SvG8OQ4Acwdc+N8a
+	 w+xPp9W4+AEDtIaIBnvkGMMQSzGV6b9YJl4L3VmBoZ09jYW2p1BZWfLN5GAUtDxbDeVHI
+	 1QgBL87H0cpMX29sUSVaPV0hEsR2Pha2iVxx8+2EdRwzwrI16s58F7dYe/vwP8+m9AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
-	b=PpVczUT8F+WFoV7i8Xuuva/EGyrV+e6H1dK7NpKtYdbaD4EXfZiUXrKHMm+j0ucbdhoO
-	 JhUGm7dMQgo5DVRvncbxK9WExpnN3hjCunHHIvXh7lJ/SZPbMetxV5DRVPDt1imAILsjG
-	 /iK2cRPb1JEDU5E0eGUZ3vKadXaouAUabXxySlTB8TmZkQ2JcNeMsRgTDBL2s0Yitkbsp
-	 3NZyk4iwW4Pb1ZmlFeqpfPy2+XcFWjO8SYEeY7CiFDmdOlJZUxu3eccDeXBZjIJ3Mnx/c
-	 dv+qwAKPp9ufHAlarTTs1uxhED97tuhL9LIiw5YaG0ZfruwCQPdQKkiEC4csD+sgw2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282086;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9pamEexFG6/52egXa9hLLeSrQGqwFqspA1svbb9YVk4=;
+	b=KuQqgIo6+5dyNldhD48kN4zO/ORQkC6mbZIKt25frVNyUnX/TDvH2gvta/zhyeUw4cD2
+	 6U4A5PzhYA71qUvL1T0h/dIVjrVIYPYaQhKZlqrN2RJGFxM99Urr2fQlf96tJrWHg+Dwy
+	 QNhX4p2hP50DjNHZMvCeK2YyW4G71ZTHg/TS1dj5OqehLrMwxCkRctDsBtdz3Ux27+gHk
+	 IRv/TqwIhswaP4PILXMVUz+1fmWP4in179GI5Op0vrnSFMOlw0EzGzEXmscULkUNkDmQ6
+	 b/koC/rKaT5Zk7OmeBxQzur2JyrICooGdA9BBe+xG2hXP/mbCokg6qNhmJOuhxLp+Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hld8WdFU;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ga5NksAI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807E0606A832
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 807E0606A832
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341BD606A31A;
+	Thu, 29 Oct 2026 13:54:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hld8WdFU
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1626258f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:53:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793282016; x=1793886816; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
-        b=hld8WdFU8iJeyCtWh3V2Ho7fyvq2bd03nxb3Nx3hWjyDrA6+5fRApkMZc6Uct2VfyX
-         f70kgogI9V+CHfRJ1i16vKgQ+RmwJ4bwULneAe59C4t+etSmEk1JX5IBD5arLxiu4yvs
-         kLcG4jH4XkqeJBpodUgbE9xnrb2fwwBBFxpKnm1Uv0P4P1x9wC0a7mm4R8N1rWI4oszC
-         c0pYM7NN0sVZP37MD2AQ3hAlklOonTajnsGRh2rqD4VZNXczAr8jBovQZfuawAH1+i+T
-         H4KgDlPghGW5iWJrZrAE9I24pysLb5rGZwkYdwKZkdVXdAyTsLi7BtkdAUQgw/h4FRdz
-         clBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282016; x=1793886816;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
-        b=WrYfaMDvnTqeH8S+r48FJBK7ocSgmV4uSOXloIcwvXUyPtcjh7+P2VAlVSNMzTMnp0
-         QN2KDdC5dMv04zjRYAy7mAx+hc7lql1wMlMxB3kXTQRx9safBXSn/y+JIBRnkagFmqy1
-         aNvLb0hZGI93xQJTjKP++yP/nHZlGvseK412CqjiHC31VxDCiYq5ifB2gcZoPGxJHdzb
-         eXyBq8L0IujTRuln9U/Ey4ooD2m1WroFNIwYAxzMw6c7gGRPlNY/rz2qJKbJ1Icl/5kQ
-         9I5HaveQnh3y0AwGThOOPKSuGjqkuCIK8vVKqmbHxmKDjqXIynqCkHd1KmlULb/bvrL1
-         fCeg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7Ni0aJGSxG88ZqXdZ4npKM9r3UXc3xp0BvPucfHQtBYjfJKpBoVfcZ1sKFrnDtRMNnppFyvp2+hDy@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwwHspvOPudtPF3DuLiWCaPGPcmhorZ7k79dip9TcFGqjmdLX1
-	CAGQT/QGstPcv3AJ/ZsrOlYQKm/ACwrOREGDe+364EaBUCpRTT60u3Y=
-X-Gm-Gg: AYBFou0UoDNhhU6GPj5Mep6SGBJpaa4i4vbz5ZME4QPOk4nZerJSyGScYiWYBlNKPvm
-	73/7QpFF663M/YjtbrylHP4sYTvQwDL3eJpf3aL/mwViYDYoGhJf8nGeTeKK6A1CXpsvjLwVbKi
-	lrQMGRqDbWMYgooe/3rc5lxRzV/XTXz2a6C/fBSNVs0xIa82tUVSTwAgcQQuE650VtPgXrbU7lQ
-	7pQGcNgvNBGBSiIV8jABB+8B3bgvKRSuWsL8WQVT0J5G95L0GGjqJqW8c2vDPRXR1RAILve3Aun
-	8TVfPPpCsqqNMv9/AuM6WqP7ghSU/vRrTmjyNi4MRxOiVLM+ZPxEHzv8HkijT15/3hPgDqqfAzM
-	gdoS62eUsllIf2N4lN1rWH8g4TLFkhFaMcpkGamqTdYClCPmasBXhq1deIXG3/ofHIQQgd4t0Y+
-	hvMPghLM+lOWseRlE9bwndEC6cB125mwfWZXnUF7+x4TA2PXbMU+l+JfSvUY7XUe9+r0XX6qS2w
-	QxQI8m1N0IuIJbrjy3yF8VUVPmkNzg8Y8u50SGHNHfQpqhwFlc8eS7QtHeRGr56I/W+tyNCotFC
-	XYuXzAMy+3K3z5qBmfd6Hx4t/zGM5zS6+JxGe4Xrv9cQjLScHc/VxCcGvHuA3pvBj2I=
-X-Received: by 2002:a05:6000:178a:b0:48e:56fa:9645 with SMTP id ffacd0b85a97d-48e5d5cf38fmr12439039f8f.29.1793282015845;
-        Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
-Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:51 +0100
-Subject: [PATCH RFC v2 14/14] drm/msm: enable LPAC on gen70900
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ga5NksAI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646171F01825;
+	Thu, 29 Oct 2026 13:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793282085;
+	bh=9pamEexFG6/52egXa9hLLeSrQGqwFqspA1svbb9YVk4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ga5NksAIKx9E5rhS+Wmw4j7v1i3706sDmtjVdgHnMsH2v6wWruI6K8kWZ47fD+PJV
+	 d/onsiIsW3iX7h/LweN3yLS17eVB6bXCyL6OysbyDVnH/Et+Gks7S3syohiUZr9+5t
+	 WZO3wDHX5VprTB4dRDeXExDyF5x3g1KPiOvHVrF5gzld7qZnbUc0xQqVZ+47ATNiFo
+	 t6K6Fi+CNO49KUpE45Vr7qZ0n6zVQiPhlY6kGXm6hNxjSyCkBYxYASTJGa5MIUA0ih
+	 4FJoUxBi6pnavShQf3DWPS92HlYoBagp+Eow+lxYmHOC5M9KbsdKmRUWxqn4bc+bxg
+	 p7ag0S872AfiA==
+Message-ID: <e3c9087e-fea5-4ec6-852a-a0e0e33ce461@kernel.org>
+Date: Thu, 29 Oct 2026 14:54:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,63 +51,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+To: Alex Elder <elder@riscstar.com>, robh@kernel.org
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
+ <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+ <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+ <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
+ <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
+ <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
-References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
-In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=982;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=zftBrxFOdArPW4SDW/zPbLM/dW8N0ZZjr0f9slsMd44=;
- b=drJK44c9MU6MO0yKK3/YNJmZlff0GX8bkfJNHj78s+gEdYZMo0J9ar0ZFCpDUnU9s9p/mTv9U
- QEVDlUzSQ7wDLCQ28Hd4GN503IJPB36U2UQmXnTQDK6NcMLz/o9Mfkc
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 
-When the enable_lpac mod param is left on auto (-1) LPAC will be enabled
-for targets that are known to support it and are known to work.
+On 28/09/2026 16:52, Alex Elder wrote:
+> On 9/23/26 2:25 AM, Krzysztof Kozlowski wrote:
+>> I think nothing behind PCI EP should be described in DT, because
+>> everything is internal to the device and implied by compatible (or
+>> vid/pid). We do describe internals of devices in DT usually for complex
+>> devices (like some display blocks with multiple subblocks) or when they
+>> are used outside of that device. That's why I asked how are all these
+>> clocks and resets exposed to the host. If the syscon is used only by the
+>> device itself, I don't quite get the benefits of describing it in DT.
+> 
+> You say you think "nothing behind PCI EP should be described in DT".
+> However the mere existence of the PCI endpoint bus as an option
+> contradicts that statement, by providing a means of doing *exactly*
+> that:  using devicetree to describe things behind a PCI endpoint.
+> This is the model we are using.
 
-gen70900 (Adreno 750) is one such target.
+No, the existence does not contradict. We allow further description as
+long as things are not autodiscoverable and are necessary for the host
+to deal with the device, like power sequencing. Same we did for
+"onboard" USB hubs.
 
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+You are however describing internals of the device like syscon, which is
+way beyond what is necessary for the host to instantiate that device.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index 5ee00eead14c..cd1bdb54429d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1591,7 +1591,8 @@ static const struct adreno_info a7xx_gpus[] = {
- 		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
- 			  ADRENO_QUIRK_HAS_HW_APRIV |
- 			  ADRENO_QUIRK_PREEMPTION |
--			  ADRENO_QUIRK_IFPC,
-+			  ADRENO_QUIRK_IFPC |
-+			  ADRENO_QUIRK_LPAC,
- 		.funcs = &a7xx_gpu_funcs,
- 		.zapfw = "gen70900_zap.mbn",
- 		.a6xx = &(const struct a6xx_info) {
+> 
+> In June we switched over to using the pci-ep-bus model based on a
+> suggestion from Rob Herring (and Mani Sadhasivam).  Rob felt our
+> previous auxiliary device approach wasn't right for the peripherals
+> found within the SoC, given we were accessing them via PCI BARs.
+>    https://lore.kernel.org/lkml/20260605144032.GA3659201-robh@kernel.org/
 
--- 
-2.56.0
+Oh, that's good, so let's quote:
 
+"The ethernet nodes should be just these PCI function nodes."
+
+"And really, a DT node for them should be completely optional (unless
+there's some power on ctrl needed)."
+
+"Everything else like SPI, GPIO, UART, etc. should be under the PCIe
+switch upstream node in a pci-ep-bus."
+Sure, but you add syscon. That's completely internal stuff.
+
+> We found that using pci-ep-bus provided a very natural and familiar
+> way of representing the organization of the TC9564 SoC, and used
+> it to represent all of the peripherals (including XGMAC).  It
+> nicely partitions the hardware design, as well as providing a
+> well-understood connection with the software.
+> 
+> The switch involved quite a bit of work, and the result is a set
+> of basically independent platform drivers that are modular and
+> easily reviewed.  I really would rather not go back to to what
+> we had before.
+> 
+> Do you have criteria for what in a chip/SoC is sufficiently
+> "complex" to warrant allowing devicetree to describe some of
+> its internal details?
+
+For me criteria are the resources from the host. I think I said it
+already, we do not describe internals of I2C or SPI devices: their
+internal clocks, internal power supplies. We only describe the inputs
+from the host. You can map it into the pins.
+
+Same here, IMO.
+
+> 
+> I believe the TC9564 *is* such a "complex" SoC.  And in any case,
+> anywhere pci-ep-bus is used, it implies that some chip internals
+> would be described using devicetree.
+> 
+> Would incorporating the chip internals in a devicetree *overlay*
+> have any effect on your opinion on this?  I.e., the "main"
+> devicetree nodes would simply define the PCI device hierarchy,
+> but anything behind an endpoint would be described in an overlay.
+> This way, pci-ep-bus on a PCI endpoint just provides an external
+> interface onto which a very complex device could be "mounted"
+> (and described in an overlay).
+> 
+> I'd like to continue to move ahead with upstreaming support for
+> this SoC, but to me it seems you have basic doubts about
+> pci-ep-bus and I'd like to get past that.
+
+Well, Rob might understand this better, so maybe review from him will
+solve these questions.
+
+Best regards,
+Krzysztof
