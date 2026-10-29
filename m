@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268409;
-	b=jrDDpXZjLDjP5MIy41LYxQw5gV0D1V2k8P8yvDx4bI6ryn6ahEC5oLX5i1JFGCmhV8lD
-	 gAELr9kfRKMXM1i0TeXtDdMdAnHAm6iW3GzxBvpfS36qQDQYHyLt4jt6PvSBff2jkgVTd
-	 zPQr6+gw9ldP0Fyl/SyhmGVMBoHWihn6HJvECAc/aJXJTo/zOPN+7jfr72wcXwbSEytV3
-	 qlPewwVY9/AjiWzMuOikp5OUy/yfM1GeTnb31b5Y37tRf1V22vXt65LcB6lhjJgdbMTkX
-	 xW/5l3La1/AoHCxiU0RlToLYMiM3PelkFaHjTbLnb9UhOGu7ZWJ6softUvyjDohKsIA==
+	t=1793268411;
+	b=eB1ifOK7pNyco0VC6L/XYD7vtWHoIx3Aw++Pah9rv4MvCimKJEEH6uq4C4juKcW9xDYT
+	 h1qsRysSFQHWYJugiExyr1eGPJPeLDJ3xERKDbwvtY1TfruUGNwgA8LSezTjxK3NBXghU
+	 20EW126s2WkNjcAqgakwJdY390knoQR8DJIPxN/65dBewBHDPSyOd5w1Hm8MOdTromX6V
+	 Ytdr0iZX7GGBd9LbxEF5RaSiDlXxq5nQU6IwOvkhkre/KzptKq/JOAjx9fVSH7w+7HFpO
+	 6PAaTINXWW7GZKaSgtXIa7U8/b1ppn7yPUCFJA/umBcFZ5Yf7bO7BzTpavpoPVx1DsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268411;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
-	b=oZZsPRE2tcz8vC2PIx+eiBVplMovAPNLMlw090fYmaC8V+UkTMeFJvTgSd+dQRcsGogb
-	 zf4JdVGYBNh0Gk+iMLF56VH2tPxE3WSNhlgvLPe+A0ltqc8BEx3HhUC/pXT5RdfpvbmHz
-	 y3cmaTAeWVeScfmDUlqP3UDUINL71gR2DOMMWnky3/bh1ZMYRCwndH/WefGO9NRBYjbn3
-	 Np1L//bOGObNXhdCHisPM08uB/R1UO2NL0DyK7JpKno0tEiY4XKmkmX0ZClPpv2/yTdm0
-	 iPOxdNvJycoPTOW4NgiUyG+HBp2olg+sgUHMVigta1vo+DDeZpf8VkiAtuoK+uBz34Q==
+	bh=C716tLFOYukgv8vVV1xiU5crvYZUQVn0gaj4X2Zv6Ao=;
+	b=Twk7SauHiVZosVrRd3APhoXhBn7fZtSWlIBJfTn/lfGRHylclrn9DDTo4UcTc5YS/Aag
+	 uimOGn+z8QbCCotfpvC8SfDcS1fSpALMFdkylHpjR+0/Ck7cNq9C4CROMwdAif6moYit3
+	 d3sD/Q7VUTa5VmFh2HQ4zox5JJ3Lqr8WkCJy+VRD1pDfsi2ymlbFr7A5wyIfmHTkAjvKH
+	 51SCIUWIMZmQOFfiE2tf9IXyHYUS0pUy1DjVZ16JpOt3SE4RWrs+WMGRyDwObcF3rjBf4
+	 Kfa4fQyf8ZMJbO1bXnhTtVCO2U9A9nRgDlKqRiyNqfaDKgcGjdEGu+f4BJkw3+a6caw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pszdm4fP;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=szocTkCB;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4102B606A323
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4102B606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F036606A32A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:06:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F036606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pszdm4fP
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso16952445e9.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:06:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=szocTkCB
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so21107865e9.2
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793268408; x=1793873208; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
-        b=Pszdm4fPwGA6z3/h856xxp3nG0CoeMLpKCnNm93Kve5JOa0nPOeF74RJv2oYNtcNZR
-         ozCESFFGve7AzGRPZXZEEQOxAwZBxiDlwTZCe/iFU9yMsVG5eQexLV+2KElgyEoheCZr
-         y8BTz61Yv8RzXisIss7+bk/o3LkX7T5WlIIDxt9l86L0f+iz3YN0I+m7c94q6EaXd1+6
-         k1aZlxk4jv0oW6dgJIvT+nljT4xqCnPWvPs+3DvuAQLKYJc3j7q2mtlVi4yYW0KtgSUs
-         ysZMk5hbO2SlhHBgjNdGJ7j/5IciDZQthP6Dm/Lzt+L065agamsUS6wtRefn/NXfrQp1
-         ECqQ==
+        d=gmail.com; s=20260707; t=1793268409; x=1793873209; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C716tLFOYukgv8vVV1xiU5crvYZUQVn0gaj4X2Zv6Ao=;
+        b=szocTkCBE7oOYlOgAnfB9taJGXNBjNX9zcXzpd0wS/9gRFlbmIQAsiPN9Okg54uQDG
+         llCfgrEqY/JVWpzkz++b9QrLHfS25kOn09NJ1KGtKeY1KA1KFO23/3V2tGleKePIhNeX
+         kE/SvLJei/zv/V7i73ARnuETTVDiHtgVudnm2epwrDUfeQtWM/Z2zmHVlIw6p8IS85mF
+         46pFBrtjXtKyhz1vQz/YFJCYxeJbCo6QCH9h7QA4nCinUykNgFxZVtjsQw7bFTwa4dKR
+         WadBPTwajaGI8BAIPVOA15AZ8rth4IWRCl11KxIFbnDAS4e+vAQxNKDropxb3yz6cAe3
+         zPMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793268408; x=1793873208;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
-        b=jbRA21Jegte3Vw4VsghYWEdl22xICl/jGsiOTel0mJZozh3uZpQprM+3DZr37pHewq
-         8moeW4Ber028ha4+G9CbuR6a0Ml8EHosTAXwnRSANhR/mE91TPU5LggGCS8FgK2iqY72
-         NZQGr3EW1V89MNsaJ2tg88YaMJIBQNpr71sfqXvTNP68xqIHV4M1r3JFWMfHtSByZ5Uv
-         4lccy2Ierl+Leo2EHoe07WuuXcZmp2BQenAPj+kAURsou7DVt6MhyS+nFtWQU/ILERdH
-         mIPGtACCL+1CztH5gi4SkcAMyb6iIIdBc8YgLCNfm1iAREIOAueUWE+mZpnE6/lKjubn
-         q+Tg==
-X-Forwarded-Encrypted: i=1; AKwUvByKm23Me+16aukD8BfyrXJnZEg1Y1aKiy/FugtkYFfNyB60IXkrPSsfIV08TIF6lmjuMPBNgdKHY6yd@vger.kernel.org
-X-Gm-Message-State: AFq9FYJG7k1RPV7mDqg7HcRAXcyGpmoCQCMx0lAvYFtzOT2yDi6I9561
-	hksI+Jh5EbSKcO3U9Zhu9O9NrPk+52HDSUEY6ncRA1yJ1rQedxTESK+o
-X-Gm-Gg: AYBFou1Q3i3UR5UJ82RdngNdoFjsB1lRqLweGjCHlNE2FW5+kb2lV+40OYU/271oC8G
-	MRar9KyLfBPiVaUvXb3zHFoy2zPE74Xe9bPHdj9MndAMqAGlWyPBSJMk70GuCpXwmNVfbdVWZ6b
-	iqJQnFqWcay7cL2kF5XZXT/HvXwHZzfIu80gpg9hWh8b6YelgH1Yez7Le5u3/6l49iPzDo0WGjo
-	WomsjllJ1Q0cbWJ9qO29goc7SkhYu7zzUBidqHIkE/pCzUQ0SEgC+wH6GFqR5bzL+rQucPTdgFl
-	dNpqASNqeL87yJFf8gCm+GUOY/C82LUSDFYOKXJS5tuN+8NRH2CP5q3QCXnTTDX8xx9yxEiR4oK
-	ohFDdSQML3xtoeXlO+n1ZJEjBWzkbM7yR69HbVoXY4l+Fdky+tS0yQAcPmkINzCdEMESCzULw/5
-	cFpKmQaGNyTB6bZNWn3HRN3aeFlmQI4IwvxMVNPpg9eElMZVa87WceUchR80C13SS2nFW0pukxS
-	RA7H7IcNi0uKyy8unyyq42h0pLQvFr+mfpD/JcnK0NVDa1kZVkUcoME/9wJekCE6KjID5FsAY2i
-	bufhh9X3X46H+Mjffe8E5ztYkn/QYvFOIIOoM+HRK5VKOw2DwgcOVDTqUeUZXrrlwAYsQ3RMLH2
-	4sqxtF48n
-X-Received: by 2002:a05:600c:354f:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4a965ec95f6mr117257515e9.10.1793268407430;
-        Thu, 29 Oct 2026 03:06:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793268409; x=1793873209;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C716tLFOYukgv8vVV1xiU5crvYZUQVn0gaj4X2Zv6Ao=;
+        b=Gx7IY6FJLzUIn5FyPfctZUsc9MNmfueUwQFsqM4o/7IabSBEndp7kmJwg5EuYaN8As
+         QufbGovlSB42rRZq83tPKylKlWz6y32se5ZcjlAWyVIK2DZIfNqiErEHFNRjHtJo1/uH
+         Ymyqk67/y70fD3x5g+7AbrusankGqYmEJZkiCMWdZ1V3VkrZYzqBwhxHORiUC+u+iMJf
+         7Na+9iHYmqtsZ+uN53UHWIGCbUPFSNuPA+8BS5Xf2GKJP1Gv2bkftakWkK1NagR+jNiN
+         4hG46xweWi2VRA3EeCSZ/QRAl6H8p+eEm9TiAy6Ne8jM/PA5pr4LULXf1ijR60suP/ss
+         99PA==
+X-Forwarded-Encrypted: i=1; AKwUvBwutWQYK3ZoED5RHkSpP/Bd8gUFiTEXise9G3H23EkcRBSPN6wMYuQ5MpWA/9l/03/OHxvErCfXpY50@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxLDiUy+9yehtY5aKI1whv5Y0h67eafV3HVYTmdxHQji105SzF
+	CBIMex4s3YmkJrmb62kIhrSVRhuMxe0jNxibFuk5r4rcEV+9jMR0/EEf
+X-Gm-Gg: AYBFou2I5sdMjGgyqYdAWnH4LLZCQLFgFpepXSFsM1pjfUuORXJY9rch7yHChYbscQL
+	356nSYGLk7e1891S7/vuR/Ql42b8/uyKLQAkEMC9nPeWQdrp5lJ08DX9VrCeAzWlISUPdqeMXnI
+	sB+sVJjhL3GnfJhJVk3WrcAfarLSzlVOIXUIhR24lBw1FeL5BneJo+W2U6nemzXa4xL9ZaF0qQU
+	itV+LZl7oHBlWCfg0pd7Es0x17ub/vkMnWVZs8qLJAgdiyMwObl/RauLo4QhRWLzX2o58W8/ATu
+	hE9ZOErGj+/2wpgZWinc1yMfdrwFWRk8bzsZExPiHVQLXVDuyQGN2WGLO+MS0ZHub8OFKkkRo2p
+	V5CGwosxmaiGwbifeqm8ftjD+ZLmAJcmSkvyLMIbdCpg6ThA1G2rX3Q/dWar5XI9ehciB4/sG11
+	aBoJtSdKp2vdXN2kNtbLoYcRl/XYpTm8d8vGer3vVcqMEEx192WOsYF/4+CbIxCZ+nGLrhXw93v
+	Ngpxi3MqA0sXaPDdr8kBc6gQ3dl1NJifvhFKkfJ+OlEZLfb0apjxcFJNoEvWmsL1OaKCiBhvsci
+	WL6N6BYEDIrDrSYGPbL2rX/Iq70KfGu9tZ3GmxfsXgDHegowtT1lu/CrScuSgcNxgj5W3l8R9OQ
+	9EAl8aqZc
+X-Received: by 2002:a05:600c:5246:b0:4a2:14af:1ead with SMTP id 5b1f17b1804b1-4a9676d1514mr113081845e9.25.1793268408743;
+        Thu, 29 Oct 2026 03:06:48 -0700 (PDT)
 Received: from [127.0.1.1] (ip092042140082.rev.nessus.at. [92.42.140.82])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm53082825e9.11.2026.10.29.03.06.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm53082825e9.11.2026.10.29.03.06.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:06:46 -0700 (PDT)
+        Thu, 29 Oct 2026 03:06:48 -0700 (PDT)
 From: Jakob Unterwurzacher <jakobunt@gmail.com>
-Subject: [PATCH 0/4] Suspend-to-RAM fixes for RK3588 + SPI-connected RK806
- PMIC, enable PMIC sleep on RK3588 Tiger
-Date: Thu, 29 Oct 2026 11:06:22 +0100
-Message-Id: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
+Date: Thu, 29 Oct 2026 11:06:23 +0100
+Subject: [PATCH 1/4] Input: rk805-pwrkey - enable the wakeup interrupt
+ during system suspend
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,10 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKAa42oC/z2NQQrCMBREr1L+2oEk1lq8iriwyVj/JpZ8DULp3
- Q0KLt/MY2YVY1GanLpVCquaPnIDv+sk3q95JjQ1luDC4F0YkVjx1JkF9YgeSyH+3S+3ly3MCVM
- Pv58GRjemEA/SJpt90/f37nzZtg9J1T2zfgAAAA==
-X-Change-ID: 20261028-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-13b6ec08d2c5
+Message-Id: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-1-cb12621c1fb4@cherry.de>
+References: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
+In-Reply-To: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
  Joseph Chen <chenjh@rock-chips.com>, Lee Jones <lee@kernel.org>, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
@@ -111,105 +110,118 @@ Cc: linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, 
  Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268406; l=4078;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268406; l=3230;
  i=jakob.unterwurzacher@cherry.de; s=20261029; h=from:subject:message-id;
- bh=whpYEratljGVTl7QjkhsaCvIr2bv7FesbGf4wTNyJws=;
- b=Yjo1Vrkco613l9dyLnzMqeGxox5caUTel5ElHqC2L6eZEKaikGN7q43RGAGZwNloLUj1zWdDJ
- d8fDrN+nWEGBzxgvmtwK4wP6dL1VSzL/h4dTP33hHfLhLImeky8gg6B
+ bh=3qBapWKlE9gnNc1OkRIJoQ7rj2z5kJO1plv4vMvRaIE=;
+ b=Gax9ATA7YcEykEZRoU8HuTbsJxxf2tMvfTF8fzq4d1vXJVAPuOzgirPI7o+V26V3EhSkl5nP5
+ acS+c8VRtbJBrDNorA6RDsnaahLsnJ730MdZY7glDerfZxdequzJfBG
 X-Developer-Key: i=jakob.unterwurzacher@cherry.de; a=ed25519;
  pk=0v1L7pjG4d7PcaYPMOmzP4SjaRtnB+8bMzZLZCRzB8I=
 
-This series, together with a few out-of-tree patches (see below), makes
-suspend-to-RAM on RK3588-Tiger work, down to a power consumption of
-about 0.4 W. Patches 1-3 apply to all boards with an RK806 PMIC
-connected via SPI, which includes most RK3588 boards.
+From: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
 
-Patch 1 ("Input: rk805-pwrkey - enable the wakeup interrupt during system suspend")
-arms the power key interrupt as a wakeup source, so that the
-power key can wake up the system. This is done in the regular suspend
-phase, because the SPI bus to the PMIC can no longer be used in the
-noirq phase.
+The driver marks the device as wakeup capable, but never enables the
+power key interrupt as a wakeup interrupt. As a consequence, the PMIC
+interrupt line is masked during system suspend and the power key cannot
+wake up the system, e.g. from suspend-to-ram on RK3588 with an RK806.
 
-Patch 2 ("mfd: rk8xx-core: keep the PMIC interrupt disabled during system suspend")
-keeps the PMIC interrupt disabled across system suspend, so that its
-handler does not run before the bus to the PMIC has resumed.
+Enable the interrupt as wakeup interrupt in the suspend callback if the
+device may wake up the system, and disable it again on resume.
 
-Patch 3 ("mfd: rk8xx-spi: add system sleep PM ops")
-hooks up the existing rk8xx suspend/resume callbacks for the SPI
-variant, which so far lacked them.
+This is done in the regular suspend phase on purpose, rather than with
+dev_pm_set_wake_irq(), which arms the wakeup in the noirq phase: there,
+enabling it updates the PMIC's interrupt registers through regmap-irq,
+which fails when the PMIC is connected via SPI:
 
-Patch 4 ("arm64: dts: rockchip: put the PMIC into sleep mode in suspend on RK3588 Tiger")
-configures the RK806 PWRCTRL1 pin on RK3588 Tiger for its sleep
-function, so that the regulator suspend states take effect. This lowers
-the module's power consumption in suspend-to-RAM from 1.09 W to 0.43 W.
+  spi_master spi2: Failed to power device: -13
+  rk8xx-spi spi2.0: Failed to sync masks in 7a
 
-The patches do not depend on each other and can be applied through
-their respective trees.
-
-Testing
--------
-
-Tested on RK3588-Tiger on the Haikou baseboard, on top of the v7.4 merge
-window (a8530b69fc4dd): 30 consecutive suspend-to-RAM cycles, each woken
-up by the PMIC power key, all resumed without errors in the kernel log.
-USB devices (a SuperSpeed hub with an Ethernet adapter, and its
-High-Speed part) stayed connected across suspend.
-
-Out-of-tree patches
--------------------
-
-To test this series, out-of-tree patches were needed and used:
-
-1) Upstream TF-A does not complete suspend-to-RAM on this board yet, so the
-tests used Rockchip's BL31 (rkbin v1.47), configured through a small
-out-of-tree driver. The plan is to get suspend working in TF-A instead.
-
-2) The inno-usb2 PHY has to be resumed when its 480 MHz clock is enabled,
-otherwise EHCI/OHCI resume hangs. This is addressed by Sebastian
-Reichel's inno-usb2 series [1].
-
-3) The GPU and NPU domain supplies were kept always-on. genpd powers
-these domains on in the noirq resume phase, when their regulators (on
-I2C/SPI) cannot be reached yet. I'm not sure what to do here, yet.
-
-[1] https://lore.kernel.org/linux-phy/20261001-phy-rockchip-inno-usb2-clock-fix-v2-4-e01bf509359e@collabora.com/
-
-Known issues
-------------
-
-PCIe devices do not survive resume; this depends on system PM
-support in pcie-dw-rockchip [2].
-
-[2] https://lore.kernel.org/r/20260316-rockchip-pcie-system-suspend-v5-0-5bb5ad37d643@collabora.com
-
-Tool use
---------
-
-These patches were developed with an LLM-based coding assistant (Claude
-Code). It ran the suspend/resume tests on the hardware, analysed the
-kernel logs to find the causes of the failures, and drafted the code
-changes and commit messages. I reviewed all changes and tested them as
-described above.
-
-Signed-off-by: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+Fixes: 5a35b85c2d92 ("Input: add power key driver for Rockchip RK805 PMIC")
 ---
-Jakob Unterwurzacher (4):
-      Input: rk805-pwrkey - enable the wakeup interrupt during system suspend
-      mfd: rk8xx-core: keep the PMIC interrupt disabled during system suspend
-      mfd: rk8xx-spi: add system sleep PM ops
-      arm64: dts: rockchip: put the PMIC into sleep mode in suspend on RK3588 Tiger
+ drivers/input/misc/rk805-pwrkey.c | 42 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 41 insertions(+), 1 deletion(-)
 
- arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi |  6 ++--
- drivers/input/misc/rk805-pwrkey.c              | 42 +++++++++++++++++++++++++-
- drivers/mfd/rk8xx-core.c                       | 19 +++++++++++-
- drivers/mfd/rk8xx-spi.c                        |  3 ++
- include/linux/mfd/rk808.h                      |  1 +
- 5 files changed, 66 insertions(+), 5 deletions(-)
----
-base-commit: 8f6620b65ae2458c36cbc9569a26fc2d777593a3
-change-id: 20261028-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-13b6ec08d2c5
+diff --git a/drivers/input/misc/rk805-pwrkey.c b/drivers/input/misc/rk805-pwrkey.c
+index 76873aa005b41..9b64ec7463c62 100644
+--- a/drivers/input/misc/rk805-pwrkey.c
++++ b/drivers/input/misc/rk805-pwrkey.c
+@@ -15,6 +15,10 @@
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ 
++struct rk805_pwrkey {
++	int irq;
++};
++
+ static irqreturn_t pwrkey_fall_irq(int irq, void *_pwr)
+ {
+ 	struct input_dev *pwr = _pwr;
+@@ -37,10 +41,15 @@ static irqreturn_t pwrkey_rise_irq(int irq, void *_pwr)
+ 
+ static int rk805_pwrkey_probe(struct platform_device *pdev)
+ {
++	struct rk805_pwrkey *priv;
+ 	struct input_dev *pwr;
+ 	int fall_irq, rise_irq;
+ 	int err;
+ 
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
+ 	pwr = devm_input_allocate_device(&pdev->dev);
+ 	if (!pwr) {
+ 		dev_err(&pdev->dev, "Can't allocate power button\n");
+@@ -84,16 +93,47 @@ static int rk805_pwrkey_probe(struct platform_device *pdev)
+ 		return err;
+ 	}
+ 
+-	platform_set_drvdata(pdev, pwr);
++	priv->irq = fall_irq;
++	platform_set_drvdata(pdev, priv);
+ 	device_init_wakeup(&pdev->dev, true);
+ 
+ 	return 0;
+ }
+ 
++/*
++ * Arm the wakeup in the regular suspend phase rather than with
++ * dev_pm_set_wake_irq(), which does it in the noirq phase: enabling the
++ * wakeup updates the PMIC's interrupt registers, which is no longer
++ * possible once the bus to the PMIC (e.g. SPI on RK806) is suspended.
++ */
++static int rk805_pwrkey_suspend(struct device *dev)
++{
++	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
++
++	if (device_may_wakeup(dev))
++		enable_irq_wake(priv->irq);
++
++	return 0;
++}
++
++static int rk805_pwrkey_resume(struct device *dev)
++{
++	struct rk805_pwrkey *priv = dev_get_drvdata(dev);
++
++	if (device_may_wakeup(dev))
++		disable_irq_wake(priv->irq);
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(rk805_pwrkey_pm_ops, rk805_pwrkey_suspend,
++				rk805_pwrkey_resume);
++
+ static struct platform_driver rk805_pwrkey_driver = {
+ 	.probe	= rk805_pwrkey_probe,
+ 	.driver	= {
+ 		.name = "rk805-pwrkey",
++		.pm = pm_sleep_ptr(&rk805_pwrkey_pm_ops),
+ 	},
+ };
+ module_platform_driver(rk805_pwrkey_driver);
 
-Best regards,
---  
-Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+-- 
+2.47.3
 
