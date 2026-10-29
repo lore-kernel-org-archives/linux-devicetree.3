@@ -1,92 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287580;
-	b=KUCb/ZVS94A+ZaJeA3ZFigiD2XhQtLgEswX59oIvilmdYciKrO/X/spDZ5uhQOQ453WG
-	 Tw5szreHIwRcgX8Eq2QTZO2f9P7b9N0KQ2C0Dc1UhfD+28loInmUGW8J00g9qdKTYaa3M
-	 d1hM08HEuMq1wRsFKqojzv8U+uR9pmr/ESk579SuXydvjAeauyPiCI/TcByEAukziu+SF
-	 YLA1F2C7CMZvGeBPdRXIXATYHLa1SI8ghjADDOOdWH8Hdqm059AUiwQ+eFHRI+LhgQ8Kl
-	 +kAjC2Hb/SEa1Xo1tQIAnJt2mt9s2YH8NpIvzigjwael1uJaJEUwE7m/L/7obgue1kQ==
+	t=1793287773;
+	b=u0omgzgaPMz3HQWp1g1TGsBjr76mgUjcTu8lI1c8uuDKGQxkd+d6OzjNq9LKsFfE/D1s
+	 1Xi7uH/NoRJurVY0a+XGnWoy5s4cFWn18sSwQqaOXWkednH6ky/5C9RJD2Y1fXvIxzjmn
+	 N/4WCjoSYiVzM4Ly9BXqVOlpz6Hsunx0THAZj516JMKjYs69cv9ZYIcpbiroUC7I6JKTr
+	 bbetiv/JzEmEaz0CuVaYpogEsc4A1Mx0QMFCSMe2VzX84bRl0A+IHDoMjNF4xQ9vGln6j
+	 Uqn+zgmL9NSmQbMQZCpP3XPw3OADRAMoxWDCXMd/s+x6nMzH1te3mxb9PIJsjNa1S6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287580;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TMem62g2lcDs4GvVz70GOlc3OQ9/CsK2Am3UmiiCzO8=;
-	b=xXHx4SUxcruwnBaIjqh+SnPBT/+eikkrqiLuBd6VkH4Rsc62br+Jn3Pw0YHzGZZrgIRt
-	 ZRHJuxi+l8mYkXNQ4MDy9JQGhtdSITFR37A4+CkWJ8A4245zXzsclsKeLG/d7EAtrjMqp
-	 e9Hg3opgguCJlnC3dm+dWJMVr9gr3iMCXGpfU6sl0wangWSIAmLkDZKRP6orjiF/rukOn
-	 JQ8Ry0vJqml1FgtG4REBOSV71CWfiSdEOO7rdjbMwOkytSbGMq19dANxhL+tZpI3r6cXX
-	 sPDSZg6wqvtOBvyzE+yNVLMW7/AHzKigVm33+87a0yd/8RfVDAA8do/1P0PDRI0wuyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287773;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+	b=5Y1RnEkN5FECx91YTdWiIiuOpKMQGQUMZ7raLl3ajSa6qiwEvHdT12BCIqEbjRnRU3gE
+	 xTnVxJEScpPqEYt2C0Z+m7sP47UY8xj6jfmsrIBGFtZGnfJdv2WzAJMgvueum84RhQsyq
+	 iq8jlpeT8QtJwS5JO27uJFf5PROI6/vi9ZyvJU6jvkpU5DGS6XfXcD4Hv6qmwLejPcgD0
+	 gdjocvLV3H4Rz1V7KQtOZ3iSqIfWehOCdoLefqKy8JG76DLMig412upoAMav3qPcowp4q
+	 GBoFLVo1NzddMwHkpExlU0mMXs/pPDVX0Qk3NHuEuCLiqD4z8pMzLu9jj+9gpETaB+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=WfaLSk8V;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PB09v4er;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C083A606A31E;
-	Thu, 29 Oct 2026 15:26:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C083A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4B0606A31E
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 15:29:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F4B0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=WfaLSk8V
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id C2E2C40E04D6;
-	Thu, 29 Oct 2026 15:26:10 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id SXko1jis7xbX; Thu, 29 Oct 2026 15:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793287566; bh=TMem62g2lcDs4GvVz70GOlc3OQ9/CsK2Am3UmiiCzO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WfaLSk8V2zc10CCTJC7KQ+mW5ZNVwQ6tVysSm3QoFYrlYQcQbTdeGnTWigDnGTV73
-	 WAtHhbThxElxilGbIyKiOlL2OX3thsUsUKN0nSBfHsprxovyr1FZDWqLXiKOOLKYSs
-	 mDjo4Utiji/QF1wRS8DWQQyxP1qHgQco+wdJP90GqhecLmoJKI9ErJsIsL6P0NI4DH
-	 JUQFoLcrE2LAb+aBmPA8dw3OpkNCanlDP4Y4MZRuBTqHLgw+HQvyXuoSF7WPa4ErZV
-	 9wcOGxVxeoY5QzJ5I1M3ENK7LoVA47K5yeRTOzJo8Qe474Ehta1F5ytcJswRoCOOWn
-	 rd85yhrR4cem0mPfQ0Oqwqp+HzBrw75sQ3gA09h5DtQOk4VeAjlGEiG+ZKhmry5joI
-	 TbZxD/S51f8V7Zxa/gjufRhBlTd6JkvZjZn1JalTE1+7GpowzJ28W9eJPVXFTlWlHN
-	 KVFNeXBV60culPcF5RzGCa0YPTCQdfu8kVbkN7HAFDHavT8ZDHnK19uCOYnzPGJFI/
-	 qaFUEHixReT/86cilapEQg7osZTZgHHu6OTxtl5XoZBythAnLxYMNda5Dvcdhztq/y
-	 i6xVPIBqsL/Wvx4PkgNva+23Fkyp0PyIHMIaWHleslwajy52bfZC8K12PHiqbsmWAW
-	 LFxAowr7WGdXTAV/6kLD8zhI=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4810A40E02B7;
-	Thu, 29 Oct 2026 15:25:52 +0000 (UTC)
-Date: Thu, 29 Oct 2026 08:25:49 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Michal Simek <michal.simek@amd.com>
-Cc: "Veggalam, Rama Devi" <rama.devi.veggalam@amd.com>,
-	"Ghannam, Yazen" <Yazen.Ghannam@amd.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PB09v4er
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4395d31228so358299266b.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:29:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793287772; x=1793892572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+        b=PB09v4er9319DUGcwBCws35Y5clXWQvxxyJ316DSeQU0JO1Wm7RuiV9vRNgRNThyF+
+         s9w7f4beT2W0HSldAuNBEEzN416IRQNsFHbP3LbWeYz0M/mEIi2IRCGjUWYwxYMxvxKW
+         ztw9+frsAAU4baJMoV83eH7pWxcmMdKZYb4t/fhqrFrI7knWpHhigDtQ1fvZrAatyXdD
+         WATr83IGprMp5UflmNUjAt/3BRfkzDOyTMwV4aYxx7MMecOC6LW96fXjdVo1OlPMn3wS
+         DSMmACwKyJ3yU9YPhlPiF6l5zgbpYAJqQyqKzQthitf11lc/sPF6Pqj0A2d7L/Dl3sPR
+         Wk4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287772; x=1793892572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+        b=w+zCWSSKz7PfVUyXMo7C55q0OuCQCh93rXNUDuqJrjkYrPg1KDWy1fZ/f1LufEHrje
+         t06KRzZDz/d8vxHqb90uL/aL5xAJcVTSnUDobRaNDzybYaO0YeUsaU4U1uSvfqHCJ1VR
+         N2V7aGiDeyPu/4Az5ZduqxV+64uSNDuxxFZ6jHyK8P6O2jYCvbRArCJ//6XL1o1MwLAu
+         JelfzDOBylPTl3YtqQ5gnuY5fzX6lK32edbL+sG70V1Qc2IkpmVwVTifv51xD/uoUalu
+         q6u0glRMspdtZURo2djSlcPfN4wgZmk4Vd0B2AjyNe9PB/jMZYD04eteCUH/XS7mTraG
+         6nwA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6SkDuF07LB2lNfHqUYqxUkCB/V0Mk8RqXrx2a2vrAFs7WVxTBqzTPNT7Z8LeYQe0zR7UYJxBHXiL7@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfn0uhz3MfpH9KfRpr4PG2Au7A5nBkPw3Zu/41FgEgfXYZmPNX
+	CyIHrhTcguJjcXULRxjGbpm4FnCrtHgm988xl6R+igJeC2iiuUZVopGQ
+X-Gm-Gg: AYBFou1q5m/HG8JEYQIsXZyHoiBnkD8XZiqSeIY+czewIjgtXWWAthypH7J/moSezDl
+	D/tpyVFEnXlZGoeNoMDALkybHQ+tvBRxNhFCWQ80WOA4AI+0fSE64CsgYLNeXbFcMGprzhfmLzP
+	GySbEHUJHx1gWT2mpAiPSKZ/+VfCrCtiH6Ad7Vjq4nfRA8dkU8YK3SYJNdZQCqsvV2chjf67Iaq
+	LOz1hu/uz+6AYnXle2YTLZzDuodWBcMV4VGguugvPx12vNJgW26J8aSbgOjbl7AvD3syGvMV/CN
+	s95IoU8FBPPYSxodw6iSiMukdC3dV7Dip6LEpFcspGT24cAZekj8wWqSldZhW6WsJpmTzYz+NDU
+	j//zDsZmdsrym9SO17YaW3X1DBkei/Z+C0bnRXCCZrtgnUXgPWeVfiq7IeEjAlRkL3Y6G9JD/Na
+	zUZWQ23zDsYbdE05SAxLabFBNuXMgfMcxgSaC7vq9sPnCRtBG+tbOOEcmUuNT8kixisO1Zbnl3Z
+	vCG6+mFzFTHpnkEj49uwr+hyoACAy+pdcI4TOfDbygDtqoxQyVoobdpHpeYeZ3sRLYuP8ZIQ5Qh
+	LZAcQ/59pLGgqQCiqbeCKfSye1w2aCrGjc2wBuaoveNR54ehqQ==
+X-Received: by 2002:a17:907:a88e:b0:c40:36ca:9d1b with SMTP id a640c23a62f3a-c49be0398aemr530750766b.40.1793287771423;
+        Thu, 29 Oct 2026 08:29:31 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 08:29:30 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	Rob Herring <robh@kernel.org>,
-	"tony.luck@intel.com" <tony.luck@intel.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"james.morse@arm.com" <james.morse@arm.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"rric@kernel.org" <rric@kernel.org>,
-	"git (AMD-Xilinx)" <git@amd.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
- xlnx,versal-xilsem compatible
-Message-ID: <20261029152549.GBauNlfeOlTwktwjYs@fat_crate.local>
-References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
- <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
- <20261022143730.GA1287910-robh@kernel.org>
- <20261026203920.GA696395@yaz-khff2.amd.com>
- <PH0PR12MB8125B27A7814A3818739C4B9CE6F2@PH0PR12MB8125.namprd12.prod.outlook.com>
- <b683fcbd-ae5b-416c-96e1-7b0d7146c468@amd.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v5 00/11] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU interface
+Date: Thu, 29 Oct 2026 17:28:58 +0200
+Message-ID: <20261029152909.234584-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,60 +109,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <b683fcbd-ae5b-416c-96e1-7b0d7146c468@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 03:52:35PM +0100, Michal Simek wrote:
-> Let me jump to it and start that discussion again
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'.
 
-Sure, but pls trim your reply. I almost missed it from the gazillion pages of
-quoted text.
+Add MIPI DBI bus support along with 2 DBI Type B panels used in
+LG Optimus 2X which work with the 8-bit CPU interface.
 
-> Please correct me if I am wrong but today edac core only checks that there
-> should be only one MC edac but there could be multiple EDAC devices.
+Convert rgb, dsi, hdmi and sor to use atomic versions of
+drm_encoder_helper_funcs needed for bridge state requesting.
+Refactor and expand DC header. Add DC parametrization options
+needed for fine tuning by bridges. Make panel parsing by
+tegra_output_probe() optional and document optional DSI port. 
+Add 8-bit CPU interface in form of a bridge linking to RGB port.
 
-An EDAC driver contains controls for all the RAS functionality in a platform.
+---
+Changes in v2:
+- convert enums in the dc header into definitions list
+- add check in RGB if bridge_state is not NULL, if yes, use default flags
+- inverted FLAG_PIXDATA_SAMPLE flag setup logic since default value is set to
+  be on NEGEDGE while v1 set default to be on POSEDGE
+- 8bit-cpu schema renamed to dbi, removed compaible and set as DC child
+- expanded list of required properties
+- 8bit-cpu bridge remodelled into dbi interface as DC child
+- improve gpio handling
+- rework attach to get drvdata from parent
+- add panel supplies description
+- split panel driver into per-panel drivers
+- get DBI interface from the patent directly
 
-> XILSEM edac device is present on Versal and Versal NET SOCs.
-> https://docs.amd.com/r/en-US/oslib_rm/Tool-Configuration-for-XilSEM
-> (Actually also on Versal Gen 2 but firmware interface is going to be different).
-> 
-> I don't think we should try to integrate EDAC memory controller with EDAC
-> device because their usage is independent of each other.
+I have deliberately left GPIO parsing from device tree since it seems to
+be the most convenient and mainstream method of working with GPIOs.
 
-Are you saying that you will have this XILSEM hw in different platforms?
 
-IOW, you will have a Versal or Versalnet thing and then something else, and
-then XILSEM will be in all of them?
+Changes in v3:
+- rgb: fix default bus_flags to match original behavior
+- dbi-schema: remove compatible from required props
+  remove dc@54200000 wrapper from example
+  restrict dbi nodes for tegra20/tegra30 only
+- dbi: remove unused idx from tegra_dbi_priv
+  wrap dbi registration in dc with devm_add_action_or_reset()
+  separate dbi into separate object
+  export tegra_dc_commit() and trace_dc_readl()/dc_readl()
 
-Then perhaps it is better to have it as a separate EDAC "driver". In air
-quotes because this is not really a driver but simply a wrapper so that it can
-be called an EDAC driver.
+Changes in v4:
+- reorder patches to avoid errors on checking dbi schema
+- dbi schema renamed to nvidia,tegra20-dbi for consistency
+- fix DC_DISP_V_PULSE0_POSITION_* > DC_DISP_V_PULSE1_POSITION_*
+- add MODULE_ALIAS
+- swap width and height in panels
+- dropped use of init-sequence and gpios
+- dbi driver reworked to use only DC to operate pins
 
-It all depends on what hw configurations will be built.
+Changes in v5:
+- added commit modelling DBI bus (suggested by Mikko Perttunen)
+- hitachi and lg panels converted to mipi_dbi_driver
+- dc header refactored and completed
+- added commit documenting DSI controller port
+- added commit which converts drm_encoder_helper_funcs to use atomic
+  enable/disable
+- added commit which makes panel parsing in tegra_output_probe() optional
+- dbi command/data converted to enum
+- dc com pins are now backed up into drivers private structure
+- magic numbers replaced with pin defines
+- dropped tegra_dc_readl() from tegra_dbi_pin_set
+- tegra_dbi_pin_set() accepts boolean third argument
+- tegra_dbi_write() second argument converted to use tegra_dbi_dc_signal enum
+- used field_get() to extract pin value
+- extended comment regarding init sequence
+- nvidia,index > generic reg property
+- adjusted tegra_dbi_atomic_enable() to properly handle shadowed registers
+- switched to use of_drm_get_bridge_by_endpoint() since panels are auto-wrapped
+  into bridge now
+- added support for mipi_dbi_host_ops
+- added resource managed helper to register DBI device and provided to DC via
+  header
+- dbi.o built with all other tegra drm files
+---
 
-But if you have XILSEM *only* with Versal, then I don't want a separate EDAC,
-hm, driver.
+Mikko Perttunen (1):
+  drm: Add MIPI DBI bus support
 
-I don't want to maintain a zoo of "EDAC drivers", each for the RAS
-functionality in a hw functional unit. IOW, I don't want to have:
+Svyatoslav Ryhel (10):
+  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
+    LH400WV3 panels
+  drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+  drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
+  drm/tegra: dc: Refactor and expand header
+  dt-bindings: display: tegra: Document Tegra20 DSI port
+  drm/tegra: Make panel parsing by tegra_output_probe() optional
+  drm/tegra: Convert to use atomic versions of drm_encoder_helper_funcs
+  drm/tegra: rgb: Parameterize configuration based on bus flags
+  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
+  drm/tegra: Add support for 8-bit CPU interface
 
-AMD64_EDAC_L1
-AMD64_EDAC_L2
-AMD64_EDAC_L3
-AMD64_EDAC_DRAM
-AMD64_EDAC_SB
-...
-
-and whatever else hw blocks you can imagine which have RAS capability.
-
-Makes sense?
-
-Thx.
+ .../display/panel/hit,tx10d07vm0baa.yaml      |  58 ++
+ .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 +++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |  22 +
+ .../display/tegra/nvidia,tegra20-dsi.yaml     |   6 +
+ drivers/gpu/drm/Makefile                      |   2 +-
+ drivers/gpu/drm/drm_mipi_dbi_bus.c            | 232 +++++
+ drivers/gpu/drm/panel/Kconfig                 |  27 +
+ drivers/gpu/drm/panel/Makefile                |   2 +
+ .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 294 ++++++
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c     | 233 +++++
+ drivers/gpu/drm/tegra/Makefile                |   1 +
+ drivers/gpu/drm/tegra/dbi.c                   | 632 +++++++++++++
+ drivers/gpu/drm/tegra/dc.c                    |  15 +-
+ drivers/gpu/drm/tegra/dc.h                    | 859 +++++++++++-------
+ drivers/gpu/drm/tegra/drm.h                   |   2 +-
+ drivers/gpu/drm/tegra/dsi.c                   |  22 +-
+ drivers/gpu/drm/tegra/hdmi.c                  |  22 +-
+ drivers/gpu/drm/tegra/output.c                |  52 +-
+ drivers/gpu/drm/tegra/rgb.c                   |  72 +-
+ drivers/gpu/drm/tegra/sor.c                   |  20 +-
+ include/drm/drm_mipi_dbi_bus.h                | 103 +++
+ 21 files changed, 2372 insertions(+), 417 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
+ create mode 100644 drivers/gpu/drm/drm_mipi_dbi_bus.c
+ create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+ create mode 100644 drivers/gpu/drm/tegra/dbi.c
+ create mode 100644 include/drm/drm_mipi_dbi_bus.h
 
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
