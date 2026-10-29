@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269152;
-	b=PXqm3RdXIjg82ZkNwqQItfTIoIT7wNmM+X7MtciULEZfVHQh7V5BCQQYkmRdxdMwgCpM
-	 H/z4ay0dnDN2Fyx0uFZ0309CI2Pv3USRsmJQJNNRztFQR324HvX95KLV4p5Z3A0WWTCUd
-	 0e1O00qyz5IloFsXpWJbsdXDZlzcmA3Kh50DTli998RWOASeQ4RCZ8jA27S6JbN8LzpkF
-	 Ja2Dm/l+Be9Ahu7ytXpU+nASxwTj92Jv85U9H+SyrA+R3d1eWbSGoBK68nWctX6k9r6o/
-	 U6mt3Qbd34OJqxNPETdOLWi1Nam9nq5MF+UUCZQ4Xf6tUySqv7nKbWvgQoaJPa62XdA==
+	t=1793269156;
+	b=OPzcRaXm1YNkH1e1nfKWzM28+QJD/YJdpn1b6v7bEIeNhvYuV/GIw6l2MTJ1Nmi3V5hN
+	 K0zV4GRN//H/QP/NwcT2qiomPHqUirdjR5VER9Z7KHbgye7JM66R4eXBdmZegqjaNGZer
+	 emOrOc7xok5sFSuGouttd7DjqmXYx7nKrNuUHOtMN7LKiWxXfA2t8XDox8HTEWKY9wPDd
+	 FAa7m5MiEmNKMiV6RNwHDb3TUwu+fr8FPR3szNAjrzYM59wdRkbeq/6zOAlJUQyoNbcy/
+	 88taYU7eKPpNGyKm5TLBnX2EAV9agfUBj8KO/8h6t85vaARo3GPRKCpxUzewUIgx3Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269156;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HB1+khf4W7ieUXsIe0qQgtyklax0j9dwfQ8Wri2lxaY=;
-	b=h58acD7ZxwW1N9ueGvF5XSvWxoxdf/aRbrslETFIgVj26Tb9oLnXxag8n73ETHy23wlX
-	 XjDKELRbjEzr/FijeQJb2cxnMBMdmz72xK7qS5BqshW+070iUs7CbdJWzQlHLapiuAgHr
-	 /0R25Bis6PRcmv7vmUO0Jl6TD4CMH3ZzP0WYwHMkkrS5DL9d94AYMM/WdGe66dxYHwaao
-	 FVmXvDlB15ppzisMgweM5mKXQRf9mh4gRZm5/5GcoKlx37ZzfMddzKHyWRJkh0QX5Z7io
-	 P3YkUX/3oc6XxirJMmoCQ2qrbNdGPK6JC9zkDjgWwccR37GiJJWVz57Po+zSPvcvTwA==
+	bh=X1NIgwPPPady9vNgsqWp6u79hEpohZvkKV5SA0cXjbM=;
+	b=dgptmhfJU691m8h9euLX4+Y/VoheSfsxka3ofagB/m+VcU2UozS3N1ds/BVT+76edybC
+	 svZf1zAIfI98fOC75LN8+OOPyHyQLP/x/EstOmXEARqSw90DhMdTQ8dxQQuZwhEYXR+VP
+	 6eYoTO89IaJ9RwR2GEC0uSRj1lTKBDAOZzTPV8X3bbgg1ukEbjlI2ZeyeZUM0O2BiRY2j
+	 tEpC8xwQN9WagBQxTsDFywqlvGHMtTEuGuQY7xUU8j6+5AcyYumkifXCJIo+oxLhQg1ju
+	 qI6C6xYEmM4GogPY6NNxOW6otMKxnQn+FKfbrFYKOGD72UZI220/N3iUE+niHju0Qig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=R9DnLh+m;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oqf0J9td;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C41606A31F;
-	Thu, 29 Oct 2026 10:19:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C41606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4FA606A325;
+	Thu, 29 Oct 2026 10:19:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4FA606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=R9DnLh+m
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oqf0J9td
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 467566DC;
-	Thu, 29 Oct 2026 11:16:55 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01E57C4A;
+	Thu, 29 Oct 2026 11:16:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793269016;
-	bh=aFTh2isL80rpjArw0pBCwb8jHtiH87EGszWWiIa4lhw=;
+	s=mail; t=1793269021;
+	bh=KTIXB27nV2CogfdCuFPaogEUe+KRWZ9o8/7dUF1G94I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=R9DnLh+mG+hYS3MdxySsJ/27GD6OyihS1Iaq7eu32TuhI308wfInUPBs9GZKLJLan
-	 NNZkTTYRtIb02dYrPw3QXsxJuWo6MaYbyA+ZHYFoMidbWLo4vK2LQTM8wqNbAw3UH8
-	 QFKvKZsa8y0vm4xk5v3lQl41JXWNuQ3KIKNtBMtY=
+	b=oqf0J9tdCm4ZUOdAESn4YX7LKcnXqNXV3CUipoDP333o/0Mr/PjDO0x327/wLNYSz
+	 DwUyL8eo7tmGUAo0wEK5sc/51FVy5AfQOBpPfoIW/G3B9jEw4Vo8kX9Lh9ZKpDJTXu
+	 rIEtOpZaZ0EP8JQDGZUGmNNjWL8Ijv0ElVPYU4As=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:47 +0200
-Subject: [PATCH v4 01/14] dt-bindings: display: ti,am65x-dss: Add AM62P DSS
+Date: Thu, 29 Oct 2026 12:18:51 +0200
+Subject: [PATCH v4 05/14] drm/tidss: Remove the unused vp_bus_type feat
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-1-dc7f2b532478@ideasonboard.com>
+Message-Id: <20261029-beagley-ai-display-v4-5-dc7f2b532478@ideasonboard.com>
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,101 +73,114 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3512;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3432;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=aFTh2isL80rpjArw0pBCwb8jHtiH87EGszWWiIa4lhw=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2VXLALbFjY8SqWaRTVz/iQg7GNH89sdNmMV
- bHXtrSQ+JCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlQAKCRD6PaqMvJYe
- 9YpWD/4vh6Z6ZFLe0UQinSN2gRnsOMQ+HvfoiCjocyFM7lpSOZXOoKfATmEDVR2sX8RY6jM2Fgh
- r3kGpbw9wvnribWvw1zZvyx/OhZD/0FCmggwmnt0NeaA4CDmVVqqvHEUdCm+3JBoMWtC/N8LB5s
- g3Sg547NoR+6pOv0vB5l0CbFeucJD98cgHUFKeGNCWWZgBMDfYBzzPWYz7Si0SLoQEezFdoMe5Y
- wirPDa6s4mm1xL6ZicIL/t/bMf3G+S6pWg95BU15pKQjzMXYWH2MOAHMJYdAroMdu73JkwBmhkt
- 80wTaRbLQ40x8x05OgFwYCyBj0Snv+zPxYMO9+MeJgOW1GeFCXH6s1OMnGqtGfJ8hYU6//cx8Wn
- Rv/ZV+rf+J1cFPCPNuaNIYnDa2qTVPMtyBF+SSu293osW1PmtMGLm2x4786a6+agSKOfB/t1X7Q
- ZGmB2DTiJLMys61OGH2muksQzf+D7r2dPJztYQWsSeAOUkjHjpV4ysJ0ZOlNDkQM+GggQw4/dvv
- f5blo1ChtiSmcnNAj9NKH4CzA/l0vK9J3D1mNC+B0nOzx1l8v4Ixa3GrVgjleH9MhZ8rR8CX4X0
- aG+sbQ1bBYsPxeBEK2PjrYRfn32JZKA5luhWHxQleNhmucjbOtPnHrFdQI1iVOeGHuYKCb73MNU
- 2TWrlLmYMexoU9w==
+ bh=KTIXB27nV2CogfdCuFPaogEUe+KRWZ9o8/7dUF1G94I=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2XEf8ivNkuiJveCq0pdDBohqKlTqYGkJxv6
+ +G6AolREv2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlwAKCRD6PaqMvJYe
+ 9SY3D/oCmh0YA1xqzjDpIEzJxurRNfvRtc5r/cFKtelMdyULN6GDNmm0KUtreKMFBg6/HObLuyC
+ GY7pJ4Pw2RvWnrEq5bck+XVRPr0FOJ6j+xPssYoajyz1schpcAk0/xtGhfDhmIES/JEeApH4f5N
+ wM4Wuj9PScGrQ6A+8BwlJovY0GHW4bstGWyngvoSasoOptTTwVviGMEBbI6Wo5J+Cy08IGvYk7z
+ 4otFGUqsERwbUjSxV71POoENnDI2PUYQ8miBVspNIXjf+OcX/Xvqe7hx3w1GKcGr2lufmptfadp
+ w0lEULQNuQMsPkAPjxzJTZr5iF4PXz1yRElvVA3kPrNrdShi85uPeE+gOkn7QI1rcvQg2CWznii
+ SsPG5Er+DVr3HeTwPtZrVR88lADDuj8W+dnhNv6A/pC3Y/0tXQWM8RTfOrTGcMjs01Y04yLJs72
+ MVvyopn1OieZY3azoyJiy7y85fqZSD5kpOQfNMToNz8aWTkCONJgPD91v1+xPqDaALFykmMJIrs
+ yYxIOJxcDbumbwBM521pXNGDSKzpxX4xnSCkCxIff9SubczHeBgeeGWfswr51x4x4B/zs0F2v3I
+ cLK3ydm49d0c8hJ7B2Oe7iNUL6shvhx8KLWcHwch9ZHiSQUg2s+1aZyps1l7dl3tO6MX3x9oso/
+ FhlGauVdJpCIIBg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-TI's AM62P, J722S and AM67A SoCs contain same implementation of the
-display subsystem (DSS). There are two instances of the DSS (DSS0 and
-DSS1), each with two video ports (VP) and two video planes.
-Additionally the SoCs contain two OLDI TXes (OLDI0 and OLDI1), a MIPI
-DSI TX and a MIPI DPI output path.
+Nothing reads the 'vp_bus_type' feat any more, and can be removed.
 
-DSS0 supports:
-- VP0: OLDI0 in single-link mode, or OLDI0 and OLDI1 in dual-link or
-  clone mode.
-- VP1: DPI
-
-DSS1 supports:
-- VP0: OLDI1 in single-link mode, or DPI
-- VP1: DPI or DSI
-
-The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
-between the DSS instances. Thus only a single VP can output to DPI, and
-a single VP can use an OLDI block. Note that in single-link
-configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
-be used by DSS1.
-
-The DSS IP itself is compatible with older SoCs. While we could use
-"ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
-on the safe side in case the driver needs to do something special for
-the dual-DSS case in the future.
-
-Original patch by Swamil Jain <s-jain1@ti.com>
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- .../bindings/display/ti/ti,am65x-dss.yaml          | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 9 ---------
+ drivers/gpu/drm/tidss/tidss_dispc.h | 9 ---------
+ 2 files changed, 18 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-index db7d3d216b64..5ddee18b4982 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-@@ -28,11 +28,38 @@ description: |
-   On AM62A7, the first VP is tied off in the SoC, and the second VP is routed to
-   external MIPI DPI pins.
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 8c537280faf5..028cf78df3fe 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -90,7 +90,6 @@ const struct dispc_features dispc_k2g_feats = {
+ 	.vp_name = { "vp1" },
+ 	.ovr_name = { "ovr1" },
+ 	.vpclk_name =  { "vp1" },
+-	.vp_bus_type = { DISPC_VP_DPI },
  
-+  AM62P SoC contains two instances of the DSS:
-+  On AM62P DSS0, the first VP is connected to two OLDI TX instances (the second
-+  TX shared with DSS1), the second VP to external MIPI DPI pins (shared with
-+  DSS1).
-+  On AM62P DSS1, the first VP is connected either to the second OLDI TX, or
-+  external MIPI DPI pins. The second VP is connected to either the external MIPI
-+  DPI pins or a Cadence DSI TX.
-+
-+  An important note about OLDIs on AM62P:
-+
-+  There are two OLDI hardware blocks. Each OLDI has certain configuration that
-+  has to be done before it can be used. The OLDI blocks get this configuration
-+  directly from the DSS block, via DSS registers. However, as a single OLDI
-+  block can be used either with DSS0 or DSS1, the source for the configuration
-+  changes according to a mux. This mux is set according to the OLDI
-+  configuration registers in DSS0. Thus the OLDI control paths change at
-+  runtime, and it is not obvious how to structure this in the DT bindings.
-+
-+  The solution used here is that each DSS node contains the OLDI nodes that can
-+  be used with that DSS. Thus the DSS0 node has two OLDI child nodes, OLDI0 and
-+  OLDI1, and the DSS1 node has one OLDI child node, OLDI1, so three OLDI DT
-+  nodes in total. The two OLDI1 nodes thus refer to the same piece of hardware,
-+  and they cannot be used at the same time. The selection which OLDI nodes to
-+  use are chosen in the board dts files, so assuming the dts files are correct,
-+  no resource conflict can happen.
-+
- properties:
-   compatible:
-     enum:
-       - ti,am625-dss
-       - ti,am62a7-dss
-+      - ti,am62p-dss
-       - ti,am65x-dss
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -167,7 +166,6 @@ const struct dispc_features dispc_am65x_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	.vp_bus_type = { DISPC_VP_OLDI_AM65X, DISPC_VP_DPI },
  
-   reg:
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -262,9 +260,6 @@ const struct dispc_features dispc_j721e_feats = {
+ 	.vp_name = { "vp1", "vp2", "vp3", "vp4" },
+ 	.ovr_name = { "ovr1", "ovr2", "ovr3", "ovr4" },
+ 	.vpclk_name = { "vp1", "vp2", "vp3", "vp4" },
+-	/* Currently hard coded VP routing (see dispc_initial_config()) */
+-	.vp_bus_type =	{ DISPC_VP_INTERNAL, DISPC_VP_DPI,
+-			  DISPC_VP_INTERNAL, DISPC_VP_DPI, },
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+ 			.gamma_size = 1024,
+@@ -328,7 +323,6 @@ const struct dispc_features dispc_am625_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	.vp_bus_type = { DISPC_VP_INTERNAL, DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -384,8 +378,6 @@ const struct dispc_features dispc_am62a7_feats = {
+ 	.vp_name = { "vp1", "vp2" },
+ 	.ovr_name = { "ovr1", "ovr2" },
+ 	.vpclk_name =  { "vp1", "vp2" },
+-	/* VP1 of the DSS in AM62A7 SoC is tied off internally */
+-	.vp_bus_type = { DISPC_VP_TIED_OFF, DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+@@ -422,7 +414,6 @@ const struct dispc_features dispc_am62l_feats = {
+ 	.vp_name = { "vp1" },
+ 	.ovr_name = { "ovr1" },
+ 	.vpclk_name =  { "vp1" },
+-	.vp_bus_type = { DISPC_VP_DPI },
+ 
+ 	.vp_feat = { .color = {
+ 			.has_ctm = true,
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index 3dff391d3fec..ebaf559d56e5 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -59,14 +59,6 @@ struct dispc_errata {
+ 	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
+ };
+ 
+-enum dispc_vp_bus_type {
+-	DISPC_VP_DPI,		/* DPI output */
+-	DISPC_VP_OLDI_AM65X,	/* OLDI (LVDS) output for AM65x DSS */
+-	DISPC_VP_INTERNAL,	/* SoC internal routing */
+-	DISPC_VP_TIED_OFF,	/* Tied off / Unavailable */
+-	DISPC_VP_MAX_BUS_TYPE,
+-};
+-
+ enum dispc_dss_subrevision {
+ 	DISPC_K2G,
+ 	DISPC_AM625,
+@@ -87,7 +79,6 @@ struct dispc_features {
+ 	const char *vp_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
+ 	const char *ovr_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
+ 	const char *vpclk_name[TIDSS_MAX_PORTS]; /* Should match dt clk names */
+-	const enum dispc_vp_bus_type vp_bus_type[TIDSS_MAX_PORTS];
+ 	struct tidss_vp_feat vp_feat;
+ 	u32 num_vids;
+ 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
 
 -- 
 2.43.0
