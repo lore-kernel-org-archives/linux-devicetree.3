@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793256944;
-	b=ONhrXJ5FSRCZZT5jcJy35l09vuvvGPo/Wa0g2lMV2DxtUIcsxK9YHT/YPDOZQB4IKN2g
-	 LTbq7+NnkVG5R94b87njrOi2s3oJGuu+7eE2WN1kLwsoFkFym9zUWVyfi+WHSMPGLd9J+
-	 0mnzidEOUgDmmT73sEjDAAzIieKsju1yyWwFCZY49FXqdq/yF+4/9cN9zyTYLQmMfYlzi
-	 NLOtr6mqMplfzQm6Js4KAMBu/+AF+VUCvabag8ThkTmHEtD/19jdArHXh6G5wlJmPd1r3
-	 aHzUpDk0JEHTQpaE41RtB0DHpJqBdIAbLN8ak9Q+tLHxGpVTzYMlABj8Wfw6lKvT6AA==
+	t=1793257192;
+	b=V3pvnYQUcf4Hfh4ZWxm6EHJyXPklMLRWA/LkCL6XU1GScWrWpSSc9h97f6ClKpq3n7DN
+	 rpSIHrOHXLYW5LZ0sfQlLBG/8GA9IQdXd7/qqNEEhcvHQRlYv8jzY4fU8Ao92Bj15S/BQ
+	 UOJq4iZsI0GQk8N/EJ5g6YR96C1AUT+8JHGcGzqsW+pad4afG5EieCJT2zVFGE0V+cGOu
+	 D/Y86KW0DYamGWq5PWa6d3TNhV53ndbl8i8B4GAEOO7NA0z0XWWe2j/9dhLY3Wix2DirH
+	 1lpAXSlAL9spfH7iFZsnY5605rMF+Tib3pxVZzsF7Qmymh8qXJwv/zePZYZJfSski5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793256944;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
-	b=NtpdM/suEn2qin53KjXZfeg0p09ZP96v+JhNH9fQvWRz9AGJbGJ/4WfNeFa/tvotZuzV
-	 Qz59lZVJ8hG7Ppa7NcdJ2e+RLrAqV5cczyXhCtgF79X/QwYOBdd5bD3L/nq2c00+0xws4
-	 YjymJqWz3MRRktXs3XFdafsiIMz0WT8oo+oxmplzslLAwZvrb8Ar/TdQRdj5wbgYhRa3D
-	 kz4kOXWkYKZ2f1O9SLnfvJyMLqwnKRrzOCRb4dWvgx8nDTAiQdqDq5eNe9zM3Bgyc0o9B
-	 PI4S/uwS2/o3QwDyQHDzDaII5c2ZSQDEleF7cf/m91izBb/t8Xe8ZFTT+OiKwODv8vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257192;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=Kh6fyYM9A3q0ohWlsJcJ/n23PnS3m9HxS4zy/xnmjAA=;
+	b=PKqimAlA6bLknHHYx44EPH3PVFGPK4Y76pw2Ncqh6D6DwExmgx8kKcp0+ZwmwUVR4LxI
+	 ngwTq45HBUnW4ASvJuj+EwsaAP/0+r8JB0Xl0d0kwVTlTpPhpC3yDroOXLRPkfKpLUXMk
+	 tkooUXZ0AnMyP1HalSWuCv1CciCn4K6U0C4k3zwN/AleQMI16eCR8vh2yitLuZqXwToxo
+	 tzYb3oMaxGOIJq+ZLaz3q2q+qhIvlKBrFlXpXCA3ITgzRymzHw41dobfXDK2JG8OXtbHo
+	 oNUun1fJZs7/mbwdnjyIyXv7MQUbFKPtYMz7cK1ZYb4a8VNcdRS6mqWpe/UXt7GWzyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUETKudL;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD38606A31D
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:55:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD38606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X0xPqkDR;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D45D606A31A;
+	Thu, 29 Oct 2026 06:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D45D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUETKudL
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so11262285e9.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 23:55:44 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X0xPqkDR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793256943; x=1793861743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
-        b=WUETKudLdsxInqGaecGL7sRWIH7KxLIW2z1l3gYvlkMRE7/ykm6SHCTg4LEtGghEBO
-         2OGUWkI2GDNHIbNRZcyror9edt+l7slA4g79GXJOZzRMXF1UzaPLxUTtGfSlVWuJqToh
-         HQwuRSVz9M6Q5UNemeSFnnU6fro0dysngavrymgXeIatasRC53el25kEaW6Ozb0TQHpy
-         xogHkLocdkJb2bhDXfSbD3DsxwyOioX7/WPrMCO84kcUH5mLJHQg45Bd+NIFVnmuhNy/
-         804Ik80SVw7TtHQfbP/e0sjn6Wpd9JTZ52QwnPjPRGni99kjTCMPEHGnK1+WlzF/n2D5
-         D3/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793256943; x=1793861743;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
-        b=hf6EnrjBAlWpNSQAFbwbNRp3ftK4PIIpRJOF/iPvkq6i0kv/emI04AR0deAIZZXXx4
-         CfZ+I7vnFrtmYcuhAQoVgLd4xu+wzv1jV/SdTNxLHtlQtemHUkBepTqcvkKEydx6jenv
-         jDtqDtA2EIkQ0BUEuF9ydJDy1/nvdUSOsbnaXjlKesof7W6v8/H+8t/nZTtE9fcumBOC
-         XWDnDC843CX3Dq1vWb86LIBrg9/JtjOALzJVaw7HT1B9fcrlB4KZerctymxqR1pMR8py
-         V8/fVLpOSAeRqgw/VPGDoqgUAqlIuzAjIy4WLpidE+4ioadAHZ/B0HrloVoE5/Y60963
-         jorg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuTiMKg+chn/Eaqo/sTLJroGgR2SiWtybkUnkF5DFP9CbqQ7fJVO8v0IxTpSXfgOmUVVH9WP9F2PwF@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcSOV7YNUivwjSpHqSA+8i14gLF/6O0KJg85YEZHqZYU9fNNv5
-	fS9cTooOMWWBqg5QDMBxMfMWAZ5Nxm8Iud3NJOLa5pw7ndycby7yk5lK
-X-Gm-Gg: AYBFou2lSXYnv2CYw/4t6vh20q+T6xEolbFUqmm35QvXpIZsTQnI0ZPH9T1Ej9VcdZ1
-	M/tBAHk51A9cePH6vf/0WpTZHWeieE9ElUZolGjSlnNC7qnakuJ1OMhsbAWK2GO0NeRtjThIZCx
-	83d4PMD3+qJ/DQXEEhofmFlpUOFolxQDzut3pBKcv4eRrb21N5kUsOtdFwvnyXPthC4NTZ4eW4x
-	6bhCjUB4NqM8UOcoeCSAcD33pkYz5V93dj6T2k7Tox0qAfEpj2p3CB1iIZtQaUYjRSThhE3C0dj
-	heTuL8GmxE9q1SOjrRxm2MxbEXXk1sScf1Fu+NfZdeqqcc0bAisypBDgjwZrzVrFudA2hV9fy+o
-	GwhJ3vk2jaJiC1oEE+Bx7mdoSF7Hy8ARoOQVnxYOiSr+TbjSpAc3rbPeG9Bpf8PWkZIktbYF5yP
-	JCm7IZNPoMdtymzLwYR7oHZOuZOBm4Q7RcpWX26He/GYZjh2QD+0o5fguhcDE2RXtwflG5JNevk
-	jq+EZwyQ/a2z35defn58RX760u5sFeAeybkB97VTixzgqE3zll7NTgqFkzWvmzx3dCrJ1bAC2Gq
-	y9xAXuIZholQME/UF0qjD6DfWwXHcyRXspCj54r2YTpAxV1VsIQqtBBmHtgNnWpdpZw5hZrgPF0
-	RUN2wO/JnLA==
-X-Received: by 2002:a05:600c:34d6:b0:4a1:d675:b031 with SMTP id 5b1f17b1804b1-4a9660b54e8mr101112445e9.6.1793256942680;
-        Wed, 28 Oct 2026 23:55:42 -0700 (PDT)
-Received: from [192.168.68.70] (host-87-10-175-32.retail.telecomitalia.it. [87.10.175.32])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a930a63eb3sm87590825e9.1.2026.10.28.23.55.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 23:55:42 -0700 (PDT)
-Message-ID: <2a1eb85c-8a30-4594-bdad-8a1dec17b141@gmail.com>
-Date: Thu, 29 Oct 2026 07:55:41 +0100
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	MIME-Version; bh=Kh6fyYM9A3q0ohWlsJcJ/n23PnS3m9HxS4zy/xnmjAA=;
+	b=X0xPqkDRu438dSh+eexVUHKzriBscbwvdl09W0lKduWsPgkR/kZMNkh33j58Xi
+	ydOGXKml8sAP7Z/G5l8ndZA7zXKFw7Il7iBVAo8R5olnweMhF1WvkQlspWMnB3SC
+	nM16XdCbrr84U9ghCceXTOY/cx25BYRHk+MWUz1T2fXsI=
+Received: from [127.0.1.1] (unknown [114.214.224.240])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHjPa7uJqqPNeAA--.374S2;
+	Thu, 29 Oct 2026 14:59:38 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Bryan O'Donoghue <bod@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+Date: Thu, 29 Oct 2026 14:59:38 +0800
+Message-ID: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
+In-Reply-To: <5d886ac3-4baf-49c7-a703-7cb737ef48da@nxsw.ie>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,49 +63,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu
- information
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
- Frank Li <Frank.Li@nxp.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Francesco Dolcini <francesco.dolcini@toradex.com>
-References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
- <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
- <b911ff91-ce7b-462e-a7fb-f8c6d682c85b@gmail.com>
- <auJWI1bqt4kX70pZ@lizhi-Precision-Tower-5810>
- <auJjlYWf2JCa22Ai@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-In-Reply-To: <auJjlYWf2JCa22Ai@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:3pYKCgCnHjPa7uJqqPNeAA--.374S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrur1rKr4UZFW5Wr4DZF1xuFg_yoWfZFg_u3
+	9rAr92ga1qvrn3Wa1DuF4q9rn8tw1ft3s8Wr4kXw1Ik34qyFs5Was2kw1Sqr4fXry09rnx
+	G39Ygay09r909jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaAYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5GhFDUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVYsUAASsl
 
+Answering the open points in one message, short.
 
+1. Kaanapali camss v23 (20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com)
+   covers what our series tried to do, and its CSID patch already does the
+   reg_update/addr_update split. We are dropping our binding, CSIPHY, CSID 980,
+   VFE gen4 and DTS patches; no parallel submission from us on those files.
 
-On 10/28/26 22:05, Frank Li wrote:
-> Does it only impact superspeed? High speed work?
+2. Frame start reporting: agreed, CSID should not be the reporter. Dropping that
+   patch and looking at V4L2_EVENT_FRAME_SYNC on our side first.
 
-No, it's not even enumerated, on the Dev board.
+3. Three patches we still think stand alone, none SM8750-specific and none
+   touching files v23 touches:
+   - media: camss: video: stop already-started subdevices when start fails
+   - media: camss: csid: unwind power-on on failure
+   - media: camss: video: require DMA-contiguous buffers (with the citation you
+     asked for, or dropped)
 
-> 
-> Thank you report this problem. Suppose below patch should fix this problem.
-> 
-> I have not time to test it today.
-> 
-> 
-> Frank
+   We will post them as a small series after rebasing on v23. No dates promised.
 
-Tested, it doesn't help.
-
-xhci-hcd.1.auto has no fwnode, so platform_dma_configure() never calls
-of_dma_configure() and the new code in of_iommu_configure() is never
-reached.
-
-Emanuele
