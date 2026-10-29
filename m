@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313243;
-	b=ptuCil3z4DLv45Z+VNkqzq6t0aU13ad1VTUG1YPAmaD8l0CwsdAVRJVddC2IntuS4Boe
-	 HZfeOD133/EV6rlu+ucIdCclbOO64x57mTJ0sBr/3IdVSc6iKOVHD0bij5ZkhLCGuwskS
-	 N01yjfWl0EDl9Oa+oojpSaueN6QnVztpxgvM9ldswVCa8hkJo8H483Vjbe3tRQpKdbJyg
-	 xJvXlQ1vOUgGdiW/IlffxmpUa9a8su+7d0B0woWr+3tVZ8DHRjAgRsyOmD2DSq0yFShtw
-	 r29QnIu82C/7MFZnuUsuUBVLim6lSsURBqNftOAU3pJUAoLNKfsMMitDuOQdTusWtfA==
+	t=1793313248;
+	b=0rxW963X7Xm1vlllalHEUWJwZI9nU40WdUTz79zPyV4Mm62WaJsgMPmMEW8HO0MaiWfC
+	 aJv5tv+JxkGLbFY5HT+kyA2/f3PEDX0d3Nm3IMhpRAeU3KZWH63dISo0m6pl/SJs2rHCy
+	 ZYqa7XPh0CPz7dXuCZTKekeXENUvGj4evNuHCXJzDbHYxcDLudPY71z/1TGQ/RShA2bt5
+	 GJ4tz9rlBAjf2NhbVhEDKKhWftXk+5BtfSgoS2c67Ws0uwb1aC72pybRfQGwh5X62cacE
+	 DZylsNb1gb9i1Yi2yfY9H74UfwmalIjh/1rBMQNHXfhI/kKSQsXB+r9vqIJ1s0GJS/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313248;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XMjBMajdlFwCBglQa6I56ZbNV6DFrnDlTHlh3wXuUqE=;
-	b=S8VYfEJx6PSTBNXbMBpb2YwPct5b30gKcrecWkuwcvujx+7XYFdR2fmx1HLkpcA/t/eV
-	 X5DVXRvIkfFXriVNSDM8cHsXwPXxYxRsJzHcHtO2MGtOYQrMf7lVpEehwglMb0M3qO89k
-	 wJKTyuaRxSz/SqLscHFQXfAklkP5pUFbQgzXkUNA6Y6bIzv/d7Iv0FQzt8I/UkGSZw90Y
-	 QFD75lZZnvBFU0AAPlHDLHw7mnTJf+A4txkyJEY+dmE7ZXMKb9dIzppbx4mjh3naQ1J9T
-	 2kZpLQFh6jRlXeC04anp7/v+ahMEWW5xqeOW7O0DeW0L68wDuNKU2+hTXz1aqeM7lSA==
+	bh=WASSA4Njt5c594yDZYU85Ex9NsemwZ3Jk+8pja+CF3k=;
+	b=M4XU2RrGv7Eo5GTI1bWQ8ogDxDH6OCfyCyfpiPHjeWndyipQswINXzVt+pShsC58+dQf
+	 CV7jvghxijtbqEZyKnLm9Bd+La1sqmkXncBNFU/IHO76AYfA6LjT7V141eqi+0CD7NkcB
+	 7zQSXXBPmT/L7AM/E3SHn85GeUGaUgS+dOWLFOWIbFN8wcQ9SzqS3xKxOlxLYXN3ppuki
+	 LMtcCHg3dFl3zdTReS/KREdR9q2LFRg2stNLhXjzu4KmxrPeP/0sIDFaXmOdHzek6y0lM
+	 Jvu5S0PIgFCae5NM2SXCiR0ixiNT3PJ+P9d/0vcqCzdQm3v4U3YIBwfFK3I2ltRoJhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GxBFn6+6;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Sq3DbXyV;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4150606A329
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 22:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4150606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC93160A2629
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 22:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC93160A2629
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=GxBFn6+6
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Sq3DbXyV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793313240; x=1793572440;
-	bh=XMjBMajdlFwCBglQa6I56ZbNV6DFrnDlTHlh3wXuUqE=;
+	s=protonmail3; t=1793313245; x=1793572445;
+	bh=WASSA4Njt5c594yDZYU85Ex9NsemwZ3Jk+8pja+CF3k=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=GxBFn6+60/yeza8+nXMimOC2wS2nrPTAobaqLMD9LmOVCqcdCG5NfrhvzzvD387B9
-	 um7nuN+uSIjGmVfHks4hbGWmD+s/AWiaOp4nEMM6eSKiE2bwV6bVg94W7RvI4gpXGf
-	 NdHUhkx2gYIZf3dfA5K4JsL1d7GHyYbiTaTnWRjIP5CpbCJwcvpRs5Ie1uqZbGnpzr
-	 ivelACwcpPQ33fowgnO7efxu20fQFwGF05iS0MkDEKQJPmVD/U/nH/EYF0SgE/+l5M
-	 upgsPJtvhPjkC0Q8LnDL4RRj9Gd8F6xTE1tVUmYxGYRfQU+B5pQENqrQsfW3oe1aIS
-	 dpMN755eov6fw==
-Date: Thu, 29 Oct 2026 22:33:56 +0000
+	b=Sq3DbXyVdwU5PksddanUig6uCq6omy4KV3tYUjQ3hQb0W38SJxPj/HNkyE++EnOrl
+	 H4qwIoTophmQLpxp122AVJAy53r/rnsQYAD6S8NCwVX4RQ92mGRLEygj0jUkF3WJHq
+	 nQlSt5cfBKmQ97Y7gBFDQ0L84QEzw7hxOBPg/RrJdG1MXi7ThTYwj7HMviS85Mqmnr
+	 VY2fQ6++10hNGD+6yQnGjijyPqOxFg9Rhl6Ej4gXVSpueYyDNi3P6IUNCDSIYFp8xC
+	 3lvwasCZvnjpJiQ2F8T6ZMQId5bi0BEb7RZgMHE9SYZ7miTqwp+r/4LDlUDsVgvo5M
+	 8iCyWOQLh2U6g==
+Date: Thu, 29 Oct 2026 22:34:00 +0000
 To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 4/5] arm64: dts: qcom: milos-nothing-asteroids: Enable IPA
-Message-ID: <20261029-asteroids-dts-updates-v1-4-79351337d681@pm.me>
+Subject: [PATCH 5/5] arm64: dts: qcom: milos-nothing-asteroids: Enable panel
+Message-ID: <20261029-asteroids-dts-updates-v1-5-79351337d681@pm.me>
 In-Reply-To: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
 References: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 6df0dd322fb7f14a37c143dcf1fbccb64795d8ad
+X-Pm-Message-ID: a4d7f84c97b0931c526bcae9372aa0694dfad82f
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,28 +67,83 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Configure and enable the node for IPA which enables mobile data on this
-device.
+Configure and enable the node for the BOE BF068MWM-TD0 display panel on
+the Nothing Phone (3a).
 
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../boot/dts/qcom/milos-nothing-asteroids.dts      | 70 ++++++++++++++++++=
+++++
+ 1 file changed, 70 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts b/arch/ar=
 m64/boot/dts/qcom/milos-nothing-asteroids.dts
-index 7d8afe8e95d5..af115295a20d 100644
+index af115295a20d..e1edbb603e98 100644
 --- a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
 +++ b/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
-@@ -880,6 +880,15 @@ fsa4480_sbu_mux: endpoint {
+@@ -86,6 +86,20 @@ pmic_glink_sbu: endpoint {
+ =09=09};
  =09};
+=20
++=09vreg_oled_dvdd_1p8: regulator-oled-dvdd-1p8 {
++=09=09compatible =3D "regulator-fixed";
++=09=09regulator-name =3D "oled_dvdd_1p8";
++=09=09regulator-min-microvolt =3D <1800000>;
++=09=09regulator-max-microvolt =3D <1800000>;
++
++=09=09gpio =3D <&tlmm 109 GPIO_ACTIVE_HIGH>;
++=09=09enable-active-high;
++
++=09=09vin-supply =3D <&vph_pwr>;
++
++=09=09regulator-boot-on;
++=09};
++
+ =09vreg_s1j: regulator-pm3001a-s1j {
+ =09=09compatible =3D "regulator-fixed";
+ =09=09regulator-name =3D "pm3001a_s1j";
+@@ -889,6 +903,48 @@ &ipa {
+ =09status =3D "okay";
  };
 =20
-+&ipa {
-+=09firmware-name =3D "qcom/milos/nothing/asteroids/ipa_fws.mbn";
-+=09memory-region =3D <&ipa_fw_mem>;
++&mdss {
++=09status =3D "okay";
++};
 +
-+=09qcom,gsi-loader =3D "self";
++&mdss_dsi0 {
++=09vdda-supply =3D <&vreg_l4b>;
++
++=09status =3D "okay";
++
++=09panel@0 {
++=09=09compatible =3D "boe,bf068mwm-td0", "raydium,rm69220";
++=09=09reg =3D <0>;
++
++=09=09reset-gpios =3D <&tlmm 12 GPIO_ACTIVE_LOW>;
++
++=09=09dvdd-supply =3D <&vreg_oled_dvdd_1p8>;
++=09=09vci-supply =3D <&vreg_l19b>;
++=09=09vddio-supply =3D <&vreg_l9b>;
++
++=09=09pinctrl-0 =3D <&disp_reset_n_active>;
++=09=09pinctrl-1 =3D <&disp_reset_n_suspend>;
++=09=09pinctrl-names =3D "default", "sleep";
++
++=09=09port {
++=09=09=09panel_in: endpoint {
++=09=09=09=09remote-endpoint =3D <&mdss_dsi0_out>;
++=09=09=09};
++=09=09};
++=09};
++};
++
++&mdss_dsi0_out {
++=09data-lanes =3D <0 1 2 3>;
++=09remote-endpoint =3D <&panel_in>;
++};
++
++&mdss_dsi0_phy {
++=09vdds-supply =3D <&vreg_l2b>;
 +
 +=09status =3D "okay";
 +};
@@ -96,6 +151,27 @@ index 7d8afe8e95d5..af115295a20d 100644
  &pm7550_flash {
  =09status =3D "okay";
 =20
+@@ -1027,6 +1083,20 @@ &tlmm {
+ =09gpio-reserved-ranges =3D <13 1>, /* Display */
+ =09=09=09       <63 2>; /* WLAN UART */
+=20
++=09disp_reset_n_active: disp-reset-n-active-state {
++=09=09pins =3D "gpio12";
++=09=09function =3D "gpio";
++=09=09drive-strength =3D <8>;
++=09=09bias-disable;
++=09};
++
++=09disp_reset_n_suspend: disp-reset-n-suspend-state {
++=09=09pins =3D "gpio12";
++=09=09function =3D "gpio";
++=09=09drive-strength =3D <2>;
++=09=09bias-pull-down;
++=09};
++
+ =09qup_uart11_sleep_cts: qup-uart11-sleep-cts-state {
+ =09=09pins =3D "gpio48";
+ =09=09function =3D "gpio";
 
 --=20
 2.55.0
