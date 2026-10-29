@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295511;
-	b=d0lkHmWvCoJVX3C4bjWhAT8qyF22EBloddZhvv23mEItQYeziXMYyR3PtLLw061spslu
-	 IB5IKT1SJ61gBiXzwjdB6YlflVK8ZYkTc3ylcT312gcpbdOvICFA+hBJikVW2gGwsS281
-	 EP36OTG/dpQkJU4JIr/7C6q7ByThweUMoj+uxWwLDlQ0YyT89miklxDPNVTxYHy+8zm6p
-	 kWXsmfcns8HLpAolXxbnf9mRhU6Sx5tY+2zuuMJWw6HdkjAhe3FMJ0k27ykC9o9Zb7xLW
-	 654QMwqGq1Jzorfg6D5Gkth49aXT1OGRveXA4elzF2N0Scv1EEALHdg3BUMkfCZWlkA==
+	t=1793296413;
+	b=BTpPEyjJcyFaCkF+oi0Ce/H3P8Y6YJT8PfYBmVM1svXnvcu0S4hS8JaWim2FcAFb7CqK
+	 QQWkWXhkZUmZaXt2o612X/vrFfD7ZXEKeRwsFcZDPAqhL+id6vytfJ1L6r1agv0SW0Z42
+	 Imxe2/Fp06lnIYKaFfTOGTha+N9jRbvofaET6+D0+ImSqdQhWb59jE/+HVG974GIpDV68
+	 /BJS2bZHqkn7IXmJGhv/j1bp7vaNO6ZMbzGjWnkRaeJxi4Myos1fGY64W3ak/1Sk6yeg/
+	 JSr/7cCXhVsN9UyQyO5M8Zf703woWpZiOy8g7VNERQZtKenmNwPgEbLSPMUwL+ZwEXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295511;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=/KEC84hmoiSqAMPb0/WNJj6+/aU+u2mLmnNoCNNmZpY=;
-	b=Y/7+6dkzTRsfQG8UWA530mCQLeBzxATTxOTGKGKZLuOkrPWor5114H6+wFlqnmZ5XAJn
-	 cHjPoK/5iCemGGDPG+vg0y5lSeecQEBSt9wzl0AMgQpxJj0WbR/8pVyESfRVqrNWpOg0O
-	 wlwYSCkk0DIdiIR+EU8xsw1DU49T5AZ4NPUfuv6xFBLjm/EmVXUeSN8xpevdhRsrd8hk0
-	 YhdP8yqVLO1g2mods5qjBlwsCKNeTQFJ3DpUv+gWvCl2svCO+87Lg4+vdib9+1RD2E+C+
-	 YP7cMExeZbqOMLRbpimdQMbag7FH6mtv6xAlLJLfRNJ0DGQ3eA8gBTR2wdfgErA56BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296413;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
+	b=U80fJiOWkBEjpBKMTHb4VTP4gABeQjKIoJ48WuTmodAdh0t4BN70G9rjAkuwU/i5zqsv
+	 Dvo7ektQnmkrGrIal6Wd5RPlIQ9k9jE/14h1sAefL6+M5CelCE7o1hQNU4YamUGwOYcUJ
+	 GP71y1Smynq6/jxG1MbvMp/3z5dqavnkfGPs9InlY2eaausBeXrM39msxGo6nioj22a8Q
+	 0T9UNZQqx1OZ6HbcOr8Lr9x7GMLqgKPsmBgMY+bXaVjanbEfuGAvV8M1hQ+s5FBtQjYru
+	 GKKKsBmVp9+PqnHqnffa/w8Ecie5XUC5uA0APwake0lRSIwkZa2zPm1etdiz4IzEMtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2BGeVUp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCDD606A324;
-	Thu, 29 Oct 2026 17:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02471606A31C;
+	Thu, 29 Oct 2026 17:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02471606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2BGeVUp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7706E1F01826;
-	Thu, 29 Oct 2026 17:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793295510;
-	bh=/KEC84hmoiSqAMPb0/WNJj6+/aU+u2mLmnNoCNNmZpY=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=X2BGeVUpZHoGajAQeQzH20EQSs95tIj1nCOEkAxuv3bdZFkgBT3F1oQphYaKbfZc9
-	 rR9pXZmm8yihu6ppjvGoZ2oXEG+uTJuki8pvFHhRtEq1gF1uC5dwE25wPV2jKntI37
-	 rGBjCVVYHu8X3PNlL0/xPxB58Lu2LDaL9VtOrGy4KbEvEvullSTPX05EUmsqlhhYnk
-	 caxq/vugvm3w6bPfXGUtkGVvXpSEbDtCk10AEBGgbp0KrIUlCzJ1M7hvqCUJpgHMPn
-	 wLV1Zy5fVR+JnKDVJQxrsMHtFTIQK0vR1rIWSxWI1BTnav0A1lYH5Q32uFV8a5dlWO
-	 +hHWjhnsOTcbA==
-Date: Thu, 29 Oct 2026 12:38:29 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L;
+	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793296409;
+	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=YdoWYHPwmJN/KFk1TlDkNYhFdqmZj/+KS3IoG8aUG8OuAgV1ZKqmChA8RwrBrtk63
+	 2EJ8N/oXBcYm8Rwj8dyL2ZcdLI4kx5PA50P7t8b4ByliK/9E9X0wVJGo4OfCo34HTT
+	 H6cNO/1oBoDGGt1dGhGX7IqLdqiGAWce09a+/23o=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa~jEZUAr23j0643406434eucas1p2V;
+	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029175326eusmtip1da81d3d531e57fbb55db47bb699094a6~jEZR9_Q1X3030430304eusmtip1N;
+	Thu, 29 Oct 2026 17:53:26 +0000 (GMT)
+Message-ID: <777c7a8c-de7c-4f0c-9c9c-d5b78a5595d8@samsung.com>
+Date: Thu, 29 Oct 2026 18:53:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,62 +64,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: krzk@kernel.org, linuxppc-dev@lists.ozlabs.org, chleroy@kernel.org, 
- npiggin@gmail.com, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, 
- ritesh.list@gmail.com, conor+dt@kernel.org, mpe@ellerman.id.au, 
- devicetree@vger.kernel.org, sshegde@linux.ibm.com, maddy@linux.ibm.com
-To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-In-Reply-To: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
-References: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
-Message-Id: <179329529616.3541731.13593434719099067546.robh@kernel.org>
-Subject: Re: [PATCH v2] powerpc: dts: Add support for WatchGuard Firebox
- T30
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 04/18] dt-bindings: soc: starfive: Add
+ starfive,jh7110-hdmi-subsystem
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-rockchip@lists.infradead.org, Simona Vetter <simona@ffwll.ch>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, William Qiu
+	<william.qiu@starfivetech.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, Andy Yan <andyshrk@163.com>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Dominique Belhachemi <db@domibel.de>, Maud
+	Spierings <maud_spierings@murena.io>, Joshua Peisach <jpeisach@ubuntu.com>,
+	David Airlie <airlied@gmail.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robert Foss <rfoss@kernel.org>, Sandy Huang
+	<hjc@rock-chips.com>, Paul Walmsley <pjw@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Heiko
+	Stuebner <heiko@sntech.de>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor@kernel.org>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Yakir Yang <kuankuan.y@gmail.com>, Emil
+	Renner Berthing <kernel@esmil.dk>, Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>, Hal Feng <hal.feng@starfivetech.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+	dri-devel@lists.freedesktop.org, Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Jonas Karlman <jonas@kwiboo.se>, Graham
+	Markall <hello@big-grey.co.uk>, Andrzej Hajda <andrzej.hajda@intel.com>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>, linux-riscv@lists.infradead.org,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <179329528881.3539981.14637229355908751610.robh@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<CGME20261029075358eucas1p111293c602fc3aac9c6a044fc41488919@eucas1p1.samsung.com>
+	<20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
+	<179329528881.3539981.14637229355908751610.robh@kernel.org>
 
 
-On Thu, 29 Oct 2026 07:27:41 -0400, Lefteris Koutrakis wrote:
-> Add initial device tree support for the WatchGuard Firebox T30 board.
-> Enable building firebox-t30.dtb under CONFIG_MPC85xx_RDB in the
-> arch/powerpc/boot/dts/fsl/Makefile. Document the watchguard vendor
-> prefix in vendor-prefixes.yaml.
+
+On 10/29/26 18:38, Rob Herring (Arm) wrote:
 > 
-> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-> ---
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
->  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
->  3 files changed, 389 insertions(+)
->  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+> On Thu, 29 Oct 2026 08:53:38 +0100, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+>>
+>> The JH7110 HDMI IP is a monolithic block containing both the digital
+>> controller and analog PHY in a single register space. This binding
+>> defines the parent device, which holds the shared register map, and its
+>> two children: the PHY and the controller.
+>>
+>> The two have separate resources. The PHY takes the 24 MHz reference
+>> clock and provides both the pixel clock, which the VOUT clock generator
+>> routes on to the display controller, and the phy the controller uses.
+>> The controller takes its clocks from the VOUT clock generator. What
+>> they share is the register space, which the parent maps.
+>>
+>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
+>>  1 file changed, 95 insertions(+)
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml: Unresolvable reference: /schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
+> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: hdmi@29590000 (starfive,jh7110-hdmi-subsystem): phy: False schema does not allow {'compatible': ['starfive,jh7110-inno-hdmi-phy'], '#clock-cells': 0, 'clocks': [[4294967295]], '#phy-cells': 0, 'phandle': 2}
+> 	from schema $id: https://protect2.fireeye.com/v1/url?k=e93a78e1-88b16dd1-e93bf3ae-000babffaa23-e7f80dd3ed8ff65f&q=1&e=27d4095f-5012-49f1-94e3-a63fd9693348&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fsoc%2Fstarfive%2Fstarfive%2Cjh7110-hdmi-subsystem.yaml
+> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: /example-0/soc/hdmi@29590000/phy: failed to match any schema with compatible: ['starfive,jh7110-inno-hdmi-phy']
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+This patch depends on the JH7110 HDMI PHY series which adds
+starfive,jh7110-inno-hdmi-phy.yaml [1].
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:1: [error] missing document start "---" (document-start)
-./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:3: [error] syntax error: expected '<document start>', but found '<block mapping start>' (syntax)
+With that series applied dt_binding_check is clean.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/vendor-prefixes.yaml: ignoring, error parsing file
-./Documentation/devicetree/bindings/vendor-prefixes.yaml: error loading YAML: expected a single document in the stream
-  in "./Documentation/devicetree/bindings/vendor-prefixes.yaml", line 4, column 1
-but found another document
-  in "./Documentation/devicetree/bindings/vendor-prefixes.yaml", line 2022, column 3
-./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:3: but found another document
+[1] - https://lore.kernel.org/all/20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com/
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20261029112742.10238-1-lefteris.koutrakis@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
