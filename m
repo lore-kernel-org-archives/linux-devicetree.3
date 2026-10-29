@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267276;
-	b=wkn0Gzq7heUfaxn7HBHZ6ck/toqROMvOTedV0vb1Z5HLLRNKZHJHFAv2YvFHQbQ42hCK
-	 y0gOVzaF6Ic6UUrC25oSPu8J3K0z8cARJAAwRj5CZjY7ElXBgAzhRYXULCfG2hWTOtpiG
-	 KLSG/XeKaMrIRm5AjtrkHwUKogrRk2bodWF/NUaEWlfdDFJtu1UVQQFhuLTfbs0hCQjqs
-	 J9tIut1FmDLCSDvsypZVR4nd7VwIUlGO1uaii7uJ7pnzbxblZcpczVHMVlj4vNjuuLIay
-	 5n8TrkKGM+Z+Nc1dlnoeCSwYg99smy0crloSltHVXrq1KXbW8bvEFxiBnZHklqXmuIw==
+	t=1793267395;
+	b=2Hw8B7hKUIbTyjrzjwPG3p9xJbq1iP4h0ekcwZcjoylNbUASl0y2z3U4pzVOU1mKVaQO
+	 Mvj6kOEc6YqNM5XFGX649Dj4V0OyNp5pU0YaCnx0mhvP4tNoUEQRBi+E54H8OH8P7YrQY
+	 LBzJ6FVjUj7zcH/usbH3jn/SLf8CzqO44Ej0D4OywoKO5xqILp22g103zJBILzoSzlgX4
+	 QR9BvNPGN0aTBK09eVfudxgp/0VV/m8cIKgqshFNlEEOboBNEuyKbIrxzTKPWqlw0XjCz
+	 bfvGjqnL6KYYcBEuq3KJExGPoImc2sxDGG/loHz/rTdMYiR2+rryVFiCVFvJoSjk9JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267276;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/mskCAFxLZ+COhVPqAHcLrZn7vGJxbkrJ1/AStDRBmw=;
-	b=E7arY4q8c3wcUCXtL3eQyu0wpft4CF48scNb0imFBwt4JQWngZDpjByVEejlhdkfSd4r
-	 dNXPZG7x3+seKg9AcW8AAr14T1PTtQtpjU/uXstlwAzFwSdmCDg7J3ZT4sOAHv6YUgkmB
-	 Qh8nzXTTsPcf6n8cnphvXmWOdmtnAic7oQxXe5Ad8wYDWWiPHjLvaM7hyaZRDtAbyGK0t
-	 gbdzOzxQ0kfwM4jucuRWQMS4cIk57PTrt0MyQijNxvrn6VHJTMiRNTu1F+Pf3RLmZvurY
-	 mfpPU6pNGtoCHlIv4FZLd4eZIkVPMxsTquxn1JwHNFve0H+KSmCBJjcBkJCtUIKKKyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267395;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=f5wVeAcdts4v03FIKJ/JOAEQfcFu0V9y5FXGBERX1Fw=;
+	b=SOC3hpSWx+ZAOI2lR0W/UrpqfwWQ3ykiIH4BxMx+x1jqHtgb7nR7Zd6oFJfjJycgZwxh
+	 LXhuOu6lsc8pVP2UidJpmK7QBdMlz3rjPozLkKlS9ydpwm3c8GrElLQW7OKe+I+IvrC72
+	 HWUnximfAwhUwwMorL5YXhOFUL/xfGBi6nnMi4dmLyn5irij8yEA3AghwoOG6brmHUm8t
+	 8VV3nJNogVWMYSE5qVYH6CaH1sZmR+zSNocUvJw6Y8RX9ydXyC2Qephz071rmEdE4F6VY
+	 c+pjV+Q1RGeDkAOvht3J4K1wOEVh/koS0+KatML5iIN/bKzpOBF1LYWNVIbFMayxeIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVJLq56d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlG35jxV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBF5606A31E;
-	Thu, 29 Oct 2026 09:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCB1606A31A;
+	Thu, 29 Oct 2026 09:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVJLq56d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422AC1F01825;
-	Thu, 29 Oct 2026 09:47:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlG35jxV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E53B1F01825;
+	Thu, 29 Oct 2026 09:49:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793267275;
-	bh=/mskCAFxLZ+COhVPqAHcLrZn7vGJxbkrJ1/AStDRBmw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QVJLq56d9MLEwEOOO8aOB2B3vUo+cAT20hqEu4xUTfdLWYcWAWL8xxDlMKuLbqQIX
-	 D+Fqpg3ldBdejPJJm0OE5uLglHjha+aYpC8EvscVLebx9hp5zhG/ib12dQJH6sDCP3
-	 Uh5oE1MWxsEhuAhfuHvJTxXLG3OBnKc+f7o0tEPd8r3B8YPLstPPSdeVFW24qsYfSL
-	 J9P8L6dxccbLCPKWwpx+f9/k3ViEwtVfC/BzVENXsCBYPUdMtHRiuBc5JzxqixJMKq
-	 BCIiClSP8NSKDxqzxxme8GEE/q2nVTgiSUSJBhd0xX1Twd7zOtXsLkw1mZqAMJrOIz
-	 goWlzVij2nRfQ==
-Message-ID: <sashiko-outbox-189068@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC RFT v2 2/3] clk: divider: add
- CLK_DIVIDER_INVALID_ZERO flag
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jian Hu" <jian.hu@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261029-meson_refactor_n-v2-2-ff4ac74e527b@amlogic.com>
-References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
- <20261029-meson_refactor_n-v2-2-ff4ac74e527b@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 09:47:54 +0000
+	s=k20260515; t=1793267395;
+	bh=f5wVeAcdts4v03FIKJ/JOAEQfcFu0V9y5FXGBERX1Fw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NlG35jxV24Z1YixSeCYzFE3xFG+HNtJK13nn+Ycyx9xJlAOucFuA/+KyKql9//itR
+	 piKf0GUZxb5qfLhw9ewcnJ81lVksGPJpIdC/IFnaVkQ5jn34zDqk15ECcuFxFBhRkx
+	 k0yy6RP/HkVb78tRMXKKM5d08T9SoOLsHHbHWLTCM3Jo5ZUfwnG6V0akNiP5LIAOsc
+	 l0D9um68z0c6D9snkZAulc1qCyBCt6v/T7gXwwMoth+wi1XgpHfZ4RmiFNdrxcvBpL
+	 3IJ+syhvaQlZxOW4XMezuEm6cb/a6hY9TrZnWFn/l5dcqFNyWs6tLe3iMYG4aXaGXd
+	 CxbR9rCboLzpw==
+Date: Thu, 29 Oct 2026 10:49:51 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Ritesh Kumar <quic_riteshk@quicinc.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
+ Document the reset GPIO polarity
+Message-ID: <20261029-calculating-imaginary-wolf-ccb2a2@quoll>
+References: <20261028095151.1682096-1-vz@kernel.org>
+ <20261028095151.1682096-2-vz@kernel.org>
+ <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+ <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+ <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
+ <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,70 +68,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: divider: unhandled zero divisor in divider_ro_determine_rate()
---
+On Wed, Oct 28, 2026 at 10:27:35PM +0200, Vladimir Zapolskiy wrote:
+> On 10/28/26 16:59, Krzysztof Kozlowski wrote:
+> > On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
+> > > > We might fix it at some point, so not sure if it is worth documenting in
+> > > > the binding. And what about usage of this binding in other projects
+> > > > which implement it correctly?
+> > > > 
+> > > 
+> > > In the upstream there is only one user qcm6490-idp.dts, and changing
+> > > the polarity will be an ABI breaking change, unfortunately.
+> > 
+> > And all other projects?
+> > 
+> 
+> It might be a challenging task to check usage of "novatek,nt36672e"
+> compatible display panels in all other projects. I've asked about it:
+> 
+> * https://chatgpt.com/uc/6ae25571-2ef0-83ea-81e5-2522e70c4a93
+> 
+> The check gives this info:
+> 
+> 1. Linux kernel - invalid GPIO polarity in the driver and qcm6490-idp.dts,
+> 2. Android - invalid GPIO polarity in the copied driver and qcm6490-idp.dts,
+> 3. FreeBSD - invalid GPIO polarity in the copied qcm6490-idp.dts, no driver.
+> 
+> Please let me know, if there are other projects to check. To my
+> understanding the RESET_N polarity cannot be corrected anymore,
+> and the best option is to clearly document a difference between
+> the device and its dt-binding documentation.
 
-commit 5ec3118aee2f03855552c58a4a8533e035b565bc
-Author: Jian Hu <jian.hu@amlogic.com>
+It can be correct, just with impact so we choose not to, but
+nevertheless hardware wants different polarity, so you should not state
+in the binding the incorrect one.
 
-clk: divider: add CLK_DIVIDER_INVALID_ZERO flag
+This property corresponds to the hardware, not chosen SW implementation.
 
-This commit introduces the CLK_DIVIDER_INVALID_ZERO flag for dividers where
-a zero divisor value represents an invalid hardware state rather than a
-pass-through. When this flag is set and the divisor evaluates to zero,
-divider_recalc_rate() returns 0 without emitting a warning.
+Best regards,
+Krzysztof
 
-> diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-> index f68216c65d3df..6c1523d22477c 100644
-> --- a/drivers/clk/clk-divider.c
-> +++ b/drivers/clk/clk-divider.c
-> @@ -143,6 +143,9 @@ unsigned long divider_recalc_rate(struct clk_hw *hw, =
-unsigned long parent_rate,
-> =20
->  	div =3D _get_div(table, val, flags, width);
->  	if (!div) {
-> +		if (flags & CLK_DIVIDER_INVALID_ZERO)
-> +			return 0;
-
-[Severity: High]
-Should divider_ro_determine_rate() in drivers/clk/clk-divider.c also handle
-a zero divisor when CLK_DIVIDER_INVALID_ZERO or CLK_DIVIDER_ALLOW_ZERO is
-set?
-
-When a read-only divider has a register value val that maps to div =3D=3D 0=
- via
-_get_div() (for example, when CLK_DIVIDER_INVALID_ZERO is combined with
-CLK_DIVIDER_ONE_BASED or an unmapped table entry alongside
-CLK_DIVIDER_READ_ONLY), calling clk_round_rate() or clk_set_rate() invokes
-clk_divider_determine_rate()->divider_ro_determine_rate():
-
-drivers/clk/clk-divider.c:divider_ro_determine_rate() {
-	int div;
-
-	div =3D _get_div(table, val, flags, width);
-
-	/* Even a read-only clock can propagate a rate change */
-	if (clk_hw_get_flags(hw) & CLK_SET_RATE_PARENT) {
-		if (!req->best_parent_hw)
-			return -EINVAL;
-
-		req->best_parent_rate =3D clk_hw_round_rate(req->best_parent_hw,
-							  req->rate * div);
-	}
-
-	req->rate =3D DIV_ROUND_UP_ULL((u64)req->best_parent_rate, div);
-
-	return 0;
-}
-
-Unlike divider_recalc_rate(), divider_ro_determine_rate() does not check for
-!div before calling DIV_ROUND_UP_ULL(), which will trigger a division by ze=
-ro
-in the kernel when div is 0.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-meson_refa=
-ctor_n-v2-0-ff4ac74e527b@amlogic.com?part=3D2
