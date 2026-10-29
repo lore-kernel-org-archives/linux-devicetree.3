@@ -1,124 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279393;
-	b=1jqHXU8VbzKy8s8yGP+TTZqk8xq+Jq50ugLVJx1wnZCVrgOZowti5Vr4Uh3zOSbLjx9n
-	 H9Jc1c3WS4vCi8G82UPP0xlD126L4ZI41I0o54roWjbvNSg6WJ3Sz21bVvmizJMeLHq9x
-	 gz9lSMJPy+1sgf4pfBT+tsVX2RNKv1hdz3CTe14Dlajjjp4XtkOJgXwuL0KnAXnM9zLp4
-	 kv+AM8Qwg4w/ZOc/dhZhX8aYwwoS/5vbGPlbrfDuDAXyuwXWCwjWriRmZUcmKByWA4mwj
-	 sO6kgi42XzdoHQmXqv0IfYvnU1kYQl1OABOuYIKN8yyd5V3EgG484aanaPZeBbK+wzw==
+	t=1793279398;
+	b=IPwVkNilxbuCuWq1lmWZa2g8DzqzfJmTOyFXIyhk1WeTcyu+2uUOoKN6q/dyhJzo4Ukd
+	 HbZihWvfbCv43GjDzRblM3krXrKOLpZO5K9r05Up32Ngqo5wiGlCvv6MPBJ9JcVK8vA0u
+	 zFaKBp5p+5x6n+trHoufsN9oAr7A845RdivsB03HFWAcVI2gceD/suQ40dHeyjmX0XIbW
+	 raBvUa8+cRX7NFXa24OcRDo9/YODxyFC5k4hSY5u1GHa8y4hHtrFakpCKLlDUzt9SZKyE
+	 L9tBoXkH048fo0DADPxCOGVqPn0e9u5TT7cbwf7X9fH8pFddDB3rFitAr/8sujMirhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279393;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279398;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=n+Lh6rrQmboJ2pE/TjLmm6XJm2rAHnagTnCqmXiNSEs=;
-	b=rN9E6WH1NT89CF8W10OpOzi+g3H3dlxm+LOsMcU0bpvqr9nRCQT2IFE50ZLWqRAaK/vp
-	 FrJA0/gXecA/shVnuvJJ5dhnMB6hw34QjBFyQbO+NXLbJJ8WgNnnsenj3TsLDqFsYONjm
-	 KdU69N90igLNl8yHqxr8yHDFdOjjXdtuYDVRzWU1LFww5UCBtTT122vQd1HbIndsmLrSl
-	 oK54IZbu1PzskOOR4KmPTNYB+GH4GvdCYtYPD4JmGkSMhpuyeF/tMQlcCsBjoA0UvWV3A
-	 9tn9yeV3nC5LnnDmK5tZ5GJkLnvTkHQsFusocWbhSPjD0BHbbEoFUsu1DnwDGKg9pQQ==
+	bh=O6c9DuoS8Ra0+zn4jvQnbBHB97ZOcmYxblC6VkPGOHg=;
+	b=Jf5nNOhrRdq8egs+m/oSAk0YzVa8jf+hPtfbraN2xHB/gglmig/axwfYTWfECytcxPDT
+	 YsA2Hno1+jGeyomuHiV6EUXEuinjEYnL6ZzZZT6r2SMxdySzg6XQWHOLDxLpUoyt0bZoa
+	 4MuIvGFkL4cZPeJd+8PQFB7WxObw0aydeGHkygrYLpxuiu+rDpO/vtRjeYNe7GF5q0mQm
+	 dT+OLotswK2SpPeoXlYGoAairt3mEs/iZlNDlAD484iXLUm1RmIWtlqWK1M4ZEHS/gqJe
+	 haTH00K3TeGeSKqNrCD3sBRyz4BuuwVeCNbu1GFTv5Ld+BjHoKSgwb0BUl3MYnob7VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FBmpacEv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QUTwrDlG;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mThmeQuE;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnXpIz06;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4235F606A320
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4235F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C86606A321
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74C86606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FBmpacEv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QUTwrDlG
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCePKh3215077
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:52 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mThmeQuE;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnXpIz06
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCeY2T120336
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:57 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=n+Lh6rrQmbo
-	J2pE/TjLmm6XJm2rAHnagTnCqmXiNSEs=; b=FBmpacEvz7WWL70DvADHpRxoXt0
-	zU6RXP/3YrHk4NgguGOt+CIQaQPonZl9O2E7UDS8xva+EouG3/FwtumYWdThK+Dv
-	sCyb7P35FGhJ+eXCwK6cb6m0l9qIOnjFOL6Fpcar0JRlaMf/vKGu/e2HuTUbuf8x
-	Tr92J9fojzDi0O9IxKj/p8TDwsfMyFPfcxrNghQC6HI3VzD/GeRMhQoskQqs0usy
-	HstpnvkobixH34s/cxoO8ph2m5H3MvmC8ljcXyWcHoyqNzf2RDT2aVuh5vopqvI/
-	JRG0hmwTj0369/of4djdlJOkEyFaKUzkZxgkAKQaRVa4ubTZdYA/MwVVkXg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hky5s9t15-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=O6c9DuoS8Ra
+	0+zn4jvQnbBHB97ZOcmYxblC6VkPGOHg=; b=mThmeQuESdIY6WrYvkD7n2eL2Uz
+	jQRhysl6BxROI9l/f8QPSOSD2v5Q0SuNSWJrTtuzp5/euixCrL/qDOd7eH6/y/7j
+	IOhINyN3Wbr8aZpykNgZYER7Frx7iYyi5oa/OWPlYnGmE/7GzQLVOCuBlmKSEvPg
+	vpTiNjhu5oNmMyIngsgpnrzviVLCRlCm4Tgp4RknKpPYOvajmSCRjm15CEuibAzp
+	ywHPETbmJ8bEfcx9Vs6xbr502JRBC30IVNu/X4OIeGg7bBOhnXY5k3hUjmFB1g+l
+	4AAv7oSwBMZ5U3vBQ8rI/PWOFYXE1sW547wDTo9ZWsMLJVDQTWHQVBSL7/w==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkut3jf8e-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:52 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab2395f104so1758930a91.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:09:51 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:09:57 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aca98f01c1so1777794a91.2
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:09:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793279391; x=1793884191; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793279397; x=1793884197; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n+Lh6rrQmboJ2pE/TjLmm6XJm2rAHnagTnCqmXiNSEs=;
-        b=QUTwrDlG3GLsfYqtNNiQVIUP2/pdJxAu7qGbaVZBO0anfa9O5Gzr/OD+4gvgivuF/S
-         ZElztH+uwxQnH4unfHa7sucpARKn2+6WSYVa+i8Mj7lU/k5G33cYl89s7x75M4qcuwVO
-         gjYZsds68kV7Yg4IEYyAwFVyXmLBBGhZsOhgXT2OERQEI9jE9Y7JIKpkG0rV7HQG4x2h
-         Slgve200pCtjsr9iMX6yHNsZKILqKTIj+G65/t4X5JYVfrHpZaeZA9S4DcToiAKV4Y35
-         Cry/Fk/PsrrDmA74DPLSih6xkPRZp9ieRO0gYtg56Rm25t6KH50DflUmDjaT6ilNEmsh
-         iQzQ==
+        bh=O6c9DuoS8Ra0+zn4jvQnbBHB97ZOcmYxblC6VkPGOHg=;
+        b=QnXpIz060BSpkrB26VqHBZ3ciaewd3Ch9DUHiMewgRxKELZ/I4xihqJnUGm8pxK42B
+         UWmr3tNHu5YdDIgqVNx8YA+MM1GeDz2RhP3HMnFljA1erjpv8CiNaLC/rquYHa9baQpl
+         mncGw1BLtJkNAco4L2uuQNolSgYVltNCHU3UxTl8LSSFWRaxjJL7H+I4VXn4Dkb/LcQJ
+         240Cg1kwjDSgs6vJfCOgSglV9LMGDERe88WxewWXq67wR88XC1bxU7ji/lx7kaIoWZWz
+         J655ZBm58r9zEm1eSkQcRUVnwPY8XDGX/SiiZfBTPA2iQs1+83wOl98axcLfKf4jQI0K
+         1pjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793279391; x=1793884191;
+        d=1e100.net; s=20260707; t=1793279397; x=1793884197;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n+Lh6rrQmboJ2pE/TjLmm6XJm2rAHnagTnCqmXiNSEs=;
-        b=qUn4WiGLutcpXILYKThiboJyKzGODesZKxmDdOdMyGfGvXNPZqWSsUgw3E7I78WXgm
-         j5mN3SSGiU2TUxCxTX3m4Iby3fEFfGGWolywSuAuMg6ngvpbNZ79Oo2I16D00zTRNAxK
-         lFwVacjy/uVgy2IqqpQQMw2mwPRvrKCBQ4mS9gWPf7FqpkE2tzmF7xHdQZLjTTcQD2RE
-         SJS7LnADJH80X6PoAA+X0ivLNjOrdj9NjfWdimMT52/0wHGhZCISOhm5QPBoCCVtvSRg
-         Z9x1dswuWNaoLu931ouzdY/um12DYOBPhITiw7rjMVvTPYRIqEu5YmnNqH1GMwXDtK42
-         t+MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCkxwnV09jhR1eW66XY7Sb4djSnSwaPFOVmMqy2dHYXyOQw5mTwe/omTJRQ4UN3AQMmbi6zVmlZ63A@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwjB50KZqli72bcfo1nkRMLVM8hYVPDdGiiR6f/y6CFM+GQAx+
-	OmFJjxpbNMlE2VMyo8zMZDWar5zsU75PrKB4iPopb8HkDy5t17bvHH8IsLAXQC1his+h/mfXUg0
-	FCKnOq3tuJzG8BPTU4Knq5he9tTKjVySsNxyuGyGUhkb3YBAT/27zdJlFPWPL0Ls0
-X-Gm-Gg: AYBFou0egA78kkeUjkakixqCF7Vi9MEXB9i1b/VqsGXbVAwGBZ2fvfQKu2RH25+kI0f
-	e8mMywvsJOwjVB1CXN7IRkFhap+QhxVBGZYkBNTLsneXLxqS5ugHV9sAh1Fp2NXH3ZLYKysWHGR
-	IqoeKU54AWzLrFYy3P1PEkpgw3bu25JFvHijTR02s9ZzKCH2fyHCjfzkVWYWWlHZTo2DP7FQzzW
-	agJKubOi4zy/QyhHVdbEV8xikq3e46rt4RC99TGbm2q/n6qOtXVWeatJKmgiaiFP4fdPCCFqmGg
-	/fB5snA8KcxQAKhh8Witl8kX+7vWizjE/RzgJihuorzexG8qjKAP0avZ7alTROsCUMgq2nTRutd
-	OdfVNdf5IeGRlzbMLRl/Glygbn4pm/kr/kc0BXvlYo6Af8GbM+Y28vY54xzYwm4+329exJhN3/4
-	TwvbgHbMoMhs6c9VqbIY/0ZFK3YIN/lsIIOlWM8YUVajS1+Ia4ckkL0f2FjrmJDiMKE4htB8O4l
-	g==
-X-Received: by 2002:a17:90b:2c86:b0:3a7:da33:ff2d with SMTP id 98e67ed59e1d1-3ae581e3385mr4148829a91.48.1793279391123;
-        Thu, 29 Oct 2026 06:09:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:2c86:b0:3a7:da33:ff2d with SMTP id 98e67ed59e1d1-3ae581e3385mr4148793a91.48.1793279390665;
-        Thu, 29 Oct 2026 06:09:50 -0700 (PDT)
+        bh=O6c9DuoS8Ra0+zn4jvQnbBHB97ZOcmYxblC6VkPGOHg=;
+        b=A8+oE98EvzTbhnbd3OHaq6HtLcvLteimoAHqWBLhw1NxS8sCODXP5wgZngGIAWveAJ
+         nFCUpZJ58rqyQvwr9pHhuzQ14iaB3zte1/oRO+/HFH9pcqeOVdnCii3Q5C8TI2vI+Tin
+         yuo/wcsCwNRnmZSatc+Dd/87li3Z0MsJ/71UyKHQuIt6h0tt/Bx3783Yh720f3ZihdCL
+         cSipHE0XLYRU5S4fQwcxZ7fsZxCvOBhKuX8wZnREK+ObLWOzeGb+W6jWA6D3D/l8YnkW
+         xHDtU4ix/XLH2h6AT6r5x8WsSEa25jX/WvLE+oHqFWW8sAulwiRNyCiiPCrDq8pLrziw
+         HopQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQfTrq+uqLuP7XMmC7igTVwismzX4aiHhkINNFyihV5bYCDEzvpSnj1s7Knrh9I+dZ55DuLIrEjm7G@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEjudTDGqrPAcCIQpk85xtRAtGV91iDu3MH0kGxsi+5KxZAp3L
+	ljHiS2SCXbMLrNuPYJsS6c/OYX2YvnO2sQhWoQTwHVPMNJ3aQgxiA0tJqAW5HTlmOvDGmZnXY9b
+	iKP8/9bIHD8xIXY1ikoEXLzZtHkcRmvd5inYC4mYLqOdxrqcF/ZV4ED9CsYIoxB6Q
+X-Gm-Gg: AYBFou1b98RBgyKROJrLv6dyk8l4p5GZ0ykZBw/i3KU3Ce9/tKYk2EW59Vtpv9f4vn5
+	OmlPM7/PXRLr0VIfXn9N690bfLgusRfkuXLU2qUJ9965WKmYIqmaxae+4uVqtbQC6IxSm51K6mw
+	miWUgNA3K79T/7Jmwe3Y2+QYY1aGRxvzjxC3pmGFSX4EVZ22p+uS+sDvxY9i6NcQi5Q1uGed4uC
+	FfyuejsD/IvZf8Dspk1UR/PtB9IoXiir+Bfi7XdvnLl6RWgjc9+eumg3zz0zFMGvzBpeeit1BWY
+	MSmsSglzoMNCu7QqdlbeUUxsRf7ZiguLbIoog2GIrvpTB9mfHho9ua2NOZwC/Cil0ISmBvxc5zW
+	zGoHns8CtWYGmEDyJ7zFw6FLzbu7ITqlnpB+qV0s7WmQ3492Cd6fxyVwDftYTg2uBPleS6EBqwJ
+	Ii2KXe5rE18cGw7sRWE1FA2Y+Q8MjbQ3XcskHhNO5vMai2cj9eJrp3fOKc4iG3TudYugba6QdTg
+	w==
+X-Received: by 2002:a17:90b:1a86:b0:3ac:80dc:f419 with SMTP id 98e67ed59e1d1-3ae5809fc90mr4441868a91.25.1793279396417;
+        Thu, 29 Oct 2026 06:09:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:1a86:b0:3ac:80dc:f419 with SMTP id 98e67ed59e1d1-3ae5809fc90mr4441841a91.25.1793279395747;
+        Thu, 29 Oct 2026 06:09:55 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ae6e973ac6sm4598145a91.11.2026.10.29.06.09.44
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ae6e973ac6sm4598145a91.11.2026.10.29.06.09.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:09:49 -0700 (PDT)
+        Thu, 29 Oct 2026 06:09:54 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        James Clark <james.clark@linaro.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>
+To: Atish Patra <atish.patra@linux.dev>, Anup Patel <anup@brainfault.org>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
 Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-riscv@lists.infradead.org
-Subject: [RFC PATCH v2 3/4] riscv: Add perf_arch_misc_flags callback
-Date: Thu, 29 Oct 2026 18:39:12 +0530
-Message-ID: <20261029130917.3714691-4-mayuresh.chitale@oss.qualcomm.com>
+Subject: [RFC PATCH v2 4/4] perf/riscv: Use Sspesa for precise sample attribution
+Date: Thu, 29 Oct 2026 18:39:13 +0530
+Message-ID: <20261029130917.3714691-5-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029130917.3714691-1-mayuresh.chitale@oss.qualcomm.com>
 References: <20261029130917.3714691-1-mayuresh.chitale@oss.qualcomm.com>
@@ -132,82 +126,278 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfX5JVrvyldD0er
- aPV7HkFhWJWfFN6ybrIdrk/FAyUBLfyGjPmT/O2u7lP5oOzyd60njCZq86gudk7flKUj8qvz8rV
- dLCXavUZL+xL9c0xtdaswAdKpTzkuoBCFxWNTf5+ffC44hNSE3HXQwwp2lPUPjJGybQTkSykEwz
- mtlWGcwQHPN4rVAV0uD1hsy+V2tKUQmDQDOk55L1fYtZrTXuzoL1fC6IISD9t8cqMziNKVA5Kg7
- o0S09ZV2AxRi4JhurHVKlxhzBx+lMRaxoFpVZVnibRUjv+qhP2fG2Lfl3Q+AefMuRkbHa+LQLtD
- JanyBIT0EIZmp/ZUa8gauZ5sQcMmcBRgiF4lCGrGV2jVjWxq9XehmMyHuFK9F/MWOIfjv45awKz
- zKMJn4dEd21LYcEzD6z2sr5HnIZ7FLce/9ljMXSxWkS4MwBvplxmBQatjIHVU/puq73YfVLVDfW
- u2XWa0CjLVZVWGN0QPw==
-X-Proofpoint-ORIG-GUID: 3nIb0SE_lQ2MMpjmFtag_wcKZQ-4ePpT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfX3Yixxt7IYPDy
- j48IntqIaifxmY8ZaOXnMHboCY8bpIlRYsaC+LCihHvd7LHwQU6sHf+GAMOozZnWAODDB1VslN2
- 9yo41tFwWUvXzDDa2qQ3ww/26VrtHTY=
-X-Proofpoint-GUID: 3nIb0SE_lQ2MMpjmFtag_wcKZQ-4ePpT
-X-Authority-Analysis: v=2.4 cv=f/vdl+yM c=1 sm=1 tr=0 ts=6ae345a0 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfX/inVrCl4Wzhe
+ 0PNvsWaIuei20Rg+Ov2ehunxxCCWie31QG6czmlUFjagtopL5fU1jPqBhiQGpQqY/2FsbPkGKFi
+ 48dv63DRllYdxjSByjGohpgYbaK4KcY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfX07m+XLUJ19lb
+ I2jnZrpuOXUBsP+470fKwOtvFpIeGy9s9zNc4M4uwczliKMJI5k9aExQs0nzNciocBQ1jgKS51m
+ urqtUW7dTkmqCkZtqxFYqVxH8TsDxJWtorj3FTFtFgCHNAHdQygVVA3bT2r727jPEG0Xwq+lcro
+ Z3zSCvfcaX74GcO/Eok4nF+gzHayaxLAi2rsJkmMAh48VPkAhOSdIDG4xVS0g09XbbXdRMuSX+T
+ iHKtbIS2+VYWhQYJHDTLspC3nEhEFjGljdqMPowQMVTTLe1iyPFG5WBTxXRBwiz+RB5naxctac+
+ MbWbM23hWjQqLHskCHA0e0i6Zm6LnI8eRS0r5bSzlgVykZIW/LSPvcdxxzI8k1C9MaNjdd+y45Z
+ 4Dw5zBrs08bFeLq3eZBylmABhKlBkjlTD4dMfzlbtgH6ckquRwE2LB+jasMsBYxFVwthDqPy3Ga
+ XNdjq7e24BGuGy9HVYg==
+X-Proofpoint-ORIG-GUID: dm7USPyb0Iucp-g165klOdDDWPjxu4O3
+X-Proofpoint-GUID: dm7USPyb0Iucp-g165klOdDDWPjxu4O3
+X-Authority-Analysis: v=2.4 cv=HYSB3SE8 c=1 sm=1 tr=0 ts=6ae345a5 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=IJwDnuRGQWnalj_uV-oA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=MPwlUwCX0KYMQ8BLyxAA:9 a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290051
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290051
 
-Similar to X86, add perf_arch_misc_flags callback so that
-PERF_RECORD_MISC flags may be set based on the regs provided by the
-SBI PMU perf driver.
+When the Sspesa (Precise Event Sample Attribution) extension is
+available and a counter overflows, the hardware records a sample PC in
+shpmspc register and the counter ID and additional implementation-defined
+data in shpmsdata register.
+
+In the SBI PMU overflow handler, build the perf_regs for the perf
+backend. The regs->epc should be derived from the shpmspc and shpmsdata
+values. Along with the regs->epc, PERF_SR_PRECISE is also set if
+ssplcofi is present and the event supports pesa. If sspesa is not
+available or for counters that don't match shpmsdata.CNTRID, fallback
+to epc for PERF_SAMPLE_IP.
 
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
-diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
-index bcc928fd3785..cf13702b185f 100644
---- a/arch/riscv/include/asm/perf_event.h
-+++ b/arch/riscv/include/asm/perf_event.h
-@@ -9,6 +9,14 @@
- #define _ASM_RISCV_PERF_EVENT_H
+diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+index 2991dd92def2..c42122f0e676 100644
+--- a/drivers/perf/riscv_pmu_sbi.c
++++ b/drivers/perf/riscv_pmu_sbi.c
+@@ -10,6 +10,7 @@
  
- #ifdef CONFIG_PERF_EVENTS
-+/* Use sstatus bit 2 to convey whether an epc in the sample is precise or not */
-+#define PERF_SR_PRECISE	_AC(0x00000004, UL)
+ #define pr_fmt(fmt) "riscv-pmu-sbi: " fmt
+ 
++#include <linux/bitfield.h>
+ #include <linux/perf/riscv_pmu.h>
+ #include <linux/platform_device.h>
+ #include <linux/irq.h>
+@@ -60,9 +61,16 @@ asm volatile(ALTERNATIVE(						\
+ 
+ PMU_FORMAT_ATTR(event, "config:0-55");
+ PMU_FORMAT_ATTR(firmware, "config:62-63");
++PMU_FORMAT_ATTR(pesa, "config:56");
 +
-+struct pt_regs;
-+extern unsigned long perf_arch_misc_flags(struct pt_regs *regs);
-+#define perf_arch_misc_flags(regs)	perf_arch_misc_flags(regs)
-+#define perf_arch_instruction_pointer(regs)	instruction_pointer(regs)
++#define RISCV_PMU_PESA_EVENT	BIT_ULL(56)
+ 
+ static bool sbi_v2_available;
+ static bool sbi_v3_available;
++static bool sspesa_available;
++static bool ssplcofi_available;
++static bool (*pmu_sbi_sspesa_derive_pc)(unsigned long *pc, unsigned long sdata);
 +
- #include <linux/perf_event.h>
- #define perf_arch_bpf_user_pt_regs(regs) (struct user_regs_struct *)regs
+ static DEFINE_STATIC_KEY_FALSE(sbi_pmu_snapshot_available);
+ #define sbi_pmu_snapshot_available() \
+ 	static_branch_unlikely(&sbi_pmu_snapshot_available)
+@@ -70,6 +78,7 @@ static DEFINE_STATIC_KEY_FALSE(sbi_pmu_snapshot_available);
+ static struct attribute *riscv_arch_formats_attr[] = {
+ 	&format_attr_event.attr,
+ 	&format_attr_firmware.attr,
++	&format_attr_pesa.attr,
+ 	NULL,
+ };
  
-diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
-index b465bc9eb870..9b68d21b3a51 100644
---- a/arch/riscv/kernel/perf_callchain.c
-+++ b/arch/riscv/kernel/perf_callchain.c
-@@ -6,6 +6,21 @@
+@@ -667,6 +676,29 @@ static bool pmu_sbi_is_fw_event(struct perf_event *event)
+ 		return false;
+ }
  
- #include <asm/stacktrace.h>
- 
-+unsigned long perf_arch_misc_flags(struct pt_regs *regs)
++/*
++ * Check if this event can claim precise attribution on this platform. Only hardware raw
++ * events can claim precise attribution support.
++ */
++static bool pmu_sbi_is_pesa_event(struct perf_event *event)
 +{
-+	unsigned long misc;
++	u64 config = event->attr.config;
 +
-+	if (user_mode(regs))
-+		misc = PERF_RECORD_MISC_USER;
-+	else
-+		misc = PERF_RECORD_MISC_KERNEL;
++	if (!sspesa_available || event->attr.type != PERF_TYPE_RAW || config >> 62)
++		return false;
 +
-+	if (regs->status & PERF_SR_PRECISE)
-+		misc |= PERF_RECORD_MISC_EXACT_IP;
-+
-+	return misc;
++	return config & RISCV_PMU_PESA_EVENT;
 +}
 +
- static bool fill_callchain(void *entry, unsigned long pc)
++/* Check if this event can fulfill the precise_ip level requested by the user */
++static int pmu_sbi_precise_max(struct perf_event *event)
++{
++	if (!pmu_sbi_is_pesa_event(event) || !pmu_sbi_sspesa_derive_pc)
++		return 0;
++
++	return ssplcofi_available ? 3 : 2;
++}
++
+ static int pmu_sbi_event_map(struct perf_event *event, u64 *econfig)
  {
- 	return perf_callchain_store(entry, pc) == 0;
+ 	u32 type = event->attr.type;
+@@ -678,6 +710,12 @@ static int pmu_sbi_event_map(struct perf_event *event, u64 *econfig)
+ 	 */
+ 	flush_work(&check_std_events_work);
+ 
++	if (event->attr.precise_ip > pmu_sbi_precise_max(event))
++		return -EOPNOTSUPP;
++
++	if (type == PERF_TYPE_RAW && !(config >> 62))
++		config &= ~RISCV_PMU_PESA_EVENT;
++
+ 	return riscv_pmu_get_event_info(type, config, econfig);
+ }
+ 
+@@ -1073,6 +1111,77 @@ static void pmu_sbi_start_overflow_mask(struct riscv_pmu *pmu,
+ 		pmu_sbi_start_ovf_ctrs_sbi(cpu_hw_evt, ctr_ovf_mask);
+ }
+ 
++/*
++ * Build regs for the perf backend as follows:
++ * 'U' mode samples - task_pt_regs
++ * 'S' mode samples - irq regs
++ * 'V' bit set - fallback to irq regs for now
++ */
++
++static bool pmu_sbi_sspesa_regs(struct pt_regs *perf_regs, struct pt_regs *regs,
++				unsigned long pc, unsigned long sdata)
++{
++	int mode = FIELD_GET(SHPMSDATA_MODE, sdata);
++
++	/* Virtualization not supported yet */
++	if (sdata & SHPMSDATA_V)
++		return false;
++
++	switch (mode) {
++	case SHPMSDATA_MODE_U:
++		/*
++		 * Hardware indicates 'U' mode but current task is not a userspace task,
++		 * so perf_regs should be left untouched.
++		 */
++		if (!is_user_task(current))
++			return false;
++		*perf_regs = *task_pt_regs(current);
++		break;
++	case SHPMSDATA_MODE_S:
++		*perf_regs = *regs;
++		perf_regs->status |= SR_PP;
++		if (user_mode(regs)) {
++			/*
++			 * shpmspc was recorded in 'S' mode but interrupt was delivered in 'U'
++			 * mode due to which perf_regs can't retain 'U' mode stack frame.
++			 */
++			perf_regs->s0 = 0;
++			perf_regs->sp = 0;
++		}
++		break;
++	default:
++		return false;
++	}
++
++	/* Update the epc to the more precise PC derived from shpmspc */
++	perf_regs->epc = pc;
++	return true;
++}
++
++/* QEMU hardwires shpmsdata[63:8] to 0 by default and so shpmspc needs no adjustment. */
++static bool pmu_sbi_sspesa_pc(unsigned long *pc, unsigned long sdata)
++{
++	return !(sdata >> SHPMSDATA_METADATA_SHIFT);
++}
++
++/*
++ * Following is a tentative guideline in the spec that if shpmsdata is not hardwired to 0 and no
++ * custom algorithm is reported then software shouldn't report support for precise attribution.
++ * The pmu_sbi_sspesa_derive_pc is responsible for implementing the custom algorithm and must be
++ * set per vendor and implementation during probe. If it isn't set then precise attribution is
++ * not supported for that vendor and implementation.
++ */
++static void pmu_sbi_sspesa_setup(void)
++{
++	switch (riscv_cached_mvendorid(0)) {
++	case 0:
++		pmu_sbi_sspesa_derive_pc = pmu_sbi_sspesa_pc;
++		break;
++	default:
++		break;
++	}
++}
++
+ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+ {
+ 	struct perf_sample_data data;
+@@ -1087,6 +1196,11 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+ 	struct cpu_hw_events *cpu_hw_evt = dev;
+ 	u64 start_clock = sched_clock();
+ 	struct riscv_pmu_snapshot_data *sdata;
++	unsigned long sample_pc = 0;
++	unsigned long sample_data = 0;
++	int sample_cntrid, cur_cntrid;
++	bool sample_pc_valid = false;
++	struct pt_regs perf_regs, *sample_regs;
+ 
+ 	if (WARN_ON_ONCE(!cpu_hw_evt))
+ 		return IRQ_NONE;
+@@ -1115,6 +1229,21 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+ 	else
+ 		ALT_SBI_PMU_OVERFLOW(overflow);
+ 
++	/*
++	 * Sspesa records the PC and metadata of the overflowing counter in
++	 * hardware. The PC is precise only for events that support precise
++	 * attribution; otherwise it is best-effort.
++	 */
++	if (overflow && sspesa_available) {
++		sample_pc = csr_read(CSR_SHPMSPC);
++		sample_data = csr_read(CSR_SHPMSDATA);
++		csr_write(CSR_SHPMSDATA, 0);
++		sample_cntrid = sample_data & SHPMSDATA_CNTRID;
++		if (pmu_sbi_sspesa_derive_pc)
++			sample_pc_valid = pmu_sbi_sspesa_derive_pc(&sample_pc,
++								sample_data);
++	}
++
+ 	/*
+ 	 * Overflow interrupt pending bit should only be cleared after stopping
+ 	 * all the counters to avoid any race condition.
+@@ -1161,6 +1290,16 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+ 		riscv_pmu_event_update(event);
+ 		hw_evt->state |= PERF_HES_UPTODATE;
+ 		perf_sample_data_init(&data, 0, hw_evt->last_period);
++		sample_regs = regs;
++		cur_cntrid = pmu_sbi_csr_index(event);
++		/* Update the regs if the current event caused the overflow */
++		if (sample_pc_valid && cur_cntrid == sample_cntrid) {
++			if (pmu_sbi_sspesa_regs(&perf_regs, regs, sample_pc, sample_data)) {
++				sample_regs = &perf_regs;
++				if (ssplcofi_available && pmu_sbi_is_pesa_event(event))
++					sample_regs->status |= PERF_SR_PRECISE;
++			}
++		}
+ 		if (riscv_pmu_event_set_period(event)) {
+ 			/*
+ 			 * Unlike other ISAs, RISC-V don't have to disable interrupts
+@@ -1170,7 +1309,7 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+ 			 * TODO: We will need to stop the guest counters once
+ 			 * virtualization support is added.
+ 			 */
+-			perf_event_overflow(event, &data, regs);
++			perf_event_overflow(event, &data, sample_regs);
+ 		}
+ 		/* Reset the state as we are going to start the counter after the loop */
+ 		hw_evt->state = 0;
+@@ -1500,6 +1639,15 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 	}
+ 	irq_requested = (ret == 0);
+ 
++	if (riscv_isa_extension_available(NULL, SSPESA) &&
++	    riscv_isa_extension_available(NULL, SMCDELEG)) {
++		sspesa_available = true;
++		pmu_sbi_sspesa_setup();
++	}
++
++	if (riscv_isa_extension_available(NULL, SSPLCOFI))
++		ssplcofi_available = true;
++
+ 	pmu->pmu.attr_groups = riscv_pmu_attr_groups;
+ 	pmu->pmu.parent = &pdev->dev;
+ 	bitmap_copy(pmu->cmask, cmask, RISCV_MAX_COUNTERS);
