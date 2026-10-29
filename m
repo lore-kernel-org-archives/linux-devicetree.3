@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250381;
-	b=C0xUTkrFLkNe8NgavlBSL772Pe4Sn2Kp4HeJCiqm0opMYgnBmRaQjpUJ7ZsHtwEQPVDY
-	 L1+rjc9+srXdAxMWR9NKiCiu6l/g0lksj3ToVtZJfJLkmBBg9Qo6Nr6IAUMXVwq1bGMO1
-	 UWAiSxgmHigkseCRBWEH8zgHo0UE43FWcX4+5ltdYayBZXaN42gKCQXtdgXRSwOgRtRzX
-	 jWYs4b0/lf8Q23jiZb/rsKeJAdW7hD2pWgdx0FLvTSQgLqB14Z0+0+khHcv2hdkPqkVlG
-	 t9v/t/9nj/VzaUArKL90fPuM5fW5e08C8dLkaQQRX+EzDEnZ9tuZ8GhAOAR/hF8YCMw==
+	t=1793250390;
+	b=nyD5iXMsl3CVsxbpbKSGS3K2PdwWHnes6VP0C8CvYmsBTsXPwhyI32V1DnhRVoxJKvhf
+	 v4MDOiwgZ9MShfWhRmg+umKvhwg5VrcVfpHU3fkYX15WR9vTGozCoED6BvgiSS+ITq34e
+	 uGkDF0RbZcbOIOShGPpGuZVdDYP2ef2MiqaycAm8DJ+qxeCp8tsCKwzdmAc3Hu26+rc+9
+	 hLJb6tLapt/pf+IX5hw1EsAJo5gwo5GW1Tli8P7lly8FWhQtEYd61pG77zZ76os+llEOf
+	 bKDJAyjx4XUE/Iuwj2M+GZHWy+7BWcb3a7OYD/0EQfApcOuqyxObfMgNgQsHssSXq6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250390;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-	b=Sq5pV67bjnIAH1ucKfmPAHoLBU2y8AXBwFOOL0OJhQyc0iTFVPQasrfrHWVdL8nj7ktl
-	 nsZAZIUIPmqQft3HQRlsgRf/BQmbaVjIkZQ9jLuOrULCbsefCSoMQMH4uM+4t4irxs3SK
-	 nkOn0K03Epz0CRNOviz4Vp7RRhqg1bDmCoQNMF4XaJIxJ60rQc1cvBRyWLHn0suBsaxwl
-	 m9eF64c+9ooA0g+4aiq8qmN7g08mijT8hxmPpo9Vxvie2Dv8O5C+CB6Y8rpjSKVR8A1uh
-	 uAlt5gkfBiGggmz+jBokJk9N1xtNsUv5EOghP72ErcP1Jf9O8gfcJ+Ui8vDMlk9nmDQ==
+	bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+	b=wylCAVkJp1HShLvN4G45+FuZxbByhKRxQ0OC/wM9Q4Um0ONsST+82bYufjGq/4d7iqBz
+	 H9+xDB7JLuQcWtooDE4AkmzE46jLt01hXzbNw5wjTzZ44iVKJZq1obTwanJ27eocUXzqV
+	 fUjhp11DCziU5U5gHMrh11btsq0sOtGZRm692oqVR856scNf7p3pcwfj2HhjcRujKNWgr
+	 Cbkjne7YY8S1zaZYikP8wbo3lpWCmyvulKjb35fVQDFn2VWXA1WD6Cxgn1qA+sf28culS
+	 cNKhpE1W35byqBMB2X0cquc3Y3wNir5TK+d5FUzhS1LXho5/ADQlfwuucAc6QlICRiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+O8EIyU;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwxsLAlm;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEEB606A31C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:06:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EEEB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4712E606A31F
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:06:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4712E606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z+O8EIyU
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea138a3497so9966925ad.2
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:06:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwxsLAlm
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e7c8213b09so5359305ad.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:06:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793250380; x=1793855180; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793250389; x=1793855189; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-        b=z+O8EIyUDM3BtcD1Yx+C7oAh11I9nR0MCUlgL3ALaofjFPr87O3qwTHMb0KwOteZ9R
-         0cwM3kRXpkcEfO6qrZAvwIAcuKigraV94opIHJDWIKiTMpviMPbYON3NUoFaY+WaQP93
-         6PEyAtpOt5C+yA0/Gg/CqAGt4oydFJKCV6/vsqxNYhjRfM6RBgikOTsAIR22StKRpk+x
-         Amjxt+VRUPM2Zaz2nCnjzuWiAvSwLW5LyYUB+YrvkWE7Az61qyadK+F9l1psyB+MPrZW
-         zdutJqgc+QZFFjS19kim6bzhO5GYFyUkwhFHVTGrPerT+qmNxMQFykUbqErajqkROqvM
-         bF/A==
+        bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+        b=iwxsLAlminzYvBptDnBRm5gwKSr6xNCJXMFvGuDNq0B6sxOcBReZ34X15VYNkogTLq
+         BCsstjXwc94FjXK/lY/5Fw2+rM0edRohKTYo8s9Trd3WGF0eMK0GFUxCrw5yDELYHMk9
+         hwMJIh1iNO2j0n3YzTWCHRizeFEpMoCD8Tqoa2k0BXdriokc3guSNz9e9UYwqB5oGwLH
+         L/DcmDcwMTXWm50BtOe+zbUtX4f0y0yP8mNAEveiEDaL0xuzoP/IAhmvy6/u2tDm98mH
+         10LnEZGfAFpQaU9stluVmRqJQvLJMZAnbUf3c8x9DWNqYQbq/R35LQVUnFG4XQoTvmlo
+         +2pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793250380; x=1793855180;
+        d=1e100.net; s=20260707; t=1793250389; x=1793855189;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4pcGqj7EcqEBhg8rTi3U2rPWxfkoRdeov/It4k+I+Yk=;
-        b=hjdlMOgmgihY44jdqJGZXSfzyRIj9hcBLgztW1h3/Lty2BKHwKgcAHu5PHgeHjE/Wq
-         BlL70zMBJCYjRnBa2dKjCOnORMLfMBOwcI0fRKdGGu7ygahMgFICFyOnjPYv4QJk2cI1
-         NmeNBvfvcphVJS4b0jTYmaQXmzWfiqgzE+S1nZHrV+0GJuW0NpFJxwrhQhEeSqGCSUqV
-         XmpoAANK2mORVgmkxS4sz9o6bQThT4Oxiyv99cPdB40paI7qZjv+HuMR6W8AjlsLO8B2
-         q3097/oDbtpMWecHRDZ91+24Sp6311AHzKmyjbnLVDa0CJ/FEHP1PRAVHmu1UAutgi0S
-         G1+Q==
-X-Gm-Message-State: AFq9FYKIgU/29+NhJhIl2weJuLTlpizGCCplPi1oa79EVN+cnipRS4v4
-	fDYb/CZ6hs/SyDwfsExe2IpcFh3RKSKbycfKyzO4MreVndhKGlPOmxVY
-X-Gm-Gg: AYBFou2f7tUU4ju+DBPvSn4O3ss2zYs8Ovj+ehGAQ31u83XhX9Q2J/Sw3xhmaLCEXeo
-	Ep2WD99NymFwXW8n9maUxbTIaQ/YwJ/L0hicpyFMS8r0wwUaIU/y/BM8Y0Q9BO1dftHF1fCtzcg
-	TvE2I5cw3CY15nwKA5gJ/TH7FDkltBmq1T0+1dxSgaSoj3j/vr4IVtSRtCb09XmH+7dW9AuUift
-	+DUDfbqcEySFetI25sme+M1z8Mr7FYZ+CWyt6W6mGhQoqc8a60NsSrpyE/WyNFhuEDARty9aEJF
-	MqVOBhNT6k+QsQP/ytcwKan89ReIvJ710Z4fgkYiU8QSDo+FSOHsKwQk+HrTP8qp9j7yFSRYK4f
-	gPN72NkGeKOQfo6ryxe3EcCtD3NnNhH1PvrRhIMy48Sfnawgc3z193+bzPwDYJwWzBeaXY9QqGn
-	4AKDJVGHAh2Br6sO1zbV4TD4totzSS9+vLWLQO2inS1HdfTuaoRssi2DEu+6qJcJRweYXv7Zs+M
-	BpQJGCoBBSRltSiaAtLazqyKxvKtmjysjcWiazuMu9ECcb82ws/snCsKbOUvdZIfJAXHmF1yUYv
-	3FO8Gyijy4Q/Yt5V0ne6rS1iF51B
-X-Received: by 2002:a17:903:380b:b0:2e9:9c65:1aff with SMTP id d9443c01a7336-2eb0041ee21mr39673785ad.45.1793250380523;
-        Wed, 28 Oct 2026 22:06:20 -0700 (PDT)
+        bh=CovTA5I7uRtS+rK/MoAKpr4q/R4ofKrh6kdcg3ZjsRk=;
+        b=hFCJDP9N6dzTB91Du0HPMQpbTsSkA8neXqXrrf/w9DOyGchPOHgxCXl1sROeqt3Qq2
+         vXJ5P7Eknz9K+BpUK7KlOMEM/nACEIorvTOucEfjLSYRRynP+G6VYw0G4UUINkcrPwCY
+         rN8ZEQS5PgBa0iOHmu8+r0SR1ntIsNlj+6OcmQK91WfXYezosdHPO9dqpLWi70UcCslb
+         D2paKcfHShlCLPVIk78/tx8lebvr//uchiRkNo27GBqBs5PmNyebebQTqNCMNB3PEiZm
+         OVAGn9/Wi1CZNeKSYYcWg7ugLVkQ1fMLCozdVKZbrsUZwRnQR2mWIjy2Whm7bLbQIWMF
+         +b9A==
+X-Gm-Message-State: AFq9FYIFHg1RvLz3BOTWr94FJOBstQDf2KtsNfUOfGOJGj+bcp9zbs82
+	i1N7s9MogqybU1+v2bzkogSe2NaVfhnEZM5Re8CwqYLP56al70MSY2Bs
+X-Gm-Gg: AYBFou2PZ+fw46JNgxEx+kzvnO4vHmKxXKkIwmXG1DiiAgmwUXWzTywKqJqb2meQDCi
+	/GbNbP/pjasCXZSbkHM6ug6OEBDEA2iZP4it4PgWBgeMZZyX9FXtJWlOF/+M53m6P/fWNKXUyqk
+	QpMDzqBxHOxjIBNzyXHi2PM6PKHh/XkDVd7acm2DAjvl+SfvziKylOoy1rEOJhUf3eUEHBxZ3GN
+	TY9pkNO2CCKUSHFpEt5eHtcaTnIuhfp3TTNANK4wU7EeVmeQotHa/B+hluEBrdeR0WJvsak9SKC
+	7HllEzGu3xhjdJPPkE++cFcMHGq4vdV3+lnKQDfPRnIJHeN2cJitqmhc1lDh0WjBc0bLIjfAB1D
+	dd0Kd6bg7QHMJuQd88vrvetBFyfN+thtBttRXvdDFUW4UPBB4tl6nZkNK83bqLAgMK3Jq9DBlYU
+	/K3qxRecQEs1vrCSlGNixnPMiiGsJVY2C3png5Ksp0To1b1QWqTqAacshLFB0DMkygNSU8ts4Zr
+	oHxml6wX4nzNO/cXk+p/DoE+t967Sz5nYSxJ4E7V/B1DXdm06tzWX/e1dhkhEzmUOIlDQ6TorHK
+	OkaHb6O3zddOAIaY5OxNRnznZuv4
+X-Received: by 2002:a17:902:cf4c:b0:2e5:467a:7a6b with SMTP id d9443c01a7336-2eb004f2a79mr39853755ad.10.1793250388648;
+        Wed, 28 Oct 2026 22:06:28 -0700 (PDT)
 Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.11
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:06:19 -0700 (PDT)
+        Wed, 28 Oct 2026 22:06:28 -0700 (PDT)
 From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Thu, 29 Oct 2026 01:05:44 -0400
-Subject: [PATCH RFC 03/12] dt-bindings: timer: Add BL808 CLINT
+Date: Thu, 29 Oct 2026 01:05:45 -0400
+Subject: [PATCH RFC 04/12] dt-bindings: riscv: Add Bouffalo Lab BL808
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,7 +92,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-rust-bl808-console-v1-3-b736ee920078@gmail.com>
+Message-Id: <20261029-rust-bl808-console-v1-4-b736ee920078@gmail.com>
 References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 In-Reply-To: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -119,27 +119,43 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
 X-Mailer: b4 0.14.2
 
-The BL808 D0 processor uses the T-HEAD C900 local interruptor. Add its
-SoC-specific compatible with the existing thead,c900-clint fallback,
-which accounts for the lack of a memory-mapped MTIME register.
+Describe the Sipeed M1s Dock carrier, M1s system-on-module and BL808 SoC
+compatible chain. Initial Linux support targets the 64-bit D0 processor.
+
+Use the bflb vendor prefix shared with Zephyr.
 
 Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
 ---
- Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/riscv/bflb.yaml | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-index d53f52e80d887b40c0d20049d86867c8a5b6fae2..3934c0842751e02174c1be6074548e3e1e8f11fd 100644
---- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-+++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-@@ -49,6 +49,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun20i-d1-clint
-+              - bflb,bl808-clint
-               - canaan,k230-clint
-               - sophgo,cv1800b-clint
-               - sophgo,cv1812h-clint
+diff --git a/Documentation/devicetree/bindings/riscv/bflb.yaml b/Documentation/devicetree/bindings/riscv/bflb.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a3c14fcc6c2e9fd6297cc2556c1525f4bf8e90c4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/riscv/bflb.yaml
+@@ -0,0 +1,21 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/riscv/bflb.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Bouffalo Lab RISC-V boards
++
++maintainers:
++  - Kwanghoon Son <asdfkwang@gmail.com>
++
++properties:
++  $nodename:
++    const: '/'
++  compatible:
++    items:
++      - const: sipeed,m1s-dock
++      - const: sipeed,m1s
++      - const: bflb,bl808
++
++additionalProperties: true
 
 -- 
 2.47.3
