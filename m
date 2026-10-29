@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793267669;
-	b=EJT3knwtOYEz3uJ9g+JFJsvwmh/dbY6RAd2am40L402gSBsKGpODPU6M4aA1Y0vH+G3k
-	 xRwabWgcA4MpBXV+I9686pJRQm1OimQX1Ef0FsSjkd2X8yzKdQWK9piAbESBVybKerBgW
-	 UpgprL54OKvYJX+QRzgrfbo0mxDVR7QqhLV8b75C7ZVfhbwsYfV3k3nDlS6mkimAypfJf
-	 AROBrynbE1DNz+ahFHRacj5X/aC8cZqDohKW+irPciPLChm3i4T+AA/0b+582q/yzlhGd
-	 RownsMhOFBN76PFSwowgDZpeK/ZNep2upGPUfgjnAia92Q72hKlGK6/183nxjhAJkbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267669;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
-	b=1C/EyMFG/K0/UMWCFWQXDtChWGOximtgD1LwkNCppfsgPLJ1RmNx+jUVP2WnsJPVsZ5G
-	 ft+FIQlarSMd5yY4KYjDdj63QZ4ulDSYMRpaQQfip1TzHSZI7gnWuzazCIbJa09ns8Bby
-	 jmO9j1x0dNMXsFWi+F10sm7EOi0O9kGN0CHpl8BLBbKU6E85kOmOcYciMmjNvX9NPKII8
-	 NphpEkYITbt30M3kpcCfbw+FkRduPefqtI3ljNRXzB19FLXiVXwWX6kqeW3QRNiRG4KeU
-	 MiwynTxA4eY2dSKzS8qXKCsH+Auk0AG/x8bBMiys/JdQpM7bVYlAL3XVYMnVJeZNA5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=CY1Y0hMC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.20
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011020.outbound.protection.outlook.com [40.107.74.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793267828;
+	b=C1jZ3yAQorqMTfgpvkzYwPcdkV53jRLGyT5OkvE5IgFYFpYZG0rzT77oMHpzoFcGPKsN
+	 HIfoaJx7EAOBnKYHWMtodr2tgy8NW+OYlczp1tyR+EXNUiNMpKaR/Ar+A6cjmUxp6aXWa
+	 B+6bNzS5mW3QDZsU5//UhZWN2Egk0hqBCxgYUM2wh9JDmYlUrE2G1MZtImy7nPqoDWM21
+	 6xTKB8u0ehLUfrpznjmoLMDyZf9jqtlNJD9IyjWf4VQko6Mf6fsi6qBxTUseyTR/tmf3t
+	 dK3p4mL5aRjd2Z7EyQ7F9Dfs0dv33ZkFLI1FNzSgs4if5DNOrpUFaYNihHLX2n9u/cQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267828;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=FL2eR8EYUTXDFliIvq3+r6VI7BGzi6yXCZSbMiEvJYo=;
+	b=B8AqCK1YcR3EnJOP31e0578mTJaStNoGb6P3qSIKr2KLRESXK4+vQ1w0Rev3Knf8kmXl
+	 h142r1Cxx28v+DbnUrIgkRRJ/flsptaI/ALo9sujPWjc80zMhN0K2gJY/AX+0FzUOEbZb
+	 ltr6sRmSxS+6TGhZcIJ3ujVEQ2D+3SFeI1HmI4vnOcF6XNHm9hNrWKz4yZV4pMw/Nez4Q
+	 iw5QKaPaB6KMn2NaoH72KfzZLcdouNOMY+PDcNyfQspvMy1klf4E5xkGtKbRJE2l6yGR7
+	 wTW0KDCUcRpRujgkQiD2mvM2FbbM0tz+jvnOgwnu1g+TCcjtTo1o7/nH46/EU6DC3ag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfeDA2nt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26547606A31A;
-	Thu, 29 Oct 2026 09:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26547606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458B2606A33A;
+	Thu, 29 Oct 2026 09:57:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=CY1Y0hMC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AU5ZdyIbs80VNYwy3qQ4Paa4fHH/K4yhQjCmwc/Kn1FAb9HPnSecaglXPrunmlbZ4xrbuKrBLTSjn7inmtTqg8O4eKT1CLXG4s2qPHVx/Wi1qN5Rj9wrYuwDExCCJ47Gj9XQxXLLgVbD6/Eln9zADGqNN/6g4+s4R1n+7rnX39sczMLIjOW+MMrZj4vmeKljkoRGY7jR9vNOXMv7/TRUtcFeqMfPcA4u3qCfNlTax7AFJwOlbwMLH3syi7BQNmnYrMWO7NEGUEWlN8Vo15/WgULeaxi0OO0Cnz+NIpq037OH3skhjp2ntg1KA2iZzGm5W+9D7pE4AdhkHRkEJ2ZDmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
- b=FQcIAM1MmJ38IAHVmGlR9WeyV0OpQjmWjEtfHhNcPILBOmH5nlThMBdUPYADQ2NSEd23VqgkkOIT0bkFLef7Nxyao3o/cxUsYFjkrQk6oq/6MqUPxlTRg5vtotZozniE+MIDNWGFGBaVPp/BaxPucr1y/wg5iC5YULGeyoOZlaOH71DTqyopwUV6oYES6jhV4N49joVZjo324r9lPTLZzANIvCsCjzCGF4cu9KClhtzDuZ55ixXLGG6PPU4jnHs5M1vTptIR6D208QEqzbdMKvfYbpv3c9Ch7BfWrMsov51olphOMh2eE43cR5eGVREi4OseNIAWx4SGP5FN/9y0Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
- b=CY1Y0hMCKYs54VW7sGLtDHAnYJ0z4yoNmplny3QfiR0w7JgEZgqoov7bMdiPPhM/9Lokmd9AiG36gE76DOYfCGVJgLzHrYkMY3KiSVRp1sKZKyqSZKTthnfcwfOxSOKxgYw8egR4Zg+rxykZC3/hrwEOnJwLqUhu4iYlV6QVgUw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11) by OSZPR01MB6955.jpnprd01.prod.outlook.com
- (2603:1096:604:136::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:54:25 +0000
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 09:54:25 +0000
-Message-ID: <db1ad309-c02e-4616-8486-ffa967207d44@renesas.com>
-Date: Thu, 29 Oct 2026 09:54:14 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
- filter control
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
- <ate-aNmqsyXCAIX8@lizhi-Precision-Tower-5810>
- <64f604a7-7e70-4a0d-8164-28c5d7b1e509@renesas.com>
- <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
- <f4b8a714-dab8-45d4-b98f-717d010806de@renesas.com>
- <auC06gqa5lGtKPjj@SMW015318>
- <7dea4022-20d8-493b-b560-ee635deb7cbc@renesas.com>
- <auIK38HPyv7PmDJF@SMW015318>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-In-Reply-To: <auIK38HPyv7PmDJF@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::17) To TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfeDA2nt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFDA1F01829;
+	Thu, 29 Oct 2026 09:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267828;
+	bh=FL2eR8EYUTXDFliIvq3+r6VI7BGzi6yXCZSbMiEvJYo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VfeDA2ntD2A6A8rVIMHLYdB0UD35qsrcpyzddVxVd3eziYxFDYS6KsSG4gmR9DSUU
+	 yQEekc0zu8o/YdXb+xpL1oYtBRhQblENp7EpQ9CsiP/dWLwNqHvtaj8NHh6+rCTpbz
+	 0nomhn026dGIzHyV4+Lq3thfTvCIAVvRoidmh4xGqcbdkQer8ewjLGO3Hj+hJJhqwk
+	 n8gUV/7+ehMOPQIKMe5aIrcdmZSvPJrLwLbAKC3lnGaVY39XnKtMOzas4wSxsfLumN
+	 CAb0LCXy+FIFsqpWtlCqH8AF7XrQuMsVRn7vNY/zV8DNVr70/HCtx7KEFBWetMuVe9
+	 wsj8nA2C02D2w==
+Message-ID: <sashiko-outbox-189074@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC RFT v2 3/3] clk: meson: pll: Remove the dedicated n
+ parameter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jian Hu" <jian.hu@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261029-meson_refactor_n-v2-3-ff4ac74e527b@amlogic.com>
+References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+ <20261029-meson_refactor_n-v2-3-ff4ac74e527b@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 09:57:07 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,210 +60,303 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|OSZPR01MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea2a3f03-7c5c-4796-f146-08df35a29d61
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|261028144727099003|4143699003|56012099006|11063799006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|10067099003|261026121527099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	kTyzRKZnAbt/nnUTSUtAUWFRBtrDqc943nJmlCTirGr9lyXueKYuwHQmVDLQ+SPUWTmRI7arYNyGMfo5gaB0dbsTI/MNkQi18s9gET8To59DO3wAiXXOng8EPysPTtHn37ehrzFNTE3v70RI+o3Nl9lT7THPqyD7qFajfpoCs+k7+9czSdLVCICySe1DJrwaIZLP/d+BLLxhWeaJDPJKDWbuft/yI+R9aZ8MgnuJVvWAdO3I5GwBduWmSfB84sk+fmO2nWxhT/hrBnP+Z66MHacteqRc5DJ7qVEXpG9wc8AeJdPbJa52MVWmsqQfGDu0vI9v5lwsKbkKcE9j6Ceo+1DdsEedMfd30taQq4OtrqggAKjndwVDxeN26vkZwooOy4UHZr3BAH/jZUc+Tce6uPOOYxX6FFr0+G2exLhfC1WYukjck42yQ1INfulRBrO8HuLAI4GI0Ol9XBR3MAbYuYmG7J1GzIvZqKn0RJz4827PHWt+kWfZ4BTr85KQSueOJmy7PQvU+pUmk7V+Bm+p//YHT9KzJ4uaSTFVLb7umPz/RfE20Gc2cR8u+zAUcSdskSUIL9IKw90Uwmwq0ep/20htlCJHGnGHBzmPEH+TzemKELvce9WOpElxnNxQ89VxH/5HsVj7L8srz5Dq4DagYePGNPIJOQ/5xbPlFIxdQKw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(261028144727099003)(4143699003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(10067099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y1dzRVEwTzhFWWt1NXNzR2QvT1NneDYxbWxYdU5QL3IzckxqVXNpZW95UjZO?=
- =?utf-8?B?M3FaSkVDMkpFMU1uY3l4cnUrV0J2WjEwcWx6a2RLWlIyOGo2dGxLb21JK3Vn?=
- =?utf-8?B?RFNvNTdaTXN0T1BCc2J1NmR5cnczMTJJbFgrOUUrS05mdmhHWll2U0xEYzE4?=
- =?utf-8?B?OWZ1N0xVRHhBSjdmZGhreFdPUCthUDhId090TGRDcWYyL1lYeFpEWFdzUy8y?=
- =?utf-8?B?T3BuUEN5aVhpOGRUelJaSGpkQmFJRWsyTFZiaWRJWlRvSGNHcXpROFhUby96?=
- =?utf-8?B?bjZEMWwxMlFpUk5FM0pjTEd0dnNYR1Aza21rcmdXYzVHcXduaExZTDRmRHdG?=
- =?utf-8?B?bEtiL25xRU5ndEtJRE9Rb09uVENxbUJHSEZ0TW1CMU1RZGUyY0t4WnJHU2hy?=
- =?utf-8?B?dzhORkdSaCtiQ3BwOStZZ1M1KzVNVy9lVmNQYzcrR1h0MWs1TFpQTjg2cFRq?=
- =?utf-8?B?VWFpS1czTFhjNloyOHNlQy9kY0NwOXZBSDU2ZVNaalpIUW8yeFlaKzlkcVNs?=
- =?utf-8?B?V2JYVmhWZ3dJM2lwVFhYR3A1ZW9ZdVlDRlpTZG9NaVJtYmZnSXlVKzVvWXNn?=
- =?utf-8?B?eUxwSVpudWpUOTlrUk05bGZrQVFkNFNWRjlVdWtIOG1rdkMvQXJSaG5qempi?=
- =?utf-8?B?bHJxK2NUcWpES2UwL2FRQlgyNjFiY0JFcGppL2VQdDdlNnlMSFN0N0FzeGFq?=
- =?utf-8?B?aVN6bzNKeVF3d0ZtSW80Z24ycExMc3FidlN2OEJhRXBUQWJaZUl0VGpJdm9K?=
- =?utf-8?B?UHZQM2lkc0xwZDB4NE9xU1BDbTg0cVFVUVhGUTdGYklXR1VwckVrQkNBL1Jm?=
- =?utf-8?B?czc4alNvcVNuOTR0WitQNHUyclU5Nk1ZRzRyV2lacElZU1NGVUpZcnRscStS?=
- =?utf-8?B?ckQ3dDB5dnV4UFpybFNlb3RzRkg5KzJSMU12eExGTHBscmVqZ1RtYWUrYUtJ?=
- =?utf-8?B?dVlUTnF1YlM1SE9TSzNlT3BEd3BmbHY5Ui9tZnZlOC9BbWp2UFpvOThUY083?=
- =?utf-8?B?SDFPMnpxYmRYUGZHZXFkcmtLSjNtOEhRa3BGMkFWS1FhUjdpRlJub0xHYUVE?=
- =?utf-8?B?Z3FCb0pvRS80d0trRDF4V0d1Ny9pUGM2bjBVQ0NDRjlSeWdpd2dMYmlWZWIz?=
- =?utf-8?B?SHdMMjNac0lnQUpaeVNZckI2MXhpR2x4OVFULzZDdWxCc3p5Q252UXNhZU1R?=
- =?utf-8?B?S0t2VnRzbmNhMEs5TGJuVHRzMDlpa0piWnpXUUV2UDJTeWlUaHdlMnAvbjV4?=
- =?utf-8?B?UkFsaTZrTlFiOFNtSGIxUW9UNTFWTDA2aFpFWDdUajczblZFbTdwTU1ocXpX?=
- =?utf-8?B?NFZWQ3MrMGQ1dG1DNWNlSWJ1TWg5S2FxTWhsMHFPaWZ4eVB5MlhsYWZqZEJt?=
- =?utf-8?B?V085SS94b2tjVUdxSlR1NGg4TTgvc21LMDdVM2RQNTd3bnNQL0pUYjNvYnl3?=
- =?utf-8?B?eHNZWFl2TDZJZjBrd0RyeVkwTkRTcStINGl5bldIVUtpMFI1YkovTHI0TlBF?=
- =?utf-8?B?dFhYYjdIY2c1VnZQRm5UVmZ3eC9sY3hBWGpnbm4yTDg1emRYUmtielRIQmJX?=
- =?utf-8?B?REV0YzFnTHB6Y0pESW5YTDRsOGN0eEVoQ01sWlVNWllpanhkUVhRazEyaThz?=
- =?utf-8?B?Q3M1WUlkQVltby9oci9wUFBwTEVHN0t5ZHIrTGpuZnNqL2tmVndiVG51VVc0?=
- =?utf-8?B?R3JxRExXbjlSSDdoRzJwUXFkWlVEYmhTcTRlVFJ0ZkowMElaODZxM2duSmh5?=
- =?utf-8?B?WFhCZVEyUWtOM2NCSnVIM3ZKOVk2THRhZ05HQVFoTE1PcVo3RHYwNkNxdVE0?=
- =?utf-8?B?eEVmZmp5YnM3R2VoS2JOTHhkc3lkeUZxaThQaGIyUnlMSXNJWnk5TWRHdUxL?=
- =?utf-8?B?UHhwcUpBcno2bkRnZTdaNWh6VFRSTHJaa294QlJxeEN2VnBRQlFqU2tBN0RQ?=
- =?utf-8?B?Q0lYdXFrcjVPck1CUVZYT294UFRpTFVEV0laRC9DWU5IZUtsWG02MlAxVS9t?=
- =?utf-8?B?dERPQmZMN2ZDaGpONjEzTkZRTjdEVjczcW9jQkJEWG0zM2xUN1lLMlJSd1VN?=
- =?utf-8?B?SmNwMm1rQkRNM3ZsYXVCcjRCZTlFYVgrM1d4R1orM0tUVHhxc0ZJTnVXcW1r?=
- =?utf-8?B?cm42ZVRLY01yVGFSS1pLb2taUjJ3Y01nU1VTdSswSm5LTFYvMGl2UkxSVytY?=
- =?utf-8?B?YXNOczBPV2F3NWJsQ2FBV2R3dUxwaWRqRC91OVgydnRvUG9MYmZTcjdpQVQw?=
- =?utf-8?B?U1B0NnFMcWkwc0YxTzNoZnV3QkhsQzl2ZlRmaHhRNmhXRTU5YWg4bnZlbmlx?=
- =?utf-8?B?UUJ1dnIxbk0wNUxYZ0VpamtvMWFGVmp6Q2tOZEtxVGhPcUtWemwyZz09?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea2a3f03-7c5c-4796-f146-08df35a29d61
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:54:25.5193
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YSjh4GMr8nKA20OKWrZ93leeVKilYz86OqlyNpHENcQEYDwJ5o8bVBiTts1pAwEFQLy1u/8a/CHhF8KuI7u72V9brIdMy+JXRYDmsCiPK2M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB6955
 
-Hi Frank,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] clk: meson: pll: CLK_SET_RATE_PARENT on ro_ops PLL DCOs breaks rat=
+e rounding
+- [High] clk: meson: pll: meson_clk_get_pll_table() fails on non-exact mult=
+ipliers
+- [High] clk: meson: meson8b: missing CLK_SET_RATE_PARENT on hdmi_pll_dco_in
+- [High] clk: meson: pll: cached 0 Hz pre-divider rate on directly programm=
+ed PLLs
+--
 
-On 10/28/2026 2:46 PM, Frank Li wrote:
-> On Wed, Oct 28, 2026 at 11:10:07AM +0000, Diogo Ivo wrote:
->> On 10/27/2026 2:27 PM, Frank Li wrote:
->>> On Tue, Oct 27, 2026 at 10:34:54AM +0000, Diogo Ivo wrote:
->>>> On 10/26/2026 8:33 PM, Frank Li wrote:
->>>>> On Mon, Oct 26, 2026 at 04:21:06PM +0000, Diogo Ivo wrote:
->>>>>> Hi Frank,
->>>>>>
->>>>>> On 10/20/2026 8:18 PM, Frank Li wrote:
->>>>>>> On Tue, Oct 20, 2026 at 10:36:26AM +0100, Diogo Ivo wrote:
->>>>>>>> The analog noise filter for the input terminals (I3C_SDA, I3C_SCL) of
->>>>>>>> the Renesas I3C controller is controlled through the SYS_I3C_CFG
->>>>>>>> register of the system controller. Document the
->>>>>>>> renesas,analog-noise-filter property, which references the system
->>>>>>>> controller together with the offset of the SYS_I3C_CFG register and
->>>>>>>> the state of the filter: 1 enables the filter and 0 bypasses it.
->>>>>>>>
->>>>>>>> The property is optional: device trees not providing it keep the
->>>>>>>> filter at its reset value.
->>>>>>>>
->>>>>>>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
->>>>>>>> ---
->>>>>>>>      .../devicetree/bindings/i3c/renesas,i3c.yaml          | 19 +++++++++++++++++++
->>>>>>>>      1 file changed, 19 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> index 08fcea89a015..381807844351 100644
->>>>>>>> --- a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> +++ b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> @@ -96,6 +96,25 @@ properties:
->>>>>>>>            - const: presetn
->>>>>>>>            - const: tresetn
->>>>>>>>
->>>>>>>> +  renesas,analog-noise-filter:
->>>>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->>>>>>>
->>>>>>> I don't like this syscon property, look like it is one kind pad propterty.
->>>>>>> Is it possible model as pinctrl?
->>>>>>
->>>>>> On the RZ/G3L and RZ/G3S this filter is not controlled on the pin
->>>>>> controller's address space but in the SYSC address space (hence the
->>>>>> need for the sysc phandle).
->>>>>>
->>>>>> There are a few factors weighing against modeling this as pinctrl.
->>>>>>
->>>>>> The first is that the physical pads used by I3C are multiplexed between it
->>>>>> and for example RIIC3, so we are not filtering the pad but the internal path
->>>>>> of the I3C IP. The pinctrl does indeed have some controls for the pad's
->>>>>> digital filters, that apply to whatever block is multiplexed to the pad.
->>>>>>
->>>>>> Besides this, even if it were moved to pinctrl we would still need the sysc
->>>>>> reference, as the pfc driver would need a way to reference the sysc address
->>>>>> space.
->>>>>
->>>>> System allows multi pinctrl devices. your syscon can work as pinctrl provider
->>>>>
->>>>> pinctrl-0 = <&your nomral pinctrl>, <&syscon i3c ... > ;
->>>>>
->>>>> The key problem is if model is resonable. Syscon is simple, but have not
->>>>> good abstract.
->>>>
->>>> Doing this in pinctrl is feasible, especially since the pinctrl driver on
->>>> G3L already has a reference to syscon for clone channels. The question
->>>> really is if this is what makes the most sense, as again we are not really
->>>> controlling an external pin but something inside the IP
->>>> block,
->>>
->>> I don't think so. Generally, PAD some property, like pull up/down, driver
->>> strength, some include glitch filter (capacitor or schmitter trigger),
->>>
->>> 'renesas,analog-noise-filter' like adjust some capacitor at PAD, only
->>> controler signal (register) is not in your pinctrl region.
->>>
->>> There are not analog-noise in side SOC's digtial part (Or we can't care it).
->>> Analog sigal generally existed in PHY and PAD.
->>
->> On the RZ/G3L the analog filter is located after the pinmux, at the input of
->> each I2C/I3C block. Each I2C and I3C block in G3L has a single
->> register bit that controls if the analog filter is enabled for that specific
->> block (so we have SYS_I2C0_CFG, SYS_I2C1_CFG, ..., SYS_I3C_CFG)
->> each with a single bit that controls if the filter is enabled or not.
->>
->> However, for the I2C blocks they can be multiplexed to dozens of pads, and
->> these pads don't each contain an i2c analog filter. Rather, the signal
->> passes first by the external pad and pinmux and then it reaches the intended
->> I2C or I3C IP block, where the analog filter is then located. For example,
->> the P2_0 and P2_1 pads can be multiplexed between I3C and RIIC3, and each of
->> these blocks then has its filter at the input of the IP block, and a single
->> bit in the SYS register controls the filter for SDA and SCL together.
-> 
-> The location in hardware is not important. What's most consider is choose/use
-> which software model to descript your hardware.
-> 
->> Then,
->> there is the problem that if we model this with pinctrl with a pad property
->> then pinconf would not know which block's SYS register to write without
->> coupling to pinmux. In this specific case of P2_0 and P2_1 pads without
->> coupling pinconf and pinmux we could not determine whether we should write
->> to SYS_I3C_CFG or SYS_I2C3_CFG.
-> 
-> coupling pinconf and pinmux is quite common. I remember pinctrl framework
-> already consider that.
+commit b0439d678a94dfead2cca909902c6363ae03f5d0
+Author: Jian Hu <jian.hu@amlogic.com>
 
-In the end we got confirmation from the HW team that the SYS_I3C_CFG 
-register does not actually "exist" and was unintentionally left in the 
-HW manual, meaning that we cannot control if the filter is ON/OFF so 
-this whole discussion and patch series becomes moot. The only patch 
-needed on this topic is removing the SYS_I3C_CFG register definition 
-from the SYSC driver as per the HW team's recommendation.
+clk: meson: pll: Remove the dedicated n parameter
 
-Sorry for the noise and thank you for the discussion and your time!
+This commit removes the dedicated pre-divider (n) field from
+struct meson_clk_pll_data and simplifies the Meson PLL rate calculation.
+Each PLL pre-divider is instead modeled as a standalone divider clock that
+serves as the parent of the PLL DCO clock.
 
-Best regards,
-Diogo
+> diff --git a/drivers/clk/meson/axg.c b/drivers/clk/meson/axg.c
+> index 280842e9cb371..e6e6b9a8030c0 100644
+> --- a/drivers/clk/meson/axg.c
+> +++ b/drivers/clk/meson/axg.c
 
-> 
->>
->> Then there is also the precedent of i2c-analog-filter being a controller
->> node property rather than a pad/pinctrl property.
->>
->> For these reasons I believe that pinctrl is not the best way to model the
->> I2C/I3C analog filters but please do let me know your thoughts.
-> 
-> But syscon is also not good, which basic have not any abstaction.
-> 
-> Frank
->>
->> Geert, DT maintainers, do you have any preferences on what the best way to
->> model this is?
->>
->> Best regards,
->> Diogo
->>
->>
->>> Frank
->>>
->>>> so I'm still not fully convinced. Are there more opinions on this?
->>
+[ ... ]
 
+> @@ -202,10 +240,11 @@ static struct clk_regmap axg_sys_pll_dco =3D {
+>  	.hw.init =3D &(struct clk_init_data){
+>  		.name =3D "sys_pll_dco",
+>  		.ops =3D &meson_clk_pll_ro_ops,
+> -		.parent_data =3D &(const struct clk_parent_data) {
+> -			.fw_name =3D "xtal",
+> +		.parent_hws =3D (const struct clk_hw *[]) {
+> +			&axg_sys_prediv.hw
+>  		},
+>  		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+>  	},
+>  };
+
+[Severity: High]
+Does setting CLK_SET_RATE_PARENT on a clock using meson_clk_pll_ro_ops break
+rate rounding and rate calculation in the common clock framework?
+
+meson_clk_pll_ro_ops only provides .init, .recalc_rate, and .is_enabled, and
+does not implement .determine_rate or .round_rate, so clk_core_can_round() =
+is
+false.
+
+In drivers/clk/clk.c, clk_core_round_rate_nolock() checks:
+
+	if (clk_core_can_round(core))
+		return core->ops->determine_rate(core->hw, req);
+	else if (core->flags & CLK_SET_RATE_PARENT)
+		return clk_core_round_rate_nolock(core->parent, req);
+
+When CLK_SET_RATE_PARENT is set on a clock that cannot round its own rate,
+clk_core_round_rate_nolock() and clk_calc_new_rates() treat the clock as a
+1:1 pass-through of its parent and set the rate to the parent pre-divider
+rate (24 MHz or 48 MHz) instead of the multi-GHz DCO frequency.
+
+This affects child dividers with CLK_SET_RATE_PARENT when consumer drivers
+call clk_round_rate() or clk_set_rate(). The same pattern is also added on:
+
+  - sm1_gp1_pll_dco and g12a_hdmi_pll_dco in drivers/clk/meson/g12a.c
+  - gxbb_hdmi_pll_dco, gxl_hdmi_pll_dco, and gxbb_sys_pll_dco in
+    drivers/clk/meson/gxbb.c
+  - s4_fixed_pll_dco in drivers/clk/meson/s4-pll.c
+
+Should these meson_clk_pll_ro_ops DCO clocks omit CLK_SET_RATE_PARENT (and
+use clk_regmap_divider_ro_ops for their pre-dividers)?
+
+> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
+> index 1ea6579a760f3..a7e3f8c8eb783 100644
+> --- a/drivers/clk/meson/clk-pll.c
+> +++ b/drivers/clk/meson/clk-pll.c
+
+[ ... ]
+
+> +static int meson_clk_get_pll_table(unsigned long rate,
+> +				   unsigned long parent_rate,
+> +				   unsigned int *m,
+> +				   struct meson_clk_pll_data *pll)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0, ret =3D 0; !ret; i++) {
+> +		if (!pll->table[i].m)
+> +			return -EINVAL;
+> +
+> +		if (pll->table[i].m =3D=3D rate / parent_rate) {
+> +			*m =3D pll->table[i].m;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+What happens in meson_clk_get_pll_table() when rate / parent_rate does not
+exactly match an entry in pll->table?
+
+Previously, meson_clk_get_pll_settings() iterated over pll->table and used
+meson_clk_pll_is_better() to pick either the closest entry (when
+__pll_round_closest_mult(pll) was true) or the largest table entry with a
+rate less than or equal to the requested rate.
+
+With this change, meson_clk_get_pll_table() requires an exact match for
+rate / parent_rate and returns -EINVAL otherwise:
+
+1. Sparse multiplier tables such as sys_pll_params_table (which has a gap
+   between m =3D 68 and m =3D 84 where Meson8 CPU OPPs at 1800 MHz and 1992=
+ MHz
+   fall) and meson8b_hdmi_pll_params_table in drivers/clk/meson/meson8b.c
+   will fail with -EINVAL in meson_clk_pll_determine_rate() and
+   meson_clk_pll_set_rate() when rate / parent_rate lands in a gap.
+
+2. Unlike meson_clk_get_pll_range(), which clamps to min and max and returns
+   -ENODATA, meson_clk_get_pll_table() returns -EINVAL when rate / parent_r=
+ate
+   is below the minimum or above the maximum multiplier in the table. When a
+   child post-divider runs clk_divider_bestdiv(), any candidate rate * i
+   outside the table range fails, and the fallback clk_hw_round_rate(parent=
+, 1)
+   also fails with -EINVAL because 1 / parent_rate is 0, causing
+   clk_round_rate() to return 0 Hz.
+
+3. meson_clk_get_pll_table() no longer checks __pll_round_closest_mult(pll)
+   (for example on axg_hifi_pll_dco when fractional mode is not used), and
+   leaves ret unmodified in the loop with an unreachable return 0 at the en=
+d.
+
+Should meson_clk_get_pll_table() retain the best-match and clamping behavior
+from meson_clk_get_pll_settings()?
+
+> diff --git a/drivers/clk/meson/meson8b.c b/drivers/clk/meson/meson8b.c
+> index bc029c6ab622d..0c9ba079bc51a 100644
+> --- a/drivers/clk/meson/meson8b.c
+> +++ b/drivers/clk/meson/meson8b.c
+
+[ ... ]
+
+> @@ -185,15 +209,38 @@ static struct clk_regmap meson8b_fixed_pll =3D {
+>  	},
+>  };
+> =20
+> +static const struct clk_div_table meson8b_prediv_div_table[] =3D {
+> +	{ .val =3D 1, .div =3D 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap meson8b_hdmi_prediv =3D {
+> +	.data =3D &(struct clk_regmap_div_data){
+> +		.offset =3D HHI_VID_PLL_CNTL,
+> +		.shift   =3D 10,
+> +		.width   =3D 5,
+> +		.table =3D meson8b_prediv_div_table,
+> +		.flags =3D CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init =3D &(struct clk_init_data){
+> +		.name =3D "hdmi_prediv",
+> +		.ops =3D &clk_regmap_divider_ops,
+> +		.parent_data =3D &(const struct clk_parent_data) {
+> +			.fw_name =3D "xtal",
+> +			.index =3D -1,
+> +		},
+> +		.num_parents =3D 1,
+> +	},
+> +};
+> +
+>  static struct clk_fixed_factor hdmi_pll_dco_in =3D {
+>  	.mult =3D 2,
+>  	.div =3D 1,
+>  	.hw.init =3D &(struct clk_init_data){
+>  		.name =3D "hdmi_pll_dco_in",
+>  		.ops =3D &clk_fixed_factor_ops,
+> -		.parent_data =3D &(const struct clk_parent_data) {
+> -			.fw_name =3D "xtal",
+> -			.index =3D -1,
+> +		.parent_hws =3D (const struct clk_hw *[]) {
+> +			&meson8b_hdmi_prediv.hw
+>  		},
+>  		.num_parents =3D 1,
+>  	},
+
+[ ... ]
+
+> @@ -279,6 +321,7 @@ static struct clk_regmap meson8b_hdmi_pll_dco =3D {
+>  			&hdmi_pll_dco_in.hw
+>  		},
+>  		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+>  	},
+>  };
+
+[Severity: High]
+Can rate requests from meson8b_hdmi_pll_dco reach meson8b_hdmi_prediv witho=
+ut
+CLK_SET_RATE_PARENT on hdmi_pll_dco_in?
+
+meson8b_hdmi_pll_dco has hdmi_pll_dco_in as its parent, and hdmi_pll_dco_in
+has meson8b_hdmi_prediv as its parent:
+
+  meson8b_hdmi_prediv -> hdmi_pll_dco_in -> meson8b_hdmi_pll_dco
+
+Because hdmi_pll_dco_in does not set CLK_SET_RATE_PARENT, when
+meson8b_hdmi_prediv resets to 0 and reports a 0 Hz rate via
+CLK_DIVIDER_INVALID_ZERO, meson_clk_pll_determine_rate() calls
+clk_hw_round_rate() on hdmi_pll_dco_in, and clk_factor_determine_rate()
+returns 0 without rounding meson8b_hdmi_prediv.
+
+This causes meson_clk_pll_determine_rate() to return -EINVAL and prevents
+clk_calc_new_rates() from propagating rate changes to program
+meson8b_hdmi_prediv. Should hdmi_pll_dco_in also have
+.flags =3D CLK_SET_RATE_PARENT?
+
+> diff --git a/drivers/clk/meson/t7-pll.c b/drivers/clk/meson/t7-pll.c
+> index 0a622f45fa368..28d563fcb1bd2 100644
+> --- a/drivers/clk/meson/t7-pll.c
+> +++ b/drivers/clk/meson/t7-pll.c
+
+[ ... ]
+
+> @@ -292,6 +346,24 @@ static struct clk_regmap t7_hifi_pll =3D {
+>  	},
+>  };
+> =20
+> +static struct clk_regmap t7_pcie_prediv =3D {
+> +	.data =3D &(struct clk_regmap_div_data){
+> +		.offset =3D PCIEPLL_CTRL0,
+> +		.shift =3D 10,
+> +		.width =3D 5,
+> +		.table =3D t7_prediv_div_table,
+> +		.flags =3D CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init =3D &(struct clk_init_data) {
+> +		.name =3D "pcie_prediv",
+> +		.ops =3D &clk_regmap_divider_ops,
+> +		.parent_data =3D &(const struct clk_parent_data) {
+> +			.fw_name =3D "in0",
+> +		},
+> +		.num_parents =3D 1,
+> +	},
+> +};
+
+[ ... ]
+
+> @@ -345,10 +412,11 @@ static struct clk_regmap t7_pcie_pll_dco =3D {
+>  	.hw.init =3D &(struct clk_init_data){
+>  		.name =3D "pcie_pll_dco",
+>  		.ops =3D &meson_clk_pcie_pll_ops,
+> -		.parent_data =3D &(const struct clk_parent_data) {
+> -			.fw_name =3D "in0",
+> +		.parent_hws =3D (const struct clk_hw *[]) {
+> +			&t7_pcie_prediv.hw
+>  		},
+>  		.num_parents =3D 1,
+> +		.flags =3D CLK_SET_RATE_PARENT,
+>  	},
+>  };
+
+[Severity: High]
+Will t7_pcie_prediv (as well as g12a_hdmi_prediv, gxbb_hdmi_prediv, and
+gxl_hdmi_prediv) remain stuck at a cached rate of 0 Hz if the hardware
+pre-divider field is 0 at clock registration time?
+
+t7_pcie_pll_dco uses meson_clk_pcie_pll_ops and defines neither .table nor
+.range; it only programs PCIEPLL_CTRL0 (including N =3D 1) inside
+meson_clk_pcie_pll_enable(). If PCIEPLL_CTRL0 has N =3D 0 at registration,
+t7_pcie_prediv caches a rate of 0 Hz via CLK_DIVIDER_INVALID_ZERO. Because
+clk_set_rate() cannot be used on t7_pcie_pll_dco (meson_clk_get_pll_max_mul=
+tiplier()
+returns 0 when neither .range nor .table is set) and t7_pcie_prediv does not
+have CLK_GET_RATE_NOCACHE, t7_pcie_prediv->rate is never recalculated after
+meson_clk_pcie_pll_enable() writes PCIEPLL_CTRL0.
+
+Similarly, in drivers/clk/meson/g12a.c (g12a_hdmi_prediv) and
+drivers/clk/meson/gxbb.c (gxbb_hdmi_prediv and gxl_hdmi_prediv), the HDMI P=
+LL
+registers are written directly by the DRM driver in
+drivers/gpu/drm/meson/meson_vclk.c rather than through clk_set_rate(). While
+hdmi_pll_dco has CLK_GET_RATE_NOCACHE, clk_core_get_rate_recalc() only
+recalculates downward from the clock with CLK_GET_RATE_NOCACHE using
+core->parent->rate. Because the parent hdmi_prediv clocks lack
+CLK_GET_RATE_NOCACHE, their cached rate stays 0 Hz even after the display
+driver programs N =3D 1, causing meson_clk_pll_recalc_rate() on hdmi_pll_dc=
+o to
+return 0 Hz.
+
+Should pre-dividers whose registers are programmed outside clk_set_rate() be
+marked with CLK_GET_RATE_NOCACHE?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-meson_refa=
+ctor_n-v2-0-ff4ac74e527b@amlogic.com?part=3D3
