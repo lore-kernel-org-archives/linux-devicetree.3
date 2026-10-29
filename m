@@ -1,75 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300829;
-	b=ig6g0uPbMrCTBKPQ0xX2RsT9UXlMM+DAJmue1GcOpzt+eH6oeijDnI6pJpkQ7lSu6Jgg
-	 INfoWc+InkwHH08voZ+VZQ/oFbUPmIY1lCpuGN7VIILSjK1G3NMezg8A89fVji2MysHnW
-	 TZy/XCTF8IxR6Ns3M0Sqkeafh4fzgX4xNN3VR1qIUvs6mVN/f/9uaJDYi7/ecAXBuj6xJ
-	 SbISwaKmIC9eo1jvlAQa50KHl1YXpA08+4FJPcT3gs9gpfWuouFs7dfbzPOot7kwQZvaQ
-	 io2zDNALuf0ZlzzxDT7bHarvnt1mPC0RDOhvoxD5IoinFclnOhwmSFi1paBvCiSmhBg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300829;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q/k77D2FVuph6npJ0a+RTbXmZgoRa6iV3ban8Ate6SQ=;
-	b=KXrbqO8lPvAFT58iZkbos/upFS8NnYDoqGOS72sK9CYvtheolScMDRQ4iT9uBbZ+J1QP
-	 x/WpIQaJPGJT166urL5FILU5WQVvpl4wtnCFuE5Rj/7v3M4qdV34pfPA5GCICYuXoh4zL
-	 ldeeNSfH+2oc1An+15XKLFUQtx7MfYb706kG+5MCMdbYnPDklxBPo9d/wRPIHb7SbsDq/
-	 O1HD+x/EfLj2alhEbqUOXAIJwqBU0w36Qr5wPr6YHL3u0UIVQo+PcrG+0ntP6Fklkf/bS
-	 MuK34zl6oKB74/2pAenMl71Fux/xpIp4m81fw++Tg1V2VPADMNUS+/xdeSbhnjABM5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4nsDuHy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793300896;
+	b=R01ZQ3JW+YZ0b2HcQfWMWL2RoQUBiamSxtAdJOd0rOPI3igTdjarMQuH37anoLpVglIY
+	 1Y6L5Tx0p1KYmV9gqqZ4I1SeUDM0TF0oodgdKAgXfzzZatCw/9jaMrNYgFJ0tuIz9XOc0
+	 M9Jd6SMc42ezVDNsljHBrUod6KklPSL2P25ieHhcm81jATEa0/2zgo+EDIRupbtygKvVv
+	 5adX4YqZeEX6rZniEFFd8N2nZkbxwgeHvnxJ5lyCdHxKgNMTEd//l+v8lmL9CPuF6TQ4u
+	 kTzu8WSG9bsgMPwuQ/de4ml6dxstl1kok9DgTi0wUtsZRozut0evEIBriP9mUnGot4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300896;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=u3pPXjv4Wwx+POQttN+7x1MDfExsUHeAJSF+oGYWqgM=;
+	b=ZK5UUTh+GQsgV+CEQUIvNvDUqzRLMR4q9mbTtoA/VfDU7zXTRiHTtmCandhkJR5PhQJE
+	 VXfvWopit3RXNUSW/ypeg59Otc+A4D1tlu87iDS83+oKWkGnfny/8pcHkQ25aZDlCenzh
+	 NhFWGggqytho2F1ToS6pId+7Wj63h9xY9Vg2JiEuO/SC2iBxIX2KbQq8voh1qHoMmlIae
+	 XqRJWGbzhjzeQCmhxDgpYWupfg3vSegyJ2corAprSXKFlOGCna5KUQjrr1d01SlGqWRQO
+	 xuoEsX8VHPAxa0BWk5jXFYkY74bNVBAeUcHT4YwA6JqoQND57HhxjE0hk5eWM4VoCng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yCAGxuYm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FC1606A31A;
-	Thu, 29 Oct 2026 19:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731B7606A32D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 19:08:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731B7606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4nsDuHy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E831F01816;
-	Thu, 29 Oct 2026 19:07:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300828;
-	bh=Q/k77D2FVuph6npJ0a+RTbXmZgoRa6iV3ban8Ate6SQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C4nsDuHyQXW1fnF05v4Ne8m9yjO9uZCBOH8EBKrlr1y0AX998WQEcdzrtKr1gUXuT
-	 znDGwOjXUkl7D4e2nYf09JZcN/aTd6egr2sfvCIbSILDQlaP2UIuf41s/zsres0t+k
-	 Dx60kUSfUpKOuU2ueNsrg3YlDXMrivcBVKEIKPhRg+5TkXrnhnTKOE6YtssTLz4BVg
-	 KroXqcjbrcX/OPe5PMWekwiFWUxwOHvqsXn1Yqj1Dsv78v6EFh7DFPpJcHItUYCUdt
-	 HhJX9kMFOHO8+BRtJwuGKqShYs1P+fsjAhtpVCicwAUMrYNFPvMWHLmEidb64xY67f
-	 8zViiAWgtKrkw==
-Date: Thu, 29 Oct 2026 19:07:00 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Kwanghoon Son <asdfkwang@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 10/12] riscv: dts: bouffalolab: Add Sipeed M1s Dock
-Message-ID: <20261029-pork-resonant-fb692b84bef7@spud>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-10-b736ee920078@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yCAGxuYm
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eac01ff101so3751e0c.2
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 12:08:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793300895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mqHV1HWpgS9AZ7cTlnlGP9WCOmxYbbB7fEHkbA/R0tW3JkXqF1ZPrUVmrvEMRlNdWF
+         06gjIDizUEG88ih50hwT4T62zod4nNGwV/qXkxFkrekEratfvBbCFZHWV9ajTIjynYmY
+         HuK66w1D3jzYZRdDM/Oh6l/ECGTMT+3xxJ+dDcVnl3y1yuF8QWjUtJrSHE3X9MYN1+Vt
+         fPTj7XLtvpTT3EjW9EzkvKhfmA9QbMotoM7pwTvXz8b4UD2+TIH3v4wtd2jfgiyuLrqI
+         IK4iULA/DD+UpjfHiGQnFwnAybh8/GiuW2w2qEuaH8Lw+vm842gKwo+g+RRCXiCwWNW3
+         rAww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u3pPXjv4Wwx+POQttN+7x1MDfExsUHeAJSF+oGYWqgM=;
+        fh=n1ithPpsBsKsAcDg+lXQWvznUpPaNO4sY2wlFyAPVlY=;
+        b=aUyp0CCH0FxoTS243kdQzBHML9D9vtwXfnVLclvtPP58kUed4pcj2NOJTn/fn+cdQ/
+         MzVaviJg2E5BQfvGg330Hm650LKFsAz+lDjhF+smeQIM+vQOAFlWaNpRRB9nwzhmK4Uf
+         hkXjWWfvL/NlIhv9BzMS6pSzs+9QH3JqaUM3jJi90vRMIKixsHDG8mT3t2z42sPRDhRg
+         r/FOUU8AL5L4Iu6qxvG6ThRe77gJ1cysmBzxCkN9fELEXwZqK3PD0pHw3cWsiIYtkuQY
+         aen6GmZGS42vnGeT3kKnN2aitBYl5dVpBq7SDAA74vm3J+6N0jjbRaPSTRYkMoiHmw/h
+         ePgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793300895; x=1793905695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u3pPXjv4Wwx+POQttN+7x1MDfExsUHeAJSF+oGYWqgM=;
+        b=yCAGxuYmwrHIgmNv9ZiFwfNSpYDff3cIORj47ZcLMJc1M/JfIUPfFYJ0hgfFLheU5y
+         k8+jCl1HJd8pxaAifNyTOo3nW/vfq8JV7w7a+1aWKDmS8As2p32MovbjXtCnATsdC/3U
+         jdVBmjOs4X/8Qf4Y3CkbE128NmtvbpR7JtzhUUMW+dSysSKqFmF7VD0vO99xtRuYqJdF
+         Tun6zrf+HCH22iD6Y9s0suAei1XujF6WsjdUEXeC1zL2GExoYD9pEwxZKMmHMhMYGH+g
+         xM3O0+QHW8dBcPGN6lVsU5YYNy7Qqqr/NHfULULcnU2gJ5W00w9HQ+konuJ3NjwDgqf7
+         HCSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793300895; x=1793905695;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u3pPXjv4Wwx+POQttN+7x1MDfExsUHeAJSF+oGYWqgM=;
+        b=oaO74mPWhbBv27HTRA43YT/h52LbfxFYqcynmwIcqJraE4RvihZKl3hhs+PDwYHVHe
+         2Qa4TD5cJPG+XcL268dIKNgKYUXivcz9WMnTPqcMUA85A0MveStyzEvr41KHzJHZIMEC
+         8HSZREGJeQxuwH3kvaCbwvksOj+Fg5BePjcna2p024bm+62t+KAcVCMbhYgJceKW46m0
+         RotxmYQzhjv+pHzAdXgR889M/qd1rfmxW8LCgUtyfp6mRY7P7o+C+opEAqrriny7NDsD
+         xX6Kczx6mKMNo+AUOamlcds4mFnzBSYuFAdNPPwtUSfyYqt07MY8U2YffLStqa1sEqiN
+         RWjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxf5S2MHlxoBNhSHlAZfUB5e3SVwSQrGwdO7nRlNY18px5JlDQCSSpDbuI9Aedu2PBcxBGpXcCDR0L9@vger.kernel.org
+X-Gm-Message-State: AFq9FYLz+3ABuHdRhDaXefQTBafDBME18LK4LmNYQlX9JF1udseXqrKz
+	6fPpjMgPU15h5H9JyW5avhXytslPBT4rULQp98rqxYBbh8yWPhHHIto7CfnIGtQ885WblX2DJpI
+	auCUaMhtGQrNhoBwRF2lZP4nHEcfVYLM=
+X-Gm-Gg: AYBFou1ZfOL0vn1vxLqwGX6eFKQPR+Y0aE3zPvM7DRmOv89yLtly5TKfR4OyT2p/W2Y
+	WbV1ZluVGlFlmCpd++PDMKw54BFF8RtTeRH2CTkAQQbk/Kz4HP20Ul00QXHQYyBUYh5BjSgJRsR
+	SQqljNFWMBsZasc7uaG3U8myXToc4xqGm6CK28CjPeEnEJYanR+yVvTQ9fKv/CMn52YghQJOjxc
+	Utv1LJWjqeCV8zPBolzaN910xA5fKjZdJ7ndL58D+sWRTBtxXE9wB9+20eh/megTeFhHchw1bKF
+	1pqG/1JVUoXtZRRfpbFO9s4ZyC8t9LxhPTh4LCpmVXQZpDOkxb/RYmkwllAbh0TYPh+O7TLSHhk
+	JcKjbqSiU4BQdXOXwg1rKl2tAa5dWlHaKBiEDaC/03i4PbcAPvBsKx9u22QibBHFZNDP+9yZGcV
+	K2e1mA7rsEDGf4guBHNozztWvWNl19664AoG2QgzGVYyv5mh89lN6t2tEz8q+VtZKVRy1ZJRrYe
+	CfRwmWfklOqpFKFlW5KUfvxjOzbKA==
+X-Received: by 2002:a05:6122:46a8:b0:5ce:ab22:1749 with SMTP id
+ 71dfb90a1353d-5ec6851cd7amr118633e0c.1.1793300895346; Thu, 29 Oct 2026
+ 12:08:15 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,134 +106,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="J9vR3WpxbNmjOFyr"
-Content-Disposition: inline
-In-Reply-To: <20261029-rust-bl808-console-v1-10-b736ee920078@gmail.com>
-
---J9vR3WpxbNmjOFyr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com>
+ <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com> <auHW9nkDqZUXeHNZ@ashevche-desk.local>
+In-Reply-To: <auHW9nkDqZUXeHNZ@ashevche-desk.local>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 29 Oct 2026 13:08:03 -0600
+X-Gm-Features: AclHuK-Rn80HNyPsHmS5HIf099B7rRnzpvWxOBqe3P7d4FosCUXTUKkW9AmBT7o
+Message-ID: <CADvTj4o6N6sXk1YvYgMF6d5jyAGZCtyaZUe81ZP10qfhOPwd-g@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] serial: 8250_dw: configure the Allwinner H616 UART
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 01:05:51AM -0400, Kwanghoon Son wrote:
-> Add the M1s SoM memory and 40 MHz crystal, and enable UART3 on the Dock
-> with a direct stdout path and 115200 8N1 settings.
->=20
-> Boot firmware initializes PSRAM, UART pads and shared PLLs. The tested
-> firmware configures D0 TIME at 320 MHz / 380, represented as 842105 Hz.
-> Firmware using another timer configuration must fix up timebase-
-> frequency. The declared 64 MiB PSRAM range must retain firmware
-> reservations or be narrowed by firmware when memory is assigned to
-> another core.
->=20
-> The stdout path selects the native polling printk console; userspace TTY
-> I/O is deferred.
->=20
-> Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
-> ---
->  arch/riscv/boot/dts/Makefile                          |  1 +
->  arch/riscv/boot/dts/bouffalolab/Makefile              |  2 ++
->  .../boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts    | 18 +++++++++++++=
-+++++
->  arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi | 19 +++++++++++++=
-++++++
->  4 files changed, 40 insertions(+)
->=20
-> diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-> index 69d8751fb17c803f0efb8003e111ee24144c222b..294f9c119f8f1d608c878ca1f=
-95891843301f07e 100644
-> --- a/arch/riscv/boot/dts/Makefile
-> +++ b/arch/riscv/boot/dts/Makefile
-> @@ -2,6 +2,7 @@
->  subdir-y +=3D allwinner
->  subdir-y +=3D andes
->  subdir-y +=3D anlogic
-> +subdir-y +=3D bouffalolab
->  subdir-y +=3D canaan
->  subdir-y +=3D eswin
->  subdir-y +=3D microchip
-> diff --git a/arch/riscv/boot/dts/bouffalolab/Makefile b/arch/riscv/boot/d=
-ts/bouffalolab/Makefile
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..4d63365edc095fbe9df31c4b1=
-2e29c4b624cbd1f
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/bouffalolab/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +dtb-$(CONFIG_ARCH_BOUFFALOLAB) +=3D bl808-sipeed-m1s-dock.dtb
-> diff --git a/arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts b/=
-arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..c719a53c6e2de45f3718b48ba=
-2116e99c70e559b
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts
-> @@ -0,0 +1,18 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +/dts-v1/;
-> +
-> +#include "bl808-sipeed-m1s.dtsi"
-> +
-> +/ {
-> +	model =3D "Sipeed M1s Dock";
-> +	compatible =3D "sipeed,m1s-dock", "sipeed,m1s", "bflb,bl808";
-> +
-> +	chosen {
-> +		stdout-path =3D "/soc/serial@30002000:115200n8";
+On Wed, Oct 28, 2026 at 5:05=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Tue, Oct 27, 2026 at 05:05:32PM -0600, James Hilliard wrote:
+> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWa=
+re
+> > component parameter register reads as zero. Generic 16550 probing leave=
+s
+> > the port using the 16-byte FIFO configuration and its trigger-level tab=
+le.
+> >
+> > Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platf=
+orm
+> > data. Use common Allwinner setup helpers to configure the transmit load
+> > and receive trigger table from that depth.
+> >
+> > Derive the receive thresholds from the documented 1-byte, quarter-full,
+> > half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 12=
+8
+> > and 254 bytes; the normal 16550A half-full FCR setting selects 128 byte=
+s.
+> >
+> > Build the threshold table during setup and use the shared 8250 conversi=
+on
+> > helper to select the nearest lower threshold for sysfs writes.
+> >
+> > Serialize trigger changes with termios and hold a runtime PM reference
+> > while programming FCR, preserving the FIFO contents. Propagate runtime
+> > resume errors before changing either the FCR shadow or the hardware.
+> >
+> > Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> > DesignWare termios path selects hardware CTS handling, so the capabilit=
+y
+> > must be present for the corresponding hardware control to be enabled.
+> >
+> > Select the fixed configuration through the platform setup callback.
+> > H616 has debug-divisor and RS485 control registers at the offsets used =
+to
+> > detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> > those probes and retain the BUSY-safe integer divisor hook and software
+> > RS485 handling.
+> >
+> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled dur=
+ing
+> > termios changes. Its clock is a gate on the shared APB2 source, rather =
+than
+> > an independent baud-rate generator.
+>
+> ...
+>
+> > +     unsigned int fifo_size;
+>
+> This is should come from DT (based on the property or compatible),
 
-You should be able to do this normally, with an alias. Why are you not
-just using what Jisheng did?
+On some Allwinner SoC's fifo size can come from the FIFO Clock
+Control register[0].
 
-> +	};
-> +};
-> +
-> +&uart3 {
-> +	status =3D "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi b/arch=
-/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..ae54e6e301ed2c5a1448d52c5=
-30c5074515ee38c
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi
-> @@ -0,0 +1,19 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +#include "bl808.dtsi"
-> +
-> +/ {
-> +	compatible =3D "sipeed,m1s", "bflb,bl808";
-> +	memory@50000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x50000000 0x04000000>;
-> +	};
-> +
-> +	cpus {
-> +		timebase-frequency =3D <842105>;
-> +	};
-> +};
-> +
-> +&xtal {
-> +	clock-frequency =3D <40000000>;
-> +};
->=20
-> --=20
-> 2.47.3
->=20
+>
+> ...
+>
+> >       u8                      no_int_count;
+> > +     u8                      rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+>
+> Why do you need it here? Can it be provided via driver_data?
+>
+> ...
+>
+> > +/* The trigger is the masked, unshifted FCR receive trigger field. */
+> > +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, uns=
+igned int trigger)
+> > +{
+> > +     switch (trigger) {
+> > +     case UART_FCR_TRIGGER_1:
+> > +             return 1;
+> > +     case UART_FCR_TRIGGER_4:
+> > +             return p->fifosize / 4;
+> > +     case UART_FCR_TRIGGER_8:
+> > +             return p->fifosize / 2;
+> > +     default:
+> > +             return p->fifosize - 2;
+> > +     }
+> > +}
+>
+> You don't need this, just provide a set of numbers directly.
 
---J9vR3WpxbNmjOFyr
-Content-Type: application/pgp-signature; name=signature.asc
+In v5 I added FCC based fifo-size discovery for A523[0] which does
+need to compute these values dynamically.
 
------BEGIN PGP SIGNATURE-----
+[0] https://lore.kernel.org/all/20261029-submit-h616-uart-fifo-v1-v5-7-53b4=
+33aebbf8@gmail.com/
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOZVAAKCRB4tDGHoIJi
-0hefAQCx6AghS4pcdmANbBU2tVNMmclGvVSFzmC/lcvaVeI8XQD+LPMSJc5dKINU
-zz5nZFMqfz/eATnkpvTcsHFkGQ/XgQU=
-=IKb1
------END PGP SIGNATURE-----
-
---J9vR3WpxbNmjOFyr--
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
