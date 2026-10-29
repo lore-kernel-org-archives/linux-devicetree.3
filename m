@@ -1,57 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265824;
-	b=rEnD+/MnO98d3L7Hh7VE7Koep1rQ1fyDTIjVXK/sCKbu3toN/cs+l0SaMDbrOSplwr9w
-	 WLtAsOiFv0bwPRBrumMs07MMB704idR5AH0DQID2cLtitfe/DJpWmJQgXS2p4JqrCAKa6
-	 +4hBLnfAmrIRcXmKJW/P5RyuZFyYUxXdbN+wTkTHIZ7+D0sy1HbebLOhAfbsolmBskY9i
-	 7guxB2eCMxqpJ/5y23zHC4kuSVQIP/f5b35gjBaTDF2VeZTtJRmBkmR5RsmXXUMyVBFIG
-	 zKFKcyH2MKYFi+gFdWgMc1AR//QjAMzsCNagP0OihMFiGAEv3SrS47aNG5f9vvDUx+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265824;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qu5F5JdpLJxevi482ikd044+aImDcpPRmLobbJHS9AA=;
-	b=OOA/zD7SYQ971bFr9NrG55CJQRh/LuPpcoQXA0Y9Mwa+7m7uT6f2r4At7AQlN0crgznY
-	 I9amZTJx/7NH0PphZSCrKFKcSl3hyKZMEAa2g3nrHihoQaNTvnNeg2C4SN8BW7tROc3g2
-	 G6p1u7hWC+vEoXSTr6nraPong6BTXLtowWPhJZ2LI6Z6LDqzsFNVOGVZuYXAOie0oLmE1
-	 fjnAMnNv3K6e8q400K3xnTqrBfrOU3U0FKwm2a2OkhGDaHetZzbRN2li6DsKeFI5NyKzg
-	 hhi+p9LXv0q5VXxU7Zfb7HQsdf/85JyN4H3kapQkKPrvMy02aelbOOiU6Hn150znRlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw0Jt9yJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793266104;
+	b=SHSrd2rVwec271MyRkp2QIeoqqTaazsFc93kiVyaehpw9wboWFTBMdXOv5Zw8tcDgJ7Y
+	 gCzEzCe3tHsb25y1lXJ7gNsDh+FwPwmuvDI5kbj699BzdWxxwkpuLIKrTzjQ+BzIkyuoo
+	 Ep/A/JdIZvq9oj/xkqzLhXOo64kvNw/BVCxYoSRUANKxwXcT9yIXzlNCy4aMOLS3CYfLN
+	 e0ADLBBiMbJXVkYd4mzBEBnx5SHdhlnkIT7yXgu6O8I/X4jOXIpuFJ1BYYNTi0GFd/keg
+	 TyNnUkUymdDFYbJlukI/ojQlljCya/87ihCQ7tgotr/s6vzRp77EXGKwfFI8toYWZJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266104;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/pd7FY2topfMzo8SlrOWQvwJovRCW4CJ8tOpMpCQTmU=;
+	b=oILqYBKz+MXrRI94q9EfI5W6nmJA9BCx2dMe8qW6u56BBnq85PfyqQ05qqoannXNov1B
+	 NyZ74fp5KEaW5+7O2857QEjTUIVD3LW1dvSgvdm3hVkmg4DV73SPPG4ehYprn4jP2B24H
+	 IiDmVD1uL6AsrGhZl/nmZbFBa5eA2CdjjS5zpF1z1i7o2nCOizxLm5ECkuXnkuv7revW3
+	 Qwfi9nmrN7YKPjwdzlKzY6Fv6ZDJFcSbAFua5QzAxyJGDNx8Ucli0fTF56vzotUNlFfQo
+	 wMV56qY1pCiArE3bff+XfNFuRCeCpzzoRAgebJgBhcz5bOu5O/uRIIuaZp3l1eF2sYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ps2R49sp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.37
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013037.outbound.protection.outlook.com [52.101.72.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF91606A31D
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3768D606A31A;
+	Thu, 29 Oct 2026 09:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3768D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw0Jt9yJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA5A1F01825;
-	Thu, 29 Oct 2026 09:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793265824;
-	bh=qu5F5JdpLJxevi482ikd044+aImDcpPRmLobbJHS9AA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uw0Jt9yJSe3kZU0rD3iEXfvQ1Qu1b1CqijJeMd5+2md29G8vnz5Mv+y3YP3BJOisl
-	 JWApbHtNIoXDucoY2QtHhJ7nQKi5a3ahVdqzGyFNWnO0ovenRcfpMwG7tQOBGBffyd
-	 /dGv7kLGUASdmYpJVnBN/6Z7+UyygyQf6TX+4bQ42WuQQKxktjUXKqAFznoZeqpDHE
-	 RwLZIAn4ePC2OZKq47qh1WA8tg7HEUm1ucAeSrsANFR24LIDrKKqSXIBvWds9DcyHZ
-	 ahHML1Dr5NCYu4yrkFEnodaLQt7weA6c3VEFM2x8qQIESgcO256x/JiSi0sWZpFBqX
-	 YXpmtrZ5RZ/ig==
-Message-ID: <sashiko-outbox-189031@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v27 02/10] power: reset: reboot-mode: Add support for
- predefined reboot modes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-2-fa4b3ff1359b@oss.qualcomm.com>
-References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
- <20261029-arm-psci-system_reset2-vendor-reboots-v27-2-fa4b3ff1359b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 09:23:43 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ps2R49sp
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oEkQSTPBZdrltbypS1tz3wAma/+/UlRd/4DnYMrNn7hd9FmzjD3YCxBErOyrRRqHS6XZMGmXWWWudWaKINnYyYiy2umkgw8ax7xJf7ae966av6A/Tlw9oyI4XfYkoj8Hk9GZTSn6PHEWEr7aAF6bBo8C85Tz+3+oNiKwwrLTYBa+CSa2FEJLLfM+uMOQ+IbhwPLD1smVezeuuARFg9naZIsfmpamue2Ylj4jAsFfOTjzhtsQH3pxVcYiP7NlinqG3+ZvBCEHiKB06R58+ENECW+u4eGRx96ZT4j2wNHp5NzAyVFEJi2pxT4JHiPq0/4pxyVZM7OJ56Zt2nzkqjlxLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/pd7FY2topfMzo8SlrOWQvwJovRCW4CJ8tOpMpCQTmU=;
+ b=ARAjBNeS8krVVOjXYBfBn13NgwHsodgp6o4Vr/Lt3XXboBproMZoiKmX1pgnx4G6HNZSxG9OFgWxk5e1R7A+zL+Q37fR2L80Dy0ElTefL5Od/QhG9NiWiGrUjVdYGt56KEeCJc1o2uvnZaeDwNklR280H6hrzJ9bdZF8vGVrFNkYuuDSWMGJyz2lO0WvRtVse/4I7OLBZNyDB4kDdL46an4kkv9jljXAtf2IJ0ksiqFZ9vNUF4bEx6nckpDnuh19Jyz1hlTkJsa6RnpjmXZF5tKTEXdEJvokUJMv8vgTSPE8RrhUjTeyY/r3c/yNNxpMIzG45ODsp3V459iGJNM+tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/pd7FY2topfMzo8SlrOWQvwJovRCW4CJ8tOpMpCQTmU=;
+ b=ps2R49spaYfYU0irt4CEkBJ4r2WKKsOkC+ZJO0YSoy1NhgtcaxlTm0fBYqEn68VxnHg6wgScR8dxLTjuxfoTcGlXJhVmGRVZdIvSHRZeIpqi1ipjTI4q9Jhjavjs4qgtlNoFBxJ17FZNhMXiQ98C5CXKWOBC/26fAr81gFtopN3CeXZvVAwoMjKoqbl+OdTtpoM+8ph6/4pfdnDR9xbaPX5LneMopgVgKKjzkvAWhBM0o+Knmavc42rawqu47gm7V0GVLIyp+owvuYwGJNFRpwOROB/NIX/7+7KVGXmfB2al+22h/D12e1adNW8qIQ8GHasRh44uXcNRw1BH5UtyXw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by BR0PR04MB935173.eurprd04.prod.outlook.com
+ (2603:10a6:2c8:4d::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 09:28:20 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
+ 09:28:20 +0000
+Date: Thu, 29 Oct 2026 11:28:14 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH v7 03/15] drm/imx: dc-plane: Disable plane when it is
+ invisible
+Message-ID: <auG7pZSz_ypBSePn@vm>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-3-a0b50cc4fc65@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-3-a0b50cc4fc65@nxp.com>
+X-ClientProxiedBy: AS9PR0301CA0050.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::19) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,119 +107,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|BR0PR04MB935173:EE_
+X-MS-Office365-Filtering-Correlation-Id: c94b4ead-66f7-4521-e789-08df359ef849
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|19092799006|366016|4143699003|11063799006|56012099006|261026121527099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	VC5NBnh2wFUzafQcpLf+a9bWcBug5ZBPluE+4m8yLf6mcH31brW0X3qE7c959KG2PxoR5KAm4++sETABh3f8h6KAS+DqD/xG3HpKSRL0JftkUFG3FdSVBLxuNO5wWaNuWvjcB5CS//iXitHQ/D0Y8i8b8llJcqhwt9utNIzHIFs90iAtK6KORO8CpR9qfr0vwBS3PREdLeOPV7HCvSWpmBzpQFD++SyaxYyZBMjY4qquYHhKzDeavukZ+Eq2BU5dId/fR1uy43EtkRGQex5BsXyaeTUvDJXmPWE/HMi4crlbPIf82/5P0JPDjWxDiZwGjSJNoZLUIc2SkKqsKp2U9NqYRr39TngqLlUWRhLAfv64afFxt0xPwYGUJC2Cmjf8mpEb/TYU36IRtgDM0VWYdQokGb5ZnS7ZUZzLRkMzEXVe76thvSDYhOi0KY1V8XNiJOVpqBRJeLP2s/B2aCtmPgXOVrwt4QoPdHfm8NFYFGBE5xUNPY/W1fD+bnFXpGDuLXICRMT8TDIbc/W4pz+eI1BASZC+2AMtx4OJ/h9ekVsJ+ixyipTqtvZ4cTXnPdrT2MliAETH8zGOcQyq0K/b7T5J+XlHrg++aVM5x8so9wg5DXCA2Ptkh7Z6d9HnMJoMhUowy81+6Cfi3yHsqMl84kTRWVdbeYbh6p2SdfCW+eg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(19092799006)(366016)(4143699003)(11063799006)(56012099006)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uMyU9HRG40CcOC+uY2iU+k8y0TdzmbvjFFIPwHbBjfZC9FEHY8dbNj5dz9wG?=
+ =?us-ascii?Q?SMQD8uuAdjQy9Kdi3yKuu0/5wA6CE2GAY5Oy/R3xTN5Lp0CiCMizokI+Lp+X?=
+ =?us-ascii?Q?p89Sgjpe1XCHZypLEGq2/QL2x8X4SLVXUGPwUYYXbvCpMd2pnHgHyOY3pUcg?=
+ =?us-ascii?Q?yWnnt1mgPS2wq+nJP06eFGVq22Rz1x9fZ0K/7o4AwjEe5dyUJNinbMUFUnOB?=
+ =?us-ascii?Q?yFXRXtFUCtIyP9qnZa7pLhRrSqF3/x9pNCbk+R9p3x6IxdGXgd18Xuie1/W9?=
+ =?us-ascii?Q?gzSBnbX0nACG/KyE2bgBwmSu2kK0av+GS/a68Ob7ci92yRbkkzCZo/RsbHBS?=
+ =?us-ascii?Q?amm0/4m3M0wGacJ10xW9VxZLFgWwHv/gscd5Gd2hN2qZx0ydrBYjbKZ5Mtja?=
+ =?us-ascii?Q?esr2bx3ge3hjrLNJKdPDifwRjadNGTDOUcMS2KZi8m/wrIx48t+wLNYsWYVn?=
+ =?us-ascii?Q?4hXyvudKgkTdibwIcKIUCy5N7JyXIEuxRZLfN92wlbcMKBagZpa9rb2opzmW?=
+ =?us-ascii?Q?wtw3ox5Y04NDvOHZG4GTGoBGtzJ+FZR/yhbKxZZ04ePybz+LLIi768q3TrUI?=
+ =?us-ascii?Q?4u6EmcnYkm44zk2YX/7PzHkB5jOsfO3ps0yj8XKHVVrna/va//TOPWwUWPEF?=
+ =?us-ascii?Q?wN6FaFlMgR+9Jz7kdM4eK4sFQqcGxEgVDlZX7dgNb/bHI5/rDBMDdkdi4gfe?=
+ =?us-ascii?Q?m6UvodtlQxL4D2RJk5uoHn2877h1Fo0kphCl9bE2x4ddRG0ydbxHoVpiu62m?=
+ =?us-ascii?Q?hQrllO30/vD3eYqMaGZCl16vpcOZYJbeNiuad01vbyQxFTRIydBnfELYeVze?=
+ =?us-ascii?Q?i5r1GVR/Dcbxzi2MxNHenM8OIJMybpyhWiCFgu5NeiC+G74TQyn5Hac3YpvT?=
+ =?us-ascii?Q?UhVgNJeY1ZqZOp3wOodCSx6rqaRveKhHrKP1E3po6PYyvgt9SlrwyGvcws78?=
+ =?us-ascii?Q?yP3ZDrJF+yw4WeFZTuNpCwna/zWcU5mkS7MVCOmXavKMd/1CvYKNCp34b+4g?=
+ =?us-ascii?Q?rvt9CC43LMiXb0BuuchRjtx/Jt0LxUAUdh5SvprJczVl81qPemFSC58KF36a?=
+ =?us-ascii?Q?GnsDAzj6AkZYMwQ2ZFEeIEF5b/6p6FLBByTs5WTMakRqMv6maYVv0g93IMc3?=
+ =?us-ascii?Q?yhR2xm3dLLI94QnSmmtglc8QlysVSJ+FiIWY9FD9vxyxF6SzFOKd5v8UR8IS?=
+ =?us-ascii?Q?iwqkXa5LGhAG+TvLgF5uBJ5mrPLBiTdyr+2AHBPCFLgNYWlqyzmRPcyHYzzZ?=
+ =?us-ascii?Q?yhzRomdeaMeNW2crDRMcxmkTedMsZ/1CTd3M4SJ96LQ1D1Zs9+b78qez9Hri?=
+ =?us-ascii?Q?EIR/FYKTrOwWAXN9UJbf4WW7U9w+IxMi75gcXITNr4jeEsACA7V+28ap4fBy?=
+ =?us-ascii?Q?+b4hhbTEUkcCCwnFT9N2944t4fe8NmenjIm5udpk9YnyDC3quXllwScSHPop?=
+ =?us-ascii?Q?/47ldce1R2yO1e4sY/2nGeT73BOEqOTW9BxIT841gcVQgEyevxA2aUFF46o5?=
+ =?us-ascii?Q?qIG8p99dQ4KORASG11Pdm21NUzHIIGaSrDdYGmNfCqk+pbibQ/9+97sGZso3?=
+ =?us-ascii?Q?h5wfAcFPP3qgapAQtGQQ3DjUB4QRTVjZoAugYx2b3+8VO3+4rN/tB/iH/r0C?=
+ =?us-ascii?Q?J9bbWeKLK9K0alAj7iQjCgH66LT80vP7wxdIEjcFjlwu9fSanpeJFgvPco1H?=
+ =?us-ascii?Q?ALnLqr8gm3x7DD4ANhKmlS7Q9ggT4qCxI0rcFIR1rTU7vBe4MmX8Jj44RQvE?=
+ =?us-ascii?Q?JtZvEZfPolFs3ekWvGCmvH6Rv6qza+o=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c94b4ead-66f7-4521-e789-08df359ef849
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:28:19.9012
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TE6TmzN4FBZxx1eN/NriMA+Ayal9WfO+lAF1FHTMd43iRGKWRlYtWHL7fSh2XhY8G2eW+tw8kCm4VWhABoO8HQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB935173
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] reboot-mode: duplicate mode entries in reboot_mode_add_predefine=
-d_modes()
---
+On Mon, Oct 26, 2026 at 06:05:08PM +0800, Liu Ying wrote:
+> Fetch unit backing plane doesn't support invisible plane because
+> SOURCEBUFFERDIMENSION and FRAMEDIMENSIONS registers only accept
+> dimension for visible frame.  Disable plane when it is invisible
+> to avoid wrongly programming the two registers with invisible
+> frame.
+> 
+> Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
 
-commit 06a52b916a06b4ea372bbbe59e432cb1a7e4b431
-Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-power: reset: reboot-mode: Add support for predefined reboot modes
-
-This commit extends the reboot-mode framework to support driver-defined
-predefined reboot modes and introduces reboot_mode_driver_init() to
-initialize driver state.
-
-> diff --git a/drivers/power/reset/reboot-mode.c b/drivers/power/reset/rebo=
-ot-mode.c
-> index 328fa37598df3..fd61de2263836 100644
-> --- a/drivers/power/reset/reboot-mode.c
-> +++ b/drivers/power/reset/reboot-mode.c
-
-[ ... ]
-
-> @@ -160,11 +234,38 @@ static int reboot_mode_create_device(struct reboot_=
-mode_driver *reboot)
->  	return 0;
-> =20
->  error:
-> -	reboot_mode_release_list(priv);
-> +	reboot_mode_release_list(&priv->head);
->  	kfree(priv);
->  	return ret;
->  }
-> =20
-> +static int reboot_mode_add_predefined_modes(struct reboot_mode_driver *r=
-eboot)
-> +{
-> +	const struct reboot_mode_entry *modes =3D reboot->predefined_modes;
-> +	struct mode_info *info;
-> +	size_t i;
-> +
-> +	if (!modes)
-> +		return 0;
-> +
-> +	for (i =3D 0; i < reboot->predefined_mode_count; i++) {
-> +		if (modes[i].name && strpbrk(modes[i].name, "\n ,/"))
-> +			return -EINVAL;
-> +
-> +		if (!modes[i].count || modes[i].count > ARRAY_SIZE(modes[i].magic))
-> +			return -EINVAL;
-> +
-> +		info =3D reboot_mode_create_info(reboot->dev, modes[i].name,
-> +					       modes[i].magic, modes[i].count);
-> +		if (IS_ERR(info))
-> +			return PTR_ERR(info);
-> +
-> +		list_add_tail(&info->list, &reboot->head);
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-In include/linux/reboot-mode.h, the comment on struct reboot_mode_driver
-states that if a predefined mode name duplicates a DT-defined mode name, the
-DT-defined mode takes precedence:
-
-    struct reboot_mode_driver {
-        ...
-        /*
-         * Optional predefined reboot-mode table.
-         *
-         * Must be initialized before reboot_mode_register() and remain val=
-id
-         * until reboot_mode_unregister().
-         *
-         * If a predefined mode name duplicates a DT-defined mode name,
-         * the DT-defined mode takes precedence.
-         */
-        const struct reboot_mode_entry *predefined_modes;
-
-However, reboot_mode_add_predefined_modes() unconditionally allocates and
-appends every entry in reboot->predefined_modes to &reboot->head without
-checking whether a mode with the same name was already added from Device Tr=
-ee
-(or earlier in predefined_modes).
-
-While get_reboot_mode_info() returns the first matching entry in
-&reboot->head, reboot_mode_create_device() copies every entry from
-&reboot->head into &priv->head, and reboot_modes_show() emits all of them:
-
-    reboot_mode_register()
-      reboot_mode_add_predefined_modes()
-        list_add_tail(&info->list, &reboot->head);
-      reboot_mode_create_device()
-        list_for_each_entry(info, &reboot->head, list) {
-            ...
-            list_add_tail(&sysfs_info->list, &priv->head);
-        }
-
-    reboot_modes_show()
-      list_for_each_entry(sysfs_info, &priv->head, list)
-          size +=3D sysfs_emit_at(buf, size, "%s ", sysfs_info->mode);
-
-When a predefined mode name is overridden in Device Tree, won't this alloca=
-te
-a redundant struct mode_info and cause /sys/class/reboot-mode/<driver>/rebo=
-ot_modes
-to output duplicate mode names to userspace? Should
-reboot_mode_add_predefined_modes() skip entries whose name already exists in
-&reboot->head?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-arm-psci-s=
-ystem_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com?part=3D2
+-- 
+Thanks,
+Laurentiu
