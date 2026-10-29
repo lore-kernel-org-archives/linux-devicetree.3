@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258264;
-	b=Esn90F/gMdeTwbSpWt3aqKRXJwyFzIUF5Syuslin/2cimDYa5ktCmpsaZFIWwzE/0Omu
-	 a0q1/uue9YXZ6QvBSLbH6l3bRpQfy1CMTsT6FbyrETk2BVi14OT6+IesM83/OFmvaJtAz
-	 XtfUnnpQbREQsMEhOImQ6GdTDsd7Sb4+zaD/pGvx6HGxHlHhsxi7qRq0/6gUqdx4WAavI
-	 oApjtQYOrJGzkwJQQPL5yiR3Wi4IB9+8BqSTCMclRxgyvLw3Hu9sfeWiFnUOr2WPCfxmd
-	 vxkCBnT8RcGj2X+R2xUGQgmnivZ0NoSOaY4pF0pbJd2hOXwHdcdG+JI+0Yg9MhVWhWg==
+	t=1793258752;
+	b=AppG9yvgGscmtzW0ea9Q6MvH9yHnutjXHoff8aWcL7JiAQHqSy33/ZOO9eI5igJ515bZ
+	 WWeQCWuXMeaTGt9FJirqWMBU95IeWRq/cH2yJAuwE3dFD7gaSO8/WZooe/Ome6mU906ky
+	 JMR5/1Vg1gF/EJ5xnoZL3D6fJxSFoR/NbJ9jROYLKDAcwo0oyOcChsWJOUquJ6x4nygYi
+	 cU2q4z1YpsEaO0v9vmuTM0XThjWcBwIdLZxcKYJ9TsGD2LNuXGpEkBuxzdP4qVPPOaUz4
+	 zCu4Lb06EZhJ4keMs9qcqiopvH0wigguh4b+RKFIlwuhRg1ZAKmameSPl209kOh16mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258264;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
-	b=EHZpygRHcw1LCxbTFaEVtp/9n5ERJteQbOLXAKWD4wCapaTPzzNPhr/1cXazC/x/iGB6
-	 ccGaIgTzHMfQztPHHs+a5/GQRdoFt3PE/nu10foA9hRAwUbKf1nTkBGZAB/BNs6bdMb9s
-	 EwZ5LkA+b/hFeZznnYr3ma0CBQ8v8QrJlcGpeiVkySOu2omnJw0U2Pb51E9WVzYXhunEq
-	 lm6n7Zb9ygo8yacv/3/OgS+t0PUj2udXVSf8SdaYTTuhacmMmYv0xwxJF9nweUL/E4a0E
-	 mYbVB3itzi0oA4dBEJPrIf8p8AhabBaSi01nMTvvhQviAzZRZFqJVFmAklRUrxHRGsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258752;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1+V/8LjNgGwsyhy2q8z9zU7tcDLH3Yc5b4XX9L7E1Vg=;
+	b=UmZ4CNS+ACUEbGaf2ANNSVMGLxBFFcGyaJ+r7kbQwBeYIyi3B2DLG1JhtV5jk4d5xf0U
+	 Pk8vXxHJ5Nk3Ttwl0Cu0cnC5an1vFxDgc+hHMSL1O1tGtnteC4TZFh0vBZEqFDIoWEblM
+	 nhC6oqjsI9/P8RUrJcq+MK6H21YmEqGghfME6ssLO9WxKOFvza81wM5SOBGIKkKznFVF1
+	 yr+F7/sLRy5kirgHLDZIups1XlerrssoiefpjHja+SETHnRamqTaijB1wTK/RazpFCNf6
+	 67eiqlHnU1huPdiowt6lJIUmVnpbNHCMIF993KXBjm31bEGCqB2HGsQrpJgNkir6yOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZJAU2/eD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BD8606A31C;
-	Thu, 29 Oct 2026 07:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEFB606A31D;
+	Thu, 29 Oct 2026 07:25:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8BF1F01825;
-	Thu, 29 Oct 2026 07:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJAU2/eD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6F11F01829;
+	Thu, 29 Oct 2026 07:25:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793258263;
-	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fvkpZmH13wXzma5Q9R+hksrE/M98khDyfXTWpfEf/D8C4UxN6gSstkl0EsLaMZx5s
-	 +NRQvEJi1OD4H9h56Jfe5kNwZDv17533gBw+hfZFEKbKnpmfuflLZS6OgJ9p/t/zMI
-	 P8mVnqVbSuyRZ/sZUhgGhkLvQMVWRRy5W3j4mBLvhdxzYI5GrvIQQXcsm//spR8MqF
-	 9QjCeI+autY5C/bJYGUdZzYbls0EglCvlldPsGT623WQjuoPplO7w3wZQktNYJ6Dgv
-	 tYnMz6gE4mhtxr8WeF8JqUm4q5k/ZS9zraBleMh1RiwZRRDx5hMTad2ht2KYMYVTPs
-	 8tOlF8HnCEIDQ==
-Message-ID: <3f909a67-ffbd-49ff-a51c-e08cc15a5ec0@kernel.org>
-Date: Thu, 29 Oct 2026 08:17:36 +0100
+	s=k20260515; t=1793258752;
+	bh=1+V/8LjNgGwsyhy2q8z9zU7tcDLH3Yc5b4XX9L7E1Vg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZJAU2/eDgDgYK9HG+8gglqtmQrwQPBydT/fyMmtJq/cw+63VW+j882+F/fflqIqNx
+	 pKJ1A4kcgopRCXAm413vsOyGQVOwaRHxPTjSjHZgI//i4hqkESpfHrjcrJopLbiZQk
+	 xY/HlTuR1tWZJvP6x5gzjz8AFZ39T5QIXRUUJcitCuxTFidP0qpf90byBNLunIfXaa
+	 HJkKg6sj0A6c7JeOWFaYOzQggjHKBqCe9kEsSJeFPzqOXYev8mmsT+ilVsLT0v5iyh
+	 dZbu+bTbm24Mp1yyLywIMyDBULN79F/H1CvT5j/bp8oqEL4/rlifT6LHwuI/x+30kD
+	 KWVejgMNPsJQw==
+Message-ID: <sashiko-outbox-188863@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v11 2/5] clk: qcom: Add Global Clock Controller
+ (GCC) driver for SM7250
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sreeshankar K" <sreeshankar0910@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-master-v11-2-2c29e382162c@gmail.com>
+References: <20261029-master-v11-0-2c29e382162c@gmail.com>
+ <20261029-master-v11-2-2c29e382162c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 07:25:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,117 +60,229 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] powerpc/dts: Add Device Tree for WatchGuard Firebox
- T30 (v6)
-To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
- npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
- sshegde@linux.ibm.com, sashiko-bot@kernel.org
-References: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 20:40, Lefteris Koutrakis wrote:
-> This commit adds initial device tree support for the WatchGuard Firebox T30
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] clk: qcom: gcc-sm7250: wrong parent source and map on gcc_cpuss_ah=
+b_clk_src
+- [High] clk: qcom: gcc-sm7250: missing CLK_OPS_PARENT_ENABLE on gcc_sdcc2_=
+apps_clk_src
+- [High] clk: qcom: gcc-sm7250: mark gcc_cpuss_gnoc_clk critical to prevent=
+ gating
+--
 
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
+commit df02ee88c50cbe124252b368c43513c346759f86
+Author: Sreeshankar K <sreeshankar0910@gmail.com>
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+This commit adds the Global Clock Controller (GCC) driver for Qualcomm SM72=
+50
+SoC devices, registering PLLs, RCGs, branch clocks, GDSCs, and resets.
 
-> board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
-> arch/powerpc/boot/dts/fsl/Makefile. It also documents the watchguard vendor
-> prefix in vendor-prefixes.yaml.
-> 
-> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-> ---
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
->  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
->  .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
->  4 files changed, 775 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/vendor-prefixes.yaml
->  create mode 100644 arch/powerpc/boot/dts/fsl/Makefile
->  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
->  create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
 > new file mode 100644
-> index 0000000..c78a53f
+> index 0000000000000..e4304c667dace
 > --- /dev/null
+> +++ b/drivers/clk/qcom/gcc-sm7250.c
+> @@ -0,0 +1,2286 @@
 
-Not existing? You are sending some random changes to us. Please slow
-down, read the docs how to use Git and how to generate patches.
-Documentation/process (including submitting patches) will be helpful.
+[ ... ]
 
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -0,0 +1,2 @@
-> +  "watchguard,":
-> +    description: WatchGuard Technologies, Inc.
-> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
-> new file mode 100644
-> index 0000000..60caf36
+> +enum {
+> +	DT_BI_TCXO,
+> +	DT_BI_TCXO_AO,
+> +	DT_SLEEP_CLK,
+> +};
+> +
+> +enum {
+> +	P_BI_TCXO,
+> +	P_GPLL0_OUT_EVEN,
+> +	P_GPLL0_OUT_MAIN,
+> +	P_GPLL6_OUT_MAIN,
+> +	P_GPLL9_OUT_MAIN,
+> +	P_SLEEP_CLK,
+> +};
 
+[ ... ]
 
+> +static const struct parent_map gcc_parent_map_0[] =3D {
+> +	{ P_BI_TCXO, 0 },
+> +	{ P_GPLL0_OUT_MAIN, 1 },
+> +	{ P_GPLL0_OUT_EVEN, 6 },
+> +};
+> +
+> +static const struct clk_parent_data gcc_parent_data_0[] =3D {
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .hw =3D &gpll0.clkr.hw },
+> +	{ .hw =3D &gpll0_out_even.clkr.hw },
+> +};
+> +
+> +static const struct clk_parent_data gcc_parent_data_0_ao[] =3D {
+> +	{ .index =3D DT_BI_TCXO_AO },
+> +};
 
-Best regards,
-Krzysztof
+[ ... ]
+
+> +static const struct freq_tbl ftbl_gcc_cpuss_ahb_clk_src[] =3D {
+> +	F(19200000, DT_BI_TCXO_AO, 1, 0, 0),
+> +	{ }
+> +};
+> +
+> +static struct clk_rcg2 gcc_cpuss_ahb_clk_src =3D {
+> +	.cmd_rcgr =3D 0x48010,
+> +	.mnd_width =3D 0,
+> +	.hid_width =3D 5,
+> +	.parent_map =3D gcc_parent_map_0,
+> +	.freq_tbl =3D ftbl_gcc_cpuss_ahb_clk_src,
+> +	.clkr.hw.init =3D &(const struct clk_init_data){
+> +		.name =3D "gcc_cpuss_ahb_clk_src",
+> +		.parent_data =3D gcc_parent_data_0_ao,
+> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_0_ao),
+> +		.flags =3D CLK_SET_RATE_PARENT,
+> +		.ops =3D &clk_rcg2_ops,
+> +	},
+> +};
+
+[Severity: High]
+In drivers/clk/qcom/gcc-sm7250.c, ftbl_gcc_cpuss_ahb_clk_src passes
+DT_BI_TCXO_AO (which is 1 in the DT clock index enum) instead of P_BI_TCXO
+(which is 0 in the parent source enum) as the source argument to F().
+
+In addition, gcc_cpuss_ahb_clk_src pairs the 3-entry gcc_parent_map_0 with
+gcc_parent_data_0_ao, which only defines 1 entry.
+
+When clk_rcg2_determine_rate() or clk_rcg2_set_rate() runs on
+gcc_cpuss_ahb_clk_src, it calls qcom_find_src_index() in
+drivers/clk/qcom/common.c:
+
+    int qcom_find_src_index(struct clk_hw *hw, const struct parent_map *map=
+, u8 src)
+    {
+        int i, num_parents =3D clk_hw_get_num_parents(hw);
+
+        for (i =3D 0; i < num_parents; i++)
+            if (src =3D=3D map[i].src)
+                return i;
+
+        return -ENOENT;
+    }
+
+Because num_parents is 1 and map[0].src is P_BI_TCXO (0), passing
+src =3D DT_BI_TCXO_AO (1) causes qcom_find_src_index() to return -ENOENT.
+Furthermore, with only 1 entry in gcc_parent_data_0_ao,
+__clk_rcg2_get_parent() cannot resolve gpll0 or gpll0_out_even if selected =
+in
+hardware, and if gcc_parent_data_0_ao is expanded to 3 entries,
+DT_BI_TCXO_AO (1) collides with P_GPLL0_OUT_EVEN (1).
+
+Should ftbl_gcc_cpuss_ahb_clk_src use P_BI_TCXO, and should
+gcc_parent_data_0_ao either include the remaining parents from
+gcc_parent_data_0 or use a matching single-entry parent_map?
+
+[ ... ]
+
+> +static const struct freq_tbl ftbl_gcc_sdcc2_apps_clk_src[] =3D {
+> +	F(400000, P_BI_TCXO, 12, 1, 4),
+> +	F(19200000, P_BI_TCXO, 1, 0, 0),
+> +	F(25000000, P_GPLL0_OUT_EVEN, 6, 1, 2),
+> +	F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> +	F(100000000, P_GPLL0_OUT_EVEN, 3, 0, 0),
+> +	F(202000000, P_GPLL9_OUT_MAIN, 4, 0, 0),
+> +	{ }
+> +};
+> +
+> +static struct clk_rcg2 gcc_sdcc2_apps_clk_src =3D {
+> +	.cmd_rcgr =3D 0x1400c,
+> +	.mnd_width =3D 8,
+> +	.hid_width =3D 5,
+> +	.parent_map =3D gcc_parent_map_4,
+> +	.freq_tbl =3D ftbl_gcc_sdcc2_apps_clk_src,
+> +	.clkr.hw.init =3D &(const struct clk_init_data){
+> +		.name =3D "gcc_sdcc2_apps_clk_src",
+> +		.parent_data =3D gcc_parent_data_4,
+> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_4),
+> +		.ops =3D &clk_rcg2_floor_ops,
+> +	},
+> +};
+
+[Severity: High]
+In drivers/clk/qcom/gcc-sm7250.c, ftbl_gcc_sdcc2_apps_clk_src uses
+P_GPLL9_OUT_MAIN (gpll9) for the 202 MHz entry. Unlike gpll0, gpll9 is only
+used by gcc_sdcc2_apps_clk_src and is not enabled by default.
+
+Because gcc_sdcc2_apps_clk_src uses clk_rcg2_floor_ops without setting
+CLK_OPS_PARENT_ENABLE in its flags (unlike gcc_sdcc1_apps_clk_src with gpll=
+6),
+calling clk_set_rate() on gcc_sdcc2_apps_clk to or from 202 MHz while the
+clock is unprepared or disabled will invoke update_config() in
+drivers/clk/qcom/clk-rcg2.c while gpll9 is off.
+
+Wouldn't that cause the RCG update handshake to time out with a warning and
+return -EBUSY unless CLK_OPS_PARENT_ENABLE is set on gcc_sdcc2_apps_clk_src?
+
+[ ... ]
+
+> +static struct clk_branch gcc_cpuss_gnoc_clk =3D {
+> +	.halt_reg =3D 0x48064,
+> +	.halt_check =3D BRANCH_HALT_VOTED,
+> +	.clkr =3D {
+> +		.enable_reg =3D 0x52000,
+> +		.enable_mask =3D BIT(29),
+> +		.hw.init =3D &(const struct clk_init_data){
+> +			.name =3D "gcc_cpuss_gnoc_clk",
+> +			.ops =3D &clk_branch2_ops,
+> +		},
+> +	},
+> +};
+
+[ ... ]
+
+> +static struct clk_regmap *gcc_sm7250_clocks[] =3D {
+> +	[GCC_AGGRE_UFS_PHY_AXI_CLK] =3D &gcc_aggre_ufs_phy_axi_clk.clkr,
+> +	[GCC_AGGRE_USB3_PRIM_AXI_CLK] =3D &gcc_aggre_usb3_prim_axi_clk.clkr,
+> +	[GCC_BOOT_ROM_AHB_CLK] =3D &gcc_boot_rom_ahb_clk.clkr,
+> +	[GCC_CAMERA_HF_AXI_CLK] =3D &gcc_camera_hf_axi_clk.clkr,
+> +	[GCC_CAMERA_SF_AXI_CLK] =3D &gcc_camera_sf_axi_clk.clkr,
+> +	[GCC_CFG_NOC_USB3_PRIM_AXI_CLK] =3D &gcc_cfg_noc_usb3_prim_axi_clk.clkr,
+> +	[GCC_CPUSS_AHB_CLK_SRC] =3D &gcc_cpuss_ahb_clk_src.clkr,
+> +	[GCC_CPUSS_GNOC_CLK] =3D &gcc_cpuss_gnoc_clk.clkr,
+
+[ ... ]
+
+> +static void gcc_sm7250_clk_regs_configure(struct device *dev, struct reg=
+map *regmap)
+> +{
+> +	/*
+> +	 * Disable the GPLL0 active input to NPU and GPU
+> +	 * via MISC registers.
+> +	 */
+> +	regmap_update_bits(regmap, 0x4d110, 0x3, 0x3);
+> +	regmap_update_bits(regmap, 0x71028, 0x3, 0x3);
+> +
+> +	/*
+> +	 * Critical clocks sharing the same register with
+> +	 * different masks
+> +	 */
+> +	regmap_update_bits(regmap, 0x52000, BIT(21), BIT(21)); /* GCC_CPUSS_AHB=
+_CLK */
+> +}
+
+[Severity: High]
+In drivers/clk/qcom/gcc-sm7250.c, gcc_cpuss_gnoc_clk is registered in
+gcc_sm7250_clocks[] with clk_branch2_ops and without CLK_IS_CRITICAL.
+
+When clk_disable_unused() runs at late_initcall_sync and no consumer has
+claimed GCC_CPUSS_GNOC_CLK, clk_disable_unused_subtree() will call
+clk_branch2_disable() -> clk_disable_regmap() and clear BIT(29) in vote
+register 0x52000, gating the CPU subsystem to GNOC interconnect clock and
+hanging the system.
+
+Should gcc_cpuss_gnoc_clk be marked with CLK_IS_CRITICAL (or handled via
+gcc_sm7250_clk_regs_configure() like GCC_CPUSS_AHB_CLK in register 0x52000)=
+ so
+that it is not disabled at boot?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-master-v11=
+-0-2c29e382162c@gmail.com?part=3D2
