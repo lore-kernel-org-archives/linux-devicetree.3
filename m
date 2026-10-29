@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313226;
-	b=mCOp3HDLgYKIJkNrIZ5p+pPQ7BRM1RP/GHWAYQKIIHgDzhZZ/qANXDC2xnd9dX1v56p9
-	 bWK17CaOA+C6ShiKIVsONLV05MNxDMkAOg6+SFAIauvClQrmmGQg6fOj3ePy+ZeFHOK7Q
-	 vFg6bJ2E3ZX9NXIsKaCuoo/nB6FDENMN8flKNGwPLKXrCrrtB9xijMIXw3bTxvkRwi9Bs
-	 MLabC0ptx0o9GhB2maamEOhSOKd2r/9ELoThCRTscnfIAmYcH0SsNiLlejIaEbBLhm9Q9
-	 Ngv7YELmxx2xe5N85slQyhlDNRi0U7NgR//VFhSJ+nhPmCeq/wHtGprRiaPEcrDOqtg==
+	t=1793313229;
+	b=JLySxzje3bFwXRJKYPnIdecdbNjqYaHPvjS08np6NBZ8YFfKzQbStuW+sCVHbAGkQ2kr
+	 0FcuB7Z5OQjIC9RXoImu60hJrqGAtoh+xx+19TzHoARgj11/n8LPkwEA7hiMfEnZT5Tqk
+	 MtcuN6dZF/JbV/sapIuF2T96VMycNAHGDzsKq1beMcD4DXXQRXNhcbM8yYYN8KFSN0Hzc
+	 5IGHg0Ia/rZWn7wdp4d+fIelieBSOaTWM66Notn2OKkdyZCqFarwvYWIqnN0Y/BHeyY7M
+	 NJAFQrP9drVZFFEH20qSo4qGipg4twOiG03Ru0BHCF6bhrMj+eLlOA//Nnk3wSLKUIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313229;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/DDRfMOuTRtg2YLg5xA4AAUbkoVMF1o1B6Hot0iCio8=;
-	b=qWPoJs9QfAM0Zkv4+/ROQYSw5F/7wrRHxEN6pNRE+4Bc/+PYeDBA99SpllrA5WTtHxUm
-	 qmqFRQkdmY/1tYXYpUW4CGynKNYwH4U6LA0Ik6FCSAcf9vZ1w3S+eHjz5KvMkxtdAaNwN
-	 fxiriiBubgMWNk0Rk68uyUxheoOukUyEYciYvsj//FT2c57DUCVuv9SBTFgbCdCdCyyb5
-	 wkq+gAV1ebho2W0DkVqT631hUQykOpaO/h13ZGv9RVyWoNZtzcoUCLML9MYTM8pmz+Ipn
-	 y8XGglQeOZ9himKk830svMpaVw5p7ZD8J5vddIA6hC8j0Nd8Kc4aLINTVPWQjtddrsQ==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JFikOhBz3uKqVdbJtzfexHTCJHzEWcoNMGVqvTNaMF8=;
+	b=muN/BhFvcY4EQJX9AMvEanHT7jF7Eh11j+/RjaAoELiL7UzPiv2s4JbGYSpkSpwoepy5
+	 XLUC6X6Z7fvTYZZFFuO1mK9jrgnksuEKhZcKLEKUxsdudo8J2djd2AGCdrJRjMKMZjXh9
+	 Ypw8FdCoLkQ02epCEd3BX3iGM6hGjH0Ad9PlX/zSXAeM5kWwMgA5eeZjrjzhAhJNxluyn
+	 fhFxqiFk5gsnidyjuaPPHMBjr4DSmOB9W3Rcjpoia2koRagtnxfoDG1O8sGBpldSPWEwe
+	 UDF+1wuSfZK78b3YHnJPHZf4Ioh4YfhGCrGJ7edtZ0zd+Q1zQvct8kKIAIhk56bMHCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=X5sbn4ej;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Ds8Xsv1y;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1533606A31C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 22:33:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1533606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBC5606A33E
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 22:33:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BBC5606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=X5sbn4ej
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Ds8Xsv1y
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793313223; x=1793572423;
-	bh=/DDRfMOuTRtg2YLg5xA4AAUbkoVMF1o1B6Hot0iCio8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=X5sbn4ejMUk4B+gqBfQqaJnCLJ59zkwA49LPVrhAkD77l9ov9Bq+MSaUhHCZAuzdU
-	 jbPyt9p6XNJq3K6GD5UdwrpX+19gOSD+kTUWYMEoGbQXZGOLXt6Fd6VROHlFRPi7qo
-	 Gxo0qyEQJpCXnJwhvYTO0aMZgLyj2nheKC0cuMjcHVkg5lDSM1FntJefpcE2yx9zbG
-	 h+yAmp4TDVZu827ys98cIi9BLdtgDazPnKNd8GLDYfdc+QKumz+0uWIianS7WVLJZH
-	 7W7J8zIolcuY9/r5vc+ZH8qs0YuhBF6vZhn6ZzY+02iOEL0l+yFAb4hGRPFF+6z2fh
-	 lU6rr5cVBWu4w==
-Date: Thu, 29 Oct 2026 22:33:40 +0000
+	s=protonmail3; t=1793313227; x=1793572427;
+	bh=JFikOhBz3uKqVdbJtzfexHTCJHzEWcoNMGVqvTNaMF8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Ds8Xsv1yWuch0ResPq8z2W0MG6Us96Bf6zrICpBrei20YuEixfEwdqPPUPxWAhPPn
+	 VFdiDA3bDaqO9/D0kfAa78JD5fpIZuK3SCIGUWfIEV7nBer4IVOGmQ6+T8lIDua1z1
+	 61GBKaDgKK4SHEvXAKUthOdmPyd6wzd8QilSaWZetpYQMOTnsjGDZ3nJ5JZtNYos77
+	 IWsQAX4zHJDPlG/d5AaXt0xKt5k02x4KE0mC/GaUiW7OPhJznbyqY0g6r2ta0WHwTg
+	 cZtYNHsp6yZg45f5BUjh+TdqnzvlzCbLXBNaEMPlnXmFV+K/GaFk2QtBRpNlsTy+r4
+	 xwajKm+Pen8xA==
+Date: Thu, 29 Oct 2026 22:33:44 +0000
 To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 From: Alexander Koskovich <akoskovich@pm.me>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH 0/5] Enable some more hardware on the Nothing Phone (3a)
-Message-ID: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
+Subject: [PATCH 1/5] arm64: dts: qcom: milos-nothing-asteroids: Enable UFS
+Message-ID: <20261029-asteroids-dts-updates-v1-1-79351337d681@pm.me>
+In-Reply-To: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
+References: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 1b879897af5045c17c9f979b0612e79e8a687d23
+X-Pm-Message-ID: 0affe815fa059bc011bf0efcfe337618406a185a
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,27 +67,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series enables UFS, Bluetooth, Wi-Fi, IPA, and the display panel
-for the Nothing Phone (3a).
+Configure and enable the nodes for UFS, so that we can access the
+internal storage.
 
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
-Alexander Koskovich (5):
-      arm64: dts: qcom: milos-nothing-asteroids: Enable UFS
-      arm64: dts: qcom: milos-nothing-asteroids: Enable Bluetooth
-      arm64: dts: qcom: milos-nothing-asteroids: Enable WiFi
-      arm64: dts: qcom: milos-nothing-asteroids: Enable IPA
-      arm64: dts: qcom: milos-nothing-asteroids: Enable panel
+ arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts | 18 ++++++++++++++++=
+++
+ 1 file changed, 18 insertions(+)
 
- .../boot/dts/qcom/milos-nothing-asteroids.dts      | 314 +++++++++++++++++=
-++++
- 1 file changed, 314 insertions(+)
----
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-change-id: 20261029-asteroids-dts-updates-ce3d00b4f844
+diff --git a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts b/arch/ar=
+m64/boot/dts/qcom/milos-nothing-asteroids.dts
+index 787acef4a4c8..fa0cbf78b69a 100644
+--- a/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
++++ b/arch/arm64/boot/dts/qcom/milos-nothing-asteroids.dts
+@@ -905,6 +905,24 @@ &uart5 {
+ =09status =3D "okay";
+ };
+=20
++&ufs_mem_hc {
++=09reset-gpios =3D <&tlmm 167 GPIO_ACTIVE_LOW>;
++
++=09vcc-supply =3D <&vreg_l12b>;
++=09vcc-max-microamp =3D <800000>;
++=09vccq2-supply =3D <&vreg_l4f>;
++=09vccq2-max-microamp =3D <750000>;
++
++=09status =3D "okay";
++};
++
++&ufs_mem_phy {
++=09vdda-phy-supply =3D <&vreg_l2b>;
++=09vdda-pll-supply =3D <&vreg_l4b>;
++
++=09status =3D "okay";
++};
++
+ &usb_1 {
+ =09/* USB 2.0 only, HW does not support USB 3.x */
+ =09qcom,select-utmi-as-pipe-clk;
 
-Best regards,
--- =20
-Alexander Koskovich <akoskovich@pm.me>
+--=20
+2.55.0
 
 
