@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258011;
-	b=ZWRB9RZ4acVzg17LzEeBLAPfHGYOt49scmMXt08o6RBQt0agU6COJKtOBjv8PaMEvutT
-	 pro0qVOzFUd/1MEkJGwVcPU0dhd4MhXxnZ45bTkjGIy86i4o9kn75YDu5g6fMEi5zTN7L
-	 IRT9/EnEOe0b4vXS90Fnu0vmW7w6ojzbyIJZNBgnzdJKYAptfsN3VYqYPUIJOkxS/lk6Z
-	 xwVrqN0phCnB2RdYRZ03heo4vtrLJOSKVXjP0dDTt5SLlZ4Zu4cUr8+eg6pE03Kpp6aE+
-	 11cuZXgsAhhcwY/1iMPOP6/RQ1Z7DI1F/Ie0VW+IruYIwNWSD4JfWt37bGJ670Af5Gg==
+	t=1793258264;
+	b=Esn90F/gMdeTwbSpWt3aqKRXJwyFzIUF5Syuslin/2cimDYa5ktCmpsaZFIWwzE/0Omu
+	 a0q1/uue9YXZ6QvBSLbH6l3bRpQfy1CMTsT6FbyrETk2BVi14OT6+IesM83/OFmvaJtAz
+	 XtfUnnpQbREQsMEhOImQ6GdTDsd7Sb4+zaD/pGvx6HGxHlHhsxi7qRq0/6gUqdx4WAavI
+	 oApjtQYOrJGzkwJQQPL5yiR3Wi4IB9+8BqSTCMclRxgyvLw3Hu9sfeWiFnUOr2WPCfxmd
+	 vxkCBnT8RcGj2X+R2xUGQgmnivZ0NoSOaY4pF0pbJd2hOXwHdcdG+JI+0Yg9MhVWhWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258264;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=3r0sTD4xXYngNyBjXhJZ1mZP/HPOUsWQVKUXF5NmqT4=;
-	b=By3jlvbmqtAAaRamc2c3CPE5jWAegAvglQfs36TVpmzGSYjl+yGel8KUTRH5qnhjKfgc
-	 hDhb7LWRymTSxZAm11WmRnIRqXIXaXLz2TcbZEUUqBcJjMBPHS6sCT1jiBNDxh0CVG//2
-	 vFm24B1AmPxxKysCOH019rnfPHE2z6ufrgnzJSLjuhvAuzeca4svv1Ewi/Yg5czHWledW
-	 R3Q+17xfaxJlQlgOsv2qki4FLkpwzwd6WOUn8UzoR8haj4vzpD31ow3E0wb83WVrzWFWT
-	 V0gPwnIholx0a390onfFG38Dari665zXsnNo841kGjWWfbMG+tenHeEe8WmTnhqxIkQ==
+	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
+	b=EHZpygRHcw1LCxbTFaEVtp/9n5ERJteQbOLXAKWD4wCapaTPzzNPhr/1cXazC/x/iGB6
+	 ccGaIgTzHMfQztPHHs+a5/GQRdoFt3PE/nu10foA9hRAwUbKf1nTkBGZAB/BNs6bdMb9s
+	 EwZ5LkA+b/hFeZznnYr3ma0CBQ8v8QrJlcGpeiVkySOu2omnJw0U2Pb51E9WVzYXhunEq
+	 lm6n7Zb9ygo8yacv/3/OgS+t0PUj2udXVSf8SdaYTTuhacmMmYv0xwxJF9nweUL/E4a0E
+	 mYbVB3itzi0oA4dBEJPrIf8p8AhabBaSi01nMTvvhQviAzZRZFqJVFmAklRUrxHRGsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BkUZqu/4";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104EF606A326;
-	Thu, 29 Oct 2026 07:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BD8606A31C;
+	Thu, 29 Oct 2026 07:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkUZqu/4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C340E1F01825;
-	Thu, 29 Oct 2026 07:13:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8BF1F01825;
+	Thu, 29 Oct 2026 07:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793258010;
-	bh=3r0sTD4xXYngNyBjXhJZ1mZP/HPOUsWQVKUXF5NmqT4=;
+	s=k20260515; t=1793258263;
+	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BkUZqu/4qyv3PhSpJPbyDYUwXttuWiMHwuFTs2ij3f18xiCfSj4SIamwfgfnbL1fj
-	 nt+dz6tTabGffT8UNvGnSs+PRQyjY72B8PClwU6A7DWqqv/KMA7Wh/q7LG1KnqJpbN
-	 DSQOzq26B5ioS4Ya5FEk1s57RQXuAAcHhDljbH2HWIzR9OahiOmPYy4vmbj4C6qGjq
-	 FeTR1O4VkNa4I/Uua3GNS8sN+cBGky9yhfve/xUPD25xaMTlzjQLpnXiXZIBix++dW
-	 s9Ot43C1j0CxrW9nd+WA1MPw0G80D+gqz1nUqYFM0umIpCmOMTBPowWDQioVdRr3A0
-	 bcnVtKBh+udHQ==
-Message-ID: <b317d102-0075-4531-847d-f5eff25ce5e9@kernel.org>
-Date: Thu, 29 Oct 2026 08:13:23 +0100
+	b=fvkpZmH13wXzma5Q9R+hksrE/M98khDyfXTWpfEf/D8C4UxN6gSstkl0EsLaMZx5s
+	 +NRQvEJi1OD4H9h56Jfe5kNwZDv17533gBw+hfZFEKbKnpmfuflLZS6OgJ9p/t/zMI
+	 P8mVnqVbSuyRZ/sZUhgGhkLvQMVWRRy5W3j4mBLvhdxzYI5GrvIQQXcsm//spR8MqF
+	 9QjCeI+autY5C/bJYGUdZzYbls0EglCvlldPsGT623WQjuoPplO7w3wZQktNYJ6Dgv
+	 tYnMz6gE4mhtxr8WeF8JqUm4q5k/ZS9zraBleMh1RiwZRRDx5hMTad2ht2KYMYVTPs
+	 8tOlF8HnCEIDQ==
+Message-ID: <3f909a67-ffbd-49ff-a51c-e08cc15a5ec0@kernel.org>
+Date: Thu, 29 Oct 2026 08:17:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,19 +52,15 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: input: Add compatibility for Awinic
- AW86224
-To: Gergo Koteles <soyer@irl.hu>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <cover.1793218514.git.soyer@irl.hu>
- <ceec2d2a29dd6cdfd984b964ad3a91601490a76e.1793218514.git.soyer@irl.hu>
+Subject: Re: [PATCH v6] powerpc/dts: Add Device Tree for WatchGuard Firebox
+ T30 (v6)
+To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, sashiko-bot@kernel.org
+References: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,20 +106,61 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ceec2d2a29dd6cdfd984b964ad3a91601490a76e.1793218514.git.soyer@irl.hu>
+In-Reply-To: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 21:37, Gergo Koteles wrote:
-> Add the AW86224 haptic device to the binding documentation for the
-> AW86927 and AW86938, as this binding needs the same properties.
-> 
-> They are not compatible though, because the chip identification works
-> differently compared to the 86927/86938
-> 
-> Signed-off-by: Gergo Koteles <soyer@irl.hu>
+On 28/10/2026 20:40, Lefteris Koutrakis wrote:
+> This commit adds initial device tree support for the WatchGuard Firebox T30
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
+
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+> board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
+> arch/powerpc/boot/dts/fsl/Makefile. It also documents the watchguard vendor
+> prefix in vendor-prefixes.yaml.
+> 
+> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+> ---
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+>  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+>  .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
+>  4 files changed, 775 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/vendor-prefixes.yaml
+>  create mode 100644 arch/powerpc/boot/dts/fsl/Makefile
+>  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+>  create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> new file mode 100644
+> index 0000000..c78a53f
+> --- /dev/null
+
+Not existing? You are sending some random changes to us. Please slow
+down, read the docs how to use Git and how to generate patches.
+Documentation/process (including submitting patches) will be helpful.
+
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -0,0 +1,2 @@
+> +  "watchguard,":
+> +    description: WatchGuard Technologies, Inc.
+> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+> new file mode 100644
+> index 0000000..60caf36
+
+
 
 Best regards,
 Krzysztof
