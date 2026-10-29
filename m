@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793284403;
-	b=KIxRff+cQAFM5D3L3l86Va3jBVkc2efQbPFZTnFGhcv7VtmYCuLhzK7yjG2JqFhc069X
-	 Hq4f9bj13tv4/NDyHWrnnYKGUzvsEvhNmfu/0qAuMB+ihODr4WW8SKjX/jgY4q7tlNvAF
-	 9zx0oLBaGZoJpzmPeQyJUsCuV9TDjv92jmNYVJb4SgHD+igcxJiP3IVajou2crsjJnyDm
-	 AV5ZtI2SH7dKvCXYjN7FOvAxZcAlziXpDL3uNXNAXmK/a5kMbl+WOfWUbteP9dxeKL6hR
-	 2mm+9q9dYarAKN2fuzoUsvsRKu4C07q/kNF9GQPiF/ZOVpK0Bspjoh8karfxV8gxRkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284403;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sZeo/FDHvRmMrSw89uBLRUSgC6xoljRlrhmh8tIp1DM=;
-	b=XlRTDDoBW+2kM2WDCzt29jlUsusOl5bLY+kZSifPA/t5aLZ5Xog4/upvHZrjTMxpL92x
-	 G1IT8MK3tAzWd1pwVrm2cEc+l/peLyZ7wE/28NZ3o4e/6LAe+Qg7T44Tyu6JmE1I5ov0H
-	 5LVXuqCy4SZxPmNoXqzBxDqPQccpfdyRVx4+wwh2droM2G/QE8hqktZ56z0j/R8q1jO13
-	 4lIxZsKliL/gnUMyJX2U65SBsYzWbLOE8/azCN0GR8s+p1lakclq3RQee1wr08z8/UQ04
-	 wDLTUvT0vl1xbwmJFJAWwi3bEjxgoiMwkm2K9QCYIFcNa3J3e4o0EiLyq69S3rHDsTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnWgn9kb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793284911;
+	b=sWRfy9Xe6pNnvy4CNj5/4+tPq3kkr5DYlK2v1ECaVmpBcGkZ3c1szN8T6GmoQKAB/G5B
+	 m42CgApXeJ6z0eOxrOAUywwab9+K34+WB26VJardk2uDDtQ2PmcfSMsKfpEvFu/nI3aY+
+	 r/zh3P2ALDlryZCgZT7+wgTyI0OeJefdycMvksROZuXdvq+74ySYxDMkg8H2KV7L+JQzw
+	 qWdfU/GxrHjtkqTuF9qvfK5SnrxV2AnB1M9+mhBt3O+BqhHsG1NYjvKgzcw1X0Tq/jLqX
+	 mE5DeQ3M/ieXHf5kLzOyj/PxXLjwQB6+JiNksxhHyFjLmN1GTCcm+xTIqUwUek/R8BQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284911;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vje8Css+WrS1hH7IK+aXX1zgPX6ZioiAALPyhZd+JTg=;
+	b=c6KeJg2cc1iHlHQFX2SWoyOm1Rh63h9IgCfmF6mRA4yGL+F/qSS6RXsrOTlnx3klEnvF
+	 vvpWcpHOYQxSGrH46mm3y9cLgLtchNJB3VJyRyzNlQPhzf9MkdMrXeiUVQuyM42+lJ82N
+	 C4cVYFRmterZxF4JZodV3HHxyLywExck4hYO9YgjVFDdsp4cwP1y9dKWD94yFuotj2icW
+	 VU/IA30mqxjVqxReyVj6vcyauOlTNBqvdDOuYO4mTwdxRoT8/Jw4znv1vWi2u9bP/4bJX
+	 sCsbzrzaaKdh49f0iJZWhiQpNA8rFJJZeqBwnQ0LS3deSCyy//Levxd2uoHeugTw+dQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hghgDVpJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FEE606A31C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7991B606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:41:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7991B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnWgn9kb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324D21F01825;
-	Thu, 29 Oct 2026 14:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793284402;
-	bh=sZeo/FDHvRmMrSw89uBLRUSgC6xoljRlrhmh8tIp1DM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OnWgn9kbRpQkIa8oJ2JQzhyU+CQe7e+RT3D4OIKvvunzCVtGxrwsJs2NgAS0jB1RC
-	 14SSzA2R8ahHPG2K9ZEtZeWqEZDWu0mvWkC3qXVl5tqCHi9xCv3CrhBci6/3fnB0vq
-	 ABlyecjJwWtWF3DIJl02VxFZFPxk7th0DkRCDf7148w5Zzg07rJS6Aik2f4H4xgbM2
-	 5ZwpsWu6iY6TT7c5ulLOuoy/Sfd+Ys3vW/zMJ5/QsOmDhEqBd48oqapzJZnUGwHOYR
-	 p3D/0TuI86P7lrz51yfSrjmHaLYnuaL77c5VL4j3a1Z8kmr+ds/ARTJTn6vRGdChsu
-	 wgriXrynVp5sA==
-Message-ID: <sashiko-outbox-189527@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 09/14] drm/msm: initialize LPAC ring
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
-References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
- <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:33:21 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hghgDVpJ
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c37b612635bso315781066b.3
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:41:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793284910; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Gx0TLCM7sUu6e3neDvLXOuwO35GdYyRBwIzItM9gx/LFWKbvhTY2be8fVj6peGPJF7
+         6OshLlCd9qwsX8K3HAz8dKsBysAAw0cSj+4W+2G/TC9P+rjGLa716IMaQIiAtFAaHnHH
+         Wg9nDgTwMd871E+bZQbJZPAILIsBr2W2P+DElgdH6tUeXcv4dnAXk+DhM3eATrBbI9LW
+         Es90ByAu1PUSVuJmBYS3vUk1wkDNl6zpu8JxZ+7DwceHWgDZiroNQEWQhx2pCzxcg7BX
+         wrD502BNWneiNrRFikVlIfStQjNxweXYOo8xsv26ykzemAMhkSE9yb8oOJ7/WNAnFT/W
+         fCOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vje8Css+WrS1hH7IK+aXX1zgPX6ZioiAALPyhZd+JTg=;
+        fh=NMN2LTxTL44mYM8PGF0GSW4j0jFjEQ8/6r9YDBp1iY8=;
+        b=kiC04NnfYFpuNQqP1+OHCGsGUFByXc5cFTAsJIq+LLt81GoIxS6+DhtmxUhIyqyaxA
+         PwcfTCCI/aQOAEtBCLHPxLgVWWgyglY8WmpK+b2iSzV6ZVBIGRqH24L3HLQBLQb95xrD
+         wsOv4pJTBKBp93IS10XxR7VF/L1MT+mVjOxsqtzqb7Hc8c9erZwq1iYSxumO2YQqE+Ft
+         IrZLN/cgpZ9OizP8Bde/Hag7GLSeyoI+SrkJVgH3KoV9+HTbLhCdSrO+ztbdi9m/COnZ
+         vAv6+qrI3hkUQ7ijm+TESjz/ThVE9l2tMyv5L9BEShgyK/SA0WLArj9DplUXh+OFc+tZ
+         x/qA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793284910; x=1793889710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vje8Css+WrS1hH7IK+aXX1zgPX6ZioiAALPyhZd+JTg=;
+        b=hghgDVpJP1cXYyThMA1gZBdoGMjiVg+rqnG6FbqVfyG80atEPkE+cfMHmoIWezl/C9
+         XrtJ3fiu/AY80LVVtY57ZjKn4y8UbkNImktFCWOyd3Co5HvUDG0Zgu7jwoa53114S6H0
+         sQMxRUtrelRiRZw9bikrEPHMBNppKhTRXp7evQQN/7A66DZ5P+sf4Nft0PN+W56HvYa1
+         6pV51HwyGHwt33FcOXYuLrtRybOk9jaLF32W6SgSIJ2b67T2J7yG0qeIyqKm8NBiLxy4
+         z8QoX/bA3wt6/fPsTMAsIkQ1yTdyphOax1o3EO6z5sFUVJbWXgGJHl0EOWOEJMD645jT
+         fTQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793284910; x=1793889710;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vje8Css+WrS1hH7IK+aXX1zgPX6ZioiAALPyhZd+JTg=;
+        b=bQXKGXY+f/tDWM07YnsN0SQZVuY0VFVz2tZee/uHByc0gw5wSXbZ2aawkKzew5bm2O
+         5ALZs4nMM12dcPuTbxiBAVeTDAxX0zERI46lnPaYJO9kJgJIh7qv1cPmK9b1v/kDJRQo
+         NKhGNddLBku3Cju2bM9uWX6hJinwQdBZ9KSXbz9dkJtRHncbqtwXgeOsE/VKhXLK6D7P
+         1wHpdb8j+HGOtQCU73ypzTdtui+edQol3JxLrt6hjXJsbwoR9aetVdj7NLzZtlh1UIFI
+         aVZmKO+lQxut/VgU+vKwTIgv2jgrs1fmpWJck9N6jcEkgXLNrIMveqK3W5eu3rZI2a8e
+         UGxA==
+X-Forwarded-Encrypted: i=1; AKwUvBzF5n6rfvhhNhl8HCtCiRGKDVVWVeRUdeqoE9sMlV5rEbcj7CBI1sVeskH4RWXgAksYdg0+Bq+0sbGe@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJSaiT4mWCaVQLMlITay1jJ6d+CvdkSIieEa3n7DLBrtmxywzL
+	8tbTFnnCb+Y40PI8hwwkED4MyQh8vO09zpxlkb0OQ15p4bFZJZuI+3J6rv89HkduGJ34/D6AF1s
+	QmqLeRJwdAk5ZkoZN0Qgp4UhqimSWbQ/a9w==
+X-Gm-Gg: AYBFou3Vbh6NdHEAz2pxR2Q0Cu9PXur/OIPMbFznXPmghoYBYXyt8HmHYytohpaohZ5
+	sv+OK5ojAI+tct+jLo69del8L9XnfUEcnGGK15gofanwI7oqtSpCyUG7K7mgglUx0FrJyomUaSS
+	g4ZFSDY5dWPbne91N01Iax6MdhsG1ZbAGFz6a1ELtm37q8UJWLsSXaX5JzbrXLHBqY5oUntBJ05
+	+Q6nqfvXXXFC2rQ84DvzX73/RC2ok2Mqgi4C41ikl82jmFKSLhdlbC9bmFDF41Kj5uhjBUOkQzB
+	Kz1L3zA9G2ibaeCi17TxyzLBVEYJQfThkmuUn/CvKCc3I8ZOcGlPapen1NnbiVDvUHXPBpiwZe2
+	Ok8/NFNSlAZirz0LeljprWXbJhz1fhmlU4V3pmLhrFycSZjFtmi41Yb9SoOBf8mKrgXD4QmlfiI
+	QgWqO5aSnW+nIAEbdovVyj2lsXfn3k4JbjoGqnacZBsMwgSiWNPwc=
+X-Received: by 2002:a17:907:a88e:b0:c46:6a50:40b7 with SMTP id
+ a640c23a62f3a-c49bdf25ef1mr512176766b.10.1793284909657; Thu, 29 Oct 2026
+ 07:41:49 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,235 +104,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261029-gpio-vf610-fixes-v1-0-45b484b4c434@nxp.com> <20261029-gpio-vf610-fixes-v1-6-45b484b4c434@nxp.com>
+In-Reply-To: <20261029-gpio-vf610-fixes-v1-6-45b484b4c434@nxp.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 29 Oct 2026 16:45:14 +0200
+X-Gm-Features: AclHuK8IDt-muCciisOmWbSe4tpMQXEP57E_Zd-8ek8gdIf0pEg9SXZFYjLfJ5w
+Message-ID: <CAEnQRZCT2ghW69zvZZHPb+GHVLGFO=2A2hGxjuM0Phqjve8xgQ@mail.gmail.com>
+Subject: Re: [PATCH 06/11] gpio: vf610: drop unnecessary wrappers
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/msm: adreno_gpu_init() enables LPAC without checking lpac_pdev
-- [Medium] drm/msm/a6xx: shadow RPTR size and clear mismatch on preempt ini=
-t fallback
-- [Medium] drm/msm/a6xx: unhalted LPAC SQE in a6xx_recover() and a6xx_gpu_s=
-tate_get()
-- [Medium] drm/msm/a6xx: missing LPAC GX registers in A7xx IFPC/pwrup regli=
-sts
---
+On Thu, Oct 29, 2026 at 3:52=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.nxp.co=
+m> wrote:
+>
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Remove trivial wrapper functions vf610_gpio_writel() and
+> vf610_gpio_readl() that just called the relaxed versions directly.
+> Replace their usage with direct calls to writel_relaxed() and
+> readl_relaxed().
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-commit 35ad03732804997c43b27fa187ec0be66e34e69c
-Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
-drm/msm: initialize LPAC ring
-
-This commit programs the hardware registers required to start the LPAC ring
-and sends the CP initialization sequence. It also updates ringbuffer
-management, fence retirement, and scheduler suspend/resume paths to account
-for the live LPAC ring.
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_catalog.c
-> index 3e6f409d13a2a..5ee00eead14c8 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> @@ -1394,6 +1394,7 @@ static const u32 a750_ifpc_reglist_regs[] =3D {
->  	REG_A6XX_SP_NC_MODE_CNTL,
->  	REG_A6XX_CP_DBG_ECO_CNTL,
->  	REG_A6XX_CP_PROTECT_CNTL,
-> +	REG_A6XX_CP_LPAC_PROTECT_CNTL,
-
-[Severity: Medium]
-Should the other GX domain registers programmed for LPAC in hw_init() in
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c also be added to the A7xx IFPC and
-power-up restore lists?
-
-Specifically, hw_init() configures these registers when gpu->lpac_rb is
-present:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
-	if (gpu->lpac_rb)
-		gpu_rmw(gpu, REG_A6XX_UCHE_DEBUG_CNTL_1, BIT(30), BIT(30));
-	...
-	if (gpu->lpac_rb) {
-		gpu_write(gpu, REG_A7XX_CP_LPAC_CHICKEN_DBG, 0x1);
-
-		gpu_write(gpu, REG_A7XX_SP_CHICKEN_BITS_2, BIT(4));
-		gpu_write(gpu, REG_A7XX_SP_LPAC_CHICKEN_BITS_2, BIT(4));
-	}
-}
-
-On IFPC-capable A7xx targets such as Adreno 750, the GX power domain
-collapses across IFPC without re-running hw_init(), and the CP only restores
-registers recorded in a750_ifpc_reglist_regs and a7xx_pwrup_reglist_regs by
-a7xx_patch_pwrup_reglist(). Because REG_A6XX_UCHE_DEBUG_CNTL_1,
-REG_A7XX_CP_LPAC_CHICKEN_DBG, REG_A7XX_SP_CHICKEN_BITS_2, and
-REG_A7XX_SP_LPAC_CHICKEN_BITS_2 are not in those lists, won't their LPAC
-settings revert to reset defaults after the first IFPC cycle?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
-adreno/a6xx_gpu.c
-> index 8b3bb2fd433ba..e7bc12de650ca 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-
-[ ... ]
-
-> @@ -1096,7 +1162,7 @@ static int a6xx_ucode_load(struct msm_gpu *gpu)
->  	if ((adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami) &&
->  	    !a6xx_gpu->shadow_bo) {
->  		a6xx_gpu->shadow =3D msm_gem_kernel_new(gpu->dev,
-> -						      sizeof(u32) * gpu->nr_rings,
-> +						      sizeof(u32) * (gpu->nr_rings + !!gpu->lpac_rb),
->  						      MSM_BO_WC | MSM_BO_MAP_PRIV,
->  						      gpu->vm, &a6xx_gpu->shadow_bo,
->  						      &a6xx_gpu->shadow_iova);
-
-[ ... ]
-
-> @@ -1451,7 +1533,10 @@ static int hw_init(struct msm_gpu *gpu)
->  	if (a6xx_gpu->shadow_bo) {
->  		gpu_write64(gpu, REG_A6XX_CP_RB_RPTR_ADDR,
->  			shadowptr(a6xx_gpu, gpu->rb[0]));
-> -		for (unsigned int i =3D 0; i < gpu->nr_rings; i++)
-> +		if (gpu->lpac_rb)
-> +			gpu_write64(gpu, REG_A7XX_CP_LPAC_RB_RPTR_ADDR,
-> +				shadowptr(a6xx_gpu, gpu->lpac_rb));
-> +		for (unsigned int i =3D 0; i < (gpu->nr_rings + !!gpu->lpac_rb); i++)
->  			a6xx_gpu->shadow[i] =3D 0;
->  	}
-
-[Severity: Medium]
-Can a6xx_gpu->shadow[] be indexed past gpu->nr_rings + !!gpu->lpac_rb if
-a6xx_preempt_init() falls back to a single ring?
-
-During initialization in a6xx_gpu_init() -> adreno_gpu_init() ->
-msm_gpu_init(), gpu->lpac_rb is created with ring->id set to nr_rings (4 wh=
-en
-preemption is enabled):
-
-drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_init() {
-	if (config->has_lpac) {
-		gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
-}
-
-After msm_gpu_init() returns, a6xx_gpu_init() calls a6xx_preempt_init(),
-which falls back to gpu->nr_rings =3D 1 on allocation failure without updat=
-ing
-gpu->lpac_rb->id:
-
-drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_init() {
-fail:
-	/*
-	 * On failure to init preemption, fall back to a single
-	 * ring (ie. no preemption)
-	 */
-	a6xx_preempt_fini(gpu);
-	gpu->nr_rings =3D 1;
-}
-
-When adreno_load_gpu() then calls a6xx_ucode_load() and hw_init(),
-a6xx_gpu->shadow is sized for only 2 entries (gpu->nr_rings + !!gpu->lpac_r=
-b)
-and hw_init() only zeroes indices 0 and 1. However, shadowptr(a6xx_gpu,
-gpu->lpac_rb) and a6xx_get_rptr() still index a6xx_gpu->shadow[ring->id] at
-index 4:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_get_rptr() {
-	if (adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami)
-		return a6xx_gpu->shadow[ring->id];
-}
-
-On subsequent hw_init() calls during runtime resume or GPU recovery, index 4
-is not zeroed and retains its stale RPTR value (8 from the 8-dword CP_ME_IN=
-IT
-packet in lpac_cp_init()), which causes adreno_idle() to see get_rptr() =3D=
-=3D
-wptr and return before the LPAC CP has drained CP_ME_INIT.
-
-> =20
-> @@ -1469,9 +1554,17 @@ static int hw_init(struct msm_gpu *gpu)
->  	for (i =3D 0; i < gpu->nr_rings; i++)
->  		gpu->rb[i]->cur_ctx_seqno =3D 0;
-> =20
-> +	if (gpu->lpac_rb)
-> +		gpu->lpac_rb->cur_ctx_seqno =3D 0;
-> +
->  	/* Enable the SQE_to start the CP engine */
->  	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
-> =20
-> +	/* Enable the LPAC SQE_to start the CP engine */
-> +	//TODO is this needed? Doesn't fw do this at init?
-> +	if (gpu->lpac_rb)
-> +		gpu_write(gpu, REG_A6XX_CP_LPAC_SQE_CNTL, 1);
-
-[Severity: Medium]
-Now that REG_A6XX_CP_LPAC_SQE_CNTL is enabled here, should a6xx_recover() in
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c and a6xx_gpu_state_get() in
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c also halt the LPAC SQE by writi=
-ng
-3 to REG_A6XX_CP_LPAC_SQE_CNTL when gpu->lpac_rb is present?
-
-Currently, a6xx_recover() and a6xx_gpu_state_get() only halt
-REG_A6XX_CP_SQE_CNTL:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:a6xx_gpu_state_get() {
-	/* Halt SQE first */
-	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 3);
-}
-
-Leaving the LPAC SQE running while a6xx_gpu_state_get() reads indexed LPAC =
-CP
-registers (such as CP_LPAC_DRAW_STATE, CP_LPAC_ROQ_DBG, CP_SQE_AC_UCODE_DBG,
-CP_SQE_AC_STAT, and CP_LPAC_FIFO_DBG) and executes the crashdumper, or while
-a6xx_recover() prepares for reset, could result in inconsistent crash dump
-state or ongoing LPAC CP activity during recovery.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index 4389559e1d172..085e1b9044bc7 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-
-[ ... ]
-
-> @@ -1253,6 +1261,8 @@ int adreno_gpu_init(struct drm_device *drm, struct =
-platform_device *pdev,
-> =20
->  	adreno_gpu_config.nr_rings =3D nr_rings;
-> =20
-> +	adreno_gpu_config.has_lpac =3D !!(config->info->quirks & ADRENO_QUIRK_L=
-PAC);
-
-[Severity: High]
-What happens on a target with ADRENO_QUIRK_LPAC when booting with an older
-Device Tree that lacks the qcom,lpac child node?
-
-Earlier in adreno_gpu_init(), gpu->lpac_pdev is only populated if the
-qcom,lpac child node exists:
-
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_init() {
-	lpac_node =3D of_get_compatible_child(pdev->dev.of_node, "qcom,lpac");
-	if (lpac_node)
-		gpu->lpac_pdev =3D of_find_device_by_node(lpac_node);
-}
-
-When gpu->lpac_pdev is NULL, adreno_iommu_create_vm() passes NULL for
-lpac_dev to msm_iommu_gpu_new(), so iommu->lpac_domain is never allocated or
-attached to SMMU context bank 1.
-
-If adreno_gpu_config.has_lpac is set based solely on ADRENO_QUIRK_LPAC
-without checking gpu->lpac_pdev (and adreno_hw_init() likewise calls
-qcom_scm_set_gpu_smmu_lpac_aperture(1) based only on ADRENO_QUIRK_LPAC),
-msm_gpu_init() will still create gpu->lpac_rb, hw_init() will initialize the
-LPAC ring, and msm_submitqueue_create() will allow userspace
-MSM_SUBMITQUEUE_LPAC submissions that switch to context bank 1 without an
-attached IOMMU domain.
-
-Should adreno_gpu_config.has_lpac require gpu->lpac_pdev !=3D NULL, and sho=
-uld
-adreno_hw_init() check gpu->lpac_rb before calling
-qcom_scm_set_gpu_smmu_lpac_aperture(1)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
-e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D9
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
