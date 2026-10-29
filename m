@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269156;
-	b=OPzcRaXm1YNkH1e1nfKWzM28+QJD/YJdpn1b6v7bEIeNhvYuV/GIw6l2MTJ1Nmi3V5hN
-	 K0zV4GRN//H/QP/NwcT2qiomPHqUirdjR5VER9Z7KHbgye7JM66R4eXBdmZegqjaNGZer
-	 emOrOc7xok5sFSuGouttd7DjqmXYx7nKrNuUHOtMN7LKiWxXfA2t8XDox8HTEWKY9wPDd
-	 FAa7m5MiEmNKMiV6RNwHDb3TUwu+fr8FPR3szNAjrzYM59wdRkbeq/6zOAlJUQyoNbcy/
-	 88taYU7eKPpNGyKm5TLBnX2EAV9agfUBj8KO/8h6t85vaARo3GPRKCpxUzewUIgx3Hg==
+	t=1793269158;
+	b=HU7oPe6u5UuM8JRoVhW67ocyLMMTxmy5QcvgVVLt56vEn8GUKyp0RMaYAxmqQkQVmLg8
+	 ZxpBE73gyqObUOz9RBw2r33EqpUIoQHPYXoSuCcWYsonsMLm56+E4oKraRVB5JR6om4lB
+	 40nObNWfDJ1cjUNxtaIC5qZYRp4yplovgD7goE8d8B1lxokZ6hmE47kvn3TFEADesmiu0
+	 wsjJcHIWnHZwE+mMDElbu2Du2G1DLGbVTAMub1NG6qpki+4lbIGLRA6/nm1JkrmHXMHjQ
+	 dkKixXbf6cbE/dLR47TzrEjPENdRvPs6xxOHxW1Fuv7BNiDWG/wP3EbnVMdBuJWgoCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269158;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=X1NIgwPPPady9vNgsqWp6u79hEpohZvkKV5SA0cXjbM=;
-	b=dgptmhfJU691m8h9euLX4+Y/VoheSfsxka3ofagB/m+VcU2UozS3N1ds/BVT+76edybC
-	 svZf1zAIfI98fOC75LN8+OOPyHyQLP/x/EstOmXEARqSw90DhMdTQ8dxQQuZwhEYXR+VP
-	 6eYoTO89IaJ9RwR2GEC0uSRj1lTKBDAOZzTPV8X3bbgg1ukEbjlI2ZeyeZUM0O2BiRY2j
-	 tEpC8xwQN9WagBQxTsDFywqlvGHMtTEuGuQY7xUU8j6+5AcyYumkifXCJIo+oxLhQg1ju
-	 qI6C6xYEmM4GogPY6NNxOW6otMKxnQn+FKfbrFYKOGD72UZI220/N3iUE+niHju0Qig==
+	bh=rgOksGHjJMO6+qC31594zpqasdGptWfiobmyWyh/DRg=;
+	b=FBwbDPgeR2pKLk3ElrxU5f4EQLt0+fXBJxES+VYfQX10J8KOzQUPfZz1ZRN7nOg0n7qa
+	 /fTT81O+RoI1umw9Nf/K6FGk1+2f49RlwUqi/FR8d0kwgEwTkf98V80gEtPhe+WqfJ7J6
+	 H7wYqSMgm2Bz3Xi16Lb0OrDQ0/uMI8pUuXIk2Pby17W8P6PrNG8eC3qtZnXC48rUfLk7+
+	 dmY7MWdyHMry6WhVNRf235L+NyIq4aa5h0BCKDBYU4xAOQ544ZWLAiMspHPJR1Kpc0i/B
+	 X+WunIncQGFKODbGTq8GIHtJL0QYf01fNnjPJA2tBMtR/cr6MAanqkFIE8KRkj6JvTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oqf0J9td;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=cX9YdwWP;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4FA606A325;
-	Thu, 29 Oct 2026 10:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B4FA606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE060A261B;
+	Thu, 29 Oct 2026 10:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FCE060A261B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oqf0J9td
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=cX9YdwWP
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01E57C4A;
-	Thu, 29 Oct 2026 11:16:59 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2D1FCC6A;
+	Thu, 29 Oct 2026 11:17:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793269021;
-	bh=KTIXB27nV2CogfdCuFPaogEUe+KRWZ9o8/7dUF1G94I=;
+	s=mail; t=1793269022;
+	bh=8nkZE0H393gKjaZ62g8sexiPluHSW2GoKEW2yiSgPlE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oqf0J9tdCm4ZUOdAESn4YX7LKcnXqNXV3CUipoDP333o/0Mr/PjDO0x327/wLNYSz
-	 DwUyL8eo7tmGUAo0wEK5sc/51FVy5AfQOBpPfoIW/G3B9jEw4Vo8kX9Lh9ZKpDJTXu
-	 rIEtOpZaZ0EP8JQDGZUGmNNjWL8Ijv0ElVPYU4As=
+	b=cX9YdwWPIAu+bs6t4/FBNr+Exobbi75qXZowqWB7LACua8rLOpJpqCj7lNvOz6lNF
+	 nS4QVDms5QEer/Ad1wblO7c0ErxwfGNs1qHsqGVkki4DVk/E78/U+vr5+Pr7JuHN4T
+	 RXFp8uoZ0wEBCi8YgekfnDFRbuchjqY0eImMebZU=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:51 +0200
-Subject: [PATCH v4 05/14] drm/tidss: Remove the unused vp_bus_type feat
+Date: Thu, 29 Oct 2026 12:18:52 +0200
+Subject: [PATCH v4 06/14] drm/tidss: oldi: Drop unnecessary forward
+ declaration
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-5-dc7f2b532478@ideasonboard.com>
+Message-Id: <20261029-beagley-ai-display-v4-6-dc7f2b532478@ideasonboard.com>
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,114 +74,45 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3432;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=614;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=KTIXB27nV2CogfdCuFPaogEUe+KRWZ9o8/7dUF1G94I=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2XEf8ivNkuiJveCq0pdDBohqKlTqYGkJxv6
- +G6AolREv2JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlwAKCRD6PaqMvJYe
- 9SY3D/oCmh0YA1xqzjDpIEzJxurRNfvRtc5r/cFKtelMdyULN6GDNmm0KUtreKMFBg6/HObLuyC
- GY7pJ4Pw2RvWnrEq5bck+XVRPr0FOJ6j+xPssYoajyz1schpcAk0/xtGhfDhmIES/JEeApH4f5N
- wM4Wuj9PScGrQ6A+8BwlJovY0GHW4bstGWyngvoSasoOptTTwVviGMEBbI6Wo5J+Cy08IGvYk7z
- 4otFGUqsERwbUjSxV71POoENnDI2PUYQ8miBVspNIXjf+OcX/Xvqe7hx3w1GKcGr2lufmptfadp
- w0lEULQNuQMsPkAPjxzJTZr5iF4PXz1yRElvVA3kPrNrdShi85uPeE+gOkn7QI1rcvQg2CWznii
- SsPG5Er+DVr3HeTwPtZrVR88lADDuj8W+dnhNv6A/pC3Y/0tXQWM8RTfOrTGcMjs01Y04yLJs72
- MVvyopn1OieZY3azoyJiy7y85fqZSD5kpOQfNMToNz8aWTkCONJgPD91v1+xPqDaALFykmMJIrs
- yYxIOJxcDbumbwBM521pXNGDSKzpxX4xnSCkCxIff9SubczHeBgeeGWfswr51x4x4B/zs0F2v3I
- cLK3ydm49d0c8hJ7B2Oe7iNUL6shvhx8KLWcHwch9ZHiSQUg2s+1aZyps1l7dl3tO6MX3x9oso/
- FhlGauVdJpCIIBg==
+ bh=8nkZE0H393gKjaZ62g8sexiPluHSW2GoKEW2yiSgPlE=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2X9u/iLC4dCel6kFOZHfzoFnEVKL91GXNgK
+ msJ0r+RCZSJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlwAKCRD6PaqMvJYe
+ 9QWxD/9ZbMrX3+jEAAQ1EC4NAtA2JnP5zX3oIqT2UsE7d90mFTTuMSL9YkG1iAWRjBGkPuT+8Xx
+ /zkRWCgftOlrg4Oz1bDiNbHbobD/3sfzFjUb6iAq/sRXWxwf+tYngMpUBNWaBaOa0l9HN0zLxCl
+ rD/jAjr9AHe2OyEyq7jcgaJogl/jDqcM3DxylHy8PtoVYO4LPJzIufe0jw6SJ8im12zKXQeBFtT
+ VvUj/LfjPkdjNdmm9p9ImcgLHpmAL1Un+72i1O0n885rnVuy7ZqW6llMR6suBbijTdc7KR+FOei
+ oOaJ2+6mJ3aoyXnwgWkRl+ZWLehCVlBssMQNgOXuEVsfM7kxzpeQxObSXvWs/ifuU78ft+b+nls
+ 2wNSpXWG94oEYcVqOmMSTWcmyYlSNYaL79BgNSO6WXHPyfgMzC6r8Lw2L8qBnuEuUyqc512VlMr
+ mrza/X/2vqx7tjePS1a8NsJdqtfOrwgsNiZ17Bygl9HQxPRl/gEj+e/LSXeY4+5gcYZEvfW3jL2
+ RLgFhVs2YHOpt4IXUtU5IaR0izNTF9ck6kD5n/yqrkbT9QxaVLt9sW3O4oYzysz5amkqu54r8+E
+ kzls+Rx9nKqoTbj4mQRPgpzQOTro/oTuMvr0wVRuxPMw2M1UVsD9FkFYyv1w4lOtOoSotO/1L/n
+ HHLe1z/Noufhy6Q==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Nothing reads the 'vp_bus_type' feat any more, and can be removed.
+Nothing needs "struct tidss_oldi" in tidss_oldi.h, so drop the forward
+declaration.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 9 ---------
- drivers/gpu/drm/tidss/tidss_dispc.h | 9 ---------
- 2 files changed, 18 deletions(-)
+ drivers/gpu/drm/tidss/tidss_oldi.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 8c537280faf5..028cf78df3fe 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -90,7 +90,6 @@ const struct dispc_features dispc_k2g_feats = {
- 	.vp_name = { "vp1" },
- 	.ovr_name = { "ovr1" },
- 	.vpclk_name =  { "vp1" },
--	.vp_bus_type = { DISPC_VP_DPI },
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.h b/drivers/gpu/drm/tidss/tidss_oldi.h
+index a361e6dbfce3..ef9597fe5409 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.h
++++ b/drivers/gpu/drm/tidss/tidss_oldi.h
+@@ -10,8 +10,6 @@
  
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -167,7 +166,6 @@ const struct dispc_features dispc_am65x_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	.vp_bus_type = { DISPC_VP_OLDI_AM65X, DISPC_VP_DPI },
+ #include "tidss_drv.h"
  
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -262,9 +260,6 @@ const struct dispc_features dispc_j721e_feats = {
- 	.vp_name = { "vp1", "vp2", "vp3", "vp4" },
- 	.ovr_name = { "ovr1", "ovr2", "ovr3", "ovr4" },
- 	.vpclk_name = { "vp1", "vp2", "vp3", "vp4" },
--	/* Currently hard coded VP routing (see dispc_initial_config()) */
--	.vp_bus_type =	{ DISPC_VP_INTERNAL, DISPC_VP_DPI,
--			  DISPC_VP_INTERNAL, DISPC_VP_DPI, },
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
- 			.gamma_size = 1024,
-@@ -328,7 +323,6 @@ const struct dispc_features dispc_am625_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	.vp_bus_type = { DISPC_VP_INTERNAL, DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -384,8 +378,6 @@ const struct dispc_features dispc_am62a7_feats = {
- 	.vp_name = { "vp1", "vp2" },
- 	.ovr_name = { "ovr1", "ovr2" },
- 	.vpclk_name =  { "vp1", "vp2" },
--	/* VP1 of the DSS in AM62A7 SoC is tied off internally */
--	.vp_bus_type = { DISPC_VP_TIED_OFF, DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-@@ -422,7 +414,6 @@ const struct dispc_features dispc_am62l_feats = {
- 	.vp_name = { "vp1" },
- 	.ovr_name = { "ovr1" },
- 	.vpclk_name =  { "vp1" },
--	.vp_bus_type = { DISPC_VP_DPI },
- 
- 	.vp_feat = { .color = {
- 			.has_ctm = true,
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 3dff391d3fec..ebaf559d56e5 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -59,14 +59,6 @@ struct dispc_errata {
- 	bool i2000; /* DSS Does Not Support YUV Pixel Data Formats */
- };
- 
--enum dispc_vp_bus_type {
--	DISPC_VP_DPI,		/* DPI output */
--	DISPC_VP_OLDI_AM65X,	/* OLDI (LVDS) output for AM65x DSS */
--	DISPC_VP_INTERNAL,	/* SoC internal routing */
--	DISPC_VP_TIED_OFF,	/* Tied off / Unavailable */
--	DISPC_VP_MAX_BUS_TYPE,
--};
+-struct tidss_oldi;
 -
- enum dispc_dss_subrevision {
- 	DISPC_K2G,
- 	DISPC_AM625,
-@@ -87,7 +79,6 @@ struct dispc_features {
- 	const char *vp_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
- 	const char *ovr_name[TIDSS_MAX_PORTS]; /* Should match dt reg names */
- 	const char *vpclk_name[TIDSS_MAX_PORTS]; /* Should match dt clk names */
--	const enum dispc_vp_bus_type vp_bus_type[TIDSS_MAX_PORTS];
- 	struct tidss_vp_feat vp_feat;
- 	u32 num_vids;
- 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
+ /* OLDI PORTS */
+ #define OLDI_INPUT_PORT		0
+ #define OLDI_OUTPUT_PORT	1
 
 -- 
 2.43.0
