@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267905;
-	b=spaXA7dVUiYg38wKBvPrDcCZM8uzyjQ92y+oR2xJtslw+cocGtyN4ov6PbuEi/zvR8Fo
-	 xy0HlhLsfD8jrfrzsnoVW1gsB7d8zHwlVtHET5rN6vveMKsQQgiBmC9qDL8Rm5X5oQuHQ
-	 4a42/QIwulhlYW4nPS+IQxIumRPqXsImGyW0KfUY0/EKnLgtPMI1YtYl01kCUkRQbhtIF
-	 F4txcE/+KYefvQV6Oh+tW/rTDo2qsXwVSbLQNmg4CXKUKKsv4nlMOxlDqATu56DG1trbF
-	 gAjYy6b3jkMbqYme6VZUJVbOyqc+DbnvfoxKaHkH5sz6GOXYNXvAm4HnU+J4+JA2z/w==
+	t=1793268002;
+	b=iQKJvk493//DWTQfMKXxF9EWA1oqpmIQb9dwc3uv7CAZiNHvoYfCkpXI2l8g8a/kG3Jf
+	 hJYs1Zn7Fq1bs7cRyoiwelVjisorwATIbVytNPe2mxbQQUK8r0fyZ3W5h2SCdipX/SJbX
+	 QxRCn3UP21iUXnBbm1ydxtt6EkQ3rGxzAwqBT66E4WHhzA6vBl/KGUs2WjfBN5oqn0C/r
+	 1gpWT/seMvHuafT8ir4it2WRYBG8520EImV48njVIuXhMhKUxzgXmLPbP0Dq58OIwcE/j
+	 jj/CoZGea5vCC+QhCkJi3NhPY0W7nAbmNLl0vVpYHmwTjSN/RVI9JgsXaDbybgbFA8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268002;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SfRbMtxOF6OEnmFrytMC+J1bVdhclNgq5j+noxgaQSw=;
-	b=L+G61R/f7i0BZ9/ja1VQjmcEjuu/QTznwLTzPrEBnzsw3KhrCE9N2s5QV38MvyuS1b6R
-	 OjUTsD71jwMFyMaTpO4t7712AgLhTQEnl1r3WDls786Jn8iZ8yB2FK1HYps9bVhx0EPev
-	 zmOKqRsUHMGAzlWDhse6pMy65JU1xvi475c1iFBtCttq9EzxqahMeM7YblS6ikYTkn3+U
-	 g4jOopfYT2/YBOH0p94ek9L9Hn9gtZxLjsERxrrwYxO5wsaM5ybfDvVtpAVvdhGoqdeL6
-	 I7/CMf2ZNzbBlcenooceIbEMjXgscveueVZxJ+0gK/ND9+nSHyHIkyxZSSdoUIB59Zg==
+	bh=nyQJahuUa1lXZQWj5EyIOkO9TARa4E9raLzKVVIpJQM=;
+	b=GkFVNm4DpwX06oQdlrWfY/8Zmw4Y1g3AzaZDwr0uznKJ0iqvfv99D/xx4P1Uh2LIFlNu
+	 IsX/Fmlt8eCpkRfiEZVmxpHK4GWSCiXfV5MAtY/f+zmD5wgw3MMNBaqf9myyZKIXj4gXQ
+	 rGPh8ErsMKStaisH8TEcWU1cUxIS1V4QdmoQF4JsYlhcaAC+ok8HkBmkJSK6ipUAqLHrY
+	 Z3wmDIA+wnI8skcBLjI7XQv8XsUZcDr+WxT+cGPaY6P4rATW2SXG/rrnr6TTyso70kYv0
+	 5o+16KgbeEGoaNbH///sG5nNdSQEqrwOCUXvOn6Mf5WFjbl0gWBvOROJzfQFvLkOceg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nh/flU8v";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5L4IuPJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1E2606A325;
-	Thu, 29 Oct 2026 09:58:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1067B60A2607
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:00:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nh/flU8v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662A61F01829;
-	Thu, 29 Oct 2026 09:58:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5L4IuPJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50CFD1F01825;
+	Thu, 29 Oct 2026 10:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793267904;
-	bh=SfRbMtxOF6OEnmFrytMC+J1bVdhclNgq5j+noxgaQSw=;
+	s=k20260515; t=1793268001;
+	bh=nyQJahuUa1lXZQWj5EyIOkO9TARa4E9raLzKVVIpJQM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nh/flU8vXEq4hpRjyd8qPXRFWGTygLf6fvyDZOEql0qiThUTwZrqLXIuPXQeADz8Y
-	 TK9BC5ezAyTmecY48G4y2ZUl3C0hjOc8uRFTBWcBGFkbOXHfi3xYTPYlbTJeaY+2ZS
-	 1hkp4XGZwKYfK0IACG3GCay0UWd/dfIs/27yks86cmFMqyfET6p75T0+1DbZ9swkk+
-	 iVgXah1DTWFw5WCsWRJkKdryTJ8FKFmvmNKN7GwgZ81MjJceKh+IuX18v9v4zmhjDB
-	 El2AerPcfNBmIJQ8LIz1zudX9teQYD9E3czfVPKyjduhH08ckRqycyU+MaVBLzsRqX
-	 lyK0nw1tES1NQ==
-Message-ID: <sashiko-outbox-189076@kernel.org>
+	b=d5L4IuPJfFe6mcEqzpDGCESX6VMXpy1RRuw+HZmMaleffWwvU6uv5rH5w5b6R5CCY
+	 8sOohgmXZMNNQ8Cz/OR9Y1fUNnR4ZjWzCt7BEa8iE0YqOF7xAQzp+WVJevq6p2lepc
+	 Hy171gxpmCyoQ0YhubKYYiU8D8mH2ygh0WHD3jpgZwHQTj3EMpswoJil7m1wZie6+F
+	 MSVh02WjOtPn3wGHGMdGxWTuEMw96OhIGofTALJIEQJi/CxGnfJtj+V9RNVcD3ZkKv
+	 TPQy+mFio0Z1kF+0aL1GKz5H9Lnz4dl2/coPHuvCEha7SqvRTfn+EXHHv6ml376Y4n
+	 7X1kdY0ABdHSQ==
+Message-ID: <sashiko-outbox-189081@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] arm64: dts: qcom: sc8280xp: enable PCIe ECAM and
- 64-bit memory
+Subject: Re: [PATCH v27 04/10] firmware: psci: Add support for PSCI
+ auxiliary devices
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-q8b-dts-v3-1-655696dfec45@radxa.com>
-References: <20261029-q8b-dts-v3-0-655696dfec45@radxa.com>
- <20261029-q8b-dts-v3-1-655696dfec45@radxa.com>
+To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-4-fa4b3ff1359b@oss.qualcomm.com>
+References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
+ <20261029-arm-psci-system_reset2-vendor-reboots-v27-4-fa4b3ff1359b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 09:58:24 +0000
+Date: Thu, 29 Oct 2026 10:00:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,99 +63,147 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] arm64: dts: qcom: sa8540p: unpreserved PCIe address maps for pcie2=
-b/3b/4
+- [Medium] firmware: psci: premature fw_devlink consumer pickup in arm_psci=
+_probe()
 --
 
-commit 367f523cda7b8c336244029f70635c13b0b90574
-Author: Xilin Wu <sophon@radxa.com>
+commit 693a73228dca9776538a9dc808fb4cd1f0b1d4d0
+Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 
-arm64: dts: qcom: sc8280xp: enable PCIe ECAM and 64-bit memory
+firmware: psci: Add support for PSCI auxiliary devices
 
-This commit enables PCIe ECAM and 64-bit memory windows for all five PCIe
-controllers in sc8280xp.dtsi, while preserving the 32-bit address map for
-pcie2a in sa8540p.dtsi to avoid regressions on SA8540P platforms.
+This commit introduces a PSCI platform driver that binds to the "arm,psci-1=
+.0"
+device node and creates child devices on the auxiliary bus. It also converts
+cpuidle-psci-domain from a platform driver into an auxiliary driver that bi=
+nds
+to the child device created by the PSCI provider.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/=
-qcom/sa8540p.dtsi
-> index 23888029cc117..e5393a237497c 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-> @@ -180,6 +180,15 @@ &gpu_smmu {
-> =20
->  &pcie2a {
->  	compatible =3D "qcom,pcie-sa8540p";
-> +	reg =3D <0x0 0x01c20000 0x0 0x3000>,
-> +	      <0x0 0x3c000000 0x0 0xf1d>,
-> +	      <0x0 0x3c000f20 0x0 0xa8>,
-> +	      <0x0 0x3c001000 0x0 0x1000>,
-> +	      <0x0 0x3c100000 0x0 0x100000>,
-> +	      <0x0 0x01c23000 0x0 0x1000>;
+> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci=
+/psci-devices.c
+> new file mode 100644
+> index 0000000000000..d23befc490ed5
+> --- /dev/null
+> +++ b/drivers/firmware/psci/psci-devices.c
+
+[ ... ]
+
+> +static int arm_psci_probe(struct platform_device *pdev)
+> +{
+> +	const struct arm_psci_device_info *info;
+> +	int auxdev_count =3D 0;
+> +	int i, ret;
 > +
-> +	ranges =3D <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
-> +		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
+> +	for (i =3D 0; i < ARRAY_SIZE(arm_psci_devices); i++) {
+> +		info =3D &arm_psci_devices[i];
+> +		ret =3D arm_psci_auxiliary_device_create(&pdev->dev, info);
+> +		if (ret)
+> +			dev_warn(&pdev->dev, "failed to create %s aux device: %d\n",
+> +				 info->name, ret);
+> +		else
+> +			auxdev_count++;
+> +	}
+> +
+> +	return auxdev_count ? 0 : -ENODEV;
+> +}
 
-[Severity: High]
-Should the 32-bit reg and ranges properties also be preserved for pcie2b,
-pcie3b, and pcie4 in arch/arm64/boot/dts/qcom/sa8540p.dtsi?
+[Severity: Medium]
+Can returning 0 from arm_psci_probe() when psci_cpuidle_domain_probe() defe=
+rs
+(or probes asynchronously) cause fw_devlink to prematurely mark the child
+power-domain device tree nodes as FWNODE_FLAG_NOT_DEVICE?
 
-While pcie3a already defines its own reg and ranges overrides in
-sa8540p.dtsi, the remaining controllers in that file do not:
+Previously, psci_cpuidle_domain_driver was the platform_driver for the
+"arm,psci-1.0" platform device (where psci_fwnode->dev =3D=3D &pdev->dev). =
+When
+psci_cpuidle_domain_probe() returned -EPROBE_DEFER, really_probe() did not
+call device_links_driver_bound(&pdev->dev).
 
-arch/arm64/boot/dts/qcom/sa8540p.dtsi:
-    &pcie2b {
-        compatible =3D "qcom,pcie-sa8540p";
+On platforms where a PSCI child power domain references an external parent
+power domain (for example arch/arm64/boot/dts/qcom/agatti.dtsi and
+arch/arm64/boot/dts/qcom/sm6375.dtsi, where cluster_pd has
+power-domains =3D <&mpm> pointing to "qcom,mpm"), arm_psci_probe() and
+psci_cpuidle_domain_probe() run during of_platform_default_populate_init() =
+at
+arch_initcall_sync, while qcom_mpm_driver (drivers/irqchip/irq-qcom-mpm.c) =
+is
+registered at device_initcall (or as a module).
 
-        linux,pci-domain =3D <1>;
+When arm_psci_probe() -> arm_psci_auxiliary_device_create() ->
+__auxiliary_device_add() -> device_add() runs, psci_cpuidle_domain_probe()
+calls dt_idle_pd_init_topology() -> of_genpd_add_subdomain(), which returns
+-EPROBE_DEFER because the mpm genpd provider is not registered yet.
+psci_cpuidle_domain_probe() then unwinds:
 
-        interrupts =3D <GIC_SPI 263 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
-    ...
-    &pcie3b {
-        compatible =3D "qcom,pcie-sa8540p";
+drivers/cpuidle/cpuidle-psci-domain.c:psci_cpuidle_domain_probe() {
+	...
+	/* Link genpd masters/subdomains to model the CPU topology. */
+	ret =3D dt_idle_pd_init_topology(np);
+	if (ret)
+		goto remove_pd;
+	...
+remove_pd:
+	dt_idle_pd_remove_topology(np);
+	psci_pd_remove();
+exit:
+	pr_err("failed to create CPU PM domains ret=3D%d\n", ret);
+	return ret;
+}
 
-        linux,pci-domain =3D <3>;
+Here psci_pd_remove() -> of_genpd_del_provider() -> device_del(&gpd->dev)
+resets child_fwnode->dev to NULL for all child power-domain nodes under the
+PSCI node.
 
-        interrupts =3D <GIC_SPI 565 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
+Because bus_probe_device(&auxdev->dev) does not propagate probe deferral to
+device_add(&auxdev->dev), arm_psci_auxiliary_device_create() and
+arm_psci_probe() still return 0. really_probe(&pdev->dev) then calls
+driver_bound(&pdev->dev) -> device_links_driver_bound(&pdev->dev):
 
-    &pcie4 {
-        compatible =3D "qcom,pcie-sa8540p";
+drivers/base/core.c:device_links_driver_bound() {
+	...
+	if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
+		fwnode_links_purge_suppliers(dev->fwnode);
+		fw_devlink_pickup_dangling_consumers(dev);
+	}
+	...
+}
 
-        linux,pci-domain =3D <4>;
+Because child_fwnode->dev is NULL on the child power-domain nodes (which al=
+so
+happens if psci-cpuidle-domain probes asynchronously),
+__fw_devlink_pickup_dangling_consumers() sets FWNODE_FLAG_NOT_DEVICE on each
+child power-domain fwnode and moves their consumer fwnode_links to the pare=
+nt
+PSCI platform device (&pdev->dev).
 
-        interrupts =3D <GIC_SPI 518 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
+When the supplier device (mpm_pdev) is later added,
+__fw_devlink_link_to_consumers(&mpm_pdev->dev) sees
+get_dev_from_fwnode(cluster_pd_fwnode) =3D=3D NULL, falls back to
+fwnode_get_next_parent_dev(cluster_pd_fwnode) (&pdev->dev), and attempts to
+create a DL_FLAG_SYNC_STATE_ONLY device link to &pdev->dev. Because
+pdev->dev.links.status is already DL_DEV_DRIVER_BOUND, device_link_add() fa=
+ils
+and logs "Failed to create device link", leaving mpm_pdev without a
+SYNC_STATE_ONLY link.
 
-Boards such as arch/arm64/boot/dts/qcom/sa8295p-adp.dts include
-sa8540p.dtsi and enable pcie3b and pcie4:
+Furthermore, because FWNODE_FLAG_NOT_DEVICE is never cleared, even after
+psci_cpuidle_domain_probe() succeeds on deferred probe retry and registers
+genpd->dev via of_genpd_add_provider_simple(), fw_devlink_create_devlink()
+keeps redirecting consumers of the child power-domain nodes to &pdev->dev:
 
-arch/arm64/boot/dts/qcom/sa8295p-adp.dts:
-    &pcie3b {
-        pinctrl-names =3D "default";
-        pinctrl-0 =3D <&pcie3b_default>;
+drivers/base/core.c:fw_devlink_create_devlink() {
+	...
+	if (fwnode_test_flag(sup_handle, FWNODE_FLAG_NOT_DEVICE))
+		sup_dev =3D fwnode_get_next_parent_dev(sup_handle);
+	else
+		sup_dev =3D get_dev_from_fwnode(sup_handle);
+	...
+}
 
-        status =3D "okay";
-    };
-    ...
-    &pcie4 {
-        pinctrl-names =3D "default";
-        pinctrl-0 =3D <&pcie4_default>;
-
-        status =3D "okay";
-    };
-
-Without reg and ranges overrides in sa8540p.dtsi, pcie2b, pcie3b, and pcie4
-inherit the new 64-bit ECAM config regions (at 0x4_c0000000, 0x4_40000000,
-and 0x4_00000000) and 64-bit MMIO windows from sc8280xp.dtsi. When
-qcom_pcie_probe() -> dw_pcie_host_init() -> pci_host_probe() runs on
-SA8540P/SA8295P platforms, won't accessing those SC8280XP 64-bit address
-ranges cause a regression due to the differing SA8540P memory map and
-firmware protection rules?
+Doesn't this leave the child genpd->dev devices without consumer device lin=
+ks
+to hold off genpd_provider_sync_state()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-q8b-dts-v3=
--0-655696dfec45@radxa.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-arm-psci-s=
+ystem_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com?part=3D4
