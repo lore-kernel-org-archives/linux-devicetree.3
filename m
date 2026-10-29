@@ -1,88 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282010;
-	b=1/9ERCQwacXEhQFAwQvD7s3OGMJDBX89Ry/EWgpa37iS1r0p3J06m9COn5HnmFX1zQSM
-	 Tpso8smDYec5IpcKVt5clOagzM/N4jDhSGnX3sCBEyKe7ttcY2hNpRSWM/hPdC7DzCx8P
-	 d/LuaTA7QHVRsvZaZgVDV3ywnM6AzRa21zSgyLTrcanbrqiywWqoAoPn+rvHcN2U5O6tV
-	 XqfIY/KiNZK1OvRDQh31jEAAEWNZWQXTASs9BEssIRA4+sDjNb405CQHERMkwUkTpNIRI
-	 +dG6/ePP7runpoI/EpOcy1gVWgLmnQlh76+jEHX6UUW8RF2KpTiawiTNT9BmTilgE2w==
+	t=1793282016;
+	b=0NisIJkcViRG9YnYZSFpDzu9I+cUdsx/fyJTjeA53K+bg6eThNnMV0oMXpuqHhLjDq6A
+	 XndNksyxPeEQVSnwTy5zKoRjkVAB5L7oLQfm3BikTOKYvNdJwB+CMOZ9zS7wCHNrtTbnV
+	 hrehqgLDJOqw3iYuxcWFFRMEckGxy3YK3JRrFilrLhuskMOg8j170e47ZzWSSZx3Eny7q
+	 t1UKi7HnjrsOfUacYItV/jBg34sw7t7ZO4oXlBo+li57Zv7TnFuZEhCk96+zvvrebBQ1Q
+	 +zzweE8nd0L+41/OycptanJ4bYwrODuU/sD6+lD8zmSW6y9GhTd80tsMl/mM0AbUPZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282016;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=d4muoCURO4txmduRtzfsIk82oRRKuCzaLk324mt4aBA=;
-	b=P5c76hSQcPW7pCurHIoi7wbEwHpaCPbfhqnfF2g/e8+a35R+o2SCaRsjUEY0Pp7t9yo2
-	 C5BDfqtrP7DRTFYhgIhmo7rAUrbvw7CiDBA5QHHbdPlCyAjLSkvqDHLwReYp2IKfvZAF5
-	 P0pF2s0EhAlz7hO7vgV0yMVR2kGlQ/SLQR3Zkf05XYbncFWQJtT94gwAZfwpAUztaR5n9
-	 kgVxNR1NXqRjHZ+7N8xVqAL0Y/U8JAwLhiwnKNe3ef6OpTE22Ie+oYP/Y2SSvwp1F/rSu
-	 PnArbAnt0gCaF/1RppswDuBd1jQOs1RLZ8KAkYwLedHPsdOPhjOAOxdpBgWEU7xJXAw==
+	bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
+	b=waKPY4uF9aT12BhCy+K0l+YkYwKyPVxRzSeBr0NTUK9LXgR68Mvy32bAuGvoCa1MQwWi
+	 ACrSKHrQhaDDc0Qqj+OFsbfL4+TOte8gjq62uSuIZPo/QU6gck5eDamhq27US3ImgF+0N
+	 1ePq5o1f9MoFfnssdd3YHJif9Wzja3KFJVqJEvD21ibxmd7vctP4w1eOE5kJMiQ+Rvfk1
+	 FUM+CKpFr8m/88SrGg8+YzxV1Gf3WCi8I4R/3mUBHGV9hlajlB4ZRsjjrh5qPVekbKwLp
+	 JWM9L2EqI/b/XRkzV8nm4WCCqkn7plmOG1uAijWH+N8YpLR8qooQOyTr1/s0JfGaXeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sII4Fe+3;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+vHwzI+;
 	arc=none smtp.remote-ip=209.85.221.47
 Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C5E60A2624
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:53:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39C5E60A2624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF036606A818
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 13:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF036606A818
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sII4Fe+3
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1935803f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:53:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+vHwzI+
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1179935f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793282008; x=1793886808; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793282014; x=1793886814; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d4muoCURO4txmduRtzfsIk82oRRKuCzaLk324mt4aBA=;
-        b=sII4Fe+3cutq0TltVTou1NmPEWgJFxLnSOqFr8L+8bYDGlzcFeQOEvqkboOJQmi1TZ
-         SHor1M6TGGclRvzJkRlAYZYBH54d6tozrG3OCREM/mkClTQ7C41fhtnjpWEKfu8cDvAQ
-         sEPq65QAIWLNxSJ9/ds1VLyOeDkmXO1su1ZkNlY4ljLmbpLKK+Pe98ed0YbqQzcf+JsJ
-         KJfbaQXXiiKrYnXMGOkXUNP7SXr50J0GYdsFKf0sIhMa6nImy1NAthPOAXBSv2ye2dvL
-         N5Z2I/fRhBlY+cjd3V6aVBDUd76iz32zRTdLpPdWpDiWeCI0vAnD4WMWTZd5SoJc9Gnw
-         h0KA==
+        bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
+        b=h+vHwzI+H9X2csVamkSfKUUHbALtnKDHtUUA24TsKBK5H9ZDQZfHU1FQwXDhmLEtPE
+         Dr1BA7GbX+S/GMv1HE5p4KXcvVuMUEBO3nAjpaCQFQb6m4TdIWHn/w1E0RVpiLfzQflN
+         nAez3m7HSTCeoZAuuBMJeUPwzNfjYmKEqJBWEXWF7E+4AD0DDcUTj1jIS740Hf76uMjz
+         fOmJWWt6x1qIx11OQM6kvfNdn1re4sfj3X22rQXNoEuHddWn8BOFmZvnzH/mdhdTY42T
+         qpQrN5/tchfxVBD2umWC8BqYUsPBegGq6yOEnKgC5Pp8OhC64QoKMrFABH6NGHzXMdCX
+         tTvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282008; x=1793886808;
+        d=1e100.net; s=20260707; t=1793282014; x=1793886814;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d4muoCURO4txmduRtzfsIk82oRRKuCzaLk324mt4aBA=;
-        b=URDaFauXREI2yVWH47jmULK7TjAo5MKzf/+uF6EQ1Oae9hH7aLVEHaJMcJeig1EEig
-         yjr19ytMnGNk64dMkylaieRVeNyxs5mDAOpNbDlfv28unE8jNlgYUHdZTVvWnGgiswLa
-         dAmlVKsFD3hmGbh6JzPFMyV1wCAw+RjfXboQ+0YDkpFv4JHHgLA+bnHZoIas9BCs3OeE
-         SxvYW0R1rkSnDxI2jXWzI7zSiiADfNNA21KfnV/uMPsMVsELiM+mT22CUZcCNViWJj7B
-         caiXVHlUwhiMjCYQF062CUwbGPwGwc3skPnNGR3wL7bWbDvZZEA3sc6tDyNfWHWUeEee
-         qkfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxUBvQlk7SFP9Td9AaVuT7kG5xuCcHVv7IJcLn9bUxZ4ujItlf2dYST8bzziOAeIhkJYcZmdXyCWVMJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6o3uEuFKm3uImd4Mrpc/utQjdAoN/1HisXLefc6zcD1tNzI2P
-	HckqDZi+6TCo3n2q1dJaWMMzYUFAEHhb/XTvpXt2BPSUfwJ+mt2sg3Q=
-X-Gm-Gg: AYBFou2hU34H4t0cLd2dcqD7HAbH5qoJpigEEkjQH8oYJ/oWZWTcUl7z0nbFXvx+76s
-	zfsyEhJfyR9xNIaiBmnTcch1S0LYDZklRkV+7MiKYeMjZVZQUxhMQnkRptRLW5g8oqp6lvgLpRT
-	bfjM5WGGx4mlLAAU5VaW6nz8NRQlQ/G7d51VrCugiysw1lDOcqjl1iu0bHmrAAZQLZ1hGo2y0Tz
-	M314nSximlfTVmza7aoLNE5n85RG781QqHA4rbdwfP0KkKE5MXrqNcIbhFaTBlMTDbvWOCK/ALl
-	R/Otj8WS7Z3Dr71ZZWPR8HMufEyCfch4sTSjAwB99YRejd0MarMUpiszD1NPPN4Kah/gv/bJWu9
-	t3vcKDNKKQlvWhi8KK/wclXCtdiAO2h1nmZbi/Ed5/37j7qEJIhCrEUE6AUQ5GCbTT+zTcrZbUo
-	07YzWyETepYeQ3C9RsM3ZVucoo8Vr9vyaIKULUATnN3Z6lqjdNzH68aB4VouHlktdMuGJlce+zM
-	0JuehMezcb4zcr/WdW/mj2v3DmBRaqVXokE1lblPTHPEnMR1iOsWBXtIy96eFKMtglwuN5qt8gh
-	zsHNu0/knVUTq0KZS0vcHDUl/pCZ1Ru+UFoHF5tZ3lelXQ==
-X-Received: by 2002:a5d:6f0e:0:b0:48d:fbf2:555f with SMTP id ffacd0b85a97d-48e5d56d6d6mr12550769f8f.55.1793282007466;
-        Thu, 29 Oct 2026 06:53:27 -0700 (PDT)
+        bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
+        b=Tvf670bJO9vahGTilVedw3yL9pc8WDBsBKf7KPPTo4TzEM56FSBzmu2LibMHeQpO9x
+         boh8CKEkC0nP0LI/MWSwh4I02QWTsgLUbSgGCWWVDFLC5+35kMmSrmOv23nNbTs7pXFU
+         8hgyQXCRkif4OXa/IZytss5iwV2tLh8KnaOVaD+508MyQfLE4ou7xnTen5R4xK1ChRiy
+         4DqkppJfwvHNHNg0KHzaLfmgOfyTEoebX1FaS3jWzYYc9o3vFTmoOFbW4osliKRkhtis
+         P6WWBbfqfCpJnfiSqAPPhE5pIRoDNviOOYP69iSVuwue4vbF05OdcSEofWpBpMdfE40m
+         2T1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwkA75MeiudnBZlUkj3D+JoDnfa4LDKfhv5WU72E7aHnixHnVKHPFkFlbchI8IiMfq6G6UfhTXyzxJ+@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2hByf3CoSCSSXMjCO0keD/2tlmQR6a4iqrjoXW9IDHFL0xL5X
+	f40NHehEc2jxoZbhmrEaS7XR4UI3sBDa0svkZawPqL0TuqWDLKHLV3E=
+X-Gm-Gg: AYBFou3QfUJvBe0eyZROSh0kIgF4pQlJtW0ARpzxWXuouTNt8I0NjUvhoVfvVN+7ADZ
+	LIMQNJue6UCwVRSVoV2kOhAfELaf/7zOE49RVknYrUfXu0N1MQM2kQhp2AZXbuSmnDTGbUsPQuk
+	j477Ik6wkUB0uk1TPmtVCK17Qq2n7vSBefY0/zRJMndtSycz0zsbBgsnBzM1Qk39KqveGyKfn8F
+	XgdFHDKe1A/IorH8Lffn91r3qRZ0ghe5HSEXtTNIi2Jn+QWhmt5S2KdYimyjtrlEXPKDYoJjz5A
+	CS4oCJbR0HlhBbPv/gofU/7ggEoISV9k1lqMiOID9x4pdywclAOy4w5SWv8e/WgvgkQdj+tA5Uk
+	Cm+Cf1sQ3DpPfuEnaRpFNRtR4VgQGSkBIdAU1n29G2cBbmPPWW+qgoeK/Ke9jxHQ02mQxUsXu5d
+	OHkBuvFJ5e1GpCBdpPhDUujD3wQKqzcqu5osQ7JARwP5MoW9KVIeBZJ47bSwfEvUz/sjbmSpKzj
+	q61QNBylQlQ2vX8fYbLuK7a62jsZydDJpprfOB/2jRCbF52F6VVRSvrxpEtKar6z9IJx0eCI0kM
+	yGvwE7aayViYsjVQWD2fMgLHGVfUD5/icrQlO14I8+mZkA==
+X-Received: by 2002:adf:f491:0:b0:48e:1421:ed49 with SMTP id ffacd0b85a97d-48e5d5909aamr9182569f8f.18.1793282014126;
+        Thu, 29 Oct 2026 06:53:34 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:53:26 -0700 (PDT)
+        Thu, 29 Oct 2026 06:53:33 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:47 +0100
-Subject: [PATCH RFC v2 10/14] drm/msm: Add LPAC submitqueue
+Date: Thu, 29 Oct 2026 14:52:50 +0100
+Subject: [PATCH RFC v2 13/14] drm/msm: gate lpac behind modparam
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-10-a21a5c850961@gmail.com>
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-13-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -116,343 +116,58 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=12665;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=1928;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=Vudb/cxCObLS3HWW52CK/cv5tchjqlb2SOL5lEFP4J8=;
- b=UUojngUfhed+XShhn5U0h0uHuRHT+5idiUzPWzFKx4s6uAsn9/vuYKwavuyXf2CKe5jkrYfRV
- nLWbVGTFJxsDIXeZTKgTCQR+ZK4PcXbxFQ5iIf74mMfVj/v5RI6y/ls
+ bh=ZEwODnTsRSIiQzAvYlWfm8pmWhNZkrTmOspw3E7UZvA=;
+ b=Z9dhvvnQgx4S38zM+b46UTdfg9SThPOIVSdAoOz7EGATYLcY7dL9exHHWjN9XuX2BOku7wLrT
+ FTPWSEv0DrrDpKLv4feGQ8Wj41R/cQfHXOM+Z/TSHsGDJf0un1xYOaN
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 
-Add UAPI and infostructure to support sending submission to the LPAC
-ring.
+Add a mod param to allow initializing and exposing the LPAC ring.
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 86 ++++++++++++++++++++++-------------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
- drivers/gpu/drm/msm/msm_gem_submit.c  |  6 ++-
- drivers/gpu/drm/msm/msm_gpu.c         |  8 ++--
- drivers/gpu/drm/msm/msm_gpu.h         |  4 +-
- drivers/gpu/drm/msm/msm_submitqueue.c | 14 +++++-
- include/uapi/drm/msm_drm.h            |  2 +
- 7 files changed, 81 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
+ drivers/gpu/drm/msm/msm_gpu.c              | 3 ++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index e7bc12de650c..e82d0c0bc10f 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -204,8 +204,10 @@ void a6xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- void
- a6xx_flush_yield(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- {
-+	bool is_lpac = ring == gpu->lpac_rb;
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 6e2333466d7f..51781a2e8a00 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -30,6 +30,10 @@ static bool skip_gpu;
+ MODULE_PARM_DESC(no_gpu, "Disable GPU driver register (0=enable GPU driver register (default), 1=skip GPU driver register");
+ module_param(skip_gpu, bool, 0400);
+ 
++int enable_lpac = 0;
++MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=on , 0=disable, -1=auto (default))");
++module_param(enable_lpac, int, 0600);
 +
- 	/* If preemption is enabled */
--	if (gpu->nr_rings > 1) {
-+	if (gpu->nr_rings > 1 && !is_lpac) {
- 		/* Yield the floor on command completion */
- 		OUT_PKT7(ring, CP_CONTEXT_SWITCH_YIELD, 4);
- 
-@@ -244,6 +246,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 	struct drm_gpuvm *vm = msm_context_vm(submit->dev, ctx);
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
- 	phys_addr_t ttbr;
-+	bool is_lpac = ring == a6xx_gpu->base.base.lpac_rb;
- 	u32 asid;
- 	u64 memptr = rbmemptr(ring, ttbr0);
- 
-@@ -261,25 +264,27 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 		OUT_RING(ring, upper_32_bits(rbmemptr(ring, fence)));
- 		OUT_RING(ring, submit->seqno - 1);
- 
--		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
--		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
-+		if (!is_lpac) {
-+			OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-+			OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
- 
--		/* Reset state used to synchronize BR and BV */
--		OUT_PKT7(ring, CP_RESET_CONTEXT_STATE, 1);
--		OUT_RING(ring,
--			 CP_RESET_CONTEXT_STATE_0_CLEAR_ON_CHIP_TS |
--			 CP_RESET_CONTEXT_STATE_0_CLEAR_RESOURCE_TABLE |
--			 CP_RESET_CONTEXT_STATE_0_CLEAR_BV_BR_COUNTER |
--			 CP_RESET_CONTEXT_STATE_0_RESET_GLOBAL_LOCAL_TS);
-+			/* Reset state used to synchronize BR and BV */
-+			OUT_PKT7(ring, CP_RESET_CONTEXT_STATE, 1);
-+			OUT_RING(ring,
-+				 CP_RESET_CONTEXT_STATE_0_CLEAR_ON_CHIP_TS |
-+				 CP_RESET_CONTEXT_STATE_0_CLEAR_RESOURCE_TABLE |
-+				 CP_RESET_CONTEXT_STATE_0_CLEAR_BV_BR_COUNTER |
-+				 CP_RESET_CONTEXT_STATE_0_RESET_GLOBAL_LOCAL_TS);
- 
--		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
--		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
-+			OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-+			OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BOTH);
- 
--		OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--		OUT_RING(ring, LRZ_FLUSH_INVALIDATE);
-+			OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-+			OUT_RING(ring, LRZ_FLUSH_INVALIDATE);
- 
--		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
--		OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BR);
-+			OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-+			OUT_RING(ring, CP_THREAD_CONTROL_0_SYNC_THREADS | CP_SET_THREAD_BR);
-+		}
- 	}
- 
- 	if (!sysprof) {
-@@ -493,7 +498,10 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	struct msm_ringbuffer *ring = submit->ring;
--	u32 rbbm_perfctr_cp0, cp_always_on_context;
-+	u32 rbbm_perfctr_cp0, cp_always_on_context,
-+	    cp_always_on_counter;
-+	bool is_lpac = ring == gpu->lpac_rb;
-+	u64 timestamp_iova;
- 	unsigned int i, ibs = 0;
- 
- 	adreno_check_and_reenable_stall(adreno_gpu);
-@@ -511,19 +519,24 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	 * If preemption is enabled, then set the pseudo register for the save
- 	 * sequence
- 	 */
--	if (gpu->nr_rings > 1)
-+	if (gpu->nr_rings > 1 && !is_lpac)
- 		a6xx_emit_set_pseudo_reg(ring, a6xx_gpu, submit->queue);
- 
- 	if (adreno_is_a8xx(adreno_gpu)) {
- 		rbbm_perfctr_cp0 = REG_A8XX_RBBM_PERFCTR_CP(0);
- 		cp_always_on_context = REG_A8XX_CP_ALWAYS_ON_CONTEXT;
-+		cp_always_on_counter = REG_A8XX_CP_ALWAYS_ON_COUNTER;
- 	} else {
- 		rbbm_perfctr_cp0 = REG_A7XX_RBBM_PERFCTR_CP(0);
- 		cp_always_on_context = REG_A6XX_CP_ALWAYS_ON_CONTEXT;
-+		cp_always_on_counter = REG_A6XX_CP_ALWAYS_ON_COUNTER;
- 	}
- 
- 	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, cpcycles_start));
--	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, index, alwayson_start));
-+	if (is_lpac)
-+		get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, index, alwayson_start));
-+	else
-+		get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, index, alwayson_start));
- 
- 	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
- 	OUT_RING(ring, CP_SET_THREAD_BOTH);
-@@ -582,17 +595,19 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 		OUT_RING(ring, submit->seqno);
- 	}
- 
--	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
--	OUT_RING(ring, CP_SET_THREAD_BR);
-+	if (!is_lpac) {
-+		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-+		OUT_RING(ring, CP_SET_THREAD_BR);
- 
--	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--	OUT_RING(ring, CCU_INVALIDATE_DEPTH);
-+		OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-+		OUT_RING(ring, CCU_INVALIDATE_DEPTH);
- 
--	OUT_PKT7(ring, CP_EVENT_WRITE, 1);
--	OUT_RING(ring, CCU_INVALIDATE_COLOR);
-+		OUT_PKT7(ring, CP_EVENT_WRITE, 1);
-+		OUT_RING(ring, CCU_INVALIDATE_COLOR);
- 
--	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
--	OUT_RING(ring, CP_SET_THREAD_BV);
-+		OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
-+		OUT_RING(ring, CP_SET_THREAD_BV);
-+	}
- 
- 	/*
- 	 * Make sure the timestamp is committed once BV pipe is
-@@ -638,10 +653,12 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	a6xx_flush_yield(gpu, ring);
- 
- 	/* Check to see if we need to start preemption */
--	if (adreno_is_a8xx(adreno_gpu))
--		a8xx_preempt_trigger(gpu);
--	else
--		a6xx_preempt_trigger(gpu);
-+	if (!is_lpac) {
-+		if (adreno_is_a8xx(adreno_gpu))
-+			a8xx_preempt_trigger(gpu);
-+		else
-+			a6xx_preempt_trigger(gpu);
-+	}
- }
- 
- static void a6xx_set_hwcg(struct msm_gpu *gpu, bool state)
-@@ -1220,6 +1237,7 @@ int a6xx_zap_shader_init(struct msm_gpu *gpu)
- 		       A6XX_RBBM_INT_0_MASK_PM4CPINTERRUPT | \
- 		       A6XX_RBBM_INT_0_MASK_CP_RB_DONE_TS | \
- 		       A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS | \
-+		       A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS_LPAC | \
- 		       A6XX_RBBM_INT_0_MASK_RBBM_ATB_BUS_OVERFLOW | \
- 		       A6XX_RBBM_INT_0_MASK_RBBM_HANG_DETECT | \
- 		       A6XX_RBBM_INT_0_MASK_UCHE_OOB_ACCESS | \
-@@ -2039,6 +2057,9 @@ static irqreturn_t a6xx_irq(struct msm_gpu *gpu)
- 		a6xx_preempt_trigger(gpu);
- 	}
- 
-+	if (status & A6XX_RBBM_INT_0_MASK_CP_CACHE_FLUSH_TS_LPAC)
-+		msm_gpu_retire(gpu);
-+
- 	if (status & A6XX_RBBM_INT_0_MASK_CP_SW)
- 		a6xx_preempt_irq(gpu);
- 
-@@ -2509,6 +2530,9 @@ static bool a6xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	if (to_adreno_gpu(gpu)->info->quirks & ADRENO_QUIRK_IFPC)
- 		return true;
- 
-+	if (ring == gpu->lpac_rb)
-+		return true;
-+
- 	cp_state = (struct msm_cp_state) {
- 		.ib1_base = gpu_read64(gpu, REG_A6XX_CP_IB1_BASE),
- 		.ib2_base = gpu_read64(gpu, REG_A6XX_CP_IB2_BASE),
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index b50c57f427b4..d85f2536551c 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -75,7 +75,7 @@ struct a6xx_gpu {
- 	struct drm_gem_object *preempt_smmu_bo[MSM_GPU_MAX_RINGS];
- 	void *preempt_smmu[MSM_GPU_MAX_RINGS];
- 	uint64_t preempt_smmu_iova[MSM_GPU_MAX_RINGS];
--	uint32_t last_seqno[MSM_GPU_MAX_RINGS];
-+	uint32_t last_seqno[MSM_GPU_MAX_RINGS + 1];
- 
- 	atomic_t preempt_state;
- 	spinlock_t eval_lock;
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 26ea8a28be47..45e7f8b72dc9 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -71,7 +71,8 @@ static struct msm_gem_submit *submit_create(struct drm_device *dev,
- 	submit->cmd = (void *)&submit->bos[nr_bos];
- 	submit->queue = queue;
- 	submit->pid = get_pid(task_pid(current));
--	submit->ring = gpu->rb[queue->ring_nr];
-+	submit->ring = queue->ring_nr == gpu->nr_rings ?
-+		gpu->lpac_rb : gpu->rb[queue->ring_nr];
- 	submit->fault_dumped = false;
- 
- 	/* Get a unique identifier for the submission for logging purposes */
-@@ -599,7 +600,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		goto out_post_unlock;
- 	}
- 
--	ring = gpu->rb[queue->ring_nr];
-+	ring = queue->ring_nr == gpu->nr_rings ?
-+		gpu->lpac_rb : gpu->rb[queue->ring_nr];
- 
- 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
- 		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
+ extern const struct adreno_gpulist a2xx_gpulist;
+ extern const struct adreno_gpulist a3xx_gpulist;
+ extern const struct adreno_gpulist a4xx_gpulist;
 diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index aa3d6ff456fd..4244d9324cda 100644
+index 4244d9324cda..f6927c797fa5 100644
 --- a/drivers/gpu/drm/msm/msm_gpu.c
 +++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -537,8 +537,8 @@ static void recover_worker(struct kthread_work *work)
- 	 * needs to happen after msm_rd_dump_submit() to ensure that the
- 	 * bo's referenced by the offending submit are still around.
- 	 */
--	for (i = 0; i < gpu->nr_rings; i++) {
--		struct msm_ringbuffer *ring = gpu->rb[i];
-+	for (i = 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
-+		struct msm_ringbuffer *ring = i < gpu->nr_rings ? gpu->rb[i] : gpu->lpac_rb;
- 
- 		uint32_t fence = ring->memptrs->fence;
- 
-@@ -561,8 +561,8 @@ static void recover_worker(struct kthread_work *work)
- 	 * Replay all remaining submits starting with highest priority
- 	 * ring
- 	 */
--	for (i = 0; i < gpu->nr_rings; i++) {
--		struct msm_ringbuffer *ring = gpu->rb[i];
-+	for (i = 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
-+		struct msm_ringbuffer *ring = i < gpu->nr_rings ? gpu->rb[i] : gpu->lpac_rb;
- 		unsigned long flags;
- 
- 		spin_lock_irqsave(&ring->submit_lock, flags);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 2f6a96e560b9..877f88ef90d9 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -491,9 +491,11 @@ struct msm_context {
- 	 * create at most one &drm_sched_entity per-process per-priority-
- 	 * level.
- 	 */
--	struct drm_sched_entity *entities[NR_SCHED_PRIORITIES * MSM_GPU_MAX_RINGS];
-+	struct drm_sched_entity *entities[NR_SCHED_PRIORITIES * (MSM_GPU_MAX_RINGS + 1)];
-+
- 	/**
- 	 * @ctx_mem:
-+	 *
- 	 * Total amount of memory of GEM buffers with handles attached for
- 	 * this context.
- 	 */
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index 1a5a77b28016..a0249430bd00 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -175,6 +175,7 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_context *ctx,
+@@ -889,6 +889,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		const char *name, struct msm_gpu_config *config)
+ {
  	struct msm_drm_private *priv = drm->dev_private;
- 	struct msm_gpu_submitqueue *queue;
- 	enum drm_sched_priority sched_prio;
-+	struct msm_ringbuffer *ring;
- 	unsigned ring_nr;
- 	int ret;
- 
-@@ -209,6 +210,16 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_context *ctx,
- 			return ret;
- 
- 		queue = kzalloc_obj(*queue);
-+
-+		if (flags & MSM_SUBMITQUEUE_LPAC) {
-+			ring_nr = priv->gpu->nr_rings;
-+			ring = priv->gpu->lpac_rb;
-+		} else {
-+			ring = priv->gpu->rb[ring_nr];
-+		}
-+
-+		if (!ring)
-+			return -EINVAL;
++	extern int enable_lpac;
+ 	int i, ret, nr_rings = config->nr_rings;
+ 	void *memptrs;
+ 	uint64_t memptrs_iova;
+@@ -1012,7 +1013,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		memptrs_iova += sizeof(struct msm_rbmemptrs);
  	}
  
- 	if (!queue)
-@@ -227,8 +238,7 @@ int msm_submitqueue_create(struct drm_device *drm, struct msm_context *ctx,
- 	} else {
- 		queue->ring_nr = ring_nr;
+-	if (config->has_lpac) {
++	if (config->has_lpac && enable_lpac != 0) {
+ 		gpu->lpac_rb = msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
  
--		queue->entity = get_sched_entity(ctx, priv->gpu->rb[ring_nr],
--						 ring_nr, sched_prio);
-+		queue->entity = get_sched_entity(ctx, ring, ring_nr, sched_prio);
- 	}
- 
- 	if (IS_ERR(queue->entity)) {
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 7f2e594be4eb..058228a56213 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -465,10 +465,12 @@ struct drm_msm_gem_madvise {
- 
- #define MSM_SUBMITQUEUE_ALLOW_PREEMPT	0x00000001
- #define MSM_SUBMITQUEUE_VM_BIND	0x00000002  /* virtual queue for VM_BIND ops */
-+#define MSM_SUBMITQUEUE_LPAC	0x00000004
- 
- #define MSM_SUBMITQUEUE_FLAGS		    ( \
- 		MSM_SUBMITQUEUE_ALLOW_PREEMPT | \
- 		MSM_SUBMITQUEUE_VM_BIND | \
-+		MSM_SUBMITQUEUE_LPAC | \
- 		0)
- 
- /*
+ 		if (IS_ERR(gpu->lpac_rb)) {
 
 -- 
 2.56.0
