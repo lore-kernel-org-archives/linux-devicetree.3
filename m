@@ -1,106 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262373;
-	b=MC0lb3tkPm6V1l0K4HOgcFK2/cKVyu1Pj2Xwv7J2VSTFZiTv7ghJiMrXoePYv6Fr68fn
-	 ErmZ0CY7m3csvL0HkIcD8BJBoAEeRESvd20F+ahLZDEao1LRMT9XKCY8kJLaD2SIx+R6R
-	 4WskYRldaSCLy3Vwmih61c0zZ+86i+gvrdrTtlUWOH5ybYc/1unert6qbXLm1sf1FugoS
-	 syW7p0Yn/Pr+THEYAnIK0gRdlaPAcog8rbZoCwAiju2nJ+1SxPYej+0vLdQAj32NXpRcR
-	 q33tR4jRC25v79yhTF+NZYznoAQyaNxmrabk7lpNpo+pgWctwDkwkT+lR20gEzL8EBw==
+	t=1793262601;
+	b=2ocC9gGOh6l9zONuaSowZ/l5yM4rslD//L8FQVz8ezxOWqBDeQq0BEXiSsygjWovRNuI
+	 QV1l1kais69GrUy+k0MiWMCiSNE1rx7rOg1JjgvLqOfQ8NQyscXnhcvN5Ba+1KbVnYiZS
+	 /Q/Kq5HJbsozMw2frylGAVDVtD+2Vxf23NHPyIGn3De8V2r+1q0Ezdl+/zJV/P9X2mn9C
+	 r4z3UFKrM3ob/z0wefDA4bcB0GBgBVnqeHDhOssOC8fygXjgjlYaUvBzN4g8i0aU7LbZ1
+	 DMdYrZXXB19E5mec5JP2uSq8zUdHe7vR3KPMSRWMMBXY3IlXJjXxTGGDVYH7PY3FNmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-	b=xPAgtBSNHU8qOA/wfWZiHehMDJAlywot+I+tcdnIuBxXe8d+VZankLbyOnV74AA1HJux
-	 zdtlLKyTQ+KAJ5pFFj/Sn8NjGl6HFA8TmHKUqhSFW3a45GUUzLjDmlX2JMuKACQf2a1pU
-	 ZUcZKFSmw/Q5alJERijyJbUUis3s/V8tOEvF4KFUAz/rIAyJMGECCsWQ6x6L9DMY9qadu
-	 PD0Hm3/m8LEzp8wbwFm7wYCesGVsmtP7BtbgyOF6NTK6NkKz1MBdxhPqY4tCFZxKC4C4Q
-	 M48C/mADdbl+B58CmizgfmelKij629dz3obIZgq4voh9lbEQoAcQlM2t0wkm96qJewA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262601;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JqG+lDYltlnao/ARBbfD/u5hrXSlDYp4BgLb7g8BjiY=;
+	b=HQxmUKZEjQZhxrSEv0jsbhwwCBAVbZZ0ZKKhIsLOwwPbh/P1SF9f/pZsMjKXRDtx/emK
+	 p8AdwDWLPHkLDU+g6MOVXLtK2TVLfZljDO5jenZR7LjakLEdHBPgXkavCpEd3mvLzArCk
+	 lIbeoL9kPRRxZtW1vb08bwe7qlPHgdv6zZv/KaJQaKW+506IehcjHCB2YhxjO3BSzUqzi
+	 /SXpl8bb1Kc1Eu2XWk8wkeDPWRdcW4uAd4G4CmcM8QJFRNrKt5hZU28UcKUwqCAGUEgq7
+	 eCQ9sbs7YuexC0HWh+8MePzTBF33lYZX5o+u7jm9zi03k1sCHQ6CHUmauxihQ9mSagA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYC+QuJl;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ie2qmN5B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EAD606A32C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19EAD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E11A606A32A;
+	Thu, 29 Oct 2026 08:30:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYC+QuJl
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d01548ac96so3749085ad.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 01:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793262372; x=1793867172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-        b=nYC+QuJlGPWv7gHT2s17wBR0beq6hdlI3uFQngjhSzA4kUtXpyQH3H1w1LU1fjtAnd
-         a7EnMLlvtgdTbH32vry4E/b1A/TjMXaV9Auxw1E/CI5SxiGYt7PW+FsvWMZ+wpnSYbXH
-         sCwIFZzB0N1wOxlhcdIMCWiyHWX+hjNxql5uYxr8Tg3O+/J7wiOUsLXUdMHHMXLDiWuc
-         XClWbpT3IaiUD/5WwB7xaR+Lsvcqh+NkQlkWOTO5cyFd8VuZWeylC8T6C3oV3jxs6fvK
-         P5aKzPO80GvF7W+dPBVq3P15hDb4slKQQw3DPisF72vTyN6CphiRZaKN8Jo3En4kYvpf
-         eRdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793262372; x=1793867172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-        b=qR6B9hyBRbjZLKKn9l/I/zB2JuRMxwT2N007pWvJY6fvWJjp5BLz2GoIKIT01PwV4a
-         ka3bNod2iQ1Dv8/BrNX6QBb+pMvlt2tsb0ZRgFGgmMDFjE8BdWHQth6tIhJ2IGaNVDe2
-         bLQcb96Pz9Cisz9c6gAbd9dQMNHYvc0nADKPJRXYwaWd+RfxtTyVIyrXpFkYjg99P6nN
-         keRqhWFtTi2qDfBjFScLE3dCCR+lMCFVvKE5m6pv3kgfvd+cRr8Fk/g6YrHN5jZS0MkE
-         nj/tpIoFzwBefxf8E2bOkwgRqvBcNiMAd07A2JmHIcRn6zfO2x9cpqroSbpsXlopOIgn
-         0gnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwgjcQp4/gBImE4/KlB5GOdrlVnjN2XpL4Eg+hiprXRHxuX5gxJObGexI4ugr8/Mgl4VzUyfA6LIJ1u@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdOUsXi1YQ6/5HcpcSwJIvi/2qu2nyrUmRv9+b+DyCHfSe7Pr/
-	SCcI4jneHJkXH+qGuSMv22Jt69cXLLJtGVebmo7pH77C6n64HGZHKhtbVupX8pJKoy0=
-X-Gm-Gg: AYBFou3/XHoNO9w5hPazzdniLjmE41KcE6/UfE/tVn3J2y1rf80n5oQxgyTtp3kCGIk
-	4lrGU9HuuwtPuHr1nYc0cu0wcpx3hMR1DNLIrKnHlS1TdPFPl27whVZ7A/+/I/g9MV3abGhqyIX
-	pq32wvjwbxW8D/DOZ10J7AB/iB11uaZu7XEBw2/fQhqi3tlKW+s2h+iaFhCJzOiL3N4wkr4AAVu
-	G0CtEI+iYUH/8ywfEMrBMgpd2o1BbNEnWUI4fgNp8iKcKnEqGfjZ9EKa4XaRG+ix+5FUW5N/1Un
-	HD3Wjkd3ObDUCY6qwGzl58FElt1r1Syb4UjhHm/cdVGPbWiX1ZMLaOdZP0/5ms0aEKy4xA81lOt
-	4dqWopbB4KRGhT9qMt2SvF6NMTeWJuw/1ev3Bwx2F36sAubKakENsoZu4RHtPsiRiSKx/5Htuwp
-	ceC7paKh1oxIvB1qktUzZy+BX2bTBRWhf2/RuZgIY+rkZ90cY6h7y9N9qVFK/9yAK+EFJCa9oFw
-	zznsnoPqDIfGCJOQigTBVslj1Ttdb9qa8my0e45m8fzGhDi2Xn3gTcePZwk+YUBoc6SrtcKccTz
-	eYFjhD+hGIST6eXYHcppDCDxpzwom5Zw
-X-Received: by 2002:a17:902:f545:b0:2e9:53b1:a3c8 with SMTP id d9443c01a7336-2eaffe75f83mr68645205ad.0.1793262372227;
-        Thu, 29 Oct 2026 01:26:12 -0700 (PDT)
-Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b7a216sm30031585ad.16.2026.10.29.01.26.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:26:11 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Amin Gattout <amin.gattout@gmail.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Add ArmSoM Sige7s board
-Date: Thu, 29 Oct 2026 16:25:21 +0800
-Message-ID: <20261029082541.469999-3-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029082541.469999-1-liujianfeng1994@gmail.com>
-References: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ie2qmN5B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44A71F01828;
+	Thu, 29 Oct 2026 08:29:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793262600;
+	bh=JqG+lDYltlnao/ARBbfD/u5hrXSlDYp4BgLb7g8BjiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ie2qmN5BLsWRHRXWQtNUeoQhAO7VCzoB+iQx5xm5/P85fbkbuJm/rXDVjLNABrKxZ
+	 kBMbwEbhNK42ftplmQwz8KF8kijVzYVvOba72hyox1YpRZSgEvIuKyu7LkuhLnbT1q
+	 7KqO5scIhOIpxNWXpoxTx0W6uHhZIH+3UUKzdDyOEwY9dP+qPz4Q7vD476UTlrZ4Jl
+	 0qJ7h35eRXscAqKEZqD+4rosLdev71DwSiZ6V0eZnPbGpryg4kp1HZy1LBbIWxyNUS
+	 3XUMoUuGkpxkNn6iN3Pizfx/YBi5brLizBqRS/G+U9r9SamN7T38R0EYjCxMXe3NIZ
+	 xnZiXk93yMj3Q==
+Date: Thu, 29 Oct 2026 09:29:56 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+	Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] dt-bindings: spi: add spi-virtio
+Message-ID: <20261029-enigmatic-honeybee-of-dignity-bee01f@quoll>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027-spi-virtio-bindings-v2-1-67927b24b9d4@valla.it>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,70 +62,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027-spi-virtio-bindings-v2-1-67927b24b9d4@valla.it>
 
-The ArmSoM Sige7s is a rebranded CoolPi 4B. ArmSoM purchased the original
-hardware design from CoolPi and confirmed that no hardware modifications
-were made for the Sige7s.
+On Tue, Oct 27, 2026 at 08:26:33AM +0100, Francesco Valla wrote:
+> Add bindings for spi-virtio based on virtio-device, allowing proper
+> validation of SPI controller nodes declared as children of virtio
+> transports (e.g.: virtio-mmio). Such nodes are not used to instantiate
+> devices, which are registered by the virtio transport, but to define
+> their properties and establish dependencies with other nodes.
+> 
+> The compatible follows what the virtio framework already searches for,
+> "2d" being the hexadecimal representation of the SPI controller device
+> ID defined by the virtio specification [1].
+> 
+> [1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+>  .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 47 insertions(+)
 
-Include the CoolPi 4B DTS directly and override only model and compatible.
-This preserves the Sige7s board identity without duplicating the hardware
-description or changing the existing CoolPi DTS. It also preserves that
-identity when a firmware-provided DTB is replaced by one shipped with the
-kernel.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add a comment explaining the relationship between the boards and register
-the new DTB in the Makefile.
+I guess everything should go via DT tree, but Francesco, please update
+the maintainers file if that's fine with Michael.
 
-Link: https://docs.armsom.org/armsom-sige7s
-Link: https://lore.kernel.org/r/2a1c33c9-8971-4054-a463-60f3ceddd627@cherry.de/
-
-Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
----
-
-Changes in v2:
-- Include the CoolPi DTS directly instead of extracting a common DTSI.
-- Explain the board identity requirement in the commit message and DTS comment.
-
- arch/arm64/boot/dts/rockchip/Makefile            |  1 +
- .../boot/dts/rockchip/rk3588s-armsom-sige7s.dts  | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 442d322a20cf7..c8a5a88a0e46a 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -231,6 +231,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-turing-rk1.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-vicharak-axon.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-vicharak-vaaman2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-youyeetoo-yy3588.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-armsom-sige7s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-coolpi-4b.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-evb1-v10.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-gameforce-ace.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts b/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-new file mode 100644
-index 0000000000000..c3282581b42d2
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * The ArmSoM Sige7s is a rebranded CoolPi 4B. ArmSoM acquired the original
-+ * hardware design and confirmed that it was not modified. Reuse the CoolPi
-+ * 4B description while keeping the Sige7s model and compatible to identify
-+ * the board under its marketed name.
-+ */
-+
-+/dts-v1/;
-+
-+#include "rk3588s-coolpi-4b.dts"
-+
-+/ {
-+	model = "ArmSoM Sige7s";
-+	compatible = "armsom,sige7s", "coolpi,pi-4b", "rockchip,rk3588s";
-+};
--- 
-2.47.3
+Best regards,
+Krzysztof
 
