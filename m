@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.161.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793240368;
-	b=oLFxnYlKWkIQceHRUzPYh6FxBLMUYdAuwK6IKGiGgKrdEJMdKY9xcTvyIfFgpp6d2wcD
-	 k3vfzIZ6ChV4uV29nb2D+mfxS4xXMIb9CUm5ANOO6BRA56h3no71mM/1Z27387nyAdCDr
-	 rse3ommKnjhmNOmwhJvmMPt5p9+0Avx6sYitT2oQrMufI5aurAjq5E0uEJM2/U+wflewJ
-	 uW7z72n4hKgqU0CwvQlwJzWE8tGoaiX6dM8mtAE6HHr+vL8ZuXso34Ucc+cfp9DCgAXj7
-	 nSsEkChJ/qC6tlSdVFzkMDrVKUYQ8NnqoiyQcEmFjB/yfex70hr6LCFWGVXU4hIzS9Q==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793240573;
+	b=nNfVsNWe8LOC7DTD1KAHTSYm5icD2RS/To3sMmr57PmXLyWhRGzs4p7pw+294kCWAfJ1
+	 eb14we4r4GMHr/aS02bXBBIe0fZv+SCJ0O07D1+7lQbgWn9EitPHV5thLgHR776cc7XxT
+	 9gmKsU/sWxOHmRZp7ZbxeKcAjCeAfeDZQhaNtsMBD/fJ0TuurYgG9ZvyRfRiZsjkOt03M
+	 UkGch7n7DAqEGeYuaf40vnmBtjPg36Hx5DEVhShvothUyp08+7641zPoLbPGHY8fWXP0c
+	 r2TsSGaqwcdWnvqArb+IsKi/94eu9IsdTmqRH7zuOF+jpJ9bA0a2hw0l4Ci/bNNAhIQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240573;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/LiOfXWRHjUDgLhmT1WvxPVPa3QavCe7SpY0favJ9tc=;
-	b=Znwjr/cFcnu/eRBWAlmzc4h2UC9//qpN9hvHWGzM/uZj4B0ZYwGICtlWjiDVUygHuTig
-	 NmzTq5jjhzqoDFpUBniKNdOrnzmWFh8t9cJEt3sRGii1oxsHJbHbCHdgqUlFnvTJCs0u2
-	 ENLYqLmW9Pr8/CFiS6YZmRouJG4RCM1+Vmgxcv5pDR2FxgYqTCJeOXsUI1hZ+CMfJOwdK
-	 M38Cvr/e5zfDPvZr19zmOG/SPRSxPOvwDFK6Y/2C3Ylwl7+ZCh4dyQ6llQzrDKYHuuCoF
-	 EFwxQM0b24NzBWiDSqLOrIbmcAQXGH3nhe4SXxiXDYrrd11ANixKy1uxW/JbSGNTw9A==
+	bh=j4WfMTamCRXHv/6Y8+jwIR5jjgxstSa69agWQosfIbg=;
+	b=L2+wAatP+noBbdXUiw3R3n5aP8m/lGgST2GVULMutWzQ9Td3wGUwVpuTGwAwB4rFC3qI
+	 Rwvb3phmnTGFVq8yDJoD1PKYJ7S4dzyz+jCDltKtzCd/ineBM77p9fkRZ+2k0ioiMlaUE
+	 Ac0i2YQifRe96QEu0+oG3FaMsaG/SuZ8aPlPTmc3+ksTT0Up3gmH8bCxqfsNv0attq1eh
+	 6CgFu0BjueuTl+OLW669575aZ1OX0pWAQJe56Qx/WxPyxPq4Mmex4DcUA6f50bRH0tJIC
+	 jD9cmoQKUylqN2NpUqiVJwldmyJIYlj29IO1eeoXYu9B3ziu5MvdsjVWMvRVsKG372Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j84zXx65;
-	arc=fail smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qmyf5Jt+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB732606A31D
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB732606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB06606A31D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:22:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB06606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j84zXx65
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6deb848ddd7so1284026eaf.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:19:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793240366; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qmyf5Jt+
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-70059e4dab6so1097327eaf.3
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 19:22:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793240567; cv=none;
         d=google.com; s=arc-20260327;
-        b=Rx0uqZtVpya5Axs8FLt9O5R/7kLvwy7CeHAKMZau5C4NPMzuU3dAlb8Suzfs7UNVdz
-         1YkjLYuYswIEexzcocpVKZGQ6F4LwparSqvvf+OhF60zC+xB2cQmOM2CsZFMU2gr+RdG
-         RTJWHk7jcqNzm15orBFT5Eck4HUh0G31IoIt9C8TCfRC27mdu+qXKa/RwqVOaB2IhTYf
-         1F/UBllQaTyWWjLph5BVZT/axB2xeMQstO9wH6LLV8wwp4oZ3yD3nW7K6XJ8J27/MZAa
-         XLy+0ut3Wcjl4Wk3uje9bYF9IGVW76Ib+2grJosNpNsozjypF4n+PBi2iCA9vLSCcmEX
-         cHpQ==
+        b=cj0jo6CJErPOpvv3ujaSiE0j7qpgRSP4iPgQ6W4919u2yKgZxKW6AhBXALRC6Nw8QM
+         nBj0AKo9Wznw0httxTw6pDh0mieXiQO15LWviIPQyJpnLO9rwqNAM9ERV9Y3oyGahHgm
+         2gP6mDyD6vdIb8GTxRLGjy85hkFEOuxbp7q6APggV2R78ae0lORYe19Zv4RvIS4pi/HQ
+         iGNKk8Eu0lWgh3Q55gurtx0rU9knRjIlcFSYjX5VUnTjm1/NT5hY3tqhNVt9yeBdSeOS
+         Ro0lINJrYnGrtiB6yjhiXWYo1utd7E5n0v8Nzkb4Fz2Qgazhq4raY1ESwP4srBwuthLy
+         taWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=/LiOfXWRHjUDgLhmT1WvxPVPa3QavCe7SpY0favJ9tc=;
-        fh=hKx5DoB/A2DTEYmvA9rxk8idZkNovZvJIKvQcQEquk0=;
-        b=c+VlAv9aw7nU1C+Z50uvx4wwhJSAiv59kqbpwLfX/XiFZT7s9h/UxMn3fVS+JwmLcU
-         E4SXLE0J4ZjecH8qyruhm0Sup3ggSvfjd5j8XPbH3dplfcRNuaAobjNsj3LNKPvqKIFi
-         1US38qFaVbpJdzFBdbDWLHI7L7CK9h/8nam8Eb9PwVCOTViqger0aanUGjwShYFJdggZ
-         mG/tgcVxgdUAbLgq5LUYSPaglOA7feTpOI6T0uJUajNc8r/CLxynjeTMx0BIPO2ck30Y
-         RSP9WVtlDyWeGo9Asicij+nm0hDbZ7jnDeVh9V1f+hUAIM8c3XjppTrt6XrGXUkqWzTb
-         lK0Q==;
+        bh=j4WfMTamCRXHv/6Y8+jwIR5jjgxstSa69agWQosfIbg=;
+        fh=iAfDgEQDrsrVa7n18UjaalyWanuAMx43Rh8Su/omO3g=;
+        b=VO43v5Av+bS+oV/I+5Wg4gFtqon2x8gQ0N6DXTW0O35GDRiI+ehVKIjT7sAvU8cpsZ
+         Km6YxFm8BUXCnHV7NDms+WpwC54dLQKyUrUUGUINmsq2oG4j78PkKiV0VU6mVCK/6Vuv
+         izb5bMjE75rY9PZx8RHj4xyCi3VJdeqWfWdKvripGMjAybFNvFY/SPUm4iYFTGeEtzO9
+         mBpWBKuBZfWNac7aSIVw9LHzGDQ7R4CLFv4TextGUK928qDtTBU0aTO2Uki12TYPsWH2
+         9V0CugAm4EottdvzlwORD87jhRDIygZFNcznz0doVQ+Zl1ZAlP/mZfWrR41h/L8VyMuW
+         Q5aA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793240366; x=1793845166; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793240567; x=1793845367; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/LiOfXWRHjUDgLhmT1WvxPVPa3QavCe7SpY0favJ9tc=;
-        b=j84zXx659Vk9rM2x6lrM1tdsePSk4pdpzHRtnrW1nXb4Nsb4f7ZH87bcfqhCY0I1Ne
-         D5vfvn9+fFjEbF1mzik6+c67LlccrlaFqbNdBSpyBSYb2Lp0r1589MY6K3Qvdjqe6WHp
-         m1nFcJnmYiEBGfFcilJAEiEf2A4iXA5tLq4jGeCTqGDQuyISFoshfXRIXc8R4Q7Fhd+4
-         6zYo30I4UmDIOjjo2NWg6t5zYYPkQ7WMO7WG9cU5+0+qygmSOSiz6jrX5wzsPAMXeJc9
-         Ikam7P+XLUbKSvg2ZS90r3yBhYe8G+O2Ythgs/fAmJ9uArlV4Pu7evCxpAAwkJBqElYu
-         NHtg==
+        bh=j4WfMTamCRXHv/6Y8+jwIR5jjgxstSa69agWQosfIbg=;
+        b=qmyf5Jt+Ed+8erZTIMBU8TuCQh3D2NzH5HVjNrR2j/MFpaoN3IGVfoACJiUjUHMjb/
+         lFR8+WFwLe0CXdQXa/o0qlcSwCYmOmul2OW7qv5Fyp0d5twPeruOqTJp87ZyLFwWu03V
+         aaQxGAM2DUjtppw/xL5P7oISaWVHa+H+oVtjg1Qmu84nz8uY8gAA2Af3Ucve5FKD4PPB
+         tfAKUJfn06RuAOZ3E6CWTcIq8tnssyh0C8Em7zGntuVxBb7lLV3NdSlDyI7g0edtr8ra
+         AKp7JqKhozgBFOIhF2TTJXF6W59ghl5TVfxLl1XRy0Cid1wYWsLR+hX9LRp1UxkcjO1i
+         ZtLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793240366; x=1793845166;
+        d=1e100.net; s=20260707; t=1793240567; x=1793845367;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=/LiOfXWRHjUDgLhmT1WvxPVPa3QavCe7SpY0favJ9tc=;
-        b=ZiBj0iIANdU2yZI5HpvKUzjX1SU/pFUZ8s0JKZE/0wXcizPePpawVcCGWym6YuMOLN
-         oWMkaiIVEd47c+PTexD5FVsKhocI9ivu9rZWqXycmCbwmqjSZIAqPEtIZwPRAcY1svCL
-         K/mHKCDfCzDdieUhWI0ewPNExM+SErfZ+HqvDXTDfJ9b4PJ9BmUmZnbPtDXEY6ZlHg/e
-         4roERHYuk3h98fNayQ4D6adZ9OAw/o/HXQIwFeryZEr44+ilnk5ykFvoJ9IgDQvyX0gt
-         lXrpLS8++ThiThe/Fs15eYRsXmymc+t4YGqVvVXbA/9cngAnuYM0MNcKDrFK0B9YgQu/
-         YeAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYLdwJ095JvKd8d8oaL8nDt0+DcOTTe64rSSZk4+ALdho4vOcxcVBQA6oq6UgfoKl6e9pEZMAR8qyO@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYKQQ4/rIxR1tz4hkY3jNK+TWSbZ08yvQR0VC8568L7xJCyB0V
-	Af76aQJonOUD+CraanthPfibA/KWutbPeM4iWq0vUxlLuLa8wqVNZs6ZRH+waaGnVOcmj/+YGHo
-	GfTKdY8oGVkp6ebKpiaS4e/RtlQB6frk=
-X-Gm-Gg: AYBFou1IofSkJ0FbDxvnnqt51N216oV6nI2jGhl2vbCVZi+6s1mlkRnKQYpG8/ofcut
-	P+ve5BuJsFrpMQNsUe9G+FAD+dzqgZdPTrFaAS0y69Mh/M5Eo0DsJ38oa6wJra7yfGTk/Cav75m
-	QAXRCiat/e0kl3osNlKZmLhrUnkgVotl5hGByb708kepnaZP0loEsUgVwXr8xUR69Rd4ASN/+xv
-	p8cSelwQKOOq1ec9huba/ZmjQ5NSk9IXy37qE46GPidlR6EUE+TJAfeeWDvM4uJDuljkPc+YcD+
-	iSM3GI+JgB4KUAPckc5tJE1gDyokHP5aw9Oj2Ge4TTXjM0Fkz2Y0xyoN6GjTcB9K4qIVp8BMLkG
-	dovHSwG5CrUDRH2iMTWu5/eILGBIzKYn3K2yrtmP9PhgbTuTPQqKg9xYp14z7J/oIYCAMaDytvx
-	2leD6CGyB4svPILzTg2nQadIqgoJM=
-X-Received: by 2002:a05:6820:1501:b0:6df:2b6e:d57a with SMTP id
- 006d021491bc7-713f04d5ab3mr2650404eaf.76.1793240366413; Wed, 28 Oct 2026
- 19:19:26 -0700 (PDT)
+        bh=j4WfMTamCRXHv/6Y8+jwIR5jjgxstSa69agWQosfIbg=;
+        b=GSAqz6QXzxQXG9OJmFD/1bx7rFMKB4fBsjeTDpA6WzNjbLOKenfdvOM3gI+uBPeQ3P
+         3RKdEUYP5kLpxIudvbqY0LELqzfZgbfiFQHabgsrQ3WA33SdN+UX06ZKh2QaqKvHY8wn
+         iJnuqjXSt9dz1irXeiLCL5b8KYB8WtRTc0f2RqprxlhHyVvNTRZTgbyEzqiWuUhGGzUK
+         fF6v8bZikn3Ry5XpaThvZNAvyxDkyckBKgzVN3epQjoTwG0AvGduhXGTS5FZOrDl+u7k
+         i3SZLH1Cp0AFIZjNOyNhFV+z++/S3/fZ2hPDnpWCjuqvT6aZ/QVkwR75ScZWwN5IKaOH
+         o9vw==
+X-Forwarded-Encrypted: i=1; AKwUvByqgygvb+bvQybpAAPOV7gYM9SMhA9BiOP9UEh19VYHswphxc/ZzvY07DAa/kLBTcm0aZ1lU7+oSgdY@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcI8HrQ29WH29Fi9NO/ryFApY1vHoLjNcBAuqxKVZq4D665k+9
+	4XKdhOtOs4lF2OCdttgPx6tlEeh/ctj8u9G726JNLDaBu/kmVu/SEUKY9yBGCYH85gRtOO/jk0+
+	B89PZ4NsO2sWdG2gSWzpdU9X+4voWNGE=
+X-Gm-Gg: AYBFou21KRuLycP+vJx4zOr6jiY3709UGE88NMeGErJ59Cwu/FaLINlBrlJNtwy24Ew
+	P9pWRBV2Rh59Kao+MJy4PMmEik1MBieUveQ/RN5rbkZI913psNJOFsaXgfj5QKxGJwXma4GJDgW
+	HXwv8r8d6YJfBSu3p7WTLUkfVcndVA4AiomQVvP1ZF6X9KrE0bdtrlKflrBWSO6Xg8816hIZLfc
+	Sgx50bMXze4wj5dp3ZSK6g/wskrom8e5OFrfypg/YdYzRAl6KaHq9TU82QhOQYdVRBIYVHcMpCQ
+	6rMBEeaiKmDNA2mTi/+hAT9U4JX1Z0y6MlldQ6J3V35PLxxzdpcOpy4UlV5DkFDiH2boHWdtav+
+	BxBEG6c/0MoeOVw1FA9k5NghS3auGbtF1/pZS0xLhjO4qVc7G1bH98DnZvrYgIu2uUs044A7HKW
+	RqMfJVTd7svkPKmOCB9vFe0DOCrAY=
+X-Received: by 2002:a05:6820:c2d3:20b0:703:fee:9506 with SMTP id
+ 006d021491bc7-713f217c0c9mr1834612eaf.82.1793240566951; Wed, 28 Oct 2026
+ 19:22:46 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,44 +104,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com> <20261020-tf-luna-v1-3-53a88f93db24@gmail.com>
- <20261020092316.00003339@gmail.com> <atcbe2O6REJqok2n@ashevche-desk.local>
-In-Reply-To: <atcbe2O6REJqok2n@ashevche-desk.local>
+References: <20261020-tf-luna-v1-0-53a88f93db24@gmail.com> <20261020-tf-luna-v1-2-53a88f93db24@gmail.com>
+ <20261020-formidable-aardvark-of-biology-cffcc9@quoll>
+In-Reply-To: <20261020-formidable-aardvark-of-biology-cffcc9@quoll>
 From: Vidhu Sarwal <vidhu.linux@gmail.com>
-Date: Thu, 29 Oct 2026 07:49:15 +0530
-X-Gm-Features: AclHuK-sDGs78YBOmA5Mf81isBK3M5HnFRdgXc0AbERqvLh0UlNiIFbXRQ4I_GQ
-Message-ID: <CAFqz8L+fCc19aaUhs6k0a47y=oxhiM9PSgjMgjY0JYH8HN5wKA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>, 
-	Vidhu Sarwal via B4 Relay <devnull+vidhu.linux.gmail.com@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+Date: Thu, 29 Oct 2026 07:52:35 +0530
+X-Gm-Features: AclHuK-_y3DzB2l4MCckdRo6yujg-QNDJMup39akDFJc-hodLNFx5tyWp7l8yc4
+Message-ID: <CAFqz8LLzi=mY01Lyjzmt71yzae=8C3-O9zMG0739jH2Dac1=2w@mail.gmail.com>
+Subject: Re: [PATCH 2/3] dt-bindings: iio: proximity: Add Benewake TF-Luna
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
 	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 10:42:51AM +0300, Andy Shevchenko wrote:
-> > > +static const struct regmap_config tf_luna_regmap_config = {
-> > > +       .reg_bits = 8,
-> > > +       .val_bits = 8,
-> > > +       .max_register = TF_LUNA_REG_SIGNATURE + 3,
->
-> No cache?
+On Tue, Oct 20, 2026 at 10:38:00AM +0200, Krzysztof Kozlowski wrote:
+> Binding should in general cover both interfaces. You will not get
+> different compatible for UART. Incompatible changes won't be accepted,
+> either.
 
-Hi Andy,
+Hi Krzysztof,
 
-The only configuration register the driver writes to is MODE, once
-during probe. The other write is only a one shot trigger, and the
-registers read afterwards contain measurement data that keeps
-changing. also need to read MODE back from hardware since the sensor
-can silently ignore writes that come too quickly. I was planning to
-add caching later along with runtime PM to restore MODE , but I can
-add it in v2 if you think its better added now.
-
-I'll also address the other comments from you, Joshua and Jonathan
-in v2.
+Thanks, In v2 I'll extend the binding to describe the UART interface
+as well. The driver stays I2C-only for now.
 
 Thanks,
 Vidhu
