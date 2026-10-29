@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282540;
-	b=fZLjVvYWN9Dvq3hiUwjdfN1UojW8PjJ5D6LhVibViK8/Je6XTqx9iy6PZsPoT2NgbQHP
-	 RL2gojS8/H5sfRCDqVmkgG0hHgdF8Cbhkx4N5itK7edfp1O3MJXV6HXOyHsaWGir4ionh
-	 Po5+2QdIqiMvT1PdBg/DvOa35IVG4CtdzQZfT5YOV7Qq0QkdRPTp2qvEc2mSv9+dxtTJW
-	 J6urMhNbsZ8lGdxcdGYmd2W/I+qChjOKgo89mTA3imbQ3rI+qY/vaVlPl/ZXuAMuXQa44
-	 1ucPfixgwp8ZQgfEuPyxpAdd9JZ4bqQqUpHh5FadDPYssXCW+IbXmP9GnDuRffdHfSA==
+	t=1793282916;
+	b=mMQ+XWi8zc7sPOIR0a+w1HsgMSagDPmdomCNLGErzAk2tAwjjZgzGf/QAGuDmR6VbB8a
+	 QXz62qjlk86IiOxZoK3neTp8shG6r6hhqqmJ7QKiNutojyGJDubNaC9JaxrMaAQSx6qHd
+	 p/i/ibasA7BM8yz2cydjahlEQ0i6DXOaTbxGvj2lR4czU1Vi/4wp7Y7K9kHK8OqwpLQ+I
+	 ovWjnfU+n8atfuzxC/BiVelgd+M0kxhMOyEjEg1ifX9uzDY84Pvpedu+FUg/wVyljpi0G
+	 GvejYf6vJWGVZm9h6eP50p1BQtEW6Ez0F86P/P7q94dJgP5teVJ0nwsNbBFF3xBZJhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282916;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HspYwDU9CzG3EZ2ACvXbU+wlxAv0lvQqvHSOq7AMHzE=;
-	b=OT/lheKpYQHJH/03I8DZx6rE852Uz4zxqNy1EHyZqPp3luWqNIbzZuCeqqcr4TcErwon
-	 eax/ae/Mo08Vy9susLsltpRRwe/tjb6hFDzYCvygZQtlx9MTP0OtwErTEmfxh+N4sUd8I
-	 a+iPJsa/HRGUvy9wO7TjVzwEf276vLYDvqTdwR0AcndOCRuxVpde18e9mAQSHZdq71Sv6
-	 6UnWHQm6FH/9IOVmBMkj+V7obzD3f5Tl4uvnztn4UABoVn/kVbkJ9D43MUg3LuU9F42Ae
-	 Q4fusxRHM4Hn5tFZhiFiMizAdXPzwpstKxE8KsySYQ7smF8nfWyR3afitUkLT4TNkPw==
+	bh=FLBXHlCEs2kPIfWpcXVMdhfJTkUxBWWwKgf1Y8KgijQ=;
+	b=o+sKscN0mSXUJB59gvgm7TpwcIHyARZJcpa3LMvIcHtnbFU1AKtHDrakP6qgz/MHmCaN
+	 CrGlFrhRpxUpaTuCzlnBcT/DB2n+0G85xX/M2fHUly9ep+VkvZ5zRzp+PQzYyhk+ytXM5
+	 KnMOvh5focfGknRpOj6kQTK4bA43HonMtpGJXvv68tqrLR2wL+AxQ7A9l1eBs1lcCG0Tm
+	 eEPOsHFOw5RYuP6EJGfsfdbr/8Qg4Jr2me2entSXaK7ewyZsjSb1YicsNJpE7EOszGvd+
+	 xsZxWHXawyidDL7osorV17iuw3fMHQhfv33FcEB5mJWI+5m694QYd+niVU8KD7uu3LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDZFrNSC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAIa0M1o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E9E606A332
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112DB606A31C
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:08:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDZFrNSC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBF31F031E9;
-	Thu, 29 Oct 2026 14:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAIa0M1o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E3E1F01825;
+	Thu, 29 Oct 2026 14:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793282539;
-	bh=HspYwDU9CzG3EZ2ACvXbU+wlxAv0lvQqvHSOq7AMHzE=;
+	s=k20260515; t=1793282914;
+	bh=FLBXHlCEs2kPIfWpcXVMdhfJTkUxBWWwKgf1Y8KgijQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EDZFrNSCuUsOJh4rDNCB+uVTpT3ruy0XHLC2DF4c/LbqesqB/50hIA6bA4hd6HiIf
-	 2AakvXPyoDi1qrvBpbvK7CF8Jr7KEyfs+vEkP7FbNMwkdbWfoJU/fbm5+2P4DGsl17
-	 tYuyCPHJn1grgEFmlZK+8UkZjxsMi3/LOFrUEyPEVUBhAFGPmbnN3/VZpRR4zPpmg6
-	 xjqVlBwmAGt2/UjWTi5YRSS3X3LY6xA7I0R5x1LD8J9lle7ILuc4q62pnOohJCurlL
-	 qlT3/7WfhnhqKsdnJzL7k0DfNWn9bE+5hdLlZzJI4zJHaxAsFhoNkiCcZuQgdtz/Ee
-	 VSWgpjs53rGQw==
-Message-ID: <sashiko-outbox-189462@kernel.org>
+	b=NAIa0M1oz5PurvDw4lZZMxKdkCSCWJubNZvfLN6XSS26BwnnDzneXzvyjxUk05M4h
+	 Jlbmo+vKZZBEYqVsEOoztMJpHbsCd2iwrH9eyh5t1ZdudpABGD1b6Fc6ueRh0Wl02E
+	 H9wKy0JoCL2mBlyFsu8tWQhpMAJ7itYMDAZm/xUQFOtppP+lnpBFGHlpLYBhLreQeJ
+	 SqcOIudIMesjhQqeHXz051q4YTdZFWPMGZ2esC0YgUGma01Cig78U93oZzbdBoZmhR
+	 HwV0A7gwVF+FoUr7ovNydmWCO5vRgr7Ll2cUTDiBcndpNrY1g6ROWBjXKNj/pYiuHQ
+	 0RfZtNeRsIKuA==
+Message-ID: <sashiko-outbox-189478@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: Add PMIC thermal support for
- Agatti QRB2210-RB1 platform
+Subject: Re: [PATCH RFC v2 05/14] firmware: qcom: scm: Configure LPAC
+ aperture
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Raj Aryan" <raj.aryan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-pm4125-adc-thermal-v2-1-8f405d9dac96@oss.qualcomm.com>
-References: <20261029-pm4125-adc-thermal-v2-1-8f405d9dac96@oss.qualcomm.com>
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:02:18 +0000
+Date: Thu, 29 Oct 2026 14:08:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,147 +61,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] arm64: dts: qcom: missing polling-delay on qrb2210-rb1 ADC thermal=
- zones
+- [High] drm/msm/adreno: missing lpac_pdev check in adreno_hw_init()
+- [Low] firmware: qcom: scm: broken mask macro and unmasked context_bank ar=
+gument
 --
 
-commit 38fb45777755ec6c570eb782acfb19540ef209d8
-Author: Raj Aryan <raj.aryan@oss.qualcomm.com>
+commit ea6cfd100e49bc2229349870a3f6d5f6dfcedd94
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-arm64: dts: qcom: Add PMIC thermal support for Agatti QRB2210-RB1 platform
+firmware: qcom: scm: Configure LPAC aperture
 
-This commit adds PM4125 ADC channels, generic-adc-thermal bridge nodes, and
-thermal zones for the msm, quiet, and xo thermistors on the Agatti
-QRB2210-RB1 platform.
+This commit adds qcom_scm_set_gpu_smmu_lpac_aperture() to configure the
+SMMU LPAC aperture via SCM and calls it from adreno_hw_init() when
+ADRENO_QUIRK_LPAC is set.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts b/arch/arm64/boot/d=
-ts/qcom/qrb2210-rb1.dts
-> index bf6fb12ad9906..17bc2b984c75f 100644
-> --- a/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
-> +++ b/arch/arm64/boot/dts/qcom/qrb2210-rb1.dts
-
-[ ... ]
-
-> @@ -33,6 +34,68 @@ clk40m: can-clk {
->  		};
->  	};
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> index 9b06a69d3a6d7..92093399f20d9 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -1204,6 +1204,7 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spa=
+re)
+>  EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
 > =20
-> +	msm_therm_bridge: msm-therm-bridge {
-> +		compatible =3D "generic-adc-thermal";
-> +		io-channels =3D <&pm4125_adc ADC5_AMUX_THM3_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +		#thermal-sensor-cells =3D <0>;
+>  #define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
+> +#define QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK	GENMASK(7, 1)
+> =20
+>  bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
+>  {
+> @@ -1229,6 +1230,23 @@ int qcom_scm_set_gpu_smmu_aperture(unsigned int co=
+ntext_bank)
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
+> =20
+> +int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank)
+> +{
+> +	struct qcom_scm_desc desc =3D {
+> +		.svc =3D QCOM_SCM_SVC_MP,
+> +		.cmd =3D QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
+> +		.arginfo =3D QCOM_SCM_ARGS(4),
+> +		.args[0] =3D 0xffff0000 | (1 << 8 | context_bank),
+> +		.args[1] =3D 0xffffffff,
+> +		.args[2] =3D 0xffffffff,
+> +		.args[3] =3D 0xffffffff,
+> +		.owner =3D ARM_SMCCC_OWNER_SIP
 > +	};
 > +
-> +	quiet_therm_bridge: quiet-therm-bridge {
-> +		compatible =3D "generic-adc-thermal";
-> +		io-channels =3D <&pm4125_adc ADC5_AMUX_THM2_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +		#thermal-sensor-cells =3D <0>;
-> +	};
-> +
-> +	xo_therm_bridge: xo-therm-bridge {
-> +		compatible =3D "generic-adc-thermal";
-> +		io-channels =3D <&pm4125_adc ADC5_XO_THERM_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +		#thermal-sensor-cells =3D <0>;
-> +	};
-> +
-> +	thermal-zones {
-> +		msm-thermal {
-> +			polling-delay-passive =3D <2000>;
-> +			thermal-sensors =3D <&msm_therm_bridge>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <80000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-> +			};
-> +		};
-> +
-> +		quiet-thermal {
-> +			polling-delay-passive =3D <2000>;
-> +			thermal-sensors =3D <&quiet_therm_bridge>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <80000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-> +			};
-> +		};
-> +
-> +		xo-thermal {
-> +			polling-delay-passive =3D <2000>;
-> +			thermal-sensors =3D <&xo_therm_bridge>;
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <80000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-> +			};
-> +		};
-> +	};
+> +	return qcom_scm_call(__scm->dev, &desc, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_lpac_aperture);
+
+[Severity: Low]
+Should QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK be dropped or defined as BIT(8),
+and should context_bank be masked with FIELD_PREP() in
+qcom_scm_set_gpu_smmu_lpac_aperture()?
+
+Currently QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK is defined as GENMASK(7, 1)
+and never used, while qcom_scm_set_gpu_smmu_aperture() masks context_bank
+into bits 7:0:
+
+drivers/firmware/qcom/qcom_scm.c:qcom_scm_set_gpu_smmu_aperture() {
+	...
+	.args[0] =3D 0xffff0000 | FIELD_PREP(QCOM_SCM_CP_APERTURE_CONTEXT_MASK, co=
+ntext_bank),
+	...
+}
+
+In qcom_scm_set_gpu_smmu_lpac_aperture(), ORing an unmasked context_bank
+with (1 << 8) could clobber bit 8 or upper bits of args[0] if a caller
+passes a value larger than 0xff.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 1dedeb19946ec..65d34d0cfc380 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -658,6 +658,7 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm=
+_gpu *gpu,
+>  int adreno_hw_init(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> +	const struct adreno_info *info =3D adreno_gpu->info;
+>  	int ret;
+> =20
+>  	VERB("%s", gpu->name);
+> @@ -668,6 +669,11 @@ int adreno_hw_init(struct msm_gpu *gpu)
+>  		ret =3D qcom_scm_set_gpu_smmu_aperture(0);
+>  		if (ret)
+>  			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret=
+);
+> +		if (info->quirks & ADRENO_QUIRK_LPAC) {
+> +			ret =3D qcom_scm_set_gpu_smmu_lpac_aperture(1);
+> +			if (ret)
+> +				DRM_DEV_ERROR(gpu->dev->dev, "unable to set lpac SMMU aperture: %d\n=
+", ret);
+> +		}
+>  	}
 
 [Severity: High]
-Will the msm-thermal, quiet-thermal, and xo-thermal zones ever be polled at
-runtime without a polling-delay property?
+Does adreno_hw_init() also need to check gpu->lpac_pdev before calling
+qcom_scm_set_gpu_smmu_lpac_aperture(1)?
 
-Each zone is bound to a generic-adc-thermal bridge node, and gadc_thermal_o=
-ps
-in drivers/thermal/thermal-generic-adc.c only provides .get_temp without
-.set_trips or interrupt-driven trip support:
+In adreno_gpu_init(), gpu->lpac_pdev is only populated when the device tree
+contains a qcom,lpac child node:
 
-drivers/thermal/thermal-generic-adc.c:
-static const struct thermal_zone_device_ops gadc_thermal_ops =3D {
-	.get_temp =3D gadc_thermal_get_temp,
-};
-
-When thermal_of_zone_register() calls thermal_of_monitor_init() in
-drivers/thermal/thermal_of.c, omitting polling-delay sets *delay to 0
-(leaving tz->polling_delay_jiffies =3D 0):
-
-drivers/thermal/thermal_of.c:thermal_of_monitor_init() {
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_init() {
 	...
-	ret =3D of_property_read_u32(np, "polling-delay", delay);
-	if (ret =3D=3D -EINVAL) {
-		*delay =3D 0;
-	}
+	lpac_node =3D of_get_compatible_child(pdev->dev.of_node, "qcom,lpac");
+	if (lpac_node)
+		gpu->lpac_pdev =3D of_find_device_by_node(lpac_node);
 	...
 }
 
-In monitor_thermal_zone() in drivers/thermal/thermal_core.c, periodic polli=
-ng
-is only scheduled if tz->passive > 0 or tz->polling_delay_jiffies is
-non-zero:
+And adreno_iommu_create_vm() only creates the separate LPAC IOMMU domain
+(which allocates SMMU context bank 1) when gpu->lpac_pdev is non-NULL:
 
-drivers/thermal/thermal_core.c:monitor_thermal_zone() {
-	if (tz->passive > 0 && tz->passive_delay_jiffies)
-		thermal_zone_device_set_polling(tz, tz->passive_delay_jiffies);
-	else if (tz->polling_delay_jiffies)
-		thermal_zone_device_set_polling(tz, tz->polling_delay_jiffies);
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_iommu_create_vm() {
+	...
+	mmu =3D msm_iommu_gpu_new(&pdev->dev,
+				gpu->lpac_pdev ? &gpu->lpac_pdev->dev : NULL,
+				gpu, quirks);
+	...
 }
 
-Because these three thermal zones only define trips with type =3D "hot" and=
- no
-passive trips, tz->passive remains 0 and polling-delay-passive is never
-activated. As a result, after the initial registration check, tz->poll_queue
-is never queued and the active-config0 hot trips at 80000 mC cannot be
-detected.
-
-Should these thermal zones define polling-delay (or set polling-delay-passi=
-ve
-to <0> and use polling-delay =3D <2000>) so the ADC channels are periodical=
-ly
-sampled?
+When booting a GPU with ADRENO_QUIRK_LPAC on an existing DTB that does not
+have the qcom,lpac child node, gpu->lpac_pdev is NULL and context bank 1 is
+never allocated. Won't calling qcom_scm_set_gpu_smmu_lpac_aperture(1)
+unconditionally on ADRENO_QUIRK_LPAC configure the LPAC aperture to an
+unallocated context bank?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-pm4125-adc=
--thermal-v2-1-8f405d9dac96@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D5
