@@ -1,54 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793314131;
-	b=iF80jKNQ1El03CqPk1+wnT1xl9YE0aGPWifprnpvDDraGxCcdpkdkbsr7gWvFoTQN1Az
-	 GV9HtaHehDmm5fN+3kJk6eeiQAiFE/T2XrxPdN95nq84NuG3YI9TXSzzMxAA8xN0rGoy2
-	 39E8QtyzRMphPG+8jMzNkZQ1zXlPr+eM/rJ6cToFl0d5vFIluw3woQx/LrH5+hknRrXZb
-	 IKynE59uWa6RwcJmnCnpcxG5nOctoct+SrxbEfmsZfD5JGJdm5+Y3VAmgtcxWN7pDe2ac
-	 2izHkRIPzIJJqYQpIEXtx/cmjZjhhceI/e69vBLTmgv5AHUpJEoANHKxdd9G8aC5aDA==
+	t=1793315207;
+	b=lyPTcsgF6oxda9W1bDfZ2fXZmvWfmyztoZOtX/KgBSIazzUnHoPX8/I78ogtz0txY4K+
+	 LnhhjYbaNLNepNJWybdjd9X85bOw6XRt8QkCucNxihL5jJzDtmiWjv1tNtLkfeQC85QSG
+	 GQ2w+Gw1ZKKMYnz1VyTIb+AXNTAHat8eEuaCk0przmtMiN39oi8hNrsWKb9zIQsTVfPuo
+	 f2v0dvXTSm10cquKpOQfyv738CuJF0qFpe48N9fNdKihciY10CChy07RyMJcNKTw6DnBX
+	 N9fKVnpipfvEoAxsGNDxE3IvEsXCnLyN9aJg8O5VnlM2uTLPaKAfXdUrGnssEbfKQrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793314131;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/7wmfqpqBqHZu2/Loju2AE5ZUskXeCIDwEQSBEfIOLM=;
-	b=rnRYny/sA/sBu7fhwrJwpxrqjTmaAtOs6ZTDh+1uvYBStYnnR62IJv/3l9NQdcG18Khq
-	 y18OW1mzchAh5dzzZas6BgSmGkMqBxqx/hNXm7d57Ac1y99Ct9j0HnLuSMV23GZ18IyiR
-	 L3Bd624jJf52oGK5PmYJ8bNas8xFfmpFVLASAi1ESUKtGF2neSXACuyQey4EoiIKMbNXE
-	 TI1O01Xfr4xFEADM3fF1gq9BXeoYLRm4e52FttEdXORNQQELFs2azQcBY+dqD5TUWBsSI
-	 CPI1Wk+4czxsOnRnDqEVO2yzLMpwLhyq8cfIJmvZKxHPJ6PFphTPOzSdKs7c9E1bjEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793315207;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xy2U26Mne6M5YW3gXWwYO3+KzvxuP8VoL+G09hFdvhk=;
+	b=aEaJVQG6hMeUKEsvNH4nwxavF2KgH3DqO4buyEmmeLSazDVg1RN2iRJiedWHxMYod9yA
+	 Z88K6ujxOwLMU+yf7xeeyIzJ83XAXf+BGb9Gxise26MXTJLg3V8DrSrlROW99ZutK8IeL
+	 GKaqR/ZwWCFhCsyrAMlrT5CscqISYOt9WqjZlNlxfbnYvRgZP5ZGWiA/DI87urfYE1NDf
+	 5wu/ws73cHf+Do8E1/VdC1bG7pHu/ZI5SfueMKGv7jk4TUi4NL6cxHtKQ3RONzx4ESYhX
+	 usIKh4j98JJxWIVaoPKFpCjfBq0O+U0UvWC7uc+W4xicxblAo+f7HN7UdVB8MUen88w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCU+PYJW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8au5m+k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC944606A31A;
-	Thu, 29 Oct 2026 22:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D89606A31A;
+	Thu, 29 Oct 2026 23:06:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCU+PYJW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE6B1F01816;
-	Thu, 29 Oct 2026 22:48:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8au5m+k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6191F01824;
+	Thu, 29 Oct 2026 23:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793314130;
-	bh=/7wmfqpqBqHZu2/Loju2AE5ZUskXeCIDwEQSBEfIOLM=;
-	h=From:To:Cc:Subject:Date;
-	b=QCU+PYJWBFNLD308NFlV7u9k/uhO7+uOVMsU9Swgf/wecGr0yqxoDtrKBKx+9Ff5I
-	 gSbu4Aiwr3LqsDq0ffDAPpv5bOBPwdqi50CrM9Fn6FJ50fLyeJROfPv2/i9fsI4xpi
-	 tkm08ww1RaK2SckVV+LzKnrpo3KhUWhzS9zJKwp8G0DZeaHB0SzHHO1kPc/MMZufla
-	 UcM2DShax4maF/nEmK4gA/5nX4OGfdCUHpxo3zOmKPBvhzYcKUD5smdFAGbVAh5MEA
-	 /8ZjJ14eoc95gi/vLTHi2l4zhf0d7F+rfUKIBSikIPA2UnesXzOxV4DSj+bZdXa+Rq
-	 uz5pC+Kn6ID3g==
-From: Danilo Krummrich <dakr@kernel.org>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH] of: unittest: Require BUG_ON_DATA_CORRUPTION to be disabled
-Date: Thu, 29 Oct 2026 23:44:24 +0100
-Message-ID: <20261029224843.1155201-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793315206;
+	bh=xy2U26Mne6M5YW3gXWwYO3+KzvxuP8VoL+G09hFdvhk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f8au5m+kyaX+MsBYWeZmjmWrABpfpcSUO75UyTcFSkgugktEXglr2BfkxmILKQ0+f
+	 P5wqwuxpLHGn8FuTl3/LQbqQyS/FiVvYEGXQlkF4rpFwTvCPwJRltypcvPMKJDD6fK
+	 TBa+rvdM2/hpSgwDCSLMMuz3X8jUDg7KA8o/6kRRHD/yJdWFOK0ZYqp7GsleAnsU0X
+	 th0gqTn1s3aR859qD+mZiJECMuKlo7/DTaQdQft1fG7kihyicsSC+Raam4oNDDYVRz
+	 UsueypUmyVlI9zoRELsGj2sn0Q/9LFbjLI9RcqHfZSUBObA18dFfYVhBuMJWl+mbE+
+	 UTOdpdKfmZHRA==
+Date: Thu, 29 Oct 2026 23:06:36 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Yakir Yang <kuankuan.y@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	William Qiu <william.qiu@starfivetech.com>,
+	Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Manivannan Sadhasivam <mani@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v6 04/18] dt-bindings: soc: starfive: Add
+ starfive,jh7110-hdmi-subsystem
+Message-ID: <20261029-flinch-header-bad94288c71b@spud>
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+ <CGME20261029075358eucas1p111293c602fc3aac9c6a044fc41488919@eucas1p1.samsung.com>
+ <20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,70 +93,166 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BltxCjlw5sIY5QTf"
+Content-Disposition: inline
+In-Reply-To: <20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
 
-With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
-machine no longer boots after commit 5b5224220747 ("refcount: Use
-CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
+--BltxCjlw5sIY5QTf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-of_unittest_lifecycle() deliberately calls of_node_put() after the
-node's reference count has reached zero. The test expects a warning and
-continues to check that a subsequent put does not produce another
-warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
-triggers BUG() instead. This panics the kernel during boot:
+On Thu, Oct 29, 2026 at 08:53:38AM +0100, Michal Wilczynski wrote:
+> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+>=20
+> The JH7110 HDMI IP is a monolithic block containing both the digital
+> controller and analog PHY in a single register space. This binding
+> defines the parent device, which holds the shared register map, and its
+> two children: the PHY and the controller.
+>=20
+> The two have separate resources. The PHY takes the 24 MHz reference
+> clock and provides both the pixel clock, which the VOUT clock generator
+> routes on to the display controller, and the phy the controller uses.
+> The controller takes its clocks from the VOUT clock generator. What
+> they share is the register space, which the parent maps.
+>=20
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++=
+++++++
+>  1 file changed, 95 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/soc/starfive/starfive,jh71=
+10-hdmi-subsystem.yaml b/Documentation/devicetree/bindings/soc/starfive/sta=
+rfive,jh7110-hdmi-subsystem.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..2ff8b0b920aec41a83f0aeaa0=
+ed9c4249fe87f46
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi=
+-subsystem.yaml
 
-	kernel BUG at lib/refcount.c:37!
-	Oops: invalid opcode: 0000 [#1] SMP NOPTI
-	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
-	RIP: 0010:refcount_warn_saturate+0x89/0x90
-	Call Trace:
-	 of_unittest_lifecycle+0x158/0x310
-	 of_unittest+0x105/0x130
-	 do_one_initcall+0x127/0x350
-	 do_initcall_level+0x7c/0xe0
-	 do_initcalls+0x59/0xa0
-	 kernel_init_freeable+0x118/0x1a0
-	 kernel_init+0x1f/0x140
-	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+Why is this in bindings/soc? I feel like it should be in
+bindings/display or something along those lines, since it's the display
+subsystem of the device?
 
-Make OF_UNITTEST depend on !BUG_ON_DATA_CORRUPTION and explain the
-restriction in its help text.
+Cheers,
+Conor.
 
-Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
-Alternatively, we could also just remove the refcount underflow tests. It seems
-they are not really testing anything OF specific, but rather test the refcount
-implementation.
----
- drivers/of/Kconfig | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> @@ -0,0 +1,95 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/starfive/starfive,jh7110-hdmi-sub=
+system.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: StarFive JH7110 HDMI subsystem
+> +
+> +maintainers:
+> +  - Michal Wilczynski <m.wilczynski@samsung.com>
+> +
+> +description:
+> +  The StarFive JH7110 HDMI block is a monolithic IP containing both
+> +  the digital controller logic and the analog PHY logic in a single
+> +  register space. It sits inside the video output subsystem, which owns
+> +  the NoC bus clock and reset gating this region and the power domain it
+> +  belongs to.
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jh7110-hdmi-subsystem
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  phy:
+> +    $ref: /schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
+> +
+> +  controller:
+> +    $ref: /schemas/display/bridge/starfive,jh7110-inno-hdmi-controller.y=
+aml#
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - phy
+> +  - controller
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/starfive,jh7110-crg.h>
+> +    #include <dt-bindings/reset/starfive,jh7110-crg.h>
+> +
+> +    soc {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +
+> +        hdmi@29590000 {
+> +            compatible =3D "starfive,jh7110-hdmi-subsystem";
+> +            reg =3D <0x29590000 0x4000>;
+> +
+> +            controller {
+> +                compatible =3D "starfive,jh7110-inno-hdmi-controller";
+> +                clocks =3D <&voutcrg JH7110_VOUTCLK_HDMI_TX_SYS>,
+> +                         <&voutcrg JH7110_VOUTCLK_HDMI_TX_MCLK>,
+> +                         <&voutcrg JH7110_VOUTCLK_HDMI_TX_BCLK>,
+> +                         <&hdmi_phy>;
+> +                clock-names =3D "pclk", "mclk", "bclk", "pixel";
+> +                interrupts =3D <99>;
+> +                phys =3D <&hdmi_phy>;
+> +                resets =3D <&voutcrg JH7110_VOUTRST_HDMI_TX_HDMI>;
+> +                starfive,vout-syscon =3D <&vout_syscon>;
+> +
+> +                ports {
+> +                    #address-cells =3D <1>;
+> +                    #size-cells =3D <0>;
+> +
+> +                    port@0 {
+> +                        reg =3D <0>;
+> +
+> +                        endpoint {
+> +                            remote-endpoint =3D <&dpu_out_dpi0>;
+> +                        };
+> +                    };
+> +
+> +                    port@1 {
+> +                        reg =3D <1>;
+> +
+> +                        endpoint {
+> +                            remote-endpoint =3D <&hdmi_con_in>;
+> +                        };
+> +                    };
+> +                };
+> +            };
+> +
+> +            hdmi_phy: phy {
+> +                compatible =3D "starfive,jh7110-inno-hdmi-phy";
+> +                #clock-cells =3D <0>;
+> +                clocks =3D <&xin24m>;
+> +                #phy-cells =3D <0>;
+> +            };
+> +        };
+> +    };
+> +...
+>=20
+> --=20
+> 2.34.1
+>=20
 
-diff --git a/drivers/of/Kconfig b/drivers/of/Kconfig
-index 50697cc3b07e..316e32b35b17 100644
---- a/drivers/of/Kconfig
-+++ b/drivers/of/Kconfig
-@@ -21,6 +21,7 @@ if OF
- config OF_UNITTEST
- 	bool "Device Tree runtime unit tests"
- 	depends on OF_EARLY_FLATTREE
-+	depends on !BUG_ON_DATA_CORRUPTION
- 	select IRQ_DOMAIN
- 	select OF_RESOLVE
- 	help
-@@ -32,7 +33,9 @@ config OF_UNITTEST
- 	  will taint the kernel with TAINT_TEST. The tests will cause ERROR and
- 	  WARNING messages to print on the console. The tests will cause stack
- 	  traces to print on the console.  It is possible that the tests will
--	  leave the devicetree in a corrupted state.
-+	  leave the devicetree in a corrupted state.  BUG_ON_DATA_CORRUPTION
-+	  must be disabled because the tests deliberately trigger refcount
-+	  underflows and expect execution to continue.
- 
- 	  The unittest output will be verbose.  Copy the output to a file
- 	  via capturing the console output or via the dmesg command.  Process
+--BltxCjlw5sIY5QTf
+Content-Type: application/pgp-signature; name=signature.asc
 
-base-commit: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
--- 
-2.56.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauPRfAAKCRB4tDGHoIJi
+0q9aAQDv07UymcETvBZlVghJCL8rpRoohfFFCoPKCAXQf1RVRAEAxilNjF3B0oMe
+r04GfPnJ8scs0S42SIRPrV01ClukYAM=
+=ziB+
+-----END PGP SIGNATURE-----
+
+--BltxCjlw5sIY5QTf--
