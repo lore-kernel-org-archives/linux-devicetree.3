@@ -1,86 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.183.30.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250037;
-	b=2GZjq0UjBGgZOTJ/o5uAP4D08YRKT31KlcceWmOZXKYRypzpIJoOoZKmzGRyKmJDhPiN
-	 dxLeMT64/xcfoDnT3HPaFhTGyKksXIKX8H5DZD5bV68EEobDbP8qYvTi6hrxnnPRABF2W
-	 QdcB6/fy34JbJuDMIwTDz/LJP0WC9KluRDoComiNgznblnHYP8GWszboRKmmdkoadxDEu
-	 meeuwY+6pC5NgtDMU/zWMCNgaK3+Y5faqatoaqtMl7WMDAO5IiJGN1+5oyZ00vseoMCI8
-	 ieulFwAgE/IvZe77NJhEJsVdQCfhDOSd9sR6ZQ2Je2d5V7lDgiSSCdiLecUFdVrtj/w==
+	t=1793250356;
+	b=YBz8CHnCESnf2jpcen53ricy3PJBN2Npcs11ItO4PGVfYYHmhZxZKsCqh5rge7G3pBa2
+	 ktsixuCrScy+y6zTKReYssrSLpEbC8ywzT2zmcgdXqkSs1rTpz7xm0nCKmTLwuIIXK4qy
+	 r8gZf3ww0QFqi2WAK5lhUUX7UcQZi8/JceYbxNMDovXQ+WpsAJ5AQgei6BKkFKOTRMvAD
+	 q6B0J1grlIct37FBDk7nCl1PTpVDBikLL5VemV1AZ3FemTNfigGY711Ot3Walomhqw4I0
+	 8Q8O91ucipBL6cCRD52wLxR2MvfwWW5EGFovaYv+fks5vfQAxudEGYpzSW20Rx+hcCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250037;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
-	bh=KwgH78sy7KEegzPUIFdE8eox+j/ZYiN8MyfkzB299E8=;
-	b=xXNvPlRGksTV3Bg95QNByTG47HUdFht3EqSLzjvVYFZG7AQw167ppN8LCdu3M+h5Etih
-	 Yx3b7t4v2S0y39eE6bUMN1EZ4WnejvEaCCXPKXIFRQzfJTXExpCu1DppiSUmGOnO9YQrO
-	 BnWOlHf/0m3aPUJXDOEkwBCz/IdaaMv1/EtZltu3T7LANtppqsFPLaSRnWpDV69uBPGpD
-	 mSZAaf1crt7dzdCNVnqWCjBfGYW3782VH2+JDcuMcWOXOAqdFSArq3HJByuN2Hebq51uu
-	 32AmbZg2NNnjBq5kYZvnC/Gu5IDzXf5Zpeff3QPE5lkLXN0G3eoPtzvxIqVXuRIdsPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250356;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+	b=rRq9Aqh8APuRvN304yMCNRABVhBxDEh1fdFcKo7tZ81NVCZIrO1pHhPLVJWc7NU0GoqF
+	 QQ7mI3amhIowA/q2Spu71AMY8/6o2ukjKaaBno3q0i6r2IHlL1UFgayF0c+7ndW6VkeLi
+	 vN0R+oGhemJWojnShGFqY0eFmdKoicJ1GFbhpQ7x4Hg61uwj3hh0++Y/tOdTlaQvg7NbG
+	 6YcaTuBmbl32LZ2KsBG27NoENNBc9fD7ucMwYsRUbNu9THwDgP/+T0VP5YMNRB2C3KGur
+	 pE87kIu+d22e3HHGcGtP2GCZIiW27xjLpLE8gt19iWujCtzyMM164Tyv0qUj1jXxHpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=qGGzWyD9;
-	arc=none smtp.remote-ip=185.183.30.70
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=If3Xgjta;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44570606A31C;
-	Thu, 29 Oct 2026 05:00:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44570606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613E0606A31D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:05:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 613E0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=qGGzWyD9
-Received: from pps.filterd (m0209321.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T3bfvJ936522;
-	Thu, 29 Oct 2026 05:00:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=p1; bh=KwgH78sy7KEegzPUIFdE8eox+j/ZYiN8MyfkzB299E
-	8=; b=qGGzWyD9wcDEPF+LUGUG+YNccnC9BZ+q8eR+Rlur0kT+GUbt3v7nN6hXit
-	DKhGaNqOAy/OG4TbVNqbTvEbSyK+ruCwqQmHQDGJjJPvvXFvUp00/7l6n0hCmsmB
-	kj5xVZldSvZxpNeX+Ym+vm19xRIig4yQTmZq0pGUvyJmSRCqm9z1fV9bvoCzcV97
-	z7vZaQ8saOA9jYNHwOXpn3gNlgfjqPwE7IZMGmxs9xN187/Bx/X5mtb4cuVmDtq5
-	pf9KUdgva4zfI9vv+AMlXRiRZOiysHPGtm/BAOyD8Su+w+Dbt7L/zEjnvkaHj6Lk
-	tE4t8ChfLwRsh683n7HCsjGGmZEA==
-Received: from usculxsnt02v.am.sony.com (usculxsnt02v.am.sony.com [160.33.194.233])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hkpu38gwh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 29 Oct 2026 05:00:11 +0000 (GMT)
-Received: from pps.filterd (USCULXSNT02v.am.sony.com [127.0.0.1])
-	by USCULXSNT02v.am.sony.com (8.18.1.11/8.18.1.11) with ESMTP id 69T4P2qT3508960;
-	Thu, 29 Oct 2026 05:00:10 GMT
-Received: from sgppsbm01v.s.gdce.sony.com.sg ([146.215.113.217])
-	by USCULXSNT02v.am.sony.com (PPS) with ESMTPS id 4hgkxd0mk5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 05:00:10 +0000 (GMT)
-Received: from pps.filterd (SGPPSBM01v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBM01v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69T3VBc91070673;
-	Thu, 29 Oct 2026 05:00:07 GMT
-Received: from localhost.localdomain ([146.215.113.251])
-	by SGPPSBM01v.s.gdce.sony.com.sg (PPS) with ESMTP id 4hgnrk1g2n-1;
-	Thu, 29 Oct 2026 05:00:07 +0000 (GMT)
-From: Lachlan Michael <lachlan.michael@sony.com>
-To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
-        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
-        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com,
-        Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
-        linux-kernel@vger.kernel.org,
-        Lachlan Michael <lachlan.michael@sony.com>
-Subject: [PATCH v6 0/2] Add bindings and driver for Sony IMX908
-Date: Thu, 29 Oct 2026 14:00:00 +0900
-Message-ID: <20261029050002.3880-1-lachlan.michael@sony.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=If3Xgjta
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so1665459a91.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:05:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793250355; x=1793855155; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+        b=If3XgjtaRu0jjJanap+LIdclkOSsGDozBMQjUhhi0DZKT6XoadeXOYBixTQ3hbQRIL
+         NBNjcTU09Jc102qL/PavE3OOkzvpbnFyFWhMRb68Es6+JMpgmJc4/izTGUTq90BcXTR3
+         MKd6bgSoe6osDyeEYSwYPa4F3DwL2LHNFW+1vsTfwU8engZ8qtf5sC3tdJyp8e751DM1
+         eesZ7OM6Afhm8vqNxrhRkC8muaarybhUX8uQsOoFIo4PE8H/xzAw8pBJkYCyX7Hz2Zo4
+         p1I3P4zwd0Ysq1u35IdcewQBFN/0NUZtaNzyjy42mRVVKaooyKdiM41Mz7BocsBZlfjd
+         3Oew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793250355; x=1793855155;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+        b=XjuTWjOZSJFobWCDFkRTlRy0ztRNKJAlhUQKBZ1cWS/kgCigXCO45+QSF6URkRrth7
+         cMqHggsol9zPExDxdzqvhOTPiPa4PPDNrevHjyzZrmomKhUD8ZADa4eNgTP83zsoKw7C
+         /5HMbUxSyOJdFJNQqEKo8c+pYYrtJdrfX6/zk1XndYKX9x1Ev17e1kYBPxKXTt44xsbR
+         90eLVVpAyQqwrV5PMg2iKQzsaoBZt8nXBRraaXzcnRaYk7i+Af/KCdfkklKaaG0XzJFq
+         +SQ5h3H96fykKN0jwY7nJmSgz0MH4w8S8VpxZxBxqD08fTkeg00ST8555y4ZwUfB/T++
+         TF2g==
+X-Gm-Message-State: AFq9FYLLnby+4ld3BqPQiya/dqVWk4KsWHLRjj+MybG9l39RXP1mV8we
+	FbaW0M8zt71Nk8PHO/IFN5PezUSnS8W70qbwSRFpVohubxsieXJbcfrp
+X-Gm-Gg: AYBFou3KP7kDuTDie6JTR6x4byhWeydFTK8JTBZgDpUl65PDtJWPrCzq+k2iGVqQi7S
+	r8h9FL7ZNTep/3m+E1FCz7L1wsOodrX3B5aS0OXmo8R/bsFbwVifRbn50fKvy0wRFhefnM6RR7W
+	5XO3cKKBODQIt0pyJOBFj2c7eCxQWgcuT4ZJ0jtlww+UFFWxl32n8hiahlKbUE73OPfMOgd2CvN
+	xcIvU8uYbb9aiTx5JRp87CjAaKhPjl9mqOP4kx5szENmXthLTklTfDWucFZ2or0n430/o35MNCr
+	9j1Gt02VIWHGFJEILzQosOWTnA1Bl/nqE2DnAViRTqoACzPFRbcsbWpRl9ski3uM350Gdvb6/nJ
+	GaLvYDgPAeFRoProD1XXkKcb/vqrS9p33LSNv4/oUe6OMsB9iR0LY7jP6nYNXQEGLtSWolHooYf
+	61rWKOqkhW6oS6bMMyW+7dfDV3O/nGjz1ag03vIODSglLnYPpE5W2oY6JdH6iyzUizFfZwzE2eb
+	zSXkTMR0Fdi/H4qM+IyuCBMebq/cDk/ZzXNd+DJZxlmypseUc2UpXYi39Uqb3gIlmk/929q61oC
+	i6+vuLi4H6yxH86pB2SBdl++wsjO
+X-Received: by 2002:a17:90b:562e:b0:3ac:9176:e81c with SMTP id 98e67ed59e1d1-3ae580dd6d0mr3805262a91.46.1793250354465;
+        Wed, 28 Oct 2026 22:05:54 -0700 (PDT)
+Received: from [127.0.1.1] ([169.211.140.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.05.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 22:05:53 -0700 (PDT)
+From: Kwanghoon Son <asdfkwang@gmail.com>
+Subject: [PATCH RFC 00/12] Add BL808 UART3 support with a Rust serial-core
+ polling console
+Date: Thu, 29 Oct 2026 01:05:41 -0400
+Message-Id: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,165 +91,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: H2Rc75oGP9FX-dcs1C4BDAVG5bwIqHGX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
-X-Sony-EdgeRelay-GUID: 0LP1rpzBVh_9LAySOuQ_FeXL-t3xm_G6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAxOCBTYWx0ZWRfX2igtY9vgD1VO
- mCs0n9h6onhg3HwRpQcJ1uZUsyXxQ1xXA8DjzouB0OvDOEwm/76Fxz9VcU4Pt6oZ31SqHnDDGst
- cuxJGprPGpPUjIF0sFzRWs/p1SwGX6tS/0MNj9xPXxCeOEO4dweN
-X-Proofpoint-GUID: hrs_WvOcaq_WEIGJH0pnCwA0R2WCYWnV
-X-Proofpoint-ORIG-GUID: hrs_WvOcaq_WEIGJH0pnCwA0R2WCYWnV
-X-Authority-Analysis: v=2.4 cv=BZtNQbt2 c=1 sm=1 tr=0 ts=6ae2d2db cx=c_pps
- a=z+s+ENbgstUlBMk8+ywv3Q==:117 a=z+s+ENbgstUlBMk8+ywv3Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
- a=M2bq-ooH9SiLYa4vvubY:22 a=VwQbUJbxAAAA:8 a=z6gsHLkEAAAA:8
- a=bt04YS2g-htMHz2h_L8A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAxOCBTYWx0ZWRfX++Jm3hyKqRZS
- +YRPTYSpCHtWjhIysqhO96m77Ke11RbL5FkfWq8HikppJYub5Gu9s9lmyNPmRXZtrl/R+eXKvXr
- hnHRSQLgUxYMTQoRHmIPLVskc+4RBJwVm77slgzFfm+ApH95gd6b2fGOLicgULxoEv98dG/Fsqd
- ig+hiPSj9V7ZRG3EyihSoQAr591btZJXUasEOyrPwynz5xWwuI6OE92YLJPhbnzkjborXUPI2XE
- hxmP4Uc9Ql3X0CC6Lc1I1yds81iIP6DHxD4tGHVFwyrmn/z2729MEXpDjSoOo7VS4+g0a+1J1oU
- F8GWIbZTiVUqiQ8+bIdPxODT7q2lrpil2a+vBJIZmMdctmgJoHkDGke3WvRzgxF0r/pWIvaMmDR
- 8unE/vbZb3xVzeyOqTju8sDy+mlDcu3szMB4bBGYIeQAKaJJ+hdbKdOfRrSUoup0CGT7dQY7bXD
- UCDvLyFi0k6FNrECjrQ==
-X-Sony-Outbound-GUID: hrs_WvOcaq_WEIGJH0pnCwA0R2WCYWnV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACXU4moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNT3aLS4hLdpBwLAwvd5Py84vycVF3DtKRUw8Q0YxNjkxQloMaCotS
+ 0zAqwodFKQW7OSrG1tQDtuKqpaQAAAA==
+X-Change-ID: 20261025-rust-bl808-console-1fbe1af3434d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Kwanghoon Son <asdfkwang@gmail.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+X-Mailer: b4 0.14.2
 
-This series adds device tree bindings and a V4L2 sub-device driver for
-the Sony IMX908 image sensor.
+Introduce minimal Rust serial-core abstractions and a single UART3 polling
+printk console for the BL808 D0 and Sipeed M1s Dock.
 
-The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-output interface. The driver supports RAW10 and RAW12 output formats,
-exposure and analogue gain controls, image flipping, blanking controls
-and test pattern generation.
+The BL808 is a RISC-V SoC used in boards such as the Sipeed M1s Dock
+and PINE64 Ox64 [1].
 
-HDR modes and RAW16 output are not currently supported.
+The serial abstractions and their BL808 consumer are adjacent patches.
+Port registration is owned and device-managed. The adapters provide UART
+locking for termios changes and normal console writes. Userspace TTY I/O,
+RX, interrupt-driven transfers and DMA are not included.
 
-The driver has been tested with libcamera on Raspberry Pi 5 hardware.
+I kept the driver limited to polling console output for now, so the
+initial driver and Rust abstractions stay small. Does this seem like a
+reasonable starting point?
 
-Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+The Rust abstractions cover only what this driver needs. Is there
+anything missing that should be addressed at this stage? I'd especially
+appreciate feedback on the port ownership and locking interfaces.
+
+UART3 is registered as ttyBFLB0, using line 0 of a one-port driver. The
+board selects it through a full stdout-path at 115200 8N1 without aliases.
+Firmware initializes clock routing, gates, reset and pinmux; the board
+provides the existing 40 MHz fixed baud clock.
+
+Jisheng Zhang previously submitted BL808 platform support with a C UART
+driver in 2023 [2]. The UART compatible, bflb,uart, is reused from
+Zephyr [3].
+
+This series depends on the exclusive MMIO reservation fix posted at [4].
+
+[1] https://pine64.org/devices/ox64/
+[2] https://lore.kernel.org/r/20230518152244.2178-5-jszhang@kernel.org/
+[3] https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial/bflb,uart.html
+[4] https://lore.kernel.org/rust-for-linux/20261027-b4-rust-iomem-origin-master-fix-v1-1-16215ae197af@gmail.com/T/#u
+
 ---
-Changes in v6:
-PATCH 1:
-- Use unevaluatedProperties instead of additionalProperties to correctly
-  handle properties evaluated by referenced schemas.
+Kwanghoon Son (12):
+      dt-bindings: vendor-prefixes: Add Bouffalo Lab
+      dt-bindings: interrupt-controller: Add BL808 PLIC
+      dt-bindings: timer: Add BL808 CLINT
+      dt-bindings: riscv: Add Bouffalo Lab BL808
+      dt-bindings: serial: Add BL808 UART
+      rust: serial: Add minimal serial-core polling console support
+      serial: bflb: Add Rust BL808 polling console
+      riscv: Add Bouffalo Lab SoC selection
+      riscv: dts: bouffalolab: Add BL808 SoC
+      riscv: dts: bouffalolab: Add Sipeed M1s Dock
+      riscv: defconfig: Enable Bouffalo Lab SoCs
+      MAINTAINERS: Add Bouffalo Lab BL808 support
 
-PATCH 2:
-- Simplify runtime PM handling by removing the CONFIG_PM conditionals.
-- Rework probe power sequencing to power the sensor explicitly before
-  identification and enable runtime PM after initialization.
-- Parse the firmware node earlier in probe, before hardware resource
-  acquisition and sensor initialization.
-- Minor whitespace cleanups.
+ .../interrupt-controller/sifive,plic-1.0.0.yaml    |   1 +
+ Documentation/devicetree/bindings/riscv/bflb.yaml  |  21 +
+ .../devicetree/bindings/serial/bflb,uart.yaml      |  57 +++
+ .../devicetree/bindings/timer/sifive,clint.yaml    |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  13 +
+ arch/riscv/Kconfig.socs                            |   8 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/bouffalolab/Makefile           |   2 +
+ .../boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts |  18 +
+ .../boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi     |  19 +
+ arch/riscv/boot/dts/bouffalolab/bl808.dtsi         |  70 +++
+ arch/riscv/configs/defconfig                       |   1 +
+ drivers/tty/serial/Kconfig                         |  16 +
+ drivers/tty/serial/Makefile                        |   2 +
+ drivers/tty/serial/bflb_uart.rs                    | 334 ++++++++++++++
+ rust/bindings/bindings_helper.h                    |   2 +
+ rust/helpers/helpers.c                             |   3 +
+ rust/helpers/serial.c                              |  33 ++
+ rust/kernel/lib.rs                                 |   2 +
+ rust/kernel/serial.rs                              | 505 +++++++++++++++++++++
+ rust/kernel/serial/console.rs                      | 107 +++++
+ rust/kernel/serial/termios.rs                      | 104 +++++
+ 23 files changed, 1322 insertions(+)
+---
+base-commit: b7ac81a9d691d0af65a5e1d3e16ef03d5dc8f2b4
+change-id: 20261025-rust-bl808-console-1fbe1af3434d
 
-Link to v5: https://lore.kernel.org/linux-media/20261019014720.2635-1-lachlan.michael@sony.com/
-
-Changes in v5:
-PATCH 1:
-- Add Reviewed-by and Acked-by tags omitted in v4.
-
-PATCH 2:
-- Add the IMX908 driver file to the MAINTAINERS entry (left out in v4)
-
-Link to v4: https://lore.kernel.org/all/20261016075918.19345-1-lachlan.michael@sony.com/
-
-Changes in v4:
-PATCH 1:
-- No changes from v3
-
-PATCH 2:
-- Refined sensor initialization for the updated settings, including
-  register-address/value corrections and bit-depth-specific programming
-- Removed crop support; the driver now reports the fixed 3856x2176
-  active-area format and no longer programs crop registers.
-- Updated HBLANK and exposure control limits for fixed geometry,
-  including exposure adjustment when VBLANK changes.
-- Improved stream start/stop error handling and ensured failures during
-  setup release the runtime-PM reference.
-- Consolidated power-on/off into runtime-PM callbacks, corrected probe/
-  remove power sequencing, and added builds without CONFIG_PM.
-- Cleanups and bugfixes from the v3 review comments (thanks to Sakari
-  and Laurent).
-
-Link to v3: https://lore.kernel.org/all/20260828064843.65047-1-lachlan.michael@sony.com/
-
-Changes in v3:
-PATCH 1:
--  Adjust the binding description to match the actual hardware: the I2C
-   target address is selected by the SLAMODE pins, not fixed to 0x1A.
--  Add the standard video-interface schema reference so the endpoint and
-   remote-endpoint validation match the media DT conventions.
-
-PATCH 2:
-- Correct link-frequency indexing mapping to match the sensor
-  DATARATE_SEL values and the frequency ordering
-- Changed the pixel_rate to 16-pixel-per-clocks based on datasheet
-  mode values
-- Clean up the constant names, register definitions and comments in
-  response to review feedback.
-- Remove various (uneeded) checks in code based on feedback
-- Remove cached vmax/hmax and recalculated where necessary
-- Drop pixel_rate and test_pattern pointers from struct
-- Remove read-only controls set_ctrl switch
-- Remove event handlers
-- Remove uneeded delays at startup 
-- Simplify runtime_resume/suspend functions
-- Remove the 4k recording-area in favour of larger active area
-- Use the same constraints for VMAX for crop and all pixel mode to
-  simplify the driver logic by removing branching
-- Rework HMAX based on the fact that the whole line is always read
-  even in crop mode. HMAX varies in all modes now, but not with 
-  horizontal crop.
-- Minor edits and bugfixes 
-
-Link to v2: https://lore.kernel.org/r/20260806070934.21764-1-lachlan.michael@sony.com/
-
-Changes in v2:
-PATCH 1:
-- Reword subject to drop the redundant "bindings" suffix.
-- Reference video-interfaces.yaml for the endpoint and switch to
-  unevaluatedProperties, fixing the remote-endpoint check.
-- Drop "link-frequencies: true".
-- MAINTAINERS: drop the L: line.
-- MAINTAINERS: move the driver F: line to patch 2.
-
-PATCH 2:
-- Treat the pixel rate as a fixed sensor property (594 MHz, 8 px/clock),
-  read-only.
-- Compute HMAX from both the array and MIPI link floors.
-- Express HBLANK in pixels with a step of 8; keep HMAX fixed in crop
-  mode.
-- Drop struct imx908_mode; cache hmax/vmax directly.
-- Change the link-frequency table to s64.
-- Fix the probe error-unwind ordering.
-- Be silent on success (chip ID print is now dev_dbg).
-- Drop redundant comments.
-- Kconfig: fix a "module will be called" typo.
-
-Link to v1: https://lore.kernel.org/r/20260730021525.166811-1-lachlan.michael@sony.com
-
-Lachlan Michael (2):
-  media: dt-bindings: imx908: Add Sony IMX908 sensor
-  media: i2c: Add Sony IMX908 image sensor driver
-
- .../bindings/media/i2c/sony,imx908.yaml       |  107 ++
- MAINTAINERS                                   |    6 +
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/imx908.c                    | 1158 +++++++++++++++++
- 5 files changed, 1283 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
- create mode 100644 drivers/media/i2c/imx908.c
-
+Best regards,
 -- 
-2.47.3
+Kwanghoon Son <asdfkwang@gmail.com>
 
