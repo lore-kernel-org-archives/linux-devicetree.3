@@ -1,57 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268002;
-	b=iQKJvk493//DWTQfMKXxF9EWA1oqpmIQb9dwc3uv7CAZiNHvoYfCkpXI2l8g8a/kG3Jf
-	 hJYs1Zn7Fq1bs7cRyoiwelVjisorwATIbVytNPe2mxbQQUK8r0fyZ3W5h2SCdipX/SJbX
-	 QxRCn3UP21iUXnBbm1ydxtt6EkQ3rGxzAwqBT66E4WHhzA6vBl/KGUs2WjfBN5oqn0C/r
-	 1gpWT/seMvHuafT8ir4it2WRYBG8520EImV48njVIuXhMhKUxzgXmLPbP0Dq58OIwcE/j
-	 jj/CoZGea5vCC+QhCkJi3NhPY0W7nAbmNLl0vVpYHmwTjSN/RVI9JgsXaDbybgbFA8Q==
+	t=1793268409;
+	b=jrDDpXZjLDjP5MIy41LYxQw5gV0D1V2k8P8yvDx4bI6ryn6ahEC5oLX5i1JFGCmhV8lD
+	 gAELr9kfRKMXM1i0TeXtDdMdAnHAm6iW3GzxBvpfS36qQDQYHyLt4jt6PvSBff2jkgVTd
+	 zPQr6+gw9ldP0Fyl/SyhmGVMBoHWihn6HJvECAc/aJXJTo/zOPN+7jfr72wcXwbSEytV3
+	 qlPewwVY9/AjiWzMuOikp5OUy/yfM1GeTnb31b5Y37tRf1V22vXt65LcB6lhjJgdbMTkX
+	 xW/5l3La1/AoHCxiU0RlToLYMiM3PelkFaHjTbLnb9UhOGu7ZWJ6softUvyjDohKsIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268002;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=nyQJahuUa1lXZQWj5EyIOkO9TARa4E9raLzKVVIpJQM=;
-	b=GkFVNm4DpwX06oQdlrWfY/8Zmw4Y1g3AzaZDwr0uznKJ0iqvfv99D/xx4P1Uh2LIFlNu
-	 IsX/Fmlt8eCpkRfiEZVmxpHK4GWSCiXfV5MAtY/f+zmD5wgw3MMNBaqf9myyZKIXj4gXQ
-	 rGPh8ErsMKStaisH8TEcWU1cUxIS1V4QdmoQF4JsYlhcaAC+ok8HkBmkJSK6ipUAqLHrY
-	 Z3wmDIA+wnI8skcBLjI7XQv8XsUZcDr+WxT+cGPaY6P4rATW2SXG/rrnr6TTyso70kYv0
-	 5o+16KgbeEGoaNbH///sG5nNdSQEqrwOCUXvOn6Mf5WFjbl0gWBvOROJzfQFvLkOceg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268409;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
+	b=oZZsPRE2tcz8vC2PIx+eiBVplMovAPNLMlw090fYmaC8V+UkTMeFJvTgSd+dQRcsGogb
+	 zf4JdVGYBNh0Gk+iMLF56VH2tPxE3WSNhlgvLPe+A0ltqc8BEx3HhUC/pXT5RdfpvbmHz
+	 y3cmaTAeWVeScfmDUlqP3UDUINL71gR2DOMMWnky3/bh1ZMYRCwndH/WefGO9NRBYjbn3
+	 Np1L//bOGObNXhdCHisPM08uB/R1UO2NL0DyK7JpKno0tEiY4XKmkmX0ZClPpv2/yTdm0
+	 iPOxdNvJycoPTOW4NgiUyG+HBp2olg+sgUHMVigta1vo+DDeZpf8VkiAtuoK+uBz34Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5L4IuPJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pszdm4fP;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1067B60A2607
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:00:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4102B606A323
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4102B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5L4IuPJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50CFD1F01825;
-	Thu, 29 Oct 2026 10:00:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793268001;
-	bh=nyQJahuUa1lXZQWj5EyIOkO9TARa4E9raLzKVVIpJQM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d5L4IuPJfFe6mcEqzpDGCESX6VMXpy1RRuw+HZmMaleffWwvU6uv5rH5w5b6R5CCY
-	 8sOohgmXZMNNQ8Cz/OR9Y1fUNnR4ZjWzCt7BEa8iE0YqOF7xAQzp+WVJevq6p2lepc
-	 Hy171gxpmCyoQ0YhubKYYiU8D8mH2ygh0WHD3jpgZwHQTj3EMpswoJil7m1wZie6+F
-	 MSVh02WjOtPn3wGHGMdGxWTuEMw96OhIGofTALJIEQJi/CxGnfJtj+V9RNVcD3ZkKv
-	 TPQy+mFio0Z1kF+0aL1GKz5H9Lnz4dl2/coPHuvCEha7SqvRTfn+EXHHv6ml376Y4n
-	 7X1kdY0ABdHSQ==
-Message-ID: <sashiko-outbox-189081@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v27 04/10] firmware: psci: Add support for PSCI
- auxiliary devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-4-fa4b3ff1359b@oss.qualcomm.com>
-References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
- <20261029-arm-psci-system_reset2-vendor-reboots-v27-4-fa4b3ff1359b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 10:00:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pszdm4fP
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso16952445e9.3
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:06:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793268408; x=1793873208; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
+        b=Pszdm4fPwGA6z3/h856xxp3nG0CoeMLpKCnNm93Kve5JOa0nPOeF74RJv2oYNtcNZR
+         ozCESFFGve7AzGRPZXZEEQOxAwZBxiDlwTZCe/iFU9yMsVG5eQexLV+2KElgyEoheCZr
+         y8BTz61Yv8RzXisIss7+bk/o3LkX7T5WlIIDxt9l86L0f+iz3YN0I+m7c94q6EaXd1+6
+         k1aZlxk4jv0oW6dgJIvT+nljT4xqCnPWvPs+3DvuAQLKYJc3j7q2mtlVi4yYW0KtgSUs
+         ysZMk5hbO2SlhHBgjNdGJ7j/5IciDZQthP6Dm/Lzt+L065agamsUS6wtRefn/NXfrQp1
+         ECqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268408; x=1793873208;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qOF7wYrSiLyxDI9TfUlCsobhSuSMPq8w6f3swfnWMZk=;
+        b=jbRA21Jegte3Vw4VsghYWEdl22xICl/jGsiOTel0mJZozh3uZpQprM+3DZr37pHewq
+         8moeW4Ber028ha4+G9CbuR6a0Ml8EHosTAXwnRSANhR/mE91TPU5LggGCS8FgK2iqY72
+         NZQGr3EW1V89MNsaJ2tg88YaMJIBQNpr71sfqXvTNP68xqIHV4M1r3JFWMfHtSByZ5Uv
+         4lccy2Ierl+Leo2EHoe07WuuXcZmp2BQenAPj+kAURsou7DVt6MhyS+nFtWQU/ILERdH
+         mIPGtACCL+1CztH5gi4SkcAMyb6iIIdBc8YgLCNfm1iAREIOAueUWE+mZpnE6/lKjubn
+         q+Tg==
+X-Forwarded-Encrypted: i=1; AKwUvByKm23Me+16aukD8BfyrXJnZEg1Y1aKiy/FugtkYFfNyB60IXkrPSsfIV08TIF6lmjuMPBNgdKHY6yd@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG7k1RPV7mDqg7HcRAXcyGpmoCQCMx0lAvYFtzOT2yDi6I9561
+	hksI+Jh5EbSKcO3U9Zhu9O9NrPk+52HDSUEY6ncRA1yJ1rQedxTESK+o
+X-Gm-Gg: AYBFou1Q3i3UR5UJ82RdngNdoFjsB1lRqLweGjCHlNE2FW5+kb2lV+40OYU/271oC8G
+	MRar9KyLfBPiVaUvXb3zHFoy2zPE74Xe9bPHdj9MndAMqAGlWyPBSJMk70GuCpXwmNVfbdVWZ6b
+	iqJQnFqWcay7cL2kF5XZXT/HvXwHZzfIu80gpg9hWh8b6YelgH1Yez7Le5u3/6l49iPzDo0WGjo
+	WomsjllJ1Q0cbWJ9qO29goc7SkhYu7zzUBidqHIkE/pCzUQ0SEgC+wH6GFqR5bzL+rQucPTdgFl
+	dNpqASNqeL87yJFf8gCm+GUOY/C82LUSDFYOKXJS5tuN+8NRH2CP5q3QCXnTTDX8xx9yxEiR4oK
+	ohFDdSQML3xtoeXlO+n1ZJEjBWzkbM7yR69HbVoXY4l+Fdky+tS0yQAcPmkINzCdEMESCzULw/5
+	cFpKmQaGNyTB6bZNWn3HRN3aeFlmQI4IwvxMVNPpg9eElMZVa87WceUchR80C13SS2nFW0pukxS
+	RA7H7IcNi0uKyy8unyyq42h0pLQvFr+mfpD/JcnK0NVDa1kZVkUcoME/9wJekCE6KjID5FsAY2i
+	bufhh9X3X46H+Mjffe8E5ztYkn/QYvFOIIOoM+HRK5VKOw2DwgcOVDTqUeUZXrrlwAYsQ3RMLH2
+	4sqxtF48n
+X-Received: by 2002:a05:600c:354f:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4a965ec95f6mr117257515e9.10.1793268407430;
+        Thu, 29 Oct 2026 03:06:47 -0700 (PDT)
+Received: from [127.0.1.1] (ip092042140082.rev.nessus.at. [92.42.140.82])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm53082825e9.11.2026.10.29.03.06.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:06:46 -0700 (PDT)
+From: Jakob Unterwurzacher <jakobunt@gmail.com>
+Subject: [PATCH 0/4] Suspend-to-RAM fixes for RK3588 + SPI-connected RK806
+ PMIC, enable PMIC sleep on RK3588 Tiger
+Date: Thu, 29 Oct 2026 11:06:22 +0100
+Message-Id: <20261029-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-v1-0-cb12621c1fb4@cherry.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,150 +93,123 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKAa42oC/z2NQQrCMBREr1L+2oEk1lq8iriwyVj/JpZ8DULp3
+ Q0KLt/MY2YVY1GanLpVCquaPnIDv+sk3q95JjQ1luDC4F0YkVjx1JkF9YgeSyH+3S+3ly3MCVM
+ Pv58GRjemEA/SJpt90/f37nzZtg9J1T2zfgAAAA==
+X-Change-ID: 20261028-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-13b6ec08d2c5
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Joseph Chen <chenjh@rock-chips.com>, Lee Jones <lee@kernel.org>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, 
+ Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268406; l=4078;
+ i=jakob.unterwurzacher@cherry.de; s=20261029; h=from:subject:message-id;
+ bh=whpYEratljGVTl7QjkhsaCvIr2bv7FesbGf4wTNyJws=;
+ b=Yjo1Vrkco613l9dyLnzMqeGxox5caUTel5ElHqC2L6eZEKaikGN7q43RGAGZwNloLUj1zWdDJ
+ d8fDrN+nWEGBzxgvmtwK4wP6dL1VSzL/h4dTP33hHfLhLImeky8gg6B
+X-Developer-Key: i=jakob.unterwurzacher@cherry.de; a=ed25519;
+ pk=0v1L7pjG4d7PcaYPMOmzP4SjaRtnB+8bMzZLZCRzB8I=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] firmware: psci: premature fw_devlink consumer pickup in arm_psci=
-_probe()
---
+This series, together with a few out-of-tree patches (see below), makes
+suspend-to-RAM on RK3588-Tiger work, down to a power consumption of
+about 0.4 W. Patches 1-3 apply to all boards with an RK806 PMIC
+connected via SPI, which includes most RK3588 boards.
 
-commit 693a73228dca9776538a9dc808fb4cd1f0b1d4d0
-Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Patch 1 ("Input: rk805-pwrkey - enable the wakeup interrupt during system suspend")
+arms the power key interrupt as a wakeup source, so that the
+power key can wake up the system. This is done in the regular suspend
+phase, because the SPI bus to the PMIC can no longer be used in the
+noirq phase.
 
-firmware: psci: Add support for PSCI auxiliary devices
+Patch 2 ("mfd: rk8xx-core: keep the PMIC interrupt disabled during system suspend")
+keeps the PMIC interrupt disabled across system suspend, so that its
+handler does not run before the bus to the PMIC has resumed.
 
-This commit introduces a PSCI platform driver that binds to the "arm,psci-1=
-.0"
-device node and creates child devices on the auxiliary bus. It also converts
-cpuidle-psci-domain from a platform driver into an auxiliary driver that bi=
-nds
-to the child device created by the PSCI provider.
+Patch 3 ("mfd: rk8xx-spi: add system sleep PM ops")
+hooks up the existing rk8xx suspend/resume callbacks for the SPI
+variant, which so far lacked them.
 
-> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci=
-/psci-devices.c
-> new file mode 100644
-> index 0000000000000..d23befc490ed5
-> --- /dev/null
-> +++ b/drivers/firmware/psci/psci-devices.c
+Patch 4 ("arm64: dts: rockchip: put the PMIC into sleep mode in suspend on RK3588 Tiger")
+configures the RK806 PWRCTRL1 pin on RK3588 Tiger for its sleep
+function, so that the regulator suspend states take effect. This lowers
+the module's power consumption in suspend-to-RAM from 1.09 W to 0.43 W.
 
-[ ... ]
+The patches do not depend on each other and can be applied through
+their respective trees.
 
-> +static int arm_psci_probe(struct platform_device *pdev)
-> +{
-> +	const struct arm_psci_device_info *info;
-> +	int auxdev_count =3D 0;
-> +	int i, ret;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(arm_psci_devices); i++) {
-> +		info =3D &arm_psci_devices[i];
-> +		ret =3D arm_psci_auxiliary_device_create(&pdev->dev, info);
-> +		if (ret)
-> +			dev_warn(&pdev->dev, "failed to create %s aux device: %d\n",
-> +				 info->name, ret);
-> +		else
-> +			auxdev_count++;
-> +	}
-> +
-> +	return auxdev_count ? 0 : -ENODEV;
-> +}
+Testing
+-------
 
-[Severity: Medium]
-Can returning 0 from arm_psci_probe() when psci_cpuidle_domain_probe() defe=
-rs
-(or probes asynchronously) cause fw_devlink to prematurely mark the child
-power-domain device tree nodes as FWNODE_FLAG_NOT_DEVICE?
+Tested on RK3588-Tiger on the Haikou baseboard, on top of the v7.4 merge
+window (a8530b69fc4dd): 30 consecutive suspend-to-RAM cycles, each woken
+up by the PMIC power key, all resumed without errors in the kernel log.
+USB devices (a SuperSpeed hub with an Ethernet adapter, and its
+High-Speed part) stayed connected across suspend.
 
-Previously, psci_cpuidle_domain_driver was the platform_driver for the
-"arm,psci-1.0" platform device (where psci_fwnode->dev =3D=3D &pdev->dev). =
-When
-psci_cpuidle_domain_probe() returned -EPROBE_DEFER, really_probe() did not
-call device_links_driver_bound(&pdev->dev).
+Out-of-tree patches
+-------------------
 
-On platforms where a PSCI child power domain references an external parent
-power domain (for example arch/arm64/boot/dts/qcom/agatti.dtsi and
-arch/arm64/boot/dts/qcom/sm6375.dtsi, where cluster_pd has
-power-domains =3D <&mpm> pointing to "qcom,mpm"), arm_psci_probe() and
-psci_cpuidle_domain_probe() run during of_platform_default_populate_init() =
-at
-arch_initcall_sync, while qcom_mpm_driver (drivers/irqchip/irq-qcom-mpm.c) =
-is
-registered at device_initcall (or as a module).
+To test this series, out-of-tree patches were needed and used:
 
-When arm_psci_probe() -> arm_psci_auxiliary_device_create() ->
-__auxiliary_device_add() -> device_add() runs, psci_cpuidle_domain_probe()
-calls dt_idle_pd_init_topology() -> of_genpd_add_subdomain(), which returns
--EPROBE_DEFER because the mpm genpd provider is not registered yet.
-psci_cpuidle_domain_probe() then unwinds:
+1) Upstream TF-A does not complete suspend-to-RAM on this board yet, so the
+tests used Rockchip's BL31 (rkbin v1.47), configured through a small
+out-of-tree driver. The plan is to get suspend working in TF-A instead.
 
-drivers/cpuidle/cpuidle-psci-domain.c:psci_cpuidle_domain_probe() {
-	...
-	/* Link genpd masters/subdomains to model the CPU topology. */
-	ret =3D dt_idle_pd_init_topology(np);
-	if (ret)
-		goto remove_pd;
-	...
-remove_pd:
-	dt_idle_pd_remove_topology(np);
-	psci_pd_remove();
-exit:
-	pr_err("failed to create CPU PM domains ret=3D%d\n", ret);
-	return ret;
-}
+2) The inno-usb2 PHY has to be resumed when its 480 MHz clock is enabled,
+otherwise EHCI/OHCI resume hangs. This is addressed by Sebastian
+Reichel's inno-usb2 series [1].
 
-Here psci_pd_remove() -> of_genpd_del_provider() -> device_del(&gpd->dev)
-resets child_fwnode->dev to NULL for all child power-domain nodes under the
-PSCI node.
+3) The GPU and NPU domain supplies were kept always-on. genpd powers
+these domains on in the noirq resume phase, when their regulators (on
+I2C/SPI) cannot be reached yet. I'm not sure what to do here, yet.
 
-Because bus_probe_device(&auxdev->dev) does not propagate probe deferral to
-device_add(&auxdev->dev), arm_psci_auxiliary_device_create() and
-arm_psci_probe() still return 0. really_probe(&pdev->dev) then calls
-driver_bound(&pdev->dev) -> device_links_driver_bound(&pdev->dev):
+[1] https://lore.kernel.org/linux-phy/20261001-phy-rockchip-inno-usb2-clock-fix-v2-4-e01bf509359e@collabora.com/
 
-drivers/base/core.c:device_links_driver_bound() {
-	...
-	if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
-		fwnode_links_purge_suppliers(dev->fwnode);
-		fw_devlink_pickup_dangling_consumers(dev);
-	}
-	...
-}
+Known issues
+------------
 
-Because child_fwnode->dev is NULL on the child power-domain nodes (which al=
-so
-happens if psci-cpuidle-domain probes asynchronously),
-__fw_devlink_pickup_dangling_consumers() sets FWNODE_FLAG_NOT_DEVICE on each
-child power-domain fwnode and moves their consumer fwnode_links to the pare=
-nt
-PSCI platform device (&pdev->dev).
+PCIe devices do not survive resume; this depends on system PM
+support in pcie-dw-rockchip [2].
 
-When the supplier device (mpm_pdev) is later added,
-__fw_devlink_link_to_consumers(&mpm_pdev->dev) sees
-get_dev_from_fwnode(cluster_pd_fwnode) =3D=3D NULL, falls back to
-fwnode_get_next_parent_dev(cluster_pd_fwnode) (&pdev->dev), and attempts to
-create a DL_FLAG_SYNC_STATE_ONLY device link to &pdev->dev. Because
-pdev->dev.links.status is already DL_DEV_DRIVER_BOUND, device_link_add() fa=
-ils
-and logs "Failed to create device link", leaving mpm_pdev without a
-SYNC_STATE_ONLY link.
+[2] https://lore.kernel.org/r/20260316-rockchip-pcie-system-suspend-v5-0-5bb5ad37d643@collabora.com
 
-Furthermore, because FWNODE_FLAG_NOT_DEVICE is never cleared, even after
-psci_cpuidle_domain_probe() succeeds on deferred probe retry and registers
-genpd->dev via of_genpd_add_provider_simple(), fw_devlink_create_devlink()
-keeps redirecting consumers of the child power-domain nodes to &pdev->dev:
+Tool use
+--------
 
-drivers/base/core.c:fw_devlink_create_devlink() {
-	...
-	if (fwnode_test_flag(sup_handle, FWNODE_FLAG_NOT_DEVICE))
-		sup_dev =3D fwnode_get_next_parent_dev(sup_handle);
-	else
-		sup_dev =3D get_dev_from_fwnode(sup_handle);
-	...
-}
+These patches were developed with an LLM-based coding assistant (Claude
+Code). It ran the suspend/resume tests on the hardware, analysed the
+kernel logs to find the causes of the failures, and drafted the code
+changes and commit messages. I reviewed all changes and tested them as
+described above.
 
-Doesn't this leave the child genpd->dev devices without consumer device lin=
-ks
-to hold off genpd_provider_sync_state()?
+Signed-off-by: Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+---
+Jakob Unterwurzacher (4):
+      Input: rk805-pwrkey - enable the wakeup interrupt during system suspend
+      mfd: rk8xx-core: keep the PMIC interrupt disabled during system suspend
+      mfd: rk8xx-spi: add system sleep PM ops
+      arm64: dts: rockchip: put the PMIC into sleep mode in suspend on RK3588 Tiger
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-arm-psci-s=
-ystem_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com?part=3D4
+ arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi |  6 ++--
+ drivers/input/misc/rk805-pwrkey.c              | 42 +++++++++++++++++++++++++-
+ drivers/mfd/rk8xx-core.c                       | 19 +++++++++++-
+ drivers/mfd/rk8xx-spi.c                        |  3 ++
+ include/linux/mfd/rk808.h                      |  1 +
+ 5 files changed, 66 insertions(+), 5 deletions(-)
+---
+base-commit: 8f6620b65ae2458c36cbc9569a26fc2d777593a3
+change-id: 20261028-dev-tiger-v7-4-pre-20261028-tiger-suspend-b4-13b6ec08d2c5
+
+Best regards,
+--  
+Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
+
