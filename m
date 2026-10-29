@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287786;
-	b=VDJEcT/NNnHDz8ZcCtX0mKaCcQ5M8R3+fKAYU/UxKAyyDGFYZX4rEB5HaWEW4PtVbcr0
-	 Sp1mV7JOX6T8gbF+Vp5ZTbAzHDiglEO/9wDgTwBoniM2hu1fkzeYNxu5qIDG8tQVBoVZh
-	 Xe737to5jvDB7MJaMoHOZHfiFWBVpoxKluSRwUVxZYQTE0xRWoK6F40tJxOZkvKpDJPAW
-	 Xarz6W0mM0/3HqY+Ot66HYG+pIGa7G0vgET1ZgShycyFIoHauYCjFpttEZsrwlJlYyZf5
-	 0+IYIdWQoRyhgbTGKpu4+dmbUIah9D0ukGCXoxKlQWB39qQz/+j/aAGOrRhmNt0kflA==
+	t=1793287788;
+	b=wgDLcA528Z6D5azJEROO6MHz9TAibDGmt7OcCy1aYZJaaLieV+YIpaGm53D8N3zYAYTK
+	 uVToBjJZc8V6gOPx7jSZEE3ozxsUIVUU0meAAN/Qzbniyy3ZDfR5uqUaTmFE0M7yX+4Pn
+	 /iqZ/3T9SAZEAGA9DNpBvUSMX3M0CdGZSSwMTHTUtoZ1PTjEJYP3dTpPL85ktmArcTFFr
+	 pdQafSYIOn+WByT0cN5Z+DTgo/aTRQW3Td+OujU7s6IB8w3L8vEOt8XZQze7ciDb/J3qB
+	 vIr82WQBEnt/C5G3vhkWo4ZQm3rfs4wvOkKo+qARw9bZK/IMgA3UQbJm7CKAGh/GH4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287786;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287788;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BMKtjudVZEjfMcNSisc3laHJ/AC+VgTtmt6i7T2INik=;
-	b=AW83Swz0+xKULiKGuWfq5c+42xR7vTS5OILFYtCNcILB7l3Dw5fcgvA0IU94JufPJeEQ
-	 lgPu/qTm6vYtWJHz/T/6ynmtNRpdfhcCeZ3RZigE+/U7UZClZ3zrYh0KGplSEcrCBi3GB
-	 IXY1sXq0a8vjhu8BG5FqpKcqyy3oKfdtC06FJR+5O8SHSbp/ygO+tZpqYTGJrfC2LISsh
-	 /AEU2m6M0+hdgh6w/XHprRlE8iSlv2/Q/BlEMz989L4qquF7AWfQWV+3nfmyzSyLbHbQJ
-	 ZOMfNDxIjJdFmoD47qfzl2lzSJVM3gGa3Kfj9k3fDZdjxhf2rAa3HvP231CtDVAOJKw==
+	bh=wWQWFAQ/YeW0U3f8X8JNgjR9sIicTFidkftaJdNSKFk=;
+	b=QpADe2gV8dWi6KpaPr8DXgGecrSJ2+iy2UleM5AZK6Vt6cZOvNtd40ys1lK2wvLcSpVD
+	 WsyYLpWy+ikrTRYCPftFWrFBA8wxRoM6Ipkon7+490dbiTrNGAGw31QQfGYeSTtf/fjv+
+	 lf9aVvEjC5Sqhoq5pMopRoKWph++hOo6tDOV8f2KZZP1T/HnsCrCqNDRCK51vIe6GUHpG
+	 jc3v6vrmm0uA672bxjB220gqfiXuuOT4izcvCluRwk6Ldu7VwDxJN331uhD7rEyI+dCJf
+	 ctKc/TYfuj0llepamblEp/O6DhsRNV0aX3TLHzT1rA2nWf5X4razLIwHfjmzXgD8rPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tYv3aGNs;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="I/Ayijzq";
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC9A60A2605
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 15:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EC9A60A2605
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58141606A322
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 15:29:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58141606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tYv3aGNs
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c46822eefb6so294830366b.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I/Ayijzq
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso365676166b.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793287783; x=1793892583; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793287787; x=1793892587; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BMKtjudVZEjfMcNSisc3laHJ/AC+VgTtmt6i7T2INik=;
-        b=tYv3aGNs2aMiCQmwxH9QbfyD+MlIHSNs4FIXY/6cTaTEjVGi0KOLFGdsjVHUrH6CBR
-         ILAX8BOBqknzCEpb3JbfyX1O/jKZmzLfnMo9G1uZmzNJH9zfsXDO97NaWvdGGRxY+GBn
-         qkjWDVOHpqhP5yUpCqxfqt0f5CjHdeLpjhoJFBacrLqB8zBOMmxJP5Z6sxGX9vHqPiMu
-         0I56FcIAOR5klEHz682jcUReQ7+IlMZEhO9woiZdezFvBfZnp1Bvq4mvXsDbDkU8JGYi
-         CFx07ph0nHFsOIbaZgdLuN5qLjlEw9iCY7UqwhXl/ldJQbaOisDaqylSlc9277MBH5Cf
-         NXOg==
+        bh=wWQWFAQ/YeW0U3f8X8JNgjR9sIicTFidkftaJdNSKFk=;
+        b=I/AyijzqJtk+0Keg1vkGw22wFN5Ptg6AEueeNJfZVfw/XLEHb4rT1UOB/I9jn4wGiQ
+         gzrC1vAUUg0LLaGG6N8fsoJUBgGiOOwgtRNr4HzEkKJ1NDMFfCTxgmFwmD3o0/UM1vcv
+         qRa4wgLoqUryVEz15l2Scf3SQzkuygPM4CleOcCkxJ7Eox7wy8YUCHKl1Ib2EiKzgITx
+         VcImxrEOLuDAdjPcXfdxQPGoPpUyjggEOoBQzSYjuT3HXQ2ClGO40vBGHUzxzlGEq3AO
+         z4TPJZ/WVs+LYSoZstlJ2SdIMsMuKbl3+3QMXSwE9/v7TDz4UQt+J023PZSB8HERFN/p
+         m48w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287783; x=1793892583;
+        d=1e100.net; s=20260707; t=1793287787; x=1793892587;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BMKtjudVZEjfMcNSisc3laHJ/AC+VgTtmt6i7T2INik=;
-        b=O9vL4mzt0FqLfsuGfxTmjz25LxZvbl3s78+ONzqMxtPNbhFMeZjzjDFM/891rxq3Ao
-         t4h9+3D2gRbZh/Gmx83S27NPMZtJFO5CM1dStIZKwRxtRcHtt8WYYcJLo8mZx3VyoFuM
-         ynifK/DVgw0eorPFdi2zqXqpe/tOANcpSHsomAEYUKWkPfpFgUU+69Y0inLO+MdMQGcf
-         IlbauWo5dgiL06ql9Liy6WNWKlXnHj2GRHvAELMHwVDMDZVmq00qkyjUjX1Yn2qopXnW
-         FQ9qcyEpwN9/R68MhoOAICTXeuIlX2RUG+QvLeDH8dZ03xWkz5wDs2UGkDtIGhXlQiYZ
-         vtcw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmKP8DNx9Bbx8aRPjmQiqn4UpexsO6eqklzl/GkG7s2VoyIaXOB1lucBtqoOKH1Vc9DjRelW6iB0Mg@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnfN/E7YJjTFrW3nlVtv6nb+AoqYrGOfc3EoC5Citi3MuHgQLT
-	xTGHCNhbf3hOMbS7IG71Rhm6wUJAUqzbg8am3YjvQkNxmBo4+/3uRa3i
-X-Gm-Gg: AYBFou2X5sLSuixgrKE6f4hupSDXOSibRNwrwxbhiHqePENokX31sUqjF8XtRMoMwQz
-	RHhL7LGotIfHWEJyNDAdsCPQvqxm96NncBRf5Tnr316oH6gCiNUyUjATC+XXDcfdJQ/s9CROkFG
-	1IPM+p1hDRbZgerlmROGgUzMVnigMpqUJpEZF9blCUd8DGwsPrwNQUH3boEsZLTigGzTqnf3TSx
-	UR60NnEIe0PTUTnL5AMrVWW+9t5/3AoAc57EASciVQnSTgzBwR8ZtfU/JHqvjkQPgmZ6T1iPmHf
-	5zED6n3TFwZxJcxdGXr6NMBouermmtc4O2UqZS5Kdk0btZIk9z/OebaaHaoTPB7qkK3+rA57ZAh
-	p1yBAQHvYdt+pMTGdFHY8uYQKI7F6EwwUk9DW8q7KV2zzhP+5SCFE8heDHlw9LPbdxlaf6w5KU0
-	9Jb+cdgVRclyZfeKmEUjh53mVuGXEhKcjJBvqHDtBYka+4b+4qggwTjzPlP3XENXTXywGHWITsK
-	HNpVYAXjHheCG7b4pfJVsHrY1Yj8bOAGOIvdhqOBOgg6RU/4yCVcW3M4FIffg+PMVZEPzsXH5wy
-	x4lwOvVU8nlnKq42+x9ZC2c7n6g82DLHx/hyQI7uOLPGaeNMag==
-X-Received: by 2002:a17:907:940f:b0:c2e:6a4f:a88b with SMTP id a640c23a62f3a-c49bda76b47mr526656866b.0.1793287783214;
-        Thu, 29 Oct 2026 08:29:43 -0700 (PDT)
+        bh=wWQWFAQ/YeW0U3f8X8JNgjR9sIicTFidkftaJdNSKFk=;
+        b=iKJHtP8Bh65Sj7Gy3T7TRCpeFGmZG2PbraPCRH3jsbNL6xg6jf2idlwQfdX+qshBEj
+         RvTABtDSKEjJ/Mbgb+xbISlBkuId6zQu5xWwGtiMNdUonllOfXid74fLuAAHGmonNIsu
+         YemFjupYOdEPMsp3neYZxHs7D9o/tgAMGZjATZGjlUY/gBXzzjhyE8eKShnDZXADkxr6
+         lmZh5JBZ3a+J4tcC9q/HhoWL9oWJBqoKR/ANrrPZ+A9nGVD5/4QISMtr7FydoINhlIJH
+         mM4VGVw2EGqoaY+MiEQTP4/aO3Hp9Mi+wxegbmQJG0TJK82GEtSVURdjp/jQBLZCovvq
+         K3Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxb5BHsTU3lw/ow9LfAlFmyfvxCGpZ7oa5fXbUEO9OycHB4GPHUtzHlsc5+SB+rzaWsmq20tLPOjfoi@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXj0HJdjqoZM3qDSiq89thQA4shnUV8H5mLYHl6ICerhy7h8hQ
+	WIv93p76IJk3I7Y1897suu5D6jFIyJSrrHocVocH4U7+VuHmL73p8gDW
+X-Gm-Gg: AYBFou1TQAXrM0OxJUTg/fQXeryS0z1WVUkPOjyij//8/DRMuKowZ1woZVENZSGnbxN
+	tMu9RmSk4HgwijH8outMEPvmUgD7rhThN5N7A4FD0K6Ag1uZU0T9Oc7ZxiWyyfYph1zeR2gz79e
+	7KEoh6B3hmQGX4WdXk5Lo+ZcjlMMSHZ6lKMwVDN8uK0isO5BI2Y5J/8orCQrQKszSOLzj/z9esC
+	7YplYgwi9Xtw4gbiTtPxycvFEw89XdhQwdYgwPq39RQ8n8Whuwqztqc4IjHtZ1jcVytQ79QwXS/
+	GGi6Ka8prG5x+mOWp5ILRWbJSMDCzUqjjmgZbpflK51ud3Bh/95lAegDIi5nQ/Dk5tuFkkd1bUJ
+	MGKIRpdMqN/tTPUuyY6H8+Fp1iYZ/WVCIVkRjzDDt+2tGbXRSI7uJ9D1zOAzmG92ovz3831Dd4V
+	Pcea27nem8v3zFGyFpz1z5wM7WY+rLMsU2YpzvgOPsP0wa9Xq3XOOuaNKMpSVnuROqzUUGP8Z7P
+	IbF2FAYPs6jBIrVZYrBwvhzjQnrJTJYiRMOQWA0ewSSdqylMTNlkUzBaebSJ40QwXTL3ZImxnf6
+	Ns7OC9KfT+Q+1zaLvN8gsY1lu3hxcQQ1oZSVmbWHNX9SRgkiiA==
+X-Received: by 2002:a17:907:7250:b0:c2a:b1cc:158d with SMTP id a640c23a62f3a-c49bdf67b9emr532113866b.32.1793287786503;
+        Thu, 29 Oct 2026 08:29:46 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.41
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:29:42 -0700 (PDT)
+        Thu, 29 Oct 2026 08:29:45 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -97,9 +97,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v5 07/11] drm/tegra: Make panel parsing by tegra_output_probe() optional
-Date: Thu, 29 Oct 2026 17:29:05 +0200
-Message-ID: <20261029152909.234584-8-clamor95@gmail.com>
+Subject: [PATCH v5 09/11] drm/tegra: rgb: Parameterize configuration based on bus flags
+Date: Thu, 29 Oct 2026 17:29:07 +0200
+Message-ID: <20261029152909.234584-10-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029152909.234584-1-clamor95@gmail.com>
 References: <20261029152909.234584-1-clamor95@gmail.com>
@@ -114,156 +114,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tegra_output_probe() performs panel parsing unconditionally, even for
-devices that do not require it (such as HDMI) or that handle panel parsing
-on their own (like DSI). Make panel parsing configurable.
+Parameterize configuration based on bus flags passed from the bridge or
+panel. The list of supported flags includes now pixel clock polarity,
+display enable (DE) polarity, and data alignment.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/gpu/drm/tegra/drm.h    |  2 +-
- drivers/gpu/drm/tegra/dsi.c    |  2 +-
- drivers/gpu/drm/tegra/hdmi.c   |  2 +-
- drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++----------------
- drivers/gpu/drm/tegra/rgb.c    |  2 +-
- drivers/gpu/drm/tegra/sor.c    |  2 +-
- 6 files changed, 32 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
-index bc720ae8d95e1..e53fe68161cb8 100644
---- a/drivers/gpu/drm/tegra/drm.h
-+++ b/drivers/gpu/drm/tegra/drm.h
-@@ -156,7 +156,7 @@ static inline struct tegra_output *connector_to_output(struct drm_connector *c)
- }
- 
- /* from output.c */
--int tegra_output_probe(struct tegra_output *output);
-+int tegra_output_probe(struct tegra_output *output, bool get_panel);
- void tegra_output_remove(struct tegra_output *output);
- int tegra_output_init(struct drm_device *drm, struct tegra_output *output);
- void tegra_output_exit(struct tegra_output *output);
-diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index 7b595310e7379..a4c0c63bbe567 100644
---- a/drivers/gpu/drm/tegra/dsi.c
-+++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -1618,7 +1618,7 @@ static int tegra_dsi_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		return err;
- 
--	err = tegra_output_probe(&dsi->output);
-+	err = tegra_output_probe(&dsi->output, false);
- 	if (err < 0)
- 		return err;
- 
-diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-index 0d2c0ab0a63e9..c0845bb45bb15 100644
---- a/drivers/gpu/drm/tegra/hdmi.c
-+++ b/drivers/gpu/drm/tegra/hdmi.c
-@@ -1855,7 +1855,7 @@ static int tegra_hdmi_probe(struct platform_device *pdev)
- 
- 	hdmi->output.dev = &pdev->dev;
- 
--	err = tegra_output_probe(&hdmi->output);
-+	err = tegra_output_probe(&hdmi->output, false);
- 	if (err < 0)
- 		return err;
- 
-diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/output.c
-index d0ba3bd0aab8f..ff2e28a1e00b7 100644
---- a/drivers/gpu/drm/tegra/output.c
-+++ b/drivers/gpu/drm/tegra/output.c
-@@ -94,7 +94,7 @@ static irqreturn_t hpd_irq(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--int tegra_output_probe(struct tegra_output *output)
-+int tegra_output_probe(struct tegra_output *output, bool get_panel)
- {
- 	struct device_node *ddc, *panel;
- 	const void *edid;
-@@ -104,31 +104,33 @@ int tegra_output_probe(struct tegra_output *output)
- 	if (!output->of_node)
- 		output->of_node = output->dev->of_node;
- 
--	err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
--					  &output->panel, &output->bridge);
--	if (err && err != -ENODEV)
--		return err;
--
--	panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
--	if (panel) {
--		/*
--		 * Don't mix nvidia,panel phandle with the graph in a
--		 * device-tree.
--		 */
--		WARN_ON(output->panel || output->bridge);
--
--		if (output->panel) {
--			drm_panel_put(output->panel);
--			output->panel = NULL;
--		}
--
--		output->panel = of_drm_find_panel(panel);
--		of_node_put(panel);
--
--		if (IS_ERR(output->panel)) {
--			err = PTR_ERR(output->panel);
--			output->panel = NULL;
-+	if (get_panel) {
-+		err = drm_of_find_panel_or_bridge(output->of_node, -1, -1,
-+						  &output->panel, &output->bridge);
-+		if (err && err != -ENODEV)
- 			return err;
-+
-+		panel = of_parse_phandle(output->of_node, "nvidia,panel", 0);
-+		if (panel) {
-+			/*
-+			 * Don't mix nvidia,panel phandle with the graph in a
-+			 * device-tree.
-+			 */
-+			WARN_ON(output->panel || output->bridge);
-+
-+			if (output->panel) {
-+				drm_panel_put(output->panel);
-+				output->panel = NULL;
-+			}
-+
-+			output->panel = of_drm_find_panel(panel);
-+			of_node_put(panel);
-+
-+			if (IS_ERR(output->panel)) {
-+				err = PTR_ERR(output->panel);
-+				output->panel = NULL;
-+				return err;
-+			}
- 		}
- 	}
- 
 diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
-index addcecf8592b1..01475995d9cc8 100644
+index 7dea0cac61233..d8f41d1ca350e 100644
 --- a/drivers/gpu/drm/tegra/rgb.c
 +++ b/drivers/gpu/drm/tegra/rgb.c
-@@ -236,7 +236,7 @@ int tegra_dc_rgb_probe(struct tegra_dc *dc)
- 	rgb->output.of_node = np;
- 	rgb->dc = dc;
+@@ -5,6 +5,7 @@
+  */
  
--	err = tegra_output_probe(&rgb->output);
-+	err = tegra_output_probe(&rgb->output, true);
- 	if (err < 0)
- 		return err;
+ #include <linux/clk.h>
++#include <linux/media-bus-format.h>
+ #include <linux/of.h>
  
-diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index e384cbd0cbf72..ab81e412e05f1 100644
---- a/drivers/gpu/drm/tegra/sor.c
-+++ b/drivers/gpu/drm/tegra/sor.c
-@@ -3806,7 +3806,7 @@ static int tegra_sor_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto put_aux;
+ #include <drm/drm_atomic_helper.h>
+@@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_rgb *rgb = to_rgb(output);
+ 	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	struct drm_display_mode *mode;
+@@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+ 	mode = &crtc_state->adjusted_mode;
  
--	err = tegra_output_probe(&sor->output);
-+	err = tegra_output_probe(&sor->output, true);
- 	if (err < 0) {
- 		dev_err_probe(&pdev->dev, err, "failed to probe output\n");
- 		goto put_aux;
++	/* Get but flags from the bridge state. */
++	bridge_state = drm_atomic_get_new_bridge_state(state, output->bridge);
++	if (bridge_state)
++		bus_flags = bridge_state->input_bus_cfg.flags;
++	else
++		bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++			    DRM_BUS_FLAG_DE_HIGH |
++			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
++
+ 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
+ 
+ 	value = DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS);
+ 
+-	/* configure H- and V-sync signal polarities */
++	/* configure H- and V-sync and pixel clock signal polarities */
+ 	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+@@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	else
+ 		value &= ~BIT(PIN_LVS);
+ 
++	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
++		value &= ~BIT(PIN_LSC0);
++	else
++		value |= BIT(PIN_LSC0);
++
+ 	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+-	/* XXX: parameterize? */
+-	value = DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
+-		DISP_ORDER_RED_BLUE;
++	/* configure DE signal polarities */
++	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(3));
++
++	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
++		value |= BIT(PIN_LSPI);
++	else
++		value &= ~BIT(PIN_LSPI);
++
++	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
++
++	/* configure DATA order and alignment */
++	value = DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
++
++	if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
++		value |= DISP_ALIGNMENT_LSB;
++	else
++		value &= ~DISP_ALIGNMENT_LSB;
++
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTROL);
+ 
+ 	tegra_dc_commit(rgb->dc);
 -- 
 2.53.0
 
