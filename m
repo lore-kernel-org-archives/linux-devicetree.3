@@ -1,122 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268801;
-	b=tA9iTlBOd5qUnHD65eh/khPJ/WY2RsfCHzcbeZ2awtQQUfujFOoEYZK3nOQq9YWOJa0H
-	 2kI7AoZzaTCWgpmiPV4KZChpbZGaw3yFGrcPRjBgx+wkHPhIOHbY5w5b24+6GIXDbKifj
-	 gP9o9+kg8Y69TpMKfz+JEcY9LJ0N3p5NCiWXFQzldK7dbm/NvdON24aM/RIG4cnTAkULB
-	 5f8eCDyU5Af6oKvEG6qV5YUenQvvuMZumB2qBKvcvYi4okS4w4zf24GaUEmcqf3anG2QP
-	 nyDowPqduug0duo4+n5Yh2zMFqPekt+NyJy2TjtQh3tsmfmg7ntDx8qS8wWBF9dekSA==
+	t=1793268854;
+	b=hWnIMbq2NOytJU/G1SqgL2L2VbwCD8e3p5qON6V59eQ6l3Fc2A3iqtkLEgxk4Pr/AWeG
+	 sEEOaiIzkxzYdnE21isRyJ3+KzS6sMHDnaPLEXpVK1d91EI5iErcrKOK0FH6V0U4ATtw0
+	 bQHplMCHiU3tq7tlBV3gzZuMdxNO+IHFI7Sc94jkunuH57JVNlZnB5FTpQn5gHkCWb6g7
+	 2BFmmmZBt21y9hc7BdDI1islfFZe7lnHHMEuMqjrBxauEfIljt+mdiiIMPBF8WA859YnD
+	 wcFkZJyCJHSCI96R9UwRC/u8nqkE2xWHxlh4BvGBKIa/zAeYguVIbRCVKU6XKhToelg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268801;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
-	b=4pCfLF6rWO6U1bXavc7zm/h5c/TEUBuX7bKlqhYLA8T/LGM/xtI3yKDYPP9wfI9mApNs
-	 /lsHlWwYqGgiSR9WQD/bjackqx9Az3m5iwXVQHp22ecMZtXFwIqLCUFIPe5V/zql5vgRm
-	 FELwwcgrPIUD3tXSUgDWEPVOZbUU7gGBBXrI40k5mC5oBJO+72vDaYZ+kcR1Z2JVrY5Ea
-	 GgeBL4ncCKRZWIWEKBOREMEvwIpbvUNheG5HBLGD1DkQ8ZI0SWB8brCKDDEzQExe9m9TI
-	 ydukMMQ1P+v6u7uyUq7bpNkFSAgpQb0Ez8olF8f/fRP/Fpp9mU/DpdBUfLttqxxi7GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268854;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=I6pGS9HlPdajy6JVHzNvNG5YnPfZi+MQBITdwkrjbpg=;
+	b=B0infXv98IIGwODZeL2zCb8Sp2COwVYiqVaI3PgEY7AlwND4V/9LhacunJGC2js78Uye
+	 NUzIH/NI5kKJu1x5HXkirDZ33XkwoT5ARYGIJtL5XmiNWKIp3mr3I9DSw9UuqxHDNNacX
+	 KiEOIbS4VIDQBm1DV84maIuyQBdv+HlVFpWGW882spfN8cxKzYhvvtxHh8pj0dZ43U2ft
+	 Cp8ZHg0p1xlPvkFg1S3t7fXq1Uz9AEm0gCw3S1n3G9QxfMQWgx5ZNqOri4C7HBUP3+WEE
+	 zqwbjyzHZRiJa1h1ZVjArKMIjXxigQMjFxuXn5eEGdSYrbIo0e0/U+216LzmK4ygj5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="G/XQfEtB";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jQQz7AJu;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=radxa.com;
+	spf=pass smtp.mailfrom=radxa.com;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB444606A31E
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:13:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB444606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=G/XQfEtB;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jQQz7AJu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793268799;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
-	b=G/XQfEtBXkndTUnk0epYFPFVwqNLSE5e5gBKnovUGus0JxgrbOoElfR1NenERKnqGOe94W
-	yr/YZEo9CiPkZNDfnaQq5qrMpp5Oa6p6M0hwIEvKaXZ5ksLlZZTH+zYKKucZrvibuBkXSO
-	5aXESFOquZyuVSTSSS1Ym2POBXfik/w=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-294-TykuH3rXOXyjdb-YVqX26g-1; Thu, 29 Oct 2026 06:13:18 -0400
-X-MC-Unique: TykuH3rXOXyjdb-YVqX26g-1
-X-Mimecast-MFC-AGG-ID: TykuH3rXOXyjdb-YVqX26g_1793268797
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c4445512dso1701751f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 03:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793268797; x=1793873597; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
-        b=jQQz7AJuwneaMydjQepZ+AHismEwv7Pmg8ok18y4ZZaoeokVRSSmNF763OwPuQs0O3
-         4P4x22zkUsR8FMMSKHO7IxjUdXDnXwn06/WgPPJCGiVC1zfTeAD5MtMRUhVYgsvAmbnF
-         gKMAFj62dRhNDQBZZAMmzd4/8YzjbBcbFQIq0NRgshHIxN+5Y7aEghDouaO6VL7/kWNM
-         sKP5zQJXMW2wkSiG+NRUfM1QVjutHGv6Pisn9hPNgP2qpe52095oU0tdMIDN6uhK2sjm
-         kG98JIrSqmHSsgkepntpH0lR/Z6yKZJ8rUiyh+Zqcu00HTEniHanje2FlyaTqiVXILma
-         9BZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793268797; x=1793873597;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
-        b=xvpUINgQ+n4DeZVD3gulkp3cvv5aVrvn93duY1TvwATnkybrNLlgck3crnju/JN95+
-         M62IkLYoiJmLQeEIR4J2gyMqOqwz/QZ+Soc04L7V8QbyaVmq/6v+VVRGqFd/OM8dN0kK
-         HrkGpCa8TWhS04DlDnUm/2y+nTgqE1OAmvz5pu600xpHRxu2oA6LuqlLL1IrAYbq6uCp
-         x4OQ8rlN1wqNgeXZ9AzFQDAiVeB2/l08lMMmCYOJA9zXkPJpGNY5VCY47O3TlTW1mBpl
-         1NLCMYiPH2sxp8Z/5fL8brfTgbSj3D1bxN8Xpcwccjz4jk2/81GAuY/9c2kufZ/QcJKx
-         dIcg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/rr++/gEsIz68fXzvKFppZYI8IExIdXYXo6BVCXrvnWgphvulW+7TTh83ca4XVqNkB8KwRHEtNzwr@vger.kernel.org
-X-Gm-Message-State: AFq9FYIx/lKrYsplK0wsA4vPoMe2lekhhDIVbXXDDIQ+RhGgU9BMrt/A
-	Vxjzh22OZXWBP4dkvB7Ss0bsqw3UhYQAvOnSvYJTv9EkpROFns8Zgizje3W0wvYOJBr/h4ZVwtS
-	cTaiPDBJxV3XW14rKikm9JNmO7Mep/YdH2+c+1HCUAFFe0z0cfsEXWXwap5+nWnk=
-X-Gm-Gg: AYBFou1NCfATHcARmGuqBy7o48FFtpBmp4T07bE5FiABnscEqLqoNsuFZ+vtpsojL1M
-	CT+66jnPS9uY+f/oEsrpH6j7t7mOLAOBIGminwCvfkIHrMYVx3kxPA6U42P7t9AtaQS+xFdw+R0
-	n9J01aaVhoxyAIu1VZD9tJzuBmfNBYMLHrCFxJr0OT6yWqvZ33fYJOoU3XwgiNLRkmdIDmJCmZ4
-	z9r3w4Ha6wbYYSosuBViu84eEerbyxGRfuy/gg4L1Ywfixoc34aKRnwiFEKTi37U6jocEIf7fvG
-	TUBr+8gE8H2VZtmLx1STZRT5djxwP2GAayasWsIE/H4MRh5xxuSaRd3tMysBfck4D/+m7Ta/Bya
-	WuR0gAJvI77vu77MVuEFFGWQVMkdQHEGEg8pjUh+OLs4=
-X-Received: by 2002:a5d:64ee:0:b0:48e:6309:cefd with SMTP id ffacd0b85a97d-48e6309d0fbmr6302504f8f.46.1793268796709;
-        Thu, 29 Oct 2026 03:13:16 -0700 (PDT)
-X-Received: by 2002:a5d:64ee:0:b0:48e:6309:cefd with SMTP id ffacd0b85a97d-48e6309d0fbmr6302426f8f.46.1793268795997;
-        Thu, 29 Oct 2026 03:13:15 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm33021365f8f.42.2026.10.29.03.13.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:13:15 -0700 (PDT)
-Date: Thu, 29 Oct 2026 06:13:12 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Francesco Valla <francesco@valla.it>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Haixu Cui <quic_haixcui@quicinc.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] MAINTAINERS: add Francesco as spi-virtio reviewer
-Message-ID: <20261029061258-mutt-send-email-mst@kernel.org>
-References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
- <20261027-spi-virtio-bindings-v2-2-67927b24b9d4@valla.it>
- <20261029-lucky-vanilla-spider-f9cefd@quoll>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CF3606A323;
+	Thu, 29 Oct 2026 10:14:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26CF3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip4t1793268831tcfcd0a9e
+X-QQ-Originating-IP: JWcGZpaxS2VvXr8ks7Aa0kMOHfyGgrDNgxaWqapRT/I=
+Received: from [192.168.30.244] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 29 Oct 2026 18:13:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6520119527471735759
+EX-QQ-RecipientCnt: 31
+From: Xilin Wu <sophon@radxa.com>
+Date: Thu, 29 Oct 2026 18:13:35 +0800
+Subject: [PATCH v4 1/4] arm64: dts: qcom: sc8280xp: enable PCIe ECAM and
+ 64-bit memory
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,35 +54,184 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-lucky-vanilla-spider-f9cefd@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-q8b-dts-v4-1-e8e7438f5545@radxa.com>
+References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+In-Reply-To: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5116; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=ZKeyJhuJk5Q9HhRIB0I7m7yyN1y8Ot222NY5V9safMA=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPZcJW59kGHrdytv2f433o+76pL7ufl69XbuZrnaPzi
+ SV3P+PTjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABN5zM3wh4dz974tTmcyfxnd
+ XPYiTXRzVeKONbm62W7X878/NL4pv5qR4Y9NudJulTxnwbpvcfYvCgJaP63l0tmx8OtiJsk9j1/
+ dZwYA
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OYcWkDQesdWF3SFjyfjWqBDVlG7cdsEGs82P87uGZA1iOYH2XrFHKoGa
+	QSbliJXmbJPhxyT0MxuO/WWARi3h6DSLO6IJBRz3D0Ez6cQ3/s33iUiGDCFaGS/8LigM+aV
+	o7BOVKZ36C76DhNuzWAos5tkZhDs8+YyNmQN4f7gVwefd3yzTxDk4oKApvOnH+s1Cg7plYG
+	hiDEcDcnTm1JOLkyUdWE2s7bfr35wpzOaUt5hk+vcFz3B4KpuX0hlKT5Hf6aKNZ7FSIBQLP
+	rKC6wRenUMRBqTmx/fPtwzV4lbWwBnC+3MAbutciWnXudUUiAlB22k9792hFzZ4UaDAMXvd
+	BrSpn/fuqCf14hOzgeQzx8d02xC+TmL6gTpSpAX2WW7aQTLzjfzw4M4P+o1gWkBS5K2MHOI
+	0O6AKH8M3xGEMgT7Y+k1i0RqwqxVp8JVVF88aqSNRje9bzZNLUuEvAnGuq3HA+sFbeJM07o
+	62JDzEFLlvdiZtyM7ImBCD0AZwmClcAnJzm2LwrfB9YscK5A8LYwjmJ9fbAO7Oe56Mc/6kv
+	rqVOLqPrde1auxVp/Ru2jdwZCzwsxsb1txHD3ZnZno/Rj+KdMaWwy/sMs85QKCZZTVCZsRP
+	l2vWJZIVpMBh4Jvr62CAfSMRCSYmrxD8zXmZBROcjICYoXhKL1sDjci1bpU43M0HXtxdM7h
+	iltxVrKhTrvb/+eZBjRhdhB9oySfJ+WQPgpxJSHcuz0gxd628JZG4QVCuqmozNL3oZOEUJ6
+	4S3N+o+jfywnLXV0KcamVNodcpeWAOGukineObLh+u9vHMreY8ydOTxrVxeH/1PL0UYNJmD
+	fv+Eh1q2iyJ7TsEzPWcysGM0NRRtZmFZQxS06XePSSTDDOw8UmXclnLvb7tpj4jR3FQ55Ob
+	NC3cQCtpVPqK1Z2i/z8OoeCBvStJcslCgvPjiNNY0Tonm+uX9rR0bgzMYcVXjtJhbmSNsGq
+	XN7wWjxaZRsxWXFjOka6HOh2esHFcLTSRhN8QiiZl7hFsdIDNI6lWfFlRNK6MVHo1kKjQ/v
+	wj3E+ZGUKq4XUEn3JNXqWIN10egYWe2aoexoJFHvYNaz5GGkfZR+d/fPqZ+G6n39A6EzzDL
+	UmSmlpbUyOZSCqD6tgUWwozHeBDFNb7cvxE0MB0u5vSDJdZ3iTv/hI0AYc2VzifiA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Oct 29, 2026 at 09:26:00AM +0100, Krzysztof Kozlowski wrote:
-> On Tue, Oct 27, 2026 at 08:26:34AM +0100, Francesco Valla wrote:
-> > Add myself as reviewer for spi-virtio, following the introduction of the
-> > devicetree bindings for it.
-> > 
-> > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > ---
-> >  MAINTAINERS | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 5724645bf703..45a29ad08096 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -29673,6 +29673,7 @@ F:	sound/virtio/*
-> >  
-> >  VIRTIO SPI DRIVER
-> >  M:	Haixu Cui <quic_haixcui@quicinc.com>
-> 
-> Please drop this email with reasoning:
-> Email bounces and maintainer did not update it after changing
-> employerment.
-> 
-> Best regards,
-> Krzysztof
+Enable ECAM to avoid reprogramming iATU on every downstream configuration
+access, reducing latency and CPU utilization. Add 64-bit memory windows
+for devices with large BARs, such as discrete GPUs.
 
-Makes sense, ack that.
+Preserve the SA8540P PCIe2a and PCIe3a address maps to avoid regressions
+due to firmware differences.
+
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ arch/arm64/boot/dts/qcom/sa8540p.dtsi  |  9 +++++++++
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 25 +++++++++++++++----------
+ 2 files changed, 24 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
+index 23888029cc11..e5393a237497 100644
+--- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
++++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
+@@ -180,6 +180,15 @@ &gpu_smmu {
+ 
+ &pcie2a {
+ 	compatible = "qcom,pcie-sa8540p";
++	reg = <0x0 0x01c20000 0x0 0x3000>,
++	      <0x0 0x3c000000 0x0 0xf1d>,
++	      <0x0 0x3c000f20 0x0 0xa8>,
++	      <0x0 0x3c001000 0x0 0x1000>,
++	      <0x0 0x3c100000 0x0 0x100000>,
++	      <0x0 0x01c23000 0x0 0x1000>;
++
++	ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
++		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
+ 
+ 	linux,pci-domain = <0>;
+ 
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index d17475c3e66c..0c4abf60d1d2 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -2161,13 +2161,14 @@ pcie4: pcie@1c00000 {
+ 			      <0x0 0x30000000 0x0 0xf1d>,
+ 			      <0x0 0x30000f20 0x0 0xa8>,
+ 			      <0x0 0x30001000 0x0 0x1000>,
+-			      <0x0 0x30100000 0x0 0x100000>,
++			      <0x4 0x00000000 0x0 0x10000000>,
+ 			      <0x0 0x01c03000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x30200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x30300000 0x0 0x30300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x10000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0x20000000 0x4 0x20000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2273,13 +2274,14 @@ pcie3b: pcie@1c08000 {
+ 			      <0x0 0x32000000 0x0 0xf1d>,
+ 			      <0x0 0x32000f20 0x0 0xa8>,
+ 			      <0x0 0x32001000 0x0 0x1000>,
+-			      <0x0 0x32100000 0x0 0x100000>,
++			      <0x4 0x40000000 0x0 0x10000000>,
+ 			      <0x0 0x01c0b000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x32200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x32300000 0x0 0x32300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x50000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0x60000000 0x4 0x60000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2383,13 +2385,14 @@ pcie3a: pcie@1c10000 {
+ 			      <0x0 0x34000000 0x0 0xf1d>,
+ 			      <0x0 0x34000f20 0x0 0xa8>,
+ 			      <0x0 0x34001000 0x0 0x1000>,
+-			      <0x0 0x34100000 0x0 0x100000>,
++			      <0x4 0x80000000 0x0 0x10000000>,
+ 			      <0x0 0x01c13000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x34200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x34300000 0x0 0x34300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x90000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0xa0000000 0x4 0xa0000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2496,13 +2499,14 @@ pcie2b: pcie@1c18000 {
+ 			      <0x0 0x38000000 0x0 0xf1d>,
+ 			      <0x0 0x38000f20 0x0 0xa8>,
+ 			      <0x0 0x38001000 0x0 0x1000>,
+-			      <0x0 0x38100000 0x0 0x100000>,
++			      <0x4 0xc0000000 0x0 0x10000000>,
+ 			      <0x0 0x01c1b000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x38200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x38300000 0x0 0x38300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0xd0000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0xe0000000 0x4 0xe0000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2606,13 +2610,14 @@ pcie2a: pcie@1c20000 {
+ 			      <0x0 0x3c000000 0x0 0xf1d>,
+ 			      <0x0 0x3c000f20 0x0 0xa8>,
+ 			      <0x0 0x3c001000 0x0 0x1000>,
+-			      <0x0 0x3c100000 0x0 0x100000>,
++			      <0x5 0x00000000 0x0 0x10000000>,
+ 			      <0x0 0x01c23000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
++				 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+
+-- 
+2.56.0
 
