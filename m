@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297180;
-	b=UoNs+Cfvbsj+njBkjWhLEPTaXvpEonocKZhRLOFeiiXlxtVnVVe4LNlRjx4twW3cKCun
-	 JrWyKjH+BWj6XRXGF6v/JhQQB+bLW5p5LwSm878NztT6ck837TWrxUCNuDUhPNZfmqAhn
-	 9yZRIpUNb0SPmK72aKTVaZrqzUcrYSl2jsF0p89PcJ4wNVzUs24I4bqypBaew6HzSM+DP
-	 +xouzoVN9aOQngAt/5fhIeuhyrJgd1nFFs/Zx3ckWyfbI+sNno8EPuo/MqtkKOfl5Ezwu
-	 7nbnbVdCkdloC6XRw43qDu1DdoW3D/qoaCGnZfSo7qjt/gJnF1V0p3iZXDUmtad4lAw==
+	t=1793297510;
+	b=trOlA93Gaua0LLQsGPqNIE3xU4K08hvG5RT6I7IvfM5GfETTOYA/rZFRwsecQfrVXDnD
+	 NiNBVNttCLYYkFworj+ad92vXpO+RbKqJhLVZtWI3rIh3WNU+62KEx/M+yQYgcMpQ8kRB
+	 xQ1tihrCrb/aYYssluS64MHFTJ/ZoArWarH4gkn7p09/hrgGOOJJAT1ahvn0jzKI06Hpu
+	 2l7O9AtSkltvAow8TqfAA89MxjtKJ3KxgV/b5RXyA4GqZp1mZUirXG0EVUZl5DC1t6ud+
+	 IKz3NMm2JHQW6dzQR5xc3yXjsZnscTtqt5U0SVGtVe0EouhKhYRIicTaaIg0uriSbzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297180;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297510;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+BGd71qzsHDL6uZ0se5mkr5mWrtxgAnTbyOWuD93Dpw=;
-	b=4fuv3SioW2ngl0UueHkEajkLMF1s4BmaWknF2PU6MAiOJ+ExFVNtQZwnQGKIN7Di3BY0
-	 7O0//kvnPBb5oMNM3qlW1GSMtNp2cWtheOlPVDD4BC9/8soXgfIuWQkOLwiaPH9JJysUL
-	 D0e6X2cN1B2zP25Vyalu0ZWGC+QOs9u2AWhcNnqaX0Mdvvb/JNRYs5VlMfyn9/AYoXq8j
-	 f33sEwvdaZzke4m33BLMerhHCTclRB5nnluWxPXSJFeFaD/tnp3cOH5OxduYy5CCun7p9
-	 6gUnmbVCC29CyTsc4US/QxSVJ1vVNqJQlL2eNVbLwDEXJCPjrjkm70w2o8ol9X1o0/w==
+	bh=l5zs4K7EH5RkB4Yfo6P+5WdFANZnUAv3i8l9r84sVso=;
+	b=tM+8i446gN+pwuKv9KIYq9keOPbwTAaNJjOo94OFgfc5GeqcTL+gS61sE6vk4+1wczHM
+	 Y/06pcWqW2oyqCJBGwdnHIM20BmATMus7M2aMgbJFnjq5iAJmrG530j3oP6qH/9EU0S38
+	 R5BAOxcH/R1hGhjebz83v/rP46Ts7ul4tcoqtQerY/PjoJzPSS1CsEYMqWm11eZ/rsjQk
+	 D3yPHEAVJWwb3M+P3VeSBjNW4K5iCwV9/bpRg34xYlU2xWN5xuknnaAon6JmU7ON7DRgL
+	 DxB/owN94uxWcdp2L2lwgW0AGyuMnkcIkmCtdE15NX4oa+dUtsu1yFIOqogEJ1kHGAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nUU/779G";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKHTetBX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFA8606A31D
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DAA606A31D
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nUU/779G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248B31F01816;
-	Thu, 29 Oct 2026 18:06:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKHTetBX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB4F1F01816;
+	Thu, 29 Oct 2026 18:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793297179;
-	bh=+BGd71qzsHDL6uZ0se5mkr5mWrtxgAnTbyOWuD93Dpw=;
+	s=k20260515; t=1793297509;
+	bh=l5zs4K7EH5RkB4Yfo6P+5WdFANZnUAv3i8l9r84sVso=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nUU/779GivLuu0PMnr+BsiDPH/KrYRZixO1xFQkbCUp/BshXKA0caKdr44dH172gD
-	 Nfgsj8DS+GJSIYgmm4fWrYsRdzvuAkOBOGlKk3u8UUiO7yR/Uzi6AJkyoyzX1gkYyX
-	 L4PqUCoro1EDVFC3vz6cdG7jCOHSZQXN8v6iEePHBwkHbWsbp+ww63WNRVKIxMCS8/
-	 LVrfCY+huQRhadW73qocsCcZebQHZnPoLhXAotx05gS7LDIXxZnH6HUV0UCew/k4Wl
-	 I7s/jd6LT33KAS/pqs9Xo4GvpPj/6ov+YsOy7GMOHzEMiPbYwnJxy0wBJ7t2mPuV/6
-	 bNFZu4hrlSS1A==
-Message-ID: <sashiko-outbox-189760@kernel.org>
+	b=lKHTetBX/GIjyCJIUasdGzNzHooMQDMLeqFuMcYiU06hVdS7ISv90RsLWyT3J4IbO
+	 OLXLS1xMC0LFz5ScA9MSxllgx3oWkeGwnDo8ZcoGGZu85nPpVGbc3kpDNqAC0beDOj
+	 LTm+W/yLzQlEKd3Vi7kORras0/7SksmV6LGT4gpY3iUsShKrFyYaUiV/0uyuxAChGz
+	 sadYJy6UbTljuZZGM7GHQHyn4y3u6SXiLLGn7juqwA6tKRCr97zn7p8KxxS1YmOs5Z
+	 1/SQAmvvSaC54HJqD7bBSkI75X768EOhxk6Km6WWwRF9Q1mLt4yHLrcdQ4Zrs52c3C
+	 WYf5g0li5DLaA==
+Message-ID: <sashiko-outbox-189770@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/3] power: supply: add read-only CW2017 battery
- monitor
+Subject: Re: [RFC PATCH 3/3] arm64: dts: qcom: tiare: describe CW2017 fuel
+ gauge
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kupreenko Danila" <keckerz@yandex.ru>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <179329639684.489944.17646031923456877930.cw2017-first-public-rfc-2@yandex.ru>
+In-Reply-To: <179329639684.489944.11313132727575469130.cw2017-first-public-rfc-3@yandex.ru>
 References: <179329639684.489944.6322623410181934358.cw2017-first-public-rfc@yandex.ru>
- <179329639684.489944.17646031923456877930.cw2017-first-public-rfc-2@yandex.ru>
+ <179329639684.489944.11313132727575469130.cw2017-first-public-rfc-3@yandex.ru>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 18:06:18 +0000
+Date: Thu, 29 Oct 2026 18:11:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,132 +63,111 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] power: supply: cw2017: broken sample.error tracking in cw2017_su=
-spend()
+- [Medium] power: supply: cw2017: sample invalidation in cw2017_suspend() b=
+reaks resume
 --
 
-commit 2974e2dfc1b0336eb1b26f72d45d626971f0a216
+commit e63b82695c67205a9de8a30516bebe6f4181c2ad
 Author: Kupreenko Danila <keckerz@yandex.ru>
 
-power: supply: add read-only CW2017 battery monitor
+arm64: dts: qcom: tiare: describe CW2017 fuel gauge
 
-This patch adds a read-only power_supply driver for firmware-initialized
-CellWise CW2017 battery fuel gauges over I2C, polling voltage, state of
-charge, and temperature with exponential backoff on read errors.
+This commit enables the BLSP2 I2C1 controller and adds the CellWise CW2017
+fuel gauge node at address 0x63 for the Xiaomi Redmi Go (msm8917-xiaomi-tia=
+re).
 
-> diff --git a/drivers/power/supply/cw2017_battery.c b/drivers/power/supply=
-/cw2017_battery.c
-> new file mode 100644
-> index 0000000000000..86323849a813a
-> --- /dev/null
-> +++ b/drivers/power/supply/cw2017_battery.c
-> @@ -0,0 +1,370 @@
-
-[ ... ]
-
-> +static void cw2017_poll(struct work_struct *work)
-> +{
-> +	struct cw2017 *cw =3D container_of(to_delayed_work(work), struct cw2017=
-, work);
-> +	struct cw2017_sample sample =3D { };
-> +	bool changed;
+> diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-tiare.dts b/arch/arm=
+64/boot/dts/qcom/msm8917-xiaomi-tiare.dts
+> index fe844230030f2..6d72a4763ac48 100644
+> --- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-tiare.dts
+> +++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-tiare.dts
+> @@ -14,6 +14,15 @@ / {
+>  	qcom,board-id =3D <0x1000b 1>;
+>  };
+> =20
+> +&blsp2_i2c1 {
+> +	status =3D "okay";
 > +
-> +	sample.error =3D cw2017_read_sample(cw, &sample);
-> +	if (sample.error)
-> +		dev_dbg_ratelimited(cw->dev, "Measurements unavailable (%d)\n",
-> +				    sample.error);
-> +
-> +	mutex_lock(&cw->lock);
-> +	changed =3D !cw->sample.error !=3D !sample.error ||
-> +		  (!sample.error &&
-> +		   (cw->sample.capacity !=3D sample.capacity ||
-> +		    cw->sample.voltage_uv !=3D sample.voltage_uv ||
-> +		    cw->sample.temp !=3D sample.temp));
-> +	cw->sample =3D sample;
-> +	mutex_unlock(&cw->lock);
-> +
-> +	if (changed)
-> +		power_supply_changed(cw->psy);
-> +
-> +	if (sample.error)
-> +		cw->poll_interval_ms =3D min(cw->poll_interval_ms * 2,
-> +					   CW2017_MAX_POLL_INTERVAL_MS);
-> +	else
-> +		cw->poll_interval_ms =3D CW2017_POLL_INTERVAL_MS;
-> +
-> +	queue_delayed_work(system_freezable_wq, &cw->work,
-> +			   round_jiffies_relative(msecs_to_jiffies(cw->poll_interval_ms)));
-> +}
-
-[ ... ]
-
-> +static int cw2017_suspend(struct device *dev)
-> +{
-> +	struct cw2017 *cw =3D dev_get_drvdata(dev);
-> +
-> +	cancel_delayed_work_sync(&cw->work);
-> +	mutex_lock(&cw->lock);
-> +	cw->sample.error =3D -ENODATA;
-> +	mutex_unlock(&cw->lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static int cw2017_resume(struct device *dev)
-> +{
-> +	struct cw2017 *cw =3D dev_get_drvdata(dev);
-> +
-> +	cw->poll_interval_ms =3D CW2017_POLL_INTERVAL_MS;
-> +	queue_delayed_work(system_freezable_wq, &cw->work, 0);
-> +
-> +	return 0;
-> +}
+> +	fuel-gauge@63 {
+> +		compatible =3D "cellwise,cw2017";
+> +		reg =3D <0x63>;
+> +	};
+> +};
 
 [Severity: Medium]
-Does setting cw->sample.error to -ENODATA in cw2017_suspend() without
-emitting a notification break the validity-transition tracking in
-cw2017_poll() across suspend and resume?
+When binding the cellwise,cw2017 node added here to the cw2017-battery driv=
+er
+from earlier in this series, does invalidating cw->sample.error in
+cw2017_suspend() cause -ENODATA errors and spurious uevents across system
+suspend and resume?
 
-In cw2017_poll(), validity transitions are detected by comparing the cached
-error state against the new sample error state:
+In drivers/power/supply/cw2017_battery.c, cw2017_suspend() overwrites the
+cached sample state on every suspend:
 
+drivers/power/supply/cw2017_battery.c:cw2017_suspend() {
+	struct cw2017 *cw =3D dev_get_drvdata(dev);
+
+	cancel_delayed_work_sync(&cw->work);
+	mutex_lock(&cw->lock);
+	cw->sample.error =3D -ENODATA;
+	mutex_unlock(&cw->lock);
+
+	return 0;
+}
+
+On resume, cw2017_resume() queues cw->work onto system_freezable_wq:
+
+drivers/power/supply/cw2017_battery.c:cw2017_resume() {
+	struct cw2017 *cw =3D dev_get_drvdata(dev);
+
+	cw->poll_interval_ms =3D CW2017_POLL_INTERVAL_MS;
+	queue_delayed_work(system_freezable_wq, &cw->work, 0);
+
+	return 0;
+}
+
+Because cw2017_properties includes POWER_SUPPLY_PROP_TEMP and
+cw->desc.no_thermal is false, devm_power_supply_register() registers a
+thermal zone via psy_register_thermal() whose callback is
+power_supply_read_temp().
+
+During resume in suspend_devices_and_enter() -> dpm_resume_end(),
+dpm_complete() calls thermal_pm_complete(), which queues
+thermal_zone_device_resume() on the non-freezable thermal_wq before
+suspend_finish() -> suspend_thaw_processes() -> thaw_workqueues() thaws
+system_freezable_wq. When __thermal_zone_device_update() ->
+power_supply_read_temp() -> cw2017_get_property() runs while cw->work is
+still frozen or in flight, it sees cw->sample.error =3D=3D -ENODATA, causing
+thermal_zone_recheck() to log a temperature check failure (-61) and enter
+error-recheck polling. Similarly, any PM_POST_SUSPEND notifier or thawed
+userspace process reading battery attributes before cw2017_poll() finishes
+its I2C transfers receives -ENODATA.
+
+In addition, when cw2017_poll() completes after resume:
+
+drivers/power/supply/cw2017_battery.c:cw2017_poll() {
+	mutex_lock(&cw->lock);
 	changed =3D !cw->sample.error !=3D !sample.error ||
 		  (!sample.error &&
 		   (cw->sample.capacity !=3D sample.capacity ||
 		    cw->sample.voltage_uv !=3D sample.voltage_uv ||
 		    cw->sample.temp !=3D sample.temp));
+	cw->sample =3D sample;
+	mutex_unlock(&cw->lock);
 
-Because cw2017_suspend() overwrites cw->sample.error with -ENODATA without
-calling power_supply_changed(cw->psy), two notification issues arise when
-cw2017_poll() runs after resume:
+	if (changed)
+		power_supply_changed(cw->psy);
+}
 
-1. If measurements were valid before suspend (cw->sample.error =3D=3D 0) and
-   cw2017_read_sample() fails after resume (for example, if the gauge lost
-   its profile or readiness across suspend or an I2C error occurs), both
-   cw->sample.error and sample.error are non-zero. As a result, changed
-   evaluates to false and power_supply_changed(cw->psy) is never called,
-   leaving consumers with stale pre-suspend values.
+Because cw2017_suspend() set cw->sample.error =3D -ENODATA, the expression
+!cw->sample.error !=3D !sample.error is always true when the post-resume po=
+ll
+succeeds, triggering an unconditional power_supply_changed() notification on
+every resume even if capacity, voltage_uv, and temp have not changed.
 
-2. If measurements were valid before suspend and remain valid and unchanged
-   after resume (sample.error =3D=3D 0), !cw->sample.error !=3D !sample.err=
-or
-   evaluates to true solely because cw2017_suspend() forced cw->sample.error
-   to -ENODATA, triggering an unconditional power_supply_changed(cw->psy)
-   uevent on every resume.
-
-In addition, cw2017_resume() queues cw->work on system_freezable_wq, which
-remains frozen until suspend_thaw_processes() runs after dpm_complete().
-When dpm_complete() -> thermal_pm_complete() schedules
-thermal_zone_device_resume() on the non-freezable thermal_wq (registered
-for POWER_SUPPLY_PROP_TEMP via __power_supply_register() ->
-psy_register_thermal()), cw2017_get_property() will see cw->sample.error =
-=3D=3D
--ENODATA and fail thermal zone resume before the post-resume poll work has a
-chance to run.
-
-Would it be better to preserve cw->sample across suspend so cw2017_poll()
-can compare the post-resume reading against the last reported state?
+Should cw2017_suspend() keep the last sample intact until the post-resume
+poll updates it, or refresh the sample synchronously during resume?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179329639684.489944=
-.6322623410181934358.cw2017-first-public-rfc@yandex.ru?part=3D2
+.6322623410181934358.cw2017-first-public-rfc@yandex.ru?part=3D3
