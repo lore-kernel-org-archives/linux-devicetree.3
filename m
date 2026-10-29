@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793252262;
-	b=a3ti5btE8AL2jDbvpf8j5JoNiqiP/QqUPXUSSEQ3tX2cQLWq1EJI80i7e5QvRSeN8Tfb
-	 tXqmxQs7TrwidO5hwlUiBIK3jl1/SYR4s+bUgjPj54VFwCIQBjtmCqKgUE7JQIE7zUe5r
-	 +eAg5wBfB2+DGGBuiNZAHTlxofiLtxTMWB/FzYM3ZBJL4BxmYMW8kvztjmpqa1PMYj159
-	 2SoniB5TgDDcSlBSFolTcL+92TjdhsWMOu+jS9RBX3drBWSFp4p5541iX31l6i034tERa
-	 iIM3mYkt04XlNKse8GXPatq0gsUuLrwD76aW+3zcyACVpZYdyq4nWMsuyDxr4yBAWNQ==
+	t=1793254245;
+	b=tk9eUpbhSAuZJIBnT1oblGVC5K1oQBE9kuJPeFVkeRvk6WTbhIuAUNDNrWxHb59cPUIT
+	 DjZBkjf4rZ7yjCPlmZCvLbx/x5ae1lBEuu5RSUCih8qHm/5nWBVnT6JAJmgX5LeWaTs58
+	 5WQdBSCzB4CAQtNTkNOzIoCcWJdvynZTIxVw7KA5xnJ4BjyBVaX5gPx1SdCf0Ih0ZmlKZ
+	 k+/FYBod/lMUqeKzDyi4XAoc5gOvksv88JFM1CLMk9mOvSuu3R6bkkP38Za2fKcP3WMZZ
+	 wYfIu8i/jPcdscQpIyGpb97SJZaJRW3dIOowevVmh0EkEkTirMXlhz0AzVhB3t/6jZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793252262;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8/XVliNYGNf9Vr27hCG2GokMpwv3zf1D7CGTaejWL3U=;
-	b=hNoiH4Zz2B5INrCX+K0pgm5y5H64vqdV1OktVnUZ25hDHmQHZEfjC4y8IX8dc1kstuVI
-	 mseuHUSEKp756xdwstvJyDJ9bi99BmOALLYF7J7wEr1lLnTe17Kwr+0wX4uY8s0Red1kO
-	 KQnKDZ6GLpc7ZLIPgRkT0b9wUuGpgkEBPWJb3k3bob0WV2u6s0jpJXY3g2TrO4IA71WGo
-	 nLwq5tyrX5sVKCFhAAVCSlJbPGjPof+zKoudDoRb/YDwqe3fmZDMzdQSX0QyQ9j/NG/Mr
-	 wOlV0RhSCDOHjGqk91nOcR2RxGljjHWpHXaHUP9818R4T9N8nTvudIJFtkViRUhO0mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254245;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=5Tr0oBFB96n5almIEsEiCDrAJB5b3KqP7AbXwp3w3Vk=;
+	b=lE+8diuPw42AjJjFEJlFmzFInExrF7zRCdwL6cEO2w/gmcOlfMt/y0r5pTGcMNXGDGif
+	 0wrqqR71y/2/+UIpxHDtrVK7tzCVkQp5FZbOfhxMqHkfQQ/vWg4KFVMAQdG9g8JSviyQX
+	 PTkVu4ab0hdS4DxlHWfONJz79a9ifE4za/7EtnymiwlFRyZRrZ6DUR/2QBVqusXniyYfB
+	 uoks5RSzgCuUqBT3np6PIB+iB+41NXZCwdbvWo7BDrlDjNMUfEKIXgvAST1/ohax4C2rv
+	 Bo6fljrpaTz+TnCBjJACzuVTG6iLCv6v3xYWzwCfvU1Jh+7nsVgBJIau5YqZmdKyIqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6LF2nw7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cswlkksx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a90+cfBG;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9457C606A31A;
-	Thu, 29 Oct 2026 05:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C62606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C62606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E6LF2nw7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD03D1F01825;
-	Thu, 29 Oct 2026 05:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793252261;
-	bh=8/XVliNYGNf9Vr27hCG2GokMpwv3zf1D7CGTaejWL3U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E6LF2nw7FqMqiZ4oWjs7vFT3p3ywtjM8yVBk18nfQF2mzLxSYNDV4QPc5GqQ1PBNL
-	 7/lM7dojeqpYTDZ2JCoIMUbH4Xt7H8A0xRetzeopO41iLfo6e4j+JvMdlVTCZ18nG3
-	 4fgT+lgC2wnloI1PHuSsTbvJz8YcbTwEHJaALVSv6lqAFsHMV1HuBahhs9UX/bRWXG
-	 RkhJRmWtWybFGhJx4yUcGItWAnxKz7LdMXRQyeUIWS1AMAtPrq8a4YfQf8b6YFu+kV
-	 1HTptMaytWpB2Z1p2Jl0RsOmKMs9qY9aDOkGYjQKcREaD0f5tcbaLFxsX4grnLX4JY
-	 +ldwUj0m+IRzg==
-Message-ID: <sashiko-outbox-188759@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 06/12] rust: serial: Add minimal serial-core polling
- console support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kwanghoon Son" <asdfkwang@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261029-rust-bl808-console-v1-6-b736ee920078@gmail.com>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-6-b736ee920078@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 05:37:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cswlkksx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a90+cfBG
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5GuYa3341092
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5Tr0oBFB96n5almIEsEiCD
+	rAJB5b3KqP7AbXwp3w3Vk=; b=cswlkksx3mVm/A6JzkaXKiodcGWmzIkS6wJR0q
+	la82jaFC54tsCkxU7xTJWXtAWZd2yAM0CLjHBNu5Ecfs9GNeQP+VWzFSD3LSXnGD
+	a/B6cEUGsksAoZUuiGpYYKrsqMrd5hWXHXb8F8Op2y73Za2yUcTZQz5iWb3jt+35
+	wYidNhLt4VA25IpvNq0HLTG30V6XLnp7avdhAE9lIltRai+nZ2jarIzFmAi2Zu8M
+	NfpoeJ/mL+rZPhsyxtrzAcx4EbkEE3Y5/Xgoo2fbAdzuRrRA+mao4Pene6swBKL0
+	LmibYBzYGpeSjqC0BprlXsT9DLRieM9RvusQe6eLWe3uS/Cg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkut3gy8j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:43 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35c3c370b17so2941869eec.0
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 23:10:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793254243; x=1793859043; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5Tr0oBFB96n5almIEsEiCDrAJB5b3KqP7AbXwp3w3Vk=;
+        b=a90+cfBGAQ12WDV0iL2ZeyVXBKWASYl8+KDr6TAw+NG+/zmuQiw3v7NI/ZV/bUboYY
+         hHFW257MqL2VSbgoQr665BI1WZRMVxoCtvc4GlNlqHf7YaTT5IuscOtXbi7eESHTs3PN
+         kPr8CgBg+g+LEc0tRrP/DFl+oQdGB7k9vI8Ydf2kpiGdzg1JJ8kEgnqHEG+M5IeYmb99
+         cnybC1ebfrlDKMCB9nCmcBHVJm4ODa0Vf/LxoT3W13jcdTeo4mpBjEYyB6DbX1AMJVFr
+         wr8PUDFZhWzft3+LrdHEyCDA0bMUAnU7OGabqs2IEh8rQB/uLeMrgt7D97Ai9U1JQ59D
+         llog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793254243; x=1793859043;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5Tr0oBFB96n5almIEsEiCDrAJB5b3KqP7AbXwp3w3Vk=;
+        b=DoeCCZ0QBJDZtIyQqAEUAUTAV/dEYMpmwK7c19/RoJf0IfGOOXwECrEmS2eET9JOEa
+         zF/u7nEHVoHDwNwfC7x0pCCZCnVB/woPF3Fx8xyT22NcFLav4y3M5PikzHxBmQm4p6vU
+         rdJdmrUwkn5nYR51sD8HUb/nRFL1EyjBHn6yM82a87tFwPOLNJzzGRIEig0O2NUtfeun
+         80OD1n4Ehs2ykdwna8+ou0cswjeGKr33ROa8K0qKkOZf4KWmdTnFViJhM6EwwI3vBJD4
+         Dr3XNm7nlm4FDwkzievVtM8ntrLi8p2icLA5jDiH7Bm9IXPFhdP1PQdxQ8Np3lwmgY/s
+         oEwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxmOQwRlGlTW4KQyPQgwhmwC/ol2FEc+ML47jn9LIkN6LzQ8LtIGcMp0Kz9kq4ZuGfWBsu90XgJcb3+@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9d0VfEhY0ZTgn1EuzYSFctOiXuAPLKaMNEr5dChHhLzGm1hW9
+	fWFYWhaRUbxJ1rG6hhd/ffHbabK0q1WV2h0Kn6MqfU7Cgh5UDbxEFCJxh5DWCnpNAcTYYGUlKYX
+	R4MUQ2i/+vjffJbhtyL3OMMRePZ1qJewiiM78AIgkhqFHLcwKYLYxQuFxGcZtj6xs
+X-Gm-Gg: AYBFou0UB0yKpFWaKOyec8wCDZA3zYone6B0d7xlhO5TXNSc+Xc/9Nf73uWwSWQ3ui4
+	A1WASnsTcf545BdIlMfRJ9blaHRzz5JUbBFKuvkZFtjtWURQL/7wkD/M4EFJlFQk2hIhN2fhemy
+	36+OYdDeye3t85h11UflMig99z0DQaby9+cp15N/BjchoPaLikLFqP/5mA8f70gdnzCLIMAM407
+	XPtQds0x2odKS4Hv4+lL2atzyhxiAKtedVRmdvgzJpQTC5uRk0ha2r5oNsYAsx+OrDQF7dbUBlY
+	rwA2q9csEZi3YYHHygl9N1VLhvSbmHPh9tGG3TLUFJbw1IFUF3cNjbuUOxEXPbYZh5w4N7pOpzc
+	aAgVsMyld3OD+WUzBnPBjHkfJxRKPCvqv4y4gI7+PGUKLK4rKwfsNIu+7uJIv1SQ5iAdcwwm/0h
+	FTOQcPm8Q=
+X-Received: by 2002:a05:7300:a8f:b0:368:c6b9:d3bb with SMTP id 5a478bee46e88-36a203f18f1mr6931734eec.14.1793254243132;
+        Wed, 28 Oct 2026 23:10:43 -0700 (PDT)
+X-Received: by 2002:a05:7300:a8f:b0:368:c6b9:d3bb with SMTP id 5a478bee46e88-36a203f18f1mr6931698eec.14.1793254242577;
+        Wed, 28 Oct 2026 23:10:42 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239a2e29sm14038935eec.26.2026.10.28.23.10.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 23:10:42 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] Add PCIe support for Qualcomm Nord platform
+Date: Thu, 29 Oct 2026 11:40:15 +0530
+Message-Id: <20261029-nord-v5-0-1a13c214e89d@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,387 +114,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAEfj4moC/3XO20oDMRAG4FcpuTZlck688j3EixxtxG500y5K2
+ Xc3aQMuaG8Cf5jvn7mgGuccK3rcXdAcl1xzmVoQDzvkD3Z6jTiHlhEFKkETwFOZA+aSaDCJBGE
+ jaqMfc0z561rz/HLL9ezeoj912ycOuZ7K/H3ds5A+Nyopv1UuBAM20jimlAPF2FOpdf95tu++H
+ I/79vSaYcTGKA80UaeVFPav6dcsdLtPD0ubJdolYQIxQaY7lv1aA2ZY1qwDq6mixAuu7li+sZQ
+ My5uNAYSXsf1y+Meu6/oDjuXQLJkBAAA=
+X-Change-ID: 20260810-nord-461809f1d5ae
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254236; l=3557;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=4TqTUrItcs5aJg0p14PtRmd0tQ+G0Qe6xJFnXclq78k=;
+ b=rwy+wLV5W6OmAgIpW7//Fsu4l6jr2rAnCxEosmX7/UaB4LDAITlpnQG0Humjx/gOMygNCSWWR
+ q578t8p+nBxCxMJBLdyuvm0f3PiRwJCmdB5RTJeQTMRoognTw8oI3BE
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfXyebyp9NWgd2N
+ knXWz7sJeb15Id9LS/iVAo6ly/B3AK7/VAdI5iG2Q7ZYUUl7hp4UB/8IgSfYEFramAdeSldNL7T
+ VxueILZ0WN0R9OX6mmLR+uXqWkwYhno=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfXwl0lieuFqHOA
+ zeKyhb+bTPbY5rBFlzdKflMrcAmtcEf50g/LmPZv695z7NoW1+5weo7/ALQzFK+QmsDl3xydXL2
+ PdgBkxDcLpIget0AZZePbqRVnJpqG0Kum2/jMG/qpazsmirGTRRX9S1M/6rOXQHdFud2X6FmKmV
+ qee2fBFbQUWy45t/6B0TF8fwOdm3q6c3WOiNRjfRcwmZpcos+cAVolFP4Htpi0IVJtaB4PEZAvw
+ 5Hm0dr3ZGy5IoHQvENmYyb+L/6X6Zpn9LVrC7zRFEul05yWTCI2M4Ei1009QkCPTe4lJUsin8yj
+ 9wDfqHI33+opfExnEIzhQ1AY44b2z3dHGWK1oaeiP0aDGu8VxwgoU6Txp8IM/L4IPRM0tQwkxuB
+ 0stD8ESU3pEyPB63oEiZdMB+GZbyDrgi4Z2BK+nHZn2IR0flPnf5ohuDTSe999lxm+rB+o+DSkz
+ bFiE0gNeWpS+34xHY5w==
+X-Proofpoint-ORIG-GUID: vU7Pufz_vQRTsnwDDOP6HEGa8zTtLS5d
+X-Proofpoint-GUID: vU7Pufz_vQRTsnwDDOP6HEGa8zTtLS5d
+X-Authority-Analysis: v=2.4 cv=HYSB3SE8 c=1 sm=1 tr=0 ts=6ae2e363 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=1XWaLZrsAAAA:8 a=P-IC7800AAAA:8 a=JfrnYn6hAAAA:8 a=_HC7VgZuvUK4spJUPywA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=d3PnA9EDa4IxuAV0gXij:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290023
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] rust: serial: use-after-free of uart_state on Driver::drop() w=
-ith open tty
-- [Medium] rust: serial: xmit_buf memory leak on TTY open when startup() fa=
-ils
-- [Medium] rust: serial: console_setup() and configure() corrupt console->i=
-speed
-- [Low] rust: serial: missing INVARIANT comment in PortData::with_port()
-- [Low] rust: serial: missing #[inline] annotations in serial abstractions
---
+This series adds PCIe support for the Qualcomm Nord (SA8797P) platform.
 
-commit b586ab9682dee028e1eb2b244ed7a9b0fb3bdd94
-Author: Kwanghoon Son <asdfkwang@gmail.com>
+Nord has a single Gen5-capable QMP PCIe PHY block split into four
+independently-clocked and independently-resettable ports (A/B/C/D).
+Firmware selects the active lane topology at boot via a TCSR
+configuration register, and the same PHY block can appear as a single
+x16 port, x8+x8, x8+x4+x4, or x8+x4+x2+x2 depending on that mode. This
+is similar in spirit to the Glymur multi-PHY support already posted,
+except Nord's PHY registers are programmed by Linux rather than by
+firmware, so this series adds the PLL, TXRXZ, PCS and PCS-lane init
+tables along with the power-up/power-down/soft-reset sequencing needed
+to bring each port up.
 
-rust: serial: Add minimal serial-core polling console support
+The series also documents and wires up the qcom,nord-pcie compatible
+(reusing the existing SA8775P PCIe controller binding), and adds a
+CORE_CLK_CGC_DIS/AUX_PWR_DET workaround required to avoid a timing
+convergence issue in the PCIe power domain.
 
-This commit adds serial-core abstractions in Rust for memory-mapped, two-wi=
-re
-polling console drivers, including Driver, SerialOps, Port, LockedPort, and
-Termios. It manages port lifetime via devres and provides callback adapters
-for console output and termios configuration.
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Krzysztof Wilczyński <kwilczynski@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: shengchao.guo@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: shengchao.guo@oss.qualcomm.com
 
-> diff --git a/rust/kernel/serial.rs b/rust/kernel/serial.rs
-> new file mode 100644
-> index 0000000000000..f24c685d8592f
-> --- /dev/null
-> +++ b/rust/kernel/serial.rs
-> @@ -0,0 +1,505 @@
+---
+Changes in v5:
+- Rebased to the tip and removed already applied patches.
+- Link to v4: https://patch.msgid.link/20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com
 
-[ ... ]
+Changes in v4:
+- Couple of nits in dt binding & phy driver (shawn, Mani)
+- Add proper description for link-mode & phy-cells
+- Remove soc node and address cells from example (Mani)
+- change cgc_dis_workaround to disable_cgc (Mani)
+- Split common changes and nord changes (Mani) 
+- Link to v3: https://patch.msgid.link/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com
 
-> +#[pinned_drop]
-> +impl<T: SerialOps> PinnedDrop for Driver<T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // SAFETY: Registration succeeded and every port holds an Arc to=
- this driver.
-> +        unsafe { bindings::uart_unregister_driver(self.inner.get()) };
-> +    }
-> +}
+Changes in v3:
+- change the name to quadfurcated phy (Konrad).
+- remove min items and change clocks order (Krzysztof).
+- Factor out the common config and create overlays & try to use common
+  symbols for glymur and nord (Konrad).
+- create  qphy_setbit and qphy_clrbit (Qiang Yu).
+- and in qmp_pcie_exit() apply settings only when nocsr is present (Qiang Yu).
+- Link to v2: https://patch.msgid.link/20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com
 
-[Severity: Critical]
-Can dropping Driver<T> after port removal cause a use-after-free of
-drv->state when a TTY file descriptor is still open?
+Changes in v2:
+- Fix dtbinding errors (Krzysztof)
+- Link to v1: https://patch.msgid.link/20260825-nord-v1-0-7c02f2b8765a@oss.qualcomm.com
 
-Driver::new() registers a struct tty_driver via uart_register_driver() and
-sets console.device to uart_console_device, while register_port() publishes
-the TTY device via uart_add_one_port(). Although SerialAdapter::startup()
-returns -EOPNOTSUPP, uart_port_startup() in drivers/tty/serial/serial_core.c
-turns a negative return value into 1 when capable(CAP_SYS_ADMIN) is true:
+---
+Krishna Chaitanya Chundru (2):
+      dt-bindings: pci: qcom: add Nord PCIe controller compatible
+      PCI: qcom: Add Nord PCIe controller support
 
-drivers/tty/serial/serial_core.c:uart_port_startup() {
-	...
-	retval =3D uport->ops->startup(uport);
-	if (retval =3D=3D 0) {
-		...
-	}
-	if (retval && capable(CAP_SYS_ADMIN))
-		return 1;
+ .../devicetree/bindings/pci/qcom,pcie-sa8775p.yaml       |  1 +
+ drivers/pci/controller/dwc/pcie-qcom.c                   | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+)
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20260810-nord-461809f1d5ae
 
-	return retval;
-}
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-uart_open() -> tty_port_open() -> uart_port_activate() -> uart_startup()
-then converts that positive return value into 0, allowing open() to succeed
-with TTY_IO_ERROR set. When console_on_rootfs() opens /dev/console at boot,
-or when a privileged userspace process opens /dev/console or the TTY device
-node, it obtains an open struct tty_struct with tty->driver_data =3D
-&drv->state[line] and tty->port =3D &drv->state[line].port. Even for
-unprivileged callers, tty_init_dev() attaches tty->port before uart_open()
-fails and tty_release() runs.
-
-Because uart_register_driver() leaves tty_driver->owner set to serial_core's
-THIS_MODULE rather than drv->owner, open TTY file descriptors do not pin the
-driver module or Arc<Driver<T>>. When a device unbinds and Registration::dr=
-op()
-calls uart_remove_one_port(), serial_core only calls tty_port_tty_vhangup()
-(which does not free open tty_struct instances and skips /dev/console
-redirected files) and waits on state->refcount (which only tracks transient
-uart_port_ref() sections).
-
-When the last Arc<Driver<T>> is then dropped, Driver::drop() calls
-uart_unregister_driver(), which immediately frees drv->state:
-
-drivers/tty/serial/serial_core.c:uart_unregister_driver() {
-	...
-	for (i =3D 0; i < drv->nr; i++)
-		tty_port_destroy(&drv->state[i].port);
-	kfree(drv->state);
-}
-
-When the open /dev/console or TTY file descriptor is later used or closed in
-tty_release() -> uart_close() and release_tty() (which sets
-tty->port->itty =3D NULL and calls tty_buffer_cancel_work(tty->port)), won't
-the TTY layer dereference and mutate the freed drv->state memory?
-
-[ ... ]
-
-> +    /// # Safety
-> +    /// `ptr` must be a PortData<T> port in a serial-core callback. Regi=
-stration
-> +    /// owns its allocation until uart_remove_one_port returns; removal =
-waits for
-> +    /// console_srcu readers and serial-core users before this port is f=
-reed.
-> +    /// Other device-managed resources may already have been revoked.
-> +    unsafe fn with_port<R>(
-> +        ptr: *mut bindings::uart_port,
-> +        f: impl for<'a> FnOnce(&'a Self, &Port<'a>) -> R,
-> +    ) -> R {
-> +        // SAFETY: The private_data type is fixed by Driver<T>/register_=
-port<T>.
-> +        let state =3D unsafe { &*(*ptr).private_data.cast::<Self>() };
-> +        f(
-> +            state,
-> +            &Port {
-> +                raw: ptr,
-> +                device: &state.device,
-> +            },
-> +        )
-> +    }
-> +}
-
-[Severity: Low]
-Since Port<'a> declares a type invariants section in its documentation,
-should this Port construction in PortData::with_port() have an // INVARIANT:
-comment explaining why raw and device satisfy the invariants?
-
-[ ... ]
-
-> +    // Required TTY operations remain inactive for this output-only cons=
-ole.
-> +    extern "C" fn inactive(_ptr: *mut bindings::uart_port) {}
-> +
-> +    extern "C" fn startup(_ptr: *mut bindings::uart_port) -> i32 {
-> +        EOPNOTSUPP.to_errno()
-> +    }
-
-[Severity: Medium]
-Does returning -EOPNOTSUPP from SerialAdapter::startup() leak
-state->port.xmit_buf whenever the TTY or /dev/console is opened?
-
-When a process opens /dev/console (including console_on_rootfs() during boo=
-t)
-or the registered TTY device node, uart_open() -> tty_port_open() ->
-uart_port_activate() -> uart_startup() -> uart_port_startup() allocates a
-page for state->port.xmit_buf before invoking uport->ops->startup(uport):
-
-drivers/tty/serial/serial_core.c:uart_port_startup() {
-	...
-	retval =3D uart_alloc_xmit_buf(&state->port);
-	if (retval)
-		return retval;
-
-	retval =3D uport->ops->startup(uport);
-	...
-}
-
-Because SerialAdapter::startup() returns -EOPNOTSUPP, uart_port_startup()
-returns a non-zero value without freeing state->port.xmit_buf. In
-tty_port_open(), a non-zero return from port->ops->activate() causes an ear=
-ly
-return before tty_port_set_initialized(port, true) is called:
-
-drivers/tty/tty_port.c:tty_port_open() {
-	...
-	if (!tty_port_initialized(port)) {
-		clear_bit(TTY_IO_ERROR, &tty->flags);
-		retval =3D port->ops->activate(port, tty);
-		if (retval) {
-			mutex_unlock(&port->mutex);
-			return retval;
-		}
-		tty_port_set_initialized(port, true);
-	}
-	...
-}
-
-Because tty_port_initialized(port) remains false, neither
-tty_port_shutdown_locked() on close nor serial_core_remove_one_port() on po=
-rt
-removal calls uart_shutdown() to free state->port.xmit_buf:
-
-drivers/tty/serial/serial_core.c:serial_core_remove_one_port() {
-	...
-	scoped_guard(mutex, &port->mutex) {
-		port->console =3D false;
-
-		if (tty_port_initialized(port))
-			uart_shutdown(NULL, state);
-	}
-	...
-}
-
-And when Driver::drop() later calls uart_unregister_driver(), drv->state is
-freed without freeing state->port.xmit_buf.
-
-> diff --git a/rust/kernel/serial/console.rs b/rust/kernel/serial/console.rs
-> new file mode 100644
-> index 0000000000000..3562191eb7a93
-> --- /dev/null
-> +++ b/rust/kernel/serial/console.rs
-> @@ -0,0 +1,107 @@
-
-[ ... ]
-
-> +    /// # Safety
-> +    ///
-> +    /// Console core must hold console_list_lock and supply this driver'=
-s live
-> +    /// console. `options` must be null or a valid NUL-terminated option=
- string.
-> +    pub(super) unsafe extern "C" fn console_setup(
-> +        console: *mut bindings::console,
-> +        options: *mut crate::ffi::c_char,
-> +    ) -> i32 {
-> +        // SAFETY: Console core holds console_list_lock; serial core has=
- published the port
-> +        // before registering this console. uart_set_options calls our t=
-ermios adapter.
-> +        unsafe {
-> +            let port =3D Self::console_port(console);
-> +            if port.is_null() {
-> +                return ENODEV.to_errno();
-> +            }
-> +            let mut baud =3D (*console).ispeed as i32;
-> +            let (mut parity, mut bits, mut flow) =3D (i32::from(b'n'), 8=
-, i32::from(b'n'));
-> +            if !options.is_null() {
-> +                bindings::uart_parse_options(options, &mut baud, &mut pa=
-rity, &mut bits, &mut flow);
-> +            }
-> +            bindings::uart_set_options(port, console, baud, parity, bits=
-, flow)
-> +        }
-> +    }
-
-[Severity: Medium]
-Can ConsoleAdapter::console_setup() and LockedPort::configure() lose
-config.default_baud and overwrite console->ispeed and console->ospeed with =
-0?
-
-First, if non-null console options do not start with a positive baud rate,
-uart_parse_options() calls simple_strtoul() and sets baud to 0, overwriting
-the initial value read from (*console).ispeed rather than preserving
-config.default_baud.
-
-Second, uart_set_options() in drivers/tty/serial/serial_core.c constructs a
-zeroed dummy ktermios and calls port->ops->set_termios(port, &termios, &dum=
-my):
-
-drivers/tty/serial/serial_core.c:uart_set_options() {
-	struct ktermios termios, dummy;
-	...
-	memset(&termios, 0, sizeof(struct ktermios));
-	memset(&dummy, 0, sizeof(struct ktermios));
-	...
-	port->ops->set_termios(port, &termios, &dummy);
-	...
-	co->cflag =3D termios.c_cflag;
-	co->ispeed =3D termios.c_ispeed;
-	co->ospeed =3D termios.c_ospeed;
-
-	return 0;
-}
-
-When a driver's set_termios callback calls LockedPort::baud_rate() with an
-out-of-range baud rate (or baud =3D=3D 0 from uart_parse_options()),
-uart_get_baud_rate() falls back to the old termios (&dummy, which has baud
-rate 0), encodes 0 into new.0, and clamps its return value to at least 9600.
-
-When the driver then passes that non-zero baud rate to
-LockedPort::configure(), the check:
-
-    if bindings::tty_termios_baud_rate(&new.0) !=3D 0 {
-        bindings::tty_termios_encode_baud_rate(&mut new.0, baud, baud);
-    }
-
-sees tty_termios_baud_rate(&new.0) =3D=3D 0 and skips encoding the actual b=
-aud
-rate into new.0. uart_set_options() then copies termios.c_ispeed (0) and
-termios.c_ospeed (0) into co->ispeed and co->ospeed, so any subsequent
-console_setup() or port resume reads (*console).ispeed =3D=3D 0 instead of
-config.default_baud.
-
-> diff --git a/rust/kernel/serial/termios.rs b/rust/kernel/serial/termios.rs
-> new file mode 100644
-> index 0000000000000..449662d9b6b5e
-> --- /dev/null
-> +++ b/rust/kernel/serial/termios.rs
-> @@ -0,0 +1,104 @@
-
-[ ... ]
-
-> +    /// Whether parity generation and checking are enabled.
-> +    pub fn parity_enabled(&self) -> bool {
-> +        self.0.c_cflag & bindings::PARENB !=3D 0
-> +    }
-> +
-> +    /// Whether odd parity, or mark parity in mark/space mode, is select=
-ed.
-> +    pub fn odd_parity(&self) -> bool {
-> +        self.0.c_cflag & bindings::PARODD !=3D 0
-> +    }
-> +
-> +    /// Whether two stop bits are requested.
-> +    pub fn two_stop_bits(&self) -> bool {
-> +        self.0.c_cflag & bindings::CSTOPB !=3D 0
-> +    }
-> +
-> +    /// Disables mark/space parity without changing parity enable or odd=
-/even selection.
-> +    pub fn disable_mark_space_parity(&mut self) {
-> +        self.0.c_cflag &=3D !bindings::CMSPAR;
-> +    }
-> +
-> +    /// Disables RTS/CTS hardware flow control.
-> +    pub fn disable_hardware_flow_control(&mut self) {
-> +        self.0.c_cflag &=3D !bindings::CRTSCTS;
-> +    }
-> +
-> +    /// Data bits per character.
-> +    pub fn char_size(&self) -> u32 {
-> +        // SAFETY: c_cflag is a valid termios control flag value.
-> +        unsafe { bindings::tty_get_char_size(self.0.c_cflag).into() }
-> +    }
-> +}
-> +
-> +impl LockedPort<'_> {
-> +    /// Selects a supported baud rate using serial-core termios rules.
-> +    ///
-> +    /// Returns `None` if serial core fails to select a rate. Termios ch=
-anges
-> +    /// made by serial core are preserved, including on failure.
-> +    pub fn baud_rate(
-> +        &self,
-> +        new: &mut Termios,
-> +        old: Option<&Termios>,
-> +        min: u32,
-> +        max: u32,
-> +    ) -> Option<NonZeroU32> {
-> +        // SAFETY: The port is locked, and the termios references are va=
-lid for this callback.
-> +        let baud =3D unsafe {
-> +            bindings::uart_get_baud_rate(
-> +                self.raw,
-> +                &mut new.0,
-> +                old.map_or(core::ptr::null(), |t| &t.0),
-> +                min,
-> +                max,
-> +            )
-> +        };
-> +        NonZeroU32::new(baud)
-> +    }
-> +
-> +    /// Updates serial-core timeout and the actual console baud rate.
-> +    pub fn configure(&self, new: &mut Termios, baud: NonZeroU32) {
-> +        let baud =3D baud.get();
-> +        // SAFETY: All port fields are accessed under the UART lock. new=
- is exclusively borrowed.
-> +        unsafe {
-> +            bindings::uart_update_timeout(self.raw, new.0.c_cflag, baud);
-> +            if bindings::tty_termios_baud_rate(&new.0) !=3D 0 {
-> +                bindings::tty_termios_encode_baud_rate(&mut new.0, baud,=
- baud);
-> +            }
-> +        }
-> +    }
-> +}
-
-[Severity: Low]
-This isn't a bug, but should the small accessor methods and C binding
-wrappers in the kernel crate (Termios::from_raw, Termios::from_raw_mut,
-Termios::parity_enabled, Termios::odd_parity, Termios::two_stop_bits,
-Termios::disable_mark_space_parity, Termios::disable_hardware_flow_control,
-Termios::char_size, LockedPort::baud_rate, and LockedPort::configure here, =
-as
-well as Port::device and LockedPort::device in rust/kernel/serial.rs) be
-annotated with #[inline]?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-rust-bl808=
--console-v1-0-b736ee920078@gmail.com?part=3D6
