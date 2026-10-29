@@ -1,61 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260463;
-	b=3a1rmy+Tatr+HMOhP0nKimhaPOrWk74K3Nh/xpAszCcSK2dR955yfHWj9YfDXmq5dA04
-	 V/XWZ255XceuAGSqu96W9YQ2qaFNimMJ68nrY+UD7fQuNEtrWpamXJNlKhbvlUyf5bVSa
-	 CxVG4Pi5Yt12xcdN8hrWATO2NwncdSnb4r2LLicevpG0+4nKefHFm2dQrcqY3lrknbbNP
-	 ifhAKavnMtt7M6gahsb6FC71Dqbe+NzEaJA/hUOmgvxXEW5sSgXDmXWJCzCKp4/ldexFa
-	 Eb58ryYFodC4Jd/cY6qnQl1lvBCc84Z3drUaxusGjBZJDfDVvusYa8lUw3PQ1TOooyg==
+	t=1793260460;
+	b=ZFWC00hAUxOYgHVgGdSg6/tMQFLhmTZkD4Cl/kJLizo3tuKBAF9Lk4hajhr8YHWnRc0r
+	 BNmA3gOpzi7eFMZEt2h0NmdwtZa89cS6Y5klvmelAHLynvouQrR4gNKXlUUw5REdQPR/0
+	 zmXqDGBE9hVQnNQhNu6xI2j+W0AHQizWII1eLPK3zmcWUVWt8kVS/J+fG1AOMK/Vxs3rL
+	 fpr4OX0OkN/0Oxmos6biA64QbCXuiFz9eL33jHVVdYm2jz8Tnp8jcQodAoip+ezHvhSYL
+	 an3ATQXmEkAD4UcbLRtaXRRKHodF9xQhQ25FaCIJmvwefROYHiL6A+f3qc9Jhk1RyyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260463;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
-	b=fFJYdOv4mEP53fO9SL/xd+3/rY/HQyK6SD4PaMYB5wErICt9NefBlIi9fN5F6iSABZ9W
-	 +/wuZ/zrs26BdOaNPMxrAnv3JHFPlP9pGeCoQ//K/G+ja+/C+Lx2tT1NntvYgPuG8QyoL
-	 XbTv5LtmWMmNcbDY72HtYrco9On5Gcx/H197XFHtgLPyRDbSIBiWv6vSaUQVi27xc6Itp
-	 WwnBYuN7JHUb+ivUwrsR25lwRpbKVjg3NW6Bs8/rfD0fFefcqO+VdStc4RyR0nxjciBfp
-	 su3ktn+ompPWhHaD+BtTTrivnffA6RfJbwKAMH4/oJ93UOO3ZDXssPjOLi5TCEld3nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260460;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zarMwuSQY4X5KqyFYldbtD6By9egYAYuPFBFtzqZucg=;
+	b=YNPBJLOCxzAu6ceSQRuzzsVbOPW5y4gcxLj2RnPIC/qei+L2BZEPsVBH1hwHWhwOiwiV
+	 uHBSTqiQzgmJeoIsQvPpzUTojK9iZ9+aMsjKlN/eO6n7AenqVra9CF4bd0O2d3LlbEfe0
+	 HoT2KmVxlkEimFBWSPyYi/hU7M8LWt82mZ5UW1JtTOUk5wEnUmYPczITSWiqPg3kEAGT2
+	 76TON64+Rl40b/mE2ktNlHzMyrUM4vrWqTerlV/uQ8GiIsgG/x8PFvLwAVMMToDfgnEUq
+	 57OvuFBXPzfI5XHS5EaShrgGvEpSoB0/jnrmULSg0n1i2oSO+TbqNcPJm7qWsSLpcrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gwRtz7S2;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501BF60A380C;
-	Thu, 29 Oct 2026 07:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501BF60A380C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F6560A6F50;
+	Thu, 29 Oct 2026 07:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F6560A6F50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z;
-	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793260460;
-	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=N+SKx5BwjunrV7kw+IhsfW8ovLcClXj2JNOdD5PyfyWnWpdhXP3I3mguKWsIMXTIU
-	 n4mtJNKsp0yC+wxAWZhUqWakKvquOamPl5LViedj/9EEtc/Kk+iIHdmjGJkr1fdde+
-	 wkTGksPgVIg8mv1A9qavQ6hSi0vb/LiHct8IhEvQ=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433~i8OM3pb5X1652316523eucas1p1e;
-	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261029075417eusmtip1d035b14233a285bf044081cf69bb5d35~i8OKCRqt71493914939eusmtip1a;
-	Thu, 29 Oct 2026 07:54:17 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Thu, 29 Oct 2026 08:53:49 +0100
-Subject: [PATCH v6 15/18] soc: starfive: Add jh7110-vout-subsystem driver
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gwRtz7S2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793260451; bh=zarMwuSQY4X5KqyFYldbtD6By9egYAYuPFBFtzqZucg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gwRtz7S2yWAzintgqkHs+NkdsAPTsZb3L5fgNaeFDpfHr5W8L57KNqk8Ldl8Uh5GJ
+	 WcVu4dPw+WODBuMo2TkKxUZBLBsL6jNcJaZFtYrScqqCRkacCgZjT5YUNoRwo/tIcE
+	 g8oNliDNKUmI5U6m9gunXs8rNkelUAUzow3Y8cHU=
+Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id D879DC34; Thu, 29 Oct 2026 15:54:07 +0800
+X-QQ-mid: xmsmtpt1793260447t1r6eh427
+Message-ID: <tencent_448218F104903BBC74140B91BC5B93362E06@qq.com>
+X-QQ-XMAILINFO: NZDLPLkmlc+zhVmsY/wjaXxHdQKTrxnCdbnghMeDGbidoY68qzMmo5Q0QIikMN
+	 gOyOY590ZsRIb/AEHSDoHJNFnh7QdEsK3SVybAK7VRFmu1zAr6xb7CnwK+/73om6/OtH+gPQULGL
+	 Epl0evOQeXm2csp+4g5YfEVPY4G0T9lC6jLz4Ww+eYvm9aPKGEy2hOwbZW/2ipC80oV3Ps3VHHEU
+	 lhjf6610nUTEfwPszrLB4nr2thnKLDfz4WQC8VrixehUaJZ9s9weJx4uC8I5qFg83l5/TEEUMUh0
+	 6aSZI1madTT8xAdF0pFndIzHWi7vXS8FxV/Hq2fNxfHRu0NlGBf2FviG9g/Rf1QSl/kFGIx1KEOw
+	 4E2r4pzpxKczhtYKycTrElutmchn5vjAKe53o1E8q2qkpa3JzbakstJNLQNttoG1tP9hG8yKHhJv
+	 2CDIsEYYvkPJgmEXFRCHMfe9ri8QXZ+Ut00SBjJ92cwpl8EI2dPY8JxG33eqQFQsvd3lHZi9u/5c
+	 peZ7o1pABwqyD3CKPatRBv6kgn6Hg7GDa3EgcgQ3ZrLKcMNBfqMJbCVtHEspiND2ZghmFtYF2N+E
+	 pLs/E1MYj3CmnpvKAtHevhjo8svXEROlt+pn2l/cNoJ7T/kVgFrBdUscBR1LpaHS3cnuQGDpWH3K
+	 geVGk1bgu1qviU1sJcTl+26g/vzzv80A09ni5VNTMKvJUl8eYiujshlOv1MeDFoFKmq0FRmSA7Gg
+	 3ioPKnCc/PLA2FZE3nvfinhALuvtQp7zjSm5EBRpCFt86diLmaFRGxaZizDAT0s3zlzLuLl01Zk/
+	 hKxBCuJ9qnAGj6XrHZo7/GyKJ9FBnEDRoJ/MX0eREkbQmqwyup7p6qzoCBARwQbSgtR44S5mt1Pv
+	 n7m+cYqhh6d5JZ4jmQ/8oytJPv5iknBRuJIbXsTtVUMFG/gLsHPunVvRX+hbBe/fB1UT1+MF4M7z
+	 5Lgg5GJV6SOC9cXskFs0i2SdP0erfzlS9qnrLR2vsKDBbTWqkVH6+aCpgIskGH66FO/vWRqvs5wj
+	 dXNeZTfGpf7BJElm7thOhVaX9xr+PGnuAdSKc0FaZSi0zwtBB36gb0ewQDwEugJ1yhIefb69cF9a
+	 89eOMadzSNxsuyjiU1jY04bnyfUQrPjfZLTLE6
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Shuai Liu <847807867@qq.com>
+To: linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Cc: Shuai Liu <847807867@qq.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 9/9] arm64: dts: qcom: sm8750: add the camera subsystem
+Date: Thu, 29 Oct 2026 15:54:07 +0800
+X-OQ-MSGID: <20261029075407.2907313-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,200 +87,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-jh7110-clean-send-v6-15-759594e43acf@samsung.com>
-In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
-	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
-	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
-	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
-	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
-	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
-	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
-	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
-	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
-	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
-	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
-	OOHehir <oo.hehir@gmail.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5573;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=DsbatnDU6gGFABaruczZr34WTtjEI8r2rbI74wlszvs=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t2jYBB47zev0cz9bVydS6y3Mc549N47QPZXqUuWT
-	P0njj3yHaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAi290ZGbbYLL9kee11WusJ
-	F3+tp3brPxnP3pLKtz7+7ofkc317E6Yz/OFub2rnEWwxbHWu1NjLNMPC4pD3M9dnJ0yLOXce/h8
-	rxwEA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-	<CGME20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433@eucas1p1.samsung.com>
+Content-Transfer-Encoding: 8bit
 
-Nothing in the video output subsystem can reach its own registers until
-the NoC display bus clock and reset are up and PD_VOUT is powered, and
-those are shared by every device in the region. Leaving them to whichever
-consumer probes first works by accident and stops working as soon as the
-probe order changes.
+Hi Qianhui,
 
-Add a driver for the subsystem node that takes the bus clock and reset,
-holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
-populates its children. All three are released only once the last child
-is gone.
+The node itself matches the binding from patch 1: 19 register ranges,
+35 clocks, 16 interrupts, four interconnects and four power domains all
+line up with qcom,sm8750-camss.yaml, so from a schema point of view
+this looks right.
 
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-Tested-by: OOHehir <oo.hehir@gmail.com>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/soc/starfive/Kconfig                 | 15 +++++
- drivers/soc/starfive/Makefile                |  1 +
- drivers/soc/starfive/jh7110-vout-subsystem.c | 82 ++++++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+One nit in the commit message:
 
-diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
-index 8cdcfc6f7848d2dd40b57afa101edcffc3f263a6..643d384c10b094d5633b5e31c3a67f5b9432c6d1 100644
---- a/drivers/soc/starfive/Kconfig
-+++ b/drivers/soc/starfive/Kconfig
-@@ -6,6 +6,21 @@
- if ARCH_STARFIVE || COMPILE_TEST
- menu "Starfive SoC drivers"
- 
-+config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
-+	tristate "StarFive JH7110 video output subsystem driver"
-+	depends on OF
-+	select PM
-+	help
-+	  This option enables the parent driver for the StarFive JH7110
-+	  video output subsystem, which the documentation calls dom_vout_top.
-+
-+	  The subsystem covers the DC8200 display controller, the HDMI
-+	  transmitter, the video output clock generator and the video output
-+	  system controller. They share one NoC port whose clock and reset
-+	  gate access to the whole register region, and the region sits in
-+	  the PD_VOUT power domain. This driver owns those resources and
-+	  holds them for as long as any of its children exist.
-+
- config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
- 	tristate "StarFive JH7110 HDMI subsystem driver"
- 	depends on OF
-diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
-index be89d8119212b7a7038817c2f0e8eac1984ada88..6c229020c1e563b37df43f6ac1665465a11333cc 100644
---- a/drivers/soc/starfive/Makefile
-+++ b/drivers/soc/starfive/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0-only
- obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
-+obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) += jh7110-vout-subsystem.o
-diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c b/drivers/soc/starfive/jh7110-vout-subsystem.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a299b170ad1b7104
---- /dev/null
-+++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for the StarFive JH7110 video output subsystem
-+ *
-+ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-+ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-+ *
-+ * The display hardware sits behind a single NoC port whose clock and reset
-+ * gate access to every register in the region, inside the PD_VOUT power
-+ * domain. Nothing below this node can reach its own registers until all three
-+ * are up, so bring them up here and hold them for as long as any child device
-+ * exists, rather than leaving them to whichever consumer happens to probe
-+ * first.
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
-+
-+static void jh7110_vout_subsys_pm_put(void *data)
-+{
-+	pm_runtime_put_sync(data);
-+}
-+
-+static int jh7110_vout_subsys_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *bus_rst;
-+	struct clk *bus_clk;
-+	int ret;
-+
-+	/*
-+	 * Take a runtime PM reference for the lifetime of this device. genpd
-+	 * only keeps PD_VOUT powered while something actually holds it, and
-+	 * an unclocked or unpowered access to this region wedges the bus.
-+	 */
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to power on PD_VOUT\n");
-+
-+	ret = devm_add_action_or_reset(dev, jh7110_vout_subsys_pm_put, dev);
-+	if (ret)
-+		return ret;
-+
-+	bus_clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(bus_clk))
-+		return dev_err_probe(dev, PTR_ERR(bus_clk),
-+				     "Failed to enable NoC bus clock\n");
-+
-+	bus_rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(bus_rst))
-+		return dev_err_probe(dev, PTR_ERR(bus_rst),
-+				     "Failed to deassert NoC bus reset\n");
-+
-+	return devm_of_platform_populate(dev);
-+}
-+
-+static const struct of_device_id jh7110_vout_subsys_of_match[] = {
-+	{ .compatible = "starfive,jh7110-vout-subsystem", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
-+
-+static struct platform_driver jh7110_vout_subsys_driver = {
-+	.probe = jh7110_vout_subsys_probe,
-+	.driver = {
-+		.name = "jh7110-vout-subsystem",
-+		.of_match_table = jh7110_vout_subsys_of_match,
-+	},
-+};
-+module_platform_driver(jh7110_vout_subsys_driver);
-+
-+MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-+MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
-+MODULE_LICENSE("GPL");
+> the SM8750 block has four CSID, six CSIPHY, three VFE and
+> two VFE lite instances
 
--- 
-2.34.1
+The node describes five CSIDs (csid0, csid1, csid2, csid_lite0,
+csid_lite1), not four - three full plus two lite.  The VFE counts
+(three full, two lite) are correct.  Patch 1/9 and 8/9 carry the same
+miscount in their commit messages.
+
+Minor: the node declares the camera subsystem as "isp@ad27000".  The
+existing qcom camss nodes use "camss@" or "isp@" inconsistently, so
+this is fine, just noting it for the record since the binding example
+matches.
+
+Thanks,
+Shuai Liu
+
+(This review was prepared with the assistance of an AI coding tool;
+all findings were verified against the patched source.)
 
