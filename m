@@ -1,112 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254257;
-	b=4HTj1/08z/5DSPL6KJBTtPj6zIJuBlqFujnCwM5EDlu/ifitNg3BpmosN94Y8SJbonpW
-	 4H0UIKoKH/a0CzqrY3bJIaCuIG4g+sgabCkMiPe689VhLuSJ9RGRj24xVilibMn+4imd2
-	 dbbKn5cjqHUc3u4JH7fpdSVclxpQdZLIm/JVOcK8AiY5KxDXu1GIx9nyWmnzLmgs5JVL4
-	 1k4GXu4i6Hh0ytH/asbIYj3gOWoi7Jub392+G3ov7ZmxmWvdvEt3KPE1YWheZuJLWvrLg
-	 S4J0BCol8Y9PEHvbfl9d3Q9lP6BAiUdaXTd4lctDzYe9X6ZkReurl/tss4CZfzGRnzg==
+	t=1793254389;
+	b=Tes/sfBGuImzrGcRTSeX4LG4ZuUcqZm91UM4Iu1r8vc8GQaFcfGsaRsiJsvjMkJs3VXq
+	 ejUaASoxMs0NvbLVz3cY/TTtE0UlDSHIkmAwNvO/blIYLwudLdkMDxZToY6EU1uALehBs
+	 SjzuclP/WvxVrbDbJcAUG2uXXwGeriHthTzE/LNGZ5jChWo4R7Ch0GwSmoqihsxCaXRko
+	 yEEEbaAT4xDeq/v+pqyq4henciKcwPyepS58oP2bsSKFFtvD5uJcOTQtkDYniia8mwciv
+	 +cytMTeG7vajxP5sf6XpSZ7jgXTYvJQfQHK4COkThC9Jqe9UKjxxfKOVsquq3EifBqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254257;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OqkXXGQXY2u3txgof/2HIibvpgoKdKYBIXMTYdCD0lg=;
-	b=mshCyyCJ7M0F6f0H+VulHTCqHtecCU7GLrzIU3dIgKG/qChU1EoyOC//kzAX+v9K9PRe
-	 Nw/jywOPKCbDbubRBPFTZZUf3Ixf3LbkiAKnuRQjhBXTKgAzhlniK24BA2R1YtoDr0uhs
-	 Ntct16pjnn3OPeDrG56PTTZT01CJqdbIZQ+b4VzV0wx4GyiW91O6jB7OtaCy3h+QOkNyz
-	 oUGczSB6CXZ1jDMkMYFtQGiE+aL4JPSGUx0Nr92Xnyavu/ji5jSkP063NVRk7UU4GRX8e
-	 7PDyGJm+A+q+nfOBxlbjXvEWQhQYxCk+XaQ/iEMW2hDO1+wkKDPwAbW7oIr4MbkgHwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254389;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8HfICeltQZtZCQ5hD60I+Ms/gO7apKM3P6RJyOQSEUI=;
+	b=ygpf8oSIetfgdHDl0NfHPaR6Yo2nxtU/ayi5CGecBeXHfOd/8UUHYzeBpyXRe8gpL7NV
+	 oD3Af+M27S4KG1WZi3Ksgf5Wvptf3sVJo5COf8NYvF3xxAGJtcwd+kDaWSl58bszJK8RY
+	 B1MNXrhG6jCrkqQAhBj0GyG1hd7YhH5m3Uo4L3XpP0wKLOeyoFYgCG7b41rUCBnMp55sm
+	 WRssEs3XmoMUXuCF9ErOr+rPvbazyHDnL0yRfJRE2slgITnb2fc0jJd2O70n5Kkvka0y1
+	 y6hxAGXmAYNczyOGDdovVMYW6O8Svx8qiVXBmH/6+5iJ0QjU1gwIKdWtjRrGdvKZcBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NVzaCnig;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kdno4uMt;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY9fCZM8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EF4606A323
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36EF4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0309606A31D;
+	Thu, 29 Oct 2026 06:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NVzaCnig;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kdno4uMt
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5GomX3341043
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OqkXXGQXY2u3txgof/2HIibvpgoKdKYBIXMTYdCD0lg=; b=NVzaCnigFFTiqhbK
-	TjBOXbFdu2y/w5TWJJIMGkE8KGyH0dqiKBL2PKDAQ31g9hvRhEhbC/fzR6iiqVL8
-	156LSevJkcyUj2C8Jg9BEUPDKChFf0VLsQgXJo09S/nUC4MqrTjxlj2ChAfpy3Mj
-	pWXn0RmK1Dz0kH1JwiDy6PUbPjMmvJ6I2dmLliGpYqw9ry7s+FUes9og3BQsbymw
-	UdKwAVnn8wove3T/Ly0Cz6gvOikhSDNSXa5ZLChiZnArWAy68HR2FUW/fH+WJdwS
-	bynmozBwb0Q+BqpLDpb7u7dQar/nOBOq02CAlhzsgFrw7Kvzc0GLlW5eYqhPzKTp
-	D+mE2w==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkut3gyah-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 06:10:56 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a3451ea93so499715eec.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 23:10:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793254256; x=1793859056; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OqkXXGQXY2u3txgof/2HIibvpgoKdKYBIXMTYdCD0lg=;
-        b=kdno4uMtsv8ExUEcgvbpLX8rs4jO5NDo/8EyNSJUa5ySvgiy1LWxwhIXbgjf3/ZxMR
-         qQcQRYrDuJl8bjMvLQAD03FbfjBwcKiJL5RgV8H1eXTxXKSKggxf+XXV3uZPInuYfiph
-         Vz6lq8k4gEuToC6jgL211Vj4BJJOfUKaqkQOz2m5c2jgFYkD622JMn3mnvVenlqxgzX+
-         7xwKT3XBsVE6LC0ywweXsMvtpnWBl7k8GNehdeNLSJPbBAFVxW6gTSISMEKt0UvS++r6
-         K3KbBDQeRroai8ht2gk3d8wqwEFEPaMEj9/KeoyK4s60uv0W90ZuPenOUGMy+q6o0Rdm
-         PPPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793254256; x=1793859056;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OqkXXGQXY2u3txgof/2HIibvpgoKdKYBIXMTYdCD0lg=;
-        b=ij94BE7bp60h/jgg4h0/dEfmD5tHw0JmOy1Y+aRJo9bHgz+xG8rVORQdUiYNi8tY6o
-         4MDyOAEWFSu6y9k9wRWelBW5hU+PhEH8Cg/I34osJ1swR+okP7SW3kVthmpqDnjHTn68
-         lI1gddVb4sfarxerCUkCsiofISWV5NwjsDlsLCU7xTfuoiq+zMQoiXg4fRbOj1GItWtn
-         QrvwwCl0YN0hTHTJs8Rmj9t1JdNCOG/qbBqAkwsCFotW44PT/mZEYyLsCH0H1QNz7r91
-         MNxlIbVbSApbMvPHc7bDawPJL/8v9kDVA6HH6aJF6gGEnOgtWTWMP6pxBwEbY4rENbU/
-         JQQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbDIaXX2hzTJD1e3SiJtKZJH/ciu8EUhjTPlHjvTsq2j3FOZWQBU+KqJ1JGkbrjTJ7IjyPQFJZOv1I@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCIWPMzOiyQPCOxSXTAp2vf6GsDHyqXKRUu++hI5o9QRDlgtAJ
-	i6iZF1yeyPJ9bBZES1bpj233ul+mJRfDnrvoh/8bRjEdGrZu8jNDXfQeAW2aHCJW7RBWMb9+OaK
-	RQF4O9R5ls1sDaYDjlGoeza2Hw53aHhBb+yGmyrtqYj3OrPicAbSQx67wNJbVu/mf
-X-Gm-Gg: AYBFou1EeUBuHOvRWs37Ab7BgBNyZQC3XGel95nV/rAb/d7BiimtjsUNIpo9D28ucM7
-	/AyZRC4MAP1mgqPSklJP4BROSoZONfyLwi1psNHnx632gchBDfQMnyqzJZcYRJ06MuTR1G38Kj6
-	MFF+1G9rJNpWQFmk80a6a92ZiiLUSk8yy/y2TAnkizfplcNOVmt/O5ftMA8a1p49XNNfx3PAd4d
-	r+8FKbQZmqn7vvoB0sBF4nzm2WmIIz3gKziT8H/1/KZ0goFj2gquFKwSB8Jaw491wiQroHlV4WZ
-	+U/cTD30hJNZMc39DrKjTrshTmg/LSBwXeF7G2NkgfpQWyhLOiFnN/YsSDops7xoUQM1BvvIgwm
-	ywbP28SXnVrDmSJhS4OD7p21Y52emDF/nQrnjMR3m0s1Butpz4JBBXzS6bYYeOUGl39luQWrALY
-	98xzAYW1g=
-X-Received: by 2002:a05:7301:618b:20b0:360:e2e6:f849 with SMTP id 5a478bee46e88-36a20138550mr6987947eec.28.1793254255578;
-        Wed, 28 Oct 2026 23:10:55 -0700 (PDT)
-X-Received: by 2002:a05:7301:618b:20b0:360:e2e6:f849 with SMTP id 5a478bee46e88-36a20138550mr6987923eec.28.1793254255044;
-        Wed, 28 Oct 2026 23:10:55 -0700 (PDT)
-Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a239a2e29sm14038935eec.26.2026.10.28.23.10.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 23:10:54 -0700 (PDT)
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 11:40:17 +0530
-Subject: [PATCH v5 2/2] PCI: qcom: Add Nord PCIe controller support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY9fCZM8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFD61F01825;
+	Thu, 29 Oct 2026 06:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793254387;
+	bh=8HfICeltQZtZCQ5hD60I+Ms/gO7apKM3P6RJyOQSEUI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AY9fCZM838jxvzO1LZjlGpXv0W8K3teqSZL7RijTgFK+vMuR9I/rLM2tTDsuEdu49
+	 D2/wj4MDZjo91NakOEaX5qSF5O95U3YG8/G5UHWIxf80ZCUvpFSL90WwQh/5OnZhB+
+	 IxV3Ir9hpPOUOgGFeO+ZNTpumWj+emmZLNf8wkK2peC6tx3JvxcCwhRjIp/8vl4fIF
+	 5Te7rIsn3LXYjnylmmiG2eWT/I2O7NNXE/I6Z/jqqYBvXQ+flDBPRbsCb9u28Gwj8Z
+	 Wm++8Vi3KmsJ2uSOrdepJb1M4tZjsQyVIQao8cR8k7StT66yaZCypWnGb4AtixMYe1
+	 607LwJx2luOOA==
+Date: Thu, 29 Oct 2026 07:12:52 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Frank Li <Frank.Li@nxp.com>, Vinod Koul
+ <vkoul@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan
+ Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Tiffany Lin
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej
+ Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5?=
+ =?UTF-8?B?xYRza2k=?= <kwilczynski@kernel.org>, Manivannan Sadhasivam
+ <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Christian Marangi
+ <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, Kuogee Hsieh
+ <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, Aakarsh Jain
+ <aakarsh.jain@samsung.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
+ imx@lists.linux.dev, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
+Message-ID: <20261029071252.586c8cbc@foz.lan>
+In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+References: <20261028120216.2657397-1-robh@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,137 +97,240 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-nord-v5-2-1a13c214e89d@oss.qualcomm.com>
-References: <20261029-nord-v5-0-1a13c214e89d@oss.qualcomm.com>
-In-Reply-To: <20261029-nord-v5-0-1a13c214e89d@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254236; l=2732;
- i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=Lw3570OqxcQHNzId2qfQIDjwIX3tpSz51KERraFXVRY=;
- b=q4A3SHVzw8pXcYpPKZ7EfYTFSjXX8WJ6IUqaPSCknJETuUzr1JZ94wS4sHh3iDD/HxZbR6arr
- dPjsM7cs6csAC4krwRmQ7lF7v0jApg4hzk5p3bmRMqMK+Q9fKHq1uHx
-X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
- pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfXyaOm7B/a+S2K
- dL2pvmKOCdvBBQSNL10vY5X0s14HEJHMGF4zo8GYiq4uCRRyxlvzSFeQpVoDY6O2ZIcAYg0dxRy
- fr7TCMsd+jEXO/9sAPC8n1j19wDeo10=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfXx/z0P2XVLYEe
- JYC2humsmeivTdedcuCsuiXamDHWKFQB4cUFPyMXv6+6tVJKSdb9+ztvDyZ8PXK+a3kCBnfTpL0
- MZ37MHVUCCsEt+d9tAkedjKpOsE8N8CWBe2XK4OEcs+IS6GX6NNy5BqglL6IPNnfqfTMgqwWmvq
- yRvtGhmOJ8sCA64AoMsWx/Hn+/Rl+GEPG5R2+QcYiUiMV3TrnCQ57g9JOgWKU/I5FJ4ZY3Trnhd
- loh41PEUa2lq5+JMF4kcabvQcp2f4ldNgBknYPQyoGi3euwUw1dcdK+TWCCtTFREB2MtBtdEBe0
- BPa89MmL9BgOVydPPUBmFVmyFAM6f5/HPxMQvMtVN1ApW7LJenhlXFOrlXeDSW0W+B/nLdUjjoA
- Kt2ckOoI/rCHYRBxxj8TyQmpuVmb03DSXger4if6Y7qu0xR+Qcy/KSWIzOc9bbDALJtvCxipd1a
- ZSKlmKzYhiHJ61Yr1Qg==
-X-Proofpoint-ORIG-GUID: QbrIZm11CpnOjUIDcWHPtVDCBN-ujxoK
-X-Proofpoint-GUID: QbrIZm11CpnOjUIDcWHPtVDCBN-ujxoK
-X-Authority-Analysis: v=2.4 cv=HYSB3SE8 c=1 sm=1 tr=0 ts=6ae2e370 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=fhppCylznReUS4Xj7DkA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
- spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290023
 
-Add the Nord PCIe controller configuration and the platform-specific
-settings required for correct operation.
+On Wed, 28 Oct 2026 07:02:12 -0500
+"Rob Herring (Arm)" <robh@kernel.org> wrote:
 
-Nord requires the NO_SNOOP override and L0s to be disabled. It also
-requires a clock-gating-control (CGC) workaround to address a PCIe
-power-domain timing-convergence issue. Set the CORE_CLK_CGC_DIS and
-AUX_PWR_DET bits in PARF_SYS_CTRL after controller initialization.
-The SLV_ACLK_CGC_DIS bit is already configured by hardware reset.
+> Property names within if/then schemas currently go unchecked whether
+> they have a type defined or match what's in the top-level schema. Adding
+> a check finds a number of instances of typos. The typos result in the
+> schema having no effect on constraints.
+> 
+> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
+> exposed by the name correction.
 
-This behavior is documented in the private QCTDD11972446 erratum,
-which is not publicly available.
+For media:
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Tested-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
----
- drivers/pci/controller/dwc/pcie-qcom.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Acked-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-index d903f10211c2..c62abfc7a446 100644
---- a/drivers/pci/controller/dwc/pcie-qcom.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom.c
-@@ -300,6 +300,7 @@ struct qcom_pcie_cfg {
- 	bool override_no_snoop;
- 	bool firmware_managed;
- 	bool no_l0s;
-+	bool disable_cgc;
- };
- 
- struct qcom_pcie_perst {
-@@ -1138,11 +1139,18 @@ static int qcom_pcie_init_2_7_0(struct qcom_pcie *pcie)
- static int qcom_pcie_post_init_2_7_0(struct qcom_pcie *pcie)
- {
- 	const struct qcom_pcie_cfg *pcie_cfg = pcie->cfg;
-+	u32 val;
- 
- 	if (pcie_cfg->override_no_snoop)
- 		writel(WR_NO_SNOOP_OVERRIDE_EN | RD_NO_SNOOP_OVERRIDE_EN,
- 				pcie->parf + PARF_NO_SNOOP_OVERRIDE);
- 
-+	if (pcie_cfg->disable_cgc) {
-+		val = readl(pcie->parf + PARF_SYS_CTRL);
-+		val |= CORE_CLK_CGC_DIS | AUX_PWR_DET;
-+		writel(val, pcie->parf + PARF_SYS_CTRL);
-+	}
-+
- 	qcom_pcie_set_slot_cap(pcie->pci);
- 
- 	qcom_pcie_init_outbound_blocker(pcie);
-@@ -1725,6 +1733,13 @@ static const struct qcom_pcie_cfg cfg_2_9_0 = {
- 	.ops = &ops_2_9_0,
- };
- 
-+static const struct qcom_pcie_cfg cfg_nord = {
-+	.ops = &ops_1_9_0,
-+	.override_no_snoop = true,
-+	.no_l0s = true,
-+	.disable_cgc = true,
-+};
-+
- static const struct qcom_pcie_cfg cfg_sc8280xp = {
- 	.ops = &ops_1_21_0,
- 	.no_l0s = true,
-@@ -2586,6 +2601,7 @@ static int qcom_pcie_resume_noirq(struct device *dev)
- 
- static const struct of_device_id qcom_pcie_match[] = {
- 	{ .compatible = "qcom,hawi-pcie", .data = &cfg_1_9_0 },
-+	{ .compatible = "qcom,nord-pcie", .data = &cfg_nord },
- 	{ .compatible = "qcom,pcie-apq8064", .data = &cfg_2_1_0 },
- 	{ .compatible = "qcom,pcie-apq8084", .data = &cfg_1_0_0 },
- 	{ .compatible = "qcom,pcie-ipq4019", .data = &cfg_2_4_0 },
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
+>  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
+>  .../bindings/display/msm/dp-controller.yaml          |  2 +-
+>  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
+>  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
+>  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+>  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
+>  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
+>  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
+>  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
+>  10 files changed, 19 insertions(+), 23 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> index 88b7672123a0..ed347096df46 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> @@ -62,7 +62,7 @@ then:
+>      - '#clock-cells'
+>  else:
+>    properties:
+> -    clock: false
+> +    clocks: false
+>      clock-names: false
+>      '#clock-cells': false
+>  
+> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> index c1cefd547391..fd4d598f6ff8 100644
+> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> @@ -145,7 +145,7 @@ allOf:
+>              - description: CEC stuck at low interrupt
+>              - description: Hotplug connected interrupt
+>              - description: Hotplug removed interrupt
+> -        interrupts-names:
+> +        interrupt-names:
+>            items:
+>              - const: cec-tx
+>              - const: cec-rx
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 094a6383bb77..f72d1b354007 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -304,7 +304,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>            maxItems: 6
+> -        clocks-names:
+> +        clock-names:
+>            minItems: 6
+>            maxItems: 6
+>  
+> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> index dfec6c3480f3..02d27ccad024 100644
+> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> @@ -113,7 +113,7 @@ allOf:
+>              - const: core
+>              - const: master_iface
+>              - const: slave_iface
+> -        core-vcc-supplies: false
+> +        core-vcc-supply: false
+>  
+>    - if:
+>        properties:
+> @@ -136,7 +136,7 @@ allOf:
+>              - const: core
+>              - const: alt_iface
+>              - const: extp
+> -        hdmi-mux-supplies: false
+> +        hdmi-mux-supply: false
+>  
+>    - if:
+>        properties:
+> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> index f609038e35ae..0260d177c7d0 100644
+> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> @@ -172,7 +172,7 @@ allOf:
+>              const: fsl,imx7ulp-edma
+>      then:
+>        properties:
+> -        clock:
+> +        clocks:
+>            minItems: 2
+>            maxItems: 2
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> index 69852444df23..07c8b233c6bd 100644
+> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> @@ -80,7 +80,7 @@ allOf:
+>          - resets
+>      else:
+>        properties:
+> -        "#interrupts-cells": false
+> +        "#interrupt-cells": false
+>          interrupt-controller: false
+>          resets: false
+>  
+> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> index 70ab4e140e71..535213ba0c5e 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> @@ -92,7 +92,7 @@ allOf:
+>      else:
+>        properties:
+>          nvmem-cells: false
+> -        mvmem-cel-names: false
+> +        nvmem-cell-names: false
+>          clocks:
+>            minItems: 4
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> index 4505e66876a2..52f471a070d5 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> @@ -110,19 +110,15 @@ allOf:
+>  
+>      then:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_lt_sel
+>      else:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_sel
+> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> index b46cc780703c..4488d5ca9b9c 100644
+> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> @@ -174,7 +174,7 @@ allOf:
+>              - const: mfc
+>          iommus:
+>            maxItems: 2
+> -        iommus-names: false
+> +        iommu-names: false
+>  
+>  examples:
+>    - |
+> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> index c009a7a52bc6..7c40361f95ec 100644
+> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> @@ -127,7 +127,7 @@ allOf:
+>          phy-names:
+>            const: pcie-phy1
+>  
+> -        power-domain: false
+> +        power-domains: false
+>  
+>        required:
+>          - resets
+> @@ -150,7 +150,7 @@ allOf:
+>            minItems: 2
+>            maxItems: 2
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -171,7 +171,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -193,7 +193,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -215,7 +215,7 @@ allOf:
+>          clock-names:
+>            maxItems: 1
+>  
+> -        reset: false
+> +        resets: false
+>  
+>          reset-names: false
+>  
+> @@ -223,7 +223,7 @@ allOf:
+>  
+>          phy-names: false
+>  
+> -        power-domain: false
+> +        power-domains: false
+>  
+>          mediatek,pbus-csr: false
+>  
 
--- 
-2.34.1
 
+
+Thanks,
+Mauro
