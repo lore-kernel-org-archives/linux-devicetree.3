@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250457;
-	b=i41xMLRoKuwMkQns9lKaW+USj7s+QIbjA4YC6kF95/lutiw4NyEUapUZt4wi2nGGSQb0
-	 c/JVD5uQf3FyNvQVo1OlqBSCOzFcNgFQjN0jHMG4rLyQhh7pLG/P8cmTEwox772RRbvqp
-	 dGXRtwY/5faXtMqFduJQXB2ZsPwYGuMb0laSWBjNApVC2yxZ5evEW2fOy4boUrUCFjsVU
-	 hbKD0+m/DR6AZSd5NgGy4JL6gUJjlLtzTYnRyKDHli8GvjKd13ucPSKNwyV6/T6sM8RHu
-	 ifkKCaLtieHgzd36/wdunFxz5QKoBwkS7vocaaf4FZAveXBnZ3xtFHPDrQgbMDYnAVQ==
+	t=1793250837;
+	b=pxgHhWsxtLyYp2yx63omfWwH0eceEzfomMLh9ZPVovUDjY/3sM6wj5vPxKeJd1qAUCIP
+	 GPdFS9nYOPxLR/o/AnRvtaEiJadTwDtB9+j3ywZa9lcuB/ogTWXKDb+mSZIQZm7VoeHU3
+	 xQQUqqrWRIuPNrpTvJkP0NXmisLzkLnrAdcfAh/OERvobX4oH8V9EbWCj4baHIywa7qre
+	 wQq6RcvlyrhpVxnfeV5t1xwI6LmttAaljBEGL4GdT3d3je+CWeD64K7OYMj8JoKxfbp58
+	 DzfsNdUmhTkjcIT/2Z2JtLrIMM5xwAG3diZCOICx5b/zhQhiU4jxWDYE1eenursdJ2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250457;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=kXI6IHEoyVt3a8/+pcNKwK7JZFFGDNWx/cQqbNDN63Q=;
-	b=GlbJTCMYTFXJu5r1yGTfHCWUu9TFEEe63zxe9XyaMci4bi1eJiBO5unOYFo7dHg+M+IP
-	 5pxCpRiTHIpMA6vknrPhqh6CJUD3bTqpAhhJyHv+MeGKD96PTAS5YjSPdf+nG7yJuCtS8
-	 G/zAsDszg6TwAJWGwf4J2xXpXPa+V6BK6Dl6FjoEsecm6XpFaUR3uz+5NoaUZD3PAe8E9
-	 70XJS62vJwmoFW4E7dFhTWhMeECT42Fzm61L+nzQcpsWUZMWqX486VpPBRRrMkxbnkdfz
-	 /NSdM15+eXYhdKkubc3grz3ONgFfZ5qhfmgd1RQdL92OVfcmXmsfHs3ImDy3T4JzoEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250837;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=r7Yq/cyeGDHkqedXI7pjcS3z2MC3ikKBjzXtb939PF8=;
+	b=Qepk4s8vCt9qPvkc/XlvIgTIX/LRbdWbJ5AKhbk6sB/sdfFk1gHB6UPU8n7LUq80zULU
+	 qfnpd3r+Rzd4V0F6Me+ySug9hHFWy4ojf1sih+FjDwYuHgAZH5qm6yp4RyxqIJdwyVYUw
+	 kyKtjDFPNLEuhuCLyzBGL3Hzt7nzJyO1uNxFlxWiqCeXcK4XWNxiSEzQ4xvPDVmz5boqE
+	 lFDEi+AGLeTyYEMxlmZc9TW7GdfrWdYOi9ME3hyrhUWLVriwNwQSMcpjSALHiFB7AA3iv
+	 ZnJhup1jLwCBmggXUUKfzGrzr3SL2kwDkrwo4/lk5u049/8qUHHZf9fY/4b4CUf9LrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3BbByNv;
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaU0wgEV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C51606A323
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C51606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21067606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3BbByNv
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so13447055ad.1
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:07:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793250456; x=1793855256; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kXI6IHEoyVt3a8/+pcNKwK7JZFFGDNWx/cQqbNDN63Q=;
-        b=m3BbByNvwVTB61CMHLiYJL8DEUQo3qdr97nQ+INggGQWNXYxuBhs6564SGou9mckbf
-         8rMZ6mAEPe8pnfrrQDQvfoTRvLcbLdErwvhuvdZ6fHAj5OtYZaU22cn/PdKdnt6BbpNe
-         XDodhGEIuY1dL6zQy5GTOyiA8zlLyZmN0KeofYJzI+GnLqLaPSJj//bcdLzSUsJGAw/L
-         JKgR4xGuvprCIbFeUgmWsfX8a8oCH3GchhBPHoqA4aYG7FNiiJSxW7GmwR5+3Pm7SjHF
-         eDWtTVoKG42ubA8r5DEbt80e813z+LbUxlbgs5y+DyZwQA/cV/40EsNXmladHSMSfkcx
-         kXFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793250456; x=1793855256;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kXI6IHEoyVt3a8/+pcNKwK7JZFFGDNWx/cQqbNDN63Q=;
-        b=hMY0z07D0g7I6VRIC0DxnLGXkQtZM8jXpQH63EUtDmPPco/KQHfofyid+DUTQD9hlo
-         GunB6Y6odkuDRW6yMlwS4xAF8QpXci5SjCWSi2OICXY6h9aA3B1LknQ/XFzlq1E6EznS
-         o+nHDdxeCo3pKyqeU/PbBoalqUfB0rkW066gZpmxRfefD3ZrK/Rf+PiwKQNs1kPVfiKf
-         zx5JqBGcyZ/f59Kvz7w2W1GEzGFFLZA9frPK0YA5/xK2B8arRH6xPSsdSFTdmtGE/jDF
-         kWTn7KKe5VKBwckkHI4sUEp97GGJfP9cZDqIBmHOuAXq7vKlYWXuda4QAYwwJ9E7uAaP
-         YZ9g==
-X-Gm-Message-State: AFq9FYJVhBQAn1B9pER6FaLoGIvLRAn4jyoX7M5tI7Gbijt9MRYhHakb
-	r1MxeJ9GZgspY/Q1MOYHvRqgabQW4Yi23TFHxm6PCGIz9lTfR2WgrITE
-X-Gm-Gg: AYBFou3kHXmtZmnzbcLRZ7mF8an/iEocplUSXpqA7J7s+6wsbOKNq9NfQEsXSroZhd8
-	RBoNpfsr/CiMlEdjvxuel6EVKTDsKslvC1VCzJUoRNrHMLdbx9+JdpEr6ZEwX1BmOEwmmHaL6Tz
-	Sq3CGYCccWdlEDq6tJV1qGJdJLzVfgFSAKClK6pEA2CKsRZpTgpeilkWMDPqFNepwwIDXZYjtv0
-	oAKv8fhDy1DvLZ6HNeu2tF8A7ele3bl94nhvGcfsihHMaDW6BUmH39YyMCQgoKse479pe3i0hbJ
-	UPLbBLAv55HXHAUuyqH3VyEoxOH2smAMP+uzE+mNFUT8N/FOQXboIptxTgwvQg4D06clKlFjZYw
-	JXJ+wY/yXKSKCwzsPyK3uU/k3bKb9ZXbJBlGhf3f+5Us8SGfIf8orDVjaGSpnVEb2udtyQCu4p3
-	PfSV572B61YUiW3egzH6V+7gJ1zl7dAaqrKUhiOJpFkuVvam1avcUtxefoFlVMfhig0bYtrHPSu
-	Sc2SbowPx5tWenljf/4zdVERJKROfdSxQalwEzMJItmFdkWnWZRGGL+NgpQCbHT5qCb7dCHEwfs
-	sVgpzoYizX95/wiumtqnJ7uo2vbz
-X-Received: by 2002:a17:903:38c4:b0:2dd:ad73:c93e with SMTP id d9443c01a7336-2eb005025a8mr38954575ad.31.1793250455691;
-        Wed, 28 Oct 2026 22:07:35 -0700 (PDT)
-Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.07.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:07:35 -0700 (PDT)
-From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Thu, 29 Oct 2026 01:05:53 -0400
-Subject: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UaU0wgEV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BA61F01825;
+	Thu, 29 Oct 2026 05:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793250836;
+	bh=r7Yq/cyeGDHkqedXI7pjcS3z2MC3ikKBjzXtb939PF8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UaU0wgEV1GFiLZh9OZOH5Xvv8LBltRBfRMbDMdzHXCpZuQuFnWsOGvaVAw0RFn/Gu
+	 9Tuu6DT4lEY7aOh5RSFEsqYsf/eXdaRD0tWy7u/aMqmsDLeOWK/uLtCIPzZSXfMWts
+	 8oh/zuAJIa/sKMn0usmshQsOL8+3DgROsgLwmGR8iYX4coBz6yR8se8KeRMzzOgfdR
+	 KrMxBxc6S0hwDF/oNjA6dCX8FbZWMUQ9i5+6U2tef7kNxI7jeFj3uOpeudWFA9PHpE
+	 e/i5mOTu1KaMz7Xy+gyaBCnqlFMRVLhYQ0OU1V2anbzPHJm8mkDKoRIl0LeDO+KNzs
+	 2Kh5hvC8rZWsQ==
+Message-ID: <sashiko-outbox-188742@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacky Huang" <jackyhuang@nvidia.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <0d221cbd11c8b582d43b21e4156dfb7c83b121b3.1793243187.git.jackyhuang@nvidia.com>
+References: <cover.1793243187.git.jackyhuang@nvidia.com>
+ <0d221cbd11c8b582d43b21e4156dfb7c83b121b3.1793243187.git.jackyhuang@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 05:13:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,69 +59,260 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
-In-Reply-To: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
- Palmer Dabbelt <palmer@dabbelt.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Kwanghoon Son <asdfkwang@gmail.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-X-Mailer: b4 0.14.2
 
-Add a MAINTAINERS entry for the Bouffalo Lab BL808 platform, device trees
-and Rust serial driver and abstractions.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] ARM: dts: aspeed: vr-c2: missing i2c-mux-idle-disconnect on i2c4 m=
+uxes
+- [Medium] ARM: dts: aspeed: duplicate gpio-line-names in vr-c2-bmc
+--
 
-Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
----
- MAINTAINERS | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+commit a1ef1efffcf5e5e21a0a7edd3526a31cbe156f2d
+Author: Jacky Huang <jackyhuang@nvidia.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 801f964899ba790a8f71fe61f9b3777a494dabd5..b76d3e168468bf6139c958a81b626c73b422c0d4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4926,6 +4926,19 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/imu/bosch,bmi323.yaml
- F:	drivers/iio/imu/bmi323/
- 
-+BOUFFALO LAB BL808 SUPPORT
-+M:	Kwanghoon Son <asdfkwang@gmail.com>
-+L:	linux-riscv@lists.infradead.org
-+L:	linux-serial@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/riscv/bflb.yaml
-+F:	Documentation/devicetree/bindings/serial/bflb,uart.yaml
-+F:	arch/riscv/boot/dts/bouffalolab/
-+F:	drivers/tty/serial/bflb_uart.rs
-+F:	rust/helpers/serial.c
-+F:	rust/kernel/serial.rs
-+F:	rust/kernel/serial/
-+
- BPF JIT for ARC
- M:	Shahab Vahedi <list+bpf@vahedi.org>
- L:	bpf@vger.kernel.org
+ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
 
--- 
-2.47.3
+This commit adds the device tree for the NVIDIA MGX Vera C2 BMC platform
+based on the ASPEED AST2600 SoC.
 
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
+> new file mode 100644
+> index 0000000000000..7e8ae8afea088
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
+> @@ -0,0 +1,1321 @@
+
+[ ... ]
+
+> +&gpio0 {
+> +	gpio-line-names =3D
+
+[ ... ]
+
+> +	/*V0-V7*/
+> +	"AP_EROT_REQ-O",
+> +	"EROT_AP_GNT-I",
+> +	"",
+> +	"",
+> +	"PCB_TEMP_ALERT-I",
+> +	"", "", "",
+
+[ ... ]
+
+> +};
+> +
+> +&gpio1 {
+> +	gpio-line-names =3D
+> +	/*A0-A7*/
+> +	"", "", "", "", "", "", "", "",
+> +
+> +	/*B0-B7*/
+> +	"", "", "", "",
+> +	"AP_EROT_REQ-O",
+> +	"EROT_AP_GNT-I",
+> +	"IO_EXPANDER_INT_L-I",
+> +	"",
+> +
+> +	/*C0-C7*/
+> +	"", "", "", "", "", "", "", "",
+> +
+> +	/*D0-D7*/
+> +	"", "", "", "", "", "", "",
+> +	"I2C_SSIF_ALERT_L-I",
+> +
+> +	/*E0-E7*/
+> +	"", "", "", "", "", "", "", "";
+> +};
+
+[Severity: Medium]
+Are "AP_EROT_REQ-O" and "EROT_AP_GNT-I" intentionally defined on both &gpio0
+(pins V0-V1) and &gpio1 (pins B4-B5)?
+
+Because both AST2600 GPIO controllers are active at the same time and &gpio0
+probes before &gpio1, name-based GPIO lookups via gpio_name_to_desc() or
+libgpiod will always resolve to &gpio0 and shadow the lines on &gpio1.
+
+Similarly, further down in this file, the pca6408@20 expanders on
+&i2c_mcio_c0_south0 and &i2c_mcio_c1_south0 define identical "GPU1_*"
+gpio-line-names, and the pca6408@20 expanders on &i2c_mcio_c0c1_north3 and
+&i2c_mcio_c0c1_north6 define identical "E1S_*" gpio-line-names. Should those
+line names be disambiguated (for example with C1/C2 prefixes) so that
+consumers can address both instances by name?
+
+[ ... ]
+
+> +/* MCIO expansion muxes */
+> +&i2c4 {
+> +	multi-master;
+> +
+> +	status =3D "okay";
+> +
+> +	mctp@18 {
+> +		compatible =3D "mctp-i2c-controller";
+> +		reg =3D <(0x18 | I2C_OWN_SLAVE_ADDRESS)>;
+> +	};
+> +
+> +	i2c-mux@70 {
+> +		compatible =3D "nxp,pca9548";
+> +		reg =3D <0x70>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		vdd-supply =3D <&standby_power_regulator>;
+
+[ ... ]
+
+> +	};
+> +
+> +	i2c-mux@71 {
+> +		compatible =3D "nxp,pca9548";
+> +		reg =3D <0x71>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		vdd-supply =3D <&standby_power_regulator>;
+
+[ ... ]
+
+> +	};
+> +
+> +	i2c-mux@75 {
+> +		compatible =3D "nxp,pca9548";
+> +		reg =3D <0x75>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		vdd-supply =3D <&standby_power_regulator>;
+
+[ ... ]
+
+> +	};
+> +};
+
+[ ... ]
+
+> +/* GPU1 GPIO expander (C1) */
+> +&i2c_mcio_c0_south0 {
+> +	/* GPU 1, Expander @0x20 */
+> +	pca6408@20 {
+> +		compatible =3D "nxp,pca6408";
+> +		reg =3D <0x20>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		vcc-supply =3D <&standby_power_regulator>;
+> +		gpio-line-names =3D
+> +		"GPU1_GLOBAL_WP-O",
+> +		"GPU1_OOB_RST_N-O",
+> +		"GPU1_OOB_RECOVERY-O",
+> +		"GPU1_MCU_RECOVERY_N-O",
+> +		"GPU1_MCU_RST_N-O",
+> +		"GPU1_MCU_BYPASS_N-O",
+> +		"GPU1_SMBUS_FRU_EEPROM_WP-O",
+> +		"";
+> +	};
+> +};
+> +
+> +/* GPU0 GPIO expander */
+> +&i2c_mcio_c0_south2 {
+> +	/* GPU 0, Expander @0x20 */
+> +	pca6408@20 {
+> +		compatible =3D "nxp,pca6408";
+> +		reg =3D <0x20>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		vcc-supply =3D <&standby_power_regulator>;
+> +		gpio-line-names =3D
+> +		"GPU0_GLOBAL_WP-O",
+> +		"GPU0_OOB_RST_N-O",
+> +		"GPU0_OOB_RECOVERY-O",
+> +		"GPU0_MCU_RECOVERY_N-O",
+> +		"GPU0_MCU_RST_N-O",
+> +		"GPU0_MCU_BYPASS_N-O",
+> +		"GPU0_SMBUS_FRU_EEPROM_WP-O",
+> +		"";
+> +	};
+> +};
+> +
+> +/* E1.S backplane GPIO expander (C1) */
+> +&i2c_mcio_c0c1_north3 {
+> +	/* E1S Backplane, Expander @0x20 */
+> +	pca6408@20 {
+> +		compatible =3D "nxp,pca6408";
+> +		reg =3D <0x20>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		vcc-supply =3D <&standby_power_regulator>;
+> +		gpio-line-names =3D
+> +		"E1S_MCU_RESET_L-O",
+> +		"E1S_MCU_RECOVERY_L-O",
+> +		"",
+> +		"",
+> +		"",
+> +		"",
+> +		"E1S_LOWER_PERST-O",
+> +		"E1S_UPPER_PERST-O";
+> +	};
+> +};
+> +
+> +/* E1.S backplane GPIO expander (C2) */
+> +&i2c_mcio_c0c1_north6 {
+> +	/* E1S Backplane, Expander @0x20 */
+> +	pca6408@20 {
+> +		compatible =3D "nxp,pca6408";
+> +		reg =3D <0x20>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		vcc-supply =3D <&standby_power_regulator>;
+> +		gpio-line-names =3D
+> +		"E1S_MCU_RESET_L-O",
+> +		"E1S_MCU_RECOVERY_L-O",
+> +		"",
+> +		"",
+> +		"",
+> +		"",
+> +		"E1S_LOWER_PERST-O",
+> +		"E1S_UPPER_PERST-O";
+> +	};
+> +};
+> +
+> +/* GPU1 GPIO expander (C2) */
+> +&i2c_mcio_c1_south0 {
+> +	/* GPU 1, Expander @0x20 */
+> +	pca6408@20 {
+> +		compatible =3D "nxp,pca6408";
+> +		reg =3D <0x20>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		vcc-supply =3D <&standby_power_regulator>;
+> +		gpio-line-names =3D
+> +		"GPU1_GLOBAL_WP-O",
+> +		"GPU1_OOB_RST_N-O",
+> +		"GPU1_OOB_RECOVERY-O",
+> +		"GPU1_MCU_RECOVERY_N-O",
+> +		"GPU1_MCU_RST_N-O",
+> +		"GPU1_MCU_BYPASS_N-O",
+> +		"GPU1_SMBUS_FRU_EEPROM_WP-O",
+> +		"";
+> +	};
+> +};
+
+[Severity: High]
+Should i2c-mux@70, i2c-mux@71, and i2c-mux@75 on &i2c4 include the
+i2c-mux-idle-disconnect property (like the pca9546 muxes on &i2c6 and &i2c9=
+)?
+
+In pca954x_probe() and pca954x_deselect_mux(), when neither idle-state nor
+i2c-mux-idle-disconnect is specified, data->idle_state defaults to
+MUX_IDLE_AS_IS and each PCA9548 leaves its last selected downstream channel
+connected to &i2c4 after transfers complete.
+
+Because five pca6408@20 GPIO expanders sit behind these three switches on
+&i2c4 (&i2c_mcio_c0_south0, &i2c_mcio_c0_south2, &i2c_mcio_c0c1_north3,
+&i2c_mcio_c0c1_north6, and &i2c_mcio_c1_south0) at the same slave address
+0x20, leaving channels connected across the three switches bridges multiple
+pca6408@20 devices onto &i2c4 simultaneously. Wouldn't this cause I2C addre=
+ss
+contention at 0x20, false-positive probing of unpopulated C1/C2 expanders,
+and cross-writes to the wrong GPU or E1.S reset/recovery/PERST GPIOs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793243187.gi=
+t.jackyhuang@nvidia.com?part=3D2
