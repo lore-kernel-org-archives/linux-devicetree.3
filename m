@@ -1,111 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261872;
-	b=qj033vCQwcli6OWcSjPB9iPiJSNeenbWP6EY/ShBPvK9ThGvtY3gh/NtqTdqJqf1khqb
-	 Pz++8vXyb6v8EZ/4+bVgCn2Qmn8OCGLTQJCAWpaBJul/2Ua6cEuMKS8wiqz5xrCXv6WE5
-	 78/FCQhYC6mh3axYdp7F7gVE53Hvl67WEcC45c5Id5GKecNz7lIq7isKnEmdyPIPACVT7
-	 ZwxC7heceTWNvQBdR7gC2aHTR8871Kw1O4lHcW/OU5odd84V9pGrFpvLU9aHqScFOSHnz
-	 vMhTVKAR76XMZCui2c6LHXwd9kf9/BXYfLJV1QQB9Ct9uTAiyGMsciwRNdhc/dSjfqg==
+	t=1793262124;
+	b=Z8EXXVPW1jtsG4w7wIVGq0f9zlqWFzzkDm9YCZ2iuTo7lh+ologNY3xmlhmemy809Vgq
+	 hH+MH2CMJ5T3aDRhPbM/C8bIXyA1XU1tqjiMkINXxNApu+Db0R5H7rKyHhFKa4LlqV17W
+	 gmGLLPpUo8eIcovYRS8xJWWA6DoogaqopsAFBXkcwjN9Yp0FmkKuAu/lZj6Sie/UdABvg
+	 jRDhYtWnzwwTKY1HbF8ihgRDk7tKbAByB1U1pEiML14Iet38cQYwHd9zppiDAE98ACDsT
+	 tw2vHNpOMCG4C4Zcp8pcT6LGv8ARZ5FBqn1LoC3gkHoUyWICqghIutPYxyh8gC7t4rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261872;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m2+7KRMYUUdk3+JsUexMv8qpOj90cSDYUOtSMZTSG60=;
-	b=4aKToKtEU+54kvhqQCy4evluuX+/6CJFoUU2NClMBepMLui8G5zkJT1el9ll2DSDwW+l
-	 wD14v1wncrImNCBzj58ZYUxOavbyIhVOmqoeQ+Qksk+yy1pCMuNybC46n9SErmARXO1y4
-	 DNjBxzCW+eHmeuDTj0l8PRQdqU8qBMQwnUfa/VMi5OjJeDikeBOW2aJnDA2N7zoS0EGpE
-	 nRvf3euWiPEWrqZT0zU+o1PFVQ/S0MjhvpwW+vyHYnJCe1eDgjuDrH/N8p10lMcn9vKO4
-	 e0eXLmNfjb0m7B6QkBP+EjVj6EqG/FbnUvvzaXUJfJwd8sJRHJac6NSr3atoiA8oStg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262124;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=80L/74JJpPjW2XTYPhSHYPvDLWJV+C0FOX8YWdWl3VY=;
+	b=QXUDpEtQkTYetpx3UybLgMn0UZ2Oq/flYcfpeur5La4+Z1Had7Uda9NdQSM3pP5WZ7Pr
+	 sMOxtfmoUOglY7ddUFVxKVyjQQvN1a9yas97vYVs6VGiGgeC15wNH9oJf6KdL4yrrUQ8J
+	 70IklNFxUKIX32mux+W85Ed63AAQq9CbmCiz3M32tEYp+nmUuRn2LlEg9jjZbXp3PACUe
+	 gnqMYkOByoHqBDAwKApM3ebTj4ci2ewJ+yeyAMqwB1zAhcBkmxVwO5ePARhAfMzQDfM97
+	 PEsqaelK05b8hM8CKzJrL9j1Z5U5HC0uwRn/yCqyOI23hkv6JlLyL4vGl2ylah4gkyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+8a5gz5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i8Wh0s30;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgg6EkpC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C65606A323
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1C65606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DAC606A31E;
+	Thu, 29 Oct 2026 08:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+8a5gz5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i8Wh0s30
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5HEor3829394
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:17:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m2+7KRMYUUdk3+JsUexMv8qpOj90cSDYUOtSMZTSG60=; b=E+8a5gz5mE8FXXzB
-	7dU6HJoFxJEsPDc1K5cQDbAVcUEzlQHczx+F90ln4xeMzG0yVD/wBZ9yp/E8ZqA8
-	l2iVSa9Faw9da3rCY8/Zqtms4r5ypnhoFQNYXJkNdMNofXPhvMsq4kRiWPnZrpGg
-	FYO9u1gFcN4EavpgfirAzGfir0Z7IfoRP9v0P39XnSOrHy7tzROg/XgRypJM7tG9
-	SodkDhrFCXhxiuZjGwuPGc6b12RPyknhPfa1VP7N4g/vLn2TslK9XAx3/chyDMHI
-	7HiXrxtQzUhpqTxoGuAwYNDvpEjjwLTTCoavmWdHwrRaqI87EwAMffOVf5qSl/Id
-	hHl6hw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hktmp9nuc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 08:17:44 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cc50fb0d2so50851485a.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 01:17:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793261864; x=1793866664; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m2+7KRMYUUdk3+JsUexMv8qpOj90cSDYUOtSMZTSG60=;
-        b=i8Wh0s30wwQ8+60Q4lgSWrocQzkGhURYk+4rb2090UuebIqh+mMGsHZ4S7GvIFTM83
-         kZT8QIgAbjfnoGd9wECU6zMIgvczBcvFhRp9yOY//n6SNW4UDjQTwLhQknFnKgPvMUVO
-         g2vGPUsdv0sAMIY7e+ABGgRh8Lwi2Sew535RITbTH6EEou4R9hPAbzAHp0EMnHkRqRC2
-         EXgZyJ5Y0YTmWCf50kn7GpuUps829IhMeq39BvMQV2TnA4kr7U/v8zOcfSX1PpB8pfd0
-         TtImLFvBuNMSfVlWVbqFj/YukRcdQ+BLqK57vG/V33/sYrKPtCjP6Ub0CyVHtNc3Ay0n
-         G24w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793261864; x=1793866664;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m2+7KRMYUUdk3+JsUexMv8qpOj90cSDYUOtSMZTSG60=;
-        b=a7YCA5tqrn3Vzpx1gQAgPkHRmrVFFMwT9AvH5snrAqUfYhCBEyyrY5M8S/+Hgc8lOp
-         xgoZ96GttrcvCJEp8eo1khsSOev7AK4BCasReZV29zeNSUBI1EOsd1eQGOjKtPmU4BFB
-         zNJnEVgmaEMCHT6XstpJ1EE27i1mbJ0eHZ8kok4ZRtTrA5tdGTU5YNtX9iI261MXWN5Q
-         EHAQGoLWOhHg2ZA6DXXZrFFAnRdu5JPNxpr9Tc0ZEGIk3uZUZs2m7/2sGYqw3sV2jm+/
-         Gi39cW5eKqr10zndTnnjTnHPJrieIYaIGIwoCT33jYdl8RCoZqNbicQhAPGmb8MYCWaX
-         fcMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfk7Uv7/xMD9dDm8JhKfKv7aE6jWtKlkbx351ePjugPzJ7aTkyvkEHa2aP8Zd36ToYeIlgrj9UIJVk@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkXjOcDSrrVeBNKrKT9eMxX1umQ7dZYMKKZ/1cm9K9yjRn5iU6
-	UM5j1+ZTPDC5Yb4IeJAdfNijqXCPvXPkIFacvz6rtcKFZRwVvwzxcHwt+f+dMM2hI5feBA2wrzY
-	wSJBXoNI0XwWUvSrtXezoeOybxZVGPA1tzJY2TTD3YkasYG5n9NBhj7XiUqGFZ4WL
-X-Gm-Gg: AYBFou3KXWK5lh7oQKnFBr3hJ7vxSuhtaHKK/y0hAm3N3jSnTW0I63TUBvEmW1/Fttc
-	cru636xngxDBATYI26ULzzb0HOTdkRQSVVIYqvGgeK+zpD58P4V6m4xTh05zWfahR88mwq5hEgt
-	i1uI4DsHi36aVx+tVxmWzX9R6tr72ryeXwffp5u6akDIFHam5Zvn/2Z+KMIJPphdffjR3WJObi6
-	D8T9VKQDoqzTM3XLQXlcXfy0NSRgBVWoAfoMeIXqMqEEsFNOgJYAwdJwYPjBDJ1t+mFVAVqXN/N
-	7WhJqMiQdbcEvF6hLFYekUkXv6lQyKa0Ci2zLf3Q11cviIA+dvUat/k1HJE5AZF+LtGXNZpGsqE
-	ref3liHEpnj+kXNaEhepC+O3arNUl6eU+RT234F3HbQUX/MijQAR3XPZ54kd/YQWK60kbyv4=
-X-Received: by 2002:a05:620a:1135:b0:936:2f59:dfe4 with SMTP id af79cd13be357-94408845854mr747551785a.0.1793261864046;
-        Thu, 29 Oct 2026 01:17:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:1135:b0:936:2f59:dfe4 with SMTP id af79cd13be357-94408845854mr747550085a.0.1793261863581;
-        Thu, 29 Oct 2026 01:17:43 -0700 (PDT)
-Received: from [192.168.226.64] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b49641f64csm2408328a12.21.2026.10.29.01.17.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 01:17:41 -0700 (PDT)
-Message-ID: <f8c823b4-9879-4a8c-8824-a745b5426c85@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 09:17:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgg6EkpC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A66A1F01825;
+	Thu, 29 Oct 2026 08:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793262123;
+	bh=80L/74JJpPjW2XTYPhSHYPvDLWJV+C0FOX8YWdWl3VY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kgg6EkpCOw1a0M5b1a4gnTAoNqkEBhSPHrJkWnEE31zB+qbdnRJUPGqPU2IHclOYs
+	 /iKnDpozrVErI0BtUvTv+5wdEBo3QDHNdcr93K2cH8ywWIBr5Z6E/KLfrG4+FLN9Kd
+	 iT7QgZQGKucikrZadiklQm2y0PBrHtZeS1Pv9yf2mRf4+WvwRZAMS6RK28oHMvIAWL
+	 6qfaZRci8S2vQL3elRejIZG8N6sZB37U9Bfblv4mkS6PiJ1C51OQJUOn4kCt/aQotp
+	 TYQWpp55gdvKs5E0YGdZIbppDtNy8J0E8hH+DMyGoxZseeuyyr61q4u+P5b8FYbzlm
+	 mdLcsWPpHToKw==
+Date: Thu, 29 Oct 2026 09:21:59 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Francesco Valla <francesco@valla.it>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+	Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Message-ID: <20261029-tactful-able-moose-e61a2d@quoll>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027065001-mutt-send-email-mst@kernel.org>
+ <auCb8_ROuyXdTkQ4@bywater>
+ <20261027090324-mutt-send-email-mst@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,102 +64,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 22/23] arm64: dts: qcom: glymur-crd: add WSA speaker
- protection VI feedback
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Ravi Hothi <ravi.hothi@oss.qualcomm.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261023171433.820092-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261023171433.820092-23-srinivas.kandagatla@oss.qualcomm.com>
- <0bbe4db6-0c47-41e3-838c-37d880869ea9@oss.qualcomm.com>
- <2b9c44de-6379-43b5-933f-54074cf99930@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <2b9c44de-6379-43b5-933f-54074cf99930@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMSBTYWx0ZWRfX88IT/6g8ufBS
- cXoL4zxjw6SYctVJ7GargbtQe/uN2n5ZsRNNpXnty2yOu1ZTTvaaDRRDTIsTPHDtAzApvzuEvtg
- TA66HCV1rIX4oAxf2w5RpX07oAxWgoajwSm8mLpMsENs5vrLS4swVm81/26U2fv8Ul8yTG6DdLs
- G9UpKnni80xPBX0EqztGiCa3mkI1Heblxaa42YN8jNKYP4qwWH6GpB9g6otJHoOtK+BC8aAvCdP
- 9OvBgn74u69KB70uktcD4lEA68Py0gpHKGqvZO0GYW2klAdQG/vzKyO01se/l3s0A0HwazZN8vp
- 4CDEu/bwwfQ5lLrYR+efOxuSHuxInw4p9u+hmEwLEUgwRiAyfcAp97QwIRPXblsZy7XGSyf8Wpk
- zirqda3QsHLGtZw/B60cNj27oHWog8wTACjmps4AY3EZTxkzYMl/cOk65q/03YobUwlZw/d8Gwx
- qCjjItrCWlUzOnH2Lgg==
-X-Authority-Analysis: v=2.4 cv=crYOAF4i c=1 sm=1 tr=0 ts=6ae30128 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=LyDrgX5eIXfwpl7llHQA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMSBTYWx0ZWRfX2KOHmb9sjCV0
- JWsD0qTIa5zTv+3d+xHJ3LvODm2qzHmLDRB9fwgH0znPuEJCh92HXZPorLS4vX2sb75lQj8td1u
- w24p/0I7enZe1m2ZTKK1chIJ5OIhUk0=
-X-Proofpoint-GUID: e40PaXXem2m8OiTZ2z2HjcgtNJPzJz1B
-X-Proofpoint-ORIG-GUID: e40PaXXem2m8OiTZ2z2HjcgtNJPzJz1B
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290031
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027090324-mutt-send-email-mst@kernel.org>
 
-On 10/28/26 10:59 PM, Srinivas Kandagatla wrote:
-> On 10/28/26 1:38 PM, Konrad Dybcio wrote:
->> On 10/23/26 7:14 PM, Srinivas Kandagatla wrote:
->>> From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
->>>
->>> Add the V/I sense DAIs of the four WSA8845 speakers, the SoundWire VI
->>> ports and the WSA macro VI capture DAIs to the WSA Playback link, for
->>> speaker protection. The speakers now expose two DAIs, so give them a
->>> '#sound-dai-cells' of 1 and address the playback DAI explicitly.
->>>
->>> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
->>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>> ---
->>>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 29 ++++++++++++++++++------
->>>  1 file changed, 22 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->>> index 58158b51fe29..fddc76f59557 100644
->>> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->>> @@ -256,11 +256,26 @@ cpu {
->>>  				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
->>>  			};
->>>  
->>> +			/*
->>> +			 * WSA SPKR playback-side codec DAIs plus the WSA
->>> +			 * speaker-protection VI capture-side DAIs on both
->>> +			 * WSA (left) and WSA2 (right) buses. One MM1
->>> +			 * playback open brings up both chains via the
->>> +			 * machine driver's multi_direction_codecs flag;
->>> +			 * the SP<->SP_VI control link in the tplg handles
->>> +			 * the DSP-side pairing.
->>> +			 */
->>
->> I think this part belongs in the commit message instead
->>
-> Yep..
->> Otherwise, do you think we could bind the speaker protection
->> channels in the driver to avoid having to modify the DT?
->>
-> Nope, it has to be a codec-to-codec link that should come from dt,
-> giving more flexibility.
+On Tue, Oct 27, 2026 at 09:07:47AM -0400, Michael S. Tsirkin wrote:
+> On Tue, Oct 27, 2026 at 01:46:35PM +0100, Francesco Valla wrote:
+> > Hello Michael,
+> > 
+> > On Tue, Oct 27, 2026 at 06:50:51AM -0400, Michael S. Tsirkin wrote:
+> > > On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
+> > > > When a virtio transport exposes a non-discoverable bus, the devicetree
+> > > > can be used to declare its child devices (if any) and/or other
+> > > > properties. To allow for that, the virtio framework searches for a node
+> > > > with a suitable compatible in virtio_device_of_init() when registering
+> > > > a device [1]; such compatible takes the form "virtio,deviceXX", where
+> > > > XX is the hexadecimal representation of the virtio device ID as defined
+> > > > by the virtio specification.
+> > > > 
+> > > > This patchset thus does not introduce a new functionality, but allows
+> > > > proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> > > > what is already being done for e.g. I2C and GPIO virtio devices.
+> > > > It was sent initially as part of a different patchset [2], but since it
+> > > > complements a functionality that is de-facto already there and is useful
+> > > > beyond that specific use case it was sent separately (also following the
+> > > > maintainer's feedback there to separate it from remoteproc-specific
+> > > > changes).
+> > > > 
+> > > > This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> > > > remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> > > > parts still not not upstreamed - see [2]).
+> > > > 
+> > > > I added myself as reviewer for the spi-virtio driver to be CC'd on any
+> > > > patch involving the new bindings.
+> > > > 
+> > > > Thank you!
+> > > > 
+> > > > Regards,
+> > > > Francesco
+> > > > 
+> > > > [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> > > > [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> > > > 
+> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > > ---
+> > > 
+> > > I hope this can be merged through the devicetree maintainers,
+> > > I have no idea.
+> > > MAINTAINERS changes needs an ack from existing maintainers, of
+> > > course.
+> > > 
+> > 
+> > This might prove... difficult. My e-mails to the maintainer (Haixu Cui
+> > @quicinc.com) continue to be bounced back by the Qualcomm postmaster
+> > with a RecipientNotFound error. Maybe someone from Qualcomm can give me
+> > a lead on how to contact them?
+> 
+> Indeed, so it did for me.  Oh that's no good at all.
+> 
+> Mark, what's your take? The maintainer is MIA but we have a volunteer
+> maintainer here.
+> 
+> As far as I'm concerned
+> 
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
 
-OK
+All @quicinc.com emails stopped working long time ago and Qualcomm
+engineers were asked to update their emails. Most did the update, so if
+nothing happened here, let's make it orphaned and then Francesco can
+take it over.
 
-Konrad
+Best regards,
+Krzysztof
+
