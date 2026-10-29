@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264748;
-	b=TVW53/w1w9uXKXNQF96JT0mgk7Y+APgPPXoqvp6FOv7Yf7EYMfVB0L4xgKAxMODHwq0p
-	 MoiuNrpOEj55tIziBZEGCNeNNot8Mz2cs/sUKIHK/EfeVIIo2greA9HuaO9r4gNv9lZYI
-	 FXGCtkyumQ3zDUJjlvyl7w47nnVBXI+bqrBodjwarRA30qPdk9BWzunpJyu2n3pcmoPBo
-	 VjIv6ZT/3x9lSFxI/r9wZZ8pwmCk5+iQ0KJZOiFSIafb4PM/+Q4rQI/Sx2eFmB/Y50HFP
-	 Uat1Rxk+xpIuOd4L08OtyN70ygfj9aqmHeytvirRyAPw2m5zpwiOJ6VJgoP+pIaQUxg==
+	t=1793264922;
+	b=svx9up1VTsHIVoWfFCiyzur9r9uIbE3MswEYVc4j6DMOET2XKRAYGQDhER7vzSuEuQ0F
+	 R/55niFRzNAILFzCwgoWC0q0c9mgO2UkEZKSXSGzcghCh9va4odvo0URPgLGtY2oloCt0
+	 Nkk5h7vSoJxnWxZrnPcLtyEz+WpWGCVU5Q5M9sEc0NCtnUt6gq/g4a0UjVuTgSYWAzkU4
+	 p3gea3QFuyGux9M5Z/Kedosy5BthII9Igd4ajkoEEwm2YOO2/W2Kpb3/gGtbqyWc7it/L
+	 3uqhS8h2Piv+jm5TJDmOLI3Sij1c4x4ttBNDOF7+IUQuEkYdvieIXy3eBQyhUL2SCDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264748;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
-	b=FVtgz99irxnSR4jIbCTR6ho43wGZw7TTXPXeP19a0ya6ZhCD4N0hWVXKw1VNZxfHH/Rn
-	 7A+bFf3t65qXOOizk2a+V9q4USErjENCOkgehUg0xVBpGiCGJ5yWWQEXIBEJ8Z9UymOpl
-	 Q5tLKUHyGk7Iu5SF1DEiJBPnKjjzDNYAtL1yV6SNRquejkKxDaRu5YtGjGmfaPrHQJUUD
-	 0Xw8dIs6t6Y1nPEqKss1UzG1PY3UqSJukT/0qrh44BPMn/lX4E0PrBrNZ/YxmsP2Yi1EC
-	 SVc04Ud/Q6TbX4/TNBIbiVolUzucM/TohJOE4OAOSqrRgxGwPI+ebnrNadScvLsO0RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264922;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=ZlsJgsuUxLshKsbZ0JGTcZhiSxa4IqXzGzYrO+oYcmo=;
+	b=sJzp50IjY7WbIwn2l/2RKOKhaDBy0bghQKTiZ9e2kv/Ai1xL5Vq2TKWQjwx3jYk/c5mj
+	 GQOl5C2/urJS+R16HSml0KpqQrOfhOVJgWOAbpzre5Imrt1T2rrifoopAl/R4kzxOS2hS
+	 YlDTKo54sLBXlV/EsPbZEviWBfWJJG9FuM+LeZA1E+YLOqRhgNpyG+heccLJjeIwEs1Li
+	 lHxPorc0k30qNXZHA5KCSrssoWTs4k2jfI+CHR0s64aj+RoLXxV/FHqQrh44gtQoSVHzT
+	 voXYexOzJlo2P3u0g2anJrmv21fZV6xMSeuj/xHrHMfQyVA36WV1w8UbjEez8j+8SVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.175
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CE4606A32F
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:05:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CE4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MOTF+iFk
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C5599C4CBC7;
-	Thu, 29 Oct 2026 09:06:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 76A1960360;
-	Thu, 29 Oct 2026 09:05:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6393103290F5;
-	Thu, 29 Oct 2026 10:05:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793264742; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=oXz35iXIDdGnCFrTaO69Fo6Aj9mTfKBE0PXTwxvdqCc=;
-	b=MOTF+iFkZ6s2UwV3iPDaAGhZFPho5OGAvuN0nmUbFwsQljFaJZTf25sMEdS+a3oEyHrWwF
-	5MBvPJMJjf4CuQmN+2PO08mrSgwtD+mmoeA6eSN2QYjNI2ALupe9+CdiBWKoeZ2msbNO/n
-	KcnVtbkKVcMV79IowIVESZDAEf0x1HERcDqP378mHNOT9k+uFnacXqMJNKDfzRGOosLzis
-	+Rcmqw6svdkBuDU9GorhRb73v+5qrKiiHQigWV3xyWEAxQL2FvSmzPklnEUO7fesRoSLmp
-	rXVPtvJcE0pwE0idrKdwSHwfWEbgXi/AEmidMYyC1aitTwUpbdwW1DnZEJ1XOQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D82606A31C
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:08:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D82606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eac4855401so835458e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:08:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793264921; x=1793869721;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZlsJgsuUxLshKsbZ0JGTcZhiSxa4IqXzGzYrO+oYcmo=;
+        b=Vdce3OtNUy8NcAYKc6aaQ9avz0oW0TRYSe6kcceA/nkGrxZQ6NnLvO6Wm3oa8aPU20
+         hBL7F3ttqJD1nNHBYrb4yE+Wv+hordyKfcJRT+omwncdq02ONFsqbiR4Za8Zdeny5xK0
+         MZC/TIFv729ZHvZJJKlwH+IO6efcQRwTSDBFg7EcKApDA5vteakhDWYR/WB3sT7GEL5w
+         U5DZx8Cm9LcGkdsD9KbEHOOB2vytS7s3gSIxGZIgBe0ZyeHW5plSrF9nwo+sHEugWnGB
+         0g44fJDlbFtShjpt4gq7YuLo532Yt/9R92+fVgCHjgl83m/PhMk7Lff9pV9loy7V/2DM
+         jo/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxlReh1uY/9NKzhO7ET+ZX3TqCZhGMoqB+nwmSderd8PEhzK5EXw6ClYgi04ehDx3Tl2KqtnY4zpZIx@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpQR6sB3fNuUyRO8eT+YNmEA50jKP71t/fznOlSJYQ695xIvoZ
+	gCG6+3CKC+2bAsusJFDTDkB/MwEbEDNkyugcPuKaLEvaiuXboK+0I0jYP3RnHyjr
+X-Gm-Gg: AYBFou0JL1eYp1/tH3c/lAME3rctfPwyXuKKXjOKIrjFn1+JTFC3HbQg4/T6MV1meg7
+	XgEtDMAeLklN+n6KEeXrtawKP5JOvcj8IPV+LYVUjBAzWTjPEsfnUYAi49bQIixmiZtjwxju1Wp
+	zrKA9B2y0ivGyGIE9Fz8EMAE0wgeOaqB4Qim4GlCr/OtV+Tg1aEPV+KoX3CVOVVLKAX+RpykBL3
+	lBbuDKzXmd0okHvLcfX4YBCJQbMVAwZVlVtY9yjbodk0q+I5n5V5orDR6ThO1bsrZb6ArCJwu9Z
+	Z733m9ep5DfmjPWkLjDkIcNyIXgnjguKgaKDXxRWd82HAeeXRh1zU/mzpG3hU587t627skfnFQg
+	Rx4NXbyewbg58+LlpBpq/9w/6A8Kzfjo5qK46F8h7iWipxX66eVuNwpGyI2v/VoT7SIcb5tWqe4
+	DGQPzFEss3E+Ji7y5pMrQBBLNZI9y9VKqxN1djvi/ClgTzk+Zd9C+Gh8HmQtnqkJD0P+6NLv9gi
+	ICX9XS8SqVqNeQBEolorg+AoiUZjq71Gv6JqN46RdH0S3kG8hZe88J5hCXfT+eTRy7W6AWPNqpG
+	cjcKo32rqG2bExSnye5/afWCjB64YP/yy4m9CNL300V4hmvXvWzX+Snz1tFMxV+pXpfP
+X-Received: by 2002:a05:6102:2c0f:b0:7cc:c104:6dc6 with SMTP id ada2fe7eead31-7d03a526d86mr2431080137.14.1793264920921;
+        Thu, 29 Oct 2026 02:08:40 -0700 (PDT)
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com. [209.85.222.49])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259f3b23sm9060542241.9.2026.10.29.02.08.40
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 02:08:40 -0700 (PDT)
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9908e3cd939so561882241.3
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:08:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwupw5cWANVoRKZLN75+Fz8ATtS4H1oFFWvVl7DsuGnhkaq4T1eNIqEyH5XM+N1ytY4ag5ag3z9Vwba@vger.kernel.org
+X-Received: by 2002:a05:6102:8357:10b0:7cd:3218:362e with SMTP id
+ ada2fe7eead31-7d03a5d6043mr1694600137.29.1793264920555; Thu, 29 Oct 2026
+ 02:08:40 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,191 +79,129 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 10:05:38 +0100
-Message-Id: <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
- <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
- <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
-In-Reply-To: <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+References: <cover.1793026273.git.geert+renesas@glider.be> <e723696e02cfb34fb808e2ae3ccb6faf68528c00.1793026273.git.geert+renesas@glider.be>
+ <20261028132937.GL15441@killaraus.ideasonboard.com> <CAMuHMdXycpJ6COtiAA-2oRRfHSfLK40n2cacStW15QJRN3EfLQ@mail.gmail.com>
+ <20261028163940.GA2673734@killaraus.ideasonboard.com>
+In-Reply-To: <20261028163940.GA2673734@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 29 Oct 2026 10:08:28 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVOT+DTZum525kmYfP+jzzPrxMnEeRAkapxOMGz4XMHBA@mail.gmail.com>
+X-Gm-Features: AclHuK9-UV4UizkhZLPxSnm2gBMXfy5lUX6jKfLRdtUVdpASkFCmlMNEyTp9nPg
+Message-ID: <CAMuHMdVOT+DTZum525kmYfP+jzzPrxMnEeRAkapxOMGz4XMHBA@mail.gmail.com>
+Subject: Re: [PATCH 07/11] dt-bindings: clock: renesas,r8a78000-cpg: Add PWM clocks
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+Hi Laurent,
 
-On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
-> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
->> +          regulator-temp-warn-kelvin:
->> +            enum: [0, 1, 368, 383, 398, 413]
->> +
->> +          regulator-ramp-delay:
->> +            enum: [40000, 20000, 1000, 500]
->> +
->> +          regulator-min-microvolt:
->> +            minimum: 1000000
->> +            maximum: 48000000
->> +
->> +          regulator-max-microvolt:
->> +            minimum: 1000000
->> +            maximum: 48000000
->> +
->> +          regulator-min-microamp:
->> +            minimum: 500000
->> +            maximum: 7000000
->> +
->> +          regulator-max-microamp:
->> +            minimum: 500000
->> +            maximum: 7000000
->> +
->> +        unevaluatedProperties: false
+On Wed, 28 Oct 2026 at 17:39, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Wed, Oct 28, 2026 at 03:43:42PM +0100, Geert Uytterhoeven wrote:
+> > On Wed, 28 Oct 2026 at 14:29, Laurent Pinchart wrote:
+> > > On Mon, Oct 26, 2026 at 03:55:23PM +0100, Geert Uytterhoeven wrote:
+> > > > Add definitions for the clocks used by the PWM modules on R-Car X5H:
+> > > >  - R8A78000_CPG_SGASYNCD16_PERW_MAIN,
+> > > >  - R8A78000_CPG_S0ASYNCD8_PERW_MAIN.
+> > > > Include R8A78000_CPG_SGASYNCD8_PERW_MAIN for ordering consistency.
+> > > >
+> > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> >
+> > > > --- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> > > > +++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> > > > @@ -28,5 +28,8 @@
+> > > >  #define R8A78000_CPG_SGD8_PERW_BUS           18
+> > > >  #define R8A78000_CPG_SGD32_PERW_BUS          19
+> > > >  #define R8A78000_CPG_S0D24_HSCN_OTHER                20
+> > > > +#define R8A78000_CPG_SGASYNCD8_PERW_MAIN     21
+> > > > +#define R8A78000_CPG_SGASYNCD16_PERW_MAIN    22
+> > >
+> > > Could you also add R8A78000_CPG_SGASYNCD4_PERW_MAIN and
+> > > R8A78000_CPG_SGASYNCD32_PERW_MAIN for ordering consistency ? The
+> > > dependency patch should then also include R8A78000_CPG_SGD4_PERW_BUS and
+> > > R8A78000_CPG_SGD16_PERW_BUS, as well as
+> > > R8A78000_CPG_S0D{1,2,4,8,12,16}_HSCN_OTHER.
+> >
+> > I could add them, but do you have any need to refer to them from DT?
+> > So far I only added clocks that are listed as clock supplies of on-SoC
+> > modules, e.g. R8A78000_CPG_SGASYNCD8_PERW_MAIN is supplied to the
+> > Timer Unit (TMU)).
 >
-> Place this line after description, that's the convention for child nodes
-> for readability.
+> So we have two conflicting goals here. One of them is to only add clocks
+> that we have validated to exist (and ideally work as documented). The
+> other is to keep renesas,r8a78000-cpg.h readable. We won't be able to
+> satisfy them both fully.
 >
->> +
->> +      vcc1:
->> +        type: object
->> +        $ref: regulator.yaml#
->> +        description: |
->> +          LDO regulator for auxiliary use.
->> +          It can used to power, for example, a PD controller that will =
-drive this PMIC.
->> +
->> +        properties:
->> +          regulator-min-microvolt:
->> +            minimum: 5000000
->> +            maximum: 5000000
->> +
->> +          regulator-max-microvolt:
->> +            minimum: 5000000
->> +            maximum: 5000000
->> +
->> +        unevaluatedProperties: false
->
-> Place this line after description, that's the convention for child nodes
-> for readability.
->
->> +
->> +    additionalProperties: false
->
-> Place this line after description (for relevant block), that's the
-> convention for child nodes for readability.
->
->> +
->> +  ti,sync-pin:
->> +    description: |
->> +      Selects the function of the SYNC pin, used when several converter=
-s
->> +      operate in parallel.
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    enum: [input-rising, input-falling, output-rising, output-falling]
->> +    default: input-rising
->> +
->> +  ti,ivp-thres-microvolt:
->
-> Use either existing over-voltage-threshold-microvolt from battery schema
-> or ti,ovp-microvolt from the other TI binding.
+> I think we previously discussed adding whole groups of dividers in one
+> go, as some sort of middle-ground approach. Those are clocks that are
 
-IVP is not the same as OVP.
+That is what did in this and the previous patch: we need
+  - R8A78000_CPG_SGASYNCDn_PERW_MAIN for n=16, and added the one for
+    n=8, too.
+  - R8A78000_CPG_SCPBUSDn_SCP_MAIN for n=16, and added the ones for
+    n=1,2,4,6,8,32, too.
+  - R8A78000_CPG_S0Dn_PERE_MAIN for n=24, and added the ones for
+    n=1,2,3,4,8, too.
+  - R8A78000_CPG_SGDn_PERW_BUS for n=32, and added the ones for n=8,
+    too.
 
->
->> +    description: |
->> +      Input Overvoltage Protection and Regulation Threshold.
->> +      It shall avoid any damage to the device in case the current flows=
- from the
->> +      output to the input and the input source cannot sink current.
->> +      This threshold is used for IVP (Input Voltage Protection) and IVR=
- (Input
->> +      Voltage Regulation).
->> +    oneOf:
->> +      - multipleOf: 125000
->> +        minimum: 4750000
->> +        maximum: 23250000
->> +      - multipleOf: 250000
->> +        minimum: 23500000
->> +        maximum: 50000000
->> +    default: 50000000
->> +
->> +  ti,ivp:
->> +    description: Enable the IVP feature of the regulator.
->> +    type: boolean
->> +
->> +  ti,ivr:
->> +    description: Enable the IVR feature of the regulator.
->> +    type: boolean
->
-> Why wouldn't you want to enable these two always?
->
+I did not includes clocks with values for n that exist according to
+the documentation, but are not used as suppliers for modules.
+Of course the documentation may be incorrect or incomplete, and we may
+need to add them later. As IDs are ABI and the list is append-only,
+they must be added at the end, which could indeed lead to not all
+clocks of the same group being located together.  From an ABI point
+of view that is OK, but from a human-readability point of view it is
+indeed suboptimal.
 
-By default, these are off when the device is powered on and these features =
-exist
-only for reverse-current situation.
+Before, we tended to add all clocks from the clock tables listed the
+documentation upfront, ignoring clocks that are clearly internal-only.
+Some of them turned out not to exist later.
+Some new clocks had to be added when the documentation was updated.
+Nothing new here, except that the list of clocks on R-Car X5H is an
+order of magnitude longer.
 
-Also if IVP and IVR is on, only the regulation feature is enabled, not the
-protection feature. This is a requirement from the datasheet. It is not ide=
-al
-and I should not reflect that requirement in the DT.
-It should be ti,ivp or ti,ivr but not both because it is confusing.
+Note that we don't use a linear array of clocks indexed by clock ID
+in the R-Car X5H CPG driver (yet), so large holes of unused clocks do
+not hurt (they do hurt in the SCMI driver ;-)
 
-Or:
+> not directly controllable. There's a risk of adding clocks that don't
 
-ti,input-voltage-mode:
-  enum: [protection, regulation]
-  ...
+FTR, the xDn clocks are not directly controllable; clocks like
+R8A78000_CPG_MSO_SCP_MAIN are.  We know the latter exist, as they
+are used.
 
->> +
->> +  ti,nint:
->> +    description: |
->> +      Configures the nFLT/nINT pin to act as an interrupt pin.
->> +
->> +      nFLT mode: The pin remains low until the cause of the status chan=
-ge ceases.
->> +      In this mode use an level irq trigger.
->> +
->> +      nINT mode: The pin is asserted low to signal a status change.
->> +      In this mode use an edge irq trigger.
->> +    type: boolean
->> +
->> +  ti,cable-drop-compensation:
->> +    description: |
->> +      The cable drop compensation feature helps to keep the output volt=
-age at the
->> +      nominal value over a wide range of load current without the need =
-for
->> +      additional remote sensing. The cable drop compensation measures t=
-he
->> +      current and offsets the output voltage proportionally to the meas=
-ured
->> +      current.
->> +    type: boolean
->> +
->> +dependencies:
->> +  ti,ivr: ["ti,ivp"]
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - interrupts
->
-> Best regards,
-> Krzysztof
+> exist, or clocks that we won't need to reference from DT (because
+> they're only used as parents of the MDLC-controlled module clock). Do
 
-Thanks.
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+The direct parent of an MDLC-controlled module clock should be in DT.
+Higher-up parents should not be needed iff the SCMI firmware exposed
+and/or implements the proper clock hierarchy (which it does not at
+the moment).  Still, they can be internal enum, starting after the last
+DT clock, like we did in other R-Car clock drivers.
 
+> you think that's an issue, could it cause ABI problems in the future ?
+
+An ABI problem appears only when you refer in DT to a clock that does
+not exist in hardware.  This should be caught by testing before the
+DT user is added.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
