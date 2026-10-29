@@ -1,107 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793294641;
-	b=f214B02jcMnvVcA5GDHBghRdWyeVqNy7gZmVJGKPdIjd5CBgeBVCnzbcgknaCW4wCaho
-	 wWXfriOnv+5CDWXI1KzW0JSEev3XvR44DhgY864v3+kSC+D3iIrfS585BD4Iueckm4j7V
-	 V5INtDS3GTeIkvuYSv+co4KcAzBkuXGnWfKlRung0vxi7Ukn44L0xbswTtaN7XV2V4YDq
-	 5D0h80gV9lIFlcKwdTVAViOI+PBSQmL7mUD3cI2ON36P4Zx+UvNECKRb3euL6IOdLN9a+
-	 zX2ojcnt54kEVRZP16almov0vQP8c5SDJOBjO/0q3P4YFaJ/+usUNMM4cdWzD73Db3w==
+	t=1793295510;
+	b=KUXlblfFW8EVZWB8MxMZMZ2YwSMJI/MjyOwCIWj3y3eVT5sly/p7qu5najTBtDEvaYY0
+	 CXlc5LhBB3F3/thbblSMau1LS5/mraiM9L7pDGTXMMTr0ZI6quQUidCAD9TqZca3jIafG
+	 jXoOCXq0OnqEzOE7M5mWyTTWlnhnng+5lioIgi/TolvAh16MF8Z7IPrdaMY6oNowT1GGf
+	 d9Ms9N8nDhuKQaX92YlHx/HwJEtVOxXR/d4NynPnANIi8ScP9kUqWf4LirjQwMKZOOKJ3
+	 1kqlvvjOPKfBP4TVDyJDeNZCSpRVyM9IebOGpOlreKjAqcfjt5pQurcK+WIQ0+CE7kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793294641;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
-	b=vHtziIpvMgH4MoC26RnV95kV/wvuuHVolAclHKbQNQEuRVc5K1y8EwWspZLne1GiqR17
-	 h+ODxvGpt2Wj8/SySR9EPY3Be32rd8UGrp6CtE5S0q3bIsu1pbLRUO1qFzGvXWyHCvXXf
-	 NWf70KtNjrVv6A61f6yrWKzmhl9Q4/IlV2JPRVL4EdU8qISaMBFrwMNmKyBdmQ9g6vDvt
-	 Py6Tl32ZNaft9VoQtsOpYqoTHsYrTeDmT0Fu8xX3pqqmdpLw5bdamwBnF0ZAhcKrWlFXs
-	 crgvbPrkaSfNguJf5hoOs7n9L4TTN6BVjz13quIMRTOgbpAgiLcYnvL0tt30CieLjzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295510;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=3yi7vVuv+eKxDx87ExEOV1/lyZsRH8+jZ24mpM+JqJ8=;
+	b=TlWmIB55tBmDjYR8PQwcZrwI9EMVhMVWETrpOhFznUGFfDFA/duBdrgNU0je6r/Bubyi
+	 hIYeBpV9r0RieH6aueZNK1XqtLJd7wjYWNoemBdcgfV5DSvpXKjvGN42zmLGtXO7iWacI
+	 LSQNKJt8j62vOOvQPj+uOKp1UhtIoyfVBX6qQVV/F6LccXpWSa6hQpeuKhoLBJDlU1MzO
+	 IfNpcxN+nwxgQ3LP2eMfUasbrYQrz90RDkKzMqSdGpYndfeC/2i7lxQL5ONCyAXlKkfhC
+	 mUFqBHJc39gb6gLCSccffIEzG9ZWAWLIUy6Q8P+PLWxuAd74ppF/ZnSQPcpHv9PUCjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4ii2gjJ;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REPNfOIq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB6D606A31E
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 17:24:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB6D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B11606A31A;
+	Thu, 29 Oct 2026 17:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4ii2gjJ
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eafa528803so846522e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 10:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793294640; x=1793899440; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
-        b=v4ii2gjJH99nKNb/HaMMkH+Ab3FjrlDa1CFtLJRW9e0Se9pOc2wFGonNc2Faum+SMp
-         eIcd68o6vrUtcLMs61oUuKKjThNI81IfZhqFu0BaKpDqw1xPHUJtGMfQNfN+ePh+3O2v
-         CdkLsigaDLCVlc+P/Ht9MXNM5X9f5P2jfsn91rjSNk9wbx3hDewwydES8bbQM6T/TJYW
-         DhItesTX+/goikD55EgVtIfoEKcZC/NvGSBtoXPCyhqEjkG8lTaf9x9bh4yDdGb3jykk
-         67LUGRlg//02wbc14hVKIh0//Ww5uom5zBTmXy1JD5iti4cg8e60MxuLHg14LqT6pDwz
-         HqNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793294640; x=1793899440;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
-        b=HzhihptG9CSfLJ+GzqHcNbVNLVy14ewrC6VZ2pWcB8/YLFW07ppGF7RhXA65XxyTYF
-         VL8/OxkUMWxecc8OO5ElZB4cbDG9ubVKulYqcm8eFk8sd2nzlsuzwYHjY0rJ+4gu5pK/
-         fdSB7HE7BeI74kIbbfgs7oZobuUddRjmhe33Ux+g686a300pjyXJNEJCZSnm6bVqTBco
-         pxQON512ODmBsGA5Gcno5ifKkYCgFBYDhB+H0fdieWw9OrksMGt3eZKZeEfHn2MttRma
-         SwF91bKUhO3MKVM2Mt7Ft/GS38x1qIBZXtLpf3nT4HFttTaWyk3JkG0yaNYqu04P7TBZ
-         PLHw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwexLmAA8RqziJMidGpxhyRE4j0ob+XRDiZG0n8Q++EFKbMOR/7KG5DGH+ivn1FC1YbTkwV54Gx/hQ@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHUP1ySnLki7cYSLBwvYQFfYqM3jx70YWySC4alpB7wE4iCstK
-	iWjkv69+hozWMQB0HuIC9mEsMY/TbqgLxpbzCbp6wQT3MtUwROiEs2Kd
-X-Gm-Gg: AYBFou28ijlvrzLFmvO9Xxl2Fgv5WYd1/STAJPUZfyESCU/+OUiSsR9zoAjpDuv6Vkh
-	GAAX2vpim/gEfNo3Cs7JO8JXIRUf5276lNyJ6gmIOkqaGoz2a4xpEzRyywQ0YskTiKbWx+sR0a2
-	KdqKb33CPFzPMA6pWIBFcSiftMX/Ro/Ow9L8LwrGgn4U0REAt1ysqkNOBgataT6wAW89t4KkA2S
-	5g1oSqmaA93ZI7OKAtgyZbAjvfxX2AAZcvM+Bw3SoaMtKbZmpHAv7VLwbAzAhCaNWUzWitSjB6J
-	0B5gVepmqF7MzdzHpijXSpc+9iIe5Z3A7/pl7qJTCNIB8jipUtyoZStSBTMdHQJQClwoIz0ws4h
-	83jZMPvet8gA65Oym4H9N2HJvmE5eA9o72Fo3T78RWfX9ooZ+oDBqaJI7zzgJ61P7mRDAhJ/+4c
-	DRL+Wxpvc0s2j4toLjtETuVIe2Fo6UegbNkfJ4LKpzcN8eCGmHS5QEl/5ipUP8UjEMDCGbvYTqI
-	w7gLBNdODb7QdIo3zOqhS3hcQR5NO4Q/RBPQLtK9ycu9tge93N5mxJjVIz8NRBAlfQHHRINoJ9R
-	F2bsDxuRsiJPFpXVaJ2nb2Mz7Ra0FQ5a6qPQFqQzbI01mgiZpJldM5A5pdmQMeGkteAZnJUSQt/
-	85GiJ19YMR/8tUlJenUXsCa6vUFs6h2MAMrZJ
-X-Received: by 2002:a05:6102:3e8d:b0:7a5:7282:1994 with SMTP id ada2fe7eead31-7d03a50a85cmr2383203137.7.1793294640169;
-        Thu, 29 Oct 2026 10:24:00 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.238.247])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3d32a48sm9907357137.9.2026.10.29.10.23.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 10:23:59 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Xu Rao <raoxu@uniontech.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] phy: sun4i-usb: clear SIDDQ before the PHY reset on A733
-Date: Thu, 29 Oct 2026 14:23:25 -0300
-Message-ID: <20261029172325.3425046-3-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029172325.3425046-1-vinicius.eduardo.pedrosa@gmail.com>
-References: <20261029172325.3425046-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REPNfOIq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18D1C1F01816;
+	Thu, 29 Oct 2026 17:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793295509;
+	bh=3yi7vVuv+eKxDx87ExEOV1/lyZsRH8+jZ24mpM+JqJ8=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=REPNfOIq3/sYRsL8rQJyzwTAAZo5OUyxQPjLaI+R+hfPwuSNLQY1vG0tgQQ4A/gCO
+	 ellW8oyVoeTUNvfT9oWU4Ls7NzL71AxafFZEqztIg16oqVOo87aBg4QF3fR9A/dOPY
+	 kcG0BBxWwDH8Owa9G9hGWs5BBJK+BUFsenfJSUDyhuglCMc03EsgGnegkFcyk4uJod
+	 I/2IiIf7i4sARTh1agGKBNXN9qFSLosip5Pcl97ihq2vObgT/WAMYDQAYDEkMw/q2V
+	 J7ujr7G8cu43PRX+Tsu020HQHDhAcaFsQYixOPTUJoKUsdySkIOVVNhQGdE5bdLIwS
+	 QeR4REAJQLGdg==
+Date: Thu, 29 Oct 2026 12:38:25 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,115 +51,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-rockchip@lists.infradead.org, Simona Vetter <simona@ffwll.ch>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ William Qiu <william.qiu@starfivetech.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ devicetree@vger.kernel.org, Andy Yan <andyshrk@163.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Dominique Belhachemi <db@domibel.de>, 
+ Maud Spierings <maud_spierings@murena.io>, 
+ Joshua Peisach <jpeisach@ubuntu.com>, David Airlie <airlied@gmail.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Robert Foss <rfoss@kernel.org>, 
+ Sandy Huang <hjc@rock-chips.com>, Paul Walmsley <pjw@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Conor Dooley <conor@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Yakir Yang <kuankuan.y@gmail.com>, Emil Renner Berthing <kernel@esmil.dk>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+ Hal Feng <hal.feng@starfivetech.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, dri-devel@lists.freedesktop.org, 
+ Xingyu Wu <xingyu.wu@starfivetech.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Jonas Karlman <jonas@kwiboo.se>, Graham Markall <hello@big-grey.co.uk>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, linux-riscv@lists.infradead.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+ <CGME20261029075358eucas1p111293c602fc3aac9c6a044fc41488919@eucas1p1.samsung.com>
+ <20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
+Message-Id: <179329528881.3539981.14637229355908751610.robh@kernel.org>
+Subject: Re: [PATCH v6 04/18] dt-bindings: soc: starfive: Add
+ starfive,jh7110-hdmi-subsystem
 
-sun4i_usb_phy_init() deasserts the PHY reset first and clears SIDDQ in
-the PMU HCI_PHY_CTL register afterwards. The order comes from the H3
-support and the reason for it isn't documented.
 
-On a Cubie A7Z (A733), the Wi-Fi module on USB1 sometimes came up
-at full speed on the OHCI companion and failed enumeration with -62.
-This happened in 3 of 40 warm boots with a separate local PHY tuning
-change applied.
+On Thu, 29 Oct 2026 08:53:38 +0100, Michal Wilczynski wrote:
+> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+> 
+> The JH7110 HDMI IP is a monolithic block containing both the digital
+> controller and analog PHY in a single register space. This binding
+> defines the parent device, which holds the shared register map, and its
+> two children: the PHY and the controller.
+> 
+> The two have separate resources. The PHY takes the 24 MHz reference
+> clock and provides both the pixel clock, which the VOUT clock generator
+> routes on to the display controller, and the phy the controller uses.
+> The controller takes its clocks from the VOUT clock generator. What
+> they share is the register space, which the parent maps.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
+>  1 file changed, 95 insertions(+)
+> 
 
-With that tuning disabled, the current order failed once in 31 warm
-boots. Clearing SIDDQ before releasing reset had no failures in 60
-warm boots in the same interleaved run, or in 10 cold boots.
-Why the order matters is not understood.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-The vendor BSP clears SIDDQ while the PHY is still in reset, in its
-common host path.
+yamllint warnings/errors:
 
-Add a config flag for the early clear and set it only for the A733,
-whose config is otherwise the D1 one. The other SoCs keep the current
-order: the manuals don't specify one and they weren't tested.
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml: Unresolvable reference: /schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
+Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: hdmi@29590000 (starfive,jh7110-hdmi-subsystem): phy: False schema does not allow {'compatible': ['starfive,jh7110-inno-hdmi-phy'], '#clock-cells': 0, 'clocks': [[4294967295]], '#phy-cells': 0, 'phandle': 2}
+	from schema $id: http://devicetree.org/schemas/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml
+Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: /example-0/soc/hdmi@29590000/phy: failed to match any schema with compatible: ['starfive,jh7110-inno-hdmi-phy']
 
-Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
----
- drivers/phy/allwinner/phy-sun4i-usb.c | 35 +++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 5 deletions(-)
+doc reference errors (make refcheckdocs):
 
-diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinner/phy-sun4i-usb.c
-index 839856c09e30..4d067d97c5a6 100644
---- a/drivers/phy/allwinner/phy-sun4i-usb.c
-+++ b/drivers/phy/allwinner/phy-sun4i-usb.c
-@@ -105,6 +105,7 @@ struct sun4i_usb_phy_cfg {
- 	bool phy0_dual_route;
- 	bool needs_phy2_siddq;
- 	bool siddq_in_base;
-+	bool siddq_before_reset;
- 	bool poll_vbusen;
- 	int missing_phys;
- };
-@@ -253,6 +254,19 @@ static void sun4i_usb_phy_passby(struct sun4i_usb_phy *phy, int enable)
- 	writel(reg_value, phy->pmu);
- }
- 
-+static void sun4i_usb_phy_clear_hci_phy_ctl(struct sun4i_usb_phy *phy)
-+{
-+	struct sun4i_usb_phy_data *data = to_sun4i_usb_phy_data(phy);
-+	u32 val;
-+
-+	if (!phy->pmu || !data->cfg->hci_phy_ctl_clear)
-+		return;
-+
-+	val = readl(phy->pmu + REG_HCI_PHY_CTL);
-+	val &= ~data->cfg->hci_phy_ctl_clear;
-+	writel(val, phy->pmu + REG_HCI_PHY_CTL);
-+}
-+
- static int sun4i_usb_phy_init(struct phy *_phy)
- {
- 	struct sun4i_usb_phy *phy = phy_get_drvdata(_phy);
-@@ -270,6 +284,10 @@ static int sun4i_usb_phy_init(struct phy *_phy)
- 		return ret;
- 	}
- 
-+	/* Some SoCs want SIDDQ cleared while the PHY is still in reset. */
-+	if (data->cfg->siddq_before_reset)
-+		sun4i_usb_phy_clear_hci_phy_ctl(phy);
-+
- 	ret = reset_control_deassert(phy->reset);
- 	if (ret) {
- 		clk_disable_unprepare(phy->clk2);
-@@ -321,11 +339,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
- 		clk_disable_unprepare(phy2->clk2);
- 	}
- 
--	if (phy->pmu && data->cfg->hci_phy_ctl_clear) {
--		val = readl(phy->pmu + REG_HCI_PHY_CTL);
--		val &= ~data->cfg->hci_phy_ctl_clear;
--		writel(val, phy->pmu + REG_HCI_PHY_CTL);
--	}
-+	if (!data->cfg->siddq_before_reset)
-+		sun4i_usb_phy_clear_hci_phy_ctl(phy);
- 
- 	if (data->cfg->siddq_in_base) {
- 		if (phy->index == 0) {
-@@ -1013,6 +1028,15 @@ static const struct sun4i_usb_phy_cfg sun50i_h616_cfg = {
- 	.siddq_in_base = true,
- };
- 
-+static const struct sun4i_usb_phy_cfg sun60i_a733_cfg = {
-+	.phyctl_offset = REG_PHYCTL_A33,
-+	.dedicated_clocks = true,
-+	.hci_phy_ctl_clear = PHY_CTL_SIDDQ,
-+	.phy0_dual_route = true,
-+	.siddq_in_base = true,
-+	.siddq_before_reset = true,
-+};
-+
- static const struct of_device_id sun4i_usb_phy_of_match[] = {
- 	{ .compatible = "allwinner,sun4i-a10-usb-phy", .data = &sun4i_a10_cfg },
- 	{ .compatible = "allwinner,sun5i-a13-usb-phy", .data = &sun5i_a13_cfg },
-@@ -1029,6 +1053,7 @@ static const struct of_device_id sun4i_usb_phy_of_match[] = {
- 	  .data = &sun50i_a64_cfg},
- 	{ .compatible = "allwinner,sun50i-h6-usb-phy", .data = &sun50i_h6_cfg },
- 	{ .compatible = "allwinner,sun50i-h616-usb-phy", .data = &sun50i_h616_cfg },
-+	{ .compatible = "allwinner,sun60i-a733-usb-phy", .data = &sun60i_a733_cfg },
- 	{ .compatible = "allwinner,suniv-f1c100s-usb-phy",
- 	  .data = &suniv_f1c100s_cfg },
- 	{ },
--- 
-2.43.0
+See https://patchwork.kernel.org/project/devicetree/patch/20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
