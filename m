@@ -1,112 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264934;
-	b=kmIJmpc+k2al+HZ2VFYInl06mAUwcnD4OB8kKZglTglo9cEQ3kfsWeCoVfGAbR+4Zjh/
-	 2V/plaBgnLuixu/+PW7tFl1grEyu4UE2eesyIDUK7EFn6DCf42shAtdstIMzM/VXT9JJF
-	 DsVU3Q5aQ6qbVtdB0Upu1wJOu0CFlvzPh3dHy542hzeUmheXZuKm1IjYesOGKIJ2I+3x8
-	 /BRwyMnhpVEsSyIHNLYtcgMRImqzHRIHlNCghx3LUq0lalq8+96DCw/q6JasnfG/3txWR
-	 TH76jG7MZ8RGftaRTO2fGwaEh76a/AfI8dbF31CLjokavpTPQ+Yn8S1OdtzCOrC86Aw==
+	t=1793265075;
+	b=YRbxUfh6LJROb04ObCQEkpBKv3zH50ylnXiPY5vGI/ZreoRbjWwvcWuXnVBOgSmA6Pwf
+	 1WQ1sGU7sSUVSAyf7hnq0xrou8czlpwAjr4NQ+dw7F0QMkhd8rH2qnMAQ2rIg9tbRpb1r
+	 J4NgCxQbARxcXJQov8UN+gIASQQ5RmgI8SjuSa/TjD9mi1Wxo1Uj+SCOvlsinYopASsge
+	 LFfpxQF9Rad5WB+OSasV6e0ccHtMWkNO9Ufdisot4e6R9+P3QrOMe05YrPz0gmnNGqcH2
+	 iQT5bHEzZoxUuThu4VD7FJeHrKtwsUbkN/Z3cGjXi+GMe1Wwt34ShgFN0dbb5r2TBvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264934;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DOlAawHBxXeFHxrS7siTvjiMPfoJDvNSyTz5C4Jyf4c=;
-	b=MMcVXikKdaWC3v0L4D2kH7aSkGKhjCZIFZ637wBfLT+vde2mL79jbpc3qsuVYE8Uxv+I
-	 OTYiKlI6kj9CPhCm72NDFEbg0aGnQwmfECzgeatrOxIAVtcpodC1ip5S6+I1QOTerhqFw
-	 OxYAUSw4+RNmXei+Cpsy7eTYfLVmR3EEfwWUTOTgmiv35zYvOnstqcmjJM9jZLTqqMVWx
-	 n98vcnU1Pg6FosH8LGki6IVlzoT5xBY4TW0rB2cLxc9VQ014V8PXvmSONSlC2ZFVLsn0e
-	 iXMQDHhiG162GXX0yt5DHC/BTM5EBqPEOGq9eE6ix+5f/0Ebx3zaWcZvsGrM4A1sgjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265075;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=DesY9onW6Qm5F/BlEq3HWVmD7O5N98tT3yvVTKJmKA8=;
+	b=gvu8dXg4jaa40LelW6K46q8Xx+mAHPTfmbDSz/ugFOmckvCI6fkv1siItiAFxZMofqFk
+	 TP9qlqeIys153aKKIsBGCAoHSx62SOoVuohYRD+oVxGNRKsSBJVm+z1q3iRAA1LStjbJq
+	 fo13VvJ86HNDw5Luvgql1bBfJGw0BuwZMqoweuDLLBGDp2m+T//EhCgEfKzUrz4O+4NCN
+	 KlvtP6c3BQRCpw6UXBmJQ97sx9UJogR1KmJoCWXGbGBM0zjHy5wRVDJWVS0SfBx+WWrar
+	 t8K+NFBYelJDsEDwYMDAWZ3Jk9l70DsxOXbZ1TRytMfBOeSraZ3rVb7+qb3xOtXU1HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JfLpqT4E;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CJcgHsMf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=NElZ6NPW;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D729606A31F
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:08:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D729606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CC606A31F;
+	Thu, 29 Oct 2026 09:11:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1CC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JfLpqT4E;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CJcgHsMf
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vHb03766076
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:08:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DOlAawHBxXeFHxrS7siTvjiMPfoJDvNSyTz5C4Jyf4c=; b=JfLpqT4E2z86BnrD
-	rpjh/O+SJAZqd2RuxnUSnwHWbjQpSzdsEuO4rPVslqU81GRZPwV9M67X2uP39che
-	+8IUmRGwImPFC8500NMG4G+ETcSn8jeyvI+ik1W3QQF/4114r5wdglAahfyz8C0M
-	6T4KMrfAjpvdgfT3FqGQA8hIvfW3SepexSfKwevJLbI/hZffAEq0fhmIjQgm/pte
-	Y3Vg5idvHPghSVexB5SJsUkfvxUCeY2o1+sBe6sU/FzCo0ZFxazdzCWkG/gLGTNh
-	HWbKyMuTkhJ3DUZl9RU71C5MLG7qa+5ndmdGBhCQ1SUVFg2TuKKl7yhJHeZ5Q5Y/
-	HMPe1Q==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkpgpttrw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:08:53 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7d2ff0087so1459353a12.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:08:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=NElZ6NPW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793264932; x=1793869732; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DOlAawHBxXeFHxrS7siTvjiMPfoJDvNSyTz5C4Jyf4c=;
-        b=CJcgHsMf5EX6+gI2yDqQ861uOiP6ReCSiXGlMgLjNq+thhc9dM9PdWlwPvLWTh5SRN
-         HJPE7pUOibNEYXiybfcauozltWvvZqdhWnJLzMGKRltCSU6o0fpBVcFa+bCybTjePyvR
-         CNc1GQCw3gzMGaau/w7yBv398MuDrgrzgbW51bWm5UR5SbBk6sAoPlEtAZtkIRNEf9cn
-         vOozfeGJKTrMRKKMp5gTUlfuZrbBujdAZ1dj02GJOzlRaHnJWT/1mnhjBQg46abLrA/Y
-         aBKhKGaEI681+3hSWQuIKvifKMws0+flrcp8VBNgW8GN2c/mWQiOlm5Zog8XhhqrTnDZ
-         lWcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264932; x=1793869732;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DOlAawHBxXeFHxrS7siTvjiMPfoJDvNSyTz5C4Jyf4c=;
-        b=hf4DRRS1SCu79gfSJAPL1Eh1ZNyjL8OFQfM1Jl+BmMv+MUl7J3Tn3J6RJYgSSfaezM
-         fdxCPg68FuxaiPmvG6CeOdI5vJpQiDZhNN54y8x5srLyASnMpgjuWMvTPk5mZdaMQGgq
-         PzepnZxvWu0RpbqRUnfc4QyNPXY0MT18r+6lI7J59XQtZ+iSqK62pGRL3WThCAmM8arS
-         5UIZG4nd1IcMI9zoOsDZNqgsbDDfTQHJTD2moK2RUd7SY4STHKnOEsQTH/LEFtFUJE2b
-         JKpT0m4T8RbU3MzY+L7h0zTa8tNuEnwwqPiAaW15Rqets0NczxC2nL3ts/pLhCMPy5Pg
-         fIWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxf/FV/o6XP6ykNG3lQSBW5XHx25M/Z13hCLvjQG8pJSZwqFoEnr4vaTQFCCusVxb6PpumC+P+VHvwN@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyhGi3T6MjhBKjVYD6bPJz9hbg5yEl782nw7yaf+3iVSdQPHB1
-	xPjn6lwRdIxAqPejCgKoQpUSmrC0Hpz3hJLRX3SBAc25sHIZvW05RpzKercuX3s6jmi/wpoS9vv
-	2zgCyTAV72s4UcxlV2F3yZi7E4l5OeDXLlSyARVdByo2TGtejYHA+Bo9onC44DSuZ
-X-Gm-Gg: AYBFou060KowAe3q1sJo+0qcFzxO3iwkjm0AylGctfvDyd635Z03xyecqIBOEMZjoDr
-	FphpeDEjMraHgCz/OVXPQ3LxpJCsm1o8XyorL4rIHZ8y25hsF72l7jOuA8NkmqZYwep8yJRfKWy
-	hSIdiBqkqq/NMH77mAZRJDJsqPOeGZdcJTRlZ3F1R8i4FirOlUHum2v4jRDrstkMqsYH+oWh2F3
-	rvEsJScjlZWkzpqIvXwlKDX2S9avQXfGMhv3CxkcqayqcJOl89uybbuWemMmDbjYNjOm+y7bpHh
-	zdu+Ee6suvDiWWhY47fGzH2Yr2Taa9iQK0Svv7PhTSZkk9IVujHLOHQKabqHIu4tJTjxXY9fsxq
-	34lE9nwnLe3uFs6ZGYRGXN53NSxA42o6f5vD5adc+oqXhqwTMArpMa3ipmIasB67dJuFjmdVn6s
-	3tadWwg/IynBVSN+jJjdPl2ObG6d5rCakgsx+92+nw4jNDlZp383Wf2GtbiLEm
-X-Received: by 2002:a05:6a21:3405:b0:3dd:a006:ed90 with SMTP id adf61e73a8af0-3e90235b9b0mr4036779637.38.1793264932300;
-        Thu, 29 Oct 2026 02:08:52 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3405:b0:3dd:a006:ed90 with SMTP id adf61e73a8af0-3e90235b9b0mr4036765637.38.1793264931832;
-        Thu, 29 Oct 2026 02:08:51 -0700 (PDT)
-Received: from [10.79.116.57] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662e3a4sm2039697b3a.28.2026.10.29.02.08.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 02:08:50 -0700 (PDT)
-Message-ID: <5d84ee1b-a765-4d6c-ab01-ca1a06a0e3d0@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 14:38:44 +0530
+	d=gibson.dropbear.id.au; s=202610; t=1793265070;
+	bh=DesY9onW6Qm5F/BlEq3HWVmD7O5N98tT3yvVTKJmKA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NElZ6NPWTMCHi3nTtuPElkdoLmx9jIxEuEnlBMAiuK3plBDedqFkBaNeax8JBhgwe
+	 MHsYsR/2qaLoEv63LuK5ZCgq9Qtj7l9wRzdJn1Vf2+wFJ8q7rvLTgKZ1TdDGqlSDIk
+	 A7FA/nGVP3DhfIQ3dZWWlYjJL+hVzlrbDCpwQ7/SyPIDFtjZV1sUCmm7LPF140aH0U
+	 aiKcGm5kIY/NsbulKG1JZAKgP7RjgKSrnIpY1PwPzAPDPfxofynONUsZhaddX3tKa3
+	 dTmS6Yq/Yky2d30/EocwCzpEyaPC2iBKvEkgzCoRtewwMj3leEcok0y021tyT773J3
+	 9hBOMxF4F3WKg==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jFdkk27jVz4whS; Thu, 29 Oct 2026 20:11:10 +1100 (AEDT)
+Date: Thu, 29 Oct 2026 19:38:19 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>
+Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and
+ get_mem_rsv_list()
+Message-ID: <auMF8HnYSTXS22jO@gractus.seuss>
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-3-dianders@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,117 +74,184 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
- <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNSBTYWx0ZWRfX4PphUBeeckZs
- PIbl1/RTOIyF8JicFkTH1z2N8krd7ALFwvDDXKX/Nc0/udyihr3DFTKgTe7I/mEDxNY6LvyRgmS
- +vHNDk8laOgzKkIK8ayG/CsQzMdslBCP+cwrxKL4RjpPC64rrn74nkSWreZPVDPKnPvlR4fhVLo
- YetdY+n+/SIhQ3tj8hmESii1VqILJldAe19jwB2zVfE4aCaIQsdsgpPfv52NdYIda+oEHV6oK/0
- f0fCQ7I/Zd9w9UZGxwPwHwdW1Ib85WzIkW2qg/q747JN7vJUQE9gXnirud79iRfPURUFVLrfADp
- eWGF1tEb51xPMzlaqsXh/n+ELMPgNZO14Mz1hfLcB11V8nuY8VJkgiI5D1ULF8YfbZMAWTIYkGL
- 9OznFd1zua16b1vwZ9y4tyy4IdmAiYHLz3XY+l4UTMAFhaQLVvaPobrLoMFgW2xay3QKyhedMip
- FBMKsAZYO0a2PABn8NA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNSBTYWx0ZWRfXyMBtaQiu3asg
- wL6denReQREteS6SOPv7vFCQ7TRPgfEw8Pi+p+LCB49+3LwS/RJsHiB3i0tlpsryB4k0NWmDbnz
- ecw3R5wdmu2obhDPdLxHgyiUmyWYFxs=
-X-Proofpoint-ORIG-GUID: ekJlJV2CnhxaVUrFhuolCVCvSI7xKDNG
-X-Proofpoint-GUID: ekJlJV2CnhxaVUrFhuolCVCvSI7xKDNG
-X-Authority-Analysis: v=2.4 cv=T4oZ3PKQ c=1 sm=1 tr=0 ts=6ae30d25 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=HxamSshyuiQp_YgWtbEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290035
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TL5/2bxJUgMTDbEs"
+Content-Disposition: inline
+In-Reply-To: <20261028215600.1713475-3-dianders@chromium.org>
 
+--TL5/2bxJUgMTDbEs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Oct 28, 2026 at 02:46:51PM -0700, Douglas Anderson wrote:
+> Add Pythonic iterator helpers on `FdtRo` to simplify walking nodes,
+> properties, and memory reservation entries without manual offset loops
+> or `-FDT_ERR_NOTFOUND` sentinel handling:
+>=20
+> - `subnodes(nodeoffset)`: yields the offset of each direct child subnode
+>   of `nodeoffset`.
+> - `properties(nodeoffset)`: yields a `Property` object for each property
+>   of `nodeoffset`.
+> - `get_mem_rsv_list()`: returns a list of `(address, size)` tuples for
+>   all entries in the memory reservation block.
+>=20
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
 
-On 10/20/2026 1:33 PM, Konrad Dybcio wrote:
->> Add support for back cover, keyboard, and SoC thermal zones through
->> temperature sensors hosted on the EC for Glymur and Mahua CRDs.
->>
->> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 45 +++++++++++++++++++++++++++++++-
->>  1 file changed, 44 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->> index e27c697e3170..571c98124a40 100644
->> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
->> @@ -594,10 +594,12 @@ &i2c9 {
->>  
->>  	status = "okay";
->>  
->> -	embedded-controller@76 {
->> +	ec: embedded-controller@76 {
-> "ec" is a super short label, perhaps let's spell out
-> embedded_controller
->
+Patches 1 & 2 are useful independent of the rest of the series.
+Applied, thanks.
 
-Thanks for you review, I will rename the label to embedded_controller.
-> [...]
-> 
->> +&thermal_zones {
->> +	ec-back-cover {
->> +		polling-delay = <10000>;
->> +		thermal-sensors = <&ec 2>;
->> +
->> +		trips {
->> +			trip-point0 {
->> +				temperature = <90000>;
-> This is *really* hot!
->
+> ---
+>=20
+> Changes in v2:
+> - New patch adding FdtRo.subnodes(), FdtRo.properties(), and
+>   FdtRo.get_mem_rsv_list()
+>=20
+>  pylibfdt/libfdt.i       | 45 +++++++++++++++++++++++++++++++++++++++++
+>  tests/pylibfdt_tests.py | 18 +++++++++++++++++
+>  2 files changed, 63 insertions(+)
+>=20
+> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> index 46f28f67290d..0db7110b4a38 100644
+> --- a/pylibfdt/libfdt.i
+> +++ b/pylibfdt/libfdt.i
+> @@ -201,6 +201,23 @@ class FdtRo(object):
+>          """
+>          return check_err(fdt_next_subnode(self._fdt, nodeoffset), quiet)
+> =20
+> +    def subnodes(self, nodeoffset):
+> +        """Iterate over the subnodes of a node
+> +
+> +        Args:
+> +            nodeoffset: Offset of parent node to check
+> +
+> +        Yields:
+> +            Node offset of each direct subnode in order
+> +
+> +        Raises:
+> +            FdtException on error (e.g. invalid nodeoffset)
+> +        """
+> +        soff =3D self.first_subnode(nodeoffset, quiet=3DQUIET_NOTFOUND)
+> +        while soff >=3D 0:
+> +            yield soff
+> +            soff =3D self.next_subnode(soff, quiet=3DQUIET_NOTFOUND)
+> +
+>      def magic(self):
+>          """Return the magic word from the header
+> =20
+> @@ -302,6 +319,17 @@ class FdtRo(object):
+>          check_err(val[0], quiet)
+>          return val[1:]
+> =20
+> +    def get_mem_rsv_list(self):
+> +        """Return a list of all memory reserve-map records
+> +
+> +        Returns:
+> +            List of (address, size) tuples for each memory reserve-map r=
+ecord
+> +        """
+> +        return [
+> +            tuple(self.get_mem_rsv(i))
+> +            for i in range(self.num_mem_rsv())
+> +        ]
+> +
+>      def address_cells(self, nodeoffset, quiet=3D()):
+>          """Return the number of address cells used by a node's children
+> =20
+> @@ -434,6 +462,23 @@ class FdtRo(object):
+>              return pdata[1]
+>          return Property(pdata[0], pdata[1])
+> =20
+> +    def properties(self, nodeoffset):
+> +        """Iterate over the properties of a node
+> +
+> +        Args:
+> +            nodeoffset: Offset of node to check
+> +
+> +        Yields:
+> +            Property object for each property on @nodeoffset in order
+> +
+> +        Raises:
+> +            FdtException on error (e.g. invalid nodeoffset)
+> +        """
+> +        poff =3D self.first_property_offset(nodeoffset, quiet=3DQUIET_NO=
+TFOUND)
+> +        while poff >=3D 0:
+> +            yield self.get_property_by_offset(poff)
+> +            poff =3D self.next_property_offset(poff, quiet=3DQUIET_NOTFO=
+UND)
+> +
+>      def getprop(self, nodeoffset, prop_name, quiet=3D()):
+>          """Get a property from a node
+> =20
+> diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+> index 1b65961491bf..2a0509c7802e 100644
+> --- a/tests/pylibfdt_tests.py
+> +++ b/tests/pylibfdt_tests.py
+> @@ -243,6 +243,22 @@ class PyLibfdtBasicTests(unittest.TestCase):
+>              node_list.append(self.fdt.get_name(node))
+>              node =3D self.fdt.next_subnode(node, QUIET_NOTFOUND)
+>          self.assertEqual(node_list, ['subnode@1', 'subnode@2'])
+> +        self.assertEqual(
+> +            [self.fdt.get_name(n) for n in self.fdt.subnodes(0)],
+> +            ['subnode@1', 'subnode@2'],
+> +        )
+> +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
+> +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
+> +
+> +    def testPropertiesIterator(self):
+> +        """Check that we can iterate through properties of a node"""
+> +        node =3D self.fdt.path_offset('/subnode@1')
+> +        props =3D list(self.fdt.properties(node))
+> +        self.assertEqual([p.name for p in props],
+> +                         ['compatible', 'reg', 'prop-int'])
+> +        self.assertEqual(props[0], b'subnode1\0')
+> +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
+> +        self.assertEqual(list(self.fdt.properties(leaf)), [])
+> =20
+>      def testFirstNextSubnodeOffsetExceptions(self):
+>          """Check except handling for first/next subnode functions"""
+> @@ -410,6 +426,8 @@ class PyLibfdtBasicTests(unittest.TestCase):
+>          self.assertEqual([ 0xdeadbeef00000000, 0x100000],
+>                            self.fdt.get_mem_rsv(0))
+>          self.assertEqual([123456789, 0o10000], self.fdt.get_mem_rsv(1))
+> +        self.assertEqual([(0xdeadbeef00000000, 0x100000), (123456789, 0o=
+10000)],
+> +                         self.fdt.get_mem_rsv_list())
+> =20
+>      def testAddDelReserveMap(self):
+>          """Test that we can add to and remove from the memory reserve ma=
+p"""
+> --=20
+> 2.56.0.313.g2479322e68-goog
+>=20
+>=20
 
-The 90°C trip value was suggested by thermal team(Manaf Meethalavalappu
-Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>). We are open to using a
-lower value if this is too high for the keyboard and back-cover sensors.
->> +				hysteresis = <5000>;
->> +				type = "hot";
->> +			};
->> +		};
->> +	};
->> +
->> +	ec-keyboard {
->> +		polling-delay = <10000>;
->> +		thermal-sensors = <&ec 1>;
->> +
->> +		trips {
->> +			trip-point0 {
->> +				temperature = <90000>;
-> Likewise
-> 
-> Konrad
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
--- 
-Best Regards,
-Anvesh
+--TL5/2bxJUgMTDbEs
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrjBfAACgkQzQJF27ox
+2GcbGw/+NoZiUz98Y9CDKnaUPJRtCg8Wr2QXiC6JfgYqcsdAdO9uoEFxg60HVMeQ
+4A67lU9H2g+/Ca8wNJOT2P25nLJdk915npWj/qOsoVX+eoF+XK1aGgs5nym6omC5
+0CMER6l2Z1vLpekV+JNcrwmPuIQMc8voXvdhzy1GMS8FnSKoVUIjAC2sngDXmUuN
+WEHeRRihtZ6mL2IvAqzquU1AEeF5+iAZENkZX4wwmEukctOFMY11vyA3Ywl8GuzB
+THpq1G40KIPiKReLCiU2bhr2nLgQIHqyicQktZ1HXbt5UCiGrRDnGkr3U44K/iwS
+ShJG/HNLLkH+H6P5o2OfL2RrQPAR2EeDD5Ya0oJvR89FNP4vlkhHs7PrZEAOWpF0
+Ey/fW7P/syILOGNf2kCK3KTjT2Pf2a9vAqU2UOjybdaNqL1ktk8ppMysCKUb+amQ
+8cDZ1lawhAF0BwqlVqVCjkfq271pFVFzQHNZHKOKQzatF162GEuF2xTyBHjQuipp
+jgQrneLBqL+oJDAO9W8W0RRThi3xi8B3B6rS0cE0iYV+RDLyELHpHdozAu7hKPjQ
+BefO2xQh/gD5xnGFGRhTrUKlrovsE0vMgAh4r1LS7gZNwP6zjtWPvFkRsJf2YYf6
+e/pObOmb0JcJQfCZzYe5okXbN/w8p8YWv8k7HALuVLyN6LAGyJw=
+=Z1jb
+-----END PGP SIGNATURE-----
+
+--TL5/2bxJUgMTDbEs--
