@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254389;
-	b=Tes/sfBGuImzrGcRTSeX4LG4ZuUcqZm91UM4Iu1r8vc8GQaFcfGsaRsiJsvjMkJs3VXq
-	 ejUaASoxMs0NvbLVz3cY/TTtE0UlDSHIkmAwNvO/blIYLwudLdkMDxZToY6EU1uALehBs
-	 SjzuclP/WvxVrbDbJcAUG2uXXwGeriHthTzE/LNGZ5jChWo4R7Ch0GwSmoqihsxCaXRko
-	 yEEEbaAT4xDeq/v+pqyq4henciKcwPyepS58oP2bsSKFFtvD5uJcOTQtkDYniia8mwciv
-	 +cytMTeG7vajxP5sf6XpSZ7jgXTYvJQfQHK4COkThC9Jqe9UKjxxfKOVsquq3EifBqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254389;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8HfICeltQZtZCQ5hD60I+Ms/gO7apKM3P6RJyOQSEUI=;
-	b=ygpf8oSIetfgdHDl0NfHPaR6Yo2nxtU/ayi5CGecBeXHfOd/8UUHYzeBpyXRe8gpL7NV
-	 oD3Af+M27S4KG1WZi3Ksgf5Wvptf3sVJo5COf8NYvF3xxAGJtcwd+kDaWSl58bszJK8RY
-	 B1MNXrhG6jCrkqQAhBj0GyG1hd7YhH5m3Uo4L3XpP0wKLOeyoFYgCG7b41rUCBnMp55sm
-	 WRssEs3XmoMUXuCF9ErOr+rPvbazyHDnL0yRfJRE2slgITnb2fc0jJd2O70n5Kkvka0y1
-	 y6hxAGXmAYNczyOGDdovVMYW6O8Svx8qiVXBmH/6+5iJ0QjU1gwIKdWtjRrGdvKZcBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY9fCZM8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793254882;
+	b=i7j7B8eY7yR9F1w2iL1cmFpWWzi8bBF0G+eCrUKpMdGMqD7Cf5sD6jCrWfP23Gi7wfCj
+	 9GrLeyWTZ3PeOoWkpmIPYPdtBfmeIDLJxtx9NxFrK2+ghAAGFAv7Kr38x5yX2TFFbDlxf
+	 5AkUJD2DT+ovgxheYWKRja3Sgn7tAtivS1PpJ3VOOOrt7ZK6HdtJKcqxc1nZWw4y12jHO
+	 dKV0mxKeI7y70fyZftWVpkQHpZla8D5Wkf1a8mka8tHMJp9RHv99QKJulpTSTkYXWv3P4
+	 gfGTxEpyCNGDLsJAbZqXObMGWuTGyP6gkVbT0yRPiRNEdH4BRJrJG1nu2fGS8UmgY7A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254882;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wX4497+I/P0Z/hG42zUPoG/mKUdYeZggVG5PbwqdgLQ=;
+	b=HPp4L+rEqG/TTCsR8t0e4onNsPPs4oJyKrhrwz4XSaHm+MfOAHi2LWW9ygU9vsNYJ/WI
+	 g+XAZGT2eOc9iKKyqm81HTULwQxJdlrvki0N3tGgOM9ys27viLDq2jZnpbO6OjqdDqimx
+	 kXwvvVtqbP8WwDkDdbrfkjR3/Wzb44zPcnO7+Pr9nYise5FjJ2h9tfP6GSIKJUe1fDmGw
+	 JYFCZHi2Ab6zuWQ6W7BVb+aeZEZVftZlhtmDPLz8ps3MvGvK2lvcL0g1cs62f1w3JmLwa
+	 MMn0QYC8y7YQG/HlMIfWiTQrnDe7CRBsXFF3G10f3GJrYksJkWEavwtszJg2vzO80gw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b="nz4a/UiM";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.64
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013064.outbound.protection.outlook.com [40.93.196.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0309606A31D;
-	Thu, 29 Oct 2026 06:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E6DB606A31C;
+	Thu, 29 Oct 2026 06:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E6DB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY9fCZM8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFD61F01825;
-	Thu, 29 Oct 2026 06:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793254387;
-	bh=8HfICeltQZtZCQ5hD60I+Ms/gO7apKM3P6RJyOQSEUI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AY9fCZM838jxvzO1LZjlGpXv0W8K3teqSZL7RijTgFK+vMuR9I/rLM2tTDsuEdu49
-	 D2/wj4MDZjo91NakOEaX5qSF5O95U3YG8/G5UHWIxf80ZCUvpFSL90WwQh/5OnZhB+
-	 IxV3Ir9hpPOUOgGFeO+ZNTpumWj+emmZLNf8wkK2peC6tx3JvxcCwhRjIp/8vl4fIF
-	 5Te7rIsn3LXYjnylmmiG2eWT/I2O7NNXE/I6Z/jqqYBvXQ+flDBPRbsCb9u28Gwj8Z
-	 Wm++8Vi3KmsJ2uSOrdepJb1M4tZjsQyVIQao8cR8k7StT66yaZCypWnGb4AtixMYe1
-	 607LwJx2luOOA==
-Date: Thu, 29 Oct 2026 07:12:52 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Frank Li <Frank.Li@nxp.com>, Vinod Koul
- <vkoul@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan
- Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
- <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Tiffany Lin
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej
- Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?UTF-8?B?V2lsY3p5?=
- =?UTF-8?B?xYRza2k=?= <kwilczynski@kernel.org>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Christian Marangi
- <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, Kuogee Hsieh
- <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, Aakarsh Jain
- <aakarsh.jain@samsung.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
- imx@lists.linux.dev, dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-Message-ID: <20261029071252.586c8cbc@foz.lan>
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
-References: <20261028120216.2657397-1-robh@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=nz4a/UiM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o0Y5N+iZvz3GM3PK1C5MZBpWJoorhFF2alHQ1zyB5OF43ociTjk4sHwmAg5wu813p0EPniVrt04YaG8jNFW+YfOIZN9Dq77mBNQwXFk74ZsT/XHhcOGTL4mQsPbeia9ert+IX0S0XycXz8Me+wgU5mzwHTUuwJeOamdDHgq+/x7EEHhuFsaFqXS02j7QlCwfBw8XJPHKvhk25nFKKRt4mOWQEFkcFZnES69J6PTk/9qqjee2FBw/Bzz1vG0nA8xjnIiGejyAcxfizz4M6CwQ0rn7IVl8xhbGSsb9RKiY2byJX0eZakBBOcE975TvKA0CDatR+Sg8eUZzI/xxmzz0HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wX4497+I/P0Z/hG42zUPoG/mKUdYeZggVG5PbwqdgLQ=;
+ b=LMW4tIJk29aysSYh+mbuV36GjkC7s0aKkZSgZbVV+Im985QeyJ8s7HOyABghdlggStaw8KMgrRy85Ch/El31N92K9TCMAFfPHQRpE76vuA1oaG3yEQ2y57UKEzehR/wS6/BDIU/Bkmsy6WngQ3DdTtc2tPNyadPfxKhdrGitYMikG7qZROFwe8hHEk8caIozHiKgYVJL1asaMiLpzf4cnrS67C0YUHKe2HxYv9QchD5zlibzEzR5ftcJPVBE97r5PWiUelPHJcd8WR4hg1DgnpqxqnNjp4IaGKGdlgWbycmaJMbWPE2EZBeqAbHKLyCGbhmPVogp3558iP3N56oRng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wX4497+I/P0Z/hG42zUPoG/mKUdYeZggVG5PbwqdgLQ=;
+ b=nz4a/UiMz7xSlukY5kUwH2+lKb4m1o4B25w4ScV4yrDgiaqlNvMhhYjso8+XSAJxWKtsv0pffZ10JO3ZetwKiF5RnIRJqlj7MKEusR5MIBF+8qeyZOf24Jylkp3LiyzlKKltuauhNv+ubxNlRB66mnljXnRow43DBh86MPrHqxlFwdD6eEJ3hjQtsTk92a575u27diVgMbwnD7gv/Hf7HLGxDkwP+utUfUS72L8wTaufeC7j7D6qRrf6s3EPkizc/ceQoGbyCy/feYhZFWfBdAZGGLLIAdwDjUhrlQjt99oTAA05X5ZvUvLzFbzsiGefs5ooXFmdVANzfbaMJ7pC2Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by BY5PR03MB5281.namprd03.prod.outlook.com (2603:10b6:a03:226::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 06:21:17 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0522.017; Thu, 29 Oct 2026
+ 06:21:17 +0000
+Message-ID: <80fd1113-88a0-444c-ab2c-6ea880e39c87@altera.com>
+Date: Thu, 29 Oct 2026 14:21:04 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] dt-bindings: mmc: cdns,sd6hc: add SD6HC DDR50
+ read-path tuning
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <5ea5d406b527cb9b7015693191c9bdeb9202a1bc.1791459448.git.tze.yee.ng@altera.com>
+ <20261012-futuristic-worm-of-camouflage-cc2e3e@quoll>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <20261012-futuristic-worm-of-camouflage-cc2e3e@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI3PR03CA0004.apcprd03.prod.outlook.com
+ (2603:1096:4:297::11) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,240 +104,142 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|BY5PR03MB5281:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e02ad1b-421f-4c69-62e9-08df3584d747
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|261009223027099003|261021121427099003|261022105027099003|261021123027099003|10067099003|56012099006|261026140227099003|261028144727099003|18002099003|22082099003|55112099003|261026121527099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	NTq5gXAoGus91wh6apFmaW6jLBzjrLcJ2G7SR6PlMysQXPpRE5uv/ztxlfPhaG1+Yjabqk5adDC/rLYhtazUEQH+uIoxNCzk/hNF972gwxV1+hFUWj1XxQOl9HrgpoXFbrEFxOZqhboY2oQIfIE766umr9BmXyVfqrlF+XIMPTFQuT2QmhhfjkamtOHrBtPT5nyYgQnB4mdHu+z08hpuwR2eOpAuiYhHr7VWda2vsCD6+V17BpF2jBviKIHPPQ+gyQUZOXC5QF0GwhogqKTt/7D22tn4OL8XnUOK6RgQO3OOrxPibG2cFXmaaTiusdH3Uosl8nRsI3zZ1qaP5wQiM55RUInz3CnHNjHjQedUOkbjvP7t2IUpUO0YMtS00lcEWzqLZmx1d4ISt6w9t9eNTdWDg2hi0IPzJUCsFTGazO2kAt6WWZ7pmIsN9ZRRp9QpjDI1akjMHVJnAbOIubXbRkDlTZCA1xWEetJSSoIIB6N6aT9UghkEh2rm7+r3b2CyXLUPmNyKzBDtod/HrMJh5A9v8uDyoTOd+K95cuneENm7YVyTJMQcVHPPAc1Vmjwp/nNrCcThrsY48Rf4c3t0flrhbIXi7QisvZzO60CL+rSGROkkWAVt67xBjfpQKD4M/ZFmIUkN9f1vy1F2B5ZIllq707gBaWtgIDHrA1QhEEs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(261009223027099003)(261021121427099003)(261022105027099003)(261021123027099003)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(55112099003)(261026121527099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eklMNlhQenlJMGdxUlNtcVE3bHVyZkFmUW9mVWFvRjZqd1VDMVRndVlRQVNy?=
+ =?utf-8?B?R2ozQVdMdzc5REhZQlFESTQ1dUNDQlo0azZFa0xwTjlZU1hOMFJpaVpwcWhp?=
+ =?utf-8?B?SUQ3bWJwMGpmZXZiS1k0NUZvN0Q2c3lGZFFyZEJHakFKNzV0Mjk0VU12TWZW?=
+ =?utf-8?B?T0lIa0RzZ1BLN1ZsT3hWQlNWU1hQY0tLa1I2MEhzWFErZk1wUjFFNDJEK1JC?=
+ =?utf-8?B?dk10MzBiaWRLNEVkbWgvb2pWbEx6YlZrVXl4S1luNTgzYjlSOWRnNm1mYVVz?=
+ =?utf-8?B?YnNwZnVmTlNHUVdETWlVaC8xenc1YktNTk5BdExNTkdLRDFmNDJBOURmQTJG?=
+ =?utf-8?B?SVo3V2hZVWNndlIrYTAxWFVwbmFhUFE1MEtzOEZtUUMzVGZscTJTekRPNTlu?=
+ =?utf-8?B?M2JZZ3ptUGNSUW9EQU03a0NMZ1Bld2o0Z3JRWnpFOHJibUVRNkpGU1NFTUdz?=
+ =?utf-8?B?bWJYYVJzNzdXaGF1anFKV2hGd3pLTFlGTTZwWkZvRHd2bnJyNDgrejZrcHJQ?=
+ =?utf-8?B?cHlCVmhHZ0lOOWNBYllhcFdvOE1heXFHSXR2OUl1TG0xK1NkZ2E4OWVRUnU5?=
+ =?utf-8?B?M1YvNUYram0rNmQ4NXJqNUltbklYK0JtK0xqN2dkL3VWaWNSZXFTQlZxTTMr?=
+ =?utf-8?B?ZkREYXdxTnNGeG9pQUZJTFZ6K2tMZDNtWVJTekxiaW4zV0hFUi9lZnc5cWNF?=
+ =?utf-8?B?bm5qMFVIYndHdWFXWWxTTTVUTXBNaHA3VWNPaUJwNnV0U2lWUCtUNDVtMWtG?=
+ =?utf-8?B?RjN4U0sxUmhXNGlyZzhuVlcyYTNLODdUaWJtRWN4MTMyb1RoZEhsZUVBMHds?=
+ =?utf-8?B?Sm9oMkRPdlRDUjRsQ1JTTVNjb05XditoZlpzbUlQS1E4NVlETW5rMVBDNXN0?=
+ =?utf-8?B?a0I2L1BjSXVUYjlPNEhvYUV3L3BhL2pFWCs1Y1A2WUxrZ0hHSTJmWFA5R2V5?=
+ =?utf-8?B?UXMvcEthaWhJVzFUWXlZTnFkSTA3cTdmcy9XRWNlUVg3aFF4YlpERmlYMS9z?=
+ =?utf-8?B?MkNMemlKMjUwaG43ekY5N0I0RTNzb0c0VXBLaHc1QWFzNUozNlE3dTdoS2JC?=
+ =?utf-8?B?VGFEVmwzNmNMa3prQ0RlclBQTzN1cDhuQ3pYVVY1VnBPdTNFNmNuZTMxVW9y?=
+ =?utf-8?B?MHFGQUpDMGZZZFpERmNYNWk2V0p6RFRYTGJQcFZZNzVzcFBzNVUrUTQyWDc5?=
+ =?utf-8?B?ZlA3MUhGKzlZU1pGVzBLMEQ3MGVJVEZXNXhqYTl1eTFId20zaXdWNzc1R1R2?=
+ =?utf-8?B?a1JSRS82c2VoMHJlaDVHYVJUV2hsTjhTTU94RFZibmZaR0xRS1N0NGJJN3hk?=
+ =?utf-8?B?Y3htSG1RWWpGUCs4SXlQSjJFZGgvSVhadzgva2JERU95MUNHZUNGVE1qU0l4?=
+ =?utf-8?B?ZE1xSUd4QU9UeUg0d0lWaHFuTFNvYlJGUnZFc2Q2bXE0bU9IaFpIZVlHZldW?=
+ =?utf-8?B?U09BaXM4cHAvOUgreDBMcHJvQkYrMmVJRHVuODBGSDRkWisyc3ZCNFVnME0y?=
+ =?utf-8?B?LzNCYWFLVCtrTjArSW9GLytyQ3UxS3FSK2l1UGJLSzdlOHh0QUpMS1AyRzkz?=
+ =?utf-8?B?SC9iZGxWZjdNeVhPSFRJcG1zckVoVmZTaGwyTnFuRWFXM0FITUVVYkxJaGV0?=
+ =?utf-8?B?cEJXdXRFdHNlUjZxQTlqeDVTN1h2WCtmdlUxRTIyaEZqS054Zm51UkxJUys0?=
+ =?utf-8?B?Zm15WjFBZWVSNXU5QS8wRmNabUNvRTNZam1mRG5paTF6NnNLeDNvSTlPd3Fq?=
+ =?utf-8?B?UTRhREpYREI0bXFWQ09PWGZpV1duVlhjSzFibVNqK3pZYitOaW14RndRQnU1?=
+ =?utf-8?B?RHpJb1ZIQ2VsUVN3OHEwM0RhV3laK0ZBOHBaaXdCU3k0dm5abG1LVENtMlBa?=
+ =?utf-8?B?cVBRYy9BT3A5cHdQWERuTW5iYnJ3NS8yZmNPSlVBQUVLMWFveGR2SjNDc2FY?=
+ =?utf-8?B?YWdzamtrL0tIaXQvZmprVk9tbWpEMkZvbGhnZE1pK041Z240YnFNRHZNb0pB?=
+ =?utf-8?B?L0xjVTNWeHkxMWlyeFhKcElpNy9LTXBOVDFKdllHalhqUXJ0eDlkdmtNeXlQ?=
+ =?utf-8?B?NGk1RTJhK1FJWCtLa3AxZTRmeFFzcHJ1ZlhJZkw4a2V3M0JLU3VURWFJR09Q?=
+ =?utf-8?B?amdEdmNldUFNTFV6MitHUFdiMjBnT1lBc2FCMlFobkhycFBaZm1WUXF0ZHZi?=
+ =?utf-8?B?VzQ2UUQ2a0xBYWVwZDVUL2dyZU9xUm5ORXFqVno5UUtHQ0oyeTFaVktJYnQ3?=
+ =?utf-8?B?K2pHa0NvcGxhSEw0bTJmL1BDRmk3bVErZUJhRml4RW1ubkdUVFRTbEM2bWt4?=
+ =?utf-8?B?MTM4NW54QWpSWjJ4UzA5T0lURk9HRjdsM1IxTzAyZWowMG45YjZ5dz09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e02ad1b-421f-4c69-62e9-08df3584d747
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 06:21:17.6479
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fWB8RMX1QXEwhcehVfl1qIJLdXi0OF79/jAIizf7GpVemusT1Rmw21n3AVgeKmG8QMzWRCEWS+IS7GyUf0pluQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5281
 
-On Wed, 28 Oct 2026 07:02:12 -0500
-"Rob Herring (Arm)" <robh@kernel.org> wrote:
+Hi Krzysztof,
 
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
+On 12/10/2026 4:48 pm, Krzysztof Kozlowski wrote:
 > 
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
-
-For media:
-
-Acked-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-
+> Why aren't you using b4 to send patches? Why making it difficult for us?
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
->  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
->  .../bindings/display/msm/dp-controller.yaml          |  2 +-
->  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
->  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
->  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
->  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
->  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
->  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
->  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
->  10 files changed, 19 insertions(+), 23 deletions(-)
+
+Sorry for the friction, that was my mistake. I'll switch to b4 for v3 so 
+the series carries a stable change-id and the cover letter links back to 
+the earlier versions, and b4 diff works for you.
+
+>> ---
+>>   .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 30 +++++++++++++++++++
+>>   1 file changed, 30 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+>> index d5ea2717904b..911ce58f8dab 100644
+>> --- a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+>> +++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+>> @@ -74,6 +74,36 @@ properties:
+>>       maximum: 1000
+>>       default: 24
+>>   
+>> +  cdns,ddr-read-dqs-delay-ps:
+>> +    description: >
+>> +      Read-DQS delay (DLL_SLAVE[7:0]) in picoseconds that centres the read
+>> +      eye in the extended-read DDR modes (SD DDR50, eMMC DDR52), which have
+>> +      no CMD19 tuning. The PHY runs the DLL bypassed in these modes, so the
+>> +      driver converts this to delay elements (divided by
+>> +      cdns,delay-element-ps). The 8-bit field holds at most 255 elements;
+>> +      larger values are clamped to that limit.
+>> +    minimum: 0
 > 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> index 88b7672123a0..ed347096df46 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> @@ -62,7 +62,7 @@ then:
->      - '#clock-cells'
->  else:
->    properties:
-> -    clock: false
-> +    clocks: false
->      clock-names: false
->      '#clock-cells': false
->  
-> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> index c1cefd547391..fd4d598f6ff8 100644
-> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> @@ -145,7 +145,7 @@ allOf:
->              - description: CEC stuck at low interrupt
->              - description: Hotplug connected interrupt
->              - description: Hotplug removed interrupt
-> -        interrupts-names:
-> +        interrupt-names:
->            items:
->              - const: cec-tx
->              - const: cec-rx
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 094a6383bb77..f72d1b354007 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -304,7 +304,7 @@ allOf:
->          clocks:
->            minItems: 6
->            maxItems: 6
-> -        clocks-names:
-> +        clock-names:
->            minItems: 6
->            maxItems: 6
->  
-> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> index dfec6c3480f3..02d27ccad024 100644
-> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> @@ -113,7 +113,7 @@ allOf:
->              - const: core
->              - const: master_iface
->              - const: slave_iface
-> -        core-vcc-supplies: false
-> +        core-vcc-supply: false
->  
->    - if:
->        properties:
-> @@ -136,7 +136,7 @@ allOf:
->              - const: core
->              - const: alt_iface
->              - const: extp
-> -        hdmi-mux-supplies: false
-> +        hdmi-mux-supply: false
->  
->    - if:
->        properties:
-> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> index f609038e35ae..0260d177c7d0 100644
-> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> @@ -172,7 +172,7 @@ allOf:
->              const: fsl,imx7ulp-edma
->      then:
->        properties:
-> -        clock:
-> +        clocks:
->            minItems: 2
->            maxItems: 2
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> index 69852444df23..07c8b233c6bd 100644
-> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> @@ -80,7 +80,7 @@ allOf:
->          - resets
->      else:
->        properties:
-> -        "#interrupts-cells": false
-> +        "#interrupt-cells": false
->          interrupt-controller: false
->          resets: false
->  
-> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> index 70ab4e140e71..535213ba0c5e 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> @@ -92,7 +92,7 @@ allOf:
->      else:
->        properties:
->          nvmem-cells: false
-> -        mvmem-cel-names: false
-> +        nvmem-cell-names: false
->          clocks:
->            minItems: 4
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> index 4505e66876a2..52f471a070d5 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> @@ -110,19 +110,15 @@ allOf:
->  
->      then:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_lt_sel
->      else:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_sel
-> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> index b46cc780703c..4488d5ca9b9c 100644
-> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> @@ -174,7 +174,7 @@ allOf:
->              - const: mfc
->          iommus:
->            maxItems: 2
-> -        iommus-names: false
-> +        iommu-names: false
->  
->  examples:
->    - |
-> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> index c009a7a52bc6..7c40361f95ec 100644
-> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> @@ -127,7 +127,7 @@ allOf:
->          phy-names:
->            const: pcie-phy1
->  
-> -        power-domain: false
-> +        power-domains: false
->  
->        required:
->          - resets
-> @@ -150,7 +150,7 @@ allOf:
->            minItems: 2
->            maxItems: 2
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -171,7 +171,7 @@ allOf:
->          clocks:
->            minItems: 6
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -193,7 +193,7 @@ allOf:
->          clocks:
->            minItems: 6
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -215,7 +215,7 @@ allOf:
->          clock-names:
->            maxItems: 1
->  
-> -        reset: false
-> +        resets: false
->  
->          reset-names: false
->  
-> @@ -223,7 +223,7 @@ allOf:
->  
->          phy-names: false
->  
-> -        power-domain: false
-> +        power-domains: false
->  
->          mediatek,pbus-csr: false
->  
+> Drop, 0 is the default.
+> 
 
+Will drop it in v3.
 
+> Where is the maximum value?
+> 
+
+The value is in ps, but the register (DLL_SLAVE[7:0]) counts delay
+elements, so the driver divides by cdns,delay-element-ps and clamps to
+the 8-bit field. There is therefore no fixed ps maximum, the real limit
+is 255 * cdns,delay-element-ps, which varies with that property.
+
+Rather than pick an arbitrary ps cap, I'd prefer to express this 
+property directly as the delay-element count the field holds:
+
+   cdns,ddr-read-dqs-delay: 0..255 (DLL delay elements, each element
+   cdns,delay-element-ps wide)
+
+That maps 1:1 to the hardware field, gives a clean maximum: 255, and the
+element size is already described by cdns,delay-element-ps. Would that 
+be acceptable, or would you rather keep picoseconds with a fixed cap 
+(e.g. ~one DDR50 bit period, 50MHz = 20ns = 20000 ps)?
+
+>> +    default: 0
+>> +
+>> +  cdns,ddr-no-lpbk-dqs:
+>> +    description: >
+> 
+> Drop > everywhere
+> 
+
+Will drop > in v3. I'll use plain "description:" on all three new 
+properties.
+
+> Best regards,
+> Krzysztof
 
 Thanks,
-Mauro
+Tze Yee
+
