@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793283528;
-	b=WLbOmVfh9ohq/WMhroZmDd/hd74LcA7WTtJnHzho94dx5NeQb4syWqcMNjxCqsqovGyt
-	 S7cih9A4P3a1FHKMgZQ2/YHYvysAQ9Gwowxbv5mStaX3GhbGlhjsMxN7rSHplbKX1AuFI
-	 aiJWNU3XrB9TBRy1G5armo9wG86qD/Bxv2jj/NNLM9iYs+In42e1QiJpivMOSYNxxdLJe
-	 ziKe8bj/c/EjQBBesS5bWWkoPFyldTQmK4I5mcU9685L+RlVXMXl5GYz6lbqpmYnSrZiC
-	 miTie4+ePkFBskVxVsg4czM3q2Fo9prGzUbJsszZrYZLy8d34aYki+pb5PbjnP0FHiA==
+	b=TL7n5wCPVRAMVg+dN8zazW8cmJnV15IEglnfcHyfxGEZafe/yZE2JntaCxjqSz0LlVrB
+	 8vzURR3ckOoSCgPKqZXWgV1eVBnuQE2ZwycmlwMtOSEhpVskuCPr6rBokTRUYxbtK1HfY
+	 ZjggjV4e1Hy+L4JWP4Aym9GB9stpztymCuoFvPiaQj/6VWTTv548lYatUFsZusJ/vuLGp
+	 PqvX6ovGUTLqiiZq9x0AyszvPg17u3rjZKZA+PtlFMirf9mny29e7r20tZZBVTNnuj0ZU
+	 D9BmnL4UJihJnu6VTPqNfdBuYTqX8m82Cttja5hhWoPC9uaVD5W3+bYwnol9yv1AW/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793283528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
-	b=jahxj4yfLP3cY3efgrazsCsDa8Wpvy02F0ERdaK7qKRMStdsz7NbjIlfd3++iGzHGsCY
-	 c3E4Auh1dIMVCSI+PY4L/iKtAM2Tf3HXmuUiaKA4xaC082TSaEsaAm6QQ2OzFrV2T7zVF
-	 trOtKh7uuEJIqwU29LJuC9J7TEaU9L+Ccm4RauJ+ExOqmDVVUm2MX50SfoqziUOd1jXKK
-	 T4lmx9EFA4g2orCkBMZHF6hy/L15ETKsVHrblM7xXNiOvyG/wiF4WNv7LuaxaMGQxUO2m
-	 pkYeAi8vrmlXwt3ylpHIZfkiiLhXrFHxCgKL8wLmzovAg6FrPSdkDFkUWo6R8pJqMrQ==
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Xb+XvScDr9AscU0Znas45piDt4bGCXtorlYsn/ftPow=;
+	b=cMHaH5wdUbIA+vU564NM5+KmBxCCKmzGf5S7f0MumIUHLLdc+2y0pxSRjcU70t+Cfz9o
+	 xwMDT6xp17RUJWoNvUwDIfqA23/Gz49A2xSlGvF5MM/3uzhoTkkh6KwgmIbhyQrfjlSv7
+	 GhaXIarTu2DR9NWqUnKczACXYynLv9wZl/k3gRsgtQs2yR2MF5jE7P0o77mAYRF1qS8pJ
+	 iO9zD0DiQqs1Wb73mDUwcO8NcGzegRB2tcV5rc+4ip7zevT1ftZCmdLCSZqrCXYbr2nRr
+	 k5B1krT6x0y6nsIJKRIAMmH2foOx941I/iODr04zImlaWjic78Xn+et64/+7uDb78mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=erYCAd+Y;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjZGNaa1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E171B606A325
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E171B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6246360A382E
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 14:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=erYCAd+Y
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e20edd106so1726315f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 07:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793283526; x=1793888326; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
-        b=erYCAd+YzEWa9UGAOz3SXnve57b/PfEiNXFDorTVJd9u/DmTRd0cbA6tqR2bF4MOSU
-         9NT9ZYVcOv8Xhuh/STL1V5VcOTlpe7yWe0hZov3//bPJIBIFgqmTz7UoJWlanqMLg8vG
-         gc9lVwOMxCzCl2/igOCi9oUHT0G8ViVIarprTVY88OPPlCnolpWVspD9SUTz+hhrLdHE
-         LNXY6kP7jDv4hJaFbpIYdzwccd2sbGi/JW/NLqTAbodSxlxIV5WoIsxdOICh5qqviXw5
-         wx/YLRkUEVushHX3GHwz0wrk8qlDeLgTvA5J9v0fnEf9P4Kpm6TK26/VRRx4oAFT7Uee
-         A2lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283526; x=1793888326;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
-        b=V1ZnfDIyqtb2O1B5+pZkfiYrK70r/KmEUkLsMvYb9018OiP+1LIr0RqNkWX2+kvvDl
-         YIkylH+jYTWLzrxDMzDsHcU/LU4WCevyTulJgIhbQ5wCbEqxMqJlmFt4dW1xNNm8Oupv
-         gQ9cjzxQuclFAy3MckLDSt4bVVIE4Xzbx2dS1UAGKLGJGtWgDSR9DiUoVeMKfPnt4BNK
-         M+y7imjwy0WYx003RG5PfVtSaLUBdlyo06NeAr/Eyu9PChUCMgq65Sd8H4BsCmfF6pK8
-         3rSs4gb5RSnNJC+R/qyy9m36wzwy5s1SKwp0+y/PgbQgqFrjM2hd34lFJlRLAK55CbIU
-         Nsfw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXfcVvBC3VdtxOUOoZcGd43q5nQfzJ2m9Fh60AWkUrMEmqewRpQgMoAL6Z3GzspJM6coZ3VrniNvzK@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfOrvYQQHyhAWHWX38VC4jLutwZUofskdtnlg55KaI7iQ+BydX
-	UgcahTxILzVTPtVJJeNT10+yOSUDa4RVnJUccH3e1wXPjR0iPE00Hk2dYa9hC/r2YCs=
-X-Gm-Gg: AYBFou2XzYefTbfoNicLvXJjn55bd6Dtih2xUjPtKFMS/hhbyw8N2xOuCjwxaXRS8Mb
-	PYkhrP5Q0r+bmo14u4bdOTmnzsCpeRaNCplT6PK6ZvYiSa8cfZsgS2BSmOwJvArdTXRSG+kzu4l
-	ZGPBndt9dcf05yWFomDvZ7tImnQ5XWedx1dE9F4qtqVs/obOLz7fFy/39EP/SdOZqOJWbDCsGuO
-	LDfaxKKAA5MmpJPo1egnGNQ+3iaaAX+0OblOWxNVnGrFZhmV4Mj/7cuLMNYp1RBrzD4vhUr4Vs9
-	Xl3MAwnJRe4T/ihBgtbinOn0oiXenortf8je3ZQ5mxgrhTLYHNU2sgT5MH6SOlcOTYDFutuNBvG
-	c8oQbSI5HPFHcivanfUV3f4BUKbLuEapZhZLWu32R7HWyifQXMdWFd0tkJdOd/mzSMTYMoEukxd
-	vYFMZlPH6PUs3JHNEdt4OjgWBOSyh94EYYNTQIMJ7vRdTwB9NYwwRloSmkT/ypD+RQVS4qU7fyN
-	8obv+Cu3B4WafGeTpcDRFWOh7PX43IhZnqyOFZH6j26aZy/IMJ71yHOmQfHmlS0Ve/XBrh0rGE9
-	i7zW9Qj6e6ilGog9sU+zWOjjAqOrxgwpCMKrT6mKoTl3ip8dR3uRALq4cv9oT+IxCf5rVS63dNf
-	KLqfE
-X-Received: by 2002:a05:600c:37c3:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4a96701830cmr125321535e9.25.1793283526321;
-        Thu, 29 Oct 2026 07:18:46 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:18:45 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 14:18:29 +0000
-Subject: [PATCH v7 08/18] media: sony-starvis2: Put module into standby
- after identify
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjZGNaa1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2251F012ED;
+	Thu, 29 Oct 2026 14:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793283528;
+	bh=Xb+XvScDr9AscU0Znas45piDt4bGCXtorlYsn/ftPow=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XjZGNaa1UNmNeGRnedyAIcxhnJNwKduk0GK5AoRYmQW3xQt1UPf/GTV/akNCz3pQh
+	 xoyTijdhqxGkLBXgrACwAyh7P4nkJcM0CyQykb9XMjmRJ7aQJASbZWnln2b4G1YlYl
+	 jqjC3UaMdbjPgGH4LoUvmvt5BDfuetGd333HUO1e++Dnf2MVlTCIY/j5HUaBLP9kIV
+	 eQjdWrTxGOqyJqGHBBrgxt6el0CLdS7cgFSJbghfBvsY6gf6vUBRzoFck/Kc1023L6
+	 u1pbXvlFzkVTSlKfX0QfRPQkQdUR1/uNk4SRrRg36WM8xCcF4L1qBQBkVsM8SAh/oF
+	 gUXx2GC3oM+3Q==
+Message-ID: <sashiko-outbox-189496@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 13/16] ARM: dts: aspeed: anacapa: Remove LTC4287
+ power monitors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Colin Huang" <u8813345@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-anacapa-devlop-phase-devicetree-v10-13-26ee3cf9d9d0@gmail.com>
+References: <20261029-anacapa-devlop-phase-devicetree-v10-0-26ee3cf9d9d0@gmail.com>
+ <20261029-anacapa-devlop-phase-devicetree-v10-13-26ee3cf9d9d0@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 14:18:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,89 +60,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-media-starvis2-v7-8-b33a1332fdfc@raspberrypi.com>
-References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
-In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Alexander Shiyan <eagle.alexander923@gmail.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
 
-The module has to be brought out of standby in order to read
-some of the identification registers. Whilst it would be
-powered down via pm_runtime, should that be disabled it would
-be left in streaming mode.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] ARM: dts: aspeed: anacapa: patch reverts nodes added earlier in sam=
+e series
+--
 
-Restore standby mode after identify.
+commit 03870aab7cb0f129ffba68f6d70cf51a5d0e4fd0
+Author: Carl Lee <carl.lee@amd.com>
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/sony-starvis2.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ARM: dts: aspeed: anacapa: Remove LTC4287 power monitors
 
-diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 84f3978e1eda..95da8a9e671e 100644
---- a/drivers/media/i2c/sony-starvis2.c
-+++ b/drivers/media/i2c/sony-starvis2.c
-@@ -1162,7 +1162,8 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
- 	 * This sensor's ID registers become accessible 80ms after coming out
- 	 * of STANDBY mode.
- 	 */
--	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT, 0, &ret);
-+	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT,
-+		  STARVIS2_MODE_STREAMING, &ret);
- 	fsleep(STARVIS2_MODULE_ID_DELAY);
- 
- 	cci_read(starvis2->cci, variant->id_reg, &val, &ret);
-@@ -1170,14 +1171,15 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
- 	if (ret) {
- 		dev_err(&client->dev,
- 			"I2C transaction failed ret = %d\n", ret);
--		return ret;
-+		goto err_standby;
- 	}
- 
- 	val &= variant->id_mask;
- 	if (val != variant->id_value) {
- 		dev_err(&client->dev, "Chip ID mismatch: %x!=%llx\n",
- 			variant->id_value, val);
--		return -ENXIO;
-+		ret = -ENXIO;
-+		goto err_standby;
- 	}
- 
- 	cci_read(starvis2->cci, STARVIS2_REG_MONOCHROME, &val, &ret);
-@@ -1185,7 +1187,7 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
- 	if (ret) {
- 		dev_err(&client->dev,
- 			"I2C transaction failed ret = %d\n", ret);
--		return ret;
-+		goto err_standby;
- 	}
- 
- 	detected = val & STARVIS2_TYPE;
-@@ -1207,7 +1209,10 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
- 	}
- 	starvis2->variant = starvis2->info->variant;
- 
--	return 0;
-+err_standby:
-+	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT,
-+		  STARVIS2_MODE_STANDBY, NULL);
-+	return ret;
- }
- 
- static const struct v4l2_subdev_video_ops starvis2_video_ops = {
+This patch removes seven lltc,ltc4287 power-monitor nodes from the i2c@0 and
+i2c@1 mux channels in aspeed-bmc-facebook-anacapa-evt2.dtsi to avoid I2C
+address conflicts.
 
--- 
-2.34.1
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dt=
+si b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> index f546a7b5786a1..5c0d874fa24af 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> @@ -83,30 +83,6 @@ gpio@24 {
+>  					"RPDB_FAN7_PRSNT_N_R", "RPDB_FAN8_PRSNT_N_R",
+>  					"", "";
+>  			};
+> -
+> -			power-monitor@42 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x42>;
+> -				shunt-resistor-micro-ohms =3D <150>;
+> -			};
+> -
+> -			power-monitor@43 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x43>;
+> -				shunt-resistor-micro-ohms =3D <150>;
+> -			};
+> -
+> -			power-monitor@44 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x44>;
+> -				shunt-resistor-micro-ohms =3D <250>;
+> -			};
+> -
+> -			power-monitor@45 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x45>;
+> -				shunt-resistor-micro-ohms =3D <250>;
+> -			};
+>  		};
+> =20
+>  		i2c@1 {
+> @@ -177,24 +153,6 @@ gpio@24 {
+>  					"","",
+>  					"","";
+>  			};
+> -
+> -			power-monitor@40 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x40>;
+> -				shunt-resistor-micro-ohms =3D <150>;
+> -			};
+> -
+> -			power-monitor@41 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x41>;
+> -				shunt-resistor-micro-ohms =3D <150>;
+> -			};
+> -
+> -			power-monitor@45 {
+> -				compatible =3D "lltc,ltc4287";
+> -				reg =3D <0x45>;
+> -				shunt-resistor-micro-ohms =3D <250>;
+> -			};
+>  		};
+>  	};
+>  };
 
+[Severity: Low]
+Earlier in this same patch series, commit 366f7e6a0a5d ("ARM: dts: aspeed:
+anacapa: evt2: Add shunt resistor values for HSC monitors") added these exa=
+ct
+power-monitor@42, power-monitor@43, power-monitor@44, and power-monitor@45
+nodes under i2c@0, and power-monitor@40, power-monitor@41, and
+power-monitor@45 under i2c@1 in
+arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi.
+
+This patch then deletes those same 42 lines because the nodes conflict with
+other I2C addresses on those buses, leaving intermediate commits in the ser=
+ies
+with known I2C address conflicts during bisection.
+
+Could both patches be dropped from the series, or squashed together, rather
+than adding broken nodes in one patch and reverting them five patches later?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-anacapa-de=
+vlop-phase-devicetree-v10-0-26ee3cf9d9d0@gmail.com?part=3D13
