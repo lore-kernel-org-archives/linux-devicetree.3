@@ -1,70 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265075;
-	b=YRbxUfh6LJROb04ObCQEkpBKv3zH50ylnXiPY5vGI/ZreoRbjWwvcWuXnVBOgSmA6Pwf
-	 1WQ1sGU7sSUVSAyf7hnq0xrou8czlpwAjr4NQ+dw7F0QMkhd8rH2qnMAQ2rIg9tbRpb1r
-	 J4NgCxQbARxcXJQov8UN+gIASQQ5RmgI8SjuSa/TjD9mi1Wxo1Uj+SCOvlsinYopASsge
-	 LFfpxQF9Rad5WB+OSasV6e0ccHtMWkNO9Ufdisot4e6R9+P3QrOMe05YrPz0gmnNGqcH2
-	 iQT5bHEzZoxUuThu4VD7FJeHrKtwsUbkN/Z3cGjXi+GMe1Wwt34ShgFN0dbb5r2TBvA==
+	t=1793265235;
+	b=M1uslPKYYz3zJ76huY1OyB96LtSf4mI1GQi44pvdFTyoRxNuvbW+jrcsp7uN/ka2lmx7
+	 BSF5kqr0n8v0sIttdGV+Fscf2rfH+n5s2g/A6DKundSBQVFGARfPn8SgSpFWNEQGFpBzm
+	 xlx7Z/MSkzV4iSvI8PNzn43hJwuQNjidIOXOKOfZF+wzA10u1wec+v1fv64blzqjz+dH8
+	 yqr/U3cV4SCxQUjCHzfK0sFX5yw5bdLPD7IQXS5Es8Uv9xbYcAmrSniRWxIihhwSBlVoE
+	 g4jNdiA6nZGgSvJz6/pwqXebInCxCV7mozgvxQPGuKiyEvnV2ugEZaDUCGjCZ9PMFmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265075;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=DesY9onW6Qm5F/BlEq3HWVmD7O5N98tT3yvVTKJmKA8=;
-	b=gvu8dXg4jaa40LelW6K46q8Xx+mAHPTfmbDSz/ugFOmckvCI6fkv1siItiAFxZMofqFk
-	 TP9qlqeIys153aKKIsBGCAoHSx62SOoVuohYRD+oVxGNRKsSBJVm+z1q3iRAA1LStjbJq
-	 fo13VvJ86HNDw5Luvgql1bBfJGw0BuwZMqoweuDLLBGDp2m+T//EhCgEfKzUrz4O+4NCN
-	 KlvtP6c3BQRCpw6UXBmJQ97sx9UJogR1KmJoCWXGbGBM0zjHy5wRVDJWVS0SfBx+WWrar
-	 t8K+NFBYelJDsEDwYMDAWZ3Jk9l70DsxOXbZ1TRytMfBOeSraZ3rVb7+qb3xOtXU1HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265235;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NFI2tWyPhBr82xP3dv2G8dPBOkHd5ea1/Lyuc2i+joM=;
+	b=aoTmwWkgQ3+VRvy+rOLOCJYphJS3Zqd65OK28S9nxWLEnyekT/fDDXXE0zl4DvdF3aQg
+	 aKKLMXEV7Rbcez10jpkArQdqTgiPHPJvytf8HjKPc5Hy/z1cBni1w0I6YTWJplKCfrFtc
+	 8i2lp0Rk2YkfHdGCfBU7a8yhTrZf+xTUV3gaTvf6pLDmcPGr5uZVbMi1esyDTuJBCcrOl
+	 jWKY6wiA8Evp/ty/5pQNEr2IX1Hc78uoTl4a6R9gQmCyB0u4WVDT5XPqZGn5VqM/RoUNA
+	 rgM2QhhvsjLzy3/ApFRklJ5E1XS/k6zNJD9s5A17OgQOl2aa1kbehRlqM2b/fUi9ZCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=NElZ6NPW;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VXnCYEPe;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KpXeVObf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1CC606A31F;
-	Thu, 29 Oct 2026 09:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1CC606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81CD606A31A
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:13:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C81CD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=NElZ6NPW
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VXnCYEPe;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KpXeVObf
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vtrg3279782
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:13:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=NFI2tWyPhBr82xP3dv2G8dPB
+	OkHd5ea1/Lyuc2i+joM=; b=VXnCYEPe9YSbImLRUGuQKMURvR1ySaRCMl+Lj18Q
+	Zx/ZHn2zb2QOwDwsXCgHFMW/SK60JzeWnBTtmK6+GNxO0FDtv7NtFJxr3VvymlQ9
+	QK86BjfqS28+DXntQgb2c3MaBrg+E6hqyyG+psQ7bCDTvUlg97ijl0j3xJD6i6D2
+	ns2qANRayGrXABo0yj8EdBJj4/ogpvM/MapqjgZ68YKzo2W+PJjfgkh4NV+tj9um
+	WJ/tLxnCiMuegvo6nIyRBYbJz0/BocifMlD7qY53iiVoK0Hi4OT3g3SSypWYg+C6
+	rbfJE/HHMumMA9vntiYt3UsIA8d6azj2jORsw/g6zubMNw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hks3na8ke-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 09:13:53 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae72da2f57so668473a91.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 02:13:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793265070;
-	bh=DesY9onW6Qm5F/BlEq3HWVmD7O5N98tT3yvVTKJmKA8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NElZ6NPWTMCHi3nTtuPElkdoLmx9jIxEuEnlBMAiuK3plBDedqFkBaNeax8JBhgwe
-	 MHsYsR/2qaLoEv63LuK5ZCgq9Qtj7l9wRzdJn1Vf2+wFJ8q7rvLTgKZ1TdDGqlSDIk
-	 A7FA/nGVP3DhfIQ3dZWWlYjJL+hVzlrbDCpwQ7/SyPIDFtjZV1sUCmm7LPF140aH0U
-	 aiKcGm5kIY/NsbulKG1JZAKgP7RjgKSrnIpY1PwPzAPDPfxofynONUsZhaddX3tKa3
-	 dTmS6Yq/Yky2d30/EocwCzpEyaPC2iBKvEkgzCoRtewwMj3leEcok0y021tyT773J3
-	 9hBOMxF4F3WKg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jFdkk27jVz4whS; Thu, 29 Oct 2026 20:11:10 +1100 (AEDT)
-Date: Thu, 29 Oct 2026 19:38:19 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>
-Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and
- get_mem_rsv_list()
-Message-ID: <auMF8HnYSTXS22jO@gractus.seuss>
-References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-3-dianders@chromium.org>
+        d=oss.qualcomm.com; s=google; t=1793265233; x=1793870033; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NFI2tWyPhBr82xP3dv2G8dPBOkHd5ea1/Lyuc2i+joM=;
+        b=KpXeVObfHXYpbSCWBX6V1TXXfFuXWVoTDA7RWHMjzHFp2hLDxR9OM72umo7I7Tds8X
+         wcx6f6s6YnTRfk7KrfM75cLEyjs+17UCN07PYU5+TdilELBigSsTCUJAvsMygVyNQtvb
+         xRbtn9pymIbU1EvnfVeds+Shj7x9GVbKWDmKyPh1Ua0RXvXVp+tVvJpRgrQzFiKImU2Q
+         hzZWveNAS5Cy2QX2EykxvKpxep5FfRsKn3Z+jX22a7f7yF0/QjMkWYy6QPGlllzMn8Vu
+         AbG066+3wGf+LSxZmSeNOPyUYgpKSBC6LXioX2p6VlDtw9wMUygVIQxZ4HdqpsCVMiUQ
+         6g7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793265233; x=1793870033;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NFI2tWyPhBr82xP3dv2G8dPBOkHd5ea1/Lyuc2i+joM=;
+        b=y3Qt3WmdBapSXi6vf3/o7470RALrPrjUmLO/w5XxjR96BI6kL1tbT1hoiglfjbdxPP
+         aGk+cL8rkPjvwFfek76kBK+5JMmTUXio5QqtOhz7GM4wNgbSLzRJvY+lunQF4M3R+oLX
+         9oAsEXLdZi6tt89EJ78bFHH9JTxx5HFk2JEbS2yWcCrwjEcqJbomXAH7I9MqnJUHcO+j
+         hfAX7VuzWnJz6IRR8b5xyc++RvNmm0+Iq6JyF3bHx3zSM0VPIv5QItoxAQbgxH2LpJ5X
+         yCjOdjTsxO/VzsvS+2Q/jPRXsXbp4+R+OhqGT1DQEyQFW26sduyQZRZyQrimA3SQv7Ee
+         TTLg==
+X-Forwarded-Encrypted: i=1; AKwUvByHHY1VC0qNGG9RFp9CYrcfa5+XKYuf7w+ljOlGst+aMe6OZaLULtr+6/byxWKEqR3spWgO8Ivsk4H1@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBdbIvP0zxVU+YLSQlvlR5f5lQq1cYbAdO5lOMHldWDi+irje0
+	s0X+grLLMn0KcH1Azpuv2Wk3CQDGYxPuB1yupbCO9A6SkC8iWUWV8mtlS5BQbQ4T2Ze6mcNzFBN
+	Ch8BIbAvjRHx8momah/PMAVhlbNlCXZDufc/BuCEzT9u9mv3qgtFNQEHu/Ai+N6X5
+X-Gm-Gg: AYBFou308E4CoQTQyoLi+rTVHBGRHZuQAt1806vL0opm39Io5uH6YbSlxw4mMjS7SBZ
+	9Ng+otNeCSvvVz0lGOM02wn3hfnI/WYfw5YGDoMAwumCN8PbYII482ir0DMPbfl/esZEo19zrXI
+	QwV58NGpQGGJaai8vACzbrjkU8BM62ZDlc8cOks3+P2Y8KCpFxRhzaf8c02zBe5WUvGZ/MgAPsA
+	YCKWUKd+FKKgtpehycwjdgshZXNS5R7VUE7SzLX7g5C7osIYy52RlNa1NQApH2qhKmvbf7igaHJ
+	K0R24kV7gnxdrMHFwEkZLWEox4bC8dlggnN+QMC8w1SQ1bAe7jeSAkwRwDkTk6vqmLcQT8Rc7nB
+	tthglEmdECN3X7q61Pu9HRtNNJRDuX1ErAYmzm1f/oaySd0yCHU1vnVqYofSIPd3lILp5UNpDX0
+	Y5m/TNK/+nHrBSTX4=
+X-Received: by 2002:a17:90b:1c82:b0:3ac:4291:f569 with SMTP id 98e67ed59e1d1-3ae57df557emr4015073a91.8.1793265233219;
+        Thu, 29 Oct 2026 02:13:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:1c82:b0:3ac:4291:f569 with SMTP id 98e67ed59e1d1-3ae57df557emr4015054a91.8.1793265232701;
+        Thu, 29 Oct 2026 02:13:52 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8401casm3428556a91.11.2026.10.29.02.13.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:13:52 -0700 (PDT)
+Date: Thu, 29 Oct 2026 17:13:46 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
+Message-ID: <auMOSm_roh5S-DTY@QCOM-aGQu4IUr3Y>
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com>
+ <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
+ <d4349c3b-f6c7-41c1-963c-ca0e21e2f436@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,184 +127,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TL5/2bxJUgMTDbEs"
-Content-Disposition: inline
-In-Reply-To: <20261028215600.1713475-3-dianders@chromium.org>
-
---TL5/2bxJUgMTDbEs
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <d4349c3b-f6c7-41c1-963c-ca0e21e2f436@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: MYvMovGTVZ5Vj7dmVdYagZXoE43-PuLy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNSBTYWx0ZWRfX/zG1W4/zOr+7
+ +meMBnX9Rm91z3pTTUjXWiKciAlWz2V+cRf0G41AUKof/EAhwG/e1zooN2TjFjS9pF0/z392yCD
+ cpUqHaY6kghs2TklAjIUUtMx5WL7Y+NRBJ0Cepafh99TAUsazzB9wG3Ib49Z5HEL2PUwz9K07U9
+ /IiEMstWY5Mhl2U8zObzUteoOcjU5CkvzCDB4hglK+I5lA0Qk74IEgX9t0veKmBM6JlhRmVcY4n
+ zC/xYL6GgAy+2usTKxUgbfIMEL2vm14V0MW7hfbarOtxF+5MNId4eUkqn0dUIAulUYi8wD5AHob
+ jjIvbGTVzQfzXxzLLNosJ/3ZjcmW02s+5Ol/XIIwbGIBXoFgemHIlK2XC2SmR0i7pME8rlGqtEG
+ yiZX3tPKRZ/XnCPYqbIkZLPBg6cfnWfeyjfs2cYXsm5SkhLulOs5U3HQlEATVHh6gD4mcLK/ADq
+ +sWoK9hScYONckP8EPw==
+X-Proofpoint-GUID: MYvMovGTVZ5Vj7dmVdYagZXoE43-PuLy
+X-Authority-Analysis: v=2.4 cv=XZEcX455 c=1 sm=1 tr=0 ts=6ae30e51 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RyhwSFVHSLl6ccd3bA0A:9 a=CjuIK1q_8ugA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNSBTYWx0ZWRfX9n/+OSGibxGM
+ 8ezl5Jc+d4EqSKPWuy+o/qdTJbIGzq2pwjbhTiWBYoOpf7NDdRsFYQ0e4rIl1zJChGh/i2T8I2K
+ hpfRsJ/5BijxvQGRa5WH094uyCuuKiE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290035
 
-On Wed, Oct 28, 2026 at 02:46:51PM -0700, Douglas Anderson wrote:
-> Add Pythonic iterator helpers on `FdtRo` to simplify walking nodes,
-> properties, and memory reservation entries without manual offset loops
-> or `-FDT_ERR_NOTFOUND` sentinel handling:
->=20
-> - `subnodes(nodeoffset)`: yields the offset of each direct child subnode
->   of `nodeoffset`.
-> - `properties(nodeoffset)`: yields a `Property` object for each property
->   of `nodeoffset`.
-> - `get_mem_rsv_list()`: returns a list of `(address, size)` tuples for
->   all entries in the memory reservation block.
->=20
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+On Wed, Oct 21, 2026 at 11:56:55AM +0200, Konrad Dybcio wrote:
+> On 10/21/26 9:36 AM, Shawn Guo wrote:
+> > From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > 
+> > Add support for the Qualcomm Nord SoC to the protection domain mapper.
+> > 
+> > Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> 
+> [...]
+> 
+> > +static const struct qcom_pdm_domain_data *nord_domains[] = {
+> > +	&adsp_audio_pd,
+> > +	&adsp_root_pd,
+> > +	&adsp1_root_pd,
+> > +	&cdsp_root_pd,
+> 
+> I see 3 more CDSPs:
+> 
+> https://lore.kernel.org/linux-arm-msm/20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com/
 
-Patches 1 & 2 are useful independent of the rest of the series.
-Applied, thanks.
+Yes, we have 4 CDSPs on Nord, and they share the same instance ID and root
+domain. I will add the info to commit message.
 
-> ---
->=20
-> Changes in v2:
-> - New patch adding FdtRo.subnodes(), FdtRo.properties(), and
->   FdtRo.get_mem_rsv_list()
->=20
->  pylibfdt/libfdt.i       | 45 +++++++++++++++++++++++++++++++++++++++++
->  tests/pylibfdt_tests.py | 18 +++++++++++++++++
->  2 files changed, 63 insertions(+)
->=20
-> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> index 46f28f67290d..0db7110b4a38 100644
-> --- a/pylibfdt/libfdt.i
-> +++ b/pylibfdt/libfdt.i
-> @@ -201,6 +201,23 @@ class FdtRo(object):
->          """
->          return check_err(fdt_next_subnode(self._fdt, nodeoffset), quiet)
-> =20
-> +    def subnodes(self, nodeoffset):
-> +        """Iterate over the subnodes of a node
-> +
-> +        Args:
-> +            nodeoffset: Offset of parent node to check
-> +
-> +        Yields:
-> +            Node offset of each direct subnode in order
-> +
-> +        Raises:
-> +            FdtException on error (e.g. invalid nodeoffset)
-> +        """
-> +        soff =3D self.first_subnode(nodeoffset, quiet=3DQUIET_NOTFOUND)
-> +        while soff >=3D 0:
-> +            yield soff
-> +            soff =3D self.next_subnode(soff, quiet=3DQUIET_NOTFOUND)
-> +
->      def magic(self):
->          """Return the magic word from the header
-> =20
-> @@ -302,6 +319,17 @@ class FdtRo(object):
->          check_err(val[0], quiet)
->          return val[1:]
-> =20
-> +    def get_mem_rsv_list(self):
-> +        """Return a list of all memory reserve-map records
-> +
-> +        Returns:
-> +            List of (address, size) tuples for each memory reserve-map r=
-ecord
-> +        """
-> +        return [
-> +            tuple(self.get_mem_rsv(i))
-> +            for i in range(self.num_mem_rsv())
-> +        ]
-> +
->      def address_cells(self, nodeoffset, quiet=3D()):
->          """Return the number of address cells used by a node's children
-> =20
-> @@ -434,6 +462,23 @@ class FdtRo(object):
->              return pdata[1]
->          return Property(pdata[0], pdata[1])
-> =20
-> +    def properties(self, nodeoffset):
-> +        """Iterate over the properties of a node
-> +
-> +        Args:
-> +            nodeoffset: Offset of node to check
-> +
-> +        Yields:
-> +            Property object for each property on @nodeoffset in order
-> +
-> +        Raises:
-> +            FdtException on error (e.g. invalid nodeoffset)
-> +        """
-> +        poff =3D self.first_property_offset(nodeoffset, quiet=3DQUIET_NO=
-TFOUND)
-> +        while poff >=3D 0:
-> +            yield self.get_property_by_offset(poff)
-> +            poff =3D self.next_property_offset(poff, quiet=3DQUIET_NOTFO=
-UND)
-> +
->      def getprop(self, nodeoffset, prop_name, quiet=3D()):
->          """Get a property from a node
-> =20
-> diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> index 1b65961491bf..2a0509c7802e 100644
-> --- a/tests/pylibfdt_tests.py
-> +++ b/tests/pylibfdt_tests.py
-> @@ -243,6 +243,22 @@ class PyLibfdtBasicTests(unittest.TestCase):
->              node_list.append(self.fdt.get_name(node))
->              node =3D self.fdt.next_subnode(node, QUIET_NOTFOUND)
->          self.assertEqual(node_list, ['subnode@1', 'subnode@2'])
-> +        self.assertEqual(
-> +            [self.fdt.get_name(n) for n in self.fdt.subnodes(0)],
-> +            ['subnode@1', 'subnode@2'],
-> +        )
-> +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
-> +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
-> +
-> +    def testPropertiesIterator(self):
-> +        """Check that we can iterate through properties of a node"""
-> +        node =3D self.fdt.path_offset('/subnode@1')
-> +        props =3D list(self.fdt.properties(node))
-> +        self.assertEqual([p.name for p in props],
-> +                         ['compatible', 'reg', 'prop-int'])
-> +        self.assertEqual(props[0], b'subnode1\0')
-> +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
-> +        self.assertEqual(list(self.fdt.properties(leaf)), [])
-> =20
->      def testFirstNextSubnodeOffsetExceptions(self):
->          """Check except handling for first/next subnode functions"""
-> @@ -410,6 +426,8 @@ class PyLibfdtBasicTests(unittest.TestCase):
->          self.assertEqual([ 0xdeadbeef00000000, 0x100000],
->                            self.fdt.get_mem_rsv(0))
->          self.assertEqual([123456789, 0o10000], self.fdt.get_mem_rsv(1))
-> +        self.assertEqual([(0xdeadbeef00000000, 0x100000), (123456789, 0o=
-10000)],
-> +                         self.fdt.get_mem_rsv_list())
-> =20
->      def testAddDelReserveMap(self):
->          """Test that we can add to and remove from the memory reserve ma=
-p"""
-> --=20
-> 2.56.0.313.g2479322e68-goog
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---TL5/2bxJUgMTDbEs
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrjBfAACgkQzQJF27ox
-2GcbGw/+NoZiUz98Y9CDKnaUPJRtCg8Wr2QXiC6JfgYqcsdAdO9uoEFxg60HVMeQ
-4A67lU9H2g+/Ca8wNJOT2P25nLJdk915npWj/qOsoVX+eoF+XK1aGgs5nym6omC5
-0CMER6l2Z1vLpekV+JNcrwmPuIQMc8voXvdhzy1GMS8FnSKoVUIjAC2sngDXmUuN
-WEHeRRihtZ6mL2IvAqzquU1AEeF5+iAZENkZX4wwmEukctOFMY11vyA3Ywl8GuzB
-THpq1G40KIPiKReLCiU2bhr2nLgQIHqyicQktZ1HXbt5UCiGrRDnGkr3U44K/iwS
-ShJG/HNLLkH+H6P5o2OfL2RrQPAR2EeDD5Ya0oJvR89FNP4vlkhHs7PrZEAOWpF0
-Ey/fW7P/syILOGNf2kCK3KTjT2Pf2a9vAqU2UOjybdaNqL1ktk8ppMysCKUb+amQ
-8cDZ1lawhAF0BwqlVqVCjkfq271pFVFzQHNZHKOKQzatF162GEuF2xTyBHjQuipp
-jgQrneLBqL+oJDAO9W8W0RRThi3xi8B3B6rS0cE0iYV+RDLyELHpHdozAu7hKPjQ
-BefO2xQh/gD5xnGFGRhTrUKlrovsE0vMgAh4r1LS7gZNwP6zjtWPvFkRsJf2YYf6
-e/pObOmb0JcJQfCZzYe5okXbN/w8p8YWv8k7HALuVLyN6LAGyJw=
-=Z1jb
------END PGP SIGNATURE-----
-
---TL5/2bxJUgMTDbEs--
+Shawn
