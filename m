@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250423;
-	b=aiqMY0eJXzHeT98ET6i8HRfIQouWwgmbP9b67dLZnGXt6RxU6l3fQp6nJj/P9Zz9oZyX
-	 w0hzIBE4SpgAd/tgNBPdjakGgaQ0dUVhfuMA6D3g/9DkX3LSClr5VZi0CnpzqOKDfjUHq
-	 tD5gc2qywEB7Ovs0qRjK+NiqBasaMOAb8qRQeBAz5SQpAPHTwZ0q6CPUsL8DBSc0zuwgu
-	 Q5a/k2L+MvmpHT9WqpgB18RdiWEscozC0tBY1aK15iBUhyQDj+SOPuhld72dK5NMKH9q+
-	 lphJEta3JqTvZsvBnuVS+3kbtumfiE2eEFIqA7hNf364AMxAY9wk0HkV1d+ga5sDigA==
+	t=1793250432;
+	b=wG54GcCgChnl/8ZC4y5k2DONxFejY2ESZvMFD9sjiOee1pm6PdPJHxdaRKiTYu9lA+e8
+	 ehqxj4tTBH5qgGZG10xUZcxg9M0DVnoN6NNsSqPsUD/JYdK7p6+3U/LhVSpf7g7K6ONdU
+	 xIQesQeW+myOdM24Jvb+d0V3rMqABHHQnWj10ohyWoBeJLOaDtBo0E8aas71+hALRXths
+	 hQMPOl2hUeisiSv/sJKLM2IQz/QGOeUl2r87zQn62IgmzNmWXJfADvE/3Vr9+CBMprTGK
+	 /rZ/ISBnwYFnFV3m+12YTmkWAhz+1LkX6GpTs1r99lTWkZQVIwovSsgMMKVnXb7NwyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Qf62xHUcdwxTQhTGo7oUzUtykTsLWeHZ04Gslg9ulB0=;
-	b=2iSBjPhejUq2TkaeIsMjHB2QNnEw6QPGYd/ImzmrSHCMR3Jabp9QLPVjqwN1ExaO/DE5
-	 ULigbtg2hbg9J11QknAFiRyPcNVw6YUiUV5UY0cs7SaP2XX/VHFl4J5k/v4ffHHkKKjvE
-	 c0qUa14PxaCSS6Hm8qC4P3dfhfl/iBRDZEtsvJQkhm/3QjEYW3RVSEo0wrttXHwGltamZ
-	 QqU3K+3Kwfd2xCNhQF0pRVKHIrzRMIGCq0ct1gKcLjqbMOByZO5izioYD6+7Ho5bW/SoQ
-	 Yxe/XOf21/258lgTYVTZudh6KwJs3OJtdnLMqHz++67ykCGdUC4oWXJvWC6xwtnilCg==
+	bh=rjNfMp/WtzafGcb6uGtU9HJkhzqRTyKQwukVNkTGdko=;
+	b=IfPPvqyq3b0vNdOwmwINOS+HlelNEjGTf1ERgvvW5uRDThHy7WJwXjqgQ8Z0ylYonkUV
+	 ZsJmEsa38/+P+NvjD2nI6MkJKLPzcnRI3KmpC9sOurwcNYcY9bWjvt/anOytNnUtmtP9x
+	 +fo16UQyfGUNf29G7qmFdd0DMFK6cjiaWSayINMssifHJWvLhiYqhBbIhYsjDQWxDppFC
+	 W2BaR+rFG8nUkcwBzfpHZwjkt+LUVAjzbHmWtnnDw+x8VgeWr+fwpM9v3+nHWRJNLuX5/
+	 2K9LZEX+cqZmTFTDC6e0lNUxSH8ffY9ecpfHimB9p3tDRVs4D3twGi0Jtgv78FbgCOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jwi35f5T;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxXBWzOI;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E6B606A31C
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E6B606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81D9606A31C
+	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 05:07:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81D9606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jwi35f5T
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea7987517aso10491105ad.0
-        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:07:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gxXBWzOI
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e987b4a710so1882465ad.1
+        for <devicetree@vger.kernel.org>; Wed, 28 Oct 2026 22:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793250422; x=1793855222; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793250431; x=1793855231; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qf62xHUcdwxTQhTGo7oUzUtykTsLWeHZ04Gslg9ulB0=;
-        b=Jwi35f5TK9NEOrvRXbIbHQzmViWwUkuV5Yy2ISL3C1ivrmVTCemVIljYoOy17cn6tr
-         JpellHJL0zQ2nZkUX3/lgwEsUKH1BYRMQMIOsP3IslcYVdkK8PelyG84J99oY2ImCKp/
-         55ll32AMYAjoWN/vskYDkhwQXaWxDKazw31V5nbbsQdJINvYsITVg01imn1HCcwPlRJq
-         aBMgGbvl9K7u7gZKwBWNZmEHSCVJJ20ApkXi5XJqIsPHH7R0GJqbOEs1zj3ndDEh1Af6
-         GrDz4L1HQ5WSRC0GzdaQATInrIFjtfW5Py2Iz1/GTzjdm3V1u/2N3AUZIn/G/n1lvNHL
-         s3NA==
+        bh=rjNfMp/WtzafGcb6uGtU9HJkhzqRTyKQwukVNkTGdko=;
+        b=gxXBWzOIzzYbbu6ef6LGYmLO8fWD6f0eljqy64TeJkzZMhV0XUHIcnw9LU4bReY77a
+         naHCdoXxYHI4UkY49em4x42TiVquywCZf3why4XjZ9wmk3fkxQ0BQJoFBznNDeuQivh+
+         g5V6u5REf8JcdbMq4jiXBNa1vOFFVpdzX/SRPF1GpdD2iQFsDXpdc96DPh77RJdl+Fvu
+         7f+acoURMStFLIeC0rnxbsQq32wMFfFekoojVjAPRDV1SGiYdrto7tiBORSbnisc954A
+         4dLySoYXUWBh3yV4B7TXljbtbC4/s8NlPS4c5j0j4/AofIkRLy+J7axNwsC8bSudtHiB
+         TBFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793250422; x=1793855222;
+        d=1e100.net; s=20260707; t=1793250431; x=1793855231;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qf62xHUcdwxTQhTGo7oUzUtykTsLWeHZ04Gslg9ulB0=;
-        b=Ei5erxkbAJI9IUVKeGtRvylPBclegZJ+VkeGmZoFk/Fsy2fjivxS0d5kLUzADq1CMD
-         7iFjgQLTh62qPT16sl5yEvn/63n46nbgiOSobALg5bTiAtf1QzHMm2rsNE9uHAyj9V5I
-         nxhoFq0ZO3V4M63Wise/g3zS8CvmmnR85lWDgFnxwOhsCn6dNckTgtgk8M1tvt9G7KkH
-         0vCKx1IX96hz22JzRKRTLgq+W8e2RQSu4iryTr6oliPQsXW4ZUwlw2m8i8nmc3GcIWE+
-         flOf+yFfIaQoVgYvrPqmcL3B6h3xhHFgxjGvtYvNz9yPUU5erhMwnmYencTUyBAGJV0H
-         A1Zw==
-X-Gm-Message-State: AFq9FYIWQyEcFj8q4dRaEefSNiDYyK/WYSVqdDl9mw0Pxhsrq8wHblUY
-	1T97VSKNnYSqm30QSOuVJD065ZHzaPtrLHQ5BZlwlxKtxWVG9BkL83TO
-X-Gm-Gg: AYBFou3J0VUuC2H06PDkR1W2oR/69gIgswoktF3PcPw+tP3Ftgl6CsZ//xQer6tL/b+
-	viX6w+sJE1n595CRt6Jaxtoz7hpPJ1k10s9kf/BNRnrTyBJ9j5HCreH/l/8jxCjnb4cjnHwlgWm
-	fLYM4BBXRjTzBUWWNLEXsuI5LbWcWVnSPfekWNsCdnvtmpIjY/qFQ5W/KNTGGmwIGI4kvbWltbx
-	UPwacwUWlaUEqCY1sbHJTmy5/W/0IO+xtIcu6JRtgnMMLByWaSpMspwqL3r1W1mNOxldSiyjxsj
-	6/Z3/O3Nv3dxkmX6gdEYS5+Y0Q977btugAPjewGakwHtm6dTPizt2JQqrZllEA44WjL+PQq2WfG
-	fvhDw3Qb9JDqvpWs4R9D5eddKAGx3y+qc96YsySKaaMOzYO8LwX5B21xtTO3l/JfEa41aQi4qYS
-	/+TvgYDvp2eFnS+a4LDQ/zZW6r8nQ6JkuqSMj2oheu9arvBZX2t5CMZDB0AluQO4OHsb+CwJXdU
-	ROedo6cSFFRcqSxFoCoW5jYkG5VfB1eFyxWfkvvVIltY2yqFhhZta5RCIQ+THBLOSDaO049UDsv
-	mCgmVe7AP0MnA1TClWFQJAN4FKGF
-X-Received: by 2002:a17:902:c40a:b0:2e9:4048:3031 with SMTP id d9443c01a7336-2eb0054029bmr40770025ad.39.1793250422229;
-        Wed, 28 Oct 2026 22:07:02 -0700 (PDT)
+        bh=rjNfMp/WtzafGcb6uGtU9HJkhzqRTyKQwukVNkTGdko=;
+        b=f22KcEktPGxP+7Q5WDmob3xhv8OIqp4t5Z0PnlKBfgpWqmVfFDmFhksTe0VW3YR7K5
+         /vie9PlpK62sZo12nRENjS0qfgKflALgK324N45CgiYZj+cFcIGRgPoesyREZ/YeHK0m
+         zeZnl8jH3mNwO9erTTbvygwXY3GOtSufSPkMSJxN3MFOJ54bPzJWd8fpQ7Uq8QFQE70q
+         DM00QHeXv36cwm7IFxjuS2w0AQ8XhTRDbZVo2c60i8DONt8WmvabZbXUpQdZIxYhcXBa
+         yiuVol4mEU05v0pjidWzejmPYZlJfHmP8Pxbe0UFvR7vz85Qea6WXl1p/kaQDBBDcuTx
+         dZxg==
+X-Gm-Message-State: AFq9FYLcYsK/yDqtWZGYD74El3+MsGgQCx3ZYd1VvIj7LjBr5prIT0pX
+	YnT0ZhTUMRQ2MA0pe/asS/OZks9trIrBUDA9OMzL/AuIMYD7GJjeUYAj
+X-Gm-Gg: AYBFou2uGfViDHxid/Uo7uJ80enREFN+2CPAlPgSfHDnH/yVxZOL/sCNscLDjlYIBcG
+	jpWtawUH/7H1D7fih6YADANey7c+92/mQjg7ct3LFQA4u9uN0oL1DYjy+MqDa/AEDVbDB4xxOhY
+	bFhrEr/ZJnP7SbK3l0pnOevlFmGOPRqiFHl5hSdNe7Dc0AzxzjpL0mxRzziVMDdwR4j4vgSbHG2
+	18CBS+MTR0/gL6oxABozBWBJ6WY78nZWyPUDZ5acV5jwQl6PxYxWiH3mZamFKf6O2WV/ijAdVNG
+	OicapyJlmjL6myLicyzfn4QD+WgT41bc2hrl99ApcklJuteJXno9sk3cmp+tloiPiREw7eG7ITF
+	9KH9M8k+N5rdU+Rt/lXuQNGOe0htTfBA19h0Bh3NlFvOCnT4fFa6be5xuWGdmNKKsBwGzNCraHv
+	CwH/wab/HM91/TbFOJcSMBPrJGYb0MwxLnYEVLrwrd9ESiz6tZvZpPY8g9Rcpq+y9MtMU8olVw3
+	Lvy8qixejEl7ur3i1kEM4KkDY0aFS5L7T2r/Woj88avv7H+0u7zyvXQHC11Kcwhc6t8uQ/fA1i/
+	dpphxIqCF2X5YITr/fH+4Y6F3Pic
+X-Received: by 2002:a17:903:11d1:b0:2e6:f3ed:a551 with SMTP id d9443c01a7336-2eb1aab257bmr10272905ad.8.1793250431325;
+        Wed, 28 Oct 2026 22:07:11 -0700 (PDT)
 Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.54
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.07.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:07:01 -0700 (PDT)
+        Wed, 28 Oct 2026 22:07:10 -0700 (PDT)
 From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Thu, 29 Oct 2026 01:05:49 -0400
-Subject: [PATCH RFC 08/12] riscv: Add Bouffalo Lab SoC selection
+Date: Thu, 29 Oct 2026 01:05:50 -0400
+Subject: [PATCH RFC 09/12] riscv: dts: bouffalolab: Add BL808 SoC
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,7 +92,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-rust-bl808-console-v1-8-b736ee920078@gmail.com>
+Message-Id: <20261029-rust-bl808-console-v1-9-b736ee920078@gmail.com>
 References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 In-Reply-To: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -119,33 +119,91 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
 X-Mailer: b4 0.14.2
 
-Add a platform selection for the BL808 64-bit D0 processor, including
-the T-HEAD errata and common clock framework used by its UART.
+Add the BL808 D0 CPU, PLIC, CLINT and UART3. Leave UART3 disabled for
+boards to enable. UART3 connects directly to PLIC source 20; firmware
+sets up UART clocks and pins.
 
 Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
 ---
- arch/riscv/Kconfig.socs | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/riscv/boot/dts/bouffalolab/bl808.dtsi | 70 ++++++++++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
 
-diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-index cecbce0c498384d3283ed23cbf2514391eee361d..ea4667da7716a9a8d2ae156c422b277064b42530 100644
---- a/arch/riscv/Kconfig.socs
-+++ b/arch/riscv/Kconfig.socs
-@@ -12,6 +12,14 @@ config ARCH_ANLOGIC
- 	help
- 	  This enables support for Anlogic SoC platform hardware.
- 
-+config ARCH_BOUFFALOLAB
-+	bool "Bouffalo Lab BL808 SoC"
-+	depends on 64BIT && MMU
-+	select ERRATA_THEAD
-+	select COMMON_CLK
-+	help
-+	  This enables support for Bouffalo Lab SoC platform hardware.
+diff --git a/arch/riscv/boot/dts/bouffalolab/bl808.dtsi b/arch/riscv/boot/dts/bouffalolab/bl808.dtsi
+new file mode 100644
+index 0000000000000000000000000000000000000000..c739c77960c4578b87fcf2bc096ef7c8cda089bd
+--- /dev/null
++++ b/arch/riscv/boot/dts/bouffalolab/bl808.dtsi
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
- config ARCH_ESWIN
- 	bool "ESWIN SoCs"
- 	help
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++	compatible = "bflb,bl808";
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			compatible = "thead,c906", "riscv";
++			device_type = "cpu";
++			reg = <0>;
++			mmu-type = "riscv,sv39";
++			riscv,isa = "rv64imafdc";
++			riscv,isa-base = "rv64i";
++			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
++					       "zicsr", "zifencei", "zicntr", "zihpm";
++
++			cpu0_intc: interrupt-controller {
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++				#interrupt-cells = <1>;
++			};
++		};
++	};
++
++	xtal: clock-xtal {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++		interrupt-parent = <&plic>;
++		dma-noncoherent;
++
++		uart3: serial@30002000 {
++			compatible = "bflb,uart";
++			reg = <0x30002000 0x1000>;
++			interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&xtal>;
++			clock-names = "baud";
++			status = "disabled";
++		};
++
++		plic: interrupt-controller@e0000000 {
++			compatible = "bflb,bl808-plic", "thead,c900-plic";
++			reg = <0xe0000000 0x04000000>;
++			interrupts-extended = <&cpu0_intc 11>, <&cpu0_intc 9>;
++			interrupt-controller;
++			#address-cells = <0>;
++			#interrupt-cells = <2>;
++			riscv,ndev = <82>;
++		};
++
++		timer@e4000000 {
++			compatible = "bflb,bl808-clint", "thead,c900-clint";
++			reg = <0xe4000000 0xc000>;
++			interrupts-extended = <&cpu0_intc 3>, <&cpu0_intc 7>;
++		};
++	};
++};
 
 -- 
 2.47.3
