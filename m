@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.40
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793343878;
-	b=OqYkhgKh2QcwJBKolWqZ2P8RgJywOyyzl7skkBYtS5GYWD9sLUdO40r5qd06auvEZ8P+
-	 ljq02cGVCwA7PZXTNaDndaZ3AEswWV0CmFIlfxRfWNC+tMrw38O8f5aT72mg8BqxlWZbc
-	 0wbY0Z7Z/QSNwrgsGdslejnZjGhI1SUhffzMb1u17DFnrTjlwo5mW7UA5AFrr+SNuDaCd
-	 j93KmEtwsKbIecml2GvRDg6eA5kXa5QOrm+r4JEiuVHnHXvj0Jgv6bd+r3I5o9H0OmVN4
-	 +6cb3SIWHwP+OsLyLUjn2hHv43zF4IVeRQWvvIH+tEhklsnW2QyLDh7hJXAC9a2jh+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343878;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=n9JSutIA6orKanmW5jULk4mHcvWR69vKLqdK02WZ5As=;
-	b=26E7D7Z5jfVOXMggydgzEKvE6+h/e1+4dn68Ny5Eu7MY8UzoUKVunEvyP3P+rZBstCvO
-	 gyqD9h/6Cj9h2XcWpw716klovPIL28PyIQ6HPzu7WqZQeVpWycHmaWmGuHVwYahPexdHV
-	 ExoRGl9RHBK5Mzdp5YQC0o4kwShpEaXzKQqiT2S15zpqYdrrno0R25M8bcBBWLiELS/nW
-	 OW0x1c/MFLsrpPdzHdg2QiMnHvBXzdL96+Io2o5sxA0K7mCUaXVNEIAcZ3ZS2T/zO7n+V
-	 Uapz57fSXVDevJePm16KJeapHWES+VQzqLfeH9vnk3S3riborLNA6hnvy+wrkD2RjyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=QbA1EwG6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.40
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010040.outbound.protection.outlook.com [52.101.85.40])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793344042;
+	b=3eCLjiSwUE5ymrlxAJCaUU9HK1mz1rQdJVLY7snsxs0WA93fbdBedzyEx9z5Ik5+OKfH
+	 /nloNNhVj6hY0Van1gw1f3DHQQPgB6uFMxIyGU7H6KVWsNpYi0USH61T8Oy/BtJoLCkxY
+	 BbdrEQRiCI+aFSWawnIlawOPuKJzxwMeh8Mi/tz1coDjDTwrM8BW68L6oqCOvOUZNRN/m
+	 uO2BayCnQqcJIttnivGcDMIbT7yhLH/MFiQ+C50E/8vmF+vuHJuGtjz38WuiCKXopJyCC
+	 ciK9sNt9zAexlpIbPBpOLElc2MCAhefG/BiDMq6c3qLv1KcncaYlgWOprK2IGMsZ72g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793344042;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bGQcWLDZKojn0AJiRpY1l3ycQc4C+6GY47OwFTdOD0E=;
+	b=uxTLTH0p0DrHv3jLFstLmR4nBugGp1DEXtdxu8jBP+/yk4KKOGzY314djYYRDni7Sp3M
+	 R2qmiSAGq/bAfn/Lf9K1sODnsoUKsHoRUd61NkKE4Lp/AjmqHnw5yf/dWg0edx/z4WbZc
+	 MJG4zez5G6t/H9eJc1ud8phKATQeIYMHI0MxnByD/arhQeUI2VfCBypauPxb2xplZ/bpa
+	 n5r2lwNKPf9XebBmhrTvIkpjorc2iPnRwQPxFanIAlxCqFXQnBwb+PrS9se15QaxTQDv+
+	 EmFzEjzcnuPO9pnV8WToJ08tPdA8btW4o72OSHYdT6D56WRSTVnMtXRT5IvVsuPH94A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnJchf5w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899D7606A31A;
-	Fri, 30 Oct 2026 07:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 899D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0492606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 07:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=QbA1EwG6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Koxqw46aXbO0g8hmZhPCQswkvbl8mAF9vsHB+ejUyRiHYxRpLjY5Tw0bk/MNNp3grjzkzeENNyVRCW2uyKnHlBldeuVT0QqkJcpWIrmSZA5h99siv4ZqzyyVkt98UIY9Vc9HanMVRVdlcBljVy758fxotK766gk+sZSP+Ea6SMYMq4SUEPrpg/F/URaFboJwOko0JpY/0pJqGUBuG1rbMDPwK8AkdfZQvW3QEWH1+1WescCYRBxgbbzp0URJMlOe6aM7eWC2z2KkUowQ4AjLIcZCckJwaP3JX9DkWiJfEg4opeViYOd0+li1IH4PUTcDbXELtpWkl94dGfvRT0e7RQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n9JSutIA6orKanmW5jULk4mHcvWR69vKLqdK02WZ5As=;
- b=sugvu8sP9OtbitK/GBAqRgeAwVAgg2LCailPnHke2MEAWFtEPKmDrH1eHdCh6CmRy5vjm+iyuBjEgzaqyjzSXs5e+vJnh2zATfn9VkGjIvqIimX6EofluWg+KjBW670Tb/Dg+XpD7VYvyNar6NbV6/0wfDZgucBB2CsSeofQYvQ1Qtxw6Z7EOUm1c3gECg90bqpfQ0Q/NZ5+co9H01c8s3wzMuL1uBvReN8AxuWsMg1tcpaAPxN1/wQhMPeOCtqCvIBwZUHBvtP42hVJu7DnBHAFGuchbdRQPKFrAz+fmLIGvWkZFwNgrnD4O3rTtvkGuDMvlffdYbNOAbM2rWIa2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n9JSutIA6orKanmW5jULk4mHcvWR69vKLqdK02WZ5As=;
- b=QbA1EwG6sTFq+jiR3hIqJIVGDOfvLAIHOBr3SUZjydKJzLo+FM7N0ouUi4ECN6kLLSTa/mwUqJdgfFXHcYYMniE9f6N3Aegir8vpXq7yBwEZ8Oy1rwnLKSSqmoX7dCjak+kuZqZ7XThc8Fgl99JilNLQa1que53yv9ZrrwRWyv08zMLEN3jZvjcwjdyP2iWOvVhyyXRNSq6KbPqhv/4hZGsWmHBpRKlpuMAt0sgSZMTzF6IS5bOqNVJoDO55hCivjfkovEgNJCW3eKWaYWi/mwc6bOpwhu7IoVVSTbCGJI+NrlI3Uoat4JATJjc6CM/PoxLRaKA89VB/ulS9+YyGig==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com (2603:10b6:408:101::21)
- by SJ0PR03MB5472.namprd03.prod.outlook.com (2603:10b6:a03:27a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 07:04:33 +0000
-Received: from BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4]) by BN9PR03MB6204.namprd03.prod.outlook.com
- ([fe80::47fd:71fd:88fe:6fe4%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 07:04:33 +0000
-Message-ID: <f22270ec-a44b-4836-a0a1-5c7c3b10ce5f@altera.com>
-Date: Fri, 30 Oct 2026 12:34:24 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
- for SD6HC
-To: "NG, TZE YEE" <tze.yee.ng@altera.com>,
- Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <cover.1791459448.git.tze.yee.ng@altera.com>
- <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
- <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
- <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PNYPR01CA0078.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2b4::9) To BN9PR03MB6204.namprd03.prod.outlook.com
- (2603:10b6:408:101::21)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnJchf5w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82D81F0093A;
+	Fri, 30 Oct 2026 07:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793344041;
+	bh=bGQcWLDZKojn0AJiRpY1l3ycQc4C+6GY47OwFTdOD0E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bnJchf5weX6f0HqfMFcnyjFneXn3fLTOa+YDstPEryH5iJFg4h9HqEk5j6NYw/2R7
+	 lzULUjmHg9YN8LCS6NbsljZC/jJuwJEz3VncW9y7wZbYfImYGvxiidIB7bIB5wlSMc
+	 wq0WRICtwrb782hKLL7fKsfn17cj6E6wf8eP3DhZFeTfft+W9+FS0XN8RrG9LeU/iL
+	 DzdTe0+VqT9KjWOqXbxtwxCGBNaR/roZYZHs8+NCDfAO5+xrpRPrke4uSlCypKjvWO
+	 IZJUIoZ3pb5FPmQdn4wTMmn8McHEjDg7yaaQzsW8X5EhW82Tw+uF7ODeh08UxwwoC9
+	 vAx9Ku9FRzlpg==
+Message-ID: <sashiko-outbox-190628@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/6] phy: rockchip: Add support for Naneng eDP phy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261030064905.2248999-5-damon.ding@rock-chips.com>
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-5-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 07:07:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,93 +59,204 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR03MB6204:EE_|SJ0PR03MB5472:EE_
-X-MS-Office365-Filtering-Correlation-Id: b25a13c0-901c-44cd-8cf1-08df36540c7b
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|4143699003|11063799006|56012099006|261026140227099003|261026121527099003|261028144727099003|261022105027099003|10067099003|55112099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IS5f9wmw43G4jNfMVlMI1/WRXJEIBuoz+Z8zEm6sS8qchvDMuul7IR70NOKkDHCev3mPT2Hv6Sp0EHs7nYtSTc9FEAPJKK1K5HvYMHL3em0ZpIgpFTZEOGUDopZc5T69L7H/8lnFOqyhUXBaAY+rD+69P7ezG6bDoiNeZYXvYVIl8SeHEO7Qx+Q6mmn2k6eO4aiubtCoZufOZhaZdFfq7m9c1yiMxF3Uwg0yvQCauHbF1YpE5+9u3SC1+WVgTO88LZulVX+Azp7YcVAv3y2+elmxXAmhq6Pee1uCkjB/t3TtczIabdt8hIa4ibQZfZNyJPfl/kGGKP4XMQUOKI7DYAxEeNnf1v49SGgmTt4U2I2ifrWAXtRILuTToz8oKll30FOGhYh4VofRyCxAEIR+vfoStnG31YpK2OWKNVi5RTF2D0PfN3XkCCM4JUnF4YqI95YkqbM0H73mserFyEvsu/eT4Bs61veHSiqm086uwCkPcRDN6N7XELDW5gaZBosXvjdyEhQ1dpxusQujGp/9tens0Kk3KydEGoG6V3Bl2TiZTTfwjSYcSK9naHUyHCclAg2+EZbcImtRusNzbUOSZTyF/b9k+tfvvqdOGCg1Atsc8uX2S4IegPrBctDkxBWDHbX5E7rGWjXzlBhDoMCuDsAofl0vx4ny4PvYO8Ju8Dw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR03MB6204.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(11063799006)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(10067099003)(55112099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZXFTVXE3azhRT0hrcjUwVmxFeEgrWDBBaTBibFlPaFFjenpqZE5VRWkyNzhu?=
- =?utf-8?B?TVd5TWE0ck9BR25JV2FYMmVscTBnOW5LaEx3Vkw3MjVkeklqWkowYmFjZ3Qz?=
- =?utf-8?B?c015bm5hQVJEdjBORnM3L29XY0xUVVV2UEpCTVJTRXQyR21pdkdRWUIwVmh4?=
- =?utf-8?B?bGZ2QWhyRGxMYXFUTjg5cFJmN2RCZVloS0lDd1BabERwVDQyRGVCOWNMWDFZ?=
- =?utf-8?B?QXdMcmozMDQ0di9WZzZ1YmF6WDZjS0FtUkZiMHZaNit6QmhMVDNqbTYra2dy?=
- =?utf-8?B?R3dqQnlBeTZMc3E2eDJZUS9kT3M0MjZJNGlQQ3NPa3Z0eHVINFRQK1lPODRP?=
- =?utf-8?B?WWk4aEpHaFhmTmFrVGFuYW9wTWMwSVgvYnVWRkZkM3RlMEtMT3p2Nzkvdi9o?=
- =?utf-8?B?dVFBbzlJQ0VwMmw4Tm9iSUwxYTRNd0ZnTFJqTTE2WGVhQVV4WkQzT2V1Ym50?=
- =?utf-8?B?YlVBM3FZY2VsYmRkaHZNWTdzZVRDNDNGVlJFbWxNb21ERk5MdGJqWkhDSS9n?=
- =?utf-8?B?Y0NQVksxNVdBZStBak0vUnM2MmxtREZ6dVB1MGlvRFViSkt2Zk5VSHN0TkYx?=
- =?utf-8?B?VGlDTklzU1dWb0I0OUdabGVnaitNZ3ZQdzFLNzdVcFFnNnFSaTN2U2lKSWpX?=
- =?utf-8?B?U0VpYitZUXZ4SUxKMXVhU2xFS1B2dVY1RW1mT0lZWUVmOHZMK3JEaXh3TFJh?=
- =?utf-8?B?Y1g5R1VXblQ2clpQU3VwSnEvRmZQUWxBblMyU3BXN1hkTldxYnJDYzU2eFZY?=
- =?utf-8?B?Uk01dUJaeUVUdE9iNDBJSm9PcFM2U0IxMFFGdEt5c2tmc1J4ZVlvd1d6amh2?=
- =?utf-8?B?S25mQWVuVkxKeTZmaWFzdERRVFhBL0QrbG1aMFk2WXhBQnhEdEluRXdEUUN2?=
- =?utf-8?B?N0FGOXVxOVVLRkZ3a2hESEx3RnA3ZCs4YzE3ODk3OU1nLzcxbERrSFNabjlU?=
- =?utf-8?B?K01WUmkxWHNPM2ZiLzI1dWNsV1J6N1lsWUZpc1lLbEp6SGdpWFZ1ZWhXVEkz?=
- =?utf-8?B?VlIvWjVNZlA1dFlZdHc1Q2NzRU5JZ2VlTS9mdjQxTHY2OFU2MGVlbTVUVzY4?=
- =?utf-8?B?SHdKeG5WL3JNMGJQZFM5MVdLNUVzMlVkVmY5WGZQSlZhQmI2dFNNckFMUFFN?=
- =?utf-8?B?aFNEMUdEWWFISHZHTGdyRTdkNHJkQXFaSjZxbnVQNDZoVFRSQlJ3UGVkSERj?=
- =?utf-8?B?MHk0bDhWajB4OERTRExoa3ovMGo0T1NwTUZzMXphb2FJeVNrMmg3VVd4ZnJI?=
- =?utf-8?B?VVZ4TXZrTVNIK2pzZUlWVlpERG0yRUtpUlR4SG5QMVZKdEdCQTgyM05uR3dL?=
- =?utf-8?B?UFN4SUJOMGp5UjBUclpva242eDRQQ0psdE5hOFlzdmM4VURDRC83RDliOVpT?=
- =?utf-8?B?SnZEK2psN0VFMnNlQzR2SjB6ZkpDMmUyYXg4ZkNrYVJSVTJRcFNFUTJkWEJ4?=
- =?utf-8?B?ZUE0VFFSMDByL2pub3B4R2xyamsyeHhEVnlkbnVMVkk2R1ZWcXRzUzQreHlK?=
- =?utf-8?B?TitmVHorL1dNZStnS0hKQitLNFE2OVNXNVhIWWJ0NlRUK1AwazF6K2o5R09U?=
- =?utf-8?B?TFdUSEdjVmJZTEliTHludjZhR2xXYTh5TmtDTUtST3Z5OVVpZFJUbXNyZ0ww?=
- =?utf-8?B?TjZVUU54Si9WMFFWN3AvNW9LNWx5b0REMS9KNXdzdnY2L3BMbTE5T2FFZjEz?=
- =?utf-8?B?eGYrWTgxTTJETDVoT2pNY3J1ZzB1VUhHN1VJbk1jT2hrT0M3VTh3Y0Z5anUw?=
- =?utf-8?B?Wmk1NlRJejJLLy9RNXp3aE1XRWhoZHhjRnk2ZWlJR2FUNWJYTC85Smk4WGtn?=
- =?utf-8?B?SUFzV1EyZEsxeUFmK1ZjcFArc25GaUFEVVhkam4yOS8zaVNFU1M5Ym5jV05M?=
- =?utf-8?B?TVBEY1RiYVA2UzVTRDc5ZEZVU1V0aFVZZTVTMWc5QWYrMGFjWnYxdUF0M053?=
- =?utf-8?B?ZENoRFpzUWM5RVRWUFcyUWVjcG8vQTFqU3pmT0NQR05wbXdDcVpkNlN3dmdL?=
- =?utf-8?B?TUxIWjZ2Y0ZSNDc1dG54d2l4d2Z0M2Y5UzRudkNjTU1EVTk5VFlqZFNuaGdM?=
- =?utf-8?B?Y01mVlBYL2Y0MWpUNndaT2tuT2duZXc2SEdSVFl4L2pGMHNzalFJNlBzN0Nl?=
- =?utf-8?B?TWZPak8yQnk5dzhJZWJLaTJRTE5qVU1SMk9LK1M0NEZBNjhKNUZadGpMTlNs?=
- =?utf-8?B?TGQ0U29XaE9uT0ptdzNpS25yY2g0QWV4cmtOaEFSR3psN3RWcmc0R0FPR0RX?=
- =?utf-8?B?V2htTzBveVhuRFhaRGdZdEhrbXRPc1Y1M21kSy9aeWlRbVBEZlFRQ1l4NlJY?=
- =?utf-8?B?RHJjalpzUExFNHVGNlFaSm5kYVR2bFhIaU0yNHl5ZFFBUS8wYUx6VkFSQUxv?=
- =?utf-8?Q?+Uwcx5n1iC8Q/Etc=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b25a13c0-901c-44cd-8cf1-08df36540c7b
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR03MB6204.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:04:33.5743
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X8vBZK5KcU8QoeIdOmovC+JrrxoHg4DRvRl1+2WQcvlptT9kiiJF7Ab6BRabytYwj6ecuVfRl4OoM5xTCQL6gQq7oOkmcSUE1s7e4axAmAo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5472
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] phy: rockchip: unclocked GRF register access in rockchip_edp_phy_p=
+robe()
+- [Medium] phy: rockchip: stale lane count in rockchip_edp_phy_verify_confi=
+g()
+- [Low] phy: rockchip: missing select REGMAP_MMIO for PHY_ROCKCHIP_NANENG_E=
+DP
+--
 
-On 30-10-2026 10:55, NG, TZE YEE wrote:
-> Hi Tanmay,
->
-> Thanks for the detailed walk-through against the spec, it matches what
-> I see on the hardware.
->
->
+commit fa6e3e07850c3a98df33755e8389b184ff441616
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-Hi Tze,
+phy: rockchip: Add support for Naneng eDP phy
 
-Thanks for testing this, and I'm glad the abort approach worked on your
-board. The HS400 and SDR104 results, and the ftrace showing CMD12 after
-the failing CMD21, are exactly the confirmation I was looking for.
+This commit adds a generic PHY driver for the Rockchip NaNeng eDP
+transmitter PHY found on the RK3568 SoC, mapping its register window
+directly and supporting 1/2/4 lanes at 1.62 and 2.7 Gbps.
 
-I had already written this change while going through the tuning path,
-and I was planning to send it over the weekend once the remaining
-checks were done. Since you may already be folding the same fix into
-v3, how would you like to proceed? I'm happy to send the patch, or
-if you would rather carry it yourself, please add a Suggested-by tag.
+> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
+> index 14698571b6075..202a6973e20ba 100644
+> --- a/drivers/phy/rockchip/Kconfig
+> +++ b/drivers/phy/rockchip/Kconfig
+> @@ -74,6 +74,16 @@ config PHY_ROCKCHIP_NANENG_COMBO_PHY
+>  	  Enable this to support the Rockchip PCIe/USB3.0/SATA/QSGMII
+>  	  combo PHY with NaNeng IP block.
+> =20
+> +config PHY_ROCKCHIP_NANENG_EDP
+> +	tristate "Rockchip Naneng eDP Transmitter PHY driver"
+> +	depends on ARCH_ROCKCHIP && OF
+> +	select GENERIC_PHY
 
-Regards,
-Tanmay
+[Severity: Low]
+Since rockchip_edp_phy_probe() in drivers/phy/rockchip/phy-rockchip-naneng-=
+edp.c
+calls devm_regmap_init_mmio(), can this fail to link when
+CONFIG_PHY_ROCKCHIP_NANENG_EDP is enabled without CONFIG_REGMAP_MMIO (or
+with CONFIG_PHY_ROCKCHIP_NANENG_EDP=3Dy and CONFIG_REGMAP_MMIO=3Dm), since
+ARCH_ROCKCHIP does not select REGMAP_MMIO? Should PHY_ROCKCHIP_NANENG_EDP
+select REGMAP_MMIO (or MFD_SYSCON if using the parent syscon regmap)?
+
+[ ... ]
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy=
+/rockchip/phy-rockchip-naneng-edp.c
+> new file mode 100644
+> index 0000000000000..8c247eda1dcf8
+> --- /dev/null
+> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
+
+[ ... ]
+
+> +static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpph=
+y,
+> +					  struct phy_configure_opts_dp *dp)
+> +{
+> +	int i;
+> +
+> +	/* If changing link rate was required, verify it's supported. */
+> +	if (dp->set_rate) {
+> +		switch (dp->link_rate) {
+> +		case 1620:
+> +		case 2700:
+> +			/* valid bit rate */
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	if (dp->set_lanes) {
+> +		/* Verify lane count. */
+> +		switch (dp->lanes) {
+> +		case 1:
+> +		case 2:
+> +		case 4:
+> +			/* valid lane count. */
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * If changing voltages is required, check swing and pre-emphasis
+> +	 * levels, per-lane.
+> +	 */
+> +	if (dp->set_voltages) {
+> +		/* Lane count verified previously. */
+> +		for (i =3D 0; i < edpphy->lanes; i++) {
+> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
+> +				return -EINVAL;
+> +
+> +			/*
+> +			 * Sum of voltage swing and pre-emphasis levels cannot
+> +			 * exceed 3.
+> +			 */
+> +			if (dp->voltage[i] + dp->pre[i] > 3)
+> +				return -EINVAL;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+In rockchip_edp_phy_configure(), rockchip_edp_phy_verify_config() runs
+before rockchip_edp_phy_set_lanes() updates edpphy->lanes:
+
+rockchip_edp_phy_configure()
+  rockchip_edp_phy_verify_config()
+    if (dp->set_voltages)
+      for (i =3D 0; i < edpphy->lanes; i++)
+  rockchip_edp_phy_set_lanes()
+    edpphy->lanes =3D dp->lanes;
+  rockchip_edp_phy_set_voltages()
+    for (lane =3D 0; lane < edpphy->lanes; lane++)
+      rockchip_edp_phy_set_voltage()
+
+If a caller sets both set_lanes and set_voltages in the same
+phy_configure() call when edpphy->lanes is 0 or smaller than dp->lanes,
+won't rockchip_edp_phy_verify_config() only validate up to the old
+edpphy->lanes count, allowing rockchip_edp_phy_set_voltage() to index
+swing_pre_emph_table[dp->voltage[lane]][dp->pre[lane]] out of bounds or
+write the -1 sentinel values to the PHY registers for the newly enabled
+lanes?
+
+Should rockchip_edp_phy_verify_config() check up to
+dp->set_lanes ? dp->lanes : edpphy->lanes instead?
+
+[ ... ]
+
+> +static int rockchip_edp_phy_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct rockchip_edp_phy *edpphy;
+> +	void __iomem *regs;
+> +	struct phy *phy;
+> +	struct phy_provider *phy_provider;
+> +
+> +	edpphy =3D devm_kzalloc(dev, sizeof(*edpphy), GFP_KERNEL);
+> +	if (!edpphy)
+> +		return -ENOMEM;
+> +
+> +	edpphy->dev =3D dev;
+> +
+> +	regs =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(regs))
+> +		return PTR_ERR(regs);
+> +
+> +	edpphy->regmap =3D devm_regmap_init_mmio(dev, regs, &rockchip_edp_phy_r=
+egmap_config);
+> +	if (IS_ERR(edpphy->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(edpphy->regmap),
+> +				     "Failed to init regmap\n");
+> +
+> +	edpphy->refclk =3D devm_clk_get(dev, "refclk");
+
+[Severity: High]
+In the device tree binding
+(Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml), the
+APB clock PCLK_EDPPHY_GRF is attached to the parent edp_phy_grf syscon
+node, while the child phy@0 node only has refclk:
+
+      edp_phy_grf: syscon@fdcb0000 {
+        compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd=
+";
+        reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
+        clocks =3D <&cru PCLK_EDPPHY_GRF>;
+        ...
+        edp_phy: phy@0 {
+          compatible =3D "rockchip,rk3568-edp-phy";
+          reg =3D <0x0 0x100>;
+          clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>;
+          clock-names =3D "refclk";
+          #phy-cells =3D <0>;
+        };
+      };
+
+In drivers/clk/rockchip/clk-rk3568.c, PCLK_EDPPHY_GRF is a normal gated
+clock and is not marked critical:
+
+	GATE(PCLK_EDPPHY_GRF, "pclk_edpphy_grf", "pclk_top", 0,
+			RK3568_CLKGATE_CON(34), 14, GFLAGS),
+
+Because simple-mfd does not enable the parent node's clocks, and the syscon
+driver only attaches and enables a syscon node's clock when a consumer
+looks up its regmap via syscon_node_to_regmap(), mapping the register
+window directly in rockchip_edp_phy_probe() with devm_regmap_init_mmio()
+means PCLK_EDPPHY_GRF is never prepared or enabled (and will be gated by
+clk_disable_unused()).
+
+Won't accessing edpphy->regmap in rockchip_edp_phy_power_on(),
+rockchip_edp_phy_configure(), and rockchip_edp_phy_power_off() while
+PCLK_EDPPHY_GRF is gated cause an APB bus hang or synchronous external
+abort?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030064905.2248=
+999-1-damon.ding@rock-chips.com?part=3D4
