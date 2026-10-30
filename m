@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371294;
-	b=zm+QVmQJUov69gJPUSyOMJHmVXQE7x8xxeyIxOTwJfkDQ23gkI5hABoApaVa/ql+Ibfk
-	 WxJ85/KEti9g8Tln3FK2wKFE1uzUExFUDzk5eTO3gm1jDN4T6fwlLOElyRhbMUpI342eo
-	 I7j0hDYuC7sKJV90RzrRrkLb1g1TaPD4dch5KhOcl6BTMI5hSPmbx5pXVc4HgrysYsjLV
-	 7WtU8oLyckmeFWv24M7FfEAkuYAvjN7iIn0IW/PFOGZ2U7NEwSuB442f/RMrk1c5mQ4u/
-	 av8+QxJVqhLLOOk4TdoD+zz2m2kqPKGjOg0a5uYZHuWQya+UQMR0H4ZRvjoAwkWk0WQ==
+	t=1793371509;
+	b=5VMNb132/VZuAAN0DmYmfMY3hpeF5KONHftUZz+g5ZgODnfFRE9jD6aUVSRHSLbkTUWt
+	 wEUQLO4O6hl48m2B948NcyBJrRF4UVRsGDaWfyW/PuYmXkB2e4YUoCnoy0MnsjPUJXvCM
+	 QL6IS/B1HisgHOEigndmCMzM4D++FmmQF67bgdrHLs3EOmrBoAFFQkVJtjXSvd+lC2BKW
+	 k2tdyz3Ht7a/xVdb/OcwdVKnRf7M+UqA5A+UZ6XDxpgNiq1PJD7fYs+M2HatSbutewgns
+	 J8d6sJv7Sy4/lefT1JYVY4RrLQ+548AdqaLaa4FGIIHDdogiw8VEmLzfZ1BMQw1Lcmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371294;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iGt6RSK7yWWj55giIGgQVyqxXAu4XvXBM5uzKbjCTkI=;
-	b=isLvWe1xj7B8sYWbzFIOmF3LoNN4fOPi3LyHqcYlAyREfaP8Yzxqwqi8k+asm78p0fpa
-	 qVo8d/rBCWQQHxUoXtfNEHvQZa2Xul9/Pf5uHF104J3qN9op+oD5Kwn3euhgYoXJTy7hY
-	 QESLTKQYJBhQaS4pmbq6epvWvfy6PTnhX27M9kqK21jauTJvXXfgV1u2IPUkIIin8DZYZ
-	 yDKXtijvfMTRk4ZYjFH94vWs5M12QCqojkuwfQ2VXA+QrH2kv1RSSYimmH8WTj12uCSsA
-	 9W1q8/BCOeeZMZe1LKcbbFHfjPpt3g2idM0tQ5ZknzPr9doVv7IGYPIsBPlq8h3zemw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371509;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=7U1N8TPT9zrScUnndBA5jCKidCm9fzkxRYeq+kkdGBU=;
+	b=WGTiB/fnyvpwFT5ubRlpYE/pT/jA888/ojAdyMs8DZBennaM9Tsb92XMXSd4b9Psyvws
+	 LZ+Zdd1iJ9IjrKc2AES5smOioprTbb35wXtLwrnKP1w3jExIQZDfVVeQQ//OPrW+tC9fz
+	 x2MoKkmb9wGKDXvTj8r3tYGp1GhyopGzJVQHvbicwxMxZTqAznP2DPrxz/NsorPH58hki
+	 Nccsq3Xz7q77b6cgNXRh1bFWEtSZzpNbM5LFpT5eIi9nOWnh6W02lcQwI36PA6XHqhol5
+	 zJqQoWQUshPe2XcKVDyOZrTG84v9R6ohzO3OkL4Q/9msdlqrzAifsUKgGhx1fqtpt4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X9FDQ5w7;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA80606A31A;
-	Fri, 30 Oct 2026 14:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA80606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38804606A31E
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38804606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793371293; x=1824907293;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A8iFghOosTD4Zm3Vh31UnlE/E9aYofFplatSiUbIcZ8=;
-  b=JAYwn9tMiXM8RczKU26WtzookRi3zp0yP7LTsqi6vk+yJeHVCsmCQHU3
-   Lk8URCHEgrFzkm8M3N+LYiJLxtCMAd/gV/0LJk77EW4mtpTr1nYMslm3T
-   WkbYGonjgU9LEJ8O1n00s3Mhv2KwtkemhwQ0+GBKG4gTAaoghsVRzAS55
-   NJFykB9FlGk+F8MH0wCQVzBd7x5adxuiU8tco7FOoPEautKI87Q9BxsqR
-   CnuExKS/QzknUihsI2MIsr6D5C7B4eBkiWEWHkJ7m6OVbwbA7KL6eQslU
-   U8Cx6GACCA/4QXJQ623qS/q+VvrM4pJBiHar/hqne9l2i6afoBzVEoPaD
-   g==;
-X-CSE-ConnectionGUID: /MCn0M1fTcOzOf9B7C7a5A==
-X-CSE-MsgGUID: tkVtFpoRSLG1376lsfriDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2036854"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2036854"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:33 -0700
-X-CSE-ConnectionGUID: A7+PJm9qRr+DudHh8+7fug==
-X-CSE-MsgGUID: 7XZUW5h2TvWNZj4iep0niw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5792399"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:30 -0700
-Date: Fri, 30 Oct 2026 16:41:27 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
-Message-ID: <auSsl5_xQNXCNphJ@ashevche-desk.local>
-References: <auDJu8u85flQ9bjo@ashevche-desk.local>
- <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=X9FDQ5w7
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9FD5E4E413A1;
+	Fri, 30 Oct 2026 14:45:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 73111603C2;
+	Fri, 30 Oct 2026 14:45:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 001A8103290EE;
+	Fri, 30 Oct 2026 15:44:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793371499; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=7U1N8TPT9zrScUnndBA5jCKidCm9fzkxRYeq+kkdGBU=;
+	b=X9FDQ5w7GEILGoVvR3jR6igzCjlLK9eemCz5ZY4QRS+225XUChewUo4bDFinTC+RQNb/FQ
+	RASgEumFnnvhy/KWpMyYcPh+g4Y/RbWbrMW3ANTCEsLY1KLH1Cb7LZlbbl+wn6Rd+PaauK
+	nR6DqT5Ae0yuX2h29Yj3vSFg64v7ZUROhnzwNLoUkycYeTgagRmR0ATtjOnLDSxm3Lodcd
+	oWI8eFBaMTVGsLRfaaiTwfCcBXDT9Cq4lu2mJdVqmw9hTrECG4g/JIJLtnoYxXAw7rDrbP
+	4lxYg3l+yTkR3yLaL0DZmF9F85fq4sT5ZGCuHk2FaWITCQZeSHjlUxRGT9+nOQ==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v3 0/3] Add TI LM51772 buck-boost voltage regulator
+Date: Fri, 30 Oct 2026 15:44:43 +0100
+Message-Id: <20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,28 +63,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WN0Q6CIBhGX8VxHQ1+E6yr3qN1AQhJU3GgrOZ89
+ 8Buqq3Ls33nfAsK2lsd0KlYkNfRBuuGBOWuQKoVw01j2yRGQIBRAhSPYu5w11eUc8DqyKRUmjM
+ QNUrK6LWxjy13ub45zPKu1ZQbedHaMDn/3P4izbs/6UgxwVAZYow0RtTNWTo3dXbYK9ejHI/wq
+ fMfHZIuQXDGdXngAN/6uq4vI6Bzk/sAAAA=
+X-Change-ID: 20261021-paul-lm51772-c96bbce762a8
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793371496; l=4237;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=CJxBrmN6FtEI7/6u4dwk11zfvZYl/TaGJVq5Jy9UqmY=;
+ b=Du76uDZD88el9i0i6QSc1cFCjfZLXE4uKclJrd/PgLrTx0OLvOjhNHSXdC3ff1fK5WwPswYvG
+ LkS9bJyjA2LBKCK5jJQXboOH1vMmQPJsZ+A5OXQAQrv5SdY1h8qTMN4
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 30, 2026 at 12:08:08PM +0200, Nicolae-Daniel Deaconescu wrote:
-> On Tue, Oct 27, 2026 at 17:56:43 +0200, Andy Shevchenko wrote:
-> > Why have you written a brand new driver?
-> 
-> ad7625 is the closest existing driver, and it shares the transport:
-> CNV PWM, clk_gate PWM and the AXI ADC backend. The converters differ
-> in a few ways though. For instance, the LTC2387 is DDR on one or two
-> lanes. ad7625 is one bit per clock on one lane. Also, the ad7625
-> clamps the period to 100 ns (10 MSPS). The LTC2387 runs at 15 MSPS.
+Hi,
 
-But these difference doesn't explain why you need a brand new driver.
-Is hard to configure this at run-time by choosing the respective driver
-data based on the compatible string?
+This series provides support for the LM51772, a buck-boost controller
+from TI with I2C control, designed for USB Power Delivery applications.
+The output voltage is software-configurable from 1 V to 48 V, and the
+peak current limit threshold is programmed through software. The
+LM51772 also provides an auxiliary fixed 5 V regulator output (VCC1).
 
--- 
-With Best Regards,
-Andy Shevchenko
+Core changes
+------------
 
+Patch #2:
+
+The voltage selector helpers can now handle regulators that keep their
+selector in two consecutive 8-bit registers. The implementation
+preserves bits outside the selector field.
+Rejects the unsupported case where an oversized selector shares a
+register with the range selector.
+
+Patch #3:
+
+Some regulators have an absolute OVP threshold instead of an offset
+that can be programmed once at registration.
+The core now has a way for such drivers to have the protection limit
+reprogrammed after a voltage change. The callback runs after the ramp
+delay, so the new limit is applied once the output has settled.
+
+Thanks,
+
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+Changes in v3:
+- Dropped the fixed OVP core patch. The driver now sets the OVP threshold
+  before ramping up and after ramping down, so the core change is no
+  longer needed.
+- Fall back to the lowest OVP selector when the requested limit is below
+  the supported range, instead of failing the voltage change.
+- Reworked the current limit to use the standard regmap helpers and a
+  table computed from the shunt resistor value, avoiding custom helpers.
+- Moved ti,iset-pin and shunt-resistor-micro-ohms to the chip level in
+  the binding, and replaced ti,ivp and ti,ivr with ti,input-voltage-mode.
+- If the iset pin is used, do not provide .{set/get}_current_limit()
+  callback.
+- Fixed the regulator subnode schemas and removed the current limit
+  range from the binding description.
+- Write the nINT configuration before requesting the IRQ.
+- Enabled the IMON limiter, dropped the register defaults.
+- Link to v2: https://patch.msgid.link/20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com
+
+Changes in v2:
+- Dropped the regulator-boot-force-off binding and core patches.
+  After discussion, this property should not be in the binding because
+  it is Linux specific. Also, the situation described in the v1 cover
+  letter can be resolved by the driver getting exclusive ownership of
+  the regulator it uses.
+- Added the fixed OVP core change. The custom .set_voltage_sel callback
+  for the LM51772 is no longer needed since this case can be handled by
+  the core now.
+- Updated the LM51772 binding to the standard unit suffixes and
+  property names, and fixed the schema and example issues found.
+- Reworked the two-register selector helper so it preserves unrelated
+  bits. Make it atomic by using a bulk read and write instead of two
+  separate regmap_update_bits().
+- Cleaned up the driver around units, current-limit validation,
+  volatile fault status, IRQ fault reporting, voltage timing, and nINT
+  handling.
+  The .renable callback is not really needed when the nFLT/nINT pin is
+  used as nINT, as the device drives the pin low only when a change to
+  the status byte occurs.
+- Link to v1: https://patch.msgid.link/20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com
+
+---
+Paul Louvel (3):
+      regulator: dt-bindings: Add TI LM51772 support
+      regulator: Support regulators where the voltage selector spans two registers
+      regulator: Add TI LM51772 support
+
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 230 ++++++
+ MAINTAINERS                                        |   6 +
+ drivers/regulator/Kconfig                          |  11 +
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/helpers.c                        |  87 +-
+ drivers/regulator/lm51772-regulator.c              | 903 +++++++++++++++++++++
+ include/linux/regulator/driver.h                   |   2 +
+ 7 files changed, 1225 insertions(+), 15 deletions(-)
+---
+base-commit: 0785f7172040512cba759838b27286646773c735
+change-id: 20261021-paul-lm51772-c96bbce762a8
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
