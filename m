@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390200;
-	b=3AWgaQdtqAoaEa2vJl7e/zTvMDsbJo+TnrcpJ7QQkfWBWF77prA+xyFqpF5KJbWxbfHF
-	 SC4UH6+0VDZJSKWxxCiouRl87QPpJKyU1XEUGrK7icX4hO/jrof4k/OGaZRJGpcWduxuW
-	 et1AKBGsn2Fd0DTFsDKTYVPTsIN5W63NLgSBkq0PHhxjVzCva1BLI6C0MAycl+gecFamG
-	 hsJgGr/DTZ8C4B6OUapPiQ7p+dcYyL3KNn+Zcd0OFB1hNKSYOCfs6+zVDCwdYvFhdB3ez
-	 CeXcD4XCz7OH4hHfOo+FAxcA3Nb6tkVPJZS3VW2kDCUWUe49Vaai2u4cMePaxPFPb1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390200;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=DWzHdFiapqL57vQ9QQf4q1XeBGnNvtXOlbL7A4/rAco=;
-	b=y1hqVfUxSq4BK5EzvIxLPKd9webQzVCKK1BOGAAdZF99pOXdGs5gYBisdFT9xn7QY1uC
-	 D9DRKbE1p+bkKOAn+WRL+p1n3IlUp3Om9D0KHSQaYHmMQhANC0/2+MOoe5HoNGx5nr/Kc
-	 IYADGa4yRR+VVUp7SuR+nwSGKUgIPEleU01Csyd4vfl9EqDKuxjr7v8UUsflD2Izr8kCC
-	 8ZtwTizepzF75UWxdNfnMI8S4Vj1q80Eo5Dl5FurNnCxg1vP2Ur3N0MOMcNw26lo/ci84
-	 2hr9bOK5Kn/Q/FpX9EdfW2o5QsFd8hyj5sg8476CwMSl54465HiOHx45GWoGNtjz1Xw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=doEtbsmg;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793392453;
+	b=LPwa85vBmQtFGPy50Xu0Ey3lpKY/7qUj7GipCEb0RTZNz1thEVH7+B6tDoXlsaiuw2zD
+	 yAdJHRYd1L1W1N7119cfGxX8kvqYvpyRtnIGSNaJg8KjLzbnioG2f5A5NG8tMJZaUcZoT
+	 Jwvavte+KZ+CDxIrH3nTbEluUyMc8FnMB6+2bfBNkmhYhz7tM9QIYjkJv+EOBDmYMoghf
+	 ElJe0VJkpP4JYf29yCK3Rkhv/szYlLBpVzISwu+m4Xpe517w/BV5uufYBkT+k/0KVdpMc
+	 5Y8R+MVoefye+mChLgGu9E6/jZi3J+ubi/Any12JBfX4bykjelvVIsZ7g9EVlKSLHKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392453;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	b=WJcrUSUUo7lnu29xbjT9UIHIwOMYMwXa0jZG1Dmd7hPIQwAt2YnobPkmNEu7NVJ+w8E6
+	 Bg5TC4JCQuO7ydi5fWnI7X4H+VTM/63bJiuEf64lwMnGHpRiwr4bWbJR4Y0+aHnfWyLv2
+	 04G1grsQ45TrbZZqO6J44Ix0rUhypPJNHTpfFarWikHYmYLoaokVqwtCg3c+dg1PebRRy
+	 +s3zH0Kkh9INKo5zZ8xgXVP3ODjxAKv/hT8evtPIAX+0qSujAYZpyEk6sEZ8bzpMBvdvV
+	 7F9E8w+BbpVcPLSNsPX+bNe+ldIIvQF2Gc2QcJEO+otiZbrEtKny2dMuvwXYsKU96Pw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmIcvfgw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487A2606A31E
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487A2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57450606A332;
+	Fri, 30 Oct 2026 20:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=doEtbsmg
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id MsWcxOUw8LvgbMsiNxS05n; Fri, 30 Oct 2026 19:56:39 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id MsiNxSjJuLr2uMsiNxWfzz; Fri, 30 Oct 2026 19:56:39 +0000
-X-Authority-Analysis: v=2.4 cv=UudjN/wB c=1 sm=1 tr=0 ts=6ae4f677
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
- a=QyXUC8HyAAAA:8 a=_jlGtV7tAAAA:8 a=TmeHqywlB-wf64vNx90A:9 a=CjuIK1q_8ugA:10
- a=KQ6X2bKhxX7Fj2iT9C4S:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DWzHdFiapqL57vQ9QQf4q1XeBGnNvtXOlbL7A4/rAco=; b=doEtbsmgS12KszkRR7TRgjgMvi
-	e4hdP6WzcIw88nPHe3j+q+T2q9jbGdVy49soWf5ZMcQBLYeAT5zxBVYrrkCy4gpiTjddJjznuW+0G
-	duvX7QwtYGic1g1Fs4KtKw0NAhOSocKFKuTvXCUCqtcyLi00VHe4vk/IhMJi9TWOuq3HsTgZdGp0M
-	VmxYb2gRLA0sq6SXAL58CMmbYYM+90xRnn5gweKBgnMasv4Y/tt6xu+UXpaSCAV5glZQtogaMpV/0
-	0M9GGNoufgNpv4k5sS3J1ALa9w06bWHRE2WMiKID5fn3HXhEV/WB7jAGZZ5ZzkssRWQtuylPjv9E8
-	LLmTy/lQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:38324 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xMsiM-00000003xwz-2LGQ;
-	Sat, 31 Oct 2026 01:26:38 +0530
-Date: Fri, 30 Oct 2026 12:56:37 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH v4 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-Message-ID: <215a0b5a-9fda-4bce-bff5-b9e4bb5c3928@roeck-us.net>
-References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
- <20261019114502.55307-7-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EmIcvfgw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793392452;
+	b=NFzbHwRF//zl2Xyj1HSwPKvAuFp8RKnz6GgaRrghHcha0ISS3eTiQWl+5gowbVXz+YLv
+	 DPyTBZadBHOyFU59m+8u5KaDkuUk1DUPtqZ6O2v7Z3Uu4lvwFtZdxikH0wZf+a/8dWcj8
+	 HOT10ULRdLIPO+ttBt3XxD2oQDGRL8FfX4GxT+S4pECGwPqHaM99ZRSsEci52UHMkjDQL
+	 Lri4oHhGxcxnKB0R9radglTXySug4rxINeeLHPe6SNo3iCsXnGdcCShnyWAv5oDg1Hxfk
+	 8lpsj4iyXJW55m5Lz/ibbjMB4q370TFgUFd/RWfNM0l4uj8GCpy236EPL2kaX01RkIA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793392452;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	b=Omy9BHE1zrFC6arZhYGHOA+mP+AVMEePu/pPUtgNaXns/B6cVcikWyDeULt3KIxAnm6E
+	 TZVteDysp9O2FJdBV0v17lw2B/GIAMML/Oew/f5hC0gFF9ivAk+AbokwmWwjiEmL8igRj
+	 qH3XjAthMAbOWhNlhr19FhxDPnyB9NJCFvWuShsya3gmSEhmU0LO0C+rCGgsnHyT8Y2LQ
+	 Km07/9aJICQc2scrPE3oExyaq+W6qmpBQsanLAna0fe/pb3tHUhShNw8B1//+McGdl3NM
+	 k617gUSazI54wsCJwt4+Jo6q10LQUG0oRnZLNkKn/nsKqBjXo0KcShahNzTNatNB/dQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4455E1F00A17;
+	Fri, 30 Oct 2026 20:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793392452;
+	bh=soIhMh1dJ9HVRlujdDktbU1BG+4MBhLl+PUVrnyOGB0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EmIcvfgwXeHxHmykw8dAguK01MfyJSqWqDPAllGKxY6xTE7hTfmFcHPYpJ4Xel/fk
+	 VR9UHe4X+Ryp14f2LJYvJWOnPlgMffFICwocBeHlohvaLPj8o2GDAD+sDsGGiiL2Ln
+	 qo1u+8TCoi0o3abJm9lBNQx6KC8tAqeMtkfZ1c56Jc70q/dIctlr9OA6Ts5kbnxIps
+	 5nLHCx7wJvdUfRPxljGB0AGBpP+MBuBMnEHGgXDteLEX76X5cZWIuF7P5TZCNMSOXK
+	 ZZhGSJGTYV4qruC9fhMZrFhbnTL5WHUZzOQXrmeT0Lmi/E9iyLnfXGR2LDmrQpdZdc
+	 93QJw1PRqMrog==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A59D04425E;
+	Fri, 30 Oct 2026 20:34:11 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Fri, 30 Oct 2026 20:33:56 +0000
+Subject: [PATCH v3 1/5] dt-bindings: soc: samsung: exynos-sysreg: Add
+ compatibles for Exynos5515
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,122 +83,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019114502.55307-7-changhuang.liang@starfivetech.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xMsiM-00000003xwz-2LGQ
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:38324
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 98
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfENOIX4qV5iSXoczNGJCX6qRuCaJS4LgNSh+oGO+ZalcnYOGkg8zmFvq8RQHnQr4vg7hy0HbHFzdQpOS8CLKjb/3+XKpo6qzbYiaFDI4YDa+/kLBJJYR
- SC1QuOSao3Vq8bGOWErI/ZBwsFN9204Y+4yGLypueVof5BNZtulX0i8Yxh6aodp34/UM1T7gYl9qSKmjt/GNmPwJS5ZmZUK3/w9voaOqGx+jolR2qfwCwFda
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-for-next-lucky7-v3-1-81e02272ce69@member.fsf.org>
+References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
+In-Reply-To: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1491;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=QtI7rR1JE5JZ0IsGeNkyOHtQG1QoQSmhMzQKfhBONkY=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq5P9BRwnhwKnh1lcLA8zegpISzuoxVtpp5hFSk
+ J2zaklXBzqJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCauT/QRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sUcw/+KAI+HUyt1z+19ZMIG5gRCEjE44sucKH
+ KNHTSOx64D+bNnnirR/IWS6DGiL4OCtHgBLgaaYoTu2rcjjPkARscI3n1BFNH3qknQNcNVLPagG
+ JEdMikMNvIjTYc0+RKLMTV4hOAKGxNdk5ycDH5P/d0aWZNi4LZzS9DeC/ID+KJg5TyYWBhZv1hM
+ mzi+Jq65JmDFFAcZ0hKi+hS7gJHMgzP9ewAwwRQor464RYTR66m/eGMbXCSKNJc+HgY+ErFpXH/
+ lTk3aD6t4CdFYYN+SxUKbtbJqZydCMmEZVWBAoFn7VfD7loooEx6BknS65WU0cT1HeeD8J/J//e
+ bRgPFtQm0bQgKesqdoccbIxtlW+Kl9w0tuR1tXn/BxCpL6dZ+QH9gGbK0eSMxx/1atIHAQAPL14
+ HheUfUJM5JsInrfZyVBtGqDXlF1IPkJv+Y6912ZctsOSkCejwHcJ72MSe+Wc7nO5kZivxgc02Et
+ 86RTXf9QUjRMUWwQQ3cb9QXpxVGsiOJ9nLE9cvXU0CgGaAhGhTdseWBH78WC9vVhk6MUbHTm2va
+ S289sjykEYRGVGW6Qxkcle8PBMO6/LulZ6ijDXmCpedKRWsfu7JPYBhDD4N/1EMvqpVAEN/WNEf
+ iD+X7Wg83J2zPnp5nq5rKGNiCrr4sTqk6Qo6OQaCioJNT+st9uk0=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 04:45:02AM -0700, Changhuang Liang wrote:
-> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
-> monitoring driver.
-> 
-> The GNR platform has different DIMM topology from previous generations,
-> with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
-> channel. Define these new constants and update CHAN_RANK_MAX to use
-> the GNR value since it represents the maximum across all supported
-> platforms.
-> 
-> Since the current peci core does not support domains, accessing GNR's
-> DIMM_TEMP_MAX and DIMM_TEMP_CRIT via PECI commands will be rejected
-> and return completion code 0x90 (invalid request). To handle this, the
-> read_thresholds callback is not defined for GNR, and the visibility
-> logic is updated to skip exposing the max and crit temperature
-> attributes.
-> 
-> The minimum PECI revision required for GNR is 0x42.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+Add Exynos5515 compatibles for the following sysreg controllers:
+- top
+- peri
+- fsys
 
-> ---
->  drivers/hwmon/peci/dimmtemp.c | 33 +++++++++++++++++++++++++++++----
->  1 file changed, 29 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
-> index bd3e8715dfec..791a8e866081 100644
-> --- a/drivers/hwmon/peci/dimmtemp.c
-> +++ b/drivers/hwmon/peci/dimmtemp.c
-> @@ -34,8 +34,10 @@
->  #define DIMM_IDX_MAX_ON_SPR	2
->  #define CHAN_RANK_MAX_ON_EMR	8
->  #define DIMM_IDX_MAX_ON_EMR	2
-> +#define CHAN_RANK_MAX_ON_GNR	12
-> +#define DIMM_IDX_MAX_ON_GNR	2
->  
-> -#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
-> +#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_GNR
->  #define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
->  #define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
->  
-> @@ -198,10 +200,18 @@ static umode_t dimmtemp_is_visible(const void *data, enum hwmon_sensor_types typ
->  {
->  	const struct peci_dimmtemp *priv = data;
->  
-> -	if (test_bit(channel, priv->dimm_mask))
-> -		return 0444;
-> +	if (!test_bit(channel, priv->dimm_mask))
-> +		return 0;
->  
-> -	return 0;
-> +	/*
-> +	 * Some platforms do not provide the DIMM temperature thresholds over
-> +	 * PECI - do not expose the corresponding attributes there.
-> +	 */
-> +	if ((attr == hwmon_temp_max || attr == hwmon_temp_crit) &&
-> +	    !priv->gen_info->read_thresholds)
-> +		return 0;
-> +
-> +	return 0444;
->  }
->  
->  static const struct hwmon_ops peci_dimmtemp_ops = {
-> @@ -626,6 +636,17 @@ static const struct dimm_info dimm_emr = {
->  	.read_thresholds = &read_thresholds_emr,
->  };
->  
-> +static const struct dimm_info dimm_gnr = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_GNR,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_GNR,
-> +	.min_peci_revision = 0x42,
-> +	/*
-> +	 * Reading DIMM_TEMP_MAX/DIMM_TEMP_CRIT over PECI is answered with
-> +	 * completion code 0x90 (invalid request) on Granite Rapids, so the
-> +	 * threshold attributes are not exposed on this platform.
-> +	 */
-> +};
-> +
->  static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
->  	{
->  		.name = "peci_cpu.dimmtemp.hsx",
-> @@ -659,6 +680,10 @@ static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
->  		.name = "peci_cpu.dimmtemp.emr",
->  		.driver_data = (kernel_ulong_t)&dimm_emr,
->  	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.gnr",
-> +		.driver_data = (kernel_ulong_t)&dimm_gnr,
-> +	},
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(auxiliary, peci_dimmtemp_ids);
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+---
+ .../devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+index fcdb9ffd2644..9e698d065820 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
+@@ -29,6 +29,9 @@ properties:
+               - samsung,exynos3-sysreg
+               - samsung,exynos4-sysreg
+               - samsung,exynos5-sysreg
++              - samsung,exynos5515-fsys-sysreg
++              - samsung,exynos5515-peri-sysreg
++              - samsung,exynos5515-top-sysreg
+               - samsung,exynos7870-cam0-sysreg
+               - samsung,exynos7870-disp-sysreg
+               - samsung,exynos8895-fsys0-sysreg
+@@ -100,6 +103,8 @@ allOf:
+               - google,gs101-misc-sysreg
+               - google,gs101-peric0-sysreg
+               - google,gs101-peric1-sysreg
++              - samsung,exynos5515-fsys-sysreg
++              - samsung,exynos5515-peri-sysreg
+               - samsung,exynos850-cmgp-sysreg
+               - samsung,exynos850-peri-sysreg
+               - samsung,exynos850-sysreg
+
+-- 
+2.54.0
+
+
