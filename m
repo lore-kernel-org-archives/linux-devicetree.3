@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336035;
-	b=fg06wFlrfwfg2oAVevwn0iT8HMAe2igf0VGkTVA/9GUauGHOMV8CllYGwqfZV/ikToDD
-	 hlqM66uJIPNQWkgxu7ds9XaOwndkEFikh7wGu+QJMxE6w11dfLJ0Zd6RcTWhlYSt0IXnZ
-	 CgdBZWwm7nmqtF9TDCH4AnTJ40PZafZlYZTgMbuVc8lTNhoMgQOKjgmhJxATtlqTMZZna
-	 5jXCbv9q82yaERkMazUYJV/yKxgMXddTiYmlWwOA53g0uxGh8H5jZZWHEDK6J0U7bIHrm
-	 GU5zgofSvUnCi9NFcFJAgCr1KsDTGgcrSxM8ooOsvclg0/2YBBh0ARwlOLe1hb+8bAQ==
+	t=1793336059;
+	b=2+jJIVo6KZgbc6191JNrHw85ZAcqK0Qys3swVUVGN8qXB5zJljYOSHFJcjhtSrcCuynm
+	 5G6m/YSXhV+nvZ7yHKTSVyWj+tAMKV4wQQ8RBd7SyoXbsowKSw2PqpSqcca0p/7Nsti5d
+	 ykkdon3fAmrvAnEREM96WgO4gPlAdagRn3yVG20UsNxoI+E2NPlbj8rrbI955Spb56Xjt
+	 xDnamoJGRcehyFXz1TvbgqH5ekPNLxV0935RUT3Jum+RQtFhDHYBGHb6C61Jh97kxqNkg
+	 bxJDsSLRlywzIHakOlz/WkAW1TK3Zc00Q0p+nJl5Q72pCnM4Iz0N1m/ikTwVse/kxgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336035;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336059;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=sqTs9V0LF5HQ57Q/fSahI3JluYzdjSbMyb34SwOo6AE=;
-	b=CAjOQvuYVSuGBLjW6hLBaBofHi0/+vEBynVzIrfFRHVpDjCPTWzAFgF3jnKVO0TOaMqW
-	 yWzMtXDPtjY6WCQGjEj3uZar+1E20GlHtD7CqIJDCIpZEDcKvkeW/9T8qIH6t9ZedOL1v
-	 /oEo4HbuYCCsWr+Cj5zNrtCkNsip7E1hcNlllLVg6g2DfAz+irC/n1763LfAuc+xik3zW
-	 k2wDc263x2aeNq61GljSJBNePUq3qfRvj3/bjQz4Uju1OgFb5X+7qYYupe1XQ4PrGPa9I
-	 R+fCO6M5Bcc017ZoOqS2TQmIQRLzbAq7/DGzUAHGJ58XLDgWMouB5oNge8Mzl+dR9Wg==
+	bh=BUuqyVgtGVE3D6kCUDoKw6NGm7TyKCRFQe+NXTASemw=;
+	b=F2Zi3bH0tMy/tVutX+CARBbTLlwuY3JKwx92p+m0ja5g2eS/Ihm2aSEbWr4z7vxYOvhH
+	 CrYpni/icgyZhiHvB07Q7SzBGeahQTGbBQucrt16iHgFKr7feyc+R4gKB3cbpfiw4I8JP
+	 Ypcsa6h2ftWu6QdqO7YKHeoIQK+Szm3s6RY9ffJn1nJJoUten/gsrb0cpf1F1VfG7V+x0
+	 EhMHiHB7JfGtnhg/rYJ2B8vA5k7loQzwGYEkBEKROXc/hqaHqAmjxpddX8NG83WGtv0pp
+	 ea1XThTAUFnBAAIzhCn/FssWeUP0jwqjaE+vGSTYP2pgIaPFBU118UN0P8A0GthT3eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUES04oV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrrvCW82;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22116606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F5C606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUES04oV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D951F000C1;
-	Fri, 30 Oct 2026 04:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrrvCW82
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D25F1F000C1;
+	Fri, 30 Oct 2026 04:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793336035;
-	bh=sqTs9V0LF5HQ57Q/fSahI3JluYzdjSbMyb34SwOo6AE=;
+	s=k20260515; t=1793336059;
+	bh=BUuqyVgtGVE3D6kCUDoKw6NGm7TyKCRFQe+NXTASemw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JUES04oV2UzvHh4mQOPKZhlAev/oDbeT/snX0EuJ+XHWu1RHlwIM7ESdpC6xwFBDx
-	 kYapwlNlXhE7aETrbE9l60omHWZCM+nU9H3pyqonP8OVMnK5/qvtVw5/VR9CTh7bDH
-	 v/EPvYj/585Vx9oMWmbkNFH9Ov6AE/e0+m2B+otDb/3YSxKcEja7b+TGpycowYxSLt
-	 ANHuH4aBSvDjPeiIl9GEs/Nih2+b/LE0r/CPuS6Fs/O2UKJLjxxGD+478tUYbV4aPK
-	 /c1FzGSaoTd0pMwTM9tIPGtaM0M8MjznEFaa/MGZ5vOS3pKYKv3XT13KFJ0p0v4IBI
-	 77tTP8KOEPuKg==
-Message-ID: <sashiko-outbox-190368@kernel.org>
+	b=XrrvCW82o/fGHXQpURMCygmOb2imi4pYuwd5ShrUQHc9rpdHBuy9Rp+wZcbKduKeF
+	 lRJVcJOvo5xmW04kn2olRdeM33/NLj/7L47H55lFBYPJppIjmWR039S70vom33U7WH
+	 ags2Uj8xUHqGhP2IODiM4A/368xxlB01ugw8lcffwMy0wQ0LhdZ0AaBmU2b8zcnuVv
+	 5LDQ3/l6B2L9dHWoSWmjEf6pmvlSU3beIUcBw7BgwQAsx5KSpgsB0l0L8N0B3Kl2X3
+	 4oMHbTh6rYtS/l25QqT25jyp5hnRYpc9rvRTnnG/75AZXUU/vCNlXTXKXVHlKCdyMF
+	 XABbozg3IHYSg==
+Message-ID: <sashiko-outbox-190432@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v4 08/10] net: airoha: Do not stop GDM port if
- it is shared
+Subject: Re: [PATCH net-next v6 01/12] dt-bindings: net: airoha: Add EN7581
+ ethernet-ports properties
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
-References: <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
+In-Reply-To: <20260511-airoha-eth-multi-serdes-v6-1-c899462c4f75@kernel.org>
+References: <20260511-airoha-eth-multi-serdes-v6-1-c899462c4f75@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 04:53:54 +0000
+Date: Fri, 30 Oct 2026 04:54:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,121 +60,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] `airoha_dev_change_mtu()` improperly prevents valid software MTU=
- configuration on shared ports.
-- [Low] Redundant and conceptually misleading hardware teardown call in `ai=
-roha_dev_stop()`.
-- [Low] Unnecessary use of `atomic_t` for `port->users`.
+- [Medium] Incomplete schema constraint allows `#address-cells` and `#size-=
+cells` on unsupported GDM1 and GDM2 ports.
+- [Low] Schema validation failure for `ethernet-port@[0-5]$` child nodes du=
+e to `$nodename` mismatch.
 --
 
-commit bc4eeb17ed63b1b4cd86821788c9da9f77deb20a
+commit ec4617f6004fa83e07ac8747b6e514e55a246569
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-net: airoha: Do not stop GDM port if it is shared
+dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
 
-This commit adds reference counting for GDM ports to prevent stopping a
-shared port if it is still used by another active net_device. It also
-prevents MTU reductions if the port is shared with an active interface.
+This commit adds support for connecting multiple external SerDes to GDM3
+or GDM4 ports via an arbiter for EN7581 and AN7583 SoCs. It introduces
+the ethernet-port property to model net_devices connected to these GDM
+ports.
 
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 0253919714e0c..1c4927c1aeb07 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-
-[ ... ]
-
-> @@ -1762,8 +1766,12 @@ static int airoha_dev_stop(struct net_device *netd=
-ev)
->  	for (i =3D 0; i < netdev->num_tx_queues; i++)
->  		netdev_tx_reset_subqueue(netdev, i);
+> diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml=
+ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> index fbe2ddcdd909c..642f300c09450 100644
+> --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> @@ -130,6 +130,50 @@ patternProperties:
+>          maximum: 4
+>          description: GMAC port identifier
 > =20
-> -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
-> -				    FE_PSE_PORT_DROP);
-> +	if (atomic_dec_and_test(&port->users)) {
-> +		airoha_set_vip_for_gdm_port(dev, false);
-
-Is this call to airoha_set_vip_for_gdm_port() redundant?
-
-Looking at airoha_dev_stop(), airoha_set_vip_for_gdm_port(dev, false) is
-already called unconditionally earlier in the function. Since get_vip_port()
-returns a device-specific bitmask based on dev->nbq, does the unconditional
-call correctly clear the hardware bits for the specific device being stopped
-without affecting other devices on the same shared port?
-
-> +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
-> +					    REG_GDM_FWD_CFG(port->id),
-> +					    FE_PSE_PORT_DROP);
-> +	}
-> =20
->  	if (atomic_dec_and_test(&qdma->users)) {
-
-[ ... ]
-
-> @@ -1915,10 +1923,22 @@ static void airoha_dev_get_stats64(struct net_dev=
-ice *netdev,
->  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
->  {
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
->  	struct airoha_gdm_port *port =3D dev->port;
-> -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
->  	struct airoha_eth *eth =3D dev->eth;
-> =20
-> +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
-> +				GDM_LONG_LEN_MASK);
-> +	if (len < cur_len) {
-> +		u8 port_refcnt =3D atomic_read(&port->users);
-> +
-> +		/* We can decrease the device MTU just if the GDM port is
-> +		 * not shared or if the other device is not running.
-> +		 */
-> +		if (port_refcnt > 1 || (port_refcnt && !netif_running(netdev)))
-> +			return -EBUSY;
-
-Does returning -EBUSY here improperly prevent valid software MTU
-configurations?
-
-Instead of failing the ndo_change_mtu callback and preventing the software
-netdev->mtu from updating, should this code unconditionally allow the softw=
-are
-update (netdev->mtu =3D mtu) and simply skip the hardware register
-(REG_GDM_LEN_CFG) downgrade to safely preserve the larger hardware limit
-required by active shared siblings?
-
-> +	}
-> +
->  	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
-net/airoha/airoha_eth.h
-> index 207c75152fde0..3a313ac439e79 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-
-[ ... ]
-
-> @@ -553,6 +553,8 @@ struct airoha_gdm_port {
->  	struct airoha_gdm_dev *devs[AIROHA_MAX_NUM_GDM_DEVS];
->  	int id;
-> =20
-> +	atomic_t users;
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
 > +
 
-Is the use of an atomic_t necessary for tracking users here?
+Does defining these properties in the main block inadvertently allow them on
+GDM1 and GDM2?
 
-The port->users reference count appears to only be modified in ndo_open and
-ndo_stop, and read in ndo_change_mtu. Since all of these callback paths are
-inherently strictly serialized by the kernel's rtnl_lock(), could a simple
-integer be used instead to avoid unnecessary atomic overhead?
+The commit message notes that ports 1 and 2 do not support the connection
+with the external arbiter, but placing them in this outer block makes them
+permissible for all ports rather than just GDM3 and GDM4.
 
->  	struct airoha_hw_stats stats;
->
+[ ... ]
+
+> +          patternProperties:
+> +            "^ethernet-port@[0-5]$":
+> +              type: object
+> +              unevaluatedProperties: false
+> +              $ref: ethernet-controller.yaml#
+
+Will this fail schema validation during make dt_binding_check?
+
+The core ethernet-controller.yaml schema enforces a nodename regular
+expression of ^ethernet(@.*)?$, which does not appear to match the
+ethernet-port@X pattern used here.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507-airoha-eth=
--multi-serdes-v4-0-af613b61ae02@kernel.org?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-airoha-eth=
+-multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D1
