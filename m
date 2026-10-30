@@ -1,102 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354917;
-	b=zReVz1s6HmpokVYfYHm57q2aN6jRQR/kMmOBa3Af8hbAe4Drg6l5b5mnwPJKgvB13Omp
-	 CRWP7sKF+bTDNZOZF9liFB38t5LXXryhNaF0g+V87GIn7hz3gt8eJLQE5DDfEBrGAHkYS
-	 OYSLzNIR7ZHzvaYij5K9zcyIrThEsPo/gIRh7/gmlavtACY0Upt7XqFEKQOO2eJb0Miw9
-	 p7qz2/EruOBPMD/x6kdgcME+XhHWuvaoHiR7t2S9nQZfB5POrJcPm3Jt5dKQh/EP0NFlZ
-	 SMmHUq0adeS81vKOj/2YY/OSXq8+LOPJdj1pSKv7JXKg3XcJlW37OHBItrVSMrtt4Xw==
+	t=1793355080;
+	b=aqwlq9pmSOS35C4lXlhwFExKHLy0IMwCtoJbbhDJ2RfayiASjwjemvmOaizv3Am5eLFk
+	 rPuo34ukVes7nAyROsUOpWx/NyksZ4htlcr2hG6kMj1iJ5SHUXJ7wl+/XI95Q8Rh1dpXd
+	 GqdITxBxUEQb1f3Bf2FCrgOpTGpZzK1ZbAEUAvbmtBrWzSXC5FlgyREFm46y+7t51nHAM
+	 WqEdMJqUMmmhUASZ6s19riRGhU0NJwJWIl30Fk9N1sz0DmgIxJ+4urbbDaLR0IWP78Xug
+	 ALVL5CPjKw0jz+2h5LPk3ChFsAiGZVPP1R9U+z8C6nB8g8wacH/hB12xnm3XDvori3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354917;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rB83N3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=;
-	b=AJeaJ3vAkEEulJucdydbeWFRD6PQP9Q5AsItoE0JFxD1kIybkVi1eRgK2YDp97gK0yMH
-	 RAi+iNrb4AB8BMdu/HPWZOjAV5xmAy6ERf7C90MPtJeirDr4tEOToyZ+wa8CPWG7VrjS3
-	 MduT2zJHop3Z+FHw3CzlR4NxlxEkqiPZTR+kQsprAnNm8/EOadp5k611DYUpWnF2SpcnH
-	 eisIZJP7RaHu+1O8i3pfEQ5XPVsRzB5C8oRtvp0qeXgPZP5OG0Vy2enAyrtDwyh60KkbO
-	 SdRrROvFMSddtpPhbdF1dn4MTb1HksJoLEPmtgaAniySObMpXklHJm/CYUjO2abpoDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355080;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=c8pH/CdshWLIkQEJSfq8442Br3qC36LxjjRq+e7VMxA=;
+	b=NdOpAdxCMInPGLrqDr39pJQ4YPqR1irlHUJ3Jlj8Ypy9AY8/NsYyAD293fLpWz5IEKqA
+	 wVlU71GAM5D3LHQCuwPzDOe/ZEZ0Tlq2KTFAppoHP3isijhuvnhVnH9soiKhDwmmlwFN8
+	 fWedoOFXwytJdWoO676nZPTzQBBCzL6erahlm7yD3NCdUu7hDZGLrUoz7ARAblJ/0CApK
+	 vNiUwbX6vLm3qf1Kj+qsTxyvouYG9gOOgfoKTvhInyrS3wpsZZR84cmH3494cV8q2ePG+
+	 pckM5BPDqWjiNHcM7hAE7hVMLWYvU2CQnWXmIkLnHr/FxYq+WOJT4VAnYWWwG6befHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="o/PJ5Mcp";
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=CmuYqQ53;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZaAfZ8as;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF95606A31C;
-	Fri, 30 Oct 2026 10:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF95606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE20606A320;
+	Fri, 30 Oct 2026 10:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE20606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=o/PJ5Mcp;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=CmuYqQ53
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8H635602163;
-	Fri, 30 Oct 2026 06:08:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=rB83N3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=; b=o/PJ5Mc
-	pjaHb/X6EI3oPQuxxA+GEz3s6qqHmxg7FpgKMI9/rUBt2y91JlmXC4OG8Dvat8dh
-	w5/6y9xQjbTBg1fdL8T59Dpsr0QhltFxxp5bN6698rt5/hkwrzG/dXz4KCpwVJdZ
-	V1TwSXLWfJJvugGXTIsTvQS5JIUlS0vlIYPsBZDMmKirkqmHTqDhhIc+FTLD/L5y
-	MHTdboWJQHryMRi4pi5S1A5hNHrhh3C6+jFKr2Rb13Md+wSyeQIg6WvibAnWLS7a
-	dYForgNn1pEgQ1sBsCi/QXOWuZxdhGJm5EU4Wx45sRGYkvU8hJLFUQiHQllFFum4
-	ZrN6VPFARI+1bOw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=rB83N
-	3gV3BeJ5vg2nmtSPJxp4JMkDHnYRcorV3eP9TQ=; b=CmuYqQ53BKrE2PwWZyoIJ
-	NwmJZjDoOcKGFiBUfevb6y4EKAzaf5WYiZCYSl8lE4EElw0IiB68T5ddBV9AVGLn
-	HgeY2zEDjzHiaFEpHsnK/A0RiXbZgtufSat0Hu/wNAbbAQ49qjrWCpmEzMNiInLm
-	coFmfxJ/ODTZdWdT4CtZwzITn4VWAISy9bRnBak6zm5ccVEzEd+2SxQ4qAsFC7ph
-	EHsthd1Xon76+cO3zah7xtHdl1qwzrEmJFr4cmDBNBqkf5ehCqEuholNuonvSScv
-	q01l/WsSDe0XTiOT7yp3xFya+Kv3idkDI8ZMN8YXJ9LQHE4dbvgb2FOMPXi30GwR
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7d3d98-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 06:08:32 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69UA8VGL001023
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 30 Oct 2026 06:08:31 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 30 Oct 2026 06:08:31 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 30 Oct 2026 06:08:31 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 30 Oct 2026 06:08:31 -0400
-Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.190])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UA8EL5029419;
-	Fri, 30 Oct 2026 06:08:17 -0400
-From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-To: <andriy.shevchenko@intel.com>
-CC: <sergiu.cuciurean@analog.com>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-        <nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ukleinek@kernel.org>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
-Date: Fri, 30 Oct 2026 12:08:08 +0200
-Message-ID: <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <auDJu8u85flQ9bjo@ashevche-desk.local>
-References: <auDJu8u85flQ9bjo@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZaAfZ8as
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2E527C49F5E;
+	Fri, 30 Oct 2026 10:12:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A998603C2;
+	Fri, 30 Oct 2026 10:11:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DDE77103287DA;
+	Fri, 30 Oct 2026 11:11:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793355075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=c8pH/CdshWLIkQEJSfq8442Br3qC36LxjjRq+e7VMxA=;
+	b=ZaAfZ8as/q7KO50GLIatdRqtadVk1ZriyJHKA7DNQFK+4EUPVX4uV8cacCMb8Z4aJeD3zZ
+	vMj3xLJ6JIJ4IYe6R7HHMiwqub3F6hwSKTDo0SvrhmoPgZ55Roraen1TDHsWhHrl+idsnN
+	UG+r1oWLTEiG7ZiCyVJvkFf/NymdasWVtMaf0tWVASXucVR2vR1nTBulHSCYPFLFhy3lbu
+	6w1BqKpc6Td8+KS4/8NPsXZ5MdpeZenk8Ersrfaycvfs5Btp8x9zFEHqGog68FkitaK5wB
+	bG0kT5BL9lkgDwvHhUWukQC9liRnuPFyQ2tjqKp6rXJuJNX+IjQPwhtpS+2gZw==
+Date: Fri, 30 Oct 2026 11:11:07 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 09/74] dtc: Complete REF_PHANDLE markers with ref
+ strings and is_local flags
+Message-ID: <20261030111107.10e63a9a@bootlin.com>
+In-Reply-To: <auQpi8LGNldeNdK-@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+	<20260826094950.1088288-10-herve.codina@bootlin.com>
+	<auQpi8LGNldeNdK-@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,43 +81,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: Y9IXxxQKZsSwnW_0Rvg35XwwaMMAEpyA
-X-Authority-Analysis: v=2.4 cv=Yt2a1IYX c=1 sm=1 tr=0 ts=6ae46ca0 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=2yiQNUo5oANuN7_DN_sA:9 a=TUjgQ2XdYqcA:10
-X-Proofpoint-GUID: Y9IXxxQKZsSwnW_0Rvg35XwwaMMAEpyA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfXy9dkJ7CHkft5
- GBT2+96oS21doNcjvaGPqAK6tkZS+CoAbzqdfs0JbzPT3K6+KrMYL1TlDwyIiiIcmxgUqQ/VgZ1
- 735GdTzacKp0hRWZnKdB0U4BxJB/AC4c4X7YniH66y/e9ZUDZptmySQkygNj4sroYR+KH/f7K1/
- 7VHNHJ53oSBAn3jCJNsW2dezTIMQgeHc3sQBekYM4L8ApHqbtdRIlyUmxf50ESiaNypNDMI40pS
- 309YrSAHmaN2o+fZpitj+GwbsDMrD+he1Uv16Vw/TQ2lH/jaktDNc3VbVr9vlS/8CqlyElkQ4I5
- mp+J5ZJ1bosifmuj+oB+pXaFH1f1dYQskXXKme33YgpHBMJ6YIW99309nb5zViufB4bFgloWxYH
- uSjyDKQk0dvE/K3skFTFGAK+uRDh+2UF6xJAjHtQoempkEY9megyzjwAdAF6/ZgYeo9UWxsL34+
- i/60lvvRyK7cGc7lxhg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfX41MKkoPiFGbl
- GK+PYXPwUZ24EaeqL5wIqJtwqQSbgBbvXJlHDB2p0Kp7XnwYVw4ak48CWrfuqZBccwe2Y0dpQfq
- Ez64uakrPlePqqrKWAf2IuwEB0zG6WznfD9aUklncsGj6WHH+t+U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1011 priorityscore=1501 phishscore=0 malwarescore=0
- adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300040
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 27, 2026 at 17:56:43 +0200, Andy Shevchenko wrote:
-> Why have you written a brand new driver?
+Hi David,
 
-ad7625 is the closest existing driver, and it shares the transport:
-CNV PWM, clk_gate PWM and the AXI ADC backend. The converters differ
-in a few ways though. For instance, the LTC2387 is DDR on one or two
-lanes. ad7625 is one bit per clock on one lane. Also, the ad7625
-clamps the period to 100 ns (10 MSPS). The LTC2387 runs at 15 MSPS.
+On Fri, 30 Oct 2026 16:22:20 +1100
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Thanks,
-Daniel
+...
+
+> >  
+> > +static void complete_ref_and_is_local(struct dt_info *dti, char **ref,
+> > +				      bool *is_local, cell_t phandle)
+> > +{
+> > +	struct node *refnode;
+> > +
+> > +	/*
+> > +	 * When created from a dts, the reference is available but the is_local
+> > +	 * flag is not set.
+> > +	 *
+> > +	 * When created from a dtb, the is_local flag is set (and a valid
+> > +	 * phandle value is available) but not the reference.
+> > +	 *
+> > +	 * Complete both ref and is_local based on existing values.  
+> 
+> The two cases share essentially zero code in this function, which
+> suggests to me they'd be better as different functions (each of which
+> could then have a more natural signature).
+> 
+> > +	 */
+> > +
+> > +	if (*ref) {
+> > +		refnode = get_node_by_ref(dti->dt, *ref);
+> > +		if (refnode)
+> > +			*is_local = true;
+> > +		else
+> > +			*is_local = false;
+> > +		return;
+> > +	}
+> > +
+> > +	if (*is_local) {
+> > +		refnode = get_node_by_phandle(dti->dt, phandle);
+> > +		if (!refnode)
+> > +			die("Node not found for phandle 0x%"PRIx32"\n", phandle);
+> > +
+> > +		*ref = refnode->fullpath;
+> > +		return;
+> > +	}
+> > +
+> > +	die("Cannot have a non local reference without a reference\n");
+> > +}
+> > +
+> > +static void complete_references_internal(struct dt_info *dti, struct node *node)
+> > +{
+> > +	struct property *prop;
+> > +	struct marker *m;
+> > +	struct node *c;
+> > +	cell_t phandle;
+> > +
+> > +	/*
+> > +	 * In order to have a complete state, a REF_PHANDLE marker needs to
+> > +	 * have a reference set (either a label or a path) and the is_local
+> > +	 * flag must be also correctly set.
+> > +	 *
+> > +	 * When created from dtb, references are not present in REF_PHANDLE
+> > +	 * markers created from the FDT_PROPDATA_PHANDLE tag. Indeed, only a
+> > +	 * phandle value is available with this tag.
+> > +	 *
+> > +	 * When created from dts, references are available for REF_PHANDLE
+> > +	 * markers but 'is_local' flag is not set.
+> > +	 *
+> > +	 * Completing a REF_PHANDLE marker consists in setting those fields.
+> > +	 */
+> > +	for_each_property(node, prop) {
+> > +		m = prop->val.markers;
+> > +		for_each_marker_of_type(m, REF_PHANDLE) {
+> > +			phandle = propval_cell_n(prop,
+> > +						 m->offset / sizeof(cell_t));
+> > +			complete_ref_and_is_local(dti, &m->ref, &m->is_local,
+> > +						  phandle);
+> > +		}
+> > +	}
+> > +
+> > +	for_each_child(node, c)
+> > +		complete_references_internal(dti, c);  
+> 
+> Of course the change suggested above would mean that you need two
+> different cases in the callers as well.  I think that's worth it:
+> treating this as symmetric when we should know going in what direction
+> _all_ the fixups will go seems odd to me.  Or more concretely, I'm
+> concerned that if some bug means we get a marker in bogus state
+> (e.g. ref valid when coming from dtb) this approach means we'll carry
+> on sort of working, when it would be preferable to catch the bad state
+> and die earlier.
+
+ref can be valid when coming from dtb: FDT_PROPDATA_PHANDLE_REF.
+
+Anyway, I understood the idea and will see what I can do for the next
+iteration.
+
+The is_local field will be removed (already discussed) and so, only the
+ref field is present.
+ - ref NULL: dtb only
+ - ref non NULL: dtb and dts
+
+Not sure that two functions will be needed. Will see when I remove is_local
+but I keep your feedback in mind.
+
+Best regards,
+Hervé
