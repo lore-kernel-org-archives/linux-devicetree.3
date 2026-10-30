@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793323945;
-	b=p6ewVXFkvquITfNtd4XNh2NIB+BLqczF27CFL/Kz5SNOSmwE0Ds5my6JPu0NgvxEGohY
-	 nd9a2PAHfih4R8hfFv+B5qvfuGbghRpr5Elag3GzkSRSURT+pz1435pCR1LZygd43k0MI
-	 nkA71IdMYhYmwt9hyRSI6xe18OG8B+yvW1hrqDNyg7GmiFtTuv0B88TrEvcXzzFc7+2uE
-	 84iru80hIwCxF53ISmkUFDhdIrYsgqTCehoPYszLLk9r469Y9+VFxJ0yM9npRO5CRFZPI
-	 QUVcNyoh9HF5EzC/0W2XkamFOw6F7IEPtpGoug0yHrohD7YtA6uke3X+S8ssq5+2PJA==
+	t=1793325867;
+	b=DyPW8lBxfPqRDcd7vy5FcKRwblz4fiEBLVzf4i2FO6PWn8eiYNKlBxsBceHlKPIK/5XI
+	 dzR1yqqGDyHM0ds7uQqO7z0Sk0KPa8lgpt8BJaXcuDOXhU364IYorzNem4NkKcVtKoX+U
+	 EJYEhZWxvCJdZhtj4jFd1HTuknJFNtwnS6GNAeKpVXJ3GuGjGhZgLMWLIOBhB9aGr2prP
+	 A60d6TwfljLWLHP8cRsaDyqZYDB9SHdjJle7kKsoDdqmCUDth6igM1k9682o70/uumET8
+	 A4UZ/xKuYLPt3qNUMMGJxg82duOnnx1PKNgGNF3RrQXbp3GAfIDpydXM2r+51586AQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793323945;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Nq5H3D0euCZbOqXD7Z9fPhPXwWstdtaDfGJwD5+ZOc4=;
-	b=Upl+07WL/67/GCtimwaIL1ZzwOWinYDFU5hr/gJZsSeeyp4Oi4c9ejy/sWA5Bme3MXjC
-	 gXrzBl3LCNbSwjdWGRa7NVwrDLlQj4aAy2kDH/diiATh6r1r5KRSfL2snjm0wsDX06kuJ
-	 LCcOwEotxODPlxtQaHjgrbE9pI5jiFk17LT0UZ0v99h3dfgMIQ4Ld88qnWMG6SgaDVVmF
-	 mdyHfKIVA4nJc8YteOPCjmvlr1W8LMgdYYzwo5QNIodPFDPiWjfBfzx4923iGKdBYjhB2
-	 Fu8NkTewCOgSn66MFb5DEV6UnK8JK2g7o0Yi6Wky4v+7GTfKdjo4yqJXKFjeJRfaJOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793325867;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=pumged/0aPi5xqnB+RarXs8Eh9+4eMDOVCGQ7bmfyDY=;
+	b=J9ob5uJSRuGkCLIGwmhpzu1F+i5+XTFeXcxl7npbWSD7GB5VTfqVXDApHTwk+cNTOdpG
+	 Z/1c7L1wgzs0IiLIHX8EBl0L/SLDX6/bYRb+fYBzXeRQn14SPw1K/KqAE/RVwqW3tpfbf
+	 +3SBiEXa4im8kBZxwJvefYGpEb45cWA5Tt9vQW+U7topxddWtWd1RjmS3tl5d5Z9jq4ij
+	 eLcuNt8OnYQwNHQWZme5wTYw+VD/upjNlNpHTQb+61/CkDi6VDdyFIvWgS28V+0ph5b3k
+	 If85MADCKTNBuMEo5pEFqSHDCMu3CLf0W1DAczGzk+ekw/B3BVb5bCSlcEK7T1W4KSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="e6/bSjPE";
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=pST1Bafh;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B51606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 01:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B51606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811B4606A31A;
+	Fri, 30 Oct 2026 02:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 811B4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6/bSjPE
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2eb0f1b592bso628555ad.1
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:32:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793323944; x=1793928744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nq5H3D0euCZbOqXD7Z9fPhPXwWstdtaDfGJwD5+ZOc4=;
-        b=e6/bSjPExYAE08iP9BXgZtCJA/pAPuh+uQXUpMG6VAw4Rx/+O371EsVOT1hWKh4E/2
-         5P7vwmC8HEMRm6FEKkjRilzkgATY3qs8I0Ldm6YYIH4+I517NqZSCT1C4g0nc/pMfZIe
-         F8uuFmjfKqXMBlwpzoWNUUkF8q9VIdFmSZM9WDIeqEOK4OPmCpN8tnib5I4dWgMVZ7kG
-         J6GeA3Av1zVevFv1tcCC2Z7bHwXnOmb30Z+oB0K9t8NhoPOS3Uc1I59TAz3afWYoFsm8
-         fwEIx3YY//Bw/RubdhzKATFpUsinkz0Ckcq5GYguAUWpMK6WCqCiri32rY7UJcuPx9fF
-         lnBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793323944; x=1793928744;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nq5H3D0euCZbOqXD7Z9fPhPXwWstdtaDfGJwD5+ZOc4=;
-        b=YcKsgwt34u4gRG4JuAeJ1Iyl/ad+e6Dyfbh/c5XRzU6GdXy/HbXqzp4VvCqe8wuUub
-         +gzSDq5/FJIq3dBJUQsMSyp+Cp54SvmPJR3dpD5jGaxz65m+KlKG1qlW1Bm6FqRKPa+X
-         YMudLZpVBTqiG99Lxx6wcQcsa/drWqxLBr6ZEjQ1IY5kfRbYJX2qojFQOp/z8hnB1u4F
-         K3Wj15tk3Jh9fwyzbD9VKfK8sLAP68PooLih0Sf2hqPRit13LOM4Z9Wh3mn2UsAdnqJ8
-         AV98UtqzCbFvcB0j9bMp4VCiCYepyqU7CBiNe6IXRHoFx1FVerKqO9NIv0YfwfMguG+3
-         TkUg==
-X-Forwarded-Encrypted: i=1; AKwUvByZHXa9W5to4Zjf9Ma24wDgn9ouo4XJHfGSrdhabAcXpi4FAw7sU28Aq44fX35VSDHLsWENHMh8MNSi@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPfpICLH69AmlxXPt+tRoQAIMmO1qSlIWr74ldVDq0bI9p8r3O
-	Ccpd2afkIJPiN8fo6HJOWdH96ELu4v8sMMV31ZBONzPcyd7frwmmJ/keuYEB4H4Z
-X-Gm-Gg: AYBFou3omXaZKsZ6B3MkAqxLGciXbZJ3DiPKFYXH9uC/TTjh+HWwOoTi6RXapOaHmV7
-	nwPnDEXwGzmU2MtwC3SjTJg0S1qbj6xjlw/ANo7GKtTUCjzDkiWwKfOIsWgCdbZA0pu33xAiB7H
-	QrTNe1WPkw9Atz9I99ohicjmk/74/p3Yk02XDWPI04kpg4iEBDGQJXdDM8fqo8yuF2QLTGHYJBU
-	KJkaHtXfxa6arvRrC3Lhqo57UkyaO6fu9QBP+1ulTQvq67qthiDb6euw4bbmNTBV7Mv7qdZyXsG
-	dpRrX2jC4394v/9bY3IoWjWtSBWPOc30+owvtqUH611jHLQAUQ2sX8BUX2vSYLyZE8IwtFGNa/O
-	Ckeo33jXfKMKddux/3UXWFqO23DiJDzm2ZEHkPa/Pl3nTp3uMvS6vZEyHRzk+l/u/pI+idgoRev
-	DCIzdAUkdNHtBlnuCIL8VD6eS8/Busaw3FwKnpveQ8BqLg4exRrkEbW3XxiJ4oJPFSzgbTLixge
-	0amen/C8I6N7Aum51V3wAKJKIMI1A4X5vceVOq+0aM++lT8Ykg8taF/cIqr7A/O/YI84cFY9lLt
-	JbnxPU2idzws8z+W9KN3hrbhzW9r3c9BiuAAfXj67KRq
-X-Received: by 2002:a17:903:37ce:b0:2e9:7719:4104 with SMTP id d9443c01a7336-2eb36395be1mr10276435ad.8.1793323944232;
-        Thu, 29 Oct 2026 18:32:24 -0700 (PDT)
-Received: from localhost.localdomain ([240c:c983:5:4bbd:2481:c7c4:68af:3])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392b15f0sm911575ad.73.2026.10.29.18.32.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 18:32:23 -0700 (PDT)
-From: ShiTou Hong <redstone.dcity@gmail.com>
-X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	ShiTou Hong <dc_redstone@outlook.com>
-Subject: [PATCH v3 6/6] arm64: dts: qcom: sm8250-hdk: Add PM8150b LEDs
-Date: Fri, 30 Oct 2026 09:31:35 +0800
-Message-ID: <20261030013135.158157-7-dc_redstone@outlook.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261030013135.158157-1-dc_redstone@outlook.com>
-References: <20261030013135.158157-1-dc_redstone@outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=pST1Bafh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793325834;
+	bh=pumged/0aPi5xqnB+RarXs8Eh9+4eMDOVCGQ7bmfyDY=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=pST1Bafh9YDZnRMH21BHCclv5V5LLeCK6ZGjg1da1GUVhXhgHyoBYRfABI/cSEHmf
+	 zSm5d+DY2loPXq7ucezKX3N7gr81xHUMKmJ58kjGY8IaWxx6S5HJSDuO68Pls2ZNIl
+	 WMxRR1SBnVewM/sRYSyCNWSZBiHI0Ve7bL+gTmnA=
+X-QQ-mid: zesmtpgz5t1793325832tbc76324c
+X-QQ-Originating-IP: 1BbxyIvlF3AOamn5bZyHYBEFlVP5ZviaER6ZNnc482Y=
+Received: from = ( [58.254.69.131])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 30 Oct 2026 10:03:50 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9133408313636271411
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,59 +58,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=d3a7c47642dadbe68b345e1aa39039756e5537a343a8d6d35518f7cdf663;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 30 Oct 2026 10:03:47 +0800
+Message-Id: <DMHSY8103ELL.1ZNKF2EH6PDSG@linux.spacemit.com>
+Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: enable status of mimsic and
+ maplic to okay
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "E Shattow" <e@freeshell.de>, "Anirudh Srinivasan"
+ <asrinivasan@oss.tenstorrent.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Guodong Xu" <docular.xu@gmail.com>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261029162343.1896134-1-e@freeshell.de>
+In-Reply-To: <20261029162343.1896134-1-e@freeshell.de>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MRoXHVs8e1kF+8olKmi2bjyN+Iu7GOtZU0RQJmb2PbZGb6ZSNwGZaSrV
+	jDGkx8jeXuJrF5Q0nT/DQjrXcIYy7Lb7/AolC0OFYBA+gIQOyaHYK3qCCUID9YbHElpAhrU
+	yg56NlakCROQc1grP1XbNg7XWGmyMRK/X56Z9Ks8Dri9I+AlDaaTzVNSdkym025w+rjo0qg
+	Sp5sg4I1Ne4PHuOeTaSHkpSv/+gRa6Ejm+5d1rlpFqUT3LeB6d+dtYwgjYQzNdrrpHQSdFs
+	iVA/dIhB+aJZ4itgP9WOcnHfLDtL63lI2+Xqllsez3MlgwWIc2FDT7/pA12ziKD+SFZeYcl
+	NncS3QRm+qi1W1g5ImO6uHCegqd58pT7bUtsOkhINSWEG36hRS82oWzusx/3fiPEu68Pv3R
+	LgugnXvvl215eiBHvbgKgqY8dQAMC0NOX6qFIwyeK2Wjy+O1rilb4Hx9z3b5G8KRXF8VeO9
+	WQbE4SaNiRY/WjNsN7UpUlTrFDZGkUpX8zE/+2cVe4Jit+HRnnZTVP5kPjVEY+aQvWhSQCp
+	kErdeBNcrSkD7yz4XBbe2tel/6ngm/O67Vw6hCOKQ3a/vZBOa4TtZDl/qqDyfL8bNEyOBv2
+	y6kv5mL+RULYuug5fez8TaOoxS/RX9WgdKtJlOFDyLqVUH6E44HnIcls+p9TkMDrYw3N6Yb
+	xrFuxLGsZxBbRy6TtxstPuWSIJblyc4eOcQqw/ofNWe2+8S08cI2guT/7ukePDLa3ncQWq+
+	pcX7Y7HbRnuXBvwt4s3ed87QcYRQNn0T5KbrgZhGMbECWHokpLKxqJir4wd9/Ws5cR6O4qI
+	ZdWUIyF0HTZelN9WDA8V7+GhzoWq8Q++JNd7WlwlFrnp77uQvIow5pV3/iES8U7n8tCNaMb
+	4QpO9DDAji0ecYZgsBo2FT2mi+AWPT5szPReBtZrIivhbNXT6ACjz0ugtvQdzi7WTZHxn4+
+	76mKdtV+ZbJMr5e6m/HnimNDvllp6Z2hGbWpxa1OUo/z7uV5aBfN2ct9zhKlLPKhVS14XtE
+	7zkwv4l1crAhtWEaNcXTZ+vTbFGd/dLEMf5i+9tQKy7a1lxVb5ZEtZDKym2XXAMexzQSFXD
+	vVk30RYxdYCmuD1/v06DGwCXq70qKAk8clfjjGivBlu5ScKa0pUELY=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-There are 2 LEDs controlled by PM8150b on sm8250-hdk
-which are not added in the dts file.
-The LED1 is for heartbeat indicator,
-the LED2 is for wifi activity.
+--d3a7c47642dadbe68b345e1aa39039756e5537a343a8d6d35518f7cdf663
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Enable the LED controller of PM8150b,
-add the LED nodes with proper triggers into it.
+Hi E,
 
-Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
----
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+On Thu Oct 29, 2026 at 9:23 AM -0700, E Shattow wrote:
+> Change the "reserved" status of mimsic and maplic to "okay". There is
+> an mainline OpenSBI user of this and setting status okay resolves the
+> stall of Linux when probing peripherals at boot.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-index f25447f1d..58b58fca4 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8250-hdk.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/usb/pd.h>
-+#include <dt-bindings/leds/common.h>
- #include "sm8250.dtsi"
- #include "pm8150.dtsi"
- #include "pm8150b.dtsi"
-@@ -618,6 +619,24 @@ &pcie2_phy {
- 	status = "okay";
- };
- 
-+&pm8150b_lpg {
-+	status = "okay";
-+
-+	led@1 {
-+		reg = <1>;
-+		function = LED_FUNCTION_HEARTBEAT;
-+		color = <LED_COLOR_ID_GREEN>;
-+		linux,default-trigger = "heartbeat";
-+	};
-+
-+	led@2 {
-+		reg = <2>;
-+		function = LED_FUNCTION_WLAN;
-+		color = <LED_COLOR_ID_RED>;
-+		linux,default-trigger = "phy0tx";
-+	};
-+};
-+
- &pm8150b_typec {
- 	status = "okay";
- 
--- 
-2.47.3
+Thanks for bringing this here. I still think status =3D "reserved" in
+k3.dtsi is the right description.
 
+(To clarify the Acked-by I gave on the U-Boot thread: it was for
+carrying the override in spacemit-k3-u-boot.dtsi, not for changing
+the kernel DT)
+
+> @@ -1452,7 +1452,7 @@ mimsic: interrupt-controller@f1000000 {
+>  			msi-controller;
+>  			riscv,hart-index-bits =3D <4>;
+>  			riscv,num-ids =3D <511>;
+> -			status =3D "reserved";
+> +			status =3D "okay";
+>  		};
+> =20
+>  		maplic: interrupt-controller@f1800000 {
+> @@ -1464,7 +1464,7 @@ maplic: interrupt-controller@f1800000 {
+>  			riscv,children =3D <&saplic>;
+>  			riscv,delegation =3D <&saplic 1 512>;
+>  			riscv,num-sources =3D <512>;
+> -			status =3D "reserved";
+> +			status =3D "okay";
+>  		};
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 So=
+C")
+I don't think this is a bug in the kernel DT either.
+
+This was also discussed when k3.dtsi was reviewed [1]. The DTB built
+from the kernel tree is often loaded directly by the bootloader (e.g.
+from /boot) instead of the FDT that OpenSBI has already fixed up. With
+"okay" there, Linux would probe the M-level IMSIC/APLIC and take an
+access fault. The compromise back then was to keep them out of the
+kernel's view in k3.dtsi ("disabled" at first, "reserved" since v5)
+and enable them for the firmware build in -u-boot.dtsi, which is
+exactly what your U-Boot patch does.
+
+(Also replacing Guodong's address with his current one in Cc.)
+
+[1] https://lore.kernel.org/all/77f9a001-7f0a-4c29-abcb-501e875da117@sifive=
+.com/
+
+--=20
+Troy Mitchell
+
+--d3a7c47642dadbe68b345e1aa39039756e5537a343a8d6d35518f7cdf663
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIYEABYKAC4WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauP7AxAcdHJveUBrZXJu
+ZWwub3JnAAoJEJgJ74D5MzQv7O4A/0OMejfxLYWKCiyBxXllnt6RD3VnWHq2NL5z
+/dd3+uI/AP990NcnV/KPEsOBMIQFQt2/RvfPFEHzG8uLFdZpTMS7CQ==
+=6CKn
+-----END PGP SIGNATURE-----
+
+--d3a7c47642dadbe68b345e1aa39039756e5537a343a8d6d35518f7cdf663--
