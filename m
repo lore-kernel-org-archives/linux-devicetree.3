@@ -1,57 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793351399;
-	b=J0wahdeoRbLT+AGs9Vbdd9lSXVYjiHD/UqyBV2KQE8iH2gS5JqcYYVAZPBK3ymXUBpN9
-	 7bJnHUe4nDaCSL9lwIoEOxWsNHtLewyPiVI/qQzJqaqzjifV5H6VnjLGv6F5sct2aBLnO
-	 N2/JNVyZZpOrUx/DjuHqr+0g+jqXolrRgCa42ittemD/UXlcMNR+Z8O6NJQudV2p1guum
-	 OlsZk88irdiL4WDjcr0qDuJL1srzIvzKxdsO77BD+KmtzDpFcnZiMwTRA7MdIptF0fSYV
-	 9f9pQZpVgIWTm2Dy7KXD7MpdILcOq9OKFLzXfRRwMvmEY/gfcjHH/dZSeSkb1KXCh2A==
+	t=1793352269;
+	b=w7NdC/dEfspva/bBl9p9Feds3hdsjFwEYznRoskYNWtWb6Thl4LUVc9sK39omLuZVYYh
+	 YmWUFRAdTSk3q3e/XlAceWp9LqcBuBff+GxEc2MaNgt+vC4TnOyhmosyZFHTyrYswy8xj
+	 webaiLG4zqZ06BuUj9UhNdzrTqF1yjDlEscZniQ8tqHN8gdAVo8xK30J1slpocip0jFFW
+	 Ymrky3yoXKFUOKouSursKi6FtlJn87FPintE4ICo4gNYKBVX/eTAM1k6ltPUJ03V28m15
+	 4WbSVnx1KlFmF2oaZGHH9n5EJ2WyRYsIgbSNQXmqvw/tTmQ88UlRgfcgVcO+aKCzNqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793351399;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ztl2n7/r1n4ZTU+a0Ghr96HWYCrIstg5ehBee4wGBos=;
-	b=ba2vOj502jw1G1ZYqzaVrxmy12wmGTIzygplIn7ttWCbesUm9gRx/SopAJMeOzWk+FSq
-	 p6VOHfEqfiUUGRAIN+GP3pzdjAEzO0rat+8T0WRsLJrp2Nk46h4WNJdr6r7C0rtFP/KKK
-	 dQNFbVwjGpExaiuFN0LlAcMwR4qrH0OrYd9TU7NHBPZxiunVmJHfC1Th9el+Jf9m5xz3a
-	 GrjGwRh2iF45d/hv7WzbWH9PvPjk2jUlC1bu4jVWUsSctuGEjkhyL6ZR0o++FZRcDhKVk
-	 cFMmlSSA6/fswBr+sYSefR0Ir2goXZbHlO3B8b3Db9gjjgcXMW364/gCTy035ST82aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352269;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 Content-ID;
+	bh=OmlzIQ4gereQGv/7b98RflWM5h/OCWSsbl/T77o569A=;
+	b=wdxMsIYwnwoB9rVmgwq1fLBivAHJsnmR3ThxA4EvtdaachZKu21DS5ZTGs0vjSGVG/Ng
+	 MrkHOEeuxJRGL6aZ/EYZa+BeICmPiXHMHl7ONgAgcMrD4FlqoFo2z6J08+rc3WjToRTqs
+	 CiBqF2yEF+2iQN7JYJIH+NURbqQ0AhMR1RjqCYwCfcbFC7+EHVXBdlIxdCeGcpBM6pgUf
+	 b5s93cAUJel1CjI8uR4lIURUoYagf+S+QxJ55YHtgexkTXy7TbUHKUSvz53OsaV8IT/R4
+	 n8UeexHaPIBOWawK94UBvv5A41fIDUVvyVngmrinwjrdGA+yiKSQNv71cv38Z+i8a2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbsckWdA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W1glEey8;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9775606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:09:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AB4606A31C;
+	Fri, 30 Oct 2026 09:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9AB4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbsckWdA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385F71F000C1;
-	Fri, 30 Oct 2026 09:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793351398;
-	bh=ztl2n7/r1n4ZTU+a0Ghr96HWYCrIstg5ehBee4wGBos=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WbsckWdA2EyydKNGU1ih0ALr2+Ch9d+9udVYVF1gRNJfvX9t76FV5vbOTkQj+bc1I
-	 xjp/RsJz2Wi+w66iwcEQLhQ/qk+nuyWtYaUetDVcOYZJW9Mh6xFlA5kWGTPpqjd8iU
-	 U1MbkTCrEsSdMWF9UyuARaKzSrhIhWod/7iS8km2hxQfe3Ha0t6aZldPcL7HOPkRD8
-	 fj9FJFxaufv62pdrKarnxaYzx848NFbK3PbOpV+iJH//lF0i8Brs327uZI0mINJnbn
-	 zj3SDfuemrpv7Gs7bQJwlplD9VhX2/9KXoN6/4E99laF2P/2z8FSlnMk2/FSbLgA+r
-	 eO5PsVCY042WQ==
-Message-ID: <sashiko-outbox-190739@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] drm/tiny: Add RAiO RA8875 display controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Azuddin" <azuddinadam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261030083737.47188-3-azuddinadam@gmail.com>
-References: <20261030083737.47188-1-azuddinadam@gmail.com>
- <20261030083737.47188-3-azuddinadam@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 09:09:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W1glEey8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793352267; x=1824888267;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=lOFIXcNCvbGYaeFWZl7MhNswXebfJEME1y4g8ZPVihU=;
+  b=W1glEey8DF5OK+ZDBvr/Ge0XonQCQi4CxDuxABfxA68fnogdfWRxdfTf
+   lZJ7Yexeu5bf41EFT+O2PFI4juMTztndqxzP1eI/PgxdM+6qpeozEuXG7
+   19fOPQ/CPwF47mg0YfioDpBdhsSRoMnwefAhj6rQvC4WLEXho9o8/QOjt
+   xL08ZZDABbrCNsjxO8dulO7gX7y/4alsHANQ5EWciPuDUuR0Len+FPUwS
+   XxS5tfjHuJ3uzKINqd6IzZ60lHmi38atJ6M1sAOFe3/EPkVA0m8BTNAUf
+   iK7VUpGEighClXX8y50I/6INbv/5U+pUN+A6lFREjqZu3p3y/txNhPkVj
+   g==;
+X-CSE-ConnectionGUID: bL8F92KMQQ24qKRQBZ+AdA==
+X-CSE-MsgGUID: cW31C3d/SMisWzEa2Itahg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1998330"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="1998330"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:24:27 -0700
+X-CSE-ConnectionGUID: DJlFZSyxQha+0r4S5cq2/g==
+X-CSE-MsgGUID: 1zAYwh/kRsmBB8GE0FLiqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5352871"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:24:21 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 30 Oct 2026 11:24:17 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v5 2/8] serial: 8250: share the RX trigger conversion
+ helper
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-2-53b433aebbf8@gmail.com>
+Message-ID: <d8f88dfa-f372-f1c7-bdb3-131a26dbff46@linux.intel.com>
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com> <20261029-submit-h616-uart-fifo-v1-v5-2-53b433aebbf8@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,340 +86,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/mixed; BOUNDARY="8323328-108683250-1793352038=:1187"
+Content-ID: <ec465114-c4ae-bb9c-a649-969abb886178@linux.intel.com>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [Critical] drm/tiny: ra8875: heap overflow in ra8875_clear_screen() via u=
-nvalidated mode
-- [High] drm/tiny: ra8875: plane updates run before CRTC enable and screen =
-clear
-- [High] drm/tiny: ra8875: miscalculation of HNDR and VNDR back porch in ra=
-8875_hw_init()
-- [High] drm/tiny: ra8875: missing drm_dev_enter() guard in ra8875_crtc_ato=
-mic_enable()
-- [Medium] drm/tiny: ra8875: missing vdd-supply regulator acquisition and e=
-nable
-- [Medium] drm/tiny: ra8875: missing drm_gem_fb_begin_cpu_access() in ra887=
-5_fb_dirty()
-- [Medium] drm/tiny/ra8875: unaligned u16 stores in ra8875_fb_dirty() via d=
-rm_fb_swab()
-- [Low] drm/tiny: ra8875: missing MMU dependency in Kconfig for DRM_RA8875
---
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-commit 7ff969ff52235eb3411700feffd794a3e46ceb5a
-Author: Adam Azuddin <azuddinadam@gmail.com>
+--8323328-108683250-1793352038=:1187
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <3b749261-4f91-a782-0e99-9be2a9a55095@linux.intel.com>
 
-drm/tiny: Add RAiO RA8875 display controller driver
+On Thu, 29 Oct 2026, James Hilliard wrote:
 
-This commit adds a DRM tiny driver for the RAiO RA8875 SPI-connected TFT
-display controller supporting resolutions up to 800x480 with GEM shmem
-buffer management.
+> Extract the receive-trigger threshold search into serial8250_bytes_to_fcr=
+()
+> so drivers with per-port threshold tables can use the same conversion as
+> the generic 8250 implementation. Keep the implementation in 8250_port.c a=
+nd
+> export it for subdrivers.
 
-> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-> index f0e72d4b6a470..2f1c49e31dd60 100644
-> --- a/drivers/gpu/drm/tiny/Kconfig
-> +++ b/drivers/gpu/drm/tiny/Kconfig
-> @@ -98,6 +98,19 @@ config DRM_PIXPAPER
+To explain why we're doing this, the text could first mention that=20
+inability to define these thresholds per driver have been one of the main=
+=20
+reasons why there has been the temptation to add new port types into=20
+uart_config[] (that would be better left as a legacy way of defining=20
+things).
+
+> Include the unsupported-table check in the helper and preserve the existi=
+ng
+> nearest-lower selection and highest-encoding fallback.
+>=20
+> Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250.h      |  2 ++
+>  drivers/tty/serial/8250/8250_port.c | 21 +++++++++++++--------
+>  2 files changed, 15 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/825=
+0.h
+> index 21ed9c41b751..1600f2e45d76 100644
+> --- a/drivers/tty/serial/8250/8250.h
+> +++ b/drivers/tty/serial/8250/8250.h
+> @@ -73,6 +73,8 @@ struct serial8250_config {
+>  =09unsigned int=09flags;
+>  };
 > =20
->  	  If M is selected, the module will be built as pixpaper.ko.
+> +int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes, unsigned =
+char bytes);
+> +
+>  enum uart_port_type {
+>  =09/* Internal 8250 only */
+>  =09UART_PORT_AIROHA=09=09=3D 124,
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
+0/8250_port.c
+> index 36b2b0a2c05c..fc3987b5a70c 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -3015,22 +3015,27 @@ static int fcr_get_rxtrig_bytes(struct uart_8250_=
+port *up)
+>  =09return bytes ? bytes : -EOPNOTSUPP;
+>  }
 > =20
-> +config DRM_RA8875
-> +	tristate "DRM support for RA8875 display panels"
-> +	depends on DRM && SPI && OF
-> +	select DRM_CLIENT_SELECTION
-> +	select DRM_KMS_HELPER
-> +	select DRM_GEM_SHMEM_HELPER
-> +	select VIDEOMODE_HELPERS
+> -static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char =
+bytes)
+> +int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes, unsigned =
+char bytes)
+>  {
+> -=09const struct serial8250_config *conf_type =3D &uart_config[up->port.t=
+ype];
+> -=09int i;
+> -
+> -=09if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)=
+])
+> +=09if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+>  =09=09return -EOPNOTSUPP;
+> =20
+> -=09for (i =3D 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> -=09=09if (bytes < conf_type->rxtrig_bytes[i])
+> +=09for (unsigned int i =3D 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> +=09=09if (bytes < rxtrig_bytes[i])
+>  =09=09=09/* Use the nearest lower value */
+> -=09=09=09return (--i) << UART_FCR_R_TRIG_SHIFT;
+> +=09=09=09return (i - 1) << UART_FCR_R_TRIG_SHIFT;
+>  =09}
+> =20
+>  =09return UART_FCR_R_TRIG_11;
+>  }
+> +EXPORT_SYMBOL_GPL(serial8250_bytes_to_fcr);
 
-[Severity: Low]
-In drivers/gpu/drm/tiny/Kconfig, DRM_RA8875 selects DRM_GEM_SHMEM_HELPER,
-which depends on MMU in drivers/gpu/drm/Kconfig.
+Put the export to namespace.
 
-Without a dependency on MMU, enabling DRM_RA8875 on a !CONFIG_MMU target
-triggers an unmet direct dependency warning and fails to build in
-drm_gem_shmem_helper.c.
+With that fixed,
 
-Should DRM_RA8875 depend on MMU as well, matching the other shmem-based
-drivers in drivers/gpu/drm/tiny/Kconfig?
+Reviewed-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
 
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
-> new file mode 100644
-> index 0000000000000..937bb7fdbd910
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/ra8875.c
-[ ... ]
-> +static int ra8875_hw_init(struct ra8875_device *ra8875,
-> +			  struct drm_display_mode *mode)
+> +static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char =
+bytes)
 > +{
-[ ... ]
-> +	/* Horizontal timing */
-> +	hdwr =3D (mode->hdisplay / 8) - 1;
-> +	hndr =3D ((mode->htotal - mode->hdisplay) / 8) - 1;
-> +	hstr =3D ((mode->hsync_start - mode->hdisplay) / 8) - 1;
-> +	hpwr =3D ((mode->hsync_end - mode->hsync_start) / 8) - 1;
+> +=09const struct serial8250_config *conf_type =3D &uart_config[up->port.t=
+ype];
 > +
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HDWR, hdwr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HNDFTR, RA8875_HNDFTR_HNDFT(0));
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HNDR, hndr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HSTR, hstr);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D ra8875_write_reg(ra8875, RA8875_HPWR, hpwr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Vertical timing */
-> +	vdhr =3D mode->vdisplay - 1;
-> +	vndr =3D mode->vtotal - mode->vdisplay - 1;
-> +	vstr =3D mode->vsync_start - mode->vdisplay - 1;
-> +	vpwr =3D mode->vsync_end - mode->vsync_start - 1;
-
-[Severity: High]
-In drivers/gpu/drm/tiny/ra8875.c, are hndr and vndr in ra8875_hw_init()
-being computed from the total blanking interval rather than the back porch?
-
-In drm_display_mode_from_videomode():
-
-    dmode->hsync_start =3D dmode->hdisplay + vm->hfront_porch;
-    dmode->hsync_end =3D dmode->hsync_start + vm->hsync_len;
-    dmode->htotal =3D dmode->hsync_end + vm->hback_porch;
-
-Since HSTR (and VSTR0/VSTR1) already program the front porch and HPWR (and
-VPWR) program the sync pulse width, RA8875_HNDR and RA8875_VNDR0/RA8875_VND=
-R1
-program the horizontal and vertical non-display (back porch) periods.
-
-Using mode->htotal - mode->hdisplay and mode->vtotal - mode->vdisplay counts
-the front porch and sync pulse width a second time. Should these be computed
-from mode->htotal - mode->hsync_end and mode->vtotal - mode->vsync_end
-instead?
-
-[ ... ]
-
-> +static int ra8875_clear_screen(struct ra8875_device *ra8875,
-> +			       struct drm_display_mode *mode)
-> +{
-[ ... ]
-> +	memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
-> +	txbuf[0] =3D RA8875_DATAWRITE;
-> +
-> +	for (y =3D 0; y < height; y +=3D rows) {
-> +		rows =3D min(rows_per_chunk, height - y);
-> +		ret =3D ra8875_write_pixels(ra8875, 1 + rows * width * 2);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
+> +=09return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
 > +}
-> +
-> +static void ra8875_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_=
-atomic_commit *state)
-> +{
-> +	struct ra8875_device *ra8875 =3D
-> +		container_of(crtc->dev, struct ra8875_device, drm);
-> +	struct drm_crtc_state *crtc_state =3D
-> +		drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_display_mode *mode =3D &crtc_state->mode;
-> +	int ret;
-> +
-> +	ret =3D ra8875_hw_init(ra8875, mode);
-> +	if (ret) {
-> +		drm_err(&ra8875->drm, "Failed to initialize hardware\n");
-> +		return;
-> +	}
-> +
-> +	ret =3D ra8875_clear_screen(ra8875, mode);
-> +	if (ret) {
-> +		drm_err(&ra8875->drm, "Failed to clear screen\n");
-> +		return;
-> +	}
-> +}
-
-[Severity: High]
-In drivers/gpu/drm/tiny/ra8875.c, doesn't the atomic commit order cause
-ra8875_crtc_atomic_enable() to wipe out the initial plane update on every
-modeset?
-
-In ra8875_probe(), ra8875->rst_gpio is requested with GPIOD_OUT_HIGH and
-drm->mode_config.helper_private is left unset. When drm_atomic_helper_commi=
-t()
-runs a modeset (including the initial fbdev modeset from drm_client_setup()=
-),
-it uses the default drm_atomic_helper_commit_tail(), which executes:
-
-    drm_atomic_helper_commit_tail()
-      drm_atomic_helper_commit_planes(dev, state, 0)
-        ra8875_plane_atomic_update()
-          ra8875_fb_dirty()
-      drm_atomic_helper_commit_modeset_enables(dev, state)
-        ra8875_crtc_atomic_enable()
-          ra8875_hw_init()
-          ra8875_clear_screen()
-
-As a result, ra8875_plane_atomic_update() writes the framebuffer while the
-chip is still held in reset, and then ra8875_crtc_atomic_enable() resets the
-hardware and zeroes the entire display memory in ra8875_clear_screen().
-
-In addition, ra8875_plane_atomic_check() passes can_update_disabled =3D tru=
-e to
-drm_atomic_helper_check_plane_state(), and ra8875_plane_atomic_update() does
-not check whether the CRTC is active.
-
-Should drm->mode_config.helper_private be configured with
-.atomic_commit_tail =3D drm_atomic_helper_commit_tail_rpm (so CRTC enable r=
-uns
-before plane updates, and plane updates are skipped when the CRTC is
-inactive), and can_update_disabled be set to false in
-ra8875_plane_atomic_check()?
-
-[Severity: High]
-Also in ra8875_crtc_atomic_enable() in drivers/gpu/drm/tiny/ra8875.c, can a
-modeset racing with device removal in ra8875_remove() cause a use-after-free
-on ra8875->txbuf and ra8875->rst_gpio?
-
-In ra8875_probe(), ra8875->txbuf and ra8875->rst_gpio are allocated with
-devm_kzalloc(&spi->dev, ...) and devm_gpiod_get_optional(&spi->dev, ...), so
-devres frees them as soon as ra8875_remove() returns, even if a DRM file
-descriptor remains open.
-
-Unlike ra8875_plane_atomic_update(), ra8875_crtc_atomic_enable() does not
-guard its hardware and buffer accesses with drm_dev_enter() and
-drm_dev_exit(). If an atomic commit enters ra8875_crtc_atomic_enable()
-concurrently with or after drm_dev_unplug() in ra8875_remove(),
-drm_dev_unplug() will not synchronize with it and ra8875_clear_screen() can
-memset() and SPI-transfer from the freed ra8875->txbuf buffer.
-
-Should ra8875_crtc_atomic_enable() (and ra8875_crtc_atomic_disable()) be
-guarded with drm_dev_enter() and drm_dev_exit()?
-
-[ ... ]
-
-> +static void ra8875_fb_dirty(struct ra8875_device *ra8875, struct iosys_m=
-ap *src,
-> +			    struct drm_framebuffer *fb, struct drm_rect *rect)
-> +{
-[ ... ]
-> +	for (int y =3D rect->y1; y < rect->y2; y +=3D rows) {
-> +		struct drm_rect chunk;
-> +
-> +		rows =3D min(RA8875_TXBUF_ROWS, rect->y2 - y);
-> +		chunk =3D DRM_RECT_INIT(rect->x1, y, width, rows);
-> +
-> +		iosys_map_set_vaddr(&dst, ra8875->txbuf + 1);
-> +		drm_fb_swab(&dst, NULL, src, fb, &chunk, false, &fmtcnv_state);
-> +
-> +		if (ra8875_write_pixels(ra8875, 1 + rows * width * 2))
-> +			goto err;
-> +	}
-
-[Severity: Medium]
-In ra8875_fb_dirty() in drivers/gpu/drm/tiny/ra8875.c, drm_fb_swab() reads
-from the shadow-mapped framebuffer with the CPU, but
-drm_gem_begin_shadow_fb_access() only vmaps the buffer without calling
-dma_buf_begin_cpu_access().
-
-When displaying an imported PRIME DMA-BUF on a non-cache-coherent system, c=
-an
-omitting drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE) and
-drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE) around the CPU read result in
-stale cache reads and display corruption?
-
-[Severity: Medium]
-Also in ra8875_fb_dirty() in drivers/gpu/drm/tiny/ra8875.c, doesn't passing
-ra8875->txbuf + 1 as the destination buffer to drm_fb_swab() perform
-unaligned 16-bit stores on every pixel?
-
-In ra8875_probe(), ra8875->txbuf is allocated with devm_kzalloc(), which is
-even-aligned, making ra8875->txbuf + 1 an odd address. For DRM_FORMAT_RGB56=
-5,
-drm_fb_swab() calls drm_fb_swab16_line(), which casts the destination point=
-er
-directly to u16 * and writes *dbuf16++ =3D swab16(*sbuf16++) without
-put_unaligned().
-
-Can this trigger alignment faults on architectures requiring natural
-alignment as well as UBSAN alignment warnings?
-
-[ ... ]
-
-> +static enum drm_mode_status ra8875_mode_valid(struct drm_crtc *crtc,
-> +					      const struct drm_display_mode *mode)
-> +{
-> +	if (mode->hdisplay % 8 !=3D 0 || mode->hsync_start % 8 !=3D 0 ||
-> +	    mode->hsync_end % 8 !=3D 0 || mode->htotal % 8 !=3D 0) {
-> +		drm_dbg_kms(crtc->dev,
-> +		   "mode timings must be 8-pixel aligned (hdisplay=3D%d hsync_start=3D=
-%d hsync_end=3D%d htotal=3D%d)\n",
-> +			    mode->hdisplay, mode->hsync_start, mode->hsync_end, mode->htotal);
-> +		return MODE_H_ILLEGAL;
-> +	}
-> +	return MODE_OK;
-> +}
-
-[Severity: Critical]
-As reported by Sashiko on v4 [1], can a userspace-supplied display mode
-overflow ra8875->txbuf in ra8875_clear_screen()?
-
-In ra8875_probe() in drivers/gpu/drm/tiny/ra8875.c, ra8875->txbuf is
-allocated for a fixed maximum width of RA8875_MAX_WIDTH (800):
-
-    buf_size =3D 1 + RA8875_TXBUF_ROWS * RA8875_MAX_WIDTH * 2;
-    ra8875->txbuf =3D devm_kzalloc(&spi->dev, buf_size, GFP_KERNEL);
-
-While drm->mode_config.max_width restricts framebuffer sizes, a userspace
-DRM master can submit a custom CRTC mode via KMS (for example with the
-primary plane disabled). Because ra8875_mode_valid() only checks that the
-horizontal timings are multiples of 8 and does not call
-drm_crtc_helper_mode_valid_fixed(crtc, mode, &ra8875->mode) or bound
-mode->hdisplay to RA8875_MAX_WIDTH, committing a mode with mode->hdisplay >
-800 causes ra8875_crtc_atomic_enable() -> ra8875_clear_screen() to memset()
-and SPI-write 1 + 16 * mode->hdisplay * 2 bytes past the end of
-ra8875->txbuf.
-
-Additionally, neither ra8875_probe() nor ra8875_mode_valid() verifies that
-the horizontal and vertical front porch, sync pulse, and back porch lengths
-are strictly positive, so a zero-length porch or sync pulse will underflow
-when subtracting 1 in ra8875_hw_init().
-
-Should ra8875_mode_valid() validate the mode with
-drm_crtc_helper_mode_valid_fixed() and verify that all porch and sync pulse
-intervals are non-zero?
-
-[ ... ]
-
-> +static int ra8875_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +	ra8875->rst_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HI=
-GH);
-> +	if (IS_ERR(ra8875->rst_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ra8875->rst_gpio),
-> +			     "failed to get reset GPIO\n");
-
-[Severity: Medium]
-In ra8875_probe() in drivers/gpu/drm/tiny/ra8875.c, the driver requests the
-optional reset GPIO, but never acquires or enables the vdd-supply regulator
-that is marked as required in
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml.
-
-If vdd-supply is backed by a switchable regulator that is disabled at boot =
-or
-turned off by the regulator core as unused, won't the RA8875 remain unpower=
-ed
-when ra8875_hw_init() attempts SPI transfers? Should ra8875_probe() enable
-the vdd supply (for example via devm_regulator_get_enable(dev, "vdd"))?
-
-[1] https://lore.kernel.org/r/20261012064518.3497285-3-azuddinadam@gmail.com
+> =20
+>  static int do_get_rxtrig(struct tty_port *port)
+>  {
+>=20
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030083737.4718=
-8-1-azuddinadam@gmail.com?part=3D2
+ i.
+--8323328-108683250-1793352038=:1187--
