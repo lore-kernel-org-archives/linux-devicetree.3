@@ -1,61 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793385911;
-	b=FXejLNsRFpYN35n9+dEzse0M9Is6/4qcP1kDXpobPTrsd5dnULpPFSx3UqOnZksWBsvT
-	 FhGXJ+fmuWXHXS0RW9G7gQ3px8eJJkJGox2ovSvVMgk5nMsSTfIaJG4Y5SHftqVmtt25Q
-	 w5MwNMUJ9Ku8AUqNRP6lyDyZv30y2Iag7Pz/z99gDsnuSInte5dWn5Pwj1FOZEzaZyvkA
-	 n9lXDPDiYmeIDRxUMkZzrU7qhwbdmbLN4ta18G3nzk0KOgvDGr441oeBQHawtIeU1iAEJ
-	 Cu4/RNfU8OUNK3B1fFOFIqEt1VsQx+Hkf9/ZUVTKDQzMK9ULG4BoObOGzBcmEPagFcg==
+	t=1793386132;
+	b=lP2OELtdziPHX1H9k5HHaKtyPTZesF9wbFv3K/t3tyNTRSVE9tUQEviwxtA5N+iizxQr
+	 oIL4arpArcDBfRKop/lK+N3skkHwTDLEDvElFwVGSrARhFmg0epT82Qjvz+mUSqghRbcJ
+	 t4OS/qYcxubxOYHeO0ZTp1owIEejgfj1O05KAm7sBvVBg9TDFaqdNu9AhM9UbM4eXnc4N
+	 OIwN+MP3s+WWUhMUzE0SqJKGjCr1k3gMG5KOAkStF0oeWmEI3FVs4DYm/n4qeUoOf+ZW8
+	 sCRqNKRT+PbXSXFc+CfqWQ+wzi5ia5l2+Mjz+VXG9jfs/PleXVlsG/mIdcxhc1YVmrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793385911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386132;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
-	b=pBoH7O0R+/0BJofnNCK/SomzHqMm7xM5KiSw6150WSwijhztKHxMchkRn8XKvd8/F3Ar
-	 ZDPkynXjYk98/cBWReEDSE1JDTIMYseEht3Xy6G4ys49/fdUdgn8Sn26sJ47zk4ltFFG1
-	 9lIAqsRzNW/SZLA8ek5rnpv0IEVC1VgfQJbShbkp+CfHXB2xrEPjbM9FesmOGcz+F5AoP
-	 NES87jppl3OO78ikKK0aKu0oQH1Bmz9IWNrS1qT6FML8jYQX9EW6NJYrWC7fY4xd4ARDX
-	 wo5IDvvAGOypfREl+ECaDCGiQVHTIn6TWhRIvrftJ4Euykz8ysau4Ps290M/OVuVVpw==
+	bh=R/eIeqkBzYBk/a7bk6HBVW5bw90Y01K8kHpJhRb/ZEw=;
+	b=heos3C4IpxacHAQvwfQyC4hn6Zwkq00j6nw+DnuiKhD+Wh4dg0QHPbAOYzu4CRQKZ04I
+	 d29ACVzpmIxBu2SveLJG1pVDoDk7LKrX88nx9GGxFN/obEJUtGcaG5lOcLI4aow+1L8Tr
+	 DRAXTN72D1MRRYfaEQHYv+3KsN8gzVG99BLjC5qjwL2+YaNS+iv4/05C4EzasMEDQVykW
+	 l00B4tZM3tNoJEtz3xPGdqmNgK+BnaUTN2ojmZ5cXRlxa+q2crRJ5B5A45wwaHWf6b+JB
+	 HqMajz9TazbxyCAhs7F1E8nE4Bq7iYj0LjmnNUHMDMb5kx5GuYMp60pbr+48fkhhYAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dne/oRkf";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC079606A31D;
-	Fri, 30 Oct 2026 18:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980DD606A31A;
+	Fri, 30 Oct 2026 18:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbaV4lxW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4510A1F000C1;
-	Fri, 30 Oct 2026 18:45:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dne/oRkf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A2C1F000C1;
+	Fri, 30 Oct 2026 18:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793385910;
-	bh=5EPCnIcfvXerHvRmTGariLfLXLNGocNWN1mkzax41Wc=;
+	s=k20260515; t=1793386131;
+	bh=R/eIeqkBzYBk/a7bk6HBVW5bw90Y01K8kHpJhRb/ZEw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cbaV4lxWKK5WATUJ1chE7QyUtFKPWgYg/uWeiSgJ06C0O3r29jyraE3caiUocEG0e
-	 bsSNPSvZJzik9l9p6c7QAxBUoOjfPpWPQL9xTeBnXhsl8N0g40eCloezfiWm+OUiDN
-	 trsUdhqAZhMctuclEr2SuSX6wlV4wzbC3YKj6BhzXKJsTOsswTgdlqy6b5HMClSijp
-	 Twf89t9LxdzNen76s/XWYBERULPTZrTbgDTboDE+54t7q5jCujYoGCfVcN/AbfrNDb
-	 QHu4WWYbJ21TJ6UPmhoJQdXRDt66DOV7maeZfLmuTmtrJxrKx/WpjLAAHKIPbdr7VN
-	 jKM/CRNmOzd0w==
-Date: Fri, 30 Oct 2026 18:45:06 +0000
+	b=dne/oRkfLYri4BFiKeyLkAjOPPkE4/MjbAS5xLOIkxVFiO5Tz3S2GwZy5vqztJS+S
+	 SlH+BLaXRWJjUvYldSciyH5tr9fj5GWB0DP21dSZHUny+9haPdib/8Z30pmXR7tkAS
+	 y3oj2gFInLggMWmmTMengisGONlGd/GwvWkGpGeeZCP6JMUvOlmta8IJO9XKXxR2tT
+	 3+Wqci9W9kMknmBQor273A8rkAUmN7ziVLIDMzDZ+Ke+Rgh/IxRyj/0AQMxGdIZjdB
+	 EaBnqu3AgerPufv67HsyfTChzJu9jO9qgHDrHbPI8ofwt5Ru/5fWgEPGUcOBPW1QYk
+	 XyBu0HOERGGYw==
+Date: Fri, 30 Oct 2026 18:48:42 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Parshuram Thombare <pthombar@cadence.com>,
-	devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jisheng Zhang <jszhang@kernel.org>, Fei Xie <fei.xie@horizon.auto>
-Subject: Re: [PATCH 2/3] spi: dt-bindings: cdns,xspi: add ACMD and internal
- DMA properties
-Message-ID: <20261030-ecologist-booting-a6ae4eb55a28@spud>
-References: <20261029-xspi-cadence-add-acmd-v1-0-53cd44690e04@analog.com>
- <20261029-xspi-cadence-add-acmd-v1-2-53cd44690e04@analog.com>
- <20261029-tag-scrutiny-b9ef1299e88c@spud>
- <auRpD5u6JQgwQM4f@nsa>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <20261030-slider-finished-360b10521e0b@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
+ <20261029-amuser-savior-6a6ab062f471@spud>
+ <auSDJH9V31wmbrYv@debian>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,59 +83,111 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uKc01hmH0VtcXB41"
+	protocol="application/pgp-signature"; boundary="z09qSibq+nPgici6"
 Content-Disposition: inline
-In-Reply-To: <auRpD5u6JQgwQM4f@nsa>
+In-Reply-To: <auSDJH9V31wmbrYv@debian>
 
---uKc01hmH0VtcXB41
-Content-Type: text/plain; charset=iso-8859-1
+--z09qSibq+nPgici6
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 09:57:36AM +0000, Nuno S=E1 wrote:
-> On Thu, Oct 29, 2026 at 06:31:00PM +0000, Conor Dooley wrote:
-> > On Thu, Oct 29, 2026 at 04:03:17PM +0000, Nuno S=E1 wrote:
-> > > The Cadence xSPI controller supports an auto command (ACMD) mode where
-> > > high level sequences (read, program, erase) are handled by the
-> > > controller and data can be moved by its internal DMA. Whether ACMD can
-> > > be used, and whether the internal DMA bus requester interface is wire=
-d,
-> > > depends on how the IP is integrated (e.g. external SRAM, interconnect
-> > > wiring) and cannot be discovered from the controller.
+On Fri, Oct 30, 2026 at 07:44:36AM -0400, Kwanghoon Son wrote:
+> On Thu, Oct 29, 2026 at 07:20:41PM +0000, Conor Dooley wrote:
+> > On Thu, Oct 29, 2026 at 07:08:56PM +0000, Conor Dooley wrote:
+> > > On Thu, Oct 29, 2026 at 01:05:53AM -0400, Kwanghoon Son wrote:
+> > > > Add a MAINTAINERS entry for the Bouffalo Lab BL808 platform, device=
+ trees
+> > > > and Rust serial driver and abstractions.
+> > > >=20
+> > > > Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> > > > ---
+> > > >  MAINTAINERS | 13 +++++++++++++
+> > > >  1 file changed, 13 insertions(+)
+> > > >=20
+> > > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > > index 801f964899ba790a8f71fe61f9b3777a494dabd5..b76d3e168468bf6139c=
+958a81b626c73b422c0d4 100644
+> > > > --- a/MAINTAINERS
+> > > > +++ b/MAINTAINERS
+> > > > @@ -4926,6 +4926,19 @@ S:	Maintained
+> > > >  F:	Documentation/devicetree/bindings/iio/imu/bosch,bmi323.yaml
+> > > >  F:	drivers/iio/imu/bmi323/
+> > > > =20
+> > > > +BOUFFALO LAB BL808 SUPPORT
+> > > > +M:	Kwanghoon Son <asdfkwang@gmail.com>
+> > > > +L:	linux-riscv@lists.infradead.org
+> > > > +L:	linux-serial@vger.kernel.org
+> > > > +S:	Maintained
 > > >=20
-> > > Add the cdns,has-acmd and cdns,has-internal-dma boolean properties to
-> > > describe that. The internal DMA is only used by ACMD, so properly
-> > > reflect that.
-> >=20
-> > Why would these properties be needed? What the controller support surely
-> > can be determined from the specific compatible for the SoC integration?
+> > > Missing git tree, unless you're expecting me to apply patches for the
+> > > platform for you?
 >=20
-> Alright, I'm more used to describe peripherals than this kind of IPs but
-> I imagined that these being properties of the IP that would make sense
-> to describe them in binding. Ok, but I sees this leaves the door
+> I added this entry after seeing checkpatch's MAINTAINERS warning,
+> but made its scope too broad. I'll separate the BL808 platform support
+> from the generic Rust serial abstractions in MAINTAINERS.
 
-Basically the "rule" is "if it can be determined from the compatible, it
-should be". Adding properties ends up with people having to figure out
-exactly which features/quirks etc that their device needs and if things
-are discovered after the fact it requires updating devicetrees that may
-be bundled with firmware etc. Properties that are used to say that
-something can do a feature should really only be used when the board
-layout etc is what determines if the feature is available. That's much
-more common for ADCs or w/e that are off-chip devices.
+Okay, that's good - but that's more of a response to my comment down
+below about splitting the entry, not a response to what I was asking
+here about the lack of a git tree. Are you going to send the SoC
+maintainers PRs for this platform or were you expecting someone else to
+apply the patches for this platform (IOW, me).
 
-> open to just add properties in integrations that would not make sense
-> and if we're going to have any compatible conditional kind of handling,
-> I guess it makes them pointless.
+>=20
+> >=20
+> > Additionally, are you actually going to add wider scale support for this
+> > device? Like a clock-controller driver and the various other
+> > peripherals, or is this really just a vehicle to support your rust
+> > serial driver work?
+> >=20
+>=20
+> Yes, I'd like to extend BL808 support beyond serial. I have local work
+> on peripheral clock/reset support, pinctrl/GPIO, SPI and PWM, including
+> an SPI display on the M1s Dock.
+>=20
+> I'd like to bring those pieces upstream incrementally as they are ready!
 
---uKc01hmH0VtcXB41
+Cool!
+
+>=20
+> > >=20
+> > > > +F:	Documentation/devicetree/bindings/riscv/bflb.yaml
+> > > > +F:	Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> > > > +F:	arch/riscv/boot/dts/bouffalolab/
+> > > > +F:	drivers/tty/serial/bflb_uart.rs
+> > >=20
+> > > > +F:	rust/helpers/serial.c
+> > > > +F:	rust/kernel/serial.rs
+> > > > +F:	rust/kernel/serial/
+> > >=20
+> > > These should probably not be maintained under the arch support since
+> > > they're not platform specific.
+> > >=20
+> > > > +
+> > > >  BPF JIT for ARC
+> > > >  M:	Shahab Vahedi <list+bpf@vahedi.org>
+> > > >  L:	bpf@vger.kernel.org
+> > > >=20
+> > > > --=20
+> > > > 2.47.3
+> > > >=20
+> >=20
+> >=20
+>=20
+> Thanks for review!
+>=20
+> Best regards,
+> Kwang.
+
+--z09qSibq+nPgici6
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTlsgAKCRB4tDGHoIJi
-0tT0APsGkClLzsaUhB//dnE4VWj/t8QllLlPxrmNyrTe7hZakgEAi2lH8ESaq6J1
-8mgwDkF846CJavKSTS5WpWN7TgYW/g0=
-=N0N9
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauTmigAKCRB4tDGHoIJi
+0kS/AQD87LyZbjxV+0reytTO2JJdLqp7qGXF8E+JLF1EVO2SNwD+PJ0smcHb0yyh
+KcwNJW06vgZpnTnI5RXuUEIPuE3QcQs=
+=UI1l
 -----END PGP SIGNATURE-----
 
---uKc01hmH0VtcXB41--
+--z09qSibq+nPgici6--
