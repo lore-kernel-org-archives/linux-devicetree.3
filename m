@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388346;
-	b=goo5WhTs1/MJWT8i6hNuiO19RotkgcseDxFKxvzJLYVDMK2AuL+Dv2jGuLjOzKYPbpsQ
-	 LxP80UA+HY1k+wgkrxcrwzQdQ9Sel8z5DpIMSjEofMaTD+h9nQP/HCrDJuWokmWyT6Pv9
-	 AVG6nXJZwrDIyCoKeMi8tZQM4QFC/CX2Bgiv6ZkCb+BUsH8H9b/S3kKh8vNkrRGA/5eJa
-	 ey8aRmyIHQs9RVVG0G+XyqnyDW4QOtPxHUuf1oE5toKKBzrsCQw//jXl3mcl+ek6fQd7K
-	 REAFXFWiHJH6IMsfQY1IEX5168y1oTaZMLqS3M1MmMSeB7jwc14ALDTc6R6e31k8gwQ==
+	t=1793388598;
+	b=dv06oBTeOKN3KF+Cp60b97kcEmiWcV/Z/V3P67m91WxlOLIaFxgAPA3sjlSD8v9xltum
+	 f+F082zfZjKQuF8ptPDF7RIemO4aUllVSOdTdPB8iQ9Wamfi3Qni4DmsOPTn0G4W3Zmxw
+	 yZzKdHJCbNgkq1X9B8pGylQ32i91eGvvPZQabK2O13gF2rBV4aN3HOBDn7uOftzP81oYZ
+	 i6Vrzx3a4eXurFM0K06FEhpyD3RQJx2we+Se5xs1sWTCdeIOd1xdF81vGIo6E3zH4aiV3
+	 yMznfZi0XOHMjd8l21p7WLlM4ZYAxCDLeN/sQwrJcuVpofQcIvFta5giAi6qrKvUbJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388598;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type;
-	bh=9Gz7En1oK8OrbG/8Czlwpynj8nEeQahmBEOy+4rFJFg=;
-	b=1QScv+2DO+xjJ74743LcUxkUVF9uzzWxcFhFmlIcNwqdXV+1MGYmotx3q4QhtiGHGQwZ
-	 suy9+CrbpJuPlkvFAibDMIiKRfcImfoeyTlFvk8Ehnp7LMNupDH/C+aWzt/4rxmXCkVzv
-	 WL2MI3jwF2Wh/4IUQanjc14VT5OQfwQ3kLqvylG16ohqQHMo5stYB+tUrxMFIYO1lH3MT
-	 NDj3RNHqT3mpyrCe7mHqHBCNhlXguEakcYBEjsuRKrBdk79WFIMLQi7p/eJPpCkyYquqF
-	 hxIO3gtcxMs6VCZPi87iKiPWXO1aijPltKqjq6KhblgeMa/lJPLFtu1AO5Y16qChGtQ==
+	bh=vPaZTew6bHfge4tOyLNLySlYKC2rw8qbkKNVjP45eiQ=;
+	b=4V94f9Lb4Tdxqmma7zJERmivYYZiefVh0M71zZ+kjglVJ21fVrxBbYXrX4Npt68ZuX2e
+	 PUY8DDqzO/pQzup8ZYxWNNeEykvfov458zoPsybVIAX2ts4DOVAs82nbAWcHaw9T1k4qA
+	 obaF6SOtSfCDA4VOu4dEUzMp8nWzbtQAxCpqfeNU2hHfxJBkTXdzlcbwHIF2AP1KzOx16
+	 43jsHtUvI2sojnfK4pe4USZ9/0Ankioimu2WE9rPlgwOzbPGxcSMp3lGwFMDqYW6YQxMo
+	 RaTnis2rYK+Fm21whFGe3nS03Yf/CFnTdW1iPzyJy+Bcyy7SxKe0LGSArtX6Wnjw3ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ZmiTEU4Q;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vcu0mzRq;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0862606A31F;
-	Fri, 30 Oct 2026 19:25:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0862606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD0D606A31A;
+	Fri, 30 Oct 2026 19:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD0D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ZmiTEU4Q
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vcu0mzRq
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=9Gz7En1oK8OrbG/8Czlwpynj8nEeQahmBEOy+4rFJFg=; b=ZmiTEU4Q4TcxpYKXHIHlrQXt8W
-	wdsj4IoKSFCB6MzSwA9c6xHYx8241QpdOroAmqLzwGF6RobBF2DvEtmC97cvW0/R4CT1zRnA1nOWE
-	oQnBw3+eLfuLQGaM90cntLhLrY6rH75dmfDLULAXGU08j9jtgmKkyvDXRJhYNysxHWOniarnyT0II
-	tD1jes14OFWXVqv64LB49hE/9Wm/bUDz2bIekNPZLtdjuSqUz69BHPjZqYbRr5fuoboJ8yyY82NMI
-	ZsHHqBfeQzi/Y3E5TGBxNlBlnZl3VM7s4uPaw/QNZoanlhGbl6A5iwI1GR7ZnViwpWKjsZBfAD1iL
-	JStRZN+g==;
+	bh=vPaZTew6bHfge4tOyLNLySlYKC2rw8qbkKNVjP45eiQ=; b=vcu0mzRqxjxJVB7xA26R21VLOx
+	1XuofCcoDvKjYRmwM2obB+hnUCFpJkF2LJaei8BwSJBywSI21TReldCkGn+wUdrlpC7lnPOFPVhJQ
+	InLmBANLT+fRBAxuq/0hEXI/HTmcRD1WdeJyimQeu+GuZ+aIzaKMVUMW5u7kxr5NWsbEIeqO8r7eb
+	5z+MErXmfIQH1kwv44t0UWeM9iwm1+TY4B6nc5OszREoFiojcFy4mUbQ3rDmDMv1XLbd5qsr1tFQp
+	dgsq2+G4QhKtf2FimPUBNyCXhiEmCVykMTENu6eE6MY5CF20VntzbvgM9RbUsso6Sm919olW2kuYP
+	eLFI0hRQ==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Diederik de Haas <diederik@cknow-tech.com>
-Cc: Joachim Eastwood <joachim.eastwood@gmail.com>,
- Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
- Daniele Briguglio <hello@superkali.me>, devicetree@vger.kernel.org,
+To: iav@iav.lv
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Diederik de Haas <diederik@cknow-tech.com>
-Subject:
- Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPC-T6 Plus
-Date: Fri, 30 Oct 2026 20:25:31 +0100
-Message-ID: <22143920.0c2gjJ1VT2@phil>
-In-Reply-To: <20260907122406.1862398-2-diederik@cknow-tech.com>
-References:
- <20260907122406.1862398-1-diederik@cknow-tech.com>
- <20260907122406.1862398-2-diederik@cknow-tech.com>
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the GPU to Kobol Helios64
+Date: Fri, 30 Oct 2026 20:29:47 +0100
+Message-ID: <1937939.QCnGb9OGeP@phil>
+In-Reply-To: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
+References: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,30 +67,65 @@ Content-Type: text/plain; charset="utf-8"
 
 Hi,
 
-Am Montag, 7. September 2026, 14:22:43 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Diederik de Haas:
-> The NanoPC-T6 Plus is the latest addition to the NanoPC-T6 series.
-> Add it to the NanoPC-T6 list.
+Am Samstag, 10. Oktober 2026, 23:53:01 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Igor Velkov via B4 Relay:
+> From: Igor Velkov <iav@iav.lv>
 >=20
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+> The GPU core of Helios64 is supplied by U12, a Silergy SYR838 on i2c0
+> at 0x41, with its VSEL pin on GPU_SLEEP_H (GPIO1_B6). Describe it as
+> silergy,syr828, the way vdd_cpu_b (a SYR837) is described as
+> silergy,syr827, and enable the GPU.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
 > ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Schematic, sheet 7:
+> https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.=
+2.pdf
 >=20
-> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Docume=
-ntation/devicetree/bindings/arm/rockchip.yaml
-> index 81744fbee98a..aa828ee60d21 100644
-> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-> @@ -398,6 +398,7 @@ properties:
->            - enum:
->                - friendlyarm,nanopc-t6
->                - friendlyarm,nanopc-t6-lts
-> +              - friendlyarm,nanopc-t6-plus
->            - const: rockchip,rk3588
+> Tested on mainline: panfrost probes, devfreq moves vdd_gpu from 825 mV
+> at 200 MHz to 1100 mV at 800 MHz, glmark2-es2-wayland under headless
+> weston scores 548-577 in three runs. Two of them logged one panfrost
+> job timeout each; the Armbian DT gave none in three runs.
+> ---
+>  .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 28 ++++++++++++++++=
+++++++
+>  1 file changed, 28 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
+h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+> index 63ad79b4c8ac..1f50982291bf 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+> @@ -339,6 +339,11 @@ &gmac {
+>  	status =3D "okay";
+>  };
+> =20
+> +&gpu {
+> +	mali-supply =3D <&vdd_gpu>;
+> +	status =3D "okay";
+> +};
+> +
+>  &i2c0 {
+>  	clock-frequency =3D <400000>;
+>  	i2c-scl-rising-time-ns =3D <168>;
+> @@ -453,6 +458,25 @@ regulator-state-mem {
+>  			regulator-off-in-suspend;
+>  		};
+>  	};
+> +
+> +	vdd_gpu: regulator@41 {
+> +		compatible =3D "silergy,syr828";
+> +		reg =3D <0x41>;
+> +		fcs,suspend-voltage-selector =3D <1>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&vsel2_pin>;
+> +		regulator-name =3D "vdd_gpu";
+> +		regulator-always-on;
+> +		regulator-boot-on;
 
-somehow this seems to have slipped through the crack wrt. a dt-maintainer
-Ack ... maybe resend the series?
+both of these should not be needed, as the GPU should control its
+regulator. (always-on and boot-on)
 
 Heiko
 
