@@ -1,96 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793387157;
-	b=d2jV7xWek+yL4PPpZk5pxQTpU3ssuzwhBkp6eqmtDZG/Cd/LgYvBKgkdl/N//XQY/qKa
-	 YHhmTIF+OuwRtNq9U+x7ch3+hfbrCYosChuYb+uGWPlxaMJtG9kjosPCEAmmpoisFDCZt
-	 ozJ9vRQWc0LFh3EAFvds1it78ewr2QMUylO8015CTkq8OhazgK1CLSXeGwgfUTr9CDORq
-	 whLI4mlL/5glKjAgCvedJteDKmbdWggbp9/MqEo9FDWX95QpXsOjw7biHUMYlKGX32IvD
-	 JnGMQN4NUXbxokVRak3y7aJ4ol4klvaXUIgvR3rytpAgXJdwrXQ6Z1K5jnPK6LiVm8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793387157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=J9hrI45jlpVu4PlMmMuPTFeOsIL9X7w+vA3kaWRvlIk=;
-	b=o0oOdtYQAEdlw5CHWnKH+kg9mvOKC29l9GePZ/LH3ly1hXlgMKGcyh8XjobrKtlkpWGm
-	 MUgJuZ4+lQP++4rfB9jxlh9I6HGUhXFtli60GgncYgfu4HkxeO5ENNfxnKa2ehvdEJWIV
-	 gDFwHRIO99O7FRBNHYvXJUYpB8WmWxSaqJb4hI+DPNxDrjHJfIjfEUo86WXCzo6DQZ+D7
-	 pOOEXoQ1xW72QsWbzovOJKnby/qtcODn0SO929n8ZHzoNHgEniS9CT8N1XfXx5s5pfM6y
-	 SKEP+lsSm6kqel2MnPTh+IP4Q944Crurmtoxw/OCux236veV/wAKFHhe4iH/yGR2f7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=LLofvvb7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793387699;
+	b=1r1EcgPutsZWsAtunTiiKa2V6mIHGjOMgHDx4ZhXdYSgOwazRSdBgPDdocJFEvonhqAW
+	 zaxOa9scEValW6OUahWtchKtqSPHI0zxtd2Y64yqZ9qPlL93pNPZ0idL4sxCjSs/5Svtk
+	 USjgv5v13f1IZ6LjY8G2j8tBw1z49ZCUmHUuRomwnwXWfeC/l8HOFXDNAXRmbjdngjz7S
+	 E5UDn5Eca3l5iXGv2VQqX/yybibOAwRhN74sSLGO1tSEjro+yvBaLLMDK0EXM5vo+DfQB
+	 X7WnyutBvxgtI+XZkp5iivQeqGCqQmQDy5pTv81ucv/YKbpgI8dvckuQrYUbHyr8kpA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793387699;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
+	b=diu1LMxyl6+lO28pqjKIrQXzhvFibaUYHX+Q4AMxALgX//evv5iaV5rHI8l1XxQD6rgM
+	 4BQnbYo2wWSvX8SADtKfSDzdyXa9AxP73qLEsdlfDnz47thvt3V8LMAP4vR8tnXZBWtJ0
+	 CpbKK2VfeuhOTKsNPX6aX812Cl9sPUY53x2KmYrk2Q4NJeis6/q2wnk05IbWin4GDScBl
+	 ah/zY4nda72KmZbNDURwGYzQbogxUkGcWAZxsmGtFwEIEpS0QVe9RWHAEFz+eoTqyVV+d
+	 kLmyEf05vemEwMA56cC9sIxusgIEiGCI9ZswPDz5nhDkoswVs9kAX/zkm8MKn6xBRAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Gd9d4Yq8;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6099606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6099606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5B0606A31C
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=LLofvvb7
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-369f33df08eso2237866eec.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:05:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793387156; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rMq4nSaKt0/JlmirEiqVcrHhPNOCCLhFkOwMZ+rkeiPey1TLzODi/8B4ObaNj959nN
-         CSqgRpPjJKxVWXiMPWwUDCdcWEkwtyogvbC6bkz3A0u4CQdjbY7mvNy/NSQORa1x8xcx
-         1kQBqQgf2PhulsBi6Z3KT/wC5dK9EWf5zCOLh3fJDtNw3wr/CDMukL58ZFNavKeLbMh3
-         0TYos+Zt3y9FmlZbSsxOQDya5Ua5c5ONdJQ/m87z4A4J06TC09PxZJWT9kl/q5NxxX8N
-         ElkU1L+x1xASKYBa2hlYDmZJyZ3WskD6/WYNHJHmNrq4veivReXLQCH+2wM7qK7BRqu8
-         xldQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J9hrI45jlpVu4PlMmMuPTFeOsIL9X7w+vA3kaWRvlIk=;
-        fh=EwFmQVO0FURJbbM68DR4A2TIkBCHkPui/vzBRIk+qto=;
-        b=s6JCD4CcxKLe5e1jqynnP1DeD6FdAHVXcxc8ucgud/FBVQEEv9UI1EaYAH+oFlDqic
-         2tZBjXj5+5wmBUO0vKsqK7ANeoZFXfoGH9AZfO3hruP+STeqL33+FmfDApZgIKZ8tMZt
-         04YDi/eOuHdzspfKASp2aSazbO31bGRW6w+83UHada0Ov3uJjBUgO5y9z6bdlh9v72iE
-         07T8bqbC63KTrbKIKt65DqBmVsS7d3VuIKjSnmuOXVVKIPpJU5NF+p8tCAXHKvqpx+7l
-         o8bxz2K7SvmGSsL4QhpXrvcHeI9vHxoqLIFGJCArRSxbh4OzlC4Ind/Hgge8vcm3M9fW
-         BGcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793387156; x=1793991956; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J9hrI45jlpVu4PlMmMuPTFeOsIL9X7w+vA3kaWRvlIk=;
-        b=LLofvvb7RajJaXSnFtcrWvkkzieiyeC7FpzUPkjNpN3+NGdZ0cJSo9RtjkFZsnF6ru
-         UANyOEc/Qglo8QMluP1PHrBrCPNKujunsuG5NIxmQ2C8DbvAyDwC9jI+i/KYrAHzEZBB
-         RXJhoPo4tI3n81k+JN7Mwfoh0c5IQSUjZ6Rys=
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Gd9d4Yq8
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso506592a91.2
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793387156; x=1793991956;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1793387698; x=1793992498;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
+        b=mBZiVKlTa0rvqBrxtto8syD34OvJqTkDRuiUjvAgCa7zLjejibCe7EmHub/zH2RKy7
+         cARRymzcaJtfng+rGs0e3q3p3ojbNAa5zErnz1Y54YCemV5TXGuP3OBNODWG16lT7aLd
+         cH4QESQzpWiAp7F8TXbeDUwF90CeGN3ft0EC04NZchEJtdY80XBFNQP0ZpshCv4fCiPa
+         eEjBqhEPTEBh+OiTGidwgaY65dZI2L9owaM7am3CVK1hBP+yLfRb606EiUNQ4TWQ7ykT
+         i6VnnzGRAYH2+usnpRbRp0WU1nzXcOD92SvubU9Tq1TLf+N+XAvzdRYZIVjElbH1RVvE
+         C/xA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZdcRereCVCrBSwWG0+tXSUW3xZvoVH51ohoamuUWdqOgzdsZGILcEm7WyC4ABdFCC2uR4LZ8iQRl9@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKAraeT7PWhDjYZwX0iGHPSsjrfEUkjmXSvvZru7suKKfF9raY
+	zVjaCY/8gG6ihOnOwwwLnVdq1TPjEms1E2qRx0Bqe5CQcDSAkQz1yWhksUaGZr7WPRBLTjuAs4V
+	vQaKztyAHcEZVQGksx+CcvntKxg/2qTCC6ojFigH1jKHK8WdEGN/BFjOpdy1z+4VSltKSL0kDuW
+	BpHH0xoJrFLOfZ2yV8B+llnteMlbE2C3e3i4PSTB0P5yWACDJ7zZ8riGLU/NuJlti4dU58M89GO
+	fgbcqt0GSfRyudb3Qe1CXN3
+X-Gm-Gg: AYBFou3k8uRmLfALOXG0nMdtYNRqf4oM2ieHOjcK4DYEWZxxo3swNCF6AZih5cjB12I
+	QClAxzaXeexVyAEyiWv0Vu0SF3Ze9eUeCcenNkvl22MicnQmJGE0yV7blBiCOYRd2fokS9yuJyV
+	4fq6qIPvySXZemaF+kKCCdCzC/x05318YigxdEX5TpzDnZFm3ndI1s+/qsQkbQupyps0mnLlecj
+	7+WTJojwUKnWTpPEWbbrjy5Eo5chew871/9CjbOSDaJFtHEmLOAHM54MARZxfMO5HUb/s3+PWvm
+	kW81B3ya2RYIxfsQgpt6+GelLS9GzCySLe2aDHkgRvm+WIp5r8h4lRimF8eq7D7yl/wrYHRlUgs
+	1qBOKqc20laWTQj++LO2hjOT4HXCKx+uHCuXY7Zw2/NcENBsVj1zeQ3T+p5iQixPPwtkJiTO1Nx
+	rc4T4GSFo/kLt1tnw64uF0QRV9J2JMu3aYwpMHuHfr
+X-Received: by 2002:a17:90b:2ccf:b0:3ac:d17c:2a70 with SMTP id 98e67ed59e1d1-3ae897c8552mr2683807a91.62.1793387698182;
+        Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae8444ce5esm2493169a91.2.2026.10.30.12.14.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91b92acedd9so31071736d6.2
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:14:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793387696; x=1793992496; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J9hrI45jlpVu4PlMmMuPTFeOsIL9X7w+vA3kaWRvlIk=;
-        b=B4KBH2SVG6CPqCJh2b6ExaOZgLbuNniOr6THTSnDrYZqdMYPeyBmJ2OGsQKwTBLH+2
-         kSAjsoE94dLFWiLNYG/XxACk0/YUfXalLNrpe1MpatAlr7767hV5rR5C4h78dDA7i1lw
-         qlmtawTe173cfHPyyrPVxcK9X+h4lRHs2riTLSFK/5J/LBd6mivcMLDibu+alYLX+UCV
-         3Flevmgx+8rE1yDqlIePBq09pFwB2vty5akyFOIIeEM/NG8fWwP/Un1bsB7iompmy0Oi
-         PmkQdf1GQHZgoe5B3bOtG6M6ulCFNLhfAAlJcV786jB3QioN33K2+pz3tMHgULqxrGKv
-         Fkww==
-X-Gm-Message-State: AFq9FYI5YksSqAhNynN5AehaaDarhJkLR8gBAO9fmb6hSlqu4xs7ETtk
-	jMMRwO8zNTd+LXXR2McKr/XKriESvJWC60lhJfc+kzy+WWPS3qCiEb6N6EEhDHSKySz1dE6qx8m
-	Dr70Wp314+R59vmxzh90OATiweWUDYcLvnnqCIgFSow==
-X-Gm-Gg: AYBFou3bHHmerTxvnhuheT6rseQprVPLFgCXqplbtRiSWsnzgDBW2yi41Yv4mXB+TVl
-	1nYEC2/QB9pZ34vtuzhcoK8sCowfqe+jVo1yuIS9WKQL0j4M8on/4KNBV5De4bktWGyPVZAiRfB
-	UP8o4e3/p8PVQnFKqzORE0p1YQScq/EEexBVe1JwDLtm4fdwBfM5wUlIEG1sufUbYQJNIa/3RmP
-	dhAK8fQY7LZVrNT5izp86zi2QNVLeCXglgujLAbLmmV3Hm1+ic2L13gEKnDOEayGPhxsmKfcxjr
-	JrAWUACRQm4GM5DX8UfrhJtLBmtCy7zzaCmTjRZulsMLWA1yWpEbofWzDtj8crb0ZN/jJJ78zO6
-	ViGrDdShVVo7AvN75HH+6Aszmtp2eT4GIrxBKdITavtQJc8CS59R+PF73/BuZe32SRzw=
-X-Received: by 2002:a05:693c:4154:20b0:35e:f4ac:5f8e with SMTP id
- 5a478bee46e88-36a420574admr4840973eec.0.1793387155597; Fri, 30 Oct 2026
- 12:05:55 -0700 (PDT)
+        bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
+        b=Gd9d4Yq8fp4vmgLusvV5LExP0kEHXoqGIzfcn99ebJN5xuoAFCc9WmytenSfcfWKYP
+         igvRxxLbm3pNQMKzQe+EWrsRuNkyaEfBfQfe+G0QOMR7MbY0X3iQlIs8gc/nNQMNLaqQ
+         owfwaRohCzIwRnnpRQxVkPtE9w2M2eN/pDvkA=
+X-Forwarded-Encrypted: i=1; AKwUvBwspJZlgqybOwvxGd2rMPBLqwr3blsWKCm34vRLZOwuuQe1ZA4lPxJQm7jiyX87G2lFTVoGzlN3eoqB@vger.kernel.org
+X-Received: by 2002:ad4:5c61:0:b0:91b:5d39:e13b with SMTP id 6a1803df08f44-91ca4bda1d7mr54317436d6.48.1793387696573;
+        Fri, 30 Oct 2026 12:14:56 -0700 (PDT)
+X-Received: by 2002:ad4:5c61:0:b0:91b:5d39:e13b with SMTP id 6a1803df08f44-91ca4bda1d7mr54316986d6.48.1793387696200;
+        Fri, 30 Oct 2026 12:14:56 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f3db1asm23125436d6.16.2026.10.30.12.14.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 12:14:55 -0700 (PDT)
+Message-ID: <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
+Date: Fri, 30 Oct 2026 12:14:52 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,121 +106,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020113717.189082-1-patrick.barsanti@amarulasolutions.com>
- <20261020113717.189082-4-patrick.barsanti@amarulasolutions.com> <10806856.0AQdONaE2F@phil>
-In-Reply-To: <10806856.0AQdONaE2F@phil>
-From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Fri, 30 Oct 2026 20:05:43 +0100
-X-Gm-Features: AclHuK-vdnEzcEGsGvQRBO8g78jL4SBlJMAH8_NBpy5nWJ1J3N8PxOJgd16wrPs
-Message-ID: <CAOf5uw=iMTOgoJZHXWRc=XBfTZ4jVc9LDToRSi6RvgknyAjDUw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add Axelera Embedded 111c
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, Patrick Barsanti <patrick.barsanti@amarulasolutions.com>, 
-	linux-amarula@amarulasolutions.com, dario.binacchi@amarulasolutions.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP
+ variant
+To: Rob Herring <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Alan Stern <stern@rowland.harvard.edu>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
+ <rafal@milecki.pl>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
+ "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
+References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
+ <20261021172819.668120-3-florian.fainelli@broadcom.com>
+ <20261030182151.GA1206797-robh@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261030182151.GA1206797-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Heiko
+On 10/30/26 11:21, Rob Herring wrote:
+> On Wed, Oct 21, 2026 at 10:28:11AM -0700, Florian Fainelli wrote:
+>> Northstar Plus uses the Northstar Bx PHY register sequence but also
+>> requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
+>> clock enable.
+>>
+>> Add an NSP compatible with a required USB2 DMP phandle. Describe the
+>> shared PHY relationship with EHCI, OHCI and xHCI so initialization
+>> finishes before any host starts operating.
+>>
+>> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+>> ---
+>>   .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
+>>   1 file changed, 23 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
+>> index 7fd419db45d0..00d69b86cbff 100644
+>> --- a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
+>> @@ -14,6 +14,9 @@ description: |
+>>     Known B1: BCM4707 rev 6
+>>     Known C0: BCM47094 rev 0
+>>   
+>> +  Northstar Plus uses the Bx programming sequence, with coordinated USB2 and
+>> +  USB3 resets. Its PHY is shared by the EHCI, OHCI and xHCI controllers.
+>> +
+>>   maintainers:
+>>     - Rafał Miłecki <rafal@milecki.pl>
+>>   
+>> @@ -22,6 +25,7 @@ properties:
+>>       enum:
+>>         - brcm,ns-ax-usb3-phy
+>>         - brcm,ns-bx-usb3-phy
+>> +      - brcm,nsp-usb3-phy
+>>   
+>>     reg:
+>>       description: address of MDIO bus device
+>> @@ -32,6 +36,13 @@ properties:
+>>       description:
+>>         Phandle to the DMP (Device Management Plugin) syscon
+>>   
+>> +  usb2-dmp-syscon:
+> 
+> brcm,usb2-dmp
 
-On Fri, Oct 30, 2026 at 7:54=E2=80=AFPM Heiko Stuebner <heiko@sntech.de> wr=
-ote:
->
-> Am Dienstag, 20. Oktober 2026, 13:37:17 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Patrick Barsanti:
-> > Add minimal device tree for the Axelera Embedded 111c
-> > (rk3588-embedded-111c).
-> >
-> > It offers efficient AI compute for multi-stream computer vision and
-> > GenAI applications in a compact design. It features a quad-core
-> > Axelera AI Metis AIPU and an RK3588 SoC processor.
-> >
-> > This basic version of the dts supports:
-> > - Console
-> > - eMMC
-> > - HDMI
-> > - 4x USB-A
-> > - 2x Gigabit Ethernet
-> > - RTC
-> > - Enumeration of on-board Axelera Metis AIPU
-> >
-> > Link: https://axelera.ai/axelera-products/embedded/111c
-> > Signed-off-by: Michael Trimarchi <michael@amarulasolutions.com>
-> > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> > Signed-off-by: Patrick Barsanti <patrick.barsanti@amarulasolutions.com>
->
-> that Signed-off chain is not correct.
->
-> As it stands, the first signed-off would indicate Michael as the author.
->
-
-It's a bit complicated; let's say the core was done by us in a
-workshop and even I'm
-the original author of the first version of this board's support in downstr=
-eam.
-I think that co-development is more appropriate for me and Dario.
-Anyway not being here is not a big deal for me, because I don't spend
-time on the series at the end
-
-> If all 3 of you worked on this, this needs Co-developed-by tags, though
-> 3 people for one devicetree?
->
-
-:). You are right here
-
->
->
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
-> > new file mode 100644
-> > index 000000000000..a964b46e5c12
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-embedded-111c.dts
->
-> please name this rk3588-axelera-embedded-111c.dts
->
-> The name is otherwise way too generic.
->
->
-> > +                     vdd_log_s0: dcdc-reg3 {
-> > +                             regulator-always-on;
-> > +                             regulator-boot-on;
-> > +                             regulator-min-microvolt =3D <675000>;
-> > +                             regulator-max-microvolt =3D <800000>;
-> > +                             regulator-name =3D "vdd_log_s0";
-> > +                             regulator-ramp-delay =3D <12500>;
-> > +
-> > +                             regulator-state-mem {
-> > +                                     regulator-off-in-suspend;
-> > +                                     regulator-suspend-microvolt =3D <=
-750000>;
->
-> regulator-suspend-microvolt is deprecated, so should not be used in
-> new devicetrees. Same for all other occurences.
->
->
-> rest looks ok :-)
->
-
-Michael
-
->
-> Thanks
-> Heiko
->
->
-
-
---=20
-Michael Nazzareno Trimarchi
-Co-Founder & Chief Executive Officer
-M. +39 347 913 2170
-michael@amarulasolutions.com
-__________________________________
-
-Amarula Solutions BV
-Joop Geesinkweg 125, 1114 AB, Amsterdam, NL
-T. +31 (0)85 111 9172
-info@amarulasolutions.com
-www.amarulasolutions.com
+That would be inconsistent with the usb3-dmp-syscon property that is 
+pre-existing, hence the name chosen here.
+-- 
+Florian
