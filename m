@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793323676;
-	b=euca9Ycbh3pLn/twaRcdaU83Ehg+nJu8KkyLlFpZngsT3qUjXakW4pr+m9+U2LFK912O
-	 0Qjwyuhff3J1k3koOjlKxZUY+4/bkTsu0QoIhfhsAg5pjWGGIAJIL3+RhNWOUItXjPVgC
-	 fNQztR5wBEt8iJrU5Lt8/VJUxUNiy0DhZLgxE1n6WGnePT9D3exYJKYuKTpWQGnQm0d7L
-	 xKx+00Ij1n9ioHELao004VsQ1oYqoiQlSia6PQv8HiKObXqJhaJLlFwtD/naiX4EByqR+
-	 4sDpMWzaewwemU9kJHZMVPlcEIf2CP4zz0FecPDoUhzUWvOxTEZUPvx3cMqMj1e8B5w==
+	t=1793323766;
+	b=NErp/DwEYlU7qJml28GuKhciU2FlLUkzy7Ke5UKBK/Qh3QlqvnHydt9E+IaaCYM2kcPw
+	 6hM5940g/RqKSMdartykcbXYL8BbhGO6BrYl8lxPCPJZM41FQ33C0UhliWr978xUGVybi
+	 36Hj8UMDF3XfZzpxFgk0Il3lDV6lhqXVx93icuhIyGX9RY5hAQLREWd6owUENlQ8D9Csp
+	 Oq9OmpOKtRB3hTtMfVR0JNfgPnMtw9z4XOefoLgmLd5cX2IqDUe7n0aMbkr0M0sh2D2C5
+	 0o9SoRZ7VCE+aRxPFEZdjvppEelwIjWzJcYZH+BjXdrU/o0zzi6XyoNuYnsC35kKRpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793323676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793323766;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FUuEMEp4Sq4+y9YNfcK1/A/G/PTtLzDOc0DPIC0ZA9Q=;
-	b=cWlH8UQDvzENeutu1eWtHK/remOJXZcQJW2F9fTUJLleCl9mGCJr5DMU14HTTpp4l7+J
-	 jT6tFG8DRC1CJi7FLhyX72yARhbvkEpsYLoexYP+UPD+6kOGpHdQWhR+ecxX6BGd9slaH
-	 jsTLZhN6J7klouGjfC7GFEIdiR8eHL1kFOKz88WTd3URyAznPatOlsRuQX3/8Bj0KObbN
-	 Npsp5x+FuLZyn9wbM0N1a79NazJTeFLy/oPppYx90MjwKrZdYYwVW4yH+MCCJKvKUQLeZ
-	 Tne+Pvz1XypfF7/LX1Mf4WMk0E9XbkBO6WLDZaZS1f0MrxIpXe1uQY1Y5rpuPRxVmvg==
+	bh=4fJnUETMpqbsY8C/libV4lplZBPSHZVwnBnVZzL/9aw=;
+	b=0NNXhYEmGaGpXK2Zru2QnBrd9oOFwhKHpS65f470bZL7q2ZgEHAu2ksD8uiEhA8VVLNp
+	 bS0J/OnMfZobLds1AqUiceT2fK5X0rJtgXI+nmellQCBsTMUQYsXRRze9foHKkRHshstg
+	 qibOCoDSlR2oyXZV2+fzPRnRWsmS1wzH+JLueAjAUmQLtQXVgPdfxiHLm+4oJM24Ywts1
+	 4hTi2wptBRJYwhmrGyJiiHQadRYKCpVbDDJplMZ3Z1UfyyFw6R6FsXXlEge/8/X6n+i2+
+	 PUYvf7mv8nYRBUo4DRD2rIrO1ZUDYEUL6QkEYXR6ic4P2wORV+AoW/O2fSzlk9CgnKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Lafy3Bx/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP066uO9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C307C606A31A;
-	Fri, 30 Oct 2026 01:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DA0606A31A;
+	Fri, 30 Oct 2026 01:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lafy3Bx/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111FD1F000C1;
-	Fri, 30 Oct 2026 01:27:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP066uO9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0981F000C1;
+	Fri, 30 Oct 2026 01:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793323675;
-	bh=FUuEMEp4Sq4+y9YNfcK1/A/G/PTtLzDOc0DPIC0ZA9Q=;
+	s=k20260515; t=1793323765;
+	bh=4fJnUETMpqbsY8C/libV4lplZBPSHZVwnBnVZzL/9aw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lafy3Bx/zY7kgVvrbo4ZtiaAI4XfHukxMcompVEw2fX6IOYTpGmmd3NKbK2POBab1
-	 XjO7VLTzkiQOMJQWc/L0Qe9NwhGrBVjHUIAEl3Nwd2EquWVQ0FKcvUz0CqO7GRH0We
-	 z6aNmIHHqWzTIl0WSBD1BeKmXKXV1umK0iiVPEA7Dzh5jvJn6Q4PVtwNCBYHMs3Tw/
-	 y4PD/qlqZrRWcVtqDe1Nky7ZA6vsVEo2LFajwDrIetgPH3mGblMNIqKr2lDXop0bpE
-	 aUq7PN1FDVsu3XQzp3QW0m+g9zV1vRyZiZSPlofbPV0kmY8ywmUQWrEGCJYLaGTkNX
-	 R1qt3B05a2Oaw==
-Date: Thu, 29 Oct 2026 18:27:53 -0700
+	b=TP066uO9J9qysREH3m7rGEB3uEH6nAC5R5SDdk7oZ3CZaEDX5rpD8ryZizXdXzbMD
+	 Py1m8h9x+fDsf5f5Q8GWrmGb2f1vJS5TvGVEzw6kp0m0umLdvolut0gqy+/29gMR1A
+	 KR6skYDlcspZcv7iShbuhE2DiTpDoLdMwersx+KVCE4j96akac4VggA1RkB8lHS8E0
+	 PuI8yqMusM9kZZGLu28dpA0aplF1B+Muq3kkG5zg4eEWvduRF+GYe0mlFBJmQDWaws
+	 ZuYN8jceb2TxY62ubgymGw7sAB963VuHBKEcEeNq/QXmwkO+va0lTYohqPmau0Da1D
+	 kPc9Fg/KfrtKg==
+Date: Thu, 29 Oct 2026 18:29:24 -0700
 From: Drew Fustini <fustini@kernel.org>
 To: Kanak Shilledar <kanak.shilledar@axis.com>
 Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
@@ -50,11 +50,11 @@ Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
 	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
 	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] riscv: dts: thead: beaglev-ahead: Cleanup with
+Subject: Re: [PATCH 2/4] riscv: dts: thead: th1520: Cleanup with
  dt-check-style
-Message-ID: <auPymWTegG8Gj1bt@thelio>
+Message-ID: <auPy9Hwg5nXDb9fR@thelio>
 References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
- <20261002-fix-dts-th1520-v1-1-9a8810091d47@axis.com>
+ <20261002-fix-dts-th1520-v1-2-9a8810091d47@axis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,27 +66,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002-fix-dts-th1520-v1-1-9a8810091d47@axis.com>
+In-Reply-To: <20261002-fix-dts-th1520-v1-2-9a8810091d47@axis.com>
 
-On Fri, Oct 02, 2026 at 03:43:33PM +0200, Kanak Shilledar wrote:
-> A lot of warnings were thrown via krzk's updates to the dt-check-style
-> tool. These were observed when running the tool in strict mode. Most
-> of the issues were related to missing blank lines and out of order
-> properties and nodes such as:
+On Fri, Oct 02, 2026 at 03:43:34PM +0200, Kanak Shilledar wrote:
+> Fix warnings related to "property-order" and "required-blank-lines"
+> reported from krzk's recent updates to dt-check-style tool. Leave
+> out reordering of the nodes as it creates a very bit diff. After this
+
+I will change this to "very big diff" when applying.
+
+> patch only the following warnings remain which can be fixed in future
+> work:
 > 
-> 	thead/th1520-beaglev-ahead.dts:43: [child-name-order] child node 'leds' out of name order
-> 	thead/th1520-beaglev-ahead.dts:46: [property-order] property 'compatible' out of canonical order (should sort before 'pinctrl-0')
-> 	thead/th1520-beaglev-ahead.dts:79: [child-name-order] child node 'hdmi-connector' out of name order
-> 	thead/th1520-beaglev-ahead.dts:115: [required-blank-lines] "status" must be preceded by a blank line
-> 	[...]
+> 	thead/th1520.dtsi:221: [child-name-order] child node 'oscillator' out of name order
+> 	thead/th1520.dtsi:227: [child-name-order] child node '32k-oscillator' out of name order
+> 	thead/th1520.dtsi:248: [property-name] property name "snps,wr_osr_lmt" is using discouraged style
+> 	thead/th1520.dtsi:249: [property-name] property name "snps,rd_osr_lmt" is using discouraged style
+> 	thead/th1520.dtsi:253: [child-name-order] child node 'aon' out of name order
 > 
 > Fix these warnings to make the file more readable and maintainable
 > along with that to make it more compliant with the devicetree
 > specifications.
 > 
 > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
->  arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts | 119 +++++++++++----------
->  1 file changed, 62 insertions(+), 57 deletions(-)
 
 Reviewed-by: Drew Fustini <fustini@kernel.org>
