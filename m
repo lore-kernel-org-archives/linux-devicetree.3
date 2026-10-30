@@ -1,85 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378852;
-	b=4e//aZfp7zivKMoURSls/ZpI8WzllfpU4wn70WhXicQ4TFTCaU4pl521t4Mdj0gkmq3V
-	 2LxfqBHtvuuxVyhctmPyYlq/hwaVN3j/GxU0hnG+HZ8QCfg5A+84MkP3D34y3y4+h+6Yo
-	 SXE+ReIuphJGxOjjbcJDnectXVO5+eGFqVEnPt3vAUdkD2rlOYvok5SlCk+x6VvnW016p
-	 5g/w1VsIID95oKwqDrPfs23fRrBJ+ZTCYo2LCCSaiA1WsISgl2PF/ToetptlZP3vtf1zK
-	 ZJ+2E4hdsrLEAxlxPjaNmVoKcu7xA9WHumx9ghZ0Ck3GFVgg0J0vpOk5SF9VlRjtKWg==
+	t=1793379357;
+	b=NEHiRhV6uwhkwg5+HQFYZCNg24tOQW/xvtju5aSXzvUewiLEf/Yiuj2b4t5HQeNUMStx
+	 6dVMw29YEdYBOKrPtTGhtNS2N6b5qiO280gB5MEVFrBclEU/zJBetPoGaBb8tW+dpQrre
+	 FjKgepXDPRdJfBzvaM8gLT3bhhhO0UbifsabDkt2Z+mX3hjGdgIPA5OGwwu7nmc+mQbkZ
+	 K/plRwxM4mjmwScOm4sXKrzomKNOT/qyAd9kvSWy+B0FvkTlxKkYWA7AvrGQkV6yxGBQi
+	 tPCKez2JhwBFSf473RMqyruynfXhLNzGWx0zBad2rclkQsGf1l+hHdA6fZ1VqvRsy8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378852;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=V7FD1Yifhjd0XE0aXGsUf/OdQjvXa9aJNxitw3kr5Nk=;
-	b=2CeRM7odZBdqfodR4zgsO8GlLmQ4dkzvoh1EUFQ3oaMNwlCHF7aokKUH0K6OCKCiKSHJ
-	 qt/JIIUuRGX/NWbxSzSXSMv1E9RGc+eEocXDbC+X8DN2e9nGeauHdjuZWO58vOgvUMtVk
-	 3UDbk6pDW0SUeZtccEZ3/lhUcyqzTswekTwx+irK6802jQbdAayeYM5qMXLJ9pR6WNEmn
-	 bPKZyv1uGIo91dGCMs9wVXIfGe2w8NtrQWiWMIVgIMbIvjCAhSqiapLdRQUjpuCaX5Iqc
-	 gsq1mn2rGNaLK7pYolo9CllW/hfCxneq96sjiEgruTugDuDo346+2OQTalI1ohdZ3jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379357;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ExZHM9hPcqVst3NbQ2hdGZ4vWGi1/65DTEs1IfXZWwo=;
+	b=vskoiTg2aqmNtmgaP+ud0bQwwQ53IododpwUN2giT723yopiEwS0ekUwjSKJxaBeI8j3
+	 WyvkSsvFU8vof52iVNjMQ1alqrnd9cN4qtum+UqktwSYH1esWYV1kU+pVmlxhgEO/YeSq
+	 y19Nwz0y9MAtDRdo6ynqI/fKz1wZrsvptuOUinWCnydK2I8cI12stoMkd83eaNyD0AZrZ
+	 p+GUr9537Zhv2ELSYbtODjvg0uN+3cGwAEyB1pr+8KDNOSBXv1NSmCcnSB/osEhWpSHJr
+	 ih86GQfbQ+r57GxJh8x5znMgMbFo34/gZ4xCmYRVyf8+SIqCbDrEv+94FYRDcoEZJRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ham7XFJr;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pcKpA1QB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VUwJzgz2;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0626606A333;
-	Fri, 30 Oct 2026 16:47:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0626606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94866606A320
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:55:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94866606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ham7XFJr
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 37E87C49F64;
-	Fri, 30 Oct 2026 16:48:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A2AD603C2;
-	Fri, 30 Oct 2026 16:47:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 92A1E103290F8;
-	Fri, 30 Oct 2026 17:47:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793378845; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=V7FD1Yifhjd0XE0aXGsUf/OdQjvXa9aJNxitw3kr5Nk=;
-	b=Ham7XFJrTCmFIHUZXGGdCB9wly+TxjEY5dxvFckfwwk3bFw3mQIfWv94ON0Op1hwIwUvjJ
-	9UDtGiFT5QtGmtNGJDp4BP7ykMj/CoBPAsl5jLYcwsZDZ08Z5rUiodqhjfyFJTxdog0Qpx
-	ZTG1n5R//vh/9IT6ERX9TBin/Ej4w/5O4oBwzFvbmziDSM1mza8uwkGPROr6itytnAOAML
-	3AE/5BkZBakJVeZBPyzLdFzpxN4EX6dlcQsWLPzrDgp19+otyP2gxq6Mx4zcJHzepdL50C
-	olypDYdfCcrWTKJCE9pJp1aqTX01htfTYIiQHah4aMM7WvkO4vMuVoD5KQDW0A==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz,
-	herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments TLA2528 adc
-Date: Fri, 30 Oct 2026 17:47:04 +0100
-Message-ID: <20261030164705.297354-3-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pcKpA1QB;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VUwJzgz2
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UERGdC2495218
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:55:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ExZHM9hPcqVst3NbQ2hdGZ4vWGi1/65DTEs1IfXZWwo=; b=pcKpA1QBUxKqAvAF
+	4lK/xm6iCV9fsyY7HjvxQF79U27otjHQSDOsk8I6TBHx1rzXcSG6P6Sk1o3dVMv6
+	iwS/xrcqK4vAylsQhKPjBB8PtH1Oi2T3Rco69SOIUBrDxgrPfgOnvcfnIfI7nQq7
+	GGUcOA0EeKPoFs9gFW+t7pvkgPjK60RuQ3en/uoLj4biuV2wM4qcptDvFsaIkFGU
+	cFb79XfkkHmVJ2M70Gvo68H3Vnm2kOf85EnQx9bbj3xz3d/jYIMUxr/380L9ZHgK
+	e8pg8KHvQvVK4xkCIagbk73vhl/qq5Hz1YNu0ZvMii0ep9L3WdtuJxjKeNsBYsud
+	NZGOhw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p44tf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:55:55 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eaf3f829b3so10331765ad.3
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793379354; x=1793984154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ExZHM9hPcqVst3NbQ2hdGZ4vWGi1/65DTEs1IfXZWwo=;
+        b=VUwJzgz2U8V9XOm4OUCG4W1Vr8jg0ULn4wyI4l7bmpqINQH0rKREEvMArV5gjRVziv
+         LuLcQOQMmgPyhkLIKB+AkP1DCSwMIkI8MK0jRtNTvYPsJK9XWW2JQfnJKD6Sasck5iZD
+         8H9VCqNNeEYFmpYZzLAFVAY2FtnZympio7pzrPIlFJKMmpQKoEPYsXdoVRYgkW/lB4Ej
+         vDZJd2zvEpESjf5Kravzsw6sImea7NLDCwLRra5Wx+XUO9u/Py2AGSBd9BZ3f9vQQj90
+         J+Bco3znVkORM6zGk6xp2nKKRRXUgqqlQ88u5v4fNMSX2hrtGz9edx3ZRb6VgYQfNQbT
+         0+cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379354; x=1793984154;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ExZHM9hPcqVst3NbQ2hdGZ4vWGi1/65DTEs1IfXZWwo=;
+        b=cbEiapt2lkosB6F2r08xvbzSMR4FwM8CAIgOebeGF+T3yc9frJE9sa3ti7cTNpuZj8
+         3Q6J4fZSOdRhxK9WRuf+qQld357eFpmum14B+GvBqH/+q+zkCV0mMhJ/BNjoFp2PORpE
+         g8lhf7H535Z4hILVqHFOWLjd4Na3cjbsbosFSjZPJhdvtRwMpr8DMcbkRo7m00iUbfCr
+         ExeExYctrneaPJ8CP0EhHK7ZSOnsJvEizyceVaSeh1GaH1EwpAupF1F1PJIHe5hddACF
+         topEH4e44FlkTeT3Y7dZy/bMqeGAi3JWUtxkXXWR/eF0GHrGeAQ7kM02HRhyFaJSYVA6
+         lELg==
+X-Forwarded-Encrypted: i=1; AKwUvByaF1N9MqtX/CGVCMkOYc/ECc5xpDXL+wRNwQZ8GlRU3TsNx/lXAEfMCB4GxqEjuA4j0B54CyBKWk7m@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiW9xALMMP4riEbh0DCimjTbEIA6Sc3uVP7+glhBEcJ3kV4n6i
+	uR0AuoRZEhRL24/djL+umtJp6NPDH4muaBHYsqUxqg3FcdoCqRzT91sd/VdlyZUlA1IvtT17iuV
+	6xo+b6n5KL0LeOW9RuVmBbRv+d7M3JXhZO3gKszu+rC15popA2F1zkBBLVfbkfNjf
+X-Gm-Gg: AYBFou3P6epr6xEzSn8UQ1sqlqckinXIUvc2KB+ucJENj+ESZlG0MXEnMAF+9IPqMAH
+	PtWzk02RRvJ1W9Rohdr3aqDo6IgK9ycAfqKRNMQ7b8h25Uj6ubTZ4T4yCZYJXFaaK8J6z0TjLeQ
+	PclYYF/5EfdGbQPs4imOrmEAtdu5vbYyoU4qSi23JIvpoj3/662D8uwp+xFbZLEpGlCW5DjjSED
+	pOsRC2RlO+UuVHEYrFnauDKByLCogprJ/gHA339ZVOJP9uVV5YzeWMVy+MoQjugGM1oC+45iww0
+	mEXLVpQqqlkljdfVetPKPKyTCQS2bKy7D1Lq9iIpLypxHq2BKrWGM3IYzJ3zGp8LUOEoaxJgIPD
+	KQWOWs/rG2MdadXX58+UQ1v+tYuigNsHjLHEVzSSw9Rgo2tnYEf39WijKOwQJgU9bnq/dA5guVQ
+	y2
+X-Received: by 2002:a17:90a:e7d2:b0:3ad:a270:a623 with SMTP id 98e67ed59e1d1-3ae8957452cmr2511743a91.4.1793379354261;
+        Fri, 30 Oct 2026 09:55:54 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7d2:b0:3ad:a270:a623 with SMTP id 98e67ed59e1d1-3ae8957452cmr2511714a91.4.1793379353761;
+        Fri, 30 Oct 2026 09:55:53 -0700 (PDT)
+Received: from [192.168.1.14] ([115.98.177.53])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb096d3844sm1087439a12.11.2026.10.30.09.55.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 09:55:53 -0700 (PDT)
+Message-ID: <8e78ac53-4dbe-4684-8f3f-00f841c60972@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:25:41 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,325 +116,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 10/15] media: qcom: camss: vfe: Add support for VFE
+ 1080
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Atiya Kailany <atiya.kailany@oss.qualcomm.com>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        rshankar@qti.qualcomm.com
+References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
+ <20261028-kaanapali-camss-v23-10-95f250b18612@oss.qualcomm.com>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <20261028-kaanapali-camss-v23-10-95f250b18612@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2NyBTYWx0ZWRfX+hd8h9dOZNKj
+ OPOXQbOk4/9yUf1Cya0gtZuZCJXY4z8ABzkx6k/SsmLo0+Uk87Lo7pmt7Y7iTuaLuCgg1vzf7qi
+ 6nJpgASJcNwHUjYuHiAaEpzXomZsR9HJr8qlaD+6Z4ddobKQJSjBXiqSusv+0PVMPXKnZQR9ST7
+ cYAqQF7MI3tkNYj8kAtu1/7fBpYSsDAGZh2d5awhjMExGnhXOIrC8cx/xAQaHK0QEfwXht5c11Z
+ 0z5/7wo9j3BaI3uv3SU01yELrQ2BegDbj13PwCssSvcJ5AdDKv6D380YYeWggrvgB365sjzjukF
+ u1sv8ZIy9aQsOe84tnBjVoquQRNmKTmU6H90c9COSjQ4rP8JbrZkKACVoSbqBBLVmQI/RfRP792
+ rHT3OOfFLFJgUiOWjISQ/0TJ8pwGnBUgAlQUwkLXDby6Pp9vIqgTXPINkD55FigkPu3X1HqVhma
+ 06B6HyrIvWBJWZY3rPA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2NyBTYWx0ZWRfX2KxLAHb4EvX3
+ d13Tpb5bpa+Or0eZu5WU/8q30Gb9dLb5Svf1Ba75dR4w7saFHBVhnmmdUxvQx0xGyy24GAY3d68
+ 0Y1Kz1cIBFsbmu2YhK5sIb5VLVnhIco=
+X-Proofpoint-ORIG-GUID: gGP-LD2-vKSLeBZxb8ofw0eNCSPxkn5E
+X-Proofpoint-GUID: gGP-LD2-vKSLeBZxb8ofw0eNCSPxkn5E
+X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae4cc1b cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=iaXPdgsK/hfklW56b25dCw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=WYfwUfNkXDalausCwDwA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
+ adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300067
 
-Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-channels, that can also be configured as 16-bit averaging channels.
 
-This is a very simple driver, allowing reading raw values for each
-channel. GPIO mode isn't supported for now, as well as buffered mode and
-the 16-bit averaging mode.
 
-Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- MAINTAINERS                  |   1 +
- drivers/iio/adc/Kconfig      |  12 ++
- drivers/iio/adc/Makefile     |   1 +
- drivers/iio/adc/ti-tla2528.c | 245 +++++++++++++++++++++++++++++++++++
- 4 files changed, 259 insertions(+)
- create mode 100644 drivers/iio/adc/ti-tla2528.c
+On 28-10-2026 20:50, Hangxiang Ma wrote:
+> Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
+> 
+> In the Kaanapali camera subsystem, the front-end blocks are referred to
+> as TFEs (Thin Front Ends). This driver continues to use the VFE naming
+> in some places to preserve consistency with the existing code and avoid
+> unnecessary renaming. Support is currently limited to three output lines,
+> matching the constraints of the CAMSS framework.
+> 
+> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
+> CSID configuration has completed. In addition, the number of AUP_UPDATE
+> requests must match the number of buffers queued to the write master
+> while it is being enabled.
+> 
+> Although real-time TFE traffic is routed through RT_CAMNOC, both
+> camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
+> that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
+> reset in a fully idle state.
+> 
+> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 471585b29c19..1ebb6418ab1f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27720,6 +27720,7 @@ M:	Maxime Chevallier <maxime.chevallier@bootlin.com>
- L:	linux-iio@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
-+F:	drivers/iio/adc/ti-tla2528.c
- 
- TEXAS INSTRUMENTS' TMP117 TEMPERATURE SENSOR DRIVER
- M:	Puranjay Mohan <puranjay@kernel.org>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..8633267d6056 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -2016,6 +2016,18 @@ config TI_LMP92064
- 	  This driver can also be built as a module. If so, the module will be called
- 	  ti-lmp92064.
- 
-+config TI_TLA2528
-+	tristate "Texas Instruments TLA2528 ADC driver"
-+	depends on I2C
-+	select REGMAP_I2C
-+	select IIO_ADC_HELPER
-+	help
-+	  Say yes here to build support for Texas Instruments TLA2528
-+	  12-Bit 8-Channel ADC.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ti-tla2528.
-+
- config TI_TLC4541
- 	tristate "Texas Instruments TLC4541 ADC driver"
- 	depends on SPI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 9e82c21dbd37..b98cded4d0c7 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -171,6 +171,7 @@ obj-$(CONFIG_TI_ADS8344) += ti-ads8344.o
- obj-$(CONFIG_TI_ADS8688) += ti-ads8688.o
- obj-$(CONFIG_TI_AM335X_ADC) += ti_am335x_adc.o
- obj-$(CONFIG_TI_LMP92064) += ti-lmp92064.o
-+obj-$(CONFIG_TI_TLA2528) += ti-tla2528.o
- obj-$(CONFIG_TI_TLC4541) += ti-tlc4541.o
- obj-$(CONFIG_TI_TSC2046) += ti-tsc2046.o
- obj-$(CONFIG_TWL4030_MADC) += twl4030-madc.o
-diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
-new file mode 100644
-index 000000000000..287e52dc9d6d
---- /dev/null
-+++ b/drivers/iio/adc/ti-tla2528.c
-@@ -0,0 +1,245 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for Texas Instruments TLA2528 ADC
-+ *
-+ * Copyright (C) 2020-2021 Rodolfo Giometti <giometti@enneenne.com>
-+ * Copyright (C) 2025 Maxime Chevallier <maxime.chevallier@bootlin.com>
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/adc-helpers.h>
-+#include <linux/iio/iio.h>
-+
-+#define TLA2528_OP_WRITE_REG		0x08
-+#define TLA2528_OP_READ_REG		0x10
-+
-+#define TLA2528_SYSTEM_STATUS_ADR	0x00
-+#define TLA2528_GENERAL_CFG_ADR		0x01
-+#define TLA2528_GENERAL_CFG_RST		BIT(0)
-+#define TLA2528_GPI_VALUE_ADR		0x0d
-+#define TLA2528_CHANNEL_SEL_ADR		0x11
-+#define TLA2528_CHANNEL_SEL_MANUAL_CHID	GENMASK(3, 0)
-+#define TLA2528_AUTO_SEQ_CH_SEL_ADR	0x12
-+
-+#define TLA2528_NUM_CHANNELS		8
-+
-+struct tla2528 {
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+	int vref_mv;
-+
-+	/* Protects manual channel selection */
-+	struct mutex lock;
-+};
-+
-+static bool tla2528_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case TLA2528_SYSTEM_STATUS_ADR:
-+	case TLA2528_GENERAL_CFG_ADR:
-+	case TLA2528_GPI_VALUE_ADR:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config tla2528_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.read_flag_mask = TLA2528_OP_READ_REG,
-+	.write_flag_mask = TLA2528_OP_WRITE_REG,
-+	.max_register = TLA2528_AUTO_SEQ_CH_SEL_ADR,
-+	.volatile_reg = tla2528_volatile_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+};
-+
-+static int tla2528_read_sample(const struct i2c_client *client)
-+{
-+	__be16 data;
-+	int ret;
-+
-+	ret = i2c_master_recv(client, (char *)&data, sizeof(data));
-+	if (ret < 0)
-+		return ret;
-+
-+	return be16_to_cpu(data) >> 4;
-+}
-+
-+static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-+{
-+	int ret;
-+
-+	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-+				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-+	if (ret)
-+		return ret;
-+
-+	ret = tla2528_read_sample(tla2528->client);
-+	if (ret < 0)
-+		return ret;
-+
-+	*val = ret;
-+
-+	return 0;
-+}
-+
-+static int tla2528_read_raw(struct iio_dev *indio_dev,
-+			    struct iio_chan_spec const *chan,
-+			    int *val, int *val2, long mask)
-+{
-+	struct tla2528 *tla2528 = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		mutex_lock(&tla2528->lock);
-+		ret = tla2528_read(tla2528, chan->channel, val);
-+		mutex_unlock(&tla2528->lock);
-+		if (ret < 0)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = tla2528->vref_mv;
-+		*val2 = 12;
-+
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+#define TLA2528_CHAN(chan) {					\
-+	.type = IIO_VOLTAGE,					\
-+	.channel = (chan),					\
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-+	.indexed = 1,						\
-+}
-+
-+static const struct iio_chan_spec tla2528_chan_template = TLA2528_CHAN(0);
-+
-+static const struct iio_chan_spec tla2528_channel[] = {
-+	TLA2528_CHAN(0),
-+	TLA2528_CHAN(1),
-+	TLA2528_CHAN(2),
-+	TLA2528_CHAN(3),
-+	TLA2528_CHAN(4),
-+	TLA2528_CHAN(5),
-+	TLA2528_CHAN(6),
-+	TLA2528_CHAN(7),
-+};
-+
-+static const struct iio_info tla2528_info = {
-+	.read_raw = tla2528_read_raw,
-+};
-+
-+static int tla2528_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct iio_chan_spec *channels;
-+	struct iio_dev *indio_dev;
-+	struct tla2528 *tla2528;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -EOPNOTSUPP;
-+
-+	if (i2c_check_quirks(client->adapter, I2C_AQ_NO_CLK_STRETCH))
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "adapter does not support clock stretching\n");
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*tla2528));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	tla2528 = iio_priv(indio_dev);
-+	tla2528->client = client;
-+
-+	tla2528->regmap = devm_regmap_init_i2c(client, &tla2528_regmap_config);
-+	if (IS_ERR(tla2528->regmap))
-+		return PTR_ERR(tla2528->regmap);
-+
-+	ret = devm_mutex_init(dev, &tla2528->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regulator_get_enable(dev, "dvdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
-+	if (ret < 0)
-+		return ret;
-+
-+	tla2528->vref_mv = ret / (MICRO / MILLI);
-+
-+	ret = devm_iio_adc_device_alloc_chaninfo_se(dev, &tla2528_chan_template,
-+						    TLA2528_NUM_CHANNELS - 1,
-+						    &channels);
-+	if (ret < 0 && ret != -ENOENT)
-+		return ret;
-+
-+	if (ret == -ENOENT) {
-+		indio_dev->channels = tla2528_channel;
-+		indio_dev->num_channels = ARRAY_SIZE(tla2528_channel);
-+	} else {
-+		indio_dev->channels = channels;
-+		indio_dev->num_channels = ret;
-+	}
-+
-+	indio_dev->name = "tla2528";
-+	indio_dev->info = &tla2528_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
-+			   TLA2528_GENERAL_CFG_RST);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(5 * USEC_PER_MSEC);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct i2c_device_id tla2528_id[] = {
-+	{ "tla2528" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, tla2528_id);
-+
-+static const struct of_device_id tla2528_of_match[] = {
-+	{ .compatible = "ti,tla2528" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tla2528_of_match);
-+
-+static struct i2c_driver tla2528_driver = {
-+	.driver = {
-+		.name = "tla2528",
-+		.of_match_table = tla2528_of_match,
-+	},
-+	.probe = tla2528_probe,
-+	.id_table = tla2528_id,
-+};
-+module_i2c_driver(tla2528_driver);
-+
-+MODULE_AUTHOR("Maxime Chevallier <maxime.chevallier@bootlin.com>");
-+MODULE_AUTHOR("Rodolfo Giometti <giometti@enneenne.com>");
-+MODULE_DESCRIPTION("Texas Instruments TLA2528 ADC driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("IIO_DRIVER");
+Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> #Kaanapali MTP
 -- 
-2.56.0
+Regards,
+Nihal Kumar Gupta
 
