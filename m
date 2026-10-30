@@ -1,90 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383318;
-	b=3RFI7VtgjiqC927uoovflbdtDTUYGdhq0GMMy6TVaLpUPRUHs0qzqtwuQkLc7/rxlZrS
-	 uF/AqbwxUMRLpL9yIbY0H7wSlIxvgWk8LpAg7aiDMa9CKANdTkLaer3M2UyFB3G4dCv+c
-	 H8mE3cwLWc80FQEvYGO4dB8bYK731uT8eplawRcys5giveR7A+5NHM8sokYdjTNWPnc5g
-	 FaR3oQBrv0HaAJrg6eGaFKltlTgJHPIzqlwpmkKj4W9QeT5mKsoN1k3n/aa924C0Q9zF+
-	 +3p7XBRuD6j+QcgWFE1vj4s1E5IVoG5b1EfHR/3I5WsQIvk6gyHG9VbxB9Xe8ppqQ1Q==
+	t=1793383871;
+	b=m26pR2zXmSf7ngJBSnK1HYdOxSZkvpgn+pZavZiRNf7O0j9VvHbkkUmFvdJjjcFMTbOw
+	 Xqh9fT5QLgbotsryBQn2CeIPW6Z/f0b9ugRyBjcjiGQzB5JX/FKbxm5PNYj9aHyhzRQwz
+	 ULUeKa5Z8B4KUothBWFrgwefgrd3RL87kSMbHW9VqDPURldmEaMu1homqI8kZ6Ai4EXSM
+	 vZ0LtQGUOWv5j43clbqlWzE0VIWPHQi9j3fH9zOLWpKKrhwDdq62Pm9MR8wtooofRW5ma
+	 mM1pbnYSoNZPXG5wrPE9QWRQ/fWrvhefnjfaDZKeVcKypmshFE98INkJdq1SiIa8Yog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383318;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=9gfQkCnTfkug6p4HXHCVXaX3Q+suBlhnBegGYXjv1IY=;
-	b=CKMFoayyXVPfvmvKSRieGFVcJu1NjdhhVIuGbgtK8hjyQGp5bye9cW5kNEblPM4bqESR
-	 2+o1GTYyxh2+DlbbPthkPbNc3TdkIy2OSjEGllK9otSqDczisXHu9MrXkJYBUe62x7Yda
-	 NP/BAeVS1ioMxxP3w7Ou9yqnRZez/mcR9aHzCIxR9ZJkjGUH5zrOjrt1MIpTbSWcipHeJ
-	 7CmnYm9UjaDP1+v0zVHr0RycOLmVTiet4yz1mCEC1wKFQwKRuBVgksCGy4Vemyhm/Ul9c
-	 RDK/1rLmqsO/y8P0RNPoUjv+yN/DOSlt4asH0EfBv2cOQYe+S88d+27QaqC/tDz0Isw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383871;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+	b=QzuakKq/IXRt+92Q99vCp+7xtbBbSJL9cEyWQp3Drp1X75UGVbNqRhF05lkH0iQyj2kv
+	 XATS3DVYEJdjGEXVsevSnkxpE2P73CHelA8Jh0EZ+4BdsCg122xzyqLaJ3zZXTzIlMq3B
+	 268oJ9YSosQNqXM6ZAbI+nSwUphYVH+mQik2uW/4N9nxqAka7+wkxme78ukktUKIA+H4G
+	 Z/k06z9DeRBgKHFzyp8+LziteO7vR/ehaRVA1A/Y9a/xTpuYUkaWqwBEyB8oidufShUTd
+	 M8hij8cyLfYjpJkRivPTmUXeKktmzq8+SzMpidlAN4Hrh9IEkAssGvCBvitNu/LyMTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jCwZPf+Y;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fWmFVWwf;
+	arc=none smtp.remote-ip=209.85.160.227
+Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7728E606A31A;
-	Fri, 30 Oct 2026 18:01:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7728E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCE6606A31F
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 18:11:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BCE6606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jCwZPf+Y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=9gfQkCnTfkug6p4HXHCVXaX3Q+suBlhnBegGYXjv1IY=; b=jCwZPf+YIAUctffkKF7pw1WOTQ
-	CqyoI3bprXm02g6eVWMZAP2o9CQVig+ZDJuoNwBP1DxIkVbxMu2P/p4tXuxMKYc4Ct92k59PUjQcu
-	p9M0fxe+NKOPyBTiu4qZ2BMXCD5QeYqAOL4k5RyLDO01SzgGowPpWRasZrVz0wa/3JwDJ69OQ5HjO
-	4UM6+54lKVKYP6PTNYFyIhj0lDGZ7WeJFcJ+JWU2yRWfB/ufDvxDvH0vcmrgyj7hjhi7+KK0AishG
-	9nt0DMnXu14dtZMGcnL5n4WhtagwmsKlCTgUsCSliSuChpiCIPJYQEQsCDmoc4yHiNsX+FkeeXrRO
-	6c6ajRIw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yakir Yang <kuankuan.y@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Conor Dooley <conor@kernel.org>, William Qiu <william.qiu@starfivetech.com>,
- Xingyu Wu <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- Byron Stanoszek <gandalf@winds.org>, OOHehir <oo.hehir@gmail.com>
-Subject:
- Re: [PATCH v6 09/18] drm/bridge: inno-hdmi: Allow the register map to come
- from a parent
-Date: Fri, 30 Oct 2026 19:01:08 +0100
-Message-ID: <3194397.687JKscXgg@phil>
-In-Reply-To: <20261029-jh7110-clean-send-v6-9-759594e43acf@samsung.com>
-References:
- <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
- <CGME20261029075407eucas1p1c9b0d887cafa4c3c10bb34fa3ef3c4b7@eucas1p1.samsung.com>
- <20261029-jh7110-clean-send-v6-9-759594e43acf@samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fWmFVWwf
+Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-53644ab1f7bso8656591cf.3
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 11:11:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793383870; x=1793988670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+        b=2IJrFsk/0DiwprZdxajI4Ika4HDzqcl87y7UipUZ28MpRpwqzYYIssjOPKMYmBjH9n
+         +I3jGywD9OD9uuiyJ6faJe3LC/fbYdJ8KF2ntA8iZgyNWZ6KTaBVeXI80qwE45GfAlO0
+         fqj8J0LYibYEPnw/TH4ObTGNh8I2YL4xnQpb2REh/T8gmX56cEpNuaFYfKAFRu6rzx5S
+         yPVwkvVFm/h+rbfP2j4JWPAH/pk49kpkloRfIbdXddxJY9xYHRpnwj7eZ+GTvSJglz3y
+         dHpj/vhDPsPAnjFB8udq+4EBBc25pl7ZpAUylJbi2O6pm0g4ib+gn+oZaV5Oo2pso0XJ
+         c+aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxu7siB1IDfVYJu6KbTOFgbulytzoEC5X+V08WexzaoqxztSD19IYCFoYJ7CuLyux3ilLbgOZ/dii+U@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeFSv7Olf1aUcgQRPhOGdj05dvo4JNcV0XUycbciCW2VCOId/t
+	vnLeudjh9BGyaVvV4fJdmsu3IKLTlu2/YlPpFKIFBDfM3mw2wUGkW8Gq6xS2XHh2eMzzpK2OL+2
+	wEnbJntxFVXuHbKX2O2jcwKdwFuF4HrPx8VVTTmFcnt8fibzNl6YFyOW3iH1q4KmnjGsP0iWV+n
+	zoNQPDeZBXNA4f25MESvNNgL1LlGbLEBPqaPEAgbiklcaSofzGOa8oY7oZ29ik1iXwcF61a2FtD
+	XtLuoBV+7M1JQ==
+X-Gm-Gg: AYBFou2rW6QbGoIF3wiIfPhUv5WpFgo75AlpPyeIMZtF9XlMzqLZHY2x6XV5VdBEx6m
+	7aIfLpXjkJpKlR4PZyjpHdMyzxO93mMyujlepeI0I9cS/PiaQxMR+zOh73LwD0m/9Hn/BxAPw7q
+	FPDZM/3mxWUdVvdIVwTSAMhISdyq6lazFqJUESXzZHJ7nIp8XMmTKl0pQuMr8Uxph9NNIo5t1Ze
+	YPm2aLTElQzvQMEWAo4KjHE9cJQhPriWMBXaRayBuA3OCYPvRt/Eps+enqVOwQNYddr+f797k0s
+	gerJ2DuIxUw2oercODXqi0ZDj2dSU1Xp2h5N6F1o342+P9OqGn9wFMbA6ciO9psfXqGzhGZ0YpJ
+	NvBKvS7rCBzPj521hrs1ET5ndtxfhXfbNAChViYui5a7F+8GQz6Yo7V9n5WLl1tcEvwDqyecQUV
+	xCaobt7tqHmZHzCkgBCIuwRvR2Y5eKtcmy
+X-Received: by 2002:a05:622a:120a:b0:536:458d:525e with SMTP id d75a77b69052e-542b714118cmr46974071cf.37.1793383869692;
+        Fri, 30 Oct 2026 11:11:09 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91ca80535a6sm315036d6.39.2026.10.30.11.11.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 30 Oct 2026 11:11:09 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-351788121cfso4521994eec.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 11:11:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793383868; x=1793988668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ENwKWbPNvS8Z4Ya5TukwYEHVlcVz+1SrF/4rTtdeRYE=;
+        b=fWmFVWwfFFznQYOWpN98DL8jaN+4yzy9BpHYt06HW++iHPcsdOMN7h99SlCM5Tov5q
+         wvd9z0zdGvUgSMAE/5OTpS+QXqcC+SN70wPv6KVpKZu80HXyXl4qnVP/OdOYnQW/MdHM
+         oSozGo3aZB/TRLOjorv23M+UzDI1JSUhRE0g4=
+X-Forwarded-Encrypted: i=1; AKwUvBztXI7cnfJiGepH05qO27ZMsTMkMN6i4sCdC3P5tq2ylWeVLheAcRIu17/JWQbmglVZWVsd0bOsarAz@vger.kernel.org
+X-Received: by 2002:a05:701b:4784:b0:165:4b88:abc2 with SMTP id a92af1059eb24-1ac5b5ee632mr5419031c88.26.1793383866890;
+        Fri, 30 Oct 2026 11:11:06 -0700 (PDT)
+X-Received: by 2002:a05:701b:4784:b0:165:4b88:abc2 with SMTP id a92af1059eb24-1ac5b5ee632mr5418989c88.26.1793383866189;
+        Fri, 30 Oct 2026 11:11:06 -0700 (PDT)
+Received: from mail.broadcom.net ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm9974062c88.11.2026.10.30.11.11.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 11:11:05 -0700 (PDT)
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+To: linux-mmc@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Shawn Lin <shawn.lin@linux.dev>
+Subject: [PATCH v11 0/6] mmc: core: Keep the card powered across suspend when firmware needs it live
+Date: Fri, 30 Oct 2026 14:10:27 -0400
+Message-Id: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,100 +120,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Am Donnerstag, 29. Oktober 2026, 08:53:43 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Michal Wilczynski:
-> On some SoCs the HDMI controller does not own its register window. The
-> StarFive JH7110 documents one 64 KB block, u0_hdmitx, that holds both
-> the controller and the PHY, so the parent device maps it and owns the
-> regmap while the two children share it.
->=20
-> Use a regmap supplied by the parent device when there is one, and keep
-> mapping our own resource when there is not, so platforms that own their
-> register window are unaffected.
->=20
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> Tested-by: Byron Stanoszek <gandalf@winds.org>
-> Tested-by: OOHehir <oo.hehir@gmail.com>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  drivers/gpu/drm/bridge/inno-hdmi.c | 31 ++++++++++++++++++++++++++++---
->  1 file changed, 28 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
-inno-hdmi.c
-> index 222f6522844ee60ae9a07ab2dcca748dbf7403e4..a8905bf627a224d7e39185141=
-95f1810164dc26f 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -397,6 +397,7 @@ struct inno_hdmi {
->  	struct clk *pclk;
->  	struct clk *refclk;
->  	void __iomem *regs;
-> +	struct regmap *regmap;
->  	struct regmap *grf;
-> =20
->  	struct inno_hdmi_i2c *i2c;
-> @@ -470,11 +471,25 @@ static int inno_hdmi_find_phy_config(struct inno_hd=
-mi *hdmi,
-> =20
->  static inline u8 hdmi_readb(struct inno_hdmi *hdmi, u16 offset)
->  {
-> +	u32 val;
-> +
-> +	if (hdmi->regmap) {
-> +		if (regmap_read(hdmi->regmap, offset * 4, &val))
-> +			return 0;
-> +
-> +		return val;
-> +	}
-> +
->  	return readl_relaxed(hdmi->regs + (offset) * 0x04);
->  }
-> =20
->  static inline void hdmi_writeb(struct inno_hdmi *hdmi, u16 offset, u32 v=
-al)
->  {
-> +	if (hdmi->regmap) {
-> +		regmap_write(hdmi->regmap, offset * 4, val);
-> +		return;
-> +	}
-> +
->  	writel_relaxed(val, hdmi->regs + (offset) * 0x04);
->  }
-> =20
-> @@ -1101,9 +1116,19 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_=
-device *pdev,
->  	hdmi->dev =3D dev;
->  	hdmi->plat_data =3D plat_data;
-> =20
-> -	hdmi->regs =3D devm_platform_ioremap_resource(pdev, 0);
-> -	if (IS_ERR(hdmi->regs))
-> -		return ERR_CAST(hdmi->regs);
-> +	/*
-> +	 * On platforms where the controller shares a register space with
-> +	 * other blocks, the parent owns the regmap. Fall back to mapping
-> +	 * our own resource where it does not.
-> +	 */
-> +	if (dev->parent)
-> +		hdmi->regmap =3D dev_get_regmap(dev->parent, NULL);
-> +
-> +	if (!hdmi->regmap) {
-> +		hdmi->regs =3D devm_platform_ioremap_resource(pdev, 0);
-> +		if (IS_ERR(hdmi->regs))
-> +			return ERR_CAST(hdmi->regs);
-> +	}
+Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware accesses the
+card directly during resume from Suspend-to-DRAM, before the kernel's own
+resume path runs, in order to load boot code using hard wired logic that is not
+field updatable. The card needs to stay powered and responsive for that access
+to succeed, and since it is never power-cycled, it also needs to be reset
+before the kernel reuses it after resume.
 
-why can't you just also use a mmio regmap here? Because with this change
-the driver now has 2 competing register interfaces and you need those
-conditionals all the time.
+Ulf's v10 posted patches 3-6 and I'm resending the whole series, as requested.
 
-Just convert the existing user to also use a regmap please.
+v10: https://lore.kernel.org/linux-mmc/20261027144051.249211-1-ulf.hansson@oss.qualcomm.com/
 
+Changes in v11:
+	- Rebased on the mmc tree's next branch.
+	- Patch 1, 2: Resent by the author to complete the Signed-off-by
+	chain, with the DT list and maintainers on Cc.
+	- Patch 3-6: Added my Signed-off-by as the submitter.
+	- Patch 4: Keep the comment about suspend methods being serialized, by
+	moving it into mmc_set_host_pm_flags() (Shawn Lin).
+	- Patch 5: Also split the cache flush out of _mmc_hw_reset() into a new
+	mmc_hw_reset_recovery(), used for the ->hw_reset() bus op, and renamed the
+	patch to "Move and split reset functions for eMMC" (Ulf). The flush is
+	redundant when resetting at system resume, and failed with a timeout,
+	printing "mmc1: cache flush error -110" on every resume.
+	- Patch 5: Dropped Shawn's Reviewed-by as the patch changed.
+	- Patch 6: Claim the host around the card reset in mmc_resume(), as it
+	sends commands. Without it, WARN_ON(!host->claimed) triggers for every
+	command sent during the reset.
+	- Patch 6: Warn while parsing the DT properties when
+	reset-card-at-resume is set without keep-power-in-suspend (Ulf).
+	- Patch 6: Dropped Shawn's Reviewed-by as the patch changed.
 
-Heiko
+Tested on a brcmstb board with the Kioxia 016G01 eMMC, using "pml -d"
+(S3 suspend/resume):
 
+  keep-power-in-suspend  reset-card-at-resume  Result
+  ---------------------  --------------------  ----------------------------
+  no                     no                    Enters suspend, board resets
+                                               at resume
+  yes                    no                    Enters suspend, board resets
+                                               at resume
+  no                     yes                   Suspend aborts, -EINVAL
+  yes                    yes                   S3 suspend/resume works
 
+Kamal Dasu (2):
+  dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+  dt-bindings: mmc: Add reset-card-at-resume property
+
+Ulf Hansson (4):
+  mmc: core: Add option to keep an eMMC powered on at system suspend
+  mmc: core: Split sdio_set_host_pm_flags()
+  mmc: core: Move and split reset functions for eMMC
+  mmc: core: Add support for resetting an eMMC at system resume
+
+ .../bindings/mmc/mmc-controller-common.yaml   |  10 +-
+ drivers/mmc/core/core.c                       |  10 ++
+ drivers/mmc/core/core.h                       |   1 +
+ drivers/mmc/core/host.c                       |  13 +++
+ drivers/mmc/core/mmc.c                        | 105 ++++++++++++------
+ drivers/mmc/core/sdio_io.c                    |   7 +-
+ include/linux/mmc/host.h                      |   1 +
+ 7 files changed, 105 insertions(+), 42 deletions(-)
+
+-- 
+2.34.1
 
