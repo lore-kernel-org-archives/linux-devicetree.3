@@ -1,43 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793346514;
-	b=M3YKfxzhdKYhd5+5oIJv/VpaWI2CTClreA5VKeNCcdynXHJThgiwirG4PmJFOI1NcVcu
-	 dk0zSkAabG6gM5fyE9nGdYsfW8qJBFuHof+FYQTZwwkixDZm2AbQhYLLIPGQ+YjcsjtmO
-	 mMmNo/GYkQ+678VE5xgFNgjX2ZEuLPdtkeH76WM6MuPcvy7O4wEfgBXBKcoLQ75WoXp8z
-	 /qXzKr2g8aN2pHbTAYPYzV0Fxt7brlIDGAJLzS26x7B0Ucj4RLFaXVS/lJuK/oJcKMJRr
-	 OgH06fElaoBi07VAYVlyxzz/N1mOo/nd2+bfDSrSbrMyeaAKwZIfjFvhaV3Xbpo1NNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793346514;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=q9knF3JpBIJHXFIdL5/Jfni8a1h3i+8EhdNfQr7HT9c=;
-	b=sy2cn+Em9tHTKRL5SYPbXMbA7BLA6A7BwKvaIebTi09ump71CPSIPa9jYKIPB2obzj1s
-	 GwhLdPaKyTLNO2d2jcdvlyRpPkmtlE4DfCwR4X1+K/Ecp7lHZmGMFc5AdssaqTwjclC61
-	 aL9nktaQlS1eK3pgJuKOsX33oDuUGNprCiyu2HWNGC8h6LqH2f9KZuVu6P16VJH4Wg63l
-	 B59zD4KQQHBavhWJZ/17/VUAs8QRjgPP28qeT/11isaJgCAvxtKgOWcNcUrqACKQlsZIZ
-	 q6QuEVRJn++95qrUZE0o+P5DVx/jstNSCYRSEgzfXU2/CitpzpIkPcegzekoROJA3Qw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793346652;
+	b=cfeHPM1XCX+vgkuIfDh0HQWFRjDuNFKdcSGl3RXSp6bw0SevxvGsBrA53voyrxV8Zumt
+	 hMDXe/NUbNALi1i9xFKx/E+iFrPwQjhCw1dRM5l/K2dmmRd3QcUCOojdM/MtNz30VDbuC
+	 C0fSaNvvvkX89BDukZiwZT24exTUcJIhxQ7aw69RuJBmHpDvX0Q7/x0inEtcDNc+1/JhY
+	 eaHD4TybFMc9eEU+CjqQcdrkp095MLvncCwp4WRXpUGcKAyqBQkZq+K1rpRF8DTG6+rk+
+	 j5GLCHcQJPTssqnI6PkUUUJ0OG0sKjC4LhxeW2YGd8QPfA5XWf+aIihAMuDuJc+8Fow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793346652;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+	b=OkQwzSjAcRl9e8Ng7kUj2BcjdTYuzo8d+dRPnQuYlgNJaSG/yNNdOHIkDBIqkFe/Vbvn
+	 OU27Ubvn3jBL8UwZA+kk8xtPaRhNK9NhvDnQDfvCjnwNIaxQJaQ0viaZzFLO24IzW7Uqy
+	 NueLiMsy2ZByy/PeImrHZXPZG8h6QzvNOLZPJ8A9yPlfgrCNGU9iybiZBXgBgk2rta4By
+	 vIuN3mypkokMXpE5kqGvb9w9s61IeQJZrHJaeWJ70E3OaPVyS4LS4/l2B1mXyPTWb5Tjf
+	 JVs99x9viA2ZKtsje5a+9k5ZgrQAw+RYBUT+U1Hcts2gEp1wswctPFxAcPLGE6/FSkg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=w9JKOOjV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.15
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010015.outbound.protection.outlook.com [52.101.46.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BAA8606A31A;
-	Fri, 30 Oct 2026 07:48:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BAA8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-05 (Coremail) with SMTP id zQCowABn0TusS+RqhTm6DA--.1494S5;
-	Fri, 30 Oct 2026 15:48:00 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Fri, 30 Oct 2026 15:47:51 +0800
-Subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A048606A31C;
+	Fri, 30 Oct 2026 07:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A048606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=w9JKOOjV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iwJNaFPjYnofVcRrAgLWNT56C3CLE8Z6ExBYQvu9PG0uY6mkFM6eGWdnwakh6N2Dkfid0PcDazA0eQ3JAUXSpQ8PqosK1CUVWZFBfw8qgHFPCA2xKaC1MG4JiXnsBh5Y4mlK7i4H9zTfqTjByqo6obv35NRoUFpraggJNFrzEpXSVyNBUV1BsbCDP57j6Zw7sXJEjZu6wIp/iGzI+UZIKmd7fB9uTbmHnhyMw1uUcPEN9tShSld3lAtXQq9Hn/l6i8n1odWmaHWVnBRalf79dSVfNMhDbt0PQVnAwYmj+doigNBjS5UmGuoqivW1/HB9Qv8zwS5RYtaraHlUVdjfhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+ b=yLR147ilZSvQWNsN0zTvwpsPMJw5imUBtRg3PHSNuLWr8VrZtRTTdqcPoMM66JzaqhvPWe2+FQK6mOI86pYJpADJ+R9yZqah7Y3r935mEqQ6ucpHrXblE3+0xp8ieLPkZtw4eKEz8BxU7g3mwpfv3iT9qEThK/Eh6/qGuSx61F/qJUS7fBNgygsg0+ZijwjPjxPpfSORusQSg2fYjg5hgUR0P1/RBOjYG5tn9VIr1gLps4TD9kW4ZBBrhYatDbFfMVGY/dkS1y0MCxBo5VGOG1Iq3lhxo/RhU68S5aqjxVlluU+ozBW3Vn1qRKdiY9cSArxSxdK3uOqU4OcSFSEcHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cmruTk+Waw3ny+TF7JdiUBX9+gHzjUfnrYO+u3bdflU=;
+ b=w9JKOOjVPuoE34t5c2GSnw0WZoB5srPRVJVyRXLtlI6uebtbhK+21gzFRyX95YDHsTvBW02Uw22RwVF3eYsyLzKBJXkvsvXWWkpbTaodngNa9yVtTi6lWZZQD/WxaXTBmt92llU/plL9mVe8OS6LOs8+Lqy3LgWsECej4IX4OM9aEs8ryB8enO3KbAnH3k9T0dYeXIdK2VKs9F9fTnKR3I5jGbOxgRhJPn4PLRwYS4HEQbiUz/bjbEQS5HHeT0WYEHXRR7esui3hA1vuPEyczBu6UHinitf+MnNx5i6PrZgre1ef8GtiENT0VTneUsXMm5pZ3BmO+EN41jUML3f8nA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com (2603:10b6:303:6e::18)
+ by SA1PR03MB6337.namprd03.prod.outlook.com (2603:10b6:806:1b4::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 07:50:48 +0000
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3]) by CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3%4]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
+ 07:50:48 +0000
+Message-ID: <28350860-199c-41af-a1df-54face030045@altera.com>
+Date: Fri, 30 Oct 2026 15:50:41 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
+ for SD6HC
+To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
+ <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+ <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
+ <f22270ec-a44b-4836-a0a1-5c7c3b10ce5f@altera.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <f22270ec-a44b-4836-a0a1-5c7c3b10ce5f@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0389.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a1::34) To CO1PR03MB5937.namprd03.prod.outlook.com
+ (2603:10b6:303:6e::18)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,631 +105,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
-References: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
-In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
- Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-X-Mailer: b4 0.15.0
-X-CM-TRANSID:zQCowABn0TusS+RqhTm6DA--.1494S5
-X-Coremail-Antispam: 1UD129KBjvAXoWfJr4kXr4kKr4fWr15AFW8Zwb_yoW8Wr1rXo
-	WxWFn3Jw1rWw1fA39Ykrn3WF17Xrsru347W3s5Zr48CrnIgF9xJry5tw4fZrZxWr18Kry7
-	ZFnFvrZxJ3yYkFyUn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUOx7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
-	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r1rM28IrcIa0x
-	kI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84AC
-	jcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr
-	1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
-	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
-	8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
-	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
-	kIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
-	IF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnI
-	WIevJa73UjIFyTuYvjfUUo7KUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR03MB5937:EE_|SA1PR03MB6337:EE_
+X-MS-Office365-Filtering-Correlation-Id: e968a56c-117b-43de-7a1f-08df365a8312
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|55112099003|22082099003|18002099003|56012099006|4143699003|11063799006|261026140227099003|261028144727099003|10067099003|261022105027099003|261021123027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	5vRCjQ14wQvR04UBbb6CHQOVYEXwjCZXftplfgEZz4FQ2GBYo6E4iSu/IxUx/RhecHBuGHC35ejkneHAuFBJu1u0DM+ZZVuwBDtAAeAN2Fc+zCA3/9ZYjwXqOPVde8Qr3+F82XzB7zelgs8uZwaqK7xQWiIqAefklsQ914TGxW9r1q93QV1UhNIxYAt8dFxRO6lh4Ic9M4rOqto8kenKaLsKkYe4xi2J87C5znzvlR2KAizyLe9cBHX6qIwkBb4CHXYOxHMY6vvS/l6XnLnlXPZZf7CRviDKQrTQhFfvSPXoanvpKgHqs94OEt/658pFmZpNHzktFHsNoo03MXDdOoxh7qL+V7DUHbLQN51bB3AwfNP7ZSQjFMLBS0+NUJg4QJMQ/6wU76CDHcgg1ZkfYvHExklgSg85k3753qhOQY3jefgx+dFQSRLoLnjQF8oeqhGszzXCg9okxxpjaNfhjz1Fcqc7SFlWbExPwf1swHkR9bvWTSkdw/T4cpkNbAghOZheRQX40cs+n5U9HbNlzfMR+1J3Bx9Z/YfTPvE+WyopXlwcGDfIJQqvMDWiVmiK7wg3j9FLPME81HEjQKGVGzdUAsbj4IfVd0dQU9pgo2+iEvJdhR3O7YF1VN7+pEa8h9gWaXImI+WwLBeadlBGTsz7tkY6uJxR+TBw9nvmci8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR03MB5937.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(55112099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(10067099003)(261022105027099003)(261021123027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWN0c2RPKzEvVFloUjE2QXk1SlovVkxPd085N1BESWgyL1YyM2ZGbHIzOVdS?=
+ =?utf-8?B?bGVUTXVVUlRkK1JrUk5ydmZiSjhVYkkwdzNGNWlFUHUzc0RsWjF5NEJ5NUJU?=
+ =?utf-8?B?cUxUTTFMa2xRWVdKUFdNTFBxRkErY3lMUWN5V1d3bXFJcGEyVTMxZHNTVVgy?=
+ =?utf-8?B?OG9RdEZqQTZ0M0YzVVkvVW5xaGZxdUtDdW84dWFsc1lzeG43bU95YmtsZmoy?=
+ =?utf-8?B?Y1NJMFJBTkZaK0taWGxCUk5FdGF3cCtrMUJuNDlIdHRMRHBkeVFGMmh5SVpP?=
+ =?utf-8?B?RTZvVUlKYzJNcDhCM29vbExVbTRIVk14bVFVS1lOeFN1d3F0QWh1TkNpM1lq?=
+ =?utf-8?B?MytOTE16bCt0dGhFVlhxODVsZlgzalRDc2czcFN2Slc0MXVneHNuMVhVNytk?=
+ =?utf-8?B?TXgzT0wwL2dnZHRPOWtjRCtnSnJ0MDd5NVMxT3psVThTekJuanJQd2pGMnVN?=
+ =?utf-8?B?bUZ3T3NSekxaZ2tKSUtwdWZuMDlCdHVlY2JkOHZMa0dhUHV0V1ZnMzlUeEJy?=
+ =?utf-8?B?cEhORVdZczh6VjkyWXgvblhZQjlMenhWRVBmK1QwWjJkRlN1N3hXMXlNYy9m?=
+ =?utf-8?B?Vk1ucGtmRGdoczRzSkRPVlVQRXpnMG5mbXRQWDVkT2g3ZWZCeE5XRTJOOFMx?=
+ =?utf-8?B?YmFEekRwVkRCbjVyUEZORklzWUtKaVRHbFZmRWhhdCtYSjYxenNhbThqUDY2?=
+ =?utf-8?B?TU01enFMMDZtUHFaQisrUXZvNTQzN3lsUGh6aUxRTllIOGZYVHhwU3YvUER4?=
+ =?utf-8?B?bTcvU0svVHB1Y2ZvektGSEVCcHc3bjVsSWNzZll1dnF3eTRidkM5bGNYZStj?=
+ =?utf-8?B?MGlDTStjWENha2E3MUVOV1V5MTNMdkRTQW9FekthOHBVMkhCOVZ0VW1QdnRo?=
+ =?utf-8?B?dCtoQjRhWm81bFJVNkRRTkxRbnNOc3B1L1J1K3ovT0Jiai95SXhzUk1mVGhJ?=
+ =?utf-8?B?d1JpRnNuR1hocHVubjlTT0NYM2tFZGlWVmxLRk1lQzZscDJTYmkxSHV0SDU1?=
+ =?utf-8?B?MElIL3Q3akJzN0E3aWV0TTY4RENjUE5RTXpPMlY3Y2kzVzlYMFhla1BaZ3NF?=
+ =?utf-8?B?TmxmMWZHSi94Smtxa3d6SFJhUmRzM2hxVnQ1NXNIdmRZK1JDUEZ3bnI2R3Zj?=
+ =?utf-8?B?Rm1yQTc3Y2owWXZUOUhmS3hlTTBidmI3VU5leHlteHFRenBBRVdFaVlXb3Za?=
+ =?utf-8?B?bkI4MnVGT3FXOXBGUVhZM2ZaTFBJdkJrazdERXJUSFE0dE14d0tKaXYrK3pI?=
+ =?utf-8?B?UDczbjkrSkJIekZ0WlRrR05HQldZd2VIRmJHdFBJODBualh1MER5RCtvS2Ny?=
+ =?utf-8?B?MC8zejE4S0JDRXlXcG40RTUxRVVXcXo5cksvQjZkOVllQmluMVk2aU1ZMTFo?=
+ =?utf-8?B?V3NSRnVmdGZzak1pNmNMU2FBN0VtTlBCVXpXNVhMOEFCQ2ZDOEJWSkNwMWhD?=
+ =?utf-8?B?OEQ0RlpmWTM2Z3RyUWUra2NuRUdqcGd1NlhIQ1JyOEVPa3FicmRNeHVibzZ6?=
+ =?utf-8?B?ZGh4bHpLdW9GRklxSWZRSGZ6OFIzTjhRS3JaaHd4bnBvZnJTRFZUaTZBL2p1?=
+ =?utf-8?B?SVo0RFhMN2xVTzkwN20zL1ZyZjlKaVNvQUw4Qzl6N014WnFSRjJpOVhFQWdi?=
+ =?utf-8?B?RTdGZi9lenBrUXA1NG9DTzdQaVpXeUpLVVlMcTJFVG1iMWpiNTlHZ0loYXkr?=
+ =?utf-8?B?TEthaUZzWDRIVlU4OG5TZk0xWVB1SHJnb05IRjBESVNDOE1GbW1QcnZZek5p?=
+ =?utf-8?B?MGVVZk91dkk4SlI5UW5ZV2tkYnJocXFwcGhzT0NYQkhGV1hLSW5WTnFYZVpP?=
+ =?utf-8?B?Z05qY1pubU84THVJQm1DSml3T25TVnhhZi9NdXBKTllSYzFkVzQ5ckh6dTVV?=
+ =?utf-8?B?TUJyNDY2VlFwMmhDUWROZDFOcVVBbFNMNmpNeEZFaVdXNmQ2blR0d2pHVmho?=
+ =?utf-8?B?TjVwTElrRUJ5QlgrejBHeGUveUdQRDhuT3ZhM0NaZHU2dU9yb0pXRnFXYktY?=
+ =?utf-8?B?ckJ0ZW1KYjlMWGJQS283UVdWZHYwaEZreWNnSEpWSjlkdm5hTGNVanQ3dUFw?=
+ =?utf-8?B?NHNzT1AvSk5MRGNwU05pTE5zZUNtQ1NWU3V2RWszVnI0VGg4cGpxcU0vOVpV?=
+ =?utf-8?B?RnB1cUZYRDBWdmliMEZuOVhzaGxlSE5xQ1d4alpodE5YMzZmRDNqeSthQ0lR?=
+ =?utf-8?B?WjJPMVovV3pXaWFtMW1LbXpNT2g2SDh4aUhISmNoTEtHOFRYbThCaFpKNkdW?=
+ =?utf-8?B?cTBUZEZEbXdWZ2FYdUZGOXJTb3B4eFBtRkdTL2ZqVHU0OVhGTEF0UWJFVlU0?=
+ =?utf-8?B?akZPS0xGNGl6bWNKRG1kL1NBU0duVUVtSnkwd245dFkzekJJU1ROUT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e968a56c-117b-43de-7a1f-08df365a8312
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR03MB5937.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:50:48.6067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uE3lK6ELHgawbhCgaJQfetYSreKV2GBwlzI4Q80/E+sixfIH7PAAOkUQVsfIUGTo3Fo3ZNGdMnASFKv4zmCeyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6337
 
-The T-Head TH1520 SoC contains a Synopsys DesignWare MIPI DSI host
-controller with an internal DesignWare MIPI D-PHY.
 
-Add a glue driver configuring clocks and PHY parameters for it.
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/bridge/Kconfig              |  10 +
- drivers/gpu/drm/bridge/Makefile             |   1 +
- drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c | 530 ++++++++++++++++++++++++++++
- 3 files changed, 541 insertions(+)
+On 30/10/2026 3:04 pm, Kathpalia, Tanmay wrote:
+> 
+> On 30-10-2026 10:55, NG, TZE YEE wrote:
+>> Hi Tanmay,
+>>
+>> Thanks for the detailed walk-through against the spec, it matches what
+>> I see on the hardware.
+>>
+>>
+> 
+> Hi Tze,
+> 
+> Thanks for testing this, and I'm glad the abort approach worked on your
+> board. The HS400 and SDR104 results, and the ftrace showing CMD12 after
+> the failing CMD21, are exactly the confirmation I was looking for.
+> 
+> I had already written this change while going through the tuning path,
+> and I was planning to send it over the weekend once the remaining
+> checks were done. Since you may already be folding the same fix into
+> v3, how would you like to proceed? I'm happy to send the patch, or
+> if you would rather carry it yourself, please add a Suggested-by tag.
+> 
+> Regards,
+> Tanmay
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 4a57d49b4c6d3..b005623ba26bf 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -375,6 +375,16 @@ config DRM_THEAD_TH1520_DW_HDMI
- 	  Choose this to enable support for the internal HDMI bridge found
- 	  on the T-Head TH1520 SoC.
- 
-+config DRM_THEAD_TH1520_DW_MIPI_DSI
-+	tristate "T-Head TH1520 DesignWare MIPI DSI bridge"
-+	depends on OF
-+	depends on COMMON_CLK
-+	depends on ARCH_THEAD || COMPILE_TEST
-+	select DRM_DW_MIPI_DSI
-+	help
-+	  Choose this to enable support for the internal MIPI DSI bridge
-+	  found on the T-Head TH1520 SoC.
-+
- config DRM_TOSHIBA_TC358762
- 	tristate "TC358762 DSI/DPI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7e..5af871ba5ce77 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -32,6 +32,7 @@ obj-$(CONFIG_DRM_SII9234) += sii9234.o
- obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
- obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
- obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
-+obj-$(CONFIG_DRM_THEAD_TH1520_DW_MIPI_DSI) += th1520-dw-mipi-dsi.o
- obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
- obj-$(CONFIG_DRM_TOSHIBA_TC358762) += tc358762.o
- obj-$(CONFIG_DRM_TOSHIBA_TC358764) += tc358764.o
-diff --git a/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-new file mode 100644
-index 0000000000000..e5c7c5d6dcc71
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-@@ -0,0 +1,530 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
-+ *
-+ * Author:
-+ *   Icenowy Zheng <zhengxingda@iscas.ac.cn>
-+ *
-+ * Based on dw_mipi_dsi-stm.c, which is:
-+ *   Copyright (C) STMicroelectronics SA 2017
-+ *
-+ * Based on dw-mipi-dsi-rockchip.c, which is:
-+ *   Copyright (C) Rockchip Electronics Co., Ltd.
-+ *
-+ * Based on vendor kernel phy-dw-mipi-dphy.c, which is:
-+ *   Copyright (C) Alibaba Group Holding Limited.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/kernel.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/phy/phy.h>
-+#include <linux/phy/phy-mipi-dphy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/bridge/dw_mipi_dsi.h>
-+#include <drm/drm_mipi_dsi.h>
-+
-+/* DPHY registers */
-+
-+#define PLL_DELAY_LP_TX_START_LP11	0x02
-+#define TXDINDLYTIME_9_2		GENMASK(7,  0)
-+
-+#define PLL_FSM_CNTRL			0x03
-+
-+#define PLL_PROP_CHARGE_PUMP_CTRL	0x0e
-+#define PLL_PROP_CNTRL			GENMASK(5,  0)
-+
-+#define PLL_INT_CHARGE_PUMP_CTRL	0x0f
-+#define PLL_INT_CNTRL			GENMASK(5,  0)
-+
-+#define PLL_VCO_CTRL			0x12
-+#define PLL_VCO_CNTRL_OVR_EN		BIT(6)
-+#define PLL_VCO_CNTRL_OVR		GENMASK(5,  0)
-+
-+#define PLL_GMP_CTRL_DIGITAL_TEST	0x13
-+#define PLL_TESTLOCK			BIT(7)
-+#define PLL_GMP_CNTRL			GENMASK(5,  4)
-+#define TSTPLLDIG			GENMASK(3,  1)
-+#define TSTPLLDIG_LOCK			(0x0 << 1)
-+#define TSTPLLDIG_REFCLK		(0x1 << 1)
-+#define TSTPLLDIG_FBCLK			(0x2 << 1)
-+#define TSTPLLDIG_INT_CLKIN		(0x3 << 1)
-+#define TSTPLLDIG_LOCK_FROM_DETECTOR	(0x4 << 1)
-+#define TSTPLLDIG_OUTPUT		(0x5 << 1)
-+#define TSTPLLDIG_BUF_VCOCLK		(0x6 << 1)
-+#define TSTPLLDIG_UPDATEPLL		(0x7 << 1)
-+
-+#define PLL_N_DIV_FSM_SIG		0x17
-+#define PLL_N_OVR			GENMASK(3,  0)
-+
-+#define PLL_M_DIV			0x18
-+#define PLL_M_OVR_4_0			GENMASK(4,  0)
-+#define PLL_M_OVR_9_5			GENMASK(4,  0)
-+
-+#define PLL_N_AND_M_DIV_CTRL		0x19
-+#define PLL_M_OVR_EN			BIT(5)
-+#define PLL_N_OVR_EN			BIT(4)
-+
-+#define PLL_CHARGE_PUMP_BIAS_CTRL	0x1c
-+#define PLL_CPBIAS_CNTRL		GENMASK(6,  0)
-+
-+#define PLL_ANALOG_PROGRAM_CONTROL	0x1f
-+#define PLL_MPLL_PROG_5_0		GENMASK(5,  0)
-+#define PLL_MPLL_PROG_11_6		GENMASK(5,  0)
-+#define PLL_MPLL_PROG_16_12		GENMASK(4,  0)
-+
-+#define HS_FREQ_RANGE_OF_OPERATION	0x44
-+#define HSFREQRANGE_OVR_EN		BIT(7)
-+#define HSFREQRANGE_OVR			GENMASK(6,  0)
-+#define HSFREQRANGE			HSFREQRANGE_OVR
-+
-+#define PG_LP_BIAS_LANE0		0x4a
-+#define PRG_ON_LANE0			BIT(6)
-+
-+#define SR_FSM_OVR_CNTRL		0xa0
-+#define SR_DDL_LOOP_CONF		0xa3
-+
-+/* syscon registers */
-+
-+#define MIPIDSI0_SYSREG			0x8
-+#define MIPIDSI1_SYSREG			0xc
-+#define MIPIDSI_HSFREQRANGE		GENMASK(9,  3)
-+#define MIPIDSI_CFGCLKFREQRANGE		GENMASK(15, 10)
-+#define MIPIDSI_CFGCLKFREQRANGE_DEF	(0x1c << 10)
-+
-+struct pll_hsfreqrange {
-+	unsigned int max_mbps;
-+	u8 hsfreqrange;
-+};
-+
-+static const struct pll_hsfreqrange hsfreqrange_table[] = {
-+	{ 80,  0x00 },
-+	{ 90,  0x10 },
-+	{ 100, 0x20 },
-+	{ 110, 0x30 },
-+	{ 120, 0x01 },
-+	{ 130, 0x11 },
-+	{ 140, 0x21 },
-+	{ 150, 0x31 },
-+	{ 160, 0x02 },
-+	{ 170, 0x12 },
-+	{ 180, 0x22 },
-+	{ 190, 0x32 },
-+	{ 205, 0x03 },
-+	{ 220, 0x13 },
-+	{ 235, 0x23 },
-+	{ 250, 0x33 },
-+	{ 275, 0x04 },
-+	{ 300, 0x14 },
-+	{ 325, 0x25 },
-+	{ 350, 0x35 },
-+	{ 400, 0x05 },
-+	{ 450, 0x16 },
-+	{ 500, 0x26 },
-+	{ 550, 0x37 },
-+	{ 600, 0x07 },
-+	{ 650, 0x18 },
-+	{ 700, 0x28 },
-+	{ 750, 0x39 },
-+	{ 800, 0x09 },
-+	{ 850, 0x19 },
-+	{ 900, 0x29 },
-+	{ 950, 0x3A },
-+	{ 1000, 0x0A },
-+	{ 1050, 0x1A },
-+	{ 1100, 0x2A },
-+	{ 1150, 0x3B },
-+	{ 1200, 0x0B },
-+	{ 1250, 0x1B },
-+	{ 1300, 0x2B },
-+	{ 1350, 0x3C },
-+	{ 1400, 0x0C },
-+	{ 1450, 0x1C },
-+	{ 1500, 0x2C },
-+	{ 1550, 0x3D },
-+	{ 1600, 0x0D },
-+	{ 1650, 0x1D },
-+	{ 1700, 0x2E },
-+	{ 1750, 0x3E },
-+	{ 1800, 0x0E },
-+	{ 1850, 0x1E },
-+	{ 1900, 0x2F },
-+	{ 1950, 0x3F },
-+	{ 2000, 0x0F },
-+	{ 2050, 0x40 },
-+	{ 2100, 0x41 },
-+	{ 2150, 0x42 },
-+	{ 2200, 0x43 },
-+	{ 2250, 0x44 },
-+	{ 2300, 0x45 },
-+	{ 2350, 0x46 },
-+	{ 2400, 0x47 },
-+	{ 2450, 0x48 },
-+	{ 2500, 0x49 },
-+};
-+
-+struct hstt {
-+	unsigned int max_mbps;
-+	struct dw_mipi_dsi_dphy_timing timing;
-+};
-+
-+#define HSTT(_max_mbps, _c_lp2hs, _c_hs2lp, _d_lp2hs, _d_hs2lp)	\
-+{					\
-+	.max_mbps = _max_mbps,		\
-+	.timing = {			\
-+		.clk_lp2hs = _c_lp2hs,	\
-+		.clk_hs2lp = _c_hs2lp,	\
-+		.data_lp2hs = _d_lp2hs,	\
-+		.data_hs2lp = _d_hs2lp,	\
-+	}				\
-+}
-+
-+static struct hstt hstt_table[] = {
-+	HSTT(80, 21, 17, 15, 10),
-+	HSTT(90, 23, 17, 16, 10),
-+	HSTT(100, 22, 17, 16, 10),
-+	HSTT(110, 25, 18, 17, 11),
-+	HSTT(120, 26, 20, 18, 11),
-+	HSTT(130, 27, 19, 19, 11),
-+	HSTT(140, 27, 19, 19, 11),
-+	HSTT(150, 28, 20, 20, 12),
-+	HSTT(160, 30, 21, 22, 13),
-+	HSTT(170, 30, 21, 23, 13),
-+	HSTT(180, 31, 21, 23, 13),
-+	HSTT(190, 32, 22, 24, 13),
-+	HSTT(205, 35, 22, 25, 13),
-+	HSTT(220, 37, 26, 27, 15),
-+	HSTT(235, 38, 28, 27, 16),
-+	HSTT(250, 41, 29, 30, 17),
-+	HSTT(275, 43, 29, 32, 18),
-+	HSTT(300, 45, 32, 35, 19),
-+	HSTT(325, 48, 33, 36, 18),
-+	HSTT(350, 51, 35, 40, 20),
-+	HSTT(400, 59, 37, 44, 21),
-+	HSTT(450, 65, 40, 49, 23),
-+	HSTT(500, 71, 41, 54, 24),
-+	HSTT(550, 77, 44, 57, 26),
-+	HSTT(600, 82, 46, 64, 27),
-+	HSTT(650, 87, 48, 67, 28),
-+	HSTT(700, 94, 52, 71, 29),
-+	HSTT(750, 99, 52, 75, 31),
-+	HSTT(800, 105, 55, 82, 32),
-+	HSTT(850, 110, 58, 85, 32),
-+	HSTT(900, 115, 58, 88, 35),
-+	HSTT(950, 120, 62, 93, 36),
-+	HSTT(1000, 128, 63, 99, 38),
-+	HSTT(1050, 132, 65, 102, 38),
-+	HSTT(1100, 138, 67, 106, 39),
-+	HSTT(1150, 146, 69, 112, 42),
-+	HSTT(1200, 151, 71, 117, 43),
-+	HSTT(1250, 153, 74, 120, 45),
-+	HSTT(1300, 160, 73, 124, 46),
-+	HSTT(1350, 165, 76, 130, 47),
-+	HSTT(1400, 172, 78, 134, 49),
-+	HSTT(1450, 177, 80, 138, 49),
-+	HSTT(1500, 183, 81, 143, 52),
-+	HSTT(1550, 191, 84, 147, 52),
-+	HSTT(1600, 194, 85, 152, 52),
-+	HSTT(1650, 201, 86, 155, 53),
-+	HSTT(1700, 208, 88, 161, 53),
-+	HSTT(1750, 212, 89, 165, 53),
-+	HSTT(1800, 220, 90, 171, 54),
-+	HSTT(1850, 223, 92, 175, 54),
-+	HSTT(1900, 231, 91, 180, 55),
-+	HSTT(1950, 236, 95, 185, 56),
-+	HSTT(2000, 243, 97, 190, 56),
-+	HSTT(2050, 248, 99, 194, 58),
-+	HSTT(2100, 252, 100, 199, 59),
-+	HSTT(2150, 259, 102, 204, 61),
-+	HSTT(2200, 266, 105, 210, 62),
-+	HSTT(2250, 269, 109, 213, 63),
-+	HSTT(2300, 272, 109, 217, 65),
-+	HSTT(2350, 281, 112, 225, 66),
-+	HSTT(2400, 283, 115, 226, 66),
-+	HSTT(2450, 282, 115, 226, 67),
-+	HSTT(2500, 281, 118, 227, 67),
-+};
-+
-+struct dsi_chip_data {
-+	u64 reg;
-+
-+	u32 sysreg;
-+};
-+
-+struct th1520_dw_mipi_dsi {
-+	struct device *dev;
-+
-+	struct dw_mipi_dsi *dmd;
-+	struct dw_mipi_dsi_plat_data pdata;
-+	const struct dsi_chip_data *cdata;
-+
-+	struct regmap *syscon;
-+	struct clk *clk_pix;
-+	struct clk *clk_ref;
-+	struct clk *clk_cfg;
-+
-+	unsigned int lane_mbps;
-+	u8 hsfreqrange;
-+};
-+
-+static int dsi_phy_init(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+	u32 val;
-+
-+	val = FIELD_PREP(MIPIDSI_HSFREQRANGE, dsi->hsfreqrange) |
-+	      MIPIDSI_CFGCLKFREQRANGE_DEF;
-+
-+	regmap_update_bits(dsi->syscon, dsi->cdata->sysreg,
-+			   MIPIDSI_HSFREQRANGE | MIPIDSI_CFGCLKFREQRANGE, val);
-+
-+	/* disable slew rate calibration */
-+	dw_mipi_dsi_phy_write(dsi->dmd, SR_DDL_LOOP_CONF, 0);
-+	dw_mipi_dsi_phy_write(dsi->dmd, SR_FSM_OVR_CNTRL, 1);
-+
-+	/* configure prg_on_lane0 */
-+	dw_mipi_dsi_phy_write(dsi->dmd, PG_LP_BIAS_LANE0, PRG_ON_LANE0);
-+
-+	/* configure PLL charge pump */
-+	if (dsi->lane_mbps >= 1150)
-+		dw_mipi_dsi_phy_write(dsi->dmd, PLL_PROP_CHARGE_PUMP_CTRL, 0xE);
-+	else
-+		dw_mipi_dsi_phy_write(dsi->dmd, PLL_PROP_CHARGE_PUMP_CTRL, 0x8);
-+	dw_mipi_dsi_phy_write(dsi->dmd, PLL_CHARGE_PUMP_BIAS_CTRL, 0x10);
-+
-+	return 0;
-+}
-+
-+static void dsi_phy_power_on(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+
-+	clk_prepare_enable(dsi->clk_pix);
-+}
-+
-+static void dsi_phy_power_off(void *priv_data)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+
-+	clk_disable_unprepare(dsi->clk_pix);
-+}
-+
-+static unsigned int
-+calculate_lane_mbps(const struct drm_display_mode *mode,
-+		    unsigned long mode_flags,
-+		    u32 lanes, u32 format)
-+{
-+	int bpp = mipi_dsi_pixel_format_to_bpp(format);
-+	union phy_configure_opts phy_opts;
-+
-+	/*
-+	 * FIXME: the extra bandwidth headroom logic mimics what the Rockchip
-+	 * driver does, and test shows that it's necessary for the hardware
-+	 * to work with the mainline dw-mipi-dsi common code.
-+	 */
-+	phy_mipi_dphy_get_default_config(mode->clock * 1000 * 10 / 8,
-+					 bpp, lanes,
-+					 &phy_opts.mipi_dphy);
-+
-+	return DIV_ROUND_UP(phy_opts.mipi_dphy.hs_clk_rate, USEC_PER_SEC);
-+}
-+
-+static int
-+dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
-+		  unsigned long mode_flags, u32 lanes, u32 format,
-+		  unsigned int *lane_mbps)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = priv_data;
-+	int i;
-+
-+	*lane_mbps = calculate_lane_mbps(mode, mode_flags, lanes, format);
-+
-+	for (i = 0; i < ARRAY_SIZE(hsfreqrange_table); i++)
-+		if (*lane_mbps <= hsfreqrange_table[i].max_mbps)
-+			break;
-+
-+	if (i == ARRAY_SIZE(hsfreqrange_table))
-+		return -EINVAL;
-+
-+	*lane_mbps = hsfreqrange_table[i].max_mbps;
-+	dsi->lane_mbps = *lane_mbps;
-+	dsi->hsfreqrange = hsfreqrange_table[i].hsfreqrange;
-+
-+	return 0;
-+}
-+
-+static int
-+dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
-+		   struct dw_mipi_dsi_dphy_timing *timing)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(hstt_table); i++)
-+		if (lane_mbps <= hstt_table[i].max_mbps)
-+			break;
-+
-+	if (i == ARRAY_SIZE(hstt_table))
-+		return -EINVAL;
-+
-+	*timing = hstt_table[i].timing;
-+
-+	return 0;
-+}
-+
-+static const struct dw_mipi_dsi_phy_ops th1520_dw_mipi_dsi_phy_ops = {
-+	.init = dsi_phy_init,
-+	.power_on = dsi_phy_power_on,
-+	.power_off = dsi_phy_power_off,
-+	.get_lane_mbps = dsi_get_lane_mbps,
-+	.get_timing = dsi_phy_get_timing,
-+};
-+
-+static enum drm_mode_status
-+dsi_mode_valid(void *priv_data, const struct drm_display_mode *mode,
-+	       unsigned long mode_flags, u32 lanes, u32 format)
-+{
-+	unsigned int lane_mbps, max_mbps;
-+
-+	lane_mbps = calculate_lane_mbps(mode, mode_flags, lanes, format);
-+	max_mbps = hsfreqrange_table[ARRAY_SIZE(hsfreqrange_table) - 1].max_mbps;
-+
-+	if (lane_mbps > max_mbps)
-+		return MODE_NOCLOCK;
-+
-+	return MODE_OK;
-+}
-+
-+static struct dsi_chip_data th1520_chip_data[] = {
-+	{
-+		.reg = 0xffef500000,
-+		.sysreg = MIPIDSI0_SYSREG,
-+
-+		/*
-+		 * TODO: The user manual shows a mux register for DSI0 but the
-+		 * vendor driver doesn't touch it either.
-+		 */
-+	},
-+	{
-+		.reg = 0xffef510000,
-+		.sysreg = MIPIDSI1_SYSREG,
-+	},
-+	{ /* sentinel */ },
-+};
-+
-+static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
-+{
-+	const struct dsi_chip_data *cdata;
-+	struct device *dev = &pdev->dev;
-+	struct th1520_dw_mipi_dsi *dsi;
-+	struct resource *res;
-+	void __iomem *base;
-+	int i, ret;
-+
-+	dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-+	if (!dsi)
-+		return -ENOMEM;
-+
-+	dsi->dev = dev;
-+
-+	dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
-+	if (IS_ERR(dsi->syscon)) {
-+		ret = PTR_ERR(dsi->syscon);
-+		dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
-+		return ret;
-+	}
-+
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(base)) {
-+		dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-+		return PTR_ERR(base);
-+	}
-+
-+	cdata = of_device_get_match_data(dev);
-+	i = 0;
-+	while (cdata[i].reg) {
-+		if (cdata[i].reg == res->start) {
-+			dsi->cdata = &cdata[i];
-+			break;
-+		}
-+
-+		i++;
-+	}
-+
-+	if (!dsi->cdata) {
-+		dev_err(dev, "Failed to find chip data for this controller\n");
-+		return -EINVAL;
-+	}
-+
-+	dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
-+	if (IS_ERR(dsi->clk_ref)) {
-+		ret = PTR_ERR(dsi->clk_ref);
-+		dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
-+		return ret;
-+	}
-+
-+	dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
-+	if (IS_ERR(dsi->clk_cfg)) {
-+		ret = PTR_ERR(dsi->clk_cfg);
-+		dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
-+		return ret;
-+	}
-+
-+	dsi->clk_pix = devm_clk_get(dev, "pixel");
-+	if (IS_ERR(dsi->clk_pix)) {
-+		ret = PTR_ERR(dsi->clk_pix);
-+		dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
-+		return ret;
-+	}
-+
-+	dsi->pdata.base = base;
-+	dsi->pdata.priv_data = dsi;
-+	dsi->pdata.max_data_lanes = 4;
-+	dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
-+	dsi->pdata.mode_valid = dsi_mode_valid;
-+
-+	platform_set_drvdata(pdev, dsi);
-+
-+	dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-+	if (IS_ERR(dsi->dmd)) {
-+		ret = PTR_ERR(dsi->dmd);
-+		dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void th1520_dw_mipi_dsi_remove(struct platform_device *pdev)
-+{
-+	struct th1520_dw_mipi_dsi *dsi = platform_get_drvdata(pdev);
-+
-+	dw_mipi_dsi_remove(dsi->dmd);
-+}
-+
-+static const struct of_device_id th1520_dw_mipi_dsi_dt_ids[] = {
-+	{ .compatible = "thead,th1520-dw-mipi-dsi", .data = &th1520_chip_data },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, th1520_dw_mipi_dsi_dt_ids);
-+
-+static struct platform_driver th1520_dw_mipi_dsi_driver = {
-+	.probe		= th1520_dw_mipi_dsi_probe,
-+	.remove		= th1520_dw_mipi_dsi_remove,
-+	.driver		= {
-+		.of_match_table = th1520_dw_mipi_dsi_dt_ids,
-+		.name	= "th1520-dw-mipi-dsi",
-+	},
-+};
-+
-+module_platform_driver(th1520_dw_mipi_dsi_driver);
-+
-+MODULE_AUTHOR("Icenowy Zheng <zhengxingda@iscas.ac.cn>");
-+MODULE_DESCRIPTION("T-Head TH1520 MIPI DSI host controller driver");
-+MODULE_LICENSE("GPL");
+Hi Tanmay,
 
--- 
-2.56.0
+I'd like to carry it in my series. Patch 1 there currently adds the 
+unconditional PHY settle, so I'll replace that patch with the 
+abort-on-command-error change and credit you with:
 
+   Suggested-by: Tanmay Kathpalia tanmay.kathpalia@altera.com
+
+It'll go in as patch 1 of v3. Once I've confirmed the ps-vs-count 
+question on cdns,ddr-read-dqs-delay with Krzysztof, I'll send out v3.
+
+Thanks again,
+Tze Yee
