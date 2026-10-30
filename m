@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341307;
-	b=FdKJ1UVxcjcU/UUPkzC+I0YDFmtBY8vvLxb85/HY3YvOd66DERbSoqfoPRpoAyRjmj78
-	 0AYshgojg5U6m+sbNEoxH9JBGJMzz2hzW4bkw1bIb9trSjhromr/VEwiHw1ckjuKJ4qNb
-	 tuBmTPh35ODnrEmvgLPMFGGizfSShWeehZhEolS98C6mVGME1zHRqejkPNaTBYyMAfCGl
-	 6kp/se5eMUlTUDO5OOaszlwvCLiwt2MEf6e0/y4O5qqgr7jdslmhds/UDVAL+lxkfsQ3G
-	 oBQ9dLgY+3msjmfpTwbkyRwqPvHLcBkGmyhKySOIWIZESpcVnL8Tz6oEmby6/9Hw//g==
+	t=1793341308;
+	b=fD9CSDw4cdDqmrdefHW660W60VlcaO5k2uZ1YAuH4hVla9D5uuduvUoT5uuf6ywK6n6S
+	 XDrQday7zlc6sNj0DzXdC4ygdEY+RUB9Z5Pvajn8GuvrpYblhNAAX5rjtFEZUMlAv+WxU
+	 9WWYwiMw1XQIu6HWvsGJMQ5ksYoLuYazP0RDZnwn5qDDF4PeZaZA72uobO4LwvzmYtb1Y
+	 LAH+x9FTfZcNSN+PEEgv9PGPu8SOsMl84Hpo3g5PhEI6Q92Hw1OiVnc1QcDvmRilRjqhk
+	 YCNMQ5ZPrzGLj0G4dxTF3QFcp/mg0ECitvbrTzsOGYb5UP3w+oplgh6wDF7uMvdS+Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341307;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=zV9DWKFl9BH/doc6aAP765WpWny+pEhLti8M98KNIVo=;
-	b=Cnzlowren/NiSCiEUccIU6Int4p0t+/yUmuwJvvaKIqIYZ5vFnz2blGH9Lc6Gkq4SXWW
-	 9gQVEaftN1er1SYzar/3KTe+81hvxpjmUnnenJc2d62sNxd/61RhtTymjtms7B6Dw8YdU
-	 Da2oE30aN4WrGnebUL7DW7QSAEaTV1XKOHFWvls8mh2tJcBqW5TvC4Vp4P712cHC4KZ8B
-	 IRYSZmYGgd6zzRf2wJ5E3wzXI2ZOE3a5ppS5VhIt0wuNSVEghQ40ma0PgjRRnSZsgvdFM
-	 x7CnQSMx/p5LGtOhOnNOFAjRYBHWGVlr6R74CS8XtE2I2WTn8uCLFCPJ2xUQCMheyvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793341308;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ixcBoe3mK4tgsAsIGtJ1+xC1HHMtbJXTczrr0LfU9Aw=;
+	b=cRu5jpwiIrg2edX15tcJ0nyU9KZB34G7rBrDcsUFGzqwIQA9crSQOYG1J8zWvhN28Ydc
+	 qWAb1FI9W6Fzv9c1W5M60g7+JlqWLZa2aoBgCIokiYMBty9PcdNNf7D08KR2jCjCfVPiW
+	 So0bWdn/k92fLW0wJH2W2J9izjnPzb3r0YNI4UqYRz2V0CPD6Q6sgH3jWHJe05qKysoM5
+	 5YOZIqBQHpiWESugcLhBL7rI4nGu2BOYSl/nxXOmkMxoKDZEq0MiWQxDG9gcYYt26mx+F
+	 V13Z34zuaI0KiyJSWOGQ8ykbrChuZIq+DOL+9G9kNxCb52cQ2CrPufgyYR/rZZoJ7gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olKCqNJs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W2NoFq08;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="ib+kh/pF";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4387606A31D
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CEA606A329
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6CEA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olKCqNJs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F35FF1F000C1;
-	Fri, 30 Oct 2026 06:21:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793341306;
-	bh=zV9DWKFl9BH/doc6aAP765WpWny+pEhLti8M98KNIVo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=olKCqNJsvbFz9oVWat6rOzxpzvmnl5XLEJCi/goYMVlf9vMfUwdxp1EZ3fH8Hhsg1
-	 Mqz4fo1XHa6YI5XeK20UxkHDNpTd1B9A+vtTfc/YDVOJXRRMDYvAAQ77tXfPR7Ex9K
-	 HAJ1Y4tLKBwIFere14VUMhB2rAyLMk5ivNplfPSANAHAql7RA2t4tKK318oVcf55ZI
-	 CfdJ1lfTZcJtaJrL+jrDJbUqlD38iwwRYLSr8mgTVaQgK5KEXbkIi2O7XVh/zZ7Sv4
-	 /QrnVDXEglaTY08bHGWI2oD7DtaarXDa4Ga54h8nflTP3bRUmsB6wVXnNk5V/9Mzi5
-	 EhPPvfKhnA+eA==
-Message-ID: <sashiko-outbox-190593@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 2/7] coresight: tmc: add create/clean functions for
- etr_buf_list
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261030-enable-byte-cntr-for-ctcu-v20-2-bd5c3ac9f916@oss.qualcomm.com>
-References: <20261030-enable-byte-cntr-for-ctcu-v20-0-bd5c3ac9f916@oss.qualcomm.com>
- <20261030-enable-byte-cntr-for-ctcu-v20-2-bd5c3ac9f916@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 06:21:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W2NoFq08;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ib+kh/pF
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5Fctm3346041
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ixcBoe3mK4tgsAsIGtJ1+xC1HHMtbJXTczrr0LfU9Aw=; b=W2NoFq08rtxUAvsN
+	5I70HKm/x8rBFeUgUoO6R5JtceBmk3TfRYbXgXlL7SNHqrUPfWEyBA+ObvtTBXTI
+	mqOYae3KVpPmxd7UpWts/qlpC4ptQIsiRf6AdOwKGXmewnu+cyOFWacu1alLPcTe
+	VDLKbUopda99U3hoLHpY7kRMkHxXPhtwlgCdW9+MaKg9BjaKbY6cl/jscf4lX82z
+	yvc4DfjTkhh0lqHVj5B6f2nT+C9FvOTGfp/8C+D/nDHzwfz0Q/tFEbRcYr0yiA3E
+	M1wrBiy685yF1Z1IfTdrCkqmnicEmFlFzhV5pEKo7l9tRNoLTkycNWGQFYtskitJ
+	Hp4cKw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme751g10-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:46 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a065d0e9deso441632b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 23:21:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793341306; x=1793946106; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ixcBoe3mK4tgsAsIGtJ1+xC1HHMtbJXTczrr0LfU9Aw=;
+        b=ib+kh/pF1YiniP/tueCLj0C3+ZKPmbmiQvv1R7dbTFrvGea9EZgwwuXS+3h7NJZKbC
+         YM6S5Q2S5iQWJwL9a8RKyzxrT/CMTjC5L/zY/xrj1Ki7DkEACEMu8Okznxlk6CGenNyh
+         Jk7HVNJ87iSlTk2QICllzgIsHqWhqD77eh6Geh0VYDFzEaSbbr9Cxxb/fyj+pOwoTzJt
+         H5JUXwYTHRvAkXvWaamAhsZQCrEkGIMk9NuqlFCa6xIPJWbrX3fbOpxSveeztUd1wRbj
+         sAtZy0RQtxDELMv0ym1s777prT2kj9stG7yVzDoG+y1L2dnL/M2T6piVdVVnJq9SAfON
+         gvtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793341306; x=1793946106;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ixcBoe3mK4tgsAsIGtJ1+xC1HHMtbJXTczrr0LfU9Aw=;
+        b=qQQkS9qJhTLrzynnQV6robpcFco+IY2MYnMP0Wbwo1bN3MazNEJMW37i+5WF7Atnjq
+         VMIkg4ONu9WwldZSrwaKms2n/i1XYDrxtmYahi/zm4rQx6aMEbTNfZb84VgRfx94/8yE
+         ChfPMf3pGNM7KZ01xBYRyN5RbghQoW5arcMPUwcaonCHESPONp9AahduHemB/KiZMObI
+         82nVUr9X3W2ZILE1HC9v+hF7Xs1lkgQ/AQ2hC8OltHXSp6FUTThLC/La34dqtBP4XVrC
+         IXQlhFwU/6Kc8VkBKgLrWDm2R4TdSTsfNccLGmba1y47eUJ0+8DqbL1daDjFHaUrtU/Z
+         tQ1w==
+X-Forwarded-Encrypted: i=1; AKwUvBy9NBbDgYukH+K2VtYWB4mLEWj0ziwDEDTYVIdNZ3dst7X7u4q22NuFSauDQjd50JwWYD9HmX4ScRE3@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsmti2kjl5yzVd+S7HgKHMDsHY2Web2KmXr67eCU7Ttvr0xfL5
+	l3U3m6fGIEl6zGCD7blRp2SbKQOorL8M99FiPvtGE267nWfsVCC5wbtKv6i6xQxnf5WALhg5VqL
+	5P28WFxZDCU+/Kph2RIb8HTNksMaIKzNtC1ejW9H4saTMjw1YM+sJ9vEfxK2aHmZm
+X-Gm-Gg: AYBFou3eXRBnN8xVTQz1hPqpJLJC7k2bRv0okZSg4aaSH8NnPu0m2q6VQVIfFuN+v56
+	UBYn0QZvsz2631gYloTXN1oCTRI0y9dWGjoc06Nls5MuTV2x9bViZpv7UK+ZKSa/34P6Vl0r5HY
+	H9Kk4Ih4YacM9LqUhwYclMOfzEM4SQI/JfIplpKvU2MbD6L0HOjt1UtQ8lxV9y/0a0cMnMfjDxq
+	Hfsml4wHgkkrpCLws6pAD9b8zaWo9DWT418h4czdih0bbogWkVUVYesZM+SEEZOZsHHqU5sFTY0
+	2DXhv1rDvfUSouRwraNxZEh7ghZNYRYr2+4gNQNwjCKCo8otOsHZzzmGz6lpuYpAsoKX2+cn5gm
+	m6yIrjz/ujkWT12njHXfiIcpBMYjeUmETFSfElPVGi4K+JSlk3jjNsSM/n3ZnI0jhEV4=
+X-Received: by 2002:a05:6a00:3393:b0:8a0:6ff0:d29d with SMTP id d2e1a72fcca58-8a832a94a9fmr3120793b3a.36.1793341306252;
+        Thu, 29 Oct 2026 23:21:46 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3393:b0:8a0:6ff0:d29d with SMTP id d2e1a72fcca58-8a832a94a9fmr3120778b3a.36.1793341305803;
+        Thu, 29 Oct 2026 23:21:45 -0700 (PDT)
+Received: from [10.213.109.130] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef08b936sm351163b3a.13.2026.10.29.23.21.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 23:21:45 -0700 (PDT)
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 11:50:55 +0530
+Subject: [PATCH v3 7/7] mfd: qcom-pm8008: Tolerate missing interrupt
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,400 +114,204 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-pm8010_i2c_support-v3-7-995ed1ec7a72@oss.qualcomm.com>
+References: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
+In-Reply-To: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341260; l=4324;
+ i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
+ bh=iOss1N4oaDpxnlCURLVb53pk4cSN1jSfF2112q90j4o=;
+ b=4J8fIBakoKfjwuQ2kZOD5bffzCS2igeg2i4LUGF+Zk6GGL/8N26O+9Sz42Pvw/X4WRD2osDuE
+ BQj4oNauGlUAIaNTGOxcMf2bbwxBrFnO5GUxOgwNYJyy49OOwh0JwB7
+X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
+ pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
+X-Proofpoint-GUID: AZfM7yFVUJ7yAcVgID72088XAHDr42Dx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX2OgiS5alSnhV
+ m58nf0BRkEQZdZXmHXflYSZ3EqH7chzRldRzxV+JEwC5mRVU+YKB0lc80XkTMaBknpEbd0H5nHv
+ CzSPjfAXsXvghTMLio/OgqIlwjIOsTK7u1e8bJqRDDF/OpLvXEYMM0DnQ+TAQDULQ0jPMkqLNXx
+ 11VoYXIM/8FhVDRnSl+mcGhYN6UiBZe/g30B+l2Jf4NVqPFzJjWEX/sUpXQTL/3HqiFFgk6Xekg
+ umKPDFnf1215EPgNVmssUgg6r43aNsFDN49BGYZpye2qNFD8/dEAWrvutN+cNz5nJHIziI9PxPZ
+ or2aqw1eki4xDEMfatW1YIVYD18rp4Ib3MAM+Twk+x9X95sSY3S0R0FhUQhX0ZXujenWUVmybX8
+ X0fGkkkduqNfNzenyivrD2p0Fy/pw6Jq/Oof0SHMwXt4kZwlmOtZcundO6r/hn6V56tWRFLxVkC
+ s3gNaXE4HtQdXzDOGSg==
+X-Proofpoint-ORIG-GUID: AZfM7yFVUJ7yAcVgID72088XAHDr42Dx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX+Bu5gmPJIUMy
+ g6OQ+bXGiX6E462wpdiTqMnKlE+FD3eblFJlmjmoxJK7IICTDDEvk7lv5TX/e+6iqvoRR5OoNtk
+ oLGuKzbsLCiYoaHgh+M3xI7keG8WWBw=
+X-Authority-Analysis: v=2.4 cv=KdtHIgYD c=1 sm=1 tr=0 ts=6ae4377a cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=lbcZtXRpr0qBkvjFNboA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 phishscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300025
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] coresight: tmc: missing synchronization between etr_buf_list and s=
-ysfs read
-- [High] coresight: tmc: race on sysfs_buf between enable_etr_sink_sysfs() =
-and buf_list
-- [Medium] coresight: tmc: tmc_create_etr_buf_list() frees live sysfs_buf o=
-n error
-- [Medium] coresight: tmc: tmc_clean_etr_buf_list() leaks sysfs_buf in CS_M=
-ODE_PERF
-- [Medium] coresight: tmc: etr_buf_list nodes alias same buffer in ETR_MODE=
-_RESRV
-- [Low] coresight: tmc: malformed kernel-doc comment on struct etr_buf_node
---
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-commit 55ef8c92705bdf84e1db45f929572fb3262ca0f1
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+PM8010 is often wired up with the interrupt pin tied to ground. Only
+register the IRQ infrastructure if we have a parent irq.
 
-coresight: tmc: add create/clean functions for etr_buf_list
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Co-developed-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
+Co-developed-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+---
+ drivers/mfd/qcom-pm8008.c | 82 ++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 60 insertions(+), 22 deletions(-)
 
-This commit introduces struct etr_buf_node, adds etr_buf_list to struct
-tmc_drvdata, and provides tmc_create_etr_buf_list() and
-tmc_clean_etr_buf_list() to manage ETR trace buffers for byte-cntr reading.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hw=
-tracing/coresight/coresight-tmc-etr.c
-> index 361a433e6f0c5..5981deb45d289 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
-> @@ -1268,7 +1268,9 @@ static struct etr_buf *tmc_etr_get_sysfs_buffer(str=
-uct coresight_device *csdev)
->  		raw_spin_lock_irqsave(&drvdata->spinlock, flags);
->  	}
-> =20
-> -	if (drvdata->reading || coresight_get_mode(csdev) =3D=3D CS_MODE_PERF) {
-> +	/* The buffers in etr_buf_list are in use by the byte-cntr reading */
-> +	if (drvdata->reading || coresight_get_mode(csdev) =3D=3D CS_MODE_PERF ||
-> +	    !list_empty(&drvdata->etr_buf_list)) {
->  		ret =3D -EBUSY;
->  		goto out;
->  	}
-
-[Severity: High]
-Can tmc_enable_etr_sink_sysfs() race with tmc_create_etr_buf_list() and
-tmc_clean_etr_buf_list() after tmc_etr_get_sysfs_buffer() drops
-drvdata->spinlock?
-
-In tmc_enable_etr_sink_sysfs(), tmc_etr_get_sysfs_buffer() checks
-!list_empty(&drvdata->etr_buf_list) under drvdata->spinlock, sets or reuses
-drvdata->sysfs_buf, and then releases drvdata->spinlock before returning
-while coresight_get_mode(csdev) is still CS_MODE_DISABLED:
-
-drivers/hwtracing/coresight/coresight-tmc-etr.c:tmc_enable_etr_sink_sysfs()=
+diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
+index 39fae8d48e46..9ebbecb90b0f 100644
+--- a/drivers/mfd/qcom-pm8008.c
++++ b/drivers/mfd/qcom-pm8008.c
+@@ -208,6 +208,14 @@ static const struct mfd_cell pm8010_cells[] = {
+ 	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
+ };
+ 
++static const struct mfd_cell pm8008_no_irq_cells[] = {
++	MFD_CELL_NAME("pm8008-regulator"),
++};
++
++static const struct mfd_cell pm8010_no_irq_cells[] = {
++	MFD_CELL_NAME("pm8010-regulator"),
++};
++
+ static void devm_irq_domain_fwnode_release(void *data)
  {
-	struct etr_buf *sysfs_buf =3D tmc_etr_get_sysfs_buffer(csdev);
+ 	struct fwnode_handle *fwnode = data;
+@@ -215,20 +223,51 @@ static void devm_irq_domain_fwnode_release(void *data)
+ 	irq_domain_free_fwnode(fwnode);
+ }
+ 
++static int pm8008_irq_config(struct device *dev, int irq, struct regmap *regmap,
++			     const struct regmap_irq_chip *irq_chip_desc,
++			     struct regmap_irq_chip_data **irq_data)
++{
++	struct fwnode_handle *fwnode;
++	char *name;
++	int ret;
++
++	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
++	if (!name)
++		return -ENOMEM;
++
++	name = strreplace(name, '/', ':');
++
++	fwnode = irq_domain_alloc_named_fwnode(name);
++	if (!fwnode)
++		return -ENOMEM;
++
++	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
++	if (ret)
++		return ret;
++
++	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, irq,
++					      IRQF_SHARED, 0, irq_chip_desc,
++					      irq_data);
++	if (ret) {
++		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
+ static int pm8008_probe(struct i2c_client *client)
+ {
+-	struct regmap_irq_chip_data *irq_data;
++	struct regmap_irq_chip_data *irq_data = NULL;
+ 	const struct regmap_irq_chip *irq_chip_desc;
+ 	struct device *dev = &client->dev;
+ 	const struct mfd_cell *mfd_cells;
+ 	struct regmap *regmap, *regmap2;
+-	struct fwnode_handle *fwnode;
+ 	struct i2c_client *dummy;
+ 	struct gpio_desc *reset;
+ 	unsigned long pmic_type;
+ 	const void *match_data;
+ 	int num_mfd_cells;
+-	char *name;
+ 	int ret;
+ 
+ 	match_data = of_device_get_match_data(dev);
+@@ -255,6 +294,19 @@ static int pm8008_probe(struct i2c_client *client)
+ 		return -EINVAL;
+ 	}
+ 
++	if (!client->irq) {
++		switch (pmic_type) {
++		case TYPE_PM8008:
++			mfd_cells = pm8008_no_irq_cells;
++			num_mfd_cells = ARRAY_SIZE(pm8008_no_irq_cells);
++			break;
++		case TYPE_PM8010:
++			mfd_cells = pm8010_no_irq_cells;
++			num_mfd_cells = ARRAY_SIZE(pm8010_no_irq_cells);
++			break;
++		}
++	}
++
+ 	dummy = devm_i2c_new_dummy_device(dev, client->adapter, client->addr + 1);
+ 	if (IS_ERR(dummy)) {
+ 		ret = PTR_ERR(dummy);
+@@ -285,25 +337,11 @@ static int pm8008_probe(struct i2c_client *client)
+ 	 */
+ 	usleep_range(1000, 2000);
+ 
+-	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
+-	if (!name)
+-		return -ENOMEM;
+-
+-	name = strreplace(name, '/', ':');
+-
+-	fwnode = irq_domain_alloc_named_fwnode(name);
+-	if (!fwnode)
+-		return -ENOMEM;
+-
+-	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
+-	if (ret)
+-		return ret;
+-
+-	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
+-				IRQF_SHARED, 0, irq_chip_desc, &irq_data);
+-	if (ret) {
+-		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
+-		return ret;
++	if (client->irq) {
++		ret = pm8008_irq_config(dev, client->irq, regmap, irq_chip_desc,
++					&irq_data);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, mfd_cells,
 
-	if (IS_ERR(sysfs_buf))
-		return PTR_ERR(sysfs_buf);
+-- 
+2.43.0
 
-	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-}
-
-If tmc_create_etr_buf_list() wraps drvdata->sysfs_buf into
-drvdata->etr_buf_list during the unlocked window before
-tmc_enable_etr_sink_sysfs() re-acquires drvdata->spinlock, and
-tmc_clean_etr_buf_list() then runs (either because allocating the second
-buffer node fails or the byte-cntr session closes), tmc_clean_etr_buf_list()
-sees coresight_get_mode(drvdata->csdev) =3D=3D CS_MODE_DISABLED, sets
-drvdata->sysfs_buf =3D NULL, and frees the buffer via tmc_etr_free_sysfs_bu=
-f().
-When tmc_enable_etr_sink_sysfs() subsequently acquires drvdata->spinlock, it
-passes the dangling sysfs_buf pointer to tmc_etr_enable_hw(), programming
-hardware DMA to the freed buffer.
-
-Alternatively, if tmc_create_etr_buf_list() wraps drvdata->sysfs_buf during
-that window and a concurrent perf session transitions csdev to CS_MODE_PERF
-before tmc_enable_etr_sink_sysfs() re-acquires drvdata->spinlock,
-tmc_enable_etr_sink_sysfs() sees CS_MODE_PERF, sets drvdata->sysfs_buf =3D =
-NULL,
-and frees sysfs_buf while drvdata->etr_buf_list still holds a node pointing=
- to
-it, leading to a use-after-free and a double-free in tmc_clean_etr_buf_list=
-().
-
-> @@ -1918,6 +1920,138 @@ const struct coresight_ops tmc_etr_cs_ops =3D {
->  	.panic_ops	=3D &tmc_etr_sync_ops,
->  };
-> =20
-> +/**
-> + * tmc_clean_etr_buf_list - clean the etr_buf_list.
-> + * @drvdata:	driver data of the TMC device.
-> + *
-> + * Remove all nodes from @drvdata->etr_buf_list and free their buffers.
-> + * If a node holds the live sysfs_buf and the device is active, the node=
- is
-> + * removed but the buffer is not freed; ownership stays with drvdata->sy=
-sfs_buf.
-> + *
-> + * Locking: callers must guarantee exclusive access to @drvdata->etr_buf=
-_list
-> + * and must not hold @drvdata->spinlock. The spinlock is taken internall=
-y only
-> + * to serialise the @drvdata->sysfs_buf accesses against the ETR sink
-> + * enable/disable paths. Must be called from process context: buffers ar=
-e freed
-> + * with the lock released.
-> + */
-> +void tmc_clean_etr_buf_list(struct tmc_drvdata *drvdata)
-> +{
-> +	struct etr_buf_node *nd, *next;
-> +	unsigned long flags;
-> +
-> +	list_for_each_entry_safe(nd, next, &drvdata->etr_buf_list, link) {
-> +		raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> +		if (nd->sysfs_buf =3D=3D drvdata->sysfs_buf) {
-> +			if (coresight_get_mode(drvdata->csdev) !=3D CS_MODE_DISABLED)
-> +				/*
-> +				 * The device is still active. Keep the live
-> +				 * buffer owned by drvdata->sysfs_buf and only
-> +				 * drop the list's reference to it.
-> +				 */
-> +				nd->sysfs_buf =3D NULL;
-> +			else
-> +				/* Free the buffer below through nd->sysfs_buf */
-> +				drvdata->sysfs_buf =3D NULL;
-> +		}
-
-[Severity: Medium]
-As reported by Sashiko on v19 [1], does tmc_clean_etr_buf_list() leak
-drvdata->sysfs_buf when the device is in CS_MODE_PERF?
-
-Here tmc_clean_etr_buf_list() checks coresight_get_mode(drvdata->csdev) !=3D
-CS_MODE_DISABLED to determine whether the hardware is still using
-drvdata->sysfs_buf. However, in CS_MODE_PERF the ETR hardware uses
-drvdata->perf_buf rather than drvdata->sysfs_buf (compare
-tmc_read_unprepare_etr(), which checks coresight_get_mode(drvdata->csdev) =
-=3D=3D
-CS_MODE_SYSFS and frees drvdata->sysfs_buf in all other modes).
-
-Because drvdata->reading is not set during a byte-cntr read session (or dur=
-ing
-the unlocked allocation loop in tmc_create_etr_buf_list()), the sysfs sessi=
-on
-can be disabled via tmc_disable_etr_sink() and a perf session can be enabled
-via tmc_enable_etr_sink_perf(). When tmc_clean_etr_buf_list() then runs,
-coresight_get_mode(drvdata->csdev) !=3D CS_MODE_DISABLED evaluates to true =
-for
-CS_MODE_PERF, so nd->sysfs_buf is cleared to NULL and drvdata->sysfs_buf is
-left allocated without being freed by perf teardown. Should this check
-coresight_get_mode(drvdata->csdev) =3D=3D CS_MODE_SYSFS instead?
-
-> +		list_del(&nd->link);
-> +		raw_spin_unlock_irqrestore(&drvdata->spinlock, flags);
-> +
-> +		/* Free the buffer (NULL is ignored) and the node out of the lock */
-> +		tmc_etr_free_sysfs_buf(nd->sysfs_buf);
-> +		kfree(nd);
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(tmc_clean_etr_buf_list);
-> +
-> +/**
-> + * tmc_create_etr_buf_list - create a list to manage the etr_buf_node.
-> + * @drvdata:	driver data of the TMC device.
-> + * @num_nodes:	number of nodes want to create with the list.
-> + *
-> + * Locking: callers must guarantee exclusive access to @drvdata->etr_buf=
-_list
-> + * and must not hold @drvdata->spinlock. The spinlock is taken internall=
-y only
-> + * to serialise the @drvdata->sysfs_buf accesses against the ETR sink
-> + * enable/disable paths. Must be called from process context: buffers an=
-d nodes
-> + * are allocated with the lock released.
-> + *
-> + * Return 0 upon success and return the error number if fail.
-> + */
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc return section in
-tmc_create_etr_buf_list() is missing the colon after Return ("Return:"), wh=
-ich
-triggers a kernel-doc warning when building with W=3D1.
-
-> +int tmc_create_etr_buf_list(struct tmc_drvdata *drvdata, int num_nodes)
-> +{
-> +	struct etr_buf_node *new_node;
-> +	struct etr_buf *sysfs_buf;
-> +	unsigned long flags;
-> +	int i =3D 0, ret =3D 0;
-> +
-> +	/* We don't need a list if there is only one node */
-> +	if (num_nodes < 2)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * We expect that sysfs_buf in drvdata has already been allocated.
-> +	 * Wrap the live sysfs_buf into the first node so the captured trace
-> +	 * data is preserved. Take the sysfs_buf and add the node under the
-> +	 * lock, so that the ETR sink enable path sees a non-empty list and
-> +	 * doesn't replace the buffer.
-> +	 */
-> +	new_node =3D kzalloc_obj(*new_node, GFP_KERNEL);
-> +	if (!new_node)
-> +		return -ENOMEM;
-> +
-> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> +	if (drvdata->sysfs_buf) {
-> +		new_node->sysfs_buf =3D drvdata->sysfs_buf;
-> +		new_node->is_free =3D false;
-> +		list_add(&new_node->link, &drvdata->etr_buf_list);
-> +		new_node =3D NULL;
-> +		i++;
-> +	}
-> +	raw_spin_unlock_irqrestore(&drvdata->spinlock, flags);
-> +	/* Free the node if there is no live sysfs_buf to wrap */
-> +	kfree(new_node);
-> +
-> +	while (i < num_nodes) {
-> +		new_node =3D kzalloc_obj(*new_node, GFP_KERNEL);
-> +		if (!new_node) {
-> +			ret =3D -ENOMEM;
-> +			break;
-> +		}
-> +
-> +		/* Allocate the buffer with the lock released */
-> +		sysfs_buf =3D tmc_alloc_etr_buf(drvdata, drvdata->size, 0, cpu_to_node=
-(0), NULL);
-
-[Severity: Medium]
-What happens in tmc_create_etr_buf_list() when drvdata->etr_mode is set to
-ETR_MODE_RESRV (via buf_mode_preferred =3D "resrv")?
-
-In ETR_MODE_RESRV, tmc_alloc_etr_buf() calls tmc_etr_alloc_resrv_buf(), whi=
-ch
-maps the same static drvdata->resrv_buf.paddr and drvdata->resrv_buf.vaddr
-into every allocated etr_buf:
-
-drivers/hwtracing/coresight/coresight-tmc-etr.c:tmc_etr_alloc_resrv_buf() {
-	...
-	resrv_buf->daddr =3D dma_map_resource(real_dev, drvdata->resrv_buf.paddr,
-					   drvdata->resrv_buf.size,
-					   DMA_FROM_DEVICE, 0);
-	...
-	resrv_buf->vaddr =3D drvdata->resrv_buf.vaddr;
-}
-
-When tmc_create_etr_buf_list() wraps the existing drvdata->sysfs_buf into t=
-he
-first node and allocates the second node via tmc_alloc_etr_buf(), both nodes
-in etr_buf_list alias the exact same physical reserved buffer. When byte-cn=
-tr
-switches to the second node and restarts ETR hardware capture, wouldn't the
-hardware DMA overwrite the same buffer while userspace is reading from the
-first node?
-
-> +		if (IS_ERR(sysfs_buf)) {
-> +			kfree(new_node);
-> +			ret =3D PTR_ERR(sysfs_buf);
-> +			break;
-> +		}
-> +
-> +		new_node->sysfs_buf =3D sysfs_buf;
-> +		/*
-> +		 * The drvdata->sysfs_buf write and the list update need the
-> +		 * spinlock, to serialise against the ETR sink enable/disable
-> +		 * paths.
-> +		 */
-> +		raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> +		/* We don't have an available sysfs_buf in drvdata, set one up */
-> +		if (!drvdata->sysfs_buf) {
-> +			drvdata->sysfs_buf =3D sysfs_buf;
-> +			new_node->is_free =3D false;
-> +		} else {
-> +			new_node->is_free =3D true;
-> +		}
-> +		list_add_tail(&new_node->link, &drvdata->etr_buf_list);
-> +		raw_spin_unlock_irqrestore(&drvdata->spinlock, flags);
-> +		i++;
-> +	}
-> +
-> +	/* Clean the list if there is an error */
-> +	if (ret)
-> +		tmc_clean_etr_buf_list(drvdata);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(tmc_create_etr_buf_list);
-
-[Severity: Medium]
-As reported by Sashiko on v19 [1], if kzalloc_obj() or tmc_alloc_etr_buf()
-fails in the while (i < num_nodes) loop, can the error path in
-tmc_create_etr_buf_list() free the pre-existing drvdata->sysfs_buf and lose
-captured trace data?
-
-At the start of tmc_create_etr_buf_list(), the pre-existing drvdata->sysfs_=
-buf
-is wrapped into the first struct etr_buf_node on drvdata->etr_buf_list so t=
-hat
-its captured trace data is preserved. During the subsequent unlocked
-allocation loop (or if the ETR was already disabled), the ETR sink can be
-disabled via tmc_disable_etr_sink(), transitioning drvdata->csdev to
-CS_MODE_DISABLED.
-
-If a later node or buffer allocation fails, tmc_create_etr_buf_list() calls
-tmc_clean_etr_buf_list(drvdata). When tmc_clean_etr_buf_list() visits the
-first node where nd->sysfs_buf =3D=3D drvdata->sysfs_buf and sees
-coresight_get_mode(drvdata->csdev) =3D=3D CS_MODE_DISABLED, it sets
-drvdata->sysfs_buf =3D NULL and frees nd->sysfs_buf via
-tmc_etr_free_sysfs_buf(), destroying the pre-existing buffer and its trace
-data instead of only freeing the nodes and buffers allocated by
-tmc_create_etr_buf_list().
-
-> +
->  int tmc_read_prepare_etr(struct tmc_drvdata *drvdata)
->  {
->  	int ret =3D 0;
-
-[Severity: High]
-Should tmc_read_prepare_etr() check !list_empty(&drvdata->etr_buf_list), and
-should tmc_create_etr_buf_list() and tmc_clean_etr_buf_list() check
-drvdata->reading?
-
-tmc_etr_get_sysfs_buffer() checks !list_empty(&drvdata->etr_buf_list)
-alongside drvdata->reading because tmc_create_etr_buf_list() wraps
-drvdata->sysfs_buf into drvdata->etr_buf_list while leaving drvdata->reading
-false. However, tmc_read_prepare_etr() only checks drvdata->reading:
-
-drivers/hwtracing/coresight/coresight-tmc-etr.c:tmc_read_prepare_etr() {
-	...
-	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-	if (drvdata->reading) {
-		ret =3D -EBUSY;
-		goto out;
-	}
-}
-
-When the ETR sink is disabled during an open byte-cntr read session (which =
-is
-allowed because drvdata->reading is false), opening /dev/tmc_etrX a second
-time causes tmc_read_prepare_byte_cntr() later in the series to return -EIN=
-VAL
-because coresight_get_mode(etr_drvdata->csdev) !=3D CS_MODE_SYSFS, falling
-through in tmc_read_prepare_etr() to the generic sysfs read path. Because
-tmc_read_prepare_etr() does not check !list_empty(&drvdata->etr_buf_list), =
-it
-sees drvdata->reading =3D=3D false and drvdata->sysfs_buf !=3D NULL, and se=
-ts
-drvdata->reading =3D true on the same buffer wrapped in drvdata->etr_buf_li=
-st.
-
-When the first file descriptor is closed, tmc_clean_etr_buf_list() sees
-CS_MODE_DISABLED without checking drvdata->reading, sets drvdata->sysfs_buf=
- =3D
-NULL, and frees nd->sysfs_buf while the second file descriptor still has
-drvdata->reading =3D=3D true. A subsequent read() on the second file descri=
-ptor
-calls tmc_etr_read_sysfs_buf(drvdata->sysfs_buf, ...), causing a
-use-after-free or a NULL pointer dereference on sysfs_buf->len.
-
-Conversely, if a generic sysfs read session already has drvdata->reading =
-=3D=3D
-true when a second open of /dev/tmc_etrX enters tmc_create_etr_buf_list(),
-tmc_create_etr_buf_list() does not check drvdata->reading before wrapping t=
-he
-active drvdata->sysfs_buf into drvdata->etr_buf_list.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtrac=
-ing/coresight/coresight-tmc.h
-> index 319a354ede9fc..6e994678f9264 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc.h
-> +++ b/drivers/hwtracing/coresight/coresight-tmc.h
-> @@ -208,6 +208,19 @@ struct tmc_resrv_buf {
->  	s64		len;
->  };
-> =20
-> +/**
-> + * @sysfs_buf:	Allocated sysfs_buf.
-> + * @is_free:	Indicates whether the buffer is free to choose.
-> + * @pos:	Offset to the start of the buffer.
-> + * @link:	list_head of the node.
-> + */
-> +struct etr_buf_node {
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc comment above struct etr_buf_node star=
-ts
-with /** without the required "struct etr_buf_node - <short description>"
-first line, which produces a kernel-doc warning.
-
-[1] https://lore.kernel.org/r/20260625-enable-byte-cntr-for-ctcu-v19-2-8fbb=
-f22e8381@oss.qualcomm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-enable-byt=
-e-cntr-for-ctcu-v20-0-bd5c3ac9f916@oss.qualcomm.com?part=3D2
