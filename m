@@ -1,57 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368804;
-	b=OK2j3C7K7Q32mIIhDVHWjG/HnZZyNj9CLSz5yU57XFWD5bVLB5hPLvZBQltYxGgoCtXt
-	 0POIa/ARS0x4Y2ROwlVveE+VveXcC495iMFmvjK28SBD1MZN1eR//F59BDQOfPArE84E7
-	 s9kEYgYdiFCZGuYvXaQoxHF73UYiLbOeT1vXc0mBqSD9kJ1AmcRdwwZC2APTkWiwTn+82
-	 LBDGJCxteMJCQa7eoLjpIvia138IN2xJAhi53qkeOkm1ZAkbfJ9eUm+9M1zK2I8Moz8g/
-	 roPQce6/YO+gsTyrV0nqIRL8mb3Idx/F/bBXT2aKOAnlrjVzZdK6TM+W3d5lNG6S25Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368804;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=vT6/7ipJEJAd6dPGly6FzWQtBousVWhJ8szBQKhsIog=;
-	b=LZ4ZBkrg70OorqM9b/Fb0OAf+s6ONgFyHHGZUwgBuBcjIGz52iG8vgGpCyLOFOcX+utp
-	 F5sJiUL2D3pew4r/i3iOve5HFFzoPA0YXRhmHUSkF35wNX9iHZWmPpwnzax9uNrcCpvEI
-	 6hkTRTOr2vWm7QtJsIuxwyUyJIacMRseSDptB3zCq04SGQ3/x+evQ+ucyR7lU2FLHFeQl
-	 5LKbkNk6ysVX+xaHFqHelj2nL4Yu4BU47phwDncfk2+dbRTbCEE/mFlsUhlM86hkqY67y
-	 BdwmdPmjD9/OymABZTcsWeEeSQiPo/bwY3c5B97CkQXavM3v3YBOKzosb+pZFu16Uww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkyUoxAP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793368847;
+	b=4qY5V4B3zC44n0lMt1y/FlkC0tZDzQHShVaeppixLHKKj25uzrkyEgagD0FGcmTG1XkB
+	 gC8QItDC/nG0R9YAThVwIsdNGBj4lAi8hNzf9QXF1q+93Sc6dy1GQgiqAUwJE/g6vrlGD
+	 l5VpHwOCDl8MoSmrBIFppXEbs+nPEVEJwDHxvqgvy76BUaF/gbvOInwl26EMfoOkKvm9o
+	 kWWr76FjuOKB3qGk+jibk7BBmTNVK9vEdCNK1v40S7EYhC06Q5qAtN41DQ/bNTWYZtjmb
+	 2Q51BP6M94nXHvcrlwCuHOuSYv6TaoWxuqgai4uNnMF6kkIY7s801FlrZgpTO5MUYSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368847;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=OuitTymSSoEUqo8wxOrof9T+ZUTGPTidse28qGJb34o=;
+	b=pM2tlUp4b4CysnXlGSss6UCvsOva68kCY2R2M6C2QysySsrJNmoU/gEsyOpn8ZDyuWss
+	 7KQymW0Zlh8DB98ljaKCQUHQ+NBqowM2pbs6zfK8W6tNIigeqRqYHs/VeOKXwmOCDj8dz
+	 wi3CoqAr/nz2LJDlASsf14ES+p42YzYFuJggIcdbS+emxnT+F1F8bOeESn13ehBlSCCSq
+	 5kC0Y00fH4GkFhmI0iItNl3KHBisDaybTFXv0P+aNXZkTuedl/CAwi5WR+NzeWoPMIR/6
+	 4q+R42ttPmEaIgZZ6J7Of38zNqOj4Wp6v1osB2UDfwR89ekppNRK8Kff/5HyUHK3tQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IHDI6toP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i3iXP6i5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518C5606A320;
-	Fri, 30 Oct 2026 14:00:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2830606A32C
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2830606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkyUoxAP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F251F000C1;
-	Fri, 30 Oct 2026 14:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793368803;
-	bh=vT6/7ipJEJAd6dPGly6FzWQtBousVWhJ8szBQKhsIog=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SkyUoxAP7fKbyRpePvYNVH0gyWdo4ZKBzil3OrXPvHeAz4tlRDe7YQUA+KHapL+CE
-	 QUlizcemiIMyCT3bVsY71yHT68rU2zrYOMi0BVAIUlqGPIHVa3O/N2AqvGzkLt0LN5
-	 ya5YeCYPArwBaOABuV2DhLJAwVO+VYe0/CxW4Ot5e+L+dA2BxSgmfNfIvXYcBbuIyZ
-	 QXttBnG/pTK1nr94VXHcbsYatWqFKQe4MZWGaedop6jEOLYITEyTZ9FPEtb6eNGoVV
-	 erv3GA8nk0jPW6e4c81ngoMupDzgP9Gq3vaYl9Ok6PV7HeBWOzEnGK3Nd1gM8qN03P
-	 x6cJ4H+gpVnAA==
-Message-ID: <sashiko-outbox-191084@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] dts: imx95-phyflex-libra-rdk: Add dts for
- phyFLEX-i.MX 95 Libra RDK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Hahn" <B.Hahn@phytec.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261030-wip-bhahn-imx95_upstreaming-v1-2-1c1cebb5be99@phytec.de>
-References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
- <20261030-wip-bhahn-imx95_upstreaming-v1-2-1c1cebb5be99@phytec.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 14:00:02 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IHDI6toP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i3iXP6i5
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UDnDYf4019634
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:00:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OuitTymSSoEUqo8wxOrof9T+ZUTGPTidse28qGJb34o=; b=IHDI6toPVOYrtJFP
+	z1ZskiucSL9zaQF1sOyXvlzXXmXLcY6WxvfQOn8yxwZ/hYxEfwFWQ/xNVWoXwEAw
+	pi2RJnDNfhF1UY3r1JVkL39V2aGWfVLebudH4SncyDQbgusv+q053AUMKyXiydcu
+	Xuuds3tuDj36SZThVwg7WNX+iTMThoNIdbLdehPh7qg+SsNrAl41CZj8mGPab3aC
+	IzSvs1s97jhg8gczI1Lc967TPUvwZW3AZO3Od2RD79WhwlAtEum8sDjTCmqLUOnB
+	b2ChyMvzXr5LPhJDFH+YAD9wCpqfVYMRl17krS0QAmuFPTV0YMDCQfCTL3T781mK
+	o4VBYw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qkbwh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:00:41 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0589ff620so592049b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 07:00:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793368840; cv=none;
+        d=google.com; s=arc-20260327;
+        b=s/NtizMh92wBwG4FRbMzOupHlyvZnsqOzViNcipKS8aD9QoUr0iNg3qNgMlOEJYYGQ
+         Fx7RQFGNZAvu6QczywPVlvhRzZHsD3nIvhN5PZKAQr3HbhZOXJ3X7xxDrRWHgwCCY5QG
+         fglaHolQIT6wWyBK8hrAmKVl9zk17CS5D8EjnW4Uy3PeamAno0q9EvfgLm4CHaM3Xqhn
+         R7tgN/bNCaQRo+YWxFwWyVLm1J+il8IkRkHOKGn25ozPYETpxZJfbprJLoJ5C2LCYCDt
+         a2KQO/LXJLAWzIj3F4gKymEFUTmHanxYT30wzSUe2lvvON6nKVLiypq0k9eKnVFbGi3m
+         jhDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OuitTymSSoEUqo8wxOrof9T+ZUTGPTidse28qGJb34o=;
+        fh=BrUO9SkBN/KL+7rzt+NNuTQw8bH1g+NCTdEwgl2teJE=;
+        b=OuJAVARb3qVLkZvm9ppSaiM2lrFk32qYn8kQjbnQKUxMRehIYVjqj4nPCq6jPd3G+v
+         8FNxJNWQVFJtXqULeQIwyoEQAU4DNYZgFt3wtzkrsiMvC0o+cH7gxTljt9ut2E10O1CC
+         evo3avZ8okJsfOJBtmBDFGurur+IEw6aytSvG3Hi0j5Pp7t9RG6adRk9XZ7nNZzeKiwM
+         +/WBIDg74/WiXCI8tiC4LngahTk8qEzEoZU0wOU5w7DBa//5TEwfLzqOIRuRe+B+v+3l
+         O7qV1h6x09pPEz7QF3oPt9mLnC9iY1ttce78ma6iGa95Dr6NwPdv3KyWQfSqRofdy+ox
+         Zgaw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793368840; x=1793973640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OuitTymSSoEUqo8wxOrof9T+ZUTGPTidse28qGJb34o=;
+        b=i3iXP6i5Dnq+MG41zCTDXZXpim3b/cvIywWhNsZihbG93Pe1jUU/Ey4ooCCkSjVSQc
+         CnnwFCMxCHUaamI1WcYCUmajPvbq51uzDV8p1JguGBuO9uDpeZhh3+71/Q2uEg4llRVm
+         hrBQyyQZ+WzxRKioK7Ji+UJuZ4fh4erz7Pg/OkUXEeAbb6YhsxAz4M0LG52MD3ikWrPe
+         oCo8PwliKXNbNxyjKq0XvYln5PtqPOz5xVsZ45L1wrb5otGw8SVWvBfeMbL+5Jpwc/P8
+         DpAdDVAm7xj9SwsBwnZhddAdmxxTLDHQZFq6HSmFny1TgaVgLWdUTCvnyPGve/lDJlec
+         knzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793368840; x=1793973640;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OuitTymSSoEUqo8wxOrof9T+ZUTGPTidse28qGJb34o=;
+        b=VmZYpc0Z1iaUhevvkE08mkjTi7y9Vb2Yw1oWE89HWnO593BaGmIRMqYKrogZko9k3h
+         TfUEGY6pGEW+Fj4iXSlkEuGaIDOZMX+LyNMplsEkxZUARgdVunBhuK4nY5nFypnbNnVy
+         NFfsA2+8o3vREC9FnB37OIChbDtlqp7dsLRpvWa6T3i4Mj9K53U7Kt1JcYk5a3sjn+Ms
+         VMKPJZuJ1rmVw7//2ouq3Koz+mg+gGK7mQHUi5aB0Wb3QsVyfNXBHcvmSHssFvlAU2Mw
+         goResxq4v73HJt3He54YjpFhpd8zdxcwMlLzLhxtxCdGeCKgrLlfJt6ouY8F69XlsUJY
+         T40Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8xvrJr2gkUa453q2tJsQIJmssgxixR3j+xqHUbaSTH+DlLvl6nqceB+CBny6dZA1rvZT5Fr1f0cQD@vger.kernel.org
+X-Gm-Message-State: AFq9FYLojDYcWGRE2Dfhptjhx4QnU3v7FXh+gVXBb3eFJegR2jEBGiPm
+	XlmxvgYEmyvqzgZO9A6PNQ0nIuJ76FcJlf71F0VEsa1GC2T1d0qtvD4PKLRi8d5vIVtmju1I/Un
+	nErKh1DaPKanYXDOkJVUFO+w6laMUHHCkXQ2PItwyv38wRg366QsbIvHeZWjhF7rKvumwFC3fS7
+	Esa8Rvj1P2rIpjbUJN13jzrCHp670Td3Itk5rQVao=
+X-Gm-Gg: AYBFou0jxHx5xCuD51Kj9FVelj8NrF2OgWxvfQN0ZEBV/xp5odR2Fi0UY9fe1J8b5Zc
+	umbyv1cE5p9/nTf1doFArVypbdC6ibATuM4ps1LIf2upPv0cLRvnin17LQqPMGa3xKQxPwmWsAQ
+	vbYIs9ywOVrVi9LTw+C+JlQZa3ETnLVYHK4Y5iX40zXYkII0kNJWHQdVgH5Q==
+X-Received: by 2002:a05:6a00:1c91:b0:89e:584:bb77 with SMTP id d2e1a72fcca58-8a9c098ab29mr2174848b3a.58.1793368839475;
+        Fri, 30 Oct 2026 07:00:39 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1c91:b0:89e:584:bb77 with SMTP id
+ d2e1a72fcca58-8a9c098ab29mr2174559b3a.58.1793368836406; Fri, 30 Oct 2026
+ 07:00:36 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,319 +126,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261027144002.10606-1-ansuelsmth@gmail.com>
+In-Reply-To: <20261027144002.10606-1-ansuelsmth@gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 15:00:21 +0100
+X-Gm-Features: AclHuK-MTjfwt2OQzyBtwa_iraZJVoORJ1j_v3oQYZTa5jWvtZ6sOZH5C5h4Bak
+Message-ID: <CAPx+jO-TT=UAhH5=5DEPuu1XtVvvE_QA_1V=9qw1moZJoPUU-Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: mmc: mtk-sd: Document support for
+ Airoha AN7581 SoC
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Chaotian Jing <chaotian.jing@mediatek.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Wenbin Mei <wenbin.mei@mediatek.com>, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX30jTMN4IEQLT
+ 62OlbAYIK8A/XfuhFDJyaZLzkUJcMbyo10PP66a+G15a4mAjPC33FEIBIG1AZrV+gXaQI9737g7
+ hyakkYb9l8ifnxHfKyZKY90PC2Lh+S1o20+Hi0PstGjFkgGxsf8JA8QjLqWnc+YOE7bvFkOuZye
+ KZMdPRbE5OJLDOaRcrcEGP1I066ZTLLynw9u/9TMSlVtZyVBDSEbNi2hK6DvVKNvlPUwxMk/BvQ
+ m/rLhIB60oIX4apI62oMsdU2kLDmK2DLJHkTB0Y/acB3PC592SW91zPsDaV5bEbtsK3/Vnnq7XZ
+ Ui+JGp3e4VKYKUCA7EJqPCb5Hc9JYNgk/oND4NGLZcD1GU0W2FnKQhZOQcdqOc8wJxtq5YUcpNW
+ Q+hwZxQlYFkQOh480AWjCDMJHKY8BMaO2tj8LCIS7z13naJ8pyz6Oni0lrbmldPS1WpyXxWdH4A
+ BmKRFzqKXD4wpARK4ig==
+X-Proofpoint-ORIG-GUID: 3xfl4lF4Bh3bDFvxevdRUl3TixOpMyVG
+X-Authority-Analysis: v=2.4 cv=IeoSymqa c=1 sm=1 tr=0 ts=6ae4a309 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8 a=5vCY4yJ5Sko5zDJxFQEA:9
+ a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX161I3Bxef032
+ fociaad85s0tws0xcxaGYn7vSCFY4UH42gQ3oZGVaULMVYsnyf2f+KaBdtIdidyWRBt8nJ6OCFU
+ zeac7f7nIO0PlNmNnDE3tLpGqYQq7gU=
+X-Proofpoint-GUID: 3xfl4lF4Bh3bDFvxevdRUl3TixOpMyVG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300054
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] arm64: dts: freescale: duplicate usdhc2-200mhzgrp node overwrites =
-usdhc2 pins
-- [High] arm64: dts: freescale: missing OF graph ports on M.2 connectors di=
-sables radios
-- [High] arm64: dts: freescale: descending cooling-levels ending in 0 break=
-s pwm-fan
-- [Medium] arm64: dts: freescale: misplaced external-facing and wake-gpios =
-on pcie0/pcie1
-- [Medium] arm64: dts: freescale: stale gpio2 gpio-line-names collide with =
-gpio_expander2
---
+On Tue, Oct 27, 2026 at 3:40=E2=80=AFPM Christian Marangi <ansuelsmth@gmail=
+.com> wrote:
+>
+> Add dedicated compatible for Airoha AN7581 SoC integrated MMC controller.
+> The MMC controller is based on the MT7988 with the difference that it doe=
+s
+> have a single clock controlling it.
+>
+> Add the dedicated compatible to describe the 2 register requirement and
+> permit to define only 2 clock (the main one and a fixed clock for HS)
+>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-commit 01cb871eca78a3c506a85dce8f3e949939c4a0cb
-Author: Benjamin Hahn <B.Hahn@phytec.de>
+Applied for next, thanks!
 
-dts: imx95-phyflex-libra-rdk: Add dts for phyFLEX-i.MX 95 Libra RDK
+Kind regards
+Uffe
 
-This commit adds the device tree source files for the PHYTEC phyFLEX Libra
-RDK baseboard (revision 1618.2) and phyFLEX-i.MX 95 FPSC Gamma SoM (revision
-1620.3).
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi =
-b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
-> new file mode 100644
-> index 0000000000000..4b37d76cced1b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
-> @@ -0,0 +1,736 @@
-
-[ ... ]
-
-> +&scmi_iomuxc {
-
-[ ... ]
-
-> +	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_SD2_CD_B__USDHC2_CD_B		0x31e	/* CD */
-> +			IMX95_PAD_SD2_CLK__USDHC2_CLK		0x158e	/* CLK */
-> +			IMX95_PAD_SD2_CMD__USDHC2_CMD		0x138e	/* CMD */
-> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0	0x138e	/* DATA0 */
-> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1	0x138e	/* DATA1 */
-> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2	0x138e	/* DATA2 */
-> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3	0x138e	/* DATA3 */
-> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
-> +		>;
-> +		bootph-all;
-> +	};
-> +
-> +	pinctrl_usdhc3: usdhc3grp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc3_100mhz: usdhc3-100mhzgrp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc3_200mhz: usdhc2-200mhzgrp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
-> +		>;
-> +	};
-
-[Severity: High]
-Should pinctrl_usdhc3_200mhz be named usdhc3-200mhzgrp instead of
-usdhc2-200mhzgrp?
-
-Because both pinctrl_usdhc2_200mhz and pinctrl_usdhc3_200mhz use the node
-name usdhc2-200mhzgrp under &scmi_iomuxc, dtc merges them into a single
-node and overwrites the SD2 fsl,pins array in pinctrl_usdhc2_200mhz with
-the SD3 pins from pinctrl_usdhc3_200mhz.
-
-When usdhc2 (which has sd-uhs-sdr104 enabled) switches to its state_200mhz
-pinctrl state, it will attempt to claim the SD3 pads instead of configuring
-the SD2 pads, breaking 200MHz SD card operation and conflicting with usdhc3.
-
-Also, both pinctrl_usdhc2_200mhz and pinctrl_usdhc3_200mhz appear to use
-100MHz pad settings (0x158e/0x138e and 0x159e/0x139e) rather than 200MHz
-slew rate settings (such as 0x15fe/0x13fe used in pinctrl_usdhc1_200mhz).
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts b/=
-arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
-> new file mode 100644
-> index 0000000000000..55d49f8109567
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
-> @@ -0,0 +1,558 @@
-
-[ ... ]
-
-> +	m2-key-m-connector {
-> +		compatible =3D "pcie-m2-m-connector";
-> +		clocks =3D <&rv3028>;
-> +		i2c-parent =3D <&lpi2c5>;
-> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +	};
-> +
-> +	m2-key-e-connector {
-> +		compatible =3D "pcie-m2-e-connector";
-> +		clocks =3D <&rv3028>;
-> +		i2c-parent =3D <&lpi2c3>;
-> +		sdio-reset-gpios =3D <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
-> +		sdio-wake-gpios =3D <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
-> +		uart-wake-gpios =3D <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
-> +		vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +		w-disable1-gpios =3D <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
-> +	};
-
-[Severity: High]
-Are the OF graph ports missing from m2-key-m-connector and
-m2-key-e-connector?
-
-When pwrseq_pcie_m2_probe() in drivers/power/sequencing/pwrseq-pcie-m2.c
-probes m2-key-e-connector, it requests w-disable1-gpios and w-disable2-gpios
-with GPIOD_OUT_HIGH, asserting the active-low W_DISABLE1# and W_DISABLE2#
-lines and disabling the M.2 module's Wi-Fi and Bluetooth radios:
-
-drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_probe() {
-	...
-	ctx->w_disable1_gpio =3D devm_gpiod_get_optional(dev, "w-disable1",
-						       GPIOD_OUT_HIGH);
-	...
-	ctx->w_disable2_gpio =3D devm_gpiod_get_optional(dev, "w-disable2",
-						       GPIOD_OUT_HIGH);
-}
-
-Those lines are only deasserted when a consumer matches via
-pwrseq_pcie_m2_match(), which walks the connector's OF graph endpoints via
-for_each_endpoint_of_node(ctx->of_node, endpoint). Without the ports nodes
-linking m2-key-e-connector and m2-key-m-connector to the PCIe Root Ports,
-UART, and SDIO controller (which are also required by
-pcie-m2-e-connector.yaml and pcie-m2-m-connector.yaml), no consumer can
-match and the radios remain permanently disabled.
-
-> +	osc_mclk: oscillator-mclk {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <19200000>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	osc_mclk_gated: oscillator-mclk-gated {
-> +		compatible =3D "gpio-gate-clock";
-> +		#clock-cells =3D <0>;
-> +		clocks =3D <&osc_mclk>;
-> +		enable-gpios =3D <&gpio_expander1 8 GPIO_ACTIVE_HIGH>;
-> +		status =3D "disabled";
-> +	};
-> +
-> +	fan: pwm-fan {
-> +		compatible =3D "pwm-fan";
-> +		interrupt-parent =3D <&gpio1>;
-> +		interrupts =3D <4 IRQ_TYPE_EDGE_RISING>;
-> +		#cooling-cells =3D <2>;
-> +		/* startup 35%, duty cycle 30%-100%;
-> +		 * polarity inversion does not appear to work
-> +		 */
-> +		cooling-levels =3D <255 166 96 0>;
-> +		/* fan-supply =3D <&reg_vdd_5v0>;  probe fails with this set */
-> +		pwms =3D <&tpm5 3 86958 0>;
-> +		pulses-per-revolution =3D <2>;
-> +	};
-
-[Severity: High]
-Will cooling-levels =3D <255 166 96 0> turn the fan off when the thermal zo=
-ne
-reaches its highest temperature trip point (trip4 at 75C)?
-
-In drivers/hwmon/pwm-fan.c, __set_pwm() treats a PWM value of 0 as fan
-power-off rather than driving a 0% duty cycle:
-
-drivers/hwmon/pwm-fan.c:__set_pwm() {
-	...
-	if (pwm > 0) {
-		...
-		state->duty_cycle =3D DIV_ROUND_UP(pwm * (period - 1), MAX_PWM);
-		ret =3D pwm_apply_might_sleep(ctx->pwm, state);
-		if (ret)
-			return ret;
-		ret =3D pwm_fan_power_on(ctx);
-	} else {
-		ret =3D pwm_fan_power_off(ctx, false);
-	}
-	...
-}
-
-When cooling state 3 selects cooling-levels[3] =3D=3D 0, pwm_fan_power_off(=
-) sets
-state->enabled =3D false. In drivers/pwm/pwm-imx-tpm.c, pwm_imx_tpm_apply_h=
-w()
-disables the TPM5_CH3 output driver when state->enabled is false, allowing =
-the
-pad pull-up on IMX95_PAD_GPIO_IO26__TPM5_CH3 (0x51e) to pull the inverted P=
-WM
-line high and stop the fan at 75C.
-
-Additionally, pwm_fan_probe() sets the initial state to
-cooling_levels[pwm_fan_max_state] (0), so the PWM channel is not enabled at
-boot, and pwm_fan_update_state() expects cooling-levels to be ordered in
-ascending order. Using a non-zero minimum value (such as 1) or configuring
-active-high/inverted PWM handling would avoid disabling the channel at stat=
-e 3.
-
-[ ... ]
-
-> +&gpio2 {
-> +	gpio-line-names =3D "", "", "", "", "",
-> +			  "", "", "", "", "",
-> +			  "", "", "", "", "",
-> +			  "", "RGMII2_nINT", "GPIO4", "RTC_INT", "",
-> +			  "LVDS1_BL_EN";
-> +};
-> +
-> +&lpi2c1 {
-> +	temperature-sensor@4f {
-> +		compatible =3D "nxp,p3t1755";
-> +		reg =3D <0x4f>;
-> +		vs-supply =3D <&reg_vdd_1v8>;
-> +	};
-> +};
-> +
-> +&lpi2c3 {
-> +	status =3D "okay";
-> +
-> +	gpio_expander2: gpio@21 {
-> +		compatible =3D "ti,tcal6416";
-> +		reg =3D <0x21>;
-> +		interrupt-parent =3D <&gpio2>;
-> +		interrupts =3D <17 IRQ_TYPE_LEVEL_LOW>;
-> +		#interrupt-cells =3D <2>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		gpio-line-names =3D "CAN1_STBY", "CAN2_STBY", "NC",
-> +				  "KEY-E_nALERT", "KEY-M_nALERT",
-> +				  "SDIO_nWAKE", "SDIO_nRESET", "HDMI_EN",
-> +				  "RTC_nINT", "LVDS1_BL_EN", "SFP_TX_FAULT",
-> +				  "SFP_TX_DISABLE", "SFP_MOD_ABS", "SFP_RS0",
-> +				  "SFP_RX_LOSS", "SFP_RS1";
-
-[Severity: Medium]
-Should the &gpio2 gpio-line-names override in imx95-phyflex-libra-rdk.dts be
-dropped?
-
-On the SoM (imx95-phyflex-fpsc-g-som.dtsi), GPIO2 lines 18 and 20 are muxed=
- to
-SPI3_CS and SPI3_MOSI for lpspi4, while on the baseboard RTC_nINT and
-LVDS1_BL_EN are on gpio_expander2 lines 8 and 9. Keeping "RTC_INT" and
-"LVDS1_BL_EN" on &gpio2 duplicates the "LVDS1_BL_EN" line name and causes
-userspace lookups by name to match gpio2 line 20 instead of gpio_expander2
-line 9.
-
-[ ... ]
-
-> +/* M.2 Key-E PCIe */
-> +&pcie0 {
-> +	external-facing;
-> +	supports-clkreq;
-> +	wake-gpios =3D <&gpio_expander1 11 GPIO_ACTIVE_LOW>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie0_port0 {
-> +	reset-gpios =3D <&gpio1 10 GPIO_ACTIVE_LOW>;
-> +	vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +};
-> +
-> +/* M.2 Key-M PCIe */
-> +&pcie1 {
-> +	external-facing;
-> +	supports-clkreq;
-> +	wake-gpios =3D <&gpio_expander1 12 GPIO_ACTIVE_LOW>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie1_port0 {
-> +	reset-gpios =3D <&gpio1 14 GPIO_ACTIVE_LOW>;
-> +	vpcie3v3-supply =3D <&reg_vdd_3v3>;
-> +};
-
-[Severity: Medium]
-Should external-facing and wake-gpios be placed on &pcie0_port0 and
-&pcie1_port0 rather than on &pcie0 and &pcie1?
-
-In drivers/pci/of.c, pci_set_bus_of_node() only checks external-facing when
-bus->self is non-NULL (reading from the Root Port node rather than the host
-bridge node), and pci_configure_of_wake_gpio() requests wake-gpios from the
-enumerated pci_dev's OF node (&pcie0_port0 and &pcie1_port0). The
-fsl,imx6q-pcie.yaml binding also only allows pci-pci-bridge.yaml properties
-like external-facing and wake-gpios on the Root Port child node.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-wip-bhahn-=
-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de?part=3D2
+> ---
+> Changes v2:
+> - Also add compatible to restrict clock-names for source and hclk
+>  Documentation/devicetree/bindings/mmc/mtk-sd.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mmc/mtk-sd.yaml b/Document=
+ation/devicetree/bindings/mmc/mtk-sd.yaml
+> index a4d032224dce..704d59360bcb 100644
+> --- a/Documentation/devicetree/bindings/mmc/mtk-sd.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/mtk-sd.yaml
+> @@ -14,6 +14,7 @@ properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - airoha,an7581-mmc
+>            - mediatek,mt2701-mmc
+>            - mediatek,mt2712-mmc
+>            - mediatek,mt6779-mmc
+> @@ -182,6 +183,7 @@ allOf:
+>        properties:
+>          compatible:
+>            enum:
+> +            - airoha,an7581-mmc
+>              - mediatek,mt2701-mmc
+>              - mediatek,mt6779-mmc
+>              - mediatek,mt6795-mmc
+> @@ -238,6 +240,7 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> +              - airoha,an7581-mmc
+>                - mediatek,mt7986-mmc
+>                - mediatek,mt7988-mmc
+>                - mediatek,mt8183-mmc
+> --
+> 2.55.0
+>
