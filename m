@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.119
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.122
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793367195;
-	b=Z8/Y7zb1nO4sv4qXlW8o3ga1yrDhx9rRhDbIVqluNA1zihZpl4AVQq/daAAeljGxi+Yp
-	 0fUqzkyOaejuuvIk1NujUCo+Wq+iBg0GqwetT/6D4NCBb5mwdvj0qnrwnToX/YBOER8l+
-	 yrkHo5quXp0YhKHEsp1NQ6sfVJYreEDPz+OGdYYuP5XbNnGO4zgTSlDnY4Zu+vcZS9fbm
-	 E2HCiO8eQb7Fsa5q1Oy2Hi9pMtExO7fCv4g4aU8YFEmG1KiSxZFXXA4zvfMmFCVhbGPEg
-	 OdYkiK2V03+nQbsnNfP6w60pnO0+4Uw/cWlWskYSqaLiY1L/hfskgRojc1h0UHTGZzg==
+	t=1793367197;
+	b=XNfVVBlnVoHla2WEwxDSWRcFAFp+3qgoMK6Yr5kf+7ems7hrkfmlPtGq8XC+99dqJ+hH
+	 b9hsLeAjvoo+LuQiWGdqUCdUhplU7aUNuST+n+KMLNgYoUR7dPcGkCH7+VNN1/1aKBCje
+	 PyVQ1vv6Mfeb99Jjh3nHaI8Gr08baqVcHip3skw62CkEfRVS0Fm6UWrWc0Cs5EVYePuOj
+	 UYAj9EDyotRBdxq13ae/XrzeQa787tAxh/M6/DsmBAlLRAKS5Dd/eF4jNzPpPiSYvqqkQ
+	 uoUrX5RriJY1rUytzG1tKos+yAuI8f8iQSvJN0TrnrQGmi9V1hET520hW7poQWpkTqw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367197;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
 	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
@@ -27,35 +27,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
-	b=3+eIHlQsIyUmB2zfPMp2YNtfUBAgzNnHoe8qDDyGqCI+Sca9jWfLCLJ/ISRz+xf2y3Wq
-	 oSDPJ0keCxgWSd6F5sMayrBWJEHaIaMReQm45EDgbJV0Rndg6GVJro4D0XCns0EwdZYqw
-	 JM8MZmQS3D9yjwX0T9scOm0F/G46X2zJzjbZ3XrEWnTN7mXdhSyPSXx8rz9Gi8BUlUzDR
-	 b3gVD5BINVyEqlIqJ+QPK6ncHIS8D2FXDzeTOeZo26zf6hdhT1V539TgHsJqRaQ0nkWs9
-	 4oZOzI5EL+a+3SZhVvnGJUjQQT/64XUAqu8SnvEV4NGiFdDiVNjMZBBApQNCKafpztw==
+	bh=eRsMRcxg8gLnrMdi8No8SfFXmRjf5z621n9f4HF6SJI=;
+	b=c6XNzovQYXUZdvxwMUvk4pZfI/zupENT+eRwhK4drR8jn2EzFQ87UfGniBlAWfyZG0ux
+	 fT4xF1oJpkinCgvzmJrcrIHA5jF0ri7BQlPlYMTXQNQXmBb+WHXsp95vdo7d5RdmPuZIZ
+	 IpQ+z3kYQqi5T7SE4SDpqOGc3QqfoNOW41Sut3R9CMHdOOMZFHRLjkX/iUc8BicdyuFkr
+	 /P1Ke3kyajcSeZESOEOOkFYrA0vfwSJfrPyYE3NUjyPLaLzfUh59hRKWSRUwBTMSyaG5p
+	 QcoyDnGYboQPEbz4QC9gJ8Z4iFeYq39NWkhZ6aOT5A5CfwFXkW0OqzXsbfK6K7qbEbg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=phytec.de;
 	spf=pass smtp.mailfrom=phytec.de;
-	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=dCF3kMHk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.119
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023119.outbound.protection.outlook.com [40.107.159.119])
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=Q7efuQPs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.122
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020122.outbound.protection.outlook.com [52.101.69.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93702606A31D;
-	Fri, 30 Oct 2026 13:33:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93702606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E104606A333;
+	Fri, 30 Oct 2026 13:33:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E104606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=dCF3kMHk
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=Q7efuQPs
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iw5nO1Kdl1CJXxGVrHKma69ZUT8LapAJxF8uGdyB1V3klT9hqzWTwp2sAAc2J1H5+HO9k8mpbtUUPe2ezqTKcolSCSO0YehPhU5mqdIjdZKh69nR47a2jKrQpVIxCjfSpCcRTMVJSHdLRymOusRVLxEiF7YiWCaKSo3ueJWM/llya3ipuG6Ne+5DaqZ+01WkhJc/3G6A69yTmFq8ImGQQjd59WN9hzCi9LJasaNPGmVhRSFJn06v8sJtgUw5sq12B9vUzl5zqlWfF2N7md4KdEa4oKFmrBVs+xtdzZMMAJOwkys3+iuGt7JffiWgMb/SwidRWnHpYwoDcwAfuv/OyA==
+ b=cL1FUzwLavYrqOIBM3RSCxC6NCkqZNXf/1X2KgmHlLiIaZTSF/+aKL0dPB84yBbKN/HMZcwou0MkunfTqLJ5WZylzx2PkXRRfbNFONQQUYwi8m+2G1kWQ6SsXBw988pnMAVfQRQGkiATB7cu1+pEwSiMWPtzk1IqX51OUe1WUZBzYtWW6+M6RqgmOS5aF0xaaqWBa838maDlamb39JuIvb2arQsFXKRFvyeHiXJJBkXs6eeoGVydz4AvyqBwNf0yfOI1H5C2mJMPFjMAmPqFxCIEy+lSQFrTYyLlYWNBdS52MExOO14BksRyPBPAQGJp5FXIpjsJO65As3SkSm35rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
- b=LzX7BBebkSSYBlyP67aumCNyJAJ+HNj10COMyCDrtIliwZWItcHCGFTx+QMBmcp+stmzSyk1hRbyt7vqSA6npIlFXsxQ/WbGZTg7rQ1yuAGHiYuf51NbV2IYAbU5Yh5TRvdhioXLt5AF8q2FuNpUaFJTjGN7KlQS4jkmaeDjhmwut6GKjsdo2z3YZFEByehdXFd2R2iibANoPtLNhy7aDaz1a2NftFtbswAqabWlltu/XzCwqyDRbyToCcAOKkn5d+NQPQR/8xlS2yThfMJJiAxUQ15CQMQzD4MzC+KfTlTxboN8WpWJh6GAmtpewlg9sZ10bc0sWhRbY46Ia70RSg==
+ bh=eRsMRcxg8gLnrMdi8No8SfFXmRjf5z621n9f4HF6SJI=;
+ b=la/eOB4eZFIgVlTx8By5MBJcQROC0Gm5l2aLgQ91vMjgIDpPaSvXK27OjbGZ78xSkyvRv7cR1I72kh37uA7GCBA9MiH7Sl4c1NqXNNG13s6lEB6fKWyGJLtdJ2AL/eGgMGmvbhTboSSh7rqYc8GzylCuUJ8v6XC5qFrtfZf6/YGo67Nk1ImQMyq0QJmeyGcnCTxGZov6da0UOpE66yDccQ6VVvtuPLxoOSc06k2ReN7IDrl2P7jWNEXUYI6tMCixOpUNVaj5qKb/UzJWAJxyj8tS96ipwW+Giy4Ez2lSzXnQ2ps2l8pM0zjn1Gq76/brhOzw7dl80OLUMq6/S8xZSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 91.26.50.189) smtp.rcpttodomain=kernel.org smtp.mailfrom=phytec.de;
  dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
@@ -63,18 +63,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
- b=dCF3kMHk8mSX4RMtWX1OcIaDNnyW31e0x7PdEIynXPl8fNlwibe2izcAk0I0sVg3FQObJrEnEAZkB2ECe6Obpyw165EdFbLv6SHcCAlcD1NRpYdkzArix2YywUEPCUkNDjvEQqVoz9R6XTWZrUOanJTD9RLmUKP9LVERiIuNoVdK4m/NVtfADh9yTHKLWoGZPxpvOIaVSPxj2pKz9N5Bm++eYrrkON4t1Xse2TuCSKslxWqg4kD1vmkOBnvyq/fFk2k1YEkFhCLiBTG0QohJy3Ar8yajSzIsD8zgtGj0eJYFkXWUiwrjXKHwFyNAnl7lok1leKwwGdbAeDGw2zi92A==
-Received: from DUZPR01CA0310.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4ba::10) by GVXP195MB2480.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:150:1b6::12) with Microsoft SMTP Server (version=TLS1_2,
+ bh=eRsMRcxg8gLnrMdi8No8SfFXmRjf5z621n9f4HF6SJI=;
+ b=Q7efuQPs66dh7fsxkFzVuEdwIAol1ZgWgFnoRMTlaQJyOBFnA1eSIPFfldNX5efgPAujWlMEiqSi4XIwQfzCjwSvU4UArm7v0RdRRdYBeuviXpeZW3X3K0grVIp2i5vLMNOIjuZcaFEQC2n7PcgGRswtDZUSKIc8xVVKuxxIbEMCUutuoBJfIZZx/s/Sw2JXYgX/JNSVT+FWgL8xvaEzKABrPhQn8Oxd1QMnd+eQKI18+UEqCYS+lqElRSXz+Ku272RdmQRimdyg/JoxPrG0FKyZr59pmtdqh1U1mFfIprdbuXpJuRbJ2CJQa982u49wbjvdZdOWFiYzPkFTItslEQ==
+Received: from DUZPR01CA0318.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4ba::7) by DB9P195MB2107.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:10:3d8::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 13:33:07 +0000
+ 2026 13:33:09 +0000
 Received: from MA3PEPF00000406.eurprd04.prod.outlook.com
- (2603:10a6:10:4ba:cafe::16) by DUZPR01CA0310.outlook.office365.com
- (2603:10a6:10:4ba::10) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:4ba:cafe::65) by DUZPR01CA0318.outlook.office365.com
+ (2603:10a6:10:4ba::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Fri, 30
- Oct 2026 13:33:06 +0000
+ Oct 2026 13:33:09 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
  IP is 91.26.50.189) smtp.mailfrom=phytec.de; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
@@ -83,16 +83,14 @@ Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
 Received: from Postix.phytec.de (91.26.50.189) by
  MA3PEPF00000406.mail.protection.outlook.com (10.167.241.151) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 13:33:06 +0000
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 13:33:09 +0000
 Received: from llp-hahn.hahn.test (172.25.39.126) by Postix.phytec.de
  (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 30 Oct
- 2026 14:33:05 +0100
+ 2026 14:33:06 +0100
 From: Benjamin Hahn <B.Hahn@phytec.de>
-Subject: [PATCH 0/5] dts: update imx95 Libra devicetree for the newest
- hardware version
-Date: Fri, 30 Oct 2026 14:32:42 +0100
-Message-ID: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
+Date: Fri, 30 Oct 2026 14:32:45 +0100
+Subject: [PATCH 3/5] dts: imx95-phyflex-libra-rdk: Add overlays
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,10 +102,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqDMBAA0KvIrB1IRC3Tq5Qikzo1szANiT8Q7
- 97g8m3eCVmSSoZndUKSTbP+QoGtK/h4DpOgjsXQmKY3ZC3uGtF59gF1Pqgb1piXJDxrmJCI2od
- zHQsbKENM8tXj3l/v6/oDznF/xG0AAAA=
-X-Change-ID: 20260911-wip-bhahn-imx95_upstreaming-99947bb5aea0
+Message-ID: <20261030-wip-bhahn-imx95_upstreaming-v1-3-1c1cebb5be99@phytec.de>
+References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
+In-Reply-To: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
 	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
@@ -117,74 +114,134 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
 	<upstream@lists.phytec.de>, Benjamin Hahn <B.Hahn@phytec.de>
 X-Mailer: b4 0.16.1-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793367177; l=1712;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793367177; l=2932;
  i=B.Hahn@phytec.de; s=20240126; h=from:subject:message-id;
- bh=eVURJ+4S7jIhxGam9W+SKTrpioc7vyOjEHfJgu1kY/E=;
- b=pyVJ0ZmsSJLd2dJ8+bzyBu2f8SMH5sBB3VpDryeJTGQJ6L+jOqmkhjTggrPzMzwkHrYo7OUmM
- zva5b3GNAp8Ds7zvNeF/vb4KBHuG9Zqt/5NCKPc1XgJAC2B9nE7dxPP
+ bh=yyUMmAcS+fsoF4I4KpuQmN3ekfD0a78Q1zK1IHyj3No=;
+ b=JvI9HSy+ygqZL1p+BxwGEukXJNzzL0T+y+2tlfeHHuyXZJ3gEmrgyNVkojnX3G2U4MG5+ebGv
+ vTUtLV8ZMrMBWuUKuKw+jh+weF/yrvUSWqSnqVypvxbDuyjRs5ZpmnJ
 X-Developer-Key: i=B.Hahn@phytec.de; a=ed25519;
  pk=r04clMulHz6S6js6elPBA+U+zVdDAqJyEyoNd8I3pSw=
 X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
  (172.25.0.11)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MA3PEPF00000406:EE_|GVXP195MB2480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 135316ae-20d4-401b-f731-08df368a54a4
+X-MS-TrafficTypeDiagnostic: MA3PEPF00000406:EE_|DB9P195MB2107:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92eb2c57-2c1d-4992-2070-08df368a5694
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|10067099003|11063799006|18002099003|56012099006;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|82310400026|36860700016|11063799006|56012099006|261009223027099003|261021121427099003|10067099003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	oP4cMW1UugdQH1ombgS8DFGth25d+JpqIz1XZm68EIG2NvH31cqlpk8xdc15kNbhztjN/sXealcXnC+GUHG0RtXlkpmGUzxGoEB7/eQa6dawJ4mf6vTfBxST8U1vXB+kQPKqDVNC3sQhPnC5QN5pQCOvepQauNcI/mcMPqp6a/H1xQ/iPsQeDw9p0IyY4+WpMFc0m9+1htUr+pskQCXN7dSV3nJDYPtcr6jPa40GmEs700DLGCZEtviiBLDmeOwNcOwtLYNB+gOwil/VdJrcBB5+KUtyBg+oxvQtzbMoyBUaPGbTkj1Mgnu9xoo/aOTIeK3rwkrhIkQ55h1n6WGHgHYhBFTc6Oo/TkPCFuXI4PoHnuCkIF2aALdr8B5LbI/y4DIDgHWH1q3rZMIvpnnLNdffQVcW1OZ6N63B+jfPWZ/M2zz7twqC4aclpXKcST2hnYJRLUG3Cd/iQFMl/gg5+N3PPSorfEbndYaWdyt4p8eNYilKQX32OoHl/cAIsc2XhZXQj+6NgBEQs6qgwRN3R7X4S9fT8nm+h7WJEQ5Op8v+v+onqs+hO7E4oPAmmCRFG5Cn88yknTGCRTwq5Mr32ww+kYNDWrI29Npg5xCxfiBQxeo8Janhyqcg7248pteijvhzd7eG+8rbmNJNuuuycHTX82beyDaBzH3btmEsmgIkDqluSqdPs4TuRUgnVREpkZpGg+nopvF2HXIncIaUtA==
+	YizzbzIfMsvtfIMcKnWlBmnDoT3VL4z3A2j8PNEHmKVao4c7chDMROaUE/inRlaZjBH7yYqzdMEjDq2AxM4Vplz2zA8H3JkWymUYFkNYoa8u1v5SnGuwM6f0LvKCwBsYvCoOoZVlX7hVMroWEOiHjGWNcw81c5bV+wowvpKJ28Ed0jsdkwol1TlqvvyanH05JZuaK6zrPSPuQUmCRnptSf9tbf7dtD2U2V8Yx5g4i7zUnMsWBLAgszHe2PCW6YLa33/g/BCXNxB6+skGWRiwi1F96KnmRo0f2f7zsh053eHUg6XHQF+GXfXDrgqe6qR7vQ+YCvPCrXu3HWyHA5wYdK6pbyHXcPvRp92j42qze5nbMzSk1o4xNfjl8fA8gT/oEucZe7bp9hdUjymeS6KZwD3FDatebHVRHsjHAKveEGtq/dOtKUGb8ssKdOFGR2BIckWtq+xipxgMBZjQNuc1k2sCvOhLIfFNciWNTQL0tOM4IlFlCVvEVvpbpD9QfYLD8b89WBV3vjw4kWiMprqLrQ10kN0cojDpF7Dl/6wUrrlZH55C9GLqDJCptNsv89dJbZu6PzfTSOxNYXExRUDIwUnVa1q6ThjPlpmi3opx0RDeL4dEMvtK2AF4DceC8QpqEboIkcekfYgkeiOrCXtX6Rgm1lbE+UsuvdL1lNWnmaXUy0xQdAYmVvo+tsnZkwx4Uf0qF8Qc+pgINOZL3fj+0g==
 X-Forefront-Antispam-Report:
-	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	uwS+ZzREonjj4r2ngyGj6y2+Ie2XFrTUrqc76aNoOACr5KU4jixDncIOpUbEGtTX1LbqFC6lCreVKwjEnSkjKaK7PYn6gIbI3lE29zmK5F0uYxwfM+VCk1eiGm0POJRmw7nG9UA3+mbJRgWT0DpYn91Z1ROOsBAmdQ2C/BdQDxtphk0lr9KV6Ma8g+8Bvi9Db5h7xG9ma7j7K9yCFi+8VrW6iLzpHvx9tk5yloyalV/brmQ0jT4efpupsqdh6d41e7UxnA4NM0gMUevUGZ4SZ8VLlwsj2VDxhHOr6oKN/ilsSHQQoCk9RmnfYHqx0poAWE7ZFcd4qN8AXhJWPz3ZkUYCXDq1a5HjWEPpkoYYMfbzCE/rZ9wqPkt+v6XOzeeWbLj33wGOQuP5hnuruDrMUVdbnweDEggAz1Qnw+CpxySYUwZ7JGMYppWMqyuuPIsk
+	6mjsmz6hrOEzqnyaGXOXTAYr32VlefKBNd6y7xXz93Gw/Bnyhq2Lb6epIO4p0+GF85jeNinXQYgDN8ggvnqBIX+Ubl2F01NZXxAgFud397dPxHsEddWBFUQIBCoHgwqQHCccR5i3Y+rxrksoPHo8FcIc4RyH6GWW8HJ9Ehd5cQyU+f9VPYInh/ZuYhAmjuf3MTIIl3KiV/GTcYgnn3HxosAgLJO5RedskxSkn62KIeiA1/vBfUd0byjpa+QNuqbcyyNtYgRenRU2UXV03ZI9RJrp0Cu6W+BNz8KSUndqlz0KV+s95Hp5PJZHWTxud83eMHPWwV5Xp2/S4ynp+4UipxScNhLo/xDMWsDxXHbMZ7uuD++78buvJmwKSfB57kcJ+hLgVkElLAVnzbWxfTHOH9SV3yzXnSSCIsqgAOrJuVFP4pNuXzMfOyNoavwBC2rP
 X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:33:06.2544
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:33:09.4997
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 135316ae-20d4-401b-f731-08df368a54a4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92eb2c57-2c1d-4992-2070-08df368a5694
 X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
 X-MS-Exchange-CrossTenant-AuthSource:
 	MA3PEPF00000406.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP195MB2480
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB2107
 
-The Libra RDK and i.MX95 FPSC SoM have been updated with new hardware
-revisions 1618.2 and 1620.3. With these new hardware revisions they also
-got renamed slightly, as they have been integrated in the phyFLEX
-series. The baseboard is now named phyFLEX Libra RDK and the SoM is now
-named phyFLEX-i.MX 95 FPSC Gamma. Add the new devicetrees and bindings
-and remove the old versions. The old versions of the baseboard (1618.0)
-and SoM (1620.1) were only ALPHA hardware and are not longer supported
-or manufactured, as they were based on the i.MX95 silicon revision A1,
-which is no longer available.
+Add overlays for SoM temperature sensors and M.2 Key-E WIFI/BT cards
+that need the nxp,88w8987-bt compatible in devicetree (tested on
+IW611/IW612).
 
 Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
 ---
-Benjamin Hahn (5):
-      bindings: Add devicetree bindings for new phyFLEX-i.MX 95 Libra RDK
-      dts: imx95-phyflex-libra-rdk: Add dts for phyFLEX-i.MX 95 Libra RDK
-      dts: imx95-phyflex-libra-rdk: Add overlays
-      dts: imx95-libra-rdk-fpsc: remove devicetree for old Libra
-      bindings: remove unused binding from old Libra version
+ arch/arm64/boot/dts/freescale/Makefile             |  9 ++++++++
+ .../imx95-phyflex-fpsc-g-som-temperature.dtso      | 23 +++++++++++++++++++++
+ .../imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso | 24 ++++++++++++++++++++++
+ 3 files changed, 56 insertions(+)
 
- Documentation/devicetree/bindings/arm/fsl.yaml     |   6 +-
- arch/arm64/boot/dts/freescale/Makefile             |  12 +-
- .../boot/dts/freescale/imx95-libra-rdk-fpsc.dts    | 318 ------------
- .../imx95-phyflex-fpsc-g-som-temperature.dtso      |  23 +
- ...ore-fpsc.dtsi => imx95-phyflex-fpsc-g-som.dtsi} | 204 +++++---
- .../imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso |  24 +
- .../boot/dts/freescale/imx95-phyflex-libra-rdk.dts | 558 +++++++++++++++++++++
- 7 files changed, 761 insertions(+), 384 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260911-wip-bhahn-imx95_upstreaming-99947bb5aea0
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 4eb7508193e7..17b357f4886a 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -739,7 +739,16 @@ imx95-19x19-evk-pcie1-ep-dtbs += imx95-19x19-evk.dtb imx-pcie1-ep.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-pcie0-ep.dtb imx95-19x19-evk-pcie1-ep.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx95-libra-rdk-fpsc.dtb
+ 
++imx95-phyflex-fpsc-g-som-temperature-dtbs := \
++			  imx95-phyflex-libra-rdk.dtb \
++			  imx95-phyflex-fpsc-g-som-temperature.dtbo
++imx95-phyflex-libra-rdk-bluetooth-88w8987-dtbs := \
++			  imx95-phyflex-libra-rdk.dtb \
++			  imx95-phyflex-libra-rdk-bluetooth-88w8987.dtbo
++
+ dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-fpsc-g-som-temperature.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx95-phyflex-libra-rdk-bluetooth-88w8987.dtb
+ 
+ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-verdin-evk.dtb
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+new file mode 100644
+index 000000000000..84afe1ff9f06
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som-temperature.dtso
+@@ -0,0 +1,23 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ */
++
++/dts-v1/;
++/plugin/;
++
++&dram_sense {
++	status = "okay";
++};
++
++&emmc_sense {
++	status = "okay";
++};
++
++&ethphy_sense {
++	status = "okay";
++};
++
++&pmic_sense {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+new file mode 100644
+index 000000000000..1601e04b3940
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ */
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&lpuart8 {
++	bluetooth {
++		compatible = "nxp,88w8987-bt";
++		fw-init-baudrate = <115200>;
++	};
++};
++
++&gpio_expander1 {
++	uart1_bt_rs_sel: bt-rs-hog {
++		gpios = <14 GPIO_ACTIVE_HIGH>;
++		gpio-hog;
++		line-name = "UART1_BT_RS_SEL";
++		output-high;
++	};
++};
 
-Best regards,
---  
-Benjamin Hahn <B.Hahn@phytec.de>
+-- 
+2.53.0
 
