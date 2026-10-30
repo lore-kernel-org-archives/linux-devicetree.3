@@ -1,107 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334403;
-	b=u/15+WJh2i9KqG7/PNUjqlubdZJp6+rPMRvqE8Anhme022v+mHMVC6zaHs+t/wxCJXES
-	 P6uMD55j3xDjXqV7XsyUWEG0kuEJGKcLeDeaLrFNawRB7ja6Hew9/A5ovp8JbL/InEjXi
-	 x/GITfsN96AYv9e4Tp7TXhR8L/1UdI5mprZrTGiITp1K3O5SS4iVL3RbCcDu1PrvQu5wu
-	 CE/i+dtMmXZst8eAjfQZiQcSG3qXBZnZgN87XBgvss3IZD7Itj50n6PBAZJNgSFq6XqUR
-	 HBofkg189seeJ/WmTSBhcOJfy1uK3H7DF2LwQOHcO7svjJUt4dfsqTtukIKi3dKKuVg==
+	t=1793334697;
+	b=4UDXiapzNstmWEBi8MUxq9eDqrUDf98K8dfcbOXg5b71C7t2WSQ51BosX/Hj7wO8sgrZ
+	 3FPg/EbdOmcwZFyk4v4my/+lPo3bsIUWSCIXVVU6GE/t4K6mb5eWw/4OoeUVLnOO08Ucc
+	 8W1/6KWVUgaRu8vrFOc7B45rqyELFA5dK0GugN25Gphx87MdMy/CPWUAI5O1CLxfOi0BT
+	 WUZ9nG+jajlHayZGqbtJcLbvhvLbWc/x2NXR8ZITpOr8ehsnzjorTNyaImyRAETlTgcdV
+	 t6te3tA3ob9aHBB1rOA7smZ8fGA2iwxfetJe72qSNuMzCs1LbbXywvCpBuxkCgadyvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334697;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
-	b=Q1HQOwm2KKM4xYmd9G68bwIYlNPnozRvvUXuU+fLmMGbrgPx/wKVxFC+8dcqmX0m0jsn
-	 ISKj/wRQv/CurrbSe9KWlrqRRo637Bn5uBiq/6HD038/kTsZJ3dwXkXhUFTJnYufVbRLO
-	 Hdcy8BsSsyLROrUjtwNzaYgu5uARozUTV3jxZ0V15MRebtYPQff3/FYLp9fgsCHK6ORsC
-	 tGlO1JjQV6zkaXtl1lne6Kctbw+hQB8WwvNnV5JivvCMGclyTSjgRfmNnYBxxxFxNyGYc
-	 DaVT8GxAkVeel5o+nHZZaUYEHVcXfAk2xAuIK3e6UwwH4+7XsOa2kyuOuTFWtRPmvyQ==
+	bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
+	b=qhrqHOlmdRvCqvAUNIidSwPMuV7B+jXqbV1Q0imwahKw1jh6875BXG+Ci5R3frt6Bz7S
+	 jwouWo3BzbL65/pO1B50z/vT9qCpM/uMCaL/blw2BGY12gKvGSA8d19w5GnMOFi9DnbiP
+	 dLsdq5lpqm0A23aI83PrRen7pg42EaJ5YplpxAsDMExKPfWsQxNdGUzbfFDPHA/ufCc+X
+	 TUbdKPZBNxLBkD7OUDOeKIWVOl/GokP6/zs8OSUT59G8x4FT9S7370lFLhSMupvUfbvM2
+	 sWk5xEr97AXC5S7WLcBjhwXxXAene9AhozmINsJWffLqKjTb6p9OZx2jTJnftkq9hbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOGfl08i;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xkWQC/Lo";
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942EA606A320
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942EA606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01600606A31D
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01600606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOGfl08i
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8246b13cbso2756745ad.2
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:26:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xkWQC/Lo
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso116586a91.0
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:31:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793334402; x=1793939202; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793334696; x=1793939496; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
-        b=OOGfl08iTrDcSP5CRoXDmSVya4AolyQdAG5OWHgE9ofXhHL55pCqAnLRy3QOWArl7Q
-         waeVAr4qZkWUShO1RmfxQqhrxoPq/ZSnc5SpnwuVgdXh4uUo3uTMWH2m3jGzBhUOoKFx
-         piwI3wn6MAqmd1Jhykxn1EE4vgfRhKxFaW6GtH8BDqaTg6lhfH+PQ4OKYqKo0UaA/SHn
-         G+h4ly81vQPBO+1raeS2XxMsGTShwbFSSrem/WohBifnUltiwlf2RuGeIQYnhL9m3Aq7
-         m0V3jj7XEILRpMI0/2a20+1yKez2+/pkZAsbweZ62X9Oq2XkzL9wOS2u7ALkWWYDls5i
-         Qy4Q==
+        bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
+        b=xkWQC/LoB26hhGfn0zGpbbOjvSjxtSvYyfsNZwxGMLIKcHiS4oC/ac+8BnkPoKJsXK
+         yie/eewiy7K2gOWpvcw+6+mgJFwYlY0gJam/wCfuASg7yUN5dOCQbFmVNkMvrjBjSCqK
+         e2w9aihkqgJPcf8iActWxxlpYt56dcdC5hLvm68OthfbKQ9yzhFKF8bEbhnHNkfHSOSF
+         hj8MDGd/yWveymrYwLb4Ou68GcjkWKjgVPtFqKTw+An6X2XYlAXNjXscYzK0PLhcEB3i
+         hk0sdQhoCksFeaVshV3t1YCbfo89/VekNeJnrkUe0p5BgbAbXKUazjiRfU0hX6qMz7by
+         229Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334402; x=1793939202;
+        d=1e100.net; s=20260707; t=1793334696; x=1793939496;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
-        b=C9U8DsIQyrs2kdjEDfp2YrU2J9MOktmAsN1u4d0RfjlvYVV7OdBse393aJJ86NVg/I
-         7m7SuyZ9Tx1p3vPD/W+fFHGDzWb11y0L+lOIdwnrqO7wzpn/VYdIeBa7hRfutCPc+0Cu
-         PugquKKPamI9AxgAiG4Sa3WW1ybR1Q5Fpx/3cfnnY2VJOQ4EGMnlo8FVKU42y1HVcmAY
-         4NQRHh+vkJXqBqBJQopygxViO9KWb++9gd22MUs0vRvM3123IbNHJU4NLNz2RzwRxqBZ
-         7XZx1fMrWUJia6l7E53rL185i1YgsrIthL1PfBgomO2myqsSD3gN9pEYujBROWFkEeU8
-         e0Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzUgsW2BpseLOMHiQ5oHo5YBvVx4Qhy4gllDaCnpk29SiP2L/Fc5EPDN8h0D/JaNPbI7obwb7/BQTl1@vger.kernel.org
-X-Gm-Message-State: AFq9FYKI6FbcBesalc5k0d74rZ3dFRSa5iwH32ZkdwflNFBR5f2Czgjy
-	jjLbL4HHgvgdwxiRXHTIMVKrSR/yEhS2FnrCW3/Bp6nhtkw/IGMP1ys=
-X-Gm-Gg: AYBFou1sxyQwk+C1pum2ZYxk9xRSL5O972E8tyjlBTeirmug5U7hCi6r6KlpUkNvF2V
-	94p/VwuVGIWiNivr8ES/yMzzgXU3EvoacRczbfHzF2XEnwHS8VHSHhrBDQGU01jYaRbexoEDBT3
-	OYQaQ9pARzvWskhoRL5YUU/AOF6JmvfGwquKe6ZpPVbn5UIJHh+Z5hzgHIohJnCHXm4qoAcGhfw
-	vqa8N+axA7rRJzUQf59Q08JRD+Ge+k8OOwTLifDOCWGwQAWrrv1iGvVXlQmeOp/JzBA89ZvWImv
-	lY0cdeLEYon9eqJ65NC0QxzBnJ8kBZmfXZf6iFMqaTI2FGhVplNRJn0grJryIfxe8xyVzNh+88H
-	B4Wy3FXJmsTqzNFU+1p50qA+y0wmSCH0jFObfC7o9j4nW9ACmLezz6YK4j+XJfqZ1dblX3SY1At
-	ao4etneXa7s/krF4JQ/6Y8zjOgqRV3YqjzndZr0xbEHi+PomTl3hO4+wGp7+DLa8I2+1G+x38R9
-	uXfjo+dB5xmv7xnhJaY8bjvu1zvUqwV0a6axcwry3PaDc1hKGVJcEBJ+JmQiYtDiFgPD9BIVpps
-	NdeQiIIB21Hrs8FZga9AZgUZLuyI7uqykaEWZGu2pjyqVDFUUIIApUzQZLJmZ5UcJtAa
-X-Received: by 2002:a17:903:faf:b0:2e9:5eee:e087 with SMTP id d9443c01a7336-2eb364e553fmr13990205ad.43.1793334401915;
-        Thu, 29 Oct 2026 21:26:41 -0700 (PDT)
+        bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
+        b=HoEEkyrOvPLumUXTkxPD191oZcwCjMzDiDXcYE48vaseLoSWq5tvYz0Kxl9C23rW3N
+         id1C6tiAcDPJ0ACj/LS95glxGtxJ5BPrOwIzg6MI1mNaLPC0YV+HaDSfOzyZBXYrhggC
+         GAwawTnCDbgnKFkmL29eyQET8BCKT+3XES+Uh/6Jp1cDogdegMqL4OejMf6Q4/M7Afvp
+         D99miC0CMWhco0P4/TE/QuNO6JHydxDIUjvFr5kznh/3ZB3mMAfwAEJQhLAjpxVrOyZV
+         cZfL7ZlAIItnWA3UzxTZaa/GIR4ewqwYYQf69R6IYp1PGKcrR18F9fhgKhpVrZ0FK9wV
+         vfqA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9pg8E7alPyTd1mHk5k734pgtAxO1L6gsHVS+TWe56jBkwAoVdT1mLB/jNI9oCWVQU/irWX2FzSAI+@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwQAsucgQwNM1HK6jJsu77bkgqugsQz0KyZg8BJh5EMoYHQRrW
+	kCAsCCTAkbqEpJK2d7EUQTt+1HpNG1tx0Jt+0MmGHFDYyX7lddWYikY=
+X-Gm-Gg: AYBFou3SiDSt5KfvozFj+8g8lT+6AdmAmGXi3kv+sUP709Q3gMmxJHkqcKaDT3Gh1OT
+	XpnNn6FsoKNhkSYWp+pbOpkGqqZ/eXWuT6D1utDwfd/vhwo0r/+0Op90lsGfVwv+4UuRhD3WY9s
+	oy+dSOA56plxAXUGoy5T38lWu09XQISB1vKkM9oG3RGbtpXxcRT1p27SSQUDHzBMCBwtKHx2BeO
+	Airhgs37H1SLtdZySytToKtD5cbQLYhTDw//1H2Fe/B7sCeTmJ7iCxoH2YFAdUvzpGhno7neJRE
+	Pv34cHOgOI86wk+4sUk+3wrWnOSyvUw6+pDsicFD+OD5nmSRHn5BK/1FqFH8sB7XWkFL+kYDsJ4
+	LT2KsO67V1bIxwJzQLUy7smOIOqW+vZLd4Xegarc/QOxMtBpPR58KEMNbwCMB2mDHXTZDJtRBso
+	05Y9/Nz8AYS6wo4HZiPBeBGnEl8uv7WvpQDADRKMql76U3w5jseYT6liZy07llpiG7vnZbx921Z
+	/CUSpqrJGUuVAUDQMhLBHdRd2em9MaQac38PToLW7VthZqZ1UJmvxcg8D3MKJS6/eAbjKRVnJF9
+	BNm6YJ8XQ7KXM3sF4BZWMsyrTvG5c6pgPgBhDm0Zt0lEzVgCnn9l5CoTe2gSViLByPNSbZNu38R
+	nyzrc4fEV4KVBBA==
+X-Received: by 2002:a17:90b:1a85:b0:39e:6a80:dd9d with SMTP id 98e67ed59e1d1-3ae898194acmr914461a91.36.1793334696274;
+        Thu, 29 Oct 2026 21:31:36 -0700 (PDT)
 Received: from freddie-kane.lan ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3922fbc4sm1965845ad.24.2026.10.29.21.26.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84596e3bsm2259922a91.9.2026.10.29.21.31.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:26:41 -0700 (PDT)
+        Thu, 29 Oct 2026 21:31:35 -0700 (PDT)
 From: Burke Cates <burke.cates@gmail.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: glymur-zenbook-a16: Add Embedded Controller
-Date: Thu, 29 Oct 2026 21:26:27 -0700
-Message-ID: <20261030042630.2744339-1-burke.cates@gmail.com>
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v2 0/7] mfd: qcom-pm8008: Add support for PM8010 over I2C
+Date: Thu, 29 Oct 2026 21:31:31 -0700
+Message-ID: <20261030043132.2746814-1-burke.cates@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261015-topic-asus_ec-v4-3-af6305ffcb10@oss.qualcomm.com>
-References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-3-af6305ffcb10@oss.qualcomm.com>
+In-Reply-To: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
+References: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,27 +114,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 15-Oct-26 10:55, Konrad Dybcio wrote:
-> The Glymur-based Zenbook A16 features an Embedded Controller running
-> custom ASUS firmware [...] It provides keyboard backlight control,
-> additional temperature sensor readouts, fan speed monitoring and a
-> number of miscellaneous functions.
+On 14-Oct-26 16:01, Jishnu Prakash wrote:
+> The series also adds support for skipping interrupt configurations
+> which is needed to support SoCs where the PMIC's interrupt pin is
+> grounded, such as Glymur.
 
-Tested on an ASUS Zenbook A16 (UX3607OA, BIOS UX3607OA.312), on v7.3
-plus out-of-tree Glymur platform/board patches, with the v4 driver
-(2/4, now db3a9dddab5f in mainline) and a local change that leaves
-the keyboard backlight to the HID driver:
+Tested the series on an ASUS Zenbook A16 (UX3607OA, Snapdragon X2
+Elite), on v7.3 plus out-of-tree Glymur platform/board patches. Its
+PM8010 is described without an interrupt, so this exercises the
+no-IRQ path:
 
-  - The EC driver binds from this node at boot.
-  - Both fan speeds and the EC temperatures are readable via hwmon
-    and follow load: under an all-core stress-ng run the fans went to
-    about 5900 and 5100 rpm, and both fans and temperatures came back
-    down within a few minutes after.
-  - 115 s2idle suspend/resume cycles in one boot with the EC bound;
-    its fan and temperature readings kept updating across them.
+  - The MFD and regulator drivers probe; the three LDOs the board
+    uses for its two camera sensors (OV02C10 RGB, HM1092 IR) are off
+    when idle and switch on only while a sensor streams.
+  - Both sensors stream through CAMSS: RGB at 1080p30 for a 60 s soak
+    with no dropped frames, and the IR sensor at 560x360.
+  - Both cameras still capture after s2idle resume.
 
-I didn't test the EC's keyboard backlight control, because of that
-local change.
+I didn't test regulator mode voting specifically, or a PM8008. Happy
+to re-test v3.
 
 Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
 
