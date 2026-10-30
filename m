@@ -1,103 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333328;
-	b=1QWujQQSoi+BiO7ScdQB1CZ+aw2azHzWiRWuvuLiwBhbxLiGgZnyN9Xc7e6oyrTgM+2I
-	 9yCdPxByD6LIms/98u23MvQiBiVY0TImK3TbhpOeRblcemLMDtjFFXE0yhvkKRIyzPCSs
-	 LfP75TzwcPhrXT5jji9ya/Oyp2spK6jpvphMXOPRmfQra5xGyXV1Hv9ShXZgm3Wvwanfg
-	 5ZbT8ILBkBn4+ILcLzBwX9H6IBkNLPRkZeOZgKggNtbkVs/wxcaVA3bzphX7Lv1n4XXAu
-	 uNh/c+mq4iFQ2DewYuAWroWwGgTRQhb5LNP6l6IZBzBHOp0kVsdZfQIqQCCAGVt4L9Q==
+	t=1793334403;
+	b=u/15+WJh2i9KqG7/PNUjqlubdZJp6+rPMRvqE8Anhme022v+mHMVC6zaHs+t/wxCJXES
+	 P6uMD55j3xDjXqV7XsyUWEG0kuEJGKcLeDeaLrFNawRB7ja6Hew9/A5ovp8JbL/InEjXi
+	 x/GITfsN96AYv9e4Tp7TXhR8L/1UdI5mprZrTGiITp1K3O5SS4iVL3RbCcDu1PrvQu5wu
+	 CE/i+dtMmXZst8eAjfQZiQcSG3qXBZnZgN87XBgvss3IZD7Itj50n6PBAZJNgSFq6XqUR
+	 HBofkg189seeJ/WmTSBhcOJfy1uK3H7DF2LwQOHcO7svjJUt4dfsqTtukIKi3dKKuVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334403;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
-	b=jnr5f4hMvOTreFBTv7wjrjeVyeHUMKRrkPW4uVNzQk/DaC13prk+NjMMK3J6fv7EsB9z
-	 xwGI+1d5Jd+7ImKDrSUHX48QcNeNt5FwirPKQaWC8zY+rWrtQSyl4X6JN4xEvrGeUgTYx
-	 KPKNo4rhAkTyGYE4G+HWiFnsVkmzIuqR4RjYoznFKWQX4ALTwUtTY09K8SmVqEvm1JmZn
-	 +HHFQU231FUNBR5U6UIdjZT/s0XDfxTOv2fAPWQy++GB+mMfo4MW3bZSEH8PpLvyswMBF
-	 4V0Wz+r1uzUfDOrweSxaJDY4rTolhV8vDiRJt+3p4gDjwN0wNozuiUunTr/jEIREgEA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
+	b=Q1HQOwm2KKM4xYmd9G68bwIYlNPnozRvvUXuU+fLmMGbrgPx/wKVxFC+8dcqmX0m0jsn
+	 ISKj/wRQv/CurrbSe9KWlrqRRo637Bn5uBiq/6HD038/kTsZJ3dwXkXhUFTJnYufVbRLO
+	 Hdcy8BsSsyLROrUjtwNzaYgu5uARozUTV3jxZ0V15MRebtYPQff3/FYLp9fgsCHK6ORsC
+	 tGlO1JjQV6zkaXtl1lne6Kctbw+hQB8WwvNnV5JivvCMGclyTSjgRfmNnYBxxxFxNyGYc
+	 DaVT8GxAkVeel5o+nHZZaUYEHVcXfAk2xAuIK3e6UwwH4+7XsOa2kyuOuTFWtRPmvyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=guW+sKpx;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOGfl08i;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5052E606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:08:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5052E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942EA606A320
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942EA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=guW+sKpx
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35b2c599f43so721359eec.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:08:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOGfl08i
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8246b13cbso2756745ad.2
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793333326; x=1793938126; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
-        b=guW+sKpxxfru+jvDWjH7g+qClU0xEqlqQcz5Pf3hUGUYWFWaVdN2oIl46Robhpbyvk
-         /xnqjDS8NMAmztXaC7ZgmOHSYfgsJY0iGP/KLp7bVEfqPOrT+sXL+aTzANB5jmgzLlm3
-         VqHHDIMBiO3whPYPQFc1PI8Gw+l7cmFKFew23G6tgwi6UIgjrPI44CCZvN+SljLZsLcy
-         RYGMxM61G1/CN6XNkehX8GzNpcJpaacyiFc74bUWlYmj1+Jv7Em/9b3Kvg5TSp7KLo3f
-         A/DE4ft81r6pLaWULoiLhA6+Ig2TUsvA5T2q1YVhuNm+3gA2aBOZMM96ZjHlbo36HpqW
-         D2AQ==
+        d=gmail.com; s=20260707; t=1793334402; x=1793939202; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
+        b=OOGfl08iTrDcSP5CRoXDmSVya4AolyQdAG5OWHgE9ofXhHL55pCqAnLRy3QOWArl7Q
+         waeVAr4qZkWUShO1RmfxQqhrxoPq/ZSnc5SpnwuVgdXh4uUo3uTMWH2m3jGzBhUOoKFx
+         piwI3wn6MAqmd1Jhykxn1EE4vgfRhKxFaW6GtH8BDqaTg6lhfH+PQ4OKYqKo0UaA/SHn
+         G+h4ly81vQPBO+1raeS2XxMsGTShwbFSSrem/WohBifnUltiwlf2RuGeIQYnhL9m3Aq7
+         m0V3jj7XEILRpMI0/2a20+1yKez2+/pkZAsbweZ62X9Oq2XkzL9wOS2u7ALkWWYDls5i
+         Qy4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793333326; x=1793938126;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
-        b=HEiryFE2W8oyJfkNDztUw4q6GMmk5q04QiWJEc7ltGaKYm0/2UTu83zN+3TsQ/wyBf
-         Guj6rZ9wXkeRwGir8rpQJUdge3yryGEzruOgldW4AclvdB7t1SVtweeIpX3N1FUZUmE/
-         CA9TPrMezVuel4zfQ/Gq7J+uQhcU3V5T2kyqgGlVabZ/1Jfxj5cy2uniLLc7YmM0R9Rm
-         on4E/5gWpbxb18J7+3lLS+uFeihRIkeKFV7pSCj4m81z7dDarvq3UDo5QaQthTeeC5Jo
-         AkpUQWqhVghb/rD/GlqPter1TGSkNnZ/NOrhU1THEcid6CYp5Gv57HxTW+8C10ad7Ljn
-         ZFhw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1dKgywpaO607xzQtoMHBKPaSsL7wMzN9dEpCiEpc6zUC41aJk4wCfoQC/c+VrHsorB5pqcMfWXlhF@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQ+L1u48eUVipl24U56EsHTOkMuTYH3hPl7WLG9fGGRsaK1e54
-	4t0ls+Z4jYpKFUcHgeqWLybJP5xeJROh1ljuj3a8c1OR5jI1r7MDdWPKJUkLYIatQZk=
-X-Gm-Gg: AYBFou1CtDLTdhSh0iz5A50OdFL2UbZPR6qfp4QufTm6EjBGQjtfGKK/bn5NPfFenla
-	0OsQibQ7Tm9rB8S6UiqQWl8UEcE5MVr8G2nNkO0VntAPf10hHCMWk5+uTWRwqAeff6QVw24/kl3
-	tp0wCy6ojK+hbrmeYotAl6Ot/KkTCsiVnKlOrrkAM50yEBMAYgUtEatKKEi+rjAysZhNsXg2Vqy
-	/+8Ff5nF4kaV9Hb5p/1SBtunQExRION+klRbjvOLG3JGaTEvas4A7cZjt+JKAyDe/+zgeQPIAbW
-	7zkxFmQwqy/laIfSsgdF3QtCKEf/UfLya/6TQdi+ziCV2Hv+6UjNdnLy5o2ktp/CVa71keln7Ce
-	KHL0wR8FKPuJQ6caveNYsIdL7wjsoJBkR6Fu2ABWCCKHcYBeUvMPFdFlWsIzhu6D39NhRNNQ6NH
-	unA/2lOT1VGp2b+c3IFkWXmCaGsVP3WVholyaQHWpl+vulkZA/bUIyF+hzsXwq/wgDrnVWu7Zzf
-	wWkwQ0ZvdoQ13p5vfuAY/umqhEx9lScbHKK/eblSef1HWotkngS2sCAfn1gd8vz7Yp8Gzmowcjt
-	vIL1rOm6zhBhEQARDq9+iKjk12j+bGwUP4vgQuhHuQy8v0oio4Y8
-X-Received: by 2002:a05:7300:a9f:b0:369:fb01:2eb7 with SMTP id 5a478bee46e88-36a4235f45emr1732875eec.13.1793333326139;
-        Thu, 29 Oct 2026 21:08:46 -0700 (PDT)
-Received: from localhost ([122.172.82.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af91bsm3272988eec.8.2026.10.29.21.08.44
+        d=1e100.net; s=20260707; t=1793334402; x=1793939202;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vjV3ThcETJTQohEswOVEipA/50M6i7Rw1D6pUxeaH6o=;
+        b=C9U8DsIQyrs2kdjEDfp2YrU2J9MOktmAsN1u4d0RfjlvYVV7OdBse393aJJ86NVg/I
+         7m7SuyZ9Tx1p3vPD/W+fFHGDzWb11y0L+lOIdwnrqO7wzpn/VYdIeBa7hRfutCPc+0Cu
+         PugquKKPamI9AxgAiG4Sa3WW1ybR1Q5Fpx/3cfnnY2VJOQ4EGMnlo8FVKU42y1HVcmAY
+         4NQRHh+vkJXqBqBJQopygxViO9KWb++9gd22MUs0vRvM3123IbNHJU4NLNz2RzwRxqBZ
+         7XZx1fMrWUJia6l7E53rL185i1YgsrIthL1PfBgomO2myqsSD3gN9pEYujBROWFkEeU8
+         e0Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUgsW2BpseLOMHiQ5oHo5YBvVx4Qhy4gllDaCnpk29SiP2L/Fc5EPDN8h0D/JaNPbI7obwb7/BQTl1@vger.kernel.org
+X-Gm-Message-State: AFq9FYKI6FbcBesalc5k0d74rZ3dFRSa5iwH32ZkdwflNFBR5f2Czgjy
+	jjLbL4HHgvgdwxiRXHTIMVKrSR/yEhS2FnrCW3/Bp6nhtkw/IGMP1ys=
+X-Gm-Gg: AYBFou1sxyQwk+C1pum2ZYxk9xRSL5O972E8tyjlBTeirmug5U7hCi6r6KlpUkNvF2V
+	94p/VwuVGIWiNivr8ES/yMzzgXU3EvoacRczbfHzF2XEnwHS8VHSHhrBDQGU01jYaRbexoEDBT3
+	OYQaQ9pARzvWskhoRL5YUU/AOF6JmvfGwquKe6ZpPVbn5UIJHh+Z5hzgHIohJnCHXm4qoAcGhfw
+	vqa8N+axA7rRJzUQf59Q08JRD+Ge+k8OOwTLifDOCWGwQAWrrv1iGvVXlQmeOp/JzBA89ZvWImv
+	lY0cdeLEYon9eqJ65NC0QxzBnJ8kBZmfXZf6iFMqaTI2FGhVplNRJn0grJryIfxe8xyVzNh+88H
+	B4Wy3FXJmsTqzNFU+1p50qA+y0wmSCH0jFObfC7o9j4nW9ACmLezz6YK4j+XJfqZ1dblX3SY1At
+	ao4etneXa7s/krF4JQ/6Y8zjOgqRV3YqjzndZr0xbEHi+PomTl3hO4+wGp7+DLa8I2+1G+x38R9
+	uXfjo+dB5xmv7xnhJaY8bjvu1zvUqwV0a6axcwry3PaDc1hKGVJcEBJ+JmQiYtDiFgPD9BIVpps
+	NdeQiIIB21Hrs8FZga9AZgUZLuyI7uqykaEWZGu2pjyqVDFUUIIApUzQZLJmZ5UcJtAa
+X-Received: by 2002:a17:903:faf:b0:2e9:5eee:e087 with SMTP id d9443c01a7336-2eb364e553fmr13990205ad.43.1793334401915;
+        Thu, 29 Oct 2026 21:26:41 -0700 (PDT)
+Received: from freddie-kane.lan ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3922fbc4sm1965845ad.24.2026.10.29.21.26.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:08:45 -0700 (PDT)
-Date: Fri, 30 Oct 2026 09:38:42 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+        Thu, 29 Oct 2026 21:26:41 -0700 (PDT)
+From: Burke Cates <burke.cates@gmail.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Haixu Cui <quic_haixcui@quicinc.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/2] Add devicetree bindings and maintainer for
- spi-virtio
-Message-ID: <auQYSv2ad5WJSHdI@vireshk-B250M-D3H>
-References: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: glymur-zenbook-a16: Add Embedded Controller
+Date: Thu, 29 Oct 2026 21:26:27 -0700
+Message-ID: <20261030042630.2744339-1-burke.cates@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261015-topic-asus_ec-v4-3-af6305ffcb10@oss.qualcomm.com>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com> <20261015-topic-asus_ec-v4-3-af6305ffcb10@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,52 +111,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+Content-Transfer-Encoding: 8bit
 
-On 29-10-26, 17:27, Francesco Valla wrote:
-> When a virtio transport exposes a non-discoverable bus, the devicetree
-> can be used to declare its child devices (if any) and/or other
-> properties. To allow for that, the virtio framework searches for a node
-> with a suitable compatible in virtio_device_of_init() when registering
-> a device [1]; such compatible takes the form "virtio,deviceXX", where
-> XX is the hexadecimal representation of the virtio device ID as defined
-> by the virtio specification.
-> 
-> This patchset thus does not introduce a new functionality, but allows
-> proper validation of nodes tied to spi-virtio devices, aligning SPI to
-> what is already being done for e.g. I2C and GPIO virtio devices.
-> It was sent initially as part of a different patchset [2], but since it
-> complements a functionality that is de-facto already there and is useful
-> beyond that specific use case it was sent separately (also following the
-> maintainer's feedback there to separate it from remoteproc-specific
-> changes).
-> 
-> This was tested both with virtio-mmio using qemu-system-aarch64 and with
-> remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
-> parts still not upstreamed - see [2]).
-> 
-> On top of that, I added myself as maintainer for the spi-virtio driver,
-> since the former maintainer's e-mail bounces back and its owner (Haixu
-> Cui) did not update it after changing employment.
-> 
-> Thank you!
-> 
-> Regards,
-> Francesco
-> 
-> [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
-> [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> ---
-> Changes in v3:
-> - Add Francesco as Maintainer of the spi-virtio driver (instead of
->   Reviewer) as replacement for the former maintainer (Haixu Cui).
-> - Link to v2: https://patch.msgid.link/20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it
+On 15-Oct-26 10:55, Konrad Dybcio wrote:
+> The Glymur-based Zenbook A16 features an Embedded Controller running
+> custom ASUS firmware [...] It provides keyboard backlight control,
+> additional temperature sensor readouts, fan speed monitoring and a
+> number of miscellaneous functions.
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+Tested on an ASUS Zenbook A16 (UX3607OA, BIOS UX3607OA.312), on v7.3
+plus out-of-tree Glymur platform/board patches, with the v4 driver
+(2/4, now db3a9dddab5f in mainline) and a local change that leaves
+the keyboard backlight to the HID driver:
 
--- 
-viresh
+  - The EC driver binds from this node at boot.
+  - Both fan speeds and the EC temperatures are readable via hwmon
+    and follow load: under an all-core stress-ng run the fans went to
+    about 5900 and 5100 rpm, and both fans and temperatures came back
+    down within a few minutes after.
+  - 115 s2idle suspend/resume cycles in one boot with the EC bound;
+    its fan and temperature readings kept updating across them.
+
+I didn't test the EC's keyboard backlight control, because of that
+local change.
+
+Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
+
+AI coding assistants helped run these tests and draft this reply; the
+results are from the hardware runs.
+
+Thanks,
+Burke
