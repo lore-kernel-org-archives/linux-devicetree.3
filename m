@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360483;
-	b=Wp6SKPVu+cS80qbCTS802oGk3qyDdqWkkZlljZbas6Yba+d/2hjeREwhRyOpBvh4mNku
-	 s1qmzhH8iI5CPVyLTCeOZdSWQWJdLrgBj/JOFj/B1oiaHKEj4WuOQK8r/RJMQLY2cr4ED
-	 NAMqL5WLTSvyhoc0l5HGURWLtxqf+j+U+X90TWTuxtAvhOC3RBHMLoFTkePovYALcrVGS
-	 Qr3yBUxJriw7sB3jX/9r1wyJ5Itb76RxdAcVE0EmJJgLeRVHajqs87zD+/85MurbjXizy
-	 oda7VicBPG0PKSlYuQ4j66av/6Kty/ahCUIlhh9VdV9JFejNAmpgyl6/6D+Hx50Ow0g==
+	t=1793360539;
+	b=nyBbeRJYqsDfs+rDbZPikC2H+1SkvsC5WV4SzEdUgotpXtul/RzL8k5LbQGjoMdpzJrd
+	 biPTlLkLZpd4aTuLz76BPbeWcjbIDzvuIEaw8meTpYIWW5p6GFjDAhbx+alMWgMizBABR
+	 Nj6jEkWS854fNUTa/BqZ7rdnTte4eMRfk7v5AtuXjewbtMBAg5p7KLoZLVBKmGuoGxAvg
+	 y9BMlkFhLW3Cp34WuyMT+do6jznh3Gzvb6NUXlOpU+6C7B+ZZhUFUst9k6o7PXJxfIpyJ
+	 TDNY+ywPstIL2xYI/6dzp71qFNmoJj73d1qtPIDXSG4Kk/Zcu0/yHwzDZ/h4XXlAn6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360539;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R9Z06nwI23pV6jyKk26IbTV0XX63QRea5+o94SPS5Mo=;
-	b=Hvnwt+bQm/mpCOhtE4/9pBSJV/fhvoYUhCgp0c9h0Q131gLGz0QxqWcdjw/2OlzN0iW5
-	 xYswntlvgpWSvJQTFodPuUEtB8x7uoadhUCLtbQkxVumHSKNMO/9nzIUidrexvo3ijYS+
-	 3/Dskk+P5yJLs7/BSGWUpVCjXKpgl35Zq5P56zPNyIFVS5pd84+wCz3rqStVrZbeUOR7P
-	 7a3lTVNLbe5/SkLGty8XsyGyPTDywDvTvvxKrId30Ec3V3mCe/KADF/DC3cjM9heOAZ4V
-	 iefWo9sSYf75hs6IIw57eMFsFcQZnic6Ble1ct+tQagW9u7QnkYePQ8T7I25F7p1QkA==
+	bh=fp1gqCJQWC7Z4+tB0dKDQQvYxRSMJQy+4mMu2dwz1JM=;
+	b=iE9JczV5J0MtRLWaLosqLNAU0cP4hp4HpTvOxeQEBSIWgx3Q56Hl30LmlcYVARUy9yG8
+	 sniob/gnQBkkS60JP8StY6V6DyyXIzsR40OaqoGN9BgUaFD1G3pAOepWppgppoAOeMQr2
+	 shChs2IwzeJEX/nxrAxmQV9gUSuaVZyLCS5QsnSIP85dt7eyNIBUeY4YmO79AgNX6tmqg
+	 6Csv6bEWtCt03LokwSB+/2xBpNfjBGsvuyVUyMwgxIfbpC/Su0LfI9DDx8ufyKgxXm3La
+	 VAHJ4EO9jPDJimTPZGw5cuhyEDY2caiEH3ZfhgBWW0wjm6aujwac3L9bL+aXTkaqfRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuFCCzg7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=laAE45Bs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB383606A31A;
-	Fri, 30 Oct 2026 11:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA63606A32F;
+	Fri, 30 Oct 2026 11:42:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuFCCzg7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A54F41F000C1;
-	Fri, 30 Oct 2026 11:41:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=laAE45Bs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1151F1F000C1;
+	Fri, 30 Oct 2026 11:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793360482;
-	bh=R9Z06nwI23pV6jyKk26IbTV0XX63QRea5+o94SPS5Mo=;
+	s=k20260515; t=1793360538;
+	bh=fp1gqCJQWC7Z4+tB0dKDQQvYxRSMJQy+4mMu2dwz1JM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EuFCCzg7qSH2rwb5AhcERkxTRFvdWBprEseUvqeBMJ2BtzV3100oIFr2dojcC5I3e
-	 6lze9XLQcibxf/EL1CYm2lVI+9sMihhPcbs0mQf+BZ2hu+xXAetf6rTaFUw6J8eX0P
-	 ZNIaNtWmwj1eGWo6kqyTSRUn26lysrQCYpgS94gHHJJls7xE+7qErpQ8oiuysqyZLZ
-	 knlRzIgHgdDzTHx0W48QA8hHpkKdCAPCB9s8jQBdMDfXhNSykBYkpXa/SgED99DgxN
-	 ZxCgJlftjXOABBdLNCW5kcWHsPHJJN3j6/JOJHd3dLp90MxkirRUQM7mD464xJjafL
-	 IAOV3Eq0gEgIw==
-Date: Fri, 30 Oct 2026 12:41:19 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hector Martin <marcan@marcan.st>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Sasha Finkelstein <k@chaosmail.tech>, 
-	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH 01/10] dt-bindings: watchdog: apple,wdt: Add t8142
- compatible
-Message-ID: <20261030-formidable-bulky-husky-bb5f75@quoll>
-References: <20261027-apple-m5-initial-devicetrees-v1-0-1356181bc50d@cyberchaos.dev>
- <20261027-apple-m5-initial-devicetrees-v1-1-1356181bc50d@cyberchaos.dev>
+	b=laAE45BsmSfb80cLZfdhIGxTP2x4cXkZw1y4TRQztRbLzC55Z4sSAOLExNKyIZoaQ
+	 k39I/1hpoG+7gJtN3jTSeWu4GjDVXUqcQKOKk77vvxpKZ38btbbWck+8k6HUk+G9fh
+	 QXIyMqIoJ4QTz9F9VDNr17MaBKNPKBW1y7+s/ZmmtpHr0SurB8QJPJLW7b4zMV7VBy
+	 IXLDPJ0xr5PsMrd02XKhF8dEOtFJaSU7eXaDxNNqWOT3GDoFgUenoGuXfp+L01bVuN
+	 CFfmLGRCED3kNZDq6QLPrcJlXHn2CZnE6AqjMsalkg9ejfmxzkawyD0HEj0JIGk0zd
+	 GB1DVvMq2b7pQ==
+Date: Fri, 30 Oct 2026 12:42:10 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/6] PCI/pwrctrl: Enable pwrctrl for devices powered by a
+ power domain
+Message-ID: <wsdh7j6cevksxn4vd3uoat2f77dcyyhqlixr4lssrmadw5dlob@omoc2jryarjx>
+References: <20261029-b4-t264-igpu-pci-v1-0-4d843dda0b02@nvidia.com>
+ <20261029-b4-t264-igpu-pci-v1-2-4d843dda0b02@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,21 +62,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-apple-m5-initial-devicetrees-v1-1-1356181bc50d@cyberchaos.dev>
+In-Reply-To: <20261029-b4-t264-igpu-pci-v1-2-4d843dda0b02@nvidia.com>
 
-On Tue, Oct 27, 2026 at 09:03:21AM +0100, Yureka Lilian wrote:
-> The watchdog on the Apple t8142 (M5) SoC is compatible with the M1-M4
-> SoCs. Add "apple,t8142-wdt" as SoC specific compatible.
+On Thu, Oct 29, 2026 at 12:32:04PM +0900, Mikko Perttunen wrote:
+> Update pci_pwrctrl_is_required to return true for devices that require a
+> power domain specified by the power-domains property, such as the
+> integrated GPU on Tegra264.
 > 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 > ---
->  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
