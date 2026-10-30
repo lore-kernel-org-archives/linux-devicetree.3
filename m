@@ -1,45 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370024;
-	b=frVUUCXWwr3FeDf6rWRsp45Ib0tDM/L3+yRleqbqVG4zxNzFtEjACRH6skj6HC0l1/0l
-	 EAchzbXSR7GclTuDKGiA6YAvLUYUDcFEahppmLHHTRJLXtieOLMGebD2GQIIo4lqeGDkH
-	 pBMPcABylqQbPEP0ufamSUl+bxUjLo+9dSNPixe/PsGc+354SDGDgB28MekRvdbgP+yZH
-	 PJlIfIRQr1HCg9vCJKTnRD4he4tps0kvr7//mIu4X5ngmS/98kWi2Qx46k9INP45fdwAQ
-	 3CARfyGc8Hw3iozurvcYrmCYRPa7ukw2boyuU4biWl5p4Ec4dBEYx4XbW8evvMGEjCg==
+	t=1793370491;
+	b=GaSIwC04lc5zQRIgblrg3/SMcvM/DNW9rv+o6fVpfL5pMTMf4bV8DaHSqhUQrzmRX5y/
+	 xOFBILaJ1FzDvjCGn2A+5csFimvzKPLvzxAfrgNMQi9Vl+us+tJu9YO8zVc7+yNG+Z4Y+
+	 3eRFPveuG6JrV7/xgIlMRVrh65yVOe4XmZMa5Ozgx42dtkKoQQeSa+kGFh5PdHQC+XSi/
+	 eVYpXpiRUrtGyddmEIgVxPhGafreM5jD/3AwyqZKkEsIutWEyGPMWt79mNoY0U299/9JK
+	 i6nQpZdTeMbY9baOuyzNaJz/5sA0ljPV0zIkI3bCM0BpxvLuF+ugYl63aO49LaGP8sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370024;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
-	b=sgtM448n9b/wBTkk+U60yxiir4MXnlbxa4sjlAEsOuj+ZOiArlz9BgkSMOuZArIEqXCy
-	 EBQ+uf/9MO81cijqHlyHnfPQKC8ZAKWRpKCDQssD8JfLua6EBcTstyt9204bntI8iJkiv
-	 cF8JugLpkrJiLsVBluQaIqjo+K4FG+HxKGr+0D1PEOMCZH3GzCR28YmbseBZSvtpNceUF
-	 gw1330oTzeeTf1gZKxuxdwunvO7pQob4KNlP1YVkgsbTnab6bAhK3VzWqVG4D4mFj3Kl0
-	 EN0iyeydfk8HLpQX9367/XhNLnxKN6TlGQgE/fEYWxJTq05784OuNL3EDXUmyA+saJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
+	b=cGSQI8qpNyYc6e3gznwFJ7UjlZmAuCpuB0ST0M5dWwMMucjdEyM0vMaJP2tUekXarEB/
+	 DNdCJ5rPIM9rZ82cmsh0kxLS0K5c0lB38hyfv5mZXpL7I99sJMA1mCj/8YebtAv4xHGuP
+	 +pDnfePJLy3w+EdAoEP2Lqepkny8CzGHZEi56yTi6V6DtFAXc4N9nKiANPN69eTmh+Abs
+	 OgNQG1+nWEaH2p8lXjG96IogI72DqWbCHDG3xgUKqq2WqaYr8H4Y5P2b7o8RZ/40ypgHC
+	 xOVU5X9+9SHOhFd/ToHQrJQOIrNp3PNT3nVrc4ExfusdqX4TxRjBtTBEOpDwh48MMGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jmCuwfAH;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 57CBC606A31C;
-	Fri, 30 Oct 2026 14:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB29C606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:28:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB29C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKcRmLii
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7F44C1F0093A;
-	Fri, 30 Oct 2026 14:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793370024;
-	bh=Gz8tufo0m0wCulzcu/zCog+PiMQz+E7r7KmJRLFYN0k=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=VKcRmLiinGZk1rDYI30Cd7gr58jw5KY9OdMpYcEaX7iGvoWRWz77o7i7RjKqfDEnz
-	 PVjQMTYzAG/ZswC9q7LV2AZehWjqg5U+X74OuG4ghf8KzjkR0jaWpIh6O0T1mKRasl
-	 JIQDbCBftxoDLrn595kLzlNd05ocT0njCEJ6g5MkmHIrVsAngOCbc+iMVXx5McRhEm
-	 RpcpdgHEwrCqJ3TPN8jt1whmrJ4mFIm+5A3VXljLpf/cHOIfgtjNq1049dEijOcWB+
-	 E3AhNQ4BAbhOfyx2s3ohOlJhvlaevyBLJJ2W76kHiB7mm+lRQwgANf0IjB/FlRKpvN
-	 crrdo+GwzxKOg==
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jmCuwfAH
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so4613045e9.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 07:28:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793370488; x=1793975288; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
+        b=jmCuwfAH1CPTN8+mXIj6qPJx442DYL1aTnIIIWOVWiZegQVRIFn3R9Rmlu+wVFk/Q1
+         qjr0GyO6OYqSG+JpENqWyICsbWea0t4k+e8bfeh63CwkToIcFD9Lc+5Pl88NM4vjtkdA
+         hOlaadfDH7CaA5sQzJj9gHFemWBXIocfM+pzIWAOWpTKjlrBaOaZuIVuJTZ7N5H5WHW+
+         KLESNqOfJk4VztQGyiobnxzEORUCO9NINvql6Y0jjVEs/8OkRe6i2s22zRDkydoQtmSi
+         WPlaTz+IjyJRCxWtLoBVqUUlEgynmw/XJ78hh/5U9KHq4zrG0HOJT8R06SP/mYZL8KGL
+         YXKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793370488; x=1793975288;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
+        b=uv5FHpn9AjsvSKSuFdbz4cA/K8iTbZuuf/qrDnjACT72tf9nCKNbJrPYWby21rG3xF
+         bPh/k0mNbj9iDx9KkKxYmJtD0lrVKRPWKnyRdsNmvCy2u6nDUl+1s6j2YvGyXlwBvAoK
+         4qo4oWKG6LVFjRNsxiDTk5q3ZxD3yERuz1is4Xbx6t12AS26Vk/lANA9BZKFsBLX1FWZ
+         3hDnBPMpCDM0v+JNZB3Xc7lQrY5WOnrhhTn+JCPcrNclwxXqfURTLiAxowmWCYZHmFwT
+         zMWLjIkXh5xhoQTbXbNVNx0YamrUP3mRRv/jXRJlIuO93v7gvqrRiJdkedkscB1581jC
+         zMOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0XgSE9+gntMbMm0Yyj1n2EeUWUc5eaIi0PE2/PCTLPAZl22l0dB973IkXdQPxH3zbLDpgiom9jQ9u@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvK1alrMkd8tjkulebBXxZ+N//W2Q67jTYLl6JEZmDBkJlPmjd
+	gMZNe3ijx/jHKhCe7iYjxgILeNnY2BYNLWonDNSQ5qaXZwI+px9DfCUF30h84psHiy0=
+X-Gm-Gg: AYBFou2V0ndprdLi2rKdcqF22+LkImif/D/LV73x90MtS2fF+2izWSiK/IvWlJ0xJKG
+	rPynjQdcqzRjmLov9UX74JHLyLwVCzrWqH9rIdt3R5o5iID1h47FtuJrwrmIuULmvZgE1xrdQZF
+	rqUmdEeTaVs5E6M4kLvJdsR6HzDG1bidXSu24mrALygLIBaXw1uamF+KNfwXEzfaappVEUpC/CT
+	Xun100AAvvA0O3I8lR7xN8HT5V0LMCvouKFJwrBK/r/8teMcNA5yv6gPejLN3OyP6DKXt+HEErD
+	Kn8Hef5t8BmcS4qaEbV2q+eKig26Ow21sU/I6WoVMPX1Ke9RbqgVTJvaOatz3KQgastOrYlYwFM
+	440zRU3R5B7bMmVMgK8PPEwLUnJHspFV7YF2r5eERXgTVcQVOAErz431OxKv0ktFwaQng65OVLL
+	pJoVHWrg9C6sq+y07whd4EqfQgj/PWoN6L123ZBKq1BBYybInRwOaULuvkoCB2X+QJRn6AwwRy0
+	AAApRRfAL4uXBR9yjGj3L6fTvXYKOPdaJjOMBkdROoU6FLJ0kvAULpJvTGMOu7RS77PmxaElHMT
+	umfhK6ABgsPJKl9N7Q0ZkrLua+oSIMzBUHi3eSSVOpmAOjzZq0cX9t+9kQFmTa8MuGVN5HoJHNq
+	u8aTPJ3+tsAnka7sJx+GYTKUE/La/H2Xs0Y5tYaLeCtyyrJmusKl+lA3qCiv/aC4mPTwuW3g=
+X-Received: by 2002:a05:600c:8b63:b0:4a1:f688:a5d5 with SMTP id 5b1f17b1804b1-4ac187a7655mr51642025e9.23.1793370488309;
+        Fri, 30 Oct 2026 07:28:08 -0700 (PDT)
+Received: from chomik.local (ory90.internetdsl.tpnet.pl. [46.170.50.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm53158235e9.4.2026.10.30.07.28.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:28:07 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,97 +90,45 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] kbuild: Support directory targets for building
- DTBs
-From: Nicolas Schier <nsc@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>, David Heidelberg <david@ixit.cz>, 
- Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
-References: <20261023-dtb-dirs-v3-v5-0-dfe13d47aa64@kernel.org>
- <20261023-dtb-dirs-v3-v5-2-dfe13d47aa64@kernel.org>
-Date: Fri, 30 Oct 2026 15:16:48 +0100
-Message-Id: <179336980813.3139600.12365744632390730361.b4-review@b4>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2025; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=xjoqRoFBUlJo0LxZQBS7KJFWVkqGKDnz+QZfxjGxBic=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq5KbTXElPAg1iNDSd8mx2dOh46umDBQfUYOF9d
- XwzwqbSlrSJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCauSm0wAKCRAHUgpwFiYS
- aX9lEADyP0y324BnGj0w37NJTRd5zotHQwsbDz+f7cpsOePQpXuPO8gtRgguPBB1kPGguwiLidR
- gutaGPK7lFhHrHgk8jkoLo6wBRsZSAs7Z4ReLHKv5bs62Zu1D3ZXGfkDIqXdnWXtzRA3Bq+bSUc
- kp5ENeVReaX5FPFIiquN5d+pGQEDJ+n0efvwWFS3/ro8Bih6lhGoD6S0TZhCAT763UUadxyUjJJ
- NjB4Y+onSQIyMqlXlsncHepeA/fijrcycITUCN/S87yf2FO4vhyBBQ4yqQ8jkiXIqKWEoeJ4ngv
- buhEWzEGzYTlU4qkj+SpiJ4FiVQM2xG1Ay50bEaAdbE9brEiJahDuF9k+HDiMd0+eVEwaPh6YoT
- DGE5f22H9wbjIRmAHymOaOaAe675Vvq+u4bVhPmq5fPMwp0xDX6x3NtXPatZL3ydXpgRTcZc3j5
- EyamjcBntP3X10xy5Zq4xSuDy5hLdUCY73aKXlUb8TKlcfwfhYAAoxVCr3lfXIjJqCyoZTnLUsO
- XlAitU35AZHuyJcocR6/UI011zZWDC0v506llQBS5sGuV7m+URgVo3+xLuR3vsMO1hZePm7xQrz
- MeDB5jo+vtt1+j4xSeWtoRc/vphPSh4QRXRGgURB0w/V9LEKD3jc/EAqYuCcf1aPDlzv3QJxeHz
- glYF5Zbad+yyGVg==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
+ S4
+From: =?utf-8?q?Wojciech_Biega=C5=84ski?= <wbieganski@baylibre.com>
+To: Zhentao Guo <zhentao.guo@amlogic.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+Date: Fri, 30 Oct 2026 15:24:06 +0100
+Message-Id: <179337024629.131241.9227206619077693683.b4-reply@b4>
+X-Mailer: b4 0.15.2
 
-> It is useful to be able to build all the DTBs for a vendor. One can list
-> all the .dts files in a directory and convert those to %.dtb targets,
-> but that doesn't work for base+overlay DTB targets.
-> 
-> The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-> as well which avoids different make paths for building DTBs.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-[...]
-> ---
->  Makefile                          | 12 +++++++++---
->  drivers/of/unittest-data/Makefile |  5 +++++
->  scripts/Makefile.build            |  7 +++++++
->  scripts/Makefile.dtbs             |  2 ++
->  4 files changed, 23 insertions(+), 3 deletions(-)
->
+Hi,
+I tested v12 series on AQ222 board with v7.2-rc1. Firmware version:
+'v0.4.ff.I0c83495.75444b3' build 'Thu Apr 16 18:18:55 2026'.
 
-[...]
-> diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-> index 4349108e75e1..22fbd5199091 100644
-> --- a/scripts/Makefile.build
-> +++ b/scripts/Makefile.build
-> @@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
->  include $(kbuild-file)
->  include $(srctree)/scripts/Makefile.lib
->  
-> +# Make DT directory targets reachable for architectures with a DTS tree.
-> +ifeq ($(obj),arch/$(SRCARCH))
-> +ifdef need-dtbslist
-> +subdir-y += boot/dts
-> +endif
-> +endif
-> +
->  # flags that take effect in current and sub directories
->  KBUILD_AFLAGS += $(subdir-asflags-y)
->  KBUILD_CFLAGS += $(subdir-ccflags-y)
-> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-> index c4e466390284..c7ec2a2a308e 100644
-> --- a/scripts/Makefile.dtbs
-> +++ b/scripts/Makefile.dtbs
-> @@ -23,7 +23,9 @@ dtb-y           := $(addprefix $(obj)/, $(dtb-y))
->  multi-dtb-y     := $(addprefix $(obj)/, $(multi-dtb-y))
->  real-dtb-y      := $(addprefix $(obj)/, $(real-dtb-y))
->  
-> +ifdef need-dtbslist
->  always-y        += $(dtb-y)
-> +endif
+RAW NV12 frames at the decoder output were visually OK across typical
+resolutions and H.264 profiles (main, high, baseline) with and without
+B-frames in the stream, also with I-frames only streams. I used Gstreamer's
+(ver. 1.26) 'v4l2slh264dec' element on Trixie with both mmap and DMA-bufs
+buffering (on the capture queue only). Input bitstreams where
+FFmpeg-generated (testsrc2 + libx264) or publicly available test videos.
 
-Looks good to me, thanks!
+Decoder (and the output) remained stable with simulated (non key) frame
+drop at max resolution (1920x1088, noise generated by FFmpeg's bitstream
+filter).
 
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
+The performance at max resolution, tested with 'filesrc ! parsebin !
+v4l2slh264dec ! fakevideosink' pipeline was ~85 fps (fixed number of
+outputted frames divided by the total execution time).
 
-To prevent too many ifdef/endif lines, we could use substution variable
-references in scripts/Makefile.{build,dtbs}, e.g.:
-
-always-$(need-dtbslist:1=y) += $(dtb-y)
-
--- 
-Nicolas
+Tested-by: Wojciech Biegański <wbieganski@baylibre.com>
 
