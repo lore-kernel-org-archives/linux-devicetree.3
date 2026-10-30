@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=24.134.29.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395046;
-	b=R5PaaRb9ReQcF9Vy16n7oHno3m4igCM0qRT9KCH4AgbOxEN19IVqeg0mIB9A9OvYpFSj
-	 BQK8GXBuJdoHqEtkK5WJU2jFB94W1U8tI3VMr1eiBGjL3CknZ3JSo9YftK59eW+sVVSDI
-	 kOnJriZ2ld3oWGhad4v2vj/03D53l2GqFExEaZHifBXphFo5Zzg87a01bs85gHyiQ9B0o
-	 2ZyKwJFmlHIhY5jZqHQYhzs0/g2RyNPl4iJSrzXVZGKbCr0309G60UR27tQF9Z8Z0UlET
-	 5tHWC+HCUPw53e/Wln55WnKiWcZU8+5Qx/RNiSNhgS/Nd668Hntz/HIFEe4d2siM7hw==
+	t=1793395721;
+	b=KpUhVuEampRMe7t1qKIScNtiF8mywOUC8HkNxAZK84NM0eyBZVINAMLHMgrgVr8ZvfvN
+	 FvHyU64Dih+g/zeFGRMiKPD3swVq3xvhO2+7gK4DEOGqGfMxd9gFtV3l81HO9hPcSZXrM
+	 68+BhHh1iE91HmlBPOp0giy2wbCHmqmfkcGFd6ciLGeNbcZ9HrakW09xo79VfbXnukm7L
+	 JQ4aCr2ugnkXgTeATdZSJqIqeqJFkAS1aU8XgNPL/nKAOB1y8bUfVMdruFXReW6S5LqTr
+	 TPC9OeEeSOAhTbi7cdiz7+I+KH1lyZpuRsGMW4+CHKTlXpUU/FMlhY8O5DtnJyNsEqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395046;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=x/QiM3kznT7Wu13IKF37WvOthsj/0oserWKR8GN/KGM=;
-	b=sC85iTOq2FJup2mVMy1AEVXH5mvZvXBJ2wy6adicHmYoRwOz6xqeqJVXbD9nAqofCOPZ
-	 g2aRjtZAmQ68kmH2OllRaSA4DZNq5tSY0r/6RedTDuJguVpbgDVmCrzDdekEOOqfWkE/R
-	 p6v8ASx8EVKHmdjCDHKGdK1P7C4C+vVHSQCNipApx8WTausmxqJPsjwLbZrO6ccGDYYah
-	 L/5LV+utALfe6y9rZrfvYuLPFo6KJmZtZxxilQdbIOIRz/xsH8XmZrBj5BMNMm5fbuGpv
-	 TQjClON+Mb+uvm/WWI2QoWiIr7KtbanEBexSkOE91WeCi0WMv3q2Vh+zgud5R9hD7ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395721;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=Q2MJeKo5+imuAu/kO4ie1/rEON2AWd/TPuI7iRI57xA=;
+	b=Jdxfdq8aspnQrUeFTbbIFmDcUBJtTk41GHIbx3QBSWa9xVWagbkZBjrwfW9tudD6RcR7
+	 R/5uF/4Lkoe62gr2zANfzRvXI10AiVZjfBK6dE7bgkPRmtWA8Nrc/ggdIdc6+1FEvtYF4
+	 Eqk9+1nco4Lerl5yFd9ZyAbb1kEV9fHklvNi7vT7lQD7CslR8Ida4WPYl1W6RuFcygwR5
+	 a8bhObmuEy9nBjSsmgcT0QctSeDxzrAxTHNDs0slhU/lvDTPLpI2rvYp0XjkU97B/U16F
+	 9UAiRghgDUOcGMe/y+PqgD/TzO6by3Fzlq5rZ3TuoGZavS13/+gtVKNHwWzjIG2YOHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jGhR98c+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OMMrCAZX;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=sigxcpu.org;
+	spf=pass smtp.mailfrom=sigxcpu.org;
+	dkim=pass header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=CK4i0K4j;
+	arc=none smtp.remote-ip=24.134.29.49
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5A2606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5A2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4290B606A31C;
+	Fri, 30 Oct 2026 21:28:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4290B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigxcpu.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jGhR98c+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OMMrCAZX
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULAgVP3852970
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:17:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x/QiM3kznT7Wu13IKF37WvOthsj/0oserWKR8GN/KGM=; b=jGhR98c+jZQZ19n1
-	EGXUDDWVe1dFey2lsm6xqJ8+g886G9A7zzqLyQ5Q7Ze/91w+4ILdPec9ULtbfm99
-	DTntH+4FIDCTIv4tlWBBf9M//bXNajzo+PTLphFt6/SQu6CH3nFoetyEjH61g23p
-	NCzcnuoODUEgUTqEHqvQwwhPutPDQN2+PRJsAQEPhhRw3EnkjoXKaS2mXTk0TKCJ
-	prqKPxTfbwBTOXz6+WqKP3Va12hcMtXenvCIRTWGqPI2qtCA3JvkJ1q11DqzAlXA
-	6Y+a9EAkLOJp/Bv+KA5rRsJo+mUP4TiDDSg1C5y3as7C3ubLtKsNKnZ7dh20Jl61
-	jNGfnA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x180hb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:17:25 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7c10b8abe29so824063137.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793395044; x=1793999844; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x/QiM3kznT7Wu13IKF37WvOthsj/0oserWKR8GN/KGM=;
-        b=OMMrCAZXwk5nukc8v1G1eCj7EwW3mck/ZHGYeDfPVvKaIOvCa8g+UQjw77b2VsA4uo
-         keGV7LfCMT3UGtNeZmQAFmU9Pew1FWpY9+WNACC5EERa+A2v3jM7B5yGrchdSdC+dvxh
-         TtGRm2/iuTAztqiMt3oP/A8NKg/GgdmHtxo5lX+J/GPZtN7mS+OcPkbjlCSc8SA2uV3K
-         M0EvLB4+F94z8A+eEOvzP2sII5W0QiHi491jgaBzlR/NeP96DL0pPJZryZodei9d/4N5
-         40WdXd6KIzjW2swxw8Y9xwBYpMxFnbGQ0D6uuvKf+2FyswEDMwxTVZXx8H4ZopmchB+j
-         l68A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395044; x=1793999844;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x/QiM3kznT7Wu13IKF37WvOthsj/0oserWKR8GN/KGM=;
-        b=l1k8fpNQeLgWuwBYEfO5F3jCpcg5lBOLzEDsS6JWiaOnG+bBYYJ1jmN6mQ2JTIoxjT
-         peSaGc3iJC6OYgawtv2RA5odRbMXefnYOdVUvJ0xcnSHg7llyeH+oFlPCQk80VMUqHYY
-         NH7JASaH5oGJPNplHyVjNVXkXrJ5N2v4P967oYyXmUunR0KU9zPrD48SYTZ2IR2PuzFW
-         8NDQ5Q+AFA04XmozmqlZZY33yipVYyR/n0Rssfni1rMI4W14NrxAf6uhvzf0ne3+xLEr
-         eBg9DshPZLUKUfInHPA3b0wIfO2XlhjL2kK5tflEAPcSt3RSNNAQfXW+pVMz2p8h04Yk
-         3QxA==
-X-Forwarded-Encrypted: i=1; AKwUvBxV7EoDZHU7z+k+hfvppK1rnMx5gw+u2d7UCrVXDrIK2atp0yo1vjAKWXXKKMpjQBIVM2Xvzi9jU2BU@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFk6chobvP80AC4hyNHvjnu9Ec7ljgL15jd08jy6gYac76wbuW
-	AW1ARlJSgWN1zVICIrUzyHA6LcVcscNCpLb+YKTa0Coh5k+APWeNgisjPKvkgYjOqQFc/s1rN1X
-	CiAVxjV/GDj+7CtjsW39qKkAcGbAt8A7Vp+dGTmi003f2esJ03LLNYadaw7K9Uubo
-X-Gm-Gg: AYBFou3Lgijx2DOTdKX3Y6Fzfwq5nRE838NNT9nC4//yPj3lZugE1qfGLfN/1k4fINz
-	PTKcufJsCeF0ZrzN62YnZwYYvRbyWoGsuvvE/dzJtPEEYNmCwHSZkyPUaFfyDLPkeirH86a+RGI
-	3FfsN8YzbMMymp2I1q2b+PM7g1m7eKz8y54U7qSlSksJ4xmHoCjLCfvmtqIVi8I069rV9RmoJQS
-	u9aRxFZNFdDaVamzbH+mAvu/QXP+KMJhUxpfrKvpB4Ircl5JZEu5NNilJM9ZdqToWwbKsy/fNZH
-	q9g1EpFavm7RbSjLQHuEoM2FLMcTU0+qpIMwltF2S8QXz6ZEnLufgxI6RXPV0lZKPQVPR2swhSN
-	zavLHluryhwIHXzSSxSJkGl+Tq7skIXXxEtzcHrAvqNuoueFNwjhfADChNWys/u84hat4Yhb2xD
-	A=
-X-Received: by 2002:a05:620a:4611:b0:93e:c12c:9dcc with SMTP id af79cd13be357-94421760e17mr640134785a.76.1793394581350;
-        Fri, 30 Oct 2026 14:09:41 -0700 (PDT)
-X-Received: by 2002:a05:620a:4611:b0:93e:c12c:9dcc with SMTP id af79cd13be357-94421760e17mr640132085a.76.1793394580963;
-        Fri, 30 Oct 2026 14:09:40 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm178757295e9.10.2026.10.30.14.09.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 14:09:40 -0700 (PDT)
-Message-ID: <23ac857a-b340-401b-ac24-77b89da2aa8e@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 21:09:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sigxcpu.org header.i=@sigxcpu.org header.a=rsa-sha256 header.s=2024 header.b=CK4i0K4j
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id 836F9FB03;
+	Fri, 30 Oct 2026 22:28:30 +0100 (CET)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+ by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id IRo5TVH5itQ1; Fri, 30 Oct 2026 22:28:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
+	t=1793395709; bh=+1w+85RD7w4UnRjdm8J4R3VqC+3RczStkHgePle7OxY=;
+	h=From:Date:Subject:To:Cc:From;
+	b=CK4i0K4jhEZWzOf1q465F7ET2FtWqiH6FrawmN2VH4qmhAFrt372/G2gYyLK2lqHX
+	 aXNW1p3MNuB81aN3Yt08HcBkbB5CnxPGl+f++8b0/ZJw863ztoMhpTGOkLtBI9sjoQ
+	 KgDJZ5JPf+svGRTtUlt8Xg6qMH+lEWpDenOb4xuQwcmRJ9S5z5zPitruZbZgtoSdZg
+	 1usakaVuybXJvxD83PkALPq3x8e3rYzh61PCutEs1+/gvs6xAcHbwwqpsXXdkLo02w
+	 VTLnmIWpk7MrUDoig74ax00K50ILoYDuPcf1rrdBDh7N5Ossj7JgmS+ekY0bFx0adK
+	 Ok+ldc0nE3qAw==
+From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Fri, 30 Oct 2026 22:27:38 +0100
+Subject: [PATCH] arm64: dts: sdm670-google-common: set chassis-type
+ property
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,111 +62,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: purwa-iot-evk: add missing DP2 audio
- link
-To: Le Qi <le.qi@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel@oss.qualcomm.com
-References: <20261009030404.1981995-1-le.qi@oss.qualcomm.com>
- <01b4728f-a78e-4932-96fa-795283e91cb6@oss.qualcomm.com>
- <55e20ec8-d6fe-4613-b7c0-d748f2e5944e@oss.qualcomm.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <55e20ec8-d6fe-4613-b7c0-d748f2e5944e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: AlJhf7B2rjTrBcbq9tawBwAfsxZ0qfP_
-X-Proofpoint-ORIG-GUID: AlJhf7B2rjTrBcbq9tawBwAfsxZ0qfP_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX1tueYhBjdUT6
- rYi6/LCvOgrFC6VnnNuAYkwh1WAFQYliBHh+w6jmfJqmfFyFKo5GYop0d91KuDBoCIyS/bNgOD1
- qODZ1e3xSXjUgmB+NvnBGNAf/Gte8bvqs7gqgCWV25IyV16n+us2sTd+ikkhx8uSlwqb4TIonfc
- 2hd1oky9ofOj346E12AfzKLqgsw+fBYwH3C1qX9Dt5HCbUY+76+GbbNCS+UQhx1/now298tk5XG
- bLwnLdwTOImqumc7tg5Xqe8fJ6Hhw3ndk9aQsnaf+wyc0YDBPNZe+33Zwx+ti8HiXmxJwjXRKqQ
- VOdNmMEgluWkjq2ny1Jaa/OM9wCiz43S9ndesZTKGZ0v4iyzRRiq5AzrhLIzeqp50ZrhozKEGic
- UUm8kfcLsdSL3mXfDOhfA1ZHw+zvWhf2K2lUGbV502OrnocJ7RJ0zSO+B7jKwZFEWVwwyDOF3NJ
- n+9XipCdv9AqJseS/rg==
-X-Authority-Analysis: v=2.4 cv=R92WitRX c=1 sm=1 tr=0 ts=6ae50965 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=cwMTcsmotyg-k-KcDEcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX3AGt5NEqCFMp
- FlHtS3q6felQJFbsHVa/fn0KchnUszMHfG8PwT/ot/PrnZ6kgAPyoj7AXe0EGEwpnUBNPK4jPYx
- 4KCGO+aa+xLy3R581YjslqXE6kvGBZ8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610300084
+Message-Id: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDQBAEvyJzzsK6SwTzFfGgO504IkZ2VATx7
+ xnJseiuOkmRBUqv4qSMXVS+s0H5KCgN3fyBEzam4ENV+ujdIgem2DkbWbG6KjwTcx3AAJm1ZLz
+ tcheb9s+69SPSemfoun6suAIKcwAAAA==
+X-Change-ID: 20261030-pixel3a-handset-625cdd92edee
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Arnaud Ferraris <aferraris@debian.org>, 
+ phone-devel@vger.kernel.org, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=agx@sigxcpu.org;
+ h=from:subject:message-id; bh=AqNdVruHbG38YtXFTnNXKwTljWAhcUZCAfLxnzf90QQ=;
+ b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FJQVNXL2hsSksvT
+ UhqQWNzbVlnQnE1UXY4RjkyekQ1TWx5WlB1S2oxTWxyY0tON0VUCkkvb09oeFRLbmdSUG85QnZN
+ OGlKQWpNRUFBRUlBQjBXSVFSajlzemZsaUtkQ1NocktzTWx2NFpTU3Z6QjR3VUMKYXVVTC9BQUt
+ DUkFsdjRaU1N2ekI0eXYrRUFDc01uemRyN250Y1pIc3dHbFNEOUd0Z3FqMlAzU2dSQTI1eDJqbA
+ o1SVE2bGdDcFp0eXQxMG1IbTZ6d0piMURJdWVybUxCeUtOYVFhL1c1M1FWWk1nZnFtNDZtVTUwU
+ XhGQ1dLU2kvCnNOYjk4TlNJRG44Zm9GNTVkNWhmZ0xsam80RFlqQ1I2VlpaOUxEN2lMWnhaY0hC
+ ZzFEZUNJazd0eHpsVmJMeEwKVUlTNWR5VzVZeFpNcjFWUzFWdVcwV1dFLzBJTTR6SVJwUTJIcHB
+ xdU5xRGg4dGNFc1RFNjV2aFhkTTBXOCtRZApQT0Z2RzNXQ2lKczJWeW5vVUNxcHM2UVBxWDdmR1
+ RjWUk1VnhZSjE5b2FxY3RkNWhMdmhQbzFTeDA5MFR0TC9PClNxZS9BTU1HYXdYT3JBT3VIUEk5K
+ 1lLRjFrY0FoRkVsaW9Gd2VpUGtia1daNlEveXcyMTd6WWwwSDdUaFYzdUMKTEF5YWZWUVBpYlNt
+ UkV4NHpiRlVwa3F4WkhYRGd1TEpiM1Z6TmR4ME9lSGdIdFdpV25CTUx1RWlRNVUrRko2YgpjZmF
+ ONXBTZUJmTUcrejJzZ0E0RE4zbmswRjBTUHVubUlOVUtPc0NWTDUyb055bHQyMVR3VWJ2MS95UG
+ E1QURYCnBrTU5pVnNWQStqN3lpekNGY00za3RLcStkMDFWZDlJVUQxQTdhUEhxeUJ2dWpWU1Fza
+ GxDeVc2bDQ5UmNJcDUKeUFZd3hLMVgyb1Vxa21IUFRzNi9PVTlLZmFvNHFRL2pESWR3L0RpdDVN
+ bUhYN3pYQk1ja0FvODdWTDMwZW1vNApDL3lDdGFoMS95SDlOWFY1R1hLRTJFUlduMjRORjZUV1M
+ rejFOZm5abDdRZlQxZ2lQQlNtalhNazZrWlZrUS9ZCmNycU1kZz09Cj1MSmo5Ci0tLS0tRU5EIF
+ BHUCBNRVNTQUdFLS0tLS0K
+X-Developer-Key: i=agx@sigxcpu.org; a=openpgp;
+ fpr=0DB3932762F78E592F6522AFBB5A2C77584122D3
 
-On 10/29/26 3:27 AM, Le Qi wrote:
-> On 10/20/2026 6:14 PM, Konrad Dybcio wrote:
->> On 10/9/26 5:04 AM, Le Qi wrote:
->>> The DP2 DAI link is missing from the sound card definition, preventing
->>> audio playback over the third DisplayPort interface.
->>>
->>> Add the required codec, CPU, and platform DAI configuration to enable
->>> audio playback over DP2.
->>>
->>> Signed-off-by: Le Qi<le.qi@oss.qualcomm.com>
->>> ---
->>>   arch/arm64/boot/dts/qcom/purwa-iot-evk.dts | 16 ++++++++++++++++
->>>   1 file changed, 16 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/
->>> boot/dts/qcom/purwa-iot-evk.dts
->>> index a811d8ca2dbf..93cefffd1f46 100644
->>> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->>> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->>> @@ -641,6 +641,22 @@ platform {
->>>                   sound-dai = <&q6apm>;
->>>               };
->>>           };
->>> +
->>> +        dp2-dai-link {
->>> +            link-name = "DP2 Playback";
->>> +
->>> +            codec {
->>> +                sound-dai = <&mdss_dp2>;
->>> +            };
->>> +
->>> +            cpu {
->>> +                sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
->>> +            };
->>> +
->>> +            platform {
->>> +                sound-dai = <&q6apm>;
->>> +            };
->>> +        };
->> Srini, can/should this be in the SoC DT?
-probably not,
-1. because the dai-links do not have explicit disabled status, so these
-get parsed
-2. sound card itself is board specific.
+From: Arnaud Ferraris <aferraris@debian.org>
 
---srini
->>
->> Konrad
-> 
-> Hi Konrad,
-> 
-> I think it is better to keep this in the board DT, since the sound card
-> is board-specific. DP0 and DP1 DAI links are already defined here, so
-> DP2 should be added alongside them.
-> 
-> Srini has also agreed to adding DP2 support in the audio topology.
-> 
-> Thanks,
-> 
+The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
+aware of that by setting the `chassis-type` property.
+
+Signed-off-by: Arnaud Ferraris <aferraris@debian.org>
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+---
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+index 4ce9b62abe53f..8f91faf8a9cc5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+@@ -27,6 +27,8 @@
+ /delete-node/ &gpu_mem;
+ 
+ / {
++	chassis-type = "handset";
++
+ 	aliases {
+ 		serial0 = &uart12;
+ 	};
+
+---
+base-commit: abf8c33470f78e2226ee3dcdc69004660020ab47
+change-id: 20261030-pixel3a-handset-625cdd92edee
+
+Best regards,
+--  
+Guido Günther <agx@sigxcpu.org>
 
