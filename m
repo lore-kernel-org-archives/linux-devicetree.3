@@ -1,79 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793392455;
-	b=uvgiju5z5w8N8ShjRSwAjmT06VZHM+aR7HCgwGvy26rDPf69AHXPZFM5arYp2YVzyv/c
-	 /s6Pe8fuK6AD57xE3zxlsWkiQmmfdY9oGCCfw6f0KK7EoKCvFYLhYVMQy3rz4XYtMKSH6
-	 x0zkA2BWKlo3WSTffWFGQjYX+FVwNJK4ciWcPGnsTS5YM7PlMCaMijwWiZgzNwUqkm2Jn
-	 +g6xMBDfZcinZm8LtxvxyEWTSv14pCHWv9pg0XEkbjsvn74WQuBKfY9FM+oNSRdSW2gLI
-	 tULNx+jUfiqwcrSCMiWQKTwAcNlU9rlIGgqszqAl+cn/UGd8hPPe8OVl2zatphlQLJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793392455;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HeL+KPss/XWXAKPl/eTROBTm4k2yu734wKYuHO19n+Y=;
-	b=aTQREYi5ROiZ8ViJMW4He1bABhsriRn2rnze0BwvgP2UIs/aIvmxTvxzEjLT9aW84j9j
-	 1WhZ8BiFLX52mudFijJ4S4faHgjlWcW4Bez/GoSCBBTMVc6eYVmZFxgprOL3ZxRZiUNSU
-	 ru/3Inam/kI61QorrizTY3weDr2ZEcHIkI0ceLTWq6KjL58vk2KSyVfx6ux3aWY3+F0J7
-	 jHw7SgNW4KyMPPF2gFBsR98qma5xVOjfTD1KG5EX7TjscjtQuHbiMhoLUxKZWBqYtKOqR
-	 EJ0VWVsfpXaehCR+kiTAqKoOmyAFOtLHZ2eBppRNmwoxsgEmH550Juui4O2WnHV4a8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVUBXlHh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAED60A260B;
-	Fri, 30 Oct 2026 20:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVUBXlHh
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793392453;
-	b=fo2NFwDiZnK7fLMXD1rKdrdHFfEAnvJ1rXw7SxWD6L8Bde0v3XDXzZ5NE9b3up/7lawq
-	 iMeHND6/r7X5xHvoMdSMfuI1cqNJAzdggm7hX5POCuanODWqEhxpzJD1WSp5P/yd//sIp
-	 ovCfLgWjQ5mu4F0h2c/yk9OsU0Ix7iUQJC8vHOAgrp5gVDrkc7KEJA1LJ3tD3F61RYnZ6
-	 lUY7X/CGp2esRzHZZiWdEhhvJsPFnasqS5F1yyyeKal3KLwovJUu4gGjDgI1ngqkkRoM5
-	 OWwULk0VXwVJTCaAaB2S0m4g5UynNe7Fxi/qfpTT0cMRhPCo42OucxiHccDyiblWBzw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793392453;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HeL+KPss/XWXAKPl/eTROBTm4k2yu734wKYuHO19n+Y=;
-	b=Afmk8rIwfL4+TbCYwTmQBqXcvhJBBHdRhl5BFgOumkf5TdSkTq7x6MNEh9APd5lcoJJ9
-	 AJOQzS7iCUg47QOs9WipwvyNdP7gJbf4RcRNzppVhTWQMVVhnUGwKaUoNzCycLzPwZWsC
-	 P1xt4oj7KmXhoM0/Q94nwDEhPQXkRT0t5/xOCOPC4QC4vt85382vkfuyT+qf5ZS099d8i
-	 QHoOFw3RigSVIHpLeVPasu4h9MILsTqhcEZrvVeOesaAlnQ3eQBwBOrgWmsqdVSayL4tl
-	 AaWvqUScNLGdgeTSvFOpOGiwiS1bSyj0++tJP+HAqWCS0ehvWJaEI1i1ncfSP0O4KSQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793392546;
+	b=5syzUeA9ATMJybSEgoCOFUuKS0zJ6bs6yXcSjb/VYSsEMUDVvsO1FCZWSoKmszwNhtLN
+	 3/cjAHX9JL6BwBDvYNEFxpsNiprwE1xAcPyfxaStozNDL1FI3SC+UQ/a01wutjYPSGLqV
+	 yyGicVk05TDjPqOCz7GUmjFTWmMzZzL4kVj8rVu9Fk9HBBusqemAX/leiIc8NU7ztoWHc
+	 x1m5npA++KiDpZpWx8/bK0FdCE05+/EmwWElhdk4+Iee0KilfOYcbt+S2opbx+xoPjbPy
+	 0WRvEXswMZSmKGv9eYxJtPzSgJaO+ZiNm6g6PLUbto7UmZD2Mxn2PjyRjiKXEoNC0UA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793392546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=SN1nku32vaFiTenqE1IuYVioDYWxzqsexpbb3IFiLMA=;
+	b=F0SoOep7wChs9rD/7QmI5Ne8bzBRaawYR5VaCEQMe4wRp54y4ANm3pXLtO1y9MopyRee
+	 C1WFdGs+NGC3evycsU7tVPMjGIjwFcyHB2E2s7w/Y6gv9tjP5rmTERe2PFkk2i808Xls9
+	 Zktw0cwl279EldmBFxKRHloRzaFCCtWwYUvpRC3V7Z6XNF7ysn+2QPc+IB37wf6lbH5XE
+	 tJEBcf/dmdFWniG6ybxwOdyGIQzTs+2aTo6a1QV4pJMo2CuZ4wYchtZhfrhs98zmFmvi7
+	 UpVBKPeQg1cx2O5SqJsu6ugWohZ5i5ojK8KXXSlqMIv4Vb/oJEMPpHt9d+lg2EnRWtg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b="DTlfrjQ/";
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 448771F00A18;
-	Fri, 30 Oct 2026 20:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793392453;
-	bh=HeL+KPss/XWXAKPl/eTROBTm4k2yu734wKYuHO19n+Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YVUBXlHhA4Yf0UXTlcLhw6vM+ZxYNYW3WMQwUOALUIrzhiaJxnfSMc8zHLw76k3bH
-	 cNqGQpPs9nvCfaDKs6xEz1QwEwIaubCIOBpBfCg1Wt8zOz6Rk1UL/QLP9ZXnw1omnm
-	 Qj1pWK9ZwJ7l+AMLhY9FvWavDB/6ANuzuwQipfa/25kpFlZJaWR9EyAFYdLiDxiMqO
-	 ZX5xzzODwfduSMb+smZ/+7R1PBC6DnWAWd5fhoYV49ExISZb6Q5R7IQjMDuV4o9dvN
-	 PD5fIz6C7km/sGe72BW52CD6u4h/4CCNkp0qzcuzs/CS/tH5ycw3WiKEK8tgqZg9kA
-	 sxFSyBHeyeGOA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B131344283;
-	Fri, 30 Oct 2026 20:34:11 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Fri, 30 Oct 2026 20:33:57 +0000
-Subject: [PATCH v3 2/5] dt-bindings: soc: samsung: exynos-pmu: Add
- Exynos5515 compatible
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E201606A31D
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 20:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E201606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=DTlfrjQ/
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a2761c69fbso138888c88.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:35:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1793392545; x=1793997345; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SN1nku32vaFiTenqE1IuYVioDYWxzqsexpbb3IFiLMA=;
+        b=DTlfrjQ/VHNxMLfWO6pvlc5ajLU1MYy8EDBD/923WefzkcYMPYXJTMQaOqCdT0VbcU
+         TmVzApEgUoKReUCNLlW2Ffw6rqKbIui/Fx21a54XebtlnplJphN4JnfQ9QrVWQJhJxc7
+         9TAhPbNMVSc0scZmk/zRTblZ2zrP78gg6IPKJBA0ko26IQ6mgDJLq0ZpO/Wzw+0ckN/l
+         /tIKhcBSLvTyBhi67UEKRfwMyq2fc990wiBUSfPFaNxahhC3jNgm0LZqWuVj8PrDZ4KC
+         81M73Mgs+3P1K9Nt2kdIJULcgN414SlSqiEDBku9aS8QzhB3t/+uXW3bY/2sAtBAdgCF
+         HyTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793392545; x=1793997345;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SN1nku32vaFiTenqE1IuYVioDYWxzqsexpbb3IFiLMA=;
+        b=YIiniKWjIJWetfvQQOxtWyWwBG6BPlxwopuXcvwhh1MvBRGWpKoPcrQ731fBiYT9hv
+         TisF07BzBWHJhVju8wbUtkn9hqXFpKRkrCFQW10eIavzXti23uc+gx0IxRl5D7/FfeVV
+         XEi2Hb/GXzDhKaPMqeYB+e2DaiY8utb+QtVmdt0j1Nn7TrxehT6mqjUVMrGrHGfuveb8
+         94T4A3jVKvD/fXeCVVcW+MExPlFKR6Wr7uLYrP2R0QbxboZ1OLRFTtjyeXE8RjYWr1SY
+         mPm2ni3/9DbSYErC0eZT1VLNg1wBSiCfw4Dclfoejf6E6Skd0KKJxF1BS9V7f2v89tcc
+         77Dw==
+X-Gm-Message-State: AFq9FYKqgdm4A6y/FLBDgApwuXl5/7c3A9dZIl80LX9zqsPd3SVFfxXu
+	Ph1YqpQy/RKuHXL3ouV08w0p+8TCrEuXCuzWn9iuHxiAO1V3HeLzOqfwuJ/2152W8dQ=
+X-Gm-Gg: AYBFou3OakWRkBSvm00pHHETz4m0YIUUGWKcAlP6qkCff3Wc+oahWoLjhyE0VcJenB/
+	X9PoV9q3xJB35nfBq95dcw6RMOOS8Sdq6gMKLVrbR/uk9P9hMXo78m08p2Mb/nU2QsajE4Ovl2y
+	p3fhjWZVsgGrcKJy7lDa953B7tqo+3MkMqAxuYSSYAnLY2N8UEh1UWMe5QPzf9Z50zULUfi97nf
+	6qaH/FTG3/jR6WrDdztScsue0WTYjZeIUYFpMIa/yg4O7UviWUVkBiXqc+vzwn/en7zgllt3TFQ
+	zZJRCqLHZGQx1kxcg/jvR8y4MIyoRbJ4q1artEirUEyyxn1ffBwXX/CD01TFDluhttV+RiIIt6A
+	EpH/9LCr/jEWYFR561jDDPkhDb7wVDgOKRtNWdLcA0nBx4gLVKfFidp7W1QUX3IEwKda5Vkiz5r
+	M7KE+segz8sFg+GM6y0Avoo8mwvvmGpNoQZkcStnUpeqIhHOmKORvkq74uKqJpBcLfee/Wr0WhR
+	AXlzrRdbP0nRotorryVw6DvxQBJlWLfsgcGzzmFDSHOjhc936XNkQkhIPKCXfX0MgJv1fB2EFN7
+	R/yAqONU721GRuIrc+J02OhBoIr/EHdX/T463gZOsG5h
+X-Received: by 2002:a05:7022:281:20b0:1ac:91b6:8dfd with SMTP id a92af1059eb24-1ade9e3e335mr2396890c88.31.1793392544510;
+        Fri, 30 Oct 2026 13:35:44 -0700 (PDT)
+Received: from [127.0.1.1] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm15120020c88.7.2026.10.30.13.35.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 13:35:43 -0700 (PDT)
+From: Kevin Jia <kjia@nexthop.ai>
+Subject: [PATCH v3 0/2] hwmon: (fs1603) Add driver for TDK FS160x and
+ FS1006 uPOL converters
+Date: Fri, 30 Oct 2026 20:35:36 +0000
+Message-Id: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,65 +93,93 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-for-next-lucky7-v3-2-81e02272ce69@member.fsf.org>
-References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
-In-Reply-To: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=956;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=u5w9oDBuV+q/JxmEewB9ecAjYkFIvHtUgbXKYE3snfg=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq5P9BWj3cp07eny7nWeYelC5iwoGlylEEAbuTD
- jG3RYJC+xSJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCauT/QRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+tHVg/+M1rsIcz0uUNK/8caEG3ZIfganwEVCQ/
- ufqay8FMzfjgwt5TkdJoAwDFfyj7KpfPHGtW7hLE//0EAhIyWCkw/yYWqliLSUGNoJzRFODEG/M
- WkxRu4eSum8WFC02NxTmkw+0KcBsV5FiIe+WZKkPT6FVr5aNukxAAVMnwIK+P4IE7P3RoHUwXtY
- kIZE5FP0WSckxgoz/9l96VUVF8sesk/QVR/PyeTYq5wkjxLXjJwqzL8ZsECrft0ah5V3vcf41XJ
- MBo95k0+GigXF14NBr4xarZRfrSStoYa7WvwFzNgsJlKqS3YoUGnrAqAIq/eCGee7NNA9OKo9LZ
- J2ASn84vHf/RhwwDduRDu2HMApjdbIWp8j1zUErwzCVuzad9urxaczGNhatcw64h5n8WndkDEAF
- YJVopq6IP4Bh2ZJ4FCQsa3k5q0iX/Bf3KUc/IK4V5aB8uDeN6fho9zVXaBHwU6neFeN9Ift/fNm
- I6Ely7lNsz64JZchDj/NFyc09KSIMVQQSSLD9hGOQir4EYYH5neY3Nc/IqQ46BXQoz3VCHtr81G
- uJTnbbZ8/Ej8kkvRqY2IWr2MTkj1pOzOFE5bhIOC7VQN9fIp+y3l6Egf6pEn0LS67IuvZbBu1s7
- R0ziopYG9tWdYrQw7hGnknX/s7UzheDB9y9l/1+WceR5ooJMz7WI=
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJj/5GoC/1WPS07DMBRFtxJ5jJH9/IkTIcQ+EAN/XomR8iFOQ
+ lHVvWMnalWG17rn+N0LSThHTKStLmTGLaY4DjmIp4r4zg6fSGPImQADzRnX9JS4ZoKCkkZ4hcG
+ rmuTyNOMpnnfR+8eR0+q+0C+FLo0upmWcf/efNl56N2lzk26cMmpsODU1CKM9fxvwvHTj9GwjK
+ dYNHjhgdw4yxxqTH2urfIB/3PU4Z8bvNc9bjhtJjynZfV5bvdyF3U8/DnTq3ZqKXHKgm8xyqNG
+ jRCkCkw/y1zLM2YTUj30fl7aSjDnUjeLKC6g9Bs2YAZf5gA0Da0IjvAsun3X9AyIhysZ9AQAA
+X-Change-ID: 20261016-fs1603-25483c5edc57
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Kevin Jia <kjia@nexthop.ai>, Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793392543; l=3249;
+ i=kjia@nexthop.ai; s=20261016; h=from:subject:message-id;
+ bh=cTgLvVzXaKHSwBE678iEgA8UVGNfgBCAPJmAjE3eC88=;
+ b=Vu7zVw+XBh1ibGSRgqoa6lb8P65/Wi0lgWnaO1NKouSN3Dltk2HRiB2+5WY0rOBTJfEOI5YHO
+ BkAYsjPhrSMBOYx+cNrHCJ5MpxAjqf1sVpPccYMgN2Ml3AnTkHg9Fpd
+X-Developer-Key: i=kjia@nexthop.ai; a=ed25519;
+ pk=TcHV4RjX7qo9R0iryPJ/gWzq3O9yq1SUw0VO2QXQ3Zs=
 
-From: Aiden Isik <aidenisik@member.fsf.org>
+The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
+an integrated inductor. They report input and output voltage, output
+current and temperature over a proprietary I2C register map. They are not
+PMBus devices, and their register numbers collide with PMBus command codes.
 
-Add exynos5515-pmu compatible to the device tree bindings documentation.
-Use the samsung,exynos7-pmu compatible, as it works the same for Exynos7
-and Exynos5515.
+Patch 1 adds a devicetree binding, and patch 2 adds a read-only hwmon
+driver. The model cannot be detected from the part, so it is declared
+through the I2C device name or the devicetree compatible. Parts that
+encode telemetry like the FS1603 list tdk,fs1603 as a fallback.
 
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+The TDK vendor prefix is added by the FS1412 series, which this series
+depends on:
+https://lore.kernel.org/all/20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai/
+
+Tested on FS1603, FS1604, FS1006-3300, FS1006-5000 and FS1606-0600 parts
+with the driver backported to 6.12.
+
+Signed-off-by: Kevin Jia <kjia@nexthop.ai>
 ---
- Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- Drop the vendor-prefixes patch, the TDK prefix is added by the FS1412
+  series (Guenter).
+- dt-bindings: Move to a dedicated tdk,fs1603.yaml, where the FS1604,
+  FS1006-3300, FS1006-5000 and FS1606-2500 fall back to tdk,fs1603
+  (Krzysztof, Guenter).
+- hwmon: Drop the OCSet probe check. OCSet is a programmable over-current
+  level and not really an ID, so it warned falsely on boards that
+  reprogram it.
+- hwmon: Match only tdk,fs1603, tdk,fs1606 and tdk,fs1606-0600, and share
+  driver data between parts that encode telemetry the same way (Guenter).
+- Link to v2: https://patch.msgid.link/20261020-fs1603-v2-0-0986107a5cd2@nexthop.ai
 
-diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-index 5bd39876e3b3..1a0d9de79696 100644
---- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-+++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-@@ -33,6 +33,7 @@ properties:
-           - enum:
-               - axis,artpec9-pmu
-               - samsung,exynos2200-pmu
-+              - samsung,exynos5515-pmu
-               - samsung,exynos7870-pmu
-               - samsung,exynos7885-pmu
-               - samsung,exynos8890-pmu
+Changes in v2:
+- hwmon: Scale in1_crit by the feedback divider ratio measured at probe.
+  Further testing after v1 found that on boards that raise the rail with a
+  feedback divider, as the FS1606-0600 is used, VOUT_SET holds the 0.6 V
+  feedback target while VOUT reports the rail, so v1 reported the
+  feedback-pin trip point (about 0.72 V) as in1_crit on every such rail.
+- hwmon: Use named initializers in fs1603_id[] (Sashiko).
+- Link to v1: https://patch.msgid.link/20261019-fs1603-v1-0-8adf972386c1@nexthop.ai
 
--- 
-2.54.0
+---
+Kevin Jia (2):
+      dt-bindings: hwmon: Add TDK FS160x and FS1006
+      hwmon: (fs1603) Add driver for TDK FS160x and FS1006 uPOL converters
 
+ .../devicetree/bindings/hwmon/tdk,fs1603.yaml      |  53 +++
+ Documentation/hwmon/fs1603.rst                     |  75 ++++
+ Documentation/hwmon/index.rst                      |   1 +
+ MAINTAINERS                                        |   8 +
+ drivers/hwmon/Kconfig                              |  11 +
+ drivers/hwmon/Makefile                             |   1 +
+ drivers/hwmon/fs1603.c                             | 498 +++++++++++++++++++++
+ 7 files changed, 647 insertions(+)
+---
+base-commit: 400be69515c327ced60082b27ede902a8d93cbdb
+change-id: 20261016-fs1603-25483c5edc57
+prerequisite-message-id: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
+prerequisite-patch-id: 48986e9a4b228cab399cc8b28ab5cebedebbca09
+prerequisite-patch-id: e9d346bc8703fcb8032b663bddb7514ce31f2c1c
+prerequisite-patch-id: 460dc5083895fdd9fc430ce886736561151571bf
+prerequisite-patch-id: 34cc05e38fdf5462d315c20f186a2c2904a572f2
+
+Best regards,
+--  
+Kevin Jia <kjia@nexthop.ai>
 
