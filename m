@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388598;
-	b=dv06oBTeOKN3KF+Cp60b97kcEmiWcV/Z/V3P67m91WxlOLIaFxgAPA3sjlSD8v9xltum
-	 f+F082zfZjKQuF8ptPDF7RIemO4aUllVSOdTdPB8iQ9Wamfi3Qni4DmsOPTn0G4W3Zmxw
-	 yZzKdHJCbNgkq1X9B8pGylQ32i91eGvvPZQabK2O13gF2rBV4aN3HOBDn7uOftzP81oYZ
-	 i6Vrzx3a4eXurFM0K06FEhpyD3RQJx2we+Se5xs1sWTCdeIOd1xdF81vGIo6E3zH4aiV3
-	 yMznfZi0XOHMjd8l21p7WLlM4ZYAxCDLeN/sQwrJcuVpofQcIvFta5giAi6qrKvUbJA==
+	t=1793389755;
+	b=X/H1EFUH4y0vX00jkO8xqYw/kE6g9XfkLXc6ycii68Zq4pVbHpr4Bxto2gzrXA+hTRgS
+	 RKu/nOwYCZVl5fKVATmEkhxQvwUE2aLrSwXkvXFPJNguTG1TFEbtry/kpIHG1XOwaAJSA
+	 Ks6Z2chTQ29QyXgicQUj6z6aS8Ge0HhRTWMvp6bRQXc+PD4u09Fd1lQl2oZ5voEiiKuUo
+	 DRI+jNPdH8/JN6RONT6TZpxBpr9HQREaDilWhJb6Z2UfFlf1vrXyUi+vxCigDQ3ne6nsz
+	 sAYJnrSET8UYTg3Kyf7uVWvqNzCFa4DSm5yaVdvuEw7ZcJZA1A7czU5KKpPQWojtb6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388598;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=vPaZTew6bHfge4tOyLNLySlYKC2rw8qbkKNVjP45eiQ=;
-	b=4V94f9Lb4Tdxqmma7zJERmivYYZiefVh0M71zZ+kjglVJ21fVrxBbYXrX4Npt68ZuX2e
-	 PUY8DDqzO/pQzup8ZYxWNNeEykvfov458zoPsybVIAX2ts4DOVAs82nbAWcHaw9T1k4qA
-	 obaF6SOtSfCDA4VOu4dEUzMp8nWzbtQAxCpqfeNU2hHfxJBkTXdzlcbwHIF2AP1KzOx16
-	 43jsHtUvI2sojnfK4pe4USZ9/0Ankioimu2WE9rPlgwOzbPGxcSMp3lGwFMDqYW6YQxMo
-	 RaTnis2rYK+Fm21whFGe3nS03Yf/CFnTdW1iPzyJy+Bcyy7SxKe0LGSArtX6Wnjw3ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793389755;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=Z8g4xiibKWQuuJs7EMwmXcAQgq7/Z7zwBqVvlgwyNzc=;
+	b=CNcbnSAs5G0qeX1J9NlveSm908NLm7QFgsP60VOH+01HtRP+3hk67xK6HkdQOgUEM3nH
+	 z+mGXjI7AJ4Uvjhq72k/GBExG8dUnG00RQbOCQqpm2vbnoHIog5w2YjvpLa+3tTWlP7js
+	 zdRy3eAwNyucqqozGuV8n618KI/BJXxsI9ChtjxxXtU0g+RUfvezUerob6Fx+OnhN9K/J
+	 Wc9b1RyDPeEYPvnXnhbHgid9/6bPBflVGvrGsYOSHp7I6me2o/Paky6892uNL3OewJ17h
+	 hW+95Yd+t8VZ3unakvVLEQ23JLuvSnfdj7//l8qmyZB2nQkn9ddABgypbhVodudcyCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vcu0mzRq;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yPk7oTaK;
+	arc=none smtp.remote-ip=44.202.169.32
+Received: from omta033.useast.a.cloudfilter.net (omta033.useast.a.cloudfilter.net [44.202.169.32])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD0D606A31A;
-	Fri, 30 Oct 2026 19:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DD0D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF78606A31C
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAF78606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=vcu0mzRq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=vPaZTew6bHfge4tOyLNLySlYKC2rw8qbkKNVjP45eiQ=; b=vcu0mzRqxjxJVB7xA26R21VLOx
-	1XuofCcoDvKjYRmwM2obB+hnUCFpJkF2LJaei8BwSJBywSI21TReldCkGn+wUdrlpC7lnPOFPVhJQ
-	InLmBANLT+fRBAxuq/0hEXI/HTmcRD1WdeJyimQeu+GuZ+aIzaKMVUMW5u7kxr5NWsbEIeqO8r7eb
-	5z+MErXmfIQH1kwv44t0UWeM9iwm1+TY4B6nc5OszREoFiojcFy4mUbQ3rDmDMv1XLbd5qsr1tFQp
-	dgsq2+G4QhKtf2FimPUBNyCXhiEmCVykMTENu6eE6MY5CF20VntzbvgM9RbUsso6Sm919olW2kuYP
-	eLFI0hRQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: iav@iav.lv
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the GPU to Kobol Helios64
-Date: Fri, 30 Oct 2026 20:29:47 +0100
-Message-ID: <1937939.QCnGb9OGeP@phil>
-In-Reply-To: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
-References: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yPk7oTaK
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id MqFHxxEoCPG7QMsb0x7XVn; Fri, 30 Oct 2026 19:49:02 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Msb0xYQ1Y0ULmMsb0xdnkU; Fri, 30 Oct 2026 19:49:02 +0000
+X-Authority-Analysis: v=2.4 cv=JJw7s9Kb c=1 sm=1 tr=0 ts=6ae4f4ae
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=OuZLqq7tAAAA:8
+ a=EUspDBNiAAAA:8 a=3OfnbWqpRXkE7MXKp-4A:9 a=CjuIK1q_8ugA:10
+ a=AKGiAy9iJ-JzxKVHQNES:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Z8g4xiibKWQuuJs7EMwmXcAQgq7/Z7zwBqVvlgwyNzc=; b=yPk7oTaK9jPnNUqNMPC6twzpsT
+	nytbZs7aIA1qfH8e9yM5XmhTrSl/cYbIZ9RliN0XK6PH+8fH6iMHI1gCwt/eOdzUc49xyR7pm2jYG
+	R9wLgSVekO9zz7XW1C3SjWJ2jdanQoPmO4H3xTNiPdbDJTuDCzQpc8aBllvgvys8U4au70SjQAcVr
+	9kcENVpW6s4Z+c++LnSDgqh02SbHMxe8Bio+xFCpQVb4Mg/zNG/QunFRcwYu/SoYh8Aehzm3qPknX
+	EZ4s/wFn4ZXU94FbWoY7yOx8zm4QD7ylqGwONkzT2WrVTWpzZjoPkVFtX5kt1BNNAWsdLe/GcdbYI
+	A7exSNtw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44054 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xMsat-00000003tHT-0RvI;
+	Sat, 31 Oct 2026 01:18:55 +0530
+Date: Fri, 30 Oct 2026 12:48:52 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krishna Manikandan <quic_mkrishn@quicinc.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+	linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v7 03/11] dt-bindings: watchdog: qcom-wdt: Document
+ MSM8952 watchdog
+Message-ID: <7ba73247-d832-423b-8020-21cc135cd02b@roeck-us.net>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+ <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,71 +116,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xMsat-00000003tHT-0RvI
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:44054
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 9
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfEdy+XfHslbX9PXR0Z6U2RVcPtpK7djbsaaPHGlY/6xzRava/wgZyk3AeeQe30ZvjepqRrmpY+RadNEVnk/TFHQmtJnka/zx6Hb0oj6zmIoHZqnFqPwk
+ RFg0PZSwltP1FHiGJac68cphnAoOROpwc8anF0QVgt7n1wPY+idAcwNKd7q3PqzFvu7Th9BBKEshRB4TBld7HepeAvJ3ZCPQ8X8MMZ4WfjEMW1w/H+tE8KpG
 
-Hi,
+On Fri, Oct 30, 2026 at 12:02:34AM +0300, Muzaffer Kadir wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> Document the watchdog found on MSM8952.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Am Samstag, 10. Oktober 2026, 23:53:01 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Igor Velkov via B4 Relay:
-> From: Igor Velkov <iav@iav.lv>
->=20
-> The GPU core of Helios64 is supplied by U12, a Silergy SYR838 on i2c0
-> at 0x41, with its VSEL pin on GPU_SLEEP_H (GPIO1_B6). Describe it as
-> silergy,syr828, the way vdd_cpu_b (a SYR837) is described as
-> silergy,syr827, and enable the GPU.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Schematic, sheet 7:
-> https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.=
-2.pdf
->=20
-> Tested on mainline: panfrost probes, devfreq moves vdd_gpu from 825 mV
-> at 200 MHz to 1100 mV at 800 MHz, glmark2-es2-wayland under headless
-> weston scores 548-577 in three runs. Two of them logged one panfrost
-> job timeout each; the Armbian DT gave none in three runs.
-> ---
->  .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 28 ++++++++++++++++=
-++++++
->  1 file changed, 28 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
-h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> index 63ad79b4c8ac..1f50982291bf 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> @@ -339,6 +339,11 @@ &gmac {
->  	status =3D "okay";
->  };
-> =20
-> +&gpu {
-> +	mali-supply =3D <&vdd_gpu>;
-> +	status =3D "okay";
-> +};
-> +
->  &i2c0 {
->  	clock-frequency =3D <400000>;
->  	i2c-scl-rising-time-ns =3D <168>;
-> @@ -453,6 +458,25 @@ regulator-state-mem {
->  			regulator-off-in-suspend;
->  		};
->  	};
-> +
-> +	vdd_gpu: regulator@41 {
-> +		compatible =3D "silergy,syr828";
-> +		reg =3D <0x41>;
-> +		fcs,suspend-voltage-selector =3D <1>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&vsel2_pin>;
-> +		regulator-name =3D "vdd_gpu";
-> +		regulator-always-on;
-> +		regulator-boot-on;
+Applied.
 
-both of these should not be needed, as the GPU should control its
-regulator. (always-on and boot-on)
-
-Heiko
-
-
+Thanks,
+Guenter
