@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384552;
-	b=bQUsh9+wr5tenJJkqjNpvgnemEYYq4EoIlk2Gc548vT6a80cfw6kmC2v/nJSSpux/SyS
-	 SIwaqcgqUEecMBTYdsJB8qUoIz6ANefPk9trPO1CBUvwuUcUhAaYSt8rz2a0vnMHPvMuR
-	 NwpQ1Gf/R8NE4IzHQEpMmX6YyPq+esMoX71An6uAdWq3RKPV7lO+2tNa5rniYfVC0NZJ9
-	 Uow8yXZesvL8vRE+/hSwRJkA/5W8IMiaomzNH3x9I+l3tKvoGtrk6Y+b/H1DoSGg5QlC7
-	 0xWbrb6XZ+knL8EbqlviGcOobrQQEb2r3ofw3RQGzvJDGzaKXwTg8izVugOl1h5r00g==
+	t=1793384965;
+	b=4V2LfqC8Jo2GzNthrKRXw6a3wqBtz1yDJbGr2vqhfRJvi11Ro9B6dGNZ7rHMUuFWvOka
+	 9JYvFx/zjAX0O+luAfGVMLo6UlzDsrMa64ob3E6tTG9Xp8fNjBjx0uJ2gbqbcyJcAMIPx
+	 rpO67Qu7wB1Kfl/T5Y1zBSGN6xfWpqx2hRGWwsKt6RKH88oR0FqYaByIlO9ieBhqNVIvw
+	 g/1URWbld+F6C27C0l6nIZA8OQY9nDE6VPUlXPCNS1W0l7Zz6/yf8GRBKuCy7GqNDsL4B
+	 uiauexHPvK+CYYs4MHEUF2E+Es1iFXOdSNVhjNN+GOcpUYWiF4TS0GVdR/GmTZsIXIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384552;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IhyvZUUu/9Pqj0G5T+OOMZeqorFoP0fF5JBfpfONpxQ=;
-	b=Z25oS28Q2gnh6Ctw5B3TlxE3wmkdKuo6vpG8MEkLZ5EPPqUUjIHuDO7OBgSsk1hwjaL1
-	 P9gJTBU6+LLPUqg6ZbjwoFmonPmrQvJtzCTaTypMnr7t0c6mJJYl6cbPT0g0a8fH5609i
-	 9TOQQW6GmrZKVpIqxHDsRp3ytcjdoIVCyWv9W8ph/tfw5y26A51lo+yUgn5u9bYBUpt2o
-	 rdRQW9HiNITMQGFiBwyuQguM3YoMpIOs6Er0kOvFBtG/eKKYEvpt3w67RcFckUPxPkT2a
-	 7eUMs3bGZWsyzS4IhAyAaA/RFh3dA0mETlZEF9bWEQw8HQFmG6T2KQdECXYAIi0AyoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384965;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=uz4LvSzcuRJZi3XMUYqqNT+YpLDfO9WhSvjXXbISjQ4=;
+	b=dcULb/7ffEjJuseOSPmbx+etk4Ij0JAQzlD/6HMG6s0+x3avgHgQvAAtxKSk5YszpQnB
+	 /3n3LlctK9Lo/4pDw4ZGNwX/iIRySIR7QP5EJLQ77OtwFaheI6oYbKlQfaQkewcCGJ2sR
+	 U5m2L+Vor1vk5vQMUiqyUDAHus7UYplAT4mQyExDNvCgZktyyl2oXmGOaZm8o8sJNWN64
+	 pdOSkO6Enj4DG6SakC2ysqPcC+cxhRwJfdHRZU4WES9EURobwRzNdHpQRuVhxuylkH9Vh
+	 clo2WWOwofEAfyZCQhjmRYizY67IZHyg31Ij/ZJ6jkBs2bKOFJRZf6MYzX/9hG4Bqtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RN5Sm/kc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7pOfnN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E8F606A31C;
-	Fri, 30 Oct 2026 18:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A10606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 18:29:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN5Sm/kc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DFE21F000C1;
-	Fri, 30 Oct 2026 18:22:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7pOfnN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA301F000C1;
+	Fri, 30 Oct 2026 18:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793384551;
-	bh=IhyvZUUu/9Pqj0G5T+OOMZeqorFoP0fF5JBfpfONpxQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RN5Sm/kckP5b5QiYILmF/NuxP5huXk/5np5PefaFjluRtOKBZy7ToFgK6NnazBe6z
-	 kT+qDljrYb9ubutfP724x0fmPTeAkznBIhtNYeZVwHe+WGjGDkwawPQvO72BsPDbeM
-	 28Ui6Juc196u/T0DzIGq78nj58bHIsWS8BAZqUk8oxZ0QSCMMPlM2R8bbE+8G+XfB6
-	 w9pAICRPA07/M5048JrxtQdjbYL79wAcYQNk1x8PlNf7XWWWBGuPIs8oyLHEUJvkMI
-	 HY+rLPmLlI4Ilsrl7ApBFgBmAgLmirQWkzk+/iH3+uAl4xJxwvz8RTDnW6ocPa8hKz
-	 2SwgMNeXKUjIw==
-Date: Fri, 30 Oct 2026 13:22:27 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	linux-phy@lists.infradead.org,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
-	Ray Jui <rjui@broadcom.com>, linux-arm-kernel@lists.infradead.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH 6/9] dt-bindings: usb: generic-ehci: Add the NSP
- compatible
-Message-ID: <179338454691.1217805.11713868240616162011.robh@kernel.org>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-7-florian.fainelli@broadcom.com>
+	s=k20260515; t=1793384964;
+	bh=uz4LvSzcuRJZi3XMUYqqNT+YpLDfO9WhSvjXXbISjQ4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=By7pOfnNMrrkozydY9CdmNAISt6YmEsER6ipZdbLf8EeQSyrQAC9G+doojFDNNeo6
+	 gkW0cLaqZR9vOBwe8rXp3iPJjQWc9WjeEebcUSxH46lh5JO6EtRQJ1uGlcVSoICZLO
+	 MYkwsVjNWHMktFDwxLDhHBQ4KvjA4hIklBZW1KLbHBtvXy1s7jPTpyXxkd2mlqUzw0
+	 O2m3LGF2E9BuR69FcwVr2CtLD/wj7WcQGgUx3GmzWMiGU9Bm88fJ0xHh58qvb4crQ/
+	 DcXPmHVMDpSUVhBFLWOxMQGcU5DR1qJ5m6GhSXtIh+dHCxXWevraah61Ea0jUY8wtz
+	 T5HPNqFXTSM7g==
+Message-ID: <sashiko-outbox-191408@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 6/6] mmc: core: Add support for resetting an eMMC at
+ system resume
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kamal Dasu" <kamal.dasu@broadcom.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261030181034.3811225-7-kamal.dasu@broadcom.com>
+References: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
+ <20261030181034.3811225-7-kamal.dasu@broadcom.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 18:29:23 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,22 +60,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021172819.668120-7-florian.fainelli@broadcom.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mmc: core: unchecked _mmc_hw_reset() error and premature active =
+state in mmc_resume()
+--
 
-On Wed, 21 Oct 2026 10:28:15 -0700, Florian Fainelli wrote:
-> Describe the EHCI controller in Broadcom Northstar Plus SoCs with a
-> SoC-specific compatible. It needs the same FIFO threshold programming
-> as other iProc EHCI controllers, which generic-ehci alone cannot select.
-> 
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> ---
->  Documentation/devicetree/bindings/usb/generic-ehci.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+commit f67582c90bab341460117ecbfa06f572b7755129
+Author: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+mmc: core: Add support for resetting an eMMC at system resume
 
+This commit adds support for the reset-card-at-resume DT property by setting
+MMC_CAP2_RESET_AT_RESUME and MMC_PM_KEEP_POWER, and calling _mmc_hw_reset()
+during mmc_resume().
+
+> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> index c183afbed30c8..793767c5159f2 100644
+> --- a/drivers/mmc/core/mmc.c
+> +++ b/drivers/mmc/core/mmc.c
+> @@ -2320,6 +2320,14 @@ static int mmc_resume(struct mmc_host *host)
+>  	}
+> =20
+>  	pm_runtime_enable(&host->card->dev);
+> +
+> +	if (mmc_card_keep_power(host) &&
+> +	    host->caps2 & MMC_CAP2_RESET_AT_RESUME) {
+> +		mmc_claim_host(host);
+> +		_mmc_hw_reset(host);
+> +		mmc_release_host(host);
+> +	}
+
+[Severity: Medium]
+Should mmc_resume() check the return value of _mmc_hw_reset(host) and avoid
+marking the card active before the reset succeeds?
+
+Right now, when mmc_card_keep_power(host) is true, mmc_resume() uncondition=
+ally
+marks the card runtime-active and clears the suspended state first:
+
+drivers/mmc/core/mmc.c:mmc_resume() {
+	if (mmc_card_keep_power(host)) {
+		pm_runtime_set_active(&host->card->dev);
+		mmc_card_clr_suspended(host->card);
+	}
+	pm_runtime_enable(&host->card->dev);
+	...
+}
+
+After that, _mmc_hw_reset(host) resets or power-cycles the card, resets the
+host IOS state to initial values via mmc_set_initial_state(host), and calls
+mmc_init_card(host, card->ocr, card).
+
+If mmc_init_card() fails (for example due to a command timeout, voltage or
+timing switch failure, or tuning error), mmc_resume() discards the error and
+returns 0 to mmc_bus_resume(). That suppresses the resume failure warning in
+mmc_bus_resume() and leaves the card marked runtime-active and unsuspended
+while the hardware remains in an uninitialized reset state, preventing a
+subsequent runtime resume via _mmc_resume() from re-initializing the card.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030181034.3811=
+225-1-kamal.dasu@broadcom.com?part=3D6
