@@ -1,102 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793387699;
-	b=1r1EcgPutsZWsAtunTiiKa2V6mIHGjOMgHDx4ZhXdYSgOwazRSdBgPDdocJFEvonhqAW
-	 zaxOa9scEValW6OUahWtchKtqSPHI0zxtd2Y64yqZ9qPlL93pNPZ0idL4sxCjSs/5Svtk
-	 USjgv5v13f1IZ6LjY8G2j8tBw1z49ZCUmHUuRomwnwXWfeC/l8HOFXDNAXRmbjdngjz7S
-	 E5UDn5Eca3l5iXGv2VQqX/yybibOAwRhN74sSLGO1tSEjro+yvBaLLMDK0EXM5vo+DfQB
-	 X7WnyutBvxgtI+XZkp5iivQeqGCqQmQDy5pTv81ucv/YKbpgI8dvckuQrYUbHyr8kpA==
+	t=1793388141;
+	b=Kb6jRfyfGExQ3YplxiuAHWAxNsFIIYV1MyjwxhIpWUHBiJE6yFu9UTiflvd8Zi0HslEL
+	 YTTl7wyCXbilJ5a3hUGD44V1dF+arSIX3KCr9+LEP59dinGaUTmmX35E9bKrIQ9Y+Azr6
+	 OAwF47GUv/YyH02XS4cERud4UgyxGMXjlyzThIGA2v4yFfQ/KRVk2pZcYHDg8ZP+UA6TX
+	 0UcsDLKc6CElMCQWcvE7B+BfoQ8aE1Dh2lt3y2/ffi06sw79bB1E30lS8xsOmzT+231QT
+	 o6YzEn//s+nzOT/6sOPylUENdEdNBxBhLlAwT6GaGRi67w4vR2RzIb2qq+55SpRXefQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793387699;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
-	b=diu1LMxyl6+lO28pqjKIrQXzhvFibaUYHX+Q4AMxALgX//evv5iaV5rHI8l1XxQD6rgM
-	 4BQnbYo2wWSvX8SADtKfSDzdyXa9AxP73qLEsdlfDnz47thvt3V8LMAP4vR8tnXZBWtJ0
-	 CpbKK2VfeuhOTKsNPX6aX812Cl9sPUY53x2KmYrk2Q4NJeis6/q2wnk05IbWin4GDScBl
-	 ah/zY4nda72KmZbNDURwGYzQbogxUkGcWAZxsmGtFwEIEpS0QVe9RWHAEFz+eoTqyVV+d
-	 kLmyEf05vemEwMA56cC9sIxusgIEiGCI9ZswPDz5nhDkoswVs9kAX/zkm8MKn6xBRAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388141;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JRuPRUMmowJm9n80nShe6UCmyUTqs28l2ufQBNwg89A=;
+	b=yCmraZijYae5o1ODm+BMChwYCNspnz603ybLNWYAwwZmrwi6cr/moQEKtnMadnZJksgt
+	 AQx5FWTlWjQaZA3y8/ncWEKVT7vNgIPtE+/Tt63emMd8JvecOsLxouKWSXq8TvLeJHuF3
+	 dTQ/wzbNUeW8GvDRbvUApIYJCkZ0Jw/nTU2B4ulMZnQ//tFinHivuSDrckqxOWQKHR/LF
+	 6IAah5XOFnXfxHEL07ho0PZxJJCYAEZM5a/2qg6K1tX4FDcwZBz/DcbhDAqsmhzpIgbgL
+	 06JXkHDWa0/1lD4cwiAzQkZO/3lmLGNdT0v0Kpt+pwQWv464xqoorvXS1FH8/PySMbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Gd9d4Yq8;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRoDqvRY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5B0606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC5B0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C19B606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Gd9d4Yq8
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso506592a91.2
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793387698; x=1793992498;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
-        b=mBZiVKlTa0rvqBrxtto8syD34OvJqTkDRuiUjvAgCa7zLjejibCe7EmHub/zH2RKy7
-         cARRymzcaJtfng+rGs0e3q3p3ojbNAa5zErnz1Y54YCemV5TXGuP3OBNODWG16lT7aLd
-         cH4QESQzpWiAp7F8TXbeDUwF90CeGN3ft0EC04NZchEJtdY80XBFNQP0ZpshCv4fCiPa
-         eEjBqhEPTEBh+OiTGidwgaY65dZI2L9owaM7am3CVK1hBP+yLfRb606EiUNQ4TWQ7ykT
-         i6VnnzGRAYH2+usnpRbRp0WU1nzXcOD92SvubU9Tq1TLf+N+XAvzdRYZIVjElbH1RVvE
-         C/xA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZdcRereCVCrBSwWG0+tXSUW3xZvoVH51ohoamuUWdqOgzdsZGILcEm7WyC4ABdFCC2uR4LZ8iQRl9@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKAraeT7PWhDjYZwX0iGHPSsjrfEUkjmXSvvZru7suKKfF9raY
-	zVjaCY/8gG6ihOnOwwwLnVdq1TPjEms1E2qRx0Bqe5CQcDSAkQz1yWhksUaGZr7WPRBLTjuAs4V
-	vQaKztyAHcEZVQGksx+CcvntKxg/2qTCC6ojFigH1jKHK8WdEGN/BFjOpdy1z+4VSltKSL0kDuW
-	BpHH0xoJrFLOfZ2yV8B+llnteMlbE2C3e3i4PSTB0P5yWACDJ7zZ8riGLU/NuJlti4dU58M89GO
-	fgbcqt0GSfRyudb3Qe1CXN3
-X-Gm-Gg: AYBFou3k8uRmLfALOXG0nMdtYNRqf4oM2ieHOjcK4DYEWZxxo3swNCF6AZih5cjB12I
-	QClAxzaXeexVyAEyiWv0Vu0SF3Ze9eUeCcenNkvl22MicnQmJGE0yV7blBiCOYRd2fokS9yuJyV
-	4fq6qIPvySXZemaF+kKCCdCzC/x05318YigxdEX5TpzDnZFm3ndI1s+/qsQkbQupyps0mnLlecj
-	7+WTJojwUKnWTpPEWbbrjy5Eo5chew871/9CjbOSDaJFtHEmLOAHM54MARZxfMO5HUb/s3+PWvm
-	kW81B3ya2RYIxfsQgpt6+GelLS9GzCySLe2aDHkgRvm+WIp5r8h4lRimF8eq7D7yl/wrYHRlUgs
-	1qBOKqc20laWTQj++LO2hjOT4HXCKx+uHCuXY7Zw2/NcENBsVj1zeQ3T+p5iQixPPwtkJiTO1Nx
-	rc4T4GSFo/kLt1tnw64uF0QRV9J2JMu3aYwpMHuHfr
-X-Received: by 2002:a17:90b:2ccf:b0:3ac:d17c:2a70 with SMTP id 98e67ed59e1d1-3ae897c8552mr2683807a91.62.1793387698182;
-        Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae8444ce5esm2493169a91.2.2026.10.30.12.14.57
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2026 12:14:58 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91b92acedd9so31071736d6.2
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:14:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793387696; x=1793992496; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DFrEXZTm+iWrPConGaRa1dN06L+AXpLuI1/eZZLz7wQ=;
-        b=Gd9d4Yq8fp4vmgLusvV5LExP0kEHXoqGIzfcn99ebJN5xuoAFCc9WmytenSfcfWKYP
-         igvRxxLbm3pNQMKzQe+EWrsRuNkyaEfBfQfe+G0QOMR7MbY0X3iQlIs8gc/nNQMNLaqQ
-         owfwaRohCzIwRnnpRQxVkPtE9w2M2eN/pDvkA=
-X-Forwarded-Encrypted: i=1; AKwUvBwspJZlgqybOwvxGd2rMPBLqwr3blsWKCm34vRLZOwuuQe1ZA4lPxJQm7jiyX87G2lFTVoGzlN3eoqB@vger.kernel.org
-X-Received: by 2002:ad4:5c61:0:b0:91b:5d39:e13b with SMTP id 6a1803df08f44-91ca4bda1d7mr54317436d6.48.1793387696573;
-        Fri, 30 Oct 2026 12:14:56 -0700 (PDT)
-X-Received: by 2002:ad4:5c61:0:b0:91b:5d39:e13b with SMTP id 6a1803df08f44-91ca4bda1d7mr54316986d6.48.1793387696200;
-        Fri, 30 Oct 2026 12:14:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f3db1asm23125436d6.16.2026.10.30.12.14.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 12:14:55 -0700 (PDT)
-Message-ID: <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
-Date: Fri, 30 Oct 2026 12:14:52 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRoDqvRY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F611F000C1;
+	Fri, 30 Oct 2026 19:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793388140;
+	bh=JRuPRUMmowJm9n80nShe6UCmyUTqs28l2ufQBNwg89A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MRoDqvRYTHzAb64/SS6sa+EdnjlkubxWBVOWqOMBRHwMV12hRi2oVfcYHkSdilKBi
+	 +C2UM7LwtJQxRsWZxMcGYIgK2/hHCkmP2l3ehHP/GFuEOJB5ukddjRp4V3SqjLT1BD
+	 t13EK8M0y5ia13Wi5V7BeOGAIIfE0x6lkKHToXby3qKlROc9HhWFdkHVxHb6MUVLH8
+	 ziVIKbbBGlZTpzZuZVBkL/2VKJ5oedZKq33KsDiEXI0tmAxHO0mBAUqygIkfM3RW1d
+	 Jt44MuBMef+sOdA3jXNe6P5dDCfAcLKYipmKveTMcG0bRCdqHn6NfWjHCHr/ijGysM
+	 +Gxofz3/b0kVA==
+Message-ID: <sashiko-outbox-191438@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] net: dsa: mediatek: add support for passthrough
+ mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029184202.1859843-4-cjd@cjdns.fr>
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-4-cjd@cjdns.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 19:22:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,114 +60,329 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP
- variant
-To: Rob Herring <robh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Alan Stern <stern@rowland.harvard.edu>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <rafal@milecki.pl>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
- "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-3-florian.fainelli@broadcom.com>
- <20261030182151.GA1206797-robh@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261030182151.GA1206797-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 10/30/26 11:21, Rob Herring wrote:
-> On Wed, Oct 21, 2026 at 10:28:11AM -0700, Florian Fainelli wrote:
->> Northstar Plus uses the Northstar Bx PHY register sequence but also
->> requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
->> clock enable.
->>
->> Add an NSP compatible with a required USB2 DMP phandle. Describe the
->> shared PHY relationship with EHCI, OHCI and xHCI so initialization
->> finishes before any host starts operating.
->>
->> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
->> ---
->>   .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
->>   1 file changed, 23 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
->> index 7fd419db45d0..00d69b86cbff 100644
->> --- a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
->> +++ b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
->> @@ -14,6 +14,9 @@ description: |
->>     Known B1: BCM4707 rev 6
->>     Known C0: BCM47094 rev 0
->>   
->> +  Northstar Plus uses the Bx programming sequence, with coordinated USB2 and
->> +  USB3 resets. Its PHY is shared by the EHCI, OHCI and xHCI controllers.
->> +
->>   maintainers:
->>     - Rafał Miłecki <rafal@milecki.pl>
->>   
->> @@ -22,6 +25,7 @@ properties:
->>       enum:
->>         - brcm,ns-ax-usb3-phy
->>         - brcm,ns-bx-usb3-phy
->> +      - brcm,nsp-usb3-phy
->>   
->>     reg:
->>       description: address of MDIO bus device
->> @@ -32,6 +36,13 @@ properties:
->>       description:
->>         Phandle to the DMP (Device Management Plugin) syscon
->>   
->> +  usb2-dmp-syscon:
-> 
-> brcm,usb2-dmp
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] net: dsa: mt7530: mt753x_check_passthrough() breaks dual-CPU-port =
+boards
+- [High] net: dsa: mt7530: mt753x_trap_frames() blocks CPU control frames i=
+n passthrough
+- [High] net: dsa: mt7530: downstream switch callbacks assume local CPU port
+- [Medium] net: dsa: mt7530: setup overwrites PVC_EG_TAG on passthrough CPU=
+ port
+- [Medium] net: dsa: mt7530: mt7530_port_enable() ignores per-port CPU cond=
+uit
+--
 
-That would be inconsistent with the usb3-dmp-syscon property that is 
-pre-existing, hence the name chosen here.
--- 
-Florian
+commit 89ff16dda9d512576bf6153ac6b119283ed62bea
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+
+net: dsa: mediatek: add support for passthrough mode
+
+This commit adds passthrough mode support for MT7530 switches so that an
+upstream SoC-integrated switch can pass traffic to and from a downstream
+MT7530 switch without altering the MediaTek DSA tag.
+
+> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+> index d10194488bdee..c5b3b00acb956 100644
+> --- a/drivers/net/dsa/mt7530.c
+> +++ b/drivers/net/dsa/mt7530.c
+
+[ ... ]
+
+> @@ -1286,13 +1297,81 @@ mt753x_trap_frames(struct mt7530_priv *priv)
+>  				   TO_CPU_FW_CPU_ONLY);
+>  }
+
+[ ... ]
+
+> +/* If this switch is downstream of another switch that is in passthrough=
+ mode,
+> + * the "CPU" port is actually a DSA port.
+> + */
+>  static void
+>  mt753x_cpu_port_enable(struct dsa_switch *ds, int port)
+>  {
+>  	struct mt7530_priv *priv =3D ds->priv;
+> =20
+> -	/* Enable Mediatek header mode on the cpu port */
+> -	regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
+> +	if (priv->is_passthrough) {
+> +		/* Disable parsing of the DSA tag, it will be forwarded blindly
+> +		 * to the downstream switch.
+> +		 */
+> +		regmap_write(priv->regmap, MT7530_PVC_P(port),
+> +			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
+> +			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
+> +
+> +		/* The port is not configured to parse DSA tags, so they are
+> +		 * liable to be confused for length fields, so length check is
+> +		 * disabled.
+> +		 */
+> +		regmap_clear_bits(priv->regmap, MT753X_AGC, AGC_L2LEN_CHK);
+> +
+> +		/* In passthrough mode, MTU is only enforced downstream */
+> +		mt7530_port_change_mtu(ds, port, MT7530_MAX_MTU);
+> +
+> +		/* Loop detection has no value in passthrough mode */
+> +		regmap_set_bits(priv->regmap, MT753X_MTRAP,
+> +				MT7530_LOOP_DET_DISABLE);
+> +	} else {
+> +		/* Not passthrough, enable DSA tag handling on CPU port. */
+> +		regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
+> +	}
+> =20
+>  	/* Enable flooding on the CPU port */
+>  	regmap_set_bits(priv->regmap, MT753X_MFC,
+> @@ -1322,6 +1401,7 @@ static int
+>  mt7530_port_enable(struct dsa_switch *ds, int port,
+>  		   struct phy_device *phy)
+>  {
+> +	int upstream_pt =3D dsa_switch_upstream_port(ds);
+>  	struct dsa_port *dp =3D dsa_to_port(ds, port);
+>  	struct mt7530_priv *priv =3D ds->priv;
+> =20
+> @@ -1332,13 +1412,38 @@ mt7530_port_enable(struct dsa_switch *ds, int por=
+t,
+>  	 * bridge.
+>  	 */
+>  	if (dsa_port_is_user(dp)) {
+> -		struct dsa_port *cpu_dp =3D dp->cpu_dp;
+> +		priv->ports[port].pm |=3D PCR_MATRIX(BIT(upstream_pt));
+> =20
+> -		priv->ports[port].pm |=3D PCR_MATRIX(BIT(cpu_dp->index));
+
+[Severity: Medium]
+On switches with multiple CPU ports (such as MT7531 where per-port conduit
+assignment is supported via mt753x_port_change_conduit()), does replacing
+dp->cpu_dp->index with dsa_switch_upstream_port(ds) in mt7530_port_enable()
+connect a user port to the wrong CPU port when its assigned conduit differs
+from that of the first available port?
+
+dsa_switch_upstream_port(ds) returns dsa_upstream_port(ds, dp->index) for t=
+he
+first available port on the switch rather than dsa_upstream_port(ds, port)
+for the port being enabled. When a user port assigned to the secondary CPU
+conduit is brought up via dsa_user_open() -> mt7530_port_enable(), shouldn't
+this use dsa_upstream_port(ds, port) instead?
+
+[ ... ]
+
+> @@ -2511,7 +2671,7 @@ mt7530_setup(struct dsa_switch *ds)
+>  		/* Disable learning by default on all ports */
+>  		regmap_set_bits(priv->regmap, MT7530_PSC_P(i), SA_DIS);
+> =20
+> -		if (dsa_is_cpu_port(ds, i)) {
+> +		if (dsa_is_upstream_port(ds, i)) {
+>  			mt753x_cpu_port_enable(ds, i);
+>  		} else {
+>  			mt7530_port_disable(ds, i);
+
+[Severity: Medium]
+In both mt7530_setup() and mt7531_setup_common(), mt753x_cpu_port_enable()
+sets MT7530_PVC_P(port) with PVC_EG_TAG(MT7530_VLAN_EG_DISABLED) when
+priv->is_passthrough is true, but right after the if/else block in the loop:
+
+drivers/net/dsa/mt7530.c:mt7530_setup() {
+    ...
+		if (dsa_is_upstream_port(ds, i)) {
+			mt753x_cpu_port_enable(ds, i);
+		} else {
+			mt7530_port_disable(ds, i);
+
+			/* Set default PVID to 0 on all user ports */
+			regmap_update_bits(priv->regmap, MT7530_PPBV1_P(i),
+					   G0_PORT_VID_MASK, G0_PORT_VID_DEF);
+		}
+		/* Enable consistent egress tag */
+		regmap_update_bits(priv->regmap, MT7530_PVC_P(i),
+				   PVC_EG_TAG_MASK,
+				   PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
+    ...
+}
+
+Doesn't this unconditionally overwrite PVC_EG_TAG_MASK on the passthrough
+upstream CPU port with MT7530_VLAN_EG_CONSISTENT, since mt7530_port_enable()
+only rewrites MT7530_PVC_P(port) for the downstream DSA link port?
+
+[Severity: High]
+Also in mt7530_setup() and mt7531_setup_common(), mt753x_trap_frames(priv)
+is still called unconditionally even when priv->is_passthrough is true:
+
+drivers/net/dsa/mt7530.c:mt753x_trap_frames() {
+	regmap_update_bits(priv->regmap, MT753X_BPC,
+			   PAE_BPDU_FR | PAE_EG_TAG_MASK | PAE_PORT_FW_MASK |
+				   BPDU_EG_TAG_MASK | BPDU_PORT_FW_MASK,
+			   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+				   PAE_PORT_FW(TO_CPU_FW_CPU_ONLY) |
+				   BPDU_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+				   TO_CPU_FW_CPU_ONLY);
+    ...
+}
+
+On a normal switch, PORT_SPEC_TAG is enabled on the CPU port so frames sent
+by the CPU are directed by the MediaTek special tag. On a passthrough switc=
+h,
+mt753x_cpu_port_enable() leaves PORT_SPEC_TAG unset on the CPU port so fram=
+es
+are forwarded via the port matrix.
+
+When the CPU transmits STP BPDUs, 802.1X PAE, LACP, PAUSE, or LLDP frames
+(matching 01:80:c2:00:00:00/01/02/03/0e in BPC, RGAC1, and RGAC2) towards a
+downstream switch port, won't those frames ingressing the passthrough
+switch's CPU port match the trap rules and be restricted to
+TO_CPU_FW_CPU_ONLY (the passthrough switch's own CPU port) instead of being
+forwarded to the downstream DSA link port?
+
+[ ... ]
+
+> @@ -3304,7 +3472,7 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
+> =20
+>  	/* Set the CPU port to trap frames to for MT7530. Trapped frames will be
+>  	 * forwarded to the numerically smallest CPU port whose conduit
+> -	 * interface is up.
+> +	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
+>  	 */
+>  	if (priv->id !=3D ID_MT7530 && priv->id !=3D ID_MT7621 &&
+>  	    priv->id !=3D ID_EN7528)
+
+[Severity: High]
+On the downstream switch behind a passthrough switch, the upstream port is a
+DSA link port (DSA_PORT_TYPE_DSA) rather than a CPU port (DSA_PORT_TYPE_CPU=
+),
+and dp->cpu_dp / conduit->dsa_ptr point to the CPU port on the upstream
+switch. How are the following paths handled on the downstream switch?
+
+First, in mt753x_conduit_state_change(), mt7530_update_port_member(), and
+mt7530_port_vlan_filtering(), the code uses cpu_dp->index directly:
+
+drivers/net/dsa/mt7530.c:mt753x_conduit_state_change() {
+	struct dsa_port *cpu_dp =3D conduit->dsa_ptr;
+    ...
+	mask =3D BIT(cpu_dp->index);
+}
+
+drivers/net/dsa/mt7530.c:mt7530_update_port_member() {
+	struct dsa_port *dp =3D dsa_to_port(priv->ds, port), *other_dp;
+	struct mt7530_port *p =3D &priv->ports[port], *other_p;
+	struct dsa_port *cpu_dp =3D dp->cpu_dp;
+	u32 port_bitmap =3D BIT(cpu_dp->index);
+    ...
+}
+
+drivers/net/dsa/mt7530.c:mt7530_port_vlan_filtering() {
+	struct dsa_port *dp =3D dsa_to_port(ds, port);
+	struct dsa_port *cpu_dp =3D dp->cpu_dp;
+
+	if (vlan_filtering) {
+		mt7530_port_set_vlan_aware(ds, port);
+		mt7530_port_set_vlan_aware(ds, cpu_dp->index);
+    ...
+}
+
+If the upstream switch's CPU port index differs from the downstream switch's
+upstream DSA link port index (for example, port 6 on the upstream switch vs
+port 5 on the downstream switch), won't these program the wrong port on the
+downstream switch?
+
+Second, when a VLAN is added or deleted on the downstream switch, DSA calls
+mt7530_port_vlan_add() and mt7530_port_vlan_del() on the downstream switch's
+upstream DSA link port (passing the user port's untagged and pvid flags). In
+mt7530_hw_vlan_add():
+
+drivers/net/dsa/mt7530.c:mt7530_hw_vlan_add() {
+    ...
+	if (dsa_port_is_cpu(dp))
+		val =3D MT7530_VLAN_EGRESS_STACK;
+	else if (entry->untagged)
+		val =3D MT7530_VLAN_EGRESS_UNTAG;
+	else
+		val =3D MT7530_VLAN_EGRESS_TAG;
+	regmap_update_bits(priv->regmap, MT7530_VAWD2,
+			   ETAG_CTRL_P_MASK(entry->port),
+			   ETAG_CTRL_P(entry->port, val));
+}
+
+Because dsa_port_is_cpu(dp) is false for the downstream switch's upstream D=
+SA
+link port, won't mt7530_hw_vlan_add() fail to set MT7530_VLAN_EGRESS_STACK
+and instead set UNTAG or TAG, while mt7530_port_vlan_add() and
+mt7530_port_vlan_del() also overwrite PVID and ACC_FRM_MASK on the upstream
+port?
+
+[ ... ]
+
+> @@ -3399,6 +3574,99 @@ static int mt7988_setup(struct dsa_switch *ds)
+>  	return mt7531_setup_common(ds);
+>  }
+> =20
+> +/* 1 if passthrough, negative if error. */
+> +static int mt753x_check_passthrough(struct device *dev)
+> +{
+> +	struct device_node *ports, *port;
+> +	int passthrough_ports =3D 0;
+> +	int enabled_ports =3D 0;
+> +
+> +	ports =3D of_get_child_by_name(dev->of_node, "ports");
+> +	if (!ports)
+> +		ports =3D of_get_child_by_name(dev->of_node, "ethernet-ports");
+> +
+> +	if (!ports) {
+> +		dev_err(dev, "no ports child node found\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	for_each_available_child_of_node(ports, port) {
+> +		struct device_node *link;
+> +
+> +		enabled_ports++;
+> +
+> +		link =3D of_parse_phandle(port, "ethernet", 0);
+> +		if (!link)
+> +			link =3D of_parse_phandle(port, "link", 0);
+> +
+> +		if (!link)
+> +			continue;
+> +
+> +		of_node_put(link);
+> +
+> +		passthrough_ports++;
+> +	}
+> +
+> +	of_node_put(ports);
+> +
+> +	/*
+> +	 * A switch is considered passthrough if exactly two available
+> +	 * ports have an "ethernet" or "link" phandle.
+> +	 */
+> +	if (passthrough_ports > 2 ||
+> +	    (passthrough_ports =3D=3D 2 && enabled_ports !=3D 2)
+> +	) {
+> +		dev_err(dev, "Only two ports allowed in passthrough mode\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	return passthrough_ports =3D=3D 2;
+> +}
+
+[Severity: High]
+What happens in mt7530_probe_common() -> mt753x_check_passthrough() on
+standalone dual-CPU-port boards where two ports (such as port@5 and port@6)
+both have "ethernet" phandles and no port has a "link" phandle?
+
+Because mt753x_check_passthrough() counts both "ethernet" and "link" phandl=
+es
+into passthrough_ports without checking whether any "link" phandle is
+present, passthrough_ports is 2 whenever two CPU ports are enabled. If any
+user ports are also enabled (enabled_ports > 2, as on mt7621, mt7622,
+mt7623n, and mt7986 dual-CPU-port boards), doesn't mt753x_check_passthrough=
+()
+return -EINVAL and abort the switch probe? And if all user ports happen to =
+be
+disabled (enabled_ports =3D=3D 2), wouldn't it falsely enable passthrough m=
+ode on
+a switch with two CPU ports and no downstream switch?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029184202.1859=
+843-1-cjd@cjdns.fr?part=3D3
