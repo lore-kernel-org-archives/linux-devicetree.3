@@ -1,103 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.81
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793361473;
-	b=hHTcmT1ZBMzkPiIC9XLRY0gCXuPH0BwbPDHeFv2IIvJhtcTEofQMHLeO73sNsUch5vLA
-	 t4i3h8Hlp0IWHgjIZU+bSSIGpCI4l5I+DqdFVxURnIgIK9aQU8atujTn4hFyQa/Jki2Bm
-	 UQEEwN5Jd7n171RsEvRUiBbHR43y1wlbocRKHkGz5P+/fcxixKTzQVmeVsTOkljtR627/
-	 ghcFOOw4mj7tUcEVWet3jkd6L3LsZlmg3/LT7Wvuh9zVtBMxRQrhYALg7tqs7UIv3UG0M
-	 hrqF5OQDtWiDWrK/2SkeMESQxjL+o9W3Ac8f7uOyx3+aWz6/7h9qMUe0OstWogbGfyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361473;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Uu99H9NgXa76FMikMpiazKfGSo7sya08+wbTNDnNG0s=;
-	b=npU367WMc/xjLVi6Yoe2AbP9DA7EAp+HdIWjDi9Qa+vbl9VY7cQH6LSbXaBIBd7IBPj6
-	 X6Nj5x5SdZrWJmE7TdlRTqDy3mVWqzWBLnopSomEstaw+Gpl37zVF9cD80IzxFrAcAkv3
-	 Cd06jg43cpLn5b7ejCPrzLACBiKnB1OPBOzMyJbRSXtmqcFTwEMW7039BmWXMsqlSD3xl
-	 BwSSwd3ladKzY5P9P8YOwA8J2ee3s7qEdcK9GiFK7MmpwHvjydIQxrkYUbxMkRy+2mAA7
-	 7a0JnlztamRr2BWzkB+eSCtLr07WoReUk+EW8TwTmezlFl1z783ME8dKyPk14MfGhaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pj8+HgGK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.81
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023081.outbound.protection.outlook.com [40.107.44.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793361751;
+	b=1ThrdXvG53lCcvgkoOLgB+CeXGUCLwTt9w9z5CwiHwobXuJn33eyDXUq0AWiWFYbpDIT
+	 GyiyhypVjJ+6CyNtT9x29iNTmrZEFTPbJegnA+Ti8LIXrLJ143VDPC9A9OOX3AR14QkBR
+	 74SKSb8Pc0s2qecWGAn1tir2iyrkWWpN46/c0m243xW8fSrgdkgClGOumyd4q0qcJzCYZ
+	 HIgKtSeXQ9ZPuqk/ov23ntY0MeiWLZLSzq7c0jnisQaedhOUzMuO/g9JUd44lRQxl+icD
+	 FyihUBaUi0zvH6NDwUsE07tw617/Y7pUydSfcR0PEMKgzU3POuBPEDzsUkh4bgE3kBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361751;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=JzqXssl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=;
+	b=yQjswSbLB0/Qg7AwDClfKrErv4JaYluuuat9gFAK2d7szn5zz/3tpCtoEVLkWE59jVzz
+	 VF/Ad9KM/MwJ2CkuClgluBMFZ3lzFSPWFc4eGUKkfexULK7sJJOC0W9fpUXVIW2lCfbUw
+	 /WfUSEZtCT9zAS8m7KMqbFpYK2NcrujI2UT/GKzI7hTL7tBt0cz/5MzlbE6jEs8c7l6md
+	 lVMN57FdhkKig+OUC/7W6KlZ2XrqSPXIdY4F7a/OChmFs0gPGzfvQnnUqeoZoX69TrQ7/
+	 5OrSgz6aVIrRvUzNofAAxn1lyJ6N0PH1tvoZr3K3kaZHYa1EOd7nnT0CGk86T7nirYA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=OJna+IR1;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dgBePCZk;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5303F606A31A;
-	Fri, 30 Oct 2026 11:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5303F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C09A606A31A;
+	Fri, 30 Oct 2026 12:02:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C09A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pj8+HgGK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vy264UX8s8Fxtz+gq2vov6fbQ2EtMFSdutcnM2P3egcaksQp4fdp1YNbvZE/lbAzJm000SCxdgE4/kgZJcn65hKB9kiOwCKM2acTcY3sJozZm2/eZ0I5/OXZI39BT2cxya8nCrKiTcQeWrLhP8Kw7+yKgaEE1Zlaj4/NLaDKwmzPq36fVmh/EOP6uJDYUPtfbiSmgvfiFoHCSX8/eGVcUYRAelhZxio1e3nwAZEcVlo8wk4Er9LLJkDigCM9czCqzr/Jrxeh0Bf1YG5/jAU6be56z4jrbjML6pMdo3wYWVh4ZulsuPWPOjAL+bIW9EhSU7OGrEfQFqO6i3cuG0Levg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uu99H9NgXa76FMikMpiazKfGSo7sya08+wbTNDnNG0s=;
- b=SWVKELBqPD4KwmuzePVMbNo+Hr7oH8m9m/qVZxOBvehfN/dOkdWwNb01QV5uQDyWHBpIRwCdNiD6+0fh5qXsAqXPPP0ZEolU5CfxSu+Ni/9YdhRQMtBNRwo31ygjatXSI5PC36DiLzcVCFhKe6eH3xRcr7YGoNdcR5i5OeaPvBVPFbUHFlSOghsSzgJmby70iYy3GqwnW80ZHLs/2QFALISRfdBALWiSWBtLOv/HDki5cgcX2hOQRYZUvvloetRpwqwYKfyaVaBTBR3b7p0uMGg1q9x54Ft93X9J/fCg28n1mlZg3nEgIUGz1xwVO+klGO6u3eF2RPZBSbvTXvdhHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uu99H9NgXa76FMikMpiazKfGSo7sya08+wbTNDnNG0s=;
- b=pj8+HgGKSeSLAqmwNoj8SVJwh19Bz0nxEBEr7fb2pUKmIhaswBnyllpL3MSBX/4dj0waw00BeLIqoEBtSZtA/25bmD2uDHzhvRO5R4ktYUYtfUOuAc5Kiv3m89I9xvbyXZdhDRfTN+kWoJzqc/D9WxsTtBosVHa5g3scHKrT1l8QgAD/+tgOMTk78EGyvy6FM6ZpFse6tefO5pNXmKPKL4jKZFtFlO0ALrwiYegjWeCwj1ABW5FnqF8p9h4gSvvuKXYEECU3saZp1jdvRraTVcePplGiNozM/ZpL8urTWa64y/LZeX4y7EhnTzxe+lBH7zxMF9SxTyJobdxVcj7org==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SI3PR03MB10031.apcprd03.prod.outlook.com (2603:1096:4:2a5::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 11:57:49 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 11:57:49 +0000
-Message-ID: <5d8da956-9759-44dc-b647-7303e4e57d7e@amlogic.com>
-Date: Fri, 30 Oct 2026 19:57:47 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-3-616240978792@amlogic.com>
- <f22aafac-3ec0-4a78-8602-227f67c1bf4c@kernel.org>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <f22aafac-3ec0-4a78-8602-227f67c1bf4c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI3PR01CA0010.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::16) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=OJna+IR1;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dgBePCZk
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBHePb078296;
+	Fri, 30 Oct 2026 08:02:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=JzqXssl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=; b=OJna+IR
+	1GeRkzo+v8IWQC57JPCep6bRdwEaqPMxOrXPlVVR7yW76EB8yK681IminGVxMR7J
+	/OZdLgsDGwJAb/ss6n2LOseeBLuYh5eDXgjarIofyuvy9pr0KqaF2YB0c2ZIWc2q
+	yF0crC4tBulNquCcTOhH5OAsL0BEd62PLDT7fb9PZrGTuP0o77xopE0SWVV45j2F
+	PEROOGjFLzr2zXQ0+JcXG4t9CttUL/xzl8GeDPRYpp69xBRnHST3gZ50QYPOcrQU
+	OD+oJI1swydsFSDiaw8MCHtSOf1HOrnsvPuiyoC1SPU2WtEpYK14Ib5vYiaqmqa9
+	NiPsS5IJ2wC0HWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=JzqXs
+	sl8m3HG14RseNxta+R2J2slfsX+aAyBTx3LA54=; b=dgBePCZknftbGBoHAGm0z
+	akl/9qKSDsV6lRq4AMD8xVYXn02/T8gvmeksE12uL0oC9uH0Y6AdU41ZO/7PBng5
+	jtHnb4m1q/JvH+YQeuzQ+kfNxGE+mytQ42BiIq3Db91B4R5Kl8+KvaDgZ/jY5j8C
+	Up3XlF388x+cNDJnKp/kjS7g88Pju9HmKNL7khSX6/h02BcOzrwD9Qe95M1eEVcy
+	Z2idy5WiqxFAxFRUAuiB0ID/IU01MOpLtIRwXWwTLZBOMbDT7RVP06LI8TBD3xxB
+	1ZFyGIznxO0dzqkhFBlrbuyP0aThKG9SISHNbKHlc0l94RySNZmGgy97ojMzsbHf
+	A==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7buvc0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 08:02:25 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69UC2Ovv026736
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 30 Oct 2026 08:02:24 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 30 Oct
+ 2026 08:02:24 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 30 Oct 2026 08:02:24 -0400
+Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UC2B9E016763;
+	Fri, 30 Oct 2026 08:02:14 -0400
+From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+To: <conor@kernel.org>
+CC: <sergiu.cuciurean@analog.com>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <ukleinek@kernel.org>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Date: Fri, 30 Oct 2026 14:02:05 +0200
+Message-ID: <20261030120205.269090-1-Nicolae-daniel.Deaconescu@analog.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027-attic-collector-cb4ffdb5cf82@spud>
+References: <20261027-attic-collector-cb4ffdb5cf82@spud>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,95 +102,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SI3PR03MB10031:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac5de8f8-4600-4424-0785-08df367d0505
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261021121427099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	idkzFrya3AzpZJ4M3bWthWfgTf0GG5NMTVu9wXCQwgWsYgOAXrJ2Bdpi1qAJCoRDs8jFFp0drvPWgWGlDNNKi3bOMPOgeeTegsJhhy8ujOQl9hfCp8ievPQfM3sNxBKEOnBpzN9HDSypkY8SWZ/oi4gnizz1uZQCZlEjt2HvSXPGr06do6SKAwHYDRcmX2zYVjItHwOrvD5d/rAmu7wIB4RHfG2ehQ4QQR07uSr4iwZvBcETzcG06KDOWCojih9UTfHz0kZX8/KuZ9UTDO4zZOqa7FUM3E+dm+QsTTrMefVUw1SA4kgqJt/hykXEjwMw52RdwMXicoyE/Fyt6SFlyWsIV7zK6PjgUcD8LvvbyE1ckHZViUFLubZgVIM95G9jp6GBASURy6OFfZ5BChDQbOz2CAkWvC1cPbC/knr6sQLzkHTkoz9RoygT6I7CUlR3bfRMY/wPBU7L5cr3VNaYiztHcfnJRDjfUsYt3BAPKuygt95YaPLIsgRnnr/VrHzMqxOX328ygBdRFHTUTw6b3l+wtld2tF2Zg0jhFmpXhb7ej36/zL3k9NSukasQwFfOmMVYujAqwvNxIEG3kFYuoT1Pi9w6D/IGb24xszwfwY88EBXuwxTUvws9Ggw3vDLMqX/hXd3iqsMKimY5kBp5HhsinMIraqj7Q2UAaxhVHR4YIbwu/594yhrHvRPJCic+n1DZG4dfhiQq8WW1KgH0TA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bDdYZ3NKcWx0UytpcjNVam53c29kTFFEMFJqU1UyLzZtYWFaSVpxU3k2YlRz?=
- =?utf-8?B?QmJHNXlDcUVhVlg3dFVWZUdjVUNYaXUxeWZzUUovckNvKzl6ZkMzY1c0cGNH?=
- =?utf-8?B?ZlVvL1hvQ1hLOGlnUFRnQ1Q1WGpKN3BnZ2srcXJ0ZzZEVVUrRGVTNVFFTzA3?=
- =?utf-8?B?QWV1YVEyVWtTeVRSdk1vWVNaTGszWHBQZURRcVhWd05HN2xpRngvRlI5MUov?=
- =?utf-8?B?QnNTdkFRTVcva205QnJrc0V4cDdUOE5yTWplSlZkMGN5SThQczlnWTJIYVJ5?=
- =?utf-8?B?RDRvSkxIWkVOeDd6VEdQVG9zZGR2eHZxdHRCMGpIY0N6LzU3eHdzU1NOdkJ2?=
- =?utf-8?B?azJMUU1KZm9yZ3hTWTA1bnI1TW5ROVFScmxsa2ZYc1FlT1ovU3FPU2U4MlU1?=
- =?utf-8?B?UDdmWVhSWThYcWk3a1gyRzJuNGxybmh3MEFlT2lkZlhLSDNJdDhramwvYWhI?=
- =?utf-8?B?RmxiYmZKeGpxSW9nZldCVXRkRUNvbGtDMkZPdlYyWHc5T1lxcDk1a0J6UGhk?=
- =?utf-8?B?dGdQTndEZjIraXJIaHBua2gzMnppZkpzbENseUROeDFkOEFROFhsV2RBUXRP?=
- =?utf-8?B?OGFYQnFQZ29sYzJ3Wkpwb2dNMWpJMmYwUHM1Qm4yUnlDb0ovU2dTTFpQUVZx?=
- =?utf-8?B?RDBEcGUwZU1TUGpwOE4vQXBKYThFWElNZWtySk1EUlYvb3JzclpieDNieE9W?=
- =?utf-8?B?aUtwa29mSFZuSEVhdWJnNlFORHNlZmFMV2g0STBuaFZQOHI3VFdhRHBCbFFj?=
- =?utf-8?B?a2VjV29jNzErRXdaU3BjNW41Y3pFUmNpZEwvVURyVEl6ODVYdXBHV0l2S2Uw?=
- =?utf-8?B?eVowaEU2QUpjc3V6SUs0SnhoMWJnN3VjL01nSGJzMjdGeEhCdU4zRnBSV1VV?=
- =?utf-8?B?VWcwc3hRa1hDa2M0bkVJNHlxdittUlpqZGFieDRaaDVMaEFldzVxTEprS1dq?=
- =?utf-8?B?bjl0My9zYUlGTXljbW1Sa1JpeXhISGw5Z0FyV0FXdDNtSERUUUdQOW9iUWlD?=
- =?utf-8?B?RTlHYTBreDFvL29kMlVIWFcwblRQaUZDQTdDTFRpeStxOXZXM2xpR0phb0I5?=
- =?utf-8?B?MCtXdjBKY1gwdXIwTk1Xd3BkZUVjMzEzNkhpeHcwRnJ2OS9oRXVFWTVZZkF0?=
- =?utf-8?B?M05ocFFKNjVvN25Rb0RsQzMxWjhZM3NJV2xKcnZpcHArYkVzNldlUjUyeFgw?=
- =?utf-8?B?Y2l2QmJ5NSs1cVBDMHN0TGNHWG5yY2N1V29reVRzSGRMQXM4ak54WXNWRnhq?=
- =?utf-8?B?cndicmtaL2pPazhnLzA4UkF3WHlWNUErWHQvRHZxK0d1MEFaaG5IZmRXTUt1?=
- =?utf-8?B?dnFuc0d2ZHBCNVBrejVPNFBkMEl5VWlVRmhHOFpvWmExMmU4R3RxMjZtd3g2?=
- =?utf-8?B?QWx3RkRTMVdUbHJ6NWRCK1RDV294WHNnSnZkMEpYOEY0aGhhbHhKeXJlUnUw?=
- =?utf-8?B?eFhkMUZINVpUd3ZCTXNTWnVaaXlHRUphdCtIS2kyNHZXZ3dmM3VrSDUydEpI?=
- =?utf-8?B?dno1T2U2TEhUZmhpcEhmditvQTgzVi9xSk5rNERZcUxGSndjM3NjR1BlN1dD?=
- =?utf-8?B?SVFmZXllenNJVG4yaGNYZVpVaWVESWxKd2ZaUkNEUCt5cXN6R3Y3RTE2NkJs?=
- =?utf-8?B?RUM1YkR6RjNZNG5pdjE2ZnFsZlJ4UGZaZDFoS3N4cHhCNHJEWkJoeVBZelNa?=
- =?utf-8?B?OEgwMTVjTnU4UktvVkM4Z25HRnd3dkdZaXJwN3FBbk9sMnNjcWt5ZGwxRmdr?=
- =?utf-8?B?Z2NGbC90MmhyV0VJUTM1MEpTdEpMRVNheW5qMGw1Ny9KVTJ2SUtTUGNvZDJs?=
- =?utf-8?B?QTMwb21jcU9ZdVhjbHIzQmxPNVYza3ZVTHdLazh0QXlPcERPUnVkbHlCSGht?=
- =?utf-8?B?QThkY1dsYVdqUkZxMUdweGxOWkFsS0xaaXdaNExkS3JuQlFnazJNOTRMZTRO?=
- =?utf-8?B?VjVZWHM2bCtYcEdZUmJOOEtVYWZMZnpQQnRQMmlqdkoyY25MN3pMQUJ3SzVM?=
- =?utf-8?B?VXBUWkJqek9vcXpYQit1TWlDVzRaYU1wSGl0dmxoeC9TdDltemRKSjJOanhZ?=
- =?utf-8?B?V0VNaStOcjZUcUsvd1BvYnQvVSswL0U1UHhMNVQxOWNaZW0xVHJ0Z3VFVWk5?=
- =?utf-8?B?eEtwTFdzUmZ4Sy9VUU1ycmlZVEpCNmx1VHpNcWhKK1lhMmhDaHU1RjVOamNl?=
- =?utf-8?B?em9XQWVuT2YxUXNGRklUR2JIUU9zOGQwaUNrY1U2b2lFdmc0QlRmTS96dk1Q?=
- =?utf-8?B?N3ZHQk4xZm96Tm9PMkdlWnhNWXZKbGFTVU52eXBpcVFSU1o3N0tHZ3k2QWJx?=
- =?utf-8?B?NlZJY0YybXBoVExGUHRPdlBOTlEwQmtmK1VVT3VRdGhwclh0Wkw0UT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac5de8f8-4600-4424-0785-08df367d0505
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:57:49.3945
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NkoF3wUzJ8Bet1VVzWmoafS+Hhrx2a1PcH9A4Wg0Rg8muYx2ESCqZcDbh2ICN8NaSAz3V7mwJ2vaKz2NYyYA3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR03MB10031
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: Hk5XRrQC3cZW5DmCILpOZeO_V4L6-Nk0
+X-Authority-Analysis: v=2.4 cv=T9AZ3PKQ c=1 sm=1 tr=0 ts=6ae48751 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=ZHbhB2N8C6C_tFmOh_cA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0NyBTYWx0ZWRfXysXXnu4zintv
+ dN4N5XGBfDZpMDCzr3oFQPIecJh0wptgAcs9kuScElrhVvNSSp/bmdht2sCaK4vnTCl56NMv/7F
+ PSEMYkYfFF5gO1tVQTzmPBrli/VZfdpr6JtxF3tb7FkkQ5xailaz
+X-Proofpoint-ORIG-GUID: Hk5XRrQC3cZW5DmCILpOZeO_V4L6-Nk0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0NyBTYWx0ZWRfX5dRUpZ5bBQlQ
+ woGqepaTM57YpG8bjUWmFGaPH8jFIm/T3MKi3lmGeaBxDMkDRwgyN/7OVbs6kUIAXi/3hiElgje
+ 9ckhjNvt2+dwmxJMJOUd2JN8OBUP1EQD5/g5krMoFHx1CgckHSC74scpeOLl6dEyWDcZGIOMsSA
+ e6SnL7NUloD0+8K9rMpqEc1uvwAbbGwBZ5u904OXKUbqKov3iRTM5+P1opDYoNgyy38J1Tvngab
+ wEZPpYrJN7Z4bkILFmqGFAk4ecRt29HX2fO4NRLJxTYAxpepC0/Fx1MpAOCzwE3sH7lFLbzjtSA
+ R3gALWwyoUWgrklYcZDALTX5iy83o4Vc0h5vlfu7IVjyvlnEMURNp4SBgmIzA9hQGTxxio4kHJ+
+ uU5UWGZbP+6GUYlhf6v3TcPM53VYhso6xVfWPBzir7FknDifELJQf4gfv7FY3f6DqH9kfBHSAi2
+ UyWepEAjSnA9VOt9Ubg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300047
 
-Hi Krzysztof，
+On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
+> Why are we getting new devices with linear vendor prefixes?
 
-> On 22/10/2026 07:27, Zhentao Guo via B4 Relay wrote:
->> From: Zhentao Guo <zhentao.guo@amlogic.com>
->>
->> Add bindings for Amlogic hardware decoder accelerator.
->>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->> ---
->>   .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->>   1 file changed, 114 insertions(+)
-> I do not understand why, but people have comments here which they do not
-> express by reviewing/commenting, but sending some follow up patches.
->
-> This needs fixes then.
-You mean the patchset from Christian? Indeed, Christian did not give me 
-review comments before posting his modification patches, nor did he add 
-the other codec formats based on my latest patchset. I have already 
-reminded him of this.
->
-> Best regards,
-> Krzysztof
+I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
+The -x4 compatibles will also be dropped, because they described
+four devices sharing one AXI ADC.
 
-BRs
+> Hmm, ltc2387-16 does not appear to have these signals?
+> Well, it has "cnv" but "cnv" has "sample clock" as the input name so is
+> the clocks property above and pwm-clock can be used if the provider is a
+> pwm?
 
-Zhentao
+The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
+is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
+externally applied clock that shifts out the result; and DCO+/DCO-,
+the echoed clock. There is no clk_gate pin.
 
+The part needs a burst of 8 CLK pulses per conversion in one-lane mode
+(4 in two-lane), starting t_FIRSTCLK = 65 ns after CNV and ending
+within t_LASTCLK = 49 ns of the next CNV. So the CLK input cannot run
+freely: the clk_gate PWM gates the host clock into that burst. That is
+why the clock needs a PWM and not a plain pwm-clock, which would give
+a continuous clock. The clocks property is the reference clock the PWM
+generator runs from, and the driver needs its rate to compute the
+waveforms.
+
+> Please explain how this is not determinable from the compatible.
+
+TWOLANES is a digital input on the chip. High selects two-lane output,
+two bits per clock on DA and DB; low selects one-lane output. Both
+modes exist on every part, and the pin is set by how the board is
+wired, so the compatible does not say which mode is used.
+v2 will contain more detail in the description.
+
+Thanks,
+Daniel
