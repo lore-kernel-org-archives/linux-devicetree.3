@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.60
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793342892;
-	b=lBVY4MKhNmFZ6run+scCTLgzUexvvaAgAkPLpo8PFBc+PG6+9wUsP4pTgJzpSWODNJUO
-	 P9He/Q4EaTawADb/YDokmIUjbUvvBVPiICFRqRgzgbUzqj0tsoskb2aSQqjpwVe9uXp+h
-	 3u4b6eT012CzvWtCiBWqlDGsdEEVjgb6ZFGUatKPsZfXeDlAvdhoD3BuRbZ7I6rZAANTe
-	 /HoXvXo4TQjkkap5yBWi/lSan+WX/spZ5wmFKNznWQn2/doSbVuHMSeP1VfENhU7mU66B
-	 99menbFyyz2uXE9pbvQORZoktDiY73QzNdAaZwlSWMO78NxNzookF6woHHGqsfSwG3g==
+	t=1793342981;
+	b=0r4HA1F3JH2+2G4LMj70KZt1dZGPAj0YZ+D8zYyMVKqmDynnSXw+w2s/TCfB5OPM3mYj
+	 qP2jQ0H5EQ/vzHEzdSRXD7lKuhj5+eNiAXK6Pxjqcx2biMPn/ixxIF0hWpNZ84Zb1Y89r
+	 NQJoeIcquJyVUN2VSISllxiuvt0CuBD1HAWs0OXrAtKYT4edOowwOJOrw40g31tGi97Wi
+	 MNdFXdipPCBToCUV/l/zul0XRr920/WdOO2u8+mtQobduIV762Z2xAiI61WxLq6QNjwFg
+	 MEOa67Fye4M4K+qD7HoJNdV1KXq2n84REjvNeOWAVXm2dP2xToPLIoFy+gKAmB+gLgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342892;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=K+mdeaRj03KEshJ0LXx81QDIodC6xYZVWe8F5Y5UlGA=;
-	b=SZfkjJg9csnUCatqgBfnTkLv91leRRDj7EXONrM6uxYuph9jRDRXmLytdPWHowCMWwgA
-	 8UNZi9I7bXSYfzO3vWH84L9yIQdY6CMSo3+xn74b+QNj+fzOlLkDPp52aZuatPzp0GBOm
-	 imRPX1F8BP0wT02P6dWlJUWpMUWkutw0UOaytTZImX+hNy9akAmzYfyVq0z6KXMSdTYjW
-	 TlaYCVMiTw3Yu72gNSLU6uRvexm4ZHB6516+29pWSHLFfTkDMSg61vU0wUsm3GzzK0w6d
-	 j6Sr0GcBFEdZ74knFmAvgCaXBaKzHBpwB86IdHKiufiT+2LYhW6/mUS63JievbcLgyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342981;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=pGnhy8KafHjhp0kxxKojoSMc1TwDhFu6AVtDINHFLK8=;
+	b=OIflqlBMtJyEZtJVJCOejuyLXgX6fyNbzI8ROtGdc+C+JzKN6KyY6YrpEUyiMiz1B6HV
+	 bUD5qbPAT4pxouE105gnGLZGNx0w/ilbuVRCWXB7L/BtYN0d/LHxu4rNTCEhCuYxaiLHf
+	 lQkwJRSQ1FUagGLpMtm2l5zvpWHb7xGTn6lLgJCA+BzY4J4AhguZa6gVpL/LIZFAFuNLO
+	 jCE3nl3eeeEfUBqayfW46wBA0Mbo3jkyvjY0JpGzMVIBnrIgt3aXmWNPhqOLWzrtkugg7
+	 oiqmOR1ZBQXB3FKe26X8fauE7PEh9eK2XjkrMsaM0GH6cdRevQJW42A6JTaBWQn8B0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Hrj5Xx5+;
+	arc=none smtp.remote-ip=210.79.60.60
+Received: from mail-m6060.netease.com (mail-m6060.netease.com [210.79.60.60])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD81E606A31D;
-	Fri, 30 Oct 2026 06:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD81E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793342887;
-	bh=K+mdeaRj03KEshJ0LXx81QDIodC6xYZVWe8F5Y5UlGA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c7RDkqJuG4AnjsL02FvMr/Qs5JKjtinBVZp/jkKnNHu8kbuHap9U4982TO4eqZeZp
-	 l5llhfwdYhh3ognXLSgoN5gT+rZRN4RFxOUqopVYxmk5Sl4NXMc1ZeaTVEusUvzc1l
-	 I/jv/JBHv2oFHqdazLnldFJYthp+12x6mLWw+Yl0oRvYBYYThoSd2xfAAWlyGPNwxg
-	 nX2KJ227bbh1o0AtlMhYqSkeyQ6KmF/N5+1+kRmuF/+h//+HPz8LY2kIb+Qotu42xt
-	 LZtSqyoSh1GSDfb4mbvH6+rhhi/FyeN1XxKUy4bVvwMEIon6FmPgEQnl0RNe8fPxjv
-	 6c6l9SAEzJdbw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jGBWC6n1Gz4xHH; Fri, 30 Oct 2026 17:48:07 +1100 (AEDT)
-Date: Fri, 30 Oct 2026 16:27:21 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7000D606A31F;
+	Fri, 30 Oct 2026 06:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7000D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Hrj5Xx5+
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 52e79690c;
+	Fri, 30 Oct 2026 14:49:25 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 08/74] livetree: Improve get_node_by_phandle()
-Message-ID: <auQquHfayDEj1K8M@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-9-herve.codina@bootlin.com>
- <atrTn_I_8O6q9QUW@gractus.seuss>
- <20261023181533.0c44a57f@bootlin.com>
- <at6t-l9XYYFfS48T@gractus.seuss>
- <20261026125615.055e7214@bootlin.com>
- <auFgv_f0av-JxMjg@gractus.seuss>
- <20261028094110.2a8133a2@bootlin.com>
+	Dave Jones <s.dave.jones@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 0/6] Add eDP support for RK3568
+Date: Fri, 30 Oct 2026 14:48:59 +0800
+Message-Id: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,163 +79,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Gvg2FxIOocZhrw57"
-Content-Disposition: inline
-In-Reply-To: <20261028094110.2a8133a2@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa18b92072d03a8kunme14bef99793ce
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQxpPTFZNHkJISk1DSE
+	tDT0lWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSEpKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Hrj5Xx5+UQt5ncE5dsfobj3S6xvum1MUlDrCc5N998ceT7FnyL8nhSGmUOTfFtWkytwwzRbnqc385T5RGKTBPyXQnoCqozAGstr9mGHYw6koxS+RfIATZiacYyS2eQ5SgfXcQaMquiqqb5KR3CwTgCQckU368CMjhu5EMUz4a18=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=pGnhy8KafHjhp0kxxKojoSMc1TwDhFu6AVtDINHFLK8=;
+	h=date:mime-version:subject:message-id:from;
 
---Gvg2FxIOocZhrw57
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+PATCH 1 is to document the "rockchip,rk3568-edp" compatible in the
+        Rockchip Analogix DP binding.
+PATCH 2 is to add the binding for the RK3568 eDP PHY with NaNeng IP block.
+PATCH 3 is to add the RK3568 support for the Analogix DP bridge driver.
+PATCH 4 is to add the driver for the Rockchip eDP Transmitter PHY with
+        NaNeng IP block.
+PATCH 5 is to add the RK3568 support for the Rockchip Analogix DP driver.
+PATCH 6 is to add the eDP controller and eDP PHY nodes for the RK3568
+        SoCs.
 
-On Wed, Oct 28, 2026 at 09:41:10AM +0100, Herve Codina wrote:
-> Hi David,
->=20
-> On Wed, 28 Oct 2026 13:41:14 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> ...
->=20
-> > >=20
-> > > Ok, I will rename node->phandle to node->phandle_ and add a comment s=
-aying
-> > > that phandle_ field must not be accessed directly. =20
-> >=20
-> > You can even switch it back after you've checked there are no stray
-> > accesses to it.
->=20
-> If I switch it back, why talking about renaming?
+Tested on RK3568 EVB1 board with LG eDP panel LP079QX1-SP0V.
 
-Sorry, I wasn't very clear.  I was just suggesting temporary renaming
-as the best way to make sure you don't have any leftover accesses to
-the field in places you didn't expect.
+&edp {
+  avdd-0v9-supply = <&vdda0v9_image>;
+  avdd-1v8-supply = <&vcca1v8_image>;
+  force-hpd;
+  status = "okay";
 
-> Of course, I will do this renaming locally to be sure that I handle all
-> users but in the end no commit will rename this field.
+  aux-bus {
+    panel {
+      compatible = "edp-panel";
+      backlight = <&backlight>;
+      power-supply = <&vcc3v3_lcd0_n>;
+      no-hpd;
 
-Right, that's what I had in mind.
+      port {
+        panel_in_edp: endpoint {
+          remote-endpoint = <&edp_out_panel>;
+        };
+      };
+    };
+  };
+};
 
-> > > Related to existing users, I can see check_explicit_phandles() availa=
-ble
-> > > in the checks.c file.
-> > >=20
-> > > check_explicit_phandles() could use the new get_node_phandle_exising(=
-) with
-> > > the caching feature. The only problematic part will be
-> > > --- 8< ---
-> > > 	if (linux_phandle && phandle && (phandle !=3D linux_phandle))
-> > > 		FAIL(c, dti, node, "mismatching 'phandle' and 'linux,phandle'"
-> > > 		     " properties");
-> > > --- 8< ---
-> > >
-> > > Indeed, this check is done in get_node_phandle_existing() and the fun=
-ction
-> > > returns 0 (invalid phandle) when both properties are set with a diffe=
-rent
-> > > value. A value other than 0 should be returned by get_node_phandle_ex=
-isting()
-> > > to identify that mismatching properties values.
-> > >=20
-> > > This should not be a big deal if we introduced a new invalid phandle =
-value:
-> > >   - 0:
-> > >     Invalid value. Can be returned by get_node_phandle_existing().
-> > >=20
-> > >   - ~0:
-> > >     Unresolved value (phandle value in properties) or value cached in=
-=20
-> > >     phandle->node_ for "mismatch 'phandle' and 'linux,phandle' proper=
-ties
-> > >     values". Can be returned by get_node_phandle_existing().
-> > >=20
-> > >   - (~0)-1:
-> > >     Invalid value in properties and or value cached in phandle->node_=
- for Invalid value.
-> > >     Will not be returned by get_node_phandle_existing().
-> > >     When this cached value is found, 0 will be returned.
-> > >
-> > > In phandle_is_valid(), those 3 values will be checked to determine if=
- the phandle
-> > > value is valid or not. =20
-> >=20
-> > Alas, we can't do that.  Which phandle values are valid is long
-> > established from the IEEE1275 days, and we can't really change it.  I
-> > don't _know_ if there are existing trees out there using 0xfffffffe as
-> > a valid phandle, but there could be.
->=20
-> Ok.
->=20
-> >=20
-> > *thinks*
-> >=20
-> > In some ways it would be elegant for get_node_phandle_existing() to
-> > report the various different error conditions separately, but I think
-> > the awkwardness of passing that information back to the checks is
-> > going to outweigh it.
-> >=20
-> > So, I think we're actually better off separating lookup of phandles
-> > from validation.  So get_node_phandle_existing() (or whatever we call
-> > it) will return 0 if there's no valid phandle, whether that's simply
-> > because it's missing, or there's something malformed.  Separately
-> > check_explicit_phandles() will report specific types of malformed
-> > phandle properties.
-> >=20
-> > It does result in a little redudant logic, but I think it's the best
-> > overall approach for now.
->=20
-> Right. Ok on my side to have this redundancy.
->=20
-> >=20
-> > > Now last point, renaming get_node_phandle_existing().
-> > >=20
-> > > get_node_phandle() already exist. It get a phandle but also if the no=
-de doesn't
-> > > have a phandle, it allocate a new phandle value and set node "phandle=
-" or
-> > > "linux, phandle" property to this allocated value. =20
-> >=20
-> > Ah, sorry, I misunderstood what the "existing" was referring to.
-> >=20
-> > > IHMO, get_node_phandle() should be renamed to set_node_phandle() and
-> > > get_node_phandle_existing() should be renamed to get_node_phandle(). =
-=20
-> >=20
-> > Right, the existing name is bad.  But let's go with
-> > get_or_assign_phandle() for the existing one and get_phandle() for the
-> > new one.  (The "node" added no useful information and this way they're
-> > two new names to reduce confusion).
->=20
-> Ok, will use those names.
->=20
-> Best regards,
-> Herv=E9
->=20
+&edp_in {
+  edp_in_vp0: endpoint {
+    remote-endpoint = <&vp0_out_edp>;
+  };
+};
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+&edp_out {
+  edp_out_panel: endpoint {
+    remote-endpoint = <&panel_in_edp>;
+  };
+};
 
---Gvg2FxIOocZhrw57
-Content-Type: application/pgp-signature; name=signature.asc
+&edp_phy {
+  status = "okay";
+};
 
------BEGIN PGP SIGNATURE-----
+&vp0 {
+  vp0_out_edp: endpoint@ROCKCHIP_VOP2_EP_EDP0 {
+    reg = <ROCKCHIP_VOP2_EP_EDP0>;
+    remote-endpoint = <&edp_in_vp0>;
+  };
+};
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkKrgACgkQzQJF27ox
-2Gec7hAAgWeo+Z0sG1iqOr74jkQqvOb5649XYemVEA4lhzNPSF5g6mVXbqgM6QvD
-xmACZtGxl3RbUhTssF/JVqFLNBmrsBWFm+gMlukqTXYG/BsniIXU6dUTDrLpGv6D
-eJFsSjUohLsMhWvehnrXQeWrD5AmzQqb5owu2U8A+eo3NhhDL3ne6yYhK1OC767q
-+pihiGqznI6WpHoFQxwTIZAP13LI0BQ0XLsN+lHUVxEAbflsw/xTkfNk4WNyReFn
-bibZCJrGURPU5n3M+ReJJoZshcXXgGeWTgBvJI/NKH+NmJ2FVLPHHuLy2bGsCcHx
-G55hVe4lMWsSneYLIRsxUAW1TjBkT7ZPmLIsgXlZE1gccBFNbQgmUKRvqonuCE1W
-/HX3vEF7dgDq4eb8XMBJio91Mkb7/NHKRtCJAWVJtXziYUFF3VNM0F9vcUqeBMmu
-dMinAZw7IdnGv19gw60p9V8+jlEUrmNu97SwSTEeubUmew3TQGiIzEb04fd6EAZl
-YSNty1SlPsnTgeHM5DWR9yCj3GfAaaLF/QiTLFVKCYKv6iJSBR7lsdORQE1i0WfA
-11z7iNEHLzjUtidfdoWflpddE8vEwnS7pzD8m6R57LLLnRJg3q1Prsf5TSVNIOOx
-MVOrwRTwREOzHkkvJcOUXI0HLvcFrHNa6AUSFTlEl9/p1bU/PaQ=
-=ODVP
------END PGP SIGNATURE-----
+Damon Ding (6):
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
+  dt-bindings: phy: Add rockchip,rk3568-edp-phy
+  drm/bridge: analogix_dp: Add support for RK3568
+  phy: rockchip: Add support for Naneng eDP phy
+  drm/rockchip: analogix_dp: Add support for RK3568
+  arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
 
---Gvg2FxIOocZhrw57--
+ .../rockchip/rockchip,analogix-dp.yaml        |  28 +-
+ .../bindings/phy/rockchip,rk3568-edp-phy.yaml |  68 +++
+ .../devicetree/bindings/soc/rockchip/grf.yaml |  20 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  45 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |  24 +-
+ drivers/phy/rockchip/Kconfig                  |  10 +
+ drivers/phy/rockchip/Makefile                 |   1 +
+ .../phy/rockchip/phy-rockchip-naneng-edp.c    | 466 ++++++++++++++++++
+ include/drm/bridge/analogix_dp.h              |   2 +
+ 10 files changed, 663 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+ create mode 100644 drivers/phy/rockchip/phy-rockchip-naneng-edp.c
+
+---
+
+Changes in v2:
+- Apply the lane-dependent TX configurations in set_lanes() instead of
+  set_rate(), and store the lane count for set_voltages(), since the
+  Analogix DP core issues separate phy_configure() calls and the lane
+  count is only valid in the set_lanes/set_voltages calls. (Sashiko)
+- Initialize val to zero in rockchip_edp_phy_enabled() to avoid using
+  an uninitialized variable when regmap_read() fails. (Sashiko)
+- Fail the probe when the chip data requires GRF configurations while
+  the "rockchip,grf" property is missing. (Sashiko)
+- Rebase onto latest drm-misc-next tree.
+
+Changes in v3:
+- Restore the PHY related changes which were missing in v2 for
+  unexpected reasons.
+
+Changes in v4:
+- Restrict the avdd-0v9 and avdd-1v8 supplies to the RK3568 compatible
+  in the Rockchip Analogix DP binding.
+- Add the reg entry for the PHY node and the ranges/#address-cells/
+  #size-cells for the parent syscon node in the Rockchip GRF schema.
+- Map the PHY registers from its own reg property instead of accessing
+  them through the parent syscon regmap.
+- Model the PHY node with a reg property under the parent syscon in the
+  DT.
+
+-- 
+2.34.1
