@@ -1,111 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349437;
-	b=KwqDZbxyqqDAptlORMc9x3IalcWfP2aUTZSN19CcRD29yhznb6rPEnOv6YbcQZ9WlFMp
-	 3Fx1Lm5NevwDoq38595HsYzqzpqYPbz3hAHc8Nua3tOvBllLk6t1dtTlAkW0XqVvqKrik
-	 /0SLvAxFRED++pIVT+pvTuVBO5hVuVwS2z9J3QorWPwuOBI+FTuJ9krfNxkwKoTv0Qyyo
-	 5W25sLKkrKSkkiFh4XSs6goTTxxRImrEMPJZWd1MseuYPKHa4CPmj3x3YKeiuYCRK4nAB
-	 XxqqzMDZnIzRZg+CXKYKTjlU9jEmMJyKe7SzJ/7uIoVU7xaTW4EcjRinFqY/zViQVjQ==
+	t=1793349631;
+	b=xb9ixrh2bLBBRkvTjsTun1rIrAmbBka7jTENJTK1rO4vRLEZK+OXgkX56pA/ervHSn5Y
+	 ueqbdTuOV++Hp2CMdHIafWABealznjkcNGLAATCG7oJMwU4MU+B5yrfDEQ+Gbb6YysiNf
+	 x6DSEPulX7GT54tmHYcbhQwK9sQY1oJKNq9i4HSOR6lXJP9PfUsySQxUJTCe65pRsqwsD
+	 f1gH5W6aFZ7CKo5KPbdAYjEEJ1iS7ioTDQiwhzWWWGrXt+i/jjqCwy2MP16NTjCUiUqww
+	 XLRWj27wR4z7q+anTZM7PA64/kOGpHy/C3ylbGtPm1vLyWIdraVivaxBroVTR9WEkXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349437;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=s8Ivp+bT7DEkicAhEn64MXcraB26IrrC5i5zD1lewD4=;
-	b=tiSnLYSEO0aa6ns0XPMRnyfV/iDXjx9GDXhf7Bx+rCJFD9wGXmvUQQJ/ro2xlL2J8ylR
-	 Bv3j3pSg7cHTra8rr/ZpfVcZqMrHqEQn12q9NgXGcKfqaFKq0Tb2wzhtLVY4AWUzlgtII
-	 5J2LktMm+svK4g2XOd64umWlkyUYlqQwKAyYhLKbzPGZ98viA41OVVqbn7m0yIzDOYUEJ
-	 ue4lHkwcjn1oCoIs5KqmWNdg/sXlTWxyQiLSCuqLtHNSODRRBHbhPM1kL7XWkXXmM/Jb4
-	 UNTbyF7te2PPOQXF70xonWNWlKnfKEzxY+lAvLkQjzeupXt4+0PG9EyEG9uOtoKMesQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349631;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2uqNAKlcdFKjSXeWHgHc22aU5tKia+18T2VjKaERmrg=;
+	b=har4cANZDE8jMZor21zif3dYMaZB71xx23mFz2jQtWoJ29/iIGzrn4lKj4VR5C2eCNmc
+	 aHJt4uYhMaBf7X5SuQoyW49WIZeLlFgC1/WivtogaamqZp0O4aw9ZHk8Er0oAvPlb6OeL
+	 P8Yd3bp/F7PeaEhT3sVz5Td19HQUi0BJvlCndXh/KXiXdiZQp33i0wiDFNkSUYLMdpb+z
+	 75CpBVuiZVsmOLMIEz4c5lhR7bC8LqJQJVscQVcbUZt4OSsokKuuDQ54wcDYNiVy7mz6O
+	 kgfAjzf4OOSiSdr1xuKdA49tGtttfjPFAi1UF25mlpIlGFe6ISSBKLkWNgDnExSGsMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R6su5Xpz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GPzaiJs0;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cu4AZnkH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22FB606A321
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 08:37:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22FB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93766606A323;
+	Fri, 30 Oct 2026 08:40:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R6su5Xpz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GPzaiJs0
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FIJZ2733203
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 08:37:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	s8Ivp+bT7DEkicAhEn64MXcraB26IrrC5i5zD1lewD4=; b=R6su5XpzpAGgyn9A
-	0pXcsmChGNRgVaJSNhOyqG71lOUgobdh5lJyBWcKkYSUCEF/KsBqv+IUZXDdhkoo
-	VpsCC9k88tNIfZ0FSB5ae9ox9Mn4+9LkD9898r15+6EHtQXgzr3QeUmWMgvnIuYw
-	mCqb5QOBNlBf5i1JItnzro26L+5Bd35cu+1pdVjoLnuTyNmfCsKL5eS5y2+b8YrK
-	uHrvMZ97jCjncvk0koZUM5ZIBkJYlyCsRy8erTshhYXpqGGkUxbtQtEN7B1gg8uz
-	CgXRMZxxRoV6WgdfnVdalqPx34HHCX+9ou1uqUM3/yMMs0zMmnqr9VsYUcytjbuX
-	ac4hMg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj15v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 08:37:15 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f3960dca5so3815085a.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 01:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793349435; x=1793954235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s8Ivp+bT7DEkicAhEn64MXcraB26IrrC5i5zD1lewD4=;
-        b=GPzaiJs0o91i9mfa9N0ZOhDQDKiCmuvHsnVjf8PbTVu8tJu8Wq21//15Csce90ldjn
-         +9siYOI5UMIz/6uSt67n3v0TUSjdUYD3ciBuiXTSSGLuXAwvDP7sza8r7tldUbDU7Ow3
-         NIGvWiBGAgdV1+Jb0vRfwJQQGEkKrNkPXgXXcU6ulOiQyrAP4zsxR5KLR1tnZDb8DMpy
-         Omwg+pJ2MC3XFBNkXk0ZoP2P3Y0C8X9Qt7AFwe3Fg2Z7GkdRiDAsRCWvQX/am1coYHGn
-         3RPqqjC7+IQvDFF76nUN4VB8Bkvv74TyJ8c4s2YfV3IhXK+UYY5qrpSw0DnQVn49Oejj
-         w6Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793349435; x=1793954235;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s8Ivp+bT7DEkicAhEn64MXcraB26IrrC5i5zD1lewD4=;
-        b=N6mZ7bZmvtLT0CL9+cma1tT8yZ9iOBmaZEKw8c+luJr4FU5z0m/U2LjatqV4Vqat4r
-         WlUgVK0pwuAwBc7fwU5Ccr+YIbqzFO8jiHl8Zpp+GYJiBXVfzzxa7km6oYRTNbkXiCNg
-         qdy9VxHu1S78LEPmEmRBfFcll0hvSfkZVlmvW86ICzLM0cp78lsgATiVMJxc335E7zkY
-         6jJqxL7ajnjYyh8FbIbr53u3dub1X1GEL42K5zbY35kL7QgiPuhb6V2ezIVpcIgMs+X8
-         Mae9rxXivga/YHy/LrIISNydlBnZnKtHI96slyexCr+gUqBxmqf8Xwaun6HS+J8o84GV
-         paKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxV24HtwgMyeHn6XrQD7IMR3NVGi/6tGP9/FgvI9zPUkBqt+2PsKRQq6BBrP2eYKtIpb2T28oOmbMCV@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9/iAbomr7NsnDmuzB62SivaMntwLDc8iP7/FCPxSZCS3xawtH
-	7Zyvxlk+GcYtkCkjgMpcyKqZBLRN9/006Fxij/XXPPsijgpNrJ4dSXXLmew75JTLxx2iLFHKG9W
-	9LesJph4lhYHzu7DB6IrikZcfPtP9jWB9dkkWz8OIRbHqx8vT3jgWLLGlKogqVMu8
-X-Gm-Gg: AYBFou3qFiaF68wWt5XwuMX0gvORaJ38sUrST9ZWKuXbptYi2QiBdKdsnC7853OU7Mr
-	ihWF4ycbfKjkRUYSW5t3iyscUVc4UAbPuQYGJbIjv1nsQ5ZxbJKQnOE0b+d5NX11+twcKU1I33N
-	Nd4Wecmhm/AfnEaQDgNFXa0Gj9a4TyTTTqT+ZWmwuNlWdH7KDKOWPStJDiDxAOggAXbCEzFCbBH
-	0p8Pn6xKUaglEq9O100KYnHnEVBs4E/gxN1fpjYsbbUugbX/r4jh+FvJjhWdXeh3KCD1kToEzOi
-	RUbAJkbsQAGyohEAEx0tzgzr1/2UU9fKX6NN7LLWsPQND654DaGay9C77HjIEc7ooamUgr57LNs
-	8tn6MYBs1oBL/2VunwI6uJCBr+/awEgOi0aYGsmFPJFfXRNU3l0I73XCKXb5GnJuFw3jecdM=
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr264364585a.6.1793349435440;
-        Fri, 30 Oct 2026 01:37:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr264361285a.6.1793349434941;
-        Fri, 30 Oct 2026 01:37:14 -0700 (PDT)
-Received: from [192.168.226.64] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfdc7bsm40134566b.21.2026.10.30.01.37.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 01:37:14 -0700 (PDT)
-Message-ID: <987b21ce-cab5-4058-9668-94afb1210a87@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 09:37:12 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cu4AZnkH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBED11F0093A;
+	Fri, 30 Oct 2026 08:40:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793349631;
+	bh=2uqNAKlcdFKjSXeWHgHc22aU5tKia+18T2VjKaERmrg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cu4AZnkHz7YbtbLKzzosfekouuhRmTnCaniROrVLNRZ1GO8NxpkUSEi31fHZqdo6G
+	 DzpKkA8ls+O7Qc377ZRD6d4iiBOxejjwhDs25aBYxl7QZri96FFp43s78aRqt2gJDP
+	 ovJnkKw/B7veW1iWeuM1BPyNXN2RgvG1uoED6IDts4dNjFGdpNHQPVEjUE59Qbbbpz
+	 92FNwYAe/Q6y9SZ6hOAIfTHKeOBkvZPLWXHo/g88U0MB2KbYzujSm3xmpUBRAt4qRg
+	 4j2ED2YrRq09WhRvrgk4+8C7PlW2HlE3WPACg7/jsgfcfzFYiWdfnaNpKImJunpmAh
+	 8QnJRkOFEQoHA==
+Message-ID: <sashiko-outbox-190707@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/6] usb: gadget: udc: crg: Add endpoint 0 handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petar Stepanovic" <pstepanovic@axiado.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261030-axiado-ax3000-usb-device-controller-v4-4-c5267b36a777@axiado.com>
+References: <20261030-axiado-ax3000-usb-device-controller-v4-0-c5267b36a777@axiado.com>
+ <20261030-axiado-ax3000-usb-device-controller-v4-4-c5267b36a777@axiado.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 08:40:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,60 +59,303 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] arm64: dts: qcom: sdx75: Mark USB controller as DMA
- coherent
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
- <20261030-usb-dma-coherent-v1-1-3147b8f7aa64@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030-usb-dma-coherent-v1-1-3147b8f7aa64@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ShgO_b5i3yWy-8Avmg2qHvBc-c6GJmSh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX6UUzgeitMu8Q
- 2OFoVMrwmgiSi9XIr8vJqeNc/QpOiGT9uvnhDSdK6yomuqwn7Tj6m3gnB8ZmRBrYvBtarG5yp6e
- hJOtaO40okVIFKjgdK7g3GIuibLl1LE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfXzkFslxixntWA
- ngKzGmdMHvmrFNSdQuEa9DoObF75cYQLihj3+Ejdwasyaqf1oWASy31ue8uBHTF4luG9Ydzs3wp
- FN6DBU1cshx+XNZzurm2jLgN1anpgUgAN3wgeJ8TUlclg4CSfvjzqxCYdCP+8pCG6IuYGwSxBtJ
- 13wbfPgqr2fA8WXuCS8TVVfqzQVTdNb74qiZVTi37rne7n04BFfOqahYI1mt0q7Kn8R9QnRB0cR
- lShSwu6xMF9arDzRulcT7Acs0OiPIJoZ7appu9Sg6sz8nAtqxDARgS/3QWbubqqoDSDLGZ91bHw
- krlLg/0FaEIne1RtQ0cKy7iMBaohteku2vo0jcYUqpIoL7p0jRV4MLzCbi9Ccp7n98oPzl2Zu29
- YqeouyfXIDHWSJIaN0NmmgscOjZNOAntACld5wEztCiWZn7jYgxpB7ANzY33BzHVvKPtcrQIwrU
- RdsgX+D1JZ9IsfJA0nQ==
-X-Proofpoint-ORIG-GUID: ShgO_b5i3yWy-8Avmg2qHvBc-c6GJmSh
-X-Authority-Analysis: v=2.4 cv=TpVzFzXh c=1 sm=1 tr=0 ts=6ae4573c cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=7li549WNwbtQ9Hvr_rEA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300034
 
-On 10/29/26 7:33 PM, Krishna Kurapati wrote:
-> The USB controller on SDX75 is DMA coherent. Add property
-> indicating the same.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] usb: gadget: udc: crg: stale setup_status on EP0 halt in crg_udc_s=
+et_ep0_halt()
+- [High] usb: gadget: udc: crg: missing state checks after relocking in crg=
+_udc_handle_setup_pkt()
+- [High] usb: gadget: crg: missing reset check after ep0 nuke in setup paths
+- [Medium] usb: gadget: crg: crg_udc_prepare_for_setup() skips stopping hal=
+ted EP0
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 0dcda6f8ceb35327942fb48b7002136244fccc5c
+Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-Konrad
+usb: gadget: udc: crg: Add endpoint 0 handling
+
+This patch adds endpoint 0 setup packet, status stage, and control transfer
+handling for the Axiado AX3000/AX3005 UDC driver.
+
+> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-ep0.c b/drivers/usb/gadge=
+t/udc/crg/crg-udc-ep0.c
+> new file mode 100644
+> index 0000000000000..073d9090dd07c
+> --- /dev/null
+> +++ b/drivers/usb/gadget/udc/crg/crg-udc-ep0.c
+
+[ ... ]
+
+> +int crg_udc_abort_ep0_for_setup(struct crg_gadget_dev *crg_udc)
+> +{
+> +	struct crg_udc_ep *udc_ep0 =3D &crg_udc->udc_ep[0];
+> +	struct crg_uccr __iomem *uccr =3D crg_udc->uccr;
+> +	dma_addr_t dqptaddr;
+> +	u32 cmd_param0;
+> +	u32 cmd_param1;
+> +	u32 tmp;
+> +	int ret;
+
+[ ... ]
+
+> +	udc_ep0->ep_state =3D EP_STATE_STOPPED;
+> +	/* Complete requests belonging to the aborted control transfer. */
+> +	crg_udc_ep_nuke(udc_ep0, -ECONNRESET);
+> +
+> +	if (!udc_ep0->first_trb || !udc_ep0->tran_ring_info.cpu_addr) {
+> +		crg_udc->ep0_state =3D EP0_STATE_ERROR;
+> +		return -ENODEV;
+> +	}
+
+[Severity: High]
+When crg_udc_ep_nuke() runs here in crg_udc_abort_ep0_for_setup(), and
+similarly in crg_udc_prepare_for_setup(), crg_udc_req_done() drops
+crg_udc->udc_lock to invoke the request completion callback.
+
+While udc_lock is dropped, another CPU running crg_gadget_stop() or
+crg_udc_shutdown() can acquire udc_lock and call crg_udc_reset(), setting
+crg_udc->resetting =3D true, incrementing udc_ep[0].generation, and dropping
+udc_lock while polling for CRG_U3DC_CTRL_SWRST to clear, followed by
+crg_udc_reset_data_struct() and crg_udc_init_ep0().
+
+After crg_udc_ep_nuke() returns, neither crg_udc_abort_ep0_for_setup() nor
+crg_udc_prepare_for_setup() checks crg_udc->resetting, udc_ep[0].generation,
+or udc_event[0].generation before touching controller registers and issuing
+CRG_CMD_INIT_EP0. If crg_udc_reset() is still polling SWRST, this issues
+MMIO commands mid-reset; if crg_gadget_stop() has already staged
+CRG_CMD_INIT_EP0 with CRG_U3DC_CMD_CTRL_ACTIVE set while RUN is clear, the
+subsequent CRG_CMD_INIT_EP0 fails with -EBUSY, leaving ep0_state in
+EP0_STATE_ERROR and causing crg_udc_handle_event() to call
+crg_udc_set_ep0_halt() and queue status_req after the gadget has stopped.
+
+Should both functions snapshot the generation counter before
+crg_udc_ep_nuke() and abort if crg_udc->resetting is set or the generation
+changed while udc_lock was dropped?
+
+[ ... ]
+
+> +int crg_udc_prepare_for_setup(struct crg_gadget_dev *crg_udc)
+> +{
+> +	struct crg_udc_ep *udc_ep0_ptr;
+> +	dma_addr_t dqptaddr;
+> +	u32 cmd_param0;
+> +	u32 cmd_param1;
+> +	int ret;
+> +
+> +	if (!crg_udc_is_event_rings_empty(crg_udc) ||
+> +	    crg_udc->portsc_on_reconnecting =3D=3D 1)
+> +		return -EBUSY;
+> +
+> +	udc_ep0_ptr =3D &crg_udc->udc_ep[0];
+> +	/* If we reinit ep0 on bus reset, we just make ep0 dequeue pointer
+> +	 * align with enqueue pointer, all remaining xfer trbs became dumb once
+> +	 * which will not produce xfer event anymore.
+> +	 *
+> +	 * If we considering the opposite solution, we should wait all ep0 xfer
+> +	 * trbs be completed(with some err complete code)
+> +	 */
+> +	if (crg_udc->reinit_ep0_on_bus_reset) {
+> +		struct crg_uccr __iomem *uccr =3D crg_udc->uccr;
+> +		u32 running;
+> +
+> +		/* Block requeue from giveback callbacks, then quiesce DMA. */
+> +		crg_udc->ep0_state =3D EP0_STATE_ABORTING;
+> +		if (crg_udc_get_ep_state(crg_udc, 0) =3D=3D EP_STATE_RUNNING) {
+> +			ret =3D crg_udc_issue_command(crg_udc, CRG_CMD_STOP_EP,
+> +						    BIT(0), 0);
+> +			if (ret)
+> +				goto reset_error;
+> +
+> +			ret =3D readl_poll_timeout_atomic(&uccr->ep_running, running,
+> +							!(running & BIT(0)), 10, 10000);
+> +			if (ret)
+> +				goto reset_error;
+> +		}
+> +		udc_ep0_ptr->ep_state =3D EP_STATE_STOPPED;
+> +		crg_udc_ep_nuke(udc_ep0_ptr, -ESHUTDOWN);
+
+[Severity: Medium]
+As reported by Sashiko on v3 [1], what happens if a USB bus reset occurs
+after a control transfer has stalled?
+
+When crg_udc_set_ep0_halt() stalls EP0, it calls crg_udc_build_ep0_status()
+to queue a status-stage stall TRB, rings doorbell 0, places status_req on
+udc_ep[0].queue, and immediately sets udc_ep[0].ep_state =3D EP_STATE_HALTED
+in software while the hardware is still processing the TRB.
+
+If a bus reset then triggers crg_udc_prepare_for_setup() while ep_state is
+EP_STATE_HALTED, checking only for EP_STATE_RUNNING skips issuing
+CRG_CMD_STOP_EP and polling uccr->ep_running before crg_udc_ep_nuke() and
+CRG_CMD_INIT_EP0. Should crg_udc_prepare_for_setup() stop EP0 whenever it
+is not disabled or stopped, matching crg_udc_abort_ep0_for_setup()?
+
+[ ... ]
+
+> +int crg_udc_set_ep0_halt(struct crg_gadget_dev *crg_udc)
+> +{
+> +	struct crg_udc_ep *udc_ep_ptr =3D &crg_udc->udc_ep[0];
+> +	enum crg_ep_state ep_state;
+> +
+> +	ep_state =3D crg_udc_get_ep_state(crg_udc, udc_ep_ptr->dci);
+> +	if (ep_state =3D=3D EP_STATE_HALTED || ep_state =3D=3D EP_STATE_DISABLE=
+D)
+> +		return 0;
+> +
+> +	crg_udc_build_ep0_status(udc_ep_ptr, true, -EINVAL, NULL, 0, 1);
+> +
+> +	udc_ep_ptr->ep_state =3D EP_STATE_HALTED;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+As reported by Sashiko on v3 [2], does crg_udc_set_ep0_halt() leave
+crg_udc->setup_status in a stale data-stage state when stalling a control
+transfer with wLength > 0?
+
+In crg_udc_handle_setup_pkt() and getstatusrequest(), crg_udc->setup_status
+is set to DATA_STAGE_XFER or DATA_STAGE_RECV before calling setselrequest(),
+crg_udc_build_td(), or driver->setup():
+
+crg_udc_handle_setup_pkt()
+  crg_udc->setup_status =3D DATA_STAGE_XFER / DATA_STAGE_RECV;
+  driver->setup() -> fails
+  crg_udc_set_ep0_halt()
+    crg_udc_build_ep0_status(..., stall =3D 1)
+
+Because crg_udc_set_ep0_halt() does not update crg_udc->setup_status to
+STATUS_STAGE_XFER (or clear crg_udc->setup_fn_call_back), two problems
+follow:
+
+1. crg_udc_setup_status_trb() computes dir as
+   (crg_udc->setup_status =3D=3D STATUS_STAGE_XFER) ? 0 : 1, which evaluates
+   to 1 (OUT) instead of 0 (IN).
+
+2. When the stall status TRB completes and invokes
+   crg_udc_ep0_req_complete(), switch (crg_udc->setup_status) matches
+   DATA_STAGE_XFER or DATA_STAGE_RECV instead of the default branch:
+
+crg_udc_ep0_req_complete() {
+	switch (crg_udc->setup_status) {
+	case DATA_STAGE_XFER:
+		crg_udc->setup_status =3D STATUS_STAGE_RECV;
+		crg_udc_build_ep0_status(udc_ep_ptr, true, -EINPROGRESS, NULL,
+					 0, 0);
+		break;
+	case DATA_STAGE_RECV:
+		crg_udc->setup_status =3D STATUS_STAGE_XFER;
+		crg_udc_build_ep0_status(udc_ep_ptr, true, -EINPROGRESS, NULL,
+					 0, 0);
+		break;
+
+This queues a second, unrequested, non-stalled status-stage TRB on EP0 and
+rings doorbell 0 on the halted endpoint. Should crg_udc_set_ep0_halt() set
+crg_udc->setup_status =3D STATUS_STAGE_XFER and clear
+crg_udc->setup_fn_call_back before calling crg_udc_build_ep0_status()?
+
+[ ... ]
+
+> +void crg_udc_handle_setup_pkt(struct crg_gadget_dev *crg_udc,
+> +			      struct usb_ctrlrequest *setup_pkt, u8 setup_tag,
+> +			      unsigned long *flags)
+> +{
+> +	u16 w_value =3D le16_to_cpu(setup_pkt->wValue);
+> +	u16 w_index =3D le16_to_cpu(setup_pkt->wIndex);
+> +	u16 w_length =3D le16_to_cpu(setup_pkt->wLength);
+> +	struct usb_gadget_driver *driver;
+> +	u32 tmp;
+> +
+> +	/* No SETUP (including SET_ADDRESS) may overtake a pending reset. */
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, *flags);
+> +	flush_work(&crg_udc->udc_reset_work);
+> +	spin_lock_irqsave(&crg_udc->udc_lock, *flags);
+> +	if (crg_udc->resetting || !crg_udc->gadget_driver ||
+> +	    crg_udc->ep0_state =3D=3D EP0_STATE_ABORTING)
+> +		return;
+
+[ ... ]
+
+> +	if (w_length) {
+> +		/* data phase from gadget like GET_CONFIGURATION
+> +		 * call the setup routine of gadget driver.
+> +		 * remember the request direction.
+> +		 */
+> +		crg_udc->setup_status =3D (setup_pkt->bRequestType & USB_DIR_IN) ?
+> +						DATA_STAGE_XFER :
+> +						DATA_STAGE_RECV;
+> +	}
+> +	driver =3D crg_udc->async_callbacks ? crg_udc->gadget_driver : NULL;
+> +	spin_unlock_irqrestore(&crg_udc->udc_lock, *flags);
+> +
+> +	/* Recheck callback enablement after the locked snapshot. */
+> +	if (!driver || !READ_ONCE(crg_udc->async_callbacks) ||
+> +	    READ_ONCE(crg_udc->gadget_driver) !=3D driver ||
+> +	    driver->setup(&crg_udc->gadget, setup_pkt) < 0) {
+> +		spin_lock_irqsave(&crg_udc->udc_lock, *flags);
+> +		crg_udc_set_ep0_halt(crg_udc);
+> +		return;
+> +	}
+> +	spin_lock_irqsave(&crg_udc->udc_lock, *flags);
+> +	if (setup_pkt->bRequest =3D=3D USB_REQ_SET_CONFIGURATION &&
+> +	    (setup_pkt->bRequestType & (USB_TYPE_MASK | USB_RECIP_MASK)) =3D=3D
+> +		    (USB_TYPE_STANDARD | USB_RECIP_DEVICE)) {
+> +		if (w_value) {
+> +			crg_udc->device_state =3D USB_STATE_CONFIGURED;
+> +			usb_gadget_set_state(&crg_udc->gadget,
+> +					     USB_STATE_CONFIGURED);
+> +		} else {
+> +			/* Endpoint disable may already have updated device_state. */
+> +			crg_udc->device_state =3D USB_STATE_ADDRESS;
+> +			usb_gadget_set_state(&crg_udc->gadget,
+> +					     USB_STATE_ADDRESS);
+> +		}
+> +	}
+> +}
+
+[Severity: High]
+Can dropping crg_udc->udc_lock in crg_udc_handle_setup_pkt() race with a
+concurrent reset, unbind, or new setup packet?
+
+First, around flush_work(&crg_udc->udc_reset_work), if a new setup packet
+aborted an in-flight control transfer, crg_udc_abort_ep0_for_setup() has
+already set ep0_state =3D EP0_STATE_IDLE before udc_lock is dropped for
+flush_work(), allowing a concurrent usb_ep_queue() on EP0 to bypass the
+EP0_STATE_ABORTING check in crg_udc_queue_ctrl(). In addition, if a
+controller reset (crg_udc_reset() and crg_udc_reset_data_struct())
+completes while udc_lock is dropped, crg_udc->resetting is false again and
+udc_event[0].generation has been incremented, but crg_udc_handle_setup_pkt()
+does not verify udc_event[0].generation and continues processing the stale
+pre-reset setup packet.
+
+Second, after udc_lock is dropped for driver->setup() and reacquired,
+neither the error branch nor the USB_REQ_SET_CONFIGURATION branch rechecks
+crg_udc->resetting, crg_udc->gadget_driver, crg_udc->async_callbacks,
+crg_udc->ep0_state, crg_udc->setup_tag, or udc_event[0].generation:
+
+1. If async_callbacks was cleared during gadget stop/unbind, or if
+   crg_udc_reset() is currently polling SWRST with udc_lock dropped (where
+   crg_udc->resetting is true while udc_ep[0].ep_state is still
+   EP_STATE_RUNNING), the error path unconditionally calls
+   crg_udc_set_ep0_halt(crg_udc), queueing a status TRB and ringing
+   doorbell 0 during reset or teardown.
+
+2. If driver->setup() succeeded for USB_REQ_SET_CONFIGURATION while a
+   concurrent reset or disconnect occurred, the post-lock block overwrites
+   crg_udc->device_state and the gadget state with USB_STATE_CONFIGURED or
+   USB_STATE_ADDRESS.
+
+Should crg_udc_handle_setup_pkt() keep ep0_state in EP0_STATE_ABORTING
+until flush_work() finishes, and validate the event generation,
+crg_udc->resetting, crg_udc->async_callbacks, and crg_udc->setup_tag after
+reacquiring udc_lock?
+
+[1] https://lore.kernel.org/r/20261020-axiado-ax3000-usb-device-controller-=
+v3-4-3012ecfc0a93@axiado.com
+[2] https://lore.kernel.org/r/20261020-axiado-ax3000-usb-device-controller-=
+v3-4-3012ecfc0a93@axiado.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-axiado-ax3=
+000-usb-device-controller-v4-0-c5267b36a777@axiado.com?part=3D4
