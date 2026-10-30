@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365672;
-	b=SKCgWp2kHd5t1z7kWm/1FpWdcmpE1mkXzeKNUEbBi3v1HeBuhCbvL48h+WQgRhvKAvIo
-	 thPAgecE0kZqgdbTTgMhGYyllQ8ODctStgOrA9LMKFYDJCZt9snN2nbx07DcseO2/Mnzj
-	 ewDFQWgZ61b00HHidNEG00O7MR4c2+R8UEzRNI9ZpCD5dR9iTxD7k0FuQOExPd3QK/AwI
-	 xNEJBrmJ14z4+cwJDPR+OZS24XUw+5Dkb3kLLdo0jfMNEokz9p8BKmsY/ejpt+ZCxeAXl
-	 N/8WKOx4mY42nb7V2wFcCbW16lz/4VNruwmjXRFys5VeJP6wD4C1oSBrmLPkzDBPz6g==
+	t=1793365745;
+	b=tB6ljstiQcVQ26gXUI+eNw0DybdoReQ2YIioxqf2ZUj6oHe5AF3LegPm+irPFjZejn4I
+	 CwDNVZexJTSpgk4dE83i0u7cOrODBVhByPJgZZrKzX8IwjkT3S10FEJ6+ujPQ/oP7CMpX
+	 IFy5cvivNaEOt67M/EOw73eYQDiwhUH2wHe+I06JNJwR+blCWzf/mETmKi1DI/XBokK+N
+	 rNYEQt7ctauskZZ/vA5Ib4xJj3j88mY7Op808jB1nralGyH00sZTv5umKdjfZiaNJVUqF
+	 bfPz9d5LsT1DkaWB8uz7a4EowrkJNM5kPF0gYHkDng/p05FGwvW7CgGUK+HnveVvWsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365672;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JT+3LP+5QyAnCVRh6Qv6QLpMg9XRGcsCRkKadZAigA4=;
-	b=RDHzwe1CfDIjGQYs6VSHxWcbPzOziPUSP3wnqb41dVJaRz8BXxIrW8GIDRxBgQvms2Qd
-	 HDYgL98kILuLsv/dInCtMzfCxJ9O8jsn6TmXhRnFO0gfTtDS6IWmQp27gLprKumJHjP0a
-	 4JEH4J6E9fPAcbI8iX1iP3Lcvt4G5HAaUw3j5FdjavB8qKhl5qj6VQW5DJZJQuJ28Dh9w
-	 2vaHVtnA25S6TVDrkmOPYNU+LA6D3m51FtuyfBB1fzhGSVzhhI7xEiFXaxULg2ivsGoHb
-	 YOiupf1uN5lvv1SmTlpsR05e+7+5sGsK+WOLT8XIMs3ZcSfxedfL5sLO8GMEScuR6xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365745;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+	b=HUnsybS9qf0qbDR79B5VG6DSw1zlhRPwR9OKuWxPHDFwQIyjETDJ1DsSbnqFjLV2lJd9
+	 UP/9iHupOun6+YV/o+n0hce3NHs7BAhdROvvdmATe5Fj3ZB13vss7fIU2XUccdfrFFCo+
+	 XRQz4ylhdeThegyC7sLGm4e2uKbfM+yv9V0+rrmPKBBSIkRJQpOds13WCyDXK11OXqijW
+	 WnkKWJcQUNV75gw3q8nuBB21UGElBf7BEfS0LiS8VVqC8JRmZbf3rtvOUnV1L0BeRblWd
+	 s7FtWIH11dpF9hFQnnmXxGOn8iK6tTNAqhTGvMO59eK4lVaRZmdLpAJFdTyDdkm1Byg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtjjYszc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jofX2PlH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGG4eFhg;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B638B606A333
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:07:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78569606A31C
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78569606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtjjYszc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE6D1F00A1D;
-	Fri, 30 Oct 2026 13:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793365671;
-	bh=JT+3LP+5QyAnCVRh6Qv6QLpMg9XRGcsCRkKadZAigA4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZtjjYszcVqxuNf1vJaZ5617YkWrVLiATvGy8kOq1LjUFiZHUbDkmLI9/1WSPDWgIq
-	 9DAPfW8qRvTerOOtM4/L19CzLjdsl0/oCnIXg8/fdtfIaIKIYtGxpYhXaYuzbdRSbJ
-	 FTqSuVwACG4flQTj26aNzwXBv8I5+ueYbEA8feWRzpYNJxSpptzKAU9RgOSb06b7xV
-	 Ro9vNcXQVGfOgH9xvtgPENje5nKGVc0ngff2WxpQd2HVrmWZhuLhFsiv3neYoGmy2c
-	 +LKc0aL+3vBZv8kgD4GXqcZynMbI+Qgm8uhYHzgl7mwXA2Sb41j+d0OgXHA4Rc1fcO
-	 wEeiGKNSGxPtQ==
-Message-ID: <sashiko-outbox-191048@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
-References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
- <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 13:07:50 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jofX2PlH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CGG4eFhg
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBG1el2071574
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:09:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=; b=jofX2PlH9sK44rY1
+	hTJwH/V8S1h2Ehj/NWXUdY64MVX3m+B7He4PrRq6Yb9Iekg2dQxrn0HvtZI28zJ9
+	RRcY15pL9JIX/ZRIW1lSCPl2zi8c+svbt1KdqyBn7OuE618BEsyNZA/awYfXJfHZ
+	x394lXmUJwAi5oWW7Y3mnrQb4mhpf5ALmAZkfuOBe1PS6soxP30XEchqhEVQXb8S
+	6wfxhs5I3ebouclMOJoynZoJ8Lm7FMseFxIg3Aa7qkHnSU7I8HOiGB0jkDZ1sMbu
+	mKCDKfioiruMwPg2jwuK8B5KLaUXuIWmy2seuAdgtrA912gg7ClcJYCBdXlsoH4r
+	r9G6wA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p36gn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:09:03 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9833e1390beso16883241.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:09:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793365743; x=1793970543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+        b=CGG4eFhgjFpoCVhXhzoK7DzZqrspLx156azgmt8v84zkPP8XRAjOHqYpMQV6a/yZlW
+         ZqCtlIg39cs7+vE6cD0Bimac8XPWBBwyfI/jsiK10gEDqjiiDe0yaahdMTZLj2BLsFwu
+         czhBf3ftOZ4awB9FjiAEfZl/FAmGPBVN3vnosXqlbnGcrvK8mPD0zyfC5zBBATsqZ5ME
+         QBbAF7BX1tXWg+qhLASO2jaOYB1mMlp2oTZlvyY2YddfFzl8CrX/SyiiE8ET9CXhGTTz
+         CyOkKd1cDy5dt4k12lA/MLBh06tvJ87ZY9su2WJf7D1zEaNzDBTvLBKhxUYqpHUxc8GD
+         qDpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793365743; x=1793970543;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y4P301YqaFnb7KKDE2QgQixMk0k7HBc05iLOcpHCCho=;
+        b=gdTX1yu1NgZaKZKgV0QJ5J1sDguaWB3Z0i2/EOJ1kROaRVKf2yFrHHB0/p/2vZsiN+
+         k4goNUhYekL5nJ/ZC/pvi2x2eGLo2v0SD2oYDnHJO8VLhaJfhTVRZhAJpuOalgqy8NMe
+         RNBBI0eF0t6l35sKhsj2KsSys4Z//xHqgSV+Wk8bJopE+TNryuLYmjIT8CrD6HTDRHRb
+         LQyRvLIdyWvDtry3ozniO3wcQdF3oGCH3PUJANs0ZyFz2KZ0fZCMrcdOylh5hy08juFz
+         gDsjb/S9bqC8NI2AAdCq3iXjpam9H77yeWCzpbrP6psEgbj9TcPqG15+Rdf+4G3s19dh
+         5eiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcoBlXuIzbvvTBTI3WiRtIc8KR1PMpjh5X7gkDundyipfXlyKKWdVXBH5RKiMbvctdeJCy/QWqAZOt@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0svKXpaj/eTa7OlioPbtj4J4NeNNjmmjq9RwvehkFNA29NtFr
+	Mj+1xTXcoRtLYG1BxieA7sX+B1ZzU7pdiUcG/jzcf7f5wVt8lzvZW83OVGgIDjXrwU5tZmd8Hum
+	4BhkoT1qszMs4pjYPprXqwCFRCgEw2KPqFYr1o6GOAoecj69P4blbZT6buzpiHdg7
+X-Gm-Gg: AYBFou0Dca9yyIXQ65k9ed7JbcFxZ+/OW+QcnGxw9cosceyVFjMROsuhh4i8gkcZQB0
+	OkEr+RSLPEBm6BCqNfZI6BNCPnBvnM+HtsZjVFpbTapkUWowyqLSdFNsqGuF1p7UW0F3THiV6Mw
+	6hc4PpuLowFX++xdLkY1pA1LHkILf9y3sbnLuT2OjG6ny1ze7njVK2z+lMqQ/0lqsS5NFXsFSW2
+	ajMJaL6u2CjooAmk6AaZ3QV3XBAYI8fU3XgCQOigAq66GX4lAlR4KftuFFIWZomDNj2n2A03vpA
+	cdxGZGeLXbiLbQEJC+2avW3OV3hEu1KVTXkiFbYyCvhDK/tPErtt7PVnrYEEzdcFK77Bq51NmQX
+	vRyJYYw7sljLu3JqDwtokGaP+S+QT/7xwsq+Ut6nsnU89jPAVWT+mwziCkPkm8aKkALH6xKY=
+X-Received: by 2002:a05:6102:868f:20b0:7b4:f1cd:80dd with SMTP id ada2fe7eead31-7d0727a54dbmr802583137.1.1793365742033;
+        Fri, 30 Oct 2026 06:09:02 -0700 (PDT)
+X-Received: by 2002:a05:6102:868f:20b0:7b4:f1cd:80dd with SMTP id ada2fe7eead31-7d0727a54dbmr802519137.1.1793365741491;
+        Fri, 30 Oct 2026 06:09:01 -0700 (PDT)
+Received: from [10.169.205.110] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4d7b01b5esm605327a12.20.2026.10.30.06.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 06:08:59 -0700 (PDT)
+Message-ID: <3f11cf8c-db2a-4243-b1f6-7f2cb9a7a87e@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 14:08:55 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,362 +114,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 05/14] firmware: qcom: scm: Configure LPAC aperture
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfXxeVTJQR6/TDF
+ FHpoLbvoBiACsG79zfHszzduzhwjG4Sdb0oyESf1Q8tU9ynoZ+IM6wAf9HGUToFXppBtXhVlBlB
+ yitiAE57avJDWQvqsj/VI54z0NpwZzUZwh2PnVOIhHGlcLHMzn0tcl32MM6Uq8wzfRsCYsR0zvY
+ E4nAFMi0n25WXi93A77d4EUAeW1nFiAkcyM3ZnYx6J6gm0MuHF+/vvVFw06D3oL+4sG2Ok1SvkR
+ RoEo9m8xSqVV3+OVbULw2UfgBCscOd4W/KiCOg+JdMm21PcZsSv6gLddC9LTUR8peu6YmdLKaSr
+ dSwlbPIQX10TA5IqCxqjeUF38pA1z+mTF2w50Yg9JrEL+++muTBYFz6Xl2tftrZcm9/p0FjH/fV
+ pzUb9vg0TBvTOoJoy807QcZu7DduhW8Djz/f2wxChHqkiM7aP2d03G9mluhQmscBC5uIy45fqeZ
+ Dj5LjwtvDprArUVWrSQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfXzp7EeEOoD3dC
+ l0KtksWgk6CNnF1if+M+8c5dSL1Q4DgFKIFPII4XGsMlcYYHwSuvHqbC/U8ruH5GLtyk76Lyttb
+ 3ZEOZTJjzB29ukHM5sw86ViZgRhTNzc=
+X-Proofpoint-ORIG-GUID: F7TpOu1o648QqchB5jSCQ63gW5CXS__O
+X-Proofpoint-GUID: F7TpOu1o648QqchB5jSCQ63gW5CXS__O
+X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae496ef cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=pGLkceISAAAA:8 a=HiRCik2jR1DMqHai1FgA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
+ adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300052
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] media: qcom: camss: unconditional AUP strobes in csid_configure_st=
-ream()
-- [High] media: camss: NULL hw_ops deref in msm_csiphy_subdev_init_legacy()
-- [Medium] media: qcom: camss: wrong camnoc_rt_axi clock rates in vfe_res_h=
-awi
-- [Medium] media: qcom: camss: data race on csid->addr_update and csid->reg=
-_update
-- [Low] media: qcom: camss: duplicate CSID 1080 and VFE 1080 code in 1190 f=
-iles
-- [Low] media: qcom: camss: macros in camss-csid-1190.c implicitly capture =
-csid
---
-
-commit 25967aac8ac2c5b636dbbaab24c84dd484d99ab8
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-
-media: qcom: camss: Add support for Hawi
-
-This commit adds CAMSS support for the Hawi SoC, including CSID 1190 and
-VFE 1190 hardware operations and Hawi resource definitions.
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1190.c b/driver=
-s/media/platform/qcom/camss/camss-csid-1190.c
-> new file mode 100644
-> index 0000000000000..4bd2cce094402
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-1190.c
-> @@ -0,0 +1,417 @@
-
-[ ... ]
-
-> +#define MSM_CSID_MAX_SRC_STREAMS_1190		(csid_is_lite(csid) ? 4 : 5)
-> +
-> +/* RDI Configuration */
-> +#define CSID_RDI_CFG0(rdi)	(csid_is_lite(csid) ?\
-> +					(0x3080 + 0x200 * (rdi)) :\
-> +					(0x5480 + 0x200 * (rdi)))
-> +#define		RDI_CFG0_RETIME_BS			BIT(5)
-> +#define		RDI_CFG0_TIMESTAMP_EN			BIT(6)
-> +#define		RDI_CFG0_TIMESTAMP_STB_SEL		BIT(8)
-> +#define		RDI_CFG0_DECODE_FORMAT			12
-> +#define		RDI_CFG0_DT				16
-> +#define		RDI_CFG0_VC				22
-> +#define		RDI_CFG0_EN				BIT(31)
-> +
-> +/* RDI Control and Configuration */
-> +#define CSID_RDI_CTRL(rdi)	(csid_is_lite(csid) ?\
-> +					(0x3088 + 0x200 * (rdi)) :\
-> +					(0x5488 + 0x200 * (rdi)))
-> +#define		RDI_CTRL_START_CMD			BIT(0)
-> +
-> +#define CSID_RDI_CFG1(rdi)	(csid_is_lite(csid) ?\
-> +					(0x3094 + 0x200 * (rdi)) :\
-> +					(0x5494 + 0x200 * (rdi)))
-
-[Severity: Low]
-As reported by Sashiko on v2 [1], this isn't a bug, but
-MSM_CSID_MAX_SRC_STREAMS_1190, CSID_RDI_CFG0(rdi), CSID_RDI_CTRL(rdi), and
-CSID_RDI_CFG1(rdi) in drivers/media/platform/qcom/camss/camss-csid-1190.c
-expand to expressions calling csid_is_lite(csid) without taking csid as a
-macro parameter. Should these macros take csid explicitly instead of relying
-on a local variable named csid in the caller's scope?
-
-[ ... ]
-
-> +static void __csid_aup_rup_trigger(struct csid_device *csid)
+On 10/29/26 2:52 PM, Anna Maniscalco wrote:
+> In order to be able to update the SMMU registers from CP for page table
+> updates we need to configure the LPAC aperture to include the context
+> bank that will be associated with SID 1.
+> 
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> ---
+>  drivers/firmware/qcom/qcom_scm.c        | 18 ++++++++++++++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 ++++++
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
+>  include/linux/firmware/qcom/qcom_scm.h  |  1 +
+>  4 files changed, 26 insertions(+)
+> 
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> index 9b06a69d3a6d..92093399f20d 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -1204,6 +1204,7 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
+>  EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
+>  
+>  #define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
+> +#define QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK	GENMASK(7, 1)
+>  
+>  bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
+>  {
+> @@ -1229,6 +1230,23 @@ int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank)
+>  }
+>  EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
+>  
+> +int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank)
 > +{
-> +	/* trigger SET in combined register */
-> +	writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
-> +}
-> +
-> +static void __csid_addr_update(struct csid_device *csid, int port_id)
-> +{
-> +	csid->addr_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +	writel(csid->addr_update, csid->base + CSID_AUP_CMD);
-> +
-> +	__csid_aup_rup_trigger(csid);
-> +}
-> +
-> +static void __csid_addr_update_clear(struct csid_device *csid, int port_=
-id)
-> +{
-> +	/* Hardware clears the registers upon consuming the settings */
-> +	csid->addr_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +}
-> +
-> +static void __csid_reg_update(struct csid_device *csid, int port_id)
-> +{
-> +	csid->reg_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +	writel(csid->reg_update, csid->base + CSID_RUP_CMD);
-> +
-> +	__csid_aup_rup_trigger(csid);
-> +}
-> +
-> +static void __csid_reg_update_clear(struct csid_device *csid, int port_i=
-d)
-> +{
-> +	/* Hardware clears the registers upon consuming the settings */
-> +	csid->reg_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +}
 
-[Severity: Medium]
-As reported by Sashiko on v2 [1], can __csid_addr_update() and
-__csid_reg_update() race with __csid_addr_update_clear() and
-__csid_reg_update_clear() on csid->addr_update and csid->reg_update?
+Please make qcom_scm_set_gpu_smmu_aperture() take a parameter instead
+- bit 8=0 is QCOM_SCM_CP_APERTURE_REG, bit 8 =1 is
+QCOM_SCM_CP_LPAC_APERTURE_REG
 
-In drivers/media/platform/qcom/camss/camss-csid-1190.c, __csid_addr_update()
-and __csid_reg_update() perform non-atomic read-modify-write operations on
-csid->addr_update and csid->reg_update before writing CSID_AUP_CMD and
-CSID_RUP_CMD.
-
-Meanwhile, in hardirq context, csid_isr() clears those fields when
-INFO_RUP_DONE is set without holding any lock:
-
-drivers/media/platform/qcom/camss/camss-csid-1190.c:csid_isr() {
-    ...
-			if (val & INFO_RUP_DONE) {
-				__csid_addr_update_clear(csid, i);
-				__csid_reg_update_clear(csid, i);
-			}
-    ...
-}
-
-Because vfe_queue_buffer_v2() and vfe_enable_output_v2() only hold
-vfe->output_lock (which csid_isr() does not acquire before camss_buf_done())
-and csid_configure_stream() holds no spinlock, concurrent updates from proc=
-ess
-context (for example during VIDIOC_QBUF or when starting multiple RDI strea=
-ms
-sharing a CSID) and hardirq context can clobber bits in csid->addr_update a=
-nd
-csid->reg_update.
-
-[ ... ]
-
-> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
-> +{
-> +	u8 i, k;
-> +
-> +	__csid_configure_rx(csid, &csid->phy);
-> +
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1190; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			__csid_configure_rdi_stream(csid, enable, i, 0);
-> +			__csid_configure_rx_vc(csid, 0);
-> +
-> +			for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
-> +				__csid_addr_update(csid, i);
-> +
-> +			__csid_reg_update(csid, i);
-> +
-> +			__csid_ctrl_rdi(csid, enable, i);
-> +		}
-> +	}
-> +}
-
-[Severity: High]
-What happens in csid_configure_stream() if VIDIOC_STREAMON is called with
-fewer than CAMSS_INIT_BUF_COUNT (2) buffers queued?
-
-In msm_video_register() in drivers/media/platform/qcom/camss/camss-video.c,
-vb2_queue.min_queued_buffers is 0, so vb2_core_streamon() invokes
-vb2_start_streaming() -> video_start_streaming() even when 0 or 1 buffer is
-queued before VIDIOC_STREAMON.
-
-video_start_streaming() first calls vfe_set_stream() -> vfe_enable_v2() ->
-vfe_enable_output_v2(), which dequeues only the available pending buffers (0
-or 1) and writes their addresses via ops->vfe_wm_update():
-
-drivers/media/platform/qcom/camss/camss-vfe.c:vfe_enable_output_v2() {
-    ...
-	for (i =3D 0; i < CAMSS_INIT_BUF_COUNT; i++) {
-		output->buf[i] =3D vfe_buf_get_pending(output);
-		if (!output->buf[i])
-			break;
-		output->gen2.active_num++;
-		ops->vfe_wm_update(vfe, output->wm_idx[0],
-				   output->buf[i]->addr[0], line);
-		if (!ops->addr_update)
-			ops->reg_update(vfe, line->id);
-	}
-    ...
-}
-
-Next, video_start_streaming() calls csid_set_stream() ->
-csid_configure_stream(), which unconditionally loops CAMSS_INIT_BUF_COUNT (=
-2)
-times calling __csid_addr_update(csid, i) regardless of how many buffers we=
-re
-queued in vfe_enable_output_v2(). Moreover, vfe_wm_stop() in
-drivers/media/platform/qcom/camss/camss-vfe-1190.c only clears
-VFE_BUS_WM_CFG(wm) without clearing VFE_BUS_WM_IMAGE_ADDR(wm).
-
-When userspace later queues buffers via VIDIOC_QBUF, vfe_queue_buffer_v2()
-sees output->state =3D=3D VFE_OUTPUT_ON and output->gen2.active_num < 2, and
-issues additional ops->addr_update() and ops->reg_update() strobes:
-
-drivers/media/platform/qcom/camss/camss-vfe.c:vfe_queue_buffer_v2() {
-    ...
-	if (output->state =3D=3D VFE_OUTPUT_ON &&
-	    output->gen2.active_num < 2) {
-		output->buf[output->gen2.active_num++] =3D buf;
-		ops->vfe_wm_update(vfe, output->wm_idx[0],
-				   buf->addr[0], line);
-		if (ops->addr_update)
-			ops->addr_update(vfe, line->id);
-		ops->reg_update(vfe, line->id);
-	}
-    ...
-}
-
-Doesn't issuing two unconditional __csid_addr_update() strobes in
-csid_configure_stream() latch stale or duplicate DMA addresses in the write
-master and desynchronize buffer tracking when fewer than two buffers were
-queued before streamon?
-
-[ ... ]
-
-> +const struct csid_hw_ops csid_ops_1190 =3D {
-> +	.configure_stream =3D csid_configure_stream,
-> +	.configure_testgen_pattern =3D csid_configure_testgen_pattern,
-> +	.hw_version =3D csid_hw_version,
-> +	.isr =3D csid_isr,
-> +	.reset =3D csid_reset,
-> +	.src_pad_code =3D csid_src_pad_code,
-> +	.subdev_init =3D csid_subdev_init,
-> +	.reg_update =3D csid_subdev_reg_update,
-> +	.addr_update =3D csid_subdev_addr_update,
-> +};
-
-[Severity: Low]
-This isn't a bug, but every register offset, bitmask macro, stream count
-definition, helper function, interrupt handler, reset routine, and hardware
-operation callback in drivers/media/platform/qcom/camss/camss-csid-1190.c
-(including the unused lane_cnt local variable in
-__csid_configure_rdi_stream()) is identical to
-drivers/media/platform/qcom/camss/camss-csid-1080.c.
-
-Similarly, drivers/media/platform/qcom/camss/camss-vfe-1190.c duplicates all
-functions and callbacks of drivers/media/platform/qcom/camss/camss-vfe-1080=
-.c
-verbatim, differing only in the BUS_REG_BASE and write master register offs=
-et
-macros.
-
-Could csid_res_hawi reuse csid_ops_1080 directly (just as hawi_resources
-reuses csiphy_res_kaanapali and tpg_res_x1e80100), and could the common VFE
-1080/1190 helpers be shared?
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index df4b4cf30711b..0a67d4f746eeb 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4359,6 +4359,218 @@ static const struct resources_icc icc_res_sa8775p=
-[] =3D {
->  	},
->  };
-> =20
-> +static const struct camss_subdev_resources vfe_res_hawi[] =3D {
-> +	/* VFE0 - TFE Full */
-> +	{
-> +		.clock =3D { "vfe0_fast_ahb", "vfe0", "cpas_vfe0",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo",
-> +			   "cpas_mnoc_hf", "cpas_mnoc_sf" },
-> +		.clock_rate =3D { { 0 },
-> +				{ 238200000, 397000000, 440000000, 480000000,
-> +				  630000000, 750000000, 833000000 },
-> +				{ 0 },
-> +				{ 171428571, 240000000, 300000000, 400000000,
-> +				  480000000, 600000000 },
-
-[Severity: Medium]
-Are the camnoc_rt_axi clock rates in vfe_res_hawi (for VFE0 through VFE4)
-matching the Hawi CAMCC clock driver?
-
-In drivers/clk/qcom/camcc-hawi.c, ftbl_cam_cc_camnoc_rt_axi_clk_src for
-qcom,hawi-camcc defines a maximum rate of 480 MHz:
-
-drivers/clk/qcom/camcc-hawi.c:
-static const struct freq_tbl ftbl_cam_cc_camnoc_rt_axi_clk_src[] =3D {
-	F(19200000, P_BI_TCXO, 1, 0, 0),
-	F(120000000, P_CAM_CC_PLL6_OUT_EVEN, 4, 0, 0),
-	F(160000000, P_CAM_CC_PLL6_OUT_EVEN, 3, 0, 0),
-	F(240000000, P_CAM_CC_PLL6_OUT_EVEN, 2, 0, 0),
-	F(320000000, P_CAM_CC_PLL6_OUT_EVEN, 1.5, 0, 0),
-	F(480000000, P_CAM_CC_PLL6_OUT_EVEN, 1, 0, 0),
-	{ }
-};
-
-(Whereas the 200/240/300/400/480/600 MHz table
-ftbl_cam_cc_camnoc_rt_axi_clk_src_maili is only used for qcom,maili-camcc, =
-and
-171428571 Hz is in neither table.)
-
-When vfe_get() -> vfe_set_clock_rates() runs with min_rate between 480 MHz =
-and
-600 MHz, it selects 600000000 Hz from vfe_res_hawi instead of rejecting the
-rate, and clk_round_rate() on Hawi clamps it down to 480000000 Hz. When the
-second pipeline entity calls vfe_get() -> vfe_check_clock_rates(), won't
-clk_get_rate(clock->clk) < min_rate cause vfe_check_clock_rates() to fail w=
-ith
--EBUSY?
-
-[ ... ]
-
-> @@ -6078,6 +6290,22 @@ static const struct camss_resources sm8650_resourc=
-es =3D {
->  	.vfe_num =3D ARRAY_SIZE(vfe_res_sm8650),
->  };
-> =20
-> +static const struct camss_resources hawi_resources =3D {
-> +	.version =3D CAMSS_HAWI,
-> +	.pd_name =3D "top",
-> +	.pm_clks =3D { "cpas_fast_ahb", "cpas_ahb", "gcc_axi_hf" },
-> +	.csiphy_res =3D csiphy_res_kaanapali,
-
-[Severity: High]
-As reported by Sashiko on v2 [2], can reusing csiphy_res_kaanapali in
-hawi_resources lead to a NULL pointer dereference in
-msm_csiphy_subdev_init_legacy() during probe?
-
-The entries in csiphy_res_kaanapali do not set .csiphy.hw_ops, leaving hw_o=
-ps
-as NULL. During camss_probe() -> camss_init_subdevices(),
-camss_detect_legacy_phy() defaults camss->legacy_phy to true:
-
-drivers/media/platform/qcom/camss/camss.c:camss_detect_legacy_phy() {
-	camss->legacy_phy =3D true;
-
-	/* Find first remote-endpoint and determine if its a PHY */
-	for_each_endpoint_of_node(camss->dev->of_node, ep) {
-        ...
-}
-
-If the qcom,hawi-camss node has no endpoints in its ports node (for example,
-when enabling CAMSS to use its internal Test Pattern Generators without
-external sensors or PHYs), camss->legacy_phy remains true.
-camss_init_subdevices() then calls msm_csiphy_subdev_init_legacy(), which
-unconditionally dereferences csiphy->res->hw_ops:
-
-drivers/media/platform/qcom/camss/camss-csiphy.c:msm_csiphy_subdev_init_leg=
-acy() {
-    ...
-	ret =3D csiphy->res->hw_ops->init(csiphy);
-    ...
-}
-
-[1] https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-7-fc93222da89c@o=
-ss.qualcomm.com
-[2] https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-6-fc93222da89c@o=
-ss.qualcomm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-hawi-maili=
--camss-v3-0-9742bca8cef2@oss.qualcomm.com?part=3D5
+Konrad
