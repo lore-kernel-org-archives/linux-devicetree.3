@@ -1,51 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793336276;
-	b=voN7/SB8ezKouDvbBOQObpJWA9J/+2WU24uIhSV1yEKf4iJcsevzUem80HpMwKur4Oie
-	 uIagc+lZoRDxj11YYvfZQFd8MR/z5ROqaHvakZtlxSmHgYFZaQSBysF9Af66FClk7MBmC
-	 mc+Lnym4sCeI0XYg4IjbuMbTlJyaP/XsXDB5lFUjXAFSBpOQ+pQ8OQQ+gpKn2frsq788m
-	 sJV9aavIfbv4OTuo4dUNsFnE93SyFYuq0x39udtzfRdZyuhtOt2rB7PsCYXlPeb/YCEUl
-	 x4W3FtzQP7iEtlHcIA8JYlva/JzzIM9oZNPCKDJ5fsJ94IPvJxyZf3Mi+VaAd6Xjc4g==
+	b=QT5O60YXJKIv296/5spAj6f+BEILIEGd8ATJQkro/8C3XNKSXlF9kuxfKfDEzjXSVs87
+	 okkNqkEc2QH6qNNmj+oVLm/UA/IBLex8xefGLFwVnywpc482uutU2gcweTMI4zqxuzmq1
+	 K5TdyOUh4hOJihMWqwvw+K2sQRwtS54xN9zcb1RW96b+ylWOj0Th7nyr9fXOj6xeOiuSr
+	 c91GgY4Rbu6K5GvBihyF1FJMPaJeupN1MapP8R+IVRv7NeJX4ONEad6sEITZePVXZn+2y
+	 2LFb5pBlplL6J7EqxIY0IE2CM+/Q8Wr005nPqFkfdprcYUF5GtDIxaOndC/XNA+rS8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793336276;
 	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To;
-	bh=g/WNxLvyqcAchDmWuSQpxzCG7I4s0YHB0LcXyEwcBwc=;
-	b=b8YNL/xoSc1x46Duw68WBlPqcd7mxaq9uuMry0CtCzn15m9gVGGt4qY477ke/rg36MI6
-	 9octtn0w8D/8ac1r1jKyd0+0h/rH409Ul+XHM+p9newwRNlDd4bfIZUacGw4he+o1VTn5
-	 oyeQpeQI1YVHTmi3KvRESJyOkr4QWEtmWcwz6gMg6Tj1yJSdq8p2Z0BKxcE32PrGDzsf+
-	 rLrbv/02sT4sl18i/1n5mbpd5ZW3ZaP3y01nv2q+CAD4qYqdMDJOoHSF3egSjHNdLzcC3
-	 wu0SOGvgsHtdn/N2dvHLHSoAdJ6n4ZhiwF4Fr+/aoSX0E6GOrGveAJls3WVQPzt2w0g==
+	bh=wDudv0rZrAL9ppq3uGqt354wGtsIysDT5fTdFXNaOpY=;
+	b=TOTV+eHXaL+e4LywISFuLUG9yD0Wm/1cPd1mgQWQbLRLIbRbztpP0OL7GGHkmLpy+RQr
+	 TIvj11vx8TnWE1gS3WJBrsy94mXZUxEXcYH+biPA/Jh/6HlHO/oaVKnYuKhwFB5Ozf3Vp
+	 RwM9xsmu7jcLRuDlpQ5pTfWgh2GiGXuhiy1rkLZdm/c2TJ/M132wYFDcJc+ogun+7hgoc
+	 kriqUU/u3iqe/tH5BTq+q4BIqIvkuYk+nGv3md5USBTpSYL4z0UWCjgMKzXXsp2cGO7Ri
+	 vpLhOdIm/dS8b29ra5QPeuqyuSDm7887Bl2cjYu6UP7gqUNhLW+H5R3dEvKKtigLb8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gibson.dropbear.id.au;
 	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YaHMHUvH;
 	arc=none smtp.remote-ip=150.107.74.76
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EAF606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F43606A31D;
 	Fri, 30 Oct 2026 04:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6EAF606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6F43606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=YaHMHUvH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=gibson.dropbear.id.au; s=202610; t=1793336270;
-	bh=g/WNxLvyqcAchDmWuSQpxzCG7I4s0YHB0LcXyEwcBwc=;
+	bh=wDudv0rZrAL9ppq3uGqt354wGtsIysDT5fTdFXNaOpY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YaHMHUvHfN2HJF7FuI54U4bfGC4UkUrBWHHQbQsrk+TYMc1G5qeatJ9fHE/6/jeJ+
-	 TqrHRn+jF9mg1m6GWFJm+W+TZ2JWz2UJF/opR/h4e1Yb89Zxxm5e511QhsqkvJR5if
-	 AeLkWy53tDy/NHZGZgOCJcFQVuIQgF2PpPpwve7/KMvU9K/21kaIKxzDmcSXg75L7O
-	 WmtB7oWezpLQl8jeAcDxQj4QcUZkZruDOfOTXqwK9B5s9TIKJICgON7mkfYWrZmiXv
-	 nZRsio6ijM1CkEzMU7e71g2GgAsSIvYiP9Tate/E2ll+3xE+SraQfzMyQYgtjCSmrN
-	 srfvqdi0t4Xhw==
+	b=Il8bAsc+h5MG7A5wE9f5lyzQ8TyWCkIWvAqcBXRzDQslwyifZvQRIhZUippTVHuAq
+	 sB9S9/RWYul+yisT6/i4KEO1Td7qOs2FZFlEPj8q3Aqo1Q5pEcWLj/Wd+izVNoWLuS
+	 GYi1UtzuFe/vB7702+mG7zeI7ZnvK++U8excew33vOCdTmuLbcRsu+B1WpUQUGPNAC
+	 WPR0qIsEDtnY34ADI6sf0bDarku72eR7MjCWJT+41xqWIKDn1L2aGu5DZr2GBqxA1c
+	 QpfviUPNDrwGaJ6XYgaawK3DeMKUbcrAcM+tTFFRfg7E2wwRv05lX7zByOUA6KxETk
+	 WfyDh2a4fr/jQ==
 Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jG83y1mX8z4wDh; Fri, 30 Oct 2026 15:57:50 +1100 (AEDT)
-Date: Fri, 30 Oct 2026 15:57:02 +1100
+	id 4jG83y1vfpz4x95; Fri, 30 Oct 2026 15:57:50 +1100 (AEDT)
+Date: Fri, 30 Oct 2026 15:24:47 +1100
 From: David Gibson <david@gibson.dropbear.id.au>
 To: Douglas Anderson <dianders@chromium.org>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
@@ -60,10 +57,11 @@ Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
 	Saravana Kannan <saravanak@kernel.org>,
 	Peter Griffin <peter.griffin@linaro.org>
-Subject: Re: [PATCH v2 03/10] pylibfdt: Add NodeTree live tree representation
-Message-ID: <auQjnZ6rd4wqoORz@gractus.seuss>
+Subject: Re: [PATCH v2 05/10] libfdt: overlay: Prepare fixup and fragment
+ path helpers for reuse
+Message-ID: <auQcDmZJGQZW7oB7@gractus.seuss>
 References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-4-dianders@chromium.org>
+ <20261028215600.1713475-6-dianders@chromium.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,465 +72,218 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MEzlFz2COTVcdiL/"
+	protocol="application/pgp-signature"; boundary="Jgk/y5Mqu3WDWreC"
 Content-Disposition: inline
-In-Reply-To: <20261028215600.1713475-4-dianders@chromium.org>
+In-Reply-To: <20261028215600.1713475-6-dianders@chromium.org>
 
---MEzlFz2COTVcdiL/
+--Jgk/y5Mqu3WDWreC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 02:46:52PM -0700, Douglas Anderson wrote:
-> Add `NodeTree`, an in-memory live tree representation of a devicetree
-> node and its subtree, to `pylibfdt`:
+On Wed, Oct 28, 2026 at 02:46:54PM -0700, Douglas Anderson wrote:
+> Clean up `overlay_parse_fixup_entry()` and generalize
+> `overlay_split_fragment_path()` in `libfdt/fdt_overlay.c` so both can be
+> reused when updating `/__local_fixups__`:
 >=20
-> - `NodeTree.unflatten(fdt, offset=3D0)` builds a `NodeTree` hierarchy from
->   an `FdtRo` instance.
-> - `NodeTree.flatten(mem_rsv=3D(), boot_cpuid_phys=3D0)` serializes a root
->   `NodeTree` back into a packed FDT blob via `FdtSw`.
-> - `get_node()`, `create_path()`, and `walk()` provide path lookup,
->   intermediate node creation, and pre-order traversal.
-> - `get_str()`, `set_str()`, `get_stringlist()`, `set_stringlist()`,
->   `get_u32()`, `set_u32()`, `get_u32_list()`, and `set_u32_list()`
->   provide typed property access and mutation (updating
->   `Property.as_str()` and `Property.as_stringlist()` so empty `b''`
->   properties raise `ValueError` or return `[]` rather than
->   `IndexError`).
+> - Change `poffset` from `int` to `uint32_t` in
+>   `overlay_fixup_one_phandle()`, `overlay_parse_fixup_entry()`, and
+>   `overlay_fixup_phandle()`, and parse into `unsigned long` before
+>   validating the range.
+> - Require `*(sep + 1)` to be an ASCII digit (`'0'..'9'`) and bound
+>   `poffset` to `INT32_MAX - sizeof(uint32_t)` so negative strings (such
+>   as `"-4"`), leading whitespace, or large values cannot silently
+
+Huh, I'd assumed that strtoul() wouldn't accept negative strings, but
+according to BUGS in strtoul(1) that might not be the case (at least
+for Linux+glibc).  Good catch.
+
+>   truncate or wrap around in `fdt_setprop_inplace_namelen_partial()`.
+> - Drop the redundant `*sep !=3D ':'` checks after `memchr(..., ':', ...)`.
+> - Generalize `overlay_split_fragment_path()` to accept a length-bounded
+>   `path` slice that is not necessarily NUL-terminated (using `memchr()`
+>   instead of `strchr()`, and keeping the NUL-terminated property check
+>   in `overlay_symbol_update()`) so it can also split `:`-delimited paths
+>   from `/__fixups__`.
+
+This may need some minor rebasing for the suggestions on the previous
+patch, plus some additional minor refinements suggested below.
+
 >=20
-> Add unit tests in `tests/pylibfdt_tests.py` covering `NodeTree`
-> unflatten/flatten round-tripping and helper methods.
-
-Thanks for splitting this out as suggested.  However, on
-consideration, I don't think it really belongs in pylibfdt: the "f" in
-there refers to "flattened" and this is, explicitly, a non-flattened
-data structure.
-
-I have sometimes thought about adding a library for handling
-non-flattened trees, although I wasn't thinking something Python
-specific.
-
-I think for now let's move this to its own Python file / module.
-
 > Assisted-by: Gemini:gemini-pro-prerelease
 > Signed-off-by: Douglas Anderson <dianders@chromium.org>
 > ---
 >=20
 > Changes in v2:
-> - Split NodeTree live tree representation out of fdtfactor into
->   pylibfdt (David Gibson)
+> - New patch tightening fixup offset parsing and generalizing
+>   overlay_split_fragment_path() for non-NUL-terminated paths in
+>   libfdt/fdt_overlay.c
 >=20
->  pylibfdt/libfdt.i       | 262 +++++++++++++++++++++++++++++++++++++++-
->  tests/pylibfdt_tests.py |  54 +++++++++
->  2 files changed, 315 insertions(+), 1 deletion(-)
+>  libfdt/fdt_overlay.c | 46 +++++++++++++++++++++++---------------------
+>  1 file changed, 24 insertions(+), 22 deletions(-)
 >=20
-> diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> index 0db7110b4a38..f511c61746e3 100644
-> --- a/pylibfdt/libfdt.i
-> +++ b/pylibfdt/libfdt.i
-> @@ -929,7 +929,7 @@ class Property(bytearray):
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> index f9d1a555ed5d..eb87b356145f 100644
+> --- a/libfdt/fdt_overlay.c
+> +++ b/libfdt/fdt_overlay.c
+> @@ -330,7 +330,7 @@ static int overlay_update_local_references(void *fdto=
+, uint32_t delta)
+>  static int overlay_fixup_one_phandle(void *fdto, int symbols_off,
+>  				     const char *path, uint32_t path_len,
+>  				     const char *name, uint32_t name_len,
+> -				     int poffset, uint32_t phandle)
+> +				     uint32_t poffset, uint32_t phandle)
+>  {
+>  	fdt32_t phandle_prop;
+>  	int fixup_off;
+> @@ -368,7 +368,7 @@ static int overlay_fixup_one_phandle(void *fdto, int =
+symbols_off,
+>  static int overlay_parse_fixup_entry(const char **valuep, int *lenp,
+>  				     const char **pathp, uint32_t *path_lenp,
+>  				     const char **namep, uint32_t *name_lenp,
+> -				     int *poffsetp)
+> +				     uint32_t *poffsetp)
+>  {
+>  	const char *path, *name, *fixup_end;
+>  	const char *fixup_str =3D *valuep;
+> @@ -376,7 +376,7 @@ static int overlay_parse_fixup_entry(const char **val=
+uep, int *lenp,
+>  	uint32_t fixup_len;
+>  	const char *sep;
+>  	char *endptr;
+> -	int poffset;
+> +	unsigned long poffset;
 > =20
->      def as_str(self):
->          """Unicode is supported by decoding from UTF-8"""
-> -        if self[-1] !=3D 0:
-> +        if not self or self[-1] !=3D 0:
->              raise ValueError('Property lacks nul termination')
->          if 0 in self[:-1]:
->              raise ValueError('Property contains embedded nul characters')
-> @@ -937,6 +937,8 @@ class Property(bytearray):
+>  	fixup_end =3D memchr(*valuep, '\0', *lenp);
+>  	if (!fixup_end)
+> @@ -388,7 +388,7 @@ static int overlay_parse_fixup_entry(const char **val=
+uep, int *lenp,
 > =20
->      def as_stringlist(self):
->          """Unicode is supported by decoding from UTF-8"""
-> +        if not self:
-> +            return []
-
-The two hunks above are good fixes, but unrelated to the bulk of the patch.
-
->          if self[-1] !=3D 0:
->              raise ValueError('Property lacks nul termination')
->          parts =3D self[:-1].split(b'\x00')
-> @@ -1210,6 +1212,264 @@ class NodeAdder():
+>  	path =3D fixup_str;
+>  	sep =3D memchr(fixup_str, ':', fixup_len);
+> -	if (!sep || *sep !=3D ':')
+> +	if (!sep)
+>  		return -FDT_ERR_BADOVERLAY;
 > =20
->      def __exit__(self, type, value, traceback):
->          self._fdt.end_node()
-> +
-> +
-> +class NodeTree:
-
-Maybe class DeviceTree?  The "node" doesn't really add any useful
-information.
-
-> +    """In-memory live tree representation of a devicetree node and its s=
-ubtree.
-> +
-> +    Attributes:
-> +        props: Dict mapping property name (str) to raw property value (b=
-ytes).
-> +        children: Dict mapping child node name (str) to child NodeTree.
-> +    """
-> +
-> +    def __init__(self):
-> +        self.props =3D {}
-> +        self.children =3D {}
-> +
-> +    @classmethod
-> +    def unflatten(cls, fdt, offset=3D0):
-> +        """Unflatten an FdtRo subtree starting at `offset` into a NodeTr=
-ee.
-> +
-> +        Args:
-> +            fdt: An `FdtRo` (or `Fdt`) instance.
-> +            offset: Starting node offset (default 0 for the root node).
-> +
-> +        Returns:
-> +            A `NodeTree` representing the node at `offset` and its desce=
-ndants.
-> +        """
-> +        node =3D cls()
-> +        for prop in fdt.properties(offset):
-> +            node.props[prop.name] =3D bytes(prop)
-
-Since we already rely on class Property from libfdt.i, it seems like
-it would be a little more natural to have the dictionary values be
-class Property instances.  Yes, that technically has some redundant
-storage of the property names, but we're not particularly concerned
-about optimisation for this Python library.  Plus, Python's
-assign-by-reference should mean it's generally just a duplicated
-pointer, not a whole duplicated string.
-
-> +        for suboff in fdt.subnodes(offset):
-> +            node.children[fdt.get_name(suboff)] =3D cls.unflatten(fdt, s=
-uboff)
-> +        return node
-> +
-> +    def _flatten_subtree(self, sw, name):
-> +        """Recursively write this NodeTree and its children into an FdtS=
-w.
-> +
-> +        Args:
-> +            sw: An `FdtSw` sequential-write instance.
-> +            name: Node name for this subtree (empty string `''` for root=
-).
-> +        """
-> +        with sw.add_node(name):
-> +            for prop_name, val in self.props.items():
-> +                sw.property(prop_name, bytes(val))
-> +            for child_name, child_node in self.children.items():
-> +                child_node._flatten_subtree(sw, child_name)
-> +
-> +    def flatten(self, mem_rsv=3D(), boot_cpuid_phys=3D0):
-> +        """Serialize this root NodeTree into a packed FDT byte string.
-> +
-> +        Args:
-> +            mem_rsv: Iterable of (address, size) tuples for the FDT memo=
-ry
-> +                reservation block.
-> +            boot_cpuid_phys: Physical boot CPU ID for the FDT header.
-> +
-> +        Returns:
-> +            Serialized FDT blob as `bytes`.
-> +        """
-> +        sw =3D FdtSw()
-> +        for addr, size in mem_rsv:
-> +            sw.add_reservemap_entry(addr, size)
-> +        sw.finish_reservemap()
-> +        self._flatten_subtree(sw, '')
-> +        fdt =3D sw.as_fdt()
-> +        fdt_set_boot_cpuid_phys(fdt._fdt, boot_cpuid_phys)
-> +        fdt.pack()
-
-For better symmetry with unflatten(), I'd suggest returning the Fdt
-object here, leaving the conversion to a bytearray to the caller.
-
-> +        return bytes(fdt.as_bytearray())
-> +
-> +    def get_node(self, path):
-> +        """Look up a descendant NodeTree by path without modifying the t=
-ree.
-> +
-> +        Follows the slash-separated node names in `path` starting from `=
-self`
-> +        (leading, trailing, and repeated `'/'` characters are ignored, so
-> +        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically, and `=
-''` or
-> +        `'/'` returns `self`). If any component along `path` is not pres=
-ent in
-> +        `children`, returns `None`.
-> +
-> +        Args:
-> +            path: Slash-separated node path starting from `self` (e.g.
-> +                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-> +
-> +        Returns:
-> +            The `NodeTree` at `path`, or `None` if not found.
-> +        """
-> +        node =3D self
-> +        for part in path.split('/'):
-> +            if not part:
-> +                continue
-> +            node =3D node.children.get(part)
-> +            if node is None:
-> +                return None
-> +        return node
-> +
-> +    def create_path(self, path):
-> +        """Return the descendant NodeTree at `path`, creating missing no=
-des.
-> +
-> +        Looks up a child or deeper descendant `NodeTree` by following the
-> +        slash-separated node names in `path` starting from `self` (leadi=
-ng,
-> +        trailing, and repeated `'/'` characters are ignored, so
-> +        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically). If a=
-ny
-> +        node along `path` does not exist yet in `children`, a new empty
-> +        `NodeTree` is created for it automatically (similar to `mkdir -p=
-`).
-> +        Passing `''` or `'/'` returns `self`.
-
-Reference get_path() rather than repeating this useful, but wordy,
-description.
-
-> +
-> +        Example:
-> +            root =3D NodeTree()
-> +            # Automatically creates root.children['soc'] and
-> +            # root.children['soc'].children['i2c@4000'], and returns the
-> +            # 'i2c@4000' NodeTree.
-> +            i2c =3D root.create_path('/soc/i2c@4000')
-> +            i2c.set_str('status', 'okay')
-> +
-> +        Args:
-> +            path: Slash-separated node path starting from `self` (e.g.
-> +                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
-> +
-> +        Returns:
-> +            The `NodeTree` instance at `path`.
-> +        """
-> +        node =3D self
-> +        for part in path.split('/'):
-> +            if not part:
-> +                continue
-> +            if part not in node.children:
-> +                node.children[part] =3D type(self)()
-> +            node =3D node.children[part]
-> +        return node
-> +
-> +    def walk(self, path=3D''):
-> +        """Yield `(path, node)` pairs for this subtree in pre-order.
-> +
-> +        Args:
-> +            path: Path prefix for `self` (defaults to `''` for the root =
-node,
-> +                producing paths like `''`, `'/soc'`, `'/soc/i2c@4000'`).
-> +
-> +        Yields:
-> +            Tuple of `(path, node)` for `self` followed recursively by e=
-ach
-> +            descendant `NodeTree`.
-> +        """
-> +        prefix =3D path.rstrip('/')
-> +        yield path, self
-> +        for name, child in self.children.items():
-> +            yield from child.walk(f'{prefix}/{name}')
-> +
-> +    def get_str(self, name):
-> +        """Return property `name` decoded as a NUL-terminated UTF-8 stri=
-ng.
-> +
-> +        Args:
-> +            name: Property name to look up in `self.props`.
-> +
-> +        Returns:
-> +            Decoded string value (without the trailing NUL byte).
-> +
-> +        Raises:
-> +            KeyError: If `name` is not in `self.props`.
-> +            ValueError: If the property value is not a single NUL-termin=
-ated
-> +                UTF-8 string.
-> +        """
-> +        return Property(name, self.props[name]).as_str()
-> +
-> +    def set_str(self, name, val):
-> +        """Set property `name` to a NUL-terminated UTF-8 string.
-> +
-> +        Args:
-> +            name: Property name to set in `self.props`.
-> +            val: String value to encode as UTF-8 with a trailing NUL byt=
-e.
-> +
-> +        Raises:
-> +            ValueError: If `val` contains embedded NUL characters.
-> +        """
-> +        if '\x00' in val:
-> +            raise ValueError('String value contains embedded nul charact=
-ers')
-> +        self.props[name] =3D val.encode('utf-8') + b'\x00'
-> +
-> +    def get_stringlist(self, name):
-> +        """Return property `name` decoded as a list of NUL-separated str=
-ings.
-> +
-> +        Args:
-> +            name: Property name to look up in `self.props`.
-> +
-> +        Returns:
-> +            List of decoded UTF-8 strings (`[]` if the property is empty=
-).
-> +
-> +        Raises:
-> +            KeyError: If `name` is not in `self.props`.
-> +            ValueError: If a non-empty property lacks NUL termination.
-> +        """
-> +        return Property(name, self.props[name]).as_stringlist()
-> +
-> +    def set_stringlist(self, name, vals):
-> +        """Set property `name` to a NUL-separated list of UTF-8 strings.
-> +
-> +        Args:
-> +            name: Property name to set in `self.props`.
-> +            vals: Iterable of strings to encode as NUL-terminated UTF-8.
-> +
-> +        Raises:
-> +            ValueError: If any string in `vals` contains embedded NUL
-> +                characters.
-> +        """
-> +        vals =3D list(vals)
-> +        if any('\x00' in v for v in vals):
-> +            raise ValueError('String value contains embedded nul charact=
-ers')
-> +        self.props[name] =3D b''.join(v.encode('utf-8') + b'\x00' for v =
-in vals)
-> +
-> +    def get_u32(self, name):
-> +        """Return property `name` decoded as a single big-endian uint32 =
-cell.
-> +
-> +        Args:
-> +            name: Property name to look up in `self.props`.
-> +
-> +        Returns:
-> +            Integer value of the 32-bit cell.
-> +
-> +        Raises:
-> +            KeyError: If `name` is not in `self.props`.
-> +            ValueError: If the property length is not 4 bytes.
-> +        """
-> +        raw =3D self.props[name]
-> +        if len(raw) !=3D 4:
-> +            raise ValueError(f'Property {name!r} length {len(raw)} !=3D =
-4')
-> +        return Property(name, raw).as_uint32()
-> +
-> +    def set_u32(self, name, val):
-> +        """Set property `name` to a single big-endian uint32 cell.
-> +
-> +        Args:
-> +            name: Property name to set in `self.props`.
-> +            val: Unsigned 32-bit integer value.
-> +        """
-> +        self.props[name] =3D struct.pack('>I', val)
-> +
-> +    def get_u32_list(self, name):
-> +        """Return property `name` decoded as a list of big-endian uint32=
- cells.
-> +
-> +        Args:
-> +            name: Property name to look up in `self.props`.
-> +
-> +        Returns:
-> +            List of 32-bit unsigned integers.
-> +
-> +        Raises:
-> +            KeyError: If `name` is not in `self.props`.
-> +            ValueError: If the property length is not a multiple of 4 by=
-tes.
-> +        """
-> +        raw =3D self.props[name]
-> +        if len(raw) % 4 !=3D 0:
-> +            raise ValueError(
-> +                f'Property {name!r} length {len(raw)} is not a multiple =
-of 4'
-> +            )
-> +        return Property(name, raw).as_uint32_list()
-> +
-> +    def set_u32_list(self, name, vals):
-> +        """Set property `name` to a sequence of big-endian uint32 cells.
-> +
-> +        Args:
-> +            name: Property name to set in `self.props`.
-> +            vals: Sequence of unsigned 32-bit integer values.
-> +        """
-> +        self.props[name] =3D struct.pack(f'>{len(vals)}I', *vals)
->  %}
+>  	path_len =3D sep - path;
+> @@ -398,15 +398,17 @@ static int overlay_parse_fixup_entry(const char **v=
+aluep, int *lenp,
+>  	fixup_len -=3D path_len + 1;
+>  	name =3D sep + 1;
+>  	sep =3D memchr(name, ':', fixup_len);
+> -	if (!sep || *sep !=3D ':')
+> +	if (!sep)
+>  		return -FDT_ERR_BADOVERLAY;
 > =20
->  %rename(fdt_property) fdt_property_func;
-> diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> index 2a0509c7802e..569eb698a86f 100644
-> --- a/tests/pylibfdt_tests.py
-> +++ b/tests/pylibfdt_tests.py
-> @@ -697,6 +697,60 @@ class PyLibfdtRoTests(unittest.TestCase):
->          self.assertEqual(b'this is a placeholder string\0string2\0',
->                           self.fdt.getprop(node, 'placeholder'))
+>  	name_len =3D sep - name;
+>  	if (!name_len)
+>  		return -FDT_ERR_BADOVERLAY;
 > =20
-> +    def testNodeTreeRoundTrip(self):
-> +        """Test unflattening and flattening a tree via NodeTree"""
-> +        tree =3D libfdt.NodeTree.unflatten(self.fdt)
-> +        rsvmap =3D self.fdt.get_mem_rsv_list()
-> +        cpuid =3D self.fdt.boot_cpuid_phys()
-> +        blob =3D tree.flatten(rsvmap, cpuid)
-> +
-> +        fdt2 =3D libfdt.FdtRo(blob)
-> +        self.assertEqual(rsvmap, fdt2.get_mem_rsv_list())
-> +        self.assertEqual(cpuid, fdt2.boot_cpuid_phys())
-> +
-> +        tree2 =3D libfdt.NodeTree.unflatten(fdt2)
-> +        nodes1 =3D [(path, n.props, list(n.children.keys()))
-> +                  for path, n in tree.walk()]
-> +        nodes2 =3D [(path, n.props, list(n.children.keys()))
-> +                  for path, n in tree2.walk()]
-> +        self.assertEqual(nodes1, nodes2)
-> +
-> +    def testNodeTreeHelpers(self):
-> +        """Test NodeTree navigation and typed property helpers"""
-> +        root =3D libfdt.NodeTree()
-> +        self.assertIs(root, root.get_node(''))
-> +        self.assertIs(root, root.get_node('/'))
-> +        self.assertIsNone(root.get_node('/soc/i2c@4000'))
-> +
-> +        i2c =3D root.create_path('/soc/i2c@4000')
-> +        self.assertIs(i2c, root.get_node('/soc/i2c@4000'))
-> +        self.assertIs(i2c, root.get_node('soc/i2c@4000'))
-> +        self.assertEqual(['', '/soc', '/soc/i2c@4000'],
-> +                         [path for path, _ in root.walk()])
-> +        self.assertEqual(['/', '/soc', '/soc/i2c@4000'],
-> +                         [path for path, _ in root.walk('/')])
-> +
-> +        i2c.set_str('status', 'okay')
-> +        self.assertEqual('okay', i2c.get_str('status'))
-> +        with self.assertRaises(ValueError):
-> +            i2c.set_str('status', 'ok\x00ay')
-> +
-> +        i2c.set_stringlist('compatible', ['vendor,i2c', 'generic,i2c'])
-> +        self.assertEqual(['vendor,i2c', 'generic,i2c'],
-> +                         i2c.get_stringlist('compatible'))
-> +        with self.assertRaises(ValueError):
-> +            i2c.set_stringlist('compatible', ['vendor\x00,i2c'])
-> +        i2c.set_stringlist('empty-list', [])
-> +        self.assertEqual([], i2c.get_stringlist('empty-list'))
-> +        with self.assertRaises(ValueError):
-> +            i2c.get_str('empty-list')
-> +
-> +        i2c.set_u32('#address-cells', 1)
-> +        self.assertEqual(1, i2c.get_u32('#address-cells'))
-> +
-> +        i2c.set_u32_list('reg', [0x4000, 0x100])
-> +        self.assertEqual([0x4000, 0x100], i2c.get_u32_list('reg'))
-> +
+> +	if ((*(sep + 1) < '0') || (*(sep + 1) > '9'))
+> +		return -FDT_ERR_BADOVERLAY;
+
+Putting the rationale for this in a comment here would be more useful
+than just in the commit message.
+
+>  	poffset =3D strtoul(sep + 1, &endptr, 10);
+> -	if ((*endptr !=3D '\0') || (endptr <=3D (sep + 1)))
+> +	if ((*endptr !=3D '\0') || (poffset > (INT32_MAX - sizeof(uint32_t))))
+>  		return -FDT_ERR_BADOVERLAY;
 > =20
->  if __name__ =3D=3D "__main__":
->      unittest.main()
+>  	*pathp =3D path;
+> @@ -470,8 +472,8 @@ static int overlay_fixup_phandle(void *fdt, void *fdt=
+o, int symbols_off,
+> =20
+>  	do {
+>  		const char *path, *name;
+> -		uint32_t path_len, name_len;
+> -		int poffset, ret;
+> +		uint32_t path_len, name_len, poffset;
+> +		int ret;
+> =20
+>  		ret =3D overlay_parse_fixup_entry(&value, &len, &path, &path_len,
+>  						&name, &name_len, &poffset);
+> @@ -925,8 +927,8 @@ static int get_path_len(const void *fdt, int nodeoffs=
+et)
+> =20
+>  /**
+>   * overlay_split_fragment_path - Split "/<frag>/__overlay__[/<rel>]" int=
+o parts
+> - * @path: Input NUL-terminated path property string
+> - * @path_len: Length of @path in bytes (including trailing NUL)
+> + * @path: Input path string (need not be NUL-terminated)
+> + * @path_len: Length of @path in bytes (excluding any terminator)
+>   * @frag_namep: Output pointer to the fragment name
+>   * @frag_name_lenp: Output length of @frag_namep in bytes
+>   * @rel_pathp: Output pointer to the relative subnode path after __overl=
+ay__
+> @@ -935,7 +937,7 @@ static int get_path_len(const void *fdt, int nodeoffs=
+et)
+>   *
+>   * returns:
+>   *      0 on success
+> - *      -FDT_ERR_BADVALUE if @path is not a valid NUL-terminated '/' path
+> + *      -FDT_ERR_BADVALUE if @path does not start with '/'
+>   */
+>  static int overlay_split_fragment_path(const char *path, int path_len,
+>  				       const char **frag_namep,
+> @@ -951,18 +953,14 @@ static int overlay_split_fragment_path(const char *=
+path, int path_len,
+> =20
+>  	*is_overlayp =3D false;
+> =20
+> -	/* verify it's a string property (terminated by a single \0) */
+> -	if (path_len < 1 || memchr(path, '\0', path_len) !=3D &path[path_len - =
+1])
+> -		return -FDT_ERR_BADVALUE;
+> -
+>  	/* keep end marker to avoid strlen() */
+>  	e =3D path + path_len;
+> =20
+> -	if (*path !=3D '/')
+> +	if (path_len < 1 || *path !=3D '/')
+>  		return -FDT_ERR_BADVALUE;
+> =20
+>  	/* get fragment name first */
+> -	s =3D strchr(path + 1, '/');
+> +	s =3D memchr(path + 1, '/', path_len - 1);
+>  	if (!s) {
+>  		/* Symbol refers to something that won't end
+>  		 * up in the target tree */
+> @@ -972,13 +970,13 @@ static int overlay_split_fragment_path(const char *=
+path, int path_len,
+>  	frag_name =3D path + 1;
+>  	frag_name_len =3D s - path - 1;
+> =20
+> -	/* verify format; safe since "s" lies in \0 terminated prop */
+> +	/* verify format */
+>  	len =3D sizeof("/__overlay__/") - 1;
+> -	if ((e - s) > len && (memcmp(s, "/__overlay__/", len) =3D=3D 0)) {
+> +	if ((e - s) >=3D len && (memcmp(s, "/__overlay__/", len) =3D=3D 0)) {
+>  		/* /<fragment-name>/__overlay__/<relative-subnode-path> */
+>  		rel_path =3D s + len;
+> -		rel_path_len =3D e - rel_path - 1;
+> -	} else if ((e - s) =3D=3D len
+> +		rel_path_len =3D e - rel_path;
+> +	} else if ((e - s) =3D=3D (len - 1)
+>  		   && (memcmp(s, "/__overlay__", len - 1) =3D=3D 0)) {
+>  		/* /<fragment-name>/__overlay__ */
+>  		rel_path =3D "";
+> @@ -1049,7 +1047,11 @@ static int overlay_symbol_update(void *fdt, void *=
+fdto)
+>  		if (!path)
+>  			return path_len;
+> =20
+> -		ret =3D overlay_split_fragment_path(path, path_len,
+> +		/* verify it's a string property (terminated by a single \0) */
+> +		if (path_len < 1 || memchr(path, '\0', path_len) !=3D &path[path_len -=
+ 1])
+> +			return -FDT_ERR_BADVALUE;
+> +
+> +		ret =3D overlay_split_fragment_path(path, path_len - 1,
+>  						  &frag_name, &frag_name_len,
+>  						  &rel_path, &rel_path_len,
+>  						  &is_overlay);
 > --=20
 > 2.56.0.313.g2479322e68-goog
 >=20
@@ -544,24 +295,24 @@ david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
 				| around.
 http://www.ozlabs.org/~dgibson
 
---MEzlFz2COTVcdiL/
+--Jgk/y5Mqu3WDWreC
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkI50ACgkQzQJF27ox
-2GfmEw/3d1pN0BiKxKGy7iealHNxR9rVQ2glq7oAYfTWKguJQ4EVxZN+0tkCvZ+W
-FW/5+9PJdY6dVRAptBxi6xE5SReemBSEkp1Pq12005erCsTOjK8yA1f9IaLBcYWi
-rEbdDT3XAayg8nqR92vY/rzr8VF3rsbh0GnaRxUXTskYwwJR3EBgp18iPFiUCzrV
-pURArgxn5Pmw0FRzm3Fu5nX468U7iN0pXDWs/pcPnusNgt5COLc2JERi3Ysn83k8
-iWE65gEpnIUW+8rBI1MKzY18dsslkr653MYmVuylE1eIwur5HYxPfAzVToIeh3fW
-b91nauO/8N2+7tvtNeHfeKRazeYYLcUwF+U3d83miHn2jNu8cImzkvydYolhWecq
-E0cZ2oBmC9FNsSQ7WFqgl06SYYP7socx9DHEMavlxUjNwaAT+F/njja56WPkGRrH
-4a8qbBzApW3YL4norOsnChcRVXfFlK3I/WnPY5Je0w83V5qoVXaot8Y4YnuwKhL+
-aIxuTyBtK5kB729mxYu4+D/voHJQKAtBLYB5W8p4e3jf2IEHPZ8mOE5MZfCQTciW
-O/GThFw5jxe81EARlRqvMDtTk+t4YHr0G/5eQWzOWyl0vfjbtKJnVyIXBfVBI/pF
-l4YOMI3nrUfYiW27tyV8r6w1S4KukUcgEy4h6bt0Tmo4jsS0+A==
-=wF1L
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkHA4ACgkQzQJF27ox
+2GcpkRAAlUVIqrA4/N+GOIJ7TNIAbmoXHX2h34llJGYauE7sLtljMffTiHEu8LvI
+xTPWZVua2EQ0hJtLRwUPKXXAp7u7vpcBPDiow6unKTh5R62LKy6hPgSDBPw7uPdt
+zxagJjOIcCJ63pJpKOrywKGYrK8Aobzr/8fxN5QRq596zDA+ADMSDZWJwcdFb33I
+BfCosJnB0BVX1ivvLX7d41sk4O4yvEV23VFkknX/0t3IoHjmFuarcq6kQiojWyml
+jnCxeGcdbReEbJjoBbHFknLWcH5blTtwphAgI5TmIm65TCCjmMEbVpFomKp79PPL
+Vbl+bYcjCuYCAogE2bezHyZJU0IBXBAOdUu5Y6IQX69/j77HlVdelEZmnQbkyRx/
+2QiL+vaTYrI6ZLuLWQ0GqCXznlHi+fUaSG0j+bPhbeAUV4xI7c/Fn84hT0R+Gc0p
+hjJ8aE55PpAx1MeRflPZgLsMi4fTrz7U6B+f2LeoD4jHFcjyI/jZGB9zJd0BI39y
+6nEijGOzZHoIIiqvRfiI/cCAsMqtuM5gYYa9dKAYW73pdcFAor97lsYiEqMUtO4X
+h2KqxNh4tgqCqgQaKp6v69A80VcYuTjynlq7atUWiOvbI72vE4l9SM3wW8rNYzza
+znsVLKHX0LbUhx6nc/Jah67aQCgn+7kRiBeSPIyCeVfkgV4X5kY=
+=eXlF
 -----END PGP SIGNATURE-----
 
---MEzlFz2COTVcdiL/--
+--Jgk/y5Mqu3WDWreC--
