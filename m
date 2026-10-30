@@ -1,59 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362156;
-	b=5Acg93MThZ54FozVx+zGlvTU3u5viDq+NoCld/1xo3UswbfKKJWH4q8A/7y1f2u5otSx
-	 MzTUYsbQNAJOD2zQH1Ql1ezd+KhVWOpXARqGjuVfCFJltlLb8wocbbPqBJLoX0tTuLmZk
-	 3RxcQaEzn3CYc/H1UoeUFQMNrZuFgzuqOBWvQWrVQYgoA9VNhD/6lTuS3n0NRCSBLhE0n
-	 pCVnpQa2kSQvHu23Tyrod1a6YquDkr9QnW292OxzQ3EQVILv1nYHe9myLU8vY6wM6aNIr
-	 YH1w7Eb93bu7OixJW6FiDWXE71SOXKNeLVD+gDx/EboE/6iGqOz/f96LsoS6b2JZz4Q==
+	t=1793362414;
+	b=um8XkIoGEg7/J6BOA6Ki4dXq4idLmGzQSraQBhca71nt3vyoJyNhjyIJrrMeDnTb4ijt
+	 Vx5wecUMtPGAFzVNyQjn+X5JCMyCV1qbyzqxUO0RrHtNeRO5wJsrFtBU7oXqd+UrcvQdC
+	 ebuM8UJ3isSsRUJd1/KBy6A+HT7WMplFN/2Abkea0colGkMGVRStqbLDK6z1COfTdIcvW
+	 +bGgVGEiuzPsBRgmYqw29k+nehEsSABc4r+/BRC/incX3Y4Z2Qey4moEMAN211MAAmdfz
+	 GLnloK0syFzO4HiDwnCZfTNlsI/hMXbH3JYu22JN4WUSIO4f8ef2jCkMc+m+hC7YWNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362414;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
-	b=dKbmSY9rqdbt1qJZ/jFm8HYCTd9xntd4LV3zhy3EL5CdlQwh+yztFqop3FsG+mJD/S/l
-	 V70NbezGm6sx+ckyPCPWw22jFrJNUE4LC/3f5fHRU2pmxEFCU/rj40AqgxsCoJ6uDwfTi
-	 I3/JilqnLXmT05Xe16alSwLPI1TGYT8IWFsEjb6NTE+9P40wOP6q/K0mtFEeRSKLAG/Uw
-	 yu5AQzlaNDOxJHIuzMwgmT26R1LwlndBJyftvWdOJwvOgCxo0i9ckUqnOCTrJxh7OMZMW
-	 oe4YOl6D15cVv47q3bhBYVUB5iDacCkm+emUSLv/X3IJrz+DDHOtfAsPhQp6i1Xy17Q==
+	bh=W7iS3Fx6HV5ScNF/DvW83v1rNy7myS3fOAFqhJkCPu0=;
+	b=VWhPUkgaKjhgXo0tNr3B5c4GGIaK7D9jCfn2vgrFiGgDqPLph/noWp3F6UJz3zC1ki5x
+	 rQG7gLHIg2FeHuUdUab1nEfFZhrzTKjHOQqV9z1dOFvhbs1O9eEWqM34JorDB8didL8Ix
+	 pINI5Gn6r0BXysAWvZvbjDmlTOO1AT50NnJQHQn261BGNk73P3a5QG1w9t8B68BfHQ6iE
+	 XmTsH1qwVfSYCXA6xRW7XVdXa/6b0we0s9Rql5Vax2yhkwxLyGExPlRKjmBEIRsaLJJT9
+	 XImOeOE+H7BOaTV1Z7IOiHqGIF6j92mgo5LcA6LXjsaz9d7H/REzwQgAfltxgC5/N3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSGgWb0E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F769606A31D;
-	Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC94C606A31C;
+	Fri, 30 Oct 2026 12:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CECF1F00A16;
-	Fri, 30 Oct 2026 12:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSGgWb0E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8BC1F00A02;
+	Fri, 30 Oct 2026 12:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362156;
-	bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
+	s=k20260515; t=1793362413;
+	bh=W7iS3Fx6HV5ScNF/DvW83v1rNy7myS3fOAFqhJkCPu0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LCXqM3MR/ZIt2paBuHsNpEyJ2YAbBtXoJVoSL2kmhSkpHerihlzO5jP7kg3NpyZNI
-	 9dFoxwwuDSGS8TI8OKIgW1Ko2OuX93Eb04SdiMzbYIfLxMK5DeSx9iA4cK4Uzx7I0k
-	 R6I2nkE33bjHOZKR0egB5nVDqt0OFelbKFn6DVW418lvJI4B6VsYJ3Na4CejKYfoYp
-	 E7LqHQ/Iyj+5nUH1e0c+/Q7iowpmUNhcJqV+7MmbttR3E+rq/duRTVUbXAhMgg9W6U
-	 DKds7xr0/3kRf0H42LAryDxgFNcZPOLsTLA6x2IAWCsP2LcMdgQu2SY9ZKRQsehhvk
-	 kzCfCDk5DUKJA==
-Date: Fri, 30 Oct 2026 13:09:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>
-Subject: Re: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
- Mingjun MJ070BI30IA2
-Message-ID: <20261030-arrogant-nano-raccoon-b67b70@quoll>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
- <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+	b=fSGgWb0E6AmiP/tcFEtpjVO60QzF8LSXfigUs5Tg+3gQ73tVxAEcHeDIOxvDY3CPy
+	 vDuoJf5n0vop7GqdYjtCn/OFY/EAiIviQAEFNouIWp6clFimOSewk464KYx5JgMC45
+	 tX9K326gCKDyJSqBbx+aKuPMyDKdHWZHdumL+wYIg+w2eTgWIWjM0zZ7ic9iNkuwP0
+	 ALuFiHyZd7peiA1kB9BXyuWaszl0he+Ka32BkloZHcApkYCYFlzWy3QuvD/1/godz2
+	 hID0WwoyTGAN+KHtoDqC0hDlagNGndQ8b/pPXGHpqrI4HMBVoiGzzqYAQ9U/6Qa9uV
+	 HGN4BKvk0lSCA==
+Date: Fri, 30 Oct 2026 07:13:30 -0500
+From: Rob Herring <robh@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dave Jones <s.dave.jones@gmail.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v3 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+Message-ID: <20261030121330.GC1232511-robh@kernel.org>
+References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+ <20261020030916.3223833-3-damon.ding@rock-chips.com>
+ <20261021133418.GA3889663-robh@kernel.org>
+ <5892f99c-68cd-4ff9-91f1-af5ee024e025@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,23 +78,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+In-Reply-To: <5892f99c-68cd-4ff9-91f1-af5ee024e025@rock-chips.com>
 
-On Fri, Oct 30, 2026 at 01:44:13PM +0800, Icenowy Zheng wrote:
-> Mingjun MJ070BI30IA2 is the LCD panel used by Sipeed Lichee Console 4A,
-> and its initialization sequence seems to match ILI9881C controller.
+On Fri, Oct 23, 2026 at 11:56:10AM +0800, Damon Ding wrote:
+> Hi Rob,
 > 
-> Add its compatible string to the ILI9881C binding.
+> On 10/21/2026 9:34 PM, Rob Herring wrote:
+> > On Tue, Oct 20, 2026 at 11:09:12AM +0800, Damon Ding wrote:
+> > > Document the eDP transmitter PHY with NaNeng IP block found on the
+> > > RK3568 SoC.  The PHY is controlled through the eDP PHY GRF registers,
+> > > so its node is modeled as a child of the eDP PHY GRF syscon.  Also
+> > > add the "rockchip,rk3568-edp-phy-grf" compatible and the "edp-phy"
+> > > child node reference to the Rockchip GRF schema.
+> > > 
+> > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> > > ---
+> > >   .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 59 +++++++++++++++++++
+> > >   .../devicetree/bindings/soc/rockchip/grf.yaml | 15 +++++
+> > >   2 files changed, 74 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > new file mode 100644
+> > > index 000000000000..afe7bc3d839e
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+> > > @@ -0,0 +1,59 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Rockchip eDP Transmitter PHY with NaNeng IP block
+> > > +
+> > > +maintainers:
+> > > +  - Damon Ding <damon.ding@rock-chips.com>
+> > > +  - Heiko Stuebner <heiko@sntech.de>
+> > > +
+> > > +description:
+> > > +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
+> > > +  registers, therefore the PHY node is expected to be a child of the
+> > > +  eDP PHY GRF syscon node.
+> > 
+> >  From the driver, looks like there is a specific register range for the
+> > phy regs in the GRF, so please add a 'reg' entry (and 'ranges' in the
+> > parent).
+> > 
 > 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> I see. For v4, I will add the reg entry for the PHY node and ranges in the
+> parent syscon node, as done in rk3399-emmc-phy.
+> 
+> The proposed eDP PHY DT layout looks like:
+> 
+> edp_phy_grf: syscon@fdcb0000 {
+>   compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+>   reg = <0x0 0xfdcb0000 0x0 0x100>;
+>   clocks = <&cru PCLK_EDPPHY_GRF>;
+>   #address-cells = <1>;
+>   #size-cells = <1>;
+>   ranges;
+> 
+>   edp_phy: phy@0 {
+> 	compatible = "rockchip,rk3568-edp-phy";
+> 	reg = <0x0 0x100>;
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The 0 address is not correct with empty 'ranges'.
 
-Best regards,
-Krzysztof
-
+Rob
