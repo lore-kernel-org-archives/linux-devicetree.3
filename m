@@ -1,118 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377195;
-	b=WI8Onos3LdLIgpolpr+vzWOaWoWpNzbcKk7U5ab7oaHpfjnSd+i+uLD6blEs4lxxlm1+
-	 Qxz3AXi/oY5jYPRen3yHkarIe1VbZFPTtnqGN9ezEz5C9c1nzKQXCmMLfWePMkncCFUcz
-	 WlapQ4+itfCFmvTl0nD3MrEuOCaChr8CtGuqMR2k6H9yrxG28xfKVfAhW9FGb2er3SDEx
-	 6b2Bnb5KW+wVsSn1kqXZzdI9Jf2xkNUey5ajz2f5dveeMWkCvOzJv/VypCZIUXX1LQctS
-	 +wHJR3LqGKvhBSM13xu/LK7UFdyflaOsgCBha3zWCkN3+DmSgYUbm6xAVcc5ek59Isw==
+	t=1793377270;
+	b=Ah8hpabsRdgm0VvIihCx78TtpHWnmYOe499ggbuhjQdiT+mNc81y7JaLFhDhDPCLs8wL
+	 t5BEcXEm816caSJw7ovhcmwBXhhET4wK/5TmqW5UDMaiLpEO9r19uElhHsgkl57uZ8QfI
+	 5/+Fvuk9Ayb17YrVC4YIaDucBEcJf/U72inwfmhR4QPaQpHgRGzYORJmrUqeWZvwkv9hI
+	 BolHoWGxWosPnntCCc62sn0An4md+giGLF0bMn4LQETgm7PlKDBsiZH3NZ1OPdSWSikFY
+	 o/7KBVOw7lR8RrKeHbttAx6w8hxM/oGN8CIrVfPWSG+KNPkx6+d+KX+Y9p/i9rom7vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377195;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=em7nwsBvfkjrmGxpt9MT8h8i0Wxrvo6KZRBsSUc4l0w=;
-	b=zugChU7RfEqqc6EimXJ/OEj9zs8oCCS3RvbeAKbKeJM5cUHyDO09FG5hFkE3F81XU5lh
-	 9uj9Vgndhth0WsMOBKqiGkSxtJHmSI3XsusZrjmKJnEzmyI7zyIzm88Rfrqsu05yiYhC3
-	 kDlmMeoBhwAzgy8UrU5r3/ajVnQRWCNDmIStrA99+2RqNkhuxHjFOiy0s77Fp8iQbGp+t
-	 wAsTi5cHNQShaUhyMLPiMuaFNLcME6OQI+PjuJrm45ipAJogh8HkEHVNDTpsbcZnB3SBD
-	 as0cj6mAQo94A6+mIeVfFzMZ5KgdcIqdsqfdG5EknMy3AhLJxRRQs+xYBAyOk8Sd4iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377270;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=udOIgOnRpmfUdv0bh3ybI3j3Y+iWGTB4HI/6ns4924E=;
+	b=NP9lJ7rGnTf4uACjoB4Wct97V70K7L035h9pzG3/C2iYZX68TMvE0PJTMsWnp2MD9xtS
+	 B0wXMBirlO3IrUB73zWbskCLNByh6QO4cxByv9Zkr6j851lMBhJ9vJ/20Icke8rh/RZdf
+	 JyrPPMmlTALlJlhs022GViIflQEgEGxV3rvcLhRDq/lF3Y4lwMVBgSB9wp3EKRBxPma0l
+	 FoHHcTZ7Xo3b2uCS2f3dYeoOfKoamAK/KQ2yPyoCajdgNHOXjQXO8/j566o20nZX5PlsG
+	 4pJwKlCtrKZJwXq4hk+JenxTIhXBpFbkwBsOIFpJ+r1mWBWm9dY3WHmWs7skHQx2mkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BZJFO39b;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q7h4hYvz;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4HnNyfU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED4E606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:19:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED4E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0B2606A31A;
+	Fri, 30 Oct 2026 16:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BZJFO39b;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q7h4hYvz
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UERDQT4141550
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:19:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=em7nwsBvfkjrmGxpt9MT8h8i
-	0Wxrvo6KZRBsSUc4l0w=; b=BZJFO39bVpwRcsNSYuDl9B3uxiG74rruMnfkZrIU
-	Mu2PYyaDjL6u++CRwdn5AdtMY8XASnCVN8kqgiKt9nuMtZns0XxLF2fO8hbD5j/x
-	4eckunkiekMnuMbD3EsOQOTRBn611K9TiF+u9wHLqKBb15j4PHqJoHwF0SsbD1FA
-	0+SfPB9E/K730dRBI5/ZaFGWQKJQZzc75jtLUw7eypHPNIrj58C2anOAoEgmapTr
-	VxH5gxon9uwaoZjVilUYyBa/uYULDxZsFzIrPAMYRSlD9jadWzNh6zW7CccPk03U
-	GfkuOPQ6XrTtnboEZV2MZ14nob0dGu1hFIlNz4/EOUaEBQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qux2n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:19:53 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f559420f3so80604085a.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:19:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793377193; x=1793981993; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=em7nwsBvfkjrmGxpt9MT8h8i0Wxrvo6KZRBsSUc4l0w=;
-        b=Q7h4hYvzLOm7FJg5o4lcC6mwrfoVcJ2k5uX7U0uRMq1aF28lblN0W4ognMaRhPovJl
-         ruMRuoRNp4jINI7jsaZ+XQlxokDFrOAkshPYFj7+OB9Dvsn923YscxYXXE+3mLfa62aT
-         A4FQL4ZxIdnbELebv4lFaWwZIpqonEiSRWsZxxsgvr+4z8yw0vpxBfFK4QmoSgkW6RJP
-         EP/UCc364aJP665F1BXJEq75Me/laViyAOX0nMQC7waohl67+XB2BV9XmoC5ic4H7prD
-         Q2O4l0u93cs5o/fT8Ctu/9AWolJPeqOgjtZAE4CN9hDlvplt6oiKnjtE/aWH+KEiVJNQ
-         53gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377193; x=1793981993;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=em7nwsBvfkjrmGxpt9MT8h8i0Wxrvo6KZRBsSUc4l0w=;
-        b=XDtT85b4YtIBeLoUUZh/8T+kshthGhcy55FgmUn+z5GPQ/cYWYzO/q0eQ4WHVgu5wQ
-         xVNpmZyAA3lDG6S7T7vPscNkKVHzo369bdEC1WQZt4gasYcyIlFmCEuniceYR8OlGl7b
-         niJMRSMKipLR5g4u/29JUjJTFpW1MeVo21zzZZGB442zQkL2w1JPntERi4xQGm+rsio5
-         wed42qjvSXOy/IIpSnmmioe76KOOZm7FMmVouOSEh3zo6WE03FDxm1uQhVnxQUlRDBoW
-         np/q5/JSMpmd30NNCOWhko2mfK7Sf9v0rlPGtMUOvNOqEiSIQ9+ac2P0owF8ZQ4Y74Zc
-         GM9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy+0QpBsJMCjcnsvrlzCAguC5WLiIPIuJlUaBM7p9x0Tp7+fAHqQ+gHFHkvhfU8+8uiiFL8Xe3WPTyx@vger.kernel.org
-X-Gm-Message-State: AFq9FYICAQYXdgeUidemfoAOaboGAWhc6nvRSxUUCgIUeklfe7BUM/jK
-	B5nZHCiDbq4/spu7KgZbzz2t/9cYP5G5/5xj6T828n5RdZHMn1KXXj1QLjSChwTcMFY2CXFNdLj
-	wDDT2GKhF2SHKoyWcQiufCVwgnhTqWJ5dTGTwJ5BVezyiDCDSUo9tVI1ouD8LDJPs
-X-Gm-Gg: AYBFou21xyZS9KNTTDyN5W6U2oQCKGtBli17RfVmudU6hApRi7jRB113OmRL2H4u1oh
-	inHrJAJKS7ORh4+R8Zgt2Lof9iVS1o3JS3auiffnRLBHHUy8vqMyFoGedUH0SZv2FR/ftE5RmAp
-	kS1Ta/XkFKYXMX6otghs84FFcUWuc86CS0ZycjQfkCUqAVlp+Y5CcvN0AlxgoB3HszZ+oCCgSmL
-	PLoDSeKAqJ/q+5yznQBBv3WM4eUEUfIAN5LFZuXYdR+/oCDfb1sN3xJRcOmmSXtMIcq/kts0bHJ
-	XeWfvDz4LUFfZYOuYM+nHzxZ3l8vuiT39xHQU2YZreBgdjTD+MfPPwmDtQPFas8yGowNHRPkJvY
-	GXgy/1nGYuQpdqJaI9z7QPBdUdWtncatKFh4dlpjiAqZSc3o/85dVFAhXsJQAAi+B
-X-Received: by 2002:a05:620a:28c6:b0:93c:ba88:cd65 with SMTP id af79cd13be357-94421542269mr462071785a.7.1793377192950;
-        Fri, 30 Oct 2026 09:19:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:28c6:b0:93c:ba88:cd65 with SMTP id af79cd13be357-94421542269mr462065885a.7.1793377192292;
-        Fri, 30 Oct 2026 09:19:52 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9ee537sm126104a12.10.2026.10.30.09.19.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:19:51 -0700 (PDT)
-Date: Fri, 30 Oct 2026 18:19:50 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] Mark USB controllers as dma-coherent
-Message-ID: <3mxenh7tqbblbipiybfjfgbm3zboui7gnzw47ondqet2pjvwo6@55xlnjgmop5y>
-References: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4HnNyfU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1719B1F00A16;
+	Fri, 30 Oct 2026 16:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793377270;
+	bh=udOIgOnRpmfUdv0bh3ybI3j3Y+iWGTB4HI/6ns4924E=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=k4HnNyfUIOtYMFlRCWtpHSC3Gq7SbzybJuuAGB1SoseXGQB13Thg49wH0lyyKx2kp
+	 rwPTy4CTsoa/X+YZCZKlV7kjOG4+/s8KtYLx2tSz7AlduZyLb3Pf7GfXTrgEWyZPr1
+	 H05ejjngptgDmNw3GcKTi0TzpPMl4IhfuvD1B/bxwIihWFy8yEXyhQDtFyKNlfOfG8
+	 8e84nz/zpcsNfv8tVnhQtBkPm5zlfSRU8CweagNzz8GHNSxG1ObhMwSdHMeptzEGTr
+	 yZwam54QaERVkNAclE0p8NjctdXt7OOKUC3yv4Eo+SxpVx1bg3JTm05OCF1v1Z302+
+	 OWzuTdwIigkSQ==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,45 +49,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
-X-Proofpoint-GUID: i0PHI2b0Ys8NnRMjaymgrAHzy5CiZrOg
-X-Proofpoint-ORIG-GUID: i0PHI2b0Ys8NnRMjaymgrAHzy5CiZrOg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2NCBTYWx0ZWRfX3pUaR58aO4hv
- /rtj6Za3aMDvFwBNbX8wh97dZxLQb1W+F0yHB4NQS5Gl3xtxQbkwEAG2LHSKky/9tfPC40vXPqw
- U6BreCvfZx2b9v+lURT3I9bOUcb2+YW7j/HV/jhSJ4TN+oJZMYqdO5PEVrtiWPxnLFyT7Eg8nva
- IRFogFugw3C3iIrCgxUKiXoOylvSwOLXj5o6n7WaCBMYklNGrDLaGFr4oQhrQ2jVV5x1aYNLgWO
- yCBRycmvb2zSuzsEMdirFPBru3tZOhTJIVjI5ZKXMsIppWBAvC785t+fmCPEIn7m/gDvZXkic8q
- GABZNhQG/0wVUNjbaITelzP60JT/UNW8wfvZk9XGB9faGtNq1tr1vCan9HlTqfetuEuZumbk4vg
- S55rbUNa2albczXbpzDaoFQI1Xb4vyGL3BOMMzMkOcu8T51gHGMMPjJ2+Twy9tm9tRySM/fVaEA
- s1V6qjmzyQfdZwLbrSA==
-X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae4c3a9 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=q5fyLHn3ZVvuh8gySswA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2NCBTYWx0ZWRfX91uJaYvuyVVz
- L7hyh+/y61iPMBNsRj9Dl1Zn8FTuHMoUPfYsU2NcCr5tnxvWIwFlItQk+1g7xLs/3qFSXU4Y2AO
- jtrhO4lE0pmQsAcFWVcslGuqfJ4p5Z8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300064
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/3] regulator: Add TI LM51772 support
+From: Mark Brown <broonie@kernel.org>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+In-Reply-To: <20261030-paul-lm51772-v3-3-0de62c22f342@bootlin.com>
+References: <20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com>
+ <20261030-paul-lm51772-v3-3-0de62c22f342@bootlin.com>
+Date: Fri, 30 Oct 2026 16:21:02 +0000
+Message-Id: <179337726255.87968.9906404525377602371.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1897; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=jMwa/kcGaL6Xfql2/0CDg5Mt5kMCBxc1ReQQYJlcb68=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKeHH5/tP5JpNsOgWtv7Dy+evQ+PjUl7uaMm+Kar9blH
+ Qn5/lxyfUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmEpDKyLDls4TTS1X9hpuR
+ nZ5z3kgtXLvs5pLqhfyvTRxb3vn4pcUx/FP+s0Ol4Yqro1HgLLlNM1UFpjqlbNm+8uque6mf1rj
+ EveQDAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 26-10-30 00:03:37, Krishna Kurapati wrote:
-> The USB controllers on some platforms are DMA coherent but that property
-> is not marked in DT. Fix it up.
-> 
-> This series has only been compile tested.
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> Add driver for the TI LM51772 buck-boost voltage regulator.
 
-Entire series looks good to me, so:
+> @@ -0,0 +1,903 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * TI LM51772 I2C regulator driver
+> + *
+> + * Datasheet: SNVSC22D (September 2025)
+> + *
+> + * Copyright (c) 2026 Bootlin
+> + */
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Please make the entire comment block a C++ one so things look more
+intentional.
+
+> +static int lm51772_irq_map_event(int irq, struct regulator_irq_data *rid, unsigned long *dev_mask)
+> +{
+
+> +	ret = regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
+> +	if (ret)
+> +		return REGULATOR_FAILED_RETRY;
+
+This register appears to be clear on read so it should be marked as
+precious, otherwise debugfs will eat notifications.
+
+> +/*
+> + * For < 24V, voltages are set in 10mV monotonous steps.
+> + * For >= 24V, voltages are set in 20mV monotonous steps.
+> + */
+> +static const struct linear_range lm51772_voltage_ranges[] = {
+> +	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 0, 99, 0),
+> +	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 100, 2399, LM51772_DIV10_STEP_UV),
+
+Looks like this ought to cover 2400 too since there's overlap between
+the two ranges?  If we don't have it then the driver will get upset if
+it finds the hardware with that configuration when it starts.
+
+> +	  .active_discharge_mask = LM51772_FORCE_DISCH,
+> +	  .active_discharge_on = FIELD_PREP_CONST(LM51772_FORCE_DISCH, 1),
+> +	  .active_discharge_off = FIELD_PREP_CONST(LM51772_FORCE_DISCH, 0),
+
+It looks like this is an always on load on the output rather than
+something only enabled when the regulator has been disabled so we'll end
+up with an extra power drain for no reason.  Possibly we should have
+core support for hardware that needs such manual management, though the
+datasheet suggests DICHARG_CONFIG0/1 might be more appropriate for what
+the API is looking for here?
+
+-- 
+Mark Brown <broonie@kernel.org>
