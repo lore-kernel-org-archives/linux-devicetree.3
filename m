@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334697;
-	b=4UDXiapzNstmWEBi8MUxq9eDqrUDf98K8dfcbOXg5b71C7t2WSQ51BosX/Hj7wO8sgrZ
-	 3FPg/EbdOmcwZFyk4v4my/+lPo3bsIUWSCIXVVU6GE/t4K6mb5eWw/4OoeUVLnOO08Ucc
-	 8W1/6KWVUgaRu8vrFOc7B45rqyELFA5dK0GugN25Gphx87MdMy/CPWUAI5O1CLxfOi0BT
-	 WUZ9nG+jajlHayZGqbtJcLbvhvLbWc/x2NXR8ZITpOr8ehsnzjorTNyaImyRAETlTgcdV
-	 t6te3tA3ob9aHBB1rOA7smZ8fGA2iwxfetJe72qSNuMzCs1LbbXywvCpBuxkCgadyvQ==
+	t=1793336029;
+	b=PgsDCzP9/IIkMUr/78U+WPVGFVCIl+4hikvEL8UFsbAxgkMNxdBi4Y3Q8gdiH1V1XAqL
+	 hm12fqJ+g4P5yhW3oZsbq+3GzphBJbQp81M0vfdDOFj2WMBdQIf56XQQpVIexiRdzyFiu
+	 IE+/O6tO02mDRq+gnOy874O2gxzK9j7aS2WU3qDGqv6taOxMLX2Om92Emj8HUHXXyPx/q
+	 wkt2//ZMok7KEYh/khZC9QT/+wFaY7NF6wzuLyFbsyyR0/lzDYHLGb52zbuCthdu3ftZy
+	 +4of43IP8nzVy+Sae5KCd/WZfZ72B05idZYyGjXZbJmylbg2NtN8jZKkjQZrU8k1a4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334697;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
-	b=qhrqHOlmdRvCqvAUNIidSwPMuV7B+jXqbV1Q0imwahKw1jh6875BXG+Ci5R3frt6Bz7S
-	 jwouWo3BzbL65/pO1B50z/vT9qCpM/uMCaL/blw2BGY12gKvGSA8d19w5GnMOFi9DnbiP
-	 dLsdq5lpqm0A23aI83PrRen7pg42EaJ5YplpxAsDMExKPfWsQxNdGUzbfFDPHA/ufCc+X
-	 TUbdKPZBNxLBkD7OUDOeKIWVOl/GokP6/zs8OSUT59G8x4FT9S7370lFLhSMupvUfbvM2
-	 sWk5xEr97AXC5S7WLcBjhwXxXAene9AhozmINsJWffLqKjTb6p9OZx2jTJnftkq9hbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336029;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ookrln6fc3m4sMzxgfzHoMrnkI/a/is0sqTGDRh1rHg=;
+	b=PBTsJ3i8F6Hq+EVfOai9uVnhBYiHtXGDTMAMUYbzSbzYjRFkE+W7crSVgsMm3M8gTiZq
+	 rmJ2utLkrC8rYuJlk6r1iVrIihUowRCcYcsfaQsbeyQoKxqG0iiQAlcE6UhXr05UwIBTC
+	 QQvLUCgkEoa21TGgQ4vl9Z0EIsORxBrDbgtz2dXa4ixZfbdCdisSNez5s+tb6FsJvzmNS
+	 6S3mPZSJxSmU3BQJpU0I291ywbVNsi7eBKU52vEDiBsiMKdzB4wYH1RdBIzMgOp+9FZOG
+	 m32M5gISoG61w46930zZt07GIPJQ0WVSutRvzrPZk7RcEuwbhbK9Mz2lyHKVj0OI97g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xkWQC/Lo";
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SYYUL/zK";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01600606A31D
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:31:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01600606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F78606A326
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xkWQC/Lo
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso116586a91.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:31:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793334696; x=1793939496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
-        b=xkWQC/LoB26hhGfn0zGpbbOjvSjxtSvYyfsNZwxGMLIKcHiS4oC/ac+8BnkPoKJsXK
-         yie/eewiy7K2gOWpvcw+6+mgJFwYlY0gJam/wCfuASg7yUN5dOCQbFmVNkMvrjBjSCqK
-         e2w9aihkqgJPcf8iActWxxlpYt56dcdC5hLvm68OthfbKQ9yzhFKF8bEbhnHNkfHSOSF
-         hj8MDGd/yWveymrYwLb4Ou68GcjkWKjgVPtFqKTw+An6X2XYlAXNjXscYzK0PLhcEB3i
-         hk0sdQhoCksFeaVshV3t1YCbfo89/VekNeJnrkUe0p5BgbAbXKUazjiRfU0hX6qMz7by
-         229Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334696; x=1793939496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZmwcF5wgt9UlbFWPL8zpSNJ6XTb3NksP2KGyLQtzBDo=;
-        b=HoEEkyrOvPLumUXTkxPD191oZcwCjMzDiDXcYE48vaseLoSWq5tvYz0Kxl9C23rW3N
-         id1C6tiAcDPJ0ACj/LS95glxGtxJ5BPrOwIzg6MI1mNaLPC0YV+HaDSfOzyZBXYrhggC
-         GAwawTnCDbgnKFkmL29eyQET8BCKT+3XES+Uh/6Jp1cDogdegMqL4OejMf6Q4/M7Afvp
-         D99miC0CMWhco0P4/TE/QuNO6JHydxDIUjvFr5kznh/3ZB3mMAfwAEJQhLAjpxVrOyZV
-         cZfL7ZlAIItnWA3UzxTZaa/GIR4ewqwYYQf69R6IYp1PGKcrR18F9fhgKhpVrZ0FK9wV
-         vfqA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9pg8E7alPyTd1mHk5k734pgtAxO1L6gsHVS+TWe56jBkwAoVdT1mLB/jNI9oCWVQU/irWX2FzSAI+@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwQAsucgQwNM1HK6jJsu77bkgqugsQz0KyZg8BJh5EMoYHQRrW
-	kCAsCCTAkbqEpJK2d7EUQTt+1HpNG1tx0Jt+0MmGHFDYyX7lddWYikY=
-X-Gm-Gg: AYBFou3SiDSt5KfvozFj+8g8lT+6AdmAmGXi3kv+sUP709Q3gMmxJHkqcKaDT3Gh1OT
-	XpnNn6FsoKNhkSYWp+pbOpkGqqZ/eXWuT6D1utDwfd/vhwo0r/+0Op90lsGfVwv+4UuRhD3WY9s
-	oy+dSOA56plxAXUGoy5T38lWu09XQISB1vKkM9oG3RGbtpXxcRT1p27SSQUDHzBMCBwtKHx2BeO
-	Airhgs37H1SLtdZySytToKtD5cbQLYhTDw//1H2Fe/B7sCeTmJ7iCxoH2YFAdUvzpGhno7neJRE
-	Pv34cHOgOI86wk+4sUk+3wrWnOSyvUw6+pDsicFD+OD5nmSRHn5BK/1FqFH8sB7XWkFL+kYDsJ4
-	LT2KsO67V1bIxwJzQLUy7smOIOqW+vZLd4Xegarc/QOxMtBpPR58KEMNbwCMB2mDHXTZDJtRBso
-	05Y9/Nz8AYS6wo4HZiPBeBGnEl8uv7WvpQDADRKMql76U3w5jseYT6liZy07llpiG7vnZbx921Z
-	/CUSpqrJGUuVAUDQMhLBHdRd2em9MaQac38PToLW7VthZqZ1UJmvxcg8D3MKJS6/eAbjKRVnJF9
-	BNm6YJ8XQ7KXM3sF4BZWMsyrTvG5c6pgPgBhDm0Zt0lEzVgCnn9l5CoTe2gSViLByPNSbZNu38R
-	nyzrc4fEV4KVBBA==
-X-Received: by 2002:a17:90b:1a85:b0:39e:6a80:dd9d with SMTP id 98e67ed59e1d1-3ae898194acmr914461a91.36.1793334696274;
-        Thu, 29 Oct 2026 21:31:36 -0700 (PDT)
-Received: from freddie-kane.lan ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84596e3bsm2259922a91.9.2026.10.29.21.31.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:31:35 -0700 (PDT)
-From: Burke Cates <burke.cates@gmail.com>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v2 0/7] mfd: qcom-pm8008: Add support for PM8010 over I2C
-Date: Thu, 29 Oct 2026 21:31:31 -0700
-Message-ID: <20261030043132.2746814-1-burke.cates@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
-References: <20261014-pm8010_i2c_support-v2-0-b395d2b3f668@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYYUL/zK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352891F000C1;
+	Fri, 30 Oct 2026 04:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793336029;
+	bh=ookrln6fc3m4sMzxgfzHoMrnkI/a/is0sqTGDRh1rHg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SYYUL/zK7QUJjmuMrkjWpssFQL5sKVLW8pz14iQ5tg9S/slggunqTfCIBSzpUE3k7
+	 /Xu1wdrlTPMrI0iNTZ4CacsGagGPLUofAfctt6sO5ZObrpiZ1usdVm9bFoGyPefG1+
+	 v4k847taEdpiDf5YtiDBrJ1xj1Euv3l+12IzMwzTPEz18X/RGZXL5mgnaTHBgNIZr8
+	 jlCZ4gYBJ5rsdzYzkVKgo6fGZ+Oel5dRWWpANaA9W2HGX2INhr4GtSShbadxQiKP2U
+	 WuWbUVA6UMfkfRUajFfVD6PfXXqX16PJdYM2xX4l0OSYbB3/K9P9rH5XoqevUL3HGB
+	 o70cJxU7el76Q==
+Message-ID: <sashiko-outbox-190361@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 01/10] dt-bindings: net: airoha: Add EN7581
+ ethernet-ports properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lorenzo Bianconi" <lorenzo@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260507-airoha-eth-multi-serdes-v4-1-af613b61ae02@kernel.org>
+References: <20260507-airoha-eth-multi-serdes-v4-1-af613b61ae02@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 04:53:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,33 +59,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On 14-Oct-26 16:01, Jishnu Prakash wrote:
-> The series also adds support for skipping interrupt configurations
-> which is needed to support SoCs where the PMIC's interrupt pin is
-> grounded, such as Glymur.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `ethernet-port` subnode schema strictly rejects standard Ether=
+net configuration properties, preventing functional device tree definitions.
+- [High] The `if` condition matching the `reg` property uses an invalid sch=
+ema structure, causing the condition to silently fail and incorrectly rejec=
+t `ethernet-port` nodes.
+--
 
-Tested the series on an ASUS Zenbook A16 (UX3607OA, Snapdragon X2
-Elite), on v7.3 plus out-of-tree Glymur platform/board patches. Its
-PM8010 is described without an interrupt, so this exercises the
-no-IRQ path:
+commit 72efd994288c48f80a1fe4d15ff7c3fd115c30a4
+Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-  - The MFD and regulator drivers probe; the three LDOs the board
-    uses for its two camera sensors (OV02C10 RGB, HM1092 IR) are off
-    when idle and switch on only while a sensor streams.
-  - Both sensors stream through CAMSS: RGB at 1080p30 for a 60 s soak
-    with no dropped frames, and the IR sensor at 560x360.
-  - Both cameras still capture after s2idle resume.
+dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
 
-I didn't test regulator mode voting specifically, or a PM8008. Happy
-to re-test v3.
+This commit introduces the ethernet-port property to model multiple
+net_devices connected to the same GDM3 or GDM4 port on EN7581 and AN7583
+SoCs. It updates the airoha,en7581-eth binding to allow external
+ethernet port IDs on specific MAC ports.
 
-Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
+> diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml=
+ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+[ ... ]
+>      allOf:
+>        - if:
+>            properties:
+>              reg:
+>                items:
+>                  - enum:
+>                      - 3
+>                      - 4
 
-AI coding assistants helped run these tests and draft this reply; the
-results are from the hardware runs.
+Does this condition correctly match the reg property? In dt-schema, the reg
+property is evaluated as a matrix (an array of arrays). Using items: - enum:
+with integers attempts to match the first element (which is an array) again=
+st
+an integer, which will always evaluate to false.
 
-Thanks,
-Burke
+Because this condition silently fails, the then clause below is never appli=
+ed,
+and device trees using ethernet-port nodes on MAC 3 or 4 will fail validati=
+on.
+Standard bindings typically match specific reg values using an enum directly
+under reg, or by differentiating compatible strings.
+
+>          then:
+>            patternProperties:
+>              "^ethernet-port@[0-5]$":
+>                type: object
+>                unevaluatedProperties: false
+>                description: External ethernet port ID available on the GD=
+M port
+> =20
+>                properties:
+>                  compatible:
+>                    const: airoha,eth-port
+> =20
+>                  reg:
+>                    maxItems: 1
+>                    description: External ethernet port identifier
+
+Will this strict schema reject standard Ethernet configuration properties?
+
+Since unevaluatedProperties is set to false and only compatible and reg
+are defined, any device tree attempting to configure essential networking
+properties (like mac-address, phy-handle, or phy-mode) for these ports
+will fail validation.
+
+Should this subnode include a reference to
+/schemas/net/ethernet-controller.yaml# to permit functional networking
+definitions?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507-airoha-eth=
+-multi-serdes-v4-0-af613b61ae02@kernel.org?part=3D1
