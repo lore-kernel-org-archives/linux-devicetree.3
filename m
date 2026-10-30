@@ -1,111 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341280;
-	b=3TcnWp1zlULI3s0FtPIOoQviaLETugpzRRU4cvtFxj14hl7fJgTbjSNZWSDMY6QRoZDg
-	 1RWwAQwRhqYsF6gkgJPMzj/NpMfZl4LOkAgO6MFijIRyIkyPYKclbAxXp0RHopQJpOxrk
-	 7zxAYpQfMGKe6VkbK5uEnxk/zfHYZJjge9xO9TBmM24AVRxvUKFVtiUJLnp3RxxbUDUwD
-	 yOViVdDPw/UAAI20mtpDgg/Z4Yiej4SNcUd31vPTNjWU44SgMZG+XzgjOy+x9T2FVtaEY
-	 c1eB9dhNAK1sQ4kkFRva2l+Atvqi4EZrpoi1XdfuqVdOwuud3csaHBq3qmBnHooaJpA==
+	t=1793341285;
+	b=npGtVduqyKA6n/FyUfcp6K87QCV0LjvSgg6pKFOjDaoYdkC+nd87TapVnjd5oDCHcb9E
+	 6QvQSeUooKpfx6QyLLopNUF1V1LpUC8h9zeMxB5C5GOw6yJz6i5z3BkPYg4A8N0bR8x1X
+	 M7kOS6gX/tHg8Mo9gszxhPZeYzKpuhDxbaYWtGY/8Y07eKp4aIxADlgMC5BccQjX2jnW7
+	 OpZ5Ghi/Vi5TjPp8Cw39jlTCh8IWIBP3OEw6pBIkPBS9JcrlvKCenMbFWykf/E05O8HQZ
+	 Al78nf7ynjBE85eGxCy5QtRwtgZLH+BNZPi/xFGN8L5ymXwoyIlE0MWqMlyFXnvRkEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793341285;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=UlW3zqTQG2I74SnwgUFKN9+XWelWW2Tp3Poa1MbgOC0=;
-	b=vc999AAKfz7n4kP/x+l3UABDx52gCo2KuU7BH8EqT//lBkcO4Ze7SKiPs8CF1H+pw9EC
-	 /egv3b20gfEh1UarGlD1KtKLmJn1NW/QoVONTO36Bpt9F9DMaTF2FGKWTV/kWEJmN611y
-	 zOyFPga1KrLK6Xr3+XNvMm+R+2bPbd1KZ1xugE9W6S7CkmOW28GG7V734pxZNgFlAL9gG
-	 sUVQA16IExzGK2AAx8oxSSXFXCqcqwAKLS7pKlQvMsSFfg7MY/c1xgmXkSzWiS7hqPsUJ
-	 nDlwrhq1tS5KiMFLkgGJLuGNnsD3RB8U9DJU8dXmuH9TjzDCFhlbW0nzpvvynGhJTOA==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+	b=mq4c4sB0RztC0MmWzDInSjOoKlWIQm4+RAALqt0FlrbOJccz3I86PtxEQl8pGvZLq9N0
+	 IJdqEakHuqYPD8Y9U7S7VAUFOkuti8fqZEgAmnPkaQiOVCLVzyDySCKWVmkdAgDWefBat
+	 C0oNXyOVf4AGfflLtgprkCqQJTkIfku0BAhOWq16sYKvVrJ3dkB+u9vUEptBWP/NHas8Q
+	 ujr17veLvie5LrPmyf+lDRoMULhbwged3wkR9jwLNs02pxD9Bee8JtaxjRBmlsjGjK/71
+	 4jOUOcS3Usm4pjlrI9VAmLsSF3hgTKz/EpUejND3hcdNapsiS/ZmC+mxojZbCmIV0Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KvOjFgXR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UrQMGpJA;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a0ggboqO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dgxJmwWO;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAB1606A326
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BAB1606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD39606A321
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBD39606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KvOjFgXR;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UrQMGpJA
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5FCbS2287123
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:18 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a0ggboqO;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dgxJmwWO
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5F61U725207
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UlW3zqTQG2I74SnwgUFKN9+XWelWW2Tp3Poa1MbgOC0=; b=KvOjFgXRHWY0PFjQ
-	YALeKAZSekQN8Wxx/2lxyzV2PzMCGsU/0GeqgenpY3VefD9EA9mR91drkzZvmn1g
-	+AJIRClUHPNJh/OnQ3Tbdb/ZyEtxj5SVOk/cOxTZaXzYR8C/l09jtPon0WJvL78b
-	ju/VigHwvk1GlDtgL/ZKLoxKLfTdBPL9fPPSrNBGUNEvXrMh5hb7p+6kadRKporG
-	NrvxNq6jRA6qmOYJRQx9pW0L+52mE7K8L7i6CCBOTiuxx4FnfrbeyiE2ASQ4verk
-	nFrBPIm9RftKaqjocFwy/N5Ria8IyTag/Znadu+nvQLjSu064WVB+ETrSp6rNqWj
-	bVVRaw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qhh4r-1
+	FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=; b=a0ggboqOmG+psuGi
+	VA57s0V6rnM/0Wsg2IUq5MCaJACkI48OXk0ygJKRwd+GgdQw5ydPhoyjF4z2DiwM
+	N2mAVmR3mR34b2ndN/v9ygZVA6Yn9QPhPmhqcBUbLs6+xVUjBiLsAGQGYmKPPKRM
+	onmdkePp5nIBqoZe5ejToW+K4i98kw2ELw25iWbrFnq82Rl/xBaKvInShdL1RIFR
+	9HLB5JJdh3ZYEeS+aNIjFOk5FHKGgz6xAm1H3U/pQz9Z0oPDDj0mMaDHB/LlHHA9
+	Q1sBWVcUR94jkvFb8R/xyRlYRnFK9uRCQQ/6/YtngR72eVKk3HGqEwu/XZWgbUpZ
+	+p5QuQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6phg68-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:18 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so297160b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 23:21:18 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:21:23 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a59717b0c0so297217b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 23:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793341278; x=1793946078; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793341283; x=1793946083; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UlW3zqTQG2I74SnwgUFKN9+XWelWW2Tp3Poa1MbgOC0=;
-        b=UrQMGpJAXllrA15/OEavS5f2raYDveIbfZ0Oy1JQMEo5aUXWZGjp4BlsSQYT9OTEex
-         E9TACuIILXxwKPF68eysc7srXODMUMwNxDol4lbehh7EzrCvddWUxJs/AD3c4kSnEDa7
-         A/cosRd/plnFDEQib5dqoKNUrIGfFspe9eHc5Jzt65pV86F2AARBsqLkTd0ICb+uC/4H
-         WKGvvj0cbTUhoEFlk4l5UdQ9LUQxdbLVpQVE1Hr54C7J7o82/boFmAC9cGzvFUmb2ZwB
-         LFbFMFbHRyRVG8PNaIHzwnv8Ivy33plyaHUqG4E3DddXyMjrJfZij0NkFdP8AQc7n8/x
-         PgAw==
+        bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+        b=dgxJmwWO84TTnIFYlPI5Teov6PndJIVzCjwy7Uj7X0Ik0Cjd3MQxnuARg4/ohpvWVg
+         qkA1MyJDm0Kfa7abYSfKW8sgMHDpOzefJRq5mWsA7mkKbpEit1GedhmnM1AkfQy76BKZ
+         Ic4v8nybYpEHYvZyDodWeZsk0z+xRLSTYsWDHLaUHle1C/VoP4F1/mBe3SzJX78nX+yj
+         jdjR7soD5RLfFEXTOTxxhwEoEPfx7tjcsRnApCWlAPQa+tGV4+mefnahGn/+ep89KPVS
+         17l5bdehyAnT8hmQXQR5yflNLrkka28W+rSx+I29FuVSmrFABdCYugdwJSD81OffQqxK
+         NkQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793341278; x=1793946078;
+        d=1e100.net; s=20260707; t=1793341283; x=1793946083;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UlW3zqTQG2I74SnwgUFKN9+XWelWW2Tp3Poa1MbgOC0=;
-        b=TIdtYpXLycIj2UEgOe5FyB/TkXu8YsMOi9geGZHg9IDk0czdQRtxZlbtyH1XckwoKm
-         GQq2DAMc61tTtyTlUH1kFleIeqYwGwilrOpDdxLMFcpeywxmQ/hy3lctqr41GkIlgsq/
-         7xZRVjX1MNMrprtq6hY3EjH8xM3t+YyvI1bCByMaHZ3rJrD7fy2LTMWyUcn46l1pxl54
-         JsR8DOi1EIIv+SYgSWrF1PS++t7ecAJK+XFDht+bGOY6m5uIt2AiNBr1nH3TzpRfrwR0
-         YwhS0k7jrn1Ts+pPriI4CSdYphDlXzMJKT+rdUCbetjqK8+nty3S0Naw2a3XZzlyCYdx
-         S9DQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXi2fOibm3yUTCD7cDeDXasv6SN7z+Qdf0XRpShKFZIuW7MAf9d9aMweZBnSNxJYSgbaZ2zIUphRHE@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiHVFyl6s3QKzlhs108XodSgWsx46y8qFuIn5rFODsp4tOQU0t
-	O4Qxwixc6UefAfPePFd+k5Hbjn4oE1MdyVw41dFLhQzlb/Z2S5DaMVqgDXVSzSUvzr9PJ66engw
-	aVLxa84Thjc5ZoUBIrKQn1sVtpu4a9D87pYzDyEa7GUQuU69DsnEJVnV/YojpCaoq
-X-Gm-Gg: AYBFou2/QJqXvUjzPT6RQBuyrIujX+QLQwnO9JPeCKK7O7d386RFHG34AoUCpmjwPlx
-	iGaYQ/zpyprACB5fFG2K8xsXLKqgCK1IgacE3ZN1RUoi7muCh3QLxefkFbp4QfVoYRn38s5RsRr
-	lDlOzet7/0FBYiABi+sYt0XRP09T45p3xtai/eTodfoJGV4zkXpSj8pzfdGgqU6SqMx7FZL7zsq
-	pt1rvHzWSX4ejwEHFsp/bQXPqoDQJ/TISUm74BAxH6Xjc9qyL1hRYkTXHhDdlyUNY0rKmZf3+wg
-	c5QqAjQSUKG4c5IHjZgGV+dfETqleb5y+FjuzOEVTcndztZ0mv70P89Wmmq+8ohx1x0jkVceAQW
-	vpFcvVtc7JxYEtBSlcuJAayj4NhuRsXp1Cs61CLy/Wu2x14jwHI+81DcG8C5No/wEiRU=
-X-Received: by 2002:a05:6a00:b4a:b0:8a0:7573:4f20 with SMTP id d2e1a72fcca58-8a9ba9f778cmr1113994b3a.4.1793341277764;
-        Thu, 29 Oct 2026 23:21:17 -0700 (PDT)
-X-Received: by 2002:a05:6a00:b4a:b0:8a0:7573:4f20 with SMTP id d2e1a72fcca58-8a9ba9f778cmr1113970b3a.4.1793341277252;
-        Thu, 29 Oct 2026 23:21:17 -0700 (PDT)
+        bh=FsXK1O0HJYviQ0L+PescLIZvVO2QJTar+nEOAo7BaRs=;
+        b=ekavzzeVSnZdmjgD2EdHqvRvUbvssXT82U/TC8ZUsQirRh85PPH6EooQ4z3v1kCwd9
+         X28udCSnl64GdWwYnJ5zgOOF/GN38dMZi0t4jZ48HGOBnVF3ZL+tmDJO2sZdPl0iSnwP
+         PUeUBPNL6kXjZEHytUpaeLTTeyVUuKqKD/T1fvncuKZ6RJZLj/6iVE71JdvMjih470zH
+         wivsjQSaDtapKjnJjBvvd5ASfu7e/xWh/OcR50p87GIgy1xww+Vx51tbUCl93028E+xd
+         VGBf0a6TuVJ/TeZ6/zYzFoRdduJ7xUFOIFqZvGWuQkbdx8QrJxm7BatkqJJi8DzOmtiK
+         CMdg==
+X-Forwarded-Encrypted: i=1; AKwUvByX1NLhy/oxsA4xFdhpVEZQoGtbw1oz5ad8BxWjeYgwuKo39koaMfIB6FoIXfhYcJKgxUwNfTMI0hJF@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsku8If4yIw8o7IzcccVS+0ccXe91VBa2pLXbKWBKLbhM5xgKk
+	fSCKYdOxiK48VH95p8zf58AXV8ALaPrnDbaNHIgLoP1FX57LXTt9fEXz42kgTFwfLMhul0W/LsI
+	bO7/gYlxHVoZDWkW0AOSKPhLp13oFKzYZbOajShtE6KH3FQnak8s/bsH5uaslDGMG
+X-Gm-Gg: AYBFou0Esg6zwJmTyqBIlKKAcJoY+Ux4FMP/msm497TTHbfkwtiKQOOLr5XkpoHgJAR
+	mF8o22SvdspUqt3MLvJ4NzwnRS3/F+LWOFdpqSdgHGzlYnxhMT2A2YBwRlKJRNBU7P0uxhyoGIR
+	Ij5+IhW9U+Tb576nlKQT/oS79xTuEHkmEqlV41FTkWji8WkOZXa4ZdmXbkDP6/569SBoxnHtKAi
+	ssA4IZPeaKvVUZn7pRpk5zE6sO2mAN1nuRDGBe+XLtIxULQQxdT/7kDwnl2lTZBufj0+P7JudU9
+	0WwJ5NV7M06n71H97rVnOO8T+IWYUFnX/t0jk67IHf0JNpX4aFEr15uiXz8SWudz8HjHO3PEVV6
+	RKxe3CO2j/8nzmtCUC3qlHpie+F24NFuIfGidBy3lxyjzYpkeBR81XV75CgTIC1eir8w=
+X-Received: by 2002:a05:6a00:10d4:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a9bf61f237mr1085875b3a.40.1793341283254;
+        Thu, 29 Oct 2026 23:21:23 -0700 (PDT)
+X-Received: by 2002:a05:6a00:10d4:b0:89f:28c3:aab0 with SMTP id d2e1a72fcca58-8a9bf61f237mr1085850b3a.40.1793341282807;
+        Thu, 29 Oct 2026 23:21:22 -0700 (PDT)
 Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef08b936sm351163b3a.13.2026.10.29.23.21.11
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef08b936sm351163b3a.13.2026.10.29.23.21.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 23:21:16 -0700 (PDT)
+        Thu, 29 Oct 2026 23:21:22 -0700 (PDT)
 From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 11:50:50 +0530
-Subject: [PATCH v3 2/7] regulator: pm8008: Add PM8010 support
+Date: Fri, 30 Oct 2026 11:50:51 +0530
+Subject: [PATCH v3 3/7] regulator: pm8008: Add mode voting support for
+ PM8010
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-pm8010_i2c_support-v3-2-995ed1ec7a72@oss.qualcomm.com>
+Message-Id: <20261030-pm8010_i2c_support-v3-3-995ed1ec7a72@oss.qualcomm.com>
 References: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
 In-Reply-To: <20261030-pm8010_i2c_support-v3-0-995ed1ec7a72@oss.qualcomm.com>
 To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -134,236 +135,180 @@ Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
         Oleg Keri <okerixx@gmail.com>, Burke Cates <burke.cates@gmail.com>,
         Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341260; l=7975;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341260; l=4483;
  i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=DvfT8b078UHOjTjMUG/LOIFWILfg7ZvUNJWbe8mX0JU=;
- b=8jLoJBduRQuM8RzO4FmKzyh6Q8T1YoIw3Vtyi9Qor1AH7kDK4oTBabf4Uzh/wR1zCyc9IGsNy
- TjyXnLKkVttD0hX3j3MxnY3Z9oifbUgMtxAAk/l92VbqLRpszclOGxx
+ bh=tHHgTISLfM+T4SJmOLlmYYBACZZHmxw+90f4UR9hBoo=;
+ b=BimwX38dbCkungPzRaMM/QWdjnVXFdBexA4R87ih3fXcdSL5WBUYAzu4zn6SiULshvfBsMmK9
+ IHeY4diBFTgCFFGccT3qpZpUDHTPP6rQBZCWAlc1of6fnPiPg38owwh
 X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
  pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-GUID: UIVSVhtXuP5JKiAa5rq5HrUpDTlv0Vh8
-X-Authority-Analysis: v=2.4 cv=KLzPn1Fo c=1 sm=1 tr=0 ts=6ae4375e cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX9M90SAklR4WN
+ u8BiP8MHpHkEl4Aw9HFL7phEcLHP9lB7Y/i47lGJbnswb1xln7pA8jklAcT5WVZXkGqE5fpHMUG
+ tP1fADCfqs//BHCjFa1Z5wgCnbVTWGW6Jo9mm4AIteltSr/D6CFoHZ1stmRxKE3dSHTfMuCM3hG
+ VXXhsbVtUYfnlRi24fjkWFsCDhUCZH2d6DyBtpONcgymxjeNKQ8qEgEADxBZCWDkdCwM44J8Yvm
+ MOdiDFMrL+3C2CHw5vxEPYWiMyh7nVyHZ/4554ITp1SX2UkmRm1jeqNLXgMUN6LQwrhtQOPwT7+
+ lwFn8r6KAibPtRwQNEs2bSgJ42uAKFd0rPNCMKctjcAt6sqC+JR8xA3/Dh5pq4XLduJzaf826vB
+ YCAh3zQ5GdGO19SqUH3V8tmby3a8Xqd9nYtNIBt+QdQwP02SaZCQCmP5MCWQCxa3JNw2YbOAq6D
+ GXix4ye6DNzqmOqQtWQ==
+X-Proofpoint-ORIG-GUID: nleC5TaRvg6V4QD6_BE2gRu1DzvA1cGu
+X-Proofpoint-GUID: nleC5TaRvg6V4QD6_BE2gRu1DzvA1cGu
+X-Authority-Analysis: v=2.4 cv=AJ83otAg c=1 sm=1 tr=0 ts=6ae43763 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=CF1g25cjMhU89PGl3DsA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX0H9BQJlIG1tp
- mnPbWrnG/GOZd1VnBs0QI+6YekS5m29LwdkMGJ5g3FPebDBM7jYHs+5OGHnTk8IEfLwASsHb012
- mSxspjTu9nVi3oQwgizXFfNgOlERwf2lUNQBnCFQ2nBvIb7idXFE6TzwOzkcqNSnQbBaRxGzXsg
- TAw3g9PJQlLtcg+ihhLG9C3O4LL4qbKINcdwYzfnw6kfO6YqFkCExJb51AfyJIIy30c6+wSfLqi
- Fd53ctel6Y55DTDSYyGM0behevEUg7QtzlmAJL/SNS8n+zwUgZhuVC53JW+s+mgvrXE8Rb4vNXa
- cN5sJMRUG5nUeFiGsQorq5b/tZpXley6ZdeGnxBpOPhcix2NEQASVbIVGJKHXzfZowcBoSy90E1
- WGOOesyyAwA+xj3DkBV8Y4SqltsptZn4CEvMDe47K9Wm2JvSq3x2lrN3WOGx2hWarEBIKgvvBBz
- +YubL/kNRsFNUAKw07Q==
-X-Proofpoint-ORIG-GUID: UIVSVhtXuP5JKiAa5rq5HrUpDTlv0Vh8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX9VIQcdxxnE5h
- RZHKIK41Q50HBe34ewCjbsDNIegFg31+WVFQwz796RGcM6tHr1jOnxTz7TVZvpydReAecz9sziL
- BFX8VvN05P0l/3i+fn4PSXKTwPwUcy4=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=azaBX0EM9DmJuHldzdsA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX9IxstfKwkhF/
+ A66KpvwOrrAtsCaygcH0QFiRsEuVSKXCEOZg5aEO+uZGp/lqVeGNBlSd6X6M1TVPZ5Vmf74zFkr
+ 9MZnzUTaBK3sgLsuYa1XAREBCImgG9Q=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ spamscore=0 adultscore=0 bulkscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
  definitions=main-2610300025
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 
-PM8010 is effectively the next generation of PM8008.
+Implement set_mode/get_mode support for PM8010 LDOs using the mode
+control and status registers to allow clients to vote for LDO modes.
+Mode voting is not supported in the PM8008 LDOs.
 
-Like PM8008, PM8010 also has 7 LDOs under it which are used to power
-camera sensors. The PM8010 LDO are of different types from the PM8008
-ones and have different voltage dropout values. PM8010 LDOs do not have
-a voltage step rate configuration register.
-
-Add the necessary changes to support PM8010 LDOs.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Co-developed-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
-Tested-by: Burke Cates <burke.cates@gmail.com> # ASUS Zenbook A16 (UX3607OA)
-Co-developed-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 ---
- drivers/regulator/qcom-pm8008-regulator.c | 109 +++++++++++++++++++++++-------
- 1 file changed, 85 insertions(+), 24 deletions(-)
+ drivers/regulator/qcom-pm8008-regulator.c | 74 ++++++++++++++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulator/qcom-pm8008-regulator.c
-index 9c9b8be2e15a..b484c0f73eea 100644
+index b484c0f73eea..3db825e93731 100644
 --- a/drivers/regulator/qcom-pm8008-regulator.c
 +++ b/drivers/regulator/qcom-pm8008-regulator.c
-@@ -39,24 +39,59 @@ struct pm8008_regulator_data {
- 	unsigned int			base;
- 	int				min_dropout_uV;
- 	const struct linear_range	*voltage_range;
-+	int				n_linear_ranges;
+@@ -24,6 +24,11 @@
+ 
+ #define LDO_VSET_LB_REG			0x40
+ 
++#define LDO_MODE_CTL1_REG		0x45
++#define MODE_PRIMARY_MASK		GENMASK(2, 0)
++#define LDO_MODE_NPM			7
++#define LDO_MODE_LPM			4
++
+ #define LDO_ENABLE_REG			0x46
+ #define ENABLE_BIT			BIT(7)
+ 
+@@ -46,6 +51,7 @@ struct pm8008_match_data {
+ 	const bool has_stepper_ctl_reg;
+ 	const struct pm8008_regulator_data *regulator_data;
+ 	const int num_regulators;
++	const struct regulator_ops *ops;
  };
  
--static const struct linear_range nldo_ranges[] = {
-+struct pm8008_match_data {
-+	const bool has_stepper_ctl_reg;
-+	const struct pm8008_regulator_data *regulator_data;
-+	const int num_regulators;
-+};
-+
-+static const struct linear_range pm8008_nldo_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(528000, 0, 122, 8000),
- };
- 
--static const struct linear_range pldo_ranges[] = {
-+static const struct linear_range pm8008_pldo_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(1504000, 0, 237, 8000),
- };
- 
-+static const struct linear_range pm8010_nldo_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(528000, 0, 127, 8000),
-+};
-+
-+static const struct linear_range pm8010_pldo_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1504000, 0, 255, 8000),
-+};
-+
-+static const struct linear_range pm8010_pldo_lv_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1800000, 0,  2,  200000),
-+	REGULATOR_LINEAR_RANGE(2608000, 3,  28, 16000),
-+	REGULATOR_LINEAR_RANGE(3104000, 29, 30, 96000),
-+	REGULATOR_LINEAR_RANGE(3312000, 31, 31, 0),
-+};
-+
-+#define PM8008_REGULATOR(_name, _supply, _base, _dropout, _range)	\
-+	{ _name, _supply, _base, _dropout, _range, ARRAY_SIZE(_range) }
-+
- static const struct pm8008_regulator_data pm8008_reg_data[] = {
--	{ "ldo1", "vdd-l1-l2", 0x4000, 225000, nldo_ranges, },
--	{ "ldo2", "vdd-l1-l2", 0x4100, 225000, nldo_ranges, },
--	{ "ldo3", "vdd-l3-l4", 0x4200, 300000, pldo_ranges, },
--	{ "ldo4", "vdd-l3-l4", 0x4300, 300000, pldo_ranges, },
--	{ "ldo5", "vdd-l5",    0x4400, 200000, pldo_ranges, },
--	{ "ldo6", "vdd-l6",    0x4500, 200000, pldo_ranges, },
--	{ "ldo7", "vdd-l7",    0x4600, 200000, pldo_ranges, },
-+	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 225000, pm8008_nldo_ranges),
-+	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 225000, pm8008_nldo_ranges),
-+	PM8008_REGULATOR("ldo3", "vdd-l3-l4", 0x4200, 300000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo4", "vdd-l3-l4", 0x4300, 300000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo5", "vdd-l5",    0x4400, 200000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo6", "vdd-l6",    0x4500, 200000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 200000, pm8008_pldo_ranges),
-+};
-+
-+static const struct pm8008_regulator_data pm8010_reg_data[] = {
-+	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_ranges),
-+	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_ranges),
-+	PM8008_REGULATOR("ldo3", "vdd-l3-l4", 0x4200, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo4", "vdd-l3-l4", 0x4300, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo5", "vdd-l5",    0x4400, 296000, pm8010_pldo_ranges),
-+	PM8008_REGULATOR("ldo6", "vdd-l6",    0x4500, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 296000, pm8010_pldo_ranges),
- };
- 
- static int pm8008_regulator_set_voltage_sel(struct regulator_dev *rdev, unsigned int sel)
-@@ -100,7 +135,7 @@ static int pm8008_regulator_get_voltage_sel(struct regulator_dev *rdev)
+ static const struct linear_range pm8008_nldo_ranges[] = {
+@@ -134,6 +140,57 @@ static int pm8008_regulator_get_voltage_sel(struct regulator_dev *rdev)
+ 	return regulator_map_voltage_linear_range(rdev, uV, INT_MAX);
  }
  
++static int pm8010_regulator_set_mode(struct regulator_dev *rdev, unsigned int mode)
++{
++	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
++	unsigned int val;
++
++	switch (mode) {
++	case REGULATOR_MODE_NORMAL:
++		val = LDO_MODE_NPM;
++		break;
++	case REGULATOR_MODE_IDLE:
++		val = LDO_MODE_LPM;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return regmap_update_bits(preg->regmap, preg->base + LDO_MODE_CTL1_REG,
++				   MODE_PRIMARY_MASK, val);
++}
++
++static unsigned int pm8010_regulator_get_mode(struct regulator_dev *rdev)
++{
++	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
++	unsigned int val;
++	int ret;
++
++	ret = regmap_read(preg->regmap, preg->base + LDO_MODE_CTL1_REG, &val);
++	if (ret < 0)
++		return REGULATOR_MODE_INVALID;
++
++	switch (val & MODE_PRIMARY_MASK) {
++	case LDO_MODE_NPM:
++		return REGULATOR_MODE_NORMAL;
++	case LDO_MODE_LPM:
++		return REGULATOR_MODE_IDLE;
++	default:
++		return REGULATOR_MODE_INVALID;
++	}
++}
++
++static unsigned int pm8010_regulator_of_map_mode(unsigned int mode)
++{
++	switch (mode) {
++	case REGULATOR_MODE_NORMAL:
++	case REGULATOR_MODE_IDLE:
++		return mode;
++	default:
++		return REGULATOR_MODE_INVALID;
++	}
++}
++
  static const struct regulator_ops pm8008_regulator_ops = {
--	.list_voltage		= regulator_list_voltage_linear,
-+	.list_voltage		= regulator_list_voltage_linear_range,
+ 	.list_voltage		= regulator_list_voltage_linear_range,
  	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
- 	.get_voltage_sel	= pm8008_regulator_get_voltage_sel,
- 	.enable			= regulator_enable_regmap,
-@@ -110,8 +145,10 @@ static const struct regulator_ops pm8008_regulator_ops = {
+@@ -143,6 +200,17 @@ static const struct regulator_ops pm8008_regulator_ops = {
+ 	.is_enabled		= regulator_is_enabled_regmap,
+ };
  
++static const struct regulator_ops pm8010_regulator_ops = {
++	.list_voltage		= regulator_list_voltage_linear_range,
++	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
++	.get_voltage_sel	= pm8008_regulator_get_voltage_sel,
++	.enable			= regulator_enable_regmap,
++	.disable		= regulator_disable_regmap,
++	.is_enabled		= regulator_is_enabled_regmap,
++	.set_mode		= pm8010_regulator_set_mode,
++	.get_mode		= pm8010_regulator_get_mode,
++};
++
  static int pm8008_regulator_probe(struct platform_device *pdev)
  {
-+	const struct pm8008_match_data *match_data;
- 	const struct pm8008_regulator_data *data;
- 	struct regulator_config config = {};
-+	const struct platform_device_id *id;
- 	struct device *dev = &pdev->dev;
- 	struct pm8008_regulator *preg;
- 	struct regulator_desc *desc;
-@@ -120,12 +157,20 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
- 	unsigned int val;
- 	int ret, i;
- 
-+	id = platform_get_device_id(pdev);
-+	if (!id)
-+		return dev_err_probe(dev, -ENODEV, "Missing platform device id\n");
-+
-+	match_data = (const struct pm8008_match_data *)id->driver_data;
-+	if (!match_data)
-+		return dev_err_probe(dev, -ENODATA, "Missing driver match data\n");
-+
- 	regmap = dev_get_regmap(dev->parent, "secondary");
- 	if (!regmap)
- 		return -EINVAL;
- 
--	for (i = 0; i < ARRAY_SIZE(pm8008_reg_data); i++) {
--		data = &pm8008_reg_data[i];
-+	for (i = 0; i < match_data->num_regulators; i++) {
-+		data = &match_data->regulator_data[i];
- 
- 		preg = devm_kzalloc(dev, sizeof(*preg), GFP_KERNEL);
- 		if (!preg)
-@@ -145,18 +190,21 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
+ 	const struct pm8008_match_data *match_data;
+@@ -185,7 +253,9 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
+ 		desc->supply_name = data->supply_name;
+ 		desc->of_match = data->name;
+ 		desc->regulators_node = of_match_ptr("regulators");
+-		desc->ops = &pm8008_regulator_ops;
++		desc->ops = match_data->ops;
++		if (desc->ops == &pm8010_regulator_ops)
++			desc->of_map_mode = pm8010_regulator_of_map_mode;
+ 		desc->type = REGULATOR_VOLTAGE;
  		desc->owner = THIS_MODULE;
  
- 		desc->linear_ranges = data->voltage_range;
--		desc->n_linear_ranges = 1;
--		desc->uV_step = desc->linear_ranges[0].step;
--		desc->min_uV = desc->linear_ranges[0].min;
--		desc->n_voltages = linear_range_values_in_range(&desc->linear_ranges[0]);
--
--		ret = regmap_read(regmap, preg->base + LDO_STEPPER_CTL_REG, &val);
--		if (ret < 0) {
--			dev_err(dev, "failed to read step rate: %d\n", ret);
--			return ret;
-+		desc->n_linear_ranges = data->n_linear_ranges;
-+		desc->n_voltages = linear_range_values_in_range_array(desc->linear_ranges,
-+								      desc->n_linear_ranges);
-+
-+		if (match_data->has_stepper_ctl_reg) {
-+			ret = regmap_read(regmap, preg->base + LDO_STEPPER_CTL_REG, &val);
-+			if (ret < 0) {
-+				dev_err(dev, "failed to read step rate: %d\n", ret);
-+				return ret;
-+			}
-+			val &= STEP_RATE_MASK;
-+			desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE >> val;
-+		} else {
-+			desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE;
- 		}
--		val &= STEP_RATE_MASK;
--		desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE >> val;
- 
- 		desc->min_dropout_uV = data->min_dropout_uV;
- 
-@@ -179,8 +227,21 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct pm8008_match_data pm8008_data = {
-+	.has_stepper_ctl_reg = true,
-+	.regulator_data = pm8008_reg_data,
-+	.num_regulators = ARRAY_SIZE(pm8008_reg_data),
-+};
-+
-+static const struct pm8008_match_data pm8010_data = {
-+	.has_stepper_ctl_reg = false,
-+	.regulator_data = pm8010_reg_data,
-+	.num_regulators = ARRAY_SIZE(pm8010_reg_data),
-+};
-+
- static const struct platform_device_id pm8008_regulator_id_table[] = {
--	{ .name = "pm8008-regulator" },
-+	{ .name = "pm8008-regulator", .driver_data = (kernel_ulong_t)&pm8008_data },
-+	{ .name = "pm8010-regulator", .driver_data = (kernel_ulong_t)&pm8010_data },
- 	{ }
+@@ -231,12 +301,14 @@ static const struct pm8008_match_data pm8008_data = {
+ 	.has_stepper_ctl_reg = true,
+ 	.regulator_data = pm8008_reg_data,
+ 	.num_regulators = ARRAY_SIZE(pm8008_reg_data),
++	.ops = &pm8008_regulator_ops,
  };
- MODULE_DEVICE_TABLE(platform, pm8008_regulator_id_table);
+ 
+ static const struct pm8008_match_data pm8010_data = {
+ 	.has_stepper_ctl_reg = false,
+ 	.regulator_data = pm8010_reg_data,
+ 	.num_regulators = ARRAY_SIZE(pm8010_reg_data),
++	.ops = &pm8010_regulator_ops,
+ };
+ 
+ static const struct platform_device_id pm8008_regulator_id_table[] = {
 
 -- 
 2.43.0
