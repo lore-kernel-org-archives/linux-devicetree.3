@@ -1,111 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367069;
-	b=pXcbNJ9Vr0QyJFQCnpcxvr7OFzpAuBztTPlviPiWwYfzZPwOJqRPmoRhduSvjGCgRZYZ
-	 wkIXcF5PqLEppRYOUy163xnMvUsJoR4OJRWryspe9KddtpQL8VBjl8BHIMofDnFJngePo
-	 EEkT6TwiMLf8ixZEl68u4GmW4TZYI5ZqW/pXxM9oWCu+I9ZjHecn7mp9YwascJQ6iVyzs
-	 4ZMXDa+vBzNYWvpXPz5CI3/6SEshlwI5Nm0lHzfAdUIJJ+eqi2EvYKRqgEgmGNUYoT3qw
-	 ayKm9jZ5GZoVcNzMc08p74/cm847WTLtMigdNfba8iJgnsuuuYYoTv2IqTgPb7J9fxg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367069;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-	b=fmJ7NcNxqfhdtyKtK3Rv/Ja1AlF9zmv1+HhZYmd387ON5XRyDzQneIIqSYJjdTeTG5+o
-	 IyRM0B721PCez/ZeourpMxD+ui4qCtRhmGVDMgjecH18Del/GM1vpCXTyQrs8YGzgPPHX
-	 mJg5AKx0NCWfCNUhxDqxGzCWkeIbTDIf1EMjYFYa/GwfOMMvE1UqF0n4VUk8Zzi9juulv
-	 1mxKWU5aLMYJxuJtJVCBnInOlNsCvSc5rV3rbDeu4Tpr/tCLdr5I9BKP5YcnPCbdAx3SS
-	 c2RnquOpOuDKLyKbh3/pQri4rWATaV7JegKkHpHjOrRenEI4ekSfPMh0IoN7ieBcCbA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0lSEniW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYztFpMd;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.119
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793367195;
+	b=Z8/Y7zb1nO4sv4qXlW8o3ga1yrDhx9rRhDbIVqluNA1zihZpl4AVQq/daAAeljGxi+Yp
+	 0fUqzkyOaejuuvIk1NujUCo+Wq+iBg0GqwetT/6D4NCBb5mwdvj0qnrwnToX/YBOER8l+
+	 yrkHo5quXp0YhKHEsp1NQ6sfVJYreEDPz+OGdYYuP5XbNnGO4zgTSlDnY4Zu+vcZS9fbm
+	 E2HCiO8eQb7Fsa5q1Oy2Hi9pMtExO7fCv4g4aU8YFEmG1KiSxZFXXA4zvfMmFCVhbGPEg
+	 OdYkiK2V03+nQbsnNfP6w60pnO0+4Uw/cWlWskYSqaLiY1L/hfskgRojc1h0UHTGZzg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367195;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
+	b=3+eIHlQsIyUmB2zfPMp2YNtfUBAgzNnHoe8qDDyGqCI+Sca9jWfLCLJ/ISRz+xf2y3Wq
+	 oSDPJ0keCxgWSd6F5sMayrBWJEHaIaMReQm45EDgbJV0Rndg6GVJro4D0XCns0EwdZYqw
+	 JM8MZmQS3D9yjwX0T9scOm0F/G46X2zJzjbZ3XrEWnTN7mXdhSyPSXx8rz9Gi8BUlUzDR
+	 b3gVD5BINVyEqlIqJ+QPK6ncHIS8D2FXDzeTOeZo26zf6hdhT1V539TgHsJqRaQ0nkWs9
+	 4oZOzI5EL+a+3SZhVvnGJUjQQT/64XUAqu8SnvEV4NGiFdDiVNjMZBBApQNCKafpztw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=dCF3kMHk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.119
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023119.outbound.protection.outlook.com [40.107.159.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A34D606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A34D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93702606A31D;
+	Fri, 30 Oct 2026 13:33:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93702606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0lSEniW;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYztFpMd
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBG1hX2071574
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:31:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=UR4JTI9VQzJqFZB8kjqpLU
-	WsRrNaJNk6gTj/t7aYhsA=; b=g0lSEniW6gquVXXpfOAY99DJUHOYnH1CQYc7zh
-	7ilDpSevP4ENGSyIVmlBECy21yYDFq7A9G7Qcl49gOVULsUTr+YHadkD9VoRYO+M
-	3vfc2d5QUPcH7S98ssSfvj9YmVChDGDA9Mzsp+1bifsNK2YtrpfvjnwzI1EIZZfB
-	pePZ4gquLrsuJ2iHnUDS/gf4ExMnB+l+K17XeVQuFq3HmiYRmwq0RPGlwt4WuvIA
-	HDDtPDyhLGxk0t+uJ69g9+o95/DHx76/Y2lPFbS47bysv5cedWtIPjDQgEEbZkcn
-	AJzyYwYYbBqdI5dGDOe7W5qWI5aS/LtocNHY5yLjOmquEqLw==
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p3939-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:31:08 +0000 (GMT)
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4fb73e868aaso1183062b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793367067; x=1793971867; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-        b=FYztFpMd8hZQdKRI6gGG0AABxaLMRCG+id5+xaVZfEYowaH0zve04S9HNDuBZHbES8
-         NkzmuG7vUlHzXydORf43kxd6JqmI9YV6oqrjpkG12NhmMsdiv7Z6wqStKJbYyOBIT/j7
-         IgeQIWRjeNyyR5zlsmNbqr2u7pTmVAWh4pNfigB7ZeTtnQbB+lRLIPSiu3xj2CA62XWp
-         bWly4hu8DHN2PplltEWTmMBjGFGF6yVz5b2ipIWJazKhh6eK0T035QGjailjea43dvfl
-         Tu99RnOVjx1xowk33o86buLuM6Buuc051wrjrnLAC2swZXqGSARAHf8glJIBFAEH7d14
-         Bh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793367067; x=1793971867;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=UR4JTI9VQzJqFZB8kjqpLUWsRrNaJNk6gTj/t7aYhsA=;
-        b=WrSHixqOhTESjF8uoiJcdRCOhw1E1RZiOBB3XZrrnNUoHLQN5fcXfmlHT7yB685/KM
-         1w8KvI208FZku/Xz5MxufVg+e0/w0N6pTeM6WdKctdvGLoBljrH0OCRHk1uyr1yg8Ff/
-         aOPGPCuE9hXs8A6i8UXtrzid38IPsWECbbin87mjOi4tK5mhoKIn60DT9yRSH8DRIANN
-         ykp9uq5+XiSRNQMb4jx/2pfkqnpS00QIkOkjLFj2xc0LW0wZ0Bg2YgU14aXfIrbYJqV0
-         Ms0InbAL4mIX3vHtkhLXeVbpmBeqYxQd7vFgy2Zqf2g3UZ4tEaUBaiLI7QKedyyJVTBo
-         u9JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfYEvotM+JMJY5Ik2xLzQMGsOpxfDmyJAPjl14P9OowvrbZTl9TGajXnzotGQ3A6qmTD8hVCF2PhwG@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDRmV62kStYVYJH49sute1yfPbe7QQKzybZhTNAXvYS071uUOP
-	818ly9sr4xUaJ5gmnorpUSIrFC31Hwlp2X14HKJkiwG5GgAnhABSViS7uW/cxQc7wnRtvl55zQ5
-	d2YprW6cU7qev4pM3sUb+9LKRjo3NelovHiHO0WS/yiTetpmWPOFUW+d6+WuzQzd0iKkdulpM
-X-Gm-Gg: AYBFou15jD5hQ6DF/O2IgY2BHB0yF8pV2aUUZ9vPekgSriD5MKgEPKpektDVFOLRgcP
-	Sk04a9QbUndx5c1xcX6cG5Yt/LyJ7W+ebxXK0md7lpKCSt1l08FtbDge+Nc4rTlLnAjTLr9wI1e
-	6swr3bwFd3WBjhab39kXazghtDBkPsWs62JTmzMM8N/UsuQn6JLunaAkxHdd+qScGyzOTUftPHE
-	IVxsS+w7zxfTMoa3exgrjf1GO9f3YnyJPKQ3x9y97NcXWZ/IjbBhpqJHqsPuKn7+2kd7FxMWMfP
-	dChJpABMwquc4u6QOK6Hd4ov6MpPGFBlIYPJY4wVUcZP/Logi0bRwEDwc/LOw0+e1Kb5SSE3CJ+
-	9uECduFB2XsbdcMs/q4hmJOkpglme4X1Hz/e4fPIToRWTjTc5361BkY173t9TZZIlShQ15LAfIO
-	ENPI0VRLaD
-X-Received: by 2002:a05:6808:2512:b0:4ea:18f:64b0 with SMTP id 5614622812f47-5640decc459mr1809525b6e.67.1793367067544;
-        Fri, 30 Oct 2026 06:31:07 -0700 (PDT)
-X-Received: by 2002:a05:6808:2512:b0:4ea:18f:64b0 with SMTP id 5614622812f47-5640decc459mr1809490b6e.67.1793367067074;
-        Fri, 30 Oct 2026 06:31:07 -0700 (PDT)
-Received: from hu-jseerapu-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm1590884b6e.2.2026.10.30.06.31.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 06:31:05 -0700 (PDT)
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 19:00:42 +0530
-Subject: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
- support
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=dCF3kMHk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Iw5nO1Kdl1CJXxGVrHKma69ZUT8LapAJxF8uGdyB1V3klT9hqzWTwp2sAAc2J1H5+HO9k8mpbtUUPe2ezqTKcolSCSO0YehPhU5mqdIjdZKh69nR47a2jKrQpVIxCjfSpCcRTMVJSHdLRymOusRVLxEiF7YiWCaKSo3ueJWM/llya3ipuG6Ne+5DaqZ+01WkhJc/3G6A69yTmFq8ImGQQjd59WN9hzCi9LJasaNPGmVhRSFJn06v8sJtgUw5sq12B9vUzl5zqlWfF2N7md4KdEa4oKFmrBVs+xtdzZMMAJOwkys3+iuGt7JffiWgMb/SwidRWnHpYwoDcwAfuv/OyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
+ b=LzX7BBebkSSYBlyP67aumCNyJAJ+HNj10COMyCDrtIliwZWItcHCGFTx+QMBmcp+stmzSyk1hRbyt7vqSA6npIlFXsxQ/WbGZTg7rQ1yuAGHiYuf51NbV2IYAbU5Yh5TRvdhioXLt5AF8q2FuNpUaFJTjGN7KlQS4jkmaeDjhmwut6GKjsdo2z3YZFEByehdXFd2R2iibANoPtLNhy7aDaz1a2NftFtbswAqabWlltu/XzCwqyDRbyToCcAOKkn5d+NQPQR/8xlS2yThfMJJiAxUQ15CQMQzD4MzC+KfTlTxboN8WpWJh6GAmtpewlg9sZ10bc0sWhRbY46Ia70RSg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 91.26.50.189) smtp.rcpttodomain=kernel.org smtp.mailfrom=phytec.de;
+ dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=phytec.de; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+C1Nn1QSoib6U+V/NcsM9hVWBYZIQF1Cy/AMuB1gWWM=;
+ b=dCF3kMHk8mSX4RMtWX1OcIaDNnyW31e0x7PdEIynXPl8fNlwibe2izcAk0I0sVg3FQObJrEnEAZkB2ECe6Obpyw165EdFbLv6SHcCAlcD1NRpYdkzArix2YywUEPCUkNDjvEQqVoz9R6XTWZrUOanJTD9RLmUKP9LVERiIuNoVdK4m/NVtfADh9yTHKLWoGZPxpvOIaVSPxj2pKz9N5Bm++eYrrkON4t1Xse2TuCSKslxWqg4kD1vmkOBnvyq/fFk2k1YEkFhCLiBTG0QohJy3Ar8yajSzIsD8zgtGj0eJYFkXWUiwrjXKHwFyNAnl7lok1leKwwGdbAeDGw2zi92A==
+Received: from DUZPR01CA0310.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4ba::10) by GVXP195MB2480.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:150:1b6::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 13:33:07 +0000
+Received: from MA3PEPF00000406.eurprd04.prod.outlook.com
+ (2603:10a6:10:4ba:cafe::16) by DUZPR01CA0310.outlook.office365.com
+ (2603:10a6:10:4ba::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Fri, 30
+ Oct 2026 13:33:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 91.26.50.189) smtp.mailfrom=phytec.de; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=phytec.de;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ phytec.de discourages use of 91.26.50.189 as permitted sender)
+Received: from Postix.phytec.de (91.26.50.189) by
+ MA3PEPF00000406.mail.protection.outlook.com (10.167.241.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 13:33:06 +0000
+Received: from llp-hahn.hahn.test (172.25.39.126) by Postix.phytec.de
+ (172.25.0.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 30 Oct
+ 2026 14:33:05 +0100
+From: Benjamin Hahn <B.Hahn@phytec.de>
+Subject: [PATCH 0/5] dts: update imx95 Libra devicetree for the newest
+ hardware version
+Date: Fri, 30 Oct 2026 14:32:42 +0100
+Message-ID: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,102 +104,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAGc5GoC/3WNQQqDMBREryJ/3YixxWhX3qOIxCTqLzXRfJUW8
- e6Ndt3NwIOZNxuQ8WgI7tEG3qxI6GwAfolA9dJ2hqEODGmSZknBMzbRiLWe6watRtuxXHLVCJk
- LkRoIq9GbFt+n8VH9mJbmadR8aI5GjzQ7/zkvV370/ttXzji7qTbLteDFVerSEcXTIl/KDUMcA
- qp937/TUFWbxwAAAA==
-X-Change-ID: 20260916-qspi_dt_binding-8a1cb7a8772e
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793367061; l=1839;
- i=jyothi.seerapu@oss.qualcomm.com; h=from:subject:message-id;
- bh=6+euTVf3GCpORG+HjlXn9bEmx+HYlFRWqNiglrEVYlw=;
- b=mva44UfZGpfgrUarHZzaC7Pu9cJNQKZyiCLNo3tQeYQENvV6cTkzLY9rBi0xaV1uq10Gvtwi6
- 9w++rqbasXbD/ZJpziP/1CkivrzIGzMDZy5LMokToF7uFxtSLiuu4b1
-X-Developer-Key: i=jyothi.seerapu@oss.qualcomm.com; a=ed25519;
- pk=9vafyYsia0OnBKWSEwhmWe3hPVQfI2T1xOs5dPaFvEo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX+bOvthGf0bPr
- 9I6mRDLI4EagwPiIn/O/Q/mdV0kgwRGg4XAE42xkXwpr4dlTjP1/jKWLmCs5Y9QCvVyTscb6F+N
- hZCBAlKhkh2CqyoovgE8kiSwz698Tj6ni2ViJuGpxYuQRE7T+ZPU93spwthn5JkvJaMiDeaZ1wi
- 7hH24mdaxSK74qB3vxKMbutI98m8psALVRn8RpKHq4XGhWgU3mwf7gjY8/aWelLh8Y0Lw6a2a8M
- z3k17VIJHBO/cxoaPqzi/ckIBW7mbLDpHdH47NOQgvQBLdz4FH2xo5xtwTsmp3vKk3O+m4HjxqP
- amZ86eNY4CeD9UBB98sNI8agbLnp0XMaTBXcJk8or1my2DN7KfLPBWjPIdy1/y2qVKToPhijDew
- eKlChaZXwje/BieomFoDjMEaUO+aWTtkUIvKQOgRqgluW77UDUVSAlYpote98V2Q+3gFvo2lOUc
- jOa5y1FTjLlWvD0s9HQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MyBTYWx0ZWRfX1tXj5DITfZGC
- zuQtJ4j7A81mMWiHmAB3xIX6ZHAjxWoq/k7KuwmotFfW33slMv07zmThb135wByHqRpqqWZUqTD
- yDb7/+N65n2ltEo8/zqgsUT9TNvzmrc=
-X-Proofpoint-ORIG-GUID: jAKKUE9Hrk4kDAxeTNJ0t4vExmmfLbJ6
-X-Proofpoint-GUID: jAKKUE9Hrk4kDAxeTNJ0t4vExmmfLbJ6
-X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae49c1c cx=c_pps
- a=4ztaESFFfuz8Af0l9swBwA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=KUikZgbwDMKjgD0mul4A:9 a=QEXdDO2ut3YA:10
- a=TPnrazJqx2CeVZ-ItzZ-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
- adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300053
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqDMBAA0KvIrB1IRC3Tq5Qikzo1szANiT8Q7
+ 97g8m3eCVmSSoZndUKSTbP+QoGtK/h4DpOgjsXQmKY3ZC3uGtF59gF1Pqgb1piXJDxrmJCI2od
+ zHQsbKENM8tXj3l/v6/oDznF/xG0AAAA=
+X-Change-ID: 20260911-wip-bhahn-imx95_upstreaming-99947bb5aea0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
+	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+	Yannic Moog <y.moog@phytec.de>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<upstream@lists.phytec.de>, Benjamin Hahn <B.Hahn@phytec.de>
+X-Mailer: b4 0.16.1-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793367177; l=1712;
+ i=B.Hahn@phytec.de; s=20240126; h=from:subject:message-id;
+ bh=eVURJ+4S7jIhxGam9W+SKTrpioc7vyOjEHfJgu1kY/E=;
+ b=pyVJ0ZmsSJLd2dJ8+bzyBu2f8SMH5sBB3VpDryeJTGQJ6L+jOqmkhjTggrPzMzwkHrYo7OUmM
+ zva5b3GNAp8Ds7zvNeF/vb4KBHuG9Zqt/5NCKPc1XgJAC2B9nE7dxPP
+X-Developer-Key: i=B.Hahn@phytec.de; a=ed25519;
+ pk=r04clMulHz6S6js6elPBA+U+zVdDAqJyEyoNd8I3pSw=
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MA3PEPF00000406:EE_|GVXP195MB2480:EE_
+X-MS-Office365-Filtering-Correlation-Id: 135316ae-20d4-401b-f731-08df368a54a4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|10067099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	oP4cMW1UugdQH1ombgS8DFGth25d+JpqIz1XZm68EIG2NvH31cqlpk8xdc15kNbhztjN/sXealcXnC+GUHG0RtXlkpmGUzxGoEB7/eQa6dawJ4mf6vTfBxST8U1vXB+kQPKqDVNC3sQhPnC5QN5pQCOvepQauNcI/mcMPqp6a/H1xQ/iPsQeDw9p0IyY4+WpMFc0m9+1htUr+pskQCXN7dSV3nJDYPtcr6jPa40GmEs700DLGCZEtviiBLDmeOwNcOwtLYNB+gOwil/VdJrcBB5+KUtyBg+oxvQtzbMoyBUaPGbTkj1Mgnu9xoo/aOTIeK3rwkrhIkQ55h1n6WGHgHYhBFTc6Oo/TkPCFuXI4PoHnuCkIF2aALdr8B5LbI/y4DIDgHWH1q3rZMIvpnnLNdffQVcW1OZ6N63B+jfPWZ/M2zz7twqC4aclpXKcST2hnYJRLUG3Cd/iQFMl/gg5+N3PPSorfEbndYaWdyt4p8eNYilKQX32OoHl/cAIsc2XhZXQj+6NgBEQs6qgwRN3R7X4S9fT8nm+h7WJEQ5Op8v+v+onqs+hO7E4oPAmmCRFG5Cn88yknTGCRTwq5Mr32ww+kYNDWrI29Npg5xCxfiBQxeo8Janhyqcg7248pteijvhzd7eG+8rbmNJNuuuycHTX82beyDaBzH3btmEsmgIkDqluSqdPs4TuRUgnVREpkZpGg+nopvF2HXIncIaUtA==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uwS+ZzREonjj4r2ngyGj6y2+Ie2XFrTUrqc76aNoOACr5KU4jixDncIOpUbEGtTX1LbqFC6lCreVKwjEnSkjKaK7PYn6gIbI3lE29zmK5F0uYxwfM+VCk1eiGm0POJRmw7nG9UA3+mbJRgWT0DpYn91Z1ROOsBAmdQ2C/BdQDxtphk0lr9KV6Ma8g+8Bvi9Db5h7xG9ma7j7K9yCFi+8VrW6iLzpHvx9tk5yloyalV/brmQ0jT4efpupsqdh6d41e7UxnA4NM0gMUevUGZ4SZ8VLlwsj2VDxhHOr6oKN/ilsSHQQoCk9RmnfYHqx0poAWE7ZFcd4qN8AXhJWPz3ZkUYCXDq1a5HjWEPpkoYYMfbzCE/rZ9wqPkt+v6XOzeeWbLj33wGOQuP5hnuruDrMUVdbnweDEggAz1Qnw+CpxySYUwZ7JGMYppWMqyuuPIsk
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:33:06.2544
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 135316ae-20d4-401b-f731-08df368a54a4
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MA3PEPF00000406.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP195MB2480
 
-Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
-instances configured for QSPI operation.
+The Libra RDK and i.MX95 FPSC SoM have been updated with new hardware
+revisions 1618.2 and 1620.3. With these new hardware revisions they also
+got renamed slightly, as they have been integrated in the phyFLEX
+series. The baseboard is now named phyFLEX Libra RDK and the SoM is now
+named phyFLEX-i.MX 95 FPSC Gamma. Add the new devicetrees and bindings
+and remove the old versions. The old versions of the baseboard (1618.0)
+and SoM (1620.1) were only ALPHA hardware and are not longer supported
+or manufactured, as they were based on the i.MX95 silicon revision A1,
+which is no longer available.
 
-The compatible also allows the driver to select the appropriate protocol
-firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
-distinguishing between SPI and QSPI firmware.
-
-Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
 ---
----
- Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Benjamin Hahn (5):
+      bindings: Add devicetree bindings for new phyFLEX-i.MX 95 Libra RDK
+      dts: imx95-phyflex-libra-rdk: Add dts for phyFLEX-i.MX 95 Libra RDK
+      dts: imx95-phyflex-libra-rdk: Add overlays
+      dts: imx95-libra-rdk-fpsc: remove devicetree for old Libra
+      bindings: remove unused binding from old Libra version
 
-diff --git a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-index edf399681d7a..e568b67d077e 100644
---- a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-+++ b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
-@@ -19,6 +19,10 @@ description:
-   SPI in master mode supports up to 50MHz, up to four chip selects,
-   programmable data path from 4 bits to 32 bits and numerous protocol variants.
- 
-+  The "qcom,geni-qspi" compatible string identifies GENI serial engine
-+  instances configured for QSPI operation. QSPI supports transfers over
-+  multiple data lines for higher throughput than standard SPI.
-+
-   SPI Controller nodes must be child of GENI based Qualcomm Universal
-   Peripharal. Please refer GENI based QUP wrapper controller node bindings
-   described in Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
-@@ -29,7 +33,9 @@ allOf:
- 
- properties:
-   compatible:
--    const: qcom,geni-spi
-+    enum:
-+      - qcom,geni-spi
-+      - qcom,geni-qspi
- 
-   clocks:
-     maxItems: 1
-
+ Documentation/devicetree/bindings/arm/fsl.yaml     |   6 +-
+ arch/arm64/boot/dts/freescale/Makefile             |  12 +-
+ .../boot/dts/freescale/imx95-libra-rdk-fpsc.dts    | 318 ------------
+ .../imx95-phyflex-fpsc-g-som-temperature.dtso      |  23 +
+ ...ore-fpsc.dtsi => imx95-phyflex-fpsc-g-som.dtsi} | 204 +++++---
+ .../imx95-phyflex-libra-rdk-bluetooth-88w8987.dtso |  24 +
+ .../boot/dts/freescale/imx95-phyflex-libra-rdk.dts | 558 +++++++++++++++++++++
+ 7 files changed, 761 insertions(+), 384 deletions(-)
 ---
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260916-qspi_dt_binding-8a1cb7a8772e
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260911-wip-bhahn-imx95_upstreaming-99947bb5aea0
 
 Best regards,
 --  
-Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Benjamin Hahn <B.Hahn@phytec.de>
 
