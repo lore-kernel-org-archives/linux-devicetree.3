@@ -1,94 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793323922;
-	b=lQrzBwS3CQ/c4PzZCHMj2gUsUi7dKZE5QyhC26e/GlDIUst9NBY4Z9EfhDXtT+cdqfAZ
-	 hsIL6HDj09jTfSmcfa3SwI2DNbJjtzXRtBR2O15zbn66Cerkplg8hIKAHic62RRqRQGRJ
-	 /Z05kp+nnY3CQPoPQjb3NSedGEhLYBHisFXrjOKTpy8GYa2A57dojyAItFYWDJdWOuxST
-	 we3yXGUdS946Guf4Vfm8D7kDlo8gseITM+vjomS+FrZF7bR8Jy5o89DFZ1pPM869hbTKm
-	 mxi23OCj90o4WtS4/6n9KZFOGu6qhApNHUlyNYjsigDpOJl43YIu0/cC4wXOPOESi5A==
+	t=1793323921;
+	b=IDxI35HtJ/tbl2ZCQzVofLQtGRH0T5jZoFhziNirnd1tGo0RaLcK3sXG62stNF7+Jnro
+	 VxXpV3iXrSjllbd77GTeUfWEvFH8I31A/g/oJn3A7imz99Dq8KbH3oVAAj2ibSBAXfOL+
+	 IWAMu36BJ0Af3hAXhNPpv/nmy0ObNUUeeTMVFhXEau5KAZvnVoONvUxjsZQEcN5JAPWmN
+	 ezbeYHf9WGHgNhZ90x4jnr/mgJEICtdtgQFNlva6t4d72120mZgtmKaWAO3faN2wXbraU
+	 QKlwGlHQ/l4wlJ4pcHw+P/LccNpkNS/r/FtmY4NHG+RQMSZ9J5PogNWVP7e28+HshBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793323922;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QkGJO+kgqaCulrnXtUJH9iL49QSQWCoACVPD9LkI2pI=;
-	b=5JNkopOFzgaUqiR1jWVW2cWlusLMW7CGQylM6l2v+wE43IDq4VOD40v8JZjXg/y1emDN
-	 zcqAZPVBoUtGW67xN6XqPTqPhiwscLs77/SMLtqqb4soWd1ng7bDHP6LtwCkfsjcYaaYD
-	 Cx5yS0YuLWlkD2oLa5pKPIhhsMue9h0vFbR62xfViZzRcrYdyDQSKKPzoF0/CIbUugFsd
-	 TF21m53tp7/utBqn/7tnejAeB8e4LuYSUtZ91wxh4ELF8fPOXozK3xW0+UJcI8FIyeHZY
-	 d+Awtl79BkskbqqIiOQy0HDYRNKwBoKety9NgTgDmZWk4+eIzWu2M+cYosU2UuEOxpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793323921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TGhDAr2dwZiPzS/mrS7vv+2diNojd8kC6t6N16uc0O4=;
+	b=ut5x/cRRBB1HxvEFxNIfEjXqzRIeRXP9RlD9EEHqO4LP40fcDRZMuj4RhAe+PpcboGFD
+	 R4Ivupv+VClNgwhjtH1Im6eSxqVLhgHaN+Zjg5jmbpiy/GWP9imJ/xlUWZTuma6d425kj
+	 +7k+3esHaSEPkzUJEBJqyaVPUXb8NqCwvRVhc77MKRnW62YpTs8QG4qN0CH2cMaLFHOfH
+	 KbapfVqzquc6Vsd3qcpQZITR+MutCs+VVKRfkSKPjUpjqQCdmSsjEYWMOw7/qGBTNTUxq
+	 ymGpHumwR3dgKETBlpQKz1TAnHcbTtHe/J4Cv+vPyJfPqOib9hySTYI2u02XwywD/oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WIC0P2E9;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WocAb16/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B68606A31F
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 01:32:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B68606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4C0606A31A;
+	Fri, 30 Oct 2026 01:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WIC0P2E9
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e812e2b31bso1033555ad.3
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 18:32:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793323921; x=1793928721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QkGJO+kgqaCulrnXtUJH9iL49QSQWCoACVPD9LkI2pI=;
-        b=WIC0P2E9KkJ1uxcE5cLksyz39hhtiUmsnSNL+ZzvDtS+6nQCBPM3FA4iQ0mH2kv/i3
-         3Him82UzE+pgSUNQT76hLQElesMffpDb18NLv1x2PJ1v3HtGDsYLR6fxKy2lSbdTlQh2
-         vpglfKEZdQcjJDFVdvPbOfBeWsqT0SZyvETGb/nlPIA9LGVMsL4FIhi/kwnkoSf/4s3D
-         B0v/rZY21OnvfhSNoZ9HM859eaHuy68xVE1gGMquwZ9HHqAz7bhOU17bN4FD1eoLL2if
-         1cUWnR+W700jDDvZ9D/DajYxTRYBqi5r70QrqTkkTP+YhQIKAK7V8kLaIOPy5wlA0ywJ
-         nIDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793323921; x=1793928721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QkGJO+kgqaCulrnXtUJH9iL49QSQWCoACVPD9LkI2pI=;
-        b=FClxdPcDYoIHoAajlyvq/mEcPb8f/ABoYNfpUWPjx3Dkq/JwNC7wqHW5VxYVOULtpB
-         SbuihmuOwC5BG7100TTh9pY0Snw6JWlqekl3KSw7WbR82091TFoxYFPmom3FQNHioeHP
-         enZbUq9fORu49jeXpPiITIqIDezWNXiBpMAfeYMCrd1roOdyuY0ibB4QWtioi9mXvCdl
-         ekSQSIIRdTR0hiXoJhzWb/mX/F3HrdLqCIqDeM6t/LEH7eJVXceb/ixaLqtdqVgUw2bM
-         4hzUWFywFKkIBFhpYDnqWWDRXxLHmqARF2/bSI7t/l4HdpJXn+82LsLhF4ByivyWKM/f
-         utLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPD0AUadge1QnBdCtMUU9+9S+npoTQBMqe5utUnfUQ3cvPFJzNoSOkQ6Xo8tLt7sJopzk3rp54JezH@vger.kernel.org
-X-Gm-Message-State: AFq9FYJd7wgh5dhfBoBowYFt3A2HKXpeDkPouDYupnL7cPqKlADFNoma
-	o1xDa3rM3uziTxUWL2Ovf8DHcFBfRrp124V2soaGnbUXSsYTiieeicud
-X-Gm-Gg: AYBFou38TRJ1n6WJppHN4sWVGnrMtGmIFtIzNWkc1AxgOYxXCoPAEpi4Pkd9oAruIl4
-	+Y0Td0ModrSqiFw6m/NyHGfO7PsPSMX5fNR/Q8uFTSW06JsbSdn0s6DhxDSANtlS5cROHFL/Zdb
-	1SUXutaIPO0uvY/q87xr3sPVIhpsBu0YczS38/FeOTqIgivXvhTmMl422DlKvSdAXGkODuJzoFP
-	Z59Zlo9E4kepJzBz1O5kzqgiNV13zZW50kUg+8IeAtTV/lHdzMdXRxL40zuqVBsmJuuJT7n+M17
-	J8P+6X64fKXKMMUtzM+fXqi53P//2qr6M2v0P5gKRReQ0vX79ahz38OXQW3sFLM859ddlwqC8Tq
-	sXhzc8rS/TRsmTru/XlmxVyU75dZP4BxAGnwg4oJkcv3R7j/1qNWXDpY5ASyHez9HDejz4ikvKZ
-	ZWY06zXH0Hw1223vH8HmhSJlUl3DtfafaZEQvvaqMxeOH+3UbIegS76w2WVSkDIvSVhM1hZNrvf
-	BGwgqHTUnYDVqiqGWQ4xgVLk94kF0PJRXYA0HNnXdmK14/7QlzknNbsrT0aphgmg1+e2g+0xfqn
-	P51f9pG7OJLkl1+mk/IrgW5EcZbz7UhK5ObDB9qmXVg=
-X-Received: by 2002:a17:902:c405:b0:2eb:1e07:adb6 with SMTP id d9443c01a7336-2eb364b8b76mr10600705ad.26.1793323921214;
-        Thu, 29 Oct 2026 18:32:01 -0700 (PDT)
-Received: from localhost.localdomain ([240c:c983:5:4bbd:2481:c7c4:68af:3])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392b15f0sm911575ad.73.2026.10.29.18.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 18:32:00 -0700 (PDT)
-From: ShiTou Hong <redstone.dcity@gmail.com>
-X-Google-Original-From: ShiTou Hong <dc_redstone@outlook.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	ShiTou Hong <dc_redstone@outlook.com>
-Subject: [PATCH v3 0/6] arm64: dts: qcom: sm8250-hdk: Enable additional peripherals
-Date: Fri, 30 Oct 2026 09:31:29 +0800
-Message-ID: <20261030013135.158157-1-dc_redstone@outlook.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WocAb16/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740721F000C1;
+	Fri, 30 Oct 2026 01:32:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793323920;
+	bh=TGhDAr2dwZiPzS/mrS7vv+2diNojd8kC6t6N16uc0O4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WocAb16/Jo33fJskuMJawb6P61oVLXyyUMJEfKRHsrU+31PDsWwsdCpE4bC972cU9
+	 rFFQ7vZJXaVnArQuvLOUo32ho47lw4xU+TzlABRw4SyRGnpVlcUM1SGiHO7gEtq6E4
+	 kkiQ5kmou1t6DcWpP+b7V5j4r1fqyYofq2aK7NsEMjuoO0sEIG71E2/jV9LOo3LYR5
+	 Me/5DQDb/CVXntf65i25k7phsRslVE8UZdFlBMImOFD7RxVl/FGm735Aacy3mWejNm
+	 n2kiJbuZcyORy53YGml0MX6KCpfo0pqPJglWLaN5pN/bdkkUKHp6Zfb7CEh6+/Iesz
+	 jM7mdtpFBo7ig==
+Date: Thu, 29 Oct 2026 18:31:59 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Kanak Shilledar <Kanak.Shilledar@axis.com>
+Cc: "alex@ghiti.fr" <alex@ghiti.fr>,
+	"guoren@kernel.org" <guoren@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>,
+	"pjw@kernel.org" <pjw@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"wefu@redhat.com" <wefu@redhat.com>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/4] riscv: dts: thead: Cleanup with dt-check-style
+Message-ID: <auPzj_N44iXtrR_3@thelio>
+References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
+ <55208f641473e0714e4509fd5d071343b3a0de98.camel@axis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,42 +67,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZrT0CggEIZoz5/F0"
+Content-Disposition: inline
+In-Reply-To: <55208f641473e0714e4509fd5d071343b3a0de98.camel@axis.com>
 
-This series enables additional peripherals on the Qualcomm SM8250 HDK.
 
-It wires up the SDHC2 controller, the LT9611UXC HDMI bridge, the FSA4480
-USB-C protocol chip, the PCIe ports, QCA6390 Wi-Fi/BT support, and the
-PM8150B LEDs in the SM8250 HDK device tree.
+--ZrT0CggEIZoz5/F0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: ShiTou Hong <dc_redstone@outlook.com>
----
-Changes in v3:
-- Move the omitted `status` properties to the end of the nodes
-- Reordered the root nodes alphabetically which were also omitted in v2.
+On Mon, Oct 26, 2026 at 01:02:22PM +0000, Kanak Shilledar wrote:
+> On Fri, 2026-10-02 at 15:43 +0200, Kanak Shilledar wrote:
+> > Fix almost all warnings thrown by dt-check-style after krzk's updates
+> > to the tool [1] when run under the strict mode. There are still a few
+> > warnings remaining which are documented in the relevant commit
+> > message.
+> > By doing this the files become easier to read and maintain.
+> >=20
+> > After this patch series only the following warnings are thrown:
+> >=20
+> > 	arch/riscv/boot/dts/thead/th1520.dtsi:221: [child-name-
+> > order] child node 'oscillator' out of name order
+> > 	arch/riscv/boot/dts/thead/th1520.dtsi:227: [child-name-
+> > order] child node '32k-oscillator' out of name order
+> > 	arch/riscv/boot/dts/thead/th1520.dtsi:248: [property-name]
+> > property name "snps,wr_osr_lmt" is using discouraged style
+> > 	arch/riscv/boot/dts/thead/th1520.dtsi:249: [property-name]
+> > property name "snps,rd_osr_lmt" is using discouraged style
+> > 	arch/riscv/boot/dts/thead/th1520.dtsi:253: [child-name-
+> > order] child node 'aon' out of name order
+> >=20
+> > These are left for future work as they create a very large diff.
+> >=20
+> > [1]
+> > https://github.com/krzk/linux/tree/b4/dts-style-checker-blank-lines
+> >=20
+> > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> > ---
+>=20
+> Friendly ping :)
 
-Link to v2: https://lore.kernel.org/all/20261027080758.3990418-7-dc_redstone@outlook.com/
+Thanks for submitting this series and sorry for the delay. I will apply
+these to thead-dt-for-next once 7.4-rc1 is released.
 
-Changes in v2:
-- Add a cover letter to the patch series.
-- Reordered nodes alphabetically
-- Drop `output-low` and `output-high` properties of the LT9611UXC pinctrl node.
-- Move the `status` properties to the end of the nodes.
+Drew
 
-Link to v1: https://lore.kernel.org/all/20261023072832.2642647-6-dc_redstone@outlook.com/
----
+--ZrT0CggEIZoz5/F0
+Content-Type: application/pgp-signature; name="signature.asc"
 
-ShiTou Hong (6):
-  arm64: dts: qcom: sm8250-hdk: Enable the sdhc_2 port
-  arm64: dts: qcom: sm8250-hdk: Add LT9611UXC HDMI bridge
-  arm64: dts: qcom: sm8250-hdk: Add FSA4480 USB-C protocol chip
-  arm64: dts: qcom: sm8250-hdk: Enable the PCIe ports
-  arm64: dts: qcom: sm8250-hdk: Add support of QCA6390
-  arm64: dts: qcom: sm8250-hdk: Add PM8150b LEDs
+-----BEGIN PGP SIGNATURE-----
 
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts | 460 +++++++++++++++++++++++-
- 1 file changed, 444 insertions(+), 16 deletions(-)
+iHUEABYKAB0WIQSy8G7QpEpV9aCf6Lbb7CzD2SixDAUCauPziwAKCRDb7CzD2Six
+DDV9AP0XyxKiEZKezADR+IwYgkm3uHSS4vjMhhOh9me5W4tdZgEAtBrp5aIocVAk
+sjQ04QnfKSV9NEf09vt0Aoay6ZsbJA4=
+=1xB1
+-----END PGP SIGNATURE-----
 
--- 
-2.47.3
-
+--ZrT0CggEIZoz5/F0--
