@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793376338;
-	b=OKghpKP/8FFRLeFRmXOYS4x003vSe8NTU4gkNtEB3Grx8skbaB7z5Lf+KRV+JtxZxE0+
-	 k3KZYC9zdwCC5fLurKpc2XRJSIpLhstCM3wr3UokQUUZJsVx2VWRrRhDFFEbwH0jX+aGD
-	 6yw6zosNNLX7ow0c7DabNfYdiRQWlRXaRjfVjxFDJIjwxlbbFmRff4iPKuurxHsvskV4T
-	 QiZO9A03rVdU6pXNZY0AoXn39ige7uTXk2wfJft0buouYifZP5+b6rlsM2yg1Kb7z3ke+
-	 9WpxZ64uRmeD7T+rIkdHbmaBrV0CO871dwvbHi2kKEfZntrHaKqIKwtYtWRRXjEhC8Q==
+	t=1793376442;
+	b=oA/t2YwJxOB6FS+FjQSLEKtsfUl8GhGhE2RiCItSl2HEDx4hndRg8qs6DqiI54KNIvuG
+	 6YZRG6fqPlLSnDQGi6YyXRQ3EboWQ0kU6vUjUOmDxHN3AtB+LoD4TVOagF1B1j30d2nMO
+	 pUpFJ/TqtqQ/zKZhcb+nFqSA73P+JgzHLFH402AKMmJ3h8il4UQiycWeJBv34m9P8FB1L
+	 8IS+EWI758O6GEdwXTBawetzmGA1WZ/Rl3f0dg1G6qhhXJWcHG3uHbu633Z+pWV7F+HJu
+	 pE39VSbTpGGY903AcMYjc82uVh3JP+/9/xdWt4b38SA6XQf/8GsnxInGwHFYKDVLaJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793376338;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793376442;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uZAzQD3NCDsQzqPuFgmDjjdCBahkZSM5RmkMZCYlJFY=;
-	b=bF9xGNbnsQWRODGMrpR+P0M0eTb7uMmhk90KskPB+ndp/FcyVR+mdRXlror4EpTLIPQ8
-	 oec/ALoLCKSkpZrqN+k0co2wkPH8OhwYSY+M2zH1tA5lOX3m9fidz8K+UTt0zz2r6IvFz
-	 TNfJ41SxuNrTaY94w2V2WYhNQ2b+QH7RlFGXUoKFEVINLYBa7SXndM6kaYsPlUOwQZPyV
-	 xSFbtkrYmZoBPh/6gLks64O58QHo0JLrMRES4P4pnN1Cx9E+6O1D9sLW/ZGi7SLQR8Qvk
-	 mGpPLIvtEVNjqxxRKXAm4MsZaNDH+8d3QpUwh4K3KCcxFrF1hgL5LKII2GInK+ds0mw==
+	bh=nPpHLJ4qd9XxaPO/9JWF3hf75s/PqPCDv9wRHXposPc=;
+	b=v+G7zsVRre3xp/sccChEGddzS+iz/+NlCN4OfLgZjwBwR+oAau+CZmOa3pGUoR20D/IW
+	 f3pohEin40PSUek5afjdHrNh8QuT5cWPNZyT0RoAk+z3uwD7+QiM4BX42rSmZcXvEzwF4
+	 +/7lT7eFq/BQu86pqoMWILEaRXV9hyV2pG4quogQaUVsJMQ8VRLbEK8LlCofdDVt0qdef
+	 5YzeNUQBpnQ4HhFuXaozYatgbVjU6DKJ2atU+DYb2b2d8LU1tXPsH2Rlcf/VrGPDB+BnI
+	 RNv0XrXM5BIpWtxUZVnDo0FudBcFGAfY0zhbuAYgvR2PCXTp4IP4Cj1EZA/2mE7oomg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys2DVtay;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAHAhC+5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB423606A324;
-	Fri, 30 Oct 2026 16:05:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693C4606A31C;
+	Fri, 30 Oct 2026 16:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys2DVtay
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1411F00A16;
-	Fri, 30 Oct 2026 16:05:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAHAhC+5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE6F1F000C1;
+	Fri, 30 Oct 2026 16:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793376337;
-	bh=uZAzQD3NCDsQzqPuFgmDjjdCBahkZSM5RmkMZCYlJFY=;
+	s=k20260515; t=1793376442;
+	bh=nPpHLJ4qd9XxaPO/9JWF3hf75s/PqPCDv9wRHXposPc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ys2DVtaykIf8upzP0HOwFZBGfM5HSojAz3l5DKgLslNcPrc/7pNLi7vNFgzr7i1Jm
-	 5ROTY6NM1BIgESdijMBa/EapHHZTPw/ECqrYPsH4QN+rZKvMvOZMlOS4SIO4rkNQjI
-	 re1J83gjGakCLNjCg8HIIWV75jROwz2EhT8Lxk6kQkOFx0zsSrtrOSVwqjp7fyTHwz
-	 cX0xoOA3ITXuwSELry4Ev+e3u+T9sgblWOZkmIs3+5ScjfXpNlXazGMAIuppUwXTdk
-	 5IWWdFTx89M4oMiXCquasqA5593n/wQLX2W5KouPT7VECh1V4RSwxHF5bVWuOuCWtD
-	 DWKEpPo8vlTbQ==
-Date: Fri, 30 Oct 2026 11:05:34 -0500
+	b=IAHAhC+5ab8Be4EWDzIFytdPwcaO2BaKu768QtsliGZlbfObKsSfIRBXjTDkET0M6
+	 iUil1qIYysMUup4ePLhGR8XfOYpACqcufxv8kn7tJhaDk9/T5IVQ5sB1bJqLx1Fo07
+	 Z8tQetHwfx8hl5yWGB5juoop6+VypS/puGs8uaD1D1PwYIkexQpckf0djM2yBegYf4
+	 PGCZLtPkZxjght3+4EaSufQ6S7fj/HuZ2qbub9ZLW4AlHoksJpmRm6eMqwflq8qLBR
+	 ZQsTWOp8krs9ubrAx4HwS1TAx1qSbB2qSFdExulqVxS77VCV9f4yZHOamE964ChxE3
+	 rwv6CRdF9WN0g==
+Date: Fri, 30 Oct 2026 11:07:18 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Tomasz Figa <tomasz.figa@gmail.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	linux-samsung-soc@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: pinctrl: samsung: Add compatible for
- Exynos5515
-Message-ID: <179337633410.249047.14547696442462866080.robh@kernel.org>
-References: <20261020-for-next-lucky7-pinctrl-v2-0-b6b0e6065452@member.fsf.org>
- <20261020-for-next-lucky7-pinctrl-v2-1-b6b0e6065452@member.fsf.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+	kuba@kernel.org, andrew+netdev@lunn.ch, pabeni@redhat.com,
+	linux@armlinux.org.uk, lgirdwood@gmail.com, luka.perkov@sartura.hr,
+	broonie@kernel.org, lxu@maxlinear.com, michael@walle.cc,
+	edumazet@kernel.org, netdev@vger.kernel.org, lrosu@maxlinear.com,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	davem@davemloft.net
+Subject: Re: [PATCH net-next v3 4/5] dt-bindings: net: maxlinear: add
+ MxL86211C lane mapping support
+Message-ID: <179337643788.258893.14486775212331901455.robh@kernel.org>
+References: <20261020093655.344585-1-robert.marko@sartura.hr>
+ <20261020093655.344585-4-robert.marko@sartura.hr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,17 +65,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020-for-next-lucky7-pinctrl-v2-1-b6b0e6065452@member.fsf.org>
+In-Reply-To: <20261020093655.344585-4-robert.marko@sartura.hr>
 
 
-On Tue, 20 Oct 2026 01:02:34 +0100, Aiden Isik wrote:
-> Document the Exynos5515 pinctrl compatible string.
+On Tue, 20 Oct 2026 11:35:37 +0200, Robert Marko wrote:
+> Describe the optional board-level mapping from physical TPI lanes to the
+> MxL86211C analog front ends (ASPs). This allows DTS to describe wiring
+> that differs from the hardware reset mapping.
 > 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+> Select nodes using the new property so invalid uses are checked even
+> without the MxL86211C compatible.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > ---
->  Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Changes in v3:
+> - Select nodes using the lane-map property so misuse is validated.
+> - Restrict the property through the negated compatible condition.
+> 
+> Changes in v2:
+> - Define the lane-map property at the top level for type checking.
+> - Describe ASPs as analog front ends.
+> 
+>  .../bindings/net/maxlinear,gpy2xx.yaml        | 21 +++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
