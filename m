@@ -1,86 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382813;
-	b=s/0nrUcQSl6neX9IsiywbAPy0/364jcBMC9m1JlhesK6rkQIrVxK7Fv74e1AKc+Nuhtq
-	 BAxNro4TCkPGUaa4XCsTmkLB4tsRxF58Vg8VhI6zXDRCpblKUg/tdVnyGT5NBlZSR/zGT
-	 yUmXWYcPC65ujIQfTjOX1KV3IwVHyappm8hB6K5MCzK1OwBaA3NWptKVhAN8ZNc5BsW2A
-	 5TOFapPLYbaCDaQkhwmbGW6ruhf/p1E+H9Bmc3ZSbpduxA87cHNeqap8Uc5/oB2KdjUVC
-	 OLvutv6DI3jcEWr+7t866F0xc0iU+G9qbLyhz+Wioya0ZYnzHwQhe6Dh57KwoHjpnXQ==
+	t=1793382806;
+	b=ONsdjWfmniPzIvLlMvYsRq4xsHBpJ81xnWoONiNZAwjXeKD0cT4siW1fl1PzNQzX3Wse
+	 L62KTpSCDY7wVNGJFQRNxBVcjIEKgoDEJcAXyuqgxIQNAKMa9Ho/GymwNqT38bZ1qrFot
+	 y14ULLV3ETo6dnRHejhVDABUSOARU8AP2rH1h3/dPTFySehqNKNpeE0ZCbgoVLhKFuKyM
+	 x2fhdSDjmB7lON6F9gbNGbwgHQ4JnOZ0BJyMUytYnLWWu3TbWNDxBdgaqcpn8Qtn/U+5R
+	 Il1MEvDSdnVQP0gWfvCLvpum+jOBGbtHM0vYQ/k4TNFWqDEhwScDSiyL3BbCjOciKtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382813;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=f1PVTEPEeT+k0NIsjo13PPlcE4G2CKOtf71KBMqhCMg=;
-	b=sWWUPfO9sDSa2M4ojKEvLr0GviD9YB1hvDY/J3jemYMy49lvhrSo840I0Hchc7o2RBJ/
-	 LDQMG0/Aw2mDSmrjjmrulsdg0dYeOv6Xz81NmaqwQCH8g75O5jpy3tpiVLOJzgzkWWZ1L
-	 rzeVCv/a1whcKCum3mgevN6sFr0EwpnnkAwb7i74FnrXxXBHpVyzMmknW8MuFio/U665o
-	 zgGH+0RNf6M5WSo/KWl5ZyPEyARlOxQ7JAzsnNdHuhMYv8O5itWWNXw0mZ6loaDhRMfiF
-	 NBA9JllROdxh7urQjb5m/3y86VF02xUtC/2tqLxBQ0Gridz9hwlqoPZibpQ7s7pF8lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382806;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qAHbjk8CdSYMrdXZz4m+f6oiU/FYO+zPJ4vMCM6876U=;
+	b=Hp1np5j4BKLTDg/+2ndVwtNUcjdEDYuPU/eQOTlarlIzpuTKn+APWxqmCQe8jY2Ps5AZ
+	 i4fxW4tb6SuoqKLEyFVpyDbGwgexJWD9okOU4IyJXPIr/SA7LpKOQxRlsgQeELQG+AYdy
+	 JRFQe8FC2ZlSYPfM7Rqj6fT5xaz+FNFj9zqC95QZ06ghpSVXhMOUDOA3yG6LnEAi1WKxM
+	 l/5078uaMjQDEvW66xrflhUCge+bHebBVEG655D5ZZtVld0p2N9NQkPQbZTjC4GQk9zEA
+	 hlUckgurqxgVBpmRUJRfADE+ztZ+l8Bz4zIFgY8AmG+Hq3mfok0p4zxHWFT07ubyQfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=wzDp6GPN;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOY1TXt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14025606A324
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 17:53:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14025606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00800606A31C;
+	Fri, 30 Oct 2026 17:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=wzDp6GPN
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b042c0759so567757f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:53:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793382811; x=1793987611; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=f1PVTEPEeT+k0NIsjo13PPlcE4G2CKOtf71KBMqhCMg=;
-        b=wzDp6GPNHiLA6U2AH7HioFjN2adLnu/BusziS8Vf6kSlEHrhwbvIemMzm0kKiPFGxP
-         YKOpjEJ3iWcJcPtubYdNW1O3CYCqd/LJtpY+4jp8NNRln9L2oqAvBOiyWk/4CkW2cD2t
-         W0t3wWXlDxm3rVFCyE+mvdlvUJpOV9Ybunxa7T4X37OPTVbA9GcrFaWGquoXTGeK9ApI
-         KZGUh+ZPjF13ywQjmcPJ1iOKoMJDyp9/+MjhR3O5AcSLFM9VnRXeiOv1blbszTC5krR4
-         OUzaC7FiON6YhQ/+mcI7jQF+UdLxVU2+wHT22EyImkj/X1CRTYtdxEaGOJDenZJBXAWE
-         MO3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793382811; x=1793987611;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f1PVTEPEeT+k0NIsjo13PPlcE4G2CKOtf71KBMqhCMg=;
-        b=jRekiD/R12ixf4lO1vF7+JiHFAbfHEvtsCr4OezMM8aR9maoOQVgU9fWrPR7wWzi9/
-         Rfh1T/AnCcrZ7XR1OW+k4LoV/4xKdvEogh27LDPZAeD/sRi+d3Bi2Q/la+v+XoFgJxJN
-         PtYrQQ2scYaf0Bad43qRgr8KTPrpDt1ILfGq1ZIatLyEr1KMOP2bLEQPF0L+flYhd6S2
-         hmAhEgqsuEqX4W1Wez9xOBZRf+2jQj0ACYLFvyOxWsZ6dursBXk7DoPxBk/Rj/F5wL4O
-         8myZtJV+2JrYzngFS5o8wF7aEq6/pJw2rw7OKv/tSPIXBPufspkgQJNatupN0/WRB1cl
-         fnmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeMyg2Ea8DYe2wKcP8CW+Thm9CRHx/ukrqnvWovXudEEMHmDX4X3AZ+PpCICG1Padms463Jsubx6SL@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzxxAN5cVbTmIvbgVomqfaY7vR4ljRrNa5Ovn0Ckohr9e4SJKh
-	b/xfocSbzbsQmqEcb27Srnwwd8WGHodgfLUpgfTp8cWVKMoQOrjWMgQJAS/G3tTeYrgxF8jH2J0
-	pM+lPfMZAyNue
-X-Gm-Gg: AYBFou0DSiw1SkVSMr8PGLjZkCrKIgV8dGFIjTs1TtiBvcFFLq7Vt5gCgzKNHS1EjFH
-	TqgOy4KHZ0vDGJunDvj0Ymyob9P6bvWGEbPw75O4dkyAnVcgwOJ2/rVZysO5MlMb6UdSxWoKm/l
-	PWQbE7ekc3+nnpqoCtQ37WGxRrcs3i1B8cb1Zo0k5LIG1wvG2VYZTyRsZ8ymHXL9JoSpdcp4f6Q
-	jMyHc27Gay2jc2XYGFgDTaAf/rqSFSv7OBf0wGGzH72Jf1kuw/z14ybCgJoCM0qUq/74wKPDIq0
-	Hn4aAvWHH7zKkeOWnqSt+DlxV9fThfKy90LwM0BY4iqk45VWsIAqPpvqDK3kxxjInsEETLrEVNQ
-	iIgZDNaU42WCOnbh/9Dcj/ppJRuUj8uBLjx3KYDP0JMisnDoVAcKHrbDUoxYTLhWG+r6tEUejIP
-	sd5/MD6hiHhR7NyxrYAonIrPLvBruw8I79iDywEZqRui3bRi9yZZDMbgzeXRsFGYaasWcZtPGqT
-	CPHHgHY19nfFzdQtZns0wJwYMqZ1NOd0uZCd6ORMc4ZEh2aLlcUgo0kDMnpmmEfOMsypOcX3MI5
-	F88QQFvMx0ksFjDMokAlIlRKOVDDRytbuwx1jyNQhqmHB0Eg3ETvpGG+22Qr/96F3U2DBOKRDyA
-	QKuvrTkRYRtPYyAO49F77
-X-Received: by 2002:a5d:4e05:0:b0:48e:21f7:79ff with SMTP id ffacd0b85a97d-48e6e50575emr5450463f8f.33.1793382811276;
-        Fri, 30 Oct 2026 10:53:31 -0700 (PDT)
-Received: from localhost ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b79059sm4656186f8f.30.2026.10.30.10.53.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 10:53:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOY1TXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70991F000C1;
+	Fri, 30 Oct 2026 17:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793382805;
+	bh=qAHbjk8CdSYMrdXZz4m+f6oiU/FYO+zPJ4vMCM6876U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HrOY1TXtar5XJSzJGmiWQiDfcAMm2pqpGIRjWapPMz+cBBiZ29zDZ7b4qK38g5JgH
+	 gdpsGXDVTNA17RjnCFg4MDmZ3vDHWX2brR5PTmzPjHFdaw1Okptji2gIgR3mi+Ce4b
+	 PUcITCSURdx4PD5i4myqkfz3yQmO4wi8LhK4gNzV3byoKQkxaVnbHkL4mZ/pzdFH1E
+	 VdiKgu24ohq9yEaZb+98JlM4IpCPr/QXYDFiCmc6MT5yN/oVvWFRqLVeFGAG/o0S94
+	 hf5kyAZQ25+tNqH6pezcger4d2NhlnEC7Hk2AdIehgSJ2TxxsqZppaizU2olmE37+P
+	 HojWzxsgkZrng==
+Date: Fri, 30 Oct 2026 12:53:21 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	mfd@lists.linux.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
+	linux-i2c@vger.kernel.org, linux-usb@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Lee Jones <lee@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	linux-rockchip@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, David Wu <david.wu@rock-chips.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-gpio@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org, Linus Walleij <linusw@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, linux-serial@vger.kernel.org,
+	linux-clk@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Zhang Rui <rui.zhang@intel.com>, linux-kernel@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Elaine Zhang <zhangqing@rock-chips.com>, netdev@vger.kernel.org,
+	Jaehoon Chung <jh80.chung@samsung.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: [PATCH 01/27] dt-bindings: clock: rockchip: Add RK3572 CRU
+Message-ID: <179338280056.1028517.4147995505996173358.robh@kernel.org>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-1-0b0fd85a31ee@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,75 +91,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 30 Oct 2026 18:53:29 +0100
-Message-Id: <DMID5D64EBS2.3IDHDRJOWK3W1@linaro.org>
-Cc: "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
- <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Christopher Obbard" <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
- <andrew.goodbody@linaro.org>, "Paul Walmsley" <paul@pwsan.com>, "Russell
- King" <linux@armlinux.org.uk>, "Rouven Czerwinski"
- <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v2 4/9] ARM: dts: omap: dm816x: refactor and align MMC
- node
-From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-To: "Andreas Kemnade" <andreas@kemnade.info>, "Ettore Chimenti"
- <ettore.chimenti@linaro.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
- <20261028-patch-ektor5-dm8168-dts-v2-4-4544429251e2@linaro.org>
- <20261030113032.51b92b19@kemnade.info>
-In-Reply-To: <20261030113032.51b92b19@kemnade.info>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-add-board-ok3572-c-v1-1-0b0fd85a31ee@qq.com>
 
-Hi Andreas,
 
-On Fri Oct 30, 2026 at 11:30 AM CET, Andreas Kemnade wrote:
-> On Wed, 28 Oct 2026 17:06:05 +0100
-> Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
->
->> From: Andrew Goodbody <andrew.goodbody@linaro.org>
->>=20
->> Update the MMC node in the TI Sitara DM816x device tree to align with
->> the structure used in other similar SoCs. The changes include
->> refactoring the node to better describe the target module and its
->> sub-nodes.
->>=20
->> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
->> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
->> ---
->>  arch/arm/boot/dts/ti/omap/dm816x.dtsi | 33 +++++++++++++++++++++++++++-=
------
->>  1 file changed, 27 insertions(+), 6 deletions(-)
->>=20
->> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/t=
-i/omap/dm816x.dtsi
->> index fc124f9ecfa1..e3d49651b44e 100644
->> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
->> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
->> @@ -423,13 +423,34 @@ &edma 20 0 &edma 21 0
->>  				    "tx2", "rx2", "tx3", "rx3";
->>  		};
->> =20
->> -		mmc1: mmc@48060000 {
->> -			compatible =3D "ti,omap4-hsmmc";
->> -			reg =3D <0x48060000 0x11000>;
->> +		mmc1_target: target-module@48060000 {
->> +			compatible =3D "ti,sysc-omap2", "ti,sysc";
->>  			ti,hwmods =3D "mmc1";
->
-> do we still need this?
+On Thu, 22 Oct 2026 00:10:58 +0800, Cunhao Lu wrote:
+> The CRU uses the PMU0 GRF for PLL status and the AUPLL reference mux.
+> Describe the controller and define its clock and reset IDs.
+> 
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+> ---
+>  .../bindings/clock/rockchip,rk3572-cru.yaml        |  57 ++
+>  include/dt-bindings/clock/rockchip,rk3572-cru.h    | 560 ++++++++++++++++
+>  include/dt-bindings/reset/rockchip,rk3572-cru.h    | 713 +++++++++++++++++++++
+>  3 files changed, 1330 insertions(+)
+> 
 
-No, we don't. I'll remove that in v3.=20
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-As per the comment for patch 7 (USB node update), I'll send two separate
-patches, one for DTS and one for the hwmod removal, making sure the
-hwmod removal is applied last.
-
-Thanks for your review,
-Ettore
