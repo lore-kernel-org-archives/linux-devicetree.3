@@ -1,70 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397953;
-	b=x9uWp8SI9botKTSDW4m4v/9+w5C9JI5/rF6aNapqVUT7GuZdk77lqsIteAVa6xm7If8x
-	 KebK/Ok5reubKbtsrVr5VcFv/jL7Xf/ZCYmvTlHJauJCXrWsPTYE+PYJ1rNxwa5VJhQVX
-	 LNxGRLti4OgAyt3fLLVD5mZUEvZrOJZkBkEstlBE/KZ8Qd41ztZEdxaLu8tLaOfdmRson
-	 0Wjr+gYm1zXr7MJVBXULYMJUaXO7YigEyKoUq6g9NGNJmwfKwuQ612oJzRwy3SvVeTu0I
-	 NhWh+yJs4VgytUZyUDn+OUewUN9Lipo+LqtoY4vDoEMDD4+UNaO+wnTVSKeirSA/PYg==
+	t=1793400084;
+	b=M4GhG6Vh9stzOcNXRDmdnG8Sn86kxOncb34aS5iG/b8Ift/q/RqWqAx1Bgx2z6llGd0P
+	 zS23m0x6qtrnJMoXmozaRqsgK9sx1bUxzInuCvcV6vwI3aeIqW43ad7/c6mOMFQkEirdB
+	 HTd26fvGyGOq9yiJ74QJ9Ye0myKm5ITWrnmoYh84hjiZFwKDZMjyY9P22zCIuTDy1u3GP
+	 OcKIlg7qPo4y/ClYC6Lkf/Dd5k5uT3JHs6h9VKw1tQ24g/A9dAR2Phj1ShplJk2pHVgeP
+	 Md0YnfPlRlBfwfQbbPNvKP5mOyXiht0b+ClquE+gYh4ybdsH7Waiqyb8DEJQprFgjrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397953;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=vBJMC4GJvj0qjaTPwYTt5q30xb5b2ZksOkUaeaR7BVM=;
-	b=pzwk2wau/gKX3Fj97chHI3lIy54lIa8ocD3rfOjQJE4Tl4TkWmV/oUogSA/J29Pfdhq3
-	 cOf4m8DIoHt+EYiD7RjcfSeWZQWjenphwXseNk9vWwxwqi90odkB7IyoJIlLtrlU2g7cZ
-	 /i5toORuTsPkCDMJmEKneTD+QacUqoMjFX6mqxXdDtUBUgb1/rf1cPPuU7udR6YtLPkYG
-	 QheTmo1P2xS60dSCADtDKblcm2+WuoTW0vvptrabwMaX6bR7V6tCVXYmnuoqdT6jZPX4T
-	 yzMxagWl9f7LM/0tAZIDBaSyN25pyn/p4uP4uippGrSTPstQvO4/JiRh3qIi4aks6tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793400084;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/M+guSwoUUJbW4+q61V10waj+erZ44ZYQ+J9aHIJa7c=;
+	b=REruY70M5btE4ed0Y8zOxkh7TqAcpBPIkVfCK0Towlq2TPCXd305jEPfzdr2rKYlxYEp
+	 Vv3fy1k56/XGquodwRR/wpuRtFagtu7k9lUu3qpDRTNMuxIOnHvD7Puzul8eddrIlpfrW
+	 vD2rWLnv2SYbMD0P/x5sSM82zCqbqNcgBpIFmXFVZCjvgFHaYHFPPFzsgp+0rWIHpf+zh
+	 mveOnU6zxhikjDrO45OUiI+5DlPvNlhjSUpfTCove6+1VYFjUBOpsNwsURyToAUmJBsfQ
+	 wHWLI/Lmzde8xOJyGDumV4ya0gJHOQJLYPQKWLK3Ia+WDgpqb8mBEGSRCMah1P+lXtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YgPQIJJc;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TLFfrCNj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jooJld9j;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ECB606A31A;
-	Fri, 30 Oct 2026 22:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9ECB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97C5606A321
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 22:41:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D97C5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YgPQIJJc
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6323F447;
-	Fri, 30 Oct 2026 23:03:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793397816;
-	bh=X4vKdAe6tCIGUMBGk95lp3ykmxTWgC6GkF33THOI3As=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YgPQIJJcZCU7Qs0ZADaMzgFJVe0SzS1pAKe4q3A2qBJVEN//BmnybrCyMLOv3Iwjj
-	 i/FnFPBj2jPdj47R+swC22zYL4x5wp62KWb1+WVe0DxcUm94c3JkwG/xfICyMLlXcc
-	 MOdfVC6KaKYekw/iw+GuuC3e1lmSrBKqkNHfa0NY=
-Date: Sat, 31 Oct 2026 00:05:49 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH DNI v3 03/15] pmdomain: renesas: r8a78000: Add maps for
- VIO for SCP FW SDKv4.36
-Message-ID: <20261030220549.GH3178046@killaraus.ideasonboard.com>
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TLFfrCNj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jooJld9j
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULtL2F4185873
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 22:41:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/M+guSwoUUJbW4+q61V10waj+erZ44ZYQ+J9aHIJa7c=; b=TLFfrCNjrTTxgqnn
+	jxpH7DzAWxcamJvHJR3iQMrEe+bf22GGqFX+jDICN8vl0GxobHdgU78l0HJi8K/2
+	UVw6x0zkbgmPoo/RjckWL77qFrlxvCzxDHB1AsA0ScbjMw6IyaVCwiNwB4r4Thqg
+	wc3x3HMst9G98KvAC8+rTCK/P+iWoquOVRybUlbNH/1/lwOkb7aBH72QTbSa/B8h
+	w/bGHbpMpC5hlSksroN+cR25Seh/7kmeh5xOZSuQ4+tlhmjMF1p5h7abAxOlyRtY
+	08Vdx0U6ha9eL1s/k2dwU6m+8/0z3cxytsfQxlk4eviPJH7gQfc4E0LqwvlcksAY
+	1jjjOA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn2x109v7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 22:41:22 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36998507c13so1825276eec.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 15:41:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793400082; x=1794004882; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/M+guSwoUUJbW4+q61V10waj+erZ44ZYQ+J9aHIJa7c=;
+        b=jooJld9jQVlLB8yPP6gkXlrboPYRZ1VS2QaTAddzd0mwJ5ik+7BRmp+p27TuriU37N
+         2SudshpBooT94CeQt0wEfpKA/p8iwtiQ9oM0KWvKVi3I9y5Xwp+cNMnqDNiqGkVFoIXU
+         LGNeLvVkowIwT3yT4OaUuX/MlV9TXlcEsHOMKF2fh4ozSc7sFqSUXRgqASBzG19pVwMi
+         Kl+n7t7vF+L84X4v5x+speCZzX7yWe2zdq0bP6+2NZ0dKCCtIopsQ4NVEI5I/92dqnjw
+         s/CtrbHeBEHyOWsUnFE7QZ7+wR7ApPXX+aL733UM4pD8xXBoSOxHRN5JAf8miIaGTRcS
+         UAyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793400082; x=1794004882;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/M+guSwoUUJbW4+q61V10waj+erZ44ZYQ+J9aHIJa7c=;
+        b=zt/CPr6zJsyz3/pYBLDm7jtQd2x/JqclgWCxDnSmwPcGoTC8KhfjfSwgkW+v7SLBsi
+         qSweZV28BiCtJlMGQeLJ51F/wnBYHQP8i/2Xk2UH0dkHC61LUvVr7UkvZjTlUkTc8z3P
+         Qgs5P/rshfVRlB9I5BfEtsDzzP4XJJHDv/kzd07vPxHbjpfSZIDS4Hly5Wm+FkEdtcOE
+         Ls2mX4AAFmC6Q5TeJzmBI2kBR4+TS3slpxOYyi24TnvAXiqX1nmhLwoE8TgNOzT8QmW5
+         fg+5uYtexzcyraQSOB+HteNkmSrLa5BzvQGA3hAGngcqlFhAf3lR524h2s4uB/6b/skz
+         apXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNBhZ2IeZYjwVslbfISul8X+4YB9D3GMdEhyeWYO8HOZhqIc/dHmDwRkh24zracf9zuy6ePAn6guI9@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMAs9Gz+Sa5O2kj/33vc7uKwD+y4PLZwzYK8DS7NL7KrjiB1Fr
+	/0YwCAb5l604OKiV9oBYxVEebXHAiev53Vv5kzlbcJxFsbAu4eEKKMoQ/ETsXj2i+hNqFiAf81e
+	4IYJZmkyLJ/aNol9IWHuxEnVm56M4F8EMFUd7PHO7cdXSS2jsOyo9yHne+I/PB4F4
+X-Gm-Gg: AYBFou26RIlrGer4JSReJ2YJrw+eT9bwF4oDv2yRq0pskYZNOLaJvjnl++68Irb7cOs
+	jh0A8H35PCKGzXS9T7JuO+mmqujKLwSU62bz39Xv7JY2JfTPcmDnAwhvnsUW+LokoXM4nxRWI/A
+	RtWcqLrXO9TZ1yc/KYBfK0Uqbg/UrqTb7GcemsvYSW33VzsKUYaBCpUXdySLUzg/HTD4LdkBYTK
+	rLLtf7k09YlZsKblVtisVGIkHlBen18FGZIzv2yaWyjhJgriTIiO8UNA/x+jBkA4SJffUFnG0g8
+	vhui3vLxJyNlrgEcsKr/RAJQBreXyD8xtBE+PcVNHNAfjTPIwRQtPIHvOIUnQ72zjVH0vD+53jb
+	O9CxVV6AGFv2176DxUB1DYo/7Sv/Cw3s3lw9jZMYPSgeJRIXKD46bfTwdySZJoLyOmMg3GwXov0
+	uxjZbRvkHTnNxvBcOox3/h2oE/LCY=
+X-Received: by 2002:a05:7300:ce86:b0:35e:a225:3ba6 with SMTP id 5a478bee46e88-36a424011eamr4570389eec.13.1793400081637;
+        Fri, 30 Oct 2026 15:41:21 -0700 (PDT)
+X-Received: by 2002:a05:7300:ce86:b0:35e:a225:3ba6 with SMTP id 5a478bee46e88-36a424011eamr4570352eec.13.1793400080933;
+        Fri, 30 Oct 2026 15:41:20 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm14002245eec.16.2026.10.30.15.41.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 15:41:20 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+        Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Andrew LaMarche <andrewjlamarche@gmail.com>,
+        linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+In-Reply-To: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
+References: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
+Subject: Re: [PATCH v2] dt-bindings: wireless: ath12k: allow calibration
+ variant for WCN7850
+Message-Id: <179340007978.1790611.11188538641227151930.b4-ty@b4>
+Date: Fri, 30 Oct 2026 15:41:19 -0700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,105 +127,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-GUID: D1Fs3LY6AIHbgMOlkT26gSqnZXzgOZvh
+X-Proofpoint-ORIG-GUID: D1Fs3LY6AIHbgMOlkT26gSqnZXzgOZvh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA5MCBTYWx0ZWRfX6Ggar6IAXd+S
+ L/D0CCy/CZkHZOUVLJrRg3nJYw1oNVzPQ06i/iuwwtK44OuYH6d2NwkmmbN4eK/tj/YogvmPSTz
+ EUjBdsa3OoIWamudPXhOgyf9gFtOiS4=
+X-Authority-Analysis: v=2.4 cv=abD0Dhot c=1 sm=1 tr=0 ts=6ae51d12 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=gIeeTYuhQ723c2I_zY0A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA5MCBTYWx0ZWRfX8LlVEv7Os/fJ
+ 2dFWhlgNOlRQHWqFB2BZkPlqXVorXZsd41h0pYa/V//3Bpr+vGuWfhT4xF50UlTryzDxbhZEzzO
+ 32DDi7YP/lwVxYxVitTF/l6AeADDSu6wBtRQ5bqRxTDSymJI/IN49MIsbPHqZq3IjTwbIpN9oq1
+ OT6GvGoUenUV7O42OYIH1iFidqjNuLSgbHJwwjvgesGk8GbLjjIS299+gUPCuoRLdAp7/Cufaov
+ 5BrY4DqM0HD97r8XRUc9bKoXmvHXA/TY5pHRgukV7470L3w9i2lEhLr9etN738YmBG8EXbNTgpy
+ 5R4MrkiBtU86mp0e3L1uLRZXBmmEUD0LBTbNHdZn/dNGlsMAx0UnRqcplD5aoALg9cGb7TYXYdu
+ JZjPvtssA2dXxOFAlKdpXMzilG0bSqCBc8mnHlpQJfvBEbvhxyRTjIc/zecvUK+M6UrMd9B/8El
+ xZsO2GlYhrJJxa27Qpg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610300090
 
-On Thu, Oct 15, 2026 at 04:51:43PM +0900, Paul Elder wrote:
-> Add maps for VIO for the VSP and FCP power domains and reset domains.
 
-s/reset domains/module control/ as its not just reset (and there's no
-"reset domain") but also module control clock ?
-
+On Mon, 07 Sep 2026 16:17:20 +0200, Ernest Van Hoecke wrote:
+> qcom,calibration-variant is the generic Qualcomm Wi-Fi DT property for
+> selecting board-specific calibration data when the device identity alone
+> is ambiguous.
 > 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Commit 06cca100ad08 ("wifi: ath12k: support calibration-variant from
+> device tree") implemented support for this property in the ath12k
+> driver.
 > 
-> ---
-> Changes in v2:
-> - add VSPD and FCPVD
-> ---
->  drivers/pmdomain/renesas/r8a78000-mdlc.c | 54 ++++++++++++++++++++++++++++++--
->  1 file changed, 52 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> index a0d83f27735e7deacb060e4102e510726b34e62e..cabe6435ecd791e358fd6987ce9394898d8c87f8 100644
-> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> @@ -861,6 +861,56 @@ static const struct mdlc_info r8a78000_mdlc_fw_4_28_0[] = {
->  	{ /* sentinel */ }
->  };
->  
-> +static const struct power_map_in r8a78000_mdlc_vio_power_fw_4_31_0[] = {
-> +	{ 0, 4 },	/* PD_VIO0 */
-> +	{ 1, 5 },	/* PD_VIO1 */
-> +	{ 2, 6 },	/* PD_VIO2 */
-> +	{ 3, 7 },	/* PD_VIO3 */
-> +	{ 7, 11 },	/* PD_VIO4 */
-> +	{ -1 }
-> +};
-> +static const struct mod_map_in r8a78000_mdlc_vio_mod_fw_4_31_0[] = {
-> +	{ 0x70, 26 },	/* VSPD0 */
-> +	{ 0x71, 27 },	/* VSPD1 */
-> +	{ 0x72, 28 },	/* VSPD2 */
-> +	{ 0x73, 29 },	/* VSPD3 */
-> +	{ 0x74, 30 },	/* VSPD4 */
-> +	{ 0x75, 31 },	/* VSPDB0 */
-> +	{ 0x76, 32 },	/* VSPDB1 */
-> +	{ 0x77, 33 },	/* VSPDB2 */
-> +	{ 0x78, 34 },	/* VSPDB3 */
-> +	{ 0x79, 35 },	/* VSPDB4 */
-> +	{ 0x7e, 40 },	/* FCPVD0 */
-> +	{ 0x7f, 41 },	/* FCPVD1 */
-> +	{ 0x80, 42 },	/* FCPVD2 */
-> +	{ 0x81, 43 },	/* FCPVD3 */
-> +	{ 0x82, 44 },	/* FCPVD4 */
-> +	{ 0x83, 45 },	/* FCPVD5 */
-> +	{ 0x84, 46 },	/* FCPVD6 */
-> +	{ 0x85, 47 },	/* FCPVD7 */
-> +	{ 0x86, 48 },	/* FCPVD8 */
-> +	{ 0x87, 49 },	/* FCPVD9 */
-> +	{ 0xf9, 163 },	/* VSPB0 */
-> +	{ 0xfa, 164 },	/* VSPB1 */
-> +	{ 0xfb, 165 },	/* VSPB2 */
-> +	{ 0xfc, 166 },	/* VSPB3 */
-> +	{ 0xfd, 167 },	/* VSPB4 */
-> +	{ 0xfe, 168 },	/* VSPI0 */
-> +	{ 0xff, 169 },	/* VSPI1 */
-> +	{ 0x100, 170 },	/* VSPI2 */
-> +	{ 0x101, 171 },	/* VSPI3 */
-> +	{ 0x102, 172 },	/* FCPVB0 */
-> +	{ 0x103, 173 },	/* FCPVB1 */
-> +	{ 0x104, 174 },	/* FCPVB2 */
-> +	{ 0x105, 175 },	/* FCPVB3 */
-> +	{ 0x106, 176 },	/* FCPVB4 */
-> +	{ 0x107, 177 },	/* FCPVI0 */
-> +	{ 0x108, 178 },	/* FCPVI1 */
-> +	{ 0x109, 179 },	/* FCPVI2 */
-> +	{ 0x10a, 180 },	/* FCPVI3 */
+> [...]
 
-The values look fine. After rebasing the MDLC v4 from Geert,
+Applied, thanks!
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+[1/1] dt-bindings: wireless: ath12k: allow calibration variant for WCN7850
+      commit: 75bc725cd92b2b4dfa76850ce5983aacb52d894c
 
-> +	{ -1 }
-> +};
-> +
->  static const struct mod_map_in r8a78000_mdlc_pere_mod_fw_4_31_0[] = {
->  	{ 0x30, 193 },	/* PERE_GPIODM0 */
->  	// No CLOCK_ATTRIBUTES { 0x31, 194 },	/* PERE_GPIODM1 */
-> @@ -997,8 +1047,8 @@ static const struct mdlc_info r8a78000_mdlc_fw_4_31_0[] = {
->  		/* FIXME .mod_map = r8a78000_mdlc_vips_mod_fw_4_31_0, */
->  	}, {
->  		.base = 0xc5000000 /* mdlc_vio */,
-> -		/* FIXME .power_map = r8a78000_mdlc_vio_power_fw_4_28_0, */
-> -		/* FIXME .mod_map = r8a78000_mdlc_vio_mod_fw_4_31_0, */
-> +		.power_map = r8a78000_mdlc_vio_power_fw_4_31_0,
-> +		.mod_map = r8a78000_mdlc_vio_mod_fw_4_31_0,
->  	}, {
->  		.base = 0xc08f0000 /* mdlc_pere */,
->  		.power_map = r8a78000_mdlc_pere_power_fw_4_28_0,
-
+Best regards,
 -- 
-Regards,
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
-Laurent Pinchart
