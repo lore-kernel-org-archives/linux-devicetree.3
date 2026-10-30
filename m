@@ -1,84 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333186;
-	b=nhJNCfRsCGodx0/DCc2AH9WdxAI1FKGGIYskSwSIgqv9D0k1QcndYc4mtqzU8dpv7lIM
-	 PvcdfgYNXolGwyCp3fyl4D13PjNg5j9+dO0iBrQNIbbRDYZMpJiKZTLw3pVJ6OAwj5LeA
-	 ADsby87dcFGrkmHnbGcUBS0QxNTg4znOiypNvIdzupkjgFT+20nzTfJhFY4LbOdGQ24Q3
-	 Xgpu3ovWK5mE9RhetQ1ZhtqQQk348JRjRBJIYhKJYWpKRl+3EsUeNfKi2T9SrbIcaNxQ0
-	 9uWiXdCHFaT2bnjF/UPKihCHn78TKiogdCiciUB7SSyn60S6n1DHU5HQ+3trH8czZVA==
+	t=1793333328;
+	b=1QWujQQSoi+BiO7ScdQB1CZ+aw2azHzWiRWuvuLiwBhbxLiGgZnyN9Xc7e6oyrTgM+2I
+	 9yCdPxByD6LIms/98u23MvQiBiVY0TImK3TbhpOeRblcemLMDtjFFXE0yhvkKRIyzPCSs
+	 LfP75TzwcPhrXT5jji9ya/Oyp2spK6jpvphMXOPRmfQra5xGyXV1Hv9ShXZgm3Wvwanfg
+	 5ZbT8ILBkBn4+ILcLzBwX9H6IBkNLPRkZeOZgKggNtbkVs/wxcaVA3bzphX7Lv1n4XXAu
+	 uNh/c+mq4iFQ2DewYuAWroWwGgTRQhb5LNP6l6IZBzBHOp0kVsdZfQIqQCCAGVt4L9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333186;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=grdHjhMd7QvaUC0XVPHxOaowqqDmcsmw2rXkQG3QSuY=;
-	b=p5IwRt9xXXFcUVbokMtt8i2NuT7ezLxx+tiNvYyB9bnADr2xxI5LUbgVmCeyvy0cUV/L
-	 4uSpsmGSmuBruijVgiyl9OFB2nBCv1xSMMdUSxvxTsNm2Bh3PKt2qZiWbmNAH3GCt3G8S
-	 U48ZJeSAzKoNO2frzp/2r1tN4p+1/F5bYMxcUORKazl8/LC98pYd4A1Y/pIvedpIKUqyU
-	 MrRXet0MIh+9tvPQJsyhOKsSrtv9dtlpu3VrM1i6oyeh1dzGPC9DZFUnZrkAoo+SVM9kG
-	 6JbpLbj40mX42eTcBzEhduCgq+pB5o9aDN2d2bB9ykkFao6gFo6r5NE8HKPQ+tuYGLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333328;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
+	b=jnr5f4hMvOTreFBTv7wjrjeVyeHUMKRrkPW4uVNzQk/DaC13prk+NjMMK3J6fv7EsB9z
+	 xwGI+1d5Jd+7ImKDrSUHX48QcNeNt5FwirPKQaWC8zY+rWrtQSyl4X6JN4xEvrGeUgTYx
+	 KPKNo4rhAkTyGYE4G+HWiFnsVkmzIuqR4RjYoznFKWQX4ALTwUtTY09K8SmVqEvm1JmZn
+	 +HHFQU231FUNBR5U6UIdjZT/s0XDfxTOv2fAPWQy++GB+mMfo4MW3bZSEH8PpLvyswMBF
+	 4V0Wz+r1uzUfDOrweSxaJDY4rTolhV8vDiRJt+3p4gDjwN0wNozuiUunTr/jEIREgEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=gP4O6XbB;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=guW+sKpx;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C6606A31C;
-	Fri, 30 Oct 2026 04:06:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9C6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5052E606A31C
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5052E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=gP4O6XbB
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=guW+sKpx
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35b2c599f43so721359eec.0
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 21:08:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793333177;
-	bh=grdHjhMd7QvaUC0XVPHxOaowqqDmcsmw2rXkQG3QSuY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gP4O6XbBNP3E0tCn55RYSkni7rxRKdrPd+cAyKq7Q7ka6AX+fl+13CnYSbEz7qfEV
-	 LUM/eSwndXbzayTZMnEAp911V2klLbt5RdolBTtGj9AJTcE18qFP1hOh1I7GA16LN9
-	 PECOUTfLQgdUDd06Osrb37D8zntZ+Lgd9AICm5Z3Z9dkLnvotzrpcjxQseRVizJ4Ja
-	 5Ht44VRDHFQXUOgBigtuRcLyXFEmMcx7oavVBo3fsC6Yih5Gp6XxAiuSXecPSpLKUg
-	 lTfO1PMhHtvMi6NObu4pDTT21lbh/vev1DcBDlJCjrCS0cRbkFOrTlFJFvpNXcQ1Jn
-	 7NZqQTlVp2x1w==
-Received: from pecola.lan (unknown [159.196.93.152])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8496470E87;
-	Fri, 30 Oct 2026 12:06:15 +0800 (AWST)
-Message-ID: <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-From: Jeremy Kerr <jk@codeconstruct.com.au>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Adrian Ambrozewicz
-	 <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij	 <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Lee Jones	 <lee@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Andi Shyti	 <andi.shyti@kernel.org>, Mark Brown
- <broonie@kernel.org>, Jiri Slaby	 <jirislaby@kernel.org>, Corey Minyard
- <corey@minyard.net>, "Rafael J. Wysocki"	 <rafael@kernel.org>, Len Brown
- <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,  Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>,  Hans de Goede <hansg@kernel.org>, Lixu
- Zhang <lixu.zhang@intel.com>, Danilo Krummrich <dakr@kernel.org>,  Johan
- Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>, Quan Nguyen
- <quan@os.amperecomputing.com>,  Andrew Jeffery
- <andrew@codeconstruct.com.au>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-gpio@vger.kernel.org,
- linux-leds@vger.kernel.org, 	linux-i2c@vger.kernel.org,
- linux-spi@vger.kernel.org, 	linux-serial@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, 	linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, Bart Van Assche	 <bvanassche@google.com>
-Date: Fri, 30 Oct 2026 12:06:15 +0800
-In-Reply-To: <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
-		 <2026101310-scuttle-unison-d4c3@gregkh>
-	 <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=linaro.org; s=google; t=1793333326; x=1793938126; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
+        b=guW+sKpxxfru+jvDWjH7g+qClU0xEqlqQcz5Pf3hUGUYWFWaVdN2oIl46Robhpbyvk
+         /xnqjDS8NMAmztXaC7ZgmOHSYfgsJY0iGP/KLp7bVEfqPOrT+sXL+aTzANB5jmgzLlm3
+         VqHHDIMBiO3whPYPQFc1PI8Gw+l7cmFKFew23G6tgwi6UIgjrPI44CCZvN+SljLZsLcy
+         RYGMxM61G1/CN6XNkehX8GzNpcJpaacyiFc74bUWlYmj1+Jv7Em/9b3Kvg5TSp7KLo3f
+         A/DE4ft81r6pLaWULoiLhA6+Ig2TUsvA5T2q1YVhuNm+3gA2aBOZMM96ZjHlbo36HpqW
+         D2AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793333326; x=1793938126;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2oyZPxVsUGR3lEqjPv6CqcgMqDvTEtbVpGv2X19Zzdk=;
+        b=HEiryFE2W8oyJfkNDztUw4q6GMmk5q04QiWJEc7ltGaKYm0/2UTu83zN+3TsQ/wyBf
+         Guj6rZ9wXkeRwGir8rpQJUdge3yryGEzruOgldW4AclvdB7t1SVtweeIpX3N1FUZUmE/
+         CA9TPrMezVuel4zfQ/Gq7J+uQhcU3V5T2kyqgGlVabZ/1Jfxj5cy2uniLLc7YmM0R9Rm
+         on4E/5gWpbxb18J7+3lLS+uFeihRIkeKFV7pSCj4m81z7dDarvq3UDo5QaQthTeeC5Jo
+         AkpUQWqhVghb/rD/GlqPter1TGSkNnZ/NOrhU1THEcid6CYp5Gv57HxTW+8C10ad7Ljn
+         ZFhw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1dKgywpaO607xzQtoMHBKPaSsL7wMzN9dEpCiEpc6zUC41aJk4wCfoQC/c+VrHsorB5pqcMfWXlhF@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQ+L1u48eUVipl24U56EsHTOkMuTYH3hPl7WLG9fGGRsaK1e54
+	4t0ls+Z4jYpKFUcHgeqWLybJP5xeJROh1ljuj3a8c1OR5jI1r7MDdWPKJUkLYIatQZk=
+X-Gm-Gg: AYBFou1CtDLTdhSh0iz5A50OdFL2UbZPR6qfp4QufTm6EjBGQjtfGKK/bn5NPfFenla
+	0OsQibQ7Tm9rB8S6UiqQWl8UEcE5MVr8G2nNkO0VntAPf10hHCMWk5+uTWRwqAeff6QVw24/kl3
+	tp0wCy6ojK+hbrmeYotAl6Ot/KkTCsiVnKlOrrkAM50yEBMAYgUtEatKKEi+rjAysZhNsXg2Vqy
+	/+8Ff5nF4kaV9Hb5p/1SBtunQExRION+klRbjvOLG3JGaTEvas4A7cZjt+JKAyDe/+zgeQPIAbW
+	7zkxFmQwqy/laIfSsgdF3QtCKEf/UfLya/6TQdi+ziCV2Hv+6UjNdnLy5o2ktp/CVa71keln7Ce
+	KHL0wR8FKPuJQ6caveNYsIdL7wjsoJBkR6Fu2ABWCCKHcYBeUvMPFdFlWsIzhu6D39NhRNNQ6NH
+	unA/2lOT1VGp2b+c3IFkWXmCaGsVP3WVholyaQHWpl+vulkZA/bUIyF+hzsXwq/wgDrnVWu7Zzf
+	wWkwQ0ZvdoQ13p5vfuAY/umqhEx9lScbHKK/eblSef1HWotkngS2sCAfn1gd8vz7Yp8Gzmowcjt
+	vIL1rOm6zhBhEQARDq9+iKjk12j+bGwUP4vgQuhHuQy8v0oio4Y8
+X-Received: by 2002:a05:7300:a9f:b0:369:fb01:2eb7 with SMTP id 5a478bee46e88-36a4235f45emr1732875eec.13.1793333326139;
+        Thu, 29 Oct 2026 21:08:46 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af91bsm3272988eec.8.2026.10.29.21.08.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 21:08:45 -0700 (PDT)
+Date: Fri, 30 Oct 2026 09:38:42 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Haixu Cui <quic_haixcui@quicinc.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/2] Add devicetree bindings and maintainer for
+ spi-virtio
+Message-ID: <auQYSv2ad5WJSHdI@vireshk-B250M-D3H>
+References: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,72 +107,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
 
-Hi Greg,
+On 29-10-26, 17:27, Francesco Valla wrote:
+> When a virtio transport exposes a non-discoverable bus, the devicetree
+> can be used to declare its child devices (if any) and/or other
+> properties. To allow for that, the virtio framework searches for a node
+> with a suitable compatible in virtio_device_of_init() when registering
+> a device [1]; such compatible takes the form "virtio,deviceXX", where
+> XX is the hexadecimal representation of the virtio device ID as defined
+> by the virtio specification.
+> 
+> This patchset thus does not introduce a new functionality, but allows
+> proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> what is already being done for e.g. I2C and GPIO virtio devices.
+> It was sent initially as part of a different patchset [2], but since it
+> complements a functionality that is de-facto already there and is useful
+> beyond that specific use case it was sent separately (also following the
+> maintainer's feedback there to separate it from remoteproc-specific
+> changes).
+> 
+> This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> parts still not upstreamed - see [2]).
+> 
+> On top of that, I added myself as maintainer for the spi-virtio driver,
+> since the former maintainer's e-mail bounces back and its owner (Haixu
+> Cui) did not update it after changing employment.
+> 
+> Thank you!
+> 
+> Regards,
+> Francesco
+> 
+> [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+> Changes in v3:
+> - Add Francesco as Maintainer of the spi-virtio driver (instead of
+>   Reviewer) as replacement for the former maintainer (Haixu Cui).
+> - Link to v2: https://patch.msgid.link/20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it
 
-> FWIW, we did raise greybus as an approach to various HW vendors; I
-> assume there were reasons behind OBMF-ICP, and assume some prior-art
-> assesment was involved, but I don't have specifics for those reasons.
->
-> HW peeps: This would be an excellent opportunity for elaboration on the
-> motivation there, either for LSTP or OBMF-OCP.
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-I have been doing some asking around, and a few items came up around
-motivations for OBMC-ICP over Greybus. My motivation here is entirely
-around OBMF-ICP; the NVIDIA contributions for LSTP somewhat comes under
-this, and so we're working on composing a unified solution.
-
-Collating some of those items here:
-
-As a bit of background, the typical use case for OBMF-ICP is for
-platform pre-boot environments, with limitations in capabilities of both
-the hardware and software stack. Microcontroller and mask-ROM
-implementations of either side of the protocol are potential targets.
-
-This leads to the structure of OBMF-ICP being intentionally
-light-weight; the channel configuration (ie, definition of the
-encapsulated devices) is static, and the channel-level messaging is kept
-simple, mainly through a requirement of only one message in flight per
-channel.
-
-[Greg, this is related to one of your points around why not use a
-multi-function USB device for individual, separate devices: the typical
-device-side hardware does not have support for enough USB endpoints to
-do so. Like greybus, the intention is to be able to support multiple
-downstream peripherals without constraints from USB hardware on existing
-SoC devices]
-
-There are a few design points that lead to the preference for OBMF-ICP:
-
-The front-loaded configuration mechanism means less state to manage on
-both sides of the protocol; the channel set and channel-specific
-parameters (like individual GPIO descriptors and flash geometry) being
-stable over the lifetime of the device means simpler core protocol
-support and channel driver implementations.
-
-The simpler channel communication protocol is better suited to
-lower-complexity interfaces that are needed for the pre-boot
-environments (GPIO control, uart, IPMI, flash access) than the greybus
-targets for mobile device runtime, with higher-bandwidth communication
-requirements (camera, audio, display). For example, typical platform
-management functions generally involve a lot of short i2c operations -
-ICP messages for these are around half the length of greybus
-equivalents.
-
-For the platform-boot use-cases, we would need to provide a bunch of new
-channel definitions for greybus. This certainly isn't a showstopper in
-itself, but the specification does not appear to be in active
-development; last change was 10 years ago, and the spec repository has
-since been archived as far as I can tell (and so is read-only).
-
-With OBMF-ICP's super-minimal core protocol, and the use-case
-appropriate channels, seems like a suitable approach to me.
-
-The USB-IF has a class ID allocated for OBMF-ICP interface descriptors,
-with the intention that we have multiple vendor implementations of the
-common protocol; we would like Linux to be one of those.
-
-Cheers,
-
-
-Jeremy
+-- 
+viresh
