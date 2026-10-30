@@ -1,105 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793315652;
-	b=B9w/eYxvGSoVdpqMyFlOBgbGZbwtcY3kUmNfU74f7ba4Ue8lcwvOYOyeNYeSetGQENJx
-	 CXAv75vci2WlyzZXDTvTBdyKG1R+lspoMY2yy529R/6BBNqoADxYoANLcWq+2UDRzcieM
-	 RC+waOw5EFut4053t2Fq2dlqLFzqgmOUkDc+JwHhwNVevF8BjlPFakqdt3h+///l/0m0Z
-	 MkdWt0gUOT8o8CUzZlvGnq//l73navvJRHIoBME1ppZhJEqMuWpxlnfewH3GoKKAhcBOy
-	 sszfo+RbSP2YjOGRANrHqO0yjpuqwsULdvlYT2MgMKMouYIIcd+YgpYj4XSIJjSjogw==
+	t=1793318567;
+	b=13/ZjMr/PzE5aQZvJt3q+oC+cGwi2bP34WnoOjqP07cY39dQA4BOek2hZNeqcMB50Z14
+	 gIfvoKj1ucjll1iq0OfwA6IaLoslaMJ3G82jKnW8MOHiSE3KwPHaSABnsXF3HVdivDp3o
+	 95OR9otKe26UBGCGpFaur6ZkDbyeOlLn4r+E4AfLdTGH+8fNmuGIW9WsCJJfrK1KWwA8j
+	 8HlD+BFmr3dyg+yv8y/D2ZhdSwFZGVaYIIPhMiFULWsdZEjYsS4LJhxCONzBZtPGxErvW
+	 tkLrsSevjtkFccxAs4E9fjX2g02ZhkHR+RQjnjLeK8Xnrwao8qrc2DwVRGfBQvbxIOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793315652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-	b=KcvGLZbyzmNKzIYs9TKxpj5KWWI/D9FJFD+Gi/jGPpAViIZC9uyExp0SUt7z0qk1GK3G
-	 vZjnlThmwwCtGlsKVA868eIorzzxEksx+ztF5Ni6unLm8t0/D/sHH43pSkfNY5por1YU3
-	 fll5oqlH8+yFTrq3d3toBMyYHQAr9sWaBlJ0lRcAfLyA8YKD/G2YMbSQyCUDSqNWatXwj
-	 Nmx9F43K1uPpH/mZNW5zhDx/b5cUbrtkDa28ChXlYyfw3/APCkmPdfJRVtaNSJVMTq5hi
-	 ASaDqH5bBukfEoldnwAKKqEJVJpvroR2sBWK2xOrh1MoPwMrnEW81WkfFEjP6EWSljQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318567;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=EekVTKvOeeC7YsplvAwGdEYQ+UvW9EdugEoPsQ9stwE=;
+	b=nnSmN1WpyG8M0vyaDOSdtFb5rN7KNJVgoQEta/blo1h2hjtw7FkaYGQgfPyCm4NoemZO
+	 THvZqURszeFzobhccRRh7cSFdibdiuagNPZwzzEYQCLMkKGyKzgqCiixsjea3IjIyGf4A
+	 NHZqyzemugVb8lO4MM2W+xQj1RctHTUf/fRYhgmv/SjFbjya7pAENdB1TfiQKDNG1LV6z
+	 zErm3ivYjjCq3PJu6+ltIYajLUI4EOxeneU7dbGeQeyYeO9i7AA5C6WTZyU/MWAUmqwYV
+	 ixufw380/Jc2bVmVOZQ80jNhBbzaUdPnJZUmk1LOSgLVM2E3Jqp6bi08U6MO71CPnkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxPNMKRO;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tFz8MHm1;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E33606A320
-	for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 23:14:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E33606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE7C606A323
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 00:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DE7C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxPNMKRO
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso285798eec.0
-        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 16:14:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793315651; x=1793920451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-        b=QxPNMKROg3UJDyzTY2R0+AN8muvIG9Gv/i0hQFMbvUHm49okCvqR5CRD7gavNJVsxd
-         H09siu8SGFeMaeKwYySWQtI0HkjP2CyuC83kuPGZhVVkgRYzIPFNQqm7NQFaIdbDtd3u
-         pph0fw/U2YR3JH7EyIKq4XiMJ7f9g2pfDHs5ToETpu43YKt5SI4LS6nl8p19kOFK43Dz
-         uhCrfY3+s8JFv7I4xJEHcDLx9DABZw5VVJt3vYrLMluUmMhw/L6d9WD2J270Bossfe5v
-         AlO1Vqp8dwtl2pKBJrfwFrAFxprFztQTfYVfTwPmGS44SxLUX5pxHrBCJTcAAL9s3EDZ
-         9iZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793315651; x=1793920451;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-        b=p+dNcCVCcgtdPMLmTX+tZpzhKWcx4pDtKEH3jHNgkFQoUbDZ0PKpzkXVI146TsxnFf
-         ya9fGR3OMvesrMGHzjMevvWTX9REuoGzuWp2o0a/L3mVJXKQAAgtLOy+I8Sw1KfAEH6z
-         WAQqJMm8uZ/xqMEFIH2P5DT66DCl1GSfwG8aCvHNHixAZ9INDH98MuoIovkHYWeOJrr8
-         HsRDX+hXtXPRTY0QWQuFX6LskQ8FNq81AGNshP2D5ZucsNsou40wCVghLB1iMI5/EApf
-         NarykUC/9t8+6TA/aZKynwYwTaCwPZBLxewWb47KJVoTkkKCmti4WLGPdeI4JRqh4876
-         ACkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0WNogPPcu0dyo/CNU4q6eNR2UHY9jV12Z4IXRVa2J9YW/c8UycB2cP7PI5ylVrSZySIM8DCWar7as@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6BmXxDhX9+wOOLs5KLwLRoyIc7/R67dIhhoEmHibl9yB43iup
-	535pFDgZCXAqJLnZDFgjq9naPK/2W2NBTUnClmtPZoE237pICmOqMrJm
-X-Gm-Gg: AYBFou18ePWfDdj4Fd5hXsAPdeTVndPo8gQE0Gw6A37nTtkuNl1CaFfuQ5EgtFldksW
-	l3gKASyQxDLXiVeYgjGzMibNtTspdp8nsvMypB3w+VV/vO6zvEl00UPgf/eeidDIMp3cEaVpK8f
-	113w2NIHGlUbXXk550/lo0I0Be1D7ldkW1dWTU2kRABiJogSYeHI7BqvW2h7JtucJDEj2KU3oeA
-	azz6UOmUMbuKduVPVC5r0Xm8+c2U9li7dMrpfkiWhsH+91tB0rcT0hZ/jO7+0kRzDqVeczZwfgY
-	9ft5edWN+Tc2kVTJ3lLHQA2DnzpH4Zt8VNVEozMR+8pOXSeqJqv/BektxmbuECMcSiViNOSVIXX
-	N0wjtBinpkKWky+v79ljx8eBHMIOf/3ENtBu2kuA7fNOlubvEifGUMOvb0DAbdLXFKXKwBXdcH+
-	u3AVCiRi+lWhSDYcaO0vVNNatfdrQh+1ZbWflYan7m74Zj/nsv/RsgwbIjIwWic6ons93HAJiae
-	WZVmVVSONrGvu7RSGNVVTQfTZNZPWnhQ7gn61+X8JcYxbdg3AgHBC5ecBkAxQhCezpm7hTc51KW
-	DpeqvBVPCdIlA3HLfDuqBhen/Ykp6RK7u2udGJyrO3GSYw==
-X-Received: by 2002:a05:693c:41c8:10b0:367:185e:867a with SMTP id 5a478bee46e88-36a4242366fmr1174193eec.38.1793315650617;
-        Thu, 29 Oct 2026 16:14:10 -0700 (PDT)
-Received: from debian.prasanth ([103.177.82.12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm1662742eec.7.2026.10.29.16.14.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 16:14:10 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ryan_chen@aspeedtech.com,
-	billy_tsai@aspeedtech.com,
-	tan.siewert@9elements.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	andrew@lunn.ch,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v10 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Date: Fri, 30 Oct 2026 04:43:39 +0530
-Message-ID: <20261029231339.9497-3-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029231339.9497-1-prasanth.padarthi10@gmail.com>
-References: <20261029231339.9497-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=tFz8MHm1
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C0F2DC49F56;
+	Fri, 30 Oct 2026 00:03:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 308106076A;
+	Fri, 30 Oct 2026 00:02:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DE84103287DA;
+	Fri, 30 Oct 2026 01:02:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793318557; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=EekVTKvOeeC7YsplvAwGdEYQ+UvW9EdugEoPsQ9stwE=;
+	b=tFz8MHm16YurNh2mIlIObooIYNsnhPs4cj3xNZ/bT4oXGpWFRAXR1ilWe2CvEdZ5RO1PPx
+	LhyyqVDYi2l57JpiH2vwFLCfaXHw1WSFaUPT8lQhGdQl5+SwHOV2+aID9eeHE9ifID4Wnj
+	3nA3XaC4DTitcDWgnFv0F4kTYhzVHCu9tp7Rw3UhlDTsz5lsgoYVNvWjROitSNF0IQtVh/
+	nwZ8O+4cpqdUpl+WWRjg2mHAW577eyN3bJelcrmO7CGqwExB5HkygFQiZKfppR0Di1N1vs
+	3MpxzOIQoXLBxqp3BTjtANZjLfu/lzlXJEwhgbHETx9IGMFJP8tXiYr2x7DDLg==
+Date: Fri, 30 Oct 2026 01:02:28 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20261030010228.34d9daca@bootlin.com>
+In-Reply-To: <20261021155923.55e48904@bootlin.com>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-16-herve.codina@bootlin.com>
+	<arDMhoNNXcPi81sR@gractus.seuss>
+	<20260925152157.511dc65c@bootlin.com>
+	<as3ZWBr3wRonkxXF@gractus.seuss>
+	<20261013190347.4f1d9b9d@bootlin.com>
+	<atGzdxETQZ9ovJFh@gractus.seuss>
+	<20261019151121.26d99f30@bootlin.com>
+	<atgi4rMsw5W6kKkS@gractus.seuss>
+	<20261021155923.55e48904@bootlin.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,227 +88,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add the device tree for the ASRock Rack B650D4U BMC, based on the
-ASPEED AST2600 SoC.
+Hi David,
 
-Describe the BMC memory, SPI NOR flash layout, UART5 console, GPIO
-line names, graphics memory, and the EEPROM on I2C7. Use the EEPROM
-as the NVMEM provider for the MAC0 address and configure MAC0 with
-an RTL8211F PHY in RGMII-ID mode.
+I know you are busy but if you could give me your opinion on this last
+message that would be greatly appreciated.
 
-Enable both ADC engines with 2.5 V internal references and expose
-the sixteen channels through an IIO-to-hwmon bridge for board
-voltage monitoring.
+I've started to prepare the next iteration of the series adding support for
+"structured" tags and their definition need to be stable to move forward.
 
-Retain the SoC's serial4 alias for UART5 and select it as stdout,
-without adding a second serial alias for the same UART.
+The question to answer to complete the definition of the "structured" tag
+format is: Should SAFE_SKIP bit be re-introduced?
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch> # MAC0 and MDIO nodes only
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
-Changes in v10:
-- Use the inherited serial4/UART5 alias instead of duplicating it as serial0.
-- Consolidate root nodes and fix peripheral/ADC property ordering.
-- Keep ADC settings and MAC0/MDIO semantics unchanged.
-Changes in v9: enable ADC0/ADC1 and add the ordered IIO-to-hwmon bridge.
-Earlier history and testing limitations: see the cover letter.
-Previous series:
-https://lore.kernel.org/all/20261027034911.99482-1-prasanth.padarthi10@gmail.com/
+IMHO, it should.
 
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 169 ++++++++++++++++++
- 2 files changed, 170 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+Best regards,
+Hervé
 
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index 6874b621d..fcb94e62c 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-ampere-mtmitchell.dtb \
- 	aspeed-bmc-arm-stardragon4800-rep2.dtb \
- 	aspeed-bmc-asrock-altrad8.dtb \
-+	aspeed-bmc-asrock-b650d4u.dtb \
- 	aspeed-bmc-asrock-e3c246d4i.dtb \
- 	aspeed-bmc-asrock-e3c256d4i.dtb \
- 	aspeed-bmc-asrock-paul-ipmi-card.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-new file mode 100644
-index 000000000..522c4d53e
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-@@ -0,0 +1,169 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+
-+/ {
-+	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
-+	model = "ASRock Rack B650D4U BMC";
-+
-+	chosen {
-+		stdout-path = "serial4:115200n8";
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>, <&adc0 3>,
-+			      <&adc0 4>, <&adc0 5>, <&adc0 6>, <&adc0 7>,
-+			      <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
-+			      <&adc1 4>, <&adc1 5>, <&adc1 6>, <&adc1 7>;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		ranges;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		gfx_memory: framebuffer {
-+			compatible = "shared-dma-pool";
-+			alignment = <0x01000000>;
-+			reusable;
-+			size = <0x01000000>;
-+		};
-+	};
-+};
-+
-+&adc0 {
-+	pinctrl-0 = <&pinctrl_adc0_default>,
-+		    <&pinctrl_adc1_default>,
-+		    <&pinctrl_adc2_default>,
-+		    <&pinctrl_adc3_default>,
-+		    <&pinctrl_adc4_default>,
-+		    <&pinctrl_adc5_default>,
-+		    <&pinctrl_adc6_default>,
-+		    <&pinctrl_adc7_default>;
-+	pinctrl-names = "default";
-+	aspeed,int-vref-microvolt = <2500000>;
-+
-+	status = "okay";
-+};
-+
-+&adc1 {
-+	pinctrl-0 = <&pinctrl_adc8_default>,
-+		    <&pinctrl_adc9_default>,
-+		    <&pinctrl_adc10_default>,
-+		    <&pinctrl_adc11_default>,
-+		    <&pinctrl_adc12_default>,
-+		    <&pinctrl_adc13_default>,
-+		    <&pinctrl_adc14_default>,
-+		    <&pinctrl_adc15_default>;
-+	pinctrl-names = "default";
-+	aspeed,int-vref-microvolt = <2500000>;
-+
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <4>;
-+		m25p,fast-read;
-+
-+		status = "okay";
-+
-+#include "openbmc-flash-layout-64.dtsi"
-+	};
-+};
-+
-+&gfx {
-+	memory-region = <&gfx_memory>;
-+
-+	status = "okay";
-+};
-+
-+&gpio0 {
-+	gpio-line-names =
-+		/* A0-A7 */     "", "", "", "", "", "", "", "",
-+		/* B0-B7 */     "", "", "", "", "", "", "", "",
-+		/* C0-C7 */     "", "", "", "", "", "", "", "",
-+		/* D0-D7 */     "", "", "", "", "", "", "", "",
-+		/* E0-E7 */     "", "", "", "", "", "", "", "",
-+		/* F0-F7 */     "", "", "", "", "", "", "", "",
-+		/* G0-G7 */     "", "", "", "", "", "", "", "",
-+		/* H0-H7 */     "", "", "", "", "", "", "", "",
-+		/* I0-I7 */     "", "", "", "", "", "", "", "",
-+		/* J0-J7 */     "", "", "", "", "", "", "", "",
-+		/* K0-K7 */     "", "", "", "", "", "", "", "",
-+		/* L0-L7 */     "", "", "", "", "", "", "", "",
-+		/* M0-M7 */     "", "", "", "", "", "", "", "",
-+		/* N0-N7 */     "", "", "", "", "", "", "", "",
-+		/* O0-O7 */     "", "", "", "", "", "", "", "",
-+		/* P0-P7 */     "button-reset-n", "control-reset-n",
-+				"button-power-n", "control-power-n",
-+				"button-nmi-n", "control-nmi-n",
-+				"", "",
-+		/* Q0-Q7 */     "", "", "", "", "", "", "", "",
-+		/* R0-R7 */     "", "", "", "", "", "", "", "",
-+		/* S0-S7 */     "", "", "", "", "", "", "", "",
-+		/* T0-T7 */     "", "", "", "", "", "", "", "",
-+		/* U0-U7 */     "", "", "", "", "", "", "", "",
-+		/* V0-V7 */     "", "", "", "", "", "", "", "",
-+		/* W0-W7 */     "", "", "", "", "", "", "", "",
-+		/* X0-X7 */     "", "", "", "", "", "", "", "",
-+		/* Y0-Y7 */     "", "", "", "", "", "", "", "",
-+		/* Z0-Z7 */     "", "", "", "", "", "", "", "";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+
-+	eeprom@57 {
-+		compatible = "atmel,24c128";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			eth0_macaddress: macaddress@3f80 {
-+				reg = <0x3f80 6>;
-+			};
-+		};
-+	};
-+};
-+
-+&mac0 {
-+	nvmem-cells = <&eth0_macaddress>;
-+	nvmem-cell-names = "mac-address";
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-0 = <&pinctrl_rgmii1_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
+On Wed, 21 Oct 2026 15:59:23 +0200
+Herve Codina <herve.codina@bootlin.com> wrote:
+
+> Hi David,
+> 
+> On Wed, 21 Oct 2026 13:26:49 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+> 
+> > 
+> > Correct.  Btw, I know I suggested "skippable tag" as a term, but given
+> > how that gets kind of misleading in the case of writes, I'm coming to
+> > prefer the orignal "structured tag" term.  
+> 
+> Ok, no problem to switch back to "structured tag". On my side also, I prefer
+> this term.
+> 
+> Now I think that the bit indicating if a structured tag can be skip or not
+> should be kept. I know the we can use "old" tag format when a tag cannot be
+> skipped but I thing that using structured tags for those tags can lead to some
+> benefit. For instance, in fdt_tag_next() we can benefit of the data size
+> encoded for structured tags for all king of structured tags (skippable and not
+> skippable) and retrieve the next tag without the need for parsing data related
+> to a tag. When tag has a string as data, without the length we have to scan the
+> string to find its end. Of course we can add the length if the tag definition
+> but this is automatically implied if we use a structured tag.
+> 
+> So for structured tag, I can propose:
+> - bit 31: 1 to identify a structured tag
+> - bit 30: SAFE_SKIP bit (1 if we can skip, O otherwise)
+> - bit 29..24: Data lendth encoding
+>    0b000000: No data
+>    0b000001: 1 32bit word of data
+>    ...
+>    0b111110: 63 x 32bit words data
+>    0b111111: varlen encoding (1 32bit word added after the tag to encode the
+>            data length in bytes.
+> - bit 23..0: Tag id
+> 
+> Without the SAFE_SKIP bit, all structured tags must be skippable. IMHO, we
+> could regret this limitation in the future.
+> 
+> The cost of the SAFE_SKIP bit is not a lot. When we check to see if an
+> unkwown tag can be skipped, we are going to move from
+>   if (tag & 1<31)
+> to
+>   if ((tag & (1<31 | 1<<30)) == (1<31 | 1<<30))
+> 
+> IHMO, this is acceptable.
+> 
+> Of course, if the SAFE_SKIP bit is re-introduced, I will also re-add the test
+> checking that unknown structured tag that cannot be skipped leads to an error.
+> 
+> Best regards,
+> Hervé
+
+
+
 -- 
-2.47.3
-
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
