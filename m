@@ -1,100 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793365160;
-	b=i6ngXccYCNQi4lY+z0MrCz3QXOT9N5KJfac+NEgqcg8rasw/QifJLYX/MT/buDi4gRdx
-	 mA5JfAjnZVCWoUO7xc4Nqbyqn1hZNsIdfW6fjfRdR6dBXi5vHkSQoHGZBuja4JVZiODoT
-	 1wZ5Mtr6BnCBadxF2QToor3L7g3g3d0AQe5GBOpsiZ6MxAf0imobBHTlETcJknC6J1HUB
-	 Zci6bG7bMv24SxoQtaSCEStQUdmD7txt2PY4R1JpcVVUHUMnxS8blxtCB53iJH579G0lW
-	 BunGce4g8FEPDRWC50ixF7tr88fGsHsHY0jzygRFXnKc7ygI2ZGxS+bOB7+A6+nxocQ==
+	t=1793365524;
+	b=lP2BI6ew3VAzAHcZ5tWnLQBAkr3aHVCOyPh6f3SJ79bwD9tNN6GpZ1m9bbNoca1XIJOq
+	 qPVssrXFU+SA2tZu2syPFPpvgGcuPWDnRq4M+qyT3+hhhlcVZzPY0fhciVyNV5KHm8/69
+	 uJ5jSTKX3d7jwSRi/XWw6zqlXeJyCK9zl5wgGPHzgXFh9jg6WG9oiEqd2KPDh3dQHHj2l
+	 tMX+du+Jx/4kTEA29/cHrWBlUQ4Yl1oL0m+5pLq/ZBNL6zn746qf2juQBNmvEdI64nEHg
+	 zE024+WLJoVAmul9i1wbk7CN16ME+uEcWk4RozlM+KNq+GiLl/REPjTUuddf5L4tbYQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365160;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3YyLSa3BTi1tUsUm+bl9FSELrR+28ROQxS5lQk/+if0=;
-	b=gA9lnTdVGeETJqeCsY2iJ518HwYLP/Ep+Bd52+mvSXiGVBDPdut+qvBwYx3HL/MFgBRJ
-	 Wlb/JItcJIErA+gKIuRl48W18VXMNDRIw/xuRmbnaWAi3jfISbTcXfKtyh9ufAUUi1MIX
-	 aTbU8ZyE4OWxR9A+B6Opk6CJmloiKTNqXlaaj0u28ZYVEAgNn+A6cOIYNSyxy/RbT9d+D
-	 qA4Upf72Eq570lLFYsMxEZZAyChhus1NLKGwns5vMxXefLCXpsyVv1hZVOkSLzrynpWZB
-	 gBd1GGkNsgQWGq/kAeQ3JHM4R38a9+9vMMOJpLitG8mfAGMfAiszrisoSN99AmNKezA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365524;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SobvcukIqIXz1CAHzfV0hRyTUwt8MNi05qv6gAf3iqA=;
+	b=iOXIEOULoPRRhnQthaLmxKwn0frCzMpZpjh6G12jbTgXL4gdU4wBbjO3vAS6/OiGVVL7
+	 MoLdQql35NqVmoDn/sO6Uh13Z9Pzp/cThrDyGOEiIKbtX6/oRg37Agljfw3MXYhm4jn+t
+	 8yphQ/8pUAMvBOqMG8gYM3ngNm2Pj4uSbL49VymKOpZkCKClVAY9C+BZiqq83RG3VyUr7
+	 x1810RRikIaV35zQgKoZQw4i0Dan9+StzcozkpiJ/fTDoDkuL9LW7yqDYnvpbc2OeEh2/
+	 t0vKGvEbreBwjXWZLShVvKFv7HkpPwuOKyBGjoCrnLJvjEdprHFlczwD3NENfE9g/2A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="W/eopmN0";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QUnMuPco;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.3
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010003.outbound.protection.outlook.com [52.101.84.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5679606A322
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 12:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5679606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43313606A31A;
+	Fri, 30 Oct 2026 13:05:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43313606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W/eopmN0
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-98301b325c4so115599241.1
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 05:59:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793365159; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IY13fby3zTeaGPxhlvxRryxhpuF2E07gNT4GuYHkNuzFvk5zqlADpUJIMge2cT+07o
-         uJgqQvDLZ1HgwwjIOqkLxAWw7joelA4KdC/q0YzGKGibIKWk9+szXEkfyIfFbuO3/0zG
-         GGNbZLnSd01i2g5PmNpTif+zSdh0NPEeyAb+plHhvz1XE6C914ET4eUghGh2b4B7tYI+
-         fYhI/FG905xoloXEjZvPAAv0bEJ/2niRn1uxSVe7jwPYuB9THa3qpZpnIcC8jgwdnmSE
-         jjJLnKIWNvyMfzgqC05Niu2zpKkutnSPw6K3xN+zIf8jhiOg1Vx/d4yg8bxj0/XQUSmT
-         K+Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3YyLSa3BTi1tUsUm+bl9FSELrR+28ROQxS5lQk/+if0=;
-        fh=7G40OK96NdW1LufV+yKOMQEgMZkiCiu5y4meWn14N0Q=;
-        b=SFpF3LNbQzgo1GgmpGS0IZJuce2y1HpVBuCTWSC5xMwBBYXbHRtOZicmL4vMe6M73M
-         Y8q9ruklAmtoSM41uYP5HNhE6aPNa3SF+EWq3O0TD8SB6Ipnd8MOzSH9lM1bDoivnsXq
-         VihXFt4vLEMPoBrNGm1rJmTnsD7X7u8ZWb6PhTpXXY79KlzaaAo8UvNQYNWuYGIM31ml
-         tiBIiMrvuw2SixoOTcJHVUMDEzxpJBoPN9x/w+r24MQt6/qXcdQQmnHAGu8RoKxB+Ahh
-         rRaFL7FLjZ9OSHpdwd3WFTgrNrTNpcLjDlpUtweWxzvTNr2Qwa3dTnDSiBXDk0xmLits
-         0NOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793365159; x=1793969959; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3YyLSa3BTi1tUsUm+bl9FSELrR+28ROQxS5lQk/+if0=;
-        b=W/eopmN0/8eu/a5EWlMaByItXK4CEaOetZkMU4Hx87N+4Rtw4Dtklh+qG1Ex1Tq4+c
-         XSbZeBReBjacNSLX7eGaaBMis0jSZC0P7jw1wNjHlVDU0gsfJ+eboUFRd6/Iwz5RGCu7
-         tdxAeX+Ayvbl7288FOanSmEJmMiIo8zMcfi1SFg76XzrSqz3ULj4odIeIj/AJjzTUpFH
-         g1iNs6l5/GDc1q/H6Lp5vdCAFwYB8aRVCEOAYpQeenIB/d7cHmNlOXbGaSyzvIFe+b+T
-         K+lEv6cQrJbBMM+4f1ibAKpi34b4CddEsE0W+N8lQwyAnVKv7HofLrpY/AtAmdIKXd1i
-         LzhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793365159; x=1793969959;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3YyLSa3BTi1tUsUm+bl9FSELrR+28ROQxS5lQk/+if0=;
-        b=zCpi3ZK4tw51UBlj7/+pWU0WE+4p8+29k0uv4KiMdi/5FoYt5eLuNGcOEy1i3qTog2
-         AM5Sqa/hn2NeKRKv2uwhP2XM9U5Pgrrge8Q+C7htLTOOQT8JN2SgTDS9bghfZbZxMG+8
-         aMcxr1bNgCy9argLnVuMWEo0ZHPl7Xh9ra7VrgyhPxHojG7wesvpw5lqDCL5HutQwD+o
-         M/EUvtKfeqLziQvdSt+4VJ/2JO3svIug5olQwk6NtVAmQD5cSLv6EZVqVzUjIifTJqaH
-         97d68DPZ7EyU+Pd8Bd5riO3WP8u3BYAgrOMIN55ZQL+kJ+T9Eiy4Io/Qp26X2fyzjewU
-         Vt0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwDXWVDpdTDMmQm2BNgZV+g5lW1VlGnYtU3CXgM5Bl8WBu/xy/ai8yF3lMkh1vbOZo0nULWo5GsEKzl@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3GQAWolaEqXLJ8HHLmNfSwsTM7DuWhLPXhJZSQ5WWvcaqqkbk
-	h+aMOnZdLZScN6Ki2B7apxFMehmGyQcUz8CGokfZPnGKW3S8/8qZG+wn6xqOyyS07++CsfINaz3
-	kjEjIjLnpU2AAv8tB+0tmNa8NmgT8pq8=
-X-Gm-Gg: AYBFou2hpr5qpfrY7U921GoKJzeEkwsaP+50evMIcTsxqJplzw3Fq9jkiwYqQr8E/6r
-	VLIz6aI4DcHCe7AOTc4e5xmN8twKJPQUEYvJO27DUZnWXmJkWRS2fwf55xFOmOzpniw1WSUYUnA
-	KlHGNyjW4vdd7tVFDWVAT4TNKuBBvktWxCCVJN219QbAfPlUzKAal8YBiYYgsx/a4Gr5dIC9MAc
-	ukCP6uncLMKIZEILHMdi+9SYwlTVBHkK/VKTtoZHx/Fca5TvyHm5HZpOHQJY8KFpsW45o5/JJsc
-	25gvgC3Iz0eqVO1OC9nkRJtH/qMoNjDYsZB/bh1c8pAPKx0R0f+by0e0tSdXwIx/7YJCa6VPnPU
-	nW2TvbJA7zcZxxV9BIwDA3gvUlb4QY1t2C/Kvkk7wOSNGOf42UPq6Yd00vOaOkE6YHPPlWyE=
-X-Received: by 2002:a05:6102:950:b0:7b3:8f0a:f76c with SMTP id
- ada2fe7eead31-7d072bb3726mr982684137.13.1793365158793; Fri, 30 Oct 2026
- 05:59:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QUnMuPco
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l2X1UxbE46uEkH6WvodROYXztBT2Tq1HNWXmyRPOORvoMKTRMd1U8NqW/WahJUhgKf9XXbKNUWurFOwFbSF3+vEaOAnMmLS6mrnKxkD/JzHCvVi1+1Pw1XpygjziU5Lg/w0Zx/Y5efP7i/zvr75G+jHatXUlDylhO/x9TUMY3+HHJv3HEY9p41dkhBgkglYItTFWB/rcEi3NccOu73WTldgvZzpeC2hRNPriA+YreqemGCl/4/ZwfqUODzrBc40CEe/MFAEwNC0m2Hfj5TxI8Igaq1Zkye/0qp2wBBnYGv2zSMiuI+ftBXVUUhvvfauKFrMmSv/yFh2vIikMRt7quQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SobvcukIqIXz1CAHzfV0hRyTUwt8MNi05qv6gAf3iqA=;
+ b=X778J5w1Ej/49TSQKJ1s8tvITheLsL+OLJnYy9HPrHBoyedeZJ7Vu7ScIKFJXvHgskrMKItIU3lMk/GPa0OfG8hCa26ah43u0Z2jbmGGITnaRhSEWY/nx/ejltKbjeMMkScjMhDaUDhepBBBZnYQCRde4CF8DHu0tpH4XBl8ujKNtmnBL2ookBXWY2qjc1FePVxOqOT7ggAZIswt1UdPO60yrNPc9iuc7/tmwmIbv/Q5ynIDj59/KkxE2F+0VUGRGuStYYfJPMQioWjFrT8A9tL78Cj2E2nU0z/ZQ8mFIBMgK2pZK3WgboSHzFZxYXZgNM5CNC1IYwfEI25lGf3rZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SobvcukIqIXz1CAHzfV0hRyTUwt8MNi05qv6gAf3iqA=;
+ b=QUnMuPcoJPl3ZkESuzTEFQcUfHmtEcpP7w2YFBoPTE1g17LPb5EDRhCZdZIUAqRhw5A+eJkEKBr5U9rWMbtMC1BVAxM1O2DSqkMFrFv3ltuVQQyNqu7N8yjNahY30KPx9QTMZwZ6qIzPurV+FUO45d7kskiXHiO+ON3zmWvgk91una8M/NeNuevyhitrIgqy1ol6YVnaJJxk1WFUVjNL7Pe6U77UQapESqOFzC3Lou1oW7f9O9F5VsBj/32Nv+VN5N2L2jFFAorf2O+r5scwNc4ku6E+N0RZZFvkx//9dYsh1ZHQ85SSB6l0LJSgGEIOxOBS+WeIS/SX3Ii/nE8YHQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by PA1PR04MB11453.eurprd04.prod.outlook.com
+ (2603:10a6:102:4f4::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 13:05:20 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 13:05:19 +0000
+Date: Fri, 30 Oct 2026 15:05:14 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v8 06/15] drm/imx: dc-crtc: Disable at boot
+Message-ID: <auR3zOdTi93AhWSS@vm>
+References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
+ <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
+X-ClientProxiedBy: AS4P251CA0016.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d3::8) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,77 +107,195 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-anacapa-devlop-phase-devicetree-v10-0-26ee3cf9d9d0@gmail.com>
- <20261029-anacapa-devlop-phase-devicetree-v10-5-26ee3cf9d9d0@gmail.com>
- <c78efbed-e91b-484c-b2a8-4e44383bbc30@kernel.org> <CAPBH0A96nFFqv4a0--OD=67w=uNkiX5qWb1aQFF9=kGVsUijRQ@mail.gmail.com>
- <79b1da71-7a17-4d75-aa79-ac1a18303b2d@kernel.org>
-In-Reply-To: <79b1da71-7a17-4d75-aa79-ac1a18303b2d@kernel.org>
-From: Colin Huang <u8813345@gmail.com>
-Date: Fri, 30 Oct 2026 20:59:06 +0800
-X-Gm-Features: AclHuK936QikowfoO5i5BgELLDpuDAgVgr57QkGt26vDuZG48EvAF5wkFnKQPU0
-Message-ID: <CAPBH0A8YCzNBKETf=mm08EggTDiimd0vDXK9V+vfvGNzENfcdA@mail.gmail.com>
-Subject: Re: [PATCH v10 05/16] ARM: dts: aspeed: anacapa: Add eeprom device
- node for NFC adaptor board
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, colin.huang2@amd.com, 
-	Carl Lee <carl.lee@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PA1PR04MB11453:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87172f27-3ad1-4713-a7df-08df368672b1
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261022075727099003|261021121427099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	mjsdCO8p+ziv3iUqZG/UKHgXLn1PqnMK4l/Wmw/ivGIVxlhuzFAljl3LUgmoy18Lxy4U6zeK16EVX+/ZFDP7v7G1YbO4sfaXRfjtUj1KcSmFHbk3bF8Q3FiuiQFoEyurxWn2v4NT9YSWT9/BNCDa9Gl+BPYk30fqouVJ/vrWZgfyqizIsCgnS+jfSqRU/e9GtM+TjY8YPnoOLm2B3Xl86kV4JHZA1LO74QmTkSeZt8+aHyp/KsZH/CEM4RIyVQalHpkRWM/V/zw6B3PhSBzTZcvln1voU1AgIMjeoj5ioHu8cq3WUoEQw9r943Zuhq70Es0oAIdMjMAzgIow9vLbuV82Y5S97MRsyxsLv8ncOyigAmd/cfrrEp/8v8d9aX72+k9g4jOtv0l3QkiKzPiLPFb71CyEApHC+OJXLccYo4eijLlNcCYFc8cfaD1yTjdiVg+ljHw9r2CY6Uc/p3Hms9C3K7BtYUzJHOY3XHyUFvkrZVAdC9/wZBmgmPAYDs1LZATb9Uy7t7Z2ahvsKE1HKrWe0HDf0AJp6krtm/7T4tLtSOtxmT8Cr5x3btyM2KwQQ/rcP9Qvjm2XypqTi8VglFn43h1Iq0Vm6Xl1rLcmsGYjXkskbHhwubZUA/hrri1xXiO/h/ReRdj4z3IKb0x90b0RcEUoifHP9RF0ksjQ2Mo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Iue2vocBtpZRjoXr6Q+h+Bjdp6oXF/k5dUBcEeJAbdIm6aI4Y8jDbPvgsbID?=
+ =?us-ascii?Q?5Gqy7UQQqTIB36OTvoDpjs94jnN5pHtgXEpIZCgFrJY3Wf5un75ubgVlS1Ig?=
+ =?us-ascii?Q?i9UkaC3DT3UOBLUR8yzsgh+0OCLP19tkTuaNPJwReGVFY1+tgykZSr1NkPmQ?=
+ =?us-ascii?Q?OSyEA7QGqbq93VSZvPQwGV3+++BDr6NrRWwVjPr1Sfk6ZWFawaZCUCIEzT3K?=
+ =?us-ascii?Q?ylz/HuHsa2OpEcVyEJPp80/R8G4K1aRH/iO9VK9ZlFfllg6/rKX4Dosdo5jJ?=
+ =?us-ascii?Q?INvsFezkEvRsFQfvsWPicQRugMNvFg3oqSMHFhJxq8EQq30FacGQvCcsw6qw?=
+ =?us-ascii?Q?BIFFU4Ku9tJYLWV1x/z9uoVboITYHVMCfbU3QMNf1lMGZ5LchyKNPIMMzMZk?=
+ =?us-ascii?Q?ctThIbPtopgi6XJhU4Fos68C9oBH0RTmmbnGUe18RzccE+sseqFF3Ndo22fN?=
+ =?us-ascii?Q?ER8GztqlyydaxGaDfqV4DcTSLRuHi2WkfAvL7dgPYy8OndY+fOlech3iJmFv?=
+ =?us-ascii?Q?PasPvn5uSUBYTgz7V2WqnzD+0PvZ1ifx5Izn7TfxKOJ+zS8Ol7Aijc+s5Lb2?=
+ =?us-ascii?Q?0EH3irjxYMVmcw2gN3mpKCUvDhfVZJ97cCK/6khPu+djGNVZpencJEa9hVQM?=
+ =?us-ascii?Q?z6jUvrDal4UatMqY38emQW9lmkRnkjrDVlCzn0e8tveC9c8y8PAXP3paoo34?=
+ =?us-ascii?Q?PI+Dx6dbWzO/yLSa60vHDZf6rgpnRhBB7FPAH8lsfTgjOoY9S1wWcTcLWKfQ?=
+ =?us-ascii?Q?+ugEj7LjbGxlGYXLeLVniKavI8qeCa/eTEllH62TLa9JYPJvBhQKnle3pzm6?=
+ =?us-ascii?Q?vfnFzGI45YcakWDoLo7KZuoFIlxQrUzO4TuHPlUtCT9f8z9eal5IoH/TQ6yC?=
+ =?us-ascii?Q?hKY5oA6e3xJZ9lxfPRWYTpqnsa9J+l8x5Y6pDRB9eOhOK23n2Q/kZbMFrgCR?=
+ =?us-ascii?Q?xeuUXW3U8uyEMgjg5HStWpGYdNIK+qJyofoQVGaAnwDyMw5VdpKmcP1NKSTZ?=
+ =?us-ascii?Q?/TqQkJp+hcYZLYSw2uLHq43/yBaqI/RurDcGcqjnhNrdhae3dVKpQpId9zAp?=
+ =?us-ascii?Q?6jqNOQxHEa4ZsG2+lIL4MkeOAvWcurvAj6Dxr2qGEKgWg3eTjxzMygehSbkh?=
+ =?us-ascii?Q?EJZaWA4WhTbc3etQQ21lQ1kDowM09t6XqA6FubbGXaCAW5vkj/YRirqJCgaN?=
+ =?us-ascii?Q?DxA3JY4Q+zl61tuQJry60KMTYkDLSt1kENJIT0vplBGWyFcFDLYZPMGgLeu8?=
+ =?us-ascii?Q?a+EF5iVMDgx3fIJOsh1Yj/zDlPNpGBFiYJrxgteFtqiiiKslBzLR3APkwbZr?=
+ =?us-ascii?Q?S0nb/X/+C+tgj51qlU3KO9utReano4XtE5mXkC0DdO1qS48cfHa9KUyfr4iZ?=
+ =?us-ascii?Q?tENpqYIzXba7POACYk4aET5Zlo+q6fvR3O0Gi67Y8sxw5Js9N7Nc5ZcKJmD2?=
+ =?us-ascii?Q?qxiM7J9VLdwJS22hg60JpblYbIAFkfCuNuhpRJyruksL4xIjtSdzC0e0EMYD?=
+ =?us-ascii?Q?7PkeCzcpcxyY4N+qvicI/5/MHQS2GBeicPFaj+/XR/04kKMPf261482+f8O+?=
+ =?us-ascii?Q?USWtmHQ/+bsBBAx9l5s5hAa4XIfP0vTtlC4wW9VN8FDT4jSyRsIist9Yh/f/?=
+ =?us-ascii?Q?uSbfQoBMtkR+bQFMNcwx8HPZ8RE7b8nYBtDaZPpnehB+wT/jc1W3l2xLQhNJ?=
+ =?us-ascii?Q?yLscT3+iCzWumE+6Chjrzdld6w3o/nt8MOLBTFF+CrQ/7ww6zo/6NuigE/jj?=
+ =?us-ascii?Q?x1t1beI6QA=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87172f27-3ad1-4713-a7df-08df368672b1
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:05:19.0568
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DtdZI8Yz70j4ogPfVeW6CHMdKV2typF4C5qD+SX2dWqdaLeNnGGaOI1fLnu2Ph3QYMAprh+zF2I1Dja6H6TNiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11453
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B410=E6=9C=8830=
-=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=886:52=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On 30/10/2026 09:41, Colin Huang wrote:
-> > Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B410=E6=9C=
-=8829=E6=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=889:43=E5=AF=AB=E9=81=93=
-=EF=BC=9A
-> >>
-> >> On 29/10/2026 14:38, Colin Huang wrote:
-> >>> From: Carl Lee <carl.lee@amd.com>
-> >>>
-> >>> Add eeprom device node for NFC adaptor board FRU.
-> >>>
-> >>> Signed-off-by: Carl Lee <carl.lee@amd.com>
-> >>
-> >> DCO mismatch / missing SoB. Please read submitting patches document fo=
-r
-> >> further explanation.
-> >>
-> >
-> > https://github.com/torvalds/linux/blob/master/Documentation/process/sub=
-mitting-patches.rst#sign-your-work---the-developers-certificate-of-origin
-> >
-> > Thanks. Krzysztof
-> > This means I need to add my Signed-off-by to each patch, right ?
-> >
->
-> I am sorry, which part of submitting patches, which tells you what is
-> necessary before you submit patch, is unclear? Please go through all the
-> steps of submitting patches and analyze if it applies or not.
->
-Hi Krzysztof,
+On Fri, Oct 30, 2026 at 05:54:30PM +0800, Liu Ying wrote:
+> CRTC(s) could still be running after the DRM device is unplugged by
+> calling drm_dev_unplug(), because the CRTC disablement logic is
+> protected and bypassed by the drm_dev_enter()/drm_dev_exit() pair.
+> Hence, Pixel Engine's AXI clock use count(managed by Pixel Engine
+> driver's runtime PM) and pixel clock use count could be inbalanced
+> after removing and re-installing the driver module.  To fix this,
+> add a helper dc_crtc_disable_at_boot() and call it to properly
+> disable all CRTCs before advertising DRM device to user-space by
+> calling drm_dev_register().
+> 
+> Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> ---
+> v8:
+> - Call dc_drv_set_crtc_disable() in dc_crtc_disable_at_boot() after CRTC
+>   is disabled.  (Sashiko AI bot)
+> - Make dc_crtc_disable_at_boot() return an integer instead of void.
+>   (Laurentiu)
+> - Postpone Pixel Engine AXI clock disablement at boot to the time point
+>   where CRTC1(with index == 1) is being disabled at boot.
+> 
+> v7:
+> - Check CRTC status to ensure that clocks were enabled by a previous boot
+>   before disabling them in dc_crtc_disable_at_boot().  (Sashiko AI bot)
+> - Modify debug message in dc_crtc_disable_at_boot().
+> 
+> v6:
+> - Rebase onto the latest drm-misc-next and resolve conflicts.
+> 
+> v3:
+> - Collect Frank's R-b tag.
+> ---
+>  drivers/gpu/drm/imx/dc/dc-crtc.c | 72 ++++++++++++++++++++++++++++++++++------
+>  drivers/gpu/drm/imx/dc/dc-drv.c  | 11 ++++++
+>  drivers/gpu/drm/imx/dc/dc-drv.h  |  3 ++
+>  3 files changed, 76 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> index 0d64186a9901..5bc952d6883e 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> @@ -227,6 +227,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	struct drm_crtc_state *new_crtc_state =
+>  				drm_atomic_get_new_crtc_state(state, crtc);
+>  	struct drm_display_mode *adj = &new_crtc_state->adjusted_mode;
+> +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+>  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+>  	enum dc_link_id cf_link;
+>  	int idx, ret;
+> @@ -287,29 +288,37 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  
+>  	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
+>  
+> +	dc_drv_set_crtc_enable(dc_drm, drm_crtc_index(crtc));
+> +
+>  	drm_dev_exit(idx);
+>  
+>  out:
+>  	dc_crtc_queue_state_event(new_crtc_state);
+>  }
+>  
+> -static void
+> -dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> +static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
+>  {
+> -	struct drm_crtc_state *new_crtc_state =
+> -				drm_atomic_get_new_crtc_state(state, crtc);
+> -	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+>  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> -	int idx;
+> -
+> -	if (!drm_dev_enter(crtc->dev, &idx))
+> -		goto out;
+>  
+>  	enable_irq(dc_crtc->irq_dec_seqcomplete);
+>  	dc_fg_disable(dc_crtc->fg);
+>  	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
+>  	disable_irq(dc_crtc->irq_dec_seqcomplete);
+> +}
+>  
+> +static void
+> +dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *new_crtc_state =
+> +				drm_atomic_get_new_crtc_state(state, crtc);
+> +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(crtc->dev, &idx))
+> +		goto out;
+> +
+> +	__dc_crtc_disable_fg(crtc);
+>  	dc_fg_disable_clock(dc_crtc->fg);
+>  
+>  	/* request pixel engine power-off as plane is off too */
+> @@ -318,8 +327,9 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	/* request display engine power-off when CRTC is disabled */
+>  	pm_runtime_put(dc_crtc->de->dev);
+>  
+> -	drm_dev_exit(idx);
+> +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
+>  
+> +	drm_dev_exit(idx);
+>  out:
+>  	drm_crtc_vblank_off(crtc);
+>  
+> @@ -331,6 +341,48 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	spin_unlock_irq(&crtc->dev->event_lock);
+>  }
+>  
+> +int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
+> +{
+> +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> +	int ret;
+> +
+> +	ret = pm_runtime_resume_and_get(dc_crtc->de->dev);
+> +	if (ret < 0) {
+> +		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
+> +			    ret);
+> +		goto out1;
+> +	}
+> +
+> +	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
+> +		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
 
-Sorry for the noise, and thanks for the pointer.
+Shouldn't you set 'ret' to something here? Otherwise you'd return the previous
+ret value, which would be 0.
 
-I re-read submitting-patches.rst. You are right: several patches in
-this series were authored by other colleagues and I am the submitter,
-so my Signed-off-by must be appended last in the chain of custody.
-I missed that in v10.
-
-For v11 I have:
-- Added my Signed-off-by to all patches authored by others
-  (Carl Lee, Rex Fu, Peter Shen, Andy Chung).
-- Fixed typos in two commit messages.
-- Re-checked the series with checkpatch.pl --strict.
-
-I'll double-check the series for anything else I may have missed
-before sending v11.
-
-Best regards,
-Colin Huang
+-- 
+Thanks,
+Laurentiu
