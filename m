@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359305;
-	b=UR/9Ncw4CutmKyAOoMU4OkBFsp3NmuirYRxCS9Xx0K+Bba4IfHR87qXlWO7ovLBD2I6O
-	 BK+5hFq+HIkQzgfNhktaq2xugihHEgIYIgCVz+l95Dr+o2Pg4FpV/FyLAvAY0PQV09d6E
-	 T0XdsnkM9JhFlgkMLDVnkDdAZ/SYN52pZoI47zLgsqyh29OlAQ9MV92krjjB9LWEAFdHG
-	 eFvH/wXbkTwAwErh9YYeMX4ShRGw1YYJ2fMJjySKEG2onQvfz7S1fN/puKbD72HLoozOJ
-	 ehA/QA0ldj7qZVj+kWUlXTBe9+4yDMvPRx7/reBlF2h3d1095YssG8VwZO3ougMIemg==
+	t=1793359398;
+	b=fpOJPDBwNnK+FcHHZxxlUcCrdBm9KXe7ggVJJd6OXMwjkBernfxq+SIgXfr5/hN/0kws
+	 FSqtiurxRw3I3lh/Jtt0GeFyn0W3QP8RB3GdRsAaoRCaQxo4j6XR1V8cuPhoiRSYzLSi6
+	 +B1ZWgQ898dcVzYN55EO21DUenNfcmKA+B0ejS0h8i/bkRrbUqimDun4Ad/GL4S5Y569R
+	 b8QGDEnGeXIyo7ZG7sFL4jorK5XOriWcF8sNAfeTLl+WuBzs5fUWqvYnWc+KjnexMHbxc
+	 Z40shyXi+7JrVXGGNtYF/7EF2rHhsboI70cI3iWtGKdZSXeqH8x5l2jiCPCAQNlRyWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359305;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Ivlp40VyVn8KszTJtgCYob0RPuAFDPOsj7lo4X2gHHY=;
-	b=YfhdD3cJ4Nf1002e0QQ1w0FScE+m35HnacoUJobhp+IdoGpBUkGotNuZCzw9h6U2Orit
-	 YrACnTOsOveI4dLmz1WNPT2+OAoZkQdZNw+fg/UNa4pgjJ9CNasQzb37vHvct8XXsMi2i
-	 pqA3bg4jGpI9bAN3dGXtxCeGFnarDj5NnYYDVYMU4J3gc+j4rYijeUadW7r1LUh03/1ET
-	 vcRoRDzoWcIK+eacuAi/sCdWzpKpGauczA5sVPMfJyAIib2XQ0wIRPepqM8JUBQrdl2EW
-	 9uipHch5DLi/AIiBDkcECyHDUFs+U2GBvnSZt5/nyAaMcY7IjDSKXPJytb/UM6SBbmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359398;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=GqD8gV1VbR94HboJm2ZWYB3hzF1YyVBGt4mXsTw30gc=;
+	b=0K5jzIX4tjpgTh6UvAIibohCzyU2L6x1RKfVxUHh+LU4nrQVmU9xk5WDbWQuKOQvP0Ud
+	 qMMBc66Es8IuSnyOIRH93BdyDY2529xI4vBcLtyncdUbuWUo8oXWKDhcZs6NjS/Vubjdz
+	 HaArkmxwsYEjwz4IAdWa15Ju6hQUJzj50JYxA1iWAHvwAinMbkrsc2i3eCnaPeQ70myJc
+	 Ok3+FWnYzwYHtc9Lbo23/0M8mfwQpLHUtc8Dh6JpFM8pmGoMfo//sDudT/+aoubLf6hkM
+	 fmaGNwDe+UEiySQd718REM8YiAGiA8wUskcAWIR3Vz3Rc0LwXaXxdnc/hiS1qRuG5UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUeqAFHQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=o5D5kxem;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB02606A32D;
-	Fri, 30 Oct 2026 11:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB942606A31C;
+	Fri, 30 Oct 2026 11:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB942606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oUeqAFHQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE601F00A18;
-	Fri, 30 Oct 2026 11:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793359305;
-	bh=Ivlp40VyVn8KszTJtgCYob0RPuAFDPOsj7lo4X2gHHY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oUeqAFHQV6dbP0aw5HxzJN5G39aqc7eFWXNCy/m40JH1jRwjt3iAdOqRY6A3+0/F/
-	 NKKYgpuLa0Rx6uOkqb9myzFhRhynrFFsnI8+3Hgv5MykQiWdQApF/Kik6pjLuFBSmI
-	 2zc7M4l9V463SuPnDPejWgbmqcQowbr+a39a8F+omLtQoKloVQt8qi0YpWB6QYEU3n
-	 8eD+lXsYGf2dljt5/9yEDBLqQboxzSlxJHymEmlXTFx6C1Nd0rAPyvoGrev+cTZH1I
-	 pSukKz39WpDiKlMx7qA9Tkxp1/hxoMkNsYZx/lxzIy2GQ/9OwimD021NkiDV4u8bLB
-	 gZc90AOO9vAuw==
-Date: Fri, 30 Oct 2026 12:21:41 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
-Subject: Re: [PATCH 1/2] dt-bindings: mmc: amlogic,meson-gx-mmc: add
- amlogic,core-phase-degrees
-Message-ID: <20261030-sarcastic-sophisticated-tortoise-a7a8ea@quoll>
-References: <20261025192059.208792-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192059.208792-2-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=o5D5kxem
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 591D063C;
+	Fri, 30 Oct 2026 12:21:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793359261;
+	bh=YhQvMqYGsNMsZuibcxcTlPG0LBgEnS9OCb4qiH2A3k8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o5D5kxemIEyF4yBozq8fTa89N+/Wzi7bA2crxPUq3aQMTLzQTw99Sb6nDDnqw9qgT
+	 CqMocAYB/EhZvwAYDNsDIBALcnb8qTsfL4n+sAl6utPey5FtX50WFnc1McEqHyXZLN
+	 Wx7iZIJMZpdljOlh+sxtXnuau6u1gCM4Y/306WrA=
+Date: Fri, 30 Oct 2026 13:23:14 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Ulf Hansson <ulfh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 07/11] dt-bindings: clock: renesas,r8a78000-cpg: Add PWM
+ clocks
+Message-ID: <20261030112314.GD2587681@killaraus.ideasonboard.com>
+References: <cover.1793026273.git.geert+renesas@glider.be>
+ <e723696e02cfb34fb808e2ae3ccb6faf68528c00.1793026273.git.geert+renesas@glider.be>
+ <20261028132937.GL15441@killaraus.ideasonboard.com>
+ <CAMuHMdXycpJ6COtiAA-2oRRfHSfLK40n2cacStW15QJRN3EfLQ@mail.gmail.com>
+ <20261028163940.GA2673734@killaraus.ideasonboard.com>
+ <CAMuHMdVOT+DTZum525kmYfP+jzzPrxMnEeRAkapxOMGz4XMHBA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,46 +78,132 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261025192059.208792-2-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <CAMuHMdVOT+DTZum525kmYfP+jzzPrxMnEeRAkapxOMGz4XMHBA@mail.gmail.com>
 
-On Sun, Oct 25, 2026 at 08:20:58PM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->=20
-> The controller samples with a core clock phase that is fixed at 180
-> degrees in the driver. Some boards need another phase to work at high
-> speed: an SD slot on an S905W2 TV box fails with CRC errors at 50 MHz
-> at 180 degrees but works reliably at 270 degrees, which is also what
-> the vendor kernel programs for it.
->=20
-> Add an optional property to describe the phase.
->=20
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
-> ---
->  .../devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml    | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.y=
-aml b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
-> index 976f36de2091..8123375a66e0 100644
-> --- a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
-> @@ -58,6 +58,15 @@ properties:
->    power-domains:
->      maxItems: 1
-> =20
-> +  amlogic,core-phase-degrees:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Phase of the controller core clock relative to the card clock. Some
-> +      boards only sample reliably at high speed with a phase other than
-> +      the default.
-> +    enum: [0, 90, 180, 270]
-> +    default: 180
+On Thu, Oct 29, 2026 at 10:08:28AM +0100, Geert Uytterhoeven wrote:
+> On Wed, 28 Oct 2026 at 17:39, Laurent Pinchart wrote:
+> > On Wed, Oct 28, 2026 at 03:43:42PM +0100, Geert Uytterhoeven wrote:
+> > > On Wed, 28 Oct 2026 at 14:29, Laurent Pinchart wrote:
+> > > > On Mon, Oct 26, 2026 at 03:55:23PM +0100, Geert Uytterhoeven wrote:
+> > > > > Add definitions for the clocks used by the PWM modules on R-Car X5H:
+> > > > >  - R8A78000_CPG_SGASYNCD16_PERW_MAIN,
+> > > > >  - R8A78000_CPG_S0ASYNCD8_PERW_MAIN.
+> > > > > Include R8A78000_CPG_SGASYNCD8_PERW_MAIN for ordering consistency.
+> > > > >
+> > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > >
+> > > > > --- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> > > > > +++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> > > > > @@ -28,5 +28,8 @@
+> > > > >  #define R8A78000_CPG_SGD8_PERW_BUS           18
+> > > > >  #define R8A78000_CPG_SGD32_PERW_BUS          19
+> > > > >  #define R8A78000_CPG_S0D24_HSCN_OTHER                20
+> > > > > +#define R8A78000_CPG_SGASYNCD8_PERW_MAIN     21
+> > > > > +#define R8A78000_CPG_SGASYNCD16_PERW_MAIN    22
+> > > >
+> > > > Could you also add R8A78000_CPG_SGASYNCD4_PERW_MAIN and
+> > > > R8A78000_CPG_SGASYNCD32_PERW_MAIN for ordering consistency ? The
+> > > > dependency patch should then also include R8A78000_CPG_SGD4_PERW_BUS and
+> > > > R8A78000_CPG_SGD16_PERW_BUS, as well as
+> > > > R8A78000_CPG_S0D{1,2,4,8,12,16}_HSCN_OTHER.
+> > >
+> > > I could add them, but do you have any need to refer to them from DT?
+> > > So far I only added clocks that are listed as clock supplies of on-SoC
+> > > modules, e.g. R8A78000_CPG_SGASYNCD8_PERW_MAIN is supplied to the
+> > > Timer Unit (TMU)).
+> >
+> > So we have two conflicting goals here. One of them is to only add clocks
+> > that we have validated to exist (and ideally work as documented). The
+> > other is to keep renesas,r8a78000-cpg.h readable. We won't be able to
+> > satisfy them both fully.
+> >
+> > I think we previously discussed adding whole groups of dividers in one
+> > go, as some sort of middle-ground approach. Those are clocks that are
+> 
+> That is what did in this and the previous patch: we need
+>   - R8A78000_CPG_SGASYNCDn_PERW_MAIN for n=16, and added the one for
+>     n=8, too.
 
-Is this the same as clk-phase- properties from mmc schema?
+That's missing n=4 and n=32. While SGASYNCD32 isn't referenced in the
+datasheet, SGASYNCD4 is (in SCIF and HSCIF). Maybe that's just an
+oversight ?
 
-Best regards,
-Krzysztof
+>   - R8A78000_CPG_SCPBUSDn_SCP_MAIN for n=16, and added the ones for
+>     n=1,2,4,6,8,32, too.
+>   - R8A78000_CPG_S0Dn_PERE_MAIN for n=24, and added the ones for
+>     n=1,2,3,4,8, too.
+>   - R8A78000_CPG_SGDn_PERW_BUS for n=32, and added the ones for n=8,
+>     too.
+> 
+> I did not includes clocks with values for n that exist according to
+> the documentation, but are not used as suppliers for modules.
+> Of course the documentation may be incorrect or incomplete, and we may
+> need to add them later. As IDs are ABI and the list is append-only,
+> they must be added at the end, which could indeed lead to not all
+> clocks of the same group being located together.  From an ABI point
+> of view that is OK, but from a human-readability point of view it is
+> indeed suboptimal.
+> 
+> Before, we tended to add all clocks from the clock tables listed the
+> documentation upfront, ignoring clocks that are clearly internal-only.
+> Some of them turned out not to exist later.
+> Some new clocks had to be added when the documentation was updated.
+> Nothing new here, except that the list of clocks on R-Car X5H is an
+> order of magnitude longer.
+> 
+> Note that we don't use a linear array of clocks indexed by clock ID
+> in the R-Car X5H CPG driver (yet), so large holes of unused clocks do
+> not hurt (they do hurt in the SCMI driver ;-)
+> 
+> > not directly controllable. There's a risk of adding clocks that don't
+> 
+> FTR, the xDn clocks are not directly controllable; clocks like
+> R8A78000_CPG_MSO_SCP_MAIN are.  We know the latter exist, as they
+> are used.
 
+Yes, I was talking about the clocks documented in the various
+non-PLL "hierarchy" sections.
+
+> > exist, or clocks that we won't need to reference from DT (because
+> > they're only used as parents of the MDLC-controlled module clock). Do
+> 
+> The direct parent of an MDLC-controlled module clock should be in DT.
+
+An additional difficulty is that we don't actually know what clocks the
+MDLC gates :-/
+
+> Higher-up parents should not be needed iff the SCMI firmware exposed
+> and/or implements the proper clock hierarchy (which it does not at
+> the moment).
+
+A big *iff* :-)
+
+Even in that case, we'll have (at least) two issues:
+
+- Some modules may need to know the rate of the functional clock gated
+  by the MDLC. As those clocks are controlled through power domains,
+  they are only specified as the last cell of the power-domains
+  property, and are not listed in the clocks property. How do you
+  envision this to work ?
+
+- When multiple clocks derive from the same PLL, it's common for the PLL
+  rate to be specified through assigned-clock-rates. If we want to
+  continue doing that, we need to to make the whole clock hierarchy
+  available to DT.
+
+> Still, they can be internal enum, starting after the last
+> DT clock, like we did in other R-Car clock drivers.
+> 
+> > you think that's an issue, could it cause ABI problems in the future ?
+> 
+> An ABI problem appears only when you refer in DT to a clock that does
+> not exist in hardware.  This should be caught by testing before the
+> DT user is added.
+
+So we could add e.g. SGASYNCD32 already, as long as we don't reference
+it in DT without testing.
+
+-- 
+Regards,
+
+Laurent Pinchart
