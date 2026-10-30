@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793380273;
-	b=5Ifpwsa3Jq1XdL85SEMbk2dmbSiCA38WD3o175ibkQZSSA1obSY989VgkxMnu9c174Jh
-	 M05h/6lLg03beAR8yIRDQ5nu0ERpO4Let/CtFA1ljNR08O6AGh3k/r31fQffp1JOxIQpF
-	 BSgAUjiWH7vDxcEhE17WrAqafJ+NhZJEN32Nw8yiZ3vZIueHRlvElBZ5PmVC4XfgbA8+z
-	 HJy4M0OVxp1YtMFZ36EEega1WZjgy2HZyLhaurxY0y/2g88RCq2+/Cuaau8Mvs8UCrNgr
-	 GEXw137YbHhjLLTvnJHSoVQmJ9MHzzC7S4X0MvTYeDH8tm1H/h/jObusmqyv0o7d9cA==
+	t=1793380546;
+	b=wKLf9tkJjHstM1rVL+q1IlpKejMEnU0hzpWXAld/mjSUJGHXSOkL5FNa+n39jDt4CmEs
+	 19xRNX/PrDbQeMlNT4VvIKVOEsXmdvgt5eBxL+PplUPxipMSK7sH41j+NNxaxeAK4hY0B
+	 +Sc000XWDuldYJhyPQbBSH6sF44QHVqPIo9+RPoN7UiUBR3KKaBd1+K+gAjKjCn68dXf2
+	 YFR8W2nX5JO9DEEs8xOd+6lR2Q/fKI1chLzyNUNcjs0zSkPDxpKVovnN/Vh7QP8lh4XZE
+	 oXSL1dkygRz0wd73y6P7kMvDuWoekTMkZ9MklpZ/bhntm2AACx5xv6wXdWIc/kRh0sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380273;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=7DbiMhjxBfgIRvFyWx+zMAj+b86N6ePaSG30TxtUrXg=;
-	b=TCSWoyUGx06V4TiqakyNLBZJ7N43lAwcaBZpl7dlyf63iq1qglBkTBrRI0wymcGKL3y8
-	 /FTLxEK4XuSnCaz73YgINJgU+w6WgTa+tGM07v+CIFfVA/4ftTyCc5mavbY+4iQxstVHw
-	 8CJAWn4+xxA+JBabjpRR1iRWv38rQCv2S2g3l/YSwqzIASCLIsD6zCk6lr+Uv6RfAgzrT
-	 44HTzZqJHKbhnxozsAkSufE2v1QngAVNxia2mgdJ7wxQAmZnNAgVbE3P7Y/+IE+v2wtrN
-	 xawMgdlc65EwI4KpCKGenqOclNbh37VAMCKm0GXpJBmtb+z9HoEab1K7LmhsF3LSOnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380546;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=r8DLQMv6bl/QdZfypAZ5tHl7iw2qL1i8GWHVP4CuKC0=;
+	b=3bCSVHh1wFvlX/hiaDNtOH7bKnBnPk+/OIHr1igCMmD7IYsn7bKoojhvIbfx3oiZYa0c
+	 13ui4ZOT2pEwOtgxhIf3xg7/8tv9zaWcEhfrj8EnesyZPstqZG6O2QAwm+ICVKgJBCHYc
+	 TqFiy9PiiOWuyd5yDs/98xaiY2sPNPWu7e0vhWnJEHIF++1tinQCp5T9lpgOxQGjfacgC
+	 NH2YKKxC1/n6iGFzUu7AwnntQoRVbN/iG9E+W45rblp5MP+mbLTgQWBRy5IKLElEKYpHL
+	 tkl2alByRdRD4uCitWGnYnJandsCd45U9FSke3LIyZghhQoG2KRs0kC8AIsSflipW/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=bgUrQZBb;
-	arc=none smtp.remote-ip=209.85.160.227
-Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gOg5RBwV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ok7kjFAE;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD20606A31C
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 17:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD20606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE24606A322
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 17:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CE24606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=bgUrQZBb
-Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-53fdd2fb171so10642881cf.2
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:11:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380272; x=1793985072;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=7DbiMhjxBfgIRvFyWx+zMAj+b86N6ePaSG30TxtUrXg=;
-        b=0J/6lpV6FrjP49bbIsYC/Ydqkct1lIrMiLlGDh6l1Mv7nV6mqK9NFjPP2Wixb7XYdu
-         Q9XuTAt0lUiCuIS25h76xRb1F+SAoNb1gFS8h8Y90tFGp9JJO+ymP9hMkPaFFO7ItTCi
-         nLtga3FgoiuuI/z7KW42K+Z3rUci9Jl/C2xEJWmRIl7B9B1CrHtMnhzxwTSm6yaRnNf+
-         687EKey3ajJhXgjjv0FznxomIGtP+tU+n9ZxvJ9x/LbbaY6lniF7/2FDxl5qM88IT/HN
-         QpMkQj170B3nMLDQnz7C+NoHYNsPSX0IpbWrXxilu5dw0v3MZu6L5IfSUUEP0pZ4c2W8
-         TRCA==
-X-Forwarded-Encrypted: i=1; AKwUvByw5+Z+yH9v2UUAEgIKwxfIzvzRVL21uVXugzloazUyTd7k4xqgc+rPSYlOZQxw3nl5BLuyWLVE+FuY@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvrrlgwctXiJpPoarxQKptB4bAgMOeP4Ii+ACDchTM5B9V9vEY
-	+XcCqH6fAJ4US4n0fYJiC4BQOQQlmbUqMem+d463oTZInNQRdj5jzoV2vLC12s4YN7h9d951FfY
-	KLHXOYIy1NjaoMB3ZqOqeAPL6YYzL35PK/RNplti/fDsgIJGk45SOcuGwQ9MXY+wthbav6Pj4HC
-	GBLcCZTc6yVjEzxAZZSFHplTUqmOo7tozUe/VGN/7RUuHNvW4u1Xr8ap2/97IQvhkptcj1Nau6D
-	yUsAYlt132utaPkUHADuVjf
-X-Gm-Gg: AYBFou2CwTJoiE/ZGbnH4R3erFvs9yGp0kWmIEFlIXYjtVRiHG3px5/k8dngHi2ePlG
-	+6kCS2TsQGdyajWAhajL0i7gFuJe2BYuSML2Ptid8D1I6pcuo21WtCkdB4weQPT3OynPf3zzrFs
-	MZRnvfLTtLjOxDtokJ01aIpn/UkF/Tx7SbiSBHfogWcuxt20NtHdw9KLu3mYCcSQpVrkiX9Wkwo
-	2oAMARbYlBRFwLAtwB6emmBj81SxECb2OgiYa20Uonarkt+N2iCQEIntU7j8W+yRdydWjIBiGrB
-	VYafJFY5r/yBJjLvMfZNEXy2wYt94dYwQcHpc8LTa4TSWH7WDBO3gI+53fOPc+6Pdet6lr/GDlM
-	Rc9pvjA4PBdehIzzwwxkChbKn/8MzQ0o/a8eHgul60viMEBPmGtrf5oPLYJDU4TI8QjTgnqJ6+1
-	S50Wet//Ke5nnGjAnTadqdCeLIFyIcKVL+7bttrVx6
-X-Received: by 2002:a05:622a:c07:b0:536:c00a:b7a2 with SMTP id d75a77b69052e-542b733057bmr46615871cf.46.1793380271777;
-        Fri, 30 Oct 2026 10:11:11 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-5430c86be1bsm153961cf.0.2026.10.30.10.11.11
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2026 10:11:11 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so1347630a91.3
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:11:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gOg5RBwV;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ok7kjFAE
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UERit23207534
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 17:15:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	r8DLQMv6bl/QdZfypAZ5tHl7iw2qL1i8GWHVP4CuKC0=; b=gOg5RBwV3PekfPEO
+	+oPNR0MVxk61KNp0EZqXCjntTL7j4cVnSVzh7z3b9qxaJWwQ/YhTjpy4PWVFXxsk
+	8ofXm9Ev2QDaCKCRJ25ySsUt6Ld7Y0MZnUaM/dpFcTXfVq/ktbtB2SNXbFtEgZVL
+	G0phIgX+21A2uq2glFvBM/JAXw6P7FZLJtzmdHRCtGVpORuCcknmE4OgOw5JtLcr
+	FHYGSxMHu2ENa9koFK3nCZACjRCEwathVg+HlRelK3XOjRG5GqEGdT3+dya6XfnS
+	hWRi+3hpz9x/oRkNoA2lis9X0ApSlHymkCPdxOPcquezvNHjijLBzKBg/lRtPUGM
+	fygoGQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qm5r2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 17:15:44 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so1780292eec.1
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793380270; x=1793985070; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+        d=oss.qualcomm.com; s=google; t=1793380543; x=1793985343; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7DbiMhjxBfgIRvFyWx+zMAj+b86N6ePaSG30TxtUrXg=;
-        b=bgUrQZBb2tNfUPun5eU8IVGbdPrnAVgHt4ZkP/K5DuDIYPsV8Zdlejkg6JrcDSOUhm
-         /J/9RUEYgID2sN0fFZd/v/GYpM3Rothfl/8P/Ps3YuJDYaeLLiJXbWLBqRL0IuGQhIXt
-         6myZ17i5yxHS79H2HR9k5F8qSWwIKdHOmaIeo=
-X-Forwarded-Encrypted: i=1; AKwUvByNcdMQziqtT7/GG+VRvKxmyjCxbVSG+A+ZY7eMh3AnYvCHvAHnETWKzPgAB6JC9qYTB8tEQomylc6a@vger.kernel.org
-X-Received: by 2002:a17:90b:1c88:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3ae898510b3mr2474487a91.53.1793380270430;
-        Fri, 30 Oct 2026 10:11:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c88:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3ae898510b3mr2474434a91.53.1793380269908;
-        Fri, 30 Oct 2026 10:11:09 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845e71a7sm4640721a91.15.2026.10.30.10.11.07
+        bh=r8DLQMv6bl/QdZfypAZ5tHl7iw2qL1i8GWHVP4CuKC0=;
+        b=Ok7kjFAE/wMO26XgBDa8NLGudqIFB0d9pWAV3FNdTnipgS6t4j8XPRPPtwhrX+eao7
+         yyneli2iiFW8FSBteIJLYXVkC4r8S05aaRuQGMsWb/y9HiMC1SXoJUW2cqQDQgGiyNg7
+         fOtvGbAtRZFRkckMZUv54GhG/DbnjmM6QLYDnwlzKTQQ4hWwzOgGH0k8/hYLts7RHmrV
+         b32d34GyTX6+psIY/+zvSEIZbw5s9gFUP/GiehpmhNj70EMTOnbcfQtSieMS/oUhgH+3
+         oWtEB7dqIEn5wX4J9y/EgmCmNlWgwcNS0/x/mxgJJf9EDdn238m/ep77upDv2W8eUmsh
+         ppaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793380543; x=1793985343;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r8DLQMv6bl/QdZfypAZ5tHl7iw2qL1i8GWHVP4CuKC0=;
+        b=Czpbp5yvrnvFfJWEhhQZ/d/VB+XmkVXZb0CdZtXjDuep9Iuc0j4g5O7QnPR67BNsxD
+         YLLkhFaUikqXTZDOANZbX5GoKtEPnMKC61wA08UobXM92MBf/p35pGx6z6w5Sa4jtUrS
+         S14KNDGmVtsWWo4TggEkXHciZJlQHRieknOWSpN8lIyIcIeNJJn+zga7iUzdrtIf4xEK
+         RPTKIiSL0rezE0CaN/fKsD/FHtp330aynaISNrbDFoFvZSV8BcXVhAbBZIni49b+TJOJ
+         +cKLWH3X+fqKmhKk8tyj5WPITUhxuqaK7yQT7n53ylNYSiAPVx7R1fpIfpLFTiIkvGmd
+         R17Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxdlNzNe4sgL41kde+hOQmSD2z1oFkRGx5LXjyASK8iPygGDVVtOY77iS7/8K++4ikP4atYCIMPkE7z@vger.kernel.org
+X-Gm-Message-State: AFq9FYK++Bxx1que6BTJ/KMobh9ZE1bZwaD7KhO1hu4uNefsENtzDgDz
+	+v6szsXK+1pEDHlBt0wSe4UDG0YJS8MVzKQwsH9Qc9sYTqfqWOYjeFHi79QvBf8pPtHyXOWgJK4
+	GMiEVLyW0mbzgWBOB1WcUUdidP/GSMU1Stm1bmImQcT5HWXjIwxjLMOvV5d/u7RXt
+X-Gm-Gg: AYBFou2XijNlFCY4fWdsbvaS7QyA3MuVA+PJsoHviiBBBMYudtTgtMOryK9BlgtIqIH
+	pXSbl4qwdgWNHPOpcP71N9FUSXjiA6Q4ASsWOyEa8Bnl8flqMgcTPkue+3UGx4kfDMgbG9RGb4v
+	IGq5hk7MRFLK0JThvoWcrJf7kl1q3InLIKoYB+NWeNNxmi5g0n5DKG9lBiLz+SwfiDHGe9Jbzra
+	A0U9wT0WdjQcFOHunbKeab+z7M2H6a0q2YgDYOqQqGv2thtxsww5V1270YS91knK9V0cZJ2Ja+p
+	syeYLM4Fx3ieVC44NnqhMihwszTe5qTr4QLQWeclGA6pKey4zX3AZf5jt+EXUDy7V150JfpzOT7
+	CteT/bGMECY7YtMlBZTFfc169pL/WCyDPHHX/AjH3SwiCXL1HHMKEpkHwvbnGbgOjQ4SVJMULTh
+	9bKeHaeOIO+EE23Y/Lsf5codOM8nJ6GQMYTEePQpie7Qh0zJfWoPMWfsh8P9JvgzK0
+X-Received: by 2002:a05:7300:a188:b0:35f:4780:518e with SMTP id 5a478bee46e88-36a4238996bmr6833677eec.16.1793380543162;
+        Fri, 30 Oct 2026 10:15:43 -0700 (PDT)
+X-Received: by 2002:a05:7300:a188:b0:35f:4780:518e with SMTP id 5a478bee46e88-36a4238996bmr6833632eec.16.1793380542666;
+        Fri, 30 Oct 2026 10:15:42 -0700 (PDT)
+Received: from [10.50.42.16] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm8607711eec.18.2026.10.30.10.15.33
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 10:11:09 -0700 (PDT)
-Message-ID: <d1436c92-b7a9-4220-a69a-1ec72eb9f5bf@broadcom.com>
-Date: Fri, 30 Oct 2026 10:11:06 -0700
+        Fri, 30 Oct 2026 10:15:42 -0700 (PDT)
+Message-ID: <ba4afee7-5c3b-43fe-9703-9cd42e0fadca@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 22:45:31 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,82 +117,105 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] Support for BCM5301X AXI trace PMUs
-To: Will Deacon <will@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Besar Wicaksono <bwicaksono@nvidia.com>,
- Ilkka Koskinen <ilkka@os.amperecomputing.com>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- "open list:ARM PMU PROFILING AND DEBUGGING"
- <linux-perf-users@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>
-References: <20261027175124.3518239-1-florian.fainelli@broadcom.com>
- <auSHoj46Os6gSEUH@willie-the-truck>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <auSHoj46Os6gSEUH@willie-the-truck>
+Subject: Re: [PATCH v4 1/6] arm_mpam: Fix the RIS index range check in
+ mpam_ris_create_locked
+To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Ben Horgan <ben.horgan@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Catalin Marinas
+ <catalin.marinas@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Andre Przywara <andre.przywara@arm.com>,
+        Drew Fustini
+ <fustini@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,
+        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        ganapatrao.kulkarni@oss.qualcomm.com,
+        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+ <20261028-mpam-resctrl-dt-knp-support-v4-1-bdda1e445cba@oss.qualcomm.com>
+Content-Language: en-US
+From: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-1-bdda1e445cba@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-Authority-Analysis: v=2.4 cv=KsrYSmWN c=1 sm=1 tr=0 ts=6ae4d0c0 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=-Elna7LzL5zmvItKdG0A:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: YMuTPHbDmhvErr7OnJHZnXLlRFf-jnmq
+X-Proofpoint-GUID: YMuTPHbDmhvErr7OnJHZnXLlRFf-jnmq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfX6eHEJ8j8jJWs
+ sC2B4zKwbzkbEBeWp/hBugJDFFBldAJDhRhe6+xte/Cc3ohVu8bBGHuyHfGvtEY+Eo9xUSjY1Qn
+ yzFxpIL6tYyFJ/QYjDTD50lqaaaWzOsLIqwW/CB1BiKjpbakrxNNo51+fSSH69ofEO+sEnBn7cu
+ d6iAMBqQGXrim094Iw2nI6cI6NqVYXbGgp5OZMtUxExUHTHuzFTgcNAw9SYqoVwtmVeImYlzNkY
+ E/raBnRPXzksPbidZW7PxFqZF1bNp2wyhQj3v+/GY2Z3LLFBRm5nPctnCLoro7DC5yRvretLiDM
+ aftibhfuRcgNFSy+7BX6LHIJZHi+HLO69ZQXuwdk94m5KpQX3fknjEsDfnpH4tOO/xvtH324Jnv
+ eygoXKWE67aWb01gd74RhRlJEPSy2G6saQ8Nj+6l1Ib+lC4EmbYxIBeJecvIoFC9EhXUERs1C7z
+ HzYP9jKDWc74qvm3ayw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfX8XI52wpTq3hY
+ 2oCAsw4vF20yLcLyJZmYozTIJeQWAonXt9K18X7JnnTBK9BvdLok3We7ZQPqoHNB5xhJ2E2zEsz
+ OWRhfFUefSCh9bhMsF+fmzLiBonfjUg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1011 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300068
 
-Hi Will,
+Hi Yin,
 
-On 10/30/26 05:03, Will Deacon wrote:
-> Hi Florian,
-> 
-> On Tue, Oct 27, 2026 at 10:51:21AM -0700, Florian Fainelli wrote:
->> This patch series adds support for the BCM5301x PMUs which are AXI trace
->> engines present in the chip.
-> 
-> Do these replace/interact/support the series from Ian at:
-> 
-> https://lore.kernel.org/r/20261002175738.3242646-1-irogers@google.com
-> 
-> ?
 
-This is a different piece of hardware, I was initially hoping we could 
-cover it using Ian's PMU driver for 2835/2711/2712 but it's really much 
-simpler and different on the BCM5301X SoCs. Thanks for checking though.
--- 
-Florian
+Reviewed by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+
+
+On 10/28/2026 5:15 PM, Yin Li wrote:
+> The RIS selector field is defined as MPAMCFG_PART_SEL_RIS (bits 27:24),
+> which is 4 bits wide and gives valid indices 0..15. MPAM_MSC_MAX_NUM_RIS
+> is defined as 16, so the check should use >= to reject index 16 and
+> above. The previous > check incorrectly accepted index 16 as valid.
+> 
+> Fixes: 01fb4b822472 ("arm_mpam: Add the class and component structures for firmware described ris")
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+> ---
+>   drivers/resctrl/mpam_devices.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 48adc49b833c..347a5a6d6a1d 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -700,7 +700,7 @@ static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
+>   
+>   	lockdep_assert_held(&mpam_list_lock);
+>   
+> -	if (ris_idx > MPAM_MSC_MAX_NUM_RIS)
+> +	if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
+>   		return -EINVAL;
+>   
+>   	if (test_and_set_bit(ris_idx, &msc->ris_idxs))
+> 
+Best Regards,
+Srivathsa
+
