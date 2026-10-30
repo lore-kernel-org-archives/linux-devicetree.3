@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.118
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793361121;
-	b=d2CT23c33Ewbrrj2gNC6S0G7pxPaAXsJ8zKeIqtE0UFf16xg49h4MdPCRcaydRBp/EXR
-	 vaddd6jgIdpzFLqqUNrviTMfi8o5kvoMjgajNVZXd+ukp9uS7Ribe1t/vm0QHYMyqNjWK
-	 y4Oed6M5jgNMRas8+ysgkT6Dcj6H29i1lbUH9PO08AiL1zCa3KkDTAaoPRBKX/jmkSVwW
-	 8+6mDyhBSKo4rzOuICEmHBTbwxukWBLImKGf48nSBHLR09dDH/EsyZMFCZc6NSVGdabru
-	 Dl5Dat1nAtxaxVAPnBowr+SWOQTfOjSC34XCVZhAReCBvqslOX0wkGe83gQXCPCTO0A==
+	t=1793361170;
+	b=bfCKCIpfu0pHsMNXaqcoeQQUieaGLii2ZeONDZ0BPF/iRc4e5mUDD8MgzTnvOz/Msj7O
+	 pfPBq11MzePd6fTMrJOM2qNChkiT3Gs8AgGzIgp0re+WnPJz0NXIy6dZNH+eGQgH5FvHp
+	 uhijWMEUhf8DciZpW9PZkdh29X5MC6PnQKCGz0umvrYjv3ANxIabhUKe9UUhRsxwe7Ai6
+	 YSo2l7KujLv0hjrXeD2tPjdtqRcs9Pz1oy2F0MLq0GFZP1Sz1AWACYrUIScNbPa7JNYqg
+	 IpZ1LYjvQUZV8a4jUQ0iVYHxnO8MK8LzoTDEWcwW4Pu7Wcp6EehdvDLFO1kCJf2aHhQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361121;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
-	b=nzDvE3kjTGomgGLNj+b50xVY7iyLbyJvQD0QjdqWIyTE7QH68EhKyik+SxYaPqyPXnY0
-	 asyHF9uSF8FBopKIYowAmGEAT5+mMfhFtJiiPLQcSvWorXg5WGZ0dU2YGhrzyKniquPaH
-	 S09pTVXriO8TPjGd5in6K3wqXg5qSQ7iUjsqib9eYfwelbaN4XP/r7xK4n100Drhh8+xf
-	 ztY3gOmKRywbbW0rirQKfguizxZYwghQG4w3v9YuQSt/j8Bmu1Exp4QzEMN4GIl2WNcIh
-	 GPjIlBUlzn7+L9IEHS+68nZr9p34BBMiWNmtpwLGkLUpfz4qbVKkts5EKd3VLzbNqQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361170;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
+	b=a1rJOceSOPBtfb4K7hZ+NVM14N30MiawYMc2CRoNZFEcxa/nHHgeAXkuD0bbC2vO/pTD
+	 QjMDstkgg0M2DkGHaTFye5MGBkT1dCssv4HX1vPtxdTdXfIVGmV65wcpzdwpkRWDWS1Yr
+	 C+enYRGulROb5rrMys7Wbj63gAesdOiXhSvVopW5Sq+oOtYotZapNsC6DQZ9PAj1mpTo9
+	 mgThlFbBFbaqTrK42rF8V1//WQsCAJKtbjQm/scbhjrkg1HOKR6s+RigNMBbVGPtoWGVW
+	 KuYzkQTm+PEqMifgZ9jWkOnExetMkMUACUO1qto9LrmDztVOwURfdBkSZ7qspH581Cw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pKP4IGB8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.118
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022118.outbound.protection.outlook.com [52.101.126.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ikS8efMe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D0606A321;
-	Fri, 30 Oct 2026 11:52:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C9D0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23509606A324
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 11:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23509606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=pKP4IGB8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tqOLAhsfjnK+dKl5XJqkHEjd92xcfbtlI4lF9GnangWN40O6bEySPdIFrqRkCM5RwKVwMMXBSp/ozFrKry6Y9NzWkJzg3Y0HM5Q9mzi8JWTCLA6QEG3t9E3dqF6da8lETY39CioDo60iK5G+LGsdlneryfacZiHo8pElxaOCiVObvi+ekloMwP/S7y2f/Hj1MlGZB0uzhXf8KuYm9h/OARzjLb1B7pdJ7uNbhAHiNFwNbpXmNB2oskk6jpuCEjAH5oIDpSwIX1xkdSH2LzXLXO8Ng+ZHhv/5uEpoHOJhInwtznqPi0PIFXuojl1+6Os6qAiNB0yQ74pEOv/De9cdhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
- b=IDTy+WJHeLy72Xm5i0mBJOvKciZsZYxLQe7m9ZhToakuH0A1nxnCckyeoCFrqdCQA+NtlIuhsfo8lZ0RTY/CffgMJOfpKrzgxfF7mAM4IzaT6t9iothC+cdNB6H6EVjIVe5uHpovt2qcCEvPTWptDsV9AqzA+pusm0gwZD2pR0SLw7Fg1R1Z1OniahrFktNPqJY+BZ447oS7rT5owyCvFiPmJxJcZ4T/Hw450mL44zK/wmy2uYgh3Ek547dqAncXGa8VgGPsZNF8Yf9P5KIcYsVMMsU17QAcXywXU6UQE2GLBftrqr42HCk5v5iHOrJ0Zo+wUL8eny1qCstaAmWVPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q8rIqYblFeV99dG9PhVoW2Snw3SxhMyVdgIeh/eqj20=;
- b=pKP4IGB8VcbNu0TaQqg2NQ53RXdMiyYxkrTRmwRvPYJ+9e7bOc/LFUhd2fTpj2eLOvALUmwh+c8nTvdN91VfLjYGUonczAQKEtuCt3T+isjEJB7vyE18Rgqqd13Ql0NmGGjjNIe+u6mu5UHrqHJy/1m5pjBQNHLLJJKOqenRVdQbbqdNEaCUj8KcpFxVnd0hw6FlNTJkJtS7zx1/ehDjcSO+tPG95kkHtMmcKsWHRg7pms1o/tzozAjUuL+KSRrw1ecLQSZH+BJFx6KrIzPafi3uAY1Iy9+VhJsAf7Ohs58XbiLyy3zM+UrvBLOTnQTcNdk7BGLkjA6Ksh5BgmYJjQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SI3PR03MB10031.apcprd03.prod.outlook.com (2603:1096:4:2a5::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 11:51:58 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 11:51:58 +0000
-Message-ID: <d9086d80-229d-45bc-8681-24b9d98b4aa4@amlogic.com>
-Date: Fri, 30 Oct 2026 19:51:56 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 4/6] decoder: Add V4L2 stateless H.264 decoder driver
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
- <20261022-b4-s4-vdec-upstream-v12-4-616240978792@amlogic.com>
- <e7b3c2b2-8d0e-46cc-b245-a22f6aa7e69f@kernel.org>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <e7b3c2b2-8d0e-46cc-b245-a22f6aa7e69f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI3PR01CA0012.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::11) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ikS8efMe
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so358342a91.1
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:52:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793361168; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ozyTMToY86+1Bk+ndOHlxYO4uSPsXo3NfIi8K16jrKpPRb17kXd0wv2kRW2LE9cRic
+         Phmh63oMbENtvrY5/D3hayj8iEo4/+m/m5cEIcwurv6KKHzTuEu/HGU56NXKrkdvJhT3
+         ODAEZE+WXnvndleaXSmWRsIG+su0X6XznHYLlhPzAzQQErx2H0ytYvMGQoAahFszoaHD
+         Gea4QmXfc6IXeT/TMHklNeQmG7ccMK3LtBwo2SLhWH01h+4iLwmgOjizXYmy/3SebBLi
+         /f0/RuZLhVDsz3rfvNOInIlbQcm9fVV4l2htuyZ3vSeo1WHgGiNltNwSrMvP8f1pMn5M
+         wEXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
+        fh=bSQ96oqFEdSGEQ9Ohx0hS9nUlynFs6Ce3UphswbkFOQ=;
+        b=dB2Uvfej1/hW3vfqhdVyh6dKThyXIf1DF6YL96SwuJoAoVL7Zg+zL/qs0yMFcvsZty
+         sCAtsRyZRexQUU+BqF/8MkLb3jRXpo1litpkOZUkTNFJB5Av7qqdHM5yM8utN82vDVGk
+         QGf0SQ9/fdp/1k0RM08gcPkn5Xnrkt2vcZ7lrVcU1bLidWTfvrlICx6JLCBVEfgEBeGv
+         McAq3Pee+KjYsZKUARhW5OB33IitZb8CPnFbb4HzdsJGmzZyWA2B58MtUY6VLlNfxK+1
+         wEquC4E6wUSKCUI67+8n6B0LU/n93f7yjp2iFeNaBi4QWwXnG+AXcuTlUwjrZkCeMBXA
+         4SBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793361168; x=1793965968; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
+        b=ikS8efMesq4B/ME3qWtqEYqBkQSvUsXOHLf77ypjvSGZYuR/7NhhdoZP0VUSKtkQSq
+         IYzshig68b62WTRkl+m/DapkK4kUNB77GbJYl7Y1xQrgPOE1vCWa/m+EtqKlcX+axzLN
+         xsPlFRSWkvDi/Ia4J9eZ6ByBGc7UgIlSbhu2glWOJk3SFpmeS4/8YAQmUyNuEoIZqqa4
+         xuMKUMCUseLRrcyITmBHdStMNw3qMkQaqJL4adJfcmpvit2IBNgoBv0ZG7TVIfEoHyo5
+         ff+P/lQUT9xMWCSYuOZx6owYgW34Ae5rIhmEo9TNvkcNSiOOEDJnlAsGCskSepkdpMEs
+         p+wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793361168; x=1793965968;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/PX9RtW2X0oN+uy2podVJ42Ja19q2gn1FASRjTAuuRE=;
+        b=oYKgitrsGWgrWvIlC726OzRRjy5B59j7W3QRHN0ggkOZxPPQX68WnSOVoGCZSP1cWL
+         loQeDquheZrdh2KjEI6ClfDA7f2EdBn2Spqs4ruhUtdD6kdrjuf55N+1/zIpkTG/CZbP
+         YNKrGXh3UVMeDCB+gTFxWm9HpHeGMwz2eOgy12PAC4smJVWyve6lHRLMUeAk5dcjRQ8F
+         01Bm4fPULBiFwjmPjwPO1NSBUC2s4qL3jWovt9QqnvmgBLNvQ2aO0XQQZMxDxaOI1y0Q
+         /x+86tyR+wq+kdqg1AWgbBG6lirJclbTjP6UqiHg03HH8dp3T0qxo5NQfoyPWhqgk1KN
+         e6Hg==
+X-Forwarded-Encrypted: i=1; AKwUvByELVBYP8QDshwVjupS3tCMP751nuBXL98Q3om3UTmDZ68y3XVqctkLjTOekasmFtYz0KVEfdD6DXtD@vger.kernel.org
+X-Gm-Message-State: AFq9FYLySjDMqO/0NDaIq1KKXNxk4BpfuQOgJc0E+OZSi+L/wGASOgjf
+	byquD6ZZtO9wh3BjkfJF74NpY7Ns5n/GFCzO8bhlFwAXaIAyNGWuko5vVYOTCV9ra/h6tM9QgYg
+	3Q0durH3pTEudYOQrLyxfXmhcmEiP2vR4DDdia7t6SQ==
+X-Gm-Gg: AYBFou1qt3zWNi516U3NefHWzMD7VzJwkhG01oOaBV3e2dKJzIjQV7fbuzHLOBDQVpH
+	+9qvNTNmJ2YQpZA6aooMPOLVHPmYGwJN+DJ3RGnKhhjRLTOrEbXIAAdHnlITrs5k8w+5yqAZB16
+	0Dj6jKsajBGq3TNiKA7XLcE1kAyrjR4WnOFY6e1lTQ26b6TIGpuyf+yAVT5Uebh8SNh1OBjI8Cv
+	Pl673VbhBA046tVD5la6l5IAqdU7jcbi61GPLo2zprKSjIcPkJdyH4q+bnOCSE+h1cqEJzP1/FD
+	NVGqCBeRrmCnsGCt8xklZcFyHotXIdZmJcnNhA8bLvYdsD2oR7oMS3HLy6oIdy7t6mk4Wrke/bs
+	NlLhv4icbWXSILIn2BSHkWo8A0yN3gM6YpCCA
+X-Received: by 2002:a17:90b:2f0f:b0:3a0:e568:ed63 with SMTP id
+ 98e67ed59e1d1-3ae896d7af2mr1070361a91.8.1793361168540; Fri, 30 Oct 2026
+ 04:52:48 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,93 +103,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SI3PR03MB10031:EE_
-X-MS-Office365-Filtering-Correlation-Id: b23517d5-9619-415d-48da-08df367c3382
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|11063799006|4143699003|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	fDia0P+k2YUOiMQDqr2ao4pzQVuqf7669OAATfZqwvRN5U7rKoipsJm8s8QUB+0GFnRcoNmHgAGldXrwIayeIFRVsnQQk1SjC0ywIDDjLqNBZ9MTa0odLjoHdGpdiJ1e/v9gttJSms59qfokMp7XNYmRv/RlEmV8bHgQSTIg7GyyI9jJ/h7b2gB8wibiRp9zdKu4d5WF0fNNGd9pJfGT+ST7NJlY7Q31/4kOOPIRE4XH+hcQmsiD6uI3ePf/S1cmc+znDXW0ZgdlslSjBziWT2g/mVvmx1wDQ1DSAwwvAfIZyq2Rh41R4Jy4G2XYQ7piYstGYyKYUFOIUuBMCo0tfnpapWs+DqNq7ys41sZt7I2O01Nv6bKUDQIWBi8nv+Xzr8f9W61OCuRetBHKr51ONZt4HycB3wGcHV3mtdMoQaBMn0NkqZnMl1yz5LGXhh085ZLlUZ0Ki3NgbCpu4dDMD3LMG4L3i87yPzb97edRxX3KM3n8DItX8H2ePUV29clHoDgsOE1YdAoXXvuI2iZR4tX/+EcZ2scSmW0OkpD97v5i9I+ZMFvxQyQCXYERZX1QfzXmJX68j+aKQMTd7XRJAT4PdXo538R8+wLJu2P03KWtunpJmFIVxwy/3G0Vcl05QVewUxRSKRKwRf85KUcl0RlwGh+dIBpb6rQcaqMffbw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MENoRXBNNkphZTFlZlA3VmRNbkVBOHhSamIyb1U1eWZqYUZ3ZGoxYzdKSE5p?=
- =?utf-8?B?a3JxWExhTzFhL0xvTmV5cHpvZkErSXFKWnhyL3RWOTg0bmgwTHJ6aEJ1MFpN?=
- =?utf-8?B?bjltM2I1Z3p3emhxdGNLT3BWZXMrY20vVHNaYzE1RzdWM2F2TmFQeXhIcnRJ?=
- =?utf-8?B?d0VsanRuZzRVTXZLOUp4L1VNM3lwd09PY0poTVR6UlRDY2MzR3N2b0FJVWw4?=
- =?utf-8?B?N25IQ2lhUm9JMU9qSHNwdHdhSFVnZ016YXg1M3d0QXVNaGtXL3hGRFhMT2FF?=
- =?utf-8?B?eThta2JhLy9RQ2dzVUJZZGdoNjFPNG5LeUZ3bS9Bcng4N2R6V0ZBZ3B0T01K?=
- =?utf-8?B?V2RnUTF4WXBXL1RmT0lrVnpUNEplU3F1MGIrVnBWVE1NN1ZnYlovUjVQMExB?=
- =?utf-8?B?UGp2R28zR3RsMnI1NUFEWGNRVVhpNTY5ZWlmOCttTU5jTUpVSFVKMHNDSjdi?=
- =?utf-8?B?eGEvQlNxVWEySS9KazhZYnV4L2lSU044aDlDbEIyUmFiN2xzUzJJVzhkU0Fh?=
- =?utf-8?B?Y3FGWC9yQk4zS21JVEgyNWJ1bEwrbWJuYUFHcHRTQ1FmcWZLQUZpRGxQRTNS?=
- =?utf-8?B?RmloeGJ0TjZValI5b2hZTUFoc3ZPM0FkeWwweXBUbTM4T2hDamkvaDFyREEy?=
- =?utf-8?B?YnA1Z3BmWXJicGRrMVpwRlpCVVNnaThEMW92cUN1aXkxK3daQVFMUHZWN0I4?=
- =?utf-8?B?UW9WT1JMK2F6dWxhcXVmandUMHlqVzNncG92UUtmZ1I4ai8raVE4QW5HK2or?=
- =?utf-8?B?cFNRQlZWNFBPOG1HMFNJbWdjSWJuNHRQMVUzc2Q1QWVHeENYdjZMR0xrakh4?=
- =?utf-8?B?SU9yMFM0U211ZEM1R1MxUE5IdjIyalppcU9tNVFpVTJXb005OXFRU21YTGNO?=
- =?utf-8?B?cGdBeVQ1TGxtQ0I1SHlPNi85NWhmVnVFaXpLM1FIRHZiZm5JRHg4V2k0OTJr?=
- =?utf-8?B?MzRUQytJbW03RkZIUU5aQmFKYS9JMyswdFY5dGt1Y1V2RzgwWTlMZWUxTFd6?=
- =?utf-8?B?VmRGUGZ1SzYxUjIwY21wVVNsVTRwUUNObHBVRXRiZHhKd3FBakdMUUcxcGtU?=
- =?utf-8?B?Qng0cWplczkyVENaOEZIZDRsZ1gyLy8ydGVqZEpqWHhyd3ZoZzVFYUhETWJm?=
- =?utf-8?B?d0tFS1B2bU5OUkZpdkNNTklUd2dpYzlBTDRnaGtFU1gwNFBPWjVETllWaEw4?=
- =?utf-8?B?bmdkaWlsdGhMSXJSQnExY1NEdW55MlB6ejd4dlp5VnkwR25UWUdhQ0IvajMw?=
- =?utf-8?B?aEdXQlY5L1l4YjFVdWJBc3Z3Sk11SW1EVWxLV1d0V3I0WERCUkFlc0JkaTJI?=
- =?utf-8?B?QXNUWlcwYkJaMlQwMURwRldpSmx3VEIzUmNFK2lOUVlqcHhXWTlRWVhKQlFx?=
- =?utf-8?B?R3hHOTh2K2xPaFJzMDBud1d4N2hveThRYVlLS0F3TmRvSHZMNnRKZ1Ivb0h0?=
- =?utf-8?B?eTZYbHAyektpcm9oNGRkNTljMlIyRUErQ2lmK1pXNEZNSk42NlY3cmkwNUlY?=
- =?utf-8?B?UzY1ZXJIUkJOdGJNUG9mRlNKb201cmVxTWh4UjRkU2FCZ1hhd1d2OTBMcU1D?=
- =?utf-8?B?YnlvNW5xZ1Y1ZUhRQS91TW16b2kvQXlBRjFxWkR1S3FTeVc3cjNLUnozVkpT?=
- =?utf-8?B?M2pFVnN2N1RqQWRaSWh3bjZyRlhGc3pkZmNDTVVkNVBpdFFIalg3MjQ3dFE5?=
- =?utf-8?B?Y0lzajI3ejB4a0Y1YzFwNzcvWTY2RzAvNjRDRWl5bXgzRElyeHJJR2dHS3Zn?=
- =?utf-8?B?SmhCS04yY2I2MXlJWkNtTURKWUp2UWVId3p1Q2M4OG5qWDYyNkFBZ3FvVysy?=
- =?utf-8?B?QjlpcWg3cUpCMmFycUw3QkUwZXF0NlB6enlLQ1ovMXA0V2liVlVuMUcyNDRX?=
- =?utf-8?B?SEw3dCtrSEVoRTFjNzMzdDVXR1hiblFaNjBmalRoU01ZS0wwQXZrUWVDUmI3?=
- =?utf-8?B?b3h4VmVuZkIxc0hXaXZkd1lTUjVqeGZtelUrSzhhT0N3TFRxaVBXSWpXdTRZ?=
- =?utf-8?B?UHdoQU55SFQvOXJ0UkJxbjdQbStteFpyQmtjelAwQm1BVCtWS2FMVUtuYkV5?=
- =?utf-8?B?MFJmK1BBd21JZFhHMSsxdEJMMDJWVlpYYUFvZTVjY21Xc0FnYXprdnRDcWtR?=
- =?utf-8?B?cE9acnFFMGIzNTkrdWhrS2FyWCs3UFMwR0RadTJ0NTE2VVN0cklWaHdscEYv?=
- =?utf-8?B?b0pSdkVGRDA1VmRjTDdpSjlvdEE3UitURm5Qd2hlb2Z6Mk5YK3JyTkZwcFIw?=
- =?utf-8?B?Z0tYQjFVZ3VYMmwxNVRBbE5tZE5CQ0Q2bFBYT2VEZmR0a01KWG45R0dGbG9r?=
- =?utf-8?B?QlJVZFZnaXJLa2EwdzdYK1ZCdHhWY3ZCcXJ1b2hoL1lVVm5lcFFydz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b23517d5-9619-415d-48da-08df367c3382
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:51:57.9313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3t0cNg67Qyztk1sPMOLNGK/pdhrMs/UbWj0jKbqHrnYa6z4+RJkH+xXB0IKKFC00XaHka9UGKEicqegCGDuPRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR03MB10031
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 30 Oct 2026 11:52:35 +0000
+X-Gm-Features: AclHuK-idMrAXuG27Lf8hdgtB5yVIMARZUjc-ne4rm8j_v5CZmkmZ5d54vPJbms
+Message-ID: <CAPj87rOMjFEjOQ9TVgbGWu3gTwVjmjuFNtnFiyxbWO+g_RPqeA@mail.gmail.com>
+Subject: Re: [PATCH v5 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
+ output format
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+Hi,
 
-> On 22/10/2026 07:27, Zhentao Guo via B4 Relay wrote:
->> From: Zhentao Guo <zhentao.guo@amlogic.com>
->>
->> Add initial support for V4L2 stateless video decoder
->> driver on Amlogic S4(S805X2) platform. In phase 1,
->> it supports 8bit H.264 bitstreams decoding. Currently
->> only progressive streams are supported.
-> Please wrap commit message according to Linux coding style / submission
-> process (neither too early nor over the limit):
-> https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+On Tue, 13 Oct 2026 at 23:52, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> @@ -229,7 +230,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+>         }
 >
-> You already received this comment, no?
-Thanks for pointing out again, I'll check carefully here as well as in 
-other places.
->> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> Anyway, several issues were reported here in separate threading.
->
-> Best regards,
-> Krzysztof
+>         phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+> -       phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
+> +       /*
+> +        * YUV422 always transmits two 12-bit components per clock cycle,
+> +        * regardless of the color depth, which from a rate perspective is
+> +        * equivalent to three 8-bit RGB components.  Force 8 bpc here to
+> +        * keep the PHY PLL output aligned with the TMDS character rate.
+> +        */
+> +       phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
+> +                               8 : conn_state->hdmi.output_bpc);
 
-Best regards,
+Same question as for the VOP2: why only special-case YUV422 when
+YUV420 also needs special treatment? And presumably in a way which
+can't just be mashed into bpc, because the maths doesn't work. So
+would this be better off being handled as a separate output-mode
+adjustment?
 
-Zhentao
-
+Cheers,
+Daniel
