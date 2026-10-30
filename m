@@ -1,97 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793352865;
-	b=jHjkzGgSSkST7BHgc3nuwCO62Uj+1Z1THjEgzCN/jrrMYPhVHdwGu/LsjjzWjJCoVGLL
-	 kCRyayoALkIJajO8RK1E7m3nz2/RXhbX8iOctOkGkuXa/KnEjf+9I7+O82UUsYEudXUJc
-	 k05BfgTt22nhqK2QzhC7RIX/6pXqVKTZCU4ZuC5uM/9jnUAM/Oy+4lGl3CMoZgxeKFxc8
-	 TMkY8dj8DYU1xc4tXg0R+Jn0OOLhLj6CIgOo0aVsRrhJXTvHij/llbKDGptbyt20YV4ZL
-	 6IJSr9cQ9NpaiqaUZYooI3noLK77Z1m7WS5GMC9VQoCXMylrKiOwQ9qtB+ZdjCCO6og==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352865;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
-	b=VotK7TqGICXsy+hMkKp9CdCgGy462C5LNOCuJjkuwEj+L8LwrQj0PjTna6Qy2UQsdbPM
-	 RLoq2XjzwXhMwPTD6DHsohyTLhR9pniVk4a4nVK34F/dU5dgTbRUrWJ41w90eb45rwIiF
-	 BNP2slhyaso2YFG49poXXtdzw1PoRSfbAwuhWUllPZc2+ht+vBqE1gLGEJsFZ5eyKoLNM
-	 c+MpAmbiDEnzMnSYsNR9uyL+HRzabTmiMz4w9jv96t4KlTcNMFMc5wq2m9ZQg62WaX77s
-	 Y1bJaB1jkAGUlQkXeWqkf1bq3eMIlHPp57RvmlrA6P+cuzAIl902QeQ1vWGkWTTOp0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PwjGgKbN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793353157;
+	b=Dx+JctPRK54JY0AnogA4+2T5h92SvL4woGFYhga1J2ni+ebjuWkQChORsA1BmqQSf4fl
+	 km5pBet9Ias3hDnKT9ewyLhOBet6xSAx7xRLPC7YnTzqnmYGA8PJ0mqxsxw5bng3VLnnW
+	 zecz7rLsQdefJ1b1b8yaeqYmz9InZaTf0eu5KEQm8FCW6GAAohgM6xKWSJd5kpxMkQXun
+	 vkKG1Z1HFzSNdCpNo+AQW6Ssl6QffvbgaICm2xBhprBKLGRNYbvRNH9DKJKqSfNDFvMVX
+	 NEdkyH/KkgJlp0ULL1bDXDeX6jZyI9yF/fthNLN1hiuyohxhn/LbiDHjyh9RqNtD89w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353157;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
+	b=RXJdcW/KGjJADF/wYE2EGF665wtpfpzgPdoQf9W7g1fgnC0/ia8ximV2GiWx+ltvcSla
+	 +cEFOAmp2hFkdU3ag9Lbcgl45Qzd6uZfnrTITGeBsZRUDrna1qm9fnXxL9eDM9c8YqNex
+	 4Du00aNvJwOiw+0LoFSDoPdCXaPsE76nfgXZhcd54H6YimFoaDJJMasSW3L28JMOs+07k
+	 RpaGfg6cKwmoFs4Xea7jE1ejASuP/UKHuISdL0ut1Jy4vS++lJM7C6RTZx6smlTAGxGDG
+	 wT7f9UMtZ7TPAxKR7+YGrMqKOv37mMKh84EGA161/aQTtO4tZE/MKTYT73rXZGEmYoQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fKM6Hf+O;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmW2QZu+;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46540606A31C;
-	Fri, 30 Oct 2026 09:34:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46540606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94EC606A320
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:39:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A94EC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PwjGgKbN
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 587F5202043;
-	Fri, 30 Oct 2026 10:34:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793352855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
-	b=PwjGgKbNJllpARDZ2IJbT3+vuUrcwZbUPPf4QEn6LLmbuLz+vj/6RaOT8REhBFwt08RuN+
-	H5JLDjlEQ/GedyaMgiAKheVPgkCrgpD233H1PY5yj975YXBwY83uEYjC78mzP8y95sO/RT
-	3a/hA6TzCTjXjlwTAnhiNUogV4I3HfQDXCSut4oL0fT/xrsG41evNzwK/yZR/96eOkWTPH
-	w9QIHxy6OTDFRVIqX8VnnCjK3sSe7x8I+F4JEYO5Qr2nIm/fvt6BlaevNgyaD+a1NivaXa
-	E9GCPnE/DNsU6jEahLrKtjoCtmz5Ic1Q7Zp5OpXrXrSmBvCqBHAcZV9iikGugw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793352855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
-	b=KoV7Vy9Aj7idkM6KLiaBaEJ9qzSzpgUR0Tk7u0Bmam5ubd9Vdm5kWjBaM8P88ZeQX9MCsd
-	+azqZ3o2/cI7ElOHqo8xw2XvAUfax3tBo8qrzxnPsm1sTQhYQIPa6siAoXckyLhIr6P0kV
-	1UXggfDQmZ9b0ERetYYtbdukfojr/wlp1/S5r96p2YaWrPyVo68UEiPOAjvZH/RKfBU3Yi
-	LqRmjIyuXbDJITKTD3+REcK0JEPhO9BSW6Zy2dqfB+QCl1XpS6PSUInQAZt6HBDB1Rv722
-	upeYHlBhricZUpWZmp5YZVKf21wAx9HTgYr7alA/nh1zDbYsj4jb5fB9aXO9OA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793352855; a=rsa-sha256;
-	cv=none;
-	b=IbwBeD24Ii1O3aW0mCnsGP4cs2D/bG+F3J1+8KFAxd2/rrdd84DvBGn3HZsqT5j1/IMF+D
-	XSvnOPBcZQyDLEJq/tbVtgIhKfSkX7ahAcv4+XdFhNilhcbuLoJDmbKEBIjhwFoSd1+FoV
-	B11zcgUWTP0LmoflLQ0xJnOl/i1wQ6GMVW5dR/FV56oNW1LSNuUl5aWQHgspGxqy8S0UNC
-	cI9vO7R6jutcC5wJgH1sLjJWECR5kmZrrPMYHJYydp927AtMejHjdK1AbAEtglXcegw4SI
-	PuVAgOvxPuo1Bqkt2vCKpgF5IiiWB1TrG7bJudbZajDol8Ltmwbwuje0vnSZDg==
-Message-ID: <0d097a5f7cf0e71245f8e87d5a0ea377af048d0f.camel@pengutronix.de>
-Subject: Re: [PATCH v4 6/6] usb: gadget: udc: crg: Add core driver and build
- integration
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Petar Stepanovic <pstepanovic@axiado.com>, Naveen Kumar Rajgiri Bassappa
-	 <rbnaveenkumar@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tzu-Hao Wei	 <twei@axiado.com>, Karthikeyan Mitran
- <kmitran@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Krutik Shah <krutikshah@axiado.com>
-Date: Fri, 30 Oct 2026 10:34:15 +0100
-In-Reply-To: <20261030-axiado-ax3000-usb-device-controller-v4-6-c5267b36a777@axiado.com>
-References: 
-	<20261030-axiado-ax3000-usb-device-controller-v4-0-c5267b36a777@axiado.com>
-	 <20261030-axiado-ax3000-usb-device-controller-v4-6-c5267b36a777@axiado.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fKM6Hf+O;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmW2QZu+
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FIDM2733198
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:39:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=wat7q1UYgkEGaTTWcudFAF
+	VB2otd83omGVIbYCT/JIc=; b=fKM6Hf+O6j/LL7fINVr8cE27HKhBmPwBZkM6MN
+	bAPoK/O5oGkwoWwmMNRSZJpfk0wlCptMMIkTooPDqcaO6iFqTMXfel4KZAdjBuHA
+	qqeR2voCdJN4i1zIJ28QdCI8m6k1/4Dach9cl9Y9BayIJtCgK2u6MHZQIQgwjstj
+	0yfKIxaVpGZEhZB0FvvKxx//yUU93H1yRU5OZ3+RJA3kB4lLG2P4qZq4inq2+wFv
+	9Q3XoLP3Jim0cnTqG22whZl+EB7KnjDsWa6taPjFExPkL4POFwUL4bhqhPQ39UEx
+	dSzazljrBUxwCrSMFx+/eM26NFTCsbsCM8DzaXtEf1fj01dA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj8ue-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:39:15 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb71b1443so89571885a.2
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 02:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793353155; x=1793957955; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
+        b=UmW2QZu+Tyl6X1wK5EhC0O4uWFl8CE32UoGXlszMEkMhIln7MDKviUtx3g8QamJlrG
+         qSC81a7dSEWNgCuOA2LYtjzMHcyJPhejo/6XZ3ug96Lubj+hIU5ghlQMNa3ea7aT8tby
+         j0Fn1picg+ZXmm5ZWXCfA6jic6mVXBdFR2X+EPFKXuPdZetDPAdTcKdMMOWgY0qMf6o+
+         85PB/m2peI7WwGum7jVHWqIUKYMFzh9ubvKFqJ0A9l73bPkA6uqhy6naxGFYp3cTqzUk
+         68HPiZJkcn0mLCqNA0oJWWKrfJDY+UGSn9flmFKkz4SiOZ+4pJRnrQtSQ/LrCjQ1sYYU
+         Vhpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793353155; x=1793957955;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=wat7q1UYgkEGaTTWcudFAFVB2otd83omGVIbYCT/JIc=;
+        b=F5kpWXKaE4baMPNRufNuhfb6HAME0LLO9EpS//+WeDY+cFZKllwmX8TGUMlXhviph7
+         Zf3yFte8ww3AXJ9xQmESmOpFFt6vbBCEG0pUZK1TzZpaqf/Eml32dbPS/Kb9VBLfnL5h
+         GjUPKCElaY3xCdekZJy8dQwD6/pTMUDXTvRFygbiRUNMpCYwoT1fcH263TvG0jQIBbuh
+         57UwrDKDHfam/x3igXRG4JlnbXy0htyqI5nb1Yr3s5QBuIIrG6MDv804blppHaeIYmiD
+         R+oEexq20huPACEIEaW8id8jJzcO2su9QizBQZ33j1UVsbHgtd/yvqK2vSDyiYB+rl7R
+         70lA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNjLbk6yEVVsIL3vLAeype6M05QMSOpfjbiuNeq7gfcOtY6e8fXmSioozMHh9GLEVig4qweKiuj15p@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc2SA+ekFOgOzcY4abpDjI/tZ/lyxNDZNRtNtknpXYFRhy0T5j
+	ZgaY6VG9FCaIVWWG1JP07a+HwsAFyPpv3gop7+tk2Ff9JNHmCjN8qP/SclJQokHA3WcTnrMZfjr
+	gOaEluhRmA6H0WoInVUtlOIjs6Gas5ysd3xxKmyB4TcbLfzspEW61IzpTR7Lxr3oa
+X-Gm-Gg: AYBFou3zAJmJjB3qdGxmwzurQur+FEZArznD0EKH7/2DMOTPz6ZXUvohrDNxIfloSgR
+	akyA9JZMka5R4XqB3L56xBgMwa1iS46Sq28UZTrLDQgLCKvN3jQgZsdQIY9YoojZ3w5+2Bxkloq
+	nhgS04aZluJ0bcs8n5QyEhMDLGVpgDu8c7ZY8rNFxY7X6p6HB1ZAGUSPk/mjD1nva21twmKS32j
+	2VyriqwhEYD0V/jTE1CYkzZ6Si3FQ1ZURNgnlJ+DM/LLhTndpLR9MGa9J8daHCwpm2pu0K/wWwH
+	QAcUQRjOHKirbig5zSlhJzBu0agHlP9yx8cBPClQtywOfMuChd46Ttjmk8f/QcxuUZeKzg6Fo3n
+	psqfO+GC/eEAAGpTaHGG4nPevF0InkT0Lf39+fpdY5asmWSgHJV6Nh3W8RorKgcgzPI4i98oWqj
+	6RuOLfpRK5I2sVqNLsCdp8HpxxwRIv7YozClEj8z/kmyhdkanGFlaafigvJ/f83rHC/j0vtvrTU
+	aAZzDxkNJm0txzjp+Vqr+yTe1eF
+X-Received: by 2002:a05:620a:6603:b0:93f:25c7:a4e1 with SMTP id af79cd13be357-94421744ef3mr263253285a.26.1793353154643;
+        Fri, 30 Oct 2026 02:39:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:6603:b0:93f:25c7:a4e1 with SMTP id af79cd13be357-94421744ef3mr263249785a.26.1793353154159;
+        Fri, 30 Oct 2026 02:39:14 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:9d77:8e43:b62f:d85d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d295csm126785025e9.7.2026.10.30.02.39.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 02:39:13 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 10:39:11 +0100
+Subject: [PATCH] media: qcom: camss: vfe: Clear active buffer pointers
+ after flushing
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,59 +115,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-camss-fix-v1-1-ecc170342d0d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAL5l5GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA2MD3eTE3OJi3bTMCl0TS3MjM0vz1DRLg1QloPqColSgMNis6NjaWgD
+ dsvDnWwAAAA==
+X-Change-ID: 20261030-camss-fix-4972697ef90e
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: __y0KbIt6t5W2EL2u3YXmg1PVOwMx5ty
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX+01KPzE8CngE
+ xgbEjPmCXCrGT88USx1it4HUNpShALc5QmqW5QdJMQFM7aaekDHsyyiIo2jtLPjLSioFzREVz3K
+ 5GiUBJyNWJUOwtRTQjeMS08ZcYkI7OM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX5157LhjoCygG
+ fREx9jRUlGtCJLrktGrWQDKlrfWxXEo9oSaZH/H/D/SQXeYRwDcYf5Ozv3TAR4IECbtmUSYif+D
+ dfu0yA/1sskjbsWjGbKucDQ6KbFpt06saBA9jNv/VHOZ0i/SO7fVy2yXEceSHo0Ojnn5IDHGu6W
+ OKhskLfnCcm9eJPM3CgNUPFzDBbBkJGCCjihiizsE2G5Y2isZZyWbuVKd0NcydQAkXfKs/nOWaN
+ qediekpnW5mbLedR7QCIT3DBvVGRXLUW4xXf8uBQX+fbB4ACnnsXYrA0Fe+h1tP1dKwDA326NTW
+ YPPl8Z0XhvHbD9RCKuidk7reutyhOv2eyGy+MYMx341l8nQtSNLxDzEAPeYmIqvgntbEgqJHtYR
+ pM7sTWgWCUjB7GsFV8z4NU/vEfieuFLGzwCjNLB188TgxMgbciNIq5dpLD6NLtgGHRYz0Blz0QZ
+ YPj0D1S27Y1COhMi7Fw==
+X-Proofpoint-ORIG-GUID: __y0KbIt6t5W2EL2u3YXmg1PVOwMx5ty
+X-Authority-Analysis: v=2.4 cv=TpVzFzXh c=1 sm=1 tr=0 ts=6ae465c3 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SZjMrJynLI06Tb3JO1YA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300038
 
-On Fr, 2026-10-30 at 01:10 -0700, Petar Stepanovic wrote:
-> This patch introduces the core probe/remove functions for the Axiado
-> AX3000/AX3005 UDC driver, and wires up the directory into the build
-> system via Kconfig and Makefile.
->=20
-> Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> Co-developed-by: Krutik Shah <krutikshah@axiado.com>
-> Signed-off-by: Krutik Shah <krutikshah@axiado.com>
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
->  drivers/usb/gadget/udc/Kconfig            |   2 +
->  drivers/usb/gadget/udc/Makefile           |   1 +
->  drivers/usb/gadget/udc/crg/Kconfig        |  16 +
->  drivers/usb/gadget/udc/crg/Makefile       |   9 +
->  drivers/usb/gadget/udc/crg/crg-udc-core.c | 723 ++++++++++++++++++++++++=
-++++++
->  5 files changed, 751 insertions(+)
->=20
-[...]
-> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-core.c b/drivers/usb/gadg=
-et/udc/crg/crg-udc-core.c
-> new file mode 100644
-> index 000000000000..33be5c920ebe
-> --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg/crg-udc-core.c
-> @@ -0,0 +1,723 @@
-[...]
-> +static int crg_udc_init_hw(struct crg_gadget_dev *crg_udc)
-> +{
-> +	struct device *dev =3D crg_udc->dev;
-> +	struct reset_control *rst;
-> +	int ret;
-> +
-> +	crg_udc->clk =3D devm_clk_get_optional(dev, NULL);
-> +	if (IS_ERR(crg_udc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(crg_udc->clk),
-> +				     "failed to get clock\n");
-> +
-> +	ret =3D clk_prepare_enable(crg_udc->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable clock\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, crg_udc_clk_disable, crg_udc->clk=
-);
-> +	if (ret)
-> +		return ret;
-> +
-> +	rst =3D
-> +		devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
+vfe_flush_buffers() returns all active buffers to vb2 but it leaves
+output->buf[0] and output->buf[1] pointing to the completed buffers
+despite the lost of ownership.
 
-This can be put on one line.
+This can lead to subsequent flush or completion paths operating on
+stale state and potentially completing the same buffer more than once.
 
-regards
-Philipp
+Clear the buffer pointers explicitly.
+
+Note: vfe_enable_output_v2 is supposed to overwrite those pointers with
+pending buffers when streaming is restarted, but nothing guarantees that
+enough pending buffers will be available to overwrite all entries.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-e617a776-3d96-47cb-8d60-a769340c25a7
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
+---
+ arch/arm64/boot/dts/qcom/monaco-pmics.dtsi    | 2 ++
+ drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+index 361f5163b6d91eef794d3bf86b374d4dcbc6d60f..1ed4de00b1a3e23e1ef0f1c412a2e29bf840c870 100644
+--- a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
++++ b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+@@ -58,6 +58,7 @@ pmm8620au_0_adc: adc@8000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			#io-channel-cells = <1>;
++			#thermal-sensor-cells = <1>;
+ 
+ 			channel@3 {
+ 				reg = <ADC5_GEN3_DIE_TEMP(0)>;
+@@ -112,6 +113,7 @@ pmm8650au_1_adc: adc@8000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			#io-channel-cells = <1>;
++			#thermal-sensor-cells = <1>;
+ 
+ 			channel@203 {
+ 				reg = <ADC5_GEN3_DIE_TEMP(2)>;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 2680a9914765fa2c8f3c2b38a5f4f0e0bcf4d873..8e297e2bcafcbf30b09fc2ad6e57f484a4e41898 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -1187,11 +1187,15 @@ int vfe_flush_buffers(struct camss_video *vid,
+ 
+ 	vfe_buf_flush_pending(output, state);
+ 
+-	if (output->buf[0])
++	if (output->buf[0]) {
+ 		vb2_buffer_done(&output->buf[0]->vb.vb2_buf, state);
++		output->buf[0] = NULL;
++	}
+ 
+-	if (output->buf[1])
++	if (output->buf[1]) {
+ 		vb2_buffer_done(&output->buf[1]->vb.vb2_buf, state);
++		output->buf[1] = NULL;
++	}
+ 
+ 	if (output->last_buffer) {
+ 		vb2_buffer_done(&output->last_buffer->vb.vb2_buf, state);
+
+---
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+change-id: 20261030-camss-fix-4972697ef90e
+
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
+
