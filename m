@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378155;
-	b=IOk/EzK78stDmGucFslcglX2wUFMXHv4IojSAqOQxUFLDFh3Yb3Aukv7t4tQl/bd18D6
-	 WK+/Um7CaWJ7TxohClTLBFsOwyZFlnIB4uDX2LEl8kveXyzJK9nFLq/HjlMcbuMMMG0hz
-	 ZLyns+cqgvhNzknW2yD4M/Z3dmPK2MoPP4uZ36GLV61DIiNgKwenRmwpqQ10flvwOwtpp
-	 fkMOHRyrt9Lg958oeHj6m4Ns2rBzvrG6s7oDa0ofene4VObh7r7az9jxUWhan4B+p2rPi
-	 Jb6CF2es2F1k6tL7VpgMm4s6SO1DYu4fQjGUGSrfEmZOvbI9jzlSnFTwvaXosFLGvBw==
+	t=1793378157;
+	b=5LfXTGGCGE+MIrcwCnN/HloIbC//3l+LHadLpDMOXaKAAnzyhm6SVV9yQhowJQWUtJDb
+	 cZGCRqwCTQ/o6symMSYU6Mtk6QYFjl5e5de4X6p8A1PfWE1vGhGlxgx9K23TwXMs2Fl5j
+	 FOO5t8gtS6Qeb6PBmcehLSgJQXnq5rwPRScsnzbhm4kugDDesTBsFj+fv3sl/iKZWW1fk
+	 YsGT8EiItkz+f3aeGUDPb04XX6C5owXX7/in0rRk4UtMJLfSx4aXZdJ+yFvnwA7ewnJ52
+	 9HPPfDwEGzpITasYpl/0KQ607OybuZlXUUz78J6p3wZo259mAdyBNaUl39vlHEw1LvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378155;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378157;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-	b=TQ8ly94Oj+WFs0zEy02qf4G+Hj9K04wkzNo9jAEJbqP7EdI4RdAltTUXOvtp4jChFckU
-	 6Uzachy5LT1i2VqyWr9A3s1hKo18Y87D4zAPdTX6vDDROSr+kM2WsR37ecSTt8VCpWG9x
-	 JMgFJsuRs+hKGRuNNBlxJ9tua7HpFEeRHEAQkGaTLfJnjuTu/1Buhnv+YPU02G2rO58Vi
-	 zra0D3Zd8sFrLG6KAfhcqScfsuTXW7O08KiU39/L6Yas+tK7S+bfUpJM78V75cmKW/kdk
-	 IX50UNquSANz0vAohqkCJ1y1WHjdTzbphw96aThs9JOXsM1iUqr5ShtgGYnjSWFvYIA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=23od8DmpvWDfo/E8vWkMFm8Mgr0j+i5aqW1qwqV93mE=;
+	b=pNcY4PlMf1b64i8jbtIQr+ddog3wEl5Ru7zVGvrt3beFt9akFS4+pzhfcPMLWTGVRD8J
+	 L+ymlVe1CT6r5g/M/DYwxrcI9d7xjKGKKvA4g76Zhx+NV5MR/DVH40chn0jezve/f9DWI
+	 N8Xjn+RBJeU/iDv8XWIfWg0BebtZIEJM8n/J+ERyzT4PV0HKwW3IIw+nud4isF/fFuvtf
+	 dycj6us9h8nJbRWIGeS6GiqXjt4PUMhidoZW7Rp5qvxzcH+y/vJ5ViOH7kAaae3x31wij
+	 g1N2gsK/PQ4eQrlZZBnoKHfnhN1b/fXgcdrV49YgalL15F0EO2Dv1LBn2kgx89CpLEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amarulasolutions.com;
 	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=CDaUhb0a;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416C2606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 416C2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D088606A337
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D088606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=hsRGFSSW
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso8438395e9.1
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:35:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=CDaUhb0a
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9754855e9.3
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:35:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793378153; x=1793982953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-        b=hsRGFSSWo8wApRPKJHaNm6BbRbpz7q6s9AOrNTZBhYQL1B6V9gWecyn4zjjveUMsf+
-         RV8gOsrxn6DwVt/VnKcI7rAFdHt9esplQ8tYcjO+5O5qMqQPgoutG3SQlf8bNn0LXRZD
-         hMERcILGw5DQDrRZdN+/d8NxuwzIQYvi6S1n4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378153; x=1793982953;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=amarulasolutions.com; s=google; t=1793378156; x=1793982956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C27CPAIU3rCWv1caX+bgOf8gRpTTIO2oZucMeDYt7Ag=;
-        b=fZCqTCRGyJTsGEFzbkhNv0znPsP8aHontj1MmTPyn0zgnPo9mrlI4Hw3jf+UlNBiNy
-         Hg6RdkLgoU1fpi5dhQRt0Lmps0CgFnVjwOs4hTQosrI3o+MgIADaTc8ppV+aXI7sfCTA
-         VNV9zYMEqZGd7k7Wxezk339SrQBt9dnFY36BlClAoxDVAY+Iu2zlL8DirVxovY/bTeoR
-         j4KNY93XwDy7cSP/qr9bbMbHCH0nG+3i3eQn/kZJGXgiaUvGvOoACei/f2T59TdnWThL
-         8/bTZW3Isyr1Jrw+cbPErnidKpciH/TZqOg03iN1ayFTNIWjR5AJrkonmRk1lOLb3FIs
-         EDUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpZxwjqO62m+REYs5odOCEmaerzfp24mSPkqJ7WQXU/x2X0/QQJvOv19P/RXG+z74RdRnYKMTiOoTb@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU8Ey1O2G+vk6LqwbFvg+5p7TmlerZWaR5SM6epOj4GVdvVlAd
-	MGG/G1KtHelCIWmrnabrAflZG1ZaTBSIx6f0p0cmV3cICwgN6dHDnrWlDbu3g2ykVNc=
-X-Gm-Gg: AYBFou2hvz2EaithURYwEVywY2k5R/JeD0gO3pz8Jq0attk00JGQS+hcLS9bmFrsvC8
-	tmfP2OaV9n5ruzOdDAmStn3WkHkmX1MFBizB1q0XqG6SSIQgBaZXTp8c58Ap1xfn18zKIVJ7Azd
-	TOece9rvusmPWZ2PlB6y0+E8rWjdIpLOoVtlkOxVLWPtM4u2iuhbVnOVe6NizbnhizgzqGyGiDy
-	rLjpF7yYfhpwOY/1FlF6b2hwEsCsi0e2L2XAPKDIFE09YjggzfWdcjVc22KwTtsqbuZfbAcIuLb
-	sVGISUNE53Aia1I7JKjo4/8sd4MsGiicTG8vKY058gBVs50TkD7zql/z5T+7nt2+2R4nEFM6IVU
-	SzjgTiewnh3ow4w7aDDWF/TBI/RCmz+xWk/+REkffCHxu68mWeeWpXoqAbAmzQSTOz4AaDBQUCg
-	j/H1B88YfDpDMvK1TZGqaZolq3Ehlhtwzr6E9rVpV22frCqZ8maw0gf6j4Tn60X/UcZKWJYHxaV
-	mOPVRYsb62MGV2/CX2rE+P6WdqvDuGwuh9PykIkcgIEWr53NHhg3HK/6v+7n4PCG5juyns2QGFW
-	StuJqqD3bEAJ8whBpbsrOJgvP/iXUFfwTJb+cG/co0J8xudM+lkS2PfAORFstUYJWXTCIdeEt21
-	LkOKr6sxA6evKAe+RqpbYrLhb1liQpUT+L/z3eLz+n3zgugZdBnj8xmg142NxED3CT8yArEDMOQ
-	hB2D6hB1uUB49C33gUoatbNXUq0Q==
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr66801575e9.4.1793378152471;
-        Fri, 30 Oct 2026 09:35:52 -0700 (PDT)
+        bh=23od8DmpvWDfo/E8vWkMFm8Mgr0j+i5aqW1qwqV93mE=;
+        b=CDaUhb0aVpcuWHeEzW1qpAUwJdY8fd9D4yceRkrhGNb8EXPzZ+0zPB9Cx0EpM0JVsB
+         vGxaN/k2ERRLlEoy9eGoF2/rjz+5uEBNFhMOuB8/q6ft66eyVpZhErpX23k2emAgxXfD
+         xgccTfaudwjEcLTq/tbVBJRtxgUuONqvjOnTc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793378156; x=1793982956;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=23od8DmpvWDfo/E8vWkMFm8Mgr0j+i5aqW1qwqV93mE=;
+        b=U7MjAeHwz1yWU0fr6Wbt38yrME1UZHoPQA2XrATz6X+iBWKElJ4WmC6kbN/qD17kEf
+         h7TxprtxLZ9OgEHRClu8OUsTsawJXErjXqMSZu6mr7Wr/PiiKR7RibP20utmb7NC0zdC
+         JWkIpFrc9/kqfgDqDxjIi1BJ6lMCbIBhs+Uu/4Nuq9VHgI/Ojm/Q8wphsU6Ok3LolB4R
+         MkMYBEzf/lkOku7eoUhlrqp7EcjaJpDJU5s4zY1ALTVt32Nt5aqCNqRIsXFu19gN4Czg
+         qjGByV9fgb2bI7aznjnH/0SsOu7dFHq5/YDdInTCG+mYEMMFsHuYldreSv78aENi7J6X
+         debw==
+X-Forwarded-Encrypted: i=1; AKwUvBzd0EB4vzl529rV+ccrBln/+UU29l5qpaGoKCRRdnHJFTxv2cineOkKK695I6LKhD4dQ+1Tl7FLRGJk@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw087+WJE2rzvyCvT+ne26F3BqYBUBk+es4wq6BOL74h7oA76P
+	qz+wh8X0AnDIMRMZqQpr3cU20WfRAI8yb7XOboLaHLc77iLmsCs9bz/cgBqlBTuJKBg=
+X-Gm-Gg: AYBFou3Y643ys/qarAhnmkUunn4aKzokG6/KUf5u8L/QegnHGovifAMYo8mYEdcZUh/
+	EBZZ9tQVpR/5TtzhX7T3uITywJKxpQ1J0bio4P6KHkPnr/sPkOs3I+zcZs7Cv4QYkpPfbUjfrh6
+	xWPQnj1H4gJRwG/SixhFheR3T1fQao4lCoKfXrjWnsF+HgESF7cPzBWiiHEGtz79Reg0w99MUo5
+	CvXmHR0ZZIgluC6xJX/9DLXnLhyfKbcFzFTga1mc8f0oIgnfpBvjKxaCd9TpuLBTwRR/sgOPoQH
+	XJmqmBUI59cZlO1GvMPXym28kMpZoewGL0y1tXfKi43MIF7WS6E811yVdo3UPjQ0DKddZHGc6m3
+	rtUCu8bu3N7dvFOdI8n6ZPaudwbCgKaS3wTOPNq7LezhFEj9dOWN+bdn6yIac9ruNqvI+EpZv0M
+	4CLTmTG2CT0Y84J6Ph+6pc8Sv7nMlyfwrGrYFNw2pfILInlz3VFhCFNQpk6guZJTyZfUW+jiE3O
+	E2Qj0zvQml070lxzoLPPeQhg+Q2Ycc5dfzsd0M6rwhsGaEBpg6X1hehnXauR+YXg54lzq9Uj/td
+	V23h9puV7HcHamN+peD74Il4AKX2VkvtCfZdFpgs/hjpIP4lZ78T1Wx8U54UY/JQC76Sy29yJ2b
+	Szz15nGaq1OxMHre8iGY3uBD1RMYasnq65w3B7G5WwoJsolxBbz+GHrUfJtueC5bntwpdW8uvPG
+	DssVO057xhfdx45X5TcEVHhMx/jQ==
+X-Received: by 2002:a05:600c:870f:b0:4a2:1196:db0e with SMTP id 5b1f17b1804b1-4ac1899348bmr57052675e9.30.1793378155859;
+        Fri, 30 Oct 2026 09:35:55 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-79-14-29-58.business.telecomitalia.it. [79.14.29.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm4084806f8f.14.2026.10.30.09.35.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723fcsm4084806f8f.14.2026.10.30.09.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:35:51 -0700 (PDT)
+        Fri, 30 Oct 2026 09:35:55 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
 Cc: michael@amarulasolutions.com,
@@ -84,7 +85,6 @@ Cc: michael@amarulasolutions.com,
 	Conor Dooley <conor+dt@kernel.org>,
 	Daniel Baluta <daniel.baluta@nxp.com>,
 	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Fabio Estevam <festevam@gmail.com>,
 	Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Frank Li <Frank.Li@nxp.com>,
 	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
@@ -94,18 +94,16 @@ Cc: michael@amarulasolutions.com,
 	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
 	Maud Spierings <maudspierings@gocontroll.com>,
 	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
 	Shawn Guo <shawnguo@kernel.org>,
 	Stefano Radaelli <stefano.r@variscite.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 0/5] arm64: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0 board
-Date: Fri, 30 Oct 2026 17:35:39 +0100
-Message-ID: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+	devicetree@vger.kernel.org
+Subject: [PATCH 2/5] dt-bindings: arm: fsl: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0 board
+Date: Fri, 30 Oct 2026 17:35:41 +0100
+Message-ID: <20261030163547.2682583-3-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+References: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,41 +115,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial support for the Engicam i.Core MX8M Plus Fast
-Ethernet C.TOUCH 2.0 board, based on the i.Core MX8M Plus Fast Ethernet
-SoM.
+Add devicetree bindings for Engicam i.Core MX8M Plus Fast Ethernet
+C.TOUCH 2.0 board based on the Engicam i.Core MX8M Plus Fast Ethernet
+SoM (System-on-Module).
 
-The support includes device tree descriptions for the SoM and for the
-C.TOUCH 2.0 carrier board, together with an overlay for the 10.1"
-LVDS display (C.TOUCH 2.0 10.1" Open Frame).
+Unlike the i.Core MX8M Plus SoM, the Fast Ethernet variant embeds an
+RMII 10/100 Ethernet PHY, so a dedicated SoM compatible is added.
 
+The use of an enum for a single element is justified by the future
+addition of other boards based on the same SoM.
 
-Dario Binacchi (5):
-  arm64: dts: imx8mp-icore-mx8mp: enable the watchdog
-  dt-bindings: arm: fsl: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
-    board
-  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE SoM
-  arm64: dts: freescale: support Engicam i.Core MX8M Plus FE C.TOUCH 2.0
-    board
-  arm64: dts: freescale: add Engicam C.TOUCH 2.0 LVDS display overlay
-
- .../devicetree/bindings/arm/fsl.yaml          |   7 +
- arch/arm64/boot/dts/freescale/Makefile        |   8 +
- ...ctouch2-overlay-am-1280800w8tzqw-t00h.dtso |  53 ++++++
- .../freescale/imx8mp-icore-mx8mp-ctouch2.dtsi | 166 ++++++++++++++++++
- .../imx8mp-icore-mx8mp-fe-ctouch2.dts         |  17 ++
- .../dts/freescale/imx8mp-icore-mx8mp-fe.dtsi  |  62 +++++++
- .../dts/freescale/imx8mp-icore-mx8mp.dtsi     |  13 ++
- 7 files changed, 326 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2-overlay-am-1280800w8tzqw-t00h.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-ctouch2.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe-ctouch2.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-fe.dtsi
-
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-branch: engicam-imx8mp-icore-fe-ctouch2
 
+ Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index c8290a83205b..5835c25bca90 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1222,6 +1222,13 @@ properties:
+           - const: engicam,icore-mx8mp             # i.MX8MP Engicam i.Core MX8M Plus SoM
+           - const: fsl,imx8mp
+ 
++      - description: Engicam i.Core MX8M Plus Fast Ethernet SoM based boards
++        items:
++          - enum:
++              - engicam,icore-mx8mp-fe-ctouch2     # i.MX8MP Engicam i.Core MX8M Plus FE C.TOUCH 2.0 Board
++          - const: engicam,icore-mx8mp-fe          # i.MX8MP Engicam i.Core MX8M Plus FE SoM
++          - const: fsl,imx8mp
++
+       - description: Ka-Ro TX8P-ML81 SoM based boards
+         items:
+           - enum:
 -- 
 2.43.0
 
