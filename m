@@ -1,76 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.34.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358098;
-	b=tG0LUBfwvZW3Cb4uw1fGqKX3hHYdVBlTFOzDY3FpK4zaHCVEUtlRHFg11sgxVp1DdyzE
-	 mTYbqXZYHL51XqcQRyRdut43pB8ilzUvnMIbkqW172rTubYHYc7tHMuge9tN6g3L7sdkP
-	 VK1LXDras0xnTc2E5Tc3B1Jk2Blm8CPvLo/8CEd5MC0wQ9Qh0qr4+mE5UGbFBH16Fi1dF
-	 Vtxj1InmtZkmaY7l9J0sa26M4PZWQ1DGpZz4SbS4R2rvyLdeFGh4tY8SJMI+zxMn3rEHs
-	 JDpOj+wpWQYWR3Fzk6q/FdRZ93o/71ruh5U5QbDoW/dmpqXiYuBdFIUaTG7CwTRnV4w==
+	t=1793358144;
+	b=ptRyjlpsWy2u4pcc8hneAFNSPaJjpOLv2ovIWhn2jGa2pP9k1tDAdvIc1aH19PQlGSC4
+	 8f1/DHhJRtr/F2KVyiGZpgOFy85m8bRz6A9/RrnO3suhAsVYtPOt+AbIgb1IqqjgvwSYl
+	 LvSMQ3hzsXFiXdgejt0r5tJYsAT9zZhxdLGZyoRKMSIgauB5f5+SnhZ6LwcZYubJzDkyq
+	 ZlDXegngkXLohtcIERRSV9hM0lRzdUF91TOexnGI8CV3MvN/OfGrT2ginHXXeEHMZAYKq
+	 sM0mSRlyoTCq5mcT05/Tp8U2x2Tq2cqi6G87SBJ+GCb5xspCulqcNU82+MfE9vRWHEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358098;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=H4ZfNsk9j3Dbhdk5NoBi1lzbeDkmeOoyVamC2lamXMg=;
-	b=ybNirD28iFQdgsmuDYEHwbXxTcQGyPmj/R2bnt/cMw8cOOaED/lkfLDelYlHfr02Nrnj
-	 lS6IZuI0CdMbm0vNNwc/o1fpXKSyWtFbfg1D0HzIoE1PgfEtE0ZSgO+nKU7XHZrUJzrHf
-	 1EA2jiYEeSpruuOQ500fshQs+SulPFlRlLnNU50iRctGLsLu5aOLXirHemE7LkuFcHGaj
-	 QrhY31nYBxEasrqlIYDvBwdRo39ePjXVAIC6XGkVrdViKFuNy8f91qn9ic79+4euqACN8
-	 oXjnDdcqu00uFA+Fs2M7Ic1IrVe0aVhN63n1jIVRxDdmUrk2bYK7p7QhNazvaTHXlDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358144;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Virus-Scanned;
+	bh=dYsK9RCF4zGwTiyceQPJXihEmsN5wew5qV5M7Glsq3A=;
+	b=mjiJTb7KLM//UyRRkWOGzcCjptqL4CzDjtC4kBWCfqXwXfMpB9XvSDZTA1xgubvIkdw8
+	 5aMS5SjdXeIvfcuOVNRZm8Hq0DwYyDt2yJxZ49rwV33hGzqvLTRPuN++ZX0ruPLZqrXOi
+	 nvrP0+NvCz9jT4i3OvWu2jg9ykMEfh6elwMrRDkIEPIOaS6/f35GQ+iESj+eC6Xkq4xoh
+	 yqZkN1sk+kFP17DgHiN7dEjioXjschN5e9n2HEHWt/T+mnGofba2MnVQ2eLPKmBOIgoSX
+	 dlJH1kqwxtvjIC2Xxx0RPgvaKu1cd7OzFmODaBETkRZl67Lm7zlaThpvojG3MzWTuhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="wKFY/uXl";
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	arc=none smtp.remote-ip=92.121.34.13
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18276606A330;
-	Fri, 30 Oct 2026 11:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18276606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wKFY/uXl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CDC381A13C1;
-	Fri, 30 Oct 2026 11:01:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 99FCA603C2;
-	Fri, 30 Oct 2026 11:01:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0A0B8103290F8;
-	Fri, 30 Oct 2026 12:01:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793358087; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=H4ZfNsk9j3Dbhdk5NoBi1lzbeDkmeOoyVamC2lamXMg=;
-	b=wKFY/uXlDXfSKwWPZKUDJM/gMgOh9qFwfBfU78zDe+xq4T7cAP3/3yd62SLCH3I27HlYli
-	71OgEo/tbr9t2yx2NqWJRqL/ZSMEieQxSgd60xdxbt0roDMMGm9DEDKLKX5+MrdyaqpNAm
-	GodRbxqD8ece33A9qOgi4YBGchyXl+7Zowy4E7zQlp/78kKt/6i8JxEI3rgKYKbuTz8WS5
-	j2BVe5/SIiKKiDel5WFqo/9KXZKC26zxgT4mXuzHDZj851+IG245uQVcoKH9PG8dFlc2R5
-	RFqyP3/goQwyVnqRvdvv+coKnpY41qKWPF4U8CFzBTnIHdQpeXM88/SUREet4w==
-Date: Fri, 30 Oct 2026 12:01:17 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 10/74] tests: Add basic metadata tests
-Message-ID: <20261030120117.24afadf7@bootlin.com>
-In-Reply-To: <auQqI8WEOVeDRZM_@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-11-herve.codina@bootlin.com>
-	<auQqI8WEOVeDRZM_@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA7E606A31D;
+	Fri, 30 Oct 2026 11:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA7E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id C7DFD1A0005;
+	Fri, 30 Oct 2026 12:02:15 +0100 (CET)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 922041A0002;
+	Fri, 30 Oct 2026 12:02:15 +0100 (CET)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 987841800226;
+	Fri, 30 Oct 2026 19:02:14 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH v4 0/4] rtc: Add NXP PCF8525 RTC driver with watchdog and hwmon
+Date: Fri, 30 Oct 2026 16:31:35 +0530
+Message-Id: <20261030110139.1929109-1-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,74 +67,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Fri, 30 Oct 2026 16:24:52 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+The PCF8525 is an NXP I2C real-time clock using an external
+32.768-kHz crystal. It provides alarms, external timestamp capture,
+recording of the last calendar write, backup battery switch-over,
+a hardware watchdog timer, and an on-chip temperature sensor.
 
-> On Wed, Aug 26, 2026 at 11:48:39AM +0200, Herve Codina wrote:
-> > This first test is related to local phandle references used in
-> > properties (FDT_PROPDATA_PHANDLE dtb tag).
-> > 
-> > The test pattern used is
-> >   - Generate a dts (xxx.dts.dts) from an input dts
-> >   - Check this generated dts against expected contents
-> >   - Generate a dtb (xxx.dtb) from the same input dts
-> >   - Check this generated dtb against expected contents
-> >   - Generate a dts (xxx.dtb.dts) from the generated dtb
-> >   - Check this generated dts against expected contents
-> >   - Generate a dtb (xxx.dtb.dts.dtb) from the generated dts
-> >   - Check this generated dtb, expect the same contents as for xxx.dtb
-> > 
-> > Even if only one meta-data feature is currently tested in this tests
-> > introduction, use a loop in order to ease future addition consisting in
-> > adding new input dts as soon as new meta-data feature are supported.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
-> 
-> As noted elsewhere, I'd prefer to see new helper tools for comparing
-> metadata in binary rather than using text comparisons.
+This series introduces DT bindings, the core RTC driver, watchdog
+support, and optional hardware-monitoring (temperature readout) via
+the hwmon subsystem.
 
-Right, be ready to see treegen.c growing a lot.
+Changes in v4:
+- Rework timestamp handling to serialize sysfs clear and IRQ
+  processing, read Timestamp1 before clearing TSF, and restore TSM
+  after the CTS command.
+- Correct Timestamp2 handling to report the last calendar write
+  instead of treating it as a second external timestamp capture.
+- Rework the INTA threaded IRQ handler to drain pending AF/MSF/TSF
+  events and re-read status registers, avoiding missed events on an
+  edge-triggered IRQ.
+- Preserve all CTRL2 Write-0-to-Clear status flags, including WDTF,
+  across register read-modify-write operations.
+- Rework watchdog support to use nINTB as the watchdog output without
+  a Linux watchdog IRQ or pretimeout notification; remove unsupported
+  pretimeout handling and write-only watchdog-value read.
+- Establish a known watchdog state at probe, clear stale WDTF before
+  enabling the watchdog output, and report the hardware-achieved
+  timeout.
+- Fix RTC feature and time-setting handling, including
+  update-interrupt capability reporting and writing the
+  hundredths-of-a-second register when setting the calendar.
+- Improve interrupt/wakeup and device-managed cleanup ordering so
+  hardware interrupt sources are safely masked on probe failure and
+  driver removal.
+- Rework hwmon registration and power-management handling so the
+  temperature readout is enabled before exposure to userspace and
+  cleanly disabled on failure, suspend, and removal.
 
-Indeed, to compare in binary, I need to generate the expected binary (I don't
-want to store it directly in git).
+Changes in v3:
+- patch 2: protect the Write-0-to-Clear (W0C) status flags in the
+  CTRL2/CTRL3 read-modify-write cycles so concurrently asserted
+  interrupt events are not silently cleared
+- patch 2: replace the timestamp spinlock with a mutex and re-read
+  CTRL4 under it, closing the TOCTOU race between the threaded IRQ
+  handler and the sysfs timestamp store
+- patch 3: configure the nINTB/CLKOUT pin (CLKOE=0) before requesting
+  the watchdog IRQ to avoid a spurious interrupt storm
+- patch 3: add suspend/resume PM ops to stop and re-ping the watchdog
+  across system sleep
+- patch 3: add WDIOF_PRETIMEOUT so the watchdog core attaches a
+  pretimeout governor
+- patch 3: re-mask INTA/INTB interrupts on driver unbind via devm
+  cleanup actions
+- patch 4: enable TEMP_RD_EN before registering the hwmon device and
+  add a devm cleanup to disable it on unbind
 
-I already plan to split the treegen.c file in several files. Indeed, with
-unknown "structured" tags, a bunch of expected dtbs (instead to text files)
-are going to be generated.
+Changes in v2:
+- Fix include: use <linux/pm_wakeirq.h> instead of <pm_wakeup.h>
+- Add spinlock_t ts_lock to protect ts[]/ts_valid[] from IRQ/sysfs race
+- Fix W0C ordering: clear AF/TSF flags before acting on alarm/timestamp
+  events
+- Use dev_pm_set_wake_irq() for suspend wakeup wiring
+- Clear stale WDTF before unmasking watchdog interrupt on INTB to prevent
+  boot loop when battery-backed flag persists across resets
+- Add watchdog_notify_pretimeout() call in INTB IRQ handler
+- Set WDOG_HW_RUNNING if bootloader left watchdog running at probe time
+- Register hwmon device first, then enable PCF8525_CTRL5_TEMP_RD_EN only
+  after successful registration
 
-The plan is then to have one .c files per expected dtbs set and so the
-concept of dtbs harnesses.
+Shiv Prakash Gupta (4):
+  dt-bindings: rtc: Add NXP PCF8525 RTC
+  rtc: pcf8525: Add NXP PCF8525 RTC driver
+  rtc: pcf8525: Add watchdog support
+  rtc: pcf8525: Add temperature sensor support via hwmon
 
-The problem I see here with known meta-data, is that we:
-  1) Need to keep consistency between the dts file (input source use in test)
-     and the treegen source file (which generate the expected dtb).
+ .../devicetree/bindings/rtc/nxp,pcf8525.yaml  |   86 +
+ MAINTAINERS                                   |    7 +
+ drivers/rtc/Kconfig                           |   25 +
+ drivers/rtc/Makefile                          |    1 +
+ drivers/rtc/rtc-pcf8525.c                     | 1608 +++++++++++++++++
+ 5 files changed, 1727 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+ create mode 100644 drivers/rtc/rtc-pcf8525.c
 
-  2) If new meta-data tags are added in the future, treegen source files
-     will need an update. This update will be more complex than looking at
-     expected text files (fdtdump or other), and commiting the new expected
-     files if the diff is explained.
-
-I've proposed 'fdtanalyze' as a new tool [1] to convert a dtb to a "friendly"
-text file. The output of 'fdtanalyze' could be something like that:
---- 8< ---
-  (0x1-FDT_BEGIN_NODE): "my_node"
-    (0x3-FDT_PROP): ...
-    (0x3-FDT_PROP): ...
-  (0x2-FDT_END_NODE)
-  ...
-  (0x9-FDT_END)
---- 8< ---
-
-No complex analysis but you don't seem to like it neither.
-
-Without fdtanalyze, fdtdump nor other ideas, I will use treegen and
-dtbs_equal_ordered to perform tests.
-
-[1] https://lore.kernel.org/all/20260925144003.61f72c0e@bootlin.com/
-
-Best regards,
-Hervé
+-- 
+2.34.1
