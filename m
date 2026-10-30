@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793354585;
-	b=C7evCf3bK/O0YdKdJ+HfSfhJ8Pc9FXh1XSVNaxyMojdCT+yCxmcijpig/DhMTGzJLwmr
-	 LOEBhQYHm1IwUllJ+JvzOghVTBgU4rqZ2SlgWlrCQDzfjWqdFPt3fWh0xyzmfTusP+hIY
-	 4+GTguLjyToYFPAVasjAGxvPXek/0pst1bfZUfxfY4kDAIDC0cDcMSWVzyrfCWQr35SX/
-	 3sGD7n180TAP1Ysz7Og58fJvNvlkEbSU3M53II2dl9fCuZnp60m2O/bp4a0FY4arPB3wq
-	 eoNmQBPHhpKnwJgVtvi6+MAszdJbWwydQqQYTLj513LpYjg6WwVGAHBsdCSMxnuj0cw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-	b=Sg/EGkwHDstq5pt9Nzb9qfNbiERzNu7Nbi2qmdYXrCRACyCBiGukKG11a3ygbEnPNuG6
-	 XvGrxhbZ2p4+N7FY5hRTsGBA0YERuOyPn21vjEFUzJNPDiiaFNRGKQdQaxPyHgbguQxO5
-	 NpkiRFNuZl6C9bD2AjJjoYLUMRWzdKLZdqrM0lWvjfhJmA7jrKQn/5JXNoPC7BybkWC3I
-	 1qB5PylLcvrowCrGrlhIDee89lK8dABuOu8zth7sT9k6EW+w+QwTFwOjM7d7eZ0gPol0k
-	 v6yVBw1Hm45iWkSoGDaGZBgBWJ26p009uYlGku4LU/YWxCjyOpGpJ16GEoCe2H1//IA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cB8b/Y4X";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793354723;
+	b=CQXN9y3VnY3N+p+q01ArpxmdIhOFIHmZY/DdKxW5biHlu5auwzMUMPsffzlBbQ4pbwvI
+	 k8Fak5N2x5jizWArHQ+VO3zkTbfLvi8KPPIxUoKCayF6s2J8/AUSkimgTh6Y4pdG2cFso
+	 wtjY1sqV+Vb4N30pZjb5lgZp0zdI12N8QOj0bsSEzx+REgScL4ydLYS2rkdoVF77Z3NbM
+	 2EWyf3IOdKOz3RF4SU3nqf1Q1GhLPYGJCApgOCt+TJ08ZKMh+0HHwpk82XucIganp0ytP
+	 5jo/O6a6z/4e5hhMcWOqnG7HgWe1EZoPrlQUQ5YmH8O9CGsEcnBK/fgVzcBI0zZpaAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354723;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=lVZapjEGmvhm2mXCrfUlGaI0wRXm4CUffX5rBqaLlSM=;
+	b=No9cQP4ykqVAIK1+lTOKtV/4uxAl8USvGe9X1P/h73Li6XEnkeXzn03fVtSRW0tlBeBy
+	 CcNu71SFTGv39LNIJHB+p0koSN3mWyN/DwKXwAey6Y2JOs8eqAWhQKizIl5/dnwmW1OF5
+	 FnU9G1CxJgvo2ReSh7d5STeYVi5xOUD7V3GdHHgDlLwdhfPB1MdsLQr0RNedPi62ciY2q
+	 /8AHDDb+7wED7RclQRWE8eIQMmeaZPvRCJoiaIjeXI6p/q855Z9GBleJzHaJgbj/Wcvy/
+	 CX4MSJ1xOc2+5jkwJ4R6at0YTXS4J+D2ZbEg55g1gOUHTJkOHPy3FlSAjaRbrDYgzFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="Y/IbQi4w";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="rVCUU7g/";
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDF3606A31F
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBDF3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443D960A2610;
+	Fri, 30 Oct 2026 10:05:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 443D960A2610
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cB8b/Y4X
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3514b90bb89so1026122eec.1
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 03:03:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793354584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DhJuRrxJo/UYBfwmyhYllwy2fz75Qz6rw/xAw0/1XOeTn9wjXsFdTBhB+MOu0UC3mv
-         yJnaq4rjcepvdSR/y4E++51fxVun0+dG02RUsXwip3NXtrRrYoWT9a4BqZVM2Qu77Bn6
-         y2YbRRa48nciX0tggBchtCC+yeb0ysJ8X3Bb6VKg8HBPvTD0QyMX2hJwvb5A6oMpUMY3
-         CF7Ypn2cgvKV6yFWXy8d7YhdD7BTHuYsYdsm3SA0uHB77tylrkwSMZUmav1Dgi4wkTvl
-         oG+3owdMbzrcFGwhzapGv5cjLeY4KUJgprlODIWjARCj2BGTO7Mu0EcNgW3Pdd5etPcs
-         CKww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        fh=HPscHPYLojMD6HQf1zcjpa9BoHvFhi8wC4N8QkEV2gk=;
-        b=O9Ab9XfddA2xh3nR6/RcT8zgBoNki2FO1jKVMjmtwIUW52CHfryUdMiEeAnT01JW3y
-         0g4B8nDjU2q598ojA5LiKEPji1n/ZH+xqSN7EHLtektASNqCH6w4tUtXPh8iUrsjz70+
-         Ni5MOv3qnrYUYJveXtp848vvPcCiCtqcdlRdUUdIuq8ml8DpeXZXDu3/daxnXlb3DGI4
-         rAGIRo1hiBQfR61umrYTv34WnQ2Wvlv/UY3thVokhgAVXD/GUryaBrm5bl7lP0z50mRi
-         HDmd2C5pqWsYoSasKwGN74u4n/oxHzzsFKM2I17TyQIin+qoWIdifx8zSV5jtH/b4Dod
-         l8ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793354584; x=1793959384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        b=cB8b/Y4XBoH3d2mx1sKiFkgaIGdUg99+DVWd6+3nB/DQsr2antbnO9ny4/huLEhgov
-         Rf9CehR+G8CfFq3vJ0jU8Np1ZHQq76IRStPZKG87lVuSp2aJRS3C7zyg23jT0pOmjdnI
-         m4lGlbvP4/pA/QI9+VZPsnacGVzR/MrGJckQALCnxrencrKpDaYfoK4KVRpsW4tUUNR/
-         lBCkiGaNhBRqia8LQw8w7iU/nZUVnmTu9wj2MCEdLrnmVpW9eZtWaPG4y/4lkZ9WrG8I
-         Te/8SKLCspInB6mhw+Q1vVwQ1Tkc37Ot2UaWEhI1xfCJCJB1E1wU0WYPJVnjTIMhc/K5
-         oEXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793354584; x=1793959384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KKIoAfpAQt+lZvobWVlWyv/tAfJh09WkhRac1CVCCVY=;
-        b=cz9KHucca5ERgloKXc2hRffHMHmLsuoOrJwTIAqwdXZrdcFPKfafk6niPe0YpMb7vL
-         +dSheWkGNyhfw4LGB/WxW6gAl3CwvgQr0uQS/XPJUMm7rNsyMSu1Ff63veZh+fgN6Pqp
-         BiVOqGrD0ydSFUlS8fyCaNwmrTjv3tRKeddMgbNyFI2Po261NZZHcS7yyNl6ewfmaFaT
-         h27ajoIRdaMMKZiNrBnNSWACAr0x9UErYd9tqj8eEkKbHYSeM8/dWKZGPOKROFSqaERx
-         SzQYbiQNYOfQ0q4fdqPIgdLswnwCnXFQwL0vfWRcHc+ABG8c7xnuysRPf51w1aV8leSD
-         cT9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwsJlJuV6mivG6Gr73hvsE3F5AtUeo7W00e2MYvxJSoaYro6bhmSKilq+Bf0U9tNtFIpcybkADfsikd@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRS+1gQwyjlBWPet1fglaiSLEYOr2Ym1TTN6j6e2bHIEu0R98q
-	EN10yGzaDmTz6vJkrdbl823LBH2V0smD2Fr1b6jycVrG0L3ppWmzn5QfuLaWJtOEzZyqDjwSuus
-	zqkO37RQ8mit02FxszrcL1z0rVtiX7VZdvlD1
-X-Gm-Gg: AYBFou3Nh+paBPRTjh3phM7WpZgPBsHkVhCl2UogqpQNePKA9yffrtVCWdPtiCpUmSC
-	1fem+wqj5KptnrCM2E14y6T9kaAudnVklLXlW+YnCGNw+7FxHzyFCTDbiUtZ889PeV30CaGSvUH
-	vmDGg76rvDQ7VzQUurNQOvhAWFQAmBFJC2fnsnTWjsVN3f7CavqNU1EbnIE3kKH+HuEuOazZi+t
-	SHSa/JdWEPx1qssGiw0Y8WArAVKseKUl9kg5GHKcjmEqh4J7JCBQ5VNGrZwmV0D3c5db6ujQNyu
-	YNl4DO6iMnGy1aRB6NJ2K0sNkWtm2roUNQHAK6U3GuEBkWOFC2ABuoQ0H32aUlmoYXPTDOPlJCF
-	37XoYw6C9rZssEqThcvRog45g9TWZGOtZHa2LBzPsP3svCDD4anI4eZxfNKPuD87X/5kVMA==
-X-Received: by 2002:a05:7300:1897:b0:361:167c:2364 with SMTP id
- 5a478bee46e88-36a42362348mr4001559eec.8.1793354583867; Fri, 30 Oct 2026
- 03:03:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=Y/IbQi4w;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=rVCUU7g/
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8H95P3235923;
+	Fri, 30 Oct 2026 06:04:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=lVZapjEGmvhm2mXCrfUlGaI0wRXm4CUffX5rBqaLlSM=; b=Y/IbQi4
+	wWntewQWn7fAf/5gUq8TXFzfqBPd/SEzmFlDOQ440YPmeZtRyAXC5jCRyF1tVpnN
+	sgPwObsAGzTiMfoAjN+cBvTUrP8JGuD04zc/TkMUBw4iFZkqCV3V8Eu3yWbDO8gH
+	CVfCTlOtyuaaKFB5jgX0rVR1bof4y1Olx8s2FtY9TBPcamL7cQWqsK0oWcdtCkT8
+	Xlkg1xcyG9Yr+KYonWGDHoQYqpN7cPHhaqauBkaUECq8d8AsnKmSqv+nNRxtf/TK
+	xmw56+qouW7NUS751rHkccRuKJQKOaFsx4fholdf65zHQnw1wHf7/3u7NG4N2aVq
+	cqEwuj2s6DvarFw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=lVZap
+	jEGmvhm2mXCrfUlGaI0wRXm4CUffX5rBqaLlSM=; b=rVCUU7g/3ZWkVpe9owYCn
+	MYqG/jesF8cF67qfpn2ltmwX/AkpRartyX+sdx0EW7mvcS1XLLNgvfkl0rzUygr1
+	kzaT876wzV/hfpvsKd4kBZTkZrrllFyw3xlSQ6+vBG5IoYaRy0SowhdGWjQEFw1+
+	I5hUyhPLbUdGhpGNpn6gTf1dUk5qrCYoQjYs6VlQtgUcpEGFOFITd89eXvsrcs0z
+	YqKC3L82GMjwGS4Tvmj0ND4Y4mWp39DvEnnOPy+21WKsNGZXLLIi0QEH0JK1us4B
+	5NHvZFgGuJLCCuSHxdo9arcxX1Q5sd7jVJfQ6XVb02k9AjUm6Om1wcPva28LWqzV
+	A==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hme7bkcdt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 06:04:43 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 69UA4gU9021658
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 30 Oct 2026 06:04:42 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 30 Oct
+ 2026 06:04:16 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 30 Oct 2026 06:04:16 -0400
+Received: from CJONES7-T01.ad.analog.com ([10.66.6.191])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69UA3v9T029336;
+	Fri, 30 Oct 2026 06:04:00 -0400
+From: Carlos Jones <carlosjr.jones@analog.com>
+To: <linux@roeck-us.net>
+CC: <alexisczezar.torreno@analog.com>, <carlosjr.jones@analog.com>,
+        <conor+dt@kernel.org>, <corbet@lwn.net>, <devicetree@vger.kernel.org>,
+        <krzk+dt@kernel.org>, <linux-doc@vger.kernel.org>,
+        <linux-hwmon@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <rdunlap@infradead.org>, <robh@kernel.org>,
+        <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 2/2] hwmon: (pmbus/max20830) Add support for MAX20810, MAX20815, LTM4739, LTM4740
+Date: Fri, 30 Oct 2026 18:03:48 +0800
+Message-ID: <20261030100348.1955-1-carlosjr.jones@analog.com>
+X-Mailer: git-send-email 2.51.0.windows.2
+In-Reply-To: <d8c327b8-3113-4490-83b2-70cf3ccd3224@roeck-us.net>
+References: <d8c327b8-3113-4490-83b2-70cf3ccd3224@roeck-us.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,82 +103,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029152909.234584-1-clamor95@gmail.com> <20261029152909.234584-2-clamor95@gmail.com>
- <auRjGM7briuvXDEg@houat> <CAPVz0n2=sgbzBfvhGOoRFXeOzKDvs9en7QD0pHc31r5GzgCsKA@mail.gmail.com>
- <auRoaHUqMO4BRQlk@houat>
-In-Reply-To: <auRoaHUqMO4BRQlk@houat>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 30 Oct 2026 12:02:52 +0200
-X-Gm-Features: AclHuK-L_bH3_AEz9gXr-D-fUGtxDSP6rDxMoUG2ElKY1BLDMKdvYmD62gCTKCI
-Message-ID: <CAPVz0n3K74CZemDzVVymmjU_5GUGE9FsEKk555-AJfG0jek_hg@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzOSBTYWx0ZWRfX2Rrd7dCzGW/v
+ pr5PAlcgHtrywvH+YBvjdMSfibJ22F/ptW+QCKT12G4S1q7g458ocSUKSgmdMQsnmYucANwrbBN
+ hCI76bl5pJWejy+zndKHYooMyJQoX4ZKDzK1k0LUmUu8WtWuZhGDjN/YKtfZVizvLFm0jwTvrck
+ pk0MUMFBXYnXI+vjw4djfQNJoyz1pl5YKmvcTFLZvotOOAEiSOI3VAyRSPgXP3k/m60NCCwi4bj
+ dJjmU1emJi/72J1q7RcvdnC0sbppdAU9adexlzFvc0F1sHM8XFC/paT8hRMt2Su7pK36b9YoMkG
+ 73KNeiC2hGc2y88Fg/mBEXp0ashelEW6QEHCrDByEVIpsR5d+5Ph8TI1I/oigGDN3CbupqtiXhp
+ Pc6RD9ajnAx4mt8Dt5Pta95lkYKJCMGP7ZTRfJKtFHaQNPiV/SIUwnUL6S3JIdRIf9EbW25l4vi
+ XAxONagpgF+0CnBd/pQ==
+X-Proofpoint-GUID: 2CkKaVsN44YC7MMHx_DqK69fIzzkKeBA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzOSBTYWx0ZWRfX0yCHhfSsbLqc
+ UHoW98OGWsf0DgQmNcZEVeLGleCszxVBei+hpwRK1BLNCj7EZYlcppy4BaqWAE7+gfkRD+3WY2a
+ qYKmrJ5Cm36mKExxPco/GHG6lFH7X8ydW+r/d3p45wTHxVoSNJJ5
+X-Authority-Analysis: v=2.4 cv=XfMcX455 c=1 sm=1 tr=0 ts=6ae46bbb cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=MVqydGpOTaDsIWKYR_wA:9
+X-Proofpoint-ORIG-GUID: 2CkKaVsN44YC7MMHx_DqK69fIzzkKeBA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300039
 
-=D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:5=
-1 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+From: Carlos Jones Jr <carlosjr.jones@analog.com>
+
+Hi Guenter,
+
+Thanks for the review.
+
+> According to the datasheets, MAX20810 reports "MAX20810", and MAX20815
+> reports "MAX20815". I find no reference to the "B" variants on the
+> Analog Web page.
 >
-> On Fri, Oct 30, 2026 at 11:42:12AM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:29 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
-> > > > From: Mikko Perttunen <mperttunen@nvidia.com>
-> > > >
-> > > > The MIPI DBI bus allows modeling DBI hosts and peripherals using th=
-e Linux
-> > > > driver model. DBI hosts are registered by their respective drivers.=
- During
-> > > > registration, DBI peripherals are created from the device tree node=
-s
-> > > > provided by the host.
-> > > >
-> > > > DBI hosts expose operations that can be used by peripheral drivers =
-to
-> > > > access associated devices.
-> > > >
-> > > > The original code was authored by Mikko Perttunen; I have aligned i=
-t with
-> > > > the existing MIPI DSI implementation.
-> > > >
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > >
-> > > The SoB situation isn't right here. The author is allegedly Mikko
-> > > Perttunen, but you don't have their SoB, and yours isn't there either=
-.
-> >
-> > This is up to Mikko to decide what to do.
+> LTM4739, according to its datasheet, reports "LTM4739", and LTM4740
+> reports "LTM4740".
 >
-> Not only, no. When you're sending a patch you must add yours too.
->
+> Please explain the discrepancy.
 
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+The discrepancy is between the datasheets and what the parts actually store
+in IC_DEVICE_ID (0xAD).
 
-My CO dev and SoB are both present. Mikko will say their word and I
-will update accordingly in v6
+The LTM4739 and LTM4740 are uModule products built around the MAX20810 and
+MAX20815 dies, respectively. On the hardware I tested, reading IC_DEVICE_ID
+returns the internal MAX die identifier, not the LTM part name:
 
-> > > Aside from that, which MIPI-DBI type is this supposed to support, and
-> > > how do you intend to support Type C panels we already support through
-> > > SPI?
-> > >
-> >
-> > MIPI-DBI Type A and B, which have NO support right now.
->
-> Then you need to make it much clearer... everywhere :)
->
+    LTM4739 -> "MAX20810B"
+    LTM4740 -> "MAX20815B"
 
-Ok, noted. DBI Type C support remains as it is, it was not
-changed/touched at all.
+So the modules report the die's ID (with a "B" die/stepping suffix), which is
+not the string the LTM datasheets currently document. This is a datasheet vs
+silicon mismatch, not a driver choice: the driver matches what the silicon
+actually returns so that probe succeeds on real hardware.
 
-> Maxime
+I only added the IDs I could confirm on hardware (MAX20810B / MAX20815B, as
+reported by the LTM4739 / LTM4740 modules). I deliberately did not add the
+"MAX20810" / "MAX20815" / "LTM4739" / "LTM4740" strings, since no part I have
+reports them. The driver keeps the LTM4739/LTM4740 naming and device-tree
+compatibles for the modules while matching on the MAX die IDs they report.
+
+I raised this with the product line and a datasheet correction has been
+initiated to document the MAX20810B / MAX20815B IC_DEVICE_ID values.
+
+If you'd prefer the discrepancy spelled out in-tree, I'm happy to add a note to
+the commit message and a code comment in a v2.
+
+Thanks,
+Carlos
