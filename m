@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793337902;
-	b=wZN6Mycicfk4WABqYM4PA/WuhXbkUGwcD0Y65Gk6DsT846BTtGM60UKH49ETqyZ0Nt1n
-	 FHfSM8LKkxWNhPnCGSyga8l/Vu0CeoF93x7r0xf5RL9rxCT+QW5ua6XFVI58hOzK9S3zY
-	 x19N4RXXA/heJZ9AQw/+Aj0zc/4AjXJ/5LL/oO1Bwgk6Wk41dKvvQqWCI7pMdfeVffFkg
-	 Avjs3rbMFprkOiRG6N2gZy2eOYNuGfODFC7+t2FkWWLGjS/v/wtRVXnrgOmvlhTCHMrRx
-	 rzlTwqdU9SOKyHtaCi8IE2hdz71KwMuUbKMz+wUzLISZMd1rVGokCy0JShbOgnOQPJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793337902;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Y+jNvUqT/H5n1juAuB0AfjpcPWdhEJ9R+qy87YmFy1s=;
-	b=wH7rtQvVWdnqNsO0hk3sAWMV0RAaPH4wkgYOKDvTKtlgU0+civPuPlksC8iNEKmNbPkS
-	 oddrl8XL2PgQ5tWmyXuLibOCSTDDSTh9KOkXOY6PwUrvBXuI7YrlVVohMpeT6/JIWehgk
-	 7nZdU+7IF6mygL41kWGZqDBxl1aVM1i+MAnjRv0kS6TqdH8I3DGLJoXaoiY/7ydAcWe+R
-	 4HzndcOmYNuyltNg/QeMKQ32f1mWqJqNTNNNe6WFue/3JeXMvXskrx0p+nWEYUXle3mVA
-	 8aWiWX8XVXv3CQAAWjWoztz22iOSISODmrUqXraacNNnrYHvYaDc+8mXW0d3jKNolgg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=cA5IfQna;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793337973;
+	b=ZfVtvKeM77yId7RQ/qytfQq6p6W8Bn2HuWtYAx5BTlFZJSwaAYeXPTs4LaQHruWuIsU3
+	 3lcR6O8sHruwYnJ3uWZbh7OvIOSN0nvGnjXwJNpfDusJiueL/Ns/+xID3sSOUPQfcdjUT
+	 U+X6PbjBFZGCr+qRQPsvsAiVTRAysD1xhHWXPOhMoeuvT8QGVQBeDWHfnAlkmzhCm6Bhv
+	 CiXqK3qx3G1b9IUTBEkpu1uUvXi52RMEkjNOXLpMlm47XVdoriD0R2dYArp00+OF6gtCS
+	 UtfhkEz/D1Sf3H6j8MI/iSZEpz4hdiTs8AeEERtP2x/kEWqqjkaxfIfmssTn37QLXBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793337973;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+	b=wGOqrK2c/BO2ZwntYVUdwqvQ104/dTA8YWAwBSZuxNhsVzqqeKHaP17MqOp3MMrNTUW5
+	 8jbh4kHQrRFR3leFdXilBjBJpke4FAZQjZGo/uAKZvISN21hIBaxKLAoo1cc+x8UtZkwZ
+	 dqYePZcxdIuN7z1e+kiZF0rWJQjc7OCciIr9sgdSrCHm8ksyeUiZXRtTVJ7YdqFYSJ6so
+	 X+cCrd3L/5fZf2vutCrZF6dgiULgv2ssLD24+ekNRBEmXDvVNSAhPyr+psOpGJMTYoQuT
+	 cy+dfAqOfMGYCGl08GMMjA/zOb2DIM5KsQofbfz0R6B0nmuPQF2X9cCglDiPZsBwFJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=jQ18aXf9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.53
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010053.outbound.protection.outlook.com [52.101.193.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6996606A31C;
-	Fri, 30 Oct 2026 05:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6996606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F9E606A31A;
+	Fri, 30 Oct 2026 05:26:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31F9E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=cA5IfQna
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793337898;
-	bh=Y+jNvUqT/H5n1juAuB0AfjpcPWdhEJ9R+qy87YmFy1s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cA5IfQnaqG8AHxZocXLmBNkBVvvq2foXhRI6YPr6j1gjrGULpzez3ZxMMwHDy6wXN
-	 k07OnmDJ+UhNnxOgRG3fCabfyXPoK9D4GDRe/L2pYMEm6wR7Uz4t9lmxTN1NhVLejs
-	 pPc+BpV+hqvhtfOU4DMTHzlADqKAiJPrOxpdhQooYCSRJb/1D6Gi10OXxAjobzQ0pa
-	 vUMD8Siu4sM118UdvzXbhIwZqWZbTe6BnqNYBTiSHw6z8fyElER0UGs+lr44hSBgyA
-	 bB+Mb+lfUEJK+O8yRXbMRHDAvl7aoUdJUJ1MkaXrtFwVytAsS0KcdYdHOw5c8i1zlo
-	 Ir9zNUjhhiJVg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jG8gG6D26z4vyt; Fri, 30 Oct 2026 16:24:58 +1100 (AEDT)
-Date: Fri, 30 Oct 2026 16:24:52 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 10/74] tests: Add basic metadata tests
-Message-ID: <auQqI8WEOVeDRZM_@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-11-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=jQ18aXf9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EWQWkCyqFv5c9ORyLsel0DzzW9rS16bK3Hkq34zbJKdq55F8ZnVcOz4q/DlR3ClJg9LeBEEB5K5VXLGLk9wixeP4ejtigLzfOhsNeVD1QhYEjJoYke3QuWUcvwzN/zHvp7TCqpAClP4P0eVyveIp3JeuHOYWwLr5PUR32WoxzcNj2qQxk/6pJxw9rFJxvlmLZ0fiPncETH5okNoDCh73HPwZQgFHYE1aFdfrdCQzogG4KtfEIvuM/iLzgIzF9szI5AOcXN7JbY2dz0oHehEwu6JbRWO/f5HuvWY9z8ZP5Pxouyiz5cAicNl/5XNuTA1/pJTdB2yn9G0ngKv6vkOAIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+ b=m/3TUGIglw73RxM/atAb/qyVgEDkkxm5QiIj4nIm6d9em79YcQX59uMGupTIHxGJ6Wmo6IdPsQFHXvSIno2EhngsLF6tk7k2is1U7xsl+rFgo/YfI4c5PUSKxe+JAJmyTVad0WaRejgEBgxdzrVQzwbo9+xFbdmuVkhP75PSWJ1u/kyZA2YCTg9YOCCxqK3DdHEnXj3JtOr//mWgKDHmhl1W+HuLqttLu3ExwdBHmr8FpdzG0egCC8uAfEAGYrn2yXKISFdcfeDgKINBfMh+5T0w44ufKxbf8hRLabiT7AhEFMSOGveYb7iFsYSaOWgF8bEvItwCB0lp3x5ed4LFlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RwY9ncPNUidyY6GcL/Nu6REhsseut7+sFxbbvFeEapk=;
+ b=jQ18aXf99kYyGUqhFHq/AoccfpXDwYy/HTkOz9OAXQNAKAoVDuITeFY+LemMjgLa2KznIRQ6r8ALfLb5ohQachExslgnH3zI3Qc9Ksvo9XoW2D6aARtizXvg1w06Hv1c2dqeN/baFqUX5kVA0CnOLmFHBIUR5JteUIwe5uPxWTFhZmYY5/mU/o6UhabLQlYCEw5uumzuYjXfdn2fhK2noDumj8Jnnv7PtRBr62Ula4bwv8nF8kjjmVmGhwqVNSlYZ1Aq5BGaOlVm6RWnvAOJeLVW51qCV6Ia8CTim2Oi+Mh3YTIIQ6kWwvT8CCS0gC8/QupngqSM/nxD8siY+gcmwQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com (2603:10b6:303:6e::18)
+ by MN6PR03MB8005.namprd03.prod.outlook.com (2603:10b6:208:4f8::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 05:26:05 +0000
+Received: from CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3]) by CO1PR03MB5937.namprd03.prod.outlook.com
+ ([fe80::f970:684e:8c80:91c3%4]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
+ 05:26:04 +0000
+Message-ID: <2723bf11-8477-4f52-a95c-4ede190ecbd5@altera.com>
+Date: Fri, 30 Oct 2026 13:25:55 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mmc: sdhci-cadence: add PHY settle after tuning
+ for SD6HC
+To: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <073f81c6e6dcc931d6e12c358b48679b2855a72a.1791459448.git.tze.yee.ng@altera.com>
+ <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <dab17adc-1691-463f-bb85-7d1276fbf28f@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0179.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::34) To CO1PR03MB5937.namprd03.prod.outlook.com
+ (2603:10b6:303:6e::18)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,266 +103,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7bwo/JPeR6GxdaXs"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-11-herve.codina@bootlin.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR03MB5937:EE_|MN6PR03MB8005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70609453-8f7a-4bb0-5218-08df36464926
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|261026140227099003|4143699003|11063799006|261028144727099003|56012099006|261026121527099003|261021123027099003|261021121427099003|261022105027099003|261022115727099003|261022075727099003|10067099003|22082099003|18002099003|55112099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	JT+hdKIN/FxoLbkF+/toydgkEl8+sm5JTfBkfObmW7Lj8PFRvD7uV79RtjklcRbNl8aWU7oGc2598zz4lkhx4mXLWotHczZTaEW0bj1ZlZayERNA2DxBuJk+XStiFskcI5W1NgMcYc0T5sJsAo5yzZ/mXCvqaC2PLiHadn5BN1eIq+N5OhdOvQp7m1pIa9lBLj81o1WilmbgmgdoKejaRuJ+trFZNP06ErLJBFaPCmj/7Mk8zX/+IDgMvKOgqbBZJtCgEMDIhMLVig58t6X0ZJ16skGK/cSKRpKcGIs0+qXEiP8sbAnOmAMLCJv+N3o/4YIA/qQtxVbxfDBSe8QyrP/OuwnJULf+l6MyzhvE54zDWtVsxYMdYNldByEw7b2GEkOSw0LF39yiUfeCBNAfG9VhseNzEnFgljDZ3ppkmBHTFteVuedyfQ1uJOOgk2GTUABdGCV7mDZjmxF8Aii4XxrfkY/zhKU0rgKYXhHd4s9xdLCFdbbpSe6l2BJDIV/nq6YxvSgA1TUSglz6PdTbp035OQTKRCRs53u9DmL5A2LM0+ey3VY7ZKihP4biuircVz+r0HpwpKMLdFJ5wBGD8LXGpTVFknTE5avY9I9olPXsWcIa3ZQePPC8qid4RvKaVjtCTQD5/AkdHHw3599Y+qiJKliKWjuxtm6HvfQ4CPQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR03MB5937.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(261026140227099003)(4143699003)(11063799006)(261028144727099003)(56012099006)(261026121527099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022115727099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(55112099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3pmQ3pNZEJNbEVicjJXdkxHeWpvNlhsYkJrUTF6OVJsQUxiQjhYY3QzY094?=
+ =?utf-8?B?WWtHWVIvUFYzZlBCTFZEREJKL0FxOTFhSGlhek45RlJ6b2ljd1hreGpCVzRm?=
+ =?utf-8?B?MnNpdGYvaDlpREQ0WWgxUWkrZ0RBbXFmQXhRMW5YNERkT3Zma3E0ZmwyUEZa?=
+ =?utf-8?B?bndiRTE4eWVaZFR3SFdsVXA4TFBKeTBQYzZMcXhjZExhdnJZd1JjR0dWT3Jq?=
+ =?utf-8?B?Nk9yUlBxeGVlUEdQSFBTWmgyK0JwamRnWWVzcyt3K3loL2FSVkpvMnN2TUt0?=
+ =?utf-8?B?RjIvQjMyV3B3cDVvRHoyWWJvdnNpZ2I5WnZWWVNsL24zZnZzMkhENUk3NU9q?=
+ =?utf-8?B?eGlJQW5zNFh0UVl2U2dDTW52WEp5SUtyN0NEVlRTejM3N2QvTkh3NVZhWll1?=
+ =?utf-8?B?a2pWMVY5N1JHQ3QrcFIzUERDemZqNDBLSU9TSUxKSjhrajNiblpMOWdJb2ZJ?=
+ =?utf-8?B?MWxpTkZ0RnNTZTFRR1N4UGI5VFdvcmhuaW9YVzQ4ejg4aVg5aGErNXM5RFZo?=
+ =?utf-8?B?T3cySEs1UVN0OHdGQklsVHdRenN3VnVMZm4rVkN6WS9TMlhCVFJ1cGE1Q2xI?=
+ =?utf-8?B?d2k0QmwwMWJNRDJ2bGpGZEUvWlRuYmp4YWwzU2pQMDlCVmZQOHdhSWtHNDFp?=
+ =?utf-8?B?Mlk2REtveFp2ZlVsMHhPYnBTa2gwOVRLRDg3bWtIL0FxWXp3UVZjVzk5L2hq?=
+ =?utf-8?B?UEh2R2RzR0JTOWUyc0hCK2VDeTRoVTRHWUt2N1hjMEx5T1RadnpwTHNNWUpO?=
+ =?utf-8?B?RS81dzZ4OGMvcWxEaHpVd0EvdzBvbzFvRUxhZmVKZUpmNWhwVVZMaWd6VW1s?=
+ =?utf-8?B?NGNMTUNqN1NXSXpPNWc3aXFKcUU0c2N6d3NCUTduS0lENExVSWZqYVUwZU95?=
+ =?utf-8?B?L1hhQU1weVVVZWg1RTIvMTdqUWh3UCtUK1huMFJ1T21GWjFRK2dtRHc5YTVt?=
+ =?utf-8?B?REF5d2pKZzNCSkNmY3lBNmtNZ2RyaGFCSnlxdW1IYjFQUUUvMHZYazVrZ2tX?=
+ =?utf-8?B?TTM1RldKMmdGNis3VUhlakdpQXo0MFpaOFFWamlTMFR0VXRSOXg4eWdDMkVW?=
+ =?utf-8?B?ZUQ1N255Uy9lZ0VZME9YdXp6bFdvY0lBQXZBcjBIM3VKaSt5T2xSalRCZDB5?=
+ =?utf-8?B?L1A1R0JPKzI3Sm5vSkxOcnNyUGpXdmFxZlVSUSsxQUZkY2FraGcvL0E5MWZz?=
+ =?utf-8?B?aFFXV3lWUitkbnJSc1pBQUl2OUxvcXYydWswd0tCaU13WE5mMFdPclNGa25x?=
+ =?utf-8?B?KzZEUWo5aHg0UndkbmtPVHQxWlppR1I3NzE3bVQxWnpYRlFmMlJ5b0VkbHgz?=
+ =?utf-8?B?Q09FekcyQWRyaU9wTk1EUHFwOS9rK3loTmpGY1YvMVZUbkRIcVR2Q2NXTU9i?=
+ =?utf-8?B?NUN2dXlnVzR5MGI4eEk0RG1IVkZEU29hN1ZTNnptWnRsSFZZUmJvOStOR3ZB?=
+ =?utf-8?B?UHI4dUhIRUdFSm9yUlc0b2Q1RW90a0U0bE1DZ1VMUk5KdVpHajI5RVpqSjVC?=
+ =?utf-8?B?WUZ5VW15OExCWGNuTjk1TCtJMXo5aUE2ZzZ2Vll1dkJxZU1qL3Q4LytKdDl4?=
+ =?utf-8?B?eVlhRXdDUHRjZ0FLTm10aHo2Vms2QmdncmRqUXA2ZkhmMVk2eDJJc2VMNFJn?=
+ =?utf-8?B?UDdCL0ZVSHViWHpmamlpekpmaVF2bDVNdnZaSWFicFlxOUZqMnRaSGpFLzZp?=
+ =?utf-8?B?bHFoekxkV3ZJSUg2MVVrZ1p4ZlBMUkllRHRRU2Iyb24zZFNBYXNkMGJQL2tQ?=
+ =?utf-8?B?MDRzNWN0L3JmRmVYWnZKUUIvbjhhN3FpMytHV2N1RDBjRmNGczFMTXloVXRQ?=
+ =?utf-8?B?TXVOMkpKc1RNenJVS0hNQzhLd0NOYUI1ZUZQbmNTVWxqVzZMK3NRRE5teGlD?=
+ =?utf-8?B?b3JOaWhzUHBVQkNJZk9PYlVROUw3N1RBMzJtS0lIWURYdlp5dm5veDlObytZ?=
+ =?utf-8?B?Q2dJOWtiZkJTaE4rT2RpVnJnUUpCeEhqdG1jRjh5aXFnd0VZTHh2Q242dVVy?=
+ =?utf-8?B?VmtvSUlmUEVXTmpMTHQrWHF5cER5cUNiSDRUbG9qM21kMkxFMEgvWllOSmFo?=
+ =?utf-8?B?WHE4cCtINlpRYmN4ZkNsRmV5Z1liOGthOTQ3akxRUVFOOGIvS1dlaDJoVGZ3?=
+ =?utf-8?B?dlZnZVJsR3BuU1o0ZldCbEd5TTJrSXhXb3E5aURwZXNNRkNncVlyRVNHQ3NE?=
+ =?utf-8?B?Rlp4c1lBRDNvbXlDOGJ4eGJnRXhkeWlOeXdISUdCVXNNSWwyYVJTcVg5Ukdo?=
+ =?utf-8?B?VTE5YmdpSTFYZCtOS3poSGJTNkZ0SEpZdmpjOVZTNFZ0cFg5TXBQV1NDV3Bv?=
+ =?utf-8?B?ZkRQM1ZGdXdReWRJb0lBTFQ3SFBuS3psaFZBQnl1QkRBSUY1N1pvQT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70609453-8f7a-4bb0-5218-08df36464926
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR03MB5937.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 05:26:04.6746
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: czvhiINOZ2RVlxAKYlRrWzFPh5jIfwsG0GDpr757ChKaANfVk0n/kGoHepw4xPnIg7fibeYCvGUl9U/GUyVzJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB8005
 
---7bwo/JPeR6GxdaXs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Tanmay,
 
-On Wed, Aug 26, 2026 at 11:48:39AM +0200, Herve Codina wrote:
-> This first test is related to local phandle references used in
-> properties (FDT_PROPDATA_PHANDLE dtb tag).
->=20
-> The test pattern used is
->   - Generate a dts (xxx.dts.dts) from an input dts
->   - Check this generated dts against expected contents
->   - Generate a dtb (xxx.dtb) from the same input dts
->   - Check this generated dtb against expected contents
->   - Generate a dts (xxx.dtb.dts) from the generated dtb
->   - Check this generated dts against expected contents
->   - Generate a dtb (xxx.dtb.dts.dtb) from the generated dts
->   - Check this generated dtb, expect the same contents as for xxx.dtb
->=20
-> Even if only one meta-data feature is currently tested in this tests
-> introduction, use a loop in order to ease future addition consisting in
-> adding new input dts as soon as new meta-data feature are supported.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Thanks for the detailed walk-through against the spec, it matches what
+I see on the hardware.
 
-As noted elsewhere, I'd prefer to see new helper tools for comparing
-metadata in binary rather than using text comparisons.
 
-> ---
->  tests/meson.build                             |  1 +
->  ...data_propdata_phandle_local.dtb.dts.expect | 23 ++++++++++++++++
->  ...metadata_propdata_phandle_local.dtb.expect | 20 ++++++++++++++
->  tests/metadata_propdata_phandle_local.dts     | 27 +++++++++++++++++++
->  ...data_propdata_phandle_local.dts.dts.expect | 23 ++++++++++++++++
->  tests/run_tests.sh                            | 25 ++++++++++++++++-
->  6 files changed, 118 insertions(+), 1 deletion(-)
->  create mode 100644 tests/metadata_propdata_phandle_local.dtb.dts.expect
->  create mode 100644 tests/metadata_propdata_phandle_local.dtb.expect
->  create mode 100644 tests/metadata_propdata_phandle_local.dts
->  create mode 100644 tests/metadata_propdata_phandle_local.dts.dts.expect
->=20
-> diff --git a/tests/meson.build b/tests/meson.build
-> index fcc73982..ec24f0af 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -143,6 +143,7 @@ run_test_types =3D [
->    'fdtput',
->    'fdtdump',
->    'fdtoverlay',
-> +  'metadata',
->  ]
->  run_test_deps =3D [
->    dtc_tools, treegen_dtb, tests_exe,
-> diff --git a/tests/metadata_propdata_phandle_local.dtb.dts.expect b/tests=
-/metadata_propdata_phandle_local.dtb.dts.expect
-> new file mode 100644
-> index 00000000..076c17ae
-> --- /dev/null
-> +++ b/tests/metadata_propdata_phandle_local.dtb.dts.expect
-> @@ -0,0 +1,23 @@
-> +/dts-v1/;
-> +
-> +/ {
-> +
-> +	node-a {
-> +
-> +		subnode-a {
-> +			phandle =3D <0x01>;
-> +		};
-> +	};
-> +
-> +	node-b {
-> +		phandle =3D <0x02>;
-> +	};
-> +
-> +	node-c {
-> +	};
-> +
-> +	node-d {
-> +		ref-subnode-a =3D <&{/node-a/subnode-a}>;
-> +		ref-node-b =3D <0x123 0x456 &{/node-b} 0x789>;
-> +	};
-> +};
-> diff --git a/tests/metadata_propdata_phandle_local.dtb.expect b/tests/met=
-adata_propdata_phandle_local.dtb.expect
-> new file mode 100644
-> index 00000000..c923d2e2
-> --- /dev/null
-> +++ b/tests/metadata_propdata_phandle_local.dtb.expect
-> @@ -0,0 +1,20 @@
-> +/dts-v1/;
-> +
-> +/ {
-> +    node-a {
-> +        subnode-a {
-> +            phandle =3D <0x00000001>;
-> +        };
-> +    };
-> +    node-b {
-> +        phandle =3D <0x00000002>;
-> +    };
-> +    node-c {
-> +    };
-> +    node-d {
-> +        ref-subnode-a =3D <0x00000001>;
-> +        // [FDT_PROPDATA_PHANDLE] ref-subnode-a[0]
-> +        ref-node-b =3D <0x00000123 0x00000456 0x00000002 0x00000789>;
-> +        // [FDT_PROPDATA_PHANDLE] ref-node-b[8]
-> +    };
-> +};
-> diff --git a/tests/metadata_propdata_phandle_local.dts b/tests/metadata_p=
-ropdata_phandle_local.dts
-> new file mode 100644
-> index 00000000..f04d24f9
-> --- /dev/null
-> +++ b/tests/metadata_propdata_phandle_local.dts
-> @@ -0,0 +1,27 @@
-> +// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
-> +/*
-> + * Copyright (C) 2026 Bootlin
-> + */
-> +
-> +/dts-v1/;
-> +
-> +/ {
-> +	node-a {
-> +		subnode_a: subnode-a {
-> +		};
-> +	};
-> +
-> +	node_b: node-b {
-> +	};
-> +
-> +	node-c {
-> +	};
-> +
-> +	node_d: node-d {
-> +		ref-subnode-a =3D <&subnode_a>;
-> +	};
-> +};
-> +
-> +&node_d {
-> +	ref-node-b =3D <0x123 0x456 &node_b 0x789>;
-> +};
-> diff --git a/tests/metadata_propdata_phandle_local.dts.dts.expect b/tests=
-/metadata_propdata_phandle_local.dts.dts.expect
-> new file mode 100644
-> index 00000000..b72b545f
-> --- /dev/null
-> +++ b/tests/metadata_propdata_phandle_local.dts.dts.expect
-> @@ -0,0 +1,23 @@
-> +/dts-v1/;
-> +
-> +/ {
-> +
-> +	node-a {
-> +
-> +		subnode_a: subnode-a {
-> +			phandle =3D <0x01>;
-> +		};
-> +	};
-> +
-> +	node_b: node-b {
-> +		phandle =3D <0x02>;
-> +	};
-> +
-> +	node-c {
-> +	};
-> +
-> +	node_d: node-d {
-> +		ref-subnode-a =3D <&subnode_a>;
-> +		ref-node-b =3D <0x123 0x456 &node_b 0x789>;
-> +	};
-> +};
-> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> index 42b74e05..8c27b463 100755
-> --- a/tests/run_tests.sh
-> +++ b/tests/run_tests.sh
-> @@ -1239,6 +1239,26 @@ fdtoverlay_tests() {
->      run_wrap_test test "$bd" =3D "$pd"
->  }
-> =20
-> +metadata_tests() {
-> +	for dt in metadata_propdata_phandle_local; do
-> +		run_dtc_test -I dts -O dts -o $dt.dts.dts "$SRCDIR/$dt.dts"
-> +		base_run_test check_diff $dt.dts.dts "$SRCDIR/$dt.dts.dts.expect"
-> +		run_dtc_test -I dts -O dtb -o $dt.dtb "$SRCDIR/$dt.dts"
-> +		base_run_test wrap_fdtdump $dt.dtb $dt.dtb.out
-> +		# Remove unneeded comments
-> +		sed -i '/^\/\/ /d' $dt.dtb.out
-> +		base_run_test check_diff $dt.dtb.out "$SRCDIR/$dt.dtb.expect"
-> +		run_test check_full $dt.dtb
-> +		run_dtc_test -I dtb -O dts -o $dt.dtb.dts $dt.dtb
-> +		base_run_test check_diff $dt.dtb.dts "$SRCDIR/$dt.dtb.dts.expect"
-> +		run_dtc_test -I dts -O dtb -o $dt.dtb.dts.dtb $dt.dtb.dts
-> +		base_run_test wrap_fdtdump $dt.dtb.dts.dtb $dt.dtb.dts.dtb.out
-> +		# Remove unneeded comments
-> +		sed -i '/^\/\/ /d' $dt.dtb.dts.dtb.out
-> +		base_run_test check_diff $dt.dtb.dts.dtb.out "$SRCDIR/$dt.dtb.expect"
-> +	done
-> +}
-> +
->  pylibfdt_tests () {
->      run_dtc_test -I dts -O dtb -o test_props.dtb "$SRCDIR/test_props.dts"
->      TMP=3D/tmp/tests.stderr.$$
-> @@ -1278,7 +1298,7 @@ while getopts "vt:me" ARG ; do
->  done
-> =20
->  if [ -z "$TESTSETS" ]; then
-> -    TESTSETS=3D"libfdt utilfdt dtc dtbs_equal fdtget fdtput fdtdump fdto=
-verlay"
-> +    TESTSETS=3D"libfdt utilfdt dtc dtbs_equal fdtget fdtput fdtdump fdto=
-verlay metadata"
-> =20
->      # Test pylibfdt if the libfdt Python module is available.
->      if ! $no_python; then
-> @@ -1318,6 +1338,9 @@ for set in $TESTSETS; do
->          "fdtoverlay")
->  	    fdtoverlay_tests
->  	    ;;
-> +	"metadata")
-> +	    metadata_tests
-> +	    ;;
->      esac
->  done
-> =20
-> --=20
-> 2.55.0
->=20
->=20
+On 26/10/2026 4:17 am, Kathpalia, Tanmay wrote:
+> I'll test aborting each CMD21 that fails with a command error, and
+> also a single abort after tuning completes, to see whether that
+> removes the CMD6 failure. If you can test the same, that would help.
+> I would prefer that fix over an unconditional sleep.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+I tried the abort approach and dropped the PHY settle entirely, it 
+works. I now pass the command error back from mmc_send_tuning() and call 
+mmc_send_abort_tuning() whenever a tap fails with a command error, i.e. 
+the same thing the generic sdhci tuning path (sdhci_abort_tuning()) 
+already does. Aborting only the failed tuning commands was enough; I did 
+not need the extra single abort after the scan.
 
---7bwo/JPeR6GxdaXs
-Content-Type: application/pgp-signature; name=signature.asc
+Tested on Agilex5 SoCDK, both media:
 
------BEGIN PGP SIGNATURE-----
+- eMMC (HS400): HS200 -> HS -> HS400 completes and the CMD6
+   response timeout is gone. 8 GiB dd + 8 GiB fio (crc32c verify) + 2 GiB
+   image write/verify all clean.
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrkKiQACgkQzQJF27ox
-2Gcv3Q/+LwiBBBz2Q6L4KxjSDMG97cMm6jhuzh1ov3hMltcubnVz68wkVNw8nVr0
-Im/FeU9ARNtZkCCz5o9Nj49n+iHH6/lz9KMvselXaK2Vc9PEOv6wqh4VD7dXx8yU
-L1E/BUqG1WdLMbt0gce1myRnVSEBQSTlqE9m7hBxT4f1mja25yZ9VDwTnNN9OoRw
-NjEqZepwT79di0Ww14Hf12m3tTwxsxZ89IjfINW229LdnXKt2sSNYNGyyOwt/N9V
-eXUDSMD0e2uOgnzdUGSfVZyUEdnHqUkjx1AFJFtnZblRgWB3OavTQEcMMEhaSX9A
-CTFWSkCaNnOUEDa21Pd8OLUTtO4+/7b+JtLv1bLaAUauVTzZGzwXiCrYBaLry2GH
-oIk/YQKinLxVGY9fez3OC1bJkqNL1VgzheYKCyMbWD9BAGHpb3Z+sz4co/sgy4xs
-IdGM9Wj61mCzgYvHu5O/7HvxurwJsWuDDAunsNBrCrVw7rLiCGCTMwb0bCNx1yaJ
-Vq33XqFvBuAB9Y8/AXer+fg8omHrgGGrexfsPQB3ZD6jrx3zbxwxi1ooditGtTQg
-KWmu0ys0IYhBh1gNl4iUyDr+jfDOjJji5GhfV2W/19FP7KbtU2CS7+ksKmWxEiCT
-AqbekJIo8dxvo1RP7t+v8F9SkT/d5s4V5q/6a646DcjfE+Oq5Sg=
-=+fVR
------END PGP SIGNATURE-----
+- SD (SDR104): 2 GiB image write/verify clean. Abort is a no-op here
+   since CMD12 is not defined for CMD19, so the SD path is unchanged.
 
---7bwo/JPeR6GxdaXs--
+An ftrace of the tuning scan confirms your theory directly: a CMD21 
+fails in the command phase, I issue CMD12 to abort it, and tuning then 
+converges.
+
+err_stats after boot: Command Timeout = 0, Tuning Error = 0. The one 
+non-zero command CRC is the abort itself. The CMD12 is sent at that same 
+failing tap, so the card's response to it is mis-sampled and counted 
+(CMD12 is not a tuning opcode). The command is still delivered, the card 
+leaves the Data state, so it is cosmetic. The data timeouts are tuning 
+taps whose data phase did not return; data CRCs are suppressed as usual.
+
+For v3 I'll drop the unconditional PHY settle in this patch and replace
+it with the abort-on-command-error change.
+
+Thanks,
+Tze Yee
