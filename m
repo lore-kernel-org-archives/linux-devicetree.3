@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354877;
-	b=Dmy56bMQoVV+scL0xy6oqifuqC5mG+eoqsKEMMbh8HzDqWEXDuAp/LfWyBfJHw1lFgpQ
-	 rXfGQ+1WGt6fmXRo3xPihNE0AgadKzMbp0OjkaXLMU5LAtmrr8JxYPboZL90OWaXnd5I2
-	 LK41Kh4pB4sPx09esxon/o4M4AW3IQuueMOp88v9usQb+psChR1+vN20XedrM5o9oe3MT
-	 7eQa6aGDx7jnzbM0fkuJpJVZX5T6fJ+cg2ksR2+EevqL7PNAE1Qhaoq4UA5EGIwgsw9mA
-	 BZEJV9Z3mkhpHJsgr2KTeeCC9rAh/Vv62Ul5G2ry9mS9ZuEForFSvclkVENsJQUbiNQ==
+	t=1793354895;
+	b=aFXeeAkUReah1S/I5ng+MwbMtgKWaFxznVf2UCFC5uv59Z5b+i/+J1flWwAXSzoIsQ+l
+	 stGTThH+IlWeekYX3WMwp5YJJiJ2I9baRBznNXJyY9kwgmNBWUA26OuOY+QOp0Xgf9kiw
+	 uU2v+TaD5zWjgj4IhhfbKqN5d7Y2cSx78VsjMKB+ZXgtNR8NpC7Q5TU+aGhDk+Rh9/dJI
+	 K4yjmAN5DpWFAUAbpgXbF/kYJROYVD89LDwLvSvG7u2qIsJiFCz5vESbrcjUGlUR+ifj6
+	 2I25gCNlTfzNfNYS7aeV6ueqUlag+eTfSV3993aHc4WEnxqLz/PcKLm8xWLLSpp0nVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354877;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=RRGG+nMF/kpQZTAaIuH7K29ONaEy1fhm7c9ASdHRyMg=;
-	b=u3JN71uLxVXLUBGxV2p6i9dXy3jP+ciutABDhDBwhmqFR2+CNLvigo/Uadc///mHbBE5
-	 mlIkcOazlOJPXMeLLKMfrKvTX8pdtMcQF6HbtMrmUI/Dq4gG1vtfNOeltikoONAN4RMoR
-	 Si4RSKkv7/GbeefjpBOLygHESQ8fNxnaNUv6BuGttPF9aCo38qnH052LCp4HLySOBVe1D
-	 kAayefl0449kZOrhakTHBzSII9zzjXN4aRNC6IrnDyFERbKug9z1nXc5LBltbd7SLolsi
-	 Pz6ZMs0UxY4H3l0gF3hzzmokdmNTeSM3oTip7kDq6462QLPziksIbogB1u5cJG1OE3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354895;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=C0/mwmzFbhrf2oh9K+Po1CByufDjKwjIEZTp3nBdSuk=;
+	b=YKFl8FRINoXtWhLbwHdJl/lB7swynykPO3J2wYeGnpvHr+Egc7bu8UcLMI0vQjsFjEwt
+	 6jha3fh70HlfqaxQe3QuCY133ZpmF0RlzjkeMqKbHATSbyZ+CARAgTfIztgPC/jTA/jSA
+	 YpPnW8ynz6Icz3IZFg7dqQQs0Qk6vY1K3J2WFk3JQyNNVM9RUE0BDdBDqH+I5bzmCT2O5
+	 rdBJ43Lx2wm09i6ipNniR7jlIAX0vEHonC0E38UfYWUTAoPEtOqsaI5FQBSkIKluzOUAp
+	 lQmdzQiTFbt4aeuAyeTRjBEYCvk4KDIdHX0bBsatyLFD/G91Xwjc2s50idybRObiVdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6eGCPHe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTt5mfpN;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CD7606A31D;
-	Fri, 30 Oct 2026 10:07:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5468F606A31A;
+	Fri, 30 Oct 2026 10:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5468F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6eGCPHe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FDB81F000C1;
-	Fri, 30 Oct 2026 10:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793354876;
-	bh=RRGG+nMF/kpQZTAaIuH7K29ONaEy1fhm7c9ASdHRyMg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k6eGCPHeYHUCC1GhjR6+/Skkub2YCoSEnGxiJEqCZAcHOctyckOPrDjBriTfVDwog
-	 zN9rtOsWiATwu0l5KvrEgcoZYyPwJlPE36k1656y/ON3H3i+xYeTZZNEcSx0JRsna2
-	 Pl2gN0X9CT5XclBIYOwDtJL2LotSIOQpQ20ybhLQ4kbO9JE1yxde2AyOpYDIzBmTPr
-	 km4a3ks2/J7ztnvedEfP+V/ZIkKVUdQi2LaNT4DEHKnbpmobEwty1oSrRLTHAkJTEP
-	 xJivHwhXm4yV2zmYHCcAgkJInvYaWcJkoRfLgag4n4a7R02IsJrY1MAqcq0YZjgstD
-	 jT0rJIz/k30qQ==
-Message-ID: <sashiko-outbox-190808@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 05/15] drm/imx: dc: Flag CRTC status in
- GERNERALPURPOSE register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Ying" <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261030-imx8-dc-prefetch-v8-5-c4f81afd4533@nxp.com>
-References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
- <20261030-imx8-dc-prefetch-v8-5-c4f81afd4533@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 10:07:55 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FTt5mfpN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793354895; x=1824890895;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=zOblnyUyv9NKvrPuHMLJ0x2zFEjfb1OCZnMziEeVx3Y=;
+  b=FTt5mfpNahmYKtP54WqqmFsGzaBq5J/AGV82Gc5erynrV8cK3zhv11u7
+   7buQcNSlLXgghfH22SaHQOvVaGyQ0BiBsjabF0vI6DrlLX5moUekOmz77
+   GBRU1uAHz52PENMn4Pr4kcNs2ovI8BRN2xIhoiKnu+wvG3DvoAkH/gkDt
+   401ppQ7VVi5zOelrqyDrFVD0PGT8TSIEKKi0IxZMZl9UtN8f0+YoE8/lZ
+   ROIfgMoq5xk6IB7FDlU9gafm8DQbRjsnwMDjVkTMnibSylK9F1mwROL91
+   iz9kZFtVTbvWHnQ9zVd7Wvb1T+JsEPQA02DDfc6ugM3l+/UyyQVBcFdNa
+   Q==;
+X-CSE-ConnectionGUID: ZcTf5pbcS8a4/w6tRBqsyg==
+X-CSE-MsgGUID: xUb/PUENRrOQrD8YbX6s8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2217930"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2217930"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:08:14 -0700
+X-CSE-ConnectionGUID: AHNzZJnuTeKLjfxz5wU0HA==
+X-CSE-MsgGUID: 9I/0TBI1QOi05253dVUlJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5737947"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:08:08 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 30 Oct 2026 12:08:06 +0200 (EET)
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+cc: James Hilliard <james.hilliard1@gmail.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v4 4/5] serial: 8250_dw: configure the Allwinner H616
+ UART
+In-Reply-To: <auHW9nkDqZUXeHNZ@ashevche-desk.local>
+Message-ID: <3e73ec0c-2623-d891-7146-dcf1c7a68c41@linux.intel.com>
+References: <20261027-submit-h616-uart-fifo-v1-v4-0-d37e018fd0a6@gmail.com> <20261027-submit-h616-uart-fifo-v1-v4-4-d37e018fd0a6@gmail.com> <auHW9nkDqZUXeHNZ@ashevche-desk.local>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,109 +85,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] drm/imx: dc: missing max_register_is_0 in dc_gp_regmap_config
-- [Low] drm/imx: dc: commit message uses stale helper names and register ty=
-po
---
+On Wed, 28 Oct 2026, Andy Shevchenko wrote:
 
-commit 376ae6ee1d9ffb7f4790013466f30007db36afe6
-Author: Liu Ying <victor.liu@nxp.com>
+> On Tue, Oct 27, 2026 at 05:05:32PM -0600, James Hilliard wrote:
+> > H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> > component parameter register reads as zero. Generic 16550 probing leaves
+> > the port using the 16-byte FIFO configuration and its trigger-level table.
+> > 
+> > Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platform
+> > data. Use common Allwinner setup helpers to configure the transmit load
+> > and receive trigger table from that depth.
+> > 
+> > Derive the receive thresholds from the documented 1-byte, quarter-full,
+> > half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128
+> > and 254 bytes; the normal 16550A half-full FCR setting selects 128 bytes.
+> > 
+> > Build the threshold table during setup and use the shared 8250 conversion
+> > helper to select the nearest lower threshold for sysfs writes.
+> > 
+> > Serialize trigger changes with termios and hold a runtime PM reference
+> > while programming FCR, preserving the FIFO contents. Propagate runtime
+> > resume errors before changing either the FCR shadow or the hardware.
+> > 
+> > Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> > DesignWare termios path selects hardware CTS handling, so the capability
+> > must be present for the corresponding hardware control to be enabled.
+> > 
+> > Select the fixed configuration through the platform setup callback.
+> > H616 has debug-divisor and RS485 control registers at the offsets used to
+> > detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> > those probes and retain the BUSY-safe integer divisor hook and software
+> > RS485 handling.
+> > 
+> > Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
+> > termios changes. Its clock is a gate on the shared APB2 source, rather than
+> > an independent baud-rate generator.
+> 
+> ...
+> 
+> > +	unsigned int fifo_size;
+> 
+> This is should come from DT (based on the property or compatible),
+> 
+> ...
+> 
+> >  	u8			no_int_count;
+> > +	u8			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+> 
+> Why do you need it here? Can it be provided via driver_data?
+> 
+> ...
+> 
+> > +/* The trigger is the masked, unshifted FCR receive trigger field. */
+> > +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
+> > +{
+> > +	switch (trigger) {
+> > +	case UART_FCR_TRIGGER_1:
+> > +		return 1;
+> > +	case UART_FCR_TRIGGER_4:
+> > +		return p->fifosize / 4;
+> > +	case UART_FCR_TRIGGER_8:
+> > +		return p->fifosize / 2;
+> > +	default:
+> > +		return p->fifosize - 2;
+> > +	}
+> > +}
+> 
+> You don't need this, just provide a set of numbers directly.
 
-drm/imx: dc: Flag CRTC status in GERNERALPURPOSE register
+That was my first thought as well, but James explained that he wanted to 
+reuse this for HW different fifosize which makes sense.
 
-This commit maps the Display Controller's GENERALPURPOSE register via an MM=
-IO
-regmap and adds helpers to set, clear, and query the CRTC enablement status=
- in
-its 2 LSB bits.
+And these formulas are given in DW spec so I suppose we could actually 
+infer these for all DW UARTs, not just these ones being added now, using 
+the same formulas. (A future work item.)
 
->     drm/imx: dc: Flag CRTC status in GERNERALPURPOSE register
->    =20
->     Map Display Controller's register GERNERALPURPOSE at offset 0x100 and
->     create an MMIO regmap to access the register.  Create helpers
->     dc_drv_flag_crtc_{enable,disable}() with the 2 LSB bits in the regist=
-er
->     to flag the CRTC enablement/disablement status.  Also, create a helper
->     dc_drv_crtc_was_enabled() so that the CRTC driver can use it to check
->     if the CRTC was enabled by a previous boot or not.  This is a prepara=
-tion
->     for an upcoming patch to disable display controller at boot if the CR=
-TC
->     was enabled by the driver during a previous boot instead of a bootloa=
-der.
->    =20
->     Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
->     Signed-off-by: Liu Ying <victor.liu@nxp.com>
+-- 
+ i.
 
-[Severity: Low]
-This isn't a bug in the code, but should the commit message be updated to
-match the current symbol names?
-
-In drivers/gpu/drm/imx/dc/dc-drv.c and drivers/gpu/drm/imx/dc/dc-drv.h, the
-helpers are named dc_drv_set_crtc_enable(), dc_drv_set_crtc_disable(), and
-dc_drv_crtc_is_enabled(), rather than dc_drv_flag_crtc_{enable,disable}() a=
-nd
-dc_drv_crtc_was_enabled().
-
-Also, the commit subject and body spell the register name as GERNERALPURPOS=
-E,
-whereas the macro in drivers/gpu/drm/imx/dc/dc-drv.c is defined as
-GENERALPURPOSE.
-
-> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-=
-drv.c
-> index 13795a2ad7350..9629beaed43c1 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-drv.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-drv.c
-> @@ -13,6 +13,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/pm.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> =20
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
-> @@ -28,9 +29,21 @@
->  #include "dc-drv.h"
->  #include "dc-pe.h"
-> =20
-> +/* General Purpose register offset used to flag driver usage. */
-> +#define GENERALPURPOSE		0x100
-> +#define  CRTC_ENABLED(x)	BIT(x)
-> +
->  struct dc_priv {
->  	struct drm_device *drm;
->  	struct clk *clk_cfg;
-> +	struct regmap *gp_regmap;
-> +};
-> +
-> +static const struct regmap_config dc_gp_regmap_config =3D {
-> +	.reg_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +	.val_bits =3D 32,
-> +	.max_register =3D 0,
-> +};
-
-[Severity: Low]
-Should dc_gp_regmap_config also set .max_register_is_0 =3D true here?
-
-In dc_probe(), only a 4-byte MMIO region at r->start + GENERALPURPOSE is
-mapped and passed to devm_regmap_init_mmio() for priv->gp_regmap, so offset=
- 0
-is the only valid register.
-
-In __regmap_init(), map->max_register_is_set is initialized as:
-
-    map->max_register_is_set =3D map->max_register ?: config->max_register_=
-is_0;
-
-Without .max_register_is_0 =3D true, regmap treats a zero .max_register as
-unspecified and leaves map->max_register_is_set false, so regmap_writeable()
-and regmap_readable() do not enforce the offset 0 bound.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-imx8-dc-pr=
-efetch-v8-0-c4f81afd4533@nxp.com?part=3D5
