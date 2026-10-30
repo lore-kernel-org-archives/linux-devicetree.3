@@ -1,43 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793339087;
-	b=ikfsvdqgWNjJpg53JOPCeL33bK5rNDnrNMzk6B4u/te3HD62Aow9oPmhu/EzUWZAXJpp
-	 T0AX7BquJ7xuFgL2IPSS4GJLmb60mq4L/MvUbGmDGZi5plOugx9NzySMd47fu+b9XmsYz
-	 6mW1MMyVvZJ1LBcLYcSLd5Gq+nxgWGTZd8G4CZ0c/msWIynrTdb50VAF/EKA+7RcthRWY
-	 hLrMAK1hnoQdHHre5qYDKQdPWgQ0Z7txV3f+lTvlwj4eIIXoaQfXQxvY0YSuTghUTt3/a
-	 AYQc6FTIXeGpDdmeFmHQPrbzpz909c/jB7q+RmCyIreNgGOGQ99a/dP01F3vkhQWktg==
+	t=1793339685;
+	b=iXBV9Y78gBW25Je3HgQh/xDl0lct8WQlj8x+byYoqgh4VB3hld0NMdXpakiWiq0/E2oW
+	 TLXUgjkPI2JAK16cq8e33sRr7gT+iU5Ka5/AqBwkpYgHFHl0bWpW5G3Z4nJbWQ3sILNhQ
+	 RBUehoCWaEe9GQ+XTKuSFg7Md1dHpD2SckmTbP558Z/JXl/c2gWC51nZ2EPjo+3R6nyff
+	 UYia8BlTNkDZ0+MuHpOAaoZoNQoUAw+qZYz7Mr5yCK1sKQi7C7U2E3t9oAFy+cO9g3wWD
+	 yyfpW0I1hKJPf6BlgSO4g4GftUfX4mX2NEtiROzHHj0jjxTrozkZ9hUxOHs0T2adrFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793339087;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=F5gbMGX5iusTBgqPUxiRXUYirrovEg3wvTHWcTjxHUs=;
-	b=C3z0obnejpyhS6NUX8LQ8aOm/80ieF0pBE+8iCPBwbCHH4uP8Mh76c9XzrhBvhrLi86N
-	 eJDiMfH7EkQg9fWicjFamYQGmPbL0Zi3Y9mm+C/MPIES0tGBdkoM7ZJFhLazkbgB+3FUF
-	 fN9kVBYlWDmNt9hmn9MSXGhG3b+vakSPI6fzDrnpA7H/axTKf1b/vkPLxe8qyfxp6z+rA
-	 /o+pRffwB7D6IDCRH316pIKpWM9AU64AfsbORxigRymykofn9OaTQSRRqQIuzWQ9Iqtvv
-	 VF9/ZwnIWsXtv8bns749TLP7QcQdi/Mi3dlZryctOuV4v3CQmqjYnJ1Xnf/gvWumkiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339685;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=zc1mZxmk6KfQkLOLB1GDFYx1v5GLlDgwKgHVaRpjBpY=;
+	b=Ju4ibdavx6Mi0+vEeQDIrCasIBEZMNnELYnsaOZ1KEnFxd1+4Z99HQ6QeRzuI5Ha9eqG
+	 0e4RO6TVL94rHLGlaB2fFBoKvNiAH8oa3KCSkdcoqUdtpoOQDD4+Zg0/3+EtDSEc92ObA
+	 939XIcH079IiawwtT/l/pvHdr/Mur0IJ21a4+g4SYgXeB39wTmgWFYJnmB8aK5hlXw9pf
+	 fGOggoa6YqCMaytceGZKKxz+h2WVzSK8ET8p2onWii18YKmMft4pV6FpPzZ3yZNF+itYP
+	 AY3Q2+8tqVJ83kxgsxjzKwUBaCYActHbCcMUfDDvUoDSNb6o+mbSbqp7PSvfK8CXFIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOkEeLMO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B83606A31C;
-	Fri, 30 Oct 2026 05:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33B83606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowABnO++1LuRqL2kEDA--.17661S3;
-	Fri, 30 Oct 2026 13:44:24 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Date: Fri, 30 Oct 2026 13:44:12 +0800
-Subject: [PATCH 1/4] dt-bindings: vendor-prefixes: add Shenzhen Mingjun
- Optoelectronics
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BBB606A339
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 05:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOkEeLMO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621BD1F00A16;
+	Fri, 30 Oct 2026 05:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793339684;
+	bh=zc1mZxmk6KfQkLOLB1GDFYx1v5GLlDgwKgHVaRpjBpY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TOkEeLMOLKW7Kl02RhL8cXkhTV1AV7LC8BcQSioTGHJNCmue42otBWYA9JA05EICl
+	 Y4pYvkCRmLKTgxR1YKSHpe3V4cpxdyfIuMHYOmq6gY74QMWj9rU0rwq1eaOUXdbAde
+	 Rnze/i8+dUZSfRF3Pz6EhR02p/QTZtsDxARyLxq4Qv1m22sX4Ab3mEy2yDqZ7wXgPD
+	 CYIH4SqEvmEFsnyHEyiSFlI+fkjorppVJF7o2yYy1QOpwee83xeC2deixjLjtuclqC
+	 SQ15IAEdxYBX7RjOOkv1+4+aYepUM3EPiO6aUI57XEYFCCRuH34qgzlhdNf/k2Rt/d
+	 6GJQK/ItxH62Q==
+Message-ID: <sashiko-outbox-190580@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] drm/panel: ilitek-ili9881c: add Mingjun
+ MJ070BI30IA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261030-mj070bi30ia2-v1-3-a0f65b65c290@iscas.ac.cn>
+References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
+ <20261030-mj070bi30ia2-v1-3-a0f65b65c290@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 05:54:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -46,69 +60,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-mj070bi30ia2-v1-1-a0f65b65c290@iscas.ac.cn>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
-In-Reply-To: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>, 
- Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-X-Mailer: b4 0.15.0
-X-CM-TRANSID:qwCowABnO++1LuRqL2kEDA--.17661S3
-X-Coremail-Antispam: 1UD129KBjvdXoWrZryruw13Jw1kAFyrurW3Wrg_yoWDKrcEgr
-	s7AF1DuFW5tr1Fqw4YyF4xG34ruw1akFWkua4Yq3Wqk3WSvrZxJa97t3yFyw1xAF47uas8
-	ArZ3WrWDXanrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbk8FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGwA2048vs2IY02
-	0Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84
-	ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I2
-	62IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcV
-	AFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG
-	0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI
-	1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17
-	CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
-	8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
-	UjIFyTuYvjfU8XdbUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Shenzhen Mingjun Optoelectronics Co, Ltd. is a vendor for LCD modules,
-and it's the supplier for the MJ070BI30IA2 panel used in the Sipeed
-Lichee Console 4A device.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/panel: ilitek-ili9881c: bit-shifted registers in mj070bi30ia2_=
+init
+--
 
-Add a vendor prefix for it.
+commit 77fed3fe20435bd131c211abca1d6f6a36c89b5f
+Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-Link: https://www.fpdisplay.com/index.php?homepage=mjgd
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba20029693734..094d9f12c11d5 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1099,6 +1099,8 @@ patternProperties:
-     description: Changzhou Milianke Electronic Technology Co., Ltd
-   "^milkv,.*":
-     description: MilkV Technology Co., Ltd
-+  "^mingjun,.*":
-+    description: Shenzhen Mingjun Optoelectronics Co., Ltd
-   "^miniand,.*":
-     description: Miniand Tech
-   "^minix,.*":
+This patch adds support for the Mingjun MJ070BI30IA2 7" MIPI DSI LCD panel,
+including its initialization sequence, display mode timings, and device tree
+compatible entry in the Ilitek ILI9881C panel driver.
 
--- 
-2.56.0
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
+drm/panel/panel-ilitek-ili9881c.c
+> index c3d5ab67121d9..83148c40e25ca 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> @@ -2198,6 +2198,201 @@ static const struct ili9881c_instr waveshare_7inc=
+h_a_init[] =3D {
+>  	ILI9881C_COMMAND_INSTR(0x36, 0x00),
+>  };
+> =20
+> +static const struct ili9881c_instr mj070bi30ia2_init[] =3D {
+> +	ILI9881C_SWITCH_PAGE_INSTR(3),
+> +	ILI9881C_COMMAND_INSTR(0x01, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x02, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x03, 0x73),
+> +	ILI9881C_COMMAND_INSTR(0x04, 0x13),
+> +	ILI9881C_COMMAND_INSTR(0x05, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x06, 0x0A),
+> +	ILI9881C_COMMAND_INSTR(0x07, 0x05),
+> +	ILI9881C_COMMAND_INSTR(0x11, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x09, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x0A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0C, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0D, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x0E, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0F, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x10, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x11, 0x00),
 
+[ ... ]
+
+> +	ILI9881C_COMMAND_INSTR(0x36, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x37, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x70, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x39, 0x00),
+
+[ ... ]
+
+> +	ILI9881C_COMMAND_INSTR(0x43, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x44, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA0, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x51, 0x23),
+> +	ILI9881C_COMMAND_INSTR(0x52, 0x44),
+> +	ILI9881C_COMMAND_INSTR(0x53, 0x67),
+
+[ ... ]
+
+> +	ILI9881C_COMMAND_INSTR(0x6E, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x6F, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x70, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x71, 0x06),
+
+[ ... ]
+
+> +	ILI9881C_SWITCH_PAGE_INSTR(1),
+> +	ILI9881C_COMMAND_INSTR(0x22, 0x0A),
+> +	ILI9881C_COMMAND_INSTR(0x31, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA6, 0xA6),
+> +	ILI9881C_COMMAND_INSTR(0x55, 0x3D),
+> +	ILI9881C_COMMAND_INSTR(0x50, 0x9E),
+> +	ILI9881C_COMMAND_INSTR(0x51, 0x99),
+> +	ILI9881C_COMMAND_INSTR(0x60, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x62, 0x20),
+> +	ILI9881C_COMMAND_INSTR(0xA0, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA1, 0x17),
+> +	ILI9881C_COMMAND_INSTR(0xA2, 0x26),
+> +	ILI9881C_COMMAND_INSTR(0xA3, 0x13),
+> +	ILI9881C_COMMAND_INSTR(0xA4, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0xA5, 0x29),
+> +	ILI9881C_COMMAND_INSTR(0xA6, 0x1E),
+
+[Severity: High]
+Are some of the register addresses and values in mj070bi30ia2_init[] shifted
+left by one bit (perhaps from a MIPI DSI bus capture or transcription error=
+)?
+
+When ili9881c_prepare() sends mj070bi30ia2_init[] to the panel controller,
+four entries appear to have bit-shifted command addresses that leave their
+intended registers unprogrammed while writing to registers that are later
+overwritten:
+
+1. In Page 3, between registers 0x07 and 0x09 (where all other ILI9881C
+panels program register 0x08), the sequence writes to 0x11 ((0x08 << 1) | 1=
+),
+which is already programmed in its normal sequential position after 0x10.
+
+2. In Page 3, between registers 0x37 and 0x39 (where register 0x38 belongs),
+the sequence writes (0x70, 0x00) (0x38 << 1 =3D=3D 0x70). Register 0x70 is =
+later
+overwritten in the 0x5F..0x8A GIP output mapping block with (0x70, 0x06),
+leaving register 0x38 uninitialized.
+
+3. In Page 3, between registers 0x44 and 0x51, at the start of the standard
+0x50..0x5D GIP sequence (0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, ...), the table
+has (0xA0, 0x02) instead of (0x50, 0x01) (0x50 << 1 =3D=3D 0xA0, 0x01 << 1 =
+=3D=3D
+0x02), and register 0x52 is set to 0x44 instead of 0x45.
+
+4. In Page 1, between register 0x31 and VCOM2 register 0x55 (where other
+ILI9881C panels program VCOM1 register 0x53), the sequence writes
+(0xA6, 0xA6) (0x53 << 1 =3D=3D 0xA6). In Page 1, 0xA6 is a positive gamma
+register that is unconditionally overwritten a few lines later by
+(0xA6, 0x1E), leaving VCOM1 register 0x53 uninitialized.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-mj070bi30i=
+a2-v1-0-a0f65b65c290@iscas.ac.cn?part=3D3
