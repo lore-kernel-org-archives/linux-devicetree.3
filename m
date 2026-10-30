@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336059;
-	b=2+jJIVo6KZgbc6191JNrHw85ZAcqK0Qys3swVUVGN8qXB5zJljYOSHFJcjhtSrcCuynm
-	 5G6m/YSXhV+nvZ7yHKTSVyWj+tAMKV4wQQ8RBd7SyoXbsowKSw2PqpSqcca0p/7Nsti5d
-	 ykkdon3fAmrvAnEREM96WgO4gPlAdagRn3yVG20UsNxoI+E2NPlbj8rrbI955Spb56Xjt
-	 xDnamoJGRcehyFXz1TvbgqH5ekPNLxV0935RUT3Jum+RQtFhDHYBGHb6C61Jh97kxqNkg
-	 bxJDsSLRlywzIHakOlz/WkAW1TK3Zc00Q0p+nJl5Q72pCnM4Iz0N1m/ikTwVse/kxgA==
+	t=1793336060;
+	b=UX/OdHg+2UU4OuZRz8G2hTfGZN+o8DBjZbrww075blBW+unkQv9/zYpCkcYgHQkNIOGp
+	 oh6N9dv2L7R1D/Blc4s/CXbTCXeG7A+n7ejceWSOOvI8uYW7oLButBo1gQT509FdZ+L0v
+	 mP+5ij2RUKGVHNXXbH8RqDc1OUaqNkPyviTBbT3225fEgzOI/xKM/gBoD9sq3VW97Lhba
+	 eXgnCJ7pTIFHcs5DgzV0PDnygZLrOfIJnQ9bEqwRa8j9j4s07LnXTd0RQCux7fdDGN4CN
+	 kVQoPsjEJXsDyO7pHlplpNTi4ANCj3XdkT+Q38A68rKf22kgWhhaNwnVIv6wt8z0JaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336060;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BUuqyVgtGVE3D6kCUDoKw6NGm7TyKCRFQe+NXTASemw=;
-	b=F2Zi3bH0tMy/tVutX+CARBbTLlwuY3JKwx92p+m0ja5g2eS/Ihm2aSEbWr4z7vxYOvhH
-	 CrYpni/icgyZhiHvB07Q7SzBGeahQTGbBQucrt16iHgFKr7feyc+R4gKB3cbpfiw4I8JP
-	 Ypcsa6h2ftWu6QdqO7YKHeoIQK+Szm3s6RY9ffJn1nJJoUten/gsrb0cpf1F1VfG7V+x0
-	 EhMHiHB7JfGtnhg/rYJ2B8vA5k7loQzwGYEkBEKROXc/hqaHqAmjxpddX8NG83WGtv0pp
-	 ea1XThTAUFnBAAIzhCn/FssWeUP0jwqjaE+vGSTYP2pgIaPFBU118UN0P8A0GthT3eg==
+	bh=jyKryrWn+xQmHsXdCmWWGaXe7onHeG0/BdUG5LQZgXM=;
+	b=CgpXfqgIRxghMq8kDaWI+sQS8bOcZb0NAe//qADyRYTTM1VQOEbJDblCM+fUI8jyaJEB
+	 OLMUatgWZpZnqIrha4eJNzKbHcdi9+aq9gPmBnLDFp/djKerx05qKewWE+LizkLyUo29L
+	 4v4gB1K0zAARsU31oYSr75DWnh2VjV7be6KlqXGkbIj2HHhuJOlDsRyKtDHp4RZaFdrSN
+	 L14f15ZbVmSiZol+tox4fauxBNuOL5ExVOUfa+AKSMFKukk1mCvoFB9OQIlhaua1xwBJi
+	 gQgNjIbM9n+GUqCf2lRXnorcBV1g+wA8tqOcga6zh4xusIC1sFaj++ei1De2T+/Td8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrrvCW82;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzLnwcTH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F5C606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A7D606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 04:54:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrrvCW82
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D25F1F000C1;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzLnwcTH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F0E1F0093A;
 	Fri, 30 Oct 2026 04:54:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793336059;
-	bh=BUuqyVgtGVE3D6kCUDoKw6NGm7TyKCRFQe+NXTASemw=;
+	s=k20260515; t=1793336060;
+	bh=jyKryrWn+xQmHsXdCmWWGaXe7onHeG0/BdUG5LQZgXM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XrrvCW82o/fGHXQpURMCygmOb2imi4pYuwd5ShrUQHc9rpdHBuy9Rp+wZcbKduKeF
-	 lRJVcJOvo5xmW04kn2olRdeM33/NLj/7L47H55lFBYPJppIjmWR039S70vom33U7WH
-	 ags2Uj8xUHqGhP2IODiM4A/368xxlB01ugw8lcffwMy0wQ0LhdZ0AaBmU2b8zcnuVv
-	 5LDQ3/l6B2L9dHWoSWmjEf6pmvlSU3beIUcBw7BgwQAsx5KSpgsB0l0L8N0B3Kl2X3
-	 4oMHbTh6rYtS/l25QqT25jyp5hnRYpc9rvRTnnG/75AZXUU/vCNlXTXKXVHlKCdyMF
-	 XABbozg3IHYSg==
-Message-ID: <sashiko-outbox-190432@kernel.org>
+	b=DzLnwcTH4jUeyi7jpp/vk0sXPbaSvAWoitwyLMcmxUaF9Z40Pofw0nNvcVq045kNr
+	 7kf4R+gjaRXGaLdN5Xzw32/jvWQmUqtq7qsFdwBCXQ7XJjswFIwa3NogVvjYB4J2sT
+	 cuc7s8lTsvf86iZaAI5OqllzIJjiI3s6lDeOOv25qQ+ZbuFqr0Drg32MbIrgcTMKcv
+	 KvagEPaAUtKFF1I8KCr9vj5pOZctlczAziY6AUShlRHXzCpLEirA5RPpUPdTqfSJl3
+	 xvy2KAzLIZ4EgUB2PRgdsMyXebVBna544PxU8BzmSNbb3YrW/W0cSbadoKw8DTG1U6
+	 I9c4Istlub+/w==
+Message-ID: <sashiko-outbox-190433@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 01/12] dt-bindings: net: airoha: Add EN7581
- ethernet-ports properties
+Subject: Re: [PATCH net-next v6 02/12] net: airoha: Reserve RX headroom to
+ avoid skb reallocation
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511-airoha-eth-multi-serdes-v6-1-c899462c4f75@kernel.org>
-References: <20260511-airoha-eth-multi-serdes-v6-1-c899462c4f75@kernel.org>
+In-Reply-To: <20260511-airoha-eth-multi-serdes-v6-2-c899462c4f75@kernel.org>
+References: <20260511-airoha-eth-multi-serdes-v6-2-c899462c4f75@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 04:54:18 +0000
+Date: Fri, 30 Oct 2026 04:54:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,60 +60,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incomplete schema constraint allows `#address-cells` and `#size-=
-cells` on unsupported GDM1 and GDM2 ports.
-- [Low] Schema validation failure for `ethernet-port@[0-5]$` child nodes du=
-e to `$nodename` mismatch.
+- [Medium] DMA synchronization size mismatch in `airoha_qdma_rx_process()`.
 --
 
-commit ec4617f6004fa83e07ac8747b6e514e55a246569
+commit bc83d88c9a8c6fa433da204ea6d6867b3be7fa46
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
+net: airoha: Reserve RX headroom to avoid skb reallocation
 
-dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+This commit reserves headroom for received packets to avoid reallocation
+when pushing protocol headers. It adjusts the buffer offset and decreases
+the DMA length accordingly.
 
-This commit adds support for connecting multiple external SerDes to GDM3
-or GDM4 ports via an arbiter for EN7581 and AN7583 SoCs. It introduces
-the ethernet-port property to model net_devices connected to these GDM
-ports.
-
-> diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml=
- b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> index fbe2ddcdd909c..642f300c09450 100644
-> --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> @@ -130,6 +130,50 @@ patternProperties:
->          maximum: 4
->          description: GMAC port identifier
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
+net/airoha/airoha_eth.c
+> index f71fb18197ecd..3fe2561c85f17 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> @@ -543,9 +543,10 @@ static int airoha_qdma_fill_rx_queue(struct airoha_q=
+ueue *q)
+>  		q->queued++;
+>  		nframes++;
 > =20
-> +      '#address-cells':
-> +        const: 1
-> +      '#size-cells':
-> +        const: 0
-> +
-
-Does defining these properties in the main block inadvertently allow them on
-GDM1 and GDM2?
-
-The commit message notes that ports 1 and 2 do not support the connection
-with the external arbiter, but placing them in this outer block makes them
-permissible for all ports rather than just GDM3 and GDM4.
+> +		offset +=3D AIROHA_RX_HEADROOM;
+>  		e->buf =3D page_address(page) + offset;
+>  		e->dma_addr =3D page_pool_get_dma_addr(page) + offset;
+> -		e->dma_len =3D SKB_WITH_OVERHEAD(q->buf_size);
+> +		e->dma_len =3D SKB_WITH_OVERHEAD(AIROHA_RX_LEN(q->buf_size));
 
 [ ... ]
 
-> +          patternProperties:
-> +            "^ethernet-port@[0-5]$":
-> +              type: object
-> +              unevaluatedProperties: false
-> +              $ref: ethernet-controller.yaml#
+> @@ -616,8 +617,9 @@ static int airoha_qdma_rx_process(struct airoha_queue=
+ *q, int budget)
+> =20
+>  		page =3D virt_to_head_page(e->buf);
+>  		len =3D FIELD_GET(QDMA_DESC_LEN_MASK, desc_ctrl);
+> -		data_len =3D q->skb ? q->buf_size
+> -				  : SKB_WITH_OVERHEAD(q->buf_size);
+> +		data_len =3D q->skb
+> +			   ? AIROHA_RX_LEN(q->buf_size)
+> +			   : SKB_WITH_OVERHEAD(AIROHA_RX_LEN(q->buf_size));
 
-Will this fail schema validation during make dt_binding_check?
+Does the length passed to dma_sync_single_for_cpu() also need to be updated
+to match the new DMA length?
 
-The core ethernet-controller.yaml schema enforces a nodename regular
-expression of ^ethernet(@.*)?$, which does not appear to match the
-ethernet-port@X pattern used here.
+Looking at the code just above this context in airoha_qdma_rx_process():
+
+		dma_sync_single_for_cpu(eth->dev, e->dma_addr,
+					SKB_WITH_OVERHEAD(q->buf_size), dir);
+
+Since e->dma_addr is now shifted forward by AIROHA_RX_HEADROOM bytes during
+allocation, syncing the original unreduced length causes the synchronization
+region to extend past the intended DMA data buffer by AIROHA_RX_HEADROOM
+bytes.
+
+Could syncing this extra memory lead to unintended cache invalidation
+boundaries if fragment sizes change?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-airoha-eth=
--multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D1
+-multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D2
