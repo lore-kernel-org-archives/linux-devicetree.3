@@ -1,110 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394570;
-	b=kwtYKbQS3RuKHgE2yIQGKyHDdhzQkCmYDcBASp3Zax/ZNaUyC7hrkPg+ZcewK1AcX8PK
-	 luNIV6Gz+UZrbYBR0t3jNolmAdRPwC0qD3Vim4DjrmlXhK2dXnP/1vXbUNTyxXtcELCLH
-	 BACea2RnmdQMYEUa/KLreXyV5OdGoL178Umc5CT/7IvcqiGGkG2uIT5KCQj8YDPnQxQja
-	 W2iCgU//DWIAMoQfBaYN9YHWubFhw03B7KWCclKNuAG+a7ZQg1yyGRVGbEtSDa8SR7qmi
-	 QL8pcb5cY7A8pgo/3TqvWU2/Ri7uXs80CGESJV96ctkd+KUKOFFLHiU2If/A/Tl1VhQ==
+	t=1793394750;
+	b=guYrVkWZMEGoIrj2heoP9x/0XMo/RjbO+eu77oll6kWUOkutIGVisTbIEM763K/W6B+O
+	 lBoThC7ieoaiyuFTJDN1mKV1al0lTJAs0SQk/vwkE19x+kaXBONTvH/GSGuiaVpw5d+bj
+	 vJWzXsr9AXElrKKonft35tqirl5MR9C21r/CxWDx6XykPAsBqbook/ObtP1EDA3SK3Xnk
+	 GiREjm22VQ8Z/no7Hce3u950yrvxmIwFj6P0xMUZuiT63dLw549tALvo8yTwfNTKNp7z0
+	 cXZT4Zg0mnZNja7sfvNcMkkACMZvMJRW7u9LrPnUZH6iL/i19fswMkZAU83uQQ+N2Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394570;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-	b=1WNHAc/G4wGw1dU5SH3u2Wag6+flmAHj6vB1i32bxAkjIy1A9k4mnxoYpxn5YStbWHYv
-	 L3KMzxVWu8LrW/bFqU3lT/pe3V7XcNamriKlpzrGYo3fwvK5EuUrN/B8v9U5XjkCuNXFw
-	 SZI7DLyVA//qSjlUa+iYesFbt79195YRdI1QhdWRVMQfDepSvRDZXeNpHA8dnJQHBPgGV
-	 CC4wKkY0LbaCctQdAjN7Ajq0jJNDtQlJXjAopjVEECs9abe8M4OuERmsHylPQ1gwqvd8y
-	 XjVSOkmldLVEfVqMsdkka+sgPEwm/6l2MlfwGW+o+xqu7KexAFlvVl6GAk9hH/le6BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394750;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=IEONd4jOnVyWQkHj1MJzqvWpoLIH0hBXrfM3VziQ+qI=;
+	b=JG18oeuyDmB4Mip1pcrJVm3hq3awonTqudCAr9GicMVJUEvN5DcCcePERq3aEKODJJeO
+	 jjkjrdB02/pdqETt7205b+pkVzv0pvpJIIDHqybBxadATmRU8I0U1LwfaITufCEnV/59G
+	 QrpucDulpWuYpru8WRltHRGLBhKJcsLXAqnlt8yJtmV6e2WcJjCV4M0WcSjc7YqZO2mht
+	 G8APyp3Dsdi6JZqU6u60l62rXX8Uy3cfm1JIDpTfmbz0vN2cTNYzAxefWkHJRYdifmmwu
+	 Wld4xN/8zqxEfQBpXp98K8VjRIVfGKxQr8/GjW17soJnxwmZ5gM3uLRkC8zTT/bNUMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CypdlOSS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NGvI4Dbi;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0B0606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D0B0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BB2606A31A;
+	Fri, 30 Oct 2026 21:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83BB2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CypdlOSS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NGvI4Dbi
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UIcgN14118772
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:09:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=; b=CypdlOSSajFHnoDj
-	0/CsXLC4vGq2TCnPC1nXPvvQHSQL7VAg4TfLDpcT1JVA+2ZlBOj5dSs3+AyD/HpU
-	ffuAalABjBiIwk9Vt2sxEsGuyD9363kEKlweElchT6MulJwLn44vyNKxYCuroV6F
-	GC9aJx2/zSUjUI+1RL9bkNfej/6NITLxVXvrNTPt3vKAhLhs5OQ7V622HcRN/r9w
-	KvilI34xeHRJ5V9OXq7X7AA3RsKYp5L9tGlGZZCqj+UbkfJS/OWsGkgOck1leZIj
-	YDlE716cQUB6AwWMnldKmq3AbDMxk0KjhdIaXqQOYQo1jzoLqbRf1SJM3y+JxUpc
-	V8kgHg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0pu8e8v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 21:09:27 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36637676140so1678593eec.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 14:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793394567; x=1793999367; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-        b=NGvI4Dbi9B2EBfWE8wxN/w0KFPVv7KLJky7V38TOL3EzDaowLFiMK8v/alvQwJWH8u
-         f7HoQYgonxZYuUA6C1IP+rls2rghom4mGiqRGl0oimOpfryE3qmmu4LRLNNzXgiuaUrM
-         zoIgCDGNv2068wA75Q943mzRT1xKv/OmtFXUkGNtMdbpV50KXaG4aIxSoP9xe/0rxM85
-         Tume3gDMAzLetjIK/GxKo/dbwYEim8RhK9k0a6/GuWhWHtekGEzgv1RX8tTIELZwHJZ9
-         tO8VpTYsNgLswkX3Ef42Fss1bBJE91W1aEq28UFZ9HalsngB6NAZ+1KP6W30p+/0iHqN
-         vgXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793394567; x=1793999367;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WyqmVzX7xZ8NzVi/5Q8p54DyZ0b9jXCdRbzCnZn/r1c=;
-        b=0vbymAfg3k80ibeNkAhySOO8QOdc4qz77/WA91mjzIBRUulkfEnAIBqNwrBHoTdHxC
-         OtPe2fEosDSsZWkyb1nk6VtmqByqW3LlzeU/afR9JSF/3NY8wlTCMhU6JXEOpk3RXdv/
-         pn/8ZM38hzH2FZ/2pRcsOkHqxtmF0KUr50iOesYfDvl8dYrYfQUjJxkCMaocu63/LMy+
-         rZY1Vw4dNNwbQDhUgBYsDtLe8oPr+HsEFy/DIr+PiAqi6amvClJOKVMMe1UGy/Z3+fdT
-         23EwhdCXdrMrs22Z15R9W+LDlNzvbnLMHTi39qmnAfsOscwyTmiEDzJ3t18023t/Wd+2
-         /moQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwrBOXzXd5YKOP+aTD3A9ZYkOraItnWQCaLNAnoCecOB1IAp0MOZlVt24YPsCgOqt/LFBbsrOalrXmd@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoA81GyTv2xMC1R90oSrSF8vuEhmTGDJAp9dO+KrAJ60T6/IYW
-	SdxOIgnh7ZMQ4RN3LKYGtixbjFd5P2ivwqcJcodN9M78m5dgwvoItD3YIm80BR+1gT98ndsy08I
-	m7i6aZo32DHRYveXdOyIkGy/PBUI5cWXatvW5n3YGzD3BHaoNoWkM2m0BmfE7Ezxi
-X-Gm-Gg: AYBFou1vD3txJmJaxPBj3duVyDUcx7NhkZ5gRk7fYvtkYZ97eRrw/0K2j/tBbbOqX12
-	U61R8SvXH7DuBaJvZPaivd/6kwKLSVjAq/bq1TngCf5aG0fRFoAxzCF7sdNeqQR/6gJc8BgYlrM
-	gHSGNvRE5RvAHjT6jkdCy1dB+Opj3gi4CICxDc3d7EZY6L3dNmJ7khz6XmPJf2uOruM0GW8E4B6
-	/y11HzUsJIG+/jWmS9IkTSEBH+Jj7+WK9ASdSjYOnt3ZkfXlIIycxvKOr6hyHVvKrnRN6e4KpWE
-	CEzrKdVzIAbHU5B0OQSexdFFJ/8zqGeTa7m5S8E0JfMsPuqgY+BP5/MX3eb+If55IUry+9xqRJa
-	Iq7zoegPTbU8t31T+UPMqG7y59vXDJjC22bBRpKScn5bKqUaB+6H/VXx7t7WW6rU9CuOVxCH1h2
-	7TzU2FM13jc1KHmWgNDE42pTEdBwFndqY=
-X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr1043557eec.7.1793394566689;
-        Fri, 30 Oct 2026 14:09:26 -0700 (PDT)
-X-Received: by 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr1043508eec.7.1793394565946;
-        Fri, 30 Oct 2026 14:09:25 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm8561611eec.10.2026.10.30.14.09.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 14:09:25 -0700 (PDT)
-Message-ID: <44bc6f1b-6f04-46ee-8578-caff30ab25e8@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 14:09:23 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=kGW4GTWR
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F9934B0;
+	Fri, 30 Oct 2026 22:10:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793394612;
+	bh=4ZcjkwBtXwpWd5YLcsKxjAoYlftpO+e2haPr8crGBDY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kGW4GTWRX2wvyUs92Hm7D+e4Tmn49DaB8rEiCWEcvqpEQpE0bEDtJ4DU6aI38BGd3
+	 5FIowGc4/rt0hw2S12LMGXi2zmZYHe+Ixd9Y7KqKi25i2OHSYWfzjkl/p+BQ0a8tKu
+	 D3QARqLMcbePtpSInZsbQzaq3bUHKuVgToZVyrRc=
+Date: Fri, 30 Oct 2026 23:12:25 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+Message-ID: <20261030211225.GA3144851@killaraus.ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,97 +73,200 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: wireless: ath12k: allow calibration
- variant for WCN7850
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-        Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Conor Dooley <conor+dt@kernel.org>, linux-wireless@vger.kernel.org,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Andrew LaMarche <andrewjlamarche@gmail.com>,
-        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Jeff Johnson
- <jjohnson@kernel.org>,
-        Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-References: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
- <179337193753.3936464.10436179036151297295.robh@kernel.org>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <179337193753.3936464.10436179036151297295.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Fj4NFD3JBGYibLA6v_fFA-HBnR-a68FE
-X-Proofpoint-GUID: Fj4NFD3JBGYibLA6v_fFA-HBnR-a68FE
-X-Authority-Analysis: v=2.4 cv=O92sLx9W c=1 sm=1 tr=0 ts=6ae50787 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=m8ToADvmAAAA:8 a=3poil_INJ9H8gjXqE2EA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX8RTjYJKI3iIE
- myzG49U2iSM7LViTg2ym1jG6iPSnm5mppMyIxrSdPIk/t3OLglvyAJkneGxDwOpOja0uW2x+FGp
- PdBdyiXmSoCi642ly7jKZvio87N5RAn8oASUd8Y0zjzBlk8oJv9ykC2deqbj7Dm3vamS2Dsfdod
- 3NFlyBDXxvEMlasUr01KIjI+j55W/1jatAHXB80KciMup8IUggXnI+8g2Z/r/slhLfmhL70FiPE
- BD1cJIXCiwuLY20V/LSDdkMxBNdZ8BiNydfnjLes0OM1XrcmUEHp4H5toY/rKdtP/i75ZI5cAjw
- a4mRgB7EJDh7f6kfAEy0sKae7/LmEgY+NwRjGDQOuO4PmBRTPDlT9P4BWlJUCgfwsMl5X0qlBjd
- OopAD/sthjUSFAelu+pgpug/fAwOhEbUsb+lK9466OQd0qT18t946IWzNkinUIt/1PYXU+IwnZL
- xnuTW9aT/g3aDFBcTZg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4NCBTYWx0ZWRfX4TDrcBLzRIxO
- D/g2CvB7oEEOX+UE/gwEAfLOZhC3rIo0iRJyNviQ80hHGQRkrnbpS4oqPhuP9qaZizUZj8ZMGxN
- XhfExH6BUZNb0+FOT1wb5ZdKai3Wx80=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
- clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300084
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-4-e052903a3832@ideasonboard.com>
 
-On 10/30/2026 7:53 AM, Rob Herring (Arm) wrote:
-> 
-> On Mon, 07 Sep 2026 16:17:20 +0200, Ernest Van Hoecke wrote:
->> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->>
->> qcom,calibration-variant is the generic Qualcomm Wi-Fi DT property for
->> selecting board-specific calibration data when the device identity alone
->> is ambiguous.
->>
->> Commit 06cca100ad08 ("wifi: ath12k: support calibration-variant from
->> device tree") implemented support for this property in the ath12k
->> driver.
->>
->> WCN7850 can be used in systems where the PCI device ID and machine
->> compatible are identical across product variants, or across regions with
->> different regulations. For regulatory changes, the hardware description
->> does not change, but the vendor-provided calibration data can differ. In
->> that case neither the PCI identity nor the machine compatible can
->> identify the required data, so DT needs an explicit calibration variant.
->>
->> The ath10k, ath11k and ath12k WSI bindings already allow this generic
->> property for the same class of board-data selection. Allow it for
->> WCN7850 PCIe devices as well.
->>
->> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->> ---
->> Changes in v2:
->> - Rebased
->> - Updated commit message
->> - Link to v1: https://lore.kernel.org/r/20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com
->> ---
->>  Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml | 6 ++++++
->>  1 file changed, 6 insertions(+)
->>
-> 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> 
-> Sorry, not sure why this wasn't showing up for me. You may want to 
-> resend it in case it is not in wireless queue.
-> 
-> Rob
+Hi Paul,
 
-It's in my queue, will pick it up now.
+Thank you for the patch.
 
-/jeff
+On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
+> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+> 
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+I need to reconsider this...
+
+> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
+>  1 file changed, 72 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
+>  			bootph-all;
+>  		};
+>  
+> +		fcpvi0: fcp@c5030000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5030000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+
+... as this may not be the correct clock.
+
+The user manual lists the following SGD clocks for the media-related IP
+cores:
+
+- CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
+			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
+
+- VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
+- VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
+- VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
+- VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
+
+- ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
+- ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
+
+- FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+
+- VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
+- VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+- VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+
+- VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
+- VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
+- VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
+
+- DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
+
+Those IP cores are connected in four types of pipelines:
+
+- FCPV[BI] -> VSP[BI]
+- FCPVD -> VSPD -> VCON -> DPTX
+- FCPVX -> VSPX -> ISP Core
+- CSI -> VIN -> ISP CS
+
+It would be quite logical for all IP cores in the same pipeline to use
+the same clock. This would be
+
+- FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
+- FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
+- FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
+- CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
+
+This mostly matches the clocks listed in the user manual, except for
+
+- FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
+- VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
+
+Now, note how in the clock diagram document the VIO "ISP" and "CSI"
+hierarchies both show 4 groups of SGD clocks (respectively named
+SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
+hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
+group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
+clocks (named SGD*_VIO_DP_OTHER).
+
+This makes me believe that, wherever the user manual lists
+SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
+the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
+should be SGD*_VIO_DP[012]φ, both because there is a single
+SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
+VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
+
+For full consistency, I also suppose that the FCPV[BI][0-9] instances
+match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
+clocks, not the listed SGD*_VIO_DP_TXφ clocks.
+
+This being said, in practice this probably makes no difference, as all
+those clocks derive from the same SGD1_VIO_MAIN clock and none of them
+are programmable or gateable.
+
+If the above explanation makes sense to you (and to Geert), we can ask
+Renesas to check if the issue I suspect are errors in the documentation.
+
+Finally, while neither the FCP nor the VSP chapters indicate what the
+SGD1 and SGD4 clocks are used for, the VCON chapter lists SGD1 as the
+"VSPD I/F clock" and SGD4 as the "APB I/F clock", and the ISPCS chapter
+lists SGD1 as the "Processing clock of ISP CS" and SGD2 as the "APB I/F
+clock". The APB clocks are used for register access, while the "I/F
+clock" or "processing clocks" are used for the data flow. If the FCP
+driver (or the VSP driver) had a need to know any clock frequency, it
+would be the data clock. I would therefore use SGD1 instead of SGD4 here
+(same for the VSP).
+
+> +			power-domains = <&mdlc_vio 0x07 0x107>;
+> +			resets = <&mdlc_vio 0x107>;
+> +		};
+> +
+> +		fcpvi1: fcp@c5031000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5031000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x108>;
+> +			resets = <&mdlc_vio 0x108>;
+> +		};
+> +
+> +		fcpvi2: fcp@c5032000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5032000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x109>;
+> +			resets = <&mdlc_vio 0x109>;
+> +		};
+> +
+> +		fcpvi3: fcp@c5033000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5033000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x10a>;
+> +			resets = <&mdlc_vio 0x10a>;
+> +		};
+> +
+> +		fcpvb0: fcp@c5038000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5038000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x102>;
+> +			resets = <&mdlc_vio 0x102>;
+> +		};
+> +
+> +		fcpvb1: fcp@c5039000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc5039000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x103>;
+> +			resets = <&mdlc_vio 0x103>;
+> +		};
+> +
+> +		fcpvb2: fcp@c503a000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503a000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x104>;
+> +			resets = <&mdlc_vio 0x104>;
+> +		};
+> +
+> +		fcpvb3: fcp@c503b000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503b000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x105>;
+> +			resets = <&mdlc_vio 0x105>;
+> +		};
+> +
+> +		fcpvb4: fcp@c503c000 {
+> +			compatible = "renesas,fcpv";
+> +			reg = <0 0xc503c000 0 0x1000>;
+> +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> +			power-domains = <&mdlc_vio 0x07 0x106>;
+> +			resets = <&mdlc_vio 0x106>;
+> +		};
+> +
+>  		mdlc_cmnn: system-controller@ca410000 {
+>  			compatible = "renesas,r8a78000-mdlc";
+>  			reg = <0 0xca410000 0 0x1000>;
+
+-- 
+Regards,
+
+Laurent Pinchart
