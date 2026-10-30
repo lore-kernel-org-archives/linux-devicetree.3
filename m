@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388142;
-	b=1pRZkOPOHgoBIDtvCZN7j2rlTF2HcRRcYMYPHsGLE4RY+kNRkVTHtbKfnQGs6sWNFdGW
-	 o8a3Ji02fRW6ILWxIUtR/3GzDUxY5k+K8MBzZP09RdyVSbBzYPCbP27wIH3Sqn7EEzOkv
-	 qB5slYgWG0OP7QtB37tnUKbC4dsAZZOiAJH5Oyo6CWe/ueipIEyTY9A3hcTnB8FBheRNZ
-	 NpfJtJPCVlqMlPKGhld7OdgYERDcK/6LT2CP/U6+tBu/qpjFGY8R+DMfvyNeEo04XOFuA
-	 i/MGffY0GeyGTWgnXyEoX/k/whb1jI10iuJtgwRZzpp+aRVpEv0obnbpXnoHYubLrtA==
+	t=1793388143;
+	b=Kt26X/eXXpwLQhUeM1pMaOZp7wW/y30IcZy01TulOR2UfG5S09qq5rfC7J80qXg3k9a/
+	 u4svCCIAOhUffRSPbIlSkWJTg0pA4/V7411WQJT84D3vLrnYVF38URveKwXX1UMFKUapp
+	 BVPFiBJnxYMMeSETrsfZkDLA/osBkgogcJmSq1c7s8GVa6rtggLEn20mwzgmKAjQpJJtQ
+	 gJY3Nak/gzkLxUDvvWeHzI7fBmhnDFhI3pKPMmPIRNO2OnzzNeDDhUfuWGa1ROFbIeiWy
+	 GdCHZK9lRI3ejdsWpwVRHPNOQ5um2AmnCANUMrbBnbT4FkyF5564J8hDHQS034O8VkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388143;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=pVMoTeY3yaEuTtLscNWTTt2s27CXh257Byl2CiXyLXQ=;
-	b=ap9AZwlomFEUwVpv9fDQYVwWJi3yAqByDhbRkESYp1n9vTElNGyHng9rP70ATSCq/JoP
-	 cAiUdvy95DgM3nSQOT/DVFu16lOf8N0/OnZkGk1QBhIY8wMHJPzAzM+0hiAMAA3RDdZq8
-	 OHE9F4NtcZrqtqNFoJleR0CL5+DOunfe9e7C+oB2nXGeLymoEQCpJUZmheeC7QnZNGRNd
-	 FL4PSMggzbcspQEskYPSurKzxmCWz4uemdYg4s38Stu22FwDZ1FuYgB/JFV9I0LUgCzIp
-	 AgRFMMBbjR3tMOXHosQ4AlVD23Zcdt7TMV4okYKZQ+VE5O9LRq80XLf4FQc1iKiFu6Q==
+	bh=R1c+Llvald0jXHumd+DCgFHGTB2qeUb47ynYvU/CVtg=;
+	b=PdkspVC0urBhf7Uqe37ZBcUciEcgAgP8NF7/+4bfkF5ZBUn0B2CvvKzJgPbjeDqotQcc
+	 PJMezOv6cd/RynIBcaX5V3jq+s3UGmCdaDoFEl/eVaHJ2vgPtyz76mngKRzXXEd0IG6Pw
+	 kTbi4EN1HYYoZ9MgpXkgPOroL8wVtinIgA+aApj6kd2vocJwGJDOIY26qvbjaYo5gDBAL
+	 MQCbqjvraNYboE4dyWlU+KjKL6z7mMSkbmXu78r05J85Vh15x9WInwxGV3uPSsTJeqfLf
+	 O76bs+DsoA5ecOVgAaAQqP4aaejp3mdDSFbXamLfkwa+twDC8iqkFj0bctckFdNdCEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv6ULj37;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyV8Mn0g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838DA606A31D
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:22:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48951606A322
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gv6ULj37
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 004711F00A16;
-	Fri, 30 Oct 2026 19:22:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FyV8Mn0g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62F01F000C1;
+	Fri, 30 Oct 2026 19:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793388142;
-	bh=pVMoTeY3yaEuTtLscNWTTt2s27CXh257Byl2CiXyLXQ=;
+	bh=R1c+Llvald0jXHumd+DCgFHGTB2qeUb47ynYvU/CVtg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Gv6ULj37AunCnS4KwZYPN9lCi/f4ZEbh9abm+/8ZSnZHqP+5moSdZkL7uuzm3awDh
-	 q5RhTIbh2tLNkWn48MJLOmh5+ilgW/nSrtMpN7U9zJnkOciNLLWC1+JubGPcFkykTx
-	 6N6yxQ3qk7zORTEJAvD3276+WgrH/pSqCRGcD2Xr2/CTfeHecBsFiFrx2C9H6WdtJY
-	 1p3yIdikNCsko86YE2rrHiy1SFBvrD4JsXryDEoamP7xrHC1wbMarWPiGXlZJi9/aU
-	 E43+Q1jPTofnwEjdQemrb56k2gAWwisFLoaifLGi3/dDxRCiENzfhGiIcXgfXSPlaP
-	 0YXKVJ3NgtNYA==
-Message-ID: <sashiko-outbox-191440@kernel.org>
+	b=FyV8Mn0gQBg4jvaFAOGyqmZeaWNUyIqzjMSJtb89lTSp6O1dgOPSvch9S5Tv7RaqQ
+	 iMGDVeLHySCfy+o8wjQrQcBMCs9AW7zWprFMiiGvFWmASLh/gcsmratAE7+wRaO7+D
+	 RMUQy4VBnb94Ouk7ce85bRwH9nSv2V0lhTp4o+IqiXQDUuyHItRJN5NtXxc2x76AlE
+	 zfFTNWiytLgCDn9gKP/tn/4RqS3FG5Pykcu0Vdj+xo1tg5kKYPNc/F1bdW+uYb9s5x
+	 lzhf5L/yKBj8n5gSZWeubM5H1FFyUfmwFCwB9YbFEct7nmxa0i4Z/P7kW818peFWbt
+	 mJd1hZp9Ezo8w==
+Message-ID: <sashiko-outbox-191442@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/7] net: dsa: mediatek: support MDIO switch
- downstream of MMIO switch
+Subject: Re: [PATCH v4 7/7] net: dsa: mediatek: support EN751221 switch
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Caleb James DeLisle" <cjd@cjdns.fr>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029184202.1859843-6-cjd@cjdns.fr>
+In-Reply-To: <20261029184202.1859843-8-cjd@cjdns.fr>
 References: <20261029184202.1859843-1-cjd@cjdns.fr>
- <20261029184202.1859843-6-cjd@cjdns.fr>
+ <20261029184202.1859843-8-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 19:22:21 +0000
+Date: Fri, 30 Oct 2026 19:22:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,294 +60,344 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] net: dsa: mt7530: broken PHY IRQs due to late mt7530_setup_mdio_ir=
-q()
-- [High] net: dsa: mt7530: premature and re-entrant mt7530_setup_mdio() in =
-probe
-- [High] net: dsa: mt7530: unchecked mt7530_setup_mdio() error in mt7988_pr=
-obe()
-- [High] net: dsa: mt7530: reg_mutex lockdep recursion with downstream swit=
-ch
+- [High] net: dsa: mt7530: missing MT7530_CHG_TRAP setup for ID_EN751221
+- [High] net: dsa: mt7530: recursive reg_mutex lockdep class in MMIO-MDIO h=
+ierarchy
+- [Medium] net: dsa: mt7530: swapped default_taps in en751221_trgmii_pair_s=
+etup()
+- [Medium] net: dsa: mt7530: missing child_bus mdio_lock in core_write() an=
+d core_rmw()
+- [Medium] net: dsa: mt7530: race with peer phylink in mt7530_cal_interswit=
+ch_trgmii()
 --
 
-commit 51caf2efd42e68935e207fbaf1614c12f27f5efa
+commit fcbb4fdaccb60b7ebd8ef125ae65f04744031511
 Author: Caleb James DeLisle <cjd@cjdns.fr>
 
-net: dsa: mediatek: support MDIO switch downstream of MMIO switch
+net: dsa: mediatek: support EN751221 switch
 
-This commit exports mt7530_setup_mdio(), makes it idempotent via a check on
-priv->child_bus, moves mt7530_setup_mdio_irq() to mt753x_setup(), and calls
-mt7530_setup_mdio() from mt7988_probe() after dsa_register_switch() to allo=
-w a
-downstream MDIO switch to probe and complete the DSA switch tree.
-
-> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-> index cf3bdb23a2d54..746a0a4622497 100644
-> --- a/drivers/net/dsa/mt7530-mmio.c
-> +++ b/drivers/net/dsa/mt7530-mmio.c
-> @@ -61,7 +61,21 @@ mt7988_probe(struct platform_device *pdev)
->  	if (IS_ERR(priv->regmap))
->  		return PTR_ERR(priv->regmap);
-> =20
-> -	return dsa_register_switch(priv->ds);
-> +	ret =3D dsa_register_switch(priv->ds);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * If not all switches in the hierarchy have been probed,
-> +	 * dsa_register_switch() returns 0 without calling mt753x_setup().
-> +	 * Call mt7530_setup_mdio() because there's a chance that the missing
-> +	 * switch is on the MDIO bus. Do not call this before
-> +	 * dsa_register_switch() as it  may exit with an error.
-> +	 */
-> +	mt7530_setup_mdio(priv);
-> +
-> +	return 0;
-
-[Severity: High]
-What happens if mt7530_setup_mdio(priv) fails here in mt7988_probe(), for
-example with -ENOMEM from devm_mdiobus_alloc() or -EPROBE_DEFER from
-devm_of_mdiobus_register()?
-
-Because the return value of mt7530_setup_mdio(priv) is ignored and
-mt7988_probe() returns 0, the driver core will treat probe as successful and
-never retry deferred probing, leaving the downstream switch unprobed, the D=
-SA
-tree permanently incomplete, and priv->ds registered in the switch tree
-holding allocated dsa_port instances and conduit net_device references with=
-out
-unwinding via mt7530_remove_common(priv) / dsa_unregister_switch(priv->ds).
-Should mt7988_probe() check the return value of mt7530_setup_mdio(priv) and
-unregister the switch on error?
-
-[Severity: High]
-Also, when a downstream MDIO switch is registered on the MMIO switch's MDIO
-bus (upstream_priv->child_bus), won't register accesses on the downstream
-switch trigger a lockdep recursive locking warning on priv->reg_mutex?
-
-Both the upstream MMIO switch and the downstream MDIO switch initialize
-priv->reg_mutex at the same callsite in mt7530_probe_common():
-
-drivers/net/dsa/mt7530.c:mt7530_probe_common() {
-	...
-	mutex_init(&priv->reg_mutex);
-	...
-}
-
-This assigns both mutexes to the same static lockdep class. When any operat=
-ion
-on the downstream switch holds mutex_lock(&downstream_priv->reg_mutex) at
-subclass 0 and performs a regmap access, such as in mt7530_port_disable():
-
-drivers/net/dsa/mt7530.c:mt7530_port_disable() {
-	mutex_lock(&priv->reg_mutex);
-	priv->ports[port].enable =3D false;
-	regmap_update_bits(priv->regmap, MT7530_PCR_P(port), PCR_MATRIX_MASK,
-			   PCR_MATRIX_CLR);
-	mutex_unlock(&priv->reg_mutex);
-}
-
-the underlying MDIO transfer goes through mt7530_regmap_read() /
-mt7530_regmap_write() on downstream_priv->bus (which is
-upstream_priv->child_bus) and calls mt7531_ind_c22_phy_read() /
-mt7531_ind_c22_phy_write(), which acquires mutex_lock(&upstream_priv->reg_m=
-utex)
-at subclass 0 of the same lockdep class:
-
-drivers/net/dsa/mt7530.c:mt7531_ind_c22_phy_write() {
-	mutex_lock(&priv->reg_mutex);
-	...
-}
-
-Does priv->reg_mutex need a separate lockdep key or nesting annotation when
-switches are stacked this way?
+This patch adds support for the EcoNet EN751221 on-die MT7530 switch and the
+optional external MCM MT7530 switch, along with startup calibration for the
+TRGMII link connecting them.
 
 > diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index d45388e2efc83..24e4485624d39 100644
+> index 24e4485624d39..447c80455460e 100644
 > --- a/drivers/net/dsa/mt7530.c
 > +++ b/drivers/net/dsa/mt7530.c
-> @@ -2509,7 +2509,7 @@ mt7530_free_mdio_irq(struct mt7530_priv *priv)
->  	}
->  }
-> =20
-> -static int
-> +int
->  mt7530_setup_mdio(struct mt7530_priv *priv)
+> @@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] =3D {
+>  static int
+>  mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
 >  {
->  	struct device_node *mnp, *np =3D priv->dev->of_node;
-> @@ -2519,6 +2519,10 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
->  	static int idx;
->  	int ret =3D 0;
-> =20
-> +	/* Already done */
-> +	if (priv->child_bus)
-> +		return 0;
+> +	if (priv->id =3D=3D ID_EN751221)
+> +		return 12;
 > +
->  	mnp =3D of_get_child_by_name(np, "mdio");
+>  	if (WARN_ON_ONCE(!priv->mdiodev))
+>  		return 0;
 > =20
->  	if (mnp && !of_device_is_available(mnp))
-> @@ -2543,9 +2547,6 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
->  	bus->parent =3D dev;
->  	bus->phy_mask =3D ~ds->phys_mii_mask;
+> @@ -349,12 +352,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_inter=
+face_t interface)
+>  	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
+>  	xtal &=3D MT7530_XTAL_MASK;
 > =20
-> -	if (priv->irq_domain && !mnp)
-> -		mt7530_setup_mdio_irq(priv);
-> -
->  	priv->child_bus =3D bus;
+> +	/* EN751221 on-die does not report clock speed in MTRAP */
+> +	if (priv->id =3D=3D ID_EN751221)
+> +		xtal =3D MT7530_XTAL_25MHZ;
+> +
+>  	if (xtal =3D=3D MT7530_XTAL_25MHZ)
+>  		ssc_delta =3D 0x57;
+>  	else
+>  		ssc_delta =3D 0x87;
+> =20
+> -	if (priv->id =3D=3D ID_MT7621) {
+> +	if (priv->id =3D=3D ID_EN751221_EXT || priv->id =3D=3D ID_EN751221) {
+> +		/* PLL frequency: 362.5Mhz */
+> +		ncpo1 =3D 0x1d00;
+> +	} else if (priv->id =3D=3D ID_MT7621) {
 
-[Severity: High]
-When mt7988_probe() calls mt7530_setup_mdio(priv) after dsa_register_switch=
-()
-returns 0 on an incomplete DSA tree, neither dsa_switch_setup() nor
-mt753x_setup() has executed yet. Can calling mt7530_setup_mdio() at that po=
-int
-cause four ordering and re-entrancy regressions?
+[Severity: Medium]
+When mt7530_mac_config() calls mt7530_setup_port6() on ID_EN751221, it invo=
+kes
+core_clear(), core_write(), and core_set() on control PHY address 12.
 
-1. Hardware reset and PHY clock setup in mt7988_setup() have not run yet wh=
-en
-mt7988_probe() calls mt7530_setup_mdio(priv). In mt7988_setup():
+On the MMIO-based ID_EN751221 switch, priv->bus is NULL and core_write() and
+core_rmw() fall back to priv->child_bus:
 
-drivers/net/dsa/mt7530.c:mt7988_setup() {
-	/* Reset the switch */
-	reset_control_assert(priv->rstc);
-	usleep_range(20, 50);
-	reset_control_deassert(priv->rstc);
-	usleep_range(20, 50);
-
-	/* AN7583 require additional tweak to CONN_CFG */
-	if (priv->id =3D=3D ID_AN7583)
-		regmap_update_bits(priv->regmap, AN7583_GEPHY_CONN_CFG, ...);
-
-	/* Reset the switch PHYs */
-	regmap_write(priv->regmap, MT7530_SYS_CTRL, SYS_CTRL_PHY_RST);
+drivers/net/dsa/mt7530.c:mt7530_mutex_lock() {
+	if (priv->bus)
+		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
 }
 
-MDIO accesses in mt7530_setup_mdio() happen before priv->rstc is deasserted
-and before AN7583_GEPHY_CONN_CFG is configured. Then, when the downstream
-switch registers and completes the DSA tree, dsa_tree_setup() invokes
-mt753x_setup() -> mt7988_setup() on the upstream switch, asserting priv->rs=
-tc
-and writing SYS_CTRL_PHY_RST after MDIO devices and PHYs on the bus have
-already been probed.
-
-2. mt7530_setup_irq(priv) is only called from mt753x_setup(), so
-priv->irq_domain is still NULL when mt7988_probe() calls
-mt7530_setup_mdio(priv). Any child PHY or switch node under the mdio DT node
-whose interrupt-parent is the upstream switch will fail fwnode_irq_get() wi=
-th
--EPROBE_DEFER during devm_of_mdiobus_register().
-
-3. ds->phys_mii_mask is only populated by dsa_switch_setup():
-
-net/dsa/dsa.c:dsa_switch_setup() {
+drivers/net/dsa/mt7530.c:core_write() {
 	...
-	ds->phys_mii_mask |=3D dsa_user_ports(ds);
+	if (!bus)
+		bus =3D priv->child_bus;
+
+	if (WARN_ON_ONCE(!bus))
+		return;
+
+	mt7530_mutex_lock(priv);
+
+	/* Write the desired MMD Devad */
+	ret =3D bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
 	...
 }
 
-When mt7988_probe() calls mt7530_setup_mdio(priv) on an incomplete tree,
-ds->phys_mii_mask is still 0, so bus->phy_mask =3D ~ds->phys_mii_mask is
-0xffffffff. If there is no mdio child DT node (mnp =3D=3D NULL),
-devm_of_mdiobus_register(dev, bus, NULL) scans no PHYs and sets
-priv->child_bus =3D bus. When the tree later completes and mt753x_setup() c=
-alls
-mt7530_setup_mdio(priv), it returns 0 immediately because priv->child_bus is
-already set, leaving ds->user_mii_bus with no PHYs.
-
-4. Because priv->child_bus =3D bus is set before devm_of_mdiobus_register(d=
-ev,
-bus, mnp) finishes iterating all child nodes of mnp in
-__of_mdiobus_parse_phys(), probing the downstream switch child node
-synchronously calls:
-
-mt7530_probe()
-  -> dsa_register_switch()
-    -> dsa_tree_setup()
-      -> dsa_tree_setup_switches()
-        -> mt753x_setup()
-          -> mt7530_setup_mdio()
-
-That re-entrant mt7530_setup_mdio() call sees priv->child_bus !=3D NULL and
-returns 0 while the outer __of_mdiobus_parse_phys() loop is still mid-itera=
-tion
-and has not yet registered any PHY child nodes listed after the downstream
-switch node in mnp. dsa_tree_setup_ports() then runs immediately and fails
-phylink_of_phy_connect() with -ENODEV for those upstream user ports.
+Because mt7530_mutex_lock() and mt7530_mutex_unlock() only check priv->bus,
+priv->child_bus->mdio_lock is not acquired when priv->bus is NULL. While
+mt7531_ind_c22_phy_read() and mt7531_ind_c22_phy_write() acquire
+priv->reg_mutex for each individual Clause 22 transfer, can the multi-step
+MII_MMD_CTRL / MII_MMD_DATA sequence and read-modify-write in core_write() =
+and
+core_rmw() interleave with concurrent MDIO transactions on priv->child_bus
+(such as phylib polling or regmap accesses to the downstream ID_EN751221_EXT
+switch)?
 
 [ ... ]
 
-> @@ -3386,10 +3388,17 @@ mt753x_setup(struct dsa_switch *ds)
->  	if (ret)
->  		return ret;
+> @@ -471,6 +481,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
+>  	usleep_range(25, 35);
+>  }
 > =20
-> +	/*
-> +	 * This must be called before mt753x_setup() returns because the DSA
-> +	 * core synchronously sets up ports and expects PHYs to be operational.
-> +	 */
->  	ret =3D mt7530_setup_mdio(priv);
->  	if (ret)
->  		return ret;
+> +static bool
+> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
+> +{
+> +	u32 val =3D 0;
+> +
+> +	regmap_read(rx->regmap, reg, &val);
+> +	regmap_write(rx->regmap, reg, val | EDGE_CHK);
+> +	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
+> +	regmap_read(rx->regmap, reg, &val);
+> +
+> +	return FIELD_GET(RD_VALUE_MASK, val) =3D=3D TGMII_TD_PAT &&
+> +	       !FIELD_GET(RD_ERR_MASK, val);
+> +}
+> +
+> +static void
+> +en751221_trgmii_calibrate_direction(struct mt7530_priv *tx,
+> +				    struct mt7530_priv *rx,
+> +				    u8 *default_taps)
+> +{
+
+[ ... ]
+
+> +		if (best_tap > -1) {
+> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
+> +					   RD_TAP(best_tap));
+> +
+> +			log[best_tap] =3D 'X';
+> +
+> +			dev_info(rx->dev,
+> +				 "TRGMII lane %d: %s tap %d old %d\n",
+> +				 channel, log, best_tap, default_taps[channel]);
+> +		} else {
+> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
+> +					   RD_TAP(default_taps[channel]));
+> +
+> +			dev_warn(rx->dev,
+> +				 "TRGMII lane %d: %s calibration failed, preserving tap %u\n",
+> +				 channel, log, default_taps[channel]);
+> +		}
+
+[ ... ]
+
+> +static void
+> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
+> +			   struct mt7530_priv *ondie, int ondie_port)
+> +{
+
+[ ... ]
+
+> +	/* BOTH: Collect and then zero every RX TAP */
+> +	for (channel =3D 0; channel < NUM_TRGMII_CTRL; channel++) {
+> +		reg_val =3D 0;
+> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+> +		default_taps_ext[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
+> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
+> +				  RD_TAP_MASK);
+> +
+> +		reg_val =3D 0;
+> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+> +		default_taps_ondie[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
+> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
+> +				  RD_TAP_MASK);
+> +	}
+> +
+> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
+> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
+
+[Severity: Medium]
+Are default_taps_ondie and default_taps_ext swapped in these two calls to
+en751221_trgmii_calibrate_direction()?
+
+In en751221_trgmii_calibrate_direction(tx, rx, default_taps), default_taps =
+is
+used to log the previous RX tap value on rx->dev and to restore rx->regmap's
+MT7530_TRGMII_RD(channel) register if calibration fails. Passing
+default_taps_ondie when rx is ext (and default_taps_ext when rx is ondie) u=
+ses
+the peer switch's saved RX taps instead of rx's own saved taps.
+
+> +
+> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
+> +}
+> +
+> +static void
+> +mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
+> +{
+> +	struct dsa_switch *ds =3D dp->ds;
+> +	struct dsa_switch *peer_ds;
+> +	struct dsa_port *peer_dp;
+> +	struct mt7530_priv *peer;
+> +	struct mt7530_priv *priv;
+> +	struct dsa_link *dl;
+> +	u32 pmsr =3D 0;
+> +
+> +	priv =3D ds->priv;
+> +
+> +	if (priv->id !=3D ID_EN751221_EXT)
+> +		return;
+> +
+> +	if (dp->type !=3D DSA_PORT_TYPE_DSA)
+> +		return;
+> +
+> +	regmap_read(priv->regmap, MT7530_PMSR_P(dp->index), &pmsr);
+> +
+> +	if (!(pmsr & PMSR_LINK))
+> +		return;
+> +
+> +	list_for_each_entry(dl, &ds->dst->rtable, list) {
+> +		if (dl->dp !=3D dp)
+> +			continue;
+> +
+> +		peer_dp =3D dl->link_dp;
+> +
+> +		if (peer_dp->type !=3D DSA_PORT_TYPE_DSA)
+> +			continue;
+> +
+> +		peer_ds =3D dl->link_dp->ds;
+> +
+> +		if (!of_device_is_compatible(peer_ds->dev->of_node,
+> +					     "econet,en751221-switch"))
+> +			continue;
+> +
+> +		peer =3D peer_ds->priv;
+> +
+> +		if (peer->id !=3D ID_EN751221)
+> +			continue;
+> +
+> +		en751221_trgmii_pair_setup(priv, dp->index, peer,
+> +					   peer_dp->index);
+> +	}
+> +}
+
+[Severity: Medium]
+Can mt7530_cal_interswitch_trgmii() race with the peer port's phylink_resol=
+ve()
+work item?
+
+When dsa_tree_setup_ports() enables the DSA ports on both switches, each po=
+rt
+schedules its own phylink_resolve() work item holding only its own
+dp->pl->state_mutex. In mt753x_phylink_mac_link_up(), priv->regmap's
+MT753X_PMCR_P(dp->index) has just been written with PMCR_FORCE_LNK right
+before calling mt7530_cal_interswitch_trgmii(dp), so checking PMSR_LINK on
+priv->regmap checks the local port rather than peer->regmap's
+MT7530_PMSR_P(peer_dp->index).
+
+While en751221_trgmii_pair_setup() forces MT753X_PMCR_P(ondie_port) down and
+sleeps in usleep_range(5000, 6000) twice during TX/RX reset, could peer_dp's
+phylink_resolve() run concurrently on another worker and call
+mt753x_phylink_mac_link_up() on ondie_port mid-reset? Also, when
+en751221_trgmii_pair_setup() writes mcr_up to MT753X_PMCR_P on both ports,
+does it overwrite PMCR_FORCE_TX_FC_EN and PMCR_FORCE_RX_FC_EN configured by
+mt753x_phylink_mac_link_up()?
+
+> @@ -1459,7 +1714,8 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
 > =20
-> +	if (priv->irq_domain && ds->user_mii_bus)
-> +		mt7530_setup_mdio_irq(priv);
+>  	mutex_unlock(&priv->reg_mutex);
+> =20
+> -	if (priv->id !=3D ID_MT7530 && priv->id !=3D ID_MT7621)
+> +	if (priv->id !=3D ID_MT7530 && priv->id !=3D ID_MT7621 &&
+> +	    priv->id !=3D ID_EN751221 && priv->id !=3D ID_EN751221_EXT)
+>  		return 0;
+> =20
+>  	if (port =3D=3D 5)
+> @@ -1486,7 +1742,8 @@ mt7530_port_disable(struct dsa_switch *ds, int port)
+> =20
+>  	mutex_unlock(&priv->reg_mutex);
+> =20
+> -	if (priv->id !=3D ID_MT7530 && priv->id !=3D ID_MT7621)
+> +	if (priv->id !=3D ID_MT7530 && priv->id !=3D ID_MT7621 &&
+> +	    priv->id !=3D ID_EN751221 && priv->id !=3D ID_EN751221_EXT)
+>  		return;
 
 [Severity: High]
-Doesn't moving mt7530_setup_mdio_irq(priv) after mt7530_setup_mdio(priv) br=
-eak
-PHY interrupts for all switches using ds->user_mii_bus?
+Do the updates to MT753X_MTRAP for ID_EN751221 in mt7530_port_enable(),
+mt7530_port_disable(), mt7530_setup_port5(), and mt7531_setup_common() take
+effect without MT7530_CHG_TRAP being set?
 
-In mt7530_setup_mdio(), devm_mdiobus_alloc() initializes all bus->irq[i]
-entries to PHY_POLL. When mnp is NULL, devm_of_mdiobus_register(dev, bus, N=
-ULL)
-synchronously scans the bus and creates the phy_device instances via:
+In mt753x_table, ID_EN751221 uses mt7988_setup() -> mt7531_setup_common().
+Unlike mt7530_setup(), which sets MT7530_CHG_TRAP in MT753X_MTRAP after
+resetting the switch so that trap bits can be modified by software,
+mt7988_setup() asserts and deasserts priv->rstc and then calls
+mt7531_setup_common() without setting MT7530_CHG_TRAP in MT753X_MTRAP.
 
-devm_of_mdiobus_register()
-  -> __of_mdiobus_register()
-    -> __mdiobus_register()
-      -> mdiobus_scan_bus_c22()
-        -> mdiobus_scan_c22()
-          -> get_phy_device()
-            -> phy_device_create()
+[ ... ]
 
-During phy_device_create(), phylib copies bus->irq[addr] into each struct
-phy_device:
+> @@ -3817,6 +4122,28 @@ const struct mt753x_info mt753x_table[] =3D {
+>  		.phy_write_c45 =3D mt7531_ind_c45_phy_write,
+>  		.mac_port_get_caps =3D en7528_mac_port_get_caps,
+>  	},
+> +	[ID_EN751221] =3D {
+> +		.id =3D ID_EN751221,
+> +		.pcs_ops =3D &mt7530_pcs_ops,
+> +		.sw_setup =3D mt7988_setup,
+> +		.phy_read_c22 =3D mt7531_ind_c22_phy_read,
+> +		.phy_write_c22 =3D mt7531_ind_c22_phy_write,
+> +		.phy_read_c45 =3D mt7531_ind_c45_phy_read,
+> +		.phy_write_c45 =3D mt7531_ind_c45_phy_write,
+> +		.mac_port_get_caps =3D en751221_mac_port_get_caps,
+> +		.mac_port_config =3D mt7530_mac_config,
+> +	},
+> +	[ID_EN751221_EXT] =3D {
+> +		.id =3D ID_EN751221_EXT,
+> +		.pcs_ops =3D &mt7530_pcs_ops,
+> +		.sw_setup =3D mt7530_setup,
+> +		.phy_read_c22 =3D mt7530_phy_read_c22,
+> +		.phy_write_c22 =3D mt7530_phy_write_c22,
+> +		.phy_read_c45 =3D mt7530_phy_read_c45,
+> +		.phy_write_c45 =3D mt7530_phy_write_c45,
+> +		.mac_port_get_caps =3D mt7530_mac_port_get_caps,
+> +		.mac_port_config =3D mt7530_mac_config,
+> +	},
 
-drivers/net/phy/phy_device.c:phy_device_create() {
-	...
-	dev->irq =3D bus->irq[addr];
-	...
-}
+[Severity: High]
+When ID_EN751221_EXT is registered as an MDIO device on ID_EN751221's inter=
+nal
+MDIO bus (ondie->child_bus), both switches initialize priv->reg_mutex in
+mt7530_probe_common() with the same lockdep class key.
 
-Because mt7530_setup_mdio_irq(priv) now runs after mt7530_setup_mdio(priv) =
-has
-already registered the bus and created the PHY devices, bus->irq[addr] is s=
-till
-PHY_POLL at creation time, so every PHY is created with phydev->irq =3D=3D =
-PHY_POLL
-and populating ds->user_mii_bus->irq[p] afterwards has no effect on the
-already-created PHY devices (while leaking the mapped IRQ descriptors).
+When an operation on the downstream ID_EN751221_EXT switch holds
+ext->reg_mutex and accesses ext->regmap, the regmap MDIO callbacks invoke t=
+he
+parent switch's child_bus operations, which acquire ondie->reg_mutex:
 
-In addition, the error path in mt7530_setup_mdio() still calls
-mt7530_free_mdio_irq(priv) when devm_of_mdiobus_register() fails:
+mt7530_setup() (on ext)
+  mt7530_port_disable()
+    mutex_lock(&ext->reg_mutex)
+    regmap_update_bits(ext->regmap, ...)
+      mt7530_regmap_write()
+        bus->write() (on ondie->child_bus)
+          mt753x_phy_write_c22()
+            mt7531_ind_c22_phy_write()
+              mutex_lock(&ondie->reg_mutex)
 
-drivers/net/dsa/mt7530.c:mt7530_setup_mdio() {
-	...
-	ret =3D devm_of_mdiobus_register(dev, bus, mnp);
-	if (ret) {
-		priv->child_bus =3D NULL;
-		dev_err(dev, "failed to register MDIO bus: %d\n", ret);
-		if (priv->irq_domain && !mnp)
-			mt7530_free_mdio_irq(priv);
-	}
-}
-
-even though mt7530_setup_mdio_irq(priv) was not called before
-devm_of_mdiobus_register().
+Will this nested acquisition of ondie->reg_mutex while ext->reg_mutex is he=
+ld
+trigger a lockdep recursive locking warning?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029184202.1859=
-843-1-cjd@cjdns.fr?part=3D5
+843-1-cjd@cjdns.fr?part=3D7
