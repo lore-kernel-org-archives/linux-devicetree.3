@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357404;
-	b=qFW18aSSfxF4CdsAnrx1KCrJLq3/NNbpQWQXh+He6ksl1qXdAoIkoyYFiafWpwxaQABB
-	 SOrkuw6SeNvWD6gmQym6vVmAL1ba3oBvZuOwNGwvRBpMWg2r+G0Bk0mVXT8q7pUUhzVb4
-	 2wx2HEDFendaKt8UGTrtQvkmJvEw+ABH6d1GZx37eoPtqr42EbTwRwJRKrT9OvwHUI/SM
-	 Zjd6vs0I1+FmELl5c3pztE4kfr3RP0fQMScNL2c3zkLg9kONEs2wdDFUzv3Nx8i9rTzTV
-	 Ya+RuYFM86afTQMVnmjV9hq236ghxAvChoRH0k3a9pO6lzO8psa5ZmtvJXh262iTVbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357404;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793357510;
+	b=ti1VRTwyjc7pw/jsFmucPOeg6+tDyAg26jRw+X6mLDQlLb8rIXl6GGjBsrhKV9am4K5e
+	 GrtPIHFIM1Wt4LIljExb27YcaYsXf/ovF5ZSsmtSNiVmo80sP2OIQt5GC8RT20cEcsUPE
+	 of6R/+ELgHRWv3Ee5x1YF/I2uNqBW2Sfkf5JgV4kOGyeS5fIKEDkQ8aUkQJLDN01/Hvef
+	 NhmasayPFh2WC9GcRqQJJMVk8bfnL34agCxmeGfvzwhAys9p4hoBA+ZrfOXr49nvF3qYK
+	 2EIvvzjnAyLxD8ZZiYZjAVZPc3AKNcysDUYkvZIK7VgSC1tZyMDG+6b5ULlFp9Pu0pQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=VN5msX5E3k0ukSIKjGVKlIKfYH+rTqcvvlIUBCaaaUM=;
-	b=FCiqKHUgwU3XFRQLLvYWmEEFS6PqZ45cjiu6p59rVfbUMQb7yAFRdve3SJM7NWC/81xZ
-	 T1dIF0cgmtXlZV/v+Q7nm2Rkv7uQpUqGP6EhIMLB+3cjPGookoHT/13TGoyMCgqZeSpZy
-	 A8vT5SJxjr00gVp1EZH7cnDS7V5LGiaz/wAaGDyyKo0wWdi0W2IuEI33e0GH8MDj3m+fc
-	 Gbl3k1rS278gqliNkuXTuZBD33MJ1D8Lblq7pIYSAbA6Tu6l0zSLAKw9mvjelTXh5eh0F
-	 0v0+t7b9HTvQ0iViXqUUW+SAoIj8pX7/qsvcW8cR916oj/Fcv4nG6IkrBk+5JJ5V1Yg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqTkWEdq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=vjqb7aOYYDJNIVxBP1D95TfPNom/ysDepCvkxpveSIQ=;
+	b=dLPu9VScyvj/F4KLyGlU3ii4/fUCg2YuDIADMmLKwyOZmgjElO58uS9F7VyDUPx49wPs
+	 RC53XkLUKAE/OcoFaEruQKQ7wPoWP45sPN5mJkTtJS7TVgyEiwlOmcaT2HR+u9yny8d9c
+	 gIXO07SxvXGxsh8PdAJTuQ/L25Je2iVH8WOQlKibElkIX3dBqvjmsupTosSDqGXzgAb5U
+	 wPSQmnNQPaF+/o/u8+la9qb7XLqwtF+bqqIr58gEHflnAmCQ/Xql+Per8GZY/mKSLocHA
+	 yqTU2jD/rtTQ0Xq86D4hLWipn/7MKY7u44fepPgpy1NRDv05bBg1RGZM1N7RXeJkVYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="FJ1u47j/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A84D60A3804;
-	Fri, 30 Oct 2026 10:50:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859D9606AC24
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 10:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 859D9606AC24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqTkWEdq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6151F000C1;
-	Fri, 30 Oct 2026 10:49:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357404;
-	bh=VN5msX5E3k0ukSIKjGVKlIKfYH+rTqcvvlIUBCaaaUM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dqTkWEdqLUmlBP4eKrltIMuT0YA2F6O3+iDz3ksyh513w1dZ55uZ23PI7K3aDv+gN
-	 M8LmLflC1Nc+m+OyzInhBKEYcpuVrvxXXXajCwZlCWJa4g0AdaurLnoHH8KQoSSzqD
-	 fhxFWM2/hGlYNxp0CeyEFi5xUiGHTrjrtoht5++XHEZ8UyeU0exd3D1Xqyyarx1Kc3
-	 WDcwpzN7k/pOBfaTNczxhfw9mIusdMLg61e0B9qkdWSC+iZ3LZNBZ3eyL0blC25qrL
-	 1erW1n4JSFPqitkuormDl39mw0Cv6rhb37OgppWYRmlm8ZZmTO391M2EVX0zMWjXyR
-	 cYnizXukYCxoQ==
-Message-ID: <182ebaf9-0e6c-413a-971a-396ee8cd6b5b@kernel.org>
-Date: Fri, 30 Oct 2026 11:49:53 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FJ1u47j/
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ad98c3fb15so4684457b3.2
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 03:51:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793357508; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pmq4PY/ycjUel/CFsf7HLu0//t5LhsDA5HIdZL4GVyWaSvX5+Bswdbc7kx4VbF0WI+
+         8+k+fxd3aOrGbo64pwVrkdHkQLf/cvk4mw2d8QAEpLd0BDcFiZD8s82kR7wmVzqcUSHI
+         V2xMHBnlELberbZt5WJpAo3Zw0RO8tOBEHBOm+rpk/H5BkSRNp0KQWaEbFIO6LOVVPm1
+         tY8aaLUntG6KqVS36087A7HhvWo4XI7x1X7z18GedWKCOQ4eQikiXa4h5t5HcFS/HPuz
+         nhBbuCphL7RU9pPykiXsBNyeqS4ft7YSuaFUEjR3DgWgO+Cs+W76BOhoILc0nNI9goUk
+         O89g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vjqb7aOYYDJNIVxBP1D95TfPNom/ysDepCvkxpveSIQ=;
+        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
+        b=gPigq5G3G+1YDVpTTUEk5lqkjPNJrwtJ1Zfal/+Ys7XdfrOVcEnrwdgipf6l+Oy65L
+         I8QsLMSaurwsDwoSQBRAfcDIo1Dku+dnVIa2sVqacSjuT3s5O4HKWdhsH5w966czvKs/
+         Bg/yIV+O+m8/YJK+XP8hGdUx6rduY6I/I5Bw6KTdqR35gpipHvL7LsW9C3dNzh0C8O5g
+         W0RQx5KPwX0n6bN0QvOmOCi0kAbhR2Lr8BVA/FWPNsfvFOB5xZlRnJKxPVhOoHqC29rU
+         tIKwFGfUQQzH7deibQDPvRzflFKTsYyxGkdU9ZzeqAbTO1+NhOE0I6D3NZr/t7rcaAt4
+         VdyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793357508; x=1793962308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vjqb7aOYYDJNIVxBP1D95TfPNom/ysDepCvkxpveSIQ=;
+        b=FJ1u47j/URdVJkqvDM5TrTNUEqopLH248C0DWIBv+OHU1vmIT5pHrDSiGAczbnhK5b
+         9hrXs8GkNjVcPPF14nmSaDtCMbyRwP0KO+uGNeVIVLOGb1lmD3oSclqzjnd17L5HPcEu
+         Zk3dLH7xUzI+j1eeQvJtkf+cyaF5FZMb64/ZI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357508; x=1793962308;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vjqb7aOYYDJNIVxBP1D95TfPNom/ysDepCvkxpveSIQ=;
+        b=pmWhVcktjwDilZrKp3S5KtbJosmgtS+k3u+bDi1lE/f7ofRZqajdXVvB67WaJ9lOpZ
+         63JDwXj5Fi88FGIi9CsBSmfg4U2XFlWmq5jQ0FCDI8mDCe+N2EwBv579NCZr3jwUqUpw
+         8Jy1awiKZVp3yznQepzqfE3aAdmW5GEXgZGOIOwm4Xvqzvdy43KlX87pvVPetKGDz4k3
+         nix9bThSLuoFEqj4TGi2ZnCMTHqpvTZBi3008+Hetn3qLdDrCpjXrtIBGhTPfn8/JPps
+         CZa5rrZ9gL681StpMEU1PMLQvmfdPDzf9sOlqcipnjl6+J5Rm9C+ZnJaLDU5TmL38PXQ
+         HyBw==
+X-Gm-Message-State: AFq9FYLR1cqtUmmDsfGE5L+x2kIqcvNH2kmlpbcVhYkHYsIMzrmgoZMO
+	34y207mX11V08+bhp66hTApDRa1ZMIdzYMGJvp4FFz3Ngge1Pn+rjcy6AtxJWA+95jH+NngCe5a
+	e0d7/wHnJ2q4+5JSdFVIUlvN9Ge6/UJbJsF9J2ALg2ZwIH8rhcC4=
+X-Gm-Gg: AYBFou1jt3NqZgUui76NHuYrrPvVwI0jdeSx7+ihzJMB95ECSiWFzC8WJsBKyvt0j7T
+	wJOJi2iPqiRwV3fBQJopo2yRIB+K1T67CqG+TGKkb2W3frY1a2+SiCkkHwsHoCMlD8im2z1cAC7
+	23TaX9XdQJMwtNg9WxPR4rrcHT13cgtqnS5IUyXV+cjFOFwpxO3yZRUuk33lXKNu/1qAhSS5EHf
+	DRM9DH0G0Gw56MnThXpaboufTHyXugLY1yRqGfEdfkDRGB3TqFlfGw7huVogjryaClJFksN85OP
+	hKiRqPeK29jr6N0JmjWOMptJdWlCe+7vqKuX8+kESEFXXvUGYfA6nL06MMVMmj9H7fuv5S17ISR
+	yr9dhxxlbzTIYr0sD6aUvQF0E/gUndwXn748ayeL9TEnWg98JSyoqXSeweMQfYttqHkE=
+X-Received: by 2002:a05:690e:13c9:b0:677:b7a7:ba38 with SMTP id
+ 956f58d0204a3-67ba4c806b6mr1739398d50.14.1793357508542; Fri, 30 Oct 2026
+ 03:51:48 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,108 +100,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
- DSI to HDMI bridge
-To: Hermes.Wu@ite.com.tw
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- luca.ceresoli@bootlin.com, Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com
-References: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
- <20261029-upstream-6162-v5-1-8369f9e5afe6@ite.com.tw>
- <20261030-jolly-mantis-from-betelgeuse-2f0db1@quoll>
- <436b4159ce1247c6ab3974f573ca6037@ite.com.tw>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <436b4159ce1247c6ab3974f573ca6037@ite.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261030103418.2355854-1-wenst@chromium.org> <sashiko-outbox-190860@kernel.org>
+In-Reply-To: <sashiko-outbox-190860@kernel.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 30 Oct 2026 18:51:36 +0800
+X-Gm-Features: AclHuK8dRbUC9YjGydnlkhS_CrQ4_pwnqLdh1PdQaR9I-6NADrsb2t_rTfbCb9g
+Message-ID: <CAGXv+5EQTvKWYQOWEbW_EKRK98mWdVhtXd6AogifcW-NkDm8Uw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay
+ for MT6315 regulators
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 30/10/2026 11:44, Hermes.Wu@ite.com.tw wrote:
-> Hi Krzysztof
->>
->> -----Original Message-----
->> From: Krzysztof Kozlowski <krzk@kernel.org> 
->> Sent: Friday, October 30, 2026 5:56 PM
->> To: Hermes Wu (吳佳宏) <Hermes.Wu@ite.com.tw>
->> Cc: Andrzej Hajda <andrzej.hajda@intel.com>; Neil Armstrong <neil.armstrong@linaro.org>; Robert Foss <rfoss@kernel.org>; Laurent Pinchart <Laurent.pinchart@ideasonboard.com>; Jonas Karlman <jonas@kwiboo.se>; Jernej Skrabec <jernej.skrabec@gmail.com>; David Airlie <airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Maarten Lankhorst <maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>; Thomas Zimmermann <tzimmermann@suse.de>; Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Luca Ceresoli <luca.ceresoli@bootlin.com>; Pet Weng (翁玉芬) <Pet.Weng@ite.com.tw>; Kenneth Hung (洪家倫) <Kenneth.Hung@ite.com.tw>; dri-devel@lists.freedesktop.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Subject: Re: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
->>
->> On Thu, Oct 29, 2026 at 06:12:30PM +0800, Hermes Wu wrote:
->>> Add device tree binding documentation for the ITE IT6162 MIPI DSI to 
->>> HDMI 2.0 bridge chip. The IT6162 is an I2C-controlled bridge that 
->>> supports the following configurations:
->>>
->>>   - Single MIPI DSI input: up to 4K @ 30Hz
->>>   - Dual MIPI DSI input (combined): up to 4K @ 60Hz
->>>
->>> The chip also supports up to 8-channel audio output via 4 I2S data 
->>> channels.
->>>
->>> Assisted-by: Claude Opus 5.5
->>
->> Drop the tag now, rules changed.
->>
-> Thanks, I will drop it in v6.
-> 
->> Please run scripts/checkpatch.pl on the patches and fix reported warnings. After that, run also 'scripts/checkpatch.pl --strict' on the patches and (probably) fix more warnings. Some warnings can be ignored, especially from --strict run, but the code here looks like it needs a fix. Feel free to get in touch if the warning is not clear.
->>
-> I ran checkpatch.pl, with and without --strict, on both patches. The
+On Fri, Oct 30, 2026 at 6:41=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] arm64: dts: mediatek: swapped regulator-ramp-delay for Vbcpu and=
+ Vlcpu
+> --
+>
+> commit 810dcac6146b830cb56f853c88e0887dc012ef9d
+> Author: Chen-Yu Tsai <wenst@chromium.org>
+>
+> arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulator=
+s
+>
+> This commit adds regulator-ramp-delay properties for the MT6315 buck
+> regulators (Vbcpu, Vlcpu, and Vgpu) on Asurada to ensure voltage increase=
+s
+> settle before switching CPU or GPU to higher operating points.
+>
+> > diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/ar=
+m64/boot/dts/mediatek/mt8192-asurada.dtsi
+> > index 40d34b16dc807..68d84fc55767b 100644
+> > --- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+> > +++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+> > @@ -1500,6 +1500,7 @@ mt6315_6_vbuck1: vbuck1 {
+> >                               regulator-min-microvolt =3D <400000>;
+> >                               regulator-max-microvolt =3D <1193750>;
+> >                               regulator-enable-ramp-delay =3D <256>;
+> > +                             regulator-ramp-delay =3D <4500>;
+> >                               regulator-allowed-modes =3D <0 1 2>;
+> >                               regulator-always-on;
+> >                       };
+> > @@ -1509,6 +1510,7 @@ mt6315_6_vbuck3: vbuck3 {
+> >                               regulator-min-microvolt =3D <400000>;
+> >                               regulator-max-microvolt =3D <1193750>;
+> >                               regulator-enable-ramp-delay =3D <256>;
+> > +                             regulator-ramp-delay =3D <8000>;
 
-I don't believe in such case that you run on any valid kernel tree.
+It seems like Sashiko applied the patch incorrectly. I see why that is
+possible: the .dtsi file gives the same default values for all the
+regulators.
 
-Please fix your workflow, because it seems you  work on some ancient
-tree (don't, instead use mainline) or work on fork of kernel (don't,
-instead use mainline).
-
-
-Best regards,
-Krzysztof
+> [Severity: High]
+> Are the regulator-ramp-delay values for mt6315_6_vbuck1 and mt6315_6_vbuc=
+k3
+> swapped here?
+>
+> The commit message states that the slew rates are 8000 uV/us for Vbcpu, a=
+nd
+> 4500 uV/us for Vlcpu and Vgpu. However, in mt8192-asurada.dtsi,
+> mt6315_6_vbuck1 is Vbcpu and mt6315_6_vbuck3 is Vlcpu:
+>
+>         mt6315_6_vbuck1: vbuck1 {
+>                 regulator-name =3D "Vbcpu";
+>                 ...
+>                 regulator-ramp-delay =3D <4500>;
+>                 ...
+>         };
+>
+>         mt6315_6_vbuck3: vbuck3 {
+>                 regulator-name =3D "Vlcpu";
+>                 ...
+>                 regulator-ramp-delay =3D <8000>;
+>                 ...
+>         };
+>
+> Because mt6315_volt_range_ops does not implement .set_ramp_delay,
+> _regulator_set_voltage_time() uses constraints->ramp_delay directly to
+> compute the settling wait time during cpufreq DVFS transitions. Assigning
+> 8000 to Vlcpu when its hardware slew rate is 4500 uV/us causes the regula=
+tor
+> core to wait for less than the required voltage ramp time before scaling =
+the
+> little CPU cluster frequency up, while waiting longer than needed on Vbcp=
+u.
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030103418.23=
+55854-1-wenst@chromium.org?part=3D1
