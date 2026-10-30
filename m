@@ -1,67 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341838;
-	b=NEt5h1rznkhq68NTdpxKDs/wb/fmgqg/rFVxDWSa3IBknGdD5mR1WOfWptsVkZL/srhJ
-	 m7HuQrIFt0Jbv48N0MJSfKODp5ZphcVXS/De/E0E10Qev/4yg9GF+9dt/+HqdGDJH/gDj
-	 1dBjBByQFZA98okflfETWCIlzvivnFRSQEseC5I7flylI37xIx8HPkRgSrlshLvJM56OG
-	 xQouYoRIK4SValdM5EjO0Ada2TkFbese7EHFkOsNIMt9GToP1MTqHLqzX3UlwoxEbate6
-	 YVGFNKZbefhhc95aujk9gX58eIzcgpMe2fTxhe/1yWQcUrW5DnPdzD6stTPjW+s1sGQ==
+	t=1793342619;
+	b=egjkM6dtrBY3R8t7zcBiCqcSgh3JhhOVRcfkqHlsaKpbtLBjuI7LJ8WIehsJJy0+aCJH
+	 DYrjSmQU2NMt19XZUxid8TLFx/ZBQNY/48RGaT9uZK2r0hX7HOhVD8vtCXK+8xXy98osL
+	 WvLPcdX6WnOu8QAuFfbP2XFKGr+CSb2aw3sBLKLtpM5pjiGtIpTCdROwb+cCyl1e2ykvx
+	 FAOfs0w0RwnM3dsaoFdnN4HMYOTBvYz8b1C0010SkusH5gX8Ntn0f6+WsbnRoHMxz3Gcr
+	 dVRxUyEtSPL/+LPaj6pSb4lUUF6J9KlqgIQeKMfaIJBpMkMO4Pp5vFkmEsb8tDSsHqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341838;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jXsG3Bm3ThhpjhFlxafNV8M+YNu9Kp2OePgNmcC2wD4=;
-	b=kNWzqDd47fRJdLPdocvtWQAUNlhKx/qX9i9Xqc+As70Ae1Q1UCADuTrJfZyPVB7U7USp
-	 cT5UWuNXWc90p90MTCNC8PtTAgCZgYl5GnD6KUQlG9UHovIImtbvQThbrPxxgR5uT1YfG
-	 hXXm1ViiCsZJv3r01v99xFN8de2OUusencWiQh3SaL/KiASDGm3EGuLeaOXtHoN/hfQiI
-	 o9pWQN/ZDXZD1+8E0cNinhNDA5NWwxk7IbEsYCJdR8PgRJWgZxt2/RpkDN7ZeagFub8sd
-	 d5s+7qYRfYXiN0JY+Fb9rkg4ETGLc7POo1/q9+CzcHfjg9b/9alFsOv4wDUX6J/PJjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793342619;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wfLLxpJEhdYyeLU8/2J/rixOwuZVAkQRAF29JFAwSZo=;
+	b=Co7fpntlP+Y8v2gUWGCAB7bYK7yi2FScA278+X6pbnC3pp0A6B+ELh1vfhm/Cx6rMRja
+	 /jOdCdre16dj4b4ADhafY9mWRs/lQG4NELzF+NTATJpw3fXgvx593yTMSXxf4cLs/iIyk
+	 9TiPNETUC9x3nfKYwFb0RWDLalIOfIWwxKX0R8PMGimRlcPC3B4BEdhfQU8VYk9lAsWkq
+	 pxgwncOCCIjP1ww90jsWkIrTTTqinFMdh7rM8h1tNzOa5ncdta/Ii/EAhGtCI2rygGQZS
+	 DBAoax73kibQg+8VTDKlvvik8Ma8GOzlTZAshQLULt19nh19L5bQ2KkOk9nYM9XscNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SF2VKtXy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WVZKgSWg;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F820606A31A;
-	Fri, 30 Oct 2026 06:30:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EEB606A31E
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 06:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04EEB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SF2VKtXy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930F41F000C1;
-	Fri, 30 Oct 2026 06:30:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793341837;
-	bh=jXsG3Bm3ThhpjhFlxafNV8M+YNu9Kp2OePgNmcC2wD4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SF2VKtXy3Tcav//c/ZbiM7OBFszrk22o0EfYrTQOXgc3yuzSEPUeMvqpEgyM+6kiu
-	 vkWNPmsnBCiMVDKDhXLQ4FuFBe9DazZdJPo1ZnhamUejtRdhoakYpeqK6gGJp14Ge5
-	 wGUPngb1zKG/kCp9c3MVxPX6skQwFQBNXioGeqguSTfF+7x7tPxJQxMog8AII+uOns
-	 OCcOBwrD1lIPEshFbgi2zObUOUnZtQMauzHpKG5irl2bPydGurZFua+X5r5AfL0qJj
-	 xqeYFe+rnEQYIKF73VtFQ4bIz+2hx5En9sRSkt5azOfeLobIDBjXGwc/LvUrsgY8sA
-	 iIzvAH2F3T8tA==
-Date: Fri, 30 Oct 2026 12:00:28 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Sumit Garg <sumit.garg@kernel.org>, Will Deacon <will@kernel.org>,
-	brendan.jackman@linux.dev, catalin.marinas@arm.com, rppt@kernel.org,
-	akpm@linux-foundation.org, sudeep.holla@kernel.org,
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
-	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
-Message-ID: <auQ5hCdPFz0BmvDG@sumit-xelite>
-References: <arKW_91EeKA-w96m@willie-the-truck>
- <are21BjeS1O3RYE3@sumit-xelite>
- <aruh86rd5FMv2i9G@willie-the-truck>
- <ar5TPvANFUoosxGW@sumit-xelite>
- <asOAYODGZa-7EIV1@google.com>
- <asOD31rTX6dNfD1o@google.com>
- <aszdnInyJxLhSQRp@sumit-xelite>
- <as3798SFCfKFirag@google.com>
- <as4ATqhp0bPI03PA@sumit-xelite>
- <auILvMVSXk9pZh6M@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WVZKgSWg
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14394530ec6so460873c88.1
+        for <devicetree@vger.kernel.org>; Thu, 29 Oct 2026 23:43:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793342618; x=1793947418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wfLLxpJEhdYyeLU8/2J/rixOwuZVAkQRAF29JFAwSZo=;
+        b=WVZKgSWg29WUI4vvLEcCsTVBsKeM/SKWh+D8nQjXB2/qhKd5FQj7kn7ptcVN5LqJmv
+         NvOObdvjoZ2agwcpCjw129XSb49A1yybCOVw0FXujKK3hVro4iC/5uI8hvHox2nFGDEI
+         rbqeEL1oCOyQnb37nAUknWVsFp8XoN7RPGeYUGP8tbMea6ixvvsM6u32JV7rs1ElK2pU
+         vyneib3CIKiRpdx/L9U5yenyst0Bh4QEwGil6CobmxOUWwhkFP1+Twy3+3IcixRQNvsG
+         0SRjG8s0BHgpUqo//jVm1Lh7DrgDQJdjsMHL1ec0Yckdfax8z8mJPlqsK6aFTIoy3fSr
+         4ATg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793342618; x=1793947418;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wfLLxpJEhdYyeLU8/2J/rixOwuZVAkQRAF29JFAwSZo=;
+        b=TGJecPYxzpJZiVJD1Z+wEYmteQUKF7eHi4JldI12JAaTwg49YfwBGRz7yNwD8e70hA
+         0llHNMRvR+h6MpDtxx1DPZnTrmPQP4R/ccF6ylIrkvTGJNncZI2lvQ89vrfSF80neAxo
+         SnGwQOFKKhq48zIeyP8yeKgN8JHYiCz3SsN0nn+rujmu0+iC4JIDK902bmzmX1LbLfi2
+         GS5Uf+vRh5yXMLtWCmKcEsmXZa8l0Sn4ndn3hDgmin+CbJqZp4vsEr3Ckasai5V3/KzL
+         0iTL00TCcd9TbXeQn3QNAkXamxkoXg41pxxXPIhQf0B4jHWukItgxTv/qQpyewuUuHgH
+         dCHw==
+X-Gm-Message-State: AFq9FYIXrbvFnoYrqdeUjXvZ++ctgJK0Veq0LUouHTX5ehVO0cfd2Dqe
+	4qFKhLc3HQ5WTpZh5Qiuue+DNTkHbY8YqnveZRh8PN/uy8/PFAshSWa3WFuYnUeC5nk=
+X-Gm-Gg: AYBFou1ntimQvITNIChIZ2dFUSVMGDqTBisWMSn5oKOZy3wutoje/sz52oPsntIcriO
+	CcvK1NEmYmy/hAAwqme5AAcR2lU9ygHvEp6xw6SmjQS2t1lM1IJpVcFXxRnc7ASHgUKZ6YanYME
+	tDwY2qBOoU7CQ9AAOuPBIxSbACEH1xbOezAkZuTtnOnz0aEdJdvwBQJBsWWgDDOH+xtG814BUHE
+	gtpxOv5l4Emi8sUosKz9NACm8exm0AMPUPDx8wpTPa+kUmZ+HQCgwIF8/gMd4qCwoyVSGnLufPa
+	1c5ACaZXaFlvq81xLDYeEf85akfzC1cz7Gnr6tI4PlRIrGG+2fFvl593pTRQm1F1ed78zaxkDkl
+	AhFYPzbp+KcOiZGV4vrypsVaVhLyEx5fFPx8PPQs4NSpttuccA24usEElA7T4FMo56wye+himz5
+	hfzYxcA3vMdMT2VrhpsRtNzpXiQgPzN4bMN0MdfJKdfFzYS1W0FYvy0UaU3pID1Ax+C0PXUFyPM
+	iRjjgNGQoRAntHZQ9y/TCTpYyqqtqRNObeyw6K1Eb39uw15f0IqdCZEeaQjeTJatAODuKQBJsLH
+	5sk0ezC5B8Y1Csaf5os3npr3IEqV6MCrhm2zPiHrjAh7D7Ypcpw0IRY6KA==
+X-Received: by 2002:a05:701b:4189:20b0:182:6c6c:d876 with SMTP id a92af1059eb24-1ac5cb1a331mr2023312c88.8.1793342617792;
+        Thu, 29 Oct 2026 23:43:37 -0700 (PDT)
+Received: from ada.lan (cwgw.codeweavers.com. [4.36.164.2])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm4173902c88.23.2026.10.29.23.43.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 23:43:37 -0700 (PDT)
+From: Kaipeng Zeng <kaipeng94@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	abelvesa@kernel.org,
+	konradybcio@kernel.org,
+	andersson@kernel.org,
+	Kaipeng Zeng <kaipeng94@gmail.com>
+Subject: [PATCH v6 0/3] Add device tree for Acer Swift Go Pro AI (SFA14-11)
+Date: Fri, 30 Oct 2026 14:41:46 +0800
+Message-ID: <20261030064149.14736-1-kaipeng94@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,200 +98,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <auILvMVSXk9pZh6M@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 at 14:50:36 +0000, Vincent Donnefort wrote:
->On Tue, Oct 13, 2026 at 03:26:30PM +0530, Sumit Garg wrote:
->> On Tue, 13 Oct 2026 at 10:37:59 +0100, Vincent Donnefort wrote:
->> > On Mon, Oct 12, 2026 at 06:46:12PM +0530, Sumit Garg wrote:
->> > > On Mon, 05 Oct 2026 at 12:02:55 +0100, Vincent Donnefort wrote:
->> > > > Sorry, not sure why Sumit's email was dropped...
->> > >
->> > > The problem was with my mutt config, it should be fixed now.
->> > >
->> > > >
->> > > > On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
->> > > > > On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
->> > > > > > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
->> > > > > > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
->> > > > > > > > Looks like you dropped me from your reply.
->> > > > > > >
->> > > > > > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
->> > > > > > > CC list to To: and drops you. I suspect the same thing happened to Thierry
->> > > > > > > when he replied here:
->> > > > > > >
->> > > > > > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
->> > > > > > >
->> > > > > > > I can't figure out why that's happening :/
->> > > > > > > I manually tried to fix the To: and Cc: lines in this message.
->> > > > > >
->> > > > > > Thanks.
->> > > > > >
->> > > > > > >
->> > > > > > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
->> > > > > > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
->> > > > > > > > > for arm64 because it relies on being able to unmap arbitrary parts of
->> > > > > > > > > the linear map, which isn't generally possible unless you force pte-level
->> > > > > > > > > mappings for everything, which is prohibitive for perf/power.
->> > > > > > > >
->> > > > > > > > As per the cover letter it's about allocating pages that are not present
->> > > > > > > > in the direct map. This essentially fits the protected DMABufs use-case
->> > > > > > > > where we don't want any kernel mapping to exist at any time. Bufers
->> > > > > > > > allocated from protected DMABufs are only meant to be accessed by the
->> > > > > > > > TEE implementation or HW accelerators like in the secure media pipeline.
->> > > > > > >
->> > > > > > > That sounds like it should probably build on top of this series, then.
->> > > > > >
->> > > > > > The main problem I see with this series is it tries to move from the generic
->> > > > > > CMA allocator to a reserved FF-A CMA pool which again comes from the
->> > > > > > DT. We already support reserved pool allocations via "no-map" which are
->> > > > > > discovered dynamically from OP-TEE.
->> > > > >
->> > > > > I can't think of a way around a DT declaration. We need to know what region is
->> > > > > PTE-level before the direct map is installed and of_reserved_mem is very handy
->> > > > > for that purpose. And as this PTE-level mapping is costly we certainly only want
->> > > > > to enable it for platforms that absolutely need it.
->> > > > >
->> > >
->> > > I am rather thinking of a way to turn the default CMA allocator to be
->> > > PTE-level mapped. Since the overall idea for this dynamic protected
->> > > buffers was to reuse memory efficiently, otherwise the reserved buffer
->> > > approach is already there to use as "no-map" via DT.
->> >
->> > When the default CMA allocator is setup, it is already too late
->> > (dma_contiguous_reserve() is called after map_mem()). I am not sure this can be
->> > reordered easily due to the dependency on dma_limits_init().
->>
->> Yeah I saw that constraint too, let's leave it for future extension
->> then although having this reordering dependency fixed will be ideal.
->>
->> >
->> > So the only case it would work would be when a reserved memory has set
->> > "linux,cma-default".
->> >
->>
->> Let's rather just turn DT based default CMA pool to support PTE-level
->> mapping and keep it configurable via Kconfig or cmdline or DT.
->
->If we need a DT declaration anyway, a Kconfig and a cmdline option aren't really
->necessary.
+The work started with x1-crd.dtsi as initial template.
+HDMI refers to ThinkPad T14s.
+Bluetooth refers to x1-crd.dtsi from the ubuntu-concept kernel [1].
+PWM brightness control refers to Ratizux's GitHub repository [2].
 
-Agree, it rather makes sense for DT independent generic CMA pool.
+Tested on linux-next (next-20261027: 151a134a) / Ubuntu 26.04 LTS.
 
->
->Also, Rob wasn't very keen on having a DT option for the reserved memory and
->suggested to have a compatible string instead [1]. So perhaps we could have a
->a separate driver that handles the unmapping.
->
->	linux,cma {
->		compatible = "shared-dma-pool", "unmap-on-alloc";
->		reusable;
->		linux,cma-default;
->		...
-> 	}
->
->That "unmap-on-alloc" driver sets the memblock flags and register some cma hooks
->(to be defined) for cma_alloc/cma_free where it unmaps/re-maps into the linear
->map.
->
->The nice property is optee won't need to be modified anymore. The downside is
->the entire pool is now mapped at PTE-level.
+Tested and working devices:
+ - NVMe
+ - Keyboard & Touchpad
+ - USB Type-A, Type-C
+ - Battery & charging status
+ - Internal display & Backlight brightness control
+ - HDMI & Type-C display (with audio)
+ - Bluetooth & Wi-Fi
+ - Webcam (usb_2)
+ - GPU
+ - Audio: speaker (partial), mic, headphone.
 
-Sounds reasonable to me. If folks are really worried about performance
-with generic CMA PTE-level map then OP-TEE already supports no-map based
-reserved carveouts for protected DMABufs too.
+Known issues:
+- Four internal speakers are detected, but only three work. I use Ratizux's tplg [3] and
+  alsa configuration [4] on my desktop. I also use amixer & speaker-test to verify them.
+- The system fails to resume after closing and reopening the lid, but resumes successfully
+  when suspended using systemctl suspend.
+- EL2-mode:
+  - EL2-mode can only work with kernel parameter: "iommu.passthrough=1".
+  - Audio and Battery status are broken under EL2 mode.
+  - Bluetooth is broken under EL2 mode.
 
--Sumit
+Also, some notes about eusb*_repeater and EC; hopefully, this can help others understand
+why I configured these nodes this way:
+- eusb*_repeater conflict between the DSDT and my testing:
+  By using `i2ctransfer` to sequentially set the modes of 'eusb3/5/6_repeater', I can
+  observe the corresponding connection or disconnection state changes for the
+  right-side USB-A port ('usb_mp_hsphy0'), the left-side USB-A port ('usb_mp_hsphy1'),
+  and the webcam ('usb_2'). Using `gpioset`, it can be verified that 'eusb6_repeater'
+  is affected by tlmm's GPIO 184, while setting GPIO 6/7 has no effect. And webcam
+  can be shut down and reset by toggling GPIO 184. The DSDT places GPIO 6/184 as a
+  'ResourceTemplate' under 'USB3'(usb_mp), GPIO 7 under USB4(usb_2), and webcam is
+  under USB4. This conflicts with my testing. So, I didn't add the unverified GPIO,
+  and the connection between USB and repeater follows my testing rather than DSDT.
+- There is an EC device under i2c5 at address 0x76, with driver probe failed.
+  But using i2ctransfer I can observe some data changes related to fan.
+  The EC driver appears to require additional work, and it couldn't be included in
+  this patch. So, I didn't add that node.
 
->
->[1] http://lore.kernel.org/all/20260902172436.GB1440252-robh@kernel.org/
->
->-- 
->Vincent
->
->>
->> -Sumit
->>
->> > >
->> > > If we can have "cma_unmap" cmdline option alongside "cma" then it can
->> > > turn the existing default CMA allocator to support unmapping buffers.
->> > > Not requiring a DT change at all, although we can have the DT property
->> > > for the default pool too if platforms want to opt for.
->> > >
->> > > > > >
->> > > > > > If we can rather support a generic CMA like allocator for arm64 which
->> > > > > > can support unmapped allocations then I am all for it. These platform
->> > > > > > specific reserved pools isn't a scalable solution.
->> > > > >
->> > > > > What do you mean by generic CMA allocator here? An extension to
->> > > > > shared-dma-pool? Or having the CMA automatically doing the unmap/map on
->> > > > > cma_alloc() cma_release()?
->> > > > >
->> > > > > Right now I have created an API for the unmapping/remapping part. It adds a
->> > > > > burden on the caller, but the alternative solution is introducing post-alloc
->> > > > > pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
->> > > > > the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
->> > > > >
->> > >
->> > > I am not too worried about where the actual implementation lives but
->> > > looks like CMA driver to be the better place. I think use-cases like
->> > > guest_memfd proposed as a user for __GFP_UNMAPPED on arm64 will also be
->> > > looking for this feature.
->> > >
->> > > -Sumit
->> > >
->> > > > >
->> > > > > >
->> > > > > > > You could allocate the DMABufs from a CMA region that has no linear alias.
->> > > > > >
->> > > > > > Allocation from generic CMA pool is already the case here:
->> > > > > >
->> > > > > > tee_shm_alloc_dma_mem() ->
->> > > > > >   dma_alloc_pages()
->> > > > > >
->> > > > > > Do you mean it's just fine to unmap buffers allocated from generic CMA
->> > > > > > region since it doesn't have any linear alias?
->> > > > > >
->> > > > > > >
->> > > > > > > > > Vincent's series tackles that by using a pool so that only that part of
->> > > > > > > > > memory requires the pte-level mappings in the linear map. That's the
->> > > > > > > > > whole point of it, so I don't think it makes sense to drop it in favour
->> > > > > > > > > of Brendan's approach (which doesn't work).
->> > > > > > > > >
->> > > > > > > >
->> > > > > > > > For protected DMABufs, we even don't require any pte-level mappings in
->> > > > > > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
->> > > > > > > > for performance sensitive secure media pipeline use-cases. That's why if
->> > > > > > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
->> > > > > > > > be the best fit for this use-case.
->> > > > > > >
->> > > > > > > The point is that you will require pte-level mappings for the linear map
->> > > > > > > if you want to unmap from it at runtime on arm64. If you don't, then you
->> > > > > > > can end up needing to split a block mapping (e.g. pmd-level) when you
->> > > > > > > decide to unmap only part of it and there isn't a safe way to do that on
->> > > > > > > arm64 without transiently unmapping the entire block, which can lead to
->> > > > > > > fatal translation faults during that window.
->> > > > > >
->> > > > > > I agree with you here, what I am rather trying to find if on arm64 there
->> > > > > > is any possibilty to have a generic allocator for unmapped pages. That's
->> > > > > > the use-case here as well as what Brendan't patch-set was trying to address.
->> > > > > >
->> > > > > > >
->> > > > > > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
->> > > > > > > > how Brendan is doing it for x86?
->> > > > > > >
->> > > > > > > Because arm64 != x86? Presumably x86 doesn't have the strict
->> > > > > > > break-before-make requirements we have on arm64.
->> > > > > > >
->> > > > > >
->> > > > > > Sure, sounds like you are eluding to that the generic MM flag
->> > > > > > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
->> > > > > >
->> > > > > > -Sumit
->> > > >
->> > > > --
->> > > > Vincent
->> >
->
+[1] https://git.launchpad.net/~ubuntu-concept/ubuntu/+source/linux/+git/resolute
+[2] https://github.com/Ratizux/linux-device-acer-sfa14-11.git
+[3] https://github.com/Ratizux/audioreach-topology/
+[4] https://github.com/Ratizux/alsa-ucm-conf
+
+---
+Changelog:
+
+V6:
+- Add 'output-low' to 'edp_bl_pwm' and remove the descending brightness levels. (Sashiko)
+- Add panel and backlight control GPIOs to fix corrupted display after resume.
+- Correct the pwm period.
+- Add SFA14-11 to QSEECOM allowlist. (Jianfeng Liu)
+
+V5:
+- Rebase to next-20261021, pick up the following upstream changes:
+    arm64: dts: qcom: x1-crd: Mark the EC reset gpio as reserved (099cd579).
+    arm64: dts: qcom: hamoa/purwa: Add QREF regulator supplies (d9d07e23).
+    arm64: dts: qcom: hamoa: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies (4458dcd3).
+- Add 'eusb*_repeater'. (Jianfeng Liu)
+- Add 'displayport-2-dai-link'. (Jianfeng Liu)
+- Remove 'usb_1_ss1' and 'mdss_dp1'. (Jianfeng Liu)
+- Remove unused 'audio-routing'. (Jianfeng Liu)
+- Remove 'kypd_vol_up_n'. (Jianfeng Liu)
+- Link to V5: https://lore.kernel.org/linux-devicetree/20261023180513.36417-1-kaipeng94@gmail.com/
+
+V4:
+- Add -el2-dtbs. (Sashiko)
+- The "audio-routing" of "sound" is from x1-crd.dtsi, audio doesn't totally work,
+  and I didn't see any improvements when I followed Sashiko's advice,
+  so I just kept it the same as x1-crd.dtsi. (Sashiko)
+- Tested in EL2 mode:
+  Successfully boots with the kernel parameter: "iommu.passthrough=1",
+  The above features work as in EL1 mode except battery status.
+- Fix missing newline before "wsa-dai-link". (Val Packett)
+- Link to V4: https://lore.kernel.org/linux-devicetree/20261006085425.40450-1-kaipeng94@gmail.com/
+
+V3:
+- Re-sort *-link and its sub-nodes. (Konrad Dybcio)
+- Keep a '\n' before 'status'. (Konrad Dybcio)
+- Remove 'output-low' from wcd_default. (Konrad Dybcio)
+- Link to V3: https://lore.kernel.org/linux-devicetree/20260729064538.19564-1-kaipeng94@gmail.com/
+
+V2:
+- Fix Makefile entry ordering. (Krzysztof Kozlowski)
+- Use readable compatible string. (Krzysztof Kozlowski)
+- Fix sound card model name for this device. (Krzysztof Kozlowski & Konrad Dybcio)
+- Re-sort nodes, pinctrl-*. (Krzysztof Kozlowski & Konrad Dybcio)
+- Remove those regulators without consumer and lack of a required value in DSDT. (Konrad Dybcio)
+- Remove ADSP/CDSP fastrpc memory. (Konrad Dybcio)
+- Add iris firmware path. (Konrad Dybcio)
+- Delete usb_1_ss1_qmpphy/usb_1_ss2_qmpphy properties of Type-C. (Sashiko)
+- Delete usb_1_ss2_hsphy. (Sashiko)
+- Remove unused pmic-glink orientation-gpio. (Sashiko)
+- Remove node related to WWAN.
+
+- The Webcam is a USB device, can be probed without any additional
+  node. (Sashiko)
+- Using reset-gpios in swr* seems common in X1E devices, like Lenovo
+  Yoga Slim7x, ThinkPad t14s and Microsoft Romulus.
+  Because speakers do not completely work and I could not see any
+  effect of changing it, just retain it. (Sashiko)
+- Also, the HDMI audio is the same reason as above. (Sashiko)
+- Link to V2: https://lore.kernel.org/linux-devicetree/20260721082410.18275-1-kaipeng94@gmail.com/
+
+V1:
+- Link to V1: https://lore.kernel.org/linux-devicetree/20260702063156.35169-1-kaipeng94@gmail.com/
+
+Kaipeng Zeng (3):
+  dt-bindings: arm: qcom: Add Acer Swift Go Pro AI (SFA14-11)
+  arm64: dts: qcom: Add support for Acer Swift Go Pro AI (SFA14-11)
+  firmware: qcom: scm: Allow QSEECOM on Acer Swift Go Pro AI
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../boot/dts/qcom/x1e78100-acer-sfa14-11.dts  | 1565 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 4 files changed, 1569 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+
+
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+-- 
+2.53.0
+
