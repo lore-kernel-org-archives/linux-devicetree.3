@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793393351;
-	b=PzsKmWhZqO4RzwKrTk+rSBZZUVPDEzbMTmCP5JonsXafB2BghrkrbT6NfLdflE+QETVI
-	 isXnQpAEccXL5Qoeq+58bxZaaiqb3puJ5/6Bi1nsrKlEKw78O3vp5WurcD1tSbxhTeph7
-	 EEJm+ES5LMs3K1IWFb9o8WGamWqmYMrGR1Tycm+75AISWgesDQSbgjb/n0MnPI6qZ2qmQ
-	 6lIjMmIf13q930dilDZpBJsUw1G3Tl+7aU9sv4YtiYoJx93sBGlJwUoNIPOqS9X6+86uk
-	 xNo23aysMGeGqMEA/VlYgp3ta2sVw/PtVsYAV1nPhAepvU8gZbaf8B2un8ODRbVecFQ==
+	t=1793393416;
+	b=qinaGOaJN7R+PYH9R+s2oKab2FBBjpVaqBHe0MjgJsU2BiXP3rGCXo+TchojZlcgbTsb
+	 TRzUW+KtGG4B4F6s+AIBtypRK4VyzMI47iGO3EsYecrfOy/Zu2KpNjoVukVJMhnakHG2D
+	 z8l8VveVS7K7XOPk0xGKm5IHXayL53saKlx/c/0sVNuY1dMzb+moFszT9kRFf58iCMK4u
+	 uvejnQUT/xOxtPwCWrt+9WMFPO/wzkILoenN2QDGlDUPVuAngF660NFRg8yTdX/jbT52z
+	 P61G/TL5DmMD4ds4ee5ntWQrcYW+CdLdiZ/It71Obujl1hn6KxtqCLXuQH8TMUybT1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793393351;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Typ51Uy4Qhhy5vRfg7dOPnWpRdak1pUu8/q9JDm/j9k=;
-	b=LlhOjs2wQiVvel2tyhoNs3ShoN9V8Vk8Jw78x1dj8EQOVN1mEK0BXo5739ZbvT1qyUIg
-	 rsAp0Psent1xU0HsmCTtxGvZ/VjttigtUzEUJmkgVE8GS3njis5fpl62iEIuGGVVcB0w7
-	 yF0lIsV9CI+9xE3jKorTryO/nwa83gnMvCk8bZKcqwzo63gbaxgzywRNlF+DHdicw4kTY
-	 q5vd9RjclHnADp5/TGgHK8eSPwFFnbAxp6Dp7vBDUO4LA/m+yLfGm7fswRHnxQECexp9L
-	 KqJf16yLDA60AH7AHiOL7WcJ6C2YI96ZeX9/LQFNsnbrymD3QCw+1ejN/iauItzIUFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793393416;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8UQfLMqON5p9ekAUB7Y3vPF1E10i6/apVL01RDKA+Kg=;
+	b=ipHNgOiFQNX6gFkpZjrdqBP4R0LarARU1VCHx0zRfWPRpDWjcohP+w7sO7nlXho3AZaq
+	 EYort17o8rQFFDQtDYGLMQnrESZ+T1vZRKtUx5UJurvuT1xsuNsCuYmpFEfhpOjoRn3FV
+	 lRqtkDBqlCjnyEXS54wow7UkX0XIyMIelTok46ZKEkhDYB1svseSDU7vloylNcZq++kpQ
+	 WOnc/vRrFWqXIuXHIBqy6oJjFXYlPJXz9CjEopC7wuByLK881Vce7DXmm6meJ0H4rjGTl
+	 +09IfLCw9ROgg2jzKVFqBTb7x75AqLqhEQu8AlCDHNNmh+MgYGAfu9ts89Oa1UBwz2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i/ioKswQ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jawp8oRp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD18606A31A
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 20:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE43606A31C;
+	Fri, 30 Oct 2026 20:50:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/ioKswQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59D31F000C1;
-	Fri, 30 Oct 2026 20:49:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jawp8oRp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71861F0093A;
+	Fri, 30 Oct 2026 20:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793393351;
-	bh=Typ51Uy4Qhhy5vRfg7dOPnWpRdak1pUu8/q9JDm/j9k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i/ioKswQ8CflomoesKf8p+hjYXiZBilUDS0Os2Zjiyxlny3M25uoLm1akNq87r0SQ
-	 POyCOIp8RTGXhRVclNtXOS81saNQK2IIh7NbpDDNMZNM8EzPh7ntoTI4IKR5bno5Dh
-	 FC58tBNL548Of1bth+uHqW5iWXT65j85TEHvQcvhTwvplM15SBSiwEYePxoeEJYk3i
-	 Kj5KqVXZcVJOrr3SN4k2ovSLpeR7+V4oBuQvb7hliuLzmZcga2TE9JIa4+4Kl398jM
-	 Zgd+puCQDe354HAVGQUU72oaSgDJY6HCiWHaqhL71Rc4frwftHdLwDH9KCs4ZQxGxC
-	 ENGhT+0SuKZJA==
-Message-ID: <sashiko-outbox-191496@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] arm64: dts: exynos: Add initial support for
- Exynos5515 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aiden Isik" <aidenisik@member.fsf.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261030-for-next-lucky7-v3-4-81e02272ce69@member.fsf.org>
-References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
- <20261030-for-next-lucky7-v3-4-81e02272ce69@member.fsf.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 20:49:10 +0000
+	s=k20260515; t=1793393416;
+	bh=8UQfLMqON5p9ekAUB7Y3vPF1E10i6/apVL01RDKA+Kg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jawp8oRpq1WL06JzKEhpmxNHNXrWNVgEeMA5zOR6qX9ipJ11xiOaghlRu4h9WT/43
+	 dCdjlQ4xGlC9orKn/e5XdNamymg4R2tprNRF4STYwZS55QJkFmbcvSoK6Ihbnyz9yb
+	 SmiVIZDnrWN6iO9+T8rAw8XsX5e1bt0j3QsrNYJGwNIy59Nr33vihmaA0JmO3I6GUY
+	 ssgJ5A3nxKimbVwfnqzuAudA9IgceKo4PKAwMnVWLBoXVTY6Ddufs3x86rpHSZUeHi
+	 z/lOaNItIPqNjD8CwWq8vLtgGLiDkIqdvODe963ciHT7zS02jDjdHQhLrSs3siO4jf
+	 ILWTpAb24lqeA==
+Date: Fri, 30 Oct 2026 20:50:11 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Message-ID: <20261030-scientist-puzzle-ab2c668b6e27@spud>
+References: <20261027-attic-collector-cb4ffdb5cf82@spud>
+ <20261030120205.269090-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,93 +59,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1kUioFkg2UPifayy"
+Content-Disposition: inline
+In-Reply-To: <20261030120205.269090-1-Nicolae-daniel.Deaconescu@analog.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] clk: samsung: exynos5515: CMU_PERI user muxes bypass CMU_TOP dou=
-t/gout clocks
---
+--1kUioFkg2UPifayy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit e9647c95dd003e1cc5e14508ac851bb3fa7a249e
-Author: Aiden Isik <aidenisik@member.fsf.org>
+On Fri, Oct 30, 2026 at 02:02:05PM +0200, Nicolae-Daniel Deaconescu wrote:
+> On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
+> > Why are we getting new devices with linear vendor prefixes?
+>=20
+> I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
+> The -x4 compatibles will also be dropped, because they described
+> four devices sharing one AXI ADC.
 
-arm64: dts: exynos: Add initial support for Exynos5515 SoC
+Please retain more context than this, it's not enough to just have what
+you're replying to. I see so many patches that I will have completely
+forgotten what you're doing by the time I get to the next day.
 
-This commit adds the initial device tree source for the Samsung Exynos 5515
-SoC, including the Cortex-A55 CPUs, ChipID, generic timer, GIC, and the
-CMU_TOP, CMU_PERI, and CMU_FSYS clock management units.
+> > Hmm, ltc2387-16 does not appear to have these signals?
+> > Well, it has "cnv" but "cnv" has "sample clock" as the input name so is
+> > the clocks property above and pwm-clock can be used if the provider is a
+> > pwm?
+>=20
+> The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
+> is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos5515.dtsi
-> new file mode 100644
-> index 0000000000000..ea70a45bfa50b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515.dtsi
-> @@ -0,0 +1,178 @@
+Ahh, I see that now. The symbolic diagram on page one confused me and I
+didn't look much further.
 
-[ ... ]
+> externally applied clock that shifts out the result; and DCO+/DCO-,
+> the echoed clock. There is no clk_gate pin.
 
-> +		sysreg_peri: syscon@10020000 {
-> +			compatible =3D "samsung,exynos5515-peri-sysreg", "syscon";
-> +			reg =3D <0x10020000 0x10000>;
-> +			clocks =3D <&cmu_peri CLK_GOUT_PERI_SYSREG_PCLK>;
-> +		};
-> +
-> +		cmu_peri: clock-controller@10030000 {
-> +			compatible =3D "samsung,exynos5515-cmu-peri";
-> +			reg =3D <0x10030000 0x10000>;
-> +			#clock-cells =3D <1>;
-> +			clocks =3D <&oscclk>,
-> +				 <&cmu_top CLK_DOUT_CMU_PERI_BUS>,
-> +				 <&cmu_top CLK_DOUT_CMU_PERI_IP>,
-> +				 <&cmu_top CLK_DOUT_CMU_PERI_UART>;
-> +			clock-names =3D "oscclk",
-> +				      "bus",
-> +				      "ip",
-> +				      "uart";
-> +			samsung,sysreg =3D <&sysreg_peri>;
-> +		};
+Then there should not be a clk_gate pwm for this device.
 
-[Severity: Medium]
-When cmu_peri is instantiated here with CLK_DOUT_CMU_PERI_BUS,
-CLK_DOUT_CMU_PERI_IP, and CLK_DOUT_CMU_PERI_UART from cmu_top, will the
-CMU_PERI user muxes in drivers/clk/samsung/clk-exynos5515.c bypass those
-dividers and gates?
+> The part needs a burst of 8 CLK pulses per conversion in one-lane mode
+> (4 in two-lane), starting t_FIRSTCLK =3D 65 ns after CNV and ending
+> within t_LASTCLK =3D 49 ns of the next CNV. So the CLK input cannot run
+> freely: the clk_gate PWM gates the host clock into that burst. That is
+> why the clock needs a PWM and not a plain pwm-clock, which would give
+> a continuous clock. The clocks property is the reference clock the PWM
+> generator runs from, and the driver needs its rate to compute the
+> waveforms.
 
-In drivers/clk/samsung/clk-exynos5515.c, CMU_TOP defines the clock chains
-mout_cmu_peri_{bus,ip,uart} -> gout_cmu_peri_{bus,ip,uart} ->
-dout_cmu_peri_{bus,ip,uart}, and CMU_FSYS connects its user muxes to
-dout_cmu_fsys_*:
+Then you've got a "layering" violation of some kind here. If this clock
+is consumed by the PWM generator, it should be an input to the pwm
+generator not this adc.
 
-drivers/clk/samsung/clk-exynos5515.c:
-    PNAME(mout_pll_fsys_bus_user_p)         =3D { "oscclk",
-                                                "dout_cmu_fsys_bus" };
+The second pwm should then just be called "clk", because that's the
+input(s) that it represents.
 
-However, the CMU_PERI user mux parent arrays reference mout_cmu_peri_*
-instead of dout_cmu_peri_*:
+I want to see what the dts you have for a complete setup of this device
+looks like, including the backend and pwm generator.
 
-drivers/clk/samsung/clk-exynos5515.c:
-    PNAME(mout_pll_peri_bus_user_p)         =3D { "oscclk",
-                                                "mout_cmu_peri_bus" };
+>=20
+> > Please explain how this is not determinable from the compatible.
+>=20
+> TWOLANES is a digital input on the chip. High selects two-lane output,
+> two bits per clock on DA and DB; low selects one-lane output. Both
+> modes exist on every part, and the pin is set by how the board is
+> wired, so the compatible does not say which mode is used.
+> v2 will contain more detail in the description.
+>=20
+> Thanks,
+> Daniel
 
-    PNAME(mout_pll_peri_ip_user_p)          =3D { "oscclk",
-                                                "mout_cmu_peri_ip" };
-    ...
-    PNAME(mout_pll_peri_uart_user_p)        =3D { "oscclk",
-                                                "mout_cmu_peri_uart" };
+--1kUioFkg2UPifayy
+Content-Type: application/pgp-signature; name=signature.asc
 
-Because exynos5515_cmu_peri_init() -> exynos_arm64_register_cmu() ->
-samsung_cmu_register_one() -> samsung_clk_register_mux() resolves parents by
-these global clock name strings rather than the DT clocks property,
-instantiating cmu_peri causes mout_pll_peri_{bus,ip,uart}_user and all
-downstream CMU_PERI clocks (such as CLK_GOUT_PERI_SYSREG_PCLK) to attach
-directly to mout_cmu_peri_*, bypassing gout_cmu_peri_* and dout_cmu_peri_*.
+-----BEGIN PGP SIGNATURE-----
 
-Should mout_pll_peri_{bus,ip,uart}_user_p in
-drivers/clk/samsung/clk-exynos5515.c use dout_cmu_peri_{bus,ip,uart} to mat=
-ch
-the clocks passed in the cmu_peri DT node?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauUDAwAKCRB4tDGHoIJi
+0tQoAP4izLcxISMIO9hhxqgUNHToGy/iMA8wqihVLgj2tQ+KFgEAqbqokbXFRrNP
+n5wXUsHpOWS1rTi4qsuPBHNsU0LWCA0=
+=NVgP
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-for-next-l=
-ucky7-v3-0-81e02272ce69@member.fsf.org?part=3D4
+--1kUioFkg2UPifayy--
