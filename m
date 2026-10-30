@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350161;
-	b=JKKaZpwdFErlUzom8tQ41AFXX/PawE111TY294olfo0JPqdQAYmBpoGLqdKjIXR/nih8
-	 ffgcJZc+mUg+haIirnmYfLS6ozcb5CGibp9v99/4RjPi4mIzNuFkcJcavb5o+d+wTz99E
-	 gsmhv7cYyLzsOuUu+JQGCp2Thcgjgvm+Caq8yNCUkjVSOt8s7GFmAdg1oXdqloEhQZUxM
-	 RXjh6A+ll6WMk8R88kbXvOP6e6BOjDKlihO+4SZZ7AbzSm//Zdl0h7Ldw8M8Mds6taQfW
-	 D3jZrVj75mSl5o1KUExJVYs8/FQqZlqkYFqlmSmKCuAyfjFs88GCW1vbErzXJcRP+6w==
+	t=1793350163;
+	b=yjVxi9N2rYQzPlPGxXmUF8VLt4SWrUc+Jn9wh6QX6fH597PSSMd4MvP+ZlAyGLA6M2wh
+	 w19CnhqUIs+bu9NdNzq/7EsT7TrF0uWTssnu6yfXJMQaTtC6T6qvf0VZ2VGcDWT4XyE1I
+	 JoK9n+aSYr/IsIJJ2+qnrxfFO3Ctd5yGlBJhw0V9dfd2UkuynN4Z31AV4W5zsRzkkcejx
+	 v+HPYYXpMI3CQFy6oIXRzl3AIQXx2J+q+ll2ixnql96l7C518yWuSA4yMvXCUlAjasWEm
+	 aviKPxSejti3NAu8EY9trjZCst99pI/FdX/sdDfQhO3cUNYvUGghYq/Tm/b3/05wvOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350163;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kKraBs2ABl72GsuXTCZX2vWgKGWo1rPo+MH8y/IARx8=;
-	b=Ti3Cq6tE9TkPm3VNlHxr8UVjntYH4UJQ9O22WxR8Aw4/BbNs6Lkjx2b29p3gHP92LJM+
-	 JTGGKTBi3IRi+m+3ccxpzxs6r5Dz14lIHZ8m9KR1nCj+jeBQ+RsOyBIY/CB8CLJDjSebT
-	 pxvKtzSDSSlI9xGo8VIyjbCXKwhPs/yeVMAqxbtn+ytm9nG0AY3ljFd8R23r4PuALOIak
-	 HzH6S135NVvTy7a3lGLqWks6aeXybrckzEgWVRWOE07/gnC6uwlEA3DiqMwLhmwUiKK77
-	 i3BS0CH43m8sQyScOR8lexvyooFufYDk3J3++Tv7e7daX3Oayga++0dR0ujvEs8qPkQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HW7rHhE169McYx8Jxy2QMfjdkASLa9iCRSpVlpE36RA=;
+	b=U898r55RKA167YssWFLe0GZpmkpaHBnDuKFxVKoV5AswWdgaNyEL3x+JSR94KICDfLdp
+	 aVKT1IMl7Rgwhgb8SmgcC4XzOsmwrwbeul2Lq2ZBbYN1QIGww+pGoqwhomrXegsforTWd
+	 0IGYWtbTYk3WzL/2qOEMdOsphrU7rCgouHDUK7mnEmZUiPLSUK5QEOH50CQF1iCbhus84
+	 HyLkSsia4teEGQFNVa+/5sPNyxjFCgEiMTUqd41Fk4FG2ZYYGMb6TfLvuCf+iDZHPS+BA
+	 0cNd7ASpZTGLC+gjV8ed61KyNy8k1WNbRkZ7QofhqxZ3GyWNyXKdeogl0lIEGYiLZVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9rVe45i;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="yqr/MHOZ";
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168EC606A32E
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 08:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 168EC606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D155D606A325
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 08:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D155D606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9rVe45i
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9ae47b00cso1058945ad.3
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 01:49:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yqr/MHOZ
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ae1a9e187aso73971a91.3
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 01:49:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793350159; x=1793954959; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kKraBs2ABl72GsuXTCZX2vWgKGWo1rPo+MH8y/IARx8=;
-        b=F9rVe45iQzNrTv43SxJqYE5QpTfIRjJfY2rSlIKv1Onaf8bTVerOql16Kt/Q72POHq
-         Zfp7C6Onm3fo4qcxJZf7VpFN91JjGZEkroajWVC9f3Cqb86nw6c6ue1nNmfmAso2RoKK
-         1hd6dfLCWC+UoKh+L2BV47Jehvb4/v9lXcM7Xbd0rU7YU4WrWVnPFg6vjxKfgDChfxhT
-         SR3PeK/0a8rdeA7nRFoHRIMqnFubMBUqSdf3iQ/aHtO9VVjvpT46ucE5lHF1/wXAVOYZ
-         Uyo/9YEWG5gcxUW2fnD6zC9jT+aIv64AWUxOWcQXhWQf+SgUlY2LWvIr1+kL1K3OEiOu
-         9FsQ==
+        d=gmail.com; s=20260707; t=1793350162; x=1793954962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HW7rHhE169McYx8Jxy2QMfjdkASLa9iCRSpVlpE36RA=;
+        b=yqr/MHOZU635Qm43tBKG3XBAy4SyvoymZaW0doJ8A16nYDbyUsLqXv9E49rtF4XfWe
+         Ex0Av0Xyo7G5aNd/3m40mrP3mgQjFJKYbQOND4IO2juEQqLlzNqaRekJsqtYzwa61CWb
+         rtWIY4wdYRqVv8hgfdlTkxFIIawT/tkSyvlkNMsJoCbCEUDA+YT+NqcZBv1mGFFCQQh6
+         VN9R5JO3AbHkH712GiIoTRcgZQtS0uFCVPdBOPaJOpsgZJoPyIB7peL3k4GCuK7zwXC3
+         Qk2IdL0jFfBNWwILUV8sp/PcI9kSwz/gpW1Lbq58yJgm/Qv51qdsidZGyRAu4f2Tdjwl
+         O0/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793350159; x=1793954959;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kKraBs2ABl72GsuXTCZX2vWgKGWo1rPo+MH8y/IARx8=;
-        b=FZJ3aBG7SMw9jUdmnv4xa1C1R5H6gtmDo6q+wIkKbQxnuz9Gt98gb5YkGbJ3OyoJ8K
-         kqwkzjE88cCP71j9KnFsxsRsB83vbzEVFZkIUVhNGA278H7vPYYolGEfB7DYInB6FOWp
-         Dpfw6qYhTqI1cRs97WkKR4e5ja+wDWHATDx8VtXLGGLUow17ipM6IsqoHsd2wKYBU8xR
-         lJsHymcebEzJST9xfBkd5TLstuKc9AK/nXv2neei5qoCsJSaMlRv3DF1c1EBBD9Bc/VQ
-         e2Wet+bJKdzPjxcImHeHE1bf4RhGtFbeM1+Xb+tUdjrNHlMMQlLkmUfTgR5ckJyFTBV8
-         jd1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxo5o2wpTII4B5s3wharAADBkILmbdHLXxZdBqG/jjShRZGIMwJmkdO9+eY0XZp3z42m1hpAcFE6kM+@vger.kernel.org
-X-Gm-Message-State: AFq9FYK03lpN0I7GoE1axeue9QKD52FbeuRMCqAD7mD1rxiOPZEr2TnN
-	gNjCGHOrLrxAJ1b3tnbhQjTHfNSt1RvqGGLrybBVufZMHV5zbRg/Jdpi
-X-Gm-Gg: AYBFou31b+dVS2lFWee/3CCvcdVhHVXEfm/yQTT0udn4Glw1e5ti9SUMb/D2bRb1ZWC
-	yiryWTRLJFu8X4qy8ImbFiSuPomLiKH9+Rx3Jw9yKAVKdC3Gxh2w/C6waX9gyfJs1hp4/8SK+7M
-	o0NFotsbdaKKJFahaQqEfm0/o76vqkaCbwsxT28XhCLwILkC6bnk3xJA/1SwGa1cfsLv2glJjcu
-	UHtdeV8LOxviDlsw/c0+VBVsys/9/ZAFjRkUhgTSCqGwYxRjU8tWZM2EVh294BismAujuUmy75J
-	SXyj1vpwFtiMYYf0kQKVjeQhmzyz3m9TqJ/D9qBNeIHvajQJDpIiZgtnkC8ZcHRLyyQi9oxW+PG
-	7/HhN7qpohcphssOqQKPYHVHYnUBdkoXR4I//vWQLq5JjOI6fMgNBU9oPtL4nxSSqVNCJcw6Nuk
-	Y2WqfJPlRJQEimNu5pURZjE/6I0CXb6woKA56/wFieyKhz9z5pzLSxOmTqutxyfSnRwz4amOje+
-	ufXGmUvVpR52DEBl9u2Vr9L29yyAUdKAPmnTu5E9wlRdFo/4XKp1X/1tKGWO5ri9q8rMjAvDOdU
-	vzH83zVBMejytccWTkXZJg==
-X-Received: by 2002:a17:902:d502:b0:2e9:6788:937d with SMTP id d9443c01a7336-2eb364bbb77mr30486455ad.4.1793350159314;
-        Fri, 30 Oct 2026 01:49:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793350162; x=1793954962;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HW7rHhE169McYx8Jxy2QMfjdkASLa9iCRSpVlpE36RA=;
+        b=KacEhCjXMlCKnVvsHhpZlHu4iCZ7gkhRgWyJDnQOSHdTiOzFa8ajFR2Svg1DMbDGIK
+         w7mxtpMx9yecY+H75EcxTNv1zU3rAao046AjNQbdWT52TGlaTgvYYHJvsZ29LIw8haF0
+         zy/clbfx0wYWBbyPyQAmpgxRI5iqS1oJkOXdY9a0azkv/9hrUhuIhUP8XOOUzKP4mIjf
+         37xGBukG1yTsnIpxnoDgZxjY0mG82Txleltqp3eEhISHJsX6hRQkLhAgn55pyovyOYtc
+         yY8gyT2qCEwG3YBEcbMSL63AuhT0KRIcB1iGtPgNqBV1Xap9+unug0Sn5wXWICouKmgE
+         CM8w==
+X-Forwarded-Encrypted: i=1; AKwUvBzj4s/vybNyRR9YaY1NCXoUS/oAkeUpZoe1VVR5OSSC5BI9e6Ha0Ik74+VlKfrkQi1aYoR9/hL86Dqo@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNQZtgc1CYMJiemiom3HCO+1JvYCp1R1BSr9Xuq7V9BRuvZ3ga
+	VzRfVFg+6GHqKsPv7Q3nWfFWaH9ISDLhDJgM/gNtTxllNpXjnsfwo1ma
+X-Gm-Gg: AYBFou29+7lkOxSdCeqPUDltHuxWb1WI6y6hGvaqkNlBQ8AKoW868rSIl/myP0BgcWG
+	yVNpjSczyVKBPyqpFUmvJ215mwyqnIHYt+sGyaJ3fTSt/yCkzayu9I30nsWFnYP+Th/UsFkZBCB
+	zVwIhWUZIMmoFL+0YL57fmb9SAlYpxMoV3hkvNeceZas50nnD9EHNIbwtA6hSCNL9bkUYG7Tc5y
+	UHjBikhvkmauEgHKxBNDzpAvAK+vSAORnkti5NaLAzp2siK5W9iHWkOFt21Vk2hRQVguQCAa/kA
+	sGJeWPy/YUrLLqPUcRb1zi6CO39XD/fr6PT0BQdFW58kX7JBKEqKxFwcqqTnJI1tQdc4FksaB//
+	0/PuQpVWf0xWPOjXjoZF+gysBJCtaZsuyHS749edL28nsX3JBgoqenaeYLCd48/olkZmzbC9PrN
+	q0VP8BCFzPh0Q77Z68NqMFXT8IY2dUj7eR5O9GyE0RMOjPAMln9L5cjAO5m6wFnHp8FFOXGOfBW
+	5orQw0MFaW2o9yh7WnyozEd6k/FneXSsuvqpwHjwWeTur/wzNK9n/1zMl+8545lDfMniSkzEdbN
+	bGpxjpFFnOGgS54UYlirRQ==
+X-Received: by 2002:a17:90b:28c7:b0:3a7:fef3:8561 with SMTP id 98e67ed59e1d1-3ae89822b55mr2355088a91.5.1793350162228;
+        Fri, 30 Oct 2026 01:49:22 -0700 (PDT)
 Received: from marchy ([211.24.73.58])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392b15f0sm4576265ad.73.2026.10.30.01.49.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ae5b9sm3229716a91.12.2026.10.30.01.49.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:49:18 -0700 (PDT)
+        Fri, 30 Oct 2026 01:49:21 -0700 (PDT)
 From: Adam Azuddin <azuddinadam@gmail.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -94,10 +94,12 @@ Cc: jesszhan0024@gmail.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	azuddinadam@gmail.com
-Subject: [PATCH v5 0/2] drm/tiny: Add RAiO RA8875 display controller driver support
-Date: Fri, 30 Oct 2026 16:37:34 +0800
-Message-ID: <20261030083737.47188-1-azuddinadam@gmail.com>
+Subject: [PATCH v5 1/2] dt-bindings: display: panel: Add RAiO RA8875 display controller
+Date: Fri, 30 Oct 2026 16:37:35 +0800
+Message-ID: <20261030083737.47188-2-azuddinadam@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261030083737.47188-1-azuddinadam@gmail.com>
+References: <20261030083737.47188-1-azuddinadam@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,125 +109,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This series adds a new drm/tiny driver and matching dt-binding for the
-RAiO RA8875 SPI display controller. An fbtft driver for this chip
-currently exists at drivers/staging/fbtft/fb_ra8875.c, but fbtft is a
-legacy fbdev-based staging driver, and nothing in mainline DRM
-currently supports this controller.
+The RA8875 is an SPI-connected TFT display controller by RAiO
+Technology Inc. It supports display resolutions of up to 800x480.
 
-This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
-structurally incompatible with both Type C options drm_mipi_dbi supports.
-Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
-RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
-0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
-These are not the same thing and cannot be mapped to each other.
-Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
-transfer cycle types and no D/CX pin.
-
-My ER-TFTM050-3 board has RST tied NC, and VDD is a fixed supply
-set via an on-board solder jumper rather than software-controllable,
-so I couldn't test reset-gpios/vdd-supply myself, but added them
-as optional/required properties respectively per review feedback
-for boards that do need them.
-
-Tested on a Raspberry Pi 3B connected over SPI to an East Rising
-ER-TFTM050-3, a 5" 800x480 panel driven by the RA8875 in Linux 7.3.0-rc4.
-
-Based on drm-misc-next commit 73df79cceb8c ("drm/virtio: add ARGB8888 support for primary planes")
-
-Link to v1: https://lore.kernel.org/all/20260916175942.3186804-1-azuddinadam@gmail.com/
-Link to v2: https://lore.kernel.org/all/20260924145400.1385815-1-azuddinadam@gmail.com/
-Link to v3: https://lore.kernel.org/all/20261001144128.2336301-1-azuddinadam@gmail.com/
-Link to v4: https://lore.kernel.org/all/20261012064518.3497285-1-azuddinadam@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 ---
-Changes in v5:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Drop the "Add YAML binding schema..." paragraph from the
-  commit message (Krzysztof)
-- Add interrupts property for the INT# pin
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Move bindings table to above ra8875_spi_driver definition
-
-Changes in v4:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Drop the sentence in the description saying the binding covers only the
-  SPI-connected device (Conor).
-- Drop unused panel label
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Catch error value from ra8875_write_pixels
-- Use consistent include header format.
-- Return if fb is null in atomic_update
-- Drop unnecessary extra byte in pixel data spi write.
-
-drivers/gpu/drm/tiny/Kconfig:
-- Add depends on OF, which is caught by intel 0-day[3]
-
-Changes in v3:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Add gpio.h include in example to pass dt_binding_check
-- Remove spi-max-frequency as there is no reference in datasheet
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Remove debug-only ra8875_read_reg function
-- Chunk large SPI transfers to 16 rows per chunk
-- Remove unnecessary includes and spi cs setups in probe
-- Create ra8875_write_pixels function for clear_screen and fb_dirty
-- Use 2 spi writes instead of 1 write with 2 transfers and cs_change in write_reg
-
-Changes in v2:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml (review by Krzysztof Kozlowski):
-- Add hardware description to the binding
-- Drop the display-timings property, and instead require it in the required block
-- Add a required vdd-supply and an optional reset gpio property
-- Rename the example node to a more generic "panel: display@0"
-
-drivers/gpu/drm/tiny/Makefile and Kconfig:
-- Remove TINYDRM prefix from the config name (Thomas Zimmermann [1])
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Reformat device_id table to match current convention (Krzysztof Kozlowski)
-- Drop unneeded linux/mod_devicetable.h include (Uwe Kleine-König)
-- Use drm_dev_unplug() instead of drm_dev_unregister() in remove callback
-- Move stack-allocated cmd/data buffers into ra8875_device struct
-- Add mode_valid() callback to validate height/width against panel maximum
-- Add optional reset gpio
-- Use dev_err_probe() in probe function
-- Remove connector detect callback
-- Remove unnecessary |= on register write return value in hw_init
-- Migrate from simple display pipe to manually-handled plane/crtc/encoder,
-  following the simple-KMS-helper removal effort [2]
-- Use defined constants instead of magic values where possible
-- Use drm_atomic_helper_damage_merged() and drm_fb_swab() in plane update
-
-[1] https://lore.kernel.org/all/fee2a743-d3e4-46b4-812f-05c3cc3a46ae@suse.de/
-[2] https://lore.kernel.org/all/20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/202610042347.idGisdDW-lkp@intel.com/
-
-
-
-Adam Azuddin (2):
-  dt-bindings: display: panel: Add RAiO RA8875 display controller
-  drm/tiny: Add RAiO RA8875 display controller driver
-
- .../bindings/display/panel/raio,ra8875.yaml   |  87 +++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  13 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/ra8875.c                 | 719 ++++++++++++++++++
- 6 files changed, 828 insertions(+)
+ .../bindings/display/panel/raio,ra8875.yaml   | 87 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 89 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
- create mode 100644 drivers/gpu/drm/tiny/ra8875.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+new file mode 100644
+index 000000000000..661398bda0ee
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RAiO RA8875 Display Controller
++
++maintainers:
++  - Adam Azuddin <azuddinadam@gmail.com>
++
++description:
++  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
++  It can be connected to the host via 8080/6800 parallel interface,
++  SPI or I2C.
++
++allOf:
++  - $ref: panel-common.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: raio,ra8875
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description:
++      3.3 V supply for the IO pins, the oscillator IO pins, the ADC pins
++      and the internal LDO. The 1.8 V core rail is generated internally.
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low RST# pin. Optional, since the board
++      may instead use an RC reset circuit.
++    maxItems: 1
++
++  interrupts:
++    description:
++      INT# pin, active low. Signals RA8875 interrupt events such as touch
++      panel, key scan, DMA, BTE and font access completion. Optional, since
++      the host can poll the interrupt status register instead.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - display-timings
++  - vdd-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        display@0 {
++            compatible = "raio,ra8875";
++            reg = <0>;
++            spi-max-frequency = <16000000>;
++            vdd-supply = <&vcc_3v3>;
++            reset-gpios = <&gpio 25 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&gpio>;
++            interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
++
++            display-timings {
++                native-mode = <&timing0>;
++                timing0: timing0 {
++                    clock-frequency = <25000000>;
++                    hactive = <800>;
++                    vactive = <480>;
++                    hfront-porch = <40>;
++                    hsync-len = <40>;
++                    hback-porch = <40>;
++                    vfront-porch = <10>;
++                    vsync-len = <10>;
++                    vback-porch = <20>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..99d5113fb035 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1395,6 +1395,8 @@ patternProperties:
+     description: Radxa
+   "^raidsonic,.*":
+     description: RaidSonic Technology GmbH
++  "^raio,.*":
++    description: RAiO Technology Inc.
+   "^ralink,.*":
+     description: Mediatek/Ralink Technology Corp.
+   "^ramtron,.*":
 -- 
 2.55.0
 
