@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353840;
-	b=Jo1DbCKlEAJVK0aGr0DIgweohjbh9fJEHmLF5xxEX+n3Kv+M1Zilnd087F6GBIQznX6Q
-	 24jre5MPz634RNiJHXBWy973WWAntaQ5xC55EiYkt3fkx/E7qdkyiZQVUskP/D+iIP2Ua
-	 gjzxLlDCzMfUWQenbbf5TPp5/owHJs3D1i2HVwUlWzbbpgDuCVZ4V6tTru/uHOdf7Gwwv
-	 qj+8TlJOBN9g+Gi1Ab/VrZGYJ6wpdTXgYfT2ul5oweokFAJ7PyD/vnsU5EgrZDzYykG/G
-	 VmqaS8yjPg7J6bwKytJPBeI16clx6v6Dou6y1ZNGsybZEf/Mss6mpPbcbDxjUY9kmyw==
+	t=1793353903;
+	b=soF/SD53KdsQGpaa7OLlwM4jzLO6tbdD3rycgyNvdIAaVNe6gQu/oVunEASmPgksnIwr
+	 xaCruQWsL/BEtrc/MgYqzCne4aVKXwo3X7slHWSsPV6MLi0RofhZdgt6xLQx0Hg2oImrU
+	 ipqcwONa4VuF6BWv3zj6KQ2o3Lpi79P5DPcIf4mNSJMafPO0BZbzWXb5kHhRyZtztrq4M
+	 p82iNsyJY9EUfg6fFZW4EPnMy2RNzaz8JLcAAeVXXcVOeaYKFMBYrYQ5Z2ALYHZQ2sK6d
+	 CKN+Y7lHoKQ3kMm3wdccG3cC4bfVOmHwsux+tvgaABZa10Wgv0IktTJ1aa9gpKzDVOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353840;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/AeIL6FRt8PYe36Iq8/+KIDuWRsAKaXAWfgqEtFwC1A=;
-	b=UZuYpacsLh+joPDqBmuVNMpIdnPTzPpugVbClhQmUHQtZMiQYiOI8r6g1on22nwhBaQG
-	 9McU03c3BYFvg1f6Kb8GDOBj1/IajS+LfFmGxjrTR+sZgUzX24XevJrisjWk7YAh5wCff
-	 EnU0LpiT+gymMr26MWsOCv8pmgtnC6/oYYnOQsJiVrYSIoK5xdXKSSHCDXJpIYeRY9ssZ
-	 WnsNs16bdqRRPnALmFBi5L8qdgAwKAcws8p8d/2jK2y6ZTCNMpjuJVUH25td9sM2R5Yoe
-	 71zxEPy9/VE2UkuXTKAw6V8HVhUFNFG5Eu6h3GQSnkZXSgjLSA9WFuBZBE1g6bIuwRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353903;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=7TANQUlPJemcIf+d7Vgd+PAva9YTSJD/DfMucJVKdTo=;
+	b=akrITTluooH/1KeC4ZhWKSJQw6sy4ec7FXZQFNfdZaR/2ml5gjxoOgoh7M+U08X22RSP
+	 bB/nkJL6c62SvPi8NUNNc19Hztzl5qsUyORcody3z0Ij7s3PYCNv4KB3LgWQDSELorBZq
+	 1+i1zt6UPTYgPgp7puqikLH20WGP8J9pUkNkuyGJnXO1LTjY54QbN0+cw99gkMfM6iGF/
+	 XfIdxM00DamStmm8TXvgo6kcKbu4YkuVXumn/53QflBfgONE3pH4PmuWGTmrmOc5PGWR6
+	 +WlkgUiHRIQKCK7UssMva4KYPlUIO43/GvFb51mowH0w1ocFcf+9nF2i21IlS8XV/9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg9oD75B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rp6SeMZ7;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83511606A320
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:50:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C1F606A33A;
+	Fri, 30 Oct 2026 09:51:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C1F606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg9oD75B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E372A1F000C1;
-	Fri, 30 Oct 2026 09:50:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793353840;
-	bh=/AeIL6FRt8PYe36Iq8/+KIDuWRsAKaXAWfgqEtFwC1A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hg9oD75B4IE1Gwv7objIVpDuKYYxnIA52lCCPh8fDAX+MsFXuh0JJnmz8qj1OxkFv
-	 CL9wI1frK3YJiw16wcqy/t86pPGz1wmD/FTnkpG8Ray+IIEHE7G4CoqXMRknSyLoml
-	 FpyP9l98GvdzpJnFkWMQ4UvBvoi9b9TuBq5TVL85hCcpsoBW3t++4mytgjmRPFbymg
-	 I7sfod0495eOMb4Grm6876hjnVJsAKOHggls7/bhb2mLtvylMTNAA/6O4YCJ1x5WPV
-	 qkz0koqc991sOldNGdVsQiEUuKuLcehl4lnVHlnR07SIcvfngBzPJjVNESBnOPYM+C
-	 sLDCB7GnWsjpg==
-Message-ID: <sashiko-outbox-190778@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: talos-lyra-evk: Add AUO
- G133HAN01 LVDS panel overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anand Tiwari" <anand.tiwari@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261030-lyra-display-upstream-post-v2-6-906302159392@oss.qualcomm.com>
-References: <20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com>
- <20261030-lyra-display-upstream-post-v2-6-906302159392@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 09:50:39 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Rp6SeMZ7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793353902; x=1824889902;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=rXmmZvQwk7weAWQRbOTp6l9G3HUkrXfcFgXXPPhBVhA=;
+  b=Rp6SeMZ7u25QQSV/RotyQsYhMZwz68MekAOpsdZnN3Q7o/E/Q3bV1ibM
+   uLfv/ADKkRCWiJA38PVyE9UuqHnbhpILuBXQ06LmYYzM1YbKIxsZ/7c5/
+   EERkkf4w1PzA4Q7UB6pKl0RDCpL8ZUNjA4rCZk4lePaSEG3QxawxzUYmI
+   7yoTwSEWZJmTU/VyyTQxBPpkUKb5RzEKI3ZeyzoPOtSLJtom2jzKY1TQ/
+   bhJlZY6YxxU+GTVdPrK7BWCFBtd0agcbTaH6akdnoVySteAL6UmBPxzIF
+   23Cbzqp2S/C50433UKKcMPlNQTT8mQFscr39WtR4HIIVBeov99NB1VWru
+   Q==;
+X-CSE-ConnectionGUID: oIgdqsktS72wmva5DlxwQQ==
+X-CSE-MsgGUID: 2C+wy1EwQY6zgaJDFF8STw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2129639"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2129639"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:51:41 -0700
+X-CSE-ConnectionGUID: NiscU6zERACwhqfm6w+v5A==
+X-CSE-MsgGUID: yynxe+GeTci66Hb2PFxNzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7187531"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.32])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:51:36 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 30 Oct 2026 11:51:32 +0200 (EET)
+To: James Hilliard <james.hilliard1@gmail.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+    Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Samuel Holland <samuel@sholland.org>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, devicetree@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v5 4/8] serial: 8250_dw: configure the Allwinner H616
+ UART
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-4-53b433aebbf8@gmail.com>
+Message-ID: <0809accd-0db3-c923-0396-2d45db7b0d82@linux.intel.com>
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com> <20261029-submit-h616-uart-fifo-v1-v5-4-53b433aebbf8@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,116 +85,220 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: talos-lyra-evk-lvds: clk-pwm on GCC_GP3 fails wi=
-th -EINVAL
---
+On Thu, 29 Oct 2026, James Hilliard wrote:
 
-commit c54a5c6f3e0408807da76cadc10d556338f09c09
-Author: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> component parameter register reads as zero. Generic 16550 probing leaves
+> the port using the 16-byte FIFO configuration and its trigger-level table.
+> 
+> Keep PORT_16550A and describe H616's fixed 256-byte FIFO depth in platform
+> data. Use common Allwinner setup helpers to configure the transmit load
+> and receive trigger table from that depth.
+> 
+> Derive the receive thresholds from the documented 1-byte, quarter-full,
+> half-full and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128
+> and 254 bytes; the normal 16550A half-full FCR setting selects 128 bytes.
+> 
+> Allwinner encodes these thresholds as fractions of the FIFO depth rather
+> than fixed byte counts.
 
-arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
+This feels repetitive wrt. the previous paragraph so I'd instead start 
+the previous paragraph with this sentence.
 
-This commit adds a DT overlay for the Qualcomm Talos Lyra EVK to support the
-AUO G133HAN01 LVDS panel connected via a TI SN65DSI84 DSI-to-LVDS bridge on
-I2C5, with backlight control using clk-pwm on GCC_GP3.
+> Building a per-port table from that depth keeps
+> the mapping in one place for integrations with different FIFO sizes,
+> including those that report their depth through FCC. It also lets the
+> shared 8250 conversion helper select the nearest lower threshold for sysfs
+> writes using the same table as the read callback.
 
-> diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-lvds-auo,g133han01.d=
-tso b/arch/arm64/boot/dts/qcom/talos-lyra-evk-lvds-auo,g133han01.dtso
-> new file mode 100644
-> index 0000000000000..8c592e6317c30
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-lvds-auo,g133han01.dtso
-> @@ -0,0 +1,133 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+Instead of this long fragment of text, I'd just say something like this:
+
+Construct the RX trigger threshold array on the fly so that other fifo 
+sizes can reuse the same mapping.
+
+> Serialize trigger changes with termios and hold a runtime PM reference
+> while programming FCR, preserving the FIFO contents. Propagate runtime
+> resume errors before changing either the FCR shadow or the hardware.
+> 
+> Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> DesignWare termios path selects hardware CTS handling, so the capability
+> must be present for the corresponding hardware control to be enabled.
+> 
+> Select the fixed configuration through the platform setup callback.
+> H616 has debug-divisor and RS485 control registers at the offsets used to
+> detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> those probes and retain the BUSY-safe integer divisor hook and software
+> RS485 handling.
+> 
+> Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
+> termios changes. Its clock is a gate on the shared APB2 source, rather than
+> an independent baud-rate generator.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  drivers/tty/serial/8250/8250_dw.c | 98 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index a546cf2de7b6..3bc6735fc253 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/io.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/property.h>
+> @@ -63,6 +64,7 @@
+>  struct dw8250_platform_data {
+>  	u8 usr_reg;
+>  	u32 cpr_value;
+> +	unsigned int fifo_size;
+>  	unsigned int quirks;
+>  	int (*setup)(struct uart_port *p);
+>  };
+> @@ -81,6 +83,7 @@ struct dw8250_data {
+>  	unsigned int		in_idle:1;
+>  
+>  	u8			no_int_count;
+> +	u8			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+>  };
+>  
+>  static inline struct dw8250_data *to_dw8250_data(struct dw8250_port_data *data)
+> @@ -652,6 +655,93 @@ static int dw8250_setup(struct uart_port *p)
+>  	return dw8250_setup_dma(p);
+>  }
+>  
+> +/* The trigger is the masked FCR receive trigger field, in register position */
+> +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
+> +{
+> +	switch (trigger) {
+> +	case UART_FCR_TRIGGER_1:
+> +		return 1;
+> +	case UART_FCR_TRIGGER_4:
+> +		return p->fifosize / 4;
+> +	case UART_FCR_TRIGGER_8:
+> +		return p->fifosize / 2;
+> +	default:
+> +		return p->fifosize - 2;
+> +	}
+> +}
 > +
-> +/dts-v1/;
-> +/plugin/;
+> +static int dw8250_sunxi_get_rxtrig(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
 > +
-> +#include <dt-bindings/clock/qcom,qcs615-gcc.h>
-> +#include <dt-bindings/clock/qcom,rpmh.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
+> +	guard(uart_port_lock_irqsave)(p);
 > +
-> +&{/} {
-> +	bklt_pwm: pwm {
-> +		compatible =3D "clk-pwm";
-> +		#pwm-cells =3D <2>;
-> +		assigned-clock-parents =3D <&rpmhcc RPMH_CXO_CLK>;
-> +		assigned-clocks =3D <&gcc GCC_GP3_CLK_SRC>;
-> +		clocks =3D <&gcc GCC_GP3_CLK>;
-> +		pinctrl-0 =3D <&bklt_pwm_default>;
-> +		pinctrl-names =3D "default";
-> +	};
+> +	return data->rxtrig_bytes[UART_FCR_R_TRIG_BITS(up->fcr)];
+> +}
 > +
-> +	backlight: backlight {
-> +		compatible =3D "pwm-backlight";
-> +		pwms =3D <&bklt_pwm 0 100000>;
-> +		power-supply =3D <&vreg_disp_3p3>;
-> +		enable-gpios =3D <&tlmm 2 GPIO_ACTIVE_HIGH>;
-> +		brightness-levels =3D <0 255>;
-> +		num-interpolated-steps =3D <255>;
-> +		default-brightness-level =3D <128>;
-> +	};
+> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +	int fcr, ret;
+> +
+> +	fcr = serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
+> +	if (fcr < 0)
+> +		return fcr;
+> +
+> +	guard(mutex)(&p->state->port.mutex);
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
+> +	up->fcr |= fcr;
+> +	/* Changing the trigger alone preserves the FIFO contents */
+> +	serial_port_out(p, UART_FCR, up->fcr);
 
-[Severity: High]
-Will clk-pwm work with GCC_GP3_CLK here, or will pwm_clk_apply() fail with
--EINVAL?
+Hmm, the current do_serial8250_set_rxtrig() only takes tty port's mutex?
+Does it lack something it should be doing (RPM or taking port's lock)?
 
-When backlight requests a 100000 ns period (10 kHz),
-pwm_backlight_update_status() -> pwm_apply_might_sleep() -> __pwm_apply() ->
-pwm_clk_apply() runs:
+I was going to suggest putting the actual FCR update into generic 8250 
+code and lockdep asserting the required locks are held. But then noticed 
+the taken locks seem do differ.
 
-drivers/pwm/pwm-clk.c:pwm_clk_apply() {
-	...
-	rate =3D DIV64_U64_ROUND_UP(NSEC_PER_SEC, period);
-	ret =3D clk_set_rate(pcchip->clk, rate);
-	if (ret)
-		return ret;
+> +	return 0;
+> +}
+> +
+> +static void dw8250_sunxi_setup_rxtrig(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +
+> +	/* Allwinner RX thresholds differ from the standard 16550A table */
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(data->rxtrig_bytes); i++) {
 
-	if (state->polarity =3D=3D PWM_POLARITY_INVERSED)
-		duty_cycle =3D period - duty_cycle;
+Add include for ARRAY_SIZE()
 
-	return clk_set_duty_cycle(pcchip->clk, duty_cycle, period);
-}
+> +		unsigned int trigger = FIELD_PREP(UART_FCR_TRIGGER_MASK, i);
+> +
+> +		data->rxtrig_bytes[i] = dw8250_sunxi_rxtrig_bytes(p, trigger);
+> +	}
+> +	p->get_rxtrig = dw8250_sunxi_get_rxtrig;
+> +	p->set_rxtrig = dw8250_sunxi_set_rxtrig;
+> +}
+> +
+> +static int dw8250_sunxi_setup(struct uart_port *p)
+> +{
+> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +
+> +	p->type = PORT_16550A;
+> +	p->flags |= UPF_FIXED_TYPE;
+> +	p->fifosize = data->pdata->fifo_size;
+> +	up->capabilities = UART_CAP_FIFO | UART_CAP_NOTEMT | UART_CAP_AFE;
+> +
+> +	dw8250_sunxi_setup_rxtrig(p);
+> +
+> +	/* Use software RS485 with the Allwinner register layout */
+> +	p->rs485_config = serial8250_em485_config;
+> +	p->rs485_supported = serial8250_em485_supported;
+> +	up->rs485_start_tx = serial8250_em485_start_tx;
+> +	up->rs485_stop_tx = serial8250_em485_stop_tx;
+> +
+> +	return 0;
+> +}
+> +
+>  static int dw8250_probe(struct platform_device *pdev)
+>  {
+>  	struct uart_8250_port uart = {}, *up = &uart;
+> @@ -875,6 +965,13 @@ static const struct dw8250_platform_data dw8250_dw_apb = {
+>  	.usr_reg = DW_UART_USR,
+>  };
+>  
+> +static const struct dw8250_platform_data dw8250_h616_data = {
+> +	.usr_reg = DW_UART_USR,
+> +	.fifo_size = 256,
+> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
+> +	.setup = dw8250_sunxi_setup,
+> +};
+> +
+>  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
+>  	.usr_reg = OCTEON_UART_USR,
+>  	.quirks = DW_UART_QUIRK_OCTEON,
+> @@ -926,6 +1023,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+>  
+>  static const struct of_device_id dw8250_of_match[] = {
+>  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+> +	{ .compatible = "allwinner,sun50i-h616-uart", .data = &dw8250_h616_data },
+>  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+>  	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+>  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> 
+> 
 
-In drivers/clk/qcom/gcc-qcs615.c, gcc_gp3_clk propagates rate changes to
-gcc_gp3_clk_src, which uses clk_rcg2_ops with ftbl_gcc_gp1_clk_src rather
-than clk_rcg2_gp_ops:
+-- 
+ i.
 
-static const struct freq_tbl ftbl_gcc_gp1_clk_src[] =3D {
-	F(25000000, P_GPLL0_OUT_AUX2_DIV, 12, 0, 0),
-	F(50000000, P_GPLL0_OUT_MAIN, 12, 0, 0),
-	F(100000000, P_GPLL0_OUT_MAIN, 6, 0, 0),
-	F(200000000, P_GPLL0_OUT_MAIN, 3, 0, 0),
-	{ }
-};
-
-Because all entries in ftbl_gcc_gp1_clk_src have m =3D 0 and n =3D 0, calli=
-ng
-clk_set_rate(pcchip->clk, 10000) rounds 10 kHz up to the 25 MHz entry,
-switches the parent away from RPMH_CXO_CLK to P_GPLL0_OUT_AUX2_DIV, and lea=
-ves
-the MND divider in bypass mode (CFG_MODE_MASK =3D=3D 0).
-
-Immediately after that, clk_set_duty_cycle() calls clk_rcg2_set_duty_cycle()
-in drivers/clk/qcom/clk-rcg2.c:
-
-	/* Duty-cycle cannot be modified if MND divider is in bypass mode. */
-	if (!(cfg & CFG_MODE_MASK))
-		return -EINVAL;
-
-Doesn't this cause every brightness update to fail with -EINVAL while leavi=
-ng
-an unmodulated 25 MHz clock on gpio59 (and leaking clk_enable() references =
-in
-pwm_clk_apply() when __pwm_apply() fails before setting pwm->state.enabled)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-lyra-displ=
-ay-upstream-post-v2-0-906302159392@oss.qualcomm.com?part=3D6
