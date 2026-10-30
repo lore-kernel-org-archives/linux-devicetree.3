@@ -1,74 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353263;
-	b=5Iy411fvg28y3v4VpsQG7Zcv1lDYyVFG8LN4qN8X72116GBA7fRV5BdbK1ebYShq273b
-	 Z/eVKCNN4czVNaBOMv2VGjOHomd3O0GT7m8PS/e3KS8HKJbit7OSHUvOG3DLe4Bc7VcB2
-	 aJ5OHks1f0k/Y8SmMIGeHifbjdPL1gbOQOInMES+6oeHhyDJ0GELtkxh6HwND+psp+rll
-	 sm4FHXzyNABbXcSkRXx3mqKZQlXGgy76EEXEsuvHm7K3OAgRZrIsnls1pEjnVaQ+Wr13s
-	 aHRac81BquLYbKngVgzUoVOGwe/gEctANg4BCqxYHaACECHlP3NObKwpIBGPeGnI5/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353263;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=NIxqMKyYG+I1FTMitPEEM3EWEjjxuEu8hI5Iv15e8d8=;
-	b=inyOTA5RG1D4UnrHDr7t6wwXrjZelF55K15FTNFpCPmtXsZg8wXYA74ifzT+r5oq8baT
-	 9POccmWJHzvxlSjLFmOvs82XqAp8LEgdCQI1+cb4sa+qyyAfc59CkzrbMp5dIDXJuXNyO
-	 lzHhokMEwGlxSPtRRkp35gkhUs3v6NW3XmWbrmPG9bWYIN9zr0AhkeNWPRA+BXf/8y7Bh
-	 VjKu3WqpLJ301t/obSYMVZEmXEvSgpcHZwPIrK+IVuFUgNdf0QtjHRNblZVhU2ROWlQSV
-	 gIZYC+ayh6WTPAUT8mc9SMEZiLI6VIYbmE2ZoXzreLUIzgrGgDsSH15QQdiQu5N6BEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=UwGhhSuR;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793353346;
+	b=KC9w7xgVuxxMGFcwLJIWpLiyBMmNNpO4EYl684hPtb9cxLn8f1V9cAcgLHtg32W6vOmb
+	 M553QBjY6Q88qM5TvoAPfSg4TAjnpTrW6Dv2XZPdo8gi4cnnWbNh28NKurvFJxr2npzFj
+	 WUZaX1Nt0MxXWC3SZ2u7vQiOPbGBjA5q+gygGIrnHTxLs7dB/JmYofBdP6Z7AFAS/nLXe
+	 bDkxK1+9kQj/Aubb/vUwGcVuPNNxRkJG3ElbFx4yBWzhuGhk2bNbYf9PvQTlwStzJwozG
+	 qHD4qn5jSYFPlAhvJwolx7yCD6HIXczZpzavSW+QiOPkSJ/6fFvTOybqyfbfvDSFITg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353346;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GDGY6UPfJWemExMe2Y2VGpgaiOOBAPyHFBWs4EkVRgc=;
+	b=IuhRBiT/CG5VfvwAiw1xyLzGHZCc+oBa4XgSXpfekLIunoT9Qa1CHATNl3X3YcvNrBS6
+	 DR812BQe0N7CjlOjoc/+h8qjRr3qgAPsY94tfISyjRssKZNhgSjWkTsOPT6qBzDAgRJ5U
+	 shqCQj9YZH/YTxiPzRAqvw75ltZjwJ9gfnz2HQFvBQitsHYIy/gwia8p7wSwKljv7zDiv
+	 m5hRBcmETR7hRBGCDfxzY+vdAgKkAyPPlhEOEUvGtG2gZI2rc2+yZc23kPSKSIkid9Oo5
+	 Ou72erqOwJsNHFjcftGNZxr6RbDoGXcrjZgm52JfAbAPqRxOc2S8EZ+DKShio/KZ2cA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VDvo/8AL";
+	arc=fail smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B56A606A323;
-	Fri, 30 Oct 2026 09:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B56A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4F9606A31D
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 09:42:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D4F9606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=UwGhhSuR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793353241;
-	bh=NIxqMKyYG+I1FTMitPEEM3EWEjjxuEu8hI5Iv15e8d8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=UwGhhSuRqDTwZXbV5RreA8uFwVKQfqwJy0uhUiRoAAkOFKv//TJ45xb8kZmWVqHEo
-	 /Qyf2SPk24SFABLB7VlBpCEgE1qVAFOB00HsHhHLTPdv7H4MmYZ2m45R4ky5G1BPXH
-	 WrSLWnecuJ7l9s4kOAvh8j+H8WdTf270P9WFHS/E=
-X-QQ-mid: esmtpsz17t1793353237t9232972f
-X-QQ-Originating-IP: 5U1DF8ULzeZro/FTuuUh22awM6fJteIZcTjwwHXA5Jg=
-Received: from snode5.. ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 30 Oct 2026 17:40:34 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4904317109447055735
-EX-QQ-RecipientCnt: 14
-From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
-Date: Fri, 30 Oct 2026 17:40:24 +0800
-Message-Id: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VDvo/8AL
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3550c917fd3so753270eec.0
+        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 02:42:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793353345; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DU2lIHSriWOJtZvgq2GHafZwL8BLRIwLAQB0vKyISXLj+QleurNbuFCJp+RzT2ssR2
+         zfYfBTK1zRAwkukga7k9NBD6a6OsAJO2bw0AyPt5bSnh7WulydUB0osEG+BaizkzpZIv
+         RP/k9XeWautjk1wGct0cF42qjn/tYK/2frZTdHPJQOuStWnquCzUD7x+38D2FgTp/gZ5
+         ARBnKFwrXWBZNp5pzflqnf3OcdwzrojPpPENevEnq+oGy7Owv/WjyxkKljnRg8sKKLOi
+         SCH63Pk7kUy6UPA86vCGOnkhCqvTuyAeY4Y4cyGmoB+GRBMnJjpR6xwe5IaLQolrlyp9
+         wROg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GDGY6UPfJWemExMe2Y2VGpgaiOOBAPyHFBWs4EkVRgc=;
+        fh=NCyUaO7ZNHz+/5HyZi25Vp2+hpUbhcBc+HbnI6aVUWw=;
+        b=YwqbfiNunVUBoTL6ByjpboDtvZpQ7x9/Q8LBsTHS8CRl6N0AfqUjSFBxBlendb6Dxn
+         G38809WrvEjZsV4tqX9ANWuJeT1RRBGU+LfuI4dINidBcHmqR7DEYtWaLqoyKBY6tnS0
+         3AkPU1/t13juZzYVaFPcQIurDBnaukNLyKBJkp/B6ed9xjjG8Z0w15wh+wpQ/WlabBLm
+         zEB7OyCsEmjRH3JwoopvjRPgI7Koxbivo5ERDhSp5BJC7LjzbBlTwBPdwUwJ3hWbzKtS
+         3VLcE2BSm8CAEznn2lKPsXv8gLWkttDR/IaRnVPSBtN6LKDUlJVOaQu2jKdOoVArgekR
+         DeJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793353345; x=1793958145; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GDGY6UPfJWemExMe2Y2VGpgaiOOBAPyHFBWs4EkVRgc=;
+        b=VDvo/8ALUv2o8vLeBrFjgi8x3hH7i8hY5DwpCSk7vhJILEgsq4TzXiHzvm7k83zNTV
+         udkGFuGOUraspN0Nacg5Ghc3c16IApQsRqOaDzzJ/ElVmieliY16mbyUuEWAM1ybuQ/V
+         T2P0+B36wbYw3INCWqsEKpVMKVuOBrlxmNh2siJ9dpzo2J33PlWRLE/4s44nAMEaVng3
+         O/7Ob3zdUjUnrhk74MT5Lkd2I3Hnu4punHB6tcGdawA4Do0SI1R+ANYc8CmGTN2C4K+2
+         eU1vHiRoX1/naqUdmPws7e7NckwbH6li5mI+L28sU9q6vWsh3uFaCTn+1rde1AOPFoGC
+         xTig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793353345; x=1793958145;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GDGY6UPfJWemExMe2Y2VGpgaiOOBAPyHFBWs4EkVRgc=;
+        b=N1MSXmbbu3Nm46SNImv2hh8T2yySgVzT86wM//VZG7u9iDd85VdZi+iwt4OP74g8OH
+         Me21a4vNtcRvdtmkP2Mwre8ekjoI225GviMWb7wp0eE5uVi0SHl2LfWjGacubm5jGM99
+         Mzlk0s1y0/tFTNo8IwLNXUqauZFFnGHM66wT8Ioo6zMKEsg68NZJVV0uvhDXMbvf1oKt
+         KQaXR+nQ/X1PyDqrZA3DtW0p824vyI00wPnfmYmSd73eEVDQnsKZ+W+8LzvBWS2ut20o
+         fk/SB9kEKxXx2TIcGBd8dtggLvUbBZI2nrY+Z3wh4pvtNAq4dC/yzLwLAZ38DkEFHxxl
+         r6ug==
+X-Forwarded-Encrypted: i=1; AKwUvBxCGtbJeWj0LPtrt83XPfBFngNTZJQm5KSefqQqccdjvCKljNLrx/SWtfNrJyk+WF2GQnx9Hm6ybzOF@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0igc7GWwDvexaV6cWRSS0KaYZILTRnLtqONnThRBLt3RfmVJp
+	J4xQnEhPWfyr7E1QzbSuBPhhHNs/M9qKGtH2lpF9UmjSHqGBZikfBYvQSfEZJY81S+WgE41EaJ7
+	Bg4ubQwHssclUHAi79aoz9rGWjNJy3xQ=
+X-Gm-Gg: AYBFou0yqOE4iH9WfJPIqtZJI05naKkX2liZqqVH/7rDxoIIjZ3lJS6Vmwoy3/A+U/B
+	kf3Z3MVKXBiLCvOCZKJCh9XcAMsN6sGWwGBm+Vi+4K4fJSBDxlemds6Ise+PxuHhJuGLZBuMfKV
+	u16pb2Cya/MJbn0OuJ4MWK4i/SvnTo+xwbIe6M5nB20vIHJl8KRL1yo3rRcSoNBtw5bbMd/pvkZ
+	bHvshmwEh7XRxBNBcYBJ2ejld7ZUlpkIyra0KuvMQ+3l/lIyYO2yAdGj8Jp12JJwhzSBAL179R3
+	51ikYHq+nJ0EWPcE3S7vZlxNhPpl66cVQIPaYHupaPHYbVI7dX4duA9+nxfmTbn4o1NOnpQmihu
+	TO4g7rJmrWJEreKk84JUWTLPcBQGAvg4yjMO3l0vh7eZVf1qm9yydL2xyXHR6AyEA6aiE1Q==
+X-Received: by 2002:a05:693c:41d9:20b0:368:4acb:f8a with SMTP id
+ 5a478bee46e88-36a4242f5fdmr2867529eec.17.1793353344529; Fri, 30 Oct 2026
+ 02:42:24 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,106 +104,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MM3MbTCua2rwwBkGzFFh+EGainYjDztOrp6+r97NdurKuRpADffVWP29
-	QLcoTxkAOeeL9WUcpI5poJvgQ+efjshxoflK8IwKeQ/hLM9Li3WrCpHv5hM7gML6vSxM1Fo
-	eHloIyDcVYawhNV8QajRDi0x5r0ofeQbQOcI/u70/EEMhq/dFP6n+gdECgE/MJH0V7Z5pnn
-	mjiS2N89MECl6i6oG/S3mXPIKQotcJUn58jpbqCl+NrmZN/8TcMmvX2lR247BaC9usTAYS7
-	sN1XXeX4nPMDW0yy5fCHCdLmBLyDUFsqiDar2AuhovtrVD3jOhMOb2YdGMRTr4AB3BxJjIo
-	ZvHei5/qcq3qiUAFK//0J0zhGP1VmI14LWKG7UTpu9sxtj9gt7ciYdcoNAEFeVQroZvMZbc
-	aXASbWjN1cv+1IoxnTfNEG6Uzs7MSBad0I2De1oYL+t8Z6meYtFXiFsczvH+2EZKKVQQnnj
-	b7/DHV1tqs4iv6gabdSCTRaMVBvuAksaJUYIvw4RzmMELDjMT1ksJXFqIo3tcrQHPh2aTtH
-	I83O4Yvid0sfaEa7faFSZLON0ShuWng8SHphdOO0ZK3KBfXXkuoBuqHNXfay+Bbcrv2lRYR
-	JlhMtTtzXwiamXlx6n5SAST+L01OAP96zi60/oWKS8kNqyT0kDKqpPbpoqaDcX44PovQIzA
-	iw052JeSBw/60AgWCQaeUwYJlZkUUyYdwrC3SHC4ZjuaMs4dkSbrtPghObZ1usvMmWrBgbZ
-	p0j0aB3p5WBJU4gq/xKmDGWa60m2QBIWXQCkmrCQZtAWmzsCK9maR6JwEnmdJU0aJN3sV8v
-	usmRu1+hoJL59niasIYqSfMktPIEY6fWqeKYASsYap0+WfkGXNS+4qNw3XC3pFJngp9/atZ
-	CNlaYj+Ce+Y5bYqG0yaj2BNHa5tje8+5S2amSUbkjFhkzVLmKiWdN5hY1B/PI4bg1GOc9Tk
-	qh62oJBtmHob9+aFkZEKu0hboucJBCsTx+fyH6qh+kmOVuxzIE06Ul113w6EcU3bqoWgzIr
-	d1wxpz8rSXZwPOZLMR0zWtEPDLVkDIm+de1RGSyX3it2EQd6cZebxs7aSwpJA1CrxwCcV5Q
-	j6QMT9rXZhrY6IgdbbaY2k3h14USIjx862aVtlyMo+C4WbakyhyJJO/piBM61Gf0MtbB7UC
-	XGnE
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+References: <20261029152909.234584-1-clamor95@gmail.com> <20261029152909.234584-2-clamor95@gmail.com>
+ <auRjGM7briuvXDEg@houat>
+In-Reply-To: <auRjGM7briuvXDEg@houat>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 30 Oct 2026 11:42:12 +0200
+X-Gm-Features: AclHuK9xo3P5XZPZURXGSlkxvgjF2BR7aWoJEgrYiYo1jUomIQQhlZvP6BUv2IY
+Message-ID: <CAPVz0n2=sgbzBfvhGOoRFXeOzKDvs9en7QD0pHc31r5GzgCsKA@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-of the K3 SoC.
+=D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:2=
+9 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
+> > From: Mikko Perttunen <mperttunen@nvidia.com>
+> >
+> > The MIPI DBI bus allows modeling DBI hosts and peripherals using the Li=
+nux
+> > driver model. DBI hosts are registered by their respective drivers. Dur=
+ing
+> > registration, DBI peripherals are created from the device tree nodes
+> > provided by the host.
+> >
+> > DBI hosts expose operations that can be used by peripheral drivers to
+> > access associated devices.
+> >
+> > The original code was authored by Mikko Perttunen; I have aligned it wi=
+th
+> > the existing MIPI DSI implementation.
+> >
+> > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>
+> The SoB situation isn't right here. The author is allegedly Mikko
+> Perttunen, but you don't have their SoB, and yours isn't there either.
+>
 
-Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-yet, so the port runs at high-speed (maximum-speed = "high-speed").
+This is up to Mikko to decide what to do.
 
-Enable USB3 port A with dr_mode = "peripheral", so it can be used as
-a USB device.
+> Aside from that, which MIPI-DBI type is this supposed to support, and
+> how do you intend to support Type C panels we already support through
+> SPI?
+>
 
-Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  9 ++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 30 ++++++++++++++++++++
- 2 files changed, 39 insertions(+)
+MIPI-DBI Type A and B, which have NO support right now.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index b084a35aa00e..74d4fdf9e405 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -323,6 +323,15 @@ &usb2_phy {
- 	status = "okay";
- };
- 
-+&usb3a_u2phy {
-+	status = "okay";
-+};
-+
-+&usb3a {
-+	dr_mode = "peripheral";
-+	status = "okay";
-+};
-+
- &usb3d_u2phy {
- 	status = "okay";
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index c3f2dce0969c..220dfe29bb78 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -630,6 +630,36 @@ gmac2_axi_setup: stmmac-axi-config {
- 			};
- 		};
- 
-+		usb3a: usb@cad00000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0xcad00000 0x0 0x10000>;
-+			interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phys = <&usb3a_u2phy>;
-+			phy-names = "usb2-phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			maximum-speed = "high-speed";
-+			status = "disabled";
-+		};
-+
-+		usb3a_u2phy: phy@cad20000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0xcad20000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		pdma: dma-controller@d4000000 {
- 			compatible = "spacemit,k3-pdma";
- 			reg = <0x0 0xd4000000 0x0 0x4000>;
--- 
-2.34.1
-
+> Maxime
