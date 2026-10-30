@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793389784;
-	b=HMOEBGDE5k3tHAg3jcvKCG7I1z7sATBr7Q+M1a02ruTzrf8jM42fVZKc/VC/rPgmxtmV
-	 ZQGS/GXNEoqbqVcwo1ayvYB2dh/mNtkMGwPWqfk6+C54iMUJ/a/f1ZLoj0rchFbOuh9Ya
-	 48BeVY7IaO/xMgErT00TuCO0hH9SDGuh7hMtd82+xW7agBAONbh03CDB8Na9wtqYkvDKi
-	 RmkFo867LWPkdgo5RvbqhGV+qKNIiZEAGItCqttUzQdvVQKSltgMLqIMbmyn/CPbgBmP6
-	 lixpvuKhfqnwmQt41PF3Etoqi7b/a2XypTuK+Cvdw/Z6zKBYlxKbZAQfIXAeDAZDpCA==
+	t=1793390174;
+	b=xeI9S8D7GC3lHKMlETxms9oXZsD4nzSfMvLzTSjs0coi4/gadUtMWt/SedKl35912ETq
+	 TO2D7CMb2fNswBqctFNdyn5oI42i482bZakYESnHYYl2EF1YFLx4gLXQ6HY/ONM+ewiY/
+	 nILpHLfEj3kVnxw474rA1Ip3XA0rLZTQXix6oRBgAspmzSlUdqJrzSdaLhx2Q6/kU+aPO
+	 /MyXaVplB/7ydUwDKCQEHxV9RARHRYk1aqQ53Ld9ApiQ/GnEA5iiPOtWgzqgBGAqDQTWL
+	 2MSx5+b/KLGJcmls3xbXWhGKCbzaTBE5Sg7TVaSfUtQV8PXwU+iUb5PT6XW+hKoSkZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793389784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390174;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
@@ -15,81 +15,70 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
 	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
 	 X-Local-Domain:X-CMAE-Envelope;
-	bh=tGRSe9LvYJDXqnyp9hHRUXYwQf0o1AOnoi+Z+9njJw0=;
-	b=2kRXNM/hsM4etpKB7kXjLldBfosqmw4LcIZ5dG0VlITBKoMqCu3w5OZnYzxo5JXD8oKH
-	 5wChOgIo9MQ05BmHqNd2glgFkbItylWFW0Ey/YuOY0KMUy4WJPt2TymMmBQ8ZJYsHoUOu
-	 zz2npLN13KA7y7NHckPxmxeuQ8S4Ibnot2YP2/30BqK8fG9uWOyJ4ScdK2LTKGPSIffjv
-	 Ds6OChM2hIlIhd+QaKNKMnpi9uA7HBdLIBAPCVYx8ZdagVuh6AgEMIwDX8oCcVsTzmt+N
-	 ddc1QHuHr184gHOqfTEk5Kb9JSfCP0unTfsj0fksfaWzkKBye4y/tjLEFOckB3UrmRQ==
+	bh=8kVz0XILX5RIwQ6HYtuHl7gWfjeYLa70o0sQEUAqlEc=;
+	b=KaMbmCU4VVbJwbG/X9/g2AD1LCANlPYJTBlTTbZpU7ORJpU6sGfMVyCZRGsxShVib38a
+	 Pmbood3LOLC2GPS/A5q+I8E5LIqA2JzEncAo2vthxckOunjszkZHlpr9SWz2jNuTgKlDW
+	 PbOLHTq5LW8YhhMCTgaJDLUfLoo3Xkz6b4gI3sRLOVu9Awu1tdiYUGA/GpWwHDXILTU9S
+	 D4q3plt+iP9Bomn0+9txLUSTQRvb/3f3Sudk0s4/UO0Wbk0p88yo4Uo6X1rQ0z2BuazDr
+	 jlpZ8XtKwOabe2KWEhq/vCwidXaw37vM6gd/FfbgBTdumkTs2/aMJiGMla7reJkgYCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IokEpGXr;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=irb78aLA;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DFA606A321
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:49:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07DFA606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB19E606A31A
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 19:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB19E606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IokEpGXr
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=irb78aLA
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
 	by cmsmtp with ESMTPS
-	id MdY6xAkVwv0ndMsbfxrqlQ; Fri, 30 Oct 2026 19:49:43 +0000
+	id Mnc2x5HMqaC0UMshxxDRpG; Fri, 30 Oct 2026 19:56:13 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id MsbexwJFsNSXiMsbfxU7JR; Fri, 30 Oct 2026 19:49:43 +0000
-X-Authority-Analysis: v=2.4 cv=JvXxrN4C c=1 sm=1 tr=0 ts=6ae4f4d7
+	id MshwxOubX63hBMshxxyuH2; Fri, 30 Oct 2026 19:56:13 +0000
+X-Authority-Analysis: v=2.4 cv=CYsI5Krl c=1 sm=1 tr=0 ts=6ae4f65d
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=EUspDBNiAAAA:8
- a=yaG995DJD8wxKFCFxIQA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
+ a=QyXUC8HyAAAA:8 a=_jlGtV7tAAAA:8 a=FQuEuSn5fJWHmgwBhRsA:9 a=CjuIK1q_8ugA:10
+ a=KQ6X2bKhxX7Fj2iT9C4S:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
 	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
 	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
 	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
 	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=tGRSe9LvYJDXqnyp9hHRUXYwQf0o1AOnoi+Z+9njJw0=; b=IokEpGXrQD0n5OejTKC1338Lv7
-	nB2qbLUNlHV5stnP9rXGgDLsrG1BzzezifwGK+1Puq504s+/CK+qQZeSYHUy+fWe6vTpXRoNLCcG+
-	xvj3fW0MOJ4Nzk1pmdgFcsYZ+Y7Q0K25aG5ngASEqC8zCK+3rmRE4ZqwKU0PVdKMHaqK+/Tcy7JVE
-	KY7aoSpK4cWkeF0Qp5vCUmFXS84V+Ti3rKMhaw3CjyFBic+m/0+8CJAZmJkRiKE+zLuQv7G6Q29R3
-	MG6D1JOrDScGhEV5WilZ+4rKPqslkRjJgFrVsJqNU3FmWJw5kITj11QQJk1KvoCLL1e7dmb7RY0D0
-	PrjC/Iog==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:56876 helo=server.roeck-us.net)
+	bh=8kVz0XILX5RIwQ6HYtuHl7gWfjeYLa70o0sQEUAqlEc=; b=irb78aLAgTGRW1joDBbOI1pJ4l
+	CiMU4xia3rmyGJcuc44medSaPBlvl8MLgbpRpkIc6y5/y+S3hPgTtgsAmZ0yYNTpL9TspgU9F4aIu
+	ZHVJvVuhkcaLcfaXwblDAmtGwlI52rLnPK5T/sThWTVvW2p5622vsP52jowuilovBtmwFdf28s0pB
+	L/DzIFxK5dKwXgvRUY3Yj5OxFru/Lw4563WYCJlG9ALTvp4SwNhcKcwHOVWhbkip25xmOGDlBIkBB
+	iAVISuWrDoc7eXIqQwdE+Xjv2zlOwF/+/Ud3T/lAjynlS8b8ikbiIMYpCgLmQNCGEYiypG91gJDm1
+	xBgaS43w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55592 helo=server.roeck-us.net)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xMsbc-00000003tp5-2F1r;
-	Sat, 31 Oct 2026 01:19:40 +0530
-Date: Fri, 30 Oct 2026 12:49:38 -0700
+	id 1xMshw-00000003xjp-10yC;
+	Sat, 31 Oct 2026 01:26:12 +0530
+Date: Fri, 30 Oct 2026 12:56:11 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hector Martin <marcan@marcan.st>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Sasha Finkelstein <k@chaosmail.tech>,
-	Linus Walleij <linusw@kernel.org>,
-	Mark Kettenis <kettenis@openbsd.org>,
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH 01/10] dt-bindings: watchdog: apple,wdt: Add t8142
- compatible
-Message-ID: <ee5a1127-1591-4720-ab34-896c1f037276@roeck-us.net>
-References: <20261027-apple-m5-initial-devicetrees-v1-0-1356181bc50d@cyberchaos.dev>
- <20261027-apple-m5-initial-devicetrees-v1-1-1356181bc50d@cyberchaos.dev>
+	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v4 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+Message-ID: <34cac8b5-ddb9-4b76-a60a-8f6ffb0fd9ac@roeck-us.net>
+References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
+ <20261019114502.55307-6-changhuang.liang@starfivetech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,7 +90,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-apple-m5-initial-devicetrees-v1-1-1356181bc50d@cyberchaos.dev>
+In-Reply-To: <20261019114502.55307-6-changhuang.liang@starfivetech.com>
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -110,27 +99,82 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xMsbc-00000003tp5-2F1r
+X-Exim-ID: 1xMshw-00000003xjp-10yC
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:56876
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:55592
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 53
+X-Email-Count: 88
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJ5x81l4GFpZGqaolKAc8kwMZ69j5zeILNxHfY5Gsd9502iniLcDHEP4xW4f3uZoITnFJlK4g4vYyXA1MKz/PHXYPVl7TUg+aIZFRAWZ82piwz6xq4jI
- r+PYI5qZJKO2WagE39AnDp5KWSqWbcpPdSwIAED5ugfYXVOW6SKLJjNMQmA1B/ZAExyQ9PIILwUhH9SpCCaZZU2CuKftw56as68MzJna6NOJWFnyFBapjr0k
+X-CMAE-Envelope: MS4xfDPGe1Pqn1hVUZrxA8tUa79J0eDyGeyNReLJ4ff6p7nGoNCzzMcVyNFO5mrsgBk5KGAiyXZb82bxWpql+SdsL8SftoFrzmOd0YAMvAQedHgaeTLDfaYL
+ Gv+sKuAngxhI5hFp0HywGo6eWfZK9hcUKTT4vAI8xiWqdsB0Aj4vbvn3QmijPlM1/iUxq2hecNKr3FEcmfuzFrMWR27/nWIi/v/FGYc+Qn3wjujXytGKiwsS
 
-On Tue, Oct 27, 2026 at 09:03:21AM +0100, Yureka Lilian wrote:
-> The watchdog on the Apple t8142 (M5) SoC is compatible with the M1-M4
-> SoCs. Add "apple,t8142-wdt" as SoC specific compatible.
+On Mon, Oct 19, 2026 at 04:45:01AM -0700, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver.
 > 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> For Granite Rapids, the resolved cores mask must be collected from each
+> compute core. This implementation is relatively complex. Since we do not
+> use the resolved cores information for these CPUs, we can explicitly
+> state in the driver that the core mask is not supported for this model.
+> 
+> Define new cpu_info structure for GNR with minimum PECI revision 0x42 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
 
-Applied.
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-Thanks,
-Guenter
+> ---
+>  drivers/hwmon/peci/cputemp.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+> index 457089c561b4..69c4a07b99f7 100644
+> --- a/drivers/hwmon/peci/cputemp.c
+> +++ b/drivers/hwmon/peci/cputemp.c
+> @@ -339,6 +339,18 @@ static int init_core_mask(struct peci_cputemp *priv)
+>  	u32 data;
+>  	int ret;
+>  
+> +	/*
+> +	 * For Granite Rapids, the resolved cores mask is relatively complex to implement.
+> +	 * Since we do not use the resolved cores information for this CPU, the driver
+> +	 * explicitly does not support the core mask for this model.
+> +	 */
+> +	if (!reg) {
+> +		dev_dbg(priv->dev,
+> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
+> +			peci_dev->info.x86_vfm);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	/* Get the RESOLVED_CORES register value */
+>  	switch (peci_dev->info.x86_vfm) {
+>  	case INTEL_ICELAKE_X:
+> @@ -543,6 +555,11 @@ static const struct cpu_info cpu_emr = {
+>  	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+>  };
+>  
+> +static const struct cpu_info cpu_gnr = {
+> +	.min_peci_revision = 0x42,
+> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+> +};
+> +
+>  static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>  	{
+>  		.name = "peci_cpu.cputemp.hsx",
+> @@ -576,6 +593,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>  		.name = "peci_cpu.cputemp.emr",
+>  		.driver_data = (kernel_ulong_t)&cpu_emr,
+>  	},
+> +	{
+> +		.name = "peci_cpu.cputemp.gnr",
+> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
+> +	},
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
