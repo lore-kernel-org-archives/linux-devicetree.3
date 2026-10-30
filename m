@@ -1,103 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793365588;
-	b=MHR0zQ29bmMdU3Z/5QqJfM3EI1LGQ+Ruvq6SAWXPzI7BJUC92PTa1JYQo1VN0FYt9bwI
-	 b7wpLYDGhvC4h+GbqWQkBtxipX1TF+IsFSYZMzp4CbnC8xgKbNqiJs/lIM3LpCH/0YTeZ
-	 P38bF4MpgxB4M/zRCER09eU1XhUhzZai/lLAe24TriLHN9frSbal9Hqcvtc/GUD6vEaj/
-	 Us7h/inKrOURGm4hFf3mI1HJGxzx0DP/aU7CEPoJ/VUkH5q8LaB8RMWiixiWlms1oo+n7
-	 1esKdB33nTg5AL0J7XlS6/PIuvIxxQ4KfrX7I68nJ3ZH3S9ntxyRef94uEHNHbrJ1aw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365588;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WzSAJQUXOR7xJ1ZVyO9cbISBifaZ4Bjwx+Snx6bJ0Xo=;
-	b=FvlY8z+KcYS0I8Wy30e5DZNLGR22j2clu9IM2BcfvQbO1gYpAF9QJF6mFEMR8+33ggIs
-	 5L3sctHkt0BG+9nuJW9KY0GJSopZIVmVi7kel+npwUcI/cRb+ZZL0w6crLvEWYcWSAibT
-	 +XQljQHdJREzzFnv8HRx2xBl5B4R7iZX5JjeNIF8A9y7FyBw9eWQmPcRF094sy/FP/Aiq
-	 bF7hAAsDn4bSwkBpPWSA2t+nJ8o0+m86kJ6isTNSGRZkEC7rFb9YXocFZIk0uz2SZVTKe
-	 3/OKG3/1V+7DqK4HOKo8+bd/U/Th3kK4zP8O2/NEDnQLsd2YLpId8jOBaDydO/5RpYg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="TA1h/q0c";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.61
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013061.outbound.protection.outlook.com [40.107.159.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793365672;
+	b=SKCgWp2kHd5t1z7kWm/1FpWdcmpE1mkXzeKNUEbBi3v1HeBuhCbvL48h+WQgRhvKAvIo
+	 thPAgecE0kZqgdbTTgMhGYyllQ8ODctStgOrA9LMKFYDJCZt9snN2nbx07DcseO2/Mnzj
+	 ewDFQWgZ61b00HHidNEG00O7MR4c2+R8UEzRNI9ZpCD5dR9iTxD7k0FuQOExPd3QK/AwI
+	 xNEJBrmJ14z4+cwJDPR+OZS24XUw+5Dkb3kLLdo0jfMNEokz9p8BKmsY/ejpt+ZCxeAXl
+	 N/8WKOx4mY42nb7V2wFcCbW16lz/4VNruwmjXRFys5VeJP6wD4C1oSBrmLPkzDBPz6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365672;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JT+3LP+5QyAnCVRh6Qv6QLpMg9XRGcsCRkKadZAigA4=;
+	b=RDHzwe1CfDIjGQYs6VSHxWcbPzOziPUSP3wnqb41dVJaRz8BXxIrW8GIDRxBgQvms2Qd
+	 HDYgL98kILuLsv/dInCtMzfCxJ9O8jsn6TmXhRnFO0gfTtDS6IWmQp27gLprKumJHjP0a
+	 4JEH4J6E9fPAcbI8iX1iP3Lcvt4G5HAaUw3j5FdjavB8qKhl5qj6VQW5DJZJQuJ28Dh9w
+	 2vaHVtnA25S6TVDrkmOPYNU+LA6D3m51FtuyfBB1fzhGSVzhhI7xEiFXaxULg2ivsGoHb
+	 YOiupf1uN5lvv1SmTlpsR05e+7+5sGsK+WOLT8XIMs3ZcSfxedfL5sLO8GMEScuR6xg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtjjYszc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03C5606A31F;
-	Fri, 30 Oct 2026 13:06:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03C5606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B638B606A333
+	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 13:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TA1h/q0c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FTVE91GAxkPaPVSUEPMDshRUNUJTwGWq04LblUNPkSQoYiXN/ozp3R40jzmqhQnfGrB8e7QWlguLOGfOkp3cRNZNE5ktjHDWavcMODmXwV9oo67AX/MHCzs6masqNbNVaAf9l/8fq9VT9/UQuFUIsk5JppNNYre44y1LYVCxE9OYR8CJy6U68dPfofHsL5Van6fUFwXoxNPlw8Nc/+J36n0MQXGfk/MiUgnNrJMp/GLs1G+AGaK9ud61cXM98IjYbK8ceX6HHOu+uKLJtAp7r5/3VSOEEdHxFEh8JaWT2kOkywNju4MBt9a7iixTyzIRW0xEEpD9SO7rYYm0D8QrBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WzSAJQUXOR7xJ1ZVyO9cbISBifaZ4Bjwx+Snx6bJ0Xo=;
- b=ytCixVKX07zkKOBS5BMM5B72dCoTZtKstWPY6gLpgWmDjChWahucOpRySuTCpi71h3YENwuiVop8kho4I7/dvrlCWisBJEKqTK68Up1I6d3Rg+jJFB2AivCcttAtnkFDeyRi+GoCRMtABurgC+KsR/TIEYD8ducM0sZUhXp6QkU8it7QR6NIDyGPCmLDiV7/FwUD2YY2eS3H/2+KKq2UA4AP8mvNX4LvS8yl8VCNKedJIml7WDWwWZKutyw6gJ09xufn62mthNKJ0Un1Ir8AY2JmvyxUh4rGfPkf4UgEcpdCL39JGINDXyHA6o+aliwTdfXTNCZNMxBlxy7zJ8nsKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WzSAJQUXOR7xJ1ZVyO9cbISBifaZ4Bjwx+Snx6bJ0Xo=;
- b=TA1h/q0cFtwcv9WjWjwwGn6bOXDSUsBNsyDUkJOI4b8qTZujgmjMv4sOxA8Vjm57iSbrN7VGPBu7zIwpsEkpfhFu9tdF/LEGUqDrmF04vyX6t8qTEWP+pIg3TkJxzYpv/2hsRu/CTtScIh+Yy4kuGIDeyHJgb2YSrXQdR4r/qcIPYGjsjoWVhwQ5so4HBJ6hA001l7x0F7mvV0TB2m25q9vwO2Z+NQjYMaoZL8SmQOC+egG9PmOWIRE+dPC12ST3R9bpMWfOnDnhqP6TtZ4RejYs3zP4tseHASfsU4t7KxPsqGvLOUhWJCRRhlpX611vjXMGW3VCIFNNw+KStgHsUg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by PA2PR04MB674656.eurprd04.prod.outlook.com
- (2603:10a6:102:601::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 13:06:24 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 13:06:24 +0000
-Date: Fri, 30 Oct 2026 15:06:19 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v8 08/15] drm/imx: dc: Add DPR channel support
-Message-ID: <auSRjB3rGWfqCo4h@vm>
-References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
- <20261030-imx8-dc-prefetch-v8-8-c4f81afd4533@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-imx8-dc-prefetch-v8-8-c4f81afd4533@nxp.com>
-X-ClientProxiedBy: AS4P192CA0052.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:658::6) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZtjjYszc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE6D1F00A1D;
+	Fri, 30 Oct 2026 13:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793365671;
+	bh=JT+3LP+5QyAnCVRh6Qv6QLpMg9XRGcsCRkKadZAigA4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZtjjYszcVqxuNf1vJaZ5617YkWrVLiATvGy8kOq1LjUFiZHUbDkmLI9/1WSPDWgIq
+	 9DAPfW8qRvTerOOtM4/L19CzLjdsl0/oCnIXg8/fdtfIaIKIYtGxpYhXaYuzbdRSbJ
+	 FTqSuVwACG4flQTj26aNzwXBv8I5+ueYbEA8feWRzpYNJxSpptzKAU9RgOSb06b7xV
+	 Ro9vNcXQVGfOgH9xvtgPENje5nKGVc0ngff2WxpQd2HVrmWZhuLhFsiv3neYoGmy2c
+	 +LKc0aL+3vBZv8kgD4GXqcZynMbI+Qgm8uhYHzgl7mwXA2Sb41j+d0OgXHA4Rc1fcO
+	 wEeiGKNSGxPtQ==
+Message-ID: <sashiko-outbox-191048@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 13:07:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,149 +59,362 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PA2PR04MB674656:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f847fd7-aee8-4b87-d173-08df3686998a
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|23010399003|376014|7416014|1800799024|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004|4143699003|261022075727099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003|10067099003|261026121527099003|261009223027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	KNudbbdVuWgX7Sf/QRCAgVobELIp0x/X340SjRvb/FHGngsKMwSH2x7mXJf//Y6qQdy9SSy8skjigSxMAiPHbj6b5ohGklEI5VXN4bCLQeXThP6qDfmE2sA0jTApy3NzxHbGPP+wS1+Of/pdLHvxiMzso+9YcBLSC4Ps+6mpHaNYMvIEGSBKpTblCLSqLHb3Gb7lAoNoXE19gjlfrASnDBNtm73RHEkMxQpmPJRi2Oq7L1gzIjea2g0jDhqGDsoL3Hnm8k4ghBSPbNjXvzhYOcieQYM4HP97kLiupDZ9QzN9CyeBTaMVdYrzgFUEc9XRaHRx9IqLj7JIh+8arxBeTdBw/EAhgOv6Cp2k8RvTrFjo6eif4QSbdCv+8JiNi6VJp9op0UMbQV57Zfvf9XugFS9UXstop3QfI0tzKwVNDH3wNB0NzV6XJBMOwa7+zGl1us9YdbprEQHBJx6BGXCibGzaRODLPiWuOKK/ZMV1UhM1JFRENQD6QGllkVXIv6UeFOG/CChOfcTZizYOSTm4j5IHTEwhi2Y1DyZKYD7XdObYHxMgaF6LZSsD+Lqt0J3LQOe9adWyp9F5s+KQnfqjqq92FlM6IuTdZ3Z/eOFAfXpSxFoyFWpQuAOuaJ5Z4vD1DSkuXEvq9+LNDPIgd6GGTDTvQuAA6a/7LG7n+shBRQc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(4143699003)(261022075727099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(261026121527099003)(261009223027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Fscu8nVm99XbDnp2Wf3/GDIvXdpGhfyWHuFSG573pdsFaQoWBdsKorJQXDOu?=
- =?us-ascii?Q?jf5T8buFtTBVm7kwWOLhnX0H8hPKjwgnuZdhyEPAAopJXsjYPYyVlbBc4ifc?=
- =?us-ascii?Q?OaeQkevMpXPO11Kl4xAvTjhoSK3nkGwdPV15S4gQM/YftSA8N3ChrsHJj4Do?=
- =?us-ascii?Q?HIyoNmZgCoyc+DUKFoFNRW/pZltrmuJQxKJq/wek0c7HXxd1fWA8zq8mNhQg?=
- =?us-ascii?Q?R2LAuiMGGiLJp9tooGRUqG0Qoeimv8qSttdSxzTvsaG2YnmBwDvfnPKmsBd3?=
- =?us-ascii?Q?a9rjDdq96Dxu9MAPVsGoAlXDTQr4qyH7Ynt8NOVLc/JHAJP1lud3hAyarHoY?=
- =?us-ascii?Q?h13AENUZhMctXdLJTmGMzW5b2sb+K7dlFNokyvWy6qKjA/WH2LDshy9xL4Ox?=
- =?us-ascii?Q?1Ejgo9a/ho3uwU0H+TXXK+cHEGD3SJsy/ecpeEKQABpdPqU5si5YrsbmHFMN?=
- =?us-ascii?Q?Z/DmOv8PFN6t02r8bDi2cJ536YT2OzrD51RxkMl99+mL7H9SwFBZ/6dVIRwz?=
- =?us-ascii?Q?pHPgZh9yGk2HIWD1dKz1I/aTCvFqnam9v4cxRH+2buYMKRawrU7amwKgGbNL?=
- =?us-ascii?Q?XetL16eFQEC6xsibSqDZB8zrJNnfL5o48W6jcHsIg4x4ej0DdwXTq2XwSICh?=
- =?us-ascii?Q?y6OMf8Cj0nN6zY/Y5OQjjdqm3NbZhQbZCPKuN5AHTqwQZTCT0iXX/byGMtXH?=
- =?us-ascii?Q?gYssndgQoJD3OY51YFaHI8x8QsgkeRpOzXBm9ppkZEyE5f5LAkglLBecLpVN?=
- =?us-ascii?Q?QCjGGJ9eu6qWtjQwQZnGEOUWSkcELPBCCUisnQ7luQNhjq7GCbL/g1aUG2Ox?=
- =?us-ascii?Q?fmnaVqnMc0mjnLsEaEp9g9xrxFuQQXprx9NYvgn0105qdDAd1GLILDbjFpjD?=
- =?us-ascii?Q?CPihythgOX/IxFyg5czcVGtssxATJCuwMhRbcSKvIEBey/x/BmhboqUkFhqW?=
- =?us-ascii?Q?8LqtfFDtGExpZKVdwPFcqoZ6Ss33mLUuu0zwYVGnEv9BzZnbdzF+Vg32siby?=
- =?us-ascii?Q?2mEaDk3dD6E+dhdcviEKPAhAdztwLeM6mQBw85dwDmnyBZttAk8/cuYqtTra?=
- =?us-ascii?Q?bEU32GB0Tdul4h1kp5qyWF7wwbZCMD+mcgsltb9h3DMOGuummqeMDevMdRiK?=
- =?us-ascii?Q?vvwmgpomajoL1nKLGkcV57f4TWEW4RyW1+EsnQ1O5+dqtDzBYIEZLBDJEXob?=
- =?us-ascii?Q?l601D9qVCRVFaR1Rr5WxMjvfG9qT0woVZvYkx8aEqGXg3l9pYdrQMGI3AV7O?=
- =?us-ascii?Q?G4EgZ8/BlsiGn5kdE9oJmjGsL3b/5x6I/9ByLeptxPU+wyDzJ/9yXmE5vI6A?=
- =?us-ascii?Q?caIdVvVMqiG0OILqqP+gCtOPDcxgRngqpgId7JvFKx7ZUMmwixBdarM0vHCR?=
- =?us-ascii?Q?tY1Jhq73GjMBwGaxNyyHYSXET3vzdPsFBL8+682mjvhhMioHHOHA4+3BYZo/?=
- =?us-ascii?Q?qd2ZoHuvBclmP5wZBr/iaE2fJCbf+Gt84XnhN/iq1S6u9AANqDSOk43htH8A?=
- =?us-ascii?Q?MRJ6mT72wZLwqdbjuSFo9lVXeC/NmvBP0OKJ50176aMTFiub0JElDz26hPqt?=
- =?us-ascii?Q?a2b6d9pK5olSw3PTnhs3rFSLoE4GMth3ghjxJEcphCplzKUHneoucyfhiKqF?=
- =?us-ascii?Q?rt0V0Kn5MMLeWF+2iuqPfl+dLC1r4xP8uxJmzROEgFhbkmaSI2Rlq46KUEnE?=
- =?us-ascii?Q?tDfKfQAeEHSxaisw7Wh2iHl1GnTrT3DMNdE4xI9PxxrQgAzP+0eRqGaz1tiV?=
- =?us-ascii?Q?a/qH5ZTIxg=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f847fd7-aee8-4b87-d173-08df3686998a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:06:24.0647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oq6gAINxHmls+cdOAuYt2tqtcOkoHbgNacif7EUo+yLfvoNDJZyvZiB+eBflu88XsupzkG3ua1EpQ8lbvZxRAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB674656
 
-On Fri, Oct 30, 2026 at 05:54:32PM +0800, Liu Ying wrote:
-> Display Prefetch Resolve Channel(DPRC) is a part of a prefetch engine.
-> It fetches display data, transforms it to linear format and stores it
-> to DPRC's RTRAM.  PRG, as the other part of a prefetch engine, acts as
-> a gasket between the RTRAM controller and a FetchUnit.  Add a platform
-> driver to support the DPRC.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
-> v8:
-> - Check device_link_add()'s return value and bail out if needed.
->   (Sashiko AI bot)
-> - Mask IRQ_DPR_CRTL_DONE irq and synchronize wrap_irq in
->   dc_dprc_disable_repeat_en() to avoid a race condition.  (Sashiko AI bot)
-> - Call devm_pm_runtime_enable() before devm_request_irq() to avoid reading
->   dprc->reg in dc_dprc_wrap_irq_handler while dprc->clks are disabled, since
->   another device sharing wrap_irq could raise an interrupt during probe.
->   (Sashiko AI bot)
-> - Drop an unused header file.  (Laurentiu)
-> - Use dev_err_probe() to handle errors returned from several function calls.
->   (Laurentiu)
-> 
-> v7:
-> - Collect Maxime's A-b tag.
-> - Fix dc_dprc_regmap_write_ranges[].  (Sashiko AI bot)
-> - Fix dc_dprc_wrap_irq_handler() return value.  (Sashiko AI bot)
-> - Check runtime PM status in dc_dprc_wrap_irq_handler().  (Sashiko AI bot)
-> - Fix DPU_DRPC_MAX_STRIDE macro.  (Sashiko AI bot)
-> - Support deferral probe if platform_get_irq_byname() fails.  (Sashiko AI bot)
-> - Avoid dangling prg->dprc by calling dc_prg_set_dprc() properly.
->   (Sashiko AI bot)
-> - Add dc_dprc_get() helper for consumer device to get DPRC properly.
-> - Set use_raw_spinlock flag in regmap configuration to avoid a potential
->   hard lockup because dc_dprc_disable_repeat_en() is supposed to be called
->   with local irq and preempt disabled.
-> 
-> v6:
-> - Include "dc-drv.h" to avoid build warning with C=1.
-> 
-> v3:
-> - Call dc_dprc_enable() only when start == true.  (Frank)
-> - Collect Frank's R-b tag.
-> 
-> v2:
-> - Manage clocks with bulk interfaces.  (Frank)
-> - Sort variables in probe function in reverse Christmas tree fashion.  (Frank)
-> ---
->  drivers/gpu/drm/imx/dc/Kconfig   |   1 +
->  drivers/gpu/drm/imx/dc/Makefile  |   6 +-
->  drivers/gpu/drm/imx/dc/dc-dprc.c | 534 +++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-dprc.h |  37 +++
->  drivers/gpu/drm/imx/dc/dc-drv.c  |   1 +
->  drivers/gpu/drm/imx/dc/dc-drv.h  |   1 +
->  drivers/gpu/drm/imx/dc/dc-prg.c  |  12 +
->  drivers/gpu/drm/imx/dc/dc-prg.h  |   4 +
->  8 files changed, 593 insertions(+), 3 deletions(-)
-> 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] media: qcom: camss: unconditional AUP strobes in csid_configure_st=
+ream()
+- [High] media: camss: NULL hw_ops deref in msm_csiphy_subdev_init_legacy()
+- [Medium] media: qcom: camss: wrong camnoc_rt_axi clock rates in vfe_res_h=
+awi
+- [Medium] media: qcom: camss: data race on csid->addr_update and csid->reg=
+_update
+- [Low] media: qcom: camss: duplicate CSID 1080 and VFE 1080 code in 1190 f=
+iles
+- [Low] media: qcom: camss: macros in camss-csid-1190.c implicitly capture =
+csid
+--
 
-[...]
+commit 25967aac8ac2c5b636dbbaab24c84dd484d99ab8
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-dprc.c b/drivers/gpu/drm/imx/dc/dc-dprc.c
+media: qcom: camss: Add support for Hawi
+
+This commit adds CAMSS support for the Hawi SoC, including CSID 1190 and
+VFE 1190 hardware operations and Hawi resource definitions.
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1190.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1190.c
 > new file mode 100644
-> index 000000000000..29188fa72a32
+> index 0000000000000..4bd2cce094402
 > --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dc/dc-dprc.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1190.c
+> @@ -0,0 +1,417 @@
 
-[...]
+[ ... ]
 
-> +bool dc_dprc_rtram_width_supported(struct dc_dprc *dprc, unsigned int width)
+> +#define MSM_CSID_MAX_SRC_STREAMS_1190		(csid_is_lite(csid) ? 4 : 5)
+> +
+> +/* RDI Configuration */
+> +#define CSID_RDI_CFG0(rdi)	(csid_is_lite(csid) ?\
+> +					(0x3080 + 0x200 * (rdi)) :\
+> +					(0x5480 + 0x200 * (rdi)))
+> +#define		RDI_CFG0_RETIME_BS			BIT(5)
+> +#define		RDI_CFG0_TIMESTAMP_EN			BIT(6)
+> +#define		RDI_CFG0_TIMESTAMP_STB_SEL		BIT(8)
+> +#define		RDI_CFG0_DECODE_FORMAT			12
+> +#define		RDI_CFG0_DT				16
+> +#define		RDI_CFG0_VC				22
+> +#define		RDI_CFG0_EN				BIT(31)
+> +
+> +/* RDI Control and Configuration */
+> +#define CSID_RDI_CTRL(rdi)	(csid_is_lite(csid) ?\
+> +					(0x3088 + 0x200 * (rdi)) :\
+> +					(0x5488 + 0x200 * (rdi)))
+> +#define		RDI_CTRL_START_CMD			BIT(0)
+> +
+> +#define CSID_RDI_CFG1(rdi)	(csid_is_lite(csid) ?\
+> +					(0x3094 + 0x200 * (rdi)) :\
+> +					(0x5494 + 0x200 * (rdi)))
 
-In your reply to my v7 comment, you also said that this function uses the
-'dprc' argument in later commits. FWIW, I couldn't find those commits in this
-series that do.  So, you could get rid of it too.
+[Severity: Low]
+As reported by Sashiko on v2 [1], this isn't a bug, but
+MSM_CSID_MAX_SRC_STREAMS_1190, CSID_RDI_CFG0(rdi), CSID_RDI_CTRL(rdi), and
+CSID_RDI_CFG1(rdi) in drivers/media/platform/qcom/camss/camss-csid-1190.c
+expand to expressions calling csid_is_lite(csid) without taking csid as a
+macro parameter. Should these macros take csid explicitly instead of relying
+on a local variable named csid in the caller's scope?
 
-Otherwise:
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+[ ... ]
 
+> +static void __csid_aup_rup_trigger(struct csid_device *csid)
 > +{
-> +	return width <= DPU_DPRC_MAX_RTRAM_WIDTH;
+> +	/* trigger SET in combined register */
+> +	writel(RUP_SET, csid->base + CSID_RUP_AUP_CMD);
+> +}
+> +
+> +static void __csid_addr_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->addr_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->addr_update, csid->base + CSID_AUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_addr_update_clear(struct csid_device *csid, int port_=
+id)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->addr_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+> +
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->reg_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->reg_update, csid->base + CSID_RUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_reg_update_clear(struct csid_device *csid, int port_i=
+d)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->reg_update &=3D ~CSID_RUP_AUP_RDI(port_id);
 > +}
 
-[...]
+[Severity: Medium]
+As reported by Sashiko on v2 [1], can __csid_addr_update() and
+__csid_reg_update() race with __csid_addr_update_clear() and
+__csid_reg_update_clear() on csid->addr_update and csid->reg_update?
 
--- 
-Thanks,
-Laurentiu
+In drivers/media/platform/qcom/camss/camss-csid-1190.c, __csid_addr_update()
+and __csid_reg_update() perform non-atomic read-modify-write operations on
+csid->addr_update and csid->reg_update before writing CSID_AUP_CMD and
+CSID_RUP_CMD.
+
+Meanwhile, in hardirq context, csid_isr() clears those fields when
+INFO_RUP_DONE is set without holding any lock:
+
+drivers/media/platform/qcom/camss/camss-csid-1190.c:csid_isr() {
+    ...
+			if (val & INFO_RUP_DONE) {
+				__csid_addr_update_clear(csid, i);
+				__csid_reg_update_clear(csid, i);
+			}
+    ...
+}
+
+Because vfe_queue_buffer_v2() and vfe_enable_output_v2() only hold
+vfe->output_lock (which csid_isr() does not acquire before camss_buf_done())
+and csid_configure_stream() holds no spinlock, concurrent updates from proc=
+ess
+context (for example during VIDIOC_QBUF or when starting multiple RDI strea=
+ms
+sharing a CSID) and hardirq context can clobber bits in csid->addr_update a=
+nd
+csid->reg_update.
+
+[ ... ]
+
+> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
+> +{
+> +	u8 i, k;
+> +
+> +	__csid_configure_rx(csid, &csid->phy);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1190; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			__csid_configure_rdi_stream(csid, enable, i, 0);
+> +			__csid_configure_rx_vc(csid, 0);
+> +
+> +			for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
+> +				__csid_addr_update(csid, i);
+> +
+> +			__csid_reg_update(csid, i);
+> +
+> +			__csid_ctrl_rdi(csid, enable, i);
+> +		}
+> +	}
+> +}
+
+[Severity: High]
+What happens in csid_configure_stream() if VIDIOC_STREAMON is called with
+fewer than CAMSS_INIT_BUF_COUNT (2) buffers queued?
+
+In msm_video_register() in drivers/media/platform/qcom/camss/camss-video.c,
+vb2_queue.min_queued_buffers is 0, so vb2_core_streamon() invokes
+vb2_start_streaming() -> video_start_streaming() even when 0 or 1 buffer is
+queued before VIDIOC_STREAMON.
+
+video_start_streaming() first calls vfe_set_stream() -> vfe_enable_v2() ->
+vfe_enable_output_v2(), which dequeues only the available pending buffers (0
+or 1) and writes their addresses via ops->vfe_wm_update():
+
+drivers/media/platform/qcom/camss/camss-vfe.c:vfe_enable_output_v2() {
+    ...
+	for (i =3D 0; i < CAMSS_INIT_BUF_COUNT; i++) {
+		output->buf[i] =3D vfe_buf_get_pending(output);
+		if (!output->buf[i])
+			break;
+		output->gen2.active_num++;
+		ops->vfe_wm_update(vfe, output->wm_idx[0],
+				   output->buf[i]->addr[0], line);
+		if (!ops->addr_update)
+			ops->reg_update(vfe, line->id);
+	}
+    ...
+}
+
+Next, video_start_streaming() calls csid_set_stream() ->
+csid_configure_stream(), which unconditionally loops CAMSS_INIT_BUF_COUNT (=
+2)
+times calling __csid_addr_update(csid, i) regardless of how many buffers we=
+re
+queued in vfe_enable_output_v2(). Moreover, vfe_wm_stop() in
+drivers/media/platform/qcom/camss/camss-vfe-1190.c only clears
+VFE_BUS_WM_CFG(wm) without clearing VFE_BUS_WM_IMAGE_ADDR(wm).
+
+When userspace later queues buffers via VIDIOC_QBUF, vfe_queue_buffer_v2()
+sees output->state =3D=3D VFE_OUTPUT_ON and output->gen2.active_num < 2, and
+issues additional ops->addr_update() and ops->reg_update() strobes:
+
+drivers/media/platform/qcom/camss/camss-vfe.c:vfe_queue_buffer_v2() {
+    ...
+	if (output->state =3D=3D VFE_OUTPUT_ON &&
+	    output->gen2.active_num < 2) {
+		output->buf[output->gen2.active_num++] =3D buf;
+		ops->vfe_wm_update(vfe, output->wm_idx[0],
+				   buf->addr[0], line);
+		if (ops->addr_update)
+			ops->addr_update(vfe, line->id);
+		ops->reg_update(vfe, line->id);
+	}
+    ...
+}
+
+Doesn't issuing two unconditional __csid_addr_update() strobes in
+csid_configure_stream() latch stale or duplicate DMA addresses in the write
+master and desynchronize buffer tracking when fewer than two buffers were
+queued before streamon?
+
+[ ... ]
+
+> +const struct csid_hw_ops csid_ops_1190 =3D {
+> +	.configure_stream =3D csid_configure_stream,
+> +	.configure_testgen_pattern =3D csid_configure_testgen_pattern,
+> +	.hw_version =3D csid_hw_version,
+> +	.isr =3D csid_isr,
+> +	.reset =3D csid_reset,
+> +	.src_pad_code =3D csid_src_pad_code,
+> +	.subdev_init =3D csid_subdev_init,
+> +	.reg_update =3D csid_subdev_reg_update,
+> +	.addr_update =3D csid_subdev_addr_update,
+> +};
+
+[Severity: Low]
+This isn't a bug, but every register offset, bitmask macro, stream count
+definition, helper function, interrupt handler, reset routine, and hardware
+operation callback in drivers/media/platform/qcom/camss/camss-csid-1190.c
+(including the unused lane_cnt local variable in
+__csid_configure_rdi_stream()) is identical to
+drivers/media/platform/qcom/camss/camss-csid-1080.c.
+
+Similarly, drivers/media/platform/qcom/camss/camss-vfe-1190.c duplicates all
+functions and callbacks of drivers/media/platform/qcom/camss/camss-vfe-1080=
+.c
+verbatim, differing only in the BUS_REG_BASE and write master register offs=
+et
+macros.
+
+Could csid_res_hawi reuse csid_ops_1080 directly (just as hawi_resources
+reuses csiphy_res_kaanapali and tpg_res_x1e80100), and could the common VFE
+1080/1190 helpers be shared?
+
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index df4b4cf30711b..0a67d4f746eeb 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4359,6 +4359,218 @@ static const struct resources_icc icc_res_sa8775p=
+[] =3D {
+>  	},
+>  };
+> =20
+> +static const struct camss_subdev_resources vfe_res_hawi[] =3D {
+> +	/* VFE0 - TFE Full */
+> +	{
+> +		.clock =3D { "vfe0_fast_ahb", "vfe0", "cpas_vfe0",
+> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo",
+> +			   "cpas_mnoc_hf", "cpas_mnoc_sf" },
+> +		.clock_rate =3D { { 0 },
+> +				{ 238200000, 397000000, 440000000, 480000000,
+> +				  630000000, 750000000, 833000000 },
+> +				{ 0 },
+> +				{ 171428571, 240000000, 300000000, 400000000,
+> +				  480000000, 600000000 },
+
+[Severity: Medium]
+Are the camnoc_rt_axi clock rates in vfe_res_hawi (for VFE0 through VFE4)
+matching the Hawi CAMCC clock driver?
+
+In drivers/clk/qcom/camcc-hawi.c, ftbl_cam_cc_camnoc_rt_axi_clk_src for
+qcom,hawi-camcc defines a maximum rate of 480 MHz:
+
+drivers/clk/qcom/camcc-hawi.c:
+static const struct freq_tbl ftbl_cam_cc_camnoc_rt_axi_clk_src[] =3D {
+	F(19200000, P_BI_TCXO, 1, 0, 0),
+	F(120000000, P_CAM_CC_PLL6_OUT_EVEN, 4, 0, 0),
+	F(160000000, P_CAM_CC_PLL6_OUT_EVEN, 3, 0, 0),
+	F(240000000, P_CAM_CC_PLL6_OUT_EVEN, 2, 0, 0),
+	F(320000000, P_CAM_CC_PLL6_OUT_EVEN, 1.5, 0, 0),
+	F(480000000, P_CAM_CC_PLL6_OUT_EVEN, 1, 0, 0),
+	{ }
+};
+
+(Whereas the 200/240/300/400/480/600 MHz table
+ftbl_cam_cc_camnoc_rt_axi_clk_src_maili is only used for qcom,maili-camcc, =
+and
+171428571 Hz is in neither table.)
+
+When vfe_get() -> vfe_set_clock_rates() runs with min_rate between 480 MHz =
+and
+600 MHz, it selects 600000000 Hz from vfe_res_hawi instead of rejecting the
+rate, and clk_round_rate() on Hawi clamps it down to 480000000 Hz. When the
+second pipeline entity calls vfe_get() -> vfe_check_clock_rates(), won't
+clk_get_rate(clock->clk) < min_rate cause vfe_check_clock_rates() to fail w=
+ith
+-EBUSY?
+
+[ ... ]
+
+> @@ -6078,6 +6290,22 @@ static const struct camss_resources sm8650_resourc=
+es =3D {
+>  	.vfe_num =3D ARRAY_SIZE(vfe_res_sm8650),
+>  };
+> =20
+> +static const struct camss_resources hawi_resources =3D {
+> +	.version =3D CAMSS_HAWI,
+> +	.pd_name =3D "top",
+> +	.pm_clks =3D { "cpas_fast_ahb", "cpas_ahb", "gcc_axi_hf" },
+> +	.csiphy_res =3D csiphy_res_kaanapali,
+
+[Severity: High]
+As reported by Sashiko on v2 [2], can reusing csiphy_res_kaanapali in
+hawi_resources lead to a NULL pointer dereference in
+msm_csiphy_subdev_init_legacy() during probe?
+
+The entries in csiphy_res_kaanapali do not set .csiphy.hw_ops, leaving hw_o=
+ps
+as NULL. During camss_probe() -> camss_init_subdevices(),
+camss_detect_legacy_phy() defaults camss->legacy_phy to true:
+
+drivers/media/platform/qcom/camss/camss.c:camss_detect_legacy_phy() {
+	camss->legacy_phy =3D true;
+
+	/* Find first remote-endpoint and determine if its a PHY */
+	for_each_endpoint_of_node(camss->dev->of_node, ep) {
+        ...
+}
+
+If the qcom,hawi-camss node has no endpoints in its ports node (for example,
+when enabling CAMSS to use its internal Test Pattern Generators without
+external sensors or PHYs), camss->legacy_phy remains true.
+camss_init_subdevices() then calls msm_csiphy_subdev_init_legacy(), which
+unconditionally dereferences csiphy->res->hw_ops:
+
+drivers/media/platform/qcom/camss/camss-csiphy.c:msm_csiphy_subdev_init_leg=
+acy() {
+    ...
+	ret =3D csiphy->res->hw_ops->init(csiphy);
+    ...
+}
+
+[1] https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-7-fc93222da89c@o=
+ss.qualcomm.com
+[2] https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-6-fc93222da89c@o=
+ss.qualcomm.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-hawi-maili=
+-camss-v3-0-9742bca8cef2@oss.qualcomm.com?part=3D5
