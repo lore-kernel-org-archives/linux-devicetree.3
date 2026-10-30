@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355080;
-	b=aqwlq9pmSOS35C4lXlhwFExKHLy0IMwCtoJbbhDJ2RfayiASjwjemvmOaizv3Am5eLFk
-	 rPuo34ukVes7nAyROsUOpWx/NyksZ4htlcr2hG6kMj1iJ5SHUXJ7wl+/XI95Q8Rh1dpXd
-	 GqdITxBxUEQb1f3Bf2FCrgOpTGpZzK1ZbAEUAvbmtBrWzSXC5FlgyREFm46y+7t51nHAM
-	 WqEdMJqUMmmhUASZ6s19riRGhU0NJwJWIl30Fk9N1sz0DmgIxJ+4urbbDaLR0IWP78Xug
-	 ALVL5CPjKw0jz+2h5LPk3ChFsAiGZVPP1R9U+z8C6nB8g8wacH/hB12xnm3XDvori3g==
+	t=1793355106;
+	b=p41G979R1G459ZhB/P30AIebHWupQ+4HTQYj4+SJqB/DHML757hJ11uuCvbFNs36vljY
+	 +ycRJP9UmRb66oJBrU36cIQj1Q21nq1ljR2+advqSD3K3LoHugtmkmb+TtDVFFt0KvIXE
+	 WdLSUPbPDjsejtwRUP61MerwbFPkW2/eJSIhtsg0L1GxpdI7KnMXSXQV0fgU+57mhy+JE
+	 zYNXZbIVIDNvNem16mXjwLdo/wsD9WCr6VsfKQO0qI22VrH5aad9i7sKBeWdwFrdslHWZ
+	 sYn0tJeVFcWJuF1Qku5qY2o5qKMUp4Aki2EJKBJBfB7GLqVF+nE5hZxT/umnLDgitBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355080;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=c8pH/CdshWLIkQEJSfq8442Br3qC36LxjjRq+e7VMxA=;
-	b=NdOpAdxCMInPGLrqDr39pJQ4YPqR1irlHUJ3Jlj8Ypy9AY8/NsYyAD293fLpWz5IEKqA
-	 wVlU71GAM5D3LHQCuwPzDOe/ZEZ0Tlq2KTFAppoHP3isijhuvnhVnH9soiKhDwmmlwFN8
-	 fWedoOFXwytJdWoO676nZPTzQBBCzL6erahlm7yD3NCdUu7hDZGLrUoz7ARAblJ/0CApK
-	 vNiUwbX6vLm3qf1Kj+qsTxyvouYG9gOOgfoKTvhInyrS3wpsZZR84cmH3494cV8q2ePG+
-	 pckM5BPDqWjiNHcM7hAE7hVMLWYvU2CQnWXmIkLnHr/FxYq+WOJT4VAnYWWwG6befHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355106;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Keq8l/LaR55uxRtrq1C75Crik8bqjBF0WvmIWNJLZIQ=;
+	b=Bgw/nFNcgqb1oNm6HJCgaL/zQsfqqEVida4Q3LJj7oP5R4+c+qdUYk2nN/IeqymFxF9n
+	 w+KF6tBEWAhvYsNOx/6zOxaVW02vzOQevxN2yoI3I7GUqu7nFCrP240AjkeVEiq+CaSWk
+	 Yu7TC3hyAAS1QCW8aS8yvOIhqM+nwRu0d8ZRy8t9AozMePq1xwSkrJWK1rvXcbANOhWec
+	 6elHnfnX9LbTEDRSg5rhk6o13dangDaGnPPztSPtdhyExsspZ0y6BaWknZNcdn9GNCqWx
+	 3KgSqjQROqH/Ul7CNpI5TMudz7UmNrJ4kRLn39oEvYkIOblXlvM2TP2EuLs3D9E0Agg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZaAfZ8as;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqBTXH67;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE20606A320;
-	Fri, 30 Oct 2026 10:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE20606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28360606A31A;
+	Fri, 30 Oct 2026 10:11:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZaAfZ8as
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2E527C49F5E;
-	Fri, 30 Oct 2026 10:12:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5A998603C2;
-	Fri, 30 Oct 2026 10:11:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DDE77103287DA;
-	Fri, 30 Oct 2026 11:11:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793355075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=c8pH/CdshWLIkQEJSfq8442Br3qC36LxjjRq+e7VMxA=;
-	b=ZaAfZ8as/q7KO50GLIatdRqtadVk1ZriyJHKA7DNQFK+4EUPVX4uV8cacCMb8Z4aJeD3zZ
-	vMj3xLJ6JIJ4IYe6R7HHMiwqub3F6hwSKTDo0SvrhmoPgZ55Roraen1TDHsWhHrl+idsnN
-	UG+r1oWLTEiG7ZiCyVJvkFf/NymdasWVtMaf0tWVASXucVR2vR1nTBulHSCYPFLFhy3lbu
-	6w1BqKpc6Td8+KS4/8NPsXZ5MdpeZenk8Ersrfaycvfs5Btp8x9zFEHqGog68FkitaK5wB
-	bG0kT5BL9lkgDwvHhUWukQC9liRnuPFyQ2tjqKp6rXJuJNX+IjQPwhtpS+2gZw==
-Date: Fri, 30 Oct 2026 11:11:07 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 09/74] dtc: Complete REF_PHANDLE markers with ref
- strings and is_local flags
-Message-ID: <20261030111107.10e63a9a@bootlin.com>
-In-Reply-To: <auQpi8LGNldeNdK-@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-10-herve.codina@bootlin.com>
-	<auQpi8LGNldeNdK-@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqBTXH67
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672E41F000C1;
+	Fri, 30 Oct 2026 10:11:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793355105;
+	bh=Keq8l/LaR55uxRtrq1C75Crik8bqjBF0WvmIWNJLZIQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hqBTXH67i7iQ24Uc/YBdJStl1wi8ZtOxRofe2SSZh8GA0+NsUXkjLLKOOmUQKJ3Y9
+	 SCU4CKQuQuSTqMYodcL/eMBsFBcZ3EpFdt9VEyxy77mMrPiLjmQt36YhjqS1b3EAVT
+	 JL4QooYSk+1R1S2/7uxhcpZNN9oFefKO68NPnI1Vwa2GGHM8JqVOa31Z/y4CST6668
+	 CqKcldl6Eo+eUhkUTxlYtpOW8ZSbz8WIGi90YgYvLWotL+/+tqyWvkD/RdlQug5SMj
+	 3BANRx+og6T3vpJgFGbowZlfnXpQuMH0LBTYkgLRL9a795IZRDjQozUkoE716Ii7SG
+	 fC9tO9UftNHaQ==
+Message-ID: <sashiko-outbox-190814@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 06/15] drm/imx: dc-crtc: Disable at boot
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
+References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
+ <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 10:11:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,115 +59,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/imx: dc-crtc: premature clk_axi disable in dc_crtc_disable_a=
+t_boot()
+--
 
-On Fri, 30 Oct 2026 16:22:20 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+commit e47c892a97b7a909d6fe7c57ba9a8454d386aea8
+Author: Liu Ying <victor.liu@nxp.com>
 
-...
+drm/imx: dc-crtc: Disable at boot
 
-> >  
-> > +static void complete_ref_and_is_local(struct dt_info *dti, char **ref,
-> > +				      bool *is_local, cell_t phandle)
-> > +{
-> > +	struct node *refnode;
-> > +
-> > +	/*
-> > +	 * When created from a dts, the reference is available but the is_local
-> > +	 * flag is not set.
-> > +	 *
-> > +	 * When created from a dtb, the is_local flag is set (and a valid
-> > +	 * phandle value is available) but not the reference.
-> > +	 *
-> > +	 * Complete both ref and is_local based on existing values.  
-> 
-> The two cases share essentially zero code in this function, which
-> suggests to me they'd be better as different functions (each of which
-> could then have a more natural signature).
-> 
-> > +	 */
-> > +
-> > +	if (*ref) {
-> > +		refnode = get_node_by_ref(dti->dt, *ref);
-> > +		if (refnode)
-> > +			*is_local = true;
-> > +		else
-> > +			*is_local = false;
-> > +		return;
-> > +	}
-> > +
-> > +	if (*is_local) {
-> > +		refnode = get_node_by_phandle(dti->dt, phandle);
-> > +		if (!refnode)
-> > +			die("Node not found for phandle 0x%"PRIx32"\n", phandle);
-> > +
-> > +		*ref = refnode->fullpath;
-> > +		return;
-> > +	}
-> > +
-> > +	die("Cannot have a non local reference without a reference\n");
-> > +}
-> > +
-> > +static void complete_references_internal(struct dt_info *dti, struct node *node)
-> > +{
-> > +	struct property *prop;
-> > +	struct marker *m;
-> > +	struct node *c;
-> > +	cell_t phandle;
-> > +
-> > +	/*
-> > +	 * In order to have a complete state, a REF_PHANDLE marker needs to
-> > +	 * have a reference set (either a label or a path) and the is_local
-> > +	 * flag must be also correctly set.
-> > +	 *
-> > +	 * When created from dtb, references are not present in REF_PHANDLE
-> > +	 * markers created from the FDT_PROPDATA_PHANDLE tag. Indeed, only a
-> > +	 * phandle value is available with this tag.
-> > +	 *
-> > +	 * When created from dts, references are available for REF_PHANDLE
-> > +	 * markers but 'is_local' flag is not set.
-> > +	 *
-> > +	 * Completing a REF_PHANDLE marker consists in setting those fields.
-> > +	 */
-> > +	for_each_property(node, prop) {
-> > +		m = prop->val.markers;
-> > +		for_each_marker_of_type(m, REF_PHANDLE) {
-> > +			phandle = propval_cell_n(prop,
-> > +						 m->offset / sizeof(cell_t));
-> > +			complete_ref_and_is_local(dti, &m->ref, &m->is_local,
-> > +						  phandle);
-> > +		}
-> > +	}
-> > +
-> > +	for_each_child(node, c)
-> > +		complete_references_internal(dti, c);  
-> 
-> Of course the change suggested above would mean that you need two
-> different cases in the callers as well.  I think that's worth it:
-> treating this as symmetric when we should know going in what direction
-> _all_ the fixups will go seems odd to me.  Or more concretely, I'm
-> concerned that if some bug means we get a marker in bogus state
-> (e.g. ref valid when coming from dtb) this approach means we'll carry
-> on sort of working, when it would be preferable to catch the bad state
-> and die earlier.
+This commit adds dc_crtc_disable_at_boot() and calls it for each CRTC in
+dc_drm_bind() prior to drm_dev_register() to ensure CRTCs and their
+associated clocks left running across an unplug are disabled at boot.
 
-ref can be valid when coming from dtb: FDT_PROPDATA_PHANDLE_REF.
+> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc=
+-crtc.c
+> index 0d64186a99018..5bc952d6883e1 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
 
-Anyway, I understood the idea and will see what I can do for the next
-iteration.
+[ ... ]
 
-The is_local field will be removed (already discussed) and so, only the
-ref field is present.
- - ref NULL: dtb only
- - ref non NULL: dtb and dts
+> @@ -331,6 +341,48 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct=
+ drm_atomic_commit *state)
+>  	spin_unlock_irq(&crtc->dev->event_lock);
+>  }
+> =20
+> +int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
+> +{
+> +	struct dc_drm_device *dc_drm =3D to_dc_drm_device(crtc->dev);
+> +	struct dc_crtc *dc_crtc =3D to_dc_crtc(crtc);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dc_crtc->de->dev);
+> +	if (ret < 0) {
+> +		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
+> +			    ret);
+> +		goto out1;
+> +	}
+> +
+> +	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
+> +		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
+> +		goto out2;
+> +	}
+> +
+> +	dc_crtc_dbg(crtc, "disabling FrameGen at boot\n");
+> +	__dc_crtc_disable_fg(crtc);
+> +
+> +	if (!dc_drv_crtc_is_enabled(dc_drm, drm_crtc_index(crtc)))
+> +		goto out2;
+> +
+> +	dc_crtc_dbg(crtc, "disabling clocks at boot\n");
+> +
+> +	dc_fg_disable_clock(dc_crtc->fg);
+> +
+> +	dc_drm->pe_clk_axi_needs_disable =3D true;
+> +
+> +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
+> +
+> +out2:
+> +	pm_runtime_put(dc_crtc->de->dev);
+> +out1:
+> +	/* Let CRTC(with index =3D=3D 1) disablement path disable AXI clock. */
+> +	if (dc_drm->pe_clk_axi_needs_disable && drm_crtc_index(crtc) =3D=3D 1)
+> +		clk_disable_unprepare(dc_drm->pe->clk_axi);
+> +
+> +	return ret;
+> +}
 
-Not sure that two functions will be needed. Will see when I remove is_local
-but I keep your feedback in mind.
+[Severity: Medium]
+In dc_crtc_disable_at_boot() in drivers/gpu/drm/imx/dc/dc-crtc.c, can jumpi=
+ng
+to out1 when pm_runtime_resume_and_get() fails on CRTC1 prematurely disable
+dc_drm->pe->clk_axi?
 
-Best regards,
-Hervé
+When dc_drm_bind() iterates over CRTCs with drm_for_each_crtc():
+
+1. If CRTC0 was left enabled before unplug, dc_crtc_disable_at_boot() disab=
+les
+   CRTC0's FrameGen and pixel clock, sets dc_drm->pe_clk_axi_needs_disable =
+to
+   true, and clears CRTC_ENABLED(0).
+
+2. Next, dc_crtc_disable_at_boot() is called for CRTC1 (drm_crtc_index(crtc=
+) =3D=3D 1).
+   If pm_runtime_resume_and_get(dc_crtc->de->dev) fails, it jumps to out1
+   before stopping CRTC1's FrameGen or clearing CRTC_ENABLED(1).
+
+3. At out1, both dc_drm->pe_clk_axi_needs_disable and drm_crtc_index(crtc) =
+=3D=3D 1
+   are true, so clk_disable_unprepare(dc_drm->pe->clk_axi) is called even
+   though CRTC1 failed to disable.
+
+If CRTC1 was also active, this cuts the Pixel Engine AXI clock while CRTC1 =
+is
+still scanning out through the Pixel Engine, and leaves CRTC_ENABLED(1) set=
+ so
+that a subsequent bind attempt would disable dc_drm->pe->clk_axi a second t=
+ime.
+
+Should the clk_disable_unprepare(dc_drm->pe->clk_axi) call happen before ou=
+t1
+(under out2), or only when ret =3D=3D 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-imx8-dc-pr=
+efetch-v8-0-c4f81afd4533@nxp.com?part=3D6
