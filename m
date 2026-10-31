@@ -1,128 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793453316;
-	b=wo48W1N5dUs8AmvD7GRSq54I9Sqt03+I1YEvgbbn61wuvLfJlyHg2N3uYrK7Q22GW+ZL
-	 YBkMY9OT7Y8Cr7OyPt+wy5sm2WSCPInsHodujSYMKRWJ+0tyAA2jPLdExkpTsOp+3k7gG
-	 R8dlHABalpqLw8e84aML2CfoTvrkrlrcNnxgZeP/f/Epw1iSEtPy6+rE//fsfLYmmAq/j
-	 j2ZqnHbLsNsWWDIK041PbEbeffiMTZMvDE5vWjE7etObYb5gKtfneQJMLWBFG5FbL6Tu7
-	 xmHvRv6rCEnCnh8d88kw7QA7B3H0tmxy9gCBCcUGnLR7W1pgMj/U9X/lWx6fQnW6c/g==
+	t=1793453500;
+	b=k6V43A96AreNI5LemE/iCSU8nIF/b04J9g/r8d+fZmdBd3hXYKLZ7XT71uPfjt/TcIw3
+	 rgimlotNHti7jNKVIiIXuI7hQxXZVSkfv6mO6aB4sd8sCNwo065u9YRHN0ryh4/07IVOH
+	 //wDXlES5RVJYq87xqpfPbB697Hultem1OILnYXtGRRFUhgdCR6UKp0doKs3KZitc+kkI
+	 l9QhOjPdtU5qPsKLBkgYlS1EX9AmFTk4YLI6axcrMG0iO+a5qh2SYXShzdgxuAg9O9ivl
+	 DVk2Jpn5HGwJJKVOwOMKwzp2Qj7fEQuOKvXkJX5rs8cn+T6WNKZNNniybjsdeH0BFZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793453316;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=r5M7MBbW/Suyh8vDkmFGXN3FZTnS5DGduJhU7w+zV68=;
-	b=OId3jIhhI0EY9hs6xlQe3lPk5HkGY5qKeUV8ldQuW25RK105LRtsHPo08CaoFdKgFySJ
-	 ermkC6+cffVq4zIG2GTOPbGI6ZENE88cokZgek+q6QtkwMtjql8Qh+QL9WcV2jYzAwvGn
-	 x/CKFrXhFEuCKLCpdKprB7NQ873yUGt14ABskrCPIbr6DKNDm5xOdL/SBH7rTmaIvJ7zW
-	 oJ2POqwfiUUpNcg85PfXWaNuIF9PMvN5NnmenxcQpnZjwcc+PJnhhJWzoULbFfOiMMWma
-	 dianUCUAgbMX685j0awmYkcbwQ6dDlwhBruQQ8in+yUxyBNYnKgSk+2F4F8O3E+zWDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793453500;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KXSvGnje9GxqxgAxkj3i+QaxqOI6Yldars6JJNqnpvo=;
+	b=i3br/4yP+ZKcDY/xn2DjytD7sYzHxgX24C1XkJWfe114gbW39u428JYDlxKHwTuE585P
+	 ZBAHFQeS2gXq3gYMmiGg9ZqhDOE3ldUAMvh9zfSVG8k/pjD2vFK3KVN3cgHi82W6VtAQA
+	 VFwzt6FEqRsRybFKottY7sxmlt9zFHQ1OqE3AXRjpyhR90sM8dHGVfV8pQkQ2+5DIJEr+
+	 +9UGT2bxaFVTMco/epiW6ld/w/HqC+1qI53T+KrcQ4qa7c3RYtf7fz6I2O6D6ltDMOmay
+	 LKryAogvLGQHyKkzjq9PxMUNOZBh4RzMwn19P208RcEWLqaH7DPTy2RDltvl2q4mxoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eTxcVNZP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f6wRNcY2;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q8Pc/A34";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB3D606A31F
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB3D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C197E606A31D
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eTxcVNZP;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f6wRNcY2
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD02O63208602
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:28:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	r5M7MBbW/Suyh8vDkmFGXN3FZTnS5DGduJhU7w+zV68=; b=eTxcVNZPJplLzNjo
-	NY2tYdtB225XmF4MtDrZR+o/gH69DH9RcSKfCxEmxwXYkgne4rVIZdXKWqNYgVwy
-	WrTNpBWBqx79kl7a9uVOXJKg6+aKxJqkpQjJIM2R4Ge7A/7LZu7rZjIr5OtoJs43
-	oorLdlXTs96/zn9JXW6+P7BCTkhGnsbvzJsOGbWqtcqOn+EyJW84sEV/NCRyuIrk
-	tTKtbzMr/K3a2H5WoT4Cz6OfPHm0o+vZtlkcUuyiYMD/p23A4RSReQ3EWMAQs5iv
-	SYct+gH11TTtRfaXNPSNPV752J1ktMQ/oCmg0MrdEuaEeyMgkTuESSZTOv4181zX
-	Lyc6JA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rsb02-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:28:34 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35cbea41088so2131314eec.1
-        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 06:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793453314; x=1794058114; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r5M7MBbW/Suyh8vDkmFGXN3FZTnS5DGduJhU7w+zV68=;
-        b=f6wRNcY2J5It1Ti83W8W2ujSf7hPrQenDiD10C8Mw1VRt+ly9ukaOsRsEKY/yT75PT
-         5MV/pU8E3Bxn+jhgVgQ7Nm20mGpXe+holhxU468ENhIcFH2svoAg1OYTTSNWDRp28i2n
-         sS5hgkGZ1Z7FOu7STSY8yyP59Lda2/MwB8gJ+Z+6pQ5gOfKVa2RGsLmRBFfpdBF9lF7m
-         AtD4qUbSc0v1RVBbPYnoAsXRbQsRqb97Z+EPJ18r2whzUvqTvkiCMue38ODBkgjM8K5F
-         ybJ+n37ljWfBYCDZWfVdbgn0FnblWG4Z6NK92Dk4DowkM4BxcXA1Lg6njOghbFaAnG2p
-         PHIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793453314; x=1794058114;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=r5M7MBbW/Suyh8vDkmFGXN3FZTnS5DGduJhU7w+zV68=;
-        b=nFvlt2W1Lxe7rrZvRXjbP4o/1pHLQIJj3CEzP6dNkttswGu7ZSrn1y9KH9PomQCMJQ
-         MfE3R/e4LFcUrWt9CzCLXWJyrQYQNGwros7zfOwmsFRZD9I41ElqEsX2aGMEv4wnhLr9
-         pDPoScl4LU5GuiKdIiNmHbDI0o0dLgonZZ9E7Sz0USCxYJjQW0Vp/fPNgOdoiLVzNXqK
-         uASuM6JfT6o8Rxw2T833HYbckWOvX7jb2fukaV95RwbgmJFzGfaJ2igEPXzZZ7Klim1U
-         jgpiEhAcgKnQvCpKhWZffJHP3+q5lN9udPVG4pMt5P/egE5CU2hq+bA+uq81xMF4Bg+h
-         JiZg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGgDsTeGjtc/KaqfE1J3YajfO967MKhKSbR0YKFxSfTwli1lmi4Rqk2BpiSAdaU/ISaf28y0y7nf9z@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2hB60l1ZouG7Q7YHIsZjWQzimSyjNScxJ07TYGt1pASIIKj1L
-	9xSeCb9jRv31zXSGCYGKOECVg46IjEWGNP0SXkBKWaXTKqvNdeWXXdE9nSafVFS0+0aZn890ko7
-	17IZdU90GTRbhxFTncgLjS+jZGuYUBwUIOX8DajA5FgqUP8/Z5/O18H7/6/avv1Oy
-X-Gm-Gg: AYBFou16QL4+LecHOEZz65Sar1qMHn9S/Mvk83R6kOvht8xVknf9I+QQf128E1it+2Q
-	bNTNYoPWREkaQP/yvhKKa+x//V9FuRorPrPf68aMeR2HUsy0XzsDuI3YJkZdGB0QARmJAybd96i
-	RoxylZmwCT8e7gc73uPpB8582J0mSdXJu6pBvK3aaSQbzoErPv3COrLL/FAY0Gq5ZbcWXVYZ8mi
-	jWpzwi4AgsP1VmH98wHBIJjf+gQ+Kxck1xmxW+eF6S1W6W3vzv6fCwgfqN+YBsQB7H0dcaHW259
-	FroqFYKHUzlxElUWJtETeon1yucpQPYB359w2yeUV21LvjCLLfpyIcxdxI9Qs29iR9uX6QSb9Ol
-	U3UMtg1cNJMSx14uXBBt+m26dAj83p6YdYSWPAV2L1KLHInmbI3xoeDvuMZf/WFCdWoi5/19I8R
-	wQDHBBqhLw5KJiF+g=
-X-Received: by 2002:a05:7022:2097:b0:1a0:b650:5c93 with SMTP id a92af1059eb24-1ac5e8e1e16mr7121591c88.41.1793453313837;
-        Sat, 31 Oct 2026 06:28:33 -0700 (PDT)
-X-Received: by 2002:a05:7022:2097:b0:1a0:b650:5c93 with SMTP id a92af1059eb24-1ac5e8e1e16mr7121569c88.41.1793453313298;
-        Sat, 31 Oct 2026 06:28:33 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm16412510c88.15.2026.10.31.06.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 06:28:32 -0700 (PDT)
-Date: Sat, 31 Oct 2026 21:28:26 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH RFC v3 3/5] arm64: dts: qcom: nord-ride-embedded: Enable
- PCIe controllers and PHY
-Message-ID: <auXs-qBMufezjqml@QCOM-aGQu4IUr3Y>
-References: <20261021022921.2053957-1-shengchao.guo@oss.qualcomm.com>
- <20261021022921.2053957-4-shengchao.guo@oss.qualcomm.com>
- <cb4e821d-a2e7-4ca7-be1d-f92e20e52260@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8Pc/A34
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE54A1F000C1;
+	Sat, 31 Oct 2026 13:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793453499;
+	bh=KXSvGnje9GxqxgAxkj3i+QaxqOI6Yldars6JJNqnpvo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q8Pc/A341aYgAH2FVwvW+MeNxBK6nfxBGKosX2i8KcFJb5pv/rs7pB/wWHvHg+Yym
+	 2IJMGzr0US3mKwZuHsbQZ74zQC4ncNs/QCzvqdlbkcsm8+UJl//5TGX2qKES9c8ZhX
+	 UbrlGAX6SqIsB6EO5sIqaamhKCEQRVW9RIgQv6TMhMlpNJB/VxxW83rG77aRnXErFo
+	 X3y5bmoSQpxPpvcuieHdxpQGRuvDI5F3oQPUKO+gSqBaViAO6nRsKOWMu/m2Ies3t3
+	 qa4iupO/WkGQkSoFxTluoPzJNrrcniRsfHpwed8+2RmsssfpuG1tKO9ZuUgwyYIM1P
+	 lw6ibublao+Rg==
+Message-ID: <sashiko-outbox-191976@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/6] arm64: dts: qcom: Add device tree for Lemans
+ GearVM variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261031131042.1200862-5-shengchao.guo@oss.qualcomm.com>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+ <20261031131042.1200862-5-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 31 Oct 2026 13:31:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -131,85 +60,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cb4e821d-a2e7-4ca7-be1d-f92e20e52260@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: IP0pJ4MgNtWecun7zG06_aBjA0CE43Aq
-X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae5ed02 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=6Qp4BPjpy_d1hweZHL0A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1MyBTYWx0ZWRfX2MfeEjEdQXWU
- TKCx36OUWAkXulnKFOwUPl4yPIlsuwju8RgX+UBZNd9xdDl3UrE7OpDIP9OQoPBeyiIB1ArRGyd
- lSkcy6K9y9bP2ohwZABEkFGXb6AyDtI=
-X-Proofpoint-GUID: IP0pJ4MgNtWecun7zG06_aBjA0CE43Aq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1MyBTYWx0ZWRfX1nNhpQt0AwWV
- tNk8C/5NfqXibJdFIAIRi/fdVOWYg1pfbVFfJ9mmF1LL7GPArHdYEQZ+4ibNJnJn/bUWs+07kK7
- ZybDsryOwtnGdJMliFyQ3DoS6q7tVFoQ4dWGmhdYgvmX0Bc18ioauKZ4NOb7V0xocnOyNZvgNd/
- PXfpMN6vXsYfjhNjwGLI/AG9Dqa4SJ5icsRUohF0+KFoFCLKtTyRYzEMR4RxhwJKNXpB67PQFwC
- TjRMaHglHKcEFvkD2Otar43pGUDMll+N9VnESZUMI2GetUwQvpkWEnMuZnG353KycGe0OM1WC4Z
- s6vDmh1DnO58lvAVkpN7LH7vruYTaT/eHk63MnmND6rxbcyxOsQE63ziMbS3s1KtPKGRQa9iMCP
- 9dUDCVui7Fz3sufA4IzJ6xkDVaLG4JY3tA9SyJfAs0v9SApigePgTWztrmaqinPdf2negvmraYv
- FDQAUaptU+zmqOvUCOA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310053
 
-On Sat, Oct 31, 2026 at 03:50:09PM +0530, Krishna Chaitanya Chundru wrote:
-> 
-> 
-> On 10/21/2026 7:59 AM, Shawn Guo wrote:
-> > From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> >
-> > The Nord Ride Embedded board routes all four PCIe links, so enable
-> > pcie0-pcie3 and the QMP PHY, supply the per-port PHY and PLL rails, and
-> > describe the PERST# and WAKE# lines of each root port.
-> >
-> > Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
-> >  .../boot/dts/qcom/nord-ride-embedded.dts      | 49 +++++++++++++++++++
-> >  1 file changed, 49 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> > index 49635695f832..fcc07226db8b 100644
-> > --- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> > +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> > @@ -366,6 +366,55 @@ vreg_l3l_1p8: ldo3 {
-> >  	};
-> >  };
-> >  
-> > +&pcie_phy {
-> > +	vdda-phy-a-supply = <&vreg_l6a_1p2>;
-> > +	vdda-phy-b-supply = <&vreg_l4a_1p2>;
-> > +	vdda-phy-c-supply = <&vreg_l4a_1p2>;
-> > +	vdda-phy-d-supply = <&vreg_l4a_1p2>;
-> > +	vdda-pll-a-supply = <&vreg_l1e_0p9>;
-> Hi Shawn,
-> 
-> I did a mistake while sharing these changes, pll supply for b, c, d should be
-> l2e instead of l1e.
-> -    vdda-pll-b-supply = <&vreg_l1e_0p9>;
-> -    vdda-pll-c-supply = <&vreg_l1e_0p9>;
-> -    vdda-pll-d-supply = <&vreg_l1e_0p9>;
-> +    vdda-pll-b-supply = <&vreg_l2e_0p9>;
-> +    vdda-pll-c-supply = <&vreg_l2e_0p9>;
-> +    vdda-pll-d-supply = <&vreg_l2e_0p9>;
-> 
-> Can you update them as this patch is not applied yet.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] arm64: dts: qcom: duplicate reserved-memory nodes in lemans-gearvm.=
+dtsi
+--
 
-Sure! I checked schematics and RRD board needs the same correction.
+commit 2d9e6864e7af49f91d36dd5dcddab2e975bc9d47
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Shawn
+arm64: dts: qcom: Add device tree for Lemans GearVM variant
+
+This commit adds lemans-gearvm.dtsi for the Lemans GearVM variant (SA8255P),
+which manages platform resources such as clocks, interconnects, and most TL=
+MM
+settings via SCMI over a Qualcomm SMC/HVC transport. It also labels the
+firmware, scm, and reserved-memory nodes in lemans.dtsi so they can be
+overridden by label in lemans-gearvm.dtsi.
+
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boo=
+t/dts/qcom/lemans-gearvm.dtsi
+> new file mode 100644
+> index 0000000000000..91c97a55f2787
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
+> @@ -0,0 +1,3224 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include "lemans.dtsi"
+
+[ ... ]
+
+> +&reserved_memory {
+
+[ ... ]
+
+> +	firmware_mem: firmware-region@b0000000 {
+> +		reg =3D <0x0 0xb0000000 0x0 0x800000>;
+> +		no-map;
+> +	};
+
+[ ... ]
+
+> +	firmware_logs_mem: firmware-logs@d0040000 {
+> +		reg =3D <0x0 0xd0040000 0x0 0x10000>;
+> +		no-map;
+> +	};
+> +
+> +	firmware_audio_mem: firmware-audio@d0050000 {
+> +		reg =3D <0x0 0xd0050000 0x0 0x4000>;
+> +		no-map;
+> +	};
+> +
+> +	firmware_camera_mem: firmware-camera@d0054000 {
+> +		no-map;
+> +		reg =3D <0x0 0xd0054000 0x0 0x2000>;
+> +	};
+> +
+> +	firmware_reserved_mem: firmware-reserved@d0056000 {
+> +		reg =3D <0x0 0xd0056000 0x0 0x9a000>;
+> +		no-map;
+> +	};
+> +
+> +	firmware_quantum_test_mem: firmware-quantum-test@d00f0000 {
+> +		reg =3D <0x0 0xd00f0000 0x0 0x10000>;
+> +		no-map;
+> +	};
+> +
+> +	tags_mem: tags@d0100000 {
+> +		reg =3D <0x0 0xd0100000 0x0 0x1200000>;
+> +		no-map;
+> +	};
+> +
+> +	qtee_mem: qtee@d1300000 {
+> +		reg =3D <0x0 0xd1300000 0x0 0x500000>;
+> +		no-map;
+> +	};
+> +
+> +	deepsleep_backup_mem: deepsleep-backup@d1800000 {
+> +		reg =3D <0x0 0xd1800000 0x0 0x100000>;
+> +		no-map;
+> +	};
+> +
+> +	trusted_apps_mem: trusted-apps@d1900000 {
+> +		reg =3D <0x0 0xd1900000 0x0 0x3800000>;
+> +		no-map;
+> +	};
+> +
+> +	tz_stat_mem: tz-stat@db100000 {
+> +		reg =3D <0x0 0xdb100000 0x0 0x100000>;
+> +		no-map;
+> +	};
+> +
+> +	cpucp_fw_mem: cpucp-fw@db200000 {
+> +		reg =3D <0x0 0xdb200000 0x0 0x100000>;
+> +		no-map;
+> +	};
+
+[Severity: Low]
+This isn't a bug, but since lemans-gearvm.dtsi includes lemans.dtsi and
+overrides &reserved_memory by label, nine child nodes that are neither dele=
+ted
+nor modified in &reserved_memory are redefined here with the exact same
+unit-addresses, labels, reg ranges, and no-map properties as in lemans.dtsi:
+
+  firmware_mem (firmware-region@b0000000)
+  firmware_logs_mem (firmware-logs@d0040000)
+  firmware_audio_mem (firmware-audio@d0050000)
+  firmware_quantum_test_mem (firmware-quantum-test@d00f0000)
+  tags_mem (tags@d0100000)
+  qtee_mem (qtee@d1300000)
+  deepsleep_backup_mem (deepsleep-backup@d1800000)
+  tz_stat_mem (tz-stat@db100000)
+  cpucp_fw_mem (cpucp-fw@db200000)
+
+Could these unchanged child nodes be omitted from &reserved_memory in
+lemans-gearvm.dtsi so they are inherited from lemans.dtsi like the other
+unchanged reserved-memory regions?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031131042.1200=
+862-1-shengchao.guo@oss.qualcomm.com?part=3D4
