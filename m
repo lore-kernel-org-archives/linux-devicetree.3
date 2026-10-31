@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793446098;
-	b=O+35Xn6pTm1NmpA022vJ8JufYx3ExWt5EYmPkzgQCIM1tbC7ESb6FB8uL7hKxe503qiM
-	 MsR2v4uYyGoGFo8/ZNKF7IZ8x2A/dzuZMX4ogK5Wx9hCe/ORIQGiaDL4bcIo5nr34LFNk
-	 57QCE0dtavx13ntf43qEmRxPm/NgCayPwu/5xA+wROFmJuq9aEf4FZE5tpN4Y7DxfmEWg
-	 esKkMYHCwlAtOYq+kK+zKQzfZ/PuNgV4WLqayr28QIinOcla7OXsW9aprzE1sGeoV/vZW
-	 wHgVtcZEqAc98lPeE1tDts6K3PzSSHf6M51aTaQd8IOMKd9wsVXrOfJcRV/bo43c96A==
+	t=1793446465;
+	b=Oazsxm78Itg0DgUkWN4xU4Rockxg8QsXubiNm71SxNdtp3RsJv77noni4l1HregkLLsw
+	 7OnwCZNakrSQdX1Wyl9YpW+UoXBNNKCTdHG3rTpr3/kOEIiXxEjNrVKpkPbrkqzYV7PJT
+	 qV/TV80nT0Wi0QMI6lCIUnN1kOMjWYlRK7yScUkTGbkIlNNh2wYOMpWP0FcjZR5KN8PHp
+	 pnE3pk2Q7D7lW0Kn8qHvlMNgaDFoVPul4uTiKHgvDsiKkPy437wieV5GDBoeEgrRscaoZ
+	 NXxXxPEGMbt6u42/4OwiJZTvWT6kEvEAQVuT+kR39zzCeE7X4g5BGTjoBoAcWH7jsRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793446098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793446465;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=GxAvazQCW1jR58O9h8smfRyymo8eYE8t5LmlxNfonsI=;
-	b=Y0lLLVz8o2rcxp3loxjk2usO54EF8XwKYL0DBp/BbUoP7BYLPoiKp0T25a8WJl3HsB58
-	 k883OVEtwHD0621uL24QivEunWvc2aqHsSe++YIk7qwPoiMHejIyWFZJWIYVcBcFQ1MVY
-	 2RT7tifR9Gau+JoBeZPmaYVwfPSOAWnWxicevyNA+vQEQdtr+TeEtF0RSG/Y0Bhs58Vx5
-	 HgXG3XC4YAbiWxwI+c8T+XaRw1ecG2hZEJDuEdWgEwTOYN5Dot8SDmxp+Fw75tilrMhWE
-	 5/htqSrPIwKZCGywPTXm0Yu7PEFUwHghxENX1wzs6YwjfOOOSxZ+BXhCv6d+pHVxXbw==
+	bh=ZafFUrt0JDND09YDyHADqYuJ+4gABL5GNLPQgHLLeyo=;
+	b=e0DuJDxUQgQNGS/gDOO6zoEdI84CcPOqqHEw4FECa1N6Cbjg+7cfLQHsZWRpYFgv0eDU
+	 y63UaQv44Cey7OSuhDVNvO9uP0bePa5LworXE1Gf0CJipq2ZzIvkmgmvPn127wSbLP4lb
+	 VqETjp72q4uWMc8hXYzo7nRj083LQU/vXPLWdM1IIZOVsUpUFWquCP9y8OjBxIp14mn7l
+	 uH/GoqJRkIIinDPGaEg99f/yoFiFhQMVoNmOej2V68FAMwd15cq4Ysf1GfYvlUvfdC4NW
+	 v+KtagdBVjWzEClXs1AjiEt1TqsIi0qwGAxMqV61edMV4ptYUqt+JQpcWCvDmQ4jyzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXX1hyMv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HevV0KJV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776BB606A31A
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCE2606A31A
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXX1hyMv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126EA1F000C1;
-	Sat, 31 Oct 2026 11:28:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HevV0KJV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE011F000C1;
+	Sat, 31 Oct 2026 11:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793446098;
-	bh=GxAvazQCW1jR58O9h8smfRyymo8eYE8t5LmlxNfonsI=;
+	s=k20260515; t=1793446465;
+	bh=ZafFUrt0JDND09YDyHADqYuJ+4gABL5GNLPQgHLLeyo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DXX1hyMvoVDv8ZEr7XEMS4zPuSuK8Mc/NGnxvkS5Nx9+JqJmc936Kb5Gh9g1O/EZ5
-	 l7Ov+O/wss5gVjiU+A0las37cImf7nWlMpIQ3fdJUFDnaTC92BLrCJMw78MtOpNEsx
-	 YHbmx9AeOYfxy7ZPiT1hoSCZLZtke63Ns97bwATlvT5K7LHCkaqZdZA+RbEExRFVc9
-	 sb3f04dDKczfr436Y5XskNrQQgYjTbmyVRFkjqdFz+2jtfXjALp81kAex91pycul8I
-	 /GBdsYnF0RbcwcMtQJyB5j6OdR63wP5irlWBKzHG0Lr4J/v4V4ZSsBiYv3WHXyqXOw
-	 ujTPleeyqFlYw==
-Message-ID: <sashiko-outbox-191921@kernel.org>
+	b=HevV0KJVJJO17T140m1Kc8I75LYnIBmeDxCM9Uwqm7aBeF29SEUTS/P1vqmch68vk
+	 +0jk/o/Rpk/BzZc0FcBmLiJqkpD2/gn2r4SsWfaCkcgrCm0MbFVdBmZj8BOrC6mQsM
+	 sayOCDKamUiFyuBu8BeggKgZS/5hOEzXVZicn1JCk02M9tQlnUIJS27dJ30JaaoBBy
+	 /3UOH69gE/jbQDIm1V8s+ZfPUGCZWYxurXJjwd7zPqbAKAdu7ZZhSwTbOTwpQebw1S
+	 LQshZQxjQH5fPIP4w9g4DXh5VIKx7FdWbPobmJkSFx2pO3XgGRXbN2/2716EuvnLjZ
+	 QcDlLkZhq/z+Q==
+Message-ID: <sashiko-outbox-191924@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/6] media: qcom: camss: tpg: Support TPG hardware
- version 2.2.0
+Subject: Re: [PATCH 1/6] dt-bindings: media: qcom,sm8650-camss: Add test
+ pattern generators
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vladimir Zapolskiy" <vladimir.zapolskiy@linaro.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261031112203.545319-5-vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20261031112203.545319-2-vladimir.zapolskiy@linaro.org>
 References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
- <20261031112203.545319-5-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-2-vladimir.zapolskiy@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 11:28:17 +0000
+Date: Sat, 31 Oct 2026 11:34:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,67 +63,77 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: qcom: camss: tpg_reset() checks hw_version before initial=
-ization
+- [Medium] dt-bindings: media: qcom,sm8650-camss: missing minItems on reg a=
+nd clocks
 --
 
-commit ed70791a72b90a115dbcf4eead6d852fc6c9f986
+commit e38622494d300e76674ad2714e0222a5d2a3e220
 Author: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-media: qcom: camss: tpg: Support TPG hardware version 2.2.0
+dt-bindings: media: qcom,sm8650-camss: Add test pattern generators
 
-This commit lowers the TPG hardware version threshold from 2.4.0 to 2.2.0 in
-tpg_stream_on() and tpg_reset() to support Qualcomm SM8650 CAMSS TPG blocks,
-which start test pattern generation via TPG_CTRL_CMD rather than a test ena=
-ble
-bit in TPG_CTRL.
+This commit adds the three test pattern generator (TPG) register spaces and
+the non-real time CAMNOC AXI clock to the Qualcomm SM8650 CAMSS device tree
+binding schema.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
-/media/platform/qcom/camss/camss-tpg-gen1.c
-> index cabbb2638cf38..a83f9a80c2b6b 100644
-> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-
-[ ... ]
-
-> @@ -183,7 +184,7 @@ static int tpg_stream_on(struct tpg_device *tpg)
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+> index 9c8de722601ec..50ae30cdcb82a 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml
+> @@ -17,7 +17,7 @@ properties:
+>      const: qcom,sm8650-camss
 > =20
->  static int tpg_reset(struct tpg_device *tpg)
->  {
-> -	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-> +	if (tpg->hw_version < TPG_HW_VER_2_2_0)
->  		writel(0, tpg->base + TPG_CTRL);
+>    reg:
+> -    maxItems: 17
+> +    maxItems: 20
+> =20
+>    reg-names:
+>      items:
+> @@ -38,9 +38,12 @@ properties:
+>        - const: vfe2
+>        - const: vfe_lite0
+>        - const: vfe_lite1
+> +      - const: tpg0
+> +      - const: tpg1
+> +      - const: tpg2
+> =20
+>    clocks:
+> -    maxItems: 33
+> +    maxItems: 34
+> =20
+>    clock-names:
+>      items:
+> @@ -77,6 +80,7 @@ properties:
+>        - const: vfe_lite_ahb
+>        - const: vfe_lite_cphy_rx
+>        - const: vfe_lite_csid
+> +      - const: camnoc_nrt_axi
 
 [Severity: Medium]
-When a TPG subdevice is powered on for the first time via tpg_set_power(), =
-is
-tpg->hw_version initialized before tpg_reset() checks it?
+Should reg and reg-names specify minItems: 17, and should clocks and
+clock-names specify minItems: 33 in
+Documentation/devicetree/bindings/media/qcom,sm8650-camss.yaml?
 
-In drivers/media/platform/qcom/camss/camss-tpg.c, tpg_set_power() invokes t=
-he
-reset callback before reading and storing the hardware version via the
-hw_version callback (tpg_hw_version()):
+In dtschema, increasing maxItems on reg from 17 to 20 and on clocks from
+33 to 34 (while appending tpg0, tpg1, tpg2 to reg-names and camnoc_nrt_axi
+to clock-names) without specifying minItems implicitly sets minItems equal
+to maxItems. This makes the newly added TPG register blocks and clock
+mandatory rather than optional.
 
-drivers/media/platform/qcom/camss/camss-tpg.c:tpg_set_power() {
-	...
-	if (on) {
-		...
-		tpg->res->hw_ops->reset(tpg);
+Existing qcom,sm8650-camss device tree nodes such as in
+arch/arm64/boot/dts/qcom/sm8650.dtsi (introduced in commit e8560ac937d92e)
+provide 17 reg/reg-names entries and 33 clocks/clock-names entries prior to
+the DTS update in this series, or when the binding and driver changes merge
+through the media tree independently of the Qualcomm SoC DTS tree. In
+addition, commit c865d36a9474 ("media: qcom: camss: Skip TPG if its
+registers are not described") in this series explicitly keeps TPG optional
+in camss_probe() for backward compatibility with older device trees.
 
-		tpg->res->hw_ops->hw_version(tpg);
-	}
-	...
-}
-
-Because camss->tpg is zero-allocated in camss_probe(), tpg->hw_version is
-still 0 on the initial tpg_set_power() -> tpg_reset() call. As a result,
-tpg->hw_version < TPG_HW_VER_2_2_0 evaluates to true on the first power-on
-even on TPG v2.2.0 and newer hardware, causing tpg_reset() to execute
-writel(0, tpg->base + TPG_CTRL).
-
-Should tpg_set_power() call hw_ops->hw_version(tpg) before hw_ops->reset(tp=
-g)?
+Without minItems: 17 on reg and reg-names and minItems: 33 on clocks and
+clock-names, does dtbs_check fail validation on existing qcom,sm8650-camss
+device trees that omit the TPG entries?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031112203.5453=
-19-1-vladimir.zapolskiy@linaro.org?part=3D4
+19-1-vladimir.zapolskiy@linaro.org?part=3D1
