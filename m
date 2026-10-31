@@ -1,91 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793473694;
-	b=tIc1z/ZTLsI4dv9nLF49DsrdGkniqS/MiEuiQWN8Xw4ABWf4j/1nxqJnqrRB3eAevumY
-	 x42cy8UCf5ttBEsYx/SkKTxUtWrLYxIfzIuHTpG8wWWaJQ7/8mvzbpTM0uhjFnVjbNtOw
-	 DjW87DgBjqH2PeTvCwUQYMTeK2fDI59KCAyqSd+21cER2/9u+ZBaPyWyMxCwwv+MRqP0b
-	 OnaoySCr6CHh8Bslcw3rjdEvRMX5iy5x/Enjq0EtKm9dIMFhZ/nfcuGztnVVtWi4oUbfi
-	 4SR2KNhrM0AgHS1synLysjd0X/x5g0HUcaCfhfGlcsOcV4juVp6drHm57WetZcQxelQ==
+	t=1793477778;
+	b=W1/cIM2zSpXOvEXwcnbEks+PvVwuYGY6T3y5mupVWxktpK7fxyAE21keeB4f60GwzFKL
+	 RVwnU7FDtHAK5XNdqRs8rAUF87/LWJODTCbPGP6p9hJZiGlGQL/cPvu9Quu1bE2FjIXm3
+	 Ue+8ljCpOFJ0v32CnJil9mAByIBbqevxOqwqGvLLMeTgk6Vcocg8p+0ZafmhCOLgil5cl
+	 KVNbVbpCdswj6QzMJgijZFvemBNe/YS4o9QjU1glz7hGeRL0kRQncCBqu6CKbmUwpdcmU
+	 AawwXpAIIpuo/6hDDhkLYVxR47EmVTCIwCPe3mEDwV1EvAuJD1CIcyMZoiz9kRkY5IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793473694;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/LscOLn41OKpLbVnPd4xE9dms+FzlvehR8MBG5Utoss=;
-	b=qVB4PW4uD9bvNHd3f9hmbbMwpUlqm18Qsb8N1y32YZojKxjpiRJrAI513essc0XFVtc7
-	 89h09w/Br56ovHxOPbteBGsA3C5qvgT5MsipDzUMcOmhsjo9wNxSvwZ1NEE3nPo2fg3pC
-	 UGWREoXLebqwWvpw3GdHM6bIy0jNFN0M4ahHDF7+FDtTURGl3JSBPRAmvmuLMLUe/Dvwy
-	 vJuxPlA4jFxY6bvM6xuS4RMEi84fjoP94DxJFEze5clFMC2zclkszp5+L4hOtlY7i4qM5
-	 vRjxBOhgXlDYICcIKdWebQi+Tm7Kiu1QFEKpa2DLht9G5huar04MN1b84FV4VvqE/4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793477778;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=zBj1fz6dn0KLQxS/D7NUgC3xxLKtXpvBo8Hz0gUq6W8=;
+	b=zwh0flDbs5dAenQBScKktQM07B6u0gsAAXaFM4TY422PzHRujKbejc2dJcNRBm3b35x0
+	 dMlaKltBYpiMz9+WPM7oRF7QGXWAJF4TsuBmayBQ0a9PklpgSsfWceLmsao8h7iHoYSd7
+	 LEPCndSh0s+6KnAWjGiVR8+vbjX2vzlrZrDacgfLsOnH0sJuIZ90umVVjmYvCeWnEml9T
+	 iDcHMcqjSOUSuj7CeNv4z47mDAmAkdk9KETLTt8n1Bnw5u143VwC0rEWVsQq9Y56ChgBH
+	 eMHo4lAWJWY4zlOjOVR2um9aRkeiTcaBq2h5YR7S+VOV1K1aly5EF+UQFN6CJ58cD8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpAcvhxg;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VygcVeeb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bIVanoOa;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45F8606A31A;
-	Sat, 31 Oct 2026 19:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E45F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96377606A31E
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 20:16:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96377606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpAcvhxg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793473692; x=1825009692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=c29btWuVr0fvimsA9IMS8mmau5ofOCQF01O8gAxcQhg=;
-  b=PpAcvhxgvwn+hvLmIud3tNdaJdTe2NoMYhCCd7vKzns1/Kh1X2ZCsfmN
-   lZF5Kg6lINbfxM2MlRn0wY19TVj7gyoNh6lNYmK9QMqNw0T0Jb3CmNLhO
-   9qOVBgXmc9rDsr9GJGJAwBy4JVPlqEOYQOnQCR9nkqyKiq0lWRBrlvg/L
-   xQ7Xrnwrvt5+E4EBqfs1Zofjk8HOxXLpUzc+j3SzNvda48WqHaYP3LVG7
-   6iOJUb+rbU83PpJS++PKg7DuXEZ5IiLzkUvjlAvhMEOkES/9gFIoEzi7w
-   amK7r/h4pjKtSXg24OovfEV3TORN+L4kV8GRgAoO/6Ncr3qZ5ubafQgMD
-   A==;
-X-CSE-ConnectionGUID: MX326MZ5RsOxmYBwvCy8PQ==
-X-CSE-MsgGUID: 8jBG2I/pSYSycJgHuyXcZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2214133"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2214133"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 12:08:11 -0700
-X-CSE-ConnectionGUID: z0oV6JnFSHymNAR8O0W/Fw==
-X-CSE-MsgGUID: xDOKj0fAQDSeoLb0Nh5wsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="6096436"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 31 Oct 2026 12:08:06 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNEQt-00000000d5Q-2MJy;
-	Sat, 31 Oct 2026 19:08:03 +0000
-Date: Sun, 1 Nov 2026 03:07:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <202611010236.HbsmlTpw-lkp@intel.com>
-References: <20261029152909.234584-12-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VygcVeeb;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bIVanoOa
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VJF2nf2614246
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 20:16:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zBj1fz6dn0KLQxS/D7NUgC3xxLKtXpvBo8Hz0gUq6W8=; b=VygcVeebGI/ri9YQ
+	fhErQBAM0zlmBh+3G/AO6X8Iht8tVCCqHroXDlWGB6A5COKcG7ZiiO8NAwwlh9MY
+	y26uUS11faVLGvYd7XQqcamy+LLSsWunkK/qlm7Vcni7i8QpXdGZf6uzxxNC7iN3
+	qjqCJswC6pu/TFUCIOIzw0OKktEhsxqyiGoKknSR+ddBhNfsfopYl+4nOoYJ1Z9B
+	DQ5TLrLIbNOfcD2SpxBOdFlSkMHMVhCUYXVdGk3XDZnIwgZebB6f0Q98XaXTU+nc
+	1lzPF9OZke8Is/ceATWUw2dG4/vW12NQ5+7cOSJ1tXI7wUssJR56QVSWae/93hT9
+	M9rkTg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7nft3a4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 20:16:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f2005ce21so251976685a.3
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:16:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793477769; x=1794082569; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zBj1fz6dn0KLQxS/D7NUgC3xxLKtXpvBo8Hz0gUq6W8=;
+        b=bIVanoOa0vzaexjnqqPTRZwjUB9qlv7AS9w0wC9RMCE2R+KpbKZD06ztEg71CvJhnv
+         w/RDzNowSjy45ImSh4Wypu5s7Opw8lyspYrWaRqndA2qnqQaZcTj9w0HVOC5e85O2bfj
+         at9F3ThFJUpL8o/qmSeuDyP8NVmEPuo6hfdDjRxhepTaJRsEiNG+DJeV0tyCm4b4bUt6
+         P2bC53GnI42AzIarj5DNIg3a8Xn1wa1PWSA1i0wCc26lFlZzg7V0lBPNyb0GIB9yXbTh
+         xvCpaOqVKPsrs+3aCVYYYA+62ZJOe3oHg+F8oVeA2/yqWMGjhpA82NUN7RjnGgztp1f4
+         Jz3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793477769; x=1794082569;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zBj1fz6dn0KLQxS/D7NUgC3xxLKtXpvBo8Hz0gUq6W8=;
+        b=KyfwP7MzJ+y2UDjR7DPLKIQASmlA+2C0HkKNliK2PDXv34hje4IX+k8KZv/6Qdu1Ug
+         k9j4AkElvqz1tx3me3HsA9iYEO2nS2brrl28tLkymb68ZLB/Ge6L1eN4EGtCp0io5QD7
+         Qn9qL2gBhQDtBqr1i2wrat/R/iZOLcBqM82orHhe7hOYX7wxsCOzdhCuZ5orOnDiNj15
+         Q+Zof5tgZReHSZgD9eHfcsINd1MC8f+4SoEmz2P5Bu8hruo/V2kJJgY4LCqlEIj2ymLL
+         NytyICdHv4O0XvtRPZJH+DoA79d5ttPZysCcWJuQ9X1cNDey8M/PZmV3r4rRal0IG9Rg
+         Bpww==
+X-Forwarded-Encrypted: i=1; AKwUvBx/bpV/FcxFwtPWaJzjXfz7O5OsP5fGXkkhhzysOa2DtdDkS1T7WuFIk2IFUS95nUWJfUmNKBvblm4N@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwQiygleJZ99S70pXyWmXIp1Ieio2DxZsk6tIlI3cW1Xy+O3e7
+	u/Y1Tq2fuIaP8O6SJT7JX198kEHQFzp0OYQitO7dehdgIst9ASggtI6wflatrEiKUq+HmgSfHM7
+	4ErChFNoHQIVsA7kHaGz4zmCrOR5cYLn2L1eTI86ihkXUZyYILlYt5ZeWCAORws/D
+X-Gm-Gg: AYBFou2F4YmLjiTvPWwSQ/giIpiva4CkFVfgA6ljVo7nCV/PEFg5Vx6q5d4hyW9JF26
+	yDASdMtxXanmm3KtGGI4e1/ydhgYMPcVEvrtemQdHOEaJphVZ3c0/sMJYS1mtMevmly7nvapMMH
+	GTtQPfUllK8ZPrtj8T2L2pMfhPtczRvY26FBKS2FDeeJwk/Wp4CdIcqGu0XVu5MCxtd/T53aWEW
+	4KLokpzfansZa/UfuSzEka2CVGB2a/PhVqFXPmTUK1OjyzxhrltPP9YpzPSXpIB1Sb4DYvdri6K
+	IVmM8+D1F6nIl8v1qjqlUTkpTSft5q5hs7QP6Acn/1t4b841oWBTZ/y8O8WnNrwmYXHyBP8ac3M
+	L1XXNEIHtKE3UE4jH5X/fBwP1CquSYvThJaU131WfqpSQ8P9nW5zLEBN0NQBKd3bJbaGtTMiCcG
+	fkkwoELfX3QxO/J1vAaM6opgTvnkTx9gjfxVMgTeZ1o+GBKwg9BQwnJBnIHqx8cA==
+X-Received: by 2002:a05:620a:4611:b0:93e:c12c:9dcc with SMTP id af79cd13be357-94421760e17mr1055213885a.76.1793477769081;
+        Sat, 31 Oct 2026 13:16:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:4611:b0:93e:c12c:9dcc with SMTP id af79cd13be357-94421760e17mr1055210585a.76.1793477768621;
+        Sat, 31 Oct 2026 13:16:08 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0752a30sm731130e87.78.2026.10.31.13.16.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 13:16:07 -0700 (PDT)
+Date: Sat, 31 Oct 2026 22:16:05 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Arnaud Ferraris <aferraris@debian.org>, phone-devel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type
+ property
+Message-ID: <ucyymr5uvakzqalebjvx4cnxaqi7d66urnjcogjm7jdgcmohu4@63uj25mpulyn>
+References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,39 +126,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261029152909.234584-12-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4MCBTYWx0ZWRfXzyIDfrVyCaO2
+ do7O4s2QALzxxnEtC4KmU6PiABrwo/nJDLulenmfTuIyQIagPlXM+MOezeqO/3r0vQ3pShUBAnz
+ yV3ZV81Jvdis05lBfYd+JHEevVUv7GQ=
+X-Proofpoint-GUID: hHGG_eW5GgniY_JDgel_lLBRIVOKZ7T-
+X-Authority-Analysis: v=2.4 cv=FJ2OVOos c=1 sm=1 tr=0 ts=6ae64c89 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=xNf9USuDAAAA:8
+ a=ze386MxoAAAA:8 a=EUspDBNiAAAA:8 a=2Uk1DsieHeZNntOzPjsA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=iBZjaW-pnkserzjvUTHh:22
+X-Proofpoint-ORIG-GUID: hHGG_eW5GgniY_JDgel_lLBRIVOKZ7T-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4MCBTYWx0ZWRfX5+tpdbcKDiGV
+ kBRgen3DzfApNNTTH16Ea7ELBGG3b/CuagP665pzeIMIoYjPBzdubdo6xVFZeW+pY+Zv7A9rp/V
+ 19qKViGTU6JxdY4NSSexIiZ1wfbGgpAEYHvavLMhlva5R2xEch6FhYQ89G2ulnT0I89AC6qo0uq
+ VfchmnKbAFKP6fYmIlZqSbIEjXxFeVBsANt8NazIhaUwVAwU8TeKnCCsqFXdLumi+OIvj/Tu8wd
+ REiITLXWRVRBW+FcwEUrEWyrD6re0dbacMFgHHtLul5hiyLvLSINFrl5gB6FrkMbF6wWhJeAz/W
+ +M2RJ4b2PDj0QI9FpLi2dsDTxYOW0kY2HLi7GYabUqwroacDZlM1apK5WKN3cKFiyA7dpQXssEo
+ DKUuF4QOjuShHxf3r6fS+27BMFrEazldXPoLVsnLbzcjXm77y/FDVfsho7IDv6SASFqqeAt63RJ
+ OemQenZ881ysTt6G5hg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310080
 
-Hi Svyatoslav,
+On Fri, Oct 30, 2026 at 10:27:38PM +0100, Guido Günther wrote:
+> From: Arnaud Ferraris <aferraris@debian.org>
+> 
+> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
+> aware of that by setting the `chassis-type` property.
+> 
+> Signed-off-by: Arnaud Ferraris <aferraris@debian.org>
+> Signed-off-by: Guido Günther <agx@sigxcpu.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-kernel test robot noticed the following build errors:
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next linus/master v7.3 next-20261030]
-[cannot apply to tegra/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-Add-MIPI-DBI-bus-support/20261029-172859
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261029152909.234584-12-clamor95%40gmail.com
-patch subject: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-config: arm-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261101/202611010236.HbsmlTpw-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611010236.HbsmlTpw-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611010236.HbsmlTpw-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arm-linux-gnueabi-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_probe':
->> dbi.c:(.text+0x874): undefined reference to `devm_mipi_dbi_device_register'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+With best wishes
+Dmitry
