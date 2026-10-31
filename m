@@ -1,68 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424464;
-	b=TW6DetZNC46dmYp8Hy032xRbjTGkEORy7uZ6JWj32ozg8fJUYeXOJcKYJjjz8+skK+yM
-	 v+8TGmyu4xKm0aqsnT2f+XTNkC4nQDSQQWBaPhAMLzC2dAI1jwHlkucZuM7jf3/+56IYA
-	 sVoOvDZIkBQuszk6bT0SqmmgkHYyMmfBSWmoohaaGo1Kl2KYxmEAmONNyqt9yjFh2c3JB
-	 KpUKiYsqxvk2tCG2r9gFY1zOvxYqgk5WR1i5iWq5MRW/lttN2+7VRJ6aTUdgfzEzF+lXD
-	 pPq8ldSgMeVQ5wwPpAIambrQEAMZY+28RkPN/od66VpzpHcTtFexM6+auzTdSiYFHkg==
+	t=1793424547;
+	b=zU5WmV0bqk2ku8eiYXjtY6XqZuwP6f5qVOJxFvx75a3QM66gVZVNVmdlGLYy3ozicj98
+	 3MUEhEmu3Xc/LLj0WaxVpWlW3M5YuHdbsaoK7ubXWFEGAsCCSS4wnQc7XMiOZOkCkXovK
+	 97WExXKu1D5UPPBRcCNTEumgoQyghERTb+a8ynFN4yQw1VR9oHdycSd7555/ke0MH5EQh
+	 HFAuIuVW6oVPysA0/Bw6e9nfj7hq1sWCD6FLWUViu7vZx3gnWtl5B2cICaUtSmmrG07Td
+	 RKpMpERhozIZsFjHzgVeb4+eg6fr5g+JxrRYP6qv8xdmZZ/LQUM//qvxmvTnT0KgTxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424547;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=RFyWw8vuZkBEx/wkkxZdiqnMcUj85ATVC8BmKduUB8A=;
-	b=kAhRT5G8+FDf2iVIg81MRg1HNbWdd6Mn+X2m0fjjvRggZA0bU7+sTc7Xsd3vvSVFDs8O
-	 NSjIspykEtxP0L1uyd2NPy5lcCjphurB7DFX7WcktySOinWl3VGCmNCL7jRSNKsyeE6dl
-	 2IMOYsPF1qdKyLYEgQMET+yRwJFKM7LULMr08yI5hstSShI+8vuFdYuk+oloodZH9Z+Xp
-	 /jgkWbJuamLQI2fcy0mWg5qIF05w9eAxnqLZ6RD693BVGYDZdjUdZR0TmGbAlzd0G8IkP
-	 nEzNBH2fRy7SjGTkwAnMJ/QE/ml29zH7WY8J4HOFCxhkVfjBmTYri07gnbhDm5XsovA==
+	bh=Vp4ntnb+XElE4TpyNxo2r3GVX7MGf+Q7eXs3f9RgFlg=;
+	b=V/GZsB/hmIt8GoIfH4nwY6CXUcJKsk8uJ6dENrQwOzw7DlPsVS7N9RXWRPuRh3oZo9TU
+	 TLfVoyZIiYQVwS89F3f0YW2GtZbO2zXZ67lL+CdBjZXepEf3eVHLsmdim1IZfib2Ek/Rz
+	 LLJ/LivSl3LjJukb190DBZBO5tx6yEOdeH/B8IPw3WKTFXW3FKHaMxdSKgricSdEnyEQs
+	 VlzKuvY0jUnBeH96Qay8zmG+7RkiUNCW1OA8zDyw7u7PJrNKjKECvOwIwi9yvIrofFnC1
+	 BFnZIMSEp/OCZXazg9YM+Uky8/dPFliK/Z+GMy1xPrd1Wo7bO06s/4qmn7DRE2MifDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pHAApBGe;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B11A606A31C;
-	Sat, 31 Oct 2026 05:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B11A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81E03606A31A;
+	Sat, 31 Oct 2026 05:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E03606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pHAApBGe
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=RFyWw8vuZkBEx/wkkxZdi
-	qnMcUj85ATVC8BmKduUB8A=; b=pHAApBGergbRPvGIMagonHssWgXT06sEZ8c+R
-	i8I52oj8pw2iSLUUkbD69SeLCHnhnASc2u871g799/jojVmTi2tYpfqu5Qf/1LrM
-	HNGExz4zLGV0+FQo0BAoy5fa3SaFBa7OeWuJGvTNzRInWFfTwFB94r60K85B++cC
-	eIxXmI=
+	Content-Transfer-Encoding:MIME-Version; bh=Vp4ntnb+XElE4TpyNxo2r
+	3GVX7MGf+Q7eXs3f9RgFlg=; b=iaQjTOt+i+y8CdLvA+KH7QLZGAn65bFxYWkcu
+	Qigaaqh9Km5juDS+QlmnqohP0keWsxfKaCbXNsh4qvwSjeNvW8LMAjxhH2Cy2RI9
+	R/C14UVoUvnT9RVc0wOEIEnxf3IlJSWCKKXnfLzFnPDbdj2M5u5ADZIAMd1Vpa5M
+	m8IRf0=
 Received: from [127.0.1.1] (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHCT46fOVqfzVtAA--.5284S2;
-	Sat, 31 Oct 2026 13:27:22 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHwDSefOVqwDZtAA--.172S2;
+	Sat, 31 Oct 2026 13:29:02 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: mdss-common: describe
- additional block resets
-Date: Sat, 31 Oct 2026 13:27:22 +0800
-Message-ID: <179342444215.451721.1758131515489182461@mail.ustc.edu.cn>
-In-Reply-To: <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
-References: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261029123238.29877-2-xiaqinghuan@mail.ustc.edu.cn>
- <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the
+ WL2868C camera PMIC
+Date: Sat, 31 Oct 2026 13:29:02 +0800
+Message-ID: <179342454262.453004.7013252409006345812@mail.ustc.edu.cn>
+In-Reply-To: <20261029-amiable-loutish-wolf-60a76a@quoll>
+References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261029-amiable-loutish-wolf-60a76a@quoll>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: devicetree@vger.kernel.org
@@ -74,68 +65,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgCHCT46fOVqfzVtAA--.5284S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1UAFWUtw48KF4kWry3urg_yoW8tw15pF
-	sxta4Ykrs2k39a93W8Aw1jyFWxZ3s5GrW5AF15KryIvay5GF4Iyr47Ka1YvasIgrs7u398
-	tw4ag39xCFZ8taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID:3pYKCgBHwDSefOVqwDZtAA--.172S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw1xur47Kry5XF43tr1rtFb_yoW5ZF4kpF
+	ZIqr1DCr4DJFZa9w4xAr4xXa4S9ws5JayDAF9Yqw4rZan8C3WftFn5tw4Yva4jkr4kWr1j
+	yFs0g348GFWDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
 	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IUYTUDtUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAxsz
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
+	ecxEwVAFwVW8WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
+	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
+	xUgasjDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwA2s0
 
-Hi Konrad,
+Hi Krzysztof,
 
-One note on how this mail was written, since it matters for how you read
-it: I work on this board alone and my English is not good enough to
-write upstream mail unaided, so I draft with an AI assistant and edit it
-myself. The content, the measurements and every decision in it are mine.
+two corrections to what I sent you this morning, both measured after v3
+went out, plus one thing I got wrong in the first reply.
 
-you are right, and I will drop it.
+First, how this mail is written: I draft with an AI assistant and edit it
+myself; the content, the measurements and the decisions are mine.  You
+asked for that explicitly and it is a fair thing to ask.
 
-MDSS RSC is not part of the MDSS block: the RSC sits in its own node
-(apps_rsc at 0x16500000 on SM8750), and the only reason I pulled
-DISP_CC_MDSS_RSCC_BCR into the mdss resets list is that the reset bit
-happens to be generated inside dispcc. That is a register-map argument, not
-a block-ownership argument, and the block-ownership one is the one that
-decides which node owns a reset.
+1) v3 has a defect that makes the "users" argument weaker than I claimed.
 
-What v3 will look like, so nobody has to guess:
+sashiko's review of v3 3/3 is right: that patch enables i2c10 but never
+enables its parents, so geni_se_probe() never runs on qupv3_2, i2c10 is
+never populated, and the eight "*-supply = <&camera_ldoN>" phandles in the
+same patch point at regulators that cannot register.  So in the upstream
+board file as posted, the consumers exist on paper only.  v4 enables both
+parents in the same patch:
 
- - mdss-common.yaml: resets keeps "minItems: 1" with two array entries,
-   MDSS core and MDSS core INT2. The RSC entry goes away, and the
-   commit message says why.
- - qcom,sm8750-mdss.yaml and sm8750.dtsi: resets drops to CORE and
-   CORE_INT2.
- - drm/msm/mdss: unchanged, it still drives the whole array from DT.
+	&qupv3_2 { status = "okay"; };
+	&gpi_dma2 { status = "okay"; };
 
-One thing I would like to flag rather than paper over: the reason RSCC was
-in the list at all is empirical. This board is handed over with the display
-block running, and on the vendor stack both a warm reset and a cold boot can
-end in the same panel-init failure (command DMA timeout, L1/L2 error
-counters non-zero). Resetting MDSS core + core INT2 + RSC is what makes the
-failure go away on that stack, and I have not yet isolated which of the
-three is load-bearing; I have only ever measured them together. So after
-dropping RSCC from the binding I will re-measure with CORE + INT2 alone. If
-that turns out not to be enough, the RSC reset will be driven from the RSC
-device, where you are saying it belongs, and not from mdss - I am not
-proposing to add it back here.
+2) What I can show for the hardware today, stated precisely.
 
-Note also that the reset ordering caveat from the cover letter stands
-independently of this: mdss consumes dispcc clocks, so dispcc has to have
-programmed the PLLs before msm_mdss_reset() runs. I have no measurement for
-"block reset after the PLLs are up does not disturb them" beyond the vendor
-stack behaviour; that is still the open point, and if you think it should be
-answered before this series goes anywhere, say so and I will hold it.
+On our own downstream board DTS (a much larger file than the upstream
+submission, which also enables the QUP) the driver does probe and the
+regulators do appear, measured on the board running 7.3-rc7:
+
+  geni_i2c 888000.i2c: Bus frequency not specified, default to 100kHz.
+  [camera] loaded wl2868c-regulator
+  /sys/kernel/debug/regulator/: camera_ldo1 camera_ldo2 camera_ldo3
+                                 camera_ldo4 camera_ldo5 camera_ldo7
+
+with camera_ldo1/2/3/4/5/7 at 1128/1288/2816/2824/2808/1800 mV (LDO6 has
+no consumer on this board).  That is the same wiring the upstream file
+describes, just carried in the vendor-shaped file.  It shows the chip
+works and the supplies are real; it does not show that the two hundred
+lines I am asking you to take bind, because they are not the same file.
+
+3) On "I still see no users", the honest answer rather than the
+   convenient one.
+
+The users are the camera stack: s5kjns, gc08a8, gt9764 and the CSIPHY
+rails, eight supplies in total.  Their bindings are not in this series -
+the two sensor bindings were posted separately on 2026-10-27 and are still
+in review, and gc08a8 has no binding posted at all.  So the board file
+cannot be complete, and dtbs_check cannot pass on those nodes, until those
+land.  My reading was that this is exactly why the regulator binding
+should go in first, but I accept that from your side it reads as a binding
+with no user, and I would rather say that plainly than keep shipping
+sensor nodes that cannot bind.
+
+What v4 will be, if you want to sanity check the shape before I post it:
+
+ - 1/3: arm/qcom.yaml registration plus the binding, unchanged in
+   behaviour from v3 apart from review comments.
+ - 2/3: sm8750.dtsi, the three DTSs split out as you and checkpatch both
+   asked (this one was mixed into the board patch in v3).
+ - 3/3: board DTS with qupv3_2, gpi_dma2, i2c10 and the WL2868C node, and
+   the eight supply references, but without the sensor and lens nodes.
+ - the sensor and lens nodes move into the patches that add those bindings,
+   each arriving with its own binding and its own CSI endpoints.
+
+If you would rather not see the regulator series again until the sensor
+bindings are in, say so and I will park it - that is a legitimate call and
+I do not want to burn your review time on a series whose consumer side is
+not ready.
 
 Thanks,
 Qianhui Xu
