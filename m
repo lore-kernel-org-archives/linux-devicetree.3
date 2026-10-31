@@ -1,72 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793443648;
-	b=LFwmOeYcAHLLD666Y5HA3UvacbVXqWlpgQXYwIkeHqHbiwFZpYXzCBb7QlVFvN727DbV
-	 vlgyzQZoHcZHlrLxGttCF2PLNYS6W4ZRRsmfx4TAWlAis9kXjxCCq1l3K7O6RZYMHKzPN
-	 m6NyqgZjz557zox/8ixhJq0B7VTEZDdKA/BsDzEZ0/ZxmBxGdLDpJ7vmdNCxQpnxrpMND
-	 ZRN/iESabDnfo/7Bjh04xuZE6oF/9BO/IpuFzjEAMdygOChSzkJLDyGIQ1vGY+EUN9E1g
-	 URCFeaYij8LpUPh24moIz4O+g6uQgNHrgI1m96QA2wj+SzapfQ7tTNTuiZe1cS9XY0A==
+	t=1793445744;
+	b=hzxXJcesVeeMlNwLKsl1iWT6fbmGv+p5hTTcNaMD8dakSRd7j80HrZ09ak3cIj0EsiHJ
+	 z3CoNzG6Za0isxPfK5egNMg03ZIdK1Txr2Qlc9Mcd0QeSfovM1gi66KVfzuG8jpTy51EX
+	 wbrv9/3oCEmzeWHXWwOsyCuIkrUB4o7HxdLes5OdvOLzDraYI+ksksQ8JIOQD1wihIVRb
+	 Q4Z4Sw7QU4oPxc5w2rtq5LCoIF3tUb/RqRMWSAnt6Fj617U950L1NxvbxkseJ+tYeA2Ny
+	 nZRMiJy9x/OdtL8GlYYs6PIK2+8gPK9mKgxhpZzGpPMPGN/oSfS4OMOmtO+V8RPwd9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793443648;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445744;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=iucrU4+p03FdCSZRLTlZqxKot7H9SPLlZsWdSw2qG/I=;
-	b=D85My2+Z23/aBdzlKe1+0T5wJ0qwyzdULcHkYOGyeeCBTXs1g99cqLSd60le9XFwdSrg
-	 yE8j1PKMH7Xng/CvjbRuO1SDINi7Z7RObPPnZ8uigvozQyjdLUtvj/TcuTm07NklM/9JA
-	 bVH8ydV1kGOkG2uT3E6VFMQksPyehxeRtCQK8Sxh82WdcUv/FjZe66g8PuN5WV3+fcba5
-	 A+jB+RO0/Mk7C2NJAcrt9VY5L6uzufOVIa+35kK0/G/UZFhdDmOdaTkLJZIyg9rj3FihU
-	 +IsUj24FW3TL6Zc458nzRjm6/jCYxV9cwMbyBcn2oEMZOato83cuZV93MheQY5Vr7mg==
+	bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+	b=KV6TO6/tYvy/eINI/HDlizSGqbsZVqHjr4geO0Olo8zUMNcW6zCOuzmGSCiPBE4BuN07
+	 zwepR/Cb4PtNgsNyUMRAzRRkNi1AGUZxXNDtXUYCVNkRmsRBHuG30Fge2fRVzZZ6vJI72
+	 N/o1LfdxZHwji2gTuRV1gTldvEkgAg+9x782DmA8RzRAEJQBZB3K7g/wTqoWn6NyPrj+n
+	 WnkI/4hxCp8LK3OdgnyhKDvEIGY508cKSlUA3tHNNLLlmH6Bh6TXAjECR9tLOJCNuJbcH
+	 0L6fpXjE3rPwQx4Xu22a0UO9qD/JQGsTXZxM3PS5Oce+YVh/+BAFvOr+azW9xrFfeLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=P2P4M2Gl;
-	arc=none smtp.remote-ip=88.99.92.76
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uIFEbeX9;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B62606A32A;
-	Sat, 31 Oct 2026 10:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B62606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6DB606A31C
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:22:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB6DB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=P2P4M2Gl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793443645; bh=zziT8oTPD4AQbDCFBxBFdylEyOghbRAb6UI2zN+f59c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=P2P4M2GlSWdaSPg6pGYMiB5IyL7goD5Ic+AQcYkTTBGyP7FRVCG2k7PMGWDxoVhs/
-	 pBogQxOa7SAJpKIYKSnpCCpysr3j+DNe28o1Pg+OTLSd9yxKEvL3Aq/2ZKpKP46+XC
-	 ZT2xJ8hMHy8cadJ2JpWcbUc/ntkvtxUB5cm6u5nkI6XfBqWwBheOSFH04XIS1qgX9H
-	 iQnqR/VYl1z/5TFkQzOHp18xG2AuLeZqJ8DOT6FHay4NOrfs4C1riK9ZQyC30nApft
-	 BowFsqx5fwBiJMoNqFvUzmWOuesora48+/t6ACv8txvMiA2bZZXSp62RFrYMomc5/j
-	 UF1eJZEcR2lzw==
-Received: from nbf.rojer.cloud (unknown [85.98.52.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 10D8D2168D;
-	Sat, 31 Oct 2026 10:47:23 +0000 (UTC)
-From: Deomid rojer Ryabkov <rojer@rojer.me>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	jin@mediatomb.cc,
-	shawn.lin@rock-chips.com,
-	jensenhuang@friendlyarm.com,
-	Deomid rojer Ryabkov <rojer@rojer.me>
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S Plus
-Date: Sat, 31 Oct 2026 13:47:14 +0300
-Message-ID: <20261031104714.3271017-3-rojer@rojer.me>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uIFEbeX9
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab30d04674so2242431fa.2
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:22:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793445742; x=1794050542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+        b=uIFEbeX9KYrdDJbFM6EJhXmfhbfOk867XjudZFcF/TcyOPe0Qn7h/XCsLfXT+svrik
+         V+dty+BAvcNKWDygTdJ3ruXIq9FfDAC2v+ZHefLofDvTyjE2Ow+RUYNQlzAcLEvTV9oJ
+         QCTTso3sK2UOGHrPPhxP3JEcpiBiO0IpDkJAzD0d+8JsJ4hkcKhO7WPmMZ9nbH+bGvTw
+         Z7ONptNZpKgcP00Bhl4Iul2v+3POyO67xGYptvO7qTWtB6WJPt5fBXhWUhSfBb0ty+BZ
+         8+Jp995w22U6HQEs/AA6uxvGx96hNq6W4VIQu4y3UPKi/1XcU73KR8QoEcmKezhc7Mhi
+         bxOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793445742; x=1794050542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+        b=QavSo4nluefNsqmgcgBFdOzp7k7RhfofHAIlV36Zib5umwx+Kaup8eRH/f8TZDk33m
+         uuQduVorLfXbl6UfD15gXMXHbk5W11GgiCK7tLllAuXeP1FL0nPosb8+tdYzPHbr/2Ta
+         gekFIcKgMlh19bm+G73d/shr8W1X8eXWL0x+RzhxrUjFqBrqVb0MQ7Xn1vwXqtSTQLl+
+         OYOQ8sUIuZpC29My88o2/Z49uf87C3x6Wzr1aPjPGE4Ho1DYcI5Cf/v2CIGLZo09X+wa
+         eaJDIXvZe24F2K55pMBsUIk+xEWE7qCeTMTw7Mxd9kWAyL6krT/+qWF7MSNLPQReGQxb
+         /Z/w==
+X-Forwarded-Encrypted: i=1; AKwUvByipHbGhY7uKJkfeKoJjufm6QVw726xAJ+qXerusVgzIVsNJ+uLtPX68CPQQeMcex1qEm7UyvMUM1em@vger.kernel.org
+X-Gm-Message-State: AFq9FYKN4Nfs1r3j1OH9ASdlTN4upuXevXslxqCL/OHVe5oGGmxdbhuA
+	WeEybFVXvT+drfsjucONSC3blB+kqcvosvJ4+F8eKsMEssAZZ8D74CvR8gqWKi9AYJTaAj1BtVw
+	NJt0HAfE=
+X-Gm-Gg: AYBFou09ePlX9SVf8/XX8WXFcvOnpjB3rBYyM/LhWGzM8m2K+IWFYLxMMIQp3uLxs7t
+	FeYpI+XZCy9JKbQuk+Uee2zUbfw+qujREO4WkutHmXOLYQtxdMU9xBUdmaTDBYYuC0hA2RCR+lS
+	4Py5TbdOMXuypadSu1Qqog8rvd4riMnbqSgXaHaksiExsvpmu5wOLsIBI10vasNvO5XK7Hs30qa
+	fxLFC5BMr+JXNsCgdoF8D270N3/4cjv/lPx1Skpl7dI2gh2VIquTzAA4FZTcPJuaAx3oeI3PRNF
+	mWRgq8m3TMkNaNAoFjptm30sJ368D+IL5rGlyLfsIwm7ZBCUAm+iaxNq8yNSnpbLXdrCtIsaLdL
+	gqsM6P33T6cvewRk7Bjik9UkQF0z0zr13eYYnBgQ0LaiXgg5FamLRQLM6rbPwMKiTrC2BDAjBlR
+	CLZNQw9NZOA2kHz3EEtiC7+IaR49VYH+NXraHlfEgDuPsivNY1FcJQ14Xp2zRYnJNSWCjb6IIMs
+	YIM7dU4gMQdBb80FlJHlmIdUpyBdawnkzr3fpQoTd068MfcLy+rNh4rUqBJTbY0dw9RXjSNVSNz
+	2V01GkIrIoHj0aja5YKe/nNEaGnLRkEPK7HmllbxHDcO1N6mlAEtjulprFm3TzcAL0CjGZz+4gU
+	+HXa+A51E8IKVuHw=
+X-Received: by 2002:a05:6512:4607:b0:5bf:ce1f:cd22 with SMTP id 2adb3069b0e04-5bfd94cc517mr1665400e87.0.1793445741887;
+        Sat, 31 Oct 2026 04:22:21 -0700 (PDT)
+Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 04:22:21 -0700 (PDT)
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/6] media: qcom: camss: Add SM8650 TPG support
+Date: Sat, 31 Oct 2026 13:21:57 +0200
+Message-ID: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031104714.3271017-1-rojer@rojer.me>
-References: <20261031104714.3271017-1-rojer@rojer.me>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,103 +108,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
-controller in 4-bit SDIO mode, where FriendlyElec fit an optional
-Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
+Qualcomm SM8650 CAMSS contains 3 test pattern generator (TPG) blocks,
+describe their register spaces and the non-real time CAMNOC AXI clock,
+which is needed to be enabled to get TPG output written to VFE.
 
-  - SDIO signalling at a fixed 1.8V (VCC_18)
-  - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
+Interface to Qualcomm SM8650 CAMSS TPG v2.2.0 is similar to the ones
+found on later platforms, hence the functional change to support TPG
+is extracted from a change done by Hangxiang Ma for Kaanapali:
 
-Enable the controller and add the power sequence. The SDIO pins need
-8mA drive strength for SDR104 tuning to succeed, as in the vendor
-device tree [1]; with the SoC default of 4mA no sample phase works.
+* https://patch.msgid.link/20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com
 
-On boards without the module the controller gives up after about 0.2s
-("mmc2: Failed to initialize a non-removable card"); nothing else is
-affected.
+Hangxiang Ma (1):
+  media: qcom: camss: tpg: Add support for v2.4.0 TPG
 
-With the mmc core change for the module's CMD11 handling at a fixed
-1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
-rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
+Vladimir Zapolskiy (5):
+  dt-bindings: media: qcom,sm8650-camss: Add test pattern generators
+  media: qcom: camss: Skip TPG if its registers are not described
+  media: qcom: camss: tpg: Support TPG hardware version 2.2.0
+  media: qcom: camss: Add SM8650 TPG support
+  arm64: dts: qcom: sm8650: Add CAMSS test pattern generators
 
-[1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev24.dts#L144-L172
-[2] https://lore.kernel.org/linux-mmc/20261030142224.3183407-1-rojer@rojer.me/
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
----
- .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 55 +++++++++++++++++++
- 1 file changed, 55 insertions(+)
+ .../bindings/media/qcom,sm8650-camss.yaml     | 24 ++++++--
+ arch/arm64/boot/dts/qcom/sm8650.dtsi          | 16 +++--
+ .../platform/qcom/camss/camss-tpg-gen1.c      | 24 ++++++--
+ drivers/media/platform/qcom/camss/camss.c     | 60 ++++++++++++++++++-
+ 4 files changed, 106 insertions(+), 18 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-index 6ba4a74cb1f..a25421f5851 100644
---- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-@@ -17,6 +17,15 @@ / {
- 	aliases {
- 		mmc1 = &emmc;
- 	};
-+
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		clocks = <&rk805 1>;
-+		clock-names = "ext_clock";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&wifi_reg_on_h>;
-+		reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &emmc {
-@@ -34,3 +43,49 @@ &io_domains {
- 	vccio4-supply = <&vcc_io_33>;
- 	vccio6-supply = <&vcc_18>;
- };
-+
-+&pinctrl {
-+	wifi {
-+		wifi_reg_on_h: wifi-reg-on-h {
-+			rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+/*
-+ * SDR104 tuning fails with the default 4mA drive strength, use 8mA like the
-+ * vendor device tree.
-+ */
-+&sdmmc0ext_bus4 {
-+	rockchip,pins =
-+		<3 RK_PA4 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA5 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA6 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA7 3 &pcfg_pull_up_8ma>;
-+};
-+
-+&sdmmc0ext_clk {
-+	rockchip,pins = <3 RK_PA2 3 &pcfg_pull_none_8ma>;
-+};
-+
-+&sdmmc0ext_cmd {
-+	rockchip,pins = <3 RK_PA0 3 &pcfg_pull_up_8ma>;
-+};
-+
-+/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS) */
-+&sdmmc_ext {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	keep-power-in-suspend;
-+	mmc-pwrseq = <&sdio_pwrseq>;
-+	no-mmc;
-+	no-sd;
-+	non-removable;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_io_33>;
-+	vqmmc-supply = <&vcc_18>;
-+	status = "okay";
-+};
 -- 
 2.53.0
 
