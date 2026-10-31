@@ -1,45 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793445936;
-	b=qfslSsYaUVo8sjlFPWJqU43dnsNnGN4E7vmlQeQrn1WSAoczV3OHuvfRs3NYMsak+7xv
-	 BVKCD06hWULRXLepopiU6WDIebJmo2REYExMtyhyUYggivCLGSSNccknReL78AqcE3RVz
-	 sclvPkGER3sQ0VjNtEl86eXj1f1+BoayrMSgD9OIdP5TjlyxESfhQ0qp6ofhahzAglwP+
-	 nqtHB9BLhp9DupP3hjwIPQAi65wHh1LJ4twN/D2pr+e/nB1S+4HlL6z7ZT8dbqqnVwaTl
-	 mKYOWZgmZgm0xuvu8SFw+K2+1oqFxHfBfHNVMUKj5Y8fFgzNHkRgGE6S0TYldRcCA1Q==
+	t=1793446019;
+	b=Bb3BveqXV5RhsvNGFVLgHLo0jxXrkB0Xh21peIcxts76hFoGxq68QJyXNBSJZWurCs1L
+	 ieJ6sIeNE1rc19iJMi1nr9SYBubD7zjMD+FOqFpIqGsbxkb+c7w0Olz1f2AfcbO2rt+83
+	 xSuNOZapexzaPlEIqTTSLx7+vjCreFXkGSy39xv72MMCadsrIwQ7JNoqnC3Zx+8Vf8gLt
+	 8oZpJUc+7vqcE6CZ3r+GiDdWgQAWXiR4yjpQdGpmGyrYjzmXFFPGtMkJvXF25sW37mC+3
+	 +m2Q9BqfUfEnCTSFACL0XjJdrAI9z23NH0txtxJD2RfOReQSR6mdwP3sx8PT0jCVEdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793445936;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=InhSuQzX2Qo4hzloq59erNG6ntibb9DPk76qmN7oaRE=;
-	b=GiVlqbj7vqZBEUD6LJNWhKw/dBRV+M+VQNfjDX1XnBZcmD5VZGg95/4w9bw2NgxcSeqN
-	 DzPdDVj5aXyoUdmOuGlyBfiL2OdRNU/pIzui3r2XDv7JvaknIbbx8zbcuKKQz7ftTDf7V
-	 Q58iI0yQqX3CVFqsAx2WQJJJLHgGP4pT0riXKTPn37Nj4J56UQCUwF4fOi8OiYE+FxyF3
-	 NmguzZ7FlrXgjtRpA2XXrmCv9dsrELbwjlIesiQySpFGrSyb+DHto7S/H17xdM69afS43
-	 q3hTuDEoy8BrPIFE4MrQkVZR2Do33a4RgHmatTwNVu5U3fA/CsC8D4tnpFArp1cLnPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793446019;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
+	b=u9pX/1PMtC5P/nnPUIRNuDM0Zlik46wTFesTHL1G6mR0lW+65W3wBQE+PccTajPGioUW
+	 3k1r+3oiq6F6wBhIgHqA0TOXeMJjdMv0rDeUhsBGY+9sHa6olPCpIe7zkRKqlqRv/5N4d
+	 arxp6siyPkxRpGK/mtuJEyC/kormgYf+gPguKBlHvPr37lL4kUtj1MwwM4UdiwZ2VusRS
+	 MY6Qr2IwCiUclw2+sfWws1MqMZC+uoRF/tBjYriYTHnNZ2lL/Jsug2FgSYid2kOW+zv4U
+	 wmWzUcM3BiHn02BeeSZu+ri7pzfHWfdRBSut+Sw+G5GP9we/6GsETk7XWMPuNLogPQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i6B/eEnT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOHFPiJv;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43F4606A31A;
-	Sat, 31 Oct 2026 11:25:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA31606A31A
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA31606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6B/eEnT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0B91F000C1;
-	Sat, 31 Oct 2026 11:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793445935;
-	bh=InhSuQzX2Qo4hzloq59erNG6ntibb9DPk76qmN7oaRE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=i6B/eEnTkVci7ph6JquDygoTschto3B+lsxrCoZFx3JQhbEr90uPF/4L8GaiPaQ53
-	 SDH/nIjrSQ34mudAi38FUwcqsOSDHdPg8cKCF4JXpXFprxO3K5250D04sCnWQmDC/v
-	 cMlnpZ6b7L4dSuPdam2aw/A1bALtfq3wceZSV7+ykfrcmK4liH+ioeSt/XZuz/iOu+
-	 3Xy7HECf/R1xsSLc1GweUyDk38Jyk8YPuoTEGTZbM0usePOIIrWE3V3cOaWOQehzcx
-	 N7G/o3ll8CSHr8ZupBPxbJrmm4ZEqOyTBoe3pIvp2LRc821lYkiWCdsNMr1twA0IFD
-	 twmwXOz0W0rmw==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOHFPiJv
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1007885a91.0
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:26:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793446019; x=1794050819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
+        b=OOHFPiJvJJp+Y8vZjZ0nvwcq0VjDLqEY0recjcf2GspS9dMsfqZlPeR5uLbH1VAgb1
+         ImUtA2/oSWkURP9z3Ve7mYKAlbqumGkxj/mVlnRC5F40hh32RIdYXwz2u1Jp13G2qiJa
+         h3HAWvRG/fMz8z2Dg5dYecnZT79LHQ3HlKAGcmkhWRBWng8CStQ5BcH/sfce+uAl93i7
+         +hM+NRY3XYz1mXB/sj9jwPhtimenwm/WVCClkuoROdDITpbUakuSFRdIHeVtOS6etuXq
+         XEfzvrhDSPYLDX6E8gsuC7AXrRKXu+QT3q5f4n0h/Wfsm9VhHcEIYA6mCncBZErfpBy6
+         Q49w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793446019; x=1794050819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
+        b=qXU5sRWkxBMCKXduE70uKOcaoSlgbiODtLDj2exQecPlXVoJFMu8b4NKlsfndwv4If
+         vRFAxb7g9YBbmn3xQUFSouvLsA2y1A97FnvbXyOH8BWHIqpXP+DBvJt8HSZyLmk/aTsq
+         fTzI7mH52BY12nWGy41Y6CwitTcWuj7GcE1c3By4BdehN+QiWaOUyyqFcBhqsG6xzvQ+
+         vepB/iR4f5S57OEWels+FHQTYn7LdOrDEyKRPteZZPDo4zSO4XUqRABaUXLUYBc9CxCv
+         ZD1fChzFMJmpdE1jSaDfkhr265yn+mES1rCqPShNvoitjIsHFFRnpPztqt/T+i4krvmk
+         78iA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrYKfRCtkxqSgPLLBORbS2TW41XyS5kV2iOGIvCxj//Bk6Xm117LfTfblrgJdR2m2XFt2hojzrd+d5@vger.kernel.org
+X-Gm-Message-State: AFq9FYLByeiAANkkblEf4GHcvoSrh7FGQoKCxXvzBCEfEC6gKRTLxoOk
+	yZCOWuOXVo1Db/H7g8XDlCuhUUhja5kKzX0f9YBXlZBE2JatHFh9ioBa
+X-Gm-Gg: AYBFou34b7zaR6fpj4PAbXqx8+NsGndd4RZR0hkNly707vfosR1cS4cKaQXmnUafFUD
+	v3yZykoCImOMceyM9ulKbnMF9jO3O/zxm7AbqKdhej+LJfkHwmYnoabMNrsWX49G47lm/fvPn11
+	GvaGU6tB2R2hMCzyOnWYxNa/XoAfeiRnEBcWbIGiLQ/7wgj1xtQF4WuxkpcKw4FWj86VwO49QHQ
+	jzAnIXV+yHG6xknBYYoV2drza0Gwe8pZG6v7v9L28oVzWfI9ahJ1uZbsW2mhTlDTu1+nr3jdyGp
+	g2PMW1jWfpR62MCjPJyqDeHqxp0VK+AgmYEJ2iwd2IOxgwARNNkQpdJhNLneP1F0SaFInvD/F5x
+	0ndVK2+oomT+GDsoQ5Jtnj3A9/lXRkIUjHT36gUPKJYA/drObYk1sCDynCgCkjzlfE0BWPY7Itj
+	rFt37fEA3WmcVmpgsjqmZyRvHkdCNSkY8AnUuBlC6ZeQnTupi0uc7ln2lLx5IEMkRLxmnhB6lxw
+	ncTAQFbQnvwR2TnlJFBzBFNYmOc79xA+QoDh2KpUNvBpD6z551MO6VShU/PzuBzP5Mq1we8WoCM
+	IZrBAWANN1ehmjKi1mSbng==
+X-Received: by 2002:a17:90a:e7cd:b0:3a0:8050:2ec9 with SMTP id 98e67ed59e1d1-3ae897ccf9dmr3920644a91.16.1793446018866;
+        Sat, 31 Oct 2026 04:26:58 -0700 (PDT)
+Received: from debian ([169.211.140.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fb2fesm11638646a91.4.2026.10.31.04.26.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 04:26:58 -0700 (PDT)
+Date: Sat, 31 Oct 2026 07:26:33 -0400
+From: Kwanghoon Son <asdfkwang@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <auXQaY25XfYzxEb1@debian>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
+ <20261029-amuser-savior-6a6ab062f471@spud>
+ <auSDJH9V31wmbrYv@debian>
+ <20261030-slider-finished-360b10521e0b@spud>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,58 +123,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/3] phy: phy-snps-eusb2: Enable AHB2PHY bus clock on
- Nord
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Taniya Das <taniya.das@oss.qualcomm.com>, 
- Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261008015017.3359804-4-shengchao.guo@oss.qualcomm.com>
-References: <20261008015017.3359804-1-shengchao.guo@oss.qualcomm.com>
- <20261008015017.3359804-4-shengchao.guo@oss.qualcomm.com>
-Date: Sat, 31 Oct 2026 16:55:12 +0530
-Message-Id: <179344591278.3206.14914499205414660912.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=880; i=mani@kernel.org;
- h=from:subject:message-id; bh=Bp1eeyBcx+/7p6XDs+S3rrhEbdITENP1L4LWuigshjo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5dAmP5TdPemkNJ04zPS+Yo66I6VmLu2tFaRCS
- LWaWlfg7vCJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXQJgAKCRBVnxHm/pHO
- 9bYdCACmxdJuvqCRV6gRbLPk1KZkb800xMyYIZeKXr2Xy1e4Z2N3HR4sFSOek4M0mSQZtupw2eT
- QCery+34debBBQcbJN+9d19jjlz/x92YdGBuKkfp6EU+ARVD3XuK+FMtt1QK7lok7DSs8Grtdep
- wUzgDi6E9XDUU8WcV+EVT//B9rjR03gP0XKUyMiB3bByweCXBKKeuvhUGd+dxLXPRCxODNd93p6
- eft6ApNaKw8oqvYmci+2bC6PRCDIhCi8A+18kvlEH53TBKeOnjW4nKRDXqoh3NnXq2lGBz65zhc
- xklKiDrDSz9GRmNzQHD/MUtDNGKZ0ppmTo0h7u8P5ntfQbAo
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-slider-finished-360b10521e0b@spud>
 
-On 2026-10-08 09:50 +0800, Shawn Guo wrote:
-> On Nord, the eUSB2 PHY registers sit behind the AHB2PHY_0 bridge, gated
-> by NE_GCC_AHB2PHY_CLK. The Nord PHY currently matches the sm8550
-> fallback, which only requests the "ref" clock, so the bridge clock is
-> never enabled by the PHY. When nothing else holds it, e.g. on boards
-> where only the USB20-only controller is in use, clk_disable_unused()
-> gates the bridge and PHY init accesses go nowhere:
-> 
->   xhci-hcd xhci-hcd.2.auto: can't setup: -110
-> 
-> Add Nord-specific match data that requests both "ref" and "bus" clocks,
-> reusing the existing Qualcomm init sequence. The bus clock is enabled
-> and disabled together with the ref clock in phy init/exit.
-> 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+ 
+> Okay, that's good - but that's more of a response to my comment down
+> below about splitting the entry, not a response to what I was asking
+> here about the lack of a git tree. Are you going to send the SoC
+> maintainers PRs for this platform or were you expecting someone else to
+> apply the patches for this platform (IOW, me).
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Thanks for clarifying.
 
-- Mani
+Could you take the BL808 platform patches through your tree once they
+are ready? (If that you okay with this way)
 
-
+Best regards,
+Kwang.
