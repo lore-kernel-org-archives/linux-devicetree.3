@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793403238;
-	b=l89jHDkhir8Ws7NpEaJvRTnMxKKwpDtIXkCXT3b/3GylSICz0skjTCbgPWcDCCOpCCqf
-	 dLLtTN6IX93iqGVJ3m8aKbZZUX0j9PZ7yT3X5d46WIDNBI1b+MvkgNEKWNdS0pAna0gcC
-	 1DjnZmqJ1ZV+Z2quwMcJkVoMWjUwH/CfXJBxfvJosx2SjU3GgsXp8v1D3iHW/L7cAt4nF
-	 A17DnfFhXeXm3LBxua6T2g2qayNtaYF+5hgqs9gAiyd+Hn7DFRdx0nzhoNyCWebCscYFb
-	 G9tL22AwuzHIRN3fWPGCFsf/dGDdKuQyCuWhGbJePJ/lKEaffwgZYg5Wu5MYX3vs4fw==
+	t=1793409389;
+	b=SqTpZgnxURFhxH2a0vEnI7WpngbY7/rA7lNPGYQtcSVUqJkwpt7tAb914NYq2FNRYS4r
+	 zp2oZm50PEZg2PBg0Asr4Ev6t3Jfug5S9DRtdXrX7nIUpDv2zZIO0qJs9erez2dLHItYN
+	 fg87kB6/hXqw6ILP1u7XiobvJHB1c9+hs4GU7Pts6w2KXtWl5wqq5khmJPNvxbalmFwe+
+	 7tJNQ5GCQLqggXb7Z4B23KiNLNpD2FMY7ittmPiKTg4p0KTZQzU7ESJKErqh+O9jj0JAr
+	 zfFa1GD2p4q5fOEMCLvMhl27fQbIjOQ33V0gMsmJCOg7LDjJvC9/7rUeDgdttLx75Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793403238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793409389;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=uYpqsAQ9OY9DsYZMcCG2ZubulWPZAxVNHKqjmPqUy7A=;
-	b=NL6mxagjsUlMbqVU7Py3jHW0LM723iWFkQy10A5FI9SjeHWmGJw+OOJazq3RqIwY0JlT
-	 k5mfvK3AS2wAUvoq6Z0FHfXOZXZs90Zp998TzN4C4kdYdd9jl5HM39QcI/DJCe1nitw2I
-	 8sj8+/vBI+Hf3MlzNxCBq1B1d5lzEY1UTsZiEpQTweowc1kFgkAcoJOmzufOAdWp8blg0
-	 0UgnM469mpMwPLNXjk9c0EIpqeErUZtg0yqlMcv5dcqbytTHMvas75tAiRGHSZEjac3x+
-	 dIYOHPCVjsc+TywxYqElPvUkz6R9UnqSIKM1pKq6kCWuhWKZ3xyIqqVNxd4IufNcNvg==
+	bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
+	b=cvLQMLBIlXEsXExqRY/AnsJ21Zcs/O3/juteQe/QMiIWch2KNXUgicX7qKTrh9choXGs
+	 CPX0TxdCuHQri04Gl8bWao1SQdgjJI/U0Eq+k8cF3zJoBoQZHlry1H+YhVrUjoudnxwOJ
+	 D+qWi1/7Jm/YtecL9BNWAEbJBePAk4wkrIVwiA+yI+VzvOpFVmBtX+Zhl0elaredB116K
+	 Nho4z7ynrVqg1F4jDq88a/Q8Wt6svhvUWew1YYDzE4bBV7Gv2YPPR5wn1MdhwV886NfqC
+	 RHfcacOrpD1WPkh5l3HGVrWyahDFJN3XH2rSC2XsnsYbKwZkSReX6skbfJbPlNAkWzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LjklpEUY;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="AIUUL/yI";
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDCD606A325
-	for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 23:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDCD606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FFA606A31A
+	for <Devicetree@vger.kernel.org>; Sat, 31 Oct 2026 01:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6FFA606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LjklpEUY
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso203896666b.3
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:33:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=AIUUL/yI
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c414e5d282eso162584766b.1
+        for <Devicetree@vger.kernel.org>; Fri, 30 Oct 2026 18:16:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793403236; x=1794008036; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793409387; x=1794014187; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=uYpqsAQ9OY9DsYZMcCG2ZubulWPZAxVNHKqjmPqUy7A=;
-        b=LjklpEUYET/A4c0xwT0QNvbW8d4g2RS/qsOsvEMLbC2SjSeecp8Nhq6DRUMH48am5r
-         J0XSst+mHEXUbTDijrSxauVCnu7J4uUA43da98/SuUSR63hXqOBt5lSPestHKz+6Kchr
-         atWsKA3AdqHP3sQnEgtuY+07rXgomqcFGLqxY=
+        bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
+        b=AIUUL/yIVye6U7If2TA4tSfKVabhzIF8xDam/YDUGKUdTBv8Nk7fiyoVeXMFIifyg3
+         44nTtkwpzTdzdnZFk1YdxmFjjgtomSWwPuCIupkDC0AKUFDoJYymMmit4wcqShgnHquU
+         nGjcaoJrIB4Dhu+QSqbQKjsTbnMLP96kPw760=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793403236; x=1794008036;
+        d=1e100.net; s=20260707; t=1793409387; x=1794014187;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uYpqsAQ9OY9DsYZMcCG2ZubulWPZAxVNHKqjmPqUy7A=;
-        b=ZpZLmxRWmIxiVreejTCTZdgj0KFdC20pllmuZUfvlCVj1m2xsPf1zOi5XoMKHt1zNT
-         sdAy6uCeTi6wa5HTDP/Illc2rKarbJf94z2rg9/uAXQU7TArI1vDohg2fdtlaDNN5kCW
-         fgMnH4+a/0FI8JlNt7BRLmatNddacrroDxdZT8rUIvveL6kK9uH5q6nhe6ZQSiz1NeSm
-         LkNDLwxgXMrmg+CxCfida/fby1gS8NSpvo7O5FwuMyE8tIHfUQXb2/rRYIDavS3ZQJrA
-         UoU2ngAY4ODYSljf9mKQ3YSJfgIlp3CVFWTZ+uCyVnLU6+bRwi0IaImxbNPp5v3i18Y6
-         6vJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZdV4xSA5vZR2z3U/erAQ2rIg9ZFjhhJ7WqtUq4ahP6yWQxjiBH82wqxY/xDYHy7d88Wub6ZFOaLMM@vger.kernel.org
-X-Gm-Message-State: AFq9FYJp36+gmplXCp0gGc0kK0oKi4CS3FehxQCqSULMiWuZvQ5HhTGn
-	YALqRhcVJxv5D+wgB/YOXdYpKX0YZCyjD66oJrd1beJ3QS7VGz6WffMCmiPy2j5LeFHaW0tvlY/
-	E/avqtQ==
-X-Gm-Gg: AYBFou2gXmEE9INmKwJzieI1AjYK6OM6fqdIMzgsjq2tGYphJcx8On8O/qePlZp4Irl
-	My/WMLnh6iUbcLtSVAQT+P8hxdIU0TQTmkR8THY8nUKOdkP3Y6bBULT9uxbBNRxOdEyquYC1WLD
-	PWKmq/5xQIzmatQK2i0EUvMAlHJ/RkHi+wtC5cmF0jiVedZfS4QTw7ccbxxLdSiVOPwX6yT0NgN
-	ITIT3pzCU9x+P+9CXBE6vQJhuxUGfg8ZM2BHseF51Iixng2SPjvpwFHapSLrNQlyT+oj90C4yIQ
-	4dlFQFYSf3ghvrfcNCqZaOE3Wycxe3AbEe5ds2rj/cfY89Cr/7l4LUVcF0zStxX18g+H0vLP0Tm
-	33xLRzgRaMDfW1jPJ2CxHSOeqyLTv8x0IP2ANQOeWZSE9Em5iDno5P7EfE2tYv0RnuGucy/FIyg
-	jOZrXJTssbttYVgX+B54ETRa22xCLw00dwq3JwSn4zXG7B37WMP4/H4BjhOcv2HhOTx0PxhllKu
-	Sei912XsCKbDWdTLjGKY+T6bzVd8BFfbzlIZ2OiP8N7G7fIeicbXENtIko7gEQ28JOTp1qLk6Zj
-	HGJ2o7Dw3Wieq9n5YUw3/7RTtY60IsOqpmvyTyyKNT2e/PwmmXdtTlSOc+VVYCfdQjVpwqxT6Yw
-	gCBWNZ3TgeGE49g==
-X-Received: by 2002:a17:906:dc8a:b0:c46:7645:861 with SMTP id a640c23a62f3a-c4ca7936230mr335271766b.7.1793403236101;
-        Fri, 30 Oct 2026 16:33:56 -0700 (PDT)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com. [209.85.221.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cb092c042sm90050766b.82.2026.10.30.16.33.51
-        for <devicetree@vger.kernel.org>
+        bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
+        b=Bb060W1oK+TQyVwJW96+R9Q1yu7pFbAeq2cAmu/XbF0Pjvu3+Dls87kuH2eEQxhgqx
+         OcuPE8GV2JomAT5otyRjUgHzfg9TyvmkN8zuwegQpwz5oqmsMMmZyidIuoGV8bS8cloK
+         TSLk/4E1MapEDIdfCv1wEQqlv5w/5sRMbt+ccRwSLTAOIGc7qKNOWJWOubhxOt6IsyDQ
+         yDkAfOuWXZXDx0odyQH7Qw9/A7d098JNRst9DRD+H1MuUVfC2umOIuJt59bE5BO6EMMH
+         1CMVV6f3ccmbxRJ19W7SsiUcpEcsyf/RM/yE2tSQnBIU+vlG5DpXq7FWg9DQ9t58DZz4
+         BcWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAbq6PflKnLKUiaypWI8CbkqQ29VoUotHNdta6X12sb+maUwfBY9TwKo9UMeKowVartrZxgemyYiAV@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/cvzFTYEgcH/G2NSfmEjlZkV51FIwQx3TywXy5X0TLIO0eUjI
+	0AMsqyWSU0GS0jDrJVOF0elJcup1N9JGXoJoaO0eYHb0+wLAZJcwmIIpz4/Sl/lmXIV3ecZFfhy
+	R+pjuIcb8
+X-Gm-Gg: AYBFou1eC7h1WgdZxlGa4Ztk1H61VMuPffw/s2oK3LvpIeL8XfQIn0WRE/pZAGIvWsT
+	7+NXxyjIEWadmF+tnFg025cfupYnURPDcvMylnSzRD8t9CMxr4SewS+LyXSE6ZsQFdhOtgoneta
+	Ra72+QO65IvVwACNAkOXvuzr5lH5r9WFEIYBKM/GFalRbL3RYGb+I+Hwr7RRs2gMx8llyA+AaUk
+	tkKbeOuVi5mit/AtiNeWS/xoqbpUi9Okm7/LpBCxZisjqSDySflJ/QwGHwCywy48a6xn6KKlhRg
+	xLoZPqBcZdVmDFiicYY3ONVL0H44C07FosswQdnTAULrEPDnxsRgt3cJPJUm6zhJMl8FP6W9+ZV
+	enrVEFv6uvEjFi8/XZETwi36/v3cvhbfmyTu986SqN4P5xMv77G+p32SoB0fhw5oZAl7VP7IJ7K
+	2KdDUt0/BxrAStl649NP2luIoFEYT1j34KDqfpQ/mfgoarznIUtAln0sc+eBDs46twusPIktbyL
+	6Qsrsx1PhIwTKTlT8nQhxM1FiomeWLf/gn8AMJhdKrQ1OXixtrJRqhf9HfXXYgH7Cq294/PPY56
+	txX38Ijvqfp986YBq2WO5Yzdo8hxIDp2jsk57MwRp/Joc/W6Yd6SjJUZbO5poN2Dji4y
+X-Received: by 2002:a17:906:99c9:b0:c2d:c247:5400 with SMTP id a640c23a62f3a-c4ca7b405c5mr351969866b.27.1793409387273;
+        Fri, 30 Oct 2026 18:16:27 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe4aa12sm122478266b.52.2026.10.30.18.16.26
+        for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 16:33:54 -0700 (PDT)
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b060ec084so705686f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 30 Oct 2026 16:33:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw1+hLxwWL13L7t7fFyPQLuGRV27gnPh2+BYLzPurQi2zTHsKc7jH0FYA1cky0EjQR+5i+P2dIc8BUI@vger.kernel.org
-X-Received: by 2002:a05:6000:2f84:b0:48b:69d4:bb35 with SMTP id
- ffacd0b85a97d-48e6e2eb71fmr8424199f8f.12.1793403230649; Fri, 30 Oct 2026
- 16:33:50 -0700 (PDT)
+        Fri, 30 Oct 2026 18:16:27 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1802108a12.3
+        for <Devicetree@vger.kernel.org>; Fri, 30 Oct 2026 18:16:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxULRe+DWJ7WyC4yp+0kbv0WLqojo6ZrQo99yBoNMtZYGo5okGddfuKs+9dIfsrk0vbPEg+QlOhPaEy@vger.kernel.org
+X-Received: by 2002:a05:600c:a41:b0:4a1:ac66:6ac6 with SMTP id
+ 5b1f17b1804b1-4ac18c73d85mr83192945e9.26.1793409021466; Fri, 30 Oct 2026
+ 18:10:21 -0700 (PDT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,244 +94,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023235408.3063350-1-dianders@chromium.org>
- <20261023165211.v2.3.Ia186a29119b4b5c409815b755e0c2c3965b0495f@changeid> <20261030-terrific-quartz-bumblebee-e36da1@quoll>
-In-Reply-To: <20261030-terrific-quartz-bumblebee-e36da1@quoll>
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid> <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
+In-Reply-To: <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 30 Oct 2026 16:33:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U2tEe53B4AmmkWTZvqvBDNN7K8Q+o+3PHoNuQnfS73sg@mail.gmail.com>
-X-Gm-Features: AclHuK-AIJt-7HpT3-PstezQbN3lpub-bPABaJI-gDK7o3ghrvyRXOTdOvBTJG0
-Message-ID: <CAD=FV=U2tEe53B4AmmkWTZvqvBDNN7K8Q+o+3PHoNuQnfS73sg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] dt-bindings: mailbox: goog-mba: Add goog-mba
- mailbox bindings
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Joonwon Kang <joonwonkang@google.com>, 
-	Subhash Jadavani <sjadavani@google.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Lucas Wei <lucaswei@google.com>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Brian Norris <briannorris@chromium.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Date: Fri, 30 Oct 2026 18:10:10 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com>
+X-Gm-Features: AclHuK8jubqKMZtp2zZmgL9M6Iv-P5KmHBzgb2f1Y0xcGERjxzkWO1A9oKK2NzE
+Message-ID: <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/7] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support
+ using fdtfactor
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Marco Elver <elver@google.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Fri, Oct 30, 2026 at 3:48=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Sat, Oct 24, 2026 at 1:17=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
+e:
 >
-> On Fri, Oct 23, 2026 at 04:52:20PM -0700, Douglas Anderson wrote:
-> > +properties:
-> > +  compatible:
-> > +    const: google,lga-mailbox-array
-> > +
-> > +  reg:
-> > +    minItems: 1
-> > +    items:
-> > +      - description: Host registers (not accessible to client)
-> > +      - description: Global registers (not present on newer IP blocks)
+> Hi Doug,
 >
-> That's still confusing. Last time you said:
-> 1. You identified 4x instances of MBA
-> 2. Each of the instance has global registers (quotting: "Each of these 4
-> MBA instances has its own "global" registers."), then why does the
-> binding say otherwise?
+> On 2026-10-20T15:35:18, Douglas Anderson <dianders@chromium.org> wrote:
+> > kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
+> >
+> > Add opt-in support for factoring the DTBs inside a compiled FIT image
+> > into shared base DTBs and per-board overlays using `fdtfactor` when
+> > `FIT_FACTOR_DTBS=3D1` is passed to make:
 >
-> You repeat here again "newer IP blocks" so how many versions does your So=
-C have?
+> Please can you add a short paragraph at the start saying why this is
+> wanted (the bootloader needs a base DTB plus a per-board DTBO) and
+> where fdtfactor comes from? It is not in scripts/dtc, so someone
+> reading the git log won't know where the tool lives or which version
+> is needed. A link to the dtc series would help.
 
-In v2, I'll remove the "(not present on newer IP blocks)" part and
-remove "minItems: 1". Both Pixel 10 SoC (laguna or lga) and Pixel 11
-SoC (malibu) have the global registers. Newer (unreleased) SoCs lack
-these (read-only) global registers and all of the information that was
-in them is replicated in each mailbox's register space. There
-shouldn't be any harm in making them both required for now and we can
-make the change later.
+I think that was in the the "after the cut" part, where I said:
+
+You can see the fdtfactor post at:
+ http://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
+
+This patch obviously could only land if some form of that series
+lands. Presumably we'd also want to import fdtfactor into the local
+kernel copy of the devicetree compiler before this patch.
+
+My plan was for this series to be RFC until `fdtfactor` lands, after
+which it would include an import of `fdtfactor` as one of the earlier
+patches. ;-)
 
 
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +
-> > +    soc {
-> > +      #address-cells =3D <2>;
-> > +      #size-cells =3D <2>;
-> > +
-> > +      mailbox-array@5240000 {
-> > +        compatible =3D "google,lga-mailbox-array";
-> > +        reg =3D <0x0 0x05240000 0x0 0x00010000>,
-> > +              <0x0 0x05250000 0x0 0x00010000>;
-> > +        ranges =3D <0x0 0x0 0x05260000 0x00020000>;
-> > +
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <1>;
-> > +
-> > +        mailbox@0 {
-> > +          reg =3D <0x0000 0x1000>;
-> > +          interrupts =3D <GIC_SPI 250 IRQ_TYPE_LEVEL_HIGH 0>;
-> > +
-> > +          #mbox-cells =3D <0>;
-> > +
-> > +          google,tx-payload-words =3D <4>;
-> > +          google,mba-queue-mode;
-> > +        };
-> > +
-> > +        mailbox@1000 {
-> > +          reg =3D <0x1000 0x1000>;
-> > +          interrupts =3D <GIC_SPI 251 IRQ_TYPE_LEVEL_HIGH 0>;
-> > +
+> > - When `FIT_FACTOR_DTBS` is set, pass `-@ -L` to `dtc` for the DTBs
+> >   included in the FIT image so they retain `/__symbols__` and
+> >   `/__local_fixups__` metadata needed for factoring.
+> > - Run `$(FDTFACTOR) $(FDTFACTOR_ARGS) -f $@` (with `FDTFACTOR_ARGS`
+> >   defaulting to `--strip-local-fixups`) at the end of `cmd_fit` and
+> >   `cmd_fit_its` when `FIT_FACTOR_DTBS` is set.
+> >
+> > Assisted-by: Gemini:gemini-pro-prerelease
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> >
+> >  scripts/Makefile.dtbs |  8 ++++++++
+> >  scripts/Makefile.lib  | 18 ++++++++++++------
+> >  2 files changed, 20 insertions(+), 6 deletions(-)
 >
-> Please make the example complete. Last time you wrote:
+> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> > @@ -425,6 +425,8 @@ quiet_cmd_uimage =3D UIMAGE  $@
+> >  MAKE_FIT :=3D $(srctree)/scripts/make_fit.py
+> > +FDTFACTOR ?=3D fdtfactor
+> > +FDTFACTOR_ARGS ?=3D --strip-local-fixups
 >
-> "If we tried to represent the mailbox array as a single mailbox with a
-> bunch of channels, each instance would have a different number of
-> "reg" entries and a different number of interrupts."
+> Patches 1-3 go to some trouble to build fdtget and fdtput in-tree, and
+> cmd_fit_its puts scripts/dtc on the PATH, but fdtfactor comes from the
+> host. So FIT_FACTOR_DTBS=3D1 uses whatever fdtfactor happens to be on
+> the PATH, and the build does not depend on it. Is the plan to sync
+> fdtfactor.c into scripts/dtc once it lands upstream? If so, it would
+> be worth saying so under the --- line.
+
+Yup, that's the plan.
+
+
+> > diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
+> > @@ -137,6 +137,14 @@ DTC_FLAGS +=3D -Wnode_name_chars_strict \
+> > +# When FIT_FACTOR_DTBS is set, pass -@ -L to dtc so the built DTBs ret=
+ain the
+> > +# /__symbols__ and /__local_fixups__ nodes required by fdtfactor.
+> > +ifneq ($(FIT_FACTOR_DTBS),)
+> > +ifneq ($(filter arch/$(SRCARCH)/boot/dts%, $(obj)),)
+> > +DTC_FLAGS +=3D -@ -L
+> > +endif
+> > +endif
 >
-> and I do not see that. I see each instance having exactly one reg entry,
-> exactly one interrupt with difference in RX and TX.
+> One thing I'd like to check is composite DTBs (the foo-dtbs :=3D
+> base.dtb bar.dtbo entries built by cmd_fdtoverlay). My understanding
+> is that fdt_overlay_apply() merges the overlay's __symbols__ into the
+> base but drops its __local_fixups__ after using them to renumber
+> phandles inside the overlay. So the __local_fixups__ in a composite
+> DTB only cover the base part, even though both inputs were built with
+> -L
 >
-> The DTS here:
-> https://lore.kernel.org/all/20261026144346.1.Iaf8214205f496225013f482f6e0=
-035e89ac624f2@changeid/
+> This doesn't affect lga or trogdor, but the make_fit.py path packs
+> every DTB in dtbs-list, and qcom has lots of composite entries
+> (lemans-evk-camera.dtb, etc). If fdtfactor relies on __local_fixups__
+> to find phandle properties, it may silently produce a bad overlay for
+> these. Please can you check this? It might be enough to detect such
+> DTBs and skip or refuse them.
+
+I'm not sure I 100% understand, but let me try to respond and you can
+tell me if I got it right.
+
+The goal was to make sure that we could fully reconstruct
+__local_fixups__ after applying the overlay to the base. v2 of the
+fdtfactor series handled this more properly, and I'm planning to see
+this through and land it unless there are major objections.
+
+By default here, I'm running fdtfactor with "-S" to strip the
+__local_fixups__ out with the assumption that today people don't
+really need them. However, someone could easily override that locally.
+
+I'm a little unclear how things would silently produce a bad overlay, thoug=
+h.
+
+
+> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> > @@ -486,7 +490,9 @@ quiet_cmd_fit_its =3D FIT     $@
+> > -             done
+> > +             done \
+> > +             $(if $(FIT_FACTOR_DTBS),; $(FDTFACTOR) $(FDTFACTOR_ARGS) =
+\
+> > +                     $(if $(findstring 1,$(KBUILD_VERBOSE)),-v) -f $@)
 >
-> has the same.
+> Just to check, does fdtfactor handle compressed DTBs in the FIT, i.e.
+> nodes with compression =3D 'lz4' as in sc7180-trogdor.its from patch 7?
+> If not, FIT_FACTOR_DTBS=3D1 with that .its will either fail or silently
+> skip the DTBs. Either way, it would be worth mentioning in the commit
+> message.
 
-OK, sounds good. I can give more examples. That being said, I'm having
-a hard time finding a great example that _proves_ that this shouldn't
-be a single mailbox with a bunch of channels. Specifically, although
-the hardware itself is fairly flexible, the current firmware running
-on the remote processors isn't taking advantage of all of this
-flexibility. That being said, it is not far-fetched that this would
-change as more users of this IP block emerge. This IP block is used
-_heavily_ in Google designs.
-
-Really, I think my argument for describing things this way comes more
-from looking at the hardware register descriptions than from looking
-at the current users. I think modeling the bindings to best match the
-hardware design is the right approach. Let me see if I can give more
-details here, even if they don't translate well into examples...
-
-Let's start by looking at the CPM mailbox array. This is the mailbox
-array shown in the examples. The first two mailboxes (0 and 1) in this
-array allow the AP to communicate with the CPM. They are high
-bandwidth and use queuing. One is for TX, and one is for RX. In
-current designs, both happen to use 4-words per transfer.
-
-What you can't see (and won't translate into examples) is that this
-same mailbox array has many extra mailboxes. These extra mailboxes are
-used for the CPM to communicate with other system components. From
-what I see, the second two mailboxes (2 and 3) are used to communicate
-to the AP's secure firmware (TF-A) and also use queuing mode. Then
-mailboxes 4 and 5 communicate to the GDMC (Google Debug Monitor Core)
-and _don't_ use queuing. Mailboxes 8 and 9 communicate with the AOC
-(Always On Compute). There are a pile of other mailbox pairs. Though
-we don't model these mailboxes in the Linux device tree (which only
-looks at things from the AP perspective), the protocol used here is
-very different.
-
-Different mailboxes in the array are allocated to different processors
-in the system, which is why each mailbox is fairly self-contained.
-Each mailbox in the array has a 4K register space representing that
-mailbox. To me, this is a primary reason why these are best
-represented as full-blown mailboxes, not as "channels". Each of these
-mailboxes is a self-contained unit and can be allocated independently
-toward one of the processors in the system. They don't look like
-"channels". The thing that ties them together into an "array" is that
-all the mailboxes in the array all talk to a given "host" that owns
-the mailbox array. Yes, sometimes several of these mailboxes end up
-routed to the same processor in the system, but fundamentally they are
-still separate mailboxes...
-
-Yes, we could try to make these mailboxes look like "channels", but
-the hardware is really designed around each mailbox in the array being
-an independent/separate thing.
-
-Does that make sense?
-
-From a perspective of "do these each need their own node": Even if we
-don't currently see an instance where multiple mailboxes are routed to
-the non-secure AP and some use queueing while others don't, the
-hardware supports it and we should make sure the bindings are ready
-for that.
-
-If you want, I can create a hypothetical example where some mailboxes
-use queuing mode (or have a different TX word size) and others don't.
-Would that make things look better?
-
----
-
-To show examples of some of the other mailboxes in lga, here is the
-"GDMC to AP NonSecure" one. You'll note that it starts at mailbox 2 in
-the array (not mailbox 0) since mailboxes 0 and 1 in the array are
-routed elsewhere.
-
-
-gdmc_ap_ns_mba: mailbox-array@6240000 {
-    compatible =3D "google,lga-mailbox-array";
-    reg =3D <0x0 0x06240000 0x0 0x00010000>,
-          <0x0 0x06250000 0x0 0x00010000>;
-    ranges =3D <0x0 0x0 0x06260000 0x00020000>;
-
-    #address-cells =3D <1>;
-    #size-cells =3D <1>;
-
-    gdmc_ap_non_secure_req_mba_client_2: mailbox@2000 {
-        reg =3D <0x2000 0x1000>;
-        interrupts =3D <GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-        google,rx-payload-words =3D <4>;
-    };
-
-    ...
-
-    gdmc_ap3_req_mba_client_10: mailbox@a000 {
-        reg =3D <0xa000 0x1000>;
-        interrupts =3D <GIC_SPI 310 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-        google,rx-payload-words =3D <4>;
-    };
-
-    gdmc_ap3_resp_mba_client_11: mailbox@b000 {
-        reg =3D <0xb000 0x1000>;
-        interrupts =3D <GIC_SPI 311 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-        google,rx-payload-words =3D <4>;
-    };
-};
-
----
-
-The "AOC to AP" mailbox for "lga" looks like this. In practice, the
-software uses most of these as "doorbell only", though exactly one of
-the mailboxes here actually gets data transferred over it.
-
-aoc_ap_mba: mailbox-array@b480000 {
-    compatible =3D "google,lga-mailbox-array", "google,mailbox-array";
-    reg =3D <0x0 0x0b480000 0x0 0x00010000>,
-          <0x0 0x0b490000 0x0 0x00010000>;
-    ranges =3D <0x0 0x0 0x0b4a0000 0x00020000>;
-
-    #address-cells =3D <1>;
-    #size-cells =3D <1>;
-
-    aoc_ap_0_mba_client_0: mailbox@0 {
-        reg =3D <0x00000 0x1000>;
-        interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-    };
-
-    aoc_ap_1_mba_client_1: mailbox@1000 {
-        reg =3D <0x01000 0x1000>;
-        interrupts =3D <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-    };
-
-    ...
-
-    aoc_ap_19_mba_client_19: mailbox@13000 {
-        reg =3D <0x13000 0x1000>;
-        interrupts =3D <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH 0>;
-        #mbox-cells =3D <0>;
-    };
-};
+Yes, `fdtfactor` transparently decompresses compressed FDT image nodes
+inside the FIT (including `lz4` in `sc7180-trogdor.its`), factors them,
+and re-compresses the resulting base DTB and overlays. I'l update the
+commit message to mention this explicitly.
