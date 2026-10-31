@@ -1,56 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793469070;
-	b=4PBPpEYcIqEOE5UFGPUrvGvzWw8QsPt3D/z+6UZu7UjG1tpO3RoVCj2rGTuTAGDDOp8s
-	 D9ed39LOyXqR4uKPv4ec/Xc+rylnyMGRGvQ3gJx2l+QP2AxRaU3UV2R5b+SZaQ+P+I7Y9
-	 sxVvHI8CLaj41jTO/2pHRk2wnKHA4RzJjh+p2KgcWAwdhUQcEnL8fQY3jpUmT3UTuV2kD
-	 OPWdpDGD2+2YzvPlgPw0+AYLyBq349qGC2fhlxkH8cLqXKXFxuRc2eV5eq38VSC3IOf6x
-	 8RQc9/ZiZkSk7RaVYg0cT+ctvfcCaJKNf/B6niEt9VDONbr4nDTp4z85Us1z2jri4xw==
+	t=1793470757;
+	b=Uo7fRTdkEmt7R0M6Je7TjeSg33C7YaNS0oQ4OhBh0YT/9cR7kpZPVSbmj4Yg/sXybEST
+	 ZEwlXfNpj9qRW/njtZteC8iHIL8nTXuzu0uSHH4Hy80KZFQAyhKml0G/RhewJSdgxDiNe
+	 jAyOjOmqNgP6JFsPi83Y9kp9UAIkFXuhVTegV69Ptdr+36vXWdqKPNQcX+qruN3coZCVq
+	 DdO8PexXELRYBQ8QlI35knww37ISbEr3lIKQE/OU5XHACzc/go6/Hrws+OhiKBSmAaVAq
+	 foyXKvpQUNr9cf5nAoCprjU7x3SLGtRXvCWvXfqOdOH4ytSaF9ghBtbu5XhwmyRnAFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793469070;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IQoWXAKk9lqD1Qmoebed09zFK+xDXdwlybu0gIZTbec=;
-	b=ihW4Yi2PQ98m2I9FQct5GkshNVv0MrGFNfuS2NU7bybEXlS/+JHwefwR5NbIjZjauIt3
-	 i8wGEG28EtDQLxhK/67r664NFjJClWsXLY+jQ5cjckDOCfYcG9QOTysSCbdvJg3M3CnC0
-	 WEwpgFlGq+SQRNlYEaEVuLGtLBOvsUfvc3LWvX4Dfkzda1Dq60fx6LgjSi4fcbyYa6Tb4
-	 4vs3e17lQOrKjw+svir/y76cp1EJwnVMhwRyK7plzeoolnr01mr7tIq87W8UMXDlx+y+0
-	 JII0FwvjPaU/9vndjLIENEeJvVjyWuamStpKKqsosabEZaUuMdCkw+5ixaLUrc+T+sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793470757;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=wXvKtxMScM3vklVT7dsWI8q+OIPz4wEMOfjmV3tlROo=;
+	b=BoEBY0Wjtm8MhJ90JrHys+6MzDgwqZ9ycDHOgNpVBWZGRLS210RKOBZH7SW9vGZiQNFG
+	 oWexl1ONdQXBMLA0R78N2QBexaY/Fyfzpkp2IicyUE2zmwhUSdpMItTlfoW9h3m0RW6Pr
+	 T4yDkLlSpCnYzx4PtQmkTnn6tnNYAfPw38SuXC00jzxlz/ZhRLR8D6SaZizFVE3abytOl
+	 tzIHouvfnpA2BIXcHIXE1YUT5BE9eHiOGBDtRmiRK+yCpgLhogxcT1hoVEtI9KGliT00Q
+	 nGi7gsHK3+K5S4hgoZb3oOCGG/FP77/gae9yrS+JzTjg+S882rLqv3U7q9bPd4NDVfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=qWkuBQNY;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dmarc=pass header.from=aurel32.net;
+	spf=pass smtp.mailfrom=aurel32.net;
+	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=G25HnGaD;
+	arc=none smtp.remote-ip=195.154.119.183
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE66E606A31D;
-	Sat, 31 Oct 2026 17:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE66E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C6B606A31A;
+	Sat, 31 Oct 2026 18:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C6B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=qWkuBQNY
-Received: from [IPV6:2a03:a780:1ab:100::816] (unknown [IPv6:2a03:a780:1ab:100::816])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 74C4D534039C;
-	Sat, 31 Oct 2026 18:51:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1793469061;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IQoWXAKk9lqD1Qmoebed09zFK+xDXdwlybu0gIZTbec=;
-	b=qWkuBQNYm8KcojK3IiyoBl4GkijX36G3HPKFqaSBDfY8IL38/4dS79wFvr6ExE7xDWTZfK
-	XXp1nB9qy1/MIdhVfhGN+0B88c6pWFN2tphkWN0aPTwTgGFIRSZ0hDRSufs331CdLTnCGf
-	4uRwZ35twK+UBJSolp+gANQpyEANNWQ=
-Message-ID: <85282bf5-6d08-4d4f-b4b8-c80bb4bb2317@ixit.cz>
-Date: Sat, 31 Oct 2026 18:51:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=G25HnGaD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=wXvKtxMScM3vklVT7dsWI8q+OIPz4wEMOfjmV3tlROo=; b=G25HnGaDkc1RgIW91lVD6GGCn7
+	ujfzrPuOEazvc9Ofi9P8wnL97LyD0rSL6DBLcNFoQF57HBxyLfbBLHo+JoWJJCqgXtqe0Ng75yZRy
+	CHdsGq9Uu5UAr1avEaMd2utnyJ/Vy9WVZnENmGrny5ozCa82wVAhbWOsLxaYfKqvoFFUQx0raHLrg
+	01tmJs9J0g7B4M7b2UBzDsL1NNjZ5v/4v3+tA7IG6cYpgIQ1xYhHRSda25icsS05cWlnKjOimDC2E
+	Kui1OWenvFiRlVVjeSmq+iL/RrtyeazdmNXRrRaoNpoA1J+AaDtnSiiyNPU4IgOb/FlKJmZrWQ0Jt
+	hjoXbK6Q==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xNDfU-00000009eFe-1DoC;
+	Sat, 31 Oct 2026 19:19:04 +0100
+Date: Sat, 31 Oct 2026 19:19:01 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
+Message-ID: <auYxFRtKWbGAlRTL@aurel32.net>
+Mail-Followup-To: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>,
+	Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	linux-kernel@vger.kernel.org
+References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,77 +85,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type
- property
-To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaud Ferraris <aferraris@debian.org>,
- phone-devel@vger.kernel.org
-References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-On 30/10/2026 22:27, Guido GÃ¼nther wrote:
-> From: Arnaud Ferraris <aferraris@debian.org>
+Hi,
+
+On 2026-10-30 17:40, Chunyan Zhang wrote:
+> Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
+> of the K3 SoC.
 > 
-> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
-> aware of that by setting the `chassis-type` property.
+> Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
+> yet, so the port runs at high-speed (maximum-speed = "high-speed").
 > 
-> Signed-off-by: Arnaud Ferraris <aferraris@debian.org>
-> Signed-off-by: Guido Günther <agx@sigxcpu.org>
+> Enable USB3 port A with dr_mode = "peripheral", so it can be used as
+> a USB device.
+> 
+> Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
 > ---
->   arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 2 ++
->   1 file changed, 2 insertions(+)
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  9 ++++++
+>  arch/riscv/boot/dts/spacemit/k3.dtsi         | 30 ++++++++++++++++++++
+>  2 files changed, 39 insertions(+)
 > 
-Reviewed-by: David Heidelberg <david@ixit.cz
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> index b084a35aa00e..74d4fdf9e405 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> @@ -323,6 +323,15 @@ &usb2_phy {
+>  	status = "okay";
+>  };
+>  
+> +&usb3a_u2phy {
+> +	status = "okay";
+> +};
+> +
+> +&usb3a {
+> +	dr_mode = "peripheral";
+> +	status = "okay";
+> +};
+> +
+>  &usb3d_u2phy {
+>  	status = "okay";
+>  };
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> index c3f2dce0969c..220dfe29bb78 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -630,6 +630,36 @@ gmac2_axi_setup: stmmac-axi-config {
+>  			};
+>  		};
+>  
+> +		usb3a: usb@cad00000 {
+
+Please move this after the eth2 node, so that the node addresses are 
+kept sorted.
+
+> +			compatible = "spacemit,k3-dwc3";
+> +			reg = <0x0 0xcad00000 0x0 0x10000>;
+> +			interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-parent = <&saplic>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
+> +			clock-names = "usbdrd30";
+> +			resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
+> +				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
+> +				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
+> +			reset-names = "ahb", "vcc", "phy";
+> +			phys = <&usb3a_u2phy>;
+> +			phy-names = "usb2-phy";
+
+Please move the PHYs definition to the board level, matching was it is 
+done for the other USB3 ports, as other boards might have different PHY 
+configuration.
+
+> +			phy_type = "utmi";
+> +			snps,dis_enblslpm_quirk;
+> +			snps,dis_u2_susphy_quirk;
+> +			snps,dis-del-phy-power-chg-quirk;
+> +			snps,dis-tx-ipgap-linecheck-quirk;
+> +			maximum-speed = "high-speed";
+
+I think the maximum-speed property should also be moved to the board 
+level, as its value depends on the PHYs configuration.
+
+> +			status = "disabled";
+> +		};
+
+Any reason not to define the snps,parkmode-disable-ss-quirk property? It 
+is defined for the other USB3 ports, as well as for the USB3 A port in 
+the vendor kernel
+
+> +
+> +		usb3a_u2phy: phy@cad20000 {
+> +			compatible = "spacemit,k3-usb2-phy";
+> +			reg = <0x0 0xcad20000 0x0 0x200>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
+> +			#phy-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>  		pdma: dma-controller@d4000000 {
+>  			compatible = "spacemit,k3-pdma";
+>  			reg = <0x0 0xd4000000 0x0 0x4000>;
+
+Otherwise looks good.
+
+Regards
+Aurelien
+
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
