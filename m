@@ -1,45 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793447828;
-	b=ebiYpEI0cwnSjylqkc98VoMPKquO0yvJkzrcq/c+GdTZ0wl1zvDWGRhYY1S0LJF/88ZR
-	 Fs34UJX6ap/IIApLTsqOhbGBc/eKdoIxrsx6Gvyh45Z7EJdrvv846zUYiff6M1bl0vdiv
-	 6wL/pZiyPBJ09kiPr1RLlJLO15ozQPNtAhdiZwzuLAFJPZu/+eM2dUQBkh9DXdJRekrP5
-	 rJzP2fSkIQlc+GAprDmSgpLO6+0zLQyWefIYBoX72CJRYwqZI7pWcDOPTAboz/NWsvF4G
-	 oysJZeCIHHnMQt+1pojtVtzBizobBm0RaQgfQmBxt0SmnOh+laIciITE/1mGUxtPoeg==
+	t=1793448044;
+	b=g0rkPc36MrKHOOlC7B1IBnUZkoPFH56lN/Q+SamphF0kkBdtyVQaCYqeXGEEVaaYstf7
+	 ZAONSIlkLlNKeDzoY6id1JKMgYgtqdygnZ3nk9QZgTvz9jF1hhN197h91E+qzgBc5WruU
+	 70RWqY3N2TI2BMIOZIcJuMA+gC7bCvEq3uD06UlNTM0CWAtrwJ6CaSp4Q4cLuZllQeHeA
+	 gLnZIT5osrRC53WZPR/uPhIS990e6FB7/uR1fPH0/c/BTeoGGHXFKQlKeU8NIBNfuvYse
+	 XEkgQp+9US8bZQEP2p1oZgXNf3H011EyOrLYwMUwLFy9B7/eqmuNq6tQj98+s0m9B1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793447828;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YtiE6l/jMigtM/KHoQgcbm5oDWmgzE5zJPhM1/rh6dw=;
-	b=EPCsx+Ti+he+5GWlKceHMoBUqLBcBTvFr2wNwqg1lf7FdMbTTHnkusa2PowehqN8Fd6A
-	 5nmLJkuMe6qNCEuwJUihpAvC2eNaIlj/LyIe0FWCtc0VB1D6VCzqqMLJo9B78c8Ryfl/r
-	 l9ArJ60HNjeJsp5NUpwn4OWN+m9IO9uAzLsRxrUU/UxJOy4QTPAZf/MGAJ1QSDoZg87C+
-	 O/69O1Z3aL4OmpWHNiavnfJi5ilFZ17iI20DZOemuDPnUHEblhnChkNgyakqyuQox7neV
-	 rWGnUirB4GGBuTEf0snnMedsk0eZw8UHcHDJUxFGyvqJESHTO4rXxUtRIDDXoRWroWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448044;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:MIME-Version:Date:From:
+	 To:Cc:Subject:In-Reply-To:References:Message-ID:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Z8M3dkO8VWTPT7niqbjTbaNM/dFwMeWR+hAhAlcZSaE=;
+	b=joYJrweTHkIYdnnOFIAUXk2/n7fOnE/RKUyuMoZAfPNkeyCtJqFJdxjhrDLEsLDZHdn/
+	 d3ZuKk+fVBDe7CrwEECXGQJikul9WgFZDHUePieGGWC+2uwV3dF/BCJtKEMyfPi11FHUV
+	 XfWdzGQeN8lMwwBLRYgtY86SBSxth3mucZQlU5u8bJ7/Mxuw01vpZrbnw2Dtyk9hjxCBz
+	 xr9hNV/aD0/OXl/xUczmJ0gDGl1NGh0ur7lZaGr7cnpZW+BIkUDFseGFHnwTLouXm/FqA
+	 /u8Olg8RmOsHpzpNK01+Fk4S68rYYWQJwqWUmpdcK3LvNSdjzusl31P13/LPCSNXyog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eW2gBxVF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=posteo.net;
+	spf=pass smtp.mailfrom=posteo.net;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=SViwAUTN;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAE0606A31A;
-	Sat, 31 Oct 2026 11:57:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08641606A326
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 12:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08641606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eW2gBxVF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4CB71F000C1;
-	Sat, 31 Oct 2026 11:56:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793447828;
-	bh=YtiE6l/jMigtM/KHoQgcbm5oDWmgzE5zJPhM1/rh6dw=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eW2gBxVFmypKh60k0hQ0/3BUzSAxOvyyvaPv30fKxVKkX3d7lTQff+ZnCBo4cyXtr
-	 3X8VECjz1UcsA0wIJqjUasvYltIurB+wxeyBImZt3Fo8WieHDiRtDrJeT4zYREzkJA
-	 E8NXre2MyTzmcrZjN0qdeRIi8Iv3L0hC7aIvtpRQe8ATPT+9WzWTobHy6A2S0ZKDI6
-	 y45Uat9UePmiMIBE4oeI3GMZaTmVzyQwIoKDKJ/s8nhkadSfkaVT/VB1VLX+F6f8Kc
-	 KKI7hfZNfLdfTSyc+Fr6J3VjKd4NJpPvhN2oZ9rChiJCr+KzISoL8iBv1GJGOi3OI9
-	 rEOSUPKTNh2GQ==
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=SViwAUTN
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 33ECC240136
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 13:00:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1793448028;
+	bh=Z8M3dkO8VWTPT7niqbjTbaNM/dFwMeWR+hAhAlcZSaE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=SViwAUTNyMNFROcqxCKLRZ0BtFCXJiGPVADeeukqK0di9ogIQr6ItJKkAOtqMinfj
+	 kJOPr+SRIoX84L4pjzNcpN88oRx7Zbku6KEYRxIJp3LaxArjBSeLIR26098z+ag9Qg
+	 ik5LPtm8qBGDMTNnvEttlTzHKIGUQf/Xo8Gvr0EK5xLCs6P5XRb8xifbAWBx5fPGda
+	 Z/ZZS8/yDZkp1uf2LWL65M6lPPjZa5wHk/QhkeB3MqfVBdxuuykARKqwvd4bKpjnjb
+	 hg7od82KozrRp63nx/D/aREhvwT0zhUe8KmxWzIHLQPErC9HCCVgzKnUk2ffxELqVM
+	 +oQad9jwQoRqQ==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jGxP55GZcz6tsb;
+	Sat, 31 Oct 2026 13:00:25 +0100 (CET)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -49,53 +59,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Sat, 31 Oct 2026 12:00:27 +0000
+From: mateusz.nowicki@posteo.net
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Marek Vasut <marex@nabladev.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas BOURGOIN <thomas.bourgoin@st.com>, Rob Herring <robh@kernel.org>,
+ krzk+dt@kernel.org, Conor Dooley <conor+dt@kernel.org>, Lionel DEBIEVE
+ <lionel.debieve@foss.st.com>, Amelie DELAUNAY <amelie.delaunay@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kernel
+ <kernel@dh-electronics.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, Fabrice GASNIER
+ <fabrice.gasnier@foss.st.com>, Stefano Babic <sbabic@nabladev.com>, Etienne
+ Carriere <etienne.carriere@foss.st.com>
+Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on
+ stm32mp2
+In-Reply-To: <cbcb8d78-51f3-41ab-80d6-fe3f0623da5c@app.fastmail.com>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+ <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
+ <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
+ <cbcb8d78-51f3-41ab-80d6-fe3f0623da5c@app.fastmail.com>
+Message-ID: <f7010f07fdcdb4ff04a0dbfac1cc5421@posteo.net>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 0/6] Add support for USB phys in IPQ9650
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
- Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>, 
- Philipp Zabel <pza@pengutronix.de>, linux-arm-msm@vger.kernel.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
-References: <20261009-phy-v6-0-50408e45bcc1@oss.qualcomm.com>
-Date: Sat, 31 Oct 2026 17:26:43 +0530
-Message-Id: <179344780362.5901.2262729829662858890.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=585; i=mani@kernel.org;
- h=from:subject:message-id; bh=sWYwmb04EVM38ISfK/zjGtFwBFhSz7gCtNzj3VIINfU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5deK8HsBAkAOEMrzYnDKCKJ2EW0Bef/1JCeh7
- aqrdbGvmq+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXXigAKCRBVnxHm/pHO
- 9SLYCACk7rxS9tdBb0wj6XnxWq8q7eeggfhP93Et1R+R4LS9ysORMOElyoithnQr5XGKMEd+fot
- S5CcNzOwApSIgpXKhWmGFqvXXc6fmWgD84nX2Rmhmhb5eO2BWA+4c0DdhKNX1Zi4VFL9+zlGF7i
- iH746cAQ27AkTutnGQf/YPxWOFq9xrmoVZIeRJ/nXC7TsihCk3qfuZ6W8+4RwQW+mjJm+NU4GVM
- 9CmxG1KiR4tdYUbxVaffp+DbT41ncES8cviaV+7fRCAO0onGeFncBoujMqQppzDyRV4VFKdbzFG
- 4IRcus31HqwmVSE5Exmke9Ex1Hlm/ozX48T9KJBcqMwk30BA
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-09 10:19 +0530, Varadarajan Narayanan wrote:
-> This series
->  - Adds dt-bindings and driver changes for the high speed and super speed
->    phys in IPQ9650.
->  - IPQ9650 specific init tables to QMP super speed phy driver.
->  - The Femto high speed phy driver is refactored to accomodate differences
->    in the init sequences between SoCs first and then support for IPQ9650 is
->    included.
-> 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Hi Arnd, Marek,
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Sat, Oct 31, 2026, Arnd Bergmann wrote:
+> I think for the kernel it's pretty clear, we have to revert it
+> to avoid the regression on old firmware, at least for boards
+> that have ever shipped with that version. I count eight boards
+> for stm32mp2 in upstream Linux, do we know how many of them
+> are affected by the ABI break?
 
-- Mani
+As the author of the patch, I looked at where both IDs come from.
 
+0xb200005a only ever matched ST's *downstream* OP-TEE 3.19.0-stm32mp,
+the base of the first OpenSTLinux releases for stm32mp25 (last update
+2024-11-25). No *upstream* OP-TEE release ever used it on stm32mp2.
+
+0xbc000000 is used by:
+- ST's downstream OP-TEE since 4.0.0-stm32mp-r1 (2024-11-04), the base
+   of the current OpenSTLinux releases, up to 4.8.0-stm32mp-r1
+   (2026-10-27)
+- upstream OP-TEE since 4.8.0 (2025-10-24), commit 11d68b6754
+   ("plat-stm32mp2: enable watchdog SMC service"). Before 4.8.0
+   upstream OP-TEE has no watchdog SMC service on stm32mp2 at all.
+
+On the Linux side:
+- 89fca38168c9 (v6.7, 2023-09) added the node with 0xb200005a, which
+   matched the 3.19 based firmware of that time.
+- 7a57b1bb1afb and e9b03ef21386 (v6.15, 2025-03) added stm32mp21 with
+   0xbc000000 and stm32mp23 with 0xb200005a on the same day.
+- ae4d08bbe3f4 (v7.4 merge window) moved stm32mp23 and stm32mp25 to
+   0xbc000000.
+
+So from v6.7 to v7.3 the watchdog never worked with upstream OP-TEE,
+nor with ST's own firmware since November 2024: arm_smc_wdt fails to
+probe with -EIO and an IWDG started by the boot loader is never
+refreshed. That is how I found it on a STM32MP257F-DK with upstream
+OP-TEE 4.10.
+
+A revert would move the breakage to everybody running current
+firmware. For stm32mp23 there is nothing to restore: ST's OP-TEE
+supports stm32mp21 and stm32mp23 only since 4.0.0-stm32mp, so
+0xb200005a never matched any stm32mp23 firmware.
+
+About the boards: arm_wdt is enabled on all eight.
+- stm32mp215f-dk is not affected, stm32mp211.dtsi always had
+   0xbc000000.
+- stm32mp235f-dk and stm32mp23xx-dhcos-bb can only run firmware with
+   0xbc000000.
+- That leaves the stm32mp25 boards: stm32mp257f-dk, stm32mp257f-ev1,
+   stm32mp257d-engicam-microgea-rmm, stm32mp255c-dhcos-dhsbc and
+   stm32mp25xx-dhcos-bb. Only those still shipping a 3.19 based OP-TEE
+   need the old ID.
+
+So I would suggest the opposite direction: keep 0xbc000000 in the SoC
+dtsi, which matches upstream OP-TEE and current ST firmware, and let
+the boards that shipped with the old firmware override it in their
+board dts:
+
+&arm_wdt {
+         arm,smc-id = <0xb200005a>;
+};
+
+Marek, would that work for the DHCOS boards? I can send the patch if
+you tell me which of them ship the old OP-TEE. Your OP-TEE change to
+accept both IDs is a good mitigation on top of it for anybody who
+updates the firmware.
+
+Best regards,
+Mateusz
 
