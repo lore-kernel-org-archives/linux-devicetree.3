@@ -1,119 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793446019;
-	b=Bb3BveqXV5RhsvNGFVLgHLo0jxXrkB0Xh21peIcxts76hFoGxq68QJyXNBSJZWurCs1L
-	 ieJ6sIeNE1rc19iJMi1nr9SYBubD7zjMD+FOqFpIqGsbxkb+c7w0Olz1f2AfcbO2rt+83
-	 xSuNOZapexzaPlEIqTTSLx7+vjCreFXkGSy39xv72MMCadsrIwQ7JNoqnC3Zx+8Vf8gLt
-	 8oZpJUc+7vqcE6CZ3r+GiDdWgQAWXiR4yjpQdGpmGyrYjzmXFFPGtMkJvXF25sW37mC+3
-	 +m2Q9BqfUfEnCTSFACL0XjJdrAI9z23NH0txtxJD2RfOReQSR6mdwP3sx8PT0jCVEdw==
+	t=1793446078;
+	b=r3Xd+rYjtScM63V5EPwiaPtaEwY8QN0ClQxjSzCdidmrHaaZwq5MRbhq5mSu/tPtZWUx
+	 S5tleGsN+lfR02TNPTD155F5/gbt7vZukfnO9H9OQxV3H5kp60K46gMU9Ynnc36F1Kirt
+	 QgbYcaGcwhBtWzZvzKeKnsPZmm+NJLrqAboaXdphwUqbWNeUWIR9b/kL4ez868rwcuTDO
+	 ls/12hjtln5zcmlRR77V8YPrcqQcro/mHYY3CEvXc7oDUzUBwaJrzV2mHgtBL1J5p4d3h
+	 zGDU9wTAPCPRRvmcF+sT9wJ/Fdg93U47g0+MQxl+7CRLEOMLQ5KQdxVmCLVqo56ZOVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793446019;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
-	b=u9pX/1PMtC5P/nnPUIRNuDM0Zlik46wTFesTHL1G6mR0lW+65W3wBQE+PccTajPGioUW
-	 3k1r+3oiq6F6wBhIgHqA0TOXeMJjdMv0rDeUhsBGY+9sHa6olPCpIe7zkRKqlqRv/5N4d
-	 arxp6siyPkxRpGK/mtuJEyC/kormgYf+gPguKBlHvPr37lL4kUtj1MwwM4UdiwZ2VusRS
-	 MY6Qr2IwCiUclw2+sfWws1MqMZC+uoRF/tBjYriYTHnNZ2lL/Jsug2FgSYid2kOW+zv4U
-	 wmWzUcM3BiHn02BeeSZu+ri7pzfHWfdRBSut+Sw+G5GP9we/6GsETk7XWMPuNLogPQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793446078;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KrSS80XXCwpFZ2v3JFNx6R0MAkWjUxeVD3rtiqXWJAY=;
+	b=SRBkN4PwAhTWXcKnrqSXAcefckSdNMrtKEaobckWwMNEptrI4bwCIvYcMIzGwh/66w6C
+	 agbCUY3asprFRrCmVMjUpm7wk+C7KPwvRXm/zVWsP2aIjEPDW6In3kaDu7l2ieUG6o9HE
+	 TkoK0xjOePU18xKI5vA4FB8EZnEkh5wcRbBPJ3FZnxtfoIRkHkCGKLDLqs7HkVwd+ROrt
+	 sOvREsn1vElPA2BvfvP6Ttw1QhwbJCoPjUd1jkz3rIwp4VBgglR7krTgPSQ+cVxd7uVXP
+	 ymuUhS6kfcVwfFgXohwos8lkNTVTUlTKlKorPDwtw+/Js55FUCun8l06TEUoS8ykudw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOHFPiJv;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHhb3so3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA31606A31A
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA31606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B81606A31A
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:27:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OOHFPiJv
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1007885a91.0
-        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:26:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793446019; x=1794050819; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
-        b=OOHFPiJvJJp+Y8vZjZ0nvwcq0VjDLqEY0recjcf2GspS9dMsfqZlPeR5uLbH1VAgb1
-         ImUtA2/oSWkURP9z3Ve7mYKAlbqumGkxj/mVlnRC5F40hh32RIdYXwz2u1Jp13G2qiJa
-         h3HAWvRG/fMz8z2Dg5dYecnZT79LHQ3HlKAGcmkhWRBWng8CStQ5BcH/sfce+uAl93i7
-         +hM+NRY3XYz1mXB/sj9jwPhtimenwm/WVCClkuoROdDITpbUakuSFRdIHeVtOS6etuXq
-         XEfzvrhDSPYLDX6E8gsuC7AXrRKXu+QT3q5f4n0h/Wfsm9VhHcEIYA6mCncBZErfpBy6
-         Q49w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793446019; x=1794050819;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eBAqeg3P7IjkzEoe4Ha0kzpqAxzRiyS3drMdSnkFfrg=;
-        b=qXU5sRWkxBMCKXduE70uKOcaoSlgbiODtLDj2exQecPlXVoJFMu8b4NKlsfndwv4If
-         vRFAxb7g9YBbmn3xQUFSouvLsA2y1A97FnvbXyOH8BWHIqpXP+DBvJt8HSZyLmk/aTsq
-         fTzI7mH52BY12nWGy41Y6CwitTcWuj7GcE1c3By4BdehN+QiWaOUyyqFcBhqsG6xzvQ+
-         vepB/iR4f5S57OEWels+FHQTYn7LdOrDEyKRPteZZPDo4zSO4XUqRABaUXLUYBc9CxCv
-         ZD1fChzFMJmpdE1jSaDfkhr265yn+mES1rCqPShNvoitjIsHFFRnpPztqt/T+i4krvmk
-         78iA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrYKfRCtkxqSgPLLBORbS2TW41XyS5kV2iOGIvCxj//Bk6Xm117LfTfblrgJdR2m2XFt2hojzrd+d5@vger.kernel.org
-X-Gm-Message-State: AFq9FYLByeiAANkkblEf4GHcvoSrh7FGQoKCxXvzBCEfEC6gKRTLxoOk
-	yZCOWuOXVo1Db/H7g8XDlCuhUUhja5kKzX0f9YBXlZBE2JatHFh9ioBa
-X-Gm-Gg: AYBFou34b7zaR6fpj4PAbXqx8+NsGndd4RZR0hkNly707vfosR1cS4cKaQXmnUafFUD
-	v3yZykoCImOMceyM9ulKbnMF9jO3O/zxm7AbqKdhej+LJfkHwmYnoabMNrsWX49G47lm/fvPn11
-	GvaGU6tB2R2hMCzyOnWYxNa/XoAfeiRnEBcWbIGiLQ/7wgj1xtQF4WuxkpcKw4FWj86VwO49QHQ
-	jzAnIXV+yHG6xknBYYoV2drza0Gwe8pZG6v7v9L28oVzWfI9ahJ1uZbsW2mhTlDTu1+nr3jdyGp
-	g2PMW1jWfpR62MCjPJyqDeHqxp0VK+AgmYEJ2iwd2IOxgwARNNkQpdJhNLneP1F0SaFInvD/F5x
-	0ndVK2+oomT+GDsoQ5Jtnj3A9/lXRkIUjHT36gUPKJYA/drObYk1sCDynCgCkjzlfE0BWPY7Itj
-	rFt37fEA3WmcVmpgsjqmZyRvHkdCNSkY8AnUuBlC6ZeQnTupi0uc7ln2lLx5IEMkRLxmnhB6lxw
-	ncTAQFbQnvwR2TnlJFBzBFNYmOc79xA+QoDh2KpUNvBpD6z551MO6VShU/PzuBzP5Mq1we8WoCM
-	IZrBAWANN1ehmjKi1mSbng==
-X-Received: by 2002:a17:90a:e7cd:b0:3a0:8050:2ec9 with SMTP id 98e67ed59e1d1-3ae897ccf9dmr3920644a91.16.1793446018866;
-        Sat, 31 Oct 2026 04:26:58 -0700 (PDT)
-Received: from debian ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fb2fesm11638646a91.4.2026.10.31.04.26.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 04:26:58 -0700 (PDT)
-Date: Sat, 31 Oct 2026 07:26:33 -0400
-From: Kwanghoon Son <asdfkwang@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
-Message-ID: <auXQaY25XfYzxEb1@debian>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
- <20261029-spyglass-evasion-772697094cb9@spud>
- <20261029-amuser-savior-6a6ab062f471@spud>
- <auSDJH9V31wmbrYv@debian>
- <20261030-slider-finished-360b10521e0b@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHhb3so3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE441F000C1;
+	Sat, 31 Oct 2026 11:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793446077;
+	bh=KrSS80XXCwpFZ2v3JFNx6R0MAkWjUxeVD3rtiqXWJAY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UHhb3so3wiHqZ28a2uR/U851dGlCHIVxOQiPZbsbu2RqAEeslOF5IBVElndB0iVtI
+	 PsO+Um1ybibRr4nngGtBN85lND2a4HYI10WYTh1VMHFAWQ6rsmdieq86HoVF4utoh3
+	 usVZLUv5N4x6eTm9nRgCqGoIdfjwNVfd3ZcZnrE43deGwY1Yxd4BiX4vu0T1FLnDe2
+	 hZ7PTxtJKCy47MlbBpRdcnXeyGFSd+V5B9yyFYJtjqiKEeRJZE9Whxip1kKhnDve34
+	 P/+i4xrdgPdemyxcl+qSc5ZqNsvje6ol55oqIx4oV5b1Fb0AugpDBnc5KCXHWR1nbA
+	 i4Zs5pK3cLDcQ==
+Message-ID: <sashiko-outbox-191920@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/6] media: qcom: camss: tpg: Add support for v2.4.0 TPG
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Zapolskiy" <vladimir.zapolskiy@linaro.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261031112203.545319-4-vladimir.zapolskiy@linaro.org>
+References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-4-vladimir.zapolskiy@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 31 Oct 2026 11:27:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -122,22 +59,97 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-slider-finished-360b10521e0b@spud>
 
- 
-> Okay, that's good - but that's more of a response to my comment down
-> below about splitting the entry, not a response to what I was asking
-> here about the lack of a git tree. Are you going to send the SoC
-> maintainers PRs for this platform or were you expecting someone else to
-> apply the patches for this platform (IOW, me).
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] media: qcom: camss: uninitialized hw_version check in tpg_reset()
+- [Low] media: qcom: camss: commit message describes omitted Kaanapali chan=
+ges
+--
 
-Thanks for clarifying.
+commit 9872eb254e7eae29edd30791f0f0da3fb4571071
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-Could you take the BL808 platform patches through your tree once they
-are ready? (If that you okay with this way)
+media: qcom: camss: tpg: Add support for v2.4.0 TPG
 
-Best regards,
-Kwang.
+This commit adds hardware support for the v2.4.0 Test Pattern Generator (TP=
+G)
+in the Qualcomm CAMSS driver by handling test-enable and hardware reset via
+the TPG_CTRL_CMD register.
+
+>     media: qcom: camss: tpg: Add support for v2.4.0 TPG
+>    =20
+>     Add support for the TPG found on Kaanapali. This TPG uses hardware
+>     version 2.4.0, which drives test-enable and reset through the
+>     TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
+>     TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
+>     CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
+>     the data source when a test pattern is selected.
+>    =20
+>     Add the TPG resources to the Kaanapali camss resources so that the TPG
+>     subdevices are created on this SoC.
+>    =20
+>     Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+>     Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>     [vz: extracted pure TPG hardware support part from the change]
+>     Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+
+[Severity: Low]
+This isn't a bug, but since only the TPG v2.4.0 hardware support was extrac=
+ted
+into this commit, should the commit message be updated to drop the descript=
+ion
+of the CSID 1080 RX mux routing and the Kaanapali camss resources?
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
+/media/platform/qcom/camss/camss-tpg-gen1.c
+> index d29de5f93c18e..cabbb2638cf38 100644
+> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+
+[ ... ]
+
+> @@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
+
+[ ... ]
+
+>  static int tpg_reset(struct tpg_device *tpg)
+>  {
+> -	writel(0, tpg->base + TPG_CTRL);
+> -	writel(1, tpg->base + TPG_CLEAR);
+> +	if (tpg->hw_version < TPG_HW_VER_2_4_0)
+> +		writel(0, tpg->base + TPG_CTRL);
+> +
+> +	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
+> =20
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Does checking tpg->hw_version in tpg_reset() work as intended on the initial
+power-on?
+
+In drivers/media/platform/qcom/camss/camss-tpg.c, tpg_set_power() invokes
+hw_ops->reset() before hw_ops->hw_version():
+
+drivers/media/platform/qcom/camss/camss-tpg.c:tpg_set_power() {
+	if (on) {
+		...
+		tpg->res->hw_ops->reset(tpg);
+
+		tpg->res->hw_ops->hw_version(tpg);
+	}
+}
+
+Because tpg_hw_version() in drivers/media/platform/qcom/camss/camss-tpg-gen=
+1.c
+is the only place that reads TPG_HW_VERSION and populates tpg->hw_version,
+tpg->hw_version is still 0 when tpg_reset() runs during the first power-on.=
+ As
+a result, tpg->hw_version < TPG_HW_VER_2_4_0 evaluates to true and writes 0=
+ to
+TPG_CTRL on v2.4.0 hardware as well.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031112203.5453=
+19-1-vladimir.zapolskiy@linaro.org?part=3D3
