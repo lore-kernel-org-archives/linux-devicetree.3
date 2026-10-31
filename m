@@ -1,102 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793456391;
-	b=QbZFmlEhEzqSfI9nNd4KGtAwyf53H7vgo+URTQATcatSSM9vupILQiQ4Oicfi8kscSWk
-	 FjFBOEwZ5nvThDV737R0L6Ex2n7ZQAq4zJGdGPk9NIRh9Ycry6WmvaQifkVoedCmRf0ul
-	 sH2zoqRAcic7K1YLBiGIasGuvzBLh9sWEY0mj2O0OxC9RYx2ogPK9NC2oVenAIj3FqkPL
-	 Ssh+At6mxG89acMsVy5cV09UDnjXdRMcUlY4Ii/HaoU3XMHsSa975JKuMm0B7p/koFHye
-	 aWfu3wvTqKZ+gjNTMoJsFBDSh9wcSukl1FXYDBSUFGQ3viEzcTzYH3OY9Wq8o8bU4Rw==
+	t=1793456698;
+	b=XrTatp6BBhj3X+5X+i3DcWG8xocM3pahNV2/EKtRfRyusuR85hv9HhrvOWsYbi7Znmuw
+	 3IoSmUusQtw2S+f/0NgSZGlpu/soPiSWjs5qsiJT0KpVbS4uWosR6qRzCT1uhTNQceGtw
+	 y+w4aFWLMF+KA1TgVaKs+pAq1NSL/QdZdJIs4aKGQ4RU9Sn0zJgVW1uLfw4h9yP+qSQkC
+	 ttGGWqOsbKq9aC9VBvXWc4wWsikzzc6t4HRWdxjRIR20nTHy0KBJDYlMNyJyHw521XfEL
+	 s254ojuUSkPq8r1qrF57xV9q8Pjiq9L21fgQwS2yxu67e+WEMOipBXDt1g1/qIfI+FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793456391;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
-	b=AYGdNDmgrmwK6VtkM+6HKxK2Iisvd90cd0ouegnf+F8CmILvWYIYxccZEjnx4zfz0Gmd
-	 InrL068q76iKlQ+ap3L5Z1agjM2wrZcbJbrNSD121OgekvWHCTYmVsIRexevcgwr2E12z
-	 jqZr8Kf7jqNplt87D8DRaUBgLQ8YN5yv/Evn7oAytfdCjTZNstoh/fKcv9dDtZYYP8AB3
-	 XyclQph7lBP74BZ5z86p7Y3e1tZ8lfQWJZf9aNTGv+zmZaL6axjP73cGPAOezK0YGqqgg
-	 rw1eVWyCV4WlGdoQcPzhFIHR3upz4GhvuWC/pyBjrTFgU1pZGUZjXQC/vL7dp21zx5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456698;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ScNjaRoy9Tts1CERXXmfZfQhfRtdd+UdlcX0P5nunt8=;
+	b=G3LvV88q8gYgIJ4eF6E84VlW9HcVAWgRzMTt7fVrgpjFSNFemhGYxAOE3IiKdTAJ18NL
+	 c+S9YN2ZbQPHQQJd9cXA9B6um8SmU97J9JFJSp+HvUEiTvxtqxptH2pcFtosV22bZkDTy
+	 UEvjc30BME69iY7bJYJdnUNAoplDh2p4QNUgR8Ec00EqDdrmk1yD/s114zHTNEEW9vo86
+	 I7ieOt93mkcp7O57vpugFglwz3REYRcenl4ozByl6DFwWhCCknafolTSY7sPda2hTtxO/
+	 qcRrgJ5Pwxjy8NhDmEvI1dSbG0oYWxEBndyMpXQo16bQ0hPk4I1tP12mwrMxzrnI93g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7nBpwle;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="KoQDbi/f";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDs6zhtR;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A879606A32A
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A879606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7608D606A31D
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:24:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7608D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7nBpwle
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e3b22e971so791729f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 07:19:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KoQDbi/f;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDs6zhtR
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD02tn3174201
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:24:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=ScNjaRoy9Tts1CERXXmfZfQhfRtdd+UdlcX
+	0P5nunt8=; b=KoQDbi/fgIKSgtoxa/4x6rDVtOqLkkESWPcVGOZyUKJw9Ab63w3
+	4/RFYfAUdvcum7nsF9GWW0EIC41whV2+1KuqFof7LRIjRE1a9yxNZkDnZ4oyY4Em
+	A9vSvWil9q/dasjiX1dFyZC8Qk8FTP6feaHiu2RmfNWqPUpQmo5vUOUjKM1wFWEB
+	0DmxnRagySfszvQt8cKvvUB7ZfRdVSMgZem91y/2uuXIrTfrkfVZmUoMRk2kkBrh
+	2+fyoIwP+gJap8Q+q92B9AEC+kzWeH8VlD1jlHPnojYllUTo2UXzMdPTMmUMfvVS
+	xqM59tl9/xV4yJjvaJejUF9NCbNS2AAus7Q==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn61fskmb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:24:56 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso3707526eec.1
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 07:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793456389; x=1794061189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
-        b=H7nBpwle+mHqAf9JIVZdI28ifLoQvfTut+HiHb71pyp5ICyc4q/7zDeezZd/9BEu7H
-         FsBuKOgJN6epqqGcEeg8fhi7bYPX4MeqvjWSSjHe1pz1jlQtB+4FBgcnUsmUPxvfkpIq
-         3Kk2ytgTB2djUYCRFWJGjhTUUMpWTVeQgDrXfncfbGrQfYLubsCkkvLFUqJKmQjhmQOH
-         rMBhNcDVKcziNvniOd+Y5oWuH1jezLTVAX8urCv9muwbK40U+DLmDJdctXoAD6jpOtxZ
-         Jmh11SUee5Yvfhx0vdk/yu4i55a48HCwEZjmTMu6wulDCMIAsqa8MbgsiqGgaLpy789m
-         0ZhQ==
+        d=oss.qualcomm.com; s=google; t=1793456696; x=1794061496; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ScNjaRoy9Tts1CERXXmfZfQhfRtdd+UdlcX0P5nunt8=;
+        b=BDs6zhtRm9qJj5rFsI2LiKnwY9iEFcmZ7fFgy4nsWkqxDPIMEjJ1eUCRr2MH5f8aFE
+         GCdPeKr7BT4SO35CaDw4wuYbgraT5hZQQGvk/HcBJ45sWdb8XH9NyAqf5sJ8FuduQMmc
+         Du7M/WuuxS6hWYfeTali3J+s7N5599T2axw+KDWpitbhAtg7oorAVIBXzxyOT/yx5EVV
+         RrHRouIatQwnY+pSRkArPoN6xf14CQNuujg3lk80l2pcpudL0nCJ0/tSczV++gpPx+YG
+         Ywz9ehFNKH3TTaUWHHnCWbQNxtpblTbfRypwRD/Odo5wB7clQR10r25wjDW+eEH+EZsR
+         m5Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793456389; x=1794061189;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
-        b=QVt3J1jNFeER4y1wYbYtaIuF9GB2wD1mmANChgAU6AqTLRvHsAL8pkcGoE7EPljCSu
-         geSF3gbU5o+ZQz1Xf+q9SpRP44XOhb4xnxD/MosLETxR9qubXfhTgX11nTw7FYGgQGo4
-         hLW7cHqRiCG1RF0qLN/4fJzQibn6r56BVQRwBmxir5Ge3lvswX8EqXvKptzC1/iB56/S
-         83ohCaGU3fcsCBvKn7SGVeb4l402YkZ7KMUszuPBvJtK4ctxSWvSvFZEFd6vo3XVykEc
-         qYJmFYD+qCBpREnajSl+flYXm9XqLi8UDuOou5HDLOBsYgyaehYbvJ6TtZbYfbIEbeO/
-         o+aA==
-X-Forwarded-Encrypted: i=1; AKwUvBzr7jB0g4CU1AUwnLlCOvm15K3geRqKazVIB9lPueVEiUMLoyRwZ+ODVZ048umsut+Kf/ige8xtknPa@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqGKI4KPiisblIYXr4Ug4YxbSd0we59tkNG9g4YD3rnE/IAUUm
-	n4CHKUCKUNXT2IKngF6aJQYKwQHDdP/QhpIkbZV7fiaVyb8fsSd/Ozc=
-X-Gm-Gg: AYBFou1/YWuT9V65wx9hUWmhEM9RaGtwukQQYN30RG4r0TB/fWD9mqOZRjS855TAbgN
-	QYnbtqvuBSckI0y6WrCstHhh5E/g8+STC6uLk5aeItLoKc8I45OaxMFmL0B2hKjcFFSnU8idwtk
-	1kz7dPwTOdRYcx7fZesH7mofZFl3OoMxVijedFE+9bSLAH7W88aJRXva7XWBodL8IlwLZceSRX7
-	Cjysn86uS+PZhmuaJIXja+7Td+xZgMhf7XdjYvEdpdr8cq2NlhOnhRaeVVDysoHb+L1C5OOPwVi
-	6jXMsZEs/qcYQO0cYdre7qjxNYAeAhGZKNJ2stspCxALZyF4xhdv//Lu5PlciEi0mNLCnoi3ruq
-	+lNmnB/bg0gwJepxvTlhzqlcxNcRoXCr7g4pV3R8cPjowIYQHx8wJJGZXRqAHGnMoOnVi9SQkPb
-	P9snUnNpa328VbbsWKPlzEFG0qnlFy+61lFP4IQ0mqZ1YjqDP9DB0BDa/2hb7EQn8HAk+ACCSVW
-	bIEmtSg8hyIx/JIWa28lnTjH/ddbLGlh+5Q3WvpcBLqiaXJqlz7fej6KccSC/HHtWUJzJHQsccs
-	DEs9DPOmn0o/mKwx9U0=
-X-Received: by 2002:a05:600c:3b2a:b0:4a4:3a2d:15da with SMTP id 5b1f17b1804b1-4ac1709a2c3mr114534825e9.15.1793456388879;
-        Sat, 31 Oct 2026 07:19:48 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm209871275e9.4.2026.10.31.07.19.47
+        d=1e100.net; s=20260707; t=1793456696; x=1794061496;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ScNjaRoy9Tts1CERXXmfZfQhfRtdd+UdlcX0P5nunt8=;
+        b=eEigYnWWaM+RFPBfLUA7FD5onH+crEYVxFhkc7fsE9EfXes8THrTPtY8s95fRJ8igq
+         gYZi3DakFKchTUs8Wp7JnoIM832LisdPhVa81C0CqDPxcrdec3fDz+yh/POSa9CgK3ZN
+         unf76+FYc6EiLzRbkEZnQsRDpKPzvLIEoIjBYrRT7vSZkQU1+hk4rNOj2xVi7Mg8SEzs
+         K20FKQHq7fHYQoK51PWT5W/htY/fdYUIIUFHvdSjVWm5lRJyvdmmvwMhXU7IQY4OF+Jl
+         mUrzt2xOe5Bq6Y62bldsWZ+xY2bDKRc9ijJgrguUmDKCh70SStQaSj6AsRfKHx7XJLou
+         lF2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzIbSUz/5SXQ5u374nZwGbzoF2UTw+YFquc4k5bUF9m7Pr/Xc5A6eEkvx02qifupoZfA045gYDtLFRb@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbMXiZXoivRBbAorKbtx/sLbHftOxrPkz7BsZFIaoP9hOT+BDd
+	eOG7aHk4WLG/1ksIWUJpYe0l3HOVqedXutJsDGwzwyqN7zc8QuwB+kvYX2RybQUlJuXxXMBNUqL
+	+owDICqlKqqhXRHoDg1ArFyq9Qm+51LBiwBlWJgzEX7DS6S32SdD6ALB0OTDXiI6e
+X-Gm-Gg: AYBFou20AxEuyToiSkAvnlxP98JnwLVWRquyeKDdriOxOIklFr1UA7C1YDFU/SQ2pzk
+	YRNcni/D86ybjFLsW5V5gGhpPEnjyikqzVAkPVIhLi0jZ3c9514+PzL0preFXi119pvIhZ9E00R
+	oxwUiAhbmloYVf76AdCbkEy9hWviczZCD4GS+Xw0K9jvDmLSe8UaNTlj5hnJWIXW1LWfSibK0b5
+	3spm3ztshcd8bBY4KoqfOe5wBBymqTNRXl0O7YuAMsxQOw9uoRmHMIWKgbwGdTCizkEpMnDkVtZ
+	9kSh+jueVt7qXV5CY5cuMYNpll0rMrBftl1pOseOAkZfm7JjWHNQ51ObEQ+lZsn57Kw8e2fRk2J
+	rrRNsce2TSS7AKzrw46xbnV/V6JZTe/Y7mSoFRnzfrv0KZJUWbA8KhvNNvYPV5n5ICJ07WVaxtC
+	cUJdMeveMFVgtjGfEBZetWa9hZlii5sxc3
+X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-36a42431768mr11365603eec.28.1793456695685;
+        Sat, 31 Oct 2026 07:24:55 -0700 (PDT)
+X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-36a42431768mr11365549eec.28.1793456694941;
+        Sat, 31 Oct 2026 07:24:54 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm24968586eec.16.2026.10.31.07.24.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 07:19:48 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: daniel.lezcano@kernel.org
-Cc: rafael@kernel.org,
-	rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ansuelsmth@gmail.com,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH 2/2] thermal/drivers/airoha: Read the EN7581 CPU ADC
-Date: Sat, 31 Oct 2026 16:19:12 +0200
-Message-ID: <20261031141912.1664575-3-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
-References: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
+        Sat, 31 Oct 2026 07:24:54 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>,
+        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH RFC v4 0/7] arm64: dts: qcom: nord: Add PCIe and WLAN/BT support
+Date: Sat, 31 Oct 2026 22:24:26 +0800
+Message-ID: <20261031142433.1212809-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,285 +125,85 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1NyBTYWx0ZWRfX7kzfDrHyyK3a
+ E2LaRyurvCkLsnyejg/yJoP8S1OGh7mk63WAkeAO4nBzgUw6g36RTw3XOzLFvVUaXNBjYV7yg5q
+ 4w2gbfe4JPgwO8NaI7ooC4CmMHJ1jKk=
+X-Authority-Analysis: v=2.4 cv=V/LoQuni c=1 sm=1 tr=0 ts=6ae5fa38 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=U0NwJVSz-9pN22jjyd8A:9 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: SGuUD1lZqXVSBeUHVygtfgTk3lPz_328
+X-Proofpoint-ORIG-GUID: SGuUD1lZqXVSBeUHVygtfgTk3lPz_328
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1NyBTYWx0ZWRfX6qrDQ/1SUgeq
+ AnzrX5WWVxlp9IFdSL2Fam1nn5P9ohYJQTMMSw/t3v6P2R42pCduBGqPe43LuOx3mIHks+M05t9
+ bil5859Lm+G00kJPg9d/VipRv6oJNJna8dAeNsNnZfe//M9eQAe5KWRiDsnGRVvpgzHdmsdgk1w
+ HEVRaBYCiq8FI713KbnVB72Hor79tRlsjYS+U+EuBm8Cdy9D4S8rKFB1ye0n6Bsig2fjrnMMtfq
+ IdPQCWlewp3l6OSulLdiVjlK1P6CJOiJhTZCKjP3+kuFqxRyAMnzLiRYZu/Y5/lKvw58eT1nHyt
+ m/0QVX/+VdL0VPqJoy4poWto3Q9IoD9J3eDfYROgqE3Lb1YRZ4GTbYUhNEKHmqBTfEcQLL44Gxb
+ LeGzc9V8SIcITDI5/e9NEgo43nnCUk9W1aYu8hb8Jx7HBL8o+9L57K68x5OhPM5yEwuJojlzMKb
+ WrxDFhDLVIpXK0TAeQQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310057
 
-Register the second EN7581 ADC as a read-only thermal zone. The
-hardware monitor and interrupt continue to use the main ADC. Use the
-CPU calibration offset from efuse, falling back to the main ADC when
-it is absent.
+This series enables PCIe on the Qualcomm Nord SoC and brings up the
+WLAN/BT modules on Ride and RRD board.
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/thermal/airoha_thermal.c | 157 +++++++++++++++++++++++++++++--
- 1 file changed, 147 insertions(+), 10 deletions(-)
+Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
+multi-PHY. The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
+selected by firmware through a TCSR register that the PHY driver reads at
+probe time, so the DT only describes the PHY ports and hands the driver
+the TCSR handle.
 
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 7c63a1b44a6b9..982b0736df9a3 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -18,6 +18,8 @@
- #define   EN7581_MUX_TADC			GENMASK(3, 1)
- #define EN7581_DOUT_TADC			0x2f8
- #define   EN7581_DOUT_TADC_MASK			GENMASK(15, 0)
-+#define EN7581_PWD_TADC_CPU			0x2fc
-+#define EN7581_DOUT_TADC_CPU			0x308
- 
- #define AN7583_MUX_TADC				0x2a0
- #define   AN7583_LOAD_ADJ			GENMASK(3, 2)
-@@ -236,6 +238,13 @@ enum an7583_thermal_diode_mux {
- 	AN7583_D1_TADC,
- };
- 
-+enum en7581_thermal_sensor {
-+	EN7581_TADC,
-+	EN7581_TADC_CPU,
-+
-+	EN7581_NUM_SENSOR,
-+};
-+
- enum airoha_thermal_chip_scu_field {
- 	AIROHA_THERMAL_DOUT_TADC,
- 	AIROHA_THERMAL_MUX_SENSOR,
-@@ -264,6 +273,8 @@ struct airoha_thermal_priv {
- 	int init_temp;
- 	int default_slope;
- 	int default_offset;
-+	int cpu_offset;
-+	bool cpu_adc_failed;
- };
- 
- struct airoha_thermal_soc_data {
-@@ -354,19 +365,53 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 	usleep_range(10 * USEC_PER_MSEC, 11 * USEC_PER_MSEC);
- }
- 
-+static int en7581_thermal_read_adc(struct airoha_thermal_priv *priv, int sensor,
-+				   int *value)
-+{
-+	u32 val;
-+	int ret;
-+
-+	if (sensor != EN7581_TADC_CPU) {
-+		*value = airoha_get_thermal_ADC(priv);
-+		return 0;
-+	}
-+
-+	ret = regmap_read(priv->chip_scu, EN7581_DOUT_TADC_CPU, &val);
-+	if (ret)
-+		return ret;
-+
-+	*value = FIELD_GET(EN7581_DOUT_TADC_MASK, val);
-+	return 0;
-+}
-+
- static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
- 	struct airoha_thermal_priv *priv = zone->priv;
- 	int min_value, max_value, avg_value, value;
--	int i;
-+	int offset = priv->default_offset;
-+	int i, ret;
-+	u32 sel;
-+
-+	if (zone->sensor == EN7581_TADC_CPU) {
-+		/* Other mux positions convert to temperatures above the trips */
-+		ret = regmap_read(priv->chip_scu, EN7581_PWD_TADC_CPU, &sel);
-+		if (ret)
-+			return ret;
-+		if (FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1)
-+			return -EAGAIN;
-+
-+		offset = priv->cpu_offset;
-+	}
- 
- 	avg_value = 0;
- 	min_value = INT_MAX;
- 	max_value = INT_MIN;
- 
- 	for (i = 0; i < AIROHA_MAX_SAMPLES; i++) {
--		value = airoha_get_thermal_ADC(priv);
-+		ret = en7581_thermal_read_adc(priv, zone->sensor, &value);
-+		if (ret)
-+			return ret;
- 		min_value = min(value, min_value);
- 		max_value = max(value, max_value);
- 		avg_value += value;
-@@ -376,7 +421,8 @@ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- 	avg_value -= (min_value + max_value);
- 	avg_value /= AIROHA_MAX_SAMPLES - 2;
- 
--	*temp = RAW_TO_TEMP(priv, avg_value);
-+	*temp = (((avg_value - offset) * 1000) / priv->default_slope +
-+		 priv->init_temp) * 100;
- 	return 0;
- }
- 
-@@ -387,6 +433,10 @@ static int en7581_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 	struct airoha_thermal_priv *priv = zone->priv;
- 	bool enable_monitor = false;
- 
-+	/* The temperature monitor samples only the main ADC */
-+	if (zone->sensor == EN7581_TADC_CPU)
-+		return 0;
-+
- 	if (high != INT_MAX) {
- 		/* Validate high and clamp it a supported value */
- 		high = clamp_t(int, high, RAW_TO_TEMP(priv, 0),
-@@ -484,6 +534,70 @@ static void en7581_thermal_setup_adc_val(struct device *dev,
- 	}
- }
- 
-+static int en7581_thermal_setup_cpu_adc(struct device *dev,
-+					struct airoha_thermal_priv *priv)
-+{
-+	int tries = AIROHA_THERMAL_MUX_TRIES;
-+	u32 pllrg, sel, efuse, main;
-+	int cpu;
-+	int ret, restore_ret;
-+
-+	ret = regmap_read(priv->chip_scu, EN7581_PLLRG_PROTECT, &pllrg);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT,
-+			   priv->pllrg_protect);
-+	if (ret)
-+		goto restore_protect;
-+
-+	/* Unprotected writes are dropped silently, so read the value back */
-+	do {
-+		ret = regmap_update_bits(priv->chip_scu, EN7581_PWD_TADC_CPU,
-+					 EN7581_MUX_TADC,
-+					 FIELD_PREP(EN7581_MUX_TADC,
-+						    EN7581_SCU_THERMAL_MUX_DIODE1));
-+		if (ret)
-+			break;
-+		ret = regmap_read(priv->chip_scu, EN7581_PWD_TADC_CPU, &sel);
-+		if (ret)
-+			break;
-+	} while (FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1 &&
-+		 --tries);
-+
-+	if (!ret && FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1)
-+		ret = -EIO;
-+
-+restore_protect:
-+	restore_ret = regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT, pllrg);
-+	if (ret)
-+		return ret;
-+	if (restore_ret)
-+		return restore_ret;
-+
-+	usleep_range(10 * USEC_PER_MSEC, 11 * USEC_PER_MSEC);
-+
-+	ret = regmap_read(priv->map, EN7581_PTPSPARE1, &efuse);
-+	if (ret)
-+		return ret;
-+	if (FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse)) {
-+		priv->cpu_offset = FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse);
-+		return 0;
-+	}
-+
-+	/* Without calibration assume both ADCs are at the same temperature */
-+	ret = en7581_thermal_read_adc(priv, EN7581_TADC_CPU, &cpu);
-+	if (ret)
-+		return ret;
-+	ret = regmap_field_read(priv->chip_scu_fields[AIROHA_THERMAL_DOUT_TADC],
-+				&main);
-+	if (ret)
-+		return ret;
-+	priv->cpu_offset = cpu - (int)main + priv->default_offset;
-+	dev_info(dev, "missing CPU thermal calibration EFUSE, using main sensor offset\n");
-+	return 0;
-+}
-+
- static void en7581_thermal_setup_monitor(struct airoha_thermal_priv *priv)
- {
- 	/* Set measure mode */
-@@ -495,8 +609,7 @@ static void en7581_thermal_setup_monitor(struct airoha_thermal_priv *priv)
- 	 * The AHB temp monitor system doesn't have direct access to the
- 	 * thermal sensor. It does instead work by providing various
- 	 * addresses to configure how to access and setup an ADC for the
--	 * sensor. EN7581 supports only one sensor hence the
--	 * implementation is greatly simplified but the AHB supports
-+	 * sensor. EN7581 monitors only the main ADC here; the AHB supports
- 	 * up to 4 different sensors from the same ADC that can be
- 	 * switched by tuning the ADC mux or writing address.
- 	 *
-@@ -556,7 +669,8 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 	struct device_node *chip_scu_np;
- 	struct device *dev = &pdev->dev;
- 	void __iomem *base;
--	int i;
-+	u32 sensor_cells = 0;
-+	int i, ret;
- 
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
-@@ -572,8 +686,11 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 		return -EINVAL;
- 
- 	priv->chip_scu = syscon_node_to_regmap(chip_scu_np);
--	if (IS_ERR(priv->chip_scu))
--		return PTR_ERR(priv->chip_scu);
-+	if (IS_ERR(priv->chip_scu)) {
-+		ret = PTR_ERR(priv->chip_scu);
-+		of_node_put(chip_scu_np);
-+		return ret;
-+	}
- 
- 	for (i = 0; i < AIROHA_THERMAL_FIELD_MAX; i++) {
- 		struct regmap_field *field;
-@@ -592,11 +709,21 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 		priv->chip_scu_fields[i] = field;
- 	}
- 
--	of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
-+	ret = of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
- 	of_node_put(chip_scu_np);
-+	if (ret)
-+		return ret;
- 
- 	en7581_thermal_setup_monitor(priv);
- 	en7581_thermal_setup_adc_val(dev, priv);
-+	of_property_read_u32(dev->of_node, "#thermal-sensor-cells", &sensor_cells);
-+	if (sensor_cells) {
-+		ret = en7581_thermal_setup_cpu_adc(dev, priv);
-+		if (ret) {
-+			dev_warn(dev, "CPU thermal ADC unavailable: %d\n", ret);
-+			priv->cpu_adc_failed = true;
-+		}
-+	}
- 
- 	return 0;
- }
-@@ -751,6 +878,9 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 		struct airoha_thermal_zone *zone;
- 		struct thermal_zone_device *tz;
- 
-+		if (priv->cpu_adc_failed && soc_data->sensors[i] == EN7581_TADC_CPU)
-+			continue;
-+
- 		zone = devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
- 		if (!zone)
- 			return -ENOMEM;
-@@ -786,8 +916,15 @@ static const int an7583_zone_sensors[AN7583_NUM_SENSOR] = {
- 	AN7583_CPU_TEMP_SENSOR,
- };
- 
-+/* The main ADC stays zone 0 */
-+static const int en7581_zone_sensors[EN7581_NUM_SENSOR] = {
-+	EN7581_TADC,
-+	EN7581_TADC_CPU,
-+};
-+
- static const struct airoha_thermal_soc_data en7581_data = {
--	.num_sensors = 1,
-+	.sensors = en7581_zone_sensors,
-+	.num_sensors = EN7581_NUM_SENSOR,
- 	.pllrg_protect = EN7581_SCU_THERMAL_PROTECT_KEY,
- 	.thdev_ops = &en7581_thdev_ops,
- 	.probe = &en7581_thermal_probe,
+Dependencies:
+- [PATCH v5 0/2] Add PCIe support for Qualcomm Nord platform
+  https://lore.kernel.org/all/20261029-nord-v5-0-1a13c214e89d@oss.qualcomm.com/
+- [PATCH v5 0/7] arm64: dts: qcom: nord: Add remoteproc and PMIC support
+  https://lore.kernel.org/all/20261014063953.549379-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v4:
+- Correct pcie_phy vdda-pll b/c/d supply: vreg_l1e_0p9 -> vreg_l2e_0p9
+- New patches for RRD WLAN/BT support as RRD boards with WLAN/BT module
+  become available in lab for testing
+- Link to v3: https://lore.kernel.org/all/20261021022921.2053957-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v3:
+- Tag the series with RFC due to the unresolved dependencies
+- Add PMIC E GPIO7 for enabling WCN DIG rail that feeds the WCN7850
+  VDD_DIG domain
+- Drop RRD WiFi patch as RRD with WiFi module is not easily available
+- New patch to add Bluetooth support for Ride board
+- Link to v2: https://lore.kernel.org/all/20260915015632.283642-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v2:
+- Add missing leading zero for pcie_smmu reg property
+- Link to v1: https://lore.kernel.org/all/20260914071944.164217-1-shengchao.guo@oss.qualcomm.com/
+
+Krishna Chaitanya Chundru (3):
+  arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
+  arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
+  arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
+
+Shuai Zhang (2):
+  arm64: dts: qcom: nord-ride-embedded: Add WCN7850 Bluetooth support
+  arm64: dts: qcom: nord-rrd: Add WCN7850 Bluetooth support
+
+Yu Zhang(Yuriy) (2):
+  arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
+  arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
+
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 926 +++++++++++++++++-
+ .../boot/dts/qcom/nord-ride-embedded.dts      | 179 ++++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         | 179 ++++
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 297 ++++++
+ 4 files changed, 1577 insertions(+), 4 deletions(-)
+
 -- 
-2.55.0
+2.43.0
 
