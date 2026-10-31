@@ -1,68 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793454352;
-	b=a31g4GT0B8LFj2ozR4r4n/lsCmL1Sy/PkaIvgkX4bLC1KSURi3ykqdtaKgoE3RSKogP4
-	 7TpzoPVkp1m9br7d5UidV8glOG96ZKH1FJOd28qRS88p9xVW0zmDQq7avlQk3LtiyC+DU
-	 pjEIqq2X8BO/7pCCf42v9VwRc0zbXxYXslFGDSQbnDZjXMiZtcCq/ErkzqmC0pdiAeLm4
-	 sCUL5RBcz+Qf/vodawldxP06QGbtgUYhBZUSwG92W/P1t4w3iOtaF5/HZasowBJBp6h1E
-	 aAo+hrJQnEIklHjUoC256CcfkDmN9zMsjeCC7Ux9nlTnBAXYqplNmuNRWAt8r77PiHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454352;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
-	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=;
-	b=tCSY/HE0YMqtrKZZ5ZadvPZlupZP3FtkOn9vx9tW6xgGVJxkEoVvkWv+dJpAB/jyyOZO
-	 awuB++o9vJEN6dZY3hdqoWAcCQVX3ynQSLxD4T2NXZIWy488xG7/1909H9OiyfoULLwaY
-	 WzZv02QiB3Ple/B+FKI/uArxtSXK07JVZ2BlH6QY5mJMFHeRcGmyUiEYlZVhHnrNOYuFY
-	 Fn3nAwD12DCjSeUcgFtgJ0yZh4WtLrL6LAP05JOi7klFbV0CzdWIS7IT2CeiWWznvAf4e
-	 dbSrNF9G82wt9cWgHD/ovKVLapwRdRidt5kBXCTvwMUj7lV+mqEKsZbf2rRBN8zv5XA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793456061;
+	b=sPM96QKwxRr8049N6CP2fBvoqYnKNS6mNpg55+hHt9O7f4A3mGmVA+l82Zzoe7JTNjmR
+	 nRstDhS8wkiLU7TcuECHiyla/wSnxVDlxW7xfKNx560tKMYqoOg250tAo5hgATuv1b1uf
+	 DpFMU5R2mK89bvJYAz2jsfa5q3bysJI9mIGUDZriZbHEwacwewNfPbqAAJW3YYbiJ5vCl
+	 NoG3cDiNttVAINp5crJqPp2/XNTsxJM7yJge6hcaSF6yxy00/lsd952QHSutw708ppDM3
+	 FiNeFF/sALdpYBBLjO4BMTRnwCZZJOKM29ns1KM9eGWU/NvBx5+1rHJNpPr4aYqq3rQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456061;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=2P97b9+pLX1rELgHYJetOViVYuqQ18+rtDceUL9B0Yk=;
+	b=Wzs52Yc7vSvaKrWdNSuOp1/+zz6VGvtfuv2EcmGtrOmo1r4MZwZfnQN//NoysTWSMxc5
+	 I2aZyM1EJxS9TDChITgUjMFeioCW0Oq0JEewlhhPrP6AfT/Hj1ogt55xjhvKTGJm4jknQ
+	 ajEY2VW/NLkWvfw1QLzD0gZs2V881WfR03JMPdbT1jbYOOq2BFxWrS62WSSk0aA+3Gmy5
+	 K14mpOapsGPUOy26ui39lKpiSQvB9uh4xTrBCKu2vrB5PyyJmMdSoTH4Vjnm1lHFBBmH4
+	 eoPwgQvUEONfft0JFcsrtnuk2dNuCEOzOZexP7xcN8sYqGkKJJt8JVKPuE2ajBoRWYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RkfXQhcV;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BP08eHjk;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83475606A31A;
-	Sat, 31 Oct 2026 13:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83475606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE3E606A31A
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:14:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFE3E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ
-ARC-Seal: i=1; a=rsa-sha256; t=1793454313; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h/xD/GnjIT4Rf3g3eJLjZfk3+Qsa80d2N2y7utHj6RLU3orDPYbpqk0pR7Ywl8RAqUXhJD2PjfB4Mtu1RWr5pkSCkSQ1hc6J4ztFZmAVpvi+ToTASlpEZ/+GJu1WP4RoFEiz6Vrqk/ZKaEmiZNx3zUD83FbLYgzYrH7yQfhbP4k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793454313; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; 
-	b=WAD9taRwR+ehdUcZuwyq1fHrzlSOTc/eYpAMznpjbfEud4VaX1IA9Zt/4+GBp2H3xHGaTUwT9wF72eKqVhFbowKaxL+WEN3G8bxi+j9rA8JHrbi3B5lXVkyC6pmki18zML6qzbsWUAQ0M1n72S9qUUbY00loeCAWO2fNG6rGIy8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.dufresne@collabora.com;
-	dmarc=pass header.from=<nicolas.dufresne@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=jzAu9FRJBaNSJ3AHilw2eWXauQJuC0SSmJh121wg9/CuUKZwl6srQeaaMXIDHfyzNyXmOCkbtSyKyJUSqJfDGHCGOHoBrlEzej4Q1/Ow3g6ZoFAt93aQdii1H8++3yJTzyjthijpIhccsjlCAb8N0K5iRvlMgdCYyVNauKzrbnA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1793454311209756.6514837174597; Sat, 31 Oct 2026 06:45:11 -0700 (PDT)
-Date: Sat, 31 Oct 2026 09:45:11 -0400
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: <zhentao.guo@amlogic.com>
-Cc: <wbieganski@baylibre.com>, <neil.armstrong@linaro.org>,
-	<khilman@baylibre.com>, <jbrunet@baylibre.com>,
-	<martin.blumenstingl@googlemail.com>, <mchehab@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Message-ID: <1a192350728.896283f8650321.6916105559730663215@collabora.com>
-In-Reply-To: <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com> <179337024629.131241.9227206619077693683.b4-reply@b4> <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com> <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
-Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
- S4
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RkfXQhcV;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BP08eHjk
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD00Yo589484
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:14:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2P97b9+pLX1rELgHYJetOViVYuqQ18+rtDceUL9B0Yk=; b=RkfXQhcV2Gc2FsIM
+	BR+1NwXe/fEZC5914jTFgS9eht8hn9w1Do92CpuoWuxQuEzMsdsceHxcLIud85V7
+	pSkUuhhhiHAzas02eJtr8LPgZTQnN5KZj7m3yUU0SRqyaeSLZ29WhnSZsS/eChOD
+	7PyfnlYRQueaVJP+pm7HYbvMSavX9I7CcWM/U25oIpBZV+KeZ4/9uNh7Y38Vi5RQ
+	IuhAUIECW/wsU5q3joWOigacgJvW0rqmvf4tGK7pZtfax1Hyo9lreBVk0VL3yvw+
+	xyc0c3x/3QPaidHVxTd5cBS+GAQmsetE+pQWgaMy8/q6cgdmRDR4Bw/ahyCsw3qz
+	152koA==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9gk134r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 14:14:19 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1acbaf81bebso1922331c88.1
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 07:14:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793456059; x=1794060859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2P97b9+pLX1rELgHYJetOViVYuqQ18+rtDceUL9B0Yk=;
+        b=BP08eHjkuMYKzj/TyDsc0gSw2BtkOr5LAVeEWdKvAhD+6snFbOHEjqI9INA8JQuuEu
+         twk2ZN7+vxRWMz1hkc3ht5T+831/owAjDXO70LbInOtdZAbpKOdd8Ep9Shwu4qyDmjOS
+         GKfe1JBImAuNDc3FnzYikxApqYnvS21oPUlp3qLqUayLzXCBE4Ch+wE1FUzramzFcEQk
+         qSTYKLwqbEGb85YSnPJalmEMUPkje4fLYsk/5oFh47ip6i2UKH6v3wr//BowS3CARAWa
+         fU3wKRFCn7L8J7qCoAyTb4SntahVsZ2M/Sk+/JA+tE6I8CGeURkbWbrXnMAq7NcFAwa8
+         huzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793456059; x=1794060859;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2P97b9+pLX1rELgHYJetOViVYuqQ18+rtDceUL9B0Yk=;
+        b=1okq8kMMSs8vwH0v+F//s3YDOahusud9mDMOrDBFM8wUCJA29b6iAUy09N4yfquWTn
+         8C1ME+mg5Miw/SZUd+9AunjVWYMZsm8bhxRgDXcUfqkbT/JtcjgcpBdmKTjRMQ1HQTBs
+         o8+zhfpH32TjAq4Mj7OQnhs3aze2O+TXJ6MkWc5Od192L4hLMx1O1TK3ewJLMNZOM8sQ
+         tFh0aYwd/fPUEgezg2r0h+hwPLR/6UmT2ig1cZD8Kl3yXg9cVyWRcQHWRDXLd5dC4oJ9
+         UuB/soMlDvQsupDBP/KrnJheZMd+QjtQksgezfjfQBvI2wGGi95MIvqYGGiJvkgXXMXG
+         bliQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxCsr1OnN6JG+qkJ1Zy2EJter7cC5NjS0c15Z/9chSsxfXrECh/jnilieQQX1ejecDXGYXRigDCUbZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjIuvzqQxyPQZYvGO89XcmBXBo+wUcLgm62mva5M5zdZxWbDc9
+	Je2h7j1ZKBhi169spQQLwEdqq+akjMMiP7YUh1GOTbUW9G487+xDLm+3ac5S0zdfCE2q5YOg5Kz
+	2+DoslNyrfGAfMieWMIZZAh8/OJhWdECMVqMYvYIlQHEBf4VZHHYG3D5tYuQF0kLW
+X-Gm-Gg: AYBFou1e2WfgihYP15NCjKMCOXCfs6XJr0N5E1d1vGN8K/dvl08DmWRRkwweh+FzovM
+	VPhSbTJe6VflaExWlwUvi7l2fr6PAXSsR9ox1HBdMhw2DdhCOwCpzboW2tdwv7lnK3NyCkC17XL
+	dOwv+EueU61qLEGDRfTD/0ctviqVOZrr7R9WUNLzsmMmMQXqaQRgxK2YgEjM7SOnnRwTBS+EHkh
+	Y9H0RWI/6LgqdldrNSa6M7jvTRwNCJXFiqBQSL2dDJ+5lXPfSvN/+Rr7MA6i5NfKGeb2WHR8Shp
+	xsGM8BSE5G2PmfYi4/tMsr0P21q4TX7Mo5EmZreVe/aPXzS9ul7e2Zr2YtMDiEdWByEn3jYFPm2
+	ng/5CqUx/0syzEoiEXoIJz8I7XYNPkBz1DLU84VzHeApkls5EeMuW28cpQXu3s0iB6CUDZJXKU5
+	4=
+X-Received: by 2002:a05:7022:7f13:b0:144:eab0:9cbc with SMTP id a92af1059eb24-1ac5e8dea62mr7118315c88.37.1793456058879;
+        Sat, 31 Oct 2026 07:14:18 -0700 (PDT)
+X-Received: by 2002:a05:7022:7f13:b0:144:eab0:9cbc with SMTP id a92af1059eb24-1ac5e8dea62mr7118252c88.37.1793456058014;
+        Sat, 31 Oct 2026 07:14:18 -0700 (PDT)
+Received: from [192.168.1.6] ([115.98.177.53])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c2e9dsm21015339c88.9.2026.10.31.07.14.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 07:14:17 -0700 (PDT)
+Message-ID: <d35b7934-54e7-425b-a223-570512be0374@oss.qualcomm.com>
+Date: Sat, 31 Oct 2026 19:44:08 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,26 +114,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Importance: Normal
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+User-Agent: Mozilla Thunderbird
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without
+ CSIPHY resources
+To: Vladimir Zapolskiy <vz@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        linux-arm-msm@vger.kernel.org,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261026224957.1115370-1-vz@kernel.org>
+ <20261026224957.1115370-4-vz@kernel.org>
+ <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
+ <271ccc9b-ccf1-4254-9664-2f00b504a5a9@kernel.org>
+Content-Language: en-US
+In-Reply-To: <271ccc9b-ccf1-4254-9664-2f00b504a5a9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Ngc3L8d7KSobQT0wbRolkVCJqgyCCi2q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1NiBTYWx0ZWRfX7njeNardNXdo
+ yRTtMCpoax+hjI3Q39rQnv8QoimBOwz6fxZwL45Hoe8g88Kx4MzAf2iTEmlTK+MzjNzQUEOk8w1
+ VwKX5RrFrTaL3wrt5e/fHv9pJPWCNgtrs5fe4//PdiprRx8F+tKF1YN4oge3r6BOBVGBXq1QJ6y
+ ctEXNZeRKur04rXfbILdRJg4zizh7AHC234TX2eP7H+Er/1CG/9AoQBChBY2ztcK0UO92VYWin/
+ ZWXP3sjt8EUO28tPmUgNiIlX2qEz3o4Az7RUke0xtZ8Lri1zcQYFYUdn6lh+XlhsLq/KEBKbU4U
+ WF5WjBge0TYzOJ45htTDcL2MoSSr6BxVoxQLo279NdTXmXadSsLqImLvrw0Qjhzn8ZjF2h57fse
+ XczZX4kvCNP/SgqHkj+howw2WjOZc76QlkSuj9TZi3kQjljgjOLJt6cybnHLzNqK5MY/euZg1bO
+ bXvQJRWtrU4mu7Qrm1Q==
+X-Authority-Analysis: v=2.4 cv=HNBWhYtv c=1 sm=1 tr=0 ts=6ae5f7bb cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=iaXPdgsK/hfklW56b25dCw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=tzcnicmHaCEtZrSMFQwA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1NiBTYWx0ZWRfX37y1HDemGwIo
+ hhcjyd6fk4jBvhVF0VwVARDVLUGubdZFGNIV0PHNzmm3Rb8epOcVsD0YINV9iEOBYfx8wLOop//
+ dDodzVJMBNqjAiDH91PetLYfPKNoSvw=
+X-Proofpoint-ORIG-GUID: Ngc3L8d7KSobQT0wbRolkVCJqgyCCi2q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310056
 
 
-Hi Zhentao,
 
----- Le sam., 31 oct. 2026 00:51:29 -0400 zhentao.guo@amlogic.com a =C3=A9c=
-rit ----
+On 27-10-2026 22:30, Vladimir Zapolskiy wrote:
+> Please note that 'csiphy_res_phy' was introduced a few lines above
+> by this change, it's only purpose is to provide the needed supported
+> media formats, and this is unavoidable.
+> 
 
-> > That reminded me, is that firmware in linux-firmware?
-> This firmware is currently not in the repo of linux firmware. Should we
-> merge the driver first, and then submit the blob to the firmware repo?
+Right, agreed. Glymur uses the non-legacy path, but that path still uses
+camss->res->csiphy_res in msm_csiphy_subdev_init(), at least to get the
+CSIPHY id and supported media formats. That is why Glymur currently has
+a non-NULL csiphy_res even though the actual PHY programming is handled
+by the standalone CSI2 PHY driver.
 
+> This change follows the assumption that pixel formats from all
+> non-legacy PHYs are SDM845 compatible, that's true for this platform,
+> it is expected to be true for the most of approaching non-legacy
+> platforms, and on demand it may be changed later on.
+> 
+> The current form likely is the most compact and the least invasive
+> change, which gets to the point of supporting CAMSS on platforms
+> with no CSIPHY resources given in the CAMSS driver.
+> 
+> For instance, note, the recently proposed Glymur CAMSS [1] references
+> X1E CSIPHY resources, which is actually incorrect, since there is
+> no "csiphyX" I/O resources anymore for Glymur. This change can be
+> reused for Glymur as well, and its reference to X1E CSIPHYs can be
+> dropped, but any better proposal or improvement are welcome.
 
+The intention was not to describe CAMSS-owned CSIPHY I/O resources for
+Glymur. This also follows the earlier suggestion to reuse/fall back
+to the Hamoa/X1E CAMSS description where possible:
 
-Thus far, we have always required the firmwares to land first, unless a str=
-ong justification or valid alternative was proposed.
+https://lore.kernel.org/all/lepv7cgykrylficddcnnbii3kzxsiei3itcwc4ibq53s33rogi@ndnf7zrtu5ex/
 
+Moving Glymur to .csiphy_res = NULL is possible, but with this fallback
+the CSIPHY id comes from the CAMSS port number. Since Glymur uses
+CSIPHY ids 0, 1 and 4, that would also require Glymur-specific driver
+data and DT/binding updates to describe CSIPHY4 as CAMSS port 4.
 
-Nicolas
+Bryan, Loic, do you think we need that change now, or should Glymur keep
+the current approach for this DTS series?
+
+-- 
+Regards,
+Nihal Kumar Gupta
+
