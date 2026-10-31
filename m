@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793423978;
-	b=dEP72avJ2pPFFdLj6TFdWm5pxm39YJYJKmAL7pBT93URnNJ8x8m6fNlGUkfZnnGglG5D
-	 jLBwri1W5RqOuphf6UgkSz5sGbkf7G6Hub3VTf40IR7lJMS0HMoBuDk8fc3ejnHflTP7B
-	 UbbrL+elqaA1KjVS71WO6iBlFPDNLQEbnh9vc+l+lIZT7lB4UipZIMh0fY2TR3xWlhbWw
-	 yz2muHVq6+Td2qVF5NPHnv/t+RMOc60BtVfxEIRdEs7PgjVoUmQdRT7xO/6ecMSWbic0X
-	 frKHR0Xq8ECv0EOF7bPzJygJDljc8AWT/5DovGoHdDG4dP0kwZG7IWNQqFQcZhcf6Kw==
+	t=1793424469;
+	b=DWYSk1j5T4ilZjekhF1J+wQ8ZSTO4Lcb90BM16xI+FrRPHD465rIV7CVpZa2fCY/IYZ2
+	 Y5FAacibnOo9M1XtX5d30Ww/s7ra7deB5668wGlyddVCnVzcXvHhZIav4q+FFm4iPoH5M
+	 NtiWfk9tkhaYyHmVgj6Kt2Tl5Kcfqp1Zzc5lQ3Rx04S8L7rk1bFuXZmadWiHUwp5J4ZKx
+	 +Uh0LfS/laoR1P8/JdHIUoF0CQeizpXhyJ/nX5e7CInDzaO25LOXtz101hgtq8mE0Y4ym
+	 EXCyCi09pf9W4P6u/uG5FnTXP0NQ46qN2x2qMeBHCvS7ApA6vqJSwZVFzExqvym7Hbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793423978;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
-	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
-	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=aTrjdhAZkYsM2rcSRWE3MAxfT10HTPL5Pfouv/xeRtw=;
-	b=f0S8nEWynGFyXS922aitM0VPwRqEYJyZxxwLmgj/SDK4JWKiS+1k5xjyWUzqRTyBRD2i
-	 SeDmgCQ59rkHihpPRloDQAgc759es7umptQpkti0fD9tNINorc8oIl0IM7VTjg2GQoCVM
-	 0vn/dywhmqpDRxH5Hal5BtN9wFIOUeKaR3MDRKwkoyylElDmkd5EW+E49aawDdXLtfO5n
-	 u9prep8mwPi42OW+VFjpdqkRLBW4ynVg8Yt0rmVMZyioaiL7q7hJxbamsWuOVnfj1fYFp
-	 4Zc7viSpFVYhCOyyn427lPYdLKwg/kon3bZM0XtB7cOTG33jKzIyZ2A33z9R++KwBzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424469;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=ZEF2f4QM23xxp5nfr+zqHD8hjPW2/JUV1k15Xchzdzs=;
+	b=K9naAQYnhn4+jR8fWTRmzmAA34rxViZqOarOcDFuSTr1iLOFyvsQLd6ooJOiAlJPjZTM
+	 ze2zEsuRRSS52sQeM0knk8baU+r0mHUgs81EtEJWq4EEayi0YodrNt/p1Z2EgleTkpFsJ
+	 qZ5rTT4dp03a1wxiM9dGJWNuWqZAwTlyXBI73I1FOBn2t7Qneq4Hf9uU1C/xYD4Tnu/HV
+	 GU3gCDck1vRFc9Ci+UIdxnsKc0jG5xX3smzXdhdXoInVTTl1Gh3fnucgHAGGccXFCvUkw
+	 2xXQtEpjjiyxhe3t8LDl3HpfNfAwG5zr5q6F8yBpPJMGdEs2YYfm8G9A8hTTykPY9Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=brar.si;
-	spf=pass smtp.mailfrom=rsend.brar.si;
-	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=CPXENnup;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=ZYZrUUFZ;
-	arc=none smtp.remote-ip=23.251.234.51
-Received: from e234-51.smtp-out.ap-northeast-1.amazonses.com (e234-51.smtp-out.ap-northeast-1.amazonses.com [23.251.234.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA79C606A31A;
-	Sat, 31 Oct 2026 05:19:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA79C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dTHlKQS5;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B01F606A31A;
+	Sat, 31 Oct 2026 05:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B01F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=CPXENnup;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=ZYZrUUFZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=brar.si; t=1793423976;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=j30RlGk9uaAKzG/CjGIFRv7T5BN+RZPMz5USnZpOEec=;
-	b=CPXENnupum6hY+bn7mN2eUwZvZjAVrC2jL9X/1a2bASFFLwgflzsIgTVuNIfqSeo
-	QsQpq8vxqMnjUNi2azN5fPGi9qBxHl2AtctcBv3pFbMYV3oDSKLpukptIMQ3D+2T6pF
-	NnEYXZ5OxWTUloTydpiAugHL9en1zCLZeNUeScxQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793423976;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=j30RlGk9uaAKzG/CjGIFRv7T5BN+RZPMz5USnZpOEec=;
-	b=ZYZrUUFZmhQR9dWjvM/194DChU2iHD/Hv22UGbmGybqsQf32WvNCUbsLL6V/AWSP
-	Rld517D0varKE4USh6UwebHy9Msu0nR2V5ICIZlxCD+b4Dln9orTpbIucCf4RicFePC
-	O3cODxPnfPP/3T7zeR0YEm+OXov1mViKmWN88uJI=
-In-Reply-To: <b0d99121-06a2-4674-bbc0-0edeb426e072@kernel.org>
-Message-ID: <010601a190662577-fd93bfc1-739a-45ce-9847-727776271c84-000000@ap-northeast-1.amazonses.com>
-References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
- <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
- <20261028-classic-sloppy-harrier-72dfcf@quoll>
- <b0d99121-06a2-4674-bbc0-0edeb426e072@kernel.org>
-X-Pmail-ID: <1793423974923.5b783470d46a@brar.si>
-From: Ishu Brar <patches@brar.si>
-To: krzk@kernel.org
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, konradybcio@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250
- RPMh NoC
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dTHlKQS5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=ZEF2f4QM23xxp5nfr+zqH
+	D8hjPW2/JUV1k15Xchzdzs=; b=dTHlKQS52p4jU6k6aQY90t5//eq2cLropd6mJ
+	E9BMVmgrvidnFacwWKaT18jB+uq8/j3yJ2YuZxK2BICSgVe59HfpOkyClfs26aQi
+	ksJgzABeqEduCpsIMiaT6aDSN/wsiPYyJ7hPcgofqrN2x8g/4orOGOj0NL58pF4y
+	Qr4Lvw=
+Received: from [127.0.1.1] (unknown [114.214.177.113])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAns0dHfOVqqzVtAA--.5315S2;
+	Sat, 31 Oct 2026 13:27:35 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: sashiko-bot@kernel.org
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8750-lenovo-elden: describe
+ the WL2868C regulators
+Date: Sat, 31 Oct 2026 13:27:34 +0800
+Message-ID: <179342445495.451929.5990710287507462097@mail.ustc.edu.cn>
+In-Reply-To: <sashiko-outbox-191739@kernel.org>
+References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031034300.272730-4-xiaqinghuan@mail.ustc.edu.cn>
+ <sashiko-outbox-191739@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Date: Sat, 31 Oct 2026 05:19:35 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,34 +69,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
-X-SES-Outgoing: 2026.10.31-23.251.234.51
+X-CM-TRANSID:3pYKCgAns0dHfOVqqzVtAA--.5315S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWrWrJr45tF15ZrWktFy8uFg_yoWrWFWkpF
+	ZxKrnxKr4kKFyIk3yxCr48tF1fuw4fJFZ8Cry5G34kAan8WFyIkr4Skw4Y9FyUWr18X3WY
+	yF1a934fKFZ8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5-VyDUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAysw
 
-On Wed, 28 Oct 2026 09:10:21 +0100, Krzysztof Kozlowski wrote:
-> On 28/10/2026 08:59, Krzysztof Kozlowski wrote:
->>> +  clocks:
->>> +    items:
->>> +      - description: aggre UFS PHY AXI clock
->>> +      - description: aggre USB3 PRIM AXI clock
->>> +
->>> +patternProperties:
->>> +  '^interconnect-[0-9]+$':
->> 
->> We actually do not need to enforce -0: '^interconnect(-[0-9]+)?$'
->
-> Actually is this really a pattern? How many children are there?
+One note on how this mail was written, since it matters for how you read
+it: I work on this board alone and my English is not good enough to
+write upstream mail unaided, so I draft with an AI assistant and edit it
+myself. The content, the measurements and every decision in it are mine.
 
-No, not a pattern. there is at most one child per provider:
-	aggre2-noc  -> compute-noc
-	gem-noc     -> mc-virt
-	system-noc  -> qup-virt
+Four findings, and three of them are real. Taking them in your order.
 
-The other providers have no child. v5 would replace the pattern with a
-single fixed "interconnect" child node.
+[High] i2c10 enabled while qupv3_2 and gpi_dma2 are still disabled.
 
-Should the binding also allow the child only under these three
-providers (and "interconnect: false" for the rest), or is the plain
-child node enough?
+Confirmed, and it is the worst of the four: nothing in the patch enables the
+parent, so geni_se_probe() never runs on qupv3_2, i2c10 is never populated,
+wl2868c_probe() never runs, and none of camera_ldo1..camera_ldo7 exists at
+runtime. That also means the twelve "*-supply = <&camera_ldoN>" references in
+this same patch point at regulators that cannot be registered. v4 enables
+both parents in the board DTS:
 
-Ishu Brar
+	&qupv3_2 { status = "okay"; };
+	&gpi_dma2 { status = "okay"; };
+
+I have not measured this on the board yet - it is a DTS-only change and I
+will not claim it works until I have booted it and seen wl2868c probe.
+
+[Medium] undocumented sensor/lens compatibles, missing CSI endpoints, and
+power-domains on external sensors.
+
+Partly accepted, and the parts that are not accepted need a different answer
+than "fix it here":
+
+ - "giantec,gt9764" and "samsung,s5kjns" are documented, just not in this
+   series: the bindings were posted separately on 2026-10-27
+   (<20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>) and are still in
+   review. "galaxycore,gc08a8" has no binding posted at all. So the nodes
+   here reference one reviewed-pending and one non-existent binding, and
+   dtbs_check cannot pass for either in this series.
+ - the missing port/endpoint nodes are a real omission. Sensors without a
+   CSI endpoint cannot be connected to the CSID, which makes them decorative
+   in the current form.
+ - power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC> on an I2C sensor is wrong:
+   the GDSC belongs to the camera controller that owns the CCI bus, not to
+   the sensor, which is powered through its supplies and its reset GPIO.
+
+Where I disagree is only about sequencing, not about the facts: the reason the
+sensor and lens nodes are in this patch is that they are the consumers of the
+regulators, and the binding reviewer asked for the users of the binding to be
+shown. Dropping them makes the regulator series a binding with no consumer
+again. So my plan for v4 is:
+
+ - keep this patch to qcom.yaml + the WL2868C node on i2c10 + the regulator
+   supplies that are genuinely wired on this board, and drop the sensor and
+   lens nodes until their bindings are in;
+ - carry the -supply wiring in the patch that adds each sensor, so every
+   consumer arrives with its own binding and its own endpoints;
+ - drop the sensor power-domains either way.
+
+If you think that leaves the regulator series without a user, the honest
+statement is that the user is the board DTS as a whole and it will land in
+pieces; I would rather say that in the cover letter than ship nodes that
+cannot bind.
+
+[Low] cci0_i2c1 and cci1_i2c1 disabled while the bus0 siblings are enabled,
+bus1 pinctrl omitted, node ordering, and "two CCI controllers" in the commit
+message while the SoC has three.
+
+Accepted on all four. v4 leaves both i2c-bus@0 and i2c-bus@1 available (as
+sm8550.dtsi and sm8650.dtsi do), adds the cci0_1 / cci1_1 pinctrl states on
+gpio115/116 and gpio119/120, moves the cci nodes to unit-address order after
+videocc@aaf0000 with the pinctrl nodes alphabetical inside &tlmm, and the
+commit message will say three controllers exist of which two are described.
+
+[Low] binding schema, SoC dtsi and board DTS mixed in one patch.
+
+Accepted, and checkpatch already told me the same thing in the same run (one
+of the five warnings on 3/3 is "DT binding docs and includes should be a
+separate patch"). v4 is qcom.yaml one patch, sm8750.dtsi one patch, board DTS
+one patch.
+
+Nothing above is measured except the DTS content itself; the probe of i2c10
+and the runtime existence of the regulators are still unverified on hardware,
+and I will report them as such in the v4 cover letter.
+
+Thanks,
+Qianhui Xu
+
