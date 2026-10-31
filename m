@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793445747;
-	b=G5AvQKnuJuYD0BkIJa5jw3pIomFQm5uOh8R4taVEk5jjVJxMDuSI6hAV+sMZv4q3ZI/r
-	 ug0L/grAlkZ9K9Dtl02HetJ5Vqh1Hmm6N3s0vu9BUK/VvcGUU+aU0VhO5k5XBOmmRVmW+
-	 faFf3nOoR/pb0ozE+khPhcLovKzN+7zZkUiO99flKjUuNKmgLS9bZmyt4ofBfdtlNjpCV
-	 6oQNXVRF4F+0EIOZKfRN+aOgTxzyDOzFIvsmCEgHoBfIe9/ZBPTyJyh0ExqpCZ0VCGXfd
-	 yyZrjITx75KtN+dYmf17MpBq/R1ePJNDWQpD0cvgvJgyYriP9SLy4D/ihjulocH+NrA==
+	t=1793445749;
+	b=0RCrSKSFww8vo/y1SBMQKbZKK7O6vu7pd38PnQAJLrk3DfBl13H+9grFscnq+2IPBqUz
+	 WbAvGgYXBx8d0kc2+FqLCspezB9KSJ5OaZMSTBL1+nvAUWE4o+dbVdqinvRN5rOcYTKuY
+	 XNmKl8r17eIFuEklttCIX/slwwmA9nbWQFTEFbLousSUhnXOaI9bkatECZ9Z8+4hyq/K8
+	 ZlQg/4A4zzMaenHHEfbx2Wcq7NcToPM7EjhX5kPcjzqiIXULMGZqmYzazzUI40KLXAzQp
+	 /sCLyimbqcmT4w3M+HMCeZoVbma6Ql8B2H4/T1HU5oRiNv1+GMhxXyx3RYQXxkrHXuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793445747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/DP7KNdQWOH7BpliivQ5bW4gkOy6G4pd7ggK78SbJr4=;
-	b=tzjNXZ7WXuDMtAUEIpbEfoz1Hg2ekZHsiMTAQt8KaWQFJI22QyXWT0AnKQUiuIKDeRcz
-	 74xFgMQpURBH3hmGzzAkI2vNOI1qEEkUjlkgQ4ygMG2eXCCkbCosFaZFKgxbPHmz85n6t
-	 UkgZu+7DNJZ6ZQ0uNzAxYHko+/yIN7zWDRZWnvjf4dQy4jZBRMUOmgnfBloXmv6aFcWye
-	 fL+lW+S7g/X0MiDSKGuiCI1aBt9IftkZxBxwAmEAKgIbVNO3wnOSOQ5k05Y0oTJV+LEy6
-	 MY9RtOlj0krSaNw2UPZuXjMV31wID/rWiz9lJXLxz4Ty2swwMhdTrMG5QUwdb8n2Bew==
+	bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
+	b=YlgWvmqjMpgh6IBBXA2+olabDU1xyLuzma0oLWHyiCBm/edsjIdS9Pf764xeBAbbak+d
+	 CufDxQ+lFn6iwG1PA7/6SBnM+tsDRZZM9525F4O3oHAk14NqzZ9kR1X9TUTTwrntHPGPU
+	 9s5mEAjR6cIdBRo0JYb6HWAiwO3vSQXo53MBlbjgxBhb0YoZ41hTj9pAEM/mg7FyJHSIx
+	 eO8zf2bxam8Hdvy02g3KFCOBcSsqEjhx7wblEO5C+kVgIsHpsT96O8lHh8AJiaGj2rBm5
+	 X0RFUFF39CMcGaY20/oHkkF9RKkHIPkYC0b9Tg72kEwZK/Oi3Pe2PdRH3VVvxSdRayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mldDd7mI;
-	arc=none smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Q89w/7x0";
+	arc=none smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFB5606A322
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:22:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAFB5606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A67606A330
+	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 11:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17A67606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mldDd7mI
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be502e1adaso73819e87.0
-        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:22:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q89w/7x0
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3c0e7298so2161221fa.2
+        for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793445745; x=1794050545; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793445747; x=1794050547; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/DP7KNdQWOH7BpliivQ5bW4gkOy6G4pd7ggK78SbJr4=;
-        b=mldDd7mIUPPKxAeoDWfejbL89Bun8PxS/Pfoi/C+OVqoLglRPk/llZ975EI/vJnPFS
-         MK4M/1P7wBS0DRkWhJoau6Nz8P8iTt2Cs0vfgBp7lOzxtuNU8Oq1fDfuf5Sgogwzr3iV
-         lXYWR/O6p/HCum9RuHeCf6slQS9z54OlsW3lJBtUmgSnXna1fd+ihj4DXO4vmgFWXq1W
-         j8N4cYbS9qVov43xtvmoFeE/VPhHDjnZGSZSrS1AiWsjoUcrytSDpxgop511LzdipwS9
-         2Xi/lbGUlgukqXC35RlO+pn+W+DoLmEsmftqIugwPrMJQoS+B6qWm48/+d6VyEB1wvQe
-         HoWw==
+        bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
+        b=Q89w/7x0HRK2iT442mfAC0Z/blCfysHmO3lk80m/FjOgkZKEmLtVzj32YWikPqRi4U
+         qutZF3q5D/mioJ+i5+kpgidXSzYCX9N+Rs8ZJFLCO4ha7GztoVnDD24V58VAfSdNeicv
+         SfjVD36PkV0w7XlWvtZOjTCmaieBbBrOGzLq6Z/pO3IPAKij9Vz7xRLV1mGAi+uX2zMT
+         vm0pPHf+yZAFjP9Y2TQFDgOKcj0d7eVx3h86k5+OnW6Rcc/GZLOSbruUJXAenQ76+R/P
+         nAW0LGVBxP7mpY3I5VysYCyAXBQ6ysEpwyjDMOR/asLyzfE2LbcQFrwEEk5+TrIU1nUE
+         q5fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793445745; x=1794050545;
+        d=1e100.net; s=20260707; t=1793445747; x=1794050547;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/DP7KNdQWOH7BpliivQ5bW4gkOy6G4pd7ggK78SbJr4=;
-        b=Qf13AA/nZ2nQ+J/pDSs/0Nb1oQi5atXOGyt+9wmMW363ifuvqAb+rIIX2OGsu9AUIy
-         80X18BxOyjuwPQiV3qi6KroMPNynUuVyeWtwgww45Lle/LPeBsLmnBbj2ck91WuL8Q69
-         xZva90KeOklt+7fE1AhLHYLtWxpcaJnqXnYnuUKSFMixgr8GfvywQLtHY1QzkWnqQtWT
-         Rk8HQNiRfSK8P4BBRRpSEsLAJX2cvKN4XgnA91C+wdLQN3N62mFEqHhEeXTSEtOE/QG0
-         0BrI8DTB6iXwwkoor8+TWdm7dfxd8oWRYIA0PkErKRo6gQE/SXE2eV4RKeOfSRlT5R9z
-         U2xA==
-X-Forwarded-Encrypted: i=1; AKwUvBytn2dgg3kA97nkVB2II0yVVxH8a5KreQZIeuL0Ky+K6DXfYrseJIZhNzqU67vlh3W+1UlA5sX/WUPo@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIh9sQQhvBJy/iEwJkIsgnCZvguWz6WwYBly+tbwK/B993waS6
-	9Htzsj29lv9U4sx3FAUIR2lFHgvZq7ru/nfdbnLFrE61PLa3DgQOd8yGUCk1ekd3b+I=
-X-Gm-Gg: AYBFou2dOod+uas4F4IvBfXuF3zcssh2ePpZmsUgrJnuhohGSGCu+CSv/OKiaMStRmD
-	REcZQneq0GCH+54N36v0Po+4Q8HD4FMwPpd7lNGk1zy7mPe6267uPsorEbXIuGNnm7aphAwNY7n
-	RB1LGIEeFowCsdcimQ5eAtgjl1L/T2XOWKjyLXlhC+ArC9ZJpqseAWIzwCb3XS76z3876kI5+CY
-	9zC+UNfICs0rqm1dm0AWSf++7EJaF+lVPyKj3yiTqVP20b7dFlO0DODxtKnECqnIFCqkFwmIflB
-	klWoJwPtk5NVhuU/1Nti8ZLCVTqm1wFp+Dat2+bIgYVCvDozIBdUiM5lDoiHAb1DMA6IxOfS9Wy
-	uRhjWBYXOPVtm7nnlm8130GL5bPsm1l/AECbsscuetYpaxVAi1xZwEMs0Uzt8ELjxI7zjCk7kY+
-	AS5pu/Wpb3a4sFAhqyMo7fP4LJUuGMed9QQmh6aq0reAq+ttNDhGcesYeDlM/e3nDTg3uofXOee
-	mLyYA7/IB7SUQiveqGpgUm3Us2eMmOv8ui6kNeB+oCu9hJv91Mues4DBGUOcfYWfn47ZU1oXgYX
-	/kj5tYFvsDaYmUmcCXA3xCS1BOeUcniicwQkyKW9WYEgRGvsul1AO5J5cANrfYTE4Dk+YNo=
-X-Received: by 2002:a05:6512:4041:b0:5bf:a48b:7807 with SMTP id 2adb3069b0e04-5bfd952024bmr1809892e87.1.1793445745111;
-        Sat, 31 Oct 2026 04:22:25 -0700 (PDT)
+        bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
+        b=tviQLP0sWEYQPvtSDg6q+VwXh9+IvPpR+YPwtUrk66X2jMdpDHvowmKNH2IwuoL4Ae
+         kKikONvB0cdK7J8dhW6+S8CErNpsFNlrn+G0a3RWsHAvXcbkVmV1HJUmXxEmyiYUQuGA
+         76usT10p4DXif+S0LoJM5ZlitRwaUxvJhWujlLtGINuo8vTbq1YRW5UI4lKwYgiaqpk6
+         U/rntKEAX017fc70GZU8KPkCSrrkoVSmEnC0ZVua7VzreQgB3hxPEluvAHj2jlvFurx8
+         mX8DvOMU2CtiuhtLcxkJbtc6epVcqTNrwi7I8PoooPhO6KiHBF5De/bXnedDTycWgbX/
+         VOJw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6QF44nc8AMsOIEyx8egiuZOYaUbuFt+npX0s1LYrJbYJPZtR1tArND7/OEA8unPCsNU5KVp87kY0Y@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhHpfx6LBC1//DUrK/wnnbRaqt3YN9DsxrAidiSKjkfo1PetYJ
+	JaT5CoBpryTVyc0JCw2OMBCs5bacbBLkhCeHXJnlhTCaEABwJ//DIrAWpWmOUBf8948=
+X-Gm-Gg: AYBFou0114Os4c/EyuLkk+51xqHFpdYRayOMoaufYmJhpLW6U4KywMYy9l4AbWDtsiC
+	3nUPnC2UhXkPcsPwaQqS0J+9c4+tLExwJ0sya0goKtmgxHuHi/L2nvxkePVryXIfdw/ml1v9LeB
+	eItOGy+iBNqi6XUSfTPo+oeC7DX0t/ZIjMPpaA+AaoKBXXRG3EL+93XyN4GUyWH1rQR/iHpbnFk
+	bWbOtLcVERlKnArzDeXjMNK0ou/7Pio8uo1uzjbppfbA3LKmOGOhzehrhYSGpVMECggMhgtc+4k
+	aC8CRL9Qec12Y3T+wRJ/KNAZv2JcrZv106soDqOUjlXasM6m2To7mheyQdnJkoEpM0qNcBgWvtd
+	4yHUCmL1Be0l9Kwb3gDRlCwWo4jYwXp5yWiH9zVF/U956tkPB7TuaT9jU3X2TITGx+PB+7jxvQu
+	VBab1nEc13Rqm74yTQ6z5X1Pk05KLBrE31HncKrFDzUp5SHN0Z8MpTZQ1/yNxJ+kfdzE4sAotEW
+	RZ1520ymkQEOXETFIjHUb5JTVo6v/FKYPBCOeB1gy2qMKLrcyS7ZzaJ3AWI0575dLWJjggnNra/
+	LUih2jDpKaSZgcLHqbpdhGoioGLCwypD5NjokMXgDB3JQ24i0Y7eKyGdD31bsRPU/cAIgA==
+X-Received: by 2002:a05:6512:3051:b0:5bf:b9ef:d033 with SMTP id 2adb3069b0e04-5bfd9590eedmr2006098e87.5.1793445747319;
+        Sat, 31 Oct 2026 04:22:27 -0700 (PDT)
 Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.24
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 04:22:24 -0700 (PDT)
+        Sat, 31 Oct 2026 04:22:26 -0700 (PDT)
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Loic Poulain <loic.poulain@oss.qualcomm.com>,
@@ -92,9 +92,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 3/6] media: qcom: camss: tpg: Add support for v2.4.0 TPG
-Date: Sat, 31 Oct 2026 13:22:00 +0200
-Message-ID: <20261031112203.545319-4-vladimir.zapolskiy@linaro.org>
+Subject: [PATCH 5/6] media: qcom: camss: Add SM8650 TPG support
+Date: Sat, 31 Oct 2026 13:22:02 +0200
+Message-ID: <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
 References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
@@ -109,81 +109,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks
+of hardware version 2.2.0, add their resources.
 
-Add support for the TPG found on Kaanapali. This TPG uses hardware
-version 2.4.0, which drives test-enable and reset through the
-TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
-TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
-CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
-the data source when a test pattern is selected.
+CAMSS TPG on SM8650 needs the non-real time CAMNOC AXI clock to be enabled,
+otherwise VFE receives the frame start event, but no data is written.
 
-Add the TPG resources to the Kaanapali camss resources so that the TPG
-subdevices are created on this SoC.
-
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-[vz: extracted pure TPG hardware support part from the change]
 Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 ---
- .../platform/qcom/camss/camss-tpg-gen1.c      | 23 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ drivers/media/platform/qcom/camss/camss.c | 53 +++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-index d29de5f93c18..cabbb2638cf3 100644
---- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-+++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-@@ -22,6 +22,7 @@
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index cf4687a20dba..9eeb7e4a7315 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -3423,6 +3423,57 @@ static const struct camss_subdev_resources csiphy_res_sm8650[] = {
+ 	},
+ };
  
- #define TPG_HW_VER_2_0_0                TPG_HW_VER(2, 0, 0)
- #define TPG_HW_VER_2_1_0                TPG_HW_VER(2, 1, 0)
-+#define TPG_HW_VER_2_4_0                TPG_HW_VER(2, 4, 0)
- 
- #define TPG_HW_STATUS		0x4
- 
-@@ -33,7 +34,9 @@
- # define TPG_CTRL_OVERLAP_SHDR_EN	BIT(10)
- # define TPG_CTRL_NUM_ACTIVE_VC		GENMASK(31, 30)
- 
--#define TPG_CLEAR		0x1F4
-+#define TPG_CTRL_CMD		0x1F4
-+# define TPG_CTRL_CMD_TEST_EN		BIT(4)
-+# define TPG_CTRL_CMD_HW_RESET		BIT(0)
- 
- /* TPG VC-based registers */
- #define TPG_VC_n_GAIN_CFG(n)		(0x60 + (n) * 0x60)
-@@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
- 	}
- 
- 	/* Global TPG control */
--	val = FIELD_PREP(TPG_CTRL_TEST_EN, 1) |
--	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
-+	val = FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
- 	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_VC, last_vc);
--	writel(val, tpg->base + TPG_CTRL);
++static const struct camss_subdev_resources tpg_res_sm8650[] = {
++	/* TPG0 */
++	{
++		.regulators = {},
++		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
++		.clock_rate = {
++			{ 0 },
++			{ 400000000 },
++			{ 0 },
++		},
++		.reg = { "tpg0" },
++		.tpg = {
++			.lane_cnt = 4,
++			.formats = &tpg_formats_gen1,
++			.hw_ops = &tpg_ops_gen1
++		}
++	},
++	/* TPG1 */
++	{
++		.regulators = {},
++		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
++		.clock_rate = {
++			{ 0 },
++			{ 400000000 },
++			{ 0 },
++		},
++		.reg = { "tpg1" },
++		.tpg = {
++			.lane_cnt = 4,
++			.formats = &tpg_formats_gen1,
++			.hw_ops = &tpg_ops_gen1
++		}
++	},
++	/* TPG2 */
++	{
++		.regulators = {},
++		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
++		.clock_rate = {
++			{ 0 },
++			{ 400000000 },
++			{ 0 },
++		},
++		.reg = { "tpg2" },
++		.tpg = {
++			.lane_cnt = 4,
++			.formats = &tpg_formats_gen1,
++			.hw_ops = &tpg_ops_gen1
++		}
++	},
++};
 +
-+	if (tpg->hw_version < TPG_HW_VER_2_4_0) {
-+		val |= FIELD_PREP(TPG_CTRL_TEST_EN, 1);
-+		writel(val, tpg->base + TPG_CTRL);
-+	} else {
-+		writel(val, tpg->base + TPG_CTRL);
-+		writel(TPG_CTRL_CMD_TEST_EN, tpg->base + TPG_CTRL_CMD);
-+	}
- 
- 	return 0;
- }
- 
- static int tpg_reset(struct tpg_device *tpg)
- {
--	writel(0, tpg->base + TPG_CTRL);
--	writel(1, tpg->base + TPG_CLEAR);
-+	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-+		writel(0, tpg->base + TPG_CTRL);
-+
-+	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
- 
- 	return 0;
- }
+ static const struct camss_subdev_resources csid_res_sm8650[] = {
+ 	/* CSID0 */
+ 	{
+@@ -5786,12 +5837,14 @@ static const struct camss_resources sm8650_resources = {
+ 	.version = CAMSS_8650,
+ 	.pd_name = "top",
+ 	.csiphy_res = csiphy_res_sm8650,
++	.tpg_res = tpg_res_sm8650,
+ 	.csid_res = csid_res_sm8650,
+ 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+ 	.vfe_res = vfe_res_sm8650,
+ 	.icc_res = icc_res_sm8650,
+ 	.icc_path_num = ARRAY_SIZE(icc_res_sm8650),
+ 	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8650),
++	.tpg_num = ARRAY_SIZE(tpg_res_sm8650),
+ 	.csid_num = ARRAY_SIZE(csid_res_sm8650),
+ 	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
+ };
 -- 
 2.53.0
 
