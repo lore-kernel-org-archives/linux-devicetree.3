@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793410261;
-	b=KIfZJsptysM8dRaVx2XhwwOQSfrCnPvex529tyLqbJfw/0JnjpP3eXLbPoBrkPawwtIu
-	 mEX6z6Ui2QGypHKPMugMz8Z4hSZHGTSlPW4QIICTI6oZ/yMu1nsc7qEnBTYcz4/AOEDOk
-	 AJyrhhN85GJjzNyInDQbDxOUD2SBGcXG0zqFaF/zwZ6Zay0+n31zAVqW74BaeXHz9oF3O
-	 x7PmQv0zZzMIr/ghLMFw29INRu+2SjdNYEB1w5U3IYAYNSSBW+I/Bg0lgaAN2zJnRz/Fv
-	 +DrJ9GobJFYuKTXbCmnPDZ28e/rdf3ECoiNeOBaIW49iW7rwBNPTp2crNv2F9TutWWA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793410261;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
-	b=FMCNzPWqv2XVW2P2ysH8MoTe7lf2+YPCy72xIA1f8n3XmIUTkYsJnQTh07H2NC8oP4wj
-	 VSS7XDWlWZEMS8QJWzAfUUNfOZhAUC4Ip/ojcsSIrlOoyR9jxVPt3WkbpqD+mVOOM5cQ9
-	 zAVI5IlOw1345+fGB7QtCo94QJS6hMcE+FRGc0q94kfSU4x3cvFKMB3VsqVpSzPkPAWVO
-	 JCfh0IBk4Vr0u9dKonoba4mUh37cZ+d5enAFfvTMA3xeZT+Ry3zrT5MtEN5w4DlUw96eb
-	 myHYIvZB2C82vGSp0x0ipmdzxTouCHjIHAP2UBkh19DiJ5jo9+nHCbGb4iCxJHQFYXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iNpAtZTj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.5
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011005.outbound.protection.outlook.com [52.101.52.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793412317;
+	b=FfcpHMrgTGIG/tGcVwR8ZILRNN60rh70spOFJAUXX7NJUfKGKMFJy2uZp5a6Ofqh+JgP
+	 aqzjLIgson0DjzVSLdWRCukD+AgYGLTzYYOGHvX6AXosLyhEIzs8+vI0ivdU9fskRfiMx
+	 5g4N5sZb9IPZ60vsf2Bo9PmZS/TtzQ8T1DCp1BrIHghjFibakzdIHAznr4JYZU1Hd9tfk
+	 cKWhOMfZPTrDDGZ9Wki69DuNSwWE05tkYl8oQmqhbEVToMxxWfLUvnrysMLySo/bL44m9
+	 MW7DYn4kdSdYVEpfVTR9LMBMIRqmPuu/3mbAZ4nmDrNHS3lbhx+CjFvlicN0WtRVbFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412317;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UlBttvbTfPH6bD8qwAPRvEvBrmgF2s7FgvULNFDejzM=;
+	b=4iYPw+KkNGRqZSl4rXtRVhYqPnfx3RZQMjuVJE3QKGyHXfoNrn6pH/iTF52O6te/CncO
+	 +e8+P2Le2jJg8vKK/AcxgmTeFC7Lj+ZMjaJVbhkS7ucVNbgpeNy6LrcKPPug97UxrByW+
+	 MPKA31N3l6j89vKdcNBCP6BUSeDrD7nc5ymUpuH9SGM7DFkTBMzj0lijje5G7xnChKId2
+	 4swlocQxUbPwWogciGFkfAgSQmrmepDFy9TqIbifxA57zIY516gTjue3GCYhm278SiHCm
+	 2Bnii9Al3zbVL0n8Dlg9AMdMo4kEo/MFLi/dcFzk0s467cRkJxem23nRs6Y8VThQCaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2506E606A31A;
-	Sat, 31 Oct 2026 01:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2506E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BE7606A31A;
+	Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BE7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iNpAtZTj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j4x4JP3kqw8PMjfrGEVl5erYrCNHZ0OPq+OV8YU5/YEf7LgvtzDYQmT37FFns2d6Uq09sfegihIZ2n3jo3B7Mc2OiQltbY5GpQw/5EP+CvUZPLTv+3HZKY6uInfnw6GJ4fVWOnddNaFkry1dp5UOZ0F5yyfgt7m3NS6C1KXfoYy1/PttqNLOFLOeZDPpA4TAny30er9IkWmqcW5LZ1IcYeiWYkDtcHKr/2dklEsgYXJhCVy+yd56LuzGKA1MRAYSNLMtYze3+hgLtw2XCkd4U6Etz9RriN2p9X3y+ddCaHOEAAv66hU7L1n32nCRyZ1KOgFBERzD8O/ymTVCtRgieg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
- b=m0erkftMJL+lgQ9SWnaOryoIPpxpzWDR/IdoC2HR3CoxKtsVsYXg4otljjxJ2iWUY3C63V1pTULXkDuo6S8gE/Sn+8IG9ZmynviReqxtwQ+s4/uOQYEB7n7QghXHjvAbHJBFWwI+vs/yWQjcqec4zzl4oS5qAtd7LsgkiUKVowVtr4s6j4YEF3oJ+RdbcZ9s5LFo7G5d9VbI772609Hx9fdn3HXd4tGVAUsfyES5NpdEuAbm2rBq1R97fbk22kloHCiumFSE+LNpF1hXHgsvcrKoKghTHLnye7iAngfKusfOaev1yWmAM+uRIiBC1Cl8/2CG9alag4Vv9RJ95E/5/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
- b=iNpAtZTjz6C4WwOeR9zyAVbyZBfmZay778ouNRcnTbzngRIWOdz0mLacAKXSgUYJ7a3q9BMdrnvS8uebV5JyEKOJU6FpM1ImiM6GGUX3OmCyXFTvijexOrxSpCKu/1YhD1lpUYs6GrotNBlLT6Le4JnHCSXpR67W9RGgSgxOQtgSu3M0C0ywac0MPYBzoyX/qW+uogIgM5wjpnd5QJ5Jjjld+REGmMUYIvQ7HHVzGg9Vmj8Q3lElRHppsMsPEdS7wsJgX6wA9iKhf02XhSMcpvh9i0lhQPcwBgyn/xjyG8zDFgp2BBuT+WzMyyt6xKDAbq6zmGpy8pPTu6SpBWFY+g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DM6PR12MB4353.namprd12.prod.outlook.com (2603:10b6:5:2a6::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
- 2026 01:30:55 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0569.008; Sat, 31 Oct 2026
- 01:30:54 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
-Date: Sat, 31 Oct 2026 10:30:49 +0900
-Message-ID: <wkoWhtHcTeCIo_G2MZlRcg@nvidia.com>
-In-Reply-To: <auS1aG5y3nmnDkVu@houat>
-References:
- <20261029152909.234584-1-clamor95@gmail.com>
- <CAPVz0n3K74CZemDzVVymmjU_5GUGE9FsEKk555-AJfG0jek_hg@mail.gmail.com>
- <auS1aG5y3nmnDkVu@houat>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: OS7PR01CA0006.jpnprd01.prod.outlook.com
- (2603:1096:604:251::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793412316; x=1824948316;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rFP0baAiFvMl7x0GJSmUU/DikfJl7LDgkFNhT+TL2Hc=;
+  b=KLrg8JRrl1SoMwcNx0OCYgG/I9AsztINAe6gsGfONLQZ52qcnfpKiTUr
+   vRNrHkjCGdVSEzceaNHV206KcnJYSyM/pnQIJoGa2nGyQh+wOw+mjBQQI
+   rtszkb6lWU+g6jIWAP3wK4hYSWyPyfW9kPIDt8uLqUciXawZR6t658342
+   p04M35eGFcvbNXuWYHyllsBiVP3M7Nk8TW4Cr69hsyL8NMDMYiPVHE0L0
+   c2Z8fNlP20qK5VVu42n1pXD0oNq2UXjkwiSnL7v1v1IDpEQjOFr4tqQD7
+   s3xAIIenj6fub6yYr8ltJkzdL2WnwCwUJFRKpxOkbn9V/jUY05NqiJ64O
+   Q==;
+X-CSE-ConnectionGUID: ErglIwMfTsKL87TGYQRFoA==
+X-CSE-MsgGUID: KXwrt7huRLqxxvi9eRsnVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2210058"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2210058"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:05:16 -0700
+X-CSE-ConnectionGUID: rpu8b9TrR9KayjHTgqdWLw==
+X-CSE-MsgGUID: gFTzgCr4SSm7mo8/J3eY3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5540397"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 30 Oct 2026 19:05:10 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMySw-00000000cRg-0s3X;
+	Sat, 31 Oct 2026 02:05:06 +0000
+Date: Sat, 31 Oct 2026 10:04:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+	Andy Yan <andyshrk@163.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+Message-ID: <202610311004.6oZFiXBi-lkp@intel.com>
+References: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,126 +105,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM6PR12MB4353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a721390-3731-4666-18d4-08df36ee9af1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|4143699003|11063799006|56012099006|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	wJkk0PLrQlPxQYoiozW3e6gDNFPgBp1/5GO003TuUqL0gzGZhABxGoWFjcVJIo1hANYR6Feigwm/K81ModzAniLHYVsi+tQ4DQG1Cs5s7CHW8v3CCMzLroopsTP8oNAlsGbbJFtPKhC+AGWlFC4fxX28P6fmCyPFGU5A6xUvgspUvt153qfaWM9NuNuj525ioClyi9ZhIKa1nxHpyBV36+DDET3nFCCley64AQpEB5X9XrasLg9eVnHy5cjGOaXLfyon46MmepzvBVdwG3SaiWC/u2xVhE0Yfbq22ScDFiuzTRzUxJB/vQk8JzJGz7WTGknFSuasKklFysSGOvgzn8n7vNtOQ1CTnuvo7rD629JsLl2i8o8Q/kYJnC0TsOf7MO7qbLBsXCfG6uXPPjynEJV9vySVhryGYru+mUZdZSB5w4THCaOFszYcS5XSKE5FlAOdOZgog+Vc6bP5SDR09oCw3ydCImSN+WnBmXenms5ThgTKaqASNtjv6AdPWsVN/WROA5A0aTLIdpcz3iYkyd9d/MFIvVWNhgkNNY1qnpLghLRzr39Xk9Ksa2r2MNHkfAkbs4j/rii+Z7xBOf7rbNTTTI4xR1oja3+tsiD7Uhfc2PTRs74M+COmokD6RRvvw50Qdepc6YzNx5CjKScQNgnZ6DBBeVkSf20FpXuqKiY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UG9kSXlLYU41WXB0d3NRanY4K1RGTXg0dHFXRmQyWkVyamhHampiamp5L1My?=
- =?utf-8?B?SEE2SlVUL0Y0U3NIbnpiY1pnWExtUWI0dlg5TzArWWZJRDJwbnp2NEptbExP?=
- =?utf-8?B?MmFHWmdLeTd4WiswUFhPSXE1c244UnVIbXgxWFF0VXR6T0p0blYwM1Bua3J5?=
- =?utf-8?B?OTBVL1NEVHQzUm55enZoVVVnbHBrQ2NJQm9URlV4WVZHYnpmeXBPRllmYjBr?=
- =?utf-8?B?clNPWW5lUU5KRkNab0VsZ2JTZU5zT3dsR3FEUjNiNUpjNnQ3VE5HbVN6bzI3?=
- =?utf-8?B?QXRYR0JhbkNYMUhlaXQ0NnpIdnk3WkR3a1dsOXRTZmwwYVlWdTUwVzlBT3dR?=
- =?utf-8?B?d2J6NEVyVkJqYmZ2RW1zM2FXVnN0ekJhNWVkd1REelFIaDl0Y0VoYit3Ri9M?=
- =?utf-8?B?ekNwZXIrc0RzQ01CdWV4QWNHQVJsZEpBM0hWS2l5d3YwSTJmYUJsU0JOQkcx?=
- =?utf-8?B?aDBJRWYvdlp1b1JJZWw1Wk1rUU1pdHZMdG1tWDU3cm83U2ZOKzZUK3k2ekd2?=
- =?utf-8?B?aXBGR0VSOERwQytjM1grekJCd2FGdlBJNGdML09wNm8rYzRCU2htNVNYYi9o?=
- =?utf-8?B?ZEVZamdqbUJXSmxCNWhRVkhjMVpBWTR5alhTakRDK013STBpU0Z4YjFLRkFu?=
- =?utf-8?B?MVYwRWZ1VzNmMWNQaEZ5d2lvTlZ0Y0FmdHdPaWtRYWlSQ2Frais2NUpRRHhQ?=
- =?utf-8?B?cU5EUkthSUFTazUwMEtLbm4vTFdLbnc5OHdmRGw2OVVqWVdqZ0ZDV3ZlMS9t?=
- =?utf-8?B?RUpRMnkvQnVnNkw2Q3RZaU96U1FsT3ZIRFV6cHdlMnJDK2d3TnpJUkJrTzBL?=
- =?utf-8?B?UGNPMDRPc25vQWRjc0VUVG9mb2FRTytqYWdTc2ZQaGIzejFRQmhGK3RDMlVw?=
- =?utf-8?B?T0NZZTFmajZ2TzNKMEh4LzJ2REU3YjJpMHBtSVQzRHRLOW5qRHZjRk54S0xE?=
- =?utf-8?B?UjBLM0RHZXZtRnlnTUJIM3VGak9LWTVsWlQzQjBBRVRBdDlabENLcFNuUUFz?=
- =?utf-8?B?M3lBdFVCMTUvRllMbUlnSVFjWjJ0YXphRWRCUjc1QklDZEloRlRVWGVoZ3F2?=
- =?utf-8?B?NXoyRXFwNTdHNFQ1OG01QnNVbHZ3SkZwZnJ3cVpBMHFnaFRHUjQ0WnpsRGQw?=
- =?utf-8?B?OStnbUNpKzJzWFZLUE5wL2VXeURLTC9rRDNJU0YvMnl1N1gybHpWbnhRc1N3?=
- =?utf-8?B?TkVXK1RTQWhGNTVZR1l5T3dTNjU5Ym1NUm44VERIN3NYZEJPN09ERy9VYWJH?=
- =?utf-8?B?M3NLZjdtMlZ5ODJMTU1kSzZScW5wa0FOS1Y1aTJ2SkJJdkxSdmNiVENMUDlJ?=
- =?utf-8?B?QmJQbC93Q2p2Y3RrUUtoTWcrYXVUa3dNUGthSUUzV0FIZ1Q2cWhvdnMzSmNx?=
- =?utf-8?B?WUl1ZzkrY1IycnVTZlo1aXFKQnlobmp6ZndxMHpFdDZZeXNOVkVZQTMzci80?=
- =?utf-8?B?aWFJYlBsZWVNTHFsNG0veDJFcGhJbUNyMFJCUUkweEltSmJlV294NjVVYXNT?=
- =?utf-8?B?RU5rVVZDcVNRRW11RUVtUmdBdXNoUElBNUYwT3lZM0c5S09wcTQ2QkhaUkgy?=
- =?utf-8?B?NWplTUFaRmErNlZEMVNwc3JSaXgvMlhkK3VSVjFTUCtXcWRDczJneVJIQ0NZ?=
- =?utf-8?B?THFwcCtwcUFrcG5QaXRIMXBqbmRpcmdieXZvazV4bW9TQVRGWnUycjJHbklm?=
- =?utf-8?B?WENQM0MzTXpqU2Q0ZlZ5RzFPZWNoYUJ0WUM4R1BwVHk5NzF5YloweU5vaUdu?=
- =?utf-8?B?Vk5ydHJRNitCRTl4Rk9KWjYrRXhnSDN2NWF6TjJoeml5V2FPV1VpYmVwUDJi?=
- =?utf-8?B?UGFsZ0VmU25BdVl5Nkk4MVc1YUdwMnB6dWowU1cvNG5ONUUwbUdLeUZKemZC?=
- =?utf-8?B?T3l3cVhzSlc1cWJ4dEJmT1RoUmREcm50eHpLY3hxY0p5RkVlUm1MdU9QbVhJ?=
- =?utf-8?B?R1diMHZvb3RLNjA5R01GVFFHeGFWTFVGM05lVHBlWlRLenpuZWxzSGJENmt6?=
- =?utf-8?B?N2JqeVVPaCtLSHkrb3kzb2x4ZWRac25EdFdxVDFGMlNKZERkS3lWTS9DdzNq?=
- =?utf-8?B?TTg4VitEL0lWYkFuYzBSbi9JZjBmNFY5WnlmSDBsWjJEV1NTMnJJQWJqT0Fu?=
- =?utf-8?B?UjNrSC9wbU1tcWNWSStmMzNmSFp3eHlad1I5ckkvbnVZNDNhZFlMdGI3YzFw?=
- =?utf-8?B?QW9FQkgxWW9uNDhRVG94UldjMXJHUzVsaWRXOWJjTDgzMnM5eW9rUS9wWVhI?=
- =?utf-8?B?dW9vMXNYOWJ2UFZzeTAxb1BUY2pJeEV2ZktmeEUxVzh0ckVvUGcwM3dQcXhM?=
- =?utf-8?B?bWpYMUlCQmFrTlQxT0dIMHhjT05yMUMwQ2xVWFhveG9hMUxWRnZtbGZRNmsz?=
- =?utf-8?Q?EGQ5x8ZdjTm48R+UbFG3avMUkjvBzRe8CUsy/W2DkGkm3?=
-X-MS-Exchange-AntiSpam-MessageData-1: AE5L9Zd6Yb3Rwg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a721390-3731-4666-18d4-08df36ee9af1
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 01:30:54.0960
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fGoQQv1aySaqCMs2U5TtqdIAxWxFf2kfVxzakWBTmVqAnqyF3Em699b3FOGgomqqZsLrW5gLRxBomie7eOiUYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4353
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
 
-On Saturday, October 31, 2026 12:19=E2=80=AFAM Maxime Ripard wrote:
-> On Fri, Oct 30, 2026 at 12:02:52PM +0200, Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:51 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Fri, Oct 30, 2026 at 11:42:12AM +0200, Svyatoslav Ryhel wrote:
-> > > > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 11:29 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
-> > > > > > From: Mikko Perttunen <mperttunen@nvidia.com>
-> > > > > >
-> > > > > > The MIPI DBI bus allows modeling DBI hosts and peripherals usin=
-g the Linux
-> > > > > > driver model. DBI hosts are registered by their respective driv=
-ers. During
-> > > > > > registration, DBI peripherals are created from the device tree =
-nodes
-> > > > > > provided by the host.
-> > > > > >
-> > > > > > DBI hosts expose operations that can be used by peripheral driv=
-ers to
-> > > > > > access associated devices.
-> > > > > >
-> > > > > > The original code was authored by Mikko Perttunen; I have align=
-ed it with
-> > > > > > the existing MIPI DSI implementation.
-> > > > > >
-> > > > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > >
-> > > > > The SoB situation isn't right here. The author is allegedly Mikko
-> > > > > Perttunen, but you don't have their SoB, and yours isn't there ei=
-ther.
-> > > >
-> > > > This is up to Mikko to decide what to do.
-> > >
-> > > Not only, no. When you're sending a patch you must add yours too.
-> > >
-> >=20
-> > > > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> >=20
-> > My CO dev and SoB are both present. Mikko will say their word and I
-> > will update accordingly in v6
->=20
-> Oh, right... I'm sorry.
->=20
-> Maxime
+Hi Icenowy,
 
-Svyatoslav, feel free to take full authorship on this patch. You can add=20
-my Suggested-by if you'd like.
+kernel test robot noticed the following build warnings:
 
-Mikko
+[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Icenowy-Zheng/dt-bindings-display-bridge-document-TH1520-MIPI-DSI-controller/20261030-154749
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f%40iscas.ac.cn
+patch subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host controller
+config: arm64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311004.6oZFiXBi-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:445:22: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+     445 |                 dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+         |                                    ^~~
+   drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:428:12: note: initialize the variable 'ret' to silence this warning
+     428 |         int i, ret;
+         |                   ^
+         |                    = 0
+   1 warning generated.
 
 
+vim +/ret +445 drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
 
+   420	
+   421	static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
+   422	{
+   423		const struct dsi_chip_data *cdata;
+   424		struct device *dev = &pdev->dev;
+   425		struct th1520_dw_mipi_dsi *dsi;
+   426		struct resource *res;
+   427		void __iomem *base;
+   428		int i, ret;
+   429	
+   430		dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
+   431		if (!dsi)
+   432			return -ENOMEM;
+   433	
+   434		dsi->dev = dev;
+   435	
+   436		dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
+   437		if (IS_ERR(dsi->syscon)) {
+   438			ret = PTR_ERR(dsi->syscon);
+   439			dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
+   440			return ret;
+   441		}
+   442	
+   443		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+   444		if (IS_ERR(base)) {
+ > 445			dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+   446			return PTR_ERR(base);
+   447		}
+   448	
+   449		cdata = of_device_get_match_data(dev);
+   450		i = 0;
+   451		while (cdata[i].reg) {
+   452			if (cdata[i].reg == res->start) {
+   453				dsi->cdata = &cdata[i];
+   454				break;
+   455			}
+   456	
+   457			i++;
+   458		}
+   459	
+   460		if (!dsi->cdata) {
+   461			dev_err(dev, "Failed to find chip data for this controller\n");
+   462			return -EINVAL;
+   463		}
+   464	
+   465		dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
+   466		if (IS_ERR(dsi->clk_ref)) {
+   467			ret = PTR_ERR(dsi->clk_ref);
+   468			dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
+   469			return ret;
+   470		}
+   471	
+   472		dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
+   473		if (IS_ERR(dsi->clk_cfg)) {
+   474			ret = PTR_ERR(dsi->clk_cfg);
+   475			dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
+   476			return ret;
+   477		}
+   478	
+   479		dsi->clk_pix = devm_clk_get(dev, "pixel");
+   480		if (IS_ERR(dsi->clk_pix)) {
+   481			ret = PTR_ERR(dsi->clk_pix);
+   482			dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
+   483			return ret;
+   484		}
+   485	
+   486		dsi->pdata.base = base;
+   487		dsi->pdata.priv_data = dsi;
+   488		dsi->pdata.max_data_lanes = 4;
+   489		dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
+   490		dsi->pdata.mode_valid = dsi_mode_valid;
+   491	
+   492		platform_set_drvdata(pdev, dsi);
+   493	
+   494		dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
+   495		if (IS_ERR(dsi->dmd)) {
+   496			ret = PTR_ERR(dsi->dmd);
+   497			dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
+   498			return ret;
+   499		}
+   500	
+   501		return 0;
+   502	}
+   503	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
