@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793419201;
-	b=JeihauOJZP49jCO8u89PESgYaha+b1eNzxR677PYCEEWrJ3hEXohkBEnBBDUFO0i30LA
-	 mBCB5zOXt+zUqVfuHQoyRhgFrgWR9e2LZ4xm9x/p4wPkmBOS/xDBJzwBJLcZ4TpjesvBM
-	 qiDPNIRWG/EYG0CX6QGNwzOoFNzNmjlnotEzslzEbr0u4xwSmnARGPgn9X7HfNh5ry/X1
-	 yyLh7YfUK/bHztUUEgepm4ysSmWkTEwMRy+gFP0toLMPu3KK2qUvMIeofIWh9zA4MtEZ9
-	 uM/4F+nco/CS6Xr2eGORGOLijFTJWaePBeLemiILG7Rp+sdt9XIbSA5D0RbU2qJk4ZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793419201;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/zDRrtRYzSl8MEHv93CCWehj+SoAFGvhXcnUZTFFX1k=;
-	b=Vwzbh2FJfrc0KHHiSizSYh/c0nRm7fZblSHdWkigs6UlDSRQpWQSO5sV0eXLqK0lwDeJ
-	 al0/BtH0OVDsmHGvnwQulp1iNx0rZMryUJqfQqlocTxvI4MhwxrVd90cuuwG6iVYuNvK5
-	 NnFGrnEH+mj0woVH6lQsMXILZ5EqaUDHAvPQAIXcG555QSrFARg3HswF5mUrkSO2rz7VD
-	 DGUHVsvtUg6kS7S337UENK0vu86UqdOUQOihfIwkgEA/bzqJJEtmrZ5I84orWjsM7Cfay
-	 1It2g/xeo2NBf0vnXjNnUEzRIuq7mEEyNOenDZjDc3PNcgnGiwYZS5Jlln+9e/5uSbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGGCROo4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.135
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793422295;
+	b=WRYqtFAf43RlMHzFlhL/4I61N4+P1CkdGkozXprxzjoF21ml/nAKLEWuR09WlmlBha8K
+	 IlJ5mUTlxjmh7O6Nc9M7ndkKQSZEqtFfULj9wnK4xoK1JZMWAyMgeOG6ByJ0UFFvcqwtm
+	 TO0rW6AaiM35NLfGqQjaa9J4XAg9JHZEcyB9n6/STy5/z6RSAQMfldLCyq1iRgETt70SN
+	 rJlH5Kcvv9vbsjUBgslKDAiNfqk8o4Jk6LgJgHLwScWy9iFGZJxgrHAjiQtVTCrsLYyTx
+	 Kr3Pj9vel3aDwA5tdahlcl8MNg5IOWF4PUZ+qOPDAKj0fxZZ6t4Y0Pu6w9K7lxgIEmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793422295;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1CqlgEj5PK6j2ag+uWWAKueIFfVXPEmWxYDHHlMmBBE=;
+	b=P4nTfD1iOdLhFs/DL+wgJaJzbctrcdxaj7o3nDyBlrqCmwSwBRfszJ36FV91VAwGwwEG
+	 QubAvi4KtuB+CKrVmzdvDD30ND/AQSqC8G0Ok0ki5JzsssM5fKqc8ugH5ywn0Beu2Lsm0
+	 Vi0z/8HOfQbgo6AVpU55G+VdUVAvuR69w5tsZBzaR58mOlP9Dr8/81Ek4SI3kcUPnGn93
+	 FgCtSadgjq9T4sG9S3DT3RVILouZ35ryZmArXgTqDYLPkPySDEY5TasalTrO4SY7x/07n
+	 7NiJLEzf/K8tEormM8MnZi0/VibIbccLkGDppXjEiwJpq0tON9+odu5RlubB527w6Pw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=mamm9J+E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.135
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022135.outbound.protection.outlook.com [40.107.75.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4058F606A31A
-	for <devicetree@vger.kernel.org>; Sat, 31 Oct 2026 04:00:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B126606A323;
+	Sat, 31 Oct 2026 04:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B126606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VGGCROo4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2B81F000C1;
-	Sat, 31 Oct 2026 04:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793419201;
-	bh=/zDRrtRYzSl8MEHv93CCWehj+SoAFGvhXcnUZTFFX1k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VGGCROo4vNqyjW2mmAoJ6ltrkWjQM7mWUj5F99GYdN/rW1B6uY+JTrDBTFDliJK1+
-	 tc/XpHg2BmJFwgJG2i3dAYx17lb/cA1/jk8SmPnIqXcdGL8b9ntLX51nDqO2B+MA6l
-	 5uldczq8OngcgZ07NPVlzR7O5ngnNE0oxjEFnC9yDhjXCtTW08GuKdOeG+UlQcfrAS
-	 BBo+6cFa02VPcRzVi+dFBrZJJKbz7/x9iicOePiOerCNod/HLR6vnfP4GjrMRjI+Wr
-	 H8rmuZg89zRvJmw53hawENYoJt6x1xdK+VQ2bjWAScX0TdVyGowqSYxPyy/2SZSE7+
-	 i6uoLvwaUhgPw==
-Message-ID: <sashiko-outbox-191739@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8750-lenovo-elden: describe
- the WL2868C regulators
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261031034300.272730-4-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031034300.272730-4-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 04:00:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=mamm9J+E
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ePDJDh5sYQNBsLXivUjV6OKsuXo3oIqFnjQzjhbVsrOeAsSdt5vq6nmNLnrS4BkGAewHfZlHX2oc7z3seZgTsU3dg7KeqZ9Zp5YebT0F3wnzaYkB86q9bqqvJCKnUPgel8K0zPJdO9fiU/YeeW9tTB1B3WhZ6cPnI6go6Rue9K97JxuOdtQQXeVogufZAUkf3f/MAUJr8oKd5kP6PYw2Y0NrS8b8jJ5XDHCA4jJT4adUbL5Ol07ea6xcz4ewWMRaTHomZJOgrnQl/Xe1ZO1G5JYik/3SJy0cJKZPDwkz75FwG3lC2B8ZhMn1NdG3tAolrqWLF1QXS7wHUso/bc2jjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1CqlgEj5PK6j2ag+uWWAKueIFfVXPEmWxYDHHlMmBBE=;
+ b=Q4DBETi2yQuv00e3u9Am2KrN4R2cTpay0MHH1mgjGuszoA7ACWav9wPHhNv6r73s0t6nj/cn9eivWiu1F1OOYS9gBnSZELfW4PM9IbTt3IOwpjMmKwViYQDs8UJHW8hHQqN++BNbKXRfBwcSFqc7B9LIxG5e5SeHIYfwJa90tERUOjozGj8mcrd01pbly90UFsHzL0zJsOV66sE0bkCYDOyxZcIfIt/hTDeVkgZhxwY7smuG1VKw2dnJNw2yshx9qDq4eTGqrV0K33XSfQs3p5+UDeXPGUzZElTUL9xxa+p5uBs755uArr9VUFfdIIlQ66+8dOnXvLOGHvxIqdLIhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1CqlgEj5PK6j2ag+uWWAKueIFfVXPEmWxYDHHlMmBBE=;
+ b=mamm9J+E2k2+qUKwyzeRb8Q0/dH6EeqK0OfXeBsNjUclx12XaNKiTRJS1mzxDHINbFbmfM7OhGud4jBn/TyM+Rb08m3q1A7pSK1+3PUcJbE162BQDMTLMHHCht7Djb6OK2JcHV0M0ebN+NaqUVnCTblBT6N+6edSq1NWZhxTI2MuTdA5YugkYKHZ/VCzm8MJQQQukqSXG0m+9tByAp2vqMbShyxcpIPg/LyXclcPZc/Ixcs+OIqGr2Npm3bGyGV5ICnM73PBS8OxhZCqdZfTf7Fy4+c5VAFGxaigpviBKbDCKgEgXjEm94inSxRkIUJgEwnjDxmpN+8a+TEFxl98/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by TYNPR03MB10089.apcprd03.prod.outlook.com (2603:1096:405:3d1::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
+ 2026 04:51:32 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0569.010; Sat, 31 Oct 2026
+ 04:51:31 +0000
+Message-ID: <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
+Date: Sat, 31 Oct 2026 12:51:29 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for S4
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, wbieganski@baylibre.com
+Cc: neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+ martin.blumenstingl@googlemail.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+ <179337024629.131241.9227206619077693683.b4-reply@b4>
+ <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR02CA0002.apcprd02.prod.outlook.com
+ (2603:1096:4:194::22) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,309 +101,109 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|TYNPR03MB10089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 460c3db5-f668-4c23-f830-08df370aa19c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|3023799007|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261022105027099003|261021135927099003|261021121427099003|261026140227099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	JNpxx2qGfPxW6UujoB7ANja4ZisSsyEKSpQ6AuCwcqGzWocLN6bTweMqXMwT/BuKn3Y4f3MuOkwSaZz0Z3/vvFgOez1yGhvJ2QZG4Gf3TK3w+HGLhtZprmAF94f/nLlYN3ETfP7snf0Jq3t1kgicV5wxL2Mx2tQpWMyogL/olQgpzgO8I7ET2rJ/+Rm97xuyKmtjk+PEfEMe8KeTjGPk5wKv5dcAC0Ih15nK+nQ4NcbI4WPeQuJQ7VVCAtxlR7CVXrmnGnLY0cj511VC9FaAxPea98M+g8fEEhUNchWmpyAg40sd2iYAdscRj3vEgkfRz213PSwYq7JrzmkqjrfkL4tJOnkkAOpzY6HkIvgNtZ5vnKKTku15wV/Q8jZugJTZVi6iD0a8ZVgkUxuX+1tNQDS1NpyBWwlIlhm0Va4ykzIEhn9yFGW0AyTKZPOaLY0uoaL3hdP79LOj7yKT2EsTrPVI/LidIVyGrykPbqaNCyhqxy66/kLxnzPilJ08fqZhnPLX0pQH+f5B9mTuiShSnmjrdubEPqo5qPv+vYQ4Dqnonxo2Xs9bfeQiSYYQe3LHdk8cfUNX6CPh9MVUmt+3KAzUcxHyIzBsOJeVc88kKhCIdwTgB08DebAYZWvn6rkIInOp1W3cCVD8DK5VP8aJKWoK5/ALy0QMF+4cKi7wi+Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(3023799007)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261021135927099003)(261021121427099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UDdHSzVzeFJWQU9GRGRKaHZCa0UzL0M5bFQ5QmFqazNUNEM5NmhsZGhYRitj?=
+ =?utf-8?B?NEplc0dIQ0FPU21ud3diZUdOTjNnS0pYODNsbzBlVStDUXVtcTlDa0RXeSt0?=
+ =?utf-8?B?TDErVS90Q2FpaEw3QnI2dDJrSWtQaUIrY2JTckR5SVdYd3VTdGp6SnJlY3N6?=
+ =?utf-8?B?ejArUlRnaHNrR2phWlFGSWxGN1htQ09tcEQyYXhSQ0pwcll1Q0ptRWU4cmtr?=
+ =?utf-8?B?bmFjbFhKaEdLRzBQeml5bEl2R0k5WGlhOUk4eENRZG9ndk9icERHcGpKWE9U?=
+ =?utf-8?B?ZStLd1VPY2JweWxYcmt3WkJuY0l4UHlneG5DNVBncUhyMStvekwzd2U5SlQ1?=
+ =?utf-8?B?SFIvaHJnSE12R0E5enhUQ2kwdUR0TWE5OWEzeTFRTkRNNmdibWdrZVcybHZh?=
+ =?utf-8?B?cW52UE1Sdzl0a2FqdXpDS2Y5RGhsa1hBZzRwOXFiRU5xWUZTLzhjek9aVXow?=
+ =?utf-8?B?d2tFNFMyU1o2ZXVkVlRnNXZqQXUrZEdMdWR3OFEzTFhmZS9LemFjbmRDUHVw?=
+ =?utf-8?B?TForSDdEazJLc01rR0NjaTA4NEtyZGJlNi9XMmRHeGtjdDBZSkJmNjNrSk1a?=
+ =?utf-8?B?RnJ1d2g5NFV4S3lIWkd3V3lkSTNzNTRSeko5cm1Pb0dReG84UEpKUFd6MVlB?=
+ =?utf-8?B?bFJ2elZiUlRZZFIycS9wUW9EVVAwRSs1aDQvdEZnQVg5TUI4VFhyWm1pOVNx?=
+ =?utf-8?B?cThEUXQxamtVemdFclp3dDltNjdTVlFDbkptREpyTFBMdXVOQUFXWExpM2ds?=
+ =?utf-8?B?ZWdnelpJRTl6dS9TVWx1amdBTjZ3QmpYV3VTZWQ3Ry8wMks0TzRxSXRva3dR?=
+ =?utf-8?B?TzdWYjRDK3lVV2lDV3Zha05WMXRPaE92cGo0UHh2MzVXdytxR2FzWjZNN0Yz?=
+ =?utf-8?B?TUF6dTZNWXFEcE45QW1pTTRHL2xzSU1zakN6QkxYazg2aWN6USt6NmUvcTd3?=
+ =?utf-8?B?M3ZLK01ZMkNyUHhwSTJpTktPUWpQNmxHb3l3cXhGa2puRTFaa2U3WGVwbzFk?=
+ =?utf-8?B?UndobUI1eU9nMjRORnVvRTZ6S2UyYUsyUmtKWStkT0x3d0J0RExlSmptNGRr?=
+ =?utf-8?B?bGVJSkoveTZaZmtTYVd6VWJGWXAycmtpZDA1cHBnSUt0MnRUV3dSc25XQjJx?=
+ =?utf-8?B?U3MzK01wOXA5NDBXSVdBdDNXanhHUjM1cFZmbUFSaXUwQ2txdjRTdkQ1ZG5R?=
+ =?utf-8?B?TDAxQWpkQ3BBUjFLanlXM21aSVovbE00eHNZRGRQa0FzaVQrZkJtRldOZUNq?=
+ =?utf-8?B?VTA5SmF3eWRMMFBwNXgybUwzS1pvOTVUc3BWQm8yajQ1Z3grYStYcFY5QUVV?=
+ =?utf-8?B?QmtOQjZHN3NKVnc4MEU1ZXQ1cHdsYUNLWFh1RzZDZ0d6YiswNlo2R3Yxejgy?=
+ =?utf-8?B?dzdiL2NtUTRmZFVvNTZDZnZPR1dWb0ZoSloxekw5aEZGenhtRUdpOHZaSWFX?=
+ =?utf-8?B?WlNyZENuVXN6RVVwQXZIZ3hpZm44d0E3ZGFZRmk0ejI4QnpYcFJWUjliOXFB?=
+ =?utf-8?B?SVQyQUF6c0JLYW1xcmtFWGZrb3BJUTBjaFlZVllaM2h6bVY2ZXRTUDhCU0w4?=
+ =?utf-8?B?ci9UU1Q3emsrWGw4d1dMVVJZM1QvZFR5Vk1QelN5Vmpaa2Q3VHJlMjRCVEhD?=
+ =?utf-8?B?UnptNkVBOHdhdFlKU3A2NnNyakY3T2dnR21DR3UzQ1dCRVY2bHF3ZnYyRlVT?=
+ =?utf-8?B?ekdOT2w2eFFPdDdBSmRaZy9iZisxTEtLVHZ4TG1ob25ZcnQ3TExBRnA4Zzdp?=
+ =?utf-8?B?V1dSMUx4ekl4RlBFT21jcDB5UTZGVHI4aDFYRTdpTlFCeGljTE5SUENkS3VM?=
+ =?utf-8?B?RmtuU0RCVW9CUTlYUmJKcHhsNWtPb3llOEVGWk9TbXFYc2hHWEx4V1c0OVF6?=
+ =?utf-8?B?dEpiYzJrbkFseDdGNmR3Um93WkNYTUlmaTlCMjNsTDVQRzE4UG9hTkxwaUdh?=
+ =?utf-8?B?eEtVVlRHaXNRM09maUc1VnFMYnZkWU5XSzdGM01Fa3dDKzdYZ2Q5WDA1UXVU?=
+ =?utf-8?B?c1czSXdSdzJGVURJb29IQ1h1eTU3UitzUTZOV0Y2WklCeUhsejE4dE1lM0xl?=
+ =?utf-8?B?aGVvWTM2b2M1TnF3WmpPbVFPYkNnVDJRbFVQUFpJL0laRlRIMU9WRlN4R3Uz?=
+ =?utf-8?B?aHo1cEFCT09STEV4MUZRUU9BNkpyZmg1TnNEZU5ReDhqZEM2elIvdmxRMmdz?=
+ =?utf-8?B?eGgyamNpK29qMWhYckxsWmk1ckxMUlJweUVTN3ZHNWtYSm5pL0dXdFNCNFhs?=
+ =?utf-8?B?dkUyY2htUFRjYUpnSC9DeW5IN0wyR2dHWjIyNkxRem5IUXAxVkpVOTIrMG9H?=
+ =?utf-8?B?R1ovbEhiRzVXQkRPazRQMHZMK0hORHBpSURwNlNUZHU4RDd6TmZWZz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 460c3db5-f668-4c23-f830-08df370aa19c
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 04:51:31.5506
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D5DIZZsWxmnkZ52crcSZ+R+3POpRGseRHs5LDekzr1EysFnua8txnGvO/foCBbOY5KgVGDFHERJvYBXqZJIZfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR03MB10089
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: sm8750-lenovo-elden enables i2c10 with qupv3_2 d=
-isabled
-- [Medium] arm64: dts: qcom: undocumented camera compatibles and incomplete=
- sensor nodes
-- [Low] arm64: dts: qcom: sm8750.dtsi CCI bus 1 disablement, missing pinctr=
-l, and order
-- [Low] arm64: dts: qcom: binding schema, SoC dtsi, and board dts mixed in =
-one patch
---
+Hi Nicolas,
 
-commit 10e91e61ae688a3f035a983ab75359c04de72cc1
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+>
+> Hi,
+>
+>
+> ---- Le ven., 30 oct. 2026 10:24:06 -0400 wbieganski@baylibre.com a écrit ----
+>
+>
+>> Hi,
+>> I tested v12 series on AQ222 board with v7.2-rc1. Firmware version:
+>> 'v0.4.ff.I0c83495.75444b3' build 'Thu Apr 16 18:18:55 2026'.
+>
+> That reminded me, is that firmware in linux-firmware?
+This firmware is currently not in the repo of linux firmware. Should we 
+merge the driver first, and then submit the blob to the firmware repo?
+>
+>
+> Nicolas
 
-arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
+BRs
 
-This commit adds the device tree for the Lenovo Legion Y700 Gen4 (TB322FC)
-tablet, describing the board clocks, WL2868C camera PMIC regulators on
-i2c10, and camera sensor and lens nodes on the CCI buses, along with the
-SM8750 CCI controller nodes and board compatible string.
+Zhentao
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index ff8a35df7862d..41d5e65c4eea5 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1168,6 +1168,7 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - lenovo,elden
->                - qcom,sm8750-mtp
->                - qcom,sm8750-qrd
->            - const: qcom,sm8750
-
-[Severity: Low]
-This isn't a bug, but per Documentation/devicetree/bindings/submitting-patc=
-hes.rst,
-should the Documentation/devicetree/bindings/arm/qcom.yaml binding change,
-the arch/arm64/boot/dts/qcom/sm8750.dtsi SoC additions, and the new
-arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts board file be split into
-separate patches?
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..7bbc1986a87e6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -0,0 +1,202 @@
-
-[ ... ]
-
-> +&cci0_i2c0 {
-> +	clock-frequency =3D <400000>;
-> +
-> +	rear_lens: lens@c {
-> +		compatible =3D "giantec,gt9764";
-> +		reg =3D <0x0c>;
-> +		vddio-supply =3D <&camera_ldo7>;
-> +		vdd-supply =3D <&camera_ldo5>;
-> +		giantec,aac-mode =3D <0x40>;
-> +		giantec,aac-timing =3D <0x7c>;
-> +		settling-time-us =3D <7000>;
-> +	};
-> +
-> +	rear_camera: camera@56 {
-> +		compatible =3D "samsung,s5kjns";
-> +		reg =3D <0x56>;
-> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
-> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
-> +		assigned-clock-rates =3D <19200000>;
-> +		power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +		reset-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&rear_camera_default>;
-> +		dovdd-supply =3D <&camera_ldo7>;
-> +		dvdd-supply =3D <&camera_ldo1>;
-> +		avdd-supply =3D <&camera_ldo4>;
-> +		lens-focus =3D <&rear_lens>;
-> +		orientation =3D <1>;
-> +		rotation =3D <90>;
-> +	};
-> +};
-> +
-> +&cci1 {
-> +	status =3D "okay";
-> +};
-> +
-> +&cci1_i2c0 {
-> +	clock-frequency =3D <400000>;
-> +
-> +	front_camera: camera@31 {
-> +		compatible =3D "galaxycore,gc08a8";
-> +		reg =3D <0x31>;
-> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK4_CLK>;
-> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK4_CLK>;
-> +		assigned-clock-rates =3D <19200000>;
-> +		power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +		reset-gpios =3D <&tlmm 7 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&front_camera_default>;
-> +		dovdd-supply =3D <&camera_ldo7>;
-> +		dvdd-supply =3D <&camera_ldo2>;
-> +		avdd-supply =3D <&camera_ldo3>;
-> +		orientation =3D <0>;
-> +		rotation =3D <270>;
-> +	};
-> +};
-
-[Severity: Medium]
-Will these camera and lens nodes pass dtbs_check?
-
-In sm8750-lenovo-elden.dts, rear_lens (lens@c) uses compatible =3D
-"giantec,gt9764" with vddio-supply, giantec,aac-mode, giantec,aac-timing, a=
-nd
-settling-time-us, rear_camera (camera@56) uses compatible =3D "samsung,s5kj=
-ns",
-and front_camera (camera@31) uses compatible =3D "galaxycore,gc08a8". None =
-of
-these compatible strings or vendor properties are documented under
-Documentation/devicetree/bindings/, and no in-tree driver currently binds to
-them to consume the WL2868C regulator supplies.
-
-In addition, both camera@56 and camera@31 omit the required CSI port endpoi=
-nt
-nodes and attach the SoC internal power-domains =3D <&camcc
-CAM_CC_TITAN_TOP_GDSC> to external I2C camera sensors. Should these nodes be
-deferred until their DT bindings and CSI endpoints are documented?
-
-> +
-> +&i2c10 {
-> +	status =3D "okay";
-> +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-
-[Severity: High]
-Can i2c10 and pmic@2f ever probe on this board when qupv3_2 and gpi_dma2 are
-still disabled?
-
-In arch/arm64/boot/dts/qcom/sm8750.dtsi, i2c10 (i2c@888000) is a child of
-qupv3_2 (geniqup@8c0000) and uses DMA channels from gpi_dma2
-(dma-controller@800000), both of which default to status =3D "disabled":
-
-arch/arm64/boot/dts/qcom/sm8750.dtsi:
-		gpi_dma2: dma-controller@800000 {
-			compatible =3D "qcom,sm8750-gpi-dma", "qcom,sm6350-gpi-dma";
-			...
-			status =3D "disabled";
-		};
-
-		qupv3_2: geniqup@8c0000 {
-			compatible =3D "qcom,geni-se-qup";
-			...
-			status =3D "disabled";
-			...
-			i2c10: i2c@888000 {
-				...
-				dmas =3D <&gpi_dma2 0 2 QCOM_GPI_I2C>,
-				       <&gpi_dma2 1 2 QCOM_GPI_I2C>;
-				dma-names =3D "tx", "rx";
-				status =3D "disabled";
-			};
-		};
-
-Child serial engines under a qcom,geni-se-qup node are only populated when
-geni_se_probe() in drivers/soc/qcom/qcom-geni-se.c binds to an enabled
-geniqup parent device, sets the wrapper drvdata, and calls
-devm_of_platform_populate(dev):
-
-drivers/soc/qcom/qcom-geni-se.c:geni_se_probe() {
-	...
-	dev_set_drvdata(dev, wrapper);
-	dev_dbg(dev, "GENI SE Driver probed\n");
-	return devm_of_platform_populate(dev);
-}
-
-Furthermore, geni_i2c_probe() -> setup_gpi_dma() in
-drivers/i2c/busses/i2c-qcom-geni.c requires the parent wrapper drvdata and
-gpi_dma2 channels when operating in GPI DMA mode. Because
-sm8750-lenovo-elden.dts enables &i2c10 without enabling &qupv3_2 or
-&gpi_dma2, qupv3_2 is skipped during device population, i2c10 is never
-instantiated, and wl2868c_probe() never runs to register camera_ldo1 through
-camera_ldo7. Should &qupv3_2 and &gpi_dma2 also be enabled in
-sm8750-lenovo-elden.dts?
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index dd738d13df8e0..60b8f2fb5a350 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -3512,6 +3512,72 @@ camcc: clock-controller@ade0000 {
->  			#power-domain-cells =3D <1>;
->  		};
-> =20
-> +		cci0: cci@ac7b000 {
-> +			compatible =3D "qcom,sm8750-cci", "qcom,msm8996-cci";
-> +			reg =3D <0x0 0x0ac7b000 0x0 0x1000>;
-> +			interrupts =3D <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>;
-> +			power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +			clocks =3D <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-> +				 <&camcc CAM_CC_CCI_0_CLK>;
-> +			clock-names =3D "ahb", "cci";
-> +			assigned-clocks =3D <&camcc CAM_CC_CCI_0_CLK>;
-> +			assigned-clock-rates =3D <37500000>;
-> +			pinctrl-0 =3D <&cci0_0_default>;
-> +			pinctrl-1 =3D <&cci0_0_sleep>;
-> +			pinctrl-names =3D "default", "sleep";
-> +			status =3D "disabled";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			cci0_i2c0: i2c-bus@0 {
-> +				reg =3D <0>;
-> +				clock-frequency =3D <400000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +			};
-> +
-> +			cci0_i2c1: i2c-bus@1 {
-> +				status =3D "disabled";
-> +				reg =3D <1>;
-> +				clock-frequency =3D <400000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +			};
-> +		};
-> +
-> +		cci1: cci@ac7c000 {
-> +			compatible =3D "qcom,sm8750-cci", "qcom,msm8996-cci";
-> +			reg =3D <0x0 0x0ac7c000 0x0 0x1000>;
-> +			interrupts =3D <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
-> +			power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +			clocks =3D <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-> +				 <&camcc CAM_CC_CCI_1_CLK>;
-> +			clock-names =3D "ahb", "cci";
-> +			assigned-clocks =3D <&camcc CAM_CC_CCI_1_CLK>;
-> +			assigned-clock-rates =3D <37500000>;
-> +			pinctrl-0 =3D <&cci1_0_default>;
-> +			pinctrl-1 =3D <&cci1_0_sleep>;
-> +			pinctrl-names =3D "default", "sleep";
-> +			status =3D "disabled";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			cci1_i2c0: i2c-bus@0 {
-> +				reg =3D <0>;
-> +				clock-frequency =3D <400000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +			};
-> +
-> +			cci1_i2c1: i2c-bus@1 {
-> +				status =3D "disabled";
-> +				reg =3D <1>;
-> +				clock-frequency =3D <400000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +			};
-> +		};
-
-[ ... ]
-
-> @@ -4090,6 +4156,52 @@ qup_uart15_default: qup-uart15-default-state {
->  				bias-pull-up;
->  			};
-> =20
-> +			cci0_0_default: cci0-0-default-state {
-> +				sda-pins {
-> +					pins =3D "gpio113";
-> +					function =3D "cci_i2c_sda";
-> +					drive-strength =3D <2>;
-> +					bias-pull-up;
-> +				};
-
-[Severity: Low]
-Is there a reason cci0_i2c1 and cci1_i2c1 are marked status =3D "disabled" =
-in
-sm8750.dtsi while cci0_i2c0 and cci1_i2c0 are left enabled, and bus 1 pinct=
-rl
-states (cci0_1 on gpio115/gpio116 and cci1_1 on gpio119/gpio120 in
-drivers/pinctrl/qcom/pinctrl-sm8750.c) are omitted?
-
-In drivers/i2c/busses/i2c-qcom-cci.c, cci_probe() iterates over child buses
-with for_each_available_child_of_node_scoped(dev->of_node, child), and other
-Qualcomm SoC dtsi files (such as sm8550.dtsi and sm8650.dtsi) leave both
-i2c-bus@0 and i2c-bus@1 available with both bus pinctrl states defined while
-the parent cci node is disabled. In addition, SM8750 has a third CCI
-controller (CAM_CC_CCI_2_CLK in drivers/clk/qcom/camcc-sm8750.c and cci2 pi=
-ns
-in drivers/pinctrl/qcom/pinctrl-sm8750.c), whereas the commit message states
-that the SoC has two CCI I2C controllers.
-
-Also, in sm8750.dtsi, should cci0@ac7b000 and cci1@ac7c000 be placed in
-unit-address order after videocc@aaf0000 rather than after mdss@ae00000,
-dispcc@af00000, and camcc@ade0000, and should the cci0_0 and cci1_0 pinctrl
-nodes in &tlmm be placed alphabetically before hub_i2c0_data_clk rather than
-after qup_uart15_default?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031034300.2727=
-30-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
+>> RAW NV12 frames at the decoder output were visually OK across typical
+>> resolutions and H.264 profiles (main, high, baseline) with and without
+>> B-frames in the stream, also with I-frames only streams. I used Gstreamer's
+>> (ver. 1.26) 'v4l2slh264dec' element on Trixie with both mmap and DMA-bufs
+>> buffering (on the capture queue only). Input bitstreams where
+>> FFmpeg-generated (testsrc2 + libx264) or publicly available test videos.
+>>
+>> Decoder (and the output) remained stable with simulated (non key) frame
+>> drop at max resolution (1920x1088, noise generated by FFmpeg's bitstream
+>> filter).
+>>
+>> The performance at max resolution, tested with 'filesrc ! parsebin !
+>> v4l2slh264dec ! fakevideosink' pipeline was ~85 fps (fixed number of
+>> outputted frames divided by the total execution time).
+>>
+>> Tested-by: Wojciech Biegański
+>>
