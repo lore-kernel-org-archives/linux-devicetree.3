@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793555763;
-	b=TC0GIu4exxAvKJfBpltvfk4zmfeUXQgj9hDhsFX7ynt4JkiIoLCbPh+wDSjXDNakB0Pv
-	 K8pe9Zzdvd0xfRNiH8x/GcQMzJMK8BKPycPfss06cJjdejMuhq+Qx0Fkb7FGz0Pc7sIEJ
-	 hqHg4p5L2v+PtE3le+IymGEWnWP6DYdKVW2i7OIjbpzn+ZKdX6xS9MZilVyvkbiii84/J
-	 +Xx8E9dGT5nDsBbR2WsGvzcLD5NkLqVawROF42dnCvB5hxJ4hP8hHI2ZgygVa1B8ZTvk7
-	 klIVOnD2XM/jTOJwPW4t9Hpa/lHjjCYveaV+J5DicQ5HXtd8u7NlEB+Cf+1sFt8Q0vw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793555763;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
-	b=34hSg9Q7jq6sijXdvAHtsRIXyq8bLy/9H/fzhF9vETrN/v9nkRJm5mF8eYInqOCAqBEW
-	 +k1nsqwjQTKtBj0WCV5mUUuv4PZBYuK4M81IJyIE9Ne5q8TEV6D7U+KkVeaakJHcDHbrw
-	 8G8cKyTCGR7OpLl+U1WFtBGnLjKrdWFllFB0J8xqbIAtEOm2YuwoPfRUDGyJh5gRcWJ4+
-	 lrfkJX5ytshY+ZbRtmIcR6BR6aSRgak1IGFCh8BfGj3IMxYJLMKvHjB6pEHHkjm6A4qcn
-	 h8hXwXMl9ohhhnBUvlDXLwb6EKxWJlRLaBr/+9Lf5EiSzU5cR8BsknFLKgK4B21+d+Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xI7Eg+iH;
-	arc=fail smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793556408;
+	b=htwGCe7DuwwObu47lEpNVPjj71XagpLDepDhVCF7GasdlcXa6OxsGhps4MGX8JGlAHg8
+	 cbNzCAlYCZF0wRtgk6w+eBvckqfoR5LqjUwRAhJOupL+Rjc5ZtEXZOb4o28gjBQ8Lh5sv
+	 nvRvWpRUG8euadbloFjA5P9nlqOCgqDynSIvdC/SdjHqM+2NL6FwcGeIzIvPuHJw2IJM4
+	 1YABsz06bP8PlSJ0shtcspRR1Lbe9UH9kXKdJvHomeKCDAONATLeor9STlngov9dGgzCK
+	 /NRvBxZ8FAlITV+ONaL74gxm0+qpugr891gneyqrfHABeHmZghf/xANTvIu+K8S75gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556408;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
+	b=z0SdfiVaX5TqPtThS8hSddjruqfypxizo8g8rnPm/6D5DxoM9A6Ws6B5oTwkBphQlN9Y
+	 0EosLe2Ql9qcCuPrvjWtx3/7/Yo6XslyMT+Fhe4141FvWy+BavA68rCB5GXzyApHy7tOj
+	 Xejqdbw0xCIGEi2tmbDpiurj+bQ8ydd+dm78yFICHVA1AXOWujHaoFDQVJEFJArM/lqS4
+	 RItGBtP+g/0GVRgI8Zp7BryvHOeXSOg7CH+WZHJdGIYIUVJSRyqvQ/S7yolXIqeDNSEDr
+	 2ZTXqkwjELhzyQDVgxatyfOanTrIQWElmm8XwLaCKrxzIO/htgHH+59w4BKHEhDsU7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A40606A325
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 17:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5A40606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9F2606A324;
+	Sun,  1 Nov 2026 18:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xI7Eg+iH
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-369f33df08eso4642435eec.0
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 09:56:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793555762; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sHG5g25tA/YJfC/rEn1EilWPC8QwsuYaF2dgH9CPHJWlYHfghLsXhjE8Y9Jb2lcz1c
-         BKZlCzMFPI2HxdJM8kYKFwqjDiI0fnYXxtcEDj7W4HexxPl0p5c9Nn+0Nt+AKosyH7QR
-         gUZm72EkxqpO+PjqgeFo9jlCKHaCTjjYWKpkz2389TndQ5KgpMENS6YGT3uAVMk9HKuQ
-         WrP6xLM/BrvHMrlPINrFjgVs196au973sn6ybxOUEAH4g8ImoxJYihrQexxQkZoVWWs5
-         vfrM1nuQqAOrNnhBtiAanSPxqfHclNJSSrmajZ/3a/JYa07CjvPl3VcnNepB8joMhrIL
-         Y9vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
-        fh=1NG2Q9W/WuAHYtXUuu3U8++zB6PMDAbK11FWqdNKT6k=;
-        b=nmiaaBP/0yfl2ujPnxxV3Qty+HmzNyI09wRttqkF+RBAOF2mG2eexMmCO7/IYo0vEg
-         i/z0N880NdWIXQ5QE6ROXJJ4/Ee5IUys3WL4T5a31igtHoDHGDe8fhXf5JKFTixt7LiG
-         xNDq5iHVXogKe++srecakOsEC8bThDqgUfCnWzua7ZD2Di9ruIBtdtlAfXkPaoCnmboW
-         RCK7bf3z3x7uMXsM9M/hChtaQVwVEY4eiNWNjQU8Z8PaGlundRME2MRYr4ljb92Xg9mf
-         g60nWl0VkiHO5zvInEGwtwu7bvEAoIcVSBvXdSz4ttJSVWGb/9s0ExLnhDymLQRRKz/8
-         yQUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793555762; x=1794160562; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
-        b=xI7Eg+iHeR8rPP+5vWDtTL5ybfLa9tfSUe6MjVJlKbjP3y8byZoks27U/XyRJiUKeA
-         3APi1BVxzVLn0GiDoMIAt1XFUF4HgOrEIHP8Kg3BqkNBFcgy/B24O2Hdx76f7Xg91Wdp
-         6J1oMess/iGYBKKfo7CP9+TpIsQdvaQMxq2aBE7QUFXjJlQgIioX8mL9scGZ8YoRFA2p
-         Q+AKFFznQ1GAja7JTHDWBbtuN7P88Bt88vQg9PzQkZs6ZKSu40/nqDfrEWpq4RJ+OEcm
-         fA8vuG7ZYRxLFQG2BY8cRbk0MofoQtVbSnrwMBGrUNVFhjz9gO2fJ6xSqZ5A6Pwt5sQn
-         wC+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793555762; x=1794160562;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
-        b=rdz2n01qtvLUdcAbUuLLUjosX7r8bXMo6XsIQxzr8Vuf6w+ZYSpig8FE3Bu95tV4lj
-         +WMOM7yMEhIXu7XwRK5cUbu5VRkzqbJeTMUDpl1uDHOxKexoPnhXsPSe9KFISNWsN/Lm
-         TopPpMYdh2rH0EKbPJUqfroCOeBiYuAt4L9uK0M2vhIjUYJq/0dlQ9oaC1qjJ3f20wrF
-         X/0pSQz0i7wxRpdKbackjXLY3POOW0S6VQ1AhYVL+W7zlmZGKk6HAR1loaGGLrW67LOW
-         6P9IncCrYMbVDw2zvfl4cS2m3hPclW7k85V4NrCJTjeqWyLRm2PjnEYlEqPE6kkTc0PK
-         hp9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwRGwFLsRZkRLjygqbAl+aeiHsEAatYFjNNFgThF81G3zfpdJkyfv4mwZ290Arb7ydsOvMzSzZfsVXS@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JqEhqEIDrHY7cfJlZZWCYTLlResrLK4aBR40Q/35mPCQoqy4r
-	PKWvTjMwBuQCyUFfVz771P885g6XYUuZ61i9LcaavXzFKrv/i/TxNYZSXkMAEjiXMw+qtSD/Y1G
-	9zgx+/60v6qDhbWAjrJSbSZFe8aZcsT0=
-X-Gm-Gg: AYBFou266RnHI2V7t8rsJ6QGbvCTCR6XDVUoxP7t/hqSyustIjIFH4+fVdGRE/eOVWE
-	d6G+RAVNRQOnJkvgx2DVZZBx6Y9Mocdb3llyLmpiTnA+p1Eu+9ONgfCtVdfQLN8Y1GP3SKs/tu3
-	YlMBkIaAucf9aORWU1+6IddYfp3IZkuiuqfnvv6AMEmMWtpJFPfiDjlAhJy8YHwBtvIdqMG+x0I
-	O2zzXhd9alezQlZt2D8gkzAc4M9517cmOimsyYpF5qzb/ahXqmWXtEWJvyl3DA8p60fTORvkF+d
-	cFmPkVfOjBMGv4slnFOYPfs1eAfO2nw3TPW/aNCaKG4FryIkYGzf5Qw83uRsFaRSqhco8e3z1gg
-	tkyezZSBnk/HJZLYWD/r8oBNlxrwV53QwApjLz7ecUknFaUupiaLYSD5D6hdrajwg3EduQQ==
-X-Received: by 2002:a05:693c:895c:20b0:359:ef9:9be3 with SMTP id
- 5a478bee46e88-36a4236a466mr11835005eec.11.1793555761519; Sun, 01 Nov 2026
- 09:56:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114FE1F00919;
+	Sun,  1 Nov 2026 18:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793556407;
+	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P87YTrAlXtY6yTL6IVaei3/kaOV+qmy3YbWBNzzuWpy6WjTbgurONXks1pqV4mNXE
+	 sjx+eMH2lRrqVYZ3Qey6G/C2wLfO0ioCJT1AB6p9lfed1xj8TuR5exgKhAS34ch0DQ
+	 7ZeOyfroZovcW2qm7NL284hQ0fA9Dk8ZvfaThRbuetPVLL47299bI/PRTcyp+YpRXy
+	 hoDmoM1ZYfLiuJxS2JLxvOWieRcYZd8nDP3siIJvITvLQm1HSbHbFEJwIQOUei5CtQ
+	 iJ6LnvDsJn7n/zsjHQBQALkhshFdyERjBQEZgyz+yHA3R82UEVDQx6BGLRd64Bd/qP
+	 mQpNUJyNXD1eA==
+Date: Sun, 1 Nov 2026 18:06:42 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Patrick Fischer via B4 Relay
+ <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Cc: admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Kevin Tsai
+ <ktsai@capellamicro.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: light: Add Capella CM3217 ambient light sensor
+ driver
+Message-ID: <20261101180642.1768c3f2@jic23-hlaptop>
+In-Reply-To: <20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+References: <20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de>
+	<20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,222 +67,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101141507.119186-1-clamor95@gmail.com> <20261101141507.119186-3-clamor95@gmail.com>
- <20261101174140.4d11fdfc@jic23-hlaptop>
-In-Reply-To: <20261101174140.4d11fdfc@jic23-hlaptop>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 1 Nov 2026 19:55:49 +0200
-X-Gm-Features: AclHuK8EZUIy45_qfYG3a3MB3Ax9bYhjt0WTcJl5ffWhhE8QVM-VmOuMMgRylVc
-Message-ID: <CAPVz0n25RR-ayBHuvP8KkrYc22AzHT67=nSEZn=hzRufUJw0zg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Esben Haabendal <esben@geanix.com>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Pan Chuang <panchuang@vivo.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
-	Antoniu Miclaus <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-=D0=BD=D0=B4, 1 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:41=
- Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun,  1 Nov 2026 16:15:07 +0200
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > Add support for the Lite-On LTR-659PS-01 proximity sensor. This device =
-is
-> > nearly identical to the LTR-559ALS-01, but omits all elements related t=
-o
-> > ambient light sensing (Even the regmap is identical, but ALS registers =
-are
-> > marked as reserved and interactions with them are discouraged).
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Hi Svyatoslav,
->
-> Various more general comments on the driver in here. Only real request
-> is to not copy the rather ugly existing indentation for new code.
->
-> If nothing else comes up in review, I can just tidy that up whilst applyi=
-ng.
-> For now I'm going to leave this on list to give others time to take a
-> look.
->
+On Sun, 01 Nov 2026 15:46:07 +0100
+Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
 
-I can address some of your suggestions in this series. I would like to
-send v2 anyway since Sashiko found a few legit places needing a fix.
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> 
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers for the Tegra Note 7 (drivers/staging/iio/light/
+> cm3217.c in the 3.4 and 3.10 kernels). For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
 
-> Thanks,
->
-> Jonathan
->
-> > ---
-> >  drivers/iio/light/ltr501.c | 58 ++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 58 insertions(+)
-> >
-> > diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> > index 302be2fc314c5..5cc1141322ad5 100644
-> > --- a/drivers/iio/light/ltr501.c
-> > +++ b/drivers/iio/light/ltr501.c
-> > @@ -96,6 +96,7 @@ enum {
-> >       ltr329,
-> >       ltr501,
-> >       ltr559,
-> > +     ltr659,
-> >  };
-> >
-> >  struct ltr501_gain {
-> > @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[=
-] =3D {
-> >       IIO_CHAN_SOFT_TIMESTAMP(2),
-> >  };
-> >
-> > +static const struct iio_chan_spec ltr659_channels[] =3D {
-> > +     {
-> > +             .type =3D IIO_PROXIMITY,
-> > +             .address =3D LTR501_PS_DATA,
-> > +             .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
-> > +                                   BIT(IIO_CHAN_INFO_SCALE),
-> > +             .scan_index =3D 0,
-> > +             .scan_type =3D {
-> > +                     .sign =3D 'u',
-> > +                     .realbits =3D 11,
-> > +                     .storagebits =3D 16,
-> > +                     .endianness =3D IIO_CPU,
-> > +             },
-> > +             .event_spec =3D ltr501_pxs_event_spec,
-> > +             .num_event_specs =3D ARRAY_SIZE(ltr501_pxs_event_spec),
-> > +             .ext_info =3D ltr501_ext_info,
-> > +     },
-> > +     IIO_CHAN_SOFT_TIMESTAMP(1),
-> > +};
-> > +
-> >  static int ltr501_read_info_raw(struct ltr501_data *data,
-> >                               struct iio_chan_spec const *chan,
-> >                               int *val)
-> > @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] =3D=
- {
-> >       NULL
-> >  };
-> >
-> > +static struct attribute *ltr659_attributes[] =3D {
-> > +     &iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
-> > +     &iio_const_attr_sampling_frequency_available.dev_attr.attr,
-> > +     NULL
-> > +};
-> Not something I'm going to ask for as part of this series, but
-> if anyone working with this driver has time it would be good to
-> move the available handling over to the read_avail() callback
-> and masks.  This is an old driver and so far not been converted
-> to that newer infrastructure.
->
+I don't think we have a current active Capella Micro developer on the
+list as it's been a while since I heard from Kevin Tsai who contributed
+drivers for them, so your approach of using the vendor driver as a
+guide is probably the best we can do.
 
-This I don't promise, I will see what I can do. Maybe you have a good examp=
-le?
+> 
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+A few comments inline.
 
-> > +
-> >  static const struct attribute_group ltr501_attribute_group =3D {
-> >       .attrs =3D ltr501_attributes,
-> >  };
-> > @@ -1186,6 +1213,10 @@ static const struct attribute_group ltr301_attri=
-bute_group =3D {
-> >       .attrs =3D ltr301_attributes,
-> >  };
-> >
-> > +static const struct attribute_group ltr659_attribute_group =3D {
-> > +     .attrs =3D ltr659_attributes,
-> > +};
-> > +
-> >  static const struct iio_info ltr501_info_no_irq =3D {
-> >       .read_raw =3D ltr501_read_raw,
-> >       .write_raw =3D ltr501_write_raw,
-> > @@ -1218,6 +1249,22 @@ static const struct iio_info ltr301_info =3D {
-> >       .write_event_config     =3D &ltr501_write_event_config,
-> >  };
-> >
-> > +static const struct iio_info ltr659_info_no_irq =3D {
-> > +     .read_raw =3D ltr501_read_raw,
-> > +     .write_raw =3D ltr501_write_raw,
-> > +     .attrs =3D &ltr659_attribute_group,
-> > +};
-> > +
-> > +static const struct iio_info ltr659_info =3D {
-> > +     .read_raw =3D ltr501_read_raw,
-> > +     .write_raw =3D ltr501_write_raw,
-> > +     .attrs =3D &ltr659_attribute_group,
-> > +     .read_event_value       =3D &ltr501_read_event,
-> > +     .write_event_value      =3D &ltr501_write_event,
-> > +     .read_event_config      =3D &ltr501_read_event_config,
-> > +     .write_event_config     =3D &ltr501_write_event_config,
->
-> The indenting of the existing structure is weird and could do with a tidy=
- up.
-> I'd suggest just dropping any attempt to force alignment.  As is shown
-> here, doing that tends to lead to inconsistency over time as a driver
-> evolves.
->
+If it is really hard to precompute all the available values, then
+we can probably get away with not doing so.  I don't think it is
+though and picking between precomputed sets is both cleaner and avoids
+a race if we ever get light driver inkernel consumers.
 
-This I will address as a separate commit before adding ltr659
+Thanks
 
-> > +};
-> > +
-> >  static const struct ltr501_chip_info ltr501_chip_info_tbl[] =3D {
-> >       [ltr301] =3D {
-> >               .partid =3D 0x08,
-> > @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip=
-_info_tbl[] =3D {
-> >               .channels =3D ltr501_channels,
-> >               .no_channels =3D ARRAY_SIZE(ltr501_channels),
-> >       },
->
-> Another nice to have but not a request for this series.
-> Would be good to move away from handling these as an array with the enum
-> value in the firmware tables. That scales badly and runs into NULL check
-> problems when we use the generic firmware accessors (which we should real=
-ly
-> be using here). i2c_get_match_data().  The standard way to do this
-> today is to use separate named structures and put pointers to those in th=
-e
-> tables.
->
+Jonathan
 
-This I will address as well.
+> diff --git a/drivers/iio/light/cm3217.c b/drivers/iio/light/cm3217.c
+> new file mode 100644
+> index 000000000000..9e0e9afee092
+> --- /dev/null
+> +++ b/drivers/iio/light/cm3217.c
+> @@ -0,0 +1,383 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Capella CM3217 ambient light sensor driver
+> + *
+> + * The CM3217 has no registers. It answers on two fixed I2C addresses:
+> + * writing a byte to 0x10 or 0x11 sets command byte 1 or 2, reading a byte
+> + * from 0x10 or 0x11 returns the MSB or LSB of the 16-bit light count.
+> + *
+> + * Copyright (C) 2026 Patrick Fischer <admin@tsv-stahl-riesa.de>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/ktime.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define CM3217_ADDR_CMD2_LSB	0x11
+> +
+> +#define CM3217_CMD1_RSVD	BIT(5)		/* reserved, set to 1 */
+> +#define CM3217_CMD1_IT_T	GENMASK(3, 2)	/* 1/2 T, 1 T, 2 T, 4 T */
+> +#define CM3217_CMD1_WDM		BIT(1)		/* set to 1 like the vendor driver */
+> +#define CM3217_CMD1_SD		BIT(0)		/* shutdown when set */
+> +
+> +#define CM3217_CMD2_FD_IT	GENMASK(7, 5)
+> +
+> +#define CM3217_IT_T_2T		2
+> +#define CM3217_FD_IT_100MS	5
+> +
+> +/* 0.01875 lux per count at 4 T and 800 ms, the finest resolution */
+> +#define CM3217_NLUX_MS		15000000000ULL
 
-> > +     [ltr659] =3D {
-> > +             .partid =3D 0x09,
-> > +             .ps_gain =3D ltr559_ps_gain_tbl,
-> > +             .ps_gain_tbl_size =3D ARRAY_SIZE(ltr559_ps_gain_tbl),
-> > +             .info =3D &ltr659_info,
-> > +             .info_no_irq =3D &ltr659_info_no_irq,
-> > +             .channels =3D ltr659_channels,
-> > +             .no_channels =3D ARRAY_SIZE(ltr659_channels),
-> > +     },
-> >  };
-> >
-> >  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8=
- ps_val)
-> > @@ -1635,6 +1691,7 @@ static const struct i2c_device_id ltr501_id[] =3D=
- {
-> >       { .name =3D "ltr329", .driver_data =3D ltr329 },
-> >       { .name =3D "ltr501", .driver_data =3D ltr501 },
-> >       { .name =3D "ltr559", .driver_data =3D ltr559 },
-> > +     { .name =3D "ltr659", .driver_data =3D ltr659 },
-> >       { }
-> >  };
-> >  MODULE_DEVICE_TABLE(i2c, ltr501_id);
-> > @@ -1645,6 +1702,7 @@ static const struct of_device_id ltr501_of_match[=
-] =3D {
-> >       { .compatible =3D "liteon,ltr329", },
-> >       { .compatible =3D "liteon,ltr501", },
-> >       { .compatible =3D "liteon,ltr559", },
-> > +     { .compatible =3D "liteon,ltr659", },
-> >       { }
-> >  };
-> >  MODULE_DEVICE_TABLE(of, ltr501_of_match);
->
+Use a muiltiplier for that definition. Various ones in units.h.
+I haven't figured out what makes sense, but that is too many 
+zeros to eyeball!
+
+> +
+> +#define CM3217_MARGIN_MS	10
+
+
+> +
+> +static unsigned int cm3217_conv_ms(struct cm3217_data *data)
+> +	__must_hold(&data->lock)
+> +{
+> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +	unsigned int it_t = FIELD_GET(CM3217_CMD1_IT_T, data->cmd1);
+> +
+> +	return (cm3217_fd_it_ms[fd_it] << it_t) / 2;
+> +}
+> +
+> +static void cm3217_update_scale_avail(struct cm3217_data *data)
+There are some unfortunately complex race conditions around
+read_avail where a consumer driver (iio/inkern.c) can hold a pointer to the
+array and there is no visibility in the consumer of the fact the
+data might be changing under it. The concern isn't so much getting
+wrong values as getting torn ones as the writes are occuring. 
+There have been a few goes at solving the race generically but none
+have landed yet.  Generally avoiding that sort of handoff of
+dynamic data is a nice to have and often easy enough to do.
+
+I'm not that concerned for a light sensor as we have no consumers
+in upstream anyway, but how bad would it be to precompute all possible
+tables at probe time or even at compile time, and then just pick between them?
+
+> +	__must_hold(&data->lock)
+> +{
+> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +	unsigned int i;
+> +	u32 rem;
+> +	u64 nlux;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(data->scale_avail); i++) {
+Might as well do
+
+	for (unsigned int i = 0; .. {
+	
+
+> +		nlux = div_u64(CM3217_NLUX_MS << (3 - i), cm3217_fd_it_ms[fd_it]);
+> +		data->scale_avail[i][0] = div_u64_rem(nlux, NANO, &rem);
+> +		data->scale_avail[i][1] = rem;
+> +	}
+> +}
+
+
+
+> +
+> +static int cm3217_suspend(struct device *dev)
+> +{
+> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	return i2c_smbus_write_byte(data->client, data->cmd1 | CM3217_CMD1_SD);
+
+Given this lines up with the power off callback above and the start of
+the write_cmd() sequence, maybe have a little helper to put this write
+command in just one place?
+
+> +}
+> +
+> +static int cm3217_resume(struct device *dev)
+> +{
+> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	return cm3217_write_cmd(data, data->cmd1, data->cmd2);
+> +}
+
+> 
+
