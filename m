@@ -1,66 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571934;
-	b=Oz4HLMHDNQ+BvJSuXzkHxehyK+4GKBRKSqIKmVtWigZeA+XlUMwhDaHKpn+uSAuQ6BQH
-	 bSJcKgzvDxVdx8sO805AJRepd7q7FaPp/MVIgyd2OhS5bo8sr0DCIJHHqtonqBFb273Ta
-	 ENcHLSiy4ZdVIGn9fHxkedouv0GlTSC0flYRlDWoD+A7FHaATICc5x3biIfRl5RlIEUeO
-	 cHW20HHtId2Jgs3z1dQDKd+AKkqIPQVT5Jrf4mOPotIVL9yRZHZWrNiYhSSgEwUlhmUEQ
-	 IMtBf4/ARNz8zAJLHZBbW1fYkD3An2djdeYV4LCxJ2njWz1pH8gR+FSNy7ETpE+mxdA==
+	t=1793572283;
+	b=jSJhgWMK2/nVmIfARJmR+A7DhQJ4FsRdGFEoSDS2SxVuouLgxTsWmXiT42YgKZE4qtA+
+	 anN2sngLaCVPrNN92sqQ4/QNC+wD9aeVKnFnQatCweRwe9KKgLON9BI7seVHpxVpGLVNJ
+	 LiElPsqZXQFk2GWGXqxabaqOIljeyhhMDzlTdRlIIJj0/C6gDrjxH8+uB5HfRVSGCyGmg
+	 605SdZNTdv5ZQZh8aERo2NZJgBBvI1B2xtSCXvIF+nqGkcbcVUL8MzarFr1/0N9obQo/r
+	 8Sc8oMiXewfHmEjauTvmbmWdl5ni5EmOODsGZ86qsgi1dlasXaY4AJtoJbZvkB7kozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571934;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
-	b=N+PtyQnTs9UoV5pFk0e0DesmKIjuCP1ovD5Ou+UDuHG8gzhB632Z0tawLpPod1DG+9gC
-	 3qOghmha/lcPwkVzQivGljWnM++i8KZXZFDMeP6KBlGGzLoUgHK94ovdiATqp09h15w1w
-	 jsKUhi4YvMgdf6nPacE0o8987ZCoyAqPkwWffrOWQfcvWebVyTA2syGy+4Fk1Og646G1I
-	 G4cxl3zElc+2IEJibnSdPUIala69XJpsaoIlkkyIiTnklYXgVB4G2yJ0ojYVV3p9XJXtG
-	 pZJWBFyCWdcJn5BAQcYN1zGaQINzXrCZev1mRs/l8vbm9ilOSLOu3ON3QozdrXeOUxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793572283;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZgFhjp6JatCggkAYxg/vp+1mf90BydjF63/ncPFoYdU=;
+	b=ptSQpS6F/cKiDduMyMXRvieYE7OqNyPagWg0AfqHR6HqXzXJQQuTnvloLryZOAFnlFgk
+	 1xptKoKeuajkVNnezrqWRlKgpYZfbsN1krvA1/OkaOGPpZljcloS9wq+qlZsT8q1MhX7q
+	 izETPsypImOl5GyBbVeqDDxTCVOMORNMVhz/lfLoHPgccrdIVtFl57qXvhKjx/ydUxebe
+	 z/hNSgMcxwbctWM8RhpPm3hbX+GPRenBzulzb7zDY/NJbrW6QLPVIQl+pzrgaBZXRYrx8
+	 DzVnTleFmeodoiXXuMYNA5JZgp8SDUdTnXXG24G1EKeQ9FCTUObKVEyE9RMYt6hX+QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBPJWFx5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2063F606E527;
-	Sun,  1 Nov 2026 22:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98999606A326;
+	Sun,  1 Nov 2026 22:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3915E1F000C1;
-	Sun,  1 Nov 2026 22:25:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LBPJWFx5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C701D1F000C1;
+	Sun,  1 Nov 2026 22:31:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571933;
-	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=V8rmNcVYviQJAu7eXwfrG/iy4DFzgdzimOFhPCKd3jsOWvGYdXk0J4xxkhSesTnvv
-	 C5tXKm85R6al635JtY3Me14qQlMBoOS1B9N1BCKd+23ppkJMGogryE4wbmoxF/K9Mj
-	 nNb0mRZ+2hAW6NfWQTQXtU2UPrmcgGKRoDReGE5V1A5yklvDW+YYMDog2CMnk0W+Ju
-	 /25jRTtShkYlWY8E05dlkU7xnjTO62ZSe/lkp9i383NI/KNkod7MIF383PnTeXROjJ
-	 26B0C7kcYuWcBrtg06s+yOZqqaBTK/NKr8Q1MNfkI2nniE3Y6+FBvUFu2+bMkqajzg
-	 //56bQgv/+1pQ==
-Date: Sun, 1 Nov 2026 22:25:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 7/7] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <20261101222528.4ee16a59@jic23-hlaptop>
-In-Reply-To: <20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
-References: <20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com>
-	<20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793572282;
+	bh=ZgFhjp6JatCggkAYxg/vp+1mf90BydjF63/ncPFoYdU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LBPJWFx54E6vyAJ1EllRVHLAJGHGTpOawmzgq36Z0nEM6IHNnfVtEhvj0KbTwXmER
+	 viJ+aseKEX61UirKfB1yM+0Ay2mq68xBCruzpb9ardwBY6u957EDZlL9bazV1+p/3E
+	 aLWbGtvNEa3Ce+uhw7h+HkBKKDGlVCNoQGb0xgpIpGy/PaDfD6Rs1AJEACNjfqvHd7
+	 O4X/1jUn7P+uL/Va6uwDXVCIEfuIAcwGl0nsP6tSY39ay0Ckg5ZiFXT59AwhrqDEuu
+	 47t1kNIYHlfEdOmAUMOfik/TE70xxpIcayy27meKPMCTYcm5Phhu+g7vrbeGp+aFg1
+	 +jlh++KFyrkAw==
+Message-ID: <sashiko-outbox-192713@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/7] mfd: Add a shared BCMBCA PMC3 PMB transport
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-3-455fe9eed5ee@kernel.org>
+References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+ <20261101-xg6846b-bcmbca-xrdp-reset-v2-3-455fe9eed5ee@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 01 Nov 2026 22:31:21 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,161 +59,194 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Oct 2026 12:02:55 +0100
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] mfd: bcmbca_pmc3_pmb: debugfs stall, WARN_ON, and HW read in bcm=
+bca_pmb_regmap_init()
+- [Low] mfd: bcmbca_pmc3_pmb: mfd_cell match data and unused drvdata in bcm=
+bca_pmb_probe()
+--
 
-> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> registers are stored in MREG1. The calibration bias is written to
-> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
-> limit calibbias values instead of clamping it.
->=20
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370=
--p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-Minor thing inline given you are going to be doing a v8
+commit cbd0d7381d66545c4a7f2cd3781134426406ab49
+Author: Linus Walleij <linusw@kernel.org>
 
-Thanks,
+mfd: Add a shared BCMBCA PMC3 PMB transport
 
-Jonathan
+This commit adds an MFD driver for the Broadcom BCMBCA third generation Pow=
+er
+Management Controller (PMC3) Processor Monitor Bus (PMB) on BCM6846, exposi=
+ng
+a shared regmap to child devices while managing hardware keyhole semaphore
+locking and recovery.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
-iio/imu/inv_icm42607/inv_icm42607_accel.c
-> index 9a3ace3e7fcf9..2878e35d655d0 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> @@ -4,6 +4,7 @@
->   */
-> =20
->  #include <linux/array_size.h>
-> +#include <linux/bitfield.h>
->  #include <linux/bits.h>
->  #include <linux/cleanup.h>
->  #include <linux/device/devres.h>
-> @@ -13,6 +14,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/types.h>
-> +#include <linux/units.h>
-> =20
->  #include "inv_icm42607.h"
->  #include "inv_icm42607_temp.h"
-> @@ -22,9 +24,11 @@
->  	.type =3D IIO_ACCEL,							\
->  	.modified =3D 1,								\
->  	.channel2 =3D _modifier,							\
-> -	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),				\
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |				\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
-+			      BIT(IIO_CHAN_INFO_CALIBBIAS),			\
-Is my preference for aligning the blocks of a load of bits.
+>     mfd: Add a shared BCMBCA PMC3 PMB transport
+>
+>     Add an MFD driver for shared access to the Processor Monitor Bus (PMB)
+>     of the third generation Power Management Controller (PMC3), initially
+>     for BCM6846.
+>
+>     Expose an uncached regmap to all children, encoding the bus, device a=
+nd
+>     word offset in each register address. Keep keyhole semaphore acquisit=
+ion
+>     and transaction recovery inside the MFD driver.
+>
+>     A software timeout does not abort a transaction. If the keyhole is st=
+ill
+>     busy, retain its hardware lock and reject new callers until delayed w=
+ork
+>     observes completion and releases it.
+>
+>     The keyhole register layout differs from older Broadcom PMB controlle=
+rs.
+>     Match only BCM6846 for now.
+>
+>     Signed-off-by: Linus Walleij <linusw@kernel.org>
 
->  	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),			\
-> -	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE),		\
-> +	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE) |	\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
->  	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
->  	.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
->  	.scan_index =3D _index,							\
-> @@ -56,6 +60,16 @@ static const struct iio_chan_spec inv_icm42607_accel_c=
-hannels[] =3D {
->  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
->  };
-
-> +
-> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
-> +					   struct iio_chan_spec const *chan,
-> +					   int val, int val2)
+> diff --git a/drivers/mfd/bcmbca_pmc3_pmb.c b/drivers/mfd/bcmbca_pmc3_pmb.c
+> new file mode 100644
+> index 0000000000000..837143409ce9c
+> --- /dev/null
+> +++ b/drivers/mfd/bcmbca_pmc3_pmb.c
+[ ... ]
+> +struct bcmbca_pmb_data {
+> +	const struct mfd_cell *cells;
+> +	unsigned int num_cells;
+> +};
+[ ... ]
+> +static bool bcmbca_pmb_precious_reg(struct device *dev, unsigned int reg)
 > +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	struct device *dev =3D regmap_get_device(st->map);
-> +	s32 min, max;
-> +	u8 msb, lsb;
-> +	s16 offset;
-> +	s64 val64;
-> +	int ret;
+> +	/* Do not let debugfs probe unimplemented or firmware-owned registers. =
+*/
+> +	return true;
+> +}
 > +
-> +	if (chan->type !=3D IIO_ACCEL)
-> +		return -EINVAL;
+> +static struct regmap *bcmbca_pmb_regmap_init(struct bcmbca_pmb *pmb)
+> +{
+> +	const struct regmap_config config =3D {
+> +		.reg_bits =3D 32,
+> +		.val_bits =3D 32,
+> +		.reg_stride =3D 1,
+> +		.max_register =3D BCMBCA_PMB_REG(3, 255, 65535),
+> +		.cache_type =3D REGCACHE_NONE,
+> +		.precious_reg =3D bcmbca_pmb_precious_reg,
+> +		.reg_read =3D bcmbca_pmb_reg_read,
+> +		.reg_write =3D bcmbca_pmb_reg_write,
+> +		.lock =3D bcmbca_pmb_regmap_lock,
+> +		.unlock =3D bcmbca_pmb_regmap_unlock,
+> +		.can_sleep =3D true,
+> +		.lock_arg =3D pmb,
+> +	};
 > +
-> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
-> +	min =3D inv_icm42607_accel_calibbias[0] * (long)MEGA -
-> +	      inv_icm42607_accel_calibbias[1];
-> +	max =3D inv_icm42607_accel_calibbias[4] * (long)MEGA +
-> +	      inv_icm42607_accel_calibbias[5];
-> +
-> +	val64 =3D val * (s64)MEGA;
-> +	if (val >=3D 0)
-> +		val64 +=3D val2;
-> +	else
-> +		val64 -=3D val2;
-> +
-> +	if (val64 < min || val64 > max)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Convert m/s=C2=B2 to g then to raw value
-> +	 * m/s=C2=B2 to g: 1 / 9.806650
-> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
-> +	 * val in micro (1000000)
-> +	 * val * 10000 / (9.806650 * 1000000 * 5)
-> +	 */
-> +	val64 *=3D 10000LL;
-> +	offset =3D DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5);
-> +
-> +	/* Value is limited to 12 bits signed, return -EINVAL if out of range */
-> +	if (offset < -2048 || offset > 2047)
-> +		return -EINVAL;
-> +
-> +	msb =3D FIELD_GET(INV_ICM42607_OFFSET_MSB, offset);
-> +	lsb =3D FIELD_GET(INV_ICM42607_OFFSET_LSB, offset);
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		/* OFFSET_USER4 upper nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER4,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
-Align after (
-Don't worry about slightly long lines.
-
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER5, lsb);
-> +	case IIO_MOD_Y:
-> +		/* OFFSET_USER7 lower nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_LO,
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_LO, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER6, lsb);
-> +	case IIO_MOD_Z:
-> +		/* OFFSET_USER7 upper nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER8, lsb);
-> +	default:
-> +		return -EINVAL;
-> +	}
+> +	return devm_regmap_init(pmb->dev, NULL, pmb, &config);
 > +}
 
+[Severity: Medium]
+What happens when CONFIG_DEBUG_FS is enabled and a user reads the regmap
+debugfs files (/sys/kernel/debug/regmap/<dev>/registers, range, or access)
+with max_register set to BCMBCA_PMB_REG(3, 255, 65535) (0x03ffffff) and
+bcmbca_pmb_precious_reg() returning true for all registers?
 
+Because config.max_register is non-zero and readable_reg is unset,
+regmap_debugfs_init() creates the registers, range, and access files.
+
+When reading the registers or range file, regmap_debugfs_get_dump_start()
+scans from 0 to 0x03ffffff (67,108,864 iterations) under map->cache_lock.
+Because every register is marked precious, regmap_printable() returns false
+for every address, leaving map->debugfs_off_cache empty and triggering a
+WARN_ON on every read:
+
+drivers/base/regmap/regmap-debugfs.c:regmap_debugfs_get_dump_start()
+	WARN_ON(list_empty(&map->debugfs_off_cache));
+	ret =3D base;
+
+Furthermore, regmap_debugfs_get_dump_start() then returns base (0) to
+regmap_read_debugfs(), which enters its loop at start_reg =3D 0 without che=
+cking
+regmap_printable(map, start_reg) and performs a hardware PMB read of regist=
+er
+0 (bus 0, device 0, offset 0) on the first iteration:
+
+drivers/base/regmap/regmap-debugfs.c:regmap_read_debugfs()
+	for (i =3D start_reg; i >=3D 0 && i <=3D to;
+	     i =3D regmap_next_readable_reg(map, i)) {
+		...
+		ret =3D regmap_read(map, i, &val);
+
+Similarly, reading the access debugfs file causes regmap_access_show() to
+iterate over all 67,108,864 addresses and call seq_printf() for each one,
+repeatedly doubling the seq_file buffer until kvzalloc() fails with -ENOMEM.
+
+Should max_register be left unset in bcmbca_pmb_regmap_init() (removing the
+need for bcmbca_pmb_precious_reg()) so regmap_debugfs_init() does not create
+the registers, range, and access debugfs files for this sparse 26-bit addre=
+ss
+space?
+
+[ ... ]
+> +static int bcmbca_pmb_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	const struct bcmbca_pmb_data *data =3D device_get_match_data(dev);
+[ ... ]
+> +	platform_set_drvdata(pdev, pmb);
+> +	pmb->regmap =3D bcmbca_pmb_regmap_init(pmb);
+> +	if (IS_ERR(pmb->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(pmb->regmap), "failed to register PM=
+B regmap\n");
+> +	ret =3D devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, data->cells,
+> +				   data->num_cells, NULL, 0, NULL);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to register PMB functions\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct mfd_cell bcm6846_pmb_cells[] =3D {
+> +	{
+> +		.name =3D "bcm6846-pmb-clock",
+> +		.of_compatible =3D "brcm,bcm6846-pmb-clock",
+> +	},
+> +	{
+> +		.name =3D "bcm6846-pmb-reset",
+> +		.of_compatible =3D "brcm,bcm6846-pmb-reset",
+> +	},
+> +	{
+> +		.name =3D "bcm6846-pmb-pvtmon",
+> +		.of_compatible =3D "brcm,bcm6846-pmb-pvtmon",
+> +	},
+> +};
+> +
+> +static const struct bcmbca_pmb_data bcm6846_pmb_data =3D {
+> +	.cells =3D bcm6846_pmb_cells,
+> +	.num_cells =3D ARRAY_SIZE(bcm6846_pmb_cells),
+> +};
+> +
+> +static const struct of_device_id bcmbca_pmb_match[] =3D {
+> +	{ .compatible =3D "brcm,bcm6846-pmb", .data =3D &bcm6846_pmb_data },
+> +	{ }
+> +};
+
+[Severity: Low]
+This isn't a bug, but in MFD drivers, passing mfd_cell arrays through the
+.data field of struct of_device_id is discouraged in favor of either passing
+bcm6846_pmb_cells and ARRAY_SIZE(bcm6846_pmb_cells) directly to
+devm_mfd_add_devices() while only one compatible is matched, or storing a
+device ID enum in .data and selecting the static const mfd_cell array with a
+switch in bcmbca_pmb_probe().
+
+Also, are platform_set_drvdata(pdev, pmb) and struct bcmbca_pmb::regmap nee=
+ded
+in bcmbca_pmb_probe(), given that struct bcmbca_pmb is private to
+drivers/mfd/bcmbca_pmc3_pmb.c and child drivers look up the regmap via
+dev_get_regmap(dev->parent, NULL)?
+
+Finally, could the commit subject include the driver prefix to match MFD
+conventions (for example, "mfd: bcmbca-pmb: Add a shared BCMBCA PMC3 PMB
+transport")?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-xg6846b-bc=
+mbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org?part=3D3
