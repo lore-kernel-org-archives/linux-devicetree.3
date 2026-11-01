@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570608;
-	b=3i0mP+WmgxCESOj8Ik3LxVZJYHBDAFw9PEDevdU3Ws1PoOPknPx4aoVYtAmU/2Ssl3FF
-	 hHcRtl7lb9mbpcmOBcNTrT+qjAX2eQuJcGQtkV3s2tI8A7Nos3XX9VsZsuwd7lt5BAgTO
-	 Y4gBJEtBz2LOtAWb1JimCtj+13PxMx0ZCd5IIZeAdzMoq9JXpuRB409GK1xWI7/WMa9lB
-	 EItnJ/p0qM0KU5Ph+z+u+LH2rjzyoSFmSsDPTPz2XxYNIptJO15Z7T1S8Au/nHhOXI6ep
-	 SX0ep+Bec2d0HWqIbg+Nv6qcjXWK0jJL1zgRHGs5zZWyDkuNORKa4sdcxruWok6NkGw==
+	t=1793570614;
+	b=rXhDGRyi4vSTacFllH4rhFVbtpfIV0KgXu7Qgv2+9MytQtj9E2JY4U1hRjs8uhDQ76lA
+	 Asglj1M1U2NCL01eCHGBgWDcKynsQe0gX5ZZAbKuZ5CQ5Z4kIAVrdl35vaGpm4xTMFDEj
+	 lIfaeWgJrI590upP7+ex54ebJEupPz3DRTJE5GVNn+yuLedMWzkkdRiZChPEPCGw17arm
+	 mlAq0/gR6RDGQw8jdz7b7C/F/ljio+JCforWYi00y+Bkouxj6qx88jh9S8uSPWQCa45Yx
+	 Lpbvx6VvLrpBfGy/86sjfQOKlrCEubZWpKuuzUaWsilDsurIu3uLKmYAKmSohh41E6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570614;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
-	b=ziptdjhodWsb1IJ2/XXqih+vIGLoL+rI2shhLuzsAh6osxipK30oJ4lduuQVMBphb8mP
-	 ay9lUPo8m7MvZGe9ND1P7PrsOQsQyUQxm5p5Q9EWdG0ru0HrZ3DHzhFXCl/HK9GRwDzgB
-	 Ckh1A1Sj/QFl3vtq7MXFiEwoO0kvZ2UuVjibPVUAsr0DVbE9ee4EC9HJVaHIa96266GJ1
-	 HIAs6K/PBWQLQMt+mzLXNVNErMHfzJdrPaV7ulAF3ZP8MMa70209/ZBFS7MsLoUHjjkk0
-	 X/fC6YTOPWaIlMsmillIj7O0AlDMJOrifQr+7qLB6IMBRJdcJFAei5hz42Fz/K+rnqg==
+	bh=H6oyrULPUMKEvcl/yJFleG9B/xW31TKnvnu3kNvY+DE=;
+	b=mLHGsJgpkWQNPsaf9/GXOhZBN7GRWQphx9Ox/EnDhZYrPTCQ1WchAtG0NJedhbAm0mWY
+	 lueSykB43SrRGK+kbGTVbnD3ryOA3tOOB/7kR2PhXtPaF8kgUe6XPQ1hhNp65QydaDhVk
+	 H1Z56Bd+ziCIjBftLC54I0AZ+0az0A70nFhCp+IW2HVzWPk8Uo7/YxvB+fG4pJHY1somm
+	 ekphBvsrYfrRpndp/RSX0bTRMFz9Evp5ybaVzFACYSvTNJGeIWLP9fE2wvfe8+CaGzFjx
+	 LvGt+rty4BTq2QbdQbD7gwI/rgiqlIlI66UYMKss3uSWK8HFtHErBVCKsDnYgdmWJbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Oh0Wa4AK;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MdKAWEDC;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2189606A32C
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2189606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB4B606A332
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:03:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DB4B606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Oh0Wa4AK
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1931ff67a29so3964734c88.1
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:03:27 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MdKAWEDC
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1927327c88.0
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:03:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793570607; x=1794175407; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793570613; x=1794175413; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
-        b=Oh0Wa4AKdc7iROHr31BGwvbHlO/NJGLhoESDgT8sSOB1NzFqWpVVXTVzj14BuO/uJI
-         +X4kINBdEpOUfCF78tdKmT14rd91xZBfOIUPjcUumd+9eere6w3TiR5SYooBNMS7mxGc
-         omaDkWqfjFwf9/yzSfoiurmYaGttHpgVpBK1E=
+        bh=H6oyrULPUMKEvcl/yJFleG9B/xW31TKnvnu3kNvY+DE=;
+        b=MdKAWEDCcS2gf1aRPpXCuW2HhP+CsyqoTGCTIGDlElskl4MjosxEVfaCeln5bv1GMx
+         ebAzMmoCLSUTM/8nCT8ij7Qy4duhScepSEtgdWoKzbOs7NpE99HDAm6GxzDduWjku8Kz
+         mud45lC8v+zl9yZwQaHIU9pS28fM/WGDTRa98=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570607; x=1794175407;
+        d=1e100.net; s=20260707; t=1793570613; x=1794175413;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
-        b=TzCEw1ZEdzmBTp+aVddm3X5bQQLPA3zrJNpoz6nW7kK92pH32yDOfBIUml3bBysFKw
-         bpquY7s7wur/FB98OZGE+7ohmqHf4zpKpOK4ZYhccAz3hmDE6sTJ21evt48plnoVAWQa
-         GdYJ1wneOil421WkNWt+r3O7rmCOuOFaO8kjgmee2FW3iPymUSjRHeElxrDzO39RZ94+
-         9buhY17WKtVWLQuavhbrKVwrcHt2stx96Lql5gdZkoh12as/6qj55hlHx1Rzo2beS8R0
-         kdTiZCVeGHggE0Lc5CqwR6Hz0QIn4tSss/ocPCRBufmxOyN6bXYdC+GDIQzHw6Cs15Si
-         wDCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQOjYDVHZuMaRavVba76ONSTRIDpLt6ipjA0YVW4rGUPAlh4ToA5Jxv/eLtEQmFxcMxz2Ekp2dR29t@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhE5kv0lmVaS1YgtRXU654O7/On2CodBbApuU3/ChYTwF5RwjP
-	5BC/Qz9S/IeDpVQke7AcgN7X/1KX4kat1mTNCAwAF1XhY+nlkRCw5Rgtx/RdSxxb4g==
-X-Gm-Gg: AYBFou39oydwv42XRO8H6KBfU4+3ImRpbsBW6zp+RI+hlhYt8KxwJLQ1YanBw2piYG8
-	gbzj3Xov25j27++CgjBCpN0GZJAZqSwTG0y7Ni9l5P8n9WaF6I71B3LgmuDL/VdFbiGVV9Bfm0g
-	REoJTnRxLIBFaoSLaDNGAfpDvEDyj8XsroVNdDlRL0wDLtpvjJzzAjbJXUIJJPkPVMpTsbzDzWF
-	DOxdh7qLr5Ei52zIkXuQO+GThF7+xWbJYps/R7qKq6KMM6Ry1twRBvYSytcYZ/QafSCByb1u3sz
-	Xis8JH68Xq1ROGn0g99chG/EmS0QZ6qr38tDq+ZwRTBcZj0ExrsXI2OMBkoXdg+1g2k6OKSNT8b
-	6TUf4RwKP8+YME2U7hLhjmnqxiUJN1RelgGpRZE/7ADjlLblIO33D34jWGF6ma9gwuOeUZUKxTq
-	UCon5JhYkrOfIjSfK6zhwyz6mKF77/ZCHnzj7IXO1r03ARSUIMgNQPgFS2p0Bvsg34SfGAR807/
-	dh+s3fy4HwLqHkYhSR5SgZgJaLyeCSNL7WiLRE4C3UEV1wMsa4szvjVK0ES68hQbHTXmRMxnXqM
-	wQQJole/qbPphmSQqhZQEKbFwAsZSD2/xEWDmJaCslwBvxIRvJ9Eg3c/yLh/lU8Paml89nfJUlb
-	a6i/omtIRIYdw3A==
-X-Received: by 2002:a05:701b:4348:b0:196:d6e1:108b with SMTP id a92af1059eb24-1aed79b3f6amr8350791c88.10.1793570606920;
-        Sun, 01 Nov 2026 14:03:26 -0800 (PST)
+        bh=H6oyrULPUMKEvcl/yJFleG9B/xW31TKnvnu3kNvY+DE=;
+        b=OewmyIPplgiVawj/Rh8wGAVEeZ1zTNrijqMNJKnLwqUQD51LMWgVY6qmYR00MGGETX
+         miOEo9FXve+Qr4pqPu5IvznKgbRBunCBRlsu92JOjOuKvH7ZbKxVzktGT87mnhkmydfl
+         nk2GFDEi7U3DJT7mwv5vVbyFjyceMn+sEAkrogXIg5dlBO23Z9tj39diSIbUB6ygopk1
+         6MeOZvlIcV5TqlbGArFOyfueSyYbYnQqm9Nh1H7nkojp7aXjP0qEXK+Td2N0AU2cFH/t
+         +pyP9GX0s2QruoaRYBQ+GllMoookAPBDZ3cqxTwsKN6zopYSp528ihXyFUIVbbiWVVYc
+         1Wrg==
+X-Forwarded-Encrypted: i=1; AKwUvBytG9rl7q7BRWWejNpys/vg5AmjouJ3eGD3crBm9dO85qIE/149kChrBWOR2kJB0OsaQfUHk50cjjAO@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxLri0o/aVXmb5Grhmr24Iof8MnaLyjYli8RehFr9Oh30yJgO5
+	w6VF3Uqp/QJujRoMRPD4ytds2IBUdtdaPfyd+MTlKJBEBSWRE+P114fc8Bya3qBO/g==
+X-Gm-Gg: AYBFou3k3skaA9T/VpNn5FuooWsg+fiA352YU5DiPGq1RB9WpF51uvOiQkJx9/MEoup
+	Y3wSpcu83RxzHINbkvgNR9giFlOKg/NryqhB2wreCYkJOEX6jaV5ESXaNgOyP7hzsphK+ENtcAT
+	VJv8QUul7m7mp8xs/KLm0id3kwbb6DqK4HzRlQUaLtRU8KOKzckuy77nbB/kX+e6il1uuLlY6d5
+	v1udfhzcBpTIGwqmpjfbUk76BmrZ7MJ6Mv9mfXAKCYCELahiGGI17Be2OevkQPKBHC2+xVLaaHE
+	2ZvvYWbeqBnrNtYqMuCfwOO9xZMx21rXL+faDJpHRdWFgEmAeeytD+KrPiwU+PRpdndxdNzKDbG
+	6RM7BXejDAv06u2a4moL6Dj+NAuUVdxlc+XQM8DQ6TWaBuVl4xN7W3ZHpmFQGQXjkkoJc2nqISp
+	JloWqI2t2KhKkhA2/E/nCgXAf7YX1o/sAHFtQD758CGvIfh1QVOaaW9Ao74+rfmDhLx7xKSsHQ9
+	SycP/n0oTpXV5n7E0/YyRe5sot5fmSqXryz5BR3YaA59DDrS8AtUQ7qqNphC92o0BpCTnHnsQbE
+	PD3Qf4Sf+69a76yMDXzPpxgtj4NALqDY91/XI9PKnv+9IDFF69DUvOxVRgmNE+Egpu1AHzcym82
+	d+Ap6hEkB3b5/YA==
+X-Received: by 2002:a05:7023:90b:b0:14c:8461:b3ef with SMTP id a92af1059eb24-1ac5e6f5132mr15587123c88.24.1793570613180;
+        Sun, 01 Nov 2026 14:03:33 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:cbd8:5ca8:653a:11f9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:03:22 -0800 (PST)
+        Sun, 01 Nov 2026 14:03:28 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,9 +94,9 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
 	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
 	David Gibson <david@gibson.dropbear.id.au>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v3 02/15] libfdt: overlay: Drop redundant *sep != ':' checks after memchr()
-Date: Sun,  1 Nov 2026 14:01:09 -0800
-Message-ID: <20261101220224.1436242-3-dianders@chromium.org>
+Subject: [PATCH v3 03/15] pylibfdt: Clarify iterator docstrings and test negative offsets
+Date: Sun,  1 Nov 2026 14:01:10 -0800
+Message-ID: <20261101220224.1436242-4-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261101220224.1436242-1-dianders@chromium.org>
 References: <20261101220224.1436242-1-dianders@chromium.org>
@@ -111,44 +111,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In `overlay_fixup_phandle()`, `sep` is obtained via `memchr(..., ':',
-...)`. When `sep` is non-NULL, `*sep` is guaranteed to be `':'`, so the
-`|| *sep != ':'` checks are redundant. Drop them.
+Follow-up improvements to commit 6b0371afc532 ("pylibfdt: Add
+subnode/property iterators and get_mem_rsv_list()"):
+
+- Document in `FdtRo.subnodes()` and `FdtRo.properties()` that the
+  device tree must not be modified while iterating, as node or property
+  offsets may shift.
+- Remove the inaccurate `Raises:` section from `FdtRo.subnodes()`, as
+  `fdt_first_subnode()` and `fdt_next_subnode()` map all negative
+  returns from `fdt_next_node()` to `-FDT_ERR_NOTFOUND` (which
+  `subnodes()` quiets).
+- Add a test case in `tests/pylibfdt_tests.py` verifying that passing a
+  negative offset (`-1`) to `properties()` raises `FdtException` with
+  `-libfdt.BADOFFSET`.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
 Changes in v3:
-- Split the removal of redundant *sep != ':' checks out of "libfdt:
-  overlay: Prepare fixup and fragment path helpers for reuse" into a
-  standalone patch
+- New follow-up patch for already-applied commit 6b0371afc532
+  ("pylibfdt: Add subnode/property iterators and get_mem_rsv_list()")
+  clarifying iterator docstrings and testing negative offsets (Simon
+  Glass, David Gibson)
 
- libfdt/fdt_overlay.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ pylibfdt/libfdt.i       | 9 ++++++---
+ tests/pylibfdt_tests.py | 4 ++++
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
-index c6dc4774cff3..8d96428af04f 100644
---- a/libfdt/fdt_overlay.c
-+++ b/libfdt/fdt_overlay.c
-@@ -432,7 +432,7 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+index 0db7110b4a38..5c8859b37df3 100644
+--- a/pylibfdt/libfdt.i
++++ b/pylibfdt/libfdt.i
+@@ -204,14 +204,14 @@ class FdtRo(object):
+     def subnodes(self, nodeoffset):
+         """Iterate over the subnodes of a node
  
- 		path = fixup_str;
- 		sep = memchr(fixup_str, ':', fixup_len);
--		if (!sep || *sep != ':')
-+		if (!sep)
- 			return -FDT_ERR_BADOVERLAY;
++        The device tree must not be modified while iterating, as node offsets
++        may shift.
++
+         Args:
+             nodeoffset: Offset of parent node to check
  
- 		path_len = sep - path;
-@@ -442,7 +442,7 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
- 		fixup_len -= path_len + 1;
- 		name = sep + 1;
- 		sep = memchr(name, ':', fixup_len);
--		if (!sep || *sep != ':')
-+		if (!sep)
- 			return -FDT_ERR_BADOVERLAY;
+         Yields:
+             Node offset of each direct subnode in order
+-
+-        Raises:
+-            FdtException on error (e.g. invalid nodeoffset)
+         """
+         soff = self.first_subnode(nodeoffset, quiet=QUIET_NOTFOUND)
+         while soff >= 0:
+@@ -465,6 +465,9 @@ class FdtRo(object):
+     def properties(self, nodeoffset):
+         """Iterate over the properties of a node
  
- 		name_len = sep - name;
++        The device tree must not be modified while iterating, as property
++        offsets may shift.
++
+         Args:
+             nodeoffset: Offset of node to check
+ 
+diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+index 2a0509c7802e..93408745c575 100644
+--- a/tests/pylibfdt_tests.py
++++ b/tests/pylibfdt_tests.py
+@@ -171,6 +171,10 @@ class PyLibfdtBasicTests(unittest.TestCase):
+             self.fdt.first_property_offset(node)
+         self.assertEqual(e.exception.err, -libfdt.NOTFOUND)
+ 
++        with self.assertRaises(FdtException) as e:
++            list(self.fdt.properties(-1))
++        self.assertEqual(e.exception.err, -libfdt.BADOFFSET)
++
+     def testGetName(self):
+         """Check that we can get the name of a node"""
+         self.assertEqual(self.fdt.get_name(0), '')
 -- 
 2.56.0.317.g454f8302e1-goog
 
