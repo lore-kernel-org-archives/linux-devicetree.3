@@ -1,63 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571409;
-	b=4UkX382QU/79JfgX/PRRQE3VYN+CE4eEbPjLjyzdjlMAyUahpRdsUot2hF6pEzO1Pua2
-	 sbzwY+aXMaZ59rDRs/VQptWhT36Qo2MgatlbIGfAJFDW2/NaVXGaLxcBcg9Kiko9Gymai
-	 58WQmTYE3mmy2q/346j/Mg76yYjJnh3HjZUB8ZOskV3Nmuso9jjHSPgwr0WAchnzpyomg
-	 UEUE144fOncFeKFv94qISskH36r7N4TsIOuZc1kK9KTYuYLZLndG+Yv8nGNfkC+ZOrPJa
-	 3RHgBuVmwF049AZqr10l28hHEuIFK1v52F3HhnOh5/frpyakxgIZ/mNe3HnRbcRbE3Q==
+	t=1793571416;
+	b=UL51JpAIZP45WT+kWZF/hkJf+VBenycCwACHntaxHj2IUdaM5bdjjVoTcTe2y4fG+rXz
+	 CxuAbsZRhToGjuU0bg3trWG/2CM3+0CsTTvz/d3UOuA0WKegkbMedUCM540i6vz34UC1S
+	 vMKDML0LU/2bS8vmqW20jO/Ne77d094/HbJSlPrRGTUPGrG+f6u87V5ClAOm5MoSjqv9p
+	 ZJC/V4rtSZLAsArp4WR8+KY01VMo0U6wPMqJElqJBXR/xQ6mIl7Uiawm6/tKOJTtBdNXI
+	 bRIs/gDBQOlbun9bDCyPiXvE4s56UypYATFN7M2171bkOMPip0pJiF43cZHodi0m3qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571416;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=H4mpy8fCxgcQpV0HEH+hde8VVOated1fMyKTSDNaznc=;
-	b=N+DTGgRSsVPMN+YsLpp+1QDFlNcJfiVgtTJ0fkn6pveJxF4i907+G4C6K3ttO0HCIZc9
-	 GfKOCSSNQdB722ylaKceJTgf1bdDpeiTg9ds5iu4qiA69yucGe3BBPQHZjEQ6eq9jsjst
-	 LGDTYOxmVHNy7tQdIXbJg2NFbO914ReHaC3opiIzgZ75K0qOViLa0loXdIeD9zzCpHiaX
-	 zudLIUcODRKMCJv3TADTybh1deCfjND4WApum6RubAnJSIG3o9NxN4tKrFPWw4LsEEszd
-	 nUbPu9F4D5ALNE6n4cUuHcf168Atx33tHKTlQEJRf/ZqeH4Zs2N05f6zr6Kxzqm65qQ==
+	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=;
+	b=bNCDASCMtMPatgN2fOHRFSvC/deGPaSFJUWJSAYxzGhikAGJ9V2AqNiZDYlInZgOprRe
+	 wcgyTZl7hk70sudVQUwrGWo/mZi4ooLHbwopvgvKA/HExepdKD6WjaxnlIoBqFos6kjKZ
+	 MEASVP7Bcx6N9odx8sSWwpNtP5ZOQkQPva1Htp2vd6bkHT+CFfFrb9+5QwoXkrbX3EzMz
+	 siT1VCmdAkJOlD2KfUA6fRgbzZL6afzenGy7dp59o7j/XaMIJtere2SfxW6LiAGYkylI8
+	 FtWRgmVIowZP9rEaDSoWq1RZuFjUQ9hTyU/Zy4NipjKD3Ds5BQmHVL67WaO6u9219OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CgMIMrh0;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B2B6071841;
-	Sun,  1 Nov 2026 22:16:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B2B6071841
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803F16072B25;
+	Sun,  1 Nov 2026 22:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803F16072B25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CgMIMrh0
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=H4mpy8fCxgcQpV0HEH+hde8VVOated1fMyKTSDNaznc=; b=CgMIMrh0QhPXvK4FzOvve3dYJG
-	KueWhP6x49zS87OwPuWjIJH9SM0CULldhoM3Rllxx9b1iSgNeWpQ67Gf/WqqHr59WzdF6KREjDG6j
-	qS7ZCDkuY6+ybfVues2Rcm/8dAw6dVPGKSDBgr7j3J9BzdiWOmuCGZNngOSMQok8E1p5NQ9vQtEZO
-	DKfdn5duF7A/C2U3rKvcsOS7X3W6ivpB3UBcjx0lXoamo8lFGaYLGJc0keTnjZdilxMFUViE+sCTr
-	Ypy5MHC2ceJu6EF7DLOJ771IcXVde9IZ0IaLJAjjNRSgXQnGjTEjVCWBXlmlOOIES1usTaFDHXu4v
-	O42RxJdg==;
+	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=; b=pBxPxn5nRbIjhCTk7PI7SrOmJu
+	Ylf9GViTlBEPjuBEOaX0EInTxAW0Wv7HF0sVeRO8u4+ncCOm32vxLsUTy4DcL6PKMBgZ5JqymDISt
+	h0hXNPaQIFDUWKUgwpXX/DP7lufM+EATMu010sf0oJ10ry6wUZw6hLXDlC0V5x97+nWjJcjsFXNUF
+	TQ8c0gm+aGhMC73ON4aVBJfTFUzEf60B0k6F1HMbHL7a9ZSW57iz4L3oqXy04Vn5TrSJidDHrwDRY
+	jnKCU1mJsx8qGlZc5ZHtu+dRjEukt3vb4tLKJBbYHbRFtL0EPNDTQ+GN9aoQTMVDBIzJlt+gqu15R
+	kGxOJPlA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryan Leung <untilscour@protonmail.com>
+To: linux-rockchip@lists.infradead.org,
+	Jianfeng Liu <liujianfeng1994@gmail.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	Alexey Charkov <alchark@gmail.com>,
+	Amin Gattout <amin.gattout@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Coia Prant <coiaprant@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: add maskrom and recovery ADC buttons to NanoPi M5
-Date: Sun,  1 Nov 2026 23:16:38 +0100
-Message-ID: <179357139350.4108484.2629575162026110096.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add ArmSoM Sige7s support
+Date: Sun,  1 Nov 2026 23:16:34 +0100
+Message-ID: <179357139346.4108484.5874650464024401479.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011-nanopi-m5-adc-v1-1-822edeb1acf4@protonmail.com>
-References: <20261011-nanopi-m5-adc-v1-1-822edeb1acf4@protonmail.com>
+In-Reply-To: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+References: <20261029082541.469999-1-liujianfeng1994@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,20 +83,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 11 Oct 2026 06:27:42 +0000, Ryan Leung wrote:
-> The FriendlyELEC Nanopi M5 has MASKROM and RECOVERY buttons connected
-> via SARADC (sheets 6 and 19 of the schematic for both the LPDDR4X [1]
-> and LPDDR5 [2] versions). Add the two buttons to the device tree.
+On Thu, 29 Oct 2026 16:25:19 +0800, Jianfeng Liu wrote:
+> Add support for the ArmSoM Sige7s, an RK3588S-based single-board computer.
+> ArmSoM confirmed that it purchased the CoolPi 4B hardware design and made
+> no hardware modifications for the Sige7s.
 > 
-> [1]: https://wiki.friendlyelec.com/wiki/images/1/10/NanoPi_M5_LP4X_2411_SCH.PDF
-> [2]: https://wiki.friendlyelec.com/wiki/images/9/97/NanoPi_M5_LP5_2411_SCH.pdf
+> Keep a distinct model and compatible so Linux identifies the board under
+> its marketed name, including when a kernel-provided DTB replaces the
+> firmware-provided DTB. Retain coolpi,pi-4b as a fallback compatible.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: add maskrom and recovery ADC buttons to NanoPi M5
-      commit: bc2e69f575631cb7b6528ad25990406a6339e8a9
+[1/2] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+      commit: 3a1d774014392d4f5f83ed73c2237b3c4a9f525a
+[2/2] arm64: dts: rockchip: Add ArmSoM Sige7s board
+      commit: 718ce9703d90c061e2574d11b8e5e8a50c089243
 
 Best regards,
 -- 
