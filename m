@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.5
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.3
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793575635;
-	b=AjGt0IQWUsIBbRPGGSkbwlL8nFJv5fdwydVX8ckYAqCcjNsi2I0KYNp+RIYslNdYR9Pg
-	 WpHbzhntgiZ/+2hgDVscOP3RuzOz4jAgEyqqzNH88jb8Rr4EAJWlU5ktgoT3C/TZU57+C
-	 55/FYcUIdVil8iJ0DrYWJQ/JC51DeEeT853mOsRjX1LWiwQ5JYUA9AxxASsun6WNK6/Y1
-	 44vBg2NrwFviSLU9rtV/yoK1b4dhaDC0HiEaeLK5cp6SJvSmhLSdED6uL72wbqGJcRQsC
-	 9/jc6CU9pjnhxxatxWFMaCkcfBBLa7BqIAkzfYBeNN/geOeUlhxOdo6wmCGA9n/KwHg==
+	t=1793575636;
+	b=ih6EkpOJaC3UpBEDnnMMlUP7OGImZga9H+YTREVjqGqOC5kk90IIo1fcma99gl5qEwN0
+	 b36mI+Fspk+xua7WVqJJeV126gHDTdokLTRJOtGoCpVYtL7pUiK3A6pwUvW5nvjZHe4Fa
+	 0N0BFiUXDKrWJZnupcJDB9lOYX/TUEq8OpEIv3e0ixQxSmOURW4wc4aKdxlWE70Gy+U+P
+	 HJK1CnGtvU0mvPnr0Btk3yCywPxj58ZCpI6Y9usiisAiUM7ZFgQ5lNWzLsJXXvTZ73ldd
+	 l3BOBtOlgZMP8sTnjVoE1gJn0YqRp6wWS6eTb7Kt4nvpZFPsVrobCtiVQorpHFCliDg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575636;
 	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
 	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
@@ -15,79 +15,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
 	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
 	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=FfwL6drZ99UrcF24Kp7YaRAGdi4Rekl9jNQ/vwE9JDo=;
-	b=DJgwnAKg2ILaxTySetoy2DP6ekglj2F4D8CIi+mrY6FKiIFSKkQHdyDsdVcmNgD+ZQf2
-	 PhRVUsV2HQp+5CS9g4ti10r2fKPDSA412EoFI82iM6nxS1q8R0rkZCB+QssjNtnUkn3mY
-	 /Z+AIrrChaqjGSKMXTsF/z/pT6ewlIb4ZpIeSXrXmM/Poo9bgyRltgJcnf54nxaCphGII
-	 DdL/zffvX+VxUNmF4E+4ro3j2ovHy01vcShYus2C6lPJwXLyfBZRcmoyqQvONfjAAjmdY
-	 rECK5bv/PDmuDP4K79cGl3gEamyv3ObpNnpJiMQjDIjG7uvOEr2kXTC1VH5h432rjPw==
+	bh=ldwbqj8wcl4ylX139bRN87N0lBqpKTnn+4+S0FjlCSE=;
+	b=33Lsv5oA8GfozB7peTEZ59ZCafb+V3UW/Fr2biXL/7THB4dl0pnDKx+EYj99h81NgzEU
+	 Ff26jJNVOS+xE8iHlKvBYcRIUPri3WGzv/ujt/dFnXx+GV5bYq0WP6w7JZ8+w0vVlG88r
+	 tIUnV8y17P6oq1RuY05mnZZok6gH3nlIAK/l7QoDGl2GjnZ1dQEZsoCtaNZ/f64NoPWMH
+	 J9vXIKpcrZFtb3UfHbOOd+l1GCZPKrdH3l+lUGPPTryMdoO+ztp0+rdRxwFLbz0hWa5o+
+	 ix+erVTPUiyHQtfNy/DJksJcgxXvCgzE/I+14sSviswsINwG1ThZ1urGcQBEu++ZSSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=valla.it;
 	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=EWDe9URV;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=grsQDMZy;
-	arc=fail smtp.remote-ip=185.56.87.5
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.5])
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=HkGrUVpe;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=YLoLZQQJ;
+	arc=fail smtp.remote-ip=185.56.87.3
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2CC606A33F;
-	Sun,  1 Nov 2026 23:27:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C2CC606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708FD606A32E;
+	Sun,  1 Nov 2026 23:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 708FD606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=EWDe9URV;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=grsQDMZy
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-nzm1.prod.antispam.mailspamprotection.com; s=arckey; t=1793575634;
-	 b=UAxacj+0FhEyiO7ms+MtvDnVICzsq127P4mlNO5Lk3WYCkT5oCDO6LJw7kCmsQx317bC5mNx1t
-	  90idLngiZwiZRoGqnV1sT6GIeUfR0OwjmMRSJ/NWtGO1AUkFre74jT9w0QkZxcvlgdHnyw0uIn
-	  3xvWr/xxFaTyWB+7JJfyaFHz3q4vNVdpdvdbbYXC+u/uFgbPoIwYpqVX4UQDKb5eeeJEY9Gw/e
-	  dsGEIW+e36iKjjV3F3PppswE/nCQ7IXsXSWXtSRgo6uhHdFITkStaxHrim7qCFlYccc65ygZIO
-	  350r4onvyn7e8byzKJ+/3+X6ST/CrPcFx3vntrZBtIJ0xg==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-nzm1.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=HkGrUVpe;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=YLoLZQQJ
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; s=arckey; t=1793575635;
+	 b=MLiM4J+WE5k8An4Ni8d7OpHoSAAsoZiZlYhSLQxnozPlyjNcyb0xbzi5LW6h+TDon5ANdr1aFr
+	  6HkuMSHsH694RMNcCu49xnzqgNVeoLzfbhTFBhxKT99k0fCKcC1HTyrzDujausk9J5/hV9YkBR
+	  WuJgGE9Ij4J/BCRGpc5BSkctRCWM9a0nLjIMsa+CbyL1JD0rF87GYOuQ9Tl1NrECcdFiDJiCxi
+	  F5mLvxOG0SWUIkWfqGOJpW6yjURWpZU5bjxU/5+83rM9dAoIKdUdoblPakqcfk5wH+EE+VhDwX
+	  TaolBYmgJazBHeK7hOHMfATt5vBAUD3jTRVLExvW8cx2eg==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
 	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
 	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
 	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
 	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-nzm1.prod.antispam.mailspamprotection.com; s=arckey; t=1793575634;
-	bh=Rg3NHiv996Ou/uVsQGsnX1PIitVPLmwkUdij4t7Mly8=;
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; s=arckey; t=1793575635;
+	bh=3Fg4PK+/cIqF8QkANbgv/C+fR4vvMWwp5B8keOBqqwQ=;
 	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
 	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=y3m2RmSGfYVE6sHa6s/Wg7zoue5Zqtqo0WKt2gNt6gtNO7U4T1DCb0ijJHz7i0vkx9XyGdMueI
-	  yCd1UiY5m4WI/l6ywwa7Md+Nmd/cBGIR2dEe6xh9oqZOMSaVgfoT0tApzhFRorYxI7FnhzOHvc
-	  4yxC7AlWx1ni+vLu4oV35nxwV6XtwLq2DpP9jPF8v/kgc5gicWNdU8Sl7v/FjF4BBXnFx+BNo5
-	  DmiI7FBU3bwYTo0LzK+pyRRZAATYqI+4Gw69QXXICfppMZfWcjTPbONyvuG7zAV7cN0vtWv10f
-	  mLA51SZRYmLDZhuVT/wsC5mDQKKO8KtnjN83Ksn6ohagUQ==;
+	b=m8TEQFbrSl+yo4YAlH4QcFTXkQGdAQSuzKok6VRe+JGgR5bF1bDgxm/hYKMFrQlLqOYgVP+Xd+
+	  bhbKelcVxsn+IyiRsE39krhaynngqkBcju5ESoeXVvJvEHLHdb13A3HAJBOrHtnpc0hTrPlKIA
+	  7LAUc1mjFl1205/S5fv4cD36TOOqOUWEjsB7uZ8ZafJggLlUIQuc7xly4go2uwEGWcm+bQwxkg
+	  LnTYKLlEt6D8HGxGJUFIzb2yfLi6ngioHl14EAj/DZNZwIyM5ujjyHueQco+JtV8J1I3+FleSh
+	  Cxaj6JcChA8vmnoORfRvQuOr3XYZt2lKUqVHJSWzCW9Aag==;
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
 	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
 	:Date:From:Reply-To:List-Unsubscribe;
-	bh=FfwL6drZ99UrcF24Kp7YaRAGdi4Rekl9jNQ/vwE9JDo=; b=EWDe9URVzXMS9z2Of2I3J1WRYI
-	2nKNZX81Q0+7o0AlwfyN6c+bw3IIc25/cwTsQwCuwZX+V3BnPbuQecit4IXjv7XI7mQXK/LZKbgSV
-	hZDQH7AYs+DOW9tBjtc9npCOKhyiMthUi0pfGu1XquiJeJmTI7b5KDaMc/cBLy0CIM/c=;
+	bh=ldwbqj8wcl4ylX139bRN87N0lBqpKTnn+4+S0FjlCSE=; b=HkGrUVpejgtO+OYh+N85FU/x9S
+	rgdaAcU5Y3Ecc9SDkSkPHVx7tiralmjVMAdXlL5PQdIyOS8nP1WzXk57kCjNCZYz8gHLWh72ZPKtE
+	eEl+paXxjU9ucxKr+uDPCNrytlpGdrrIKbO1h+CwuGu+kznp6WClHB1sJOdBK6Yypx1g=;
 Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-nzm1.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	by instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <francesco@valla.it>)
-	id 1xNex5-00000007Aeq-14YT;
-	Sun, 01 Nov 2026 23:27:03 +0000
+	id 1xNex9-00000005hx8-1hY9;
+	Sun, 01 Nov 2026 23:27:07 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
 	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
 	list-subscribe:list-post:list-owner:list-archive;
-	bh=FfwL6drZ99UrcF24Kp7YaRAGdi4Rekl9jNQ/vwE9JDo=; b=grsQDMZyuo295cS/AatEIltcsZ
-	gIq+4tQBOR2b3XY4ay5NUD2sryA4SPrciSnrmRLl1SvX/f1oXFwddxnz1GKsLtWF0dJiec+my6YbD
-	R8lDFlJU0IUrMResVEwN4QIMrNPGaEZl9C2BeoSXpnDtuDgrYgPrubohfZ7iRhrLPE8c=;
+	bh=ldwbqj8wcl4ylX139bRN87N0lBqpKTnn+4+S0FjlCSE=; b=YLoLZQQJYYN2sqdpt28dCcxRwa
+	AjUmdS1OiYVdUz0HSdlHW3T+2E2l2+zrSN3MdU+eUrke6P/Y29iLpGyf+h1l9KBTpT8xMKXPQBVzr
+	RAtyMijg+2NpzQAKALkG3TzZp5L0fJF7emb5ZZqkn83Uu9tfukHsvudHVVyuBmcaDe/0=;
 Received: from [79.17.15.196] (port=60226 helo=[192.168.178.175])
 	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <francesco@valla.it>)
-	id 1xNewy-000000002I5-21Gt;
-	Sun, 01 Nov 2026 23:26:56 +0000
+	id 1xNex3-000000002I5-2ObH;
+	Sun, 01 Nov 2026 23:27:01 +0000
 From: Francesco Valla <francesco@valla.it>
-Date: Mon, 02 Nov 2026 00:26:40 +0100
-Subject: [PATCH RFC v2 03/11] remoteproc: virtio: support dynamic number of
- vrings
+Date: Mon, 02 Nov 2026 00:26:46 +0100
+Subject: [PATCH RFC v2 09/11] remoteproc: imx_rproc: always use
+ non-blocking mailboxes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,7 +99,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-remoteproc_virtio_map-v2-3-26b300e01c62@valla.it>
+Message-Id: <20261102-remoteproc_virtio_map-v2-9-26b300e01c62@valla.it>
 References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
 In-Reply-To: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -117,12 +117,12 @@ Cc: Robin Murphy <robin.murphy@arm.com>, linux-remoteproc@vger.kernel.org,
  devicetree@vger.kernel.org, linux-doc@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5391; i=francesco@valla.it;
- h=from:subject:message-id; bh=Rg3NHiv996Ou/uVsQGsnX1PIitVPLmwkUdij4t7Mly8=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFnPT+2ZMD34aojLK7lNmbPPe/44Jvnj+Jb0L3YWT2s2N
- qneTTBT6yhlYRDjYpAVU2QJWXfj3p655t/SNjA+gpnDygQyhIGLUwAmotDI8E/d1Et59hybD+uW
- zv1sN+nfyjvprkVaRuuSTm1Y4Hzbfss5hn+mW//1xnokp6ziLZBuMI+afumjC/eMKFE588lFRwN
- LL3MBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6485; i=francesco@valla.it;
+ h=from:subject:message-id; bh=3Fg4PK+/cIqF8QkANbgv/C+fR4vvMWwp5B8keOBqqwQ=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFnPT+0Rn5h6r27uKZ2UzMlaATtLbO25NUQTeay9+lYvc
+ Muq/9PcUcrCIMbFICumyBKy7sa9PXPNv6VtYHwEM4eVCWQIAxenAExknQUjw3d1o585H7akNHSF
+ xukVnMjqqTTVjFy2c3bgfI6rUT4vbBgZDmy9ZuG/lqHttOzCOzoLe5csKPLZvuqalPoCM2Up3UJ
+ pLgA=
 X-Developer-Key: i=francesco@valla.it; a=openpgp;
  fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
@@ -133,164 +133,214 @@ X-AntiAbuse: Sender Address Domain - valla.it
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-SGantispam-id: e6f0d3f02e1b3cc8c90e0c857101b332
-X-AntiAbuse: ID - e6f0d3f02e1b3cc8c90e0c857101b332
+X-SGantispam-id: 36ed35a6be6fdef39e0caf0ff89c54fe
+X-AntiAbuse: ID - 36ed35a6be6fdef39e0caf0ff89c54fe
 AntiSpam-DLS: false
 AntiSpam-DLSP: 
 AntiSpam-DLSRS: 
 AntiSpam-TS: 1.0
 CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xNex5-00000007Aeq-14YT-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-nzm1.prod.antispam.mailspamprotection.com;
+CFBL-Feedback-ID: 1xNex9-00000005hx8-1hY9-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com;
 	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
 	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
 	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
 	arc=none
 
-The number of vrings for each vdev has been fixed to 2 since the
-introduction of multi-vdev support [1]; this is completely fine for the
-rpmsg usecase, but can conflict with other virtio devices (CAN for
-example requires 3 virtqueues, entropy only 1, network a variable number
-and so on).
+Blocking mailboxes may lead to sleep during the kick operation, which
+conflicts with some virtio devices (e.g.: virtio-can) that kicks their
+virtqueues with spinlock(s) held.
 
-Remove the static vring allocation, transforming it to a flex array that
-is allocated at vdev probe time; for the existing usecases (i.e.: mainly
-rpmsg) this leads to no functional change, except the additional memory
-used for the counter associated to the new array.
+Align to the behavior of all the other remoteproc drivers that use a
+mailbox to perform the kick (i.e.: omap, st, stm32, ti_k3_*, xlnx_r5)
+and move to a non-blocking mailbox here as well. Messages need to be
+allocated and freed on-the-fly, since they might be sent after
+imx_rproc_kick() returns and cannot thus live on the stack.
 
-The maximum number of virtqueues is limited to 255 due to the u8 value
-used inside the resource table to indicate the number of vring to
-allocate; for this reason, no additional plausibility check is performed
-on the number of vrings indicated by the resource table.
-
-This also fixes the single virtqueue usecase, which was apparently
-supported also before but for which the remove action caused an error
-(because the remove action was trying to unmap also the second vring,
-which was in fact not mapped).
-
-[1] https://lore.kernel.org/all/1330589497-4139-5-git-send-email-ohad@wizery.com/
+As a side effect of this modification, the close-reopen action on
+the mailboxes during restart and shutdown can be removed, since it was
+performed only to have a non-blocking mailbox.
 
 Signed-off-by: Francesco Valla <francesco@valla.it>
 ---
- drivers/remoteproc/remoteproc_core.c   |  7 -------
- drivers/remoteproc/remoteproc_virtio.c | 12 ++++++------
- include/linux/remoteproc.h             | 10 ++++------
- 3 files changed, 10 insertions(+), 19 deletions(-)
+ drivers/remoteproc/imx_rproc.c | 76 ++++++++++++++++--------------------------
+ drivers/remoteproc/imx_rproc.h |  1 -
+ 2 files changed, 28 insertions(+), 49 deletions(-)
 
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 23f8539a99bd..c946ecd980a5 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -473,7 +473,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- {
- 	struct fw_rsc_vdev *rsc = ptr;
- 	struct device *dev = &rproc->dev;
--	struct rproc_vdev *rvdev;
- 	size_t rsc_size;
- 	struct rproc_vdev_data rvdev_data;
- 	struct platform_device *pdev;
-@@ -494,12 +493,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 	dev_dbg(dev, "vdev rsc: id %d, dfeatures 0x%x, cfg len %d, %d vrings\n",
- 		rsc->id, rsc->dfeatures, rsc->config_len, rsc->num_of_vrings);
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index 581bb07f5893..a792b9ca5edd 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -96,7 +96,7 @@ struct imx_rproc_mem {
+ /* Linux has permission to handle the Logical Machine of remote cores */
+ #define IMX_RPROC_FLAGS_SM_LMM_CTRL	BIT(0)
  
--	/* we currently support only two vrings per rvdev */
--	if (rsc->num_of_vrings > ARRAY_SIZE(rvdev->vring)) {
--		dev_err(dev, "too many vrings: %d\n", rsc->num_of_vrings);
--		return -EINVAL;
+-static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block);
++static int imx_rproc_xtr_mbox_init(struct rproc *rproc);
+ static void imx_rproc_free_mbox(void *data);
+ 
+ /* Forward declarations for platform operations */
+@@ -441,7 +441,7 @@ static int imx_rproc_start(struct rproc *rproc)
+ 	struct device *dev = priv->dev;
+ 	int ret;
+ 
+-	ret = imx_rproc_xtr_mbox_init(rproc, true);
++	ret = imx_rproc_xtr_mbox_init(rproc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -696,28 +696,45 @@ static void imx_rproc_kick(struct rproc *rproc, int vqid)
+ {
+ 	struct imx_rproc *priv = rproc->priv;
+ 	int err;
+-	__u32 mmsg;
++	__u32 *mmsg;
+ 
+ 	if (!priv->tx_ch) {
+ 		dev_err(priv->dev, "No initialized mbox tx channel\n");
+ 		return;
+ 	}
+ 
++	mmsg = kzalloc_obj(*mmsg, GFP_ATOMIC);
++	if (!mmsg) {
++		dev_err_ratelimited(priv->dev, "cannot allocate kick message\n");
++		return;
++	}
++
+ 	/*
+ 	 * Send the index of the triggered virtqueue as the mu payload.
+ 	 * Let remote processor know which virtqueue is used.
+ 	 */
+-	mmsg = vqid << 16;
++	*mmsg = vqid << 16;
+ 
+-	err = mbox_send_message(priv->tx_ch, (void *)&mmsg);
+-	if (err < 0)
++	err = mbox_send_message(priv->tx_ch, (void *)mmsg);
++	if (err < 0) {
+ 		dev_err(priv->dev, "%s: failed (%d, err:%d)\n",
+ 			__func__, vqid, err);
++		kfree(mmsg);
++	}
++}
++
++static void imx_rproc_kick_tx_done(struct mbox_client *cl, void *mmsg, int r)
++{
++	if (r != 0)
++		dev_err_ratelimited(cl->dev, "failed to kick vqid %u: %d\n",
++				    *(__u32 *)mmsg >> 16, r);
++
++	kfree(mmsg);
+ }
+ 
+ static int imx_rproc_attach(struct rproc *rproc)
+ {
+-	return imx_rproc_xtr_mbox_init(rproc, true);
++	return imx_rproc_xtr_mbox_init(rproc);
+ }
+ 
+ static int imx_rproc_scu_api_detach(struct rproc *rproc)
+@@ -872,7 +889,7 @@ static void imx_rproc_rx_callback(struct mbox_client *cl, void *msg)
+ 	idr_for_each(&rproc->notifyids, imx_rproc_notified_idr_cb, rproc);
+ }
+ 
+-static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
++static int imx_rproc_xtr_mbox_init(struct rproc *rproc)
+ {
+ 	struct imx_rproc *priv = rproc->priv;
+ 	struct device *dev = priv->dev;
+@@ -895,10 +912,10 @@ static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
+ 
+ 	cl = &priv->cl;
+ 	cl->dev = dev;
+-	cl->tx_block = tx_block;
+-	cl->tx_tout = 100;
++	cl->tx_block = false;
+ 	cl->knows_txdone = false;
+ 	cl->rx_callback = imx_rproc_rx_callback;
++	cl->tx_done = imx_rproc_kick_tx_done;
+ 
+ 	priv->tx_ch = mbox_request_channel_byname(cl, "tx");
+ 	if (IS_ERR(priv->tx_ch))
+@@ -1218,22 +1235,6 @@ static int imx_rproc_detect_mode(struct imx_rproc *priv)
+ 	return priv->ops->detect_mode(priv->rproc);
+ }
+ 
+-static int imx_rproc_sys_off_handler(struct sys_off_data *data)
+-{
+-	struct rproc *rproc = data->cb_data;
+-	int ret;
+-
+-	imx_rproc_free_mbox(rproc);
+-
+-	ret = imx_rproc_xtr_mbox_init(rproc, false);
+-	if (ret) {
+-		dev_err(&rproc->dev, "Failed to request non-blocking mbox\n");
+-		return NOTIFY_BAD;
 -	}
 -
- 	rvdev_data.id = rsc->id;
- 	rvdev_data.index = rproc->nb_vdev++;
- 	rvdev_data.rsc_offset = offset;
-diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-index 29a3a4c18097..c56d3330adfe 100644
---- a/drivers/remoteproc/remoteproc_virtio.c
-+++ b/drivers/remoteproc/remoteproc_virtio.c
-@@ -135,8 +135,7 @@ static struct virtqueue *rp_find_vq(struct virtio_device *vdev,
- 	void *addr;
- 	int num, size;
+-	return NOTIFY_DONE;
+-}
+-
+ static int imx_rproc_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1262,7 +1263,7 @@ static int imx_rproc_probe(struct platform_device *pdev)
  
--	/* we're temporarily limited to two virtqueues per rvdev */
--	if (id >= ARRAY_SIZE(rvdev->vring))
-+	if (id >= rvdev->num_vrings)
- 		return ERR_PTR(-EINVAL);
+ 	dev_set_drvdata(dev, rproc);
  
- 	if (!name)
-@@ -510,13 +509,16 @@ static int rproc_virtio_probe(struct platform_device *pdev)
- 	if (!rvdev_data)
- 		return -EINVAL;
- 
--	rvdev = devm_kzalloc(dev, sizeof(*rvdev), GFP_KERNEL);
-+	rsc = rvdev_data->rsc;
-+
-+	rvdev = devm_kzalloc_flex(dev, *rvdev, vring, rsc->num_of_vrings);
- 	if (!rvdev)
- 		return -ENOMEM;
- 
- 	rvdev->id = rvdev_data->id;
- 	rvdev->rproc = rproc;
- 	rvdev->index = rvdev_data->index;
-+	rvdev->num_vrings = rsc->num_of_vrings;
- 
- 	ret = copy_dma_range_map(dev, rproc->dev.parent);
+-	ret = imx_rproc_xtr_mbox_init(rproc, true);
++	ret = imx_rproc_xtr_mbox_init(rproc);
  	if (ret)
-@@ -534,8 +536,6 @@ static int rproc_virtio_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, rvdev);
- 	rvdev->pdev = pdev;
+ 		return ret;
  
--	rsc = rvdev_data->rsc;
+@@ -1292,26 +1293,6 @@ static int imx_rproc_probe(struct platform_device *pdev)
+ 	if (rproc->state != RPROC_DETACHED)
+ 		rproc->auto_boot = of_property_read_bool(np, "fsl,auto-boot");
+ 
+-	if (dcfg->flags & IMX_RPROC_NEED_SYSTEM_OFF) {
+-		/*
+-		 * setup mailbox to non-blocking mode in
+-		 * [SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_MODE_RESTART_PREPARE]
+-		 * phase before invoking [SYS_OFF_MODE_POWER_OFF, SYS_OFF_MODE_RESTART]
+-		 * atomic chain, see kernel/reboot.c.
+-		 */
+-		ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF_PREPARE,
+-						    SYS_OFF_PRIO_DEFAULT,
+-						    imx_rproc_sys_off_handler, rproc);
+-		if (ret)
+-			return dev_err_probe(dev, ret, "register power off handler failure\n");
 -
- 	/* parse the vrings */
- 	for (i = 0; i < rsc->num_of_vrings; i++) {
- 		ret = rproc_parse_vring(rvdev, rsc, i);
-@@ -586,7 +586,7 @@ static void rproc_virtio_remove(struct platform_device *pdev)
- 	struct rproc_vring *rvring;
- 	int id;
- 
--	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
-+	for (id = 0; id < rvdev->num_vrings; id++) {
- 		rvring = &rvdev->vring[id];
- 		rproc_free_vring(rvring);
- 	}
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 00019b1895e6..52e1eccbe42e 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -322,10 +322,6 @@ struct rproc_subdev {
- 	void (*unprepare)(struct rproc_subdev *subdev);
+-		ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_RESTART_PREPARE,
+-						    SYS_OFF_PRIO_DEFAULT,
+-						    imx_rproc_sys_off_handler, rproc);
+-		if (ret)
+-			return dev_err_probe(dev, ret, "register restart handler failure\n");
+-	}
+-
+ 	pm_runtime_enable(dev);
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+@@ -1424,7 +1405,6 @@ static const struct imx_rproc_dcfg imx_rproc_cfg_imx8ulp = {
+ static const struct imx_rproc_dcfg imx_rproc_cfg_imx7ulp = {
+ 	.att		= imx_rproc_att_imx7ulp,
+ 	.att_size	= ARRAY_SIZE(imx_rproc_att_imx7ulp),
+-	.flags		= IMX_RPROC_NEED_SYSTEM_OFF,
  };
  
--/* we currently support only two vrings per rvdev */
--
--#define RVDEV_NUM_VRINGS 2
--
- /**
-  * struct rproc_vring - remoteproc vring state
-  * @va:	virtual address
-@@ -353,9 +349,10 @@ struct rproc_vring {
-  * @id: virtio device id (as in virtio_ids.h)
-  * @node: list node
-  * @rproc: the rproc handle
-- * @vring: the vrings for this vdev
-  * @rsc_offset: offset of the vdev's resource entry
-  * @index: vdev position versus other vdev declared in resource table
-+ * @num_vrings: the number of vrings for this vdev
-+ * @vring: the vrings for this vdev
-  */
- struct rproc_vdev {
- 	struct rproc_subdev subdev;
-@@ -364,9 +361,10 @@ struct rproc_vdev {
- 	unsigned int id;
- 	struct list_head node;
- 	struct rproc *rproc;
--	struct rproc_vring vring[RVDEV_NUM_VRINGS];
- 	u32 rsc_offset;
- 	u32 index;
-+	unsigned int num_vrings;
-+	struct rproc_vring vring[] __counted_by(num_vrings);
+ static const struct imx_rproc_dcfg imx_rproc_cfg_imx7d = {
+diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
+index 0d7d48352a10..9a1400d0d081 100644
+--- a/drivers/remoteproc/imx_rproc.h
++++ b/drivers/remoteproc/imx_rproc.h
+@@ -16,7 +16,6 @@ struct imx_rproc_att {
  };
  
- struct rproc *rproc_get_by_phandle(phandle phandle);
+ /* dcfg flags */
+-#define IMX_RPROC_NEED_SYSTEM_OFF	BIT(0)
+ #define IMX_RPROC_NEED_CLKS		BIT(1)
+ 
+ struct imx_rproc_plat_ops {
 
 -- 
 2.56.0
