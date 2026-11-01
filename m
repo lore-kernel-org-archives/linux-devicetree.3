@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793548058;
-	b=gCKIAZr6hxBOBi/EEIogSC7KycZXl+5bUhcQYkUwlAjPaWYkeVbc2tFKkuU7ndiWXNIJ
-	 wnSIywILBSuKgvX4Qu+rd94o6Lme6V6tDUF+7mUmspZ3mJZ/nK+6x460g2d1x882YPJNT
-	 wNz8qxwO85lUojECY4bcrh52esLud5OImbXyWkSrMyvJC9UBopd+Kr/ooZv+X5vog4R+E
-	 Xlp3ut6CCZo8+kESF5vtqQ18O3fu+kzAF8b75Eb6g0BLKwIQRSsZwqrOAwER/HUHTtm/p
-	 vBvRquniWATpl3VRHbl7PgHh2HU0DAzuyxzxdQKIc8zv6jGrE6eyKJOZU/5iPKVZwGQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548058;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=95FOrxvTIEuds2n7MwpMJLnzGAGJk2x/TS1PdOHXS8E=;
-	b=3WNxSpi6j/ABm1MU4A5TrG3oQ0/G0RGmwUI8L+vujcVeu3Yr2492wP+OmvdvgvAgHSdi
-	 BQK0h06bLb0xOqwhg0kOAVewq66LTnHuK0vmBdWDLvOEqpa0YhM+VrjLL4bf30uVC3wTJ
-	 UDfZvyoA15EyD0UmjvCw6OXwBJ/Z8m/79dETBzU+xHsEjprpBDJKz71HNeYj5l6nv5wt8
-	 JcpxUYJWmuN9aPWPip04pfPvgmD3AGW4H/LhapXx5RxajmOPehi09kb/CDS1+1I0GsEHw
-	 cmr1DBFUD5DFUlMbFQ6Rs+O8dH3Xk4wL3bfxLki7sjmvL+LK/Gxvcub1vTckgwPgD+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3cABjsy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793548754;
+	b=1crySahZIK7eq5+Qk56suTFex0pfWgUIebwfk+66nxEEqS4Z8n2qV2esG0a7rpQjU+jy
+	 o7h8HY4fnAV/vqkt7RWfoXbVFOt8vgCYzHE4tdr7Pvn5xRjrar+sB98dILRsbX6a3OI/h
+	 gVZl7vS2vVeyU8IH2rzhfDmuzLjEqOzuTNZF79Y0N0vU3gkgpMqweoxwoQhBBfWkGCJO6
+	 V2cvFwbZK1Kz+MZf/zLXR4aE1rjqli260ZEEHOreYiGDK58e4quoLjA8BCMGRW/I5DioK
+	 yVH/9o4CdcERB8HVYUhkuspdoLvNJErCVwAXNUAUpDRoKwY6FNOakQoPIkzyOuGBm2Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OaBbso/nWA2Q4yJF5+SbtI8vmJ4zVrnNgMLlXI5ZDPE=;
+	b=u2+MaEQitCIebJAvP5eIJR0sroPrzRauWpXNbrsrfO/OGCXQAiKo1FUTnjQ3TejT2Ecs
+	 ikmRRzB1G0tc9NWrzhY8YGA54bHMw2I1EtxB6h0gAZm8t29H6p/aqJWBWuLiz6vTM+Fh5
+	 8u2xAqS/hl9KMlOIKHDqzfy1ofZs0QJndoZ3zVvoQ3VXldCodpJDHQhccWQyXF9LrPbjt
+	 0MzsDzylKNiCE3GZo11X6ThzSbtHJnBETKgakFzHWbHG9fDjPYQ/qoI5+MCIGmsXycNXG
+	 md8WdkAZm0vEwafjNFKVeGKuJ+sqBK5u/GHHmDHL9PlNjX8BFawlNllyJrRYeGR+KvQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vyOmQU+G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F07606A324;
-	Sun,  1 Nov 2026 15:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6016D606A329
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 15:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6016D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3cABjsy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9F91F000C1;
-	Sun,  1 Nov 2026 15:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793548057;
-	bh=95FOrxvTIEuds2n7MwpMJLnzGAGJk2x/TS1PdOHXS8E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I3cABjsyu0D7EfJAssSQQCxHZ9Y4vN5/XIEKbvDVi7NhAOgWsJZ4gtqLeS+JgFect
-	 VVHoEIADWhrQdtqGw1H++EK0032B+WMf/MNyJx+DIhjpbQiwC6tCvhGRzF6PUJd9wY
-	 DgavzYcb7BYZ78/KMUCeIk6mYB8zDp2oQVtMoMhvcIsstdLYOBBI6GKacPndjY/OGM
-	 JsIGqEzNRu6VcWTz+oKz1RZ1rxNXUDcoqL72KPQbV4rCduU5zo/mCr9BX0k7mUxcpi
-	 pcyud0LTy0P/hg9KcU7niYW4BLAfFZKXubxn4ZqmRn7p1Tu/MpiR6cvub1eon+uWTj
-	 TY4pFoK8+QszQ==
-Message-ID: <sashiko-outbox-192484@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: mfd: rk8xx: add board level power
- hold GPIOs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yaozhong Li" <yaozhonguwl@gmail.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261101154053.3874-2-yaozhonguwl@gmail.com>
-References: <20261101154053.3874-1-yaozhonguwl@gmail.com>
- <20261101154053.3874-2-yaozhonguwl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 15:47:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vyOmQU+G
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3535a54bed9so3399168eec.1
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 07:59:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793548752; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MhLV1EDAviEa2ZIVU3yzNyN4WpBROU8bMJd3m46Tdz4tiCWb7G68VyyaLHhJax3rND
+         1kcIsuXvuZb1pnk6+dPb9uIQUj5MuSLTcgx2+uB87YAlU55Ssz6Bc8te63Y6aMW9CFU3
+         jNN/INe51fE4CoHMryZTtTGBgDfAXqLZSr3ioRAuWfJPo4chmf/3vMDct05Ey4HybJs7
+         ucVIkGqm+1atzvc/z3/3JwimFKNujSLaTS9C6DrtiuqUbvk3tA0GkeNMEJSG9ZvwFVIF
+         7FIdpoPIQYwKYhS8vU7X/nMiJ3RC9T3oUTtkU/iEsdlHA9SeirybVQ5dgCExntTFPREw
+         n19Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OaBbso/nWA2Q4yJF5+SbtI8vmJ4zVrnNgMLlXI5ZDPE=;
+        fh=aQG3fXc4iRloZtFgitGcyOLowsn2mV7cNCB/CXh/cn8=;
+        b=LQs89wVeVNZSDfxWOTrCvv6rWO0t04HvGna4q7zUDSTGigWtI1ElWgYdXnySbRRmfS
+         1O+WIN1C9gNeH456305yu4/kpRPJz2qQ1yiMvqdbmlNVpLYtO9P/XeosR8QOeIAMqUbm
+         Ch/so6focD8X5+fQHhnXO6VFLXVBxekiUDHjRTS+DKGE1Fc+EgzAo+ChnFQni4IgAagu
+         JCV8o5aWJZhvZjGqBMUJx8xyqUKNcCCKNK4+O1PHoA++dQHM5kiKE2nJlNoxLTtWizxC
+         N2AVnCwlEGUarqHlRS2mrNSr9gmnhhO8fLLJJjiPbLbF5HX5Esve3uqTYMxHX+Uc8kWs
+         qCNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793548752; x=1794153552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OaBbso/nWA2Q4yJF5+SbtI8vmJ4zVrnNgMLlXI5ZDPE=;
+        b=vyOmQU+GIUzXlWzuISIAqmcM+65J78pwMqPSy/SmvKYrqsO5olf638kBeiXOM3v7fD
+         7Gjz2ZgbU+Y14eCQ/WSShxwfOn/HC5FFJPn+gZia6EiAo7w+pYIMU2t2Ia0UWj+TUBPg
+         PJDZOD7lvjlbUhpVweHCokLOA6EG5D8SVEorKg9Age6da+KPUy0x3ZqNQOIZ3sdcYOsI
+         lf0khruygB9gKpxiaUoEzlksGd02/37GJ7qNZFPu2SNZAil98x/HUwjVANp1Xlcy+UWg
+         056SSxMwD8fwFs3wlSDLNpmICXNxGhgJxtkxBA08Ee/r62MC2T6Qxlcy6FnEvqnVfVsh
+         DI8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793548752; x=1794153552;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OaBbso/nWA2Q4yJF5+SbtI8vmJ4zVrnNgMLlXI5ZDPE=;
+        b=L3um2GnvmKPqt7VJYsy4WVB36STKxX7XFBIii+MsAj2WYOnkVq6SGiQbRBBOEtC7xq
+         LP7OCSGQhXuqwYqkLkgx4oj0VWzUyyy4jQFcrQt+2VdAZ7ka3T4kABK65evkqnN8cJfA
+         y/opf3NV5CNft99wzFycb2lTWGWBuhiym9CcpsJ6lMCEKa7vzGcHnkZxzMAuMHCk1mlw
+         SzYD37Npo9CdkxRvYE7ZwoK0Ex1nrMT0DazzDeN1B7LGdaIVlw9pjfhd6OBoJ1OHGFfO
+         yH0I/d9DkBWGvr4XQYq2Rwboce8aPaT+HGcQ/WneajAo9BVYpS6tmSpW6MrgaztQndB6
+         Y6OA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQN0WBuqZUzPJv0LTZHiqih7uVRIpZec1rGe7aPgFDdtH6FAcr2/IKa9Yz9kEiIXUj4OmvALji+fBb@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hJz4Tb8riMTje2JkUPkGmPSF0oAcpRtfeDDa+jFDG/iL9S1k6
+	/4tUCw1aD22CFZYtR7vcG0kIxNk1Ep/pOaOBckehmNtS2DGiSnapoin+frGho5f2HSZCZaqjM8g
+	wngUV4sefxewHCc8rwYufqM40D2i7vyE=
+X-Gm-Gg: AYBFou3ajfOwhf+Rp5YQm5RFtNsECrx56KgQkiU6TWZq9ruiEBDjDfvOku9oJjVA3GA
+	ZbVtaZ2A8CYAJ+5yywzZyZ90SmlgFbxP6sVO22FfbnZeY0Nv9CeOXYB3Icf6yMIv2fXpEcxiax/
+	bE/IPn6vYTqBOIYI2e43GmTj1nvThvF65Fk2c5wSvlPO75PuJ7oEeE6awo9LfTGtDBXKTTN6pNY
+	66l2HAYYGx3idBBq3K9aQDN8FIaovn17tW9dggwaGB/U7O7dkiXL3tbgOcWriMfH8ji0l9TZxN9
+	X6mqaNeQxQpsFcpZAi07Q9LD/ed6+3OQWGrJtMeAu7wu3NgSBZc3dB4CCFS0pWdTVJ7b1S9KAXI
+	w8Uk6ahdZ0vpFBgcIqhQt6ANFoq17jDiLDUZHBWKsMc5gZ3Ld1XP+f1HyGexGFHRPiWk71z8=
+X-Received: by 2002:a05:7301:6198:b0:36a:1e9e:ae61 with SMTP id
+ 5a478bee46e88-36a42602aa1mr11000618eec.38.1793548752284; Sun, 01 Nov 2026
+ 07:59:12 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,92 +103,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de>
+ <20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+In-Reply-To: <20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 1 Nov 2026 17:59:01 +0200
+X-Gm-Features: AclHuK8C4vxEYccTnlJFTZvavpWf-GCXw0Ej68N8q_v5q9HytmNW0NUmwJ3LSVo
+Message-ID: <CAPVz0n2YSjPsmhYHnm9UfNtU5gg-pWcxe0Rybpf12jrXUKn1aw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] iio: light: Add Capella CM3217 ambient light sensor driver
+To: admin@tsv-stahl-riesa.de
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: mfd: rk8xx: board power-hold GPIOs modeled as PMIC =
-properties
---
+=D0=BD=D0=B4, 1 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:46=
+ Patrick Fischer via B4 Relay
+<devnull+admin.tsv-stahl-riesa.de@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count.
+>
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+>
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers for the Tegra Note 7 (drivers/staging/iio/light/
+> cm3217.c in the 3.4 and 3.10 kernels). For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+>
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
+>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+>  drivers/iio/light/Kconfig  |  10 ++
+>  drivers/iio/light/Makefile |   1 +
+>  drivers/iio/light/cm3217.c | 383 +++++++++++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 394 insertions(+)
+>
 
-commit 675c9ae7bda27dce85ec9548a8ac2ba6bdf5bf40
-Author: Yaozhong Li <yaozhonguwl@gmail.com>
-
-dt-bindings: mfd: rk8xx: add board level power hold GPIOs
-
-This commit adds a shared schema rockchip,rk8xx-power-hold.yaml defining
-power-hold-gpios and power-hold-delay-ms properties for board-level power
-hold lines, and references it across all seven Rockchip RK8xx PMIC MFD
-bindings.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk8xx-power-h=
-old.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk8xx-power-hold.=
-yaml
-> new file mode 100644
-> index 0000000000000..6be3e1e119f0b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/rockchip,rk8xx-power-hold.yaml
-> @@ -0,0 +1,42 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/rockchip,rk8xx-power-hold.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Rockchip RK8xx PMIC board level power hold GPIOs
-> +
-> +maintainers:
-> +  - Yaozhong Li <yaozhonguwl@gmail.com>
-> +
-> +description:
-> +  Properties shared by the RK8xx PMIC bindings for boards that route pow=
-er
-> +  hold lines from the SoC into the board's power circuitry, which have to
-> +  be released before the PMIC is asked to power the system off.
-> +
-> +properties:
-> +  power-hold-gpios:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description: >
-> +      Board level power hold lines driven by the SoC. They have to be he=
-ld
-> +      asserted while the system is running and released before the PMIC
-> +      shutdown request is written, otherwise the rails can drop and come
-> +      back up instead of staying off. Only meaningful when this PMIC is =
-the
-> +      system power controller, as the lines are released as part of its
-> +      power-off path.
-> +
-> +      The lines are released in the order listed, and power-hold-delay-ms
-> +      elapses once, after the last of them.
-> +
-> +  power-hold-delay-ms:
-> +    default: 0
-> +    description:
-> +      Time to wait after releasing power-hold-gpios before the shutdown
-> +      request is written, to let the lines settle.
-
-[Severity: Medium]
-As reported by Sashiko on v5 [1], should board-level SoC power circuitry
-GPIOs and OS shutdown sequencing delays be modeled as properties on the
-RK8xx PMIC nodes across rockchip,rk801.yaml, rockchip,rk805.yaml,
-rockchip,rk806.yaml, rockchip,rk808.yaml, rockchip,rk816.yaml,
-rockchip,rk817.yaml, and rockchip,rk818.yaml?
-
-None of the Rockchip RK8xx PMIC variants have SoC-driven power-hold input
-pins; as noted in the description, these lines are routed from the SoC into
-board circuitry outside the PMIC.
-
-Adding power-hold-gpios (bounded at maxItems: 2 after Firefly's vendor
-kernel pmic,hold-gpio and pmic,stby-gpio properties, which on boards like
-rk3399-firefly.dts and rk3399-roc-pc.dtsi correspond to the pwm-backlight
-enable GPIO or the vcc_sys fixed regulator enable GPIO) and
-power-hold-delay-ms to all seven PMIC bindings encodes driver-specific OS
-shutdown sequencing on the PMIC node rather than describing the board's
-actual power switches or regulators in Devicetree.
-
-[1] https://lore.kernel.org/r/20261027084511.1992-2-yaozhonguwl@gmail.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101154053.3874=
--1-yaozhonguwl@gmail.com?part=3D1
+Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # Tegratab P1988
