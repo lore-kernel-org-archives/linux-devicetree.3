@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571382;
-	b=JNzGcRgC1IR2tRVc8n/CMZ2x2CL03WH+QsKrAbWMaIwmEeIquHEzDqppAle/wesHUDUc
-	 cp+mwaSaOtBV+VBuiX0Dld7BE+Tdtbv81bKftZlZ19Aqum3XLi2XCOBlrMCKhlSV7Jrp0
-	 crB2kl/GR5So+P8MZLWBw21nZtg9/3Fl0O1Axny2KxjAweAB7HiF89toVxYrjlfGnn0YI
-	 FoTTxsy2/46PbvMn4oi3nVyI1Gn4I2u+qfAZAAKiuKGHN3sugtMB7IFqF/xlnnjviXcHF
-	 auXIojcKELVnRV/Jg3fte1UeD/vB4VYg/exj77qsR4WF+rg/cTIafDx9kMPpAa/hz8w==
+	t=1793571383;
+	b=wlc0kBVuGCfxl19mqGzX/6sbNvMvJL2Jv0iVuLbqbAdtVkP0mwqtMVxZ11xREG1oQSl8
+	 lZm5ioe7xq7vpcDzugPlhI0mnf0E5MLJhK3TsbLURI+4zIytwO56E6nkyBZ8vrybXnQLh
+	 aZ06knAwEycj1+hbs1l24POEkML6qijmJmXOHsiWCvCbu9eKTmy16QBTAFiAseE1dDL18
+	 PpF1IGa/hzL7SHLvGeZIRkZzLsLVYel7AontMkL+puiBXeAXePHR7MR5wsFhedn/mvubJ
+	 amKQZlCeQehbB1vE7nKMaGxcHdxnz9IjOwTIsRP+tCnlzNaLFP6hnxBeMUEZg63BxjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571383;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GYQJ26ybopccUNbhVj27BJdx0uHeN+9HfKodWNhkEeg=;
-	b=RTmHEJXLQbC7wouxUl1DTnOMGAnVpg9jz1jsL656rL5KmHKJ/fuCEWUqtcIjmjTBuOVU
-	 CHF+KosWGDhW5g5MYLb+I+AF1rZa12cexdBBp/CEPXaobhPMzlAWXW2Jda8e6VNNqg1E/
-	 iQ0x0Sy6wbjWy/qYGOXUlSPOq6W42FMmCDUyVDbPkCfRVtBLDaRiP70VQCrqWoy7WLfI6
-	 uVHmAD6+Ee9G7IixbiyQ2exxBOrec50FYu2wX1YZlkOcLw7+OYT2yNFwk5gmmA3WJMmaT
-	 2wCHPl9LmAPgUWoj4YZggo+/cNegSFFrnlKOfDODp6VtpCW9mXP3ycdDNUZtehH2fQg==
+	bh=+PSaaDmaOVWUQ+VHhuXHm+ChDICCzay6CedCYV9aBDQ=;
+	b=2qnpwEVnPdN5D/DOwCDZL3xi1PgBWUY8py1rGDnYbjP2CFB7zxU7HLhOT044UMjLSV/z
+	 6BVxkvSGelLD0rOVGU4ROnicIZBU9juy/1SvDpG0Fye8XiyldMcGWia70xD8EuS/w2gu8
+	 bdhFNwTHimA27KFKzcBaO52NjgftSuBviTAC+K3kEiy+/1IH7uUIEeQpgLrcHw8mo38Rq
+	 2jikjAqL9jBaRogUI76+vMXC5tlJMP3BtJMVTaPog5/IgK2poO9h1tjqtwH/6NyPoQBXo
+	 yhuh9o9+FrsmT1/cexLl3lzlK8wcC99f5gK2jp/qcKtAks0YHmkXYukcP3cz0a5OEzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=PFX7bvyL;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=OUqoykoQ;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50882606B9C9
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50882606B9C9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85394606B9EE;
+	Sun,  1 Nov 2026 22:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85394606B9EE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=PFX7bvyL
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=OUqoykoQ
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=GYQJ26ybopccUNbhVj27BJdx0uHeN+9HfKodWNhkEeg=; b=PFX7bvyLTQ1AZti3YlmsOTtQye
-	vZXLwFyiMNUH48OCY6Mc8yEzBdaiFD4BLXUNjdv22fBi59a8u4yATOSseM9Wqcl46ota7X2aTi0p4
-	vidV9azk0zsqaIcCyRRAKBMAXRLAjOJ6MisvfMLKLdBnad1v9RYM3MlKQljWTanEumW0G8Mxj5i7a
-	7/GYSbEa+fnr5kN8tnsp+cHUtTTfE32DXnrW0ZlAe+klaBzq+DtVeDFynZ9ylQRECAr1zrcap00er
-	KJRfMGvgl42dBsIOQhMqGdutG9pPUsZDBsxqMXuwL1BxZxw0ihz1cW82fdcBaZxVebYKoCcS3tNxa
-	nWFFy2Ag==;
+	bh=+PSaaDmaOVWUQ+VHhuXHm+ChDICCzay6CedCYV9aBDQ=; b=OUqoykoQw5+FEa9dg1IfaI3/Wb
+	A5+bkqs2+YGj018zeUKDS5sFoJlBQoHa+ogK/4vuKvUyqI4qWEM6hM6NDlz6CedUF4omAchCxXGP8
+	isENDwfaU6J66ZpRsyL0BuEiYeEkNhJeS4Ib7eBNJ1Z35l32RlHgb/uGcj/L4NDif9z0eaH4vPSsC
+	zd+jV+HV+wovty79e5z3Ku5GWBX1iOGXioMa616tDSW4hm3R/K66xZtP0Bs9ODV6FAtZgJttgMAbL
+	7pRmUjtcIoHKOqwTmGVgBepiuQoce1jZ/pPr5L9QF7N0iJT2dRTrfayAzYb95aXodqesT93/TVNB6
+	sll/CYMg==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: devicetree@vger.kernel.org,
-	Chris Morgan <macroalpha82@gmail.com>
+To: Igor Velkov <iav@iav.lv>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH] arm64: dts: rockchip: Add icm42607p IMU for RG-Vita-Pro
-Date: Sun,  1 Nov 2026 23:16:12 +0100
-Message-ID: <179357136482.4108155.972231483096008168.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: Add the GPIO expander to Kobol Helios64
+Date: Sun,  1 Nov 2026 23:16:08 +0100
+Message-ID: <179357136485.4108155.1255031928445083494.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026152649.1576867-1-macroalpha82@gmail.com>
-References: <20261026152649.1576867-1-macroalpha82@gmail.com>
+In-Reply-To: <20261024-helios64-pca9655-v2-1-97210e9aafb1@iav.lv>
+References: <20261024-helios64-pca9655-v2-1-97210e9aafb1@iav.lv>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,16 +72,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 26 Oct 2026 10:26:49 -0500, Chris Morgan wrote:
-> Add the Invensense ICM42607P IMU for the Anbernic RG-DS. Mount-matrix
-> was tested with iio-sensor-proxy and reports correct orientation.
-> Orientation is relative to panel physical hardware which is rotated 270
-> degrees in software.
+On Sat, 24 Oct 2026 22:15:04 +0000, Igor Velkov wrote:
+> Helios64 has an ON Semiconductor PCA9655E 16-bit GPIO expander at 0x20
+> on I2C2, powered from VCC3V3_SYS_S3. Its 16 lines go to pins 4-19 of
+> the P5 GPIO header, one line per pin in order, so name them after the
+> pins. Its INT# output goes to GPIO0_B1 with an external pull-up (R59
+> to 1V8_S3), so the pin has no internal bias. Schematic, sheets 34 and
+> 35:
+> https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: Add icm42607p IMU for RG-Vita-Pro
-      commit: 4a17cc3bd48ecf4dcb7df2b26538e0d28e35d873
+[1/1] arm64: dts: rockchip: Add the GPIO expander to Kobol Helios64
+      commit: 3e8f8468c1a9b42740db986ee07d829696a7b5db
 
 Best regards,
 -- 
