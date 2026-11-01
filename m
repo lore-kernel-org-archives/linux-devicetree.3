@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793542298;
-	b=4P9yhSOLTxa+wM6inH1qcCKQqX18z0U6ryPoqA2urAjKeyK+WxU84gxDFAF90AW8Ilal
-	 xCj/O6nC22FiQqwvJCgPlWhV/rhcdARfmOVb662DupecE0cDIhqyhG9qZkK3XVhhdrngc
-	 kyCZZwFkF5hJ9FMsle83qLM8w+8BJ6FnN8FjKS0Hrw95VXZAVR1v0o41/y/88C9aELDBN
-	 mpjJM6KZ78Gz7Rnhj+WVkRl32xW7FF3Jkz8qDtT1QiOClTvRHuLkpsHv/Qo6o6Zc/34Nq
-	 qgInnoMV/gpRx8/CGh0IHLzzuD32sF2r++3eM+ZWXjVcQd2Ck1aaz5yqZ7INWg2Sy5w==
+	t=1793542443;
+	b=t5zIGpHE+KcCdTiQpSiwnBj9ZYpOrBf3km9NVjV3RB51qqzGrOhTXSqIMSef51fEV/mG
+	 gmYA8moaTSJa+1suWHIOR5XJb6f/XqkeTx7c5CYDdalinfd+qpzI+SRuRk1GWgRGN0h5J
+	 uLR9wA2x5ZrsDnrrIwXnNFhgbqxJ6dnqde++YS6H2wp90R0EtILhQ7pvsVJG+qXqIY0tj
+	 /MBvWqLf7lwYagxL1tmz4ZRcp4mgvt355JJoevAuC3RyHciV3xvUTwMf3ffGVvETV31SP
+	 N/JvS8hilY0TDUdCcmcfRdQP0I+aGnTFHNBxZKO9c6K23WMEc8ZNAYahTX47sEldOlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793542443;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=3bh4372hS2kACn6ZvzQmLdLqtWIUlsk51eR2oxOMfCE=;
-	b=BHIdcuIALM8VjWmN4bZq7nBqOnShuN/RseRVgCiVgFQXyfBW+GRbGwEy9ZeKe8fzVEWf
-	 EbkcKoGg4zG1kuXxPh8kN0BPhEZtpDjVo8M1IcNWHF0F6Sg6bH/GA7nbxvqWioKMpOw0G
-	 CpIRrf28XYRAQK+GjNnHvQvfOCowghhdFaAve02PQDPF27K0M9GguV4dXha8xgoHuv4c9
-	 +RO3kcZirHnrm2heQRFFYNSY48uFFN4o9lkpFzw2KR99uiXWFxJ9jDe+VZdlG9ghDz1AH
-	 we7NUYhnya6FDMI1vcwvYKUBp3ekoHyWf7JwfTJFRn+AxLO0Kg5meQKZJpGU50bf/CA==
+	bh=908fhrM1HlZfTYgmWBBmx3EXBJTSRYE/1Nc7g2kDk98=;
+	b=1zYpNp+AU9bqy7hAT5oFVASAcuUhJ0w1xVdbP6QLp3hzjXuRMUTIdzW0VmAr2XLelCxt
+	 JfGMvGgx61ScsTeqO7Zfhvd4Kz+Wq+jLFNZqVEGaaHP8bX5b3WCy71/MQgCEmBk8QBYYr
+	 ORpn/RewQbANqNRkA4Gsl+hDKgIQQV1PUjdMCAPeXaFce7lSPcUSGD21WA+9Q8ri6SlqR
+	 vAZ15aPuwcS6xNcRezXKPyt41vHN1UcqUHwQNYVWqW1vqvafKOXFiaAQeTX2vmxYGgkth
+	 Qssp+B7aTdaF6Iz+sG4pSxe6h2ZrcRpftu0zIAN2TuNSw4i+i42xEXmW+2C2TdPyDoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zs2i6Qn8;
-	arc=none smtp.remote-ip=91.218.175.155
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SOBq+xfr;
+	arc=none smtp.remote-ip=91.218.175.175
+Received: from mta0.migadu.com (out-175.mta0.migadu.com [91.218.175.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7B2606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7B2606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5FA606A325
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:14:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE5FA606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zs2i6Qn8
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SOBq+xfr
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Yj3Ch96OSSiVTVr2M7wDl8PeUGqNkknXjeKIRpqUwXI=;
+DKIM-Signature: a=rsa-sha256; bh=cYMHJdYJyH2hnxqe0M9Ky2nfXrZcnOvPqcgoIDJjcvI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793542296; v=1; x=1794147096;
- b=Zs2i6Qn8YKMyOPGaNdhbAu2b7U0EA/3LcCViZ0RuxYcPDVIGA5UW6VqTu1iv6HTBpTCTSlT6
- GjTz7mDywqSZYwaSpNWW7IRoJg2Mvz52a07DJvY3kfXOMe8mV6Y78BM588PkZkp6OQMjPra/nAT
- jZPTjpOn9xPTnSadfer61qmw=
+ t=1793542441; v=1; x=1794147241;
+ b=SOBq+xfraJJp8nTTBpTv50QeDYHVixvYawFSkryoSeO9lxAoWZZsWP45cXImuCjYTZSCDQE4
+ FoqyVqo2Y0Q7Oa3xEfp7ix9qetMW+9Og3dDrTLCbZpjUwVenP+Zo1pwm4zK0p7z3u6ut/85Pf0x
+ 0S/bBBs7WuU/RI9kY8PMan0A=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 785229cc940770b9;
-	Sun, 01 Nov 2026 14:11:36 +0000
-X-Mizu-Trace-ID: 785229cc940770b9
+Received: by smtp.migadu.com with ESMTPS id a05e464f0524c77c;
+	Sun, 01 Nov 2026 14:14:00 +0000
+X-Mizu-Trace-ID: a05e464f0524c77c
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <5044b7a0-5eaf-4008-9653-11027b8055b5@linux.dev>
-Date: Sun, 1 Nov 2026 14:11:31 +0000
+Message-ID: <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
+Date: Sun, 1 Nov 2026 14:14:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,8 +59,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/14] drm/tidss: oldi: Drop unnecessary forward
- declaration
+Subject: Re: [PATCH v4 09/14] drm/tidss: oldi: Fix cleanup on a failed init
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -73,27 +72,45 @@ To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-6-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-9-dc7f2b532478@ideasonboard.com>
 Content-Language: en-US
 From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261029-beagley-ai-display-v4-6-dc7f2b532478@ideasonboard.com>
+In-Reply-To: <20261029-beagley-ai-display-v4-9-dc7f2b532478@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
+Hi Tomi,
 
 On 29/10/26 10:18, Tomi Valkeinen wrote:
-> Nothing needs "struct tidss_oldi" in tidss_oldi.h, so drop the forward
-> declaration.
+> tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a later
+> OLDI TX fails, the bridges registered for the earlier ones are not
+> removed.
 > 
+> Fix this by calling tidss_oldi_deinit() in the error path.
+> 
+> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
 > Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>  drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+> index 506507e83112..7344d86e1f13 100644
+> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+> @@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+>  err_put_node:
+>  	of_node_put(child);
+>  	of_node_put(oldi_parent);
+> +	tidss_oldi_deinit(tidss);
+>  	return ret;
+>  }
+> 
 
-Should this perhaps have a Fixes tag?
-Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
+Since tidss_probe() (in tidss_drv.c) calls tidss_oldi_init(), it also
+calls tidss_oldi_deinit() in its error exit path.
 
-
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-
+I think this patch is not required.
 -- 
 Regards
 Aradhya
