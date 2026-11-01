@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571348;
-	b=5pYlQaheKFytzw2S0EmLh1+PKhfCd7J37LWzORcmMtu4BOEklj8vXObsL1Jpt6kEVcjn
-	 TmlrvDJxc6jmVaWGVTAlMhm1KR/iClIrAXmgjNDKC6BlId0/Iv1t3wb/8K2Fpketab0XO
-	 n5LOt0kM/S2Hke6sQ7qtvPNGuHOTwtM/i1SRTXmgQ6qMwZC8hDK6J1NBUsmBbGghY1gwj
-	 vm+Tgo6oUaVm6CXYlV+iiEaJQs0yhvLdbDU0wW11BiR6Tno4IxOyNZ0goRHTvEXZkBDEC
-	 5rezJDmG92KlJYNE6V3io6bHoFfyaz2KP8gdo5t+zHmU+CIk8/1NPs+nwyJyiZDYG3Q==
+	t=1793571350;
+	b=ICClELZNpl2EaFlm9rPav3M/uWe/RTqYWLiwzwNtq5UUcx0NJtkiB65uiwX3j9ZUCZgO
+	 gawWIEyaygX1k7A7nnewM5mmYE4JmNCZ9r8mav5B4d/m6MyhbLWPmhyuh7w5+Wxtr20XH
+	 T1/P7piYbN1pP/inePJhKtooJWrCljC+8GCgeC2At3y0YkdmxDI+y2V0SnsszEWNY8R9c
+	 s58CQk25XBdZuCLVBmKyCLuXBE7ZtNa+kKYEPE8xDD29/sDaJyg/fENHq/GF2P/Tg9ArA
+	 u8Mla7oN9XvCaIhYi720mjd9WphAND1wIn/oz9qX940diCrt58LyqF7l0UDPma9TX4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571350;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
-	b=vSlbz2KhGW2KFuHgjN3/CWgq8p/pFWTcwFJZfKU6rHCKSRzitJA2zbng6pw4o4DE1u3D
-	 UJhHNvgjfn9YP9owdkyvTHyBq2QtHXbDV67ju3zQ3f+3+gqso2hxlsERxhk6MUBDRvgXU
-	 FLdEmZKawiLEnMgbxIgIOQCc36mkizLg+Ok69OU0Zs6kcZl/7Ty4S9gmBsO58FmZHrcXQ
-	 JIjuH0CAMK1o6J8zPeS7hKduSZPo0umHtHNH5q6zg4O+V2ojHqzGpoxUN8onfKA9TYj5P
-	 S/h1F4xZwX/wCEIqtY8lAF1T9RAxSuSLXtn/ScrfbxtGNdPQgi7+8QnFpKTF4YPFiWw==
+	bh=mV/fldeY7E4VCzvixzPx4jAvmpdj3h5EpC9ZS84v9Yw=;
+	b=V53NEbD5T3RKrb+bEyK6PvuDd1BNpiikgdCTpLMIya5zuHa1xt5qCdznGVHc1V5r95Jq
+	 BAXm+JQhubyxDq3bSaSWz2lHs5Y1Vo8YaavJszWcJgQDeM4cli9X+dY4Z5Vn1J5Ko1hCZ
+	 /5NWZo8ewhBzPbbqo3oc3BnUZh1NNNWd4ytziBx69r5vGu9fm5moynVT6DDZ6/8mf4/AK
+	 aoRfejRti3dqrKJTrk5YVjRjEJZXwYzBFO65MKJq2katw2ePB6DgqqqC5jp5pokPeXc8J
+	 vRpI2XGzFWY4E8hDSpDApA6x7z7kF7192yuNfyquv0gFzKXWgD/vGXU48AMfOdzTJ5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QJmbn/sE";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CF3606A324;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B53606A332;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9391F00A17;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJmbn/sE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E26C1F00919;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571347;
-	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
+	s=k20260515; t=1793571350;
+	bh=mV/fldeY7E4VCzvixzPx4jAvmpdj3h5EpC9ZS84v9Yw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lsgCfXK18Oengq3LRjoYkZPO+6SC8jlVqgMOxGhbYf6DhhJ7gJLlBe7Y6Ani1CP1q
-	 YTl8YzcQmWJpIiYoIDW7/60MUvIeQoGBoRLzYrHbzc/ybAqIrb8JDl5cW4++mQVvJP
-	 rRl0pi4jare82zWO8nIdn4//CFelRizT0b2aO6WZojStQm+YFdDbl43GlRLD7vdnWz
-	 Lc/MQ2ywPVXyfom7ekn/7yiwaRBvBIOk3IjqGYO5XX1ai9sAcfjDz/mHemiW88S92d
-	 3tCwt2f3YzCmtXLFF3ypGGLgnusjSEhmEIowD33VhD/raZLHOZaZkap2soMP0zEtvC
-	 17MpR+vLbQXIw==
+	b=QJmbn/sEiCcLIX9npgNt7/hSGB88aohj1izoIrdEv9d5KcCfEpZJUEFxoCnkwIxoh
+	 E4rlmq5jt7WSHWppvhokPkWkW5BnE+HuI72cq8zM25olcDxf7GRXPcosfuLOFfhpk1
+	 m/w3RRWX1qaYD2K4rhnKGxp98c6iQm/iIYi54O0uJ3Mst7MuzliBFf/k227iPw9YxS
+	 acRWLFWWuBi1afvt4ACSLuWYcWv+UjOxjREz6eH7WvcdunRj0GvgQW6XFHSpUWeMcH
+	 h8ExEIrC4uk11tzoopjThtSBg4n/p78268HLeBD35YV52cPlbCq/uMqn+l9wP/Tg6b
+	 dNP20WYEcLyLA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0318238003B8;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0312538003B8;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,46 +54,44 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/4] riscv: dts: thead: Add Milk-V Meles support
+Subject: Re: [PATCH 0/4] riscv: dts: spacemit: Enable USB and PCIe for K3
+ CoM260
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357134580.2624073.9566786925548319371.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:15:45 +0000
-References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
-In-Reply-To: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
-To: Han Gao <gaohan@iscas.ac.cn>
+ <179357134854.2624073.4474736187144990416.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:15:48 +0000
+References: <20260928231807.1757995-1-jberring@redhat.com>
+In-Reply-To: <20260928231807.1757995-1-jberring@redhat.com>
+To: Jennifer Berringer <jberring@redhat.com>
 Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, jszhang@kernel.org, fustini@kernel.org,
- guoren@kernel.org, wefu@redhat.com, rabenda.cn@gmail.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, devicetree@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, jmorris@namei.org
 
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Drew Fustini <fustini@kernel.org>:
+by Yixun Lan <dlan@kernel.org>:
 
-On Thu, 01 Oct 2026 15:44:09 +0800 you wrote:
-> Milk-V Meles is a single-board computer powered by T-HEAD's TH1520
-> SoC with four C910 RISC-V cores. Add the board compatible and device
-> tree for the Milk-V Meles.
+On Mon, 28 Sep 2026 19:18:03 -0400 you wrote:
+> This patchset enables USB 2.0, USB 3.0, PCIe, and rfkill for the K3
+> CoM260 Dev Kit board. This board has 4x USB 3.0 Type-A ports and three
+> M.2 slots which may be used for two NVMe drives, Wi-Fi, and Bluetooth.
 > 
-> Enable UART0, eMMC, microSD, Gigabit Ethernet and the PWM fan, and
-> name the GPIO lines exposed on the 40-pin header. Add AP6256 Wi-Fi
-> support over SDIO and enable HDMI output through the DC8200 display
-> controller and DW-HDMI transmitter.
+> The USB Type-C DRD port is not enabled here because the necessary
+> drivers have not yet been posted.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,1/4] dt-bindings: riscv: thead: add Milk-V Meles
-    https://git.kernel.org/riscv/c/2c8613ec65f4
-  - [v2,2/4] riscv: dts: thead: add Milk-V Meles
-    https://git.kernel.org/riscv/c/8360e1bcc246
-  - [v2,3/4] riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
-    https://git.kernel.org/riscv/c/a7f2539005c4
-  - [v2,4/4] riscv: dts: thead: enable HDMI on Milk-V Meles
-    https://git.kernel.org/riscv/c/d43b33e0253c
+  - [1/4] riscv: dts: spacemit: k3-com260: keep dldo4 enabled
+    https://git.kernel.org/riscv/c/f314c98807c1
+  - [2/4] riscv: dts: spacemit: k3-com260-ifx: Add USB nodes
+    https://git.kernel.org/riscv/c/bd56cb9b84f7
+  - [3/4] riscv: dts: spacemit: k3-com260-ifx: Add PCIe nodes
+    (no matching commit)
+  - [4/4] riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
+    https://git.kernel.org/riscv/c/dad085951db1
 
 You are awesome, thank you!
 -- 
