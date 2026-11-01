@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793503948;
-	b=eD5p8UoDYSPkXxMinBskVw1u1RMH4lLy/W7+Ah6dvJnP6rhUMV6KQ88l8Y//f37Xb7om
-	 tQ+QqsJRM8oRzYY01RwzVFhL1XCSKaJJ6yxtZRXeUnfq/eHEweq29ddoXLYbgtvZhrKHl
-	 gNeI9ul7dMWYFzl2swnKoCexHlxBI19qUejDY7HDDqUFM+ulM6yDdWwSqGgF87apE/oO3
-	 Jy69MQi8yprffbJ5DJxUuipzmFCsZOeey7jt9maxfS/hlRm+esQf5wOFPmJcSh3Lxi8Iq
-	 vkHhs9bqp+l3vkzyfPqSTGxjaPJWTiYAdISGQErdHFxVfiGlpYqQ4HbiMT4LgRvA1xQ==
+	t=1793505723;
+	b=csZFmGJNrBZonHnsjngV93z7jRa5wwsgTMxXvKkPkrfWfPyaKyv+dviGqld1FGt5IGfW
+	 AE8ZYBx1nkw4d/giNCPlUhpBGe43l2SHqPDiyMnusWGxksKGku1foWsCdDSfqND4YjZV3
+	 oGrECY4ImV7Kge95fE3zl6GuN2cpPGbwSUgqsv+mM2cOD9aL4Iulwi1bVbgLuyvwNiNM0
+	 G6a/EMiRXDnIrtC/8CVOvOyir1hEsvGNTJHOKm/koYHqqnFjB7sMQqS/9UryxJRYN8u1m
+	 qqc5Uva+2oGogfySxpyo8QkpwNEOsd+FKBTAHE3sFhWkmiKkD1evZwysLAyXlLDwOBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793503948;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
-	b=weiySbXeKfKyJNRRfNZMn7s5gSiZuElD2QIa3wSPgi1q7gJd3UX+TGb3eL8EaI/Mal/p
-	 QyVC9EQdiQh8QoBFOJ201Up1/WawUj+GHs1nM0zHegVdrKQNGX3l5KkgvvhWEq4kvHgFZ
-	 ShCKfUgRiMEPpsFSF5kI7L4KtSpThFXRKhASQKfxLhzrjFc6d+hToiOlZb0GEUJQ2CLZM
-	 aW2+Av3aQw2Fne7sHJxrUhI8DkufSGtsLe3/geZUwBsq3gYME4eHbrNm+wZb0mgGAfzwR
-	 j0HnopctjcY2QtnYrcagBMYTzeqZLwb7ewOTh3mp5wJEZVuF0Nax1bTbJj/YGi9NzbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793505723;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=WIsAYVuA2tUNACU+9ZJPOaIId0MsnHlyEuV2LWfZyCs=;
+	b=lmsFMH+0Szxn06gJlnzKjJmpfMUyW8k56fjjnHvz8HA8inCKrCXAwdagTLfChs7+oyF6
+	 KdHxbPZ/p6Yrx8zuBLft6olKGXWDPLVHe0DRQfx5wfcXwk5qOs0M9tA2JYtzoNgcmRGUP
+	 cu/KZn2wGfZGCpyjOtsCpepdud5Rnwy2nS9GBqwiNAEQd6+/tn7pwT8oDG+ai/iXbe8Se
+	 nZEKH7sZPMreCBQk0dAL+l1L6JFreYm2nQWoJKT0Wk75EhtCPt/Vz/0BOyU9ZuyxoPOYt
+	 HueTpkm6eTh/t1Yn0OfhGvI9tq49bRe6MzkslDvGh3ZF8CyM3C7WUewDiYOa+OeWwuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MJkEViPB;
+	arc=none smtp.remote-ip=103.209.128.97
+Received: from mail-m12897.netease.com (mail-m12897.netease.com [103.209.128.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B522606A324;
-	Sun,  1 Nov 2026 03:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67864606A325;
+	Sun,  1 Nov 2026 04:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67864606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD051F00919;
-	Sun,  1 Nov 2026 03:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793503947;
-	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gr8i4UKsYE4YTOkaq/SIu3w3gh61/AwmmGJP3zYi/Map3n9Sy2t1CUkvq9OS8vUvF
-	 eGp9vos2tj8xvdzvaNQ+6ZIGf73PuxDb4+oo3MBAxR6kBM5CwIfqmf16paithlU6gc
-	 SZ81pR454Sv0Pz5QiRDpsWMkzJt0ac4822/Nrzvc2B81YdV9GVrw4nbgDkwfRwIy+s
-	 0LQGLeFsIuiB97ViK1uSe4lMr6+bDGzU5NgaQaD3+tiOUw+2wCIQk2uughetD4+PRJ
-	 bNtNwdDcSiSHy6grFrSPrrQ6XK6kkqLqGsxbz00DnfnJcvBTpGPo74NFIGgujtZwB/
-	 FoZZPU2ON/giA==
-Date: Sun, 1 Nov 2026 03:32:20 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] iio: update email for Joshua Crofts
-Message-ID: <20261101033220.1e966e0d@jic23-hlaptop>
-In-Reply-To: <20261027124602.1533-1-crofts@kernel.org>
-References: <20261027124602.1533-1-crofts@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MJkEViPB
+Received: from 5950x.tail741d0a.ts.net (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 530d8413a;
+	Sun, 1 Nov 2026 12:01:50 +0800 (GMT+08:00)
+From: Xing Zheng <zhengxing@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de,
+	linux-sound@vger.kernel.org
+Cc: luca.ceresoli@bootlin.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	huangtao@rock-chips.com,
+	sugar.zhang@rock-chips.com,
+	lxt@rock-chips.com,
+	xing.zheng@rock-chips.com
+Subject: [PATCH v1 1/6] ASoC: codecs: rk3308: restore MICBIAS voltage after reset
+Date: Sun,  1 Nov 2026 12:01:20 +0800
+Message-Id: <20261101040125.1864141-2-zhengxing@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,14 +70,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19545536003a8kunm8fccdc7416d29a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTBlJVk5CGhhDShhJT0xIGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=MJkEViPBLLrSVBmi0yY4NY0W388ta6Dsn8D9yLl6XkrKHhyUi6ddDSb32eZVBeQbHx5/vHz0E19Ay8fYxJd6Q7SVG/ICIcU7vuPpja7VHl+Co21D3eSmoB70q6UxBQ1X3IITrTEjxDYXAL3OCTsEAEnoHelm/ZKimyc3vY4SfZo=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=WIsAYVuA2tUNACU+9ZJPOaIId0MsnHlyEuV2LWfZyCs=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, 27 Oct 2026 12:46:02 +0000
-Joshua Crofts <crofts@kernel.org> wrote:
+The platform probe programs the requested MICBIAS voltage before
+registering the component. The component probe subsequently resets the
+codec, losing that setting before capture starts.
 
-> I'd like to use my kernel.org email going forward.
-> 
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-Applied.
+Cache the validated voltage selector and apply it during component
+initialization after reset. Keep the reset selector when the property is
+absent.
 
+Fixes: 4ed0915f5bc4 ("ASoC: codecs: Add RK3308 internal audio codec driver")
+Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
+---
+ sound/soc/codecs/rk3308_codec.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/rk3308_codec.c b/sound/soc/codecs/rk3308_codec.c
+index a3d41cd8150d..7a18ff45e391 100644
+--- a/sound/soc/codecs/rk3308_codec.c
++++ b/sound/soc/codecs/rk3308_codec.c
+@@ -46,6 +46,7 @@ struct rk3308_codec_priv {
+ 	struct clk *mclk_tx;
+ 	struct snd_soc_component *component;
+ 	unsigned char codec_ver;
++	u32 micbias_level;
+ };
+ 
+ static struct clk_bulk_data rk3308_codec_clocks[] = {
+@@ -840,6 +841,10 @@ static int rk3308_codec_initialize(struct rk3308_codec_priv *rk3308)
+ {
+ 	int grp;
+ 
++	regmap_update_bits(rk3308->regmap, RK3308_ADC_ANA_CON07(0),
++			   RK3308_ADC_LEVEL_RANGE_MICBIAS_MSK,
++			   rk3308->micbias_level);
++
+ 	/*
+ 	 * Init ADC digital vol to 0 dB (reset value is 0xff, undocumented).
+ 	 * Range: -97dB ~ +32dB.
+@@ -997,9 +1002,8 @@ static int rk3308_codec_set_micbias_level(struct rk3308_codec_priv *rk3308)
+ 				     "Invalid value %u for 'rockchip,micbias-avdd-percent'\n",
+ 				     percent);
+ 
+-	regmap_update_bits(rk3308->regmap, RK3308_ADC_ANA_CON07(0),
+-			   RK3308_ADC_LEVEL_RANGE_MICBIAS_MSK,
+-			   mult << RK3308_ADC_LEVEL_RANGE_MICBIAS_SFT);
++	/* The component probe resets the codec after this property is parsed. */
++	rk3308->micbias_level = mult << RK3308_ADC_LEVEL_RANGE_MICBIAS_SFT;
+ 
+ 	return 0;
+ }
