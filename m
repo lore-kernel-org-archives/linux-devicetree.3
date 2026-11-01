@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561062;
-	b=Pbxrin5rDjfqgsk8igYWTswPhpf4Q7oGL3pbBF5auTRdi4NBygXp7MQdWdiPVOdiUVqb
-	 6UlQGzn1Q5n0lRn/1j0YAlLcXmrEWonGELO0hEzrXM26Aj8CfNXBuv64TQgG8/Vu+0S5w
-	 cgc+fk1vZHFYa+mtCJa2S+Z8Qws4I19T/3YrJfOAy5EpltD2bgEVBno4OIOnTpDxvpd3V
-	 dkV8dT96TDocsGyf2dCLDWt0wvEIdRy5SiRyIRGPvvJn39cr6RrbLRYZGQaJO+4CpcnJT
-	 qZzLazUvoHdIsUXPjruxygGs90h016XrjCtw9lTPGrSsqz94xT44a1MPJeoWoNqijjQ==
+	t=1793561375;
+	b=zcr0uX5X66+uQ9WqCfO0+fZYMTDMsC+cXGyVSaTRwECQ5MapktkqFDQDixPs+89R7mBD
+	 tWfog9calMQrfUudZxoEROttUbqgu1eWjg//nL2mMKn0x1TnTEOv+cFbeZmDrouv2eT/I
+	 TyJVJXZaH57XNnKQyzNM0bqrsExnWnXeWWrw0AggFUlYKWiF5hzJ4I2m0RjV7Qgfb0k4u
+	 Y9LHYwFUo+AdRzc4Gzvs5g2OVusEBdrtDnwvmpfh0fU4oLcNemfhCFe0MRhwf/MqLmvKR
+	 7fNXYQulGVGjrVBXO8Vpn8Jalr+zv/cWBLWXoJKG15ueSGahZRA3+Ewsfe6fIAGPmvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561062;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gxFoWzqW7qFiTsMS+ArjH33ZrdRJBD8UQZUcUgurI3E=;
-	b=1vnXDYC0Ofkp4e/0/PrCNWkOpZB5BRcH0iaVAA2HnqmPm5UJRiczOk+h4lFyTdtTdG+t
-	 rHhZhgFqnlfWZwNKZZRNwAPqtFKPlswVWjG8rMWU9+1GSR6Nv0Ih8tsOPMYcQBkDQleUi
-	 BJBbFF4DjvbPdH//FVUEo7R1EtoUTcHeYmrqKxsonIqo2EDw8t3re6LD7NwmBB5hxUjqK
-	 dBbBvhL8eItHAY9H2hcOrXe5HKgw7QLDRq2UAdujYs7XeDLL4MDDOwFg2qq1hQRmEDMKQ
-	 l6W4Ve83hvAlHlCAHFjawo29739BOgFkyfIKb3unV7A8plrji7tz/szbNudnT5TI7gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561375;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CGDnJpx3j3drQchpBAdAdBGb8yAOu+8mQ/5VXmFBbTQ=;
+	b=F7B6VT9GN2XNvO0bKOXtnRBbgTREdgPONbD1db9STP1DgozmteN0Cuu4d10vFSVzMRPz
+	 cHKxbRP57QE/IohiFyKBaQvpMhmD/hJnj2weWZzrysIsungi0SfFakJyaap2h90ijAz1X
+	 Pzt5jfQg6gTpFBv6b81/jkXxHDycxk9K+EKN21FB/tqI6KXdZ1lKseWf6sLnQ5ie6xTe4
+	 gEk13xXz5gYRywa3RzHlcuJF3BksXhTWyqmLKCd48yfaFsUvV9i9za20lTuf+X08Jz2z7
+	 oLHeKyS1bheDTg2icP1zMPnd1ukJz/Y74f+k+VJcn/l3QkI6RdGb3Z+kvNUnKEQx8Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q61o9qbS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VBWtmS4v;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D9C606A324;
-	Sun,  1 Nov 2026 19:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68310606A324
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 19:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68310606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q61o9qbS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BDD91F000C1;
-	Sun,  1 Nov 2026 19:24:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793561061;
-	bh=gxFoWzqW7qFiTsMS+ArjH33ZrdRJBD8UQZUcUgurI3E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q61o9qbSE8FvoA33MyJxE+s0lNxEo9899ZyBmTnBggR8ULaIljnWzcypryb1Ry3AE
-	 OCUfKJGdSn1Y/GIKQiwavFSPgnzxPiha6yGL2N8H2FB35YyyePAlBQ8DDKkfcww7Td
-	 s1oUBoAV+zfTSHTSdKk1cc2bQZC3lVjGjY+Av4r0BetR9Avv4+NwyTN+7Xo28mIjPR
-	 sn8PLrbvSqHO3v5PPzlu1++pp7hx5oa5BcenE69DmddJp7nP3D7+a4qcXwdoPkDRkP
-	 LLmR1Uo0emGNhA4X6Q75Prsdy3g5Eu034kIJAiUv1338FjTdexVb8jlHI2Cnbvzr1x
-	 g8feIF+7itU7A==
-Message-ID: <sashiko-outbox-192595@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] remoteproc: sunxi: Add Allwinner A523 XuanTie
- E906 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tim Michals" <tcmichals@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261101185735.762559-5-tcmichals@gmail.com>
-References: <20261101185735.762559-1-tcmichals@gmail.com>
- <20261101185735.762559-5-tcmichals@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 19:24:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VBWtmS4v
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35dc2af1f2fso1059212eec.0
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 11:29:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793561373; x=1794166173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CGDnJpx3j3drQchpBAdAdBGb8yAOu+8mQ/5VXmFBbTQ=;
+        b=VBWtmS4vyfAc2ajQC7AeTP7aX7Nqvc6OM/5Z11jf/xf6lcsVQEtZJR9KBHaPyhuRSY
+         dAcLYi00hXQJAI3HzIvQHICwBwmbkywMuoH/1nIwDSdRV8oVKdRJs7odiR2W88IdCbvN
+         GKubtlNyb9g0O/VePS1rH9KbacSKGujP/0s2ax0aELfhS/aUf6e460VKE/XbYYK7QAQ3
+         XcOJsvspUPXBC4iR3oHBrB8G73bRDhctQmBJql1y/66MjP/DsSVbY6DZgAmi3SPEuVl+
+         Lv8w74Yr1Cwnw6J4EqX+N0W6V5432wRXey0ToUqr6aUYRljcAu3jsoZhyTL3n+23zAbv
+         mLDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793561373; x=1794166173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CGDnJpx3j3drQchpBAdAdBGb8yAOu+8mQ/5VXmFBbTQ=;
+        b=o+MRvnN5i6htK0zVOOW7voik4ET/QGf31DiEgUR0/HwJ2rLPIaBZ5rgBe5zrW8HbiM
+         XPjp8SwK6r9L3DrmfAvAXRzcEQGW61gz6BkrRgetOxm6cihVS6mv4I9/1nncAoADL3HU
+         pyGUL5WTAZ+/8WtHFdXRYyNu1PB1YAm4Oa5+J7YMyeHT3snycQrjf2FKLf/+LyxqIqDh
+         nQ3RyZ8GlJtWr+rX7Jq7w09ZUPYKCHSleF/9aHEbwkMmGLAbNA6vJVYGTZZDDcdF7Xx9
+         jnuJK/bhY6p2SaFjn/GL2TI2kpqR/wDn+Bh8i7TeSSWFry4vTUiEbELiM6E6g4XqINuS
+         PwwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx7Y5GbSp5jgB+vu2PN13eeS7A47GOmKeyv66atpT22pCXWA9eQMctv6NSSoar/M3ApGG4M8VICsfQH@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/2WajHMrjSDWzuT24Dx8BqrTt75flI4o/HGTs4/AUW3LpqtyJ
+	D32s5mZIWVLeTE1L8hAJw43BsvD6iRQmOl5IgK+zOqIFCs4tsvISxTpD
+X-Gm-Gg: AYBFou2srWyNvYCQuvbMDVi/XgBQNP++Mnb5qDWHjBmyKQO/VTzZX3ra8LmG/y3AA8J
+	XP93lvPpTLBr8qRUsYP2ZAkpcrvnQzPMrprDSFGE93EopH7LrIz90K3ZdLuDGHzcN9vh7PUgoYv
+	xuY6sEIy/dYhh+scmoQ0ipQOkbBvWv+UR69VcAMOq93Bzl8X/39NVdmrt3xJwQ02/+cYVVQo+Hx
+	75DbAqdzdQN6ySHT5pzxzgDtHpoXya1jTMdmRTRGHsdFFEoVTcs8OV2tTI0E8NhEl8155T3JI77
+	y3lO1xjsZZoLyJuRWti42fo4qWerSCee3iPw6+lCsA/BzxKnDX6dpJOzhOj3G7HAP/FRHv72oPd
+	LumlbbXTzkoValvQloBSDrWcbEQ1SrySpD82nZgw6aRuf3dXIeikhHzFYOscEWTE8jzcdmv3Eb3
+	ooFKUBY3Wz91FutWq6PnkH+y84NhWlN5yubxQYxskBVV2qkAREdVUKq/14+aOWQCNiiXtP72tK9
+	YFNTLcuz9Yf6BchKwcC40Rus6Xz9QnnHhqIf9UglAYM8vR/XW4iRLVovZO7Qk/x50+ttI9ybbdD
+	FCI0c13MIxeSF7rcRVEgPfR8KzwdgDZbCtuOL1nqBuAQNnzw
+X-Received: by 2002:a05:7300:8251:b0:36a:1a65:ebd3 with SMTP id 5a478bee46e88-36a4237d4a7mr11951653eec.18.1793561373232;
+        Sun, 01 Nov 2026 11:29:33 -0800 (PST)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm31471861eec.7.2026.11.01.11.29.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 11:29:32 -0800 (PST)
+From: Coia Prant <coiaprant@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Frank Wunderlich <frank-w@public-files.de>,
+	Peter Geis <pgwipeout@gmail.com>,
+	Junhao Xie <bigfoot@classfun.cn>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH 0/5] arm64: dts: rockchip: fix GMAC clocks and USB OTG power on RK3568 boards
+Date: Mon,  2 Nov 2026 03:28:02 +0800
+Message-ID: <20261101192807.897562-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,237 +103,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] remoteproc: sunxi: missing IRQ sync in sunxi_rproc_stop() races cr=
-ash handler
-- [High] remoteproc: sunxi: race and UAF in sunxi_rproc_vq_work() on notify=
-ids
---
+This series fixes two classes of board-level issues found while
+bringing up several RK3568 boards.
 
-commit f895edd61f6cf2e80a5341959b347c747139fe48
-Author: Tim Michals <tcmichals@gmail.com>
+The first four patches address GMAC clock parents. On these boards the
+DTS lists SCLK_GMACx in assigned-clocks but only provides a parent for
+SCLK_GMACx_RX_TX, so SCLK_GMACx keeps whatever parent the bootloader or
+the hardware reset left. Add CLK_MACx_2TOP explicitly so the GMAC main
+clock always comes from the internal source. BPI-R2 Pro additionally
+describes clock_in_out wrongly ("input" while the port is a fixed-link
+with no external 125 MHz clock); switch it to "output" to match the
+hardware. On RK3568 clock_in_out does not change the hardware clock
+routing today, so that part is a description fix.
 
-remoteproc: sunxi: Add Allwinner A523 XuanTie E906 driver
+The last patch fixes USB OTG power on the Ariaboard Photonicat. On
+battery power the USB port is dead because usb2phy0_otg is fed from a
+regulator that only exists when the DC input is present. Add a boost
+regulator gated by the existing vcc5v0_usb30_otg0 rail and switch the
+PHY supply to it, restoring USB host functionality on battery.
+---
+Coia Prant (5):
+  arm64: dts: rockchip: fix GMAC clock parents on 9Tripod X3568 v4
+  arm64: dts: rockchip: fix GMAC clock parents on Graperain G3568 v2
+  arm64: dts: rockchip: fix GMAC clock setup on BPI-R2 Pro
+  arm64: dts: rockchip: fix GMAC clock parent on Photonicat
+  arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
 
-This commit adds a remoteproc driver for the XuanTie E906 RISC-V core on
-Allwinner A523, A527, and T527 SoCs, handling power domains, clocks, resets,
-SRAM mappings, memory-region carveouts, mailbox notifications, and crash
-reporting.
+ .../dts/rockchip/rk3568-9tripod-x3568-v4.dts  |  4 ++--
+ .../boot/dts/rockchip/rk3568-bpi-r2-pro.dts   |  4 +++-
+ .../rockchip/rk3568-graperain-g3568-v2.dts    |  4 ++--
+ .../boot/dts/rockchip/rk3568-photonicat.dts   | 21 +++++++++++++++++--
+ 4 files changed, 26 insertions(+), 7 deletions(-)
 
-> diff --git a/drivers/remoteproc/sunxi_rproc.c b/drivers/remoteproc/sunxi_=
-rproc.c
-> new file mode 100644
-> index 0000000000000..1cee7110f0b8c
-> --- /dev/null
-> +++ b/drivers/remoteproc/sunxi_rproc.c
-> @@ -0,0 +1,855 @@
+-- 
+2.47.3
 
-[ ... ]
-
-> +VISIBLE_IF_KUNIT
-> +int sunxi_rproc_vq_notify(int id, void *ptr, void *data)
-> +{
-> +	KUNIT_STATIC_STUB_REDIRECT(sunxi_rproc_vq_notify, id, ptr, data);
-> +	rproc_vq_interrupt(data, id);
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_IF_KUNIT(sunxi_rproc_vq_notify);
-> +
-> +/* One channel carries all notifications: check every vring */
-> +VISIBLE_IF_KUNIT
-> +void sunxi_rproc_vq_work(struct work_struct *work)
-> +{
-> +	struct sunxi_rproc *priv =3D container_of(work, struct sunxi_rproc, vq_=
-work);
-> +
-> +	idr_for_each(&priv->rproc->notifyids, sunxi_rproc_vq_notify, priv->rpro=
-c);
-> +}
-> +EXPORT_SYMBOL_IF_KUNIT(sunxi_rproc_vq_work);
-
-[Severity: High]
-As reported by Sashiko on v2 [1], in drivers/remoteproc/sunxi_rproc.c, can
-sunxi_rproc_vq_work() race with rproc_resource_cleanup() during
-rproc_shutdown(), rproc_boot_recovery(), or sunxi_rproc_remove() ->
-rproc_del() and trigger a use-after-free?
-
-Because priv->mbox_chan stays active across remoteproc stops, crash
-recoveries, and throughout rproc_del() in sunxi_rproc_remove(), and neither
-sunxi_rproc_stop() nor sunxi_rproc_unprepare() cancels priv->vq_work,
-sunxi_rproc_vq_work() can run concurrently with rproc_resource_cleanup().
-
-In sunxi_rproc_vq_work(), idr_for_each() iterates priv->rproc->notifyids
-without holding priv->rproc->lock (unlike stm32_rproc_mb_vq_work() or
-imx_dsp_rproc_vq_work()) and without RCU read-side protection (which cannot
-be held across sunxi_rproc_vq_notify() because rproc_vq_interrupt() invokes
-virtqueue callbacks that can sleep):
-
-  lib/idr.c:idr_for_each()
-    radix_tree_for_each_slot(slot, &idr->idr_rt, &iter, 0)
-      fn(id, rcu_dereference_raw(*slot), data)
-
-While sunxi_rproc_vq_notify() is executing, a concurrent teardown runs:
-
-  rproc_resource_cleanup()
-    platform_device_unregister(rvdev->pdev)
-      rproc_virtio_remove()
-        rproc_free_vring()
-          idr_remove(&rproc->notifyids, rvring->notifyid)
-
-If removing the vring frees the underlying struct radix_tree_node via
-call_rcu(), the grace period can finish while sunxi_rproc_vq_notify() sleep=
-s,
-leaving radix_tree_next_slot() in idr_for_each() to dereference a freed slot
-pointer.
-
-In addition, although __rproc_virtio_del_vqs() clears rvring->vq and runs
-synchronize_srcu(&rproc->vq_srcu) during rproc_stop_subdevices(), the rvring
-entry stays in rproc->notifyids until platform_device_unregister(rvdev->pde=
-v)
-removes it and immediately frees the devm-allocated struct rproc_vdev
-without another synchronize_srcu(&rproc->vq_srcu). If rproc_vq_interrupt()
-looks up rvring in rproc->notifyids just before idr_remove(), it can
-dereference rvring->vq after rvdev has been freed.
-
-Should sunxi_rproc_vq_work() hold mutex_lock(&priv->rproc->lock) around
-idr_for_each(), or should the driver synchronize and stop queuing vq_work
-before rproc_resource_cleanup() tears down the vrings?
-
-> +
-> +/*
-> + * Mailbox rx callbacks run in atomic context, but the virtio/rpmsg rece=
-ive
-> + * path takes mutexes, so the vring notifications are handled from a wor=
-k item.
-> + */
-> +VISIBLE_IF_KUNIT
-> +void sunxi_rproc_mb_rx_callback(struct mbox_client *cl, void *data)
-> +{
-> +	struct sunxi_rproc *priv =3D container_of(cl, struct sunxi_rproc, cl);
-> +
-> +	queue_work(priv->workqueue, &priv->vq_work);
-> +}
-> +EXPORT_SYMBOL_IF_KUNIT(sunxi_rproc_mb_rx_callback);
-> +
-> +VISIBLE_IF_KUNIT
-> +irqreturn_t sunxi_rproc_crash_handler(int irq, void *data)
-> +{
-> +	struct sunxi_rproc *priv =3D data;
-> +
-> +	/*
-> +	 * Stays masked until the next start(); recovery runs stop() first. A
-> +	 * stop() that already disarmed it has disabled the line itself.
-> +	 */
-> +	if (test_and_clear_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &priv->flags))
-> +		disable_irq_nosync(irq);
-> +
-> +	rproc_report_crash(priv->rproc, RPROC_FATAL_ERROR);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +EXPORT_SYMBOL_IF_KUNIT(sunxi_rproc_crash_handler);
-
-[ ... ]
-
-> +VISIBLE_IF_KUNIT
-> +int sunxi_rproc_start(struct rproc *rproc)
-> +{
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-> +	const struct sunxi_rproc_cfg *cfg =3D priv->cfg;
-> +	int ret;
-> +
-> +	dev_dbg(priv->dev, "Starting %s core at entry 0x%llx\n",
-> +		cfg->name, (u64)rproc->bootaddr);
-> +
-> +	if (rproc->bootaddr > U32_MAX)
-> +		return -EINVAL;
-> +
-> +	/* Program the reset vector and flush it before releasing the core */
-> +	sunxi_rproc_writel((u32)rproc->bootaddr, priv->cfg_va + cfg->boot_reg_o=
-ffset);
-> +	sunxi_rproc_readl(priv->cfg_va + cfg->boot_reg_offset);
-> +
-> +	ret =3D reset_control_deassert(priv->rst_core);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to release core reset: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (priv->crash_irq > 0 &&
-> +	    !test_and_set_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &priv->flags))
-> +		enable_irq(priv->crash_irq);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_IF_KUNIT(sunxi_rproc_start);
-> +
-> +static int sunxi_rproc_stop(struct rproc *rproc)
-> +{
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-> +	const struct sunxi_rproc_cfg *cfg =3D priv->cfg;
-> +
-> +	dev_dbg(priv->dev, "Halting %s core...\n", cfg->name);
-> +
-> +	/* Assert reset so the core stops executing */
-> +	reset_control_assert(priv->rst_core);
-> +
-> +	if (priv->crash_irq > 0 &&
-> +	    test_and_clear_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &priv->flags))
-> +		disable_irq(priv->crash_irq);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-As reported by Sashiko on v2 [2], in drivers/remoteproc/sunxi_rproc.c, what
-happens if sunxi_rproc_stop() runs right after sunxi_rproc_crash_handler()
-clears SUNXI_RPROC_CRASH_IRQ_ARMED, while the threaded handler is still
-executing?
-
-Because sunxi_rproc_crash_handler() is a preemptible IRQ thread, it can cle=
-ar
-SUNXI_RPROC_CRASH_IRQ_ARMED and be preempted before calling
-disable_irq_nosync(irq) or rproc_report_crash(priv->rproc, RPROC_FATAL_ERRO=
-R):
-
-  CPU0 (IRQ thread)                    CPU1 (rproc_shutdown / recovery)
-  sunxi_rproc_crash_handler()
-    test_and_clear_bit(
-      SUNXI_RPROC_CRASH_IRQ_ARMED,
-      &priv->flags) -> true
-                                       sunxi_rproc_stop()
-                                         test_and_clear_bit(
-                                           SUNXI_RPROC_CRASH_IRQ_ARMED,
-                                           &priv->flags) -> false
-                                         /* returns without waiting */
-
-If a subsequent rproc_boot() calls sunxi_rproc_start() before CPU0 reaches
-disable_irq_nosync(irq), sunxi_rproc_start() sets SUNXI_RPROC_CRASH_IRQ_ARM=
-ED
-and calls enable_irq(priv->crash_irq) while the IRQ disable depth is still =
-0,
-triggering an unbalanced enable warning in __enable_irq(). When CPU0 then
-runs disable_irq_nosync(irq), the IRQ is left disabled while
-SUNXI_RPROC_CRASH_IRQ_ARMED is set, and the next sunxi_rproc_stop() will
-increment the disable depth to 2, leaving the crash IRQ permanently masked =
-on
-later boots.
-
-Furthermore, because sunxi_rproc_stop() does not call
-synchronize_irq(priv->crash_irq) when test_and_clear_bit() returns false, t=
-he
-in-flight sunxi_rproc_crash_handler() thread can call rproc_report_crash()
-after the stop (and a subsequent restart) has already completed.
-
-Should sunxi_rproc_stop() still call synchronize_irq(priv->crash_irq) when
-priv->crash_irq > 0 and SUNXI_RPROC_CRASH_IRQ_ARMED was already cleared by
-the crash handler?
-
-[1] https://lore.kernel.org/r/20260927003338.CB0E21F000FF@smtp.kernel.org
-[2] https://lore.kernel.org/r/20260927003338.CB0E21F000FF@smtp.kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101185735.7625=
-59-1-tcmichals@gmail.com?part=3D4
