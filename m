@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793564987;
-	b=ytiZNNi4q0Vho3sIMI/DaUfU3rHeHzFneIGd8ogl6MAzwzp2hLRGMUXYGMMhfeKe7Ws1
-	 nTwgZxe4WZBXIdQ77RiRcZQYJta42La7JoIMJw5RogHjdpDeslK0dYv5olkIrsPQzl6QF
-	 WwnQItsGUzUjnZ8JQhemlkGC6G9jCBx5rt+ab9X1CGAMsMSP87+3EEFwmkpa2D/OY+oB4
-	 tIko4udpuuz8UyqUO+MimU7Fht78kJWm11twTuhh0hfKhdrSWtDeSPNh9EvN0zzL3WX48
-	 /U1+1GItA+GxQmxdlE/01kgIMCghZMuFzwP1k48BOPH3vlKfj9W5sVYYHHBoCgv4whw==
+	t=1793565251;
+	b=s9k1iAc/iGrgjR/29A5tKBlhxiy3AvTtY1ll9e8GceXPagm3pQjzrKuOGLw5lrQiKlnX
+	 4lWhTqfRKP+tdtBmM2DENI/3pxO+VGV2c9uLN1LUCVh1qKMxhi4Galq8DNsNUQquW6ith
+	 FJG8v74gTwB1hhFirihdZmggCVmqWgtvaSWWAYoFHuBI/YwDcjNo8Wgl+i24/X3YGa90p
+	 vuYkS6qcWn0+xfAmWK4Dfh7tOJfbzBiyRominy8ixJs72jmihn75E7rv8LFB2PCGaqSpm
+	 GbP3cBAQwXxwXBs18WvF5XW9ihP/cBazizs7OT0kCJeSlx5Om7ENXEXBgLcuWVs2F7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793564987;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
-	b=vtnougR4tAkN57wchANwAVLsYxCBRLBv+7pMJWSA0WA6wdePjA7lJFQvT8BZkOJVV06I
-	 7NKsZXWdXlQJDztu4GdJxVswjOfWRXkhVBNPfpqDalChtRDHZm09jOg5fYGtyPudYujff
-	 7EZB4RKLORpKsAEwpcDwCAgoefLMQyzD9biBVCBOAlkSWnu0weJ63ORWEmuJR5jl+QVkN
-	 a0TeDLwIUu0Ra/mM59W+OqftRO4KHLouyHLiIEQk3KYcRpxLLGASS6Y3tTjtSCcDCh9qv
-	 eemWkeT/zbXzZ53w6fxK6R98SwRW+dMsggwiCBX4sl7YQbtXbxA0bK5VfDDsQ9gY/rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565251;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WEcinyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=;
+	b=ai8KN9eNxBE8UlO4IO3UNL4EyTnXu0lV7Dof6Vs7IQ08F/NLDywaPDqkqxLMwzarlruM
+	 TrSoYLXL4BfTFSzWLerHxaQymja0WLHZnmvByarLtY7E3p+x86aLpdfcNhOK8A4kMoBYe
+	 rxgY/FoKyOmxNvdjl8pS0h8XU/RbVeTQUd/5Aw+DqH1G3eZu27K0xsAHH3UoMK8WdhVgC
+	 D1CzVU3bGES0F5tt+s93PhCH7Z2qf52+NjpkCQ6IqzaAPcZAx79iraOG334MrYf8N3S+O
+	 /5vtQR6IWeadumMHkeuNG724nNEW10m093EyrGqhCnOlkInC3iTIATK/I4Ot7ZD+I5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02226606A324;
-	Sun,  1 Nov 2026 20:29:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043AC606A32D
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 20:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 043AC606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17921F000C1;
-	Sun,  1 Nov 2026 20:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793564986;
-	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nh0r3ntmiuua7iX+B4hCTpkrm6Y1aN65kGtShyxvwFfFy7VzSbltFC3P+ZbETyc1H
-	 8rKbKmxpm4upRgjpauF4op4eiZRr/tPFsCOviHiJ6p7p/9HqB6+BYDK4/qpemt67PU
-	 CXhvr1AHoOakq/A4e8m8prW2m1zIQWDNE4xEkNUHi2LGHaA/Ql9w3mrTfF/y7Q44RY
-	 HxQEXYXHEKsW7xUEmPx6BnFig507WgcIeHHdxKWgE9OpIpj1eDedOBnovAxgh8UPss
-	 q5ExaQkvEKYKqNpCrxPkWD53788S3J6h5fDLOdLq2l7v91AHjHQJNEXMCG8lfUZYKK
-	 UpjyZIhaOHysA==
-Message-ID: <931ef103-d0f1-4f5e-b906-47af4dad6015@kernel.org>
-Date: Sun, 1 Nov 2026 21:29:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=WEci
+	nyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=; b=BtuJ+9TGthEvfHggV1K7
+	8HCM7lmDmDVKnstgAkSutQeepbxM9f+LBjaFk5F7H0FOumehplkJKLqoJ4+ceSBh
+	YK2ss/QChr71ijKyvjcVkjJLIy4l+mwVhX+S0+XWv8HGGxsgbS3TL9RxhUbSVG/E
+	axv8+Pk12kFE5H2dIY84wmQcx62TwwtQW8iTi8kMfH2anW9M1GuJzYn0um/iNzoS
+	MqQKrx44llXCiyQQ7aiR0H9+sB8qB7UaGm2wtCRRck41rxjhBhdU4H/PyL28+gfh
+	1iQa6igkkswZenPR28OwGiM6B5IRigeuzt7kfw2me4EMvNskJM0zliJLQI9IogCF
+	wA==
+Received: (qmail 853660 invoked from network); 1 Nov 2026 21:34:07 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 1 Nov 2026 21:34:07 +0100
+X-UD-Smtp-Session: l3s3148p1@YnRo8zxfVKTB0HFD
+Date: Sun, 1 Nov 2026 22:34:06 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] arm64: dts: renesas: r9a08g046: Add I3C support
+Message-ID: <aueiPnMvmHQhFtM4@shikoro>
+References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
+ <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,81 +76,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
- support
-To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com>
- <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
 
-On 30/10/2026 10:40, Anand Tiwari wrote:
-> Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
-> available, used by the Qualcomm Talos Lyra EVK LVDS panel overlay
-> backlight.
+On Mon, Oct 26, 2026 at 11:35:50AM +0000, Diogo Ivo wrote:
+> Add the I3C Bus Interface node to the RZ/G3L (R9A08G046) SoC DTSI and
+> enable it on the RZ/G3L SMARC EVK, together with the required pin
+> control.
 > 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
->  arch/arm64/configs/defconfig | 1 +
->  1 file changed, 1 insertion(+)
+> The driver only consumes resources that are common to the RZ/G3L and
+> the RZ/G3S (R9A08G045), so the node uses the SoC-specific
+> renesas,r9a08g046-i3c compatible with a fallback to the
+> renesas,r9a08g045-i3c compatible of the RZ/G3S, following the bindings.
+> 
+> The I3C pins are shared with RIIC3, so the controller is only enabled
+> when the SW_I3C_EN switch is on.
+> 
+> The I3C I/O voltage can be set to 1.2V or 1.8V on the board through
+> the SYS.3 (I3C_IOVS) switch, so configure the pin controller for the
+> selected voltage through the power-source property.
+> 
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Didn't double check the pinmux values, but rest looks good to me:
 
-Best regards,
-Krzysztof
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
